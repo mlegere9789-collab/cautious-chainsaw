@@ -174,7 +174,7 @@ def build_train(train, args, cfg):
         for b in bad_list:
             print('  ANCHOR FAIL  [%s] %s: expected %d, found %d%s' % (b['group'], b['id'], b['expect'], b['found'],
                                                                    ' (%s)' % b['error'] if b.get('error') else ''))
-        raise BuildError('%d patch anchor(s) failed; nothing was written except release/%s/anchors.json' % (len(bad_list), train))
+        raise BuildError('%d patch anchor(s) failed; nothing was written except %s' % (len(bad_list), os.path.join(out, 'anchors.json').replace(os.sep, '/')))
 
     if bad:
         fail_anchors(bad)
@@ -234,7 +234,7 @@ def main(argv=None):
     ap.add_argument('--all', action='store_true', help='build every train (R0, R1a, R1b, R1c) into release/<train>')
     ap.add_argument('--out', help='output directory (default release/<train>); must be under release/ or tmp/')
     ap.add_argument('--with', dest='with_groups', action='append', default=[], metavar='GROUP',
-                    help='include an optional group (e.g. EB, the AMD-T0-1 error boundary)')
+                    help='include an optional group of trains.json (optional_groups is empty since the AMD-T0-1 error boundary moved into group A)')
     ap.add_argument('--record', action='store_true', help='append this train\'s new asset names to ops/used-names.txt (owner step at deploy time)')
     ap.add_argument('--no-gate', action='store_true', help='skip gate.mjs (development only)')
     ap.add_argument('--order', choices=['fixed', 'runbook'], default='fixed', help='group order (runbook = the chapter-02 order; must give identical bytes)')

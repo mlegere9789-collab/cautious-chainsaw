@@ -23,7 +23,7 @@
   "train_order": ["R0", "R1a", "R1b", "R1c"],
   "group_order": ["R0", "A", "B", "DL", "C", "AX", "CP"],
   "runbook_order": ["R0", "A", "C", "AX", "B", "DL", "CP"],
-  "optional_groups": ["EB"],
+  "optional_groups": [],
   "pg_default_first": "R1a",
   "groups": {
     "R0": {"first": "R0", "what": "R0-intro-delete (perf-cwv-04); the rename/loader/SW mechanism itself is code, not a group"},
@@ -41,7 +41,11 @@
     "R1c": {"page_groups": true,  "overlay": ["R0", "common", "R1a", "R1b", "R1c"], "config": true, "what": "R1b + B + DL + CP + generated config (headers/redirects)"}
   },
   "known_overlaps": [
-    {"a": "mob:HF-6l close label+target", "b": "a11:G-close-mobile", "resolution": "C applies first; the a11y row then expects 3 hits instead of 4 (chapter 02 section 7)"}
+    {"a": "mob:HF-6l close label+target", "b": "a11:G-close-mobile", "resolution": "C applies first; the a11y row then expects 3 hits instead of 4 (chapter 02 section 7)"},
+    {"a": "bug:K-skip-tour", "b": "AX-onboarding-dialog", "resolution": "adjacent finds share the text V.jsx(\"div\",{style:tr.overlay; A's replacement keeps it, so the AX anchor matches in either order (build_selftest 5 builds both orders)"},
+    {"a": "mob:HF-9a root/map", "b": "AX-mobile-map-id (after C HF-9a)", "resolution": "AX anchors on group C's output; AX must follow C"},
+    {"a": "mob:HF-9d dock", "b": "AX-mobile-dock-id (after C HF-9d)", "resolution": "AX anchors on group C's output; AX must follow C"},
+    {"a": "mob:HF-6g append Extra Features groups to sheet", "b": "cp:mobile-tools-footer (Privacy, Terms, credit; after group C HF-6g)", "resolution": "CP anchors on group C's output; CP must follow C"}
   ],
   "config_hook": "tools/t0/config/gen.mjs",
   "config_allowed_outputs": ["_headers", "_redirects", "netlify.toml", "_ops/"]

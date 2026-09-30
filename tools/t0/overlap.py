@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Overlap audit of the de-conflicted patch set against the PRISTINE legacy bundle (chapter 02 section 7: "the 14 overlaps").
 
-    python tools/t0/overlap.py [--with EB]
+    python tools/t0/overlap.py [--with GROUP ...]     (optional groups of trains.json; none exist today)
 
 For every bundle-target patch (js/help/book/css) of every group in the fixed order it lists the spans of its `find` in the pristine
 text, reports count mismatches against `expect`, and prints every pair of patches whose spans intersect.  In the shipped set the
@@ -26,7 +26,7 @@ def main():
             pass
     cfg = load_json(os.path.join(T0, 'trains.json'))
     found = patches.load_groups(os.path.join(T0, 'patches'), cfg)
-    with_groups = ['EB'] if '--with' in sys.argv and 'EB' in sys.argv else []
+    with_groups = [sys.argv[i + 1] for i, a in enumerate(sys.argv[:-1]) if a == '--with']
     groups = list(cfg['group_order']) + with_groups
     texts = {'js': read_text(os.path.join(REPO, cfg['legacy']['dir'], cfg['legacy']['entry'])),
              'help': read_text(os.path.join(REPO, cfg['legacy']['dir'], cfg['legacy']['help'])),

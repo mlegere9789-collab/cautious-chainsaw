@@ -244,7 +244,10 @@ async function collect(vp) {
   rec.layout = await layoutOf(page);
   rec.env = await page.evaluate(() => ({ w: innerWidth, h: innerHeight, dpr: devicePixelRatio, coarse: matchMedia('(pointer: coarse)').matches, dl: document.documentElement.dataset.layout }));
   rec.chooserSeen = await page.evaluate(() => window.__chooserSeen);
-  rec.styleRequests = S.net.find(/^https:\/\/api\.mapbox\.com\/styles\/v1\/mapbox\/satellite-v9\?/, mark).length;
+  // The style JSON is served with `Cache-Control: max-age=900, stale-while-revalidate=3600`: when the copy in this session's HTTP cache has
+  // expired, Chrome answers the page's fetch from the cache AND sends one background revalidation (resource type 'Other', ~20 ms later,
+  // same frame, same sku).  That is the browser, not a second map: count only the page's own requests (type Fetch/XHR).
+  rec.styleRequests = S.net.find(/^https:\/\/api\.mapbox\.com\/styles\/v1\/mapbox\/satellite-v9\?/, mark).filter((e) => e.type !== 'Other').length;
   rec.skus = [...new Set(S.net.find(/^https:\/\/[^/]*mapbox\.com\//, mark).map((e) => (/[?&]sku=([^&]+)/.exec(e.url) || [])[1]).filter(Boolean))];
   rec.mapContainers = await page.evaluate(() => document.querySelectorAll('.mapboxgl-map').length);
   rec.mapCanvases = await page.evaluate(() => document.querySelectorAll('canvas.mapboxgl-canvas').length);
@@ -697,18 +700,30 @@ suite.test('T0-MOB-09', 'story + event panels (tick 12) and commander toasts ren
     }
     // a selected unit's popup takes the dock anchor: the cards step aside (hidden) and come back when it is closed
     await mapView(page);
-    const u = await page.evaluate(async () => {
-      const j = await (await fetch('/data/placements_day1_ticks1_50.json')).json();
-      const rows = j.placements.filter((p) => p.unit_id === 'U-CAV-1-1').sort((a, b) => a.tick - b.tick); const r = rows.filter((p) => p.tick <= 12).pop() || rows[0];
-      const mr = document.querySelector('.gtbg-m-map').getBoundingClientRect(); const land = innerWidth > innerHeight;
-      // keep the unit in the part of the map the story cards do not cover
-      window.__t0map.jumpTo({ center: [r.lng, r.lat], zoom: 15.5, padding: land ? { top: 0, bottom: 0, left: 0, right: Math.round(mr.width * 0.55) } : { top: 0, left: 0, right: 0, bottom: Math.round(mr.height * 0.62) } });
-      return { lng: r.lng, lat: r.lat };
+    // Where is U-CAV-1-1 drawn at tick 12?  Its latest keyframe at or before the tick.  That row lives in placements_day1_ticks1_50.json (tick 1)
+    // AND in density_day1_opening.json (tick 9): with group B's merge fix (R1c) the tick-9 row is kept and the unit is held there (the played-through
+    // state); without B (R1b) the per-tick overwrite may drop it.  Candidates, latest keyframe first; the first one that opens a popup wins.
+    const cands = await page.evaluate(async () => {
+      const rows = [];
+      for (const f of ['placements_day1_ticks1_50', 'density_day1_opening', 'density_day1_ticks1_50']) {
+        try { const j = await (await fetch(`/data/${f}.json`)).json(); (j.placements || []).forEach((p) => { if (p.unit_id === 'U-CAV-1-1' && p.tick <= 12) rows.push(p); }); } catch { /* optional file */ }
+      }
+      rows.sort((a, b) => b.tick - a.tick);
+      const seen = new Set(); return rows.filter((r) => { const k = `${r.lng},${r.lat}`; if (seen.has(k)) return false; seen.add(k); return true; }).map((r) => ({ lng: r.lng, lat: r.lat, tick: r.tick }));
     });
-    await sleep(1400);
-    const pt = await page.evaluate((c) => { const map = window.__t0map, r = document.querySelector('.gtbg-m-map').getBoundingClientRect(); const p = map.project([c.lng, c.lat]); return { x: r.left + p.x, y: r.top + p.y }; }, u);
-    await touchTap(page, pt.x, pt.y, 60); await sleep(900);
-    const pop = await page.evaluate(() => { const p = document.querySelector('.gtbg-m-popup'); const s = document.querySelector('.gtbg-mp-story'); return { popup: !!p, storyVisibility: s && getComputedStyle(s).visibility }; });
+    let pop = { popup: false, storyVisibility: null };
+    for (const c of cands) {
+      await page.evaluate((r) => {
+        const mr = document.querySelector('.gtbg-m-map').getBoundingClientRect(); const land = innerWidth > innerHeight;
+        // keep the unit in the part of the map the story cards do not cover
+        window.__t0map.jumpTo({ center: [r.lng, r.lat], zoom: 15.5, padding: land ? { top: 0, bottom: 0, left: 0, right: Math.round(mr.width * 0.55) } : { top: 0, left: 0, right: 0, bottom: Math.round(mr.height * 0.62) } });
+      }, c);
+      await sleep(1400);
+      const pt = await page.evaluate((c2) => { const map = window.__t0map, r = document.querySelector('.gtbg-m-map').getBoundingClientRect(); const p = map.project([c2.lng, c2.lat]); return { x: r.left + p.x, y: r.top + p.y }; }, c);
+      await touchTap(page, pt.x, pt.y, 60); await sleep(900);
+      pop = await page.evaluate(() => { const p = document.querySelector('.gtbg-m-popup'); const s = document.querySelector('.gtbg-mp-story'); return { popup: !!p, storyVisibility: s && getComputedStyle(s).visibility }; });
+      if (pop.popup) { t.note(`${vp.id} popup at`, `keyframe of tick ${c.tick}`); break; }
+    }
     const freeAbove = st.stack.y - st.topBottom;      // map rows above the card stack
     if (!pop.popup && freeAbove < 60 && !vp.landscape) t.note(`${vp.id} residual`, `story+event cards cover the whole map (${freeAbove} px free above the stack): popup priority not testable here`);
     else if (!pop.popup) lines.push(`${vp.id}: could not open a unit popup at the tick-12 position of U-CAV-1-1 to test the popup/story priority`);

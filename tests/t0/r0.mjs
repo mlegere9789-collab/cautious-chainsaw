@@ -91,7 +91,9 @@ suite.test('T0-R0-02', 'first visit: SW controller set without any navigation (X
 suite.test('T0-R0-03', 'first visit: one Mapbox sku, one style request (one map session) (X1)', async (t) => {
   const { S } = await firstVisit();
   const skus = [...S.tileStats.skus];
-  const styles = S.net.find(/^https:\/\/api\.mapbox\.com\/styles\/v1\/[^/?]+\/[^/?]+\?/).length;
+  // `Cache-Control: max-age=900, stale-while-revalidate=3600` on the style JSON: an expired cached copy is answered from the cache and Chrome adds one
+  // background revalidation (resource type 'Other', same frame): not a second map.  Count only the page's own requests.
+  const styles = S.net.find(/^https:\/\/api\.mapbox\.com\/styles\/v1\/[^/?]+\/[^/?]+\?/).filter((e) => e.type !== 'Other').length;
   const tileReqs = S.tileStats.seen;
   t.note('skus', skus.length); t.note('style requests', styles); t.note('mapbox requests intercepted', tileReqs);
   t.note('tile statuses', S.tileStats.status); t.note('referer seen on the wire', [...S.tileStats.referers]); t.note('run budget', tileBudget);

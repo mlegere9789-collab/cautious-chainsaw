@@ -29,6 +29,9 @@ from t0build.util import copy_tree, load_json, tree_digest, walk_files  # noqa: 
 BUILD = os.path.join(REPO, 'tools', 't0', 'build.py')
 ST = os.path.join(REPO, 'tmp', 't0-core', 'selftest')
 CFG = load_json(os.path.join(REPO, 'tools', 't0', 'trains.json'))
+# a file no real page group deletes (PG-core already deletes diagnostics.html and unit-rendering-reference.html,
+# and deleting a file twice fails by design), so this case stays valid whatever the real groups do
+SELFTEST_DELETE = 'apple-touch-icon-precomposed.png'
 results = []
 
 
@@ -153,7 +156,7 @@ def _():
 @case('6 plugin interface: PG group + placeholders + delete + overlay + config hook')
 def _():
     pd = patches_copy('plug')
-    json.dump({'group': 'PG-selftest', 'delete': ['diagnostics.html', 'unit-rendering-reference.html'], 'patches': [
+    json.dump({'group': 'PG-selftest', 'delete': [SELFTEST_DELETE], 'patches': [
         {'id': 'pg-selftest-title', 'target': 'dashboard.html', 'find': '<title>', 'repl': '<!-- rid {{RID}} train {{TRAIN}} css {{CSS}} --><title>', 'expect': 1}]},
         open(os.path.join(pd, 'PG-selftest.json'), 'w'))
     ov = out_dir('plug-overlay')
@@ -171,7 +174,7 @@ def _():
     css = load_json(os.path.join(d, 'version.json'))['css']
     dash = open(os.path.join(d, 'dashboard.html'), encoding='utf-8').read()
     assert '<!-- rid %s train R1c css %s -->' % (rid, css) in dash, 'placeholders not expanded'
-    assert not os.path.exists(os.path.join(d, 'diagnostics.html')) and not os.path.exists(os.path.join(d, 'unit-rendering-reference.html')), 'delete failed'
+    assert not os.path.exists(os.path.join(d, SELFTEST_DELETE)), 'delete failed'
     assert open(os.path.join(d, 'assets', 'selftest-overlay-1.txt')).read() == 'overlay asset\n'
     assert 'Disallow: /selftest' in open(os.path.join(d, 'robots.txt')).read(), 'overlay did not replace robots.txt'
     assert rid in open(os.path.join(d, '_headers')).read(), 'config hook output missing'

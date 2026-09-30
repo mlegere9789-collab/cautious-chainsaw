@@ -12,6 +12,9 @@ Index of every test suite in this repository as of 2026-09-30 (WP-T0-18). Run ev
 | prove files arrived intact | `node ops/sha-list.mjs verify-url <list.tsv> <base url>` | `ops/STAGING-SETUP.md` section 6 |
 | check the data / clock / historian work | `npm run data:check`, `npm run data:test`, `npm run time:check`, `npm run time:test`, `node --test "tests/historian/*.test.mjs"` | pure Node, no browser, no network |
 | check by hand (real mouse, phones) | `tests/t0/journeys-manual.md` | cannot be automated |
+| build all four trains and run EVERY Tranche-0 suite plus the red-first proofs against `legacy/dist` | `npm run t0:test:all` (= `python tools/t0/build.py --all && node tools/t0/run_suites.mjs`) | 45-60 minutes, uses ports 8480-8489 and at most 300 Mapbox tile requests per run (Referer-injected through the harness); writes `release/test-summary.json`; `node tools/t0/run_suites.mjs --list` prints every suite with its arguments; `--only <id prefix>` runs a subset |
+| check the four built trains independently of the build gates | `npm run t0:verify` (`node tools/t0/verify_release.mjs`) | manifest hashes, static-serve crawl (no dangling reference), dev pages, asset names across trains, identity invariants (titles, canonicals, sitemap, names, `/data/*`), cumulative trains; under a second, no browser |
+| regenerate the per-train release notes | `npm run t0:notes` (`python tools/t0/release_notes.py`) | reads the build outputs and `release/test-summary.json`; writes `release/<train>/RELEASE-NOTES.md` and the committed copies `ops/release-notes/<train>.md` |
 
 ## Tranche-0 release tests (`tests/t0/`)
 
