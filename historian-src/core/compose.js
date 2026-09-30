@@ -99,7 +99,7 @@ export function profileLead(kb, r) {
   } else if (r.k === 'vignette') {
     runs.push(ent(r, `“${r.title}”`), ` (${a.location}, ${DAY_NAME[a.day]}). `, endSent(a.summary || ''));
   } else if (r.k === 'chronology') {
-    runs.push(ent(r, ucfirst(r.title)), ` (${r.place || a.location}, ${DAY_NAME[a.day]}). `, endSent(String(a.text || '').replace(/^[A-Z0-9'’ -]{6,}[.:]s+/, '')));
+    runs.push(ent(r, ucfirst(r.title)), ` (${r.place || a.location}, ${DAY_NAME[a.day]}). `, endSent(String(a.text || '').replace(/^[A-Z0-9'’ -]{6,}[.:]\s+/, '')));
   } else if (r.k === 'succession') {
     runs.push(ent(r, endSent(r.title)), a.notes ? ' ' + endSent(a.notes) : '');
   } else if (r.k === 'casualty-note') {
@@ -472,7 +472,7 @@ export function echelonAnswer(kb, S) {
   if (!reg || !bde || !div || !co) return null;
   if (S.simple) return { mode: 'answer', blocks: [lead([kb.facts.glossary.echelons.text], [reg.id, bde.id, div.id, co.id])], src: [reg.id, bde.id, div.id, co.id] };
   const blocks = [lead([`${kb.facts.glossary.echelons.text} `,
-    `As an example from the site’s records, the ${reg.label} (about ${fmtN(reg.attrs.strength)} men) served in ${bde.label} (about ${fmtN(bde.attrs.strength)} men), which was part of the ${div.title} (about ${fmtN(div.attrs.strength)} men) of the ${co.title.replace(/^(First|Second|Third|Fifth|Sixth|Eleventh|Twelfth) Corps$/, '$1 Corps')} (about ${fmtN(co.attrs.strength)} men).`], [reg.id, bde.id, div.id, co.id]),
+    `For example, from the site’s records: the ${reg.label} had about ${fmtN(reg.attrs.strength)} men. It served in ${bde.label}, which had about ${fmtN(bde.attrs.strength)} men. That brigade was part of the ${div.title}, about ${fmtN(div.attrs.strength)} men. The division belonged to the ${co.title}, about ${fmtN(co.attrs.strength)} men.`], [reg.id, bde.id, div.id, co.id]),
     note('authority', AUTH_NOTE)];
   return { mode: 'answer', blocks, src: [reg.id, bde.id, div.id, co.id] };
 }

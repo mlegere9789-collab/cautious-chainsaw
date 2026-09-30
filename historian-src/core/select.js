@@ -23,7 +23,7 @@ export function sentencesOfPassage(p) {
  * Score windows of one passage. ctx: { qStems:Set, entStems:Set, timeQ:boolean }.
  * Returns the best window {s, e, score, text, clk} or null.
  */
-export function bestWindow(kb, p, ctx, { maxWords = 90, maxSents = 3 } = {}) {
+export function bestWindow(kb, p, ctx, { maxWords = 90, maxSents = 3, plain = false } = {}) {
   const sents = sentencesOfPassage(p);
   const info = sents.map(({ s, e }) => {
     const text = p.text.slice(s, e);
@@ -38,14 +38,17 @@ export function bestWindow(kb, p, ctx, { maxWords = 90, maxSents = 3 } = {}) {
     const clk = CLOCK_RE.test(text);
     if (clk) sc += ctx.timeQ ? 3 : -1.5;
     if (ctx.quoteQ) sc += /["\u201c\u201d]/.test(text) ? 4 : -1;
-    return { s, e, text, sc, words: (text.match(/\S+/g) || []).length, clk };
+    const words = (text.match(/\S+/g) || []).length;
+    if (plain) sc -= 0.08 * Math.max(0, words - 18);     // "plain" (young readers): the shorter of two comparable sentences wins
+    return { s, e, text, sc, words, clk, caps: text.length > 2 && text === text.toUpperCase() && /[A-Z]/.test(text) };
   });
   let best = null;
   for (let i = 0; i < info.length; i++) {
-    let words = 0, sc = 0, clk = false;
+    let words = 0, sc = 0, clk = false, caps = true;
     for (let j = i; j < Math.min(info.length, i + maxSents); j++) {
       words += info[j].words; if (words > maxWords && j > i) break;
-      sc += info[j].sc; clk = clk || info[j].clk;
+      sc += info[j].sc; clk = clk || info[j].clk; caps = caps && info[j].caps;
+      if (caps) continue;                                  // a window that is only an ALL-CAPS heading ("PICKETT'S CHARGE BEGINS.") is a label, never a quote
       // longer, complete windows beat one-line headings; very short windows are penalised, very long ones too
       const total = sc + 0.04 * Math.min(words, 40) - 0.02 * Math.max(0, words - 45) - (words < 10 ? 2 : 0);
       if (!best || total > best.score + 1e-9) best = { s: info[i].s, e: info[j].e, score: total, clk, words };
@@ -56,7 +59,7 @@ export function bestWindow(kb, p, ctx, { maxWords = 90, maxSents = 3 } = {}) {
 }
 
 /** Choose up to `max` quotes from ranked passages [{p, score}] (distinct records first). Returns quote blocks. */
-export function selectQuotes(kb, ranked, ctx, { max = 2, skip = new Set(), minScore = 0.5, sameRec = false, maxWords = 90, maxSents = 3 } = {}) {
+export function selectQuotes(kb, ranked, ctx, { max = 2, skip = new Set(), minScore = 0.5, sameRec = false, maxWords = 90, maxSents = 3, plain = false } = {}) {
   const out = [];
   const seenRec = new Set();
   let first = null;
@@ -64,7 +67,7 @@ export function selectQuotes(kb, ranked, ctx, { max = 2, skip = new Set(), minSc
     if (out.length >= max) break;
     if (skip.has(p.id)) continue;
     if (!sameRec && seenRec.has(p.rec)) continue;
-    const w = bestWindow(kb, p, ctx, { maxWords, maxSents });
+    const w = bestWindow(kb, p, ctx, { maxWords, maxSents, plain });
     if (!w || w.score < minScore) continue;
     // later quotes must be at least 35% as relevant as the first (no filler)
     if (first !== null && w.score < 0.35 * first) continue;

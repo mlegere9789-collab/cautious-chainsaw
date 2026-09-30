@@ -22,6 +22,7 @@ const PRIOR = {
   when: { chronology: 1.3, vignette: 1.1 }, 'what-happened': { vignette: 1.15, chronology: 1.15 }, why: { vignette: 1.1, chronology: 1.25 },
   succession: { succession: 1.6 }, where: { terrain: 1.3, road: 1.2, structure: 1.2, feature: 1.2 },
 };
+export const QUOTE_BUDGET = 780;
 const PASSAGE_PRIOR = { chronicle: 1.0, narrative: 0.9, commentary: 0.85, succession_note: 1.0, walkthrough: 0.75, tour: 0.75, position_note: 0.3 };
 const UNIT_KINDS = new Set(['regiment', 'brigade', 'division', 'corps', 'army', 'artillery', 'artillery-unit']);
 const PLACE_KINDS = new Set(['terrain', 'road', 'structure', 'feature']);
@@ -286,10 +287,13 @@ export function createEngine(kb, opts = {}) {
     // avoid quoting a record whose card already led the answer with the same text
     const leadSrc = new Set(res.src || []);
     const pool = ranked.filter((x) => !(leadSrc.has(x.p.rec) && (!['narrative', 'commentary', 'chronicle', 'walkthrough', 'tour'].includes(x.p.kind) || (leadHasText && x.p.kind === 'chronicle'))));
-    const quotes = selectQuotes(kb, pool, ctx, S.simple ? { max: Math.max(max, 3), skip, maxWords: 24, maxSents: 1 } : { max, skip });
-    for (const q of quotes) { res.blocks.push(q); res.src.push(q.rec); }
-    S.quotes = quotes;
-    return quotes;
+    const quotes = selectQuotes(kb, pool, ctx, S.simple ? { max: Math.max(max, 3), skip, maxWords: 24, maxSents: 1, plain: true } : { max, skip });
+    // length budget: the first quote is always kept, further quotes only while the whole first answer stays within QUOTE_BUDGET characters (a phone screen, not a page)
+    let total = renderText(res.blocks).length; const kept = [];
+    for (const q of quotes) { const add = q.text.length + String(q.attrib || '').length + 6; if (kept.length && total + add > QUOTE_BUDGET) continue; kept.push(q); total += add; }
+    for (const q of kept) { res.blocks.push(q); res.src.push(q.rec); }
+    S.quotes = kept;
+    return kept;
   }
 
   // ------------------------------------------------------------------------------------------------------------------------------------
@@ -815,7 +819,7 @@ export function createEngine(kb, opts = {}) {
     if (am) { const lst = C.sharedNameList(kb, focus, am.ids); if (lst) { blocks.push(lst); src.push(...lst.src.slice(0, 2)); } }
     const res = { mode: 'answer', blocks, src };
     const causal = S.intent === 'why';
-    if (causal) res.blocks.push(C.note('debate', 'Questions of cause and judgement like this one are debated by historians; these are the accounts in the site\u2019s records, not a verdict.'));
+    if (causal) res.blocks.push(C.note('debate', 'Historians debate questions like this one. These are the accounts in the site\u2019s records, not a verdict.'));
     await addQuotes(S, res, { max: causal ? 3 : 2, leadHasText: focus.k === 'chronology' && !S.simple });
     return res;
   }

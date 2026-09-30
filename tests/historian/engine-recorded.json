@@ -1,0 +1,72 @@
+{
+ "$comment": "Regression reference written by: node tests/historian/eval.mjs --baseline-update. regress.test.mjs fails when a metric drops by more than 2 points (or mean characters rise by more than 40). It records where this build IS, not what the plan requires (that is gates.json).",
+ "recorded": "2026-09-30",
+ "kb": {
+  "version": "0.1.0",
+  "counts": {
+   "entities": 1694,
+   "passages": 1530,
+   "terms": 2258,
+   "units": 437,
+   "words": 26869
+  },
+  "data_sha256": "2b17d39c2c6ea98e9ec9bbb85fbfada4cadc1c4ecef76d2d315a5b97ca26ff1c"
+ },
+ "batteries": {
+  "primary": {
+   "success_at_1": 0.9900990099009901,
+   "canon_at_1": 0.8793103448275862,
+   "canon_at_1_echelon": 1,
+   "fact_hit_at_3": 0.9090909090909091,
+   "fact_hit_top_bubble": 0.8181818181818182,
+   "typo_s1": 1,
+   "correct_refusal_rate": 0.9411764705882353,
+   "refusal_rate_on_answerable": 0,
+   "defect_rate": 0,
+   "mean_chars_shown": 583.0762711864406
+  },
+  "heldout": {
+   "success_at_1": 0.9807692307692307,
+   "canon_at_1": 0.9090909090909091,
+   "canon_at_1_echelon": 1,
+   "fact_hit_at_3": 1,
+   "fact_hit_top_bubble": 0.8461538461538461,
+   "typo_s1": 1,
+   "correct_refusal_rate": 1,
+   "refusal_rate_on_answerable": 0,
+   "defect_rate": 0,
+   "mean_chars_shown": 572
+  },
+  "fresh": {
+   "success_at_1": 0.9879518072289156,
+   "canon_at_1": 0.8809523809523809,
+   "canon_at_1_echelon": 0.9555555555555556,
+   "fact_hit_at_3": 1,
+   "fact_hit_top_bubble": 1,
+   "typo_s1": 1,
+   "correct_refusal_rate": 1,
+   "refusal_rate_on_answerable": 0,
+   "defect_rate": 0,
+   "mean_chars_shown": 519.7070707070707
+  }
+ },
+ "golden_answerable_now": {
+  "all.n": 113,
+  "all.pass": 0.8584070796460177,
+  "all.crit_recall": 0.9203539823008849,
+  "all.behavior_ok": 0.9911504424778761,
+  "all.clean": 1,
+  "all.forbidden_rate": 0,
+  "all.hallucinated_citation_rate": 0,
+  "all.decline_correct": 1,
+  "all.false_decline": 0,
+  "all.hedge_rate": 0.9411764705882353,
+  "all.grounded": 0.9659090909090909,
+  "all.hit_at_5": 0.9080459770114943,
+  "all.mrr_at_10": 0.760536398467433,
+  "all.readability_ok": 0.8,
+  "all.mean_chars": 506.0619469026549,
+  "dev.pass": 0.8987341772151899,
+  "locked.pass": 0.7647058823529411
+ }
+}

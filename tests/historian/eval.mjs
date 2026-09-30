@@ -29,11 +29,11 @@ const f1 = (x) => (x === null || x === undefined ? '-' : (100 * x).toFixed(1));
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 const BATTERIES = { primary, heldout, fresh };
-async function runBatteries(system, name) {
+async function runBatteries(system, ancestors = null) {
   const out = {};
   for (const [bn, Q] of Object.entries(BATTERIES)) {
     const t0 = performance.now();
-    const rows = await evaluate(system, { queries: Q });
+    const rows = await evaluate(system, { queries: Q, ancestors });
     out[bn] = { summary: summarize(rows), rows, ms: performance.now() - t0 };
   }
   return out;
@@ -106,7 +106,8 @@ if (suite === 'batteries' || suite === 'all') {
   if (legacy) results['B0 legacy page (live)'] = await runBatteries(legacy);
   if (engine) {
     const sys = async (q) => { const a = await engine.ask(q); const refused = a.mode === 'decline' || a.mode === 'clarify' || !!a.limited; return { ranked: a.ranked || a.shown, shown: a.mode === 'decline' ? [] : a.shown, bubbles: a.text.split('\n\n'), refused, mode: a.mode }; };
-    results['NEW engine'] = await runBatteries(sys);
+    const ancestors = (id) => { const r = kb.idx.get(id); return r && r.par ? r.par : []; };
+    results['NEW engine'] = await runBatteries(sys, ancestors);
   }
   printBatteryTable('Batteries (metrics as defined in hist-current section 3.3)', results);
   report.batteries = Object.fromEntries(Object.entries(results).map(([k, v]) => [k, Object.fromEntries(Object.entries(v).map(([bn, b]) => [bn, b.summary]))]));
@@ -120,6 +121,14 @@ if (suite === 'batteries' || suite === 'all') {
     console.log(`\nBattery gates at ${level} (hist-current 9.2 / chapter 14 D.8):`);
     for (const c of checks) console.log(`  ${c.ok ? 'PASS' : 'FAIL'}  ${c.name.padEnd(36)} ${c.kind === 'min' ? '>=' : '<='} ${c.kind === 'max' && c.threshold < 1 && c.threshold > 0 ? pct(c.threshold) : c.threshold > 1 ? c.threshold : pct(c.threshold)}   value ${c.threshold > 1 && c.kind === 'max' ? Math.round(c.value) : pct(c.value)}`);
     report.battery_gates = checks;
+    // informational, never a gate: the strict canonical@1 counts a regiment / place record only; the echelon-aware variant also accepts the brigade / division card for a brigade nickname and the site's own TF:/STR:/ROAD: record
+    const NE = results['NEW engine'];
+    console.log('\ncanonical@1 strict (the plan metric)  vs  echelon-aware variant (this build, informational):');
+    for (const [bn, b] of Object.entries(NE)) {
+      const rows = b.rows.filter((r) => r.canon1 === 0);
+      console.log(`  ${bn.padEnd(8)} strict ${pct(b.summary.canon_at_1)} (n=${b.summary.n_canon})   echelon-aware ${pct(b.summary.canon_at_1_echelon)} (n=${b.summary.n_canon_echelon})   strict misses that the variant accepts: ${rows.filter((r) => r.canon1e === 1).map((r) => JSON.stringify(r.q)).join(', ') || '-'}`);
+      const still = b.rows.filter((r) => r.canon1e === 0); if (still.length) console.log(`           still missed by both: ${still.map((r) => JSON.stringify(r.q) + ' -> ' + r.shown.slice(0, 2).join('/')).join('; ')}`);
+    }
     if (verbose) {
       for (const [bn, b] of Object.entries(results['NEW engine'])) {
         console.log(`\n--- failing rows: ${bn}`);
@@ -174,3 +183,17 @@ if (suite === 'golden' || suite === 'all') {
 
 const jsonOut = arg('json', null);
 if (jsonOut && jsonOut !== true) { fs.mkdirSync(path.dirname(path.resolve(jsonOut)), { recursive: true }); delete report._golden_full; fs.writeFileSync(jsonOut, JSON.stringify(report, null, 1)); console.log(`\nwrote ${jsonOut}`); }
+
+// --baseline-update: record this engine's numbers as the regression reference (tests/historian/engine-recorded.json; read by regress.test.mjs). Percentages are fractions here.
+if (arg('baseline-update', false) && report.batteries && report.batteries['NEW engine'] && report.golden_flat) {
+  const B = report.batteries['NEW engine']; const G = report.golden_flat;
+  const pick = (S) => Object.fromEntries(['success_at_1', 'canon_at_1', 'canon_at_1_echelon', 'fact_hit_at_3', 'fact_hit_top_bubble', 'typo_s1', 'correct_refusal_rate', 'refusal_rate_on_answerable', 'defect_rate', 'mean_chars_shown'].map((k) => [k, S[k]]));
+  const rec = {
+    $comment: 'Regression reference written by: node tests/historian/eval.mjs --baseline-update. regress.test.mjs fails when a metric drops by more than 2 points (or mean characters rise by more than 40). It records where this build IS, not what the plan requires (that is gates.json).',
+    recorded: new Date().toISOString().slice(0, 10), kb: report.kb,
+    batteries: Object.fromEntries(Object.entries(B).map(([bn, S]) => [bn, pick(S)])),
+    golden_answerable_now: Object.fromEntries(['all.n', 'all.pass', 'all.crit_recall', 'all.behavior_ok', 'all.clean', 'all.forbidden_rate', 'all.hallucinated_citation_rate', 'all.decline_correct', 'all.false_decline', 'all.hedge_rate', 'all.grounded', 'all.hit_at_5', 'all.mrr_at_10', 'all.readability_ok', 'all.mean_chars', 'dev.pass', 'locked.pass'].map((k) => [k, G[k]])),
+  };
+  fs.writeFileSync(path.join(here, 'engine-recorded.json'), JSON.stringify(rec, null, 1) + '\n');
+  console.log('wrote tests/historian/engine-recorded.json');
+}

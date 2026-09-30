@@ -60,7 +60,12 @@ export function defects(bubbles) {
   return out;
 }
 
-export async function evaluate(system, { queries }) {
+/**
+ * ancestors(id) -> [BDE:.., DIV:.., CORPS:..] (optional). With it every row also carries canon1e, the ECHELON-AWARE canonical@1 (a variant of this build, reported next to the strict metric, never instead of it):
+ * the first card counts when it is the expected regiment/place record, the site's own place/feature record for the same query (TF:, STR:, ROAD:), or the brigade / division / corps card of an expected
+ * regiment ("Texas Brigade" answered with the Texas Brigade card rather than with one of its regiments).
+ */
+export async function evaluate(system, { queries, ancestors = null }) {
   const rows = [];
   for (const q of queries) {
     const res = await system(q.q);
@@ -78,13 +83,19 @@ export async function evaluate(system, { queries }) {
       canon3 = shown.slice(0, 3).some((x) => canon.includes(x)) ? 1 : 0;
       const ri = ranked.findIndex((x) => canon.includes(x)); canonRank = ri >= 0 ? ri + 1 : null;
     }
+    let canon1e = null;
+    if (canon.length || q.primary.some((p) => /^(TF|STR|ROAD):/.test(p))) {
+      const ok = new Set([...canon, ...q.primary.filter((p) => /^(TF|STR|ROAD):/.test(p))]);
+      const echelons = new Set(ancestors ? canon.flatMap((c) => ancestors(c)) : []);
+      canon1e = shown.length && (ok.has(shown[0]) || echelons.has(shown[0])) ? 1 : 0;
+    }
     const row = {
       id: q.id, cat: q.cat, avail: q.avail, expect: q.expect, q: q.q, shown: shown.slice(0, 5), refused: !!res.refused, mode: res.mode || null,
       s1: shown.length ? (gs[0] >= 1 ? 1 : 0) : 0, s3: gs.some((g) => g >= 1) ? 1 : 0, p3: shown.length ? gs.filter((g) => g >= 1).length / shown.length : 0,
       prim3: q.primary.length ? (primHitIds.length ? 1 : 0) : null, r3: q.primary.length ? Math.min(1, primHitIds.length / Math.min(q.primary.length, 3)) : null,
       mrr: firstRel >= 0 ? 1 / (firstRel + 1) : 0,
       fact: q.must ? (q.must.test(text) ? 1 : 0) : null, fact1: q.must ? ((res.bubbles && res.bubbles[0] && q.must.test(res.bubbles[0])) ? 1 : 0) : null,
-      canon1, canon3, canonRank, defects: defects(res.bubbles || []), chars: text.length,
+      canon1, canon1e, canon3, canonRank, defects: defects(res.bubbles || []), chars: text.length,
     };
     rows.push(row);
   }
@@ -102,7 +113,8 @@ export function summarize(rows) {
     success_at_1: mean(ans.map((r) => r.s1)), success_at_3: mean(ans.map((r) => r.s3)), precision_at_3: mean(ans.map((r) => r.p3)), mrr: mean(ans.map((r) => r.mrr)),
     primary_hit_at_3: mean(withPrim.map((r) => r.prim3)), recall_at_3: mean(withPrim.map((r) => r.r3)),
     fact_hit_at_3: mean(withFact.map((r) => r.fact)), fact_hit_top_bubble: mean(withFact.map((r) => r.fact1)), n_fact: withFact.length,
-    canon_at_1: mean(rows.filter((r) => r.canon1 !== null).map((r) => r.canon1)), canon_at_3: mean(rows.filter((r) => r.canon3 !== null).map((r) => r.canon3)), n_canon: rows.filter((r) => r.canon1 !== null).length,
+    canon_at_1: mean(rows.filter((r) => r.canon1 !== null).map((r) => r.canon1)), canon_at_1_echelon: mean(rows.filter((r) => r.canon1e !== null).map((r) => r.canon1e)), n_canon_echelon: rows.filter((r) => r.canon1e !== null).length,
+    canon_at_3: mean(rows.filter((r) => r.canon3 !== null).map((r) => r.canon3)), n_canon: rows.filter((r) => r.canon1 !== null).length,
     canon_median_rank: (() => { const a = rows.filter((r) => r.canon1 !== null).map((r) => (r.canonRank === null ? 999 : r.canonRank)).sort((x, y) => x - y); return a.length ? a[Math.floor(a.length / 2)] : null; })(),
     correct_refusal_rate: ref.length ? mean(ref.map((r) => (r.refused ? 1 : 0))) : null,
     false_answer_rate_on_refuse: ref.length ? mean(ref.map((r) => (r.refused ? 0 : 1))) : null,
