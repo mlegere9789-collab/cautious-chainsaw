@@ -1,0 +1,28 @@
+{
+  "_doc": "Subresource-integrity pins for the third-party files the T0 map pages load (WP-T0-13). Each hash was computed from bytes fetched on 2026-09-30 with curl (no cookies, no auth) and re-fetched three more times (identity, gzip, with an Origin header, different CloudFront edges) with identical bytes. The generator (gen_pg_maps.mjs) copies these into tools/t0/patches/PG-maps.json; pages-maps.spec.mjs T0-PG-SRI re-fetches the live files when run with --online and compares. If Mapbox ever changes the bytes behind the v3.24.1 URL the map pages fail closed (script blocked) -- drop the integrity attributes (patch ids maps:*:css / maps:*:js) or update this file.",
+  "mapbox-gl.js": {
+    "url": "https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js",
+    "bytes": 1796551,
+    "integrity": "sha384-C88W+QUPtB6H9YRvK/B40dT5ez76/T8wGVlWpL3xkqfERnkaIJ4XrC+iPvWTECMH",
+    "etag": "\"9248d2af8d6474f005bacd8d7ec77821\"",
+    "last_modified": "Fri Jun 12 2026 14:53:09 GMT+0000",
+    "cors": "Access-Control-Allow-Origin: *"
+  },
+  "mapbox-gl.css": {
+    "url": "https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.css",
+    "bytes": 40806,
+    "integrity": "sha384-rp1X/jJ9MpWPef9OimfXhOaOc4Gzs87yQvF+ajwY6X2H4PTeHNycNlLWiWvj7ehV",
+    "etag": "\"b99a6c72930c3a518e2c7b787ccee018\"",
+    "last_modified": "Fri Jun 12 2026 14:53:12 GMT+0000",
+    "cors": "Access-Control-Allow-Origin: *"
+  },
+  "peerjs.min.js": {
+    "url": "https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js",
+    "bytes": 92865,
+    "integrity": "sha384-nlUQ8ZqCbvStErob+biJNzSgltf6urV3VGqhfIfzhmg9RXmpeRm76ELw0pYnKlTR",
+    "sha256_base64_cross_check": "rV2IcNHjiZFPnLqNNb4xPEMnxp7goiHkgum/diETb+U=",
+    "cross_check_source": "https://data.jsdelivr.com/v1/packages/npm/peerjs@1.5.4?structure=flat (file hash of /dist/peerjs.min.js equals the sha256 computed locally)",
+    "cache": "public, max-age=31536000, s-maxage=31536000, immutable (npm version, immutable on jsDelivr)",
+    "cors": "Access-Control-Allow-Origin: *"
+  }
+}
