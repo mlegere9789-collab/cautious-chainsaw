@@ -245,6 +245,7 @@ async function collect(vp) {
   rec.env = await page.evaluate(() => ({ w: innerWidth, h: innerHeight, dpr: devicePixelRatio, coarse: matchMedia('(pointer: coarse)').matches, dl: document.documentElement.dataset.layout }));
   rec.chooserSeen = await page.evaluate(() => window.__chooserSeen);
   rec.styleRequests = S.net.find(/^https:\/\/api\.mapbox\.com\/styles\/v1\/mapbox\/satellite-v9\?/, mark).length;
+  rec.skus = [...new Set(S.net.find(/^https:\/\/[^/]*mapbox\.com\//, mark).map((e) => (/[?&]sku=([^&]+)/.exec(e.url) || [])[1]).filter(Boolean))];
   rec.mapContainers = await page.evaluate(() => document.querySelectorAll('.mapboxgl-map').length);
   rec.mapCanvases = await page.evaluate(() => document.querySelectorAll('canvas.mapboxgl-canvas').length);
   rec.desktopSignatures = await page.evaluate(() => {
@@ -519,6 +520,7 @@ suite.test('T0-MOB-05', 'no desktop-only overlay mounted (no timeline IO / range
     if (d.audioContexts) lines.push(`${vp.id}: ${d.audioContexts} AudioContext(s) constructed (D-SOUND: in-app sound removed)`);
     if (r.chooserSeen) lines.push(`${vp.id}: "Choose Your Experience" chooser was rendered`);
     if (r.mapContainers !== 1 || r.mapCanvases !== 1) lines.push(`${vp.id}: ${r.mapContainers} map containers / ${r.mapCanvases} map canvases (want 1/1: second map mounted behind the chooser or desktop map left mounted)`);
+    if (r.skus.length !== 1) lines.push(`${vp.id}: ${r.skus.length} distinct Mapbox sku values on load (want 1 = one map session, X1)`);
     if (r.styleRequests !== 1) lines.push(`${vp.id}: ${r.styleRequests} Mapbox style requests on load (want 1 = one map session)`);
   }
   fail(lines, t);
@@ -665,8 +667,9 @@ suite.test('T0-MOB-09', 'story + event panels (tick 12) and commander toasts ren
       const box = document.querySelector('.gtbg-mp-story'); if (!box) return null;
       const dock = document.querySelector('.gtbg-m-dock').getBoundingClientRect(), top = document.querySelector('.gtbg-m-top').getBoundingClientRect();
       const vh = innerHeight, vw = innerWidth;
-      const kids = [...box.children].map((k) => { const r = k.getBoundingClientRect(); const c = document.elementFromPoint(r.left + r.width / 2, r.top + Math.min(r.height / 2, 40)); const btns = [...k.querySelectorAll('button')].map((b) => { const br = b.getBoundingClientRect(); const cy = br.top + br.height / 2; const inside = cy >= r.top && cy <= r.bottom; const t = document.elementFromPoint(br.left + br.width / 2, cy); return { w: Math.round(br.width), h: Math.round(br.height), hit: !inside || (!!t && (t === b || b.contains(t))), scrolledOut: !inside, text: b.textContent.trim().slice(0, 12) }; });
-        return { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height), b: Math.round(r.bottom), text: k.innerText.replace(/\s+/g, ' ').slice(0, 60), covered: !c || !k.contains(c), squashed: r.height < 90 && k.scrollHeight > r.height + 8, scroll: [k.scrollHeight, k.clientHeight], btns }; });
+      const sr = box.getBoundingClientRect();
+      const kids = [...box.children].map((k) => { const full = k.getBoundingClientRect(); const r = { left: full.left, right: full.right, top: Math.max(full.top, sr.top), bottom: Math.min(full.bottom, sr.bottom), width: full.width, height: Math.min(full.bottom, sr.bottom) - Math.max(full.top, sr.top), x: full.x, y: Math.max(full.top, sr.top) }; const c = document.elementFromPoint(r.left + r.width / 2, r.top + Math.min(r.height / 2, 40)); const btns = [...k.querySelectorAll('button')].map((b) => { const br = b.getBoundingClientRect(); const cy = br.top + br.height / 2; const inside = cy >= r.top && cy <= r.bottom; const t = document.elementFromPoint(br.left + br.width / 2, cy); return { w: Math.round(br.width), h: Math.round(br.height), hit: !inside || (!!t && (t === b || b.contains(t))), scrolledOut: !inside, text: b.textContent.trim().slice(0, 12) }; });
+        return { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height), b: Math.round(r.bottom), text: k.innerText.replace(/\s+/g, ' ').slice(0, 60), covered: !c || !k.contains(c), squashed: full.height < 90 && k.scrollHeight > full.height + 8, scroll: [k.scrollHeight, k.clientHeight], btns }; });
       const br = box.getBoundingClientRect();
       return { kids, stack: { x: Math.round(br.x), y: Math.round(br.y), w: Math.round(br.width), h: Math.round(br.height), scroll: [box.scrollHeight, box.clientHeight] }, dockTop: Math.round(dock.top), topBottom: Math.round(top.bottom), vh, vw, tick: null };
     });
@@ -683,7 +686,15 @@ suite.test('T0-MOB-09', 'story + event panels (tick 12) and commander toasts ren
     const gaps = st.kids.slice().sort((a, b) => a.y - b.y);
     for (let i = 1; i < gaps.length; i++) if (gaps[i].y < gaps[i - 1].b - 1) lines.push(`${vp.id}: story/event panels overlap each other (${gaps[i - 1].b} > ${gaps[i].y})`);
     await shot(page, `${vp.id}-40-story-event`);
-    if (st.stack.scroll[0] > st.stack.scroll[1] + 2) t.note(`${vp.id} stack`, `scrolls ${st.stack.scroll.join('/')}`);
+    if (st.stack.scroll[0] > st.stack.scroll[1] + 2) {
+      t.note(`${vp.id} stack`, `scrolls ${st.stack.scroll.join('/')}`);
+      // an overflowing stack must scroll by REAL touch (children are pointer-events:auto, the stack itself is not hit-testable)
+      const box = await page.evaluate(() => { const b = document.querySelector('.gtbg-mp-story'); const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height * 0.7, h: r.height }; });
+      await touchSwipe(page, [box.x, box.y], [box.x, box.y - box.h * 0.5], { steps: 12, stepMs: 16 }); await sleep(500);
+      const moved = await page.evaluate(() => { const b = document.querySelector('.gtbg-mp-story'); return [b.scrollTop, ...[...b.children].map((c) => c.scrollTop)].some((v) => Math.abs(v) > 4); });
+      if (!moved) lines.push(`${vp.id}: the overflowing story/event stack (${st.stack.scroll.join('/')}) did not scroll under a real touch swipe`);
+      await page.evaluate(() => { const b = document.querySelector('.gtbg-mp-story'); b.scrollTop = 0; [...b.children].forEach((c) => { c.scrollTop = 0; }); });
+    }
     // a selected unit's popup takes the dock anchor: the cards step aside (hidden) and come back when it is closed
     await mapView(page);
     const u = await page.evaluate(async () => {
