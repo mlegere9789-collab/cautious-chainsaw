@@ -34,13 +34,50 @@ const isOrd = (t) => t && t.charCodeAt(0) === 35 && /^#\d+$/.test(t);
 // abbreviations that are also everyday words; "on July 3 in Pennsylvania" must not read as "3rd Indiana"
 const AMBIG_ABBR = new Set(['in', 'me', 'la', 'al', 'us', 'de', 'ma', 'mo', 'oh', 'ar', 'ia', 'mi']);
 const BLOCK_NEXT = new Set(['the', 'a', 'an', 'this', 'that', 'these', 'those', 'of', 'at', 'on', 'by', 'to', 'is', 'was', 'were', 'are', 'be', 'from', 'with', 'my', 'your', 'our', 'his', 'her', 'their', 'it', 'its']);
+// words that may stand between the ordinal and the state name ("19th Regiment, Indiana", "1st Infantry Michigan")
+const PRE_FILLER = new Set(['regiment', 'regt', 'infantry', 'volunteer', 'volunteers', 'cavalry']);
 const BLOCK_PREV = new Set(['july', 'day', 'days', 'on', 'at', 'by', 'about', 'than', 'around', 'of', 'to', 'until', 'since', 'from', 'for', 'these', 'those', 'last', 'next', 'top', 'first']);
+
+/** the state (or abbreviation) that starts at tokens[j]: { state, used, abbr } or null. Ambiguous abbreviations ("in", "me") obey the same blocks as before; opts.noAmbig refuses them outright. */
+export function stateAt(tokens, j, { prev = null, last = 0, noAmbig = false } = {}) {
+  const three = tokens.slice(j, j + 3).join(' '), two = tokens.slice(j, j + 2).join(' '), one = tokens[j];
+  if (STATES.includes(two)) return { state: two, used: 2, abbr: false };
+  if (one && STATES.includes(one)) return { state: one, used: 1, abbr: false };
+  if (one && STATE_ABBR[one] && !(AMBIG_ABBR.has(one) && (noAmbig || BLOCK_PREV.has(prev) || BLOCK_NEXT.has(tokens[j + 1]) || last > 200))) return { state: STATE_ABBR[one], used: 1, abbr: true };
+  if (three === 'us colored troops') return { state: 'united states', used: 1, abbr: false };
+  return null;
+}
 
 /**
  * Find unit mentions in a token array (output of text.tokenize with stop words kept).
  * Returns [{ ords:[n..], state, arm|null, start, end, abbr }] where [start,end) is the token span consumed (ordinals, state, arm word).
  */
-export function findUnitMentions(tokens) {
+export function findUnitMentions(tokens, { reversed = false } = {}) {
+  const out = findForward(tokens);
+  if (reversed) {
+    // "Wisconsin's 2nd", "Wisconsin 2nd Infantry": the state first (query-time only; the build keeps the designation grammar)
+    const taken = new Array(tokens.length).fill(false);
+    for (const m of out) for (let k = m.start; k < m.end; k++) taken[k] = true;
+    for (let i = 0; i < tokens.length; i++) {
+      if (taken[i]) continue;
+      const two = tokens.slice(i, i + 2).join(' ');
+      const used = STATES.includes(two) ? 2 : STATES.includes(tokens[i]) ? 1 : 0;
+      if (!used || tokens[i] === 'brooklyn' || tokens[i] === 'united') continue;
+      const state = used === 2 ? two : tokens[i];
+      const o = tokens[i + used];
+      if (!isOrd(o) || taken[i + used] || +o.slice(1) > 200) continue;
+      let end = i + used + 1, arm = null;
+      for (let g = 0; g < 2 && end < tokens.length; g++) { const w = tokens[end]; if (w in ARM_WORDS) { if (ARM_WORDS[w]) arm = arm || ARM_WORDS[w]; end++; } else break; }
+      out.push({ ords: [+o.slice(1)], state, arm, start: i, end, abbr: false, reversed: true });
+      for (let k = i; k < end; k++) taken[k] = true;
+      i = end - 1;
+    }
+    out.sort((a, b) => a.start - b.start);
+  }
+  return out;
+}
+
+function findForward(tokens) {
   const out = [];
   for (let i = 0; i < tokens.length; i++) {
     if (!isOrd(tokens[i])) continue;
@@ -50,17 +87,24 @@ export function findUnitMentions(tokens) {
       ords.push(+tokens[j].slice(1)); j++;
       if ((tokens[j] === 'and' || tokens[j] === 'or') && isOrd(tokens[j + 1])) j++;
     }
+    // words a reader puts between the ordinal and the state: "19th Regiment, Indiana", "19th Regiment of Indiana Volunteers", "1st Cavalry Michigan"
+    let pre = null, preArm = null, preSeen = false;
+    for (let g = 0, k = j; g < 3 && k < tokens.length; g++) {
+      const w = tokens[k];
+      if (PRE_FILLER.has(w)) { if (w in ARM_WORDS && ARM_WORDS[w]) preArm = preArm || ARM_WORDS[w]; preSeen = true; k++; pre = k; }
+      else if (preSeen && w === 'of') { k++; pre = k; }
+      else break;
+    }
+    const sj = pre !== null && stateAt(tokens, pre, { noAmbig: true }) ? pre : j;
     // state (multi-word first), abbreviation only valid here because a number precedes
     let state = null, used = 0, abbr = false;
-    const three = tokens.slice(j, j + 3).join(' '), two = tokens.slice(j, j + 2).join(' '), one = tokens[j];
-    if (STATES.includes(two)) { state = two; used = 2; }
-    else if (one && STATES.includes(one)) { state = one; used = 1; }
-    else if (one && STATE_ABBR[one] && !(AMBIG_ABBR.has(one) && (BLOCK_PREV.has(tokens[i - 1]) || BLOCK_NEXT.has(tokens[j + 1]) || ords[ords.length - 1] > 200))) { state = STATE_ABBR[one]; used = 1; abbr = true; }
-    else if (three === 'us colored troops') { state = 'united states'; used = 1; }
+    const st = stateAt(tokens, sj, { prev: tokens[i - 1], last: ords[ords.length - 1] });
+    if (st) { state = st.state; used = st.used; abbr = st.abbr; }
     if (!state) { i = j - 1; continue; }
+    j = sj;
     // "1 n y" (unpunctuated) and "n c"/"s c" split forms: try to glue two single letters
     let end = j + used;
-    let arm = null;
+    let arm = preArm;
     // skip filler between state and arm ("New York State Volunteers", "Pennsylvania Volunteer Infantry")
     let k = end;
     for (let g = 0; g < 3 && k < tokens.length; g++) {

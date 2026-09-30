@@ -55,7 +55,7 @@ const CORPS_RE = /\b(1st|first|i|2nd|second|ii|3rd|third|iii|5th|fifth|v|6th|six
 export const corpsNorm = (s) => s.replace(CORPS_RE, (m, a) => 'corps' + CORPS_MAP[a]);
 
 // "84th N.Y." / "1 M.N." / "20 Me." -> letters only, but only when a number precedes (initials elsewhere are left alone).
-const PERIOD_ABBR = /(\d+\s*(?:st|nd|rd|th|d)?)\s+((?:[A-Za-z]\.\s?){2,3}|[A-Z][a-z]{1,4}\.)(?=\s|$)/g;
+const PERIOD_ABBR = /(\d+\s*(?:st|nd|rd|th|d)?)\s+(W\.\s?Va\.|(?:[A-Za-z]\.\s?){2,3}|[A-Z][a-z]{1,4}\.)(?=\s|$)/g;
 function collapseStateAbbr(s) {
   return s.replace(PERIOD_ABBR, (m, num, ab) => `${num} ${ab.replace(/[.\s]/g, '')}`);
 }

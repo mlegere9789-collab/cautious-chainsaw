@@ -48,8 +48,9 @@ export function createLinker(idx, entix) {
     const used = new Array(tokens.length).fill(false);
 
     // ---- 1. unit grammar --------------------------------------------------------------------------------------------------
-    for (const m of findUnitMentions(tokens)) {
+    for (const m of findUnitMentions(tokens, { reversed: true })) {
       for (const sub of resolveUnit(m, opts)) {
+        if (!sub.cands.length && m.reversed) continue;                      // "Pennsylvania 2" is not a claim that a 2nd Pennsylvania exists
         if (!sub.cands.length) { mentions.push({ kind: 'unit-miss', ord: sub.ord, state: m.state, arm: m.arm, start: m.start, end: m.end, w: 0, ids: [], amb: false, phrase: `${sub.ord} ${m.state}` }); continue; }
         const p = pickUnit(sub.cands, m.arm, side);
         if (p.best === null) continue;

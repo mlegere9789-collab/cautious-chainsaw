@@ -6,7 +6,7 @@ import { sanitize, scopeGate } from './guard.js';
 import { tokenize, stem, STOP, baseNorm, dl, CLOCK_RE, splitSentences } from './text.js';
 import { classify, INTENT_WORDS, sideHint } from './intent.js';
 import { scoreCards, dfOf } from './entities.js';
-import { STATES } from './units.js';
+import { STATES, STATE_ABBR, stateAt } from './units.js';
 import * as C from './compose.js';
 import { selectQuotes } from './select.js';
 import { renderText, SIDE_NAME, personLabel, withThe } from './format.js';
@@ -41,9 +41,75 @@ export function createEngine(kb, opts = {}) {
   // ------------------------------------------------------------------------------------------------------------------------------------
   // lexicon repair (typos): out-of-lexicon tokens only, join / split / Damerau-Levenshtein against the NAME vocabulary
   // ------------------------------------------------------------------------------------------------------------------------------------
-  const known = (t) => !t || /^#/.test(t) || t.length <= 3 || STOP.has(t) || INTENT_WORDS.has(t) || DOMAIN.has(t) || kb.lex.has(stem(t)) || idx.nameVocab.has(stem(t)) || FILLERS.has(t);
-  function repair(tokens) {
+  const known = (t) => !t || /^#/.test(t) || t.length <= 3 || STATE_ABBR[t] !== undefined || STOP.has(t) || INTENT_WORDS.has(t) || DOMAIN.has(t) || kb.lex.has(stem(t)) || idx.nameVocab.has(stem(t)) || FILLERS.has(t);
+
+  // the whole word a reader recognises for a name stem ("brigad" -> "brigade", "tennesse" -> "tennessee"): the most frequent surface form in the record names, the shorter one on a tie
+  let surface = null, nameWords = null;
+  const surfaceOf = (s) => {
+    if (!surface) {
+      const cnt = new Map();
+      const add = (txt) => { for (const w of tokenize(String(txt || ''))) { if (/^#/.test(w) || w.length < 3) continue; const k = stem(w); let m = cnt.get(k); if (!m) cnt.set(k, m = new Map()); m.set(w, (m.get(w) || 0) + 1); } };
+      for (const r of R) { add(r.title); add(r.label); for (const a of r.aliases || []) add(a); for (const p of r.people || []) add(p); add(r.place); }
+      surface = new Map(); nameWords = [];
+      for (const [k, m] of cnt) {
+        const ws = [...m.entries()].sort((a, b) => b[1] - a[1] || a[0].length - b[0].length || (a[0] < b[0] ? -1 : 1));
+        surface.set(k, ws[0][0]);
+        for (const [w] of ws) if (w.length >= 4 && w.length <= 7) nameWords.push(w);
+      }
+    }
+    return surface.get(s) || s;
+  };
+  /** short names ("Dwes" -> Dawes, "Reot" -> Root): stems of four-letter words collapse, so the comparison is on the words themselves; one edit, same first letter, and for equal lengths the same last letter too */
+  const shortNameRepair = (t) => {
+    surfaceOf('');
+    let best = null;
+    for (const w of nameWords) {
+      if (w[0] !== t[0] || Math.abs(w.length - t.length) > 1 || w === t) continue;
+      if (w.length === t.length && w[w.length - 1] !== t[t.length - 1]) continue;
+      if (dl(t, w, 1) !== 1) continue;
+      const c = dfOf(entix, stem(w));
+      if (!best || c > best.c) best = { v: stem(w), w, c };
+    }
+    return best;
+  };
+
+  // a state name that follows a regiment number and is one edit away from a real state ("104th New Yrk", "12th Jesey", "20th Mane", "7th Tenessee"): snapped to the state, reported as a correction.
+  // Only right after an ordinal (a bare typo elsewhere goes through the general name repair below); a word that is ordinary English in the corpus (df >= 20: "main", "day") is left alone.
+  const STATE_NAMES = STATES.filter((s) => s !== 'united states' && s !== 'brooklyn');
+  const STATE_FILLER = new Set(['regiment', 'regt', 'infantry', 'volunteer', 'volunteers', 'of']);
+  function repairStates(tokens, notes) {
+    const out = tokens.slice();
+    for (let i = 0; i < out.length; i++) {
+      if (!/^#\d+$/.test(out[i]) || +out[i].slice(1) > 200) continue;
+      let j = i + 1; while (j < out.length && STATE_FILLER.has(out[j])) j++;
+      if (j >= out.length || stateAt(out, j, { noAmbig: true })) continue;
+      let best = null;
+      for (const len of [2, 1]) {
+        if (j + len > out.length) continue;
+        const parts = out.slice(j, j + len);
+        if (parts.some((p) => /^#/.test(p) || STOP.has(p) || INTENT_WORDS.has(p) || DOMAIN.has(p) || FILLERS.has(p))) continue;
+        if (len === 1 && (kb.lexDf.get(stem(parts[0])) || 0) >= 20) continue;
+        const spaced = parts.join(' '), glued = parts.join('');
+        if (glued.length < 3) continue;
+        for (const S of STATE_NAMES) {
+          const g = S.replace(' ', ''); const maxd = g.length >= 10 ? 2 : 1;
+          const d = Math.min(dl(spaced, S, maxd), dl(glued, g, maxd));
+          if (d === 0 || d > maxd || Math.abs(glued.length - g.length) > maxd) continue;
+          if (!best || d < best.d || (d === best.d && len > best.len)) best = { d, S, len, tie: false };
+          else if (d === best.d && len === best.len && S !== best.S) best.tie = true;
+        }
+        if (best && !best.tie) break;
+      }
+      if (!best || best.tie) continue;
+      notes.push({ from: out.slice(j, j + best.len).join(' '), to: best.S, kind: 'fuzzy' });
+      out.splice(j, best.len, ...best.S.split(' '));
+    }
+    return out;
+  }
+
+  function repair(rawTokens) {
     const out = []; const notes = []; const unknown = [];
+    const tokens = repairStates(rawTokens, notes);
     for (let i = 0; i < tokens.length; i++) {
       const t = tokens[i];
       if (known(t)) { out.push(t); continue; }
@@ -68,14 +134,16 @@ export function createEngine(kb, opts = {}) {
           const d = dl(s, v, maxd);
           const prefixRel = (v.startsWith(s) || s.startsWith(v)) && Math.min(v.length, s.length) < 7;
           if (prefixRel || d > maxd) continue;
-          if (s.length === 5 && d === 1 && v.slice(0, 3) !== s.slice(0, 3)) continue;
+          // five letters: one edit is trusted when the first three letters agree, or when the word keeps both ends ("fwler" -> "fowler", "mller" -> "miller")
+          if (s.length === 5 && d === 1 && v.slice(0, 3) !== s.slice(0, 3) && !(v[0] === s[0] && v[v.length - 1] === s[s.length - 1])) continue;
           // four-letter tokens: only a one-edit repair that keeps both ends ("rond" -> "round")
           if (s.length === 4 && !(v[v.length - 1] === s[s.length - 1] && v.length >= 5)) continue;
           const c = dfOf(entix, v);
           if (!best || d < best.d || (d === best.d && c > best.c)) best = { v, d, c };
         }
       }
-      if (best) { out.push(best.v); notes.push({ from: t, to: best.v, kind: 'fuzzy' }); }
+      if (!best && t.length >= 4 && t.length <= 5) { const sb = shortNameRepair(t); if (sb) best = { v: sb.v, w: sb.w }; }
+      if (best) { out.push(best.v); notes.push({ from: t, to: best.w || surfaceOf(best.v), kind: 'fuzzy' }); }
       else { out.push(t); unknown.push(t); }
     }
     return { tokens: out, notes, unknown };
@@ -157,7 +225,7 @@ export function createEngine(kb, opts = {}) {
           if (hit && hit.length) {
             const ids = hit.map((x) => x.i);
             S.mentions.push({ kind: 'alias', ids, best: ids[0], amb: ids.length > 1, w: W.aliasBase + W.aliasPerTok * (b - a), phrase, n: b - a, start: content[a].j, end: content[b - 1].j + 1, src: 'fuzzy-phrase', kinds: [...new Set(ids.map((k) => R[k].k))], exact: false });
-            S.notes.push({ from: toks[i], to: v, kind: 'fuzzy' });
+            S.notes.push({ from: toks[i], to: surfaceOf(v), kind: 'fuzzy' });
             return;
           }
         }
@@ -379,8 +447,26 @@ export function createEngine(kb, opts = {}) {
   // ------------------------------------------------------------------------------------------------------------------------------------
   // main
   // ------------------------------------------------------------------------------------------------------------------------------------
+  /** the conversation context is caller data (the page passes back the engine's own ctx, but an embed or a test may pass anything): keep only well-typed fields */
+  function cleanCtx(ctx) {
+    const c = ctx && typeof ctx === 'object' && !Array.isArray(ctx) ? ctx : {};
+    const strs = (v, n) => (Array.isArray(v) ? v.filter((x) => typeof x === 'string' && x.length <= 80).slice(-n) : []);
+    const out = { lastEntities: strs(c.lastEntities, 6), shownPassages: strs(c.shownPassages, 40), lastIntent: typeof c.lastIntent === 'string' ? c.lastIntent.slice(0, 40) : null, lastSide: c.lastSide === 'U' || c.lastSide === 'C' ? c.lastSide : null };
+    const o = c.onsite;
+    if (o && typeof o === 'object' && !Array.isArray(o)) {
+      const on = {};
+      if (typeof o.selected_unit === 'string') on.selected_unit = o.selected_unit.slice(0, 80);
+      if (typeof o.location === 'string') on.location = o.location.slice(0, 120);
+      if (typeof o.tick === 'number' && Number.isFinite(o.tick)) on.tick = o.tick;
+      if (o.day === 1 || o.day === 2 || o.day === 3) on.day = o.day;
+      if (Object.keys(on).length) out.onsite = on;
+    }
+    return out;
+  }
+
   async function ask(rawQuery, ctx = {}) {
     const t0 = typeof performance !== 'undefined' ? performance.now() : Date.now();
+    ctx = cleanCtx(ctx);
     const S = { kb, ctx, raw: rawQuery, notes: [], mentions: [], side: null, intent: 'lookup', ranked: [], quotes: [], trace: {} };
     const g = sanitize(rawQuery);
     S.text = g.text; S.sanitized = g;
@@ -414,6 +500,8 @@ export function createEngine(kb, opts = {}) {
 
     // ---- link, intent ---------------------------------------------------------------------------------------------------------------------------------
     S.caps = new Set([...text.matchAll(/\b[A-Z][A-Za-z']*/g)].map((m) => stem(m[0].toLowerCase().replace(/'s$/, ''))));
+    // a capitalised word that was repaired ("Mller" -> Miller) is still a capitalised word: the surname that is also an everyday word links on it
+    for (const n of S.notes) if (n.kind === 'fuzzy' && S.caps.has(stem(n.from))) for (const w of tokenize(n.to)) S.caps.add(stem(w));
     const lk = kb.link(S.tokens, { side: S.side, caps: S.caps });
     S.mentions = lk.mentions;
     S.day = dayOf(text);
@@ -423,7 +511,17 @@ export function createEngine(kb, opts = {}) {
     applyOnsite(S);
     applySide(S);
     disambiguatePeople(S);
-    S.stateMention = (() => { const t = S.tokens; for (let i = 0; i < t.length; i++) { const two = t.slice(i, i + 2).join(' '); if (STATES.includes(two) && two !== 'brooklyn') return two; if (STATES.includes(t[i]) && t[i] !== 'brooklyn' && t[i] !== 'united') return t[i]; } return null; })();
+    // a state word that belongs to a unit name ("the 24th Michigan Regiment") is part of that regiment, not a request for the state's roll-up
+    S.stateMention = (() => {
+      const t = S.tokens; const inUnit = new Array(t.length).fill(false);
+      for (const m of S.mentions) if ((m.kind === 'unit' || m.kind === 'unit-miss') && m.start >= 0) for (let k = m.start; k < m.end; k++) inUnit[k] = true;
+      for (let i = 0; i < t.length; i++) {
+        if (inUnit[i]) continue;
+        const two = t.slice(i, i + 2).join(' '); if (STATES.includes(two) && two !== 'brooklyn' && !inUnit[i + 1]) return two;
+        if (STATES.includes(t[i]) && t[i] !== 'brooklyn' && t[i] !== 'united') return t[i];
+      }
+      return null;
+    })();
     S.intent = follow && follow.intent ? follow.intent : classify(text);
     S.day = dayOf(text);
     const C0 = collect(S);
@@ -451,11 +549,14 @@ export function createEngine(kb, opts = {}) {
     let res = null;
     const compose1 = async () => { try { return await composeFor(S); } catch (e) { if (e && e.retryable) throw e; if (opts.debug) throw e; return null; } };
     const anchored = S.tokens.some((t) => STRONG_DOMAIN.has(t)) || S.mentions.some((m) => m.kind !== 'unit-miss' && m.ids && m.ids.length) || !!S.day;
-    if (STRUCTURED.has(S.intent) && (anchored || S.intent === 'quote')) res = await compose1();
+    // "the Wisconsin regiments": a state's roll-up is a structured question too (a state word inside a unit name has been excluded from stateMention)
+    const rollupQ = !!S.stateMention && /\bregiments?\b/.test(S.norm) && !S.units.length && ['list', 'lookup', 'count', 'what-happened'].includes(S.intent);
+    const structured = STRUCTURED.has(S.intent) || rollupQ;
+    if (structured && (anchored || rollupQ || S.intent === 'quote')) res = await compose1();
     if (!res) {
       const dec = decide(S);
       if (dec) return dec;
-      if (!STRUCTURED.has(S.intent) || !(anchored || S.intent === 'quote')) res = await compose1();
+      if (!structured || !(anchored || rollupQ || S.intent === 'quote')) res = await compose1();
     }
     if (!res) res = await fallbackProfile(S);
     if (!res) return declineAnswer(S, { reason: 'no-composer', text: 'I could not find a record on this site that answers that.' });
