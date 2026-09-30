@@ -229,3 +229,23 @@ test('coverage: every rule that can run has a seeded fixture in this suite', asy
   const deferred = rules.filter((r) => r.status === 'deferred').map((r) => r.id).sort();
   assert.deepEqual(deferred, ['C005', 'E001', 'G001', 'H001', 'N008', 'P004']);
 });
+
+test('end to end: the CLI exits 1 on a seeded defect in a copy of the data and 0 on the frozen tree', async () => {
+  const { spawnSync } = await import('node:child_process');
+  const { REPO_ROOT } = await import('../../tools/data/lib/util.mjs');
+  const cli = path.join(REPO_ROOT, 'tools', 'data', 'validate.mjs');
+  const ok = spawnSync(process.execPath, [cli, '--no-site'], { encoding: 'utf8' });
+  assert.equal(ok.status, 0, ok.stdout.slice(-400));
+  const dir = tmpCopyOfData();
+  try {
+    const f = path.join(dir, P3);
+    const j = JSON.parse(fs.readFileSync(f, 'utf8'));
+    j.placements.push(row('U-NOSUCH-9', 630));
+    fs.writeFileSync(f, JSON.stringify(j));
+    const bad = spawnSync(process.execPath, [cli, '--data-dir', dir], { encoding: 'utf8' });
+    assert.equal(bad.status, 1);
+    assert.match(bad.stdout, /R001/);
+    assert.match(bad.stdout, /\[new\] placements: unresolved id U-NOSUCH-9/);
+    assert.match(bad.stdout, /FAIL/);
+  } finally { rmrf(dir); }
+});

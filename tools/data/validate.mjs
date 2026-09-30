@@ -8,7 +8,7 @@
 //   node tools/data/validate.mjs --tighten             delete stale baseline entries / improved metrics (never adds)
 //   node tools/data/validate.mjs --rebaseline R001 --reason "why"   replace one rule's baseline (logged in baseline history)
 //   node tools/data/validate.mjs --report docs/data/baseline-report.md   (re)generate the machine report
-//   options: --data-dir DIR  --baseline FILE  --now YYYY-MM-DD  --strict (W also fails)  --json  --no-site (skip html/bundle scans)  -v
+//   options: --data-dir DIR  --baseline FILE  --now YYYY-MM-DD  --strict (W also fails)  --json  --no-site (skip html/bundle scans and the rules that need them)  -v
 import fs from 'node:fs';
 import path from 'node:path';
 import { runValidation } from './lib/validation.mjs';
@@ -41,7 +41,14 @@ async function main() {
   const now = opts.now ?? isoDate();
   const dataDir = opts['data-dir'] ? path.resolve(opts['data-dir']) : DEFAULT_DATA_DIR;
   const baselinePath = opts.baseline ? path.resolve(opts.baseline) : DEFAULT_BASELINE;
-  const only = opts.rules ? opts.rules.split(',') : null;
+  // rules that read the deploy html or the bundle: not comparable with the baseline when --no-site is used, so they are left out
+  const SITE_RULES = ['R008', 'F001', 'F002', 'K001', 'U001', 'M001', 'L001', 'P001'];
+  let only = opts.rules ? opts.rules.split(',') : null;
+  if (flags.has('--no-site')) {
+    const all = (await loadAllRules()).map((r) => r.id);
+    only = (only ?? all).filter((id) => !SITE_RULES.includes(id));
+    console.log('--no-site: skipping ' + SITE_RULES.join(', ') + ' (they read legacy/dist html and the bundle)');
+  }
   const { ctx, results } = await runValidation({ dataDir, now, only, site: !flags.has('--no-site') });
   const treeInfo = (() => { try { const e = hashTree(dataDir); return { dir: path.relative(REPO_ROOT, dataDir).split(path.sep).join('/'), files: e.length, bytes: e.reduce((a, x) => a + x.bytes, 0), content_sha256: contentHash(e), data_version: readJsonIfExists(PATHS.version)?.data_version ?? null }; } catch { return { dir: dataDir }; } })();
 

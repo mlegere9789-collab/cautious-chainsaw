@@ -6,7 +6,7 @@ import path from 'node:path';
 import { buildContext } from './lib/context.mjs';
 import { buildRegistry, buildCrosswalk } from './lib/registry.mjs';
 import { buildFacts } from './lib/facts.mjs';
-import { buildNotableIntensity, buildAdjudicationRegister, buildCavalryCommanders } from './lib/candidates.mjs';
+import { buildNotableIntensity, buildAdjudicationRegister, buildCavalryCommanders, buildRollups, buildAliasTable } from './lib/candidates.mjs';
 import { hashTree, contentHash } from './lib/manifest.mjs';
 import { readJsonIfExists, PATHS } from './lib/manifest.mjs';
 import { REPO_ROOT, prettyJson } from './lib/util.mjs';
@@ -29,6 +29,8 @@ export function generateCandidates(ctx = buildContext({})) {
     'candidates/notable_intensity.json': prettyJson(buildNotableIntensity(ctx)),
     'candidates/adjudication_register.json': prettyJson(buildAdjudicationRegister(ctx)),
     'candidates/confederate_cavalry_commanders.json': prettyJson(buildCavalryCommanders(ctx)),
+    'candidates/rollups.json': prettyJson(buildRollups(ctx)),
+    'unit_aliases.json': prettyJson(buildAliasTable(buildCrosswalk(ctx))),
   };
 }
 

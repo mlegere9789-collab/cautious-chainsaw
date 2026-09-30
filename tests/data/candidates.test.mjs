@@ -54,3 +54,26 @@ test('registry carries the OR-verified findings for C-61VA and C-McClanahan-ART'
   const m = reg.units.find((x) => x.id === 'C-McClanahan-ART');
   assert.ok(m.flags.some((f) => f.code === 'battery_in_imbodens_command' && f.or_verified));
 });
+
+test('unit_aliases: 95 crosswalk ids split into aliases and unresolved; only high-confidence rows resolve; sides only change by the wrong-prefix rule', () => {
+  const a = JSON.parse(out['unit_aliases.json']);
+  assert.equal(a.counts.aliases + a.counts.unresolved, 95);
+  for (const x of a.aliases) {
+    assert.equal(x.resolves, x.confidence === 'high');
+    if (x.side_change) assert.ok(['wrong_side_prefix'].includes(x.rule) || x.resolves === false, `${x.alias}: a side change outside the wrong-prefix rule must not resolve`);
+  }
+  assert.equal(a.aliases.filter((x) => x.rule === 'wrong_side_prefix' && x.resolves).length, 10);
+  assert.ok(a.unresolved.every((u) => u.reason || u.candidates.length || u.confidence === 'none' || u.rule));
+});
+
+test('rollups: reported vs derived per formation; nothing is claimed exact unless it is', () => {
+  const r = JSON.parse(out['candidates/rollups.json']);
+  assert.equal(r.rows.length, r.counts.records);
+  for (const x of r.rows) {
+    assert.equal(x.reported_strength - x.derived_strength, x.unlisted_strength);
+    if (x.exact) assert.ok(x.unlisted_strength === 0 && x.unlisted_casualties === 0 && x.children_missing === 0);
+    assert.equal(x.cause, null);
+  }
+  assert.equal(r.army_level.union.corps_reported_casualties, 22803);
+  assert.ok(r.rows.find((x) => x.id === 'U-VI-1').children_missing === 3, 'VI Corps division 1 lists 3 brigades that do not exist');
+});

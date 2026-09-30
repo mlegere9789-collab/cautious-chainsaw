@@ -19,7 +19,7 @@ How to add, change, verify and correct data for the Gettysburg map. Scope: WP-DA
 | `data-src/schemas/*.schema.json` | JSON Schema 2020-12, closed (`additionalProperties:false`) | data |
 | `data-src/authorities/authorities.json` | casualty and strength authorities with source, edition, page, verification status | data + historian |
 | `data-src/policy/*.json` | source tiers, retired literals | data + counsel |
-| `data-src/build/**` | generated candidates: `unit_registry.json`, `id_crosswalk.json`, `id_collisions.json`, `unit_index.json`, `facts.json`, `data-manifest.json`, `data-quality-report.json`, `legacy-rights-audit.csv`, `candidates/*` | generated, committed |
+| `data-src/build/**` | generated candidates: `unit_registry.json`, `id_crosswalk.json`, `unit_aliases.json`, `id_collisions.json`, `unit_index.json`, `facts.json`, `data-manifest.json`, `data-quality-report.json`, `legacy-rights-audit.csv`, `candidates/*` (VI Corps brigades, battery compat shape, notable intensity, adjudication register, Confederate cavalry commanders, roll-ups) | generated, committed |
 | `tools/data/validate.mjs`, `baseline.json` | the validator (68 rules) and its ratchet baseline | data |
 | `tools/data/{unit_registry,facts,rights_audit,manifest}.mjs` | generators | data |
 | `docs/data/baseline-report.md`, `rights-audit.md` | generated reports | generated, committed |
@@ -34,6 +34,7 @@ node tools/data/validate.mjs                 # all rules, ratchet against tools/
 node tools/data/validate.mjs --list          # the catalogue: 60 core + 8 v2 rules, status implemented / partial / deferred
 node tools/data/validate.mjs --rules R001,S007 -v
 node tools/data/validate.mjs --strict        # W rules fail too
+node tools/data/validate.mjs --no-site       # quick local run: leaves out the rules that read legacy/dist html and the bundle
 node tools/data/validate.mjs --report docs/data/baseline-report.md
 node tools/data/unit_registry.mjs [--check]  # registry, crosswalk, collisions, VI Corps candidates, unit index, battery shim
 node tools/data/facts.mjs [--check]          # data-src/build/facts.json

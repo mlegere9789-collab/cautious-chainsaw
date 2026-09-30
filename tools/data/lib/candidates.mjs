@@ -41,6 +41,58 @@ export function buildNotableIntensity(ctx) {
   };
 }
 
+/**
+ * WP-DATA-07 step 3: roll-up ledger. reported_* = what the record says; derived_* = sum of the children that exist; unlisted_* = the
+ * difference that a documented cause (staff, provost, unattached, unlisted regiments) has to explain. No cause is invented here.
+ */
+export function buildRollups(ctx) {
+  const rows = [];
+  for (const rec of ctx.oob.list) {
+    if (!['brigade', 'division', 'corps'].includes(rec.kind) || typeof rec.raw.strength !== 'number') continue;
+    const ids = rec.kind === 'brigade' ? rec.raw.regiment_ids : rec.kind === 'division' ? rec.raw.brigade_ids : rec.raw.division_ids;
+    let ds = 0, dc = 0, found = 0;
+    for (const id of ids || []) {
+      const c = ctx.oob.records.get(id);
+      if (c && typeof c.raw.strength === 'number') { ds += c.raw.strength; dc += c.raw.casualties ?? 0; found++; }
+    }
+    rows.push({
+      id: rec.id, level: rec.kind, side: rec.side, children_listed: (ids || []).length, children_found: found, children_missing: (ids || []).length - found,
+      reported_strength: rec.raw.strength, derived_strength: ds, unlisted_strength: rec.raw.strength - ds,
+      reported_casualties: rec.raw.casualties ?? null, derived_casualties: dc, unlisted_casualties: (rec.raw.casualties ?? 0) - dc,
+      exact: found === (ids || []).length && rec.raw.strength === ds && (rec.raw.casualties ?? 0) === dc,
+      cause: null, cause_status: 'undocumented: a historian names the cause (staff, provost, unattached, unlisted regiments) or the record is corrected',
+    });
+  }
+  const sum = (level, side, k) => rows.filter((r) => r.level === level && r.side === side).reduce((a, r) => a + r[k], 0);
+  return {
+    schema: 'gtbg/candidate-rollups/1', ...base,
+    counts: { records: rows.length, exact: rows.filter((r) => r.exact).length, with_missing_children: rows.filter((r) => r.children_missing).length },
+    army_level: {
+      union: { corps_reported_strength: sum('corps', 'union', 'reported_strength'), corps_reported_casualties: sum('corps', 'union', 'reported_casualties') },
+      confederate: { corps_reported_strength: sum('corps', 'confederate', 'reported_strength'), corps_reported_casualties: sum('corps', 'confederate', 'reported_casualties') },
+      note: 'the army records (U-AOP does not exist; C-ANV is a header) are compared in rule N007 against data-src/authorities/authorities.json',
+    },
+    rows,
+  };
+}
+
+/** WP-DATA-06 alias table: only `high` proposals resolve; everything else is listed but does not resolve until the historian decides. */
+export function buildAliasTable(crosswalk) {
+  const aliases = [];
+  const unresolved = [];
+  for (const e of crosswalk.entries) {
+    if (e.proposed && !e.new_record) {
+      aliases.push({ alias: e.alias_id, canonical: e.proposed, canonical_kind: e.proposed_kind, rule: e.rule, confidence: e.confidence, resolves: e.confidence === 'high', status: e.confidence === 'high' ? 'proposed_auto' : 'needs_historian', rows: e.rows, side_change: Boolean(e.side_flip) });
+    } else unresolved.push({ alias: e.alias_id, rule: e.rule, confidence: e.confidence, reason: e.reason ?? (e.new_record ? 'a new OOB record is required (VI Corps brigade candidates)' : ''), candidates: e.candidates ?? [], rows: e.rows });
+  }
+  return {
+    schema: 'gtbg/unit-aliases/1', ...base,
+    policy: 'Aliases stay resolvable for two MAJOR data versions and never change dv. Only status proposed_auto (confidence high) may be applied by tooling; every other row is a proposal for the historian (H-03). A side is only changed by rule wrong_side_prefix.',
+    counts: { aliases: aliases.length, resolving: aliases.filter((a) => a.resolves).length, needs_historian: aliases.filter((a) => !a.resolves).length, unresolved: unresolved.length },
+    aliases, unresolved,
+  };
+}
+
 /** WP-DATA-08e: claims that need a historian's adjudication. The data column is measured; the claim column quotes the site's own text. */
 export function buildAdjudicationRegister(ctx) {
   const top = topRegimentRates(ctx);
