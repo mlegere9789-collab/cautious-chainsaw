@@ -47,7 +47,7 @@
    "id": "PGC-css-reserve-mounts",
    "target": "site-nav.css",
    "find": "#gtbg-footer .gtbg-footer-spacer { flex: 1; }\n",
-   "repl": "#gtbg-footer .gtbg-footer-spacer { flex: 1; }\n\n/* Layout stability. (1) The nav is 55px tall; reserve that while #gtbg-nav-mount is still empty (site-nav.js swaps the nav in at\n   DOMContentLoaded) so the page does not jump down by one nav bar when it appears. (2) Several pages fill their <main> only after a data\n   fetch, which used to push the just-injected footer out of the first screen (CLS 0.15-0.55). Keep <main> about one screen tall so the\n   footer starts below the fold and is never moved while it is visible. */\n#gtbg-nav-mount { display: block; min-height: 55px; }\nbody > main:not(.body-pad) { min-height: calc(100vh - 100px); }\n",
+   "repl": "#gtbg-footer .gtbg-footer-spacer { flex: 1; }\n\n/* Layout stability. (1) The nav is 55px tall; reserve that while #gtbg-nav-mount is still empty (site-nav.js swaps the nav in at\n   DOMContentLoaded) so the page does not jump down by one nav bar when it appears. (2) Several pages fill their <main> only after a data\n   fetch, which used to push the just-injected footer out of the first screen (CLS 0.15-0.55). Keep <main> about one screen tall so the\n   footer starts below the fold and is never moved while it is visible. */\n#gtbg-nav-mount { display: block; min-height: 55px; }\n@media screen { body > main:not(.body-pad) { min-height: calc(100vh - 100px); } }\n",
    "expect": 1,
    "note": "WP-T0-11 (footer/nav CLS): reserve the nav height; keep main about a screen tall so the JS-injected footer starts below the fold"
   },
@@ -58,6 +58,14 @@
    "repl": "  font-size: 12px; color: #9aa3b8;\n",
    "expect": 1,
    "note": "WP-T0-11 acceptance (axe color-contrast 0 on six pages): the footer text was #6f7686 on #0a0a14 = 4.32:1 (fails 4.5:1)"
+  },
+  {
+   "id": "PGC-css-footer-link-contrast",
+   "target": "site-nav.css",
+   "find": "#gtbg-footer a { color: #8a93a8; text-decoration: none; }",
+   "repl": "#gtbg-footer a { color: #9aa3b8; text-decoration: none; }",
+   "expect": 1,
+   "note": "footer links were 3.73:1 on the Students page's blue palette (#0a3a6a); #9aa3b8 is 4.55:1 there and 7.8:1 on the usual navy"
   },
   {
    "id": "PGC-css-group-why-contrast",
@@ -446,9 +454,10 @@
   {
    "id": "PGC-dash-chart-note",
    "target": "dashboard.html",
-   "find": "  <div id=\"legend\"></div>\r\n",
-   "repl": "  <div id=\"legend\"></div>\r\n  <p class=\"chart-note\">These curves are modeled from each corps' recorded engagement periods. They show when losses concentrated, not observed strength at each moment.</p>\r\n",
-   "expect": 1
+   "find": "    <div id=\"tooltip\"></div>\r\n",
+   "repl": "    <div id=\"tooltip\"></div>\r\n    <p class=\"chart-note\">These curves are modeled from each corps' recorded engagement periods. They show when losses concentrated, not observed strength at each moment.</p>\r\n",
+   "expect": 1,
+   "note": "honest caption: the lines are a model, not observed strength (lives inside the chart card, so it appears with the chart and shifts nothing)"
   },
   {
    "id": "PGC-dash-error-copy",
@@ -643,7 +652,7 @@
    "id": "PGC-hist-how",
    "target": "historian.html",
    "find": "<div class=\"how\">This runs entirely in your browser and answers only from this site's own published data -- 467 regimental records, 24 narrative vignettes, 137 chronology events, and 30 mapped terrain features. It is a search-and-synthesis tool, not a live AI model, so it can only tell you what's already in those records -- but everything it tells you traces back to a real row of data, shown as a source link below each answer.</div>",
-   "repl": "<div class=\"how\" id=\"how\">Answers come only from this site's own records. This is a search of those records, not an AI. Each answer names its source.</div>",
+   "repl": "<div class=\"how\" id=\"how\">Answers come only from this site's own records. This is a search of those records, not an AI.</div>",
    "expect": 1,
    "note": "pages-C-16: hard-coded counts and the claim that every answer links to a row of data (chronology answers had no source); the counts are now computed from the loaded files"
   },
@@ -681,7 +690,7 @@
    "id": "PGC-hist-counts",
    "target": "historian.html",
    "find": "  document.getElementById('loading').style.display = 'none';\n  document.getElementById('transcript').style.display = 'flex';\n",
-   "repl": "  const countOf = kind => corpus.filter(e => e.kind === kind).length;\n  document.getElementById('how').textContent = `Answers come only from this site's own records (${countOf('regiment')} regiments, ${countOf('vignette')} stories, ${countOf('chronology')} events, ${countOf('terrain')} places). This is a search of those records, not an AI. Each answer names its source.`;\n  document.getElementById('loading').style.display = 'none';\n  document.getElementById('transcript').style.display = 'flex';\n",
+   "repl": "  const countOf = kind => corpus.filter(e => e.kind === kind).length;\n  document.getElementById('how').textContent = `Answers come only from this site's own records (${countOf('regiment')} regiments, ${countOf('vignette')} stories, ${countOf('chronology')} events, ${countOf('terrain')} places). This is a search of those records, not an AI.`;\n  document.getElementById('loading').style.display = 'none';\n  document.getElementById('transcript').style.display = 'flex';\n",
    "expect": 1
   },
   {
