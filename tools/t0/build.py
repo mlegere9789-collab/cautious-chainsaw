@@ -122,7 +122,13 @@ def finalize(dist, cfg, rel, train, groups, input_md5, ledger_path, legacy_names
             continue
         lines.append('\t'.join([name, meta['sha256'], str(meta['bytes']), '1', 'release:%s:%s' % (train, rel['rid'])]))
     head = [ln for ln in lines if ln.startswith('#')]
-    body = sorted((ln for ln in lines if ln and not ln.startswith('#')), key=lambda s: (s.split('\t')[0].lower(), s.split('\t')[1]))
+
+    def public(ln):
+        # the deployed copy names no archive files (zip names are the owner's private filing); releases keep their tag
+        f = ln.split('\t')
+        return '\t'.join(f[:4] + [f[4] if f[4].startswith('release:') else 'archive'])
+
+    body = sorted((public(ln) for ln in lines if ln and not ln.startswith('#')), key=lambda s: (s.split('\t')[0].lower(), s.split('\t')[1]))
     write_text(os.path.join(dist, '_ops', 'used-names.txt'), '\n'.join(head + body) + '\n')
 
 

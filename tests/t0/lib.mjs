@@ -121,38 +121,65 @@ export class Collector {
 }
 
 // ------------------------------------------------------------------ session
+/** Process-wide Mapbox budget: every session of one test run draws from the same pool (default 300 requests per run). */
+export const tileBudget = { cap: TILE_CAP, used: 0, blocked: 0, sessionsBlocked: 0 };
+
 /**
- * openSession({ profile, reset, viewport, onboarded, tiles }) -> {chrome, cdp, browser, context, page, net, collector, tileStats, newPage, close}
+ * openSession({ profile, reset, viewport, onboarded, tiles, initScripts }) -> {chrome, cdp, browser, context, page, net, collector,
+ *   tileStats, setTiles, newPage, close}
  *   profile   folder name under tmp/<agent>/chrome-profile/ (each concurrent session needs its own; `reset` wipes it first)
- *   cdpPort   defaults to PORT_BASE + 1 + (index of the profile name in a hash) -> pass explicitly when running sessions in parallel
+ *   cdpPort   remote-debugging port (PORT_BASE + n; concurrent sessions need different ones)
  *   onboarded pre-seeds localStorage.gtbg_onboarded so the onboarding modal does not cover the map (default true)
- *   tiles     inject the Referer on Mapbox requests (default true); false = leave Mapbox alone (tiles 403 off-domain)
+ *   tiles     'inject' (default): Mapbox API/tile requests get the production Referer, drawn from `tileBudget`;
+ *             'block': no Mapbox request leaves the machine (they fail with BlockedByClient; for tests that do not need a map).
+ *             Switchable at any time with session.setTiles(mode).  Mapbox telemetry (events.mapbox.com) is always stubbed.
  */
-export async function openSession({ profile = 'default', reset = true, cdpPort = PORT_BASE + 1, headless = true, onboarded = true, tiles = true, tileCap = TILE_CAP, viewport = null, initScripts = [] } = {}) {
+export async function openSession({ profile = 'default', reset = true, cdpPort = PORT_BASE + 1, headless = true, onboarded = true, tiles = 'inject', viewport = null, initScripts = [] } = {}) {
   const profileDir = path.join(TMP, 'chrome-profile', profile);
   if (reset) fs.rmSync(profileDir, { recursive: true, force: true });
   const chrome = await launchChrome({ profileDir, port: cdpPort, headless, size: viewport ? [viewport.width, viewport.height] : [1440, 900] });
-  const cdp = await Cdp.connect(chrome.wsUrl);
+  let cdp = null;
+  try {
+    cdp = await Cdp.connect(chrome.wsUrl);
+    return await attachSession({ chrome, cdp, profileDir, onboarded, tiles, viewport, initScripts });
+  } catch (e) {
+    try { cdp && cdp.close(); } catch { /* closed */ }
+    chrome.kill();
+    throw e;
+  }
+}
+
+async function attachSession({ chrome, cdp, profileDir, onboarded, tiles, viewport, initScripts }) {
+  let tileMode = tiles;
   const net = new NetLog();
   const collector = new Collector();
-  const tileStats = { seen: 0, referer: 0, capBlocked: 0, telemetryStubbed: 0, status: {}, skus: new Set(), enabled: tiles };
+  const tileStats = { seen: 0, referer: 0, blocked: 0, capBlocked: 0, telemetryStubbed: 0, status: {}, skus: new Set(), referers: new Set() };
   const targets = new Map();
   const claimed = new Set();
-  collector.tileFailuresExpected = () => !tiles || tileStats.capBlocked > 0 || Object.keys(tileStats.status).some((k) => Number(k) >= 400);
+  const mapboxReq = new Map();                                             // requestId -> true for Mapbox requests (to read the extra-info Referer)
+  collector.tileFailuresExpected = () => tileMode !== 'inject' || tileStats.capBlocked > 0 || Object.keys(tileStats.status).some((k) => Number(k) >= 400);
   const patterns = ['https://api.mapbox.com/*', 'https://*.tiles.mapbox.com/*', 'https://events.mapbox.com/*', 'https://*.mapbox.com/*'].map((urlPattern) => ({ urlPattern, requestStage: 'Request' }));
 
   cdp.on('Network.requestWillBeSent', (p, sid) => {
     const t = targets.get(sid) || {};
-    const url = maskToken(p.request.url);
-    net.add({ t: Date.now(), target: t.type || 'unknown', sid, type: p.type, method: p.request.method, url, frameId: p.frameId });
-    if (isMapbox(p.request.url)) { const m = /[?&]sku=([^&]+)/.exec(p.request.url); if (m) tileStats.skus.add(m[1]); }
+    net.add({ t: Date.now(), target: t.type || 'unknown', sid, type: p.type, method: p.request.method, url: maskToken(p.request.url), frameId: p.frameId });
+    if (isMapbox(p.request.url)) {
+      mapboxReq.set(p.requestId, true);
+      const m = /[?&]sku=([^&]+)/.exec(p.request.url); if (m) tileStats.skus.add(m[1]);
+    }
+  });
+  cdp.on('Network.requestWillBeSentExtraInfo', (p) => {
+    if (!mapboxReq.has(p.requestId)) return;
+    const h = p.headers || {}; const ref = h.Referer || h.referer;
+    if (ref) tileStats.referers.add(ref);
   });
   cdp.on('Network.responseReceived', (p) => {
     if (isMapbox(p.response.url)) tileStats.status[p.response.status] = (tileStats.status[p.response.status] || 0) + 1;
   });
   cdp.on('Runtime.exceptionThrown', (p, sid) => {
     const t = targets.get(sid) || {};
-    if (t.type === 'page' || !t.type) return;                       // page exceptions come through playwright's pageerror
+    // page exceptions AND uncaught dedicated-worker exceptions (re-fired on the page) come through playwright's pageerror
+    if (t.type === 'page' || t.type === 'worker' || !t.type) return;
     const d = p.exceptionDetails;
     collector.push('worker-exception', (d.exception && d.exception.description) || d.text, { target: t.type, url: t.url });
   });
@@ -163,12 +190,12 @@ export async function openSession({ profile = 'default', reset = true, cdpPort =
       tileStats.telemetryStubbed++;
       return send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: 204, responseHeaders: [{ name: 'access-control-allow-origin', value: '*' }] });
     }
-    if (!tiles) return send('Fetch.continueRequest', { requestId: p.requestId });
-    tileStats.seen++;
-    if (tileStats.seen > tileCap) {
-      tileStats.capBlocked++;
+    if (tileMode !== 'inject') { tileStats.blocked++; return send('Fetch.failRequest', { requestId: p.requestId, errorReason: 'BlockedByClient' }); }
+    if (tileBudget.used >= tileBudget.cap) {
+      tileStats.capBlocked++; tileBudget.blocked++;
       return send('Fetch.failRequest', { requestId: p.requestId, errorReason: 'BlockedByClient' });
     }
+    tileBudget.used++; tileStats.seen++;
     const headers = Object.entries(p.request.headers || {}).filter(([k]) => k.toLowerCase() !== 'referer').map(([name, value]) => ({ name, value }));
     headers.push({ name: 'Referer', value: REFERER });
     tileStats.referer++;
@@ -217,15 +244,15 @@ export async function openSession({ profile = 'default', reset = true, cdpPort =
   const newPage = async () => wire(await context.newPage());
   const page = context.pages()[0] ? await wire(context.pages()[0]) : await newPage();
 
-  const session = {
+  return {
     chrome, cdp, browser, context, page, net, collector, tileStats, profileDir, newPage, wire,
+    setTiles(mode) { if (!['inject', 'block'].includes(mode)) throw new Error(`tiles mode must be inject|block, got ${mode}`); tileMode = mode; },
     async close() {
       try { await Promise.race([browser.close(), sleep(3000)]); } catch { /* already gone */ }
       try { await Promise.race([cdp.send('Browser.close'), sleep(1500)]); } catch { /* closing */ }
       cdp.close(); chrome.kill();
     },
   };
-  return session;
 }
 
 // ------------------------------------------------------------------ viewport / input helpers (real input through CDP Input.dispatch*)
@@ -238,7 +265,7 @@ export async function emulateViewport(page, vp) {
   const c = await cdpFor(page);
   await c.send('Emulation.setDeviceMetricsOverride', { width: vp.width, height: vp.height, deviceScaleFactor: vp.dpr || 1, mobile: !!vp.mobile,
     screenOrientation: vp.width > vp.height ? { type: 'landscapePrimary', angle: 90 } : { type: 'portraitPrimary', angle: 0 } });
-  await c.send('Emulation.setTouchEmulationEnabled', { enabled: !!vp.mobile, maxTouchPoints: vp.mobile ? 5 : 0 });
+  await c.send('Emulation.setTouchEmulationEnabled', vp.mobile ? { enabled: true, maxTouchPoints: 5 } : { enabled: false });
 }
 export async function mouseDrag(page, [x0, y0], [x1, y1], { steps = 12, button = 'left' } = {}) {
   await page.mouse.move(x0, y0); await page.mouse.down({ button });
@@ -332,12 +359,14 @@ export const swState = (page) => page.evaluate(async () => {
 export const cacheKeys = (page) => page.evaluate(() => caches.keys());
 
 // ------------------------------------------------------------------ tiny test harness
+/** throw new Skip('reason') inside a test to mark it skipped (not a failure) */
+export class Skip extends Error {}
 export function createSuite(name) {
   const tests = [];
   const suite = {
     name,
     test(id, title, fn) { tests.push({ id, title, fn }); },
-    async run({ filter, outFile } = {}) {
+    async run({ filter, outFile, extra } = {}) {
       const results = [];
       for (const t of tests) {
         if (filter && !new RegExp(filter, 'i').test(t.id)) continue;
@@ -345,15 +374,18 @@ export function createSuite(name) {
         const ctx = { note: (k, v) => { notes[k] = v; }, notes };
         const t0 = Date.now();
         let status = 'pass', error = null;
-        try { await t.fn(ctx); } catch (e) { status = 'fail'; error = String(e && e.stack ? e.stack.split('\n').slice(0, 4).join(' | ') : e); }
+        try { await t.fn(ctx); } catch (e) {
+          if (e instanceof Skip) { status = 'skip'; error = e.message; } else { status = 'fail'; error = String(e && e.stack ? e.stack.split('\n').slice(0, 4).join(' | ') : e); }
+        }
         results.push({ id: t.id, title: t.title, status, ms: Date.now() - t0, error, notes });
-        console.log(`${status === 'pass' ? 'PASS' : 'FAIL'}  ${t.id.padEnd(12)} ${t.title}${status === 'pass' ? '' : `\n      ${error}`}`);
+        console.log(`${status === 'pass' ? 'PASS' : status === 'skip' ? 'SKIP' : 'FAIL'}  ${t.id.padEnd(12)} ${t.title}${status === 'pass' ? '' : `\n      ${error}`}`);
         if (Object.keys(notes).length) console.log(`      ${JSON.stringify(notes).slice(0, 600)}`);
       }
-      const failed = results.filter((r) => r.status !== 'pass').length;
-      const summary = { suite: name, total: results.length, passed: results.length - failed, failed, results };
+      const failed = results.filter((r) => r.status === 'fail').length;
+      const skipped = results.filter((r) => r.status === 'skip').length;
+      const summary = { suite: name, total: results.length, passed: results.length - failed - skipped, failed, skipped, ...(extra ? extra() : {}), results };
       if (outFile) { fs.mkdirSync(path.dirname(outFile), { recursive: true }); fs.writeFileSync(outFile, JSON.stringify(summary, null, 2) + '\n'); }
-      console.log(`${name}: ${summary.passed}/${summary.total} passed${failed ? `, ${failed} FAILED` : ''}`);
+      console.log(`${name}: ${summary.passed}/${summary.total} passed${skipped ? `, ${skipped} skipped` : ''}${failed ? `, ${failed} FAILED` : ''}`);
       return summary;
     },
   };

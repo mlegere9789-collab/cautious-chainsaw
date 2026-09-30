@@ -1,11 +1,9 @@
 {
-  "_doc": "Standard Web platform / ECMAScript globals that a patch may reference by bare name without being flagged as a NEW unresolved identifier by gate.mjs. Anything not listed here and not already unresolved in the legacy bundle fails the gate (that is how the four undefined app names setGoldUnit, clearGoldTrail, drawGoldTrailSegment, CanvasRenderer were found). Add names deliberately, with a reason in the commit message.",
+  "_doc": "Standard Web platform globals that a patch may reference by bare name without gate.mjs flagging them as NEW unresolved identifiers (names already unresolved in the legacy bundle need no entry). Everything else that is unresolved and new fails the gate; that is how the four undefined app names setGoldUnit, clearGoldTrail, drawGoldTrailSegment, CanvasRenderer were found. Keep this list short and deliberate: add a name only when a patch really means the browser global (say why in the commit message).",
   "names": [
-    "AbortController", "AudioContext", "BroadcastChannel", "CSS", "CustomEvent", "DOMRect", "Element", "EventTarget", "File", "FileReader",
-    "FormData", "IntersectionObserver", "KeyboardEvent", "Node", "Notification", "PerformanceObserver", "PointerEvent", "TextEncoder",
-    "Touch", "TouchEvent", "WebSocket", "alert", "clearInterval", "confirm", "crypto", "devicePixelRatio", "getComputedStyle",
-    "indexedDB", "innerHeight", "innerWidth", "matchMedia", "open", "orientation", "outerHeight", "outerWidth", "print", "prompt",
-    "screen", "scrollBy", "scrollTo", "scrollX", "scrollY", "sessionStorage", "setInterval", "speechSynthesis", "visualViewport",
-    "webkitAudioContext"
+    "CustomEvent", "FormData", "IntersectionObserver", "KeyboardEvent", "PerformanceObserver", "PointerEvent", "TextEncoder",
+    "TouchEvent", "WebSocket", "clearInterval", "crypto", "devicePixelRatio", "getComputedStyle", "indexedDB", "innerHeight",
+    "innerWidth", "matchMedia", "screen", "scrollBy", "scrollTo", "scrollX", "scrollY", "sessionStorage", "setInterval",
+    "visualViewport"
   ]
 }

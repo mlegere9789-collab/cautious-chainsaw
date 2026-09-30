@@ -23,7 +23,8 @@ def _once(text, find, repl, label, records, target, expect=1):
 
 
 def _tmpl(name):
-    return read_text(os.path.join(T0, 'mechanism', name))
+    # templates are inserted into LF files: a CRLF checkout (core.autocrlf) must not leak carriage returns into dist
+    return read_text(os.path.join(T0, 'mechanism', name)).replace('\r\n', '\n')
 
 
 PRECONNECT_REMOVE = [

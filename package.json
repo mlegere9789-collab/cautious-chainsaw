@@ -11,9 +11,20 @@
     "t0:overlap": "python tools/t0/overlap.py",
     "t0:ledger:seed": "python tools/t0/ledger.py seed",
     "t0:test:build": "python tests/t0/build_selftest.py",
+    "t0:test:lib": "python tools/t0/build.py --train R0 && python tools/t0/build.py --train R1a && node tests/t0/lib_selftest.mjs",
     "t0:test:r0": "python tools/t0/build.py --train R0 && node tests/t0/r0.mjs",
+    "t0:test": "npm run t0:test:build && npm run t0:test:lib && npm run t0:test:r0",
     "test:gate": "node tools/t0/gate.mjs",
-    "serve": "node tools/t0/serve.mjs release/R0/dist 8300"
+    "serve": "node tools/t0/serve.mjs release/R0/dist 8300",
+    "data:validate": "node tools/data/validate.mjs",
+    "data:validate:strict": "node tools/data/validate.mjs --strict",
+    "data:report": "node tools/data/validate.mjs --report docs/data/baseline-report.md",
+    "data:registry": "node tools/data/unit_registry.mjs",
+    "data:facts": "node tools/data/facts.mjs",
+    "data:rights": "node tools/data/rights_audit.mjs",
+    "data:manifest:verify": "node tools/data/manifest.mjs verify",
+    "data:test": "node --test tests/data/",
+    "data:check": "node tools/data/manifest.mjs verify && node tools/data/validate.mjs && node tools/data/unit_registry.mjs --check && node tools/data/facts.mjs --check && node tools/data/rights_audit.mjs --check"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

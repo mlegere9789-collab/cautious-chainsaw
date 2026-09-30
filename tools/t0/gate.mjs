@@ -8,7 +8,8 @@
 // entry/Help/Bookmark chunks against the legacy bundle (eslint-scope), the four known undefined names must disappear exactly when
 // group A is in; anchor-count report from the builder; no reused/colliding asset name (ledger); every /assets/* reference (HTML, JS, CSS,
 // SW, manifest, config) and every local script/link/img reference resolves; no legacy asset name left; R0 mechanism invariants
-// (sentinel, version.json, sw.js has no skipWaiting/navigation handling, index.html has no controllerchange reload); total bytes.
+// (sentinel, version.json, sw.js has no skipWaiting/navigation handling, index.html has no controllerchange reload); legacy tree pin;
+// no edits/removals of /data/* files (T0 rule 5; additions are reported); total bytes.
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
@@ -287,6 +288,26 @@ function refsOf(root, list) {
     if (r.status !== 0) problems.push(`node --check ${f}: ${(r.stderr || '').split('\n')[0]}`);
   }
   check('r0-mechanism', problems.length === 0, { problems, ...info });
+}
+
+// ------------------------------------------------------------------ baseline pin and T0 rule 5 (no /data/* edits)
+{
+  const treeDigest = (root, list) => {
+    const h = crypto.createHash('sha256');
+    for (const rel of [...list].sort()) h.update(`${rel}\0${sha256(fs.readFileSync(path.join(root, rel)))}\n`);
+    return h.digest('hex');
+  };
+  const isDefaultLegacy = path.resolve(legacyDir) === path.resolve(REPO, cfg.legacy.dir);
+  if (isDefaultLegacy) {
+    const d = treeDigest(legacyDir, legacyFiles);
+    check('legacy-pinned', d === cfg.legacy.tree_sha256 && legacyFiles.length === cfg.legacy.file_count, { digest: d, pinned: cfg.legacy.tree_sha256, files: legacyFiles.length });
+  }
+  const ldata = legacyFiles.filter((f) => f.startsWith('data/'));
+  const ddata = new Set(files.filter((f) => f.startsWith('data/')));
+  const modified = ldata.filter((f) => ddata.has(f) && sha256(fs.readFileSync(path.join(legacyDir, f))) !== sha256(fs.readFileSync(path.join(distDir, f))));
+  const removed = ldata.filter((f) => !ddata.has(f));
+  const added = [...ddata].filter((f) => !ldata.includes(f));
+  check('data-untouched', modified.length === 0 && removed.length === 0, { legacyDataFiles: ldata.length, modified, removed, added });
 }
 
 // ------------------------------------------------------------------ bytes

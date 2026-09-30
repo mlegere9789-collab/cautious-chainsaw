@@ -10,7 +10,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {
   REPO, PORT_BASE, openSession, createStaticServer, createSuite, assert, assertEq, sleep, waitFor, waitForApp, chooseLayout, swState,
-  cacheKeys, rootKids, TILE_CAP,
+  cacheKeys, rootKids, tileBudget, REFERER, Skip, VIEWPORTS,
 } from './lib.mjs';
 
 const argv = process.argv.slice(2);
@@ -30,7 +30,7 @@ const srv = await createStaticServer({ root: DIST, port: PORT_BASE });
 const ORIGIN = srv.url;
 const resetServer = () => { srv.setRoot(DIST); srv.setOverrides({}); srv.setBlocked([]); };
 const sessions = [];
-const PORT_OF = { 'r0-first': 1, 'r0-upgrade': 2, 'r0-kill': 3, 'r0-loader': 4 };   // one CDP port per profile (sessions may overlap)
+const PORT_OF = { 'r0-first': 1, 'r0-upgrade': 2, 'r0-kill': 3, 'r0-loader': 4, 'r0-phone': 5 };   // one CDP port per profile (sessions may overlap)
 const open = async (opts) => { const s = await openSession({ cdpPort: PORT_BASE + PORT_OF[opts.profile], ...opts }); sessions.push(s); return s; };
 const closeSession = async (s) => { await s.close(); sessions.splice(sessions.indexOf(s), 1); };
 
@@ -94,14 +94,35 @@ suite.test('T0-R0-03', 'first visit: one Mapbox sku, one style request (one map 
   const styles = S.net.find(/^https:\/\/api\.mapbox\.com\/styles\/v1\/[^/?]+\/[^/?]+\?/).length;
   const tileReqs = S.tileStats.seen;
   t.note('skus', skus.length); t.note('style requests', styles); t.note('mapbox requests intercepted', tileReqs);
-  t.note('tile statuses', S.tileStats.status); t.note('cap', TILE_CAP);
+  t.note('tile statuses', S.tileStats.status); t.note('referer seen on the wire', [...S.tileStats.referers]); t.note('run budget', tileBudget);
   assert(tileReqs > 0, 'no Mapbox requests were observed (the map never loaded)');
+  assertEq([...S.tileStats.referers], [REFERER], 'Referer on Mapbox requests');
   assertEq(skus.length, 1, 'distinct Mapbox sku values');
   assertEq(styles, 1, 'style requests');
 });
 
+suite.test('T0-R0-12', 'phone viewport (375x812, touch emulation): one Document, controller without navigation, no exceptions (X1 mobile; one-sku on phones is a T0-MOB gate)', async (t) => {
+  resetServer();
+  const S = await open({ profile: 'r0-phone', tiles: 'block', viewport: VIEWPORTS.portrait[0] });   // no map traffic needed for this mechanism check
+  try {
+    const navs = [];
+    S.page.on('framenavigated', (f) => { if (f === S.page.mainFrame()) navs.push(f.url()); });
+    await S.page.goto(`${ORIGIN}/`, { waitUntil: 'load' });
+    await waitForApp(S.page, 40000);
+    await waitFor(async () => (await swState(S.page)).controller, { timeout: 25000, label: 'service worker controller on the phone viewport' });
+    await sleep(1500);
+    const docs = S.net.documents(ORIGIN).map((e) => e.url);
+    const dims = await S.page.evaluate(() => ({ w: innerWidth, h: innerHeight, coarse: matchMedia('(pointer: coarse)').matches }));
+    t.note('documents', docs); t.note('navigations', navs); t.note('viewport', dims);
+    assertEq(dims.w, 375, 'emulated width');
+    assertEq(docs, [`${ORIGIN}/`], 'Document requests');
+    assertEq(navs.length, 1, 'main-frame navigations');
+    assertEq(S.collector.firstParty, [], 'uncaught exceptions / console errors');
+  } finally { await closeSession(S); }
+});
+
 suite.test('T0-R0-08', 'version.json matches the running entry; entry carries the sentinel', async (t) => {
-  if (IS_LEGACY) throw new Error('not applicable to legacy/dist (no version.json)');
+  if (IS_LEGACY) throw new Skip('not applicable to legacy/dist (no version.json)');
   const { S } = await firstVisit();
   const r = await S.page.evaluate(async () => {
     const v = await (await fetch('/version.json', { cache: 'no-store' })).json();
@@ -117,7 +138,7 @@ suite.test('T0-R0-08', 'version.json matches the running entry; entry carries th
 });
 
 suite.test('T0-R0-09', 'timing sanity (no Lighthouse): paint before app boot, splash is the LCP, no entrance fades, CLS', async (t) => {
-  if (IS_LEGACY) throw new Error('not applicable to legacy/dist');
+  if (IS_LEGACY) throw new Skip('not applicable to legacy/dist');
   const { S } = await firstVisit();
   const m = await S.page.evaluate(() => {
     const P = window.__t0; const res = performance.getEntriesByType('resource');
@@ -142,7 +163,7 @@ suite.test('T0-R0-09', 'timing sanity (no Lighthouse): paint before app boot, sp
 });
 
 suite.test('T0-R0-11', 'rename drill: Help and Bookmarks chunks import the NEW entry; no second app is mounted', async (t) => {
-  if (IS_LEGACY) throw new Error('not applicable to legacy/dist');
+  if (IS_LEGACY) throw new Skip('not applicable to legacy/dist');
   const { S } = await firstVisit();
   await chooseLayout(S.page, 'desktop');
   await S.page.evaluate(() => { window.__t0canvas = document.querySelector('#root .mapboxgl-canvas'); });
@@ -163,10 +184,10 @@ suite.test('T0-R0-11', 'rename drill: Help and Bookmarks chunks import the NEW e
 
 // ------------------------------------------------------------------ upgrade drill (own profile): Sep-29 bundle + old SW -> R0
 suite.test('T0-R0-04', 'upgrade drill: profile seeded with the legacy tree + old SW gets new bytes on the next navigation (X2)', async (t) => {
-  if (IS_LEGACY) throw new Error('not applicable to legacy/dist');
+  if (IS_LEGACY) throw new Skip('not applicable to legacy/dist');
   resetServer();
   srv.setRoot(LEGACY_DIST);
-  const S = await open({ profile: 'r0-upgrade', initScripts: [probe] });
+  const S = await open({ profile: 'r0-upgrade', initScripts: [probe], tiles: 'block' });   // seed phase: no Mapbox traffic needed
   F.upgrade = S;
   await S.page.goto(`${ORIGIN}/`, { waitUntil: 'load' });
   await waitFor(async () => (await swState(S.page)).controller, { timeout: 25000, label: 'OLD service worker controlling the legacy page' });
@@ -176,6 +197,7 @@ suite.test('T0-R0-04', 'upgrade drill: profile seeded with the legacy tree + old
   assert(seeded.oldEntryLoaded && seeded.caches.includes('gbg-v5'), 'seed failed: legacy build/old worker not in place');
   // "deploy" R0 over it
   srv.setRoot(DIST);
+  S.setTiles('inject');                                 // the R0 phase runs on a real map (exceptions in map-ready code paths)
   S.collector.clear();
   const m = S.net.mark();
   await S.page.goto(`${ORIGIN}/`, { waitUntil: 'load' });
@@ -196,7 +218,7 @@ suite.test('T0-R0-04', 'upgrade drill: profile seeded with the legacy tree + old
 });
 
 suite.test('T0-R0-05', 'upgrade drill: Help and Bookmarks open through the new chunks, the old app is not remounted (X2)', async (t) => {
-  if (IS_LEGACY) throw new Error('not applicable to legacy/dist');
+  if (IS_LEGACY) throw new Skip('not applicable to legacy/dist');
   const S = F.upgrade; assert(S, 'T0-R0-04 must run first');
   await chooseLayout(S.page, 'desktop');
   await S.page.evaluate(() => { window.__t0canvas = document.querySelector('#root .mapboxgl-canvas'); });
@@ -216,8 +238,9 @@ suite.test('T0-R0-05', 'upgrade drill: Help and Bookmarks open through the new c
 });
 
 suite.test('T0-R0-10', 'upgrade drill: after every tab closes the waiting worker activates and purges gbg-v5 only (X2)', async (t) => {
-  if (IS_LEGACY) throw new Error('not applicable to legacy/dist');
+  if (IS_LEGACY) throw new Skip('not applicable to legacy/dist');
   const S = F.upgrade; assert(S, 'T0-R0-04 must run first');
+  S.setTiles('block');
   const keeper = await S.newPage();                     // keep the browser alive; about:blank is not a client of the worker
   await S.page.evaluate(() => caches.open('mapbox-tiles').then((c) => c.put('/t0-marker', new Response('x'))));
   await S.page.close();
@@ -235,7 +258,7 @@ suite.test('T0-R0-10', 'upgrade drill: after every tab closes the waiting worker
 // ------------------------------------------------------------------ kill drill (own profile)
 suite.test('T0-R0-06', 'kill drill: /sw.js swapped for ops/sw-kill.js -> 0 registrations, 0 gbg-* caches, mapbox-tiles untouched after one navigation (X2)', async (t) => {
   resetServer();
-  const S = await open({ profile: 'r0-kill' });
+  const S = await open({ profile: 'r0-kill', tiles: 'block' });
   try {
     await S.page.goto(`${ORIGIN}/`, { waitUntil: 'load' });
     await waitFor(async () => (await swState(S.page)).controller, { timeout: 25000, label: 'worker controlling before the kill' });
@@ -265,9 +288,9 @@ suite.test('T0-R0-06', 'kill drill: /sw.js swapped for ops/sw-kill.js -> 0 regis
 
 // ------------------------------------------------------------------ boot loader failure path (own profile)
 suite.test('T0-R0-07', 'loader: entry 404 -> one automatic reload, then a visible "Try again"; the button recovers once the file is back', async (t) => {
-  if (IS_LEGACY) throw new Error('not applicable to legacy/dist');
+  if (IS_LEGACY) throw new Skip('not applicable to legacy/dist');
   resetServer();
-  const S = await open({ profile: 'r0-loader' });
+  const S = await open({ profile: 'r0-loader', tiles: 'block' });
   try {
     srv.setBlocked([`/assets/${VERSION.entry}`]);
     const m = S.net.mark();
@@ -290,7 +313,8 @@ suite.test('T0-R0-07', 'loader: entry 404 -> one automatic reload, then a visibl
 const outFile = path.join(resultsDir, IS_LEGACY ? 'test-r0-legacy.json' : 'test-r0.json');
 let summary;
 try {
-  summary = await suite.run({ filter: FILTER, outFile });
+  summary = await suite.run({ filter: FILTER, outFile, extra: () => ({ mapboxBudget: { ...tileBudget } }) });
+  console.log(`mapbox requests used this run: ${tileBudget.used} of ${tileBudget.cap} (blocked by cap: ${tileBudget.blocked})`);
 } finally {
   for (const s of [...sessions]) { try { await s.close(); } catch { /* already closed */ } }
   await srv.close();

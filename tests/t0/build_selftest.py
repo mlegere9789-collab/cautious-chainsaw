@@ -6,7 +6,7 @@
   3. one changed character in any anchor fails the build with that patch id and writes no dist
   4. an injected undefined identifier fails the gate (exit 3)
   5. group order does not matter (fixed order vs chapter-02 order give identical shipped files)
-  6. plugin interface: PG page group (placeholders, delete), overlay, reserved-target rejection, config hook whitelist
+  6. plugin interface: PG page group (placeholders, delete), overlay, reserved-target rejection, config hook whitelist; data/* edits fail the gate
   7. used-names ledger: a reused name (different bytes) and a collision with an archived name both fail; an idempotent rebuild passes
   8. legacy/ is still byte-identical to the pinned baseline
 
@@ -196,6 +196,28 @@ def _():
     rc, text = run(['--train', 'R1c', '--out', rel_path(out_dir('plug-bad-out4')), '--config-hook', rel_path(hook_bad), '--no-gate'], 2)
     assert 'outside its allowed set' in text and 'index.html' in text, text[-600:]
     return 'placeholders, delete, overlay (new+replace), hook whitelist OK; 4 negative cases rejected'
+
+
+@case('6b gate: editing a data/* file (T0 rule 5) fails the gate; adding one is only reported')
+def _():
+    pd = patches_copy('data')
+    src = open(os.path.join(REPO, CFG['legacy']['dir'], 'data', 'chronology_day1.json'), encoding='utf-8').read()
+    head = src[:20]
+    json.dump({'group': 'PG-selftestdata', 'patches': [{'id': 'pg-selftest-data-edit', 'target': 'data/chronology_day1.json', 'find': head,
+                                                       'repl': head + ' ', 'expect': src.count(head)}]},
+              open(os.path.join(pd, 'PG-selftestdata.json'), 'w'))
+    o = out_dir('data-out')
+    run(['--train', 'R1a', '--out', rel_path(o), '--patches', rel_path(pd)], 3)
+    chk = next(c for c in load_json(os.path.join(o, 'gate.json'))['checks'] if c['id'] == 'data-untouched')
+    assert not chk['ok'] and chk['modified'] == ['data/chronology_day1.json'], chk
+    ov = out_dir('data-overlay')
+    os.makedirs(os.path.join(ov, 'common', 'data'))
+    open(os.path.join(ov, 'common', 'data', 'moments-selftest.json'), 'w').write('{}')
+    o2 = out_dir('data-out2')
+    run(['--train', 'R1a', '--out', rel_path(o2), '--overlay', rel_path(ov)], 0)
+    chk2 = next(c for c in load_json(os.path.join(o2, 'gate.json'))['checks'] if c['id'] == 'data-untouched')
+    assert chk2['ok'] and chk2['added'] == ['data/moments-selftest.json'], chk2
+    return 'edit -> gate exit 3 (modified: %s); added file listed, gate green' % chk['modified']
 
 
 @case('7 ledger: reused name / archived collision fail, idempotent rebuild passes')
