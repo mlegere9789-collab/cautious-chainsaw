@@ -84,6 +84,44 @@ The legacy tree is frozen and is known to be defective (chapter 13). This report
 | U001 | E | implemented | - | 5 | 5 | 5 | 2027-06-30 | WP-DATA-20 | batteries_invisible 5 |
 | H001 | E | SKIPPED | - | - | - | 0 | - | WP-DATA-23 | skipped: needs decisions.jsonl and the review board (WP-DATA-23, D-HIST-REVIEW) |
 
+### qa-ci DV-00..DV-30 crosswalk
+
+The QA chapter names its data checks DV-00..DV-30 (`docs/plan/specialists/qa-ci.md` section 5.8); chapter 13 freezes the DI rule ids above as canonical. The mapping is by intent (rules carry their DV ids in `--list` metadata); DV ids with no rule here are stated.
+
+| qa-ci id | Rules here | Note |
+|---|---|---|
+| DV-00 | S001, S002, S003, S006 |  |
+| DV-01 | S008 |  |
+| DV-02 | S005 |  |
+| DV-03 | R001 |  |
+| DV-04 | R001 |  |
+| DV-05 | R003 |  |
+| DV-06 | S007 |  |
+| DV-07 | G003 |  |
+| DV-08 | T001 |  |
+| DV-09 | T002 |  |
+| DV-10 | T003 |  |
+| DV-11 | F001 |  |
+| DV-12 | N001, N002 |  |
+| DV-13 | N005 |  |
+| DV-14 | N003 |  |
+| DV-15 | S004, S005 |  |
+| DV-16 | S002, R009, X007 |  |
+| DV-17 | R006 |  |
+| DV-18 | R007, X004 |  |
+| DV-19 | M001 |  |
+| DV-20 | R009, T005 |  |
+| DV-21 | - | tour-stop data (16 stops, Street View parameters): moves to tour.json in WP-DATA-16 (ships with the rebuild); no schema or file to check yet |
+| DV-22 | T002 |  |
+| DV-23 | F001 |  |
+| DV-24 | P001, P002 |  |
+| DV-25 | P004 |  |
+| DV-26 | N005 |  |
+| DV-27 | G008 |  |
+| DV-28 | C004 |  |
+| DV-29 | D001, D002 |  |
+| DV-30 | - | TM-V1..V21 time-model validators belong to chapter 04 (data-src/time, tools/time) and are not re-implemented here |
+
 ### Rule definitions and the specialist baselines they are compared with
 
 | Rule | Check | Specialist baseline (chapter 13 / DI 6) | Note |

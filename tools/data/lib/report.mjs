@@ -57,6 +57,19 @@ export function writeBaselineReport({ ctx, results, verdict, baseline, treeInfo,
   });
   L.push(table(['Rule', 'Sev', 'Status', 'qa-ci DV', 'Found', 'Rows', 'Baseline', 'Expires', 'WP', 'Breakdown / reason'], rows));
   L.push('');
+  L.push('### qa-ci DV-00..DV-30 crosswalk');
+  L.push('');
+  L.push('The QA chapter names its data checks DV-00..DV-30 (`docs/plan/specialists/qa-ci.md` section 5.8); chapter 13 freezes the DI rule ids above as canonical. The mapping is by intent (rules carry their DV ids in `--list` metadata); DV ids with no rule here are stated.');
+  L.push('');
+  const noRule = { 'DV-21': 'tour-stop data (16 stops, Street View parameters): moves to tour.json in WP-DATA-16 (ships with the rebuild); no schema or file to check yet', 'DV-30': 'TM-V1..V21 time-model validators belong to chapter 04 (data-src/time, tools/time) and are not re-implemented here' };
+  const dvRows = [];
+  for (let i = 0; i <= 30; i++) {
+    const id = `DV-${String(i).padStart(2, '0')}`;
+    const rs = [...results.values()].filter((r) => r.rule.dv.includes(id)).map((r) => r.rule.id);
+    dvRows.push([id, rs.join(', ') || '-', rs.length ? '' : (noRule[id] || 'no counterpart rule')]);
+  }
+  L.push(table(['qa-ci id', 'Rules here', 'Note'], dvRows));
+  L.push('');
   L.push('### Rule definitions and the specialist baselines they are compared with');
   L.push('');
   L.push(table(['Rule', 'Check', 'Specialist baseline (chapter 13 / DI 6)', 'Note'], [...results.values()].map((r) => [r.rule.id, r.rule.title, r.rule.spec_baseline || '-', r.rule.note || r.rule.blocked_by || ''])));
