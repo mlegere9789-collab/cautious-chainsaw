@@ -1,0 +1,84 @@
+{
+  "$comment": "CANDIDATE. Options offered to the historian for each of the five R (needs-historian) anchors. Each option is a time on the anchor's own date, with the source basis read from docs/plan/data/time-facts.csv and the disagreement register (docs/plan/specialists/time-facts.md section 4). No option is a finding: every one is a reading of a source the specialist consulted, and the historian may supply a different time and range. Consequences (slopes, clocks, residuals, keyframe speeds) are computed by tools/time/build-review-packet.mjs, never typed here. 'default' marks the time currently proposed in time_anchors.json.",
+  "anchors": {
+    "75": {
+      "title": "Lee's discretionary order to Ewell (\"if practicable\")",
+      "date": "1863-07-01",
+      "facts": ["R037", "R036", "R035", "R038"],
+      "register": [10],
+      "question": "When did Lee's order (carried by Col. Taylor) reach Ewell, in local time? The site's chronology puts it at tick 75; the Turning Points page uses tick 175.",
+      "options": [
+        { "id": "A", "time": "16:30", "basis": "start of the accepted range (R037 4:30-5:30 PM); no source states it" },
+        { "id": "B", "time": "17:00", "default": true, "basis": "R037 best time; a search summary says Taylor sent the order \"after 5 p.m.\"; Wikipedia first day gives no clock time" },
+        { "id": "C", "time": "17:30", "basis": "Stone Sentinels (SS1) places it in the block after Hancock's 5:25 PM dispatch to Meade (R036); disagreement register #10" }
+      ],
+      "read": ["Pfanz, Culp's Hill and Cemetery Hill (Ewell's decision)", "OR 27/2 reports of Ewell, Early, Rodes and Johnson", "Coddington, The Gettysburg Campaign"],
+      "note": "Neighbours: t72 Hancock reaches Cemetery Hill 4:20 PM, t90 XII Corps arrives 6:00 PM. The order must fall after Lee reached the field (R024, 1:30-3:00 PM range) and is context for R038 (Johnson too late to attack)."
+    },
+    "90": {
+      "title": "XII Corps and Johnson's division arrive (R038 / R039)",
+      "date": "1863-07-01",
+      "facts": ["R038", "R039", "R040"],
+      "register": [],
+      "question": "When did the head of the XII Corps (Geary) and Johnson's Confederate division reach the field, in local time? The two fact rows are both ranges (4:30-7:00 PM and 5:00-8:00 PM); the proposal sits at 6:00 PM although both rows' own best time is 5:30 PM.",
+      "options": [
+        { "id": "A", "time": "17:30", "basis": "both fact rows' own best time (R038, R039); Stone Sentinels (SS1) 5:30 PM Slocum approached" },
+        { "id": "B", "time": "18:00", "default": true, "basis": "current proposal: keeps the slope to the nightfall design anchor (t100 8:00 PM) moderate" },
+        { "id": "C", "time": "19:00", "basis": "R038's range runs to 7:00 PM (\"late afternoon\"/\"evening\"); no clock time located" }
+      ],
+      "read": ["Pfanz, Culp's Hill and Cemetery Hill", "OR 27/2 Ewell, Johnson; OR 27/1 Slocum, Geary, Williams", "Coddington"],
+      "note": "A search summary says Geary reached Gettysburg at 5 PM. Both rows are tagged S (search summary) or SS1; no primary report was read. The anchor is a compromise between two ranges, not a measurement."
+    },
+    "248": {
+      "title": "Sickles advances III Corps to the Emmitsburg Road / Peach Orchard (R050)",
+      "date": "1863-07-02",
+      "facts": ["R050", "R047", "R048", "R051", "R052"],
+      "register": [11],
+      "question": "When did Sickles's advance begin? The accepted range is noon to 3:30 PM; the proposal is the midpoint, 2:30 PM. The site's vignette V-007 says \"around 3:00\".",
+      "options": [
+        { "id": "A", "time": "12:30", "basis": "Wikipedia second day \"after noon he became concerned\"; Stone Sentinels (SS2) \"Noon\"; kept 30 minutes after the t240 Berdan probe (12:00)" },
+        { "id": "B", "time": "14:00", "basis": "a search summary gives \"2 pm\"" },
+        { "id": "C", "time": "14:30", "default": true, "basis": "current proposal: midpoint of the accepted range (R050 best)" },
+        { "id": "D", "time": "15:00", "basis": "the site's own vignette V-007 (\"around 3:00\"): an authored claim, not a source; Meade's 3 PM corps commanders' meeting is R051" }
+      ],
+      "read": ["Pfanz, The Second Day (Sickles's advance)", "Hessler, Sickles at Gettysburg", "OR 27/1 Sickles, Birney, Warren, Sykes; Meade's testimony"],
+      "note": "Register #11: Hessler and Pfanz differ; the specialist marked it needs-historian. The clock between t240 (12:00) and t256 (4:00 PM) runs at 18.8 and 11.2 min/tick around this anchor."
+    },
+    "275": {
+      "title": "Chamberlain's 20th Maine bayonet charge (R066)",
+      "date": "1863-07-02",
+      "facts": ["R066", "R060", "R064", "R065"],
+      "register": [15, 16, 17],
+      "question": "When did the 20th Maine charge downhill? Sources span 5:10 PM to after 7 PM. Register #17 is the strongest disagreement and says: do not present a minute-precise time. This is the hero moment of the site's tour, Turning Points and onboarding.",
+      "options": [
+        { "id": "A", "time": "17:10", "basis": "a participant timeline via a search summary (SRCH)" },
+        { "id": "B", "time": "17:30", "basis": "Stone Sentinels (SS2) and The History Junkie (THJ) 5:30 PM block" },
+        { "id": "C", "time": "18:00", "default": true, "basis": "current proposal: \"a defensible mid value, labelled approximate\" (the fact row's own best is 6:15 PM)" },
+        { "id": "D", "time": "18:30", "basis": "Desjardin-derived summary \"by 6:30 ... fix bayonets\" (SRCH, HNc). Collides with the t280 Peach Orchard anchor (6:30 PM)" },
+        { "id": "E", "time": "19:00", "basis": "Cross via HistoryNet: \"after 7 p.m.\". Later than the t280 and t295 anchors" }
+      ],
+      "read": ["Desjardin, Stand Firm Ye Boys from Maine", "Oates's account and OR 27/2 (Longstreet, McLaws, Law, Oates)", "OR 27/1 Chamberlain, Vincent/Rice, Sykes", "Pfanz, The Second Day"],
+      "note": "Options D and E place the charge after the Peach Orchard collapse (t280) that the specialist anchors at 6:30 PM: choosing them means re-timing t280 and t295 too, which is a larger decision. The 15th Alabama's first assault (R060) is 4:30-5:00 PM per timelines but 6 PM per one HistoryNet reading (outlier)."
+    },
+    "538": {
+      "title": "Pickett-Pettigrew-Trimble infantry step off (R108)",
+      "date": "1863-07-03",
+      "facts": ["R108", "R100", "R103", "R105", "R106", "R107", "R110", "R114", "R115"],
+      "register": [20, 21, 22, 23, 24],
+      "question": "When did the infantry step off from Seminary Ridge? The accepted range is 2:00-3:00 PM; the proposal is 3:00 PM. Wikipedia's own two articles disagree (about 2:00 vs around 3:00). This anchor sits under the site's 20-second hero moment (ticks 535-556), so it is the first item to review.",
+      "options": [
+        { "id": "A", "time": "14:00", "basis": "Wikipedia Pickett's Charge \"about 2:00 p.m.\" (citing Coddington p.502, Hess p.162, Sears p.415, Wert p.182); Longstreet OR \"About 2 p.m. Pickett reported ... in order\" (a report about the line, not the step-off)" },
+        { "id": "B", "time": "14:30", "basis": "Stone Sentinels (SS3) 2:30-3:00; the specialist's consistency check: a 2:00 step-off would put the lines at the wall by about 2:30, contradicting the 3:10-3:45 arrival every source read gives, so the step-off cannot be much earlier than about 2:30-2:45" },
+        { "id": "C", "time": "15:00", "default": true, "basis": "current proposal: American Battlefield Trust (\"stepped off in unison at about 3:00 p.m.\") and Wikipedia's main article (\"Around 3 p.m.\", citing Coddington p.402, McPherson p.662, Eicher p.546, Trudeau p.484, Walsh p.281)" }
+      ],
+      "read": ["Wert, Gettysburg: Day Three", "Hessler and Motts, Pickett's Charge at Gettysburg", "Coddington pp.402, 485, 493, 500-502", "Sears pp.377-83, 415; Hess p.162", "Alexander, Fighting for the Confederacy; OR 27/2 Longstreet, Alexander, Pendleton"],
+      "note": "The neighbours t518 (cannonade opens 1:07 PM, sourced H) and t551 (Armistead over the wall 3:35 PM) bound the choice: an earlier step-off stretches the ticks between the step-off and the wall. Cushing, Armistead and Hancock monument tooltips say 3:00, 3:15 and 3:20 PM (15-35 minutes early against the sources)."
+    }
+  },
+  "design_and_circular": {
+    "100": "Nightfall design anchor: sunset 7:32 PM, civil twilight ends 8:04 PM (NOAA algorithm, local mean time). Owner signs.",
+    "226": "Day-2 start design anchor: first light 4:30 AM (civil dawn 4:03, sunrise 4:35). Owner signs.",
+    "675": "Nominal end of battle design anchor: 8:00 PM July 3 (sunset 7:32, twilight ends 8:04). Owner signs.",
+    "5": "Circular: derived from the site's own t5 label (5:20 AM). Imported as design-class sigma 30 (owner decision 3 default). Drop or keep is an owner decision."
+  }
+}

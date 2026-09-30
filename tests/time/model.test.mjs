@@ -182,6 +182,14 @@ describe('WP-TIME-02 additions', () => {
     assert.equal(tickToClock(538).review, 'needs-historian'); assert.equal(tickToClock(540).review, 'needs-historian'); assert.equal(tickToClock(12).review, 'none');
     assert.equal(tickToClock(100).basis, 'D'); assert.equal(tickToClock(12).basis, 'A');
   });
+  test('contested moments expose a range: R anchors are contested, anchorRange gives the "between about" text, band is +- sigma', () => {
+    assert.equal(m.anchorRange(275).text, 'between about 5:10 and 7:00 PM'); assert.equal(m.anchorRange(538).text, 'between about 2:00 and 3:00 PM'); assert.equal(m.anchorRange(248).text, 'between about 12:00 and 3:30 PM');
+    assert.equal(m.anchorRange(12).text, 'about 7:30 AM'); assert.equal(m.anchorRange(13), null); assert.equal(m.anchorRange(90).contested, true); assert.equal(m.anchorRange(28).contested, false);
+    for (const t of [75, 90, 248, 275, 538]) assert.equal(tickToClock(t).contested, true, `t${t}`);
+    assert.equal(tickToClock(540).contested, true, 'a tick beside an R anchor is in a contested segment'); assert.equal(tickToClock(300).contested, false);
+    const c = tickToClock(538); assert.deepEqual(c.band, [m.tickToMinutes(538) - 30, m.tickToMinutes(538) + 30]);
+    const d = JSON.parse(JSON.stringify(doc)); d.anchors.find((a) => a.tick === 28).state = 'contested'; assert.equal(makeTimeModel(d).tickToClock(28).contested, true);
+  });
   test('gaps and lulls are exposed', () => {
     assert.equal(tickToClock(230).gap, 'fast_forward'); assert.equal(tickToClock(240).gap, null); assert.equal(m.isGap(516), true); assert.equal(m.isGap(518), false);
     assert.equal(tickToClock(230).lull, true); assert.equal(tickToClock(300).lull, false);

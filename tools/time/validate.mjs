@@ -62,11 +62,15 @@ function audit() {
   for (let i = 1; i < A.length - 1; i++) { if (A[i].status === 'D') continue; const p = A[i - 1], n = A[i + 1]; loo.push({ tick: A[i].tick, status: A[i].status, err: A[i].minutes - (p.minutes + (n.minutes - p.minutes) * (A[i].tick - p.tick) / (n.tick - p.tick)) }); }
   const looAbs = loo.map((x) => Math.abs(x.err));
   const worstLoo = [...loo].sort((a, b) => Math.abs(b.err) - Math.abs(a.err)).slice(0, 8);
+  const anchorTicks = new Set(A.map((a) => a.tick));
+  const offAnchor = matched.filter((r) => !anchorTicks.has(+r.site_tick)).map((r) => Math.abs(parseJulyClock(norm(r.real_best)) - Math.round(m.tickToMinutes(+r.site_tick))));
+  const customN = matched.filter((r) => r.real_event_id === 'custom').length;
   // typed claims elsewhere (walkthrough, monuments, markers, turning points, sandbox, vignettes) vs the proposed clock
   const oc = readCsv(P('docs', 'plan', 'data', 'time-facts-otherclaims.csv')).filter((r) => r.minutes_claimed_minus_proposed_clock !== '');
   const ocProp = oc.map((r) => Math.abs(+r.minutes_claimed_minus_proposed_clock)), ocMap = oc.map((r) => Math.abs(+r.minutes_claimed_minus_map_clock));
   const typedSub = oc.filter((r) => ['walkthrough stop', 'monument tooltip', 'timeline marker'].includes(r.kind));
   const tsProp = typedSub.map((r) => Math.abs(+r.minutes_claimed_minus_proposed_clock)), tsMap = typedSub.map((r) => Math.abs(+r.minutes_claimed_minus_map_clock));
+  const tsOff = typedSub.filter((r) => !anchorTicks.has(+r.site_tick)).map((r) => Math.abs(+r.minutes_claimed_minus_proposed_clock));
   // triage
   const triage = readJson(P('data-src', 'time', 'triage.json')).rows;
   const discByTick = Object.fromEntries(disc.map((r) => [+r.site_tick, r]));
@@ -97,7 +101,9 @@ ${mdTable(['clock the user sees', 'mean abs error', 'median', 'RMS', 'within 30 
 - **In-sample** fit of the proposal (anchors were chosen using these same events): mean abs error **${r1(mean(prop))} min**, median ${r1(median(prop))} min, RMS ${r1(rms(prop))} min; within 15/30/45/60 min: ${[15, 30, 45, 60].map((x) => within(prop, x)).join('/')} of ${matched.length}.
 - **Leave-one-out** (each of ${loo.length} interior non-design anchors predicted from its two neighbours): mean abs error **${r1(mean(looAbs))} min**, median ${r1(median(looAbs))} min, RMS **${r1(rms(loo.map((x) => x.err)))} min**. Least predictable: ${worstLoo.map((x) => `t${x.tick} ${x.err >= 0 ? '+' : ''}${Math.round(x.err)}`).join(', ')} (true minus predicted, minutes). These are the anchors next to gaps and the first to review.
 - Typed real clocks elsewhere in the product (walkthrough stops, monument tooltips, timeline markers, Turning Points, Sandbox presets, vignettes): ${oc.length} carry a clock; median gap to the proposed clock **${median(ocProp)} min** (${within(ocProp, 30)}/${oc.length} within 30 min) versus **${median(ocMap)} min** to today's map clock (${within(ocMap, 30)}/${oc.length}). For the walkthrough, monument and marker subset (${typedSub.length}): median ${median(tsProp)} min (${within(tsProp, 30)}/${typedSub.length}) versus ${median(tsMap)} min (${within(tsMap, 30)}/${typedSub.length}).
-- Caveats: the comparators are proposals, not reviewed facts; in-sample figures flatter the model; leave-one-out RMS is the honest predictive number for anchors that sit between two sourced neighbours.
+- **Off-anchor** events only (${offAnchor.length} of ${matched.length} sit on a tick that is not an anchor, so their residual is not zero by construction): mean abs error **${r1(mean(offAnchor))} min**, median ${r1(median(offAnchor))} min, RMS ${r1(rms(offAnchor))} min, ${within(offAnchor, 30)}/${offAnchor.length} within 30 min. The typed-claim subset off anchor ticks: median ${median(tsOff)} min, ${within(tsOff, 30)}/${tsOff.length} within 30 min.
+- ${customN} of the ${matched.length} comparators are the specialist's own estimates (\`real_event_id = custom\`), not sourced rows.
+- Caveats: the comparators are proposals, not reviewed facts; in-sample figures flatter the model; leave-one-out RMS and the off-anchor numbers are the honest predictive figures for anchors that sit between two sourced neighbours.
 
 ## 2. Chronology classes (137 events)
 
@@ -146,7 +152,7 @@ ${surf ? `${surf.implementations.length} independent tick-to-clock implementatio
 - TM-V19 and TM-V20 need the moments registry (WP-TIME-05); TM-V21 finds quotations heuristically and cannot judge whether a wording is correct.
 `;
   writeIfChanged(P('docs', 'editorial', 'time-audit.md'), md);
-  writeIfChanged(P('tools', 'time', 'build', 'time-report.json'), JSON.stringify({ model: m.version, results: results.map(({ data, ...r }) => ({ ...r, data: r.id === 'TM-V3' ? { ...data, sample: undefined } : data })), metrics: { inSample: { n: matched.length, meanAbsMin: r1(mean(prop)), medianMin: median(prop), rmsMin: r1(rms(prop)), within30: within(prop, 30) }, looAnchors: { n: loo.length, meanAbsMin: r1(mean(looAbs)), rmsMin: r1(rms(loo.map((x) => x.err))) }, within30: { label: within(lab, 30), mapClock: within(map, 30), fiveMinute: within(f5, 30), proposed: within(prop, 30) } } }, null, 1) + '\n');
+  writeIfChanged(P('tools', 'time', 'build', 'time-report.json'), JSON.stringify({ model: m.version, results: results.map(({ data, ...r }) => ({ ...r, data: r.id === 'TM-V3' ? { ...data, sample: undefined } : data })), metrics: { inSample: { n: matched.length, meanAbsMin: r1(mean(prop)), medianMin: median(prop), rmsMin: r1(rms(prop)), within30: within(prop, 30) }, offAnchor: { n: offAnchor.length, meanAbsMin: r1(mean(offAnchor)), medianMin: r1(median(offAnchor)), rmsMin: r1(rms(offAnchor)), within30: within(offAnchor, 30) }, customComparators: customN, looAnchors: { n: loo.length, meanAbsMin: r1(mean(looAbs)), rmsMin: r1(rms(loo.map((x) => x.err))) }, within30: { label: within(lab, 30), mapClock: within(map, 30), fiveMinute: within(f5, 30), proposed: within(prop, 30) } } }, null, 1) + '\n');
   console.log('audit written: docs/editorial/time-audit.md');
 }
 if (flags.report) audit();

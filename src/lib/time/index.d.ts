@@ -96,6 +96,10 @@ export interface Clock {
   basis: EvidenceClass;
   /** segment slope over 15 min/tick */
   lull: boolean;
+  /** a bounding anchor is status R (needs a historian) or state contested: show a range, not a time */
+  contested: boolean;
+  /** [minutes - sigma, minutes + sigma] since 1863-07-01T00:00 */
+  band: [number, number];
   gap: 'fast_forward' | 'time_lapse' | null;
 }
 
@@ -132,6 +136,7 @@ export interface AnchorInfo {
   label: string;
   circular: boolean;
   facts: string[];
+  range: [string, string] | null;
   approx: boolean;
 }
 
@@ -149,6 +154,8 @@ export interface TimeModel {
   /** ISO local time or minutes -> fractional tick, clamped to 1..tickMax; opts.extrapolate uses 5 min/tick beyond the ends (validation only) */
   clockToTick(x: string | number, opts?: { extrapolate?: boolean }): number;
   clockToTickInfo(x: string | number): { tick: number; exact: boolean };
+  /** accepted range of an anchor tick ({from, to, text: 'between about 5:10 and 7:00 PM', contested}); null for other ticks */
+  anchorRange(tick: number): { from: string; to: string; text: string; contested: boolean } | null;
   tickToLabel(tick: number, opts?: LabelOptions): string;
   tickToLabelParts(tick: number, opts?: LabelOptions): LabelParts;
   tickToMinutes(tick: number): number;
@@ -236,6 +243,7 @@ export const anchorsDoc: TimeAnchorsDoc;
 declare const model: TimeModel;
 export default model;
 export const tickToClock: TimeModel['tickToClock'];
+export const anchorRange: TimeModel['anchorRange'];
 export const clockToTick: TimeModel['clockToTick'];
 export const clockToTickInfo: TimeModel['clockToTickInfo'];
 export const tickToLabel: TimeModel['tickToLabel'];

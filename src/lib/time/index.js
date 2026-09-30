@@ -18,7 +18,7 @@ const model = makeTimeModel(ANCHORS);
 export default model;
 
 export const {
-  tickToClock, clockToTick, clockToTickInfo, tickToLabel, tickToLabelParts, tickToMinutes, minutesToTick, minutesPerTick,
+  tickToClock, anchorRange, clockToTick, clockToTickInfo, tickToLabel, tickToLabelParts, tickToMinutes, minutesToTick, minutesPerTick,
   uncertaintyMin, tabDay, tabStart, parts, format, dayPart, isApprox, tickAfterMinutes, gapAt, isGap, hour, resolveTickParam,
   ticksJson, goldenCsv, tickMax, version, dv, anchors,
 } = model;

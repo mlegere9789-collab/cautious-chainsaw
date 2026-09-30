@@ -32,13 +32,9 @@ const r = spawnSync(py, args, { cwd: SB, encoding: 'utf8', maxBuffer: 64 * 1024 
 const out = (r.stdout || '') + (r.stderr || '');
 console.log(out.split('\n').slice(-40).join('\n'));
 const gate = path.join(SB, 'release', train, 'gate.json');
-if (fs.existsSync(gate)) {
-  const g = readJson(gate);
-  const rows = (g.gates || g.results || []);
-  console.log('gate.json: ' + JSON.stringify(rows.map ? rows.map((x) => `${x.id || x.name}:${x.ok === undefined ? x.status : x.ok ? 'ok' : 'FAIL'}`) : g).slice(0, 600));
-}
+if (fs.existsSync(gate)) { const g = readJson(gate); console.log('gate.json: ' + (g.ok ? 'OK' : 'FAILED') + ' [' + g.checks.map((x) => `${x.id}:${x.ok ? 'ok' : 'FAIL'}`).join(' ') + ']'); }
 const anchors = path.join(SB, 'release', train, 'anchors.json');
-if (fs.existsSync(anchors)) { const a = readJson(anchors); const list = Array.isArray(a) ? a : a.anchors || []; console.log(`anchors.json: ${list.length} records, CLOCK rows: ${list.filter((x) => /CLK-/.test(x.id || '')).length}`); }
+if (fs.existsSync(anchors)) { const a = readJson(anchors); const list = a.patches || []; console.log(`anchors.json: ${list.length} patch records, ${list.filter((x) => /^CLK-/.test(x.id)).length} CLOCK rows, ${list.filter((x) => !x.ok).length} failed`); }
 console.log(`build.py exit code ${r.status}`);
 if (!flags.keep) { /* keep the sandbox for inspection: it is git-ignored */ }
 process.exit(r.status === 0 ? 0 : 1);

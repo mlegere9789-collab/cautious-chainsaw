@@ -1349,11 +1349,16 @@
     "t116 model 9:05 PM (night) legacy lighting hour 14.6 alpha 0",
     "t117 model 9:09 PM (night) legacy lighting hour 14.7 alpha 0"
    ],
-   "headline": "legacy lighting (E4 keyed on the 05:00-base hour): 96 ticks that are night by the solar table have tint <= 0.08; 16 daylight ticks are heavily tinted",
+   "headline": "legacy lighting (E4 keyed on the 05:00-base hour): 96 ticks that are night by the solar table have tint <= 0.08; 16 daylight ticks are heavily tinted; t326 (Early attacks East Cemetery Hill, 8:00 PM = dusk) is drawn at hour 13.3 with tint 0",
    "data": {
     "darkNoTint": 96,
     "lightTint": 16,
-    "e4Found": true
+    "e4Found": true,
+    "t326": {
+     "model": "8:00 PM",
+     "alpha": 0,
+     "hour": 13.333333333333334
+    }
    }
   },
   {
@@ -1605,6 +1610,14 @@
    "rmsMin": 46.5,
    "within30": 86
   },
+  "offAnchor": {
+   "n": 72,
+   "meanAbsMin": 28.8,
+   "medianMin": 17.5,
+   "rmsMin": 55.1,
+   "within30": 56
+  },
+  "customComparators": 32,
   "looAnchors": {
    "n": 29,
    "meanAbsMin": 35,

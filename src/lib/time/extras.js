@@ -8,7 +8,7 @@ const REVIEW_RANK = { none: 0, 'evidence-weak': 1, 'owner-sign': 2, 'owner-decis
 export function extend(core, doc) {
   const { A, basis, clamp, dayLabelOf, isoOf, hm12, seg } = core._;
   const { tickMax, gaps, parts, tickToMinutes, minutesToTick, tabDay, isApprox, format, tickToLabel } = core;
-  const meta = (doc.anchors || []).map((a) => ({ label: a.label || '', circular: !!a.circular, facts: a.facts || [] }));
+  const meta = (doc.anchors || []).map((a) => ({ label: a.label || '', circular: !!a.circular, facts: a.facts || [], range: a.range || null }));
 
   const buildClock = (req) => {
     const t = clamp(req), p = parts(t, 0), b = basis(t), i = seg(t, 'tick'), mpt = (A[i + 1].min - A[i].min) / (A[i + 1].tick - A[i].tick);
@@ -19,6 +19,7 @@ export function extend(core, doc) {
       tick: t, requested: req, clamped: t !== req, exact: t === req, minutes: tickToMinutes(t), iso: isoOf(p), year: p.year, month: p.month, date: p.date, weekday: p.weekday,
       hour24: p.hour24, minute: p.minute, time: hm12(p.hour24, p.minute), tab: tabDay(t), mpt, sigmaMin: b.sigma, approx: isApprox(t), signed: b.ends.every((e) => e.state === 'signed'),
       night: p.phase === 'night', phase: p.phase, nightOf: p.nightOf, dayLabel: dayLabelOf(p), review, basis: weakest, lull: mpt > 15, gap,
+      contested: b.ends.some((e) => e.status === 'R' || e.state === 'contested'), band: [tickToMinutes(t) - b.sigma, tickToMinutes(t) + b.sigma],
     };
   };
   const cache = new Array(tickMax + 1);
@@ -41,10 +42,17 @@ export function extend(core, doc) {
     for (let t = 1; t <= tickMax; t++) { const c = tickToClock(t); rows.push([t, c.iso, c.tab, c.mpt.toFixed(3), c.sigmaMin.toFixed(1), c.approx ? 1 : 0, c.night ? 1 : 0, '"' + tickToLabel(t) + '"'].join(',')); }
     return rows.join('\n') + '\n';
   };
+  /** For an anchor tick with an accepted range: {from:'17:10', to:'19:00', text:'between about 5:10 and 7:00 PM', contested}; otherwise null. The contested-moment display of chapter 04 section 4.5. */
+  const anchorRange = (tick) => {
+    const i = A.findIndex((a) => a.tick === tick); if (i < 0 || !meta[i].range) return null;
+    const [f, t] = meta[i].range, fm = (x) => hm12(+x.slice(0, 2), +x.slice(3, 5));
+    if (f === t) return { from: f, to: t, text: 'about ' + fm(f), contested: A[i].status === 'R' || A[i].state === 'contested' };
+    return { from: f, to: t, text: 'between about ' + fm(f).replace(/ [AP]M$/, (m0) => (fm(t).endsWith(m0) ? '' : m0)) + ' and ' + fm(t), contested: A[i].status === 'R' || A[i].state === 'contested' };
+  };
   return Object.assign({}, core, {
-    tickToClock, clockToTick, clockToTickInfo, tickToLabelParts, ticksJson, goldenCsv, isGap: (t) => core.gapAt(t) !== null,
+    anchorRange, tickToClock, clockToTick, clockToTickInfo, tickToLabelParts, ticksJson, goldenCsv, isGap: (t) => core.gapAt(t) !== null,
     /** per-anchor view with the honest flags: approx = sigma >= approx_sigma_min or not signed */
-    anchors: A.map((a, i) => ({ tick: a.tick, minutes: a.min, sigmaMin: a.sigma, status: a.status, confidence: a.cls, state: a.state, review: a.review, label: meta[i].label, circular: meta[i].circular, facts: meta[i].facts, approx: a.sigma >= core.approxSigmaMin || a.state !== 'signed' })),
+    anchors: A.map((a, i) => ({ tick: a.tick, minutes: a.min, sigmaMin: a.sigma, status: a.status, confidence: a.cls, state: a.state, review: a.review, label: meta[i].label, circular: meta[i].circular, facts: meta[i].facts, range: meta[i].range, approx: a.sigma >= core.approxSigmaMin || a.state !== 'signed' })),
     /** ?tick=538 | ?t=538 -> integer tick, else null (D-URLSTATE: tick and t are read; no time-address parameter is defined here). */
     resolveTickParam: (q) => {
       const g = (k) => (q && typeof q.get === 'function' ? q.get(k) : q ? q[k] : null);

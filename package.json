@@ -25,7 +25,13 @@
     "data:manifest:verify": "node tools/data/manifest.mjs verify",
     "data:test": "node --test \"tests/data/*.test.mjs\"",
     "data:check": "node tools/data/manifest.mjs verify && node tools/data/validate.mjs && node tools/data/unit_registry.mjs --check && node tools/data/facts.mjs --check && node tools/data/rights_audit.mjs --check",
-    "data:emit": "node tools/data/emit_legacy.mjs --verify"
+    "data:emit": "node tools/data/emit_legacy.mjs --verify",
+    "time:build": "node tools/time/build.mjs",
+    "time:check": "node tools/time/build.mjs --check && node tools/time/validate.mjs --check && node tools/time/surfaces.mjs --check",
+    "time:validate": "node tools/time/validate.mjs",
+    "time:report": "node tools/time/validate.mjs --report && node tools/time/surfaces.mjs && node tools/time/build-review-packet.mjs && node tools/time/build-bridge-doc.mjs",
+    "time:patches": "node tools/time/build-clock-patches.mjs && node tools/time/check-patches.mjs && node tools/time/check-patches.mjs --after-t0 --position=after-B --out=tmp/time/patched-t0b",
+    "time:test": "node --test \"tests/time/*.test.mjs\""
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

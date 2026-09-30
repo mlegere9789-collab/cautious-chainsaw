@@ -2,6 +2,7 @@
 // CANDIDATE tooling (WP-TIME-20). Report-only first: the baseline records what "today" looks like; nothing here changes any served file.
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
 import * as acorn from 'acorn';
 import * as walk from 'acorn-walk';
 import { P, LEGACY, readJson, readText, readCsv, parseJulyClock, parseHm, mean, median, rms, r1 } from './lib.mjs';
@@ -223,16 +224,19 @@ rule('TM-V9', 'Lint bans: July ${..+N}; tick*5; 5*60/6*60/4*60; toLocale*String/
 });
 
 rule('TM-V10', 'Day-part and lighting agree with the solar table (warn)', 'warn', 't326 "near-darkness" with tint 0', (c) => {
-  // legacy lighting: hour = 05:00 base per tab, tint alpha table E4. compare with the model's day part
-  const alphaOf = (h) => { const f = h % 24; return f < 5 ? 0.35 : f < 6 ? 0.25 : f < 7 ? 0.15 : f < 8 ? 0.08 : f < 16 ? 0 : f < 18 ? 0.08 : f < 19 ? 0.15 : f < 20 ? 0.25 : f < 21 ? 0.35 : 0.35; };
-  const src = c.files[c.bundleName]; const okE4 = /function E4\(c\)\{const f=c%24;return f<5\?\{color:"15, 15, 60",alpha:\.35\}/.test(src);
+  // the legacy tint table E4 is EVALUATED from the bundle (not re-typed); its input hour is the 05:00-base hour M4 (= legacyFormulaMod / 60)
+  const src = c.files[c.bundleName], m = /function E4\(c\)\{[\s\S]*?\}(?=function A4\()/.exec(src);
+  if (!m) return R({ status: 'warn', count: 1, headline: 'E4 not found in the bundle: the lighting function was changed or moved (update this rule)' });
+  const sb = { Math }; vm.createContext(sb); vm.runInContext(m[0], sb);
+  const alphaOf = (h) => vm.runInContext(`E4(${h}).alpha`, sb);
   let darkNoTint = 0, lightTint = 0; const ex = [];
   for (let t = 1; t <= c.model.tickMax; t++) {
     const ph = c.model.dayPart(t), hour = legacyFormulaMod(t) / 60, a = alphaOf(hour);
     if (ph === 'night' && a <= 0.08) { darkNoTint++; if (ex.length < 6) ex.push(`t${t} model ${c.model.format(t, 'time')} (${ph}) legacy lighting hour ${hour.toFixed(1)} alpha ${a}`); }
     if ((ph === 'morning' || ph === 'afternoon') && a >= 0.25) lightTint++;
   }
-  return R({ status: darkNoTint + lightTint ? 'warn' : 'pass', count: darkNoTint + lightTint, headline: `legacy lighting (E4 keyed on the 05:00-base hour${okE4 ? '' : ', E4 signature not found'}): ${darkNoTint} ticks that are night by the solar table have tint <= 0.08; ${lightTint} daylight ticks are heavily tinted`, details: ex, data: { darkNoTint, lightTint, e4Found: okE4 } });
+  const t326 = { model: c.model.format(326, 'time', { roundMin: 5 }), alpha: alphaOf(legacyFormulaMod(326) / 60), hour: legacyFormulaMod(326) / 60 };
+  return R({ status: darkNoTint + lightTint ? 'warn' : 'pass', count: darkNoTint + lightTint, headline: `legacy lighting (E4 keyed on the 05:00-base hour): ${darkNoTint} ticks that are night by the solar table have tint <= 0.08; ${lightTint} daylight ticks are heavily tinted; t326 (Early attacks East Cemetery Hill, ${t326.model} = dusk) is drawn at hour ${t326.hour.toFixed(1)} with tint ${t326.alpha}`, details: ex, data: { darkNoTint, lightTint, e4Found: true, t326 } });
 });
 
 rule('TM-V11', 'Golden tick-clock table is byte-identical unless version and golden change together', 'error', 'prototype passes', (c) => {
