@@ -121,7 +121,9 @@ export function cleanSite(s) {
 export const normalizeWs = (s) => String(s).replace(/\s+/g, ' ').trim();
 
 // ---- sentence splitter ------------------------------------------------------------------------------------------------
-const ABBREV = /(?:\b(?:Col|Lt|Lieut|Gen|Maj|Capt|Brig|Sgt|Cpl|Pvt|Dr|Mr|Mrs|Ms|St|Ft|Mt|No|Nos|vs|Jr|Sr|Co|Cos|Vol|Vols|Inf|Cav|Art|Reg|Regt|Bvt|Hon|Rev|Cmdr|Adj|Corp|Gov|Pres|Sen|Rep|Messrs|etc|approx|ca|Gettysburg Pa)\.|\b(?:[ap]\.m|U\.S|C\.S|U\.S\.A|N\.Y|N\.J|N\.C|S\.C|W\.Va|D\.C)\.|\b[A-Z]\.)$/;
+const ABBREV = /(?:\b(?:Col|Lt|Lieut|Gen|Maj|Capt|Brig|Sgt|Cpl|Pvt|Dr|Mr|Mrs|Ms|St|Ft|Mt|No|Nos|vs|Jr|Sr|Co|Cos|Vol|Vols|Inf|Cav|Art|Reg|Regt|Bvt|Hon|Rev|Cmdr|Adj|Corp|Gov|Pres|Sen|Rep|Messrs|etc|approx|ca|Hdqrs|Genl|Sergt|Comdg|Asst|Adjt|Surg|Batt|Div|Dept|Chap|Fred|Wm|Jno|Chas|Geo|Thos|Jas|Benj|Robt|Edw|Gettysburg Pa)\.|\b(?:[ap]\.m|U\.S|C\.S|U\.S\.A|N\.Y|N\.J|N\.C|S\.C|W\.Va|D\.C)\.|\b[A-Z]\.)$/;
+
+const NUM_REF = /\b(?:pp?|Nos?|Vol|Chap|Sec|Fig|Jan|Feb|Mar|Apr|Aug|Sept?|Oct|Nov|Dec)\.$/;
 
 /** Split into sentences; returns [{s, e}] UTF-16 offsets into `text` (e exclusive). Abbreviations (Col., Lt., a.m., No., single initials) are protected. */
 export function splitSentences(text) {
@@ -134,6 +136,9 @@ export function splitSentences(text) {
     const end = m.index + m[0].length;
     const head = t.slice(start, m.index + 1);
     if (m[0] === '.' && ABBREV.test(head)) continue;
+    if (m[0] === '.' && t[m.index - 1] === ' ') continue; // "of . Getty": a stray OCR dot after a space is not a sentence end
+    // a page or volume reference ("p. 179", "Vol. 27") and a dated line ("Aug. 12") continue the sentence; the 1863 reports are full of both
+    if (m[0] === '.' && NUM_REF.test(head) && /^\d/.test(t.slice(end).replace(/^\s+/, ''))) continue;
     // a sentence must be followed by a capital, digit, quote or end of text (else keep joining)
     const rest = t.slice(end).replace(/^\s+/, '');
     if (rest && !/^[A-Z0-9"'“‘(\[<]/.test(rest)) continue;

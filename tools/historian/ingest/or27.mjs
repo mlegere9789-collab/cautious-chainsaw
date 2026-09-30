@@ -1,0 +1,353 @@
+// or27.mjs - Official Records, Series I, vol. 27 (Gettysburg Campaign): OCR normaliser, table-of-contents parser and report-level segmenter for the
+// Internet Archive djvu.txt OCR (ABBYY, UIUC scans). Chapter 14 WP-HIST-04 (normalize_ocr, page map) and WP-HIST-12 (segmenters), first slice.
+//
+//   normalizeOcr(raw)        NFC, U+FFFD by context, collapse whitespace, de-hyphenate line breaks, strip running heads while recording the printed page of every
+//                            page start, conservative dictionary repair (single edit, unique candidate, df >= 50, never digits or capitalised tokens); every edit is logged
+//   parseToc(text)           the "No. 196.-- Col. Joshua L. Chamberlain, Twentieth Maine Infantry." list of reports (Nos. 1-378 in Part 1)
+//   segmentReports(n, toc)   report-level documents: header "No. N. / Report of ...", the body up to the next header, printed page range, ToC reconciliation
+//   chunkDocument(doc)       passages of about 150-250 words, paragraph aligned, never across documents, with sentence boundaries (sb) and printed pages
+//   ingestOr27(text, opts)   the whole pipeline; returns documents, passages, edits and a quality report
+// Nothing here downloads anything (see fetch.mjs) and nothing is committed except code and small fixtures.
+import crypto from 'node:crypto';
+import { splitSentences, dl } from '../../../historian-src/core/text.js';
+
+const sha8 = (s) => crypto.createHash('sha1').update(s).digest('hex').slice(0, 8);
+const words = (s) => (s.match(/\S+/g) || []).length;
+
+// ---------------------------------------------------------------------------------------------------------------------------------------
+// normalise
+// ---------------------------------------------------------------------------------------------------------------------------------------
+const HEAD_CHAP = /^\W{0,3}(?:Chap|CHAP|Ohap|Cnap)\.?\s+[XLIVC]{1,8}\.?\]?/;               // "Chap.  XXXIX.]" (with common OCR variants), optionally followed by the running title
+const HEAD_TITLE = /^\W{0,3}(?:THE\s+)?GETTYSBURG\s+CAMPAIGN\.?\W{0,3}(?:\[?\s*Chap\.?\s+[XLIVC]{1,8}\.?)?\W{0,3}$/i;
+const LONE_NUM = /^\s*(\d{1,4})\s*$/;
+// the even-page running head "606 N. C., VA., W. VA., MD., PA., ETC. [Chap. XXXIX." survives OCR in dozens of variants ("VA.j", "MB.", "YA.", "PTC.", a glued digit or bracket): it is recognised by fuzzy
+// comparison of its letters with the fixed title, so it is dropped without ever touching a body line
+const EVEN_TITLE = 'NCVAWVAMDPAETC';
+export function evenHead(l) {
+  if (l.length > 100) return null;
+  const mm = l.match(/^\W{0,4}(\d{1,4})?\W{0,3}(.*)$/); if (!mm) return null;
+  let body = mm[2]; const cut = body.search(/[\[lt]?\s*C[a-zA-Z]{2,3}\.?\s+[XLIVCD]{2,}/); if (cut >= 0) body = body.slice(0, cut);
+  const core = body.replace(/[^A-Za-z]/g, '').toUpperCase();
+  if (core.length < 4 || !(core.length >= 10 ? dl(core, EVEN_TITLE, 5) <= 5 : core.startsWith('NCVA'))) return null;
+  return { page: mm[1] ? +mm[1] : null };
+}
+const HEAD_TITLE_UP = /^\W{0,3}\w{0,5}\s*GETTYSBURG\s+CAMPAIGN\.?\W{0,3}$/;                // all capitals, OCR-tolerant: never a body line
+
+/** collapse OCR whitespace and join hyphenated line breaks; returns {text, edits} */
+export function cleanWhitespace(raw) {
+  const edits = [];
+  let t = String(raw).normalize('NFC').replace(/\r\n?/g, '\n').replace(/\f/g, '\n');
+  // U+FFFD: a dash between digits (page and date ranges), otherwise dropped; logged
+  t = t.replace(/(\d)\uFFFD(\d)/g, (m, a, b) => { edits.push({ why: 'ufffd-dash', from: m, to: `${a}\u2013${b}` }); return `${a}\u2013${b}`; }).replace(/\uFFFD/g, () => { edits.push({ why: 'ufffd-drop', from: '\uFFFD', to: '' }); return ''; });
+  t = t.replace(/[ \t]+/g, ' ').replace(/ +\n/g, '\n').replace(/\n +/g, '\n');
+  return { text: t, edits };
+}
+
+/** join "Confed-\nerate" -> "Confederate"; keep "Brigadier-\nGeneral" as "Brigadier-General" */
+export function dehyphenate(t, edits = []) {
+  return t.replace(/([A-Za-z]{2,})-\n(?!\n)([A-Za-z])([A-Za-z]*)/g, (m, a, b, c) => {
+    const lowerNext = b === b.toLowerCase();
+    const out = lowerNext ? a + b + c : `${a}-${b}${c}`;
+    edits.push({ why: lowerNext ? 'dehyphenate' : 'hyphen-kept', from: m.replace('\n', '\\n'), to: out });
+    return out;
+  });
+}
+
+/** remove running heads / page numbers; returns {text, pages:[{offset, page}]} where offset is the position in the returned text where that printed page begins */
+export function stripRunningHeads(t) {
+  const lines = t.split('\n');
+  const drop = new Set();
+  const marks = []; // {line, page}
+  for (let i = 0; i < lines.length; i++) {
+    const l = lines[i];
+    const one = l.match(/^\W{0,3}(?:Chap|CHAP|Ohap|Cnap)\.?\s+[XLIVC]{1,8}\.?\]?\s+(?:THE\s+)?GETTYSBURG\s+CAMPAIGN\.?\s*(\d{1,4})?\s*$/i);
+    if (one) { drop.add(i); if (one[1]) marks.push({ line: i, page: +one[1] }); else { const n = nearNumber(lines, i, 4); if (n) { drop.add(n.line); marks.push({ line: i, page: n.page }); } } continue; }
+    const even = evenHead(l);
+    if (even) { drop.add(i); if (even.page) marks.push({ line: i, page: even.page }); else { const n = nearNumber(lines, i, 2); if (n && !drop.has(n.line)) { drop.add(n.line); marks.push({ line: Math.min(i, n.line), page: n.page }); } } continue; }
+    if (HEAD_TITLE_UP.test(l)) { drop.add(i); const n = nearNumber(lines, i, 2); if (n && !drop.has(n.line)) { drop.add(n.line); marks.push({ line: Math.min(i, n.line), page: n.page }); } continue; }
+    const two = HEAD_CHAP.test(l) && l.replace(HEAD_CHAP, '').trim() === '';
+    const three = HEAD_TITLE.test(l) && (lines.slice(Math.max(0, i - 5), i).some((x) => HEAD_CHAP.test(x)) || /\[?\s*Chap/i.test(l) || !!nearNumber(lines, i, 4));
+    if (two || three) {
+      // the head lines and the lone page number around them
+      drop.add(i);
+      if (two) for (let k = i + 1; k <= Math.min(lines.length - 1, i + 6); k++) { if (HEAD_TITLE.test(lines[k])) drop.add(k); }
+      const n = nearNumber(lines, i, 6);
+      if (n && !drop.has(n.line)) { drop.add(n.line); marks.push({ line: Math.min(i, n.line), page: n.page }); }
+      continue;
+    }
+  }
+  const out = []; const pages = []; let off = 0;
+  // printed pages count up by one to four. A mark that continues the run is kept; one that restarts the numbering (front matter, then page 1) is kept when its successor
+  // confirms it; anything else is an OCR digit slip and is replaced by the previous page + 1 (counted in `inferred`)
+  marks.sort((a, b) => a.line - b.line);
+  let lastPage = null; let inferred = 0;
+  const fits = (from, to) => to > from && to - from <= 4;
+  for (let k = 0; k < marks.length; k++) {
+    const m = marks[k], nx = marks[k + 1];
+    if (lastPage === null || fits(lastPage, m.page)) { lastPage = m.page; continue; }
+    if (m.page === lastPage) { m.page = null; continue; }
+    if (nx && fits(m.page, nx.page)) { lastPage = m.page; continue; }
+    m.page = lastPage + 1; lastPage = m.page; inferred++;
+  }
+  const markAt = new Map(); for (const m of marks) if (m.page !== null) markAt.set(m.line, m.page);
+  // page marks refer to the first kept line after them
+  let pending = null;
+  for (let i = 0; i < lines.length; i++) {
+    if (markAt.has(i)) pending = markAt.get(i);
+    if (drop.has(i)) continue;
+    if (pending !== null) { pages.push({ offset: off, page: pending }); pending = null; }
+    out.push(lines[i]); off += lines[i].length + 1;
+  }
+  return { text: out.join('\n'), pages, inferred };
+}
+function nearNumber(lines, i, span) {
+  for (let d = -span; d <= span; d++) { const k = i + d; if (k < 0 || k >= lines.length || d === 0) continue; const m = lines[k].match(LONE_NUM); if (m) return { line: k, page: +m[1] }; }
+  return null;
+}
+
+/**
+ * Conservative dictionary repair: a lower-case alphabetic token that occurs at most twice is replaced only when exactly one token with df >= minDf lies at edit distance 1.
+ * Digits, capitalised words and short tokens are never touched. Every edit is returned.
+ */
+// substitutions that are typical OCR confusions on this scan (ABBYY, 1889 type): u/n, b/h, c/e, i/l, v/w, and the like; a substitution outside this list is never repaired
+const CONFUSIONS = new Set(['un', 'nu', 'bh', 'hb', 'ce', 'ec', 'il', 'li', 'vw', 'wv', 'ao', 'oa', 'rt', 'tr', 'ij', 'ji', 'sf', 'fs', 'ls', 'sl', 'ta', 'at']);
+function isOcrEdit(w, c) {
+  if (w.length === c.length) { let d = -1; for (let i = 0; i < w.length; i++) if (w[i] !== c[i]) { if (d >= 0) return false; d = i; } return d >= 0 && CONFUSIONS.has(w[d] + c[d]); } // one substitution from the list
+  const [a, b] = w.length > c.length ? [w, c] : [c, w]; // one stray or missing letter: b is a with one letter removed
+  for (let i = 0; i < a.length; i++) if (a.slice(0, i) + a.slice(i + 1) === b) return true;
+  return false;
+}
+export function dictionaryRepair(text, { minDf = 200, maxRareDf = 1, minLen = 4 } = {}) {
+  const df = new Map();
+  for (const m of text.matchAll(/\b[a-z]{2,}\b/g)) df.set(m[0], (df.get(m[0]) || 0) + 1);
+  const common = [...df.entries()].filter(([, n]) => n >= minDf).map(([w]) => w);
+  const byLen = new Map(); for (const w of common) (byLen.get(w.length) || byLen.set(w.length, []).get(w.length)).push(w);
+  const cache = new Map();
+  const fix = (w) => {
+    if (cache.has(w)) return cache.get(w);
+    let res = null;
+    if (w.length >= minLen && (df.get(w) || 0) <= maxRareDf) {
+      const cands = [];
+      for (const L of [w.length - 1, w.length, w.length + 1]) for (const c of byLen.get(L) || []) if (dl(w, c, 1) === 1 && isOcrEdit(w, c)) cands.push(c);
+      if (cands.length === 1) res = cands[0];
+    }
+    cache.set(w, res); return res;
+  };
+  const edits = [];
+  const out = text.replace(/(?<![A-Za-z0-9'\u2019-])[a-z]{4,}(?![A-Za-z0-9'\u2019-])/g, (w, off) => {
+    const to = fix(w);
+    if (!to) return w;
+    edits.push({ why: 'ocr-dict', from: w, to, at: off });
+    return to;
+  });
+  return { text: out, edits };
+}
+
+export function normalizeOcr(raw, { repair = true } = {}) {
+  const a = cleanWhitespace(raw);
+  const edits = [...a.edits];
+  const h = stripRunningHeads(a.text);
+  const d = dehyphenate(h.text, edits);
+  // page offsets shift when text is joined: recompute from markers by re-running head removal on the joined text is not possible; keep page marks as approximate line anchors
+  let text = d.replace(/[ \t]+/g, ' ');
+  let pages = h.pages;
+  if (repair) { const r = dictionaryRepair(text); text = r.text; edits.push(...r.edits); }
+  // the join / repair steps change offsets slightly: rebuild page offsets by locating the first words after each mark
+  return { text, pages: remapPages(h.text, h.pages, text), edits, pages_inferred: h.inferred || 0 };
+}
+/** page marks were recorded against the head-stripped text; after de-hyphenation and repair, locate each mark again by a short anchor of the text that follows it */
+function remapPages(before, pages, after) {
+  const out = []; let from = 0;
+  for (const p of pages) {
+    const anchor = before.slice(p.offset, p.offset + 60).replace(/\s+/g, ' ').trim().split(' ').slice(0, 4).join(' ');
+    let idx = -1;
+    if (anchor) { const re = new RegExp(anchor.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/ /g, '\\s+'), 'g'); re.lastIndex = from; const m = re.exec(after.replace(/\n/g, '\n')); if (m) idx = m.index; }
+    if (idx >= 0) { out.push({ offset: idx, page: p.page }); from = idx; }
+  }
+  return out;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------
+// table of contents
+// ---------------------------------------------------------------------------------------------------------------------------------------
+const TOC_ENTRY = /^\s*No\.?\s*(\d{1,3})\s*\.?\s*[\u2014\u2013\-]{1,3}\s*(.+)$/;
+const TOC_NUM_ONLY = /^\s*No\.?\s*(\d{1,3})\s*[.,\-—–]{0,3}\s*$/;
+const RANK_START = /^-?\s*(?:Lieut\.?|Col\.?|Maj\.?|Capt\.?|Brig\.?|Gen\.?|Surg\.?|Rev\.?|Hon\.?|Dr\.?|Sergt\.?|Prof\.?|Mr\.?|Maj\.\s*Gen)/;
+export function parseToc(text) {
+  const lines = text.split('\n');
+  const out = []; let cur = null;
+  const pendingNums = []; // the ABBYY column layout prints a run of "No. 314.-" lines first and the titles as a separate column afterwards
+  for (let i = 0; i < lines.length; i++) {
+    const l = lines[i];
+    const m = l.match(TOC_ENTRY);
+    if (m) { if (cur) out.push(cur); cur = { no: +m[1], title: m[2].trim() }; continue; }
+    const only = l.match(TOC_NUM_ONLY);
+    if (only) { if (cur) { out.push(cur); cur = null; } pendingNums.push(+only[1]); continue; }
+    if (pendingNums.length >= 3 && RANK_START.test(l.trim()) && /^-/.test(l.trim())) {
+      // a column of titles follows: split on lines that start a new "-Rank Name" item
+      const items = []; let item = null; let k = i;
+      for (; k < lines.length; k++) {
+        const t = lines[k].trim();
+        if (!t) { if (item && items.length >= pendingNums.length) break; continue; }
+        if (/^-/.test(t) && RANK_START.test(t)) { if (item) items.push(item); item = t.replace(/^-\s*/, ''); }
+        else if (item && !TOC_NUM_ONLY.test(t) && !TOC_ENTRY.test(t)) item += ' ' + t;
+        else break;
+      }
+      if (item) items.push(item);
+      pendingNums.slice(0, items.length).forEach((no, j) => out.push({ no, title: items[j], layout: 'column' }));
+      pendingNums.length = 0; i = k - 1; continue;
+    }
+    if (cur) {
+      if (!l.trim() || /^No\.?\s*\d/.test(l) || /^[A-Z][A-Z .,\-]{8,}$/.test(l.trim())) { out.push(cur); cur = null; } else cur.title += ' ' + l.trim();
+    }
+  }
+  if (cur) out.push(cur);
+  // a misread number that breaks the run (203 read as 208) is restored from its neighbours when one digit differs and the next entry confirms it
+  for (let i = 1; i + 1 < out.length; i++) { const want = out[i - 1].no + 1, e = out[i]; if (e.no !== want && out[i + 1].no === want + 1 && dl(String(e.no), String(want), 1) === 1) { e.fixed_from = e.no; e.no = want; } }
+  // keep the first run of entries that increases (the report list, not later cross references)
+  const seq = []; let prev = 0;
+  for (const e of out) { if (e.no >= prev - 3 && e.no <= prev + 8 || !seq.length) { seq.push(e); prev = e.no; } }
+  const clean = (t) => t.replace(/\s+/g, ' ')
+    .replace(/([a-z])-\s*[:;|.,]?\s+(?=[a-z])/g, '$1')            // "command-: ing", "regi-; ment": a line-end hyphen with OCR punctuation, joined
+    .replace(/(?<=\s)[ijl|:;\u25a0_](?=\s)/g, ' ').replace(/\s+/g, ' ').replace(/-\s+/g, '-').trim();
+  return seq.map((e) => ({ ...e, title: clean(e.title) }));
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------
+// report segmentation
+// ---------------------------------------------------------------------------------------------------------------------------------------
+// "No. 196." on its own line, then "Report of ..." - tolerant of the OCR variants seen in the volume: "Ho. 48.", "ISTo. 68.", "■No. 107.", "No. 134. W,", "No. 187.-", "Beport of", "Deport of"
+const HEADER = /(?:^|\n)[ \t]*[^\w\n]{0,3}(?:N|H|K|X|IST|ISI|IS|iS)[oO0][.,:]?[ \t]*(\d{1,3})[ \t]*[.,:\-—]{0,2}[ \t]*\S{0,3}[ \t]*\n+[ \t]*((?:(?:[A-Z][a-z]?port|[BDRK]e[pnoi]{1,2}rt)s?[,.]?[ \t]+of|General[ \t]+Return|Abstracts?|Itinerar\w+|Organization|Congratulatory|Address|Circular|Return|Extracts?)[^\n]*(?:\n(?!\n)[^\n]*){0,3})/g;
+
+/** author part of a ToC title ("Col. Joshua L. Chamberlain, Twentieth Maine Infantry.") -> {author, unit} */
+export function splitTocTitle(title) {
+  const m = title.match(/^((?:Lieut\.?\s+Col\.?|Brig\.?\s+Gen\.?|Maj\.?\s+Gen\.?|Lieut\.?\s+Gen\.?|Col\.?|Maj\.?|Capt\.?|Lieut\.?|Gen\.?|Surg\.?|Rev\.?|Hon\.?|Dr\.?|Sergt\.?|Prof\.?|Mr\.?)[^,]*),\s*(.*)$/);
+  return m ? { author: m[1].trim(), unit: m[2].replace(/\.$/, '').trim() } : { author: title.replace(/\.$/, '').trim(), unit: '' };
+}
+
+export function segmentReports(norm, toc = []) {
+  const text = norm.text;
+  const tocByNo = new Map(toc.map((e) => [e.no, e]));
+  const found = [];
+  for (const m of text.matchAll(HEADER)) {
+    const start = m.index + (m[0].startsWith('\n') ? 1 : 0);
+    found.push({ no: +m[1], header: m[2].replace(/\s+/g, ' ').trim(), start, headerEnd: m.index + m[0].length });
+  }
+  // reconcile numbers against the ToC sequence: OCR turns 203 into 208; a number that breaks the run but whose ToC neighbour fits is corrected and logged
+  const fixes = [];
+  const docs = [];
+  let prevNo = null;
+  for (let i = 0; i < found.length; i++) {
+    const f = found[i];
+    let no = f.no;
+    if (prevNo !== null && no !== prevNo + 1) {
+      const want = prevNo + 1, w = tocByNo.get(want);
+      const author = w ? splitTocTitle(w.title).author.replace(/[^A-Za-z ]/g, '').split(/\s+/).pop() : null;
+      const isNear = String(want).length === String(no).length && dl(String(no), String(want), 1) === 1;
+      if (w && isNear && author && new RegExp(author, 'i').test(f.header)) { fixes.push({ from: no, to: want, why: 'toc-sequence' }); no = want; }
+    }
+    if (prevNo !== null && no <= prevNo) continue; // a cross reference, not a new report
+    prevNo = no;
+    docs.push({ no, header: f.header, start: f.start, headerEnd: f.headerEnd });
+  }
+  // ToC-guided recovery: a report whose "No. N." line the OCR mangled is found again by its author's surname near a "Report of" line inside the gap between its neighbours
+  const recovered = [];
+  for (let i = 0; i + 1 < docs.length; i++) {
+    for (let n = docs[i].no + 1; n < docs[i + 1].no; n++) {
+      const w = tocByNo.get(n); if (!w) continue;
+      const nameOnly = splitTocTitle(w.title).author.replace(/[^A-Za-z .'\-]/g, ' ').trim();
+      const sur = nameOnly.split(/\s+/).filter((x) => x.length > 2 && !/^(Col|Maj|Gen|Capt|Lieut|Brig|Surg|Rev|Hon)\.?$/i.test(x)).pop();
+      if (!sur) continue;
+      const lo = docs[i].headerEnd, hi = docs[i + 1].start;
+      const re = new RegExp(`(?:^|\\n)[ \\t]*((?:[A-Z][a-z]?port(?:s)?[ \\t]+of|Extracts? from)[^\\n]{0,90}\\b${sur.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b[^\\n]*)`, 'g');
+      re.lastIndex = 0; const gap = text.slice(lo, hi); const m = re.exec(gap);
+      if (m) recovered.push({ no: n, header: m[1].replace(/\s+/g, ' ').trim(), start: lo + m.index + (m[0].startsWith('\n') ? 1 : 0), headerEnd: lo + m.index + m[0].length, recovered: 'toc-author' });
+    }
+  }
+  if (recovered.length) { docs.push(...recovered); docs.sort((a, b) => a.start - b.start); }
+  docs.forEach((d, i) => { d.end = i + 1 < docs.length ? docs[i + 1].start : text.length; });
+  const pageAt = (off) => { let p = null; for (const m of norm.pages) { if (m.offset <= off) p = m.page; else break; } return p; };
+  const segs = docs.map((d) => {
+    const toc = tocByNo.get(d.no) || null;
+    const sp = toc ? splitTocTitle(toc.title) : splitTocTitle(d.header.replace(/^Reports? of /i, ''));
+    const body = text.slice(d.start, d.end).replace(/\s+$/, '');
+    return {
+      doc_id: `or27-1:${String(d.no).padStart(4, '0')}`, no: d.no, title: d.header, toc_title: toc ? toc.title : null, author: sp.author, unit: sp.unit,
+      start: d.start, end: d.end, text: body, pages: { start: pageAt(d.start), end: pageAt(Math.max(d.start, d.end - 1)) },
+      confidence: d.recovered ? 'B' : toc && dl(d.header.toLowerCase().slice(0, 40), ('report of ' + toc.title).toLowerCase().slice(0, 40), 40) < 28 ? 'A' : toc ? 'B' : 'C', recovered: d.recovered || null,
+    };
+  });
+  return { docs: segs, fixes };
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------
+// chunking
+// ---------------------------------------------------------------------------------------------------------------------------------------
+/** passages of ~150-250 words, paragraph aligned, never across documents; sb = sentence starts inside the passage. A short tail (< min words) is merged into the previous passage, so a passage never exceeds max + min - 1 words. */
+export function chunkDocument(doc, { target = 200, max = 250, min = 60, pageAt = null } = {}) {
+  const paras = []; let off = 0;
+  const flatten = (x) => x.replace(/\s+/g, ' ').trim();
+  for (const part of doc.text.split(/\n{2,}/)) {
+    const i = doc.text.indexOf(part, off);
+    off = i + part.length;
+    if (!part.trim()) continue;
+    if (words(part) <= max) { paras.push({ s: i, e: i + part.length, text: flatten(part) }); continue; }
+    // a paragraph longer than a passage (a long OCR block, a table) is cut at sentence boundaries, and inside a sentence that is itself too long at a word boundary
+    const one = part.replace(/\n/g, ' ');                       // same length as the original, so sentence offsets are document offsets
+    let g = null; const emit = () => { if (g) paras.push({ s: i + g.s, e: i + g.e, text: flatten(one.slice(g.s, g.e)) }); g = null; };
+    const pieces = [];
+    for (const x of splitSentences(one)) {
+      if (words(one.slice(x.s, x.e)) <= max) { pieces.push(x); continue; }
+      let k = x.s, n = 0;
+      for (const m of one.slice(x.s, x.e).matchAll(/\S+/g)) { n++; if (n === target) { pieces.push({ s: k, e: x.s + m.index + m[0].length }); k = x.s + m.index + m[0].length; n = 0; } }
+      if (k < x.e && one.slice(k, x.e).trim()) pieces.push({ s: k, e: x.e });
+    }
+    for (const x of pieces) {
+      const w = words(one.slice(x.s, x.e)), have = g ? words(one.slice(g.s, g.e)) : 0;
+      if (g && have + w > max) emit();
+      g = g ? { s: g.s, e: x.e } : { s: x.s, e: x.e };
+      if (words(one.slice(g.s, g.e)) >= target) emit();
+    }
+    emit();
+  }
+  const passages = []; let cur = [];
+  const flush = () => {
+    if (!cur.length) return;
+    const text = cur.map((p) => p.text).join('\n\n');
+    const seq = passages.length;
+    const sb = splitSentences(text).map((x) => x.s);
+    passages.push({ id: `${doc.doc_id}#${sha8(text)}`, doc_id: doc.doc_id, seq, text, sb: sb.length ? sb : [0], words: words(text), s: cur[0].s, e: cur[cur.length - 1].e, pages: pageAt ? { start: pageAt(doc.start + cur[0].s), end: pageAt(doc.start + cur[cur.length - 1].e) } : doc.pages });
+    cur = [];
+  };
+  for (const p of paras) {
+    const w = words(p.text);
+    const curW = cur.reduce((a, x) => a + words(x.text), 0);
+    if (cur.length && curW + w > max) flush();
+    cur.push(p);
+    if (words(cur.map((x) => x.text).join(' ')) >= target) flush();
+  }
+  if (cur.length) { if (passages.length && cur.reduce((a, x) => a + words(x.text), 0) < min) { const last = passages.pop(); cur.unshift({ text: last.text, s: last.s, e: last.e }); } flush(); }
+  // a passage that starts with a lone header line is fine; passages never cross documents by construction
+  return passages;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------
+// pipeline
+// ---------------------------------------------------------------------------------------------------------------------------------------
+export function ingestOr27(raw, { repair = true } = {}) {
+  const norm = normalizeOcr(raw, { repair });
+  const toc = parseToc(norm.text);
+  const seg = segmentReports(norm, toc);
+  const pageAt = (off) => { let p = null; for (const m of norm.pages) { if (m.offset <= off) p = m.page; else break; } return p; };
+  const passages = seg.docs.flatMap((d) => chunkDocument(d, { pageAt }));
+  const bad = (x) => !Number.isFinite(x);
+  const report = {
+    chars_in: raw.length, chars_out: norm.text.length, edits: norm.edits.length, edit_kinds: norm.edits.reduce((m, e) => { m[e.why] = (m[e.why] || 0) + 1; return m; }, {}),
+    page_marks: norm.pages.length, page_marks_inferred: norm.pages_inferred, running_heads_left: norm.text.split('\n').filter((l) => evenHead(l) || /^.{0,6}GETTYSBURG CAMPAIGN\.?$/.test(l)).length, toc_entries: toc.length, toc_range: toc.length ? [toc[0].no, toc[toc.length - 1].no] : null, docs: seg.docs.length,
+    doc_range: seg.docs.length ? [seg.docs[0].no, seg.docs[seg.docs.length - 1].no] : null, number_fixes: seg.fixes, recovered_from_toc: seg.docs.filter((d) => d.recovered).map((d) => d.no),
+    docs_with_pages: seg.docs.filter((d) => d.pages.start !== null).length, passages: passages.length, passage_words: { mean: passages.length ? Math.round(passages.reduce((a, p) => a + p.words, 0) / passages.length) : 0 },
+    confidence: seg.docs.reduce((m, d) => { m[d.confidence] = (m[d.confidence] || 0) + 1; return m; }, {}),
+    docs_missing_from_run: (() => { if (!seg.docs.length) return []; const have = new Set(seg.docs.map((d) => d.no)); const miss = []; for (let n = seg.docs[0].no; n <= seg.docs[seg.docs.length - 1].no; n++) if (!have.has(n)) miss.push(n); return miss; })(),
+  };
+  return { norm, toc, docs: seg.docs, passages, report };
+}
