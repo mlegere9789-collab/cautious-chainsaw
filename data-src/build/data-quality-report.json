@@ -190,8 +190,8 @@
       "id": "G003",
       "sev": "W",
       "status": "partial",
-      "found": 18,
-      "rows": 18
+      "found": 6,
+      "rows": 6
     },
     {
       "id": "G004",
@@ -485,8 +485,10 @@
     "records": 3283,
     "with_source_string": 60,
     "percent_with_source_string": 1.83,
+    "placements_documented": 0,
     "percent_documented": 0,
-    "note": "no source resolves in a registry; no anchor carries basis"
+    "placements_with_basis": 0,
+    "note": "no source resolves in a registry (none exists); percent_documented counts placement rows whose basis is \"documented\""
   },
   "schematic": {
     "tick1_rows": 73,

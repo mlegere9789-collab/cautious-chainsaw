@@ -8,7 +8,7 @@ import { buildContext } from './lib/context.mjs';
 import { buildRegistry, buildCrosswalk, buildDualMeaning, buildViCorpsCandidates } from './lib/registry.mjs';
 import { buildUnitIndex, buildBatteryShim } from './lib/unit_index.mjs';
 import { runRules } from './lib/runner.mjs';
-import { REPO_ROOT, prettyJson } from './lib/util.mjs';
+import { REPO_ROOT, prettyJson, isMainModule } from './lib/util.mjs';
 
 const BUILD = path.join(REPO_ROOT, 'data-src', 'build');
 
@@ -25,7 +25,7 @@ export async function generate({ ctx = buildContext({}) } = {}) {
   return {
     'unit_registry.json': prettyJson({
       schema: 'gtbg/unit-registry/1', ...base,
-      definition: 'The 569 distinct units of the legacy OOB: 465 regiments (the alias stub U-14BK excluded) + 104 batteries (the horse battery C-McClanahan-ART filed among the regiments is counted as a battery).',
+      definition: `The ${registry.census.total} distinct units of the legacy OOB: ${registry.census.regiments} regiments (the alias stub ${registry.census.alias_records_excluded.join(', ')} excluded) + ${registry.census.batteries} batteries (the horse battery filed among the regiments is counted as a battery).`,
       census: registry.census,
       rights_files: registry.rightsFiles,
       rights_note: "Per-unit rights.tier is legacy / claimed_only: the numeric fields descend from the claimed sources of the OOB file the unit is in (rights_files). action facts-only = keep the facts, never reproduce the book tables or wording, re-source from OR No. 13 / Fox (chapter 13 WP-DATA-05/08).",
@@ -34,16 +34,17 @@ export async function generate({ ctx = buildContext({}) } = {}) {
     'id_crosswalk.json': prettyJson({
       schema: 'gtbg/id-crosswalk/1', ...base,
       rules: [
-        { id: 'wrong_side_prefix', text: 'a regiment-shaped id whose state code is Confederate-only but whose prefix is U-, where the C- twin exists: the ONLY rule that changes a side (10 ids).' },
+        { id: 'wrong_side_prefix', text: `a regiment-shaped id whose state code is Confederate-only but whose prefix is U-, where the C- twin exists: the ONLY rule that changes a side (${crosswalk.counts.by_rule.wrong_side_prefix ?? 0} ids).` },
         { id: 'own_id_prefix_extension', text: 'OOB ids that extend the placed id with a suffix (U-8IL -> U-8IL-CAV); unique candidate, same side.' },
         { id: 'type_tag_normalisation', text: '-RES -> -R (Pennsylvania Reserves), -SHRP -> -SS (sharpshooters); the target must exist.' },
         { id: 'suffix_variant', text: '<regiment id>-<tag> where the base regiment exists; high only when the tag matches a commander or nickname in the regiment\'s brigade/division chain (a single letter also needs the note to name him).' },
         { id: 'brigade_prefixed_regiment', text: '<corps>-<div>-<n><state>: the tail resolves to a regiment whose division equals the id prefix.' },
         { id: 'formation_named_in_note', text: '"<Name>\'s brigade/division" in the row note resolves to the OOB record of the same kind and side whose commander (or designation) is <Name>; one-letter surname typos allowed; never across sides.' },
         { id: 'artillery_nickname', text: 'C-ART-<Name>: the battalion or artillery brigade whose commander/designation is <Name>.' },
-        { id: 'new_record_required', text: 'the 8 U-VI-* brigades: no OOB record exists; see candidates/vi_corps_brigades.json.' },
+        { id: 'new_record_required', text: `the ${vi.length} U-VI-* brigades: no OOB record exists; see candidates/vi_corps_brigades.json.` },
       ],
       hard_rules: ['never map a regiment-shaped id to a brigade (checked)', 'never change a side except by wrong_side_prefix (checked)', 'Regulars use UR (not implemented: no such id among the 95)', 'ambiguous matches stay none with the candidates listed'],
+      confidence_definition: 'Confidence is assessed PER PLACEMENT ROW: the rule cascade is run over the id\'s rows together (the id-level proposal) and once over each row alone (row_confidence[]: that row\'s own evidence; a row whose note names nothing, or names another formation, does not inherit support from its siblings). The id-level `confidence` is the weakest row (never "none" when a proposal exists: rows without support of their own are counted in rows_by_confidence.none, and a row that names a different target adds a WARNING). combined_notes_confidence keeps the verdict on the concatenated notes for the record. Only an id whose every row is high is status proposed_auto.',
       counts: crosswalk.counts, wrong_side_prefix: crosswalk.wrong_side, entries: crosswalk.entries,
     }),
     'id_collisions.json': prettyJson({
@@ -77,4 +78,4 @@ async function main() {
   if (check) { console.log(bad ? `${bad} stale` : 'registry artifacts up to date'); process.exit(bad ? 1 : 0); }
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'))) main();
+if (isMainModule(import.meta.url)) main();

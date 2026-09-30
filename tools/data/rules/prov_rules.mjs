@@ -1,7 +1,7 @@
 // P001-P003 provenance, L001 rights-tier gate, D001 changelog/version gate.
 import fs from 'node:fs';
 import path from 'node:path';
-import { defineRule, V } from './define.mjs';
+import { defineRule, V, notApplicable } from './define.mjs';
 import { REPO_ROOT } from '../lib/util.mjs';
 import { hashTree, contentHash, PATHS, readJsonIfExists } from '../lib/manifest.mjs';
 import { fileGroups } from '../lib/load.mjs';
@@ -38,28 +38,41 @@ export function metadataSources(ctx) {
   return m;
 }
 
+const RECORD_SOURCE_KEYS = ['source', 'sources', 'src', 'citation', 'citations'];
+const nonEmpty = (v) => (typeof v === 'string' ? v.trim().length > 0 : Array.isArray(v) ? v.length > 0 : false);
+
+/**
+ * A record "carries a per-record source" when it has a non-empty source/sources/src/citation(s) value or a non-empty `prov.src` list
+ * (the WP-DATA-04 slim block). This is a MEASUREMENT of each record: no class is assumed to be at zero, so the day a record gains a
+ * source the P001 metric moves and the ratchet asks for a tighten.
+ */
+export function hasRecordSource(rec) {
+  if (!rec || typeof rec !== 'object') return false;
+  return RECORD_SOURCE_KEYS.some((k) => nonEmpty(rec[k])) || nonEmpty(rec.prov?.src);
+}
+
 export function provenanceCoverage(ctx) {
   const emb = ctx.getEmbedded();
-  const c = (name, total, sourced) => ({ name, total, sourced });
-  const kinds = (k) => ctx.oob.list.filter((r) => r.kind === k);
+  const c = (name, items) => ({ name, total: items.length, sourced: items.filter(hasRecordSource).length });
+  const kinds = (k) => ctx.oob.list.filter((r) => r.kind === k).map((r) => r.raw);
   const overlay = ctx.file('monuments.json');
   const succ = ctx.file('oob/commander_successions.json');
   const chronology = ctx.filesWhere(fileGroups.chronology).flatMap(([, f]) => f.json?.events ?? []);
   const vignettes = ctx.filesWhere(fileGroups.vignettes).flatMap(([, f]) => f.json?.vignettes ?? []);
   const terrain = ctx.terrain;
   return [
-    c('regiments', kinds('regiment').length, 0),
-    c('batteries', kinds('battery').length, 0),
-    c('brigades', kinds('brigade').length, 0),
-    c('divisions', kinds('division').length, 0),
-    c('corps', kinds('corps').length, 0),
-    c('placements', ctx.rows.length, 0),
-    c('chronology events', chronology.length, 0),
-    c('vignettes', vignettes.length, 0),
-    c('terrain entries', terrain ? terrain.key_locations.length + terrain.roads.length + terrain.structures.length + terrain.terrain_features.length : 0, 0),
-    c('successions', succ ? succ.union_successions.length + succ.confederate_successions.length : 0, succ ? [...succ.union_successions, ...succ.confederate_successions].filter((s) => s.source).length : 0),
-    c('monuments.json rows', overlay ? overlay.monuments.length : 0, overlay ? overlay.monuments.filter((m) => m.source).length : 0),
-    c('bundle monuments', emb.monuments.length, emb.monuments.filter((m) => m.src).length),
+    c('regiments', kinds('regiment')),
+    c('batteries', kinds('battery')),
+    c('brigades', kinds('brigade')),
+    c('divisions', kinds('division')),
+    c('corps', kinds('corps')),
+    c('placements', ctx.rows),
+    c('chronology events', chronology),
+    c('vignettes', vignettes),
+    c('terrain entries', terrain ? [...terrain.key_locations, ...terrain.roads, ...terrain.structures, ...terrain.terrain_features] : []),
+    c('successions', succ ? [...succ.union_successions, ...succ.confederate_successions] : []),
+    c('monuments.json rows', overlay ? overlay.monuments : []),
+    c('bundle monuments', emb.monuments),
   ];
 }
 
@@ -122,9 +135,9 @@ export const rules = [
     title: 'a change to any served data file needs a data_version bump and a CHANGELOG entry',
     scope: 'data tree vs data-src/version.json', spec_baseline: '0 (the legacy tree is frozen)',
     run(ctx) {
-      if (ctx.data.dir === '<memory>') return null;
+      if (ctx.data.dir === '<memory>') return notApplicable('in-memory data set: there is no tree to hash');
       const ver = readJsonIfExists(PATHS.version);
-      if (!ver) return null;
+      if (!ver) return null; // guard file missing => the rule did not run => the ratchet fails (VQ-02); never a silent pass
       const out = [];
       const latest = ver.history[ver.history.length - 1];
       const now = contentHash(hashTree(ctx.dataDir));

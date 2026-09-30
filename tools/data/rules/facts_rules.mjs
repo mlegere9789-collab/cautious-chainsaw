@@ -1,7 +1,7 @@
 // F001, F002 (facts registry) and K001 (consumer/corpus field drift).
 import fs from 'node:fs';
 import path from 'node:path';
-import { defineRule, V } from './define.mjs';
+import { defineRule, V, notApplicable } from './define.mjs';
 import { REPO_ROOT, walkStrings } from '../lib/util.mjs';
 
 const lineOf = (text, index) => text.slice(0, index).split('\n').length;
@@ -44,7 +44,7 @@ export const rules = [
     scope: 'legacy/dist html + manifest + Help chunk + data strings', spec_baseline: '>= 30 literal occurrences (DI section 7: 467 x10, 445+ x1, 51,000 x6 ...)',
     note: 'The banned list is data-src/policy/retired_literals.json; the values that replace them come from data-src/build/facts.json.',
     run(ctx) {
-      if (!ctx.distText || ctx.distText.size === 0) return null;
+      if (!ctx.distText || ctx.distText.size === 0) return ctx.siteDisabled ? notApplicable('site scans disabled (distDir: null)') : null;
       return retiredLiteralHits(ctx).map((h) => V(`${h.id}|${h.where}:${h.line}`, `${h.where}:${h.line} prints "${h.literal}" (${h.meaning})`, { kind: h.id, file: h.where }));
     },
   }),
@@ -82,7 +82,7 @@ export const rules = [
     spec_baseline: '1 (Historian chronology reads e.title/e.description; the rows have event/narrative)',
     note: 'partial: a static scan of `for (const X of (Y.<dataset> || []))` loops in the deploy html; the v2 rule checks the search-core index build.',
     run(ctx) {
-      if (!ctx.distText || ctx.distText.size === 0) return null;
+      if (!ctx.distText || ctx.distText.size === 0) return ctx.siteDisabled ? notApplicable('site scans disabled (distDir: null)') : null;
       const schemaDir = path.join(REPO_ROOT, 'data-src', 'schemas');
       const load = (f) => JSON.parse(fs.readFileSync(path.join(schemaDir, f), 'utf8'));
       const oob = load('oob.schema.json').$defs;

@@ -153,9 +153,12 @@ test('fixing a violation without deleting its baseline entry fails as STALE', as
 
 test('an expired baseline fails while violations remain, and passes before its expiry', async () => {
   const { results } = await runValidation({ data: legacy, only: ['S005'], site: false, now: NOW });
-  const before = evaluateRatchet(results, baselineFor('S005'), { now: '2027-01-30' });
+  // the dates come from the baseline itself: an entry expires the day AFTER its `expires`, so renewing it never breaks this test
+  const expires = baselineFor('S005').rules.S005.expires;
+  assert.match(expires, /^\d{4}-\d{2}-\d{2}$/);
+  const before = evaluateRatchet(results, baselineFor('S005'), { now: expires });
   assert.equal(before.pass, true);
-  const after = evaluateRatchet(results, baselineFor('S005'), { now: '2027-02-01' });
+  const after = evaluateRatchet(results, baselineFor('S005'), { now: '9999-12-31' });
   assert.equal(after.pass, false);
   assert.ok(after.failures.some((f) => f.type === 'expired'));
 });
@@ -234,7 +237,8 @@ test('end to end: the CLI exits 1 on a seeded defect in a copy of the data and 0
   const { spawnSync } = await import('node:child_process');
   const { REPO_ROOT } = await import('../../tools/data/lib/util.mjs');
   const cli = path.join(REPO_ROOT, 'tools', 'data', 'validate.mjs');
-  const ok = spawnSync(process.execPath, [cli, '--no-site'], { encoding: 'utf8' });
+  // --now pins the clock: without it the baseline expiry dates make this test start failing on 2027-01-31 whatever the code does
+  const ok = spawnSync(process.execPath, [cli, '--no-site', '--now', NOW], { encoding: 'utf8' });
   assert.equal(ok.status, 0, ok.stdout.slice(-400));
   const dir = tmpCopyOfData();
   try {
@@ -242,7 +246,7 @@ test('end to end: the CLI exits 1 on a seeded defect in a copy of the data and 0
     const j = JSON.parse(fs.readFileSync(f, 'utf8'));
     j.placements.push(row('U-NOSUCH-9', 630));
     fs.writeFileSync(f, JSON.stringify(j));
-    const bad = spawnSync(process.execPath, [cli, '--data-dir', dir], { encoding: 'utf8' });
+    const bad = spawnSync(process.execPath, [cli, '--data-dir', dir, '--now', NOW], { encoding: 'utf8' });
     assert.equal(bad.status, 1);
     assert.match(bad.stdout, /R001/);
     assert.match(bad.stdout, /\[new\] placements: unresolved id U-NOSUCH-9/);

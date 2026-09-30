@@ -1,5 +1,5 @@
 // R001-R011: identity and referential integrity.
-import { defineRule, V, rowKey, rowLabel } from './define.mjs';
+import { defineRule, V, rowKey, rowLabel, notApplicable } from './define.mjs';
 import { ID_GRAMMAR } from '../lib/oob.mjs';
 import { fileGroups } from '../lib/load.mjs';
 import { sideOfPrefix } from '../lib/util.mjs';
@@ -339,7 +339,7 @@ export const rules = [
     spec_baseline: '521 search links + 24 vignette links + share links unread (the app reads only ?ancestor)',
     note: 'partial: a static text scan of emitters vs readers. The full rule (unit has a track, tick range, vignette exists) needs the v2 unit index.',
     run(ctx) {
-      if (!ctx.distText || ctx.distText.size === 0) return null;
+      if (!ctx.distText || ctx.distText.size === 0) return ctx.siteDisabled ? notApplicable('site scans disabled (distDir: null)') : null;
       const emitted = new Map(); // param -> [files]
       const emitRx = /[?&](unit|tick|vignette|lat|lng|t|u|z|ll|ancestor|day|regiment)=/g;
       for (const [rel, text] of ctx.distText) {

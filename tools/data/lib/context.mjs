@@ -4,7 +4,7 @@ import path from 'node:path';
 import { loadDataDir, fileGroups } from './load.mjs';
 import { buildOobIndex } from './oob.mjs';
 import { DEFAULT_DATA_DIR, DEFAULT_BUNDLE, REPO_ROOT } from './util.mjs';
-import { extractEmbeddedDatasets } from './bundle_extract.mjs';
+import { extractEmbeddedDatasets, emptyEmbedded } from './bundle_extract.mjs';
 import { loadWarpedClock } from './clock.mjs';
 
 const ANCHORS_CSV = path.join(REPO_ROOT, 'docs', 'plan', 'data', 'time-facts-anchors.csv');
@@ -84,7 +84,7 @@ export function buildContext(opts = {}) {
   let embedded = opts.embedded ?? null;
   const getEmbedded = () => {
     if (embedded === null) {
-      embedded = bundlePath && fs.existsSync(bundlePath) ? extractEmbeddedDatasets(bundlePath) : { monuments: [], story: [], tour: [], warnings: ['bundle not available'], monumentsLoc: null };
+      embedded = bundlePath && fs.existsSync(bundlePath) ? extractEmbeddedDatasets(bundlePath) : emptyEmbedded();
     }
     return embedded;
   };
@@ -100,6 +100,8 @@ export function buildContext(opts = {}) {
     data, dataDir, oob, rows, rowsByUnit, merged, conflicts, perKey,
     terrain, extent,
     distDir, distText,
+    // true when the caller switched the deploy-tree / bundle inputs off on purpose (--no-site): site rules are then notApplicable, not "missing input"
+    siteDisabled: distDir === null, bundleDisabled: bundlePath === null,
     warped, authorities,
     getEmbedded,
     file: (rel) => data.files.get(rel)?.json ?? null,

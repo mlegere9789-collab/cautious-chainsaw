@@ -4,8 +4,11 @@ import { rowsOf } from './runner.mjs';
 
 export const BASELINE_SCHEMA = 'gtbg/data-baseline/1';
 
-/** Build a fresh baseline document from run results (used by --init-baseline). */
-export function buildBaseline(results, { generated, dataInfo, previous = null }) {
+/**
+ * Build a fresh baseline document from run results (used by --init-baseline).
+ * `catalogue` = ids of every registered rule at the time; the ratchet later fails if one of them is no longer registered.
+ */
+export function buildBaseline(results, { generated, dataInfo, previous = null, catalogue = null }) {
   const rules = {};
   for (const [id, r] of results) {
     if (!r.ran) continue;
@@ -29,15 +32,32 @@ export function buildBaseline(results, { generated, dataInfo, previous = null })
     generated,
     note: 'Ratchet baseline of KNOWN violations in the legacy tree. CI (tools/data/validate.mjs) fails on new violations, on entries that no longer occur (delete them with --tighten), and on entries past their expiry. Never add an entry by hand: use --rebaseline <RULE> --reason "...", which logs to history.',
     data: dataInfo,
+    catalogue: catalogue ?? previous?.catalogue ?? [...results.keys()],
     history: previous?.history ?? [],
     rules,
   };
 }
 
+const isBaselined = (base) => Boolean(base) && ((base.count ?? 0) > 0 || (base.keys?.length ?? 0) > 0);
+
 /**
+ * @param {Map<string,any>} results  output of runRules (possibly filtered by --rules / --no-site)
+ * @param {object} baseline          tools/data/baseline.json
+ * @param {object} o
+ * @param {string} o.now             ISO date for baseline expiry
+ * @param {boolean} [o.strict]       W rules fail too
+ * @param {string[]|null} [o.registered] ids of every rule registered in the code base (rules/index.mjs). When given, the ratchet also
+ *        fails on baseline entries and catalogue ids that are no longer registered even if `results` was filtered.
  * @returns {{failures:any[], warnings:any[], perRule:Map<string,any>, pass:boolean}}
+ *
+ * A rule that did not run never counts as clean:
+ *  - it threw                                          -> failure (rule_error)
+ *  - it has baseline entries                           -> failure (baselined_rule_not_run): the known violations vanished because
+ *                                                         nothing looked, not because they were fixed
+ *  - status deferred, or notApplicable() by design     -> informational (reported as SKIPPED)
+ *  - anything else (run() returned null: input missing) -> failure for E rules, warning for W (failure with --strict) (not_run)
  */
-export function evaluateRatchet(results, baseline, { now, strict = false } = {}) {
+export function evaluateRatchet(results, baseline, { now, strict = false, registered = null } = {}) {
   const failures = [];
   const warnings = [];
   const perRule = new Map();
@@ -49,6 +69,8 @@ export function evaluateRatchet(results, baseline, { now, strict = false } = {})
     perRule.set(id, summary);
     if (!r.ran) {
       if (r.error) failures.push({ rule: id, sev: r.rule.sev, type: 'rule_error', message: r.error.split('\n')[0] });
+      else if (isBaselined(base)) failures.push({ rule: id, sev: r.rule.sev, type: 'baselined_rule_not_run', message: `${id} has ${base.count} baselined violation(s) but did not run (${r.reason}): the ratchet cannot tell fixed from unchecked` });
+      else if (r.rule.status !== 'deferred' && !r.notApplicable) push(r.rule, { type: 'not_run', message: `${id} could not run (${r.reason}): a rule that cannot run cannot vouch for the tree` });
       continue;
     }
     const baseKeys = new Set(base?.keys ?? []);
@@ -78,15 +100,22 @@ export function evaluateRatchet(results, baseline, { now, strict = false } = {})
   }
   // baseline entries for rules that no longer exist
   for (const id of Object.keys(baseline?.rules ?? {})) {
-    if (!results.has(id)) failures.push({ rule: id, sev: 'E', type: 'unknown_rule', message: `baseline has entries for unknown rule ${id}` });
+    if (registered ? !registered.includes(id) : !results.has(id)) failures.push({ rule: id, sev: 'E', type: 'unknown_rule', message: `baseline has entries for unknown rule ${id}` });
+  }
+  // rules that were registered when the baseline was written must still be registered (a deleted rule file is not a fix)
+  if (registered) {
+    for (const id of baseline?.catalogue ?? []) {
+      if (!registered.includes(id)) failures.push({ rule: id, sev: 'E', type: 'unregistered_rule', message: `rule ${id} is in the baseline catalogue but is no longer registered in tools/data/rules: a rule cannot be dropped by deleting its code (retire it with --retire-rule ${id} --reason "...")` });
+    }
   }
   return { failures, warnings, perRule, pass: failures.length === 0 };
 }
 
-/** Remove stale entries and improved metric values from a baseline. Never adds. */
-export function tightenBaseline(results, baseline) {
+/** Remove stale entries and improved metric values from a baseline. Never adds a violation; may add newly registered rule ids to the catalogue. */
+export function tightenBaseline(results, baseline, { registered = null } = {}) {
   const out = structuredClone(baseline);
   let removed = 0;
+  if (registered) out.catalogue = [...new Set([...(out.catalogue ?? []), ...registered])];
   for (const [id, r] of results) {
     const base = out.rules[id];
     if (!base || !r.ran) continue;

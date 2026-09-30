@@ -1,7 +1,7 @@
 // The 8 v2 rules of chapter 13 section 5 (D002, M001, E001, U001, H001, P004 here; G007/G008 live with the geometry rules).
 import fs from 'node:fs';
 import path from 'node:path';
-import { defineRule, V } from './define.mjs';
+import { defineRule, V, notApplicable } from './define.mjs';
 import { hashTree, PATHS, readJsonIfExists } from '../lib/manifest.mjs';
 import { haversineM, REPO_ROOT } from '../lib/util.mjs';
 
@@ -52,9 +52,9 @@ export const rules = [
     title: 'a served data name never returns with other bytes than its lock entry (name -> sha256 history)', scope: 'data tree vs data-src/data.lock.json',
     spec_baseline: '0 (lock created from the frozen tree)',
     run(ctx) {
-      if (ctx.data.dir === '<memory>') return null;
+      if (ctx.data.dir === '<memory>') return notApplicable('in-memory data set: there is no tree to hash');
       const lock = readJsonIfExists(PATHS.lock);
-      if (!lock) return null;
+      if (!lock) return null; // guard file missing => the rule did not run => the ratchet fails (VQ-02); never a silent pass
       const out = [];
       for (const e of hashTree(ctx.dataDir)) {
         const hist = lock.names[e.path];
@@ -71,7 +71,7 @@ export const rules = [
     spec_baseline: '503 unsourced; 51 blank mn; MN 96 duplicated; 28 outside the bbox; #512 text corrupted; identical coordinate pairs',
     run(ctx) {
       const emb = ctx.getEmbedded();
-      if (!emb.monuments.length) return null;
+      if (!emb.monuments.length) return ctx.bundleDisabled ? notApplicable('bundle extraction disabled (bundlePath: null)') : null;
       return monumentIssues(ctx).map((i) => V(i.key, i.message, { kind: i.kind }));
     },
   }),

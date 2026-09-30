@@ -1,6 +1,7 @@
 // G001-G008: geometry and motion. Speeds use the linear 5 min/tick clock (the files' own tick_formula) unless stated.
 import { defineRule, V, rowKey, rowLabel } from './define.mjs';
 import { haversineM, MPH_PER_MS } from '../lib/util.mjs';
+import { linearAbsMinutes } from '../lib/clock.mjs';
 import { segmentsOf, MOVING_M } from './coverage_rules.mjs';
 
 export function decimals(x) {
@@ -22,28 +23,33 @@ export function armOf(ctx, id) {
   return 'infantry';
 }
 
-/** DI-01 lenient caps (mph). Documented in docs/data/CONTRIBUTING-DATA.md. */
-export function capMph(arm, dispA, dispB, dtTicks) {
-  const both = [dispA, dispB];
-  if (arm === 'artillery') return 4; // limbered
-  if (arm === 'cavalry') return both.includes('Mounted Cavalry') || both.includes('Charging Line') ? 12 : 5;
-  let cap = 3; // march
-  if (both.includes('Chaotic Retreat')) cap = Math.max(cap, 6);
-  if (both.includes('Charging Line')) cap = Math.max(cap, dtTicks <= 2 ? 8 : 4.5);
-  if (both.includes('Line of March') && dtTicks <= 4) cap = Math.max(cap, 4.5);
-  return cap;
-}
+/**
+ * Speed caps of qa-ci DV-07 (chapter 13: "qa-ci's DV-00..30 are the same checks under other IDs ... DV-07 = G003"), in METRES PER MODEL-MINUTE:
+ * infantry 150, artillery 250, cavalry 400. A segment is a teleport candidate when it is longer than DV07_MIN_M and faster than its cap;
+ * a row tagged `snap: true` is exempt. (The DI-01 mph caps with disposition allowances that G003 carried before were a different check and
+ * gave 18 candidates where DV-07 gives 6: one rule id must not have two definitions.)
+ */
+export const DV07_CAP_M_PER_MIN = { infantry: 150, artillery: 250, cavalry: 400 };
+export const DV07_MIN_M = 300;
 
-export function speedsOf(ctx, clockFn) {
+/** The clock the legacy files declare: tick 1 of each day = 5:00 am of that day, 5 minutes per tick, days 24 h apart (tick 225 = 23:40, tick 226 = 05:00 next morning). */
+export const linearClock = linearAbsMinutes;
+
+/**
+ * Speeds of every segment >= 50 m (the jitter floor of the measurement). `clockFn(tick)` returns absolute model minutes; the default is the
+ * files' own formula, so a pair across a day seam (225 -> 226, 450 -> 451) spans the night between the two ticks (320 min), not 5 minutes.
+ */
+export function speedsOf(ctx, clockFn = linearClock) {
   const out = [];
   for (const s of segmentsOf(ctx)) {
     if (s.d < 50) continue; // ignore jitter
     const minutes = clockFn(s.b.tick) - clockFn(s.a.tick);
     if (minutes <= 0) continue;
+    const mpm = s.d / minutes;
     const mph = (s.d / (minutes * 60)) * MPH_PER_MS;
     const arm = armOf(ctx, s.unit);
-    const cap = capMph(arm, s.a.disposition, s.b.disposition, s.dt);
-    out.push({ ...s, arm, minutes, mph, cap, over: mph > cap });
+    const cap = DV07_CAP_M_PER_MIN[arm];
+    out.push({ ...s, arm, minutes, mpm, mph, cap, over: s.d > DV07_MIN_M && mpm > cap && s.b.snap !== true });
   }
   return out;
 }
@@ -78,14 +84,14 @@ export const rules = [
   }),
   defineRule({
     id: 'G003', sev: 'W', family: 'geometry', wp: 'WP-DATA-11', status: 'partial', dv: ['DV-07'],
-    title: 'implied speed between consecutive keyframes <= cap by arm and disposition (DI-01 lenient caps)', scope: 'tracks',
-    spec_baseline: '20 on the warped clock, 6 on the 5-minute clock (DI); the caps are implemented here from the DI-01 list, so counts can differ',
-    note: 'partial: linear 5 min/tick clock as W (chapter 13 WP-03 point 4); the warped-clock count is reported as an informational metric only.',
+    title: 'implied speed between consecutive keyframes <= cap by arm (qa-ci DV-07: infantry 150 / artillery 250 / cavalry 400 m per model-minute, segments > 300 m, snap:true exempt)', scope: 'tracks',
+    spec_baseline: '20 on the warped clock, 6 on the 5-minute clock (DI, qa-ci DV-07)',
+    note: 'partial: runs on the linear clock the files declare (5:00 am at the first tick of each day, 5 min per tick, so a day-seam pair spans the night) as W (chapter 13 WP-03 point 4); the warped-clock count is an informational metric only. Arm comes from the OOB record, not from the id text.',
     run(ctx) {
       const out = [];
-      for (const s of speedsOf(ctx, (t) => t * 5)) {
-        if (s.over) out.push(V(`${s.unit}|${s.a.tick}-${s.b.tick}`, `${s.unit} t${s.a.tick}-${s.b.tick}: ${Math.round(s.d)} m in ${s.minutes} min = ${s.mph.toFixed(1)} mph (cap ${s.cap}, ${s.arm})`,
-          { kind: s.arm, data: { unit: s.unit, from: s.a.tick, to: s.b.tick, meters: Math.round(s.d), mph: Number(s.mph.toFixed(1)), cap: s.cap } }));
+      for (const s of speedsOf(ctx, linearClock)) {
+        if (s.over) out.push(V(`${s.unit}|${s.a.tick}-${s.b.tick}`, `${s.unit} t${s.a.tick}-${s.b.tick}: ${Math.round(s.d)} m in ${s.minutes} min = ${Math.round(s.mpm)} m/min (cap ${s.cap}, ${s.arm})`,
+          { kind: s.arm, data: { unit: s.unit, from: s.a.tick, to: s.b.tick, meters: Math.round(s.d), minutes: s.minutes, m_per_min: Math.round(s.mpm), cap: s.cap } }));
       }
       return out;
     },

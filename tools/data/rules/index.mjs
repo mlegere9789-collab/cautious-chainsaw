@@ -1,27 +1,38 @@
 // The rule catalogue. Order = report order.
+//
+// Registration is STRICT: every family module below must exist and export `rules`. A missing or broken module used to be skipped
+// silently (ERR_MODULE_NOT_FOUND was swallowed), which turned a deleted rule file into a green run. Now it throws, and the ratchet
+// additionally compares the live catalogue with the ids recorded in tools/data/baseline.json (`catalogue`), so a rule that vanishes
+// from the code fails CI even if it had no baseline entries.
 import { rules as schemaRules } from './schema_rules.mjs';
 import { rules as refsRules } from './refs_rules.mjs';
+import { rules as coverageRules } from './coverage_rules.mjs';
+import { rules as geometryRules } from './geometry_rules.mjs';
+import { rules as numbersRules } from './numbers_rules.mjs';
+import { rules as timeRules } from './time_rules.mjs';
+import { rules as textRules } from './text_rules.mjs';
+import { rules as provRules } from './prov_rules.mjs';
+import { rules as factsRules } from './facts_rules.mjs';
+import { rules as v2Rules } from './v2_rules.mjs';
 
-const modules = [schemaRules, refsRules];
+export const FAMILY_MODULES = { schema: schemaRules, refs: refsRules, coverage: coverageRules, geometry: geometryRules, numbers: numbersRules, time: timeRules, text: textRules, prov: provRules, facts: factsRules, v2: v2Rules };
 
-// later families register themselves here as they are added (see tools/data/rules/*.mjs)
 export async function loadAllRules() {
-  const extra = [];
-  for (const name of ['coverage_rules', 'geometry_rules', 'numbers_rules', 'time_rules', 'text_rules', 'prov_rules', 'facts_rules', 'v2_rules']) {
-    try {
-      const m = await import(`./${name}.mjs`);
-      extra.push(m.rules);
-    } catch (e) {
-      if (e.code !== 'ERR_MODULE_NOT_FOUND') throw e;
-    }
-  }
-  const all = [...modules, ...extra].flat();
+  const all = Object.entries(FAMILY_MODULES).flatMap(([name, rs]) => {
+    if (!Array.isArray(rs) || rs.length === 0) throw new Error(`rule family module "${name}" registered no rules`);
+    return rs;
+  });
   const seen = new Set();
   for (const r of all) {
     if (seen.has(r.id)) throw new Error(`duplicate rule id ${r.id}`);
     seen.add(r.id);
   }
   return all;
+}
+
+/** Sorted ids of every registered rule (deferred ones included). Stored in baseline.json as `catalogue`. */
+export async function catalogueIds() {
+  return (await loadAllRules()).map((r) => r.id).sort((a, b) => ruleSortKey(a) - ruleSortKey(b));
 }
 
 export function ruleSortKey(id) {

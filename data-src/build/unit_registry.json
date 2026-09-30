@@ -2,7 +2,7 @@
   "schema": "gtbg/unit-registry/1",
   "generated_by": "tools/data/unit_registry.mjs",
   "status": "CANDIDATE: derived from legacy/dist/data; nothing here is served or displayed",
-  "definition": "The 569 distinct units of the legacy OOB: 465 regiments (the alias stub U-14BK excluded) + 104 batteries (the horse battery C-McClanahan-ART filed among the regiments is counted as a battery).",
+  "definition": "The 569 distinct units of the legacy OOB: 465 regiments (the alias stub U-14BK excluded) + 104 batteries (the horse battery filed among the regiments is counted as a battery).",
   "census": {
     "total": 569,
     "regiments": 465,
@@ -1387,7 +1387,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         }
       ],
       "designation_base": "1st Pennsylvania Reserves",
@@ -1704,7 +1705,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         }
       ],
       "designation_base": "1st Texas Infantry",
@@ -1842,7 +1844,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 2
+          "rows": 2,
+          "rows_total": 2
         }
       ],
       "designation_base": "1st United States Sharpshooters",
@@ -2493,7 +2496,8 @@
           "source": "crosswalk",
           "confidence": "medium",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         }
       ],
       "designation_base": "2nd Louisiana Infantry",
@@ -2695,9 +2699,10 @@
         {
           "id": "C-2MS-D",
           "source": "crosswalk",
-          "confidence": "high",
+          "confidence": "medium",
           "status": "proposed",
-          "rows": 4
+          "rows": 4,
+          "rows_total": 4
         }
       ],
       "designation_base": "2nd Mississippi Infantry",
@@ -3160,7 +3165,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         }
       ],
       "designation_base": "2nd Pennsylvania Reserves",
@@ -3712,7 +3718,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 4
+          "rows": 4,
+          "rows_total": 4
         }
       ],
       "designation_base": "2nd Wisconsin Volunteer Infantry",
@@ -5036,7 +5043,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 2
+          "rows": 2,
+          "rows_total": 2
         }
       ],
       "designation_base": "4th Alabama Infantry",
@@ -5610,7 +5618,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         }
       ],
       "designation_base": "4th Texas Infantry",
@@ -5856,7 +5865,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 4
+          "rows": 4,
+          "rows_total": 4
         }
       ],
       "designation_base": "4th Virginia Infantry",
@@ -6819,7 +6829,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 3
+          "rows": 3,
+          "rows_total": 3
         }
       ],
       "designation_base": "5th North Carolina Infantry",
@@ -7021,14 +7032,16 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         },
         {
           "id": "U-5TX",
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         }
       ],
       "designation_base": "5th Texas Infantry",
@@ -7775,7 +7788,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 3
+          "rows": 3,
+          "rows_total": 3
         }
       ],
       "designation_base": "6th North Carolina Infantry",
@@ -7977,7 +7991,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         }
       ],
       "designation_base": "6th Pennsylvania Reserves",
@@ -8298,7 +8313,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 4
+          "rows": 4,
+          "rows_total": 4
         }
       ],
       "designation_base": "6th Wisconsin Volunteer Infantry",
@@ -8935,7 +8951,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 2
+          "rows": 2,
+          "rows_total": 2
         }
       ],
       "designation_base": "7th South Carolina Infantry",
@@ -9265,7 +9282,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 3
+          "rows": 3,
+          "rows_total": 3
         }
       ],
       "designation_base": "7th Wisconsin Volunteer Infantry",
@@ -9531,9 +9549,10 @@
         {
           "id": "U-8IL",
           "source": "crosswalk",
-          "confidence": "high",
+          "confidence": "medium",
           "status": "proposed",
-          "rows": 11
+          "rows": 11,
+          "rows_total": 11
         }
       ],
       "designation_base": "8th Illinois Cavalry",
@@ -9801,7 +9820,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         }
       ],
       "designation_base": "8th Ohio Volunteer Infantry",
@@ -9938,7 +9958,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         }
       ],
       "designation_base": "8th South Carolina Infantry",
@@ -11455,7 +11476,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         }
       ],
       "designation_base": "11th North Carolina Infantry",
@@ -12080,7 +12102,8 @@
           "source": "crosswalk",
           "confidence": "medium",
           "status": "proposed",
-          "rows": 4
+          "rows": 4,
+          "rows_total": 4
         }
       ],
       "designation_base": "12th Illinois Cavalry",
@@ -12409,7 +12432,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 3
+          "rows": 3,
+          "rows_total": 3
         }
       ],
       "designation_base": "12th North Carolina Infantry",
@@ -12994,7 +13018,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 8
+          "rows": 8,
+          "rows_total": 8
         }
       ],
       "designation_base": "13th Mississippi Infantry",
@@ -14206,7 +14231,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         }
       ],
       "designation_base": "15th Alabama Infantry",
@@ -14594,7 +14620,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         }
       ],
       "designation_base": "16th Georgia Infantry",
@@ -16195,7 +16222,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 3
+          "rows": 3,
+          "rows_total": 3
         }
       ],
       "designation_base": "19th Indiana Volunteer Infantry",
@@ -16853,7 +16881,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 2
+          "rows": 2,
+          "rows_total": 2
         }
       ],
       "designation_base": "20th North Carolina Infantry",
@@ -17054,7 +17083,8 @@
           "source": "crosswalk",
           "confidence": "medium",
           "status": "proposed",
-          "rows": 2
+          "rows": 2,
+          "rows_total": 2
         }
       ],
       "designation_base": "21st North Carolina Infantry",
@@ -17506,7 +17536,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 3
+          "rows": 3,
+          "rows_total": 3
         }
       ],
       "designation_base": "23rd North Carolina Infantry",
@@ -17764,7 +17795,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 2
+          "rows": 2,
+          "rows_total": 2
         }
       ],
       "designation_base": "24th Michigan Volunteer Infantry",
@@ -18169,7 +18201,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         }
       ],
       "designation_base": "26th North Carolina Infantry",
@@ -20017,7 +20050,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 3
+          "rows": 3,
+          "rows_total": 3
         }
       ],
       "designation_base": "38th Georgia Infantry",
@@ -20858,7 +20892,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         }
       ],
       "designation_base": "44th Alabama Infantry",
@@ -21383,7 +21418,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         }
       ],
       "designation_base": "47th North Carolina Infantry",
@@ -21520,7 +21556,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         }
       ],
       "designation_base": "48th Alabama Infantry",
@@ -22285,7 +22322,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 1
+          "rows": 1,
+          "rows_total": 1
         }
       ],
       "designation_base": "52nd North Carolina Infantry",
@@ -22744,7 +22782,8 @@
           "source": "crosswalk",
           "confidence": "high",
           "status": "proposed",
-          "rows": 2
+          "rows": 2,
+          "rows_total": 2
         }
       ],
       "designation_base": "55th North Carolina Infantry",

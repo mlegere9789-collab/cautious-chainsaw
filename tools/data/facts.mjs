@@ -9,7 +9,7 @@ import { buildFacts } from './lib/facts.mjs';
 import { buildNotableIntensity, buildAdjudicationRegister, buildCavalryCommanders, buildRollups, buildAliasTable } from './lib/candidates.mjs';
 import { hashTree, contentHash } from './lib/manifest.mjs';
 import { readJsonIfExists, PATHS } from './lib/manifest.mjs';
-import { REPO_ROOT, prettyJson } from './lib/util.mjs';
+import { REPO_ROOT, prettyJson, isMainModule } from './lib/util.mjs';
 
 export const FACTS_PATH = path.join(REPO_ROOT, 'data-src', 'build', 'facts.json');
 
@@ -34,8 +34,7 @@ export function generateCandidates(ctx = buildContext({})) {
   };
 }
 
-const isMain = process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
-if (isMain) {
+if (isMainModule(import.meta.url)) {
   const ctx = buildContext({});
   const outputs = { 'facts.json': generateFacts(ctx), ...generateCandidates(ctx) };
   const build = path.join(REPO_ROOT, 'data-src', 'build');

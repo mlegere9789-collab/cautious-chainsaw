@@ -1,5 +1,10 @@
 // Facts registry (WP-DATA-19): every count the site prints comes from here; nothing is typed except the cited authorities.
+// A number that can be derived from the data IS derived (tick ranges from the chronology files, record partitions from the OOB index,
+// the retired-literal list from data-src/policy); the only typed values are quotations of published authorities.
+import fs from 'node:fs';
+import path from 'node:path';
 import { fileGroups } from './load.mjs';
+import { REPO_ROOT } from './util.mjs';
 import { unionCasualtySums } from '../rules/numbers_rules.mjs';
 import { placementCensus } from '../rules/coverage_rules.mjs';
 
@@ -7,6 +12,23 @@ function distTextCount(ctx, file, rx) {
   const t = ctx.distText?.get(file);
   return t ? (t.match(rx) || []).length : null;
 }
+
+/** The tick model the files themselves declare: chronology_dayN.json metadata.dayN_tick_range. No clock is asserted (D-TIME). */
+export function tickModel(ctx) {
+  const ranges = [1, 2, 3].map((d) => ctx.file(`chronology_day${d}.json`)?.metadata?.[`day${d}_tick_range`] ?? null);
+  if (ranges.some((r) => !Array.isArray(r) || r.length !== 2 || !r.every(Number.isInteger))) return { total: null, day_start: null, day_ranges: null, source: 'chronology_day{1,2,3}.json day*_tick_range (missing or malformed)' };
+  for (let i = 0; i < 3; i++) if (ranges[i][1] < ranges[i][0] || (i > 0 && ranges[i][0] !== ranges[i - 1][1] + 1)) throw new Error(`chronology tick ranges are not contiguous: ${JSON.stringify(ranges)}`);
+  return { total: ranges[2][1] - ranges[0][0] + 1, day_start: ranges.map((r) => r[0]), day_ranges: ranges, source: 'chronology_day{1,2,3}.json day*_tick_range' };
+}
+
+function retiredLiterals() {
+  try {
+    const cfg = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'data-src', 'policy', 'retired_literals.json'), 'utf8'));
+    return cfg.literals.map((l) => ({ id: l.id, pattern: l.rx, meaning: l.meaning, replace_with: l.replace_with }));
+  } catch { return []; }
+}
+
+const TOKEN_EXAMPLES = ['units.total', 'units.regiments', 'units.batteries', 'content.vignettes'];
 
 export function buildFacts(ctx, registry, crosswalk, { contentSha256 = null, dataVersion = '0.9.0' } = {}) {
   const oob = ctx.oob;
@@ -31,36 +53,46 @@ export function buildFacts(ctx, registry, crosswalk, { contentSha256 = null, dat
     return m ? (m[1].match(/<a href=/g) || []).length : null;
   })();
   const regs = registry.census;
+  const ticks = tickModel(ctx);
+  // OOB record partitions, derived (never typed): regiment-filed records (incl. the alias stub and the horse battery filed among the
+  // regiments) and batteries filed as batteries; together they are `records`
+  const regimentRecords = oob.list.filter((r) => r.filed_as === 'regiment').length;
+  const batteryRecords = oob.list.filter((r) => r.kind === 'battery' && r.filed_as !== 'regiment').length;
+  const records = oob.list.filter((r) => r.kind !== 'army' && !['brigade', 'division', 'corps', 'battalion', 'artillery_brigade'].includes(r.kind)).length;
+  if (regimentRecords + batteryRecords !== records) throw new Error(`OOB record partition is inconsistent: ${regimentRecords} + ${batteryRecords} != ${records}`);
+  const monumentsNoSource = emb.monuments.filter((m) => !m.src).length;
+  const misfiled = oob.list.filter((r) => r.kind === 'battery' && r.filed_as === 'regiment').map((r) => r.id);
 
   const basis = {
-    'units.total': `${regs.regiments} regiments and ${regs.batteries} batteries in the legacy order of battle (alias stub U-14BK excluded; the horse battery C-McClanahan-ART filed among the regiments counted as a battery)`,
+    'units.total': `${regs.regiments} regiments and ${regs.batteries} batteries in the legacy order of battle (alias stub${regs.alias_records_excluded.length === 1 ? '' : 's'} ${regs.alias_records_excluded.join(', ') || 'none'} excluded; ${misfiled.length ? `the horse battery ${misfiled.join(', ')} filed among the regiments counted as a battery` : 'no battery filed among the regiments'})`,
     'units.regiments': `regiments in the order of battle, alias records excluded (${regs.regiments_by_side.union} Union, ${regs.regiments_by_side.confederate} Confederate)`,
     'units.batteries': 'batteries in the order of battle including horse artillery',
     'units.with_own_track': 'units with at least one position row of their own; the others are positioned only through a parent formation or not at all',
-    'units.records': 'oob records: 467 regiment records + 103 batteries (includes the alias stub and the misfiled battery)',
+    'units.records': `oob records: ${regimentRecords} regiment records + ${batteryRecords} batteries (includes the alias stub and the misfiled battery)`,
     'content.vignettes': 'narrated moments (vignettes)',
     'content.chronology_events': 'master chronology events',
-    'content.monuments': 'monument records in the deployed bundle (not published coordinates: 503 have no source)',
+    'content.monuments': `monument records in the deployed bundle (not published coordinates: ${monumentsNoSource} have no source)`,
   };
 
-  return {
+  const facts = {
     schema: 'gtbg/facts/1',
     status: 'CANDIDATE: generated from legacy/dist/data by tools/data/facts.mjs; no page reads it yet (WP-DATA-19 wires tokens through the site build / copy patch table)',
     data_version: dataVersion,
     generated_from: { data_content_sha256: contentSha256, authorities: 'data-src/authorities/authorities.json', bundle_extract: 'legacy/analysis/bundle.pretty.js (acorn, literal nodes only)' },
     ticks: {
-      total: 675,
-      day_start: [1, 226, 451],
-      day_ranges: [[1, 225], [226, 450], [451, 675]],
+      total: ticks.total,
+      day_start: ticks.day_start,
+      day_ranges: ticks.day_ranges,
+      derived_from: ticks.source,
       time_model: 'undecided (D-TIME). The legacy files declare a linear 5 min/tick formula; the audit measured it as wrong. This registry deliberately carries no minutes_per_tick.',
     },
     units: {
       total: regs.total,
       regiments: regs.regiments,
       batteries: regs.batteries,
-      records: oob.list.filter((r) => r.kind !== 'army' && !['brigade', 'division', 'corps', 'battalion', 'artillery_brigade'].includes(r.kind)).length,
-      regiment_records: 467,
-      battery_records: 103,
+      records,
+      regiment_records: regimentRecords,
+      battery_records: batteryRecords,
       by_side: regs.by_side,
       regiments_by_side: regs.regiments_by_side,
       with_own_track: regs.placed_own,
@@ -87,7 +119,7 @@ export function buildFacts(ctx, registry, crosswalk, { contentSha256 = null, dat
       unique_unit_tick_keys: ctx.perKey.size,
       duplicate_keys: ctx.conflicts.length,
       ticks_with_rows: ticksWithRows.size,
-      ticks_without_rows: 675 - ticksWithRows.size,
+      ticks_without_rows: ticks.total === null ? null : ticks.total - ticksWithRows.size,
       by_group: { placements: ctx.rows.filter((r) => r.group === 'placements').length, density: ctx.rows.filter((r) => r.group === 'density').length },
     },
     content: {
@@ -98,7 +130,7 @@ export function buildFacts(ctx, registry, crosswalk, { contentSha256 = null, dat
       terrain_key_locations: terrain?.key_locations.length ?? null,
       successions: (ctx.file('oob/commander_successions.json')?.union_successions.length ?? 0) + (ctx.file('oob/commander_successions.json')?.confederate_successions.length ?? 0),
       monuments: emb.monuments.length,
-      monuments_without_source: emb.monuments.filter((m) => !m.src).length,
+      monuments_without_source: monumentsNoSource,
       story_markers: emb.story.length,
       legacy_overlay_monuments: ctx.file('monuments.json')?.monuments.length ?? null,
       tour_stops: emb.tour.length,
@@ -131,7 +163,10 @@ export function buildFacts(ctx, registry, crosswalk, { contentSha256 = null, dat
       listed_guns: { union: oob.list.filter((r) => r.kind === 'battery' && r.side === 'union').reduce((a, r) => a + (r.raw.gun_count ?? 0), 0), confederate: oob.list.filter((r) => r.kind === 'battery' && r.side === 'confederate').reduce((a, r) => a + (r.raw.gun_count ?? 0), 0) },
       label: 'listed batteries: the artillery OOB is incomplete (WP-DATA-07 step 4)',
     },
-    retired_literals: ['467', '445+', '51,000', '467 regiments and batteries', '28,000 (as a Confederate total)'],
-    token_examples: ['{{facts.units.total}}', '{{facts.units.regiments}}', '{{facts.units.batteries}}', '{{facts.content.vignettes}}'],
+    retired_literals: retiredLiterals(),
+    token_examples: [],
   };
+  for (const t of TOKEN_EXAMPLES) if (t.split('.').reduce((o, k) => (o && typeof o === 'object' ? o[k] : undefined), facts) === undefined) throw new Error(`token example {{facts.${t}}} does not resolve in the facts it is meant to illustrate`);
+  facts.token_examples = TOKEN_EXAMPLES.map((t) => `{{facts.${t}}}`);
+  return facts;
 }

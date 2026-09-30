@@ -82,12 +82,12 @@ export function buildAliasTable(crosswalk) {
   const unresolved = [];
   for (const e of crosswalk.entries) {
     if (e.proposed && !e.new_record) {
-      aliases.push({ alias: e.alias_id, canonical: e.proposed, canonical_kind: e.proposed_kind, rule: e.rule, confidence: e.confidence, resolves: e.confidence === 'high', status: e.confidence === 'high' ? 'proposed_auto' : 'needs_historian', rows: e.rows, side_change: Boolean(e.side_flip) });
+      aliases.push({ alias: e.alias_id, canonical: e.proposed, canonical_kind: e.proposed_kind, rule: e.rule, confidence: e.confidence, resolves: e.confidence === 'high', status: e.confidence === 'high' ? 'proposed_auto' : 'needs_historian', rows: e.rows, rows_by_confidence: e.rows_by_confidence, side_change: Boolean(e.side_flip) });
     } else unresolved.push({ alias: e.alias_id, rule: e.rule, confidence: e.confidence, reason: e.reason ?? (e.new_record ? 'a new OOB record is required (VI Corps brigade candidates)' : ''), candidates: e.candidates ?? [], rows: e.rows });
   }
   return {
     schema: 'gtbg/unit-aliases/1', ...base,
-    policy: 'Aliases stay resolvable for two MAJOR data versions and never change dv. Only status proposed_auto (confidence high) may be applied by tooling; every other row is a proposal for the historian (H-03). A side is only changed by rule wrong_side_prefix.',
+    policy: 'Aliases stay resolvable for two MAJOR data versions and never change dv. Only status proposed_auto (confidence high: EVERY placement row of the id reaches high on its own evidence) may be applied by tooling; every other row is a proposal for the historian (H-03). A side is only changed by rule wrong_side_prefix.',
     counts: { aliases: aliases.length, resolving: aliases.filter((a) => a.resolves).length, needs_historian: aliases.filter((a) => !a.resolves).length, unresolved: unresolved.length },
     aliases, unresolved,
   };

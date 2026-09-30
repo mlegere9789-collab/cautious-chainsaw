@@ -28,6 +28,7 @@
         675
       ]
     ],
+    "derived_from": "chronology_day{1,2,3}.json day*_tick_range",
     "time_model": "undecided (D-TIME). The legacy files declare a linear 5 min/tick formula; the audit measured it as wrong. This registry deliberately carries no minutes_per_tick."
   },
   "units": {
@@ -320,11 +321,36 @@
     "label": "listed batteries: the artillery OOB is incomplete (WP-DATA-07 step 4)"
   },
   "retired_literals": [
-    "467",
-    "445+",
-    "51,000",
-    "467 regiments and batteries",
-    "28,000 (as a Confederate total)"
+    {
+      "id": "count-467",
+      "pattern": "\\b467\\b",
+      "meaning": "467 = regiment RECORDS (incl. an alias stub and a horse battery filed as a regiment); the site names it 'regiments and batteries'",
+      "replace_with": "{{facts.units.total}} ({{facts.units.regiments}} regiments + {{facts.units.batteries}} batteries)"
+    },
+    {
+      "id": "count-445plus",
+      "pattern": "445\\+",
+      "meaning": "445 = 467 minus the 22 Confederate cavalry records added later",
+      "replace_with": "{{facts.units.total}}"
+    },
+    {
+      "id": "casualties-51000",
+      "pattern": "51,000",
+      "meaning": "23,049 Union (OR) + 28,000 Confederate (upper estimate): an OR-versus-upper-estimate mix",
+      "replace_with": "the authority range wording (Q-DATA-2)"
+    },
+    {
+      "id": "phrase-467-regiments-and-batteries",
+      "pattern": "467 regiments and batteries",
+      "meaning": "wrong two ways: 467 regiments + 103 batteries = 570 records",
+      "replace_with": "{{facts.units.total}} units"
+    },
+    {
+      "id": "casualties-28000",
+      "pattern": "28,000",
+      "meaning": "upper Confederate estimate used as if it were a total",
+      "replace_with": "authority range wording"
+    }
   ],
   "token_examples": [
     "{{facts.units.total}}",

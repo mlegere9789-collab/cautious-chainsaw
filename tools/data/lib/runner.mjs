@@ -20,8 +20,13 @@ export async function runRules(ctx, { only = null } = {}) {
       results.set(rule.id, { rule, ran: false, violations: [], error: String(e.stack || e), reason: 'rule threw' });
       continue;
     }
-    if (vs === null) {
+    if (vs === null || vs === undefined) {
       results.set(rule.id, { rule, ran: false, violations: [], reason: 'input not available' });
+      continue;
+    }
+    if (!Array.isArray(vs)) {
+      if (vs.notApplicable) { results.set(rule.id, { rule, ran: false, notApplicable: true, violations: [], reason: vs.reason || 'not applicable' }); continue; }
+      results.set(rule.id, { rule, ran: false, violations: [], error: `rule ${rule.id} returned ${typeof vs}, expected an array, null or notApplicable()`, reason: 'rule returned a bad value' });
       continue;
     }
     // key uniqueness within a rule is part of the contract

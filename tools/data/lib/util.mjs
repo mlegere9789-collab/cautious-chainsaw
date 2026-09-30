@@ -1,11 +1,26 @@
 // Small shared helpers for the data tooling (WP-DATA-01/03/06/19/20).
 import { createHash } from 'node:crypto';
+import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 export const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 export const DEFAULT_DATA_DIR = path.join(REPO_ROOT, 'legacy', 'dist', 'data');
 export const DEFAULT_BUNDLE = path.join(REPO_ROOT, 'legacy', 'analysis', 'bundle.pretty.js');
+
+/**
+ * True when the module whose `import.meta.url` is `metaUrl` is the script node was started with. Compares real file-system
+ * paths (fileURLToPath decodes %20 and non-ASCII; realpath resolves symlinks and, on Windows, the on-disk letter case), so it
+ * also works from a checkout whose path contains a space or a non-ASCII character. Never compare `URL.pathname` with argv[1]:
+ * `pathname` stays percent-encoded and silently turns every CLI into a no-op that exits 0.
+ */
+export function isMainModule(metaUrl, argv1 = process.argv[1]) {
+  if (!argv1) return false;
+  try {
+    const real = (p) => { const r = fs.realpathSync.native(path.resolve(p)); return process.platform === 'win32' ? r.toLowerCase() : r; };
+    return real(fileURLToPath(metaUrl)) === real(argv1);
+  } catch { return false; }
+}
 
 export const sha256 = (buf) => createHash('sha256').update(buf).digest('hex');
 

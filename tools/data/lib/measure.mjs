@@ -3,7 +3,7 @@
 import { fileGroups } from './load.mjs';
 import { haversineM, MPH_PER_MS } from './util.mjs';
 import { segmentsOf, placementCensus } from '../rules/coverage_rules.mjs';
-import { speedsOf } from '../rules/geometry_rules.mjs';
+import { speedsOf, linearClock } from '../rules/geometry_rules.mjs';
 import { walkStrings } from './util.mjs';
 import { unionCasualtySums } from '../rules/numbers_rules.mjs';
 
@@ -118,7 +118,7 @@ export function measureSection2(ctx, { crosswalk, registry }) {
 
 /** Extra numbers quoted in the report: speeds on both clocks, stacking on raw rows, gap thresholds, field completeness. */
 export function measureExtras(ctx) {
-  const linear = speedsOf(ctx, (t) => t * 5);
+  const linear = speedsOf(ctx, linearClock);
   const warped = ctx.warped ? speedsOf(ctx, (t) => ctx.warped(t)) : null;
   const moving = linear.filter((s) => s.d > 250);
   const raw = new Map();

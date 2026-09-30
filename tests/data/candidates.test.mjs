@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { generateCandidates } from '../../tools/data/facts.mjs';
 import { buildContext } from '../../tools/data/lib/context.mjs';
+import { buildCrosswalk } from '../../tools/data/lib/registry.mjs';
 import { REPO_ROOT } from '../../tools/data/lib/util.mjs';
 
 const ctx = buildContext({});
@@ -58,8 +59,11 @@ test('registry carries the OR-verified findings for C-61VA and C-McClanahan-ART'
 test('unit_aliases: 95 crosswalk ids split into aliases and unresolved; only high-confidence rows resolve; sides only change by the wrong-prefix rule', () => {
   const a = JSON.parse(out['unit_aliases.json']);
   assert.equal(a.counts.aliases + a.counts.unresolved, 95);
+  // `resolves` is judged on the crosswalk's PER-ROW confidence, not on the alias record's own field (which would make this a tautology)
+  const byAlias = new Map(buildCrosswalk(ctx).entries.map((e) => [e.alias_id, e]));
   for (const x of a.aliases) {
-    assert.equal(x.resolves, x.confidence === 'high');
+    assert.equal(x.resolves, byAlias.get(x.alias).row_confidence.every((r) => r.confidence === 'high'), x.alias);
+    assert.equal(x.status, x.resolves ? 'proposed_auto' : 'needs_historian', x.alias);
     if (x.side_change) assert.ok(['wrong_side_prefix'].includes(x.rule) || x.resolves === false, `${x.alias}: a side change outside the wrong-prefix rule must not resolve`);
   }
   assert.equal(a.aliases.filter((x) => x.rule === 'wrong_side_prefix' && x.resolves).length, 10);

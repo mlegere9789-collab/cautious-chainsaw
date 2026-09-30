@@ -2,11 +2,11 @@
   "schema": "gtbg/unit-aliases/1",
   "generated_by": "tools/data/facts.mjs",
   "status": "CANDIDATE: derived from legacy/dist/data; nothing here is served or displayed",
-  "policy": "Aliases stay resolvable for two MAJOR data versions and never change dv. Only status proposed_auto (confidence high) may be applied by tooling; every other row is a proposal for the historian (H-03). A side is only changed by rule wrong_side_prefix.",
+  "policy": "Aliases stay resolvable for two MAJOR data versions and never change dv. Only status proposed_auto (confidence high: EVERY placement row of the id reaches high on its own evidence) may be applied by tooling; every other row is a proposal for the historian (H-03). A side is only changed by rule wrong_side_prefix.",
   "counts": {
     "aliases": 79,
-    "resolving": 36,
-    "needs_historian": 43,
+    "resolving": 34,
+    "needs_historian": 45,
     "unresolved": 16
   },
   "aliases": [
@@ -19,6 +19,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 2,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 2,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -30,6 +36,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -41,6 +53,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 3,
+      "rows_by_confidence": {
+        "high": 3,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -52,6 +70,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 8,
+      "rows_by_confidence": {
+        "high": 8,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -63,6 +87,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -74,6 +104,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -85,6 +121,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 2,
+      "rows_by_confidence": {
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -96,6 +138,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 2,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 2,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -107,6 +155,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 3,
+      "rows_by_confidence": {
+        "high": 3,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -118,6 +172,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -125,10 +185,16 @@
       "canonical": "C-2MS",
       "canonical_kind": "regiment",
       "rule": "suffix_variant",
-      "confidence": "high",
-      "resolves": true,
-      "status": "proposed_auto",
+      "confidence": "medium",
+      "resolves": false,
+      "status": "needs_historian",
       "rows": 4,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 3,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -140,6 +206,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 6,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 6,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -151,6 +223,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 3,
+      "rows_by_confidence": {
+        "high": 3,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -162,6 +240,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 8,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 8,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -173,6 +257,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 2,
+      "rows_by_confidence": {
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -184,6 +274,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 4,
+      "rows_by_confidence": {
+        "high": 4,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -195,6 +291,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 2,
+      "rows_by_confidence": {
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -206,6 +308,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 3,
+      "rows_by_confidence": {
+        "high": 3,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -217,6 +325,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 3,
+      "rows_by_confidence": {
+        "high": 3,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -228,6 +342,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -239,6 +359,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 2,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 2,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -250,6 +376,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 2,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 2,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -261,6 +393,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -272,6 +410,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -283,6 +427,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 2,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 2,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -294,6 +444,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 2,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 2,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -301,10 +457,16 @@
       "canonical": "C-CAV-1",
       "canonical_kind": "brigade",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "resolves": false,
       "status": "needs_historian",
       "rows": 4,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 2,
+        "low": 0,
+        "none": 2
+      },
       "side_change": false
     },
     {
@@ -312,10 +474,16 @@
       "canonical": "C-CAV-2",
       "canonical_kind": "brigade",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "resolves": false,
       "status": "needs_historian",
       "rows": 3,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 2
+      },
       "side_change": false
     },
     {
@@ -327,6 +495,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -338,6 +512,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -349,6 +529,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -360,6 +546,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -371,6 +563,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 2,
+      "rows_by_confidence": {
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -382,6 +580,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -393,6 +597,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -400,10 +610,16 @@
       "canonical": "C-III-1-1",
       "canonical_kind": "brigade",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "resolves": false,
       "status": "needs_historian",
       "rows": 2,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 1
+      },
       "side_change": false
     },
     {
@@ -411,10 +627,16 @@
       "canonical": "C-III-1-2",
       "canonical_kind": "brigade",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "resolves": false,
       "status": "needs_historian",
       "rows": 2,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 1
+      },
       "side_change": false
     },
     {
@@ -422,10 +644,16 @@
       "canonical": "C-II-2",
       "canonical_kind": "division",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "resolves": false,
       "status": "needs_historian",
       "rows": 8,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 7,
+        "low": 0,
+        "none": 1
+      },
       "side_change": false
     },
     {
@@ -433,10 +661,16 @@
       "canonical": "C-II-2-4",
       "canonical_kind": "brigade",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "resolves": false,
       "status": "needs_historian",
       "rows": 4,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 3,
+        "low": 0,
+        "none": 1
+      },
       "side_change": false
     },
     {
@@ -448,6 +682,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -459,6 +699,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -466,10 +712,16 @@
       "canonical": "C-III-3",
       "canonical_kind": "division",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "resolves": false,
       "status": "needs_historian",
       "rows": 3,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 2
+      },
       "side_change": false
     },
     {
@@ -477,10 +729,16 @@
       "canonical": "C-III-1-4",
       "canonical_kind": "brigade",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "resolves": false,
       "status": "needs_historian",
       "rows": 2,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 1
+      },
       "side_change": false
     },
     {
@@ -488,10 +746,16 @@
       "canonical": "C-III-1-3",
       "canonical_kind": "brigade",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "resolves": false,
       "status": "needs_historian",
       "rows": 5,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 4
+      },
       "side_change": false
     },
     {
@@ -499,10 +763,16 @@
       "canonical": "C-III-1-5",
       "canonical_kind": "brigade",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "resolves": false,
       "status": "needs_historian",
       "rows": 2,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 1
+      },
       "side_change": false
     },
     {
@@ -514,6 +784,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -525,6 +801,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -536,6 +818,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -547,6 +835,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": true
     },
     {
@@ -558,6 +852,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 4,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 4,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -569,6 +869,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": true
     },
     {
@@ -580,6 +886,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -591,6 +903,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": true
     },
     {
@@ -602,6 +920,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 2,
+      "rows_by_confidence": {
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -613,6 +937,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -624,6 +954,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": true
     },
     {
@@ -635,6 +971,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -646,6 +988,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": true
     },
     {
@@ -657,6 +1005,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": true
     },
     {
@@ -668,6 +1022,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": true
     },
     {
@@ -679,6 +1039,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": true
     },
     {
@@ -690,6 +1056,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": true
     },
     {
@@ -701,6 +1073,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": true
     },
     {
@@ -712,6 +1090,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -719,10 +1103,16 @@
       "canonical": "U-8IL-CAV",
       "canonical_kind": "regiment",
       "rule": "own_id_prefix_extension",
-      "confidence": "high",
-      "resolves": true,
-      "status": "proposed_auto",
+      "confidence": "medium",
+      "resolves": false,
+      "status": "needs_historian",
       "rows": 11,
+      "rows_by_confidence": {
+        "high": 10,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -734,6 +1124,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -745,6 +1141,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -756,6 +1158,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 1,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -767,6 +1175,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 3,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 3,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -778,6 +1192,12 @@
       "resolves": false,
       "status": "needs_historian",
       "rows": 3,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 3,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -785,10 +1205,16 @@
       "canonical": "U-CAV-2",
       "canonical_kind": "division",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "resolves": false,
       "status": "needs_historian",
       "rows": 4,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 3,
+        "low": 0,
+        "none": 1
+      },
       "side_change": false
     },
     {
@@ -796,10 +1222,16 @@
       "canonical": "U-CAV-2-3",
       "canonical_kind": "brigade",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "resolves": false,
       "status": "needs_historian",
       "rows": 5,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 2,
+        "low": 0,
+        "none": 3
+      },
       "side_change": false
     },
     {
@@ -811,6 +1243,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 3,
+      "rows_by_confidence": {
+        "high": 3,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -822,6 +1260,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 2,
+      "rows_by_confidence": {
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -833,6 +1277,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 4,
+      "rows_by_confidence": {
+        "high": 4,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -844,6 +1294,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 4,
+      "rows_by_confidence": {
+        "high": 4,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -855,6 +1311,12 @@
       "resolves": true,
       "status": "proposed_auto",
       "rows": 3,
+      "rows_by_confidence": {
+        "high": 3,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
       "side_change": false
     },
     {
@@ -862,10 +1324,16 @@
       "canonical": "U-I-2-1",
       "canonical_kind": "brigade",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "resolves": false,
       "status": "needs_historian",
       "rows": 4,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 3,
+        "low": 0,
+        "none": 1
+      },
       "side_change": false
     },
     {
@@ -873,10 +1341,16 @@
       "canonical": "U-I-1-2",
       "canonical_kind": "brigade",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "resolves": false,
       "status": "needs_historian",
       "rows": 2,
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 1
+      },
       "side_change": false
     }
   ],

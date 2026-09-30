@@ -3,25 +3,26 @@
 //
 //   node tools/data/validate.mjs                       run all rules, compare with tools/data/baseline.json (exit 1 on new/stale/expired)
 //   node tools/data/validate.mjs --list                print the rule catalogue
-//   node tools/data/validate.mjs --rules R001,S007     run only these rules (ratchet judged for them only)
+//   node tools/data/validate.mjs --rules R001,S007     run only these rules (ratchet judged for them only; an unknown id exits 2)
 //   node tools/data/validate.mjs --init-baseline       create baseline.json from today's violations (refuses if it exists; --force)
 //   node tools/data/validate.mjs --tighten             delete stale baseline entries / improved metrics (never adds)
 //   node tools/data/validate.mjs --rebaseline R001 --reason "why"   replace one rule's baseline (logged in baseline history)
+//   node tools/data/validate.mjs --retire-rule R001 --reason "why"  drop a rule that was deliberately removed from the code (needs the id to be unregistered; logged)
 //   node tools/data/validate.mjs --report docs/data/baseline-report.md   (re)generate the machine report
 //   options: --data-dir DIR  --baseline FILE  --now YYYY-MM-DD  --strict (W also fails)  --json  --no-site (skip html/bundle scans and the rules that need them)  -v
 import fs from 'node:fs';
 import path from 'node:path';
 import { runValidation } from './lib/validation.mjs';
-import { loadAllRules, ruleSortKey } from './rules/index.mjs';
+import { loadAllRules, ruleSortKey, catalogueIds } from './rules/index.mjs';
 import { buildBaseline, evaluateRatchet, tightenBaseline } from './lib/ratchet.mjs';
-import { DEFAULT_DATA_DIR, REPO_ROOT, isoDate, prettyJson } from './lib/util.mjs';
+import { DEFAULT_DATA_DIR, REPO_ROOT, isoDate, prettyJson, isMainModule } from './lib/util.mjs';
 import { hashTree, contentHash, readJsonIfExists, PATHS } from './lib/manifest.mjs';
 
 export const DEFAULT_BASELINE = path.join(REPO_ROOT, 'tools', 'data', 'baseline.json');
 
 function parseArgs(argv) {
   const a = { flags: new Set(), opts: {} };
-  const withValue = new Set(['--rules', '--data-dir', '--baseline', '--now', '--rebaseline', '--reason', '--report', '--json-out']);
+  const withValue = new Set(['--rules', '--data-dir', '--baseline', '--now', '--rebaseline', '--retire-rule', '--reason', '--report', '--json-out']);
   for (let i = 0; i < argv.length; i++) {
     if (withValue.has(argv[i])) a.opts[argv[i].slice(2)] = argv[++i];
     else a.flags.add(argv[i]);
@@ -43,10 +44,13 @@ async function main() {
   const baselinePath = opts.baseline ? path.resolve(opts.baseline) : DEFAULT_BASELINE;
   // rules that read the deploy html or the bundle: not comparable with the baseline when --no-site is used, so they are left out
   const SITE_RULES = ['R008', 'F001', 'F002', 'K001', 'U001', 'M001', 'L001', 'P001'];
-  let only = opts.rules ? opts.rules.split(',') : null;
+  const registered = await catalogueIds();
+  let only = opts.rules ? [...new Set(opts.rules.split(',').map((x) => x.trim()).filter(Boolean))] : null;
+  if ('rules' in opts && (!only || only.length === 0)) { console.error('--rules needs at least one rule id'); return 2; }
+  const unknown = (only ?? []).filter((id) => !registered.includes(id));
+  if (unknown.length) { console.error(`unknown rule id${unknown.length > 1 ? 's' : ''}: ${unknown.join(', ')} (registered: ${registered.join(' ')}). Judging zero rules is not a pass.`); return 2; }
   if (flags.has('--no-site')) {
-    const all = (await loadAllRules()).map((r) => r.id);
-    only = (only ?? all).filter((id) => !SITE_RULES.includes(id));
+    only = (only ?? registered).filter((id) => !SITE_RULES.includes(id));
     console.log('--no-site: skipping ' + SITE_RULES.join(', ') + ' (they read legacy/dist html and the bundle)');
   }
   const { ctx, results } = await runValidation({ dataDir, now, only, site: !flags.has('--no-site') });
@@ -55,7 +59,7 @@ async function main() {
   if (flags.has('--init-baseline')) {
     if (fs.existsSync(baselinePath) && !flags.has('--force')) { console.error(`${baselinePath} exists (use --force to overwrite; prefer --tighten or --rebaseline)`); return 2; }
     const prev = fs.existsSync(baselinePath) ? JSON.parse(fs.readFileSync(baselinePath, 'utf8')) : null;
-    const b = buildBaseline(results, { generated: now, dataInfo: treeInfo, previous: prev });
+    const b = buildBaseline(results, { generated: now, dataInfo: treeInfo, previous: prev, catalogue: registered });
     fs.writeFileSync(baselinePath, prettyJson(b));
     console.log(`wrote ${path.relative(REPO_ROOT, baselinePath)}: ${Object.keys(b.rules).length} rules with entries, ${Object.values(b.rules).reduce((a, r) => a + r.count, 0)} fingerprints`);
     return 0;
@@ -64,11 +68,25 @@ async function main() {
   if (!baseline) { console.error(`no baseline at ${baselinePath}: run --init-baseline`); return 2; }
 
   if (flags.has('--tighten')) {
-    const { baseline: nb, removed } = tightenBaseline(results, baseline);
+    const { baseline: nb, removed } = tightenBaseline(results, baseline, { registered });
     nb.history.push({ date: now, action: 'tighten', removed });
     nb.generated = now;
     fs.writeFileSync(baselinePath, prettyJson(nb));
     console.log(`tightened: ${removed} entr${removed === 1 ? 'y' : 'ies'} removed`);
+    return 0;
+  }
+  if (opts['retire-rule']) {
+    const id = opts['retire-rule'];
+    if (!opts.reason) { console.error('--retire-rule requires --reason "..."'); return 2; }
+    if (registered.includes(id)) { console.error(`${id} is still registered in tools/data/rules: remove the rule from the code first (retiring a live rule would hide it)`); return 2; }
+    if (!(baseline.catalogue ?? []).includes(id) && !baseline.rules[id]) { console.error(`${id} is neither in the baseline catalogue nor in the baseline rules`); return 2; }
+    const before = baseline.rules[id]?.count ?? 0;
+    baseline.catalogue = (baseline.catalogue ?? []).filter((x) => x !== id);
+    delete baseline.rules[id];
+    baseline.history.push({ date: now, action: 'retire-rule', rule: id, before, reason: opts.reason });
+    baseline.generated = now;
+    fs.writeFileSync(baselinePath, prettyJson(baseline));
+    console.log(`retired rule ${id} (${before} baseline fingerprint(s) dropped; logged)`);
     return 0;
   }
   if (opts.rebaseline) {
@@ -76,6 +94,7 @@ async function main() {
     const id = opts.rebaseline;
     const r = results.get(id);
     if (!r) { console.error(`unknown or not-run rule ${id}`); return 2; }
+    if (!r.ran) { console.error(`${id} did not run (${r.reason}): a rule that did not run cannot be rebaselined`); return 2; }
     const fresh = buildBaseline(new Map([[id, r]]), { generated: now, dataInfo: treeInfo, previous: baseline });
     const before = baseline.rules[id]?.count ?? 0;
     if (fresh.rules[id]) baseline.rules[id] = fresh.rules[id]; else delete baseline.rules[id];
@@ -87,7 +106,7 @@ async function main() {
   }
 
   const judged = only ? new Map([...results].filter(([id]) => only.includes(id))) : results;
-  const verdict = evaluateRatchet(judged, only ? { ...baseline, rules: Object.fromEntries(Object.entries(baseline.rules).filter(([k]) => only.includes(k))) } : baseline, { now, strict: flags.has('--strict') });
+  const verdict = evaluateRatchet(judged, only ? { ...baseline, rules: Object.fromEntries(Object.entries(baseline.rules).filter(([k]) => only.includes(k))) } : baseline, { now, strict: flags.has('--strict'), registered });
 
   if (opts.report) {
     const { writeBaselineReport } = await import('./lib/report.mjs');
@@ -124,6 +143,6 @@ async function main() {
   return verdict.pass ? 0 : 1;
 }
 
-if (import.meta.url === `file://${process.argv[1].replace(/\\/g, '/')}` || process.argv[1]?.endsWith('validate.mjs')) {
+if (isMainModule(import.meta.url)) {
   main().then((code) => process.exit(code), (e) => { console.error(e); process.exit(2); });
 }

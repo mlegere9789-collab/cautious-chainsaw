@@ -8,12 +8,20 @@ import { measureSection2, measureExtras } from './measure.mjs';
 import { provenanceCoverage } from '../rules/prov_rules.mjs';
 import { retiredLiteralHits } from '../rules/facts_rules.mjs';
 import { REPO_ROOT, prettyJson } from './util.mjs';
+import { FAMILY_EXPIRY } from '../rules/define.mjs';
 
 const esc = (s) => String(s).replace(/\|/g, '\\|').replace(/\n/g, ' ');
 const n = (x) => (typeof x === 'number' ? x.toLocaleString('en-US') : String(x));
 
 function table(headers, rows) {
   return [`| ${headers.join(' | ')} |`, `|${headers.map(() => '---').join('|')}|`, ...rows.map((r) => `| ${r.map((c) => esc(c)).join(' | ')} |`)].join('\n');
+}
+
+/** "schema/refs/text 2027-01-31, numbers/facts 2027-03-31, ..." from the single source of truth (rules/define.mjs). */
+function expiryByDate() {
+  const by = new Map();
+  for (const [fam, d] of Object.entries(FAMILY_EXPIRY)) { if (!by.has(d)) by.set(d, []); by.get(d).push(fam); }
+  return [...by].sort((a, b) => (a[0] < b[0] ? -1 : 1)).map(([d, fams]) => `${fams.join('/')} ${d}`).join(', ');
 }
 
 function breakdown(violations) {
@@ -46,7 +54,7 @@ export function writeBaselineReport({ ctx, results, verdict, baseline, treeInfo,
   L.push('');
   L.push('## 1. What this baseline means');
   L.push('');
-  L.push('The legacy tree is frozen and is known to be defective (chapter 13). This report does not say the data is acceptable; it records **today\'s known violations** so that CI can fail on any *new* violation, on any baseline entry that no longer occurs (a fix must delete exactly its entry), and on entries past their expiry. `E` rules fail the build on a new violation; `W` rules warn (`--strict` makes them fail). A rule that could not run is listed as SKIPPED and is never counted as clean.');
+  L.push('The legacy tree is frozen and is known to be defective (chapter 13). This report does not say the data is acceptable; it records **today\'s known violations** so that CI can fail on any *new* violation, on any baseline entry that no longer occurs (a fix must delete exactly its entry), and on entries past their expiry. `E` rules fail the build on a new violation; `W` rules warn (`--strict` makes them fail). A rule that could not run is listed as SKIPPED and is never counted as clean: the ratchet FAILS on a non-deferred rule whose input is missing and on any baselined rule that did not run.');
   L.push('');
   L.push('## 2. Rule results');
   L.push('');
@@ -89,7 +97,7 @@ export function writeBaselineReport({ ctx, results, verdict, baseline, treeInfo,
     ['S008 loose tick ranges', `the specialist counted 3 (ticks101_225, ticks601_675, ticks451_520); a fourth file, placements_day1_ticks51_100 (declared 51-100, first row at tick 52), is also loose: ${results.get('S008').violations.filter((v) => v.kind === 'tick_range_loose').length} measured`],
     ['R002 wrong side', 'exactly 10 ids (state code contradicts prefix, twin exists); brigade/division-shaped ids that exist on both sides (U-I-2-3, C-CAV-2-1..3) are NOT flipped'],
     ['R011 dual meaning', `the strict note-versus-commander rule finds ${new Set(results.get('R011').violations.map((v) => v.data.unit_id)).size} ids / ${results.get('R011').violations.length} rows (same kind, target exists); the specialist heuristic found 28 ids / 44 rows. The collision table in data-src/build/id_collisions.json widens the definition (a note that BEGINS with another formation's name at any level, parent/child cameos excluded, plus rows whose strength exceeds twice the record's) and reaches 28 ids, the audit's count; the membership was not diffed because the audit's CSV is not in the repository.`],
-    ['G003 speed caps', `${extras.g003_linear_over_cap} segments over the DI-01 lenient caps on the 5-minute clock and ${extras.g003_warped_over_cap ?? 'n/a'} on the unsigned warped-clock proposal; the specialist quotes 6 and 20 with caps that were not published in full`],
+    ['G003 speed caps', `${extras.g003_linear_over_cap} segments over the qa-ci DV-07 caps (infantry 150 / artillery 250 / cavalry 400 m per model-minute, segments over 300 m, snap:true exempt) on the linear clock the files declare (the specialist quotes 6${extras.g003_linear_over_cap === 6 ? ': reproduced' : ''}) and ${extras.g003_warped_over_cap ?? 'n/a'} on the unsigned warped-clock proposal (the specialist quotes 20${extras.g003_warped_over_cap === 20 ? ': reproduced' : '; not reproduced, the cause is not established because the proposal is unsigned and its interpolation was written for this suite'}). A day-seam pair (tick 225 to 226, 450 to 451) spans the night between the two ticks, not 5 minutes`],
     ['C004 coverage', '248 real regiments + 66 batteries; the specialist 250 counts the alias stub and the horse battery filed as a regiment'],
     ['N005 roll-ups', (() => {
       const v = results.get('N005').violations;
@@ -107,7 +115,7 @@ export function writeBaselineReport({ ctx, results, verdict, baseline, treeInfo,
   L.push('## 5. Additional measurements');
   L.push('');
   L.push(table(['Measure', 'Value'], [
-    ['G003 over caps, 5-minute clock / warped proposal', `${extras.g003_linear_over_cap} / ${extras.g003_warped_over_cap ?? 'n/a'} (of ${extras.g003_segments_measured} segments >= 50 m)`],
+    ['G003 over the DV-07 caps, linear file clock / warped proposal', `${extras.g003_linear_over_cap} / ${extras.g003_warped_over_cap ?? 'n/a'} (of ${extras.g003_segments_measured} segments >= 50 m)`],
     ['moving segments (> 250 m) / of which > 120 clock-min on the warped proposal', `${extras.moving_segments} / ${extras.moving_segments_over_120_minutes_warped ?? 'n/a'} (chapter: 590 / 297)`],
     ['moving gaps > 10 ticks / > 30 ticks', `${extras.moving_gaps_over_10_ticks} / ${extras.moving_gaps_over_30_ticks} (DI: 351 / 217)`],
     ['G004 stacked groups on raw rows / on merged rows', `${extras.stacked_raw_groups} groups, ${extras.stacked_raw_units} units / ${results.get('G004').violations.length} groups, ${rowsOf(results.get('G004').violations)} units (DI: 48 / 96 and 39 / 78)`],
@@ -122,14 +130,17 @@ export function writeBaselineReport({ ctx, results, verdict, baseline, treeInfo,
   L.push(table(['Record class', 'Records', 'With a per-record source string', '%'], cov.map((c) => [c.name, n(c.total), n(c.sourced), c.total ? (100 * c.sourced / c.total).toFixed(1) : '-'])));
   const tot = cov.reduce((a, c) => a + c.total, 0), src = cov.reduce((a, c) => a + c.sourced, 0);
   L.push('');
-  L.push(`Overall ${n(src)} of ${n(tot)} records (${(100 * src / tot).toFixed(1)} %). "Documented" positions: 0 (no anchor carries a \`basis\`). None of these source strings resolves in a registry (there is none): they are claims, never verified (chapter 13 section 2.4).`);
+  const documented = ctx.rows.filter((r) => r.basis === 'documented').length;
+  const withBasis = ctx.rows.filter((r) => r.basis).length;
+  L.push(`Overall ${n(src)} of ${n(tot)} records (${(100 * src / tot).toFixed(1)} %). "Documented" positions: ${n(documented)} of ${n(ctx.rows.length)} (${n(withBasis)} anchors carry a \`basis\` at all). None of these source strings resolves in a registry (there is none): they are claims, never verified (chapter 13 section 2.4).`);
   L.push('');
   L.push('## 7. ID crosswalk summary (generated by tools/data/unit_registry.mjs)');
   L.push('');
   L.push(table(['Measure', 'Value'], [
     ['unresolved placed ids / rows', `${crosswalk.counts.unresolved_ids} / ${crosswalk.counts.rows}`],
-    ['proposal confidence high / medium / low / none', `${crosswalk.counts.by_confidence.high} / ${crosswalk.counts.by_confidence.medium} / ${crosswalk.counts.by_confidence.low} / ${crosswalk.counts.by_confidence.none}`],
-    ['share high, share high+medium', `${(100 * crosswalk.counts.auto_high_share).toFixed(1)} % / ${(100 * crosswalk.counts.auto_high_or_medium_share).toFixed(1)} % (the audit\'s auto-match figure is 87.6 %; this engine is stricter and marks every non-high row needs_historian)`],
+    ['proposal confidence per id (its weakest row) high / medium / low / none', `${crosswalk.counts.by_confidence.high} / ${crosswalk.counts.by_confidence.medium} / ${crosswalk.counts.by_confidence.low} / ${crosswalk.counts.by_confidence.none}`],
+    ['proposal confidence per placement ROW high / medium / low / none', `${crosswalk.counts.rows_by_confidence.high} / ${crosswalk.counts.rows_by_confidence.medium} / ${crosswalk.counts.rows_by_confidence.low} / ${crosswalk.counts.rows_by_confidence.none} (each row is judged on its own note; evidence in a sibling row does not vouch for it)`],
+    ['share high, share high+medium (ids)', `${(100 * crosswalk.counts.auto_high_share).toFixed(1)} % / ${(100 * crosswalk.counts.auto_high_or_medium_share).toFixed(1)} % (the audit\'s auto-match figure is 87.6 %; this engine is stricter and marks every id that is not high on EVERY row needs_historian)`],
     ['rows needing the historian', crosswalk.counts.needs_historian],
     ['registry: units / regiments / batteries', `${registry.census.total} / ${registry.census.regiments} / ${registry.census.batteries}`],
     ['registry: units needing the historian (flags)', registry.census.needs_historian],
@@ -148,7 +159,7 @@ export function writeBaselineReport({ ctx, results, verdict, baseline, treeInfo,
   L.push('## 9. Baseline size');
   L.push('');
   const fp = Object.values(baseline.rules).reduce((a, r) => a + r.count, 0);
-  L.push(`${Object.keys(baseline.rules).length} rules carry ${n(fp)} fingerprints; expiry per family is a proposal (schema/refs/text 2027-01-31, numbers/facts 2027-03-31, coverage/geometry/time/provenance 2027-06-30) to be aligned with the roadmap gates.`);
+  L.push(`${Object.keys(baseline.rules).length} rules carry ${n(fp)} fingerprints; expiry per family is a proposal (${expiryByDate()}) to be aligned with the roadmap gates. The baseline also records the catalogue of all ${(baseline.catalogue ?? []).length} registered rules: a rule that vanishes from the code fails the ratchet even if it had no entries.`);
   L.push('');
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, L.join('\n') + '\n', 'utf8');
@@ -163,7 +174,7 @@ export function writeBaselineReport({ ctx, results, verdict, baseline, treeInfo,
     data_version: treeInfo.data_version,
     data_content_sha256: treeInfo.content_sha256,
     rules: [...results.values()].map((r) => ({ id: r.rule.id, sev: r.rule.sev, status: r.ran ? r.rule.status : 'skipped', found: r.ran ? r.violations.length : null, rows: r.ran ? rowsOf(r.violations) : null })),
-    provenance: { records: tot, with_source_string: src, percent_with_source_string: Number((100 * src / tot).toFixed(2)), percent_documented: 0, note: 'no source resolves in a registry; no anchor carries basis' },
+    provenance: { records: tot, with_source_string: src, percent_with_source_string: Number((100 * src / tot).toFixed(2)), placements_documented: documented, percent_documented: Number((100 * documented / Math.max(1, ctx.rows.length)).toFixed(2)), placements_with_basis: withBasis, note: 'no source resolves in a registry (none exists); percent_documented counts placement rows whose basis is "documented"' },
     schematic: { tick1_rows: schematic.length, tick1_rows_on_shared_longitudes: schematic.filter((r) => lngCount.get(r.lng) > 1).length, rows_under_4_decimals: results.get('G002').violations.length },
   };
   fs.writeFileSync(path.join(REPO_ROOT, 'data-src', 'build', 'data-quality-report.json'), prettyJson(dq));

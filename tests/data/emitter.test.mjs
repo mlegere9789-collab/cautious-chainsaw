@@ -8,7 +8,8 @@ import { findSpan, getAt } from '../../tools/data/lib/jsonspan.mjs';
 import { applyEditsToText, emit } from '../../tools/data/emit_legacy.mjs';
 import { hashTree, readTsv, diffAgainstManifest } from '../../tools/data/lib/manifest.mjs';
 import { DEFAULT_DATA_DIR, REPO_ROOT } from '../../tools/data/lib/util.mjs';
-import { rmrf } from './helpers.mjs';
+import { pathToFileURL } from 'node:url';
+import { rmrf, makeRepoCopy } from './helpers.mjs';
 
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'gtbg-emit-'));
 
@@ -65,8 +66,18 @@ test('a real value-only patch on a copy of the legacy tree changes exactly one f
   } finally { rmrf(out); }
 });
 
-test('the emitter refuses to write under legacy/', () => {
+test('the emitter refuses to write under legacy/ (probed in a throw-away copy of the repo, so a broken guard can never touch the real legacy tree)', async () => {
+  const { base, root } = makeRepoCopy('repo');
+  try {
+    const mod = await import(pathToFileURL(path.join(root, 'tools', 'data', 'emit_legacy.mjs')).href);
+    const before = hashTree(path.join(root, 'legacy', 'dist', 'data'));
+    assert.throws(() => mod.emit({ patches: [], out: path.join(root, 'legacy', 'dist', 'x') }), /refusing/);
+    assert.ok(!fs.existsSync(path.join(root, 'legacy', 'dist', 'x')), 'nothing was written');
+    assert.deepEqual(hashTree(path.join(root, 'legacy', 'dist', 'data')), before);
+  } finally { rmrf(base); }
+  // the real tree, refused before a single byte is written
   assert.throws(() => emit({ patches: [], out: path.join(REPO_ROOT, 'legacy', 'dist', 'x') }), /refusing/);
+  assert.ok(!fs.existsSync(path.join(REPO_ROOT, 'legacy', 'dist', 'x')));
 });
 
 test('CLI: --verify with no patches exits 0', () => {

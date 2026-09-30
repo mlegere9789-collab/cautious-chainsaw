@@ -68,3 +68,32 @@ export function fixtureDist(files) {
 }
 
 export const rmrf = (d) => fs.rmSync(d, { recursive: true, force: true });
+
+/**
+ * A throw-away copy of just enough of the repo to run the emitter, the generators and the validator from a chosen root directory name
+ * (a space, a non-ASCII letter). Nothing here writes under the real legacy/. `full` adds data-src, the whole deploy tree, the bundle, the
+ * plan anchors, docs/data and a node_modules junction so every `data:*` CLI can run.
+ * @returns {{base:string, root:string}}
+ */
+export function makeRepoCopy(rootName, { full = false } = {}) {
+  const cp = (from, to) => fs.cpSync(from, to, { recursive: true });
+  const base = fs.mkdtempSync(path.join(os.tmpdir(), 'gtbg-repo-'));
+  const root = path.join(base, rootName);
+  fs.mkdirSync(path.join(root, 'tools'), { recursive: true });
+  cp(path.join(REPO_ROOT, 'tools', 'data'), path.join(root, 'tools', 'data'));
+  fs.mkdirSync(path.join(root, 'legacy', 'dist'), { recursive: true });
+  cp(path.join(DEFAULT_DATA_DIR), path.join(root, 'legacy', 'dist', 'data'));
+  fs.mkdirSync(path.join(root, 'data-src'), { recursive: true });
+  fs.copyFileSync(path.join(REPO_ROOT, 'data-src', 'legacy-manifest.tsv'), path.join(root, 'data-src', 'legacy-manifest.tsv'));
+  if (full) {
+    cp(path.join(REPO_ROOT, 'data-src'), path.join(root, 'data-src'));
+    cp(path.join(REPO_ROOT, 'legacy', 'dist'), path.join(root, 'legacy', 'dist'));
+    fs.mkdirSync(path.join(root, 'legacy', 'analysis'), { recursive: true });
+    fs.copyFileSync(path.join(REPO_ROOT, 'legacy', 'analysis', 'bundle.pretty.js'), path.join(root, 'legacy', 'analysis', 'bundle.pretty.js'));
+    fs.mkdirSync(path.join(root, 'docs', 'plan'), { recursive: true });
+    cp(path.join(REPO_ROOT, 'docs', 'plan', 'data'), path.join(root, 'docs', 'plan', 'data'));
+    cp(path.join(REPO_ROOT, 'docs', 'data'), path.join(root, 'docs', 'data'));
+    fs.symlinkSync(path.join(REPO_ROOT, 'node_modules'), path.join(root, 'node_modules'), 'junction');
+  }
+  return { base, root };
+}

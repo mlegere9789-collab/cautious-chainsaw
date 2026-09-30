@@ -42,14 +42,21 @@
     "Regulars use UR (not implemented: no such id among the 95)",
     "ambiguous matches stay none with the candidates listed"
   ],
+  "confidence_definition": "Confidence is assessed PER PLACEMENT ROW: the rule cascade is run over the id's rows together (the id-level proposal) and once over each row alone (row_confidence[]: that row's own evidence; a row whose note names nothing, or names another formation, does not inherit support from its siblings). The id-level `confidence` is the weakest row (never \"none\" when a proposal exists: rows without support of their own are counted in rows_by_confidence.none, and a row that names a different target adds a WARNING). combined_notes_confidence keeps the verdict on the concatenated notes for the record. Only an id whose every row is high is status proposed_auto.",
   "counts": {
     "unresolved_ids": 95,
     "rows": 216,
     "by_confidence": {
-      "high": 36,
-      "medium": 41,
-      "low": 10,
+      "high": 34,
+      "medium": 29,
+      "low": 24,
       "none": 8
+    },
+    "rows_by_confidence": {
+      "high": 81,
+      "medium": 71,
+      "low": 23,
+      "none": 41
     },
     "by_rule": {
       "suffix_variant": 18,
@@ -67,9 +74,9 @@
       "artillery_commander_in_note": 1,
       "new_record_required": 8
     },
-    "needs_historian": 59,
-    "auto_high_share": 0.379,
-    "auto_high_or_medium_share": 0.811
+    "needs_historian": 61,
+    "auto_high_share": 0.358,
+    "auto_high_or_medium_share": 0.663
   },
   "wrong_side_prefix": [
     {
@@ -237,6 +244,41 @@
       ],
       "reason": "the suffix tag is not explained by the OOB chain: the regiment may belong to another brigade/division at the time (historian)",
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "low",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 2,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_culpshill.json",
+          "idx": 34,
+          "tick": 315,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-10VA",
+          "own_target": null,
+          "evidence": [
+            "C-10VA exists (10th Virginia Infantry); \"J\" is a suffix tag",
+            "tag \"J\" does NOT match a commander in the regiment's chain (Steuart, Johnson)"
+          ]
+        },
+        {
+          "file": "density_day3_culpshill.json",
+          "idx": 16,
+          "tick": 455,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-10VA",
+          "own_target": null,
+          "evidence": [
+            "C-10VA exists (10th Virginia Infantry); \"J\" is a suffix tag",
+            "tag \"J\" does NOT match a commander in the regiment's chain (Steuart, Johnson)"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -261,6 +303,28 @@
       ],
       "reason": "the suffix tag is not explained by the OOB chain: the regiment may belong to another brigade/division at the time (historian)",
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "low",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_ticks51_100.json",
+          "idx": 13,
+          "tick": 56,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-12GA",
+          "own_target": null,
+          "evidence": [
+            "C-12GA exists (12th Georgia Infantry); \"D\" is a suffix tag",
+            "tag \"D\" does NOT match a commander in the regiment's chain (Doles, Rodes)"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -287,6 +351,55 @@
         "note names Iverson, commander in the candidate's chain"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 3,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_iverson.json",
+          "idx": 1,
+          "tick": 50,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-12NC",
+          "own_target": null,
+          "evidence": [
+            "C-12NC exists (12th North Carolina Infantry); \"IV\" is a suffix tag",
+            "tag \"IV\" matches a commander/nickname in the regiment's chain (C-II-3-3 / C-II-3)"
+          ]
+        },
+        {
+          "file": "density_day1_iverson.json",
+          "idx": 7,
+          "tick": 53,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-12NC",
+          "own_target": null,
+          "evidence": [
+            "C-12NC exists (12th North Carolina Infantry); \"IV\" is a suffix tag",
+            "tag \"IV\" matches a commander/nickname in the regiment's chain (C-II-3-3 / C-II-3)"
+          ]
+        },
+        {
+          "file": "density_day1_iverson.json",
+          "idx": 16,
+          "tick": 60,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-12NC",
+          "own_target": null,
+          "evidence": [
+            "C-12NC exists (12th North Carolina Infantry); \"IV\" is a suffix tag",
+            "tag \"IV\" matches a commander/nickname in the regiment's chain (C-II-3-3 / C-II-3)",
+            "note names Iverson, commander in the candidate's chain"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -318,6 +431,128 @@
         "note names \"13th Mississippi\", matching the candidate's designation"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 8,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_afternoon.json",
+          "idx": 37,
+          "tick": 200,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-13MS",
+          "own_target": null,
+          "evidence": [
+            "C-13MS exists (13th Mississippi Infantry); \"B\" is a suffix tag",
+            "tag \"B\" matches a commander/nickname in the regiment's chain (C-I-1-2 / C-I-1)",
+            "note names Barksdale, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day2_bigelow.json",
+          "idx": 2,
+          "tick": 296,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-13MS",
+          "own_target": null,
+          "evidence": [
+            "C-13MS exists (13th Mississippi Infantry); \"B\" is a suffix tag",
+            "tag \"B\" matches a commander/nickname in the regiment's chain (C-I-1-2 / C-I-1)",
+            "note names Barksdale, commander in the candidate's chain",
+            "note names \"13th Mississippi\", matching the candidate's designation"
+          ]
+        },
+        {
+          "file": "density_day2_bigelow.json",
+          "idx": 6,
+          "tick": 298,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-13MS",
+          "own_target": null,
+          "evidence": [
+            "C-13MS exists (13th Mississippi Infantry); \"B\" is a suffix tag",
+            "tag \"B\" matches a commander/nickname in the regiment's chain (C-I-1-2 / C-I-1)",
+            "note names Barksdale, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day2_bigelow.json",
+          "idx": 9,
+          "tick": 299,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-13MS",
+          "own_target": null,
+          "evidence": [
+            "C-13MS exists (13th Mississippi Infantry); \"B\" is a suffix tag",
+            "tag \"B\" matches a commander/nickname in the regiment's chain (C-I-1-2 / C-I-1)",
+            "note names Barksdale, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day2_bigelow.json",
+          "idx": 16,
+          "tick": 302,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-13MS",
+          "own_target": null,
+          "evidence": [
+            "C-13MS exists (13th Mississippi Infantry); \"B\" is a suffix tag",
+            "tag \"B\" matches a commander/nickname in the regiment's chain (C-I-1-2 / C-I-1)",
+            "note names Barksdale, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day2_wheatfield.json",
+          "idx": 0,
+          "tick": 278,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-13MS",
+          "own_target": null,
+          "evidence": [
+            "C-13MS exists (13th Mississippi Infantry); \"B\" is a suffix tag",
+            "tag \"B\" matches a commander/nickname in the regiment's chain (C-I-1-2 / C-I-1)",
+            "note names Barksdale, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day2_wheatfield.json",
+          "idx": 12,
+          "tick": 280,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-13MS",
+          "own_target": null,
+          "evidence": [
+            "C-13MS exists (13th Mississippi Infantry); \"B\" is a suffix tag",
+            "tag \"B\" matches a commander/nickname in the regiment's chain (C-I-1-2 / C-I-1)",
+            "note names Barksdale, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day2_wheatfield.json",
+          "idx": 38,
+          "tick": 298,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-13MS",
+          "own_target": null,
+          "evidence": [
+            "C-13MS exists (13th Mississippi Infantry); \"B\" is a suffix tag",
+            "tag \"B\" matches a commander/nickname in the regiment's chain (C-I-1-2 / C-I-1)",
+            "note names Barksdale, commander in the candidate's chain"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -342,6 +577,29 @@
         "note names Wofford, commander in the candidate's chain"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_wheatfield.json",
+          "idx": 33,
+          "tick": 293,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-16GA",
+          "own_target": null,
+          "evidence": [
+            "C-16GA exists (16th Georgia Infantry); \"W\" is a suffix tag",
+            "tag \"W\" matches a commander/nickname in the regiment's chain (C-I-1-4 / C-I-1)",
+            "note names Wofford, commander in the candidate's chain"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -366,6 +624,28 @@
       ],
       "reason": "the suffix tag is not explained by the OOB chain: the regiment may belong to another brigade/division at the time (historian)",
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "low",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_lateafternoon.json",
+          "idx": 6,
+          "tick": 63,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-1NC",
+          "own_target": null,
+          "evidence": [
+            "C-1NC exists (1st North Carolina Infantry); \"EW\" is a suffix tag",
+            "tag \"EW\" does NOT match a commander in the regiment's chain (Steuart, Johnson)"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -391,6 +671,42 @@
         "note names Iverson, commander in the candidate's chain"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_iverson.json",
+          "idx": 2,
+          "tick": 50,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-20NC",
+          "own_target": null,
+          "evidence": [
+            "C-20NC exists (20th North Carolina Infantry); \"IV\" is a suffix tag",
+            "tag \"IV\" matches a commander/nickname in the regiment's chain (C-II-3-3 / C-II-3)",
+            "note names Iverson, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day1_iverson.json",
+          "idx": 8,
+          "tick": 53,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-20NC",
+          "own_target": null,
+          "evidence": [
+            "C-20NC exists (20th North Carolina Infantry); \"IV\" is a suffix tag",
+            "tag \"IV\" matches a commander/nickname in the regiment's chain (C-II-3-3 / C-II-3)"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -416,6 +732,41 @@
       ],
       "reason": "single-letter tag not corroborated by the note",
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 2,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_culpshill.json",
+          "idx": 6,
+          "tick": 314,
+          "confidence": "medium",
+          "rule": "suffix_variant",
+          "proposed": "C-21NC",
+          "own_target": null,
+          "evidence": [
+            "C-21NC exists (21st North Carolina Infantry); \"A\" is a suffix tag",
+            "tag \"A\" matches a commander/nickname in the regiment's chain (C-II-1-2 / C-II-1) but is only an initial and the note does not name that commander"
+          ]
+        },
+        {
+          "file": "density_day2_culpshill.json",
+          "idx": 15,
+          "tick": 326,
+          "confidence": "medium",
+          "rule": "suffix_variant",
+          "proposed": "C-21NC",
+          "own_target": null,
+          "evidence": [
+            "C-21NC exists (21st North Carolina Infantry); \"A\" is a suffix tag",
+            "tag \"A\" matches a commander/nickname in the regiment's chain (C-II-1-2 / C-II-1) but is only an initial and the note does not name that commander"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -442,6 +793,55 @@
         "note names Iverson, commander in the candidate's chain"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 3,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_iverson.json",
+          "idx": 3,
+          "tick": 50,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-23NC",
+          "own_target": null,
+          "evidence": [
+            "C-23NC exists (23rd North Carolina Infantry); \"IV\" is a suffix tag",
+            "tag \"IV\" matches a commander/nickname in the regiment's chain (C-II-3-3 / C-II-3)"
+          ]
+        },
+        {
+          "file": "density_day1_iverson.json",
+          "idx": 9,
+          "tick": 53,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-23NC",
+          "own_target": null,
+          "evidence": [
+            "C-23NC exists (23rd North Carolina Infantry); \"IV\" is a suffix tag",
+            "tag \"IV\" matches a commander/nickname in the regiment's chain (C-II-3-3 / C-II-3)"
+          ]
+        },
+        {
+          "file": "density_day1_iverson.json",
+          "idx": 13,
+          "tick": 57,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-23NC",
+          "own_target": null,
+          "evidence": [
+            "C-23NC exists (23rd North Carolina Infantry); \"IV\" is a suffix tag",
+            "tag \"IV\" matches a commander/nickname in the regiment's chain (C-II-3-3 / C-II-3)",
+            "note names Iverson, commander in the candidate's chain"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -464,6 +864,27 @@
         "C-2LA-T extends C-2LA with a suffix"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_culpshill.json",
+          "idx": 8,
+          "tick": 326,
+          "confidence": "medium",
+          "rule": "own_id_prefix_extension",
+          "proposed": "C-2LA-T",
+          "own_target": null,
+          "evidence": [
+            "C-2LA-T extends C-2LA with a suffix"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -484,7 +905,7 @@
       "proposed_designation": "2nd Mississippi Infantry",
       "proposed_side": "confederate",
       "rule": "suffix_variant",
-      "confidence": "high",
+      "confidence": "medium",
       "evidence": [
         "C-2MS exists (2nd Mississippi Infantry); \"D\" is a suffix tag",
         "tag \"D\" matches a commander/nickname in the regiment's chain (C-III-2-4 / C-III-2)",
@@ -492,7 +913,71 @@
         "note names \"2nd Mississippi\", matching the candidate's designation"
       ],
       "hard_rule_warnings": [],
-      "needs_historian": false
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 3,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_railroadcut.json",
+          "idx": 0,
+          "tick": 20,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-2MS",
+          "own_target": null,
+          "evidence": [
+            "C-2MS exists (2nd Mississippi Infantry); \"D\" is a suffix tag",
+            "tag \"D\" matches a commander/nickname in the regiment's chain (C-III-2-4 / C-III-2)",
+            "note names Davis, commander in the candidate's chain",
+            "note names \"2nd Mississippi\", matching the candidate's designation"
+          ]
+        },
+        {
+          "file": "density_day1_railroadcut.json",
+          "idx": 4,
+          "tick": 25,
+          "confidence": "medium",
+          "rule": "suffix_variant",
+          "proposed": "C-2MS",
+          "own_target": null,
+          "evidence": [
+            "C-2MS exists (2nd Mississippi Infantry); \"D\" is a suffix tag",
+            "tag \"D\" matches a commander/nickname in the regiment's chain (C-III-2-4 / C-III-2) but is only an initial and the note does not name that commander"
+          ]
+        },
+        {
+          "file": "density_day1_railroadcut.json",
+          "idx": 9,
+          "tick": 29,
+          "confidence": "medium",
+          "rule": "suffix_variant",
+          "proposed": "C-2MS",
+          "own_target": null,
+          "evidence": [
+            "C-2MS exists (2nd Mississippi Infantry); \"D\" is a suffix tag",
+            "tag \"D\" matches a commander/nickname in the regiment's chain (C-III-2-4 / C-III-2) but is only an initial and the note does not name that commander"
+          ]
+        },
+        {
+          "file": "density_day1_railroadcut.json",
+          "idx": 13,
+          "tick": 32,
+          "confidence": "medium",
+          "rule": "suffix_variant",
+          "proposed": "C-2MS",
+          "own_target": null,
+          "evidence": [
+            "C-2MS exists (2nd Mississippi Infantry); \"D\" is a suffix tag",
+            "tag \"D\" matches a commander/nickname in the regiment's chain (C-III-2-4 / C-III-2) but is only an initial and the note does not name that commander",
+            "note names \"2nd Mississippi\", matching the candidate's designation"
+          ]
+        }
+      ],
+      "needs_historian": true
     },
     {
       "alias_id": "C-2NC-SW",
@@ -521,6 +1006,93 @@
       ],
       "reason": "the suffix tag is not explained by the OOB chain: the regiment may belong to another brigade/division at the time (historian)",
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "low",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 6,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_culpshill.json",
+          "idx": 29,
+          "tick": 315,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-2NC",
+          "own_target": null,
+          "evidence": [
+            "C-2NC exists (2nd North Carolina Infantry); \"SW\" is a suffix tag",
+            "tag \"SW\" does NOT match a commander in the regiment's chain (Ramseur, Rodes)"
+          ]
+        },
+        {
+          "file": "density_day3_aftermath.json",
+          "idx": 22,
+          "tick": 620,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-2NC",
+          "own_target": null,
+          "evidence": [
+            "C-2NC exists (2nd North Carolina Infantry); \"SW\" is a suffix tag",
+            "tag \"SW\" does NOT match a commander in the regiment's chain (Ramseur, Rodes)"
+          ]
+        },
+        {
+          "file": "density_day3_aftermath.json",
+          "idx": 33,
+          "tick": 675,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-2NC",
+          "own_target": null,
+          "evidence": [
+            "C-2NC exists (2nd North Carolina Infantry); \"SW\" is a suffix tag",
+            "tag \"SW\" does NOT match a commander in the regiment's chain (Ramseur, Rodes)"
+          ]
+        },
+        {
+          "file": "density_day3_culpshill.json",
+          "idx": 5,
+          "tick": 452,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-2NC",
+          "own_target": null,
+          "evidence": [
+            "C-2NC exists (2nd North Carolina Infantry); \"SW\" is a suffix tag",
+            "tag \"SW\" does NOT match a commander in the regiment's chain (Ramseur, Rodes)"
+          ]
+        },
+        {
+          "file": "density_day3_culpshill.json",
+          "idx": 23,
+          "tick": 465,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-2NC",
+          "own_target": null,
+          "evidence": [
+            "C-2NC exists (2nd North Carolina Infantry); \"SW\" is a suffix tag",
+            "tag \"SW\" does NOT match a commander in the regiment's chain (Ramseur, Rodes)"
+          ]
+        },
+        {
+          "file": "density_day3_culpshill.json",
+          "idx": 36,
+          "tick": 490,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-2NC",
+          "own_target": null,
+          "evidence": [
+            "C-2NC exists (2nd North Carolina Infantry); \"SW\" is a suffix tag",
+            "tag \"SW\" does NOT match a commander in the regiment's chain (Ramseur, Rodes)"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -546,6 +1118,54 @@
         "note names Gordon, commander in the candidate's chain"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 3,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_lateafternoon.json",
+          "idx": 0,
+          "tick": 62,
+          "confidence": "high",
+          "rule": "own_id_prefix_extension",
+          "proposed": "C-38GA-E",
+          "own_target": null,
+          "evidence": [
+            "C-38GA-E extends C-38GA with a suffix",
+            "note names Gordon, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day1_lateafternoon.json",
+          "idx": 15,
+          "tick": 70,
+          "confidence": "high",
+          "rule": "own_id_prefix_extension",
+          "proposed": "C-38GA-E",
+          "own_target": null,
+          "evidence": [
+            "C-38GA-E extends C-38GA with a suffix",
+            "note names Gordon, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day1_ticks51_100.json",
+          "idx": 6,
+          "tick": 56,
+          "confidence": "high",
+          "rule": "own_id_prefix_extension",
+          "proposed": "C-38GA-E",
+          "own_target": null,
+          "evidence": [
+            "C-38GA-E extends C-38GA with a suffix",
+            "note names Gordon, commander in the candidate's chain"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -578,6 +1198,125 @@
       ],
       "reason": "the suffix tag is not explained by the OOB chain: the regiment may belong to another brigade/division at the time (historian)",
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "low",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 8,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_culpshill.json",
+          "idx": 37,
+          "tick": 315,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-3NC",
+          "own_target": null,
+          "evidence": [
+            "C-3NC exists (3rd North Carolina Infantry); \"SW\" is a suffix tag",
+            "tag \"SW\" does NOT match a commander in the regiment's chain (Steuart, Johnson)",
+            "note names Steuart, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day2_culpshill.json",
+          "idx": 43,
+          "tick": 320,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-3NC",
+          "own_target": null,
+          "evidence": [
+            "C-3NC exists (3rd North Carolina Infantry); \"SW\" is a suffix tag",
+            "tag \"SW\" does NOT match a commander in the regiment's chain (Steuart, Johnson)",
+            "note names Steuart, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day3_aftermath.json",
+          "idx": 23,
+          "tick": 620,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-3NC",
+          "own_target": null,
+          "evidence": [
+            "C-3NC exists (3rd North Carolina Infantry); \"SW\" is a suffix tag",
+            "tag \"SW\" does NOT match a commander in the regiment's chain (Steuart, Johnson)",
+            "note names Steuart, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day3_culpshill.json",
+          "idx": 10,
+          "tick": 452,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-3NC",
+          "own_target": null,
+          "evidence": [
+            "C-3NC exists (3rd North Carolina Infantry); \"SW\" is a suffix tag",
+            "tag \"SW\" does NOT match a commander in the regiment's chain (Steuart, Johnson)",
+            "note names Steuart, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day3_culpshill.json",
+          "idx": 20,
+          "tick": 460,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-3NC",
+          "own_target": null,
+          "evidence": [
+            "C-3NC exists (3rd North Carolina Infantry); \"SW\" is a suffix tag",
+            "tag \"SW\" does NOT match a commander in the regiment's chain (Steuart, Johnson)"
+          ]
+        },
+        {
+          "file": "density_day3_culpshill.json",
+          "idx": 24,
+          "tick": 465,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-3NC",
+          "own_target": null,
+          "evidence": [
+            "C-3NC exists (3rd North Carolina Infantry); \"SW\" is a suffix tag",
+            "tag \"SW\" does NOT match a commander in the regiment's chain (Steuart, Johnson)"
+          ]
+        },
+        {
+          "file": "density_day3_culpshill.json",
+          "idx": 32,
+          "tick": 480,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-3NC",
+          "own_target": null,
+          "evidence": [
+            "C-3NC exists (3rd North Carolina Infantry); \"SW\" is a suffix tag",
+            "tag \"SW\" does NOT match a commander in the regiment's chain (Steuart, Johnson)",
+            "note names Steuart, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day3_culpshill.json",
+          "idx": 40,
+          "tick": 510,
+          "confidence": "low",
+          "rule": "suffix_variant",
+          "proposed": "C-3NC",
+          "own_target": null,
+          "evidence": [
+            "C-3NC exists (3rd North Carolina Infantry); \"SW\" is a suffix tag",
+            "tag \"SW\" does NOT match a commander in the regiment's chain (Steuart, Johnson)",
+            "note names Steuart, commander in the candidate's chain"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -605,6 +1344,46 @@
         "note names \"4th Alabama\", matching the candidate's designation"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_devilsden.json",
+          "idx": 3,
+          "tick": 260,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-4AL",
+          "own_target": null,
+          "evidence": [
+            "C-4AL exists (4th Alabama Infantry); \"Law\" is a suffix tag",
+            "tag \"Law\" matches a commander/nickname in the regiment's chain (C-I-2-1 / C-I-2)",
+            "note names Law, commander in the candidate's chain",
+            "note names Law, commander in the candidate's chain",
+            "note names \"4th Alabama\", matching the candidate's designation"
+          ]
+        },
+        {
+          "file": "density_day2_devilsden.json",
+          "idx": 8,
+          "tick": 264,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-4AL",
+          "own_target": null,
+          "evidence": [
+            "C-4AL exists (4th Alabama Infantry); \"Law\" is a suffix tag",
+            "tag \"Law\" matches a commander/nickname in the regiment's chain (C-I-2-1 / C-I-2)",
+            "note names Law, commander in the candidate's chain",
+            "note names Law, commander in the candidate's chain"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -631,6 +1410,67 @@
         "tag \"SW\" matches a commander/nickname in the regiment's chain (C-II-2-1 / C-II-2)"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 4,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_ticks51_100.json",
+          "idx": 47,
+          "tick": 80,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-4VA",
+          "own_target": null,
+          "evidence": [
+            "C-4VA exists (4th Virginia Infantry (Stonewall Brigade)); \"SW\" is a suffix tag",
+            "tag \"SW\" matches a commander/nickname in the regiment's chain (C-II-2-1 / C-II-2)"
+          ]
+        },
+        {
+          "file": "density_day2_culpshill.json",
+          "idx": 30,
+          "tick": 315,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-4VA",
+          "own_target": null,
+          "evidence": [
+            "C-4VA exists (4th Virginia Infantry (Stonewall Brigade)); \"SW\" is a suffix tag",
+            "tag \"SW\" matches a commander/nickname in the regiment's chain (C-II-2-1 / C-II-2)"
+          ]
+        },
+        {
+          "file": "density_day3_culpshill.json",
+          "idx": 6,
+          "tick": 452,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-4VA",
+          "own_target": null,
+          "evidence": [
+            "C-4VA exists (4th Virginia Infantry (Stonewall Brigade)); \"SW\" is a suffix tag",
+            "tag \"SW\" matches a commander/nickname in the regiment's chain (C-II-2-1 / C-II-2)"
+          ]
+        },
+        {
+          "file": "density_day3_culpshill.json",
+          "idx": 37,
+          "tick": 490,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-4VA",
+          "own_target": null,
+          "evidence": [
+            "C-4VA exists (4th Virginia Infantry (Stonewall Brigade)); \"SW\" is a suffix tag",
+            "tag \"SW\" matches a commander/nickname in the regiment's chain (C-II-2-1 / C-II-2)"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -656,6 +1496,43 @@
         "note names Davis, commander in the candidate's chain"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_railroadcut.json",
+          "idx": 2,
+          "tick": 20,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-55NC",
+          "own_target": null,
+          "evidence": [
+            "C-55NC exists (55th North Carolina Infantry); \"D\" is a suffix tag",
+            "tag \"D\" matches a commander/nickname in the regiment's chain (C-III-2-4 / C-III-2)",
+            "note names Davis, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day1_railroadcut.json",
+          "idx": 12,
+          "tick": 30,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-55NC",
+          "own_target": null,
+          "evidence": [
+            "C-55NC exists (55th North Carolina Infantry); \"D\" is a suffix tag",
+            "tag \"D\" matches a commander/nickname in the regiment's chain (C-III-2-4 / C-III-2)",
+            "note names Davis, commander in the candidate's chain"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -682,6 +1559,55 @@
         "note names Iverson, commander in the candidate's chain"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 3,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_iverson.json",
+          "idx": 0,
+          "tick": 50,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-5NC",
+          "own_target": null,
+          "evidence": [
+            "C-5NC exists (5th North Carolina Infantry); \"IV\" is a suffix tag",
+            "tag \"IV\" matches a commander/nickname in the regiment's chain (C-II-3-3 / C-II-3)",
+            "note names Iverson, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day1_iverson.json",
+          "idx": 6,
+          "tick": 53,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-5NC",
+          "own_target": null,
+          "evidence": [
+            "C-5NC exists (5th North Carolina Infantry); \"IV\" is a suffix tag",
+            "tag \"IV\" matches a commander/nickname in the regiment's chain (C-II-3-3 / C-II-3)"
+          ]
+        },
+        {
+          "file": "density_day1_iverson.json",
+          "idx": 12,
+          "tick": 57,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-5NC",
+          "own_target": null,
+          "evidence": [
+            "C-5NC exists (5th North Carolina Infantry); \"IV\" is a suffix tag",
+            "tag \"IV\" matches a commander/nickname in the regiment's chain (C-II-3-3 / C-II-3)"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -708,6 +1634,57 @@
         "note names Avery, commander in the candidate's chain"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 3,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_culpshill.json",
+          "idx": 5,
+          "tick": 314,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-6NC",
+          "own_target": null,
+          "evidence": [
+            "C-6NC exists (6th North Carolina Infantry); \"A\" is a suffix tag",
+            "tag \"A\" matches a commander/nickname in the regiment's chain (C-II-1-2 / C-II-1)",
+            "note names Avery, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day2_culpshill.json",
+          "idx": 14,
+          "tick": 326,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-6NC",
+          "own_target": null,
+          "evidence": [
+            "C-6NC exists (6th North Carolina Infantry); \"A\" is a suffix tag",
+            "tag \"A\" matches a commander/nickname in the regiment's chain (C-II-1-2 / C-II-1)",
+            "note names Avery, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day2_culpshill.json",
+          "idx": 22,
+          "tick": 327,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "C-6NC",
+          "own_target": null,
+          "evidence": [
+            "C-6NC exists (6th North Carolina Infantry); \"A\" is a suffix tag",
+            "tag \"A\" matches a commander/nickname in the regiment's chain (C-II-1-2 / C-II-1)",
+            "note names Avery, commander in the candidate's chain"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -729,6 +1706,55 @@
       "evidence": [],
       "reason": "no OOB record could be matched by any rule",
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "none",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "none": 4
+      },
+      "row_confidence": [
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 0,
+          "tick": 505,
+          "confidence": "none",
+          "rule": "no_rule",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 11,
+          "tick": 518,
+          "confidence": "none",
+          "rule": "no_rule",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 18,
+          "tick": 536,
+          "confidence": "none",
+          "rule": "no_rule",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_day3_morning.json",
+          "idx": 13,
+          "tick": 480,
+          "confidence": "none",
+          "rule": "no_rule",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -752,6 +1778,28 @@
         "id C-ART-Cabell is a nickname, not an OOB id"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 4,
+          "tick": 505,
+          "confidence": "medium",
+          "rule": "artillery_nickname",
+          "proposed": "C-ART-I-1",
+          "own_target": null,
+          "evidence": [
+            "\"Cabell\" matches the commander/designation of C-ART-I-1 (Cabell's Battalion)",
+            "id C-ART-Cabell is a nickname, not an OOB id"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -776,6 +1824,41 @@
         "id C-ART-Dearing is a nickname, not an OOB id"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 2,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 2,
+          "tick": 505,
+          "confidence": "medium",
+          "rule": "artillery_nickname",
+          "proposed": "C-ART-I-2",
+          "own_target": null,
+          "evidence": [
+            "\"Dearing\" matches the commander/designation of C-ART-I-2 (Dearing's Battalion (Pickett's Division Artillery))",
+            "id C-ART-Dearing is a nickname, not an OOB id"
+          ]
+        },
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 13,
+          "tick": 518,
+          "confidence": "medium",
+          "rule": "artillery_nickname",
+          "proposed": "C-ART-I-2",
+          "own_target": null,
+          "evidence": [
+            "\"Dearing\" matches the commander/designation of C-ART-I-2 (Dearing's Battalion (Pickett's Division Artillery))",
+            "id C-ART-Dearing is a nickname, not an OOB id"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -800,6 +1883,41 @@
         "id C-ART-Eshleman is a nickname, not an OOB id"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 2,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 1,
+          "tick": 505,
+          "confidence": "medium",
+          "rule": "artillery_nickname",
+          "proposed": "C-ART-I-4",
+          "own_target": null,
+          "evidence": [
+            "\"Eshleman\" matches the commander/designation of C-ART-I-4 (Washington Artillery of New Orleans (Eshleman's Battalion))",
+            "id C-ART-Eshleman is a nickname, not an OOB id"
+          ]
+        },
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 12,
+          "tick": 518,
+          "confidence": "medium",
+          "rule": "artillery_nickname",
+          "proposed": "C-ART-I-4",
+          "own_target": null,
+          "evidence": [
+            "\"Eshleman\" matches the commander/designation of C-ART-I-4 (Washington Artillery of New Orleans (Eshleman's Battalion))",
+            "id C-ART-Eshleman is a nickname, not an OOB id"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -823,6 +1941,28 @@
         "id C-ART-Henry is a nickname, not an OOB id"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 3,
+          "tick": 505,
+          "confidence": "medium",
+          "rule": "artillery_nickname",
+          "proposed": "C-ART-I-3",
+          "own_target": null,
+          "evidence": [
+            "\"Henry\" matches the commander/designation of C-ART-I-3 (Henry's Battalion (Hood's Division Artillery))",
+            "id C-ART-Henry is a nickname, not an OOB id"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -846,6 +1986,28 @@
         "id C-ART-McIntosh is a nickname, not an OOB id"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 6,
+          "tick": 505,
+          "confidence": "medium",
+          "rule": "artillery_nickname",
+          "proposed": "C-ART-III-2",
+          "own_target": null,
+          "evidence": [
+            "\"McIntosh\" matches the commander/designation of C-ART-III-2 (McIntosh's Battalion (Heth's Division))",
+            "id C-ART-McIntosh is a nickname, not an OOB id"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -870,6 +2032,41 @@
         "id C-ART-Pegram-III is a nickname, not an OOB id"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 2,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 5,
+          "tick": 505,
+          "confidence": "medium",
+          "rule": "artillery_nickname",
+          "proposed": "C-ART-III-3",
+          "own_target": null,
+          "evidence": [
+            "\"Pegram\" matches the commander/designation of C-ART-III-3 (Pegram's Battalion (Pender's Division))",
+            "id C-ART-Pegram-III is a nickname, not an OOB id"
+          ]
+        },
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 14,
+          "tick": 518,
+          "confidence": "medium",
+          "rule": "artillery_nickname",
+          "proposed": "C-ART-III-3",
+          "own_target": null,
+          "evidence": [
+            "\"Pegram\" matches the commander/designation of C-ART-III-3 (Pegram's Battalion (Pender's Division))",
+            "id C-ART-Pegram-III is a nickname, not an OOB id"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -894,6 +2091,41 @@
         "id C-ART-Pegram-bn is a nickname, not an OOB id"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 2,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_opening.json",
+          "idx": 5,
+          "tick": 4,
+          "confidence": "medium",
+          "rule": "artillery_nickname",
+          "proposed": "C-ART-III-3",
+          "own_target": null,
+          "evidence": [
+            "\"Pegram\" matches the commander/designation of C-ART-III-3 (Pegram's Battalion (Pender's Division))",
+            "id C-ART-Pegram-bn is a nickname, not an OOB id"
+          ]
+        },
+        {
+          "file": "density_day1_opening.json",
+          "idx": 12,
+          "tick": 9,
+          "confidence": "medium",
+          "rule": "artillery_nickname",
+          "proposed": "C-ART-III-3",
+          "own_target": null,
+          "evidence": [
+            "\"Pegram\" matches the commander/designation of C-ART-III-3 (Pegram's Battalion (Pender's Division))",
+            "id C-ART-Pegram-bn is a nickname, not an OOB id"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -914,7 +2146,7 @@
       "proposed_designation": "Hampton's Brigade",
       "proposed_side": "confederate",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "evidence": [
         "note names \"Wade Hampton's brigade\", the commander of C-CAV-1 (Hampton's Brigade)",
         "id shape is brigade; target kind brigade"
@@ -923,6 +2155,61 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 2,
+        "low": 0,
+        "none": 2
+      },
+      "row_confidence": [
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 1,
+          "tick": 505,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-CAV-1",
+          "own_target": null,
+          "evidence": [
+            "note names \"Wade Hampton's brigade\", the commander of C-CAV-1 (Hampton's Brigade)",
+            "id shape is brigade; target kind brigade"
+          ]
+        },
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 7,
+          "tick": 515,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-CAV-1",
+          "own_target": null,
+          "evidence": [
+            "note names \"Hampton's brigade\", the commander of C-CAV-1 (Hampton's Brigade)",
+            "id shape is brigade; target kind brigade"
+          ]
+        },
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 10,
+          "tick": 522,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 14,
+          "tick": 530,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -942,7 +2229,7 @@
       "proposed_designation": "Fitz Lee's Brigade",
       "proposed_side": "confederate",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "evidence": [
         "note names \"Fitz Lee's brigade\", the commander of C-CAV-2 (Fitz Lee's Brigade)",
         "id shape is brigade; target kind brigade",
@@ -952,6 +2239,49 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 2
+      },
+      "row_confidence": [
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 2,
+          "tick": 505,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-CAV-2",
+          "own_target": null,
+          "evidence": [
+            "note names \"Fitz Lee's brigade\", the commander of C-CAV-2 (Fitz Lee's Brigade)",
+            "id shape is brigade; target kind brigade",
+            "WARNING: C-CAV-2 already has a row at the same tick(s): merge by (unit,tick) with the twin winning (chapter 13 WP-06 step 1)"
+          ]
+        },
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 11,
+          "tick": 522,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 15,
+          "tick": 530,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -978,6 +2308,28 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 3,
+          "tick": 505,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-CAV-3",
+          "own_target": null,
+          "evidence": [
+            "note names \"Chambliss's brigade\", the commander of C-CAV-3 (Chambliss's Brigade (W.H.F. Lee's Brigade))",
+            "id shape is brigade; target kind brigade"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1004,6 +2356,28 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 4,
+          "tick": 505,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-CAV-4",
+          "own_target": null,
+          "evidence": [
+            "note names \"Jenkins's brigade\", the commander of C-CAV-4 (Jenkins's Brigade)",
+            "id shape is brigade; target kind brigade"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1027,6 +2401,27 @@
       ],
       "reason": "token match only; the brigade context is not corroborated",
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "low",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_wheatfield.json",
+          "idx": 36,
+          "tick": 293,
+          "confidence": "low",
+          "rule": "designation_token",
+          "proposed": "C-Cobb-GA",
+          "own_target": null,
+          "evidence": [
+            "id tokens Cobb appear in C-Cobb-GA \"Cobb's Legion Infantry (Georgia)\""
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1053,6 +2448,28 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "low",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_wheatfield.json",
+          "idx": 19,
+          "tick": 283,
+          "confidence": "low",
+          "rule": "formation_named_in_note",
+          "proposed": "C-I-1-3",
+          "own_target": null,
+          "evidence": [
+            "note names \"Semmes's brigade\", the commander of C-I-1-3 (Semmes's Brigade)",
+            "id shape is other; target kind brigade"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1077,6 +2494,41 @@
         "its division is C-I-1, matching the id prefix"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_kershaw.json",
+          "idx": 2,
+          "tick": 270,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "C-7SC",
+          "own_target": null,
+          "evidence": [
+            "tail \"7\" resolves to C-7SC (7th South Carolina Infantry)",
+            "its division is C-I-1, matching the id prefix"
+          ]
+        },
+        {
+          "file": "density_day2_kershaw.json",
+          "idx": 7,
+          "tick": 275,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "C-7SC",
+          "own_target": null,
+          "evidence": [
+            "tail \"7\" resolves to C-7SC (7th South Carolina Infantry)",
+            "its division is C-I-1, matching the id prefix"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -1100,6 +2552,28 @@
         "its division is C-I-1, matching the id prefix"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_kershaw.json",
+          "idx": 3,
+          "tick": 270,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "C-8SC",
+          "own_target": null,
+          "evidence": [
+            "tail \"8\" resolves to C-8SC (8th South Carolina Infantry)",
+            "its division is C-I-1, matching the id prefix"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -1123,6 +2597,28 @@
         "its division is C-I-2, matching the id prefix"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_devilsden.json",
+          "idx": 2,
+          "tick": 260,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "C-5TX",
+          "own_target": null,
+          "evidence": [
+            "tail \"5\" resolves to C-5TX (5th Texas Infantry)",
+            "its division is C-I-2, matching the id prefix"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -1141,7 +2637,7 @@
       "proposed_designation": "Wilcox's Brigade",
       "proposed_side": "confederate",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "evidence": [
         "note names \"Wilcox's brigade\", the commander of C-III-1-1 (Wilcox's Brigade)",
         "id shape is brigade; target kind brigade"
@@ -1150,6 +2646,38 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 1
+      },
+      "row_confidence": [
+        {
+          "file": "density_day3_vermont.json",
+          "idx": 7,
+          "tick": 552,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-III-1-1",
+          "own_target": null,
+          "evidence": [
+            "note names \"Wilcox's brigade\", the commander of C-III-1-1 (Wilcox's Brigade)",
+            "id shape is brigade; target kind brigade"
+          ]
+        },
+        {
+          "file": "density_day3_vermont.json",
+          "idx": 10,
+          "tick": 554,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1168,7 +2696,7 @@
       "proposed_designation": "Perry's Brigade (Lang commanding)",
       "proposed_side": "confederate",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "evidence": [
         "note names \"Lang's brigade\", the commander of C-III-1-2 (Perry's Brigade (Lang commanding))",
         "id shape is brigade; target kind brigade"
@@ -1177,6 +2705,38 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 1
+      },
+      "row_confidence": [
+        {
+          "file": "density_day3_vermont.json",
+          "idx": 8,
+          "tick": 552,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-III-1-2",
+          "own_target": null,
+          "evidence": [
+            "note names \"Lang's brigade\", the commander of C-III-1-2 (Perry's Brigade (Lang commanding))",
+            "id shape is brigade; target kind brigade"
+          ]
+        },
+        {
+          "file": "density_day3_vermont.json",
+          "idx": 11,
+          "tick": 554,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1201,7 +2761,7 @@
       "proposed_designation": "Johnson's Division, Second Corps",
       "proposed_side": "confederate",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "evidence": [
         "note names \"Johnson's division\", the commander of C-II-2 (Johnson's Division, Second Corps)",
         "id shape is division; target kind division"
@@ -1210,6 +2770,116 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 7,
+        "low": 0,
+        "none": 1
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_afternoon.json",
+          "idx": 19,
+          "tick": 365,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-II-2",
+          "own_target": null,
+          "evidence": [
+            "note names \"Johnson's division\", the commander of C-II-2 (Johnson's Division, Second Corps)",
+            "id shape is division; target kind division"
+          ]
+        },
+        {
+          "file": "density_day2_afternoon.json",
+          "idx": 20,
+          "tick": 375,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-II-2",
+          "own_target": null,
+          "evidence": [
+            "note names \"Johnson's division\", the commander of C-II-2 (Johnson's Division, Second Corps)",
+            "id shape is division; target kind division"
+          ]
+        },
+        {
+          "file": "density_day2_culpshill_overnight.json",
+          "idx": 0,
+          "tick": 380,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-II-2",
+          "own_target": null,
+          "evidence": [
+            "note names \"Johnson's division\", the commander of C-II-2 (Johnson's Division, Second Corps)",
+            "id shape is division; target kind division"
+          ]
+        },
+        {
+          "file": "density_day2_culpshill_overnight.json",
+          "idx": 9,
+          "tick": 420,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_day3_morning.json",
+          "idx": 1,
+          "tick": 451,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-II-2",
+          "own_target": null,
+          "evidence": [
+            "note names \"Johnson's division\", the commander of C-II-2 (Johnson's Division, Second Corps)",
+            "id shape is division; target kind division"
+          ]
+        },
+        {
+          "file": "density_day3_morning.json",
+          "idx": 11,
+          "tick": 475,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-II-2",
+          "own_target": null,
+          "evidence": [
+            "note names \"Johnson's division\", the commander of C-II-2 (Johnson's Division, Second Corps)",
+            "id shape is division; target kind division"
+          ]
+        },
+        {
+          "file": "density_day3_morning.json",
+          "idx": 17,
+          "tick": 495,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-II-2",
+          "own_target": null,
+          "evidence": [
+            "note names \"Johnson's division\", the commander of C-II-2 (Johnson's Division, Second Corps)",
+            "id shape is division; target kind division"
+          ]
+        },
+        {
+          "file": "density_reserves.json",
+          "idx": 16,
+          "tick": 226,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-II-2",
+          "own_target": null,
+          "evidence": [
+            "note names \"Johnson's division\", the commander of C-II-2 (Johnson's Division, Second Corps)",
+            "id shape is division; target kind division"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1230,7 +2900,7 @@
       "proposed_designation": "Steuart's Brigade",
       "proposed_side": "confederate",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "evidence": [
         "note names \"Steuart's brigade\", the commander of C-II-2-4 (Steuart's Brigade)",
         "id shape is brigade; target kind brigade"
@@ -1239,6 +2909,64 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 3,
+        "low": 0,
+        "none": 1
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_culpshill_overnight.json",
+          "idx": 1,
+          "tick": 380,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-II-2-4",
+          "own_target": null,
+          "evidence": [
+            "note names \"Steuart's brigade\", the commander of C-II-2-4 (Steuart's Brigade)",
+            "id shape is brigade; target kind brigade"
+          ]
+        },
+        {
+          "file": "density_day2_culpshill_overnight.json",
+          "idx": 6,
+          "tick": 400,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_day2_culpshill_overnight.json",
+          "idx": 13,
+          "tick": 440,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-II-2-4",
+          "own_target": null,
+          "evidence": [
+            "note names \"Steuart's brigade\", the commander of C-II-2-4 (Steuart's Brigade)",
+            "id shape is brigade; target kind brigade"
+          ]
+        },
+        {
+          "file": "density_day3_morning.json",
+          "idx": 3,
+          "tick": 460,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-II-2-4",
+          "own_target": null,
+          "evidence": [
+            "note names \"Steuart's brigade\", the commander of C-II-2-4 (Steuart's Brigade)",
+            "id shape is brigade; target kind brigade"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1265,6 +2993,28 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_culpshill_overnight.json",
+          "idx": 2,
+          "tick": 380,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-II-2-2",
+          "own_target": null,
+          "evidence": [
+            "note names \"Jones's brigade\", the commander of C-II-2-2 (Jones's Brigade)",
+            "id shape is brigade; target kind brigade"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1292,6 +3042,29 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_culpshill_overnight.json",
+          "idx": 3,
+          "tick": 380,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-II-2-3",
+          "own_target": null,
+          "evidence": [
+            "note names \"Nichols's brigade\", the commander of C-II-2-3 (Nicholls's Brigade (Williams commanding))",
+            "surname differs by one letter from the OOB spelling \"Nicholl\" (typo)",
+            "id shape is brigade; target kind brigade"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1311,16 +3084,60 @@
       "proposed_designation": "Pender's Division, Third Corps",
       "proposed_side": "confederate",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "evidence": [
         "note names \"Pender's division\", the commander of C-III-3 (Pender's Division, Third Corps)",
         "id shape is division; target kind division",
-        "WARNING: C-III-3 already has a row at the same tick(s): merge by (unit,tick) with the twin winning (chapter 13 WP-06 step 1)"
+        "WARNING: C-III-3 already has a row at the same tick(s): merge by (unit,tick) with the twin winning (chapter 13 WP-06 step 1)",
+        "WARNING: the row at density_reserves.json#17 (tick 226) names C-III-1, not C-III-3"
       ],
       "hard_rules": {
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 2
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_afternoon.json",
+          "idx": 6,
+          "tick": 330,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-III-3",
+          "own_target": null,
+          "evidence": [
+            "note names \"Pender's division\", the commander of C-III-3 (Pender's Division, Third Corps)",
+            "id shape is division; target kind division",
+            "WARNING: C-III-3 already has a row at the same tick(s): merge by (unit,tick) with the twin winning (chapter 13 WP-06 step 1)"
+          ]
+        },
+        {
+          "file": "density_reserves.json",
+          "idx": 17,
+          "tick": 226,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": "C-III-1",
+          "evidence": []
+        },
+        {
+          "file": "density_reserves.json",
+          "idx": 18,
+          "tick": 302,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1339,7 +3156,7 @@
       "proposed_designation": "Posey's Brigade",
       "proposed_side": "confederate",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "evidence": [
         "note names \"Posey's brigade\", the commander of C-III-1-4 (Posey's Brigade)",
         "id shape is brigade; target kind brigade"
@@ -1348,6 +3165,38 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 1
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_wright.json",
+          "idx": 1,
+          "tick": 308,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-III-1-4",
+          "own_target": null,
+          "evidence": [
+            "note names \"Posey's brigade\", the commander of C-III-1-4 (Posey's Brigade)",
+            "id shape is brigade; target kind brigade"
+          ]
+        },
+        {
+          "file": "density_day2_wright.json",
+          "idx": 9,
+          "tick": 315,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1369,7 +3218,7 @@
       "proposed_designation": "Wright's Brigade",
       "proposed_side": "confederate",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "evidence": [
         "note names \"Wright's brigade\", the commander of C-III-1-3 (Wright's Brigade)",
         "id shape is brigade; target kind brigade"
@@ -1378,6 +3227,68 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 4
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_wright.json",
+          "idx": 0,
+          "tick": 308,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-III-1-3",
+          "own_target": null,
+          "evidence": [
+            "note names \"Wright's brigade\", the commander of C-III-1-3 (Wright's Brigade)",
+            "id shape is brigade; target kind brigade"
+          ]
+        },
+        {
+          "file": "density_day2_wright.json",
+          "idx": 5,
+          "tick": 312,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_day2_wright.json",
+          "idx": 7,
+          "tick": 315,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_day2_wright.json",
+          "idx": 13,
+          "tick": 318,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_day2_wright.json",
+          "idx": 15,
+          "tick": 320,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1396,7 +3307,7 @@
       "proposed_designation": "Mahone's Brigade",
       "proposed_side": "confederate",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "evidence": [
         "note names \"Mahone's brigade\", the commander of C-III-1-5 (Mahone's Brigade)",
         "id shape is brigade; target kind brigade"
@@ -1405,6 +3316,38 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 1
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_wright.json",
+          "idx": 2,
+          "tick": 308,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "C-III-1-5",
+          "own_target": null,
+          "evidence": [
+            "note names \"Mahone's brigade\", the commander of C-III-1-5 (Mahone's Brigade)",
+            "id shape is brigade; target kind brigade"
+          ]
+        },
+        {
+          "file": "density_day2_wright.json",
+          "idx": 10,
+          "tick": 315,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1427,6 +3370,27 @@
         "\"Law\" is the commander of C-I-2-1 (Law's Brigade)"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_morning.json",
+          "idx": 15,
+          "tick": 248,
+          "confidence": "medium",
+          "rule": "named_brigade_id",
+          "proposed": "C-I-2-1",
+          "own_target": null,
+          "evidence": [
+            "\"Law\" is the commander of C-I-2-1 (Law's Brigade)"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1450,6 +3414,27 @@
       ],
       "reason": "token match only; the brigade context is not corroborated",
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "low",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_wheatfield.json",
+          "idx": 37,
+          "tick": 293,
+          "confidence": "low",
+          "rule": "designation_token",
+          "proposed": "C-Phil-GA",
+          "own_target": null,
+          "evidence": [
+            "id tokens Phillips appear in C-Phil-GA \"Phillips Legion Infantry (Georgia)\""
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1476,6 +3461,28 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_lateafternoon.json",
+          "idx": 11,
+          "tick": 68,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "U-I-1",
+          "own_target": null,
+          "evidence": [
+            "note names \"Wadsworth's division\", the commander of U-I-1 (First Division, First Corps)",
+            "id shape is division; target kind division"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1499,6 +3506,25 @@
         "U-107NY-XII"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "none",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "none": 1
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_ticks51_100.json",
+          "idx": 42,
+          "tick": 72,
+          "confidence": "none",
+          "rule": "same_number_other_state",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1528,6 +3554,29 @@
         "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_ticks51_100.json",
+          "idx": 57,
+          "tick": 95,
+          "confidence": "high",
+          "rule": "wrong_side_prefix",
+          "proposed": "C-11NC",
+          "own_target": null,
+          "evidence": [
+            "state code NC is Confederate-only",
+            "C-11NC exists in oob/confederate_regiments_third_corps.json",
+            "C-11NC is also placed (5 row(s)): the U- row draws the same regiment twice, once in blue"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -1552,6 +3601,63 @@
         "U-12IL-CAV extends U-12IL with a suffix"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 4,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_cavalry_detail.json",
+          "idx": 3,
+          "tick": 3,
+          "confidence": "medium",
+          "rule": "own_id_prefix_extension",
+          "proposed": "U-12IL-CAV",
+          "own_target": null,
+          "evidence": [
+            "U-12IL-CAV extends U-12IL with a suffix"
+          ]
+        },
+        {
+          "file": "density_cavalry_detail.json",
+          "idx": 10,
+          "tick": 14,
+          "confidence": "medium",
+          "rule": "own_id_prefix_extension",
+          "proposed": "U-12IL-CAV",
+          "own_target": null,
+          "evidence": [
+            "U-12IL-CAV extends U-12IL with a suffix"
+          ]
+        },
+        {
+          "file": "density_day1_opening.json",
+          "idx": 8,
+          "tick": 8,
+          "confidence": "medium",
+          "rule": "own_id_prefix_extension",
+          "proposed": "U-12IL-CAV",
+          "own_target": null,
+          "evidence": [
+            "U-12IL-CAV extends U-12IL with a suffix"
+          ]
+        },
+        {
+          "file": "density_skirmishers.json",
+          "idx": 3,
+          "tick": 3,
+          "confidence": "medium",
+          "rule": "own_id_prefix_extension",
+          "proposed": "U-12IL-CAV",
+          "own_target": null,
+          "evidence": [
+            "U-12IL-CAV extends U-12IL with a suffix"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1581,6 +3687,29 @@
         "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_afternoon.json",
+          "idx": 31,
+          "tick": 150,
+          "confidence": "high",
+          "rule": "wrong_side_prefix",
+          "proposed": "C-15AL",
+          "own_target": null,
+          "evidence": [
+            "state code AL is Confederate-only",
+            "C-15AL exists in oob/confederate_regiments_first_corps.json",
+            "C-15AL is also placed (27 row(s)): the U- row draws the same regiment twice, once in blue"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -1604,6 +3733,28 @@
         "U-1PA-R is \"1st Pennsylvania Reserves (30th Pennsylvania Volunteers)\""
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_lrt.json",
+          "idx": 43,
+          "tick": 295,
+          "confidence": "high",
+          "rule": "type_tag_normalisation",
+          "proposed": "U-1PA-R",
+          "own_target": null,
+          "evidence": [
+            "\"-RES\" is read as \"-R\"",
+            "U-1PA-R is \"1st Pennsylvania Reserves (30th Pennsylvania Volunteers)\""
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -1633,6 +3784,29 @@
         "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_afternoon.json",
+          "idx": 36,
+          "tick": 150,
+          "confidence": "high",
+          "rule": "wrong_side_prefix",
+          "proposed": "C-1TX",
+          "own_target": null,
+          "evidence": [
+            "state code TX is Confederate-only",
+            "C-1TX exists in oob/confederate_regiments_first_corps.json",
+            "C-1TX is also placed (2 row(s)): the U- row draws the same regiment twice, once in blue"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -1657,6 +3831,41 @@
         "U-1US-SS is \"1st United States Sharpshooters (Berdan's)\""
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_morning.json",
+          "idx": 5,
+          "tick": 235,
+          "confidence": "high",
+          "rule": "type_tag_normalisation",
+          "proposed": "U-1US-SS",
+          "own_target": null,
+          "evidence": [
+            "\"-SHRP\" is read as \"-SS\"",
+            "U-1US-SS is \"1st United States Sharpshooters (Berdan's)\""
+          ]
+        },
+        {
+          "file": "density_skirmishers.json",
+          "idx": 18,
+          "tick": 248,
+          "confidence": "high",
+          "rule": "type_tag_normalisation",
+          "proposed": "U-1US-SS",
+          "own_target": null,
+          "evidence": [
+            "\"-SHRP\" is read as \"-SS\"",
+            "U-1US-SS is \"1st United States Sharpshooters (Berdan's)\""
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -1683,6 +3892,28 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_lateafternoon.json",
+          "idx": 12,
+          "tick": 68,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "U-I-2",
+          "own_target": null,
+          "evidence": [
+            "note names \"Robinson's division\", the commander of U-I-2 (Second Division, First Corps)",
+            "id shape is division; target kind division"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1712,6 +3943,29 @@
         "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_ticks51_100.json",
+          "idx": 56,
+          "tick": 95,
+          "confidence": "high",
+          "rule": "wrong_side_prefix",
+          "proposed": "C-26NC",
+          "own_target": null,
+          "evidence": [
+            "state code NC is Confederate-only",
+            "C-26NC exists in oob/confederate_regiments_third_corps.json",
+            "C-26NC is also placed (14 row(s)): the U- row draws the same regiment twice, once in blue"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -1745,6 +3999,35 @@
         "U-2MA"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "none",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "none": 2
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_culpshill.json",
+          "idx": 45,
+          "tick": 320,
+          "confidence": "none",
+          "rule": "same_number_other_state",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_day3_culpshill.json",
+          "idx": 15,
+          "tick": 455,
+          "confidence": "none",
+          "rule": "same_number_other_state",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1777,6 +4060,25 @@
         "U-2MA"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "none",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "none": 1
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_ticks51_100.json",
+          "idx": 46,
+          "tick": 80,
+          "confidence": "none",
+          "rule": "same_number_other_state",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1800,6 +4102,28 @@
         "U-2PA-R is \"2nd Pennsylvania Reserves (31st Pennsylvania Volunteers)\""
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_lrt.json",
+          "idx": 44,
+          "tick": 295,
+          "confidence": "high",
+          "rule": "type_tag_normalisation",
+          "proposed": "U-2PA-R",
+          "own_target": null,
+          "evidence": [
+            "\"-RES\" is read as \"-R\"",
+            "U-2PA-R is \"2nd Pennsylvania Reserves (31st Pennsylvania Volunteers)\""
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -1822,6 +4146,55 @@
       "reason": "U-2US-SHRP reads as U-2US-SS, which is not in the OOB (only the 1st United States Sharpshooters is listed)",
       "new_record_needed": true,
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "none",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "none": 4
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_morning.json",
+          "idx": 4,
+          "tick": 235,
+          "confidence": "none",
+          "rule": "type_tag_normalisation",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_skirmishers.json",
+          "idx": 17,
+          "tick": 248,
+          "confidence": "none",
+          "rule": "type_tag_normalisation",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_skirmishers.json",
+          "idx": 19,
+          "tick": 256,
+          "confidence": "none",
+          "rule": "type_tag_normalisation",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_skirmishers.json",
+          "idx": 30,
+          "tick": 460,
+          "confidence": "none",
+          "rule": "type_tag_normalisation",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -1851,6 +4224,29 @@
         "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_afternoon.json",
+          "idx": 32,
+          "tick": 150,
+          "confidence": "high",
+          "rule": "wrong_side_prefix",
+          "proposed": "C-44AL",
+          "own_target": null,
+          "evidence": [
+            "state code AL is Confederate-only",
+            "C-44AL exists in oob/confederate_regiments_first_corps.json",
+            "C-44AL is also placed (5 row(s)): the U- row draws the same regiment twice, once in blue"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -1880,6 +4276,29 @@
         "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_ticks51_100.json",
+          "idx": 58,
+          "tick": 95,
+          "confidence": "high",
+          "rule": "wrong_side_prefix",
+          "proposed": "C-47NC",
+          "own_target": null,
+          "evidence": [
+            "state code NC is Confederate-only",
+            "C-47NC exists in oob/confederate_regiments_third_corps.json",
+            "C-47NC is also placed (4 row(s)): the U- row draws the same regiment twice, once in blue"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -1909,6 +4328,29 @@
         "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_afternoon.json",
+          "idx": 33,
+          "tick": 150,
+          "confidence": "high",
+          "rule": "wrong_side_prefix",
+          "proposed": "C-48AL",
+          "own_target": null,
+          "evidence": [
+            "state code AL is Confederate-only",
+            "C-48AL exists in oob/confederate_regiments_first_corps.json",
+            "C-48AL is also placed (2 row(s)): the U- row draws the same regiment twice, once in blue"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -1938,6 +4380,29 @@
         "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_afternoon.json",
+          "idx": 34,
+          "tick": 150,
+          "confidence": "high",
+          "rule": "wrong_side_prefix",
+          "proposed": "C-4TX",
+          "own_target": null,
+          "evidence": [
+            "state code TX is Confederate-only",
+            "C-4TX exists in oob/confederate_regiments_first_corps.json",
+            "C-4TX is also placed (4 row(s)): the U- row draws the same regiment twice, once in blue"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -1967,6 +4432,29 @@
         "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_ticks51_100.json",
+          "idx": 59,
+          "tick": 95,
+          "confidence": "high",
+          "rule": "wrong_side_prefix",
+          "proposed": "C-52NC",
+          "own_target": null,
+          "evidence": [
+            "state code NC is Confederate-only",
+            "C-52NC exists in oob/confederate_regiments_third_corps.json",
+            "C-52NC is also placed (8 row(s)): the U- row draws the same regiment twice, once in blue"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -1996,6 +4484,29 @@
         "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_afternoon.json",
+          "idx": 35,
+          "tick": 150,
+          "confidence": "high",
+          "rule": "wrong_side_prefix",
+          "proposed": "C-5TX",
+          "own_target": null,
+          "evidence": [
+            "state code TX is Confederate-only",
+            "C-5TX exists in oob/confederate_regiments_first_corps.json",
+            "C-5TX is also placed (3 row(s)): the U- row draws the same regiment twice, once in blue"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -2019,6 +4530,28 @@
         "U-6PA-R is \"6th Pennsylvania Reserves (35th Pennsylvania Volunteers)\""
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_lrt.json",
+          "idx": 45,
+          "tick": 295,
+          "confidence": "high",
+          "rule": "type_tag_normalisation",
+          "proposed": "U-6PA-R",
+          "own_target": null,
+          "evidence": [
+            "\"-RES\" is read as \"-R\"",
+            "U-6PA-R is \"6th Pennsylvania Reserves (35th Pennsylvania Volunteers)\""
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -2045,14 +4578,165 @@
       "proposed_designation": "8th Illinois Cavalry",
       "proposed_side": "union",
       "rule": "own_id_prefix_extension",
-      "confidence": "high",
+      "confidence": "medium",
       "evidence": [
         "U-8IL-CAV extends U-8IL with a suffix",
         "note names Gamble, commander in the candidate's chain",
         "note names \"8th Illinois Cavalry\", matching the candidate's designation"
       ],
       "hard_rule_warnings": [],
-      "needs_historian": false
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 10,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_cavalry_detail.json",
+          "idx": 0,
+          "tick": 3,
+          "confidence": "high",
+          "rule": "own_id_prefix_extension",
+          "proposed": "U-8IL-CAV",
+          "own_target": null,
+          "evidence": [
+            "U-8IL-CAV extends U-8IL with a suffix",
+            "note names \"8th Illinois Cavalry\", matching the candidate's designation"
+          ]
+        },
+        {
+          "file": "density_cavalry_detail.json",
+          "idx": 7,
+          "tick": 14,
+          "confidence": "high",
+          "rule": "own_id_prefix_extension",
+          "proposed": "U-8IL-CAV",
+          "own_target": null,
+          "evidence": [
+            "U-8IL-CAV extends U-8IL with a suffix",
+            "note names \"8th Illinois\", matching the candidate's designation"
+          ]
+        },
+        {
+          "file": "density_cavalry_detail.json",
+          "idx": 13,
+          "tick": 26,
+          "confidence": "high",
+          "rule": "own_id_prefix_extension",
+          "proposed": "U-8IL-CAV",
+          "own_target": null,
+          "evidence": [
+            "U-8IL-CAV extends U-8IL with a suffix",
+            "note names Gamble, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_cavalry_detail.json",
+          "idx": 15,
+          "tick": 35,
+          "confidence": "high",
+          "rule": "own_id_prefix_extension",
+          "proposed": "U-8IL-CAV",
+          "own_target": null,
+          "evidence": [
+            "U-8IL-CAV extends U-8IL with a suffix",
+            "note names Gamble, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_cavalry_detail.json",
+          "idx": 16,
+          "tick": 50,
+          "confidence": "high",
+          "rule": "own_id_prefix_extension",
+          "proposed": "U-8IL-CAV",
+          "own_target": null,
+          "evidence": [
+            "U-8IL-CAV extends U-8IL with a suffix",
+            "note names Gamble, commander in the candidate's chain"
+          ]
+        },
+        {
+          "file": "density_day1_opening.json",
+          "idx": 0,
+          "tick": 4,
+          "confidence": "medium",
+          "rule": "own_id_prefix_extension",
+          "proposed": "U-8IL-CAV",
+          "own_target": null,
+          "evidence": [
+            "U-8IL-CAV extends U-8IL with a suffix"
+          ]
+        },
+        {
+          "file": "density_day1_opening.json",
+          "idx": 6,
+          "tick": 8,
+          "confidence": "high",
+          "rule": "own_id_prefix_extension",
+          "proposed": "U-8IL-CAV",
+          "own_target": null,
+          "evidence": [
+            "U-8IL-CAV extends U-8IL with a suffix",
+            "note names \"8th Illinois\", matching the candidate's designation"
+          ]
+        },
+        {
+          "file": "density_day1_opening.json",
+          "idx": 17,
+          "tick": 11,
+          "confidence": "high",
+          "rule": "own_id_prefix_extension",
+          "proposed": "U-8IL-CAV",
+          "own_target": null,
+          "evidence": [
+            "U-8IL-CAV extends U-8IL with a suffix",
+            "note names \"8th Illinois\", matching the candidate's designation"
+          ]
+        },
+        {
+          "file": "density_skirmishers.json",
+          "idx": 0,
+          "tick": 1,
+          "confidence": "high",
+          "rule": "own_id_prefix_extension",
+          "proposed": "U-8IL-CAV",
+          "own_target": null,
+          "evidence": [
+            "U-8IL-CAV extends U-8IL with a suffix",
+            "note names \"8th Illinois\", matching the candidate's designation"
+          ]
+        },
+        {
+          "file": "density_skirmishers.json",
+          "idx": 1,
+          "tick": 3,
+          "confidence": "high",
+          "rule": "own_id_prefix_extension",
+          "proposed": "U-8IL-CAV",
+          "own_target": null,
+          "evidence": [
+            "U-8IL-CAV extends U-8IL with a suffix",
+            "note names \"8th Illinois\", matching the candidate's designation"
+          ]
+        },
+        {
+          "file": "density_skirmishers.json",
+          "idx": 28,
+          "tick": 563,
+          "confidence": "high",
+          "rule": "own_id_prefix_extension",
+          "proposed": "U-8IL-CAV",
+          "own_target": null,
+          "evidence": [
+            "U-8IL-CAV extends U-8IL with a suffix",
+            "note names Gamble, commander in the candidate's chain"
+          ]
+        }
+      ],
+      "needs_historian": true
     },
     {
       "alias_id": "U-8OH-C",
@@ -2076,6 +4760,29 @@
         "note names Carroll, commander in the candidate's chain"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_culpshill.json",
+          "idx": 23,
+          "tick": 328,
+          "confidence": "high",
+          "rule": "suffix_variant",
+          "proposed": "U-8OH",
+          "own_target": null,
+          "evidence": [
+            "U-8OH exists (8th Ohio Volunteer Infantry); \"C\" is a suffix tag",
+            "tag \"C\" matches a commander/nickname in the regiment's chain (U-II-3-1 / U-II-3)",
+            "note names Carroll, commander in the candidate's chain"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -2097,6 +4804,25 @@
         "U-91PA"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "none",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "none": 1
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_lrt.json",
+          "idx": 29,
+          "tick": 270,
+          "confidence": "none",
+          "rule": "same_number_other_state",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2121,6 +4847,28 @@
       ],
       "reason": "id and note disagree on the battery",
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "low",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_seminary.json",
+          "idx": 5,
+          "tick": 115,
+          "confidence": "low",
+          "rule": "battery_named_in_note",
+          "proposed": "U-ART-B1PA",
+          "own_target": null,
+          "evidence": [
+            "note names \"Battery B, 1st PA\", matching U-ART-B1PA \"Battery B, 1st Pennsylvania Artillery\"",
+            "the id itself (U-ART-1PA-L) names a different battery letter: the id and the note disagree"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2144,6 +4892,27 @@
       ],
       "reason": "the id (U-ART-K4US) is not an OOB id; the mapping rests on the note only",
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "low",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_culpshill_overnight.json",
+          "idx": 15,
+          "tick": 440,
+          "confidence": "low",
+          "rule": "artillery_commander_in_note",
+          "proposed": "U-ART-XII-CORPS",
+          "own_target": null,
+          "evidence": [
+            "note names \"Muhlenberg's artillery\", the commander of U-ART-XII-CORPS (Twelfth Corps Artillery Brigade)"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2169,6 +4938,54 @@
         "id U-ART-McGilvery is a nickname, not an OOB id"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 3,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 8,
+          "tick": 505,
+          "confidence": "medium",
+          "rule": "artillery_nickname",
+          "proposed": "U-ART-RES-1",
+          "own_target": null,
+          "evidence": [
+            "\"McGilvery\" matches the commander/designation of U-ART-RES-1 (First Volunteer Brigade (McGilvery's))",
+            "id U-ART-McGilvery is a nickname, not an OOB id"
+          ]
+        },
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 16,
+          "tick": 518,
+          "confidence": "medium",
+          "rule": "artillery_nickname",
+          "proposed": "U-ART-RES-1",
+          "own_target": null,
+          "evidence": [
+            "\"McGilvery\" matches the commander/designation of U-ART-RES-1 (First Volunteer Brigade (McGilvery's))",
+            "id U-ART-McGilvery is a nickname, not an OOB id"
+          ]
+        },
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 19,
+          "tick": 536,
+          "confidence": "medium",
+          "rule": "artillery_nickname",
+          "proposed": "U-ART-RES-1",
+          "own_target": null,
+          "evidence": [
+            "\"McGilvery\" matches the commander/designation of U-ART-RES-1 (First Volunteer Brigade (McGilvery's))",
+            "id U-ART-McGilvery is a nickname, not an OOB id"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2194,6 +5011,54 @@
         "id U-ART-Osborn is a nickname, not an OOB id"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 3,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 7,
+          "tick": 505,
+          "confidence": "medium",
+          "rule": "artillery_nickname",
+          "proposed": "U-ART-XI-CORPS",
+          "own_target": null,
+          "evidence": [
+            "\"Osborn\" matches the commander/designation of U-ART-XI-CORPS (Eleventh Corps Artillery Brigade)",
+            "id U-ART-Osborn is a nickname, not an OOB id"
+          ]
+        },
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 15,
+          "tick": 518,
+          "confidence": "medium",
+          "rule": "artillery_nickname",
+          "proposed": "U-ART-XI-CORPS",
+          "own_target": null,
+          "evidence": [
+            "\"Osborn\" matches the commander/designation of U-ART-XI-CORPS (Eleventh Corps Artillery Brigade)",
+            "id U-ART-Osborn is a nickname, not an OOB id"
+          ]
+        },
+        {
+          "file": "density_day3_cannonade.json",
+          "idx": 20,
+          "tick": 536,
+          "confidence": "medium",
+          "rule": "artillery_nickname",
+          "proposed": "U-ART-XI-CORPS",
+          "own_target": null,
+          "evidence": [
+            "\"Osborn\" matches the commander/designation of U-ART-XI-CORPS (Eleventh Corps Artillery Brigade)",
+            "id U-ART-Osborn is a nickname, not an OOB id"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2214,6 +5079,45 @@
       "evidence": [],
       "reason": "no OOB record could be matched by any rule",
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "none",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "none": 3
+      },
+      "row_confidence": [
+        {
+          "file": "density_reserves.json",
+          "idx": 5,
+          "tick": 226,
+          "confidence": "none",
+          "rule": "no_rule",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_reserves.json",
+          "idx": 6,
+          "tick": 302,
+          "confidence": "none",
+          "rule": "no_rule",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_reserves.json",
+          "idx": 7,
+          "tick": 400,
+          "confidence": "none",
+          "rule": "no_rule",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2234,7 +5138,7 @@
       "proposed_designation": "Second Division, Cavalry Corps (Gregg)",
       "proposed_side": "union",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "evidence": [
         "note names \"Gregg's division\", the commander of U-CAV-2 (Second Division, Cavalry Corps (Gregg))",
         "id shape is cavalry_letter; target kind division"
@@ -2243,6 +5147,64 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 3,
+        "low": 0,
+        "none": 1
+      },
+      "row_confidence": [
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 6,
+          "tick": 505,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "U-CAV-2",
+          "own_target": null,
+          "evidence": [
+            "note names \"Gregg's division\", the commander of U-CAV-2 (Second Division, Cavalry Corps (Gregg))",
+            "id shape is cavalry_letter; target kind division"
+          ]
+        },
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 9,
+          "tick": 515,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "U-CAV-2",
+          "own_target": null,
+          "evidence": [
+            "note names \"Gregg's division\", the commander of U-CAV-2 (Second Division, Cavalry Corps (Gregg))",
+            "id shape is cavalry_letter; target kind division"
+          ]
+        },
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 13,
+          "tick": 522,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 18,
+          "tick": 540,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "U-CAV-2",
+          "own_target": null,
+          "evidence": [
+            "note names \"Gregg's division\", the commander of U-CAV-2 (Second Division, Cavalry Corps (Gregg))",
+            "id shape is cavalry_letter; target kind division"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2264,7 +5226,7 @@
       "proposed_designation": "Third Brigade, Second Division, Cavalry Corps (Custer's Michigan Brigade)",
       "proposed_side": "union",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "evidence": [
         "note names \"Custer's brigade\", the commander of U-CAV-2-3 (Third Brigade, Second Division, Cavalry Corps (Custer's Michigan Brigade))",
         "id shape is cavalry_letter; target kind brigade"
@@ -2273,6 +5235,71 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 2,
+        "low": 0,
+        "none": 3
+      },
+      "row_confidence": [
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 5,
+          "tick": 505,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "U-CAV-2-3",
+          "own_target": null,
+          "evidence": [
+            "note names \"Custer's brigade\", the commander of U-CAV-2-3 (Third Brigade, Second Division, Cavalry Corps (Custer's Michigan Brigade))",
+            "id shape is cavalry_letter; target kind brigade"
+          ]
+        },
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 8,
+          "tick": 515,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 12,
+          "tick": 522,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 16,
+          "tick": 530,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_day3_cavalry.json",
+          "idx": 20,
+          "tick": 555,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "U-CAV-2-3",
+          "own_target": null,
+          "evidence": [
+            "note names \"Custer's brigade\", the commander of U-CAV-2-3 (Third Brigade, Second Division, Cavalry Corps (Custer's Michigan Brigade))",
+            "id shape is cavalry_letter; target kind brigade"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2298,6 +5325,54 @@
         "its division is U-I-1, matching the id prefix"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 3,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_ironbrigade.json",
+          "idx": 2,
+          "tick": 16,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "U-19IN",
+          "own_target": null,
+          "evidence": [
+            "tail \"19IN\" resolves to U-19IN (19th Indiana Volunteer Infantry)",
+            "its division is U-I-1, matching the id prefix"
+          ]
+        },
+        {
+          "file": "density_day1_ironbrigade.json",
+          "idx": 7,
+          "tick": 20,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "U-19IN",
+          "own_target": null,
+          "evidence": [
+            "tail \"19IN\" resolves to U-19IN (19th Indiana Volunteer Infantry)",
+            "its division is U-I-1, matching the id prefix"
+          ]
+        },
+        {
+          "file": "density_day1_ironbrigade.json",
+          "idx": 15,
+          "tick": 28,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "U-19IN",
+          "own_target": null,
+          "evidence": [
+            "tail \"19IN\" resolves to U-19IN (19th Indiana Volunteer Infantry)",
+            "its division is U-I-1, matching the id prefix"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -2322,6 +5397,41 @@
         "its division is U-I-1, matching the id prefix"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_ironbrigade.json",
+          "idx": 3,
+          "tick": 16,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "U-24MI",
+          "own_target": null,
+          "evidence": [
+            "tail \"24MI\" resolves to U-24MI (24th Michigan Volunteer Infantry)",
+            "its division is U-I-1, matching the id prefix"
+          ]
+        },
+        {
+          "file": "density_day1_ironbrigade.json",
+          "idx": 12,
+          "tick": 22,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "U-24MI",
+          "own_target": null,
+          "evidence": [
+            "tail \"24MI\" resolves to U-24MI (24th Michigan Volunteer Infantry)",
+            "its division is U-I-1, matching the id prefix"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -2349,6 +5459,71 @@
         "\"W\" is read as Wisconsin (WI)"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 4,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_ironbrigade.json",
+          "idx": 0,
+          "tick": 16,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "U-2WI",
+          "own_target": null,
+          "evidence": [
+            "tail \"2W\" resolves to U-2WI (2nd Wisconsin Volunteer Infantry)",
+            "its division is U-I-1, matching the id prefix",
+            "\"W\" is read as Wisconsin (WI)"
+          ]
+        },
+        {
+          "file": "density_day1_ironbrigade.json",
+          "idx": 5,
+          "tick": 20,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "U-2WI",
+          "own_target": null,
+          "evidence": [
+            "tail \"2W\" resolves to U-2WI (2nd Wisconsin Volunteer Infantry)",
+            "its division is U-I-1, matching the id prefix",
+            "\"W\" is read as Wisconsin (WI)"
+          ]
+        },
+        {
+          "file": "density_day1_ironbrigade.json",
+          "idx": 9,
+          "tick": 22,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "U-2WI",
+          "own_target": null,
+          "evidence": [
+            "tail \"2W\" resolves to U-2WI (2nd Wisconsin Volunteer Infantry)",
+            "its division is U-I-1, matching the id prefix",
+            "\"W\" is read as Wisconsin (WI)"
+          ]
+        },
+        {
+          "file": "density_day1_ironbrigade.json",
+          "idx": 13,
+          "tick": 26,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "U-2WI",
+          "own_target": null,
+          "evidence": [
+            "tail \"2W\" resolves to U-2WI (2nd Wisconsin Volunteer Infantry)",
+            "its division is U-I-1, matching the id prefix",
+            "\"W\" is read as Wisconsin (WI)"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -2376,6 +5551,71 @@
         "\"W\" is read as Wisconsin (WI)"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 4,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_railroadcut.json",
+          "idx": 6,
+          "tick": 25,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "U-6WI",
+          "own_target": null,
+          "evidence": [
+            "tail \"6W\" resolves to U-6WI (6th Wisconsin Volunteer Infantry)",
+            "its division is U-I-1, matching the id prefix",
+            "\"W\" is read as Wisconsin (WI)"
+          ]
+        },
+        {
+          "file": "density_day1_railroadcut.json",
+          "idx": 7,
+          "tick": 28,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "U-6WI",
+          "own_target": null,
+          "evidence": [
+            "tail \"6W\" resolves to U-6WI (6th Wisconsin Volunteer Infantry)",
+            "its division is U-I-1, matching the id prefix",
+            "\"W\" is read as Wisconsin (WI)"
+          ]
+        },
+        {
+          "file": "density_day1_railroadcut.json",
+          "idx": 11,
+          "tick": 29,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "U-6WI",
+          "own_target": null,
+          "evidence": [
+            "tail \"6W\" resolves to U-6WI (6th Wisconsin Volunteer Infantry)",
+            "its division is U-I-1, matching the id prefix",
+            "\"W\" is read as Wisconsin (WI)"
+          ]
+        },
+        {
+          "file": "density_day1_railroadcut.json",
+          "idx": 14,
+          "tick": 32,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "U-6WI",
+          "own_target": null,
+          "evidence": [
+            "tail \"6W\" resolves to U-6WI (6th Wisconsin Volunteer Infantry)",
+            "its division is U-I-1, matching the id prefix",
+            "\"W\" is read as Wisconsin (WI)"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -2402,6 +5642,57 @@
         "\"W\" is read as Wisconsin (WI)"
       ],
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "high",
+      "rows_by_confidence": {
+        "high": 3,
+        "medium": 0,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_ironbrigade.json",
+          "idx": 1,
+          "tick": 16,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "U-7WI",
+          "own_target": null,
+          "evidence": [
+            "tail \"7W\" resolves to U-7WI (7th Wisconsin Volunteer Infantry)",
+            "its division is U-I-1, matching the id prefix",
+            "\"W\" is read as Wisconsin (WI)"
+          ]
+        },
+        {
+          "file": "density_day1_ironbrigade.json",
+          "idx": 6,
+          "tick": 20,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "U-7WI",
+          "own_target": null,
+          "evidence": [
+            "tail \"7W\" resolves to U-7WI (7th Wisconsin Volunteer Infantry)",
+            "its division is U-I-1, matching the id prefix",
+            "\"W\" is read as Wisconsin (WI)"
+          ]
+        },
+        {
+          "file": "density_day1_ironbrigade.json",
+          "idx": 11,
+          "tick": 22,
+          "confidence": "high",
+          "rule": "brigade_prefixed_regiment",
+          "proposed": "U-7WI",
+          "own_target": null,
+          "evidence": [
+            "tail \"7W\" resolves to U-7WI (7th Wisconsin Volunteer Infantry)",
+            "its division is U-I-1, matching the id prefix",
+            "\"W\" is read as Wisconsin (WI)"
+          ]
+        }
+      ],
       "needs_historian": false
     },
     {
@@ -2422,7 +5713,7 @@
       "proposed_designation": "First Brigade, Second Division, First Corps (Paul's Brigade)",
       "proposed_side": "union",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "evidence": [
         "note names \"Paul's brigade\", the commander of U-I-2-1 (First Brigade, Second Division, First Corps (Paul's Brigade))",
         "id shape is brigade; target kind brigade"
@@ -2431,6 +5722,64 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 3,
+        "low": 0,
+        "none": 1
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_iverson.json",
+          "idx": 4,
+          "tick": 50,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "U-I-2-1",
+          "own_target": null,
+          "evidence": [
+            "note names \"Paul's brigade\", the commander of U-I-2-1 (First Brigade, Second Division, First Corps (Paul's Brigade))",
+            "id shape is brigade; target kind brigade"
+          ]
+        },
+        {
+          "file": "density_day1_iverson.json",
+          "idx": 10,
+          "tick": 53,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "U-I-2-1",
+          "own_target": null,
+          "evidence": [
+            "note names \"Paul's brigade\", the commander of U-I-2-1 (First Brigade, Second Division, First Corps (Paul's Brigade))",
+            "id shape is brigade; target kind brigade"
+          ]
+        },
+        {
+          "file": "density_day1_iverson.json",
+          "idx": 15,
+          "tick": 60,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "U-I-2-1",
+          "own_target": null,
+          "evidence": [
+            "note names \"Paul's brigade\", the commander of U-I-2-1 (First Brigade, Second Division, First Corps (Paul's Brigade))",
+            "id shape is brigade; target kind brigade"
+          ]
+        },
+        {
+          "file": "density_day2_cemhill.json",
+          "idx": 10,
+          "tick": 325,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2449,7 +5798,7 @@
       "proposed_designation": "Second Brigade, First Division, First Corps (Cutler's Brigade)",
       "proposed_side": "union",
       "rule": "formation_named_in_note",
-      "confidence": "medium",
+      "confidence": "low",
       "evidence": [
         "note names \"Cutler's brigade\", the commander of U-I-1-2 (Second Brigade, First Division, First Corps (Cutler's Brigade))",
         "id shape is brigade; target kind brigade"
@@ -2458,6 +5807,38 @@
         "same_shape": true
       },
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 1
+      },
+      "row_confidence": [
+        {
+          "file": "density_day1_railroadcut.json",
+          "idx": 3,
+          "tick": 20,
+          "confidence": "medium",
+          "rule": "formation_named_in_note",
+          "proposed": "U-I-1-2",
+          "own_target": null,
+          "evidence": [
+            "note names \"Cutler's brigade\", the commander of U-I-1-2 (Second Brigade, First Division, First Corps (Cutler's Brigade))",
+            "id shape is brigade; target kind brigade"
+          ]
+        },
+        {
+          "file": "density_day1_railroadcut.json",
+          "idx": 8,
+          "tick": 28,
+          "confidence": "none",
+          "rule": null,
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2480,6 +5861,28 @@
       ],
       "new_record": true,
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "placements_day1_ticks101_225.json",
+          "idx": 69,
+          "tick": 180,
+          "confidence": "medium",
+          "rule": "new_record_required",
+          "proposed": "U-VI-1-1",
+          "own_target": null,
+          "evidence": [
+            "referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)",
+            "candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2502,6 +5905,28 @@
       ],
       "new_record": true,
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "placements_day1_ticks101_225.json",
+          "idx": 70,
+          "tick": 180,
+          "confidence": "medium",
+          "rule": "new_record_required",
+          "proposed": "U-VI-1-2",
+          "own_target": null,
+          "evidence": [
+            "referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)",
+            "candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2524,6 +5949,28 @@
       ],
       "new_record": true,
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "placements_day1_ticks101_225.json",
+          "idx": 71,
+          "tick": 180,
+          "confidence": "medium",
+          "rule": "new_record_required",
+          "proposed": "U-VI-1-3",
+          "own_target": null,
+          "evidence": [
+            "referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)",
+            "candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2546,6 +5993,28 @@
       ],
       "new_record": true,
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "placements_day1_ticks101_225.json",
+          "idx": 72,
+          "tick": 180,
+          "confidence": "medium",
+          "rule": "new_record_required",
+          "proposed": "U-VI-2-1",
+          "own_target": null,
+          "evidence": [
+            "referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)",
+            "candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2568,6 +6037,28 @@
       ],
       "new_record": true,
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "placements_day1_ticks101_225.json",
+          "idx": 73,
+          "tick": 180,
+          "confidence": "medium",
+          "rule": "new_record_required",
+          "proposed": "U-VI-2-2",
+          "own_target": null,
+          "evidence": [
+            "referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)",
+            "candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2590,6 +6081,28 @@
       ],
       "new_record": true,
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "placements_day1_ticks101_225.json",
+          "idx": 74,
+          "tick": 180,
+          "confidence": "medium",
+          "rule": "new_record_required",
+          "proposed": "U-VI-3-1",
+          "own_target": null,
+          "evidence": [
+            "referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)",
+            "candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2612,6 +6125,28 @@
       ],
       "new_record": true,
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "placements_day1_ticks101_225.json",
+          "idx": 75,
+          "tick": 180,
+          "confidence": "medium",
+          "rule": "new_record_required",
+          "proposed": "U-VI-3-2",
+          "own_target": null,
+          "evidence": [
+            "referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)",
+            "candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2634,6 +6169,28 @@
       ],
       "new_record": true,
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "medium",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "none": 0
+      },
+      "row_confidence": [
+        {
+          "file": "placements_day1_ticks101_225.json",
+          "idx": 76,
+          "tick": 180,
+          "confidence": "medium",
+          "rule": "new_record_required",
+          "proposed": "U-VI-3-3",
+          "own_target": null,
+          "evidence": [
+            "referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)",
+            "candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it"
+          ]
+        }
+      ],
       "needs_historian": true
     },
     {
@@ -2654,6 +6211,45 @@
       "evidence": [],
       "reason": "no OOB record could be matched by any rule",
       "hard_rule_warnings": [],
+      "combined_notes_confidence": "none",
+      "rows_by_confidence": {
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "none": 3
+      },
+      "row_confidence": [
+        {
+          "file": "density_day2_cemhill.json",
+          "idx": 2,
+          "tick": 318,
+          "confidence": "none",
+          "rule": "no_rule",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_day2_cemhill.json",
+          "idx": 6,
+          "tick": 322,
+          "confidence": "none",
+          "rule": "no_rule",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        },
+        {
+          "file": "density_day2_cemhill.json",
+          "idx": 14,
+          "tick": 330,
+          "confidence": "none",
+          "rule": "no_rule",
+          "proposed": null,
+          "own_target": null,
+          "evidence": []
+        }
+      ],
       "needs_historian": true
     }
   ]

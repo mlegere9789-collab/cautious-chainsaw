@@ -87,7 +87,9 @@ export function buildRegistry(ctx, crosswalkByTarget = new Map()) {
     const id = rec.id;
     const own = unitPositions(ctx, id);
     const aliasEntries = crosswalkByTarget.get(id) || [];
-    const aliasRows = aliasEntries.filter((e) => ['high', 'medium'].includes(e.confidence)).reduce((a, e) => a + e.rows, 0);
+    // rows positioned through a crosswalked alias are the rows whose OWN evidence reaches high or medium (confidence is per row, not per id)
+    const supported = (e) => (e.rows_by_confidence?.high ?? 0) + (e.rows_by_confidence?.medium ?? 0);
+    const aliasRows = aliasEntries.reduce((a, e) => a + supported(e), 0);
     const parentPlaced = (() => {
       const p = raw.parent_brigade_id ?? rec.parent_artillery_id;
       return p && ctx.rowsByUnit.has(p) ? p : null;
@@ -136,7 +138,7 @@ export function buildRegistry(ctx, crosswalkByTarget = new Map()) {
       casualties: raw.casualties ?? null,
       guns: raw.gun_count ?? null,
       gun_type: raw.gun_type ?? null,
-      aliases: aliasEntries.filter((e) => ['high', 'medium'].includes(e.confidence)).map((e) => ({ id: e.alias_id, source: 'crosswalk', confidence: e.confidence, status: 'proposed', rows: e.rows })),
+      aliases: aliasEntries.filter((e) => supported(e) > 0).map((e) => ({ id: e.alias_id, source: 'crosswalk', confidence: e.confidence, status: 'proposed', rows: supported(e), rows_total: e.rows })),
       designation_base: dupBase,
       flags,
       rights: tierInfo(rec),
@@ -221,190 +223,213 @@ export function buildCrosswalk(ctx) {
   const unresolved = [...ctx.rowsByUnit].filter(([id]) => !oob.records.has(id)).sort((a, b) => (a[0] < b[0] ? -1 : 1));
   const entries = [];
 
-  for (const [id, rows] of unresolved) {
-    const note = noteText(rows);
-    const base = { alias_id: id, rows: rows.length, ticks: [...new Set(rows.map((r) => r.tick))].sort((a, b) => a - b), side_prefix: sideOfPrefix(id), note_excerpt: note.slice(0, 160), first_file: rows[0].file };
-    const cand = (rec, rule, confidence, evidence, extra = {}) => ({ ...base, proposed: rec.id, proposed_kind: rec.kind, proposed_designation: rec.raw.designation, proposed_side: rec.side, rule, confidence, evidence, ...extra });
-    const none = (rule, reason, extra = {}) => ({ ...base, proposed: null, rule, confidence: 'none', evidence: [], reason, ...extra });
-    let entry = null;
-    const noteStartsWithOrdinal = /^\s*\d+(?:st|nd|rd|th)\s+[A-Za-z]/.test(note.split(' | ')[0] || '');
-    const shape = RX.regimentLike.test(id) ? 'regiment'
-      : RX.brigadePrefixedRegiment.test(id) ? ((id.match(RX.brigadePrefixedRegiment)[4] || noteStartsWithOrdinal) ? 'brigade_prefixed_regiment' : 'brigade')
-      : RX.brigadeLike.test(id) ? 'brigade' : RX.divisionLike.test(id) || RX.weirdDivision.test(id) ? 'division' : RX.cavLetter.test(id) ? 'cavalry_letter' : /-ART-|^U-XI-2-3$/.test(id) ? 'artillery' : 'other';
-    base.shape = shape;
+  // One resolution of ONE unresolved id against a set of its placement rows. The cascade reads the rows' notes, so it is run once over all
+  // the rows of the id (the id-level proposal) and once per row (that row's own support): evidence found in a sibling row never vouches for this one.
+  const resolveAlias = (id, rows) => {
+      const note = noteText(rows);
+      const base = { alias_id: id, rows: rows.length, ticks: [...new Set(rows.map((r) => r.tick))].sort((a, b) => a - b), side_prefix: sideOfPrefix(id), note_excerpt: note.slice(0, 160), first_file: rows[0].file };
+      const cand = (rec, rule, confidence, evidence, extra = {}) => ({ ...base, proposed: rec.id, proposed_kind: rec.kind, proposed_designation: rec.raw.designation, proposed_side: rec.side, rule, confidence, evidence, ...extra });
+      const none = (rule, reason, extra = {}) => ({ ...base, proposed: null, rule, confidence: 'none', evidence: [], reason, ...extra });
+      let entry = null;
+      const noteStartsWithOrdinal = /^\s*\d+(?:st|nd|rd|th)\s+[A-Za-z]/.test(note.split(' | ')[0] || '');
+      const shape = RX.regimentLike.test(id) ? 'regiment'
+        : RX.brigadePrefixedRegiment.test(id) ? ((id.match(RX.brigadePrefixedRegiment)[4] || noteStartsWithOrdinal) ? 'brigade_prefixed_regiment' : 'brigade')
+        : RX.brigadeLike.test(id) ? 'brigade' : RX.divisionLike.test(id) || RX.weirdDivision.test(id) ? 'division' : RX.cavLetter.test(id) ? 'cavalry_letter' : /-ART-|^U-XI-2-3$/.test(id) ? 'artillery' : 'other';
+      base.shape = shape;
 
-    // R1 wrong side prefix (the ONLY rule allowed to flip a side)
-    const st = (id.match(/^[UC]-\d+([A-Z]{2})(?:-|$)/) || [])[1];
-    if (RX.regimentLike.test(id) && st && sideOfPrefix(id) === 'union' && CONF_ONLY.has(st)) {
-      const twin = flipPrefix(id);
-      const t = oob.records.get(twin);
-      if (t && isRegiment(t)) {
-        entry = cand(t, 'wrong_side_prefix', 'high', [`state code ${st} is Confederate-only`, `${twin} exists in ${t.file}`, ctx.rowsByUnit.has(twin) ? `${twin} is also placed (${ctx.rowsByUnit.get(twin).length} row(s)): the U- row draws the same regiment twice, once in blue` : `${twin} is not placed elsewhere`], { side_flip: true, hard_rules: { same_shape: true, side_change_allowed_by: 'wrong_side_prefix (state code contradicts prefix, twin exists)' } });
-      }
-    }
-    // R2 exact prefix extension: <id>-<suffix>
-    if (!entry && (shape === 'regiment')) {
-      const ext = idx.regiments.filter((r) => r.id.startsWith(id + '-') && r.side === sideOfPrefix(id));
-      if (ext.length === 1) {
-        const ev = corroborate(ctx, ext[0], rows, note);
-        entry = cand(ext[0], 'own_id_prefix_extension', ev.length ? 'high' : 'medium', [`${ext[0].id} extends ${id} with a suffix`, ...ev]);
-      } else if (ext.length > 1) entry = none('own_id_prefix_extension', `several OOB ids extend ${id}: ${ext.map((r) => r.id).join(', ')}`, { candidates: ext.map((r) => r.id) });
-    }
-    // R2b type-tag normalisation: -RES -> -R (Pennsylvania Reserves), -SHRP -> -SS (sharpshooters)
-    if (!entry) {
-      const tm = id.match(RX.typeTag);
-      if (tm) {
-        const norm = `${tm[1]}-${tm[2] === 'RES' ? 'R' : 'SS'}`;
-        const t = oob.records.get(norm);
-        const word = tm[2] === 'RES' ? 'Reserves' : 'Sharpshooters';
-        if (t && isRegiment(t) && t.side === sideOfPrefix(id)) entry = cand(t, 'type_tag_normalisation', String(t.raw.designation).includes(word) ? 'high' : 'medium', [`"-${tm[2]}" is read as "-${tm[2] === 'RES' ? 'R' : 'SS'}"`, `${t.id} is "${t.raw.designation}"`]);
-        else entry = none('type_tag_normalisation', `${tm[1]}-${tm[2]} reads as ${norm}, which is not in the OOB${tm[2] === 'SHRP' ? ' (only the 1st United States Sharpshooters is listed)' : ''}`, { new_record_needed: true });
-      }
-    }
-    // R3 suffix variant: <regiment id>-<tag>
-    if (!entry) {
-      const m = id.match(RX.suffixVariant);
-      if (m) {
-        const baseRec = oob.records.get(m[1]);
-        if (baseRec && isRegiment(baseRec) && baseRec.side === sideOfPrefix(id)) {
-          const chain = chainOf(oob, baseRec);
-          const tag = m[2];
-          const surnames = [...(chain.brigade ? commanderChain(chain.brigade.raw.commander).map((c) => c.surname) : []), ...(chain.division ? commanderChain(chain.division.raw.commander).map((c) => c.surname) : [])];
-          const names = TAG_ALIASES[tag] ?? [tag];
-          const chainText = `${chain.brigade?.raw.designation ?? ''} ${chain.division?.raw.designation ?? ''}`;
-          const prefixHit = names.some((n) => surnames.some((s) => s.toLowerCase().startsWith(n.toLowerCase())) || chainText.includes(n));
-          // a single-letter tag is only an initial: it needs the note to name that commander
-          const noteNames = surnames.some((s) => s && new RegExp(`\\b${s}\\b`).test(note));
-          const strong = prefixHit && (tag.length >= 2 || noteNames);
-          const ev = [`${m[1]} exists (${baseRec.raw.designation}); "${tag}" is a suffix tag`, prefixHit ? `tag "${tag}" matches a commander/nickname in the regiment's chain (${chain.brigade?.id ?? '?'} / ${chain.division?.id ?? '?'})${strong ? '' : ' but is only an initial and the note does not name that commander'}` : `tag "${tag}" does NOT match a commander in the regiment's chain (${surnames.join(', ') || 'none recorded'})`, ...corroborate(ctx, baseRec, rows, note)];
-          entry = cand(baseRec, 'suffix_variant', strong ? 'high' : prefixHit ? 'medium' : 'low', ev, strong ? {} : { reason: prefixHit ? 'single-letter tag not corroborated by the note' : 'the suffix tag is not explained by the OOB chain: the regiment may belong to another brigade/division at the time (historian)' });
+      // R1 wrong side prefix (the ONLY rule allowed to flip a side)
+      const st = (id.match(/^[UC]-\d+([A-Z]{2})(?:-|$)/) || [])[1];
+      if (RX.regimentLike.test(id) && st && sideOfPrefix(id) === 'union' && CONF_ONLY.has(st)) {
+        const twin = flipPrefix(id);
+        const t = oob.records.get(twin);
+        if (t && isRegiment(t)) {
+          entry = cand(t, 'wrong_side_prefix', 'high', [`state code ${st} is Confederate-only`, `${twin} exists in ${t.file}`, ctx.rowsByUnit.has(twin) ? `${twin} is also placed (${ctx.rowsByUnit.get(twin).length} row(s)): the U- row draws the same regiment twice, once in blue` : `${twin} is not placed elsewhere`], { side_flip: true, hard_rules: { same_shape: true, side_change_allowed_by: 'wrong_side_prefix (state code contradicts prefix, twin exists)' } });
         }
       }
-    }
-    // R4 brigade-prefixed regiment id: <corps>-<div>-<n><state>
-    if (!entry && shape === 'brigade_prefixed_regiment') {
-      const m = id.match(RX.brigadePrefixedRegiment);
-      const [, s, div, n, tail] = m;
-      let code = tail;
-      if (code === 'W') code = 'WI';
-      if (!code) {
-        const abbr = note.match(new RegExp(`\\b${n}(?:st|nd|rd|th)\\s+([A-Z]{2})\\b`));
-        if (abbr) code = abbr[1];
+      // R2 exact prefix extension: <id>-<suffix>
+      if (!entry && (shape === 'regiment')) {
+        const ext = idx.regiments.filter((r) => r.id.startsWith(id + '-') && r.side === sideOfPrefix(id));
+        if (ext.length === 1) {
+          const ev = corroborate(ctx, ext[0], rows, note);
+          entry = cand(ext[0], 'own_id_prefix_extension', ev.length ? 'high' : 'medium', [`${ext[0].id} extends ${id} with a suffix`, ...ev]);
+        } else if (ext.length > 1) entry = none('own_id_prefix_extension', `several OOB ids extend ${id}: ${ext.map((r) => r.id).join(', ')}`, { candidates: ext.map((r) => r.id) });
       }
-      if (!code) {
-        const sm = note.match(new RegExp(`\\b${n}(?:st|nd|rd|th)\\s+(Alabama|Arkansas|Florida|Georgia|Louisiana|Mississippi|North Carolina|South Carolina|Texas|Virginia|Maryland|Tennessee)`));
-        if (sm) code = STATE_CODES[sm[1]];
-      }
-      const cand2 = code ? oob.records.get(`${s}-${n}${code}`) : null;
-      if (cand2 && isRegiment(cand2)) {
-        const chain = chainOf(oob, cand2);
-        const divOk = chain.division && chain.division.id === `${s}-${div}`;
-        entry = cand(cand2, 'brigade_prefixed_regiment', divOk ? 'high' : 'low', [`tail "${n}${tail}" resolves to ${cand2.id} (${cand2.raw.designation})`, divOk ? `its division is ${chain.division.id}, matching the id prefix` : `its division is ${chain.division?.id ?? 'unknown'}, NOT the id prefix ${s}-${div}`, ...(tail === 'W' ? ['"W" is read as Wisconsin (WI)'] : [])], divOk ? {} : { reason: 'division in the id prefix does not match the OOB chain' });
-      }
-    }
-    // R5a "<Name>-bde" ids
-    if (!entry) {
-      const bm = id.match(/^([UC])-([A-Za-z]+)-bde$/);
-      if (bm) {
-        const found = (idx.commanderIndex.get(`brigade|${bm[2]}`) || []).filter((r) => r.side === sideOfPrefix(id));
-        if (found.length === 1) entry = cand(found[0], 'named_brigade_id', 'medium', [`"${bm[2]}" is the commander of ${found[0].id} (${found[0].raw.designation})`]);
-        else if (found.length > 1) entry = none('named_brigade_id', `"${bm[2]}" matches ${found.length} brigades`, { candidates: found.map((r) => r.id) });
-      }
-    }
-    // R5 formation name in the note ("Steuart's brigade") for brigade/division-shaped ids. Same side only: never a side flip.
-    if (!entry && (['brigade', 'division', 'cavalry_letter'].includes(shape) || (shape === 'other' && !/-ART-/.test(id)))) {
-      const kind = ['cavalry_letter', 'other'].includes(shape) ? null : shape;
-      const named = [...note.matchAll(/\b((?:[A-Z][a-z]+ )?)([A-Z][A-Za-z'-]+?)(?:'s|s')\s+(?:[A-Za-z]+\s)?(brigade|division)\b/g)].map((m) => ({ given: m[1].trim(), name: m[2], kind: m[3] }));
-      const nm = named.find((x) => !kind || x.kind === kind) ?? named[0];
-      if (nm) {
-        let found = idx.commanderIndex.get(`${nm.kind}|${nm.name}`) || [];
-        let fuzzy = null;
-        if (!found.length) {
-          // one-letter typo in the surname (Nichols / Nicholls): unique same-side hit only
-          const near = [...idx.commanderIndex].filter(([k, list]) => k.startsWith(`${nm.kind}|`) && editDistanceOne(k.split('|')[1], nm.name) && list.some((r) => r.side === sideOfPrefix(id)));
-          if (near.length === 1) { found = near[0][1]; fuzzy = near[0][0].split('|')[1]; }
-        }
-        let pick = found.filter((r) => r.side === sideOfPrefix(id));
-        if (pick.length > 1 && nm.given) {
-          const narrowed = pick.filter((r) => commanderChain(r.raw.commander).some((c) => c.name.includes(nm.given)) || String(r.raw.designation).includes(nm.given));
-          if (narrowed.length) pick = narrowed;
-        }
-        const conf = shape === 'other' ? 'low' : 'medium';
-        if (pick.length === 1) {
-          const target = pick[0];
-          const collide = ctx.rowsByUnit.has(target.id) && rows.some((r) => (ctx.perKey.get(`${target.id}@${r.tick}`) || []).length > 0);
-          entry = cand(target, 'formation_named_in_note', conf, [`note names "${nm.given ? nm.given + ' ' : ''}${nm.name}'s ${nm.kind}", the commander of ${target.id} (${target.raw.designation})`, ...(fuzzy ? [`surname differs by one letter from the OOB spelling "${fuzzy}" (typo)`] : []), `id shape is ${shape}; target kind ${target.kind}`, ...(collide ? [`WARNING: ${target.id} already has a row at the same tick(s): merge by (unit,tick) with the twin winning (chapter 13 WP-06 step 1)`] : [])],
-            { hard_rules: { same_shape: target.kind === nm.kind } });
-        } else if (pick.length > 1) entry = none('formation_named_in_note', `"${nm.given ? nm.given + ' ' : ''}${nm.name}'s ${nm.kind}" matches ${pick.length} OOB records on this side`, { candidates: pick.map((r) => r.id) });
-        else if (found.length) entry = none('formation_named_in_note', `"${nm.name}'s ${nm.kind}" exists only on the other side (${found.map((r) => r.id).join(', ')}): a side change is never made by this rule`, { candidates: found.map((r) => r.id) });
-      }
-    }
-    // R6 artillery nickname
-    if (!entry && /^[UC]-ART-/.test(id)) {
-      const m = id.match(RX.artNickname);
-      if (m) {
-        const nick = m[2].replace(/-.*$/, '');
-        if (nick !== 'RES') {
-          const arts = [...idx.battalions, ...idx.artBrigades].filter((r) => r.side === sideOfPrefix(id) && (new RegExp(`\\b${nick}(?:'s|s')`, 'i').test(r.raw.designation || '') || commanderChain(r.raw.commander).some((c) => c.surname === nick)));
-          if (arts.length === 1) entry = cand(arts[0], 'artillery_nickname', 'medium', [`"${nick}" matches the commander/designation of ${arts[0].id} (${arts[0].raw.designation})`, `id ${id} is a nickname, not an OOB id`]);
-          else if (arts.length > 1) entry = none('artillery_nickname', `"${nick}" matches ${arts.length} artillery records`, { candidates: arts.map((r) => r.id) });
-        }
-      }
-    }
-    // R7 designation tokens for the rest (legion names): whole-token matches only; INF/CAV tags select the arm
-    if (!entry && !/-ART-/.test(id)) {
-      const tokens = id.split('-').slice(1).filter((t) => t.length >= 3 && !/^(INF|CAV|ART|SHB|bde|bn|RES|SHRP|EH)$/.test(t));
-      const armWord = /-INF$/.test(id) ? 'Infantry' : /-CAV$/.test(id) ? 'Cavalry' : null;
-      const wb = (t) => new RegExp(`(^|[-\\s'])${t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}($|[-\\s'])`, 'i');
-      let cands = idx.regiments.filter((r) => r.side === sideOfPrefix(id) && tokens.length && tokens.every((t) => wb(t).test(r.raw.designation + ' ' + r.id)));
-      if (cands.length > 1 && armWord) cands = cands.filter((r) => String(r.raw.designation).includes(armWord));
-      if (cands.length === 1) entry = cand(cands[0], 'designation_token', 'low', [`id tokens ${tokens.join('/')} appear in ${cands[0].id} "${cands[0].raw.designation}"`], { reason: 'token match only; the brigade context is not corroborated' });
-      else if (cands.length > 1) entry = none('designation_token', `tokens ${tokens.join('/')} match ${cands.length} regiments`, { candidates: cands.map((r) => r.id) });
-    }
-    // R8 same regiment number under other state codes: ambiguous, never guessed
-    if (!entry) {
-      const nm = id.match(/^([UC])-(\d+)([A-Z]{2})/);
-      if (nm) {
-        const same = idx.regiments.filter((r) => r.side === sideOfPrefix(id) && new RegExp(`^[UC]-${nm[2]}[A-Z]{2}(?:-|$)`).test(r.id));
-        if (same.length) entry = none('same_number_other_state', `no ${id} in the OOB; same-side regiments numbered ${nm[2]}: ${same.slice(0, 6).map((r) => `${r.id} (${r.raw.designation})`).join('; ')}${same.length > 6 ? ` and ${same.length - 6} more` : ''}`, { candidates: same.slice(0, 12).map((r) => r.id) });
-      }
-    }
-    // R9 batteries named in the note ("Cooper's Battery B, 1st PA") or artillery commanders named in the note
-    if (!entry && /-ART-/.test(id)) {
-      const bm = note.match(/Battery\s+([A-Z]),?\s+(\d+)(?:st|nd|rd|th)\s+(PA|NY|US|Pennsylvania|New York|Maine|Massachusetts|Ohio)/);
-      if (bm) {
-        const st2 = { Pennsylvania: 'PA', 'New York': 'NY', Maine: 'ME', Massachusetts: 'MA', Ohio: 'OH' }[bm[3]] ?? bm[3];
-        const want = `Battery ${bm[1]}, ${bm[2]}`;
-        const bats = idx.batteries.filter((r) => r.side === sideOfPrefix(id) && String(r.raw.designation).startsWith(want) && r.id.includes(`${bm[1]}${bm[2]}${st2}`));
-        if (bats.length === 1) entry = cand(bats[0], 'battery_named_in_note', 'low', [`note names "${bm[0]}", matching ${bats[0].id} "${bats[0].raw.designation}"`, `the id itself (${id}) names a different battery letter: the id and the note disagree`], { reason: 'id and note disagree on the battery' });
-      }
+      // R2b type-tag normalisation: -RES -> -R (Pennsylvania Reserves), -SHRP -> -SS (sharpshooters)
       if (!entry) {
-        const person = (note.match(/\b([A-Z][a-z]+)(?:'s|s')\s+(?:artillery|batter)/) || [])[1];
-        if (person) {
-          const arts = [...idx.artBrigades, ...idx.battalions].filter((r) => r.side === sideOfPrefix(id) && commanderChain(r.raw.commander).some((c) => c.surname === person));
-          if (arts.length === 1) entry = cand(arts[0], 'artillery_commander_in_note', 'low', [`note names "${person}'s artillery", the commander of ${arts[0].id} (${arts[0].raw.designation})`], { reason: `the id (${id}) is not an OOB id; the mapping rests on the note only` });
+        const tm = id.match(RX.typeTag);
+        if (tm) {
+          const norm = `${tm[1]}-${tm[2] === 'RES' ? 'R' : 'SS'}`;
+          const t = oob.records.get(norm);
+          const word = tm[2] === 'RES' ? 'Reserves' : 'Sharpshooters';
+          if (t && isRegiment(t) && t.side === sideOfPrefix(id)) entry = cand(t, 'type_tag_normalisation', String(t.raw.designation).includes(word) ? 'high' : 'medium', [`"-${tm[2]}" is read as "-${tm[2] === 'RES' ? 'R' : 'SS'}"`, `${t.id} is "${t.raw.designation}"`]);
+          else entry = none('type_tag_normalisation', `${tm[1]}-${tm[2]} reads as ${norm}, which is not in the OOB${tm[2] === 'SHRP' ? ' (only the 1st United States Sharpshooters is listed)' : ''}`, { new_record_needed: true });
         }
       }
-    }
-    // U-VI-* : 8 VI Corps brigades that do not exist in the OOB
-    if (!entry && /^U-VI-\d-\d$/.test(id)) entry = { ...base, proposed: id, proposed_kind: 'brigade', rule: 'new_record_required', confidence: 'medium', evidence: ['referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)', 'candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it'], new_record: true };
-    if (!entry) entry = none('no_rule', 'no OOB record could be matched by any rule');
-    // hard rules
-    const warnings = [];
-    if (entry.proposed && entry.confidence !== 'none') {
-      const target = oob.records.get(entry.proposed);
-      if (target && shape === 'regiment' && target.kind !== 'regiment') warnings.push('hard rule violated: regiment-shaped id mapped to a non-regiment');
-      if (target && shape === 'brigade' && target.kind !== 'brigade') warnings.push('hard rule violated: brigade-shaped id mapped to a non-brigade');
-      if (target && target.side !== sideOfPrefix(id) && entry.rule !== 'wrong_side_prefix' && shape !== 'other') warnings.push('side differs from the id prefix outside the wrong-prefix rule');
-    }
+      // R3 suffix variant: <regiment id>-<tag>
+      if (!entry) {
+        const m = id.match(RX.suffixVariant);
+        if (m) {
+          const baseRec = oob.records.get(m[1]);
+          if (baseRec && isRegiment(baseRec) && baseRec.side === sideOfPrefix(id)) {
+            const chain = chainOf(oob, baseRec);
+            const tag = m[2];
+            const surnames = [...(chain.brigade ? commanderChain(chain.brigade.raw.commander).map((c) => c.surname) : []), ...(chain.division ? commanderChain(chain.division.raw.commander).map((c) => c.surname) : [])];
+            const names = TAG_ALIASES[tag] ?? [tag];
+            const chainText = `${chain.brigade?.raw.designation ?? ''} ${chain.division?.raw.designation ?? ''}`;
+            const prefixHit = names.some((n) => surnames.some((s) => s.toLowerCase().startsWith(n.toLowerCase())) || chainText.includes(n));
+            // a single-letter tag is only an initial: it needs the note to name that commander
+            const noteNames = surnames.some((s) => s && new RegExp(`\\b${s}\\b`).test(note));
+            const strong = prefixHit && (tag.length >= 2 || noteNames);
+            const ev = [`${m[1]} exists (${baseRec.raw.designation}); "${tag}" is a suffix tag`, prefixHit ? `tag "${tag}" matches a commander/nickname in the regiment's chain (${chain.brigade?.id ?? '?'} / ${chain.division?.id ?? '?'})${strong ? '' : ' but is only an initial and the note does not name that commander'}` : `tag "${tag}" does NOT match a commander in the regiment's chain (${surnames.join(', ') || 'none recorded'})`, ...corroborate(ctx, baseRec, rows, note)];
+            entry = cand(baseRec, 'suffix_variant', strong ? 'high' : prefixHit ? 'medium' : 'low', ev, strong ? {} : { reason: prefixHit ? 'single-letter tag not corroborated by the note' : 'the suffix tag is not explained by the OOB chain: the regiment may belong to another brigade/division at the time (historian)' });
+          }
+        }
+      }
+      // R4 brigade-prefixed regiment id: <corps>-<div>-<n><state>
+      if (!entry && shape === 'brigade_prefixed_regiment') {
+        const m = id.match(RX.brigadePrefixedRegiment);
+        const [, s, div, n, tail] = m;
+        let code = tail;
+        if (code === 'W') code = 'WI';
+        if (!code) {
+          const abbr = note.match(new RegExp(`\\b${n}(?:st|nd|rd|th)\\s+([A-Z]{2})\\b`));
+          if (abbr) code = abbr[1];
+        }
+        if (!code) {
+          const sm = note.match(new RegExp(`\\b${n}(?:st|nd|rd|th)\\s+(Alabama|Arkansas|Florida|Georgia|Louisiana|Mississippi|North Carolina|South Carolina|Texas|Virginia|Maryland|Tennessee)`));
+          if (sm) code = STATE_CODES[sm[1]];
+        }
+        const cand2 = code ? oob.records.get(`${s}-${n}${code}`) : null;
+        if (cand2 && isRegiment(cand2)) {
+          const chain = chainOf(oob, cand2);
+          const divOk = chain.division && chain.division.id === `${s}-${div}`;
+          entry = cand(cand2, 'brigade_prefixed_regiment', divOk ? 'high' : 'low', [`tail "${n}${tail}" resolves to ${cand2.id} (${cand2.raw.designation})`, divOk ? `its division is ${chain.division.id}, matching the id prefix` : `its division is ${chain.division?.id ?? 'unknown'}, NOT the id prefix ${s}-${div}`, ...(tail === 'W' ? ['"W" is read as Wisconsin (WI)'] : [])], divOk ? {} : { reason: 'division in the id prefix does not match the OOB chain' });
+        }
+      }
+      // R5a "<Name>-bde" ids
+      if (!entry) {
+        const bm = id.match(/^([UC])-([A-Za-z]+)-bde$/);
+        if (bm) {
+          const found = (idx.commanderIndex.get(`brigade|${bm[2]}`) || []).filter((r) => r.side === sideOfPrefix(id));
+          if (found.length === 1) entry = cand(found[0], 'named_brigade_id', 'medium', [`"${bm[2]}" is the commander of ${found[0].id} (${found[0].raw.designation})`]);
+          else if (found.length > 1) entry = none('named_brigade_id', `"${bm[2]}" matches ${found.length} brigades`, { candidates: found.map((r) => r.id) });
+        }
+      }
+      // R5 formation name in the note ("Steuart's brigade") for brigade/division-shaped ids. Same side only: never a side flip.
+      if (!entry && (['brigade', 'division', 'cavalry_letter'].includes(shape) || (shape === 'other' && !/-ART-/.test(id)))) {
+        const kind = ['cavalry_letter', 'other'].includes(shape) ? null : shape;
+        const named = [...note.matchAll(/\b((?:[A-Z][a-z]+ )?)([A-Z][A-Za-z'-]+?)(?:'s|s')\s+(?:[A-Za-z]+\s)?(brigade|division)\b/g)].map((m) => ({ given: m[1].trim(), name: m[2], kind: m[3] }));
+        const nm = named.find((x) => !kind || x.kind === kind) ?? named[0];
+        if (nm) {
+          let found = idx.commanderIndex.get(`${nm.kind}|${nm.name}`) || [];
+          let fuzzy = null;
+          if (!found.length) {
+            // one-letter typo in the surname (Nichols / Nicholls): unique same-side hit only
+            const near = [...idx.commanderIndex].filter(([k, list]) => k.startsWith(`${nm.kind}|`) && editDistanceOne(k.split('|')[1], nm.name) && list.some((r) => r.side === sideOfPrefix(id)));
+            if (near.length === 1) { found = near[0][1]; fuzzy = near[0][0].split('|')[1]; }
+          }
+          let pick = found.filter((r) => r.side === sideOfPrefix(id));
+          if (pick.length > 1 && nm.given) {
+            const narrowed = pick.filter((r) => commanderChain(r.raw.commander).some((c) => c.name.includes(nm.given)) || String(r.raw.designation).includes(nm.given));
+            if (narrowed.length) pick = narrowed;
+          }
+          const conf = shape === 'other' ? 'low' : 'medium';
+          if (pick.length === 1) {
+            const target = pick[0];
+            const collide = ctx.rowsByUnit.has(target.id) && rows.some((r) => (ctx.perKey.get(`${target.id}@${r.tick}`) || []).length > 0);
+            entry = cand(target, 'formation_named_in_note', conf, [`note names "${nm.given ? nm.given + ' ' : ''}${nm.name}'s ${nm.kind}", the commander of ${target.id} (${target.raw.designation})`, ...(fuzzy ? [`surname differs by one letter from the OOB spelling "${fuzzy}" (typo)`] : []), `id shape is ${shape}; target kind ${target.kind}`, ...(collide ? [`WARNING: ${target.id} already has a row at the same tick(s): merge by (unit,tick) with the twin winning (chapter 13 WP-06 step 1)`] : [])],
+              { hard_rules: { same_shape: target.kind === nm.kind } });
+          } else if (pick.length > 1) entry = none('formation_named_in_note', `"${nm.given ? nm.given + ' ' : ''}${nm.name}'s ${nm.kind}" matches ${pick.length} OOB records on this side`, { candidates: pick.map((r) => r.id) });
+          else if (found.length) entry = none('formation_named_in_note', `"${nm.name}'s ${nm.kind}" exists only on the other side (${found.map((r) => r.id).join(', ')}): a side change is never made by this rule`, { candidates: found.map((r) => r.id) });
+        }
+      }
+      // R6 artillery nickname
+      if (!entry && /^[UC]-ART-/.test(id)) {
+        const m = id.match(RX.artNickname);
+        if (m) {
+          const nick = m[2].replace(/-.*$/, '');
+          if (nick !== 'RES') {
+            const arts = [...idx.battalions, ...idx.artBrigades].filter((r) => r.side === sideOfPrefix(id) && (new RegExp(`\\b${nick}(?:'s|s')`, 'i').test(r.raw.designation || '') || commanderChain(r.raw.commander).some((c) => c.surname === nick)));
+            if (arts.length === 1) entry = cand(arts[0], 'artillery_nickname', 'medium', [`"${nick}" matches the commander/designation of ${arts[0].id} (${arts[0].raw.designation})`, `id ${id} is a nickname, not an OOB id`]);
+            else if (arts.length > 1) entry = none('artillery_nickname', `"${nick}" matches ${arts.length} artillery records`, { candidates: arts.map((r) => r.id) });
+          }
+        }
+      }
+      // R7 designation tokens for the rest (legion names): whole-token matches only; INF/CAV tags select the arm
+      if (!entry && !/-ART-/.test(id)) {
+        const tokens = id.split('-').slice(1).filter((t) => t.length >= 3 && !/^(INF|CAV|ART|SHB|bde|bn|RES|SHRP|EH)$/.test(t));
+        const armWord = /-INF$/.test(id) ? 'Infantry' : /-CAV$/.test(id) ? 'Cavalry' : null;
+        const wb = (t) => new RegExp(`(^|[-\\s'])${t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}($|[-\\s'])`, 'i');
+        let cands = idx.regiments.filter((r) => r.side === sideOfPrefix(id) && tokens.length && tokens.every((t) => wb(t).test(r.raw.designation + ' ' + r.id)));
+        if (cands.length > 1 && armWord) cands = cands.filter((r) => String(r.raw.designation).includes(armWord));
+        if (cands.length === 1) entry = cand(cands[0], 'designation_token', 'low', [`id tokens ${tokens.join('/')} appear in ${cands[0].id} "${cands[0].raw.designation}"`], { reason: 'token match only; the brigade context is not corroborated' });
+        else if (cands.length > 1) entry = none('designation_token', `tokens ${tokens.join('/')} match ${cands.length} regiments`, { candidates: cands.map((r) => r.id) });
+      }
+      // R8 same regiment number under other state codes: ambiguous, never guessed
+      if (!entry) {
+        const nm = id.match(/^([UC])-(\d+)([A-Z]{2})/);
+        if (nm) {
+          const same = idx.regiments.filter((r) => r.side === sideOfPrefix(id) && new RegExp(`^[UC]-${nm[2]}[A-Z]{2}(?:-|$)`).test(r.id));
+          if (same.length) entry = none('same_number_other_state', `no ${id} in the OOB; same-side regiments numbered ${nm[2]}: ${same.slice(0, 6).map((r) => `${r.id} (${r.raw.designation})`).join('; ')}${same.length > 6 ? ` and ${same.length - 6} more` : ''}`, { candidates: same.slice(0, 12).map((r) => r.id) });
+        }
+      }
+      // R9 batteries named in the note ("Cooper's Battery B, 1st PA") or artillery commanders named in the note
+      if (!entry && /-ART-/.test(id)) {
+        const bm = note.match(/Battery\s+([A-Z]),?\s+(\d+)(?:st|nd|rd|th)\s+(PA|NY|US|Pennsylvania|New York|Maine|Massachusetts|Ohio)/);
+        if (bm) {
+          const st2 = { Pennsylvania: 'PA', 'New York': 'NY', Maine: 'ME', Massachusetts: 'MA', Ohio: 'OH' }[bm[3]] ?? bm[3];
+          const want = `Battery ${bm[1]}, ${bm[2]}`;
+          const bats = idx.batteries.filter((r) => r.side === sideOfPrefix(id) && String(r.raw.designation).startsWith(want) && r.id.includes(`${bm[1]}${bm[2]}${st2}`));
+          if (bats.length === 1) entry = cand(bats[0], 'battery_named_in_note', 'low', [`note names "${bm[0]}", matching ${bats[0].id} "${bats[0].raw.designation}"`, `the id itself (${id}) names a different battery letter: the id and the note disagree`], { reason: 'id and note disagree on the battery' });
+        }
+        if (!entry) {
+          const person = (note.match(/\b([A-Z][a-z]+)(?:'s|s')\s+(?:artillery|batter)/) || [])[1];
+          if (person) {
+            const arts = [...idx.artBrigades, ...idx.battalions].filter((r) => r.side === sideOfPrefix(id) && commanderChain(r.raw.commander).some((c) => c.surname === person));
+            if (arts.length === 1) entry = cand(arts[0], 'artillery_commander_in_note', 'low', [`note names "${person}'s artillery", the commander of ${arts[0].id} (${arts[0].raw.designation})`], { reason: `the id (${id}) is not an OOB id; the mapping rests on the note only` });
+          }
+        }
+      }
+      // U-VI-* : 8 VI Corps brigades that do not exist in the OOB
+      if (!entry && /^U-VI-\d-\d$/.test(id)) entry = { ...base, proposed: id, proposed_kind: 'brigade', rule: 'new_record_required', confidence: 'medium', evidence: ['referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)', 'candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it'], new_record: true };
+      if (!entry) entry = none('no_rule', 'no OOB record could be matched by any rule');
+      // hard rules
+      const warnings = [];
+      if (entry.proposed && entry.confidence !== 'none') {
+        const target = oob.records.get(entry.proposed);
+        if (target && shape === 'regiment' && target.kind !== 'regiment') warnings.push('hard rule violated: regiment-shaped id mapped to a non-regiment');
+        if (target && shape === 'brigade' && target.kind !== 'brigade') warnings.push('hard rule violated: brigade-shaped id mapped to a non-brigade');
+        if (target && target.side !== sideOfPrefix(id) && entry.rule !== 'wrong_side_prefix' && shape !== 'other') warnings.push('side differs from the id prefix outside the wrong-prefix rule');
+      }
     entry.hard_rule_warnings = warnings;
-    entry.needs_historian = entry.confidence !== 'high' || warnings.length > 0 || Boolean(entry.evidence?.some((e) => String(e).startsWith('WARNING')));
+    return entry;
+  };
+  const RANK = { none: 0, low: 1, medium: 2, high: 3 };
+  for (const [id, rows] of unresolved) {
+    const entry = resolveAlias(id, rows);
+    // confidence PER ROW: the same cascade over the row's own note. A row supports the id-level proposal only if it proposes the same
+    // target; its confidence is what its own evidence reaches (a row that names nothing keeps only the id-shape evidence, or none).
+    const row_confidence = rows.map((r) => {
+      const solo = entry.new_record ? entry : resolveAlias(id, [r]);
+      const agrees = (solo.proposed ?? null) === (entry.proposed ?? null);
+      return { file: r.file, idx: r.idx, tick: r.tick, confidence: agrees ? solo.confidence : 'none', rule: agrees ? solo.rule : null, proposed: agrees ? (solo.proposed ?? null) : null, own_target: agrees ? null : (solo.proposed ?? null), evidence: agrees ? (solo.evidence ?? []) : [] };
+    });
+    // the id resolves only as strongly as its weakest row; the combined-notes verdict is kept for the record
+    entry.combined_notes_confidence = entry.confidence;
+    entry.confidence = row_confidence.reduce((m, r) => (RANK[r.confidence] < RANK[m] ? r.confidence : m), entry.confidence);
+    entry.rows_by_confidence = Object.fromEntries(['high', 'medium', 'low', 'none'].map((c) => [c, row_confidence.filter((r) => r.confidence === c).length]));
+    // an id that has a proposal never reads "none" (that word means "no proposal"); a row with no support of its own is counted in rows_by_confidence.none
+    if (entry.proposed && entry.confidence === 'none') entry.confidence = 'low';
+    for (const r of row_confidence) if (r.own_target) entry.evidence = [...(entry.evidence ?? []), `WARNING: the row at ${r.file}#${r.idx} (tick ${r.tick}) names ${r.own_target}, not ${entry.proposed}`];
+    entry.row_confidence = row_confidence;
+    entry.needs_historian = entry.confidence !== 'high' || entry.hard_rule_warnings.length > 0 || Boolean(entry.evidence?.some((e) => String(e).startsWith('WARNING')));
     entries.push(entry);
   }
   const counts = {
     unresolved_ids: entries.length,
     rows: entries.reduce((a, e) => a + e.rows, 0),
     by_confidence: Object.fromEntries(['high', 'medium', 'low', 'none'].map((c) => [c, entries.filter((e) => e.confidence === c).length])),
+    rows_by_confidence: Object.fromEntries(['high', 'medium', 'low', 'none'].map((c) => [c, entries.reduce((a, e) => a + e.rows_by_confidence[c], 0)])),
     by_rule: entries.reduce((acc, e) => { acc[e.rule] = (acc[e.rule] || 0) + 1; return acc; }, {}),
     needs_historian: entries.filter((e) => e.needs_historian).length,
     auto_high_share: Number((entries.filter((e) => e.confidence === 'high').length / Math.max(1, entries.length)).toFixed(3)),
