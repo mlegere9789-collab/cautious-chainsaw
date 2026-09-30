@@ -40,6 +40,7 @@ node tools/data/unit_registry.mjs [--check]  # registry, crosswalk, collisions, 
 node tools/data/facts.mjs [--check]          # data-src/build/facts.json
 node tools/data/rights_audit.mjs [--check]   # docs/data/rights-audit.md + legacy-rights-audit.csv
 node tools/data/manifest.mjs verify|candidate|bump <x.y.z> "<why>"
+node tools/data/emit_legacy.mjs --verify     # legacy-compat emitter: byte-exact copy + value-only patches from data-src/patches/*.json
 node --test "tests/data/*.test.mjs"          # all data tests (npm run data:test)
 npm run data:check                           # verify + validate + every --check
 ```
@@ -60,8 +61,9 @@ Until the authoring repository is cut over (WP-DATA-01 step 2) there is no edita
 
 1. **State the change as a candidate**: a small JSON document under `data-src/build/candidates/` (or a value patch in a pull request description) that names each record id, `before`, `after`, a citation with locator (volume and page, not just a book), and the reviewer.
 2. **Run the validator** against the *proposed* tree (copy `legacy/dist/data` to a scratch directory, apply the patch, `node tools/data/validate.mjs --data-dir <dir> --baseline tools/data/baseline.json`). The change must not add violations and should remove some.
-3. **Never hot-edit the deploy.** Legacy names keep their shape until cutover; value-only edits ship atomically through the compat emitter (chapter 13 WP-DATA-09), after R0, never as a rename.
-4. **Record it**: bump `data_version`, add a CHANGELOG entry, append the version and content hash (`node tools/data/manifest.mjs bump 0.9.1 "why"`, then edit `data-src/CHANGELOG.md`). Rule D001 fails a changed tree without both, rule D002 fails a served name that comes back with other bytes.
+3. **Value-only patches go through the emitter.** Put the edit in `data-src/patches/<id>.json` (`{id, description, citation, reviewer, edits:[{file, pointer, before, after}]}`); `node tools/data/emit_legacy.mjs --out <dir>` (default `tmp/data-emit`, git-ignored: never commit a second copy of the served data) copies the tree and changes ONLY the bytes of each patched value (it refuses a wrong `before`, an escaped encoding it cannot reproduce, or any write under `legacy/`). With no patches its output equals `legacy-manifest.tsv` (checked by `--verify` and by the tests). Renames and shape changes are not patches: they go to `/data/v2`.
+4. **Never hot-edit the deploy.** Legacy names keep their shape until cutover; value-only edits ship atomically through the compat emitter (chapter 13 WP-DATA-09), after R0, never as a rename.
+5. **Record it**: bump `data_version`, add a CHANGELOG entry, append the version and content hash (`node tools/data/manifest.mjs bump 0.9.1 "why"`, then edit `data-src/CHANGELOG.md`). Rule D001 fails a changed tree without both, rule D002 fails a served name that comes back with other bytes.
 
 ### Versioning
 

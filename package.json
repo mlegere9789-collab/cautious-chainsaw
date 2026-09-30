@@ -24,7 +24,8 @@
     "data:rights": "node tools/data/rights_audit.mjs",
     "data:manifest:verify": "node tools/data/manifest.mjs verify",
     "data:test": "node --test \"tests/data/*.test.mjs\"",
-    "data:check": "node tools/data/manifest.mjs verify && node tools/data/validate.mjs && node tools/data/unit_registry.mjs --check && node tools/data/facts.mjs --check && node tools/data/rights_audit.mjs --check"
+    "data:check": "node tools/data/manifest.mjs verify && node tools/data/validate.mjs && node tools/data/unit_registry.mjs --check && node tools/data/facts.mjs --check && node tools/data/rights_audit.mjs --check",
+    "data:emit": "node tools/data/emit_legacy.mjs --verify"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
