@@ -1,0 +1,427 @@
+{
+  "tree": "legacy/dist",
+  "bundle": "assets/index-Cg8FAMXN.js",
+  "bundleBytes": 2279543,
+  "implementations": [
+    {
+      "id": "A",
+      "name": "store getTickTime",
+      "file": "assets/index-Cg8FAMXN.js",
+      "at": "assets/index-Cg8FAMXN.js:56@150585",
+      "hash": "19e3113f14",
+      "bytes": 258,
+      "rule": "base 06:00 (Day 1) / 04:00 (Days 2-3), 5 min/tick, date = Day tab number, no midnight rollover",
+      "feeds": "toolbar label, time bar, mobile header clock",
+      "kind": "clock+date",
+      "ticksOver30MinFromModel": 651,
+      "ticksOver60MinFromModel": 571,
+      "datesWrong": 149,
+      "meanAbsErrMin": 273.1,
+      "medianAbsErrMin": 267,
+      "samples": {
+        "1": "July 1, 6:00 AM",
+        "12": "July 1, 6:55 AM",
+        "17": "July 1, 7:20 AM",
+        "28": "July 1, 8:15 AM",
+        "100": "July 1, 2:15 PM",
+        "160": "July 1, 7:15 PM",
+        "225": "July 1, 12:40 AM",
+        "226": "July 2, 4:00 AM",
+        "267": "July 2, 7:25 AM",
+        "300": "July 2, 10:10 AM",
+        "338": "July 2, 1:20 PM",
+        "368": "July 2, 3:50 PM",
+        "451": "July 3, 4:00 AM",
+        "518": "July 3, 9:35 AM",
+        "538": "July 3, 11:15 AM",
+        "551": "July 3, 12:20 PM",
+        "675": "July 3, 10:40 PM"
+      }
+    },
+    {
+      "id": "B",
+      "name": "HUD date badge (_F)",
+      "file": "assets/index-Cg8FAMXN.js",
+      "at": "assets/index-Cg8FAMXN.js:3355@1988147",
+      "hash": "99cea70da1",
+      "bytes": 79,
+      "rule": "date = Day tab number + 2 (July 3-5), fixed \", 1863\"",
+      "feeds": "map HUD badge",
+      "kind": "date",
+      "ticksOver30MinFromModel": 0,
+      "ticksOver60MinFromModel": 0,
+      "datesWrong": 675,
+      "meanAbsErrMin": null,
+      "medianAbsErrMin": null,
+      "samples": {
+        "1": "July 3, 1863",
+        "12": "July 3, 1863",
+        "17": "July 3, 1863",
+        "28": "July 3, 1863",
+        "100": "July 3, 1863",
+        "160": "July 3, 1863",
+        "225": "July 3, 1863",
+        "226": "July 4, 1863",
+        "267": "July 4, 1863",
+        "300": "July 4, 1863",
+        "338": "July 4, 1863",
+        "368": "July 4, 1863",
+        "451": "July 5, 1863",
+        "518": "July 5, 1863",
+        "538": "July 5, 1863",
+        "551": "July 5, 1863",
+        "675": "July 5, 1863"
+      }
+    },
+    {
+      "id": "C",
+      "name": "monument tooltip JF",
+      "file": "assets/index-Cg8FAMXN.js",
+      "at": "assets/index-Cg8FAMXN.js:3421@2053346",
+      "hash": "a74f043ef5",
+      "bytes": 191,
+      "rule": "base 05:00, 5 min/tick, date = monument day + 2, day passed in by the caller",
+      "feeds": "monument hover text",
+      "kind": "clock+date",
+      "ticksOver30MinFromModel": 586,
+      "ticksOver60MinFromModel": 562,
+      "datesWrong": 675,
+      "meanAbsErrMin": 264.4,
+      "medianAbsErrMin": 314,
+      "samples": {
+        "1": "5:00 AM July 3",
+        "12": "5:55 AM July 3",
+        "17": "6:20 AM July 3",
+        "28": "7:15 AM July 3",
+        "100": "1:15 PM July 3",
+        "160": "6:15 PM July 3",
+        "225": "11:40 PM July 3",
+        "226": "5:00 AM July 4",
+        "267": "8:25 AM July 4",
+        "300": "11:10 AM July 4",
+        "338": "2:20 PM July 4",
+        "368": "4:50 PM July 4",
+        "451": "5:00 AM July 5",
+        "518": "10:35 AM July 5",
+        "538": "12:15 PM July 5",
+        "551": "1:20 PM July 5",
+        "675": "11:40 PM July 5"
+      }
+    },
+    {
+      "id": "D",
+      "name": "ancestor timeline QF",
+      "file": "assets/index-Cg8FAMXN.js",
+      "at": "assets/index-Cg8FAMXN.js:3421@2056032",
+      "hash": "a91c20c141",
+      "bytes": 216,
+      "rule": "base 05:00, 5 min/tick, date = tab number + 2",
+      "feeds": "Follow-Your-Ancestor rows",
+      "kind": "clock+date",
+      "ticksOver30MinFromModel": 586,
+      "ticksOver60MinFromModel": 562,
+      "datesWrong": 675,
+      "meanAbsErrMin": 264.4,
+      "medianAbsErrMin": 314,
+      "samples": {
+        "1": "July 3, 5:00 AM",
+        "12": "July 3, 5:55 AM",
+        "17": "July 3, 6:20 AM",
+        "28": "July 3, 7:15 AM",
+        "100": "July 3, 1:15 PM",
+        "160": "July 3, 6:15 PM",
+        "225": "July 3, 11:40 PM",
+        "226": "July 4, 5:00 AM",
+        "267": "July 4, 8:25 AM",
+        "300": "July 4, 11:10 AM",
+        "338": "July 4, 2:20 PM",
+        "368": "July 4, 4:50 PM",
+        "451": "July 5, 5:00 AM",
+        "518": "July 5, 10:35 AM",
+        "538": "July 5, 12:15 PM",
+        "551": "July 5, 1:20 PM",
+        "675": "July 5, 11:40 PM"
+      }
+    },
+    {
+      "id": "E",
+      "name": "day/night lighting M4 + E4",
+      "file": "assets/index-Cg8FAMXN.js",
+      "at": "assets/index-Cg8FAMXN.js:56@158317",
+      "hash": "e4df8ad472",
+      "bytes": 508,
+      "rule": "hour = 05:00 base + 5 min/tick per tab; tint table keyed on hour (night before 05, dusk 16-21)",
+      "feeds": "desktop map tint overlay",
+      "kind": "hour",
+      "ticksOver30MinFromModel": 586,
+      "ticksOver60MinFromModel": 562,
+      "datesWrong": 0,
+      "meanAbsErrMin": 264.4,
+      "medianAbsErrMin": 314,
+      "samples": {
+        "1": "hour 5.00 alpha 0.25",
+        "12": "hour 5.92 alpha 0.25",
+        "17": "hour 6.33 alpha 0.15",
+        "28": "hour 7.25 alpha 0.08",
+        "100": "hour 13.25 alpha 0",
+        "160": "hour 18.25 alpha 0.15",
+        "225": "hour 23.67 alpha 0.4",
+        "226": "hour 5.00 alpha 0.25",
+        "267": "hour 8.42 alpha 0",
+        "300": "hour 11.17 alpha 0",
+        "338": "hour 14.33 alpha 0",
+        "368": "hour 16.83 alpha 0.08",
+        "451": "hour 5.00 alpha 0.25",
+        "518": "hour 10.58 alpha 0",
+        "538": "hour 12.25 alpha 0",
+        "551": "hour 13.33 alpha 0",
+        "675": "hour 23.67 alpha 0.4"
+      }
+    },
+    {
+      "id": "F",
+      "name": "compare.html",
+      "file": "compare.html",
+      "at": "compare.html:120@7398",
+      "hash": "01de02d1fc",
+      "bytes": 606,
+      "rule": "base 05:00 per tab, 5 min/tick, lower-case am/pm, no date (\"Day N\" shown separately)",
+      "feeds": "Compare time labels",
+      "kind": "clock",
+      "ticksOver30MinFromModel": 586,
+      "ticksOver60MinFromModel": 562,
+      "datesWrong": 0,
+      "meanAbsErrMin": 264.4,
+      "medianAbsErrMin": 314,
+      "samples": {
+        "1": "5:00am",
+        "12": "5:55am",
+        "17": "6:20am",
+        "28": "7:15am",
+        "100": "1:15pm",
+        "160": "6:15pm",
+        "225": "11:40pm",
+        "226": "5:00am",
+        "267": "8:25am",
+        "300": "11:10am",
+        "338": "2:20pm",
+        "368": "4:50pm",
+        "451": "5:00am",
+        "518": "10:35am",
+        "538": "12:15pm",
+        "551": "1:20pm",
+        "675": "11:40pm"
+      }
+    },
+    {
+      "id": "G",
+      "name": "living-ledger.html",
+      "file": "living-ledger.html",
+      "at": "living-ledger.html:135@7249",
+      "hash": "2e41f24b55",
+      "bytes": 441,
+      "rule": "base 05:00 per tab, 5 min/tick, date = tab number (DAY_BOUNDS [1,226,451,676])",
+      "feeds": "Living Ledger clock",
+      "kind": "clock+date",
+      "ticksOver30MinFromModel": 586,
+      "ticksOver60MinFromModel": 562,
+      "datesWrong": 149,
+      "meanAbsErrMin": 264.4,
+      "medianAbsErrMin": 314,
+      "samples": {
+        "1": "July 1, 5:00 AM",
+        "12": "July 1, 5:55 AM",
+        "17": "July 1, 6:20 AM",
+        "28": "July 1, 7:15 AM",
+        "100": "July 1, 1:15 PM",
+        "160": "July 1, 6:15 PM",
+        "225": "July 1, 11:40 PM",
+        "226": "July 2, 5:00 AM",
+        "267": "July 2, 8:25 AM",
+        "300": "July 2, 11:10 AM",
+        "338": "July 2, 2:20 PM",
+        "368": "July 2, 4:50 PM",
+        "451": "July 3, 5:00 AM",
+        "518": "July 3, 10:35 AM",
+        "538": "July 3, 12:15 PM",
+        "551": "July 3, 1:20 PM",
+        "675": "July 3, 11:40 PM"
+      }
+    },
+    {
+      "id": "H",
+      "name": "camera.html",
+      "file": "camera.html",
+      "at": "camera.html:175@8984",
+      "hash": "500e7cb121",
+      "bytes": 259,
+      "rule": "integer hour, base 05:00 per tab, 5 min/tick, wraps at 24",
+      "feeds": "Camera atmosphere overlay",
+      "kind": "hour",
+      "ticksOver30MinFromModel": 610,
+      "ticksOver60MinFromModel": 610,
+      "datesWrong": 0,
+      "meanAbsErrMin": 263.5,
+      "medianAbsErrMin": 309,
+      "samples": {
+        "1": "hour 5",
+        "12": "hour 5",
+        "17": "hour 6",
+        "28": "hour 7",
+        "100": "hour 13",
+        "160": "hour 18",
+        "225": "hour 23",
+        "226": "hour 5",
+        "267": "hour 8",
+        "300": "hour 11",
+        "338": "hour 14",
+        "368": "hour 16",
+        "451": "hour 5",
+        "518": "hour 10",
+        "538": "hour 12",
+        "551": "hour 13",
+        "675": "hour 23"
+      }
+    },
+    {
+      "id": "I",
+      "name": "immersive.html",
+      "file": "immersive.html",
+      "at": "immersive.html:169@9027",
+      "hash": "75229e6c7e",
+      "bytes": 201,
+      "rule": "integer hour, base 05:00 per tab, 5 min/tick (same code as camera.html)",
+      "feeds": "Immersive atmosphere overlay",
+      "kind": "hour",
+      "ticksOver30MinFromModel": 610,
+      "ticksOver60MinFromModel": 610,
+      "datesWrong": 0,
+      "meanAbsErrMin": 263.5,
+      "medianAbsErrMin": 309,
+      "samples": {
+        "1": "hour 5",
+        "12": "hour 5",
+        "17": "hour 6",
+        "28": "hour 7",
+        "100": "hour 13",
+        "160": "hour 18",
+        "225": "hour 23",
+        "226": "hour 5",
+        "267": "hour 8",
+        "300": "hour 11",
+        "338": "hour 14",
+        "368": "hour 16",
+        "451": "hour 5",
+        "518": "hour 10",
+        "538": "hour 12",
+        "551": "hour 13",
+        "675": "hour 23"
+      }
+    }
+  ],
+  "detectors": {
+    "tick*5": {
+      "total": 8,
+      "attributed": 8,
+      "byFile": {
+        "camera.html": 1,
+        "compare.html": 1,
+        "immersive.html": 1,
+        "living-ledger.html": 1,
+        "assets/index-Cg8FAMXN.js": 4
+      }
+    },
+    "5*60|6*60|4*60": {
+      "total": 5,
+      "attributed": 5,
+      "byFile": {
+        "assets/index-Cg8FAMXN.js": 5
+      }
+    },
+    "toLocale*String|getHours|Intl.DateTimeFormat": {
+      "total": 1,
+      "attributed": 0,
+      "byFile": {
+        "sandbox.html": 1
+      }
+    },
+    "July ${..+-N}": {
+      "total": 4,
+      "attributed": 4,
+      "byFile": {
+        "living-ledger.html": 1,
+        "assets/index-Cg8FAMXN.js": 3
+      }
+    },
+    "tab expression (<=225 ? 1 : <=450 ? 2 : 3)": {
+      "total": 12,
+      "attributed": 4,
+      "byFile": {
+        "documentary.html": 1,
+        "regiment.html": 1,
+        "assets/index-Cg8FAMXN.js": 10
+      }
+    },
+    "hour step of 12 ticks": {
+      "total": 8,
+      "attributed": 0,
+      "byFile": {
+        "assets/HelpModal-CFV9T0zH.js": 2,
+        "assets/index-Cg8FAMXN.js": 6
+      }
+    }
+  },
+  "unknownTickFormulas": [],
+  "wallClock": [
+    "sandbox.html:211@11800"
+  ],
+  "copy": {
+    "Tick N (visible text)": {
+      "total": 22,
+      "files": {
+        "cinematic-export.html": 4,
+        "compare.html": 1,
+        "documentary.html": 1,
+        "historian.html": 1,
+        "living-ledger.html": 1,
+        "regiment.html": 1,
+        "search.html": 1,
+        "watch-together.html": 3,
+        "assets/BookmarkPanel-C5YT4b5k.js": 1,
+        "assets/index-Cg8FAMXN.js": 8
+      }
+    },
+    "real time": {
+      "total": 11,
+      "files": {
+        "immersive.html": 1,
+        "index.html": 6,
+        "manifest.json": 1,
+        "watch-together.html": 2,
+        "assets/index-Cg8FAMXN.js": 1
+      }
+    },
+    "five-minute": {
+      "total": 16,
+      "files": {
+        "compare.html": 1,
+        "ground-remembers.html": 1,
+        "index.html": 7,
+        "manifest.json": 1,
+        "terms.html": 1,
+        "assets/HelpModal-CFV9T0zH.js": 2,
+        "assets/index-Cg8FAMXN.js": 3
+      }
+    },
+    "minute-by-minute": {
+      "total": 2,
+      "files": {
+        "index.html": 2
+      }
+    }
+  },
+  "module": {
+    "version": "2026-09-30.1",
+    "dv": 2
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "implementations": [
+    {
+      "id": "A",
+      "name": "store getTickTime",
+      "hash": "19e3113f14",
+      "bytes": 258,
+      "ticksOver30MinFromModel": 651,
+      "ticksOver60MinFromModel": 571,
+      "datesWrong": 149,
+      "meanAbsErrMin": 273.1
+    },
+    {
+      "id": "B",
+      "name": "HUD date badge (_F)",
+      "hash": "99cea70da1",
+      "bytes": 79,
+      "ticksOver30MinFromModel": 0,
+      "ticksOver60MinFromModel": 0,
+      "datesWrong": 675,
+      "meanAbsErrMin": null
+    },
+    {
+      "id": "C",
+      "name": "monument tooltip JF",
+      "hash": "a74f043ef5",
+      "bytes": 191,
+      "ticksOver30MinFromModel": 586,
+      "ticksOver60MinFromModel": 562,
+      "datesWrong": 675,
+      "meanAbsErrMin": 264.4
+    },
+    {
+      "id": "D",
+      "name": "ancestor timeline QF",
+      "hash": "a91c20c141",
+      "bytes": 216,
+      "ticksOver30MinFromModel": 586,
+      "ticksOver60MinFromModel": 562,
+      "datesWrong": 675,
+      "meanAbsErrMin": 264.4
+    },
+    {
+      "id": "E",
+      "name": "day/night lighting M4 + E4",
+      "hash": "e4df8ad472",
+      "bytes": 508,
+      "ticksOver30MinFromModel": 586,
+      "ticksOver60MinFromModel": 562,
+      "datesWrong": 0,
+      "meanAbsErrMin": 264.4
+    },
+    {
+      "id": "F",
+      "name": "compare.html",
+      "hash": "01de02d1fc",
+      "bytes": 606,
+      "ticksOver30MinFromModel": 586,
+      "ticksOver60MinFromModel": 562,
+      "datesWrong": 0,
+      "meanAbsErrMin": 264.4
+    },
+    {
+      "id": "G",
+      "name": "living-ledger.html",
+      "hash": "2e41f24b55",
+      "bytes": 441,
+      "ticksOver30MinFromModel": 586,
+      "ticksOver60MinFromModel": 562,
+      "datesWrong": 149,
+      "meanAbsErrMin": 264.4
+    },
+    {
+      "id": "H",
+      "name": "camera.html",
+      "hash": "500e7cb121",
+      "bytes": 259,
+      "ticksOver30MinFromModel": 610,
+      "ticksOver60MinFromModel": 610,
+      "datesWrong": 0,
+      "meanAbsErrMin": 263.5
+    },
+    {
+      "id": "I",
+      "name": "immersive.html",
+      "hash": "75229e6c7e",
+      "bytes": 201,
+      "ticksOver30MinFromModel": 610,
+      "ticksOver60MinFromModel": 610,
+      "datesWrong": 0,
+      "meanAbsErrMin": 263.5
+    }
+  ],
+  "detectors": {
+    "tick*5": {
+      "total": 8,
+      "attributed": 8
+    },
+    "5*60|6*60|4*60": {
+      "total": 5,
+      "attributed": 5
+    },
+    "toLocale*String|getHours|Intl.DateTimeFormat": {
+      "total": 1,
+      "attributed": 0
+    },
+    "July ${..+-N}": {
+      "total": 4,
+      "attributed": 4
+    },
+    "tab expression (<=225 ? 1 : <=450 ? 2 : 3)": {
+      "total": 12,
+      "attributed": 4
+    },
+    "hour step of 12 ticks": {
+      "total": 8,
+      "attributed": 0
+    }
+  },
+  "unknownTickFormulas": 0,
+  "copy": {
+    "Tick N (visible text)": 22,
+    "real time": 11,
+    "five-minute": 16,
+    "minute-by-minute": 2
+  }
+}

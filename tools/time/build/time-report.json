@@ -1,0 +1,1620 @@
+{
+ "model": "2026-09-30.1",
+ "results": [
+  {
+   "id": "TM-V1",
+   "title": "Anchors schema; strictly increasing ticks and minutes; includes 1, 226, 451, 675; slope 0.75-60 (warn >15); S needs the evidence rule",
+   "severity": "error",
+   "today": "proposal passes",
+   "status": "warn",
+   "count": 0,
+   "details": [
+    "warn V1.lull t12 lull: 18.6 min/tick over 5-12",
+    "warn V1.lull t240 lull: 32.1 min/tick over 226-240",
+    "warn V1.lull t248 lull: 18.8 min/tick over 240-248",
+    "warn V1.lull t518 lull: 42.3 min/tick over 515-518",
+    "warn V1.evidence S-status anchors failing the evidence rule (candidates for demotion to M, WP-TIME-03): 1, 36, 326, 515"
+   ],
+   "headline": "33 anchors, 0 errors, 5 warnings",
+   "data": {
+    "warnings": 5,
+    "evidenceFailures": [
+     1,
+     36,
+     326,
+     515
+    ],
+    "lulls": [
+     "5-12 (18.6)",
+     "226-240 (32.1)",
+     "240-248 (18.8)",
+     "515-518 (42.3)"
+    ],
+    "stalls": [
+     "295-302 (1.4)",
+     "302-314 (0.8)"
+    ],
+    "needsHistorian": [
+     75,
+     90,
+     248,
+     275,
+     538
+    ],
+    "design": [
+     100,
+     226,
+     675
+    ]
+   }
+  },
+  {
+   "id": "TM-V2",
+   "title": "Tab ranges equal tab_days in every consumer (no hard-coded 225/226/450/451)",
+   "severity": "error",
+   "today": "8 pages, about 13 bundle sites",
+   "status": "fail",
+   "count": 25,
+   "details": [
+    "camera.html: 1",
+    "compare.html: 2",
+    "dashboard.html: 1",
+    "documentary.html: 1",
+    "education.html: 1",
+    "immersive.html: 1",
+    "living-ledger.html: 1",
+    "regiment.html: 1",
+    "assets/index-Cg8FAMXN.js: 16",
+    "living-ledger.html: DAY_BOUNDS [1, 226, 451, 676]",
+    "dashboard.html: DAY_BOUNDS [1, 225, 450, 675]"
+   ],
+   "headline": "25 hard-coded tab boundary sites: 8 pages, 16 in the JS chunks; 0 disagree with tab_days",
+   "data": {
+    "pages": 8,
+    "bundleSites": 16,
+    "byFile": {
+     "camera.html": 1,
+     "compare.html": 2,
+     "dashboard.html": 1,
+     "documentary.html": 1,
+     "education.html": 1,
+     "immersive.html": 1,
+     "living-ledger.html": 1,
+     "regiment.html": 1,
+     "assets/index-Cg8FAMXN.js": 16
+    },
+    "wrong": 0,
+    "tables": [
+     "living-ledger.html: DAY_BOUNDS [1, 226, 451, 676]",
+     "dashboard.html: DAY_BOUNDS [1, 225, 450, 675]"
+    ]
+   }
+  },
+  {
+   "id": "TM-V3",
+   "title": "Clocks and day-part words beside a tick agree with the model (explicit +-max(20 min, 2 sigma); \"about\" +-45; day parts vs solar); duration claims within 35% of the clock span",
+   "severity": "error",
+   "today": "355 strings, 151 tick+clock pairs; 538-558 \"30 min\", 256-330 \"2 h\", 451-534 \"seven hours\"",
+   "status": "fail",
+   "count": 36,
+   "details": [
+    "chronology_day1.json#t38 t38 narrative: \"10:30am\" vs model 11:25am (off 55 min, tolerance 45)",
+    "chronology_day1.json#t38 t38 narrative: \"1:00pm.\" vs model 11:25am (off 95 min, tolerance 34)",
+    "chronology_day1.json#t100 t100 event: \"11pm.\" vs model 8:00pm (off 180 min, tolerance 45)",
+    "commander_successions.json#US-003 t33 approx_time: \"11:30am\" vs model 10:43am (off 47 min, tolerance 45)",
+    "commander_successions.json#US-004 t46 approx_time: \"2:00pm\" vs model 1:04pm (off 56 min, tolerance 45)",
+    "commander_successions.json#US-005 t47 approx_time: \"2:15pm\" vs model 1:16pm (off 59 min, tolerance 45)",
+    "commander_successions.json#US-006 t48 approx_time: \"2:30pm\" vs model 1:28pm (off 62 min, tolerance 45)",
+    "commander_successions.json#US-007 t46 approx_time: \"2:00pm\" vs model 1:04pm (off 56 min, tolerance 45)",
+    "commander_successions.json#US-008 t48 approx_time: \"2:30pm\" vs model 1:28pm (off 62 min, tolerance 45)",
+    "commander_successions.json#US-011 t295 approx_time: \"5:45pm\" vs model 7:00pm (off 75 min, tolerance 45)",
+    "commander_successions.json#US-012 t293 approx_time: \"5:30pm\" vs model 6:56pm (off 86 min, tolerance 45)",
+    "commander_successions.json#US-017 t298 approx_time: \"6:00pm\" vs model 7:04pm (off 64 min, tolerance 45)",
+    "commander_successions.json#US-018 t295 approx_time: \"5:45pm\" vs model 7:00pm (off 75 min, tolerance 45)",
+    "commander_successions.json#US-019 t300 approx_time: \"6:15pm\" vs model 7:07pm (off 52 min, tolerance 45)",
+    "commander_successions.json#US-020 t290 approx_time: \"5:15pm\" vs model 6:50pm (off 95 min, tolerance 45)",
+    "commander_successions.json#US-021 t293 approx_time: \"5:30pm\" vs model 6:56pm (off 86 min, tolerance 45)",
+    "commander_successions.json#US-022 t50 approx_time: \"2:45pm\" vs model 1:53pm (off 52 min, tolerance 45)",
+    "commander_successions.json#US-024 t295 approx_time: \"5:45pm\" vs model 7:00pm (off 75 min, tolerance 45)",
+    "commander_successions.json#US-025 t461 approx_time: \"7:30am\" vs model 5:25am (off 125 min, tolerance 45)",
+    "commander_successions.json#CS-001 t278 approx_time: \"4:15pm\" vs model 6:18pm (off 123 min, tolerance 45)",
+    "commander_successions.json#CS-002 t278 approx_time: \"4:15pm\" vs model 6:18pm (off 123 min, tolerance 45)",
+    "commander_successions.json#CS-003 t298 approx_time: \"6:00pm\" vs model 7:04pm (off 64 min, tolerance 45)",
+    "commander_successions.json#CS-004 t293 approx_time: \"5:30pm\" vs model 6:56pm (off 86 min, tolerance 45)",
+    "commander_successions.json#CS-008 t48 approx_time: \"2:30pm\" vs model 1:28pm (off 62 min, tolerance 45)",
+    "commander_successions.json#CS-013 t52 approx_time: \"3:30pm\" vs model 2:18pm (off 72 min, tolerance 45)",
+    "density_day3_morning.json#U-XII-1@460 t460 notes: \"11 AM\" vs model 5:20am (off 340 min, tolerance 45)",
+    "density_day3_morning.json#U-XII-2@495 t495 notes: \"11 AM.\" vs model 8:32am (off 148 min, tolerance 45)",
+    "assets/index-Cg8FAMXN.js@2031761 t22 subtitle: \"10:00 AM\" vs model 9:13am (off 47 min, tolerance 29)",
+    "assets/index-Cg8FAMXN.js@2032573 t62 subtitle: \"2:30 PM\" vs model 3:43pm (off 73 min, tolerance 36)",
+    "assets/index-Cg8FAMXN.js@2036823 t270 subtitle: \"6:00 PM\" vs model 5:04pm (off 56 min, tolerance 41)",
+    "assets/index-Cg8FAMXN.js@2041198 t522 subtitle: \"3:00 PM\" vs model 1:30pm (off 90 min, tolerance 20)",
+    "assets/index-Cg8FAMXN.js@2042211 t540 narrative: \"1:07 PM\" vs model 3:05pm (off 118 min, tolerance 57)",
+    "assets/index-Cg8FAMXN.js@2049689 t20 label: \"10:00 AM\" vs model 8:53am (off 67 min, tolerance 25)",
+    "assets/index-Cg8FAMXN.js@2052420 t63 label: \"2:30 PM\" vs model 3:51pm (off 81 min, tolerance 33)",
+    "turning-points.html@2112 t240 what: \"4:00pm\" vs model 12:00pm (off 240 min, tolerance 45)",
+    "turning-points.html@6214 t540 what: \"1:00pm\" vs model 3:05pm (off 125 min, tolerance 45)",
+    "duration most_compressed_union ticks 256-330: claims 120 min, model span 283 min (136% off)",
+    "duration most_compressed_confederate ticks 538-558: claims 30 min, model span 73 min (142% off)",
+    "duration longest_sustained_action ticks 451-534: claims 420 min, model span 607 min (45% off)"
+   ],
+   "headline": "77 strings pair a tick with 79 explicit clocks: 36 disagree with the proposed model (43 agree); duration claims off by >35%: 3/3; day-part words outside the solar window: 60/136 (warn)",
+   "data": {
+    "strings": 77,
+    "pairs": 79,
+    "failing": 36,
+    "dayPartTotal": 136,
+    "dayPartBad": 60,
+    "dayPartExamples": [
+     {
+      "source": "chronology_day1.json#t75",
+      "tick": 75,
+      "word": "evening",
+      "model": "5:00pm"
+     },
+     {
+      "source": "chronology_day2.json#t226",
+      "tick": 226,
+      "word": "overnight",
+      "model": "4:30am"
+     },
+     {
+      "source": "chronology_day2.json#t324",
+      "tick": 324,
+      "word": "night",
+      "model": "7:53pm"
+     },
+     {
+      "source": "chronology_day2.json#t324",
+      "tick": 324,
+      "word": "morning",
+      "model": "7:53pm"
+     },
+     {
+      "source": "chronology_day2.json#t340",
+      "tick": 340,
+      "word": "morning",
+      "model": "10:30pm"
+     },
+     {
+      "source": "chronology_day2.json#t440",
+      "tick": 440,
+      "word": "morning",
+      "model": "3:54am"
+     },
+     {
+      "source": "chronology_day3.json#t500",
+      "tick": 500,
+      "word": "afternoon",
+      "model": "9:00am"
+     },
+     {
+      "source": "vignettes_part1.json#V-007",
+      "tick": 248,
+      "word": "morning",
+      "model": "2:30pm"
+     },
+     {
+      "source": "vignettes_part2.json#V-010",
+      "tick": 275,
+      "word": "night",
+      "model": "6:00pm"
+     },
+     {
+      "source": "vignettes_part2.json#V-012",
+      "tick": 302,
+      "word": "morning",
+      "model": "7:10pm"
+     },
+     {
+      "source": "vignettes_part2.json#V-013",
+      "tick": 315,
+      "word": "afternoon",
+      "model": "7:23pm"
+     },
+     {
+      "source": "vignettes_part2.json#V-016",
+      "tick": 551,
+      "word": "night",
+      "model": "3:35pm"
+     }
+    ],
+    "durations": [
+     {
+      "key": "most_compressed_union",
+      "ticks": "256-330",
+      "claimed": 120,
+      "span": 283,
+      "off": 136
+     },
+     {
+      "key": "most_compressed_confederate",
+      "ticks": "538-558",
+      "claimed": 30,
+      "span": 73,
+      "off": 142
+     },
+     {
+      "key": "longest_sustained_action",
+      "ticks": "451-534",
+      "claimed": 420,
+      "span": 607,
+      "off": 45
+     }
+    ],
+    "durationBad": 3
+   }
+  },
+  {
+   "id": "TM-V4",
+   "title": "No typed chronology time: each label equals the model to 5 minutes",
+   "severity": "error",
+   "today": "94/137 labels differ from the file's own tick_formula (46 by over 30 min)",
+   "status": "fail",
+   "count": 130,
+   "details": [
+    "t8: label 5:35am, own formula 5:35am, model 6:15am (label off 40 min)",
+    "t12: label 6:00am, own formula 5:55am, model 7:30am (label off 90 min)",
+    "t14: label 6:10am, own formula 6:05am, model 7:50am (label off 100 min)",
+    "t17: label 6:25am, own formula 6:20am, model 8:20am (label off 115 min)",
+    "t20: label 6:40am, own formula 6:35am, model 8:55am (label off 135 min)",
+    "t22: label 6:50am, own formula 6:45am, model 9:15am (label off 145 min)",
+    "t25: label 7:05am, own formula 7:00am, model 9:45am (label off 160 min)",
+    "t26: label 7:10am, own formula 7:05am, model 9:55am (label off 165 min)",
+    "t27: label 7:15am, own formula 7:10am, model 10:05am (label off 170 min)",
+    "t28: label 7:20am, own formula 7:15am, model 10:15am (label off 175 min)",
+    "t29: label 7:25am, own formula 7:20am, model 10:20am (label off 175 min)",
+    "t30: label 7:30am, own formula 7:25am, model 10:25am (label off 175 min)",
+    "t31: label 7:35am, own formula 7:30am, model 10:30am (label off 175 min)",
+    "t33: label 7:45am, own formula 7:40am, model 10:45am (label off 180 min)",
+    "t35: label 7:55am, own formula 7:50am, model 10:55am (label off 180 min)",
+    "t36: label 8:00am, own formula 7:55am, model 11:00am (label off 180 min)",
+    "t37: label 8:05am, own formula 8:00am, model 11:10am (label off 185 min)",
+    "t38: label 8:10am, own formula 8:05am, model 11:25am (label off 195 min)",
+    "t42: label 8:30am, own formula 8:25am, model 12:15pm (label off 225 min)",
+    "t48: label 9:00am, own formula 8:55am, model 1:30pm (label off 270 min)",
+    "t49: label 9:05am, own formula 9:00am, model 1:40pm (label off 275 min)",
+    "t50: label 9:10am, own formula 9:05am, model 1:55pm (label off 285 min)",
+    "t52: label 9:20am, own formula 9:15am, model 2:20pm (label off 300 min)",
+    "t53: label 9:25am, own formula 9:20am, model 2:30pm (label off 305 min)",
+    "t54: label 9:30am, own formula 9:25am, model 2:40pm (label off 310 min)",
+    "t56: label 9:40am, own formula 9:35am, model 2:55pm (label off 315 min)",
+    "t57: label 9:45am, own formula 9:40am, model 3:00pm (label off 315 min)",
+    "t58: label 9:50am, own formula 9:45am, model 3:10pm (label off 320 min)",
+    "t60: label 10:00am, own formula 9:55am, model 3:25pm (label off 325 min)",
+    "t62: label 10:10am, own formula 10:05am, model 3:45pm (label off 335 min)",
+    "t64: label 10:20am, own formula 10:15am, model 4:00pm (label off 340 min)",
+    "t66: label 10:30am, own formula 10:25am, model 4:05pm (label off 335 min)",
+    "t68: label 10:40am, own formula 10:35am, model 4:10pm (label off 330 min)",
+    "t72: label 11:00am, own formula 10:55am, model 4:20pm (label off 320 min)",
+    "t75: label 11:15am, own formula 11:10am, model 5:00pm (label off 345 min)",
+    "t80: label 11:40am, own formula 11:35am, model 5:20pm (label off 340 min)",
+    "t90: label 12:30pm, own formula 12:25pm, model 6:00pm (label off 330 min)",
+    "t95: label 1:05pm, own formula 12:50pm, model 7:00pm (label off 355 min)",
+    "t100: label 1:30pm, own formula 1:15pm, model 8:00pm (label off 390 min)",
+    "t230: label 5:20am, own formula 5:20am, model 6:40am (label off 80 min)"
+   ],
+   "headline": "137 labels: 94 differ from the file's own tick_formula (46 by >30 min); 130 differ from the model by more than 5 min (125 by >30 min)",
+   "data": {
+    "total": 137,
+    "ownDiff": 94,
+    "own30": 46,
+    "modelBad": 130,
+    "model30": 125,
+    "unparsed": 2
+   }
+  },
+  {
+   "id": "TM-V5",
+   "title": "The same moment is at the same tick (within 2) in every file",
+   "severity": "error",
+   "today": "10 groups fail (first shot 12/17; Ewell 75/175; Hancock 550/554; ...)",
+   "status": "fail",
+   "count": 10,
+   "details": [
+    "FAIL first-shot: ticks 12/17 spread 5",
+    "FAIL ewell-order: ticks 75/175 spread 100",
+    "FAIL hancock-wounded: ticks 550/554 spread 4",
+    "FAIL cushing-killed: ticks 548/549/552/553 spread 5",
+    "ok   armistead: ticks 551/552 spread 1",
+    "FAIL hood-wounded: ticks 258/262/278 spread 20",
+    "FAIL vincent-wounded: ticks 270/290 spread 20",
+    "FAIL weed-hazlett: ticks 272/293 spread 21",
+    "FAIL first-minnesota: ticks 295/302 spread 7",
+    "FAIL iron-brigade-herbst: ticks 20/27/29 spread 9",
+    "FAIL 26th-nc: ticks 16/28 spread 12"
+   ],
+   "headline": "11 moment groups: 10 exceed 2 ticks (first-shot 12/17; ewell-order 75/175; hancock-wounded 550/554; cushing-killed 548/549/552/553; hood-wounded 258/262/278; vincent-wounded 270/290; weed-hazlett 272/293; first-minnesota 295/302; iron-brigade-herbst 20/27/29; 26th-nc 16/28)",
+   "data": {
+    "groups": [
+     {
+      "id": "first-shot",
+      "title": "First shot (Lt. Jones)",
+      "refs": [
+       {
+        "where": "chronology_day1.json#t12",
+        "tick": 12
+       },
+       {
+        "where": "vignettes_part1.json#V-001",
+        "tick": 12
+       },
+       {
+        "where": "assets/index-Cg8FAMXN.js:subtitle=The Battle Begins — July",
+        "tick": 12
+       },
+       {
+        "where": "assets/index-Cg8FAMXN.js:label=First shot",
+        "tick": 17
+       }
+      ],
+      "ticks": [
+       12,
+       17
+      ],
+      "spread": 5,
+      "ok": false
+     },
+     {
+      "id": "ewell-order",
+      "title": "Lee's discretionary order to Ewell",
+      "refs": [
+       {
+        "where": "chronology_day1.json#t75",
+        "tick": 75
+       },
+       {
+        "where": "turning-points.html:title=Ewell's Discretion on Ce",
+        "tick": 175
+       }
+      ],
+      "ticks": [
+       75,
+       175
+      ],
+      "spread": 100,
+      "ok": false
+     },
+     {
+      "id": "hancock-wounded",
+      "title": "Hancock wounded",
+      "refs": [
+       {
+        "where": "commander_successions#US-009",
+        "tick": 550
+       },
+       {
+        "where": "assets/index-Cg8FAMXN.js:id=mon_hancock",
+        "tick": 554
+       }
+      ],
+      "ticks": [
+       550,
+       554
+      ],
+      "spread": 4,
+      "ok": false
+     },
+     {
+      "id": "cushing-killed",
+      "title": "Cushing killed at the wall",
+      "refs": [
+       {
+        "where": "assets/index-Cg8FAMXN.js:id=mon_cushing",
+        "tick": 548
+       },
+       {
+        "where": "assets/index-Cg8FAMXN.js:label=Cushing's Battery",
+        "tick": 549
+       },
+       {
+        "where": "commander_successions#US-023",
+        "tick": 552
+       },
+       {
+        "where": "chronology_day3.json#t553",
+        "tick": 553
+       }
+      ],
+      "ticks": [
+       548,
+       549,
+       552,
+       553
+      ],
+      "spread": 5,
+      "ok": false
+     },
+     {
+      "id": "armistead",
+      "title": "Armistead over the wall",
+      "refs": [
+       {
+        "where": "chronology_day3.json#t551",
+        "tick": 551
+       },
+       {
+        "where": "chronology_day3.json#t552",
+        "tick": 552
+       },
+       {
+        "where": "assets/index-Cg8FAMXN.js:id=mon_armistead",
+        "tick": 551
+       },
+       {
+        "where": "assets/index-Cg8FAMXN.js:label=Armistead",
+        "tick": 551
+       },
+       {
+        "where": "vignettes_part2.json#V-016",
+        "tick": 551
+       },
+       {
+        "where": "commander_successions#CS-007",
+        "tick": 552
+       }
+      ],
+      "ticks": [
+       551,
+       552
+      ],
+      "spread": 1,
+      "ok": true
+     },
+     {
+      "id": "hood-wounded",
+      "title": "Hood wounded",
+      "refs": [
+       {
+        "where": "chronology_day2.json#t258",
+        "tick": 258
+       },
+       {
+        "where": "assets/index-Cg8FAMXN.js:id=mon_hood",
+        "tick": 262
+       },
+       {
+        "where": "commander_successions#CS-001",
+        "tick": 278
+       }
+      ],
+      "ticks": [
+       258,
+       262,
+       278
+      ],
+      "spread": 20,
+      "ok": false
+     },
+     {
+      "id": "vincent-wounded",
+      "title": "Vincent mortally wounded",
+      "refs": [
+       {
+        "where": "chronology_day2.json#t270",
+        "tick": 270
+       },
+       {
+        "where": "commander_successions#US-020",
+        "tick": 290
+       }
+      ],
+      "ticks": [
+       270,
+       290
+      ],
+      "spread": 20,
+      "ok": false
+     },
+     {
+      "id": "weed-hazlett",
+      "title": "Weed and Hazlett killed",
+      "refs": [
+       {
+        "where": "chronology_day2.json#t272",
+        "tick": 272
+       },
+       {
+        "where": "commander_successions#US-021",
+        "tick": 293
+       }
+      ],
+      "ticks": [
+       272,
+       293
+      ],
+      "spread": 21,
+      "ok": false
+     },
+     {
+      "id": "first-minnesota",
+      "title": "1st Minnesota's charge",
+      "refs": [
+       {
+        "where": "chronology_day2.json#t302",
+        "tick": 302
+       },
+       {
+        "where": "vignettes_part2.json#V-012",
+        "tick": 302
+       },
+       {
+        "where": "assets/index-Cg8FAMXN.js:id=mon_1mn",
+        "tick": 295
+       },
+       {
+        "where": "assets/index-Cg8FAMXN.js:label=1st Minnesota",
+        "tick": 302
+       },
+       {
+        "where": "assets/index-Cg8FAMXN.js:label=1st Minnesota",
+        "tick": 302
+       }
+      ],
+      "ticks": [
+       295,
+       302
+      ],
+      "spread": 7,
+      "ok": false
+     },
+     {
+      "id": "iron-brigade-herbst",
+      "title": "Iron Brigade in Herbst Woods",
+      "refs": [
+       {
+        "where": "chronology_day1.json#t27",
+        "tick": 27
+       },
+       {
+        "where": "chronology_day1.json#t29",
+        "tick": 29
+       },
+       {
+        "where": "assets/index-Cg8FAMXN.js:id=mon_iron_brig",
+        "tick": 20
+       },
+       {
+        "where": "assets/index-Cg8FAMXN.js:label=Iron Brigade",
+        "tick": 27
+       }
+      ],
+      "ticks": [
+       20,
+       27,
+       29
+      ],
+      "spread": 9,
+      "ok": false
+     },
+     {
+      "id": "26th-nc",
+      "title": "26th North Carolina",
+      "refs": [
+       {
+        "where": "assets/index-Cg8FAMXN.js:id=mon_26nc",
+        "tick": 16
+       },
+       {
+        "where": "assets/index-Cg8FAMXN.js:label=26th NC",
+        "tick": 28
+       }
+      ],
+      "ticks": [
+       16,
+       28
+      ],
+      "spread": 12,
+      "ok": false
+     }
+    ]
+   }
+  },
+  {
+   "id": "TM-V6",
+   "title": "Real times of core moments are non-decreasing in tick (inversions = MISORDERED / WRONG-DAY)",
+   "severity": "error",
+   "today": "12 MISORDERED + 4 WRONG-DAY",
+   "status": "fail",
+   "count": 23,
+   "details": [
+    "t31 RELABEL real 10:30am July 1",
+    "t240 RELABEL real 12:00pm July 2",
+    "t248 RELABEL-CONTESTED real 2:30pm July 2",
+    "t263 RELABEL-CONTESTED real 4:00pm July 2",
+    "t273 MISORDERED real 5:20pm July 2",
+    "t280 RELABEL real 6:30pm July 2",
+    "t283 MISORDERED real 5:30pm July 2",
+    "t298 MISORDERED real 6:15pm July 2",
+    "t299 RELABEL real 6:40pm July 2",
+    "t300 RELABEL real 6:40pm July 2",
+    "t310 MISORDERED real 12:30pm July 2",
+    "t324 RELABEL-CONTESTED real 10:30pm July 2",
+    "t335 MISORDERED real 7:10pm July 2",
+    "t380 WRONG-DAY real 11:30am July 3",
+    "t400 MISORDERED real 9:30pm July 2",
+    "t420 WRONG-DAY real 9:00am July 3",
+    "t480 RELABEL-CONTESTED real 8:00am July 3",
+    "t500 RELABEL real 9:00am July 3",
+    "t510 RELABEL real 10:00am July 3",
+    "t560 MISORDERED real 1:30pm July 3",
+    "t563 MISORDERED real 3:00pm July 3",
+    "t565 RELABEL-CONTESTED real 3:15pm July 3",
+    "t572 RELABEL-CONTESTED real 5:00pm July 3",
+    "specialist-classed but on the chain here: 8, 243, 304, 360, 460, 490"
+   ],
+   "headline": "117 events with a single real time; weighted longest non-decreasing chain keeps 94 (tolerance 15 min); 23 inversions, 10 of them among the 16 the specialist classed MISORDERED/WRONG-DAY",
+   "data": {
+    "inversions": [
+     31,
+     240,
+     248,
+     263,
+     273,
+     280,
+     283,
+     298,
+     299,
+     300,
+     310,
+     324,
+     335,
+     380,
+     400,
+     420,
+     480,
+     500,
+     510,
+     560,
+     563,
+     565,
+     572
+    ],
+    "specialist": [
+     8,
+     243,
+     273,
+     283,
+     298,
+     304,
+     310,
+     335,
+     360,
+     380,
+     400,
+     420,
+     460,
+     490,
+     560,
+     563
+    ],
+    "both": [
+     273,
+     283,
+     298,
+     310,
+     335,
+     380,
+     400,
+     420,
+     560,
+     563
+    ],
+    "onlyMine": [
+     31,
+     240,
+     248,
+     263,
+     280,
+     299,
+     300,
+     324,
+     480,
+     500,
+     510,
+     565,
+     572
+    ],
+    "onlySpec": [
+     8,
+     243,
+     304,
+     360,
+     460,
+     490
+    ],
+    "chain": 94,
+    "n": 117
+   }
+  },
+  {
+   "id": "TM-V7",
+   "title": "Keyframe speeds in battle-minutes stay under caps (inf 150, art 250, cav 400 m/min) unless snap; day seams snap",
+   "severity": "warn",
+   "today": "6 pairs at 5 min/tick, 19 under the proposal (1 a day seam)",
+   "status": "fail",
+   "count": 19,
+   "details": [
+    "U-II-2-1 t304-308: 623 m in 3.3 min = 187 m/min",
+    "C-I-3-1 t544-546: 833 m in 5.4 min = 155 m/min",
+    "C-I-3-1 t548-549: 867 m in 2.7 min = 322 m/min",
+    "C-I-3-2 t544-546: 1301 m in 5.4 min = 242 m/min",
+    "C-I-3-3 t550-551: 929 m in 2.7 min = 345 m/min",
+    "U-1MN t302-303: 154 m in 0.8 min = 185 m/min",
+    "U-20ME t225-226: 748 m in 4 min = 185 m/min (day seam: needs snap)",
+    "U-20ME t264-265: 814 m in 2.7 min = 299 m/min",
+    "C-III-1-1 t302-303: 160 m in 0.8 min = 192 m/min",
+    "C-15AL t256-260: 2013 m in 10.9 min = 185 m/min",
+    "U-ART-9MA t302-305: 825 m in 2.5 min = 330 m/min",
+    "U-8NY-CAV t3-4: 2374 m in 5 min = 475 m/min",
+    "U-XI-2 t65-68: 1601 m in 7.5 min = 213 m/min",
+    "C-44AL t256-260: 2051 m in 10.9 min = 188 m/min",
+    "C-48AL t256-260: 2085 m in 10.9 min = 191 m/min",
+    "C-4TX t256-260: 1845 m in 10.9 min = 169 m/min",
+    "C-5TX t256-260: 1803 m in 10.9 min = 165 m/min",
+    "C-1TX t256-260: 1751 m in 10.9 min = 161 m/min",
+    "C-3AR t256-260: 1709 m in 10.9 min = 157 m/min",
+    "seam U-XII-2-3 t450-451: 476 m, snap=false",
+    "seam C-I-3-3 t225-226: 262 m, snap=false",
+    "seam C-I-3-3 t450-451: 340 m, snap=false",
+    "seam U-1MN t450-451: 380 m, snap=false",
+    "seam U-20ME t225-226: 748 m, snap=false"
+   ],
+   "headline": "1209 consecutive keyframe pairs, 803 moving >=100 m: 6 over the cap at a uniform 5 min/tick, 19 under the proposed clock (1 on a day seam); 5 pairs straddle a day boundary",
+   "data": {
+    "pairs": 1209,
+    "ge100": 803,
+    "uniform": [
+     {
+      "id": "U-I-2-2",
+      "from": 52,
+      "to": 53,
+      "m": 1467,
+      "speed": 293,
+      "seam": false
+     },
+     {
+      "id": "C-I-3-1",
+      "from": 548,
+      "to": 549,
+      "m": 867,
+      "speed": 173,
+      "seam": false
+     },
+     {
+      "id": "C-I-3-3",
+      "from": 550,
+      "to": 551,
+      "m": 929,
+      "speed": 186,
+      "seam": false
+     },
+     {
+      "id": "U-20ME",
+      "from": 264,
+      "to": 265,
+      "m": 814,
+      "speed": 163,
+      "seam": false
+     },
+     {
+      "id": "U-8NY-CAV",
+      "from": 3,
+      "to": 4,
+      "m": 2374,
+      "speed": 475,
+      "seam": false
+     },
+     {
+      "id": "C-7TN",
+      "from": 9,
+      "to": 14,
+      "m": 3762,
+      "speed": 150,
+      "seam": false
+     }
+    ],
+    "proposed": [
+     {
+      "id": "U-II-2-1",
+      "from": 304,
+      "to": 308,
+      "m": 623,
+      "min": 3.3,
+      "speed": 187,
+      "seam": false
+     },
+     {
+      "id": "C-I-3-1",
+      "from": 544,
+      "to": 546,
+      "m": 833,
+      "min": 5.4,
+      "speed": 155,
+      "seam": false
+     },
+     {
+      "id": "C-I-3-1",
+      "from": 548,
+      "to": 549,
+      "m": 867,
+      "min": 2.7,
+      "speed": 322,
+      "seam": false
+     },
+     {
+      "id": "C-I-3-2",
+      "from": 544,
+      "to": 546,
+      "m": 1301,
+      "min": 5.4,
+      "speed": 242,
+      "seam": false
+     },
+     {
+      "id": "C-I-3-3",
+      "from": 550,
+      "to": 551,
+      "m": 929,
+      "min": 2.7,
+      "speed": 345,
+      "seam": false
+     },
+     {
+      "id": "U-1MN",
+      "from": 302,
+      "to": 303,
+      "m": 154,
+      "min": 0.8,
+      "speed": 185,
+      "seam": false
+     },
+     {
+      "id": "U-20ME",
+      "from": 225,
+      "to": 226,
+      "m": 748,
+      "min": 4,
+      "speed": 185,
+      "seam": true
+     },
+     {
+      "id": "U-20ME",
+      "from": 264,
+      "to": 265,
+      "m": 814,
+      "min": 2.7,
+      "speed": 299,
+      "seam": false
+     },
+     {
+      "id": "C-III-1-1",
+      "from": 302,
+      "to": 303,
+      "m": 160,
+      "min": 0.8,
+      "speed": 192,
+      "seam": false
+     },
+     {
+      "id": "C-15AL",
+      "from": 256,
+      "to": 260,
+      "m": 2013,
+      "min": 10.9,
+      "speed": 185,
+      "seam": false
+     },
+     {
+      "id": "U-ART-9MA",
+      "from": 302,
+      "to": 305,
+      "m": 825,
+      "min": 2.5,
+      "speed": 330,
+      "seam": false
+     },
+     {
+      "id": "U-8NY-CAV",
+      "from": 3,
+      "to": 4,
+      "m": 2374,
+      "min": 5,
+      "speed": 475,
+      "seam": false
+     },
+     {
+      "id": "U-XI-2",
+      "from": 65,
+      "to": 68,
+      "m": 1601,
+      "min": 7.5,
+      "speed": 213,
+      "seam": false
+     },
+     {
+      "id": "C-44AL",
+      "from": 256,
+      "to": 260,
+      "m": 2051,
+      "min": 10.9,
+      "speed": 188,
+      "seam": false
+     },
+     {
+      "id": "C-48AL",
+      "from": 256,
+      "to": 260,
+      "m": 2085,
+      "min": 10.9,
+      "speed": 191,
+      "seam": false
+     },
+     {
+      "id": "C-4TX",
+      "from": 256,
+      "to": 260,
+      "m": 1845,
+      "min": 10.9,
+      "speed": 169,
+      "seam": false
+     },
+     {
+      "id": "C-5TX",
+      "from": 256,
+      "to": 260,
+      "m": 1803,
+      "min": 10.9,
+      "speed": 165,
+      "seam": false
+     },
+     {
+      "id": "C-1TX",
+      "from": 256,
+      "to": 260,
+      "m": 1751,
+      "min": 10.9,
+      "speed": 161,
+      "seam": false
+     },
+     {
+      "id": "C-3AR",
+      "from": 256,
+      "to": 260,
+      "m": 1709,
+      "min": 10.9,
+      "speed": 157,
+      "seam": false
+     }
+    ],
+    "seams": [
+     {
+      "id": "U-XII-2-3",
+      "from": 450,
+      "to": 451,
+      "m": 476,
+      "snap": false
+     },
+     {
+      "id": "C-I-3-3",
+      "from": 225,
+      "to": 226,
+      "m": 262,
+      "snap": false
+     },
+     {
+      "id": "C-I-3-3",
+      "from": 450,
+      "to": 451,
+      "m": 340,
+      "snap": false
+     },
+     {
+      "id": "U-1MN",
+      "from": 450,
+      "to": 451,
+      "m": 380,
+      "snap": false
+     },
+     {
+      "id": "U-20ME",
+      "from": 225,
+      "to": 226,
+      "m": 748,
+      "snap": false
+     }
+    ]
+   }
+  },
+  {
+   "id": "TM-V8",
+   "title": "Link parameters canonical and in range (D-URLSTATE); emitters listed",
+   "severity": "error",
+   "today": "app emits t alias; 9 link builders in 7 pages",
+   "status": "fail",
+   "count": 13,
+   "details": [
+    "documentary.html: 2",
+    "education.html: 2",
+    "embed.html: 3",
+    "find-ancestor.html: 1",
+    "historian.html: 3",
+    "regiment.html: 3",
+    "search.html: 5",
+    "turning-points.html: 1",
+    "assets/index-Cg8FAMXN.js: 8"
+   ],
+   "headline": "28 link emitters in 9 files; 13 write an alias parameter (vignette, lat, lng, u, t, ancestor); 0 out-of-range literal ticks",
+   "data": {
+    "emit": [
+     {
+      "file": "documentary.html",
+      "line": 92,
+      "param": "tick",
+      "alias": false,
+      "value": "${v.trigger_tick}"
+     },
+     {
+      "file": "documentary.html",
+      "line": 92,
+      "param": "vignette",
+      "alias": true,
+      "value": "${encodeURIComponent"
+     },
+     {
+      "file": "education.html",
+      "line": 81,
+      "param": "tick",
+      "alias": false,
+      "value": "${v.trigger_tick}"
+     },
+     {
+      "file": "education.html",
+      "line": 81,
+      "param": "vignette",
+      "alias": true,
+      "value": "${encodeURIComponent"
+     },
+     {
+      "file": "embed.html",
+      "line": 38,
+      "param": "vignette",
+      "alias": true,
+      "value": "V-018"
+     },
+     {
+      "file": "embed.html",
+      "line": 60,
+      "param": "tick",
+      "alias": false,
+      "value": ""
+     },
+     {
+      "file": "embed.html",
+      "line": 60,
+      "param": "vignette",
+      "alias": true,
+      "value": ""
+     },
+     {
+      "file": "find-ancestor.html",
+      "line": 123,
+      "param": "unit",
+      "alias": false,
+      "value": "${encodeURIComponent"
+     },
+     {
+      "file": "historian.html",
+      "line": 97,
+      "param": "unit",
+      "alias": false,
+      "value": "${encodeURIComponent"
+     },
+     {
+      "file": "historian.html",
+      "line": 110,
+      "param": "tick",
+      "alias": false,
+      "value": "${v.trigger_tick}"
+     },
+     {
+      "file": "historian.html",
+      "line": 110,
+      "param": "vignette",
+      "alias": true,
+      "value": "${encodeURIComponent"
+     },
+     {
+      "file": "regiment.html",
+      "line": 247,
+      "param": "unit",
+      "alias": false,
+      "value": "${encodeURIComponent"
+     },
+     {
+      "file": "regiment.html",
+      "line": 247,
+      "param": "tick",
+      "alias": false,
+      "value": "${firstTick}"
+     },
+     {
+      "file": "regiment.html",
+      "line": 251,
+      "param": "unit",
+      "alias": false,
+      "value": "U-20ME"
+     },
+     {
+      "file": "search.html",
+      "line": 114,
+      "param": "unit",
+      "alias": false,
+      "value": "${encodeURIComponent"
+     },
+     {
+      "file": "search.html",
+      "line": 127,
+      "param": "tick",
+      "alias": false,
+      "value": "${v.trigger_tick}"
+     },
+     {
+      "file": "search.html",
+      "line": 127,
+      "param": "vignette",
+      "alias": true,
+      "value": "${encodeURIComponent"
+     },
+     {
+      "file": "search.html",
+      "line": 139,
+      "param": "lat",
+      "alias": true,
+      "value": "${loc.lat}"
+     },
+     {
+      "file": "search.html",
+      "line": 139,
+      "param": "lng",
+      "alias": true,
+      "value": "${loc.lng}"
+     },
+     {
+      "file": "turning-points.html",
+      "line": 118,
+      "param": "tick",
+      "alias": false,
+      "value": "${p.tick}"
+     },
+     {
+      "file": "assets/index-Cg8FAMXN.js",
+      "line": 38,
+      "param": "z",
+      "alias": false,
+      "value": "he:H.next=he,H=R;var"
+     },
+     {
+      "file": "assets/index-Cg8FAMXN.js",
+      "line": 40,
+      "param": "z",
+      "alias": false,
+      "value": "vh(l,z):(z=Rd(z,H,x,"
+     },
+     {
+      "file": "assets/index-Cg8FAMXN.js",
+      "line": 63,
+      "param": "v",
+      "alias": false,
+      "value": "==void"
+     },
+     {
+      "file": "assets/index-Cg8FAMXN.js",
+      "line": 69,
+      "param": "u",
+      "alias": true,
+      "value": "d:s=d+1}for(;this.id"
+     },
+     {
+      "file": "assets/index-Cg8FAMXN.js",
+      "line": 70,
+      "param": "t",
+      "alias": true,
+      "value": "=="
+     },
+     {
+      "file": "assets/index-Cg8FAMXN.js",
+      "line": 3343,
+      "param": "t",
+      "alias": true,
+      "value": "[...this.options.cus"
+     },
+     {
+      "file": "assets/index-Cg8FAMXN.js",
+      "line": 3350,
+      "param": "t",
+      "alias": true,
+      "value": "!1:(this._classList."
+     },
+     {
+      "file": "assets/index-Cg8FAMXN.js",
+      "line": 3421,
+      "param": "ancestor",
+      "alias": true,
+      "value": "${encodeURIComponent"
+     }
+    ],
+    "vigCount": 24
+   }
+  },
+  {
+   "id": "TM-V9",
+   "title": "Lint bans: July ${..+N}; tick*5; 5*60/6*60/4*60; toLocale*String/getHours; AM/PM outside the module; banned copy",
+   "severity": "error",
+   "today": "3 date hits (bundle); constants at 4 sites; 1 allow-listed wall clock; copy hits",
+   "status": "fail",
+   "count": 55,
+   "details": [
+    "date: living-ledger.html:143@7618, assets/index-Cg8FAMXN.js:3355@1988148, assets/index-Cg8FAMXN.js:3421@2053524, assets/index-Cg8FAMXN.js:3421@2056195",
+    "tick5: camera.html:177@9127, compare.html:123@7677, immersive.html:171@9168, living-ledger.html:138@7435, assets/index-Cg8FAMXN.js:56@150621, assets/index-Cg8FAMXN.js:56@158390, assets/index-Cg8FAMXN.js:3421@2053399, assets/index-Cg8FAMXN.js:3421@2056105",
+    "minutes: assets/index-Cg8FAMXN.js:56@150690, assets/index-Cg8FAMXN.js:56@150695, assets/index-Cg8FAMXN.js:56@158401, assets/index-Cg8FAMXN.js:3421@2053405, assets/index-Cg8FAMXN.js:3421@2056111",
+    "locale: sandbox.html:211@11800",
+    "ampm: compare.html:127@7852, compare.html:127@7873, compare.html:127@7880, compare.html:128@7984, compare.html:128@7991, living-ledger.html:142@7593, living-ledger.html:142@7600, assets/index-Cg8FAMXN.js:56@150744, assets/index-Cg8FAMXN.js:56@150749, assets/index-Cg8FAMXN.js:3421@2053449, assets/index-Cg8FAMXN.js:3421@2053454, assets/index-Cg8FAMXN.js:3421@2056155, assets/index-Cg8FAMXN.js:3421@2056160",
+    "copy: ground-remembers.html:42@2993, immersive.html:47@3745, index.html:15@583, index.html:15@635, index.html:18@913, index.html:18@965, index.html:24@1458, index.html:24@1510, index.html:32@1879, index.html:32@1931, index.html:620@32107, index.html:719@36663, index.html:719@36794, index.html:745@38535, index.html:745@38556, index.html:754@39087, index.html:754@39218, manifest.json:4@143, manifest.json:4@195, terms.html:30@2092, watch-together.html:64@5869, watch-together.html:102@8162, assets/HelpModal-CFV9T0zH.js:1@2321, assets/index-Cg8FAMXN.js:3355@1988200, assets/index-Cg8FAMXN.js:3421@2256125"
+   ],
+   "headline": "date 4, tick*5 8, 5/6/4*60 5, locale 1 (1 allow-listed), typed AM/PM 13, banned copy 25",
+   "data": {
+    "date": [
+     "living-ledger.html:143@7618",
+     "assets/index-Cg8FAMXN.js:3355@1988148",
+     "assets/index-Cg8FAMXN.js:3421@2053524",
+     "assets/index-Cg8FAMXN.js:3421@2056195"
+    ],
+    "tick5": [
+     "camera.html:177@9127",
+     "compare.html:123@7677",
+     "immersive.html:171@9168",
+     "living-ledger.html:138@7435",
+     "assets/index-Cg8FAMXN.js:56@150621",
+     "assets/index-Cg8FAMXN.js:56@158390",
+     "assets/index-Cg8FAMXN.js:3421@2053399",
+     "assets/index-Cg8FAMXN.js:3421@2056105"
+    ],
+    "minutes": [
+     "assets/index-Cg8FAMXN.js:56@150690",
+     "assets/index-Cg8FAMXN.js:56@150695",
+     "assets/index-Cg8FAMXN.js:56@158401",
+     "assets/index-Cg8FAMXN.js:3421@2053405",
+     "assets/index-Cg8FAMXN.js:3421@2056111"
+    ],
+    "locale": [
+     "sandbox.html:211@11800"
+    ],
+    "ampm": [
+     "compare.html:127@7852",
+     "compare.html:127@7873",
+     "compare.html:127@7880",
+     "compare.html:128@7984",
+     "compare.html:128@7991",
+     "living-ledger.html:142@7593",
+     "living-ledger.html:142@7600",
+     "assets/index-Cg8FAMXN.js:56@150744",
+     "assets/index-Cg8FAMXN.js:56@150749",
+     "assets/index-Cg8FAMXN.js:3421@2053449",
+     "assets/index-Cg8FAMXN.js:3421@2053454",
+     "assets/index-Cg8FAMXN.js:3421@2056155",
+     "assets/index-Cg8FAMXN.js:3421@2056160"
+    ],
+    "copy": [
+     "ground-remembers.html:42@2993",
+     "immersive.html:47@3745",
+     "index.html:15@583",
+     "index.html:15@635",
+     "index.html:18@913",
+     "index.html:18@965",
+     "index.html:24@1458",
+     "index.html:24@1510",
+     "index.html:32@1879",
+     "index.html:32@1931",
+     "index.html:620@32107",
+     "index.html:719@36663",
+     "index.html:719@36794",
+     "index.html:745@38535",
+     "index.html:745@38556",
+     "index.html:754@39087",
+     "index.html:754@39218",
+     "manifest.json:4@143",
+     "manifest.json:4@195",
+     "terms.html:30@2092",
+     "watch-together.html:64@5869",
+     "watch-together.html:102@8162",
+     "assets/HelpModal-CFV9T0zH.js:1@2321",
+     "assets/index-Cg8FAMXN.js:3355@1988200",
+     "assets/index-Cg8FAMXN.js:3421@2256125"
+    ]
+   }
+  },
+  {
+   "id": "TM-V10",
+   "title": "Day-part and lighting agree with the solar table (warn)",
+   "severity": "warn",
+   "today": "t326 \"near-darkness\" with tint 0",
+   "status": "warn",
+   "count": 112,
+   "details": [
+    "t112 model 8:49 PM (night) legacy lighting hour 14.3 alpha 0",
+    "t113 model 8:53 PM (night) legacy lighting hour 14.3 alpha 0",
+    "t114 model 8:57 PM (night) legacy lighting hour 14.4 alpha 0",
+    "t115 model 9:01 PM (night) legacy lighting hour 14.5 alpha 0",
+    "t116 model 9:05 PM (night) legacy lighting hour 14.6 alpha 0",
+    "t117 model 9:09 PM (night) legacy lighting hour 14.7 alpha 0"
+   ],
+   "headline": "legacy lighting (E4 keyed on the 05:00-base hour): 96 ticks that are night by the solar table have tint <= 0.08; 16 daylight ticks are heavily tinted",
+   "data": {
+    "darkNoTint": 96,
+    "lightTint": 16,
+    "e4Found": true
+   }
+  },
+  {
+   "id": "TM-V11",
+   "title": "Golden tick-clock table is byte-identical unless version and golden change together",
+   "severity": "error",
+   "today": "prototype passes",
+   "status": "pass",
+   "count": 0,
+   "details": [],
+   "headline": "golden matches the model (675 rows, version 2026-09-30.1)",
+   "data": {}
+  },
+  {
+   "id": "TM-V12",
+   "title": "Monotone inverse: minutesToTick(tickToMinutes(t)) == t for all ticks and 1,000 random fractions",
+   "severity": "error",
+   "today": "prototype passes",
+   "status": "pass",
+   "count": 0,
+   "details": [],
+   "headline": "worst round-trip error 2.84e-13 tick over 675 ticks + 1000 fractions",
+   "data": {}
+  },
+  {
+   "id": "TM-V13",
+   "title": "record_count, tick_range and schema prose equal what the files contain / the model says",
+   "severity": "error",
+   "today": "4,890 vs 100; schema prose \"430,000\"; day real_time strings",
+   "status": "fail",
+   "count": 18,
+   "details": [
+    "placements_day1_ticks1_50.json: record_count 4890 but 100 records",
+    "placement_schema day1.real_time \"5:00am July 1 to 12:40am July 2\" (model: 5:00 AM July 1 to 4:26 AM July 2)",
+    "placement_schema day2.real_time \"5:00am July 2 to 7:50pm July 2\" (model: 4:30 AM July 2 to 4:27 AM July 3)",
+    "placement_schema day3.real_time \"5:00am July 3 to 8:05pm July 3\" (model: 4:30 AM July 3 to 8:00 PM July 3)",
+    "placement_schema total_placement_records \"approximately 430000\" but the files hold 1804 rows",
+    "placement_schema expected_units_per_tick \"600-700\" but ticks hold 9.6 rows on average",
+    "chronology_day1.json: tick_formula \"Tick 1 = 5:00am July 1. Each tick = 5 minutes. Day 1 = ticks 1-225.\" (must point to time_anchors.json)",
+    "chronology_day2.json: tick_formula \"Tick 226 = 5:00am July 2. Each tick = 5 minutes. Day 2 = ticks 226-450.\" (must point to time_anchors.json)",
+    "chronology_day3.json: tick_formula \"Tick 451 = 5:00am July 3. Each tick = 5 minutes. Day 3 = ticks 451-675.\" (must point to time_anchors.json)",
+    "placements_day1_ticks101_225.json: description prints typed clock \"1:30pm to 12:40am July 2\"",
+    "placements_day1_ticks1_50.json: description prints typed clock \"5:00am to approximately 9:10am\"",
+    "placements_day1_ticks51_100.json: description prints typed clock \"9:10am to 1:30pm\"",
+    "placements_day2_ticks226_300.json: description prints typed clock \"5:00am to approximately 11:10am\"",
+    "placements_day2_ticks301_375.json: description prints typed clock \"1:10am to 2:35pm\"",
+    "placements_day2_ticks376_450.json: description prints typed clock \"2:35pm to 7:50pm\"",
+    "placements_day3_ticks451_520.json: description prints typed clock \"5:00am to approximately 9:20am\"",
+    "placements_day3_ticks521_600.json: description prints typed clock \"9:30am to 3:20pm\"",
+    "placements_day3_ticks601_675.json: description prints typed clock \"3:20pm to 8:05pm\""
+   ],
+   "headline": "18 metadata claims disagree with the data or the model",
+   "data": {}
+  },
+  {
+   "id": "TM-V14",
+   "title": "Coverage (info): ticks with no placement record and event-free runs",
+   "severity": "info",
+   "today": "487 empty ticks, 125 event-free",
+   "status": "info",
+   "count": 487,
+   "details": [
+    "101-225 (125 ticks, 8:05 PM to 4:25 AM, July 1)",
+    "591-619 (29 ticks, 5:50 PM to 6:35 PM, July 3)",
+    "621-649 (29 ticks, 6:35 PM to 7:20 PM, July 3)",
+    "651-674 (24 ticks, 7:25 PM to 8:00 PM, July 3)"
+   ],
+   "headline": "487 of 675 ticks hold no placement record; 4 runs of >=20 ticks without a chronology event: 101-225 (125 ticks, 8:05 PM to 4:25 AM, July 1); 591-619 (29 ticks, 5:50 PM to 6:35 PM, July 3); 621-649 (29 ticks, 6:35 PM to 7:20 PM, July 3); 651-674 (24 ticks, 7:25 PM to 8:00 PM, July 3)",
+   "data": {
+    "empty": 487,
+    "longRuns": [
+     [
+      101,
+      225
+     ],
+     [
+      591,
+      619
+     ],
+     [
+      621,
+      649
+     ],
+     [
+      651,
+      674
+     ]
+    ],
+    "nonLowEvents": 134
+   }
+  },
+  {
+   "id": "TM-V15",
+   "title": "Permalink and bookmark fixtures resolve (tests/time/fixtures/urls.txt)",
+   "severity": "error",
+   "today": "app emits t alias",
+   "status": "pass",
+   "count": 0,
+   "details": [],
+   "headline": "26 fixtures, 0 failing",
+   "data": {}
+  },
+  {
+   "id": "TM-V16",
+   "title": "Every printed date derives from the model, never a Day-tab number",
+   "severity": "error",
+   "today": "mobile header, toolbar; HUD/JF/QF/store print tab-derived dates",
+   "status": "fail",
+   "count": 7,
+   "details": [
+    "assets/index-Cg8FAMXN.js:3421@2093976 children:[\"July \",di]",
+    "assets/index-Cg8FAMXN.js:3421@2094314 children:[\"July \",$t] (tab button, allowed)",
+    "assets/index-Cg8FAMXN.js:3421@2275191 children:[\"July \",va]",
+    "assets/index-Cg8FAMXN.js@150789 July ${P}",
+    "assets/index-Cg8FAMXN.js@1988148 July ${l+2}",
+    "assets/index-Cg8FAMXN.js@2053524 July ${f+2}",
+    "assets/index-Cg8FAMXN.js@2056195 July ${f+2}",
+    "living-ledger.html:143 July ${dayIdx + 1} (date from the tab index)"
+   ],
+   "headline": "2 places print a tab number as \"July N\" (mobile header, toolbar) and 5 templates build a date from a tab number; 1 Day-tab buttons (\"July N\" as the first-light label) are allowed by chapter 04 4.5",
+   "data": {
+    "sites": [
+     {
+      "at": "assets/index-Cg8FAMXN.js:3421@2093976",
+      "text": "children:[\"July \",di]",
+      "ident": "di",
+      "tabButton": false
+     },
+     {
+      "at": "assets/index-Cg8FAMXN.js:3421@2094314",
+      "text": "children:[\"July \",$t]",
+      "ident": "$t",
+      "tabButton": true
+     },
+     {
+      "at": "assets/index-Cg8FAMXN.js:3421@2275191",
+      "text": "children:[\"July \",va]",
+      "ident": "va",
+      "tabButton": false
+     }
+    ],
+    "derived": [
+     "assets/index-Cg8FAMXN.js@150789 July ${P}",
+     "assets/index-Cg8FAMXN.js@1988148 July ${l+2}",
+     "assets/index-Cg8FAMXN.js@2053524 July ${f+2}",
+     "assets/index-Cg8FAMXN.js@2056195 July ${f+2}",
+     "living-ledger.html:143 July ${dayIdx + 1} (date from the tab index)"
+    ]
+   }
+  },
+  {
+   "id": "TM-V17",
+   "title": "Every printed time carries \"about\" when sigma >= approx_sigma_min or the anchors are unsigned",
+   "severity": "error",
+   "today": "none do",
+   "status": "fail",
+   "count": 13,
+   "details": [
+    "compare.html: 5",
+    "living-ledger.html: 2",
+    "assets/index-Cg8FAMXN.js: 6"
+   ],
+   "headline": "13 typed AM/PM formatters in code (compare.html: 5, living-ledger.html: 2, assets/index-Cg8FAMXN.js: 6), 0 with an \"about\" prefix (0 found); every tick is approximate while no anchor is signed",
+   "data": {}
+  },
+  {
+   "id": "TM-V18",
+   "title": "\"Reviewed\" / \"accurate to the minute\" copy requires a signed decision",
+   "severity": "error",
+   "today": "none",
+   "status": "pass",
+   "count": 0,
+   "details": [],
+   "headline": "0 signed decisions; 0 review/accuracy claims in copy (0 unsupported)",
+   "data": {}
+  },
+  {
+   "id": "TM-V19",
+   "title": "Moment ids are permanent, not tick-derived, tombstoned (registry)",
+   "severity": "error",
+   "today": "no registry yet",
+   "status": "skip",
+   "count": 0,
+   "details": [],
+   "headline": "skipped: moments registry not built (WP-TIME-05); data-src/time/moment_refs.json is the v0 alias file used by TM-V5",
+   "data": {}
+  },
+  {
+   "id": "TM-V20",
+   "title": "Every moved moment has a tick migration",
+   "severity": "error",
+   "today": "no registry yet",
+   "status": "skip",
+   "count": 0,
+   "details": [],
+   "headline": "skipped: tick-migrations.json arrives with WP-TIME-07 (nothing has been moved: this is a candidate)",
+   "data": {}
+  },
+  {
+   "id": "TM-V21",
+   "title": "Every quotation has a source; quotations with clocks are marked data-historical-quote",
+   "severity": "error",
+   "today": "2 unverified (t525, t530)",
+   "status": "fail",
+   "count": 68,
+   "details": [
+    "chronology_day1.json#t27: \"That's no militia -- that's the Army of the Potomac!\"",
+    "chronology_day1.json#t37: \"Where is the colonel of this regiment?\"",
+    "chronology_day2.json#t302: \"My God, are these all the men we have?\"",
+    "chronology_day2.json#t310: \"General Stuart, where have you been?\"",
+    "chronology_day2.json#t328: \"Tell my father I died with my face to the enemy.\"",
+    "chronology_day2.json#t335: \"Harper's Ferry Cowards\"",
+    "chronology_day2.json#t360: \"General, I have been a soldier all my life... it is my opinion that no\"",
+    "chronology_day3.json#t460: \"It is murder but it is the order.\"",
+    "chronology_day3.json#t525: \"For God's sake come quick or we cannot support you -- ammunition nearl\"",
+    "chronology_day3.json#t525: \"I could not speak. I bowed in answer.\"",
+    "chronology_day3.json#t530: \"I would not make the charge now -- but the order has been given and th\"",
+    "chronology_day3.json#t556: \"It is all my fault.\"",
+    "chronology_day3.json#t556: \"It is all my fault\"",
+    "chronology_day3.json#t563: \"Come on you Wolverines!\"",
+    "chronology_day3.json#t620: \"I never saw a man so agitated in my life\"",
+    "chronology_day3.json#t620: \"Too bad. Too bad. Oh, too bad.\"",
+    "vignettes_part1.json#V-003: \"That's no militia -- that's the Army of the Potomac!\"",
+    "vignettes_part1.json#V-003: \"Good morning, Archer! How are you? I am glad to see you!\"",
+    "vignettes_part1.json#V-003: \"Well, I am not glad to see YOU by a damn sight, Doubleday.\"",
+    "vignettes_part1.json#V-004: \"Six Wisconsin, advance!\"",
+    "vignettes_part1.json#V-004: \"Where is the colonel of this regiment?\"",
+    "vignettes_part1.json#V-004: \"Who are you?\"",
+    "vignettes_part1.json#V-004: \"I am Colonel Dawes of the 6th Wisconsin. I demand the immediate and un\"",
+    "vignettes_part1.json#V-006: \"We became fast friends,\"",
+    "vignettes_part1.json#V-007: \"I will withdraw if you order it,\""
+   ],
+   "headline": "68 quotations in chronology and vignettes; 68 without a source field; specialist-classed unverified quotes at t525, t530 (detected here: t525 true, t530 true)",
+   "data": {
+    "total": 68,
+    "noSource": 68,
+    "unverified": [
+     525,
+     530
+    ]
+   }
+  }
+ ],
+ "metrics": {
+  "inSample": {
+   "n": 102,
+   "meanAbsMin": 21.3,
+   "medianMin": 10,
+   "rmsMin": 46.5,
+   "within30": 86
+  },
+  "looAnchors": {
+   "n": 29,
+   "meanAbsMin": 35,
+   "rmsMin": 43.8
+  },
+  "within30": {
+   "label": 5,
+   "mapClock": 1,
+   "fiveMinute": 7,
+   "proposed": 86
+  }
+ }
+}

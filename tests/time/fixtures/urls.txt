@@ -1,0 +1,32 @@
+# TM-V15 fixtures: "<url> => <expected tick or null>" (CANDIDATE, WP-TIME-15/20). tick and t are read (D-URLSTATE); hostile input never yields a tick.
+# canonical and legacy shapes from chapter 04 WP-TIME-15
+/?tick=538&vignette=V-016 => 538
+/index.html?tick=12&vignette=V-001 => 12
+/?unit=U-20ME&tick=267 => 267
+/?t=28&u=U-I&z=15.0&ll=39.8278,-77.2528 => 28
+/?ancestor=U-20ME => null
+/?lat=39.81&lng=-77.23 => null
+# the 9 legacy link builders (documentary, education, embed, historian, regiment, search x3, turning points)
+/index.html?tick=518&vignette=V-017 => 518
+/?unit=C-15AL&tick=256 => 256
+https://gettysburginteractivemap.com/index.html?tick=551&vignette=V-016 => 551
+/?tick=175 => 175
+# in-range clamping
+/?tick=0 => 1
+/?tick=676 => 675
+/?tick=675 => 675
+/?t=1 => 1
+# hostile and malformed input: never a tick
+/?tick=abc => null
+/?tick=-5 => null
+/?tick=1e9 => null
+/?tick=1.5 => null
+/?tick=%20538 => null
+/?tick=9999999 => null
+/?tick=0x10 => null
+/?tick=%3Cscript%3E => null
+/?unit=%3Cscript%3Ealert(1)%3C/script%3E => null
+/?tick= => null
+# tick wins over t; an at= parameter is the camera, never time (D-URLSTATE)
+/?tick=538&t=12 => 538
+/?at=1863-07-03T15:00 => null
