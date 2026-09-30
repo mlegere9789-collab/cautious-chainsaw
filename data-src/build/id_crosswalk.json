@@ -1,0 +1,2660 @@
+{
+  "schema": "gtbg/id-crosswalk/1",
+  "generated_by": "tools/data/unit_registry.mjs",
+  "status": "CANDIDATE: derived from legacy/dist/data; nothing here is served or displayed",
+  "rules": [
+    {
+      "id": "wrong_side_prefix",
+      "text": "a regiment-shaped id whose state code is Confederate-only but whose prefix is U-, where the C- twin exists: the ONLY rule that changes a side (10 ids)."
+    },
+    {
+      "id": "own_id_prefix_extension",
+      "text": "OOB ids that extend the placed id with a suffix (U-8IL -> U-8IL-CAV); unique candidate, same side."
+    },
+    {
+      "id": "type_tag_normalisation",
+      "text": "-RES -> -R (Pennsylvania Reserves), -SHRP -> -SS (sharpshooters); the target must exist."
+    },
+    {
+      "id": "suffix_variant",
+      "text": "<regiment id>-<tag> where the base regiment exists; high only when the tag matches a commander or nickname in the regiment's brigade/division chain (a single letter also needs the note to name him)."
+    },
+    {
+      "id": "brigade_prefixed_regiment",
+      "text": "<corps>-<div>-<n><state>: the tail resolves to a regiment whose division equals the id prefix."
+    },
+    {
+      "id": "formation_named_in_note",
+      "text": "\"<Name>'s brigade/division\" in the row note resolves to the OOB record of the same kind and side whose commander (or designation) is <Name>; one-letter surname typos allowed; never across sides."
+    },
+    {
+      "id": "artillery_nickname",
+      "text": "C-ART-<Name>: the battalion or artillery brigade whose commander/designation is <Name>."
+    },
+    {
+      "id": "new_record_required",
+      "text": "the 8 U-VI-* brigades: no OOB record exists; see candidates/vi_corps_brigades.json."
+    }
+  ],
+  "hard_rules": [
+    "never map a regiment-shaped id to a brigade (checked)",
+    "never change a side except by wrong_side_prefix (checked)",
+    "Regulars use UR (not implemented: no such id among the 95)",
+    "ambiguous matches stay none with the candidates listed"
+  ],
+  "counts": {
+    "unresolved_ids": 95,
+    "rows": 216,
+    "by_confidence": {
+      "high": 36,
+      "medium": 41,
+      "low": 10,
+      "none": 8
+    },
+    "by_rule": {
+      "suffix_variant": 18,
+      "own_id_prefix_extension": 4,
+      "no_rule": 3,
+      "artillery_nickname": 9,
+      "formation_named_in_note": 21,
+      "designation_token": 2,
+      "brigade_prefixed_regiment": 8,
+      "named_brigade_id": 1,
+      "same_number_other_state": 4,
+      "wrong_side_prefix": 10,
+      "type_tag_normalisation": 5,
+      "battery_named_in_note": 1,
+      "artillery_commander_in_note": 1,
+      "new_record_required": 8
+    },
+    "needs_historian": 59,
+    "auto_high_share": 0.379,
+    "auto_high_or_medium_share": 0.811
+  },
+  "wrong_side_prefix": [
+    {
+      "id": "U-11NC",
+      "proposed": "C-11NC",
+      "rows": 1,
+      "ticks": [
+        95
+      ],
+      "twin_placed": true,
+      "evidence": [
+        "state code NC is Confederate-only",
+        "C-11NC exists in oob/confederate_regiments_third_corps.json",
+        "C-11NC is also placed (5 row(s)): the U- row draws the same regiment twice, once in blue"
+      ]
+    },
+    {
+      "id": "U-15AL",
+      "proposed": "C-15AL",
+      "rows": 1,
+      "ticks": [
+        150
+      ],
+      "twin_placed": true,
+      "evidence": [
+        "state code AL is Confederate-only",
+        "C-15AL exists in oob/confederate_regiments_first_corps.json",
+        "C-15AL is also placed (27 row(s)): the U- row draws the same regiment twice, once in blue"
+      ]
+    },
+    {
+      "id": "U-1TX",
+      "proposed": "C-1TX",
+      "rows": 1,
+      "ticks": [
+        150
+      ],
+      "twin_placed": true,
+      "evidence": [
+        "state code TX is Confederate-only",
+        "C-1TX exists in oob/confederate_regiments_first_corps.json",
+        "C-1TX is also placed (2 row(s)): the U- row draws the same regiment twice, once in blue"
+      ]
+    },
+    {
+      "id": "U-26NC",
+      "proposed": "C-26NC",
+      "rows": 1,
+      "ticks": [
+        95
+      ],
+      "twin_placed": true,
+      "evidence": [
+        "state code NC is Confederate-only",
+        "C-26NC exists in oob/confederate_regiments_third_corps.json",
+        "C-26NC is also placed (14 row(s)): the U- row draws the same regiment twice, once in blue"
+      ]
+    },
+    {
+      "id": "U-44AL",
+      "proposed": "C-44AL",
+      "rows": 1,
+      "ticks": [
+        150
+      ],
+      "twin_placed": true,
+      "evidence": [
+        "state code AL is Confederate-only",
+        "C-44AL exists in oob/confederate_regiments_first_corps.json",
+        "C-44AL is also placed (5 row(s)): the U- row draws the same regiment twice, once in blue"
+      ]
+    },
+    {
+      "id": "U-47NC",
+      "proposed": "C-47NC",
+      "rows": 1,
+      "ticks": [
+        95
+      ],
+      "twin_placed": true,
+      "evidence": [
+        "state code NC is Confederate-only",
+        "C-47NC exists in oob/confederate_regiments_third_corps.json",
+        "C-47NC is also placed (4 row(s)): the U- row draws the same regiment twice, once in blue"
+      ]
+    },
+    {
+      "id": "U-48AL",
+      "proposed": "C-48AL",
+      "rows": 1,
+      "ticks": [
+        150
+      ],
+      "twin_placed": true,
+      "evidence": [
+        "state code AL is Confederate-only",
+        "C-48AL exists in oob/confederate_regiments_first_corps.json",
+        "C-48AL is also placed (2 row(s)): the U- row draws the same regiment twice, once in blue"
+      ]
+    },
+    {
+      "id": "U-4TX",
+      "proposed": "C-4TX",
+      "rows": 1,
+      "ticks": [
+        150
+      ],
+      "twin_placed": true,
+      "evidence": [
+        "state code TX is Confederate-only",
+        "C-4TX exists in oob/confederate_regiments_first_corps.json",
+        "C-4TX is also placed (4 row(s)): the U- row draws the same regiment twice, once in blue"
+      ]
+    },
+    {
+      "id": "U-52NC",
+      "proposed": "C-52NC",
+      "rows": 1,
+      "ticks": [
+        95
+      ],
+      "twin_placed": true,
+      "evidence": [
+        "state code NC is Confederate-only",
+        "C-52NC exists in oob/confederate_regiments_third_corps.json",
+        "C-52NC is also placed (8 row(s)): the U- row draws the same regiment twice, once in blue"
+      ]
+    },
+    {
+      "id": "U-5TX",
+      "proposed": "C-5TX",
+      "rows": 1,
+      "ticks": [
+        150
+      ],
+      "twin_placed": true,
+      "evidence": [
+        "state code TX is Confederate-only",
+        "C-5TX exists in oob/confederate_regiments_first_corps.json",
+        "C-5TX is also placed (3 row(s)): the U- row draws the same regiment twice, once in blue"
+      ]
+    }
+  ],
+  "entries": [
+    {
+      "alias_id": "C-10VA-J",
+      "rows": 2,
+      "ticks": [
+        315,
+        455
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Jones's brigade assaulting Culp's Hill | Jones's brigade attacking -- third Confederate assault",
+      "first_file": "density_day2_culpshill.json",
+      "shape": "regiment",
+      "proposed": "C-10VA",
+      "proposed_kind": "regiment",
+      "proposed_designation": "10th Virginia Infantry",
+      "proposed_side": "confederate",
+      "rule": "suffix_variant",
+      "confidence": "low",
+      "evidence": [
+        "C-10VA exists (10th Virginia Infantry); \"J\" is a suffix tag",
+        "tag \"J\" does NOT match a commander in the regiment's chain (Steuart, Johnson)"
+      ],
+      "reason": "the suffix tag is not explained by the OOB chain: the regiment may belong to another brigade/division at the time (historian)",
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-12GA-D",
+      "rows": 1,
+      "ticks": [
+        56
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "",
+      "first_file": "density_day1_ticks51_100.json",
+      "shape": "regiment",
+      "proposed": "C-12GA",
+      "proposed_kind": "regiment",
+      "proposed_designation": "12th Georgia Infantry",
+      "proposed_side": "confederate",
+      "rule": "suffix_variant",
+      "confidence": "low",
+      "evidence": [
+        "C-12GA exists (12th Georgia Infantry); \"D\" is a suffix tag",
+        "tag \"D\" does NOT match a commander in the regiment's chain (Doles, Rodes)"
+      ],
+      "reason": "the suffix tag is not explained by the OOB chain: the regiment may belong to another brigade/division at the time (historian)",
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-12NC-IV",
+      "rows": 3,
+      "ticks": [
+        50,
+        53,
+        60
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "12th NC in column -- 219 men | 12th NC -- 139 of 219 killed or wounded in minutes. 80 survivors. | 12th NC survivors -- Iverson's brigade has lost 900 of 1400 m",
+      "first_file": "density_day1_iverson.json",
+      "shape": "regiment",
+      "proposed": "C-12NC",
+      "proposed_kind": "regiment",
+      "proposed_designation": "12th North Carolina Infantry",
+      "proposed_side": "confederate",
+      "rule": "suffix_variant",
+      "confidence": "high",
+      "evidence": [
+        "C-12NC exists (12th North Carolina Infantry); \"IV\" is a suffix tag",
+        "tag \"IV\" matches a commander/nickname in the regiment's chain (C-II-3-3 / C-II-3)",
+        "note names Iverson, commander in the candidate's chain"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "C-13MS-B",
+      "rows": 8,
+      "ticks": [
+        200,
+        278,
+        280,
+        296,
+        298,
+        299,
+        302
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Barksdale's Mississippians bivouacking -- Barksdale will charge the Peach Orchard tomorrow | Barksdale's 13th Mississippi -- Barksdale on horseback far ahead of",
+      "first_file": "density_day1_afternoon.json",
+      "shape": "regiment",
+      "proposed": "C-13MS",
+      "proposed_kind": "regiment",
+      "proposed_designation": "13th Mississippi Infantry",
+      "proposed_side": "confederate",
+      "rule": "suffix_variant",
+      "confidence": "high",
+      "evidence": [
+        "C-13MS exists (13th Mississippi Infantry); \"B\" is a suffix tag",
+        "tag \"B\" matches a commander/nickname in the regiment's chain (C-I-1-2 / C-I-1)",
+        "note names Barksdale, commander in the candidate's chain",
+        "note names \"13th Mississippi\", matching the candidate's designation"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "C-16GA-W",
+      "rows": 1,
+      "ticks": [
+        293
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Wofford's fresh brigade sweeping through the Wheatfield -- deepest Confederate penetration",
+      "first_file": "density_day2_wheatfield.json",
+      "shape": "regiment",
+      "proposed": "C-16GA",
+      "proposed_kind": "regiment",
+      "proposed_designation": "16th Georgia Infantry",
+      "proposed_side": "confederate",
+      "rule": "suffix_variant",
+      "confidence": "high",
+      "evidence": [
+        "C-16GA exists (16th Georgia Infantry); \"W\" is a suffix tag",
+        "tag \"W\" matches a commander/nickname in the regiment's chain (C-I-1-4 / C-I-1)",
+        "note names Wofford, commander in the candidate's chain"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "C-1NC-EW",
+      "rows": 1,
+      "ticks": [
+        63
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Rodes's remaining brigades pursuing I Corps remnants toward Seminary Ridge",
+      "first_file": "density_day1_lateafternoon.json",
+      "shape": "regiment",
+      "proposed": "C-1NC",
+      "proposed_kind": "regiment",
+      "proposed_designation": "1st North Carolina Infantry",
+      "proposed_side": "confederate",
+      "rule": "suffix_variant",
+      "confidence": "low",
+      "evidence": [
+        "C-1NC exists (1st North Carolina Infantry); \"EW\" is a suffix tag",
+        "tag \"EW\" does NOT match a commander in the regiment's chain (Steuart, Johnson)"
+      ],
+      "reason": "the suffix tag is not explained by the OOB chain: the regiment may belong to another brigade/division at the time (historian)",
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-20NC-IV",
+      "rows": 2,
+      "ticks": [
+        50,
+        53
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "20th NC -- Iverson's largest regiment | 20th NC devastated -- 232 casualties from one volley. Lying in ranks in the wheat field.",
+      "first_file": "density_day1_iverson.json",
+      "shape": "regiment",
+      "proposed": "C-20NC",
+      "proposed_kind": "regiment",
+      "proposed_designation": "20th North Carolina Infantry",
+      "proposed_side": "confederate",
+      "rule": "suffix_variant",
+      "confidence": "high",
+      "evidence": [
+        "C-20NC exists (20th North Carolina Infantry); \"IV\" is a suffix tag",
+        "tag \"IV\" matches a commander/nickname in the regiment's chain (C-II-3-3 / C-II-3)",
+        "note names Iverson, commander in the candidate's chain"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "C-21NC-A",
+      "rows": 2,
+      "ticks": [
+        314,
+        326
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": " | ",
+      "first_file": "density_day2_culpshill.json",
+      "shape": "regiment",
+      "proposed": "C-21NC",
+      "proposed_kind": "regiment",
+      "proposed_designation": "21st North Carolina Infantry",
+      "proposed_side": "confederate",
+      "rule": "suffix_variant",
+      "confidence": "medium",
+      "evidence": [
+        "C-21NC exists (21st North Carolina Infantry); \"A\" is a suffix tag",
+        "tag \"A\" matches a commander/nickname in the regiment's chain (C-II-1-2 / C-II-1) but is only an initial and the note does not name that commander"
+      ],
+      "reason": "single-letter tag not corroborated by the note",
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-23NC-IV",
+      "rows": 3,
+      "ticks": [
+        50,
+        53,
+        57
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "23rd NC -- the flank regiment, about to be hit hardest | 23rd NC -- worst of all. 226 of 316 down. The regiment is destroyed as a fighting unit. | 23rd NC -- 60",
+      "first_file": "density_day1_iverson.json",
+      "shape": "regiment",
+      "proposed": "C-23NC",
+      "proposed_kind": "regiment",
+      "proposed_designation": "23rd North Carolina Infantry",
+      "proposed_side": "confederate",
+      "rule": "suffix_variant",
+      "confidence": "high",
+      "evidence": [
+        "C-23NC exists (23rd North Carolina Infantry); \"IV\" is a suffix tag",
+        "tag \"IV\" matches a commander/nickname in the regiment's chain (C-II-3-3 / C-II-3)",
+        "note names Iverson, commander in the candidate's chain"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "C-2LA",
+      "rows": 1,
+      "ticks": [
+        326
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Louisiana Tigers charging Cemetery Hill at dusk",
+      "first_file": "density_day2_culpshill.json",
+      "shape": "regiment",
+      "proposed": "C-2LA-T",
+      "proposed_kind": "regiment",
+      "proposed_designation": "2nd Louisiana Infantry",
+      "proposed_side": "confederate",
+      "rule": "own_id_prefix_extension",
+      "confidence": "medium",
+      "evidence": [
+        "C-2LA-T extends C-2LA with a suffix"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-2MS-D",
+      "rows": 4,
+      "ticks": [
+        20,
+        25,
+        29,
+        32
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "2nd Mississippi advancing north of the pike -- Davis's brigade pushing forward | 2nd MS in the Railroad Cut -- the cut is 9 feet deep here. They cannot get out ",
+      "first_file": "density_day1_railroadcut.json",
+      "shape": "regiment",
+      "proposed": "C-2MS",
+      "proposed_kind": "regiment",
+      "proposed_designation": "2nd Mississippi Infantry",
+      "proposed_side": "confederate",
+      "rule": "suffix_variant",
+      "confidence": "high",
+      "evidence": [
+        "C-2MS exists (2nd Mississippi Infantry); \"D\" is a suffix tag",
+        "tag \"D\" matches a commander/nickname in the regiment's chain (C-III-2-4 / C-III-2)",
+        "note names Davis, commander in the candidate's chain",
+        "note names \"2nd Mississippi\", matching the candidate's designation"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "C-2NC-SW",
+      "rows": 6,
+      "ticks": [
+        315,
+        452,
+        465,
+        490,
+        620,
+        675
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Stonewall Brigade assaulting Greene's Culp's Hill position -- first assault | Stonewall Brigade -- 12 assaults on Culp's Hill. Jackson's old regiments. | END OF",
+      "first_file": "density_day2_culpshill.json",
+      "shape": "regiment",
+      "proposed": "C-2NC",
+      "proposed_kind": "regiment",
+      "proposed_designation": "2nd North Carolina Infantry",
+      "proposed_side": "confederate",
+      "rule": "suffix_variant",
+      "confidence": "low",
+      "evidence": [
+        "C-2NC exists (2nd North Carolina Infantry); \"SW\" is a suffix tag",
+        "tag \"SW\" does NOT match a commander in the regiment's chain (Ramseur, Rodes)"
+      ],
+      "reason": "the suffix tag is not explained by the OOB chain: the regiment may belong to another brigade/division at the time (historian)",
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-38GA",
+      "rows": 3,
+      "ticks": [
+        56,
+        62,
+        70
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Gordon's brigade chasing XI Corps through Gettysburg town -- Gordon urges Ewell to press the attack | Gordon halted -- Ewell will not order the advance on Cemet",
+      "first_file": "density_day1_lateafternoon.json",
+      "shape": "regiment",
+      "proposed": "C-38GA-E",
+      "proposed_kind": "regiment",
+      "proposed_designation": "38th Georgia Infantry (Gordon's Brigade)",
+      "proposed_side": "confederate",
+      "rule": "own_id_prefix_extension",
+      "confidence": "high",
+      "evidence": [
+        "C-38GA-E extends C-38GA with a suffix",
+        "note names Gordon, commander in the candidate's chain"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "C-3NC-SW",
+      "rows": 8,
+      "ticks": [
+        315,
+        320,
+        452,
+        460,
+        465,
+        480,
+        510,
+        620
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Steuart's brigade -- will occupy empty XII Corps works | Steuart's 3rd NC occupying empty XII Corps breastworks | Steuart's 3rd NC -- 42.5% casualties across th",
+      "first_file": "density_day2_culpshill.json",
+      "shape": "regiment",
+      "proposed": "C-3NC",
+      "proposed_kind": "regiment",
+      "proposed_designation": "3rd North Carolina Infantry",
+      "proposed_side": "confederate",
+      "rule": "suffix_variant",
+      "confidence": "low",
+      "evidence": [
+        "C-3NC exists (3rd North Carolina Infantry); \"SW\" is a suffix tag",
+        "tag \"SW\" does NOT match a commander in the regiment's chain (Steuart, Johnson)",
+        "note names Steuart, commander in the candidate's chain"
+      ],
+      "reason": "the suffix tag is not explained by the OOB chain: the regiment may belong to another brigade/division at the time (historian)",
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-4AL-Law",
+      "rows": 2,
+      "ticks": [
+        260,
+        264
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Law's 4th Alabama -- flanking toward Little Round Top. Law has found it unoccupied. | Law's brigade reaching the base of Little Round Top -- the race is seconds",
+      "first_file": "density_day2_devilsden.json",
+      "shape": "regiment",
+      "proposed": "C-4AL",
+      "proposed_kind": "regiment",
+      "proposed_designation": "4th Alabama Infantry",
+      "proposed_side": "confederate",
+      "rule": "suffix_variant",
+      "confidence": "high",
+      "evidence": [
+        "C-4AL exists (4th Alabama Infantry); \"Law\" is a suffix tag",
+        "tag \"Law\" matches a commander/nickname in the regiment's chain (C-I-2-1 / C-I-2)",
+        "note names Law, commander in the candidate's chain",
+        "note names Law, commander in the candidate's chain",
+        "note names \"4th Alabama\", matching the candidate's designation"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "C-4VA-SW",
+      "rows": 4,
+      "ticks": [
+        80,
+        315,
+        452,
+        490
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": " |  |  | ",
+      "first_file": "density_day1_ticks51_100.json",
+      "shape": "regiment",
+      "proposed": "C-4VA",
+      "proposed_kind": "regiment",
+      "proposed_designation": "4th Virginia Infantry (Stonewall Brigade)",
+      "proposed_side": "confederate",
+      "rule": "suffix_variant",
+      "confidence": "high",
+      "evidence": [
+        "C-4VA exists (4th Virginia Infantry (Stonewall Brigade)); \"SW\" is a suffix tag",
+        "tag \"SW\" matches a commander/nickname in the regiment's chain (C-II-2-1 / C-II-2)"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "C-55NC-D",
+      "rows": 2,
+      "ticks": [
+        20,
+        30
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "55th NC on Davis's left -- pushing toward the railroad cut | 55th NC retreating -- Davis's brigade collapsing. The railroad cut will cost Davis 600 casualties.",
+      "first_file": "density_day1_railroadcut.json",
+      "shape": "regiment",
+      "proposed": "C-55NC",
+      "proposed_kind": "regiment",
+      "proposed_designation": "55th North Carolina Infantry",
+      "proposed_side": "confederate",
+      "rule": "suffix_variant",
+      "confidence": "high",
+      "evidence": [
+        "C-55NC exists (55th North Carolina Infantry); \"D\" is a suffix tag",
+        "tag \"D\" matches a commander/nickname in the regiment's chain (C-III-2-4 / C-III-2)",
+        "note names Davis, commander in the candidate's chain"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "C-5NC-IV",
+      "rows": 3,
+      "ticks": [
+        50,
+        53,
+        57
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "5th NC -- Iverson's lead regiment. No skirmishers deployed. Iverson watches from the rear. | 5th NC IN THE PITS -- 290 of 470 down in the first volley. The surv",
+      "first_file": "density_day1_iverson.json",
+      "shape": "regiment",
+      "proposed": "C-5NC",
+      "proposed_kind": "regiment",
+      "proposed_designation": "5th North Carolina Infantry",
+      "proposed_side": "confederate",
+      "rule": "suffix_variant",
+      "confidence": "high",
+      "evidence": [
+        "C-5NC exists (5th North Carolina Infantry); \"IV\" is a suffix tag",
+        "tag \"IV\" matches a commander/nickname in the regiment's chain (C-II-3-3 / C-II-3)",
+        "note names Iverson, commander in the candidate's chain"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "C-6NC-A",
+      "rows": 3,
+      "ticks": [
+        314,
+        326,
+        327
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Avery's NC brigade -- Avery will be mortally wounded on this slope | Avery's brigade charging alongside Louisiana Tigers | Avery mortally wounded on the slope -",
+      "first_file": "density_day2_culpshill.json",
+      "shape": "regiment",
+      "proposed": "C-6NC",
+      "proposed_kind": "regiment",
+      "proposed_designation": "6th North Carolina Infantry",
+      "proposed_side": "confederate",
+      "rule": "suffix_variant",
+      "confidence": "high",
+      "evidence": [
+        "C-6NC exists (6th North Carolina Infantry); \"A\" is a suffix tag",
+        "tag \"A\" matches a commander/nickname in the regiment's chain (C-II-1-2 / C-II-1)",
+        "note names Avery, commander in the candidate's chain"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "C-ART-Alexander",
+      "rows": 4,
+      "ticks": [
+        480,
+        505,
+        518,
+        536
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Alexander positioning his 75-gun line. He will command the Confederate cannonade. | CANNONADE BEGINS at 1 PM. Alexander fires the signal guns. Confederate bomba",
+      "first_file": "density_day3_cannonade.json",
+      "shape": "artillery",
+      "proposed": null,
+      "rule": "no_rule",
+      "confidence": "none",
+      "evidence": [],
+      "reason": "no OOB record could be matched by any rule",
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-ART-Cabell",
+      "rows": 1,
+      "ticks": [
+        505
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Cabell's battalion -- 18 guns",
+      "first_file": "density_day3_cannonade.json",
+      "shape": "artillery",
+      "proposed": "C-ART-I-1",
+      "proposed_kind": "battalion",
+      "proposed_designation": "Cabell's Battalion",
+      "proposed_side": "confederate",
+      "rule": "artillery_nickname",
+      "confidence": "medium",
+      "evidence": [
+        "\"Cabell\" matches the commander/designation of C-ART-I-1 (Cabell's Battalion)",
+        "id C-ART-Cabell is a nickname, not an OOB id"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-ART-Dearing",
+      "rows": 2,
+      "ticks": [
+        505,
+        518
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Dearing's battalion -- 20 guns | Dearing's guns opening -- overshooting the Union line",
+      "first_file": "density_day3_cannonade.json",
+      "shape": "artillery",
+      "proposed": "C-ART-I-2",
+      "proposed_kind": "battalion",
+      "proposed_designation": "Dearing's Battalion (Pickett's Division Artillery)",
+      "proposed_side": "confederate",
+      "rule": "artillery_nickname",
+      "confidence": "medium",
+      "evidence": [
+        "\"Dearing\" matches the commander/designation of C-ART-I-2 (Dearing's Battalion (Pickett's Division Artillery))",
+        "id C-ART-Dearing is a nickname, not an OOB id"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-ART-Eshleman",
+      "rows": 2,
+      "ticks": [
+        505,
+        518
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Washington Artillery of New Orleans -- 9 guns | Washington Artillery firing -- the largest artillery bombardment in American history",
+      "first_file": "density_day3_cannonade.json",
+      "shape": "artillery",
+      "proposed": "C-ART-I-4",
+      "proposed_kind": "battalion",
+      "proposed_designation": "Washington Artillery of New Orleans (Eshleman's Battalion)",
+      "proposed_side": "confederate",
+      "rule": "artillery_nickname",
+      "confidence": "medium",
+      "evidence": [
+        "\"Eshleman\" matches the commander/designation of C-ART-I-4 (Washington Artillery of New Orleans (Eshleman's Battalion))",
+        "id C-ART-Eshleman is a nickname, not an OOB id"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-ART-Henry",
+      "rows": 1,
+      "ticks": [
+        505
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Henry's battalion -- 20 guns",
+      "first_file": "density_day3_cannonade.json",
+      "shape": "artillery",
+      "proposed": "C-ART-I-3",
+      "proposed_kind": "battalion",
+      "proposed_designation": "Henry's Battalion (Hood's Division Artillery)",
+      "proposed_side": "confederate",
+      "rule": "artillery_nickname",
+      "confidence": "medium",
+      "evidence": [
+        "\"Henry\" matches the commander/designation of C-ART-I-3 (Henry's Battalion (Hood's Division Artillery))",
+        "id C-ART-Henry is a nickname, not an OOB id"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-ART-McIntosh",
+      "rows": 1,
+      "ticks": [
+        505
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "McIntosh's battalion -- Whitworth rifles included",
+      "first_file": "density_day3_cannonade.json",
+      "shape": "artillery",
+      "proposed": "C-ART-III-2",
+      "proposed_kind": "battalion",
+      "proposed_designation": "McIntosh's Battalion (Heth's Division)",
+      "proposed_side": "confederate",
+      "rule": "artillery_nickname",
+      "confidence": "medium",
+      "evidence": [
+        "\"McIntosh\" matches the commander/designation of C-ART-III-2 (McIntosh's Battalion (Heth's Division))",
+        "id C-ART-McIntosh is a nickname, not an OOB id"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-ART-Pegram-III",
+      "rows": 2,
+      "ticks": [
+        505,
+        518
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Pegram's battalion on the northern flank of the Confederate line | Pegram's guns -- also overshooting, striking the Taneytown Road behind Cemetery Hill",
+      "first_file": "density_day3_cannonade.json",
+      "shape": "artillery",
+      "proposed": "C-ART-III-3",
+      "proposed_kind": "battalion",
+      "proposed_designation": "Pegram's Battalion (Pender's Division)",
+      "proposed_side": "confederate",
+      "rule": "artillery_nickname",
+      "confidence": "medium",
+      "evidence": [
+        "\"Pegram\" matches the commander/designation of C-ART-III-3 (Pegram's Battalion (Pender's Division))",
+        "id C-ART-Pegram-III is a nickname, not an OOB id"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-ART-Pegram-bn",
+      "rows": 2,
+      "ticks": [
+        4,
+        9
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Pegram's battalion following Heth's infantry -- 5 batteries about to deploy on Herr Ridge | Pegram's 5 batteries deploying on Herr Ridge -- facing Calef across ",
+      "first_file": "density_day1_opening.json",
+      "shape": "artillery",
+      "proposed": "C-ART-III-3",
+      "proposed_kind": "battalion",
+      "proposed_designation": "Pegram's Battalion (Pender's Division)",
+      "proposed_side": "confederate",
+      "rule": "artillery_nickname",
+      "confidence": "medium",
+      "evidence": [
+        "\"Pegram\" matches the commander/designation of C-ART-III-3 (Pegram's Battalion (Pender's Division))",
+        "id C-ART-Pegram-bn is a nickname, not an OOB id"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-CAV-2-1",
+      "rows": 4,
+      "ticks": [
+        505,
+        515,
+        522,
+        530
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Wade Hampton's brigade -- Stuart's finest. Riding southeast toward the Baltimore Pike. | Hampton's brigade advancing -- Confederate cavalry in column heading fo",
+      "first_file": "density_day3_cavalry.json",
+      "shape": "brigade",
+      "proposed": "C-CAV-1",
+      "proposed_kind": "brigade",
+      "proposed_designation": "Hampton's Brigade",
+      "proposed_side": "confederate",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Wade Hampton's brigade\", the commander of C-CAV-1 (Hampton's Brigade)",
+        "id shape is brigade; target kind brigade"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-CAV-2-2",
+      "rows": 3,
+      "ticks": [
+        505,
+        522,
+        530
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Fitz Lee's brigade | Fitz Lee following Hampton's charge | Fitz Lee falling back",
+      "first_file": "density_day3_cavalry.json",
+      "shape": "brigade",
+      "proposed": "C-CAV-2",
+      "proposed_kind": "brigade",
+      "proposed_designation": "Fitz Lee's Brigade",
+      "proposed_side": "confederate",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Fitz Lee's brigade\", the commander of C-CAV-2 (Fitz Lee's Brigade)",
+        "id shape is brigade; target kind brigade",
+        "WARNING: C-CAV-2 already has a row at the same tick(s): merge by (unit,tick) with the twin winning (chapter 13 WP-06 step 1)"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-CAV-2-3",
+      "rows": 1,
+      "ticks": [
+        505
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Chambliss's brigade",
+      "first_file": "density_day3_cavalry.json",
+      "shape": "brigade",
+      "proposed": "C-CAV-3",
+      "proposed_kind": "brigade",
+      "proposed_designation": "Chambliss's Brigade (W.H.F. Lee's Brigade)",
+      "proposed_side": "confederate",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Chambliss's brigade\", the commander of C-CAV-3 (Chambliss's Brigade (W.H.F. Lee's Brigade))",
+        "id shape is brigade; target kind brigade"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-CAV-2-4",
+      "rows": 1,
+      "ticks": [
+        505
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Jenkins's brigade",
+      "first_file": "density_day3_cavalry.json",
+      "shape": "brigade",
+      "proposed": "C-CAV-4",
+      "proposed_kind": "brigade",
+      "proposed_designation": "Jenkins's Brigade",
+      "proposed_side": "confederate",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Jenkins's brigade\", the commander of C-CAV-4 (Jenkins's Brigade)",
+        "id shape is brigade; target kind brigade"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-Cobb-INF",
+      "rows": 1,
+      "ticks": [
+        293
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "",
+      "first_file": "density_day2_wheatfield.json",
+      "shape": "other",
+      "proposed": "C-Cobb-GA",
+      "proposed_kind": "regiment",
+      "proposed_designation": "Cobb's Legion Infantry (Georgia)",
+      "proposed_side": "confederate",
+      "rule": "designation_token",
+      "confidence": "low",
+      "evidence": [
+        "id tokens Cobb appear in C-Cobb-GA \"Cobb's Legion Infantry (Georgia)\""
+      ],
+      "reason": "token match only; the brigade context is not corroborated",
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-GLA-SHB",
+      "rows": 1,
+      "ticks": [
+        283
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Semmes's brigade entering the Wheatfield",
+      "first_file": "density_day2_wheatfield.json",
+      "shape": "other",
+      "proposed": "C-I-1-3",
+      "proposed_kind": "brigade",
+      "proposed_designation": "Semmes's Brigade",
+      "proposed_side": "confederate",
+      "rule": "formation_named_in_note",
+      "confidence": "low",
+      "evidence": [
+        "note names \"Semmes's brigade\", the commander of C-I-1-3 (Semmes's Brigade)",
+        "id shape is other; target kind brigade"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-I-1-7",
+      "rows": 2,
+      "ticks": [
+        270,
+        275
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "7th SC -- Kershaw's left | 7th SC charging into Rose's Woods -- fighting through the trees",
+      "first_file": "density_day2_kershaw.json",
+      "shape": "brigade_prefixed_regiment",
+      "proposed": "C-7SC",
+      "proposed_kind": "regiment",
+      "proposed_designation": "7th South Carolina Infantry",
+      "proposed_side": "confederate",
+      "rule": "brigade_prefixed_regiment",
+      "confidence": "high",
+      "evidence": [
+        "tail \"7\" resolves to C-7SC (7th South Carolina Infantry)",
+        "its division is C-I-1, matching the id prefix"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "C-I-1-8",
+      "rows": 1,
+      "ticks": [
+        270
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "8th SC -- smallest regiment, on Kershaw's far left",
+      "first_file": "density_day2_kershaw.json",
+      "shape": "brigade_prefixed_regiment",
+      "proposed": "C-8SC",
+      "proposed_kind": "regiment",
+      "proposed_designation": "8th South Carolina Infantry",
+      "proposed_side": "confederate",
+      "rule": "brigade_prefixed_regiment",
+      "confidence": "high",
+      "evidence": [
+        "tail \"8\" resolves to C-8SC (8th South Carolina Infantry)",
+        "its division is C-I-1, matching the id prefix"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "C-I-2-5",
+      "rows": 1,
+      "ticks": [
+        260
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "5th Texas on the right -- driving toward the Round Tops",
+      "first_file": "density_day2_devilsden.json",
+      "shape": "brigade_prefixed_regiment",
+      "proposed": "C-5TX",
+      "proposed_kind": "regiment",
+      "proposed_designation": "5th Texas Infantry",
+      "proposed_side": "confederate",
+      "rule": "brigade_prefixed_regiment",
+      "confidence": "high",
+      "evidence": [
+        "tail \"5\" resolves to C-5TX (5th Texas Infantry)",
+        "its division is C-I-2, matching the id prefix"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "C-I-5-1",
+      "rows": 2,
+      "ticks": [
+        552,
+        554
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Wilcox's Alabama brigade advancing to support Pickett -- but Pickett is already broken, Wilcox doesn't know it yet | Wilcox hit in the flank -- Wilcox realizes ",
+      "first_file": "density_day3_vermont.json",
+      "shape": "brigade",
+      "proposed": "C-III-1-1",
+      "proposed_kind": "brigade",
+      "proposed_designation": "Wilcox's Brigade",
+      "proposed_side": "confederate",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Wilcox's brigade\", the commander of C-III-1-1 (Wilcox's Brigade)",
+        "id shape is brigade; target kind brigade"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-I-5-2",
+      "rows": 2,
+      "ticks": [
+        552,
+        554
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Lang's Florida brigade following Wilcox -- advancing into a vacuum, their objective already lost | Lang's Floridians also retreating -- they never reached the r",
+      "first_file": "density_day3_vermont.json",
+      "shape": "brigade",
+      "proposed": "C-III-1-2",
+      "proposed_kind": "brigade",
+      "proposed_designation": "Perry's Brigade (Lang commanding)",
+      "proposed_side": "confederate",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Lang's brigade\", the commander of C-III-1-2 (Perry's Brigade (Lang commanding))",
+        "id shape is brigade; target kind brigade"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-II-4",
+      "rows": 8,
+      "ticks": [
+        226,
+        365,
+        375,
+        380,
+        420,
+        451,
+        475,
+        495
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Johnson's division on Culp's Hill -- they are in the XII Corps breastworks | Johnson's division overnight -- tomorrow Geary's XII Corps will attack at dawn | Jo",
+      "first_file": "density_day2_afternoon.json",
+      "shape": "division",
+      "proposed": "C-II-2",
+      "proposed_kind": "division",
+      "proposed_designation": "Johnson's Division, Second Corps",
+      "proposed_side": "confederate",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Johnson's division\", the commander of C-II-2 (Johnson's Division, Second Corps)",
+        "id shape is division; target kind division"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-II-4-1",
+      "rows": 4,
+      "ticks": [
+        380,
+        400,
+        440,
+        460
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Steuart's brigade in the lower works -- closest to the Baltimore Pike | Steuart overnight -- he has pushed to the Baltimore Pike area | Steuart's brigade at 4 A",
+      "first_file": "density_day2_culpshill_overnight.json",
+      "shape": "brigade",
+      "proposed": "C-II-2-4",
+      "proposed_kind": "brigade",
+      "proposed_designation": "Steuart's Brigade",
+      "proposed_side": "confederate",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Steuart's brigade\", the commander of C-II-2-4 (Steuart's Brigade)",
+        "id shape is brigade; target kind brigade"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-II-4-2",
+      "rows": 1,
+      "ticks": [
+        380
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Jones's brigade -- Virginia regiments on Culp's Hill",
+      "first_file": "density_day2_culpshill_overnight.json",
+      "shape": "brigade",
+      "proposed": "C-II-2-2",
+      "proposed_kind": "brigade",
+      "proposed_designation": "Jones's Brigade",
+      "proposed_side": "confederate",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Jones's brigade\", the commander of C-II-2-2 (Jones's Brigade)",
+        "id shape is brigade; target kind brigade"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-II-4-3",
+      "rows": 1,
+      "ticks": [
+        380
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Nichols's brigade holding the upper works",
+      "first_file": "density_day2_culpshill_overnight.json",
+      "shape": "brigade",
+      "proposed": "C-II-2-3",
+      "proposed_kind": "brigade",
+      "proposed_designation": "Nicholls's Brigade (Williams commanding)",
+      "proposed_side": "confederate",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Nichols's brigade\", the commander of C-II-2-3 (Nicholls's Brigade (Williams commanding))",
+        "surname differs by one letter from the OOB spelling \"Nicholl\" (typo)",
+        "id shape is brigade; target kind brigade"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-III-4",
+      "rows": 3,
+      "ticks": [
+        226,
+        302,
+        330
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Pender's division on Seminary Ridge -- Pender mortally wounded by shell fragment today | Anderson's division in reserve behind Seminary Ridge | Anderson in rese",
+      "first_file": "density_day2_afternoon.json",
+      "shape": "division",
+      "proposed": "C-III-3",
+      "proposed_kind": "division",
+      "proposed_designation": "Pender's Division, Third Corps",
+      "proposed_side": "confederate",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Pender's division\", the commander of C-III-3 (Pender's Division, Third Corps)",
+        "id shape is division; target kind division",
+        "WARNING: C-III-3 already has a row at the same tick(s): merge by (unit,tick) with the twin winning (chapter 13 WP-06 step 1)"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-III-4-2",
+      "rows": 2,
+      "ticks": [
+        308,
+        315
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Posey's Mississippi brigade -- supposed to support Wright's left. Will not advance far enough. | Posey stalled short of the Emmitsburg Road -- Wright's left is ",
+      "first_file": "density_day2_wright.json",
+      "shape": "brigade",
+      "proposed": "C-III-1-4",
+      "proposed_kind": "brigade",
+      "proposed_designation": "Posey's Brigade",
+      "proposed_side": "confederate",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Posey's brigade\", the commander of C-III-1-4 (Posey's Brigade)",
+        "id shape is brigade; target kind brigade"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-III-4-3",
+      "rows": 5,
+      "ticks": [
+        308,
+        312,
+        315,
+        318,
+        320
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Wright's Georgia brigade -- Anderson's division. About to make the most dangerous Confederate attack of July 2. | Wright CHARGING across the Emmitsburg Road -- ",
+      "first_file": "density_day2_wright.json",
+      "shape": "brigade",
+      "proposed": "C-III-1-3",
+      "proposed_kind": "brigade",
+      "proposed_designation": "Wright's Brigade",
+      "proposed_side": "confederate",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Wright's brigade\", the commander of C-III-1-3 (Wright's Brigade)",
+        "id shape is brigade; target kind brigade"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-III-4-4",
+      "rows": 2,
+      "ticks": [
+        308,
+        315
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Mahone's Virginia brigade -- supposed to support Wright's right. Will also not advance. | Mahone not advancing -- Wright's right is also naked",
+      "first_file": "density_day2_wright.json",
+      "shape": "brigade",
+      "proposed": "C-III-1-5",
+      "proposed_kind": "brigade",
+      "proposed_designation": "Mahone's Brigade",
+      "proposed_side": "confederate",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Mahone's brigade\", the commander of C-III-1-5 (Mahone's Brigade)",
+        "id shape is brigade; target kind brigade"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-Law-bde",
+      "rows": 1,
+      "ticks": [
+        248
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "Law's reconnaissance -- discovers Big Round Top unoccupied and urges flanking movement",
+      "first_file": "density_day2_morning.json",
+      "shape": "other",
+      "proposed": "C-I-2-1",
+      "proposed_kind": "brigade",
+      "proposed_designation": "Law's Brigade",
+      "proposed_side": "confederate",
+      "rule": "named_brigade_id",
+      "confidence": "medium",
+      "evidence": [
+        "\"Law\" is the commander of C-I-2-1 (Law's Brigade)"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "C-Phillips-INF",
+      "rows": 1,
+      "ticks": [
+        293
+      ],
+      "side_prefix": "confederate",
+      "note_excerpt": "",
+      "first_file": "density_day2_wheatfield.json",
+      "shape": "other",
+      "proposed": "C-Phil-GA",
+      "proposed_kind": "regiment",
+      "proposed_designation": "Phillips Legion Infantry (Georgia)",
+      "proposed_side": "confederate",
+      "rule": "designation_token",
+      "confidence": "low",
+      "evidence": [
+        "id tokens Phillips appear in C-Phil-GA \"Phillips Legion Infantry (Georgia)\""
+      ],
+      "reason": "token match only; the brigade context is not corroborated",
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-1-I-3",
+      "rows": 1,
+      "ticks": [
+        68
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Wadsworth's division rallied on Cemetery Hill -- forming the nucleus of the Union defense",
+      "first_file": "density_day1_lateafternoon.json",
+      "shape": "division",
+      "proposed": "U-I-1",
+      "proposed_kind": "division",
+      "proposed_designation": "First Division, First Corps",
+      "proposed_side": "union",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Wadsworth's division\", the commander of U-I-1 (First Division, First Corps)",
+        "id shape is division; target kind division"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-107PA",
+      "rows": 1,
+      "ticks": [
+        72
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Surviving XI Corps regiments rallied on Cemetery Hill",
+      "first_file": "density_day1_ticks51_100.json",
+      "shape": "regiment",
+      "proposed": null,
+      "rule": "same_number_other_state",
+      "confidence": "none",
+      "evidence": [],
+      "reason": "no U-107PA in the OOB; same-side regiments numbered 107: U-107NY (107th New York Volunteer Infantry); U-107OH (107th Ohio Volunteer Infantry); U-107NY-XII (107th New York Volunteer Infantry (XII Corps))",
+      "candidates": [
+        "U-107NY",
+        "U-107OH",
+        "U-107NY-XII"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-11NC",
+      "rows": 1,
+      "ticks": [
+        95
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "",
+      "first_file": "density_day1_ticks51_100.json",
+      "shape": "regiment",
+      "proposed": "C-11NC",
+      "proposed_kind": "regiment",
+      "proposed_designation": "11th North Carolina Infantry",
+      "proposed_side": "confederate",
+      "rule": "wrong_side_prefix",
+      "confidence": "high",
+      "evidence": [
+        "state code NC is Confederate-only",
+        "C-11NC exists in oob/confederate_regiments_third_corps.json",
+        "C-11NC is also placed (5 row(s)): the U- row draws the same regiment twice, once in blue"
+      ],
+      "side_flip": true,
+      "hard_rules": {
+        "same_shape": true,
+        "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-12IL",
+      "rows": 4,
+      "ticks": [
+        3,
+        8,
+        14
+      ],
+      "side_prefix": "union",
+      "note_excerpt": " |  |  | ",
+      "first_file": "density_cavalry_detail.json",
+      "shape": "regiment",
+      "proposed": "U-12IL-CAV",
+      "proposed_kind": "regiment",
+      "proposed_designation": "12th Illinois Cavalry",
+      "proposed_side": "union",
+      "rule": "own_id_prefix_extension",
+      "confidence": "medium",
+      "evidence": [
+        "U-12IL-CAV extends U-12IL with a suffix"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-15AL",
+      "rows": 1,
+      "ticks": [
+        150
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "15th Alabama bivouacking west of Round Tops -- will assault them tomorrow",
+      "first_file": "density_day1_afternoon.json",
+      "shape": "regiment",
+      "proposed": "C-15AL",
+      "proposed_kind": "regiment",
+      "proposed_designation": "15th Alabama Infantry",
+      "proposed_side": "confederate",
+      "rule": "wrong_side_prefix",
+      "confidence": "high",
+      "evidence": [
+        "state code AL is Confederate-only",
+        "C-15AL exists in oob/confederate_regiments_first_corps.json",
+        "C-15AL is also placed (27 row(s)): the U- row draws the same regiment twice, once in blue"
+      ],
+      "side_flip": true,
+      "hard_rules": {
+        "same_shape": true,
+        "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-1PA-RES",
+      "rows": 1,
+      "ticks": [
+        295
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "",
+      "first_file": "density_day2_lrt.json",
+      "shape": "regiment",
+      "proposed": "U-1PA-R",
+      "proposed_kind": "regiment",
+      "proposed_designation": "1st Pennsylvania Reserves (30th Pennsylvania Volunteers)",
+      "proposed_side": "union",
+      "rule": "type_tag_normalisation",
+      "confidence": "high",
+      "evidence": [
+        "\"-RES\" is read as \"-R\"",
+        "U-1PA-R is \"1st Pennsylvania Reserves (30th Pennsylvania Volunteers)\""
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-1TX",
+      "rows": 1,
+      "ticks": [
+        150
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "",
+      "first_file": "density_day1_afternoon.json",
+      "shape": "regiment",
+      "proposed": "C-1TX",
+      "proposed_kind": "regiment",
+      "proposed_designation": "1st Texas Infantry",
+      "proposed_side": "confederate",
+      "rule": "wrong_side_prefix",
+      "confidence": "high",
+      "evidence": [
+        "state code TX is Confederate-only",
+        "C-1TX exists in oob/confederate_regiments_first_corps.json",
+        "C-1TX is also placed (2 row(s)): the U- row draws the same regiment twice, once in blue"
+      ],
+      "side_flip": true,
+      "hard_rules": {
+        "same_shape": true,
+        "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-1US-SHRP",
+      "rows": 2,
+      "ticks": [
+        235,
+        248
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Berdan's 1st US Sharpshooters -- detect Anderson's division in the woods | Berdan's Sharpshooters -- green uniforms, telescope sights",
+      "first_file": "density_day2_morning.json",
+      "shape": "regiment",
+      "proposed": "U-1US-SS",
+      "proposed_kind": "regiment",
+      "proposed_designation": "1st United States Sharpshooters (Berdan's)",
+      "proposed_side": "union",
+      "rule": "type_tag_normalisation",
+      "confidence": "high",
+      "evidence": [
+        "\"-SHRP\" is read as \"-SS\"",
+        "U-1US-SS is \"1st United States Sharpshooters (Berdan's)\""
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-2-I",
+      "rows": 1,
+      "ticks": [
+        68
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Robinson's division reforming on Cemetery Hill -- badly cut up but still in hand",
+      "first_file": "density_day1_lateafternoon.json",
+      "shape": "division",
+      "proposed": "U-I-2",
+      "proposed_kind": "division",
+      "proposed_designation": "Second Division, First Corps",
+      "proposed_side": "union",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Robinson's division\", the commander of U-I-2 (Second Division, First Corps)",
+        "id shape is division; target kind division"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-26NC",
+      "rows": 1,
+      "ticks": [
+        95
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "26th NC survivors -- 588 casualties from 843. Night of July 1.",
+      "first_file": "density_day1_ticks51_100.json",
+      "shape": "regiment",
+      "proposed": "C-26NC",
+      "proposed_kind": "regiment",
+      "proposed_designation": "26th North Carolina Infantry",
+      "proposed_side": "confederate",
+      "rule": "wrong_side_prefix",
+      "confidence": "high",
+      "evidence": [
+        "state code NC is Confederate-only",
+        "C-26NC exists in oob/confederate_regiments_third_corps.json",
+        "C-26NC is also placed (14 row(s)): the U- row draws the same regiment twice, once in blue"
+      ],
+      "side_flip": true,
+      "hard_rules": {
+        "same_shape": true,
+        "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-2MD-EH",
+      "rows": 2,
+      "ticks": [
+        320,
+        455
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "1st MD Union (Eastern Shore) -- Marylanders vs Marylanders on Culp's Hill | 1st MD Union (Eastern Shore) -- Marylanders opposing Marylanders",
+      "first_file": "density_day2_culpshill.json",
+      "shape": "regiment",
+      "proposed": null,
+      "rule": "same_number_other_state",
+      "confidence": "none",
+      "evidence": [],
+      "reason": "no U-2MD-EH in the OOB; same-side regiments numbered 2: U-2US-CAV (2nd United States Cavalry); U-2NY-CAV (2nd New York Cavalry); U-2NY-CAV-b (2nd New York Cavalry (detachment, Richmond's brigade)); U-2WI (2nd Wisconsin Volunteer Infantry); U-2DE (2nd Delaware Volunteer Infantry); U-2NH (2nd New Hampshire Volunteer Infantry) and 6 more",
+      "candidates": [
+        "U-2US-CAV",
+        "U-2NY-CAV",
+        "U-2NY-CAV-b",
+        "U-2WI",
+        "U-2DE",
+        "U-2NH",
+        "U-2US",
+        "U-2PA-R",
+        "U-2NJ",
+        "U-2VT",
+        "U-2RI",
+        "U-2MA"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-2OH",
+      "rows": 1,
+      "ticks": [
+        80
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Stonewall Brigade regiments facing Culp's Hill",
+      "first_file": "density_day1_ticks51_100.json",
+      "shape": "regiment",
+      "proposed": null,
+      "rule": "same_number_other_state",
+      "confidence": "none",
+      "evidence": [],
+      "reason": "no U-2OH in the OOB; same-side regiments numbered 2: U-2US-CAV (2nd United States Cavalry); U-2NY-CAV (2nd New York Cavalry); U-2NY-CAV-b (2nd New York Cavalry (detachment, Richmond's brigade)); U-2WI (2nd Wisconsin Volunteer Infantry); U-2DE (2nd Delaware Volunteer Infantry); U-2NH (2nd New Hampshire Volunteer Infantry) and 6 more",
+      "candidates": [
+        "U-2US-CAV",
+        "U-2NY-CAV",
+        "U-2NY-CAV-b",
+        "U-2WI",
+        "U-2DE",
+        "U-2NH",
+        "U-2US",
+        "U-2PA-R",
+        "U-2NJ",
+        "U-2VT",
+        "U-2RI",
+        "U-2MA"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-2PA-RES",
+      "rows": 1,
+      "ticks": [
+        295
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "",
+      "first_file": "density_day2_lrt.json",
+      "shape": "regiment",
+      "proposed": "U-2PA-R",
+      "proposed_kind": "regiment",
+      "proposed_designation": "2nd Pennsylvania Reserves (31st Pennsylvania Volunteers)",
+      "proposed_side": "union",
+      "rule": "type_tag_normalisation",
+      "confidence": "high",
+      "evidence": [
+        "\"-RES\" is read as \"-R\"",
+        "U-2PA-R is \"2nd Pennsylvania Reserves (31st Pennsylvania Volunteers)\""
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-2US-SHRP",
+      "rows": 4,
+      "ticks": [
+        235,
+        248,
+        256,
+        460
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Berdan's sharpshooters probing Pitzer's Woods -- discover Confederates | Berdan's 1st and 2nd US Sharpshooters screening Sickles's advance | Sharpshooters skirm",
+      "first_file": "density_day2_morning.json",
+      "shape": "regiment",
+      "proposed": null,
+      "rule": "type_tag_normalisation",
+      "confidence": "none",
+      "evidence": [],
+      "reason": "U-2US-SHRP reads as U-2US-SS, which is not in the OOB (only the 1st United States Sharpshooters is listed)",
+      "new_record_needed": true,
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-44AL",
+      "rows": 1,
+      "ticks": [
+        150
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "",
+      "first_file": "density_day1_afternoon.json",
+      "shape": "regiment",
+      "proposed": "C-44AL",
+      "proposed_kind": "regiment",
+      "proposed_designation": "44th Alabama Infantry",
+      "proposed_side": "confederate",
+      "rule": "wrong_side_prefix",
+      "confidence": "high",
+      "evidence": [
+        "state code AL is Confederate-only",
+        "C-44AL exists in oob/confederate_regiments_first_corps.json",
+        "C-44AL is also placed (5 row(s)): the U- row draws the same regiment twice, once in blue"
+      ],
+      "side_flip": true,
+      "hard_rules": {
+        "same_shape": true,
+        "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-47NC",
+      "rows": 1,
+      "ticks": [
+        95
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "",
+      "first_file": "density_day1_ticks51_100.json",
+      "shape": "regiment",
+      "proposed": "C-47NC",
+      "proposed_kind": "regiment",
+      "proposed_designation": "47th North Carolina Infantry",
+      "proposed_side": "confederate",
+      "rule": "wrong_side_prefix",
+      "confidence": "high",
+      "evidence": [
+        "state code NC is Confederate-only",
+        "C-47NC exists in oob/confederate_regiments_third_corps.json",
+        "C-47NC is also placed (4 row(s)): the U- row draws the same regiment twice, once in blue"
+      ],
+      "side_flip": true,
+      "hard_rules": {
+        "same_shape": true,
+        "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-48AL",
+      "rows": 1,
+      "ticks": [
+        150
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "",
+      "first_file": "density_day1_afternoon.json",
+      "shape": "regiment",
+      "proposed": "C-48AL",
+      "proposed_kind": "regiment",
+      "proposed_designation": "48th Alabama Infantry",
+      "proposed_side": "confederate",
+      "rule": "wrong_side_prefix",
+      "confidence": "high",
+      "evidence": [
+        "state code AL is Confederate-only",
+        "C-48AL exists in oob/confederate_regiments_first_corps.json",
+        "C-48AL is also placed (2 row(s)): the U- row draws the same regiment twice, once in blue"
+      ],
+      "side_flip": true,
+      "hard_rules": {
+        "same_shape": true,
+        "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-4TX",
+      "rows": 1,
+      "ticks": [
+        150
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Texas Brigade bivouacking -- will charge Devil's Den tomorrow",
+      "first_file": "density_day1_afternoon.json",
+      "shape": "regiment",
+      "proposed": "C-4TX",
+      "proposed_kind": "regiment",
+      "proposed_designation": "4th Texas Infantry",
+      "proposed_side": "confederate",
+      "rule": "wrong_side_prefix",
+      "confidence": "high",
+      "evidence": [
+        "state code TX is Confederate-only",
+        "C-4TX exists in oob/confederate_regiments_first_corps.json",
+        "C-4TX is also placed (4 row(s)): the U- row draws the same regiment twice, once in blue"
+      ],
+      "side_flip": true,
+      "hard_rules": {
+        "same_shape": true,
+        "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-52NC",
+      "rows": 1,
+      "ticks": [
+        95
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "",
+      "first_file": "density_day1_ticks51_100.json",
+      "shape": "regiment",
+      "proposed": "C-52NC",
+      "proposed_kind": "regiment",
+      "proposed_designation": "52nd North Carolina Infantry",
+      "proposed_side": "confederate",
+      "rule": "wrong_side_prefix",
+      "confidence": "high",
+      "evidence": [
+        "state code NC is Confederate-only",
+        "C-52NC exists in oob/confederate_regiments_third_corps.json",
+        "C-52NC is also placed (8 row(s)): the U- row draws the same regiment twice, once in blue"
+      ],
+      "side_flip": true,
+      "hard_rules": {
+        "same_shape": true,
+        "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-5TX",
+      "rows": 1,
+      "ticks": [
+        150
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "",
+      "first_file": "density_day1_afternoon.json",
+      "shape": "regiment",
+      "proposed": "C-5TX",
+      "proposed_kind": "regiment",
+      "proposed_designation": "5th Texas Infantry",
+      "proposed_side": "confederate",
+      "rule": "wrong_side_prefix",
+      "confidence": "high",
+      "evidence": [
+        "state code TX is Confederate-only",
+        "C-5TX exists in oob/confederate_regiments_first_corps.json",
+        "C-5TX is also placed (3 row(s)): the U- row draws the same regiment twice, once in blue"
+      ],
+      "side_flip": true,
+      "hard_rules": {
+        "same_shape": true,
+        "side_change_allowed_by": "wrong_side_prefix (state code contradicts prefix, twin exists)"
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-6PA-RES",
+      "rows": 1,
+      "ticks": [
+        295
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "",
+      "first_file": "density_day2_lrt.json",
+      "shape": "regiment",
+      "proposed": "U-6PA-R",
+      "proposed_kind": "regiment",
+      "proposed_designation": "6th Pennsylvania Reserves (35th Pennsylvania Volunteers)",
+      "proposed_side": "union",
+      "rule": "type_tag_normalisation",
+      "confidence": "high",
+      "evidence": [
+        "\"-RES\" is read as \"-R\"",
+        "U-6PA-R is \"6th Pennsylvania Reserves (35th Pennsylvania Volunteers)\""
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-8IL",
+      "rows": 11,
+      "ticks": [
+        1,
+        3,
+        4,
+        8,
+        11,
+        14,
+        26,
+        35,
+        50,
+        563
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "8th Illinois Cavalry -- Marcellus Jones fires the first shot from Knoxlyn Ridge | 8th Illinois dismounted -- holding McPherson's Ridge west slope | Gamble's bri",
+      "first_file": "density_cavalry_detail.json",
+      "shape": "regiment",
+      "proposed": "U-8IL-CAV",
+      "proposed_kind": "regiment",
+      "proposed_designation": "8th Illinois Cavalry",
+      "proposed_side": "union",
+      "rule": "own_id_prefix_extension",
+      "confidence": "high",
+      "evidence": [
+        "U-8IL-CAV extends U-8IL with a suffix",
+        "note names Gamble, commander in the candidate's chain",
+        "note names \"8th Illinois Cavalry\", matching the candidate's designation"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-8OH-C",
+      "rows": 1,
+      "ticks": [
+        328
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Carroll's brigade counterattacking Cemetery Hill -- driving Louisiana Tigers back",
+      "first_file": "density_day2_culpshill.json",
+      "shape": "regiment",
+      "proposed": "U-8OH",
+      "proposed_kind": "regiment",
+      "proposed_designation": "8th Ohio Volunteer Infantry",
+      "proposed_side": "union",
+      "rule": "suffix_variant",
+      "confidence": "high",
+      "evidence": [
+        "U-8OH exists (8th Ohio Volunteer Infantry); \"C\" is a suffix tag",
+        "tag \"C\" matches a commander/nickname in the regiment's chain (U-II-3-1 / U-II-3)",
+        "note names Carroll, commander in the candidate's chain"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-91NY",
+      "rows": 1,
+      "ticks": [
+        270
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Weed's brigade arriving on summit",
+      "first_file": "density_day2_lrt.json",
+      "shape": "regiment",
+      "proposed": null,
+      "rule": "same_number_other_state",
+      "confidence": "none",
+      "evidence": [],
+      "reason": "no U-91NY in the OOB; same-side regiments numbered 91: U-91PA (91st Pennsylvania Volunteer Infantry)",
+      "candidates": [
+        "U-91PA"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-ART-1PA-L",
+      "rows": 1,
+      "ticks": [
+        115
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Cooper's Battery B, 1st PA -- Seminary Ridge artillery last line of defense",
+      "first_file": "density_day1_seminary.json",
+      "shape": "artillery",
+      "proposed": "U-ART-B1PA",
+      "proposed_kind": "battery",
+      "proposed_designation": "Battery B, 1st Pennsylvania Artillery",
+      "proposed_side": "union",
+      "rule": "battery_named_in_note",
+      "confidence": "low",
+      "evidence": [
+        "note names \"Battery B, 1st PA\", matching U-ART-B1PA \"Battery B, 1st Pennsylvania Artillery\"",
+        "the id itself (U-ART-1PA-L) names a different battery letter: the id and the note disagree"
+      ],
+      "reason": "id and note disagree on the battery",
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-ART-K4US",
+      "rows": 1,
+      "ticks": [
+        440
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Muhlenberg's artillery massing -- 26 guns about to open on the Culp's Hill works",
+      "first_file": "density_day2_culpshill_overnight.json",
+      "shape": "artillery",
+      "proposed": "U-ART-XII-CORPS",
+      "proposed_kind": "artillery_brigade",
+      "proposed_designation": "Twelfth Corps Artillery Brigade",
+      "proposed_side": "union",
+      "rule": "artillery_commander_in_note",
+      "confidence": "low",
+      "evidence": [
+        "note names \"Muhlenberg's artillery\", the commander of U-ART-XII-CORPS (Twelfth Corps Artillery Brigade)"
+      ],
+      "reason": "the id (U-ART-K4US) is not an OOB id; the mapping rests on the note only",
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-ART-McGilvery",
+      "rows": 3,
+      "ticks": [
+        505,
+        518,
+        536
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "McGilvery's Plum Run Line -- 39 guns on Cemetery Ridge south | McGilvery's guns returning fire -- 160 Union guns total engaged | McGilvery ordered to stop firin",
+      "first_file": "density_day3_cannonade.json",
+      "shape": "artillery",
+      "proposed": "U-ART-RES-1",
+      "proposed_kind": "artillery_brigade",
+      "proposed_designation": "First Volunteer Brigade (McGilvery's)",
+      "proposed_side": "union",
+      "rule": "artillery_nickname",
+      "confidence": "medium",
+      "evidence": [
+        "\"McGilvery\" matches the commander/designation of U-ART-RES-1 (First Volunteer Brigade (McGilvery's))",
+        "id U-ART-McGilvery is a nickname, not an OOB id"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-ART-Osborn",
+      "rows": 3,
+      "ticks": [
+        505,
+        518,
+        536
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Osborn's Cemetery Hill batteries -- 40 guns. Will answer the Confederate cannonade. | Osborn answering with full force -- later ordered to reduce fire to deceiv",
+      "first_file": "density_day3_cannonade.json",
+      "shape": "artillery",
+      "proposed": "U-ART-XI-CORPS",
+      "proposed_kind": "artillery_brigade",
+      "proposed_designation": "Eleventh Corps Artillery Brigade",
+      "proposed_side": "union",
+      "rule": "artillery_nickname",
+      "confidence": "medium",
+      "evidence": [
+        "\"Osborn\" matches the commander/designation of U-ART-XI-CORPS (Eleventh Corps Artillery Brigade)",
+        "id U-ART-Osborn is a nickname, not an OOB id"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-ART-RES",
+      "rows": 3,
+      "ticks": [
+        226,
+        302,
+        400
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Artillery Reserve (Tyler) -- 100 guns in reserve behind Cemetery Hill | Artillery Reserve drawing ammunition -- feeding McGilvery's line | Artillery Reserve ove",
+      "first_file": "density_reserves.json",
+      "shape": "artillery",
+      "proposed": null,
+      "rule": "no_rule",
+      "confidence": "none",
+      "evidence": [],
+      "reason": "no OOB record could be matched by any rule",
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-CAV-2-G",
+      "rows": 4,
+      "ticks": [
+        505,
+        515,
+        522,
+        540
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Gregg's division -- positioned to block Stuart's advance | Gregg's division in line -- Gregg has placed himself squarely in Stuart's path | Gregg's troopers joi",
+      "first_file": "density_day3_cavalry.json",
+      "shape": "cavalry_letter",
+      "proposed": "U-CAV-2",
+      "proposed_kind": "division",
+      "proposed_designation": "Second Division, Cavalry Corps (Gregg)",
+      "proposed_side": "union",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Gregg's division\", the commander of U-CAV-2 (Second Division, Cavalry Corps (Gregg))",
+        "id shape is cavalry_letter; target kind division"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-CAV-2-M",
+      "rows": 5,
+      "ticks": [
+        505,
+        515,
+        522,
+        530,
+        555
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Custer's Michigan brigade -- 23-year-old Brigadier General George Custer. He is about to save the battle. | Custer deploying his Michigan men -- they are outnum",
+      "first_file": "density_day3_cavalry.json",
+      "shape": "cavalry_letter",
+      "proposed": "U-CAV-2-3",
+      "proposed_kind": "brigade",
+      "proposed_designation": "Third Brigade, Second Division, Cavalry Corps (Custer's Michigan Brigade)",
+      "proposed_side": "union",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Custer's brigade\", the commander of U-CAV-2-3 (Third Brigade, Second Division, Cavalry Corps (Custer's Michigan Brigade))",
+        "id shape is cavalry_letter; target kind brigade"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-I-1-19IN",
+      "rows": 3,
+      "ticks": [
+        16,
+        20,
+        28
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "19th Indiana -- the western regiment of the Iron Brigade | 19th Indiana flanking south of the woods | 19th Indiana in Herbst Woods -- Reynolds arrives, directs ",
+      "first_file": "density_day1_ironbrigade.json",
+      "shape": "brigade_prefixed_regiment",
+      "proposed": "U-19IN",
+      "proposed_kind": "regiment",
+      "proposed_designation": "19th Indiana Volunteer Infantry",
+      "proposed_side": "union",
+      "rule": "brigade_prefixed_regiment",
+      "confidence": "high",
+      "evidence": [
+        "tail \"19IN\" resolves to U-19IN (19th Indiana Volunteer Infantry)",
+        "its division is U-I-1, matching the id prefix"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-I-1-24MI",
+      "rows": 2,
+      "ticks": [
+        16,
+        22
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "24th Michigan -- largest regiment in the brigade. Will lose 362 of 496 today. | 24th Michigan taking up position -- the Iron Brigade controls Herbst Woods",
+      "first_file": "density_day1_ironbrigade.json",
+      "shape": "brigade_prefixed_regiment",
+      "proposed": "U-24MI",
+      "proposed_kind": "regiment",
+      "proposed_designation": "24th Michigan Volunteer Infantry",
+      "proposed_side": "union",
+      "rule": "brigade_prefixed_regiment",
+      "confidence": "high",
+      "evidence": [
+        "tail \"24MI\" resolves to U-24MI (24th Michigan Volunteer Infantry)",
+        "its division is U-I-1, matching the id prefix"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-I-1-2W",
+      "rows": 4,
+      "ticks": [
+        16,
+        20,
+        22,
+        26
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "2nd Wisconsin -- lead regiment of the Iron Brigade, double-quicking toward McPherson's Ridge | 2nd Wisconsin charging into Herbst Woods -- driving Archer's men ",
+      "first_file": "density_day1_ironbrigade.json",
+      "shape": "brigade_prefixed_regiment",
+      "proposed": "U-2WI",
+      "proposed_kind": "regiment",
+      "proposed_designation": "2nd Wisconsin Volunteer Infantry",
+      "proposed_side": "union",
+      "rule": "brigade_prefixed_regiment",
+      "confidence": "high",
+      "evidence": [
+        "tail \"2W\" resolves to U-2WI (2nd Wisconsin Volunteer Infantry)",
+        "its division is U-I-1, matching the id prefix",
+        "\"W\" is read as Wisconsin (WI)"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-I-1-6W",
+      "rows": 4,
+      "ticks": [
+        25,
+        28,
+        29,
+        32
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "6th Wisconsin forming for the charge -- Dawes will lead them diagonally into Davis's exposed flank | 6th Wisconsin CHARGING -- moving at the double-quick across",
+      "first_file": "density_day1_railroadcut.json",
+      "shape": "brigade_prefixed_regiment",
+      "proposed": "U-6WI",
+      "proposed_kind": "regiment",
+      "proposed_designation": "6th Wisconsin Volunteer Infantry",
+      "proposed_side": "union",
+      "rule": "brigade_prefixed_regiment",
+      "confidence": "high",
+      "evidence": [
+        "tail \"6W\" resolves to U-6WI (6th Wisconsin Volunteer Infantry)",
+        "its division is U-I-1, matching the id prefix",
+        "\"W\" is read as Wisconsin (WI)"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-I-1-7W",
+      "rows": 3,
+      "ticks": [
+        16,
+        20,
+        22
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "7th Wisconsin following -- the Black Hats are coming | 7th Wisconsin charging on the 2nd's left -- the woods echoing with musket fire | 7th Wisconsin holding th",
+      "first_file": "density_day1_ironbrigade.json",
+      "shape": "brigade_prefixed_regiment",
+      "proposed": "U-7WI",
+      "proposed_kind": "regiment",
+      "proposed_designation": "7th Wisconsin Volunteer Infantry",
+      "proposed_side": "union",
+      "rule": "brigade_prefixed_regiment",
+      "confidence": "high",
+      "evidence": [
+        "tail \"7W\" resolves to U-7WI (7th Wisconsin Volunteer Infantry)",
+        "its division is U-I-1, matching the id prefix",
+        "\"W\" is read as Wisconsin (WI)"
+      ],
+      "hard_rule_warnings": [],
+      "needs_historian": false
+    },
+    {
+      "alias_id": "U-I-2-3",
+      "rows": 4,
+      "ticks": [
+        50,
+        53,
+        60,
+        325
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Paul's brigade behind the stone wall on Oak Ridge -- 1200 rifles leveled at Iverson's exposed flank | Paul's brigade pursuing -- sweeping forward to collect pri",
+      "first_file": "density_day1_iverson.json",
+      "shape": "brigade",
+      "proposed": "U-I-2-1",
+      "proposed_kind": "brigade",
+      "proposed_designation": "First Brigade, Second Division, First Corps (Paul's Brigade)",
+      "proposed_side": "union",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Paul's brigade\", the commander of U-I-2-1 (First Brigade, Second Division, First Corps (Paul's Brigade))",
+        "id shape is brigade; target kind brigade"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-I-2-4",
+      "rows": 2,
+      "ticks": [
+        20,
+        28
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Cutler's brigade -- taking heavy fire from Davis. Cutler ordered to fall back. | 95th NY and 14th Brooklyn joining the 6th Wisconsin's charge on the railroad cu",
+      "first_file": "density_day1_railroadcut.json",
+      "shape": "brigade",
+      "proposed": "U-I-1-2",
+      "proposed_kind": "brigade",
+      "proposed_designation": "Second Brigade, First Division, First Corps (Cutler's Brigade)",
+      "proposed_side": "union",
+      "rule": "formation_named_in_note",
+      "confidence": "medium",
+      "evidence": [
+        "note names \"Cutler's brigade\", the commander of U-I-1-2 (Second Brigade, First Division, First Corps (Cutler's Brigade))",
+        "id shape is brigade; target kind brigade"
+      ],
+      "hard_rules": {
+        "same_shape": true
+      },
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-VI-1-1",
+      "rows": 1,
+      "ticks": [
+        180
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "VI Corps arriving after 34-mile march",
+      "first_file": "placements_day1_ticks101_225.json",
+      "shape": "brigade",
+      "proposed": "U-VI-1-1",
+      "proposed_kind": "brigade",
+      "rule": "new_record_required",
+      "confidence": "medium",
+      "evidence": [
+        "referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)",
+        "candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it"
+      ],
+      "new_record": true,
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-VI-1-2",
+      "rows": 1,
+      "ticks": [
+        180
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "",
+      "first_file": "placements_day1_ticks101_225.json",
+      "shape": "brigade",
+      "proposed": "U-VI-1-2",
+      "proposed_kind": "brigade",
+      "rule": "new_record_required",
+      "confidence": "medium",
+      "evidence": [
+        "referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)",
+        "candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it"
+      ],
+      "new_record": true,
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-VI-1-3",
+      "rows": 1,
+      "ticks": [
+        180
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "",
+      "first_file": "placements_day1_ticks101_225.json",
+      "shape": "brigade",
+      "proposed": "U-VI-1-3",
+      "proposed_kind": "brigade",
+      "rule": "new_record_required",
+      "confidence": "medium",
+      "evidence": [
+        "referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)",
+        "candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it"
+      ],
+      "new_record": true,
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-VI-2-1",
+      "rows": 1,
+      "ticks": [
+        180
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "",
+      "first_file": "placements_day1_ticks101_225.json",
+      "shape": "brigade",
+      "proposed": "U-VI-2-1",
+      "proposed_kind": "brigade",
+      "rule": "new_record_required",
+      "confidence": "medium",
+      "evidence": [
+        "referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)",
+        "candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it"
+      ],
+      "new_record": true,
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-VI-2-2",
+      "rows": 1,
+      "ticks": [
+        180
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "",
+      "first_file": "placements_day1_ticks101_225.json",
+      "shape": "brigade",
+      "proposed": "U-VI-2-2",
+      "proposed_kind": "brigade",
+      "rule": "new_record_required",
+      "confidence": "medium",
+      "evidence": [
+        "referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)",
+        "candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it"
+      ],
+      "new_record": true,
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-VI-3-1",
+      "rows": 1,
+      "ticks": [
+        180
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "",
+      "first_file": "placements_day1_ticks101_225.json",
+      "shape": "brigade",
+      "proposed": "U-VI-3-1",
+      "proposed_kind": "brigade",
+      "rule": "new_record_required",
+      "confidence": "medium",
+      "evidence": [
+        "referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)",
+        "candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it"
+      ],
+      "new_record": true,
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-VI-3-2",
+      "rows": 1,
+      "ticks": [
+        180
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "",
+      "first_file": "placements_day1_ticks101_225.json",
+      "shape": "brigade",
+      "proposed": "U-VI-3-2",
+      "proposed_kind": "brigade",
+      "rule": "new_record_required",
+      "confidence": "medium",
+      "evidence": [
+        "referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)",
+        "candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it"
+      ],
+      "new_record": true,
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-VI-3-3",
+      "rows": 1,
+      "ticks": [
+        180
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "",
+      "first_file": "placements_day1_ticks101_225.json",
+      "shape": "brigade",
+      "proposed": "U-VI-3-3",
+      "proposed_kind": "brigade",
+      "rule": "new_record_required",
+      "confidence": "medium",
+      "evidence": [
+        "referenced by regiments and by U-VI-* division.brigade_ids, but no brigade record exists (R003)",
+        "candidate brigade record generated in data-src/build/candidates/vi_corps_brigades.json from the regiments that reference it"
+      ],
+      "new_record": true,
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    },
+    {
+      "alias_id": "U-XI-2-3",
+      "rows": 3,
+      "ticks": [
+        318,
+        322,
+        330
+      ],
+      "side_prefix": "union",
+      "note_excerpt": "Wiedrich's Battery I and Ricketts's batteries on East Cemetery Hill -- about to be overrun | Wiedrich's gunners fighting with rammers and handspikes -- Confeder",
+      "first_file": "density_day2_cemhill.json",
+      "shape": "brigade",
+      "proposed": null,
+      "rule": "no_rule",
+      "confidence": "none",
+      "evidence": [],
+      "reason": "no OOB record could be matched by any rule",
+      "hard_rule_warnings": [],
+      "needs_historian": true
+    }
+  ]
+}

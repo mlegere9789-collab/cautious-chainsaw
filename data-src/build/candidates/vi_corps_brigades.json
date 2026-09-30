@@ -1,0 +1,383 @@
+{
+  "schema": "gtbg/candidate-vi-corps-brigades/1",
+  "generated_by": "tools/data/unit_registry.mjs",
+  "status": "CANDIDATE: derived from legacy/dist/data; nothing here is served or displayed",
+  "count": 8,
+  "brigades": [
+    {
+      "brigade_id": "U-VI-1-1",
+      "candidate": true,
+      "parent_division_id": "U-VI-1",
+      "parent_corps_id": "U-VI",
+      "division_designation": "First Division, Sixth Corps",
+      "or_pairing": {
+        "or_position": "First Division (Wright), First Brigade",
+        "commander_or": "Brig. Gen. A. T. A. Torbert",
+        "method": "regiment overlap",
+        "matched": 3,
+        "of_or_regiments": 4,
+        "of_legacy_regiments": 4
+      },
+      "designation_candidate": "First Brigade, First Division, Sixth Corps",
+      "regiment_ids": [
+        "U-1NJ-1",
+        "U-2NJ",
+        "U-3NJ",
+        "U-4NJ"
+      ],
+      "regiments_in_legacy_data": [
+        "1st New Jersey Volunteer Infantry",
+        "2nd New Jersey Volunteer Infantry",
+        "3rd New Jersey Volunteer Infantry",
+        "4th New Jersey Volunteer Infantry"
+      ],
+      "regiments_listed_in_or": [
+        "1st New Jersey",
+        "2nd New Jersey",
+        "3rd New Jersey",
+        "15th New Jersey"
+      ],
+      "in_legacy_not_in_or_brigade": [
+        "U-4NJ (4th New Jersey Volunteer Infantry)"
+      ],
+      "in_or_brigade_not_in_legacy": [
+        "15th New Jersey"
+      ],
+      "numbering_matches_or_order": true,
+      "strength_derived": 1466,
+      "casualties_derived": 0,
+      "derived_note": "sum of the legacy regiment records (regiments with no casualties recorded contribute 0); reported_* and unlisted_* fields are WP-DATA-07 step 3",
+      "source": "OR Ser. I vol. 27 pt. 1, organization of the Army of the Potomac, Sixth Corps (printed pp.162-163); IA warofrebellion271unit_djvu.txt lines 18604-18760",
+      "ocr_note": null,
+      "verification": "OCR read by this workstream; commanders and regiment lists are as printed; the pairing of each site id with an OR brigade is by regiment overlap and needs the historian",
+      "needs_historian": true
+    },
+    {
+      "brigade_id": "U-VI-1-2",
+      "candidate": true,
+      "parent_division_id": "U-VI-1",
+      "parent_corps_id": "U-VI",
+      "division_designation": "First Division, Sixth Corps",
+      "or_pairing": {
+        "or_position": "First Division (Wright), Second Brigade",
+        "commander_or": "Brig. Gen. Joseph J. Bartlett",
+        "method": "regiment overlap",
+        "matched": 4,
+        "of_or_regiments": 4,
+        "of_legacy_regiments": 5
+      },
+      "designation_candidate": "Second Brigade, First Division, Sixth Corps",
+      "regiment_ids": [
+        "U-5ME",
+        "U-121NY",
+        "U-95PA",
+        "U-96PA",
+        "U-23NJ"
+      ],
+      "regiments_in_legacy_data": [
+        "5th Maine Volunteer Infantry",
+        "121st New York Volunteer Infantry",
+        "95th Pennsylvania Volunteer Infantry",
+        "96th Pennsylvania Volunteer Infantry",
+        "23rd New Jersey Volunteer Infantry"
+      ],
+      "regiments_listed_in_or": [
+        "5th Maine",
+        "121st New York",
+        "95th Pennsylvania",
+        "96th Pennsylvania"
+      ],
+      "in_legacy_not_in_or_brigade": [
+        "U-23NJ (23rd New Jersey Volunteer Infantry)"
+      ],
+      "in_or_brigade_not_in_legacy": [],
+      "numbering_matches_or_order": true,
+      "strength_derived": 1800,
+      "casualties_derived": 0,
+      "derived_note": "sum of the legacy regiment records (regiments with no casualties recorded contribute 0); reported_* and unlisted_* fields are WP-DATA-07 step 3",
+      "source": "OR Ser. I vol. 27 pt. 1, organization of the Army of the Potomac, Sixth Corps (printed pp.162-163); IA warofrebellion271unit_djvu.txt lines 18604-18760",
+      "ocr_note": null,
+      "verification": "OCR read by this workstream; commanders and regiment lists are as printed; the pairing of each site id with an OR brigade is by regiment overlap and needs the historian",
+      "needs_historian": true
+    },
+    {
+      "brigade_id": "U-VI-1-3",
+      "candidate": true,
+      "parent_division_id": "U-VI-1",
+      "parent_corps_id": "U-VI",
+      "division_designation": "First Division, Sixth Corps",
+      "or_pairing": {
+        "or_position": "First Division (Wright), Third Brigade",
+        "commander_or": "Brig. Gen. David A. Russell",
+        "method": "regiment overlap",
+        "matched": 4,
+        "of_or_regiments": 4,
+        "of_legacy_regiments": 4
+      },
+      "designation_candidate": "Third Brigade, First Division, Sixth Corps",
+      "regiment_ids": [
+        "U-6ME",
+        "U-49PA",
+        "U-119PA",
+        "U-5WI"
+      ],
+      "regiments_in_legacy_data": [
+        "6th Maine Volunteer Infantry",
+        "49th Pennsylvania Volunteer Infantry",
+        "119th Pennsylvania Volunteer Infantry",
+        "5th Wisconsin Volunteer Infantry"
+      ],
+      "regiments_listed_in_or": [
+        "6th Maine",
+        "49th Pennsylvania",
+        "119th Pennsylvania",
+        "5th Wisconsin"
+      ],
+      "in_legacy_not_in_or_brigade": [],
+      "in_or_brigade_not_in_legacy": [],
+      "numbering_matches_or_order": true,
+      "strength_derived": 1396,
+      "casualties_derived": 0,
+      "derived_note": "sum of the legacy regiment records (regiments with no casualties recorded contribute 0); reported_* and unlisted_* fields are WP-DATA-07 step 3",
+      "source": "OR Ser. I vol. 27 pt. 1, organization of the Army of the Potomac, Sixth Corps (printed pp.162-163); IA warofrebellion271unit_djvu.txt lines 18604-18760",
+      "ocr_note": null,
+      "verification": "OCR read by this workstream; commanders and regiment lists are as printed; the pairing of each site id with an OR brigade is by regiment overlap and needs the historian",
+      "needs_historian": true
+    },
+    {
+      "brigade_id": "U-VI-2-1",
+      "candidate": true,
+      "parent_division_id": "U-VI-2",
+      "parent_corps_id": "U-VI",
+      "division_designation": "Second Division, Sixth Corps",
+      "or_pairing": {
+        "or_position": "Second Division (Howe), Second Brigade (the OR notes \"No First Brigade in division\")",
+        "commander_or": "Col. Lewis A. Grant",
+        "method": "regiment overlap",
+        "matched": 5,
+        "of_or_regiments": 5,
+        "of_legacy_regiments": 5
+      },
+      "designation_candidate": "Second Brigade (the OR notes \"No First Brigade in division\"), Second Division, Sixth Corps",
+      "regiment_ids": [
+        "U-2VT",
+        "U-3VT",
+        "U-4VT",
+        "U-5VT",
+        "U-6VT"
+      ],
+      "regiments_in_legacy_data": [
+        "2nd Vermont Volunteer Infantry",
+        "3rd Vermont Volunteer Infantry",
+        "4th Vermont Volunteer Infantry",
+        "5th Vermont Volunteer Infantry",
+        "6th Vermont Volunteer Infantry"
+      ],
+      "regiments_listed_in_or": [
+        "2nd Vermont",
+        "3rd Vermont",
+        "4th Vermont",
+        "5th Vermont",
+        "6th Vermont"
+      ],
+      "in_legacy_not_in_or_brigade": [],
+      "in_or_brigade_not_in_legacy": [],
+      "numbering_matches_or_order": false,
+      "strength_derived": 1586,
+      "casualties_derived": 0,
+      "derived_note": "sum of the legacy regiment records (regiments with no casualties recorded contribute 0); reported_* and unlisted_* fields are WP-DATA-07 step 3",
+      "source": "OR Ser. I vol. 27 pt. 1, organization of the Army of the Potomac, Sixth Corps (printed pp.162-163); IA warofrebellion271unit_djvu.txt lines 18604-18760",
+      "ocr_note": "the OCR prints the first Vermont regiment as \"3d\"; two 3d cannot both be right, read here as the 2nd Vermont",
+      "verification": "OCR read by this workstream; commanders and regiment lists are as printed; the pairing of each site id with an OR brigade is by regiment overlap and needs the historian",
+      "needs_historian": true
+    },
+    {
+      "brigade_id": "U-VI-2-2",
+      "candidate": true,
+      "parent_division_id": "U-VI-2",
+      "parent_corps_id": "U-VI",
+      "division_designation": "Second Division, Sixth Corps",
+      "or_pairing": {
+        "or_position": "Second Division (Howe), Third Brigade",
+        "commander_or": "Brig. Gen. Thomas H. Neill",
+        "method": "regiment overlap",
+        "matched": 5,
+        "of_or_regiments": 6,
+        "of_legacy_regiments": 5
+      },
+      "designation_candidate": "Third Brigade, Second Division, Sixth Corps",
+      "regiment_ids": [
+        "U-7ME",
+        "U-33NY",
+        "U-43NY",
+        "U-49NY",
+        "U-77NY"
+      ],
+      "regiments_in_legacy_data": [
+        "7th Maine Volunteer Infantry",
+        "33rd New York Volunteer Infantry",
+        "43rd New York Volunteer Infantry",
+        "49th New York Volunteer Infantry",
+        "77th New York Volunteer Infantry"
+      ],
+      "regiments_listed_in_or": [
+        "7th Maine",
+        "33rd New York",
+        "43rd New York",
+        "49th New York",
+        "77th New York",
+        "61st Pennsylvania"
+      ],
+      "in_legacy_not_in_or_brigade": [],
+      "in_or_brigade_not_in_legacy": [
+        "61st Pennsylvania"
+      ],
+      "numbering_matches_or_order": false,
+      "strength_derived": 1174,
+      "casualties_derived": 0,
+      "derived_note": "sum of the legacy regiment records (regiments with no casualties recorded contribute 0); reported_* and unlisted_* fields are WP-DATA-07 step 3",
+      "source": "OR Ser. I vol. 27 pt. 1, organization of the Army of the Potomac, Sixth Corps (printed pp.162-163); IA warofrebellion271unit_djvu.txt lines 18604-18760",
+      "ocr_note": "the OCR prints \"38d\" and \"48d\" New York, read here as 33rd and 43rd",
+      "verification": "OCR read by this workstream; commanders and regiment lists are as printed; the pairing of each site id with an OR brigade is by regiment overlap and needs the historian",
+      "needs_historian": true
+    },
+    {
+      "brigade_id": "U-VI-3-1",
+      "candidate": true,
+      "parent_division_id": "U-VI-3",
+      "parent_corps_id": "U-VI",
+      "division_designation": "Third Division, Sixth Corps",
+      "or_pairing": {
+        "or_position": "Third Division (Newton, then Wheaton), First Brigade",
+        "commander_or": "Brig. Gen. Alexander Shaler",
+        "method": "regiment overlap",
+        "matched": 5,
+        "of_or_regiments": 5,
+        "of_legacy_regiments": 5
+      },
+      "designation_candidate": "First Brigade, Third Division, Sixth Corps",
+      "regiment_ids": [
+        "U-65NY",
+        "U-67NY",
+        "U-122NY",
+        "U-23PA",
+        "U-82PA"
+      ],
+      "regiments_in_legacy_data": [
+        "65th New York Volunteer Infantry",
+        "67th New York Volunteer Infantry",
+        "122nd New York Volunteer Infantry",
+        "23rd Pennsylvania Volunteer Infantry (Birney's Zouaves)",
+        "82nd Pennsylvania Volunteer Infantry"
+      ],
+      "regiments_listed_in_or": [
+        "65th New York",
+        "67th New York",
+        "122nd New York",
+        "23rd Pennsylvania",
+        "82nd Pennsylvania"
+      ],
+      "in_legacy_not_in_or_brigade": [],
+      "in_or_brigade_not_in_legacy": [],
+      "numbering_matches_or_order": true,
+      "strength_derived": 1590,
+      "casualties_derived": 0,
+      "derived_note": "sum of the legacy regiment records (regiments with no casualties recorded contribute 0); reported_* and unlisted_* fields are WP-DATA-07 step 3",
+      "source": "OR Ser. I vol. 27 pt. 1, organization of the Army of the Potomac, Sixth Corps (printed pp.162-163); IA warofrebellion271unit_djvu.txt lines 18604-18760",
+      "ocr_note": null,
+      "verification": "OCR read by this workstream; commanders and regiment lists are as printed; the pairing of each site id with an OR brigade is by regiment overlap and needs the historian",
+      "needs_historian": true
+    },
+    {
+      "brigade_id": "U-VI-3-2",
+      "candidate": true,
+      "parent_division_id": "U-VI-3",
+      "parent_corps_id": "U-VI",
+      "division_designation": "Third Division, Sixth Corps",
+      "or_pairing": {
+        "or_position": "Third Division (Newton, then Wheaton), Third Brigade",
+        "commander_or": "Brig. Gen. Frank Wheaton (Col. David J. Nevin)",
+        "method": "regiment overlap",
+        "matched": 4,
+        "of_or_regiments": 5,
+        "of_legacy_regiments": 4
+      },
+      "designation_candidate": "Third Brigade, Third Division, Sixth Corps",
+      "regiment_ids": [
+        "U-62NY",
+        "U-93PA",
+        "U-98PA",
+        "U-102PA"
+      ],
+      "regiments_in_legacy_data": [
+        "62nd New York Volunteer Infantry",
+        "93rd Pennsylvania Volunteer Infantry",
+        "98th Pennsylvania Volunteer Infantry",
+        "102nd Pennsylvania Volunteer Infantry"
+      ],
+      "regiments_listed_in_or": [
+        "62nd New York",
+        "93rd Pennsylvania",
+        "98th Pennsylvania",
+        "102nd Pennsylvania",
+        "139th Pennsylvania"
+      ],
+      "in_legacy_not_in_or_brigade": [],
+      "in_or_brigade_not_in_legacy": [
+        "139th Pennsylvania"
+      ],
+      "numbering_matches_or_order": false,
+      "strength_derived": 1387,
+      "casualties_derived": 35,
+      "derived_note": "sum of the legacy regiment records (regiments with no casualties recorded contribute 0); reported_* and unlisted_* fields are WP-DATA-07 step 3",
+      "source": "OR Ser. I vol. 27 pt. 1, organization of the Army of the Potomac, Sixth Corps (printed pp.162-163); IA warofrebellion271unit_djvu.txt lines 18604-18760",
+      "ocr_note": null,
+      "verification": "OCR read by this workstream; commanders and regiment lists are as printed; the pairing of each site id with an OR brigade is by regiment overlap and needs the historian",
+      "needs_historian": true
+    },
+    {
+      "brigade_id": "U-VI-3-3",
+      "candidate": true,
+      "parent_division_id": "U-VI-3",
+      "parent_corps_id": "U-VI",
+      "division_designation": "Third Division, Sixth Corps",
+      "or_pairing": {
+        "or_position": "Third Division (Newton, then Wheaton), Second Brigade",
+        "commander_or": "Col. Henry L. Eustis",
+        "method": "regiment overlap",
+        "matched": 4,
+        "of_or_regiments": 4,
+        "of_legacy_regiments": 4
+      },
+      "designation_candidate": "Second Brigade, Third Division, Sixth Corps",
+      "regiment_ids": [
+        "U-7MA",
+        "U-10MA",
+        "U-37MA",
+        "U-2RI"
+      ],
+      "regiments_in_legacy_data": [
+        "7th Massachusetts Volunteer Infantry",
+        "10th Massachusetts Volunteer Infantry",
+        "37th Massachusetts Volunteer Infantry",
+        "2nd Rhode Island Volunteer Infantry"
+      ],
+      "regiments_listed_in_or": [
+        "7th Massachusetts",
+        "10th Massachusetts",
+        "37th Massachusetts",
+        "2nd Rhode Island"
+      ],
+      "in_legacy_not_in_or_brigade": [],
+      "in_or_brigade_not_in_legacy": [],
+      "numbering_matches_or_order": false,
+      "strength_derived": 1568,
+      "casualties_derived": 0,
+      "derived_note": "sum of the legacy regiment records (regiments with no casualties recorded contribute 0); reported_* and unlisted_* fields are WP-DATA-07 step 3",
+      "source": "OR Ser. I vol. 27 pt. 1, organization of the Army of the Potomac, Sixth Corps (printed pp.162-163); IA warofrebellion271unit_djvu.txt lines 18604-18760",
+      "ocr_note": null,
+      "verification": "OCR read by this workstream; commanders and regiment lists are as printed; the pairing of each site id with an OR brigade is by regiment overlap and needs the historian",
+      "needs_historian": true
+    }
+  ]
+}

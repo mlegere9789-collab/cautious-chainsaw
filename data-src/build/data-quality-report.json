@@ -1,0 +1,496 @@
+{
+  "schema": "gtbg/data-quality-report/1",
+  "status": "CANDIDATE (not published; /method is chapter 11)",
+  "data_version": "0.9.0",
+  "data_content_sha256": "7c767baa7f7855f944718da9172d4742b7066cdf75f7aa9356ee80a86a1487c8",
+  "rules": [
+    {
+      "id": "S001",
+      "sev": "E",
+      "status": "implemented",
+      "found": 0,
+      "rows": 0
+    },
+    {
+      "id": "S002",
+      "sev": "E",
+      "status": "implemented",
+      "found": 0,
+      "rows": 0
+    },
+    {
+      "id": "S003",
+      "sev": "E",
+      "status": "implemented",
+      "found": 0,
+      "rows": 0
+    },
+    {
+      "id": "S004",
+      "sev": "E",
+      "status": "implemented",
+      "found": 0,
+      "rows": 0
+    },
+    {
+      "id": "S005",
+      "sev": "E",
+      "status": "implemented",
+      "found": 49,
+      "rows": 49
+    },
+    {
+      "id": "S006",
+      "sev": "E",
+      "status": "implemented",
+      "found": 0,
+      "rows": 0
+    },
+    {
+      "id": "S007",
+      "sev": "E",
+      "status": "implemented",
+      "found": 103,
+      "rows": 220
+    },
+    {
+      "id": "S008",
+      "sev": "E",
+      "status": "implemented",
+      "found": 5,
+      "rows": 5
+    },
+    {
+      "id": "R001",
+      "sev": "E",
+      "status": "implemented",
+      "found": 102,
+      "rows": 223
+    },
+    {
+      "id": "R002",
+      "sev": "E",
+      "status": "implemented",
+      "found": 10,
+      "rows": 10
+    },
+    {
+      "id": "R003",
+      "sev": "E",
+      "status": "implemented",
+      "found": 44,
+      "rows": 44
+    },
+    {
+      "id": "R004",
+      "sev": "E",
+      "status": "implemented",
+      "found": 36,
+      "rows": 36
+    },
+    {
+      "id": "R005",
+      "sev": "E",
+      "status": "implemented",
+      "found": 0,
+      "rows": 0
+    },
+    {
+      "id": "R006",
+      "sev": "E",
+      "status": "implemented",
+      "found": 1,
+      "rows": 1
+    },
+    {
+      "id": "R007",
+      "sev": "E",
+      "status": "partial",
+      "found": 20,
+      "rows": 20
+    },
+    {
+      "id": "R008",
+      "sev": "E",
+      "status": "partial",
+      "found": 14,
+      "rows": 14
+    },
+    {
+      "id": "R009",
+      "sev": "E",
+      "status": "implemented",
+      "found": 1,
+      "rows": 1
+    },
+    {
+      "id": "R010",
+      "sev": "W",
+      "status": "implemented",
+      "found": 7,
+      "rows": 7
+    },
+    {
+      "id": "R011",
+      "sev": "W",
+      "status": "partial",
+      "found": 33,
+      "rows": 33
+    },
+    {
+      "id": "C001",
+      "sev": "E",
+      "status": "partial",
+      "found": 153,
+      "rows": 153
+    },
+    {
+      "id": "C002",
+      "sev": "W",
+      "status": "implemented",
+      "found": 680,
+      "rows": 680
+    },
+    {
+      "id": "C003",
+      "sev": "E",
+      "status": "partial",
+      "found": 487,
+      "rows": 487
+    },
+    {
+      "id": "C004",
+      "sev": "W",
+      "status": "implemented",
+      "found": 314,
+      "rows": 314
+    },
+    {
+      "id": "C005",
+      "sev": "E",
+      "status": "skipped",
+      "found": null,
+      "rows": null
+    },
+    {
+      "id": "G001",
+      "sev": "E",
+      "status": "skipped",
+      "found": null,
+      "rows": null
+    },
+    {
+      "id": "G002",
+      "sev": "E",
+      "status": "partial",
+      "found": 379,
+      "rows": 379
+    },
+    {
+      "id": "G003",
+      "sev": "W",
+      "status": "partial",
+      "found": 18,
+      "rows": 18
+    },
+    {
+      "id": "G004",
+      "sev": "W",
+      "status": "implemented",
+      "found": 39,
+      "rows": 78
+    },
+    {
+      "id": "G005",
+      "sev": "W",
+      "status": "implemented",
+      "found": 34,
+      "rows": 34
+    },
+    {
+      "id": "G006",
+      "sev": "W",
+      "status": "implemented",
+      "found": 43,
+      "rows": 43
+    },
+    {
+      "id": "G007",
+      "sev": "W",
+      "status": "implemented",
+      "found": 168,
+      "rows": 168
+    },
+    {
+      "id": "G008",
+      "sev": "W",
+      "status": "partial",
+      "found": 8,
+      "rows": 8
+    },
+    {
+      "id": "N001",
+      "sev": "E",
+      "status": "implemented",
+      "found": 74,
+      "rows": 148
+    },
+    {
+      "id": "N002",
+      "sev": "E",
+      "status": "implemented",
+      "found": 121,
+      "rows": 121
+    },
+    {
+      "id": "N003",
+      "sev": "E",
+      "status": "implemented",
+      "found": 255,
+      "rows": 255
+    },
+    {
+      "id": "N004",
+      "sev": "W",
+      "status": "implemented",
+      "found": 262,
+      "rows": 262
+    },
+    {
+      "id": "N005",
+      "sev": "W",
+      "status": "partial",
+      "found": 114,
+      "rows": 114
+    },
+    {
+      "id": "N006",
+      "sev": "E",
+      "status": "implemented",
+      "found": 2,
+      "rows": 2
+    },
+    {
+      "id": "N007",
+      "sev": "E",
+      "status": "partial",
+      "found": 5,
+      "rows": 5
+    },
+    {
+      "id": "N008",
+      "sev": "E",
+      "status": "skipped",
+      "found": null,
+      "rows": null
+    },
+    {
+      "id": "N009",
+      "sev": "E",
+      "status": "implemented",
+      "found": 4,
+      "rows": 4
+    },
+    {
+      "id": "N010",
+      "sev": "E",
+      "status": "implemented",
+      "found": 2,
+      "rows": 2
+    },
+    {
+      "id": "T001",
+      "sev": "E",
+      "status": "partial",
+      "found": 46,
+      "rows": 46
+    },
+    {
+      "id": "T002",
+      "sev": "E",
+      "status": "partial",
+      "found": 42,
+      "rows": 42
+    },
+    {
+      "id": "T003",
+      "sev": "W",
+      "status": "partial",
+      "found": 8,
+      "rows": 8
+    },
+    {
+      "id": "T004",
+      "sev": "E",
+      "status": "partial",
+      "found": 0,
+      "rows": 0
+    },
+    {
+      "id": "T005",
+      "sev": "E",
+      "status": "implemented",
+      "found": 0,
+      "rows": 0
+    },
+    {
+      "id": "X001",
+      "sev": "E",
+      "status": "implemented",
+      "found": 1724,
+      "rows": 1724
+    },
+    {
+      "id": "X002",
+      "sev": "E",
+      "status": "implemented",
+      "found": 56,
+      "rows": 56
+    },
+    {
+      "id": "X003",
+      "sev": "E",
+      "status": "implemented",
+      "found": 70,
+      "rows": 70
+    },
+    {
+      "id": "X004",
+      "sev": "W",
+      "status": "partial",
+      "found": 8,
+      "rows": 8
+    },
+    {
+      "id": "X005",
+      "sev": "W",
+      "status": "partial",
+      "found": 19,
+      "rows": 19
+    },
+    {
+      "id": "X006",
+      "sev": "W",
+      "status": "implemented",
+      "found": 245,
+      "rows": 245
+    },
+    {
+      "id": "X007",
+      "sev": "E",
+      "status": "implemented",
+      "found": 24,
+      "rows": 24
+    },
+    {
+      "id": "P001",
+      "sev": "W",
+      "status": "partial",
+      "found": 10,
+      "rows": 10
+    },
+    {
+      "id": "P002",
+      "sev": "E",
+      "status": "partial",
+      "found": 29,
+      "rows": 29
+    },
+    {
+      "id": "P003",
+      "sev": "W",
+      "status": "partial",
+      "found": 1,
+      "rows": 1
+    },
+    {
+      "id": "P004",
+      "sev": "W",
+      "status": "skipped",
+      "found": null,
+      "rows": null
+    },
+    {
+      "id": "F001",
+      "sev": "E",
+      "status": "implemented",
+      "found": 25,
+      "rows": 25
+    },
+    {
+      "id": "F002",
+      "sev": "E",
+      "status": "implemented",
+      "found": 0,
+      "rows": 0
+    },
+    {
+      "id": "K001",
+      "sev": "E",
+      "status": "partial",
+      "found": 1,
+      "rows": 1
+    },
+    {
+      "id": "L001",
+      "sev": "E",
+      "status": "implemented",
+      "found": 18,
+      "rows": 18
+    },
+    {
+      "id": "D001",
+      "sev": "E",
+      "status": "implemented",
+      "found": 0,
+      "rows": 0
+    },
+    {
+      "id": "D002",
+      "sev": "E",
+      "status": "implemented",
+      "found": 0,
+      "rows": 0
+    },
+    {
+      "id": "M001",
+      "sev": "E",
+      "status": "implemented",
+      "found": 612,
+      "rows": 612
+    },
+    {
+      "id": "E001",
+      "sev": "E",
+      "status": "skipped",
+      "found": null,
+      "rows": null
+    },
+    {
+      "id": "U001",
+      "sev": "E",
+      "status": "implemented",
+      "found": 5,
+      "rows": 5
+    },
+    {
+      "id": "H001",
+      "sev": "E",
+      "status": "skipped",
+      "found": null,
+      "rows": null
+    }
+  ],
+  "provenance": {
+    "records": 3283,
+    "with_source_string": 60,
+    "percent_with_source_string": 1.83,
+    "percent_documented": 0,
+    "note": "no source resolves in a registry; no anchor carries basis"
+  },
+  "schematic": {
+    "tick1_rows": 73,
+    "tick1_rows_on_shared_longitudes": 61,
+    "rows_under_4_decimals": 379
+  }
+}

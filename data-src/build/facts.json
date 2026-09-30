@@ -1,0 +1,335 @@
+{
+  "schema": "gtbg/facts/1",
+  "status": "CANDIDATE: generated from legacy/dist/data by tools/data/facts.mjs; no page reads it yet (WP-DATA-19 wires tokens through the site build / copy patch table)",
+  "data_version": "0.9.0",
+  "generated_from": {
+    "data_content_sha256": "7c767baa7f7855f944718da9172d4742b7066cdf75f7aa9356ee80a86a1487c8",
+    "authorities": "data-src/authorities/authorities.json",
+    "bundle_extract": "legacy/analysis/bundle.pretty.js (acorn, literal nodes only)"
+  },
+  "ticks": {
+    "total": 675,
+    "day_start": [
+      1,
+      226,
+      451
+    ],
+    "day_ranges": [
+      [
+        1,
+        225
+      ],
+      [
+        226,
+        450
+      ],
+      [
+        451,
+        675
+      ]
+    ],
+    "time_model": "undecided (D-TIME). The legacy files declare a linear 5 min/tick formula; the audit measured it as wrong. This registry deliberately carries no minutes_per_tick."
+  },
+  "units": {
+    "total": 569,
+    "regiments": 465,
+    "batteries": 104,
+    "records": 570,
+    "regiment_records": 467,
+    "battery_records": 103,
+    "by_side": {
+      "union": 328,
+      "confederate": 241
+    },
+    "regiments_by_side": {
+      "union": 273,
+      "confederate": 192
+    },
+    "with_own_track": 255,
+    "regiments_with_own_track": 217,
+    "batteries_with_own_track": 38,
+    "positioned_via_parent_or_ancestor": 250,
+    "never_positioned": 51,
+    "brigades": 93,
+    "divisions": 31,
+    "corps": 11,
+    "artillery_battalions": 11,
+    "artillery_brigades": 12,
+    "placed_ids": 478,
+    "placed_ids_resolved": 383,
+    "placed_ids_by_kind": {
+      "brigade": 89,
+      "battery": 33,
+      "regiment": 217,
+      "horse_battery": 5,
+      "division": 28,
+      "battalion": 5,
+      "corps": 6
+    },
+    "unresolved_placed_ids": 95,
+    "unresolved_placed_rows": 216,
+    "unplaced_regiments": 248,
+    "unplaced_batteries": 66,
+    "basis": {
+      "units.total": "465 regiments and 104 batteries in the legacy order of battle (alias stub U-14BK excluded; the horse battery C-McClanahan-ART filed among the regiments counted as a battery)",
+      "units.regiments": "regiments in the order of battle, alias records excluded (273 Union, 192 Confederate)",
+      "units.batteries": "batteries in the order of battle including horse artillery",
+      "units.with_own_track": "units with at least one position row of their own; the others are positioned only through a parent formation or not at all",
+      "units.records": "oob records: 467 regiment records + 103 batteries (includes the alias stub and the misfiled battery)",
+      "content.vignettes": "narrated moments (vignettes)",
+      "content.chronology_events": "master chronology events",
+      "content.monuments": "monument records in the deployed bundle (not published coordinates: 503 have no source)"
+    }
+  },
+  "placements": {
+    "rows": 1804,
+    "unique_unit_tick_keys": 1687,
+    "duplicate_keys": 103,
+    "ticks_with_rows": 188,
+    "ticks_without_rows": 487,
+    "by_group": {
+      "placements": 694,
+      "density": 1110
+    }
+  },
+  "content": {
+    "vignettes": 24,
+    "chronology_events": 137,
+    "chronology_critical_events": 45,
+    "terrain_entries": 50,
+    "terrain_key_locations": 30,
+    "successions": 42,
+    "monuments": 512,
+    "monuments_without_source": 503,
+    "story_markers": 20,
+    "legacy_overlay_monuments": 9,
+    "tour_stops": 16,
+    "features_site_nav": 20,
+    "features_index_html": 18
+  },
+  "corps": {
+    "union": [
+      {
+        "id": "U-I",
+        "name": "First Corps",
+        "strength": 12222,
+        "casualties": 6059
+      },
+      {
+        "id": "U-II",
+        "name": "Second Corps",
+        "strength": 11347,
+        "casualties": 4369
+      },
+      {
+        "id": "U-III",
+        "name": "Third Corps",
+        "strength": 10675,
+        "casualties": 4211
+      },
+      {
+        "id": "U-V",
+        "name": "Fifth Corps",
+        "strength": 10907,
+        "casualties": 2187
+      },
+      {
+        "id": "U-VI",
+        "name": "Sixth Corps",
+        "strength": 13596,
+        "casualties": 242
+      },
+      {
+        "id": "U-XI",
+        "name": "Eleventh Corps",
+        "strength": 9188,
+        "casualties": 3801
+      },
+      {
+        "id": "U-XII",
+        "name": "Twelfth Corps",
+        "strength": 9788,
+        "casualties": 1082
+      },
+      {
+        "id": "U-CAV",
+        "name": "Cavalry Corps",
+        "strength": 12441,
+        "casualties": 852
+      }
+    ],
+    "confederate": [
+      {
+        "id": "C-I",
+        "name": "First Corps",
+        "strength": 22000,
+        "casualties": 7500
+      },
+      {
+        "id": "C-II",
+        "name": "Second Corps",
+        "strength": 21000,
+        "casualties": 6000
+      },
+      {
+        "id": "C-III",
+        "name": "Third Corps",
+        "strength": 22000,
+        "casualties": 8000
+      }
+    ]
+  },
+  "casualties": {
+    "note": "Authorities are listed, not chosen: the Union headline candidate is the Official Records; the Confederate side is a range with named authorities (chapter 13 WP-DATA-08a, backlog H-01). Nothing below is displayed anywhere yet.",
+    "authorities": {
+      "union": [
+        {
+          "id": "OR27-1-NO15",
+          "total": 23049,
+          "K": 3155,
+          "W": 14529,
+          "M": 5365,
+          "basis": "battle, July 1-4 row of the campaign return",
+          "status": "verified_ocr",
+          "source": "OR27-1",
+          "page": "report No. 15 begins under the printed page number 193 in the OCR; the row carries the footnote 'For detailed statement, see pp. 168-173' (report No. 13). Confirm the exact page on the scan."
+        },
+        {
+          "id": "BM-UNION",
+          "total": 23055,
+          "K": 3155,
+          "W": 14531,
+          "M": 5369,
+          "basis": "battle",
+          "status": "secondary_unverified",
+          "source": "BM",
+          "page": "p.125 (as cited by Wikipedia; not opened here)"
+        },
+        {
+          "id": "ADJGEN-1888",
+          "total": 23003,
+          "K": null,
+          "W": null,
+          "M": null,
+          "basis": null,
+          "status": "secondary_unverified",
+          "source": "data-integrity DI-03 (Wikipedia wikitext); primary not opened",
+          "page": null
+        },
+        {
+          "id": "MEADE-CAMPAIGN",
+          "total": 23186,
+          "K": null,
+          "W": null,
+          "M": null,
+          "basis": "campaign (not battle-only)",
+          "status": "chapter_verified_not_rechecked",
+          "source": "chapter 13 section 2.2 [V]",
+          "page": null
+        }
+      ],
+      "confederate": [
+        {
+          "id": "OR27-2-GUILD",
+          "total": 20451,
+          "K": 2592,
+          "W": 12709,
+          "M": 5150,
+          "basis": "battle and retreat, as returned",
+          "status": "verified_ocr_scrambled",
+          "source": "OR27-2",
+          "page": "recapitulation at the foot of the return, printed p.346 (report No. 427 spans about pp.338-346)"
+        },
+        {
+          "id": "BM-CONFED",
+          "total": 23231,
+          "K": 4708,
+          "W": 12693,
+          "M": 5830,
+          "basis": "battle",
+          "status": "secondary_unverified",
+          "source": "BM",
+          "page": "p.260 (as cited by Wikipedia, which attributes it to the 2005 work; not opened here)"
+        },
+        {
+          "id": "UPPER-ESTIMATE",
+          "total": 28000,
+          "K": null,
+          "W": null,
+          "M": null,
+          "basis": null,
+          "status": "secondary_unverified",
+          "source": "data-integrity DI-03 (Wikipedia wikitext)",
+          "page": null
+        }
+      ],
+      "union_site_value_candidate": "OR27-1-NO15",
+      "confederate_site_value_candidate": "BM-CONFED",
+      "combined_default_wording_pending_owner": "about 46,000 (23,049 Union per the Official Records; roughly 23,000 Confederate per Busey and Martin); estimates run to 51,000",
+      "engaged_strength": {
+        "union": {
+          "value": 93921,
+          "source": "BM p.125",
+          "status": "secondary_unverified"
+        },
+        "confederate": {
+          "value": 71699,
+          "alternates": [
+            {
+              "value": 75000,
+              "basis": "campaign start (McPherson)"
+            }
+          ],
+          "source": "BM p.260",
+          "status": "secondary_unverified"
+        }
+      },
+      "uncertainty": "K/W/M and totals marked secondary_unverified come from Wikipedia wikitext citing Busey and Martin; the book was not opened. The OR27-2 Guild column assignment is inferred from scrambled OCR. The Confederate total is not decided."
+    },
+    "site_figures_measured": {
+      "union": {
+        "oob_corps_casualty_sum": 22803,
+        "apportionment_total_sum": 22803,
+        "apportionment_period_sum": 23138,
+        "oob_army_header": 23049,
+        "oob_corps_strength_sum": 90164,
+        "apportionment_initial_strength_sum": 90164,
+        "oob_army_strength": 93921
+      },
+      "confederate": {
+        "oob_corps_casualty_sum": 21500,
+        "apportionment_total_sum": 23125,
+        "apportionment_period_sum": 23025,
+        "oob_army_header": 28000,
+        "oob_corps_strength_sum": 65000,
+        "apportionment_initial_strength_sum": 72810,
+        "oob_army_strength": 75000
+      },
+      "dashboard_combined_period_sum": 46163
+    }
+  },
+  "artillery": {
+    "listed_batteries": {
+      "union": 55,
+      "confederate": 49
+    },
+    "listed_guns": {
+      "union": 306,
+      "confederate": 194
+    },
+    "label": "listed batteries: the artillery OOB is incomplete (WP-DATA-07 step 4)"
+  },
+  "retired_literals": [
+    "467",
+    "445+",
+    "51,000",
+    "467 regiments and batteries",
+    "28,000 (as a Confederate total)"
+  ],
+  "token_examples": [
+    "{{facts.units.total}}",
+    "{{facts.units.regiments}}",
+    "{{facts.units.batteries}}",
+    "{{facts.content.vignettes}}"
+  ]
+}
