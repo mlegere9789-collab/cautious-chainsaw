@@ -95,7 +95,7 @@ Known misses: No. 30 has a scrambled header ("Reports of Maj. Gen. ... No. 30. J
 
 ## 3. Tests
 
-`node --test "tests/historian/**/*.test.mjs"` runs 128 tests in about 45 s (no network, no browser):
+`node --test "tests/historian/**/*.test.mjs"` runs 129 tests in about 45 s (no network, no browser):
 
 | Suite | Covers |
 |---|---|
@@ -105,7 +105,7 @@ Known misses: No. 30 has a scrambled header ("Reports of Maj. Gen. ... No. 30. J
 | `build.test.mjs` | determinism (V12), validators including K001 and V06, developer-note exclusion, size budgets, manifest rotation, id discipline, derived aliases, fact tables |
 | `sources.test.mjs` | the register, the tier gate, every fetch refusal |
 | `ingest.test.mjs` | the fetcher with a mocked network (gate, politeness, per-host queue, cache, Retry-After, 5xx backoff, 403 hard stop, CLI refusals) and the OR27 normaliser, contents parser, segmenter and chunker on the committed excerpt; one test uses the cached real sample and is skipped when it is absent |
-| `page.test.mjs` | the candidate page: markup and CSS contracts, contrast, forbidden APIs, module graph, and the controller run against the real HTML in a fake DOM with the real engine |
+| `page.test.mjs` | the candidate page: markup and CSS contracts, contrast, forbidden APIs, module graph, the controller run against the real HTML in a fake DOM with the real engine, and the page booted over HTTP from a localhost static server (import graph, content types, lazy shards, same-origin `hx-base`) |
 | `regress.test.mjs` | runs the evaluation and fails on a drop of more than 2 points against `engine-recorded.json` |
 
 ## 4. Evaluation

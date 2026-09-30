@@ -128,7 +128,7 @@ Refusals are honest: an out-of-scope question is declined in one sentence with a
 - **Links.** Only same-site absolute paths coming from the engine's own source list become links.
 - **Privacy.** Questions never leave the browser. The page stores nothing (no cookies, no storage).
 
-Tests run the real `historian.html` and `historian.js` in a small fake DOM (`tests/historian/lib/fakedom.mjs`) against the real engine and a KB built from scratch. No browser was launched for this build: layout, real scrolling, IME and screen-reader behaviour, and the ES module graph over HTTP are **not verified** (see the limits below).
+Tests run the real `historian.html` and `historian.js` in a small fake DOM (`tests/historian/lib/fakedom.mjs`) against the real engine and a KB built from scratch. The import graph and `boot()` (including the same-origin `hx-base` rule) are also exercised over HTTP against a localhost static server with Node's own `fetch`. No browser was launched for this build: real layout, real scrolling, IME and screen-reader behaviour, and a browser's own module loading and CSP enforcement are **not verified** (see the limits below).
 
 ## 7. Rights and sources
 

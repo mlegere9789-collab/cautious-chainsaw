@@ -290,3 +290,54 @@ test('the page’s module graph is browser safe: relative imports only, every fi
   const kb = fs.readFileSync(path.join(ROOT, 'historian-src/core/kb.js'), 'utf8'); const dyn = [...kb.matchAll(/import\('node:[^']+'\)/g)].length; assert.equal(dyn, 2);
   assert.match(kb.slice(kb.indexOf('export async function nodeFetcher'), kb.indexOf('export function browserFetcher')), /import\('node:fs\/promises'\)/);
 });
+
+// ---- served over HTTP (localhost only): the same paths a browser would use --------------------------------------------------------------------
+import http from 'node:http';
+import { boot } from '../../historian-src/page/historian.js';
+
+async function serve(root) {
+  const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json' };
+  const seen = [];
+  const server = http.createServer((req, res) => {
+    const u = new URL(req.url, 'http://localhost'); const file = path.normalize(path.join(root, decodeURIComponent(u.pathname)));
+    seen.push(u.pathname);
+    if (!file.startsWith(root) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) { res.writeHead(404); res.end('not found'); return; }
+    res.writeHead(200, { 'content-type': TYPES[path.extname(file)] || 'application/octet-stream' }); res.end(fs.readFileSync(file));
+  });
+  await new Promise((r) => server.listen(0, '127.0.0.1', r));
+  return { server, seen, origin: `http://127.0.0.1:${server.address().port}` };
+}
+
+test('served from a static server: page, stylesheet and every module of the import graph resolve with the right types, and the page boots through the real browserFetcher (hx-base) and answers', async () => {
+  const root = path.join(ROOT, 'historian-src');
+  const { server, seen, origin } = await serve(root);
+  try {
+    const get = (p) => fetch(origin + p);
+    const html = await get('/page/historian.html'); assert.equal(html.status, 200); assert.match(html.headers.get('content-type'), /text\/html/);
+    assert.equal((await get('/page/historian.css')).headers.get('content-type').split(';')[0], 'text/css');
+    // every module reachable from historian.js by relative specifiers, fetched over HTTP
+    const todo = ['/page/historian.js']; const done = new Set();
+    while (todo.length) {
+      const p = todo.pop(); if (done.has(p)) continue; done.add(p);
+      const r = await get(p); assert.equal(r.status, 200, p); assert.equal(r.headers.get('content-type').split(';')[0], 'text/javascript', p);
+      const code = (await r.text()).replace(/\/\/.*$/gm, '');
+      for (const m of code.matchAll(/(?:^|\n)\s*(?:import|export)\s[^'"\n]*?from\s+'(\.[^']+)'/g)) todo.push(new URL(m[1], origin + p).pathname);
+    }
+    assert.ok(done.size >= 10);
+    // boot the page controller against the served hx (hx-base ../dist/hx/ relative to the page URL), with Node's own fetch
+    const doc = parseHTML(HTML); doc.getElementById('ask-row').fakeHeight = 80;
+    const win = { document: doc, location: { href: origin + '/page/historian.html', origin, search: '' }, matchMedia: () => ({ matches: false }) };
+    const app = boot(win); await app.ready;
+    assert.equal(doc.getElementById('status').textContent, '', 'records loaded');
+    doc.getElementById('ask').value = 'Who commanded the 20th Maine?'; doc.getElementById('ask-row').dispatch('submit');
+    for (let i = 0; i < 2000 && app.state.busy; i++) await new Promise((r) => setTimeout(r, 5));
+    const art = doc.getElementById('transcript').children.filter((m) => m.className.includes('bot')).pop();
+    assert.match(textOf(art), /Chamberlain/); assert.ok(!BAD.test(textOf(art)));
+    assert.ok(seen.some((p) => p === '/dist/hx/manifest.json'), 'the manifest was requested at the hx-base'); assert.ok(seen.some((p) => /^\/dist\/hx\/f\/entity\.[0-9a-f]{8}\.json$/.test(p)));
+    assert.ok(seen.some((p) => /^\/dist\/hx\/f\/(ix|tx|en)\//.test(p)), 'passage shards were fetched lazily, after the question');
+    // an off-origin hx-base is ignored: the page falls back to its own ../dist/hx/
+    const evil = parseHTML(HTML.replace('content="../dist/hx/"', 'content="https://evil.example/hx/"'));
+    const w2 = { document: evil, location: { href: origin + '/page/historian.html', origin, search: '' }, matchMedia: () => ({ matches: false }) };
+    const app2 = boot(w2); await app2.ready; assert.equal(evil.getElementById('status').textContent, '', 'loaded from the same origin, not from evil.example');
+  } finally { server.close(); }
+});
