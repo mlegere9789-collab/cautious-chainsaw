@@ -126,7 +126,7 @@ export function commandAnswer(kb, units, S) {
   // several echelons of the same name (both armies' "First Corps"): cover each, labelled
   const list = units.filter((u) => H.cmdOf(u)).slice(0, 3);
   if (!list.length) return null;
-  const cites = [];
+  const cites = []; let kidsBlock = null;
   for (const u of list) {
     const c = H.cmdOf(u);
     const runs = [ent(u, ucfirst(u.k === 'corps' ? u.label : H.nameForLead(u))), ' was commanded at Gettysburg by ', `${H.cmdText(c)}`];
@@ -143,13 +143,15 @@ export function commandAnswer(kb, units, S) {
     if (c.notes && list.length === 1) blocks.push(lead([endSent(c.notes)], [u.id]));
     if (/\b(brigades|regiments|divisions|commanders)\b/.test(S.norm) && ['division', 'corps', 'brigade'].includes(u.k) && list.length === 1) {
       const ks = H.kids(u).filter((k) => H.cmdOf(k)).slice(0, 12);
-      if (ks.length) { blocks.push({ t: 'list', title: `${ucfirst({ division: 'brigades', corps: 'divisions', brigade: 'regiments' }[u.k])} and their commanders:`, items: ks.map((k) => ({ txt: `${k.label} — ${H.cmdText(H.cmdOf(k))}`, ent: k.id })), src: ks.map((k) => k.id) }); for (const k of ks.slice(0, 3)) src.push(k.id); }
+      // "who commanded Pickett's division brigades": the brigades and their commanders ARE the answer, so they come first, before the division's own commander
+      if (ks.length) { kidsBlock = { t: 'list', title: `${ucfirst({ division: 'brigades', corps: 'divisions', brigade: 'regiments' }[u.k])} and their commanders:`, items: ks.map((k) => ({ txt: `${k.label} — ${H.cmdText(H.cmdOf(k))}`, ent: k.id })), src: ks.map((k) => k.id) }; for (const k of ks.slice(0, 3)) src.push(k.id); }
     }
   }
   if (cites.length) {
     blocks.push({ t: 'list', title: 'Changes of command recorded during the battle:', items: cites.map((s) => ({ txt: `${s.title}${s.attrs.when ? ` (${s.attrs.when})` : ''}${s.attrs.source ? `, citing ${s.attrs.source}` : ''}`, ent: s.id })), src: cites.map((s) => s.id) });
     for (const s of cites) src.push(s.id);
   }
+  if (kidsBlock) blocks.unshift(kidsBlock);
   return { mode: 'answer', blocks, src };
 }
 
@@ -427,9 +429,10 @@ export function ancestorAnswer(kb, S, unit) {
   const route = kb.facts.routes.find((r) => r.id === 'ancestor');
   const blocks = [];
   const src = [];
-  // a named regiment is the concrete answer: lead with it, then the honest limit and the route
-  if (unit) { blocks.push(lead(profileLead(kb, unit), [unit.id])); src.push(unit.id); }
+  // the answer to "my ancestor served in X" is the honest limit and the route; the regiment the reader named follows as what the site does have (its card stays first in the source list)
+  if (unit) src.push(unit.id);
   blocks.push(lead([unit ? 'The site can place the regiment but cannot confirm what an individual soldier did. ' : '', 'Use the ', { ent: 'SITE:find-ancestor', txt: 'Find Your Ancestor' }, ' tool (', { link: route.page, txt: route.page }, ') to look up a regiment by state or commander and follow it through the battle. This site holds regiments, not individual soldiers. For a soldier’s name, search the National Park Service Soldiers and Sailors Database.'], ['SITE:find-ancestor']));
+  if (unit) blocks.push(lead(['What the records do have is the regiment: ', ...profileLead(kb, unit)], [unit.id]));
   src.push('SITE:find-ancestor');
   return { mode: 'answer', blocks, src, route: 'ancestor' };
 }
@@ -459,7 +462,9 @@ export function opponentsAnswer(kb, unit) {
 }
 
 export function soldierLimit(kb, S, unit) {
-  const blocks = [lead(['I cannot tell whether a specific soldier was at Gettysburg: the site holds regiments, not individual muster rolls. For a soldier’s name, search the National Park Service Soldiers and Sailors Database, or use ', { ent: 'SITE:find-ancestor', txt: 'Find Your Ancestor' }, ' to look up a regiment.'], ['SITE:find-ancestor'])];
+  // the limitation is the compiled known unknown "individual-soldier" (scope.v1.json), not a second copy of its wording
+  const rule = (kb.facts.unknowns || []).find((u) => u.id === 'individual-soldier');
+  const blocks = [lead([`${rule ? rule.text : 'I cannot tell whether a specific soldier was at Gettysburg: the site holds regiments, not individual muster rolls.'} For a soldier’s name, search the National Park Service Soldiers and Sailors Database, or use `, { ent: 'SITE:find-ancestor', txt: 'Find Your Ancestor' }, ' to look up a regiment.'], ['SITE:find-ancestor'])];
   const src = ['SITE:find-ancestor'];
   if (unit) { blocks.push(lead(['What the records do have is the regiment: ', ...profileLead(kb, unit)], [unit.id])); src.push(unit.id); }
   return { mode: 'answer', blocks, src, limited: true, route: 'ancestor' };
@@ -597,6 +602,17 @@ export function sharedNameList(kb, focus, ids) {
   const others = ids.map((i) => kb.idx.R[i]).filter((r) => r && r.id !== focus.id && r.k !== 'person').slice(0, 6);
   if (!others.length) return null;
   return { t: 'list', title: 'The same name is used for:', items: others.map((r) => ({ txt: r.title === r.label ? r.label : `${r.label} (${r.title})`, ent: r.id })), src: others.map((r) => r.id) };
+}
+
+/**
+ * A known unknown (facts.unknowns, compiled from tools/historian/data/scope.v1.json): the limitation in the rule's own words, what the site's own text does say about it (verbatim quotes chosen by the
+ * caller), and what would answer it. Mode "partial": the reader gets an honest "not in my sources", never an unrelated summary.
+ */
+export function unknownAnswer(kb, S, rule, { place = null, quotes = [], src = [] } = {}) {
+  const blocks = [lead([String(rule.text).replace('{place}', place || 'that place')], src)];
+  if (quotes.length) blocks.push(note('unknown-says', 'The site’s own text touches on it only in the passages below.'), ...quotes);
+  if (rule.answer_with) blocks.push(note('unknown-basis', `What would answer it: ${rule.answer_with}`));
+  return { mode: 'partial', blocks, src: [...src, ...quotes.map((q) => q.rec)], limited: true };
 }
 
 export { lead, note, ent, AUTH_NOTE };

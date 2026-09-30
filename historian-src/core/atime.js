@@ -153,5 +153,5 @@ export function whenLine(kb, r) {
   const CK = kb.facts.clock; const e = CK && r && r.k === 'chronology' && CK.ev[r.id];
   if (!e) return null;
   const ev = { m: e[0], sigma: e[1], flags: e[2], range: e[3] || null }; const d = dateOf(ev.m);
-  return `The site’s proposed revised timeline places this on ${DAY_NAME[d] || `July ${d}`} at ${clockLabel(ev, d)}.`;
+  return `The site’s proposed revised timeline places “${shortTitle(r)}” on ${DAY_NAME[d] || `July ${d}`} at ${clockLabel(ev, d)}.`;
 }

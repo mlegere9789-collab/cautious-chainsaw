@@ -345,10 +345,28 @@ export function createEngine(kb, opts = {}) {
     return final;
   }
 
+  // ---- quotes must be about the subject (verifier defect V-09) -------------------------------------------------------------------------
+  // A quote under an answer about ONE unit is kept only when its passage is linked to that unit's record, belongs to it, or names it. Chosen by overlap of state and number alone, quotes were about
+  // other units ("27th Indiana ... " under the 19th Indiana; 319 of 457 regiments have no linked passage at all): no quote is better than a quote about someone else.
+  const tk = (s) => ' ' + tokenize(String(s || '')).join(' ') + ' ';
+  const nameForms = (r) => { const out = new Set(); for (const n of [r.label, r.title, ...(r.aliases || [])]) { const t = tk(n).trim(); if (t.length >= 6) out.add(' ' + t + ' '); } return [...out]; };
+  /** the single unit record an answer's lead names, or null (a comparison names two, a place or an event names none) */
+  function subjectUnit(res) {
+    const ids = new Set();
+    for (const b of res.blocks) if (b.t === 'lead') for (const r of b.runs) if (r.ent) { const rec = idx.get(r.ent); if (rec && UNIT_KINDS.has(rec.k)) ids.add(rec.id); }
+    return ids.size === 1 ? idx.get([...ids][0]) : null;
+  }
+  /** is this passage about the unit? linked to its record, its own record, or naming it in any of its forms ("24th Michigan", "Twenty-fourth Michigan", "24th MI", its nickname) */
+  function passageAbout(sub, p, linked, forms) {
+    return linked.has(p.num) || p.rec === sub.id || (() => { const t = tk(p.text); return forms.some((f) => t.includes(f)); })();
+  }
+
   async function addQuotes(S, res, { max = 2, timeQ = false, requireClock = false, leadHasText = false, onlyRecs = null } = {}) {
     let ranked = await getPassages(S, { limit: requireClock ? 30 : 12 });
     if (requireClock) ranked = ranked.filter((x) => x.p.clk && x.p.clk.length);
     if (onlyRecs) ranked = ranked.filter((x) => onlyRecs.has(x.p.rec));
+    const sub = subjectUnit(res);
+    if (sub) { const linked = await kb.entityPassages([sub.id]); const forms = nameForms(sub); ranked = ranked.filter((x) => passageAbout(sub, x.p, linked, forms)); }
     const entStems = new Set();
     for (const m of S.mentions) { if (m.kind === 'unit-miss') continue; for (const t of (m.phrase || '').split(' ')) if (t && !/^#|\|/.test(t)) entStems.add(t); }
     for (const b of res.blocks) if (b.t === 'lead') for (const r of b.runs) if (r.ent && idx.get(r.ent)) for (const t of idx.get(r.ent).label.toLowerCase().split(/[^a-z0-9]+/)) if (t.length > 3) entStems.add(stem(t));
@@ -492,6 +510,9 @@ export function createEngine(kb, opts = {}) {
     if (aud.test(text)) { S.simple = true; text = text.replace(aud, ' ').replace(/\s+/g, ' ').trim(); S.text = text; }
     const raw = tokenize(text);
     S.norm = baseNorm(text);
+    // a known unknown that needs no entity: the weather at the battle (facts.unknowns, compiled from scope.v1.json). An honest limitation, what the records do say, and what would answer it.
+    const unkW = (facts.unknowns || []).find((u) => u.id === 'weather-at-battle');
+    if (unkW && unkW.re.some((x) => new RegExp(x, 'i').test(S.norm))) { S.intent = 'unknown'; S.tokens = tokenize(text); S.qStems = []; S.passageTerms = []; return finalize(S, await weatherAnswer(S, unkW), t0); }
     S.side = sideHint(raw);
     const rep = repair(raw);
     S.tokens = rep.tokens; S.notes = rep.notes; S.unknown = rep.unknown;
@@ -569,8 +590,13 @@ export function createEngine(kb, opts = {}) {
     if (!res) return declineAnswer(S, { reason: 'no-composer', text: 'I could not find a record on this site that answers that.' });
     if (S.simple) res.blocks = res.blocks.filter((b) => !(b.t === 'note' && ['authority', 'authority-mixed', 'debate', 'rank-rule', 'basis'].includes(b.code)));
     if (S.injectionStripped) res.blocks.push(C.note('injection', 'Your message also contained an instruction; I ignored it. I only search and quote this site’s records.'));
+    return finalize(S, res, t0);
+  }
+
+  /** a composed result becomes the answer object: retrieval ranking, chips, route, trace, conversation context, lint */
+  function finalize(S, res, t0) {
     if (res.rankOverride) S.rankOverride = res.rankOverride;
-    const out = finish(S, res);
+    const out = finish(S, res, res.extra || {});
     const t1 = typeof performance !== 'undefined' ? performance.now() : Date.now();
     out.chips.follow = makeChips(kb, S, out);
     if (S.route) out.links.pages.push(S.route);
@@ -583,12 +609,27 @@ export function createEngine(kb, opts = {}) {
 
   const DOMAIN_NOISE = new Set(['gettysburg', 'battle', 'happened', 'happen']);
 
-  function dayOf(text) {
-    const m = text.match(/\b(?:july|day)\s*([123])\b/i) || text.match(/\bjuly\s*([123])(?:st|nd|rd)?\b/i);
-    if (m) return +m[1];
-    const w = text.match(/\b(first|second|third) day\b/i);
-    return w ? { first: 1, second: 2, third: 3 }[w[1].toLowerCase()] : null;
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  // weather at the battle: the site holds no weather series. It says so, quotes the few remarks its own text makes (rain on the evening of July 3, the retreat in a rainstorm), and says what would answer
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  const WEATHER_STEMS = ['rain', 'rainstorm', 'thunderstorm', 'fog', 'drizzle', 'weather', 'downpour'].map(stem);
+  // genuine weather words only: "the storm breaks" (a figure for the attack) and "the heat is heavy" (a visitor's line about today) are not observations of 1863
+  const WEATHER_WORD = /\b(?:rain(?:s|ed|ing|y|storm)?|thunderstorms?|fog|drizzle|downpour|weather)\b/i;
+  async function weatherAnswer(S, rule) {
+    const day = dayOf(S.text);
+    const sc = await kb.scorePassages(WEATHER_STEMS);
+    const nums = [...sc.entries()].sort((a, b) => b[1] - a[1] || a[0] - b[0]).slice(0, 80).map((x) => x[0]);
+    const P = await kb.passages(nums);
+    let cand = nums.map((n) => ({ p: P.get(n), score: sc.get(n) })).filter((x) => x.p && WEATHER_WORD.test(x.p.text) && ['chronicle', 'narrative', 'commentary'].includes(x.p.kind));
+    if (day) cand = cand.filter((x) => x.p.day === day);                 // asked about one day: only that day's remarks (none is an honest answer too)
+    const quotes = selectQuotes(kb, cand, { qStems: new Set(WEATHER_STEMS), entStems: new Set(), timeQ: false }, { max: 2, minScore: 0.5 });
+    S.quotes = quotes;
+    const res = C.unknownAnswer(kb, S, rule, { quotes });
+    return res;
   }
+
+  /** the day of the battle a question names (1 to 3), or null: one reader for "July 2", "the 3rd of July", "day two", "the second day"; "July 10" and "July 1-3" are not a day */
+  function dayOf(text) { const d = julyDate(text); return d >= 1 && d <= 3 ? d : null; }
 
   function stripInjection(text, scope) {
     const rule = scope.find((r) => r.id === 'injection'); if (!rule) return text;
@@ -840,7 +881,7 @@ export function createEngine(kb, opts = {}) {
     }
     if (intent === 'ancestor') return C.ancestorAnswer(kb, S, soleUnitMention || (units[0] && units[0].k === 'regiment' ? units[0] : null));
     if (intent === 'presence') {
-      if (person || units.length) { if (person && !units.length) res = null; else return C.soldierLimit(kb, S, units[0]); }
+      if (person || units.length) { if (person && !units.length) res = null; else return C.soldierLimit(kb, S, soleUnitMention || units[0]); }        // the regiment the reader named, not an alias that shares a surname ("Smith")
       else return C.soldierLimit(kb, S, soleUnitMention);
     }
     if (intent === 'membership') {
@@ -854,6 +895,8 @@ export function createEngine(kb, opts = {}) {
       // "who directed the Confederate cannonade ... the Union chief of artillery" names a role or an event, not the army's commander: a bare side word must not turn it into "who commanded the army"
       const otherRole = /\bchief of (?:artillery|staff|cavalry)\b|\bartillery chief\b|\bcannonade\b|\bbombardment\b/.test(S.norm);
       if (otherRole && us.length && us.every((u) => u.k === 'army')) us = [];
+      // "Lee's cavalry", "Meade's cavalry": the possessive names the army, the noun names the arm, so the answer is that side's cavalry corps
+      if (/\bcavalry\b/.test(S.norm) && us.length && us.every((u) => u.k === 'army')) { const cav = R.filter((r) => r.k === 'corps' && /Cavalry/.test(r.title) && r.side === us[0].side); if (cav.length) us = cav; }
       if (!us.length && !otherRole && (S.side === 'U' || S.side === 'C' || /\barmy\b/.test(S.norm))) { const a = idx.get('ARMY:' + (S.side || 'U')); if (a) us = [a]; }
       if (!us.length && /\bcavalry\b/.test(S.norm)) { us = R.filter((r) => r.k === 'corps' && /Cavalry/.test(r.title)); }
       if (us.length) {
@@ -881,7 +924,9 @@ export function createEngine(kb, opts = {}) {
       res = C.limitedPlace(kb, S, place, rule); if (res) { await addQuotes(S, res, { max: 1 }); return res; }
     }
     const linkedAny = S.mentions.some((m) => m.kind !== 'unit-miss' && m.ids && m.ids.length);
-    if ((intent === 'strength' || intent === 'casualties') && !units.length && !person && !linkedAny) {
+    // "total casualties at Gettysburg": the word "casualties" alone links the site's casualty-notes card; that is not a subject, so the battle totals still answer
+    const linkedSpecific = S.units.length + S.persons.length + S.places.length + S.others.filter((o) => !['casualty-note', 'site'].includes(o.k)).length > 0;
+    if ((intent === 'strength' || intent === 'casualties') && !units.length && !person && !linkedSpecific) {
       const both = /\b(versus|vs|compare|both|each side|two armies|armies)\b/.test(S.norm) || !S.side;
       res = C.battleTotals(kb, S, { which: both ? 'both' : 'one' }); if (res) return res;
     }
@@ -905,7 +950,7 @@ export function createEngine(kb, opts = {}) {
         if (!S.day && focus.attrs && focus.attrs.day) S.day = focus.attrs.day;
         const res2 = { mode: 'answer', blocks: [C.lead(C.profileLead(kb, focus), [focus.id])], src: [focus.id] };
         const wl = whenLine(kb, focus);                                  // the time model's clock for this event, when it has one: approximate, and said to be a proposal
-        if (wl) res2.blocks.push(C.lead([wl], [focus.id]));
+        if (wl) res2.blocks.unshift(C.lead([wl], [focus.id]));            // the time IS the answer to "what time / when", so it is the first thing said
         const got = await addQuotes(S, res2, { max: 2, timeQ: true, requireClock: true, leadHasText: true });
         res2.blocks.push(C.note('time-basis', wl ? 'That time comes from the site\u2019s proposed revised timeline, which is approximate and has not yet been reviewed by a historian; sources differ, and any times inside the quotes are as their authors wrote them.'
           : got.length ? 'Times are quoted as written in the site\u2019s own records; the site\u2019s revised timeline has no entry for this, so no other clock time is given.' : 'The site\u2019s records do not state a clock time for this in their text and the site\u2019s revised timeline has no entry for it, so I will not give one.'));

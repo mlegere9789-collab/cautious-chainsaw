@@ -56,9 +56,9 @@
       "id": "weather",
       "mode": "decline_pointer",
       "re": [
-        "\\b(weather|forecast|temperature|will it rain|is it going to rain)\\b.*\\b(gettysburg|today|tomorrow|weekend|this week|now|tonight)\\b",
+        "^(?!.*\\b(1863|july (1|2|3)|during the battle|at the battle|in 1863|pickett|cannonade)\\b).*\\b(weather|forecast|temperature|will it rain|is it going to rain)\\b.*\\b(gettysburg|today|tomorrow|weekend|this week|now|tonight)\\b",
         "\\bwhat will the weather\\b",
-        "\\bweather (in|at|for) gettysburg\\b(?! (on|during|in) (july|1863))"
+        "\\bweather (in|at|for) gettysburg\\b(?! (?:on|during|in|at) (?:july|1863|the battle|the fighting))"
       ],
       "text": "I cannot give live or forecast data. For the weather, use the National Weather Service forecast for Gettysburg, Pennsylvania (weather.gov).",
       "pointer": "weather"
@@ -111,7 +111,8 @@
         "\\bcasualties (at|in|of|on) the\\b"
       ],
       "needs_place": true,
-      "text": "The records here do not give an exact figure or tally of casualties by location, so I cannot say precisely how many men fell at {place}."
+      "text": "The records here do not give an exact figure or tally of casualties by location, so I cannot say precisely how many men fell at {place}.",
+      "answer_with": "The site gives casualties for units (regiments, brigades, divisions, corps), not for places: ask about the units that fought there, or about a place to see what its record says."
     },
     {
       "id": "individual-soldier",
@@ -121,14 +122,19 @@
         "\\b(soldier|private|corporal|sergeant) named\\b",
         "\\b(my|his|her) (ancestor|grandfather|great grandfather|great great grandfather|relative|uncle|father|great uncle)\\b"
       ],
-      "text": "I cannot tell whether a specific soldier was at Gettysburg: the site holds regiments, not individual muster rolls."
+      "text": "I cannot tell whether a specific soldier was at Gettysburg: the site holds regiments, not individual muster rolls.",
+      "answer_with": "A soldier’s presence is documented in a muster roll or a service record: the National Park Service Soldiers and Sailors Database and the National Archives hold them. This site can place his regiment, which the Find Your Ancestor tool looks up."
     },
     {
       "id": "weather-at-battle",
       "re": [
-        "\\b(weather|rain|raining|hot|temperature|cloudy|sunny|fog)\\b.*\\b(during|on|at|in)\\b.*\\b(battle|july (1|2|3)|gettysburg)\\b"
+        "\\b(weather|rain|raining|rained|rainy|temperature|cloudy|sunny|fog|foggy|humid|humidity|thunderstorms?|heat wave)\\b.*\\b(during|on|at|in|of)\\b.*\\b(battle|july (1|2|3)|gettysburg|1863|pickett|charge|cannonade|retreat)\\b",
+        "\\b(battle|july (1|2|3)|gettysburg|1863|pickett|charge|cannonade)\\b.*\\b(weather|rain|raining|rained|rainy|temperature|cloudy|sunny|foggy|humid|humidity|heat wave|thunderstorm)\\b",
+        "\\b(how (?:hot|cold|warm)|was it (?:a |very |so )?(?:hot|cold|warm|raining|rainy|sunny|cloudy|foggy|humid|muddy|dry))\\b.*\\b(battle|july (1|2|3)|gettysburg|1863|pickett|charge|cannonade|retreat)\\b",
+        "\\b(battle|july (1|2|3)|gettysburg|1863|pickett|charge|cannonade|retreat)\\b.*\\b(how (?:hot|cold|warm)|was it (?:a |very |so )?(?:hot|cold|warm|raining|rainy|sunny|cloudy|foggy|humid|muddy|dry))\\b"
       ],
-      "text": "The site's records do not include a weather series for the battle, so I cannot give temperatures or a day-by-day forecast."
+      "text": "The site's records do not include a weather series for the battle, so I cannot give temperatures or a day-by-day forecast.",
+      "answer_with": "A weather answer would need period observations, such as soldiers’ diaries and letters or weather records kept at the time. Those are not part of this site’s data."
     }
   ],
   "routes": [

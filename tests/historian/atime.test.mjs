@@ -191,7 +191,8 @@ test('a question that merely mentions a time is still a clock question, a questi
 
 test('"what time did X begin" carries the model\'s time for X, approximate, with the range where the anchor is contested, and never a legacy label', async () => {
   const a = await ask('What time did Pickett\'s Charge begin?');
-  assert.match(a.text, /places this on July 3 at about 3:00 PM \(sources put it between about 2:00 and 3:00 PM\)/);
+  assert.match(a.text, /places “Pickett's Charge Begins” on July 3 at about 3:00 PM \(sources put it between about 2:00 and 3:00 PM\)/);
+  assert.match(a.blocks[0].runs.map((r) => r.txt).join(''), /about 3:00 PM/, 'the time is the first thing said, in the first bubble');
   assert.ok(a.blocks.some((b) => b.t === 'note' && b.code === 'time-basis' && /proposed revised timeline/.test(b.txt)));
   const b = await ask('When did Longstreet\'s assault on the Union left begin on July 2?'); assert.match(b.text, /about 4:00 PM/);
   assert.ok(!/11:05\s?am|11:15\s?am|12:15\s?pm/i.test(a.text + b.text));

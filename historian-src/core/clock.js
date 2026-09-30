@@ -10,7 +10,9 @@ const WORD_DAY = { one: 1, two: 2, three: 3, first: 1, second: 2, third: 3 };
 /** the July date a question names (calendar date, 1 to 31), or null. "July 10" is 10, never 1; "the second day" is 2 (the Day tab and the date agree by day, not by night). */
 export function julyDate(text) {
   const t = String(text || '').toLowerCase();
-  let m = t.match(/\bjuly\s*(\d{1,2})(?![0-9])(?:st|nd|rd|th)?\b/) || t.match(/\b(\d{1,2})(?:st|nd|rd|th)?\s+of\s+july\b/) || t.match(/\b(?:day)\s*(?:number\s*)?(\d)(?![0-9])\b/);
+  if (/\bjuly\s*\d{1,2}(?:st|nd|rd|th)?\s*(?:-|–|to|through|thru|and)\s*(?:july\s*)?\d{1,2}\b/.test(t)) return null;   // "July 1-3", "July 1 and 2": a stretch of days, not day 1
+  let m = t.match(/\b(first|second|third)\s+of\s+july\b/); if (m) return WORD_DAY[m[1]];
+  m = t.match(/\bjuly\s*(\d{1,2})(?![0-9])(?:st|nd|rd|th)?\b/) || t.match(/\b(\d{1,2})(?:st|nd|rd|th)?\s+of\s+july\b/) || t.match(/\b(?:day)\s*(?:number\s*)?(\d)(?![0-9])\b/);
   if (m) return +m[1];
   m = t.match(/\bday\s+(one|two|three)\b/) || t.match(/\b(first|second|third)\s+day\b/);
   return m ? WORD_DAY[m[1]] : null;

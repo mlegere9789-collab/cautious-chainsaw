@@ -72,10 +72,10 @@ const lum = (hex) => { const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice
 const contrast = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
 
 test('CSS: brand tokens are the site’s own (site-nav.css / the deployed historian page) and every text pairing meets WCAG AA (4.5:1)', () => {
-  const brand = { bg: '#0a0a14', panel: '#12121e', ink: '#e8e6df', gold: '#c9a24b', muted: '#8a93a8', line: '#1e1e2e' };
+  const brand = { bg: '#0a0a14', panel: '#12121e', ink: '#e8e6df', gold: '#c9a24b', muted: '#8a93a8', rule: '#1e1e2e' };   // --rule is the site's own divider colour; --line is the (brighter) boundary of a control
   for (const [k, v] of Object.entries(brand)) assert.equal(token(k), v, k);
   const nav = fs.readFileSync(path.join(ROOT, 'legacy/dist/site-nav.css'), 'utf8');
-  for (const v of [brand.panel, brand.gold, brand.line]) assert.ok(nav.toLowerCase().includes(v), `site-nav.css uses ${v}`);
+  for (const v of [brand.panel, brand.gold, brand.rule]) assert.ok(nav.toLowerCase().includes(v), `site-nav.css uses ${v}`);
   const pairs = [['ink', 'bg'], ['ink', 'panel'], ['muted', 'bg'], ['muted', 'panel'], ['gold', 'bg'], ['gold', 'panel'], ['gold-soft', 'panel'], ['gold-soft', 'bg'], ['bg', 'gold'], ['note', 'panel'], ['user-ink', 'user'], ['danger', 'panel']];
   for (const [f, b] of pairs) { const r = contrast(token(f), token(b)); assert.ok(r >= 4.5, `${f} on ${b} is ${r.toFixed(2)}:1`); }
   assert.ok(contrast('#a9bbd6', '#0a0a14') >= 4.5, 'the "how it works" text');
@@ -340,4 +340,22 @@ test('served from a static server: page, stylesheet and every module of the impo
     const w2 = { document: evil, location: { href: origin + '/page/historian.html', origin, search: '' }, matchMedia: () => ({ matches: false }) };
     const app2 = boot(w2); await app2.ready; assert.equal(evil.getElementById('status').textContent, '', 'loaded from the same origin, not from evil.example');
   } finally { server.close(); }
+});
+
+// ---- chapter 14 A2 (verifier defects V-13, V-14): control boundaries >= 3:1 (WCAG 1.4.11) and secondary text >= 14 px -------------------------------------------------
+test('CSS: the boundary of every control (question box, chips) is at least 3:1 against the page and against the panel it sits on; decorative rules are a separate token', () => {
+  const bg = token('bg'), panel = token('panel');
+  const askBorder = CSS.match(/#ask\s*\{[^}]*border:\s*1px solid\s*(#[0-9a-fA-F]{6})/)[1].toLowerCase();
+  const line = token('line');
+  for (const [name, c] of [['question box border', askBorder], ['chip border (--line)', line]]) for (const [bn, b] of [['page', bg], ['panel', panel]]) assert.ok(contrast(c, b) >= 3, `${name} ${c} on the ${bn}: ${contrast(c, b).toFixed(2)}:1`);
+  assert.match(CSS, /\.chip\s*\{[^}]*border:\s*1px solid var\(--line\)/); assert.equal(token('rule'), '#1e1e2e');
+  assert.ok(!/(?:\.chip|#ask|#ask-btn)\s*\{[^}]*var\(--rule\)/.test(CSS), 'a control never uses the decorative rule colour');
+  assert.ok(contrast(token('gold'), bg) >= 3 && contrast(token('gold'), panel) >= 3, 'the hover/focus border');
+});
+test('CSS: body text is 16 px or more, secondary text 14 px or more, nothing below 12 px (the PREVIEW label is the one 12 px element)', () => {
+  const sizes = [...CSS.matchAll(/([^{}]+)\{[^}]*?font(?:-size)?:\s*(?:[0-9]+\s+)?([0-9]+)px/g)].map((m) => ({ sel: m[1].trim().split('\n').pop().trim(), px: +m[2] }));
+  assert.ok(sizes.length >= 10);
+  assert.deepEqual(sizes.filter((s) => s.px < 12), []);
+  assert.deepEqual(sizes.filter((s) => s.px < 14 && !/\.preview/.test(s.sel)), []);
+  assert.match(CSS, /body\s*\{[^}]*font:\s*16px/); assert.match(CSS, /\.msg\s*\{[^}]*font-size:\s*16px/);
 });
