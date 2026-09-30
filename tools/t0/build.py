@@ -34,7 +34,7 @@ def rel_to_repo(p):
     return os.path.relpath(p, REPO).replace(os.sep, '/')
 
 
-def check_input(base_dir, cfg, strict_tree):
+def check_input(base_dir, cfg, strict_tree, lock_path=None):
     """Pinned-input checks: sentinel refusal, main bundle md5, chunk/CSS sha256 (the bundle bytes did not change on 2026-09-30), and - for
     the default baseline - the per-file lock of baseline/dist (tools/t0/baseline.lock.json) plus the immutability of legacy/dist."""
     legacy_dir = base_dir
@@ -63,7 +63,7 @@ def check_input(base_dir, cfg, strict_tree):
         if got != want:
             raise BuildError('legacy file %s sha256 %s != pinned %s' % (rel, got, want))
     if strict_tree:
-        lock = os.path.join(REPO, cfg['base']['lock'])
+        lock = lock_path or os.path.join(REPO, cfg['base']['lock'])
         problems = basemod.check_lock(legacy_dir, lock)
         if problems:
             raise BuildError('the baseline %s differs from %s (the build is pinned to it; if live moved, follow "Live drifted" in '
@@ -150,7 +150,8 @@ def finalize(dist, cfg, rel, train, groups, input_md5, ledger_path, legacy_names
 def build_train(train, args, cfg):
     out = os.path.abspath(os.path.join(REPO, args.out)) if args.out else os.path.join(REPO, 'release', train)
     dist = os.path.join(out, 'dist')
-    legacy_dir = os.path.abspath(os.path.join(REPO, args.legacy or cfg['base']['dir']))
+    legacy_dir = os.path.abspath(os.path.join(REPO, args.legacy or args.base_dir or cfg['base']['dir']))
+    lock_path = os.path.abspath(os.path.join(REPO, args.base_lock)) if args.base_lock else os.path.join(REPO, cfg['base']['lock'])
     patches_dir = os.path.abspath(os.path.join(REPO, args.patches)) if args.patches else os.path.join(T0, 'patches')
     overlay_root = os.path.abspath(os.path.join(REPO, args.overlay)) if args.overlay else os.path.join(T0, 'overlay')
     ledger_path = os.path.abspath(os.path.join(REPO, args.ledger)) if args.ledger else ledger.LEDGER
@@ -159,7 +160,7 @@ def build_train(train, args, cfg):
     print('== build %s -> %s' % (train, rel_to_repo(out)))
 
     strict = not args.legacy
-    input_md5 = check_input(legacy_dir, cfg, strict_tree=strict)
+    input_md5 = check_input(legacy_dir, cfg, strict_tree=strict, lock_path=lock_path)
     print('input ok: entry md5 %s, %s' % (input_md5, 'baseline %s pinned by %s, legacy/ unmodified' % (cfg['base']['dir'], cfg['base']['lock'])
                                          if strict else 'TREE PIN SKIPPED (--legacy/--base override)'))
 
@@ -208,8 +209,8 @@ def build_train(train, args, cfg):
     if deleted:
         print('deleted from dist: %s' % ', '.join(deleted))
     live_changed = set()
-    if strict and os.path.isfile(os.path.join(REPO, cfg['base']['lock'])):
-        live_changed = set(load_json(os.path.join(REPO, cfg['base']['lock'])).get('changed_vs_legacy', []))
+    if strict and os.path.isfile(lock_path):
+        live_changed = set(load_json(lock_path).get('changed_vs_legacy', []))
     overlay = apply_overlay(dist, tcfg['overlay'], overlay_root, [], live_changed)
     print('overlay: %d file(s) from %s' % (len(overlay), ', '.join(tcfg['overlay'])))
     hook = None
@@ -262,7 +263,9 @@ def main(argv=None):
     ap.add_argument('--order', choices=['fixed', 'runbook'], default='fixed', help='group order (runbook = the chapter-02 order; must give identical bytes)')
     ap.add_argument('--dump-stage', help='write the bundle texts after the bundle phase to this directory (diagnostics)')
     g = ap.add_argument_group('test overrides (used by tests/t0/build_selftest.py)')
-    g.add_argument('--legacy', '--base', dest='legacy', help='alternative input tree (skips the baseline lock; the entry md5 pin still applies)')
+    g.add_argument('--legacy', dest='legacy', help='alternative input tree (skips the baseline lock; the entry md5 pin still applies)')
+    g.add_argument('--base-dir', help='alternative baseline tree that is STILL checked against the lock (proves the refusal)')
+    g.add_argument('--base-lock', help='alternative lock file for --base-dir / the default baseline')
     g.add_argument('--patches', help='alternative patches directory')
     g.add_argument('--overlay', help='alternative overlay root')
     g.add_argument('--ledger', help='alternative ledger file')

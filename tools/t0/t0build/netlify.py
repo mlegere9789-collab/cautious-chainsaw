@@ -154,25 +154,33 @@ def deploy_id(rum):
         return None
 
 
-def strip_rum(served_bytes):
-    """Remove the injected snippet exactly (the inverse of the insertion).  Returns (bytes, snippet or None)."""
+RUM_TOLERANT_RE = re.compile(r'\n?(<script async id="netlify-rum-container"[^>]*></script>)\n?')
+
+
+def strip_rum(served_bytes, tolerant=False):
+    """Remove the injected snippet exactly (the inverse of the insertion).  `tolerant` accepts a snippet with a missing newline on either
+    side (Netlify changed its injection format) - only for diagnosing drift, never for reconstruction.  Returns (bytes, snippet or None)."""
     text = served_bytes.decode('utf-8')
     found = RUM_RE.findall(text)
-    if not found:
-        return served_bytes, None
     if len(found) > 1:
         raise Unmodelled('%d RUM snippets in one page' % len(found))
-    return RUM_RE.sub('', text, count=1).encode('utf-8'), found[0]
+    if found:
+        return RUM_RE.sub('', text, count=1).encode('utf-8'), found[0]
+    if tolerant:
+        found = RUM_TOLERANT_RE.findall(text)
+        if len(found) == 1:
+            return RUM_TOLERANT_RE.sub('', text, count=1).encode('utf-8'), found[0]
+    return served_bytes, None
 
 
-def inverse(served_bytes, reference_bytes=None):
+def inverse(served_bytes, reference_bytes=None, tolerant=False):
     """Undo the post-processing of a served HTML page.  Returns (source_bytes, info).
 
     The RUM snippet is removed exactly.  Rewritten ``<a>`` tags are restored from `reference_bytes` (a source file of the same page: a
     tag whose forward image equals the served tag is taken verbatim, so attribute order, quoting and ``.html`` are known facts); a
     rewritten-looking tag with no reference counterpart is INFERRED (double quotes, sorted attributes, ``.html`` restored) and listed in
     ``info['inferred']`` - the forward model still reproduces it, but the source form is a guess."""
-    stripped, rum = strip_rum(served_bytes)
+    stripped, rum = strip_rum(served_bytes, tolerant)
     text = stripped.decode('utf-8')
     refs = []
     if reference_bytes is not None:

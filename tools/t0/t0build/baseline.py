@@ -303,7 +303,7 @@ def find_rum(responses):
 
 def compare(tree, responses, rum, toml_text=''):
     """Compare a source tree {path: bytes} with the responses {urlpath: Resp} (the post-processing model for html).  Returns a list of
-    findings {path, state, detail:[...], forms:{}}; state is one of ok, drift, missing, config, unexpected."""
+    findings {path, state, detail:[...]}; state is one of ok, drift, missing, config, unexpected."""
     forced = forced_404_paths(toml_text)
     findings = []
     for p in sorted(tree):
@@ -335,15 +335,17 @@ def compare(tree, responses, rum, toml_text=''):
                 if r is None:
                     bad_forms.append((form, None, 'not requested'))
                     continue
-                if r.status == 404 and form == 'extension' and ('/' + p) in forced:
-                    continue              # e.g. /diagnostics.html: forced 404 redirect in netlify.toml; the pretty form is the file
+                if form == 'extension' and ('/' + p) in forced:
+                    # e.g. /diagnostics.html: netlify.toml forces a 404 for this spelling (the pretty form is still the file)
+                    if r.status != 404:
+                        bad_forms.append((form, r, 'HTTP %d: netlify.toml forces a 404 for this spelling (a dev page became reachable)' % r.status))
+                    continue
                 if r.status != 200:
                     bad_forms.append((form, r, 'HTTP %d%s' % (r.status, (' ' + r.error) if r.error else '')))
                     continue
                 if r.body != expected:
                     bad_forms.append((form, r, 'bytes differ from the post-processed baseline'))
             if not bad_forms:
-                f['forms'] = 'both' if not any(('/' + p) in forced for _ in [0]) else 'pretty only (extension form is a forced 404)'
                 findings.append(f)
                 continue
             f['state'] = 'drift'
@@ -353,7 +355,7 @@ def compare(tree, responses, rum, toml_text=''):
                 if r is not None and r.status == 200 and not shown:
                     shown = True
                     try:
-                        live_src, info = netlify.inverse(r.body, src)
+                        live_src, info = netlify.inverse(r.body, src, tolerant=True)
                     except (netlify.Unmodelled, UnicodeDecodeError) as e:
                         f['detail'].append('  cannot undo post-processing: %s' % e)
                         continue

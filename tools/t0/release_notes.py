@@ -61,7 +61,7 @@ WHAT = {
         'Head clean-up: no `modulepreload`, plain stylesheet link, a single `preconnect https://api.mapbox.com`, `color-scheme` meta, `site-nav.js` deferred, splash fade and the body entrance animation removed.',
         'Patch `R0-intro-delete`: the 3.5 s intro is gone (it was the LCP element and primed the `i2` accumulator by accident).',
         '`version.json`, `_ops/asset-manifest.json`, `_ops/used-names.txt` (ledger copy).',
-        'Nothing else: no page, data, header or config change (the legacy `netlify.toml` is shipped unchanged).',
+        'Nothing else: no page, data, header or config change (the legacy `netlify.toml` is shipped unchanged). The live `index.html` (with production\'s own inline-script changes of 2026-09-30) and the live `data/terrain.json` are carried over unchanged; the mechanism edits are the only changes to `index.html`.',
     ],
     'R1a': [
         'Group A (25 patches): C5 (the three undefined gold-trail calls are gone and the caption is true; the `onMapReady`/`ref` fix lets Follow Your Ancestor `flyTo` work), desktop pointer capture (overlay canvas `pointer-events:none`, click rebuilt so Distance and unit select still work, Toggle Units off blocks selection), D-SOUND (in-app sound removed: `yO` returns null, `_lastSoundMs` fixed), D-HEATMAP (the dead `H` key, Help row and tour row deleted), monuments loop stopped (45-59 idle React commits/s to 0), merged key guard, Esc clears the pinned unit and closes Layers/Distance, `2`/`3` jump to the day, onboarding storage in try/catch and skipped for deep links, `dt` cap, Skip tour resets to tick 1, Locations wait for `mapRef`, walkthrough map attribution on, and the AMD-T0-1 error boundary around the app root (moved here from the optional group EB).',
@@ -70,7 +70,7 @@ WHAT = {
         'Overlay: `og/card-r1.png`, valid manifest screenshots (own-art title cards at the old names), maskable icons, `manifest.json` (`id`, no `orientation`), Search Console verification file.',
     ],
     'R1b': [
-        'Group C (72 patches): the mobile shell. Layout auto-detect `(max-width:834px) and (pointer:coarse), (max-height:480px) and (pointer:coarse)` with a `change` listener, `?layout=` override, `html[data-layout]` set before first paint; desktop-only overlays gated out of the phone layout; Search/Filter/story/event panels and toasts re-homed under the mobile root; map `maxBounds`, no rotation, compact attribution, `setMapRef` + `T4` on load; the Tools sheet (Help, Bookmarks, Layers wired, NPS tile became Virtual Walkthrough, scrolling grid, 44 px targets); transport, safe-area and `dvh`; touch tour copy; 44 px scrubber.',
+        'Group C (73 patches: the 72 of the mobile group plus `C:live-hide-legacy-bar-superseded`): the mobile shell. Layout auto-detect `(max-width:834px) and (pointer:coarse), (max-height:480px) and (pointer:coarse)` with a `change` listener, `?layout=` override, `html[data-layout]` set before first paint; desktop-only overlays gated out of the phone layout; Search/Filter/story/event panels and toasts re-homed under the mobile root; map `maxBounds`, no rotation, compact attribution, `setMapRef` + `T4` on load; the Tools sheet (Help, Bookmarks, Layers wired, NPS tile became Virtual Walkthrough, scrolling grid, 44 px targets); transport, safe-area and `dvh`; touch tour copy; 44 px scrubber.',
         'Group AX (61 patches): the accessibility bridge, not conformance. Skip link, one `h1`, `main`/`nav` landmarks, timeline slider as an integer 1..675 slider with `aria-valuetext`, toolbar names and `aria-pressed`, labelled inputs, dialog focus for Help/Bookmarks/onboarding, battle log `role=log` `aria-live=off`, reduced-motion flag, contrast and 12 px floor CSS in the app stylesheet, 44 px targets on coarse pointers, forced-colors, scroll regions focusable. Must follow C (`trains.json` records the dependency).',
     ],
     'R1c': [
@@ -96,11 +96,21 @@ VISIBLE = {
     'R1c': ['The map shows the played-through state at any tick (each unit at its latest keyframe at or before the tick, e.g. U-CAV-1-1 is held at its tick-9 keyframe at tick 12); dates read July 1/2/3, never July 4-9; deep links work; Turning Points links land on the repointed ticks; privacy and Terms text changes (owner review); `netlify.app` redirects to the primary domain once the headers ship.'],
 }
 
+LIVE_DRIFT = {
+    'R0': ['Kept: the live `data/terrain.json` (8 corrected key locations), the live animationend reveal fix and text-aware collision count of the Extra Features button, and the live inline block that hides the legacy desktop timeline bar in Mobile mode (the legacy bar is mounted in Mobile mode here, so dropping the block would revert a live fix).',
+           'Inherited: production removed the monuments star-marker overlay (`#gtbg-monuments-overlay`); the old overlay script is not in this tree.'],
+    'R1a': ['Same as R0: every live change is carried. The hide-bar block stays because group C is not in this train (T0-BL-06 shows the Mobile mode behaves like live).'],
+    'R1b': ['Group C supersedes the live hide-bar block, so patch `C:live-hide-legacy-bar-superseded` removes it: the mobile shell never mounts the desktop bar, and the credit `mailto:` link the block looks for does not exist in the mobile DOM (T0-BL-05: 0 range inputs, 0 credit links, before and with the Tools sheet open). The other live changes are kept.',
+             'The star overlay that production removed is gone here too (before the re-baseline R1b still shipped it).'],
+    'R1c': ['As R1b. `terrain.json` is the live file byte for byte (T0 rule 5: no `/data` edits).'],
+}
+
 REMAINS_COMMON = [
     'Nothing has been deployed and no real device, iOS/WebKit, Firefox or Samsung Internet has run any of this. Every test ran in headless Chrome 153 on Windows against localhost; touch is CDP emulation.',
     'Real Mapbox tiles were exercised only through the test harness (production Referer injected, at most 300 requests per run); no Lighthouse run exists (no runner in the repo), so the plan\'s Lighthouse gates (mobile >= 85, desktop >= 95, a11y >= 97) are unmeasured.',
     'Netlify\'s own header matching, `_headers`/`_redirects` parsing and host redirect are emulated only; a `gbg-staging` deploy with `node ops/headers-probe.mjs` and `tests/t0/prod-probe.mjs --parity` is the required proof.',
     'Open until the rebuild (chapter 02 section 10): C4 (clock hours), H5, H6, H12, H13, D1, D4, S3, P2, P3, P6, T2, E2, E4, E5, G1, X1/X2 owner verification, 100 phantom placement ids and 15 wrong-side units, Historian retrieval quality. The clock labels are hours off (D-TIME): T0 changes only the `+2` date.',
+    'Production is not the downloaded deploy any more (`docs/baseline-drift.md`): this train is built from the locked `baseline/dist`, the source-level reconstruction of production as of 2026-09-30 (live deploy `6abd6d62...`). `python tools/t0/baseline.py verify-live` must print IDENTICAL immediately before deploying; `netlify.toml` and Netlify dashboard settings cannot be compared by bytes (only through headers), and the live deploy zip has not been archived yet (owner action).',
     'Owner actions (WP-T0-17, `ops/owner-console-actions.md`): archive off-machine, Mapbox/Google key restrictions, Search Console DNS TXT, Netlify primary-domain setting, credits, 2FA. Deploy discipline (Tue-Thu, none 2026-11-15..20, one production deploy per train) is the owner\'s.',
 ]
 REMAINS = {
@@ -126,7 +136,7 @@ def suites_for(train, results):
             continue
         suffix = i.split('.')[-1] if '.' in i else ''
         parts = i.split('.')
-        if i.startswith('static.'):
+        if i.startswith('static.') or i.startswith('baseline.'):
             rows.append(r)
         elif train in parts[1:]:
             rows.append(r)
@@ -152,7 +162,9 @@ def build_notes(train, summary, head):
     anc = jload(os.path.join(base, 'anchors.json'), {})
     gate = jload(os.path.join(base, 'gate.json'), {})
     cfg = jload(os.path.join(REPO, 'tools', 't0', 'trains.json'), {})
-    legacy = walk(os.path.join(REPO, cfg['legacy']['dir']))
+    legacy = walk(os.path.join(REPO, (cfg.get('base') or cfg['legacy'])['dir']))            # the BASELINE the train was built from
+    legacy_dl = walk(os.path.join(REPO, cfg['legacy']['dir']))                               # the downloaded deploy 6aa16d61
+    lock = jload(os.path.join(REPO, (cfg.get('base') or {}).get('lock', 'tools/t0/baseline.lock.json')), {})
     files = man.get('files', {})
     added = sorted(f for f in files if f not in {k for k in legacy})
     removed = sorted(f for f in legacy if f not in files)
@@ -172,15 +184,15 @@ def build_notes(train, summary, head):
     w('|---|---|')
     w('| train / release id | %s / `%s` |' % (train, ver.get('release')))
     w('| entry, chunks, css | `%s`, `%s`, `%s`, `%s` |' % (ver.get('entry'), ver.get('help'), ver.get('bookmark'), ver.get('css')))
-    w('| deploy this | `release/%s/dist` (%d files, %s bytes; legacy/dist has %d files) |' % (train, man.get('file_count', 0), format(man.get('total_bytes', 0), ','), len(legacy)))
+    w('| deploy this | `release/%s/dist` (%d files, %s bytes; baseline/dist has %d files) |' % (train, man.get('file_count', 0), format(man.get('total_bytes', 0), ','), len(legacy)))
     w('| tree sha256 | `%s` |' % man.get('tree_sha256'))
-    w('| input | `legacy/dist` (Netlify deploy 6aa16d61), entry md5 `%s`, byte-exact and never modified |' % ver.get('source_entry_md5'))
+    w('| input | `baseline/dist` (production as of 2026-09-30, live deploy `%s`; tree `%s`, %d files, locked per file in `tools/t0/baseline.lock.json`), entry md5 `%s`. `legacy/dist` (the downloaded Netlify deploy 6aa16d61) is never modified and differs from the baseline in %s |' % (lock.get('live_deploy_id'), (man.get('baseline') or {}).get('tree_sha256'), (man.get('baseline') or {}).get('file_count', 0), ver.get('source_entry_md5'), ', '.join('`%s`' % f for f in lock.get('changed_vs_legacy', []))))
     w('| groups (order) | %s |' % ', '.join(ver.get('groups', [])))
     w('| patch records | %d asserted anchors, 0 failed (%s) |' % (anc.get('summary', {}).get('patches', 0), ', '.join('%s %d' % (k, v) for k, v in by_group.items())))
-    w('| vs legacy/dist | %d files added, %d removed, %d changed, %d identical |' % (len(added), len(removed), len(changed), len(files) - len(added) - len(changed)))
+    w('| vs baseline/dist | %d files added, %d removed, %d changed, %d identical |' % (len(added), len(removed), len(changed), len(files) - len(added) - len(changed)))
     w('| build gates | %s |' % (', '.join('%s %s' % (c['id'], 'ok' if c['ok'] else 'FAIL') for c in gate.get('checks', [])) or 'gate.json missing'))
     w('')
-    w('Files removed from legacy: %s.' % (', '.join('`%s`' % f for f in removed) or 'none'))
+    w('Files removed from the baseline: %s.' % (', '.join('`%s`' % f for f in removed) or 'none'))
     w('')
     w('Files added (%d): %s.' % (len(added), ', '.join('`%s`' % f for f in added)))
     w('')
@@ -190,6 +202,11 @@ def build_notes(train, summary, head):
         w('This train is cumulative: it contains everything in %s plus the items below.' % TRAINS[TRAINS.index(train) - 1])
         w('')
     for b in WHAT[train]:
+        w('- ' + b)
+    w('')
+    w('## Live drift carried by this train (re-baseline of 2026-09-30, `docs/baseline-drift.md`)')
+    w('')
+    for b in LIVE_DRIFT[train]:
         w('- ' + b)
     w('')
     w('## Audit findings (chapter 02 section 10 ids)')
@@ -229,7 +246,7 @@ def build_notes(train, summary, head):
         reds = [r for r in summary['results'] if r['id'].startswith('red.')]
         if reds:
             w('')
-            w('Red-first proofs (the same suites run against the deployed `legacy/dist` with `--expect-red` must FAIL every selected test):')
+            w('Red-first proofs (the same suites run against `legacy/dist`, the downloaded original deploy, with `--expect-red` must FAIL every selected test; the drift of production itself is characterised by the `baseline.drift` suite):')
             w('')
             w('| proof | result | what |')
             w('|---|---|---|')
@@ -247,7 +264,7 @@ def build_notes(train, summary, head):
     w('')
     w('## Deploy and rollback (nothing here was executed)')
     w('')
-    w('Deploy (owner, per `ops/RELEASE-RUNBOOK.md`): stage first (`gbg-staging`, noindex), run `node tests/t0/prod-probe.mjs --base <staging> --train %s --staging --dist release/%s/dist`, then `netlify deploy --dir release/%s/dist --prod --message "%s %s"` from inside the dist folder. Tuesday to Thursday only, none in 2026-11-15..20, one production deploy per train. After deploy run `python tools/t0/ledger.py record --dist release/%s/dist --train %s --rid %s` and commit `ops/used-names.txt`.' % (train, train, train, train, ver.get('release'), train, train, ver.get('release')))
+    w('Deploy (owner, per `ops/RELEASE-RUNBOOK.md`): **run `python tools/t0/baseline.py verify-live` first and deploy only on IDENTICAL (exit 0)**; stage first (`gbg-staging`, noindex), run `node tests/t0/prod-probe.mjs --base <staging> --train %s --staging --dist release/%s/dist`, then `netlify deploy --dir release/%s/dist --prod --message "%s %s"` from inside the dist folder. Tuesday to Thursday only, none in 2026-11-15..20, one production deploy per train. After deploy run `python tools/t0/ledger.py record --dist release/%s/dist --train %s --rid %s` and commit `ops/used-names.txt`.' % (train, train, train, train, ver.get('release'), train, train, ver.get('release')))
     w('')
     w('Rollback: ' + ROLLBACK[train])
     w('')

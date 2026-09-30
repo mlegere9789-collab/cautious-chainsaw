@@ -6,6 +6,7 @@
 //   node tools/t0/run_suites.mjs --list                print the suite table and exit
 //   node tools/t0/run_suites.mjs --json tmp/x.json     where to write the summary (default release/test-summary.json; release/ is git-ignored)
 //   node tools/t0/run_suites.mjs --no-red              skip the red-first proofs against legacy/dist
+//   node tools/t0/run_suites.mjs --no-network          skip baseline.live (python tools/t0/baseline.py verify-live: ~150 read-only requests to production)
 //   node tools/t0/run_suites.mjs --only red.copy --merge   re-run some suites and merge their rows into the existing summary
 //
 // Every suite is a separate process with T0_PORT_BASE (default 8480, uses base..base+9) and its own Chrome profile under tmp/<T0_AGENT>.
@@ -24,6 +25,7 @@ const opt = (n, d) => { const i = argv.indexOf(`--${n}`); return i >= 0 ? (argv[
 const ONLY = (opt('only', '') || '').split(',').filter(Boolean);
 const JSON_OUT = path.resolve(REPO, opt('json', 'release/test-summary.json'));
 const NO_RED = !!opt('no-red', false);
+const NO_NET = !!opt('no-network', false);
 const MERGE = !!opt('merge', false);          // keep the rows of an earlier summary for suites that are not re-run (rows whose id left the table are dropped)
 const PORT_BASE = String(opt('port-base', process.env.T0_PORT_BASE || 8480));
 const AGENT = process.env.T0_AGENT || 'integrator';
@@ -42,8 +44,10 @@ const add = (id, title, cmd, args, o = {}) => S.push({ id, title, cmd, args, kin
 // ---- static
 add('static.gates', 'build gates of the four trains (gate.json written by build.py)', 'gates', []);
 add('static.overlap', 'geometric overlap audit of the patch set', PY, ['tools/t0/overlap.py'], { kind: 'check' });
-add('static.verify', 'verify_release: manifest, static crawl, dev pages, names, identity, cumulative, legacy pinned', NODE, ['tools/t0/verify_release.mjs', '--json', 'release/verify-all.json'], { kind: 'check' });
+add('static.verify', 'verify_release: manifest, static crawl, dev pages, names, identity vs the baseline, cumulative, legacy and baseline pinned', NODE, ['tools/t0/verify_release.mjs', '--json', 'release/verify-all.json'], { kind: 'check' });
 add('static.selftest', 'build system self-test (10 properties incl. determinism and ledger)', PY, ['tests/t0/build_selftest.py']);
+add('static.baseline', 'baseline machinery self-test (16 cases: Netlify post-processing model, lock and build refusal, CRLF-aware patching, overlay guard, verify-live against a local Netlify fake, mirror -> reconstruct -> prove, JS/Python model parity)', PY, ['tools/t0/tests/baseline_selftest.py']);
+add('static.baselinelock', 'baseline/dist matches tools/t0/baseline.lock.json (per-file sha256, no network)', PY, ['tools/t0/baseline.py', 'verify'], { kind: 'check' });
 add('static.legal', 'privacy/terms fact base vs the built R1c tree', NODE, ['ops/legal-drafts/verify-facts.mjs', '--dist', D('R1c')], { kind: 'check' });
 add('static.lib', 'browser harness self-test', NODE, ['tests/t0/lib_selftest.mjs']);
 // ---- R0 mechanism on every train
@@ -70,7 +74,10 @@ add('pagescore.R1c.full', 'PGC-01 duplicate-id sweep of every page under 0/300/1
 for (const t of ['R1a', 'R1c']) add(`pagesmaps.${t}`, `map sub-pages, og card, manifest (PG-01..08) on ${t}`, NODE, [PGM, '--dist', D(t)]);
 // ---- headers
 add('headers.R1c', 'R1c generated _headers/_redirects + real-Chrome framing and CSP crawl', NODE, [HDR, '--dist', D('R1c')]);
-// ---- red-first proofs against the deployed tree
+// ---- live drift of 2026-09-30 (docs/baseline-drift.md)
+add('baseline.drift', 'live drift: T0-BL-01..09 (hide-bar block, monuments overlay removed, animationend reveal, hide-bar block superseded in R1b/R1c and kept in R0/R1a, every train keeps the live index.html and terrain.json)', NODE, ['tools/t0/tests/baseline-drift.spec.mjs']);
+if (!NO_NET) add('baseline.live', 'verify-live: production still equals baseline/dist (network, read-only, about 150 requests)', PY, ['tools/t0/baseline.py', 'verify-live'], { kind: 'check' });
+// ---- red-first proofs against the original deployed tree (legacy/dist; the specs decide "legacy" by that path)
 if (!NO_RED) {
   const L = 'legacy/dist';
   add('red.r0', 'legacy/dist: X1 (one Document, controller, one sku) is RED', NODE, [R0, '--dist', L, '--expect-red', '--filter', 'R0-0[1-3]'], { kind: 'red' });
