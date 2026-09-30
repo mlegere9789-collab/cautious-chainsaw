@@ -17,6 +17,7 @@ import { buildPostings, buildEntityPostings, IX_BUCKETS, EN_BUCKETS } from './li
 import { Emitter, writeManifest, brotliSize, stable } from './lib/emit.mjs';
 import { validate } from './lib/validate.mjs';
 import { loadSources } from './lib/sources.mjs';
+import { buildClock } from './lib/clock.mjs';
 import { prepareT1 } from '../../historian-src/core/entities.js';
 import { createLinker } from '../../historian-src/core/linker.js';
 import { encodePassage, TX_FIELDS, PER_SHARD } from '../../historian-src/core/codec.js';
@@ -49,7 +50,8 @@ export function build({ dataDir = path.join(root, 'legacy/dist/data'), distDir =
   const P = finalizePassages(buildPassages(site, reg, { bundle: bundleProse, stats }), { link, reg, idx, sourceFor });
   const { buckets: ixBuckets, lexicon } = buildPostings(P);
   const enBuckets = buildEntityPostings(P);
-  const facts = buildFacts(site, reg, scopeCfg);
+  const clock = buildClock(site);                                        // the canonical time model's clock for every chronology event (a proposal: see lib/clock.mjs)
+  const facts = buildFacts(site, reg, scopeCfg, { clock });
 
   // ---- emit (in memory first, to size and validate) ------------------------------------------------------------------------------------------------
   const em = new Emitter(outDir);
@@ -89,7 +91,7 @@ export function build({ dataDir = path.join(root, 'legacy/dist/data'), distDir =
   fs.mkdirSync(outDir, { recursive: true });
   em.flush();
   const manifest = {
-    kb_version: KB_VERSION, schema: SCHEMA, kb_hash: kbHash, time_model: null,
+    kb_version: KB_VERSION, schema: SCHEMA, kb_hash: kbHash, time_model: clock.model,
     data_snapshot: { sha256: site.fp.sha256, files: site.fp.files, dir: 'legacy/dist/data' },
     counts: { entities: t1.records.length, passages: P.length, words: report.passages.words, terms: lexicon.terms.length, units: idx.unitKeys.size },
     tiers,

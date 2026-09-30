@@ -13,8 +13,10 @@ import { renderText, SIDE_NAME, personLabel, withThe } from './format.js';
 import { lintAnswer } from './lint.js';
 import { makeChips } from './chips.js';
 import { W } from './linker.js';
+import { parseClock, julyDate, hm12 } from './clock.js';
+import { clockAnswer, whenLine } from './atime.js';
 
-const CONSUMED = new Set(['who-commanded', 'casualties', 'strength', 'succession', 'ancestor', 'superlative', 'when', 'why', 'what-happened', 'compare', 'list', 'where', 'who', 'count', 'outcome', 'echelons', 'presence', 'opponent', 'membership', 'sequence', 'overview', 'quote']);
+const CONSUMED = new Set(['who-commanded', 'casualties', 'strength', 'succession', 'ancestor', 'superlative', 'when', 'why', 'what-happened', 'compare', 'list', 'where', 'who', 'count', 'outcome', 'echelons', 'presence', 'opponent', 'membership', 'sequence', 'overview', 'quote', 'at-time']);
 const PRIOR = {
   'who-commanded': { regiment: 1.3, brigade: 1.4, division: 1.4, corps: 1.4, army: 1.4, artillery: 1.2, 'artillery-unit': 1.2 },
   casualties: { regiment: 1.3, brigade: 1.3, division: 1.3, corps: 1.3, army: 1.3, artillery: 1.2 },
@@ -26,7 +28,7 @@ export const QUOTE_BUDGET = 780;
 const PASSAGE_PRIOR = { chronicle: 1.0, narrative: 0.9, commentary: 0.85, succession_note: 1.0, walkthrough: 0.75, tour: 0.75, position_note: 0.3 };
 const UNIT_KINDS = new Set(['regiment', 'brigade', 'division', 'corps', 'army', 'artillery', 'artillery-unit']);
 const PLACE_KINDS = new Set(['terrain', 'road', 'structure', 'feature']);
-const STRUCTURED = new Set(['outcome', 'echelons', 'superlative', 'count', 'day-summary', 'sequence', 'overview', 'quote']);
+const STRUCTURED = new Set(['outcome', 'echelons', 'superlative', 'count', 'day-summary', 'sequence', 'overview', 'quote', 'at-time']);
 const FILLERS = new Set(['many', 'much', 'happened', 'happen', 'tell', 'about', 'please', 'give', 'show', 'know', 'want', 'like', 'quick', 'facts', 'fact', 'story', 'explain', 'describe']);
 
 export function createEngine(kb, opts = {}) {
@@ -380,6 +382,7 @@ export function createEngine(kb, opts = {}) {
   }
   /** card ranking as record ids (people map to the unit they commanded), for retrieval metrics only */
   function rankedIds(S) {
+    if (S.rankOverride) return S.rankOverride.slice();
     const out = [];
     for (const x of (S.ranked || []).slice(0, 60)) {
       let id = x.id; const r = R[x.i];
@@ -524,6 +527,10 @@ export function createEngine(kb, opts = {}) {
     })();
     S.intent = follow && follow.intent ? follow.intent : classify(text);
     S.day = dayOf(text);
+    // a clock time or a part of a named day ("at 3pm on July 2", "noon on July 3", "the morning of July 1") is answered from the time model's clock, never from a day summary
+    S.clock = kb.facts.clock ? parseClock(text, { solar: kb.facts.clock.solar }) : null;
+    if (S.clock && S.clock.kind === 'window' && S.clock.phase && S.clock.date === null && !S.day) S.clock = null;   // "the evening attack at Culp's Hill": a part of the day alone is not a clock question
+    if (S.clock) { S.clock.day = S.clock.date !== null ? S.clock.date : S.day || (S.ctx.onsite && S.ctx.onsite.day) || null; if (['lookup', 'what-happened', 'where', 'day-summary', 'list', 'who'].includes(S.intent)) S.intent = 'at-time'; else S.clock = null; }
     const C0 = collect(S);
     Object.assign(S, { units: C0.units, persons: C0.persons, places: C0.places, others: C0.others });
     // the site holds no casualty tally per location: any "how many died at <place>" is answered as that limitation
@@ -548,7 +555,7 @@ export function createEngine(kb, opts = {}) {
     // structured intents (totals, rankings, day summaries) do not need a linked entity: try their composer before the support gates
     let res = null;
     const compose1 = async () => { try { return await composeFor(S); } catch (e) { if (e && e.retryable) throw e; if (opts.debug) throw e; return null; } };
-    const anchored = S.tokens.some((t) => STRONG_DOMAIN.has(t)) || S.mentions.some((m) => m.kind !== 'unit-miss' && m.ids && m.ids.length) || !!S.day;
+    const anchored = S.tokens.some((t) => STRONG_DOMAIN.has(t)) || S.mentions.some((m) => m.kind !== 'unit-miss' && m.ids && m.ids.length) || !!S.day || !!S.clock;
     // "the Wisconsin regiments": a state's roll-up is a structured question too (a state word inside a unit name has been excluded from stateMention)
     const rollupQ = !!S.stateMention && /\bregiments?\b/.test(S.norm) && !S.units.length && ['list', 'lookup', 'count', 'what-happened'].includes(S.intent);
     const structured = STRUCTURED.has(S.intent) || rollupQ;
@@ -562,6 +569,7 @@ export function createEngine(kb, opts = {}) {
     if (!res) return declineAnswer(S, { reason: 'no-composer', text: 'I could not find a record on this site that answers that.' });
     if (S.simple) res.blocks = res.blocks.filter((b) => !(b.t === 'note' && ['authority', 'authority-mixed', 'debate', 'rank-rule', 'basis'].includes(b.code)));
     if (S.injectionStripped) res.blocks.push(C.note('injection', 'Your message also contained an instruction; I ignored it. I only search and quote this site’s records.'));
+    if (res.rankOverride) S.rankOverride = res.rankOverride;
     const out = finish(S, res);
     const t1 = typeof performance !== 'undefined' ? performance.now() : Date.now();
     out.chips.follow = makeChips(kb, S, out);
@@ -636,6 +644,14 @@ export function createEngine(kb, opts = {}) {
       a.chips.follow = cands.slice(0, 6).map((c) => ({ label: c.label, q: c.query || c.label }));
       a.sources = []; return a;
     };
+    // a clock time without a day ("what was happening at 3pm?"), or without am / pm ("at 3 o'clock"): ask, do not guess
+    if (S.intent === 'at-time' && S.clock) {
+      const c = S.clock;
+      const ask2 = (line, chips, reason) => { const r = { mode: 'clarify', blocks: [C.lead([line], [])], src: [], limited: true }; const a = finish(S, r, { decline_reason: reason }); a.chips.follow = chips; a.shown = []; a.sources = []; return a; };
+      const stem0 = S.text.replace(/[?.!\s]+$/, '');
+      if (c.ambiguous === 'meridiem') { const h = c.hour, mm = c.minute ? `:${String(c.minute).padStart(2, '0')}` : ''; return ask2(`Do you mean ${h}${mm} in the morning or in the afternoon or evening?`, [{ label: `${h}${mm} AM`, q: S.text.replace(c.text, `${h}${mm} AM`) }, { label: `${h}${mm} PM`, q: S.text.replace(c.text, `${h}${mm} PM`) }], 'clock-meridiem'); }
+      if (c.day === null) return ask2('Which day do you mean? The battle ran from July 1 to July 3, 1863.', [1, 2, 3].map((d) => ({ label: `July ${d}`, q: `${stem0} on July ${d}` })), 'clock-day');
+    }
     // bare ordinal with no state: "Tell me about the 1st"
     const ords = S.tokens.filter((t) => /^#\d+$/.test(t));
     const anyUnit = S.mentions.some((m) => m.kind !== 'unit-miss');
@@ -793,6 +809,7 @@ export function createEngine(kb, opts = {}) {
     const soleUnitMention = (() => { const u = S.mentions.filter((m) => m.kind === 'unit'); return u.length ? R[u[0].best] : null; })();
     const intent = S.intent;
     let res = null;
+    if (intent === 'at-time') { res = clockAnswer(kb, S); if (res) return res; }
 
     // ---- premise checks (never confirm a false premise) -----------------------------------------------------------------------------------------------
     const died = /\b(died|die|dies|dying|killed|death|dead|shot|fell)\b/.test(S.norm) && /\b(how|why|when|where|explain|what)\b/.test(S.norm);
@@ -887,8 +904,11 @@ export function createEngine(kb, opts = {}) {
       if (focus) {
         if (!S.day && focus.attrs && focus.attrs.day) S.day = focus.attrs.day;
         const res2 = { mode: 'answer', blocks: [C.lead(C.profileLead(kb, focus), [focus.id])], src: [focus.id] };
+        const wl = whenLine(kb, focus);                                  // the time model's clock for this event, when it has one: approximate, and said to be a proposal
+        if (wl) res2.blocks.push(C.lead([wl], [focus.id]));
         const got = await addQuotes(S, res2, { max: 2, timeQ: true, requireClock: true, leadHasText: true });
-        res2.blocks.push(C.note('time-basis', got.length ? 'Times are quoted as written in the site\u2019s own records; the map\u2019s clock is being corrected, so no clock time is derived here.' : 'The site\u2019s records do not state a clock time for this in their text, and the map\u2019s clock is being corrected, so I will not derive one.'));
+        res2.blocks.push(C.note('time-basis', wl ? 'That time comes from the site\u2019s proposed revised timeline, which is approximate and has not yet been reviewed by a historian; sources differ, and any times inside the quotes are as their authors wrote them.'
+          : got.length ? 'Times are quoted as written in the site\u2019s own records; the site\u2019s revised timeline has no entry for this, so no other clock time is given.' : 'The site\u2019s records do not state a clock time for this in their text and the site\u2019s revised timeline has no entry for it, so I will not give one.'));
         return res2;
       }
     }

@@ -5,7 +5,7 @@
 //   events    the chronology by day (ids only; text lives in the passage tier; tick-derived clock labels are never carried)
 //   scope, unknowns, routes, domain   compiled from tools/historian/data/scope.v1.json
 import { parseName } from './names.mjs';
-export function buildFacts(site, reg, scopeCfg) {
+export function buildFacts(site, reg, scopeCfg, { clock = null } = {}) {
   const R = reg.entities;
   const infantry = R.filter((e) => e.k === 'regiment' && !reg.canonOf.has(e.id) && !e.detach);
   const regs = R.filter((e) => e.k === 'regiment' && !reg.canonOf.has(e.id));
@@ -71,7 +71,7 @@ export function buildFacts(site, reg, scopeCfg) {
   // ---- scope, unknowns, routes ------------------------------------------------------------------------------------------------------------
   const facts = {
     schema: 1, rank, rollup, succ, events,
-    scope: scopeCfg.scope_out, unknowns: scopeCfg.unknowns, routes: scopeCfg.routes, domain: scopeCfg.domain_terms, premises: scopeCfg.premises, outcome: scopeCfg.outcome, glossary: scopeCfg.glossary,
+    clock, scope: scopeCfg.scope_out, unknowns: scopeCfg.unknowns, routes: scopeCfg.routes, domain: scopeCfg.domain_terms, premises: scopeCfg.premises, outcome: scopeCfg.outcome, glossary: scopeCfg.glossary,
     authority: {
       U: { site: 'the site’s order of battle', ...rollup.armyVsCorps.U },
       C: { site: 'the site’s order of battle', ...rollup.armyVsCorps.C },

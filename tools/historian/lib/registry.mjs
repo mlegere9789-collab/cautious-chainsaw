@@ -291,10 +291,11 @@ export function buildRegistry(site, { curated = { entries: [] } } = {}) {
     });
     e.aliases.push(v.title.replace(/^The /, ''));
   }
-  const caseLabel = (s) => s.toLowerCase().replace(/(^|[\s(\-])([a-z])/g, (m, p, c) => p + c.toUpperCase()).replace(/'S\b/g, "'s").replace(/\b(\d+)(St|Nd|Rd|Th)\b/g, (m, n, t) => n + t.toLowerCase()).replace(/\bKia\b/g, 'KIA').replace(/\bUs\b/g, 'US').replace(/\bNc\b/g, 'NC').replace(/\bNy\b/g, 'NY').replace(/\bPa\b/g, 'PA');
+  const caseLabel = (s) => s.toLowerCase().replace(/(^|[\s(\-])([a-z])/g, (m, p, c) => p + c.toUpperCase()).replace(/'S\b/g, "'s").replace(/\b(\d+)(St|Nd|Rd|Th)\b/g, (m, n, t) => n + t.toLowerCase()).replace(/\bKia\b/g, 'KIA').replace(/\bUs\b/g, 'US').replace(/\bNc\b/g, 'NC').replace(/\bNy\b/g, 'NY').replace(/\bPa\b/g, 'PA')
+    .replace(/(\S) (Of|The|And|In|At|On|To|For|By|Or|A|An|With|Over|Into|From)(?= )/g, (m, p, w) => `${p} ${w.toLowerCase()}`);   // small words stay small ("Armistead Leads Men over the Wall")
   for (const ev of site.chronology) {
     const text = cleanProse(ev.event, CP);
-    const lead = (ev.event.match(/^([A-Z][A-Z0-9'’\-]+(?: [A-Z0-9'’\-]+){1,8})(?:[.:]| --)\s/) || [])[1];
+    const lead = (ev.event.match(/^([A-Z0-9][A-Z0-9'’\-]+(?: [A-Z0-9'’\-]+){1,8})(?:[.:]| --)\s/) || [])[1];
     const first = (splitSentences(text)[0] ? text.slice(splitSentences(text)[0].s, splitSentences(text)[0].e) : text).replace(/^[^A-Za-z0-9]+/, '');
     const title = lead ? caseLabel(lead) : (first.length > 96 ? first.slice(0, 93).replace(/\s+\S*$/, '') + '…' : first);
     const e = add({
