@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>DRAFT - Terms of Service (merged draft for counsel review)</title>
+  <!--
+    DRAFT. NOT PUBLISHED. NOT LEGAL ADVICE. NOT REVIEWED BY COUNSEL.
+    Written 2026-09-30 for WP-DEC-08 / WP-INFRA-27 (register D-LEGAL step 2-3, D-LICENSE). Merges: infra-netlify Appendix H.2, pages-C-83/84
+    (NOT_VERIFIED for 84), docs-copy T1-T4, with the register defaults applied: code all rights reserved; narrative "quote with credit";
+    NO open data licence until the provenance audit; embed clause matches the headers (only /embed and /embed.html frameable);
+    warranty, liability and governing-law text is NOT written here (WP-CONTENT-24: flagged for counsel).
+    Markers: [[OWNER]] owner decision or fact, [[COUNSEL]] legal judgement not made here, [[FACT-CHECK]] unverified fact, [[WHEN SHIPPED]] true only after a named work package ships.
+    Nothing in this file is served by the site.
+  -->
+  <style>
+    body { background:#0a0a14; color:#ddd; font-family:Georgia,serif; line-height:1.7; max-width:760px; margin:0 auto; padding:24px 5% 100px; }
+    h1 { color:#e8d5a3; } h2 { color:#c8a84a; font-size:18px; margin-top:32px; } a { color:#c8a84a; }
+    .draft { border:2px solid #d9534f; background:#2a1215; color:#f3c6c4; padding:12px 16px; font-family:system-ui,sans-serif; font-size:14px; line-height:1.5; margin:0 0 24px; }
+    .updated { font-family: system-ui, sans-serif; font-size: 13px; color: #aaa; }
+    p, li { font-family: system-ui, sans-serif; font-size: 15px; }
+    mark { background:#4a3a08; color:#ffe9a6; padding:0 3px; border-radius:3px; }
+    pre { background:#12121e; padding:10px; overflow-x:auto; font-size:13px; }
+  </style>
+</head>
+<body>
+  <div class="draft"><b>DRAFT FOR COUNSEL REVIEW - NOT PUBLISHED - NOT LEGAL ADVICE.</b> Not the text that ships in train R1c (that is the three-sentence interim change in <code>tools/t0/patches/PG-legal.json</code>). Yellow marks are open items.</div>
+
+  <h1>Terms of Service</h1>
+  <p class="updated">Effective <mark>[[OWNER: date]]</mark>. Replaces the interim version of September 30, 2026 (and the version of September 7, 2026).</p>
+
+  <h2>1. About these terms</h2>
+  <p>By using gettysburginteractivemap.com ("the site") you agree to these terms. The site is an independent, non-commercial educational project run by <mark>[[OWNER: name of the individual operator]]</mark>. <mark>[[OWNER, register action 10c: "It is not affiliated with or endorsed by the National Park Service, Gettysburg National Military Park or the Gettysburg Foundation" is included ONLY if the owner confirms it is true, and after any registered-mark question (action 10d) is answered]]</mark></p>
+
+  <h2>2. The service</h2>
+  <p>The site is provided free of charge, with no account, no subscription and no payment of any kind, and offers an animated reconstruction of the Battle of Gettysburg (July 1 to 3, 1863) with research tools. Features may change or be withdrawn at any time.</p>
+
+  <h2>3. Acceptable use</h2>
+  <p>You are welcome to use the site for personal, educational and classroom purposes, including linking to it, citing it and showing it in class. Please do not disrupt the service or try to bypass its protections; send automated requests at a rate that affects other visitors (identify your tool in its User-Agent and respect <a href="/robots.txt">robots.txt</a>); scrape the underlying data files to republish them as your own dataset; share tour files or notes that are unlawful, harassing or malicious; or use Watch Together to bother other people.</p>
+
+  <h2>4. Linking and embedding</h2>
+  <p>You may link to any page. You may embed the "Embedded Moment" widget (<code>https://gettysburginteractivemap.com/embed</code>, optionally with <code>?vignette=V-018</code>) in an iframe on your own page if you keep it unmodified with its link back to the site, do not imply endorsement, and do not place it on unlawful, hateful or harassing pages. The widget may be changed or disabled at any time. The main map and the other pages cannot be framed; ask first for any other integration. <mark>[[FACT-CHECK]]</mark> True only when the generated headers of train R1c are live (<code>/embed</code> and <code>/embed.html</code>: <code>frame-ancestors *</code>, no X-Frame-Options; every other page: <code>frame-ancestors 'none'</code> and X-Frame-Options DENY). Before that (the current site) <code>/embed.html</code> is served with X-Frame-Options DENY and cannot be embedded. <code>ops/legal-drafts/verify-facts.mjs</code> checks this against a built <code>_headers</code>.</p>
+  <pre>&lt;iframe src="https://gettysburginteractivemap.com/embed" title="Gettysburg: an embedded moment" width="480" height="260" loading="lazy"&gt;&lt;/iframe&gt;</pre>
+
+  <h2>5. Content and licence</h2>
+  <p>The site's code, design and animation engine are all rights reserved. The written vignettes and other narrative text may be quoted with credit. <mark>[[OWNER, register action 10a: "the written vignette scripts are the creator's own work" (live Terms) cannot be confirmed from the repository: four data notes cite a "Gettysburg Animated YouTube vignette". Answer before this sentence is kept.]]</mark> There is no open licence for the compiled data files yet; the register (D-LICENSE) defers one until the provenance audit of positions and texts is finished. Historical facts and the public-domain sources they come from are free for anyone to use. Suggested citation: <mark>[[OWNER: "Legere, M. Gettysburg Interactive Map (gettysburginteractivemap.com), accessed <date>" (pages-C-83) or the name the owner prefers]]</mark>. <mark>[[COUNSEL]]</mark> Appendix H recommended CC BY-NC 4.0 or CC BY 4.0 for text and compiled data; the register replaced that with the default above.</p>
+
+  <h2>6. Third-party content and services</h2>
+  <p>Map imagery and styles are provided by Mapbox; Street View and Google Maps links by Google; videos and links by the National Park Service; live sync by PeerJS and jsDelivr. Those services are provided by those organizations, not by us, and their own terms and privacy policies apply when you use those parts. The <a href="/privacy.html">Privacy Policy</a> lists what each of them receives.</p>
+
+  <h2>7. Historical accuracy and educational use</h2>
+  <p>Unit positions, casualty figures and troop strengths are compiled from published sources (including the Official Records and Busey and Martin's strength tables) and researched in good faith, but this is not a peer-reviewed work. Where sources disagree, the site does not yet flag every discrepancy, so treat the numbers as estimates and check primary sources. Positions are a best-effort reconstruction, not forensic fact <mark>[[held: the live "five-minute resolution" wording and every clock word wait for D-TIME; do not edit here]]</mark>. The site holds regiment and commander records only, not the roughly 165,000 individual soldiers, and cannot prove genealogical claims. Please tell us about errors <mark>[[WHEN SHIPPED (WP-DEC-06): corrections@ role address or a Report-a-problem form]]</mark>. <mark>[[COUNSEL]]</mark> Busey and Martin-derived figures (register action 10b).</p>
+
+  <h2>8. Ask the Historian</h2>
+  <p>Today: a search over this site's own data, in your browser. <mark>[[WHEN SHIPPED (server-side or AI mode): "Answers are generated with the help of software from retrieved sources and can be wrong or incomplete. Verify important facts against the citations."]]</mark></p>
+
+  <h2>9. Your files, notes and live sessions</h2>
+  <p>Only import tour files from sources you trust. You are responsible for the notes you write and share. Session codes are not passwords: anyone who has one can join your session.</p>
+
+  <h2>10. Battlefield AR and visiting the park</h2>
+  <p><mark>[[FACT-CHECK: pages-C-84 is NOT_VERIFIED; wording from Appendix H.2]]</mark> If you use the AR page on site: stay aware of your surroundings, traffic and terrain; do not use it while driving; keep to paths and off monuments and earthworks; follow National Park Service rules and respect private property and other visitors' privacy. AR positions depend on your phone's sensors and are approximate.</p>
+
+  <h2>11. Availability, changes and termination</h2>
+  <p>We aim to keep the site available but do not guarantee uninterrupted access. We may block access that abuses the service. We may change these terms; the effective date above will change with them.</p>
+
+  <h2>12. Disclaimer and limits on liability</h2>
+  <p><mark>[[COUNSEL TO WRITE. Not drafted here (WP-CONTENT-24). The live Terms say only: the site is provided "as is," without warranty of any kind.]]</mark></p>
+
+  <h2>13. Copyright concerns</h2>
+  <p>If you believe content here infringes your copyright, email us with the page address, what is infringed and your contact details, and we will review it. <mark>[[OWNER/COUNSEL: DMCA agent registration is optional at this scale; role address once WP-DEC-06 ships]]</mark></p>
+
+  <h2>14. Governing law</h2>
+  <p><mark>[[OWNER/COUNSEL: State and venue. Not drafted here.]]</mark></p>
+
+  <h2>15. Contact</h2>
+  <p><a href="mailto:gettysburginteractivemap@gmail.com">gettysburginteractivemap@gmail.com</a> <mark>[[WHEN SHIPPED (WP-DEC-06): role address]]</mark></p>
+</body>
+</html>

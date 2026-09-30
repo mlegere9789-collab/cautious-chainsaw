@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>DRAFT - Privacy Policy (merged draft for counsel review)</title>
+  <!--
+    DRAFT. NOT PUBLISHED. NOT LEGAL ADVICE. NOT REVIEWED BY COUNSEL.
+    Written 2026-09-30 for WP-DEC-08 / WP-INFRA-27 (register D-LEGAL step 2-3). Merges: infra-netlify Appendix H.1 (+H.3), docs-copy P1-P8,
+    pages-C-81, deploy-history-17, with every FACT re-verified on 2026-09-30 (see ops/legal-drafts/data-inventory.json for the evidence
+    behind each sentence) and with the register's changes applied (no COPPA/GDPR-age wording, no invented rights promises, no open data licence).
+    Markers:  [[FACT-CHECK]]  a fact that could not be verified from outside,   [[OWNER]]  a decision or fact only the owner has,
+              [[COUNSEL]]  a legal judgement this draft deliberately does not make,   [[WHEN SHIPPED]]  true only after a named work package ships.
+    Nothing in this file is served by the site; ops/legal-drafts/ is not part of any release.
+  -->
+  <style>
+    body { background:#0a0a14; color:#ddd; font-family:Georgia,serif; line-height:1.7; max-width:760px; margin:0 auto; padding:24px 5% 100px; }
+    h1 { color:#e8d5a3; } h2 { color:#c8a84a; font-size:18px; margin-top:32px; } a { color:#c8a84a; }
+    .draft { border:2px solid #d9534f; background:#2a1215; color:#f3c6c4; padding:12px 16px; font-family:system-ui,sans-serif; font-size:14px; line-height:1.5; margin:0 0 24px; }
+    .updated { font-family: system-ui, sans-serif; font-size: 13px; color: #aaa; }
+    ul, table, p.s { font-family: system-ui, sans-serif; font-size: 15px; line-height: 1.7; }
+    mark { background:#4a3a08; color:#ffe9a6; padding:0 3px; border-radius:3px; }
+    .tablewrap { overflow-x:auto; }
+    table { border-collapse:collapse; width:100%; font-size:14px; line-height:1.5; margin:12px 0; }
+    th, td { border:1px solid #2a2a3a; padding:6px 8px; text-align:left; vertical-align:top; } th { color:#e8d5a3; background:#12121e; }
+    code { font-size:13px; }
+  </style>
+</head>
+<body>
+  <div class="draft"><b>DRAFT FOR COUNSEL REVIEW - NOT PUBLISHED - NOT LEGAL ADVICE.</b> This is the fuller merged privacy policy the register calls for (D-LEGAL step 2). It is not the text that ships in train R1c: that is the shorter, facts-only interim correction in <code>tools/t0/patches/PG-legal.json</code> (previews in <code>ops/legal-drafts/preview/</code>). Yellow marks are open items: <mark>[[FACT-CHECK]]</mark>, <mark>[[OWNER]]</mark>, <mark>[[COUNSEL]]</mark>, <mark>[[WHEN SHIPPED]]</mark>.</div>
+
+  <h1>Privacy Policy</h1>
+  <p class="updated">Effective <mark>[[OWNER: date]]</mark>. Replaces the interim version of September 30, 2026 (which replaced the version of September 7, 2026).</p>
+
+  <h2 id="summary">The short version</h2>
+  <ul>
+    <li>There are no accounts, no sign-up, no ads, no advertising cookies and no analytics cookies, and this site's own code sets no cookies. We do not sell personal information.</li>
+    <li>What you save (bookmarks, settings, a tour you build) stays in your browser and is not sent to us.</li>
+    <li>To show you the site, two services necessarily receive your IP address and basic browser details: Netlify (our host) and Mapbox (the map). Some features contact other services only when you use them: Google (the Virtual Walkthrough's Street View frame and Google Maps links), the National Park Service (video and links), and PeerJS, Google and jsDelivr (Watch Together's live sync).</li>
+    <li>Battlefield AR uses your camera, location and motion sensors on your device. Our code sends none of it anywhere.</li>
+  </ul>
+
+  <h2 id="who">Who runs this site</h2>
+  <p>gettysburginteractivemap.com is an independent, non-commercial educational project run by <mark>[[OWNER: name and, if you wish to publish it, place of the individual operator]]</mark> ("we", "us"). Contact: <a href="mailto:gettysburginteractivemap@gmail.com">gettysburginteractivemap@gmail.com</a> <mark>[[WHEN SHIPPED (WP-DEC-06): replace with the role address (contact@ / corrections@) and add a link to /.well-known/security.txt; neither exists today, security.txt returns 404 as of 2026-09-30]]</mark>.</p>
+
+  <h2 id="collect">What we collect</h2>
+  <p>This site has no accounts, sign-up, forms or comment boxes, and its own code does not ask for your name, email address or precise location. The sections below describe what our host and the services we use receive automatically. If you email us, the message reaches our mailbox, which is a Gmail account.</p>
+
+  <h2 id="hosting">Hosting and traffic statistics (Netlify)</h2>
+  <p>The site is hosted by Netlify, Inc. Like any web host, Netlify's servers receive your IP address, the pages and files you request, your browser's user-agent, the referring page and the time of each request, and keep server logs. <mark>[[OWNER: confirm Netlify Web Analytics is switched on; register open question O-12]]</mark> Netlify's Web Analytics is built from those server logs (no code runs in your browser for it) and reports aggregate page views, unique visitors (counted by IP address per day), referrers, countries and pages not found; we see totals, not individual visitors. See <a href="https://www.netlify.com/privacy/" rel="noopener noreferrer">Netlify's privacy policy</a>. <mark>[[FACT-CHECK]]</mark> Netlify's log retention depends on its plan and policy; the owner has not confirmed either. <mark>[[COUNSEL]]</mark> Netlify is a processor for the site's traffic logs; whether a data-processing agreement is needed is a legal question.</p>
+
+  <h2 id="rum">Performance monitoring (Netlify Real User Monitoring)</h2>
+  <p>Each page loads a small script from this site's own address (<code>/.netlify/scripts/rum</code>) that measures how fast the page loads and responds. It sends Netlify (at ingesteer.services-prod.nsvcs.net) the page's hostname and path, the time of the visit, your browser family (for example Chrome or Safari), operating-system family, device type (mobile or desktop), your available screen size, and page-load, layout-stability and responsiveness timings. The script sets no cookies, stores nothing in your browser and does not run inside embedded frames. Like any request, it reaches Netlify along with your IP address. Content blockers can block it without affecting the site. <mark>[[OWNER: confirm RUM stays on]]</mark></p>
+
+  <h2 id="maps">Maps (Mapbox)</h2>
+  <p>Map imagery, styles, fonts and symbols come from Mapbox, Inc. (api.mapbox.com) on the main map and on the map pages. Your browser contacts Mapbox directly, so Mapbox receives your IP address, your browser's user-agent, this site's address as the referrer (the site sends only its origin to other sites) and the tiles you view. The Mapbox map software also sends usage and performance events to events.mapbox.com: a random anonymous identifier kept in your browser's localStorage (keys beginning <code>mapbox.eventData</code>) and replaced about every 24 hours, the software version, a map-session token, the map style and zoom, device pixel ratio, connection type, your browser's user-agent, screen and window sizes, your graphics card's renderer and vendor names, and load timings. Mapbox's code, not ours, does this. See <a href="https://www.mapbox.com/legal/privacy" rel="noopener noreferrer">Mapbox's privacy policy</a>. In checks on 2026-09-30 Mapbox's software set no cookies on this site. <mark>[[COUNSEL]]</mark> ePrivacy Art. 5(3): is the anonymous identifier "strictly necessary"? This draft does not decide; it discloses. <mark>[[FACT-CHECK]]</mark> Whether blocking events.mapbox.com leaves the map working has not been tested.</p>
+
+  <h2 id="streetview">Virtual Walkthrough (Google Street View)</h2>
+  <p>The Virtual Walkthrough, opened from the button on the main map, shows a Google Street View panorama in a frame served by google.com. Today the frame opens as soon as the Walkthrough does (with the first tour stop) and changes as you pick other stops; the site does not contact Google before you open the Walkthrough. Google receives your IP address, your browser details and this site's address (as the referrer); the frame loads its own scripts, fonts and images from Google's servers (checked: maps.googleapis.com, maps.gstatic.com, streetviewpixels-pa.googleapis.com, fonts.googleapis.com, fonts.gstatic.com); and Google may set or read its own cookies and identifiers, under <a href="https://policies.google.com/privacy" rel="noopener noreferrer">Google's privacy policy</a>. <mark>[[WHEN SHIPPED (register D-MEDIA, click-to-load): "Only when you press Load Street View, ..." and the frame stops opening by itself]]</mark> Links such as "Open in Google Maps", "View on map" and "Open Street View at this location" open Google Maps in a new tab only when you click them.</p>
+
+  <h2 id="nps">National Park Service video and links</h2>
+  <p>Some stops of the NPS Auto Tour have a Show Video button. Only when you press it, a video page from the National Park Service (www.nps.gov) opens in a frame, and the National Park Service receives your IP address, your browser details and this site's address (as the referrer), under <a href="https://www.nps.gov/aboutus/privacy.htm" rel="noopener noreferrer">its privacy practices</a>. "NPS Video" links in the Walkthrough and the Find Your Ancestor link to the NPS Soldiers and Sailors database open nps.gov in a new tab only when clicked.</p>
+
+  <h2 id="watch">Watch Together (live sync)</h2>
+  <p>Building a tour, Export tour and Import tour happen in your browser. Live Sync is optional: it connects two browsers directly with WebRTC, arranged by the public PeerJS service. Only when you press Host or Join: the page downloads the PeerJS code (version 1.5.4) from jsDelivr (cdn.jsdelivr.net), so jsDelivr sees your IP address and browser details <mark>[[WHEN SHIPPED (WP-INFRA-08): "or from this site, once self-hosted"]]</mark>; your browser registers a peer ID (for the host it contains the 5-letter session code) with the PeerJS public broker at 0.peerjs.com over HTTPS and WebSocket, so the broker sees the code and your IP address; PeerJS's default settings list Google's public STUN server (stun.l.google.com) and PeerJS's relay servers (eu-0.turn.peerjs.com and us-0.turn.peerjs.com), which your browser may contact while the connection is set up; and the other person in the session can learn your IP address, as with any direct WebRTC connection. Our code sends only two things between browsers: the tick number the host is showing and the host's optional note. A session code is not a password: anyone who has it can join. Do not put personal information in notes. Policies: <a href="https://www.jsdelivr.com/terms/privacy-policy-jsdelivr-net" rel="noopener noreferrer">jsDelivr</a>, <a href="https://policies.google.com/privacy" rel="noopener noreferrer">Google</a>. <mark>[[FACT-CHECK]]</mark> PeerJS publishes no privacy policy for its free cloud server that we could find (peerjs.com/privacy is a 404 as of 2026-09-30), so its retention and server location are unknown; Appendix H's statement that the broker "reports an EU location" was not verified and is not repeated here. <mark>[[OWNER]]</mark> The register's default for this page is to retire it (D-SCOPE-TIERS); if it is retired, delete this section.</p>
+
+  <h2 id="ar">Battlefield AR</h2>
+  <p>After you press "Start Battlefield AR", the AR page asks your browser for permission to use your rear camera, your location and your device's motion/orientation (compass) sensor. Camera video is shown on your screen only; it is not recorded or uploaded. Your location is used inside your browser to work out distances and bearings to landmarks, and the compass aims the overlay. The page's only network request is for this site's own landmark data, so none of it is sent to us or to anyone else. You can withdraw permission at any time in your browser or phone settings; the rest of the site does not need it.</p>
+
+  <h2 id="local">Tools that work only on your device</h2>
+  <p>Cinematic Export records the map view into a video file on your device. Immersive Mode makes its sound in your browser. Ask the Historian searches this site's own data in your browser; what you type is not sent to us. <mark>[[WHEN SHIPPED (WP-HIST, server-side Historian): replace this paragraph with the conditional Historian paragraph at the end of this draft]]</mark></p>
+
+  <h2 id="storage">What is stored on your device</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Name</th><th>Purpose</th><th>Contents</th><th>How long</th></tr></thead>
+    <tbody>
+      <tr><td><code>gtbg_onboarded</code> (localStorage)</td><td>Remembers that you finished or skipped the intro tour</td><td>"1"</td><td>Until you clear site data</td></tr>
+      <tr><td><code>gtbg_prefs</code></td><td>Legend and mini-map visibility, intro completed</td><td>Small settings object</td><td>Until cleared</td></tr>
+      <tr><td><code>gettysburg_bookmarks</code></td><td>Your bookmarks</td><td>Tick, label, unit, map centre, zoom, time created, share link</td><td>Until cleared</td></tr>
+      <tr><td><code>gtbg-ef-hidden</code></td><td>Whether you hid the Extra Features menu</td><td>true / false</td><td>Until cleared</td></tr>
+      <tr><td><code>gtbg_watch_together_tour</code></td><td>The tour you build in Watch Together</td><td>Stops (tick numbers) and your notes</td><td>Until cleared</td></tr>
+      <tr><td><code>mapbox.eventData</code>, <code>.uuid</code>, <code>.uuidTimestamp</code> (each followed by ":" and a short id)</td><td>Mapbox's anonymous identifier and reporting state</td><td>Random ID, timestamps</td><td>ID replaced about every 24 hours</td></tr>
+      <tr><td><code>gtbg_layout</code> (sessionStorage)</td><td>Remembers a desktop-layout choice in this tab</td><td>"desktop"</td><td>Until the tab closes</td></tr>
+      <tr><td><code>gtbg_chunk_reload</code>, <code>gtbg_boot_retry</code> (sessionStorage)</td><td>Stop the page reloading itself more than once if a file fails to load</td><td>"1"</td><td>Until the tab closes</td></tr>
+      <tr><td><code>gbg-r0-...</code> (Cache Storage, service worker)</td><td>Faster repeat visits</td><td>Copies of this site's own script and style files under /assets/ only</td><td>Replaced on each site update</td></tr>
+      <tr><td><code>mapbox-tiles</code> (Cache Storage)</td><td>Map tiles kept by Mapbox's software</td><td>Map tiles</td><td>Managed by Mapbox's software</td></tr>
+    </tbody>
+  </table></div>
+  <p>Except for Mapbox's identifier (see Maps), nothing in this table leaves your device. <mark>[[WHEN SHIPPED (WP-INFRA-27 item 4): "Use Privacy and data in the footer to see and clear all of this."]]</mark> You can also clear it in your browser's site settings.</p>
+
+  <h2 id="cookies">Cookies</h2>
+  <p>This site sets no cookies. Google (Virtual Walkthrough, Google Maps) and the National Park Service (video) may set their own if you open their frames or pages; see their policies above. <mark>[[COUNSEL]]</mark> Whether a consent banner is needed for the Mapbox identifier and Cache Storage; the register's default is no banner unless counsel says otherwise.</p>
+
+  <h2 id="children">Children</h2>
+  <p>The site is used in classrooms. It has no accounts and does not ask any visitor, including students, for personal information. The services described above receive technical data such as IP addresses under their own policies. Teachers may wish to remind students not to type personal information into Watch Together notes, which everyone in a live session can see. <mark>[[COUNSEL]]</mark> Age-specific wording (COPPA "under 13", GDPR Art. 8 "under 16"/national ages) is deliberately not drafted here: the register (D-LEGAL) records that Appendix H's wording oversimplified GDPR Art. 8.</p>
+
+  <h2 id="rights">Your rights and choices</h2>
+  <p><mark>[[COUNSEL]]</mark> Starting text from Appendix H.1, not adopted until reviewed: We hold no profile about you and cannot look you up from an IP address. If you are in the EU, UK or EEA you can ask for access, correction, deletion, restriction or portability of personal data we hold, object to processing, and complain to your data-protection authority. If you are in California or another US state with a privacy law, you can ask what we hold and ask for deletion; we do not sell personal information. Email us; requests about data held by Netlify, Mapbox, Google, the National Park Service, PeerJS or jsDelivr must go to them. <mark>[[OWNER]]</mark> The reply-within-30-days (45 in California) promise in Appendix H is an operational commitment the owner must agree to keep (log in ops/dsar.md). <mark>[[FACT-CHECK]]</mark> "We honour Global Privacy Control": the site's code does not read the GPC signal; because nothing is sold or shared for advertising the claim is trivially true, but counsel should decide the wording.</p>
+
+  <h2 id="basis">Legal bases (EU and UK)</h2>
+  <p><mark>[[COUNSEL]]</mark> Starting text: operating, securing and measuring the performance of the site (Netlify logs and monitoring, Mapbox delivery) is our legitimate interest (GDPR Art. 6(1)(f)); items stored on your device provide features you request; optional frames and live sync are used only when you ask for them.</p>
+
+  <h2 id="transfers">Where data goes</h2>
+  <p><mark>[[COUNSEL]]</mark> Netlify, Mapbox, Google and jsDelivr operate mainly in the United States and elsewhere; data from visitors in other countries is transferred to those places under each provider's own safeguards. <mark>[[FACT-CHECK]]</mark> PeerJS's broker location is not verified.</p>
+
+  <h2 id="retention">How long data is kept</h2>
+  <p>We keep nothing ourselves. The providers above keep data under their own policies. Data on your device stays until you clear it.</p>
+
+  <h2 id="security">Security</h2>
+  <p>The site is served only over HTTPS, with HTTP Strict Transport Security (max-age one year, includeSubDomains, preload, seen in the live response headers on 2026-09-30), and accepts no logins or payments. <mark>[[WHEN SHIPPED: "an enforced content-security-policy" (today it is Report-Only, and no report collector exists) and the security.txt link]]</mark></p>
+
+  <h2 id="changes">Changes to this policy</h2>
+  <p>We will update this page and its date when what the site collects or how it works changes (for example if Ask the Historian starts sending questions to a server). Change log: <mark>[[OWNER: carry forward the interim log: 2026-09-30 corrected and completed; 2026-09-07 previous version]]</mark></p>
+
+  <h2 id="contact">Contact</h2>
+  <p><a href="mailto:gettysburginteractivemap@gmail.com">gettysburginteractivemap@gmail.com</a> <mark>[[WHEN SHIPPED (WP-DEC-06): role address; see ops/legal-drafts/contact-architecture.md]]</mark></p>
+
+  <h2>Conditional paragraph: Ask the Historian served by our own API (publish only when live)</h2>
+  <p class="s"><mark>[[WHEN SHIPPED]]</mark> When you ask a question, the text you type and the passages retrieved from this site's historical data are sent to our server (hosted on Netlify) <mark>[[and, when the AI mode is on, to [[model provider]] to compose an answer]]</mark>. We do not store your question or your IP address, except that short-lived counters keyed to a temporary hash are used to limit abuse and cost. If you press a feedback button we store that question with your rating for up to <mark>[[30 days: owner to confirm]]</mark>. Answers are generated from cited sources and can contain mistakes; check the citations. Please do not enter personal information. <mark>[[COUNSEL]]</mark> Provider terms for minors' data are unverified [arch-rag-function].</p>
+
+  <h2>Questions for counsel (WP-INFRA-27 item 2)</h2>
+  <ul>
+    <li>GDPR: legitimate interest for hosting and monitoring logs; whether Art. 8 matters for a site with no consent-based services.</li>
+    <li>ePrivacy Art. 5(3) / PECR: the Mapbox anonymous identifier in localStorage and events to events.mapbox.com; Cache Storage; whether a banner is needed.</li>
+    <li>COPPA for a mixed-audience site where Netlify, Mapbox and Google receive IP addresses; CCPA/CPRA wording; student-privacy expectations for a classroom mode.</li>
+    <li>Whether the operator must be named and where; governing law; liability limits; takedown handling.</li>
+    <li>Open data licence, any LLM tier, Busey and Martin-derived figures, trademark/confusion with the paid app, the NPS and the Gettysburg Foundation (register actions 10a-d).</li>
+  </ul>
+</body>
+</html>

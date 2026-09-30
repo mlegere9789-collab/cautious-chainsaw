@@ -1,0 +1,462 @@
+{
+  "schema": 1,
+  "status": "DRAFT fact base for the interim privacy correction (WP-DEC-07 / WP-INFRA-26). Facts only. Not legal advice. Every row names its evidence; rows marked owner_confirm cannot be verified from outside the Netlify/Google/Mapbox dashboards.",
+  "verified_on": "2026-09-30",
+  "verified_against": "legacy/dist (deploy 6aa16d61, entry index-Cg8FAMXN.js md5 7ef75b95f4c02700430b8aa91e3a7459); scratch builds of train R1c (tmp/legal/build-R1c, rid 59731f73, no page groups; tmp/legal/build-R1c-pg, rid a7cbfebd, with the PG-core, PG-maps and PG-legal groups present on 2026-09-30); and the live site (curl, read-only).",
+  "own_hosts": [
+    "gettysburginteractivemap.com",
+    "www.gettysburginteractivemap.com"
+  ],
+  "dev_pages": {
+    "files": [
+      "diagnostics.html",
+      "unit-rendering-reference.html"
+    ],
+    "why": "developer pages that WP-T0-12 deletes from the publish tree; excluded from the scan (they use gtbg_session, __test__ and a.tiles.mapbox.com). If they are still present in a tree the verifier says so."
+  },
+  "origins": [
+    {
+      "id": "netlify-hosting",
+      "who": "Netlify, Inc. (host and CDN)",
+      "hosts": [
+        "gettysburginteractivemap.com"
+      ],
+      "when": "every page, file and data request",
+      "receives": [
+        "IP address",
+        "requested URL",
+        "user-agent",
+        "referrer",
+        "time"
+      ],
+      "in_dist": false,
+      "evidence": [
+        "curl -sI https://gettysburginteractivemap.com/ -> Server: Netlify, no Set-Cookie (8 URLs checked 2026-09-30)"
+      ],
+      "owner_confirm": "Netlify server-side Web Analytics enabled? Plan? (register O-12). Netlify docs (docs.netlify.com/manage/monitoring/web-analytics/how-web-analytics-works/, page dated Sep 11 2026): built from CDN server logs, no client-side code, unique visitors counted by IP address per day.",
+      "policy_mentions": [
+        "Netlify"
+      ]
+    },
+    {
+      "id": "netlify-rum",
+      "who": "Netlify Real User Monitoring",
+      "hosts": [
+        "ingesteer.services-prod.nsvcs.net"
+      ],
+      "when": "every HTML page on the live site; injected by Netlify at the edge, NOT present in legacy/dist or in any release build",
+      "receives": [
+        "hostname",
+        "path",
+        "timestamp",
+        "browser family",
+        "OS family",
+        "device class",
+        "available screen size",
+        "web-vitals timings",
+        "site id and deploy branch/context"
+      ],
+      "in_dist": false,
+      "evidence": [
+        "curl https://gettysburginteractivemap.com/<page>.html: 27 of 27 pages carry <script async id=\"netlify-rum-container\" src=\"/.netlify/scripts/rum\"> (diff against legacy/dist shows only this line)",
+        "curl https://gettysburginteractivemap.com/.netlify/scripts/rum (11,141 B, md5 ccd37404195fff5783b10bb017d12992): posts JSON to https://ingesteer.services-prod.nsvcs.net/rum_collection; payload = hostname, pathname, timestamp_ms, client{browser,os,size,device}, events; guarded by window===window.top; no document.cookie, localStorage, sessionStorage or indexedDB in the script"
+      ],
+      "policy_mentions": [
+        "ingesteer.services-prod.nsvcs.net",
+        "/.netlify/scripts/rum"
+      ]
+    },
+    {
+      "id": "mapbox-api",
+      "who": "Mapbox, Inc.",
+      "hosts": [
+        "api.mapbox.com"
+      ],
+      "when": "main map and the map pages: Compare Moments, Camera Modes, What They Could See, What-If Sandbox, Immersive Mode, The Ground Remembers, Watch Together, Cinematic Export",
+      "receives": [
+        "IP address",
+        "user-agent",
+        "referrer (origin only: Referrer-Policy strict-origin-when-cross-origin)",
+        "tiles, styles, fonts, sprites requested",
+        "map-session sku"
+      ],
+      "in_dist": true,
+      "evidence": [
+        "tmp/legal/probe-out.json: loading / in R1c contacted only 127.0.0.1 (own), api.mapbox.com (52 requests), events.mapbox.com (4)",
+        "tmp/legal/probe-pages-out.json: 11 of 27 pages request api.mapbox.com (index, camera, cinematic-export, compare, ground-remembers, immersive, sandbox, viewshed, watch-together + dev pages diagnostics, unit-rendering-reference); the other 16 request no third-party host",
+        "camera.html:19-20 (mapbox-gl.css and mapbox-gl.js 3.24.1 from api.mapbox.com/mapbox-gl-js/v3.24.1/)",
+        "legacy/analysis/bundle.pretty.js:11315 API_URL https://api.mapbox.com"
+      ],
+      "policy_mentions": [
+        "api.mapbox.com",
+        "Mapbox"
+      ]
+    },
+    {
+      "id": "mapbox-events",
+      "who": "Mapbox map library telemetry",
+      "hosts": [
+        "events.mapbox.com"
+      ],
+      "when": "whenever a Mapbox map loads (POST /events/v2)",
+      "receives": [
+        "anonymous UUID (userId)",
+        "sdkVersion 3.24.1",
+        "skuId and skuToken",
+        "style and zoom",
+        "devicePixelRatio",
+        "connectionEffectiveType",
+        "navigatorUserAgent",
+        "screenWidth/Height",
+        "windowWidth/Height",
+        "mapWidth/Height",
+        "webglRenderer",
+        "webglVendor",
+        "projection, terrain and fog flags",
+        "load timings and resource counters",
+        "style.load mapInstanceId"
+      ],
+      "in_dist": true,
+      "evidence": [
+        "tmp/legal/probe-out.json eventPosts: four POST bodies captured from a real R1c load (events style.load, appUserTurnstile, gljs.performance, map.load) with exactly these fields",
+        "legacy/analysis/bundle.pretty.js:11327-11336 EVENTS_URL (events.mapbox.cn is only used if API_URL is api.mapbox.cn: not the case here)",
+        "legacy/analysis/bundle.pretty.js:54238 key prefix mapbox.eventData; :54268-54292 uuid kept in localStorage, replaced when older than 864e5 ms (24 h); :54478-54592 gljs.performance fields"
+      ],
+      "policy_mentions": [
+        "events.mapbox.com",
+        "mapbox.eventData"
+      ]
+    },
+    {
+      "id": "google-streetview",
+      "who": "Google (Maps Embed API, Street View)",
+      "hosts": [
+        "www.google.com",
+        "maps.googleapis.com",
+        "maps.gstatic.com",
+        "streetviewpixels-pa.googleapis.com",
+        "fonts.googleapis.com",
+        "fonts.gstatic.com"
+      ],
+      "when": "as soon as the main map's Virtual Walkthrough opens (first tour stop is pre-selected) and again for each stop picked; NOT on page load in release trains (the legacy index.html preconnect hints to www.google.com, maps.googleapis.com and streetviewpixels-pa.googleapis.com are removed by the R0 mechanism)",
+      "receives": [
+        "IP address",
+        "user-agent",
+        "referrer (origin only)",
+        "Google cookies/identifiers if Google sets them (unverifiable here)"
+      ],
+      "in_dist": true,
+      "evidence": [
+        "legacy/analysis/bundle.pretty.js:110661 <iframe src=https://www.google.com/maps/embed/v1/streetview?key=...&pano=...>; :110739 [l,R]=useState(d2[0]) so the first stop renders on open",
+        "tmp/legal/probe-out.json phases.walkthrough: opening the Walkthrough in R1c caused requests to www.google.com (frame), maps.googleapis.com, maps.gstatic.com, streetviewpixels-pa.googleapis.com, fonts.googleapis.com, fonts.gstatic.com (about 30 requests, all issued by Google's own frame)",
+        "R1c index.html: only <link rel=preconnect href=https://api.mapbox.com>; probe load phase: no Google host contacted"
+      ],
+      "policy_mentions": [
+        "Street View",
+        "google.com",
+        "maps.googleapis.com"
+      ]
+    },
+    {
+      "id": "google-maps-links",
+      "who": "Google Maps (outbound links)",
+      "hosts": [
+        "www.google.com"
+      ],
+      "when": "only when you click a link: 'Open in Google Maps', 'View on map', 'Open Street View at this location' (Soldier's Eye View)",
+      "receives": [
+        "whatever your browser sends to google.com/maps after you navigate there"
+      ],
+      "in_dist": true,
+      "evidence": [
+        "legacy/analysis/bundle.pretty.js:101961, 102034-102062, 110667, 110719-110722 (target=_blank rel=noopener noreferrer)"
+      ],
+      "policy_mentions": [
+        "Google Maps"
+      ]
+    },
+    {
+      "id": "nps-video",
+      "who": "National Park Service",
+      "hosts": [
+        "www.nps.gov"
+      ],
+      "when": "NPS Auto Tour: only after you press Show Video on a stop that has one (frame); links to nps.gov (walkthrough 'NPS Video', Find Your Ancestor -> Soldiers and Sailors Database) only when clicked",
+      "receives": [
+        "IP address",
+        "user-agent",
+        "referrer (origin only)"
+      ],
+      "in_dist": true,
+      "evidence": [
+        "legacy/analysis/bundle.pretty.js:100428 button toggles state R; state l starts !1 (line ~100327); :100462 iframe src=M.videoUrl (16 nps.gov/media/video URLs)",
+        "legacy/analysis/bundle.pretty.js:110675 c.video link (target=_blank); find-ancestor.html:52 link to nps.gov/civilwar/soldiers-and-sailors-database.htm"
+      ],
+      "policy_mentions": [
+        "nps.gov",
+        "National Park Service"
+      ]
+    },
+    {
+      "id": "jsdelivr-peerjs",
+      "who": "jsDelivr CDN (serves PeerJS 1.5.4)",
+      "hosts": [
+        "cdn.jsdelivr.net"
+      ],
+      "when": "Watch Together: when Host or Join is pressed (tree with PG-maps / WP-T0-13: PeerJS is loaded on demand with an SRI hash); in legacy/dist it is a <script src> that loads with the page",
+      "receives": [
+        "IP address",
+        "user-agent",
+        "referrer (origin only)"
+      ],
+      "in_dist": true,
+      "evidence": [
+        "watch-together.html:19 <script src=https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js>",
+        "tmp/legal/probe-pages-out.json: only watch-together.html requests cdn.jsdelivr.net",
+        "release tree built with PG-maps.json: watch-together.html has no static jsdelivr <script>; loadPeerJs() (line ~247) injects it with integrity=sha384-... on Host/Join"
+      ],
+      "policy_mentions": [
+        "cdn.jsdelivr.net",
+        "jsDelivr"
+      ]
+    },
+    {
+      "id": "peerjs-broker",
+      "who": "PeerJS public broker (PeerServer Cloud)",
+      "hosts": [
+        "0.peerjs.com"
+      ],
+      "when": "only after Host or Join is pressed in Watch Together (new Peer() sits in the click handlers)",
+      "receives": [
+        "IP address",
+        "peer id (host id = gtbg-wt-<5-letter session code>)",
+        "the id being connected to",
+        "WebRTC signalling (which carries ICE candidates)"
+      ],
+      "in_dist": false,
+      "evidence": [
+        "watch-together.html:224 new Peer('gtbg-wt-'+code) (host), :251 new Peer() then peer.connect('gtbg-wt-'+code) (join)",
+        "https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js (md5 c2c48b561e5d9099fd76b204ba543fe9): CLOUD_HOST=\"0.peerjs.com\", CLOUD_PORT=443, WebSocket for signalling",
+        "peerjs.com states no privacy policy for the free cloud server (peerjs.com/privacy is 404; checked 2026-09-30)"
+      ],
+      "policy_mentions": [
+        "0.peerjs.com"
+      ]
+    },
+    {
+      "id": "google-stun",
+      "who": "Google public STUN server (PeerJS default ICE server)",
+      "hosts": [
+        "stun.l.google.com"
+      ],
+      "when": "while a Live Sync connection is being set up",
+      "receives": [
+        "IP address"
+      ],
+      "in_dist": false,
+      "evidence": [
+        "peerjs.min.js 1.5.4 default config: iceServers [{urls:\"stun:stun.l.google.com:19302\"}, {urls:[\"turn:eu-0.turn.peerjs.com:3478\",\"turn:us-0.turn.peerjs.com:3478\"],username:\"peerjs\",credential:\"peerjsp\"}]; watch-together.html passes no config"
+      ],
+      "policy_mentions": [
+        "stun.l.google.com"
+      ]
+    },
+    {
+      "id": "peerjs-turn",
+      "who": "PeerJS TURN relays (PeerJS default ICE servers)",
+      "hosts": [
+        "eu-0.turn.peerjs.com",
+        "us-0.turn.peerjs.com"
+      ],
+      "when": "while a Live Sync connection is being set up (relay used if a direct connection is not possible)",
+      "receives": [
+        "IP address",
+        "relayed connection data if the relay is needed"
+      ],
+      "in_dist": false,
+      "evidence": [
+        "same as google-stun"
+      ],
+      "policy_mentions": [
+        "eu-0.turn.peerjs.com",
+        "us-0.turn.peerjs.com"
+      ]
+    }
+  ],
+  "ignored_hosts": {
+    "www.w3.org": "XML/SVG namespace strings, never requested",
+    "schema.org": "JSON-LD @context string, never requested",
+    "www.sitemaps.org": "sitemap.xml namespace, never requested",
+    "www.mapbox.com": "Mapbox logo link (target=_blank) and the policy link on privacy.html; only followed if clicked",
+    "docs.mapbox.com": "text inside Mapbox library error messages",
+    "apps.mapbox.com": "Mapbox library feedback URL constant, only linked in an error/feedback control",
+    "account.mapbox.com": "text inside Mapbox library error messages",
+    "github.com": "text inside library error messages/comments",
+    "reactjs.org": "React minified-error decoder text",
+    "example.com": "base URL used only to validate relative URLs in the Mapbox library (new URL(x, 'http://example.com')), never requested",
+    "events.mapbox.cn": "dead branch: used only if API_URL is api.mapbox.cn",
+    "a.tiles.mapbox.com": "legacy preconnect hint (removed by R0) and diagnostics.html (deleted by WP-T0-12)",
+    "b.tiles.mapbox.com": "legacy preconnect hint (removed by R0)",
+    "policies.google.com": "policy link on privacy.html, only followed if clicked",
+    "www.netlify.com": "policy link on privacy.html, only followed if clicked",
+    "www.jsdelivr.com": "policy link on privacy.html, only followed if clicked",
+    "peerjs.com": "project link on privacy.html, only followed if clicked",
+    "mapbox.mapbox-terrain-dem-v1": "Mapbox tileset id (mapbox://-style identifier in compare.html), not a host",
+    "friendly-lolly-da85c0.netlify.app": "the site's default Netlify hostname; appears only as the SOURCE of a 301 to the primary domain in the generated _redirects, never requested by the site"
+  },
+  "storage": {
+    "localStorage": [
+      {
+        "key": "gtbg_onboarded",
+        "match": "gtbg_onboarded",
+        "purpose": "remembers that the intro tour was finished or skipped",
+        "holds": "\"1\"",
+        "kept": "until site data is cleared",
+        "evidence": "bundle.pretty.js:112951, 113068"
+      },
+      {
+        "key": "gtbg_prefs",
+        "match": "gtbg_prefs",
+        "purpose": "legend visibility, mini-map visibility, intro completed",
+        "holds": "small JSON {showLegend, showMinimap, onboardingComplete}",
+        "kept": "until cleared",
+        "evidence": "bundle.pretty.js:9329-9339, 9428-9443"
+      },
+      {
+        "key": "gettysburg_bookmarks",
+        "match": "gettysburg_bookmarks",
+        "purpose": "your bookmarks",
+        "holds": "per bookmark: id (time), tick, label, unitId, map centre, zoom, created, share link",
+        "kept": "until cleared",
+        "evidence": "bundle.pretty.js:97821, 97842-97862"
+      },
+      {
+        "key": "gtbg-ef-hidden",
+        "match": "gtbg-ef-hidden",
+        "purpose": "whether the Extra Features menu is hidden",
+        "holds": "true/false",
+        "kept": "until cleared",
+        "evidence": "index.html:328-344"
+      },
+      {
+        "key": "gtbg_watch_together_tour",
+        "match": "gtbg_watch_together_tour",
+        "purpose": "the tour built in Watch Together",
+        "holds": "stops {tick, note}",
+        "kept": "until cleared",
+        "evidence": "watch-together.html:159-161, 284"
+      },
+      {
+        "key": "mapbox.eventData",
+        "match": "mapbox.eventData",
+        "purpose": "Mapbox map library: anonymous id and telemetry state (three keys: mapbox.eventData, mapbox.eventData.uuid, mapbox.eventData.uuidTimestamp, each followed by ':' and a short id)",
+        "holds": "random UUID, timestamps",
+        "kept": "id replaced about every 24 hours",
+        "evidence": "bundle.pretty.js:54238-54307; tmp/legal/probe-out.json snapshot.local"
+      },
+      {
+        "key": "gtbg-motion",
+        "match": "gtbg-motion",
+        "read_only": true,
+        "purpose": "READ-ONLY: the a11y bridge (group AX) honours a value of \"reduce\" if the browser already holds one; nothing in the site or in tools/t0 ever writes it, so it is not disclosed as something the site stores",
+        "holds": "n/a",
+        "kept": "n/a",
+        "evidence": "tools/t0/patches/AX.json AX-flags-and-dialog-helper (getItem only)"
+      }
+    ],
+    "sessionStorage": [
+      {
+        "key": "gtbg_layout",
+        "match": "gtbg_layout",
+        "purpose": "remembers, for this tab, that you switched to the desktop layout (train R1b, group C)",
+        "holds": "\"desktop\"",
+        "kept": "until the tab is closed",
+        "evidence": "tools/t0/patches/C.json mob:HF-5a/5b/5c"
+      },
+      {
+        "key": "gtbg_chunk_reload",
+        "match": "gtbg_chunk_reload",
+        "purpose": "stops the page reloading more than once if a script file fails to load (train R0)",
+        "holds": "\"1\"",
+        "kept": "until the tab is closed",
+        "evidence": "tools/t0/mechanism/sw-register.html"
+      },
+      {
+        "key": "gtbg_boot_retry",
+        "match": "gtbg_boot_retry",
+        "purpose": "stops the page reloading more than once if the app's main file fails to load (train R0 boot loader)",
+        "holds": "\"1\"",
+        "kept": "until the tab is closed",
+        "evidence": "tools/t0/mechanism/loader.html:8-14"
+      }
+    ],
+    "cacheStorage": [
+      {
+        "key": "gbg-r0-<release id>",
+        "match": "gbg-r0-",
+        "purpose": "service worker cache of this site's own script and style files under /assets/ (train R0)",
+        "holds": "copies of same-origin, hashed /assets/* responses only",
+        "kept": "replaced when the site is updated",
+        "evidence": "tools/t0/mechanism/sw.js.tmpl; tmp/legal/probe-out.json snapshot.caches"
+      },
+      {
+        "key": "mapbox-tiles",
+        "match": "mapbox-tiles",
+        "purpose": "map tiles cached by the Mapbox library",
+        "holds": "map tiles",
+        "kept": "managed by the library",
+        "evidence": "tmp/legal/probe-out.json snapshot.caches; the R0 worker never touches it"
+      }
+    ],
+    "cookies": "none set by this site; none present in the probe (context.cookies() and document.cookie empty after loading the R1c main page with a real Mapbox session and after opening the Virtual Walkthrough); no document.cookie in any first-party or bundled code; no Set-Cookie header on 8 live URLs",
+    "indexedDB": "none observed (indexedDB.databases() empty in the probe)"
+  },
+  "device_permissions": [
+    {
+      "id": "ar",
+      "page": "ar.html",
+      "permissions": [
+        "camera (getUserMedia facingMode environment, audio false)",
+        "location (geolocation.watchPosition, high accuracy)",
+        "device orientation/compass (deviceorientation, iOS requestPermission)"
+      ],
+      "when": "only after 'Start Battlefield AR' is pressed",
+      "leaves_device": "no: the page's only fetch is GET /data/terrain.json; no MediaRecorder, canvas capture, sendBeacon or XHR",
+      "evidence": "ar.html:114, 160, 172, 184-193; Permissions-Policy in netlify.toml grants camera, geolocation, accelerometer, gyroscope, magnetometer to self only"
+    }
+  ],
+  "on_device_only": [
+    {
+      "id": "cinematic-export",
+      "what": "records the map canvas to a WebM file with MediaRecorder and offers it as a download",
+      "evidence": "cinematic-export.html:141-247"
+    },
+    {
+      "id": "immersive",
+      "what": "synthesises sound with the Web Audio API",
+      "evidence": "immersive.html:115-121"
+    },
+    {
+      "id": "historian",
+      "what": "searches the site's own data files in the browser; the only network calls are GET /data/*",
+      "evidence": "historian.html:76-79"
+    },
+    {
+      "id": "tour-export-import",
+      "what": "Export tour builds a Blob download; Import tour reads a chosen file with file.text()",
+      "evidence": "watch-together.html:311-334"
+    }
+  ],
+  "unknowable_from_outside": [
+    "Whether Netlify Web Analytics is enabled for the site, and the Netlify plan (owner dashboard)",
+    "Whether Google sets cookies inside the Street View frame for a given visitor (Google's decision)",
+    "What Mapbox, PeerJS and jsDelivr retain and for how long (their policies; PeerJS publishes none that we could find)",
+    "Whether the Gmail contact mailbox has forwarding or filters (owner account)"
+  ],
+  "local_only_pages": [
+    "ar.html",
+    "historian.html",
+    "cinematic-export.html",
+    "immersive.html"
+  ]
+}
