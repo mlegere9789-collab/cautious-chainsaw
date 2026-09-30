@@ -271,6 +271,12 @@ test('emit(): a junction or symlink that points into legacy/ (inside the output 
     const alias = path.join(base, 'alias');
     fs.symlinkSync(path.join(root, 'legacy'), alias, 'junction');
     assert.throws(() => mod.emit({ patches: [], out: path.join(alias, 'dist', 'q') }), /refusing/);
+    // a symlinked FILE at a destination (creating one needs a privilege on Windows: then this part is skipped)
+    const out2 = path.join(root, 'tmp', 'out2');
+    fs.mkdirSync(out2, { recursive: true });
+    let linked = false;
+    try { fs.symlinkSync(path.join(root, 'legacy', 'dist', 'data', 'terrain.json'), path.join(out2, 'terrain.json'), 'file'); linked = true; } catch { /* no symlink privilege */ }
+    if (linked) assert.throws(() => mod.emit({ patches: [], out: out2 }), /refusing to write under legacy/);
     assert.deepEqual(legacyHashes(root), before, 'not one legacy byte changed');
   } finally { rmrf(base); }
 });
