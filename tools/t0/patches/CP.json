@@ -6,77 +6,88 @@
    "target": "js",
    "find": "Loading battle data...",
    "repl": "Loading the battlefield…",
-   "expect": 1
+   "expect": 1,
+   "note": "boot/loading caption matches the static splash caption"
   },
   {
    "id": "cp:b10",
    "target": "js",
    "find": "1x (real time)",
    "repl": "1x (base speed)",
-   "expect": 1
+   "expect": 1,
+   "note": "\"real time\" is not true after the time model; wording is speed only, no clock claim (D-TIME untouched)"
   },
   {
    "id": "cp:b11",
    "target": "js",
    "find": "Download Website Tutorial PDF",
    "repl": "User Guide (PDF)",
-   "expect": 1
+   "expect": 1,
+   "note": "matches the site footer label"
   },
   {
    "id": "cp:b13",
    "target": "js",
    "find": "← Animated Map",
    "repl": "← Back to the map",
-   "expect": 1
+   "expect": 1,
+   "note": "walkthrough header back link"
   },
   {
    "id": "cp:b14",
    "target": "js",
    "find": "← Back to Animated Map",
    "repl": "← Back to the map",
-   "expect": 1
+   "expect": 1,
+   "note": "walkthrough footer back link"
   },
   {
    "id": "cp:b15",
    "target": "js",
    "find": "Culps Hill",
    "repl": "Culp's Hill",
-   "expect": 1
+   "expect": 1,
+   "note": "terrain label (GeoJSON feature property n, display only)"
   },
   {
    "id": "cp:b16",
    "target": "js",
    "find": "Devils Den",
    "repl": "Devil's Den",
-   "expect": 1
+   "expect": 1,
+   "note": "terrain label"
   },
   {
    "id": "cp:b17",
    "target": "js",
    "find": "Barlows Knoll",
    "repl": "Barlow's Knoll",
-   "expect": 1
+   "expect": 1,
+   "note": "terrain label"
   },
   {
    "id": "cp:b18",
    "target": "js",
    "find": "Picketts Charge",
    "repl": "Pickett's Charge",
-   "expect": 1
+   "expect": 1,
+   "note": "16th Vermont stop text"
   },
   {
    "id": "cp:b41",
    "target": "js",
    "find": "Stand where history happened — Street View panoramas from the battlefield",
    "repl": "Stand where history happened. Eight viewpoints open in Google Street View.",
-   "expect": 1
+   "expect": 1,
+   "note": "H13: the tool hands off to Google Maps; the list has exactly 8 viewpoints (rO)"
   },
   {
    "id": "cp:b43",
    "target": "js",
    "find": "🔗 Copy Shareable Link",
    "repl": "Copy link",
-   "expect": 1
+   "expect": 1,
+   "note": "app-bugs-05: the share link works once group DL is in (R1c)"
   },
   {
    "id": "cp:b44",
@@ -90,7 +101,8 @@
    "target": "js",
    "find": "Regiment (~400)",
    "repl": "Regiment (about 400)",
-   "expect": 1
+   "expect": 1,
+   "note": "tilde and thousands separator"
   },
   {
    "id": "cp:b50",
@@ -118,14 +130,32 @@
    "target": "help",
    "find": "445+ Union and Confederate units",
    "repl": "hundreds of Union and Confederate regiments and batteries",
-   "expect": 1
+   "expect": 1,
+   "note": "G1: 445 is stale (467 regiments + 103 batteries in the order of battle); no count without the facts pipeline"
   },
   {
    "id": "cp:h03",
    "target": "help",
    "find": "Primary Sources",
    "repl": "Sources",
-   "expect": 1
+   "expect": 1,
+   "note": "the list mixes primary and secondary works"
+  },
+  {
+   "id": "cp:mobile-tools-footer (Privacy, Terms, credit; after group C HF-6g)",
+   "target": "js",
+   "find": "window.GTBG_MENU.buildGroupsHtml(null):\"\"}})])",
+   "repl": "window.GTBG_MENU.buildGroupsHtml(null):\"\"}}),V.jsxs(\"div\",{key:\"__foot\",style:{gridColumn:\"1 / -1\",padding:\"8px 4px 24px\",font:\"12px/1.6 system-ui,sans-serif\",color:\"#a9b1c4\",textAlign:\"center\"},children:[V.jsx(\"a\",{href:\"/privacy.html\",style:{color:\"#c9a24b\",display:\"inline-block\",padding:\"12px 14px\"},children:\"Privacy\"}),V.jsx(\"a\",{href:\"/terms.html\",style:{color:\"#c9a24b\",display:\"inline-block\",padding:\"12px 14px\"},children:\"Terms\"}),V.jsx(\"div\",{children:\"Created by Mike Legere\"})]})])",
+   "expect": 1,
+   "note": "depends on group C HF-6g text; the desktop credit line (timeline) stays as it is (D-CONTACT)"
+  },
+  {
+   "id": "cp:banner (index.html:377: no \"AI-style\", no \"live sound\", no AR, no count)",
+   "target": "index.html",
+   "find": "'<span>20 more tools live behind <b>Extra Features</b>, top right &mdash; search, an AI-style historian, live sound, AR, and more. Don&rsquo;t miss them.</span>'",
+   "repl": "'<span>More tools live behind <b>Extra Features</b>, top right &mdash; search, Ask the Historian, and more. Don&rsquo;t miss them.</span>'",
+   "expect": 1,
+   "note": "the count (20) would be wrong once AR is hidden (19 items in GROUPS); AR is Tier 3 hidden; in-app sound is removed (D-SOUND)"
   }
  ]
 }

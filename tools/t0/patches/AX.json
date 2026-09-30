@@ -6,14 +6,16 @@
    "target": "js",
    "find": "V.jsx(\"input\",{type:\"range\",min:0,max:100,step:.01,value:he,onChange:Ie=>P(Math.round(1+Ie.target.value/100*(M-1))),style:Po.scrubInput})",
    "repl": "V.jsx(\"input\",{type:\"range\",\"aria-label\":\"Battle time\",\"aria-valuetext\":R(),min:1,max:M,step:1,value:c,onChange:Ie=>P(Number(Ie.target.value)),style:Po.scrubInput})",
-   "expect": 1
+   "expect": 1,
+   "note": "timeline slider: integer 1..675 domain, name, aria-valuetext = the store clock text getTickTime() (R); follows the clock automatically"
   },
   {
    "id": "a11:D-toolbar-vs",
    "target": "js",
    "find": "V.jsx(\"button\",{onClick:M,title:f,style:{...tc.toolBtn,",
    "repl": "V.jsx(\"button\",{type:\"button\",onClick:M,title:f,\"aria-label\":f,\"aria-pressed\":x===void 0?void 0:!!x,style:{...tc.toolBtn,",
-   "expect": 1
+   "expect": 1,
+   "note": "13 desktop toolbar glyph buttons (S F L B ? and emoji): accessible name = the existing title, aria-pressed for the toggles"
   },
   {
    "id": "a11:G-close-generic",
@@ -29,7 +31,8 @@
    "find": "style:(tn\\.(?:popupClose|toolsClose|slidePanelClose)),onClick:([^,]+),children:\"✕\"",
    "repl": "style:\\1,\"aria-label\":\"Close\",onClick:\\2,children:\"✕\"",
    "expect": 3,
-   "regex": true
+   "regex": true,
+   "note": "3 hits (not 4) because group C HF-6l already labels the Tools close; AX must follow C"
   },
   {
    "id": "a11:H-filter-range",
@@ -71,14 +74,16 @@
    "target": "js",
    "find": "V.jsx(\"div\",{ref:f,style:ux.map})",
    "repl": "V.jsx(\"div\",{ref:f,id:\"gt-map\",tabIndex:-1,style:ux.map})",
-   "expect": 1
+   "expect": 1,
+   "note": "desktop map container = skip-link target (#root bypasses nothing)"
   },
   {
    "id": "a11:I-toast-log",
    "target": "js",
    "find": "x.length===0?null:V.jsx(\"div\",{style:eh.container,children:x.map(",
    "repl": "V.jsx(\"div\",{style:eh.container,role:\"log\",\"aria-live\":\"off\",\"aria-relevant\":\"additions\",\"aria-label\":\"Battle events\",children:x.map(",
-   "expect": 1
+   "expect": 1,
+   "note": "aria-live=\"off\" on purpose: polite would announce up to 16 ticks/s (a11y verdict 02); the region exists so a later opt-in can turn it on"
   },
   {
    "id": "a11:J2-glow-pulse",
@@ -93,6 +98,367 @@
    "find": "ut=Hc/Pe",
    "repl": "ut=window.__gtbgReduceMotion?0:Hc/Pe",
    "expect": 2
+  },
+  {
+   "id": "AX-flags-and-dialog-helper",
+   "target": "js",
+   "find": "(function(){const f=document.createElement(\"link\").relList;",
+   "repl": "(function(){try{const mq=matchMedia(\"(prefers-reduced-motion: reduce)\"),set=()=>{let p=null;try{p=localStorage.getItem(\"gtbg-motion\")}catch(e){}window.__gtbgReduceMotion=mq.matches||p===\"reduce\"};set();mq.addEventListener&&mq.addEventListener(\"change\",set)}catch(e){window.__gtbgReduceMotion=!1}const st=[];window.__gtbgDlg=document.__gtbgDlg=function(el){try{if(el){st.push(document.activeElement);el.contains(document.activeElement)||el.focus({preventScroll:!0})}else{const p=st.pop();p&&p!==document.body&&p.isConnected&&p.focus&&p.focus({preventScroll:!0})}}catch(e){}}})();(function(){const f=document.createElement(\"link\").relList;",
+   "expect": 1,
+   "note": "window.__gtbgReduceMotion (prefers-reduced-motion, live) read by J2/J3; window.__gtbgDlg (also on document: the Help chunk only has `document` as a baseline global) = stable ref callback: focus into a dialog on mount, back to the invoker on unmount"
+  },
+  {
+   "id": "AX-toolbar-center-flow",
+   "target": "js",
+   "find": "toolbarCenter:{position:\"absolute\",left:\"50%\",transform:\"translateX(-50%)\"}",
+   "repl": "toolbarCenter:{flex:\"0 0 auto\"}",
+   "expect": 1,
+   "note": "desktop header: the centre cluster was absolutely centred and overlapped the 13 toolbar buttons below ~1440 px (axe target-size on Search); as a flex child of the space-between header it can no longer overlap"
+  },
+  {
+   "id": "AX-toolbar-hook-tick",
+   "target": "js",
+   "find": "V.jsx(\"span\",{style:tc.tickLabel,children:xi})",
+   "repl": "V.jsx(\"span\",{className:\"gtbg-tb-tick\",style:tc.tickLabel,children:xi})",
+   "expect": 1,
+   "note": "class hook: the shim hides this duplicate of the timeline clock below 1280 px so the header still fits"
+  },
+  {
+   "id": "AX-toolbar-hook-right",
+   "target": "js",
+   "find": "V.jsxs(\"div\",{style:tc.toolbarRight,children:[",
+   "repl": "V.jsxs(\"div\",{className:\"gtbg-tb-right\",style:tc.toolbarRight,children:[",
+   "expect": 1,
+   "note": "class hook (narrow-desktop compaction)"
+  },
+  {
+   "id": "AX-toolbar-hook-center",
+   "target": "js",
+   "find": "V.jsx(\"div\",{style:tc.toolbarCenter,",
+   "repl": "V.jsx(\"div\",{className:\"gtbg-tb-center\",style:tc.toolbarCenter,",
+   "expect": 1,
+   "note": "class hook (below 1000 px the old absolute centring is restored so nothing leaves the viewport)"
+  },
+  {
+   "id": "AX-key-s-no-typed-char",
+   "target": "js",
+   "find": "case\"s\":case\"S\":Ie();break;",
+   "repl": "case\"s\":case\"S\":Ur.preventDefault(),Ie();break;",
+   "expect": 1,
+   "note": "pressing S opened Search with an \"s\" already typed into the (auto-focused) input, on legacy too; keyboard-only users hit it on every use"
+  },
+  {
+   "id": "AX-hud-paused-opacity",
+   "target": "js",
+   "find": "Ee=c?1:.4;return V.jsxs(\"div\",{style:{...Sd.wrap,opacity:Ee}",
+   "repl": "Ee=c?1:.9;return V.jsxs(\"div\",{style:{...Sd.wrap,opacity:Ee}",
+   "expect": 1,
+   "note": "the HUD clock/speed text was drawn at 40 % opacity while paused (1.79-2.9:1); 90 % keeps a slight paused cue and gives >= 4.7:1"
+  },
+  {
+   "id": "AX-walkthrough-chipN-contrast",
+   "target": "js",
+   "find": "chipN:{fontWeight:700,color:ln.goldBright}",
+   "repl": "chipN:{fontWeight:700,color:\"inherit\"}",
+   "expect": 1,
+   "note": "desktop walkthrough chips: the stop number was #d6a44e on the active gold chip (1.51:1); it inherits the chip text colour like the mobile chip already does"
+  },
+  {
+   "id": "AX-walkthrough-star-swatch",
+   "target": "js",
+   "find": "V.jsx(\"div\",{style:{...Tn.swatch,background:\"#b08338\"},children:\"★\"})",
+   "repl": "V.jsx(\"div\",{style:{...Tn.swatch,background:\"#b08338\",color:\"#1a1206\"},children:\"★\"})",
+   "expect": 1,
+   "note": "white star on #b08338 = 3.41:1"
+  },
+  {
+   "id": "AX-legend-scroll-region",
+   "target": "js",
+   "find": "x===\"disp\"&&V.jsx(\"div\",{style:Fr.body,",
+   "repl": "x===\"disp\"&&V.jsx(\"div\",{style:Fr.body,tabIndex:0,role:\"group\",\"aria-label\":\"Disposition legend\",",
+   "expect": 1,
+   "note": "the 320 px scrolling list had no focusable content (axe scrollable-region-focusable): keyboard users can now scroll it"
+  },
+  {
+   "id": "AX-transport-back1h",
+   "target": "js",
+   "find": "title:\"Back 1hr (Shift+Left)\",children:\"⏮\"",
+   "repl": "title:\"Back 1hr (Shift+Left)\",\"aria-label\":\"Back one hour\",children:\"⏮\"",
+   "expect": 1,
+   "note": "glyph button name; title text kept for the copy group CP"
+  },
+  {
+   "id": "AX-transport-prev",
+   "target": "js",
+   "find": "title:\"Prev tick (Left)\",children:\"◀\"",
+   "repl": "title:\"Prev tick (Left)\",\"aria-label\":\"Previous step\",children:\"◀\"",
+   "expect": 1,
+   "note": "label avoids the tick/moment vocabulary (held by D-TIME)"
+  },
+  {
+   "id": "AX-transport-play",
+   "target": "js",
+   "find": "title:\"Play/Pause (Space)\",children:f?\"⏸\":\"▶\"",
+   "repl": "title:\"Play/Pause (Space)\",\"aria-label\":f?\"Pause\":\"Play\",children:f?\"⏸\":\"▶\"",
+   "expect": 1,
+   "note": "state-dependent name"
+  },
+  {
+   "id": "AX-transport-next",
+   "target": "js",
+   "find": "title:\"Next tick (Right)\",children:\"▶\"",
+   "repl": "title:\"Next tick (Right)\",\"aria-label\":\"Next step\",children:\"▶\"",
+   "expect": 1
+  },
+  {
+   "id": "AX-transport-fwd1h",
+   "target": "js",
+   "find": "title:\"Fwd 1hr (Shift+Right)\",children:\"⏭\"",
+   "repl": "title:\"Fwd 1hr (Shift+Right)\",\"aria-label\":\"Forward one hour\",children:\"⏭\"",
+   "expect": 1
+  },
+  {
+   "id": "AX-day-btn-pressed",
+   "target": "js",
+   "find": "V.jsx(\"button\",{onClick:()=>l(Ie.day),style:{...Po.dayBtn,",
+   "repl": "V.jsx(\"button\",{onClick:()=>l(Ie.day),\"aria-pressed\":Ee===Ie.day,style:{...Po.dayBtn,color:\"#14141e\",",
+   "expect": 1,
+   "note": "July 1/2/3 buttons expose the current day; the label was WHITE on #e8d5a3/#d3e8d3/#d3d3e8 (1.29-1.47:1, axe cannot see it behind the blurred bar: incomplete); dark text now"
+  },
+  {
+   "id": "AX-speed-btn-pressed",
+   "target": "js",
+   "find": "V.jsx(\"button\",{onClick:()=>H(Ie),style:{...Po.speedBtn,",
+   "repl": "V.jsx(\"button\",{onClick:()=>H(Ie),\"aria-pressed\":x===Ie,style:{...Po.speedBtn,",
+   "expect": 1,
+   "note": "speed buttons expose the current speed"
+  },
+  {
+   "id": "AX-scroll-search-results",
+   "target": "js",
+   "find": "style:ar.results,",
+   "repl": "style:ar.results,tabIndex:0,role:\"group\",\"aria-label\":\"Search results\",",
+   "expect": 1
+  },
+  {
+   "id": "AX-scroll-ancestor-results",
+   "target": "js",
+   "find": "style:lr.results,",
+   "repl": "style:lr.results,tabIndex:0,role:\"group\",\"aria-label\":\"Regiment results\",",
+   "expect": 1
+  },
+  {
+   "id": "AX-scroll-ancestor-journey",
+   "target": "js",
+   "find": "style:lr.timeline,",
+   "repl": "style:lr.timeline,tabIndex:0,role:\"group\",\"aria-label\":\"Journey timeline\",",
+   "expect": 1
+  },
+  {
+   "id": "AX-scroll-roster-union",
+   "target": "js",
+   "find": "style:jo.colBody,children:Ee(R,\"union\")",
+   "repl": "style:jo.colBody,tabIndex:0,role:\"group\",\"aria-label\":\"Union units\",children:Ee(R,\"union\")",
+   "expect": 1
+  },
+  {
+   "id": "AX-scroll-roster-confederate",
+   "target": "js",
+   "find": "style:jo.colBody,children:Ee(he,\"confederate\")",
+   "repl": "style:jo.colBody,tabIndex:0,role:\"group\",\"aria-label\":\"Confederate units\",children:Ee(he,\"confederate\")",
+   "expect": 1
+  },
+  {
+   "id": "AX-scroll-story-text",
+   "target": "js",
+   "find": "style:Zr.narrative,",
+   "repl": "style:Zr.narrative,tabIndex:0,role:\"group\",\"aria-label\":\"Story text\",",
+   "expect": 1
+  },
+  {
+   "id": "AX-scroll-event-panel",
+   "target": "js",
+   "find": "ref:Ie,style:Cr.body,",
+   "repl": "ref:Ie,style:Cr.body,tabIndex:0,role:\"group\",\"aria-label\":\"Event details\",",
+   "expect": 1
+  },
+  {
+   "id": "AX-scroll-viewpoints",
+   "target": "js",
+   "find": "style:Or.list,",
+   "repl": "style:Or.list,tabIndex:0,role:\"group\",\"aria-label\":\"Street View viewpoints\",",
+   "expect": 1
+  },
+  {
+   "id": "AX-scroll-roster-desktop-columns",
+   "target": "js",
+   "find": "V.jsx(\"div\",{style:{flex:1,overflowY:\"auto\"},children:c.map(([z,H])=>{",
+   "repl": "V.jsx(\"div\",{style:{flex:1,overflowY:\"auto\"},tabIndex:0,role:\"group\",\"aria-label\":P+\" units\",children:c.map(([z,H])=>{",
+   "expect": 1,
+   "note": "desktop unit roster columns (P = the column title UNION / CONFEDERATE); rows are click-only divs"
+  },
+  {
+   "id": "AX-scroll-mobile-legend",
+   "target": "js",
+   "find": "V.jsxs(\"div\",{style:{padding:\"12px 16px\",overflowY:\"auto\"},children:[Object.entries(Lp)",
+   "repl": "V.jsxs(\"div\",{style:{padding:\"12px 16px\",overflowY:\"auto\"},tabIndex:0,role:\"group\",\"aria-label\":\"Disposition legend\",children:[Object.entries(Lp)",
+   "expect": 1
+  },
+  {
+   "id": "AX-walkthrough-day-badge-contrast",
+   "target": "js",
+   "find": "{\"July 1, 1863\":\"#5c7a99\",\"July 2, 1863\":\"#7a8c5a\",\"July 3, 1863\":\"#8c5a5a\"}[c.day]||\"#5c7a99\"",
+   "repl": "{\"July 1, 1863\":\"#456380\",\"July 2, 1863\":\"#566840\",\"July 3, 1863\":\"#8c5a5a\"}[c.day]||\"#456380\"",
+   "expect": 1,
+   "note": "day badge text #efe7d6 on #5c7a99 = 3.63:1, on #7a8c5a = 2.98:1 (axe); darker fills give 5.10 / 4.95 / 4.58 (July 3 unchanged)"
+  },
+  {
+   "id": "AX-close-X (Layers, Distance)",
+   "target": "js",
+   "find": "onClick:onClose,style:{background:\"none\",border:\"none\",color:\"#888\",cursor:\"pointer\",fontSize:16},children:\"X\"",
+   "repl": "onClick:onClose,\"aria-label\":\"Close\",style:{background:\"none\",border:\"none\",color:\"#888\",cursor:\"pointer\",fontSize:16},children:\"X\"",
+   "expect": 2
+  },
+  {
+   "id": "AX-layers-checkbox-name",
+   "target": "js",
+   "find": "V.jsx(\"input\",{type:\"checkbox\",checked:vis[r.id],onChange:function(){tog(r.id)},style:{cursor:\"pointer\",accentColor:\"#c8a84a\"}})",
+   "repl": "V.jsx(\"input\",{type:\"checkbox\",\"aria-label\":r.label,checked:vis[r.id],onChange:function(){tog(r.id)},style:{cursor:\"pointer\",accentColor:\"#c8a84a\"}})",
+   "expect": 1
+  },
+  {
+   "id": "AX-onboarding-dialog",
+   "target": "js",
+   "find": "V.jsx(\"div\",{style:tr.overlay,children:V.jsxs(\"div\",{style:tr.modal,children:[",
+   "repl": "V.jsx(\"div\",{style:tr.overlay,children:V.jsxs(\"div\",{style:tr.modal,ref:window.__gtbgDlg,tabIndex:-1,role:\"dialog\",\"aria-modal\":\"true\",\"aria-label\":\"Welcome to the Gettysburg map\",children:[",
+   "expect": 1,
+   "note": "blocking modal: aria-modal=true also makes the group-A key guard ignore background shortcuts while it is up (Esc still works)"
+  },
+  {
+   "id": "AX-mobile-map-id (after C HF-9a)",
+   "target": "js",
+   "find": "className:\"gtbg-m-map\",ref:Yn,style:tn.map",
+   "repl": "className:\"gtbg-m-map\",id:\"gt-map\",tabIndex:-1,ref:Yn,style:tn.map",
+   "expect": 1,
+   "note": "depends on group C HF-9a text"
+  },
+  {
+   "id": "AX-mobile-dock-id (after C HF-9d)",
+   "target": "js",
+   "find": "className:\"gtbg-m-dock\",style:tn.bottomBar,children:[",
+   "repl": "className:\"gtbg-m-dock\",id:\"gt-timeline\",tabIndex:-1,role:\"group\",\"aria-label\":\"Playback controls\",style:tn.bottomBar,children:[",
+   "expect": 1,
+   "note": "depends on group C HF-9d text"
+  },
+  {
+   "id": "AX-help-dialog",
+   "target": "help",
+   "find": "e.jsxs(\"div\",{style:t.panel,children:[e.jsxs(\"div\",{style:t.header,",
+   "repl": "e.jsxs(\"div\",{style:t.panel,ref:document.__gtbgDlg,tabIndex:-1,role:\"dialog\",\"aria-label\":\"Help and keyboard shortcuts\",children:[e.jsxs(\"div\",{style:t.header,",
+   "expect": 1,
+   "note": "no aria-modal: the Help row says \"? Show / hide\", and the group-A guard would swallow \"?\" while a modal dialog is open"
+  },
+  {
+   "id": "AX-help-close",
+   "target": "help",
+   "find": "e.jsx(\"button\",{onClick:r,style:t.closeBtn,children:\"✕\"})",
+   "repl": "e.jsx(\"button\",{onClick:r,style:t.closeBtn,\"aria-label\":\"Close help\",children:\"✕\"})",
+   "expect": 1
+  },
+  {
+   "id": "AX-book-dialog",
+   "target": "book",
+   "find": "t.jsxs(\"div\",{style:o.panel,children:[t.jsxs(\"div\",{style:o.header,",
+   "repl": "t.jsxs(\"div\",{style:o.panel,ref:window.__gtbgDlg,tabIndex:-1,role:\"dialog\",\"aria-label\":\"Bookmarks and sharing\",children:[t.jsxs(\"div\",{style:o.header,",
+   "expect": 1
+  },
+  {
+   "id": "AX-book-close",
+   "target": "book",
+   "find": "t.jsx(\"button\",{onClick:r,style:o.closeBtn,children:\"✕\"})",
+   "repl": "t.jsx(\"button\",{onClick:r,style:o.closeBtn,\"aria-label\":\"Close bookmarks\",children:\"✕\"})",
+   "expect": 1
+  },
+  {
+   "id": "AX-book-remove",
+   "target": "book",
+   "find": "style:o.deleteBtn,title:\"Remove\",children:\"✕\"",
+   "repl": "style:o.deleteBtn,title:\"Remove\",\"aria-label\":\"Remove bookmark \"+e.label,children:\"✕\"",
+   "expect": 1
+  },
+  {
+   "id": "AX-book-input",
+   "target": "book",
+   "find": "placeholder:m(l),style:o.input}",
+   "repl": "placeholder:m(l),\"aria-label\":\"Bookmark name\",style:o.input}",
+   "expect": 1
+  },
+  {
+   "id": "AX-book-row-keyboard",
+   "target": "book",
+   "find": "t.jsxs(\"div\",{style:o.itemLeft,onClick:()=>w(e),children:",
+   "repl": "t.jsxs(\"div\",{style:o.itemLeft,onClick:()=>w(e),role:\"button\",tabIndex:0,onKeyDown:ev=>{(ev.key===\"Enter\"||ev.key===\" \")&&(ev.preventDefault(),w(e))},children:",
+   "expect": 1,
+   "note": "the row was a click-only div: now Enter/Space go to the bookmark (group-A key guard already ignores Space/Enter on role=button)"
+  },
+  {
+   "id": "AX-shell-skiplinks-h1-nav (index.html)",
+   "target": "index.html",
+   "find": "<body>\n  <div id=\"extra-features\">",
+   "repl": "<body>\n  <a class=\"gt-skip\" href=\"#gt-map\">Skip to the map</a>\n  <a class=\"gt-skip\" href=\"#gt-timeline\">Skip to the timeline controls</a>\n  <header class=\"gt-sr-only\"><h1>Gettysburg Animated Battlefield Map</h1></header>\n  <nav id=\"extra-features\" aria-label=\"Extra features\">",
+   "expect": 1,
+   "note": "skip links target #gt-map (a bundle patch adds the id after mount) and #gt-timeline; ONE hidden h1 (the product name as it is today: no identity change in T0); the overlay becomes a nav landmark"
+  },
+  {
+   "id": "AX-shell-nav-close (index.html)",
+   "target": "index.html",
+   "find": "      <div id=\"ef-menu\" class=\"gtbg-menu-panel\"></div>\n    </div>\n  </div>\n",
+   "repl": "      <div id=\"ef-menu\" class=\"gtbg-menu-panel\"></div>\n    </div>\n  </nav>\n",
+   "expect": 1
+  },
+  {
+   "id": "AX-shell-main-open-h2 (index.html)",
+   "target": "index.html",
+   "find": "  <div id=\"root\">\n    <div id=\"seo-content\">\n      <h1>Gettysburg Animated Battlefield Map</h1>",
+   "repl": "  <main id=\"root\">\n    <div id=\"seo-content\">\n      <h2>Gettysburg Animated Battlefield Map</h2>",
+   "expect": 1,
+   "note": "#root becomes <main>; the pre-mount #seo-content h1 is demoted (3 h1 -> 1)"
+  },
+  {
+   "id": "AX-shell-splash-title (index.html)",
+   "target": "index.html",
+   "find": "<h1>Gettysburg</h1>",
+   "repl": "<p class=\"boot-title\">Gettysburg</p>",
+   "expect": 1
+  },
+  {
+   "id": "AX-shell-main-close (index.html)",
+   "target": "index.html",
+   "find": "    </div>\n  </div>\n  <noscript>",
+   "repl": "    </div>\n  </main>\n  <noscript>",
+   "expect": 1
+  },
+  {
+   "id": "AX-shell-css-splash-title (index.html)",
+   "target": "index.html",
+   "find": "    #boot-splash h1 {",
+   "repl": "    #boot-splash .boot-title {",
+   "expect": 1
+  },
+  {
+   "id": "AX-shell-css-seo-h2 (index.html)",
+   "target": "index.html",
+   "find": "    #seo-content h1 { font-size",
+   "repl": "    #seo-content h2 { font-size",
+   "expect": 1
+  },
+  {
+   "id": "AX-css-shim (app stylesheet)",
+   "target": "css",
+   "find": ".mapboxgl-ctrl button.mapboxgl-ctrl-level-button-selected:hover{background-color:#ccc}",
+   "repl": ".mapboxgl-ctrl button.mapboxgl-ctrl-level-button-selected:hover{background-color:#ccc}\n/* gt-a11y-bridge (Tranche 0, group AX / WP-T0-10): temporary CSS shim over inline-styled React; remove rule by rule as source fixes land */\n.gt-sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}\n.gt-skip{position:fixed;left:8px;top:-120px;z-index:1000001;padding:10px 16px;background:#0a0a14;color:#f4f0e4;border:2px solid #fff;border-radius:6px;font:600 14px/1.2 system-ui,sans-serif;text-decoration:none}\n.gt-skip:focus{top:8px}\n:focus-visible{outline:2px solid #fff!important;outline-offset:2px!important;box-shadow:0 0 0 4px #000!important}\n[style*=\" color: rgb(68, 68, 68)\"],[style^=\"color: rgb(68, 68, 68)\"],[style*=\" color: rgb(85, 85, 85)\"],[style^=\"color: rgb(85, 85, 85)\"]{color:#8f8fa3!important}\n[style*=\" color: rgb(102, 102, 102)\"],[style^=\"color: rgb(102, 102, 102)\"]{color:#9a9aab!important}\n[style*=\" color: rgb(119, 119, 119)\"],[style^=\"color: rgb(119, 119, 119)\"]{color:#a8a8b8!important}\n[style*=\" color: rgb(139, 105, 20)\"],[style^=\"color: rgb(139, 105, 20)\"]{color:#b8963c!important}\n[style*=\" color: rgb(58, 107, 196)\"],[style^=\"color: rgb(58, 107, 196)\"]{color:#7fa8ff!important}\n[style*=\" color: rgb(204, 68, 68)\"],[style^=\"color: rgb(204, 68, 68)\"],[style*=\" color: rgb(196, 58, 58)\"],[style^=\"color: rgb(196, 58, 58)\"]{color:#f07a7a!important}\n[style*=\" color: rgb(109, 122, 138)\"],[style^=\"color: rgb(109, 122, 138)\"]{color:#9aa6b6!important}\n[style*=\" color: rgba(200, 168, 74, 0.45)\"],[style^=\"color: rgba(200, 168, 74, 0.45)\"]{color:rgba(200,168,74,.8)!important}\n.gtbg-group-why,#gtbg-footer,#boot-splash .boot-caption{color:#9a9aab!important}\n[style*=\"font-size: 7px\"],[style*=\"font-size: 8px\"],[style*=\"font-size: 9px\"],[style*=\"font-size: 10px\"],[style*=\"font-size: 11px\"]{font-size:12px!important}\n#root input[type=checkbox],#root input[type=radio]{width:24px;height:24px}\n#root button,#extra-features button{min-width:24px;min-height:24px}\n@media (pointer:coarse){#root button,#root a[href],#root select,#extra-features button,#extra-features a{min-width:44px;min-height:44px}#root .gtbg-tb-right button{min-width:24px}}\n@media (max-width:1279px){.gtbg-tb-tick{display:none}}\n@media (max-width:1199px){.gtbg-tb-right{gap:2px!important}.gtbg-tb-right button{padding-left:6px!important;padding-right:6px!important}}\n@media (max-width:999px){.gtbg-tb-center{position:absolute!important;left:50%!important;transform:translateX(-50%)!important}}\n@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}\n@media (forced-colors:active){button,[role=button],input,select{border:1px solid ButtonText!important}:focus-visible{outline:2px solid Highlight!important;box-shadow:none!important}canvas{forced-color-adjust:none}}\n",
+   "expect": 1,
+   "note": "appended to the (mapbox-gl) app stylesheet: skip link, sr-only, two-tone focus ring, contrast overrides for React-serialised greys, 12 px floor, 44 px on coarse pointers, reduced motion, forced colors"
   }
  ]
 }
