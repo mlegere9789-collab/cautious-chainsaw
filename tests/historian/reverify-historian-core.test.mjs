@@ -146,3 +146,15 @@ test('R-14 a correctly spelled ordinary word in a plain question is not "correct
   for (const q of G.questions) { const a = await ask(q.question, q.context ? { onsite: q.context } : {}); for (const d of a.did_you_mean || []) if (fine.has(String(d.from).toLowerCase())) bad.push(`${q.id} "${d.from}" -> "${d.to}" (${a.mode})`); }
   assert.deepEqual(bad, [], 'the reader is shown "Showing results for / Reading ... as ..." for words that were right');
 });
+
+test('R-15 a question about the whole battle by its dates ("July 1 to 3", "July 1 through July 3", "July 1-3") is answered, not declined (before the day-parsing fix it was silently answered as day 1)', async () => {
+  assert.notEqual((await ask('summarize the battle of July 1-3, 1863')).mode, 'decline', 'control: this phrasing is answered');
+  const bad = [];
+  for (const q of ['what happened on July 1 to 3', 'what happened from July 1 through July 3', 'Give me an overview of July 1-3', 'what happened on July 1-3']) { const a = await ask(q); if (a.mode === 'decline') bad.push(q); }
+  assert.deepEqual(bad, [], 'an in-scope question is refused');
+});
+
+test('R-16 "what happened on day 4" is about a day, not "Which 4th do you mean? The site has 6 such regiments"', async () => {
+  const a = await ask('what happened on day 4');
+  assert.ok(!/Which 4th do you mean/.test(a.text), a.text);
+});
