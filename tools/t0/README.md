@@ -1,12 +1,18 @@
 # tools/t0 - the Tranche-0 release build system
 
-Turns the byte-exact baseline `legacy/dist` (Netlify deploy 6aa16d61, entry `assets/index-Cg8FAMXN.js`, md5 `7ef75b95f4c02700430b8aa91e3a7459`)
-into the four cumulative release trains of chapter 02 (`docs/plan/FINAL/02-tranche0-hotfix-runbook.md`) **without ever touching `legacy/`**.
-Output goes to `release/<train>/` (git-ignored). Everything is deterministic: two builds give the same bytes.
+Turns the locked baseline **`baseline/dist`** (production as of 2026-09-30, reconstructed at source level; entry `assets/index-Cg8FAMXN.js`, md5
+`7ef75b95f4c02700430b8aa91e3a7459`) into the four cumulative release trains of chapter 02 (`docs/plan/FINAL/02-tranche0-hotfix-runbook.md`)
+**without ever touching `legacy/`**. `legacy/dist` is the downloaded Netlify deploy 6aa16d61; production moved on (`index.html` and
+`data/terrain.json` changed in a later deploy, `docs/baseline-drift.md`), so the build starts from `baseline/dist`, which equals `legacy/dist` except
+for those two files, and refuses to run when it differs from its lock. Output goes to `release/<train>/` (git-ignored). Everything is deterministic: two builds give the same bytes.
 
 ```
 python tools/t0/build.py --train R0|R1a|R1b|R1c [--out release/<train>]     # one train (default R0)
 python tools/t0/build.py --all                                             # R0, R1a, R1b, R1c
+python tools/t0/baseline.py verify-live                                    # RUN BEFORE EVERY DEPLOY: is production still baseline/dist?  IDENTICAL (0) / DRIFTED (1) / could not run (2)
+python tools/t0/baseline.py verify | prove | lock | mirror | reconstruct | compare-legacy     # the baseline tooling (section "The baseline")
+python tools/t0/tests/baseline_selftest.py                                 # 16 cases: model, lock, build refusal, CRLF, overlay guard, verify-live against a local Netlify fake
+node   tools/t0/tests/baseline-drift.spec.mjs                              # T0-BL-01..09: what the live drift does, and that every train keeps it (or supersedes it on purpose)
 node   tools/t0/gate.mjs --train R1a                                       # re-run the gates on an existing build
 python tools/t0/overlap.py                                                 # geometric overlap audit of the patch set
 python tools/t0/ledger.py seed|check|record                                # used-names ledger (ops/used-names.txt)
@@ -30,16 +36,16 @@ Trains are cumulative. Bundle groups always apply in the fixed order **R0, A, B,
 |---|---|---|---|
 | R0 | mechanism (hashed names, boot loader, no-reload SW, kill switch, version.json) + group R0 (`R0-intro-delete`) | `R0` | no |
 | R1a | + group A (25 patches: crash/input/storage, D-SOUND, D-HEATMAP, AMD-T0-1 error boundary) + page groups `PG-core` (118) and `PG-maps` (77) + assets overlay | `R0 common R1a` | no |
-| R1b | + group C (72: mobile shell) + group AX (61: a11y bridge) | `... R1b` | no |
+| R1b | + group C (73: the 72 of the mobile shell + `C:live-hide-legacy-bar-superseded`, `C+baseline.json`) + group AX (61: a11y bridge) | `... R1b` | no |
 | R1c | + group B (13: clock/data) + DL (7: deep links, Turning Points anchors) + CP (20: copy) + `PG-legal` (10: interim privacy/terms, owner-review-required) + `data/moments.json` + generated headers/redirects | `... R1c` | `config/gen.mjs` |
 
 The AMD-T0-1 error boundary (formerly the optional group EB) is part of group A (patch `A-error-boundary`), so no group is optional any more; `--with <group>` remains for future optional groups.
-Counts (anchor records in `release/<train>/anchors.json`, 21 of them are the R0 mechanism `R0M:*` rows): R0 22, R1a 242, R1b 375, R1c 425. Files in dist: R0 122, R1a 124, R1b 124, R1c 128 (legacy 119).
+Counts (anchor records in `release/<train>/anchors.json`, 21 of them are the R0 mechanism `R0M:*` rows): R0 22, R1a 242, R1b 376, R1c 426. Files in dist: R0 122, R1a 124, R1b 124, R1c 128 (baseline 119).
 Ordered dependencies (registered in `trains.json` `known_overlaps`, reported as "known" by `overlap.py`): AX and CP anchor on text that group C produces (AX must follow C, CP must follow C); `bug:K-skip-tour` (A) and `AX-onboarding-dialog` share the prefix `V.jsx("div",{style:tr.overlay`, which A's replacement keeps, so either order matches.
 
 ## Build order
 
-1. **Input checks** - `legacy/dist` tree sha256 (119 files) and every pinned asset sha256, entry md5, and *no* `/*t0:` sentinel anywhere (refuses to patch its own output).
+1. **Input checks** - `baseline/dist` against `tools/t0/baseline.lock.json` (per-file sha256 and tree digest of the 119 files; any changed, missing or extra file stops the build and is named), `legacy/dist` tree sha256 (must still be the pinned download), every pinned asset sha256, entry md5, and *no* `/*t0:` sentinel anywhere (refuses to patch its own output).
 2. **Bundle groups** - every patch whose `target` is `js` (entry bundle), `help` (HelpModal chunk), `book` (BookmarkPanel chunk) or `css` (app stylesheet), in fixed group order. Each patch's `find` is counted against the CURRENT text and must equal `expect`; failures are all collected, listed with their ids and the build stops (only `anchors.json` is written).
 3. **R0 rename / mechanism** (`t0build/mechanism.py`, templates in `mechanism/`) - release id `rid = sha256(entry' 0x00 help' 0x00 book')[:8]` over the patched texts with the three cross-references replaced by placeholders (B.7); writes `index-<rid>.js`, `HelpModal-<rid>.js`, `BookmarkPanel-<rid>.js`, `index-<sha256(css)[:8]>.css`, stamps `/*t0:<rid>*/` on the entry, deletes the five legacy assets (entry, both chunks, CSS, orphan `InterpolationWorker-*.js`), rewrites `index.html` (no `modulepreload`, plain stylesheet, only `preconnect https://api.mapbox.com`, `color-scheme` meta, splash fade removed, idle SW registration + chunk-error guard, `site-nav.js` deferred, boot-after-first-paint loader with one reload retry then a visible "Try again"), removes the body entrance animation from `site-nav.css`, writes the new `sw.js` and `_ops/sw-kill.js` (copy of `ops/sw-kill.js`).
 4. **Page phase** - patches with a path `target` (`dashboard.html`, `site-nav.js`, `index.html` ...) from the fixed groups (e.g. C's three `index.html` rows), then the page groups `PG-*.json` (sorted), each with optional `delete` lists.
@@ -48,7 +54,7 @@ Ordered dependencies (registered in `trains.json` `known_overlaps`, reported as 
 7. **Finalize** - `version.json`, `_ops/asset-manifest.json`, `_ops/used-names.txt`; ledger check.
 8. **Gates** (`gate.mjs`) -> `release/<train>/gate.json`; then `release/<train>/manifest.json` (every file's bytes+sha256, tree hash).
 
-Output layout: `release/<train>/dist/` (deploy this), `anchors.json`, `gate.json`, `manifest.json`. Nothing in `dist` is timestamped; `version.json` = `{release, train, entry, help, bookmark, css, groups, source_entry_md5}`.
+Output layout: `release/<train>/dist/` (deploy this), `anchors.json`, `gate.json`, `manifest.json` (every file's bytes+sha256, tree hash, and the `baseline` tree it was built from). Nothing in `dist` is timestamped; `version.json` = `{release, train, entry, help, bookmark, css, groups, source_entry_md5}`.
 
 ## Plugin interface (other agents add files, they do not edit the build code)
 
@@ -69,7 +75,7 @@ Output layout: `release/<train>/dist/` (deploy this), `anchors.json`, `gate.json
 * Every patch (also the mechanism's own `R0M:*` rows) ends up in `anchors.json`; the gate fails on any count mismatch.
 
 ### What path-target patches see
-Page-phase patches run on the tree AFTER the R0 mechanism, so anchor against that text, not against `legacy/dist`: `index.html` has no `modulepreload`, no CSS preload/`noscript`, only the `preconnect https://api.mapbox.com` hint, a `<meta name="color-scheme" content="dark" />` after `theme-color`, no `animation: boot-fade-in` in `#boot-splash`, the idle-registration script and the loader script (both from `mechanism/`), `<script defer src="/site-nav.js"></script>`, `<link rel="stylesheet" href="/assets/index-<css>.css" crossorigin />`; `site-nav.css` has no `body{animation}` fade; `sw.js`, `version.json` and `_ops/**` exist but are reserved.
+Page-phase patches run on the tree AFTER the R0 mechanism, so anchor against that text, not against `baseline/dist`. **Line endings:** the baseline `index.html` is CRLF (production's file), and so are several other pages. Patch strings are authored with LF; when the target text is pure CRLF a string that contains only LF is converted to CRLF (`util.eol_adapt`, also used by the mechanism), a string that already contains a CRLF is used as written (the existing page patches for CRLF pages), and the asserted count stays strict. `index.html` of every train therefore has CRLF line endings only (T0-BL-07). Bundle targets (`js`, `help`, `book`, `css`) are LF and never adapted. Targets: `index.html` has no `modulepreload`, no CSS preload/`noscript`, only the `preconnect https://api.mapbox.com` hint, a `<meta name="color-scheme" content="dark" />` after `theme-color`, no `animation: boot-fade-in` in `#boot-splash`, the idle-registration script and the loader script (both from `mechanism/`), `<script defer src="/site-nav.js"></script>`, `<link rel="stylesheet" href="/assets/index-<css>.css" crossorigin />`; `site-nav.css` has no `body{animation}` fade; `sw.js`, `version.json` and `_ops/**` exist but are reserved.
 
 ### Overlay: `tools/t0/overlay/<dir>/**`
 New or replacement files (binary ok), path relative to dist root. `R0` applies to every train, `R1a`/`R1b`/`R1c` to that train and later ones, `common` to R1a-R1c only (R0 is mechanism-only by D-ORDER; put a file in `overlay/R0` if it truly belongs there). Applied after the page phase, so an overlay file wins over a patched one; replacements are listed in `manifest.json` (`overlay[].replaced`). `README*` and `.gitkeep` are skipped. Overlay files under `assets/` are new asset names and go through the ledger.
@@ -77,19 +83,45 @@ New or replacement files (binary ok), path relative to dist root. `R0` applies t
 ### Config hook: `tools/t0/config/gen.mjs` (the real generator, R1c only; see `tools/t0/config/README.md`)
 Receives `argv[2]` = dist path, `argv[3]` = JSON `{rid, entry, help, bookmark, css}`, env `T0_TRAIN`. May write only `_headers`, `_redirects`, `netlify.toml`, `_ops/**`; the build diffs the tree and fails if anything else changed. Must be deterministic.
 
+### Overlay merge guard
+An overlay file may not REPLACE a file that production changed after the downloaded deploy (`baseline.lock.json` `changed_vs_legacy`: today `index.html` and `data/terrain.json`): the build fails with "merge it with a patch instead" (a replacement would silently revert live). Replacing a file production did not change (`manifest.json`, `screenshots/*`) is fine.
+
+## The baseline (`baseline/`, `tools/t0/baseline.py`, `baseline.lock.json`)
+
+Why: on 2026-09-30 a release verifier found that production no longer equals `legacy/dist` (docs/baseline-drift.md: `index.html` with three inline-script changes and CRLF line endings, `data/terrain.json` with eight corrected locations; neither exists in any of the 127 archived zips). The first four trains were built from the stale download and would have reverted both on deploy.
+
+| path | what |
+|---|---|
+| `baseline/dist/` | the source-level tree of what production serves (119 files, tree `d2b126e9...3f727be6d`): `legacy/dist` with the two live files replaced; HTML reconstructed by undoing Netlify's post-processing |
+| `baseline/live-2026-09-30/` | the evidence: `SHA256.tsv` (every response of the mirror), `headers.key.json` (non-volatile headers of 17 URLs), `MIRROR.json`, `RECONSTRUCTION.json`, `PROOF.json`, and `raw/` (git-ignored: bodies and all headers, they carry the RUM token) |
+| `tools/t0/baseline.lock.json` | per-file sha256 of `baseline/dist`, tree digest, live deploy id at capture, `changed_vs_legacy` |
+| `tools/t0/t0build/netlify.py` | the model of Netlify's HTML post-processing (RUM snippet before `</body>`; `<a href="/x.html">` becomes `<a href='/x'>` with sorted single-quoted attributes); JS mirror `forwardModel` in `ops/sha-list.mjs` |
+
+```
+python tools/t0/baseline.py verify-live     # production vs baseline/dist: IDENTICAL (exit 0) | DRIFTED + per-file diff (1) | could not run / baseline altered (2)
+python tools/t0/baseline.py verify          # baseline/dist vs the lock (the build does this too)
+python tools/t0/baseline.py mirror          # fetch production (curl, identity encoding, cache-busted, both URL forms of every page) into baseline/live-2026-09-30/raw
+python tools/t0/baseline.py reconstruct     # raw -> baseline/dist (non-html as served; html with post-processing undone against legacy/dist as reference)
+python tools/t0/baseline.py prove           # model(baseline/dist) == every served response, byte for byte
+python tools/t0/baseline.py lock            # write the lock
+python tools/t0/baseline.py compare-legacy  # every difference between legacy/dist and baseline/dist (source-level diff)
+```
+`verify-live` compares non-HTML files byte for byte and HTML pages through the model, expects `/diagnostics.html` to answer 404 (forced redirect in `netlify.toml`) and the config files not to be served, finds files that live serves and references but the baseline lacks, and reports header drift against the snapshot. Procedure when it says DRIFTED: `ops/RELEASE-RUNBOOK.md` section 15.
+
 ## Gates (`gate.mjs`, `release/<train>/gate.json`)
 
 | id | checks |
 |---|---|
-| `parse` | acorn parse of every `.js` (module for `assets/`, script-then-module elsewhere) and every inline `<script>`; only NEW failures vs `legacy/dist` fail |
+| `parse` | acorn parse of every `.js` (module for `assets/`, script-then-module elsewhere) and every inline `<script>`; only NEW failures vs the baseline fail |
 | `unresolved-globals` | eslint-scope: bare-name references that resolve to no declaration in entry/Help/Bookmark vs the legacy chunks. `setGoldUnit clearGoldTrail drawGoldTrailSegment CanvasRenderer` must be gone exactly when group A is in (R1a+) and untouched in R0; no other new names except the standard globals in `browser-globals.json` (`matchMedia`, `sessionStorage` ... are used by group C) |
 | `anchors` | reads `anchors.json`: every patch found exactly `expect` times |
 | `ledger` | every `assets/*` name vs `ops/used-names.txt` (case-insensitive): same name must keep its bytes, a new name must not collide with any archived name |
 | `references` | every `/assets/x` string in any html/js/css/json/toml/_headers file, every relative `"./x.js"` import in assets, every local `<script src>/<link href>/<img src>` and manifest icon/screenshot resolves to a file; only NEW dangling refs fail |
 | `no-legacy-asset-names` | none of the five legacy asset names is referenced or present (outside the ledger copy) |
 | `r0-mechanism` | sentinel, `version.json` <-> files, `sw.js` (no `skipWaiting(`, claims, cache name, bails on navigations), `index.html` (loader names the entry, no `controllerchange`, no `modulepreload`, no fade, `site-nav.js` deferred), `asset-manifest.json` lists exactly `assets/`, `_ops/sw-kill.js` == `ops/sw-kill.js`, `node --check` of both workers |
-| `legacy-pinned` | `legacy/dist` still hashes to the pinned tree digest (119 files) |
-| `data-untouched` | no `data/*` file of the legacy tree is modified or removed (T0 rule 5); added files are listed, not failed |
+| `legacy-pinned` | `legacy/dist` (the downloaded deploy) still hashes to the pinned tree digest (119 files) |
+| `baseline-pinned` | `baseline/dist` matches `baseline.lock.json` (per-file sha256, tree digest) |
+| `data-untouched` | no `data/*` file of the BASELINE tree is modified or removed (T0 rule 5); added files are listed, not failed |
 | `bytes` | total / per-directory / biggest files, delta vs legacy, entry size + brotli size |
 
 ## The used-names ledger (`ops/used-names.txt`)
@@ -104,6 +136,8 @@ TSV `name  sha256  bytes  zips  first-source`, seeded by `python tools/t0/ledger
 
 * `tests/t0/build_selftest.py` - determinism, sentinel/md5 refusal, mutated anchor -> that patch id and no dist, injected undefined identifier -> gate exit 3, group-order independence, plugin interface (PG placeholders, delete, overlay new+replace, reserved targets, hook whitelist), ledger reuse/collision/idempotence, `legacy/` untouched.
 * `tests/t0/lib.mjs` - `openSession()` (system Chrome headless, own profile under `tmp/t0-core/chrome-profile/<name>` and own CDP port; playwright-core over CDP) with a raw CDP side channel that injects `Referer: https://gettysburginteractivemap.com/` on `api.mapbox.com` / `*.tiles.mapbox.com` requests of pages **and** workers (cap `T0_TILE_CAP`, default 300 per session, then `BlockedByClient`), stubs `events.mapbox.com` with a 204, records every request of every target with tokens masked (`net`, `tileStats`), and a `collector` for `pageerror` / first-party `console.error` / worker exceptions that ignores Mapbox tile noise. Helpers: `createStaticServer` (root swap, `/sw.js` override, blocked paths, Netlify-like caching headers), `mouseDrag`, `wheel`, `touchTap/Swipe/Pinch` (CDP `Input.dispatchTouchEvent`), `emulateViewport`, `VIEWPORTS`/`ALL_VIEWPORTS` (`tests/t0/viewports.json`), `hitTest` (`elementFromPoint`), `screenshot`, `waitForApp`, `chooseLayout` (the legacy "Choose Your Experience" gate), `mapView` (camera read through React's fiber tree; the app exposes no map on `window`), `swState`, `cacheKeys`, `createSuite`. Env: `T0_PORT_BASE` (8300; server = base, CDP ports base+1..), `T0_TILE_CAP`, `T0_CHROME`, `T0_AGENT` (scratch dir name).
+* `tools/t0/tests/baseline_selftest.py` - 16 cases for the baseline machinery: the post-processing model (round trip on all 27 pages, strictness), the lock and the build refusal, CRLF-aware patching, the overlay guard, every train keeps the live `index.html` and `terrain.json`, `verify-live` against a local fake of Netlify (identical, drifted file, page with diff, new page, changed post-processing, exposed dev page, CLI exit codes), mirror -> reconstruct -> prove, JS/Python model parity. Uses port `T0_PORT_BASE`+9.
+* `tools/t0/tests/baseline-drift.spec.mjs` - T0-BL-01..09 in real Chrome: what the live drift does (legacy bar hidden in Mobile mode, star overlay gone, Extra Features revealed on animationend, the block resetting an inline-hidden bar), and that every train keeps the live `index.html`/`terrain.json` and supersedes the hide-bar block only where group C ships.
 * `tests/t0/lib_selftest.mjs` - proves the harness (worker-issued Mapbox request gets the Referer and is counted, `block` mode and the run-wide budget keep requests local, collector kinds, real mouse/touch events, viewport emulation, `hitTest`, screenshot, `chooseLayout`/`mapView` on R1a vs R0). `npm run t0:test:lib`.
 * Mapbox budget: `tileBudget` is shared by every session of one run (default 300, `T0_TILE_CAP`); sessions default to `tiles:'inject'`, tests that do not need a map open with `tiles:'block'` (nothing leaves the machine) and can switch with `session.setTiles()`. The R0 suite used 100 of 300.
 * `tests/t0/r0.mjs` - `T0-R0-01` one Document, `-02` controller without navigation, `-03` one sku/one style request, `-04` upgrade drill (legacy tree + old `gbg-v5` worker, then R0 over it: one Document, new entry, old entry never requested, new worker waiting, 0 exceptions), `-05` Help (`?`) and Bookmarks open via the new chunks without remounting, `-06` kill drill, `-07` loader 404 -> one reload -> "Try again" -> recovery, `-08` version.json/sentinel, `-09` timing sanity (paint before boot, splash LCP, no fades, CLS, mount time), `-10` after all tabs close the waiting worker purges `gbg-v5` only, `-11` rename drill, `-12` first visit on a 375x812 touch viewport (one Document, controller without navigation, no exceptions). `--dist legacy/dist --expect-red --filter 'R0-0[1-3]'` proves X1 is red on the legacy tree. Results: `release/<train>/test-r0.json`.
@@ -118,3 +152,4 @@ TSV `name  sha256  bytes  zips  first-source`, seeded by `python tools/t0/ledger
 5. `css` bundle target, `{{RID}}`-style placeholders, `delete`, extension parts and `train` on page groups are additions to the interface described in the task.
 6. `gate.mjs` allows the standard Web globals listed in `browser-globals.json` as "new unresolved" names; the four known undefined names are still required to disappear with group A.
 7. The ledger is `ops/used-names.txt` (committed) plus a per-train copy in `dist/_ops/`.
+8. Re-baseline of 2026-09-30: the build input is `baseline/dist` (locked), not `legacy/dist`; `trains.json` keeps the `legacy` pins (bundle hashes, the immutable download's digest) and gains `base`. Patch text is unchanged (no anchor moved); LF-authored strings adapt to CRLF targets; group C removes the live hide-bar block (patch `C:live-hide-legacy-bar-superseded`, `C+baseline.json`); the monuments star overlay that production removed is gone from the trains as well. The red-first proofs stay on `legacy/dist` because the specs recognise "legacy" by that path.

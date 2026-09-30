@@ -72,7 +72,7 @@ Also confirm `https://gbg-staging.netlify.app/_headers` answers 404 (probe `HP-1
 
 ## 4. Mirror production's site settings (or know how they differ)
 
-**Measured 2026-09-30: production does not serve the HTML files as uploaded.** Comparing every file of `legacy/dist` with what `https://gettysburginteractivemap.com` serves (`node ops/sha-list.mjs verify-url ... --html-warn`, 119 requests, read-only):
+**Measured 2026-09-30: production does not serve the HTML files as uploaded.** Comparing every file of the locked baseline `baseline/dist` (production's source-level tree; it equals `legacy/dist` except `index.html` and `data/terrain.json`, which production changed after the downloaded deploy: `docs/baseline-drift.md`) with what `https://gettysburginteractivemap.com` serves (`node ops/sha-list.mjs verify-url <list of baseline/dist> https://gettysburginteractivemap.com --tree baseline/dist`, 119 requests, read-only; against the stale `legacy/dist` the same comparison showed 90 of 91 non-HTML files identical, the difference being the live `terrain.json`):
 
 * 91 of 91 non-HTML files are byte-identical (including the entry bundle, `sw.js`, data, icons);
 * 15 HTML files are identical except that Netlify appends a 525-byte `<script id="netlify-rum-container" ...>` before `</body>` (Real User Metrics injection);
@@ -87,7 +87,8 @@ How to read the `verify-url` output on staging:
 |---|---|---|
 | `OK` for every non-HTML file | files intact | good |
 | `OK*` on an `.html` file | identical apart from the RUM snippet: RUM is ON for staging | turn RUM off for staging (it would also send staging traffic into its own RUM project) |
-| `WARN`/`DIFF` on `.html` with "single-quoted attributes" | Pretty URLs (link rewriting) is ON | turn it off on staging, or accept and note it |
+| `OK*` on an `.html` file although you passed `--tree` | identical to the source after the model of Netlify's post-processing (RUM snippet and/or Pretty URLs link rewriting): those settings are ON for staging | fine, but for the byte-identity proof turn them off (section 4 above) |
+| `DIFF` on an `.html` file (with `--tree`) | a real difference: the model explains the RUM snippet and the link rewriting, nothing else. (Without `--tree` a page whose links Netlify rewrote also shows `DIFF`, because the rewriting cannot be undone from a hash.) | investigate; never demoted to a warning |
 | `DIFF` on a `.js`/`.css`/image | asset optimization changed the bytes | turn it off; this is a real problem for cache-busting; do not ship until identical |
 | `MISS` on `diagnostics.html` (legacy tree only) | the toml redirect rule was processed: this is GOOD evidence | pass `--expect-missing netlify.toml,_headers,_redirects,diagnostics.html` so it counts as expected |
 | `PUB netlify.toml` or `PUB _headers` | a config file is publicly served | investigate; not expected on Netlify |
@@ -111,14 +112,14 @@ After the first staging deploy, look at the credit balance again and write down 
 ## 6. The byte-identity proof (do once, before R0: WP-T0-02 acceptance)
 
 ```
-node ops/sha-list.mjs list legacy/dist --out release/staging/legacy.tsv
-#   expect: "119 files, tree 90d819d0a948e0e0164333ab519f3941ab78ac147f4c93d8e18802dfb253905d"  (measured: it is)
-node ops/sha-list.mjs stage legacy/dist release/staging/legacy --force
-#   deploy release/staging/legacy to gbg-staging (section 2 or 5)
-node ops/sha-list.mjs verify-url release/staging/legacy.tsv https://gbg-staging.netlify.app --expect-missing netlify.toml,_headers,_redirects,diagnostics.html --html-warn --out release/staging/identity-proof.json
+node ops/sha-list.mjs list baseline/dist --out release/staging/baseline.tsv
+#   expect: "119 files, tree d2b126e99a88cbd9d708c0db237d2fd1dfbe7a3bf8c8d41c473536d3f727be6d"  (measured: it is; the downloaded deploy legacy/dist is 90d819d0...5253905d and differs in index.html and data/terrain.json)
+node ops/sha-list.mjs stage baseline/dist release/staging/baseline --force
+#   deploy release/staging/baseline to gbg-staging (section 2 or 5)
+node ops/sha-list.mjs verify-url release/staging/baseline.tsv https://gbg-staging.netlify.app --tree baseline/dist --expect-missing netlify.toml,_headers,_redirects,diagnostics.html --out release/staging/identity-proof.json
 ```
 
-**Acceptance (the plan's "119/119"):** every non-HTML file `OK`; every HTML file `OK` (or a documented section-4 difference); the exit code `0`; the two config files and `diagnostics.html` correctly not served. Keep `identity-proof.json` and the console output with the baseline evidence. The same command against production (measured) gives 91 identical, 15 identical apart from the RUM snippet, 11 rewritten HTML pages, `diagnostics.html` missing: the rewritten pages are production's post-processing, not a difference in the files you deploy.
+**Acceptance (the plan's "119/119"):** every non-HTML file `OK`; every HTML file `OK` (or a documented section-4 difference); the exit code `0`; the two config files and `diagnostics.html` correctly not served. Keep `identity-proof.json` and the console output with the baseline evidence. The same command against production (measured 2026-09-30, `--tree baseline/dist`) gives 91 identical, 26 identical apart from Netlify's post-processing (RUM snippet, rewritten links; proven by the model), the config files and `diagnostics.html` correctly not served, 0 differences: the rewritten pages are production's post-processing, not a difference in the files you deploy. (For production itself prefer `python tools/t0/baseline.py verify-live`.)
 
 **Header parity proof (every train, also once for `legacy`):**
 ```
@@ -139,7 +140,7 @@ For each train (R0: soak 48 h, start by the Sunday before the Tuesday; others 24
 3. Deploy that folder to `gbg-staging` (section 5).
 4. `node tests/t0/prod-probe.mjs --base <staging url> --train <train> --staging --dist release/<train>/dist` (all `PASS`/`KNOWN`).
 5. Parity (section 6). For **R0, R1a, R1b** it must be clean (no header changes are part of those trains). **R1c changes headers on purpose** (the generated `_headers`, `tools/t0/config/gen.mjs`: frame policy per page, an enforced `frame-ancestors`, per-page Report-Only host lists, Permissions-Policy per page, a shorter cache for `/icons/*`, `/embed` frameable): the parity command will show many differences by design, so for R1c read them against `release/R1c/dist/_ops/config-manifest.json` and the header comment of `gen.mjs`, and use these as the gate instead: `node ops/headers-probe.mjs <staging url> --profile t0` (exit 0), `node tests/t0/headers.spec.mjs --dist release/R1c/dist` (the rule and real-browser framing tests) and the probe's own `HP-06/07/13`.
-6. `node ops/sha-list.mjs list release/<train>/dist --out release/staging/<train>.tsv` then `verify-url release/staging/<train>.tsv <staging url> --html-warn`: no `DIFF`/`MISS` on non-HTML files.
+6. `node ops/sha-list.mjs list release/<train>/dist --out release/staging/<train>.tsv` then `verify-url release/staging/<train>.tsv <staging url> --tree release/<train>/dist`: no `DIFF`/`MISS` on any file (HTML included).
 7. Do the by-hand smoke list `tests/t0/journeys-manual.md` part A on the staging URL (blank map expected).
 8. Soak, then re-run steps 4 and 6 once more at the end of the soak (a deploy that decays is a finding).
 9. Only then production (`ops/RELEASE-RUNBOOK.md` section 7).
