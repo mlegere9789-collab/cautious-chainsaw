@@ -265,6 +265,23 @@ for (const name of MAP_PAGES) {
 }
 
 for (const name of MAP_PAGES) {
+  t.test(`PG-02b-${name}`, `${name}: no layout shift when the data arrives after the (now earlier) first paint (CLS <= 0.02, library held back 2 s)`, async (ctx) => {
+    const L = await getLab(), S = await getB();
+    L.state.vendorDelayMs = 2000;
+    const page = await newPage(S, HOOK, PAINT);
+    try {
+      await page.goto(`${L.url}/${name}.html`, { waitUntil: 'commit' });
+      const want = EXPECT_MAPS[name] || 1;
+      await waitFor(() => page.evaluate((n) => window.__maps && window.__maps.length >= n, want), { timeout: 25000, label: 'map(s) created' });
+      await sleep(1500);   // the placeholder is gone by now; shifts are reported with a small delay
+      const cls = await page.evaluate(() => Math.round(window.__p.cls * 10000) / 10000);
+      ctx.note('cls', cls);
+      assert(cls <= 0.02, `layout shift ${cls} after data arrival: the loading placeholder / hidden panes move content that was already painted`);
+    } finally { L.state.vendorDelayMs = 0; await page.close(); }
+  });
+}
+
+for (const name of MAP_PAGES) {
   t.test(`PG-03-${name}`, `${name}: real Mapbox (SRI-pinned): token before new Map, map loaded, canvas non-blank, 0 errors`, async (ctx) => {
     const S = await getA(), srv = await getStatic();
     const page = await newPage(S, HOOK);

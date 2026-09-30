@@ -8,6 +8,7 @@
 //             body:   the inline `(async function () { ... })();` becomes a DOMContentLoaded listener; deferred scripts run before DCL, so the
 //                     token is still set before `new mapboxgl.Map` and nothing else in the page changes
 //             watch-together: PeerJS leaves the head; Host / Join set "connecting..." first, let it paint, then load the SRI-pinned 1.5.4 file
+//             layout-shift guard (maps:*:cls-*): the loading placeholder leaves the flow, compare's panes hide with visibility (first paint is now earlier than the data)
 // WP-T0-14  og:image / twitter:image of the 21 pages -> /og/card-r1.png (new path so crawler caches refresh; the corrupt day3.png is replaced too)
 // Pages mix LF and CRLF files (camera, compare, sandbox, viewshed are CRLF): every multi-line anchor/replacement takes the page's own
 // line ending.  Single-line anchors are preferred so other groups' patches cannot overlap them.
@@ -51,6 +52,33 @@ for (const name of MAP_PAGES) {
   P(`maps:${name}:js`, target, JS_OLD, JS_NEW, 1, 'WP-T0-13 mapbox-gl.js no longer parser-blocking: defer + SRI (same 3.24.1 file)');
   P(`maps:${name}:dcl-open`, target, OPEN_OLD, OPEN_NEW, 1, 'WP-T0-13 inline script waits for DOMContentLoaded (after the deferred library ran)');
   P(`maps:${name}:dcl-close`, target, E(CLOSE_OLD), E(CLOSE_NEW), 1, 'WP-T0-13 closes the DOMContentLoaded listener');
+}
+
+// ------------------------------------------------------------------ WP-T0-13: layout-shift guard for the placeholder that first paint now shows
+// With the library no longer blocking the parser, first paint happens ~2 s BEFORE the data arrives, so the "Loading ..." placeholder
+// (and, on compare, the hidden map panes) is on screen when it disappears and everything below jumps (measured CLS: compare 0.17,
+// cinematic-export 0.07, immersive 0.06, watch-together 0.05; it was 0 before because the placeholder was gone before first paint).
+// Fix without changing the final layout: the placeholder leaves the flow (absolute), so removing it moves nothing; compare's panes
+// keep their box while hidden (visibility instead of display).
+{
+  const LOADING_OLD = '#loading { font-family: sans-serif; color: var(--muted); padding: 30px 5%; }';
+  const LOADING_NEW = '#loading { font-family: sans-serif; color: var(--muted); padding: 30px 5%; position: absolute; left: 0; right: 0; z-index: 1; }';
+  for (const name of ['cinematic-export', 'immersive', 'watch-together']) {
+    const t = page(name);
+    if (count(t, LOADING_OLD) !== 1) throw new Error(`${name}.html: #loading rule occurs ${count(t, LOADING_OLD)} times`);
+    P(`maps:${name}:cls-loading`, `${name}.html`, LOADING_OLD, LOADING_NEW, 1, 'WP-T0-13 CLS guard: the loading placeholder leaves the flow so removing it shifts nothing');
+  }
+  const t = page('compare'), E = (x) => withEol(x, eolOf(t));
+  const rules = [
+    ['cls-loading', '  #error { color:#cc7766; display:none; }', E('  #error { color:#cc7766; display:none; }\n  #loading { position: absolute; left: 0; right: 0; z-index: 1; }'), 'placeholder out of flow'],
+    ['cls-split-hidden', '<div class="split" id="split" style="display:none;">', '<div class="split" id="split" style="visibility:hidden;">', 'panes keep their box while hidden'],
+    ['cls-split-show', "document.getElementById('split').style.display = 'flex';", "document.getElementById('split').style.visibility = 'visible';", 'panes appear by visibility'],
+    ['cls-split-error', "    document.getElementById('error').style.display = 'block';", "    document.getElementById('error').style.display = 'block';\n    document.getElementById('split').style.display = 'none';", 'on a load error the reserved (empty) pane box is dropped, as before'],
+  ];
+  for (const [id, find, repl, note] of rules) {
+    if (count(t, find) !== 1) throw new Error(`compare.html: ${id} anchor occurs ${count(t, find)} times`);
+    P(`maps:compare:${id}`, 'compare.html', find, id === 'cls-split-error' ? E(repl) : repl, 1, `WP-T0-13 CLS guard: ${note}`);
+  }
 }
 
 // ------------------------------------------------------------------ WP-T0-13: PeerJS on demand (watch-together)

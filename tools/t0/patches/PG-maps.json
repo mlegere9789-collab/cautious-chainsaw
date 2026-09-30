@@ -259,6 +259,62 @@
       "note": "WP-T0-13 closes the DOMContentLoaded listener"
     },
     {
+      "id": "maps:cinematic-export:cls-loading",
+      "target": "cinematic-export.html",
+      "find": "#loading { font-family: sans-serif; color: var(--muted); padding: 30px 5%; }",
+      "repl": "#loading { font-family: sans-serif; color: var(--muted); padding: 30px 5%; position: absolute; left: 0; right: 0; z-index: 1; }",
+      "expect": 1,
+      "note": "WP-T0-13 CLS guard: the loading placeholder leaves the flow so removing it shifts nothing"
+    },
+    {
+      "id": "maps:immersive:cls-loading",
+      "target": "immersive.html",
+      "find": "#loading { font-family: sans-serif; color: var(--muted); padding: 30px 5%; }",
+      "repl": "#loading { font-family: sans-serif; color: var(--muted); padding: 30px 5%; position: absolute; left: 0; right: 0; z-index: 1; }",
+      "expect": 1,
+      "note": "WP-T0-13 CLS guard: the loading placeholder leaves the flow so removing it shifts nothing"
+    },
+    {
+      "id": "maps:watch-together:cls-loading",
+      "target": "watch-together.html",
+      "find": "#loading { font-family: sans-serif; color: var(--muted); padding: 30px 5%; }",
+      "repl": "#loading { font-family: sans-serif; color: var(--muted); padding: 30px 5%; position: absolute; left: 0; right: 0; z-index: 1; }",
+      "expect": 1,
+      "note": "WP-T0-13 CLS guard: the loading placeholder leaves the flow so removing it shifts nothing"
+    },
+    {
+      "id": "maps:compare:cls-loading",
+      "target": "compare.html",
+      "find": "  #error { color:#cc7766; display:none; }",
+      "repl": "  #error { color:#cc7766; display:none; }\r\n  #loading { position: absolute; left: 0; right: 0; z-index: 1; }",
+      "expect": 1,
+      "note": "WP-T0-13 CLS guard: placeholder out of flow"
+    },
+    {
+      "id": "maps:compare:cls-split-hidden",
+      "target": "compare.html",
+      "find": "<div class=\"split\" id=\"split\" style=\"display:none;\">",
+      "repl": "<div class=\"split\" id=\"split\" style=\"visibility:hidden;\">",
+      "expect": 1,
+      "note": "WP-T0-13 CLS guard: panes keep their box while hidden"
+    },
+    {
+      "id": "maps:compare:cls-split-show",
+      "target": "compare.html",
+      "find": "document.getElementById('split').style.display = 'flex';",
+      "repl": "document.getElementById('split').style.visibility = 'visible';",
+      "expect": 1,
+      "note": "WP-T0-13 CLS guard: panes appear by visibility"
+    },
+    {
+      "id": "maps:compare:cls-split-error",
+      "target": "compare.html",
+      "find": "    document.getElementById('error').style.display = 'block';",
+      "repl": "    document.getElementById('error').style.display = 'block';\r\n    document.getElementById('split').style.display = 'none';",
+      "expect": 1,
+      "note": "WP-T0-13 CLS guard: on a load error the reserved (empty) pane box is dropped, as before"
+    },
+    {
       "id": "maps:watch-together:peerjs-tag",
       "target": "watch-together.html",
       "find": "<script src=\"https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js\"></script>",
