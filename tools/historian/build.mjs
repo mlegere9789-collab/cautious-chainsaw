@@ -18,6 +18,7 @@ import { Emitter, writeManifest, brotliSize, stable } from './lib/emit.mjs';
 import { validate } from './lib/validate.mjs';
 import { loadSources } from './lib/sources.mjs';
 import { buildClock } from './lib/clock.mjs';
+import { fieldCoverage, coverageBaselineDoc } from './lib/coverage.mjs';
 import { prepareT1 } from '../../historian-src/core/entities.js';
 import { createLinker } from '../../historian-src/core/linker.js';
 import { encodePassage, TX_FIELDS, PER_SHARD } from '../../historian-src/core/codec.js';
@@ -25,6 +26,7 @@ import { encodePassage, TX_FIELDS, PER_SHARD } from '../../historian-src/core/co
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '../..');
 export const KB_VERSION = '0.1.0';
+export const COVERAGE_FILE = path.join(here, 'data/field-coverage.v1.json');
 export const SCHEMA = 1;
 
 export function build({ dataDir = path.join(root, 'legacy/dist/data'), distDir = path.join(root, 'legacy/dist'), outDir = path.join(root, 'historian-src/dist/hx'), bundle = true, dry = false, log = () => {} } = {}) {
@@ -77,7 +79,8 @@ export function build({ dataDir = path.join(root, 'legacy/dist/data'), distDir =
 
   // ---- validate ----------------------------------------------------------------------------------------------------------------------------------------
   const used = [...new Set(P.map((p) => p.source_id))].sort();
-  const result = validate({ site, reg, t1, entix, passages: P, facts, sources: srcReg.sources, sizes });
+  const coverage = { actual: fieldCoverage(site), baseline: fs.existsSync(COVERAGE_FILE) ? JSON.parse(fs.readFileSync(COVERAGE_FILE, 'utf8')) : null };   // K001: every whitelisted field, derived from what the loader emits
+  const result = validate({ site, reg, t1, entix, passages: P, facts, sources: srcReg.sources, sizes, coverage });
   const report = {
     kb_version: KB_VERSION, data_snapshot: { sha256: site.fp.sha256, files: site.fp.files }, ok: result.ok, counts: result.counts, findings: result.findings.slice(0, 200), sizes, stats,
     warnings: site.warnings, curated_unmatched: reg.curatedApplied.filter((c) => !c.targets.length).map((c) => c.canon),
@@ -108,6 +111,12 @@ export function build({ dataDir = path.join(root, 'legacy/dist/data'), distDir =
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
   const quiet = process.argv.includes('--quiet');
+  if (process.argv.includes('--record-coverage')) {
+    const site = loadSite(path.resolve(arg('data', path.join(root, 'legacy/dist/data'))));
+    fs.writeFileSync(COVERAGE_FILE, JSON.stringify(coverageBaselineDoc(fieldCoverage(site)), null, 1) + String.fromCharCode(10));
+    console.log('recorded field coverage for ' + Object.keys(fieldCoverage(site)).length + ' collections in ' + path.relative(root, COVERAGE_FILE));
+    process.exit(0);
+  }
   const res = build({
     dataDir: path.resolve(arg('data', path.join(root, 'legacy/dist/data'))), outDir: path.resolve(arg('out', path.join(root, 'historian-src/dist/hx'))),
     bundle: !process.argv.includes('--no-bundle'), dry: process.argv.includes('--dry'),

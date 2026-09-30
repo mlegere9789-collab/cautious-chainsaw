@@ -33,6 +33,19 @@ export function evenHead(l) {
 }
 const HEAD_TITLE_UP = /^\W{0,3}\w{0,5}\s*GETTYSBURG\s+CAMPAIGN\.?\W{0,3}$/;                // all capitals, OCR-tolerant: never a body line
 
+// Running heads and signature marks that share a line with body text (the ABBYY layout runs a page's head into the first line of its column, and the sheet signature "2 R R - VOL XXVII, PT I"
+// into the last): removed with the page number that comes with them. Found by comparing the OR27 sample with its running heads: 80 of 1,513 passages still carried one after the line-based pass.
+const INLINE_CHAP = new RegExp(String.raw`(?:(?<![A-Za-z0-9])(\d{1,4})\s+(?=\[\s*(?:Chap|CHAP|ChAp|hap)))?(?<![A-Za-z])(?:[IL](?=Chap|CHAP|hap)|[\[\]•t]?\s*)(?:Chap|CHAP|ChAp|Ohap|Cnap|hap)[.,;:^\s-]{0,4}[Xx]{1,3}[IlL1iXxf]{0,2}(?:\s?(?:[.,;:\]jJ)fI|?!]|1(?!\d))){0,3}(?:\s*(?:THE\s+)?GETTYSBURG\s+CAMPAIGN\.?)?(?:\s*(\d{1,4})\b(?!\s*(?:men|killed|wounded|missing|miles?|per|horses|guns|rounds|prisoners|days?|hours?|o.clock|a\.?\s?m|p\.?\s?m)\b))?`, 'g');
+const INLINE_SIG = new RegExp(String.raw`(?<![A-Za-z0-9])(?:\d{1,2}\s*)?[A-Za-z]{1,2}\s*[A-Za-z]\s*[—–-]{0,2}\s*VOL\.?\s*XXVII,?\s*[Pp][Tt]\.?\s*[IlJ1i]{1,3}(?![A-Za-z])`, 'g');
+const INLINE_EVEN = new RegExp(String.raw`(?<![A-Za-z0-9])(\d{1,4})?\s*N[\W_jJ]{0,3}C[\W_jJ]{0,3}\s*V[AY][\W_jJ]{0,3}\s*W[\W_jJ]{0,3}\s*V[AY][\W_jJ]{0,3}\s*M[DB][\W_jJ]{0,3}\s*P[AT][\W_jJ]{0,3}\s*[EP]TC[\W_jJ]{0,3}`, 'g');
+const INLINE_TITLE = new RegExp(String.raw`(?<![A-Za-z])(?:THE\s+)?GETTYSBURG\s+CAMPAIGN\.?\s*(\d{1,4})?\b`, 'g');
+export function stripInline(line) {
+  let t = line, page = null, changed = false;
+  const take = (re, pageGroup) => { t = t.replace(re, (m, a, b) => { changed = true; const p = a && /^\d/.test(a) ? a : b && /^\d/.test(b) ? b : null; if (pageGroup && p && +p <= 1400) page = page || +p; return ' '; }); };
+  take(INLINE_SIG, false); take(INLINE_EVEN, true); take(INLINE_CHAP, true); take(INLINE_TITLE, true);   // the running title is in capitals; the body says "the Gettysburg Campaign"
+  return { text: changed ? t.replace(/\s{2,}/g, ' ').trim() : line, changed, page };
+}
+
 /** collapse OCR whitespace and join hyphenated line breaks; returns {text, edits} */
 export function cleanWhitespace(raw) {
   const edits = [];
@@ -75,6 +88,9 @@ export function stripRunningHeads(t) {
       if (n && !drop.has(n.line)) { drop.add(n.line); marks.push({ line: Math.min(i, n.line), page: n.page }); }
       continue;
     }
+    // a head or signature mark run into a body line: cut it out of the line (and keep the printed page it carried)
+    const inl = stripInline(l);
+    if (inl.changed) { lines[i] = inl.text; if (inl.page) marks.push({ line: i, page: inl.page }); if (!inl.text.trim()) drop.add(i); }
   }
   const out = []; const pages = []; let off = 0;
   // printed pages count up by one to four. A mark that continues the run is kept; one that restarts the numbering (front matter, then page 1) is kept when its successor
@@ -334,19 +350,57 @@ export function chunkDocument(doc, { target = 200, max = 250, min = 60, pageAt =
 // ---------------------------------------------------------------------------------------------------------------------------------------
 // pipeline
 // ---------------------------------------------------------------------------------------------------------------------------------------
+/**
+ * Lines that still carry a running head or a sheet signature after normalisation, by the SAME detectors the stripper uses plus the narrow whole-line ones. The first version of this
+ * count used only the whole-line detectors and reported 0 while 80 of 1,513 passages still carried a head inside a body line (verifier defect V-11).
+ */
+export function countRunningHeads(text) {
+  return String(text).split('\n').filter((l) => evenHead(l) || HEAD_TITLE_UP.test(l) || /^.{0,6}GETTYSBURG CAMPAIGN\.?$/.test(l) || stripInline(l).changed).length;
+}
+
+/**
+ * Why each report number that the run should contain is not a document of its own, and where its text went. A report whose header the segmenter could not read is not lost: its text sits
+ * at the end of the PREVIOUS document (the segmenter starts a document only at a header it can read). Reported per number so that nothing is silently absent:
+ *   no-contents-entry   the number is not in the contents list, so there is no author to look for
+ *   header-not-found    the contents list names the author but the "No. N. / Report of ..." header is unreadable (scrambled columns, a damaged scan)
+ * text_in_previous_document: the ALL-CAPS signature of the contents author (or nothing, without an entry) is found in the previous document's text.
+ */
+export function missingDetail(docs, toc) {
+  if (!docs.length) return [];
+  const have = new Set(docs.map((d) => d.no)); const out = [];
+  for (let n = docs[0].no; n <= docs[docs.length - 1].no; n++) {
+    if (have.has(n)) continue;
+    const t = toc.find((x) => x.no === n) || null;
+    const prev = [...docs].reverse().find((d) => d.no < n) || null;
+    const author = t ? (t.title.split(',')[0].match(/([A-Z][A-Za-z'-]+)\s*$/) || [])[1] || null : null;
+    out.push({ no: n, reason: t ? 'header-not-found' : 'no-contents-entry', contents_title: t ? t.title : null, previous_document: prev ? prev.no : null, text_in_previous_document: !!(author && prev && new RegExp('\\b' + author.toUpperCase() + '\\b').test(prev.text)) });
+  }
+  return out;
+}
+
+/** a passage that is mostly one-cell paragraphs: the OCR of a table (20 or more paragraphs, half of them four characters or fewer) */
+export function isTableDebris(text) {
+  const parts = String(text).split(/\n{2,}/).map((x) => x.trim()).filter(Boolean);
+  return parts.length >= 20 && parts.filter((x) => x.length <= 4).length / parts.length >= 0.5;
+}
+
 export function ingestOr27(raw, { repair = true } = {}) {
   const norm = normalizeOcr(raw, { repair });
   const toc = parseToc(norm.text);
   const seg = segmentReports(norm, toc);
   const pageAt = (off) => { let p = null; for (const m of norm.pages) { if (m.offset <= off) p = m.page; else break; } return p; };
-  const passages = seg.docs.flatMap((d) => chunkDocument(d, { pageAt }));
+  const chunked = seg.docs.flatMap((d) => chunkDocument(d, { pageAt }));
+  // an OCR'd table comes out as hundreds of one-cell paragraphs ("B", "0)", "a", "57", ...): worthless as a quotable passage, so it is dropped and counted (never silently)
+  const debris = chunked.filter((p) => isTableDebris(p.text));
+  const seqOf = new Map(); const passages = chunked.filter((p) => !debris.includes(p)).map((p) => { const k = seqOf.get(p.doc_id) || 0; seqOf.set(p.doc_id, k + 1); return { ...p, seq: k }; });
   const bad = (x) => !Number.isFinite(x);
   const report = {
     chars_in: raw.length, chars_out: norm.text.length, edits: norm.edits.length, edit_kinds: norm.edits.reduce((m, e) => { m[e.why] = (m[e.why] || 0) + 1; return m; }, {}),
-    page_marks: norm.pages.length, page_marks_inferred: norm.pages_inferred, running_heads_left: norm.text.split('\n').filter((l) => evenHead(l) || /^.{0,6}GETTYSBURG CAMPAIGN\.?$/.test(l)).length, toc_entries: toc.length, toc_range: toc.length ? [toc[0].no, toc[toc.length - 1].no] : null, docs: seg.docs.length,
+    page_marks: norm.pages.length, page_marks_inferred: norm.pages_inferred, running_heads_left: countRunningHeads(norm.text), toc_entries: toc.length, toc_range: toc.length ? [toc[0].no, toc[toc.length - 1].no] : null, docs: seg.docs.length,
     doc_range: seg.docs.length ? [seg.docs[0].no, seg.docs[seg.docs.length - 1].no] : null, number_fixes: seg.fixes, recovered_from_toc: seg.docs.filter((d) => d.recovered).map((d) => d.no),
-    docs_with_pages: seg.docs.filter((d) => d.pages.start !== null).length, passages: passages.length, passage_words: { mean: passages.length ? Math.round(passages.reduce((a, p) => a + p.words, 0) / passages.length) : 0 },
+    docs_with_pages: seg.docs.filter((d) => d.pages.start !== null).length, passages: passages.length, table_debris_dropped: debris.map((p) => p.id), passage_words: { mean: passages.length ? Math.round(passages.reduce((a, p) => a + p.words, 0) / passages.length) : 0 },
     confidence: seg.docs.reduce((m, d) => { m[d.confidence] = (m[d.confidence] || 0) + 1; return m; }, {}),
+    missing_detail: missingDetail(seg.docs, toc),
     docs_missing_from_run: (() => { if (!seg.docs.length) return []; const have = new Set(seg.docs.map((d) => d.no)); const miss = []; for (let n = seg.docs[0].no; n <= seg.docs[seg.docs.length - 1].no; n++) if (!have.has(n)) miss.push(n); return miss; })(),
   };
   return { norm, toc, docs: seg.docs, passages, report };

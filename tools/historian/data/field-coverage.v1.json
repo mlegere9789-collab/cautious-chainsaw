@@ -1,0 +1,291 @@
+{
+ "$comment": "K001 baseline: for every collection the loader (tools/historian/lib/load.mjs) emits, the number of records and, per field (nested objects flattened), how many records populate it. Written by node tools/historian/build.mjs --record-coverage from reviewed data; tools/historian/lib/coverage.mjs compares every build against it.",
+ "collections": {
+  "regiments": {
+   "n": 467,
+   "fields": {
+    "alias_for": 1,
+    "casualties": 467,
+    "casualty_percentage": 245,
+    "commander": 440,
+    "commander.fate": 440,
+    "commander.name": 440,
+    "commander.notes": 4,
+    "commander.successor": 13,
+    "commander.survivor": 1,
+    "days_engaged": 430,
+    "designation": 467,
+    "file": 467,
+    "id": 467,
+    "key_action": 467,
+    "notes": 4,
+    "parent_brigade_id": 467,
+    "parent_corps_id": 445,
+    "state": 467,
+    "strength": 467
+   }
+  },
+  "brigades": {
+   "n": 88,
+   "fields": {
+    "brigade_ids": 0,
+    "casualties": 88,
+    "casualty_percentage": 71,
+    "chief_of_artillery": 0,
+    "commander": 88,
+    "commander.fate": 88,
+    "commander.name": 88,
+    "commander.notes": 4,
+    "commander.successor": 20,
+    "days_engaged": 88,
+    "designation": 88,
+    "division_ids": 0,
+    "id": 88,
+    "key_action": 88,
+    "notes": 0,
+    "parent_corps_id": 88,
+    "parent_division_id": 88,
+    "regiment_ids": 88,
+    "side": 88,
+    "state": 88,
+    "strength": 88
+   }
+  },
+  "divisions": {
+   "n": 31,
+   "fields": {
+    "brigade_ids": 31,
+    "casualties": 31,
+    "casualty_percentage": 16,
+    "chief_of_artillery": 0,
+    "commander": 31,
+    "commander.fate": 31,
+    "commander.name": 31,
+    "commander.notes": 7,
+    "commander.successor": 3,
+    "days_engaged": 29,
+    "designation": 31,
+    "division_ids": 0,
+    "id": 31,
+    "key_action": 0,
+    "notes": 5,
+    "parent_corps_id": 9,
+    "parent_division_id": 0,
+    "regiment_ids": 0,
+    "side": 31,
+    "state": 0,
+    "strength": 31
+   }
+  },
+  "corps": {
+   "n": 11,
+   "fields": {
+    "brigade_ids": 0,
+    "casualties": 11,
+    "casualty_percentage": 8,
+    "chief_of_artillery": 10,
+    "commander": 11,
+    "commander.fate": 11,
+    "commander.name": 11,
+    "commander.notes": 3,
+    "commander.successor": 3,
+    "days_engaged": 11,
+    "designation": 11,
+    "division_ids": 11,
+    "id": 11,
+    "key_action": 0,
+    "notes": 8,
+    "parent_corps_id": 0,
+    "parent_division_id": 0,
+    "regiment_ids": 0,
+    "side": 11,
+    "state": 0,
+    "strength": 11
+   }
+  },
+  "armies": {
+   "n": 2,
+   "fields": {
+    "casualties": 2,
+    "casualty_percentage": 2,
+    "commander": 2,
+    "commander.assumed_command": 1,
+    "commander.fate": 1,
+    "commander.name": 2,
+    "commander.notes": 2,
+    "designation": 2,
+    "id": 2,
+    "side": 2,
+    "strength": 2
+   }
+  },
+  "batteries": {
+   "n": 103,
+   "fields": {
+    "casualties": 103,
+    "commander": 103,
+    "commander.fate": 103,
+    "commander.name": 103,
+    "commander.notes": 1,
+    "commander.successor": 4,
+    "designation": 103,
+    "division_attached": 5,
+    "gun_count": 103,
+    "gun_type": 103,
+    "id": 103,
+    "key_action": 103,
+    "parent_id": 100,
+    "side": 103,
+    "strength": 103
+   }
+  },
+  "artUnits": {
+   "n": 23,
+   "fields": {
+    "batteries": 23,
+    "commander": 23,
+    "commander.fate": 23,
+    "commander.name": 23,
+    "commander.notes": 5,
+    "corps": 18,
+    "designation": 23,
+    "id": 23,
+    "notes": 1,
+    "reserve": 5,
+    "side": 23
+   }
+  },
+  "artChiefs": {
+   "n": 2,
+   "fields": {
+    "fate": 2,
+    "name": 2,
+    "notes": 2,
+    "scope": 2,
+    "side": 2,
+    "totalBatteries": 2,
+    "totalGuns": 2
+   }
+  },
+  "artChiefsByCorps": {
+   "n": 3,
+   "fields": {
+    "corps": 3,
+    "fate": 3,
+    "name": 3,
+    "notes": 1,
+    "side": 3
+   }
+  },
+  "successions": {
+   "n": 42,
+   "fields": {
+    "approx_time": 42,
+    "cause": 42,
+    "event": 42,
+    "from": 42,
+    "id": 42,
+    "notes": 18,
+    "side": 42,
+    "source": 42,
+    "to": 42,
+    "unit_id": 42
+   }
+  },
+  "vignettes": {
+   "n": 24,
+   "fields": {
+    "full_script": 24,
+    "id": 24,
+    "panel_summary": 24,
+    "title": 24,
+    "trigger_location": 24,
+    "trigger_tick": 24,
+    "units_featured": 23
+   }
+  },
+  "chronology": {
+   "n": 137,
+   "fields": {
+    "day": 137,
+    "event": 137,
+    "id": 137,
+    "location": 137,
+    "narrative": 25,
+    "significance": 137,
+    "tick": 137,
+    "units_involved": 124
+   }
+  },
+  "locations": {
+   "n": 30,
+   "fields": {
+    "day_relevance": 30,
+    "elevation_ft": 30,
+    "id": 30,
+    "lat": 30,
+    "lng": 30,
+    "name": 30,
+    "significance": 30
+   }
+  },
+  "roads": {
+   "n": 8,
+   "fields": {
+    "direction": 8,
+    "id": 8,
+    "name": 8,
+    "significance": 8
+   }
+  },
+  "structures": {
+   "n": 8,
+   "fields": {
+    "id": 8,
+    "name": 8,
+    "significance": 8,
+    "type": 8
+   }
+  },
+  "features": {
+   "n": 4,
+   "fields": {
+    "id": 4,
+    "name": 4,
+    "significance": 4,
+    "type": 4
+   }
+  },
+  "monuments": {
+   "n": 9,
+   "fields": {
+    "id": 9,
+    "lat": 9,
+    "lng": 9,
+    "name": 9,
+    "side": 9,
+    "source": 9
+   }
+  },
+  "casualtyCorps": {
+   "n": 12,
+   "fields": {
+    "corps_id": 12,
+    "engagement_periods": 12,
+    "initial_strength": 12,
+    "overall_rate": 12,
+    "side": 12,
+    "total_casualties": 12
+   }
+  },
+  "placementNotes": {
+   "n": 1245,
+   "fields": {
+    "file": 1245,
+    "notes": 1245,
+    "tick": 1245,
+    "unit_id": 1245
+   }
+  }
+ }
+}

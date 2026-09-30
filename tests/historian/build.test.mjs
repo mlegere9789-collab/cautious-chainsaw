@@ -7,6 +7,7 @@ import path from 'node:path';
 import { build } from '../../tools/historian/build.mjs';
 import { fingerprint } from '../../tools/historian/lib/load.mjs';
 import { fixture } from './lib/fixture.mjs';
+import { openKB as openKB5, nodeFetcher as nodeFetcher5 } from '../../historian-src/core/kb.js';
 import { ROOT } from './lib/data.mjs';
 
 const tmp = (n) => fs.mkdtempSync(path.join(os.tmpdir(), `hx-${n}-`));
@@ -130,4 +131,21 @@ test('fact tables: rank rule text, roll-ups and succession index are present and
   assert.ok(f.rollup.guns.U.guns > 200 && f.rollup.guns.C.guns > 150);
   assert.ok(f.succ.byUnit['CORPS:U-I'].includes('SUCC:US-001'));
   assert.equal(f.events.byDay[1].length + f.events.byDay[2].length + f.events.byDay[3].length, 137);
+});
+
+// ---- verifier defect V-05: kb.passages must never silently return fewer passages than asked for ------------------------------------------------------------
+test('kb.passages returns every requested passage whatever the cache size (a tiny LRU, concurrent overlapping requests, a request spanning every shard)', async () => {
+  const { hx, kb } = await fixture();
+  const total = kb.counts.passages; const all = Array.from({ length: total }, (_, i) => i);
+  for (const cache of [1, 2, 8, 64]) {
+    const k = await openKB5(await nodeFetcher5(hx), { cache });
+    const out = await k.passages(all);
+    assert.equal(out.size, total, `cache ${cache}: ${out.size} of ${total}`);
+    for (const n of [0, 17, total - 1]) assert.equal(out.get(n).num, n);
+    const [a, b] = await Promise.all([k.passages(all.slice(0, 700)), k.passages(all.slice(300))]);   // overlapping, concurrent, each larger than the cache
+    assert.equal(a.size, 700); assert.equal(b.size, total - 300);
+  }
+  // a number that does not exist is simply absent (not an error, and it does not hide the others)
+  const k = await openKB5(await nodeFetcher5(hx), { cache: 2 });
+  const some = await k.passages([0, 1, 99999, 500]); assert.deepEqual([...some.keys()].sort((x, y) => x - y), [0, 1, 500]);
 });

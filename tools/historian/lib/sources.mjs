@@ -34,12 +34,30 @@ export function tierProblems(s, { forShipping = true } = {}) {
   return p;
 }
 
-/** Fetch gate: refuses banned hosts (Tier C), refused identifiers (reprints), and hosts of sources that are not Tier A/B. */
+/** a host name as the gate compares it: lower case, no trailing dots ("battlefields.org." is the same host as "battlefields.org") */
+export const normHost = (h) => String(h == null ? '' : h).toLowerCase().replace(/\.+$/, '');
+const safeDecode = (s) => { try { return decodeURIComponent(s); } catch { return s; } };
+
+/**
+ * Fetch gate: refuses banned hosts (Tier C), refused identifiers (reprints), and anything that is not http(s).
+ * The comparison is deliberately over-inclusive, because a rights gate that can be walked around by spelling is not a gate:
+ *   * host names are compared lower-case without trailing dots ("battlefields.org." is battlefields.org), and a banned host appearing anywhere in the URL
+ *     (a web-archive or proxy wrapper such as web.archive.org/web/2020/https://battlefields.org/x) is refused too
+ *   * refused identifiers are compared case-insensitively, against the URL as written and after one and two rounds of percent-decoding
+ */
 export function fetchAllowed(reg, url) {
   let u;
   try { u = new URL(url); } catch { return { ok: false, reason: 'not a URL' }; }
-  const host = u.hostname.toLowerCase();
-  for (const b of reg.banned_hosts) if (host === b || host.endsWith('.' + b)) return { ok: false, reason: `host ${b} is Tier C (link-out only)` };
-  for (const id of reg.refused_identifiers) if (url.includes(id)) return { ok: false, reason: `identifier ${id} is on the refused list (reprint or unverified imprint)` };
+  if (u.protocol !== 'http:' && u.protocol !== 'https:') return { ok: false, reason: `scheme ${u.protocol} is not fetched` };
+  const host = normHost(u.hostname);
+  const forms = [String(url), safeDecode(String(url)), safeDecode(safeDecode(String(url)))].map((x) => x.toLowerCase());
+  for (const b0 of reg.banned_hosts) {
+    const b = normHost(b0);
+    if (host === b || host.endsWith('.' + b) || forms.some((f) => f.includes(b))) return { ok: false, reason: `host ${b} is Tier C (link-out only)` };
+  }
+  for (const id of reg.refused_identifiers) {
+    const needle = String(id).toLowerCase();
+    if (forms.some((f) => f.includes(needle))) return { ok: false, reason: `identifier ${id} is on the refused list (reprint or unverified imprint)` };
+  }
   return { ok: true };
 }

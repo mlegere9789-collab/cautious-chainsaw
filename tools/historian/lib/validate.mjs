@@ -8,11 +8,12 @@ import { contentStems } from '../../../historian-src/core/text.js';
 import { FIELDS } from '../../../historian-src/core/entities.js';
 import { hasDevNote, hasRawId } from './clean.mjs';
 import { tierProblems } from './sources.mjs';
+import { checkCoverage } from './coverage.mjs';
 
 const BUDGET = { t1BrotliMax: 250 * 1024, coldQueryMaxBytes: 120 * 1024, shardMaxBytes: 64 * 1024 };
 const BAD_TOKENS = /\bundefined\b|\bNaN\b|\bnull\b|\s--\s/;
 
-export function validate({ site, reg, t1, entix, passages, facts, sources, sizes, aliasRules = {} }) {
+export function validate({ site, reg, t1, entix, passages, facts, sources, sizes, aliasRules = {}, coverage = null }) {
   const findings = [];
   const err = (rule, msg, ctx) => findings.push({ level: 'error', rule, msg, ctx });
   const warn = (rule, msg, ctx) => findings.push({ level: 'warn', rule, msg, ctx });
@@ -27,6 +28,8 @@ export function validate({ site, reg, t1, entix, passages, facts, sources, sizes
   cover('locations', site.locations, 'name'); cover('locations', site.locations, 'significance'); cover('brigades', site.brigades, 'designation'); cover('successions', site.successions, 'event');
   cover('batteries', site.batteries, 'designation');
   for (const f of FIELDS) if (!['title', 'alias', 'people', 'place', 'body'].includes(f)) err('K001', 'unknown indexed field ' + f);
+  // ... and EVERY field the loader emits (derived, not hand-listed) against the recorded baseline: a renamed or emptied source field cannot pass silently (lib/coverage.mjs)
+  if (coverage) for (const x of checkCoverage(coverage.actual, coverage.baseline)) err(x.rule, x.msg);
 
   // ---- V01 schema -----------------------------------------------------------------------------------------------------------------------------------
   const REQ_P = ['id', 'num', 'doc', 'rec', 'kind', 'text', 'sb', 'cite', 'source_id', 'ents'];

@@ -273,3 +273,86 @@ test('the cached 2 MB sample of volume 27: reports found, pages resolved, no run
   const d190 = r.docs.find((d) => d.no === 190); assert.deepEqual(d190.pages, { start: 605, end: 605 });
   const d189 = r.docs.find((d) => d.no === 189); assert.match(d189.text, /Chamberlain/); assert.equal(d189.author, 'Brig. Gen. James Barnes'); assert.ok(r.docs.at(-1).no >= 190, 'the sample ends inside the Fifth Corps reports');
 });
+
+// ---- verifier defect V-06: spelling and redirects ------------------------------------------------------------------------------------------------------
+test('rights gate: a trailing-dot Tier C host and an upper-case refused identifier are refused before any network call, also with allowUnregistered', async () => {
+  const rg = rig(), f = mk(rg, tmp('gate2'));
+  for (const u of ['https://battlefields.org./x', 'https://BATTLEFIELDS.org/x', 'https://archive.org/download/WARREBELLIONACO00COWLGOOG/x_djvu.txt', 'https://web.archive.org/web/2020/https://battlefields.org/x']) {
+    await assert.rejects(() => f.get(u, { allowUnregistered: true }), RightsRefusal, u);
+    await assert.rejects(() => f.get(u), RightsRefusal, u);
+  }
+  assert.equal(rg.calls.length, 0);
+});
+
+test('rights gate: every redirect hop is checked (a registered URL that redirects to a Tier C host or a refused identifier is refused, and nothing is fetched from the target)', async () => {
+  for (const target of ['https://battlefields.org/civil-war/x', 'https://archive.org/download/warrebellionaco00cowlgoog/x_djvu.txt', 'https://www.findagrave.com./memorial/1']) {
+    const rg = rig([{ status: 302, headers: { location: target } }, { status: 200, body: 'must never be read' }]), f = mk(rg, tmp('redir'));
+    await assert.rejects(() => f.get(OR27), (e) => e instanceof RightsRefusal && /redirect target refused/.test(e.message), target);
+    assert.equal(rg.calls.length, 1, `only the registered URL was requested, not ${target}`);
+  }
+  // a redirect that leaves the source's domain is refused even when the target is not on any list
+  const rg2 = rig([{ status: 301, headers: { location: 'https://example.org/mirror/x_djvu.txt' } }]), f2 = mk(rg2, tmp('redir2'));
+  await assert.rejects(() => f2.get(OR27), (e) => e instanceof RightsRefusal && /leaves the registered source/.test(e.message)); assert.equal(rg2.calls.length, 1);
+});
+
+test('redirects within the source (archive.org to a numbered data node, relative Location) are followed, politely, and the body is cached under the requested URL', async () => {
+  const rg = rig([{ status: 302, headers: { location: 'https://ia800000.us.archive.org/1/items/warofrebellion271unit/warofrebellion271unit_djvu.txt' } }, { status: 301, headers: { location: '/other/path.txt' } }, { status: 200, body: 'the text' }]), f = mk(rg, tmp('redir3'));
+  const r = await f.get(OR27);
+  assert.equal(r.body.toString(), 'the text'); assert.equal(rg.calls.length, 3); assert.equal(rg.calls[0].url, OR27); assert.match(rg.calls[1].url, /ia800000\.us\.archive\.org/); assert.match(rg.calls[2].url, /ia800000\.us\.archive\.org\/other\/path\.txt/);
+  const again = await mk(rig(), f.cacheDir || tmp('unused')).get(OR27).catch(() => null); assert.ok(again === null || again.body.toString() === 'the text');
+  // a loop is cut off
+  const loop = rig(Array.from({ length: 10 }, () => ({ status: 302, headers: { location: 'https://archive.org/download/warofrebellion271unit/again.txt' } }))), f3 = mk(loop, tmp('loop'));
+  await assert.rejects(() => f3.get(OR27), /too many redirects/);
+});
+
+// ---- verifier defect V-11: running heads and signature marks that share a line with body text ---------------------------------------------------------------
+import { stripInline, isTableDebris, countRunningHeads, missingDetail } from '../../tools/historian/ingest/or27.mjs';
+test('stripInline removes a head or signature mark run into a body line (OCR variants included) and keeps the printed page it carried', () => {
+  const cases = [
+    ['no blame [Chap. XXXIX. I 20 r6figi totheforce then', 'no blame r6figi totheforce then', 20],
+    ['information I Chap. XXXIX.J 51 obtains. General Kelley', 'information I obtains. General Kelley', 51],
+    ['were wounded. 6 R R — VOL XXVII, PT I 82 [Chap. XXXIX. , diately move on', 'were wounded. diately move on', 82],
+    ['of one of the generals 2 R R— VOL XXVII, PT I in command.', 'of one of the generals in command.', null],
+    ['reports 3 r r — VOL XXVII, pt i JOSEPH HOOKER,', 'reports JOSEPH HOOKER,', null],
+    ['Maj. Grotius R. Giddings. Ur R — VOL XXVII, PT I 2d United States', 'Maj. Grotius R. Giddings. 2d United States', null],
+    ['Third Corps, 36 R U— VOL XXVII, PT J 562 [Inclosure.]', 'Third Corps, 562 [Inclosure.]', null],
+    ['Chap.^XXIX.] THE GETTYSBURG CAMPAIGN. 55 Washington, June 22, 1863.', 'Washington, June 22, 1863.', 55],
+    ['IChap. xxxix. First Brigade. Col. William McCandless.', 'First Brigade. Col. William McCandless.', null],
+    ['526 N. C.. VA.j W. VA.? MD.j PA., ETC. [Chap. - XXXIX.', '', 526],
+    ['position on the left of the Third Division, 262 [Chap. XXXIX, First Corps.', 'position on the left of the Third Division, First Corps.', null],
+  ];
+  for (const [line, want, page] of cases) { const r = stripInline(line); assert.equal(r.changed, true, line); assert.equal(r.text, want, line); if (page) assert.equal(r.page, page, line); }
+  // body text that only looks similar is left alone
+  for (const line of ['during the Gettysburg Campaign, June 3-August 1, 1863.', 'Chapter XXXIX of the report and the R R Co. of Vol. XXVII', 'He lost 20 men in the 27 Virginia; Chap. 5 follows', 'Army of the Potomac, Part I, June 28.']) assert.equal(stripInline(line).changed, false, line);
+});
+test('a quantity right after a head is not taken for its page number ("Chap. XXXIX.] 12 killed")', () => { const r = stripInline('Chap. XXXIX.] 12 killed and wounded'); assert.equal(r.page, null); assert.equal(r.text, '12 killed and wounded'); });
+test('isTableDebris: an OCR table (many one-cell paragraphs) is recognised, prose and a short list are not', () => {
+  const table = ['Location.', ...Array.from({ length: 40 }, (_, i) => (i % 3 ? String(i * 7) : 'a')), 'Brandy Station'].join('\n\n');
+  assert.equal(isTableDebris(table), true);
+  assert.equal(isTableDebris('A long paragraph of ordinary prose about the movement of the corps on the road to Gettysburg.\n\n'.repeat(30)), false);
+  assert.equal(isTableDebris(['1', '2', '3', 'Killed.', 'Wounded.'].join('\n\n')), false);
+});
+test('missingDetail explains every report number the run should hold and finds its text in the previous document', () => {
+  const docs = [{ no: 29, text: 'the corps.\n\nJOHN NEWTON,\n\nMajor-General.' }, { no: 31, text: 'x' }, { no: 33, text: 'y' }];
+  const toc = [{ no: 30, title: 'Maj. Gen. John Newton, U. S. Army, commanding First Army Corps.' }];
+  assert.deepEqual(missingDetail(docs, toc), [
+    { no: 30, reason: 'header-not-found', contents_title: toc[0].title, previous_document: 29, text_in_previous_document: true },
+    { no: 32, reason: 'no-contents-entry', contents_title: null, previous_document: 31, text_in_previous_document: false },
+  ]);
+  assert.deepEqual(missingDetail([], []), []);
+});
+test('the committed excerpt: the broad head detector finds nothing left and agrees with the strip', () => {
+  const ex = fs.readFileSync(path.join(ROOT, 'tests/historian/fixtures/or27-excerpt.txt'), 'utf8');
+  const r = ingestOr27(ex);
+  assert.equal(r.report.running_heads_left, 0); assert.equal(countRunningHeads(r.norm.text), 0);
+  assert.ok(Array.isArray(r.report.missing_detail) && Array.isArray(r.report.table_debris_dropped));
+});
+test('the cached 2 MB sample (V-11): no passage carries a head or signature mark under a CASE-SENSITIVE detector, the three unrecoverable headers are explained, table debris is dropped and counted', { skip: !sampleMeta && 'no cached sample in tmp/historian-cache' }, async () => {
+  const f = createFetcher({ cacheDir: CACHE, registry: REG, fetchImpl: async () => { throw new Error('the network must not be used'); } });
+  const r = ingestOr27((await f.text(OR27, { range: SAMPLE_RANGE })).text).report ? ingestOr27((await f.text(OR27, { range: SAMPLE_RANGE })).text) : null;
+  const dirty = r.passages.filter((p) => /Chap\W{1,3}\s*X{1,3}[IlL]?X?[\]jf1)|.,]|THE GETTYSBURG CAMPAIGN|VOL\.? XXVII, PT/.test(p.text));
+  assert.equal(dirty.length, 0, dirty.map((p) => p.text.slice(0, 60)).join(' | '));
+  assert.deepEqual(r.report.missing_detail.map((m) => [m.no, m.reason, m.text_in_previous_document]), [[30, 'header-not-found', true], [81, 'no-contents-entry', false], [161, 'header-not-found', true]]);
+  assert.ok(r.report.table_debris_dropped.length >= 1 && r.report.table_debris_dropped.length < 0.05 * (r.passages.length + r.report.table_debris_dropped.length), `${r.report.table_debris_dropped.length} dropped`);
+  assert.equal(r.report.passages, r.passages.length); assert.ok(r.passages.every((p, i, a) => i === 0 || a[i - 1].doc_id !== p.doc_id || p.seq === a[i - 1].seq + 1), 'seq is contiguous per document after the drop');
+});

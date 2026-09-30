@@ -73,10 +73,11 @@ export async function openKB(fetchJSON, { manifest = null, cache = 64 } = {}) {
     },
     /** load passages by number: Map(num -> passage). */
     async passages(nums) {
-      const shards = new Set(nums.map(shardOf));
-      await Promise.all([...shards].map((s) => cached(txCache, s, async () => { stats.fetched++; const j = await get(txFiles[s].path); return new Map(j.p.map((row) => { const p = decodePassage(row, j.h); return [p.num, p]; })); })));
+      const shards = [...new Set(nums.map(shardOf))].filter((x) => txFiles[x]);          // a number past the last shard is simply absent
+      // read from what each load returned, never back out of the LRU afterwards: a request that spans more shards than the cache holds (96 shards, default cache 64) would otherwise lose the shards it had just loaded
+      const loaded = new Map(await Promise.all(shards.map(async (s) => [s, await cached(txCache, s, async () => { stats.fetched++; const j = await get(txFiles[s].path); return new Map(j.p.map((row) => { const p = decodePassage(row, j.h); return [p.num, p]; })); })])));
       const out = new Map();
-      for (const n of nums) { const sh = txCache.get(shardOf(n)); if (sh && sh.has(n)) out.set(n, sh.get(n)); }
+      for (const n of nums) { const sh = loaded.get(shardOf(n)); if (sh && sh.has(n)) out.set(n, sh.get(n)); }
       return out;
     },
   };

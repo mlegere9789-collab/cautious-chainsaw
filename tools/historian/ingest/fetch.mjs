@@ -11,7 +11,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import { loadSources, fetchAllowed, tierProblems } from '../lib/sources.mjs';
+import { loadSources, fetchAllowed, tierProblems, normHost } from '../lib/sources.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '../../..');
@@ -32,7 +32,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 /** Which registered source does this URL belong to? archive.org URLs are matched by identifier; other hosts by hostname. */
 export function sourceForUrl(registry, url) {
   const u = new URL(url);
-  const host = u.hostname.toLowerCase().replace(/^www\./, '');
+  const host = normHost(u.hostname).replace(/^www\./, '');
   const m = u.pathname.match(/^\/(?:details|download|stream|metadata)\/([^/]+)/);
   for (const s of registry.sources.values()) {
     if (m && s.imprint && s.imprint.ia_id === m[1]) return s;
@@ -90,16 +90,33 @@ export function createFetcher({ cacheDir = DEFAULT_CACHE, registry = loadSources
       const meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
       return { body, cached: true, status: meta.status, url, range, sha256: meta.sha256, bytes: body.length, meta };
     }
-    const host = new URL(url).hostname.toLowerCase().replace(/^www\./, '');
+    const host = normHost(new URL(url).hostname).replace(/^www\./, '');
     let attempt = 0;
     for (;;) {
       attempt++;
-      const res = await polite(host, async () => {
-        stats.requests++;
-        const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), timeoutMs);
-        try { return await fetchImpl(url, { headers: { 'User-Agent': USER_AGENT, ...(range ? { Range: `bytes=${range}` } : {}) }, redirect: 'follow', signal: ctl.signal }); }
-        finally { clearTimeout(timer); }
-      });
+      // redirects are followed by hand so that EVERY hop passes the rights gate: a registered URL that redirects to a Tier C host or a refused identifier is refused, not fetched
+      let res = null, cur = url;
+      for (let hop = 0; ; hop++) {
+        const curHost = normHost(new URL(cur).hostname).replace(/^www\./, '');
+        res = await polite(curHost, async () => {
+          stats.requests++;
+          const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), timeoutMs);
+          try { return await fetchImpl(cur, { headers: { 'User-Agent': USER_AGENT, ...(range ? { Range: `bytes=${range}` } : {}) }, redirect: 'manual', signal: ctl.signal }); }
+          finally { clearTimeout(timer); }
+        });
+        if (![301, 302, 303, 307, 308].includes(res.status)) break;
+        const loc = res.headers && res.headers.get ? res.headers.get('location') : null;
+        if (!loc) throw new Error(`HTTP ${res.status} without a Location header for ${cur}`);
+        if (hop >= 5) throw new Error(`too many redirects for ${url}`);
+        const next = new URL(loc, cur).toString();
+        const g = fetchAllowed(registry, next);
+        if (!g.ok) { stats.refusals++; throw new RightsRefusal(`redirect target refused: ${g.reason}`, next); }
+        const nh = normHost(new URL(next).hostname);
+        const same = (a, b) => a === b || a.endsWith('.' + b) || b.endsWith('.' + a);
+        const rootOf = (h) => h.split('.').slice(-2).join('.');
+        if (!same(nh, normHost(new URL(url).hostname)) && rootOf(nh) !== rootOf(normHost(new URL(url).hostname))) { stats.refusals++; throw new RightsRefusal('redirect target leaves the registered source\'s domain', next); }
+        cur = next;
+      }
       if (res.status === 403) { blocked.add(host); throw new HardStop(host, 403); }
       if ((res.status === 429 || res.status >= 500) && attempt <= maxRetries) {
         const ra = Number(res.headers && res.headers.get && res.headers.get('retry-after'));

@@ -72,3 +72,16 @@ test('Wave 1 sources are Tier A with original imprints and clean identifiers', (
 test('site sources are A-pending with the provenance caveat recorded, and ship nothing external', () => {
   for (const id of ['site-records', 'site-bundle-prose']) { const s = REG.sources.get(id); assert.equal(s.tier, 'A-pending'); assert.match(s.tier_detail, /pending|Provenance|provenance/); assert.equal(s.may_send_to_llm, false); }
 });
+
+// ---- the gate cannot be walked around by spelling (verifier defect V-06) --------------------------------------------------------------------------
+test('the fetch gate is not fooled by a trailing dot, upper case, percent-encoding, a proxy or web-archive wrapper, userinfo, a port, or a scheme that is not http(s)', () => {
+  const banned = ['https://battlefields.org./x', 'https://BATTLEFIELDS.ORG/x', 'https://www.Battlefields.org./x', 'https://battlefields.org:443/x', 'http://battlefields.org/x', 'https://user@battlefields.org/x', 'https://sub.stonesentinels.com./x',
+    'https://web.archive.org/web/2020/https://battlefields.org/x', 'https://r.jina.ai/https://www.findagrave.com/memorial/1', 'https://example.org/?u=https%3A%2F%2Fbattlefields.org%2Fx', 'https://hmdb.org./m.asp', 'https://www.fold3.com./y'];
+  for (const u of banned) assert.equal(fetchAllowed(REG, u).ok, false, u);
+  const refused = ['https://archive.org/download/WARREBELLIONACO00COWLGOOG/x_djvu.txt', 'https://archive.org/details/WarRebellionAco00cowlgoog', 'https://archive.org/download/warrebellionaco00cowlgoog%2Fx', 'https://archive.org/download/warrebellionaco%30%30cowlgoog/x',
+    'https://archive.org/download/warrebellionaco00cowlgoog/x', 'https://archive.org/stream/warrebellionaco00cowlgoog', 'https://ia800000.us.archive.org/1/items/WARREBELLIONACO00COWLGOOG/x.txt', 'https://archive.org/download/%77arrebellionaco00cowlgoog/x'];
+  for (const u of refused) assert.equal(fetchAllowed(REG, u).ok, false, u);
+  for (const u of ['file:///etc/passwd', 'ftp://archive.org/x', 'data:text/plain,hi', 'javascript:alert(1)']) assert.equal(fetchAllowed(REG, u).ok, false, u);
+  // and the legitimate URLs still pass
+  for (const u of ['https://archive.org/download/warofrebellion271unit/warofrebellion271unit_djvu.txt', 'https://www.loc.gov/item/2003666161/', 'https://archive.org/details/warofrebellion272unit']) assert.equal(fetchAllowed(REG, u).ok, true, u);
+});
