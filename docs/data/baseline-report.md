@@ -223,7 +223,7 @@ The legacy tree is frozen and is known to be defective (chapter 13). This report
 | " -- " count | the nine field groups the data-integrity report names add to 1,590 by its own figures (stated total 1,591); this suite reproduces 1,590. Rule X001 uses a wider, defined scope (all published prose plus successions, casualty notes and every commander fate): 1,724 occurrences |
 | S008 loose tick ranges | the specialist counted 3 (ticks101_225, ticks601_675, ticks451_520); a fourth file, placements_day1_ticks51_100 (declared 51-100, first row at tick 52), is also loose: 4 measured |
 | R002 wrong side | exactly 10 ids (state code contradicts prefix, twin exists); brigade/division-shaped ids that exist on both sides (U-I-2-3, C-CAV-2-1..3) are NOT flipped |
-| R011 dual meaning | the strict note-versus-commander rule finds 17 ids / 33 rows (same kind, target exists); the specialist heuristic found 28 ids / 44 rows. The registry adds strength-level suspects (see id_collisions.json). The specialist's list was not available to diff. |
+| R011 dual meaning | the strict note-versus-commander rule finds 17 ids / 33 rows (same kind, target exists); the specialist heuristic found 28 ids / 44 rows. The collision table in data-src/build/id_collisions.json widens the definition (a note that BEGINS with another formation's name at any level, parent/child cameos excluded, plus rows whose strength exceeds twice the record's) and reaches 28 ids, the audit's count; the membership was not diffed because the audit's CSV is not in the repository. |
 | G003 speed caps | 18 segments over the DI-01 lenient caps on the 5-minute clock and 24 on the unsigned warped-clock proposal; the specialist quotes 6 and 20 with caps that were not published in full |
 | C004 coverage | 248 real regiments + 66 batteries; the specialist 250 counts the alias stub and the horse battery filed as a regiment |
 | N005 roll-ups | interim tolerances (brigades 10 %, divisions/corps exact) reproduce the specialist counts within one record |
@@ -301,6 +301,7 @@ Overall 60 of 3,283 records (1.8 %). "Documented" positions: 0 (no anchor carrie
 | rows needing the historian | 59 |
 | registry: units / regiments / batteries | 569 / 465 / 104 |
 | registry: units needing the historian (flags) | 25 |
+| dual-meaning ids (an id used for a second formation) / rows re-keyable / strength-only suspects | 28 / 49 / 5 (the audit: 28 ids / 44 rows; same count, membership not diffed: the audit's CSV is not in the repository) |
 
 | Rule | Ids |
 |---|---|

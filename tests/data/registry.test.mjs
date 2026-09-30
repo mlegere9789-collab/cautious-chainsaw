@@ -111,6 +111,7 @@ test('collisions: Vincent, Webb, Archer, Gordon and Cutler rows are re-keyed to 
   assert.ok(t('C-II-1-1').includes('C-II-1-3'));
   assert.ok(t('U-I-2-1').includes('U-I-1-2'));
   assert.ok(collisions.entries.every((e) => e.needs_historian === true));
+  assert.equal(collisions.count, 28, 'the audit counts 28 dual-meaning ids; this definition also yields 28 (membership is not identical)');
 });
 
 test('VI Corps candidates: 8 brigades, regiments derived from the 36 referencing regiments, paired to the OR by overlap', () => {

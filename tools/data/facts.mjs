@@ -6,6 +6,7 @@ import path from 'node:path';
 import { buildContext } from './lib/context.mjs';
 import { buildRegistry, buildCrosswalk } from './lib/registry.mjs';
 import { buildFacts } from './lib/facts.mjs';
+import { buildNotableIntensity, buildAdjudicationRegister, buildCavalryCommanders } from './lib/candidates.mjs';
 import { hashTree, contentHash } from './lib/manifest.mjs';
 import { readJsonIfExists, PATHS } from './lib/manifest.mjs';
 import { REPO_ROOT, prettyJson } from './lib/util.mjs';
@@ -22,16 +23,34 @@ export function generateFacts(ctx = buildContext({})) {
   return prettyJson(buildFacts(ctx, registry, crosswalk, { contentSha256: sha, dataVersion: version }));
 }
 
+/** Candidate datasets generated with the facts (WP-DATA-07 step 5, WP-DATA-08c/e). */
+export function generateCandidates(ctx = buildContext({})) {
+  return {
+    'candidates/notable_intensity.json': prettyJson(buildNotableIntensity(ctx)),
+    'candidates/adjudication_register.json': prettyJson(buildAdjudicationRegister(ctx)),
+    'candidates/confederate_cavalry_commanders.json': prettyJson(buildCavalryCommanders(ctx)),
+  };
+}
+
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
 if (isMain) {
-  const text = generateFacts();
+  const ctx = buildContext({});
+  const outputs = { 'facts.json': generateFacts(ctx), ...generateCandidates(ctx) };
+  const build = path.join(REPO_ROOT, 'data-src', 'build');
   if (process.argv.includes('--check')) {
-    const cur = fs.existsSync(FACTS_PATH) ? fs.readFileSync(FACTS_PATH, 'utf8') : null;
-    if (cur !== text) { console.error('STALE data-src/build/facts.json (run node tools/data/facts.mjs)'); process.exit(1); }
-    console.log('facts.json up to date');
+    let bad = 0;
+    for (const [name, text] of Object.entries(outputs)) {
+      const p = path.join(build, name);
+      if (!fs.existsSync(p) || fs.readFileSync(p, 'utf8') !== text) { console.error(`STALE data-src/build/${name} (run node tools/data/facts.mjs)`); bad++; }
+    }
+    if (bad) process.exit(1);
+    console.log('facts.json and candidates up to date');
   } else {
-    fs.mkdirSync(path.dirname(FACTS_PATH), { recursive: true });
-    fs.writeFileSync(FACTS_PATH, text, 'utf8');
-    console.log(`wrote ${path.relative(REPO_ROOT, FACTS_PATH)} (${text.length} bytes)`);
+    for (const [name, text] of Object.entries(outputs)) {
+      const p = path.join(build, name);
+      fs.mkdirSync(path.dirname(p), { recursive: true });
+      fs.writeFileSync(p, text, 'utf8');
+      console.log(`wrote ${path.relative(REPO_ROOT, p)} (${text.length} bytes)`);
+    }
   }
 }

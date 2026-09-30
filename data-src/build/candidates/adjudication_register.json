@@ -1,0 +1,71 @@
+{
+  "schema": "gtbg/adjudication-register/1",
+  "generated_by": "tools/data/facts.mjs",
+  "status": "CANDIDATE: derived from legacy/dist/data; nothing here is served or displayed",
+  "note": "Chapter 13 WP-DATA-08e also names Avery and Alexander (chronology t525/530) items; their site text was not extracted in this round.",
+  "items": [
+    {
+      "id": "ADJ-01",
+      "topic": "26th North Carolina losses",
+      "claim": "\"26th NC — Lost 714 of 800 men on July 1 — highest regimental casualties in the battle on either side.\" (embedded timeline marker, bundle.pretty.js line 100756)",
+      "data_says": "OOB C-26NC: 588 casualties of 843 engaged over days [1,3] (69.8%). It is the highest casualty COUNT of any regiment in the OOB (Confederate top count C-26NC); the figures 714 and 800 appear nowhere in the data.",
+      "needs": "OR No. 13/Fox for the Union side is not relevant; for the 26th NC use OR27-2 (Guild return) and Busey and Martin (backlog H-05)",
+      "status": "open",
+      "needs_historian": true
+    },
+    {
+      "id": "ADJ-02",
+      "topic": "1st Minnesota \"greatest loss percentage\"",
+      "claim": "\"1st Minnesota — ... lost 224 of 262 men. Greatest loss percentage of any regiment.\" (bundle.pretty.js line 100734)",
+      "data_says": "OOB U-1MN: 224 of 262 = 85.5%, the highest rate of any regiment in the OOB (next: U-149PA 84%, C-8VA 76.7% on the Confederate side). The claim is consistent with the OOB; the OOB figures are claimed from Busey and Martin.",
+      "needs": "confirm against OR27-1 No. 15/Fox and the regiment's own report; then the wording may stand as \"highest loss rate in the order of battle\"",
+      "status": "open",
+      "needs_historian": true
+    },
+    {
+      "id": "ADJ-03",
+      "topic": "Iverson's brigade \"nearly 500 Confederates surrendered\"",
+      "claim": "\"Nearly 500 Confederates surrendered in the wheat field — the largest single mass surrender of the battle.\" (chronology narrative, bundle.pretty.js line 100091)",
+      "data_says": "OOB C-II-3-3: 903 casualties of 1470 engaged (killed, wounded and missing combined). No field separates prisoners, so the claim cannot be checked from the data.",
+      "needs": "Rodes's and Iverson's reports (OR27-2) for the captured count (backlog H-05)",
+      "status": "open",
+      "needs_historian": true
+    },
+    {
+      "id": "ADJ-04",
+      "topic": "Lincoln \"wrote\" the quoted sentence",
+      "claim": "President Lincoln \"wrote\" \"We had them within our grasp...\" (chronology narrative, bundle.pretty.js line 100315)",
+      "data_says": "Not checkable from data. The audit lists this as an adjudication item (whether and to whom it was written or sent).",
+      "needs": "a primary source for the wording and the fate of the document (backlog H-05)",
+      "status": "open",
+      "needs_historian": true
+    },
+    {
+      "id": "ADJ-05",
+      "topic": "The bare \"51,000\" (and the 28,000 it contains)",
+      "claim": "\"51,000 casualties\" appears 6 times: assets/HelpModal-CFV9T0zH.js:1; data/chronology_day3.json:events[44].event; data/vignettes_part1.json:vignettes[0].panel_summary; data/vignettes_part1.json:vignettes[0].full_script; data/vignettes_part3.json:vignettes[7].panel_summary; data/vignettes_part3.json:vignettes[7].full_script",
+      "data_says": "The audit reads 51,000 as 23,049 (OR, Union) + 28,000 (upper Confederate estimate): an OR-versus-estimate mix. data-src/authorities/authorities.json lists the authorities; the Confederate side is a range (Guild return 20,451 read from OCR; Busey and Martin 23,231 secondary; upper estimate 28,000 secondary).",
+      "needs": "owner wording decision Q-DATA-2 (default: \"about 46,000 ...; estimates run to 51,000\") and the historian for the Confederate range (H-01)",
+      "status": "open",
+      "needs_historian": true
+    },
+    {
+      "id": "ADJ-06",
+      "topic": "Pickett's division \"about 2,700\" versus Confederate First Corps Day 3",
+      "claim": "casualty_apportionment.json notable_intensity_notes.most_compressed_confederate.note: \"Approximately 2,700 casualties in 30 minutes during Pickett's Charge -- the most intense 30-minute casualty period of the battle.\"",
+      "data_says": "C-I's whole Day 3 engagement period is 2,614 casualties, which is fewer than the ~2,700 attributed to one division of it.",
+      "needs": "historian: which figure is meant (division only, or all of Pickett's Charge), with a source",
+      "status": "open",
+      "needs_historian": true
+    },
+    {
+      "id": "ADJ-07",
+      "topic": "Confederate \"highest single-regiment rate\" card",
+      "claim": "casualty_apportionment.json highest_single_regiment_rate.confederate: C-26NC 69.7%",
+      "data_says": "The OOB's highest Confederate rate is C-8VA 76.7% (148/193); C-26NC has the highest COUNT (588), not the highest rate. Fix = generated notable_intensity (data-src/build/candidates/notable_intensity.json).",
+      "needs": "none for the data fix (derived); wording is WP-CONTENT",
+      "status": "data_resolved_candidate",
+      "needs_historian": false
+    }
+  ]
+}

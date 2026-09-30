@@ -1,0 +1,75 @@
+{
+  "schema": "gtbg/notable-intensity/1",
+  "generated_by": "tools/data/facts.mjs",
+  "status": "CANDIDATE: derived from legacy/dist/data; nothing here is served or displayed",
+  "rule": "regiments with strength > 0, alias excluded; no minimum-strength threshold (the ranking is identical with or without one)",
+  "items": [
+    {
+      "id": "NI-001",
+      "label": "Highest loss rate, Union regiment",
+      "side": "union",
+      "unit_id": "U-1MN",
+      "display_name": "1st Minnesota",
+      "value": 85.5,
+      "value_label": "85.5%",
+      "note": "224 casualties of 262 engaged",
+      "basis": "OOB regiment record: casualties / strength (both claimed from Busey and Martin, facts-only)"
+    },
+    {
+      "id": "NI-002",
+      "label": "Highest loss rate, Confederate regiment",
+      "side": "confederate",
+      "unit_id": "C-8VA",
+      "display_name": "8th Virginia",
+      "value": 76.7,
+      "value_label": "76.7%",
+      "note": "148 casualties of 193 engaged",
+      "basis": "OOB regiment record: casualties / strength (both claimed from Busey and Martin, facts-only)"
+    },
+    {
+      "id": "NI-003",
+      "label": "Most casualties, Union regiment",
+      "side": "union",
+      "unit_id": "U-24MI",
+      "display_name": "24th Michigan",
+      "value": 362,
+      "value_label": "362 casualties",
+      "note": "362 casualties of 496 engaged (73.0%)",
+      "basis": "OOB regiment record: casualties / strength (both claimed from Busey and Martin, facts-only)"
+    },
+    {
+      "id": "NI-004",
+      "label": "Most casualties, Confederate regiment",
+      "side": "confederate",
+      "unit_id": "C-26NC",
+      "display_name": "26th North Carolina",
+      "value": 588,
+      "value_label": "588 casualties",
+      "note": "588 casualties of 843 engaged (69.8%)",
+      "basis": "OOB regiment record: casualties / strength (both claimed from Busey and Martin, facts-only)"
+    }
+  ],
+  "legacy_claims_checked": [
+    {
+      "side": "union",
+      "legacy_unit": "U-1MN",
+      "legacy_rate": 85.5,
+      "legacy_note": "1st Minnesota -- 224 of 262 casualties in 15 minutes July 2",
+      "recomputed_unit": "U-1MN",
+      "recomputed_rate": 85.5,
+      "agrees": true,
+      "wording_defect": "says \"N of M casualties\": a rate is casualties of men engaged"
+    },
+    {
+      "side": "confederate",
+      "legacy_unit": "C-26NC",
+      "legacy_rate": 69.7,
+      "legacy_note": "26th North Carolina -- 588 of 843 casualties across July 1 and 3",
+      "recomputed_unit": "C-8VA",
+      "recomputed_rate": 76.7,
+      "agrees": false,
+      "wording_defect": "says \"N of M casualties\": a rate is casualties of men engaged"
+    }
+  ],
+  "note": "Rate of 26th NC: the file says 69.7, the recomputation 588/843 rounds to 69.8; both are within the 0.15 tolerance of rule N003."
+}

@@ -155,6 +155,8 @@ export function buildRegistry(ctx, crosswalkByTarget = new Map()) {
   setFlag('U-11PA', { code: 'assignment_transfer', needs_historian: false, or_verified: true, others: ['U-11PA-B'], text: OR_VERIFIED['11PA'].text, evidence: OR_VERIFIED['11PA'].evidence, decision: 'one record with assignments[{parent, from_tick, to_tick}] (WP-DATA-07); the transfer tick needs the historian' });
   setFlag('U-11PA-B', { code: 'assignment_transfer', needs_historian: false, or_verified: true, others: ['U-11PA'], text: OR_VERIFIED['11PA'].text, evidence: OR_VERIFIED['11PA'].evidence, decision: 'merge into U-11PA' });
   setFlag('U-107NY', { code: 'mislabelled_regiment', needs_historian: true, or_verified: true, text: OR_VERIFIED['107PA'].text, evidence: OR_VERIFIED['107PA'].evidence, decision: 'relabel to U-107PA after the historian confirms the strength (122 men) and casualties belong to the 107th Pennsylvania' });
+  setFlag('C-61VA', { code: 'commander_or_mismatch', needs_historian: true, or_verified: true, text: 'OR Ser. I vol. 27 pt. 2, organization of the Army of Northern Virginia (Third Corps, Mahone\'s Brigade) prints "61st Virginia, Col. V. D. Groner"; the site record says "Colonel Virginia Boisseau", which looks like a merge error.', evidence: 'IA warofrebellion272unit_djvu.txt line 25775', decision: 'replace the name after the historian confirms; initials are as printed in the OR' });
+  setFlag('C-McClanahan-ART', { code: 'battery_in_imbodens_command', needs_historian: false, or_verified: true, text: 'OR Ser. I vol. 27 pt. 2 lists "Virginia Battery, Capt. J. H. McClanahan" under Imboden\'s Command, separate from the Stuart Horse Artillery: a battery, not a duplicate of the C-HAB-* records.', evidence: 'IA warofrebellion272unit_djvu.txt lines 26192-26235 (printed p.291)', decision: 'move to horse_artillery (WP-DATA-07)' });
   const ny84 = byId.get('U-84NY');
   if (ny84) {
     ny84.aliases.push({ id: 'U-14BK', source: 'oob alias_for', confidence: 'high', status: 'decision_pending', decision: 'Q-DATA-8 (owner): search synonym, not a row', names: ['14th Brooklyn', '14th N.Y.S.M.'], hidden: true, evidence: OR_VERIFIED['84NY'].evidence, text: OR_VERIFIED['84NY'].text });
@@ -438,6 +440,43 @@ export function buildDualMeaning(ctx, r011Violations) {
       atomic_group: null,
       needs_historian: true,
     });
+  }
+  // level mismatches: the note BEGINS with another formation's name ("Sedgwick's Corps ..." on a division id). Names of the record's own
+  // ancestors or descendants are cameos of the parent/child command and are skipped.
+  {
+    const chainNamesOf = (rec) => {
+      const s = new Set(commanderChain(rec.raw.commander).map((c) => c.surname));
+      for (const m of String(rec.raw.designation || '').matchAll(/([A-Z][A-Za-z.']+?)(?:'s|s')\b/g)) s.add(m[1]);
+      return s;
+    };
+    const formations = ctx.oob.list.filter((r) => ['brigade', 'division', 'corps'].includes(r.kind));
+    const byName = new Map();
+    for (const r of formations) for (const n of chainNamesOf(r)) { if (!byName.has(n)) byName.set(n, []); byName.get(n).push(r); }
+    const related = (rec) => {
+      const c = chainOf(ctx.oob, rec);
+      const ids = new Set([c.division?.id, c.corps?.id].filter(Boolean));
+      const kids = formations.filter((f) => f.raw.parent_division_id === rec.id || f.raw.parent_corps_id === rec.id).map((f) => f.id);
+      kids.forEach((k) => ids.add(k));
+      return ids;
+    };
+    const rx = /^\s*((?:[A-Z][a-z]+ )?)([A-Z][A-Za-z'-]+?)(?:'s|s')\s+(?:[A-Za-z]+\s)?(brigade|division|corps)\b/i;
+    const seenRows = new Set(out.flatMap((o) => o.rows.map((r) => `${o.unit_id}@${r.tick}`)));
+    for (const r of ctx.rows) {
+      const rec = ctx.oob.records.get(r.unit_id);
+      if (!rec || !['brigade', 'division', 'corps'].includes(rec.kind) || !r.notes || seenRows.has(`${r.unit_id}@${r.tick}`)) continue;
+      const m = r.notes.match(rx);
+      if (!m) continue;
+      const [, , name, kind] = m;
+      if (chainNamesOf(rec).has(name)) continue;
+      const others = (byName.get(name) || []).filter((x) => x.side === rec.side && x.id !== rec.id);
+      if (!others.length) continue;
+      const rel = related(rec);
+      if (others.every((o) => rel.has(o.id))) continue; // the parent or a child command
+      let o = out.find((x) => x.unit_id === rec.id);
+      if (!o) { o = { unit_id: rec.id, oob_designation: rec.raw.designation, oob_commander: rec.raw.commander?.name ?? null, detection: 'the note begins with another formation\'s name at a different level', rows: [], proposed_rekey: [], atomic_group: null, needs_historian: true }; out.push(o); }
+      o.rows.push({ tick: r.tick, file: r.file, key: `${r.file}#${r.idx}`, named: `${name}'s ${kind}`, proposed: others.length === 1 ? others[0].id : null, candidates: others.map((x) => x.id), note: r.notes, level_mismatch: kind !== rec.kind });
+      if (others.length === 1 && !o.proposed_rekey.includes(others[0].id)) o.proposed_rekey.push(others[0].id);
+    }
   }
   // strength-level suspects: a row with more than twice the record's own strength cannot be that formation
   const seen = new Set(out.map((o) => o.unit_id));

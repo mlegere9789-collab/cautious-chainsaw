@@ -1,0 +1,251 @@
+{
+  "schema": "gtbg/candidate-confederate-cavalry-commanders/1",
+  "generated_by": "tools/data/facts.mjs",
+  "status": "CANDIDATE: derived from legacy/dist/data; nothing here is served or displayed",
+  "source": "OR Ser. I vol. 27 pt. 2, organization of the Army of Northern Virginia, Cavalry (printed pp.290-291), IA warofrebellion272unit_djvu.txt lines 26100-26235. OCR read by this workstream; initials are as printed.",
+  "counts": {
+    "regiments_listed": 22,
+    "with_printed_commander": 12,
+    "unknown": 10
+  },
+  "findings": [
+    {
+      "id": "C-McClanahan-ART",
+      "text": "The OR lists \"Virginia Battery, Capt. J. H. McClanahan\" under Imboden's Command, separate from the Stuart Horse Artillery (Breathed, Chew, Griffin, Hart, McGregor, Moorman): C-McClanahan-ART is a battery in Imboden's command, not a duplicate of the C-HAB-* records. It should move to the horse_artillery list (104th battery)."
+    },
+    {
+      "id": "C-HAB-Jackson",
+      "text": "The OR prints \"Jackson's (Virginia) Battery, Capt. Thomas E. Jackson\" under Jenkins' Brigade, not under the Stuart Horse Artillery where the site files C-HAB-Jackson."
+    }
+  ],
+  "regiments": [
+    {
+      "regiment_id": "C-1SC-CAV",
+      "designation": "1st South Carolina Cavalry",
+      "parent_brigade_id": "C-CAV-1",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": null,
+      "status": "unknown",
+      "commander_status_proposal": "unknown: the OR organization prints no commander for this regiment",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-2SC-CAV",
+      "designation": "2nd South Carolina Cavalry",
+      "parent_brigade_id": "C-CAV-1",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": null,
+      "status": "unknown",
+      "commander_status_proposal": "unknown: the OR organization prints no commander for this regiment",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-Cobb-CAV",
+      "designation": "Cobb's Legion Cavalry (Georgia)",
+      "parent_brigade_id": "C-CAV-1",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": null,
+      "status": "unknown",
+      "commander_status_proposal": "unknown: the OR organization prints no commander for this regiment",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-Phil-CAV",
+      "designation": "Phillips Legion Cavalry (Georgia)",
+      "parent_brigade_id": "C-CAV-1",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": null,
+      "status": "unknown",
+      "commander_status_proposal": "unknown: the OR organization prints no commander for this regiment",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-Jeff-MS-CAV",
+      "designation": "Jeff Davis Legion (Mississippi Cavalry)",
+      "parent_brigade_id": "C-CAV-1",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": null,
+      "status": "unknown",
+      "commander_status_proposal": "unknown: the OR organization prints no commander for this regiment",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-1VA-CAV",
+      "designation": "1st Virginia Cavalry",
+      "parent_brigade_id": "C-CAV-2",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": "Col. James H. Drake",
+      "status": "candidate_from_or_ocr",
+      "commander_status_proposal": "recorded (after historian check)",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-2VA-CAV",
+      "designation": "2nd Virginia Cavalry",
+      "parent_brigade_id": "C-CAV-2",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": "Col. T. T. Munford",
+      "status": "candidate_from_or_ocr",
+      "commander_status_proposal": "recorded (after historian check)",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-3VA-CAV",
+      "designation": "3rd Virginia Cavalry",
+      "parent_brigade_id": "C-CAV-2",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": "Col. Thomas H. Owen",
+      "status": "candidate_from_or_ocr",
+      "commander_status_proposal": "recorded (after historian check)",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-4VA-CAV",
+      "designation": "4th Virginia Cavalry",
+      "parent_brigade_id": "C-CAV-2",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": "Col. Williams C. Wickham",
+      "status": "candidate_from_or_ocr",
+      "commander_status_proposal": "recorded (after historian check)",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-5VA-CAV",
+      "designation": "5th Virginia Cavalry",
+      "parent_brigade_id": "C-CAV-2",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": "Col. T. L. Rosser",
+      "status": "candidate_from_or_ocr",
+      "commander_status_proposal": "recorded (after historian check)",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-9VA-CAV",
+      "designation": "9th Virginia Cavalry",
+      "parent_brigade_id": "C-CAV-3",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": "Col. R. L. T. Beale",
+      "status": "candidate_from_or_ocr",
+      "commander_status_proposal": "recorded (after historian check)",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-10VA-CAV",
+      "designation": "10th Virginia Cavalry",
+      "parent_brigade_id": "C-CAV-3",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": "Col. J. Lucius Davis",
+      "status": "candidate_from_or_ocr",
+      "commander_status_proposal": "recorded (after historian check)",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-13VA-CAV",
+      "designation": "13th Virginia Cavalry",
+      "parent_brigade_id": "C-CAV-3",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": null,
+      "status": "unknown",
+      "commander_status_proposal": "unknown: the OR organization prints no commander for this regiment",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-14VA-CAV",
+      "designation": "14th Virginia Cavalry",
+      "parent_brigade_id": "C-CAV-4",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": null,
+      "status": "unknown",
+      "commander_status_proposal": "unknown: the OR organization prints no commander for this regiment",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-16VA-CAV",
+      "designation": "16th Virginia Cavalry",
+      "parent_brigade_id": "C-CAV-4",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": null,
+      "status": "unknown",
+      "commander_status_proposal": "unknown: the OR organization prints no commander for this regiment",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-17VA-CAV",
+      "designation": "17th Virginia Cavalry",
+      "parent_brigade_id": "C-CAV-4",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": null,
+      "status": "unknown",
+      "commander_status_proposal": "unknown: the OR organization prints no commander for this regiment",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-34VA-CAV-B",
+      "designation": "34th Virginia Cavalry Battalion",
+      "parent_brigade_id": "C-CAV-4",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": "Lieut. Col. V. A. Witcher",
+      "status": "candidate_from_or_ocr",
+      "commander_status_proposal": "recorded (after historian check)",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-36VA-CAV-B",
+      "designation": "36th Virginia Cavalry Battalion",
+      "parent_brigade_id": "C-CAV-4",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": null,
+      "status": "unknown",
+      "commander_status_proposal": "unknown: the OR organization prints no commander for this regiment",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-18VA-CAV",
+      "designation": "18th Virginia Cavalry",
+      "parent_brigade_id": "C-CAV-5",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": "Col. George W. Imboden",
+      "status": "candidate_from_or_ocr",
+      "commander_status_proposal": "recorded (after historian check)",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-62VA-MTD",
+      "designation": "62nd Virginia Mounted Infantry",
+      "parent_brigade_id": "C-CAV-5",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": "Col. George H. Smith",
+      "status": "candidate_from_or_ocr",
+      "commander_status_proposal": "recorded (after historian check)",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-VA-PA-CAV",
+      "designation": "Virginia Partisan Rangers",
+      "parent_brigade_id": "C-CAV-5",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": "Capt. John E. McNeill",
+      "status": "candidate_from_or_ocr",
+      "commander_status_proposal": "recorded (after historian check)",
+      "needs_historian": true
+    },
+    {
+      "regiment_id": "C-McClanahan-ART",
+      "designation": "McClanahan's Battery (Horse Artillery)",
+      "parent_brigade_id": "C-CAV-5",
+      "commander_in_site_data": null,
+      "commander_printed_in_or": "Capt. J. H. McClanahan",
+      "status": "candidate_from_or_ocr",
+      "commander_status_proposal": "recorded (after historian check)",
+      "needs_historian": true
+    }
+  ],
+  "printed_in_or_but_absent_from_site_oob": [
+    "1st North Carolina Cavalry (Col. L. S. Baker; commanded Hampton's brigade after Hampton was wounded)",
+    "Robertson's Brigade: 4th North Carolina (Col. D. D. Ferebee), 5th North Carolina",
+    "Jones's Brigade (Brig. Gen. William E. Jones): 6th Virginia (Maj. C. E. Flournoy), 7th Virginia (Lieut. Col. Thomas Marshall), 11th Virginia (Col. L. L. Lomax)",
+    "2nd North Carolina Cavalry (W. H. F. Lee's Brigade)",
+    "1st Maryland Battalion (Maj. Harry Gilmor; Maj. Ridgely Brown), serving with Ewell's corps",
+    "Stuart Horse Artillery (Maj. R. F. Beckham): Chew's, Griffin's, McGregor's and Moorman's batteries"
+  ]
+}

@@ -3,12 +3,37 @@
   "generated_by": "tools/data/unit_registry.mjs",
   "status": "CANDIDATE: derived from legacy/dist/data; nothing here is served or displayed",
   "definition": "Ids that EXIST in the OOB but are used for a second formation: a row note names another brigade/division/corps (rule R011, strict: same kind, target exists) or a row strength exceeds twice the record's own. A re-key changes the ROW, never the OOB record. Every entry needs the historian; atomic_group marks rows whose targets are each other's sources at the same tick (apply as ONE permutation with a dry-run diff).",
-  "count": 24,
+  "count": 28,
   "by_detection": {
-    "note_names_other_formation": 17,
-    "strength_only": 7
+    "note_names_other_formation": 23,
+    "strength_only": 5
   },
   "entries": [
+    {
+      "unit_id": "C-CAV-3",
+      "oob_designation": "Chambliss's Brigade (W.H.F. Lee's Brigade)",
+      "oob_commander": "Colonel John Chambliss",
+      "detection": "the note begins with another formation's name at a different level",
+      "rows": [
+        {
+          "tick": 600,
+          "file": "density_day3_retreat.json",
+          "key": "density_day3_retreat.json#7",
+          "named": "Imboden's brigade",
+          "proposed": "C-CAV-5",
+          "candidates": [
+            "C-CAV-5"
+          ],
+          "note": "Imboden's cavalry brigade leading the 17-mile wagon train of Confederate wounded westward",
+          "level_mismatch": false
+        }
+      ],
+      "proposed_rekey": [
+        "C-CAV-5"
+      ],
+      "atomic_group": null,
+      "needs_historian": true
+    },
     {
       "unit_id": "C-II-1-1",
       "oob_designation": "Hays's Brigade (Louisiana Tigers)",
@@ -95,6 +120,30 @@
             "C-II-1-2"
           ],
           "note": "Avery's brigade retreating -- Avery lying in the field. His note: It was my fault. It was not."
+        },
+        {
+          "tick": 318,
+          "file": "density_day2_cemhill.json",
+          "key": "density_day2_cemhill.json#1",
+          "named": "Avery's brigade",
+          "proposed": "C-II-1-2",
+          "candidates": [
+            "C-II-1-2"
+          ],
+          "note": "Avery's NC brigade -- assaulting alongside Hays. Avery is already wounded from an earlier action.",
+          "level_mismatch": false
+        },
+        {
+          "tick": 322,
+          "file": "density_day2_cemhill.json",
+          "key": "density_day2_cemhill.json#5",
+          "named": "Avery's brigade",
+          "proposed": "C-II-1-2",
+          "candidates": [
+            "C-II-1-2"
+          ],
+          "note": "Avery's NC brigade charging the northern face -- Avery falls from his horse, mortally wounded",
+          "level_mismatch": false
         }
       ],
       "proposed_rekey": [
@@ -391,6 +440,18 @@
             "U-CAV-2"
           ],
           "note": "Gregg's division -- positioned to stop Stuart if he breaks through East Cavalry Field"
+        },
+        {
+          "tick": 1,
+          "file": "density_reserves.json",
+          "key": "density_reserves.json#24",
+          "named": "Gregg's division",
+          "proposed": "U-CAV-2",
+          "candidates": [
+            "U-CAV-2"
+          ],
+          "note": "Gregg's cavalry division in reserve east of Gettysburg -- July 3 they guard the Baltimore Pike",
+          "level_mismatch": false
         }
       ],
       "proposed_rekey": [
@@ -508,6 +569,18 @@
             "U-II-2-2"
           ],
           "note": "Webb's brigade back on the wall -- The Angle is held. The charge has broken."
+        },
+        {
+          "tick": 546,
+          "file": "density_day3_angle.json",
+          "key": "density_day3_angle.json#3",
+          "named": "Webb's Brigade",
+          "proposed": "U-II-2-2",
+          "candidates": [
+            "U-II-2-2"
+          ],
+          "note": "Webb's Philadelphia Brigade at The Angle -- waiting behind the stone wall",
+          "level_mismatch": true
         }
       ],
       "proposed_rekey": [
@@ -570,10 +643,47 @@
             "U-II-3-1"
           ],
           "note": "Carroll's brigade holding Cemetery Hill -- the guns are retaken"
+        },
+        {
+          "tick": 325,
+          "file": "density_day2_cemhill.json",
+          "key": "density_day2_cemhill.json#9",
+          "named": "Carroll's Corps",
+          "proposed": "U-II-3-1",
+          "candidates": [
+            "U-II-3-1"
+          ],
+          "note": "Carroll's II Corps brigade COUNTERCHARGING -- Hancock has sent them at the double-quick",
+          "level_mismatch": true
         }
       ],
       "proposed_rekey": [
         "U-II-3-1"
+      ],
+      "atomic_group": null,
+      "needs_historian": true
+    },
+    {
+      "unit_id": "U-III-1",
+      "oob_designation": "First Division, Third Corps",
+      "oob_commander": "Major General David Birney",
+      "detection": "the note begins with another formation's name at a different level",
+      "rows": [
+        {
+          "tick": 226,
+          "file": "density_day2_morning.json",
+          "key": "density_day2_morning.json#0",
+          "named": "Sickles's Corps",
+          "proposed": "U-III",
+          "candidates": [
+            "U-III"
+          ],
+          "note": "Sickles's III Corps -- supposed to hold Cemetery Ridge. Sickles is dissatisfied with his position.",
+          "level_mismatch": true
+        }
+      ],
+      "proposed_rekey": [
+        "U-III"
       ],
       "atomic_group": null,
       "needs_historian": true
@@ -594,10 +704,47 @@
             "U-III-1-3"
           ],
           "note": "Graham's brigade falling back from the Stony Hill -- Kershaw is through"
+        },
+        {
+          "tick": 270,
+          "file": "density_day2_kershaw.json",
+          "key": "density_day2_kershaw.json#4",
+          "named": "Graham's Corps",
+          "proposed": "U-III-1-3",
+          "candidates": [
+            "U-III-1-3"
+          ],
+          "note": "Graham's III Corps brigade on the Stony Hill -- about to be hit by Kershaw",
+          "level_mismatch": true
         }
       ],
       "proposed_rekey": [
         "U-III-1-3"
+      ],
+      "atomic_group": null,
+      "needs_historian": true
+    },
+    {
+      "unit_id": "U-III-1-3",
+      "oob_designation": "Third Brigade, First Division, Third Corps (Graham's Brigade)",
+      "oob_commander": "Brigadier General Charles Graham",
+      "detection": "the note begins with another formation's name at a different level",
+      "rows": [
+        {
+          "tick": 264,
+          "file": "density_day2_devilsden.json",
+          "key": "density_day2_devilsden.json#6",
+          "named": "Ward's Corps",
+          "proposed": "U-III-1-1",
+          "candidates": [
+            "U-III-1-1"
+          ],
+          "note": "Ward's III Corps brigade retreating from Devil's Den -- the boulders are lost",
+          "level_mismatch": true
+        }
+      ],
+      "proposed_rekey": [
+        "U-III-1-1"
       ],
       "atomic_group": null,
       "needs_historian": true
@@ -617,6 +764,31 @@
         }
       ],
       "proposed_rekey": [],
+      "atomic_group": null,
+      "needs_historian": true
+    },
+    {
+      "unit_id": "U-V-1-3",
+      "oob_designation": "Third Brigade, First Division, Fifth Corps (Vincent's Brigade)",
+      "oob_commander": "Colonel Strong Vincent",
+      "detection": "the note begins with another formation's name at a different level",
+      "rows": [
+        {
+          "tick": 275,
+          "file": "density_day2_kershaw.json",
+          "key": "density_day2_kershaw.json#9",
+          "named": "Sweitzer's Corps",
+          "proposed": "U-V-1-2",
+          "candidates": [
+            "U-V-1-2"
+          ],
+          "note": "Sweitzer's V Corps brigade countercharging into the Wheatfield -- trying to seal the break",
+          "level_mismatch": true
+        }
+      ],
+      "proposed_rekey": [
+        "U-V-1-2"
+      ],
       "atomic_group": null,
       "needs_historian": true
     },
@@ -669,6 +841,18 @@
             "U-V-1-3"
           ],
           "note": "Vincent's brigade still holding -- Vincent mortally wounded, Strong Vincent, this is the fifth time today I've ordered you forward."
+        },
+        {
+          "tick": 260,
+          "file": "density_day2_devilsden.json",
+          "key": "density_day2_devilsden.json#4",
+          "named": "Vincent's Corps",
+          "proposed": "U-V-1-3",
+          "candidates": [
+            "U-V-1-3"
+          ],
+          "note": "Vincent's V Corps brigade running up the Baltimore Pike toward Little Round Top -- Meade's aide has found it empty",
+          "level_mismatch": true
         }
       ],
       "proposed_rekey": [
@@ -681,8 +865,50 @@
       "unit_id": "U-VI-1",
       "oob_designation": "First Division, Sixth Corps",
       "oob_commander": "Brigadier General Horatio Wright",
-      "detection": "row strength more than 2x the OOB strength of the division (4173)",
-      "rows": [],
+      "detection": "the note begins with another formation's name at a different level",
+      "rows": [
+        {
+          "tick": 360,
+          "file": "density_day2_afternoon.json",
+          "key": "density_day2_afternoon.json#17",
+          "named": "Sedgwick's Corps",
+          "proposed": "U-VI",
+          "candidates": [
+            "U-VI"
+          ],
+          "note": "Sedgwick's VI Corps in reserve -- 15,000 fresh men never committed today",
+          "level_mismatch": true
+        },
+        {
+          "tick": 252,
+          "file": "density_day2_morning.json",
+          "key": "density_day2_morning.json#21",
+          "named": "Sedgwick's Corps",
+          "proposed": "U-VI",
+          "candidates": [
+            "U-VI"
+          ],
+          "note": "Sedgwick's VI Corps still arriving -- they marched 35 miles in 17 hours",
+          "level_mismatch": true
+        },
+        {
+          "tick": 554,
+          "file": "density_day3_hancock.json",
+          "key": "density_day3_hancock.json#3",
+          "named": "Sedgwick's Corps",
+          "proposed": "U-VI",
+          "candidates": [
+            "U-VI"
+          ],
+          "note": "Sedgwick's VI Corps -- 15,000 fresh men who fought almost nothing. Still in reserve.",
+          "level_mismatch": true
+        }
+      ],
+      "proposed_rekey": [
+        "U-VI"
+      ],
+      "atomic_group": null,
+      "needs_historian": true,
       "strength_suspects": [
         {
           "tick": 554,
@@ -702,10 +928,7 @@
           "file": "density_day3_hancock.json",
           "note": "VI Corps -- Meade has decided not to pursue today. Lincoln will be devastated. The war will continue two more years."
         }
-      ],
-      "proposed_rekey": [],
-      "atomic_group": null,
-      "needs_historian": true
+      ]
     },
     {
       "unit_id": "U-VI-2",
@@ -741,6 +964,18 @@
             "U-XI-3"
           ],
           "note": "Schurz's division on Cemetery Hill"
+        },
+        {
+          "tick": 65,
+          "file": "density_day1_barlowsknoll.json",
+          "key": "density_day1_barlowsknoll.json#12",
+          "named": "Schurz's Corps",
+          "proposed": "U-XI-3",
+          "candidates": [
+            "U-XI-3"
+          ],
+          "note": "Schurz's XI Corps division retreating -- with Barlow's flank gone the whole corps is exposed",
+          "level_mismatch": true
         }
       ],
       "proposed_rekey": [
@@ -753,8 +988,26 @@
       "unit_id": "U-XII-2",
       "oob_designation": "Second Division, Twelfth Corps",
       "oob_commander": "Brigadier General John Geary",
-      "detection": "row strength more than 2x the OOB strength of the division (3812)",
-      "rows": [],
+      "detection": "the note begins with another formation's name at a different level",
+      "rows": [
+        {
+          "tick": 340,
+          "file": "density_day2_afternoon.json",
+          "key": "density_day2_afternoon.json#10",
+          "named": "Williams's Corps",
+          "proposed": "U-XII-1",
+          "candidates": [
+            "U-XII-1"
+          ],
+          "note": "Williams's XII Corps division heading back to Culp's Hill",
+          "level_mismatch": true
+        }
+      ],
+      "proposed_rekey": [
+        "U-XII-1"
+      ],
+      "atomic_group": null,
+      "needs_historian": true,
       "strength_suspects": [
         {
           "tick": 340,
@@ -762,10 +1015,7 @@
           "file": "density_day2_afternoon.json",
           "note": "Williams's XII Corps division heading back to Culp's Hill"
         }
-      ],
-      "proposed_rekey": [],
-      "atomic_group": null,
-      "needs_historian": true
+      ]
     }
   ]
 }

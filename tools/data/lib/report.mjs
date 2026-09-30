@@ -3,7 +3,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { rowsOf } from './runner.mjs';
-import { buildCrosswalk, buildRegistry } from './registry.mjs';
+import { buildCrosswalk, buildRegistry, buildDualMeaning } from './registry.mjs';
 import { measureSection2, measureExtras } from './measure.mjs';
 import { provenanceCoverage } from '../rules/prov_rules.mjs';
 import { retiredLiteralHits } from '../rules/facts_rules.mjs';
@@ -27,6 +27,7 @@ export function writeBaselineReport({ ctx, results, verdict, baseline, treeInfo,
   const byTarget = new Map();
   for (const e of crosswalk.entries) if (e.proposed && !e.new_record) { if (!byTarget.has(e.proposed)) byTarget.set(e.proposed, []); byTarget.get(e.proposed).push(e); }
   const registry = buildRegistry(ctx, byTarget);
+  const collisions = buildDualMeaning(ctx, results.get('R011').violations);
   const sec2 = measureSection2(ctx, { crosswalk, registry });
   const extras = measureExtras(ctx);
   const cov = provenanceCoverage(ctx);
@@ -74,7 +75,7 @@ export function writeBaselineReport({ ctx, results, verdict, baseline, treeInfo,
     ['" -- " count', `the nine field groups the data-integrity report names add to 1,590 by its own figures (stated total 1,591); this suite reproduces 1,590. Rule X001 uses a wider, defined scope (all published prose plus successions, casualty notes and every commander fate): ${n(results.get('X001').violations.length)} occurrences`],
     ['S008 loose tick ranges', `the specialist counted 3 (ticks101_225, ticks601_675, ticks451_520); a fourth file, placements_day1_ticks51_100 (declared 51-100, first row at tick 52), is also loose: ${results.get('S008').violations.filter((v) => v.kind === 'tick_range_loose').length} measured`],
     ['R002 wrong side', 'exactly 10 ids (state code contradicts prefix, twin exists); brigade/division-shaped ids that exist on both sides (U-I-2-3, C-CAV-2-1..3) are NOT flipped'],
-    ['R011 dual meaning', `the strict note-versus-commander rule finds ${new Set(results.get('R011').violations.map((v) => v.data.unit_id)).size} ids / ${results.get('R011').violations.length} rows (same kind, target exists); the specialist heuristic found 28 ids / 44 rows. The registry adds strength-level suspects (see id_collisions.json). The specialist's list was not available to diff.`],
+    ['R011 dual meaning', `the strict note-versus-commander rule finds ${new Set(results.get('R011').violations.map((v) => v.data.unit_id)).size} ids / ${results.get('R011').violations.length} rows (same kind, target exists); the specialist heuristic found 28 ids / 44 rows. The collision table in data-src/build/id_collisions.json widens the definition (a note that BEGINS with another formation's name at any level, parent/child cameos excluded, plus rows whose strength exceeds twice the record's) and reaches 28 ids, the audit's count; the membership was not diffed because the audit's CSV is not in the repository.`],
     ['G003 speed caps', `${extras.g003_linear_over_cap} segments over the DI-01 lenient caps on the 5-minute clock and ${extras.g003_warped_over_cap ?? 'n/a'} on the unsigned warped-clock proposal; the specialist quotes 6 and 20 with caps that were not published in full`],
     ['C004 coverage', '248 real regiments + 66 batteries; the specialist 250 counts the alias stub and the horse battery filed as a regiment'],
     ['N005 roll-ups', 'interim tolerances (brigades 10 %, divisions/corps exact) reproduce the specialist counts within one record'],
@@ -114,6 +115,7 @@ export function writeBaselineReport({ ctx, results, verdict, baseline, treeInfo,
     ['rows needing the historian', crosswalk.counts.needs_historian],
     ['registry: units / regiments / batteries', `${registry.census.total} / ${registry.census.regiments} / ${registry.census.batteries}`],
     ['registry: units needing the historian (flags)', registry.census.needs_historian],
+    ['dual-meaning ids (an id used for a second formation) / rows re-keyable / strength-only suspects', `${collisions.length} / ${collisions.reduce((a, c) => a + c.rows.length, 0)} / ${collisions.filter((c) => !c.rows.length).length} (the audit: 28 ids / 44 rows; same count, membership not diffed: the audit\'s CSV is not in the repository)`],
   ]));
   L.push('');
   L.push(table(['Rule', 'Ids'], Object.entries(crosswalk.counts.by_rule).map(([k, v]) => [k, v])));
