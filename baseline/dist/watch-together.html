@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0a0a14" />
+<title>Watch Together — Gettysburg Animated Battlefield Map</title>
+<meta name="description" content="Build a guided, annotated tour of the battle and share it with someone else to watch on their own." />
+<link rel="canonical" href="https://gettysburginteractivemap.com/watch-together.html" />
+<meta property="og:title" content="Watch Together — Gettysburg Animated Battlefield Map" />
+<meta property="og:description" content="Build a guided, annotated tour of the battle and share it with someone else." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gettysburginteractivemap.com/watch-together.html" />
+<meta property="og:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.css" rel="stylesheet" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js"></script>
+<!-- PeerJS: WebRTC peer-to-peer connections via its free public broker (0.peerjs.com) --
+     no account, no server of ours. Used only for Live Sync below. -->
+<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<link rel="stylesheet" href="/site-nav.css">
+<style>
+  :root { --bg:#0a0a14; --panel:#12121e; --ink:#e8e6df; --gold:#c9a24b; --muted:#8a93a8; --line:#1e1e2e; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family: Georgia, serif; }
+  header { padding: 20px 5% 10px; }
+  header a.back { font-family: sans-serif; font-size: 12px; color: var(--muted); text-decoration:none; }
+  h1 { font-size: clamp(20px, 3.2vw, 28px); color: var(--gold); margin: 8px 0 4px; }
+  .sub { font-family: sans-serif; color: var(--muted); font-size: 13px; max-width: 640px; }
+  .status-note { font-family: sans-serif; font-size: 12px; border-radius: 8px; padding: 12px 16px; max-width: 640px; margin-top: 12px; line-height: 1.6; }
+  .status-note.today { color: #8fbf9a; background: rgba(60,140,90,0.1); border: 1px solid #1a3a20; }
+  .status-note.future { color: #dd9955; background: rgba(200,140,50,0.08); border: 1px solid #3a2a10; margin-top: 8px; }
+  #map-wrap { position: relative; }
+  #map { height: 52vh; min-height: 360px; }
+  #caption-bar { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 20px; background: linear-gradient(transparent, rgba(0,0,0,0.75)); font-family: sans-serif; font-size: 13px; color: #f0e8d0; }
+  .controls { display:flex; gap:16px; align-items:center; flex-wrap:wrap; padding: 14px 5%; font-family: sans-serif; font-size: 13px; background: var(--panel); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .play-btn { padding: 7px 18px; border-radius:6px; border:1px solid var(--gold); background: var(--gold); color:#0a0a14; font-weight:bold; cursor:pointer; font-family:sans-serif; font-size:13px; }
+  .play-btn.playing { background: transparent; color: var(--gold); }
+  main.body-pad { padding: 0 5% 60px; max-width: 780px; margin: 0 auto; }
+  .row { display:flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 18px; }
+  .row input[type=text] { flex: 1; min-width: 200px; padding: 10px 14px; border-radius: 8px; background: var(--panel); border: 1px solid var(--line); color: var(--ink); font-family: sans-serif; font-size: 13px; }
+  .btn-sec { padding: 9px 16px; border-radius: 8px; border: 1px solid var(--line); background: transparent; color: var(--ink); font-family: sans-serif; font-size: 13px; cursor: pointer; }
+  .btn-sec:hover { border-color: var(--gold); }
+  #stops { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .stop-row { display:flex; align-items:center; gap: 10px; background: var(--panel); border:1px solid var(--line); border-radius: 8px; padding: 10px 14px; font-family: sans-serif; font-size: 13px; }
+  .stop-row .stop-tick { color: var(--gold); font-weight: bold; width: 60px; }
+  .stop-row .stop-note { flex: 1; color: #ccc; }
+  .stop-row button { background: none; border: none; color: #cc7766; cursor: pointer; font-size: 16px; }
+  h3.section-h { font-family: sans-serif; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin: 28px 0 6px; display: flex; align-items: center; gap: 10px; }
+  .sync-status { font-size: 10px; letter-spacing: 0.5px; text-transform: none; padding: 3px 9px; border-radius: 10px; font-weight: bold; }
+  .sync-status.idle { background: rgba(140,140,150,0.15); color: var(--muted); }
+  .sync-status.hosting, .sync-status.connected { background: rgba(60,140,90,0.18); color: #6fcf97; }
+  .sync-status.connecting { background: rgba(200,140,50,0.15); color: #dd9955; }
+  .sync-status.error { background: rgba(200,60,50,0.15); color: #ee9988; }
+  #join-code { padding: 8px 12px; border-radius: 6px; background: var(--bg); border: 1px solid var(--line); color: var(--ink); font-family: sans-serif; font-size: 14px; text-align: center; }
+  #loading { font-family: sans-serif; color: var(--muted); padding: 30px 5%; }
+</style>
+</head>
+<body>
+<div id="gtbg-nav-mount"></div>
+<header>
+  <a class="back" href="/">&larr; Back to the map</a>
+  <h1>Watch Together</h1>
+  <p class="sub">Build a guided, annotated tour of any stretch of the battle -- your own stops, your own notes -- then share it as a file for someone else to load and watch at their own pace.</p>
+  <div class="status-note today">&#10003; <b>Live Sync</b> below connects two browsers directly to each other (peer-to-peer, over WebRTC) using a free public connection broker -- no account or server of ours involved. One person starts a session and shares a 5-letter code; anyone who enters it sees the same tick move on their own screen in real time. Because it depends on a third-party public broker rather than infrastructure we run, treat it as best-effort -- if it's ever down, <b>Export tour</b> / <b>Import tour</b> below is the reliable fallback for sharing a tour asynchronously.</div>
+</header>
+<div id="loading">Loading battlefield data&hellip;</div>
+<div id="map-wrap">
+  <div id="map"></div>
+  <div id="caption-bar"></div>
+</div>
+<div class="controls">
+  <button class="play-btn" id="play-btn" type="button" disabled>&#9654; Play tour</button>
+  <span id="stop-indicator" style="font-family:sans-serif;color:var(--muted);font-size:12px;"></span>
+</div>
+
+<main class="body-pad">
+  <h3 class="section-h">Add a stop</h3>
+  <div class="row">
+    <input type="text" id="new-tick" placeholder="Tick (1-675)" style="max-width:120px;" inputmode="numeric" />
+    <input type="text" id="new-note" placeholder="Your note for this moment (optional)" />
+    <button class="btn-sec" id="add-stop" type="button">Add stop</button>
+  </div>
+
+  <h3 class="section-h">Your tour (<span id="stop-count">0</span> stops)</h3>
+  <div id="stops"></div>
+
+  <h3 class="section-h">Share asynchronously</h3>
+  <div class="row">
+    <button class="btn-sec" id="export-btn" type="button">&#8681; Export tour (.json)</button>
+    <label class="btn-sec" style="cursor:pointer;">&#8593; Import tour<input type="file" id="import-input" accept=".json" style="display:none;" /></label>
+  </div>
+
+  <h3 class="section-h">Live Sync <span id="sync-status" class="sync-status idle">not connected</span></h3>
+  <div class="row" id="sync-controls">
+    <button class="btn-sec" id="host-btn" type="button">Start a live session</button>
+    <span style="color:var(--muted);font-size:12px;font-family:sans-serif;">or</span>
+    <input type="text" id="join-code" placeholder="Enter a 5-letter code" maxlength="5" style="max-width:160px;text-transform:uppercase;" />
+    <button class="btn-sec" id="join-btn" type="button">Join</button>
+  </div>
+  <div id="sync-code-box" style="display:none;margin-top:12px;font-family:sans-serif;font-size:13px;">
+    Share this code: <span id="sync-code" style="color:var(--gold);font-weight:bold;font-size:18px;letter-spacing:3px;"></span>
+    <span style="color:var(--muted);"> — whoever enters it will see your tour move live, in real time, on their own screen.</span>
+  </div>
+  <p style="font-family:sans-serif;font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6;">This connects two browsers directly (peer-to-peer over WebRTC) via a free public broker with no sign-up -- nothing about your session is stored anywhere. As the host plays or jumps to a stop, everyone connected sees the same moment appear on their own map within about a second.</p>
+</main>
+
+<script>
+(async function() {
+  const MAPBOX_TOKEN = "pk.eyJ1IjoibWxlZ2VyZTk3ODkiLCJhIjoiY21xcHptODEyMGJydDJycWFhaWY0ZHVsMCJ9.aJvnELJlXEs3nYrWx4Eg5Q";
+  mapboxgl.accessToken = MAPBOX_TOKEN;
+
+  const PLACEMENT_FILES = [
+    'placements_day1_ticks1_50.json','placements_day1_ticks51_100.json','placements_day1_ticks101_225.json',
+    'placements_day2_ticks226_300.json','placements_day2_ticks301_375.json','placements_day2_ticks376_450.json',
+    'placements_day3_ticks451_520.json','placements_day3_ticks521_600.json','placements_day3_ticks601_675.json',
+  ];
+  const responses = await Promise.all(PLACEMENT_FILES.map(f => fetch('/data/' + f).then(r => r.json())));
+  const byUnit = new Map();
+  for (const fileData of responses) {
+    for (const p of fileData.placements) {
+      if (!byUnit.has(p.unit_id)) byUnit.set(p.unit_id, []);
+      byUnit.get(p.unit_id).push(p);
+    }
+  }
+  for (const arr of byUnit.values()) arr.sort((a,b) => a.tick - b.tick);
+  function placementsAtTick(tick) {
+    const out = [];
+    for (const arr of byUnit.values()) {
+      let lo = 0, hi = arr.length - 1, best = -1;
+      while (lo <= hi) { const mid = (lo+hi)>>1; if (arr[mid].tick <= tick) { best = mid; lo = mid+1; } else hi = mid-1; }
+      if (best >= 0) out.push(arr[best]);
+    }
+    return out;
+  }
+  function densestClusterBounds(tick) {
+    const placements = placementsAtTick(tick);
+    if (!placements.length) return null;
+    const CELL = 0.01;
+    const cells = new Map();
+    for (const p of placements) {
+      const key = Math.round(p.lat / CELL) + ',' + Math.round(p.lng / CELL);
+      if (!cells.has(key)) cells.set(key, []);
+      cells.get(key).push(p);
+    }
+    let best = null, bestCount = 0;
+    for (const group of cells.values()) if (group.length > bestCount) { bestCount = group.length; best = group; }
+    const lats = best.map(p => p.lat), lngs = best.map(p => p.lng);
+    return [[Math.min(...lngs)-0.006, Math.min(...lats)-0.006],[Math.max(...lngs)+0.006, Math.max(...lats)+0.006]];
+  }
+
+  document.getElementById('loading').style.display = 'none';
+
+  const map = new mapboxgl.Map({
+    container: 'map', style: 'mapbox://styles/mapbox/satellite-v9',
+    center: [-77.235, 39.81], zoom: 13,
+  });
+  map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+  let stops = JSON.parse(localStorage.getItem('gtbg_watch_together_tour') || '[]');
+
+  function saveStops() { localStorage.setItem('gtbg_watch_together_tour', JSON.stringify(stops)); }
+
+  function renderStops() {
+    const el = document.getElementById('stops');
+    el.innerHTML = '';
+    document.getElementById('stop-count').textContent = stops.length;
+    document.getElementById('play-btn').disabled = stops.length === 0;
+    stops.sort((a,b) => a.tick - b.tick);
+    for (const [i, s] of stops.entries()) {
+      const row = document.createElement('div');
+      row.className = 'stop-row';
+      row.innerHTML = `<span class="stop-tick">Tick ${s.tick}</span><span class="stop-note">${s.note || '(no note)'}</span><button aria-label="Remove stop" type="button">&times;</button>`;
+      row.querySelector('button').addEventListener('click', () => { stops.splice(i, 1); saveStops(); renderStops(); });
+      el.appendChild(row);
+    }
+  }
+  renderStops();
+
+  let currentTick = null, currentNote = '';
+  function goToTick(tick, note, fromRemote) {
+    currentTick = tick; currentNote = note || '';
+    const placements = placementsAtTick(tick);
+    if (map.getSource('wt-units')) {
+      map.getSource('wt-units').setData({
+        type: 'FeatureCollection',
+        features: placements.map(p => ({ type:'Feature', geometry:{type:'Point',coordinates:[p.lng,p.lat]},
+          properties:{ side: p.unit_id.startsWith('U-')?'union':'confederate', strength: p.strength } }))
+      });
+    }
+    const bounds = densestClusterBounds(tick);
+    if (bounds) map.fitBounds(bounds, { padding: 60, duration: 900, maxZoom: 15 });
+    document.getElementById('caption-bar').textContent = note ? `Tick ${tick} — ${note}` : `Tick ${tick}`;
+    if (isHost && !fromRemote) broadcastTick(tick, note);
+  }
+
+  // ---- Live Sync: WebRTC peer-to-peer via PeerJS's free public broker, no account needed ----
+  let peer = null, isHost = false, connections = [];
+  const syncStatusEl = document.getElementById('sync-status');
+  function setSyncStatus(text, cls) { syncStatusEl.textContent = text; syncStatusEl.className = 'sync-status ' + cls; }
+
+  function broadcastTick(tick, note) {
+    connections.forEach(c => { if (c.open) { try { c.send({ type: 'goto', tick, note }); } catch (e) {} } });
+  }
+
+  function randomCode() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ'; // no I/O to avoid confusion with 1/0
+    let s = '';
+    for (let i = 0; i < 5; i++) s += chars[Math.floor(Math.random() * chars.length)];
+    return s;
+  }
+
+  if (typeof Peer === 'undefined') {
+    setSyncStatus('unavailable (couldn\'t load the connection library)', 'error');
+    document.getElementById('host-btn').disabled = true;
+    document.getElementById('join-btn').disabled = true;
+  }
+
+  document.getElementById('host-btn').addEventListener('click', () => {
+    if (typeof Peer === 'undefined') return;
+    if (peer) peer.destroy();
+    isHost = true; connections = [];
+    setSyncStatus('connecting…', 'connecting');
+    const code = randomCode();
+    peer = new Peer('gtbg-wt-' + code);
+    peer.on('open', () => {
+      setSyncStatus('hosting · 0 connected', 'hosting');
+      document.getElementById('sync-code-box').style.display = 'block';
+      document.getElementById('sync-code').textContent = code;
+    });
+    peer.on('connection', (conn) => {
+      connections.push(conn);
+      conn.on('open', () => {
+        setSyncStatus(`hosting · ${connections.length} connected`, 'connected');
+        if (currentTick != null) conn.send({ type: 'goto', tick: currentTick, note: currentNote });
+      });
+      conn.on('close', () => {
+        connections = connections.filter(c => c !== conn);
+        setSyncStatus(connections.length ? `hosting · ${connections.length} connected` : 'hosting · 0 connected', connections.length ? 'connected' : 'hosting');
+      });
+    });
+    peer.on('error', (err) => setSyncStatus('connection error — try again', 'error'));
+  });
+
+  document.getElementById('join-btn').addEventListener('click', () => {
+    if (typeof Peer === 'undefined') return;
+    const code = document.getElementById('join-code').value.trim().toUpperCase();
+    if (code.length !== 5) { setSyncStatus('enter the 5-letter code first', 'error'); return; }
+    if (peer) peer.destroy();
+    isHost = false; connections = [];
+    setSyncStatus('connecting…', 'connecting');
+    peer = new Peer();
+    peer.on('open', () => {
+      const conn = peer.connect('gtbg-wt-' + code);
+      connections = [conn];
+      conn.on('open', () => setSyncStatus('connected to host', 'connected'));
+      conn.on('data', (data) => {
+        if (data && data.type === 'goto') goToTick(data.tick, data.note, true);
+      });
+      conn.on('close', () => setSyncStatus('host disconnected', 'error'));
+      conn.on('error', () => setSyncStatus('could not connect — check the code', 'error'));
+    });
+    peer.on('error', () => setSyncStatus('could not connect — check the code', 'error'));
+  });
+
+  map.on('load', () => {
+    map.addSource('wt-units', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+    map.addLayer({
+      id: 'wt-units-layer', type: 'circle', source: 'wt-units',
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['get', 'strength'], 0, 3, 500, 5, 2000, 9, 6000, 14],
+        'circle-color': ['match', ['get', 'side'], 'union', '#4477cc', 'confederate', '#cc5544', '#888888'],
+        'circle-stroke-width': 1, 'circle-stroke-color': '#0a0a14',
+      }
+    });
+    if (stops.length) goToTick(stops[0].tick, stops[0].note);
+  });
+
+  document.getElementById('add-stop').addEventListener('click', () => {
+    const tickEl = document.getElementById('new-tick');
+    const noteEl = document.getElementById('new-note');
+    const tick = Math.max(1, Math.min(675, parseInt(tickEl.value, 10) || 0));
+    if (!tick) return;
+    const note = noteEl.value.trim();
+    stops.push({ tick, note });
+    saveStops(); renderStops();
+    tickEl.value = ''; noteEl.value = '';
+    goToTick(tick, note);
+  });
+
+  let playing = false, playIdx = 0, playTimer = null;
+  document.getElementById('play-btn').addEventListener('click', () => {
+    const btn = document.getElementById('play-btn');
+    playing = !playing;
+    btn.classList.toggle('playing', playing);
+    btn.innerHTML = playing ? '&#10074;&#10074; Pause tour' : '&#9654; Play tour';
+    if (playing) {
+      playIdx = 0;
+      const advance = () => {
+        if (!playing || playIdx >= stops.length) { playing = false; btn.classList.remove('playing'); btn.innerHTML = '&#9654; Play tour'; return; }
+        const s = stops[playIdx];
+        goToTick(s.tick, s.note);
+        document.getElementById('stop-indicator').textContent = `Stop ${playIdx + 1} of ${stops.length}`;
+        playIdx++;
+        playTimer = setTimeout(advance, 3200);
+      };
+      advance();
+    } else {
+      clearTimeout(playTimer);
+    }
+  });
+
+  document.getElementById('export-btn').addEventListener('click', () => {
+    const blob = new Blob([JSON.stringify({ type: 'gtbg-watch-together-tour', version: 1, stops }, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'gettysburg-tour.json'; a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById('import-input').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      const data = JSON.parse(await file.text());
+      if (!Array.isArray(data.stops)) throw new Error('bad file');
+      stops = data.stops;
+      saveStops(); renderStops();
+      if (stops.length) goToTick(stops[0].tick, stops[0].note);
+    } catch (err) {
+      alert("That doesn't look like a valid Gettysburg tour file.");
+    }
+    e.target.value = '';
+  });
+})();
+</script>
+
+<div id="gtbg-footer-mount"></div>
+<script src="/site-nav.js" data-current="watch-together"></script>
+</body>
+</html>

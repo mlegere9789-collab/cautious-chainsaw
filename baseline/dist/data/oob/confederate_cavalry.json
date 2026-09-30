@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "chunk": "012",
+    "title": "Confederate Army -- Cavalry Corps and Horse Artillery",
+    "sources": [
+      "Busey, John W. and Martin, David G. -- Regimental Strengths and Losses at Gettysburg (Longstreet House, 1994)",
+      "OR Vol. 27, Parts I and II",
+      "Wittenberg, Eric J. -- Protecting the Flank at Gettysburg (Savas Beatie, 2013)",
+      "Longacre, Edward G. -- Lee's Cavalrymen (Stackpole Books, 2002)"
+    ],
+    "notes": "Stuart's cavalry was absent July 1-2, depriving Lee of intelligence. Stuart arrived July 2 afternoon. July 3 East Cavalry Field is the major cavalry action."
+  },
+  "cavalry_commander": {
+    "name": "Major General J.E.B. Stuart",
+    "fate": "Survived Gettysburg -- killed Yellow Tavern May 1864",
+    "notes": "Stuart's controversial absence left Lee blind during the approach march. Lee reportedly greeted him with 'General Stuart, where have you been?' Stuart arrived late July 2."
+  },
+  "brigades": [
+    {"brigade_id":"C-CAV-1","designation":"Hampton's Brigade","commander":{"name":"Brigadier General Wade Hampton","fate":"Wounded July 3 -- sabre cut to head in East Cavalry Field melee"},"regiment_ids":["C-1SC-CAV","C-2SC-CAV","C-Cobb-CAV","C-Phil-CAV","C-Jeff-MS-CAV"],"key_action":"East Cavalry Field July 3."},
+    {"brigade_id":"C-CAV-2","designation":"Fitz Lee's Brigade","commander":{"name":"Brigadier General Fitzhugh Lee","fate":"Survived"},"regiment_ids":["C-1VA-CAV","C-2VA-CAV","C-3VA-CAV","C-4VA-CAV","C-5VA-CAV"],"key_action":"East Cavalry Field July 3 -- engaged Custer's Michigan Brigade."},
+    {"brigade_id":"C-CAV-3","designation":"Chambliss's Brigade (W.H.F. Lee's Brigade)","commander":{"name":"Colonel John Chambliss","fate":"Survived","notes":"Rooney Lee had been wounded at Brandy Station."},"regiment_ids":["C-9VA-CAV","C-10VA-CAV","C-13VA-CAV"],"key_action":"East Cavalry Field July 3."},
+    {"brigade_id":"C-CAV-4","designation":"Jenkins's Brigade","commander":{"name":"Brigadier General Albert Jenkins","fate":"Wounded July 3 -- arm shattered","successor":{"name":"Colonel Milton Ferguson","assumed_command":"July 3"}},"regiment_ids":["C-14VA-CAV","C-16VA-CAV","C-17VA-CAV","C-34VA-CAV-B","C-36VA-CAV-B"],"key_action":"Arrived with Ewell's corps -- operated July 1-3 near Ewell."},
+    {"brigade_id":"C-CAV-5","designation":"Imboden's Command","commander":{"name":"Brigadier General John Imboden","fate":"Survived"},"regiment_ids":["C-18VA-CAV","C-62VA-MTD","C-VA-PA-CAV","C-McClanahan-ART"],"key_action":"Guarded Confederate wagon train and escorted the retreat of the wounded after July 3. Not engaged at Gettysburg proper."}
+  ],
+  "regiments": [
+    {"regiment_id":"C-1SC-CAV","designation":"1st South Carolina Cavalry","parent_brigade_id":"C-CAV-1","state":"South Carolina","strength":289,"casualties":28,"days_engaged":[3],"key_action":"Hampton's brigade -- East Cavalry Field."},
+    {"regiment_id":"C-2SC-CAV","designation":"2nd South Carolina Cavalry","parent_brigade_id":"C-CAV-1","state":"South Carolina","strength":206,"casualties":12,"days_engaged":[3],"key_action":"Hampton's brigade."},
+    {"regiment_id":"C-Cobb-CAV","designation":"Cobb's Legion Cavalry (Georgia)","parent_brigade_id":"C-CAV-1","state":"Georgia","strength":350,"casualties":36,"days_engaged":[3],"key_action":"Hampton's brigade -- East Cavalry Field."},
+    {"regiment_id":"C-Phil-CAV","designation":"Phillips Legion Cavalry (Georgia)","parent_brigade_id":"C-CAV-1","state":"Georgia","strength":213,"casualties":15,"days_engaged":[3],"key_action":"Hampton's brigade."},
+    {"regiment_id":"C-Jeff-MS-CAV","designation":"Jeff Davis Legion (Mississippi Cavalry)","parent_brigade_id":"C-CAV-1","state":"Mississippi","strength":242,"casualties":22,"days_engaged":[3],"key_action":"Hampton's brigade -- East Cavalry Field."},
+    {"regiment_id":"C-1VA-CAV","designation":"1st Virginia Cavalry","parent_brigade_id":"C-CAV-2","state":"Virginia","strength":380,"casualties":30,"days_engaged":[3],"key_action":"Fitz Lee's brigade -- East Cavalry Field."},
+    {"regiment_id":"C-2VA-CAV","designation":"2nd Virginia Cavalry","parent_brigade_id":"C-CAV-2","state":"Virginia","strength":340,"casualties":29,"days_engaged":[3],"key_action":"Fitz Lee's brigade."},
+    {"regiment_id":"C-3VA-CAV","designation":"3rd Virginia Cavalry","parent_brigade_id":"C-CAV-2","state":"Virginia","strength":260,"casualties":23,"days_engaged":[3],"key_action":"Fitz Lee's brigade."},
+    {"regiment_id":"C-4VA-CAV","designation":"4th Virginia Cavalry","parent_brigade_id":"C-CAV-2","state":"Virginia","strength":365,"casualties":32,"days_engaged":[3],"key_action":"Fitz Lee's brigade -- East Cavalry Field."},
+    {"regiment_id":"C-5VA-CAV","designation":"5th Virginia Cavalry","parent_brigade_id":"C-CAV-2","state":"Virginia","strength":355,"casualties":28,"days_engaged":[3],"key_action":"Fitz Lee's brigade."},
+    {"regiment_id":"C-9VA-CAV","designation":"9th Virginia Cavalry","parent_brigade_id":"C-CAV-3","state":"Virginia","strength":384,"casualties":28,"days_engaged":[3],"key_action":"Chambliss's brigade -- East Cavalry Field."},
+    {"regiment_id":"C-10VA-CAV","designation":"10th Virginia Cavalry","parent_brigade_id":"C-CAV-3","state":"Virginia","strength":254,"casualties":19,"days_engaged":[3],"key_action":"Chambliss's brigade."},
+    {"regiment_id":"C-13VA-CAV","designation":"13th Virginia Cavalry","parent_brigade_id":"C-CAV-3","state":"Virginia","strength":295,"casualties":21,"days_engaged":[3],"key_action":"Chambliss's brigade."},
+    {"regiment_id":"C-14VA-CAV","designation":"14th Virginia Cavalry","parent_brigade_id":"C-CAV-4","state":"Virginia","strength":290,"casualties":9,"days_engaged":[1,2,3],"key_action":"Jenkins's brigade -- with Ewell's column."},
+    {"regiment_id":"C-16VA-CAV","designation":"16th Virginia Cavalry","parent_brigade_id":"C-CAV-4","state":"Virginia","strength":272,"casualties":8,"days_engaged":[1,2,3],"key_action":"Jenkins's brigade."},
+    {"regiment_id":"C-17VA-CAV","designation":"17th Virginia Cavalry","parent_brigade_id":"C-CAV-4","state":"Virginia","strength":250,"casualties":7,"days_engaged":[1,2,3],"key_action":"Jenkins's brigade."},
+    {"regiment_id":"C-34VA-CAV-B","designation":"34th Virginia Cavalry Battalion","parent_brigade_id":"C-CAV-4","state":"Virginia","strength":161,"casualties":5,"days_engaged":[1,2,3],"key_action":"Jenkins's brigade -- battalion."},
+    {"regiment_id":"C-36VA-CAV-B","designation":"36th Virginia Cavalry Battalion","parent_brigade_id":"C-CAV-4","state":"Virginia","strength":132,"casualties":4,"days_engaged":[1,2,3],"key_action":"Jenkins's brigade -- battalion."},
+    {"regiment_id":"C-18VA-CAV","designation":"18th Virginia Cavalry","parent_brigade_id":"C-CAV-5","state":"Virginia","strength":200,"casualties":2,"days_engaged":[],"key_action":"Imboden's command -- wagon train guard and retreat escort."},
+    {"regiment_id":"C-62VA-MTD","designation":"62nd Virginia Mounted Infantry","parent_brigade_id":"C-CAV-5","state":"Virginia","strength":260,"casualties":3,"days_engaged":[],"key_action":"Imboden's command."},
+    {"regiment_id":"C-VA-PA-CAV","designation":"Virginia Partisan Rangers","parent_brigade_id":"C-CAV-5","state":"Virginia","strength":125,"casualties":1,"days_engaged":[],"key_action":"Imboden's command -- partisan cavalry."},
+    {"regiment_id":"C-McClanahan-ART","designation":"McClanahan's Battery (Horse Artillery)","parent_brigade_id":"C-CAV-5","state":"Virginia","unit_type":"horse_artillery","strength":80,"casualties":1,"days_engaged":[],"key_action":"Imboden's horse artillery -- wagon train."}
+  ],
+  "horse_artillery": [
+    {"battery_id":"C-HAB-Breathed","designation":"Breathed's Battery (1st Stuart Horse Artillery)","commander":{"name":"Captain James Breathed","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":8,"key_action":"Stuart's horse artillery -- East Cavalry Field July 3. Exchanged fire with Pennington's Union battery.","flag_notes":"East Cavalry Field -- Confederate horse artillery must be shown Online opposite Pennington's Union battery during July 3 action."},
+    {"battery_id":"C-HAB-Hart","designation":"Hart's Battery (Washington Artillery SC)","commander":{"name":"Captain James Hart","fate":"Survived"},"gun_count":4,"gun_type":"Blakely rifle","strength":80,"casualties":5,"key_action":"Stuart's horse artillery -- East Cavalry Field."},
+    {"battery_id":"C-HAB-Jackson","designation":"Jackson's Battery (Charlottesville Artillery)","commander":{"name":"Captain Thomas Jackson","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":3,"key_action":"Stuart's horse artillery."}
+  ]
+}

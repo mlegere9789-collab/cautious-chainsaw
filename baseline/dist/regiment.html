@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0a0a14" />
+<title>Regimental Biography — Gettysburg Animated Battlefield Map</title>
+<meta name="description" content="Follow one regiment's entire three-day battle -- its commander, its casualties, and every recorded moment -- told as a single story." />
+<link rel="canonical" href="https://gettysburginteractivemap.com/regiment.html" />
+<meta property="og:title" content="Regimental Biography — Gettysburg Animated Battlefield Map" />
+<meta property="og:description" content="Follow one regiment's entire three-day battle told as a single story." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gettysburginteractivemap.com/regiment.html" />
+<meta property="og:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<link rel="stylesheet" href="/site-nav.css">
+<style>
+  :root { --bg:#0a0a14; --panel:#12121e; --ink:#e8e6df; --gold:#c9a24b; --muted:#8a93a8; --line:#1e1e2e; --union:#4477cc; --conf:#cc5544; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family: Georgia, serif; }
+  header { padding: 24px 5% 10px; }
+  header a.back { font-family: sans-serif; font-size: 12px; color: var(--muted); text-decoration:none; }
+  h1 { font-size: clamp(22px, 3.5vw, 32px); color: var(--gold); margin: 10px 0 6px; }
+  .sub { font-family: sans-serif; color: var(--muted); font-size: 13px; max-width: 640px; }
+  main { padding: 10px 5% 60px; max-width: 780px; margin: 0 auto; }
+  #search-wrap { position: relative; margin-bottom: 20px; }
+  #search { width:100%; padding:14px 18px; font-size:16px; font-family:sans-serif; background:var(--panel); border:1px solid var(--line); border-radius:10px; color:var(--ink); outline: none; }
+  #search:focus { border-color: var(--gold); }
+  #matches { position:absolute; top:100%; left:0; right:0; margin-top:6px; background:var(--panel); border:1px solid var(--line); border-radius:10px; max-height:280px; overflow-y:auto; z-index:5; display:none; }
+  #matches.open { display:block; }
+  .match-row { padding:10px 16px; cursor:pointer; font-family:sans-serif; font-size:13px; display:flex; justify-content:space-between; gap:10px; }
+  .match-row:hover, .match-row:focus-visible { background:#1a3a7a; outline:none; }
+  .match-row .side-tag { font-size:10px; text-transform:uppercase; letter-spacing:1px; color: var(--muted); }
+
+  #bio { display:none; }
+  .bio-header { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-top: 30px; }
+  .bio-header h2 { margin:0; font-size: 28px; color:#e8d5a3; }
+  .side-pill { font-family:sans-serif; font-size:11px; text-transform:uppercase; letter-spacing:1px; padding:3px 10px; border-radius: 12px; }
+  .side-pill.union { background: rgba(68,119,204,0.2); color:#88aaee; }
+  .side-pill.confederate { background: rgba(204,85,68,0.2); color:#ee9988; }
+  .bio-meta { font-family:sans-serif; color: var(--muted); font-size: 13px; margin-top: 6px; }
+  .stat-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap:12px; margin-top:22px; }
+  .stat-card { background: var(--panel); border:1px solid var(--line); border-radius:8px; padding:14px 16px; font-family: sans-serif; }
+  .stat-card .num { font-size:22px; color:var(--gold); font-weight:bold; }
+  .stat-card .lbl { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-top:4px; }
+  .section { margin-top: 28px; }
+  .section h3 { font-family: sans-serif; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .key-action { font-size: 16px; line-height: 1.7; font-style: italic; color: #ddd; }
+  .timeline { border-left: 2px solid var(--line); padding-left: 20px; }
+  .tl-item { position: relative; margin-bottom: 16px; font-family: sans-serif; font-size: 13px; }
+  .tl-item::before { content:''; position:absolute; left:-25px; top:4px; width:8px; height:8px; border-radius:50%; background: var(--gold); }
+  .tl-item b { color: #e8d5a3; }
+  .tl-item .tl-meta { color: var(--muted); font-size: 11px; }
+  .vig-card { background: var(--panel); border:1px solid var(--line); border-radius:10px; padding:16px 18px; margin-bottom: 12px; }
+  .vig-card .vig-title { color:#e8d5a3; font-size:15px; margin-bottom:6px; }
+  .vig-card p { font-family: sans-serif; font-size: 13px; color:#ccc; line-height:1.6; margin:0; }
+  .empty-note { font-family: sans-serif; font-size: 13px; color: var(--muted); font-style: italic; }
+  #loading { font-family: sans-serif; color: var(--muted); padding: 30px 0; }
+  .map-link { display:inline-block; margin-top: 22px; font-family: sans-serif; font-size:13px; font-weight:bold; color:#0a0a14; background: var(--gold); padding: 10px 20px; border-radius: 8px; text-decoration:none; }
+</style>
+</head>
+<body>
+<div id="gtbg-nav-mount"></div>
+<header>
+  <a class="back" href="/">&larr; Back to the map</a>
+  <h1>Regimental Biography</h1>
+  <p class="sub">Pick any regiment or battery and follow its whole three-day battle as one story -- built entirely from this site's own order-of-battle, placement, and vignette data.</p>
+</header>
+<main>
+  <div id="search-wrap">
+    <input id="search" type="text" placeholder="Search for a regiment (e.g. '20th Maine', '1st Minnesota', 'Alabama')" autocomplete="off" />
+    <div id="matches" role="listbox"></div>
+  </div>
+  <div id="loading">Loading order of battle&hellip;</div>
+
+  <div id="bio">
+    <div class="bio-header">
+      <h2 id="b-title"></h2>
+      <span class="side-pill" id="b-side"></span>
+    </div>
+    <div class="bio-meta" id="b-meta"></div>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="num" id="b-strength">&mdash;</div><div class="lbl">Initial strength</div></div>
+      <div class="stat-card"><div class="num" id="b-casualties">&mdash;</div><div class="lbl">Casualties</div></div>
+      <div class="stat-card"><div class="num" id="b-rate">&mdash;</div><div class="lbl">Casualty rate</div></div>
+      <div class="stat-card"><div class="num" id="b-days">&mdash;</div><div class="lbl">Days engaged</div></div>
+    </div>
+
+    <div class="section">
+      <h3>Key action</h3>
+      <p class="key-action" id="b-action">&mdash;</p>
+    </div>
+
+    <div class="section">
+      <h3>Commander</h3>
+      <p id="b-commander" style="font-family:sans-serif;font-size:14px;"></p>
+    </div>
+
+    <div class="section" id="b-timeline-section">
+      <h3>Recorded positions across the battle</h3>
+      <div class="timeline" id="b-timeline"></div>
+      <p class="empty-note" id="b-timeline-empty" style="display:none;">This unit's individual movements aren't separately tracked in the placement data -- it's likely recorded at the brigade level instead of by regiment. Its order-of-battle record above is still complete.</p>
+    </div>
+
+    <div class="section" id="b-vignettes-section">
+      <h3>Mentioned in the battle's narrative moments</h3>
+      <div id="b-vignettes"></div>
+      <p class="empty-note" id="b-vignettes-empty" style="display:none;">No narrative vignette specifically names this unit.</p>
+    </div>
+
+    <a class="map-link" id="b-maplink" href="/">See its sector on the map &rarr;</a>
+  </div>
+</main>
+<div id="gtbg-footer-mount"></div>
+<script src="/site-nav.js" data-current="regiment"></script>
+
+<script>
+(async function() {
+  const OOB_FILES = [
+    'union_regiments_i_ii_corps.json','union_regiments_iii_v_corps.json','union_regiments_vi_xi_xii_corps.json',
+    'confederate_regiments_first_corps.json','confederate_regiments_second_corps.json','confederate_regiments_third_corps.json',
+    'union_cavalry_artillery.json','confederate_cavalry.json',
+  ];
+  const PLACEMENT_FILES = [
+    'placements_day1_ticks1_50.json','placements_day1_ticks51_100.json','placements_day1_ticks101_225.json',
+    'placements_day2_ticks226_300.json','placements_day2_ticks301_375.json','placements_day2_ticks376_450.json',
+    'placements_day3_ticks451_520.json','placements_day3_ticks521_600.json','placements_day3_ticks601_675.json',
+  ];
+  const VIGNETTE_FILES = ['vignettes_part1.json','vignettes_part2.json','vignettes_part3.json'];
+
+  const [oobResults, placementResults, vigResults] = await Promise.all([
+    Promise.all(OOB_FILES.map(f => fetch('/data/oob/' + f).then(r => r.json()))),
+    Promise.all(PLACEMENT_FILES.map(f => fetch('/data/' + f).then(r => r.json()))),
+    Promise.all(VIGNETTE_FILES.map(f => fetch('/data/' + f).then(r => r.json()))),
+  ]);
+
+  const regiments = oobResults.flatMap(f => f.regiments || []);
+  const byId = new Map(regiments.map(r => [r.regiment_id, r]));
+  const placementsByUnit = new Map();
+  for (const fileData of placementResults) {
+    for (const p of fileData.placements) {
+      if (!placementsByUnit.has(p.unit_id)) placementsByUnit.set(p.unit_id, []);
+      placementsByUnit.get(p.unit_id).push(p);
+    }
+  }
+  for (const arr of placementsByUnit.values()) arr.sort((a,b) => a.tick - b.tick);
+  const vignettes = vigResults.flatMap(f => f.vignettes || []);
+
+  document.getElementById('loading').style.display = 'none';
+
+  const searchEl = document.getElementById('search');
+  const matchesEl = document.getElementById('matches');
+
+  searchEl.addEventListener('input', () => {
+    const q = searchEl.value.trim().toLowerCase();
+    matchesEl.innerHTML = '';
+    if (!q) { matchesEl.classList.remove('open'); return; }
+    const found = regiments.filter(r => r.designation.toLowerCase().includes(q)).slice(0, 12);
+    matchesEl.classList.toggle('open', found.length > 0);
+    for (const r of found) {
+      const row = document.createElement('div');
+      row.className = 'match-row';
+      row.tabIndex = 0;
+      row.setAttribute('role', 'option');
+      const side = r.regiment_id.startsWith('U-') ? 'Union' : 'Confederate';
+      row.innerHTML = `<span>${r.designation}</span><span class="side-tag">${side}</span>`;
+      const pick = () => { showBio(r); matchesEl.classList.remove('open'); searchEl.value = r.designation; };
+      row.addEventListener('click', pick);
+      row.addEventListener('keydown', e => { if (e.key === 'Enter') pick(); });
+      matchesEl.appendChild(row);
+    }
+  });
+  document.addEventListener('click', e => {
+    if (!matchesEl.contains(e.target) && e.target !== searchEl) matchesEl.classList.remove('open');
+  });
+
+  function dispositionRun(placements) {
+    // Collapse consecutive identical dispositions into runs, so the timeline reads as
+    // "held the line, then charged, then retreated" instead of one row per tick.
+    const runs = [];
+    for (const p of placements) {
+      const last = runs[runs.length - 1];
+      if (last && last.disposition === p.disposition) { last.endTick = p.tick; }
+      else runs.push({ disposition: p.disposition, startTick: p.tick, endTick: p.tick });
+    }
+    return runs;
+  }
+
+  function dayForTick(t) { return t <= 225 ? 1 : (t <= 450 ? 2 : 3); }
+
+  function showBio(r) {
+    document.getElementById('bio').style.display = 'block';
+    document.getElementById('b-title').textContent = r.designation;
+    const side = r.regiment_id.startsWith('U-') ? 'union' : 'confederate';
+    const sidePill = document.getElementById('b-side');
+    sidePill.textContent = side === 'union' ? 'Union' : 'Confederate';
+    sidePill.className = 'side-pill ' + side;
+    document.getElementById('b-meta').textContent =
+      [r.state, r.parent_corps_id, r.parent_brigade_id].filter(Boolean).join(' · ') || 'State and formation not recorded';
+    document.getElementById('b-strength').textContent = r.strength != null ? r.strength.toLocaleString() : '—';
+    document.getElementById('b-casualties').textContent = r.casualties != null ? r.casualties.toLocaleString() : '—';
+    document.getElementById('b-rate').textContent = r.casualty_percentage != null ? r.casualty_percentage + '%' : '—';
+    document.getElementById('b-days').textContent = (r.days_engaged || []).join(', ') || '—';
+    document.getElementById('b-action').textContent = r.key_action || 'No specific key action recorded for this unit.';
+    const c = r.commander || {};
+    document.getElementById('b-commander').textContent = c.name
+      ? `${c.name}${c.fate ? ' — ' + c.fate : ''}`
+      : 'Not recorded in the order of battle.';
+
+    const placements = placementsByUnit.get(r.regiment_id);
+    const tlEl = document.getElementById('b-timeline');
+    tlEl.innerHTML = '';
+    if (placements && placements.length) {
+      document.getElementById('b-timeline-empty').style.display = 'none';
+      for (const run of dispositionRun(placements)) {
+        const div = document.createElement('div');
+        div.className = 'tl-item';
+        const span = run.startTick === run.endTick ? `tick ${run.startTick}` : `ticks ${run.startTick}&ndash;${run.endTick}`;
+        div.innerHTML = `<b>${run.disposition}</b><div class="tl-meta">Day ${dayForTick(run.startTick)} &middot; ${span}</div>`;
+        tlEl.appendChild(div);
+      }
+    } else {
+      document.getElementById('b-timeline-empty').style.display = 'block';
+    }
+
+    const vigEl = document.getElementById('b-vignettes');
+    vigEl.innerHTML = '';
+    const needle = r.designation.toLowerCase();
+    const mentions = vignettes.filter(v =>
+      (v.title || '').toLowerCase().includes(needle) ||
+      (v.panel_summary || '').toLowerCase().includes(needle) ||
+      (v.full_script || '').toLowerCase().includes(needle)
+    );
+    if (mentions.length) {
+      document.getElementById('b-vignettes-empty').style.display = 'none';
+      for (const v of mentions) {
+        const card = document.createElement('div');
+        card.className = 'vig-card';
+        card.innerHTML = `<div class="vig-title">${v.title}</div><p>${v.panel_summary}</p>`;
+        vigEl.appendChild(card);
+      }
+    } else {
+      document.getElementById('b-vignettes-empty').style.display = 'block';
+    }
+
+    const firstTick = placements && placements.length ? placements[0].tick : 1;
+    document.getElementById('b-maplink').href = `/?unit=${encodeURIComponent(r.regiment_id)}&tick=${firstTick}`;
+    document.getElementById('bio').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Deep-link support: /regiment.html?unit=U-20ME opens straight to that regiment's biography.
+  const params = new URLSearchParams(location.search);
+  const preselect = params.get('unit');
+  if (preselect && byId.has(preselect)) {
+    searchEl.value = byId.get(preselect).designation;
+    showBio(byId.get(preselect));
+  }
+})();
+</script>
+</body>
+</html>

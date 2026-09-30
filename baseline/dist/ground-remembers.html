@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0a0a14" />
+<title>The Ground Remembers — Gettysburg Animated Battlefield Map</title>
+<meta name="description" content="A heatmap of the battlefield that accumulates across all three days -- where the fighting concentrated the most, permanently." />
+<link rel="canonical" href="https://gettysburginteractivemap.com/ground-remembers.html" />
+<meta property="og:title" content="The Ground Remembers — Gettysburg Animated Battlefield Map" />
+<meta property="og:description" content="A heatmap of the battlefield that accumulates across all three days." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gettysburginteractivemap.com/ground-remembers.html" />
+<meta property="og:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.css" rel="stylesheet" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js"></script>
+<link rel="stylesheet" href="/site-nav.css">
+<style>
+  :root { --bg:#0a0a14; --panel:#12121e; --ink:#e8e6df; --gold:#c9a24b; --muted:#8a93a8; --line:#1e1e2e; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family: Georgia, serif; }
+  header { padding: 20px 5% 10px; }
+  header a.back { font-family: sans-serif; font-size: 12px; color: var(--muted); text-decoration:none; }
+  h1 { font-size: clamp(20px, 3.2vw, 28px); color: var(--gold); margin: 8px 0 4px; }
+  .sub { font-family: sans-serif; color: var(--muted); font-size: 13px; max-width: 640px; }
+  .caveat { font-family: sans-serif; font-size: 12px; color: #8fa8c9; background: rgba(70,110,160,0.1); border: 1px solid #1a2a3a; border-radius: 8px; padding: 10px 14px; max-width: 640px; margin-top: 10px; line-height: 1.6; }
+  #map { height: 62vh; min-height: 420px; }
+  .controls { display:flex; gap:16px; align-items:center; flex-wrap:wrap; padding: 14px 5%; font-family: sans-serif; font-size: 13px; background: var(--panel); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .controls label { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+  #reveal { width: 220px; }
+  .play-btn { padding: 7px 16px; border-radius:6px; border:1px solid var(--gold); background: var(--gold); color:#0a0a14; font-weight:bold; cursor:pointer; font-family:sans-serif; font-size:13px; }
+  .play-btn.playing { background: transparent; color: var(--gold); }
+  #reveal-label { font-variant-numeric: tabular-nums; color: var(--gold); }
+  #loading { font-family: sans-serif; color: var(--muted); padding: 30px 5%; }
+</style>
+</head>
+<body>
+<div id="gtbg-nav-mount"></div>
+<header>
+  <a class="back" href="/">&larr; Back to the map</a>
+  <h1>The Ground Remembers</h1>
+  <p class="sub">Every recorded unit position across all 675 five-minute snapshots, accumulated into one map -- so the places that saw fighting again and again stand out, permanently, instead of resetting with each tick.</p>
+  <div class="caveat">Built from the same 694 recorded unit positions that drive the main map's playback (not the separate, more granular per-scene density files) -- so this shows where units were positioned most often across the battle, as a proxy for where the fighting concentrated.</div>
+</header>
+<div class="controls">
+  <button class="play-btn" id="play-btn" type="button">&#9654; Build up over time</button>
+  <label>Reveal through tick <span id="reveal-label">675</span>
+    <input type="range" id="reveal" min="1" max="675" value="675" />
+  </label>
+</div>
+<div id="loading">Loading placement data&hellip;</div>
+<div id="map"></div>
+
+<script>
+(async function() {
+  const MAPBOX_TOKEN = "pk.eyJ1IjoibWxlZ2VyZTk3ODkiLCJhIjoiY21xcHptODEyMGJydDJycWFhaWY0ZHVsMCJ9.aJvnELJlXEs3nYrWx4Eg5Q";
+  mapboxgl.accessToken = MAPBOX_TOKEN;
+
+  const PLACEMENT_FILES = [
+    'placements_day1_ticks1_50.json','placements_day1_ticks51_100.json','placements_day1_ticks101_225.json',
+    'placements_day2_ticks226_300.json','placements_day2_ticks301_375.json','placements_day2_ticks376_450.json',
+    'placements_day3_ticks451_520.json','placements_day3_ticks521_600.json','placements_day3_ticks601_675.json',
+  ];
+  const responses = await Promise.all(PLACEMENT_FILES.map(f => fetch('/data/' + f).then(r => r.json())));
+  const allPlacements = responses.flatMap(r => r.placements);
+
+  document.getElementById('loading').style.display = 'none';
+
+  const map = new mapboxgl.Map({
+    container: 'map', style: 'mapbox://styles/mapbox/dark-v11',
+    center: [-77.235, 39.81], zoom: 13,
+  });
+  map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+  function geojsonThroughTick(maxTick) {
+    return {
+      type: 'FeatureCollection',
+      features: allPlacements
+        .filter(p => p.tick <= maxTick)
+        .map(p => ({
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [p.lng, p.lat] },
+          properties: { weight: p.disposition && p.disposition.includes('Artillery') ? 2 : 1 },
+        })),
+    };
+  }
+
+  map.on('load', () => {
+    map.addSource('scars', { type: 'geojson', data: geojsonThroughTick(675) });
+    map.addLayer({
+      id: 'scars-heat', type: 'heatmap', source: 'scars',
+      paint: {
+        'heatmap-weight': ['get', 'weight'],
+        'heatmap-intensity': ['interpolate', ['linear'], ['zoom'], 10, 1, 15, 3],
+        'heatmap-color': [
+          'interpolate', ['linear'], ['heatmap-density'],
+          0, 'rgba(10,10,20,0)',
+          0.2, 'rgba(70,60,120,0.5)',
+          0.4, 'rgba(120,60,90,0.65)',
+          0.6, 'rgba(190,80,60,0.75)',
+          0.8, 'rgba(230,140,50,0.85)',
+          1, 'rgba(255,210,90,0.95)'
+        ],
+        'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 10, 10, 15, 30],
+        'heatmap-opacity': 0.85,
+      }
+    });
+
+    const revealEl = document.getElementById('reveal');
+    const labelEl = document.getElementById('reveal-label');
+    revealEl.addEventListener('input', () => {
+      labelEl.textContent = revealEl.value;
+      map.getSource('scars').setData(geojsonThroughTick(Number(revealEl.value)));
+    });
+
+    let playing = false, intervalId = null;
+    const playBtn = document.getElementById('play-btn');
+    playBtn.addEventListener('click', () => {
+      playing = !playing;
+      playBtn.classList.toggle('playing', playing);
+      playBtn.innerHTML = playing ? '&#10074;&#10074; Pause' : '&#9654; Build up over time';
+      if (playing) {
+        revealEl.value = 1;
+        intervalId = setInterval(() => {
+          let v = Number(revealEl.value) + 8;
+          if (v >= 675) { v = 675; playing = false; playBtn.classList.remove('playing'); playBtn.innerHTML = '&#9654; Build up over time'; clearInterval(intervalId); }
+          revealEl.value = v;
+          labelEl.textContent = v;
+          map.getSource('scars').setData(geojsonThroughTick(v));
+        }, 90);
+      } else {
+        clearInterval(intervalId);
+      }
+    });
+  });
+})();
+</script>
+
+<div id="gtbg-footer-mount"></div>
+<script src="/site-nav.js" data-current="ground-remembers"></script>
+</body>
+</html>

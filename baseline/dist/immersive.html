@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0a0a14" />
+<title>Immersive Mode — Gettysburg Animated Battlefield Map</title>
+<meta name="description" content="Watch the battle with a procedural ambient soundscape -- cannon fire, musketry, and quiet -- generated live from the same troop density driving the map." />
+<link rel="canonical" href="https://gettysburginteractivemap.com/immersive.html" />
+<meta property="og:title" content="Immersive Mode — Gettysburg Animated Battlefield Map" />
+<meta property="og:description" content="Watch the battle with a live ambient soundscape driven by real troop density." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gettysburginteractivemap.com/immersive.html" />
+<meta property="og:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.css" rel="stylesheet" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js"></script>
+<link rel="stylesheet" href="/site-nav.css">
+<style>
+  :root { --bg:#0a0a14; --panel:#12121e; --ink:#e8e6df; --gold:#c9a24b; --muted:#8a93a8; --line:#1e1e2e; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family: Georgia, serif; }
+  header { padding: 20px 5% 10px; }
+  header a.back { font-family: sans-serif; font-size: 12px; color: var(--muted); text-decoration:none; }
+  h1 { font-size: clamp(20px, 3.2vw, 28px); color: var(--gold); margin: 8px 0 4px; }
+  .sub { font-family: sans-serif; color: var(--muted); font-size: 13px; max-width: 640px; }
+  .caveat { font-family: sans-serif; font-size: 12px; color: #8fa8c9; background: rgba(70,110,160,0.1); border: 1px solid #1a2a3a; border-radius: 8px; padding: 10px 14px; max-width: 640px; margin-top: 10px; line-height: 1.6; }
+  #map-wrap { position: relative; }
+  #map { height: 58vh; min-height: 400px; }
+  #vignette-overlay { position:absolute; inset:0; pointer-events:none; z-index:1; transition: background 1.2s ease; mix-blend-mode: multiply; }
+  #sound-gate { position:absolute; inset:0; z-index:6; display:flex; align-items:center; justify-content:center; background: rgba(10,10,20,0.75); backdrop-filter: blur(2px); }
+  #sound-gate button { padding: 14px 28px; border-radius: 10px; border: 1px solid var(--gold); background: var(--gold); color:#0a0a14; font-weight: bold; font-family: sans-serif; font-size: 14px; cursor: pointer; }
+  .controls { display:flex; gap:16px; align-items:center; flex-wrap:wrap; padding: 14px 5%; font-family: sans-serif; font-size: 13px; background: var(--panel); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .play-btn { padding: 7px 18px; border-radius:6px; border:1px solid var(--gold); background: var(--gold); color:#0a0a14; font-weight:bold; cursor:pointer; font-family:sans-serif; font-size:13px; }
+  .play-btn.playing { background: transparent; color: var(--gold); }
+  #tick-display { font-family: sans-serif; font-size:12px; color: var(--muted); }
+  #tick-display b { color: var(--gold); }
+  #vol-row { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+  #loading { font-family: sans-serif; color: var(--muted); padding: 30px 5%; }
+</style>
+</head>
+<body>
+<div id="gtbg-nav-mount"></div>
+<header>
+  <a class="back" href="/">&larr; Back to the map</a>
+  <h1>Immersive Mode</h1>
+  <p class="sub">Distant cannon fire, musketry, and quiet -- a soundscape generated live in your browser, driven by how many units are actually engaged at each moment.</p>
+  <div class="caveat">All audio here is synthesized in real time with the Web Audio API (no recorded sound files) so its intensity is directly tied to the real unit density at each tick -- more units in contact means more and louder cannon/musket cues.</div>
+</header>
+<div id="loading">Loading battlefield data&hellip;</div>
+<div id="map-wrap">
+  <div id="map"></div>
+  <div id="vignette-overlay"></div>
+  <div id="sound-gate">
+    <button id="enable-sound" type="button">&#128266; Enable Sound &amp; Start</button>
+  </div>
+</div>
+<div class="controls">
+  <button class="play-btn" id="play-btn" type="button" disabled>&#9654; Play</button>
+  <span id="tick-display">Tick <b id="tick-num">1</b> / 675</span>
+  <div id="vol-row">
+    <span>Volume</span>
+    <input type="range" id="volume" min="0" max="100" value="55" />
+  </div>
+</div>
+
+<script>
+(async function() {
+  const MAPBOX_TOKEN = "pk.eyJ1IjoibWxlZ2VyZTk3ODkiLCJhIjoiY21xcHptODEyMGJydDJycWFhaWY0ZHVsMCJ9.aJvnELJlXEs3nYrWx4Eg5Q";
+  mapboxgl.accessToken = MAPBOX_TOKEN;
+
+  const PLACEMENT_FILES = [
+    'placements_day1_ticks1_50.json','placements_day1_ticks51_100.json','placements_day1_ticks101_225.json',
+    'placements_day2_ticks226_300.json','placements_day2_ticks301_375.json','placements_day2_ticks376_450.json',
+    'placements_day3_ticks451_520.json','placements_day3_ticks521_600.json','placements_day3_ticks601_675.json',
+  ];
+  const responses = await Promise.all(PLACEMENT_FILES.map(f => fetch('/data/' + f).then(r => r.json())));
+
+  const byTick = new Map();
+  for (const fileData of responses) {
+    for (const p of fileData.placements) {
+      if (!byTick.has(p.tick)) byTick.set(p.tick, []);
+      byTick.get(p.tick).push(p);
+    }
+  }
+  // Forward-fill: a unit's last known placement stays "current" until its next recorded tick.
+  const byUnit = new Map();
+  for (const fileData of responses) {
+    for (const p of fileData.placements) {
+      if (!byUnit.has(p.unit_id)) byUnit.set(p.unit_id, []);
+      byUnit.get(p.unit_id).push(p);
+    }
+  }
+  for (const arr of byUnit.values()) arr.sort((a,b) => a.tick - b.tick);
+  function placementsAtTick(tick) {
+    const out = [];
+    for (const arr of byUnit.values()) {
+      let lo = 0, hi = arr.length - 1, best = -1;
+      while (lo <= hi) { const mid = (lo+hi)>>1; if (arr[mid].tick <= tick) { best = mid; lo = mid+1; } else hi = mid-1; }
+      if (best >= 0) out.push(arr[best]);
+    }
+    return out;
+  }
+
+  document.getElementById('loading').style.display = 'none';
+
+  const map = new mapboxgl.Map({
+    container: 'map', style: 'mapbox://styles/mapbox/satellite-v9',
+    center: [-77.235, 39.81], zoom: 13,
+  });
+  map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+  // ---- Web Audio: fully procedural, no audio files ----
+  let audioCtx = null, masterGain = null, droneOsc = null;
+  function initAudio() {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    masterGain = audioCtx.createGain();
+    masterGain.gain.value = Number(document.getElementById('volume').value) / 100 * 0.35;
+    masterGain.connect(audioCtx.destination);
+
+    // low ambient drone bed
+    droneOsc = audioCtx.createOscillator();
+    droneOsc.type = 'sine'; droneOsc.frequency.value = 55;
+    const droneGain = audioCtx.createGain(); droneGain.gain.value = 0.06;
+    droneOsc.connect(droneGain).connect(masterGain);
+    droneOsc.start();
+  }
+
+  function cannonBoom() {
+    if (!audioCtx) return;
+    const dur = 0.9;
+    const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * dur, audioCtx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 3);
+    const src = audioCtx.createBufferSource(); src.buffer = buffer;
+    const filter = audioCtx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = 180;
+    const g = audioCtx.createGain(); g.gain.value = 0.9;
+    src.connect(filter).connect(g).connect(masterGain);
+    src.start();
+  }
+
+  function musketCrackle(count) {
+    if (!audioCtx) return;
+    const dur = 0.15;
+    const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * dur, audioCtx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 6);
+    const src = audioCtx.createBufferSource(); src.buffer = buffer;
+    const filter = audioCtx.createBiquadFilter(); filter.type = 'highpass'; filter.frequency.value = 900;
+    const g = audioCtx.createGain(); g.gain.value = Math.min(0.5, 0.08 * count);
+    src.connect(filter).connect(g).connect(masterGain);
+    src.start();
+  }
+
+  document.getElementById('enable-sound').addEventListener('click', () => {
+    initAudio();
+    document.getElementById('sound-gate').style.display = 'none';
+    document.getElementById('play-btn').disabled = false;
+  });
+  document.getElementById('volume').addEventListener('input', (e) => {
+    if (masterGain) masterGain.gain.value = Number(e.target.value) / 100 * 0.35;
+  });
+
+  function atmosphereForHour(hour) {
+    if (hour >= 5 && hour < 7) return 'rgba(255,170,100,0.18)';
+    if (hour >= 7 && hour < 17) return 'rgba(255,255,255,0)';
+    if (hour >= 17 && hour < 20) return 'rgba(255,120,60,0.22)';
+    return 'rgba(20,30,70,0.45)';
+  }
+  function hourForTick(tick) {
+    const dayStartTick = tick <= 225 ? 1 : (tick <= 450 ? 226 : 451);
+    const minutesIn = (tick - dayStartTick) * 5;
+    return (Math.floor(minutesIn / 60) + 5) % 24;
+  }
+
+  let tick = 1, playing = false, intervalId = null, lastArtilleryTick = -5, lastMusketTick = -5;
+
+  map.on('load', () => {
+    map.addSource('imm-units', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+    map.addLayer({
+      id: 'imm-units-layer', type: 'circle', source: 'imm-units',
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['get', 'strength'], 0, 3, 500, 5, 2000, 9, 6000, 14],
+        'circle-color': ['match', ['get', 'side'], 'union', '#4477cc', 'confederate', '#cc5544', '#888888'],
+        'circle-stroke-width': 1, 'circle-stroke-color': '#0a0a14',
+      }
+    });
+    render();
+  });
+
+  function render() {
+    const placements = placementsAtTick(tick);
+    map.getSource('imm-units').setData({
+      type: 'FeatureCollection',
+      features: placements.map(p => ({
+        type: 'Feature', geometry: { type: 'Point', coordinates: [p.lng, p.lat] },
+        properties: { unit_id: p.unit_id, side: p.unit_id.startsWith('U-') ? 'union' : 'confederate', strength: p.strength }
+      }))
+    });
+    document.getElementById('tick-num').textContent = tick;
+    document.getElementById('vignette-overlay').style.background = atmosphereForHour(hourForTick(tick));
+
+    const artilleryCount = placements.filter(p => p.disposition === 'Deployed Artillery').length;
+    const chargingCount = placements.filter(p => p.disposition === 'Charging Line' || p.disposition === 'Line of Battle').length;
+
+    if (audioCtx) {
+      if (artilleryCount > 0 && tick - lastArtilleryTick >= 2 && Math.random() < 0.5) { cannonBoom(); lastArtilleryTick = tick; }
+      if (chargingCount > 3 && tick - lastMusketTick >= 1 && Math.random() < 0.6) { musketCrackle(Math.min(6, Math.round(chargingCount / 5))); lastMusketTick = tick; }
+    }
+  }
+
+  document.getElementById('play-btn').addEventListener('click', () => {
+    playing = !playing;
+    const btn = document.getElementById('play-btn');
+    btn.classList.toggle('playing', playing);
+    btn.innerHTML = playing ? '&#10074;&#10074; Pause' : '&#9654; Play';
+    if (playing) {
+      intervalId = setInterval(() => { tick = tick >= 675 ? 1 : tick + 1; render(); }, 350);
+    } else {
+      clearInterval(intervalId);
+    }
+  });
+})();
+</script>
+
+<div id="gtbg-footer-mount"></div>
+<script src="/site-nav.js" data-current="immersive"></script>
+</body>
+</html>

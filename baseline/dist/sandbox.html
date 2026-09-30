@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0a0a14" />
+<title>What-If Sandbox — Gettysburg Animated Battlefield Map</title>
+<meta name="description" content="Drag unit positions and explore hypothetical scenarios -- for fun and imagination, not historical prediction." />
+<link rel="canonical" href="https://gettysburginteractivemap.com/sandbox.html" />
+<meta property="og:title" content="What-If Sandbox — Gettysburg Animated Battlefield Map" />
+<meta property="og:description" content="Drag unit positions and explore hypothetical scenarios -- for fun and imagination, not historical prediction." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gettysburginteractivemap.com/sandbox.html" />
+<meta property="og:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="What-If Sandbox — Gettysburg Animated Battlefield Map" />
+<meta name="twitter:description" content="Drag unit positions and explore hypothetical scenarios -- for fun and imagination, not historical prediction." />
+<meta name="twitter:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.css" rel="stylesheet" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js"></script>
+<style>
+  :root { --bg:#0a0a14; --panel:#12121e; --ink:#e8e6df; --gold:#c9a24b; --muted:#8a93a8; --line:#1e1e2e; --warn:#dd8833; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family: Georgia, serif; }
+  header { padding: 20px 5% 10px; }
+  header a.back { font-family: sans-serif; font-size: 12px; color: var(--muted); text-decoration:none; }
+  h1 { font-size: clamp(20px, 3.2vw, 28px); color: var(--gold); margin: 8px 0 4px; }
+  .sub { font-family: sans-serif; color: var(--muted); font-size: 13px; max-width: 620px; }
+  #banner { background: repeating-linear-gradient(45deg, var(--warn), var(--warn) 10px, #0a0a14 10px, #0a0a14 20px); color:#0a0a14; font-family: sans-serif; font-weight:bold; font-size:13px; text-align:center; padding: 8px; }
+  #banner span { background: var(--warn); padding: 4px 14px; border-radius: 4px; color: #1a1200; }
+  .controls { display:flex; gap:14px; align-items:center; flex-wrap:wrap; padding: 12px 5%; background: var(--panel); border-top:1px solid var(--line); border-bottom: 1px solid var(--line); font-family: sans-serif; font-size:13px; }
+  #tick-select { padding:6px 10px; border-radius:6px; background:var(--bg); color:var(--ink); border:1px solid var(--line); }
+  .btn { padding: 7px 14px; border-radius:6px; border:1px solid var(--line); background:transparent; color: var(--ink); cursor:pointer; font-family:sans-serif; font-size:13px; }
+  .btn:hover { border-color: var(--gold); }
+  .btn.danger:hover { border-color: #cc5544; color: #ee9988; }
+  #map { height: 60vh; min-height: 420px; }
+  #edit-panel { position:absolute; background: var(--panel); border:1px solid var(--gold); border-radius:8px; padding:12px 16px; font-family:sans-serif; font-size:12px; display:none; z-index:5; min-width:200px; }
+  #edit-panel .unit-name { color: var(--gold); font-weight:bold; margin-bottom:8px; }
+  #edit-panel label { display:block; margin-top:8px; color: var(--muted); }
+  #edit-panel select, #edit-panel input { width:100%; margin-top:3px; background:var(--bg); color:var(--ink); border:1px solid var(--line); border-radius:4px; padding:4px 6px; }
+  #edit-panel .hint { margin-top:10px; color:#777; font-size:11px; }
+  #changelog { padding: 14px 5% 40px; font-family: sans-serif; font-size:12px; color: var(--muted); }
+  #changelog h3 { color: var(--gold); font-size:13px; }
+  .change-item { padding: 6px 0; border-bottom: 1px dashed var(--line); }
+</style>
+<link rel="stylesheet" href="/site-nav.css">
+</head>
+<body>
+<div id="gtbg-nav-mount"></div>
+<div id="banner"><span>&#9888; HYPOTHETICAL &mdash; NOT HISTORICAL. Nothing here is saved or affects the real map.</span></div>
+<header>
+  <a class="back" href="/index.html">&larr; Back to the map</a>
+  <h1>What-If Sandbox</h1>
+  <p class="sub">Pick a moment, then drag any unit to a new position or change its disposition. This is a local, in-memory copy only -- nothing is saved, uploaded, or written back to the real battle data. Reload the page to reset.</p>
+</header>
+<div class="controls">
+  <label>Starting moment: <select id="tick-select"></select></label>
+  <button type="button" class="btn" id="load-btn">Load this moment into the sandbox</button>
+  <button type="button" class="btn danger" id="reset-btn">Reset sandbox</button>
+  <span style="margin-left:auto;color:#777;">Click a unit, then drag it. Click empty map to deselect.</span>
+</div>
+<div id="map"></div>
+<div id="edit-panel"></div>
+<div id="changelog">
+  <h3>What you've changed (local only)</h3>
+  <div id="change-list" style="color:#666;">No changes yet -- drag a unit on the map above.</div>
+</div>
+
+<script>
+(async function() {
+  const MAPBOX_TOKEN = "pk.eyJ1IjoibWxlZ2VyZTk3ODkiLCJhIjoiY21xcHptODEyMGJydDJycWFhaWY0ZHVsMCJ9.aJvnELJlXEs3nYrWx4Eg5Q";
+  mapboxgl.accessToken = MAPBOX_TOKEN;
+
+  const PLACEMENT_FILES = [
+    'placements_day1_ticks1_50.json','placements_day1_ticks51_100.json','placements_day1_ticks101_225.json',
+    'placements_day2_ticks226_300.json','placements_day2_ticks301_375.json','placements_day2_ticks376_450.json',
+    'placements_day3_ticks451_520.json','placements_day3_ticks521_600.json','placements_day3_ticks601_675.json',
+  ];
+  const DISPOSITIONS = ["Line of Battle","Skirmish Line","Column","Reserve","Bivouac","Line of March","Deployed Artillery","Limbered Artillery","Chaotic Retreat"];
+
+  // NOTE: this is a real, independent copy loaded fresh from the public data --
+  // it is never the same object as anything the main app uses, and this page
+  // has no write access to /data/ at all (these are static files served read-only).
+  const byUnit = new Map();
+  const responses = await Promise.all(PLACEMENT_FILES.map(f => fetch('/data/' + f).then(r => r.json())));
+  for (const fileData of responses) {
+    for (const p of fileData.placements) {
+      if (!byUnit.has(p.unit_id)) byUnit.set(p.unit_id, []);
+      byUnit.get(p.unit_id).push(p);
+    }
+  }
+  for (const arr of byUnit.values()) arr.sort((a,b) => a.tick - b.tick);
+
+  function placementAtTick(unitId, tick) {
+    const arr = byUnit.get(unitId);
+    if (!arr) return null;
+    let lo=0, hi=arr.length-1, best=-1;
+    while (lo<=hi) { const mid=(lo+hi)>>1; if (arr[mid].tick<=tick) { best=mid; lo=mid+1; } else hi=mid-1; }
+    return best>=0 ? arr[best] : null;
+  }
+
+  // Real, notable moments to offer as sandbox starting points -- all verified real ticks.
+  const startingPoints = [
+    { tick: 260, label: "Day 2, mid-afternoon (tick 260) -- before Longstreet's assault" },
+    { tick: 553, label: "Day 3, ~3:00pm (tick 553) -- moments before Pickett's Charge reaches the wall" },
+    { tick: 62, label: "Day 1, mid-morning (tick 62) -- I Corps holding McPherson's Ridge" },
+  ];
+  const tickSelect = document.getElementById('tick-select');
+  startingPoints.forEach(sp => {
+    const opt = document.createElement('option');
+    opt.value = sp.tick; opt.textContent = sp.label;
+    tickSelect.appendChild(opt);
+  });
+
+  // sandboxState: a plain in-memory object, structurally separate from byUnit.
+  // Editing this NEVER touches byUnit or any /data/ file -- there is no code
+  // path in this file that writes to a URL, only fetch() GETs at page load.
+  let sandboxState = new Map();
+  let changeLog = [];
+
+  const map = new mapboxgl.Map({
+    container: 'map', style: 'mapbox://styles/mapbox/satellite-v9',
+    center: [-77.235, 39.81], zoom: 13,
+  });
+  map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+  let selectedUnitId = null;
+
+  function loadTickIntoSandbox(tick) {
+    sandboxState = new Map();
+    changeLog = [];
+    for (const unitId of byUnit.keys()) {
+      const p = placementAtTick(unitId, tick);
+      if (p) sandboxState.set(unitId, { ...p }); // shallow copy -- a genuinely separate object
+    }
+    renderChangeLog();
+    renderMap();
+  }
+
+  function renderMap() {
+    const features = [...sandboxState.values()].map(p => ({
+      type: 'Feature', geometry: { type: 'Point', coordinates: [p.lng, p.lat] },
+      properties: { unit_id: p.unit_id, side: p.unit_id.startsWith('U-') ? 'union' : 'confederate', strength: p.strength, disposition: p.disposition }
+    }));
+    const data = { type: 'FeatureCollection', features };
+    if (map.getSource('sandbox-units')) {
+      map.getSource('sandbox-units').setData(data);
+    } else if (map.loaded()) {
+      addLayer(data);
+    }
+  }
+
+  function addLayer(data) {
+    map.addSource('sandbox-units', { type: 'geojson', data });
+    map.addLayer({
+      id: 'sandbox-units-layer', type: 'circle', source: 'sandbox-units',
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['get', 'strength'], 0, 4, 500, 6, 2000, 10, 6000, 15],
+        'circle-color': ['match', ['get', 'side'], 'union', '#4477cc', 'confederate', '#cc5544', '#888'],
+        'circle-stroke-width': 2, 'circle-stroke-color': '#ffdd66', 'circle-opacity': 0.9,
+      }
+    });
+    map.on('mouseenter', 'sandbox-units-layer', () => map.getCanvas().style.cursor = 'grab');
+    map.on('mouseleave', 'sandbox-units-layer', () => map.getCanvas().style.cursor = '');
+
+    let dragging = null;
+    map.on('mousedown', 'sandbox-units-layer', (e) => {
+      e.preventDefault();
+      dragging = e.features[0].properties.unit_id;
+      selectedUnitId = dragging;
+      showEditPanel(dragging, e.point);
+      map.getCanvas().style.cursor = 'grabbing';
+    });
+    map.on('mousemove', (e) => {
+      if (!dragging) return;
+      const p = sandboxState.get(dragging);
+      const oldLat = p.lat, oldLng = p.lng;
+      p.lat = e.lngLat.lat; p.lng = e.lngLat.lng;
+      renderMap();
+      logChange(dragging, 'moved', `from ${oldLat.toFixed(4)},${oldLng.toFixed(4)} to ${p.lat.toFixed(4)},${p.lng.toFixed(4)}`);
+    });
+    map.on('mouseup', () => { if (dragging) { dragging = null; map.getCanvas().style.cursor = 'grab'; } });
+    map.on('click', (e) => {
+      const hits = map.queryRenderedFeatures(e.point, { layers: ['sandbox-units-layer'] });
+      if (hits.length === 0) document.getElementById('edit-panel').style.display = 'none';
+    });
+  }
+
+  function showEditPanel(unitId, point) {
+    const p = sandboxState.get(unitId);
+    const panel = document.getElementById('edit-panel');
+    panel.style.left = (point.x + 20) + 'px';
+    panel.style.top = point.y + 'px';
+    panel.style.display = 'block';
+    panel.innerHTML = `
+      <div class="unit-name">${unitId}</div>
+      <label>Disposition
+        <select id="edit-disposition">${DISPOSITIONS.map(d => `<option ${d===p.disposition?'selected':''}>${d}</option>`).join('')}</select>
+      </label>
+      <div class="hint">Drag the dot on the map to reposition. Changing disposition here is purely cosmetic in this simplified sandbox view.</div>
+    `;
+    document.getElementById('edit-disposition').addEventListener('change', (e) => {
+      const old = p.disposition;
+      p.disposition = e.target.value;
+      logChange(unitId, 'disposition changed', `${old} → ${p.disposition}`);
+      renderMap();
+    });
+  }
+
+  function logChange(unitId, kind, detail) {
+    changeLog.unshift({ unitId, kind, detail, time: new Date().toLocaleTimeString() });
+    if (changeLog.length > 30) changeLog.pop();
+    renderChangeLog();
+  }
+
+  function renderChangeLog() {
+    const el = document.getElementById('change-list');
+    if (changeLog.length === 0) { el.textContent = 'No changes yet -- drag a unit on the map above.'; return; }
+    el.innerHTML = changeLog.map(c => `<div class="change-item"><b style="color:#ccc">${c.unitId}</b> ${c.kind}: ${c.detail} <span style="color:#555">(${c.time})</span></div>`).join('');
+  }
+
+  map.on('load', () => {
+    loadTickIntoSandbox(260);
+  });
+
+  document.getElementById('load-btn').addEventListener('click', () => {
+    loadTickIntoSandbox(Number(tickSelect.value));
+  });
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    loadTickIntoSandbox(Number(tickSelect.value));
+  });
+})();
+</script>
+<div id="gtbg-footer-mount"></div>
+<script src="/site-nav.js" data-current="sandbox"></script>
+</body>
+</html>

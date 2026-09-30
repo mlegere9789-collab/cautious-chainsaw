@@ -20,6 +20,13 @@
     "file_count": 119,
     "removed_globals": ["setGoldUnit", "clearGoldTrail", "drawGoldTrailSegment", "CanvasRenderer"]
   },
+  "base": {
+    "dir": "baseline/dist",
+    "lock": "tools/t0/baseline.lock.json",
+    "mirror": "baseline/live-2026-09-30",
+    "origin": "https://gettysburginteractivemap.com",
+    "what": "the build baseline since 2026-09-30: what production serves, reconstructed at source level (baseline/dist); legacy/dist stays the immutable downloaded deploy 6aa16d61"
+  },
   "train_order": ["R0", "R1a", "R1b", "R1c"],
   "group_order": ["R0", "A", "B", "DL", "C", "AX", "CP"],
   "runbook_order": ["R0", "A", "C", "AX", "B", "DL", "CP"],

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0a0a14" />
+<title>Battle Reports — Gettysburg Animated Battlefield Map</title>
+<meta name="description" content="Generate a printable report on any regiment or moment of the battle, for study, teaching, or reference." />
+<link rel="canonical" href="https://gettysburginteractivemap.com/report.html" />
+<meta property="og:title" content="Battle Reports — Gettysburg Animated Battlefield Map" />
+<meta property="og:description" content="Generate a printable report on any regiment or moment of the battle, for study, teaching, or reference." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gettysburginteractivemap.com/report.html" />
+<meta property="og:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Battle Reports — Gettysburg Animated Battlefield Map" />
+<meta name="twitter:description" content="Generate a printable report on any regiment or moment of the battle, for study, teaching, or reference." />
+<meta name="twitter:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<style>
+  :root { --bg:#0a0a14; --panel:#12121e; --ink:#e8e6df; --gold:#c9a24b; --muted:#8a93a8; --line:#1e1e2e; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family: Georgia, serif; }
+  header { padding: 24px 5% 8px; }
+  header a.back { font-family: sans-serif; font-size: 12px; color: var(--muted); text-decoration:none; }
+  h1 { font-size: clamp(22px, 3.5vw, 32px); color: var(--gold); margin: 10px 0 16px; }
+  main { padding: 0 5% 60px; max-width: 700px; margin: 0 auto; }
+  #search { width:100%; padding:12px 16px; font-size:15px; font-family:sans-serif; background:var(--panel); border:1px solid var(--line); border-radius:8px; color:var(--ink); }
+  #matches { margin-top:10px; display:flex; flex-direction:column; gap:6px; max-height:240px; overflow-y:auto; }
+  .match { padding:8px 12px; background:var(--panel); border:1px solid var(--line); border-radius:6px; cursor:pointer; font-family:sans-serif; font-size:13px; }
+  .match:hover { border-color:var(--gold); }
+  #report { display:none; margin-top:24px; background:#0d0d16; border:1px solid var(--line); border-radius:10px; padding:28px 32px; }
+  #report h2 { color:var(--gold); margin-top:0; }
+  #report .row { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px dashed var(--line); font-family:sans-serif; font-size:14px; }
+  #report .row span:first-child { color:var(--muted); }
+  #report .key-action { margin-top:16px; font-style:italic; color:#ccc; line-height:1.6; }
+  .print-btn { margin-top:20px; padding:10px 20px; background:var(--gold); color:#0a0a14; border:none; border-radius:6px; font-weight:bold; cursor:pointer; font-family:sans-serif; }
+  @media print {
+    header, #search, #matches, .print-btn, .back { display:none !important; }
+    body { background:#fff; color:#000; }
+    #report { display:block !important; border:none; background:#fff; }
+    #report .row { color:#000; }
+  }
+</style>
+<link rel="stylesheet" href="/site-nav.css">
+</head>
+<body>
+<div id="gtbg-nav-mount"></div>
+<header>
+  <a class="back" href="/index.html">&larr; Back to the map</a>
+  <h1>Battle Reports</h1>
+  <p style="font-family:sans-serif;color:#888;font-size:13px;max-width:600px;">Search for any regiment, generate a one-page reference report, and print or save as PDF using your browser's print dialog.</p>
+</header>
+<main>
+  <input id="search" type="text" placeholder="Search for a regiment (e.g. '20th Maine', '1st Minnesota')" />
+  <div id="matches"></div>
+  <div id="report">
+    <h2 id="r-title"></h2>
+    <div class="row"><span>State</span><span id="r-state"></span></div>
+    <div class="row"><span>Corps / Brigade</span><span id="r-corps"></span></div>
+    <div class="row"><span>Commander</span><span id="r-commander"></span></div>
+    <div class="row"><span>Commander's fate</span><span id="r-fate"></span></div>
+    <div class="row"><span>Initial strength</span><span id="r-strength"></span></div>
+    <div class="row"><span>Casualties</span><span id="r-casualties"></span></div>
+    <div class="row"><span>Casualty rate</span><span id="r-rate"></span></div>
+    <div class="row"><span>Days engaged</span><span id="r-days"></span></div>
+    <div class="key-action" id="r-action"></div>
+    <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+</main>
+
+<script>
+(async function() {
+  const OOB_FILES = [
+    'union_regiments_i_ii_corps.json','union_regiments_iii_v_corps.json','union_regiments_vi_xi_xii_corps.json',
+    'confederate_regiments_first_corps.json','confederate_regiments_second_corps.json','confederate_regiments_third_corps.json',
+    'union_cavalry_artillery.json','confederate_cavalry.json',
+  ];
+  const results = await Promise.all(OOB_FILES.map(f => fetch('/data/oob/' + f).then(r => r.json())));
+  const regiments = results.flatMap(r => r.regiments || []);
+
+  const searchEl = document.getElementById('search');
+  const matchesEl = document.getElementById('matches');
+
+  searchEl.addEventListener('input', () => {
+    const q = searchEl.value.trim().toLowerCase();
+    matchesEl.innerHTML = '';
+    if (!q) return;
+    const found = regiments.filter(r => r.designation.toLowerCase().includes(q)).slice(0, 10);
+    for (const r of found) {
+      const div = document.createElement('div');
+      div.className = 'match';
+      div.textContent = r.designation;
+      div.addEventListener('click', () => showReport(r));
+      matchesEl.appendChild(div);
+    }
+  });
+
+  function showReport(r) {
+    document.getElementById('r-title').textContent = r.designation;
+    document.getElementById('r-state').textContent = r.state || '—';
+    document.getElementById('r-corps').textContent = r.parent_corps_id + ' / ' + r.parent_brigade_id;
+    document.getElementById('r-commander').textContent = r.commander?.name || '—';
+    document.getElementById('r-fate').textContent = r.commander?.fate || '—';
+    document.getElementById('r-strength').textContent = r.strength != null ? r.strength.toLocaleString() : '—';
+    document.getElementById('r-casualties').textContent = r.casualties != null ? r.casualties.toLocaleString() : '—';
+    document.getElementById('r-rate').textContent = r.casualty_percentage != null ? r.casualty_percentage + '%' : '—';
+    document.getElementById('r-days').textContent = (r.days_engaged || []).join(', ') || '—';
+    document.getElementById('r-action').textContent = r.key_action || '';
+    document.getElementById('report').style.display = 'block';
+    matchesEl.innerHTML = '';
+    searchEl.value = r.designation;
+  }
+})();
+</script>
+<div id="gtbg-footer-mount"></div>
+<script src="/site-nav.js" data-current="report"></script>
+</body>
+</html>

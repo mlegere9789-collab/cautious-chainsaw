@@ -1,0 +1,315 @@
+{
+  "metadata": {
+    "chunk": "023",
+    "title": "Unit Placement Schema and Data Model",
+    "purpose": "Defines the exact data structure for all 430,000+ unit placement records. Every placement record in placements_day1, placements_day2, placements_day3 must conform to this schema.",
+    "total_ticks": 675,
+    "ticks_per_day": {
+      "day1": {"start": 1, "end": 225, "real_time": "5:00am July 1 to 12:40am July 2"},
+      "day2": {"start": 226, "end": 450, "real_time": "5:00am July 2 to 7:50pm July 2"},
+      "day3": {"start": 451, "end": 675, "real_time": "5:00am July 3 to 8:05pm July 3"}
+    },
+    "expected_units_per_tick": "600-700",
+    "total_placement_records": "approximately 430000"
+  },
+  "placement_record_schema": {
+    "required_fields": {
+      "unit_id": {
+        "type": "string",
+        "description": "Unique unit identifier matching OOB records. Format: U-[designation] for Union, C-[designation] for Confederate.",
+        "examples": ["U-20ME","U-ART-A4US","U-CAV-1-1","C-I-3-3","C-15AL","C-ART-Marye"]
+      },
+      "tick": {
+        "type": "integer",
+        "range": [1, 675],
+        "description": "The 5-minute tick number. Tick 1 = 5:00am July 1."
+      },
+      "lat": {
+        "type": "float",
+        "range": [39.770, 39.850],
+        "description": "WGS84 latitude of unit center point.",
+        "precision": "4 decimal places minimum (~11m accuracy)"
+      },
+      "lng": {
+        "type": "float",
+        "range": [-77.290, -77.180],
+        "description": "WGS84 longitude of unit center point.",
+        "precision": "4 decimal places minimum (~8m accuracy)"
+      },
+      "bearing": {
+        "type": "integer",
+        "range": [0, 359],
+        "description": "Direction the unit faces in degrees clockwise from north. 0=north, 90=east, 180=south, 270=west. Line of Battle extends perpendicular to bearing.",
+        "examples": {
+          "facing_east_toward_Cemetery_Ridge": 90,
+          "facing_west_toward_Seminary_Ridge": 270,
+          "facing_north_toward_Gettysburg_town": 0,
+          "facing_south_toward_Round_Tops": 180
+        }
+      },
+      "disposition": {
+        "type": "string",
+        "allowed_values": [
+          "Line of Battle",
+          "Charging Line",
+          "Skirmish Line",
+          "Chaotic Retreat",
+          "Line of March",
+          "Reserve",
+          "Bivouac",
+          "Deployed Artillery",
+          "Limbered Artillery",
+          "Mounted Cavalry",
+          "Dismounted Cavalry"
+        ],
+        "description": "Current tactical formation of the unit. Controls rendering style."
+      },
+      "strength": {
+        "type": "integer",
+        "description": "Current effective strength at this tick after cumulative casualties. Used to compute visual line length.",
+        "formula": "initial_strength - cumulative_casualties_assigned_to_ticks_1_through_current"
+      }
+    },
+    "optional_fields": {
+      "notes": {
+        "type": "string",
+        "description": "Narrative note for this placement -- displayed in unit info panel at this tick.",
+        "examples": [
+          "Chamberlain orders the bayonet charge",
+          "Armistead leads men over the wall",
+          "Cushing serves his last gun"
+        ]
+      },
+      "vignette_trigger": {
+        "type": "string",
+        "description": "Vignette ID to trigger at this tick for this unit.",
+        "examples": ["V-010","V-016","V-012"]
+      }
+    }
+  },
+  "disposition_rendering_rules": {
+    "Line of Battle": {
+      "render": "solid line perpendicular to bearing",
+      "line_width": 2,
+      "length_formula": "strength * 0.045 yards per man * 0.9144 meters/yard",
+      "alpha": 0.85,
+      "union_color": "#1a3a7a",
+      "confederate_color": "#7a1a1a"
+    },
+    "Charging Line": {
+      "render": "solid line with forward direction nub",
+      "line_width": 3,
+      "length_formula": "same as Line of Battle",
+      "alpha": 0.95,
+      "union_color": "#0044cc",
+      "confederate_color": "#cc0000",
+      "note": "Forward nub indicates direction of charge (perpendicular to line)"
+    },
+    "Skirmish Line": {
+      "render": "dotted line of individual soldier dots",
+      "dot_radius": 2.5,
+      "spacing_multiplier": 2.5,
+      "alpha": 0.8,
+      "union_color": "#4466aa",
+      "confederate_color": "#aa4444"
+    },
+    "Chaotic Retreat": {
+      "render": "scattered dots in roughly oval pattern",
+      "dot_radius": 2,
+      "alpha": 0.6,
+      "union_color": "#884400",
+      "confederate_color": "#884400",
+      "note": "Same color for both sides -- chaos has no side"
+    },
+    "Line of March": {
+      "render": "shorter solid line (column)",
+      "line_width": 2,
+      "length_multiplier": 0.6,
+      "alpha": 0.85,
+      "union_color": "#2255aa",
+      "confederate_color": "#aa2222"
+    },
+    "Reserve": {
+      "render": "solid line, lighter",
+      "line_width": 2,
+      "length_multiplier": 0.4,
+      "alpha": 0.6,
+      "union_color": "#6688bb",
+      "confederate_color": "#886666"
+    },
+    "Bivouac": {
+      "render": "filled rectangle",
+      "alpha": 0.4,
+      "union_color": "#334455",
+      "confederate_color": "#553333"
+    },
+    "Deployed Artillery": {
+      "render": "short line with wheel circles at ends",
+      "line_width": 3,
+      "wheel_radius": 3,
+      "union_color": "#4477aa",
+      "confederate_color": "#aa7722"
+    },
+    "Limbered Artillery": {
+      "render": "filled dot (battery in column)",
+      "dot_radius": 5,
+      "alpha": 0.7,
+      "union_color": "#6699bb",
+      "confederate_color": "#cc9944"
+    },
+    "Mounted Cavalry": {
+      "render": "dashed line",
+      "line_width": 2,
+      "dash_pattern": [5, 3],
+      "union_color": "#226633",
+      "confederate_color": "#664400"
+    },
+    "Dismounted Cavalry": {
+      "render": "dashed line, shorter",
+      "line_width": 2,
+      "dash_pattern": [5, 3],
+      "length_multiplier": 0.7,
+      "union_color": "#338844",
+      "confederate_color": "#885522"
+    }
+  },
+  "placement_principles": {
+    "coordinate_accuracy": {
+      "standard_units": "GPS accuracy to nearest 10-15 meters. Regiments placed at approximate regimental center.",
+      "critical_placements": "GPS accuracy to nearest 5-10 meters for units with flag_notes. Cross-referenced against Gottfried maps and terrain data.",
+      "artillery": "GPS accuracy to nearest 5 meters where possible. Gun positions are fixed points documented in sources."
+    },
+    "bearing_conventions": {
+      "line_of_battle": "Unit faces direction of primary threat or advance. Perpendicular to enemy.",
+      "line_of_march": "Bearing follows road or axis of movement.",
+      "artillery": "Bearing = direction guns point (toward target).",
+      "cavalry": "Bearing follows axis of movement or patrol line."
+    },
+    "strength_progression": {
+      "before_engagement": "initial_strength from OOB data",
+      "during_engagement": "initial_strength minus casualties assigned per tick per casualty_apportionment.json",
+      "after_engagement": "final post-battle strength maintained through remaining ticks of the battle",
+      "minimum": "10 men minimum for unit to render as line. Below 10 renders as single dot."
+    },
+    "disposition_progression_examples": [
+      {
+        "unit": "U-20ME (20th Maine)",
+        "sequence": [
+          {"tick_range": [1, 226], "disposition": "Bivouac", "notes": "Not yet engaged"},
+          {"tick_range": [227, 265], "disposition": "Line of March", "notes": "Marching to battlefield"},
+          {"tick_range": [266, 267], "disposition": "Line of Battle", "notes": "Deploying on Little Round Top"},
+          {"tick_range": [268, 274], "disposition": "Line of Battle", "bearing": 225, "notes": "Refused flank -- bent back 90 degrees"},
+          {"tick_range": [275, 276], "disposition": "Charging Line", "notes": "Bayonet charge"},
+          {"tick_range": [277, 675], "disposition": "Line of Battle", "notes": "Position secured"}
+        ]
+      },
+      {
+        "unit": "C-15AL (15th Alabama)",
+        "sequence": [
+          {"tick_range": [260, 274], "disposition": "Charging Line", "notes": "Multiple assaults on Little Round Top"},
+          {"tick_range": [275, 278], "disposition": "Chaotic Retreat", "notes": "Broken by Chamberlain's charge"},
+          {"tick_range": [279, 675], "disposition": "Line of Battle", "notes": "Reformed south of Round Tops"}
+        ]
+      },
+      {
+        "unit": "U-1MN (1st Minnesota)",
+        "sequence": [
+          {"tick_range": [302, 302], "disposition": "Charging Line", "notes": "Hancock orders the charge"},
+          {"tick_range": [303, 304], "disposition": "Chaotic Retreat", "notes": "85.5% casualties, survivors falling back"},
+          {"tick_range": [305, 675], "disposition": "Line of Battle", "notes": "38 survivors hold Cemetery Ridge"}
+        ]
+      },
+      {
+        "unit": "C-I-3-3 (Armistead's Brigade)",
+        "sequence": [
+          {"tick_range": [451, 537], "disposition": "Bivouac", "notes": "Forming behind Seminary Ridge"},
+          {"tick_range": [538, 549], "disposition": "Line of Battle", "notes": "Advancing across open ground"},
+          {"tick_range": [550, 551], "disposition": "Charging Line", "notes": "Charging The Angle"},
+          {"tick_range": [552, 552], "disposition": "Line of Battle", "notes": "Armistead crosses the wall -- High Water Mark"},
+          {"tick_range": [553, 675], "disposition": "Chaotic Retreat", "notes": "Repulsed -- streaming back to Seminary Ridge"}
+        ]
+      }
+    ],
+    "coverage_gaps": {
+      "before_engagement": "Units not yet on the battlefield appear in Bivouac at their off-map staging areas or are simply absent.",
+      "night_ticks": "Both armies in Bivouac during nighttime ticks. Minimal movement shown.",
+      "retreating_units": "Units that left the battlefield (e.g. broken Union regiments retreating through Gettysburg July 1) are shown in Chaotic Retreat for several ticks then disappear when they rally off-map."
+    }
+  },
+  "placement_file_structure": {
+    "day1_files": [
+      "placements_day1_ticks1_50.json",
+      "placements_day1_ticks51_100.json",
+      "placements_day1_ticks101_150.json",
+      "placements_day1_ticks151_225.json"
+    ],
+    "day2_files": [
+      "placements_day2_ticks226_300.json",
+      "placements_day2_ticks301_375.json",
+      "placements_day2_ticks376_450.json"
+    ],
+    "day3_files": [
+      "placements_day3_ticks451_520.json",
+      "placements_day3_ticks521_600.json",
+      "placements_day3_ticks601_675.json"
+    ],
+    "record_format": {
+      "file_header": {"day": 1, "tick_range": [1, 50], "record_count": "integer"},
+      "placements_array": "array of placement records conforming to placement_record_schema above"
+    }
+  },
+  "sample_placement_records": [
+    {
+      "unit_id": "U-HAB-A2US",
+      "tick": 17,
+      "lat": 39.8322,
+      "lng": -77.2511,
+      "bearing": 270,
+      "disposition": "Deployed Artillery",
+      "strength": 89,
+      "notes": "Calef's battery -- FIRST UNION ARTILLERY to fire at Gettysburg. Six guns on McPherson's Ridge engaging Pegram's Confederate battalion."
+    },
+    {
+      "unit_id": "U-I-1-1",
+      "tick": 27,
+      "lat": 39.8283,
+      "lng": -77.2544,
+      "bearing": 270,
+      "disposition": "Charging Line",
+      "strength": 1883,
+      "notes": "Iron Brigade charging into Herbst Woods. Confederates recognize the black hats."
+    },
+    {
+      "unit_id": "U-ART-A4US",
+      "tick": 553,
+      "lat": 39.8117,
+      "lng": -77.2347,
+      "bearing": 270,
+      "disposition": "Deployed Artillery",
+      "strength": 25,
+      "notes": "Cushing's last two guns at the stone wall. Cushing KIA this tick.",
+      "vignette_trigger": "V-018"
+    },
+    {
+      "unit_id": "C-I-3-3",
+      "tick": 551,
+      "lat": 39.8117,
+      "lng": -77.2352,
+      "bearing": 90,
+      "disposition": "Charging Line",
+      "strength": 400,
+      "notes": "Armistead leads men over The Angle wall -- hat on sword.",
+      "vignette_trigger": "V-016"
+    },
+    {
+      "unit_id": "C-15AL",
+      "tick": 275,
+      "lat": 39.7922,
+      "lng": -77.2400,
+      "bearing": 45,
+      "disposition": "Chaotic Retreat",
+      "strength": 327,
+      "notes": "Broken by Chamberlain's bayonet charge. 15th Alabama retreating down the slope."
+    }
+  ]
+}

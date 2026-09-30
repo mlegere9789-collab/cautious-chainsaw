@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0a0a14" />
+<title>Casualty & Strength Dashboard — Gettysburg Animated Battlefield Map</title>
+<meta name="description" content="Corps-by-corps strength and casualty trends across all three days of Gettysburg, built from primary-source casualty data." />
+<link rel="canonical" href="https://gettysburginteractivemap.com/dashboard.html" />
+<meta property="og:title" content="Casualty & Strength Dashboard — Gettysburg Animated Battlefield Map" />
+<meta property="og:description" content="Corps-by-corps strength and casualty trends across all three days of Gettysburg, built from primary-source casualty data." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gettysburginteractivemap.com/dashboard.html" />
+<meta property="og:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Casualty & Strength Dashboard — Gettysburg Animated Battlefield Map" />
+<meta name="twitter:description" content="Corps-by-corps strength and casualty trends across all three days of Gettysburg, built from primary-source casualty data." />
+<meta name="twitter:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<style>
+  :root { --bg:#0a0a14; --panel:#12121e; --ink:#e8e6df; --gold:#c9a24b; --muted:#8a93a8; --union:#4477cc; --conf:#cc5544; --line:#1e1e2e; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family: Georgia, serif; }
+  header { padding: 32px 5% 16px; border-bottom: 1px solid var(--line); }
+  header a.back { font-family: sans-serif; font-size: 12px; color: var(--muted); text-decoration:none; }
+  h1 { font-size: clamp(24px, 4vw, 38px); color: var(--gold); margin: 12px 0 4px; }
+  .sub { font-family: sans-serif; color: var(--muted); font-size: 14px; max-width: 640px; }
+  main { padding: 24px 5% 80px; max-width: 1100px; margin: 0 auto; }
+  .controls { display:flex; gap: 20px; align-items:center; font-family: sans-serif; font-size: 13px; margin-bottom: 24px; flex-wrap: wrap; }
+  .controls label { display:flex; align-items:center; gap:6px; color: var(--muted); cursor:pointer; }
+  .controls input[type=checkbox]{ accent-color: var(--gold); }
+  #chart-wrap { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 20px; overflow-x:auto; }
+  svg { display:block; }
+  .axis-label { font-family: sans-serif; font-size: 10px; fill: var(--muted); }
+  .gridline { stroke: var(--line); stroke-width:1; }
+  .corps-line { fill:none; stroke-width: 2; cursor: pointer; opacity: 0.9; }
+  .corps-line:hover { stroke-width: 3.5; opacity: 1; }
+  .day-marker { stroke: var(--line); stroke-dasharray: 3 3; }
+  .day-label { font-family: sans-serif; font-size: 11px; fill: var(--muted); text-anchor: middle; }
+  #legend { display:flex; flex-wrap:wrap; gap: 10px 18px; margin-top:20px; font-family: sans-serif; font-size: 12px; }
+  .legend-item { display:flex; align-items:center; gap:6px; cursor:pointer; opacity: 1; transition: opacity .15s; }
+  .legend-item.dim { opacity: 0.3; }
+  .swatch { width:10px; height:10px; border-radius: 2px; flex-shrink:0; }
+  #tooltip { position:absolute; pointer-events:none; background: #0d0d18; border:1px solid var(--line); border-radius:6px; padding:8px 10px; font-family: sans-serif; font-size: 12px; display:none; z-index: 10; white-space: nowrap; }
+  #tooltip .t-corps { color: var(--gold); font-weight:bold; }
+  .stats-row { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:16px; margin-top:28px; }
+  .stat-card { background: var(--panel); border:1px solid var(--line); border-radius:8px; padding:16px 18px; }
+  .stat-card .num { font-size:26px; color: var(--gold); font-weight:bold; }
+  .stat-card .lbl { font-family: sans-serif; font-size:11px; color: var(--muted); text-transform:uppercase; letter-spacing:1px; margin-top:4px; }
+  .stat-card .note { font-family: sans-serif; font-size:12px; color:#aaa; margin-top:8px; line-height:1.5; }
+  #loading, #error { font-family: sans-serif; color: var(--muted); padding: 40px; text-align:center; }
+  #error { color: #cc7766; display:none; }
+</style>
+<link rel="stylesheet" href="/site-nav.css">
+</head>
+<body>
+<div id="gtbg-nav-mount"></div>
+<header>
+  <a class="back" href="/index.html">&larr; Back to the map</a>
+  <h1>Casualty &amp; Strength Dashboard</h1>
+  <p class="sub">Corps-by-corps effective strength over the course of the battle, built directly from the same primary-source casualty data (Busey &amp; Martin, Official Records) that drives the main animation's casualty modeling.</p>
+</header>
+<main>
+  <div class="controls">
+    <label><input type="checkbox" id="toggle-union" checked /> Show Union corps</label>
+    <label><input type="checkbox" id="toggle-conf" checked /> Show Confederate corps</label>
+    <span style="color:var(--muted)">Click a legend entry to isolate a corps.</span>
+  </div>
+  <div id="loading">Loading casualty data&hellip;</div>
+  <div id="error">Couldn't load casualty data. This page reads <code>/data/casualty_apportionment.json</code> directly — try reloading.</div>
+  <div id="chart-wrap" style="display:none;">
+    <svg id="chart" width="1000" height="440" viewBox="0 0 1000 440"></svg>
+    <div id="tooltip"></div>
+  </div>
+  <div id="legend"></div>
+  <div id="stats-row" class="stats-row"></div>
+</main>
+
+<script>
+(async function() {
+  const SVG_NS = "http://www.w3.org/2000/svg";
+  const W = 1000, H = 440, PAD = { top: 20, right: 20, bottom: 40, left: 60 };
+  const plotW = W - PAD.left - PAD.right;
+  const plotH = H - PAD.top - PAD.bottom;
+  const TOTAL_TICKS = 675;
+  const DAY_BOUNDS = [1, 225, 450, 675];
+
+  // Distinct, readable colors per corps (union blues, confederate reds -- consistent with the app's own color convention)
+  const UNION_COLORS = ["#4477cc","#5588dd","#3366bb","#66a0e0","#2255aa","#77b0ee","#1a4488","#88c0ff"];
+  const CONF_COLORS  = ["#cc5544","#dd6655","#bb4433","#e08877","#aa3322","#ee9988","#882211","#ffb0a0"];
+
+  function corpsLabel(id) {
+    // e.g. "U-I" -> "I Corps", "C-II" -> "II Corps"
+    const side = id[0] === "U" ? "Union" : "Confederate";
+    const numeral = id.split("-")[1];
+    return `${side} ${numeral} Corps`;
+  }
+
+  function buildStrengthCurve(corps) {
+    // Produces [{tick, strength}] by walking engagement_periods and interpolating
+    // a smooth decline across each period's tick_range, holding flat between periods.
+    const points = [{ tick: 1, strength: corps.initial_strength }];
+    let currentStrength = corps.initial_strength;
+    const sortedPeriods = [...corps.engagement_periods].sort((a,b) => a.tick_range[0] - b.tick_range[0]);
+    for (const period of sortedPeriods) {
+      const [start, end] = period.tick_range;
+      if (points[points.length-1].tick < start) {
+        points.push({ tick: start, strength: currentStrength });
+      }
+      const strengthAfter = currentStrength - period.casualties;
+      const peak = period.peak_tick && period.peak_tick >= start && period.peak_tick <= end ? period.peak_tick : Math.round((start+end)/2);
+      // Bell-ish decline: hold, drop steeply around peak, settle
+      points.push({ tick: peak, strength: Math.round(currentStrength - period.casualties * 0.7) });
+      points.push({ tick: end, strength: strengthAfter });
+      currentStrength = strengthAfter;
+    }
+    points.push({ tick: TOTAL_TICKS, strength: currentStrength });
+    return points;
+  }
+
+  try {
+    const res = await fetch('/data/casualty_apportionment.json');
+    if (!res.ok) throw new Error('fetch failed: ' + res.status);
+    const data = await res.json();
+
+    const allCorps = [
+      ...data.union_corps.map((c,i) => ({ ...c, side: 'union', color: UNION_COLORS[i % UNION_COLORS.length] })),
+      ...data.confederate_corps.map((c,i) => ({ ...c, side: 'confederate', color: CONF_COLORS[i % CONF_COLORS.length] })),
+    ];
+
+    // The chart's line is built from engagement_periods (tick-by-tick, more granular).
+    // For 2 of 12 corps, the source data's top-level total_casualties field doesn't match
+    // the sum of that corps' own engagement_periods -- a real discrepancy in the source file,
+    // not a bug here. We use the period-sum consistently (it's what the line actually plots)
+    // and flag the mismatch rather than silently picking one number and hiding the other.
+    allCorps.forEach(c => {
+      c.periodSumCasualties = c.engagement_periods.reduce((s,p) => s + p.casualties, 0);
+      c.hasDataMismatch = c.periodSumCasualties !== c.total_casualties;
+    });
+
+    const maxStrength = Math.max(...allCorps.map(c => c.initial_strength));
+    const xScale = t => PAD.left + (t - 1) / (TOTAL_TICKS - 1) * plotW;
+    const yScale = s => PAD.top + (1 - s / maxStrength) * plotH;
+
+    const svg = document.getElementById('chart');
+    const tooltip = document.getElementById('tooltip');
+
+    function el(tag, attrs) {
+      const e = document.createElementNS(SVG_NS, tag);
+      for (const k in attrs) e.setAttribute(k, attrs[k]);
+      return e;
+    }
+
+    // Gridlines (y-axis strength markers)
+    for (let s = 0; s <= maxStrength; s += 2500) {
+      const y = yScale(s);
+      svg.appendChild(el('line', { x1: PAD.left, x2: W - PAD.right, y1: y, y2: y, class: 'gridline' }));
+      const label = el('text', { x: PAD.left - 8, y: y + 4, class: 'axis-label', 'text-anchor': 'end' });
+      label.textContent = s.toLocaleString();
+      svg.appendChild(label);
+    }
+
+    // Day boundary markers
+    const dayNames = ['July 1', 'July 2', 'July 3'];
+    for (let i = 0; i < DAY_BOUNDS.length - 1; i++) {
+      const midTick = (DAY_BOUNDS[i] + DAY_BOUNDS[i+1]) / 2;
+      const label = el('text', { x: xScale(midTick), y: H - 12, class: 'day-label' });
+      label.textContent = dayNames[i];
+      svg.appendChild(label);
+      if (i > 0) {
+        const x = xScale(DAY_BOUNDS[i]);
+        svg.appendChild(el('line', { x1: x, x2: x, y1: PAD.top, y2: H - PAD.bottom, class: 'day-marker' }));
+      }
+    }
+
+    const lineGroup = el('g', {});
+    svg.appendChild(lineGroup);
+
+    function pathFor(points) {
+      return points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${xScale(p.tick)} ${yScale(p.strength)}`).join(' ');
+    }
+
+    const corpsData = allCorps.map(corps => ({
+      ...corps,
+      points: buildStrengthCurve(corps),
+    }));
+
+    const paths = corpsData.map(corps => {
+      const path = el('path', { d: pathFor(corps.points), class: 'corps-line', stroke: corps.color, 'data-corps': corps.corps_id, 'data-side': corps.side });
+      lineGroup.appendChild(path);
+
+      path.addEventListener('mousemove', (e) => {
+        const rect = svg.getBoundingClientRect();
+        tooltip.style.display = 'block';
+        tooltip.style.left = (e.clientX - rect.left + 16) + 'px';
+        tooltip.style.top = (e.clientY - rect.top - 10) + 'px';
+        tooltip.innerHTML = `<span class="t-corps">${corpsLabel(corps.corps_id)}</span><br>
+          Initial: ${corps.initial_strength.toLocaleString()}<br>
+          Casualties: ${corps.periodSumCasualties.toLocaleString()} (${(corps.periodSumCasualties/corps.initial_strength*100).toFixed(1)}%)
+          ${corps.hasDataMismatch ? '<br><span style="color:#dd9955">&#9888; source data flags '+corps.total_casualties.toLocaleString()+' -- see footnote</span>' : ''}`;
+      });
+      path.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
+      return path;
+    });
+
+    // Legend
+    const legendEl = document.getElementById('legend');
+    let isolated = null;
+    corpsData.forEach((corps, idx) => {
+      const item = document.createElement('div');
+      item.className = 'legend-item';
+      item.dataset.corps = corps.corps_id;
+      item.innerHTML = `<span class="swatch" style="background:${corps.color}"></span> ${corpsLabel(corps.corps_id)} <span style="color:var(--muted)">(${(corps.periodSumCasualties/corps.initial_strength*100).toFixed(1)}% casualties${corps.hasDataMismatch ? ' &#9888;' : ''})</span>`;
+      item.addEventListener('click', () => {
+        isolated = isolated === corps.corps_id ? null : corps.corps_id;
+        applyVisibility();
+      });
+      legendEl.appendChild(item);
+    });
+
+    function applyVisibility() {
+      const showUnion = document.getElementById('toggle-union').checked;
+      const showConf = document.getElementById('toggle-conf').checked;
+      corpsData.forEach((corps, i) => {
+        const sideVisible = corps.side === 'union' ? showUnion : showConf;
+        const isolationVisible = isolated === null || isolated === corps.corps_id;
+        const visible = sideVisible && isolationVisible;
+        paths[i].style.display = visible ? '' : 'none';
+        const legendItem = legendEl.children[i];
+        legendItem.classList.toggle('dim', !visible);
+      });
+    }
+
+    document.getElementById('toggle-union').addEventListener('change', applyVisibility);
+    document.getElementById('toggle-conf').addEventListener('change', applyVisibility);
+
+    // Summary stat cards, using real notable_intensity_notes from the data
+    const statsRow = document.getElementById('stats-row');
+    const totalUnion = data.union_corps.reduce((s,c) => s + c.engagement_periods.reduce((s2,p)=>s2+p.casualties,0), 0);
+    const totalConf = data.confederate_corps.reduce((s,c) => s + c.engagement_periods.reduce((s2,p)=>s2+p.casualties,0), 0);
+    const cards = [
+      { num: totalUnion.toLocaleString(), lbl: 'Union casualties', note: `Across ${data.union_corps.length} corps, ${(totalUnion/data.union_corps.reduce((s,c)=>s+c.initial_strength,0)*100).toFixed(1)}% overall rate` },
+      { num: totalConf.toLocaleString(), lbl: 'Confederate casualties', note: `Across ${data.confederate_corps.length} corps, ${(totalConf/data.confederate_corps.reduce((s,c)=>s+c.initial_strength,0)*100).toFixed(1)}% overall rate` },
+    ];
+    if (data.notable_intensity_notes) {
+      for (const key in data.notable_intensity_notes) {
+        const n = data.notable_intensity_notes[key];
+        cards.push({ num: n.unit || key, lbl: key.replace(/_/g,' '), note: n.note });
+      }
+    }
+    cards.forEach(c => {
+      const card = document.createElement('div');
+      card.className = 'stat-card';
+      card.innerHTML = `<div class="num">${c.num}</div><div class="lbl">${c.lbl}</div><div class="note">${c.note}</div>`;
+      statsRow.appendChild(card);
+    });
+
+    const mismatched = corpsData.filter(c => c.hasDataMismatch);
+    if (mismatched.length > 0) {
+      const footnote = document.createElement('p');
+      footnote.style.cssText = 'font-family:sans-serif;font-size:11px;color:var(--muted);margin-top:20px;line-height:1.6;';
+      footnote.innerHTML = '&#9888; Data note: for ' + mismatched.map(c => corpsLabel(c.corps_id)).join(' and ') +
+        ', this dashboard\'s casualty totals (derived from summing each corps\' individual engagement periods) differ from the source file\'s separate summary total_casualties field. ' +
+        'This chart uses the period-level sum since it\'s what the line above actually plots and is the more granular figure; the source data\'s summary field for these two corps should be reconciled against the underlying research.';
+      statsRow.parentElement.appendChild(footnote);
+    }
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('chart-wrap').style.display = 'block';
+
+  } catch (err) {
+    console.error('Dashboard load error:', err);
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('error').style.display = 'block';
+  }
+})();
+</script>
+<div id="gtbg-footer-mount"></div>
+<script src="/site-nav.js" data-current="dashboard"></script>
+</body>
+</html>

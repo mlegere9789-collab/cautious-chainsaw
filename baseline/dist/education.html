@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0a3a6a" />
+<title>Gettysburg for Students — Gettysburg Animated Battlefield Map</title>
+<meta name="description" content="An easy-to-follow walkthrough of the Battle of Gettysburg for students and classrooms." />
+<link rel="canonical" href="https://gettysburginteractivemap.com/education.html" />
+<meta property="og:title" content="Gettysburg for Students — Gettysburg Animated Battlefield Map" />
+<meta property="og:description" content="An easy-to-follow walkthrough of the Battle of Gettysburg for students and classrooms." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gettysburginteractivemap.com/education.html" />
+<meta property="og:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Gettysburg for Students — Gettysburg Animated Battlefield Map" />
+<meta name="twitter:description" content="An easy-to-follow walkthrough of the Battle of Gettysburg for students and classrooms." />
+<meta name="twitter:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<style>
+  :root { --bg:#0a3a6a; --panel:#0d4a80; --ink:#fff; --accent:#ffd166; --line:#1a5a95; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family: Georgia, serif; }
+  header { padding: 28px 6% 16px; text-align:center; }
+  header a.back { font-family: sans-serif; font-size: 14px; color: #cde; text-decoration:none; }
+  h1 { font-size: clamp(26px, 5vw, 40px); color: var(--accent); margin: 14px 0 6px; }
+  .sub { font-family: sans-serif; font-size: 16px; color: #dde; max-width: 560px; margin: 0 auto; }
+  main { padding: 20px 6% 60px; max-width: 720px; margin: 0 auto; }
+  .day-tabs { display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; justify-content:center; }
+  .day-tab { font-family: sans-serif; font-size:16px; font-weight:bold; padding: 12px 22px; border-radius: 24px; border: 2px solid var(--line); background: var(--panel); color: #cde; cursor:pointer; }
+  .day-tab.active { background: var(--accent); color: #0a3a6a; border-color: var(--accent); }
+  .story-card { background: var(--panel); border: 2px solid var(--line); border-radius: 16px; padding: 24px; margin-bottom: 18px; }
+  .story-title { font-size: 22px; color: var(--accent); margin-bottom: 10px; }
+  .story-text { font-family: sans-serif; font-size: 16px; line-height: 1.7; color: #f0f0f5; }
+  .explore-btn { display:inline-block; margin-top:16px; font-family: sans-serif; font-size:16px; font-weight:bold; background: var(--accent); color:#0a3a6a; padding: 12px 24px; border-radius: 24px; text-decoration:none; }
+  #loading { text-align:center; padding:40px; font-family:sans-serif; }
+</style>
+<link rel="stylesheet" href="/site-nav.css">
+</head>
+<body>
+<div id="gtbg-nav-mount"></div>
+<header>
+  <a class="back" href="/index.html">&larr; Back to the map</a>
+  <h1>Gettysburg for Students</h1>
+  <p class="sub">A simple guide to the biggest battle of the Civil War, told through the real people who were there.</p>
+</header>
+<main>
+  <div class="day-tabs">
+    <button type="button" class="day-tab active" data-day="1">Day 1: July 1</button>
+    <button type="button" class="day-tab" data-day="2">Day 2: July 2</button>
+    <button type="button" class="day-tab" data-day="3">Day 3: July 3</button>
+  </div>
+  <div id="loading">Loading stories&hellip;</div>
+  <div id="stories"></div>
+</main>
+
+<script>
+(async function() {
+  const DAY_INTRO = {
+    1: "On the morning of July 1, 1863, two armies ran into each other by accident just outside a small Pennsylvania town. What started as a small fight grew into the largest battle ever fought in North America.",
+    2: "On the second day, both armies were at full strength. The fighting spread across famous places like Little Round Top and the Wheatfield, with soldiers fighting for every hill and rock.",
+    3: "On the final day, the Confederate army made one last, desperate attempt to break the Union line -- a mile-long charge across open fields that would become known as the high point of their entire invasion.",
+  };
+  const DAY_TICK_RANGES = { 1: [1, 225], 2: [226, 450], 3: [451, 675] };
+
+  const files = ['vignettes_part1.json', 'vignettes_part2.json', 'vignettes_part3.json'];
+  const results = await Promise.all(files.map(f => fetch('/data/' + f).then(r => r.json())));
+  const allVignettes = results.flatMap(r => r.vignettes).sort((a,b) => a.trigger_tick - b.trigger_tick);
+
+  document.getElementById('loading').style.display = 'none';
+
+  function render(day) {
+    const [lo, hi] = DAY_TICK_RANGES[day];
+    const dayVignettes = allVignettes.filter(v => v.trigger_tick >= lo && v.trigger_tick <= hi);
+    const container = document.getElementById('stories');
+    container.innerHTML = `<div class="story-card"><div class="story-text">${DAY_INTRO[day]}</div></div>`;
+    for (const v of dayVignettes) {
+      const card = document.createElement('div');
+      card.className = 'story-card';
+      card.innerHTML = `<div class="story-title">${v.title}</div>
+        <div class="story-text">${v.panel_summary}</div>
+        <a class="explore-btn" href="/index.html?tick=${v.trigger_tick}&vignette=${encodeURIComponent(v.vignette_id)}">See it on the map &rarr;</a>`;
+      container.appendChild(card);
+    }
+  }
+
+  document.querySelectorAll('.day-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      render(Number(tab.dataset.day));
+    });
+  });
+
+  render(1);
+})();
+</script>
+<div id="gtbg-footer-mount"></div>
+<script src="/site-nav.js" data-current="education"></script>
+</body>
+</html>

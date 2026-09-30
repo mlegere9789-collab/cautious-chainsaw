@@ -1,0 +1,152 @@
+/* Shared nav + footer + icon system, injected by site-nav.js on every "Extra Features" page.
+   Card-based menu matches the onboarding screen's visual language instead of a plain link
+   list -- one house style across the whole product instead of two. */
+
+.gicon {
+  width: 18px; height: 18px; flex-shrink: 0;
+  fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* Pure-CSS page-load fade -- no JS dependency, so content is never stuck invisible if a
+   script fails; the animation simply finishes on its own. */
+body { animation: gtbg-page-in 340ms ease both; }
+@keyframes gtbg-page-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { body { animation: none; } }
+
+#gtbg-nav {
+  position: sticky; top: 0; z-index: 500;
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 5%;
+  background: #0d0d18;
+  border-bottom: 1px solid #1e1e2e;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+}
+#gtbg-nav a.brand {
+  color: #c9a24b; font-weight: bold; text-decoration: none;
+  font-family: Georgia, serif; font-size: 15px; letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+#gtbg-nav .gtbg-nav-spacer { flex: 1; }
+
+/* The promoted Historian pin -- its own permanent, glowing entry point, not buried at
+   position 13 of 20 in a list. */
+.gtbg-historian-pin {
+  display: flex; align-items: center; gap: 7px;
+  padding: 7px 14px; border-radius: 20px;
+  border: 1px solid rgba(201,162,75,0.5);
+  background: rgba(201,162,75,0.08);
+  color: #e8d5a3; text-decoration: none; font-weight: 600;
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  animation: gtbg-pin-glow 3.4s ease-in-out infinite;
+}
+.gtbg-historian-pin:hover, .gtbg-historian-pin:focus-visible {
+  background: rgba(201,162,75,0.18); transform: translateY(-1px); outline: none;
+  box-shadow: 0 4px 16px rgba(201,162,75,0.25);
+}
+.gtbg-historian-pin .gicon { color: #c9a24b; }
+@keyframes gtbg-pin-glow {
+  0%, 100% { box-shadow: 0 0 0 rgba(201,162,75,0); }
+  50% { box-shadow: 0 0 14px rgba(201,162,75,0.22); }
+}
+@media (max-width: 640px) { .gtbg-historian-pin span:last-child { display: none; } }
+@media (prefers-reduced-motion: reduce) { .gtbg-historian-pin { animation: none; } }
+
+.gtbg-menu-btn {
+  display: flex; align-items: center; gap: 8px;
+  cursor: pointer; user-select: none;
+  padding: 7px 14px; border-radius: 8px; border: 1px solid #1e1e2e;
+  color: #b9bac6; background: transparent; font: inherit;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.gtbg-menu-btn:hover, .gtbg-menu-btn[aria-expanded="true"] { border-color: #c9a24b; color: #c9a24b; }
+
+/* Anchored to the RIGHT edge of the button and growing further right is what clipped
+   labels off-screen (the button already sits at the page's right edge). Anchoring the
+   panel's own right edge to the button's right edge instead means it always grows
+   leftward, into the page, never off it. */
+.gtbg-menu-panel {
+  position: absolute; top: calc(100% + 8px); right: 0;
+  width: min(94vw, 460px);
+  max-height: 76vh; overflow-y: auto;
+  background: #12121e; border: 1px solid #1e1e2e; border-radius: 14px;
+  padding: 10px; box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  opacity: 0; visibility: hidden; transform: translateY(-6px) scale(0.98);
+  transition: opacity 0.16s ease, transform 0.16s ease, visibility 0s linear 0.16s;
+  transform-origin: top right;
+}
+.gtbg-menu-panel.open {
+  opacity: 1; visibility: visible; transform: translateY(0) scale(1);
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+@media (prefers-reduced-motion: reduce) { .gtbg-menu-panel { transition: opacity 0.16s ease; transform: none !important; } }
+
+.gtbg-group + .gtbg-group { margin-top: 4px; border-top: 1px solid #1e1e2e; }
+.gtbg-group-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 10px 6px;
+}
+.gtbg-group-icon {
+  width: 26px; height: 26px; border-radius: 8px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(201,162,75,0.12); color: #c9a24b;
+}
+.gtbg-group-icon .gicon { width: 15px; height: 15px; }
+.gtbg-group-name { display: block; font-weight: 700; color: #e8d5a3; font-size: 12.5px; letter-spacing: 0.03em; }
+.gtbg-group-why { display: block; font-size: 11px; color: #6f7686; margin-top: 1px; }
+.gtbg-here {
+  margin-left: auto; font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: #6fcf97; background: rgba(111,207,151,0.12); padding: 3px 8px; border-radius: 10px;
+  white-space: nowrap;
+}
+
+.gtbg-group-items { display: flex; flex-direction: column; gap: 3px; padding: 0 4px 8px; }
+.gtbg-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 10px; border-radius: 8px;
+  text-decoration: none; color: inherit;
+  transition: background 0.12s ease, transform 0.12s ease;
+}
+.gtbg-item:hover, .gtbg-item:focus-visible { background: #1a3a7a; outline: none; }
+.gtbg-item:hover { transform: translateX(2px); }
+.gtbg-item.current { background: rgba(201,162,75,0.1); }
+.gtbg-item.star { background: rgba(201,162,75,0.06); }
+.gtbg-item.star:hover, .gtbg-item.star:focus-visible { background: #1a3a7a; }
+.gtbg-item-icon {
+  width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0; margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  background: #181826; color: #8a93a8;
+}
+.gtbg-item:hover .gtbg-item-icon, .gtbg-item.current .gtbg-item-icon { color: #c9a24b; }
+.gtbg-item-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.gtbg-item-label { font-size: 13px; font-weight: 600; color: #e8e6df; }
+.gtbg-star { color: #c9a24b; }
+.gtbg-item-desc { font-size: 11.5px; color: #8a93a8; line-height: 1.4; }
+.gtbg-item:hover .gtbg-item-label, .gtbg-item:hover .gtbg-item-desc { color: #fff; }
+
+#gtbg-footer {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 12px; color: #6f7686;
+  padding: 28px 5% 40px; border-top: 1px solid #1e1e2e; margin-top: 40px;
+  display: flex; gap: 18px; flex-wrap: wrap; align-items: center;
+}
+#gtbg-footer a { color: #8a93a8; text-decoration: none; }
+#gtbg-footer a:hover { color: #c9a24b; }
+#gtbg-footer .gtbg-footer-spacer { flex: 1; }
+
+/* focus visibility for any real <button>/<a> across these pages */
+:focus-visible { outline: 2px solid #c9a24b; outline-offset: 2px; }
+
+/* Interactive controls converted from <span>/<div> to real <button> keep their page's own
+   look (each page already sets background/border/padding explicitly) -- this just removes
+   the browser's native button chrome and font override so nothing changes visually. */
+button.mode-btn, button.play-btn, button.toggle-btn, button.day-tab,
+button.filter-chip, button.btn, button.match {
+  font: inherit; color: inherit; appearance: none; -webkit-appearance: none;
+  margin: 0; text-align: inherit;
+}
+
+/* Small, purposeful hover lift for card-shaped elements across the sub-pages (story cards,
+   stat cards, result rows) -- opt-in via this class so it stays deliberate, not global. */
+.gtbg-lift { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.gtbg-lift:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.25); }

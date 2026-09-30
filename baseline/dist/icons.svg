@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+<!-- Shared icon sprite for gettysburginteractivemap.com. One consistent line-icon language
+     (stroke-based, 1.7px weight, rounded caps, 24x24 viewBox) used everywhere an icon
+     appears -- the Extra Features menu, onboarding cards, and every sub-page header.
+     Usage: <svg class="gicon"><use href="/icons.svg#compass"/></svg> -->
+<defs>
+
+<symbol id="compass" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="9"/>
+  <polygon points="12,7 14,12 12,17 10,12" fill="currentColor" stroke="none"/>
+  <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>
+</symbol>
+
+<symbol id="sabers" viewBox="0 0 24 24">
+  <line x1="4" y1="20" x2="18" y2="6"/>
+  <line x1="4" y1="6" x2="18" y2="20"/>
+  <path d="M15 3l3 3M18 3l-3 3"/>
+  <path d="M6 15l-3 3M3 18l3-3"/>
+</symbol>
+
+<symbol id="film" viewBox="0 0 24 24">
+  <rect x="3" y="5" width="18" height="14" rx="1.5"/>
+  <line x1="8" y1="5" x2="8" y2="19"/>
+  <line x1="16" y1="5" x2="16" y2="19"/>
+  <line x1="3" y1="9" x2="8" y2="9"/>
+  <line x1="3" y1="15" x2="8" y2="15"/>
+  <line x1="16" y1="9" x2="21" y2="9"/>
+  <line x1="16" y1="15" x2="21" y2="15"/>
+</symbol>
+
+<symbol id="book" viewBox="0 0 24 24">
+  <path d="M4 5.5C4 4.7 4.7 4 5.5 4H12v16H5.5C4.7 20 4 19.3 4 18.5z"/>
+  <path d="M20 5.5C20 4.7 19.3 4 18.5 4H12v16h6.5c.8 0 1.5-.7 1.5-1.5z"/>
+</symbol>
+
+<symbol id="pin" viewBox="0 0 24 24">
+  <path d="M12 21s7-6.4 7-11.5A7 7 0 0 0 5 9.5C5 14.6 12 21 12 21z"/>
+  <circle cx="12" cy="9.5" r="2.4"/>
+</symbol>
+
+<symbol id="pulse" viewBox="0 0 24 24">
+  <path d="M3 12h4l2 7 4-14 2 7h6"/>
+</symbol>
+
+<symbol id="broadcast" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>
+  <path d="M8.5 8.5a5 5 0 0 0 0 7"/>
+  <path d="M15.5 8.5a5 5 0 0 1 0 7"/>
+  <path d="M5.5 5.5a9 9 0 0 0 0 13"/>
+  <path d="M18.5 5.5a9 9 0 0 1 0 13"/>
+</symbol>
+
+<symbol id="search" viewBox="0 0 24 24">
+  <circle cx="10.5" cy="10.5" r="6.5"/>
+  <line x1="20" y1="20" x2="15.3" y2="15.3"/>
+</symbol>
+
+<symbol id="clock" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="9"/>
+  <path d="M12 7v5l3.5 2"/>
+</symbol>
+
+<symbol id="chart" viewBox="0 0 24 24">
+  <line x1="4" y1="20" x2="4" y2="4"/>
+  <line x1="4" y1="20" x2="21" y2="20"/>
+  <path d="M6 16l4-6 3 4 6-9"/>
+</symbol>
+
+<symbol id="camera" viewBox="0 0 24 24">
+  <path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+  <circle cx="12" cy="13.5" r="3.5"/>
+</symbol>
+
+<symbol id="eye" viewBox="0 0 24 24">
+  <path d="M2 12s3.8-6.5 10-6.5S22 12 22 12s-3.8 6.5-10 6.5S2 12 2 12z"/>
+  <circle cx="12" cy="12" r="2.6"/>
+</symbol>
+
+<symbol id="shuffle" viewBox="0 0 24 24">
+  <path d="M3 7h4l6 10h4"/>
+  <path d="M3 17h4l2.2-3.6"/>
+  <path d="M14 7h3"/>
+  <path d="M17 4l3 3-3 3"/>
+  <path d="M17 20l3-3-3-3"/>
+</symbol>
+
+<symbol id="download" viewBox="0 0 24 24">
+  <path d="M12 3v13"/>
+  <path d="M7 11l5 5 5-5"/>
+  <path d="M4 20h16"/>
+</symbol>
+
+<symbol id="users" viewBox="0 0 24 24">
+  <circle cx="9" cy="8" r="3"/>
+  <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
+  <circle cx="17" cy="9" r="2.4"/>
+  <path d="M15.5 14.2c2.6.4 4.5 2.6 4.5 5.3"/>
+</symbol>
+
+<symbol id="phone-ar" viewBox="0 0 24 24">
+  <rect x="7" y="2" width="10" height="20" rx="2"/>
+  <line x1="11" y1="19" x2="13" y2="19"/>
+  <path d="M9.5 6.5L14.5 11.5M14.5 6.5L9.5 11.5" opacity="0.55"/>
+</symbol>
+
+<symbol id="flag" viewBox="0 0 24 24">
+  <line x1="5" y1="21" x2="5" y2="3"/>
+  <path d="M5 4h13l-3.5 4L18 12H5"/>
+</symbol>
+
+<symbol id="menu" viewBox="0 0 24 24">
+  <line x1="4" y1="7" x2="20" y2="7"/>
+  <line x1="4" y1="12" x2="20" y2="12"/>
+  <line x1="4" y1="17" x2="20" y2="17"/>
+</symbol>
+
+<symbol id="eye-off" viewBox="0 0 24 24">
+  <path d="M2 12s3.8-6.5 10-6.5c1.9 0 3.5.5 4.9 1.3M22 12s-1.3 2.3-3.7 4.1M9.5 9.7A2.6 2.6 0 0 0 12 14.6c.6 0 1.1-.2 1.6-.5"/>
+  <line x1="3" y1="3" x2="21" y2="21"/>
+</symbol>
+
+</defs>
+</svg>

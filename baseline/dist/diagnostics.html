@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Gettysburg Map -- Browser Diagnostics</title>
+<style>
+  body { background:#0a0a14; color:#ddd; font-family:monospace; padding:24px; }
+  h1   { color:#e8d5a3; font-size:18px; letter-spacing:2px; }
+  .sec { margin:20px 0; }
+  .sec h2 { color:#c8a84a; font-size:13px; border-bottom:1px solid #334; padding-bottom:6px; }
+  .row { display:flex; gap:16px; margin:4px 0; font-size:12px; }
+  .lbl { color:#888; width:200px; flex-shrink:0; }
+  .val { color:#ddd; }
+  .ok  { color:#44cc88; }
+  .warn{ color:#ff9944; }
+  .err { color:#ff4444; }
+</style>
+<link rel="stylesheet" href="/site-nav.css">
+</head>
+<body>
+<div id="gtbg-nav-mount"></div>
+<h1>GETTYSBURG MAP — BROWSER DIAGNOSTICS</h1>
+<div id="output"></div>
+<script>
+const out = document.getElementById('output')
+function row(label, value, cls='') {
+  out.innerHTML += `<div class="row"><span class="lbl">${label}</span><span class="val ${cls}">${value}</span></div>`
+}
+function sec(title) {
+  out.innerHTML += `<div class="sec"><h2>${title}</h2>`
+}
+
+// Browser
+sec('BROWSER')
+row('User Agent', navigator.userAgent.slice(0,80))
+row('Platform', navigator.platform)
+row('Language', navigator.language)
+row('Online', navigator.onLine ? '✓ online' : '✗ offline', navigator.onLine ? 'ok' : 'err')
+
+// WebGL
+sec('WEBGL (Required for Mapbox)')
+const canvas = document.createElement('canvas')
+const gl = canvas.getContext('webgl2') || canvas.getContext('webgl')
+if (gl) {
+  const ext = gl.getExtension('WEBGL_debug_renderer_info')
+  row('WebGL', '✓ supported', 'ok')
+  row('Renderer', ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : 'unknown')
+  row('Vendor', ext ? gl.getParameter(ext.UNMASKED_VENDOR_WEBGL) : 'unknown')
+  row('Max texture size', gl.getParameter(gl.MAX_TEXTURE_SIZE))
+} else {
+  row('WebGL', '✗ NOT SUPPORTED -- map will not render', 'err')
+}
+
+// Performance
+sec('PERFORMANCE')
+const nav = performance.getEntriesByType('navigation')[0]
+if (nav) {
+  row('DOM content loaded', `${Math.round(nav.domContentLoadedEventEnd)}ms`)
+  row('Page load', `${Math.round(nav.loadEventEnd)}ms`)
+}
+const mem = performance.memory
+if (mem) {
+  row('JS heap used', `${Math.round(mem.usedJSHeapSize/1e6)}MB`)
+  row('JS heap total', `${Math.round(mem.totalJSHeapSize/1e6)}MB`)
+  row('JS heap limit', `${Math.round(mem.jsHeapSizeLimit/1e6)}MB`)
+}
+
+// Service Worker
+sec('PWA / SERVICE WORKER')
+if ('serviceWorker' in navigator) {
+  row('Service Worker API', '✓ supported', 'ok')
+  navigator.serviceWorker.getRegistrations().then(regs => {
+    row('Registered SWs', regs.length > 0 ? `✓ ${regs.length} registration(s)` : '⚠ none registered (run from app)', regs.length ? 'ok' : 'warn')
+  })
+} else {
+  row('Service Worker API', '✗ not supported', 'err')
+}
+
+// Local storage
+sec('STORAGE')
+try {
+  localStorage.setItem('__test__', '1')
+  localStorage.removeItem('__test__')
+  row('localStorage', '✓ available', 'ok')
+  const gtbg = localStorage.getItem('gtbg_session')
+  row('Session data', gtbg ? '✓ session found' : 'none', gtbg ? 'ok' : '')
+  const prefs = localStorage.getItem('gtbg_prefs')
+  row('User prefs', prefs ? '✓ prefs found' : 'none', prefs ? 'ok' : '')
+} catch(e) {
+  row('localStorage', '✗ blocked: ' + e.message, 'err')
+}
+
+// Network
+sec('NETWORK')
+row('Connection type', navigator.connection?.effectiveType || 'unknown')
+row('Downlink', navigator.connection?.downlink ? `${navigator.connection.downlink} Mbps` : 'unknown')
+
+// Screen
+sec('DISPLAY')
+row('Screen', `${screen.width}×${screen.height}`)
+row('Window', `${window.innerWidth}×${window.innerHeight}`)
+row('Device pixel ratio', window.devicePixelRatio)
+row('Orientation', screen.orientation?.type || 'unknown')
+
+// Live connectivity check -- this page has no build-time env vars (it's a static file,
+// not part of the app bundle), so the only meaningful diagnostic here is whether Mapbox's
+// service is actually reachable from this browser/network right now.
+sec('MAPBOX CONNECTIVITY')
+fetch('https://api.mapbox.com/', { mode: 'no-cors' })
+  .then(() => row('api.mapbox.com', '✓ reachable', 'ok'))
+  .catch(() => row('api.mapbox.com', '✗ unreachable -- check network/ad-blocker/firewall', 'err'))
+fetch('https://a.tiles.mapbox.com/', { mode: 'no-cors' })
+  .then(() => row('a.tiles.mapbox.com', '✓ reachable', 'ok'))
+  .catch(() => row('a.tiles.mapbox.com', '✗ unreachable -- map tiles will not load', 'err'))
+
+out.innerHTML += '</div>'
+out.innerHTML += `<div style="margin-top:24px;color:#555;font-size:11px">Generated: ${new Date().toISOString()}</div>`
+</script>
+<div id="gtbg-footer-mount"></div>
+<script src="/site-nav.js" data-current="diagnostics"></script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+{
+  "metadata": {
+    "chunk": "015",
+    "title": "Casualty Apportionment Database -- All Corps, Both Sides",
+    "purpose": "Provides per-tick casualty scaling for the animation engine. Unit visual length = base_length * (1 - cumulative_casualty_rate_to_this_tick). Casualties distributed across ticks within each engagement period using a bell-curve intensity model weighted toward peak action ticks.",
+    "formulas": {
+      "visual_length": "displayed_line_length_yards = (current_strength / 100) * standard_company_front_yards",
+      "current_strength": "initial_strength - sum(casualties assigned to ticks 1 through current_tick)",
+      "standard_company_front_yards": 5,
+      "bell_curve_sigma_infantry": "8 ticks",
+      "bell_curve_sigma_artillery": "4 ticks",
+      "minimum_display_strength": 10,
+      "destroyed_unit_display": "Single dot at last known position if strength drops below 10"
+    },
+    "sources": [
+      "Busey, John W. and Martin, David G. -- Regimental Strengths and Losses at Gettysburg (Longstreet House, 1994)",
+      "OR Vol. 27, Parts I and II"
+    ]
+  },
+  "union_corps": [
+    {
+      "corps_id": "U-I",
+      "initial_strength": 12222,
+      "total_casualties": 6059,
+      "overall_rate": 49.6,
+      "engagement_periods": [
+        {
+          "day": 1,
+          "casualties": 6059,
+          "rate": 49.6,
+          "tick_range": [18, 75],
+          "peak_tick": 62,
+          "engagements": ["McPherson's Ridge", "Oak Ridge", "Seminary Ridge", "Retreat through Gettysburg"],
+          "notes": "Nearly all I Corps casualties fell in a 3-hour window July 1 -- one of the most compressed casualty periods of the battle."
+        },
+        {
+          "day": 3,
+          "casualties": 335,
+          "rate": 2.7,
+          "tick_range": [535, 560],
+          "peak_tick": 544,
+          "engagements": ["Stannard's Vermont Brigade flanking maneuver"],
+          "notes": "Vermont Brigade casualties during double enfilade on Pickett's right and Wilcox."
+        }
+      ]
+    },
+    {
+      "corps_id": "U-II",
+      "initial_strength": 11347,
+      "total_casualties": 4369,
+      "overall_rate": 38.5,
+      "engagement_periods": [
+        {
+          "day": 2,
+          "casualties": 3102,
+          "rate": 27.3,
+          "tick_range": [265, 340],
+          "peak_tick": 300,
+          "engagements": ["Wheatfield", "Cemetery Ridge", "Plum Run", "1st Minnesota charge"]
+        },
+        {
+          "day": 3,
+          "casualties": 1267,
+          "rate": 11.2,
+          "tick_range": [535, 570],
+          "peak_tick": 552,
+          "engagements": ["Pickett's Charge repulse at Cemetery Ridge and The Angle"],
+          "notes": "Cushing's battery (25 casualties), Woodruff's battery (11), Brown's battery (16), and Webb's brigade all suffered heavily at The Angle."
+        }
+      ]
+    },
+    {
+      "corps_id": "U-III",
+      "initial_strength": 10675,
+      "total_casualties": 4211,
+      "overall_rate": 39.4,
+      "engagement_periods": [
+        {
+          "day": 2,
+          "casualties": 4211,
+          "rate": 39.4,
+          "tick_range": [256, 330],
+          "peak_tick": 293,
+          "engagements": ["Peach Orchard", "Wheatfield", "Devil's Den", "Emmitsburg Road retreat"],
+          "notes": "Nearly ALL III Corps casualties fell in approximately 2 hours -- one of the most compressed casualty periods of the battle. Sickles's unauthorized advance created this vulnerability."
+        }
+      ]
+    },
+    {
+      "corps_id": "U-V",
+      "initial_strength": 10907,
+      "total_casualties": 2187,
+      "overall_rate": 20.1,
+      "engagement_periods": [
+        {
+          "day": 2,
+          "casualties": 2187,
+          "rate": 20.1,
+          "tick_range": [267, 320],
+          "peak_tick": 285,
+          "engagements": ["Little Round Top", "Wheatfield", "Big Round Top", "Crawford's charge"]
+        }
+      ]
+    },
+    {
+      "corps_id": "U-VI",
+      "initial_strength": 13596,
+      "total_casualties": 242,
+      "overall_rate": 1.8,
+      "engagement_periods": [
+        {
+          "day": 2,
+          "casualties": 242,
+          "rate": 1.8,
+          "tick_range": [310, 330],
+          "peak_tick": 320,
+          "engagements": ["Wheaton's brigade minor support action"],
+          "notes": "VI Corps served as army reserve and saw almost no direct action despite being the largest Union corps present."
+        }
+      ]
+    },
+    {
+      "corps_id": "U-XI",
+      "initial_strength": 9188,
+      "total_casualties": 3801,
+      "overall_rate": 41.4,
+      "engagement_periods": [
+        {
+          "day": 1,
+          "casualties": 3801,
+          "rate": 41.4,
+          "tick_range": [24, 80],
+          "peak_tick": 58,
+          "engagements": ["Barlow's Knoll", "North of Gettysburg", "Retreat through town", "Brickyard disaster"],
+          "notes": "XI Corps routed July 1. Many casualties were captures rather than killed/wounded during the retreat through Gettysburg."
+        }
+      ]
+    },
+    {
+      "corps_id": "U-XII",
+      "initial_strength": 9788,
+      "total_casualties": 1082,
+      "overall_rate": 11.1,
+      "engagement_periods": [
+        {
+          "day": 1,
+          "casualties": 50,
+          "rate": 0.5,
+          "tick_range": [80, 100],
+          "peak_tick": 90,
+          "engagements": ["Arriving on Culp's Hill"]
+        },
+        {
+          "day": 2,
+          "casualties": 300,
+          "rate": 3.1,
+          "tick_range": [305, 340],
+          "peak_tick": 320,
+          "engagements": ["Culp's Hill July 2 evening -- Johnson's assault on Greene's lone brigade"]
+        },
+        {
+          "day": 3,
+          "casualties": 732,
+          "rate": 7.5,
+          "tick_range": [451, 530],
+          "peak_tick": 480,
+          "engagements": ["Culp's Hill July 3 morning -- 7-hour fight to recapture Confederate-occupied works"],
+          "notes": "Colgrove's charge (2nd MA and 27th IN) accounts for a significant share of Day 3 XII Corps casualties."
+        }
+      ]
+    },
+    {
+      "corps_id": "U-CAV",
+      "initial_strength": 12441,
+      "total_casualties": 852,
+      "overall_rate": 6.9,
+      "engagement_periods": [
+        {
+          "day": 1,
+          "casualties": 290,
+          "rate": 2.3,
+          "tick_range": [1, 75],
+          "peak_tick": 25,
+          "engagements": ["Buford's dismounted defense on McPherson's and Herr ridges"]
+        },
+        {
+          "day": 2,
+          "casualties": 100,
+          "rate": 0.8,
+          "tick_range": [240, 340],
+          "peak_tick": 290,
+          "engagements": ["Screening and reconnaissance"]
+        },
+        {
+          "day": 3,
+          "casualties": 462,
+          "rate": 3.7,
+          "tick_range": [540, 580],
+          "peak_tick": 565,
+          "engagements": ["East Cavalry Field (Custer vs Stuart)", "Kilpatrick's charge (Farnsworth killed)"]
+        }
+      ]
+    }
+  ],
+  "confederate_corps": [
+    {
+      "corps_id": "C-I",
+      "initial_strength": 20706,
+      "total_casualties": 7539,
+      "overall_rate": 36.4,
+      "engagement_periods": [
+        {
+          "day": 2,
+          "casualties": 4925,
+          "rate": 23.8,
+          "tick_range": [256, 335],
+          "peak_tick": 288,
+          "engagements": ["Peach Orchard (McLaws)", "Wheatfield (McLaws and Hood)", "Devil's Den (Hood)", "Little Round Top (Hood/Law)"]
+        },
+        {
+          "day": 3,
+          "casualties": 2614,
+          "rate": 12.6,
+          "tick_range": [535, 570],
+          "peak_tick": 550,
+          "engagements": ["Pickett's Charge -- Garnett, Kemper, Armistead brigades"],
+          "notes": "Pickett's division alone suffered ~2,700 casualties -- 49% of its strength -- in approximately 30 minutes of close combat."
+        }
+      ]
+    },
+    {
+      "corps_id": "C-II",
+      "initial_strength": 20568,
+      "total_casualties": 6603,
+      "overall_rate": 32.1,
+      "engagement_periods": [
+        {
+          "day": 1,
+          "casualties": 3561,
+          "rate": 17.3,
+          "tick_range": [24, 80],
+          "peak_tick": 52,
+          "engagements": ["Oak Hill artillery bombardment", "Rodes's assault on Oak Ridge", "Iverson's Pits", "Gordon's flank attack", "Doles sweeps north fields"]
+        },
+        {
+          "day": 2,
+          "casualties": 1528,
+          "rate": 7.4,
+          "tick_range": [305, 340],
+          "peak_tick": 326,
+          "engagements": ["Cemetery Hill assault (Hays and Avery)", "Culp's Hill (Johnson's division)"]
+        },
+        {
+          "day": 3,
+          "casualties": 1514,
+          "rate": 7.4,
+          "tick_range": [451, 530],
+          "peak_tick": 490,
+          "engagements": ["Culp's Hill morning fight -- 7 hours of combat to hold captured Union works"],
+          "notes": "Steuart's brigade suffered 42.5% casualties across all three days -- highest in Johnson's division."
+        }
+      ]
+    },
+    {
+      "corps_id": "C-III",
+      "initial_strength": 22000,
+      "total_casualties": 8400,
+      "overall_rate": 38.2,
+      "engagement_periods": [
+        {
+          "day": 1,
+          "casualties": 5500,
+          "rate": 25.0,
+          "tick_range": [14, 80],
+          "peak_tick": 56,
+          "engagements": ["McPherson's Ridge (Heth -- Archer captured, Davis Railroad Cut)", "Seminary Ridge (Perrin breakthrough, Scales devastated, Lane drives I Corps)"]
+        },
+        {
+          "day": 2,
+          "casualties": 1400,
+          "rate": 6.4,
+          "tick_range": [278, 335],
+          "peak_tick": 304,
+          "engagements": ["Wilcox and Lang advance on Cemetery Ridge", "Wright's brief breakthrough", "Anderson's division fighting"]
+        },
+        {
+          "day": 3,
+          "casualties": 1500,
+          "rate": 6.8,
+          "tick_range": [535, 570],
+          "peak_tick": 550,
+          "engagements": ["Pettigrew-Trimble charge (left column of Pickett-Pettigrew-Trimble assault)"],
+          "notes": "26th NC (Pettigrew's brigade) suffered 588 casualties across Days 1 and 3 combined -- highest Confederate regimental total."
+        }
+      ]
+    },
+    {
+      "corps_id": "C-CAV",
+      "initial_strength": 9536,
+      "total_casualties": 583,
+      "overall_rate": 6.1,
+      "engagement_periods": [
+        {
+          "day": 3,
+          "casualties": 483,
+          "rate": 5.1,
+          "tick_range": [540, 580],
+          "peak_tick": 565,
+          "engagements": ["East Cavalry Field -- Hampton wounded, Stuart repulsed by Gregg and Custer"]
+        }
+      ]
+    }
+  ],
+  "notable_intensity_notes": {
+    "most_compressed_union": {
+      "unit": "U-III (Third Corps)",
+      "note": "Nearly 4,200 casualties in approximately 2 hours on July 2 afternoon -- the most compressed major corps casualty period of the battle.",
+      "tick_range": [256, 330]
+    },
+    "most_compressed_confederate": {
+      "unit": "C-I-3 (Pickett's Division)",
+      "note": "Approximately 2,700 casualties in 30 minutes during Pickett's Charge -- the most intense 30-minute casualty period of the battle.",
+      "tick_range": [538, 558]
+    },
+    "longest_sustained_action": {
+      "unit": "U-XII and C-II-2 (Culp's Hill)",
+      "note": "Seven hours of continuous fighting July 3 morning -- the longest sustained infantry combat of the battle.",
+      "tick_range": [451, 534]
+    },
+    "highest_single_regiment_rate": {
+      "union": {"unit": "U-1MN", "rate": 85.5, "note": "1st Minnesota -- 224 of 262 casualties in 15 minutes July 2"},
+      "confederate": {"unit": "C-26NC", "rate": 69.7, "note": "26th North Carolina -- 588 of 843 casualties across July 1 and 3"}
+    }
+  }
+}

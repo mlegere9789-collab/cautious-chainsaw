@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0a0a14" />
+<title>Documentary Mode — Gettysburg Animated Battlefield Map</title>
+<meta name="description" content="Follow the battle's key moments in order, with full narrative text for each -- a read-along documentary tour." />
+<link rel="canonical" href="https://gettysburginteractivemap.com/documentary.html" />
+<meta property="og:title" content="Documentary Mode — Gettysburg Animated Battlefield Map" />
+<meta property="og:description" content="Follow the battle's key moments in order, with full narrative text for each -- a read-along documentary tour." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gettysburginteractivemap.com/documentary.html" />
+<meta property="og:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Documentary Mode — Gettysburg Animated Battlefield Map" />
+<meta name="twitter:description" content="Follow the battle's key moments in order, with full narrative text for each -- a read-along documentary tour." />
+<meta name="twitter:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<style>
+  :root { --bg:#0a0a14; --panel:#12121e; --ink:#e8e6df; --gold:#c9a24b; --muted:#8a93a8; --line:#1e1e2e; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family: Georgia, serif; }
+  header { padding: 24px 5% 12px; }
+  header a.back { font-family: sans-serif; font-size: 12px; color: var(--muted); text-decoration:none; }
+  h1 { font-size: clamp(22px, 3.5vw, 32px); color: var(--gold); margin: 10px 0 4px; }
+  .sub { font-family: sans-serif; color: var(--muted); font-size: 13px; max-width: 560px; }
+  main { padding: 20px 5% 60px; max-width: 720px; margin: 0 auto; }
+  .progress { display:flex; gap:4px; margin-bottom:20px; }
+  .progress .seg { flex:1; height:4px; border-radius:2px; background: var(--line); }
+  .progress .seg.done { background: var(--gold); }
+  .stage { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 28px 32px; }
+  .eyebrow { font-family: sans-serif; font-size: 11px; color: var(--muted); text-transform:uppercase; letter-spacing: 1px; }
+  .title { font-size: 26px; color: var(--gold); margin: 8px 0 16px; }
+  .script { font-size: 17px; line-height: 1.85; color: #e8e6df; }
+  .nav-row { display:flex; justify-content:space-between; align-items:center; margin-top: 24px; }
+  .nav-btn { font-family: sans-serif; font-size: 13px; padding: 10px 18px; border-radius: 6px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor:pointer; }
+  .nav-btn:hover:not(:disabled) { border-color: var(--gold); }
+  .nav-btn:disabled { opacity: 0.3; cursor:default; }
+  .map-link { font-family: sans-serif; font-size: 13px; color: var(--gold); text-decoration:none; }
+  #loading { font-family: sans-serif; color: var(--muted); padding: 40px; text-align:center; }
+</style>
+<link rel="stylesheet" href="/site-nav.css">
+</head>
+<body>
+<div id="gtbg-nav-mount"></div>
+<header>
+  <a class="back" href="/index.html">&larr; Back to the map</a>
+  <h1>Documentary Mode</h1>
+  <p class="sub">All 24 of the battle's key moments, in order, with the full narrative for each -- read at your own pace, or use as a script for narration. Each moment links to its exact spot in the live animated map.</p>
+</header>
+<main>
+  <div id="loading">Loading&hellip;</div>
+  <div id="content" style="display:none;">
+    <div class="progress" id="progress"></div>
+    <div class="stage">
+      <div class="eyebrow" id="d-eyebrow"></div>
+      <div class="title" id="d-title"></div>
+      <div class="script" id="d-script"></div>
+      <div class="nav-row">
+        <button class="nav-btn" id="prev-btn">&larr; Previous</button>
+        <a class="map-link" id="d-maplink" href="#">Watch this moment on the map &rarr;</a>
+        <button class="nav-btn" id="next-btn">Next &rarr;</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+(async function() {
+  const files = ['vignettes_part1.json', 'vignettes_part2.json', 'vignettes_part3.json'];
+  const results = await Promise.all(files.map(f => fetch('/data/' + f).then(r => r.json())));
+  const vignettes = results.flatMap(r => r.vignettes).sort((a,b) => a.trigger_tick - b.trigger_tick);
+
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+
+  const progressEl = document.getElementById('progress');
+  vignettes.forEach(() => {
+    const seg = document.createElement('div');
+    seg.className = 'seg';
+    progressEl.appendChild(seg);
+  });
+
+  function dayForTick(tick) { return tick <= 225 ? 1 : (tick <= 450 ? 2 : 3); }
+
+  let index = 0;
+  function render() {
+    const v = vignettes[index];
+    document.getElementById('d-eyebrow').textContent = `Day ${dayForTick(v.trigger_tick)} · Tick ${v.trigger_tick} · ${v.trigger_location}`;
+    document.getElementById('d-title').textContent = v.title;
+    document.getElementById('d-script').textContent = v.full_script;
+    document.getElementById('d-maplink').href = `/index.html?tick=${v.trigger_tick}&vignette=${encodeURIComponent(v.vignette_id)}`;
+    document.getElementById('prev-btn').disabled = index === 0;
+    document.getElementById('next-btn').disabled = index === vignettes.length - 1;
+    [...progressEl.children].forEach((seg, i) => seg.classList.toggle('done', i <= index));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.getElementById('prev-btn').addEventListener('click', () => { if (index > 0) { index--; render(); } });
+  document.getElementById('next-btn').addEventListener('click', () => { if (index < vignettes.length - 1) { index++; render(); } });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' && index < vignettes.length - 1) { index++; render(); }
+    if (e.key === 'ArrowLeft' && index > 0) { index--; render(); }
+  });
+
+  render();
+})();
+</script>
+<div id="gtbg-footer-mount"></div>
+<script src="/site-nav.js" data-current="documentary"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "files": 119,
+  "findings": [
+    {
+      "detail": [
+        "not served (HTTP 404), as Netlify processes it: byte comparison impossible; header snapshot is the indirect check"
+      ],
+      "path": "netlify.toml",
+      "state": "config"
+    }
+  ],
+  "html_pages": 27,
+  "live_deploy_id": "6abd6d6248919c2f4d7b7c02",
+  "live_paths_not_in_tree": [],
+  "ok": true,
+  "states": {
+    "config": 1,
+    "ok": 118
+  }
+}

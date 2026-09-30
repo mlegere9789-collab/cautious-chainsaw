@@ -1,0 +1,536 @@
+{
+  "metadata": {
+    "chunk": "016",
+    "title": "Battlefield Terrain Database -- Key Locations, Roads, and Features",
+    "coordinate_system": "WGS84 decimal degrees",
+    "sources": [
+      "Desjardin, Thomas A. -- The Battlefield at Gettysburg (Map), The Gettysburg Foundation, 2011",
+      "Gottfried, Bradley M. -- The Maps of Gettysburg (Savas Beatie, 2013)",
+      "Laino, Phillip -- Gettysburg Campaign Atlas (Gettysburg Publishing, 2014)",
+      "USGS topographic data",
+      "Google Maps / satellite imagery verification"
+    ],
+    "battlefield_bounds": {
+      "north": 39.85,
+      "south": 39.77,
+      "east": -77.18,
+      "west": -77.29
+    },
+    "town_center": {
+      "lat": 39.8309,
+      "lng": -77.2313
+    }
+  },
+  "key_locations": [
+    {
+      "location_id": "LOC-001",
+      "name": "Cemetery Hill",
+      "lat": 39.821763,
+      "lng": -77.228873,
+      "elevation_ft": 630,
+      "significance": "Union army's central anchor. XI Corps and artillery reserve. Osborn's massed guns dominated the battlefield. Hays and Avery attacked here July 2 evening.",
+      "day_relevance": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "location_id": "LOC-002",
+      "name": "Culp's Hill",
+      "lat": 39.820096,
+      "lng": -77.22054,
+      "elevation_ft": 640,
+      "significance": "Union right flank anchor. XII Corps held against Johnson's division. Greene's lone stand July 2 night. Seven hours of fighting July 3 morning.",
+      "day_relevance": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "location_id": "LOC-003",
+      "name": "Little Round Top",
+      "lat": 39.789472,
+      "lng": -77.236139,
+      "elevation_ft": 650,
+      "significance": "Key terrain on Union left. Vincent's brigade arrived just in time July 2. 20th Maine held the extreme left. O'Rorke charged without orders. Hazlett dragged guns up the slope.",
+      "day_relevance": [
+        2
+      ]
+    },
+    {
+      "location_id": "LOC-004",
+      "name": "Big Round Top",
+      "lat": 39.7889,
+      "lng": -77.2367,
+      "elevation_ft": 785,
+      "significance": "Highest terrain on the battlefield. Fisher's brigade occupied it July 2 evening. Crawford's charge passed near its base.",
+      "day_relevance": [
+        2
+      ]
+    },
+    {
+      "location_id": "LOC-005",
+      "name": "Devil's Den",
+      "lat": 39.791506,
+      "lng": -77.242386,
+      "elevation_ft": 620,
+      "significance": "Rocky terrain south of Little Round Top. Ward's brigade and Smith's battery. Texas Brigade assault. Famous sharpshooter position.",
+      "day_relevance": [
+        2
+      ]
+    },
+    {
+      "location_id": "LOC-006",
+      "name": "The Wheatfield",
+      "lat": 39.797319,
+      "lng": -77.24304,
+      "elevation_ft": 570,
+      "significance": "John Rose's wheatfield. Scene of six Confederate and nine Union brigade engagements July 2. Changed hands multiple times. Nearly 6,000 casualties.",
+      "day_relevance": [
+        2
+      ]
+    },
+    {
+      "location_id": "LOC-007",
+      "name": "Peach Orchard",
+      "lat": 39.800833,
+      "lng": -77.249722,
+      "elevation_ft": 550,
+      "significance": "Sickles's unauthorized salient. Barksdale's charge destroyed the position. Graham captured here.",
+      "day_relevance": [
+        2
+      ]
+    },
+    {
+      "location_id": "LOC-008",
+      "name": "Trostle Farm",
+      "lat": 39.7989,
+      "lng": -77.2444,
+      "elevation_ft": 530,
+      "significance": "Bigelow's battery fought withdrawal here. Famous cannon shot through the barn. McGilvery built his Plum Run Line nearby.",
+      "day_relevance": [
+        2
+      ]
+    },
+    {
+      "location_id": "LOC-009",
+      "name": "The Angle (High Water Mark)",
+      "lat": 39.81343,
+      "lng": -77.2364,
+      "elevation_ft": 570,
+      "significance": "The furthest Confederate penetration of the battle. Armistead crossed the stone wall here. Cushing's battery was at this spot. Copse of trees marks the point today.",
+      "day_relevance": [
+        3
+      ]
+    },
+    {
+      "location_id": "LOC-010",
+      "name": "Seminary Ridge (central)",
+      "lat": 39.82,
+      "lng": -77.2489,
+      "elevation_ft": 590,
+      "significance": "Confederate main line July 2-3. 170 Confederate guns along this ridge for the July 3 cannonade. Alexander directed from here.",
+      "day_relevance": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "location_id": "LOC-011",
+      "name": "Cemetery Ridge (central)",
+      "lat": 39.8061,
+      "lng": -77.235,
+      "elevation_ft": 570,
+      "significance": "Union main defensive line July 2-3. II Corps position. The Army of the Potomac's defensive backbone.",
+      "day_relevance": [
+        2,
+        3
+      ]
+    },
+    {
+      "location_id": "LOC-012",
+      "name": "McPherson's Ridge",
+      "lat": 39.837,
+      "lng": -77.2514,
+      "elevation_ft": 570,
+      "significance": "First major defensive position July 1. Buford's dismounted cavalry then Reynolds's I Corps. Iron Brigade charged into Herbst Woods from this ridge.",
+      "day_relevance": [
+        1
+      ]
+    },
+    {
+      "location_id": "LOC-013",
+      "name": "Herbst Woods (McPherson's Woods)",
+      "lat": 39.8289,
+      "lng": -77.2578,
+      "elevation_ft": 560,
+      "significance": "Iron Brigade charged into these woods July 1 morning. Reynolds killed at eastern edge. Archer's Confederate brigade broken and Archer captured.",
+      "day_relevance": [
+        1
+      ]
+    },
+    {
+      "location_id": "LOC-014",
+      "name": "Oak Ridge",
+      "lat": 39.83,
+      "lng": -77.2406,
+      "elevation_ft": 600,
+      "significance": "Baxter's ambush destroyed Iverson's brigade here. Paul's brigade fought here with four commanders wounded in succession. Mass grave of Iverson's men visible today.",
+      "day_relevance": [
+        1
+      ]
+    },
+    {
+      "location_id": "LOC-015",
+      "name": "Oak Hill",
+      "lat": 39.8339,
+      "lng": -77.2361,
+      "elevation_ft": 620,
+      "significance": "Confederate artillery on Oak Hill provided flanking fire on Union I Corps. Rodes's division attacked from here.",
+      "day_relevance": [
+        1
+      ]
+    },
+    {
+      "location_id": "LOC-016",
+      "name": "Barlow's Knoll",
+      "lat": 39.8356,
+      "lng": -77.2283,
+      "elevation_ft": 550,
+      "significance": "XI Corps right flank. Barlow wounded here. Gordon's flank attack struck this position. Wilkeson's battery destroyed here.",
+      "day_relevance": [
+        1
+      ]
+    },
+    {
+      "location_id": "LOC-017",
+      "name": "Railroad Cut (western)",
+      "lat": 39.835,
+      "lng": -77.25,
+      "elevation_ft": 555,
+      "significance": "Davis's brigade trapped here by 6th Wisconsin's charge July 1. Mass captures. Gettysburg Animated YouTube vignette subject.",
+      "day_relevance": [
+        1
+      ]
+    },
+    {
+      "location_id": "LOC-018",
+      "name": "Herr Ridge",
+      "lat": 39.8289,
+      "lng": -77.2594,
+      "elevation_ft": 570,
+      "significance": "Pegram's Confederate artillery opened fire from here July 1 morning. Heth's division deployed across this ridge before advancing.",
+      "day_relevance": [
+        1
+      ]
+    },
+    {
+      "location_id": "LOC-019",
+      "name": "Bliss Farm",
+      "lat": 39.8178,
+      "lng": -77.2444,
+      "elevation_ft": 540,
+      "significance": "Contested skirmish position between Seminary and Cemetery ridges July 2-3. Changed hands nine times. Finally burned July 3.",
+      "day_relevance": [
+        2,
+        3
+      ]
+    },
+    {
+      "location_id": "LOC-020",
+      "name": "Benner's Hill",
+      "lat": 39.8222,
+      "lng": -77.2133,
+      "elevation_ft": 610,
+      "significance": "Latimer's Confederate battalion placed here July 2. Destroyed by Union counterbattery fire. Latimer (age 19) mortally wounded.",
+      "day_relevance": [
+        2
+      ]
+    },
+    {
+      "location_id": "LOC-021",
+      "name": "East Cavalry Field",
+      "lat": 39.8317,
+      "lng": -77.1972,
+      "elevation_ft": 500,
+      "significance": "Stuart vs Gregg/Custer July 3. Stuart attempted to reach Union rear during Pickett's Charge. Custer's charge stopped him. Hampton wounded.",
+      "day_relevance": [
+        3
+      ]
+    },
+    {
+      "location_id": "LOC-022",
+      "name": "Lutheran Theological Seminary",
+      "lat": 39.8261,
+      "lng": -77.2456,
+      "elevation_ft": 580,
+      "significance": "Cupola used by both sides for observation. Perrin's Confederate brigade drove through Seminary grounds July 1. Seminary Ridge named for this building.",
+      "day_relevance": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "location_id": "LOC-023",
+      "name": "Evergreen Cemetery gatehouse",
+      "lat": 39.8183,
+      "lng": -77.2261,
+      "elevation_ft": 625,
+      "significance": "Union headquarters area. Howard established headquarters here July 1. Evergreen Cemetery on the hill.",
+      "day_relevance": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "location_id": "LOC-024",
+      "name": "Codori Farm",
+      "lat": 39.8128,
+      "lng": -77.2378,
+      "elevation_ft": 540,
+      "significance": "Near the advance Confederate skirmish positions July 3. Confederate attacking line passed through this farm during Pickett's Charge.",
+      "day_relevance": [
+        3
+      ]
+    },
+    {
+      "location_id": "LOC-025",
+      "name": "Spangler's Spring",
+      "lat": 39.81,
+      "lng": -77.2183,
+      "elevation_ft": 530,
+      "significance": "XII Corps area between Culp's Hill and Cemetery Hill. Famous disputed truce during the night of July 2 where Union and Confederate soldiers reportedly shared water.",
+      "day_relevance": [
+        2,
+        3
+      ]
+    },
+    {
+      "location_id": "LOC-026",
+      "name": "Plum Run (valley)",
+      "lat": 39.8,
+      "lng": -77.2367,
+      "elevation_ft": 490,
+      "significance": "Valley between the Round Tops and Cemetery Ridge. 1st Minnesota charged toward this creek to stop Wilcox. McGilvery's Plum Run Line established here.",
+      "day_relevance": [
+        2
+      ]
+    },
+    {
+      "location_id": "LOC-027",
+      "name": "Rose Woods",
+      "lat": 39.7989,
+      "lng": -77.2428,
+      "elevation_ft": 560,
+      "significance": "Fighting between Peach Orchard and Wheatfield. DeTrobriand's and Kershaw's brigades fought here. Stone wall along northern edge.",
+      "day_relevance": [
+        2
+      ]
+    },
+    {
+      "location_id": "LOC-028",
+      "name": "Power's Hill",
+      "lat": 39.8089,
+      "lng": -77.2178,
+      "elevation_ft": 620,
+      "significance": "XII Corps reserve position. Artillery on crest. Slocum's headquarters area.",
+      "day_relevance": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "location_id": "LOC-029",
+      "name": "Gulp's Hill saddle",
+      "lat": 39.8122,
+      "lng": -77.2222,
+      "elevation_ft": 560,
+      "significance": "Low ground between Culp's Hill and Cemetery Hill. Key terrain in XII Corps defensive line.",
+      "day_relevance": [
+        2,
+        3
+      ]
+    },
+    {
+      "location_id": "LOC-030",
+      "name": "Triangular Field",
+      "lat": 39.7967,
+      "lng": -77.2428,
+      "elevation_ft": 560,
+      "significance": "Rocky field below Devil's Den. Ward's brigade fought here. Texas Brigade assault through this terrain.",
+      "day_relevance": [
+        2
+      ]
+    }
+  ],
+  "roads": [
+    {
+      "road_id": "RD-001",
+      "name": "Chambersburg Pike (US Route 30)",
+      "direction": "east-west through Gettysburg",
+      "significance": "Main Confederate approach route. Heth's division advanced east on this road July 1. Iron Brigade fought near this road.",
+      "lat_approx": 39.8306,
+      "lng_approx": -77.25
+    },
+    {
+      "road_id": "RD-002",
+      "name": "Emmitsburg Road",
+      "direction": "southwest from Gettysburg",
+      "significance": "Sickles advanced to this road July 2 creating his salient. Humphreys's division fought along it. Main Union approach route.",
+      "lat_approx": 39.8006,
+      "lng_approx": -77.25
+    },
+    {
+      "road_id": "RD-003",
+      "name": "Taneytown Road",
+      "direction": "south from Gettysburg",
+      "significance": "Union supply and reinforcement route. Meade's headquarters on this road.",
+      "lat_approx": 39.8089,
+      "lng_approx": -77.2289
+    },
+    {
+      "road_id": "RD-004",
+      "name": "Baltimore Pike",
+      "direction": "southeast from Gettysburg",
+      "significance": "Union army's main line of communication and supply. XII Corps approached on this road.",
+      "lat_approx": 39.8089,
+      "lng_approx": -77.2189
+    },
+    {
+      "road_id": "RD-005",
+      "name": "York Road",
+      "direction": "northeast from Gettysburg",
+      "significance": "Early's Confederate division approached on this road July 1. Extra Billy Smith guarded the flank here.",
+      "lat_approx": 39.8333,
+      "lng_approx": -77.2133
+    },
+    {
+      "road_id": "RD-006",
+      "name": "Carlisle Road",
+      "direction": "north from Gettysburg",
+      "significance": "Rodes's Confederate division approached on this road, arriving at Oak Hill.",
+      "lat_approx": 39.84,
+      "lng_approx": -77.2311
+    },
+    {
+      "road_id": "RD-007",
+      "name": "Hagerstown Road",
+      "direction": "southwest from Gettysburg",
+      "significance": "Confederate retreat route July 4-5. Anderson's division on this road.",
+      "lat_approx": 39.8222,
+      "lng_approx": -77.26
+    },
+    {
+      "road_id": "RD-008",
+      "name": "Mummasburg Road",
+      "direction": "northwest from Gettysburg",
+      "significance": "Connects to Oak Ridge area. Used by Rodes for positioning.",
+      "lat_approx": 39.8361,
+      "lng_approx": -77.2461
+    }
+  ],
+  "structures": [
+    {
+      "structure_id": "STR-001",
+      "name": "Meade's Headquarters (Leister House)",
+      "lat": 39.8122,
+      "lng": -77.2289,
+      "type": "farmhouse",
+      "significance": "Army of Potomac headquarters July 2-3. Near miss from Confederate artillery July 3 cannonade."
+    },
+    {
+      "structure_id": "STR-002",
+      "name": "Lee's Headquarters",
+      "lat": 39.8278,
+      "lng": -77.2539,
+      "type": "headquarters tent",
+      "significance": "Near the Chambersburg Pike on Seminary Ridge."
+    },
+    {
+      "structure_id": "STR-003",
+      "name": "Trostle Farm barn",
+      "lat": 39.7989,
+      "lng": -77.2444,
+      "type": "barn",
+      "significance": "Bigelow's withdrawal. Famous cannonball hole in barn wall still visible today."
+    },
+    {
+      "structure_id": "STR-004",
+      "name": "Rose Farm",
+      "lat": 39.7989,
+      "lng": -77.2428,
+      "type": "farmhouse",
+      "significance": "At center of the Wheatfield fighting. Rose's stone wall a key defensive feature."
+    },
+    {
+      "structure_id": "STR-005",
+      "name": "Codori Farm",
+      "lat": 39.8128,
+      "lng": -77.2378,
+      "type": "farmhouse",
+      "significance": "On the open ground traversed by Pickett's charge."
+    },
+    {
+      "structure_id": "STR-006",
+      "name": "Brian Farm (Bryan Farm)",
+      "lat": 39.8117,
+      "lng": -77.2361,
+      "type": "farmhouse",
+      "significance": "Adjacent to The Angle. Stood amid the fighting during Pickett's Charge."
+    },
+    {
+      "structure_id": "STR-007",
+      "name": "Lutheran Theological Seminary",
+      "lat": 39.8261,
+      "lng": -77.2456,
+      "type": "institutional",
+      "significance": "Cupola used for observation. Perrin's charge broke through Seminary grounds July 1."
+    },
+    {
+      "structure_id": "STR-008",
+      "name": "Gettysburg railroad depot",
+      "lat": 39.8311,
+      "lng": -77.2317,
+      "type": "railroad",
+      "significance": "Gettysburg & Harrisburg Railroad terminus. Hall's battery near this area July 1."
+    }
+  ],
+  "terrain_features": [
+    {
+      "feature_id": "TF-001",
+      "name": "Stone walls (Cemetery Ridge)",
+      "type": "stone_wall",
+      "significance": "Key defensive feature. The wall at The Angle was the focal point of Pickett's Charge. Webb's and Cushing's positions."
+    },
+    {
+      "feature_id": "TF-002",
+      "name": "Copse of Trees",
+      "lat": 39.8117,
+      "lng": -77.235,
+      "type": "landmark",
+      "significance": "Visual reference point used by Confederate attackers during Pickett's Charge. Still standing today."
+    },
+    {
+      "feature_id": "TF-003",
+      "name": "Gettysburg & Harrisburg Railroad Cut",
+      "lat": 39.835,
+      "lng": -77.2461,
+      "type": "railroad_cut",
+      "significance": "Davis's brigade trapped here. 6th Wisconsin's famous charge. Unfinished cut too deep to escape quickly."
+    },
+    {
+      "feature_id": "TF-004",
+      "name": "Willoughby Run",
+      "lat": 39.8289,
+      "lng": -77.2556,
+      "type": "stream",
+      "significance": "Small stream at base of McPherson's Ridge. Iron Brigade crossed this charging into Herbst Woods."
+    }
+  ]
+}

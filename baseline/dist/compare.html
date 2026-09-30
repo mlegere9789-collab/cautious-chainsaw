@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0a0a14" />
+<title>Compare Two Moments — Gettysburg Animated Battlefield Map</title>
+<meta name="description" content="Compare unit positions at two different moments of the Battle of Gettysburg side by side." />
+<link rel="canonical" href="https://gettysburginteractivemap.com/compare.html" />
+<meta property="og:title" content="Compare Two Moments — Gettysburg Animated Battlefield Map" />
+<meta property="og:description" content="Compare unit positions at two different moments of the Battle of Gettysburg side by side." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gettysburginteractivemap.com/compare.html" />
+<meta property="og:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Compare Two Moments — Gettysburg Animated Battlefield Map" />
+<meta name="twitter:description" content="Compare unit positions at two different moments of the Battle of Gettysburg side by side." />
+<meta name="twitter:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.css" rel="stylesheet" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js"></script>
+<style>
+  :root { --bg:#0a0a14; --panel:#12121e; --ink:#e8e6df; --gold:#c9a24b; --muted:#8a93a8; --line:#1e1e2e; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family: Georgia, serif; }
+  header { padding: 24px 5% 16px; border-bottom: 1px solid var(--line); }
+  header a.back { font-family: sans-serif; font-size: 12px; color: var(--muted); text-decoration:none; }
+  h1 { font-size: clamp(22px, 3.5vw, 32px); color: var(--gold); margin: 10px 0 4px; }
+  .sub { font-family: sans-serif; color: var(--muted); font-size: 13px; max-width: 640px; }
+  .split { display:flex; height: 62vh; min-height: 420px; border-top: 1px solid var(--line); }
+  .pane { flex:1; position: relative; }
+  .pane + .pane { border-left: 2px solid var(--gold); }
+  .pane .map { position:absolute; inset:0; }
+  .pane-controls { position:absolute; top:12px; left:12px; right:12px; z-index: 2; background: rgba(10,10,20,0.88); border:1px solid var(--line); border-radius:8px; padding: 10px 14px; font-family: sans-serif; }
+  .pane-controls select, .pane-controls input[type=range] { width:100%; margin-top:6px; }
+  .pane-controls .tick-label { font-size:11px; color: var(--muted); display:flex; justify-content:space-between; margin-top:6px;}
+  .pane-controls .tick-label b { color: var(--gold); }
+  .toggle-row { display:flex; gap:8px; margin-top:8px; }
+  .toggle-btn { font-size:10px; padding:3px 8px; border-radius:4px; border:1px solid var(--line); color:var(--muted); cursor:pointer; background:transparent; }
+  .toggle-btn.active { border-color:var(--gold); color:var(--gold); }
+  .legend { display:flex; gap:14px; padding: 14px 5% 28px; font-family: sans-serif; font-size:12px; color: var(--muted); flex-wrap:wrap; }
+  .legend span { display:flex; align-items:center; gap:5px; }
+  .dot { width:9px; height:9px; border-radius:50%; display:inline-block; }
+  #loading, #error { font-family: sans-serif; color: var(--muted); padding: 40px; text-align:center; }
+  #error { color:#cc7766; display:none; }
+  .mapboxgl-popup-content { background:#12121e !important; color:#e8e6df !important; font-family: sans-serif; font-size:12px; border:1px solid var(--line); }
+  .mapboxgl-popup-tip { border-top-color:#12121e !important; }
+</style>
+<link rel="stylesheet" href="/site-nav.css">
+</head>
+<body>
+<div id="gtbg-nav-mount"></div>
+<header>
+  <a class="back" href="/index.html">&larr; Back to the map</a>
+  <h1>Compare Two Moments</h1>
+  <p class="sub">Set each map to a different tick and compare unit positions side by side — e.g. the Union line at 4:00pm vs. 6:00pm on Day 2. Units snap to the nearest recorded position at or before the tick you choose.</p>
+</header>
+<div id="loading">Loading battlefield data&hellip;</div>
+<div id="error">Couldn't load placement data. This tool reads the same public /data/*.json files as the main app — try reloading.</div>
+<div class="split" id="split" style="display:none;">
+  <div class="pane">
+    <div class="map" id="map-a"></div>
+    <div class="pane-controls">
+      <label style="font-size:12px;color:var(--gold);">Left: <span id="day-label-a">Day 1</span></label>
+      <input type="range" id="slider-a" min="1" max="675" value="60" />
+      <div class="tick-label"><span>Tick <b id="tick-num-a">60</b></span><span id="time-label-a"></span></div>
+      <div class="toggle-row">
+        <button type="button" class="toggle-btn active" data-pane="a" data-action="style-satellite">Satellite</button>
+        <button type="button" class="toggle-btn" data-pane="a" data-action="style-dark">Dark</button>
+        <button type="button" class="toggle-btn" data-pane="a" data-action="style-parchment">Parchment</button>
+        <button type="button" class="toggle-btn" data-pane="a" data-action="terrain">3D Terrain</button>
+      </div>
+    </div>
+  </div>
+  <div class="pane">
+    <div class="map" id="map-b"></div>
+    <div class="pane-controls">
+      <label style="font-size:12px;color:var(--gold);">Right: <span id="day-label-b">Day 2</span></label>
+      <input type="range" id="slider-b" min="1" max="675" value="300" />
+      <div class="tick-label"><span>Tick <b id="tick-num-b">300</b></span><span id="time-label-b"></span></div>
+      <div class="toggle-row">
+        <button type="button" class="toggle-btn active" data-pane="b" data-action="style-satellite">Satellite</button>
+        <button type="button" class="toggle-btn" data-pane="b" data-action="style-dark">Dark</button>
+        <button type="button" class="toggle-btn" data-pane="b" data-action="style-parchment">Parchment</button>
+        <button type="button" class="toggle-btn" data-pane="b" data-action="terrain">3D Terrain</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="legend">
+  <span><span class="dot" style="background:#4477cc"></span> Union</span>
+  <span><span class="dot" style="background:#cc5544"></span> Confederate</span>
+  <span>Dot size scales with unit strength &middot; click any unit for details</span>
+</div>
+
+<script>
+(async function() {
+  const MAPBOX_TOKEN = "pk.eyJ1IjoibWxlZ2VyZTk3ODkiLCJhIjoiY21xcHptODEyMGJydDJycWFhaWY0ZHVsMCJ9.aJvnELJlXEs3nYrWx4Eg5Q";
+  mapboxgl.accessToken = MAPBOX_TOKEN;
+
+  const PLACEMENT_FILES = [
+    'placements_day1_ticks1_50.json',
+    'placements_day1_ticks51_100.json',
+    'placements_day1_ticks101_225.json',
+    'placements_day2_ticks226_300.json',
+    'placements_day2_ticks301_375.json',
+    'placements_day2_ticks376_450.json',
+    'placements_day3_ticks451_520.json',
+    'placements_day3_ticks521_600.json',
+    'placements_day3_ticks601_675.json',
+  ];
+
+  const BATTLEFIELD_CENTER = [-77.235, 39.81]; // approximate center, from terrain.json's battlefield_bounds
+
+  function dayForTick(tick) {
+    if (tick <= 225) return 1;
+    if (tick <= 450) return 2;
+    return 3;
+  }
+
+  function approxTimeForTick(tick) {
+    // Ticks are 5-minute intervals starting 5:00am. Day boundaries reset the clock (per placement_schema.json's ticks_per_day).
+    const dayStartTick = tick <= 225 ? 1 : (tick <= 450 ? 226 : 451);
+    const minutesIn = (tick - dayStartTick) * 5;
+    const hour = Math.floor(minutesIn / 60) + 5;
+    const min = minutesIn % 60;
+    const h12 = ((hour + 11) % 12) + 1;
+    const ampm = hour >= 12 && hour < 24 ? 'pm' : (hour >= 24 ? 'am' : 'am');
+    return `${h12}:${String(min).padStart(2,'0')}${hour >= 24 ? 'am (next day)' : (hour >= 12 ? 'pm' : 'am')}`;
+  }
+
+  try {
+    const loadStart = performance.now();
+    const responses = await Promise.all(PLACEMENT_FILES.map(f => fetch('/data/' + f).then(r => {
+      if (!r.ok) throw new Error(f + ' failed: ' + r.status);
+      return r.json();
+    })));
+
+    // Build a per-unit sorted list of {tick, lat, lng, disposition, strength} across ALL files combined.
+    const byUnit = new Map();
+    for (const fileData of responses) {
+      for (const p of fileData.placements) {
+        if (!byUnit.has(p.unit_id)) byUnit.set(p.unit_id, []);
+        byUnit.get(p.unit_id).push(p);
+      }
+    }
+    for (const arr of byUnit.values()) arr.sort((a,b) => a.tick - b.tick);
+
+    // For a given tick, find each unit's most recent placement at or before that tick (binary search).
+    function placementsAtTick(tick) {
+      const result = [];
+      for (const [unitId, arr] of byUnit.entries()) {
+        let lo = 0, hi = arr.length - 1, best = -1;
+        while (lo <= hi) {
+          const mid = (lo + hi) >> 1;
+          if (arr[mid].tick <= tick) { best = mid; lo = mid + 1; } else { hi = mid - 1; }
+        }
+        if (best >= 0) result.push(arr[best]);
+      }
+      return result;
+    }
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('split').style.display = 'flex';
+    console.log('Compare tool: loaded', byUnit.size, 'units across', PLACEMENT_FILES.length, 'files in', Math.round(performance.now()-loadStart), 'ms');
+
+    function buildGeoJSON(tick) {
+      const placements = placementsAtTick(tick);
+      return {
+        type: 'FeatureCollection',
+        features: placements.map(p => ({
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [p.lng, p.lat] },
+          properties: {
+            unit_id: p.unit_id,
+            side: p.unit_id.startsWith('U-') ? 'union' : 'confederate',
+            disposition: p.disposition,
+            strength: p.strength,
+            asOfTick: p.tick,
+          }
+        }))
+      };
+    }
+
+    function setupPane(containerId, sliderId, dayLabelId, tickNumId, timeLabelId, paneKey) {
+      const STYLES = {
+        satellite: 'mapbox://styles/mapbox/satellite-v9',
+        dark: 'mapbox://styles/mapbox/dark-v11',
+        parchment: 'mapbox://styles/mapbox/light-v11', // Mapbox has no literal "parchment" style; light-v11 is the closest built-in approximation
+      };
+      const map = new mapboxgl.Map({
+        container: containerId,
+        style: STYLES.satellite,
+        center: BATTLEFIELD_CENTER,
+        zoom: 13,
+        attributionControl: true,
+      });
+      map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+      let ready = false;
+      let terrainOn = false;
+
+      function addUnitsLayer() {
+        if (map.getSource('units')) return; // already present (e.g. after a style that didn't clear it)
+        map.addSource('units', { type: 'geojson', data: buildGeoJSON(Number(document.getElementById(sliderId).value)) });
+        map.addLayer({
+          id: 'units-layer', type: 'circle', source: 'units',
+          paint: {
+            'circle-radius': ['interpolate', ['linear'], ['get', 'strength'], 0, 3, 500, 5, 2000, 9, 6000, 14],
+            'circle-color': ['match', ['get', 'side'], 'union', '#4477cc', 'confederate', '#cc5544', '#888888'],
+            'circle-stroke-width': 1, 'circle-stroke-color': '#0a0a14', 'circle-opacity': 0.9,
+          }
+        });
+        map.on('click', 'units-layer', (e) => {
+          const p = e.features[0].properties;
+          new mapboxgl.Popup({ closeButton: true }).setLngLat(e.lngLat)
+            .setHTML(`<b>${p.unit_id}</b><br>${p.disposition}<br>Strength: ${p.strength.toLocaleString()}<br><span style="color:#888">as of tick ${p.asOfTick}</span>`)
+            .addTo(map);
+        });
+        map.on('mouseenter', 'units-layer', () => map.getCanvas().style.cursor = 'pointer');
+        map.on('mouseleave', 'units-layer', () => map.getCanvas().style.cursor = '');
+      }
+
+      function addTerrainSource() {
+        if (!map.getSource('mapbox-dem')) {
+          map.addSource('mapbox-dem', { type: 'raster-dem', url: 'mapbox://mapbox.mapbox-terrain-dem-v1', tileSize: 512, maxzoom: 14 });
+        }
+      }
+
+      map.on('load', () => {
+        addUnitsLayer();
+        ready = true;
+      });
+
+      // setStyle() clears all custom sources/layers -- must re-add after the new style finishes loading.
+      map.on('style.load', () => {
+        if (!ready) return; // skip the initial load, already handled above
+        addUnitsLayer();
+        if (terrainOn) { addTerrainSource(); map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 }); }
+      });
+
+      const slider = document.getElementById(sliderId);
+      slider.addEventListener('input', () => {
+        const tick = Number(slider.value);
+        document.getElementById(tickNumId).textContent = tick;
+        document.getElementById(dayLabelId).textContent = 'Day ' + dayForTick(tick);
+        document.getElementById(timeLabelId).textContent = approxTimeForTick(tick);
+        if (ready && map.getSource('units')) map.getSource('units').setData(buildGeoJSON(tick));
+      });
+      slider.dispatchEvent(new Event('input'));
+
+      // Wire this pane's toggle buttons
+      document.querySelectorAll(`.toggle-btn[data-pane="${paneKey}"]`).forEach(btn => {
+        btn.addEventListener('click', () => {
+          const action = btn.dataset.action;
+          if (action.startsWith('style-')) {
+            const styleName = action.replace('style-', '');
+            document.querySelectorAll(`.toggle-btn[data-pane="${paneKey}"][data-action^="style-"]`).forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            map.setStyle(STYLES[styleName]);
+          } else if (action === 'terrain') {
+            terrainOn = !terrainOn;
+            btn.classList.toggle('active', terrainOn);
+            if (terrainOn) { addTerrainSource(); map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 }); if (map.getPitch() < 30) map.easeTo({ pitch: 55, duration: 600 }); }
+            else { map.setTerrain(null); map.easeTo({ pitch: 0, duration: 600 }); }
+          }
+        });
+      });
+
+      return map;
+    }
+
+    setupPane('map-a', 'slider-a', 'day-label-a', 'tick-num-a', 'time-label-a', 'a');
+    setupPane('map-b', 'slider-b', 'day-label-b', 'tick-num-b', 'time-label-b', 'b');
+
+  } catch (err) {
+    console.error('Compare tool load error:', err);
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('error').style.display = 'block';
+  }
+})();
+</script>
+<div id="gtbg-footer-mount"></div>
+<script src="/site-nav.js" data-current="compare"></script>
+</body>
+</html>
