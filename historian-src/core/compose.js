@@ -56,6 +56,9 @@ function statsPieces(r) {
 // ---------------------------------------------------------------------------------------------------------------------------------------
 // A1 profile
 // ---------------------------------------------------------------------------------------------------------------------------------------
+/** a place is shown under the site's full name when it carries another name in capitals in brackets ("Meade's Headquarters (Leister House)", "The Angle (High Water Mark)"); a lower-case qualifier ("(central)") is dropped */
+const placeName = (r) => (/\([A-Z][^)]*\)$/.test(r.title || '') ? r.title : r.label);
+
 export function profileLead(kb, r) {
   const H = helpers(kb);
   const a = r.attrs || {};
@@ -80,12 +83,12 @@ export function profileLead(kb, r) {
     if (days) runs.push(`Days engaged: ${days}. `);
     if (a.ka) runs.push(endSent(a.ka));
   } else if (r.k === 'terrain') {
-    runs.push(ent(r, ucfirst(r.label)), '. ');
+    runs.push(ent(r, ucfirst(placeName(r))), '. ');
     if (a.elevation) runs.push(`Elevation about ${fmtN(a.elevation)} feet. `);
     if (a.days && a.days.length) runs.push(`Relevant on ${daysText(a.days)}. `);
     if (a.ka) runs.push(endSent(a.ka));
   } else if (['road', 'structure', 'feature'].includes(r.k)) {
-    runs.push(ent(r, ucfirst(r.label)), '. ');
+    runs.push(ent(r, ucfirst(placeName(r))), '. ');
     if (a.ka) runs.push(endSent(a.ka));
   } else if (r.k === 'person') {
     const roles = (a.roles || []).filter((x) => x.r === 'commander' || x.r === 'chief-artillery');

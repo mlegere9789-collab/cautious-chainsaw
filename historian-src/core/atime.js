@@ -155,3 +155,14 @@ export function whenLine(kb, r) {
   const ev = { m: e[0], sigma: e[1], flags: e[2], range: e[3] || null }; const d = dateOf(ev.m);
   return `The site’s proposed revised timeline places “${shortTitle(r)}” on ${DAY_NAME[d] || `July ${d}`} at ${clockLabel(ev, d)}.`;
 }
+
+/** an event in its own words for a list: its heading and as many of its sentences as fit in about 320 characters (whole sentences only) */
+export function eventSummary(r, maxChars = 320) {
+  const raw = String((r.attrs && r.attrs.text) || '');
+  const headed = /^[A-Z0-9'’ -]{6,}[.:]\s+/.test(raw);
+  const body = raw.replace(/^[A-Z0-9'’ -]{6,}[.:]\s+/, '');
+  const out = []; let n = headed ? r.title.length + 2 : 0;
+  for (const s of sentencesOf(body)) { if (out.length && n + s.length > maxChars) break; out.push(s); n += s.length + 1; }
+  const text = out.join(' ') || r.title;
+  return headed ? `${ucfirst(r.title.replace(/[.\s]+$/, ''))}: ${text}` : text;
+}

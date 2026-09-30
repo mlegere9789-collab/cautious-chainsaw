@@ -8,13 +8,13 @@ import { classify, INTENT_WORDS, sideHint } from './intent.js';
 import { scoreCards, dfOf } from './entities.js';
 import { STATES, STATE_ABBR, stateAt } from './units.js';
 import * as C from './compose.js';
-import { selectQuotes } from './select.js';
+import { selectQuotes, DURATION_RE } from './select.js';
 import { renderText, SIDE_NAME, personLabel, withThe } from './format.js';
 import { lintAnswer } from './lint.js';
 import { makeChips } from './chips.js';
 import { W } from './linker.js';
 import { parseClock, julyDate, hm12 } from './clock.js';
-import { clockAnswer, whenLine } from './atime.js';
+import { clockAnswer, whenLine, eventSummary } from './atime.js';
 
 const CONSUMED = new Set(['who-commanded', 'casualties', 'strength', 'succession', 'ancestor', 'superlative', 'when', 'why', 'what-happened', 'compare', 'list', 'where', 'who', 'count', 'outcome', 'echelons', 'presence', 'opponent', 'membership', 'sequence', 'overview', 'quote', 'at-time']);
 const PRIOR = {
@@ -163,7 +163,9 @@ export function createEngine(kb, opts = {}) {
     const tick = typeof o.tick === 'number' ? o.tick : null;
     if (tick !== null) {
       const day = o.day || (tick <= 225 ? 1 : tick <= 450 ? 2 : 3);
-      const ev = R.filter((r) => r.k === 'chronology' && r.attrs.day === day && Math.abs(r.attrs.tick - tick) <= 6).sort((a, b) => Math.abs(a.attrs.tick - tick) - Math.abs(b.attrs.tick - tick) || (a.attrs.sig === 'critical' ? -1 : 1));
+      // events about the selected unit come first, then by distance from the map's moment, critical ones before the rest
+      const mine = (r) => (su !== null && (r.attrs.units || []).includes(R[su].id) ? 0 : 1);
+      const ev = R.filter((r) => r.k === 'chronology' && r.attrs.day === day && Math.abs(r.attrs.tick - tick) <= 6).sort((a, b) => mine(a) - mine(b) || Math.abs(a.attrs.tick - tick) - Math.abs(b.attrs.tick - tick) || (a.attrs.sig === 'critical' ? -1 : 1));
       S.tickEvents = ev.slice(0, 3);
       S.boostIds = new Set(S.tickEvents.map((r) => r.id));
       S.day = S.day || day;
@@ -835,11 +837,13 @@ export function createEngine(kb, opts = {}) {
     if (quoted.length) { const hit = ranked.filter((x) => quoted.some((qq) => baseNorm(x.p.text).includes(qq))); if (hit.length) pool = hit; }
     if (!pool.length) return null;
     const entStems = new Set(); for (const m of S.mentions) if (m.kind !== 'unit-miss') for (const t of (m.phrase || '').split(' ')) if (t && !/^#|\|/.test(t)) entStems.add(t);
-    const ctx = { qStems: new Set(S.passageTerms), entStems, timeQ: false, quoteQ: true };
-    const quotes = selectQuotes(kb, pool, ctx, { max: 2, skip: new Set(S.ctx && S.ctx.shownPassages || []) });
+    // the people whose words are asked for ("what did Lee say ...", "what did Longstreet tell Lee"): the speaker is named before the verb
+    const speakerStems = new Set(); { const who = S.norm.match(/\b(?:what|who)\s+(?:did|does|was)\s+(\S+(?:\s+\S+)?)\s+(?:say|said|tell|told|write|wrote|shout|shouted|reply|replied)\b/); if (who) for (const t of who[1].split(' ')) if (!STOP.has(t) && t.length > 2) speakerStems.add(stem(t)); }
+    const ctx = { qStems: new Set(S.passageTerms), entStems, timeQ: false, quoteQ: true, speakerStems };
+    const quotes = selectQuotes(kb, pool, ctx, { max: 2, skip: new Set(S.ctx && S.ctx.shownPassages || []), rerank: true });
     if (!quotes.length) return null;
     S.quotes = quotes;
-    return { mode: 'answer', blocks: [C.lead(['Here is what the site\u2019s records say.'], []), ...quotes], src: quotes.map((q) => q.rec) };
+    return { mode: 'answer', blocks: [C.lead(['According to the site\u2019s records, this is what was said, word for word.'], []), ...quotes], src: quotes.map((q) => q.rec) };
   }
 
   async function composeFor(S) {
@@ -943,6 +947,21 @@ export function createEngine(kb, opts = {}) {
     if (intent === 'day-summary') { res = C.daySummary(kb, S.day, S); if (res) return res; }
     if (intent === 'sequence') { res = sequenceAnswer(S); if (res) return res; }
     if (intent === 'quote') { res = await quoteAnswer(S); if (res) return res; }
+    if (intent === 'when' && /\bhow (?:long|many (?:hours?|minutes?|days?))\b|\bduration\b|\bhow much time\b|\bfor how long\b/.test(S.norm)) {
+      // "how many hours did the July 3 fight for Culp's Hill last?": the length is stated in the site's own words (a chronology entry, a terrain note, the casualty highlights); quote the sentence that states it
+      let cands = (await getPassages(S, { limit: 40 })).filter((x) => DURATION_RE.test(x.p.text));
+      // about what was asked: with a linked subject ("Culp's Hill", "Pickett's Charge") only passages linked to it or naming it count
+      const subjIds = [...new Set(S.mentions.filter((m) => m.kind !== 'unit-miss' && m.ids && m.ids.length).flatMap((m) => (m.kind === 'unit' ? [m.best] : m.ids.slice(0, 3))).map((i) => R[i].id))];
+      if (subjIds.length) {
+        const ep = await kb.entityPassages(subjIds); const phrases = S.mentions.filter((m) => m.kind !== 'unit-miss' && m.phrase && !/[#|]/.test(m.phrase)).map((m) => ' ' + m.phrase + ' ');
+        cands = cands.filter((x) => ep.has(x.p.num) || phrases.some((f) => (' ' + tokenize(x.p.text).map(stem).join(' ') + ' ').includes(f)));
+      }
+      if (cands.length) {
+        const entStems = new Set(); for (const m of S.mentions) { if (m.kind === 'unit-miss') continue; for (const t of (m.phrase || '').split(' ')) if (t && !/^#|\|/.test(t)) entStems.add(t); }
+        const quotes = selectQuotes(kb, cands, { qStems: new Set(S.passageTerms), entStems, timeQ: false, durationQ: true }, { max: 2, skip: new Set(S.ctx && S.ctx.shownPassages || []) });
+        if (quotes.length) { S.quotes = quotes; return { mode: 'answer', blocks: [C.lead(['The site’s records state the length in their own words.'], []), ...quotes, C.note('time-basis', 'The lengths are quoted as the site’s records give them; they are approximate and no clock time is derived from them.')], src: quotes.map((q) => q.rec) }; }
+      }
+    }
     if (intent === 'when') {
       const ranked = S.ranked.filter((x) => ['chronology', 'vignette', 'succession'].includes(x.k)).slice(0, 3).map((x) => R[x.i]);
       const focus = ranked[0];
@@ -971,6 +990,8 @@ export function createEngine(kb, opts = {}) {
       for (const r of S.tickEvents || []) push(r);
     }
     for (const m of S.mentions) if (m.kind === 'unit' && !m.amb) push(R[m.best]);
+    // a unit's nickname or possessive name ("Bigelow's battery", "the Bucktails") that resolves to exactly one unit is the subject of "what happened to it at <place>": the place is context, not the answer
+    if (S.intent === 'what-happened' && S.places.length) for (const m of S.mentions) if (m.kind === 'alias' && !m.amb && m.ids && m.ids.length === 1 && UNIT_KINDS.has(R[m.ids[0]].k)) push(R[m.ids[0]]);
     const gram = ordered.slice().sort((x, y) => unitOrder(S, echelonWord).indexOf(x) - unitOrder(S, echelonWord).indexOf(y));
     if (!S.onsite) { ordered.length = 0; gram.forEach(push); }
     for (const x of S.ranked) push(R[x.i]);
@@ -986,6 +1007,11 @@ export function createEngine(kb, opts = {}) {
     // one nickname, several records ("the Bucktails")
     const am = S.mentions.find((m) => m.kind === 'alias' && m.ids && m.ids.length > 1 && m.ids.some((i) => R[i].id === focus.id));
     if (am) { const lst = C.sharedNameList(kb, focus, am.ids); if (lst) { blocks.push(lst); src.push(...lst.src.slice(0, 2)); } }
+    // the map's "what happened here": the neighbouring entries of the same moment are part of the answer (their own words, capped), not only the nearest one
+    if (S.onsite && S.tickEvents && S.tickEvents.length > 1) {
+      const near = S.tickEvents.filter((r) => r.id !== focus.id).slice(0, 2);
+      if (near.length) { blocks.push({ t: 'list', title: 'Nearby in the site’s chronology:', items: near.map((r) => ({ txt: eventSummary(r), ent: r.id })), src: near.map((r) => r.id) }); src.push(...near.map((r) => r.id)); }
+    }
     const res = { mode: 'answer', blocks, src };
     const causal = S.intent === 'why';
     if (causal) res.blocks.push(C.note('debate', 'Historians debate questions like this one. These are the accounts in the site\u2019s records, not a verdict.'));
