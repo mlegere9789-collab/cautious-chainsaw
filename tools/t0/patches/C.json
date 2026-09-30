@@ -40,14 +40,15 @@
    "id": "mob:HF-5a layout init",
    "target": "js",
    "find": "[Zn,Dt]=pt.useState(null)",
-   "repl": "[Zn,Dt]=pt.useState(()=>{try{var q=new URLSearchParams(location.search).get(\"layout\"),s=sessionStorage.getItem(\"gtbg_layout\");q=q||s;if(q===\"mobile\"||q===\"desktop\")return q}catch(e){}try{return matchMedia(\"(max-width: 820px) and (pointer: coarse), (max-height: 480px) and (pointer: coarse)\").matches?\"mobile\":\"desktop\"}catch(e){return\"desktop\"}})",
-   "expect": 1
+   "repl": "[Zn,Dt]=pt.useState(()=>{try{var q=new URLSearchParams(location.search).get(\"layout\"),s=sessionStorage.getItem(\"gtbg_layout\");q=q||s;if(q===\"mobile\"||q===\"desktop\")return q}catch(e){}try{return matchMedia(\"(max-width: 834px) and (pointer: coarse), (max-height: 480px) and (pointer: coarse)\").matches?\"mobile\":\"desktop\"}catch(e){return\"desktop\"}})",
+   "expect": 1,
+   "note": "query (max-width: 834px) and (pointer: coarse), (max-height: 480px) and (pointer: coarse): D-SHELL 834 px bound instead of the runbook 820 px (chapter 02 section 14 item 14, reviewers); mouse windows stay desktop at any width"
   },
   {
    "id": "mob:HF-5b layout attr effect",
    "target": "js",
    "find": "pt.useEffect(()=>{sF(yn.getState,yn.setState)},[])",
-   "repl": "pt.useEffect(()=>{sF(yn.getState,yn.setState)},[]),pt.useEffect(()=>{document.documentElement.setAttribute(\"data-layout\",Zn||\"\")},[Zn]),pt.useEffect(()=>{try{const q=matchMedia(\"(max-width: 820px) and (pointer: coarse), (max-height: 480px) and (pointer: coarse)\"),h=()=>{try{if(sessionStorage.getItem(\"gtbg_layout\")||new URLSearchParams(location.search).get(\"layout\"))return}catch(e){}Dt(q.matches?\"mobile\":\"desktop\")};q.addEventListener?q.addEventListener(\"change\",h):q.addListener(h);return()=>{q.removeEventListener?q.removeEventListener(\"change\",h):q.removeListener(h)}}catch(e){}},[])",
+   "repl": "pt.useEffect(()=>{sF(yn.getState,yn.setState)},[]),pt.useEffect(()=>{document.documentElement.setAttribute(\"data-layout\",Zn||\"\")},[Zn]),pt.useEffect(()=>{try{const q=matchMedia(\"(max-width: 834px) and (pointer: coarse), (max-height: 480px) and (pointer: coarse)\"),h=()=>{try{if(sessionStorage.getItem(\"gtbg_layout\")||new URLSearchParams(location.search).get(\"layout\"))return}catch(e){}Dt(q.matches?\"mobile\":\"desktop\")};q.addEventListener?q.addEventListener(\"change\",h):q.addListener(h);return()=>{q.removeEventListener?q.removeEventListener(\"change\",h):q.removeListener(h)}}catch(e){}},[])",
    "expect": 1
   },
   {
@@ -233,6 +234,70 @@
    "expect": 1
   },
   {
+   "id": "mob:C-scrub44",
+   "target": "js",
+   "find": "scrubTrack:{height:36,",
+   "repl": "scrubTrack:{height:44,margin:\"0 12px\",borderRadius:22,",
+   "expect": 1,
+   "note": "scrubber was 36 px tall (TARGET_SIZE < 44); 12 px side margin keeps the thumb inside the track at the ends"
+  },
+  {
+   "id": "mob:C-slide-close44",
+   "target": "js",
+   "find": "slidePanelClose:{background:\"none\",border:\"none\",color:\"#666\",fontSize:22,cursor:\"pointer\"}",
+   "repl": "slidePanelClose:{background:\"none\",border:\"none\",color:\"#a9adb8\",fontSize:22,cursor:\"pointer\",minWidth:44,minHeight:44}",
+   "expect": 1,
+   "note": "legend/roster close was 18x30; only the JSX-usage anchor of a11y G-close-mobile is untouched (style definition edited)"
+  },
+  {
+   "id": "mob:C-wt-head-hook",
+   "target": "js",
+   "find": "V.jsxs(\"div\",{style:kr.header,children:[",
+   "repl": "V.jsxs(\"div\",{className:\"gtbg-wt-head\",style:kr.header,children:[",
+   "expect": 1,
+   "note": "walkthrough header hook (back button target size); deliberately not on the button itself so cp:b13 (its label) keeps a clean, non-overlapping anchor"
+  },
+  {
+   "id": "mob:C-layers-hook",
+   "target": "js",
+   "find": "return V.jsxs(\"div\",{style:{position:\"fixed\",top:60,right:10,background:\"rgba(5,5,12,0.97)\"",
+   "repl": "return V.jsxs(\"div\",{className:\"gtbg-layers\",style:{position:\"fixed\",top:60,right:10,background:\"rgba(5,5,12,0.97)\"",
+   "expect": 1,
+   "note": "Map Layers panel hook: 11x19 close and 13x13 checkboxes on a phone, panel over the day tabs"
+  },
+  {
+   "id": "mob:C-help-overlay-hook",
+   "target": "help",
+   "find": "return e.jsx(\"div\",{style:t.overlay,onClick",
+   "repl": "return e.jsx(\"div\",{className:\"gtbg-modal-overlay\",style:t.overlay,onClick",
+   "expect": 1,
+   "note": "Help modal hook (close 15x32, tabs 33 px)"
+  },
+  {
+   "id": "mob:C-book-overlay-hook",
+   "target": "book",
+   "find": "t.jsx(\"div\",{style:o.overlay,onClick",
+   "repl": "t.jsx(\"div\",{className:\"gtbg-modal-overlay\",style:o.overlay,onClick",
+   "expect": 1,
+   "note": "Bookmarks modal hook (close 15x24, buttons)"
+  },
+  {
+   "id": "mob:C-roster-hook",
+   "target": "js",
+   "find": "V.jsxs(\"div\",{style:gp.panel,children:[",
+   "repl": "V.jsxs(\"div\",{className:\"gtbg-roster\",style:gp.panel,children:[",
+   "expect": 1,
+   "note": "Unit Roster hook: full-screen on the phone shell whatever the width at load time"
+  },
+  {
+   "id": "mob:C-popup-hook",
+   "target": "js",
+   "find": "Si&&V.jsxs(\"div\",{style:tn.unitPopup,children:[",
+   "repl": "Si&&V.jsxs(\"div\",{className:\"gtbg-m-popup\",style:tn.unitPopup,children:[",
+   "expect": 1,
+   "note": "unit popup hook: the popup and the story/event cards share the same bottom anchor, so the cards step aside while a unit is open"
+  },
+  {
    "id": "mob:HF-9a root/map",
    "target": "js",
    "find": "return V.jsxs(\"div\",{style:tn.root,children:[V.jsx(\"div\",{ref:Yn,style:tn.map})",
@@ -310,6 +375,62 @@
    "expect": 1
   },
   {
+   "id": "mob:C-tour-touch-1",
+   "target": "js",
+   "find": "action:\"Scroll the map to zoom in on McPherson's Ridge.\"",
+   "repl": "action:matchMedia(\"(pointer: coarse)\").matches?\"Pinch the map to zoom in on McPherson's Ridge.\":\"Scroll the map to zoom in on McPherson's Ridge.\"",
+   "expect": 1,
+   "note": "onboarding tour copy for touch devices (desktop wording unchanged); extends HF-11b"
+  },
+  {
+   "id": "mob:C-tour-touch-2",
+   "target": "js",
+   "find": "hint:\"Click on a unit dot to see its details, commander, and casualties.\"",
+   "repl": "hint:matchMedia(\"(pointer: coarse)\").matches?\"Tap a unit dot to see its details, commander, and casualties.\":\"Click on a unit dot to see its details, commander, and casualties.\"",
+   "expect": 1,
+   "note": "onboarding tour copy for touch devices (desktop wording unchanged); extends HF-11b"
+  },
+  {
+   "id": "mob:C-tour-touch-3",
+   "target": "js",
+   "find": "action:\"Click on the Iron Brigade (large blue dot in Herbst Woods).\"",
+   "repl": "action:matchMedia(\"(pointer: coarse)\").matches?\"Tap the Iron Brigade (large blue dot in Herbst Woods).\":\"Click on the Iron Brigade (large blue dot in Herbst Woods).\"",
+   "expect": 1,
+   "note": "onboarding tour copy for touch devices (desktop wording unchanged); extends HF-11b"
+  },
+  {
+   "id": "mob:C-tour-touch-4",
+   "target": "js",
+   "find": "hint:'Search (press S) for \"20th Maine\" to track the regiment.'",
+   "repl": "hint:matchMedia(\"(pointer: coarse)\").matches?'Open Tools, then Search, and look up \"20th Maine\" to track the regiment.':'Search (press S) for \"20th Maine\" to track the regiment.'",
+   "expect": 1,
+   "note": "onboarding tour copy for touch devices (desktop wording unchanged); extends HF-11b"
+  },
+  {
+   "id": "mob:C-tour-touch-5",
+   "target": "js",
+   "find": "action:\"Find the 20th Maine in the bottom-left cluster and click on it.\"",
+   "repl": "action:matchMedia(\"(pointer: coarse)\").matches?\"Find the 20th Maine in the bottom-left cluster and tap it.\":\"Find the 20th Maine in the bottom-left cluster and click on it.\"",
+   "expect": 1,
+   "note": "onboarding tour copy for touch devices (desktop wording unchanged); extends HF-11b"
+  },
+  {
+   "id": "mob:C-tour-touch-6",
+   "target": "js",
+   "find": "hint:\"Press 3 to jump to July 3 at any time. Press ? for all shortcuts.\"",
+   "repl": "hint:matchMedia(\"(pointer: coarse)\").matches?\"Tap the July 3 tab to jump to July 3 at any time. Tools, then Help, lists more.\":\"Press 3 to jump to July 3 at any time. Press ? for all shortcuts.\"",
+   "expect": 1,
+   "note": "onboarding tour copy for touch devices (desktop wording unchanged); extends HF-11b"
+  },
+  {
+   "id": "mob:C-tour-touch-7",
+   "target": "js",
+   "find": "action:\"Press Play and watch the charge unfold.\"",
+   "repl": "action:matchMedia(\"(pointer: coarse)\").matches?\"Tap Play and watch the charge unfold.\":\"Press Play and watch the charge unfold.\"",
+   "expect": 1,
+   "note": "onboarding tour copy for touch devices (desktop wording unchanged); extends HF-11b"
+  },
+  {
    "id": "mob:HF-11c tour skip target/contrast",
    "target": "js",
    "find": "skipBtn:{background:\"none\",border:\"none\",color:\"#555\",cursor:\"pointer\",fontSize:12,fontFamily:\"sans-serif\"}",
@@ -322,6 +443,14 @@
    "find": "heroText:{fontSize:13,color:\"#777\",marginBottom:28}",
    "repl": "heroText:{fontSize:13,color:\"#a9adb8\",marginBottom:28}",
    "expect": 1
+  },
+  {
+   "id": "mob:C-onboarding-fit",
+   "target": "js",
+   "find": "maxHeight:\"90vh\",overflowY:\"auto\",textAlign:\"center\"},logo:{fontSize:28,fontWeight:\"bold\",color:\"#e8d5a3\",fontFamily:\"Georgia,serif\",letterSpacing:6,marginBottom:4}",
+   "repl": "maxHeight:\"90dvh\",overflowY:\"auto\",textAlign:\"center\"},logo:{fontSize:\"clamp(20px,7vw,28px)\",fontWeight:\"bold\",color:\"#e8d5a3\",fontFamily:\"Georgia,serif\",letterSpacing:\"clamp(2px,1.6vw,6px)\",marginBottom:4}",
+   "expect": 1,
+   "note": "first-run modal: logo clipped at 320 px; dvh"
   },
   {
    "id": "mob:HF-8a root",
@@ -376,8 +505,9 @@
    "id": "mob:HF-12a viewport (viewport-fit=cover; apple-* and color-scheme metas dropped)",
    "target": "index.html",
    "find": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />",
-   "repl": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\" />\n  <meta name=\"mobile-web-app-capable\" content=\"yes\" />",
-   "expect": 1
+   "repl": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\" />\n  <meta name=\"mobile-web-app-capable\" content=\"yes\" />\n  <script>(function(){try{var q=new URLSearchParams(location.search).get(\"layout\"),s=sessionStorage.getItem(\"gtbg_layout\");q=q||s;if(q!==\"mobile\"&&q!==\"desktop\")q=matchMedia(\"(max-width: 834px) and (pointer: coarse), (max-height: 480px) and (pointer: coarse)\").matches?\"mobile\":\"desktop\";document.documentElement.setAttribute(\"data-layout\",q)}catch(e){}})();</script>",
+   "expect": 1,
+   "note": "viewport-fit=cover + an inline head script that sets html[data-layout] by the same rule as HF-5a before first paint (the React effect keeps it in sync afterwards)"
   },
   {
    "id": "mob:HF-12b mapbox !important height",
@@ -390,7 +520,7 @@
    "id": "mob:HF-12c css",
    "target": "index.html",
    "find": "    /* Splash: renders from HTML so FCP fires at parse time",
-   "repl": "\n    /* ===== mobile hot-fix (app-mobile) ===== */\n    :root {\n      --gt-sat: env(safe-area-inset-top, 0px);\n      --gt-sab: env(safe-area-inset-bottom, 0px);\n      --gt-sal: env(safe-area-inset-left, 0px);\n      --gt-sar: env(safe-area-inset-right, 0px);\n      --gt-hdr: 52px; --gt-tabs: 42px; --gt-dock: 140px;\n    }\n    html { overscroll-behavior: none; -webkit-tap-highlight-color: transparent; }\n    html[data-layout=\"mobile\"] #extra-features { display: none !important; }\n    .gtbg-m-root { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }\n    .gtbg-m-top { padding-left: max(14px, var(--gt-sal)) !important; padding-right: max(14px, var(--gt-sar)) !important; }\n    .gtbg-m-dock { padding-left: var(--gt-sal); padding-right: var(--gt-sar); }\n    .gtbg-m-scrub { touch-action: none; }\n    .gtbg-m-play { gap: clamp(6px, 2.4vw, 14px) !important; padding-left: 12px !important; padding-right: 12px !important; }\n    .gtbg-m-play > button { flex-shrink: 0; }\n    /* re-homed desktop panels (search/filter/story/event/toasts) */\n    .gtbg-mp-top { display: contents; }\n    .gtbg-mp-top > div { position: fixed !important; left: max(8px, var(--gt-sal)) !important; right: max(8px, var(--gt-sar)) !important; top: calc(var(--gt-sat) + 8px) !important; bottom: auto !important; width: auto !important; max-width: none !important; transform: none !important; z-index: 450 !important; max-height: calc(100dvh - 24px - var(--gt-sat)) !important; }\n    .gtbg-mp-story { position: fixed; left: max(8px, var(--gt-sal)); right: max(8px, var(--gt-sar)); bottom: calc(var(--gt-dock) + var(--gt-sab) + 8px); z-index: 260; display: flex; flex-direction: column-reverse; gap: 8px; max-height: 46dvh; overflow: hidden; pointer-events: none; }\n    .gtbg-mp-story > div { position: static !important; width: auto !important; max-width: none !important; transform: none !important; max-height: 34dvh !important; pointer-events: auto; overflow-y: auto; }\n    .gtbg-mp-toast { position: fixed; left: max(8px, var(--gt-sal)); right: max(8px, var(--gt-sar)); top: calc(var(--gt-hdr) + var(--gt-tabs) + var(--gt-sat) + 8px); z-index: 270; pointer-events: none; }\n    .gtbg-mp-toast > div { position: static !important; max-width: none !important; }\n    .gtbg-mp-story button, .gtbg-mp-top button, .gtbg-mp-toast button { min-width: 44px; min-height: 44px; }\n    .mapboxgl-ctrl-attrib-button { width: 44px !important; height: 44px !important; }\n    /* Extra Features groups inside the Tools sheet */\n    .gtbg-mp-more-h { font: 700 12px/1 system-ui, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #c9a24b; padding: 14px 4px 8px; }\n    .gtbg-mp-more .gtbg-item { min-height: 48px; }\n    .gtbg-mp-more .gtbg-item-desc, .gtbg-mp-more .gtbg-group-why { font-size: 12px; color: #a9b1c4; }\n    /* phone landscape: give the map its height back */\n    @media (orientation: landscape) and (max-height: 480px) {\n      :root { --gt-hdr: 48px; --gt-tabs: 0px; --gt-dock: 60px; }\n      html[data-layout=\"mobile\"] .gtbg-m-days { display: none !important; }\n      html[data-layout=\"mobile\"] .gtbg-m-dock { flex-direction: row !important; align-items: center !important; border-top-width: 1px !important; }\n      html[data-layout=\"mobile\"] .gtbg-m-scrub { flex: 1 1 auto !important; order: 2; margin: 0 12px; border: 0 !important; background: rgba(255,255,255,.08) !important; border-radius: 22px; height: 44px !important; }\n      html[data-layout=\"mobile\"] .gtbg-m-play { order: 1; padding: 0 0 0 12px !important; gap: 8px !important; }\n      html[data-layout=\"mobile\"] .gtbg-m-play > button { width: 44px !important; height: 44px !important; min-height: 44px !important; padding: 0 !important; font-size: 22px !important; }\n      html[data-layout=\"mobile\"] .gtbg-m-play > button:nth-child(2) { width: 48px !important; height: 48px !important; }\n      html[data-layout=\"mobile\"] .gtbg-m-play > div { display: none !important; }\n      html[data-layout=\"mobile\"] .gtbg-m-mini { display: none !important; }\n      html[data-layout=\"mobile\"] .gtbg-m-toolspanel { max-width: min(440px, 50vw) !important; margin-left: auto; border-radius: 14px 0 0 0 !important; height: 100dvh !important; max-height: 100dvh !important; }\n      .gtbg-mp-story { max-height: 50dvh; bottom: calc(var(--gt-dock) + var(--gt-sab) + 8px); left: auto; width: min(420px, 52vw); }\n    }\n\n    /* Splash: renders from HTML so FCP fires at parse time",
+   "repl": "\n    /* ===== mobile hot-fix (app-mobile) ===== */\n    :root {\n      --gt-sat: env(safe-area-inset-top, 0px);\n      --gt-sab: env(safe-area-inset-bottom, 0px);\n      --gt-sal: env(safe-area-inset-left, 0px);\n      --gt-sar: env(safe-area-inset-right, 0px);\n      --gt-hdr: 52px; --gt-tabs: 45px; --gt-dock: 140px;\n    }\n    html { overscroll-behavior: none; -webkit-tap-highlight-color: transparent; }\n    html[data-layout=\"mobile\"] #extra-features { display: none !important; }\n    .gtbg-m-root { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }\n    .gtbg-m-top { padding-left: max(14px, var(--gt-sal)) !important; padding-right: max(14px, var(--gt-sar)) !important; }\n    .gtbg-m-dock { padding-left: var(--gt-sal); padding-right: var(--gt-sar); }\n    .gtbg-m-scrub { touch-action: none; }\n    .gtbg-m-play { gap: clamp(6px, 2.4vw, 14px) !important; padding-left: 12px !important; padding-right: 12px !important; }\n    .gtbg-m-play > button { flex-shrink: 0; }\n    /* re-homed desktop panels (search/filter/story/event/toasts) */\n    .gtbg-mp-top { display: contents; }\n    .gtbg-mp-top > div { position: fixed !important; left: max(8px, var(--gt-sal)) !important; right: max(8px, var(--gt-sar)) !important; top: calc(var(--gt-sat) + 8px) !important; bottom: auto !important; width: auto !important; max-width: none !important; transform: none !important; z-index: 450 !important; max-height: calc(100dvh - 24px - var(--gt-sat)) !important; }\n    .gtbg-mp-story { position: fixed; left: max(8px, var(--gt-sal)); right: max(8px, var(--gt-sar)); bottom: calc(var(--gt-dock) + var(--gt-sab) + 8px); z-index: 260; display: flex; flex-direction: column-reverse; gap: 8px; max-height: 62dvh; overflow-y: auto; overscroll-behavior: contain; pointer-events: none; }\n    .gtbg-mp-story > div { position: static !important; width: auto !important; max-width: none !important; transform: none !important; max-height: 30dvh !important; flex: 0 0 auto; pointer-events: auto; overflow-y: auto; }\n    .gtbg-mp-toast { position: fixed; left: max(8px, var(--gt-sal)); right: max(8px, var(--gt-sar)); top: calc(var(--gt-hdr) + var(--gt-tabs) + var(--gt-sat) + 8px); z-index: 270; pointer-events: none; }\n    .gtbg-mp-toast > div { position: static !important; max-width: none !important; }\n    .gtbg-mp-story button, .gtbg-mp-top button, .gtbg-mp-toast button { min-width: 44px; min-height: 44px; }\n    .mapboxgl-ctrl-attrib-button { width: 44px !important; height: 44px !important; }\n    /* Extra Features groups inside the Tools sheet */\n    .gtbg-mp-more-h { font: 700 12px/1 system-ui, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #c9a24b; padding: 14px 4px 8px; }\n    .gtbg-mp-more .gtbg-item { min-height: 48px; }\n    .gtbg-mp-more .gtbg-item-desc, .gtbg-mp-more .gtbg-group-why { font-size: 12px; color: #a9b1c4; }\n    /* >>> modal touch targets */\n    /* desktop-derived modals reused on the phone shell: 44 px targets (class hooks from the C-*-hook patches) */\n    html[data-layout=\"mobile\"] .gtbg-modal-overlay button { min-width: 44px; min-height: 44px; }\n    html[data-layout=\"mobile\"] .gtbg-wt-head button { min-height: 44px; padding: 0 14px !important; }\n    html[data-layout=\"mobile\"] .gtbg-layers { top: calc(var(--gt-hdr) + var(--gt-tabs) + var(--gt-sat) + 8px) !important; right: max(10px, var(--gt-sar)) !important; padding: 6px 10px !important; }\n    html[data-layout=\"mobile\"] .gtbg-layers button { min-width: 44px; min-height: 44px; font-size: 20px !important; }\n    html[data-layout=\"mobile\"] .gtbg-layers span { font-size: 14px !important; }\n    /* <<< modal touch targets */\n    /* >>> layers checkbox */\n    /* Map Layers checkboxes: 44 px hit box, 24 px drawn box (native checkboxes cannot be enlarged without looking oversized) */\n    html[data-layout=\"mobile\"] #root .gtbg-layers input[type=\"checkbox\"] { -webkit-appearance: none; appearance: none; width: 44px; height: 44px; margin: 0; position: relative; flex: none; background: transparent; cursor: pointer; }\n    html[data-layout=\"mobile\"] #root .gtbg-layers input[type=\"checkbox\"]::before { content: \"\"; position: absolute; inset: 10px; border: 2px solid #8b6914; border-radius: 4px; background: rgba(255,255,255,.05); }\n    html[data-layout=\"mobile\"] #root .gtbg-layers input[type=\"checkbox\"]:checked::before { background: #c8a84a; border-color: #c8a84a; }\n    html[data-layout=\"mobile\"] #root .gtbg-layers input[type=\"checkbox\"]:checked::after { content: \"\"; position: absolute; left: 17px; top: 12px; width: 6px; height: 12px; border: solid #12121e; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }\n    html[data-layout=\"mobile\"] #root .gtbg-layers input[type=\"checkbox\"]:focus-visible { outline: 2px solid #e8d5a3; outline-offset: -2px; border-radius: 6px; }\n    /* <<< layers checkbox */\n    /* >>> attribution */\n    /* compact attribution: keep the 44 px button from covering the credit text once expanded */\n    .mapboxgl-ctrl-attrib.mapboxgl-compact-show { padding: 0 48px 0 10px !important; min-height: 44px; display: flex; align-items: center; border-radius: 22px; }\n    .mapboxgl-ctrl-attrib.mapboxgl-compact-show .mapboxgl-ctrl-attrib-inner { line-height: 1.3; }\n    .mapboxgl-ctrl-attrib.mapboxgl-compact .mapboxgl-ctrl-attrib-button { top: 0; right: 0; }\n    /* <<< attribution */\n    /* >>> popup priority */\n    /* a selected unit's popup and the story/event cards share the dock anchor: the popup wins, the cards return when it is closed */\n    html[data-layout=\"mobile\"] .gtbg-m-root:has(> .gtbg-m-popup) .gtbg-mp-story { visibility: hidden; pointer-events: none; }\n    /* <<< popup priority */\n    /* >>> layers fit */\n    /* Map Layers: 7 rows x 44 px must not run under the dock or off a landscape screen: cap the height, scroll inside */\n    html[data-layout=\"mobile\"] .gtbg-layers { max-height: calc(100dvh - var(--gt-hdr) - var(--gt-tabs) - var(--gt-sat) - 16px - var(--gt-dock) - var(--gt-sab)); overflow-y: auto; overscroll-behavior: contain; box-sizing: border-box; }\n    /* <<< layers fit */\n    /* >>> roster full screen */\n    /* Unit Roster: full screen on the phone shell (its inline style is a desktop side column: 560 px wide, bottom 110 px) */\n    html[data-layout=\"mobile\"] .gtbg-roster { top: var(--gt-sat) !important; left: 0 !important; right: 0 !important; bottom: 0 !important; width: auto !important; }\n    /* <<< roster full screen */\n    /* phone landscape: give the map its height back */\n    @media (orientation: landscape) and (max-height: 480px) {\n      :root { --gt-hdr: 48px; --gt-tabs: 0px; --gt-dock: 60px; }\n      html[data-layout=\"mobile\"] .gtbg-m-days { display: none !important; }\n      html[data-layout=\"mobile\"] .gtbg-m-dock { flex-direction: row !important; align-items: center !important; border-top-width: 1px !important; }\n      html[data-layout=\"mobile\"] .gtbg-m-scrub { flex: 1 1 auto !important; order: 2; margin: 0 12px; border: 0 !important; background: rgba(255,255,255,.08) !important; border-radius: 22px; height: 44px !important; }\n      html[data-layout=\"mobile\"] .gtbg-m-play { order: 1; padding: 0 0 0 12px !important; gap: 8px !important; }\n      html[data-layout=\"mobile\"] .gtbg-m-play > button { width: 44px !important; height: 44px !important; min-height: 44px !important; padding: 0 !important; font-size: 22px !important; }\n      html[data-layout=\"mobile\"] .gtbg-m-play > button:nth-child(2) { width: 48px !important; height: 48px !important; }\n      html[data-layout=\"mobile\"] .gtbg-m-play > div { display: none !important; }\n      html[data-layout=\"mobile\"] .gtbg-m-mini { display: none !important; }\n      html[data-layout=\"mobile\"] .gtbg-m-toolspanel { max-width: min(440px, 50vw) !important; margin-left: auto; border-radius: 14px 0 0 0 !important; height: 100dvh !important; max-height: 100dvh !important; }\n      .gtbg-mp-story { top: calc(var(--gt-hdr) + var(--gt-sat) + 8px); max-height: none; bottom: calc(var(--gt-dock) + var(--gt-sab) + 8px); left: auto; width: min(420px, 52vw); }\n      .gtbg-mp-toast { right: auto; width: min(420px, 50vw); }\n    }\n\n    /* Splash: renders from HTML so FCP fires at parse time",
    "expect": 1
   }
  ]
