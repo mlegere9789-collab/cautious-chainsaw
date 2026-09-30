@@ -15,7 +15,7 @@ Top level:
 | `tiers` | map | text of tiers `A`, `B`, `C`, `A-pending` |
 | `tier_rules` | map | `V02` (build gate) and `fetcher` (fetch gate), in words |
 | `refused_identifiers` | list | Internet Archive identifiers that are never fetched (the 1971 reprint `warrebellionaco00cowlgoog`) |
-| `banned_hosts` | list | 27 hosts that are never contacted (Tier C and link-out-only sites) |
+| `banned_hosts` | list | 27 hosts that are never contacted (Tier C and link-out-only sites); compared case-insensitively, without trailing dots, including sub-domains and anywhere inside a URL (proxy and web-archive wrappers) |
 | `sources` | list | one record per source (85 today: 54 A, 12 B, 14 C, 5 A-pending) |
 
 Source record:
@@ -56,6 +56,8 @@ Produced by `tools/historian/ingest/or27.mjs` `segmentReports`. One document is 
 | `pages` | `{start, end}` | printed page numbers (from the running heads) |
 | `confidence` | `A` `B` `C` | A: header agrees with the contents list; B: contents entry present but header differs, or recovered; C: no contents entry |
 | `recovered` | null or `toc-author` | set when the number line was unreadable and the report was found by its author near a "Report of" line |
+
+Run report (`historian-src/raw/or27-1/report.json`, git-ignored): `chars_in`, `chars_out`, `edits`, `edit_kinds`, `page_marks`, `page_marks_inferred`, `running_heads_left` (the broad count: whole-line heads and heads or signature marks inside body lines), `toc_entries`, `docs`, `recovered_from_toc`, `docs_with_pages`, `passages`, `table_debris_dropped` (ids of the chunks dropped as OCR'd tables), `confidence`, `missing_detail` (for each report number of the run that is not a document: `{no, reason: header-not-found | no-contents-entry, contents_title, previous_document, text_in_previous_document}`) and `docs_missing_from_run`.
 
 Normalisation is logged: every edit is `{why, from, to}` (`dehyphenate`, `hyphen-kept`, `ocr-dict`, `ufffd-dash`, `ufffd-drop`); the run report counts them. Nothing here is committed: raw and normalised texts live under the git-ignored `historian-src/raw/` and `tmp/historian-cache/`.
 
@@ -103,6 +105,8 @@ Produced by `chunkDocument`:
 | `s`, `e` | integer | offsets of the passage inside the document text (so a passage can be traced to the printed page and line region) |
 | `pages` | `{start, end}` | printed pages |
 
+A chunk that is an OCR'd table (20 or more paragraphs, at least half of them four characters or fewer) is not a passage: it is dropped and its id is listed in `table_debris_dropped`. Running heads and sheet signatures, whether on a line of their own or inside a body line, are removed before chunking. Sample result: 1,513 chunks, 48 dropped, 1,465 passages.
+
 Bounds: aim for 150 to 250 words, paragraph aligned; a paragraph longer than 250 words is cut at sentence boundaries (at a word boundary inside an over-long sentence); a short tail (under 60 words) is merged into the previous passage, so a passage never exceeds 310 words. Passages never cross documents.
 
 ## 4. Entity (tier T1, `f/entity.<hash>.json`)
@@ -146,7 +150,8 @@ Every number a composer prints comes from an entity attribute or a row here (I2)
 | `succ` | `byUnit` (`"CORPS:U-I": ["SUCC:US-001", ...]`), `byPerson` |
 | `events` | `byDay` (chronology ids in order), `critical` (the critical events per day) |
 | `scope` | ordered scope rules `{id, mode, pointer, re: [...], text}` (medical, finance, creative, code, visit, weather, adjacent, causes, injection) |
-| `unknowns` | questions the records cannot answer, with the honest text (per-location casualties, individual soldiers, ...) |
+| `unknowns` | questions the records cannot answer: `{id, re, text, answer_with, needs_place?, standalone?, evidence?}`. `text` is the honest limitation; `answer_with` is the words for "what would answer it" (every entry has one); `standalone: true` makes the engine answer the question from this entry even when no record is linked (weather at the battle, the Gettysburg Address); `evidence` says which of the site's own passages may be quoted under the limitation (for weather, only sentences that really remark on the weather, and only for the asked day). Today: `per-location-casualties`, `individual-soldier`, `weather-at-battle`, `gettysburg-address`. |
+| `clock` | the baked time model: `{model: {version, release, dv, tz, sha256, anchors, signed}, solar: {dawn, sunrise, noon, sunset, dusk, nautical}, ev: {chronologyId: [minutesAfterMidnight, sigmaMinutes, flags, rangeText?]}}` (137 events). `minutes` is the model's clock for the event on its own day, `sigma` its uncertainty, `flags` is a bit set (1 = approximate, 2 = contested) and `rangeText` the accepted range at an anchor ("between about 5:00 and 5:30 AM"). Built by `tools/historian/lib/clock.mjs` from the time model; used only by `core/clock.js` and `core/atime.js`. Absent on a build made without the time model, in which case clock questions are not recognised as such. |
 | `routes` | pointers to site pages (`/find-ancestor.html`, ...) with why |
 | `domain` | domain vocabulary that anchors a question to the battle |
 | `outcome` | `{text, basis, records, auth, reviewed}`: the outcome statement, the records it rests on and the sentence that says so |
@@ -166,10 +171,10 @@ An anchor ties a quoted span to its printed source: `{passage, doc, folio or pag
 
 ```
 {
-  kb: "0.1.0", query, mode: "answer" | "partial" | "decline" | "clarify", route: "records" | "ancestor" | ..., intent,
+  kb: "0.1.0", query, mode: "answer" | "partial" | "decline" | "clarify", route: "records" | "ancestor" | ..., intent,   // intent includes "at-time" for a clock-of-day question
   decline_reason?: string,                    // present on decline / clarify
   entities: [{id, label, kind, w}],           // what the linker found (labels are for display)
-  did_you_mean: [{from, to}] | null,          // typo, join and split repairs
+  did_you_mean: [{from, to}] | null,          // typo, join and split repairs; `to` is always a whole word of the question or of the name vocabulary, never a stem
   blocks: [Block],
   chips: { follow: [{label, q}] },            // every q is answerable (tested)
   links: { pages: [...] },
@@ -195,12 +200,12 @@ Blocks:
 | `table` | `kind` (`compare`, `compare-places`), `caption`, `cols`, `rows`, `src`, `note?` |
 | `chips` | `items: [{label, q}]` |
 
-Context passed in: `ctx` from the previous answer, plus optionally `onsite: {selected_unit, tick, day, location}` from the map. Error handling: a shard that cannot be fetched raises `ShardError` (`retryable: true`) out of `ask`; the caller shows "Try again" and asks again.
+Context passed in: `ctx` from the previous answer, plus optionally `onsite: {selected_unit, tick, day, location}` from the map. `ask` never throws on a malformed context: `cleanCtx` keeps only what it can use (a non-object becomes empty; `lastEntities` and `shownPassages` keep only strings of at most 80 characters, the last 6 and 40; `lastIntent` and `lastSide` only as strings and `U` or `C`; `onsite` only a string `selected_unit` and `location`, a finite `tick` and a `day` of 1, 2 or 3) and the question is answered with what remains. Error handling: a shard that cannot be fetched raises `ShardError` (`retryable: true`) out of `ask`; the caller shows "Try again" and asks again.
 
 ## 8. Manifest (`hx/manifest.json`, the only mutable file)
 
-`{schema, kb_version, kb_hash, counts {entities, passages, terms, units, words}, data_snapshot {dir, files, sha256}, sources [{id, tier, license, passages}], tiers {entity, entix, facts, lexicon: {path, bytes, sha}; index: {buckets, files, hash, codec, scale}; entpost: {buckets, files, hash}; text: {files, per_shard, fields}}, bundle_prose {file, walkthrough, tours}, semantic {enabled: false}, ai {enabled: false}, redactions, eval, time_model}`. `data_snapshot.sha256` is a hash of the 71 data files the build read; the evaluation and the regression guard record it so a data change is noticed.
+`{schema, kb_version, kb_hash, counts {entities, passages, terms, units, words}, data_snapshot {dir, files, sha256}, sources [{id, tier, license, passages}], tiers {entity, entix, facts, lexicon: {path, bytes, sha}; index: {buckets, files, hash, codec, scale}; entpost: {buckets, files, hash}; text: {files, per_shard, fields}}, bundle_prose {file, walkthrough, tours}, semantic {enabled: false}, ai {enabled: false}, redactions, eval, time_model {version, sha256, dv, tz, anchors, release: "candidate", signed: false}}`. `time_model` says which version of the time model the baked `facts.clock` came from and that it is a candidate that has not been signed off. `data_snapshot.sha256` is a hash of the 71 data files the build read; the evaluation and the regression guard record it so a data change is noticed.
 
 ## 9. Validation report (`historian-src/dist/validation-report.json`)
 
-`{kb_version, data_snapshot, ok, counts, findings, sizes {t1Raw, t1Brotli, perFile, maxShard, ixTotal, textTotal, maxIx}, stats, warnings, curated_unmatched, entities {kind: n}, passages {total, byKind, words, withClockClaim}}`. `findings` is empty on a passing build; each finding is `{rule, level, msg}`. The build exits non-zero on any error-level finding.
+`{kb_version, data_snapshot, ok, counts, findings, sizes {t1Raw, t1Brotli, perFile, maxShard, ixTotal, textTotal, maxIx}, stats, warnings, curated_unmatched, entities {kind: n}, passages {total, byKind, words, withClockClaim}}`. K001 findings name the collection and the field (`regiments.strength is no longer loaded (recorded populated in 467/467)`, `regiments.men is a new whitelisted field with no recorded coverage`, `regiments.casualties is populated in 40/467 records (9%), recorded 467/467 (100%): the source field was renamed, dropped or emptied`). `findings` is empty on a passing build; each finding is `{rule, level, msg}`. The build exits non-zero on any error-level finding.

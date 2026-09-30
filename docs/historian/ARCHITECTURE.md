@@ -86,16 +86,27 @@ Candidate page (`historian-src/page/`): `historian.html`, `historian.css`, `hist
 ## 4. The runtime pipeline in order
 
 1. **Guard.** Strip markup and control characters, cap at 300 characters. An empty question gets a prompt, not an error.
-2. **Scope gate.** A table (`facts.scope`) recognises medical, finance, creative writing, code, visit planning, weather, adjacent topics, causes of the war and prompt injection. Out-of-scope questions get a short honest decline with a pointer where one exists. An injection with a real question inside it is stripped and the real question is answered, with a note that an instruction was ignored.
+2. **Scope gate.** A table (`facts.scope`) recognises medical, finance, creative writing, code, visit planning, weather forecasts, adjacent topics, causes of the war and prompt injection. Questions the records cannot answer but that are about the battle are not declined as out of scope: they match an entry of `facts.unknowns` (per-location casualties, an individual soldier, the weather at the battle, the Gettysburg Address) and are answered as a stated limitation with the entry's `answer_with` text, i.e. what would answer it (period diaries and weather records, the Soldiers and Sailors Database, the Library of Congress). The entries marked `standalone` also look in the site's own words for what it does say (only real weather remarks, only for the asked day; the cemetery tour's mention of the Address) and quote them, never as the answer itself. Out-of-scope questions get a short honest decline with a pointer where one exists. An injection with a real question inside it is stripped and the real question is answered, with a note that an instruction was ignored.
 3. **Normalise, tokenise, repair.** Out-of-lexicon tokens are repaired against the name vocabulary by join ("wheat field" to "wheatfield"), split, or Damerau-Levenshtein with length-dependent tolerances. Repairs are reported ("Showing results for ...").
 4. **Link.** Unit grammar first (ordinals, ordinal words and state abbreviations only after a number, arm and side aware), then alias phrases (longest n-gram over derived and curated aliases), then surnames (with a prominence rule: army 4, corps 3, division 2, brigade 1, and a capitalisation guard for common-word surnames). Ambiguity is carried forward, not guessed.
 5. **Intent.** Ordered rules: ancestor, opponent, presence, succession, membership, quote, who-commanded, echelons, compare, superlative, count, strength, casualties, outcome, sequence, overview, when, where, why, what-happened, list, who, lookup. An explicit comparison outranks the measure it names.
 6. **Card ranking.** BM25F over entity fields (label, aliases, title, attributes) plus link weights and per-intent kind priors.
 7. **Passage retrieval.** Entity postings and BM25 impact postings, merged, MMR-diversified. Only the buckets needed are fetched.
 8. **Decide.** `answer`, `partial` (limited), `decline` (out of scope or nothing found) or `clarify` (an ambiguous name; chips list the candidates).
-9. **Compose.** Per-intent composers. Multi-hop parent chains (regiment to brigade to division to corps) are resolved from the `par` field. Extractive quotes are added under a length budget: the first quote always, further quotes only while the first answer stays within `QUOTE_BUDGET` (780) characters.
+9. **Compose.** Per-intent composers. Answers lead with what was asked: the time before the description, the route before the regiment, the brigades before their division commander, the battle totals when only "casualties" is linked. Multi-hop parent chains (regiment to brigade to division to corps) are resolved from the `par` field. Extractive quotes are added under a length budget: the first quote always, further quotes only while the first answer stays within `QUOTE_BUDGET` (780) characters. A quote shown under an answer about a unit or a person must be **about** that subject (its passage is linked to it, or it names it); a quote about a neighbouring unit is dropped rather than shown as if it were this one's (verifier V-09). A question about what someone said prefers the sentence in which that person is the speaker; a question about how long something lasted quotes the sentence that states the length. A request that names a young reader ("to a 5th grader") about an event, story or unit gets a **plain card** (short template sentences from the record's own fields, no quotes) and a chip, "The site's own words", that asks the same question without the young-reader wording.
 10. **Lint.** `lintAnswer` rejects raw ids, `undefined`, `null`, `NaN`, developer notes, "tick", "site clock", missing offsets and missing attribution. The page never shows an answer that fails lint.
 11. **Chips.** Follow-ups derived from the answer's entity kinds; the test suite asks every chip and requires an answer.
+
+### 4a. Clock-of-day questions (the time model)
+
+"What was going on at 3 pm on July 2" used to get the day's summary, which is wrong: it lists events from the whole day, some after the asked time. The engine now answers it from a clock that is **baked at build time** from the time model (`src/lib/time/index.js` and `data-src/time/time_anchors.json`, both owned by another workstream and read-only here). Nothing is computed from a tick at runtime.
+
+- `parseClock` (`core/clock.js`) reads a clock point ("3 pm", "3:15 in the afternoon", "noon"), a part of the day ("the morning of July 1", "at dusk" from the solar table) or a range ("between 2 and 4 pm on July 3"), and `julyDate` the day. A part of the day alone ("the evening attack at Culp's Hill") is not a clock question.
+- The answer (`clockAnswer`, `core/atime.js`) lists the chronology events whose baked time lies within 60 minutes before and 45 after the asked time, each with its own approximate time (and the range where the model's anchor is contested), in order; then it **names what it left out**: the latest earlier entry and the next later entry ("Later entries are left out because they had not happened yet; the next is ..."). A named unit, place or commander narrows the list to that subject's entries (searching a wider stretch) and says so when its nearest entry is not at the asked time. A moment with no entry says that and names the neighbours.
+- A clock without a day, or without am or pm, is **not guessed**: the answer asks, with one chip per day (the map's "Ask about this" context supplies the day when it has one). A date outside July 1 to 3, 1863 is an honest limitation, not a summary of another day.
+- Every such answer ends with the basis note: "Clock times come from the site's proposed revised timeline: they are approximate, a historian has not yet reviewed them, and sources differ on many of them." The wording changes to "the site's reviewed timeline" once the model is signed. "What time did X begin" answers carry the model's time for X in the same words.
+- Clock labels shown anywhere (leads, lists, notes) come from baked minutes through `hm12` (5-minute rounding), which is what the I2 sweep in `atime.test.mjs` checks. The legacy tick-derived `time` label and the ticks themselves stay dropped at load, and lint still forbids "tick" and "site clock".
+- **Status: proposal.** `manifest.time_model` records the model's version, sha256, `release: candidate` and `signed: false`. Whether the site may show a model-derived clock before it is approved is the owner's decision (PIPELINE.md section 5, item 5).
 
 Conversation state is small and explicit: `answer.ctx` (`lastEntities`, `lastIntent`, `lastSide`, `shownPassages`) is passed back by the caller so "tell me more" and "what about the Confederates?" resolve. The on-site context from the map (`onsite: {selected_unit, tick, day, location}`) is passed the same way; ticks are used only to find neighbouring events and are never converted to a clock.
 
@@ -107,7 +118,7 @@ Conversation state is small and explicit: `answer.ctx` (`lastEntities`, `lastInt
 | I2 no numeral outside a fact row or a quote | `format.js` is the only number formatter; numbers come from `attrs` and `facts` |
 | I3 `normalise_ws(text.slice(s, e)) == quote` | `select.js` records `s`, `e`; `engine.test.mjs` checks every quote against its passage; lint checks offsets exist |
 | I4 attribution never dropped | every quote block carries `attrib`; lint rejects a quote without it |
-| I5 clocks only as the site's own wording, never tick-derived | ticks and the legacy `time` label are dropped at load; passages record clock claims only for information; `tick` and "site clock" are lint-forbidden |
+| I5 clocks only as the site's own wording, or from the time model as a labelled proposal; never from a tick | ticks and the legacy `time` label are dropped at load; passages record clock claims only for information; a clock in an answer is either a quoted sentence of the site or a baked minute value from `facts.clock` printed as approximate with the basis note (section 4a); `tick` and "site clock" are lint-forbidden |
 | I6 contested claims never alone | `why`, judgement and debate questions add the hedge ("Historians debate questions like this one. ...") |
 | I7 authority numbers are "about" and carry the "sources differ" note | `AUTH_NOTE` on every strength and casualty answer; a compare table repeats it |
 | I8 `textContent` only | the page builds DOM with `createElement` and text nodes; a source scan test forbids `innerHTML` and friends |
@@ -120,7 +131,7 @@ Refusals are honest: an out-of-scope question is declined in one sentence with a
 
 - **First paint is independent of the records.** The shell (heading, explanation, example chips, form) is plain HTML and CSS. The script starts opening T1 immediately and says so in the status line; questions typed meanwhile wait for the records and then run.
 - **Lazy shards with retry.** T2 buckets load per question through `browserFetcher`, which forgets a failed request. A failed shard produces an error card with "Try again"; a failed T1 open shows "Try again" in the status line and is retried automatically by the next question.
-- **Accessible by construction.** `lang`, zoom allowed, one `h1`, skip link, labelled input, `role="log"` conversation region with polite live updates, `role="status"` for short messages, real buttons for every chip (44 px targets), visible focus ring, tables in keyboard-focusable scroll regions, `prefers-reduced-motion` respected, forced-colours rules, contrast of every text pairing at or above 4.5:1 (tested).
+- **Accessible by construction.** `lang`, zoom allowed, one `h1`, skip link, labelled input, `role="log"` conversation region with polite live updates, `role="status"` for short messages, real buttons for every chip (44 px targets), visible focus ring, tables in keyboard-focusable scroll regions, `prefers-reduced-motion` respected, forced-colours rules, contrast of every text pairing at or above 4.5:1, the boundary of the question box and of every chip button at or above 3:1 against the page (WCAG 1.4.11; `--line` is `#5f6884`, about 3.5:1), and no secondary text below 14 px (all tested).
 - **Focus and scroll.** After an answer the page scrolls to the start of the answer. Focus stays in the question box after a typed question and moves to the answer after a chip click (the chip that had focus is replaced). `/` focuses the question box; Escape clears it.
 - **Input bar never covers content.** The ask bar is sticky at the bottom of the flow; its height is published as `--bar-h` (ResizeObserver) and `main` reserves that much padding, and `scroll-padding-bottom` keeps scrolled-to answers clear of it.
 - **Mobile first.** The base CSS is the 320 px layout; only `min-width` queries exist; the input is 16 px so iOS does not zoom.
@@ -138,12 +149,12 @@ Tests run the real `historian.html` and `historian.js` in a small fake DOM (`tes
 
 | Item | Budget | Measured |
 |---|---|---|
-| T1 brotli | 250 KB | 182,833 B |
+| T1 brotli | 250 KB | 184,593 B |
 | largest text shard / posting bucket | 64 KB | 12,798 B / 3,638 B |
-| build | none set | about 4.5 s |
-| answer latency in Node (p95 over the golden run) | interactive | about 4 ms |
-| mean initial characters | 600 (H2 gate) | 558 over all three batteries (507 on the golden subset) |
-| page script graph | small | 16 files, about 177 KB unminified, no dependencies |
+| build | none set | about 4 s |
+| answer latency in Node (p95 over the golden run) | interactive | about 3 ms |
+| mean initial characters | 600 (H2 gate) | 547 over all three batteries (579 on the golden set) |
+| page script graph | small | 18 files, about 244 KB unminified, no dependencies |
 
 ## 9. Deliberately not in H0 to H2
 
@@ -157,4 +168,7 @@ Tests run the real `historian.html` and `historian.js` in a small fake DOM (`tes
 - The evaluation batteries are small; the primary battery was used to tune, the held-out and fresh batteries were not (fresh was written before the engine existed). The golden set has a locked split: aggregate numbers only were used from it.
 - Extractive answers are only as good as the site's records: where the records conflict or are wrong (for example Biddle's Brigade) the engine reports what the records say.
 - Questions that need reasoning across several passages (why did Lee lose; why did Pickett's Charge fail) get quotes and a hedge, not a synthesis. That is the design.
+- **The clock answers rest on a proposed, unsigned time model** (section 4a). They are only as good as its anchors, and the model may still change; a change to it changes the baked clock, and the committed build must be regenerated (a test notices a stale one).
+- **Student-level answers are a plain card**: readable, but thin (for Pickett's Charge it gives the event, date and place and points to the site's own words). A written plain-language text for the main events would serve a young reader better and is content, not code.
+- The compound-question splitter handles two questions joined by "and" or a comma where the second has its own question word; it does not plan longer chains.
 - The page was exercised only in a fake DOM. A real-browser pass (Chrome, Safari, Firefox; VoiceOver, NVDA, TalkBack) is required before release.
