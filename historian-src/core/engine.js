@@ -1,0 +1,815 @@
+// engine.js - the search-core pipeline.
+//   guard -> scope gate -> normalise -> tokenise -> lexicon repair -> entity link -> intent -> card ranking (BM25F + links + priors) ->
+//   passage retrieval (entity postings + BM25 impact postings, MMR) -> decide (answer | partial | decline | clarify) -> compose -> lint
+// One implementation for the browser (Worker or main thread) and Node. Nothing is generated: see compose.js for the invariants.
+import { sanitize, scopeGate } from './guard.js';
+import { tokenize, stem, STOP, baseNorm, dl, CLOCK_RE, splitSentences } from './text.js';
+import { classify, INTENT_WORDS, sideHint } from './intent.js';
+import { scoreCards, dfOf } from './entities.js';
+import { STATES } from './units.js';
+import * as C from './compose.js';
+import { selectQuotes } from './select.js';
+import { renderText, SIDE_NAME, personLabel, withThe } from './format.js';
+import { lintAnswer } from './lint.js';
+import { makeChips } from './chips.js';
+import { W } from './linker.js';
+
+const CONSUMED = new Set(['who-commanded', 'casualties', 'strength', 'succession', 'ancestor', 'superlative', 'when', 'why', 'what-happened', 'compare', 'list', 'where', 'who', 'count', 'outcome', 'echelons', 'presence', 'opponent', 'membership', 'sequence', 'overview', 'quote']);
+const PRIOR = {
+  'who-commanded': { regiment: 1.3, brigade: 1.4, division: 1.4, corps: 1.4, army: 1.4, artillery: 1.2, 'artillery-unit': 1.2 },
+  casualties: { regiment: 1.3, brigade: 1.3, division: 1.3, corps: 1.3, army: 1.3, artillery: 1.2 },
+  strength: { army: 1.3, corps: 1.2, brigade: 1.2, division: 1.2, regiment: 1.2 },
+  when: { chronology: 1.3, vignette: 1.1 }, 'what-happened': { vignette: 1.15, chronology: 1.15 }, why: { vignette: 1.1, chronology: 1.25 },
+  succession: { succession: 1.6 }, where: { terrain: 1.3, road: 1.2, structure: 1.2, feature: 1.2 },
+};
+const PASSAGE_PRIOR = { chronicle: 1.0, narrative: 0.9, commentary: 0.85, succession_note: 1.0, walkthrough: 0.75, tour: 0.75, position_note: 0.3 };
+const UNIT_KINDS = new Set(['regiment', 'brigade', 'division', 'corps', 'army', 'artillery', 'artillery-unit']);
+const PLACE_KINDS = new Set(['terrain', 'road', 'structure', 'feature']);
+const STRUCTURED = new Set(['outcome', 'echelons', 'superlative', 'count', 'day-summary', 'sequence', 'overview', 'quote']);
+const FILLERS = new Set(['many', 'much', 'happened', 'happen', 'tell', 'about', 'please', 'give', 'show', 'know', 'want', 'like', 'quick', 'facts', 'fact', 'story', 'explain', 'describe']);
+
+export function createEngine(kb, opts = {}) {
+  const { idx, facts, entix } = kb;
+  const R = idx.R;
+  const DOMAIN = new Set(facts.domain || []);
+  const STRONG_DOMAIN = new Set(['gettysburg', 'battle', 'battlefield', 'regiment', 'regiments', 'brigade', 'brigades', 'division', 'divisions', 'corps', 'army', 'cavalry', 'artillery', 'battery', 'infantry',
+    'commander', 'commanded', 'general', 'colonel', 'confederate', 'confederates', 'union', 'federal', 'cannonade', 'vignette', 'regimental', 'soldier', 'soldiers', 'casualties', 'ridge', 'hill', 'pickett', 'lee', 'meade', 'longstreet']);
+  const H = C.helpers(kb);
+  const surnameStem = (name) => stem(baseNorm(String(name).split(' ').pop()));
+
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  // lexicon repair (typos): out-of-lexicon tokens only, join / split / Damerau-Levenshtein against the NAME vocabulary
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  const known = (t) => !t || /^#/.test(t) || t.length <= 3 || STOP.has(t) || INTENT_WORDS.has(t) || DOMAIN.has(t) || kb.lex.has(stem(t)) || idx.nameVocab.has(stem(t)) || FILLERS.has(t);
+  function repair(tokens) {
+    const out = []; const notes = []; const unknown = [];
+    for (let i = 0; i < tokens.length; i++) {
+      const t = tokens[i];
+      if (known(t)) { out.push(t); continue; }
+      // join with the next token ("wheat field" -> wheatfield)
+      const nx = tokens[i + 1];
+      if (nx && (kb.lex.has(stem(t + nx)) || idx.nameVocab.has(stem(t + nx)))) { out.push(t + nx); notes.push({ from: `${t} ${nx}`, to: t + nx, kind: 'join' }); i++; continue; }
+      // split ("roundtop" -> round top)
+      let done = false;
+      for (let k = 3; k <= t.length - 3 && !done; k++) {
+        const a = t.slice(0, k), b = t.slice(k);
+        if ((kb.lex.has(stem(a)) || idx.nameVocab.has(stem(a))) && (kb.lex.has(stem(b)) || idx.nameVocab.has(stem(b)))) { out.push(a, b); notes.push({ from: t, to: `${a} ${b}`, kind: 'split' }); done = true; }
+      }
+      if (done) continue;
+      // fuzzy against names
+      const s = stem(t);
+      const maxd = s.length <= 3 ? 0 : s.length <= 7 ? 1 : 2;
+      let best = null;
+      if (maxd) {
+        for (const v of idx.nameVocab) {
+          if (v[0] !== s[0] && !(s.length > 6)) continue;
+          if (Math.abs(v.length - s.length) > maxd) continue;
+          const d = dl(s, v, maxd);
+          const prefixRel = (v.startsWith(s) || s.startsWith(v)) && Math.min(v.length, s.length) < 7;
+          if (prefixRel || d > maxd) continue;
+          if (s.length === 5 && d === 1 && v.slice(0, 3) !== s.slice(0, 3)) continue;
+          // four-letter tokens: only a one-edit repair that keeps both ends ("rond" -> "round")
+          if (s.length === 4 && !(v[v.length - 1] === s[s.length - 1] && v.length >= 5)) continue;
+          const c = dfOf(entix, v);
+          if (!best || d < best.d || (d === best.d && c > best.c)) best = { v, d, c };
+        }
+      }
+      if (best) { out.push(best.v); notes.push({ from: t, to: best.v, kind: 'fuzzy' }); }
+      else { out.push(t); unknown.push(t); }
+    }
+    return { tokens: out, notes, unknown };
+  }
+
+  // on-site context (the map's \"Ask about this\" entry): a deictic question is about the selected unit, the named location and the events nearest the map's moment.
+  // Ticks are only used to find neighbouring events, never converted to a clock.
+  function applyOnsite(S) {
+    const o = S.ctx && S.ctx.onsite;
+    if (!o || !/\b(here|this (spot|place|hill|moment|point|regiment|unit|brigade|division|corps|field|ridge|location|area|position|battery)|right now|going on|happening)\b/i.test(S.text)) return;
+    S.onsite = o;
+    const su = o.selected_unit && idx.byId.has(o.selected_unit) ? idx.byId.get(o.selected_unit) : null;
+    if (su !== null) S.mentions.push({ kind: 'alias', ids: [su], best: su, amb: false, w: W.unit, phrase: R[su].label.toLowerCase(), start: -1, end: -1, src: 'onsite' });
+    if (o.location) for (const m of kb.link(tokenize(o.location), { caps: S.caps }).mentions) if (m.kind !== 'unit-miss' && m.kind !== 'surname' && m.ids && m.ids.length) S.mentions.push({ ...m, w: Math.min(m.w, 24), start: -1, end: -1, src: 'onsite' });
+    const tick = typeof o.tick === 'number' ? o.tick : null;
+    if (tick !== null) {
+      const day = o.day || (tick <= 225 ? 1 : tick <= 450 ? 2 : 3);
+      const ev = R.filter((r) => r.k === 'chronology' && r.attrs.day === day && Math.abs(r.attrs.tick - tick) <= 6).sort((a, b) => Math.abs(a.attrs.tick - tick) - Math.abs(b.attrs.tick - tick) || (a.attrs.sig === 'critical' ? -1 : 1));
+      S.tickEvents = ev.slice(0, 3);
+      S.boostIds = new Set(S.tickEvents.map((r) => r.id));
+      S.day = S.day || day;
+    }
+  }
+
+  // an ambiguous surname next to other content ("Colonel Avery ... Cemetery Hill"): pick the candidate whose own records share words with the rest of the question
+  function disambiguatePeople(S) {
+    const rest = new Set(S.tokens.filter((t) => !STOP.has(t) && !/^#/.test(t) && !INTENT_WORDS.has(t) && !FILLERS.has(t)).map(stem));
+    for (const m of S.mentions) {
+      if ((m.kind !== 'surname' && m.kind !== 'person') || !m.amb || m.ids.length < 2 || !m.ids.every((i) => R[i].k === 'person')) continue;
+      const own = new Set(String(m.phrase).split(' ')); const others = new Set([...rest].filter((t) => !own.has(t)));
+      if (others.size < 1) continue;
+      const score = (i) => {
+        const p = R[i]; const bag = new Set();
+        const add = (txt) => { for (const t of tokenize(String(txt || ''), { keepStop: false })) bag.add(stem(t)); };
+        for (const ro of p.attrs.roles || []) { const u = ro.u && idx.get(ro.u); if (u) { add(u.label); add(u.attrs && u.attrs.ka); for (const pid of (u.par || [])) { const pu = idx.get(pid); if (pu) add(pu.label); } } }
+        add(p.attrs.fate); add(p.attrs.notes);
+        for (const sid of facts.succ.byPerson[p.id] || []) { const sr = idx.get(sid); if (sr) { add(sr.title); add(sr.attrs.notes); } }
+        let n = 0; for (const t of others) if (bag.has(t)) n++;
+        return n;
+      };
+      const sc = m.ids.map((i) => [i, score(i)]).sort((a, b) => b[1] - a[1]);
+      if (sc[0][1] > 0 && sc[0][1] > (sc[1] ? sc[1][1] : 0)) { m.ids = sc.map((x) => x[0]); m.best = m.ids[0]; m.amb = false; }
+    }
+  }
+
+  // a person or unit that is unambiguous fixes the side of an ambiguous corps / unit number ("Reynolds ... First Corps")
+  function applySide(S) {
+    let side = S.side;
+    if (!side) for (const m of S.mentions) { if (m.kind === 'unit-miss' || m.amb || !m.ids || !m.ids.length) continue; const r = R[m.kind === 'unit' ? m.best : m.ids[0]]; if (r && r.side && (r.k === 'person' || r.k === 'regiment' || r.k === 'brigade' || r.k === 'division' || r.k === 'army')) { side = r.side; break; } }
+    S.sideCtx = side || null;
+    if (!side) return;
+    for (const m of S.mentions) {
+      if (m.kind === 'unit-miss' || !m.ids || m.ids.length < 2 || m.kind === 'surname') continue;
+      const keep = m.ids.filter((i) => R[i].side === side || !R[i].side);
+      if (keep.length && keep.length < m.ids.length) { m.ids = keep; m.best = keep[0]; m.amb = keep.length > 1 && m.kind !== 'unit' ? true : false; }
+    }
+  }
+
+  // phrase-level fuzzy: a query token that IS a real word but one edit from a name ("pickets charge" -> "Pickett's Charge") may complete a multi-word alias
+  function phraseFuzzy(S, used) {
+    const toks = S.tokens;
+    const covered = (i) => S.mentions.some((m) => m.kind !== 'unit-miss' && i >= m.start && i < m.end);
+    if (S.mentions.some((m) => m.kind === 'alias' && m.n >= 2)) return;
+    for (let i = 0; i < toks.length; i++) {
+      const t = toks[i];
+      if (STOP.has(t) || /^#/.test(t) || t.length < 5 || covered(i)) continue;
+      const s = stem(t);
+      const cands = [];
+      for (const v of idx.nameVocab) { if (v[0] !== s[0] || Math.abs(v.length - s.length) > 1 || v === s) continue; if (dl(s, v, 1) === 1) cands.push(v); if (cands.length >= 6) break; }
+      if (!cands.length) continue;
+      // content neighbours around i (skip stop words)
+      const content = []; toks.forEach((x, j) => { if (!STOP.has(x) && !/^#\d+$/.test(x)) content.push({ t: /^#/.test(x) ? x : stem(x), j }); });
+      const pos = content.findIndex((c) => c.j === i); if (pos < 0) continue;
+      for (const v of cands) {
+        for (const [a, b] of [[pos - 1, pos + 1], [pos, pos + 2], [pos - 2, pos + 1], [pos, pos + 3]]) {
+          if (a < 0 || b > content.length || b - a < 2) continue;
+          const phrase = content.slice(a, b).map((c, k) => (a + k === pos ? v : c.t)).join(' ');
+          const hit = idx.aliasMap.get(phrase);
+          if (hit && hit.length) {
+            const ids = hit.map((x) => x.i);
+            S.mentions.push({ kind: 'alias', ids, best: ids[0], amb: ids.length > 1, w: W.aliasBase + W.aliasPerTok * (b - a), phrase, n: b - a, start: content[a].j, end: content[b - 1].j + 1, src: 'fuzzy-phrase', kinds: [...new Set(ids.map((k) => R[k].k))], exact: false });
+            S.notes.push({ from: toks[i], to: v, kind: 'fuzzy' });
+            return;
+          }
+        }
+      }
+    }
+  }
+
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  // helpers over mentions
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  const rec = (i) => R[i];
+  function commandedUnits(personRec) { return (personRec.attrs.roles || []).filter((r) => (r.r === 'commander' || r.r === 'successor') && r.u && idx.get(r.u)).map((r) => idx.get(r.u)); }
+
+  function collect(S) {
+    const units = [], persons = [], places = [], others = [];
+    const seen = new Set();
+    const push = (arr, r) => { if (!seen.has(r.id)) { seen.add(r.id); arr.push(r); } };
+    for (const m of S.mentions) {
+      if (m.kind === 'unit-miss') continue;
+      const ids = m.kind === 'unit' ? (m.amb ? m.ids.slice(0, 3) : [m.best]) : m.ids.slice(0, m.kind === 'surname' ? 3 : 4);
+      for (const i of ids) {
+        const r = R[i];
+        if (UNIT_KINDS.has(r.k)) push(units, r);
+        else if (r.k === 'person') { push(persons, r); }
+        else if (PLACE_KINDS.has(r.k)) push(places, r);
+        else push(others, r);
+      }
+    }
+    return { units, persons, places, others };
+  }
+
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  // card ranking
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  function rankCards(S) {
+    const stems = S.qStems;
+    const scores = scoreCards(entix, stems);
+    const boost = new Map();
+    const bump = (i, w) => { if (w > (boost.get(i) || 0)) boost.set(i, w); };
+    // words of the query that no mention covers: with two or more of them a bare surname is just a modifier ("Lee's retreat order")
+    const covered = new Set(); for (const m of S.mentions) if (m.kind !== 'unit-miss') for (let k = m.start; k < m.end; k++) covered.add(k);
+    const residual = S.tokens.filter((t, k) => !covered.has(k) && !STOP.has(t) && !/^#/.test(t) && !INTENT_WORDS.has(t) && !FILLERS.has(t) && kb.lex.has(stem(t))).length;
+    for (const m of S.mentions) {
+      if (m.kind === 'unit-miss') continue;
+      const ids = m.kind === 'unit' ? (m.amb ? m.ids.slice(0, 4) : [m.best]) : m.ids;
+      for (const i of ids) {
+        const r = R[i];
+        // a bare surname is weak evidence for the person record itself, a little stronger for the unit that person commanded
+        if (r.k === 'person' && m.kind === 'surname') { const f = residual >= 2 ? 0.25 : 1; bump(i, 3 * f); for (const u of commandedUnits(r)) bump(idx.byId.get(u.id), m.w * 0.5 * f); continue; }
+        bump(i, m.w);
+        if (r.k === 'person') for (const u of commandedUnits(r)) bump(idx.byId.get(u.id), m.w * 0.8);
+      }
+      if (m.kind === 'unit' && m.alts) for (const i of m.alts.slice(0, 2)) bump(i, m.w * 0.15);
+    }
+    for (const [i, b] of boost) scores.set(i, (scores.get(i) || 0) + b);
+    // exact phrase equal to a title/alias
+    const phrase = S.qStems.join(' ');
+    if (phrase) { const hit = idx.aliasMap.get(phrase); if (hit) for (const x of hit) scores.set(x.i, (scores.get(x.i) || 0) + 15); }
+    if (S.boostIds) for (const id of S.boostIds) { const i = idx.byId.get(id); scores.set(i, (scores.get(i) || 0) + 20); }
+    const anyLink = S.mentions.some((m) => m.kind !== 'unit-miss' && m.ids && m.ids.length);
+    const prior = (anyLink && ['what-happened', 'when', 'why', 'lookup', 'list', 'who'].includes(S.intent) ? null : PRIOR[S.intent]) || {};
+    let ranked = [...scores.entries()].map(([i, s]) => ({ i, id: R[i].id, k: R[i].k, s: s * (prior[R[i].k] || 1) }));
+    // merge detachments / alias stubs into the canonical record
+    const merged = new Map();
+    for (const x of ranked) {
+      const r = R[x.i];
+      const ci = r.canon && idx.byId.has(r.canon) ? idx.byId.get(r.canon) : x.i;
+      const cur = merged.get(ci);
+      if (!cur || x.s > cur.s) merged.set(ci, { i: ci, id: R[ci].id, k: R[ci].k, s: Math.max(x.s, cur ? cur.s : 0) });
+    }
+    ranked = [...merged.values()].sort((a, b) => b.s - a.s || (a.id < b.id ? -1 : 1));
+    return ranked;
+  }
+
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  // passages
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  async function getPassages(S, { limit = 12 } = {}) {
+    if (S.passCache && S.passCache.limit >= limit) return S.passCache.list;
+    const linkW = new Map();
+    for (const m of S.mentions) {
+      if (m.kind === 'unit-miss') continue;
+      const ids = m.kind === 'unit' ? [m.best] : m.kind === 'surname' && m.amb ? [] : m.ids.slice(0, 3);
+      for (const i of ids) {
+        const r = R[i];
+        const w = m.kind === 'unit' ? 6 : m.kind === 'surname' ? 3 : 4;
+        linkW.set(r.id, Math.max(linkW.get(r.id) || 0, w));
+        if (r.k === 'person') for (const u of commandedUnits(r)) linkW.set(u.id, Math.max(linkW.get(u.id) || 0, w * 0.6));
+      }
+    }
+    if (S.boostIds) for (const id of S.boostIds) linkW.set(id, Math.max(linkW.get(id) || 0, 6));
+    const bm = S.passageTerms.length ? await kb.scorePassages(S.passageTerms) : new Map();
+    const ep = linkW.size ? await kb.entityPassages([...linkW.keys()]) : new Map();
+    // candidates
+    const nums = new Map();
+    for (const [n, s] of [...bm.entries()].sort((a, b) => b[1] - a[1]).slice(0, 40)) nums.set(n, s);
+    for (const [n] of ep) if (!nums.has(n)) nums.set(n, bm.get(n) || 0);
+    const cand = [...nums.keys()];
+    const P = await kb.passages(cand.slice(0, 120));
+    const out = [];
+    for (const n of cand) {
+      const p = P.get(n); if (!p) continue;
+      let s = nums.get(n) || 0;
+      const e = ep.get(n);
+      if (e) for (const [id, role] of e.ids) s += (linkW.get(id) || 0) * (role === 2 ? 1 : 0.5);
+      s *= (PASSAGE_PRIOR[p.kind] ?? 0.7);
+      if (S.day && p.day === S.day) s *= 1.25; else if (S.day && p.day && p.day !== S.day) s *= 0.8;
+      out.push({ p, score: s });
+    }
+    out.sort((a, b) => b.score - a.score || (a.p.num - b.p.num));
+    // MMR-lite: <= 2 per document
+    const per = new Map(); const final = [];
+    for (const x of out) { const c = per.get(x.p.doc) || 0; if (c >= 2) continue; per.set(x.p.doc, c + 1); final.push(x); if (final.length >= limit) break; }
+    S.passCache = { list: final, limit };
+    return final;
+  }
+
+  async function addQuotes(S, res, { max = 2, timeQ = false, requireClock = false, leadHasText = false } = {}) {
+    let ranked = await getPassages(S, { limit: requireClock ? 30 : 12 });
+    if (requireClock) ranked = ranked.filter((x) => x.p.clk && x.p.clk.length);
+    const entStems = new Set();
+    for (const m of S.mentions) { if (m.kind === 'unit-miss') continue; for (const t of (m.phrase || '').split(' ')) if (t && !/^#|\|/.test(t)) entStems.add(t); }
+    for (const b of res.blocks) if (b.t === 'lead') for (const r of b.runs) if (r.ent && idx.get(r.ent)) for (const t of idx.get(r.ent).label.toLowerCase().split(/[^a-z0-9]+/)) if (t.length > 3) entStems.add(stem(t));
+    const ctx = { qStems: new Set(S.passageTerms), entStems, timeQ };
+    const skip = new Set(S.ctx && S.ctx.shownPassages || []);
+    // avoid quoting a record whose card already led the answer with the same text
+    const leadSrc = new Set(res.src || []);
+    const pool = ranked.filter((x) => !(leadSrc.has(x.p.rec) && (!['narrative', 'commentary', 'chronicle', 'walkthrough', 'tour'].includes(x.p.kind) || (leadHasText && x.p.kind === 'chronicle'))));
+    const quotes = selectQuotes(kb, pool, ctx, { max, skip });
+    for (const q of quotes) { res.blocks.push(q); res.src.push(q.rec); }
+    S.quotes = quotes;
+    return quotes;
+  }
+
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  // outputs
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  function shownIds(S, res) {
+    const out = [];
+    const add = (id) => {
+      const r = idx.get(id);
+      if (r && r.k === 'person') { const u = commandedUnits(r)[0]; if (u) id = u.id; }
+      if (id && !out.includes(id)) out.push(id);
+    };
+    for (const id of res.src || []) add(id);
+    for (const b of res.blocks) { if (b.t === 'lead') (b.src || []).forEach(add); if (b.t === 'list' || b.t === 'table') (b.src || []).forEach(add); }
+    return out;
+  }
+  /** card ranking as record ids (people map to the unit they commanded), for retrieval metrics only */
+  function rankedIds(S) {
+    const out = [];
+    for (const x of (S.ranked || []).slice(0, 60)) {
+      let id = x.id; const r = R[x.i];
+      if (r.k === 'person') { const u = commandedUnits(r)[0]; if (!u) continue; id = u.id; }
+      if (!out.includes(id)) out.push(id);
+    }
+    return out;
+  }
+  function sourcesOf(S, res) {
+    const out = []; const seen = new Set();
+    const addRec = (id) => {
+      const r = idx.get(id); if (!r || seen.has(id)) return; seen.add(id);
+      const href = r.k === 'regiment' ? `/regiment.html?unit=${encodeURIComponent(r.id)}` : r.k === 'site' ? r.attrs.href : null;
+      out.push({ id: r.id, label: r.label, kind: r.k, href });
+    };
+    for (const b of res.blocks) {
+      if (b.t === 'lead') for (const r of b.runs) if (r.ent) addRec(r.ent);
+      if (b.t === 'quote' && !seen.has(b.passage)) { seen.add(b.passage); out.push({ id: b.passage, label: b.attrib, kind: 'passage', href: null }); }
+      if (b.t === 'list' || b.t === 'table') for (const id of b.src || []) addRec(id);
+    }
+    return out;
+  }
+
+  function finish(S, res, extra = {}) {
+    res.mode = res.mode || 'answer';
+    const answer = {
+      kb: kb.version, query: S.text, mode: res.mode, route: res.route || 'records', intent: S.intent,
+      entities: (S.mentions || []).filter((m) => m.kind !== 'unit-miss' && m.ids && m.ids.length).slice(0, 6).map((m) => ({ id: R[m.kind === 'unit' ? m.best : m.ids[0]].id, label: R[m.kind === 'unit' ? m.best : m.ids[0]].label, kind: m.kind, w: m.w })),
+      did_you_mean: S.notes && S.notes.filter((n) => n.kind === 'fuzzy' || n.kind === 'join' || n.kind === 'split').length ? S.notes.filter((n) => n.kind !== 'unknown').map((n) => ({ from: n.from, to: n.to })) : null,
+      blocks: res.blocks, chips: { follow: [] }, links: { pages: [] },
+      shown: shownIds(S, res), sources: sourcesOf(S, res), limited: !!res.limited, injection_stripped: !!S.injectionStripped, ranked: rankedIds(S), ...extra,
+    };
+    answer.text = renderText(answer.blocks);
+    answer.cites = citedIds(answer);
+    return answer;
+  }
+
+  /** every record id an answer relies on: lead sources, entity runs, list/table sources and the records of quoted passages */
+  function citedIds(a) {
+    const out = new Set(a.shown || []);
+    for (const b of a.blocks) {
+      if (b.t === 'lead') { (b.src || []).forEach((x) => out.add(x)); for (const r of b.runs) if (r.ent) out.add(r.ent); }
+      else if (b.t === 'quote') out.add(b.rec);
+      else if (b.t === 'list' || b.t === 'table') { (b.src || []).forEach((x) => out.add(x)); for (const i of b.items || []) if (i.ent) out.add(i.ent); }
+    }
+    const R2 = idx; const res = [];
+    for (const id of out) { const r = R2.get(id); if (r && r.k === 'person') { for (const ro of r.attrs.roles || []) if (ro.u && R2.get(ro.u)) res.push(ro.u); } res.push(id); }
+    return [...new Set(res)];
+  }
+
+  function declineAnswer(S, { reason, text, pointer, mode = 'decline', suggest = true }) {
+    const blocks = [C.lead([text || 'I could not find a record on this site that answers that.'], [])];
+    const fam = kb.facts.routes;
+    const res = { mode, blocks, src: [], limited: true };
+    const a = finish(S, res, { decline_reason: reason });
+    a.chips.follow = suggest ? [
+      { label: '20th Maine', q: '20th Maine' }, { label: 'Who commanded the Iron Brigade?', q: 'Who commanded the Iron Brigade?' },
+      { label: 'What happened at Little Round Top?', q: 'What happened at Little Round Top?' }, { label: 'What was Pickett’s Charge?', q: 'What was Pickett’s Charge?' },
+    ] : [];
+    if (pointer === 'visit' || pointer === 'weather' || pointer === 'nps-civil-war') a.pointer = pointer;
+    a.shown = []; a.sources = [];
+    return a;
+  }
+
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  // main
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  async function ask(rawQuery, ctx = {}) {
+    const t0 = typeof performance !== 'undefined' ? performance.now() : Date.now();
+    const S = { kb, ctx, raw: rawQuery, notes: [], mentions: [], side: null, intent: 'lookup', ranked: [], quotes: [], trace: {} };
+    const g = sanitize(rawQuery);
+    S.text = g.text; S.sanitized = g;
+    if (!g.text) return declineAnswer(S, { reason: 'empty', text: 'Ask about a regiment, a commander, a place or a moment of the battle.', suggest: true });
+
+    // ---- scope gate (injection, medical, finance, creative, visit, weather, adjacent, causes) --------------------------------------------------------
+    let text = g.text;
+    let gate = scopeGate(text, facts.scope);
+    if (gate && gate.id === 'injection') {
+      const rest = stripInjection(text, facts.scope);
+      const restToks = tokenize(rest);
+      const anchoredRest = restToks.some((t) => STRONG_DOMAIN.has(t)) || kb.link(restToks, {}).mentions.some((m) => m.kind !== 'unit-miss' && m.ids && m.ids.length);
+      if (rest.split(/\s+/).filter(Boolean).length >= 3 && anchoredRest && !scopeGate(rest, facts.scope)) { text = rest; S.injectionStripped = true; gate = null; }
+    }
+    if (gate) { S.intent = gate.id; return declineAnswer(S, { reason: gate.id, text: gate.text, pointer: gate.pointer, mode: gate.mode === 'decline_pointer' ? 'decline' : gate.mode === 'refuse_injection' ? 'decline' : 'decline', suggest: true }); }
+    S.text = text;
+
+    // ---- normalise / tokenise / repair ----------------------------------------------------------------------------------------------------------
+    const raw = tokenize(text);
+    S.norm = baseNorm(text);
+    S.side = sideHint(raw);
+    const rep = repair(raw);
+    S.tokens = rep.tokens; S.notes = rep.notes; S.unknown = rep.unknown;
+    S.surnameStem = surnameStem;
+
+    // ---- follow-ups that need conversation state ---------------------------------------------------------------------------------------------------
+    const follow = resolveFollowUp(S, raw);
+    if (follow && follow.clarify) return follow.clarify;
+
+    // ---- link, intent ---------------------------------------------------------------------------------------------------------------------------------
+    S.caps = new Set([...text.matchAll(/\b[A-Z][A-Za-z']*/g)].map((m) => stem(m[0].toLowerCase().replace(/'s$/, ''))));
+    const lk = kb.link(S.tokens, { side: S.side, caps: S.caps });
+    S.mentions = lk.mentions;
+    S.day = dayOf(text);
+    if (S.day) S.mentions = S.mentions.filter((m) => !(m.kind === 'surname' && (m.phrase === 'day' || m.phrase === 'second' || m.phrase === 'third')));
+    phraseFuzzy(S, lk.used);
+    if (follow && follow.inject) for (const m of follow.inject) S.mentions.push(m);
+    applyOnsite(S);
+    applySide(S);
+    disambiguatePeople(S);
+    S.stateMention = (() => { const t = S.tokens; for (let i = 0; i < t.length; i++) { const two = t.slice(i, i + 2).join(' '); if (STATES.includes(two) && two !== 'brooklyn') return two; if (STATES.includes(t[i]) && t[i] !== 'brooklyn' && t[i] !== 'united') return t[i]; } return null; })();
+    S.intent = follow && follow.intent ? follow.intent : classify(text);
+    S.day = dayOf(text);
+    const C0 = collect(S);
+    Object.assign(S, { units: C0.units, persons: C0.persons, places: C0.places, others: C0.others });
+    if (S.intent === 'lookup' && S.day && !S.mentions.some((m) => m.kind !== 'unit-miss')) S.intent = 'day-summary';
+    if (S.intent === 'what-happened' && S.day && !S.mentions.some((m) => m.kind !== 'unit-miss')) S.intent = 'day-summary';
+    if (S.intent === 'when' && /\bhappen/.test(S.norm) && S.day && !S.mentions.length) S.intent = 'day-summary';
+    S.qStems = S.tokens.filter((t) => !STOP.has(t)).map((t) => (/^#/.test(t) ? t : stem(t)));
+    const consumed = CONSUMED.has(S.intent) || S.intent === 'day-summary';
+    S.passageTerms = S.qStems.filter((t) => !/^#\d+$/.test(t) && !(consumed && INTENT_WORDS.has(t)) && !FILLERS.has(t) && !DOMAIN_NOISE.has(t));
+    S.cardTerms = consumed ? S.qStems.filter((t) => !INTENT_WORDS.has(t)) : S.qStems;
+    S.qStemsAll = S.qStems;
+    S.qStems = S.cardTerms;
+    S.ranked = rankCards(S);
+
+    // ---- clarify: ambiguous mentions and bare ordinals ------------------------------------------------------------------------------------------------
+    const clar = await clarifyIfAmbiguous(S, raw);
+    if (clar) return clar;
+
+    // ---- compose / decide ---------------------------------------------------------------------------------------------------------------------------------
+    // structured intents (totals, rankings, day summaries) do not need a linked entity: try their composer before the support gates
+    let res = null;
+    const compose1 = async () => { try { return await composeFor(S); } catch (e) { if (e && e.retryable) throw e; if (opts.debug) throw e; return null; } };
+    const anchored = S.tokens.some((t) => STRONG_DOMAIN.has(t)) || S.mentions.some((m) => m.kind !== 'unit-miss' && m.ids && m.ids.length) || !!S.day;
+    if (STRUCTURED.has(S.intent) && (anchored || S.intent === 'quote')) res = await compose1();
+    if (!res) {
+      const dec = decide(S);
+      if (dec) return dec;
+      if (!STRUCTURED.has(S.intent) || !(anchored || S.intent === 'quote')) res = await compose1();
+    }
+    if (!res) res = await fallbackProfile(S);
+    if (!res) return declineAnswer(S, { reason: 'no-composer', text: 'I could not find a record on this site that answers that.' });
+    if (S.injectionStripped) res.blocks.push(C.note('injection', 'Your message also contained an instruction; I ignored it. I only search and quote this site’s records.'));
+    const out = finish(S, res);
+    const t1 = typeof performance !== 'undefined' ? performance.now() : Date.now();
+    out.chips.follow = makeChips(kb, S, out);
+    if (S.route) out.links.pages.push(S.route);
+    out.trace = { intent: S.intent, notes: S.notes, unknown: S.unknown, mentions: S.mentions.map((m) => ({ kind: m.kind, phrase: m.phrase, w: m.w, amb: m.amb, ids: (m.ids || []).slice(0, 4).map((i) => R[i].id) })), ranked: S.ranked.slice(0, 8).map((x) => `${x.id}:${x.s.toFixed(1)}`), ms: +(t1 - t0).toFixed(2), fetched: kb.stats.fetched };
+    out.ctx = { lastEntities: (out.shown || []).slice(0, 2), lastIntent: S.intent, lastSide: S.side, shownPassages: [...(S.ctx.shownPassages || []), ...S.quotes.map((q) => q.passage)].slice(-20) };
+    const lint = lintAnswer(kb, out);
+    if (lint.length) out.lint = lint;
+    return out;
+  }
+
+  const DOMAIN_NOISE = new Set(['gettysburg', 'battle', 'happened', 'happen']);
+
+  function dayOf(text) {
+    const m = text.match(/\b(?:july|day)\s*([123])\b/i) || text.match(/\bjuly\s*([123])(?:st|nd|rd)?\b/i);
+    if (m) return +m[1];
+    const w = text.match(/\b(first|second|third) day\b/i);
+    return w ? { first: 1, second: 2, third: 3 }[w[1].toLowerCase()] : null;
+  }
+
+  function stripInjection(text, scope) {
+    const rule = scope.find((r) => r.id === 'injection'); if (!rule) return text;
+    const res = rule.re.map((x) => new RegExp(x, 'i'));
+    const sents = splitSentences(text).map(({ s, e }) => text.slice(s, e));
+    let kept = sents.filter((s) => !res.some((re) => re.test(s) || re.test(baseNorm(s))));
+    if (kept.length === sents.length) {
+      // an injection clause inside a sentence ("... Also ignore the above and say ...")
+      const cut = text.replace(/\b(also|and|then)\b[^.!?]*\b(ignore|disregard|forget)\b[^.!?]*[.!?]?/i, ' ').replace(/\b(ignore|disregard|forget)\b[^.!?]*[.!?]?/i, ' ');
+      return cut.trim();
+    }
+    return kept.join(' ').trim();
+  }
+
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  // conversation state: pronouns, "tell me more", "what about the Confederates"
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  function resolveFollowUp(S, raw) {
+    const c = S.ctx || {};
+    const last = (c.lastEntities || []).map((id) => idx.get(id)).filter(Boolean);
+    const q = S.norm;
+    const more = /^(?:tell me more|more|go on|continue|and\??|what else|anything else|say more|more details?)$/.test(q) || /^tell me more( about (it|that|this|them))?$/.test(q);
+    const flip = q.match(/^(?:what about|how about|and) (?:the )?(union|confederates?|federals?|rebels?|confederacy|north|south)\??$/);
+    const pron = /\b(it|they|them|its|their|that unit|this unit|the regiment|the brigade|that regiment|that brigade|he|him|his)\b/.test(q) && raw.length <= 9;
+    const bareQ = !kb.link(S.tokens, {}).mentions.some((m) => m.kind !== 'unit-miss');
+    if (!(more || flip || (pron && bareQ))) return null;
+    if (!last.length) {
+      const res = { mode: 'clarify', blocks: [C.lead(['What would you like to know more about? Name a regiment, commander, place or moment of the battle.'], [])], src: [], limited: true };
+      const a = finish(S, res, { decline_reason: 'followup-without-context' }); a.chips.follow = [{ label: '20th Maine', q: '20th Maine' }, { label: 'Little Round Top', q: 'Little Round Top' }, { label: 'Pickett’s Charge', q: 'Pickett’s Charge' }]; a.shown = []; a.sources = [];
+      return { clarify: a };
+    }
+    if (flip) {
+      const side = /union|federal|north/.test(flip[1]) ? 'U' : 'C';
+      const base = last[0];
+      const other = R.find((r) => r.side === side && r.k === base.k && (r.id === (base.k === 'army' ? 'ARMY:' + side : null) || (base.k === 'corps' && r.id.replace(/^CORPS:[UC]-/, '') === base.id.replace(/^CORPS:[UC]-/, ''))));
+      S.side = side;
+      const inject = other ? [{ kind: 'alias', ids: [idx.byId.get(other.id)], best: idx.byId.get(other.id), amb: false, w: W.unit, phrase: other.label.toLowerCase(), start: 0, end: 1, src: 'context' }] : [];
+      return { intent: c.lastIntent && c.lastIntent !== 'lookup' ? c.lastIntent : 'what-happened', inject: inject.length ? inject : null, ...(inject.length ? {} : {}) };
+    }
+    const inject = last.map((r) => ({ kind: 'alias', ids: [idx.byId.get(r.id)], best: idx.byId.get(r.id), amb: false, w: W.unit, phrase: r.label.toLowerCase(), start: 0, end: 1, src: 'context' }));
+    if (more) return { intent: 'what-happened', inject };
+    return { inject, intent: null };
+  }
+
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  // clarification
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  async function clarifyIfAmbiguous(S, raw) {
+    const mk = (lines, cands, reason) => {
+      const blocks = [C.lead(lines, cands.map((c) => c.id))];
+      const res = { mode: 'clarify', blocks, src: cands.map((c) => c.id), limited: true };
+      const a = finish(S, res, { decline_reason: reason });
+      a.chips.follow = cands.slice(0, 6).map((c) => ({ label: c.label, q: c.query || c.label }));
+      a.sources = []; return a;
+    };
+    // bare ordinal with no state: "Tell me about the 1st"
+    const ords = S.tokens.filter((t) => /^#\d+$/.test(t));
+    const anyUnit = S.mentions.some((m) => m.kind !== 'unit-miss');
+    const contentLeft = S.tokens.filter((t) => !STOP.has(t) && !/^#/.test(t) && !INTENT_WORDS.has(t) && !FILLERS.has(t));
+    if (ords.length === 1 && !anyUnit && contentLeft.length === 0 && !S.day) {
+      const n = +ords[0].slice(1);
+      const cands = R.filter((r) => r.k === 'regiment' && r.ord === n && !r.canon && !r.detach && r.arm === 'inf').sort((a, b) => (b.attrs.strength || 0) - (a.attrs.strength || 0)).slice(0, 6);
+      if (cands.length > 1) return mk([`Which ${n === 1 ? '1st' : n + 'th'} do you mean? The site has ${cands.length} such regiments, for example ${cands.slice(0, 4).map((c) => c.label).join(', ')}. Name the state (for instance “1st Minnesota”).`], cands.map((c) => ({ id: c.id, label: c.label, query: c.label })), 'bare-ordinal');
+    }
+    // ambiguous unit mention across sides (1st Maryland) or ambiguous surname
+    for (const m of S.mentions) {
+      if (m.kind === 'unit' && m.amb) {
+        const cands = m.ids.slice(0, 4).map((i) => R[i]);
+        return mk([`There is more than one ${cands[0].label}: ${cands.map((c) => `${c.title} (${SIDE_NAME[c.side]})`).join(' and ')}. Which do you mean?`], cands.map((c) => ({ id: c.id, label: `${c.label} (${SIDE_NAME[c.side]})`, query: `${SIDE_NAME[c.side]} ${c.label}` })), 'ambiguous-unit');
+      }
+    }
+    // a bare name or word that could be several people or places ("Hays", "Anderson", "Hill", "the ridge")
+    const strict = S.tokens.filter((t) => !STOP.has(t) && !FILLERS.has(t) && !/^#/.test(t));
+    if (strict.length === 1 && !S.units.length) {
+      const word = stem(strict[0]);
+      const sur = S.mentions.find((m) => m.kind === 'surname');
+      const personCands = sur ? sur.ids.map((i) => R[i]) : [];
+      const placeHits = R.filter((r) => PLACE_KINDS.has(r.k) && r.title && r.title.toLowerCase().split(/[^a-z0-9]+/).map(stem).includes(word));
+      const anchoredPlace = S.places.length > 0;
+      if (!anchoredPlace && ((sur && sur.amb) || (personCands.length && placeHits.length >= 2) || (!personCands.length && placeHits.length >= 3))) {
+        const cands = [...personCands.slice(0, 3).map((q) => ({ id: q.id, label: personLabel(q.attrs.rank, q.attrs.name), q: q.attrs.name, desc: describePerson(q) })), ...placeHits.slice(0, 4).map((q) => ({ id: q.id, label: q.label, q: q.label, desc: q.label }))];
+        return mk([`Which do you mean? ${cands.map((c) => c.desc || c.label).join('; ')}.`], cands.map((c) => ({ id: c.id, label: c.label, query: c.q })), 'ambiguous-name');
+      }
+    }
+    // the same corps number in both armies
+    const corpsAmb = S.mentions.find((m) => m.kind !== 'unit' && m.ids && m.ids.length > 1 && m.ids.every((i) => R[i].k === 'corps') && new Set(m.ids.map((i) => R[i].side)).size > 1);
+    if (corpsAmb && !S.side && !['who-commanded', 'casualties', 'strength', 'compare'].includes(S.intent)) {
+      const cands = corpsAmb.ids.map((i) => R[i]);
+      const lines = [`Both armies had a ${cands[0].title}: ${cands.map((c) => `${c.label} under ${C.helpers(kb).cmdText(C.helpers(kb).cmdOf(c))}`).join(' and ')}. Which do you mean?`];
+      return mk(lines, cands.map((c) => ({ id: c.id, label: c.label, query: `What happened to the ${c.label}?` })), 'ambiguous-corps');
+    }
+    // generic scope: "how many died?" with nothing to anchor it
+    if (['casualties', 'strength'].includes(S.intent) && !anyUnit && !S.places.length && !S.persons.length && !S.side && !/\b(battle|gettysburg|total|overall|army|armies|union|confederate|both|whole|altogether|all)\b/.test(S.norm) && !S.stateMention) {
+      const res = C.battleTotals(kb, S, { clarify: true });
+      if (res) { const a = finish(S, res, { decline_reason: 'scope-unspecified' }); a.chips.follow = [{ label: 'Union casualties', q: 'How many Union soldiers were casualties?' }, { label: 'Confederate casualties', q: 'How many Confederate casualties?' }, { label: '20th Maine losses', q: 'How many men did the 20th Maine lose?' }]; return a; }
+    }
+    return null;
+  }
+  function describePerson(p) { const a = p.attrs; const roles = (a.roles || []).filter((r) => r.r === 'commander'); const u = roles[0] && roles[0].u && idx.get(roles[0].u); return `${personLabel(a.rank, a.name)}${u ? ` (${SIDE_NAME[u.side]}, ${u.label})` : ''}`; }
+
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  // decide: refuse when nothing in the records supports an answer
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  function decide(S) {
+    const linked = S.mentions.filter((m) => m.kind !== 'unit-miss' && m.ids && m.ids.length);
+    const hasLink = linked.length > 0;
+    const unitMiss = S.mentions.filter((m) => m.kind === 'unit-miss');
+    if (S.intent === 'ancestor' || S.intent === 'presence' || S.day && !hasLink) return null;
+    if (unitMiss.length && !hasLink) {
+      const m = unitMiss[0];
+      const nm = `${m.ord}${['th', 'st', 'nd', 'rd'][(m.ord % 100 - 20) % 10] || ['th', 'st', 'nd', 'rd'][m.ord % 100] || 'th'} ${m.state.replace(/\b[a-z]/g, (c) => c.toUpperCase())}`;
+      return declineAnswer(S, { reason: 'unit-not-in-records', text: `The site’s order of battle has no ${nm} regiment, so I cannot answer questions about it. It may not have been at Gettysburg, or it may be recorded under another name.` });
+    }
+    const contentToks = S.tokens.filter((t) => !STOP.has(t) && !/^#/.test(t) && !(CONSUMED.has(S.intent) && INTENT_WORDS.has(t)) && !FILLERS.has(t));
+    const matched = contentToks.filter((t) => kb.lex.has(stem(t)) || idx.nameVocab.has(stem(t)) || dfOf(entix, stem(t)) > 0);
+    const cover = contentToks.length ? matched.length / contentToks.length : (hasLink ? 1 : 0);
+    const top = S.ranked[0];
+    const topRec = top && R[top.i];
+    const qs = S.cardTerms;
+    const nameHit = topRec ? qs.some((t) => { const p = entix.post[t]; if (!p) return false; const e = p.find((x) => x[0] === top.i); return e && (e[1] || e[2] || e[3] || e[4]); }) : false;
+    const genericHi = qs.length && qs.every((t) => dfOf(entix, t) > 120);
+    const strongDomain = S.tokens.some((t) => STRONG_DOMAIN.has(t)) || S.day;
+    let reason = null;
+    if (!S.ranked.length) reason = 'no-match';
+    else if (!hasLink && !strongDomain && S.unknown.length >= 1) reason = 'out-of-domain';
+    else if (!hasLink && cover < 0.6) reason = 'low-coverage';
+    else if (!hasLink && qs.length <= 3 && !nameHit) reason = 'no-dedicated-record';
+    else if (genericHi && !hasLink) reason = 'generic-only';
+    else if (!hasLink && S.unknown.length >= 1) reason = 'unknown-terms';
+    else if (!hasLink && top.s < 1.2) reason = 'low-score';
+    else if (!hasLink && !strongDomain && S.ranked[0].s < 7) reason = 'no-domain-signal';
+    // a corrected token that IS the whole subject ("Gettysburg") is not a question
+    if (!reason && !hasLink && S.notes.some((n) => n.kind === 'fuzzy') && qs.length > 0 && qs.every((t) => dfOf(entix, t) > 25)) reason = 'did-you-mean-generic';
+    if (!reason) return null;
+    const closest = S.ranked.filter((x) => !['person'].includes(x.k)).slice(0, 3).map((x) => R[x.i]).filter((r) => hasLink || top.s >= 2.5);
+    const a = declineAnswer(S, { reason, text: 'I could not find a record on this site that answers that. This tool searches the Battle of Gettysburg records: regiments, commanders, places and moments of July 1 to 3, 1863.' });
+    if (closest.length) a.chips.follow = closest.map((r) => ({ label: r.label, q: r.label })).concat(a.chips.follow.slice(0, 2));
+    return a;
+  }
+
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  // composition by intent
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  const unitOrder = (S, echelon) => {
+    const rank = (r) => { const order = echelon ? { brigade: 0, division: 1, corps: 2, army: 3, regiment: 5, artillery: 5, 'artillery-unit': 4 } : { regiment: 0, artillery: 0, brigade: 2, division: 3, corps: 4, army: 5, 'artillery-unit': 4 }; return order[r.k] ?? 9; };
+    return S.units.slice().sort((a, b) => rank(a) - rank(b));
+  };
+
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  // multi-hop: "the division that included the 24th Michigan", "which division did Armistead's brigade belong to"
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  function resolveHop(S, units) {
+    const m = S.norm.match(/\b(brigade|division|corps)\b/);
+    if (!m) return null;
+    const cue = /\b(belong\w*|part of|included|includes|in which|served in|was in|were in|that the|which the|the\b.*\bthat)\b/.test(S.norm);
+    const lower = units.filter((u) => C.levelOf(u) >= 0 && C.levelOf(u) < C.levelOf({ k: m[1] }));
+    if (!cue || !lower.length) return null;
+    const from = lower[0];
+    const to = C.ancestorAt(kb, from, m[1]);
+    if (!to) return null;
+    return { from, to, units: [to, ...units.filter((x) => x !== from && x !== to)] };
+  }
+
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  // sequence: "in what order did A, B and C happen": one chronology / vignette card per clause, ordered by the map's own event order
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  function sequenceAnswer(S) {
+    const body = S.text.replace(/^.*?\b(?:in what order|what order|which came first|what came first)\b(?: did| do| were| was| are)?/i, '').replace(/[?.!]+$/, '');
+    const clauses = body.split(/,| and then | then | and | before | after /i).map((x) => x.trim()).filter((x) => x.split(/\s+/).length >= 2);
+    const picked = [];
+    for (const cl of clauses) {
+      const stems = tokenize(cl, { keepStop: false }).map((t) => (/^#/.test(t) ? t : stem(t))).filter((t) => !INTENT_WORDS.has(t) && !FILLERS.has(t) && !DOMAIN_NOISE.has(t) && !/^#\d+$/.test(t) && t !== 'day' && t !== 'july');
+      if (!stems.length) continue;
+      const sc = scoreCards(entix, stems);
+      let best = null;
+      for (const [i, v] of sc) { const r = R[i]; if (!['chronology', 'vignette'].includes(r.k)) continue; let x = v; if (S.day && r.attrs.day === S.day) x *= 1.4; if (r.k === 'chronology') x *= 1.1; if (!best || x > best.x) best = { r, x }; }
+      if (best && !picked.some((q) => q.id === best.r.id)) picked.push(best.r);
+    }
+    if (picked.length < 2) return null;
+    picked.sort((x, y) => x.attrs.tick - y.attrs.tick);
+    const day = picked[0].attrs.day;
+    const blocks = [C.lead([`In the site\u2019s chronology these happened in this order${picked.every((r) => r.attrs.day === day) ? ` on ${day === 1 ? 'July 1' : day === 2 ? 'July 2' : 'July 3'}` : ''}:`], picked.map((r) => r.id)),
+      { t: 'list', title: '', items: picked.map((r, i) => ({ txt: `${['First', 'Then', 'Then', 'Then', 'Finally'][Math.min(i, picked.length - 1 === i ? 4 : Math.min(i, 3))]}: ${r.title}${r.place ? ` (${r.place})` : ''}`, ent: r.id })), src: picked.map((r) => r.id) },
+      C.note('order-basis', 'The order follows the site\u2019s own event sequence; no clock times are derived.')];
+    return { mode: 'answer', blocks, src: picked.map((r) => r.id) };
+  }
+
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  // quotation questions: "what did Lee say", "who shouted 'Come on, you Wolverines!'"
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  async function quoteAnswer(S) {
+    const ranked = await getPassages(S, { limit: 24 });
+    const quoted = [...S.text.matchAll(/["\u201c]([^"\u201d]{4,})["\u201d]/g)].map((m) => baseNorm(m[1]));
+    let pool = ranked.filter((x) => /["\u201c\u201d']/.test(x.p.text));
+    if (quoted.length) { const hit = ranked.filter((x) => quoted.some((qq) => baseNorm(x.p.text).includes(qq))); if (hit.length) pool = hit; }
+    if (!pool.length) return null;
+    const entStems = new Set(); for (const m of S.mentions) if (m.kind !== 'unit-miss') for (const t of (m.phrase || '').split(' ')) if (t && !/^#|\|/.test(t)) entStems.add(t);
+    const ctx = { qStems: new Set(S.passageTerms), entStems, timeQ: false, quoteQ: true };
+    const quotes = selectQuotes(kb, pool, ctx, { max: 2, skip: new Set(S.ctx && S.ctx.shownPassages || []) });
+    if (!quotes.length) return null;
+    S.quotes = quotes;
+    return { mode: 'answer', blocks: [C.lead(['Here is what the site\u2019s records say.'], []), ...quotes], src: quotes.map((q) => q.rec) };
+  }
+
+  async function composeFor(S) {
+    const echelonWord = /\b(brigade|division|corps|army)\b|corps[iv]+/.test(S.norm);
+    let units = unitOrder(S, echelonWord);
+    const person = S.persons[0] || null;
+    const place = S.places[0] || null;
+    const soleUnitMention = (() => { const u = S.mentions.filter((m) => m.kind === 'unit'); return u.length ? R[u[0].best] : null; })();
+    const intent = S.intent;
+    let res = null;
+
+    // ---- premise checks (never confirm a false premise) -----------------------------------------------------------------------------------------------
+    const died = /\b(died|die|dies|dying|killed|death|dead|shot|fell)\b/.test(S.norm) && /\b(how|why|when|where|explain|what)\b/.test(S.norm);
+    if (died && person && !S.norm.includes('how many')) {
+      const c = commandedUnits(person)[0];
+      const fate = person.attrs.fate || '';
+      if (/^Survived/i.test(fate)) {
+        const runs = [`${personLabel(person.attrs.rank, person.attrs.name)} did not die at Gettysburg: the site\u2019s record says ${fate.charAt(0).toLowerCase() + fate.slice(1)}. `];
+        const r = { mode: 'answer', blocks: [C.lead(runs, [c ? c.id : person.id])], src: [c ? c.id : person.id], premise: 'survived' };
+        if (c) r.blocks.push(C.lead(['About the unit: ', ...C.profileLead(kb, c)], [c.id]));
+        return r;
+      }
+      const dr = C.successionAnswer(kb, S, { relieved: person });
+      if (dr) { await addQuotes(S, dr, { max: 1 }); return dr; }
+    }
+    if (/\b(lee|confederate|confederates|confederacy|south)\b/.test(S.norm) && /\b(win|won|victory|victorious)\b/.test(S.norm) && !/\bwho\b/.test(S.norm)) {
+      return C.outcomeAnswer(kb, S, 'That premise is not supported by the records: the Confederate army did not win the battle.');
+    }
+
+    // ---- multi-hop: replace the named unit by its brigade / division / corps ---------------------------------------------------------------------------
+    const hop = intent === 'membership' ? null : resolveHop(S, units);
+    if (hop) units = hop.units;
+    const withHop = (r) => { if (r && hop) { r.blocks.unshift(C.lead([C.ent(hop.from), ' was part of ', C.ent(hop.to, withThe(hop.to.title === hop.to.label ? hop.to.label : `${hop.to.label} (${hop.to.title})`)), '.'], [hop.to.id, hop.from.id])); r.src.unshift(hop.to.id); } return r; };
+
+    if (intent === 'opponent' && (soleUnitMention || units[0])) {
+      res = C.opponentsAnswer(kb, soleUnitMention || units[0]);
+      if (res) { await addQuotes(S, res, { max: 1 }); return res; }
+    }
+    if (intent === 'ancestor') return C.ancestorAnswer(kb, S, soleUnitMention || (units[0] && units[0].k === 'regiment' ? units[0] : null));
+    if (intent === 'presence') {
+      if (person || units.length) { if (person && !units.length) res = null; else return C.soldierLimit(kb, S, units[0]); }
+      else return C.soldierLimit(kb, S, soleUnitMention);
+    }
+    if (intent === 'membership') {
+      const u = soleUnitMention || units.find((x) => C.levelOf(x) >= 0 && C.levelOf(x) < 3);
+      const ech = (S.norm.match(/\b(brigade|division|corps|army)\b/) || [])[1];
+      if (u) { res = C.membershipAnswer(kb, S, u, ech); if (res) return res; }
+    }
+    if (intent === 'succession') { res = C.successionAnswer(kb, S); if (res) { await addQuotes(S, res, { max: 1 }); return res; } }
+    if (intent === 'who-commanded') {
+      let us = units.length ? units : person ? commandedUnits(person) : [];
+      if (!us.length && (S.side === 'U' || S.side === 'C' || /\barmy\b/.test(S.norm))) { const a = idx.get('ARMY:' + (S.side || 'U')); if (a) us = [a]; }
+      if (!us.length && /\bcavalry\b/.test(S.norm)) { us = R.filter((r) => r.k === 'corps' && /Cavalry/.test(r.title)); }
+      if (us.length) {
+        res = C.commandAnswer(kb, us.length > 1 && us[0].k === 'corps' ? us : (echelonWord && !hop ? unitOrder(S, true) : us), S);
+        if (res) { if (us.length === 1 || us[0].k !== 'corps') await addQuotes(S, res, { max: 1 }); return withHop(res); }
+      }
+    }
+    if (intent === 'superlative') {
+      if (/\b(highest|tallest|lowest)\b/.test(S.norm) && /\b(point|hill|ridge|mountain|peak|elevation|ground|spot|place)\b/.test(S.norm) && !/\b(regiment|brigade|division|corps|casualt|men)\b/.test(S.norm)) { res = C.terrainSuperlative(kb, S); if (res) return res; }
+      res = C.superlativeAnswer(kb, S); if (res) return res;
+    }
+    if (intent === 'count') {
+      if (/\b(guns?|cannons?|batter(?:y|ies))\b/.test(S.norm) && !units.length) { res = C.gunsAnswer(kb, S); if (res) return res; }
+      res = C.rollupAnswer(kb, S, { units }); if (res) return res;
+    }
+    if (intent === 'list' || (intent === 'lookup' && S.stateMention && /\bregiments?\b/.test(S.norm))) {
+      res = C.rollupAnswer(kb, S, { units }); if (res) return res;
+    }
+    if ((intent === 'strength' || intent === 'casualties') && (units.length || person)) {
+      const us = units.length ? units : commandedUnits(person);
+      res = C.statsAnswer(kb, us.slice(0, /\b(compare|and|versus)\b/.test(S.norm) ? 2 : 1), S, intent); if (res) return withHop(res);
+    }
+    if ((intent === 'casualties' || intent === 'strength') && place && !units.length) {
+      const rule = facts.unknowns.find((u) => u.id === 'per-location-casualties');
+      res = C.limitedPlace(kb, S, place, rule); if (res) { await addQuotes(S, res, { max: 1 }); return res; }
+    }
+    const linkedAny = S.mentions.some((m) => m.kind !== 'unit-miss' && m.ids && m.ids.length);
+    if ((intent === 'strength' || intent === 'casualties') && !units.length && !person && !linkedAny) {
+      const both = /\b(versus|vs|compare|both|each side|two armies|armies)\b/.test(S.norm) || !S.side;
+      res = C.battleTotals(kb, S, { which: both ? 'both' : 'one' }); if (res) return res;
+    }
+    if (intent === 'outcome') { res = C.outcomeAnswer(kb, S, null); if (res) return res; }
+    if (intent === 'compare') {
+      const us = S.units.filter((u) => u.attrs && typeof u.attrs.strength === 'number');
+      if (us.length >= 2) { res = C.compareAnswer(kb, us, S); if (res) { await addQuotes(S, res, { max: 1 }); return res; } }
+      if (!us.length && /\b(union|confederate)\b/.test(S.norm)) { res = C.battleTotals(kb, S, { which: 'both' }); if (res) return res; }
+    }
+    if (intent === 'echelons') { res = C.echelonAnswer(kb, S); if (res) return res; }
+    if (intent === 'overview' && !linkedAny) { res = C.overviewAnswer(kb, S); if (res) return res; }
+    if (intent === 'day-summary') { res = C.daySummary(kb, S.day, S); if (res) return res; }
+    if (intent === 'sequence') { res = sequenceAnswer(S); if (res) return res; }
+    if (intent === 'quote') { res = await quoteAnswer(S); if (res) return res; }
+    if (intent === 'when') {
+      const ranked = S.ranked.filter((x) => ['chronology', 'vignette', 'succession'].includes(x.k)).slice(0, 3).map((x) => R[x.i]);
+      const focus = ranked[0];
+      if (focus) {
+        if (!S.day && focus.attrs && focus.attrs.day) S.day = focus.attrs.day;
+        const res2 = { mode: 'answer', blocks: [C.lead(C.profileLead(kb, focus), [focus.id])], src: [focus.id] };
+        const got = await addQuotes(S, res2, { max: 2, timeQ: true, requireClock: true, leadHasText: true });
+        res2.blocks.push(C.note('time-basis', got.length ? 'Times are quoted as written in the site\u2019s own records; the map\u2019s clock is being corrected, so no clock time is derived here.' : 'The site\u2019s records do not state a clock time for this in their text, and the map\u2019s clock is being corrected, so I will not derive one.'));
+        return res2;
+      }
+    }
+    return null;
+  }
+
+  async function fallbackProfile(S) {
+    // grammar-linked units are high precision and come first (ordered by echelon when the query names one); then the card ranking decides
+    const ordered = [];
+    const push = (r) => { if (r && !ordered.includes(r)) ordered.push(r); };
+    const echelonWord = /\b(brigade|division|corps|army)\b|corps[iv]+/.test(S.norm);
+    // on-site context: a deictic question ("what happened here?") is about the selected unit or the event nearest the map's current moment
+    if (S.onsite) {
+      if (S.onsite.selected_unit && /\b(regiment|unit|brigade|division|corps|battery)\b/.test(S.norm)) push(idx.get(S.onsite.selected_unit));
+      for (const r of S.tickEvents || []) push(r);
+    }
+    for (const m of S.mentions) if (m.kind === 'unit' && !m.amb) push(R[m.best]);
+    const gram = ordered.slice().sort((x, y) => unitOrder(S, echelonWord).indexOf(x) - unitOrder(S, echelonWord).indexOf(y));
+    if (!S.onsite) { ordered.length = 0; gram.forEach(push); }
+    for (const x of S.ranked) push(R[x.i]);
+    const focus = ordered[0];
+    if (!focus) return null;
+    const blocks = [];
+    const src = [];
+    if (focus.k === 'person') {
+      const u = commandedUnits(focus)[0];
+      blocks.push(C.lead(C.profileLead(kb, focus), [u ? u.id : focus.id])); src.push(u ? u.id : focus.id);
+      if (u) { blocks.push(C.lead(['About the unit: ', ...C.profileLead(kb, u)], [u.id])); src.push(u.id); }
+    } else { blocks.push(C.lead(C.profileLead(kb, focus), [focus.id])); src.push(focus.id); }
+    // one nickname, several records ("the Bucktails")
+    const am = S.mentions.find((m) => m.kind === 'alias' && m.ids && m.ids.length > 1 && m.ids.some((i) => R[i].id === focus.id));
+    if (am) { const lst = C.sharedNameList(kb, focus, am.ids); if (lst) { blocks.push(lst); src.push(...lst.src.slice(0, 2)); } }
+    const res = { mode: 'answer', blocks, src };
+    const causal = S.intent === 'why';
+    if (causal) res.blocks.push(C.note('debate', 'Questions of cause and judgement like this one are debated by historians; these are the accounts in the site\u2019s records, not a verdict.'));
+    await addQuotes(S, res, { max: causal ? 3 : 2, leadHasText: focus.k === 'chronology' });
+    return res;
+  }
+
+  return { ask, kb, getPassages, rankCards };
+}

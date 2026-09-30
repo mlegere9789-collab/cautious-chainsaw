@@ -1,0 +1,78 @@
+{
+ "kb_version": "0.1.0",
+ "data_snapshot": {
+  "sha256": "2b17d39c2c6ea98e9ec9bbb85fbfada4cadc1c4ecef76d2d315a5b97ca26ff1c",
+  "files": 71
+ },
+ "ok": true,
+ "counts": {},
+ "findings": [],
+ "sizes": {
+  "t1Raw": 1419848,
+  "t1Brotli": 183075,
+  "perFile": {
+   "entity": {
+    "raw": 903301,
+    "brotli": 111375
+   },
+   "entix": {
+    "raw": 448570,
+    "brotli": 55200
+   },
+   "facts": {
+    "raw": 42660,
+    "brotli": 8805
+   },
+   "lexicon": {
+    "raw": 25317,
+    "brotli": 7695
+   }
+  },
+  "maxShard": 12798,
+  "ixTotal": 133290,
+  "textTotal": 734900,
+  "maxIx": 3638
+ },
+ "stats": {
+  "placementDropped": 34,
+  "placementUnresolved": 224,
+  "placementKept": 978
+ },
+ "warnings": [],
+ "curated_unmatched": [],
+ "entities": {
+  "army": 2,
+  "artillery": 103,
+  "artillery-unit": 23,
+  "brigade": 88,
+  "casualty-note": 1,
+  "chronology": 137,
+  "corps": 11,
+  "division": 31,
+  "feature": 4,
+  "monument": 9,
+  "person": 706,
+  "regiment": 466,
+  "road": 8,
+  "site": 1,
+  "structure": 8,
+  "succession": 42,
+  "terrain": 30,
+  "vignette": 24
+ },
+ "passages": {
+  "total": 1530,
+  "byKind": {
+   "tour": 48,
+   "walkthrough": 48,
+   "casualty_note": 3,
+   "chronicle": 137,
+   "commentary": 25,
+   "succession_note": 42,
+   "narrative": 249,
+   "position_note": 978
+  },
+  "words": 26869,
+  "withClockClaim": 58
+ }
+}

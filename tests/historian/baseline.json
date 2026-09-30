@@ -1,0 +1,10 @@
+{
+  "$comment": "Recorded baselines. B0 = the deployed historian.html (docs/plan/specialists/hist-current.md 9.1, reproduced live by eval.mjs --system legacy). prototype_* = hist-current's uncommitted prototype (proto.js), primary battery in-sample. golden_* = hist-eval baselines (answers_b0 / answers_b3 scored with score-golden.js, all 150 questions). Numbers are percentages.",
+  "B0_recorded": {
+    "primary": { "s1": 76.2, "s3": 80.2, "mrr": 78.6, "canon1": 29.3, "canon3": 55.2, "fact3": 68.2, "factTop": 54.5, "typo_s1": 12.5, "correct_decline": 47.1, "refuses_answerable": 4.0, "defect_rate": 89.8, "mean_chars": 2989 },
+    "heldout": { "s1": 71.2, "s3": 73.1, "mrr": 73.1, "canon1": 40.9, "canon3": 59.1, "fact3": 30.8, "factTop": 23.1, "typo_s1": 20.0, "correct_decline": 20.0, "refuses_answerable": 7.7, "defect_rate": 91.2, "mean_chars": 2689 }
+  },
+  "prototype_B2_same_658_records": { "primary": { "s1": 84, "canon1": 91, "fact3": 50, "typo_s1": 88, "correct_decline": 94, "defect_rate": 0 }, "heldout": { "s1": 77, "canon1": 86, "fact3": 38, "typo_s1": 80, "correct_decline": 60, "defect_rate": 0 } },
+  "prototype_B3_957_records": { "primary": { "s1": 94, "canon1": 88, "fact3": 86, "factTop": 77, "typo_s1": 92, "correct_decline": 88, "defect_rate": 0 }, "heldout": { "s1": 88, "canon1": 82, "fact3": 85, "factTop": 77, "correct_decline": 40, "defect_rate": 0 } },
+  "golden_all150": { "B0": { "pass": 14.0, "crit_recall": 51.7, "clean": 51.3, "decline_correct": 15.4, "injection": 0 }, "B3": { "pass": 29.3, "crit_recall": 46.1, "clean": 98.7, "decline_correct": 61.5 }, "null": { "pass": 6.0 } }
+}

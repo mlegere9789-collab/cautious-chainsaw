@@ -1,0 +1,891 @@
+{
+ "note": "ids of hist-sources-1 (S1:), hist-sources-2 (S2:) catalogs and time-facts.md R-rows (TIME:)",
+ "s1": {
+  "SRC-01": {
+   "name": "Official Records (War of the Rebellion), Series I, Vol. 27, Part 1 - Reports (Union) and Gettysburg Campaign summary, orders of battle, casualty returns",
+   "tier": "P0",
+   "category": "official_records",
+   "license": {
+    "status": "public domain",
+    "basis": "US Government publication (17 U.S.C. 105) published 1889; HathiTrust rightsCode 'pd' (Full view); UC copy IA possible-copyright-status NOT_IN_COPYRIGHT",
+    "statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077699761.json",
+    "statement_text": "rightsCode: pd; usRightsString: Full view (HathiTrust API, fetched 2026-09-30). IA terms: https://archive.org/about/terms",
+    "caveats": [
+     "Use 1880-1901 GPO scans only. IA also hosts a 1971 National Historical Society reprint (warrebellionaco00cowlgoog, publisher '[Gettysburg, National Historical Society') that is NOT public domain - do not ingest reprints."
+    ]
+   }
+  },
+  "SRC-02": {
+   "name": "Official Records, Series I, Vol. 27, Part 2 - Reports: Middle Dept./Dept. of the Susquehanna/W.Va. (Union) and ARMY OF NORTHERN VIRGINIA (Confederate)",
+   "tier": "P0",
+   "category": "official_records",
+   "license": {
+    "status": "public domain",
+    "basis": "US Government publication 1889; Hathi rightsCode pd",
+    "statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077728255.json",
+    "statement_text": "rightsCode pd / Full view",
+    "caveats": [
+     "avoid reprints (see SRC-01)"
+    ]
+   }
+  },
+  "SRC-03": {
+   "name": "New York Monuments Commission - Final Report on the Battlefield of Gettysburg (3 vols., incl. Fox, 'New York at Gettysburg')",
+   "tier": "P0",
+   "category": "state_monument_commission",
+   "license": {
+    "status": "public domain",
+    "basis": "published 1900/1902 (pre-1931); NY State publication",
+    "statement_url": "https://archive.org/details/finalreportongettys01burgrich",
+    "statement_text": "IA metadata possible-copyright-status: NOT_IN_COPYRIGHT (UC copy). IA terms: https://archive.org/about/terms",
+    "caveats": [
+     "The NYSMM web transcriptions carry an all-rights-reserved footer - ingest from IA scans, not from museum.dmna.ny.gov."
+    ]
+   }
+  },
+  "SRC-04": {
+   "name": "Pennsylvania at Gettysburg: Ceremonies at the dedication of the monuments erected by the Commonwealth of Pennsylvania (1893 1st ed., 2 vols; 1914 2nd ed.)",
+   "tier": "P0",
+   "category": "state_monument_commission",
+   "license": {
+    "status": "public domain",
+    "basis": "Pennsylvania state publication 1893/1914 (pre-1931)",
+    "statement_url": "https://archive.org/details/pennsylvaniaatge05penn",
+    "statement_text": "possible-copyright-status NOT_IN_COPYRIGHT (LoC scan). Terms https://archive.org/about/terms",
+    "caveats": []
+   }
+  },
+  "SRC-05": {
+   "name": "Fox, William F. - Regimental Losses in the American Civil War, 1861-1865 (1889)",
+   "tier": "P0",
+   "category": "reference_statistics",
+   "license": {
+    "status": "public domain",
+    "basis": "published 1889 (pre-1931)",
+    "statement_url": "https://archive.org/details/reglossescivilwar00foxwrich",
+    "statement_text": "possible-copyright-status NOT_IN_COPYRIGHT",
+    "caveats": [
+     "Modern derivative datasets (e.g. Busey & Martin 1982/1994 'Regimental Strengths and Losses at Gettysburg') are copyrighted compilations - the site's own oob files already cite it (see report section 3)."
+    ]
+   }
+  },
+  "SRC-06": {
+   "name": "Official Records, Series I, Vol. 27, Part 3 - Correspondence, orders, returns (Union June 3-Aug 3 1863; Confederate correspondence)",
+   "tier": "P0",
+   "category": "official_records",
+   "license": {
+    "status": "public domain",
+    "basis": "US Government publication 1889",
+    "statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077700262.json",
+    "statement_text": "rightsCode pd / Full view",
+    "caveats": []
+   }
+  },
+  "SRC-07": {
+   "name": "Battles and Leaders of the Civil War, Vol. 3 (Gettysburg section pp. ~244-440 + Doubleday maps)",
+   "tier": "P0",
+   "category": "participant_narratives",
+   "license": {
+    "status": "public domain",
+    "basis": "published 1887-88",
+    "statement_url": "https://archive.org/details/battlesleadersof03cent",
+    "statement_text": "IA terms https://archive.org/about/terms; no possible-copyright-status field on item",
+    "caveats": [
+     "illustrations by W. Taber, A.R. Waud, E. Forbes etc. are also pre-1931 (PD) - verify per image if reused."
+    ]
+   }
+  },
+  "SRC-08": {
+   "name": "Southern Historical Society Papers (SHSP), vols. 1-43 (1876-1920; later volumes exist, not measured)",
+   "tier": "P0",
+   "category": "participant_narratives",
+   "license": {
+    "status": "public domain",
+    "basis": "published 1876-1920 (pre-1931)",
+    "statement_url": "https://archive.org/details/southernhistoric4187sout",
+    "statement_text": "possible-copyright-status: 'Copyright status reviewed by UF staff - Out of copyright' (vol.4)",
+    "caveats": [
+     "Vols after 43 not measured - only material published <= 1930 is safely PD; do not ingest later volumes without checking."
+    ]
+   }
+  },
+  "SRC-09": {
+   "name": "Library of Congress - Bachelder maps (1863 isometric; 1876/1883 three-sheet troop-position maps) and G.K. Warren survey map (Gettysburg)",
+   "tier": "P0",
+   "category": "historic_maps",
+   "license": {
+    "status": "public domain (age) / free to use per LoC G&M statement",
+    "basis": "Bachelder 1863/1876/1883 and Warren 187-? pre-1931; LoC does not hold rights but item JSON 'rights_advisory' absent for the G&M items",
+    "statement_url": "https://www.loc.gov/legal/",
+    "statement_text": "The content of the Library of Congress Geography and Map Division digitized collections is free to use and reuse unless a Rights Advisory statement is present that indicates otherwise. Credit Line: Library of Congress, Geography and Map Division.",
+    "caveats": [
+     "93517377 (P&P lithograph) carries LoC generic rights note ('does not own rights ... see https://www.loc.gov/rr/print/res/rights.html')",
+     "Respect 20 req/min JSON API limit; a 1-hour block is documented; my rapid probing coincided with 403s on HTML pages."
+    ]
+   }
+  },
+  "SRC-10": {
+   "name": "Library of Congress - Civil War Glass Negatives and Related Prints (Brady/Gardner/O'Sullivan/Gibson/Smith), Gettysburg July 1863 and aftermath",
+   "tier": "P0",
+   "category": "photographs",
+   "license": {
+    "status": "no known restrictions on publication (LoC statement); PD by age",
+    "basis": "photographed 1863; LoC statement per item",
+    "statement_url": "https://www.loc.gov/rr/print/res/120_cwar.html",
+    "statement_text": "No known restrictions on publication. For information, see \"Civil war photographs, 1861-1865,\" https://www.loc.gov/rr/print/res/120_cwar.html (118 of 185 records); 55 records: 'No known restrictions on publication.'; 12 records: no advisory field",
+    "caveats": [
+     "3 of 185 records carry a 'Copyright J224990 Aug. 16, 1917' style note (copy prints by a studio) - gate on rights_advisory + notes before display.",
+     "12 records have no rights_advisory - exclude until checked."
+    ]
+   }
+  },
+  "SRC-11": {
+   "name": "Itinerary of the Army of the Potomac and co-operating forces in the Gettysburg campaign, June 5 to July 31, 1863 (Adjutant-General, 1888) + Official Records ATLAS (Gettysburg plates)",
+   "tier": "P1",
+   "category": "official_records",
+   "license": {
+    "status": "public domain",
+    "basis": "US Government publications 1888/1891",
+    "statement_url": "https://archive.org/details/itineraryofarmy00united",
+    "statement_text": "NOT_IN_COPYRIGHT (itinerary)",
+    "caveats": []
+   }
+  },
+  "SRC-12": {
+   "name": "Clark, Walter (ed.) - Histories of the several regiments and battalions from North Carolina, in the great war 1861-'65 (5 vols., 1901)",
+   "tier": "P1",
+   "category": "regimental_histories",
+   "license": {
+    "status": "public domain",
+    "basis": "published 1901",
+    "statement_url": "https://archive.org/details/01300611.3315.emory.edu",
+    "statement_text": "IA terms https://archive.org/about/terms (Emory scan; no status field)",
+    "caveats": []
+   }
+  },
+  "SRC-13": {
+   "name": "Report of the Joint Committee on the Conduct of the War (1865) - Army of the Potomac vol. incl. Gettysburg testimony (witness headings verified in OCR: Meade, Warren, Sickles, Howe, Birney, Doubleday, Pleasonton, Hancock, Butterfield, Gibbon, Hunt, Humphreys, Patrick and others)",
+   "tier": "P1",
+   "category": "government_testimony",
+   "license": {
+    "status": "public domain",
+    "basis": "US Government publication 1865",
+    "statement_url": "https://archive.org/details/reportofjointcomm01unit",
+    "statement_text": "IA terms; U.S. Government work",
+    "caveats": []
+   }
+  },
+  "SRC-14": {
+   "name": "Maine at Gettysburg (Report of Maine Commissioners, 1898) + 20th Maine set (Gerrish 'Army Life' 1882; Reunions of the 20th Maine 1881)",
+   "tier": "P1",
+   "category": "state_monument_commission",
+   "license": {
+    "status": "public domain",
+    "basis": "published 1881-1915",
+    "statement_url": "https://archive.org/details/maineatgettysbu01commgoog",
+    "statement_text": "possible-copyright-status NOT_IN_COPYRIGHT (UC copy)",
+    "caveats": [
+     "Later Chamberlain/Desjardin/Pullen (1957) material is copyrighted - not in scope."
+    ]
+   }
+  },
+  "SRC-15": {
+   "name": "New Jersey: Final Report of the Gettysburg Battle-field Commission of New Jersey (1891) + Toombs, New Jersey Troops in the Gettysburg Campaign (1888)",
+   "tier": "P1",
+   "category": "state_monument_commission",
+   "license": {
+    "status": "public domain",
+    "basis": "published 1888/1891",
+    "statement_url": "https://archive.org/details/finalreportofget00newj",
+    "statement_text": "'The Library of Congress is unaware of any copyright restrictions for this item.'",
+    "caveats": []
+   }
+  },
+  "SRC-16": {
+   "name": "Michigan at Gettysburg (1889 dedication proceedings) + Curtis, History of the Twenty-fourth Michigan of the Iron Brigade (1891)",
+   "tier": "P1",
+   "category": "state_monument_commission",
+   "license": {
+    "status": "public domain",
+    "basis": "published 1889/1891",
+    "statement_url": "https://archive.org/details/historyoftwentyf00curti",
+    "statement_text": "possible-copyright-status NOT_IN_COPYRIGHT (LoC copy)",
+    "caveats": []
+   }
+  },
+  "SRC-17": {
+   "name": "Minnesota in the Civil and Indian Wars 1861-1865 (2 vols., 1890-93) + Holcombe, History of the First Regiment Minnesota Volunteer Infantry (1916)",
+   "tier": "P1",
+   "category": "state_monument_commission",
+   "license": {
+    "status": "public domain",
+    "basis": "published 1890-93 / 1916",
+    "statement_url": "https://archive.org/details/historyoffirstre00minn",
+    "statement_text": "IA terms",
+    "caveats": []
+   }
+  },
+  "SRC-18": {
+   "name": "Bates, Samuel P. - History of Pennsylvania Volunteers, 1861-5 (5 vols., 1869-71)",
+   "tier": "P1",
+   "category": "regimental_histories",
+   "license": {
+    "status": "public domain",
+    "basis": "published 1869-71",
+    "statement_url": "https://archive.org/details/historyofpennsyl01bate",
+    "statement_text": "possible-copyright-status NOT_IN_COPYRIGHT",
+    "caveats": []
+   }
+  },
+  "SRC-19": {
+   "name": "Phisterer, Frederick - New York in the War of the Rebellion, 1861 to 1865 (3rd ed., 1912, 6 vols.)",
+   "tier": "P1",
+   "category": "reference_statistics",
+   "license": {
+    "status": "public domain",
+    "basis": "published 1912 (pre-1931)",
+    "statement_url": "https://archive.org/details/newyorkinwarofre01phisrich",
+    "statement_text": "NOT_IN_COPYRIGHT",
+    "caveats": [
+     "Use 1912 3rd ed.; later reprints are copyrighted."
+    ]
+   }
+  },
+  "SRC-20": {
+   "name": "Dyer, Frederick H. - A Compendium of the War of the Rebellion (1908)",
+   "tier": "P1",
+   "category": "reference_statistics",
+   "license": {
+    "status": "public domain (1908 original only)",
+    "basis": "published 1908",
+    "statement_url": "https://archive.org/details/08697590.3359.emory.edu",
+    "statement_text": "IA terms",
+    "caveats": [
+     "Do NOT ingest the 1959 Yoseloff reprint items (compendiumofwaro0001dyer etc.) - copyrighted."
+    ]
+   }
+  },
+  "SRC-22": {
+   "name": "GNMP Commission monument-location lists (1903, 1912, 1916, 1921 on IA; 1932 and 1993 on npshistory.com) + annual Reports of the Gettysburg National Military Park Commission 1893-1933",
+   "tier": "P1",
+   "category": "monuments",
+   "license": {
+    "status": "public domain",
+    "basis": "US Government publications (War Department 1903-1921; NPS 1932/1993) - 17 U.S.C. 105",
+    "statement_url": "https://www.copyright.gov/title17/92chap1.html",
+    "statement_text": "17 U.S.C. 105: copyright protection under this title is not available for any work of the United States Government (statute; NPS disclaimer page https://www.nps.gov/aboutus/disclaimer.htm)",
+    "caveats": [
+     "GDG transcriptions are a third-party web edition; the original reports are federal works but confirm GDG's compilation terms or re-source."
+    ]
+   }
+  },
+  "SRC-23": {
+   "name": "Period battlefield guides by Bachelder (1864-1904), Vanderslice (1897/1899), Wert (1886), Hammond (1899)",
+   "tier": "P1",
+   "category": "guides_secondary_period",
+   "license": {
+    "status": "public domain",
+    "basis": "published 1864-1904",
+    "statement_url": "https://archive.org/details/gettysburgwhatto00bach",
+    "statement_text": "LoC copy: 'The Library of Congress is unaware of any copyright restrictions for this item.'",
+    "caveats": []
+   }
+  },
+  "SRC-24": {
+   "name": "Confederate regimental memoirs: Oates, The War Between the Union and the Confederacy (1905; 15th Alabama); Polley, Hood's Texas Brigade (1910)",
+   "tier": "P1",
+   "category": "participant_narratives",
+   "license": {
+    "status": "public domain",
+    "basis": "published 1905/1910",
+    "statement_url": "https://archive.org/details/hoodstexasbriga00poll",
+    "statement_text": "IA terms",
+    "caveats": []
+   }
+  },
+  "SRC-27": {
+   "name": "The Compiler (Gettysburg, Pa.) 1857-1866 - Pennsylvania Newspaper Archive (Penn State / NDNP)",
+   "tier": "P1",
+   "category": "newspapers",
+   "license": {
+    "status": "public domain (NDNP position: pre-1931 newspapers)",
+    "basis": "NDNP/Chronicling America statement",
+    "statement_url": "https://guides.loc.gov/chronicling-america/about-the-collection",
+    "statement_text": "\"Newspapers published in the United States more than 95 years ago are in the public domain in entirety.\" (guide, fetched 2026-09-30). PNA 'About' page has no explicit reuse statement.",
+    "caveats": [
+     "No explicit PNA reuse text found; rely on NDNP PD position and keep attribution to PNA."
+    ]
+   }
+  },
+  "SRC-28": {
+   "name": "Chronicling America (LoC / NDNP) - July 1863 national coverage of the battle via loc.gov JSON API",
+   "tier": "P1",
+   "category": "newspapers",
+   "license": {
+    "status": "public domain (NDNP position)",
+    "basis": "pre-1931 newspapers",
+    "statement_url": "https://guides.loc.gov/chronicling-america/about-the-collection",
+    "statement_text": "\"Newspapers published in the United States more than 95 years ago are in the public domain in entirety.\"",
+    "caveats": [
+     "Respect 20/min API limit; cache results."
+    ]
+   }
+  },
+  "SRC-30": {
+   "name": "NARA Record Group 77 (Civil Works Map File) Gettysburg maps + NPS Gettysburg museum collection drawings (GNPC numbered maps 1893-1922; Commission general maps)",
+   "tier": "P1",
+   "category": "historic_maps",
+   "license": {
+    "status": "public domain (US Government records)",
+    "basis": "17 U.S.C. 105; RG 77 federal records",
+    "statement_url": "https://www.copyright.gov/title17/92chap1.html",
+    "statement_text": "federal works not copyrightable; NARA blog states copies via Cartographic Research Room, no rights statement",
+    "caveats": [
+     "Dealer pages report a 28-map Bachelder 'hourly' set - I could NOT confirm its repository or digitisation; contact NARA Cartographic (College Park) and GNMP archivist."
+    ]
+   }
+  },
+  "SRC-21": {
+   "name": "Livermore, Thomas L. - Numbers and Losses in the Civil War in America, 1861-65 (1900/1901)",
+   "tier": "P2",
+   "category": "reference_statistics",
+   "license": {
+    "status": "public domain",
+    "basis": "1901",
+    "statement_url": "https://archive.org/details/numberslosses00liverich",
+    "statement_text": "NOT_IN_COPYRIGHT",
+    "caveats": []
+   }
+  },
+  "SRC-25": {
+   "name": "Evans, Clement A. (ed.) - Confederate Military History (12 vols., 1899)",
+   "tier": "P2",
+   "category": "regimental_histories",
+   "license": {
+    "status": "public domain",
+    "basis": "published 1899",
+    "statement_url": "https://archive.org/details/confedmilhist01evanrich",
+    "statement_text": "NOT_IN_COPYRIGHT (UC copy)",
+    "caveats": [
+     "avoid modern reprints"
+    ]
+   }
+  },
+  "SRC-26": {
+   "name": "Smaller state/regiment commemorative reports: Vermont (1890), Maryland (1891), Illinois (1892), Indiana (1913), Rhode Island (1914), Virginia (1917), Ohio (1887), Connecticut (1884-87), Massachusetts monuments (Roe, 1910)",
+   "tier": "P2",
+   "category": "state_monument_commission",
+   "license": {
+    "status": "public domain",
+    "basis": "published 1884-1917",
+    "statement_url": "https://archive.org/details/vermontmonuments00verm",
+    "statement_text": "LoC/IA statuses per item (NOT_IN_COPYRIGHT or 'unaware of any copyright restrictions')",
+    "caveats": []
+   }
+  },
+  "SRC-29": {
+   "name": "Gettysburg Address - five manuscript versions (Nicolay, Hay, Everett, Bancroft, Bliss) + Everett oration + contemporaneous reports",
+   "tier": "P2",
+   "category": "addresses_speeches",
+   "license": {
+    "status": "public domain",
+    "basis": "1863-64 works of A. Lincoln",
+    "statement_url": "https://www.gutenberg.org/policy/license.html",
+    "statement_text": "Gutenberg license page; LoC exhibit pages state no reuse limits in the fetched summary",
+    "caveats": [
+     "LoC manuscript image item pages returned HTTP 403 to my scripted client - fetch by hand."
+    ]
+   }
+  },
+  "SRC-31": {
+   "name": "Project Gutenberg - Gettysburg-related e-texts (Haskell #33121; Drake #49530; Storrick #50504; H.D. Longstreet #44459; Bond #57392; Doubleday #20762; Tilberg #56209; Lincoln #4)",
+   "tier": "P2",
+   "category": "clean_text_seed",
+   "license": {
+    "status": "public domain in the U.S. (Gutenberg)",
+    "basis": "works published before 1931; PG license page",
+    "statement_url": "https://www.gutenberg.org/policy/license.html",
+    "statement_text": "eBook 'for the use of anyone anywhere in the United States and most other parts of the world at no cost and with almost no restrictions whatsoever' (from #33121 header)",
+    "caveats": [
+     "Tilberg (NPS-published) - check per-book author/date; Gutendex API returned 503 and gutenberg.org search 504 at check time (transient) - could not enumerate catalog by API."
+    ]
+   }
+  },
+  "SRC-32": {
+   "name": "Wikimedia Commons - Gettysburg categories (secondary image source / cross-check)",
+   "tier": "P2",
+   "category": "photographs",
+   "license": {
+    "status": "varies per file (mostly PD-US)",
+    "basis": "per-file template",
+    "statement_url": "https://commons.wikimedia.org/wiki/Commons:Licensing",
+    "statement_text": "each file page carries its own license; only accept PD-Old/PD-US/PD-USGov/CC0/CC-BY(-SA with attribution)",
+    "caveats": [
+     "Small relative to LoC; use mainly for maps and modern diagrams under CC-BY(-SA) - watch SA obligations."
+    ]
+   }
+  },
+  "SRC-33": {
+   "name": "NPS History e-Library (npshistory.com) - Gettysburg administrative histories, Cultural Landscape Reports, Gettysburg Seminar Papers, 'National Park Civil War Series: The Battle of Gettysburg'",
+   "tier": "P2",
+   "category": "nps_secondary",
+   "license": {
+    "status": "mixed: federal works are public domain; contractor/outside-author papers may be copyrighted",
+    "basis": "17 U.S.C. 105",
+    "statement_url": "https://www.nps.gov/aboutus/disclaimer.htm",
+    "statement_text": "NPS disclaimer page (fetched 206); verify authorship per PDF",
+    "caveats": [
+     "Seminar papers are often by outside historians - do NOT assume PD; check the byline/acknowledgements per paper."
+    ]
+   }
+  },
+  "SRC-36": {
+   "name": "HathiTrust Digital Library - use for metadata and rights verification only (not bulk text)",
+   "tier": "P2",
+   "category": "aggregator_metadata",
+   "license": {
+    "status": "rights codes per volume (pd = public domain worldwide/US)",
+    "basis": "HathiTrust rights determination",
+    "statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077699761.json",
+    "statement_text": "rightsCode 'pd'; usRightsString 'Full view'",
+    "caveats": [
+     "babel HTML fetches by script are disallowed by robots.txt and blocked (403) - use IA copies for text; use Hathi to confirm 'pd' and to give readers a canonical link."
+    ]
+   }
+  },
+  "SRC-34": {
+   "name": "Confederate Veteran (serial, 1893-1932) - adjacent source (candidate for hist-sources part 2)",
+   "tier": "P3",
+   "category": "participant_narratives",
+   "license": {
+    "status": "public domain for issues published <= 1930",
+    "basis": "publication date",
+    "statement_url": "https://archive.org/details/confederateveter01conf",
+    "statement_text": "IA terms",
+    "caveats": [
+     "Issues 1931-1932 are NOT yet safely PD - cut at 1930."
+    ]
+   }
+  },
+  "SRC-35": {
+   "name": "Gardner's Photographic Sketch Book of the War (1866) - original captions",
+   "tier": "P3",
+   "category": "photographs",
+   "license": {
+    "status": "public domain",
+    "basis": "1866",
+    "statement_url": "https://archive.org/details/GardnersPhotographicSketchBookOfTheWar",
+    "statement_text": "IA terms",
+    "caveats": [
+     "A 1959 reprint item (gardnersphotogra0000gard) exists on IA - not PD."
+    ]
+   }
+  },
+  "SRC-37": {
+   "name": "David Rumsey Map Collection (Stanford) - Gettysburg maps (Warren, Hotchkiss) - DISPLAY-ONLY, non-commercial license",
+   "tier": "P3",
+   "category": "historic_maps",
+   "license": {
+    "status": "NON-COMMERCIAL license on scans (CC BY-NC-SA 3.0 per about page; 2.0 on record page - inconsistent)",
+    "basis": "Rumsey terms",
+    "statement_url": "https://www.davidrumsey.com/about/copyright-and-permissions",
+    "statement_text": "This work is licensed under a Creative Commons License (CC BY-NC-SA 3.0); non-commercial; credit required",
+    "caveats": [
+     "If the Gettysburg site carries ads/donations/partnerships it may be 'commercial' - do NOT redistribute Rumsey scans; use the same PD maps from LoC/NARA instead."
+    ]
+   }
+  },
+  "SRC-38": {
+   "name": "eHistory (Ohio State) - Official Records transcriptions - NOT VERIFIED",
+   "tier": "P3",
+   "category": "official_records",
+   "license": {
+    "status": "UNVERIFIED",
+    "basis": "site blocked",
+    "statement_url": "https://ehistory.osu.edu/books/official-records",
+    "statement_text": "not retrievable",
+    "caveats": [
+     "Treat as unusable programmatically."
+    ]
+   }
+  },
+  "SRC-39": {
+   "name": "Internet Archive access APIs (advancedsearch, metadata, download, OCR derivatives) - the fetch layer for ~80% of the catalog",
+   "tier": "INFRA",
+   "category": "infrastructure_api",
+   "license": {
+    "status": "per-item (see each source card)",
+    "basis": "IA Terms + per-item metadata",
+    "statement_url": "https://archive.org/about/terms",
+    "statement_text": "Terms of Use page (fetched); rights determined per item from metadata and original imprint date",
+    "caveats": [
+     "Reprint/lending items exist alongside PD originals - filter by date <= 1930 and access-restricted flags.",
+     "Full-text search-inside beta endpoint (services/search/beta/page_production ... service_backend=fts) returned 'succeeded: false' for my parameters - not verified; use local keyword indexing instead."
+    ]
+   }
+  }
+ },
+ "s2": {
+  "SRC-01": {
+   "name": "NPS Data Store (IRMA): Gettysburg cultural landscape, history, and monument reports",
+   "tier": "A (text) / B (embedded third-party figures: link, do not copy images)",
+   "category": "government-documents"
+  },
+  "SRC-02": {
+   "name": "NPS GIS packages for Gettysburg NMP (tracts/boundary, geology, vegetation map, land cover)",
+   "tier": "A",
+   "category": "gis"
+  },
+  "SRC-03": {
+   "name": "NPS public national ArcGIS layers (roads, trails, buildings, parking, POIs) filtered to GETT",
+   "tier": "A",
+   "category": "gis"
+  },
+  "SRC-04": {
+   "name": "NPS Data API (developer.nps.gov)",
+   "tier": "A",
+   "category": "api"
+  },
+  "SRC-05": {
+   "name": "NPS Gettysburg NMP 'History & Culture' web pages (orders of battle, commanders, civilians, places, monument pages)",
+   "tier": "A (text) / B (images)",
+   "category": "government-web"
+  },
+  "SRC-06": {
+   "name": "NPS Civil War Series: The Battle of Gettysburg (handbook text, hosted on npshistory.com)",
+   "tier": "A",
+   "category": "government-documents"
+  },
+  "SRC-07": {
+   "name": "Gettysburg Seminar Papers (NPS/GNMP symposium essays, 1995-2018)",
+   "tier": "C until verified",
+   "category": "scholarship"
+  },
+  "SRC-08": {
+   "name": "CWSAC battle summaries (Gettysburg = PA002) and CWSAC State Report Update (Pennsylvania)",
+   "tier": "A",
+   "category": "government-web"
+  },
+  "SRC-09": {
+   "name": "NPS Civil War Soldiers and Sailors System (CWSS) website",
+   "tier": "A (federal) with a documentation caveat on the volunteer-compiled index",
+   "category": "genealogy"
+  },
+  "SRC-10": {
+   "name": "CWSS bulk data snapshot (jrnold-nps-cwss public S3 bucket; 'received by request from NPS')",
+   "tier": "A-pending (legal confirmation)",
+   "category": "genealogy"
+  },
+  "SRC-11": {
+   "name": "American Civil War Battle Data (compiled datasets incl. NPS/CWSAC/CWSS/Dyer/Fox/Phisterer)",
+   "tier": "B (CC BY 4.0 attribution) for the safe slices",
+   "category": "structured-dataset"
+  },
+  "SRC-12": {
+   "name": "NPS Museum collections and NPGallery (images/objects)",
+   "tier": "B (item-level check)",
+   "category": "images"
+  },
+  "SRC-13": {
+   "name": "NARA Catalog API v2 (finding aids, maps, records descriptions)",
+   "tier": "A",
+   "category": "api"
+  },
+  "SRC-14": {
+   "name": "NARA Compiled Military Service Records on Fold3 / Ancestry / Find a Grave / FamilySearch (commercial front-ends)",
+   "tier": "C (link-out only; NEVER ingest, scrape, or feed to any model)",
+   "category": "genealogy-commercial"
+  },
+  "SRC-15": {
+   "name": "Library of Congress: loc.gov JSON API, Chronicling America, Maps, Prints & Photographs",
+   "tier": "A (US public-domain items) - check Rights Advisory per item",
+   "category": "api+collections"
+  },
+  "SRC-16": {
+   "name": "Historic maps as data: Warren survey (1868-69) via Bachelder 1876, Bachelder isometric 1863, GBMA 1894, Adams County 1858 (georeferencing project)",
+   "tier": "A",
+   "category": "historic-maps"
+  },
+  "SRC-17": {
+   "name": "HathiTrust (Bibliographic API open; Data API by key)",
+   "tier": "A/B item-level",
+   "category": "api"
+  },
+  "SRC-18": {
+   "name": "Internet Archive: Advanced Search, metadata, OCR text downloads, and full-text search (beta)",
+   "tier": "A (original pre-1929 scans)",
+   "category": "api+texts"
+  },
+  "SRC-19": {
+   "name": "War of the Rebellion (Official Records), Series I, Volume 27 (Gettysburg Campaign), Parts 1-3",
+   "tier": "A",
+   "category": "primary-source"
+  },
+  "SRC-20": {
+   "name": "Fox, Regimental Losses in the American Civil War 1861-1865 (1889)",
+   "tier": "A",
+   "category": "statistics"
+  },
+  "SRC-21": {
+   "name": "Dyer, A Compendium of the War of the Rebellion (1908) - unit histories",
+   "tier": "A",
+   "category": "unit-histories"
+  },
+  "SRC-22": {
+   "name": "State-at-Gettysburg and monument-dedication volumes (regimental narratives) + Vanderslice + GBMA history",
+   "tier": "A",
+   "category": "secondary-pd"
+  },
+  "SRC-23": {
+   "name": "Civilian narratives and reporters (Pierce, Buehler, Hoke, Jacobs, Bates) + NPS 'Civilians at Gettysburg'",
+   "tier": "A",
+   "category": "primary-source"
+  },
+  "SRC-24": {
+   "name": "July 1863 weather at Gettysburg (Prof. Michael Jacobs meteorological observations)",
+   "tier": "A (primary) / C (blog summaries)",
+   "category": "primary-source"
+  },
+  "SRC-25": {
+   "name": "Soldiers' National Cemetery reports (1864, revised 1865): burial lists with names, regiments, companies",
+   "tier": "A",
+   "category": "primary-source"
+  },
+  "SRC-26": {
+   "name": "Medical: Medical and Surgical History of the War of the Rebellion; Camp Letterman information",
+   "tier": "A / C",
+   "category": "primary-source"
+  },
+  "SRC-27": {
+   "name": "1860 Census: Agriculture of the United States in 1860 (Kennedy, 1864) and Population volume; NHGIS alternative",
+   "tier": "A (Census PDF) / C (NHGIS)",
+   "category": "statistics"
+  },
+  "SRC-28": {
+   "name": "Civil War damage claims (Adams County) - PA State Archives claim volumes; ACHS Damage Claims Index; NPS narrative examples",
+   "tier": "C for ACHS index; A for state archive originals after verification",
+   "category": "primary-source"
+  },
+  "SRC-29": {
+   "name": "USGS 3DEP elevation (1 m DEM, lidar point cloud, 1/9 and 1/3 arc-second) via TNM Access API",
+   "tier": "A",
+   "category": "terrain"
+  },
+  "SRC-30": {
+   "name": "USGS Historical Topographic Maps: Gettysburg quadrangles (1908, 1942, 1944, 1951, 1990, 1994)",
+   "tier": "A",
+   "category": "historic-maps"
+  },
+  "SRC-31": {
+   "name": "Mapbox Terrain-DEM v1 (in-SDK elevation, no export)",
+   "tier": "B (in-SDK use only)",
+   "category": "terrain"
+  },
+  "SRC-32": {
+   "name": "PASDA / Adams County GIS (parcels, lidar/imagery indexes) and historic aerials",
+   "tier": "B (verify) + privacy rule",
+   "category": "gis"
+  },
+  "SRC-33": {
+   "name": "Smithsonian Open Access (NMAH/NPG etc.) - CC0 images and metadata",
+   "tier": "A (CC0 rows only)",
+   "category": "images"
+  },
+  "SRC-34": {
+   "name": "Wikipedia (English) - battle articles, orders of battle, commander biographies",
+   "tier": "B (CC BY-SA 4.0 - attribution + share-alike on adaptations)",
+   "category": "encyclopedia"
+  },
+  "SRC-35": {
+   "name": "Wikidata (CC0) - identifiers and enrichment",
+   "tier": "A (structured data)",
+   "category": "linked-data"
+  },
+  "SRC-36": {
+   "name": "Wikimedia Commons - Gettysburg photographs, maps, monuments/tablets",
+   "tier": "A/B per file (build-time allowlist)",
+   "category": "images"
+  },
+  "SRC-37": {
+   "name": "Wikisource (transcribed texts: cyclopedias, SHSP items, court case)",
+   "tier": "A/B per page",
+   "category": "texts"
+  },
+  "SRC-38": {
+   "name": "OpenStreetMap - monuments, memorials, tablets, cannon positions in the battlefield bbox",
+   "tier": "B (ODbL: attribution + share-alike for derived DATABASE)",
+   "category": "geodata"
+  },
+  "SRC-39": {
+   "name": "Historical Marker Database (HMDB)",
+   "tier": "C for bulk ingestion until written permission; A for deep links",
+   "category": "crowd-database"
+  },
+  "SRC-40": {
+   "name": "American Battlefield Trust (ABT)",
+   "tier": "C (link-out only; explicit AI/scraping ban)",
+   "category": "advocacy-site"
+  },
+  "SRC-41": {
+   "name": "Stone Sentinels (gettysburg.stonesentinels.com) and companion sites; Emerging Civil War; Gettysburg Compiler; Gettysburg Daily",
+   "tier": "C (link-out only)",
+   "category": "enthusiast-sites"
+  },
+  "SRC-42": {
+   "name": "Gettysburg College Special Collections (GettDigital, Cupola), Adams County Historical Society (Gettysburg History), Gettysburg Foundation",
+   "tier": "C until permission (outbound links) ",
+   "category": "local-archives"
+  },
+  "SRC-43": {
+   "name": "Prisoner-of-war and hospital records related to Gettysburg (Fort McHenry table in CWSS; Fort Delaware Society; NARA registers)",
+   "tier": "A-pending (SRC-10) / C (Fort Delaware DB)",
+   "category": "records"
+  },
+  "SRC-44": {
+   "name": "WarOfTheRebellion annotated corpus (University of Texas at Austin, MIT)",
+   "tier": "A/B (MIT: keep notice)",
+   "category": "nlp-corpus"
+  },
+  "SRC-45": {
+   "name": "Other GitHub / Kaggle / Zenodo / Civil War Data 150 searches (negative results)",
+   "tier": "n/a",
+   "category": "negative-results"
+  },
+  "SRC-46": {
+   "name": "Freesound and other audio (cannon/ambience) - media rights",
+   "tier": "A (CC0) / B (CC BY) / C (CC BY-NC)",
+   "category": "audio"
+  }
+ },
+ "time": [
+  "R001",
+  "R002",
+  "R003",
+  "R004",
+  "R005",
+  "R006",
+  "R007",
+  "R008",
+  "R009",
+  "R010",
+  "R011",
+  "R012",
+  "R013",
+  "R014",
+  "R015",
+  "R016",
+  "R017",
+  "R018",
+  "R019",
+  "R020",
+  "R021",
+  "R022",
+  "R023",
+  "R024",
+  "R025",
+  "R026",
+  "R027",
+  "R028",
+  "R029",
+  "R030",
+  "R031",
+  "R032",
+  "R033",
+  "R034",
+  "R035",
+  "R036",
+  "R037",
+  "R038",
+  "R039",
+  "R040",
+  "R041",
+  "R042",
+  "R043",
+  "R044",
+  "R045",
+  "R046",
+  "R047",
+  "R048",
+  "R049",
+  "R050",
+  "R051",
+  "R052",
+  "R053",
+  "R054",
+  "R055",
+  "R056",
+  "R057",
+  "R058",
+  "R059",
+  "R060",
+  "R061",
+  "R062",
+  "R063",
+  "R064",
+  "R065",
+  "R066",
+  "R067",
+  "R068",
+  "R069",
+  "R070",
+  "R071",
+  "R072",
+  "R073",
+  "R074",
+  "R075",
+  "R076",
+  "R077",
+  "R078",
+  "R080",
+  "R081",
+  "R082",
+  "R083",
+  "R084",
+  "R085",
+  "R086",
+  "R087",
+  "R088",
+  "R089",
+  "R090",
+  "R091",
+  "R092",
+  "R093",
+  "R094",
+  "R095",
+  "R096",
+  "R097",
+  "R098",
+  "R099",
+  "R100",
+  "R101",
+  "R102",
+  "R103",
+  "R104",
+  "R105",
+  "R106",
+  "R107",
+  "R108",
+  "R109",
+  "R110",
+  "R111",
+  "R112",
+  "R113",
+  "R114",
+  "R115",
+  "R116",
+  "R117",
+  "R118",
+  "R119",
+  "R120",
+  "R121",
+  "R122",
+  "R123",
+  "R124",
+  "R125",
+  "R127",
+  "R128",
+  "R129",
+  "R130",
+  "R131"
+ ]
+}

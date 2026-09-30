@@ -1,0 +1,8 @@
+{
+  "$comment": "Battery gates. H1/H2 numbers are hist-current section 9.2 and chapter 14 D.8 (S@1 primary/held-out, canonical@1, fact@3, factTop, correct decline, typo S@1, defects, mean initial characters). The 'fresh' and held-out canonical thresholds and the false-refusal ceiling are this build's proposals [D] (the plan gives one canonical@1 row and a 5% false-refusal ceiling at H1); the owner/historian confirms them. Regressions of more than 2 points against baseline.json fail CI.",
+  "batteries": {
+    "H1": { "s1_primary": 0.88, "s1_heldout": 0.80, "s1_fresh": 0.80, "canon1": 0.90, "canon1_heldout": 0.80, "canon1_fresh": 0.80, "fact3": 0.60, "factTop": 0.50, "typo": 0.85, "decline": 0.85, "false_refusal_max": 0.05, "defects_max": 0, "chars_max": 700 },
+    "H2": { "s1_primary": 0.93, "s1_heldout": 0.90, "s1_fresh": 0.90, "canon1": 0.92, "canon1_heldout": 0.85, "canon1_fresh": 0.85, "fact3": 0.90, "factTop": 0.85, "typo": 0.88, "decline": 0.92, "false_refusal_max": 0.05, "defects_max": 0, "chars_max": 600 }
+  },
+  "regression_tolerance": 0.02
+}
