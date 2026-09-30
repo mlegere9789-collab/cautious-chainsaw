@@ -168,3 +168,13 @@ test('R-17 the fetch gate decodes percent-escapes twice: a refused identifier an
   for (const u of [...refused, ...banned]) assert.equal(fetchAllowed(reg, u).ok, false, u);
   for (const u of ['https://archive.org/download/warofrebellion271unit/x', `https://example.org/?u=${twice('https://www.loc.gov/item/2003666161/')}`]) assert.equal(fetchAllowed(reg, u).ok, true, u);
 });
+
+test('R-18 invisible formatting characters inside a pasted name (zero-width space / joiner, soft hyphen, word joiner) are ignored, not read as a word break ("20th Ma<ZWSP>ine" is the 20th Massachusetts)', async () => {
+  const want = (await ask('20th Maine')).shown[0]; assert.equal(want, 'U-20ME', 'control');
+  const bad = [];
+  for (const [name, ch] of [['zero-width space', '​'], ['zero-width non-joiner', '‌'], ['zero-width joiner', '‍'], ['soft hyphen', '­'], ['word joiner', '⁠']]) {
+    const a = await ask(`20th Ma${ch}ine`); if (a.shown[0] !== want) bad.push(`${name}: ${a.shown[0]}`);
+  }
+  assert.deepEqual(bad, [], 'a different regiment is answered, silently');
+  assert.equal((await ask('Gettys­burg')).mode === 'decline', (await ask('Gettysburg')).mode === 'decline', 'a soft hyphen in "Gettysburg" changes whether the question is understood');
+});
