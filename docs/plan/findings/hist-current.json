@@ -1,0 +1,625 @@
+{
+ "agent": "hist-current",
+ "summary": "Ask the Historian (historian.html) is a 658-record substring keyword matcher over 467 regiments, 24 vignettes, 137 chronology events and 30 terrain locations. It is rebuilt on every visit from 15 JSON fetches (318 KB raw, about 64 KB brotli) and always prints three raw cards, about 2,990 characters on average. I ran the page's real inline script in Node against a 118-query primary battery and a 57-query held-out battery (harness, gold labels and raw rows are in plan-work/tmp-hist-current/). On the primary battery the baseline gets 76% any-relevant-at-1, but the entity's own regiment or place card is first for only 29% of entity queries (median rank 3). Fact-hit is 68% on primary and 31% on held-out, typo success 13%, and correct decline of out-of-scope queries 47% on primary and 20% on held-out. About 90% of queries show at least one defective card (raw ids like U-III / U-III-1-1, lower-cased proper nouns like 'kia july 3', 'undefined', walls of text). The chronology, 137 of the 658 records, is dead: the page reads e.title and e.description, which do not exist, so those events are indexed by location only and render 'undefined'. Fixing it naively exposes the clock error (C4), for example 'Day 3, 9:30am ... At approximately 1:00pm', so hold the clock labels until the time model lands. Only 45 of 467 regiments (9.6%) appear in any vignette or chronology text, and 75.6% have a one-line key_action of under 10 words. Brigades, divisions, corps and armies, 103 artillery batteries, 42 commander successions, roads and structures, casualty notes, 1,245 placement notes, 16 walkthrough narratives and 16 tour-stop histories exist on the site but are invisible to the historian. Prototype measurements (in-sample on primary, held-out shown where it exists): a one-hour hotfix of the same algorithm changes almost nothing (S@1 76 to 78); the same 658 records with a new retriever reach canonical@1 91 (held-out 86) and typo S@1 88 (held-out 80); adding the unused site data reaches S@1 94 (held-out 88) and fact@3 86 (held-out 85). Leave-one-out ablation shows the load-bearing parts are derived aliases, entity linking, fuzzy matching, intent plus composition, and the no-answer gate. Stemming, curated synonyms and field weights add roughly nothing on this battery. The plan has 30 findings in four phases: H0 hotfix and render hygiene (about half a day), H1 shared search-core plus build script plus tests (3-4 days), H2 extended entity index, composers, facts and a redesigned answer card (3-5 days), H3 content depth handed to the expansion plan. The report includes the failure taxonomy (F01-F12), the metrics baseline to beat, gates per phase, and re-run commands.",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/hist-current.md",
+ "findings": [
+  {
+   "id": "hist-current-01",
+   "title": "Revive the dead chronology: page reads fields that do not exist",
+   "severity": "critical",
+   "evidence": "historian.html:119 `const text = `${e.title || ''} ${e.description || ''} ${e.location || ''}`;` and :123 `${e.description || e.title}`; chronology_day{1,2,3}.json events carry only {tick,time,event,units_involved,location,significance,narrative?,flag?}. Harness output: 'Day 1, 5:00am — Gettysburg environs: undefined'. Indexed chronology words = 419 of 4,791 (location strings only). Chronology in top-3 for 1 of 106 answered primary queries, 3 of 52 held-out. Sibling data-integrity.md #7 reached the same finding.",
+   "root_cause": "Schema drift between the data files and the page script; no test renders every record.",
+   "fix": "Patch :119 to `${e.event||''} ${e.narrative||''} ${e.location||''}` and :123 to `Day ${c.day} — ${e.location}: ${e.event}`; never index or render `flag` (66 developer notes). Omit the `time` label until the canonical time model is adopted (see hist-current-12), because the event text contradicts the label after the fix. Add a unit test that renders all 137 events and asserts non-empty text with no 'undefined'/'null'.",
+   "effort": "S",
+   "acceptance_test": "Query 'Longstreet assault begins' returns D2T256 first; 'Gettysburg environs' shows the event sentence; a scan of all 137 rendered chronology cards finds no 'undefined', 'null' or flag text; chronology appears in top-3 for at least 25% of the 16 event/day/time battery queries.",
+   "metric_or_grade_moved": "Core function, reliability and content depth (Historian); restores 137 of 658 records (21% of the corpus).",
+   "depends_on": [
+    "hist-current-12"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Lines :119/:123 and schema exact; 137 events carry event/narrative/flag, not title/description. Severity note: user-visible exposure is 1 of 106 primary and 3 of 52 held-out answered queries, so 'critical' is a judgement call. After the fix, 62 of 137 event texts still contain ' -- ' (see MISSED-2), and the hotfix threshold hides single-hit chronology cards (MISSED-1)."
+  },
+  {
+   "id": "hist-current-02",
+   "title": "Replace the ranking model so the entity's own card comes first",
+   "severity": "high",
+   "evidence": "historian.html:107 `weight: 1.3` for vignettes, :179-183 `.map(score*weight).filter(s>0).sort().slice(0,3)`. Measured: canonical@1 29.3% primary / 40.9% held-out (median rank 3 / 2); top-1 card is a vignette for 75 of 106 answered queries (71%); 'Little Round Top' ties six regiment records at 14.0 while the terrain card is outside top 3; '20th Maine' returns the 20th Maine card 4th; placeholder 'What happened to the 1st Minnesota?' returns V-012, 8th Alabama, Plum Run.",
+   "root_cause": "Flat 658-record corpus, no title/alias field, no TF/IDF/length normalisation, per-kind weight hack, ties broken by array order.",
+   "fix": "BM25F over fields title 3.0/alias 3.0/people 2.0/place 1.5/body 1.0 (k1 1.2, b .4/.3/.3/.3/.6, IDF ln(1+(N-df+.5)/(df+.5))); delete the 1.3/0.9 kind weights; add entity-link boost (12-40), exact title/alias phrase +15, intent-conditional kind priors, deterministic tie-break (link strength, then id). Reference code: plan-work/tmp-hist-current/proto.js (bm25f, answer).",
+   "effort": "M",
+   "acceptance_test": "Gold battery: canonical@1 >= 90% primary and >= 85% held-out; entity queries return the entity kind first; no score ties in top 3 (deterministic order); re-run node run-all.js.",
+   "metric_or_grade_moved": "Core function, usability; canonical@1 29 to 91 (B2 prototype, in-sample; held-out 41 to 86).",
+   "depends_on": [
+    "hist-current-04",
+    "hist-current-11",
+    "hist-current-24"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "canonical@1 29.3/40.9, 75 of 106 vignette top-1, Little Round Top ties (terrain rank 14), 20th Maine 4th all reproduce; B2 reproduces at S@1 84.2/76.9 and canonical@1 91.4/86.4. Dependency: plain BM25F alone gives canonical@1 40 percent (ablation), so this cannot ship before finding 04 (aliases/entity links)."
+  },
+  {
+   "id": "hist-current-03",
+   "title": "Fix tokenizer, substring and stop-word bugs (stray 's', substring hits, 'me'/'in')",
+   "severity": "high",
+   "evidence": "historian.html:155 `query.toLowerCase().split(/\\W+/)` turns \"Pickett's\" into ['pickett','s']; the stray 's' scores +3 on 266 of 658 records and +1.5 on 344 more. :160-161 `t.includes(' '+w)` / `t.includes(w)`: 'war' hits 47 records (6 whole-word), 'men' 89 (23), 'wheat' 48 (0). :64-65 STOPWORDS removes 'me','in','it','tell','about' and all interrogatives, while 'many','lose','war','time' stay. 'Picketts Charge' returns V-003,V-004,V-005 whereas \"Pickett's Charge\" returns V-019,V-023.",
+   "root_cause": "Regex tokenizer splits on apostrophes; substring instead of token matching; ad-hoc stop list.",
+   "fix": "Hotfix (b1patch.js): strip possessive/apostrophes then split on [^a-z0-9]+; normalise the text the same way; word-start match only (drop the includes(w) branch); add question fillers (many, much, do, does, you, my, can, which, from, by, be, have, there, show, give, than, lose, time) and remove 'me' and 'in' from STOPWORDS; require score >= 3 before answering (:181).",
+   "effort": "S",
+   "acceptance_test": "'Picketts Charge' and \"Pickett's Charge\" return the same top 3; 'top' no longer matches 'stopped'; run-all.js B1 row reproduces (S@1 78, defects unchanged until hist-current-10).",
+   "metric_or_grade_moved": "Core function; removes noise from every possessive query; S@1 76 to 78 alone, prerequisite for the rest.",
+   "depends_on": [],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Counts and lines exact (stray s +3 on 266 and +1.5 on 344; war 47/6, men 89/23, wheat 48/0). (a) 'Remove me and in from STOPWORDS' is harmful and is not what the tested hotfix did (b1patch.js keeps both): with word-start matching 'in' hits 420 of 658 records; measured correct decline 41.2 to 29.4 and S@1 78.2 to 77.2. Keep them as stop-words and use the number-anchored state expansion from finding 04. (b) filter(x.s >= 3) is a no-op for weight >= 1 and, with the 0.9 chronology weight (2.7), drops every single-hit chronology card (133 of 133 tested). Threshold the raw score or set chronology weight 1.0."
+  },
+  {
+   "id": "hist-current-04",
+   "title": "Name normalisation and alias layer (ordinals, state abbreviations, nicknames, derived + curated)",
+   "severity": "high",
+   "evidence": "Baseline canonical rank: 'twentieth Maine' 7, '20th ME' 6, '20 Maine' 4, 'First Minnesota' 6 (matches 'first shot'), 'Minnesota regiment' 14, 'Wheat field' and 'Devils Den' miss the terrain cards. Data already contains aliases the page ignores: designation parentheticals '(14th Brooklyn)', '(Ellsworth Avengers)', '(2nd Bucktails)', brigade nicknames '(Iron Brigade)', '(Irish Brigade)', '(Stannard's Vermont Brigade)', ALL-CAPS event labels 'PICKETT'S CHARGE BEGINS'. Ablation (175 queries): removing derived aliases costs -6 S@1 and -16 canonical@1.",
+   "root_cause": "No normaliser; stop list kills 'me'/'in'; alias information in the data is never extracted.",
+   "fix": "In build and runtime: NFKD/lowercase/quote normalisation; ordinals and number words to #n (1st/first/1/twenty-first); expand state abbreviations only when preceded by a number (20 ME, 1 MN, 84th NY); corps rewriting (I/first/1st corps); unit-key map '#20|maine'; derive aliases from parentheticals, nicknames, '{surname}'s brigade/division/corps', event labels; curated table (Appendix A of hist-current.md, about 45 entries) for spellings and nicknames absent from data.",
+   "effort": "M",
+   "acceptance_test": "60-variant table test: every variant of the 24 regiment-name queries and 10 held-out names resolves canonical@1 = 100%; 'Wheat field', 'Devils Den', 'Round Top', 'High Water Mark' resolve to their records.",
+   "metric_or_grade_moved": "Core function, usability; name-variant canonical rank from median 4 to 1.",
+   "depends_on": [
+    "hist-current-11"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Baseline canonical ranks (twentieth Maine 7, 20th ME 6, 20 Maine 4, First Minnesota 6, Minnesota regiment 14; Wheat field 37; Devils Den 14) reproduce; 59 of 88 brigades and 63 regiments carry parenthetical nicknames/aliases in the data; ablation -6 S@1 and -16 canonical@1 confirmed."
+  },
+  {
+   "id": "hist-current-05",
+   "title": "Typo tolerance, join/split and did-you-mean",
+   "severity": "high",
+   "evidence": "Baseline typo S@1 12.5% (n=9): 'Chamberlin', 'Armistad', 'Longstret', 'Wheatfeild' return 'I couldn't find anything specific' (historian.html:185-188); 'Cemetary Hill', 'Culps Hill' return noise. Prototype (Damerau-Levenshtein vs 1,390 name tokens): typo S@1 88% primary; held-out 80% (B2) / 100% (B3, n=5); ablation without fuzzy = 31%.",
+   "root_cause": "Exact substring matching only; search.html's subsequence fallback is the opposite failure (junk).",
+   "fix": "Repair out-of-vocabulary tokens against the name vocabulary: distance <=1 for length 5-7, <=2 for >=8, same first letter unless length >6, never when one token is a prefix of the other under 7 characters ('franc'->'Francis'); join ('wheat field'->wheatfield) and split ('roundtop'). UI banner 'Showing results for Chamberlain — search for Chamberlin instead'; return notes[] from search-core.",
+   "effort": "M",
+   "acceptance_test": "Typo S@1 >= 85% primary and >= 80% held-out; guard tests ('France' stays unknown, 'pickets' not forced to Pickett unless no other reading); banner shown with an undo link.",
+   "metric_or_grade_moved": "Core function, usability (mobile typing); typo S@1 13 to 88.",
+   "depends_on": [
+    "hist-current-04"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Typo numbers reproduce (B0 refuses Chamberlin/Armistad/Longstret/Wheatfeild; proto 88 primary, 80 B2 and 100 B3 held-out, -fuzzy 31). Caveats: n=9/5 and thresholds tuned in-sample; search.html accidentally ranks 20th Maine first for 'Chamberlin' via score-20 ties in array order. Generate at least 100 synthetic typos before gating."
+  },
+  {
+   "id": "hist-current-06",
+   "title": "Intent classification and deterministic answer composition",
+   "severity": "high",
+   "evidence": "historian.html:64 puts what/who/how/when/where/why in STOPWORDS, so intent is discarded; :189-192 prints three raw cards (mean 2,989 chars, p90 5,540). Fact-hit at 3: 68.2% primary / 30.8% held-out; in first bubble 54.5% / 23.1%. Ablation: removing intent+priors drops fact@3 86 to 49, removing composition to 51. 'who replaced Reynolds', 'how many men did Lee have', 'who commanded the Union army' fail in baseline.",
+   "root_cause": "No query understanding and no composer; records are dumped verbatim.",
+   "fix": "12 ordered intent rules (ancestor, succession, who-commanded, highest, strength, casualties, outcome, compare, when, where, why, what-happened, list, who) plus kind priors; composers.js with 11 pure templates (unit-commander, unit-casualties/strength, army totals with authority footnote, succession, superlative, outcome/day timeline, place profile, ancestor routing, limited-answer, compare, decline); answer-first card: one sentence, at most two evidence cards, sources line.",
+   "effort": "L",
+   "acceptance_test": "fact@3 >= 90% and fact-in-first-bubble >= 85% on gold; snapshot tests for every template; each composed sentence carries at least one source id; mean initial characters <= 600.",
+   "metric_or_grade_moved": "Core function, content depth, usability; fact@3 68 to 86 (B3 prototype).",
+   "depends_on": [
+    "hist-current-08",
+    "hist-current-11",
+    "hist-current-12"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Line :64 interrogatives in STOPWORDS, mean 2,989 / p90 5,540 chars, fact@3 68.2/30.8, ablation 86 to 49/51 all reproduce. Trivial: the prototype has 14 intent rules (proto.js:194-208), not 12. See MISSED-6."
+  },
+  {
+   "id": "hist-current-07",
+   "title": "Decline / scope logic: say what the records cannot answer",
+   "severity": "high",
+   "evidence": "historian.html:185-188 declines only on zero substring hits. Baseline correct decline 47.1% primary / 20% held-out, mostly by chance: 'what's the weather today' -> V-011,V-024,LOC-009; 'hotels near Gettysburg' -> V-001,V-005,V-006; 'Antietam' -> U-13NJ; 'how many died at the Wheatfield' -> Vincent/Farnsworth vignettes; 'was John Smith at Gettysburg' answered. Prototype: correct decline 94% primary but only 40% on held-out generic-word queries ('best restaurant in town', 'D-Day', 'how do I get to the battlefield'); ablation without the gate = 32%.",
+   "root_cause": "No confidence model; lexical gates cannot reject queries made of in-vocabulary words.",
+   "fix": "Coverage gate (share of content tokens found), name-field gate (bare-entity queries need a title/alias/people/place hit), unknown-token gate, did-you-mean for whole-subject tokens ('Gettysburg'); scope classifier rules for visit-planning (hotel, ticket, parking, hours, directions, weather, restaurant) with an honest pointer; adjacent-topics table (Antietam, Vicksburg, Lincoln's Address, causes of the war, Chancellorsville) answering 'outside this site's records'; limited-answer template (no per-location casualty totals, no soldier rosters); decline copy with example chips.",
+   "effort": "M",
+   "acceptance_test": "Correct decline >= 90% on an OOS set of >= 40 queries including generic-word ones; false-decline <= 3% on the answerable set; every decline shows did-you-mean or examples.",
+   "metric_or_grade_moved": "Reliability, trust, usability; correct decline 47 to 94 (in-sample), held-out needs the scope rules.",
+   "depends_on": [
+    "hist-current-24"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Symptom queries and B0 decline 47.1/20.0 reproduce. The prototype figures mix systems: '94% primary but only 40% held-out' pairs B2 primary (94.1) with B3 held-out (40.0). Consistent pairs: B2 94.1/60.0, B3 88.2/40.0. Held-out n=5 so 40% is 2 of 5. Direction supported (restaurant, D-Day, how-do-I-get-to-battlefield answered), magnitude anecdotal. Ablation 77 to 32 confirmed."
+  },
+  {
+   "id": "hist-current-08",
+   "title": "Index the site data that already ships but the historian cannot see",
+   "severity": "high",
+   "evidence": "historian.html:67-80 loads only regiments, vignettes, chronology, terrain.key_locations. Not loaded: 88 brigades (nicknames 'Iron Brigade', 'Irish Brigade'), 31 divisions, 11 corps, 2 armies (Union 93,921 men/23,049 casualties; Confederate 75,000/28,000), 103 batteries incl. Cushing's, 42 commander_successions with page cites, 20 roads/structures/terrain features, casualty_apportionment notes, monuments. S-class queries baseline S@1 21%. Prototype B3 (957 records) vs B2: S@1 84 to 94 (held-out 77 to 88), fact@3 50 to 86 (held-out 38 to 85), command S@1 29 to 100.",
+   "root_cause": "Corpus hard-coded to four sources at authoring time.",
+   "fix": "Extend the build to emit typed records with ids BDE:, DIV:, CORPS:, ARMY:, ART:, SUCC:, ROAD:, STR:, TF:, CAS:, SITE: sharing one id space with pagesA-19 entities.v1.json; cards link brigade to its regiments; derive aliases '{surname}'s brigade'; add page records for the 20 tools (find-ancestor, compare...).",
+   "effort": "L",
+   "acceptance_test": "The 14 S-class battery queries reach S@1 >= 90%; 'Cushing' top-1 is the battery or Cushing card; 'Iron Brigade' returns the brigade plus its 5 regiments; index record count >= 957.",
+   "metric_or_grade_moved": "Content depth, core function; fixes F05 (14 of 56 baseline failures).",
+   "depends_on": [
+    "hist-current-11",
+    "hist-current-02",
+    "hist-current-04"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Counts (88 brigades, 31 divisions, 11 corps, 103 batteries, 42 successions) and B3-vs-B2 deltas reproduce. Omitted trade-off: B3 lowers canonical@1 (91.4 to 87.9; held-out 86.4 to 81.8) and correct decline (94.1 to 88.2; 60 to 40), so the decline gate must be re-tuned when records are added."
+  },
+  {
+   "id": "hist-current-09",
+   "title": "Regiment cards are stubs: add context lines, brigade/chronology links and gap flags",
+   "severity": "high",
+   "evidence": "[D] 353/467 regiments (75.6%) have key_action under 10 words (median 6; 156 have 4 or fewer, e.g. U-95PA 'Army reserve.', U-121PA 'Biddle's brigade.'); only 45 (9.6%) appear in any vignette/chronology text; 422 have only the one-liner; 222 (47.5%) lack casualty_percentage; 27 lack a commander; 365 of 467 are covered structurally through brigade/corps ids in chronology units_involved.",
+   "root_cause": "Content depth; the historian shows the record verbatim.",
+   "fix": "Compose a context sentence from the resolved brigade/division/corps names and the brigade key_action ('Third Corps · Ward's Brigade · Birney's Division'); attach chronology events through the brigade join; state 'no detailed narrative record yet' explicitly; emit a build gap report (regiments under 25 words of context) as the content queue for the expansion plan. Do not invent facts.",
+   "effort": "M",
+   "acceptance_test": "Every regiment card has at least 25 words of non-boilerplate, sourced context or an explicit 'no detailed record' line; gap report lists the remaining regiments; no card prints 'null', 'unknown' or a raw id.",
+   "metric_or_grade_moved": "Content depth (Concept A- to A), usability of regiment queries.",
+   "depends_on": [
+    "hist-current-11",
+    "hist-current-08"
+   ],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "Stat block reproduces (353 under 10 words, 156 at 4 or fewer, 222 without casualty %, 27 without commander). '365 covered structurally through brigade/corps ids' counts corps-level hits: an event naming U-I covers every I Corps regiment. At own-id-or-brigade level it is 292 (62.5%). Use brigade-level joins only. 'Any mention' is 42 (9.0%) by my regex vs 45, immaterial."
+  },
+  {
+   "id": "hist-current-10",
+   "title": "Render hygiene: raw ids, lower-cased proper nouns, '--', walls of text, lost paragraphs",
+   "severity": "high",
+   "evidence": "historian.html:93 prints 'part of U-III / U-III-1-1'; :94 `r.commander.fate.toLowerCase()` yields 'survived gettysburg -- lost arm at petersburg' and 'kia july 3'; :109 renders the whole 206-375-word full_script; .msg (:27) has no white-space so '\\n\\n' paragraph breaks collapse. Measured defect rate 89.8% primary / 91.2% held-out; raw ids in 71 of 118 answers, lower-cased nouns in 34, bubbles over 1,200 chars in 88; fate strings like 'See U-11PA'; 1,591 ' -- ' strings site-wide (data-integrity).",
+   "root_cause": "Templates concatenate raw data fields; no render tests.",
+   "fix": "QW-0 render diff: drop ids (map to names, see hist-current-09), replace toLowerCase with `fate.replace(/ -- /g,'; ')`, show panel_summary plus 'Read the full story' disclosure, `.msg{white-space:pre-line}` or a <p> per paragraph; build-time '--' to em dash; content scan over every rendered card.",
+   "effort": "S",
+   "acceptance_test": "Defect detectors (raw id, lower-cased noun, undefined, alias record, bubble >1,200 chars) report 0 across all rendered cards; B1u row shows defects 90% to 1% and mean chars 2,989 to 962.",
+   "metric_or_grade_moved": "Fit and finish, professionalism (H7 copy voice).",
+   "depends_on": [],
+   "audit_refs": [
+    "H7"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Defect counts exact (raw ids 71, lowercased 34, wall of text 88 of 118; 89.8/91.2 percent); :27 has no white-space; 48 fates contain ' -- '. '1,591 site-wide' not reproduced (1,938 raw occurrences in data/**/*.json; scope differs). The QW-0 fix only patches fate, so ' -- ' remains in 148 of 175 answers (MISSED-2)."
+  },
+  {
+   "id": "hist-current-11",
+   "title": "Build pipeline with field whitelist and validators (keep developer notes out)",
+   "severity": "high",
+   "evidence": "66 chronology events carry `flag` (1,138 words of animation directions, e.g. 'must be placed precisely on McPherson's Ridge'), 31 regiments carry `flag_notes` ('must be shown advancing north across the pike'), placement notes contain direction text; 95 placed unit ids are not in the OOB and Confederate regiments are keyed U- (data-integrity.md); no source or build system exists for the site (N1).",
+   "root_cause": "Data files mix public facts with production notes; the page indexes fields ad hoc.",
+   "fix": "scripts/build-historian-index.mjs reads data/**/*.json through the field whitelist in hist-current.md section 8.2, merges alias/detachment records, normalises '--', resolves ids, emits index.v1.json, passages.v1.json, facts.v1.json and a report. Build fails on 'undefined'/'null' strings, unresolved ids, records without title/summary, developer-note regex hits, oversize index, ambiguous alias fan-out.",
+   "effort": "L",
+   "acceptance_test": "Injecting a `flag` leak, an 'undefined' string or an unresolved id makes the build exit non-zero; two builds are byte-identical; report lists gaps; index <= 120 KB brotli.",
+   "metric_or_grade_moved": "Reliability, historical integrity, security hygiene; prerequisite for 02, 04, 06, 08.",
+   "depends_on": [
+    "N1 source of record"
+   ],
+   "audit_refs": [
+    "N1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "66 chronology flag and 31 flag_notes developer-note fields verified. Validator 'fail on unresolved ids' fails on day one (MISSED-8). Effort L holds only if the id crosswalk from data-integrity ships first."
+  },
+  {
+   "id": "hist-current-12",
+   "title": "Clock display: hold labels, then consume the canonical time model",
+   "severity": "high",
+   "evidence": "After the chronology fix the page prints 'Day 3, 9:30am — Seminary Ridge: THE CANNONADE BEGINS. At approximately 1:00pm...' and 'Day 3, 11:05am — PICKETT'S CHARGE BEGINS' (about 3 pm in history); vignette headers show raw 'tick 275' (:109). time-facts.md: chronology labels off by a mean 4.8 h; 'what time did Pickett's Charge start' fails in baseline and in the prototype (fact 0).",
+   "root_cause": "Clock labels in the data and six divergent tick-to-clock implementations (C4).",
+   "fix": "Immediately omit the `time` label and say 'tick N of 675' or nothing; once app-time/pages-B `/js/time-model.js` exists, call tickToClock(tick), print '≈ h:mm' plus a confidence flag, and forbid generated sentences from quoting clock times that are not model output; add a test that no label contradicts the event text.",
+   "effort": "M",
+   "acceptance_test": "No answer contains a clock time unless equal to time-model output; 'what time did Pickett's Charge start' returns the model time (about 3:00 pm, flagged estimated) or a limitation statement before the model lands.",
+   "metric_or_grade_moved": "Historical consistency (C- to A), trust.",
+   "depends_on": [
+    "app-time time-model (external)",
+    "hist-current-01"
+   ],
+   "audit_refs": [
+    "C4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence exact (tick 518 label 9:30am vs text 'approximately 1:00pm'; tick 538 11:05am; 4.8 h mean reproduced in sibling time-facts). API name wrong: pages-B section 3.5 /js/time-model.js exports formatClock/label/clockMinutes, while tickToClock belongs to app-time's module. Name one canonical module. The interim 'tick N of 675' is poor for when-questions; say the records carry no reliable clock time. The prototype itself prints the forbidden label (MISSED-5)."
+  },
+  {
+   "id": "hist-current-13",
+   "title": "Source links, citations and deep-link dependency",
+   "severity": "medium",
+   "evidence": "historian.html:124 `srcHref: null` (137 chronology cards), :136-137 every terrain card links /viewshed.html 'Compare its elevation...', :110 vignette links `/?tick=..&vignette=..` which the app ignores (only `?ancestor=` is read, bundle.pretty.js:101019; app-bugs-05). :48 claims each answer has 'a source link'. 29 distinct bibliography works in metadata.sources are never shown; commander_successions rows carry page cites ('Pfanz First Day p.65').",
+   "root_cause": "Link and citation contract not defined per record.",
+   "fix": "Per-record `links` {bio, map, source_cites[]}; show a Sources line from metadata.sources (book level) and page cites for successions; terrain cards link to the map location once app-bugs-05 lands, else no link; feature-flag map chips off until the app reads ?tick/?unit/?vignette.",
+   "effort": "S",
+   "acceptance_test": "Every card shows at least one valid link or an explicit 'no link'; a link-checker crawl finds no dead internal link; successions show page citations.",
+   "metric_or_grade_moved": "Trust, fit and finish, documentation of provenance.",
+   "depends_on": [
+    "app-bugs-05 (external)",
+    "hist-current-11"
+   ],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "Line refs exact (:124, :136-137, :110, bundle.pretty.js:101019). '29 distinct bibliography works' is 29 distinct strings but 24 distinct printed works: Busey and Martin appears 3 times, 'Pfanz trilogy' duplicates the 3 Pfanz volumes, and 'Google Maps / satellite imagery verification' and 'USGS topographic data' are provenance notes. De-duplicate before rendering a Sources line."
+  },
+  {
+   "id": "hist-current-14",
+   "title": "search.html: replace whole-string + subsequence scoring",
+   "severity": "medium",
+   "evidence": "search.html:83-96 score(): exact 100, prefix 90, word-start 80, substring 60, letters-in-order subsequence 20. Measured: 88% of each returned list is score-20 junk (mean length 16); 'ny' -> 509 matches shown as '40 results'; 'asdfghjkl' -> 3 results; 'what is the capital of France' -> 4; S@1 46%, canonical@1 47%, fact 5%, correct decline 18%. :112 leaks 'Commander unrecorded' and dangling ' · ' (222 rows); :194-196 unescaped innerHTML; links dead (app-bugs-05).",
+   "root_cause": "Query treated as one phrase; permissive subsequence tier; no aliases/fuzzy/chronology.",
+   "fix": "Route through search-core (hist-current-15); interim: delete the subsequence tier, tokenise, minimum score 60, count = real matches, escape output, omit empty meta parts, highlight matches.",
+   "effort": "M",
+   "acceptance_test": "'asdfghjkl' shows the empty state; 'Chamberlin' returns the 20th Maine; count equals rendered matches; S@1 >= 85% on the battery.",
+   "metric_or_grade_moved": "Usability, correctness of Search Everything; fixes F-class junk results.",
+   "depends_on": [
+    "hist-current-15"
+   ],
+   "audit_refs": [
+    "C8",
+    "H7"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "search.html:83-96, :112, :187, :194-196 exact; 'ny' gives 509 matches shown as '40 results'; asdfghjkl 3; capital of France 4; S0 metrics reproduce (45.5/46.6/4.5/17.6). Minor: 'Commander unrecorded' is 27 rows, the dangling separator 222."
+  },
+  {
+   "id": "hist-current-15",
+   "title": "Unify the three search implementations on one engine and one index",
+   "severity": "medium",
+   "evidence": "Three scorers: historian.html:154-166, search.html:83-96, and the app's Search Units panel bundle.pretty.js:98745-98830 (substring includes on id/designation/state/commander, min 2 chars, first 12 in insertion order; 'relevance' sort is insertion order). Different index shapes (658 / 521 / unit meta).",
+   "root_cause": "Each feature grew its own matcher.",
+   "fix": "One search-core.js + one built index shared by historian.html, search.html and (via a lazily loaded module) the in-app panel; same entity ids as pagesA-19 entities.v1.json; contract test that a query returns identical top-5 ids on all three surfaces.",
+   "effort": "L",
+   "acceptance_test": "Contract test passes; app panel gains aliases and typo tolerance; index built once per deploy.",
+   "metric_or_grade_moved": "Consistency, maintainability, usability across surfaces.",
+   "depends_on": [
+    "hist-current-02",
+    "hist-current-04",
+    "hist-current-11",
+    "renderer owner (bundle rebuild)"
+   ],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "Three scorers verified (bundle.pretty.js:98745-98830). Omitted dependency: the in-app panel is inside the minified bundle with no source (BRIEF N1), so migrating it needs bundle patching or the source-recovery track; effort L for the two static pages but XL/blocked for the panel. Also a live bug in that panel (MISSED-7)."
+  },
+  {
+   "id": "hist-current-16",
+   "title": "Answer-first layout, scroll and sticky-bar fixes, reduced motion",
+   "severity": "medium",
+   "evidence": "historian.html:35 `#ask-row{position:sticky;bottom:0;...padding:16px 0}` (about 78 px), :174 `div.scrollIntoView({behavior:'smooth',block:'end'})` puts the bottom of the newest bubble under the bar and lands the reader at the end of a 300-word answer (audit H8 saw the same); no prefers-reduced-motion handling.",
+   "root_cause": "Scroll target and bar height unrelated; answers are long.",
+   "fix": "Scroll to the start of the new answer group; add scroll-margin-top and scroll-padding-bottom equal to the bar height; disable smooth scrolling under prefers-reduced-motion; safe-area inset for the bar.",
+   "effort": "S",
+   "acceptance_test": "Playwright at 375x667 and 1440x900: after submit the top of the newest answer is visible and no answer text lies under the input bar; with reduced motion emulated, scroll is instant.",
+   "metric_or_grade_moved": "Usability, fit and finish (mobile).",
+   "depends_on": [],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Lines :35 and :174 exact; sticky bar overlays the last ~78px of the newest bubble; no prefers-reduced-motion in the file."
+  },
+  {
+   "id": "hist-current-17",
+   "title": "Accessibility of historian.html",
+   "severity": "medium",
+   "evidence": "historian.html:54-57 input has placeholder only, no <label>; :52 transcript has no role=log/aria-live; font sizes 11 px (.src :30) and 12 px (.how :24, .sugg :33, back link :21); chips about 28 px tall; :36 input 15 px; input/chip border #1e1e2e on #0a0a14 = 1.20:1 (WCAG 1.4.11). Text contrast passes (gold 7.7, muted 6.4, bot 13.7, user bubble 10.9).",
+   "root_cause": "Prototype-grade markup.",
+   "fix": "Visible or sr-only label; role=log aria-live=polite aria-relevant=additions; disclosure widgets for evidence; body >= 14 px, minimum 12 px; 44 px touch targets (24 px desktop minimum); stronger control-border token; focus ring token; disabled state while loading.",
+   "effort": "M",
+   "acceptance_test": "axe reports 0 violations; Lighthouse accessibility >= 98 on /historian.html mobile and desktop; targets >= 44 px on touch; manual VoiceOver/NVDA check announces each answer once.",
+   "metric_or_grade_moved": "Accessibility (C+/C toward A+).",
+   "depends_on": [],
+   "audit_refs": [
+    "A3",
+    "A4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Font sizes (11/12/15 px), missing label, missing role=log exact. Contrast recomputed: border #1e1e2e is 1.20:1 vs page bg and 1.13:1 vs input fill; gold 7.74 on panel; muted 6.39 on bg; bot text 13.67; user bubble 10.88."
+  },
+  {
+   "id": "hist-current-18",
+   "title": "Loading, error and payload robustness (single index, progressive enable)",
+   "severity": "medium",
+   "evidence": "historian.html:75-80 Promise.all of 15 fetches with no try/catch (search.html:98-165 has one): any failure leaves 'Loading the battle's records…' (:51) forever; UI stays hidden until all data arrives (:142-146 display toggles); counts hard-coded at :48. Payload 317,788 B raw, about 63,974 B brotli, 15 requests; a serialised 957-record index measured 297 KB raw / 55 KB brotli.",
+   "root_cause": "No failure path; many files; counts typed by hand.",
+   "fix": "One built index (optionally plus lazy passages) with preload/fetch priority and a content hash; enable the input immediately and queue the first query; error card with Retry and offline message; computed counts in the intro.",
+   "effort": "M",
+   "acceptance_test": "Blocking any single request shows an error card with Retry within 8 s; Slow-4G first answer <= 1.5 s (measure); request count 1-2; Lighthouse CLS <= 0.02 on /historian.html.",
+   "metric_or_grade_moved": "Reliability, performance (FCP/LCP), resilience.",
+   "depends_on": [
+    "hist-current-11"
+   ],
+   "audit_refs": [
+    "P4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "15 fetches with no try/catch (:75-80), loader forever (:51); raw 317,788 B and brotli 63,974 B exact; brotli served live (Content-Encoding: br)."
+  },
+  {
+   "id": "hist-current-19",
+   "title": "Conversation: context memory, follow-up chips, ?q= deep link, persistence, clear",
+   "severity": "medium",
+   "evidence": "historian.html:177-193 ask() is stateless; :147-152 five static chips that leave their text in the input (:150 vs :201); no ?q= (the map's planned contextual entry historian.html?q=&unit=&tick= from app-design R4 is unsupported); baseline 'what about the Confederates' returns unrelated cards, 'tell me more' declines.",
+   "root_cause": "No session model.",
+   "fix": "Session state {lastEntities,lastIntent}; resolvers for 'it/they/them', 'tell me more', 'what about the Confederates'; chips generated from answer entity kinds (unit: Commander, Casualties, Where it fought, See on map, Who fought against them; event: What led up to this, What happened next); ?q=&unit=&tick= contract with history.replaceState; sessionStorage transcript in try/catch; Clear button.",
+   "effort": "M",
+   "acceptance_test": "Six scripted two-turn dialogues pass (e.g. '20th Maine' then 'who commanded it' returns Chamberlain); loading /historian.html?q=... reproduces the answer; back/forward restore.",
+   "metric_or_grade_moved": "Usability, discoverability; F09.",
+   "depends_on": [
+    "hist-current-06"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "Stateless ask(); 'what about the Confederates' returns V-009 plus unrelated regiments; 'tell me more' declines; chips leave text in the input (:150 vs :201)."
+  },
+  {
+   "id": "hist-current-20",
+   "title": "First impression: suggestion chips and placeholder must be canonical and tested",
+   "severity": "medium",
+   "evidence": "historian.html:147 chips ['20th Maine','Little Round Top',\"Pickett's Charge\",'Iron Brigade','Cemetery Hill'] and :55 placeholder 'What happened to the 1st Minnesota?'. Results: '20th Maine' -> Chamberlain's Charge, 15th Alabama, Little Round Top (own card 4th); \"Pickett's Charge\" -> Pickett's Return, Lee Meets His Men, 8th Ohio (the charge itself absent); 'Iron Brigade' -> Reynolds Falls, Archer Captured, 19th Indiana; placeholder -> V-012, 8th Alabama, Plum Run.",
+   "root_cause": "Examples never evaluated.",
+   "fix": "Choose 6-8 chips from gold queries that are canonical@1 under the new engine; put chips and placeholder into the gold set so CI fails if they regress; vary suggestions by context (hist-current-19).",
+   "effort": "S",
+   "acceptance_test": "All chips and the placeholder query have the canonical card first and appear in tests/historian/gold.v1.jsonl.",
+   "metric_or_grade_moved": "Usability, first-run trust.",
+   "depends_on": [
+    "hist-current-02",
+    "hist-current-24"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Chip/placeholder results reproduce: 20th Maine gives V-010, C-15AL, LOC-003; Pickett's Charge gives V-019, V-023, U-8OH; Iron Brigade gives V-002, V-003, U-19IN; placeholder gives V-012, C-8AL, LOC-026."
+  },
+  {
+   "id": "hist-current-21",
+   "title": "De-duplicate and diversify results (alias and detachment records)",
+   "severity": "medium",
+   "evidence": "Data: U-14BK '14th Brooklyn (alias for U-84NY)' (no commander, 0 casualties), U-11PA-B, U-11PA-R-F, U-3WV-CAV, four '-b' detachments (8 records). Baseline '14th Brooklyn' shows both U-84NY and U-14BK (alias-record defect); a chronology event and a vignette about the same moment both appear.",
+   "root_cause": "Records mirrored in data; no merge step; no per-kind diversity.",
+   "fix": "Merge alias/detachment records into the canonical unit at build (alias line on the card); at query time cap two cards per kind and collapse a chronology event and vignette sharing tick ±2 and title tokens.",
+   "effort": "S",
+   "acceptance_test": "No answer shows two records for the same unit; '14th Brooklyn' returns one 84th New York card with the alias noted.",
+   "metric_or_grade_moved": "Fit and finish, P@3.",
+   "depends_on": [
+    "hist-current-11"
+   ],
+   "audit_refs": [
+    "H7"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "'14th Brooklyn' returns U-84NY and U-14BK; the alias card renders 'roughly 0 effectives and suffered 0 casualties'; 8 alias/detachment records verified."
+  },
+  {
+   "id": "hist-current-22",
+   "title": "Use DOM APIs instead of innerHTML (CSP-ready)",
+   "severity": "low",
+   "evidence": "historian.html:172 `div.innerHTML = html + ...` with first-party data, :178 user text escaped only for '<'; inline script blocks; netlify.toml CSP-Report-Only allows 'unsafe-inline'. Not exploitable today (data first-party; user text inert).",
+   "root_cause": "Prototype rendering; inline script.",
+   "fix": "Move the script to /historian/historian.js as a module; build cards with textContent/templates; sanitise any future external text; run the page under `script-src 'self'`.",
+   "effort": "S",
+   "acceptance_test": "Page fully works with CSP script-src 'self' and no unsafe-inline; XSS probe strings render inert.",
+   "metric_or_grade_moved": "Security hygiene (B to A), enables enforcing CSP.",
+   "depends_on": [],
+   "audit_refs": [
+    "X3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "innerHTML at :172 and single-char escaping at :178; user text is <-escaped and data first-party, so not exploitable today; CSP Report-Only allows unsafe-inline (netlify.toml)."
+  },
+  {
+   "id": "hist-current-23",
+   "title": "Honest copy and a capability/limits panel",
+   "severity": "medium",
+   "evidence": "historian.html:48 'It is a search-and-synthesis tool ... shown as a source link below each answer' (no synthesis; 137 cards have no link); hard-coded counts; index.html:377 'an AI-style historian'; site-nav.js:26 'A search-and-answer assistant'. Audit H8 flags over-promise.",
+   "root_cause": "Copy written ahead of capability.",
+   "fix": "Replace with 'Answers come only from this site's records — not a live AI model', computed counts from the index, an expandable 'What I can answer / what I can't' list generated from the intent table; retire 'AI-style' and 'synthesis' wording unless implemented and labelled.",
+   "effort": "S",
+   "acceptance_test": "Copy review passes; counts are computed; capability list matches the gold intents.",
+   "metric_or_grade_moved": "Trust, professionalism (voice).",
+   "depends_on": [],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "historian.html:48 ('search-and-synthesis tool'), index.html:377 ('AI-style historian') and site-nav.js:26 ('search-and-answer assistant') all contain the quoted copy."
+  },
+  {
+   "id": "hist-current-24",
+   "title": "Evaluation harness, gates, CI and unresolved-query loop",
+   "severity": "high",
+   "evidence": "No tests exist. Assets built: harness.js runs the real page script; queries.js (118) + queries_heldout.js (57); evalcore.js; run-all.js; metrics_all.json; baseline B0 numbers (S@1 76.2/71.2, canonical@1 29.3/40.9, fact@3 68.2/30.8, correct decline 47.1/20.0, defects 89.8/91.2, mean chars 2,989/2,689). Deterministic re-run verified.",
+   "root_cause": "No regression net for a relevance-sensitive feature.",
+   "fix": "Adopt tests/historian/{gold,held-out}.v1.jsonl and scripts/eval-historian.mjs with the gates in hist-current.md section 9.2 (H1: S@1 >= 88/80, canonical@1 >= 90, decline >= 85; H2: S@1 >= 93/90, fact@3 >= 90, relational set >= 80); fail CI on >2 pt regression; grow gold to 300+ from real unresolved queries; refresh the held-out set each phase.",
+   "effort": "M",
+   "acceptance_test": "eval script reproduces the B0 table against the deployed adapter and reports pass/fail per gate for the new engine; refresh procedure documented.",
+   "metric_or_grade_moved": "Reliability, regression control for every category above.",
+   "depends_on": [],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "All baseline numbers, batteries (118/57) and ablation reproduce deterministically. Gate design problems are MISSED-3 and MISSED-4."
+  },
+  {
+   "id": "hist-current-25",
+   "title": "Precomputed facts for aggregate and relational questions",
+   "severity": "medium",
+   "evidence": "Retrieval cannot count: 'how many Maine regiments were at Gettysburg' (truth 10) returns Knoxlyn Ridge/Iverson vignettes; 'which state lost the most men' (regiment sums: North Carolina 6,056) unanswerable; 'which regiment had the highest casualties' only correct by luck; 'who commanded Pickett's division brigades' (Q086) fails even in B3; taxonomy F11.",
+   "root_cause": "No aggregate or graph layer.",
+   "fix": "Build facts.v1.json: top-10 rankings (casualties, rate) by side, by-state counts and casualties, by-corps roll-ups with an authority caveat, division to brigades to regiments lists, who-fought-at(place) from casualty_apportionment engagements; deterministic templates that cite the data path; flag conflicting totals (data-integrity #4).",
+   "effort": "L",
+   "acceptance_test": "A new relational/aggregate gold set (n >= 25) scores >= 80% at H2; every number in an answer is traceable to a data path; conflicts are shown as ranges.",
+   "metric_or_grade_moved": "Content depth, core function.",
+   "depends_on": [
+    "hist-current-11",
+    "hist-current-29"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "NC 6,056 (regiment sum), Maine 10 (9 infantry + 1 cavalry), 1st MN 85.5% (224/262), 26th NC 588, C-8VA 76.7% all derive from the data. Caveat: state roll-ups exclude artillery and include 'Multi-state'/'Regular Army' buckets."
+  },
+  {
+   "id": "hist-current-26",
+   "title": "Passage-level retrieval, extractive answers and proximity scoring",
+   "severity": "medium",
+   "evidence": "Vignette full_script (7,182 words, 249 paragraphs, about 546 sentences) is rendered but never indexed; chronology has about 457 sentences. B1u (hiding full_script) lost 9 points of fact@3; names that live only in scripts are unfindable: 'Alphonso Hodges' -> 17th Georgia, 'Levi Shafer' -> 6th US, 'Father Corby' -> 28th Massachusetts in B0.",
+   "root_cause": "Records are indexed by title/location/summary only.",
+   "fix": "Chunk vignettes into paragraphs, chronology into events (+narratives); rank passages with the same BM25F; show the best 1-2 sentences with a 'Read the full story' disclosure; add proximity bonus (>=2 query tokens within 6 tokens, sum 1/(1+gap), cap +4).",
+   "effort": "L",
+   "acceptance_test": "'Alphonso Hodges', 'Levi Shafer', 'Father Corby' return V-001, V-001 and D2T287/28th Massachusetts within top 2; fact@3 does not drop when full scripts are collapsed.",
+   "metric_or_grade_moved": "Content depth, recall.",
+   "depends_on": [
+    "hist-current-02",
+    "hist-current-06",
+    "hist-current-11"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "249 paragraphs; 518-546 sentences depending on splitter; B1u fact@3 68.2 to 59.1 (-9.1) reproduced; Alphonso Hodges -> C-17GA, Levi Shafer -> U-6US, Father Corby -> U-28MA reproduced."
+  },
+  {
+   "id": "hist-current-27",
+   "title": "Privacy-safe feedback and unresolved-query logging",
+   "severity": "low",
+   "evidence": "No query logs exist; the gold set is synthetic. privacy.html omits any historian logging (X5).",
+   "root_cause": "No feedback loop.",
+   "fix": "Phase 1: local 'Was this helpful?' plus a prefilled mailto/issue link. Phase 2 (opt-in, after the privacy page is updated): a Netlify Function counting unresolved queries with no IP or identifiers, weekly digest feeds the gold set.",
+   "effort": "M",
+   "acceptance_test": "Privacy page updated; logging opt-in and documented; weekly report lists unresolved queries; no PII stored.",
+   "metric_or_grade_moved": "Continuous quality, privacy compliance.",
+   "depends_on": [
+    "hist-current-24"
+   ],
+   "audit_refs": [
+    "X5"
+   ],
+   "verdict": "UNVERIFIABLE",
+   "correction": "Absence/design claim: privacy.html has no historian mention and the page logs nothing today; no test possible. Design (local feedback first, opt-in counter later) is reasonable."
+  },
+  {
+   "id": "hist-current-28",
+   "title": "Ancestor routing and honesty about individual soldiers",
+   "severity": "medium",
+   "evidence": "Baseline 'how do I find my ancestor' -> V-005,V-006,V-010 (no route to /find-ancestor.html); ancestor-category fact hit 0%; 'was John Smith at Gettysburg' returns three battle cards. Data holds no soldier rosters.",
+   "root_cause": "No site-page records or limited-answer behaviour.",
+   "fix": "Add SITE:find-ancestor (and other tool) page records with aliases; ancestor intent composes the regiment card when a unit is named plus a link to /find-ancestor.html and a roster caveat; individual-soldier questions use the limited-answer template; any external pointer (e.g. NPS Soldiers and Sailors Database) must be link-verified first.",
+   "effort": "S",
+   "acceptance_test": "Every ancestor-intent query includes the /find-ancestor.html link and, when a regiment is named, its card; 'was John Smith at Gettysburg' returns the limited-answer text.",
+   "metric_or_grade_moved": "Usability (genealogy audience), trust.",
+   "depends_on": [
+    "hist-current-06"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "'how do I find my ancestor' returns V-005, V-006, V-010; 'was John Smith at Gettysburg' returns three battle cards; nps.gov/civilwar/soldiers-and-sailors-database.htm exists (fetched). The prototype's own ancestor routing is over-broad (MISSED-6)."
+  },
+  {
+   "id": "hist-current-29",
+   "title": "Data-quality items that will surface in answers",
+   "severity": "medium",
+   "evidence": "terrain.json LOC-029 name 'Gulp's Hill saddle'; C-61VA commander string 'Colonel Virginia Boisseau' (looks like a merge error, unverified); fate strings such as 'See U-11PA'; 156 regiments with one-liners of 4 words or fewer; 222 without casualty percentage; 27 without commander; states 'Multi-state' and 'Regular Army'; casualty totals have no single authority (Union 22,803/23,049/23,138; Confederate 23,025/23,125/28,000; data-integrity #4); VI Corps brigade records missing.",
+   "root_cause": "Hand-authored data with no validation.",
+   "fix": "Build emits a data-quality report; composers print 'about' and cite the source until totals are reconciled; a `verified` flag per record surfaces in cards; fix typos; send the gap list to the content queue and to a historian for C-61VA and contested statements.",
+   "effort": "M",
+   "acceptance_test": "Report lists every gap; zero known typos in served strings; composers never print null/undefined/unknown; authority footnote appears on army totals.",
+   "metric_or_grade_moved": "Historical accuracy and consistency (C- toward A).",
+   "depends_on": [
+    "hist-current-11",
+    "data-integrity plan (external)"
+   ],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "LOC-029 'Gulp's Hill saddle', 'See U-11PA' fate and C-61VA 'Colonel Virginia Boisseau' verified in the data. Upgrade from 'unverified': Wikipedia/WebSearch list the 61st Virginia's field officers as Groner, Wilson, Niemeyer, Stewart, McAlpine with no Boisseau; Groner commanded at Gettysburg, so the record is very likely wrong (secondary sources only; confirm with Busey and Martin)."
+  },
+  {
+   "id": "hist-current-30",
+   "title": "Historian page performance, CLS and render-blocking assets",
+   "severity": "medium",
+   "evidence": "historian.html:15 render-blocking <link rel=stylesheet href=/site-nav.css>, :60 /site-nav.js; :142-146 toggles display:none to flex after data loads (layout shift); 15 fetches before first paint of the UI; no Lighthouse run for this page (uncertainty: numbers are payload arithmetic only). Prototype query latency 0.66 ms (current), 3.8 ms unoptimised (new); index build 66 ms in Node.",
+   "root_cause": "Shared nav assets loaded synchronously; UI hidden until data arrives.",
+   "fix": "Preload the index, load nav CSS/JS non-blocking or inline critical CSS, reserve heights for intro/transcript/chips, enable the input immediately, lazy-load passages.",
+   "effort": "S",
+   "acceptance_test": "Lighthouse on /historian.html mobile: Performance >= 95, CLS <= 0.02, LCP <= 2.0 s, TBT <= 50 ms; RUM p75 LCP <= 2.5 s for this path.",
+   "metric_or_grade_moved": "Performance (LCP, CLS, FCP) on the Historian route.",
+   "depends_on": [
+    "hist-current-18"
+   ],
+   "audit_refs": [
+    "P4",
+    "P1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Premise 'no Lighthouse run for this page' is outdated: sibling perf-cwv (lh_page_historian_mobile.json, Lighthouse 13.5.0 on a replica) shows historian mobile Perf 100, FCP 0.8 s, LCP 1.2 s, TBT 40 ms, CLS 0.056 (green), culprit body > footer#gtbg-footer when async content above renders (perf-cwv-21). Severity should be low; the concrete fix is nav/footer mount min-height plus a transcript skeleton. :60 site-nav.js is at the end of body (parser-blocking, not render-blocking)."
+  }
+ ],
+ "open_questions": [
+  "Is the owner willing to run a local Node build script and commit its output (else browser-side indexing with the same code is the fallback)?",
+  "Should the historian stay 'records-only, not AI' permanently, with any future LLM tier clearly labelled and gated by the same evaluation set?",
+  "Keep the name 'Ask the Historian'? Recommendation: keep it, add the capability/limits panel, and never use 'AI-style' or 'synthesis' unless true.",
+  "Is opt-in unresolved-query logging acceptable (requires a privacy-page update)?",
+  "Who signs off on historically contested answers (chronology narrative fields, 'why did Lee lose') and on the suspected C-61VA commander-name error?",
+  "When will the canonical time model and the app deep-link support ship? Clock labels and map chips in the historian must wait for them.",
+  "Which casualty totals become the site's single authority (data-integrity #4)? Army-total answers carry an authority footnote until decided."
+ ],
+ "verification_summary": "The hist-current report holds up well as evidence. Every cited line number in historian.html, search.html, netlify.toml, site-nav.js and bundle.pretty.js is exact. I re-ran the harness and prototype in a separate folder. B0, B1, B1u, S0, B2 and B3 metrics, the ablation table, the 15-file payload (317,788 B raw, 63,974 B brotli) and all data counts reproduce. Live curl matches the deploy. The weaknesses are in the fix specs and gates, not the evidence. Of 30 findings, 20 are CONFIRMED, 9 CORRECTED (03, 07, 09, 12, 13, 15, 29, 30, plus the 03 threshold point) and 1 UNVERIFIABLE (27). No finding is REFUTED; the corrections are as follows. (1) Finding 03's \"remove me/in from STOPWORDS\" lowers correct decline from 41.2 to 29.4 and is not what the tested hotfix did. (2) The `>= 3` threshold combined with the 0.9 chronology weight hides all single-hit chronology cards. (3) Finding 07 mixes B2 and B3 figures. (4) Finding 09's \"365 structural coverage\" counts corps-level hits and is 292 at brigade level. (5) Finding 12 names the wrong time-model API. (6) Finding 13's \"29 works\" is 29 strings and 24 works. (7) Finding 15 omits the source-less bundle dependency. (8) Finding 29's C-61VA commander is very likely a data error (Groner, not \"Boisseau\"). (9) Finding 30's \"no Lighthouse run\" premise is outdated: the sibling run shows Perf 100 and CLS 0.056, green. Eight missed issues are listed. The main ones: the H0 hotfix leaves \" -- \" in 148 of 175 answers and the defect detector cannot see it; the H1 gates are unreachable by the H1-scope prototype and meaningless at current n; the \"held-out\" set overlaps the tuning set (27 of 52); and the prototype composers print the forbidden clock label and a wrong Confederate casualty-rate note. A \"## Verification\" section has been appended to plan-work/hist-current.md. Scripts are in plan-work/tmp-verify-hist-current/.",
+ "missed_by_specialist": [
+  {
+   "title": "Hotfix threshold hides every single-hit chronology card",
+   "severity": "medium",
+   "evidence": "historian.html:181 filter x.s >= 3 combined with chronology weight 0.9 (:121) gives 2.7 for any one-word hit. Reproduced with b1patch.js: 133 of 133 chronology events are not returned for '<rare word> zzzq' (tmp-verify-hist-current/v2.js). Only single-token queries survive, via the +5 phrase bonus.",
+   "fix": "Threshold on the raw score before weighting, or set chronology weight to 1.0 in H0; add a test that each of the 137 events is returned for a query made of its rarest word plus one filler."
+  },
+  {
+   "title": "H0 hotfix leaves ' -- ' visible and the defect detectors cannot see it",
+   "severity": "medium",
+   "evidence": "After B1u, 148 of 175 battery answers still contain ' -- ' (348 of 467 key_action, 62 of 137 chronology events, all 24 vignette scripts, 48 fates; v9.js, v11.js). QW-0 only patches fate. evalcore.js defects() has no '--' check, so 'defects 0%' for B1u/B2/B3 is blind to it; proto 'highest' prints '1st Minnesota -- 224 of 262 casualties'. Section 6 says QW-0 'removes every visible bug'.",
+   "fix": "Add a render-layer replace of ' -- ' with an em dash at H0 (build-time normalisation in H1); add / -- /, undefined|null and 'site clock' to the defect regex; correct the wording in section 6."
+  },
+  {
+   "title": "Gates unreachable by the H1-scope prototype and statistically meaningless at current n",
+   "severity": "medium",
+   "evidence": "B2 (same 658 records, new retriever = H1 scope) scores S@1 84.2/76.9 vs gates 88/80, fact@3 50.0/38.5 vs 60, factTop 40.9 vs 50, held-out decline 60 vs 85; only B3 (H2 data) passes. Section 8.7 H1 exits (held-out S@1 >= 80, canonical >= 85) disagree with section 9.2 (canonical >= 90). The '>2 pt regression fails CI' rule fires on one-query flips: n=22 fact (4.5 pts per query), 17 decline (5.9), 9 typo (11.1), 5 held-out typo/decline (20).",
+   "fix": "Move fact and decline gates to H2 or pull SUCC/ARMY/BDE records into H1; gate on pinned must-pass query lists plus Wilson lower bounds; grow each gated metric to n >= 100 with generated variants before enabling percentage gates; reconcile 8.7 with 9.2."
+  },
+  {
+   "title": "'Held-out' battery overlaps the tuning battery",
+   "severity": "medium",
+   "evidence": "27 of 52 answerable held-out queries share at least one gold answer id with the primary battery (Reynolds, Sickles, Round Top, Pennsylvania Reserves, Iron Brigade, Pickett's division, find-ancestor...); categories are identical; aliases.js (frozen before the held-out file) already contains Stannard, Texas Brigade, Hood, Vermont; proto.js was edited after the held-out file (00:27 vs 00:20, disclosed as the surname fix). Overlap not disclosed.",
+   "fix": "Treat held-out figures as optimistic (the B2 drop 84.2 to 76.9 is the honest signal); write a fresh held-out set with new entities and pre-registered rules before reading the H1 gate; report overlap in section 3.2."
+  },
+  {
+   "title": "Prototype composers contradict the plan's own rules; B3 fact@3 is not evidence for the data-derived path",
+   "severity": "medium",
+   "evidence": "proto.js:328 'highest' prints the data note 'Confederate 26th North Carolina ... (69.7%)' while the OOB maximum is C-8VA 76.7% (data-integrity #4/#6), prints '224 of 262 casualties in 15 minutes', and hard-codes '26th North Carolina lost the most men (588)'; :330 'outcome' is a literal sentence; :335-337 'when' prints 'Day 3, 11:05am (site clock): PICKETT'S CHARGE BEGINS.' which finding 12 forbids.",
+   "fix": "Add gold rows asserting the corrected answers (8th Virginia 76.7%), a forbidden-string list ('site clock', ' -- ', clock times from the time field), and derive all facts from facts.v1.json rather than literals."
+  },
+  {
+   "title": "Over-broad ancestor intent regex mis-answers presence questions",
+   "severity": "medium",
+   "evidence": "proto.js:195 ancestor rule 'was .* at gettysburg' routes 'was Longstreet at Gettysburg' (refused) and 'was the 20th Maine at Gettysburg' (answered) to the 'Find Your Ancestor ... your ancestor's regiment' template; reproduced via answer(idx, q).",
+   "fix": "Require a personal-relation cue (my, grandfather, relative, soldier named) or an unlinked person name for ancestor intent; a linked commander/unit plus 'was ... at Gettysburg' gets a presence answer (days engaged, commander, casualties); add negative tests to the intent suite."
+  },
+  {
+   "title": "Existing bug in the in-app Search Units panel: sort toggle drops commander matching",
+   "severity": "low",
+   "evidence": "bundle.pretty.js:98753-98776 (st) filters on id, designation, state and commander (Jt at :98764); the sort handler kt at :98790-98805 filters on id, designation and state only. Typing a commander name (e.g. Chamberlain) then clicking Sort > Casualties empties the list. Found by code reading; browser tools not permitted.",
+   "fix": "Fold into the shared search-core migration (finding 15), or patch kt to include the commander test."
+  },
+  {
+   "title": "Build-validator sequencing and cache path for the built index",
+   "severity": "low",
+   "evidence": "Rule 'build fails when any units_involved id does not resolve' fails on day one: 5 chronology ids do not resolve (C-CAV, U-ART-RES, C-CAV-1, C-CAV-2, C-CAV-5; data-integrity R001 also counts 5) plus 95 placed ids. A content-hashed /data/historian/index.<hash>.json still inherits Cache-Control public,max-age=3600 (netlify.toml:28-30).",
+   "fix": "Land the unit_aliases.json crosswalk in the same change or allow-list with expiry; add a for=/data/historian/* immutable header rule or publish the hashed index under /assets/."
+  }
+ ]
+}

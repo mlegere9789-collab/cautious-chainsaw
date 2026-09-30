@@ -1,0 +1,4324 @@
+{
+ "title": "Integrated roadmap for gettysburginteractivemap.com",
+ "status": "PLAN ONLY, 2026-09-30; nothing built or deployed",
+ "assumptions": {
+  "day": "8 hours of owner attention including review (chapter 03 A1)",
+  "throughput": "net days per week = (hours per week minus operations hours) / 8; operations ramp 0 until R0, then 3, 6, 10 h per month",
+  "unassisted_multiplier": "1.5 (range 1.3-1.7; chapter 03 A5)",
+  "start": "2026-10-05",
+  "excluded": "reviewer hours (155-226 h for the A-line), counsel fees, external evaluation, devices, owner minutes of section 2 of the register"
+ },
+ "paths": {
+  "survival": {
+   "low": 22.5,
+   "high": 39.1
+  },
+  "legacy_A_line": {
+   "low": 173.3,
+   "high": 301.6
+  },
+  "grade_A": {
+   "low": 434.2,
+   "high": 737.9
+  },
+  "full_A_plus": {
+   "low": 552.7,
+   "high": 938.6
+  },
+  "deferred_tier2_depth": {
+   "low": 45.3,
+   "high": 78.8
+  },
+  "optional_pool": {
+   "low": 131.0,
+   "high": 218.0
+  }
+ },
+ "calendar_end_dates": {
+  "10h_per_week": {
+   "survival": {
+    "lo": "2027-02-12",
+    "mid": "2027-04-01",
+    "hi": "2027-05-19"
+   },
+   "legacy_A_line": {
+    "lo": "2029-10-01",
+    "mid": "2030-11-10",
+    "hi": "2031-12-20"
+   },
+   "grade_A": {
+    "lo": "2034-11-13",
+    "mid": "2037-09-11",
+    "hi": "2040-07-10"
+   },
+   "full_A_plus": {
+    "lo": "2037-03-24",
+    "mid": "2040-11-15",
+    "hi": "2044-07-09"
+   }
+  },
+  "15h_per_week": {
+   "survival": {
+    "lo": "2026-12-30",
+    "mid": "2027-01-30",
+    "hi": "2027-03-03"
+   },
+   "legacy_A_line": {
+    "lo": "2028-09-03",
+    "mid": "2029-05-19",
+    "hi": "2030-02-02"
+   },
+   "grade_A": {
+    "lo": "2031-10-17",
+    "mid": "2033-07-20",
+    "hi": "2035-04-22"
+   },
+   "full_A_plus": {
+    "lo": "2033-03-22",
+    "mid": "2035-06-23",
+    "hi": "2037-09-23"
+   }
+  },
+  "30h_per_week": {
+   "survival": {
+    "lo": "2026-11-16",
+    "mid": "2026-12-02",
+    "hi": "2026-12-18"
+   },
+   "legacy_A_line": {
+    "lo": "2027-09-06",
+    "mid": "2028-01-08",
+    "hi": "2028-05-11"
+   },
+   "grade_A": {
+    "lo": "2029-02-12",
+    "mid": "2029-12-10",
+    "hi": "2030-10-06"
+   },
+   "full_A_plus": {
+    "lo": "2029-10-09",
+    "mid": "2030-10-28",
+    "hi": "2031-11-16"
+   }
+  }
+ },
+ "critical_paths_dependency_only": {
+  "S": [
+   "RM-01",
+   "RM-02",
+   "RM-05",
+   "RM-06",
+   "RM-09",
+   "RM-10"
+  ],
+  "L": [
+   "RM-01",
+   "RM-02",
+   "RM-05",
+   "RM-06",
+   "RM-16",
+   "RM-23",
+   "RM-24",
+   "RM-25",
+   "RM-30"
+  ],
+  "A": [
+   "RM-01",
+   "RM-02",
+   "RM-52",
+   "RM-57",
+   "RM-58",
+   "RM-63",
+   "RM-64",
+   "RM-65",
+   "RM-70",
+   "RM-89"
+  ]
+ },
+ "tranches": {
+  "P0": "Ground truth (no bytes shipped)",
+  "P1": "R0 mechanism release",
+  "P2": "R1 legacy hotfix trains (Tranche 0 complete)",
+  "P3": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+  "P4": "Rebuild foundations",
+  "P5": "Rebuild ports, Tier-1/2 depth, cutover",
+  "P6": "Proof and A+ evidence",
+  "P7": "Optional and conditional pool (unscheduled)"
+ },
+ "nodes": [
+  {
+   "id": "RM-01",
+   "title": "Owner console, accounts, keys, archive and capacity statement",
+   "chapter": [
+    "01",
+    "02",
+    "09",
+    "10",
+    "13"
+   ],
+   "effort": {
+    "low": 3.5,
+    "high": 6.5,
+    "mid": 5.0,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [],
+   "tranche": "P0",
+   "tranche_name": "Ground truth (no bytes shipped)",
+   "category": [
+    "security and privacy",
+    "reliability",
+    "SEO"
+   ],
+   "primary_category": "security and privacy",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 0.6,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-T0-01, WP-T0-17, WP-ARCH-01, WP-INFRA-01/02, WP-INFRA-03 (steps 1,2,5), WP-INFRA-04 (step 1), WP-SEO-01, WP-DEC-15",
+   "audit_ids": [
+    "N1",
+    "X1",
+    "X2",
+    "T1"
+   ]
+  },
+  {
+   "id": "RM-02",
+   "title": "Private repo, publish-dir isolation, staging site, Git-deploy byte-identity, CI skeleton, registries, gitleaks, ADR files",
+   "chapter": [
+    "02",
+    "03",
+    "09",
+    "12"
+   ],
+   "effort": {
+    "low": 3.75,
+    "high": 7,
+    "mid": 5.38,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-01"
+   ],
+   "tranche": "P0",
+   "tranche_name": "Ground truth (no bytes shipped)",
+   "category": [
+    "reliability",
+    "security and privacy"
+   ],
+   "primary_category": "reliability",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 0.65,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-T0-02, WP-ARCH-02, WP-INFRA-09A/05/13, WP-QA-01, WP-DEC-17",
+   "audit_ids": [
+    "N1"
+   ]
+  },
+  {
+   "id": "RM-03",
+   "title": "Decision ratification: 11 class-B ADRs, capacity contract, WBS upkeep",
+   "chapter": [
+    "01"
+   ],
+   "effort": {
+    "low": 1,
+    "high": 2,
+    "mid": 1.5,
+    "size": "M",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-01"
+   ],
+   "tranche": "P0",
+   "tranche_name": "Ground truth (no bytes shipped)",
+   "category": [
+    "reliability"
+   ],
+   "primary_category": "reliability",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 0.5,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "D-SCOPE-TIERS, WP-DEC-14",
+   "audit_ids": [
+    "N1"
+   ]
+  },
+  {
+   "id": "RM-04",
+   "title": "Reviewer and second-reader recruitment, charter, permission emails, provenance answers",
+   "chapter": [
+    "01",
+    "04",
+    "13",
+    "14"
+   ],
+   "effort": {
+    "low": 1,
+    "high": 2,
+    "mid": 1.5,
+    "size": "M",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-01"
+   ],
+   "tranche": "P0",
+   "tranche_name": "Ground truth (no bytes shipped)",
+   "category": [
+    "data accuracy",
+    "Historian"
+   ],
+   "primary_category": "data accuracy",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-DEC-10, register actions 8 and 10",
+   "audit_ids": [
+    "C4",
+    "H10"
+   ]
+  },
+  {
+   "id": "RM-05",
+   "title": "Real-tile measurement harness and baseline of record (CDP Referer injection; boot-contract spike)",
+   "chapter": [
+    "05",
+    "01"
+   ],
+   "effort": {
+    "low": 3,
+    "high": 4,
+    "mid": 3.5,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-02"
+   ],
+   "tranche": "P1",
+   "tranche_name": "R0 mechanism release",
+   "category": [
+    "performance"
+   ],
+   "primary_category": "performance",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0.5,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-PERF-01, WP-DEC-01",
+   "audit_ids": [
+    "P1",
+    "P7"
+   ]
+  },
+  {
+   "id": "RM-06",
+   "title": "R0 mechanism release: patch runner, hashed names (entry and both lazy chunks), no-reload SW plus kill switch, boot-after-paint loader, intro deleted",
+   "chapter": [
+    "02",
+    "05",
+    "09",
+    "04",
+    "12"
+   ],
+   "effort": {
+    "low": 4.5,
+    "high": 8,
+    "mid": 6.25,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-02",
+    "RM-05"
+   ],
+   "tranche": "P1",
+   "tranche_name": "R0 mechanism release",
+   "category": [
+    "performance",
+    "reliability"
+   ],
+   "primary_category": "performance",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 1,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-T0-03/04/05, WP-INFRA-22, WP-PERF-05/25, WP-PERF-24 (subset), WP-TIME-21",
+   "audit_ids": [
+    "C6",
+    "P1",
+    "P5",
+    "H3",
+    "N1"
+   ]
+  },
+  {
+   "id": "RM-07",
+   "title": "R0 acceptance drills: first-visit, seeded old-SW upgrade, kill switch, rename drill, minimal Playwright base",
+   "chapter": [
+    "12",
+    "02"
+   ],
+   "effort": {
+    "low": 4.5,
+    "high": 6.5,
+    "mid": 5.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-02"
+   ],
+   "tranche": "P1",
+   "tranche_name": "R0 mechanism release",
+   "category": [
+    "reliability"
+   ],
+   "primary_category": "reliability",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0.65,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-QA-07, WP-QA-04 (base slice), WP-T0-18 (R0 part)",
+   "audit_ids": [
+    "C6",
+    "P5",
+    "N1"
+   ]
+  },
+  {
+   "id": "RM-08",
+   "title": "Safety-net remainder: static gates, probe cron, tap/layout detectors, LH assert, clock lint, scorecard skeleton, journeys",
+   "chapter": [
+    "12",
+    "02"
+   ],
+   "effort": {
+    "low": 4.5,
+    "high": 6.5,
+    "mid": 5.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-07"
+   ],
+   "tranche": "P2",
+   "tranche_name": "R1 legacy hotfix trains (Tranche 0 complete)",
+   "category": [
+    "reliability"
+   ],
+   "primary_category": "reliability",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0.65,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-QA-02/03/05/06/09/23 (MVSN slices), WP-T0-18 (journeys)",
+   "audit_ids": [
+    "N1",
+    "C1",
+    "C2"
+   ]
+  },
+  {
+   "id": "RM-09",
+   "title": "T0 group A: gold trail C5, sound removal, pointer capture, monuments loop, keys/Esc, storage guards, attribution, error boundary",
+   "chapter": [
+    "02",
+    "06"
+   ],
+   "effort": {
+    "low": 1,
+    "high": 1.75,
+    "mid": 1.38,
+    "size": "M",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-06",
+    "RM-07"
+   ],
+   "tranche": "P2",
+   "tranche_name": "R1 legacy hotfix trains (Tranche 0 complete)",
+   "category": [
+    "function",
+    "reliability",
+    "security and privacy"
+   ],
+   "primary_category": "function",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 1,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-T0-06, WP-UX-01 (part), AMD-T0-1",
+   "audit_ids": [
+    "C5",
+    "H2",
+    "X1"
+   ]
+  },
+  {
+   "id": "RM-10",
+   "title": "T0 mobile shell: overlays unmounted on mobile, panels, 14 Tools tiles, dock, landscape, dvh, layout auto-detect",
+   "chapter": [
+    "02",
+    "06",
+    "07"
+   ],
+   "effort": {
+    "low": 4,
+    "high": 7,
+    "mid": 5.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-09"
+   ],
+   "tranche": "P2",
+   "tranche_name": "R1 legacy hotfix trains (Tranche 0 complete)",
+   "category": [
+    "function",
+    "fit and finish",
+    "UX"
+   ],
+   "primary_category": "function",
+   "device_impact": "mobile",
+   "path_fraction": {
+    "survival": 0.6,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-T0-08, WP-UX-01/02/03 (net)",
+   "audit_ids": [
+    "C1",
+    "C2",
+    "H1",
+    "H3",
+    "D2"
+   ]
+  },
+  {
+   "id": "RM-11",
+   "title": "T0 clock and data: date +2 fix, Day 2/3 load on jump, merge fix, i2 carry-forward, minimap subscription",
+   "chapter": [
+    "02",
+    "04"
+   ],
+   "effort": {
+    "low": 1,
+    "high": 2,
+    "mid": 1.5,
+    "size": "M",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-09"
+   ],
+   "tranche": "P2",
+   "tranche_name": "R1 legacy hotfix trains (Tranche 0 complete)",
+   "category": [
+    "function",
+    "data accuracy"
+   ],
+   "primary_category": "function",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0.5,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-T0-07, WP-TIME-01",
+   "audit_ids": [
+    "C3",
+    "D3",
+    "H11"
+   ]
+  },
+  {
+   "id": "RM-12",
+   "title": "T0 deep-link reader, moments.json v0, Turning Points anchors, emitters repointed",
+   "chapter": [
+    "02",
+    "06",
+    "08a",
+    "08b",
+    "04"
+   ],
+   "effort": {
+    "low": 3,
+    "high": 5,
+    "mid": 4.0,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-11"
+   ],
+   "tranche": "P2",
+   "tranche_name": "R1 legacy hotfix trains (Tranche 0 complete)",
+   "category": [
+    "function",
+    "UX"
+   ],
+   "primary_category": "function",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0.35,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-T0-09, WP-UX-04/05 (T0 part), WP-PAGE-03, WP-PAGEC-03, WP-PAGEC-18 (part), WP-TIME-05 (v0)",
+   "audit_ids": [
+    "H3",
+    "H4",
+    "D3"
+   ]
+  },
+  {
+   "id": "RM-13",
+   "title": "T0 accessibility bridge: 13 bundle patches, shell shim, skip link, 12 px floor, contrast, button-reset and sprite-id fixes",
+   "chapter": [
+    "02",
+    "07",
+    "08a"
+   ],
+   "effort": {
+    "low": 3.5,
+    "high": 5.5,
+    "mid": 4.5,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-10"
+   ],
+   "tranche": "P2",
+   "tranche_name": "R1 legacy hotfix trains (Tranche 0 complete)",
+   "category": [
+    "accessibility",
+    "fit and finish"
+   ],
+   "primary_category": "accessibility",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-T0-10/11, WP-A11Y-01/02/03, WP-PAGE-01/02, WP-UX-06",
+   "audit_ids": [
+    "C7",
+    "C8",
+    "A1-A6",
+    "D2"
+   ]
+  },
+  {
+   "id": "RM-14",
+   "title": "Page hotfix core: Watch Together XSS, AR hidden, dev pages removed, Historian undefined, dashboard/search/report defects, map sub-pages non-blocking",
+   "chapter": [
+    "02",
+    "08a",
+    "08b",
+    "11",
+    "14"
+   ],
+   "effort": {
+    "low": 6,
+    "high": 9,
+    "mid": 7.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-06"
+   ],
+   "tranche": "P2",
+   "tranche_name": "R1 legacy hotfix trains (Tranche 0 complete)",
+   "category": [
+    "security and privacy",
+    "function",
+    "documentation",
+    "Historian"
+   ],
+   "primary_category": "security and privacy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0.35,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-T0-12/13, WP-PAGEC-12/15/24/34 (Labs containment, dev pages), WP-INFRA-28, WP-CONTENT-01, WP-HIST-01, WP-PERF-19, WP-PAGE-16 (part), WP-PAGE-20 (part)",
+   "audit_ids": [
+    "C7",
+    "C8",
+    "H7",
+    "H8",
+    "S1",
+    "S4",
+    "X4"
+   ]
+  },
+  {
+   "id": "RM-15",
+   "title": "Interim OG card, manifest fixes, media-rights register, GSC verification file",
+   "chapter": [
+    "02",
+    "09",
+    "10"
+   ],
+   "effort": {
+    "low": 2.5,
+    "high": 4.5,
+    "mid": 3.5,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-06"
+   ],
+   "tranche": "P2",
+   "tranche_name": "R1 legacy hotfix trains (Tranche 0 complete)",
+   "category": [
+    "SEO"
+   ],
+   "primary_category": "SEO",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-T0-14, WP-DEC-09, WP-INFRA-23 (minimal), WP-SEO-04/07",
+   "audit_ids": [
+    "T1",
+    "E1"
+   ]
+  },
+  {
+   "id": "RM-16",
+   "title": "R1 headers: embed class, dev-page twins, netlify.app host 301, CSP-RO host list",
+   "chapter": [
+    "02",
+    "09",
+    "10",
+    "08b"
+   ],
+   "effort": {
+    "low": 2,
+    "high": 3.5,
+    "mid": 2.75,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-06",
+    "RM-05"
+   ],
+   "tranche": "P2",
+   "tranche_name": "R1 legacy hotfix trains (Tranche 0 complete)",
+   "category": [
+    "security and privacy",
+    "SEO"
+   ],
+   "primary_category": "security and privacy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-T0-15, WP-INFRA-14, WP-SEO-03, WP-PAGEC-31, WP-DEC-05",
+   "audit_ids": [
+    "X3",
+    "X4",
+    "T3"
+   ]
+  },
+  {
+   "id": "RM-17",
+   "title": "Truthful-copy subset (16 bundle rows, 3 Help rows, banner) and copy_lint in warn mode",
+   "chapter": [
+    "02",
+    "11"
+   ],
+   "effort": {
+    "low": 1,
+    "high": 2,
+    "mid": 1.5,
+    "size": "M",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-06"
+   ],
+   "tranche": "P2",
+   "tranche_name": "R1 legacy hotfix trains (Tranche 0 complete)",
+   "category": [
+    "documentation"
+   ],
+   "primary_category": "documentation",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-T0-16, WP-CONTENT-02 (R1 rows), WP-CONTENT-06 (warn), WP-A11Y-23 (copy and dead code)",
+   "audit_ids": [
+    "H7",
+    "H8",
+    "H10"
+   ]
+  },
+  {
+   "id": "RM-18",
+   "title": "R1 legacy performance increment: idle CPU to zero, shell CLS, one map on phones, Day-data stage 1",
+   "chapter": [
+    "05"
+   ],
+   "effort": {
+    "low": 3.25,
+    "high": 6.5,
+    "mid": 4.88,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-09",
+    "RM-11"
+   ],
+   "tranche": "P2",
+   "tranche_name": "R1 legacy hotfix trains (Tranche 0 complete)",
+   "category": [
+    "performance"
+   ],
+   "primary_category": "performance",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-PERF-06/07/08/09 (stage 1)",
+   "audit_ids": [
+    "P1",
+    "P3"
+   ]
+  },
+  {
+   "id": "RM-19",
+   "title": "Interim privacy correction and data-flow inventory",
+   "chapter": [
+    "09",
+    "01"
+   ],
+   "effort": {
+    "low": 0.5,
+    "high": 1.5,
+    "mid": 1.0,
+    "size": "M",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-01"
+   ],
+   "tranche": "P2",
+   "tranche_name": "R1 legacy hotfix trains (Tranche 0 complete)",
+   "category": [
+    "security and privacy",
+    "documentation"
+   ],
+   "primary_category": "security and privacy",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 1,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-INFRA-26, WP-DEC-07",
+   "audit_ids": [
+    "X5"
+   ]
+  },
+  {
+   "id": "RM-20",
+   "title": "Contact architecture: role addresses, forwarder, DMARC ladder, security.txt, Report-a-problem intake",
+   "chapter": [
+    "09",
+    "01",
+    "11"
+   ],
+   "effort": {
+    "low": 1.5,
+    "high": 3.25,
+    "mid": 2.38,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-01"
+   ],
+   "tranche": "P2",
+   "tranche_name": "R1 legacy hotfix trains (Tranche 0 complete)",
+   "category": [
+    "security and privacy",
+    "documentation"
+   ],
+   "primary_category": "security and privacy",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 0.65,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-INFRA-20/21, WP-DEC-06",
+   "audit_ids": [
+    "X5",
+    "T2"
+   ]
+  },
+  {
+   "id": "RM-21",
+   "title": "Release pipeline: production fast-forward, rollback drill, versioning, Netlify environments, runbooks",
+   "chapter": [
+    "12",
+    "09",
+    "02"
+   ],
+   "effort": {
+    "low": 4,
+    "high": 6.5,
+    "mid": 5.25,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-02",
+    "RM-07"
+   ],
+   "tranche": "P2",
+   "tranche_name": "R1 legacy hotfix trains (Tranche 0 complete)",
+   "category": [
+    "reliability"
+   ],
+   "primary_category": "reliability",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0.6,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-QA-16, WP-INFRA-09B, WP-T0-19",
+   "audit_ids": [
+    "N1"
+   ]
+  },
+  {
+   "id": "RM-22",
+   "title": "Page hotfix extended: Dashboard, Search, Report/Regiment, Compare, Camera, Documentary, High Ground, Ground",
+   "chapter": [
+    "08a",
+    "08b"
+   ],
+   "effort": {
+    "low": 7,
+    "high": 11,
+    "mid": 9.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-14"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "function",
+    "UX",
+    "fit and finish"
+   ],
+   "primary_category": "function",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0.6,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-PAGE-16/20/23/30/38/44/46 and remaining Wave-0 items, WP-PAGEC-30 (404 recovery)",
+   "audit_ids": [
+    "S1",
+    "S2",
+    "S4",
+    "H8"
+   ]
+  },
+  {
+   "id": "RM-23",
+   "title": "Header and redirect generator emitting every rule for both URL spellings; caching classes; hashed data paths",
+   "chapter": [
+    "09",
+    "12",
+    "10"
+   ],
+   "effort": {
+    "low": 3,
+    "high": 5.5,
+    "mid": 4.25,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-16"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "security and privacy",
+    "SEO",
+    "performance"
+   ],
+   "primary_category": "security and privacy",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-INFRA-10/11, WP-QA-03 (rest), WP-PERF-24",
+   "audit_ids": [
+    "T3",
+    "X3",
+    "X4"
+   ]
+  },
+  {
+   "id": "RM-24",
+   "title": "Train S1: extensionless canonical form, sitemap index, robots and AI-crawler policy, IndexNow, OG/twitter parity",
+   "chapter": [
+    "10",
+    "09"
+   ],
+   "effort": {
+    "low": 3.5,
+    "high": 6.5,
+    "mid": 5.0,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-23",
+    "RM-15",
+    "RM-01"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "SEO"
+   ],
+   "primary_category": "SEO",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-SEO-05/06, WP-INFRA-12",
+   "audit_ids": [
+    "T3",
+    "E5",
+    "E1"
+   ]
+  },
+  {
+   "id": "RM-25",
+   "title": "Train S2: product name, titles, descriptions, home JSON-LD, trust-pack links, in-app names",
+   "chapter": [
+    "10",
+    "11",
+    "06"
+   ],
+   "effort": {
+    "low": 6,
+    "high": 11,
+    "mid": 8.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-24"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "SEO",
+    "documentation"
+   ],
+   "primary_category": "SEO",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-SEO-08/09/12, WP-CONTENT-07, WP-CONTENT-02 (S2 rows), WP-UX-29, WP-SEO-11 (link graph, breadcrumbs, link CI)",
+   "audit_ids": [
+    "E2",
+    "E3",
+    "H7"
+   ]
+  },
+  {
+   "id": "RM-26",
+   "title": "First-party collector /api/ingest, vitals client, RUM operations, bot policy, SEO events",
+   "chapter": [
+    "09",
+    "05",
+    "10",
+    "12"
+   ],
+   "effort": {
+    "low": 6.5,
+    "high": 12,
+    "mid": 9.25,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-19",
+    "RM-21",
+    "RM-23"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "performance",
+    "security and privacy",
+    "SEO"
+   ],
+   "primary_category": "performance",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-INFRA-15/29, WP-PERF-03/04, WP-QA-17, WP-SEO-13",
+   "audit_ids": [
+    "P1",
+    "P7",
+    "T2"
+   ]
+  },
+  {
+   "id": "RM-27",
+   "title": "CSP stages 0-2 in report-only with a working collector; third-party script origins",
+   "chapter": [
+    "09",
+    "12"
+   ],
+   "effort": {
+    "low": 2.5,
+    "high": 5.5,
+    "mid": 4.0,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-26",
+    "RM-23"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "security and privacy"
+   ],
+   "primary_category": "security and privacy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0.6,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-INFRA-16/19, WP-PAGEC-04, WP-PAGE-12 (part)",
+   "audit_ids": [
+    "X3"
+   ]
+  },
+  {
+   "id": "RM-28",
+   "title": "Operations: monitoring, alerts, synthetic monitors, scheduled drills, test health",
+   "chapter": [
+    "09",
+    "12"
+   ],
+   "effort": {
+    "low": 4,
+    "high": 7,
+    "mid": 5.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-21"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "reliability"
+   ],
+   "primary_category": "reliability",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0.6,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-INFRA-08, WP-QA-18/25, WP-T0-19 (rest)",
+   "audit_ids": [
+    "T2",
+    "N1"
+   ]
+  },
+  {
+   "id": "RM-29",
+   "title": "Continuity and vendor register: backups, second remote, delegate letter, vendor triggers, lite snapshot",
+   "chapter": [
+    "09",
+    "01"
+   ],
+   "effort": {
+    "low": 2.5,
+    "high": 5.5,
+    "mid": 4.0,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-02",
+    "RM-01"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "reliability"
+   ],
+   "primary_category": "reliability",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-INFRA-06/07, WP-DEC-13",
+   "audit_ids": [
+    "N1"
+   ]
+  },
+  {
+   "id": "RM-30",
+   "title": "Train S3: static landing at /, app moved to /map, forwarder, keep/revert measurement, landing performance",
+   "chapter": [
+    "10",
+    "05",
+    "11"
+   ],
+   "effort": {
+    "low": 5,
+    "high": 8.5,
+    "mid": 6.75,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-25",
+    "RM-26",
+    "RM-05"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "SEO",
+    "UX",
+    "performance"
+   ],
+   "primary_category": "SEO",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-SEO-10, WP-PERF-27, WP-CONTENT-13 (landing copy)",
+   "audit_ids": [
+    "E3",
+    "E4",
+    "T1"
+   ]
+  },
+  {
+   "id": "RM-31",
+   "title": "Data authoring repo, versioning (data_version, dv), schemas, 60-rule validator, ratchet, CI",
+   "chapter": [
+    "13",
+    "12",
+    "03"
+   ],
+   "effort": {
+    "low": 8,
+    "high": 13,
+    "mid": 10.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-02"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "data accuracy",
+    "reliability"
+   ],
+   "primary_category": "data accuracy",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0.6,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-DATA-01/02/03, WP-QA-11 (wiring), WP-ARCH-11 (unique part)",
+   "audit_ids": [
+    "N1",
+    "H10"
+   ]
+  },
+  {
+   "id": "RM-32",
+   "title": "Data compat drop 1.0.1 (value-only, after R0)",
+   "chapter": [
+    "13"
+   ],
+   "effort": {
+    "low": 1,
+    "high": 1.5,
+    "mid": 1.25,
+    "size": "M",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-31",
+    "RM-06"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "data accuracy"
+   ],
+   "primary_category": "data accuracy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-DATA-09",
+   "audit_ids": [
+    "C7",
+    "H7"
+   ]
+  },
+  {
+   "id": "RM-33",
+   "title": "Data identity: unit registry, ID crosswalk, OOB completion (VI Corps), unit index, batteries searchable",
+   "chapter": [
+    "13",
+    "08a"
+   ],
+   "effort": {
+    "low": 8,
+    "high": 12,
+    "mid": 10.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-31"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "data accuracy",
+    "function"
+   ],
+   "primary_category": "data accuracy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0.8,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-DATA-06/07/20, WP-HIST-05 (crosswalk share)",
+   "audit_ids": [
+    "H5",
+    "H7",
+    "H10"
+   ]
+  },
+  {
+   "id": "RM-34",
+   "title": "Numbers and casualty authority (A-line part), retire 467/445+/51,000",
+   "chapter": [
+    "13",
+    "11"
+   ],
+   "effort": {
+    "low": 2.5,
+    "high": 4,
+    "mid": 3.25,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-33",
+    "RM-04"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "data accuracy",
+    "documentation"
+   ],
+   "primary_category": "data accuracy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-DATA-08 (a-c)",
+   "audit_ids": [
+    "H10",
+    "C7"
+   ]
+  },
+  {
+   "id": "RM-35",
+   "title": "Rights: source registry, tier gate, provenance retro-audit, dispositions, counsel questions",
+   "chapter": [
+    "13",
+    "14",
+    "09"
+   ],
+   "effort": {
+    "low": 3.5,
+    "high": 6.5,
+    "mid": 5.0,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-31",
+    "RM-04"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "security and privacy",
+    "data accuracy"
+   ],
+   "primary_category": "security and privacy",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0.7,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-HIST-02, WP-DATA-04/05",
+   "audit_ids": [
+    "X5"
+   ]
+  },
+  {
+   "id": "RM-36",
+   "title": "Legal pack: merged Privacy and Terms, counsel packet, data controls, Privacy-and-data panel wiring",
+   "chapter": [
+    "09",
+    "08b",
+    "11"
+   ],
+   "effort": {
+    "low": 3.5,
+    "high": 6.5,
+    "mid": 5.0,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-19",
+    "RM-20",
+    "RM-35"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "security and privacy",
+    "documentation"
+   ],
+   "primary_category": "security and privacy",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0.6,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-INFRA-27, WP-DEC-08, WP-CONTENT-24, WP-PAGEC-29, WP-HIST-34",
+   "audit_ids": [
+    "X5"
+   ]
+  },
+  {
+   "id": "RM-37",
+   "title": "Copy foundation: facts.json, features/glossary parity, style guide, copy lint, catalogue, in-app Help and About",
+   "chapter": [
+    "11"
+   ],
+   "effort": {
+    "low": 9.0,
+    "high": 15,
+    "mid": 12.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-17",
+    "RM-31"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "documentation"
+   ],
+   "primary_category": "documentation",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0.5,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-CONTENT-04/05/06/12/13, WP-PAGE-14 (net of CONTENT-06)",
+   "audit_ids": [
+    "H7",
+    "H8",
+    "H10"
+   ]
+  },
+  {
+   "id": "RM-38",
+   "title": "Data text hygiene, unit census, headline-figure and quotation adjudication",
+   "chapter": [
+    "11",
+    "13"
+   ],
+   "effort": {
+    "low": 6.5,
+    "high": 12.0,
+    "mid": 9.25,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-33",
+    "RM-37"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "data accuracy",
+    "documentation"
+   ],
+   "primary_category": "data accuracy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0.8,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-CONTENT-03/08, WP-DATA-17/19, WP-PAGE-09 (net of DATA-19/20)",
+   "audit_ids": [
+    "H7",
+    "H10",
+    "C7"
+   ]
+  },
+  {
+   "id": "RM-39",
+   "title": "Trust pages: About, Sources and Methods, Corrections, Contact, Accessibility statement, FAQ, changelog",
+   "chapter": [
+    "11",
+    "13",
+    "07",
+    "14"
+   ],
+   "effort": {
+    "low": 12,
+    "high": 20,
+    "mid": 16.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-20",
+    "RM-35",
+    "RM-04"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "documentation",
+    "SEO"
+   ],
+   "primary_category": "documentation",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0.35,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-CONTENT-14..20, WP-DATA-22, WP-A11Y-31, WP-HIST-33",
+   "audit_ids": [
+    "G1",
+    "X5"
+   ]
+  },
+  {
+   "id": "RM-40",
+   "title": "Historian P0: /hx/ platform, fetch and OCR normaliser, entity registry, build and CI, eval harness, governance",
+   "chapter": [
+    "14",
+    "09"
+   ],
+   "effort": {
+    "low": 8,
+    "high": 15.5,
+    "mid": 11.75,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-06",
+    "RM-35"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "Historian"
+   ],
+   "primary_category": "Historian",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-HIST-03..07/33-36 (share), WP-INFRA-34",
+   "audit_ids": [
+    "H8"
+   ]
+  },
+  {
+   "id": "RM-41",
+   "title": "Historian P1: search-core, entities and facts tier, composers and linter, UI v2 with page UI",
+   "chapter": [
+    "14",
+    "08b"
+   ],
+   "effort": {
+    "low": 12,
+    "high": 18,
+    "mid": 15.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-40",
+    "RM-14"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "Historian",
+    "UX",
+    "accessibility"
+   ],
+   "primary_category": "Historian",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-HIST-08..11, WP-PAGEC-06/07/08, WP-PERF-23, WP-A11Y-26, WP-INFRA-34 (reservations)",
+   "audit_ids": [
+    "H8",
+    "A2",
+    "A3"
+   ]
+  },
+  {
+   "id": "RM-42",
+   "title": "Reviewer programme: queue, review states, public surfaces, review packets, decisions.jsonl",
+   "chapter": [
+    "04",
+    "13",
+    "14"
+   ],
+   "effort": {
+    "low": 2.5,
+    "high": 6,
+    "mid": 4.25,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-04"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "data accuracy",
+    "Historian"
+   ],
+   "primary_category": "data accuracy",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-TIME-04, WP-DEC-11, WP-DATA-23, WP-HIST-35",
+   "audit_ids": [
+    "C4",
+    "H10"
+   ]
+  },
+  {
+   "id": "RM-43",
+   "title": "Time module: 33-anchor piecewise clock, schemas, golden tick-clock, validators TM-V1..V21",
+   "chapter": [
+    "04",
+    "12"
+   ],
+   "effort": {
+    "low": 7,
+    "high": 12.5,
+    "mid": 9.75,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-02"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "data accuracy",
+    "function"
+   ],
+   "primary_category": "data accuracy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-TIME-02/03/06/20, WP-ARCH-13, WP-QA-09 (rest)",
+   "audit_ids": [
+    "C3",
+    "C4",
+    "H9"
+   ]
+  },
+  {
+   "id": "RM-44",
+   "title": "Clock on the legacy app (bridge patch on all surfaces) plus truthful clock copy",
+   "chapter": [
+    "04",
+    "11"
+   ],
+   "effort": {
+    "low": 4.75,
+    "high": 9,
+    "mid": 6.88,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-43",
+    "RM-42",
+    "RM-06"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "data accuracy",
+    "function",
+    "documentation"
+   ],
+   "primary_category": "data accuracy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-TIME-10 (bridge), WP-TIME-16, WP-CONTENT-09 (stage B)",
+   "audit_ids": [
+    "C3",
+    "C4",
+    "H9"
+   ]
+  },
+  {
+   "id": "RM-45",
+   "title": "Content triage: wrong-day, misordered, composite events, quotations, arrival audit and kinematics",
+   "chapter": [
+    "04"
+   ],
+   "effort": {
+    "low": 5,
+    "high": 9,
+    "mid": 7.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-42",
+    "RM-43"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "data accuracy",
+    "Historian"
+   ],
+   "primary_category": "data accuracy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0.7,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-TIME-07/08/09",
+   "audit_ids": [
+    "C4"
+   ]
+  },
+  {
+   "id": "RM-46",
+   "title": "Performance budgets, ratchet, lab gates, INP harness and real-device runs",
+   "chapter": [
+    "05",
+    "12"
+   ],
+   "effort": {
+    "low": 5,
+    "high": 9,
+    "mid": 7.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-05",
+    "RM-08"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "performance"
+   ],
+   "primary_category": "performance",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0.6,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-PERF-02/17, WP-QA-06 (rest), WP-QA-13",
+   "audit_ids": [
+    "P7"
+   ]
+  },
+  {
+   "id": "RM-47",
+   "title": "Motion data: densification tooling, keyframe campaign wave 1, hold and interpolation policy",
+   "chapter": [
+    "13"
+   ],
+   "effort": {
+    "low": 6,
+    "high": 10,
+    "mid": 8.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-43",
+    "RM-33"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "data accuracy"
+   ],
+   "primary_category": "data accuracy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0.7,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-DATA-10/11/12 (W1)",
+   "audit_ids": [
+    "C4",
+    "D3"
+   ]
+  },
+  {
+   "id": "RM-48",
+   "title": "Geometry, extents, places, terrain vs 3DEP, monuments extraction and rights (A part)",
+   "chapter": [
+    "13",
+    "08a"
+   ],
+   "effort": {
+    "low": 4,
+    "high": 6,
+    "mid": 5.0,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-31",
+    "RM-35"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "data accuracy"
+   ],
+   "primary_category": "data accuracy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0.7,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-DATA-14/15 (A part)",
+   "audit_ids": [
+    "H13",
+    "S3"
+   ]
+  },
+  {
+   "id": "RM-49",
+   "title": "SEO operations: KPI ledger, traffic-quality protocol, SEO CI suite and runbook",
+   "chapter": [
+    "10"
+   ],
+   "effort": {
+    "low": 2,
+    "high": 3.5,
+    "mid": 2.75,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-01"
+   ],
+   "tranche": "P3",
+   "tranche_name": "Legacy A-line web layer (S1-S3, data, Historian P1, clock bridge, trust)",
+   "category": [
+    "SEO"
+   ],
+   "primary_category": "SEO",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 1,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-SEO-02/30",
+   "audit_ids": [
+    "T1",
+    "T2"
+   ]
+  },
+  {
+   "id": "RM-50",
+   "title": "Spikes: map-engine facade (O1/O2/O3), unit-render benchmark on a real Android, verification-debt burn-down",
+   "chapter": [
+    "01",
+    "03",
+    "05"
+   ],
+   "effort": {
+    "low": 4,
+    "high": 7,
+    "mid": 5.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-05"
+   ],
+   "tranche": "P4",
+   "tranche_name": "Rebuild foundations",
+   "category": [
+    "performance",
+    "reliability"
+   ],
+   "primary_category": "performance",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-DEC-02/03/16, WP-ARCH-17 (counted in WP-DEC-02)",
+   "audit_ids": [
+    "P2",
+    "P7"
+   ]
+  },
+  {
+   "id": "RM-51",
+   "title": "Spec extraction, parity harness (T1/T2), hermetic legacy rig, quarry salvage, intended-diff registry",
+   "chapter": [
+    "03",
+    "12"
+   ],
+   "effort": {
+    "low": 12,
+    "high": 19,
+    "mid": 15.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-02",
+    "RM-07"
+   ],
+   "tranche": "P4",
+   "tranche_name": "Rebuild foundations",
+   "category": [
+    "reliability"
+   ],
+   "primary_category": "reliability",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-ARCH-03..08, WP-QA-19",
+   "audit_ids": [
+    "N1"
+   ]
+  },
+  {
+   "id": "RM-52",
+   "title": "Toolchain, build, chunk map and hash scheme, app CI gates, Astro spike",
+   "chapter": [
+    "03",
+    "01"
+   ],
+   "effort": {
+    "low": 6.5,
+    "high": 10.5,
+    "mid": 8.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-02"
+   ],
+   "tranche": "P4",
+   "tranche_name": "Rebuild foundations",
+   "category": [
+    "reliability",
+    "performance"
+   ],
+   "primary_category": "reliability",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-ARCH-09/10/31, WP-DEC-04/12, WP-PERF-12 (= WP-ARCH-10, counted once)",
+   "audit_ids": [
+    "N1",
+    "P2"
+   ]
+  },
+  {
+   "id": "RM-53",
+   "title": "Runtime data layer, storage layer and migration, hashed data delivery",
+   "chapter": [
+    "03",
+    "05",
+    "13"
+   ],
+   "effort": {
+    "low": 4,
+    "high": 8,
+    "mid": 6.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-31",
+    "RM-52"
+   ],
+   "tranche": "P4",
+   "tranche_name": "Rebuild foundations",
+   "category": [
+    "performance",
+    "data accuracy"
+   ],
+   "primary_category": "performance",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-ARCH-12, WP-DATA-21, WP-PERF-09 (stage 2), WP-PERF-22",
+   "audit_ids": [
+    "P3",
+    "D3"
+   ]
+  },
+  {
+   "id": "RM-54",
+   "title": "Pure keyframe engine (stateAt) with the signed carry-forward rule",
+   "chapter": [
+    "03",
+    "13"
+   ],
+   "effort": {
+    "low": 4.5,
+    "high": 8,
+    "mid": 6.25,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-43",
+    "RM-51"
+   ],
+   "tranche": "P4",
+   "tranche_name": "Rebuild foundations",
+   "category": [
+    "function",
+    "data accuracy"
+   ],
+   "primary_category": "function",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-ARCH-14, WP-DATA-10 (engine side)",
+   "audit_ids": [
+    "D3",
+    "H4"
+   ]
+  },
+  {
+   "id": "RM-55",
+   "title": "Store slices, playback clock, one lazy map behind a facade, GPU resilience, failure containment",
+   "chapter": [
+    "03",
+    "05"
+   ],
+   "effort": {
+    "low": 6.5,
+    "high": 11,
+    "mid": 8.75,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-52",
+    "RM-50"
+   ],
+   "tranche": "P4",
+   "tranche_name": "Rebuild foundations",
+   "category": [
+    "performance",
+    "reliability"
+   ],
+   "primary_category": "performance",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-ARCH-15/16/20, WP-PERF-10/11/13",
+   "audit_ids": [
+    "P1",
+    "P2"
+   ]
+  },
+  {
+   "id": "RM-56",
+   "title": "Unit renderer R1 (owned canvas, symbol-layer gate R2) and compositing budget",
+   "chapter": [
+    "03",
+    "05"
+   ],
+   "effort": {
+    "low": 5.5,
+    "high": 9,
+    "mid": 7.25,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-54",
+    "RM-55",
+    "RM-50"
+   ],
+   "tranche": "P4",
+   "tranche_name": "Rebuild foundations",
+   "category": [
+    "performance",
+    "function"
+   ],
+   "primary_category": "performance",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-ARCH-18, WP-PERF-14/16",
+   "audit_ids": [
+    "D3",
+    "P1"
+   ]
+  },
+  {
+   "id": "RM-57",
+   "title": "Design system: tokens, type scale, icons, motion, theming, component library, accessibility primitives",
+   "chapter": [
+    "06",
+    "07",
+    "08a"
+   ],
+   "effort": {
+    "low": 18.5,
+    "high": 31.5,
+    "mid": 25.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-52"
+   ],
+   "tranche": "P4",
+   "tranche_name": "Rebuild foundations",
+   "category": [
+    "fit and finish",
+    "accessibility",
+    "UX"
+   ],
+   "primary_category": "fit and finish",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.7,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-UX-07..12, WP-A11Y-04..08, WP-PAGE-06/07",
+   "audit_ids": [
+    "A1",
+    "A4",
+    "H6",
+    "D2"
+   ]
+  },
+  {
+   "id": "RM-58",
+   "title": "One responsive shell, entry and boot UI, static /map shell, Text/Chronicle route",
+   "chapter": [
+    "03",
+    "05",
+    "06",
+    "07"
+   ],
+   "effort": {
+    "low": 13,
+    "high": 22,
+    "mid": 17.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-57",
+    "RM-55",
+    "RM-50"
+   ],
+   "tranche": "P4",
+   "tranche_name": "Rebuild foundations",
+   "category": [
+    "UX",
+    "fit and finish",
+    "accessibility",
+    "performance"
+   ],
+   "primary_category": "UX",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.8,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-ARCH-19/26 (boot), WP-UX-14/16/23, WP-PERF-18, WP-A11Y-09/16",
+   "audit_ids": [
+    "C1",
+    "C2",
+    "H3",
+    "A6"
+   ]
+  },
+  {
+   "id": "RM-59",
+   "title": "Clock surfaces rebuild-native: playback semantics, hour steps, seek-safe state, ensureDay, accessible time",
+   "chapter": [
+    "04",
+    "06",
+    "07"
+   ],
+   "effort": {
+    "low": 9,
+    "high": 15,
+    "mid": 12.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-43",
+    "RM-54",
+    "RM-57"
+   ],
+   "tranche": "P4",
+   "tranche_name": "Rebuild foundations",
+   "category": [
+    "data accuracy",
+    "UX",
+    "accessibility"
+   ],
+   "primary_category": "data accuracy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.8,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-TIME-10 (native), WP-TIME-11/12/17, WP-UX-17, WP-A11Y-10",
+   "audit_ids": [
+    "C3",
+    "C4",
+    "H9"
+   ]
+  },
+  {
+   "id": "RM-60",
+   "title": "Time extended: sub-pages and exports adopt the module, solar lighting, per-minute intensity, Historian time tier",
+   "chapter": [
+    "04",
+    "08a"
+   ],
+   "effort": {
+    "low": 4,
+    "high": 8,
+    "mid": 6.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-43"
+   ],
+   "tranche": "P4",
+   "tranche_name": "Rebuild foundations",
+   "category": [
+    "data accuracy",
+    "Historian"
+   ],
+   "primary_category": "data accuracy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.3,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-TIME-13/14/18/19, WP-PAGE-04 (net)",
+   "audit_ids": [
+    "C4",
+    "S4"
+   ]
+  },
+  {
+   "id": "RM-61",
+   "title": "Permanent URL-state contract, moments registry, dv migration, bookmarks",
+   "chapter": [
+    "06",
+    "03",
+    "04"
+   ],
+   "effort": {
+    "low": 6,
+    "high": 10,
+    "mid": 8.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-12",
+    "RM-43",
+    "RM-52"
+   ],
+   "tranche": "P4",
+   "tranche_name": "Rebuild foundations",
+   "category": [
+    "function",
+    "UX"
+   ],
+   "primary_category": "function",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.8,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-UX-04/05, WP-ARCH-28, WP-TIME-05/15",
+   "audit_ids": [
+    "H3",
+    "H4",
+    "T3"
+   ]
+  },
+  {
+   "id": "RM-62",
+   "title": "Static-site layer: Astro layouts, shared chrome, tokens for 27 pages, head/SEO/share template, CSP-clean templates",
+   "chapter": [
+    "03",
+    "08a",
+    "08b",
+    "10"
+   ],
+   "effort": {
+    "low": 18.5,
+    "high": 32,
+    "mid": 25.25,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-52",
+    "RM-57"
+   ],
+   "tranche": "P4",
+   "tranche_name": "Rebuild foundations",
+   "category": [
+    "fit and finish",
+    "SEO",
+    "accessibility",
+    "performance"
+   ],
+   "primary_category": "fit and finish",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.5,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-ARCH-29, WP-PAGE-05/08/11/12, WP-PAGEC-01/02, WP-UX-13, WP-A11Y-24, WP-UX-27 (print), WP-UX-28 (brand and PWA art)",
+   "audit_ids": [
+    "P4",
+    "E3",
+    "E4",
+    "C7"
+   ]
+  },
+  {
+   "id": "RM-63",
+   "title": "Ports A: map surface, transport/HUD/timeline, bookmarks, share, unit/story/event panels, notifications",
+   "chapter": [
+    "03",
+    "06"
+   ],
+   "effort": {
+    "low": 11.5,
+    "high": 18,
+    "mid": 14.75,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-56",
+    "RM-58",
+    "RM-59"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "function",
+    "UX"
+   ],
+   "primary_category": "function",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-ARCH-21/22/23, WP-UX-18 (net), WP-PERF-15 (panel interaction cost, contract inside the ports)",
+   "audit_ids": [
+    "H1",
+    "H2",
+    "H4"
+   ]
+  },
+  {
+   "id": "RM-64",
+   "title": "Ports B: search, filter, legend, roster, OOB, Follow Ancestor, tools, walkthrough, command palette, header IA",
+   "chapter": [
+    "03",
+    "06",
+    "07"
+   ],
+   "effort": {
+    "low": 13,
+    "high": 21,
+    "mid": 17.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-63"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "function",
+    "UX"
+   ],
+   "primary_category": "function",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-ARCH-24/25/26 (walkthrough), WP-UX-15/19",
+   "audit_ids": [
+    "H5",
+    "H12",
+    "D4"
+   ]
+  },
+  {
+   "id": "RM-65",
+   "title": "Compact presets and mobile-only parity",
+   "chapter": [
+    "03",
+    "06"
+   ],
+   "effort": {
+    "low": 3,
+    "high": 5,
+    "mid": 4.0,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-63",
+    "RM-64"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "UX",
+    "fit and finish"
+   ],
+   "primary_category": "UX",
+   "device_impact": "mobile",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-ARCH-27",
+   "audit_ids": [
+    "C1",
+    "C2"
+   ]
+  },
+  {
+   "id": "RM-66",
+   "title": "States, share/cite/embed UI, Ask drawer, Help and trust layer",
+   "chapter": [
+    "06"
+   ],
+   "effort": {
+    "low": 8.0,
+    "high": 15,
+    "mid": 11.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-64",
+    "RM-41"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "UX",
+    "documentation"
+   ],
+   "primary_category": "UX",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.6,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-UX-22/24/25/26, WP-PAGEC-32/33 (embed docs, generator, widget)",
+   "audit_ids": [
+    "D1",
+    "H8"
+   ]
+  },
+  {
+   "id": "RM-67",
+   "title": "Cartography, symbology, legend, overlays, day/night",
+   "chapter": [
+    "06",
+    "07"
+   ],
+   "effort": {
+    "low": 9,
+    "high": 16,
+    "mid": 12.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-56",
+    "RM-57"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "fit and finish",
+    "accessibility"
+   ],
+   "primary_category": "fit and finish",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.5,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-UX-20/21, WP-A11Y-19 (net)",
+   "audit_ids": [
+    "D3",
+    "H6",
+    "A1"
+   ]
+  },
+  {
+   "id": "RM-68",
+   "title": "Accessibility structural layer: Data View, unit cursor, pointer alternatives, live regions, forms, settings, reflow",
+   "chapter": [
+    "07"
+   ],
+   "effort": {
+    "low": 16,
+    "high": 27,
+    "mid": 21.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-63",
+    "RM-57",
+    "RM-54"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "accessibility"
+   ],
+   "primary_category": "accessibility",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.7,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-A11Y-11..15/17/18/20..22",
+   "audit_ids": [
+    "A2",
+    "A5",
+    "A6"
+   ]
+  },
+  {
+   "id": "RM-69",
+   "title": "Map-page loader facade and map-page template (Ground load path)",
+   "chapter": [
+    "05",
+    "08a"
+   ],
+   "effort": {
+    "low": 3,
+    "high": 5.5,
+    "mid": 4.25,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-50",
+    "RM-62"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "performance"
+   ],
+   "primary_category": "performance",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.3,
+    "full_A_plus": 0.5
+   },
+   "source_wps": "WP-PERF-20, WP-PAGE-10, WP-PAGE-46 (load path)",
+   "audit_ids": [
+    "P2",
+    "S2"
+   ]
+  },
+  {
+   "id": "RM-70",
+   "title": "Cutover mechanics: /next beta, flags, go/no-go automation, rollback drills, decommission legacy",
+   "chapter": [
+    "03",
+    "09"
+   ],
+   "effort": {
+    "low": 5,
+    "high": 8.5,
+    "mid": 6.75,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-51",
+    "RM-65",
+    "RM-21"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "reliability"
+   ],
+   "primary_category": "reliability",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-ARCH-30/32/33, WP-INFRA-25",
+   "audit_ids": [
+    "N1"
+   ]
+  },
+  {
+   "id": "RM-71",
+   "title": "UX research programme (card sort, tree test, usability rounds) and UX governance",
+   "chapter": [
+    "06"
+   ],
+   "effort": {
+    "low": 4.5,
+    "high": 7.5,
+    "mid": 6.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-58"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "UX"
+   ],
+   "primary_category": "UX",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.5,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-UX-33/34 (net)",
+   "audit_ids": [
+    "-"
+   ]
+  },
+  {
+   "id": "RM-72",
+   "title": "Regression suites: function, console/fault/GPU, visual, accessibility automation, Historian gates, soak",
+   "chapter": [
+    "12",
+    "07"
+   ],
+   "effort": {
+    "low": 15.5,
+    "high": 22.5,
+    "mid": 19.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-08",
+    "RM-51"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "reliability",
+    "accessibility",
+    "function"
+   ],
+   "primary_category": "reliability",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.7,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-QA-08/10/12/14/20/22, WP-A11Y-29, WP-PAGE-13, WP-PAGEC-05 (net of QA-04/10/14)",
+   "audit_ids": [
+    "A1",
+    "C5"
+   ]
+  },
+  {
+   "id": "RM-73",
+   "title": "Scorecard and traceability generator (rest)",
+   "chapter": [
+    "12"
+   ],
+   "effort": {
+    "low": 2,
+    "high": 3.5,
+    "mid": 2.75,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-08"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "reliability"
+   ],
+   "primary_category": "reliability",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-QA-23 (rest)",
+   "audit_ids": [
+    "N1"
+   ]
+  },
+  {
+   "id": "RM-74",
+   "title": "Historian P2: Official Records ingestion, linkers, time evidence, passage engine, golden-passage set, audit",
+   "chapter": [
+    "14"
+   ],
+   "effort": {
+    "low": 16.5,
+    "high": 23.5,
+    "mid": 20.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-41",
+    "RM-42",
+    "RM-43"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "Historian",
+    "data accuracy"
+   ],
+   "primary_category": "Historian",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-HIST-12..19",
+   "audit_ids": [
+    "H8",
+    "C4"
+   ]
+  },
+  {
+   "id": "RM-75",
+   "title": "Historian P3: state books, casualty facts, unit and place page data",
+   "chapter": [
+    "14"
+   ],
+   "effort": {
+    "low": 5.5,
+    "high": 9,
+    "mid": 7.25,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-74",
+    "RM-34"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "Historian",
+    "SEO"
+   ],
+   "primary_category": "Historian",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.5,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-HIST-20/21/22",
+   "audit_ids": [
+    "H8",
+    "H10"
+   ]
+  },
+  {
+   "id": "RM-76",
+   "title": "Historian P4: voices, contested-topic registry, reviewed answers, regimental histories",
+   "chapter": [
+    "14",
+    "10"
+   ],
+   "effort": {
+    "low": 11.5,
+    "high": 18.5,
+    "mid": 15.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-75",
+    "RM-42"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "Historian"
+   ],
+   "primary_category": "Historian",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0,
+    "full_A_plus": 0.6
+   },
+   "source_wps": "WP-HIST-23..27, WP-SEO-23",
+   "audit_ids": [
+    "H8"
+   ]
+  },
+  {
+   "id": "RM-77",
+   "title": "Tier-1 page A+: Dashboard chart and content, Search engine and UX, Report and Regiment unit model",
+   "chapter": [
+    "08a"
+   ],
+   "effort": {
+    "low": 14.5,
+    "high": 25,
+    "mid": 19.75,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-62",
+    "RM-33",
+    "RM-41"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "function",
+    "UX",
+    "data accuracy"
+   ],
+   "primary_category": "function",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.6,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-PAGE-17..19/21/22/24..27, WP-A11Y-25",
+   "audit_ids": [
+    "C7",
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "id": "RM-78",
+   "title": "Tier-2 page A+: Compare, Camera, Documentary, Aftermath, Ground, Students, Turning Points, Find Ancestor, Ledger",
+   "chapter": [
+    "08a",
+    "08b"
+   ],
+   "effort": {
+    "low": 21,
+    "high": 35,
+    "mid": 28.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-62",
+    "RM-43"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "function",
+    "UX",
+    "data accuracy"
+   ],
+   "primary_category": "function",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.3,
+    "full_A_plus": 0.6
+   },
+   "source_wps": "WP-PAGE-31/32/34..36/40/42, WP-PAGEC-18..20/22/23/26..28, WP-A11Y-27",
+   "audit_ids": [
+    "S4",
+    "H8"
+   ]
+  },
+  {
+   "id": "RM-79",
+   "title": "Labs dispositions and retirement mechanics; Immersive keep-gate; tours by link",
+   "chapter": [
+    "08b",
+    "08a"
+   ],
+   "effort": {
+    "low": 6,
+    "high": 10,
+    "mid": 8.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-14"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "security and privacy",
+    "function"
+   ],
+   "primary_category": "security and privacy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.6,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-PAGEC-09/16/35, WP-PAGE-43",
+   "audit_ids": [
+    "H7"
+   ]
+  },
+  {
+   "id": "RM-80",
+   "title": "Event-less stretches and night moments (sourced)",
+   "chapter": [
+    "04"
+   ],
+   "effort": {
+    "low": 3,
+    "high": 5,
+    "mid": 4.0,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-45",
+    "RM-59"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "data accuracy",
+    "UX"
+   ],
+   "primary_category": "data accuracy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0,
+    "full_A_plus": 0.5
+   },
+   "source_wps": "WP-TIME-22",
+   "audit_ids": [
+    "C4"
+   ]
+  },
+  {
+   "id": "RM-81",
+   "title": "Train S4: programmatic content in gated batches (moments, ancestors, corps, embeds, cite, OG build, classroom kit v1)",
+   "chapter": [
+    "10",
+    "08a",
+    "14"
+   ],
+   "effort": {
+    "low": 30,
+    "high": 55,
+    "mid": 42.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-30",
+    "RM-62",
+    "RM-40"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "SEO",
+    "documentation"
+   ],
+   "primary_category": "SEO",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.3,
+    "full_A_plus": 0.5
+   },
+   "source_wps": "WP-SEO-14..20/24/25/27..29, WP-PAGE-29",
+   "audit_ids": [
+    "T1"
+   ]
+  },
+  {
+   "id": "RM-82",
+   "title": "User guide v2: truth audit, generator, PDF/UA or accessible HTML",
+   "chapter": [
+    "11"
+   ],
+   "effort": {
+    "low": 6,
+    "high": 9,
+    "mid": 7.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-37"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "documentation"
+   ],
+   "primary_category": "documentation",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.5,
+    "full_A_plus": 0.7
+   },
+   "source_wps": "WP-CONTENT-10/11",
+   "audit_ids": [
+    "G1"
+   ]
+  },
+  {
+   "id": "RM-83",
+   "title": "Teach hub, Students edition, press and embed kit, inclusive-history content",
+   "chapter": [
+    "11",
+    "08a"
+   ],
+   "effort": {
+    "low": 12.5,
+    "high": 21,
+    "mid": 16.75,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-39",
+    "RM-42"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "documentation",
+    "UX"
+   ],
+   "primary_category": "documentation",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0,
+    "full_A_plus": 0.5
+   },
+   "source_wps": "WP-CONTENT-21/22/23/25, WP-PAGE-40/41, WP-SEO-24 (net)",
+   "audit_ids": [
+    "G1"
+   ]
+  },
+  {
+   "id": "RM-84",
+   "title": "Repo docs and shipped-comment strip",
+   "chapter": [
+    "11"
+   ],
+   "effort": {
+    "low": 2.5,
+    "high": 4.5,
+    "mid": 3.5,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-51"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "documentation"
+   ],
+   "primary_category": "documentation",
+   "device_impact": "n/a (infrastructure or process)",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.5,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-CONTENT-26",
+   "audit_ids": [
+    "N1"
+   ]
+  },
+  {
+   "id": "RM-85",
+   "title": "Classroom mode, school-network readiness, in-app browser and hostile-environment matrix",
+   "chapter": [
+    "06",
+    "09",
+    "12"
+   ],
+   "effort": {
+    "low": 12.5,
+    "high": 23,
+    "mid": 17.75,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-58",
+    "RM-27"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "UX",
+    "reliability"
+   ],
+   "primary_category": "UX",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.3,
+    "full_A_plus": 0.5
+   },
+   "source_wps": "WP-UX-30, WP-INFRA-30/31, WP-QA-21 (school part)",
+   "audit_ids": [
+    "-"
+   ]
+  },
+  {
+   "id": "RM-86",
+   "title": "A+ data depth: keyframe waves 2-3, roads, DEM and OSM, formation model, tenures, provenance backfill",
+   "chapter": [
+    "13",
+    "08a"
+   ],
+   "effort": {
+    "low": 27.5,
+    "high": 44.5,
+    "mid": 36.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-47",
+    "RM-35",
+    "RM-42"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "data accuracy"
+   ],
+   "primary_category": "data accuracy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.15,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-DATA-08 (d,e), 11 (roads), 12 (W2-W3), 13, 14 (DEM), 15 (OSM), 16, 18, 24, WP-PAGE-15",
+   "audit_ids": [
+    "C4",
+    "H10"
+   ]
+  },
+  {
+   "id": "RM-87",
+   "title": "Performance exception register, nav speed, static stability",
+   "chapter": [
+    "05"
+   ],
+   "effort": {
+    "low": 1.75,
+    "high": 4,
+    "mid": 2.88,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-30",
+    "RM-46"
+   ],
+   "tranche": "P5",
+   "tranche_name": "Rebuild ports, Tier-1/2 depth, cutover",
+   "category": [
+    "performance"
+   ],
+   "primary_category": "performance",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 1,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-PERF-21/26/28",
+   "audit_ids": [
+    "P7"
+   ]
+  },
+  {
+   "id": "RM-88",
+   "title": "CSP enforcement by class, end state, security evidence dossier",
+   "chapter": [
+    "09",
+    "12"
+   ],
+   "effort": {
+    "low": 6,
+    "high": 12,
+    "mid": 9.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-27",
+    "RM-62"
+   ],
+   "tranche": "P6",
+   "tranche_name": "Proof and A+ evidence",
+   "category": [
+    "security and privacy"
+   ],
+   "primary_category": "security and privacy",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.6,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-INFRA-17/18/33, WP-QA-15, WP-INFRA-32 (net of QA-03/15)",
+   "audit_ids": [
+    "X3"
+   ]
+  },
+  {
+   "id": "RM-89",
+   "title": "Proof: manual AT programme, independent accessibility evaluation, real-device runs, user sessions, dossier",
+   "chapter": [
+    "07",
+    "12",
+    "11"
+   ],
+   "effort": {
+    "low": 9.5,
+    "high": 16,
+    "mid": 12.75,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-68",
+    "RM-72",
+    "RM-70"
+   ],
+   "tranche": "P6",
+   "tranche_name": "Proof and A+ evidence",
+   "category": [
+    "accessibility",
+    "UX",
+    "documentation"
+   ],
+   "primary_category": "accessibility",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0.3,
+    "full_A_plus": 1.0
+   },
+   "source_wps": "WP-A11Y-30/32/33, WP-QA-21/24, WP-CONTENT-27",
+   "audit_ids": [
+    "A1-A6"
+   ]
+  },
+  {
+   "id": "RM-90",
+   "title": "Immersive A+ (only if kept)",
+   "chapter": [
+    "08b"
+   ],
+   "effort": {
+    "low": 3,
+    "high": 5,
+    "mid": 4.0,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-79"
+   ],
+   "tranche": "P7",
+   "tranche_name": "Optional and conditional pool (unscheduled)",
+   "category": [
+    "function"
+   ],
+   "primary_category": "function",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0,
+    "full_A_plus": 0.0
+   },
+   "source_wps": "WP-PAGEC-10/11",
+   "audit_ids": []
+  },
+  {
+   "id": "RM-91",
+   "title": "AR keep: heading engine, markers, on-site test (only if funded)",
+   "chapter": [
+    "08b"
+   ],
+   "effort": {
+    "low": 6,
+    "high": 9,
+    "mid": 7.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-79"
+   ],
+   "tranche": "P7",
+   "tranche_name": "Optional and conditional pool (unscheduled)",
+   "category": [
+    "function"
+   ],
+   "primary_category": "function",
+   "device_impact": "mobile",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0,
+    "full_A_plus": 0.0
+   },
+   "source_wps": "WP-PAGEC-13/14",
+   "audit_ids": []
+  },
+  {
+   "id": "RM-92",
+   "title": "Watch Together live relay (only if funded)",
+   "chapter": [
+    "08b",
+    "09"
+   ],
+   "effort": {
+    "low": 4,
+    "high": 6,
+    "mid": 5.0,
+    "size": "L",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-79"
+   ],
+   "tranche": "P7",
+   "tranche_name": "Optional and conditional pool (unscheduled)",
+   "category": [
+    "function"
+   ],
+   "primary_category": "function",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0,
+    "full_A_plus": 0.0
+   },
+   "source_wps": "WP-PAGEC-17",
+   "audit_ids": []
+  },
+  {
+   "id": "RM-93",
+   "title": "Cinematic Export v2 on an owned basemap (only if funded)",
+   "chapter": [
+    "08b"
+   ],
+   "effort": {
+    "low": 9,
+    "high": 14,
+    "mid": 11.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-79"
+   ],
+   "tranche": "P7",
+   "tranche_name": "Optional and conditional pool (unscheduled)",
+   "category": [
+    "function"
+   ],
+   "primary_category": "function",
+   "device_impact": "desktop",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0,
+    "full_A_plus": 0.0
+   },
+   "source_wps": "WP-PAGEC-25 (+3-5 basemap)",
+   "audit_ids": []
+  },
+  {
+   "id": "RM-94",
+   "title": "Sandbox kept, real viewshed, Ground heat v2, page optional features, Turning Points stretch",
+   "chapter": [
+    "08a",
+    "08b"
+   ],
+   "effort": {
+    "low": 30,
+    "high": 46,
+    "mid": 38.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-62"
+   ],
+   "tranche": "P7",
+   "tranche_name": "Optional and conditional pool (unscheduled)",
+   "category": [
+    "function",
+    "UX"
+   ],
+   "primary_category": "function",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0,
+    "full_A_plus": 0.0
+   },
+   "source_wps": "WP-PAGE-19/28/33/37/39/43(kept)/45/47, WP-PAGEC-21",
+   "audit_ids": []
+  },
+  {
+   "id": "RM-95",
+   "title": "On-site mode, map-mode convergence, offline pack",
+   "chapter": [
+    "06",
+    "09"
+   ],
+   "effort": {
+    "low": 32,
+    "high": 51,
+    "mid": 41.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-58"
+   ],
+   "tranche": "P7",
+   "tranche_name": "Optional and conditional pool (unscheduled)",
+   "category": [
+    "UX",
+    "function"
+   ],
+   "primary_category": "UX",
+   "device_impact": "mobile",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0,
+    "full_A_plus": 0.0
+   },
+   "source_wps": "WP-UX-31/32, WP-INFRA-24",
+   "audit_ids": []
+  },
+  {
+   "id": "RM-96",
+   "title": "Historian P5 base, optional semantic reranker B, LLM C-lite",
+   "chapter": [
+    "14"
+   ],
+   "effort": {
+    "low": 27,
+    "high": 49,
+    "mid": 38.0,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-76"
+   ],
+   "tranche": "P7",
+   "tranche_name": "Optional and conditional pool (unscheduled)",
+   "category": [
+    "Historian"
+   ],
+   "primary_category": "Historian",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0,
+    "full_A_plus": 0.0
+   },
+   "source_wps": "WP-HIST-28/29/31/32",
+   "audit_ids": []
+  },
+  {
+   "id": "RM-97",
+   "title": "SEO tier-3: places, commanders, day pages, dataset and DOI, video channel",
+   "chapter": [
+    "10"
+   ],
+   "effort": {
+    "low": 12,
+    "high": 23,
+    "mid": 17.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-81"
+   ],
+   "tranche": "P7",
+   "tranche_name": "Optional and conditional pool (unscheduled)",
+   "category": [
+    "SEO"
+   ],
+   "primary_category": "SEO",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0,
+    "full_A_plus": 0.0
+   },
+   "source_wps": "WP-SEO-16 (rest)/21/22/26/31",
+   "audit_ids": []
+  },
+  {
+   "id": "RM-98",
+   "title": "Contingent: AST-split bridge, July 4 epilogue ticks, Labs accessibility if kept, CWSS rosters if permitted (rosters not sized)",
+   "chapter": [
+    "03",
+    "04",
+    "07",
+    "14"
+   ],
+   "effort": {
+    "low": 8,
+    "high": 15,
+    "mid": 11.5,
+    "size": "XL",
+    "unit": "person-days, AI-assisted, de-duplicated"
+   },
+   "deps": [
+    "RM-79"
+   ],
+   "tranche": "P7",
+   "tranche_name": "Optional and conditional pool (unscheduled)",
+   "category": [
+    "function"
+   ],
+   "primary_category": "function",
+   "device_impact": "both",
+   "path_fraction": {
+    "survival": 0,
+    "legacy_A_line": 0,
+    "grade_A": 0,
+    "full_A_plus": 0.0
+   },
+   "source_wps": "WP-ARCH-34, WP-TIME-23, WP-A11Y-28, WP-HIST-30",
+   "audit_ids": []
+  }
+ ],
+ "milestones": [
+  {
+   "id": "M1",
+   "title": "Survival complete (R0, pan/zoom, mobile shell core, date fix, deep links, privacy, contact, page core)",
+   "path": "S",
+   "node": "RM-14",
+   "net_effort_p50_days": 30.8,
+   "dates": {
+    "10h_per_week": {
+     "low": "2027-02-12",
+     "p50": "2027-04-01",
+     "high": "2027-05-19"
+    },
+    "15h_per_week": {
+     "low": "2026-12-30",
+     "p50": "2027-01-30",
+     "high": "2027-03-03"
+    },
+    "30h_per_week": {
+     "low": "2026-11-16",
+     "p50": "2026-12-02",
+     "high": "2026-12-18"
+    }
+   }
+  },
+  {
+   "id": "R0",
+   "title": "R0 mechanism release shipped (survival path)",
+   "path": "S",
+   "node": "RM-07",
+   "net_effort_p50_days": 18.8,
+   "dates": {
+    "10h_per_week": {
+     "low": "2026-12-22",
+     "p50": "2027-01-18",
+     "high": "2027-02-15"
+    },
+    "15h_per_week": {
+     "low": "2026-11-26",
+     "p50": "2026-12-14",
+     "high": "2027-01-01"
+    },
+    "30h_per_week": {
+     "low": "2026-10-31",
+     "p50": "2026-11-09",
+     "high": "2026-11-18"
+    }
+   }
+  },
+  {
+   "id": "M2",
+   "title": "Tranche 0 complete (P0-P2)",
+   "path": "L",
+   "node": "RM-21",
+   "net_effort_p50_days": 75.7,
+   "dates": {
+    "10h_per_week": {
+     "low": "2027-08-28",
+     "p50": "2027-12-23",
+     "high": "2028-04-18"
+    },
+    "15h_per_week": {
+     "low": "2027-05-08",
+     "p50": "2027-07-23",
+     "high": "2027-10-08"
+    },
+    "30h_per_week": {
+     "low": "2027-01-19",
+     "p50": "2027-02-25",
+     "high": "2027-04-04"
+    }
+   }
+  },
+  {
+   "id": "S1",
+   "title": "Train S1 shipped",
+   "path": "L",
+   "node": "RM-24",
+   "net_effort_p50_days": 85.0,
+   "dates": {
+    "10h_per_week": {
+     "low": "2027-10-10",
+     "p50": "2028-02-21",
+     "high": "2028-07-05"
+    },
+    "15h_per_week": {
+     "low": "2027-06-03",
+     "p50": "2027-08-30",
+     "high": "2027-11-26"
+    },
+    "30h_per_week": {
+     "low": "2027-01-31",
+     "p50": "2027-03-16",
+     "high": "2027-04-28"
+    }
+   }
+  },
+  {
+   "id": "S2",
+   "title": "Train S2 shipped",
+   "path": "L",
+   "node": "RM-25",
+   "net_effort_p50_days": 105.5,
+   "dates": {
+    "10h_per_week": {
+     "low": "2028-01-12",
+     "p50": "2028-07-04",
+     "high": "2028-12-24"
+    },
+    "15h_per_week": {
+     "low": "2027-08-02",
+     "p50": "2027-11-23",
+     "high": "2028-03-14"
+    },
+    "30h_per_week": {
+     "low": "2027-03-01",
+     "p50": "2027-04-25",
+     "high": "2027-06-19"
+    }
+   }
+  },
+  {
+   "id": "S3",
+   "title": "Train S3 landing at / and app at /map",
+   "path": "L",
+   "node": "RM-30",
+   "net_effort_p50_days": 147.2,
+   "dates": {
+    "10h_per_week": {
+     "low": "2028-07-31",
+     "p50": "2029-04-01",
+     "high": "2029-12-01"
+    },
+    "15h_per_week": {
+     "low": "2027-12-07",
+     "p50": "2028-05-13",
+     "high": "2028-10-17"
+    },
+    "30h_per_week": {
+     "low": "2027-04-30",
+     "p50": "2027-07-15",
+     "high": "2027-09-29"
+    }
+   }
+  },
+  {
+   "id": "CLOCK",
+   "title": "Clock bridge live",
+   "path": "L",
+   "node": "RM-44",
+   "net_effort_p50_days": 177.2,
+   "dates": {
+    "10h_per_week": {
+     "low": "2028-12-18",
+     "p50": "2029-10-14",
+     "high": "2030-08-09"
+    },
+    "15h_per_week": {
+     "low": "2028-03-05",
+     "p50": "2028-09-13",
+     "high": "2029-03-24"
+    },
+    "30h_per_week": {
+     "low": "2027-06-11",
+     "p50": "2027-09-12",
+     "high": "2027-12-14"
+    }
+   }
+  },
+  {
+   "id": "HIST1",
+   "title": "Historian P1 live",
+   "path": "L",
+   "node": "RM-41",
+   "net_effort_p50_days": 208.9,
+   "dates": {
+    "10h_per_week": {
+     "low": "2029-05-20",
+     "p50": "2030-05-08",
+     "high": "2031-04-25"
+    },
+    "15h_per_week": {
+     "low": "2028-06-10",
+     "p50": "2029-01-21",
+     "high": "2029-09-04"
+    },
+    "30h_per_week": {
+     "low": "2027-07-27",
+     "p50": "2027-11-13",
+     "high": "2028-03-01"
+    }
+   }
+  },
+  {
+   "id": "M3",
+   "title": "Legacy A-line complete",
+   "path": "L",
+   "node": "RM-48",
+   "net_effort_p50_days": 237.5,
+   "dates": {
+    "10h_per_week": {
+     "low": "2029-10-01",
+     "p50": "2030-11-10",
+     "high": "2031-12-20"
+    },
+    "15h_per_week": {
+     "low": "2028-09-03",
+     "p50": "2029-05-19",
+     "high": "2030-02-02"
+    },
+    "30h_per_week": {
+     "low": "2027-09-06",
+     "p50": "2028-01-08",
+     "high": "2028-05-11"
+    }
+   }
+  },
+  {
+   "id": "M4",
+   "title": "Rebuild cut over at /map",
+   "path": "A",
+   "node": "RM-70",
+   "net_effort_p50_days": 477.3,
+   "dates": {
+    "10h_per_week": {
+     "low": "2033-03-25",
+     "p50": "2035-07-13",
+     "high": "2037-10-30"
+    },
+    "15h_per_week": {
+     "low": "2030-10-19",
+     "p50": "2032-03-27",
+     "high": "2033-09-03"
+    },
+    "30h_per_week": {
+     "low": "2028-08-30",
+     "p50": "2029-05-04",
+     "high": "2030-01-06"
+    }
+   }
+  },
+  {
+   "id": "M4b",
+   "title": "Grade-A path complete",
+   "path": "A",
+   "node": "RM-89",
+   "net_effort_p50_days": 586.1,
+   "dates": {
+    "10h_per_week": {
+     "low": "2034-11-13",
+     "p50": "2037-09-11",
+     "high": "2040-07-10"
+    },
+    "15h_per_week": {
+     "low": "2031-10-17",
+     "p50": "2033-07-20",
+     "high": "2035-04-22"
+    },
+    "30h_per_week": {
+     "low": "2029-02-12",
+     "p50": "2029-12-10",
+     "high": "2030-10-06"
+    }
+   }
+  },
+  {
+   "id": "M5",
+   "title": "Full A+ path complete",
+   "path": "F",
+   "node": "RM-89",
+   "net_effort_p50_days": 745.7,
+   "dates": {
+    "10h_per_week": {
+     "low": "2037-03-24",
+     "p50": "2040-11-15",
+     "high": "2044-07-09"
+    },
+    "15h_per_week": {
+     "low": "2033-03-22",
+     "p50": "2035-06-23",
+     "high": "2037-09-23"
+    },
+    "30h_per_week": {
+     "low": "2029-10-09",
+     "p50": "2030-10-28",
+     "high": "2031-11-16"
+    }
+   }
+  }
+ ],
+ "capacity_net_days_available": {
+  "10h_per_week": {
+   "to_2027-06-30": 43,
+   "to_2027-12-31": 68,
+   "to_2028-12-31": 118
+  },
+  "15h_per_week": {
+   "to_2027-06-30": 67,
+   "to_2027-12-31": 108,
+   "to_2028-12-31": 191
+  },
+  "30h_per_week": {
+   "to_2027-06-30": 138,
+   "to_2027-12-31": 228,
+   "to_2028-12-31": 408
+  }
+ },
+ "grade_checkpoints": {
+  "format": "desktop/mobile on the audit letter scale",
+  "checkpoints": [
+   "now",
+   "M1_survival",
+   "M2_tranche0",
+   "M3_legacy_A_line",
+   "M4b_grade_A",
+   "M5_full_A_plus_with_evidence"
+  ],
+  "grades": {
+   "function": [
+    "C/D-",
+    "B/C+",
+    "B+/B-",
+    "B+/B",
+    "A/A-",
+    "A+/A"
+   ],
+   "fit_and_finish": [
+    "C+/D+",
+    "C+/C",
+    "B-/C+",
+    "B/B-",
+    "A-/B+",
+    "A+/A"
+   ],
+   "ux": [
+    "C+/D",
+    "B-/C",
+    "B/C+",
+    "B+/B-",
+    "A-/B+",
+    "A+/A"
+   ],
+   "reliability": [
+    "C/C-",
+    "B/B-",
+    "B/B-",
+    "B+/B",
+    "A-/A-",
+    "A+/A"
+   ],
+   "performance": [
+    "C/D+",
+    "B-/C+",
+    "B-/C+",
+    "A-/B+",
+    "A/A-",
+    "A+/A"
+   ],
+   "accessibility": [
+    "D/D",
+    "D/D",
+    "C/C",
+    "C+/C",
+    "B+/B+",
+    "A+/A+"
+   ],
+   "seo_technical": [
+    "B-/B-",
+    "B-/B-",
+    "B/B",
+    "A-/A-",
+    "A/A",
+    "A/A"
+   ],
+   "security_privacy": [
+    "B-/B-",
+    "B/B",
+    "B+/B+",
+    "B+/B+",
+    "A-/A-",
+    "A+/A+"
+   ],
+   "documentation": [
+    "B-/C+",
+    "B-/C+",
+    "B-/B-",
+    "B+/B",
+    "A-/A-",
+    "A/A"
+   ],
+   "data_accuracy": [
+    "C-/C-",
+    "C-/C-",
+    "C-/C-",
+    "B/B",
+    "B+/B+",
+    "A-/A-"
+   ],
+   "historian": [
+    "D+/D",
+    "C-/D+",
+    "C/C-",
+    "B/B",
+    "A-/A-",
+    "A+/A"
+   ],
+   "overall": [
+    "C+/D+",
+    "B-/C+",
+    "B/B-",
+    "B+/B",
+    "A-/A-",
+    "A/A"
+   ]
+  },
+  "confidence": "function now H, later M to L on mobile; UX L; performance lab H field L; data accuracy L; A+ needs non-author evidence (D-EVIDENCE)"
+ },
+ "decision_gates": {
+  "DG-0": "2026-10-07",
+  "DG-1": "2026-10-21",
+  "DG-2": "2026-11-30",
+  "DG-3": "2027-01-31",
+  "DG-4": "2027-04-30",
+  "DG-5": "after 2027-07-06"
+ },
+ "freeze_windows": [
+  "2026-11-15..2026-11-20",
+  "2027-06-25..2027-07-05",
+  "2027-11-15..2027-11-20",
+  "Fridays after 12:00 ET"
+ ],
+ "path_definitions": {
+  "S": "survival: R0 plus the criticals that block basic use (plan for 10-12 h/week)",
+  "L": "legacy A-line: no critical defect, CWV green, Tier 1 usable on phones, Historian P1, plus data, rights, legal, time, trust, operations on the frozen app and static layer",
+  "A": "grade-A path: L plus the rebuild core to cutover (needs a second contributor or 30+ h/week)",
+  "F": "full A+: Tier 1 at A+, Tier 2 at A, proof; Labs and stretch items are in P7 or deferred"
+ },
+ "cut_order": [
+  "P7 pool (RM-90..98)",
+  "deferred Tier-2 depth",
+  "RM-83",
+  "RM-85 (keep IT-admin page)",
+  "RM-81 beyond two batches",
+  "RM-80, RM-76, RM-86",
+  "RM-82",
+  "RM-78, RM-67, RM-69",
+  "RM-71 beyond one round",
+  "rebuild RM-50..66 (Plan L)"
+ ],
+ "never_cut": [
+  "RM-01",
+  "RM-02",
+  "RM-06",
+  "RM-07",
+  "RM-09",
+  "RM-19",
+  "RM-20",
+  "RM-04",
+  "RM-29",
+  "XSS fix and dev-page removal inside RM-14",
+  "one-week QA net"
+ ],
+ "stop_rules": [
+  "phase slip over 20% triggers scope review",
+  "R0 not shipped by 2026-10-21 means re-plan",
+  "operations over 10 h/month for 2 months means maintenance mode",
+  "Historian review backlog over 14 days freezes ingestion",
+  "structural SEO rollback signals revert the redirect map",
+  "landing keep/revert 45% / 30% at day 90",
+  "record /map mobile ceiling, never delay boot",
+  "credits at 70% batch deploys",
+  "capacity review at DG-3",
+  "no public A+ before D-EVIDENCE artefacts"
+ ]
+}

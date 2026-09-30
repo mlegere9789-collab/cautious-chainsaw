@@ -1,0 +1,796 @@
+{
+ "agent": "app-a11y",
+ "summary": "Static WCAG 2.2 A/AA (+cheap AAA) audit of the main app shell and bundle UI. I read every React component in bundle.pretty.js (lines ~96200-113377, 632 JSX element sites, zustand store, map helpers), both lazy chunks, index.html (all 760 lines, 8 inline scripts), site-nav.js/css, manifest, sw.js and the app CSS. I computed contrast for 234 inline text styles (method reproduces Lighthouse/axe numbers: #777=4.39, #555=2.64, #8b6914=4.00, #666=3.54), simulated colour-vision deficiencies for the map palette, and dry-ran 18 candidate bundle string patches (each FIND matches exactly once on the deployed bundle; patched copy passes node --check). No browser/AT was used (rules), so runtime claims are labelled 'from code' with verification steps.\n\nHeadline: Lighthouse's a11y 90 is an automated subset on one screen state. By code, of 55 WCAG 2.2 A+AA criteria 23 fail (13 Level A, 10 AA), 10 partial, 12 pass, 10 N/A; I grade accessibility D desktop / D mobile (not C+/C). The app has ZERO aria-* / role / aria-live / landmarks / h1 (Lighthouse bypass audit confirms: no skip link, heading or landmark); all 75 button sites are glyph/emoji named; 17 functional controls are click-only div/canvas (including the Choose-Your-Experience cards, Skip intro, unit selection on the map, search results, timeline markers, mobile scrubber); the map is a canvas with no keyboard or text alternative; a global window keydown handler fires bare S/F/L/M/H/B/?/1/2/3/+/-/Space/Arrows (fails 2.1.4, ignores Ctrl/Alt, collides with Mapbox's own keyboard handler and with a second timeline onKeyDown that double-fires); 13 overlays have no dialog semantics/focus management and Esc misses 12+ of them plus the pinned unit panel; union/confederate colours have identical luminance (1.02:1, achromat dE 0.4) and 11 dispositions are 3.5px colour-only dots; 62/234 text styles fail 4.5:1; 133/268 font-size literals are <12px (min 7px); the mobile layout renders the desktop timeline/legend/minimap/panels underneath itself (root cause of C1/C2).\n\nCorrections to the earlier audit (verified in code): the index.html aria-label patch script is inert (skips any button with a title); toasts DO auto-dismiss (4.5s) so the WCAG issue is the opposite (2.2.1, no live region); hover popup fF and the H heatmap shortcut are dead code; share/bookmark URLs (?t=&u=&z=&ll=) are written but never read; desktop shows two different dates at once (toolbar correct, clock chip +2 days); three tick->clock formulas exist.\n\nThe report (34 findings, ~160 KB) contains: full control/dialog/keyboard/timer inventories with line refs, computed contrast/CVD/target/type tables, a criterion-by-criterion WCAG 2.2 table with evidence and fix IDs, design tokens and an A+ release gate, a full design for a keyboard + screen-reader map experience (semantic skeleton, keyboard model, unit-cursor algorithm, Data View table, situation summary, chronology transcript, announcement policy, dialog primitive), a Tier-0 bridge (index.html + CSS shim + 18 validated bundle patches with a safe re-hash pipeline) that can lift Lighthouse a11y to ~100 in 2-3 days without source, phased roadmap (~50 dev-days), and a test plan (Playwright+axe state matrix code, pa11y-ci, LHCI, jsx-a11y lint, token/palette/cursor unit tests, NVDA/JAWS/VoiceOver/TalkBack scripts, forced-colors/zoom/text-spacing/CVD checks, 15 core AT tasks).",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/app-a11y.md",
+ "findings": [
+  {
+   "id": "app-a11y-01",
+   "title": "Tier-0 shell + CSS shim: landmarks, skip link, single h1, two-tone focus ring, contrast overrides, 12px font floor, reduced-motion, forced-colors, coarse-pointer target minimum",
+   "severity": "critical",
+   "effort": "S",
+   "evidence": "Lighthouse bypass audit (lh_desktop.json/lh_mobile.json): 'No valid skip link found / Page does not have a heading / Page does not have a landmark region'. index.html:716 <div id=root>, :285 <div id=extra-features>; 3 pre-mount h1 (:744 splash, :718 seo-content, :753 noscript) and none after React mounts. 62/234 inline text styles fail 4.5:1; 133/268 fontSize literals <12px; inline outline:'none' at bundle.pretty.js:98996, :101356, :112385; site-nav.css:43-47 and :110 remove outlines; no forced-colors CSS anywhere; assets/index-B4G7Z_2G.css is Mapbox-only.",
+   "root_cause": "Inline-style React app with no global CSS layer; index.html is the only place editable without source.",
+   "fix": "index.html: add skip links (#root, #gt-timeline), one sr-only h1, <main id=root tabindex=-1 aria-label>, <nav id=extra-features aria-label>, demote #seo-content h1 to h2 and splash h1 to p, meta color-scheme=dark, window.__gtbgReduceMotion flag script. New a11y-shim.css after site-nav.css: .gt-sr-only/.gt-skip; :focus-visible{outline:2px solid #fff!important;outline-offset:2px!important;box-shadow:0 0 0 4px #000!important}; attribute-selector colour overrides matching React's serialised inline colours ([style*=' color: rgb(85, 85, 85)'],[style^='color: ...'] etc.) mapping #444/#555->#8f8fa3, #666->#9a9aab, #777->#a8a8b8, #8b6914(text)->#b8963c, #3a6bc4(text)->#7fa8ff, #cc4444->#f07a7a, #6d7a8a->#9aa6b6 (all >=4.96:1 on every panel bg, computed); font-size 7-11px -> 12px !important; @media(pointer:coarse){#root button,#extra-features a,button{min 44px}}; reduced-motion block; forced-colors block (real borders, Highlight focus, canvas forced-color-adjust:none). Delete the inert label-patch script (index.html:398-440). Screenshot-review at 1440/1280/768/375 for the font floor.",
+   "acceptance_test": "Lighthouse a11y >=97 on the loaded state (both form factors; the live color-contrast and bypass findings vanish; label needs app-a11y-02); document.querySelectorAll('h1').length===1; first Tab focuses 'Skip to the battle map' and Enter moves focus to #root; emulateMedia forcedColors:active -> every button has border-top-width>0; reducedMotion:reduce -> no CSS animation/transition >0.01ms; before/after screenshots show no clipped rows.",
+   "metric_or_grade_moved": "Lighthouse Accessibility 90 -> ~97-100 (loaded state); clears 2.4.1 (bypass) and 1.4.3 in loaded states; 2.4.7; forced-colors/reduced-motion baseline; type floor (Fit & finish).",
+   "depends_on": [],
+   "audit_refs": [
+    "A1",
+    "A3",
+    "A4",
+    "A6",
+    "D2",
+    "E3"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence real (index.html 716/285/718/744/753, site-nav.css 43-47/110/138, no forced-colors anywhere, contrast numbers reproduce, attribute selectors valid per LH snippets). Corrections: (a) acceptance 'LH a11y >= 97 after 01 alone' is wrong: only label (wt 10) and color-contrast (wt 7) of total 164 fail, so contrast-only fix = ~94; 100 needs 02-A; bypass is informative/score 1 (PASS title) and landmark-one-main score 1, so neither is a scored LH failure. (b) skip link href=#root bypasses nothing (toolbar is inside #root before the map); target must be the map container (needs id/tabIndex:-1 patch). (c) sr-only h1/skip links outside a landmark trip axe 'region'; wrap h1 in <header>. (d) retarget '#seo-content h1' CSS (index.html:160). (e) colour ladder makes #666/#777 replacements brighter than untouched #888 and narrows chip ON/OFF text. (f) outline:none is at 98995 not 98996, and 2 extra inline sites exist (111557, 111744). (g) effort S optimistic with QA of ~17 panels at 4 widths: M."
+  },
+  {
+   "id": "app-a11y-02",
+   "title": "Tier-0 bundle string patches (18 FIND strings validated on the deployed bundle) + safe re-hash pipeline",
+   "severity": "critical",
+   "effort": "M",
+   "evidence": "Verified with tmp-app-a11y/bridge_patch_check.py: every FIND matches the expected count in bundle.min.js (1; 14/4/2 for regex/paired patches) and the patched copy passes node --check (+1,850 bytes). Targets: timeline slider min0/max100/step.01 unlabeled (bundle.pretty.js:112294-112303); wrapper onKeyDown + tabIndex:0 double-fires (:112216-112224); global handler ignores only INPUT (:112967); toolbar buttons name = letter/emoji (:113287-113298); layout cards div onClick (:102767,:102789); Skip intro div (:101569); 18 unnamed close glyphs; placeholder-only inputs; toast stack conditionally mounted (:99918); reduced-motion ignored (eO=3500 :101471, glow :96615, interpolation :97001).",
+   "root_cause": "No source for the deployed app (N1); prior sessions already patch the minified bundle. Assets are immutable, cache-first in sw.js and imported by name from both lazy chunks, so in-place edits would be served stale.",
+   "fix": "Idempotent script (kept in repo) that reads assets/index-Cg8FAMXN.js from the correctly-cased source tree, asserts each FIND count, applies: (A) slider -> type range, aria-label 'Battle time', aria-valuetext R(), min1 max M step1 value c onChange Number(); (B) wrapper -> id gt-timeline, tabIndex -1, role group, aria-label (removes double-fire); (C) global guard: return on defaultPrevented/Ctrl/Meta/Alt, INPUT/TEXTAREA/SELECT/contenteditable, Space/Enter on button/a/[role=button], arrows and + = - _ when .mapboxgl-canvas focused, everything but Esc while [role=dialog][aria-modal=true]; (D) Vs toolbar button: type button, aria-label=title, aria-pressed from active; (E) layout cards role=button tabIndex=0 aria-label onKeyDown Enter/Space onFocus/onBlur; (F) Skip intro div->button; (G) regex: 14+4 close glyph buttons aria-label 'Close'; (H) labels for filter range (+valuetext), search, ancestor and two monument inputs; (I) toast stack always mounted role=log aria-live=polite aria-label 'Battle events'; (J) reduced-motion flag for intro duration, glow pulse, sub-tick interpolation. Then write assets/index-<sha8>.js, rewrite the name in index.html (:55,:282), sw.js PRECACHE and both chunks' imports, bump CACHE_NAME, node --check, refuse to run on any count mismatch.",
+   "acceptance_test": "Script fails loudly if the bundle changes; Playwright: Tab+Enter on 'Select the desktop layout' enters the app; on the slider ArrowRight x3 -> tick+3 and aria-valuetext changes; Space on a focused forward button activates once and does not toggle playback; Ctrl+F does not open the filter panel; Lighthouse label audit passes; NVDA reads 'Battle time, slider, <clock>'.",
+   "metric_or_grade_moved": "Lighthouse label failure removed (with 01 -> ~100 loaded state); keyboard entry unblocked (2.1.1 on the two blocking screens); fixes double-fire keyboard bugs; partial 4.1.2/2.5.3/2.1.4.",
+   "depends_on": [
+    "app-a11y-01"
+   ],
+   "audit_refs": [
+    "A2",
+    "A5",
+    "A6",
+    "H2",
+    "D2",
+    "N1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "18 FIND counts, +1,850 B and node --check reproduce exactly. Corrections: (1) stale-chunk trap: pipeline rewrites HelpModal/BookmarkPanel chunk contents but keeps their filenames; /assets/* is immutable 1y (netlify.toml:23-25) and cache-first in sw.js, main loads them via import('./HelpModal-CFV9T0zH.js') (bundle.pretty.js:112469-70); returning visitors keep the old chunk which imports the old index-Cg8FAMXN.js whose top level re-runs createRoot(#root).render -> old app remounts (or 404). Rename/re-hash both chunks and patch the two import() specifiers and SW precache. (2) 02-I role=log implies aria-live=polite -> event chatter ON by default up to 16 ticks/s, contradicting the report's default-OFF policy; add aria-live:'off'. (3) collides with app-mobile apply_patches.py: on tmp-app-mobile/patched/assets/index-mHF1a.js G-close-mobile finds 3 (expects 4) and J1 finds 0 (expects 1) so the refuse-on-mismatch script aborts. (4) patch C dialog clause dead until 05. Effort M-L once merge + chunk rename counted."
+  },
+  {
+   "id": "app-a11y-03",
+   "title": "Entry flow: intro splash, layout chooser, onboarding - keyboard/SR operable, remembered, auto-detected, with a Text-view option",
+   "severity": "critical",
+   "effort": "M",
+   "evidence": "Layout cards are div onClick with no tabIndex/role (bundle.pretty.js:102767,:102789) and say 'Best for mouse and keyboard' (:102778); 'Skip intro' is a #444 div (:101569,:101670); layout never persisted (only gtbg_onboarded, :113068); onboarding modal renders over the chooser (:113059-113070); 'Power User keyboard shortcuts' offered on touch (:111815); index.html:355-396 scrapes DOM text 'Choose Your Experience' to inject a banner.",
+   "root_cause": "One-off screens built as styled divs with no persistence layer; an injected script compensates.",
+   "fix": "Single EntryDialog (native <dialog>, aria-labelledby, focus to heading): three real radio/button cards - Map (desktop), Map (touch layout), Text view (screen readers/keyboard/low bandwidth); preselect via (pointer:coarse)+width; 'Remember my choice' default ON writes gtbg_prefs.view/layout so returning visitors skip it. Intro fast-forward optional: real Skip button + Esc, auto-skipped for prefers-reduced-motion/returning visitors, splash gets role=status 'Loading battle data'. Move the '20 more tools' banner copy into the dialog and delete the scraper. Onboarding tour = dialog with 'Step n of 5', Esc=skip, focus to step heading. Show shortcut tips only when a fine pointer exists.",
+   "acceptance_test": "Keyboard-only cold load: Tab reaches the 3 options, Enter selects, focus lands on the app heading; reload skips the chooser; reducedMotion -> no splash; NVDA announces dialog title and option names; axe 0 violations on all entry states.",
+   "metric_or_grade_moved": "Clears 2.1.1/4.1.2/2.4.3 on the entry path; Usability/learnability (mobile D+ -> B+ with H3); removes the ~15s repeat splash.",
+   "depends_on": [
+    "N1",
+    "app-a11y-05",
+    "app-a11y-26"
+   ],
+   "audit_refs": [
+    "H3",
+    "A6",
+    "C6"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "All cited lines verified (dO 102767/102789, copy 102778, gtbg_onboarded 113068, Power User 111815, banner scraper 355-396). depends_on omits 08 (Text-view card needs Data View) and 28 (fallback); ship chooser without the Text card first or add both dependencies."
+  },
+  {
+   "id": "app-a11y-04",
+   "title": "Replace every click-only div/canvas control with native semantics (16 functional sites + BookmarkPanel row + 7 backdrops)",
+   "severity": "critical",
+   "effort": "M",
+   "evidence": "Inventory (inventory.py): click-only elements at bundle.pretty.js:97365 (map canvas), 98365 (story dots), 98855/98878 (search quick links/results), 99811 (minimap canvas), 100366 (tour dots), 100914 (monument markers), 101173/101249 (ancestor results/journey), 101569 (Skip intro), 101992 (Soldier's Eye rows), 102767/102789 (layout cards), 103177 (mobile scrubber, touch only), 110690 (walkthrough monument cards), 112272 (timeline markers), BookmarkPanel itemLeft; backdrops at :101135,:101963,:102373,:103368/:103371 and both chunks.",
+   "root_cause": "onClick on non-interactive elements; no shared list/row primitives; no lint.",
+   "fix": "Story dots -> <ol> of <button aria-current aria-label='Story 2 of 3: title'> with >=24/44px hit area; tour dots same; search rows -> combobox/listbox (see 14); ancestor results/journey -> <ul>/<ol> of <button>; Soldier's Eye rows -> <ul> of <button> with 'Opens Street View in Google Maps (new tab)' description; bookmark row -> <button> + separate Delete button aria-label='Delete bookmark {label}'; monument markers -> 22; walkthrough cards -> 25; layout cards/skip -> 03/02; mobile scrubber -> 07/24; timeline markers -> 07; map canvas -> 09; minimap -> 10. Backdrop click stays as convenience only. Enforce with eslint-plugin-jsx-a11y (click-events-have-key-events, no-static-element-interactions, interactive-supports-focus) as errors.",
+   "acceptance_test": "Playwright sweep: every visible element with computed cursor:pointer matches button,a[href],input,select,summary,[role=button|option|tab|radio],[tabindex] (empty exception list); Tab/Enter/Space operate every former click-only control; lint rules pass in CI.",
+   "metric_or_grade_moved": "2.1.1, 4.1.2, 2.5.3 (Level A); Core function for keyboard/AT users.",
+   "depends_on": [
+    "N1"
+   ],
+   "audit_refs": [
+    "A5",
+    "A6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-05",
+   "title": "Dialog/overlay/panel system: real dialogs, focus move/trap/restore, inert background, Esc stack, z-index scale",
+   "severity": "critical",
+   "effort": "L",
+   "evidence": "13 modal-style overlays (splash, layout chooser, onboarding, help, bookmarks, ancestor, Soldier's Eye, OOB, roster, tools sheet, walkthrough, layers, distance) have no role=dialog/aria-modal, no trap/inert/restore; only 3 focus calls in the app (autoFocus :98819, .focus() :101016, bookmark autoFocus). Esc handler (:113033-113046) misses Layers, Distance, Legend, Story, Event card, Tools sheet, NPS tour, intro/chooser/onboarding and the pinned unit (MF :97909 Ee=c||f while Esc clears only selectedUnitId); Esc ignored in inputs (:112967); z-indexes 85-1000 and 999999 (index.html:185).",
+   "root_cause": "Each overlay hand-rolled; global Esc enumerates setters manually.",
+   "fix": "Dialog primitive on native <dialog> (showModal: top layer, focus trap, inert background, cancel event) and Panel primitive (role=region/aside aria-labelledby). Migrate modal: Entry, Onboarding, Help, Bookmarks, Follow Ancestor, Soldier's Eye, OOB, Tools sheet, Walkthrough, Settings; non-modal: Search, Filter, Legend, Unit, Story, Event log, Layers, Distance, NPS tour, Roster. Overlay stack: Esc pops top-most; in inputs first Esc clears, second closes; deselect clears selected AND pinned unit. Toolbar buttons get aria-expanded+aria-controls; keyboard-open moves focus to panel heading (tabindex -1) or [data-autofocus]; close restores focus to opener; panel DOM placed right after the map. Z-index scale tokens (map 1-9, panels 20, sheets 40, dialogs top layer, toasts 80). React 18.3 has no inert prop: use inert='' attribute or el.inert.",
+   "acceptance_test": "For each overlay (Playwright+axe): open by keyboard -> focus inside; 30 Tabs never leave a modal; Esc closes and document.activeElement===opener; background reports inert; aria-dialog-name passes; NVDA announces '<title>, dialog'.",
+   "metric_or_grade_moved": "2.4.3, 4.1.2, 2.1.1 (A), 2.4.11 (AA); removes H1/H2 root causes.",
+   "depends_on": [
+    "N1"
+   ],
+   "audit_refs": [
+    "A6",
+    "H1",
+    "H2",
+    "H4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-06",
+   "title": "Single keyboard/shortcut module: 2.1.4 compliance, no Mapbox conflicts, correct Esc, truthful Help",
+   "severity": "critical",
+   "effort": "M",
+   "evidence": "One window keydown (bundle.pretty.js:112966-113052) binds bare S/F/L/M/H/B/?/1/2/3/0/+/-/=/Space/Arrows; ignores only INPUT (:112967); no modifier guard (Ctrl+F/S/L/1 also fire); Space preventDefault on any target; conflicts with Mapbox keyboard handler on the focused canvas (Mapbox :89757-89811, canvas tabindex 0 :94008, keyboard:!0 :91902); duplicate wrapper handler (:112216); dead useGlobalKeyboard in HelpModal chunk; H toggles showCasualtyHeatmap that nothing reads (:9419,:9435,:112930); Help lists 'Esc dismiss panel/deselect' (partly false) and H heatmap; speed keys reach 16x while UI shows 8x (:112998 vs :112185).",
+   "root_cause": "Ad-hoc handlers per feature; no registry; Mapbox defaults left on.",
+   "fix": "shortcuts.ts registry {id, keys, scope app|map|timeline, handler, description} with one keydown listener on #root (focus scope) plus persistent prefs.shortcuts on/off (WCAG 2.1.4 mechanisms: turn off + focus scope). Guards: defaultPrevented, IME, Ctrl/Alt/Meta, event.repeat for toggles, targets input/textarea/select/[contenteditable]/[role=textbox|combobox|slider|spinbutton]/open modal dialog; Space/Enter never intercepted on button/a/[role=button]. Construct Mapbox with keyboard:false and implement pan/zoom/rotate on the map surface with documented keys (Shift+arrows pan, +/- zoom). Remove H until a heatmap exists; align speed range; generate Help and User Guide shortcut table from the registry; aria-keyshortcuts on operated buttons.",
+   "acceptance_test": "Playwright: with the map focused, ArrowRight moves the unit cursor and tick is unchanged; Ctrl+F leaves filter closed; shortcuts OFF -> 's' inert; Space on a focused button activates once; Esc closes top overlay then deselects (selected+pinned); Help table equals registry (unit test).",
+   "metric_or_grade_moved": "2.1.4 (A), 2.1.1; removes key double-actions; H2.",
+   "depends_on": [
+    "N1",
+    "app-a11y-05"
+   ],
+   "audit_refs": [
+    "H2",
+    "A6",
+    "D2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence verified (INPUT-only guard 112967, no modifier check, Mapbox keydown 89757-89811 preventDefaults arrows, keyboard default true 91902, speed 16 vs 8, H dead). Correction: a listener on #root is inert while focus is on <body> (page load / click outside root) although onboarding copy says 'Press Space or click Play to begin'; attach to document and gate on activeElement===body || root.contains(activeElement)."
+  },
+  {
+   "id": "app-a11y-07",
+   "title": "Timeline and clock semantics: native integer slider with valuetext, day/speed groups, named transport, key-moments list, one clock formatter",
+   "severity": "critical",
+   "effort": "M",
+   "evidence": "Slider min0 max100 step.01 (bundle.pretty.js:112294-112303) -> SR announces a percent; no label (Lighthouse label failure); parent onKeyDown (:112216) + outline:'none' (:112385); transport glyph buttons with title only (:112309-112338); 8px event dots div+title (:112270-112293); mobile scrubber touch-only (:103177); day/speed state by bg colour only (:112234,:112346); '1x (real time)' is wrong (_F :97429; real rate = 2 ticks/s = 10 game-min/s, cF=500 :96948); three clocks (:9371 06:00/04:00 base, :100836 and :100998 05:00 base) and two dates on the desktop screen (:113086 correct vs :97428 July+2).",
+   "root_cause": "Custom percent slider over a tick domain; clock logic copied into several components.",
+   "fix": "Native <input type=range min=1 max=675 step=1> with visible/sr label, aria-valuetext=formatBattleTime(tick) + '(moment n of 675)', aria-describedby key help, PageUp/PageDown +-12; day selector radiogroup (aria-checked/current); speed radiogroup showing the real rate; transport buttons with text names; 'Key moments' listbox button (8 named ticks TO :112192 + 118 high/critical chronology events) and invisible 24/44px buttons over the dots; drop wrapper handler/outline:none; ONE formatBattleTime()/getDay() used by toolbar, clock chip, slider, announcements, monuments, ancestor timeline, transcript. Do not ship valuetext before the C3/C4 clock fix.",
+   "acceptance_test": "Lighthouse label passes; NVDA: 'Battle time, slider, <clock>, moment 267 of 675'; arrows move exactly one tick, PageUp/PageDown 12; unit test: formatBattleTime identical at all call sites for ticks 1,17,226,451,538,675; toolbar and chip show the same date.",
+   "metric_or_grade_moved": "4.1.2, 2.4.6, 3.3.2, 1.3.1; Core function/consistency; H9.",
+   "depends_on": [
+    "N1",
+    "C3/C4 clock fix owner"
+   ],
+   "audit_refs": [
+    "A2",
+    "D2",
+    "H9",
+    "C3",
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-08",
+   "title": "Data View: accessible table alternative to the canvas + auto-generated situation summary",
+   "severity": "critical",
+   "effort": "L",
+   "evidence": "Units exist only as canvas pixels (lS bundle.pretty.js:96506) and non-interactive 7-11px text rows in OOB/roster (Xk :102321, Jk :102660, mobile :103505; 7px at :102611) that call unmodeled units 'Not on field' (:102303); data reality: 152 positioned units in 694 keyframes over 117 ticks (computed from data/placements_*.json), positions carried forward through module-global i2 (:96265-96305).",
+   "root_cause": "No DOM representation of the map data; four separate bespoke unlabeled lists.",
+   "fix": "<table> with caption, row-header unit + Select button, sortable header buttons (aria-sort), columns Side (text), Formation, Commander (with succession), Men now/start, Activity (text+glyph), Near (nearest of 30 terrain.json key_locations by haversine + 8-point bearing), Losses %; filters (side, corps, area, min strength, only units in contact via X4 :96480), 50-row pages, result count in role=status; per-row 'Show on map'; wording 'No position modeled'; describeMoment(tick) paragraph (counts, contact clusters near named places, latest event) used as aria-describedby of the map and on demand. One component replaces OOB, roster, search results, ancestor picker. Full-page ?view=text, side panel, and automatic fallback when WebGL/Mapbox fails.",
+   "acceptance_test": "NVDA table navigation reads 'Unit 20th Maine Infantry, Side Union, Men 358 of 386, Activity Line of Battle, Near Little Round Top'; axe table rules pass; tasks 5-8 of the 15-task AT script completed with the map hidden; render <30ms for 467 rows; Lighthouse a11y 100 on ?view=text.",
+   "metric_or_grade_moved": "1.1.1, 1.3.1, 2.1.1, 2.1.3/1.4.9 (AAA); accessibility for non-visual users to A range; SEO/text content.",
+   "depends_on": [
+    "N1",
+    "app-a11y-07"
+   ],
+   "audit_refs": [
+    "A5",
+    "H8"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Line refs confirmed but the data claim is wrong: '152 units / 694 keyframes / 117 ticks' covers only placements_*.json. zp() (96900-96917) also loads 38 density_*.json (nF, 96788+) and merges them. Recomputed union as loaded by the app: 1,804 keyframes, 478 unit_ids (regiment and brigade-level ids), 188 ticks (placements 694/152/117; density 1,110/412/175). Data View caption, describeMoment and sizing must use the merged stream. Effort L -> XL."
+  },
+  {
+   "id": "app-a11y-09",
+   "title": "Keyboard unit cursor + map surface semantics + Mapbox keyboard integration",
+   "severity": "critical",
+   "effort": "L",
+   "evidence": "Unit selection is canvas.onClick only (bundle.pretty.js:97365-97377,:97327-97351); Mapbox canvas is the only tabbable map element (role=region aria-label Map, tabindex 0, :94008-94023) and its keys collide with the app (:89757, :113050); overlay canvases lack aria-hidden (trail :96697, labels :9846, tint :9889).",
+   "root_cause": "Pointer-only hit-testing; no keyboard model for a canvas map.",
+   "fix": "Map surface role=application with aria-roledescription, instructions and aria-describedby (situation summary); Enter toggles 'unit cursor' mode; arrows move to the nearest unit in a +-60deg cone scored dist*(1+2*angle) over a pure projectVisible() extracted from lS (:96541-96552) and the existing grid index (aT :96388, Xx :96400); Enter/Space selects+pins and moves focus to the unit panel heading; [ ] order-of-battle traversal; G go-to-location combobox; Shift+arrows pan and +/- zoom via keyboard:false custom handler; announcements per policy ('20th Maine Infantry, Union, holding position, 358 men, facing southwest, about 300 yards north of Little Round Top. 3 of 41 in view'); two-tone cursor ring on the overlay canvas; aria-hidden+pointer-events:none on decorative canvases; camera eases to keep cursor unit in a 20% margin (instant under reduced motion).",
+   "acceptance_test": "Unit tests for step() on synthetic grids (right/left/up/down neighbours, off-axis penalty, null at edge); Playwright: focus map, Enter, ArrowRight x3 -> live-region text equals the Data View row; Enter -> unit panel heading focused; Esc leaves cursor mode; NVDA/JAWS pass arrows through and Tab leaves the map.",
+   "metric_or_grade_moved": "2.1.1, 2.1.3 (AAA), 4.1.2, 1.1.1; unit selection without a mouse.",
+   "depends_on": [
+    "N1",
+    "app-a11y-06",
+    "app-a11y-08"
+   ],
+   "audit_refs": [
+    "A5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-10",
+   "title": "Single-pointer/non-drag alternatives: on-screen pan and zoom, Go-to-location, mobile NavigationControl, minimap semantics",
+   "severity": "high",
+   "effort": "M",
+   "evidence": "Mobile map created without any control (bundle.pretty.js:102981-102989) vs desktop addControl(new NavigationControl(),'top-right') (:97252) -> zoom-out needs a two-finger gesture (2.5.1) and panning is drag-only (2.5.7); mobile minimap is static divs (:103288-103340); desktop minimap is a click-only canvas (:99811).",
+   "root_cause": "Mobile layout built separately and missing basic map controls.",
+   "fix": "Add NavigationControl({showCompass:false}) to mobile and walkthrough maps and enlarge Mapbox controls to 44px on (pointer:coarse); role=group 'Pan the map' D-pad (4 buttons + 'Center on selected unit') panning 25% of the view; 'Go to location' combobox (30 key_locations + 16 tour stops) shared with the G key; make minimap a button-wrapped control with arrow-key support or hide from AT and rely on Go-to-location.",
+   "acceptance_test": "On a 375px touch viewport zoom in/out and pan N/S/E/W with single taps only; Go-to-location 'Little Round Top' flies there (instant with reduced motion); axe/pa11y clean; manual TalkBack check.",
+   "metric_or_grade_moved": "2.5.1, 2.5.7, 2.5.8 (AA/A); mobile usability.",
+   "depends_on": [
+    "N1"
+   ],
+   "audit_refs": [
+    "D3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-11",
+   "title": "Live regions, persistent event log, status messages and time-limited content",
+   "severity": "high",
+   "effort": "M",
+   "evidence": "No aria-live/role=status|alert|log in the app. Toasts vanish at 4.5s (qF bundle.pretty.js:99909-99916), commander cards at 3s (:101707-101714), copy messages 2-4s (:97931,:101122, bookmarks chunk); 'No units found' not announced (:98946); clipboard failure -> window.prompt (:97932); bookmark delete has no undo.",
+   "root_cause": "Notifications rendered as transient visual divs; no announcer abstraction.",
+   "fix": "Three always-mounted regions (#gt-live-status role=status, #gt-live-alert role=alert, #gt-event-log role=log aria-live toggled by prefs); announce(text,{politeness}) helper with debounce/dedupe; toasts become log entries with Pause, pause-on-hover/focus, Clear, no auto-removal for errors (auto mode only if prefs.toasts==='auto'); commander cards and event card feed the same store; announcement matrix per report 6.8 (selection, jump, play/pause, events <=1 per 5s coalesced only when 'Announce battle events' ON, copy, search count, load, errors); replace window.prompt with inline read-only input; bookmark Undo.",
+   "acceptance_test": "NVDA reads 'Selected 20th Maine...' once per selection; events read only when the option is on; toasts persist until dismissed or paused; regions exist in DOM on load (not created on demand); Playwright asserts #gt-live-status text after each trigger.",
+   "metric_or_grade_moved": "4.1.3 (AA), 2.2.1 (A), 2.2.3/2.2.4 (AAA), 3.3.1, 3.3.4; H4.",
+   "depends_on": [
+    "N1",
+    "app-a11y-05"
+   ],
+   "audit_refs": [
+    "H4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-12",
+   "title": "Screen-reader narrative alternative: static chronology transcript ('Battle Chronicle') generated from chronology + vignettes",
+   "severity": "high",
+   "effort": "M",
+   "evidence": "Narrative exists only as time-triggered panels (CF bundle.pretty.js:98252, LF :98595): 137 chronology events (45 critical, 73 high, 16 medium, 3 low) and 24 vignettes (~7,200 words) that appear/disappear with playback and are not reachable statically.",
+   "root_cause": "Content is bound to playback; no linear representation.",
+   "fix": "Build-time static /battle-chronicle.html from data/chronology_day1..3.json + vignettes_part1..3.json: one h1, h2 per day, h3 per hour block, each event a <p> with <time>, text significance label, units as links and 'Show this moment on the map' (/?t=TICK, requires app-a11y-26); TOC nav, skip-to-day links, print CSS; same component as in-app Battle Log; add to sitemap, footer, Help, Extra Features; replaces crawler-only #seo-content.",
+   "acceptance_test": "axe/pa11y 0 violations, exactly one h1, order verified by script against data ticks/times, Lighthouse 100 x4, every entry link opens the map at that tick, NVDA headings list shows Day 1/2/3 + hour groups.",
+   "metric_or_grade_moved": "1.1.1 alternative, 2.4.10 (AAA), SEO T1/E4; content depth for AT users.",
+   "depends_on": [
+    "C3/C4 time fix",
+    "app-a11y-08",
+    "app-a11y-26"
+   ],
+   "audit_refs": [
+    "E4",
+    "T1",
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-13",
+   "title": "Accessible names, roles and states for every control (75 button sites, 18+3+2 close glyphs, toolbar, tabs, toggles)",
+   "severity": "high",
+   "effort": "M",
+   "evidence": "0 of 75 button sites have aria-*; toolbar Vs (bundle.pretty.js:113287) name = letter/emoji with title only as description, active state colour-only; the index.html LABELS patch is inert (skips buttons that have a title, :414); 18 '✕' in main bundle (+3 chunks, +2 letter 'X' :112532,:112881); Play and Next both '▶' (:112321,:112327); two buttons for one function ('S' :113145 and '🔍 Find Unit / Location' :113212); tabs/toggles/segmented groups without roles.",
+   "root_cause": "Icon glyphs as labels; no shared button primitive.",
+   "fix": "IconButton {icon,label,pressed?,expanded?,controls?,keyshortcut?} rendering <button type=button aria-label aria-pressed aria-expanded aria-controls aria-keyshortcuts title> + aria-hidden SVG from the existing site-nav sprite (replaces emoji/letters, H6); segmented groups (Side, Unit type, Disposition, Sort, Speed, Day) as radiogroup or aria-pressed sets, Legend/Help/Walkthrough tabs as tablist/tab/tabpanel with arrow keys; aria-current for active day/stop/story; text names per report 2.2; merge the two search buttons; unify 'Close'.",
+   "acceptance_test": "axe button-name, aria-toggle-field-name, aria-allowed-attr pass; testing-library sweep asserts every button in every state has a non-empty name containing its visible text (2.5.3); Dragon/Voice Access 'click Search'/'click Filter' work.",
+   "metric_or_grade_moved": "4.1.2, 2.5.3, 3.2.4, 1.3.1; toolbar iconography consistency (H6).",
+   "depends_on": [
+    "N1"
+   ],
+   "audit_refs": [
+    "A5",
+    "D2",
+    "H6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-14",
+   "title": "Forms and search: labels, combobox pattern, Distance tool without a mouse, errors and empty states",
+   "severity": "high",
+   "effort": "M",
+   "evidence": "10 form-control sites: search/ancestor/monument inputs placeholder-only with outline:none (bundle.pretty.js:98996,:101356); filter range unnamed (:99255); Layers checkbox text is a span not a label (:112556-112564); Distance tool click-on-map only (GtbgDist :112758-112837) with results not announced; filter chips lack aria-pressed.",
+   "root_cause": "Inputs built without labels or patterns; map-click-only tool.",
+   "fix": "Visible label or aria-label for all inputs; unit search as ARIA 1.2 combobox+listbox (aria-expanded/controls/activedescendant/autocomplete, arrows/Enter/Esc, result count via status); Layers as <fieldset><legend> with real <label>s; Distance tool form alternative (From/To comboboxes of units/locations -> yards/metres/feet + march time in role=status) alongside click mode, drawing the line for both (fixes H12); bookmark name labelled with empty validation; sliders with aria-valuetext.",
+   "acceptance_test": "axe label/aria-input-field-name/autocomplete-valid pass; keyboard-only user measures Little Round Top -> Cemetery Hill and hears the result; combobox announces '5 results' in NVDA and VoiceOver.",
+   "metric_or_grade_moved": "3.3.2, 4.1.2, 2.1.1, 1.3.1; H12.",
+   "depends_on": [
+    "N1",
+    "app-a11y-05"
+   ],
+   "audit_refs": [
+    "A2",
+    "H2",
+    "H12"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-15",
+   "title": "Landmarks, headings, skip links, document title; fold the injected Extra Features overlay into the real header",
+   "severity": "high",
+   "effort": "M",
+   "evidence": "App has 0 landmarks and 1 heading (bundle.pretty.js:110648,:110700). #extra-features is a fixed z-index:999999 element outside React whose corner is picked by a collision mover (index.html:176-206,:521-606), force-revealed after 5s even during onboarding (:202), first in DOM order, and overlaps the story panel (:98418) and toasts (:100008).",
+   "root_cause": "Overlay bolted on via injected scripts because the toolbar could not be edited.",
+   "fix": "Semantic skeleton: header (h1), toolbar role=toolbar aria-label, Extra Features + Ask the Historian as a normal menu-button in the header nav (delete fixed overlay, collision mover, reveal script, timers), main, aside, footer; h2 for every panel/dialog; skip links (map, timeline, unit list); update document.title on view/day/panel change (throttled) and focus new panel headings; Extra Features menu with aria-haspopup/controls, focus into menu, Esc returns focus.",
+   "acceptance_test": "axe landmark-*, region, page-has-heading-one, heading-order, bypass pass in every state; NVDA landmarks = banner, navigation, main, complementary, contentinfo; Playwright hit-test at each Tab stop: elementFromPoint(center) is the focused element or its descendant.",
+   "metric_or_grade_moved": "2.4.1, 2.4.6, 1.3.1, 2.4.11 (AA), 2.4.10/2.4.12 (AAA); H1, E3.",
+   "depends_on": [
+    "N1",
+    "app-a11y-01"
+   ],
+   "audit_refs": [
+    "H1",
+    "D2",
+    "E3",
+    "E4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-16",
+   "title": "Design tokens and contrast to AA (AAA where cheap), CI-enforced",
+   "severity": "high",
+   "effort": "M",
+   "evidence": "contrast2.py: 62 of 234 inline text styles fail 4.5:1 (#444 2.02, #555 2.64 x12 uses, #666 3.43 x31, #777 4.40, #8b6914-as-text 3.87, #3a6bc4-as-text 3.83, #cc4444-as-text 4.20, rgba gold .45 2.54, #6d7a8a ~3.6); Lighthouse fails 2 (mobile)/4 (desktop) live nodes; non-text: chip OFF border 1.56, input border 2.00, timeline markers 2.35, slider track 1.9; disabled by opacity .3 (bundle.pretty.js:98359,:98380); site-nav #6f7686 4.08/4.32.",
+   "root_cause": "Hard-coded hex literals in ~300 inline style entries; no token layer or contrast test.",
+   "fix": "tokens.css (custom properties) consumed everywhere: text-1 #f4f0e4, text-gold #e8d5a3, text-2 #c8c8d2, text-3 #a8a8b8, text-4 #9a9aab, muted-floor #8f8fa3 (non-essential only), gold-text #c8a84a, gold-text-dim #b8963c, link #7fa8ff, danger #f07a7a, ok #6fd08c, warn #ffb454; border-ui #7a7a92 (4.7:1), border-ui-soft #6a6a80, gold border #8b6914 (3.87:1 ok as border); disabled via aria-disabled not opacity; lint banning raw hex; contrast.test.ts reads tokens.css and asserts >=4.5 text (>=7 for AAA-marked) and >=3 borders per pairing.",
+   "acceptance_test": "contrast.test.ts green; axe color-contrast 0 across the state matrix; Lighthouse a11y 100 both form factors in all states; picker spot-check of 20 elements.",
+   "metric_or_grade_moved": "1.4.3, 1.4.6 (AAA), 1.4.11; visual design consistency.",
+   "depends_on": [
+    "N1"
+   ],
+   "audit_refs": [
+    "A1",
+    "C8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-17",
+   "title": "Colour-independent encoding: luminance-separated sides + hatch + letters, disposition glyphs, imagery halo, CVD-safe palette, one palette object for canvas/legend/badges",
+   "severity": "high",
+   "effort": "L",
+   "evidence": "Side fills #3a6bc4/#c43a3a (bundle.pretty.js:96427-96428): luminance contrast 1.02:1, CIEDE2000 protan 42/deutan 51/tritan 66/achromat 0.4; labels #aaccff/#ffbbaa 1.01:1; disposition = 7px colour-only dot (:96644-96651); canvas Lp (:96306) != legend NF (:99384) != badges fA (:98090), 'Line of Battle' has no colour (Lp null); legend says 'Dot outline = side color' (:99519) but no outline is drawn; unit fill vs satellite tones 1.5-2.5:1; map lines 1.3-3.9:1; 'blue dot in Herbst Woods'/'red wave' tour copy (:111839,:111851).",
+   "root_cause": "Colour is the only channel; palettes duplicated per component.",
+   "fix": "palette.ts {side:{union,confed}, disposition:{glyph,color}} feeding canvas, legend, badges, roster, Data View. Default sides Union #6fb1ff / Confederate #b3261e (luminance contrast 2.9:1; protan 59, deutan 56, tritan 65, achromat 29), Confederate also hatched (canvas createPattern) with a trailing notch, labels prefixed 'U'/'C'; disposition glyphs (>=12px: charging up-triangle, retreat down-triangle, line bar, march arrow, reserve diamond, bivouac dot, artillery star, limbered x) beside units and in legend/lists; two-tone halo (1px #fff + 1px #000) on units/glyphs (max of contrast vs white/black >=4.58 for any background); 2px black casing under map lines; Settings palette 'Colour-blind safe' (Okabe-Ito #0072B2/#D55E00 + hatch) and 'High contrast'; rewrite legend copy and tour text.",
+   "acceptance_test": "palette.test.ts asserts dE2000 >=25 between sides under protan/deutan/tritan/achromat and side luminance contrast >=2.5:1; DevTools vision-deficiency screenshots show all 11 dispositions and both sides identifiable by glyph/pattern alone; canvas pixel test halo contrast >=3:1 on 5 satellite tiles.",
+   "metric_or_grade_moved": "1.4.1, 1.4.11, 1.3.3; Visual design B- -> A-.",
+   "depends_on": [
+    "N1",
+    "app-a11y-16"
+   ],
+   "audit_refs": [
+    "A1",
+    "H6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-18",
+   "title": "Type scale in rem, 12px floor, user text-size control, canvas label scaling",
+   "severity": "high",
+   "effort": "L",
+   "evidence": "268 fontSize literals in the app region, 133 <12px, 21 <=9px, min 7px (bundle.pretty.js:102611), 8px x7 (:102287-102310,:102594-102599,:103294); all px so OS/browser text-size preferences are ignored; canvas labels 8/9/10px (:96663); Mapbox labels 9-10px (:9763,:9788); nowrap/ellipsis and fixed heights (toolbar 48, mobile bars) clip under text spacing.",
+   "root_cause": "Absolute px inline styles; fixed-height containers.",
+   "fix": "--fs-* rem tokens replace every literal via codemod (12px floor: 7-11 -> --fs-xs); html font-size = 16px * --gt-font-scale set by Settings (100/125/150/200%); text containers use min-height+padding; remove nowrap/ellipsis in OOB/roster/unit-value rows in favour of wrapping; canvas labels drawn at max(12,12*scale) with existing zoom-gated collision culling (:96653-96663); Mapbox symbol text-size >=12. Interim: shim font floor (finding 01).",
+   "acceptance_test": "Playwright: computed font-size of every visible text node >=12px in all states; WCAG text-spacing injection (line-height 1.5, letter-spacing .12em, word-spacing .16em, paragraph 2em) leaves no clipped/overlapping text; 200% text scale keeps every control reachable.",
+   "metric_or_grade_moved": "BRIEF 'text >=12px', 1.4.4, 1.4.12 (AA), 1.4.8 (AAA); Fit & finish (mobile D+).",
+   "depends_on": [
+    "N1",
+    "app-a11y-16"
+   ],
+   "audit_refs": [
+    "A4",
+    "D2",
+    "S4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-19",
+   "title": "Target size: 44px on touch, >=32px on desktop pointers, never <24px",
+   "severity": "high",
+   "effort": "M",
+   "evidence": "index.html:61 resets padding:0 so unstyled buttons collapse: estimated 11-20 x 13-25px for 18+ close glyphs (bundle.pretty.js:98169,:98468,:99329,:100540,:103870,:103937,:104061), 6-8px dots (:98500,:100497,:112277), speed buttons ~26x20 (:112442), disposition chips ~22px tall (:99366), toolbar 28x26 (:113356), Mapbox controls 29x29, mobile scrubber track 36px; only a few 44px buttons (:101341,:102118,:103820). Lighthouse target-size passed only for the initial state.",
+   "root_cause": "No shared hit-area primitive; padding reset.",
+   "fix": "IconButton/Chip/Tab primitives enforce min-width/min-height var(--hit-min) = 44px under (pointer:coarse), 32px otherwise (documented AAA deviation for the dense desktop toolbar); invisible hit areas for 6-8px visuals (position:relative + ::after inset:-9px); 8px gaps; 44px mobile scrubber thumb hit area; Mapbox controls 44px on coarse pointers; never rely on the 2.5.8 spacing exemption.",
+   "acceptance_test": "Playwright sweep over visible button,a[href],input,select,summary,[role=button|tab|radio|option|slider] in each state: bounding box >=24x24 (fine) / >=44x44 (hasTouch+isMobile context) with an explicit allow-list; CSV output reviewed; axe target-size passes all states.",
+   "metric_or_grade_moved": "2.5.8 (AA), 2.5.5 (AAA); mobile usability D+ -> B+ (with 20/24); BRIEF 44px touch rule.",
+   "depends_on": [
+    "N1",
+    "app-a11y-13"
+   ],
+   "audit_refs": [
+    "A3",
+    "D2",
+    "S4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Estimates plausible and padding:0 reset confirmed at index.html:61, but Mapbox v3.24.1 control buttons are 32x32 (.mapboxgl-ctrl-group button{height:32px;width:32px;outline:none} in index-B4G7Z_2G.css), not 29x29; still under 44."
+  },
+  {
+   "id": "app-a11y-20",
+   "title": "Reflow, zoom, text spacing, landscape: one responsive tree by container width, toolbar overflow, no load-time layout constants",
+   "severity": "high",
+   "effort": "L",
+   "evidence": "index.html:62-70 html/body overflow:hidden + #root fixed contain:strict; desktop toolbar = three clusters (title+day+tick ~290-300px, absolutely centred cluster ~540px, 13 buttons ~420-470px, bundle.pretty.js:113074-113232,:113336) estimated to collide below ~1400px viewport; timeline controls nowrap ~800px (:112425); search panel 440px translateX(-50%) (:98953); style constants computed once from window.innerWidth (:98111-98115,:102708-102712); desktop-vs-mobile is a user click (dO) so zoomed desktop users are never switched; mobile fixed 52+42+140px chrome (:103715,:103744,:103770).",
+   "root_cause": "Fixed pixel clusters and a hard desktop/mobile fork.",
+   "fix": "CSS layout modes by container width (>=1100 wide, 640-1099 medium, <640 narrow) on #root via container queries/ResizeObserver; the chooser sets the default, not a fork. Toolbar priority+ pattern with 'More tools' menu-button (ResizeObserver), no overlap; timeline wraps to two rows <720px, speed becomes select <480px, credit/e-mail to footer; panels width:min(440px,calc(100vw-24px)), max-height calc(100dvh - chrome), inset-inline centring; replace window.innerWidth constants with CSS; allow #root scroll at <320x256 (map exempt as 2-D content); landscape phones collapse bars to 44px with safe-area insets; drop manifest orientation lock (29).",
+   "acceptance_test": "Playwright at 1440x900, 1280x720, 1366x768, 1024x768, 768x1024, 375x812, 812x375, 320x256: (a) no horizontal scroll outside the map, (b) pairwise overlap detector on visible interactive elements returns none, (c) every toolbar action reachable by Tab, (d) text-spacing injection leaves no clipping.",
+   "metric_or_grade_moved": "1.4.10, 1.4.4, 1.4.12, 1.3.4 (AA); BRIEF 'no overlap/clip 320-2560 and landscape'; Fit & finish/Usability on mobile.",
+   "depends_on": [
+    "N1",
+    "app-a11y-18",
+    "app-a11y-19",
+    "mobile-layout specialist (C1/C2)"
+   ],
+   "audit_refs": [
+    "C1",
+    "C2",
+    "D2",
+    "S4",
+    "E1"
+   ],
+   "verdict": "UNVERIFIABLE",
+   "correction": "Structure verified (centre cluster left:50% 113336, 440px search panel translateX(-50%) 98953-98968, load-time innerWidth constants 98111/102708, nowrap controls 112425). Overlap thresholds are estimates without a browser; my arithmetic gives collision below ~1,470 px, consistent with ~1,400. Run the sweep first."
+  },
+  {
+   "id": "app-a11y-21",
+   "title": "Motion: honour prefers-reduced-motion in the app, add an in-app control, make intro and tour stoppable",
+   "severity": "medium",
+   "effort": "M",
+   "evidence": "Only boot splash, #extra-features and site-nav overlays respect reduced motion (index.html:139,:206,:252; site-nav.css:14,:53,:82); the app does not: intro fast-forward eO=3500 (bundle.pretty.js:101471), contact-glow 0.4+0.6*abs(sin(t/300)) (:96615, ~1.06Hz), sub-tick interpolation (:97001), 8s tint transition (:9895), NPS tour autoplay with timeouts Esc cannot stop (:100329-100341), trails default on (:97219); Mapbox flyTo does respect it (:11447).",
+   "root_cause": "No motion preference plumbing in app code.",
+   "fix": "useMotion() from prefs.motion (system->matchMedia): reduced => skip intro, solid halo instead of pulse, positions step per tick, trails default off, tint instant, flyTo->jumpTo, tour advances only on user action, default speed 1x; full => keep but give tour/intro visible Pause/Skip and Esc. Interim: bundle patch J in finding 02.",
+   "acceptance_test": "emulateMedia reducedMotion:reduce -> splash absent within 200ms, canvas frames identical across two rAF ticks at the same tick, no rAF loop while paused; in-app setting overrides OS; tour has Pause and Esc stops it.",
+   "metric_or_grade_moved": "2.2.2 (A), 2.3.3 (AAA); vestibular safety; first-load reliability.",
+   "depends_on": [
+    "N1",
+    "app-a11y-26",
+    "app-a11y-01"
+   ],
+   "audit_refs": [
+    "A6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-22",
+   "title": "Hover-only and title-only content (1.4.13): monument markers, timeline markers, toolbar tooltips; remove the duplicate injected star overlay",
+   "severity": "medium",
+   "effort": "S",
+   "evidence": "Monument markers are div onMouseEnter/Leave with a pointerEvents:none tooltip (bundle.pretty.js:100914-100959,:100974) - not focusable, hoverable or dismissible; timeline markers rely on title (:112275); toolbar buttons on title (:113291); index.html:608-714 injects a second hard-coded star overlay on the same Monuments button with title tooltips and known drift on pan/zoom (its own comment :620-622); dead hover popup fF (:97063).",
+   "root_cause": "Hover handlers on divs; two implementations of the same feature.",
+   "fix": "Markers -> <button aria-label='{name}. {label}. Jump to {time}' aria-describedby> with a native Popover shown on hover AND focus, hoverable with a 300ms grace, Esc-dismissible, persistent while focused; timeline markers -> Key-moments list (07); toolbar tooltips built from the label with the same rules; delete the injected star overlay and dead fF.",
+   "acceptance_test": "Tab to a marker -> popover text visible and read via aria-describedby; pointer can move onto it without closing; Esc hides it; exactly one marker per monument (20 React markers from mA :100615, none from the injected overlay which loads a different 9-entry data/monuments.json).",
+   "metric_or_grade_moved": "1.4.13 (AA), 2.1.1, 1.3.1; removes duplicate DOM.",
+   "depends_on": [
+    "N1"
+   ],
+   "audit_refs": [
+    "H6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-23",
+   "title": "Focus visibility and focus-not-obscured: two-tone ring, remove outline:none sites, retire the floating overlay",
+   "severity": "high",
+   "effort": "S",
+   "evidence": "Inline outline:'none' on search input (bundle.pretty.js:98996), ancestor input (:101356), timeline wrapper (:112385); site-nav.css:43-47 and :110 remove outlines on the Historian pin and menu cards (replacement change 1.14:1 and 1.71:1, computed); global ring #c9a24b is 1.15:1 over wheat-field imagery (tokens.py); #extra-features fixed z 999999 moves among six positions (index.html:176-206,:535-590) and can cover a focused control; mobile bottom bars cover content.",
+   "root_cause": "Per-element outline suppression; fixed overlay above everything.",
+   "fix": "Focus token :focus-visible{outline:2px solid #fff;outline-offset:2px;box-shadow:0 0 0 4px #000} for every focusable incl. inputs; delete the three inline outline:none and the two site-nav.css removals; scroll-padding/scroll-margin so focused rows are not hidden under fixed bars; remove the floating overlay (15) so nothing fixed sits over focusable content; add the focus-not-obscured sweep.",
+   "acceptance_test": "Tab through every state: elementFromPoint(centre of focused element) is the element or descendant for 100% of stops; ring contrast >=3:1 on 5 imagery samples; manual: ring visible on the Historian pin.",
+   "metric_or_grade_moved": "2.4.7, 2.4.11 (AA), 2.4.13 (AAA), 1.4.11.",
+   "depends_on": [
+    "app-a11y-01",
+    "app-a11y-05",
+    "app-a11y-15"
+   ],
+   "audit_refs": [
+    "A6",
+    "H1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Outline-none sites are 98995 (not 98996), 101356, 112385 plus two missed in Walkthrough (111557, 111744); Mapbox control CSS also sets outline:none; site-nav.css 43-47/110 confirmed and are editable now (Phase 0), not source-dependent."
+  },
+  {
+   "id": "app-a11y-24",
+   "title": "Mobile layout accessibility: one control set, native scrubber, dialog sheets, zoom buttons, no covered focusables, pinch-zoom allowed",
+   "severity": "high",
+   "effort": "M",
+   "evidence": "AO renders desktop IO timeline (bundle.pretty.js:113249), XF (:113252), VF (:113244), WF (:113245), KF (:113250), CF/LF/_F (:113246-113248), qF (:113259), MF (:113283) in every layout while pO is a second full-screen tree (:113061-113064, root zIndex 100 :103703); IO (zIndex 100 :112386) is later in DOM order so it paints over pO's bottom bar = root cause of C1/C2 (the 572px transport row is IO's Po.controls). AT consequences: duplicate Play/Prev/Next, focusable controls hidden under UI; scrubber touch-only (:103177); tools sheet is a div overlay (:103368); touch-action:none root (:103705) likely blocks pinch-zoom; mobile map has no zoom buttons (:102981); icon spans duplicate labels ('FFilter', :103494).",
+   "root_cause": "Mobile layout added as a parallel tree without unmounting desktop chrome.",
+   "fix": "Mount only the active layout's controls (or the single responsive tree of 20); hidden = unmounted or inert; scrubber -> native slider (07); Tools sheet -> <dialog> with aria-labelledby, 44px rows, icon spans aria-hidden; root touch-action: pan-x pan-y pinch-zoom (map canvas keeps its own none); NavigationControl/D-pad (10); safe-area insets; 44px targets (19); landscape behaviour (20).",
+   "acceptance_test": "In mobile layout document.querySelectorAll('button') contains exactly one Play button; hit-test of every focusable centre returns itself (C2 acceptance); browser pinch-zoom to 200% works on Chrome Android; TalkBack swipe order = top bar, day tabs, map summary, timeline, tools; axe clean on 6 mobile states.",
+   "metric_or_grade_moved": "2.1.1, 2.4.3, 2.5.1, 2.5.7, 2.5.8, 1.4.4; Mobile core function D -> A- (with C1/C2).",
+   "depends_on": [
+    "N1",
+    "app-a11y-05",
+    "app-a11y-10",
+    "mobile-layout specialist (C1/C2 layout)"
+   ],
+   "audit_refs": [
+    "C1",
+    "C2",
+    "H3",
+    "S4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-25",
+   "title": "Virtual Walkthrough view: tabs, monument cards, heading hierarchy, labels, iframe titles",
+   "severity": "medium",
+   "effort": "M",
+   "evidence": "No h1 (title is a span, bundle.pretty.js:110869,:110989) though h2/h3 exist (:110648,:110700); tab buttons without role=tab (:110879,:111156); chips active by class only (:110901,:111227); monument cards div onClick with 100 identical 'View on map' links (:110690-110731,:110726); placeholder-only search inputs (:110928,:111213); unlabeled select (:111241); Street View iframe title = stop name only (:110665); 100-item cap message not announced (:110963,:111291); Mapbox attribution disabled (:110777,:102988 - verify licensing).",
+   "root_cause": "Separate view built without shared primitives.",
+   "fix": "h1 'Virtual Walkthrough'; tablist/tab/tabpanel with arrow keys; stop chips aria-current; monument list <ul> of <article> (h3) with a 'Fly to on map' <button> and 'View {name} on Google Maps (opens new tab)' link; labelled search/select; result count role=status ('Showing 100 of 512 - refine your search'); iframe title 'Street View panorama near {name}' with the existing Open-in-Google-Maps link as fallback; NPS video link aria-label 'Watch NPS video for {name} (opens nps.gov)'; accessible name and list alternative for the map.",
+   "acceptance_test": "axe/pa11y clean on both branches (mobile kr, desktop Tn); NVDA headings list H1 -> stops; keyboard user opens stop 5 and reaches its Street View link; count announced after each filter.",
+   "metric_or_grade_moved": "1.3.1, 2.4.6, 2.4.4, 4.1.2, 3.3.2.",
+   "depends_on": [
+    "N1",
+    "app-a11y-04",
+    "app-a11y-13"
+   ],
+   "audit_refs": [
+    "H13",
+    "D2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-26",
+   "title": "Accessibility settings dialog + URL state (deep links) + working share links",
+   "severity": "medium",
+   "effort": "M",
+   "evidence": "Share/bookmark URLs ?t=&u=&z=&ll= are written ($k bundle.pretty.js:97823-97830, bookmark url :97862) but never read - the only URLSearchParams get is 'ancestor' (:101019); gtbg_prefs holds only showLegend/showMinimap (:9327-9341,:9417-9418); layout/view unpersisted (H3).",
+   "root_cause": "No state-in-URL layer; preferences store barely used.",
+   "fix": "parseUrlState() on load and popstate for t,u,z,ll,ancestor,view,layout,intro,motion,palette,contrast (validated/clamped); replaceState on share/bookmark; Settings dialog with live preview persisted in gtbg_prefs (view, motion, contrast, palette, textScale, shortcuts, announce, toasts); URL test hooks (?intro=0&layout=desktop&view=text&motion=reduce) documented for the CI state matrix.",
+   "acceptance_test": "Opening a copied link restores tick, selected unit, zoom and centre; invalid params ignored; settings persist and apply before first paint; Playwright state matrix reaches every state using only URL params.",
+   "metric_or_grade_moved": "Fixes a functional bug (share links), unblocks findings 12/32, supports 3.2.6/2.2.6-style continuity.",
+   "depends_on": [
+    "N1",
+    "app-a11y-05"
+   ],
+   "audit_refs": [
+    "H3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-27",
+   "title": "Copy, debug text and dead-code hygiene that affects AT and clarity",
+   "severity": "medium",
+   "effort": "S",
+   "evidence": "User-visible FPS debug on canvas (bundle.pretty.js:96684-96687) and clock chip (:97446-97448); dead hover popup fF (:97063); dead H heatmap (:113022, Help, onboarding :111995); dead HelpModal useGlobalKeyboard; undefined keyframes slideIn (:100024); Help 'About' says 445+ units (H10) and Esc text partly false; OOB abbreviations MG/BG/LG/Gen/Col (:102536-102547); 'Not on field' for unmodeled units (:102303,:103555); 'Trails ON/OFF' with a wavy-dash glyph (:97382); two names for one action.",
+   "root_cause": "Debug and legacy code shipped; copy typed instead of derived.",
+   "fix": "Delete FPS overlays (opt-in ?debug=fps), fF, H shortcut, useGlobalKeyboard, slideIn; Help generated from the shortcut registry and data (unit count computed); expand abbreviations or <abbr title>; wording 'No position modeled'; decorative glyphs aria-hidden; single search entry point.",
+   "acceptance_test": "grep of the built bundle for fps, hoveredUnit, toggleHeatmap, slideIn, '445+' returns nothing; Help table equals registry (unit test); 3.1.4 check on OOB.",
+   "metric_or_grade_moved": "3.2.4, 3.1.4 (AAA); professional copy voice (H7).",
+   "depends_on": [
+    "N1",
+    "app-a11y-06"
+   ],
+   "audit_refs": [
+    "H7",
+    "H10"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-28",
+   "title": "Errors are invisible: map/WebGL/data failures need messages and a fallback to Text view",
+   "severity": "medium",
+   "effort": "M",
+   "evidence": "Bulk loads have no error path (iF bundle.pretty.js:96834-96899 Promise.all+json with no catch; rF :96919; oF :96923); zp swallows failures as empty arrays (:96909); Mapbox 'error' event unhandled (map init :97237-97261); no WebGL check; boot splash has no timeout/failure state (index.html:742-748); clipboard failure -> window.prompt (:97932).",
+   "root_cause": "Happy-path-only data/map loading.",
+   "fix": "Central loadData() with per-file retry (2x, back-off) and a role=alert banner ('Some battle data could not be loaded (3 of 30). Retry / Continue in Text view'); map.on('error') -> announce + offer Text view; mapboxgl.supported() false -> open Text view automatically; boot splash role=status with progress text ('Loading battle data 12 of 30') and a 10s timeout message with Retry; aria-busy on the map while loading.",
+   "acceptance_test": "Playwright route.abort() on 3 JSON files and WebGL disabled -> alert text present and Text view usable; Mapbox token blocked -> banner; NVDA announces the alert.",
+   "metric_or_grade_moved": "3.3.1 (A), 4.1.3 (AA); Reliability B-/C -> A-.",
+   "depends_on": [
+    "N1",
+    "app-a11y-08",
+    "app-a11y-11"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-29",
+   "title": "PWA and reload behaviour: remove the landscape orientation lock and the first-visit forced reload",
+   "severity": "medium",
+   "effort": "S",
+   "evidence": "manifest.json 'orientation':'landscape' (E1); index.html:263-268 controllerchange -> location.reload(); sw.js skipWaiting()+clients.claim() (C6).",
+   "root_cause": "Aggressive SW update strategy and copy-pasted manifest field.",
+   "fix": "Delete the orientation member (or 'any'); remove the forced reload; show a non-blocking role=status 'A new version is available - Refresh' with a keyboard-reachable button when a waiting worker exists and reload only on request (3.2.5); drop skipWaiting.",
+   "acceptance_test": "Installed PWA rotates to portrait; first visit performs one navigation (no redirectCount); update message appears after a deploy and is announced.",
+   "metric_or_grade_moved": "1.3.4 (AA), 3.2.5 (AAA); also C6/P1 performance.",
+   "depends_on": [],
+   "audit_refs": [
+    "E1",
+    "C6"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "manifest orientation and controllerchange reload confirmed. The first-visit double load comes from clients.claim() firing controllerchange into the reload handler, so deleting the handler suffices for C6; dropping skipWaiting is unnecessary for it and would leave the new SW waiting (old gbg-v5 cache kept) while the pipeline relies on a CACHE_NAME bump. sw.js navigations are network-first so new HTML still arrives. Decide skipWaiting together with the chunk-rename fix."
+  },
+  {
+   "id": "app-a11y-30",
+   "title": "Cheap Level AAA set: implementation and sign-off checklist",
+   "severity": "low",
+   "effort": "M",
+   "evidence": "Report section 4.1: 1.4.6, 1.4.8, 1.4.9, 2.1.3, 2.2.3/2.2.4, 2.3.3, 2.4.10, 2.4.12, 2.4.13, 2.5.5, 3.1.4, 3.2.5, 3.3.5, 3.3.6 all currently fail or partially pass.",
+   "root_cause": "AAA never targeted.",
+   "fix": "Implement and record in the ACR: 7:1 body tokens, line-height >=1.5 + text-size control + no horizontal scroll at 200%, keyboard-complete map, persistent log/optional toasts, reduce-motion, headings in every panel, no fixed overlays, two-tone ring, 44px on touch (documented desktop toolbar deviation), abbreviations, no auto-reload, per-panel 'How to use' link, bookmark undo.",
+   "acceptance_test": "Each item has an automated or manual test in section 9 and an ACR row marked 'Supports'.",
+   "metric_or_grade_moved": "AAA conformance on the cheap set; documentation.",
+   "depends_on": [
+    "app-a11y-16",
+    "app-a11y-19",
+    "app-a11y-21",
+    "app-a11y-11",
+    "app-a11y-15",
+    "app-a11y-23",
+    "app-a11y-27"
+   ],
+   "audit_refs": [
+    "A1",
+    "A3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-31",
+   "title": "Retire the legacy injected scripts in index.html (inert label patch, banner scraper, reveal/collision scripts, duplicate star overlay)",
+   "severity": "medium",
+   "effort": "S",
+   "evidence": "index.html:398-440 label patch is inert (skips buttons with title; 25x polling); :355-396 scrapes DOM text; :441-519 click-text sniffing + 1.5s/10s timers + 5s CSS force-reveal (:202); :521-606 collision mover; :608-714 star overlay duplicating KF; :255-277 SW forced reload.",
+   "root_cause": "Workarounds accumulated because the app source was not editable.",
+   "fix": "Delete label patch, banner injector (copy moves into Entry dialog), reveal + collision mover (with the overlay, 15), star overlay (22); port populate into the header component; SW reload per 29. index.html then keeps only the reduced-motion flag and JSON-LD scripts.",
+   "acceptance_test": "index.html has no inline <script> other than the reduced-motion flag and JSON-LD; the removed behaviours exist as tested React components.",
+   "metric_or_grade_moved": "Main-thread work, reliability, 2.4.11.",
+   "depends_on": [
+    "app-a11y-15",
+    "app-a11y-03",
+    "app-a11y-22"
+   ],
+   "audit_refs": [
+    "H1",
+    "E4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-a11y-32",
+   "title": "Automated accessibility test infrastructure and CI gates (Playwright+axe state matrix, pa11y-ci, LHCI, jsx-a11y, token/palette/cursor unit tests, sweeps)",
+   "severity": "high",
+   "effort": "L",
+   "evidence": "No tests exist for the deployed app (N1); Lighthouse tested only the load state. Report section 9 includes runnable Playwright specs for ~24 URL-reachable states x {desktop 1440x900, mobile touch} x {default, reduced-motion, forced-colors}.",
+   "root_cause": "No source-level test harness; states not URL-addressable.",
+   "fix": "tests/a11y/state-matrix.spec.ts (Playwright + @axe-core/playwright, tags wcag2a/aa/21/22aa/best-practice, fail on violations and serious incomplete); regression specs for key conflicts, Ctrl+F, Space-on-button, dialog focus in/trap/Esc/restore, target size, overlap, focus-not-obscured, font-size floor, text spacing, 400% reflow, reduced motion, CDP vision-deficiency screenshots; pa11y-ci.json with actions; lighthouserc.js (a11y=1, color-contrast, label, button-name, heading-order, bypass, target-size as errors); eslint-plugin-jsx-a11y strict + stylelint (no raw hex, font-size >=0.75rem); vitest unit tests: contrast tokens, palette dE2000, step() cursor, formatBattleTime consistency, shortcut guards, announce debounce. CI per PR, nightly against production, Netlify deploy-preview gate.",
+   "acceptance_test": "CI fails on any new axe violation, contrast-token regression, missing accessible name or target <24px; green baseline committed; nightly production run posts results.",
+   "metric_or_grade_moved": "Locks in A+ (regression protection); BRIEF 'tested' bar.",
+   "depends_on": [
+    "N1",
+    "app-a11y-26"
+   ],
+   "audit_refs": [
+    "N1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "STATES array has 24 entries vs 'about 45 states' in the finding/8.2; the matrix depends on URL hooks from 26 (source-level), so a Tier-0 harness needs a gtbg_onboarded seed + click-through; the reduced-motion test asserts absence of splash text immediately after goto (racy); LHCI assertions on bypass are meaningless because bypass is informative in Lighthouse 13 - use axe directly."
+  },
+  {
+   "id": "app-a11y-33",
+   "title": "Manual assistive-technology program: scripts, matrix, exit criteria (15 core tasks)",
+   "severity": "high",
+   "effort": "M",
+   "evidence": "Nothing in the app has been tested with a screen reader, voice control or forced colours (audit 'Not tested'); Lighthouse a11y covers only an automated subset.",
+   "root_cause": "No AT testing cadence.",
+   "fix": "Run the 15 core tasks (cold load/skip link, entry, play/pause/speed, Key moments to Pickett's Charge, situation summary, search+select 20th Maine, step time, story/Battle Log, filter Confederate artillery, Follow Ancestor + share link, bookmark+undo, Extra Features/Historian/Back, Walkthrough stop 5 + Street View, unit cursor Little Round Top -> Peach Orchard, keyboard-only distance measure) on NVDA+Firefox/Chrome, JAWS+Chrome, VoiceOver macOS Safari, VoiceOver iOS Safari, TalkBack+Chrome, Windows Voice Access/Dragon, Windows contrast themes, 200%/400% zoom, keyboard-only; log in docs/a11y/test-log.md, file/re-test defects; paid session with 2-3 AT users before declaring A+.",
+   "acceptance_test": "Every task passes on every matrix row with no workaround, in <=2x median sighted-mouse time; log committed.",
+   "metric_or_grade_moved": "Converts 'no automated violations' into verified usability; feeds the ACR.",
+   "depends_on": [
+    "app-a11y-05",
+    "app-a11y-07",
+    "app-a11y-08",
+    "app-a11y-09"
+   ],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "15 tasks x ~8 AT/browser rows = ~120 runs plus logging, defect re-test and 2-3 paid user sessions: effort L, not M."
+  },
+  {
+   "id": "app-a11y-34",
+   "title": "Accessibility statement, WCAG 2.2 Accessibility Conformance Report (VPAT 2.5) and feedback channel; accessible PDF guide",
+   "severity": "medium",
+   "effort": "S",
+   "evidence": "No accessibility statement exists; user-guide.pdf metadata '(anonymous)' and layout issues (G1); privacy/terms pages omit accessibility contact.",
+   "root_cause": "Accessibility not documented or promised.",
+   "fix": "/accessibility.html (footer, Help, Extra Features): conformance claim WCAG 2.2 AA (+ noted AAA), scope, known limitations (imagery decorative, third-party NPS video captions, Google Street View embeds), how to use Text view/keyboard help, contact e-mail with 2-business-day response, last-test date; docs/a11y/ACR-WCAG2.2.md generated from the test log; tag the PDF guide (real headings, alt text, title/metadata) and add a shortcuts page.",
+   "acceptance_test": "Page passes axe/pa11y/Lighthouse; ACR rows mirror the criterion table with 'Supports' evidence links; PDF passes PAC 2024 / Acrobat checker.",
+   "metric_or_grade_moved": "Documentation B -> A; Privacy/legal B+ -> A-.",
+   "depends_on": [
+    "app-a11y-33"
+   ],
+   "audit_refs": [
+    "G1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "No accessibility page exists; user-guide.pdf metadata confirms '(anonymous)' and producer 'ReportLab PDF Library - (opensource)'. ReportLab open-source likely cannot emit a PDF/UA structure tree (unverified), so a tagged PDF probably means changing the generator; with a 55-row ACR the effort is M, not S."
+  }
+ ],
+ "open_questions": [
+  "Is a buildable source available (N1)? If not, only Phase 0 (findings 01, 02, 29) is possible: Lighthouse ~100 but real conformance stays low (no Data View, unit cursor, dialog semantics or non-colour encodings).",
+  "Which clock is authoritative (C3/C4)? aria-valuetext, live announcements and the chronology transcript must not ship before the single formatBattleTime() is fixed or they will speak wrong times.",
+  "Lighthouse reports landmark-one-main as passing although the app renders no <main>; I could not reconcile this (the bypass audit output is unambiguous). Verify with a manual accessibility-tree inspection.",
+  "Target sizes and toolbar/timeline overlap widths are estimates from style objects; run the Playwright target-size/overlap/text-spacing sweeps first and treat their output as truth.",
+  "role=application on the map surface must be validated with NVDA/JAWS (browse/focus mode transitions) and iOS/TalkBack; Text view is the safety net. Native <dialog> top-layer behaviour over Mapbox must be verified on iOS Safari and Firefox ESR; React 18.3 lacks an inert prop (use inert='' or el.inert).",
+  "Are NPS videos (nps.gov links in the tour/walkthrough) captioned/audio-described, and does the Google Street View iframe let keyboard users Tab out? Both are third-party and unverified.",
+  "Default for 'Announce battle events' (proposed OFF) and whether Text view should be the default on first visit for AT users are judgement calls to validate with real AT users.",
+  "The Tier-0 CSS font floor and colour overrides change dense inline-styled panels; visual QA at 4 widths is required before deploy (failure mode is cosmetic).",
+  "Mobile and Walkthrough Mapbox maps disable the attribution control (bundle.pretty.js:102988, :110777): check Mapbox ToS (legal/security specialist).",
+  "Placement data cover only 152 units in 694 keyframes (117 ticks) while the UI advertises 467 units and carries positions forward via a module-global; the Data View wording ('No position modeled') depends on the data specialist's decision (H10)."
+ ],
+ "verification_summary": "The specialist's evidence is unusually accurate. I re-opened about 150 line citations and all were within 0-2 lines. Every number I recomputed reproduced. That covers the contrast ratios, 62/234 failing styles, 133/268/21/7px font sizes, 152/694/117 placements, 137 events (45/73/16/3), 24 vignettes (7,205 words), and the 18 patch FIND counts (+1,850 bytes, node --check OK). The defects are in delivery mechanics, one data claim, acceptance arithmetic and effort, not in the findings' existence. Two would cause a production regression if shipped as written. First, finding 02's re-hash pipeline rewrites the lazy chunks in place under the same immutable, cache-first filenames. Returning visitors would then load the old chunk, which imports the old main bundle and re-runs its createRoot mount. Second, the plan's Tier-0 patch set collides with app-mobile's hot-fix pack. Applying the 18 FINDs to app-mobile's patched bundle fails 2 counts (G-close-mobile 3 vs 4, J1 0 vs 1), so the pipeline's refuse-on-mismatch rule aborts. Finding 08's data claim is also wrong. The app merges 38 density_*.json files with the 9 placements files, giving 1,804 keyframes, 478 unit ids and 188 ticks, not 152/694/117. Verdicts: 22 CONFIRMED (20 fully, plus 20 confirmed for structure with its thresholds unverifiable) and 12 CORRECTED (01, 02, 03, 06, 08, 19, 23, 29, 32, 33, 34; 08 counted once). Finding 17's satellite-tone ratios are UNVERIFIABLE because those hex tones were assumed. A \"## Verification\" section was appended to app-a11y.md; my scripts are in plan-work/tmp-verify-app-a11y/.",
+ "missed_by_specialist": [
+  {
+   "title": "Tier-0 patch pipelines of app-a11y (02) and app-mobile collide and share the stale-chunk defect",
+   "severity": "high",
+   "evidence": "tmp-app-mobile/apply_patches.py (68 edits) patches the same minified bundle, index.html:55/282 and sw.js and renames output to index-mHF1a.js. Overlaps: eO=3500 (HF-10h vs 02-J1), tn.toolsClose close button (HF-6l vs 02-G regex), Va.skip/skipBtn (HF-10f/11c vs 02-F), tn.root touch-action (HF-8a vs finding 24). Re-running the specialist's 18 FINDs (tmp-verify-app-a11y/bpc.py) against tmp-app-mobile/patched/assets/index-mHF1a.js: 16 OK, G-close-mobile 3 vs 4, J1-intro-duration 0 vs 1. The mobile pack renames only the main bundle and leaves both chunks importing ./index-Cg8FAMXN.js, which stays in assets/.",
+   "fix": "One merged, ordered patch list (mobile pack then a11y with adjusted counts), one count-asserting script, one output content-hash, both lazy chunks renamed too with the two import() specifiers updated, one CACHE_NAME bump."
+  },
+  {
+   "title": "Tier-0 shell skeleton gaps: dead/ineffective skip links and h1 outside a landmark",
+   "severity": "medium",
+   "evidence": "index.html toolbar sits inside #root before the map, so skip target #root bypasses nothing; #gt-timeline is the id patched onto IO, and app-mobile HF-1a gates IO with Zn!=='mobile' so on phones the second skip link has no target; the proposed sr-only h1 sits directly under body outside any landmark, tripping axe 'region' (best-practice tag used in the report's own state matrix).",
+   "fix": "Add id='gt-map' + tabIndex:-1 to the map container via bundle patch and target it; emit the timeline skip link only when its target exists (or give the mobile dock a target); put the h1 inside <header>."
+  },
+  {
+   "title": "Modal <dialog>.showModal() makes the proposed live regions inert, silencing announcements while a modal is open",
+   "severity": "medium",
+   "evidence": "Finding 05 moves Bookmarks, Follow Ancestor, Soldier's Eye, Help etc. to native modal dialogs; finding 11/6.8 routes 'Link copied', search counts and errors through always-mounted #gt-live-status/#gt-live-alert/#gt-event-log outside the dialog. showModal() inerts everything outside the dialog (removed from the accessibility tree), so those updates are not announced.",
+   "fix": "announce() writes to a live region inside the top-most open dialog when one exists; keep global regions for non-modal state; verify with NVDA+Firefox and VoiceOver."
+  },
+  {
+   "title": "Mapbox canvas stays a second tab stop and nested role under the proposed role=application map surface",
+   "severity": "medium",
+   "evidence": "Mapbox sets tabindex=0, role=region and aria-label on its own canvas (bundle.pretty.js:94003-94025); finding 09 adds a wrapper #gt-map tabindex=0 role=application, giving two tab stops for one map and nested roles.",
+   "fix": "After map load set map.getCanvas().tabIndex=-1 and aria-hidden=true, or make the canvas the application surface and drop the wrapper stop; add to the keyboard-order acceptance test."
+  },
+  {
+   "title": "role=toolbar proposed without its keyboard model",
+   "severity": "low",
+   "evidence": "Sections 6.2/13/15 put role=toolbar over 13 individually tabbable buttons; ARIA APG expects a single tab stop with arrow/Home/End navigation.",
+   "fix": "Implement roving tabindex + arrow keys, or omit the role and use a plain labelled group."
+  },
+  {
+   "title": "Inline reduced-motion flag script conflicts with the enforced-CSP goal",
+   "severity": "low",
+   "evidence": "Finding 01 adds an inline <script> and finding 31 keeps it as one of only two remaining inline scripts; netlify.toml:19 report-only CSP allows scripts via 'unsafe-inline'; BRIEF A+ bar requires an enforced CSP.",
+   "fix": "Ship the flag as same-origin /a11y-flags.js so script-src 'self' needs no hash/nonce."
+  },
+  {
+   "title": "Acceptance and CI gates rely on Lighthouse audits that cannot fail or move as stated",
+   "severity": "low",
+   "evidence": "lh_desktop.json/lh_mobile.json: bypass is scoreDisplayMode informative with score 1 and PASS title, landmark-one-main score 1; a11y weights label 10 + color-contrast 7 of 164, so 01 alone gives ~93.9 not >=97.",
+   "fix": "State in 8.2/8.3 that 100 requires 01+02-A; gate bypass/landmark checks with axe (region, page-has-heading-one) rather than Lighthouse assertions."
+  }
+ ]
+}

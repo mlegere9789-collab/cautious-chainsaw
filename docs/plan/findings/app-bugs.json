@@ -1,0 +1,842 @@
+{
+ "agent": "app-bugs",
+ "summary": "Full app-bugs report (39 findings, 11 appendices, about 136 KB) is at plan-work/app-bugs.md. I read essentially all app code in bundle.pretty.js (store 9326-10000 and components 96209-113377), index.html inline scripts, sw.js, both lazy chunks, and probed /data with Python; I also built read-only tooling in tmp-app-bugs (acorn/eslint-scope undefined-identifier scan, zustand key audit, dead-local scan, Street View/coordinate distance scripts, and a 24-patch hot-fix validator). Headline results: (1) C5 is real and worse than a console error: setGoldUnit, clearGoldTrail and drawGoldTrailSegment are undefined (pretty:101086/101101/101229) and a shared ?ancestor= link plus a star click runs the throw inside a useEffect with no error boundary; (2) NEW critical: CanvasRenderer is undefined (pretty:96556), so turning the sound button on freezes playback or can blank the app (owner earlier said no audio wanted); (3) the only four unresolved app-level identifiers in the whole bundle are those four names; (4) ten site links to the map (?tick, ?unit, ?vignette) and all share links (?t/u/z/ll, ?ancestor) are never read by the app; (5) July 2/3 placement data are only fetched when playback crosses tick 200/420, so every jump shows stale or empty data (root cause of the audit's empty July 3 dawn) and 217 of 478 animated units are missing from Follow Your Ancestor on a fresh load; (6) y1 has a never-reset global cache (i2), so seeking backwards shows future units; (7) C1 and C2 share one root cause: desktop-only overlays (transport bar IO, NPS button, sound, HUD, minimap, monuments) still render on top of the Mobile layout, and 5 of 14 mobile Tools tiles are wired to state nothing renders; (8) minimap is frozen at tick 1 because yn.subscribe(selector, cb) is used on a plain zustand store; (9) date +2 bug at three sites plus four different tick-to-clock functions; (10) Order of Battle state can never become true on desktop and the panel is not actually hierarchical (sorted by id text, indented by dash count); (11) '467 regiments and batteries' is wrong: 467 regiments + 103 batteries = 570, only 217 regiments/38 batteries are animated, 100 animated ids are absent from the OOB, 10 Confederate regiments are drawn as Union (U- prefix); (12) place coordinates are hard-coded in six places and disagree by up to 2.1 km; (13) zero aria/role attributes in about 17k lines of app code and 136 of 271 font sizes under 12 px. Tranche 0 (finding 01) is a set of 24 exact-string patches to the deployed minified bundle, validated: every anchor matches once, the patched bundle parses, and the four undefined identifiers disappear with no new ones; it fixes about 14 user-visible bugs in about half a day, but must be redeployed under a new asset filename because /assets/* is immutable-cached and the SW is cache-first. Structural work should then proceed by porting the app to a real Vite source project (about 8-12 days) with the remaining fixes applied. Inferred (not executed) claims are labelled in the report with a test that confirms or refutes each.",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/app-bugs.md",
+ "findings": [
+  {
+   "id": "app-bugs-01",
+   "title": "Tranche 0: 24 validated string patches to the deployed bundle (C5, sound crash, minimap, +2 date, Esc, mobile overlays, Locations, day data, storage, skip-tour)",
+   "severity": "critical",
+   "evidence": "tmp-app-bugs/tranche0-validate.js output: all 24 anchors match the expected count in bundle.min.js, patched bundle parses (acorn), CanvasRenderer/setGoldUnit/clearGoldTrail/drawGoldTrailSegment no longer unresolved, no new unresolved names. /assets/* is immutable-cached (netlify.toml) and sw.js is cache-first, so the patched file must get a new name; references to update: index.html:55, index.html:282, sw.js:6, sw.js:3 (CACHE_NAME), and line 1 of HelpModal and BookmarkPanel chunks.",
+   "fix": "Apply the patch table (A C5 calls removed; B CanvasRenderer._lastSoundMs -> lS._lastSoundMs; C GF -> yn(c=>c.currentTick); D +2 removed at 3 sites; E key guard for modifiers/typing targets, Esc blurs and continues, Esc clears pinned unit + layers + distance, transport bar double handler removed, keys 2/3 use jumpToDay; F do not render VF WF _F IO KF XF iO yO in mobile layout; G Locations depends on mapRef; H try/catch around gtbg_onboarded; I cap frame delta 100 ms; J jumpToDay/setTick load the day, zp de-dupes and no longer caches total failure, redraw effect depends on placements; K Skip tour resets to tick 1). Rename bundle, patch the 5 references, bump CACHE_NAME, start from SRC_DIR (correct case).",
+   "effort": "S",
+   "acceptance_test": "Playwright smoke on fresh profile: star panel select regiment gives no pageerror; sound on then Right-arrow x40 across ticks 30-60 keeps #root populated with no pageerror; press 2 then placementsByTick[226] exists within 2 s; Esc closes Search from inside its input; Ctrl+= does not change speed; minimap tick advances; HUD says July 1 on day 1; iPhone 375x812 Mobile layout elementFromPoint at each of the 14 Tools tiles returns that tile.",
+   "root_cause": "Legacy call sites and copy-pasted logic left in a compiled-only app with no source; fixes must be string-level until a source project exists.",
+   "metric_or_grade_moved": "Reliability C/B- to B+; mobile core function D to C+ (C1/C2 removed); removes the only production console error",
+   "depends_on": [],
+   "audit_refs": [
+    "C5",
+    "C1",
+    "C2",
+    "C3",
+    "H2",
+    "H11",
+    "D3",
+    "H3",
+    "H4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "All anchors, scope logic and the 5 rename sites verified (index.html:55,282; sw.js:3,6; line 1 of both chunks; nothing else contains Cg8FAMXN). Caveats: (a) patch C alone leaves the minimap empty on 72% of ticks (add y1(x,z,0) at pretty:99763 and 99821); (b) J3 only skips marking a day loaded when ALL files fail, so a partial failure is still cached as loaded; (c) F leaves Search, Filter, story, event and unit panels under the z100 mobile root; (d) the CACHE_NAME bump triggers the C6 controllerchange reload for every returning user."
+  },
+  {
+   "id": "app-bugs-02",
+   "title": "C5 root cause: undefined gold-trail helpers, ?ancestor white-screen path, and a real gold trail",
+   "severity": "critical",
+   "evidence": "undef.js: setGoldUnit and clearGoldTrail unresolved at pretty:101086 and 101229, drawGoldTrailSegment at 101101 (min@2057749/2058023/2060358). pretty:101019-101021 useEffect reads ?ancestor and calls st(), which throws; no app error boundary exists (getDerivedStateFromError only in React internals 5263/7824/8120). Caption at 101213-101215 and the guide promise a gold trail no code draws.",
+   "fix": "Source-level: implement a Mapbox GeoJSON gold trail (glow line + line + dots) built from the regiment keyframes after ensureAllDays(), fitBounds to it, clear on Change Regiment/close/unmount, and move ?ancestor handling out of the panel to the app-level deep-link handler. Cheap alternative: delete the three calls and change caption and guide sentence.",
+   "effort": "M",
+   "acceptance_test": "Select 20th Maine: no console error, map layer gtbg-gold-line exists, timeline lists at least 20 positions once all days load; Change Regiment and close remove layers; reload with ?ancestor=U-20ME opens the panel with the journey, no crash.",
+   "root_cause": "Gold-trail module removed from a build but its three call sites kept; st() also projected screen coordinates for a canvas segment that could never track pan/zoom.",
+   "metric_or_grade_moved": "Reliability, Best Practices console errors, guide accuracy",
+   "depends_on": [
+    "app-bugs-04",
+    "app-bugs-06"
+   ],
+   "audit_refs": [
+    "C5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "pretty:101086/101101/101229 and the ?ancestor effect 101019-101021 are exact. The mobile Follow-Ancestor tile mounts the same Zk (103366), so the crash also exists on mobile."
+  },
+  {
+   "id": "app-bugs-03",
+   "title": "NEW: CanvasRenderer undefined, sound ON freezes playback or blanks the app",
+   "severity": "critical",
+   "evidence": "pretty:96554-96557 (min@1972488): (!CanvasRenderer._lastSoundMs || ...) inside lS; undef.js lists CanvasRenderer unresolved (3 refs). Sound is enabled only by button yO (pretty:111768-111783) via U4; X4 (96480-96505) makes the branch true whenever a Union and a Confederate marker are within 40 px. Playing: Ed calls lS at 97015 before rescheduling rAF at 97017 so the loop dies with isPlaying still true; paused: e1 (97045) runs inside useEffects (97290-97325) so the throw unmounts the tree (inferred, React 18).",
+   "fix": "Recommended: remove the sound feature (yO/vO 111768-111797, r2/oT/Uk/jk/N4/U4 96319-96371, sound branch in lS); RECON PENDING.md records the owner asked for no audio and Immersive already has real audio. If kept: shared audio engine with immersive.html, module-level lastSoundMs, one AudioContext on first gesture, aria-pressed, volume, default off, persisted. Hot patch: Tranche 0 patch B.",
+   "effort": "S",
+   "acceptance_test": "Toggle sound; paused Right-arrow x40 across ticks 30-60 and 4x playback for 20 s: no pageerror, #root still has children, playback advances; with sound removed no sound button exists.",
+   "root_cause": "Static-method-style counter from an earlier class renderer left after it became a function.",
+   "metric_or_grade_moved": "Reliability, Best Practices",
+   "depends_on": [],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "Code path verified (96554-96557; lS runs before the rAF reschedule in Ed; e1 runs in passive effects when paused). Overstatement: 'true at most combat ticks' is wrong, since X4 needs opposing markers within 40 screen px, which at the default zoom happens only in close contact. Still critical because the button is user-reachable."
+  },
+  {
+   "id": "app-bugs-04",
+   "title": "No error boundary, unguarded localStorage read in AO's first render, no crash telemetry",
+   "severity": "high",
+   "evidence": "getDerivedStateFromError/componentDidCatch only in React internals (pretty:5263,5276,7824,8120); root render pretty:113365-113367; unguarded getItem in useState initializer pretty:112951 and setItem at 113068 (store v4/e2 9327-9341 and bookmarks 97840-97852 do guard); no window.onerror/unhandledrejection anywhere.",
+   "fix": "ErrorBoundary at root and around every panel/lazy chunk with a Reload/Copy details fallback; lib/safeStorage with in-memory fallback and namespacing; global error/unhandledrejection reporting via sendBeacon or Netlify RUM custom event so blank screens become visible; keep Tranche 0 patch H meanwhile.",
+   "effort": "M",
+   "acceptance_test": "Playwright addInitScript making Storage.prototype.getItem throw: app boots and shows the chooser; inject a throwing effect into one panel: fallback shown, map and transport stay usable.",
+   "root_cause": "Any render/effect error is unrecoverable without a boundary; storage access can throw SecurityError in blocked-cookie contexts (inferred).",
+   "metric_or_grade_moved": "Reliability B- to A-",
+   "depends_on": [],
+   "audit_refs": [
+    "C5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-05",
+   "title": "Deep links: ?tick/?unit/?vignette/?ancestor/?t links from 7 sub-pages and share buttons are never read",
+   "severity": "high",
+   "evidence": "Writers: documentary.html:92, education.html:81, embed.html:60, historian.html:110, regiment.html:247, search.html:114/127, turning-points.html:118; app $k pretty:97822-97829 (?t&u&z&ll) used by Bookmarks and unit-panel share pretty:97925-97934; Zk share pretty:101112-101122. Readers: URLSearchParams appears in app code only at pretty:97823 (writer) and 101019 (?ancestor, only when Zk mounted). Splash resets currentTick to 1 at pretty:101497-101499 and 101571-101580.",
+   "fix": "lib/deeplink.parseDeepLink with validation (tick 1-675, day, unit, vignette, ancestor, z, ll, layout; aliases t and u), applied after facts+boot via an async sequence: skip intro, ensureDay, setTick, select/pin unit, open story/ancestor, camera.frame or jumpTo; replaceState debounced so Copy Link equals address bar; sub-pages emit canonical /?... only; handle popstate; ignore invalid values.",
+   "effort": "M",
+   "acceptance_test": "Table-driven Playwright: /?tick=267&vignette=V-009 gives tick 267, story V-009, July 2 loaded, map on Little Round Top, no splash; /?unit=U-20ME opens unit panel at first keyframe; /?ancestor=U-20ME opens panel; /?tick=9999 ignored; crawl every See-it-on-the-map link on sub-pages.",
+   "root_cause": "Deep-link routing never implemented; each feature invented its own parameter names.",
+   "metric_or_grade_moved": "Core function B to A-, usability, internal link quality",
+   "depends_on": [
+    "app-bugs-06",
+    "app-bugs-10",
+    "app-bugs-11"
+   ],
+   "audit_refs": [
+    "H4",
+    "D3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Reader/writer inventory verified, but incomplete: search.html:139 emits /index.html?lat=&lng= (location results) and Appendix F has no lat/lng alias."
+  },
+  {
+   "id": "app-bugs-06",
+   "title": "July 2/3 data only loads when playback crosses tick 200/420; day-load failures cached as loaded",
+   "severity": "high",
+   "evidence": "zp pretty:96900-96917; boot loads day 1 only (sF 96939-96940); days 2/3 requested only in Ed at 96991-96992 (mobile requests all at map load 103040-103042). Jump paths without load: jumpToDay 9369, keys 112979-113010, IO day buttons/scrubber 112230-112300, bookmarks, tour bO 111860-111890, Zk xe 101125, KF 100878. catch returns {placements:[]} then addPlacementsForDay marks day loaded (9397-9406). Data: 217 of 478 animated units have no July 1 row so they are absent from the Follow-Ancestor list (Se, 101021-101040) on fresh load. Boot request count: 38 JSON (desktop), 72 (mobile).",
+   "fix": "dataService.ensureDay(day) with in-flight map, 3 retries with backoff, error toast with Retry, loaded only on success; setTick/jumpToDay/deep link/bookmark/tour await it and show a Loading July N pill; prefetch next day at dayStart+150 and on idle; redraw when rows arrive; build step merges placements+density per day into day1-3.json (dedupe 103 duplicate unit,tick pairs) cutting boot requests from 38 to about 8.",
+   "effort": "M",
+   "acceptance_test": "Fresh load, press 2: ticks >= 226 present within 2 s and units drawn; block day3: error toast then retry succeeds; fresh load Follow Ancestor finds 15th Alabama; <= 8 JSON requests at boot.",
+   "root_cause": "Lazy loading implemented as a playback prefetch instead of data required by the requested tick.",
+   "metric_or_grade_moved": "Core function; LCP/TBT via fewer requests; D3",
+   "depends_on": [],
+   "audit_refs": [
+    "D3",
+    "H4",
+    "P3"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Facts verified (zp, only caller Ed, 38/72 boot requests, 217/478 units without a July 1 row, 103 duplicate pairs). The proposed fix keeps addPlacementsForDay's replace-per-tick semantics and buckets the merged day files by the tF/nF file groups, which would bake in the data-loss bug of missed issue M1. Bucket by row.tick and merge per tick."
+  },
+  {
+   "id": "app-bugs-07",
+   "title": "y1 has a never-reset global carry-forward cache (i2); backward seeks show the future; keyframes teleport",
+   "severity": "high",
+   "evidence": "pretty:96265-96305 (only 3 references to i2 in the bundle); F4 96238-96256 blends only c[f] and c[f+1]; data: 1,804 rows, 188 populated ticks, 487 ticks with no rows, median 6.5 rows per populated tick; OOB uses 50-tick lookback (102325-102330), roster 100 (102661-102668, 103107-103113), minimap exact tick only; camera.html:105-122 already has the correct pure binary-search placementAtTick. After the splash sweeps ticks 1-675 (pretty:101494) i2 likely holds all 261 day-1 units so tick 1 draws about 261 instead of 71 (inferred).",
+   "fix": "sim/positions: buildIndex(rows) to per-unit sorted keyframes, positionAt(frames, fractionalTick) with binary search and interpolation over the real keyframe gap (hold across long gaps), memoised unitsAt(tick); replace y1, OOB/roster look-backs and minimap; Ed calls positionAt with a fractional tick. Glide threshold and visibleUntil are data decisions.",
+   "effort": "L",
+   "acceptance_test": "Property test: random call order equals fresh index; tick 1 has exactly 71 distinct units; play to 600 then press 1 shows no unit whose first keyframe > 1; U-20ME first drawn at tick 150.",
+   "root_cause": "Impure position function with module-level cache and adjacent-tick-only interpolation over sparse keyframes.",
+   "metric_or_grade_moved": "Historical consistency C- to B (with 08); core function; removes per-frame 467-key allocations",
+   "depends_on": [
+    "app-bugs-06"
+   ],
+   "audit_refs": [
+    "D3",
+    "C4",
+    "H11"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence confirmed and the splash-pollution inference is upgraded to verified: the sweep starts only after day 1 is loaded (pretty:101478-101484), so i2 holds all 261 day-1 units. But MAX_GLIDE_TICKS=12 conflicts with the data: the median keyframe gap is 17 ticks and 56.7% of 1,209 gaps exceed 12, so most units would still hold then teleport. Use a displacement/speed rule instead. The unit panel is a fourth exact-tick consumer (M2)."
+  },
+  {
+   "id": "app-bugs-08",
+   "title": "Date +2 bug in three places and four tick-to-clock functions (C3/C4 call-site inventory)",
+   "severity": "high",
+   "evidence": "July ${l+2} pretty:97428 (HUD), ${f+2} 100842 (monument tooltip JF), July ${f+2} 101006 (QF, ancestor timeline); correct July ${P} at 9382 and toolbar 113084. Clock formulas: getTickTime 9371-9383 (day1 base 06:00, days 2-3 base 04:00), M4 9856-9860 (05:00, night tint), JF 100836, QF 100998; data times use another convention; toolbar differs from data clock by about +55/+60 min on July 1 and -60 min on July 2-3; day 1 ends at 12:40 AM labelled July 1. Hard-coded time strings in th (100063+), IF (97865-97894), Gc (111819+), TO. Data shows tick 12 to 28 = 80 min vs about 2 h 45 min of history so a linear formula cannot be right.",
+   "fix": "Single sim/battleClock driven by data/clock_anchors.json (piecewise-linear tick to ISO time) exporting tickToDate, dayOf, dayStartTick; replace every call site; generate all labels; CI grep forbidding July ${ outside the module and + 2}; unit tests at ticks 1, 225/226, 450/451, 675. Anchors belong to the C4 owner; Tranche 0 patch D removes only the +2.",
+   "effort": "M",
+   "acceptance_test": "Table-driven tests; header, HUD, event card, monument tooltip, ancestor timeline and Compare/Living Ledger show the same clock at ticks 1, 12, 28, 226, 267, 451, 538.",
+   "root_cause": "Tick-to-time copy-pasted into each feature.",
+   "metric_or_grade_moved": "Historical consistency C- to A- (with anchors and data fixes)",
+   "depends_on": [],
+   "audit_refs": [
+    "C3",
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "All five line refs exact; clock arithmetic recomputed (tick 17 toolbar 7:20 vs data 6:25; tick 267 7:25 vs 8:25; tick 225 = 12:40 AM labelled July 1)."
+  },
+  {
+   "id": "app-bugs-09",
+   "title": "Keyboard/Escape system: root causes of H2 and a single hotkey registry with an overlay stack",
+   "severity": "high",
+   "evidence": "Window keydown ii pretty:112966-113050 returns for tagName INPUT (112967) while Search input is autoFocus (98819) and Follow-Ancestor input focuses on mount (101015-101017) so Esc is always ignored there; Escape (113033-113043) clears selectedUnitId only while MF shows selected||pinned (97909); story panel/event card/legend/minimap/layers/distance/NPS/tour/chooser are not closed; no modifier check (Ctrl+F opens Filter, Ctrl+=/-/0 change speed), no e.repeat guard; IO onKeyDown (112216-112224) double-handles with the window listener (+2 ticks, Space no-op, inferred); HelpModal chunk exports an unused useGlobalKeyboard with different semantics; + key reaches 16x with no button (112996-113002).",
+   "fix": "lib/hotkeys registry (keys, mods, when, help) with isTypingTarget, modifier/repeat/IME handling, aria-keyshortcuts; useOverlay(id, close) registers overlays on a store overlayStack; Escape = clear text input, else pop top overlay, else clear selected+pinned unit, else cancel tool mode; dialogs get roles, focus trap, focus restore; remove IO handler and dead hook; single speed ladder; Help and guide tables generated from the registry.",
+   "effort": "M",
+   "acceptance_test": "Matrix test: every overlay opens then closes on Esc (also with input focused) and returns focus; Ctrl+F/L/S/B inert; Ctrl+= no speed change; Space on focused Play toggles once; Right after clicking July 2 advances one tick; axe finds dialog semantics.",
+   "root_cause": "Ad-hoc key handling with local panel state and no notion of a topmost layer.",
+   "metric_or_grade_moved": "Accessibility C+ to A- (WCAG 2.1.1, 2.1.2, 2.4.3, 1.4.4), usability",
+   "depends_on": [
+    "app-bugs-10"
+   ],
+   "audit_refs": [
+    "H2",
+    "A6",
+    "D4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "The inferred double handling holds: React's delegated listener runs before the window listener and zustand setState is synchronous, so arrows move +2 ticks and Space is a no-op."
+  },
+  {
+   "id": "app-bugs-10",
+   "title": "Load/jump state, panel exclusivity, toasts and the boot sequence (H4)",
+   "severity": "high",
+   "evidence": "Defaults: legend open (9417), minimap open (9418), locations/monuments/trails on (112943, 112946, 97219); story panel CF (98252) and event card LF (98595) use local dismissal; qF toasts have 4.5 s timers (99912-99916) so audit's never-dismiss is likely timer throttling (inferred); nO commander toasts dead (commanderSuccessions never set, 9389); tour Skip leaves tick 267/538 (111856-111874); splash tO writes currentTick to the store every frame for 3.5 s (eO=3500 at 101471; loop 101494); splash, chooser and tour all z-index 1000 (101605, 102827, 112030) with bO on top; top-right slot shared by story panel, toasts, NPS pip, Map Layers and Extra Features overlay; HUD and unit panel share top-left.",
+   "fix": "Boot state machine (boot to layoutPick to intro to app) driven by deep link, stored layout, auto-detect, seenIntro, reduced motion; CSS-only splash progress; delete nO/commanderSuccessions; UI store with docks (right/left/bottom) and exclusive occupants; toast service (expiresAt interval, max 3, pause on hover, aria-live, dismissAll on jump/day/layout/Esc); after explicit jumps camera.frame then at most one card (story wins); first-visit defaults legend collapsed, minimap collapsed under 1200 px, monuments off under zoom 14; Skip tour resets tick.",
+   "effort": "L",
+   "acceptance_test": "After Skip tour on fresh profile at most one overlay per dock and never story + event together; toasts vanish within 5 s under fake timers and visibility changes; returning users see no splash; Profiler shows zero store writes during boot animation.",
+   "root_cause": "No single owner of what is open; every panel keeps local state and its own absolute anchor.",
+   "metric_or_grade_moved": "Fit and finish C+ to A-, usability, INP/TBT, CLS",
+   "depends_on": [
+    "app-bugs-09",
+    "app-bugs-06",
+    "app-bugs-21"
+   ],
+   "audit_refs": [
+    "H4",
+    "H3",
+    "H1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-11",
+   "title": "Layout choice: persistence, auto-detect, single map, and why desktop overlays cover the mobile UI (H3, C1, C2 root cause)",
+   "severity": "high",
+   "evidence": "Zn=useState(null) pretty:112949 never stored; only toolbar and gF gated by Zn !== mobile (113071, 113233) while VF WF CF LF _F IO KF XF iO nO yO MF Gtbg* render in both layouts (113234-113283); mobile root tn.root position fixed z 100 (103698-103705) vs IO absolute bottom 0 z 100 later in DOM (112374-112386) and XF/yO z 200 so they cover the Tools sheet (C2); IO controls row non-wrapping about 572 px (112317-112372, 112425-112455) (C1); desktop map gF mounts under the chooser and is removed when Mobile is picked (97260-97264) while pO creates a second map (102983-103000); splash title 52 px + 8 px letter-spacing unclamped (101617-101625); ko.cards non-wrapping (102849); Power User archetype on touch (111799-111818).",
+   "fix": "useLayout: readLayout (?layout or stored) else detect via (pointer:coarse) and min screen side < 820; persist only manual choice; render nothing heavy until resolved; chooser only via ?layout=choose or an always-available Switch layout item in both layouts; filter archetypes by (hover:hover); gate desktop-only overlays on layout==='desktop' now (Tranche 0 F) and converge to one responsive shell (XL, recommended) so mapRef/features/shortcuts exist once; clamp splash/chooser CSS.",
+   "effort": "M",
+   "acceptance_test": "iPhone emulation lands in Mobile with no chooser and reload keeps it; desktop lands in Desktop; exactly one mapboxgl canvas; every transport button inside viewport at 320/360/375/414; elementFromPoint at each Tools tile returns it; splash title fully visible at 320.",
+   "root_cause": "Two separate app implementations sharing an overlay list that assumes desktop; layout never persisted.",
+   "metric_or_grade_moved": "Mobile core function D to B+, usability D+ to B+, performance (one map)",
+   "depends_on": [
+    "app-bugs-10"
+   ],
+   "audit_refs": [
+    "H3",
+    "C1",
+    "C2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-12",
+   "title": "Mobile Tools sheet: five dead tiles and a nonexistent store key",
+   "severity": "high",
+   "evidence": "pO tiles: Monuments pi(!An) pretty:103421 (An never read), NPS Auto Tour Dt(!0) 103449 (Zn never read), Map Layers Br('layers') 103442, Bookmarks Br('bookmarks') 103463, Help Br('help') 103470 but only lo==='roster' (103505) and lo==='legend' (103617) render; showMonuments destructured at 102936 is not a store key (storekeys.js); MO/EO lazy chunks rendered only in AO desktop section; mobile map never registered in store.",
+   "fix": "Drive the sheet from the shared TOOLS registry so a tile cannot exist without a panel; render Bookmarks/Help/Layers/Monuments in both layouts; register the mobile map in the store; one roster implementation; remove dead Zn/An/lo state.",
+   "effort": "M",
+   "acceptance_test": "Playwright iterates all 14 mobile tiles and asserts a visible panel/dialog or map change within 500 ms.",
+   "root_cause": "Tiles added without panels; separate mobile implementation.",
+   "metric_or_grade_moved": "Mobile core function, learnability",
+   "depends_on": [
+    "app-bugs-11",
+    "app-bugs-13"
+   ],
+   "audit_refs": [
+    "C2",
+    "H1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Undercount: 7 of 14 tiles are dead, not 5. Search and Filter toggle store flags whose panels FF/OF render at z95 (pretty:98964, 99288) beneath the opaque z100 mobile root. The Tranche 0 F acceptance test (elementFromPoint on each tile) would pass while these stay invisible; require a visible panel per tile."
+  },
+  {
+   "id": "app-bugs-13",
+   "title": "Order of Battle unreachable on desktop and not hierarchical; single TOOLS registry for toolbar, mobile sheet, Help and guide",
+   "severity": "medium",
+   "evidence": "AO lo state pretty:112954 only ever set false (Escape); lo && Xk at 113257; mobile opens it (103407); Xk sorts all U-/C- ids by text (102346-102354) and indents by dash count (102358-102362) so U-19IN is depth 0 and regiments never nest under brigades although records carry parent_brigade_id and brigades list regiment_ids; re-renders 705 rows per tick; toolbar 13 icon buttons 28x26 (113145-113240, 113356) plus Find Unit/Location duplicating Search (113213) and a PDF download anchor; guide promises hierarchical OOB and place search.",
+   "fix": "tools/registry.js as single source (id, label, key, group, panel, layouts) feeding desktop toolbar groups with overflow, mobile sheet, Help table, guide and aria-keyshortcuts; add Order of Battle button and O shortcut; drop duplicate magnifier, move PDF into Help; build OOB tree from parent ids with natural order, counts, virtualisation and memoised rows. Shortcut letters are proposals.",
+   "effort": "M",
+   "acceptance_test": "Button visible and labelled at 1024/1280/1440; O opens tree; Iron Brigade shows its five regiments nested in natural order; node count equals OOB size (705); registry test asserts every tool has a panel and appears in Help and mobile sheet.",
+   "root_cause": "Four hand-written lists (toolbar, sheet, Help, guide) drift; OOB rendered as a flat sorted list.",
+   "metric_or_grade_moved": "Usability B- to A-, docs, accessibility names/targets",
+   "depends_on": [
+    "app-bugs-09"
+   ],
+   "audit_refs": [
+    "D4",
+    "H6",
+    "D2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-14",
+   "title": "Natural sort, search normalisation and Follow-Ancestor coverage (H5)",
+   "severity": "medium",
+   "evidence": "Sorts: Zk list pretty:101039, OOB 102346/102347/102354, roster 102674/102681, mobile 103130/103133, search relevance is object insertion order (98775-98790), all plain localeCompare without numeric. Zk caps 15/20 rows and matches by String.includes (101041-101050) so '20 maine' and 'chamberlain' fail. List built only from placed and loaded units (101021-101040): 217/467 regiments and 38/103 batteries have any placement (250 regiments and 65 batteries unfindable), 100 animated ids not in OOB show raw ids, 10 mis-prefixed rows show as Union.",
+   "fix": "Shared Intl.Collator numeric compare plus (side, corps, state, ordinal) key; normalise() strips ordinals, state alias table, token-AND matching over designation/state/commander/unit_id/alias with ranking; build list from the OOB not placements; badge unplaced regiments with link to /regiment.html?unit=; ensureDay on select; virtualise; reuse in Search, OOB, roster and sub-pages.",
+   "effort": "M",
+   "acceptance_test": "Unit tests on 30 real designations sort 1st < 2nd < 10th < 102nd; queries '20 maine', '20th me', 'chamberlain' return U-20ME first; '1st mn' returns U-1MN; 15th Alabama found on fresh load; an unplaced regiment is found with badge.",
+   "root_cause": "Text collation and includes-matching over a partial, load-dependent dataset.",
+   "metric_or_grade_moved": "Findability for genealogy users, H5 closed",
+   "depends_on": [
+    "app-bugs-06"
+   ],
+   "audit_refs": [
+    "H5",
+    "H7"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-15",
+   "title": "Every hard-coded count and how to derive it from data (H10)",
+   "severity": "medium",
+   "evidence": "Literals: index.html 15,18,24,32,377,719,745,754; manifest.json:4; HelpModal chunk (675 ticks, 445+ units, 24 vignettes); find-ancestor.html:48; historian.html:48; site-nav.js:27; guide PDF; bundle nA=675 (9326), s2 (96949), 112979, 112357, 111893; day boundaries 225/450/224 repeated at 12 sites (9374, 9375, 9386, 97282, 97427, 97482, 99740, 100837, 100999, 102975, 112215, 113055); minimap footer 99821. Data truth: OOB 705 ids = 467 regiments + 103 batteries + 93 brigades + 31 divisions + 11 corps (570 regiments and batteries, not 467); 478 animated ids (217 regiments, 38 batteries, 89 brigades, 28 divisions, 6 corps, 100 not in OOB); 1,804 rows over 188 of 675 ticks; tick 1 has 73 rows and 71 distinct units; 24 vignettes; 137 chronology events (45 critical); 512/20/9 monument datasets; 20 tools.",
+   "fix": "scripts/build-facts.mjs writes facts.json from /data; HTML meta/JSON-LD/manifest/sub-pages via fact markers or transformIndexHtml; app imports facts for Help/About, minimap, tour, Tick x/max and day boundaries (battleClock); CI check-facts scans built HTML/JSON/JS for count phrases and fails on mismatch; owner decides wording (570 regiments and batteries; animated positions) and resolves minute-by-minute vs five-minute wording.",
+   "effort": "M",
+   "acceptance_test": "Help About, home meta description, historian and find-ancestor show the same numbers as facts.json; check-facts fails when a literal is hand-edited.",
+   "root_cause": "Numbers typed into prose in 30+ places; app derives none from its data.",
+   "metric_or_grade_moved": "Consistency C- to A-, trust",
+   "depends_on": [
+    "app-bugs-35"
+   ],
+   "audit_refs": [
+    "H10",
+    "H11"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "All counts reproduced: 705 OOB ids (467/103/93/31/11), 410 U / 295 C, 478 animated (217/38/89/28/6 + 100 not in OOB), 1,804 rows, 188 populated ticks, 137 events (45/73/16/3), 24 vignettes, 'Help says 445+'."
+  },
+  {
+   "id": "app-bugs-16",
+   "title": "Minimap frozen at tick 1: yn.subscribe(selector, cb) on a plain zustand store (H11 root cause)",
+   "severity": "medium",
+   "evidence": "GF pretty:99644-99658 calls yn.subscribe(M=>M.currentTick, cb); store subscribe takes one listener (pretty:9116-9128), no subscribeWithSelector (yn=y4 at 9361), so GF returns the mount tick forever; WF 99711-99830 prints (x[z]||[]).length units tick z (99821) and draws only rows keyed at that exact tick (487 of 675 ticks have none).",
+   "fix": "const tick=useStore(s=>s.currentTick); draw unitsAt(tick); footer n units on the field plus battleClock time; role=img with aria-label; 12 px text. Tranche 0 patch C is the one-line version.",
+   "effort": "S",
+   "acceptance_test": "Play 30 s: dots move and tick advances; jump to July 3: count changes; tick 1 shows 71.",
+   "root_cause": "Middleware-only subscribe signature used on a plain store.",
+   "metric_or_grade_moved": "H11, visual truth",
+   "depends_on": [
+    "app-bugs-07"
+   ],
+   "audit_refs": [
+    "H11"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "subscribe misuse confirmed (pretty:9134). The one-line patch C is not a complete fix: WF reads x[z] at only pretty:99763 and 99821, and rows exist only at exact ticks (487/675 empty), so the minimap would blank out on 72% of ticks. Also replace those two sites with y1(x,z,0)."
+  },
+  {
+   "id": "app-bugs-17",
+   "title": "Distance tool: one marker and no line (H12)",
+   "severity": "medium",
+   "evidence": "GtbgDist pretty:112677-112919: source gbdist + layers with legacy $type filters (valid in mapbox-gl 3.24.1, filter converter 18392-18435); click routed through window.__gtbgApp._gbDist (112758) from unit canvas onClick (97369-97376); ten empty catch blocks (112694, 112701, 112708, 112738, 112766, 112783, 112818, 112833, 112842, 112847); mapRef read once at effect time (112705); touch hook k4 (9909-9980) selects units on touchend regardless of tool. Maths confirmed by audit; root cause not provable statically.",
+   "fix": "Instrument with a debug hook to test ranked hypotheses (setData throwing in empty catch; source removed; delayed worker update under load; effect ran before mapRef existed), then rewrite: map.on('click') while active, DOM Markers A/B (draggable, always visible), GeoJSON line re-added on styledata, rubber-band + live distance, aria-live result with ft/yd/m/mi/km and pace selector, Copy button, Esc cancel, third click starts new A, no swallowed errors, tool-mode flag blocks unit selection.",
+   "effort": "M",
+   "acceptance_test": "Two clicks give two .dist-marker elements and a LineString feature, distance matches Haversine within 1 m, drag B updates, Esc clears; emulated touch tap gives one point and no unit selection; no console errors.",
+   "root_cause": "Unproven statically; candidate causes listed; definite defects: swallowed errors, no styledata handling, touch double-handling.",
+   "metric_or_grade_moved": "H12, function, a11y live region",
+   "depends_on": [
+    "app-bugs-37"
+   ],
+   "audit_refs": [
+    "H12"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Root cause is unproven, as the report itself says. Verified: empty catches, one-time mapRef read, legacy $type filters valid in mapbox-gl 3.24.1."
+  },
+  {
+   "id": "app-bugs-18",
+   "title": "Soldier's Eye View hands off to Google Maps instead of embedding panoramas (H13a)",
+   "severity": "medium",
+   "evidence": "Yk pretty:101958-102069: subtitle promises panoramas; viewer is a placeholder (102040-102060); link builder M(P) 101961-101963 uses empty pano id (!1s!); 8 sites rO (101889-101957) have lat/lng/heading/pitch only; Walkthrough already embeds Street View iframes with 14 pano ids (d2 104096+, yA 110644-110656); guide ug.txt:119 claims panoramas. Site-to-pano distance: LRT 523 m, Angle 160 m, Wheatfield 516 m, Peach Orchard 315 m, Cemetery Hill 155 m, Culp's Hill 225 m, McPherson Ridge 2,195 m, Devil's Den has no matching stop.",
+   "fix": "Reuse the Walkthrough StreetViewEmbed (keyed iframe, skeleton, timeout fallback) inside Yk; map each site to the matching Walkthrough stop pano; obtain new panos for Devil's Den; keep Open in Google Maps as secondary; make list rows buttons; caption from own data; fix coordinates first (app-bugs-38).",
+   "effort": "M",
+   "acceptance_test": "Each of 8 sites renders an iframe with streetview and a distinct pano/location, caption changes per site, fallback link after 8 s, no console errors.",
+   "root_cause": "Embedded viewer never implemented; placeholder shipped with panorama copy.",
+   "metric_or_grade_moved": "H13, guide accuracy, function",
+   "depends_on": [
+    "app-bugs-19",
+    "app-bugs-38"
+   ],
+   "audit_refs": [
+    "H13",
+    "G1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-19",
+   "title": "Walkthrough Street View: frame reuse and caption, pano offsets, and no map on mobile (H13b)",
+   "severity": "medium",
+   "evidence": "yA pretty:110627-110688 iframe has no key and no loading state (110658-110668); audit's identical caption for stops 1 and 8 is likely a stale frame since panos differ (NPoPaAZH82fn6rRlPiFK9w vs A7rGaIwx9lZjUK9N1PW0sA) (inferred). svdist.js marker-to-pano distances: stops 6 1,045 m, 7 953 m, 3 695 m, 4 684 m, 5 633 m, 1 424 m; stops 3 and 5 have no pano. Mobile branch renders <div ref={P}> with no id (110875) but the map effect uses getElementById('gtbg-wt-map') (110767, deps [] at 110852) and only the desktop branch has that id (111096), so the mobile Walkthrough never creates a map.",
+   "fix": "One StreetViewEmbed component (key by stop id, loading=lazy, referrerPolicy, skeleton, 8 s slow state, own caption, Open in Google Maps link); require pano ids for all 16 stops and review offsets over 300 m; merge the two JSX branches and init the map from a ref with deps on isMobile; keep dangerouslySetInnerHTML only for static data; restrict Embed key (X2).",
+   "effort": "M",
+   "acceptance_test": "For stops 1-16 iframe src is unique and element identity changes on selection; skeleton visible until load; at 375 px Walkthrough shows a map canvas; offsets report lists every stop over 300 m.",
+   "root_cause": "Same iframe element with no loading feedback; map bound to a desktop-only DOM id.",
+   "metric_or_grade_moved": "H13, mobile function",
+   "depends_on": [],
+   "audit_refs": [
+    "H13"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Mobile-branch id/ref bug confirmed and svdist.js re-run reproduces every distance. But the only opener of the Walkthrough is the desktop-only toolbar button (pretty:113134-113138, inside Zn !== 'mobile'), so that branch is reachable only through Desktop View on a phone or a window <= 860 px. In the Mobile layout the Walkthrough cannot be opened at all (M6)."
+  },
+  {
+   "id": "app-bugs-20",
+   "title": "Help modal appears 1-2 s late: lazy chunk behind a null Suspense fallback (D1)",
+   "severity": "medium",
+   "evidence": "MO/EO React.lazy pretty:112469-112470 inside <Suspense fallback={null}> (113277); chunks are 7,027 B and 4,869 B, not preloaded and not in sw.js precache (sw.js:5-13); React 18.3.1 retry-lane throttle f = YS + 500 - Yr() at pretty:7525 (FALLBACK_THROTTLE_MS 500) delays revealing resolved content; click is a plain setState, not a transition.",
+   "fix": "Preferred: import HelpModal and BookmarkPanel statically (about 12 KB raw). Otherwise preload on idle and on pointerenter/focus of the ? and B buttons, add chunks to SW precache (generated from build manifest), open inside startTransition, and give Suspense a role=dialog aria-busy skeleton.",
+   "effort": "S",
+   "acceptance_test": "Playwright with 4x CPU throttle: click ? shows [role=dialog] in under 150 ms with no long task over 50 ms; same for Bookmarks; cold cache shows skeleton within 100 ms.",
+   "root_cause": "500 ms Suspense throttle plus cold request plus null fallback plus a busy main thread.",
+   "metric_or_grade_moved": "D1, INP",
+   "depends_on": [],
+   "audit_refs": [
+    "D1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Mechanism wrong: pretty:7525 (YS+500-Yr()) is case 3 (RootSuspended), which throttles committing a fallback for a retry-only render; a resolved lazy boundary is RootCompleted and commits immediately. The delay is more plausibly cold fetch through the SW, a busy main thread and the null fallback. The fix (static import) is still right; drop the '500 ms Suspense throttle' claim."
+  },
+  {
+   "id": "app-bugs-21",
+   "title": "Map does not auto-fly to the action after day jumps (D3a)",
+   "severity": "medium",
+   "evidence": "jumpToDay pretty:9369-9370, keys 112979-113010 and IO day buttons 112233 change tick only; only Zk xe (101125-101134), NPS tour Se (100329-100342) and monument clicks fly; default view fixed pF/mF (97211-97212); camera.html:126-141 has a working densestClusterBounds and camera.html:105-114 a pure placementAtTick; vignettes have trigger_lat/lng and chronology has location. Combined with 06/07 this is the empty-fields July 3 dawn.",
+   "fix": "map/cameraDirector.frame(map,{tick,unit,panelsOpen,reducedMotion}) using active points (combat pairs, charging, artillery) and densest grid cell, fitBounds with panel-aware padding, maxZoom 15, duration 0 under reduced motion; trigger only on explicit jumps after ensureDay; optional Follow the action toggle; suppress after user pan for 10 s; optional precomputed frames.json.",
+   "effort": "M",
+   "acceptance_test": "Press 3 on fresh load: within 1.5 s centre is within 1.5 km of the cluster centroid at tick 451 and at least 30 percent of units are in view; reduced-motion move is instant; user drag during playback causes no camera fight.",
+   "root_cause": "Jump actions only change tick; no framing logic in the app.",
+   "metric_or_grade_moved": "D3, usability, motion accessibility",
+   "depends_on": [
+    "app-bugs-06",
+    "app-bugs-07",
+    "app-bugs-38"
+   ],
+   "audit_refs": [
+    "D3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-22",
+   "title": "Label collisions, empty-OOB label text and per-frame cost (D3b)",
+   "severity": "medium",
+   "evidence": "lS pretty:96506-96690: marker separation is 8 O(n^2) iterations (96561) using marker sizes and a 12 px threshold, label boxes not considered; labels drawn for every unit once zoom >= 12 desktop / 14 narrow (96653); Y4(Xe,Ee,{}) at 96661 passes an empty OOB so designations never show and text falls back to cx() codes like 20 ME, I/1/1, ART/A4US (96456-96479); debug 'NN fps' text when Yx()<45 (96684-96690); sT() called in both Ed (96976) and HUD loop (97421) so FPS reads about 2x.",
+   "fix": "map/labels: priority-sorted greedy placement with 64 px spatial hash, anchor fallbacks, caps (60 desktop / 30 mobile), halo text, cached measureText, zoom tiers (none below 12 except selected; corps/division 12-13; brigades and combat 13-14; regiments short names 14-15; full designation at 15+, strength on hover); pass oobData into lS; replace O(n^2) x 8 separation with grid relaxation; remove fps text and double count; stretch: move units to Mapbox circle/symbol layers with symbol-sort-key and text-allow-overlap false.",
+   "effort": "M",
+   "acceptance_test": "Day 3 tick 538 default view: labelStats reports overlap ratio under 2 percent and labels within cap; zoom tiers as tabled; frame time p95 under 8 ms at 8x on a 2019 laptop; unit tests on synthetic clusters.",
+   "root_cause": "No label collision model and an empty OOB argument; O(n^2) separation every frame.",
+   "metric_or_grade_moved": "D3, fit and finish, INP/TBT, 12 px minimum text",
+   "depends_on": [
+    "app-bugs-07"
+   ],
+   "audit_refs": [
+    "D3",
+    "A4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-23",
+   "title": "Feature-claim parity: guide/Help/tour statements vs actual behaviour (D4)",
+   "severity": "medium",
+   "evidence": "Table in report: Esc closes any panel (false), H heatmap (dead), filter by unit type (dead), Find Unit/Location flies to places (duplicate of Search), Toggle Units (desktop only), Monuments 512 dots (20 story markers), gold trail and ?ancestor permalink (broken), bookmarks permalink (unread), Order of Battle (unreachable), switch layout anytime (one-way), 1/4x-8x (keys reach 16x, 1x real time label false), key-event dot colours (5 hand-picked), Soldier's Eye panoramas (Google Maps), NPS Auto Tour (different 16-stop list), Legend semantics (canvas draws bars filled with side colour), roster (100-tick lookback).",
+   "fix": "Generate Help table and guide tool/shortcut tables from TOOLS + hotkeys registries; CI parity test parses the guide text export and fails when it lists a tool or key the registry lacks; correct legend copy.",
+   "effort": "S",
+   "acceptance_test": "Parity test passes; manual sweep of each row matches the doc.",
+   "root_cause": "Documentation and UI maintained separately by hand.",
+   "metric_or_grade_moved": "Documentation B to A, honest naming (H8)",
+   "depends_on": [
+    "app-bugs-09",
+    "app-bugs-13"
+   ],
+   "audit_refs": [
+    "D4",
+    "G1",
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-24",
+   "title": "Dead heatmap code, H key and unused casualty_apportionment.json (D4)",
+   "severity": "low",
+   "evidence": "showCasualtyHeatmap/toggleHeatmap pretty:9419/9435; H key 113022-113025; AO destructures 112930/112938; casualtyData/setCasualtyData 9447-9448 unused; Help and tour quick-reference list H; casualty_apportionment.json (11.7 KB, corps-level, meant for animation scaling) fetched only by dashboard.html and living-ledger.html; Ground Remembers has a working heatmap layer (ground-remembers.html:91-105); RECON PENDING.md flags it.",
+   "fix": "Option A (recommended now): delete store fields, H case, Help/tour/guide rows; link Ground Remembers from Extra Features. Option B: build heatmap from strength drops (uF 97033-97044) with a Mapbox heatmap layer filtered by tick via setFilter and a HUD casualties-so-far counter from casualty_apportionment.",
+   "effort": "S",
+   "acceptance_test": "A: H does nothing and no doc mentions it. B: H toggles the layer, heat accumulates with tick, no console errors.",
+   "root_cause": "Feature planned but never wired; UI and docs kept advertising it.",
+   "metric_or_grade_moved": "D4, docs consistency, dead-code removal",
+   "depends_on": [],
+   "audit_refs": [
+    "D4",
+    "G1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-25",
+   "title": "The six inline scripts in index.html: real behaviour, defects, native replacements",
+   "severity": "medium",
+   "evidence": "Extra Features overlay z 999999 (index.html:168-237, 294-353); reveal by ancestor textContent regex (441-519, click walk 476-482); collision mover measures every interactive element x6 on every click (521-606, 599-602); banner injector gives up after 25x200 ms (355-396) while chooser cannot appear before about 5.9 s (eO 3500 at pretty:101471 plus 0.8 s plus 0.6 s), copy hard-codes 20 and AI-style (H8); toolbar labeler never labels anything because every Vs button already has a title (398-440; Vs at pretty:113287-113299) and accessible name comes from the glyph text (S, F, B, ?); monuments star overlay duplicates KF, inverted state, no pan/zoom tracking (608-714); SW reload script is C6.",
+   "fix": "Delete all inline scripts and CSS (keep JSON-LD, seo-content, boot splash); native ExtraFeaturesMenu in the toolbar and mobile sheet fed by nav.json exported from site-nav GROUPS; Ask the Historian as a normal toolbar item; chooser banner rendered in DeviceSelect JSX with counts from facts; aria-labels via IconButton.",
+   "effort": "M",
+   "acceptance_test": "index.html has no inline script except JSON-LD; no fixed element above z-index 1000; Extra Features reachable by keyboard and closes on Esc; chooser banner present 20 of 20 loads at CPU throttle 1x and 6x; axe shows named toolbar buttons.",
+   "root_cause": "Compiled app could not be edited, so features were bolted on with text matching and timers.",
+   "metric_or_grade_moved": "H1, A5, INP (no per-click layout thrash), CLS, a11y",
+   "depends_on": [
+    "app-bugs-13",
+    "app-bugs-11"
+   ],
+   "audit_refs": [
+    "H1",
+    "H3",
+    "H8",
+    "A5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Line ranges and the dead toolbar labeler verified. Minor: the banner injector also runs on DOMContentLoaded/load, and users who tap 'Skip intro' get the chooser within ~300 ms, inside its 5 s window, so it fails only for users who wait out the splash."
+  },
+  {
+   "id": "app-bugs-26",
+   "title": "Toggle Units, Trails, dead unit-type filter and a hover tooltip that can never render",
+   "severity": "medium",
+   "evidence": "Toggle Units pretty:113093-113113 -> store toggleUnits (9437) -> canvas display only (97377-97379); trail canvas J4 (96693-96707) and markers stay; no pressed state, no mobile equivalent; local toggleUnits dead (97357-97360). unitTypes written by OF (99090-99107) and counted in badge but lS destructures only sides/dispositions/minStrength (96513-96517). fF hover tooltip takes {hoveredUnit,mousePos} (97063) but is rendered with {map,canvas} (97384) so always null and would crash rendering the commander object (97087-97090). Dead canvas I4/Uc (9842-9852) and dead AO state Ci/Si/di/Xa/ls.",
+   "fix": "Rename button Units with aria-pressed and hide trails/labels together; implement unitTypes in a shared filterUnits helper (q4/$4 exist); make hover tooltip real via pointermove + existing spatial index (aT/Xx), show after 150 ms, commander.name, hidden on touch; delete dead state and canvas.",
+   "effort": "M",
+   "acceptance_test": "Filter Cavalry only leaves only cavalry markers and roster rows with '1 active' badge; hover shows commander name in under 250 ms; Toggle Units shows pressed state and hides trails; axe clean.",
+   "root_cause": "Features half-wired: props mismatch, ignored filter field, orphaned state.",
+   "metric_or_grade_moved": "Function, docs consistency, INP",
+   "depends_on": [],
+   "audit_refs": [
+    "D4",
+    "H6",
+    "A5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-27",
+   "title": "NPS Auto Tour (XF): stacked timers, hijacked speed, misleading name, wrong printed times, dead on mobile",
+   "severity": "medium",
+   "evidence": "Se pretty:100329-100342 sets playing + speed 2 and a setTimeout to pause after tickWindow*250 ms that is never cleared by next/prev/close (st 100352); launcher bottom 90 right 16 z 200 overlaps minimap/sound; panel bottom 86 left 60 right 0; dots are 8x8 divs; renders in mobile layout where Nn.current is null; th (100063-100322) is a different 16-stop list from Walkthrough d2 (104096+, the real NPS stops); printed times vs toolbar at same tick (th.js): LRT 'July 2 4:00 PM' at tick 264 shows 7:10 AM, Wheatfield 5:00 PM shows 8:05 AM, Angle 3:00 PM shows 12:05 PM; stops 8 and 11 are out of tick order; only stop 1 has video; nps.gov video page framing blocked once CSP frame-src www.google.com is enforced.",
+   "fix": "One data/stops.json shared by Walkthrough and guided tour; labels from battleClock; rename to Guided battle tour; TourController with cancelable timeline, restore user speed/play state, keyboard, dots as buttons, mobile bottom sheet; add www.nps.gov to frame-src when CSP enforced.",
+   "effort": "L",
+   "acceptance_test": "Next x5 quickly leaves no stale pause; Close restores previous speed/play; every printed time equals battleClock(stop.tick); keyboard-only run through all stops; on iPhone emulation the tour runs and flies.",
+   "root_cause": "Uncancelled timers, mutable global speed, duplicate hand-typed stop lists and times.",
+   "metric_or_grade_moved": "C4 (with 08), H8, function, a11y",
+   "depends_on": [
+    "app-bugs-08",
+    "app-bugs-11"
+   ],
+   "audit_refs": [
+    "C4",
+    "H8",
+    "D4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "th.js re-run reproduces every printed-vs-toolbar time; nps.gov returns no XFO/CSP live."
+  },
+  {
+   "id": "app-bugs-28",
+   "title": "Bookmarks and share links",
+   "severity": "low",
+   "evidence": "pretty:97840-97896: key gettysburg_bookmarks, default label from a 26-tick table else 'Tick N', id Date.now(), share writes ?t=&u=&z=&ll= never read, window.prompt fallback (97932 and chunk), unlabeled delete/close, panel not a dialog, no export/import/undo, dead bookmarkCount (9445-9446), mobile tile dead.",
+   "fix": "Label = battleClock time + nearest chronology event; URL per deep-link contract; navigator.share or copy with toast and inline read-only field; namespaced key with migration; export/import JSON; delete with undo; shared Dialog primitive.",
+   "effort": "M",
+   "acceptance_test": "Save at tick 267 with unit pinned gives a meaningful label; copied link restores state in a new context; delete + undo works; keyboard-only and mobile operation.",
+   "root_cause": "Share format never wired to a reader; panel built without dialog semantics.",
+   "metric_or_grade_moved": "Usability, docs promise, a11y",
+   "depends_on": [
+    "app-bugs-05",
+    "app-bugs-29"
+   ],
+   "audit_refs": [
+    "D4",
+    "A5",
+    "A6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-29",
+   "title": "localStorage inventory and a single storage layer",
+   "severity": "medium",
+   "evidence": "Keys: gtbg_prefs (pretty:9327-9341), gtbg_onboarded (112951, 113068), gettysburg_bookmarks (97821-97852), gtbg-ef-hidden (index.html:328-344), gtbg_watch_together_tour, gtbg_session (diagnostics only, never written), Mapbox telemetry keys (54270-54304) undisclosed on privacy page; three prefixes; dead gtbg_prefs.onboardingComplete competes with gtbg_onboarded (9441-9444); unguarded read at 112951. Not persisted: layout, sound, speed, last tick, filters, place/monument/trail toggles, seen vignettes.",
+   "fix": "lib/storage with try/catch and in-memory fallback, namespace gtbg:v1:, storage-event sync, one-time migration from legacy keys, ?reset=1; target keys layout, seenIntro, prefs, speed, bookmarks, sessionStorage seenVignettes; list keys and Mapbox telemetry on the privacy page.",
+   "effort": "M",
+   "acceptance_test": "With blocked storage the app works; legacy keys migrate exactly once; layout choice survives reload; privacy page lists every key.",
+   "root_cause": "Ad-hoc storage access per feature with inconsistent names.",
+   "metric_or_grade_moved": "Reliability, privacy B+ to A",
+   "depends_on": [],
+   "audit_refs": [
+    "H3",
+    "X5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-30",
+   "title": "Monuments layer KF: 48 px offset, endless 60 Hz React loop, three datasets; same offset in cursor ring",
+   "severity": "medium",
+   "evidence": "KF rAF loop with setState(new object) every frame regardless of showMonuments, pause or layout (pretty:100848-100871); markers position:fixed at map-container coordinates (100920-100933) while container is inset 48 px (ux.container 97392) so all markers draw 48 px too high; iO cursor ring (101817-101880) has the same offset; emoji glyph markers without labels; default on (sn true); datasets mA (20), _A (512), monuments.json (9, index.html only).",
+   "fix": "mapboxgl.Marker or symbol layer with feature-state glow, no rAF or React commits; markers as labelled buttons; default off under zoom 14; merge datasets into one monuments.json with a story flag; delete or fix the cursor ring (fixed + client coordinates or CSS cursor).",
+   "effort": "M",
+   "acceptance_test": "Marker pixel equals map.project within 1 px; Profiler shows 0 commits from KF over 5 s idle; toggle works; markers in tab order.",
+   "root_cause": "Manual per-frame projection into React state with wrong coordinate space.",
+   "metric_or_grade_moved": "INP/TBT, visual accuracy, a11y",
+   "depends_on": [
+    "app-bugs-32"
+   ],
+   "audit_refs": [
+    "P1",
+    "D4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-31",
+   "title": "Locations labels never appear until the button is toggled twice",
+   "severity": "low",
+   "evidence": "GtbgLoc pretty:112573-112676 effect deps [active] reads yn.getState().mapRef at mount (null) and returns; active defaults true (112943); setMapRef only on map load (97255); terrain.json fetched by rF (96919-96921) but terrainData never read; 10 hard-coded places.",
+   "fix": "Depend on mapRef from the store (Tranche 0 patch G); source names from places.json (includes terrain key locations) with minzoom/sort key/halo; persist toggle.",
+   "effort": "S",
+   "acceptance_test": "Fresh load shows labels without touching the button; toggle hides/shows; no errors.",
+   "root_cause": "Effect ran before the map existed and never re-ran.",
+   "metric_or_grade_moved": "Function, fit and finish",
+   "depends_on": [],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-32",
+   "title": "Playback loop and React subscription architecture (INP/TBT)",
+   "severity": "high",
+   "evidence": "25 selector-less yn() calls (pretty:97065, 97233, 97416, 97572, 97665, 97907, 98258, 98596, 98747, 99088, 99423, 99713, 99889, 100324, 100845, 101009, 101478, 101680, 102322, 102661, 102941, 111857, 112213, 112940, 112961); HUD _F setState every frame while playing (97418-97426); KF 60 Hz always (100848-100871); splash writes store per frame; y1 copies 467-key objects twice per frame (96279, 96291); X4 and O(n^2) x 8 separation; dA re-projects all units (97022-97033); aT rebuilt per tick (97323-97325); no dt cap (96977, 96982-96987). Not profiled in a browser; effect on RUM INP is likely, not measured.",
+   "fix": "Selector hooks and store slices, React.memo panels; single Ticker rAF driving canvas and HUD via refs; unitsAt computed once per tick; cap dt 100 ms and pause when hidden; useDeferredValue for search; run separation/labels at 20 Hz; remove production FPS meter.",
+   "effort": "L",
+   "acceptance_test": "CI budgets: 1x playback for 30 s gives at most 2 React commits/s beyond tick change and 0 when idle/paused; no long task over 50 ms at 4x CPU throttle; Lighthouse mobile TBT under 200 ms; RUM INP p75 under 200 ms after release.",
+   "root_cause": "Whole-store subscriptions plus multiple per-frame React loops and per-frame allocation.",
+   "metric_or_grade_moved": "INP Poor to Good, TBT, Performance grade",
+   "depends_on": [
+    "app-bugs-07",
+    "app-bugs-30",
+    "app-bugs-10"
+   ],
+   "audit_refs": [
+    "P1",
+    "P2",
+    "D2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "25 selector-less yn() calls at exactly the listed lines. INP impact remains unmeasured, as the report states."
+  },
+  {
+   "id": "app-bugs-33",
+   "title": "Speed labelling and speed-ladder mismatch (H9)",
+   "severity": "low",
+   "evidence": "_F prints '1x (real time)' (pretty:97429); cF=500 ms per tick (96948, 96982) so 1x is 2 ticks/s = 10 battle-minutes per second; visible ladder [0.25..8] (wO 112185, mobile u2 102900, labels SO 112186) but + key doubles to 16 (112996-113002) with no button or label.",
+   "fix": "One SPEEDS constant for keys, buttons and mobile; label '1x: 10 battle-minutes per second'; tooltip '1 tick = 5 battle-minutes'; remove 'real time' everywhere.",
+   "effort": "S",
+   "acceptance_test": "HUD at 1x reads 1x (10 min/s); + at 8x stays 8x; every keyable speed has a button.",
+   "root_cause": "Label written before the tick rate was chosen; ladders duplicated.",
+   "metric_or_grade_moved": "H9, UI honesty",
+   "depends_on": [],
+   "audit_refs": [
+    "H9",
+    "D4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-34",
+   "title": "Mapbox attribution disabled on two maps; token literal duplicated",
+   "severity": "low",
+   "evidence": "attributionControl:!1 at pretty:102988 (mobile) and 110777 (Walkthrough) with no custom control; same public token in a2 (97209-97210) and fO (102898-102899); Google Embed key mO (110610).",
+   "fix": "Remove attributionControl:false or add compact AttributionControl; single config.js reading VITE_MAPBOX_TOKEN and VITE_MAPS_EMBED_KEY; restrict both keys by referrer (X1/X2).",
+   "effort": "S",
+   "acceptance_test": "Every map on every page shows Mapbox logo and attribution; one token constant in the bundle.",
+   "root_cause": "Attribution suppressed for space; no shared config module.",
+   "metric_or_grade_moved": "Legal compliance, security hygiene",
+   "depends_on": [],
+   "audit_refs": [
+    "X1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-35",
+   "title": "Data IDs as consumed by the app: side from ID prefix, phantom Confederate rows shown as Union, 100 animated ids missing from the OOB",
+   "severity": "medium",
+   "evidence": "startsWith('U-'/'C-') side logic at 23 sites (pretty:96484 ... 103320); 10 placement rows use U- for Confederate regiments (U-11NC, U-15AL, U-1TX, U-26NC, U-44AL, U-47NC, U-48AL, U-4TX, U-52NC, U-5TX at ticks 95/150 in density_day1_ticks51_100.json and density_day1_afternoon.json), each duplicating a real C- regiment and persisting through carry-forward; 100 of 478 placed ids not in OOB (e.g. C-4AL-Law, C-ART-Alexander, U-I-1-19IN) so clicking shows no panel (MF null at 97903); 315 of 570 OOB regiments/batteries never placed.",
+   "fix": "scripts/validate-data.mjs (CI plus interim run on deployed data): every placement unit_id exists in OOB or an alias table; every OOB entry carries side; fix the 10 rows; app reads side from OOB; report unplaced units for the coverage decision.",
+   "effort": "M",
+   "acceptance_test": "Validator exits 0; no U- unit renders red and no C- unit renders blue; every marker click opens a panel.",
+   "root_cause": "Identifier conventions enforced by naming, not validated.",
+   "metric_or_grade_moved": "Data consistency, correctness of the core visual",
+   "depends_on": [],
+   "audit_refs": [
+    "C4",
+    "H7"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-36",
+   "title": "Hard-coded moment tables (scrubber key ticks, bookmark names, notable units, tour steps)",
+   "severity": "low",
+   "evidence": "TO pretty:112192-112201 (8 ticks, 5 colours; First shot at tick 17 vs V-001 tick 12 and IF says 12); IF 97865-97894; zF 98729-98737; Gc 111819-111855 (July 2 afternoon narrative at tick 267 = 8:25 AM); mobile scrubber uses red/gold significance dots from chronology (103170-103190) so layouts disagree.",
+   "fix": "Generate moments.json from chronology (critical + selected high) and vignettes; scrubber dots coloured by significance as the guide says with zoom thinning; tour and notable-unit lists reference moment ids.",
+   "effort": "M",
+   "acceptance_test": "Marker count/colours derive from data; changing a chronology tick moves the marker; no literal tick numbers in components.",
+   "root_cause": "Tick numbers typed into components.",
+   "metric_or_grade_moved": "Consistency, maintainability",
+   "depends_on": [
+    "app-bugs-08",
+    "app-bugs-15"
+   ],
+   "audit_refs": [
+    "C4",
+    "D4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-bugs-37",
+   "title": "Test harness and ?debug=1 hook needed to lock every fix",
+   "severity": "medium",
+   "evidence": "There is no way to reach the Mapbox instance or store from outside (module-scoped yn, no window hook except __gtbgApp._gbDist); no tests exist; acceptance tests in this report need map/store/labelStats access.",
+   "fix": "window.__gtbg = {map, store, labelStats, positionsAt} behind ?debug=1/DEV; Vitest for battleClock, positions, natural sort, deeplink, facts, labels, storage migration; Playwright on Chromium/WebKit/Firefox at 1440x900 and iPhone 375x812 with one spec per acceptance test, axe on every overlay, request budget, longtask and React Profiler budgets; CI gates: scope check (no unresolved globals), check-facts, validate-data, bundle budget, Lighthouse CI with BRIEF thresholds.",
+   "effort": "L",
+   "acceptance_test": "Suite runs headless in under 10 minutes and fails on each original bug when its fix is reverted.",
+   "root_cause": "No source project and no automated checks.",
+   "metric_or_grade_moved": "Reliability, regression safety, path to sustained A+",
+   "depends_on": [],
+   "audit_refs": [],
+   "verdict": "UNVERIFIABLE",
+   "correction": "Proposal only. Its one factual claim, 'no window hook', is true apart from __gtbgApp._gbDist."
+  },
+  {
+   "id": "app-bugs-38",
+   "title": "Place coordinates hard-coded in six places disagree by up to 2.1 km",
+   "severity": "medium",
+   "evidence": "coords.js: max spread per place across Locations labels (pretty:112573+), Soldier's Eye rO (101889+), tour th (100063+), story markers mA (100615+), terrain.json key_locations and Walkthrough d2 (104096+): McPherson Ridge 2,143 m, Seminary Ridge 1,310 m, Barlow's Knoll 1,058 m, Wheatfield 711 m, Little Round Top 661 m, Peach Orchard 451 m, Devil's Den 381 m, Cemetery Hill 308 m, Culp's Hill 278 m, The Angle 165 m; Herbst Woods in terrain.json is at -77.2578 while the Soldier's Eye McPherson site and Iron Brigade marker are near -77.275/-77.277.",
+   "fix": "One places.json (id, name, aliases, lat, lng, zoom, source) verified against NPS/USGS GNIS and reviewed by the owner; generate all consumers from it; CI fails on coordinate literals in components.",
+   "effort": "M",
+   "acceptance_test": "Spread per place under 25 m across every consumer; Soldier's Eye sites and Walkthrough panos agree.",
+   "root_cause": "Coordinates typed per feature.",
+   "metric_or_grade_moved": "Historical accuracy and consistency; prerequisite for 18, 19, 21",
+   "depends_on": [],
+   "audit_refs": [
+    "C4",
+    "H13"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "coords.js re-run gives identical spreads. Only the internal disagreement was checked; the coordinates were not verified against NPS/USGS."
+  },
+  {
+   "id": "app-bugs-39",
+   "title": "Accessibility primitives: zero ARIA in 17,000 lines of app code; 136 of 271 font sizes under 12 px; failing text contrast",
+   "severity": "high",
+   "evidence": "grep on pretty lines > 96,200: 0 aria-*, 0 role, 1 tabIndex; 113 onClick vs 75 button elements (clickable divs); 19 glyph-only close buttons (pretty:97981, 98346, 98638, 98815, 99140, 99457, 99808, 99943, 100399, 100457, 101157, 101745, 101985, 102386, 102691, 103253, 103382, 103519, 103631) plus 112541 and 112890; 136 of 271 fontSize below 12 (7px x1, 8px x7, 9px x13, 10px x56, 11px x56); text colours #666 (32 uses, 3.55:1), #555 (14, 2.73), #444 (4, 2.09), #777 (7, 4.55/4.25), #8b6914 (8, 4.00) on #050508/#0f0f1a; unnamed range slider (112295); toolbar buttons named by glyph.",
+   "fix": "IconButton/CloseButton/Dialog/Panel primitives (aria-label, aria-pressed, aria-keyshortcuts, role dialog/complementary, focus trap, overlay-stack registration); replace clickable divs with buttons; label scrubber with aria-valuetext clock; aria-live for toasts and distance result; reduced-motion handling; tokens: min 12 px text, contrast >= 4.5:1 (replace #666/#555/#444 with >= #8a8a96, #8b6914 text with >= #b08338), 44 px targets on coarse pointers, 24 px otherwise; add main, h1 and skip link to app shell.",
+   "effort": "L",
+   "acceptance_test": "axe on every overlay reports 0 critical/serious; keyboard-only open Search, pick unit, close, open Help, close; touch-target audit >= 44 px on iPhone emulation; contrast audit passes; Lighthouse accessibility >= 98 desktop and mobile.",
+   "root_cause": "Inline-styled div/button UI built without semantic primitives.",
+   "metric_or_grade_moved": "Accessibility C+/C to A (WCAG 2.2 AA); D2, A1-A6",
+   "depends_on": [],
+   "audit_refs": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "D2",
+    "S4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "All counts reproduce except one: font sizes under 12 px are 135 (133 numeric literals + 2 conditionals), not 136."
+  }
+ ],
+ "open_questions": [
+  "Audio: remove the sound feature (RECON PENDING.md says the owner asked for no audio) or keep it and rebuild on the Immersive engine?",
+  "Monuments on the map: show the 512 monuments (clustered) or keep the 20 story markers and rename them?",
+  "Which unit counts to advertise: 570 regiments and batteries in the order of battle vs 467 regiments, and how to describe the 478 animated positions after the 100 unmatched ids and 10 mis-prefixed rows are fixed?",
+  "The 315 OOB regiments/batteries that are never animated: give them placeholder bivouac positions or badge them 'not animated on the map'?",
+  "Are the proposed shortcut letters (O, R, Y, N, K, D, A, E, W, T) acceptable?",
+  "Heatmap: delete (Option A) or build it from strength drops (Option B)?",
+  "Converge Desktop and Mobile into one responsive shell (XL, recommended) or keep two layouts with shared components?",
+  "Which authority verifies places.json (NPS, USGS GNIS, Gettysburg NMP GIS), and who supplies Street View pano ids for Devil's Den, Oak Ridge and the Virginia Memorial?",
+  "Historical clock anchors for battleClock belong to the C4 owner: which sources fix tick to real time?",
+  "Should legacy ?t= and ?u= aliases be kept indefinitely or for one release?",
+  "Inferred items needing a browser test: exception in useEffect unmounting the whole tree, transport-bar double key handling, i2 pollution after splash (depends on map load timing), distance tool root cause, Walkthrough stale-frame caption, and whether 60 Hz React loops drive RUM INP."
+ ],
+ "verification_summary": "The app-bugs report is unusually accurate. Every bundle.pretty.js line I re-opened was exact, and every data count reproduced from my own probes. Of the 39 findings, 30 are CONFIRMED, 8 are CORRECTED (06, 07, 12, 16, 19, 20, 25, and the caveats on 01 folded into its CONFIRMED), 1 is UNVERIFIABLE (37, a proposal), and none is REFUTED. I found 8 missed issues. The two most serious are a data-merge bug that silently drops 127 placement rows, and a unit panel that shows no disposition or strength on about 97% of ticks. A Verification section with the full verdict table and the missed issues is appended to app-bugs.md.",
+ "missed_by_specialist": [
+  {
+   "title": "addPlacementsForDay replaces per-tick arrays and four density files hold rows for other days: 127 rows silently dropped, tick 1 collapses from 72 rows to 1 after day 2 loads",
+   "severity": "high",
+   "evidence": "pretty:9397-9406: placementsByTick:{...z.placementsByTick,...P} replaces any tick present in a later load. tF/nF (pretty:96771-96833) mis-file rows: day-1 group density_artillery_positions.json has 22 rows at ticks 226-560, density_cavalry_detail.json 17 rows at 560-569, density_skirmishers.json 14 rows at 248-563; the day-2 group's density_reserves.json has rows at tick 1 (U-CAV-1), 451 (C-I-3-1..3) and 538. Simulating load order 1,2,3 (tmp-verify-app-bugs/probe4.py and probe5.py): 21 ticks overwritten, 127 rows lost, placementsByTick[1] goes 72 rows to 1. Masked today by the i2 cache, but it breaks app-bugs-07/16 and the acceptance test 'tick 1 = 71 units'.",
+   "fix": "Merge per tick in addPlacementsForDay (concat, dedupe by unit_id+tick). Bucket build-step day files by the day of row.tick, not by source-file group. Add a validate-data rule that each row's tick lies in its file's declared range. Move or split the 4 files. Effort S for the merge, M with the build/validator work."
+  },
+  {
+   "title": "Unit panel (MF/SF) uses exact-tick rows only: disposition, strength bar, notes and history absent for ~97% of (unit,tick) pairs",
+   "severity": "high",
+   "evidence": "pretty:97909-97911 Ie=(M[P]||[]).find(...); disposition badge/border 97922-97925 and 97985-97992; SF returns null when x==null (97664-97671) with currentStrength: Ie?.strength (98010-98012); notes need Ie?.notes (98018); Recent Positions is an exact-tick 20-tick scan. Data (probe7.py): only 1,687 of 61,198 ticks (2.8%) inside unit active spans have a row; at tick 100 only 10 units have a row while 187 are drawn. Not among app-bugs-07's 'three definitions of on the field'.",
+   "fix": "Have MF, SF, roster and Ancestor timeline read the same positionAt(frames, tick) as the map (latest keyframe <\\= tick, strength interpolated), label 'last reported at tick N', build history from keyframes. Fold into app-bugs-07. Effort S-M."
+  },
+  {
+   "title": "Tranche 0 F is insufficient for mobile and two hot-patch packs now edit the same anchors",
+   "severity": "medium",
+   "evidence": "FF/OF (Search/Filter) render from AO at z95 (pretty:98964, 99288; JSX 113247-113248), CF 92, MF 92, LF 85, all under tn.root z100 (103698-103705); mobile only fetches chronology for non-interactive scrubber dots (102958-102975, pointerEvents none at 103206). After Tranche 0 the mobile Search/Filter tiles and all 24 vignettes / 137 events stay invisible while its acceptance test only checks elementFromPoint. app-mobile.md (lines 17, 132-150; not re-executed by me) ships its own 68-edit pack renamed index-mHF1a.js that re-hosts FF/OF/CF/LF/qF in pO; app-bugs-01 proposes 24 different patches and another rename over the same F block (pretty:113233-113283).",
+   "fix": "Publish one merged Tranche 0: single bundle name, single CACHE_NAME bump, one validation script asserting each anchor is patched exactly once, and a visible-panel acceptance test for every mobile tile."
+  },
+  {
+   "title": "Boot data fetches have no error handling: one failed request blanks unit names/panels or hangs the splash",
+   "severity": "medium",
+   "evidence": "iF (pretty:96834-96838) is a Promise.all of 14 OOB fetches with no catch; oF (96922-96933) and rF (96919-96921) likewise; sF (96939-96940) and the AO effect (112962) do not catch. If one OOB file fails, setOobData never runs, oobData={} and MF returns null for every click (97903). If day 1 fails, zp swallows it, Object.keys(placementsByTick).length>5 never becomes true and the splash sits on 'loading' (101478-101484) with no error or retry.",
+   "fix": "Route all boot data through the same dataService with retry/backoff, an error state and a Retry action; add an error stage to the boot state machine. Effort S-M."
+  },
+  {
+   "title": "sw.js caches error responses and serves them cache-first",
+   "severity": "medium",
+   "evidence": "sw.js:41-49 (/assets/*) and sw.js:58-68 (/data/*) call cache.put(request, response.clone()) without checking res.ok. A transient 404/5xx on a lazy chunk (HelpModal/BookmarkPanel) is stored under the current CACHE_NAME and returned cache-first until the name changes. cache.addAll at install (sw.js:19) is atomic. This is the runtime half of the redeploy trap.",
+   "fix": "Cache only res.ok && res.type==='basic'; generate CACHE_NAME and the precache list from the build manifest; never cache 4xx/5xx. Effort S."
+  },
+  {
+   "title": "Virtual Walkthrough cannot be opened in the Mobile layout",
+   "severity": "low",
+   "evidence": "The only Ut(!0) call is the desktop toolbar button at pretty:113134-113138, inside the Zn !== 'mobile' block; the 14 mobile Tools tiles (pretty:103390-103485) have no Walkthrough entry. The report's TOOLS registry lists walk for mobile but never records the current gap, and app-bugs-19's 'mobile branch' is only reachable via Desktop View.",
+   "fix": "Add a Walkthrough tile via the registry after fixing app-bugs-19's map init. Effort S."
+  },
+  {
+   "title": "Any sw.js change (including Tranche 0's CACHE_NAME bump) force-reloads every open tab of every returning visitor",
+   "severity": "low",
+   "evidence": "sw.js:16-31 (skipWaiting, clients.claim) plus index.html:262-268 (controllerchange -> location.reload()): the new worker takes control of all existing pages and each reloads once and replays the 3.5 s splash. The report's rollout plan treats the bump as free.",
+   "fix": "Ship the C6 fix in the same deploy (reload only when there was no previous controller, or show an 'Update available' toast) and announce the one-time reload. Effort S."
+  },
+  {
+   "title": "/data/* is served max-age=3600 under unchanged file names, so in-place data fixes can be stale for an hour and skew against a new immutable bundle",
+   "severity": "low",
+   "evidence": "netlify.toml:26-30; live curl -I on /data/placements_day1_ticks1_50.json returns 'Cache-Control: public,max-age=3600'. The SW handler is network-first but its fetch still goes through the HTTP cache. Findings 06 and 35 propose editing the 10 mis-prefixed rows and generating day1-3.json in place.",
+   "fix": "Content-hash the data file names (or add ?v=<buildId> from the facts pipeline of finding 15) and reference them from facts.json. Effort S."
+  }
+ ]
+}

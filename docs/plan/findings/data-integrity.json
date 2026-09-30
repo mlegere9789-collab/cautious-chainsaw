@@ -1,0 +1,659 @@
+{
+ "agent": "data-integrity",
+ "summary": "Audited all 71 JSON files in deploy/data (plus the 512-monument, 16-tour-stop, tutorial, timeline and road datasets embedded in bundle.pretty.js) with 18 scripts. Headline results. (1) Placements are 1,804 rows, not the 430,000 the schema promises; only 188 of 675 ticks (27.9%) have any row and 0.75% of displayed unit-ticks are real data. The renderer never interpolates across keyframe gaps and never clears its last-position cache, so 92% of transitions are hold-then-snap (371 snaps >500 m, 84 >2 km) and 404 of 478 units are stale by 100+ ticks at tick 675. (2) 95 of 478 placed unit IDs (216 rows) do not exist in the OOB; 10 Confederate regiments are keyed U- and render as Union; 28 IDs denote two different formations (e.g. U-V-3-1 McCandless vs 'Vincent's brigade'). (3) Casualty figures have no authority: Union 22,803/23,138/23,049/23,055 and Confederate 23,125/23,025/28,000/23,231 (published totals checked via Wikipedia's citation of Busey & Martin and the OR, not the book); '51,000' mixes bases; casualty_apportionment.json is not used by the animation; 22/22 Union and 9/9 Confederate divisions and 10 of 11 corps do not roll up; VI Corps has 36 regiments but no brigade records. (4) Dashboard C7 root cause is a nested notable_intensity_notes shape, and its claim is contradicted by the site's own OOB. (5) The Historian reads e.title/e.description that do not exist, so 137/137 chronology answers print 'undefined'; the indexed corpus is 11,088 words of a 45,096-word data lake. (6) 467 is regiment records only (103 batteries extra; only 217 regiments and 41 batteries ever have a position); 445+ = 467-22. (7) 1,591 user-facing ' -- ', internal IDs and dev notes in text, 0 per-record provenance, two divergent monument datasets, deep-link params that no code reads. The report contains 30 fix specs (DI-01..DI-30), a 60-rule validator spec with today's baselines, a facts-registry plan, versioning/changelog and provenance schemas, corpus statistics, a 95-row ID crosswalk seed and phasing.",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/data-integrity.md",
+ "findings": [
+  {
+   "id": "data-integrity-01",
+   "title": "Dense, validated unit-movement model: replace 1,804 sparse rows and hold-and-snap rendering with authored anchors plus generated per-tick tracks",
+   "severity": "critical",
+   "evidence": "Only 188/675 ticks have any row; 487 have none (s03_ticks.py). y1 blends only tick f and f+1 (bundle.pretty.js:96266-96305) and the cache i2 is never cleared (:96265): 1,116 of 1,209 transitions are hold-then-snap, 371 snaps >500 m, 84 >2 km, 704 km total; median implied moving speed 0.27 mph; 0.75% of displayed unit-ticks are real data; 404/478 units stale >=100 ticks at t675; 173 units have one keyframe; 59 of 73 tick-1 rows share 7 identical longitudes (schematic).",
+   "root_cause": "Positions authored as a few hand-written keyframes per unit with no pathing, presence windows or lookup contract; schema promises 600-700 units per tick.",
+   "fix": "Authoring format data-src/tracks/<day>.json with presence{appear_tick,depart_tick,off_map_until} and anchors[{tick,lat,lng,bearing,disposition,basis,source,uncertainty_m}]. build-tracks.mjs densifies each anchor pair along the road graph (Dijkstra, per-disposition speed caps: march 3 mph, double-quick 4.5 for <=4 ticks, charge 8 for <=2 ticks, retreat 6, cavalry 12/5, limbered artillery 4) or great-circle with easing; build FAILS if caps cannot be met and names the extra anchors needed. Targets: moving gap <=6 ticks, stationary <=45; historian reviews only the 162 segments >60 ticks. Ship anchors + polylines (<600 KB raw/<120 KB br) with one shared trackAt(unit,tick,frac) ES module used by map, Compare, Camera, Ledger, Embed, Immersive. Renderer owner replaces y1/i2 with trackAt and deletes the global cache.",
+   "effort": "XL",
+   "acceptance_test": "Validator C001-C005 and G003 pass; 200 random (unit,tick) probes return a position for every unit whose presence covers the tick; max one-tick displacement <= cap x 5 min except <=10 whitelisted rout events; cold seek to tick 300 draws >=300 units; no unit drawn >45 ticks after its last anchor unless presence says so; Day-2 screen recording shows 0 jumps >250 m.",
+   "audit_refs": [],
+   "depends_on": [
+    "data-integrity-02",
+    "data-integrity-11",
+    "data-integrity-12",
+    "data-integrity-13",
+    "data-integrity-14"
+   ],
+   "metric_or_grade_moved": "Core function (B/D -> A), Historical/data consistency, Usability",
+   "verdict": "CORRECTED",
+   "correction": "Evidence reproduced exactly (y1 at bundle.pretty.js:96266, i2 at :96265 never reset). Corrections: (1) speed caps and gap targets assume 5 min/tick but DI-11 adopts a 0.8-42.3 min/tick clock; under that clock segments >8 mph rise 2->6 and >4 mph 16->33 (C-I-3-3 t550->551 = 12.9 mph), so G003/C002 must use clockAt-derived dt. (2) Densifier timing policy (arrive-on-time vs depart-early) is unspecified. (3) 'Historian reviews only 162 segments' is optimistic: ~4,737 generated intermediate anchors vs 1,687 real rows, plus 173 single-keyframe and 153 Day-1-only units needing presence research; 8-10 d covers tooling only. (4) Consumer list wrong: Living Ledger and Embed read no placements; camera, cinematic-export, compare, ground-remembers, immersive, regiment, sandbox, watch-together, unit-rendering-reference read only placements_* (694 rows), never density_*. (5) Renderer change is a patch to the minified bundle (N1). (6) 0.27 mph median is over all non-zero segments; 0.46 mph for segments >250 m."
+  },
+  {
+   "id": "data-integrity-02",
+   "title": "Canonical unit-ID namespace, explicit side field, alias crosswalk and collision resolution",
+   "severity": "critical",
+   "evidence": "95 of 478 placed IDs unresolved (216 rows, 12.0%); 10 Confederate regiments keyed U- (U-15AL,U-44AL,U-48AL,U-1TX,U-4TX,U-5TX,U-11NC,U-26NC,U-47NC,U-52NC) render blue because side = startsWith('U-') (bundle.pretty.js:96484,96525,96585,96597,96679,96739,97068,97923) while C- twins are also placed; 28 IDs (44 rows) used for two formations, e.g. U-V-3-1 McCandless vs 'Vincent's brigade', U-II-3-1 975 vs 12,500 men, C-III-2-1 Pettigrew vs 'Archer's brigade'; second numbering scheme in density files (C-II-4, C-III-4-x, C-I-5-x, U-I-2-3/2-4); Follow-Ancestor list built from placement IDs (bundle.pretty.js:101026-101039) prints 95 raw IDs.",
+   "root_cause": "Two authoring passes with different ID conventions; side encoded only in the prefix; no referential validation.",
+   "fix": "Define ID grammar per unit_level (R007) and add side and unit_level to every OOB record and track; ban startsWith('U-') in code. Create unit_aliases.json seeded from crosswalk_seed.csv (95 rows: 12 high auto-apply, 17 medium + 44 low need short human review, 22 need new OOB records such as VI Corps brigades, C-CAV group, U-ART-RES). Migration script rewrites IDs everywhere, merges twins by (unit,tick), logs to CHANGELOG. Resolve the 28 semantic collisions row by row using semantic_id_conflicts.csv (Vincent->U-V-1-3, Webb->U-II-2-2, Archer->C-III-2-3, Gordon->C-II-1-3, Hoke/Avery->C-II-1-2, Ramseur->C-II-3-4). Give parent formations their own group/division records.",
+   "effort": "L",
+   "acceptance_test": "Validator R001-R007 and R011 report 0 errors across placements, density, chronology units_involved, vignette units_featured, succession unit_id; 0 rows where side != prefix; Follow-Ancestor list has 0 raw-ID rows and sorts numerically by sort_key (unit test on 217-regiment roster).",
+   "audit_refs": [
+    "H5"
+   ],
+   "depends_on": [
+    "data-integrity-12"
+   ],
+   "metric_or_grade_moved": "Historical/data consistency, Core function",
+   "verdict": "CORRECTED",
+   "correction": "Counts reproduced (728 OOB IDs, 478 placed, 95 unresolved, 216 rows, 10 side-prefix errors with placed C- twins). startsWith('U-') side inference is at 19 bundle sites, not 8 (also :98875,99767,100906,101034,101134,101734,102336,102673,103129,103258,103320) plus static pages (search.html:110, historian.html:91, find-ancestor.html:115, regiment.html:165,194). The 28-ID/44-row collision list is a heuristic: about half are genuine brigade swaps, the rest are level errors or a cameo false positive (C-I-3 'Longstreet's corps'). The t55 rows C-II-1-1/-1-3/-1-4 rotate each other's identities, so migration must be an atomic permutation. Proposed targets (Vincent->U-V-1-3, Webb->U-II-2-2, Archer->C-III-2-3, Gordon->C-II-1-3, Hoke/Avery->C-II-1-2, Ramseur->C-II-3-4, Cutler->U-I-1-2) verified against OOB. Crosswalk seed has errors (see missed item on U-8IL etc.)."
+  },
+  {
+   "id": "data-integrity-03",
+   "title": "One authority for casualty and strength numbers; derive every roll-up",
+   "severity": "critical",
+   "evidence": "Union 22,803 (corps totals) / 23,138 (dashboard period sum) / 23,049 (OR, OOB army) / 23,055 (B&M via Wikipedia); Confederate 23,125 / 23,025 / 28,000 (OOB army) / 23,231 (B&M p.260); Confederate corps strength 65,000 (OOB) vs 72,810 (apportionment) vs 71,699 (B&M engaged) vs 75,000; U-I periods +335 vs total, C-CAV -100; 22/22 Union and 9/9 Confederate divisions and 10/11 corps do not sum from children; 17 of 88 brigades >10% off their regiments; '51,000' in Help chunk, chronology t650, V-001, V-024 = 23,049+28,000; casualty_apportionment.json:227 Pickett ~2,700 > C-I day-3 total 2,614:222; Confederate 37.3% divides 28,000 by campaign-start 75,000.",
+   "root_cause": "Hand-typed numbers from different sources and bases; no parent==children rule.",
+   "fix": "authorities.json with each aggregate, basis, source and alternates (B&M 23,055/23,231, engaged 93,921/71,699, OR 23,049, AG 23,003) - verify against the book before publishing. Choose one headline (e.g. ~46,300, older estimates to 51,000) and replace all '51,000' occurrences. Derive regiment->brigade->division->corps->army sums at build; keep reported_* beside derived_* and an explicit unlisted_* remainder. Fix U-I and C-CAV period sums, pick one Confederate strength basis, add killed/wounded/captured per side. Retire typed notable_intensity_notes.",
+   "effort": "L",
+   "acceptance_test": "N005-N007 pass; Dashboard totals == sum of regiments == headline (+/-0.5%, remainder shown); grep for '51,000' returns 0; Help, Dashboard, Ledger, OOB, Documentary display identical totals (E2E string test); percentages use same denominator type.",
+   "audit_refs": [
+    "C7",
+    "H10"
+   ],
+   "depends_on": [
+    "data-integrity-02",
+    "data-integrity-07",
+    "data-integrity-23"
+   ],
+   "metric_or_grade_moved": "Historical/data consistency C- -> A-, Documentation",
+   "verdict": "CORRECTED",
+   "correction": "All aggregates reproduced (22,803/23,138/23,049; 23,125/23,025/28,000; 90,164/72,810/65,000; U-I +335; C-CAV -100; Pickett 2,700 vs 2,614 at casualty_apportionment.json:227/:222) and Wikipedia wikitext confirms 23,055/23,231/93,921/71,699/23,003/75,000/28,000 and '46,000 and 51,000'. Corrections: literal '51,000' occurs 6 times (helpmodal 1, chronology_day3 1, vignettes_part1 2, vignettes_part3 2), not 8 (8 only with two '28,000' literals). Wikipedia attributes B&M's 23,231 to the 2005 work while every site file cites B&M 1994 - edition must be reconciled before adopting 23,055/23,231 as the headline."
+  },
+  {
+   "id": "data-integrity-04",
+   "title": "Fix Dashboard stat-card contract (highest_single_regiment_rate) and compute all notable stats",
+   "severity": "critical",
+   "evidence": "casualty_apportionment.json:330-333 holds {union:{unit,rate,note},confederate:{...}}; dashboard.html:244-247 pushes num: n.unit || key, note: n.note -> 'highest_single_regiment_rate' / undefined. Note text says '224 of 262 casualties' (it is 224 casualties of 262 engaged); claim 'highest Confederate rate C-26NC 69.7%' is contradicted by OOB (C-8VA 148/193=76.7%, C-38NC-S 75.6%, C-9VA 75.5%); developer footnote at dashboard.html:257-262.",
+   "root_cause": "Polymorphic schema, typed facts, renderer assuming one shape.",
+   "fix": "Replace object with array notable_intensity[{id,label,side,unit_id,display_name,value,value_label,note}] generated at build from the OOB with a stated rule (min 150 engaged): Union U-1MN 85.5% (224 of 262 engaged), Confederate top by rate per rule plus separate 'most casualties' card C-26NC (588 of 843 engaged); notes templated from numbers; dashboard skips cards missing label/note and never prints a key; remove the reconcile footnote after DI-03.",
+   "effort": "S",
+   "acceptance_test": "No card text contains '_' or 'undefined'; test asserts card count and note regex '\\d+ casualties of \\d+ engaged'; values equal a recomputation from OOB.",
+   "audit_refs": [
+    "C7"
+   ],
+   "depends_on": [],
+   "metric_or_grade_moved": "Fit & finish, Reliability (C7 closed)",
+   "verdict": "CORRECTED",
+   "correction": "Root cause exact (casualty_apportionment.json:330-333; dashboard.html:244-247; footnote :257-262). C-8VA 148/193=76.7%, C-38NC-S 75.6%, C-9VA 75.5%, C-26NC 69.7%, U-1MN 224/262=85.5% reproduced (same ranking without the 'min 150' rule, so it is unnecessary). The hotfix (flatten nested union/confederate objects, fix '224 of 262 casualties' wording) is S with no build; the OOB-generated notable_intensity array requires the not-yet-existing build/validator (DI-24/25), so that version is M and 'Depends: none' is wrong for it."
+  },
+  {
+   "id": "data-integrity-05",
+   "title": "Repair the Historian/data contract: chronology 'undefined', lost paragraphs, unindexed entity kinds",
+   "severity": "high",
+   "evidence": "historian.html:119,123 read e.title/e.description but chronology rows have event/narrative: 137/137 answers render 'undefined' and are indexed by location only (419 words); :109 prints 7,182 script words as one string; terrain limited to 30 key_locations (:130); brigades, batteries, successions, monuments, tour stops, army/corps records not indexed; probe queries Meade, Longstreet, Lincoln, Jennie Wade, 'Who commanded the Union army?', 'How many casualties...' return nothing relevant (s07_historian_sim.js).",
+   "root_cause": "Each page re-implements field parsing; no shared corpus contract or tests.",
+   "fix": "(a) Quick fix: use e.event/e.narrative/e.significance, index event+narrative+location, render full_script.split('\\n\\n') as <p>, add roads/structures/features. (b) Shared assets/corpus.js reading a documented corpus.json built at deploy (used by historian, search, find-ancestor, regiment) with kinds army/corps/division/brigade/battery/succession/monument/tour/fact. (c) Golden set of 40 queries asserting expected ID in top 3.",
+   "effort": "M",
+   "acceptance_test": "0 answers contain 'undefined'; precision@3 >=0.8 on the golden set; answers render as paragraphs; K001 passes.",
+   "audit_refs": [
+    "H8"
+   ],
+   "depends_on": [
+    "data-integrity-02"
+   ],
+   "metric_or_grade_moved": "Core function, Historian credibility",
+   "verdict": "CONFIRMED",
+   "correction": "historian.html:119,123 confirmed; chronology keys are event/narrative, 137/137 render 'undefined' (rerun; port verified literal vs historian.html:154-190). Addendum: fixes (a)/(b) alone will not reach P@3>=0.8 because the ranker outranks the correct record even for the site's own chips: '20th Maine' -> U-20ME rank 4, '1st Minnesota' -> U-1MN rank 4, 'Little Round Top' -> LOC-003 rank 26. Golden set needs a title/entity boost or BM25 in the same item."
+  },
+  {
+   "id": "data-integrity-06",
+   "title": "Deep-link and share-link contract: 521+ generated links land on tick 1",
+   "severity": "high",
+   "evidence": "search.html:114,127,139 generate ?unit=, ?tick=&vignette=, ?lat=&lng=; historian.html:110 generates /?tick=&vignette=; bundle.pretty.js:97823-97829 writes ?t=&u=&z=&ll=; the only param the app reads is ancestor (bundle.pretty.js:101019). regiment.html:252 and embed.html:41 read their own params.",
+   "root_cause": "No shared URL grammar; links generated from data are never validated against a reader.",
+   "fix": "routes.json defining ?t,u,v,ll,z,a,day with legacy aliases; shared parseDeepLink()/buildDeepLink(); app applies state on load; validator R008 resolves every generated link (unit has a track, tick 1-675, vignette exists); regiments without a track link to regiment.html?unit= until DI-19.",
+   "effort": "M",
+   "acceptance_test": "Playwright opens each of 521 search results and asserts tick/unit/vignette state; share-link copy-reload round trip restores tick, zoom, center, selection; R008 = 0.",
+   "audit_refs": [],
+   "depends_on": [
+    "data-integrity-01",
+    "data-integrity-02"
+   ],
+   "metric_or_grade_moved": "Usability, Core function",
+   "verdict": "CONFIRMED",
+   "correction": "Only 'ancestor' is read (bundle :101019); writers search.html:114,127,139, historian.html:110, bookmarks :97822-97829 confirmed across bundle, all assets/*.js, index.html and site-nav.js. Add embed.html's CTA (?tick=&vignette=, unread) to the writer list."
+  },
+  {
+   "id": "data-integrity-07",
+   "title": "Complete the OOB hierarchy (VI Corps) and make it add up",
+   "severity": "high",
+   "evidence": "36 regiments reference 8 non-existent U-VI-*-* brigades; division.brigade_ids dangling for 8; 8 placement rows use those IDs; union_oob_brigades.json note says 49 infantry brigades but has 43 infantry + 8 cavalry (43+8 missing VI = 51); regiment->brigade: strength equal in 9 of 88, >10% off in 17; guns Confederate sum 182 vs 'approximately 283', Union 278+28=306 vs 'approximately 370'.",
+   "root_cause": "Hand-authored levels never reconciled; no reciprocal-link validation.",
+   "fix": "Add the 8 VI Corps brigade records (commanders, strengths, casualties from OR/B&M - names not researched here); fix metadata note; make parent_brigade_id resolve and regiment_ids reciprocal (431/467 today); derive artillery totals from batteries; add army records U-AOP and C-ANV with derived totals; introduce unlisted_* remainders.",
+   "effort": "M",
+   "acceptance_test": "R003/R004 = 0; N005/N006 pass or carry documented remainders; N010 guns equal sum of gun_count.",
+   "audit_refs": [],
+   "depends_on": [
+    "data-integrity-02",
+    "data-integrity-03"
+   ],
+   "metric_or_grade_moved": "Data consistency, Search/Ancestor completeness",
+   "verdict": "CORRECTED",
+   "correction": "VI Corps facts reproduced (36 regiments -> 8 missing brigades; 51 = 43 infantry + 8 cavalry; note says 49). Corrections: 28/28 divisions with resolvable brigade children fail to roll up (19 Union + 9 Confederate); the '22/22 Union' includes 3 VI Corps divisions whose children do not exist. Guns: derived Confederate total is 194, not 182 (3 horse batteries/12 guns in confederate_cavalry.json), and published totals (Wikipedia infobox ~360 Union / ~270 Confederate) far exceed the OOB's listed batteries (55 Union/306 guns; 48 Confederate/194), so 'derive totals and reword 283/370' would under-state; complete the artillery OOB first."
+  },
+  {
+   "id": "data-integrity-08",
+   "title": "Aliases, duplicates, detachments, misfiled rows and 'Commander unrecorded' leaking into Search/Historian",
+   "severity": "high",
+   "evidence": "U-14BK '14th Brooklyn (alias for U-84NY)' strength 0 ranks #1 for '14th brooklyn' (90 vs 60); U-11PA (Paul's brigade) and U-11PA-B 'Baxter detachment' (fate 'See U-11PA') duplicate one regiment; U-107NY in I Corps likely the 107th PA; 4 Union cavalry -b detachments; C-McClanahan-ART (a battery) in a regiments array; 27 rows 'Commander unrecorded' (search.html:112) and 222 rows ending in dangling ' · '; 29 rows with alias/detachment/battalion markers.",
+   "root_cause": "No record_type/visibility model; alias implemented as a row.",
+   "fix": "Add record_type, alias_for, visibility; aliases become aliases[] on the target; merge true duplicates (U-11PA-B into U-11PA, strength per B&M); move McClanahan to horse_artillery; group detachments under parent; commander null -> 'Commander not recorded in Busey & Martin', fill 22 Confederate cavalry commanders or set commander_status:unknown; compute casualty_percentage; search meta joins non-empty parts only.",
+   "effort": "M",
+   "acceptance_test": "Search '14th brooklyn' returns the real regiment first and 0 alias rows; 0 rows containing 'unrecorded' or dangling ' · '; R006 = 0.",
+   "audit_refs": [
+    "H7",
+    "H8"
+   ],
+   "depends_on": [
+    "data-integrity-02"
+   ],
+   "metric_or_grade_moved": "Fit & finish, Historian trust",
+   "verdict": "CONFIRMED",
+   "correction": "U-14BK scores 90 vs 60 for the real 84th NY on '14th brooklyn' (search.html:83-95 + record check). Merge caution: the 11th PA historically belonged to Baxter's brigade (verify vs B&M), so the U-I-2-1 (Paul's) U-11PA record is likely the misfiled one; merge direction must keep the Baxter's-brigade parent. C-McClanahan-ART has explicit unit_type 'horse_artillery' (arm is not merely inferred)."
+  },
+  {
+   "id": "data-integrity-09",
+   "title": "Single-source-of-truth facts registry for every count and label",
+   "severity": "high",
+   "evidence": "'467' appears 10 times (index.html:15,18,24,32,719,754; manifest.json:4; find-ancestor.html:48,105; historian.html:48); '445+' in helpmodal chunk (=467-22); '24 vignettes/137 events/30 terrain' in historian.html:48; '51,000' 8 times; index.html:721-740 lists 18 features vs 20 in site-nav.js; disposition colours differ between schema and Lp (bundle.pretty.js:96307); speed label '1x (real time)' at :97429.",
+   "root_cause": "Numbers typed into prose in >14 places.",
+   "fix": "Build emits facts.json (derived counts + cited authorities) and injects {{facts.*}} into HTML, JSON-LD, manifest, Help/About, PDF build and Historian intro; features.json generates both nav and SEO block; dispositions.json generates schema enum, legend, colours; facts:lint bans literals generated from facts values.",
+   "effort": "M",
+   "acceptance_test": "facts:lint finds 0 literal registry values outside facts.json; changing a record count updates every surface after rebuild; Help About and home meta description show the same number.",
+   "audit_refs": [
+    "H10"
+   ],
+   "depends_on": [
+    "data-integrity-03",
+    "data-integrity-07",
+    "data-integrity-08"
+   ],
+   "metric_or_grade_moved": "Consistency, SEO copy accuracy",
+   "verdict": "CORRECTED",
+   "correction": "467 x10, 445+, 18 vs 20 links and '1x (real time)' :97429 reproduced; '51,000' is 6 literals not 8. The sample facts.json lists minutes_per_tick:5 beside clock.json (piecewise, 0.8-42.3 min/tick) - contradictory. Templating HTML/JSON-LD needs a build step; dependency line omits DI-24/25 (netlify.toml publish='.', no build today)."
+  },
+  {
+   "id": "data-integrity-10",
+   "title": "Placement strength becomes computed from casualties instead of hand-typed",
+   "severity": "high",
+   "evidence": "121 strength increases across 82 units (U-II-3-1 975->12,500; U-VI-1 7,500->15,000; U-CAV-1 3,200->8,000; C-III-3-1 1,734->6,300, all ID collisions); 126 units with >10% OOB casualties never change strength; 74 units exceed OOB strength by >2%; only 88 of 302 end within 5% of strength-casualties; the animation ignores casualty_apportionment.json (no fetch in bundle).",
+   "root_cause": "Strength typed per keyframe; apportionment model never wired to the renderer.",
+   "fix": "Drop strength from authored anchors; compute strength(t)=initial - cumulative casualties from one documented distribution model (DI-21) weighted by Charging/Chaotic ticks; reinforcements as explicit sourced events; parent aggregates = sum of children; validator N001-N004.",
+   "effort": "L",
+   "acceptance_test": "Every unit ends within 1% of OOB strength-casualties; every unit with OOB casualties shows >0 at the end; Dashboard corps curves equal sum of unit curves at every tick.",
+   "audit_refs": [],
+   "depends_on": [
+    "data-integrity-01",
+    "data-integrity-02",
+    "data-integrity-03"
+   ],
+   "metric_or_grade_moved": "Historical accuracy, animation fidelity",
+   "verdict": "CORRECTED",
+   "correction": "121 increases/82 units and 74 over-OOB reproduced. '88 of 302' holds only for regiments+brigades (unstated scope; 105/374 across all levels). '126 units with >10% casualties and constant strength' is misleading: 93 of the 126 have one keyframe; only 33 have >=2 keyframes with constant strength, so the stat mostly restates DI-01. Renderer coupling omitted: F4 interpolates strength (:96238-96256) and uF (:97033-97044) triggers the casualty flash from strength drops."
+  },
+  {
+   "id": "data-integrity-11",
+   "title": "One tick-to-clock function in data; remove hand-typed times",
+   "severity": "high",
+   "evidence": "94 of 137 chronology labels differ from their own tick_formula (t12 '6:00am' vs 5:55); succession approx_time vs approx_tick off by mean +5.07 h (0/37 within 30 min); schema day real_time strings contradict 5 min x 225 ticks; V-023 'That night' at tick 556 (same tick as V-019); TO marker tick 17 'First shot' vs V-001 tick 12; 11 of 24 vignettes contradict their tick clock; getTickTime bundle.pretty.js:9371 uses 6:00 base on Day 1 and 4:00 on Days 2-3.",
+   "root_cause": "Several independent clock implementations and hand-typed labels.",
+   "fix": "Adopt the 33-anchor clock.json from time-facts-anchors.csv as the only clockAt(tick) (ISO-8601 -04:00, date, day, label); delete typed time strings; store real_time per event and validate within 30 min (T001/T002); regex-check narrative times (T003); fix 4 wrong-day and 12 misordered events, V-023's tick and TO/Gc markers via events.json (DI-16).",
+   "effort": "M",
+   "acceptance_test": "T001-T004 = 0; grep proves a single clock formula across map, Compare, Camera, Ledger, Documentary, Sandbox; Day-3 header never shows 'July 5'.",
+   "audit_refs": [
+    "C4",
+    "C3"
+   ],
+   "depends_on": [
+    "data-integrity-12",
+    "data-integrity-16"
+   ],
+   "metric_or_grade_moved": "Historical consistency C- -> A-, Usability",
+   "verdict": "CORRECTED",
+   "correction": "94/137 label-vs-formula mismatches reproduced, but only 46 exceed the plan's own 30-min tolerance (42 >60 min); 36 are <=5 min rounding and 11 <=15 min. getTickTime :9371 (6:00/4:00 bases) and 'July ${l + 2}' :97428 confirmed. TO marker (:112192) 'First shot' at tick 17: chronology t17 is Calef's first UNION artillery fire and tutorial Gc t17 is 'First Artillery Fire' - the label is wrong, not the tick. Adopting the piecewise clock makes 'five-minute snapshots' copy false and the alternative (re-tick all data to a linear clock) is not weighed."
+  },
+  {
+   "id": "data-integrity-12",
+   "title": "Machine-enforced JSON Schemas replace prose placement_schema.json",
+   "severity": "high",
+   "evidence": "Schema claims 430,000 records (actual 1,804), 600-700 units per tick (max 87), 4 day-1 files (3 exist plus 38 undocumented density files), record_count 4,890 (actual 100 at placements_day1_ticks1_50.json:7), declared tick ranges wrong (101-225 actual 120-225; 601-675 actual 620-675), day real_time strings inconsistent; not JSON Schema; 12 KB shipped unused; lat/lng range excludes approach corridors (49 rows).",
+   "root_cause": "Documentation written as prose and never enforced.",
+   "fix": "JSON Schema 2020-12 under schemas/ (unit, regiment, battery, brigade, track, event, vignette, terrain, source) with additionalProperties:false and enums; docs to docs/data-model.md; stop deploying the schema; headers build-derived; replace bbox with map_extent + off_map flag.",
+   "effort": "M",
+   "acceptance_test": "ajv validates every file; unknown key fails build; schema not deployed.",
+   "audit_refs": [],
+   "depends_on": [],
+   "metric_or_grade_moved": "Data reliability, maintainability",
+   "verdict": "CONFIRMED",
+   "correction": "placement_schema.json:5,12,13 (430,000+, 600-700); placements_day1_ticks1_50.json:7 record_count 4890 vs 100; 49 rows outside bbox (42 lng<-77.29, 7 lat>39.85); 379 rows <4 decimals; schema unused (only a comment at compare.html:121)."
+  },
+  {
+   "id": "data-integrity-13",
+   "title": "Geometry: map extent, East Cavalry Field, precision, stacking, terrain duplicates, road geometry",
+   "severity": "medium",
+   "evidence": "49 rows outside schema bbox; 26 monuments east of -77.18 and cavalry placements 2.7-3.0 km west of the site's own ECF tablets (V-020 trigger 2.5 km off); 379 rows with <4 decimals; 48 stacked groups (96 units); LOC-023 is 26 m from LOC-001 and four location/structure pairs share coordinates; 'Gulp's Hill saddle'; terrain roads have one point each while the bundle hard-codes straight road lines (bundle.pretty.js:9450).",
+   "root_cause": "No geometry validation or shared road/land layers.",
+   "fix": "Widen map_extent to ~-77.15; relocate ECF anchors from the tablet cluster (historian check) and update LOC-021/V-020; require >=5 decimals or uncertainty_m>=50; enforce 15 m min separation with auto-nudge for the 48 groups; merge duplicate terrain entries and fix spellings; single roads.geojson used by routing and map layer.",
+   "effort": "M",
+   "acceptance_test": "S005/G001/G002/G004 = 0; ECF anchors within 300 m of tablet centroid; one roads file feeds routing and map.",
+   "audit_refs": [
+    "S3"
+   ],
+   "depends_on": [
+    "data-integrity-12"
+   ],
+   "metric_or_grade_moved": "Accuracy, visual polish",
+   "verdict": "CORRECTED",
+   "correction": "ECF offset reproduced (tablet centroid 39.8282,-77.1677 is 2.5 km from LOC-021; t560-565 cavalry rows 2.6-3.1 km west). Stacked units: 48/96 on raw rows, 39/78 after last-writer-wins. Missed renderer coupling: main map maxBounds (:97244) already includes ECF but the minimap hard-codes Wa lat 39.77-39.855, lng -77.28..-77.185 (:99664), so widening map_extent in data alone leaves ECF/approach units off the minimap."
+  },
+  {
+   "id": "data-integrity-14",
+   "title": "Duplicate and conflicting (unit_id,tick) rows; deterministic precedence",
+   "severity": "medium",
+   "evidence": "103 duplicated keys / 117 redundant rows; 68 keys conflict (C-III-3-2 t120: Line of Battle 1,326 vs Charging Line 1,100 about 1.3 km apart); app loads placements then density (bundle.pretty.js:96900-96915) and y1 is last-writer-wins. See dup_conflicts.csv.",
+   "root_cause": "Two overlapping authoring layers merged by load order.",
+   "fix": "Merge density into authoring tracks (one row per unit,tick); until then document precedence and make S007 fail on conflicting duplicates; resolve the 68 by hand (mostly ID collisions).",
+   "effort": "S",
+   "acceptance_test": "S007 = 0.",
+   "audit_refs": [],
+   "depends_on": [
+    "data-integrity-02"
+   ],
+   "metric_or_grade_moved": "Reliability",
+   "verdict": "CORRECTED",
+   "correction": "103 keys/117 rows/68 conflicts reproduced; load order at zp :96900 and addPlacementsForDay :9397 confirmed. The interim rule 'density > placements' holds only on the map; eight static pages read only placements_*, so they display the losing row."
+  },
+  {
+   "id": "data-integrity-15",
+   "title": "Monuments: one dataset with provenance, moved out of the JS bundle",
+   "severity": "medium",
+   "evidence": "data/monuments.json has 9 records (overlay index.html:640-700, fetch :677) while a different 512-record array is embedded at bundle.pretty.js:104440-110609 (~121 KB as JSON): 503/512 src empty, 51 blank mn, duplicate MN 96, #512 honors text corrupted ('(WGS-84 decimal degrees). MN ID'), 28 outside bbox, 13 identical coordinate pairs, coordinates differ from monuments.json by 1-24 m; V-024 claims 1,328 monuments.",
+   "root_cause": "Content embedded in code and a starter JSON never merged.",
+   "fix": "One generated monuments.json (NPS/HMDB/Stone Sentinels; per-record source, retrieved, license; unit_id links to OOB), lazy-loaded by overlay and Walkthrough, removed from the bundle, added to Historian/Search corpus; fix #512 and MN 96; move ECF monuments inside widened extent.",
+   "effort": "L",
+   "acceptance_test": "One fetch serves overlay and walkthrough; 512/512 records have source and license; bundle shrinks; UI counts come from facts.json.",
+   "audit_refs": [
+    "P2",
+    "P3"
+   ],
+   "depends_on": [
+    "data-integrity-12",
+    "data-integrity-23",
+    "data-integrity-26"
+   ],
+   "metric_or_grade_moved": "Performance (bundle), Documentation, Historian depth",
+   "verdict": "CORRECTED",
+   "correction": "512/503 empty src/51 blank mn/MN 96 dup/28 outside bbox/26 east of -77.18/121,527 B/array :104440-110609/9-row monuments.json + overlay index.html:640-700 reproduced; '13 identical coordinate pairs' holds only at 5-dp rounding (10 exact). Licensing: Stone Sentinels (already cited by 3 monuments.json rows) shows only a personal copyright notice, no reuse licence; HMDB returned HTTP 403 (terms unverifiable); Wikipedia text is CC BY-SA. A hard-coded Google Maps key constant mO sits right after the array (:110610) - hand to security plan."
+  },
+  {
+   "id": "data-integrity-16",
+   "title": "Move other embedded content (tour stops, tutorial, timeline markers, roads) to versioned data with a canonical events.json",
+   "severity": "medium",
+   "evidence": "Tour stops bundle.pretty.js:104096 (16; stops 3 and 5 lack Street View pano), tutorial steps Gc :111819, timeline markers TO :112192 ('First shot' tick 17 vs V-001 tick 12), roads x4 :9450, Help copy with 445+ and 51,000.",
+   "root_cause": "Content and tick numbers hard-coded in the bundle.",
+   "fix": "events.json {id,tick,title,kind,links} generating or validating chronology, vignette triggers, timeline markers, tutorial steps, turning points and sandbox starts; tour.json and tutorial.json validated by schema.",
+   "effort": "M",
+   "acceptance_test": "No literal tick numbers in JS (lint); marker ticks equal events.json; tour data validates.",
+   "audit_refs": [
+    "C4",
+    "H13"
+   ],
+   "depends_on": [
+    "data-integrity-11",
+    "data-integrity-12"
+   ],
+   "metric_or_grade_moved": "Consistency, maintainability, bundle size",
+   "verdict": "CONFIRMED",
+   "correction": "Tour d2 :104096 has 16 stops, stops 3 (Oak Ridge) and 5 (Virginia Memorial) lack sv.pano; Gc :111819 ticks 1/17/28/267/538; TO :112192; roads x4 :9450."
+  },
+  {
+   "id": "data-integrity-17",
+   "title": "Commander model with tenures; fix succession unit keys",
+   "severity": "medium",
+   "evidence": "15 of 42 successions not reflected in the OOB commander chain; wrong keys (US-010 Gibbon->Harrow keyed to U-II-1 instead of U-II-2; US-013/014 1st Minnesota keyed to brigade U-II-2-1; US-018; US-025; CS-016 -> nonexistent C-CAV); 27 records with no commander; nested successor objects; 698 distinct commander names available.",
+   "root_cause": "Commanders stored as nested text on units with no person entities or tenure intervals.",
+   "fix": "people.json and command_tenures.json (unit_id, person_id, from_tick, to_tick, cause, source); UI resolves commander by tick; commander fields derived; correct keys to regiment IDs.",
+   "effort": "L",
+   "acceptance_test": "T002/R001 pass; every present unit has a commander or commander_status:unknown; test shows Reynolds->Doubleday change at t28.",
+   "audit_refs": [
+    "H7"
+   ],
+   "depends_on": [
+    "data-integrity-02",
+    "data-integrity-11",
+    "data-integrity-23"
+   ],
+   "metric_or_grade_moved": "Data consistency, Historian depth",
+   "verdict": "CONFIRMED",
+   "correction": "US-010 keyed U-II-1 (Caldwell) though Gibbon led U-II-2; US-013/014 keyed to brigade U-II-2-1; US-018 U-III-1-1; US-025 U-XII-1-3; CS-016 C-CAV unresolved; 42 = 25+17. The '15 of 42 not reflected' figure was not independently re-derived."
+  },
+  {
+   "id": "data-integrity-18",
+   "title": "Regiment record completeness and normalisation",
+   "severity": "medium",
+   "evidence": "222/467 lack casualty_percentage (derivable), 22 lack parent_corps_id (report.html:101 prints 'undefined / C-CAV-1'), 37 empty days_engaged, 169 key_action <40 chars ('Army reserve.' x20), state values 'Regular Army' x15 and 'Multi-state'; 79 designation shapes; IDs printed in UI.",
+   "root_cause": "No required-field enforcement or derived-field build step.",
+   "fix": "Compute percentages; fill parent_corps_id; derive days_engaged; add state_code, arm, ordinal, designation_short, sort_key; replace filler key_action with sourced one-sentence summaries or null; origin{type} for Regular/Multi-state.",
+   "effort": "M",
+   "acceptance_test": "N003 = 0; R003 = 0; no key_action <40 chars unless null; lists sort numerically (102nd after 10th).",
+   "audit_refs": [
+    "H5",
+    "H7"
+   ],
+   "depends_on": [
+    "data-integrity-02"
+   ],
+   "metric_or_grade_moved": "Fit & finish, Search quality",
+   "verdict": "CONFIRMED",
+   "correction": "222/22/27/37/169/20 'Army reserve.'/31 flag_notes regiments reproduced; report.html:101, regiment.html:199, find-ancestor.html:121, historian.html:94 print raw IDs."
+  },
+  {
+   "id": "data-integrity-19",
+   "title": "OOB-to-map coverage: every regiment and battery has a position when present",
+   "severity": "medium",
+   "evidence": "250 of 467 regiments (53.5%) have no own placement (231 drawn only via parent brigade; 19 have neither); 62 of 103 batteries never placed; home meta claims '467 regiments and batteries tracked across 675 snapshots'; only 217 regiments can be followed in the ancestor list.",
+   "root_cause": "Brigade-level authoring with no derived regimental layout.",
+   "fix": "Formation model deriving regiments along the brigade line by OOB order and strength-based frontage (schema's 0.045 yd/man gives 77 m for 1,883 men vs about 520 m for two ranks at ~0.55 m per file - verify with a drill manual), batteries beside battalion anchors; mark as reconstructed/approximate in UI.",
+   "effort": "XL",
+   "acceptance_test": "Every OOB unit whose presence covers a tick has a position at that tick; Follow-Ancestor lists 467 regiments and 103 batteries; home-page claim becomes true.",
+   "audit_refs": [
+    "H10"
+   ],
+   "depends_on": [
+    "data-integrity-01",
+    "data-integrity-02",
+    "data-integrity-07"
+   ],
+   "metric_or_grade_moved": "Core function, Search/Ancestor completeness",
+   "verdict": "CORRECTED",
+   "correction": "217 own / 250 not / 231 via parent / 19 neither reproduced. Batteries never placed are 65 of 103, not 62 (the report's own s02 table has 33+5=38 placed). Frontage arithmetic checks (77 m vs 518 m) but the 22-in/file figure still needs a drill-manual cite."
+  },
+  {
+   "id": "data-integrity-20",
+   "title": "Text lint and typographic normalisation pipeline",
+   "severity": "medium",
+   "evidence": "1,591 ' -- ' in user-facing fields (839 placement notes, 353 key_action, 119 vignette script); 72 strings with internal IDs (US-001, CS-011) plus 'CS-017' in a placement note; 60 flag_notes dev strings; typos Krzyznowski (x1 vs Krzyzanowski x10), Nichols's (x1 vs Nicholls x10), 'Gulp's Hill saddle', 'Brian Farm (Bryan Farm)', Rose Woods 19 vs Rose's Woods 4; 249 paragraph breaks collapsed by innerHTML.",
+   "root_cause": "Authoring and published fields mixed; no lexicon or lint.",
+   "fix": "Strip authoring fields at build; typographic normaliser (' -- ' -> em dash, curly quotes); lexicon.json gazetteer with Levenshtein-1 near-miss report; banned-token rules; style guide; paragraphs[] arrays.",
+   "effort": "M",
+   "acceptance_test": "X001-X005 = 0 on published output; canonical spellings everywhere.",
+   "audit_refs": [
+    "H7"
+   ],
+   "depends_on": [
+    "data-integrity-12",
+    "data-integrity-24"
+   ],
+   "metric_or_grade_moved": "Fit & finish, professional voice",
+   "verdict": "CONFIRMED",
+   "correction": "Typo counts reproduced (Krzyznowski 1/Krzyzanowski 10, Nichols's 1/Nicholls 10, Gulp's 1, Brian Farm 1, Rose Woods 19/Rose's Woods 4). ' -- ' count is scope-dependent: 1,799 in non-metadata strings, 1,938 raw; the report's 1,591 is a defensible subset."
+  },
+  {
+   "id": "data-integrity-21",
+   "title": "One casualty-timeline algorithm generated once",
+   "severity": "medium",
+   "evidence": "Dashboard uses a piecewise 70%-at-peak curve (dashboard.html:98-118), Living Ledger a linear ramp (living-ledger.html:102-118), JSON documents sigma=8/4 bell curves (casualty_apportionment.json:10-11), animation uses none; Ledger shows 4 casualties at tick 1 because U-CAV period starts at tick 1 while the first shot is tick 12.",
+   "root_cause": "Three implementations of an undocumented model.",
+   "fix": "Build emits casualty_timeline.json (per side/corps/tick, K/W/C) from the DI-10 model; Dashboard, Ledger, Compare, Documentary and heat-map read it; day-1 periods start at first documented engagement.",
+   "effort": "M",
+   "acceptance_test": "Sum of unit casualties at tick t == Ledger == Dashboard at 20 sampled ticks; Ledger starts at 0.",
+   "audit_refs": [
+    "S4"
+   ],
+   "depends_on": [
+    "data-integrity-03",
+    "data-integrity-10"
+   ],
+   "metric_or_grade_moved": "Consistency (S4 closed)",
+   "verdict": "CONFIRMED",
+   "correction": "Linear ramp (living-ledger.html:102-118) and tick-1 count 290/74=3.9 confirmed. The same loop has an off-by-one (see missed item: Ledger totals overshoot by +412 Union / +426 Confederate)."
+  },
+  {
+   "id": "data-integrity-22",
+   "title": "Vignette data fixes and structure",
+   "severity": "medium",
+   "evidence": "V-019 and V-023 share trigger tick 556 and overlapping quotation (V-023 also says 'That night'); V-024 has no units; 7 vignettes lack a featured-unit keyframe within +/-1 tick; IDs not chronological (V-007 t248 before V-008 t240); vignette_trigger used by 7 rows so 19 of 24 never referenced; 249 paragraphs collapsed; time-facts found V-020/V-021 'eight days', V-022 '7:30' errors.",
+   "root_cause": "Free-form vignette records without a schema or uniqueness rule.",
+   "fix": "Schema {id,order,title,trigger{tick,lat,lng,unit_ids},panel_summary,paragraphs[],sources[],clock_ref}; merge or retime V-023; unique trigger ticks; panel_summary <=320 chars; derive vignette_trigger; apply time-facts corrections.",
+   "effort": "M",
+   "acceptance_test": "R009/R010/T003 = 0; unique trigger ticks; no paragraph >900 chars.",
+   "audit_refs": [
+    "C4",
+    "H8"
+   ],
+   "depends_on": [
+    "data-integrity-11",
+    "data-integrity-12"
+   ],
+   "metric_or_grade_moved": "Content quality",
+   "verdict": "CONFIRMED",
+   "correction": "V-019/V-023 share trigger tick 556 and a quotation; V-023 has 'That night'; V-024 has no units; the 7 vignettes without a featured-unit keyframe within +/-1 tick are exactly V-001, V-007, V-015, V-017, V-019, V-023, V-024; 249 paragraph breaks; vignette_trigger on 7 rows."
+  },
+  {
+   "id": "data-integrity-23",
+   "title": "Per-record provenance, source registry and confidence",
+   "severity": "medium",
+   "evidence": "0/467 regiments, 0/1,804 placements, 0/137 events, 0/24 vignettes have per-record sources; only 42 successions (page-level cites) and 9 of 512 monuments do; 54 of 71 files lack metadata.sources; 29 distinct citations with no pages or editions; schema claims 5-10 m accuracy for coordinates that are rounded (379 rows) or schematic (59/73 tick-1 rows).",
+   "root_cause": "Provenance only at file level in 17 files.",
+   "fix": "provenance block {sources[{id,locator}],basis,confidence,method,reviewed_by,reviewed_on,disputes,license}; sources.json registry with edition and licence; placement anchors carry basis and uncertainty_m; phased backfill (successions done, aggregates, 24 vignettes and 45 critical events, regiments via B&M page, placements per unit-day); UI Sources drawer.",
+   "effort": "XL",
+   "acceptance_test": "P001 error for new records; data-quality-report shows >=95% of records with a resolvable source_id at phase 3; UI shows source on unit panel and vignettes.",
+   "audit_refs": [
+    "G1"
+   ],
+   "depends_on": [
+    "data-integrity-12",
+    "data-integrity-25"
+   ],
+   "metric_or_grade_moved": "Documentation, trust, Historian grounding",
+   "verdict": "CONFIRMED",
+   "correction": "17 of 71 files declare metadata.sources (no density/placements/Confederate regiment/vignettes_part2-3 files); 29 distinct citation strings incl. three spellings of Busey & Martin."
+  },
+  {
+   "id": "data-integrity-24",
+   "title": "Data validator and CI gate implementing the rule catalogue",
+   "severity": "medium",
+   "evidence": "No validator or CI exists; this audit's 18 scripts reproduce the baselines (e.g. 95 unresolved IDs, 103 duplicate keys, 1,591 double hyphens, 121 strength increases).",
+   "root_cause": "No source repository or build (N1); data hand-edited and deployed.",
+   "fix": "scripts/validate-data.mjs (ajv + rules S/R/C/G/N/T/X/P/F/K in section 6) emitting data-quality-report.json; baseline.json ratchet so CI fails only on regressions; Netlify build command 'npm run data:check && npm run build'; pre-commit hook.",
+   "effort": "L",
+   "acceptance_test": "Run against today's data reproduces the section 6 baseline counts; CI fails on any new unresolved ID, new ' -- ' or new duplicate key.",
+   "audit_refs": [
+    "N1"
+   ],
+   "depends_on": [
+    "data-integrity-12",
+    "data-integrity-25"
+   ],
+   "metric_or_grade_moved": "Reliability, maintainability",
+   "verdict": "CONFIRMED",
+   "correction": "Premise verified (no CI/validator; netlify.toml publish='.'). Note: adding a build command changes the publish dir and deploy-zip workflow (case-mangled assets, N1) - schedule with DI-25."
+  },
+  {
+   "id": "data-integrity-25",
+   "title": "Repository, data versioning, changelog and public errata page",
+   "severity": "medium",
+   "evidence": "Neither zip contains an authoring source; metadata.chunk 001-049 shows a staged authoring pipeline that is not present; no data version shown anywhere; no errata/corrections surface.",
+   "root_cause": "Deploy artefacts are the only copy.",
+   "fix": "git init data repo; semver data_version with content-hashed files and data-manifest.json; CHANGELOG.md with Corrected entries (record, before->after, citation, reviewer, date) enforced in CI; Help About and PDF footer show data version; /data-notes.html generated from the changelog; data:diff tool; SW cache keyed by data_version; no location.reload on update.",
+   "effort": "M",
+   "acceptance_test": "Every deploy carries data_version; data change without changelog entry fails CI; errata page live and linked from footer, Help and PDF.",
+   "audit_refs": [
+    "N1"
+   ],
+   "depends_on": [],
+   "metric_or_grade_moved": "Documentation, trust",
+   "verdict": "CONFIRMED",
+   "correction": "metadata.chunk values are 001..049 plus bonus_* labels (70 files); no authoring repo in either zip."
+  },
+  {
+   "id": "data-integrity-26",
+   "title": "Package 71 data files into a few immutable packs and strip authoring bytes",
+   "severity": "medium",
+   "evidence": "71 files, 824,704 B (160,243 B gzip-9); code issues >=34 JSON requests at load (14 OOB + terrain + 3 vignettes + 16 Day-1 files, bundle.pretty.js:96754-96935) plus 3 chronology fetches (:102958-102960) and a duplicate commander_successions fetch (:97522); ~18 KB dev-only keys, 35 KB metadata and 12 KB schema ship to users; 512-monument array inside JS.",
+   "root_cause": "Authoring layout deployed as-is.",
+   "fix": "Emit core, day1-3, history, monuments and corpus packs with content hashes; strip flag, flag_notes, chunk, metadata; immutable caching; prefetch Day 2 at idle; SW precache by data_version.",
+   "effort": "M",
+   "acceptance_test": "<=4 data requests before first paint; first-paint data <=80 KB brotli; total data <=400 KB brotli; RUM LCP/INP not worse.",
+   "audit_refs": [
+    "P3",
+    "P1",
+    "P2"
+   ],
+   "depends_on": [
+    "data-integrity-02",
+    "data-integrity-14",
+    "data-integrity-15",
+    "data-integrity-25"
+   ],
+   "metric_or_grade_moved": "Performance (P3), LCP",
+   "verdict": "CORRECTED",
+   "correction": "71 files/824,704 B reproduced, but '160,243 B gzip-9' is a concatenated-archive figure; real per-file transfer is 199,009 B gzip-9 / 161,679 B brotli-11. Today's first-load set (34 requests) is ~95.5 KB brotli, so budgets of <=80 KB first paint / <=400 KB total are 16% below today and 2.5x above today's entire data; data is not the LCP bottleneck (JS is). Loader already lazy-loads Day 2/3 (:96943-96946) and swallows fetch failures (:96909), so renamed/hashed files fail silently; file lists (eF/tF/nF :96754-96831) live in the bundle and nine static pages. /data/ max-age=3600 with a never-expiring network-first SW cache already causes up to 1 h code/data skew."
+  },
+  {
+   "id": "data-integrity-27",
+   "title": "Historian knowledge-base data contract and corpus expansion (data side)",
+   "severity": "high",
+   "evidence": "Corpus today: 658 indexed entries / 11,088 indexed words / 45,096 narrative words in the whole data lake (regiment key_action 3,380, vignettes ~8,781, chronology 4,791, placement notes 12,081, monuments 6,915, tour 2,031, brigades 3,107, batteries 2,186); 698 distinct commander names, 85 chronology locations, 50 terrain entries, 512 monuments, 42 successions, 29 cited sources unindexed.",
+   "root_cause": "Corpus is what happened to be in the JSON; no entity/passage model or sourcing pipeline.",
+   "fix": "JSONL kb/ with entity types person, unit, place, event, monument, source, passage; passage={id,text<=220 words,entity_ids,ticks|date_range,place_ids,source_id,locator,license,confidence}; stable IDs; numeric answers rebuilt from structured tables; Phase 1 limited to public-domain/permitted sources (OR Vol. 27 reports, one report summary per brigade ~300 passages, monument texts subject to NPS/HMDB terms, ~300 person bios, ~50 place essays) plus a 300-question gold set.",
+   "effort": "XL",
+   "acceptance_test": "Corpus >=10x current words with 100% sourced passages; gold-set P@3 >=0.85; 0 unsupported claims in a 100-answer human audit; every answer shows source links.",
+   "audit_refs": [
+    "H8"
+   ],
+   "depends_on": [
+    "data-integrity-02",
+    "data-integrity-05",
+    "data-integrity-23",
+    "data-integrity-25"
+   ],
+   "metric_or_grade_moved": "Historian (H8), Documentation, SEO long-tail",
+   "verdict": "CORRECTED",
+   "correction": "Word counts re-derived within 3% (tokenisation differences). Licensing: OR Vol. 27 public domain is sound; 'NPS/HMDB terms' is unverifiable (HMDB 403); ~300 person bios have no named source (Wikipedia would be CC BY-SA share-alike); Stone Sentinels has no stated licence. 10x corpus = ~110k words/~650 passages; XL plausible only if bios/place essays are authored in-house."
+  },
+  {
+   "id": "data-integrity-28",
+   "title": "Stop leaking internal IDs into the UI: add display names to OOB output",
+   "severity": "low",
+   "evidence": "historian.html:94 prints 'part of U-I / U-I-1-2'; find-ancestor.html:121; regiment.html:199; report.html:101 prints 'undefined / C-CAV-1' for 22 rows; Follow-Ancestor names fall back to the raw ID (bundle.pretty.js:101032).",
+   "root_cause": "Pages print raw ID fields because no display fields exist.",
+   "fix": "Add corps_name, division_name, brigade_name, display_name at build; pages print those; lint X002 forbids ID patterns in rendered text.",
+   "effort": "S",
+   "acceptance_test": "Playwright grep of rendered HTML for \\b[UC]-[IVX0-9A-Z-]+\\b = 0.",
+   "audit_refs": [
+    "H7"
+   ],
+   "depends_on": [
+    "data-integrity-02",
+    "data-integrity-18"
+   ],
+   "metric_or_grade_moved": "Fit & finish",
+   "verdict": "CONFIRMED",
+   "correction": "historian.html:94, find-ancestor.html:121, regiment.html:199, report.html:101, bundle :101032 all print raw IDs as described."
+  },
+  {
+   "id": "data-integrity-29",
+   "title": "Historical verification backlog for a human historian",
+   "severity": "medium",
+   "evidence": "Unverified items: U-11PA vs U-11PA-B duplicate; U-11PA-R-F 'detachment... Big Round Top' unsupported; U-107NY in I Corps (107th PA?); highest Confederate rate (C-8VA 76.7% vs C-26NC 69.7%); Pickett ~2,700 vs C-I day-3 2,614; East Cavalry Field position and Farnsworth position; tick-1 staging positions and Pickett's presence (time-facts item 10); VI Corps brigades and 22 Confederate cavalry commanders; Union guns 370 vs 306 and Confederate 283 vs 182; '1,328 monuments' vs 512; Busey & Martin edition/pages.",
+   "root_cause": "Values cannot be validated from the data itself.",
+   "fix": "Work the list with citations recorded in CHANGELOG.md, in parallel with build phases; results feed authorities.json, aliases and corrected records.",
+   "effort": "M",
+   "acceptance_test": "Each item closed with a recorded citation and a yes/no outcome.",
+   "audit_refs": [],
+   "depends_on": [
+    "data-integrity-23"
+   ],
+   "metric_or_grade_moved": "Historical accuracy",
+   "verdict": "CONFIRMED",
+   "correction": "Backlog items are real. Add B&M edition (Wikipedia cites 2005, site cites 1994) and the Baxter-vs-Paul placement of the 11th PA."
+  },
+  {
+   "id": "data-integrity-30",
+   "title": "Disposition/enum/style tables have two owners (schema vs renderer)",
+   "severity": "low",
+   "evidence": "placement_schema.json disposition colours (Charging Line union #0044cc) differ from Lp in bundle.pretty.js:96307-96320 (#ff4422); unit type inferred from ID substrings; disposition list duplicated in store (bundle.pretty.js:9345), schema and legend.",
+   "root_cause": "Documentation and code drifted apart.",
+   "fix": "dispositions.json (id,label,description,style tokens,legend text,accessible pattern) generating schema enum, legend and docs; explicit unit_type field.",
+   "effort": "S",
+   "acceptance_test": "Enum and legend generated from one file; token contrast checked in CI.",
+   "audit_refs": [
+    "A1"
+   ],
+   "depends_on": [
+    "data-integrity-12"
+   ],
+   "metric_or_grade_moved": "Consistency, Accessibility (legend)",
+   "verdict": "CONFIRMED",
+   "correction": "Schema Charging Line union #0044cc vs Lp #ff4422 (:96307-96320); iA.dispositions :9345."
+  }
+ ],
+ "open_questions": [
+  "Does the site have rights or permission to republish Busey & Martin per-regiment strength/casualty tables (467 rows), or should only aggregates and original prose be published? (licensing not verified)",
+  "Which casualty headline should the site use: Busey & Martin 23,055 + 23,231, or OR-era 23,049 + about 28,000? The plan assumes B&M with a stated range; reference totals were verified only through Wikipedia's citation, not the book.",
+  "Should the map extent be widened east (about -77.15) and East Cavalry Field re-located, and is there a trusted local source for tablet coordinates?",
+  "Is 'approximate regiment positions inside the brigade line', labelled as reconstructed, acceptable, or must only documented positions be shown?",
+  "Should '14th Brooklyn' be exposed as a search alias of the 84th NY rather than a row (recommended)?",
+  "Are OR (public domain), NPS and the owner's own prose the only permitted corpus sources for Historian Phase 1?",
+  "Can the owner supply Busey & Martin / OR access to fill the 8 missing VI Corps brigades and 22 Confederate cavalry commanders, or should Phase 1 mark them unknown?",
+  "Confirm no other authoring copy of the data exists; the plan treats deploy/data as canonical."
+ ],
+ "verification_summary": "Nothing was refuted. I re-derived the report's headline numbers from scratch against DEPLOY_DIR/data, bundle.pretty.js, live curl and an independently fetched Wikipedia wikitext, and they reproduced exactly. That covers 188/675 ticks populated, 1,116 of 1,209 transitions snapping, 95 unresolved IDs, 10 U- Confederates, 103 duplicate keys, the 137/137 chronology \"undefined\", 512 monuments and the VI Corps gap. The cited bundle line numbers also hold. The report has three kinds of problem. (1) Cross-finding inconsistencies it did not notice. The main one is that DI-01, DI-09 and DI-10 assume 5 minutes per tick, while DI-11 adopts a 33-anchor clock running 0.8 to 42.3 minutes per tick. Under that clock, segments faster than 8 mph rise from 2 to 6. (2) Fixes that quietly depend on editing the source-less minified bundle (N1) and on nine static pages that hard-code the placements_* filenames and never read density_*. (3) A few overstated or mis-scoped statistics: 126 \"constant-strength\" units (93 have only one keyframe), 94 clock mismatches (only 46 exceed 30 minutes), 51,000 x8 (actually 6), 62 unplaced batteries (65), and the 160 KB gzip figure (a solid-archive number). I appended a \"## Verification\" section with the full verdict table and 8 missed issues to data-integrity.md. Scripts are in plan-work/tmp-verify-data-integrity/. Licence statements for HMDB and NPS are UNVERIFIABLE: HMDB returned 403, and Stone Sentinels shows a copyright notice but no reuse licence.",
+ "missed_by_specialist": [
+  {
+   "title": "Plan is inconsistent on the clock: 5 min/tick constants vs the piecewise clock DI-11 adopts",
+   "severity": "high",
+   "evidence": "DI-01 acceptance ('<= speed cap x 5 min'), DI-09 facts.json ('minutes_per_tick': 5 beside 'clock': 'clock.json@1.0.0'), DI-10/21 and site copy ('675 five-minute snapshots', index.html:15,18,24,32,719,754, manifest.json:4, schema 'The 5-minute tick number') assume 5 min/tick, but time-facts-anchors.csv runs 0.8-42.3 min/tick (ticks 302-314: 0.8; 515-518: 42.3). Recomputed implied speeds under that clock (tmp-verify-data-integrity/v01c.py): 6 segments >8 mph and 33 >4 mph vs 2 and 16 on the linear clock (C-I-3-3 t550->551 12.9 mph).",
+   "fix": "Owner decision before DI-01/10/21: (A) keep the warped clock, rename to '675 moments', derive every speed/gap/percent from clockAt; or (B) re-tick all placements/events/vignettes/successions/markers onto a linear 5-minute clock via a monotone remap tick'=f^-1(real_time), keeping 'five-minute' and the mph math."
+  },
+  {
+   "title": "Eight static pages (+ reference page) read only placements_* (694 rows) with hard-coded filenames; the map reads 1,804 rows",
+   "severity": "high",
+   "evidence": "camera.html:68-70, cinematic-export.html:89-91, compare.html:101-109, ground-remembers.html:60-62, immersive.html:72-74, regiment.html, sandbox.html, watch-together.html, unit-rendering-reference.html contain 'placements_' and zero 'density_'; compare.html has its own 5:00am clock. They disagree with the map, and any merge/rename/hash of placements files (DI-14, DI-26) breaks nine pages. The report's trackAt consumer list wrongly includes Ledger/Embed (no placements) and omits these.",
+   "fix": "Add the nine pages to the DI-01/14/26 migration checklist; ship the merged pack under the old filenames or update all nine in the same deploy; add a per-page smoke test (unit count at tick 300 equals the map's)."
+  },
+  {
+   "title": "Busey & Martin edition mismatch (2005 vs cited 1994) undermines the proposed casualty authority values",
+   "severity": "high",
+   "evidence": "Wikipedia wikitext (MediaWiki API, fetched independently) attributes 23,231 (4,708/12,693/5,830) to B&M's 'more recent 2005 work'; every site file cites 'Longstreet House, 1994' (17 files with metadata.sources). DI-03 proposes 23,055/23,231 as the headline authority while site regiment rows may derive from another edition.",
+   "fix": "Check both editions before fixing the headline; record edition+page per number in authorities.json; if regiment rows are 1994-edition, label them so and show 2005 totals as a separate authority."
+  },
+  {
+   "title": "Every renderer-side data fix needs source that does not exist (N1) and is neither scheduled nor costed",
+   "severity": "high",
+   "evidence": "DI-01 (y1/i2/F4 bundle.pretty.js:96238-96305), DI-02 (19 startsWith('U-') sites), DI-06 (URL parser), DI-10 (uF :97033), DI-13 (minimap Wa :99664), DI-26 (eF/tF/nF :96754-96831; zp swallows fetch errors :96909) are edits inside a 2.28 MB minified bundle; RECON_SRC is an older build on mapbox-gl 2.x.",
+   "fix": "Add a prerequisite 'DI-00 app source of truth' (reconstruct-and-diff against bundle.pretty.js with a behavioural test harness, or formally continue patching) with its own effort; mark 01/02/06/10/13/26 blocked until then."
+  },
+  {
+   "title": "Living Ledger totals overshoot every period by one tick's worth (+412 Union, +426 Confederate)",
+   "severity": "medium",
+   "evidence": "living-ledger.html:106-113: span = max(1, end-start) but loop 'for (t=start; t<=end; ...)' runs span+1 times adding casualties/span. v21_ledger.py: Union final 23,550.2 vs 23,138; Confederate 23,451.3 vs 23,025.",
+   "fix": "Divide by (end-start+1) or consume DI-21's casualty_timeline.json; add a test that per-side increments sum to the period totals."
+  },
+  {
+   "title": "Crosswalk seed misses existing OOB records and would fold regiment rows into brigade IDs",
+   "severity": "medium",
+   "evidence": "crosswalk_seed.csv: U-8IL (11 rows, first-shot 8th Illinois Cavalry) -> U-CAV-1-1 (medium) though U-8IL-CAV exists; U-12IL (4 rows) 'none' though U-12IL-CAV exists; C-2LA 'none' though C-2LA-T exists; C-38GA -> C-II-1-3 though C-38GA-E exists. The '22 need new OOB records' bucket is overstated by >=3.",
+   "fix": "Add rule 'OOB IDs with prefix <placed-id>-' before surname matching, regenerate the seed, never auto-map a regiment-shaped ID to a brigade."
+  },
+  {
+   "title": "Artillery OOB is incomplete; DI-07 'derive totals and reword' would under-state published totals",
+   "severity": "medium",
+   "evidence": "Listed: Union 50 batteries/278 guns + 5 horse/28 = 306; Confederate 45/182 + 3 horse/12 = 194 (confederate_cavalry.json horse_artillery). Wikipedia infobox: ~360 Union / ~270 Confederate guns; site's 'approximately 370/283' are in that range.",
+   "fix": "Complete battery lists from Gottfried, The Artillery of Gettysburg (already cited) before deriving totals; until then label derived counts 'listed batteries' and keep published approximations with a citation."
+  },
+  {
+   "title": "Road layer for track routing must be an 1863 layer with a cleared licence",
+   "severity": "medium",
+   "evidence": "DI-01 routes along 'the road graph (DI-13)'; DI-13(f) wants roads.geojson 'source and licence recorded' but names none; bundle roads x4 (:9450) are 6-point straight lines; terrain.json roads have one point each. Modern OSM/Mapbox graphs include park avenues built after 1863 (Confederate, Sedgwick, Hancock Avenues); OSM is ODbL (attribution + share-alike) and Mapbox terms restrict extracting tile geometry.",
+   "fix": "Source an 1863 road trace (Warren 1868/Bachelder maps or an NPS historic-road dataset if one exists - availability not verified), hand-edit and record the licence; use modern roads only as a visual aid."
+  }
+ ]
+}

@@ -1,0 +1,724 @@
+{
+ "agent": "docs-copy",
+ "summary": "The full report is at plan-work/docs-copy.md (1,530 lines). It has 33 fix specs (docs-copy-01 to -33), the string inventory with replacement copy, the guide plan, page outlines, the Help/About audit and a style guide ready to commit. Nothing was built or modified.\n\n**What the scan found**\n- Development-history and internal text reaches users. Examples are \"Earlier drafts of this tool tried...\" (viewshed.html:46), \"we haven't been able to do from here\" (ar.html:56), a developer data note (dashboard.html:261-263), \"AI-style historian\" (index.html:377), \"alias for U-84NY\", and a dashboard card printing `highest_single_regiment_rate` / `undefined`.\n- An 18-rule scan of every surface gives 356 hits: 56 ASCII `--` dashes, 69 uses of the developer word \"tick\", 104 product/feature name variants, and 71 uses of \"Animated Battlefield Map\".\n- The data JSON adds 1,639 `--` dashes, 61 `KIA` and 69 ALL-CAPS phrases, printed verbatim by the UI.\n- Counts contradict each other and the data. \"467 regiments and batteries\" is really 467 regiments plus 103 batteries (570 total). Only 217 of the 467 regiments have their own position records; 231 appear only through a brigade and 19 have none.\n- Help says \"445+\" units, and the \"Primary Sources\" list mixes in secondary works. The data files cite 26 works; Help shows nine.\n- Search, Regimental Biography, Fact Sheets, Find Your Ancestor and the Historian never load the 103 artillery batteries.\n- The site has zero mention of slavery, emancipation, enslaved people or civilians.\n- None of the trust pages exist: about, sources, faq, accessibility, corrections, changelog, press, teachers, contact and security.txt all return 404.\n\n**The user guide**\n- Measured with `tmp-docs-copy/pdf_lint.py`:\n  - Page fill is 97.7 / 16.9 / 99.8 / 5.0 / 93.3 / 40.5 %.\n  - Group headers are 1.25:1 contrast.\n  - 95 % of the text is under 10 pt and no fonts are embedded.\n  - It has 0 links, no tags, no outline, and metadata reading \"(anonymous)\".\n  - It is served as an attachment, and no generator script exists anywhere I searched.\n- A 32-row check of its claims against the code finds 3 to remove: the H heatmap (nothing renders it), \"Find Unit / Location\" (the same panel as Search), and the stale PDF-download troubleshooting row.\n- Another 8 rows are wrong today and fixable by rewording, 7 are true only after a named sibling fix lands, and 14 are true today.\n- Eight of 11 disposition colours in the legend differ from the colours the map draws.\n- The plan is an HTML-first generator driven by a shared manifest. It emits an accessible guide page plus a tagged PDF/UA, with gates for pagination, contrast and fonts and a parity check against the app.\n\n**How the fix is organised**\n- Five systems replace hundreds of edits: a build-time `facts.json`, a `features.json` manifest, a copy catalogue with standard disclaimers, a committed style guide enforced by Vale plus a `copy_lint` job, and the guide generator.\n- Phase 0 is about one day of copy-only edits. Phases 1 and 2 total roughly 42 person-days.\n- A fallback patch table (`copy_patch_table.json`, 64 rows, each string verified in the deployed bundle) covers the case where the app is not rebuilt. Any in-place bundle patch must also rename the hashed file.\n\n**What I could not do**\n- I did not run Chrome headless (it exited with code 21 and wrote no file), WeasyPrint, Playwright or veraPDF, so the choice of PDF engine needs a half-day spike.\n- I did not observe the first-launch overlay order, and I did not verify the historical figures and quotations flagged for the historian.",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/docs-copy.md",
+ "findings": [
+  {
+   "id": "docs-copy-01",
+   "title": "Remove development-history and process voice from user-facing copy",
+   "severity": "high",
+   "evidence": "viewshed.html:46 ('Earlier drafts of this tool tried...', 'this deployment doesn't have access'); ar.html:56 ('which we haven't been able to do from here'); dashboard.html:261-263 developer data note; aftermath.html:44 ('tick-by-tick ... simulation'); index.html:377 ('Don't miss them'); watch-together.html:64,104 ('server of ours'); error strings that print file paths (compare.html:58, dashboard.html:69, search.html:163). Full table in report 2.3 (A1-A17).",
+   "root_cause": "Caveats were written as running commentary while features were built; there is no changelog/Known Issues channel and no copy review.",
+   "fix": "Replace each string with the museum-voice copy in report 2.3. Fix the two casualty totals in casualty_apportionment.json (I Corps 6,059 vs period sum 6,394; Confederate cavalry 583 vs 483) and delete the dashboard footnote code instead of rewording it. Move the vantage-point decision history to docs/adr/. Error text becomes 'X couldn't be loaded. Check your connection and reload the page.'",
+   "effort": "S",
+   "acceptance_test": "copy_lint rule DEVLOG returns 0 on the built site; Vale DevSpeak rule passes; manual check of viewshed, ar, dashboard, aftermath, watch-together, sandbox.",
+   "metric_or_grade_moved": "Fit and finish C+ to B+ (desktop); professionalism; Documentation",
+   "depends_on": [],
+   "audit_refs": [
+    "H7",
+    "C7"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence reproduces (viewshed.html:46, ar.html:56, dashboard.html:261, aftermath.html:44, index.html:377, watch-together.html:64, compare.html:58, dashboard.html:69, search.html:163; U-I 6,059 vs 6,394; C-CAV 583 vs 483). Fix caveat: do not simply raise U-I total_casualties to 6,394. The Day-1 period alone already equals 6,059 (the published whole-battle figure) and the extra 335 is a separate July 3 Vermont Brigade period, so the period list is the likelier double count; historian must decide the direction. The DEVLOG list also omits the live page unit-rendering-reference.html (see missed M3)."
+  },
+  {
+   "id": "docs-copy-02",
+   "title": "Stop printing identifiers, variable names, undefined and debug text",
+   "severity": "high",
+   "evidence": "dashboard.html:244-248 builds cards from notable_intensity_notes with key.replace(/_/g,' ') and n.unit||key, so highest_single_regiment_rate renders with note 'undefined'; oob/union_regiments_i_ii_corps.json alias record U-14BK ('14th Brooklyn (alias for U-84NY)', 'Dual designation alias -- see U-84NY.', fate 'See U-11PA'); 17 of 137 chronology events carry US-/CS- ids (6 inside rendered event text); historian.html:93 prints parent_corps_id / parent_brigade_id; find-ancestor.html:121; fps text bundle.pretty.js:97448 and :96687-96690; console.log in compare.html:164 and search.html:144.",
+   "root_cause": "UI renders raw data keys and engine annotations; the public JSON is the working file.",
+   "fix": "Author a display block per highlight in casualty_apportionment.json (four titled cards, report B1a) and render it. Split flag/engine_note/units_involved out of public JSON at build time. Delete the alias record (or model also_known_as) and resolve ids to designations at build time. Show fps only with ?debug=1. Remove console.log. Add a build check that no rendered string matches (US|CS)-\\d{3}, U-[A-Z0-9]+, undefined, null or [object.",
+   "effort": "M",
+   "acceptance_test": "Dashboard shows four titled cards with values and notes; Search 'Brooklyn' shows '84th New York Infantry (14th Brooklyn)'; copy_lint IDLEAK returns 0; no orange 'fps' text at any speed on a throttled CPU.",
+   "metric_or_grade_moved": "C7 closed (copy side); polish; professionalism",
+   "depends_on": [
+    "docs-copy-06",
+    "app-bugs-35"
+   ],
+   "audit_refs": [
+    "C7",
+    "H7"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Verified: dashboard.html:244-248, U-14BK alias, 137 events / 17 with US-/CS- ids / 6 in event text, historian.html:93, find-ancestor.html:121, fps text 97448/96687, console.log lines. Corrections: (a) the other three dashboard cards leak ids in the BIG value too ('U-III (Third Corps)', 'C-I-3 (Pickett's Division)', 'U-XII and C-II-2 (Culp's Hill)'); (b) deleting U-14BK leaves a dangling id in data/oob/union_oob_brigades.json line 14 regiment_ids, so remove it there and add a referential-integrity build check; (c) 'See U-11PA' is commander.fate on U-11PA-B, not a record-level fate."
+  },
+  {
+   "id": "docs-copy-03",
+   "title": "Make names, descriptions and answers truthful (Historian, Vantage Points, Fact Sheets, Export, meta)",
+   "severity": "high",
+   "evidence": "index.html:377 'AI-style historian'; site-nav.js:26 'search-and-answer assistant'; historian.html:48 claims a source link under each answer but historian.html:119-125 returns srcHref null for chronology; historian.html:186,204 first-person persona; viewshed meta 'approximate sightlines' vs page 'not a computed sightline'; cinematic-export.html:8 'narrated flyover' (captions only); site-nav.js:27 'narrated'; turning-points.html:8 'historians agree' vs :46 'argued about'; 'Battle Reports' collides with the Official Records term and its meta says 'any regiment or moment' though only regiments work; documentary.html:49 'exact spot' while map links open the default view. Report 2.6 (D1-D17).",
+   "root_cause": "Names and blurbs described the feature as imagined and were not revised when the implementation was scoped down.",
+   "fix": "Apply report 2.6 wording. Rename Battle Reports to Regiment Fact Sheets, What They Could See to Vantage Points, Cinematic Export to Export a Video (labels only, URLs unchanged). Give chronology answers a source line or drop the 'each answer' claim. Delete the persona. Keep 'Ask the Historian' but never AI/assistant; if a language model is added later, add a disclosure line and reuse D-HISTORIAN wording.",
+   "effort": "M",
+   "acceptance_test": "Vale NoAI and Terms rules pass; every claim in each of the 21 meta descriptions is true on its page (checklist); Historian answers for regiment, story, event and place each show a source line.",
+   "metric_or_grade_moved": "H8 closed; trust; snippet accuracy",
+   "depends_on": [
+    "docs-copy-05",
+    "app-bugs-05"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Name/description claims verified (site-nav.js:26-27, index.html:377, historian.html:48/186/204, viewshed/cinematic/turning-points/report/documentary metas). The report treats chronology answers as merely lacking a source link, but historian.html:113-125 reads e.title/e.description, which do not exist (data fields are event, location, tick, time; day 2 also narrative). All 137 chronology answers render 'undefined' and are only searchable by location. The fix must repair the data-field mapping first (missed M1); the D4 'Day 1, 6:00am - ...' baseline is not what users see."
+  },
+  {
+   "id": "docs-copy-04",
+   "title": "Retire 'real time', 'minute-by-minute', 'five-minute snapshots' and 'tick'; adopt one clock format",
+   "severity": "high",
+   "evidence": "10 'real time' claims (index.html:15,18,24,32,745; manifest.json; bundle.pretty.js:97429 '1x (real time)'), 69 'tick' hits in UI/HTML/bundle/Help/PDF plus 50 in rendered data, four clock formats in use (compare.html:128 'am (next day)', data '7:30am', UI '7:20 AM', '4:00pm').",
+   "root_cause": "The engine step (5 min per tick) leaked into copy; the time model will make steps non-uniform (app-time 7.13).",
+   "fix": "Copy per report 2.7 (E1-E20). Single formatter from app-time used by every string; 'moment' for a point in time, clock time as primary label, 'Frame N of 675' only in tooltips; time-lapse sentence and D-CLOCK disclaimer; data strings normalised by docs-copy-06.",
+   "effort": "M",
+   "acceptance_test": "copy_lint REALTIME/TICKJARGON/TIMEFMT return 0; the same clock string appears for the same moment on toolbar, event card, Ledger, guide example and Sources.",
+   "metric_or_grade_moved": "Historical consistency C- to B+ (with app-time); H9",
+   "depends_on": [
+    "app-time",
+    "app-bugs-33",
+    "docs-copy-06"
+   ],
+   "audit_refs": [
+    "H9",
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "10 'real time' claims reproduce (immersive:47, index:15/18/24/32/745, watch-together:64/102, manifest.json, bundle:97429; index:620 is an 11th, in a comment); compare.html:128 verified; inventory counts match its summary. Three of the ten (immersive, watch-together) are true statements, as the report itself notes."
+  },
+  {
+   "id": "docs-copy-05",
+   "title": "One canonical name for the product and for each feature",
+   "severity": "medium",
+   "evidence": "71 occurrences of 'Animated Battlefield Map/Animated Map' vs domain, PDF title and file name saying Interactive Map; 12 feature name conflicts (Find Your Ancestor / Find Your Ancestor's Regiment / Find an Ancestor (index.html:733) / Follow Your Ancestor / Follow Ancestor (bundle.pretty.js:103433); Soldier's Eye View vs Soldier's View (:103426); 'NPS Auto Tour' used for two different tours; 'Explore' as both button (site-nav.js:169) and group (:14); 'Extra Features' on the map (index.html:310)). index.html SEO nav lists only 18 of 20 tools (:721-739).",
+   "root_cause": "Names typed independently in seven places.",
+   "fix": "Adopt the canonical table in report 2.8 (owner confirms 'Gettysburg Interactive Map' and the group names). Store names once in features.json and generate nav, titles, H1s, SEO nav block, tool tiles and the guide from it. Keep URLs. Add the substitution list to Vale Terms.yml.",
+   "effort": "M",
+   "acceptance_test": "grep for each retired name returns 0 outside the changelog; test asserts each H1 equals its nav label and <title> starts with it; index.html SEO nav lists all 20 tools.",
+   "metric_or_grade_moved": "Consistency; SEO E2; learnability",
+   "depends_on": [
+    "docs-copy-16"
+   ],
+   "audit_refs": [
+    "E2",
+    "D4",
+    "H6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "71 occurrences reproduce (66 HTML/nav/manifest/data + 5 bundle/Help); SEO nav lists 18 of 20 tools (missing report and cinematic-export); bundle name strings and index.html:310/:733 verified. Trivia: sitemap has 21 URLs (home + 20), not 20."
+  },
+  {
+   "id": "docs-copy-06",
+   "title": "Normalise typography once at build time (dashes, ellipses, clocks, caps, KIA, apostrophes, ranges)",
+   "severity": "medium",
+   "evidence": "1,639 ' -- ' in rendered data fields (key_action 484, notes 858, event 94, fate 91) and 56 in HTML/JS/bundle/manifest; 69 ALL-CAPS phrases; 61 KIA; 20 '7:30am'; 2,085 data strings with straight apostrophes; possessives split (Sickles's 16 / Sickles' 20). Report 2.10 and 2.14.",
+   "root_cause": "Data authored in plain-text style and rendered verbatim by the map, Regimental Biography, Fact Sheets, Search and Historian.",
+   "fix": "tools/normalise_data.mjs (sketch in report 2.14) writes public JSON, keeps data-src/ lossless, uses a named-list possessive normaliser, and strips engine fields. Same rules as Vale existence/substitution rules for hand-typed HTML. Normalise search queries with the same function.",
+   "effort": "M",
+   "acceptance_test": "Zero matches for the 2.10 regexes in built HTML and public JSON; 50-string snapshot test; Search still finds 'Sickles' and 'Culp's Hill'.",
+   "metric_or_grade_moved": "Fit and finish; professionalism; small payload reduction",
+   "depends_on": [
+    "app-bugs-15"
+   ],
+   "audit_refs": [
+    "H7"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Counts reproduce in magnitude (1,758 ' -- ' occurrences vs 1,639 strings; KIA 61 and 20 clocks exact). The normaliser sketch is unsafe: (1) sentenceCase() corrupts proper nouns; the all-caps regex hits 57 distinct phrases incl. EAST CAVALRY FIELD, FIRST UNION ARTILLERY, CEMETERY HILL ASSAULT, LOUISIANA TIGERS CHARGING, EMPTY XII, ALL III, so use a curated map; (2) curly-apostrophe conversion of designation/name/title breaks typed-apostrophe queries in bundle.pretty.js:98768/98798, search.html, historian score(), find-ancestor and the regiment picker unless each matcher (including the minified in-app search) normalises the query, or an un-normalised _q search key is kept."
+  },
+  {
+   "id": "docs-copy-07",
+   "title": "Replace emoji-as-label and unexplained abbreviations (copy side of H6)",
+   "severity": "medium",
+   "evidence": "17 emoji strings (report 2.11); glyph labels S F L B ? and emoji on toolbar (bundle.pretty.js:113143-113226); ranks 'Gen','Col','Lt Col' (:102540-102545); KIA/WIA in unit panel (:98081-98082) and toasts (:99998-100002); 'Confed' chips (:103345). Coupling: index.html:406-407 labels buttons by glyph text and :696 finds the Monuments button by its title.",
+   "root_cause": "No icon set or label registry in the map UI.",
+   "fix": "Apply report 2.11 table; every icon control gets aria-label and tooltip from the manifest; retire the index.html label workaround with the overlay (H1).",
+   "effort": "S",
+   "acceptance_test": "No emoji code point in any string; every icon button's accessible name equals its tooltip; copy_lint EMOJI and ABBREV return 0.",
+   "metric_or_grade_moved": "Accessibility (names); consistency",
+   "depends_on": [
+    "docs-copy-16"
+   ],
+   "audit_refs": [
+    "H6",
+    "A5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Emoji-label lines verified, but rank abbreviations are misdescribed: uO (bundle.pretty.js:102536-102546) emits MG/BG/LG/Gen/Col and the 'Lt Col' replace is dead code because 'Colonel' is replaced first (result 'Lieutenant Col'). See missed M4."
+  },
+  {
+   "id": "docs-copy-08",
+   "title": "Derive every count from data and reconcile the numbers that disagree",
+   "severity": "high",
+   "evidence": "Help '445+' (helpmodal-cfv9t0zh.js:col2258) vs 467 regiment records; '467 regiments and batteries' is regiments only (103 batteries in union_artillery.json 50, confederate_artillery.json 45, horse artillery 8; total 570); position coverage 217 direct / 231 via brigade / 19 none; 51,000 (Help) vs 45,928 (dashboard total); 26th NC '714 of 800' (bundle.pretty.js:100756) vs data '588 of 843'; Iverson prisoners 'nearly 500' vs 232; 467 typed 10 times and 675 typed 30 times in HTML/JSON; Search/Regiment/Report/Find-Ancestor/Historian never load the artillery files though copy says 'regiment or battery'; regiment.html:102 'still complete' while 222 of 467 lack a casualty rate.",
+   "root_cause": "Counts typed into prose; no shared facts file; no cross-check between story text and data.",
+   "fix": "facts.json per app-bugs-15 extended with batteries, regiments_and_batteries, regiments_with_own_positions, casualties_table_total, sources; {{facts.x}} tokens in templates and markers in static HTML; check_facts CI script; historian adjudicates the disagreements (one number, stated basis); add the two artillery files to the shared loader or drop 'battery' from the copy.",
+   "effort": "M",
+   "acceptance_test": "Change one count in the data and every page, Help, guide and meta value changes at next build; check_facts fails on a hand-typed number; the 26th NC and casualty-total items each have one cited value everywhere.",
+   "metric_or_grade_moved": "Consistency C- to B+; trust",
+   "depends_on": [
+    "app-bugs-15",
+    "app-bugs-35",
+    "docs-copy-16"
+   ],
+   "audit_refs": [
+    "H10"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Verified: 467/103/570, 217/231/19, 222/27/37, 467 typed 10x, 26th NC 714/800 vs 588/843, Iverson (line is 100093, not 100091), '445+'. Errors: (1) 45,928 is NOT the dashboard/ledger total; both sum engagement_periods (dashboard.html:238-239) = 46,163 (23,138 + 23,025); 45,928 is only the sum of total_casualties summary fields, so every proposed sentence saying 'the dashboard total is 45,928' (2.9 G3, 3.3, 6.10, Help dedication, FAQ) must change. (2) G6 is backwards: 'roughly 165,000' (find-ancestor.html:52) is right (NPS 93,921 + 71,699 = 165,620); 162,974 is a partial sum of corps initial_strength (omits artillery reserve/HQ); do not change to 'about 163,000'. (3) Missed third basis: chronology_day3.json tick 650 says Union ~23,000 / Confederate ~28,000 (= 51,000)."
+  },
+  {
+   "id": "docs-copy-09",
+   "title": "Missing-data phrasing and honest completeness",
+   "severity": "medium",
+   "evidence": "search.html:112 'Commander unrecorded'; find-ancestor.html:121 'State unrecorded' + raw ids; regiment.html:199,204,208; regiment.html:102 'still complete'; 222 of 467 records without casualty_percentage, 27 without commander, 37 with empty days_engaged.",
+   "root_cause": "Absence rendered as a statement about the past; no phrase library.",
+   "fix": "Omission-first rendering; M-* phrase library (report 6.9); 'Not reported' cells with tooltip; remove completeness claims.",
+   "effort": "S",
+   "acceptance_test": "Rendering all 467 regiments in Search, Regimental Biography and Fact Sheets shows no 'unrecorded', 'not recorded' or lone dash; copy_lint ABSENCE returns 0.",
+   "metric_or_grade_moved": "Polish; data-page usability",
+   "depends_on": [],
+   "audit_refs": [
+    "H7"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "222/27/37 reproduce and search.html:112 / regiment.html:102,199,204,208 verified. But 0 of 467 records lack state or key_action, so the 'State unrecorded', 'State and formation not recorded' and 'No specific key action recorded' fallbacks never fire today; only 'Commander unrecorded' (27) and the missing casualty rate (222) are live defects. The proposed fix is still correct."
+  },
+  {
+   "id": "docs-copy-10",
+   "title": "Rewrite Help and About (counts, sources, keys, links, version)",
+   "severity": "high",
+   "evidence": "helpmodal-cfv9t0zh.js: '445+' (col2258), 'ticks' (col132-403), 'Primary Sources' over 9 works of which 2 are primary (col3006-3533), dead 'Toggle heatmap' row (col887), 'Dismiss panel / deselect unit' (col715), dedication '51,000' (col3686), close button unlabeled (col1721); no touch section and no links to sources, corrections, accessibility or version; modal appears 1-2 s late (D1).",
+   "root_cause": "Help is a hand-typed island; the data files cite 26 works but Help shows nine.",
+   "fix": "Replace with report 5.1/5.2 copy; four tabs (Shortcuts, Touch, About and sources, Report a problem); rows generated from features.json; sources grouped Primary/Secondary and linked to the Sources page; version line from version.json; preload the chunk on idle.",
+   "effort": "M",
+   "acceptance_test": "Parity test passes for Help; About counts equal facts.json; Help opens in under 300 ms after click; screen-reader pass of the dialog.",
+   "metric_or_grade_moved": "Documentation; H10; D1; usability",
+   "depends_on": [
+    "docs-copy-16",
+    "app-bugs-09",
+    "app-bugs-13",
+    "app-bugs-20"
+   ],
+   "audit_refs": [
+    "H10",
+    "G1",
+    "D1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Help chunk strings verified at the cited (start-of-string) columns: '445+', 'Primary Sources' over 9 entries, 'Toggle heatmap', 'Dismiss panel / deselect unit', '51,000', unlabeled close glyph, 12 ticks. Minor internal inconsistency: Exec Summary says six of nine are secondary; the correct count is seven secondary, two primary (as the finding says)."
+  },
+  {
+   "id": "docs-copy-11",
+   "title": "First-run, layout chooser and panel microcopy (device-aware)",
+   "severity": "high",
+   "evidence": "Three different loading texts in sequence (index.html:747, bundle.pretty.js:101535, :101542); 'settings menu' does not exist (:102815; only mobile Tools > Desktop View); 'Power User' and key instructions ('Press Space', 'press S') shown to touch users (:111814-111816, :111825, :111852); three skip labels ('Skip intro ›' :101581, 'Skip introduction' :111929, 'Skip tour' :111967) that index.html:467 EXIT_BUTTONS matches by regex; O1-O12 in report 5.3.",
+   "root_cause": "Copy written for desktop, no device awareness, coupled to an injected script.",
+   "fix": "Copy per report 5.3; touch vs keyboard hints; one loading text; sentence-case labels; ship with the H1 overlay removal or update the EXIT_BUTTONS regex in the same commit.",
+   "effort": "M",
+   "acceptance_test": "On phone emulation no string mentions Space, S, ? or keyboard; the chooser footer names a control that exists; overlay reveal still works or is gone.",
+   "metric_or_grade_moved": "Usability D+ to B (mobile); H3",
+   "depends_on": [
+    "app-bugs-11",
+    "docs-copy-16"
+   ],
+   "audit_refs": [
+    "H3",
+    "D4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Three loading texts (index.html:747, bundle:101535, :101542), nonexistent 'settings menu' (:102815, no other settings string in the app), Power User/Press Space (:111814-111825), three skip labels (:101581, :111929, :111967) and EXIT_BUTTONS at index.html:467 all verified."
+  },
+  {
+   "id": "docs-copy-12",
+   "title": "Make every statement in the user guide true (32-row audit)",
+   "severity": "high",
+   "evidence": "Report 3.2: 3 rows to remove (H heatmap: bundle.pretty.js:112930,112938,113022 flag never rendered; Find Unit/Location = same panel as S :113213-113218; PDF-download row vs netlify.toml:201-204), 8 wrong today and fixable by copy, 7 true only after a named fix, 14 true today. Unit glyphs are oriented rectangles filled with side colour plus a disposition dot (:96593-96650), not 'dots whose fill shows disposition'; timeline dots have 5 colours and no gold (:112192-112201); 11 dispositions exist, guide lists 10; NPS 'Auto Tour' button is a different 16-stop list (only stop 1 has a video); walkthrough: 15 of 16 stops have video, 14 of 16 a fixed pano id; 8 of 11 legend colours differ from the map (bundle.pretty.js:96306-96318 vs :99385-99413).",
+   "root_cause": "Guide written from the feature list, not the code; no parity test.",
+   "fix": "Apply the corrected text in 3.2; generate tables from the manifest; keep a 'guide claims' checklist in the release template; write each AFTER row when its sibling fix ships.",
+   "effort": "M",
+   "acceptance_test": "Someone follows the guide end to end on desktop and phone and every sentence is true; check_parity passes.",
+   "metric_or_grade_moved": "Documentation B to A+; trust",
+   "depends_on": [
+    "app-bugs-05",
+    "app-bugs-09",
+    "app-bugs-11",
+    "app-bugs-13",
+    "app-bugs-24",
+    "app-bugs-26",
+    "app-bugs-27",
+    "docs-copy-16"
+   ],
+   "audit_refs": [
+    "G1",
+    "D4",
+    "H8",
+    "H13"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "32-row tally re-counted (3 REMOVE, 7 AFTER, 8 FIX-COPY, 14 NOW). Verified: H flag never read, Find Unit = toggleSearchPanel, rotated filled-rectangle unit glyph + disposition dot, 8 timeline dots/5 colours/no gold, '+' reaches 16, and the 11-row colour table matches the code exactly (8 of 11 differ). REFUTED sub-claim (row 17): all 16 Walkthrough stops have an NPS video (16 video fields, 14 pano ids in bundle.pretty.js:104100-104420; NPS page: 'All 16 stops feature accompanying videos'). The 'stop 16 has none' claim and the replacement text '15 also link to an NPS video' are wrong; the guide's original 'NPS video link' statement is true."
+  },
+  {
+   "id": "docs-copy-13",
+   "title": "Reproducible guide generator (HTML-first, committed, CI-built)",
+   "severity": "high",
+   "evidence": "No generator exists (searched Downloads *.py depth 3, reconstructed source); six different guides in Downloads (46, 43, 44, 2, 3, 6 pages); deployed PDF made by ReportLab OSS 5.0.1 which exposes lang/title/outline/viewer-preference APIs but no tagging API (reportlab/pdfbase/pdfdoc.py:1030-1031 only has empty catalogue slots).",
+   "root_cause": "Guide produced ad hoc by prior sessions; N1 (no real source).",
+   "fix": "Report 3.4: content/ + tools/ layout, facts.json, Jinja templates with StrictUndefined, guide.html plus PDF, engine spike (WeasyPrint default, Chromium/Playwright fallback), SOURCE_DATE_EPOCH reproducibility, versioned file names, CI order facts > parity > build > pdf_lint > veraPDF > link check.",
+   "effort": "L",
+   "acceptance_test": "From a clean clone npm run docs produces dist/guide.html and dist/user-guide.pdf; second run identical (text layer or bytes); removing a manifest tool breaks the build; footer shows release version and date.",
+   "metric_or_grade_moved": "Documentation; maintainability; bus factor",
+   "depends_on": [
+    "docs-copy-16"
+   ],
+   "audit_refs": [
+    "G1",
+    "N1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "No generator found (re-searched all of Downloads, unlimited depth, for reportlab/SimpleDocTemplate/pdfkit/jsPDF/fpdf/'user-guide.pdf'); ReportLab 5.0.1 and pdfdoc.py:1030-1031 verified. Corrections: Downloads has 7 distinct guide page counts (46, 45, 44, 43, 6, 3, 2) across dozens of copies, not six; WeasyPrint PDF/UA-1 landed in v57 (Sept 2022) and is documented as experimental/not guaranteed valid (not '2025'); WeasyPrint needs Pango only, not Cairo; Playwright tagged/outline options exist since v1.42. Keep the veraPDF gate."
+  },
+  {
+   "id": "docs-copy-14",
+   "title": "Guide layout, pagination, type size and contrast",
+   "severity": "high",
+   "evidence": "pdf_lint.py on deploy/user-guide.pdf: body fill 97.7/16.9/99.8/5.0/93.3/40.5 %; 'TOOLBAR TOOLS' heading orphaned at foot of p1; group headers 1.25:1 contrast at 8.7 pt; 95 % of 7,765 characters under 10 pt (smallest 8 pt); dark full-bleed pages; symbols from non-embedded Symbol font.",
+   "root_cause": "Probable oversized unsplittable block (about one page tall) and headings without keep-with-next (inferred; no source).",
+   "fix": "Spec in report 3.5: break-after avoid on headings, splittable tables, print theme with optional dark edition, body 10.5-11 pt, contrast-checked palette, real Unicode glyphs, linked footer with version/date/Page N of M, contents page, Letter and A4.",
+   "effort": "M",
+   "acceptance_test": "pdf_lint --strict layout gates green: no page under 55 % except last, 0 orphan headings, 0 spans under 4.5:1, no text under 9 pt, 90 % of characters at 10 pt or more; proof print.",
+   "metric_or_grade_moved": "Documentation polish; readability; print cost",
+   "depends_on": [
+    "docs-copy-13"
+   ],
+   "audit_refs": [
+    "G1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "pdf_lint re-run reproduces fills 97.7/16.9/99.8/5.0/93.3/40.5, orphan 'TOOLBAR TOOLS' heading, 1.25:1 (my calc 1.26:1) group headers, 94.9% of 7,765 chars under 10 pt, smallest 8.0 pt. Root cause correctly labelled inferred."
+  },
+  {
+   "id": "docs-copy-15",
+   "title": "Accessible tagged PDF, metadata, bookmarks and links; serve the guide inline",
+   "severity": "high",
+   "evidence": "Deployed PDF has no /Lang, /MarkInfo, /StructTreeRoot, outline or DisplayDocTitle; 0 link annotations; 4 fonts not embedded (Helvetica, Helvetica-Bold, Helvetica-Oblique, Symbol); metadata '(anonymous)'/'(unspecified)'; netlify.toml:201-204 forces attachment and bundle.pretty.js:113116 sets download.",
+   "root_cause": "ReportLab output without a tag tree; no HTML alternative.",
+   "fix": "Report 3.6 property table: PDF/UA-1 via WeasyPrint or Chromium tagged output, embed Spectral and Inter (OFL), XMP, outline from headings, links, figure alt text, tables with TH scope; publish guide.html at /guide; serve PDF inline and remove the download attribute and the toolbar 'Download Website Tutorial PDF' link.",
+   "effort": "L",
+   "acceptance_test": "veraPDF --flavour ua1: 0 failed rules; Acrobat Accessibility Check and PAC 2024 pass; NVDA reads headings, tables and links in order; title bar shows document title; opens in-tab on iOS and Android.",
+   "metric_or_grade_moved": "Accessibility (documents); WCAG 2.2 AA for the guide; G1 closed",
+   "depends_on": [
+    "docs-copy-13"
+   ],
+   "audit_refs": [
+    "G1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Catalogue lacks /Lang, /MarkInfo, /StructTreeRoot, outline; 0 links; 4 unembedded fonts; metadata anonymous; live Content-Disposition attachment (netlify.toml:201-204) and download attribute at bundle:113116. Removing the attribute alone is insufficient; the header edit in the fix is required."
+  },
+  {
+   "id": "docs-copy-16",
+   "title": "One manifest for tools, hotkeys, dispositions, extras and facts (feeds Help, nav, guide, sitemap)",
+   "severity": "high",
+   "evidence": "Five hand-typed shortcut lists (root handler bundle.pretty.js:112960-113046; Help array helpmodal-cfv9t0zh.js:col72-1000; Quick Reference bundle.pretty.js:111984-111996; tooltips :112312-112336; index.html:406-407) plus the PDF; tool names in 7 places; disposition colours differ on 8 of 11 entries between map (Lp :96306-96318) and legend/unit panel (:99385-99413, :98090-98105); site-nav.js:12-58 GROUPS already proves the single-source pattern for 20 tools on 27 pages.",
+   "root_cause": "No shared source of truth for text and colour.",
+   "fix": "features.json (hotkeys, tools, dispositions with color/gloss/cue, extras groups) plus facts.json and glossary.json; check_parity (manifest vs app registry vs built HTML/PDF text); map, legend, unit panel, guide and Help read dispositions[*].color and add a non-colour cue.",
+   "effort": "L",
+   "acceptance_test": "Adding a hotkey to manifest and registry updates Help, Quick Reference, tooltips and guide with no other edit; a manifest hotkey with no handler fails CI; all 11 legend swatches equal drawn colours (canvas pixel sample).",
+   "metric_or_grade_moved": "Consistency; documentation; fewer regressions",
+   "depends_on": [
+    "app-bugs-13",
+    "app-bugs-09",
+    "app-bugs-15"
+   ],
+   "audit_refs": [
+    "D4",
+    "G1",
+    "H6",
+    "H10"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence verified (five hotkey lists, colour maps). Effort is understated: with no real source (N1), making the map, legend, unit panel and hotkey registry read one manifest is a bundle patch or source recovery, i.e. XL, not L; only the static-page half (site-nav GROUPS, guide, Help chunk) is L."
+  },
+  {
+   "id": "docs-copy-17",
+   "title": "Sources and Methods page",
+   "severity": "high",
+   "evidence": "No /sources page (404); Help lists 9 works, data metadata cites 29 strings / 26 distinct works; bibliographic conflict Gottfried Maps of Gettysburg 2007 (Help) vs 2013 (terrain.json); Mapbox attribution removed on two maps (app-bugs-34); monument records cite HMDB and Stone Sentinels (bundle.pretty.js:110533,110569); Terms claims good-faith research with nothing to check.",
+   "root_cause": "Sources live only in JSON metadata and a short Help list.",
+   "fix": "Outline in report 4.1: what this is and is not, data layers table (counts from facts.json), how the clock works, how positions are estimated, casualty definition and the 51,000 vs 45,928 basis, register of source disagreements, verified bibliography grouped primary/secondary/imagery, third-party licences, data licence decision, how to cite (APA/MLA/Chicago), versions. sources.json generated from data metadata then verified against catalogue records.",
+   "effort": "L",
+   "acceptance_test": "All counts equal facts.json; sources.json validates (author, title, publisher, year); each entry verified; every story, unit panel and sub-page links to it; axe clean; in sitemap.",
+   "metric_or_grade_moved": "Trust; SEO authority signals; Documentation; education adoption",
+   "depends_on": [
+    "docs-copy-08",
+    "app-time",
+    "docs-copy-33"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "All proposed pages 404 live (2,203 B); Help lists 9 works; data metadata has 29 strings = 26 distinct works (re-derived); HMDB/Stone Sentinels src at bundle:110533/110569; attributionControl false at 102988/110777. Gottfried's Maps of Gettysburg is 2007 (Savas Beatie), so terrain.json's 2013 is the error, not Help."
+  },
+  {
+   "id": "docs-copy-18",
+   "title": "Corrections and Feedback page plus in-app 'Report a problem'",
+   "severity": "medium",
+   "evidence": "No /corrections page; footer only has a bare mailto Contact (site-nav.js:190-197); no way to report an error in a specific record.",
+   "root_cause": "No feedback or accountability channel.",
+   "fix": "Report 4.2: promise with response times, what counts as an error, prefilled mailto carrying URL/moment/unit id/version/browser (no form, no new data collection), disagreement policy, public corrections log from corrections.json with Atom feed, credits; entry points in Help, unit panel, story panel, event card and sub-page footers; seed the log with fixes made under this plan.",
+   "effort": "M",
+   "acceptance_test": "Link opens a message whose body contains URL and version; corrections.json schema test; first entries dated and sourced.",
+   "metric_or_grade_moved": "Trust; reliability perception",
+   "depends_on": [
+    "docs-copy-17"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "/corrections and /contact 404 live; footer has only a bare mailto (site-nav.js:194)."
+  },
+  {
+   "id": "docs-copy-19",
+   "title": "About the creator page",
+   "severity": "medium",
+   "evidence": "No /about page; JSON-LD names an author (index.html:35) and the app credits 'Created by: Mike Legere' but there is no page; footer copyright names a product not a person (site-nav.js:191).",
+   "root_cause": "Page never written.",
+   "fix": "Report 4.3: what/why (owner), how it was made, about me (owner 80-120 words), credits, independence disclaimer D-AFFIL, contact; AboutPage + Person schema. Owner supplies the marked paragraphs; no invented biography.",
+   "effort": "S",
+   "acceptance_test": "Page linked from footer and Press; JSON-LD validates; no unverified claims.",
+   "metric_or_grade_moved": "Trust; E-E-A-T",
+   "depends_on": [],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "/about 404; Person author JSON-LD at index.html:35; footer at site-nav.js:191. The footer year is dynamic (new Date().getFullYear()), so the proposed hard-coded '2026' should stay dynamic."
+  },
+  {
+   "id": "docs-copy-20",
+   "title": "FAQ page",
+   "severity": "medium",
+   "evidence": "No /faq page; the same questions are answered ad hoc in the Historian, Terms and guide troubleshooting.",
+   "root_cause": "No FAQ.",
+   "fix": "Report 4.4: 14 evidence-based questions with drafted answers (free, accuracy, approximate times, brigade-level movement, casualty definition, ancestors, Historian is not AI, devices, offline, sound, classroom/embed/cite, privacy, corrections, data download); numbers from facts.json; FAQPage markup optional.",
+   "effort": "M",
+   "acceptance_test": "Every number in an answer comes from facts.json; page linked from Help and the guide; the offline answer verified against sw.js first.",
+   "metric_or_grade_moved": "Support load; long-tail SEO",
+   "depends_on": [
+    "docs-copy-08",
+    "docs-copy-17",
+    "docs-copy-18"
+   ],
+   "audit_refs": [
+    "T1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "FAQ draft #9 (offline: 'Parts of the site are cached') is misleading: sw.js precaches 7 assets and caches /assets and /data responses, but HTML is network-first and never put in cache, so offline navigation fails. Answer should say the site needs a connection. FAQ #7 ('shows the source of each answer') is false for chronology answers until missed M1 is fixed."
+  },
+  {
+   "id": "docs-copy-21",
+   "title": "Accessibility statement page",
+   "severity": "medium",
+   "evidence": "No /accessibility page; audit found contrast, target-size, label and landmark failures (A1-A6) so any claim must be provisional.",
+   "root_cause": "No statement; no dated review process.",
+   "fix": "Report 4.5: W3C WAI structure (commitment, standards, status by area, known limitations with accessible alternatives, assessment method, keyboard reference, feedback path, date). Status line stays 'Partially conforms to WCAG 2.2 AA' until the automated suite and a manual screen-reader audit pass.",
+   "effort": "M",
+   "acceptance_test": "Statement lists the latest audit's limitations and a review date; contact path works; no 'fully conforms' without evidence.",
+   "metric_or_grade_moved": "Accessibility documentation; legal posture",
+   "depends_on": [],
+   "audit_refs": [
+    "A6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "/accessibility 404 live; WAI-structure plan and 'Partially conforms' honesty rule are sound."
+  },
+  {
+   "id": "docs-copy-22",
+   "title": "Changelog, version stamp and Known Issues",
+   "severity": "low",
+   "evidence": "No /changelog or version.json; Privacy and Terms dates are hand-typed (privacy.html:21, terms.html:21); limitations currently leak into page copy instead.",
+   "root_cause": "No release notes channel.",
+   "fix": "Report 4.6: /changelog in Keep a Changelog headings, CalVer, version.json served no-cache, Atom feed, footer version stamp, Known issues section; user-facing sentences; seed with Phase 0 changes.",
+   "effort": "S",
+   "acceptance_test": "Footer version equals version.json; every user-visible fix in a release has an entry; feed validates.",
+   "metric_or_grade_moved": "Trust; honest channel for limitations",
+   "depends_on": [],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "/changelog and /version.json 404; hand-typed dates at privacy.html:21 and terms.html:21 ('September 7, 2026') verified."
+  },
+  {
+   "id": "docs-copy-23",
+   "title": "Press and Embed kit page",
+   "severity": "medium",
+   "evidence": "No /press page; Terms invite embedding 'its widget' (terms.html:27) but embed.html is served with X-Frame-Options DENY and frame-ancestors * (X4) and its usage exists only in a script comment (embed.html?vignette=V-018).",
+   "root_cause": "Embed feature never documented or made frameable.",
+   "fix": "Report 4.7: 50/150-word descriptions, key facts from facts.json, screenshots with alt/credit, brand assets, embed generator with copyable iframe snippet, attribution line, re-use terms, how to cite, press contact.",
+   "effort": "M",
+   "acceptance_test": "Snippet works from a third-party origin in Chrome, Firefox and Safari; Terms wording matches.",
+   "metric_or_grade_moved": "Distribution; backlinks; Terms consistency",
+   "depends_on": [
+    "X4-fix"
+   ],
+   "audit_refs": [
+    "X4",
+    "T1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "embed.html live headers verified (X-Frame-Options: DENY plus frame-ancestors *). The drafted iframe snippet is wrong: embed.html reads the 'vignette' parameter (embed.html:38-43), not 'story', so /embed?story=V-018 silently shows the day-of-year pick; and V-018 is 'Cushing's Battery' (V-017 is 'The Cannonade'). The embed is a text card, not a map widget; say so."
+  },
+  {
+   "id": "docs-copy-24",
+   "title": "Teacher resources page",
+   "severity": "medium",
+   "evidence": "No /teachers page; privacy.html:41 says the site is often used in classrooms; For Students (education.html:59-61) explains the battle without the cause of the war.",
+   "root_cause": "No educator-facing material.",
+   "fix": "Report 4.8: orientation, three lessons (reading a battle from maps, decisions and what-ifs, casualties as data) with objectives/steps/handouts/assessment, context every lesson includes, printable handouts from the guide pipeline, candidate standards (C3 D2.His.14/16, CCSS RH.6-8.7, RH.9-10.7 to verify), school-network domains to allow, privacy for schools, accommodations.",
+   "effort": "L",
+   "acceptance_test": "Lessons use only features that exist (parity test); handouts pass PDF gates; one educator review recorded.",
+   "metric_or_grade_moved": "Audience growth; usability; SEO",
+   "depends_on": [
+    "docs-copy-15",
+    "docs-copy-27"
+   ],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "/teachers 404, privacy.html:41 and education.html:59-61 verified. Standards note: CCSS RH.6-8.7 covers visual information such as maps, but RH.9-10.7 covers integrating quantitative/technical analysis (charts, data), so it fits the casualty-data lesson rather than the maps lesson (from memory of the standard text; re-check). C3 D2.His.14/16 remain UNVERIFIED."
+  },
+  {
+   "id": "docs-copy-25",
+   "title": "Privacy and Terms copy accuracy; footer identity",
+   "severity": "high",
+   "evidence": "privacy.html:30 says Street View is embedded on 'documentary and report pages' but no sub-page embeds it (only the Walkthrough in the app, bundle.pretty.js:110661); PeerJS broker 0.peerjs.com and jsDelivr script (watch-together.html:19), Mapbox telemetry (index.html:42) and AR permissions (ar.html:60) are not mentioned; hand-typed dates (privacy.html:21); terms.html:27 invites embedding while X-Frame-Options DENY; 'we' voice (privacy.html:26,30,31,34; terms.html:36); footer '(c) 2026 Gettysburg Animated Battlefield Map' (site-nav.js:191).",
+   "root_cause": "Policies written once and not diffed against behaviour.",
+   "fix": "Report 4.10 rows P1-P8 and T1-T4; build-generated dates; localStorage key table; neutral voice; footer '(c) 2026 Mike Legere'; add not-affiliated and third-party terms sections; link Accessibility and Sources from the footer.",
+   "effort": "M",
+   "acceptance_test": "Scripted diff: every third-party host in the CSP connect-src/frame-src and every permission the app requests appears on the Privacy page.",
+   "metric_or_grade_moved": "Privacy/legal B+ to A; trust",
+   "depends_on": [
+    "legal-read"
+   ],
+   "audit_refs": [
+    "X5",
+    "X4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Verified: privacy.html:30 names pages that embed no Street View (only the bundle iframe ~110660), PeerJS/jsDelivr watch-together.html:19, events.mapbox.com index.html:42, AR permissions ar.html:60, terms.html:27, 'we' voice, footer site-nav.js:191. Caveat: the Report-Only CSP still allows unused fonts.googleapis.com/fonts.gstatic.com, so the proposed CSP-host-vs-privacy-text diff test will fail until the CSP is tightened."
+  },
+  {
+   "id": "docs-copy-26",
+   "title": "Ratify and enforce the style guide (Vale, copy_lint, string catalogue, lint rule)",
+   "severity": "high",
+   "evidence": "inventory.py finds 356 hits on today's build across 18 rules plus ~3,000 in data fields; no style guide exists; text scattered across 27 HTML files and a 2.3 MB bundle.",
+   "root_cause": "No written voice or vocabulary and no automated enforcement.",
+   "fix": "Commit report section 6 as docs/STYLEGUIDE.md; add .vale.ini with the Dashes, Times, Terms, NoAI and DevSpeak rules; port inventory.py to tools/copy_lint.py with an allow-list for quotations; src/copy/en-US.json string catalogue with ICU plurals; ESLint no-literal-strings on JSX text/title/aria-label/placeholder; PR checklist in docs/RELEASE.md.",
+   "effort": "L",
+   "acceptance_test": "copy_lint on the built site: 356 hits now, 0 after; Vale 0 errors on sources; a deliberately bad string in a PR fails CI.",
+   "metric_or_grade_moved": "Prevents regression across every category above",
+   "depends_on": [
+    "N1-repo"
+   ],
+   "audit_refs": [
+    "H7"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "356 hits / 18 rules reproduce. ESLint rule name is wrong: 'no-literal-strings' does not exist; use i18next/no-literal-string or react/jsx-no-literals. A string catalogue and lint rule require real source (N1), so effort L holds only after source recovery. The scan has recall gaps (DEVLOG missed unit-rendering-reference.html). Proposed Times.yml flags '4 PM' while style guide 6.8 allows 'about 4 PM' in prose."
+  },
+  {
+   "id": "docs-copy-27",
+   "title": "Historical context and responsible-language gap; quotation policy",
+   "severity": "high",
+   "evidence": "0 occurrences of slavery, enslaved, emancipation, free Black, African American, abolition or civilians in any HTML, JS or data file (grep); related content limited to 'a new birth of freedom' (Walkthrough stop 16) and the Jennie Wade memorial (bundle.pretty.js:110598); education.html:59-61 and aftermath.html:43-67 explain the battle without the cause of the war; quotations carry no cite field.",
+   "root_cause": "Content focused on units and tactics; no interpretive standard.",
+   "fix": "Add a 'Why they fought' section (For Students, For Teachers, Aftermath, guide panel) and a 'Gettysburg's civilians' story; adopt report 6.13 (quotation status: recorded/recalled/attributed, cite field, validator) and 6.14 (enslaved people, Black, Civil War, monument names in their own words); historian reviewer signs off.",
+   "effort": "L",
+   "acceptance_test": "The topics appear in Students, Aftermath and Teachers lessons with sources; each quotation has a cite; a historian reviewer signs off.",
+   "metric_or_grade_moved": "Content depth/credibility A- to A; education trust",
+   "depends_on": [
+    "owner",
+    "historian"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "0 hits for slave/slavery/enslaved/emancipat/abolition/African American/free Black/colored/USCT/contraband across HTML, data and JS. Minor: 'civilians' has 0 hits but 'civilian' has 2 (bundle.pretty.js:105057 John L. Burns statue, :110600 Jennie Wade); the report cites only Wade."
+  },
+  {
+   "id": "docs-copy-28",
+   "title": "Strip shipped source comments and developer diaries",
+   "severity": "low",
+   "evidence": "comment_bytes.py: 21,647 B of comments in the deploy; index.html has 128 comment lines (10,497 B, 26 % of 39.6 KB) including index.html:446-465, :356-360, :399-403, :620-628, :9, :54.",
+   "root_cause": "No comment stripping and rationale kept in code.",
+   "fix": "html-minifier-terser --remove-comments and terser --comments false in the build (or a one-off script for static pages); move rationale to docs/adr/.",
+   "effort": "S",
+   "acceptance_test": "view-source shows no comments except licence headers; HTML at or under 14 KB after inline-script extraction.",
+   "metric_or_grade_moved": "Perf (bytes); view-source professionalism",
+   "depends_on": [],
+   "audit_refs": [
+    "P4",
+    "N1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Magnitude reproduces (my regex: 24.1 KB total, index.html 13.3 KB of 39,638 B; report's 21.6 KB / 10.5 KB counts fewer comment kinds)."
+  },
+  {
+   "id": "docs-copy-29",
+   "title": "Titles, descriptions and social copy that match the pages",
+   "severity": "medium",
+   "evidence": "seo_copy.py: 5 titles over 60 chars (aftermath 71, dashboard 67, find-ancestor 67, unit-rendering 62, education 61); 10 og:description differ from description; 8 descriptions contain '--'; 4 descriptions contradict the page (viewshed, cinematic-export, turning-points, report); home title omits the search phrase; no og:image:alt; every title ends 'Gettysburg Animated Battlefield Map'.",
+   "root_cause": "Meta copy written per page without a length/truth check.",
+   "fix": "Apply the 21-row title/description table in report 2.13 (all titles at most 60, descriptions 79-159, checked; seo_replacements.json); add og:image:alt; generate JSON-LD name/description from the same table.",
+   "effort": "S",
+   "acceptance_test": "Script asserts title <= 60, description 70-160, unique per page, og equals meta, no '--'.",
+   "metric_or_grade_moved": "SEO snippet quality; CTR",
+   "depends_on": [
+    "docs-copy-05"
+   ],
+   "audit_refs": [
+    "E2",
+    "T1",
+    "E3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Exactly reproduced: 5 titles over 60 (71/67/67/62/61), 10 og:description mismatches, 8 descriptions with '--'; the 21 proposed pairs re-measured (titles at most 58, descriptions 79-159)."
+  },
+  {
+   "id": "docs-copy-30",
+   "title": "Microcopy patterns for loading, empty, error, success and permission states",
+   "severity": "medium",
+   "evidence": "Nine different loading strings across 15 files (two are bare 'Loading…': documentary.html:52, embed.html:25); raw-path errors (compare.html:58, dashboard.html:69); '(no note)' (watch-together.html:172); toasts never dismiss (H4); unlabeled close glyphs.",
+   "root_cause": "No message catalogue or status-message standard.",
+   "fix": "Report 6.12 templates from the catalogue with role=status/alert as specified; one loading text; Reload button on every data error; auto-dismiss 5 s pauseable toasts, max 3.",
+   "effort": "M",
+   "acceptance_test": "Offline mode shows the specified error with a Reload button on every data page; axe status-message checks pass.",
+   "metric_or_grade_moved": "Reliability perception; accessibility; polish",
+   "depends_on": [
+    "docs-copy-26"
+   ],
+   "audit_refs": [
+    "H4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Distinct loading strings verified across pages (battlefield data, casualty data, stories, order of battle, placement data, the battle, the battlefield, bare Loading...), plus bundle strings."
+  },
+  {
+   "id": "docs-copy-31",
+   "title": "Small trust and documentation additions (glossary, contact, security.txt, HTML site map, repo docs)",
+   "severity": "low",
+   "evidence": "/glossary, /contact, /.well-known/security.txt, /humans.txt all 404; no README/ARCHITECTURE/DATA-DICTIONARY/RELEASE/adr in any source tree (N1).",
+   "root_cause": "Never created.",
+   "fix": "Report 4.9: glossary page from glossary.json, contact page with prefilled mailto templates (stop printing the address in app chrome), RFC 9116 security.txt, HTML site map, repo docs set.",
+   "effort": "M",
+   "acceptance_test": "Pages/files exist and are linked from the footer; security.txt has Contact and Expires.",
+   "metric_or_grade_moved": "Trust; maintainability",
+   "depends_on": [],
+   "audit_refs": [
+    "N1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "/glossary.html, /contact.html, /humans.txt, /security.txt and /.well-known/security.txt all 404 live."
+  },
+  {
+   "id": "docs-copy-32",
+   "title": "Fallback copy patch if the app is not rebuilt (codemod with occurrence assertions)",
+   "severity": "medium",
+   "evidence": "copy_patch_table.json: 64 rows; every find string present in the deployed minified bundle and Help chunk with recorded counts (5 rows need quote-delimited matching: Confed 162 vs 1, Tick 6 vs 3, NPS Auto Tour 2 vs 1, Follow Your Ancestor 2 vs 1, Created by: Mike Legere 2 intended).",
+   "root_cause": "N1: no unminified source, so copy can only change by patching or rebuilding.",
+   "fix": "tools/copy_patch.mjs applies the table with exact-count assertions in one pass with the app-bugs-01 Tranche 0 patches, writes new hashed filenames and updates index.html, sw.js and modulepreload (app-time 3.3), skips rows tagged AFTER; changing 'Skip...' labels or 'Monuments' requires the index.html scripts to be updated in the same commit.",
+   "effort": "M",
+   "acceptance_test": "Script fails loudly if any anchor count differs; patched bundle parses; smoke test passes; copy_lint bundle hits drop by the rows applied.",
+   "metric_or_grade_moved": "Immediate polish without a rebuild; risk contained",
+   "depends_on": [
+    "app-bugs-01",
+    "app-time"
+   ],
+   "audit_refs": [
+    "N1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "copy_patch_table.json has 64 rows; recounting every find string against the deployed bundle and Help chunk gives 0 mismatches with recorded counts; the non-unique rows are exactly the ones the report names; b53 is an intentional stub (0 hits)."
+  },
+  {
+   "id": "docs-copy-33",
+   "title": "Adjudicate headline statistics and quotations before new pages repeat them",
+   "severity": "medium",
+   "evidence": "26th NC '714 of 800' (bundle.pretty.js:100756) vs data '588 of 843' (69.7 %) and 'Greatest loss percentage of any regiment' for the 1st Minnesota (:100734); Iverson prisoners 'nearly 500' (:100091) vs 232 (:100778,:100800); casualty totals 51,000 vs 45,928; Avery note attributed 'It was my fault.' (:100811, reads like Lee's remark, time-facts R118); Lincoln 'We had them within our grasp' 'wrote' (:100315); Alexander's two messages (chronology ticks 525/530, UNVERIFIED-QUOTE); Gottfried Maps of Gettysburg year 2007 vs 2013.",
+   "root_cause": "Facts typed in more than one place and never cross-checked.",
+   "fix": "One decision per item recorded in the Sources disagreement register; edit story/monument text and data to match; no new page repeats an unadjudicated figure or quote.",
+   "effort": "S",
+   "acceptance_test": "Each item has a decision, a citation and one value everywhere (grep).",
+   "metric_or_grade_moved": "Historical consistency; credibility",
+   "depends_on": [
+    "historian",
+    "time-facts"
+   ],
+   "audit_refs": [
+    "C4",
+    "H10"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "714/800 vs 588/843 and 'greatest loss percentage' reproduce (100734/100756). Iverson is at :100093 and Lincoln at :100317 (report cites the template-literal start lines). Avery is stronger than 'unverified': the known note is 'Major, Tell my Father I died with my Face to the enemy' (NC State Archives), so 'It was my fault.' is simply wrong. Gottfried year 2007 is correct (Help)."
+  }
+ ],
+ "open_questions": [
+  "Owner: is 'Gettysburg Interactive Map' the canonical product name (it matches the domain, PDF title and file name; 71 occurrences of 'Animated Battlefield Map' would be replaced) and are the group names Explore the Map / Learn the Story / Records and Research / Experience It / Share and Export acceptable?",
+  "Owner: keep the name 'Ask the Historian' (with a never-AI/assistant rule) or rename to something like 'Ask the Records'? This should be decided before the Historian databases expansion so the disclosure wording matches.",
+  "Owner: content and data licence, and whether the compiled data is downloadable. Terms currently asks for credit and forbids scraping for republication.",
+  "Owner: contact and feedback policy, meaning stated response times for Corrections and Accessibility, and whether to keep printing the Gmail address in the app chrome and PDF.",
+  "Owner: the bio, photo and 'why I built this' text for the About page. I did not invent any.",
+  "Which PDF engine passes veraPDF --flavour ua1 with zero failures: WeasyPrint, Chromium via Playwright, or Typst? None could be run here: Chrome headless exited with code 21 and wrote no file, and WeasyPrint, Playwright and veraPDF are not installed. A half-day spike decides.",
+  "What is the actual first-launch overlay order (splash, layout chooser, tour)? Not observed; code order is in bundle.pretty.js:113061-113068. The guide's first-launch text depends on it and on app-bugs-11.",
+  "Is the Order of Battle modal hierarchical? app-bugs-13 says it is not; the guide claims it is. This needs a browser check.",
+  "How does the app draw the 231 regiments that have only a parent-brigade position record? This affects the wording of every 'tracked' claim.",
+  "What does sw.js cache? The FAQ answer 'does it work offline?' depends on it.",
+  "What telemetry does the deployed Mapbox GL v3 send? This is needed for the Privacy page (events.mapbox.com is preconnected and allowed in the CSP).",
+  "Historian decisions still needed: 26th NC losses (714/800 vs 588/843), Iverson prisoner counts, 51,000 vs 45,928 casualty basis, the Avery, Lincoln and Alexander quotations, Gottfried's Maps of Gettysburg year, and whether some of the 103 batteries should be added to Search and the Historian corpus.",
+  "Should the map's floating 'NPS Auto Tour' (16 battle moments, one video) be renamed Guided Battle Tour or merged into the Walkthrough? Copy is written for the rename; app-bugs-27 has the code side.",
+  "Which educational standards apply to the Teachers page? C3 D2.His.14/16 and CCSS RH.6-8.7 / RH.9-10.7 are candidates to verify against the current documents."
+ ],
+ "verification_summary": "Verification of the docs-copy report. Most of it holds up: I re-opened every cited line in DEPLOY_DIR and bundle.pretty.js, re-ran the data probes, re-ran pdf_lint.py, curl-checked the live site, and fetched the NPS tour page plus publisher/docs references. Line numbers, counts and PDF measurements reproduce almost exactly. There are three factual errors, one blind spot and several fix-design risks. (1) The report's 45,928 is not the dashboard or Living Ledger total. Both sum engagement_periods, giving 46,163 (23,138 Union + 23,025 Confederate). 45,928 is only the sum of the total_casualties summary fields. Also, 'roughly 165,000' soldiers in find-ancestor.html is correct (NPS 93,921 + 71,699), so the proposed change to 'about 163,000' would introduce an error. (2) The report says Walkthrough stop 16 has no NPS video and proposes '15 also link to a video'. All 16 stops have one, confirmed in bundle.pretty.js:104100-104420 and on the NPS page. (3) The report's Historian sub-finding overlooks that all 137 chronology answers in historian.html:113-125 render the literal word 'undefined', because the code reads e.title/e.description but the data field is `event`. Fix-design risks: the normaliser sketch would corrupt proper nouns via sentence-casing and break typed-apostrophe searches; deleting the U-14BK alias leaves a dangling id in union_oob_brigades.json; and the drafted embed snippet uses the wrong URL parameter and names the wrong story. The report also missed a live development-diary page (unit-rendering-reference.html) and a broken rank-abbreviation function. Effort estimates for the manifest and lint work (docs-copy-16 and docs-copy-26) assume source code that does not exist. I appended a '## Verification' section (33-row verdict table, 8 missed issues) to docs-copy.md and changed nothing else.",
+ "missed_by_specialist": [
+  {
+   "title": "Historian chronology answers render the word 'undefined' for all 137 events",
+   "evidence": "historian.html:113-125 builds text from e.title/e.description/e.location and renders e.description||e.title, but chronology_day1-3.json events have keys event, location, tick, time, units_involved, significance (day 2 also narrative, day 3 flag). Node simulation of the page's own code: 137 of 137 rendered answers read 'Day 1, 5:00am - Gettysburg environs: undefined'; search text is only the location string.",
+   "fix": "Use e.event (plus e.narrative when present) for both the search text and the rendered body, add a 'Chronology, Day N, time' source line, and add a test that no rendered answer contains 'undefined' or 'null'. Land this before any Historian expansion and before the docs-copy-03 wording is applied.",
+   "severity": "high"
+  },
+  {
+   "title": "Casualty totals have three bases; the report's '45,928 = dashboard total' is wrong",
+   "evidence": "dashboard.html:238-239 sums engagement_periods = 23,138 Union + 23,025 Confederate = 46,163 (Living Ledger ramps the same periods); 45,928 is only the sum of total_casualties summary fields; chronology_day3.json tick 650 says Union ~23,000, Confederate ~28,000, total ~51,000 (NPS cites 23,049 / 28,063). The 5,000 gap is entirely Confederate.",
+   "fix": "Record all three bases in the Sources disagreement register, state the basis once per page, and remove every drafted sentence that calls 45,928 the dashboard total (2.9 G3, 3.3, 6.10, Help dedication, FAQ).",
+   "severity": "medium"
+  },
+  {
+   "title": "unit-rendering-reference.html is a live development diary",
+   "evidence": "HTTP 200, noindex, not linked, not in sitemap. Header copy: 'A working, tested proof of concept for the four rendering upgrades from the build plan ... not wired into the live map (that map's own rendering code is inside a compiled bundle with no source project to edit) ... the moment that project is recovered or rebuilt'. The inventory DEVLOG rule missed it; it also loads mapbox-gl 3.24.1 from the CDN.",
+   "fix": "Delete it from the deploy or add a force=true 404 rule like diagnostics.html; add the page to the DEVLOG scan.",
+   "severity": "medium"
+  },
+  {
+   "title": "Rank-abbreviation function is wrong and partly dead code",
+   "evidence": "bundle.pretty.js:102536-102546 (uO) replaces 'Major General' with MG, 'Brigadier General' with BG, 'Lieutenant General' with LG, then 'General' with Gen and 'Colonel' with Col BEFORE 'Lieutenant Colonel', so lieutenant colonels render 'Lieutenant Col ...' and the 'Lt Col' branch never matches. The report's I11 lists only Gen/Col/Lt Col.",
+   "fix": "Use one ordered map with the style-guide forms (Maj. Gen., Brig. Gen., Lt. Gen., Lt. Col.) or full titles in the roster.",
+   "severity": "low"
+  },
+  {
+   "title": "'Search all 512 battlefield monuments' overclaims",
+   "evidence": "PDF p4 says 'search all 512 battlefield monuments'; data/monuments.json _note says the park has about 1,328 monuments and markers, so 512 (verified at bundle.pretty.js:104420-110700) is the site's subset.",
+   "fix": "Say '512 of the park's monuments' or state the selection rule on the Sources page.",
+   "severity": "low"
+  },
+  {
+   "title": "No offline support for pages, contrary to the drafted FAQ",
+   "evidence": "sw.js (76 lines) precaches 7 assets and caches /assets and /data responses only; the HTML handler is fetch().catch(caches.match) with no cache.put, so offline navigation fails. FAQ draft 4.4 #9 says 'Parts of the site are cached'.",
+   "fix": "Reword to 'needs a connection; repeat visits load faster' and keep any 'works offline' wording out of FAQ, Help and Press until HTML is precached.",
+   "severity": "low"
+  },
+  {
+   "title": "Embed kit snippet uses a nonexistent parameter and the wrong story",
+   "evidence": "Report 4.7 snippet is /embed?story=V-018 titled 'The Cannonade'; embed.html:38-43 reads params.get('vignette'), so 'story' is ignored and the day-of-year pick shows; V-018 is Cushing's Battery (V-017 is The Cannonade). The embed is a text card, not a map widget.",
+   "fix": "Use ?vignette=V-017 (or add a 'story' alias), correct the example title, describe the widget honestly, and add a test that the snippet renders the requested story.",
+   "severity": "medium"
+  },
+  {
+   "title": "Normaliser design hazards in docs-copy-06/02: proper-noun corruption, broken apostrophe search, dangling alias id",
+   "evidence": "The all-caps regex hits 57 distinct phrases (EAST CAVALRY FIELD, FIRST UNION ARTILLERY, CEMETERY HILL ASSAULT, LOUISIANA TIGERS CHARGING, EMPTY XII, ALL III) that an algorithmic sentenceCase() would corrupt; curly apostrophes in designation/name/title break includes()-based searches (bundle.pretty.js:98768, :98798, search.html, historian score()); deleting U-14BK leaves 'U-14BK' in union_oob_brigades.json line 14 regiment_ids.",
+   "fix": "Use a curated phrase map plus an un-normalised _q search key, patch every matcher (including the minified in-app search) to normalise queries, and add a build-time referential-integrity check on every id list.",
+   "severity": "medium"
+  }
+ ]
+}

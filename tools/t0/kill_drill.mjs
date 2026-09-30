@@ -1,0 +1,17 @@
+import { launch } from './cdp.mjs';
+import { spawn } from 'node:child_process';
+const PORT = 8211; let srv;
+const startSrv = (dir) => new Promise(r => { srv = spawn('node', ['serve.mjs', dir, String(PORT)], { stdio: 'ignore' }); setTimeout(r, 900); });
+const stopSrv = () => new Promise(r => { try { srv.kill(); } catch {} setTimeout(r, 500); });
+await startSrv('r0_tree');
+const c = await launch(9421, 1440, 900, false);
+await c.send('Page.addScriptToEvaluateOnNewDocument', { source: "try{localStorage.setItem('gtbg_onboarded','1')}catch(e){}" });
+await c.send('Page.navigate', { url: `http://127.0.0.1:${PORT}/` });
+await c.sleep(10000);
+const st = async () => ({ ctl: await c.ev(() => !!navigator.serviceWorker.controller), reg: await c.evs("navigator.serviceWorker.getRegistrations().then(r=>r.map(x=>({a:x.active&&x.active.scriptURL,w:!!x.waiting})))"), caches: await c.evs("caches.keys()") });
+console.log('before kill:', JSON.stringify(await st()));
+await stopSrv(); await startSrv('kill_tree');
+await c.send('Page.navigate', { url: `http://127.0.0.1:${PORT}/` });
+await c.sleep(9000);
+console.log('after kill deploy + 1 navigation:', JSON.stringify(await st()), '| root children', await c.ev(() => document.getElementById('root').childElementCount));
+await stopSrv(); await c.close(); process.exit(0);

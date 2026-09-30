@@ -1,0 +1,878 @@
+{
+ "agent": "seo-growth",
+ "summary": "Full plan in seo-growth.md (38 fix specs, 9 sections, 7 appendices). Core finding: the traffic gap is a 3.5-month-old domain (RDAP: registered 2026-06-13, expires 2027-06-13) plus a thin, JS-rendered, non-unique surface, not a Lighthouse issue. Search referrals are 173/2,221 (7.8%); Bing+DDG+Yahoo (110) exceed Google (63). New verified facts: Search Console verification file is 404 and DNS has no TXT (ownership likely lost); the OG/PWA image is a corrupt near-black gradient used on 21 pages; 10 of 20 sub-pages lack twitter:card; friendly-lolly-da85c0.netlify.app serves the full site with 200 and no redirect; /landing.html (old pricing page) 404s; 10 pages link to /index.html; sitemap has 21 URLs and no lastmod. Programmatic pages built from today's data would be thin (regiment median 17 words, brigade median 120, 0 of 101 reach 250; 127 units share duplicate key_action), so the plan tiers indexation, gates it on measured uniqueness (CI thin-content gate), and funds an enrichment corpus shared with the Historian expansion. Plan covers: GSC/Bing/IndexNow, canonical/redirect system (extensionless), rename to Gettysburg Interactive Map (competitor collision with ABT and the paid Savas Beatie app), landing-first home with app at /map (with cloaking risk matrix: not cloaking by Google's definition but fragile), JSON-LD per template, build-time OG images, static mini-maps (protects Mapbox quota), ~340 Tier-A URLs (moments, OOB tree, places, ancestors by state, learn, trust; up to ~580 with Tier B and Q&A), E-E-A-T pages, open dataset with DOI, AI-crawler policy and llms.txt, keyword map, 9-competitor review, outreach programme with named targets, classroom kit, embeds, video, editorial calendar, cookieless analytics with privacy-policy update, bot-segmentation experiments, monitoring/CI, 12-week roadmap with KPIs (search referrals 173 -> 500/30d, AI 14 -> 50, +20 referring domains by day 90) and risk register. Effort: ~77.5 person-days total, ~50 in the 90-day scope, 33 for a core subset if capacity is under 3 days/week. Targets are planning numbers (no keyword-volume data available); provenance/licensing questions (Busey and Martin; three data notes referencing a 'Gettysburg Animated YouTube vignette') need owner answers before open-licensing or scaling.",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/seo-growth.md",
+ "findings": [
+  {
+   "id": "seo-growth-01",
+   "title": "Re-establish Search Console and Bing Webmaster ownership (DNS TXT), submit sitemaps, add IndexNow",
+   "severity": "high",
+   "evidence": "google0dca4879c9657741.html existed in deploy B only (deploy-history.md:114) and now 404s; nslookup -type=TXT returns SOA only (no verification records); no google-site-verification/msvalidate meta in deploy:index.html head. DNS is Netlify DNS (NS1).",
+   "root_cause": "Verification was an HTML file dropped by a later hand-assembled deploy; nothing durable (DNS/meta) replaced it.",
+   "fix": "Add a Domain property in GSC via TXT in Netlify DNS; import to Bing Webmaster Tools; submit sitemap.xml in both; request indexing for 6 hub URLs; add IndexNow key file at root and POST changed URLs from the deploy step; snapshot baselines (Performance, Pages, Links, Crawl stats, Bing inbound links); add a second owner account.",
+   "effort": "S",
+   "acceptance_test": "Both properties show Ownership verified via DNS; sitemap status Success; URL Inspection returns a status for 6 seeded URLs within 14 days; IndexNow key file returns 200 and first POST returns 200/202.",
+   "metric_or_grade_moved": "Measurement, indexing speed, every SEO KPI (T1)",
+   "depends_on": [],
+   "audit_refs": [
+    "T1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "All evidence reproduced (404, TXT SOA-only, no meta, deploy-history.md:114, NS1). Addition: the original 52-byte google0dca4879c9657741.html still exists in Downloads and tmp-deploy-history/b_jun23; restoring it can re-verify the old property with history before or alongside the DNS Domain property. IndexNow POST from the deploy step needs a pipeline that does not exist yet (manual zip deploys)."
+  },
+  {
+   "id": "seo-growth-02",
+   "title": "Replace the corrupt og:image/PWA screenshot with valid distinct cards; complete twitter/og tags on all pages",
+   "severity": "high",
+   "evidence": "screenshots/day3.png (used by og:image/twitter:image on 21 pages and both manifest screenshots): IHDR RGB 1280x720 but IDAT inflates to 3,687,120 B (RGBA rows); PIL raises 'unrecognized data stream contents'; decoded as RGBA it is a near-black gradient with 80 colours; day1.png is byte-identical (md5 3f6646c9...). 10 pages lack twitter:card (ar, cinematic-export, find-ancestor, ground-remembers, historian, immersive, living-ledger, regiment, turning-points, watch-together); no og:site_name/og:image:width/height/alt anywhere; only index.html links icons/manifest.",
+   "root_cause": "A generator wrote a mismatched header and a synthetic gradient; the same file was reused for two 'days' and copy-pasted into later pages.",
+   "fix": "Interim: hand-made 1200x630 8-bit RGB og/default.png <= 150 KB with real map crop and brand; two genuine 1280x720 and two 750x1334 manifest screenshots; point all og/twitter images at it; add og:image:width/height/alt, twitter:image:alt, og:site_name, og:locale; add twitter block to the 10 pages and og to privacy/terms; add icon/apple-touch-icon/manifest/theme-color links to every page; re-scrape in Facebook Debugger and LinkedIn Inspector. Final per-page art is seo-growth-11.",
+   "effort": "S",
+   "acceptance_test": "Pillow decodes every referenced image; curl -I shows image/png <= 200 KB; Facebook debugger shows a valid 1200x630 card for /, /documentary, /find-ancestor; grep finds twitter:card on all 20 sub-pages; CI fails on a non-decoding og image.",
+   "metric_or_grade_moved": "Share previews, click-through from shares, PWA install sheet; SEO/social",
+   "depends_on": [],
+   "audit_refs": [
+    "T1",
+    "E1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Core defect exactly reproduced. Fixes: twitter:image is on 11 pages (og:image on 21); Slack has no /unfurl command (no purge API, cache about 30 min; use a new image URL, ?v=, or delete and repost); interim real screenshots would bake in C3/C4/C1/C2 defects (see MISSED-7)."
+  },
+  {
+   "id": "seo-growth-03",
+   "title": "One canonical URL per page: extensionless canonicals, generated 301s, netlify.app host redirect, /landing.html, fix internal /index.html links",
+   "severity": "high",
+   "evidence": "curl: / and /index.html, /dashboard and /dashboard.html, /historian and /historian.html all 200; friendly-lolly-da85c0.netlify.app serves full site 200 with no X-Robots-Tag or redirect; /landing.html (old pricing page in Aug 22 sitemap) now 404; http://www takes two hops. Netlify Analytics lists /index.html (86) beside / (1,713) and /historian (68) beside /historian.html (42). 10 pages link 'Back to the map' to /index.html (aftermath:41, camera:46, compare:53, dashboard:58, documentary:47, education:42, report:49, sandbox:52, search:50, viewshed:43). netlify.toml comment on the diagnostics rule proves force=true is required because Netlify serves an existing file before redirects.",
+   "root_cause": "Netlify serves /x and /x.html for the same file, nothing redirects, and internal links/emitters use /index.html and .html.",
+   "fix": "Decision: extensionless, no trailing slash, apex, https. Generate explicit force=true 301 rows (from the page manifest) for /X.html -> /X, /index.html -> /, /landing.html -> /, and https://friendly-lolly-da85c0.netlify.app/* -> apex; set primary domain so http://www is one hop. In the same deploy change every canonical, og:url, sitemap loc, JSON-LD url and internal href (site-nav.js GROUPS, #seo-content nav, 10 back links, emitters documentary.html:92, education.html:81, search.html, historian.html:110, embed.html:60, regiment.html:247, turning-points.html:118) to the canonical form; strip utm/ref with history.replaceState. Note divergence: prov-recon-35 keeps .html; either works if consistent.",
+   "effort": "M",
+   "acceptance_test": "Appendix D curl matrix: every legacy variant returns exactly one 301 to canonical and final 200 with matching link rel=canonical; netlify.app returns 301; Netlify Analytics shows no .html or /index.html rows after 7 days; GSC shows extensionless URL as user-declared canonical.",
+   "metric_or_grade_moved": "Analytics accuracy, link consolidation, crawl efficiency (T3)",
+   "depends_on": [],
+   "audit_refs": [
+    "T3",
+    "E5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Curl matrix, Analytics rows (/ 1,713, /index.html 86, /historian 68, /historian.html 42), the 10 back-link lines and the netlify.app 200 all confirmed, and the force redirect is right (Netlify does not auto-redirect the default subdomain). Corrections: historian.html:110, regiment.html:247 and turning-points.html:118 already emit root-form /?tick=, /?unit=; the /index.html emitters are documentary:92, education:81, embed:60, search:114/127/139. Setting the apex as primary domain is a no-op because apex is already primary and the second hop is Netlify's HTTPS upgrade. The plan does not re-key path-scoped netlify.toml rules for extensionless URLs (MISSED-1) and leaves the conflict with prov-recon-35/36 (.html canonical) unresolved."
+  },
+  {
+   "id": "seo-growth-04",
+   "title": "Decide and apply the name 'Gettysburg Interactive Map' (drop 'Animated Battlefield Map' and 'minute-by-minute')",
+   "severity": "medium",
+   "evidence": "Title/H1/JSON-LD/manifest say 'Gettysburg Animated Battlefield Map' (deploy:index.html:14,718; manifest.json name) while the domain says 'interactive'. Competitors: ABT 'Gettysburg Animated Map', Savas Beatie 'Gettysburg Animated Battle Map APP' ($49.95, 430,000+ placements), YouTube 'Gettysburg - Fully Animated', 2019 film 'Gettysburg/Antietam: Animated Battle Map' on Apple TV/Tubi (WebSearch). Copy says 'minute-by-minute' beside 'five-minute snapshots' (index.html:718-719).",
+   "root_cause": "Title chosen from the feature, not the search landscape; the exact phrase is shared with a paid product and video content.",
+   "fix": "Brand 'Gettysburg Interactive Map'; title pattern '{keywords} | Gettysburg Interactive Map' (<=60, drop brand if longer); home 'Gettysburg Interactive Map: The Battle in Five-Minute Steps' (59); WebSite name + alternateName ['Gettysburg Animated Battlefield Map'] for transition; manifest name/short_name; add 'not affiliated with NPS, ABT or any publisher' line; update all 23 titles, site-nav brand, privacy/terms, guide PDF, embed. Owner to weigh the trademark-confusion point with advice.",
+   "effort": "M",
+   "acceptance_test": "grep -ri 'Animated Battlefield Map' finds only alternateName and changelog; all indexable titles <= 60; GSC site-name test shows new name after recrawl.",
+   "metric_or_grade_moved": "Brand queries, SERP CTR, consistency (E2)",
+   "depends_on": [],
+   "audit_refs": [
+    "E2",
+    "T1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Title/h1/manifest lines and Savas Beatie figures verified ($49.95, 430,000+, 2,400+, 8,000+, 8 yrs, Tom Marchesani). Minor: the YouTube channel is 'Gettysburg Battle - Fully Animated'; the Apple TV listing is unconfirmed; the 2019 Tubi film is an ABT product; the acceptance grep for 'minute-by-minute' misses 'minute by minute' in site-nav.js:46 and living-ledger.html."
+  },
+  {
+   "id": "seo-growth-05",
+   "title": "Per-page metadata, indexability disposition and visible intro copy for all 27 HTML files",
+   "severity": "medium",
+   "evidence": "Static word counts of the 20 feature pages: 27 (search) to 330 (aftermath), median ~100; 4 titles >60 chars (aftermath 71, dashboard 67, find-ancestor 67, education 61); 11 descriptions <110 chars; content of documentary/turning-points/education/find-ancestor/historian/regiment is fetch()-rendered (documentary.html:88-91, turning-points.html:51).",
+   "root_cause": "37-character brand suffix crowds titles; pages are tool shells with JS-injected content.",
+   "fix": "Apply the disposition table in the report: index pages get >=150 server-rendered words, one h1, breadcrumbs, JSON-LD; search.html and /map noindex,follow; compare/camera/sandbox/viewshed/ground-remembers/living-ledger/immersive index only if >=150 unique words; education merges into /learn; unit-rendering-reference removed from production; new titles <=60 and descriptions 120-155.",
+   "effort": "M",
+   "acceptance_test": "Crawl script: one h1 per page, titles <=60, descriptions 120-155, no duplicates, all Index pages >=150 raw-HTML words; GSC shows no 'Duplicate, submitted URL not selected as canonical'.",
+   "metric_or_grade_moved": "CTR, relevance, thin-content risk",
+   "depends_on": [
+    "seo-growth-03",
+    "seo-growth-04"
+   ],
+   "audit_refs": [
+    "T1",
+    "E3"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Titles over 60 (71/67/67/61) exact; descriptions under 110 = 11 including privacy/terms; static word counts within method tolerance (mine 20-321 vs 27-330). turning-points.html content is an inline JS array (const POINTS, lines 50-100), not fetch()-rendered."
+  },
+  {
+   "id": "seo-growth-06",
+   "title": "Sitemap index with real lastmod, robots.txt with explicit AI-crawler policy, llms.txt",
+   "severity": "medium",
+   "evidence": "deploy:sitemap.xml has 21 <loc>, 0 <lastmod>, only changefreq/priority; robots.txt is 'User-agent: * / Allow: /' plus Sitemap; /llms.txt 404. Sample robots.txt validated with urllib.robotparser (GPTBot allowed /moments but blocked /data/; Googlebot/Bingbot/OAI-SearchBot allowed /data/).",
+   "root_cause": "Sitemap was a single hand-made list; no crawler policy or per-section reporting.",
+   "fix": "sitemap.xml becomes an index of per-section files (core, moments, battle, units, places, people, ancestors, learn, trust) so GSC reports indexed/submitted per template; lastmod from git content date; drop changefreq/priority; robots: default allow, training-crawler group (GPTBot, ClaudeBot, CCBot, Google-Extended, Applebot-Extended, Bytespider, meta-externalagent) Disallow /data/, search/answer bots and user fetchers in default group (OAI-SearchBot must stay allowed for ChatGPT search); llms.txt + llms-full.txt (low expected value, cheap); max-image-preview:large meta; cache sitemaps 3600 s.",
+   "effort": "S",
+   "acceptance_test": "Robotparser matrix passes; index validates in GSC and Bing with each child Success; every child URL is 200, indexable, self-canonical (CI); /llms.txt 200 text/plain.",
+   "metric_or_grade_moved": "Discovery, per-section indexing stats, AI visibility (E5)",
+   "depends_on": [
+    "seo-growth-03"
+   ],
+   "audit_refs": [
+    "E5",
+    "T1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Sitemap 21 loc/0 lastmod, 3-line robots.txt, /llms.txt 404, both cached 86,400 s verified; OpenAI doc confirms OAI-SearchBot must not be blocked for ChatGPT search and ChatGPT-User may ignore robots. Non-OpenAI/Anthropic crawler token spellings remain unverified, as the report says."
+  },
+  {
+   "id": "seo-growth-07",
+   "title": "Domain continuity: renew multi-year, keep lock, add second contact",
+   "severity": "medium",
+   "evidence": "RDAP: registration 2026-06-13, expiration 2027-06-13 (one week before the June 26-July 3 anniversary peak), status client transfer prohibited; single Gmail contact in site footer (site-nav.js:194).",
+   "root_cause": "Default one-year registration.",
+   "fix": "Enable auto-renew, renew 5-10 years, second contact email, calendar reminder 2027-05-13.",
+   "effort": "S",
+   "acceptance_test": "RDAP expiration >= 2031-06-13; registrar shows auto-renew on.",
+   "metric_or_grade_moved": "Continuity of all backlinks",
+   "depends_on": [],
+   "audit_refs": [
+    "T1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "RDAP: registered 2026-06-13, expires 2027-06-13, client transfer prohibited."
+  },
+  {
+   "id": "seo-growth-08",
+   "title": "Manifest and PWA discoverability hygiene",
+   "severity": "medium",
+   "evidence": "deploy:manifest.json: orientation landscape; purpose 'any maskable' on both icons; no id/lang; screenshots point to the corrupt duplicated file; icons decode fine (4 colours, inset border).",
+   "root_cause": "Landscape-only app assumption and copied manifest template.",
+   "fix": "Remove orientation; id '/map' ('/' until landing-first ships); start_url '/map?source=pwa' after 09; lang en-US; name/short_name per 04; split any/maskable icons with safe-zone art; wide+narrow real screenshots with form_factor; shortcuts (Day 1/2/3 ticks, order of battle).",
+   "effort": "S",
+   "acceptance_test": "Lighthouse installability passes; DevTools Manifest shows no warnings and shows screenshots; portrait phone installs and rotates.",
+   "metric_or_grade_moved": "Installability, Best Practices, mobile UX",
+   "depends_on": [
+    "seo-growth-02"
+   ],
+   "audit_refs": [
+    "E1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Manifest facts exact. Hazard: setting id '/' now and '/map' when landing-first ships changes PWA identity for installed users; pick a permanent id now and change only start_url."
+  },
+  {
+   "id": "seo-growth-09",
+   "title": "Landing-first home (static / with app at /map), single h1, retire #seo-content; cloaking risk assessment",
+   "severity": "high",
+   "evidence": "3 h1 in index.html (718 #seo-content, 744 splash, 753 noscript); #seo-content sits inside #root (717) under fixed #boot-splash and is removed by script at index.html:425 and by createRoot; after JS the indexed DOM is an app shell with no h1/copy (audit D2); perf-cwv-05 measured it as a leading LCP candidate. Google policy (fetched): cloaking = different content to users vs engines; hidden text = content not easily viewable by users. Same HTML goes to all UAs, text is truthful but never visible to users.",
+   "root_cause": "Content for crawlers was bolted under the splash because the app has no text surface.",
+   "fix": "Option 0 (interim, perf-cwv-05): one visible hero, splash h1 -> p. Option A (target): static / with h1, 40-60-word answer-first summary, CTA to /map, hub cards, three sourced facts, accuracy bullets, changelog snippet, crawlable footer; inline redirect script sends returning users (localStorage gtbg_seen) and deep links (?tick,t,at,unit,u,vignette,ancestor,ll,z,lat,lng) to /map preserving query/hash; /map is noindex,follow with its own visually-hidden h1; PWA start_url /map. Option B fallback: SSR shell with a permanent About drawer.",
+   "effort": "L",
+   "acceptance_test": "curl / shows exactly one h1, >=250 unique words, all hub links without JS; GSC URL Inspection rendered HTML has the same h1/copy; landing LCP <=1.5 s mobile lab; ?tick=300 and ?ancestor=U-20ME open the map directly; /map noindex and absent from sitemap.",
+   "metric_or_grade_moved": "SEO (indexable home), LCP/FCP, AI-crawler visibility (E3, E4)",
+   "depends_on": [
+    "prov-recon-35",
+    "prov-recon-16",
+    "perf-cwv-04",
+    "bundle-anatomy-15",
+    "app-time-06",
+    "perf-cwv-05"
+   ],
+   "audit_refs": [
+    "E3",
+    "E4",
+    "T1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence and Option A are sound (3 h1 at index.html:718/744/753; #seo-content inside #root; removal at 424-425 needs 3 labelled buttons; policy definitions correct). Gaps: SW registration and PRECACHE (index.html:258-275, sw.js) would install the whole app for every landing visitor (MISSED-2); site-nav.js:212 back-link/bfcache logic keys on a[href='/'] and the redirect gate uses gtbg_seen while existing users only have gtbg_onboarded=1 (bundle.pretty.js:112951, 113068) (MISSED-3)."
+  },
+  {
+   "id": "seo-growth-10",
+   "title": "Structured data programme: one JSON-LD @graph per template, validated in CI",
+   "severity": "medium",
+   "evidence": "JSON-LD exists only on index.html:27-38 (WebApplication without offers; nested Event without location). Search Central gallery (fetched) lists Article, Breadcrumb, Dataset, Event, Organization, Profile page, Software app, Video and no FAQ/HowTo/Sitelinks search box. Three samples written and parsed as valid JSON.",
+   "root_cause": "Only the home page got markup, hand-written.",
+   "fix": "Matrix in section 4.5: home WebSite+Person+WebApplication(offers 0, ViewAction)+Event as about (with location); Article+BreadcrumbList for moments/turning points/Q&A/guide; LearningResource for lessons; Place for places; Organization mainEntity for units; Person only for sourced commanders with confirmed sameAs; Dataset on /data; VideoObject later. No FAQ/HowTo/fabricated ratings; dateModified from git; CI schema check.",
+   "effort": "M",
+   "acceptance_test": "Rich Results Test and Schema Markup Validator 0 errors on one URL per template; GSC Breadcrumbs valid >=95% of indexable non-home URLs within 30 days; CI fails on Event without location.",
+   "metric_or_grade_moved": "Entity understanding, Breadcrumb rich results, Dataset Search eligibility",
+   "depends_on": [
+    "seo-growth-04",
+    "seo-growth-13"
+   ],
+   "audit_refs": [
+    "T1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "JSON-LD only at index.html:27-38, Event has no location, WebApplication no offers; search gallery lists Article/Breadcrumb/Dataset/Event/Organization/Profile page/Software app/Video and omits FAQ, HowTo and Sitelinks search box."
+  },
+  {
+   "id": "seo-growth-11",
+   "title": "Build-time dynamic OG images per page (Satori + resvg), with alt text and validation",
+   "severity": "medium",
+   "evidence": "All 26 pages share one broken image; no og:image:alt anywhere.",
+   "root_cause": "No image pipeline.",
+   "fix": "Node step emits /og/<template>/<slug>.<hash8>.png 1200x630 <=120 KB: dark field, gold rule, eyebrow (date/place from TimeModel), 2-line serif title, own SVG mini-map with USGS contours (avoid Mapbox imagery pending terms review), wordmark; cache by input hash; emit og/twitter image + width/height/alt; default fallback.",
+   "effort": "M",
+   "acceptance_test": "CI decodes every image with Pillow, asserts 1200x630, <=200 KB and non-uniform pixels; 5 URLs pass Facebook and LinkedIn debuggers; alt present on all.",
+   "metric_or_grade_moved": "Share CTR, image-search eligibility, brand",
+   "depends_on": [
+    "seo-growth-13",
+    "seo-growth-12"
+   ],
+   "audit_refs": [
+    "T1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Broken image is referenced by 21 pages, not 'all 26' (6 files have no og:image)."
+  },
+  {
+   "id": "seo-growth-12",
+   "title": "Static-first content pages: SVG mini-maps, no map engine on content pages, click-to-load only",
+   "severity": "high",
+   "evidence": "Sub-pages load a second 1.8 MB mapbox-gl from CDN (bundle-anatomy-18, pagesB-02); Mapbox token appears unrestricted (X1); JS-rendering crawlers on ~600 pages would burn billable map loads (free allowance was 50,000/month when last known; verify).",
+   "root_cause": "Every existing map page boots a full GL map on load.",
+   "fix": "Programmatic pages ship static HTML with inline SVG mini-map (<=15 KB, role=img with title/desc, real coordinates), 'Open on the interactive map' link, zero third-party requests, JS <=15 KB; where a live map helps, a 'Load interactive map' button injects Mapbox on click only. Budgets: HTML <=35 KB raw, CSS inline <=10 KB, LCP = text or SVG.",
+   "effort": "M",
+   "acceptance_test": "Lighthouse mobile >=98 on one page per template with 0 third-party requests; no mapbox request until button press; Mapbox map-loads flat during a staging crawl.",
+   "metric_or_grade_moved": "LCP/INP for entry pages (site-wide RUM p75), cost/quota",
+   "depends_on": [
+    "perf-cwv-20",
+    "bundle-anatomy-18"
+   ],
+   "audit_refs": [
+    "T1",
+    "P1",
+    "X1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "8 feature pages plus unit-rendering-reference load mapbox-gl 3.24.1 (1,796,551 B raw) from api.mapbox.com (not all sub-pages). Mapbox pricing: 50,000 free map loads, $5 per 1,000 beyond, counted on each GL JS init."
+  },
+  {
+   "id": "seo-growth-13",
+   "title": "Content-gated programmatic engine: generator, URL taxonomy, tiers, thin-content gate, staged release",
+   "severity": "high",
+   "evidence": "Measured on deploy:data: regiment median 17 usable words (47/466 >=30, 1 >=100); brigade pages median 120 words (0/101 >=250; 93 records for 101 ids, 8 VI Corps missing); 127 units share 48 duplicate key_action strings ('Army reserve.' x20); chronology labels compressed (Day 2: 8 events at 8 am, 1/hour 2-6 pm). Google spam policy defines scaled content abuse as many pages generated without adding value.",
+   "root_cause": "Dataset is a game-engine database with one-line prose per entity.",
+   "fix": "Astro getStaticPaths (or standalone Node script on the legacy tree) over data/v2 + entities + names + unit_counts + excerpts + TimeModel; 13 templates, ~340 Tier-A URLs (up to ~580 with Tier B and Q&A); slugs.lock.json append-only, /u/{id} short links; Tier A publish when gate passes, Tier B regiments only with enrichment (60 by day 90, up to ~180), Tier C (~390 units) anchored on brigade pages; CI gate (min words, boilerplate<=0.35, 5-gram similarity<0.5, >=6 facts, source, own lead, no dev-copy); release train <=100 URLs/week with owner read of 10 random pages; pause rule if 'Crawled - not indexed' >25%; block clock-time pages on app-time; counts from unit_counts lint.",
+   "effort": "XL",
+   "acceptance_test": "gate-report.json with 0 Tier-A failures; per-template sitemaps; GSC per-sitemap indexed/submitted >=80% for batches >30 days old; no template >25% 'Crawled - currently not indexed'; raw HTML contains all content.",
+   "metric_or_grade_moved": "Indexable surface 21 -> ~340+, long-tail impressions, AI visibility",
+   "depends_on": [
+    "prov-recon-35",
+    "prov-recon-37",
+    "pagesA-19",
+    "pagesB-53",
+    "seo-growth-14",
+    "seo-growth-03",
+    "seo-growth-10",
+    "seo-growth-11",
+    "seo-growth-12"
+   ],
+   "audit_refs": [
+    "T1",
+    "E4",
+    "E5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Duplicate key_action (127 units/48 strings), 40 units with 100+ char key_action, 93/101 brigades with 8 VI Corps missing and 151 units at 40%+ loss reproduce. Regiment stats differ slightly (median 18, 33 with 30+ words, 0 with 100+), and the brigade median is 112 with 0 at 250+; tier_proto.py itself prints median 146 and 4 at 250+ (it counts JSON keys), so the report's numbers are not reproducible from the cited script. Item 8 is factually wrong: Netlify redirects can match query params (/regiment unit=:unit /units/:unit 301!). 'flag note 31' and the union of 180 Tier-B candidates are not reproducible (157 with vignette-featured; chronology flags give 110)."
+  },
+  {
+   "id": "seo-growth-14",
+   "title": "Enrichment corpus that makes entity pages genuinely unique (shared with Historian expansion)",
+   "severity": "high",
+   "evidence": "key_action >=100 chars for only 40 of 467; Historian-sources workstream already holds OR Vol. 27 text (tmp-hist-sources-1/or27_*.txt, quality not inspected); data notes at terrain.json:38, union_artillery.json:91, placements_day1_ticks1_50.json:80 name a 'Gettysburg Animated YouTube vignette'.",
+   "root_cause": "No prose layer beyond one-line key_action.",
+   "fix": "data/curated/excerpts.json schema {entity id, source id, locator, text<=120 words, scan url, license, reviewer}. Buckets: computed (loss-rate rank, share of brigade losses, distance moved, nearest landmark per keyframe, monuments within 300 m, succession chain, state cohort, vignette links via ancestors); public-domain primary text (OR Vol. 27, state monument-commission volumes, Dawes, Oates, Fox) verified on IA/HathiTrust; restricted (Busey and Martin book: attribute, get advice, consider asking publisher; Wikipedia CC BY-SA facts only); NPS content. Provenance check on the three YouTube-vignette notes before scaling or open-licensing. Extractor + human review queue + lint.",
+   "effort": "XL",
+   "acceptance_test": "60 Tier-B units each have >=1 approved primary excerpt and >=250 words, gate passes, every quote traceable to a scan in <=2 clicks.",
+   "metric_or_grade_moved": "Content depth, E-E-A-T, unit pages, AI citations",
+   "depends_on": [
+    "seo-growth-13"
+   ],
+   "audit_refs": [
+    "T1",
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "key_action 100+ chars = 40, OR27 text files exist, data notes at terrain.json:38, union_artillery.json:91 and placements_day1_ticks1_50.json:80 confirmed, license statements consistent. Extension: a fourth YouTube-vignette note at chronology_day1.json:31, and provenance includes copyrighted atlases and Google imagery (MISSED-5)."
+  },
+  {
+   "id": "seo-growth-15",
+   "title": "Moment pages (24) and /moments hub",
+   "severity": "high",
+   "evidence": "24 vignettes, 7,205 words (206-375 each); documentary.html:88-91 renders one at a time with no URLs; education.html:66 same JSON; SERP for 'what time did Pickett's Charge start' is ABT time-slice static maps, Wikipedia, HistoryNet, LoC.",
+   "root_cause": "Best narrative content has no addressable, crawlable form.",
+   "fix": "/moments/{slug}: h1 title, eyebrow date/time from TimeModel, 40-60-word answer-first block, paragraph-split narrative, who was there (ancestor-resolved units), the ground (SVG + place link), around this hour, debate link, per-vignette sources, map CTA, prev/next, cite box; >=450 words; title '{Vignette}, {Place}: July 2, 1863' (<=60); hub with day sections + ItemList; documentary player links to moment URLs.",
+   "effort": "L",
+   "acceptance_test": "24 pages pass gate; raw HTML has full narrative; Rich Results Test valid Article+Breadcrumb; CTAs open right tick once app-time-06 ships; >=20 of 24 indexed within 45 days.",
+   "metric_or_grade_moved": "Long-tail queries, AI citations, internal-link hub",
+   "depends_on": [
+    "seo-growth-13",
+    "seo-growth-10",
+    "seo-growth-11",
+    "seo-growth-12",
+    "pagesB-53",
+    "pagesB-14",
+    "app-time-02"
+   ],
+   "audit_refs": [
+    "T1",
+    "E4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "24 vignettes, 208-378 words (total 7,271 vs 7,205: counting method), no per-vignette sources, documentary.html:88-92 and education.html:66 as described."
+  },
+  {
+   "id": "seo-growth-16",
+   "title": "Battle-by-day and part-of-day pages with hour anchors (blocked on time model)",
+   "severity": "high",
+   "evidence": "Chronology labels compressed (137 events, 38 distinct hours, Day 2 has 1 event/hour 2-6 pm); SERP for hourly timelines is CivilWarTalk, Stone Sentinels (3 day pages; July 2 has 40-50 entries, >15,000 words), History.com, ABT, Wikipedia.",
+   "root_cause": "Time model wrong (C4) and event density too sparse for 56 hour pages.",
+   "fix": "3 day hubs + ~13 part-of-day pages with boundaries from corrected clock/event density; each: authored intro, timeline from TimeModel, computed 'where the corps were' table from placements, SVG casualty chart, moments/places in window, sources, >=500 words, h3 hour anchors; all-in-one chronicle from app-a11y-12 is noindex,follow to avoid duplicate text.",
+   "effort": "L",
+   "acceptance_test": "No clock time printed disagrees with TimeModel.format(tick) (link-checker); each page >=500 words; Pickett's Charge ~3 pm July 3, not 11:05 am.",
+   "metric_or_grade_moved": "'battle map by hour' queries, historical consistency",
+   "depends_on": [
+    "app-time-02",
+    "app-time-03",
+    "app-time-04",
+    "app-time-05",
+    "seo-growth-13",
+    "seo-growth-15"
+   ],
+   "audit_refs": [
+    "C4",
+    "T1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Chronology facts exact (137 events, 38 hour keys, Day 2 has 8 events at 8:05-8:55 am and 1 per hour 2:20-6:20 pm). Stone Sentinels competitor stats overstated: direct curl counts are about 6.3k (Jul 1), 9.4k (Jul 2, 22 timestamped entries) and 7.0k (Jul 3) words, not 15k+/40-50 entries. Strategy unaffected."
+  },
+  {
+   "id": "seo-growth-17",
+   "title": "Order-of-battle hub tree: corps, divisions, 101 brigades, gated regiment/battery pages",
+   "severity": "high",
+   "evidence": "93 brigade records for 101 referenced ids (8 VI Corps missing); brigade-level positions stand in for 422 regiments (pagesB-44); alias stub U-14BK; competitor Stone Sentinels per-regiment pages have GPS, inscriptions, photos.",
+   "root_cause": "Unit content exists only inside a JS tool.",
+   "fix": "Templates for /units, side pages, ~13 corps, 31 divisions, 101 brigades, Tier-B regiments/batteries; brigade page with nickname, commander/succession, numbers, computed ranks, regiments table, own-keyframe SVG track, monuments, OR excerpt; regiment page with answer-first sentence, honest 'Brigade position' label when inherited; alias 301s; titles per patterns; JSON-LD WebPage+Organization+Breadcrumb; internal cross-links.",
+   "effort": "XL",
+   "acceptance_test": "101 brigade + 13 corps + 31 division pages pass gate (VI Corps after records exist); >=60 regiment pages within 90 days; /u/U-20ME 301s; regiment?unit= lands on unit page; OOB sitemap >=80% indexed by day 60 for released batches.",
+   "metric_or_grade_moved": "Unit/genealogy long tail, internal-link depth",
+   "depends_on": [
+    "seo-growth-13",
+    "seo-growth-14",
+    "pagesA-19",
+    "pagesB-44",
+    "pagesB-45",
+    "pagesB-53",
+    "prov-recon-37"
+   ],
+   "audit_refs": [
+    "T1",
+    "H10"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "93/101 brigade records, VI Corps ids U-VI-1-1..U-VI-3-3 missing, alias stub U-14BK, 11 corps and 31 divisions, Stone Sentinels regiment page live."
+  },
+  {
+   "id": "seo-growth-18",
+   "title": "Place pages (30 key locations + structures/roads) from computed neighbours, gated on elevation fix",
+   "severity": "medium",
+   "evidence": "terrain.json: 30 key_locations with ~19-word significance; pagesB-35 finds elevations/coordinates disagree with USGS 3DEP; 512 monuments with coordinates in bundle.",
+   "root_cause": "Locations are one-line records; elevations unverified.",
+   "fix": "/places/{slug}: 150-250 authored words (~6,000 total) plus computed monuments within 400 m, moments/events at location, units with keyframes within 300 m, verified elevation, SVG contour mini-map, Place JSON-LD with geo and containedInPlace.",
+   "effort": "L",
+   "acceptance_test": "Gate pass; elevations equal 3DEP-verified values within 1 ft (CI); each place lists >=1 monument or unit; Rich Results Test valid.",
+   "metric_or_grade_moved": "Landmark queries, map-to-page linking",
+   "depends_on": [
+    "pagesB-35",
+    "pagesB-36",
+    "seo-growth-13",
+    "seo-growth-12"
+   ],
+   "audit_refs": [
+    "T1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "terrain.json: 30 key_locations (avg 19.2 words), 8 roads, 8 structures, 4 terrain features. Elevation-mismatch claim rests on pagesB-35 and was not re-verified."
+  },
+  {
+   "id": "seo-growth-19",
+   "title": "Commander pages: ~40 Tier-A people, not 686",
+   "severity": "medium",
+   "evidence": "686 distinct commander names across OOB, 99 general-rank, 42 succession events, 64 individual monuments.",
+   "root_cause": "Commanders are fields, not entities.",
+   "fix": "Tier-A = army/corps/division commanders plus anyone in a vignette, turning point or succession; page with chain of command, quoted fate, succession events, moments, units, monument, excerpts, sources; Person JSON-LD with confirmed sameAs only; others remain rows on brigade pages.",
+   "effort": "M",
+   "acceptance_test": "40 pages pass gate (>=200 words); every claim sourced; sameAs URLs manually confirmed.",
+   "metric_or_grade_moved": "'General X at Gettysburg' long tail, entity graph",
+   "depends_on": [
+    "seo-growth-13",
+    "seo-growth-14",
+    "seo-growth-17"
+   ],
+   "audit_refs": [
+    "T1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "686 distinct commander names, 99 general-rank, 42 succession events (25+17), 64 individual monuments all reproduce."
+  },
+  {
+   "id": "seo-growth-20",
+   "title": "Ancestor funnel: 19 state pages, long-form guide, better lookup",
+   "severity": "high",
+   "evidence": "find-ancestor.html:47-57 honest caveat + NPS CWSS link; OOB state counts (NY 67, PA 66, VA 42, GA 36, NC 33, ... 13 states with <5); SERP: NPS ancestor page, Family Tree Magazine, FamilySearch wiki, ABT guide; NPS says park holds no individual service records.",
+   "root_cause": "Highest-intent audience gets a JS-only tool with no crawlable pages.",
+   "fix": "/ancestors/{state} for 17 states with >=5 units + regular-army + other-states; each with authored intro, HTML unit table (corps/brigade/strength/losses/rate/days), mini-map, trace checklist with verified archive links, FAQ; /find-your-civil-war-ancestor-at-gettysburg guide >=1,500 words with outbound links to NPS, NARA, FamilySearch, ABT; lookup adds commander and alias search; no query text stored.",
+   "effort": "L",
+   "acceptance_test": "19 state pages + guide pass gate; each unit row resolves; totals equal unit_counts; guide indexed within 45 days; >=3 genealogy mentions/links by day 90.",
+   "metric_or_grade_moved": "High-intent genealogy traffic, backlinks",
+   "depends_on": [
+    "seo-growth-13",
+    "seo-growth-17",
+    "app-bugs-02"
+   ],
+   "audit_refs": [
+    "T1",
+    "H5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "State counts omit the 59 regiments in union_cavalry_artillery.json and confederate_cavalry.json. Full counts: NY 74, PA 74, VA 59, GA 38, NC 33, MA 18, AL 17, Regular Army 15, OH 14, SC 13, NJ 13, MS 12, MI 11, LA 10, ME 10, VT 9, WI 6, MD 5, IN 5, CT 5 -> 19 states plus Regular Army with 5+ units (not 17); MD and IN were dropped; 11 smaller groups incl. a bogus 'Multi-state'. State pages and totals must include cavalry. NPS/FamilySearch/Family Tree Magazine sources verified."
+  },
+  {
+   "id": "seo-growth-21",
+   "title": "Monument aggregation pages (13 groups) instead of 512 thin pages; source the data first",
+   "severity": "medium",
+   "evidence": "512 monuments inline at bundle.pretty.js:104440-110610; src filled for 9 of 512; groups PA 122, NY 94, Individuals 64, MA 30 ...; competitors Stone Sentinels, HMDB, Wikipedia.",
+   "root_cause": "Monument list has no provenance and only ~40 words per record.",
+   "fix": "/monuments plus ~13 group pages (groups >=10 monuments) with tables, mini-map, unit links and provenance line; fill src for every row (NPS catalogue as candidate public-domain source, verify); do not copy Stone Sentinels/HMDB text.",
+   "effort": "M",
+   "acceptance_test": "100% published rows have src; group pages pass gate; ItemList JSON-LD valid; all coordinates inside battlefield bounds.",
+   "metric_or_grade_moved": "Monument/place queries, provenance",
+   "depends_on": [
+    "prov-recon-27",
+    "seo-growth-13"
+   ],
+   "audit_refs": [
+    "T1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "512 monuments at bundle.pretty.js:104440-110610, src filled 9, 24 groups with 13 at 10+, group counts exact."
+  },
+  {
+   "id": "seo-growth-22",
+   "title": "Turning Points: nine pages with sources, timeline and map",
+   "severity": "medium",
+   "evidence": "turning-points.html:51-100 POINTS[] 9 entries avg 116 words, content in JS; Ewell tick 175 vs chronology tick 75; SERP for the Ewell order is essays (HistoryNet, Medium, NPS PDF, ECW).",
+   "root_cause": "Short JS-rendered accordion.",
+   "fix": "/turning-points/{slug} x9, >=400 words with named positions and >=2 sources, who/where blocks, moment link, honesty line; hub server-renders all nine summaries; fix tick mismatch first.",
+   "effort": "M",
+   "acceptance_test": "9 pages >=400 words with >=2 sources; hub raw HTML has all summaries; times match TimeModel.",
+   "metric_or_grade_moved": "'What if' and decision queries",
+   "depends_on": [
+    "seo-growth-13",
+    "seo-growth-15",
+    "app-time-04"
+   ],
+   "audit_refs": [
+    "T1",
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "9 POINTS averaging 116 words, Ewell tick 175 vs chronology tick 75. Content is inline JS, not fetch."
+  },
+  {
+   "id": "seo-growth-23",
+   "title": "Curated static Q&A hub of ~60 questions ('Gettysburg questions answered')",
+   "severity": "medium",
+   "evidence": "Historian is client-side keyword search with irrelevant matches (audit H8); ChatGPT already refers 14 visits/30 d; FAQ rich results no longer offered.",
+   "root_cause": "No question-shaped, sourced, crawlable answers.",
+   "fix": "/questions hub and ~60 human-written pages: 40-60-word answer-first block, 150-300-word explanation, sources, related links, last-reviewed; no bulk LLM generation; same 60 become the Historian gold evaluation set.",
+   "effort": "L",
+   "acceptance_test": "60 pages pass gate (>=250 words), every answer cites >=1 source; Historian eval reuses them.",
+   "metric_or_grade_moved": "Question-intent queries, AI citations, Historian quality",
+   "depends_on": [
+    "seo-growth-14"
+   ],
+   "audit_refs": [
+    "H8",
+    "T1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "ChatGPT 14 referrals verified; otherwise a plan item. Google's QAPage rich result does not apply to curated answers."
+  },
+  {
+   "id": "seo-growth-24",
+   "title": "Internal linking system: crawlable nav/footer in raw HTML, breadcrumbs, related graph, HTML sitemap, depth <=3",
+   "severity": "high",
+   "evidence": "site-nav.js:161-198 injects entire nav and footer at DOMContentLoaded into empty mounts; JS-off sub-pages have no links or privacy/terms (pagesA-05); 10 pages link to /index.html.",
+   "root_cause": "Navigation is runtime-built.",
+   "fix": "Pre-render global nav (Map, Moments, Order of battle, Places, Find your ancestor, Teach) and footer (About, Sources, Corrections, Data, Privacy, Terms, Contact) into every page; breadcrumbs visible + JSON-LD; computed related blocks; /sitemap HTML index; depth <=3, >=3 inbound links, zero orphans, zero links to redirected URLs; descriptive anchors; deep links use canonical /map contract.",
+   "effort": "M",
+   "acceptance_test": "linkgraph script: max depth <=3, orphans 0, broken 0, redirected-target links 0; curl with JS off shows nav/footer links.",
+   "metric_or_grade_moved": "Discovery, link-equity flow",
+   "depends_on": [
+    "pagesA-05",
+    "seo-growth-13"
+   ],
+   "audit_refs": [
+    "T1",
+    "E4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "site-nav.js:161-198 injects nav and footer at render, :194 single Gmail mailto, sub-pages have only empty mount divs without JS."
+  },
+  {
+   "id": "seo-growth-25",
+   "title": "E-E-A-T pages: About, Sources, Method, Corrections, Changelog, Cite, Press; fix overclaims",
+   "severity": "high",
+   "evidence": "Sources exist only in JSON metadata (29 strings: OR Vol. 27, Busey and Martin, Pfanz trilogy, Desjardin, Wert, Gottfried ...); terms.html promises discrepancies are noted but no page lists any; JSON-LD names Mike Legere with no bio page (index.html:35); copy says 'minute-by-minute' and '467 regiments and batteries' while positions are modeled (152 units with keyframes; 23 own regiments, 96 brigades stand in for 422) and counts are 466 regiments + 103 batteries; competitor claims 430,000+ placements.",
+   "root_cause": "Trust material lives in data files, not pages; marketing copy outran the data.",
+   "fix": "Seven static pages linked from every footer (contents specified in report): About (real author facts, independence line), Sources (bibliography mapped to data), Method (documented vs modeled, keyframe coverage, casualty apportionment), Corrections (policy, dated log, prefilled mailto), Changelog, Cite (APA/MLA/Chicago + cite box), Press. Repair copy to 'five-minute steps', 'modeled positions', counts from unit_counts; reviewer programme (2-3 named volunteers, JSON-LD reviewedBy); Modeled/Documented chips; fill guide PDF metadata.",
+   "effort": "M",
+   "acceptance_test": "All pages live and in raw-HTML footers; /sources lists every data metadata source; grep for 'minute-by-minute' and '467 regiments' returns nothing; About names a real person; Corrections has a dated entry within 30 days.",
+   "metric_or_grade_moved": "Trust/E-E-A-T, honesty, AI citations",
+   "depends_on": [],
+   "audit_refs": [
+    "T1",
+    "G1",
+    "H10"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "29 source strings exact (about 25 distinct works: 3 Busey variants and a 'Pfanz trilogy' duplicate), terms.html quotes correct, JSON-LD author at index.html:35, overclaims at index.html:719/754."
+  },
+  {
+   "id": "seo-growth-26",
+   "title": "Open dataset with licence, DOI and matching Terms",
+   "severity": "medium",
+   "evidence": "terms.html says do not scrape data files for republication while /data/*.json are public (max-age 3600); Google Dataset guidance: name+description required; license, identifier (DOI), distribution, temporalCoverage, spatialCoverage recommended; only RPubs/Shiny hobby tools found for interactive OOB.",
+   "root_cause": "Data is public but unlicensed, undocumented and contradicted by Terms.",
+   "fix": "After provenance and licence decisions: /data landing (contents, licence CC BY 4.0 for facts/tables, version v1.0.0, JSON+CSV, CITATION.cff, Zenodo DOI, Dataset JSON-LD); update Terms; Disallow /data/ for training crawlers only; mirrors optional.",
+   "effort": "L",
+   "acceptance_test": "Rich Results Test recognises Dataset; DOI resolves; /data lists licence/version; Terms and robots agree.",
+   "metric_or_grade_moved": "Citations, backlinks, Dataset Search",
+   "depends_on": [
+    "seo-growth-14",
+    "seo-growth-25",
+    "prov-recon-37"
+   ],
+   "audit_refs": [
+    "T1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Terms contradiction and Google Dataset guidance verified. Provenance needs extending beyond Busey and Martin to copyrighted atlases and Google imagery (MISSED-5)."
+  },
+  {
+   "id": "seo-growth-27",
+   "title": "AI-search and answer-engine visibility",
+   "severity": "medium",
+   "evidence": "Vercel/MERJ (Dec 2024): GPTBot and ClaudeBot do not execute JS; OpenAI docs: OAI-SearchBot required for ChatGPT search inclusion; Anthropic has ClaudeBot/Claude-User/Claude-SearchBot; 26 of 27 HTML files have no quotable server-rendered prose; chatgpt.com referrals = 14.",
+   "root_cause": "Content is client-rendered; no answer-first structure.",
+   "fix": "Everything quotable in raw HTML; answer-first paragraph per entity page; consistent names/numbers; dateModified and visible last-reviewed; inline sources; no nosnippet; allow search/answer bots; monitor chatgpt.com, perplexity.ai, copilot.microsoft.com, claude.ai, gemini.google.com referrers; monthly 10-question prompt check per assistant.",
+   "effort": "M",
+   "acceptance_test": "Prompt log shows site cited for >=3 of 10 questions by day 90; AI referrals >=50/30 d; no misquotes from ambiguous copy.",
+   "metric_or_grade_moved": "AI referrals, citation accuracy",
+   "depends_on": [
+    "seo-growth-06",
+    "seo-growth-09",
+    "seo-growth-13",
+    "seo-growth-23"
+   ],
+   "audit_refs": [
+    "T1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Vercel/MERJ (2024-12-17) confirms GPTBot and ClaudeBot do not execute JS, but Gemini and AppleBot do and the sample is small (nextjs.org plus two job boards). '26 of 27 files carry no quotable prose' is overstated: aftermath 321, privacy/terms 296, watch-together 229, viewshed 159 words exist; say 'no entity-level prose'."
+  },
+  {
+   "id": "seo-growth-28",
+   "title": "Keyword and intent map with a method that needs no paid tools",
+   "severity": "medium",
+   "evidence": "No volume data available; SERP checks via WebSearch (US-only, model-summarised). Section 5 lists 26 query clusters with observed incumbents.",
+   "root_cause": "No measured demand data yet.",
+   "fix": "Use map as hypothesis; from day 28 export GSC and Bing queries; score priority = intent fit x winnability x page readiness; monthly PAA/autocomplete checks; docs/keyword-map.csv with >=60 rows; never write a page the site cannot answer better than the top result.",
+   "effort": "M",
+   "acceptance_test": "keyword-map.csv exists, owner-approved by day 14, re-scored on day 30 with real GSC/Bing data.",
+   "metric_or_grade_moved": "Page-query fit, prioritisation",
+   "depends_on": [
+    "seo-growth-01"
+   ],
+   "audit_refs": [
+    "T1"
+   ],
+   "verdict": "UNVERIFIABLE",
+   "correction": "Process/method finding with no checkable evidence."
+  },
+  {
+   "id": "seo-growth-29",
+   "title": "Competitive positioning statement and differentiation",
+   "severity": "medium",
+   "evidence": "Nine competitors reviewed (ABT, Savas Beatie app with 430,000+ placements, NPS, Stone Sentinels, Wikipedia, Smithsonian 2013, Dickinson, CivilWarTalk, RPubs/Shiny). Site has 152 units with keyframes.",
+   "root_cause": "No stated position against a video/paid/authority field.",
+   "fix": "Adopt: 'The free, no-login, linkable map of Gettysburg for classrooms and family historians: every regiment and battery, in five-minute steps, with the sources on the page.' Compete on free/instant/deep links/embeds/ancestor finder/kit/open data/honesty; do not claim parity on granularity or 'minute-by-minute'; monthly SERP log for 30 queries.",
+   "effort": "M",
+   "acceptance_test": "Statement in About, home hero, press page; SERP log exists by day 30.",
+   "metric_or_grade_moved": "Messaging, outreach conversion",
+   "depends_on": [],
+   "audit_refs": [
+    "T1",
+    "E2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Savas Beatie facts, ABT 1,928 educators and 51,112 casualties verified; the ABT '16:51' video length is not on the page (search says about 20 minutes)."
+  },
+  {
+   "id": "seo-growth-30",
+   "title": "Backlink and outreach programme with named targets, assets and KPIs",
+   "severity": "high",
+   "evidence": "Domain is 3.5 months old; ABT reports 1,928 educators added its animated map to Google Classroom; targets found in searches: Teaching the Civil War, Lesson Planet, YMI Classroom, Dickinson House Divided, Marine Corps University LibGuide, CWRT Congress, Civil War Seminars directory, Emerging Civil War, Seminary Ridge Museum, FamilySearch Wiki, Family Tree Magazine, CivilWarTalk; Wikipedia WP:ADV: avoid linking own site and links are ignored by search engines.",
+   "root_cause": "No inbound links or distribution plan.",
+   "fix": "Rules (no paid links, no bulk, disclose authorship, one follow-up). Segments/waves: teacher-resource curators (kit), library guides (data), round tables/speakers (20-min talk), genealogy (state pages), communities (data story), local tourism/press, dataset channels after licence; daggered targets need verification. Linkable assets: dataset+DOI, kit, state/unit pages, embed builder, data stories, press kit. Templates in Appendix G.",
+   "effort": "L",
+   "acceptance_test": "60 personalised emails by day 90; >=15 positive replies; >=20 new referring domains (>=8 .edu/.gov/.org) vs week-0 baseline; tracking sheet with live URL and rel.",
+   "metric_or_grade_moved": "Referring domains, referral traffic, authority",
+   "depends_on": [
+    "seo-growth-02",
+    "seo-growth-25",
+    "seo-growth-31",
+    "seo-growth-26",
+    "seo-growth-20",
+    "seo-growth-15"
+   ],
+   "audit_refs": [
+    "T1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Named targets exist (MCU LibGuide, Lesson Planet, Family Tree Magazine, Civil War Seminars, SRM event, FamilySearch wiki, ECW article; some return 403 to curl); ABT 1,928 and WP:ADV verified. teachthecivilwar.com virtual field trips is a vendor's paid offering, not a third-party resource list; the SRM page promotes the paid app's creator; CWRT Congress and daggered targets unverified."
+  },
+  {
+   "id": "seo-growth-31",
+   "title": "Classroom kit at /learn: 6 lesson plans, printables, standards, Classroom share, IT-admin and student-privacy pages",
+   "severity": "high",
+   "evidence": "education.html has 49 static words; ABT offers educator PDF/Classroom share/lesson plans; Dickinson gives 9 free handouts; Google documents plain URL https://classroom.google.com/share?url=... with title/body/itemtype/courseid; CSP allow-list in netlify.toml gives the school-firewall domains.",
+   "root_cause": "No teacher-ready packaging or adoption plumbing.",
+   "fix": "Six lessons (Battle in 60 Minutes; Reading a Battle Map; Decisions at Gettysburg DBQ; Numbers of War; Find a Regiment; Primary Sources on the Field) as static pages + tagged PDFs with keys and rubrics; printables incl. client-side QR cards; C3 Framework and CCSS RH.6-8.7/RH.9-10.7 alignment (verify codes); plain Classroom share links; /learn/it-admins (mapbox, google, peerjs, RUM hosts, WebGL); /learn/student-privacy; CC BY 4.0; /education becomes overview.",
+   "effort": "L",
+   "acceptance_test": "6 lessons + 4 printables live; PDFs pass accessibility check; Classroom link prefills title; it-admins page matches enforced CSP; >=3 resource-list listings and >=10 share clicks in 90 days.",
+   "metric_or_grade_moved": "Teacher discovery, backlinks, student queries",
+   "depends_on": [
+    "seo-growth-25",
+    "seo-growth-13",
+    "seo-growth-15",
+    "seo-growth-17",
+    "seo-growth-20",
+    "pagesB-21",
+    "pagesB-23"
+   ],
+   "audit_refs": [
+    "T1",
+    "G1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Classroom share URL form verified. RH.9-10.7 is quantitative/technical analysis (charts, data), not 'visual information such as maps' (RH.6-8.7). IT-admin list omits cdn.jsdelivr.net (PeerJS, watch-together.html:19), maps.googleapis.com and streetviewpixels-pa.googleapis.com (index.html:49-51); derive from a HAR capture, not the incomplete report-only CSP."
+  },
+  {
+   "id": "seo-growth-32",
+   "title": "Embeds, share links, citation and print mechanics that earn links",
+   "severity": "medium",
+   "evidence": "embed.html is a text card with dead CTA /index.html?tick= and receives both X-Frame-Options DENY and frame-ancestors * (X4); Terms invite embedding 'its widget'; links inside an iframe do not create a link from the embedding page.",
+   "root_cause": "No builder, no attribution snippet, header conflict.",
+   "fix": "/embed builder producing iframe + visible text attribution link with UTM outside the iframe; /embed/* served with only frame-ancestors * and X-Robots-Tag noindex, <=10 KB, no third-party requests; oEmbed endpoint + discovery link; Web Share API and ?ref=share (stripped); cite box; print CSS; update Terms.",
+   "effort": "M",
+   "acceptance_test": "Snippet renders cross-origin; curl -I /embed/moment/x shows no X-Frame-Options; oEmbed JSON validates; snippet contains the text link with UTM.",
+   "metric_or_grade_moved": "Backlinks, share CTR, student citations",
+   "depends_on": [
+    "seo-growth-25",
+    "seo-growth-03",
+    "prov-recon-36"
+   ],
+   "audit_refs": [
+    "X4",
+    "T1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "embed.html:60 dead /index.html?tick= CTA; live /embed.html sends both X-Frame-Options DENY and frame-ancestors *; toml blanking does not work. Also /embed (extensionless) is DENY with no frame-ancestors (MISSED-1)."
+  },
+  {
+   "id": "seo-growth-33",
+   "title": "Video: YouTube channel built from Cinematic Export",
+   "severity": "medium",
+   "evidence": "'Animated' queries are answered by video (ABT 16:51, YouTube channel, Tubi/Apple TV); cinematic-export.html exists but recording was not tested in the audit.",
+   "root_cause": "No video presence in a video-dominated SERP.",
+   "fix": "Test export on 3 moments; create channel; 10 short (45-90 s) and 3 day-overview videos from own visuals; captions, chapters, UTM links, playlists; VideoObject JSON-LD; click-to-load youtube-nocookie facade on moment pages; disclose in privacy policy; channel in sameAs.",
+   "effort": "L",
+   "acceptance_test": "10 videos live with captions; each moment page has facade embed and valid VideoObject; stretch 2,000 views in 90 days (no baseline).",
+   "metric_or_grade_moved": "Video carousels, brand queries, referrals",
+   "depends_on": [
+    "seo-growth-15",
+    "seo-growth-25"
+   ],
+   "audit_refs": [
+    "T1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "cinematic-export.html exists; ABT video-length claim unverified."
+  },
+  {
+   "id": "seo-growth-34",
+   "title": "Editorial calendar, content operations, style guide and dev-copy lint",
+   "severity": "medium",
+   "evidence": "Dev-log copy in user-facing text (H7; data notes G20); inconsistent counts; solo owner; key dates: Nov 19 Address, Jun 26-Jul 3 2027 anniversary, Jun 13 2027 renewal.",
+   "root_cause": "No process to keep copy, counts and dates consistent.",
+   "fix": "Calendar through July 2027 (dates to verify); git-based content with PR checklist (sources, gate, lint, counts from unit_counts, times from TimeModel, alt text); one-page style guide; dev-copy regex lint (Earlier drafts, we haven't been able, alias for U-, Commander unrecorded, undefined, TODO, YouTube vignette, Tick N) failing CI.",
+   "effort": "M",
+   "acceptance_test": "docs/editorial-calendar.md through July 2027; PR template and lint in CI; zero lint hits across generated pages.",
+   "metric_or_grade_moved": "Consistency, publishing rhythm",
+   "depends_on": [
+    "pagesB-10",
+    "seo-growth-13"
+   ],
+   "audit_refs": [
+    "H7",
+    "H10",
+    "T1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Dev-copy regex matches real strings (search.html:112, union_regiments_i_ii_corps.json:26, documentary.html:89, four YouTube-vignette notes). Calendar dates remain unverified."
+  },
+  {
+   "id": "seo-growth-35",
+   "title": "Privacy-respecting analytics, event taxonomy, goals and privacy-policy update",
+   "severity": "medium",
+   "evidence": "privacy.html lists only Netlify RUM and says no third-party analytics; Netlify Web Analytics (log-based, no events/UA breakdown, Log Drains via sales) is in use but undisclosed; terms forbid scraping while data is public.",
+   "root_cause": "No behavioural analytics; policy lags reality.",
+   "fix": "Cookieless counter via first-party path on Netlify (Plausible/GoatCounter/Umami, or edge counter in Netlify Blobs) plus Netlify Web Analytics as cross-check; events (map_launch, play, unit_open, vignette_open, search_used boolean only, ancestor_lookup state only, share_copy, embed_load host only, kit_download, classroom_share_click, outbound_click host, cite_copy, correction_click, historian_feedback thumbs); goals (landing->map >=45%, engaged >=55%, state->unit >=25%); honour GPC/DNT; UTM policy with replaceState stripping; update privacy/terms (Netlify Web Analytics, vendor, events, Mapbox telemetry, PeerJS).",
+   "effort": "M",
+   "acceptance_test": "Dashboards show pageviews/events/referrers within 24 h; network capture shows no third-party origin and no personal fields; GPC-on sends nothing; policy diff dated.",
+   "metric_or_grade_moved": "Visibility into behaviour, legal/trust",
+   "depends_on": [],
+   "audit_refs": [
+    "T1",
+    "T2",
+    "X5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "privacy.html lists only Netlify RUM and omits Netlify Web Analytics; PeerJS loaded from cdn.jsdelivr.net is also undisclosed; Netlify Analytics counting bots is supported by community sources."
+  },
+  {
+   "id": "seo-growth-36",
+   "title": "Bot-traffic segmentation protocol for Netlify analytics",
+   "severity": "medium",
+   "evidence": "Germany 210, China 170, Singapore 152, Hong Kong 96 = 628 of 3,389 PV (18.5%); Netlify UI has no user-agent breakdown; scanner 404s (wp-admin 430, / 181, .git/config 78 ...) are a separate table and do not inflate pageviews; 328 MB/month bandwidth.",
+   "root_cause": "Server-side log analytics counts non-JS clients; no segmentation tooling.",
+   "fix": "E1 curl probes (default vs crawler UA) to test whether Netlify counts bots; E2 daily ratio Netlify PV / cookieless PV / RUM; E3 country cuts and page paths; E4 fingerprint rule (direct + non-US + single page + no events); E5 optional edge counter with Sec-Fetch-* heuristic, no IP stored; do not geo-block or add WAF; keep scanner 404 rules.",
+   "effort": "M",
+   "acceptance_test": "By day 14 docs/traffic-quality.md states the measured human-share estimate and method; every KPI states raw vs human-adjusted.",
+   "metric_or_grade_moved": "Trustworthy KPI baselines",
+   "depends_on": [
+    "seo-growth-35"
+   ],
+   "audit_refs": [
+    "T2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Germany 210, China 170, Singapore 152, Hong Kong 96 = 628 of 3,389 (18.5%) exact; the '/ 181 not found' row is consistent with OPTIONS / returning 404 (non-GET probes)."
+  },
+  {
+   "id": "seo-growth-37",
+   "title": "Monitoring, SEO CI checks and weekly/monthly routines",
+   "severity": "medium",
+   "evidence": "No monitoring exists; CI is being designed in prov-recon-38.",
+   "root_cause": "No regression net for canonicals, images, schema, sitemaps.",
+   "fix": "CI job 'seo': canonical, redirect matrix, og image decode/size/non-uniform, JSON-LD validation, sitemap parity, link check, title/description lengths, one h1, gate report, dev-copy and count lints, robots matrix, Lighthouse CI per template; post-deploy IndexNow + smoke curl + uptime monitor; weekly 15-minute GSC/Bing/Netlify review, monthly KPI and prompt checks; alerts on coverage/manual actions/deploy failure/404 spikes; GSC status definitions documented.",
+   "effort": "M",
+   "acceptance_test": "CI 'seo' job fails on any listed violation; docs/seo-runbook.md exists; first weekly review logged in week 1.",
+   "metric_or_grade_moved": "Regression prevention",
+   "depends_on": [
+    "seo-growth-01",
+    "seo-growth-13",
+    "prov-recon-38"
+   ],
+   "audit_refs": [
+    "T1",
+    "T3",
+    "E5"
+   ],
+   "verdict": "UNVERIFIABLE",
+   "correction": "CI/monitoring design with no evidence to test."
+  },
+  {
+   "id": "seo-growth-38",
+   "title": "KPI dashboard, phase gates and risk register",
+   "severity": "high",
+   "evidence": "Baselines from Netlify PDFs: 3,389 PV, 1,529 UV, 2,221 referrals, search engines 173 (63+59+38+13), ChatGPT 14, RUM LCP/INP/CLS/FCP Poor.",
+   "root_cause": "No managed targets; no gates against thin or wrong content.",
+   "fix": "One sheet with weekly rows and KPIs (indexable URLs submitted/indexed, search referrals, Google clicks, AI referrals, referring domains, valid share previews, rich results, landing->map rate, engaged sessions, human-adjusted UV, kit/Classroom actions, CWV on content routes, branded impression share) with targets at D30/60/90/180/365 (D90: search referrals 173 -> 500, AI 14 -> 50, +20 referring domains); gates G1-G3; 12-item risk register; weekly plan W0-W12.",
+   "effort": "M",
+   "acceptance_test": "Sheet exists with week-0 baselines from PDFs and GSC/Bing after verification; 12 consecutive weekly rows filled.",
+   "metric_or_grade_moved": "Managed outcomes; all T1 KPIs",
+   "depends_on": [
+    "seo-growth-01",
+    "seo-growth-35",
+    "seo-growth-36"
+   ],
+   "audit_refs": [
+    "T1",
+    "T2",
+    "T3"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Baselines verified (3,389 PV, 1,529 UV, search 173, ChatGPT 14; RUM LCP/INP/CLS/FCP Poor, FID Good); 'referrals 2,221' includes 2,034 Direct. Roadmap is over capacity (by the report's own sizes W3 = 11 person-days, W8 = 9, W9 = 11.5 vs about 4 d/week) and finding 14 (XL prerequisite for brigade and Tier-B pages) is never scheduled."
+  }
+ ],
+ "open_questions": [
+  "Q1: Approve the brand 'Gettysburg Interactive Map' (drop 'Animated Battlefield Map', which collides with ABT and the paid Savas Beatie app)?",
+  "Q2: Licensing: is exposure from publishing Busey and Martin-derived strengths/losses acceptable (facts only, attributed, or ask the publisher)? Which licence for the dataset (recommend CC BY 4.0) and for vignette text?",
+  "Q3: Provenance: terrain.json:38, union_artillery.json:91 and placements_day1_ticks1_50.json:80 reference a 'Gettysburg Animated YouTube vignette' (the channel promoting the paid app). Were any positions or texts derived from that product? Any affiliation? Answer before open-licensing or scaling pages.",
+  "Q4: Allow AI training crawlers (GPTBot, ClaudeBot, Google-Extended, CCBot) on HTML while blocking /data/? (default recommendation: yes)",
+  "Q5: Landing-first (static / with app at /map, returning-user redirect) or keep the app at /? (default: landing-first)",
+  "Q6: Analytics vendor: Plausible (paid), GoatCounter (free), Umami, or self-built edge counters?",
+  "Q7: Who can be named as reviewers, and what real background facts go on the About page?",
+  "Q8: Weekly time budget and how much implementation is done by Claude sessions? (plan is ~77.5 person-days; ~50 in 90 days; 33-day core subset if under 3 days/week)",
+  "Q9: Does an older Search Console or Bing property still exist under another account (verification file was lost in deploy C)?",
+  "Q10: Confirm the site stays free with no paid tier (the deleted /landing.html advertised a trial) so Terms, Privacy, About and redirects agree.",
+  "Unverified items to check before publishing: daggered outreach targets, state archive URLs, exact Anthropic/Apple/Meta crawler token spellings, Mapbox current free-tier limits, 20th Maine strength (386 in data vs 358 elsewhere), standards codes (C3/CCSS), Remembrance Day 2026 date."
+ ],
+ "verification_summary": "The seo-growth report holds up well. I found no REFUTED findings, and its headline evidence reproduced. That covers the corrupt PNG (IDAT 3,687,120 B vs 2,765,520 expected, 80 colours, day1/day3 md5 identical), the 10 pages missing twitter:card, the 10 /index.html back links, the Netlify Analytics rows read by PDF coordinates, the RDAP dates, the DNS/GSC-file loss, the 686 commander names, the 512 monuments with 9 src, the 48 duplicate key_action strings, the 93/101 brigades, and the 9 turning points averaging 116 words. Errors are in secondary facts: (1) state counts omit the 59 cavalry regiments, so it is 19 states plus Regular Army with 5 or more units, and VA is 59, not 42; (2) Stone Sentinels July 2 is about 9.4k words and 22 entries, not 15k+ and 40-50; (3) Netlify redirects CAN match query strings, so the JS redirect for /regiment?unit= is unnecessary; (4) setting the primary domain to the apex will not remove the http://www double hop; (5) Slack has no /unfurl command; (6) twitter:image is on 11 pages, not 21; (7) the cited tier_proto.py prints different brigade numbers than the report. Eight missed issues are listed. The biggest are: path-keyed netlify.toml rules do not cover extensionless twins (/diagnostics is live 200, /embed gets X-Frame-Options DENY); the landing-first design ignores the service-worker precache, the site-nav back-link/bfcache logic and the gtbg_onboarded key; the old GSC verification file could be restored in minutes; dataset provenance extends to copyrighted atlases and Google imagery; and the 90-day roadmap is over capacity and never schedules prerequisite finding 14. The verification section is appended to seo-growth.md, and scratch scripts are in plan-work/tmp-verify-seo-growth/.",
+ "missed_by_specialist": [
+  {
+   "title": "Path-keyed netlify.toml rules do not cover extensionless twins (diagnostics exposed, embed blocked, cache rule skipped)",
+   "severity": "medium",
+   "evidence": "Live: /diagnostics.html 404 (force rule) but /diagnostics returns 200 with the internal diagnostics page (5,349 B, no robots meta); /embed.html sends frame-ancestors * but /embed sends X-Frame-Options: DENY; for='/*.html' Cache-Control does not apply to /dashboard. The report cites the diagnostics rule as proof of force=true but never notices the twin. prov-recon-35/36 keep .html canonicals while seo-growth-03 goes extensionless and does not reconcile this.",
+   "fix": "Add from='/diagnostics' 404 force=true; duplicate header blocks for /embed and /embed/*; test every rule in both spellings in the Appendix D matrix; decide the canonical form once across specialists and re-key all header and redirect rules in the same deploy."
+  },
+  {
+   "title": "Landing-first (09) ignores the service worker: landing would precache the whole app and reload",
+   "severity": "medium",
+   "evidence": "Only index.html:258-275 registers /sw.js; sw.js PRECACHE_ASSETS hard-codes /assets/index-Cg8FAMXN.js (2.28 MB raw, about 600 KB brotli) and the CSS, uses skipWaiting/clients.claim, and the page reloads on controllerchange (C6). A landing at / that keeps the script installs the app for every search visitor.",
+   "fix": "Register the SW only on /map; give the landing no SW; ship a one-time cleanup (bump CACHE_NAME, handle the old /-scoped registration); generate PRECACHE from the build instead of hard-coded hashes."
+  },
+  {
+   "title": "Back-link/bfcache wiring and returning-user key break under landing-first",
+   "severity": "medium",
+   "evidence": "site-nav.js:212 wireBackLinks() selects a[href='/'] and uses history.back() to restore the map from bfcache; after moving the app to /map it would send users to the landing. The 10 .back links point to /index.html and never match the selector today (full reload with splash replay). The proposed redirect gate reads gtbg_seen but existing users only have gtbg_onboarded=1 (bundle.pretty.js:112951, 113068).",
+   "fix": "Retarget back links and the selector to /map, fix the 10 /index.html links, and treat gtbg_onboarded OR gtbg_seen as 'seen' (write gtbg_seen on map load)."
+  },
+  {
+   "title": "Restore the old Search Console verification file immediately",
+   "severity": "medium",
+   "evidence": "google0dca4879c9657741.html (52 bytes, content 'google-site-verification: google0dca4879c9657741.html') still exists in C:/Users/mlege/Downloads and plan-work/tmp-deploy-history/b_jun23; live URL is 404. The report only proposes a new DNS Domain property, which starts without the old property's history.",
+   "fix": "Re-add the file now (200 at its exact URL, excluded from any /*.html to /:splat redirect) to re-verify the existing property, then add the DNS TXT Domain property as the durable method."
+  },
+  {
+   "title": "Dataset provenance is wider than Busey and Martin plus one YouTube note",
+   "severity": "high",
+   "evidence": "Metadata sources include copyrighted atlases (Gottfried, The Maps of Gettysburg, Savas Beatie 2013; Laino, Gettysburg Campaign Atlas 2014; Desjardin's 2011 map) and 'Google Maps / satellite imagery verification'; a fourth 'YouTube vignette' note is at chronology_day1.json:31; the channel 'Gettysburg Battle - Fully Animated' belongs to the paid app's creator (Seminary Ridge Museum event page). Finding 26 proposes CC BY 4.0 for modeled positions.",
+   "fix": "Extend Q2/Q3 into a provenance audit of which keyframes derive from which atlas, video or imagery; publish the dataset without positions first and keep positions view-only until cleared."
+  },
+  {
+   "title": "Roadmap is over capacity and omits prerequisite finding 14",
+   "severity": "medium",
+   "evidence": "Using the report's own sizes (S .25, M 1, L 3.5, XL 8): W3 = 13+10+11+12 = 11 person-days, W8 = 9, W9 = 11.5 versus about 4 d/week. Finding 14 (enrichment corpus, XL) is not scheduled in W0-W12, yet W8/W9 release brigade pages (250-word gate plus OR excerpt) and Tier-B units, and data alone gives 0 of 101 brigades at 250+ words.",
+   "fix": "Schedule 14 (computed bucket first) from W2, reduce W3 to a generator MVP, gate W8/W9 releases on 14's output, and add a capacity-check row per week."
+  },
+  {
+   "title": "Sequencing hazards in the interim OG/PWA assets",
+   "severity": "low",
+   "evidence": "seo-growth-02 asks for real captures of the app now, but the app shows the C3 'July 5' header on Day 3, C4 clock errors and C1/C2 mobile layout bugs at 375 px; seo-growth-08 sets manifest id '/' now and '/map' later, which changes installed-PWA identity.",
+   "fix": "Crop out header/clock, use an illustrated map card, or capture after C1-C4 are fixed; choose the permanent manifest id now and change only start_url."
+  },
+  {
+   "title": "No email/DNS hygiene for outreach and corrections",
+   "severity": "low",
+   "evidence": "nslookup -type=TXT returns only SOA (the report notes 'no SPF' in G2 but takes no action); the footer, corrections and outreach plans all rely on a Gmail address.",
+   "fix": "Set up a role address at the domain via forwarding, publish SPF/DKIM/DMARC (or a null v=spf1 -all plus DMARC if no mail is sent), and use it in the footer, About page and outreach."
+  }
+ ]
+}

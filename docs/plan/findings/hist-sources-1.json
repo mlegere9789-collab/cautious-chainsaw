@@ -1,0 +1,386 @@
+{
+ "agent": "hist-sources-1",
+ "summary": "Catalogued 39 entries (38 ranked sources plus the Internet Archive API layer), 7 excluded/permission-required items and 4 documented gaps for the Ask-the-Historian expansion. Every catalog URL was fetched on 2026-09-30 (HTTP status recorded in the JSON) or read via WebFetch; blocked hosts are labelled. Key measured facts: (1) OR Series I Vol.27 Pts 1-3 are available as clean UIUC scans on the Internet Archive (OCR text 3.97/3.88/3.41 MB, OCR proxy 0.98; 589 numbered report entries: Nos.1-378 Pt1, 379-589 Pt2; ~371 Union Gettysburg items, 166 Confederate ANV items, ~296 regiment/battery-level reports; ~5,420 clock-time expressions), HathiTrust Bib API confirms rightsCode 'pd' (babel pages and eHistory are blocked to scripts; Cornell MOA now just links to Hathi). (2) The site has 570 unit records (467 regiment_id + 103 battery_id; NY 75, PA 74, Confederate 241) so the NY Final Report and Pennsylvania at Gettysburg give the largest per-unit depth jump; NY text confirms 68 infantry regiments/battalions and 19 batteries. (3) OCR quality varies from 0.98 (OR) to 0.43-0.48 (The Compiler 1863 at the Pennsylvania Newspaper Archive: unusable without re-OCR) and image-only (Gardner Sketch Book); Adams Sentinel is subscription-only. (4) Bachelder: Ladd edition is copyrighted (IA lending), NHHS originals need paid permission ($25/$50 per item), LoC/Leventhal Bachelder 1863/1876/1883 and Warren maps are freely reusable; 28 'hourly' Bachelder maps are reported by dealers but could not be located (gap G-03). (5) LoC photos: 185 records for 'gettysburg' (75 dated July 1863), rights gating needed (3 have copyright notes, 12 no advisory); loc.gov JSON API is limited to 20 req/min. (6) The site's existing OOB data cites copyrighted compilations (Busey & Martin etc.), so casualty/strength numbers need PD-derived provenance. Deliverables: long-form report with source cards, rights statements, extraction playbook, phasing (45-80 person-days for P0+P1) and 17 plan items; machine-readable catalog JSON.",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/hist-sources-1.md",
+ "findings": [
+  {
+   "id": "hist-sources-1-01",
+   "title": "Ingest Official Records Series I Vol.27 Parts 1-3 (589 numbered report entries + ~2,200 dispatches) as the backbone unit-report corpus",
+   "severity": "high",
+   "evidence": "IA items warofrebellion271unit / 272unit / 273unit (UIUC scans, ABBYY 11, 500 ppi): OCR text 3,970,479 / 3,880,513 / 3,406,041 bytes (measured 2026-09-30), in-vocabulary OCR proxy 0.984 (Chamberlain report OR27-1 No.196 p.622 reads cleanly). OCR ToC parse: reports numbered 1-378 (Pt1) and 379-589 (Pt2); Union Gettysburg items Nos.5-375, Confederate ANV Nos.424-589; ~296 regiment/battery-level reports (208 Union + 88 Confederate; heuristic +/-10%). HathiTrust Bib API rightsCode 'pd' / 'Full view' for coo.31924077699761, coo.31924077728255, coo.31924077700262. Site today: historian.html:48 says it answers only from '467 regimental records, 24 narrative vignettes, 137 chronology events, and 30 mapped terrain features'; historian.html:76-79 fetches only /data/oob, /data/vignettes*, /data/chronology*, /data/terrain.json.",
+   "root_cause": "The Ask-the-Historian corpus is the site's own ~0.8 MB of hand-written JSON; none of the primary reports it derives from are ingested, so answers cannot cite or quote sources and retrieval has little to match (audit H8: 'why did Lee lose the war' -> Archer Captured).",
+   "fix": "1) fetch_ia.py: read /metadata/<id>, choose *_djvu.txt, *_djvu.xml, *_page_numbers.json names FROM THE FILE LIST (never build names from the id - Emory items use underscores), save to raw/ with sha256 + fetch date in manifest.jsonl. 2) or27_segment.py: strip running heads ('Chap. XXXIX.] THE GETTYSBURG CAMPAIGN. 623'); parse ToC (first occurrence of 'No. N.' between 'REPORTS.' and first body header); split body on r'\\n\\s*N[o0O][.,]? ?(\\d+)[.,!]? ?[^\\n]{0,6}?\\s*(Reports?|Itinerary|Return|Abstract|Organization)' then fuzzy-match remaining numbers to ToC author strings (naive regex recovers 302/378 in Pt1 and 160/211 in Pt2). 3) Emit reports.jsonl {report_id:'OR27-1-196', part, no, author, rank, unit_text, unit_id (alias table), level, date_line, page_start, page_end, leaf_start, text}. 4) Part 3: split on dispatch headings and keep timestamp text. 5) Use 1880-1901 GPO scans only (avoid IA 1971 reprint warrebellionaco00cowlgoog).",
+   "effort": "L",
+   "acceptance_test": "(a) reports.jsonl has >= 570 of 589 numbered entries with author+unit parsed; (b) 20 random reports match the printed page (leaf->page_numbers.json) and first/last 10 words; (c) OR27-1 No.196 (Chamberlain) resolves to unit U-20ME starting at printed page 622; (d) every record carries source_id, ia_id, leaf, printed_page, license 'PD-US-gov-1889', fetched_at; (e) pipeline is idempotent (identical sha256 on re-run).",
+   "metric_or_grade_moved": "Historian answer groundedness/citation coverage (H8); content depth; feeds time verification (C4)",
+   "depends_on": [
+    "hist-sources-1-02",
+    "hist-sources-1-12"
+   ],
+   "audit_refs": [
+    "H8",
+    "C4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Sources, sizes, HathiTrust pd codes and ToC numbers (Chamberlain=No.196 p.622, No.13 casualties, Nos.424-589 ANV) all verified. Corrections: (a) the prescribed segmentation regex gets 0 matches on raw _djvu.txt because words are double-spaced; after whitespace collapse it recovers 303/378 and 162/211, so a normalisation step is missing (text also has U+FFFD glyphs). (b) '~2,200 dispatches' is wrong: 2,204 is the Pt3 clock-time count; dated Pt3 items are about 1,380 (the card itself says 1,000-1,500). (c) 'Union Gettysburg Nos.5-375 (371)' overcounts: it includes staff/signal/ordnance items and non-Gettysburg returns (Nos.10-12, 14); the ANV range includes Winchester/Williamsport/Funkstown reports and No.428 (Union Medals of Honor); the 88 Confederate regiment-level figure is heuristic (my classifier gave 116). (d) 'the 1971 reprint is NOT public domain' is stronger than the evidence (IA flags it NOT_IN_COPYRIGHT); excluding it is still prudent. Effort L is realistic."
+  },
+  {
+   "id": "hist-sources-1-02",
+   "title": "Build the unit alias/crosswalk table joining 570 site unit records to OR, Fox, Phisterer, Clark, Dyer and monument-list naming",
+   "severity": "high",
+   "evidence": "Deployed data/oob/*.json contain 467 regiment_id + 103 battery_id records (570 unique; 329 Union, 241 Confederate; measured) with ids like U-20ME, C-15AL and one alias row {regiment_id:'U-14BK', designation:'14th Brooklyn (alias for U-84NY)', alias_for:'U-84NY'} (origin of audit H7). 55 Union and 48 Confederate records have state=null. OR headers spell units out ('Twentieth Maine Infantry', 'Fifty-sixth Pennsylvania', 'Eighty-fourth New York (Fourteenth Militia)').",
+   "root_cause": "No canonical unit key or alias registry: the app stores a display string as designation plus a dev-log alias row, while every external source uses a different naming scheme (spelled-out ordinals, militia numbers, battery letters, commander-named batteries).",
+   "fix": "Create data/source/unit_aliases.json: {unit_id:'U-84NY', canonical:'84th New York Infantry (14th Brooklyn)', aliases:['Fourteenth Militia','14th Brooklyn','14th N.Y.S.M.','Eighty-fourth New York'], state, arm, brigade_id, corps_id, or_names:[...], fox_key, phisterer_key, monument_names:[...]}. Auto-generate ~80%: ordinal parser (First..Two hundred fiftieth -> int), state map, arm map (Infantry/Cavalry/Battery/Artillery/Sharpshooters/Legion/Battalion), then rapidfuzz on (state, number, arm) against OR ToC author strings, Fox headings, Phisterer entries and GNMP monument lists; hand-review the ~20% residual. Remove 'alias for' text from user-facing designation (H7); expose aliases only as search synonyms; fill state=null rows from the join.",
+   "effort": "M",
+   "acceptance_test": "100% of 570 unit ids have canonical name, arm, state (0 nulls); >= 95% link to at least one OR report or Fox/Phisterer entry (documented list of the rest); the 14th Brooklyn/84th NY case resolves both ways; a unit test feeds 30 raw OR header strings and expects the right unit_id for all.",
+   "metric_or_grade_moved": "Data integrity; enables all per-unit source linking; removes user-visible dev copy (H7)",
+   "depends_on": [],
+   "audit_refs": [
+    "H7",
+    "H10"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Counts confirmed (467+103=570; 329U/241C; alias row U-14BK). (a) The 55U+48C 'state=null' records are exactly the 103 battery records, which have no state key at all (a schema gap; all 467 regiments have state). Some 'state' values are 'Regular Army' (15) and 'Multi-state' (1); Maryland is 5, not 4. (b) 570 includes the alias row (true count 569), and U-14BK is also listed in union_oob_brigades.json regiment_ids beside U-84NY, so the fix must remove it there too. (c) Battery ids are label-based ('C-ART-Manly', 'U-ART-C1NY'), so the ordinal/state/number parser does not cover them; a manual battery name table is needed."
+  },
+  {
+   "id": "hist-sources-1-03",
+   "title": "Ingest the state monument-commission corpus in priority order: New York Final Report, Pennsylvania at Gettysburg, then Maine/NJ/Michigan/Minnesota and small states",
+   "severity": "high",
+   "evidence": "Measured site coverage: NY 75 + PA 74 = 149 of 570 unit records (26%). IA: finalreportongettys01burgrich (vol.1, 548 imgs, 1,435,851 bytes, NOT_IN_COPYRIGHT; text states 'sixty-eight New York regiments or battalions of infantry present' and 'nineteen New York batteries'); pennsylvaniaatge05penn (1893 v1, 638 imgs), pennsgettysburg01reynrich/02reynrich (1914 v1-2), pennsylvaniaatg03penn (v3); maineatgettysbu01commgoog (701 imgs, 1.6 MB); finalreportofget00newj + newjerseytroopsi00intoom (NJ); cu31924030924736 (Michigan 1889); minnesotacivil01minnrich; small VT/MD/IL/IN/RI/VA/OH/CT volumes (13-370 KB). Gaps (no dedicated book found): WI, MA (only Roe 1910), DE, NH, WV, Confederate states.",
+   "root_cause": "State commissions collected veteran-written regimental histories, inscriptions and dedication speeches (1880s-1910s); none of that depth exists in the site's 467 one-line 'key_action' strings (e.g. U-20ME carries a 2-3 sentence key_action and a flag_notes line).",
+   "fix": "Per book: (1) pick a canonical edition (PA: 1914 superset; NY: vol.1 Fox narrative + per-regiment sketches + vol.3 monument data); (2) segment by regiment heading using the book's contents + alias table; (3) emit sections.jsonl {doc_id, unit_id, section_type: narrative|address|inscription|roster, author, year, text, page}; (4) tag provenance ('veteran_memory_1893' etc.); (5) keep other editions as variants, dedupe by normalized-text hash. Do NY and PA first (149 units), then ME/NJ/MI/MN (35 units), then small volumes as whole documents with unit tags.",
+   "effort": "L",
+   "acceptance_test": "Every NY and PA unit record has >= 1 narrative section linked (target 90%); 25 spot-checked sections reproduce the printed page text; each section has ia_id + leaf + printed page; a coverage report lists units without a state-book section.",
+   "metric_or_grade_moved": "Content depth for 75-149+ regiments; historian answer quality for unit-specific questions",
+   "depends_on": [
+    "hist-sources-1-02",
+    "hist-sources-1-12"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "NY facts verified verbatim ('sixty-eight ... regiments or battalions of infantry', 'nineteen New York batteries'); all cited IA ids exist with matching sizes. Correction: per-regiment inscription and historical-sketch material is spread across all three NY volumes (vol.1 has 0 hits for the 91st NY; vol.3 opens with the 137th NY), not 'vol.1 sketches + vol.3 monument data'. Cleanly labelled vol.3 (finalreportonbat0003unse) and vol.1 (finalreportonbat0001dani) IA items exist and are not listed; the report lists ambiguous unlabelled cu3192409292497x/96 ids."
+  },
+  {
+   "id": "hist-sources-1-04",
+   "title": "Replace copyrighted-compilation provenance in the OOB data with a PD-derived casualty/strength table (OR returns + Fox + Phisterer + Dyer + Livermore) and a documented reconciliation policy",
+   "severity": "high",
+   "evidence": "deploy/data/oob/union_regiments_i_ii_corps.json metadata.sources lists Busey & Martin (Longstreet House 1994), Pfanz (UNC Press 1987/2001), Hessler & Motts (Savas Beatie 2015), Moe (1993), Desjardin (1995). Unit records carry strength, casualties and (for some) casualty_percentage. Fox (IA reglossescivilwar00foxwrich, 2,255,231 bytes, NOT_IN_COPYRIGHT) OCR tables contain digit errors ('(5,024', '30S', '000', '4,2 lo') so raw scraping is unsafe; PD primaries are OR27-1 No.13 (Return of Casualties at Gettysburg), No.15 (general return) and OR27-2 No.427 (Guild).",
+   "root_cause": "Numbers were compiled from secondary books; facts are not copyrightable but a curated compilation may be, and the site cannot show per-number provenance or explain why sources differ.",
+   "fix": "Build casualty_sources.jsonl with one row per (unit_id, source, killed, wounded, missing, total, strength) for OR returns, Fox, Phisterer, Dyer, Livermore (aggregates). Parse Fox tables by rebuilding columns (hOCR word boxes or row-sum checksum K+W+M == total); send failures to a manual queue. Publish reconciliation columns (or_value, fox_value, site_value, delta, note) and a rule: site value = OR return where present, else Fox, else Dyer; keep Busey/Martin only as 'see also' after counsel review. Add a source badge to unit cards.",
+   "effort": "L",
+   "acceptance_test": "For 100% of units with an OR return or Fox row, site casualties == rule value; checksum failures < 3% after the manual queue; a diff report lists units where OR and Fox differ by > 10% with explanation; oob metadata.sources no longer lists copyrighted books as the numeric source.",
+   "metric_or_grade_moved": "Legal/provenance risk; data accuracy (C4/H10 class); trust",
+   "depends_on": [
+    "hist-sources-1-01",
+    "hist-sources-1-02"
+   ],
+   "audit_refs": [
+    "H10",
+    "C4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Copyrighted-book provenance and the Fox digit errors ('(5,024','30S','000','4,2 lo') verified exactly. Corrections: (a) Fox is Union-only, so 241 of 570 units (42%) have no Fox row. The PD Confederate counterpart is the OR27-2 Addenda Return of Casualties in the ANV (Guild, pp.~338-345, regiment-level K/W/M). It is not named, its OCR is column-scrambled (needs djvu.xml coordinates), and its own note says regimental and brigade totals do not tally. (b) Only casualties are replaceable; there is no PD regimental strength source for Confederates, so the '100% of units with OR/Fox row' acceptance test silently exempts them. (c) Root cause is incomplete: 88 of 103 battery strengths are templated (4 guns=80, 6 guns=107) and 36 regiments have casualties=0, so they need an 'estimated' flag. (d) metadata.sources exists in 11 of 14 oob files; the 3 confederate_regiments_* files (171 records) have metadata=null. Effort L is optimistic."
+  },
+  {
+   "id": "hist-sources-1-05",
+   "title": "Ingest participant narratives (Battles & Leaders v3, SHSP v1-43, Joint Committee v1, Haskell/Oates/Curtis/Holcombe/Polley) with mandatory perspective/bias tags",
+   "severity": "medium",
+   "evidence": "IA battlesleadersof03john (786 imgs, 3,251,232 bytes, OCR proxy 0.966): OCR contents lists ~25 Gettysburg articles pp.244-~440 (Longstreet 244, Hunt 255/290/369, Gibbon 313, Melcher 314 '20th Maine at Little Round Top', Law 318, Kershaw 331, Alexander 357...). SHSP vols 1-43: 49.0 MB, 2,949 'Gettysburg' mentions; densest vols 4 (312), 37 (253), 5 (204). Joint Committee v1 (reportofjointcomm01unit): 345 'Gettysburg' / 212 'Sickles' mentions; witness headings include Meade, Warren, Sickles, Howe, Birney, Doubleday, Pleasonton, Hancock, Butterfield, Gibbon, Hunt. Curtis 24th Michigan: 549 Gettysburg mentions.",
+   "root_cause": "Contested postwar narratives (Longstreet vs Allan/Early; Sickles vs Meade) will be presented as neutral fact by a keyword retriever unless each passage carries author, date written, side and controversy tags.",
+   "fix": "Schema fields: perspective {side:'union|confederate|civilian', role:'general|staff|regimental|private|civilian', written_year, lag_years, genre:'official_report|memoir|testimony|address|periodical', bias_tags:['lost_cause','controversy:Longstreet-Allan','partisan_committee_1864']}. Segment B&L by contents (title/author/page), SHSP by article with Gettysburg-density scoring then human shortlist (~150), Joint Committee by witness. UI rule: answers citing tagged passages show a 'perspective' chip and, for controversy tags, at least one opposing-side passage.",
+   "effort": "L",
+   "acceptance_test": "100% of narrative passages carry perspective+lag fields; SHSP shortlist reviewed (>= 150 articles) with reviewer initials; a test question on Longstreet's July 2 delay returns passages from >= 2 sides with visible chips.",
+   "metric_or_grade_moved": "Historical accuracy/fairness; historian trust; H8",
+   "depends_on": [
+    "hist-sources-1-12"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "B&L v3 contents pages (244/251/253/255/284/289/290/313/314/315/318/331/339) match. SHSP recount of vols 4/5/37 = 312/204/253 exactly, and stored counts sum to 2,949 / 49.04 MB across 43 vols. JCCW 345/212 exact. Curtis 549 belongs to historyoftwentyf00curti (the other copy gives 538)."
+  },
+  {
+   "id": "hist-sources-1-06",
+   "title": "Extract ~5,400 clock-time expressions and dated dispatches from the OR and use them as ground-truth time anchors to reconcile the site's timeline (C4)",
+   "severity": "high",
+   "evidence": "Regex count over OR text (heuristic; includes false positives): 2,269 clock-time expressions in Pt1, 947 in Pt2, 2,204 in Pt3 (total 5,420); 225 'July 1-3, 1863' date strings in Pt3. OR27-1 also holds the Itinerary (No.7); IA itineraryofarmy00united (80 imgs, NOT_IN_COPYRIGHT). Audit C4 lists data labels such as Longstreet 7:30am, Vincent 8:25am, Pickett's Charge 11:05am vs history ~4pm/4:30pm/3pm.",
+   "root_cause": "The timeline was authored from memory/secondary summaries; no machine-checkable anchor set exists, so contradictions (dusk at 12:10pm) survive.",
+   "fix": "time_anchors.py: regex (\\d{1,2})(?:[:.](\\d{2}))?\\s*(?:o.clock)?\\s*([ap])\\.?\\s?m\\b plus lexicon for noon/daybreak/sunset/dusk and about/near/before/after modifiers; attach to the nearest preceding event sentence with unit + place via alias table + gazetteer. Output time_anchors.jsonl {anchor_id, source_ref, unit_id, place, date, time_text, time_min, modifier, tol_min (+/-10 for local sun time), confidence, quote}. Diff against chronology_day*.json event times and the 675-tick clock; emit discrepancy CSV (event, site_time, anchor_median, n_anchors, IQR).",
+   "effort": "L",
+   "acceptance_test": ">= 3,000 anchors parsed with unit or place tag; precision >= 90% on a 200-anchor hand-labelled sample; discrepancy CSV covers all 137 chronology events with n_anchors and median; each of the 8 flagged C4 examples shows >= 2 independent anchors.",
+   "metric_or_grade_moved": "Historical accuracy (C4); enables honest 'reported times' UI",
+   "depends_on": [
+    "hist-sources-1-01",
+    "hist-sources-1-02"
+   ],
+   "audit_refs": [
+    "C4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Regex counts reproduce only after whitespace collapse (2,258/944/2,201 vs claimed 2,269/947/2,204). Usefulness is overstated: Pt3 covers June 3-Aug 3 and only ~100 of ~1,374 dated items (~168 of 2,201 clock times, ~8%) are July 1-3; Pt1/Pt2 include non-battle reports. The '225 July 1-3, 1863 date strings' is really 225 occurrences of 'July [123], 1863' (85/74/66); the literal string appears once. The finding's own bias notes (reports differ by 1-3 h) conflict with the 'ground-truth' framing; use median/IQR testimony stats."
+  },
+  {
+   "id": "hist-sources-1-07",
+   "title": "Georeference LoC/Leventhal Bachelder (1876/1883/1863) and Warren maps; locate the reported 28 time-stamped Bachelder maps (NARA RG 77 / GNMP) before digitising troop positions",
+   "severity": "medium",
+   "evidence": "LoC items verified via ?fo=json: 99447491 (Bachelder 1876, 3 sheets, 1:12,000), 99447492 (1883 ed.), 99448794 (Warren, from the Jubal Early Collection, base for Bachelder), 93517377 (1863 isometrical), 99448798/99448799 (Woeltje & Cutting 1888). IIIF info.json verified 200 at tile.loc.gov. LoC G&M rights: 'free to use and reuse unless a Rights Advisory statement is present'. Leventhal Map Center (BPL) Bachelder 1876 third-day sheet: TIF 208 MB, IIIF manifest, 'No known copyright restrictions'. NARA blog (fetched) lists 5 RG 77 Gettysburg maps with NAIDs (305570, 17370358, 6860337, 102279222, 176246316, 176246318). Dealer pages describe 28 hourly Bachelder maps - not found in any repository I could read.",
+   "root_cause": "The map has no historically georeferenced base or troop-position layer; positions/timing derive from memory-based placement files.",
+   "fix": "1) Pull item JSON + IIIF info.json for the 8 LoC items (<= 20 requests/min; cache) and use the Leventhal TIF/IIIF as a non-rate-limited mirror. 2) Georeference Warren first (25-40 GCPs: road intersections, Codori/Trostle/Weikert buildings, Seminary, cemetery gates; thin-plate spline; RMS < 15 m) in Allmaps or QGIS, then the Bachelder sheets. 3) Publish PMTiles/raster tiles as an optional 'Historic map' overlay with credit line. 4) Ask NARA Cartographic (College Park) and the GNMP archivist whether the 28 hourly maps exist digitally; if yes they become the top-priority placement source. 5) Only then digitise Bachelder symbols to GeoJSON (day, position class first/intermediate/evening, unit_id).",
+   "effort": "XL",
+   "acceptance_test": "Warren + 3 Bachelder sheets georeferenced with RMS < 15 m and 10 independent check points < 25 m; overlay toggle renders at z12-17 without console errors; NARA/GNMP inquiry answered in writing (yes/no + access route); attribution matches the LoC/Leventhal credit line.",
+   "metric_or_grade_moved": "Content depth; placement accuracy (D3); spatial checks for C4",
+   "depends_on": [
+    "hist-sources-1-11"
+   ],
+   "audit_refs": [
+    "D3",
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "All six LoC items verified (99447491 = Bachelder pub. Boston 1876, 3 sheets, Scale 1:12,000, LoC date field 1879; 99447492 = 1883 edition; 99448794 = Warren; rights text as quoted; IIIF info.json responds). Leventhal 208 MB TIF, IIIF manifest and 'No known copyright restrictions' confirmed. The 28 hourly maps appear only in dealer listings (one forum thread says 27). NPS finding aid Gett 41137 confirms Commission hour-by-hour first-day maps 1895-1910, an unmentioned lead. RMS<15 m and XL effort are unverifiable."
+  },
+  {
+   "id": "hist-sources-1-08",
+   "title": "Curate 40-75 rights-gated LoC photographs (Gardner/O'Sullivan/Gibson, July 5-7 1863 aftermath) for the Historian and Ground Remembers pages",
+   "severity": "medium",
+   "evidence": "LoC collection API civil-war-glass-negatives q=gettysburg returns 185 records (4 pages of 50); 75 have created_published containing '1863 July.'; contributors O'Sullivan 34, Gardner 31, Gibson 15, Smith 15. Rights: 118 records carry 'No known restrictions on publication. For information, see \"Civil war photographs, 1861-1865,\" https://www.loc.gov/rr/print/res/120_cwar.html', 55 carry 'No known restrictions on publication.', 12 carry none; 3 have a 'Copyright ...' note (1917 studio copy prints). LoC title flags a misattribution: 'Dead Confederate sharpshooter at foot of Little Round Top [i.e., Devil's Den]'.",
+   "root_cause": "No period imagery in the Historian; audit S1 found sub-pages that are only a search box.",
+   "fix": "photos.py: paginate with 3-s spacing (JSON limit 20/min); keep id, title, date, contributor, notes, rights_advisory, image_url; accept only rights_advisory starting 'No known restrictions' AND notes without 'Copyright'; download service_medium (r.jpg) only for curated ids; convert to AVIF/WebP in 3 widths; store photos.json {lcid, lc_dig_id, caption_loc, caption_site, photographer, date_text, place_key, unit_ids, credit:'Library of Congress, Prints and Photographs Division, LC-DIG-...'}; label all as 'aftermath (photographed ~July 5-7 or later)' and never attach to battle ticks; add caption-correction notes.",
+   "effort": "M",
+   "acceptance_test": "photos.json has >= 40 approved entries each with rights_advisory text stored verbatim and a credit line; zero entries with missing rights or 'Copyright' notes; images <= 150 KB at 800 px with width/height set (no CLS); alt text for all.",
+   "metric_or_grade_moved": "Content richness; accessibility (alt text); CLS if dimensions set",
+   "depends_on": [
+    "hist-sources-1-12"
+   ],
+   "audit_refs": [
+    "S1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "185 results, 4 pages of 50, 75 with '1863 July' (O'Sullivan 24, Gardner 21, Gibson 13, Brady 3), rights 118/55/12, 3 'Copyright' notes, and the '[i.e., Devil's Den]' caption all reproduce. Correction: 10 of the 185 rows are LoC essay/bibliography pages with no item block, so there are 175 photo records, and the '12 with no rights statement' are mostly those pages."
+  },
+  {
+   "id": "hist-sources-1-09",
+   "title": "Newspapers: curated Chronicling America harvest now; re-OCR The Compiler (Pennsylvania Newspaper Archive) later; open licence talks for the Adams Sentinel",
+   "severity": "low",
+   "evidence": "Chronicling America (loc.gov API) returns 1,425 full-text pages mentioning 'gettysburg' for 1863-07-04..07-31 (New-York Daily Tribune 76, New York Herald 69, Chicago Daily Tribune 48, Cleveland Morning Leader 48, Worcester Daily Spy 41, Portland Daily Press 36). No Gettysburg-published 1863 title turned up in CA title queries (Adams Sentinel record sn83032079 is title-level only, digitized False). The Compiler (Gettysburg) IS at panewsarchive.psu.edu (51 issues in 1863; no July 6 issue) but OCR is poor: in-vocabulary proxy 0.43-0.48 on 4 pages of 1863-07-13 vs 0.93-0.98 for IA books; page 2 begins 'BATTLES 0F GETTYSBURG. \"Our uguallyquict null unpretnullmg lit tle town of Gettysburg has become hiutnric.\"'. Adams Sentinel/Star and Banner/Star and Sentinel are 'Newspaper Archive (subscription)' per the Gettysburg College libguide.",
+   "root_cause": "Local contemporary voices are absent from the Historian; the free local paper's OCR is unusable as-is.",
+   "fix": "Phase A (M): ca_harvest.py - fixed query list x July 4-15 1863, facet by title, cache JSON, download OCR for ~200 pages, extract ~50-150 telegram-bulletin articles with headers. Phase B (XL, deferred): re-OCR ~80 Compiler pages (Jul 13-Nov 30) from PNA IIIF images with Tesseract 5/Kraken, LLM post-correction, 10-page gold set to report CER, article segmentation. Phase C (S): email Gettysburg College Special Collections/Musselman Library about a research licence for the Adams Sentinel 1863 (draft in report Appendix D).",
+   "effort": "XL",
+   "acceptance_test": "Phase A: >= 50 cleaned articles with title/date/page/url and rights statement; Phase B: gold-set CER <= 5% and an article-count report; Phase C: written reply logged in the governance register.",
+   "metric_or_grade_moved": "Content depth (local/civilian perspective); H8 breadth",
+   "depends_on": [
+    "hist-sources-1-12",
+    "hist-sources-1-13"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "Chronicling America total 1,425 and top-title facets reproduce; old CA URL 404s; cached PNA index shows 51 Compiler issues in 1863 with July issues 13/20/27; cached OCR is garbage; libguide confirms the Adams Sentinel and The Compiler are on Newspaper Archive via Gettysburg College. Minor error: the quoted 'BATTLES 0F GETTYSBURG' line is at line 305 of page 2, not the page start. The PNA 0.43-0.48 OCR proxy is unverifiable live (host timed out)."
+  },
+  {
+   "id": "hist-sources-1-10",
+   "title": "Parse GNMP monument/marker lists (1903-1921 IA, 1932/1993 NPS) and Commission annual reports into a monument + landscape-change register",
+   "severity": "low",
+   "evidence": "npshistory.com/publications/gett/mon-locations-1932.pdf (2,095,190 bytes) has a text layer: pdftotext -layout gives 139,713 chars with rows 'Regiment | Brigade | Corps | Location' by state and arm (e.g. '14 Smyth ... North Hancock Avenue'). 1993 PDF 7,014,723 bytes. IA: locationofmonume00unit (1903), 02unit (1912), 03unit (1916), 01unit (1921; OCR proxy 0.829). GDG hosts annual Commission reports 1893-1933 (index verified; TLS certificate expired).",
+   "root_cause": "Site data/monuments.json has no per-unit inscription/location provenance or dating.",
+   "fix": "Parse tables into monuments_register.jsonl {edition_year, state, arm, unit_text, unit_id, brigade, corps, location_text}; diff editions to date each monument; mark all as 'memorial position (not battle-time)'; from annual reports capture avenue construction and land-purchase dates to flag terrain changes; re-source GDG transcriptions from HathiTrust/IA to avoid the expired-cert host.",
+   "effort": "M",
+   "acceptance_test": "1932 register >= 95% of rows parsed with unit_id linked; 30-row manual QA >= 95% correct; each monument record shows edition year and the memorial-position flag.",
+   "metric_or_grade_moved": "Content depth; accuracy of location claims",
+   "depends_on": [
+    "hist-sources-1-02"
+   ],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "PDF sizes (2,095,190 B; 7,014,723 B), 41 pages, 139,713 chars from pdftotext -layout, IA 1903-1921 lists and GDG cert expiry (2015) all verified. But -layout output is not clean rows (a regiment's brigade/corps/location cells print on the neighbouring line; OCR typos such as 'Sloeum' and 'Cuips'), so parsing needs bbox/y clustering; effort M is optimistic (M-L)."
+  },
+  {
+   "id": "hist-sources-1-11",
+   "title": "Licensing governance: per-source rights registry, exclusion list and permission outreach (Ladd/Bachelder Papers, NHHS, Stone Sentinels, NYSMM, Rumsey, Busey & Martin)",
+   "severity": "high",
+   "evidence": "IA bachelderpapersg0001unse = Morningside 1994 lending scan (not open). NHHS: 'For permission to reproduce this image, please add the image to your cart and proceed through the Image Request checkout process', fees $25/$50. Stone Sentinels footer '(c)2026 Steve A. Hawks'. NYSMM footer '(c)2026 ... All rights reserved.' Rumsey: CC BY-NC-SA 3.0 (about page) vs 2.0 (record page) - inconsistent and non-commercial. IA also hosts non-PD reprints (1971 OR reprint warrebellionaco00cowlgoog; 1959 Dyer).",
+   "root_cause": "A historian feature that quotes text at scale needs an auditable rights basis per passage; today none exists.",
+   "fix": "Add rights.json entries {source_id, status:'PD-US|LoC-no-known-restrictions|permission-required|excluded', basis, statement_text, statement_url, verified_at, reviewer}; enforce in the ingest CLI (refuse sources without allow-listed status); IA fetcher checks original imprint (date <= 1930, publisher not a reprint house, not access-restricted); send permission requests for X-01/X-02/X-03/X-05 (drafts in report Appendix D - not sent); publish an /about-sources page listing every source, licence and credit line.",
+   "effort": "M",
+   "acceptance_test": "CLI blocks a test run on warrebellionaco00cowlgoog (1971 reprint) and on an item without rights; /about-sources lists 100% of ingested sources with statement URL; permission log has dated entries for NHHS, Ladd/Morningside and Gettysburg College.",
+   "metric_or_grade_moved": "Legal/governance; trust; docs",
+   "depends_on": [],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "Bachelder Papers IA item is access-restricted; NHHS text quoted correctly, but $25/$50 are reproduction fees with separate licensing fees ($25-$100), and the barrier is ownership/access terms (the letters themselves are old enough to be PD). Stone Sentinels, NYSMM and Rumsey (3.0 vs 2.0) claims reproduce. Flaw: the IA gate 'date <= 1930' fails because IA item dates are series-start (OR=1880; Confederate Veteran 1902-1929 issues = 1893; SHSP/Gardner = null; 1984 reprint scans exist as separate items)."
+  },
+  {
+   "id": "hist-sources-1-12",
+   "title": "Polite, resumable fetch infrastructure with raw-source cache, manifest and per-host rate limits",
+   "severity": "medium",
+   "evidence": "Measured: loc.gov JSON API documented at 20 req/min (1-hour block; image/text 150/min) - HTML item pages and /manifest.json returned HTTP 403 to my script at times while ?fo=json and tile.loc.gov kept working; HathiTrust babel robots.txt 'Disallow: /cgi/' (Crawl-delay 1) + Cloudflare 403; Project Gutenberg 'intended for human users only' (bulk via robot/harvest with wget -w 2) and returned 503/504 intermittently; Pennsylvania Newspaper Archive intermittently times out; Emory-sourced IA items use underscores in file names (01300611_3315_djvu.txt vs id 01300611.3315.emory.edu).",
+   "root_cause": "Each source has different limits, formats and failure modes; ad-hoc scripts will get IPs blocked or silently ingest wrong files.",
+   "fix": "tools/ingest/fetch.py with per-host token buckets (loc.gov 0.3 req/s; archive.org 2 req/s; panewsarchive 0.5 req/s; gutenberg mirror/harvest only; hathitrust Bib API only), identifying User-Agent with contact email, ETag/If-None-Match caching, sha256 manifest, retry with backoff on 429/5xx, hard-stop on 403 with human-review message, IA helper that reads /metadata to choose files, size guard (skip > 100 MB unless --allow-big), resumable state file.",
+   "effort": "M",
+   "acceptance_test": "Dry-run against 20 mixed URLs never exceeds host limits (logged); re-run downloads 0 bytes (304/cache hit); on injected 403 the tool stops and prints remediation; manifest has sha256, size, fetched_at, source_id for every file.",
+   "metric_or_grade_moved": "Reliability of the data pipeline; enables all ingest items",
+   "depends_on": [],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "loc.gov 20/min JSON, 150/min text/image, 1-hour block, 100k paging cap verified from the LoC page (also 72-hour block for MARCXML, and the block timer resets on requests made during the block); HathiTrust robots.txt (Crawl-delay 1, Disallow /cgi/) verified; Emory underscore file names verified; Gutenberg 504s reproduced. Suggest 0.2 req/s instead of 0.3 req/s (18/min is too near the 20/min cap)."
+  },
+  {
+   "id": "hist-sources-1-13",
+   "title": "OCR quality gates and targeted re-OCR: measure every source, re-OCR the poor ones (Compiler, Confederate Veteran, Gardner captions, Atlas)",
+   "severity": "medium",
+   "evidence": "Measured in-vocabulary proxy (1.0 best): OR27-1 0.984, OR27-3 0.967, Fox prose 0.977, NY Final Report v1 0.968, Battles&Leaders v3 0.966, Joint Committee 0.960, Phisterer v1 0.943, PA at Gettysburg 0.935-0.949, Clark NC v2 0.933, Maine at Gettysburg 0.892, Bates v1 0.878, Wert 0.867, Confederate Veteran v1 0.835, GNMP 1921 list 0.829, Atlas 0.685, Compiler 1863-07-13 0.43-0.48, Gardner Sketch Book 0.046 (image-only).",
+   "root_cause": "OCR quality varies by an order of magnitude; without a gate, garbled text enters embeddings and quotes.",
+   "fix": "ocr_gate.py: compute the proxy per document/section against the growing vocabulary; >= 0.90 auto-accept; 0.80-0.90 accept with spell-repair and flag; < 0.80 quarantine for re-OCR. For quarantined sources download page images (IA JP2 zip or PNA IIIF) and re-OCR with Tesseract 5 (column-aware) or Kraken; keep both texts with an 'ocr_engine' field. Add numeric-table validators (row sums) for Fox and casualty returns.",
+   "effort": "M",
+   "acceptance_test": "Every ingested document has ocr_score; documents < 0.80 never reach the retrieval index; re-OCR raises the Compiler sample proxy above 0.85 on a 10-page gold set.",
+   "metric_or_grade_moved": "Answer accuracy; quote fidelity",
+   "depends_on": [
+    "hist-sources-1-12"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "UNVERIFIABLE",
+   "correction": "The OCR proxy vocabulary was not reproduced; individual data points (clean OR text, Fox digit errors, garbage Compiler OCR) were confirmed. Design is reasonable."
+  },
+  {
+   "id": "hist-sources-1-14",
+   "title": "Page-accurate citation model (IA leaf -> printed page -> deep link) for every quoted passage",
+   "severity": "medium",
+   "evidence": "IA *_page_numbers.json for warofrebellion271unit maps 1,188 leaves to printed pages (leaf 401 -> '383', leaf 703 -> '683'); *_djvu.txt has NO form-feed page markers (0 found), so page boundaries need *_djvu.xml (46.6 MB, one <OBJECT> per leaf, verified by range request) or running-head regex; Chamberlain report starts at OR p.622 (Part 1). HathiTrust deep links are babel.hathitrust.org/cgi/pt?id=coo.31924077699761;seq=N (HTML blocked to scripts but fine for human links).",
+   "root_cause": "Without page mapping the Historian can cite only 'Official Records' rather than 'OR Ser. I, vol. 27, pt. 1, p. 623', so answers are unverifiable.",
+   "fix": "For each IA item stream-parse djvu.xml (lxml.iterparse) to get text per leaf, join with page_numbers.json for printed page (interpolate gaps), store leaf and printed_page on every chunk; generate deep links archive.org/details/<id>?view=theater#page/n<leaf>/mode/1up and the Hathi seq link when an htid mapping exists (Bib API). Citation formatter: 'OR, Ser. I, vol. 27, pt. 1, p. 623 (Chamberlain, 20th Maine)'.",
+   "effort": "M",
+   "acceptance_test": "100 random chunks: printed page matches the scan in 98+; citation strings render for 100% of chunks; links open the right page in 20 manual checks.",
+   "metric_or_grade_moved": "Verifiability/trust; docs polish",
+   "depends_on": [
+    "hist-sources-1-01"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "leaf 401->383, 703->683 and Chamberlain p.622 verified, and djvu.txt has no form feeds. But the deep-link recipe #page/n<leaf> is wrong: page_numbers.json leafNum is the scandata leaf number (0..1192, 1,188 entries), while the BookReader index counts only access leaves (scandata flags 0,470,471,886,887,1193 as not-for-access). Empirically page/n641 renders printed p.624, while json leafNum 641='621' and 644='624' (offset 3, then 5 after leaf 887). Links and leaf_start/leaf_end would be off by 3-5 unless the reader index is derived from scandata.xml."
+  },
+  {
+   "id": "hist-sources-1-15",
+   "title": "Close source-coverage gaps: Wisconsin, Massachusetts, Delaware, New Hampshire, West Virginia, Confederate state monument commissions; outreach for Bachelder holdings",
+   "severity": "low",
+   "evidence": "IA title searches found no Gettysburg commission volume for WI/MA/DE/NH/WV; UW-Madison catalog record 'Report of Commissioners to Care for Gettysburg Battle Monuments, 1892' exists (digital status unverified); Wisconsin Historical Society holds monument photographs. Site units: WI 6, MA 18, NH 3, DE 2, WV 4. No digital 'Bachelder Project', NYS Library or Gettysburg College Bachelder collection was found (NHHS holds the physical papers: 10 boxes + 7 volumes; finding aid PDF verified).",
+   "root_cause": "Some states never published a single commission volume online (or it is not on IA); Confederate states mostly memorialised after 1900.",
+   "fix": "Workaround coverage matrix: WI via OR27-1 Nos.34-36 (Mansfield/Dawes/Robinson), Curtis, Haskell, Wisconsin History Commission Reprints No.1; MA via Roe 1910 + OR + B&L; Confederate via OR Pt2 + Clark + CMH + SHSP + Polley/Oates. Email UW-Madison/WHS for scan status; ask NHHS for item-level quote/permission for ~10 targeted Bachelder letters.",
+   "effort": "S",
+   "acceptance_test": "Coverage report lists per state: units, sources available, sources missing; outreach log has dated entries; each gap has a stated workaround.",
+   "metric_or_grade_moved": "Content coverage transparency",
+   "depends_on": [
+    "hist-sources-1-03"
+   ],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "The Wisconsin History Commission Reprints No.1 exists (battleofgettysbu0000unse_f9x3). The Massachusetts gap is narrower than claimed: dedicationofmonu00bowe (7th/10th/37th Mass. dedication, 1886) and reportofjointsp00bost (1863) exist and are not in the report; reportofnewyorkb00newy (NY 1887) is also missing."
+  },
+  {
+   "id": "hist-sources-1-16",
+   "title": "Source-level QA harness: 100-passage random audit per source plus a 25-question retrieval gold set",
+   "severity": "medium",
+   "evidence": "Audit H8: 'why did Lee lose the war' returned Pickett + 'Archer Captured'; long vignettes dumped as walls of text. historian.html:48 promises everything 'traces back to a real row of data, shown as a source link below each answer'.",
+   "root_cause": "No evaluation exists to show that new sources improve answers rather than add noise.",
+   "fix": "Create eval/gold.yaml with 25 questions across unit facts (20th Maine commander/position), time (when did Pickett's Charge begin), causation (Lee's July 3 decision), bias (Longstreet at Gettysburg), place (Peach Orchard), each with accepted source ids + page. Per source sample 100 passages and check text fidelity vs scan, unit link correctness, licence flag; report pass rate in CI. Track recall@5 and citation precision before/after each source is added.",
+   "effort": "M",
+   "acceptance_test": "Each source has a QA report >= 95% pass; gold-set recall@5 >= 0.8 and citation precision >= 0.9 after P0 sources; regressions fail CI.",
+   "metric_or_grade_moved": "Historian quality (H8); reliability",
+   "depends_on": [
+    "hist-sources-1-01",
+    "hist-sources-1-03"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "UNVERIFIABLE",
+   "correction": "Cited evidence is real (historian.html:48 promises 'a source link below each answer'; audit H8 example present at audit line 59). The proposal is a design; there is no measurement to verify."
+  },
+  {
+   "id": "hist-sources-1-17",
+   "title": "Corpus size and hosting budget for P0/P1 sources (raw ~75 MB P0 text; 20-50k chunks) to inform retrieval architecture",
+   "severity": "low",
+   "evidence": "Measured raw OCR sizes: OR27 11.26 MB (3.97+3.88+3.41), Battles&Leaders v3 3.27 MB, SHSP v1-43 49.0 MB, NY Final Report v1 1.44 MB (vols 2-3 ~1.5-1.7 MB each), PA at Gettysburg ~2 MB/volume, Fox 2.26 MB, Clark NC ~1.8-2.2 MB/vol, Phisterer 3.6-3.9 MB/vol, Dyer 14.7 MB, Bates 6.6-9.1 MB/vol. P0 raw (OR + B&L + SHSP + NY + PA + Fox) ~= 75 MB; Gettysburg-filtered SHSP would shrink 49 MB to a few MB.",
+   "root_cause": "The site is static Netlify hosting; the retrieval design (client-side vs edge vs hybrid) depends on corpus size.",
+   "fix": "Keep raw in a private bucket or repo LFS (not in the deploy); publish only derived, filtered passages (~30 MB, est. 20-50k chunks of ~250 words) as sharded JSON/JSONL plus a compact BM25 index; compute embeddings offline and ship as a quantised binary only if a semantic tier is chosen; keep any LLM tier server-side. Coordinate with the retrieval-architecture agent.",
+   "effort": "S",
+   "acceptance_test": "Budget doc lists bytes per shard, gzip/brotli sizes and chunk counts; initial route payload for the Historian stays < 150 KB with index shards lazy-loaded.",
+   "metric_or_grade_moved": "Performance (LCP/INP) of the Historian page; hosting cost",
+   "depends_on": [
+    "hist-sources-1-01",
+    "hist-sources-1-03"
+   ],
+   "audit_refs": [
+    "P2",
+    "P3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Raw sizes re-derived from IA metadata: OR 11.26 MB, B&L 3.25, SHSP 49.04, NY ~4.7, Fox 2.26, giving ~75 MB. Caveat: a client-side historian that today fetches ~0.8 MB up front cannot load 30 MB; lazy shards and an index-first design are mandatory."
+  }
+ ],
+ "open_questions": [
+  "Should site casualty/strength values switch to PD-derived numbers (OR returns > Fox > Dyer) with Busey & Martin demoted to 'see also', and should counsel review the existing OOB provenance (Busey & Martin, Pfanz, Hessler & Motts, Moe, Desjardin cited in data/oob metadata)?",
+  "Do the 28 time-stamped 'hourly' Bachelder maps (dealer-reported, 14 for July 1) exist digitally in NARA RG 77 or the GNMP archives? Unverified; needs an inquiry (draft D5 in report) because they would outrank every other source for tick placement.",
+  "Approve permission outreach and a small budget (NHHS $25/$50 per Bachelder image; Morningside/Ladd; Gettysburg College for the Adams Sentinel)? Drafts are in report Appendix D and NOTHING has been sent.",
+  "Accept mandatory perspective/bias chips (Union/Confederate/civilian; official report/memoir/testimony; Lost-Cause and partisan-committee tags) on every quoted passage?",
+  "Confederate regiment-level coverage is thin (~88 OR regiment/battery reports for 241 Confederate unit records; only NC has a state regimental series in this catalog) - invest in further Confederate sources in part 2 (Confederate Veteran, unit histories, diaries)?",
+  "Unverified and left open: eHistory (403), HathiTrust babel/Data API terms and hathifiles (403), NARA Catalog record contents (JS shell), digital availability of the Wisconsin 1892 commissioners' report, which NY Final Report IA item is vol.2 vs vol.3, exact Fox Gettysburg row counts, exact SHSP Gettysburg article count, total monument count in GNMP lists, and Atlas plate numbers beyond 43 and 95.",
+  "Retrieval-architecture coordination: is a client-side BM25 shard plus optional server-side semantic tier acceptable given ~30 MB of filtered passages (est. 20-50k chunks), or should the Historian move to an edge function?"
+ ],
+ "verification_summary": "Adversarial pass on hist-sources-1. The core evidence is real. I re-downloaded the OR27 Pt1-3, NY Final Report, Fox, B&L v3, SHSP, Joint Committee, Curtis and page_numbers.json texts, checked all 107 cited IA identifiers, and re-queried HathiTrust, LoC, Chronicling America, Wikimedia Commons and the non-IA catalog URLs. The IA identifiers, sizes, HathiTrust 'pd' codes, LoC records, SHSP/JCCW counts and the historian.html and oob-data claims all reproduce, and no catalog link is dead. The plan mechanics, several headline numbers and a few scope claims are wrong. Of the 17 findings: 4 confirmed (05, 07, 12, 17; 09 confirmed but partly unverifiable), 10 corrected (01, 02, 03, 04, 06, 08, 10, 11, 14, 15), 2 unverifiable design items (13, 16), none refuted.\n\nMost important problems:\n1. The OR segmentation regex returns 0 matches on the raw djvu.txt, which has double-spaced words. It only works after whitespace collapse.\n2. The '~2,200 dispatches' figure is really the Pt3 clock-time count. Dated dispatches are about 1,400.\n3. Only about 8% of Pt3 clock times fall in July 1-3 dispatches, so the '5,420 anchors' figure overstates the useful pool.\n4. The IA deep-link recipe is off by 3-5 pages. The BookReader index is not the page_numbers.json leafNum (n641 shows p.624, while json leafNum 641 = '621').\n5. The IA rights gate 'date <= 1930' is defeated by series-start dates (Confederate Veteran 1902-29 issues carry date 1893, SHSP has date null).\n6. Finding 04 misses the Confederate side. Fox is Union-only, Guild's OR27-2 regimental table has scrambled OCR, no PD regiment-level Confederate strength exists, and 88 of 103 battery strengths are templated placeholders (4 guns = 80, 6 guns = 107).\n7. The state=null records are exactly the 103 battery records, which have no state key. The alias U-14BK is also in union_oob_brigades.json regiment_ids, so that brigade double-counts the regiment.\n\nA Verification section with the verdict table and 8 missed issues was appended to hist-sources-1.md. Limits: WebSearch hit its spend limit, and the PNA and most Gutenberg hosts timed out, so those items rest on the specialist's cached copies or are marked unverifiable.",
+ "missed_by_specialist": [
+  {
+   "title": "IA rights gate 'date <= 1930' cannot work",
+   "severity": "high",
+   "evidence": "IA metadata: confederateveter19conf (v.19, 1911) and confederatevete1926conf_4 etc. carry date 1893; all warofrebellion27x items carry date 1880; southernhistoric*sout and GardnersPhotographicSketchBookOfTheWar have date null; 1984 reprint scans of the same journal exist as separate items (confederateveter17cunn_0 etc.); possible-copyright-status is None for OR, B&L, Clark, Oates, Dyer items.",
+   "fix": "Gate on a curated identifier allow-list plus a volume year parsed from the volume/title field, publisher check and reviewer sign-off; treat possible-copyright-status=None as unknown, never as OK."
+  },
+  {
+   "title": "OCR normalisation step missing (segmentation regexes return 0 hits on raw text)",
+   "severity": "medium",
+   "evidence": "warofrebellion271unit_djvu.txt has double spaces ('No.  196.') and U+FFFD glyphs; the report's own regex gives 0 matches on raw text vs 303/378 after collapsing [ \\t]+ (Pt2: 162/211).",
+   "fix": "Add normalize_ocr(): collapse whitespace, map U+FFFD by context, de-hyphenate line-broken words, with a unit test on OR27-1 No.196."
+  },
+  {
+   "title": "Alias unit U-14BK is also referenced in a brigade's regiment_ids",
+   "severity": "medium",
+   "evidence": "data/oob/union_oob_brigades.json regiment_ids [\"U-76NY\",\"U-84NY\",\"U-95NY\",\"U-147NY\",\"U-56PA\",\"U-14BK\"] lists the same regiment twice; the report only mentions the record in union_regiments_i_ii_corps.json.",
+   "fix": "Remove U-14BK from brigade regiment_ids and any roll-up; keep aliases only as search synonyms."
+  },
+  {
+   "title": "Placeholder/templated numbers in OOB data",
+   "severity": "medium",
+   "evidence": "88 of 103 battery records have (gun_count,strength) = (4,80) [56] or (6,107) [32]; 36 regiments have casualties = 0; report attributes numbers to secondary books.",
+   "fix": "Flag these as estimated in the PD casualty table; replace from OR artillery returns/Fox/Phisterer; do not present formula values as facts in the Historian."
+  },
+  {
+   "title": "Confederate regiment-level casualty source (OR27-2 Guild addenda) not identified; strength has no PD regimental source",
+   "severity": "medium",
+   "evidence": "OR27-2 'Return of Casualties in the Army of Northern Virginia' lists regiments (2d SC, 3d SC, ...) but OCR emits numbers as scrambled blocks ('+66','*78',',888') and notes regimental sums don't tally with brigade totals; Fox is Union-only; OR No.424 lists organisation without strengths.",
+   "fix": "Name the Guild table as the Confederate counterpart in finding 04, parse it from djvu.xml word coordinates, define a regimental-vs-brigade reconciliation rule, and state that Confederate strength cannot be PD-sourced at regiment level."
+  },
+  {
+   "title": "IA deep-link and leaf numbering bug",
+   "severity": "medium",
+   "evidence": "page/n641 shows printed p.624 while page_numbers.json leafNum 641='621' and 644='624'; scandata.xml marks leaves 0,470,471,886,887,1193 addToAccessFormats=false (reader index = leafNum-3, -5 after 887).",
+   "fix": "Store scan_leaf and reader_index (derived from scandata.xml), and test 5 sampled citations by fetching page/n<idx>_w400.jpg and reading the folio."
+  },
+  {
+   "title": "Provenance of Confederate regiment data undocumented",
+   "severity": "low",
+   "evidence": "confederate_regiments_first/second/third_corps.json (52+62+57=171 records) have metadata=null, while 11 of 14 oob files list sources; the report cites only union_regiments_i_ii_corps.json.",
+   "fix": "Add a provenance audit of all 14 oob files before the 'replace copyrighted provenance' step."
+  },
+  {
+   "title": "Unlisted cheap sources and leads",
+   "severity": "low",
+   "evidence": "IA: reportofnewyorkb00newy (NY Board of Commissioners 1887), dedicationofmonu00bowe (Mass. 7th/10th/37th dedication 1886), reportofjointsp00bost (Mass. burial committee 1863), finalreportonbat0003unse (labelled NY vol.3) and finalreportonbat0001dani; NPS finding aid Gett 41137 documents GNPC hour-by-hour first-day interpretive maps 1895-1910.",
+   "fix": "Add these to the catalog (and to the MA/NY coverage matrix) and treat the GNPC hour-by-hour maps as a placement-source lead alongside the Bachelder search."
+  }
+ ]
+}

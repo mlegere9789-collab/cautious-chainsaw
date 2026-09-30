@@ -1,0 +1,778 @@
+{
+ "agent": "qa-ci",
+ "summary": "Full NO-BUILD testing/CI/CD/release plan written to plan-work/qa-ci.md (about 330 KB: 13 sections plus 3 appendices). Core idea: the site has no quality system (netlify.toml:2 publish=\".\" with no build; deployed tree has no package.json/tests/CI; the Jun-13 test suite was lost and was structural-only) and Lighthouse cannot protect it (errors-in-console=1 and target-size=1 on the build that throws setGoldUnit and hides five mobile controls; html,body overflow:hidden at index.html:62 hides C1 from page-level overflow checks). The plan is red-first plus ratchet: every one of the 57 audit ids plus 21 extra findings maps to an automated assertion (traceability matrix in section 10), written first against today's site, registered in expiring known-failures/allowlist/intended-diff registries (unlisted failure, stale entry or expired entry all fail CI; proven in a prototype: seeded 15/15 pass, empty 12 fail, stale 1 fail). Tiers T0-T6 (pre-commit, push <=6 min, Netlify Deploy Preview <=30 min, nightly full matrix, post-deploy smoke, 6-hourly production monitors, manual programs). 24-row viewport matrix (12 widths x portrait/landscape or standard/short) generated from one JSON into Playwright projects, 3 engines, state catalogue; per-element geometry detector (OFFSCREEN, OCCLUDED, OVERLAP, CLIPPED_TEXT, H_OVERFLOW, TARGET_SIZE, FONT_FLOOR) plus click({trial:true}) tappability would have caught C1, C2, H1, S4. Also specified: axe/pa11y/keyboard-only journeys, Lighthouse 13 runner with green/target budgets and G0-G4 ratchet (LHCI 0.15.1 bundles Lighthouse 12.6.1 vs the audit's 13.5.0, so a raw-LHR assertion script is used), bundle/network budgets, deterministic visual baselines, data validators DV-00..30, static site lint SL-01..30, header/redirect probes, CSP roll-out that is test-driven (current report-only CSP has no report-uri so its soak is blind), RUM (web-vitals attribution beacon, Netlify Function + Blobs, evaluator tuned for ~113 views/day: 7-day p75, n>=100, bots excluded, page/warn/regress rules), synthetic monitors, cross-browser and real-device program, parity harness with intended-diff registry and 12-point cut-over go/no-go, production-branch promotion, 4 rollback levels, versioning/changelog, Definition of Done at PR/feature/release level, and a machine-computed A+ scorecard (category x device class, not-run = failed, thin-category cap). Evidence produced by executing prototypes on the real files (Appendix C): site-lint 16 errors + 6 warnings of 26; data validators 12 of 15 failing (record_count 4,890 vs 100; 37/42 successions disagree with their tick; 219 strength anomalies; 6 teleport candidates); free-variable gate finds exactly setGoldUnit, clearGoldTrail, drawGoldTrailSegment, CanvasRenderer; production probe 10 of 15 failing (no enforcing CSP, embed.html XFO DENY + frame-ancestors *, /index.html and 8/8 alternate URL forms 200, no /version.json); Lighthouse assertion script reproduces the audit (mobile 18, desktop 14 failing); new finds: OG/PWA screenshots day1.png and day3.png are byte-identical and undecodable, user-guide.pdf has /Title (anonymous), no /Lang, untagged, pages 2 and 4 under-filled. 40 node tests pass (25 unit + 15 data checks in expected-red mode); 11 Playwright TypeScript sketches are syntax-checked only (never run in a browser; browser-level red-today claims are derived from the audit and code and labelled). Ten test sketches are in Appendix A; 30 fix-spec findings in section 12; roughly 26 developer-days of QA engineering interleaved with the rebuild, with a one-week minimum viable safety net in 11.1.",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/qa-ci.md",
+ "findings": [
+  {
+   "id": "qa-ci-01",
+   "title": "Create the repo, CI skeleton and the red-first ratchet (no quality system exists today)",
+   "severity": "critical",
+   "effort": "M",
+   "evidence": "netlify.toml:2 `publish = \".\"` with no [build]; SRC_DIR (119 files) has no package.json/tests/CI (N1); prior tests/CI existed until Jun 13 and were lost (deploy-history.md:63,142,236; Downloads/gettysburg_FINAL_v24/tests/validate_data.py, .github/workflows/ci.yml); that CI's preview step had `continue-on-error: true`; the old validator crashes on Windows (UnicodeEncodeError, reproduced) and checked structure only (ticks 1..675, key events at ticks 28/29/275/302/551), never label-vs-tick.",
+   "root_cause": "No source of record and no test system: every fix since Jun 13 was a string patch on a 2.28 MB minified bundle with nothing to prove it (prov-recon.md 6.1).",
+   "fix": "git init a private repo; commit legacy/dist with correct-case asset names; pnpm workspace, .nvmrc, lefthook; ci.yml (static gates, unit, data validators, build); protect main with required checks and no admin bypass; four expiring registries {audit, reason, until}: tests/known-failures.json, tests/overlap-allowlist.json, tests/console-allowlist.json, docs/parity/intended-diffs.json with CI rule unlisted failure=red, listed-but-passing=red (stale), expired=red (implemented and proven in tests/data/validate.test.mjs); PR template with DoD, CODEOWNERS, tools/scorecard.mjs + gates.json.",
+   "acceptance_test": "Fresh clone `pnpm install && pnpm ci:static` is green with seeded registries; removing an entry for a still-red gate turns CI red; adding an entry for a passing gate turns CI red; an entry past `until` turns CI red; scorecard prints the baseline; direct pushes to main are impossible.",
+   "metric_or_grade_moved": "Enabler for every category; N1; Reliability, Documentation",
+   "depends_on": [
+    "prov-recon-01",
+    "prov-recon-02"
+   ],
+   "audit_refs": [
+    "N1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence verified (netlify.toml:2, old ci.yml continue-on-error at line 56, UnicodeEncodeError reproduced at validate_data.py:26, tick 1..675 and KEY_EVENT_TICKS structural checks). Fixes: netlify.toml:1 has a [build] table (only publish) so say 'no build command'; protecting main with required checks and no admin bypass, and the production environment required reviewer, are not available for private repos on GitHub Free (need Pro/Team, or make the repo public after the gitleaks scan); data 'unchanged since Jun 12' has two minor exceptions per deploy-history.md:13."
+  },
+  {
+   "id": "qa-ci-02",
+   "title": "Adopt the executable static gate suite (SL-01..SL-30, UG-01, AI-01..03, HP-01..15)",
+   "severity": "critical",
+   "effort": "M",
+   "evidence": "Prototypes executed on real files: site-lint on SRC_DIR = 26 checks, 16 errors, 6 warnings (index.html has 3 <h1>; 11 of 23 pages lack <main>; privacy/terms missing from sitemap; manifest.json:9 orientation landscape; screenshots/day1.png = day3.png and undecodable; netlify.toml:19 CSP has no report-uri; diagnostics.html + unit-rendering-reference.html in publish dir; peerjs.com/cdn.jsdelivr.net/nps.gov not named on privacy.html; index.html:255-277 controllerchange reload; sw.js:5-13 hard-coded hashes; sw.js:45,65 cache.put without res.ok). undef-globals on bundle.pretty.js = exactly CanvasRenderer (96556), setGoldUnit (101086,101229), clearGoldTrail (101086,101229), drawGoldTrailSegment (101101). asset-integrity on DEPLOY_DIR: 8 case-mismatched references. prod-probe on production: 10 of 15 fail.",
+   "root_cause": "Contracts that should be facts (asset names, headers, sitemap, privacy disclosures, SW behaviour) are hand-maintained and unverified; Lighthouse does not test them.",
+   "fix": "Move tests/static/{site-lint,undef-globals,asset-integrity,prod-probe}.mjs into the repo; add SL-27 brand equality, SL-28 crawler text parity, SL-29 render-blocking head, SL-30 preload/onload swap, seo-probe.mjs; each prints PASS|FAIL <ID> [audit ids] and writes reports/gates/<name>.json; wire into ci.yml build job, nightly links-and-seo/keys-and-security, prod-monitor curl-probes; reviewed allowlist for browser-only globals; prod-probe retries 3x/15 s and exits 2 on network error.",
+   "acceptance_test": "On SRC_DIR the suite yields exactly the recorded failures (seeded in known-failures.json) and exits 0; on DEPLOY_DIR SL-01 fails with 8 references; a simulated change to an existing hashed asset fails AI-02; each product fix deletes its registry entry in the same PR.",
+   "metric_or_grade_moved": "Reliability, SEO, Security, Privacy, Polish; C5, C6, E1, E3, E5, X3, X4, X5, T-01, NEW-OG",
+   "depends_on": [
+    "qa-ci-01"
+   ],
+   "audit_refs": [
+    "C5",
+    "C6",
+    "E1",
+    "E3",
+    "E5",
+    "X3",
+    "X4",
+    "X5",
+    "T3",
+    "P4",
+    "P5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "site-lint 26/16/6, prod-probe 10/15 and the 4 undefined identifiers reproduced (they occur nowhere else in the 119 files). The 'asset-integrity on DEPLOY_DIR: 8 references' figure is SL-01's occurrence count; asset-integrity.mjs prints 6 unique references on DEPLOY_DIR and Appendix C.3 shows 3. undef-globals needs acorn+eslint-scope (not installed here; verified by grep)."
+  },
+  {
+   "id": "qa-ci-03",
+   "title": "Playwright foundation: generated viewport matrix, fixtures, dual legacy/next driver, state catalogue",
+   "severity": "critical",
+   "effort": "L",
+   "evidence": "No browser tests exist. index.html:62 `html, body { width:100%; height:100%; overflow:hidden }` and #root position:fixed contain:strict (index.html:69) mean page-level overflow checks cannot see C1; deep links are dead (pagesB-01) so the legacy driver must step the keyboard; bundle.pretty.js has zero data-testid; lh_mobile.json errors-in-console and target-size scored 1 on the broken build.",
+   "root_cause": "The only automated view of the product is a load-path Lighthouse run; the shell clips instead of scrolling and exposes no hooks.",
+   "fix": "playwright.config.ts generates one project per row of tests/support/viewports.json (24 rows: 12 widths x portrait/landscape or standard/short; 8 rows in the PR tier) plus WebKit/Firefox smoke rows (Firefox desktop only); pinned Playwright container; fixtures/base.ts (auto console/pageerror/request/CSP gate with expiring allowlist, Mapbox stub with local sprite/glyph fixtures, RUM host blocked); support/driver.ts (DRIVER=legacy|next; legacy click paths marked (verify); legacy seek steps the keyboard until HUD shows Tick N/675); support/states.ts (12 states growing to ~45); @cat/@audit tags in every title; junit+json reporters; --shard.",
+   "acceptance_test": "`playwright test --list` shows the PR-tier projects; TIER=full lists 24 Chromium rows + smoke; a legacy run reaches all 12 states with <2% infrastructure failures over 20 runs; PR tier <=12 min at introduction, <=6 min after pruning states; a deliberate console.error turns any test red.",
+   "metric_or_grade_moved": "Enables Function, Fit-and-finish, Usability, Reliability, Accessibility gates; C1, C2, H3, D2, A3",
+   "depends_on": [
+    "qa-ci-01"
+   ],
+   "audit_refs": [
+    "C1",
+    "C2",
+    "H3",
+    "D2",
+    "A3",
+    "N1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "index.html:62/69, zero data-testid, LH errors-in-console=1/target-size=1 verified. Legacy driver waits up to 40 s per fresh page for the ~15 s splash (bundle.pretty.js:101542) and never clicks 'Skip intro' (:101581), so the 12-min PR-tier and 1.5 s/state budgets hold only for the rebuild; smoke list names non-existent row w812-l; workers:4 on a 2-vCPU runner with software WebGL; Phase 1 'days 3-8' holds ~9-25 dev-days of finding effort."
+  },
+  {
+   "id": "qa-ci-04",
+   "title": "Overlap / occlusion / clipping / tappability detector suite with self-testing fixtures",
+   "severity": "critical",
+   "effort": "L",
+   "evidence": "Audit: transport row 572 px at 375 px, Back at x=-213 (C1); Tools-sheet rows return the timeline bar from elementFromPoint (C2); bundle.pretty.js:103813 `playRow: {display:\"flex\", justifyContent:\"center\", gap:14}` with 52 px buttons (used at :103216); index.html:185 z-index 999999 for #extra-features and collision mover index.html:562-585 (H1). tests/lib/layout-audit.browser.js (217 lines, 7 rules) + 7 geometry unit tests pass, including the C1 and C2 shapes.",
+   "root_cause": "Layout is tested by eye; the app shell clips overflow, so only per-element geometry can detect it.",
+   "fix": "Adopt layout-audit.browser.js, tappability.spec.ts (enumerate ALL interactive elements incl. cursor:pointer divs; locator.click({trial:true}) runs the browser actionability incl. receives-events), layout-audit.spec.ts over all states x all rows, text-spacing/200% variant, overlap-allowlist.json {rule, sel, other, audit, reason, until} where expired entries stop suppressing; add detector self-test fixture pages (off-screen row, covered button, clipped tab, 1000 px chart, 11 px text) that must be reported (mutation check); add __gtbg.labelCollisions() for canvas text (D3).",
+   "acceptance_test": "On legacy at w375-p tappability reports the five dead Tools-sheet rows and five off-screen transport controls, and layout-audit reports OVERLAP for #extra-features in >=3 states; after fixes 0 across 24 rows x all states (allowlist only for third-party licence UI with expiry); re-introducing the 572 px nowrap row in a scratch branch turns CI red.",
+   "metric_or_grade_moved": "Fit-and-finish, Usability, Core function (mobile), Accessibility; C1, C2, H1, S4, A3, A4, D2",
+   "depends_on": [
+    "qa-ci-03",
+    "qa-ci-30"
+   ],
+   "audit_refs": [
+    "C1",
+    "C2",
+    "H1",
+    "S4",
+    "A3",
+    "A4",
+    "D2",
+    "D3",
+    "H3",
+    "H6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "index.html:185 z-index 999999, :562-585 collision mover, bundle.pretty.js:103813 playRow, layout-audit.browser.js is 217 lines and its 7 geometry tests pass. Caveat: the overlay repositions asynchronously, so audit after a quiescence wait. C1/C2 measurements come from the audit, not re-run."
+  },
+  {
+   "id": "qa-ci-05",
+   "title": "Console / pageerror / request / CSP gate plus interaction coverage and runtime debug-text scan",
+   "severity": "high",
+   "effort": "M",
+   "evidence": "lh_mobile.json errors-in-console score 1 on the build that throws `ReferenceError: setGoldUnit is not defined` on click (bundle.pretty.js:101086 `(l(it), setGoldUnit(it), clearGoldTrail())`, :101229 Change Regiment); SL-20 finds dev-log strings statically but `undefined`/NaN/raw keys only appear after fetch (dashboard).",
+   "root_cause": "Console cleanliness is only observed on load; failing paths are behind clicks and data fetches.",
+   "fix": "fixtures/base.ts auto-fixture on every test (console.error/warning, pageerror, requestfailed, same-origin >=400, securitypolicyviolation; allowlist {kind, match, reason, audit, until}, expired entries fail); console-gate.spec.ts: ancestor path (pick regiment then Change Regiment), click-every-control once per state, select all 467 regiments, runtime no-debug-text on 6 data pages (undefined, NaN, [object ...], snake_case, dev-log phrases).",
+   "acceptance_test": "On legacy the ancestor test fails with pageerror 'setGoldUnit is not defined'; passes after fix; injecting console.error or a CSP-violating inline script into a fixture page fails; an allowlist entry past `until` fails the run; dashboard shows no undefined/raw key text over 10 cold loads.",
+   "metric_or_grade_moved": "Reliability, Fit-and-finish; C5, C7, H7, P5, X3",
+   "depends_on": [
+    "qa-ci-03",
+    "qa-ci-02"
+   ],
+   "audit_refs": [
+    "C5",
+    "C7",
+    "H7",
+    "P5",
+    "X3"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence real (bundle.pretty.js:101086/:101229, LH errors-in-console 1). fixtures/base.ts pushes 'EXPIRED allowlist entry' into every test, so on the until date every test in every PR (including hotfixes) goes red; use one dedicated registry-expiry gate and let expired entries only stop suppressing. Zero-warning gate on GPU-less runners may need a SwiftShader allowlist (unverified)."
+  },
+  {
+   "id": "qa-ci-06",
+   "title": "One clock, one date: golden tick-clock, time-model fallback, TM validators and browser proof",
+   "severity": "critical",
+   "effort": "M",
+   "evidence": "bundle.pretty.js:97428 `July ${l + 2}, 1863`, :100842 and :101006 (`f + 2`); :97429 \"1x (real time)\"; validators executed on deployed data: DV-08 49 of 137 chronology labels differ >10 min from the file's own formula (range -230..+15 min); DV-09 37 of 42 succession rows (US-001 tick 28 'July 1 ~10:15am' vs 7:15 by formula: label right, clock wrong); DV-10 3 of 24 vignettes (V-001 +95, V-002 +180, V-017 +144 min); chronology_day2.json says Tick 226 = 5:00am July 2, 5 min/tick, which cannot reach the 7:50pm label at tick 450.",
+   "root_cause": "Six independent tick-to-clock implementations plus hand-typed labels; no test compares any two.",
+   "fix": "tests/support/time-model.mjs (anchors file if present else the files' own stated formula) so the same tests are red today and meaningful after anchors land; tests/golden/tick-clock.csv (675 rows) generated from data/time_anchors.json (time-facts-anchors.csv is the seed) and regenerated in the same PR as any anchor edit; one-clock.spec.ts at ticks {1,12,17,28,226,267,302,451,538,553,675} on desktop and phone: exactly one clock string and one July N in HUD/story/event card/mobile header equal to golden and __gtbg.state(); sandbox-labels, subpage-clocks (8 pages), TM-V1..V15 (app-time 10.1) --strict, V9 lint bans.",
+   "acceptance_test": "one-clock is red at every sampled tick on legacy and green on the rebuild at desktop and phone; V9 lint has 0 matches (3 today); any anchor edit shows a reviewable 675-row golden diff; no 'July 4/5' string on any battle screen.",
+   "metric_or_grade_moved": "Historical/data consistency (C- to A+), Fit-and-finish; C3, C4, H9",
+   "depends_on": [
+    "app-time anchors (time-facts)",
+    "qa-ci-03"
+   ],
+   "audit_refs": [
+    "C3",
+    "C4",
+    "H9"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Reproduced exactly: 49/137 chronology labels >10 min off (range -230..+15), 37/42 successions, 3/24 vignettes; tick 450 label 7:50pm vs formula 11:40pm; bundle.pretty.js:97428/:100842/:101006/:97429 verified. Nit: V-017 drift is +145 min, not +144."
+  },
+  {
+   "id": "qa-ci-07",
+   "title": "Data validator suite DV-00..DV-30 with ratchet registry, alias table and provenance gates",
+   "severity": "high",
+   "effort": "L",
+   "evidence": "Executed on SRC_DIR/data: DV-01 placements_day1_ticks1_50.json record_count 4890 vs 100; DV-03 100 placement unit ids unresolved by data alone (C-ART-I-4, U-8IL, U-15AL...); DV-04 28 unresolved refs; DV-05 36 regiments with unresolved parent_brigade_id (VI Corps); DV-06 78 differing duplicate (unit,tick) rows; DV-07 6 teleport candidates (U-8NY-CAV t3-4 2,374 m/5 min; U-20ME t264-265 814 m); DV-11 '445+ ... units' in HelpModal-CFV9T0zH.js byte 2352 vs 467; DV-12 219 strength anomalies; DV-13 26 roll-up drifts; 12 of 15 checks fail; only 188 of 675 ticks have any placement record.",
+   "root_cause": "Data integrity is assumed; the previous validator was structural and is gone.",
+   "fix": "Promote tests/data/validate.mjs to pipeline/validate/*.mjs; add DV-00 (JSON Schema from zod) and DV-16..DV-30 (vignette schema, alias closure, natural-sort key, monuments, chronology order, walkthrough stops, successions chain, counts.json single source, source_id + sources.json license/URL, citation health, roll-ups, disposition state machine, engaged-day coverage, build reproducibility, TM wiring); unit_aliases.json replacing in-code alias resolution; data-change protocol (source_id on new facts, expert-review-log for confidence L/M, data(correction) commits in the public changelog); ratchet registry; run --strict in CI and on any data/** change.",
+   "acceptance_test": "`node pipeline/validate/run.mjs --strict` prints all gates; seeded registry passes; each data fix removes exactly its entry; DV-24 fails when a curated fact lacks source_id; DV-29 fails when regenerated hashes differ from the committed manifest.",
+   "metric_or_grade_moved": "Historical/data consistency, Concept/content depth, Reliability; C4, H5, H7, H10, D3",
+   "depends_on": [
+    "qa-ci-01",
+    "qa-ci-06"
+   ],
+   "audit_refs": [
+    "C4",
+    "H5",
+    "H7",
+    "H10",
+    "D3",
+    "N1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "DV-01/05/06/08-13 reproduced. DV-03 and DV-04 are inflated because loadAll() ignores battalion_id (11 C-ART-* battalion ids in oob/confederate_artillery.json): DV-03 100 -> 87 unresolved placement ids; DV-04 28 -> 2 (only U-ART-RES at ticks 520/540); the cited examples C-ART-I-1/2/4 are false positives. DV-07 uses /CAV/ in the id, so U-8IL (8th Illinois Cavalry, cap 400) is judged as infantry and flagged at 275 m/min; its real issue is company-vs-regiment identity. Use an 'arm' field in unit_aliases.json. '12 of 15 checks fail' still holds."
+  },
+  {
+   "id": "qa-ci-08",
+   "title": "Service-worker and first-load suite (first visit, warm visit, update, poisoning, migration, offline, bfcache)",
+   "severity": "high",
+   "effort": "M",
+   "evidence": "index.html:255-277 controllerchange -> location.reload(); sw.js:17 skipWaiting, :30 clients.claim, :5-13 hard-coded /assets/index-Cg8FAMXN.js, :45 and :65 cache.put with no res.ok guard; lh_mobile.json redirects score 0 (9,067 ms); tests/e2e/service-worker.spec.ts sketched (6 tests, syntax-checked).",
+   "root_cause": "A reload-on-controllerchange hack plus a worker that precaches by hand-typed hash and caches failures; nothing exercises SW lifecycle.",
+   "fix": "Adopt service-worker.spec.ts with the SW contract: injected VERSION and generated precache, skipWaiting only on a user message, no auto-reload, res.ok guard, old gbg-* cache cleanup (migration test uses a copy of the legacy sw.js as a fixture route), offline shell + notice, sw.js no-store, navigation preload; add bfcache test (pageshow.persisted, no unload handlers).",
+   "acceptance_test": "First visit: exactly one main-frame document request within 6 s of SW ready; warm visit: 0 /data|/assets requests bypass the SW and LCP <1.2 s; deploying v2 shows an aria-live prompt, no navigation for 3 s, one navigation after consent; a 503 asset is absent from Cache Storage; old-to-new SW upgrade deletes gbg-* caches without a reload loop; LH redirects = 1.",
+   "metric_or_grade_moved": "Reliability, Performance (LCP/FCP); C6, P1, P5",
+   "depends_on": [
+    "qa-ci-03"
+   ],
+   "audit_refs": [
+    "C6",
+    "P1",
+    "P5",
+    "T3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "index.html:255-277 (controllerchange :264, reload :267), sw.js:5-13/17/30/45/65 and cache name gbg-v5 verified. Caveat: the poisoning test uses context.route on /assets/*.js; whether Playwright routes requests made by the service worker itself is version-dependent, so verify on first run (fallback: local server returns 503 for the precache URL)."
+  },
+  {
+   "id": "qa-ci-09",
+   "title": "Accessibility automation gates and manual assistive-technology programme wiring",
+   "severity": "high",
+   "effort": "L",
+   "evidence": "lh_mobile.json accessibility 90 (only color-contrast and label fail) vs app-a11y.md 8.2: 23 of 55 WCAG 2.2 A+AA criteria failing, 62 of 234 text styles below 4.5:1, 133 of 268 font-size literals <12 px, 17 click-only controls; prov-recon T-33: zero aria/role in app code. tests/a11y/state-matrix.spec.ts sketched (axe over states x {default, reduced-motion, forced-colors}, slider name, Esc stack, dialog focus, unnamed/emoji buttons, Tab reachability with visible unobscured focus).",
+   "root_cause": "Automated a11y is judged on the load state; behavioural criteria are untested.",
+   "fix": "Adopt state-matrix + behavioural specs (app-a11y-32 owns the fuller matrix), keyboard-only journeys spec (15 tasks, zero pointer events), pa11y-ci with panel actions, token contrast unit test, jsx-a11y strict, stylelint (no raw hex, min font 12, coarse min-size 44, z-index scale), 320 reflow and text-spacing variant; schedule the AT programme (app-a11y-33) with a log <=90 days old as a release gate; publish ACR (app-a11y-34).",
+   "acceptance_test": "CI fails on any new axe violation, unnamed control, target <24 (44 touch), font <12 or contrast token <4.5:1; nightly covers ~45 states x 3 variants x 2 device classes; Lighthouse a11y = 1.00 on 6 URLs; AT log entry present.",
+   "metric_or_grade_moved": "Accessibility (C+/C to A+) desktop and mobile; A1-A6, D2, H2, H6, C8, S4",
+   "depends_on": [
+    "qa-ci-03",
+    "app-a11y-13",
+    "app-a11y-32"
+   ],
+   "audit_refs": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "D2",
+    "H2",
+    "H6",
+    "C8",
+    "S4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "app-a11y.md lines 35 (23 of 55), 167 (62 of 234), 211 (133 of 268), 40/269 (17 click-only) match; LH failing weighted a11y audits are exactly color-contrast and label; app-code aria/role count is 0 (only tabIndex at :112223)."
+  },
+  {
+   "id": "qa-ci-10",
+   "title": "Lighthouse / Core Web Vitals lab gate on Lighthouse 13 with budgets, profiles and ratchet",
+   "severity": "high",
+   "effort": "M",
+   "evidence": "lh_mobile.json (Lighthouse 13.5.0): performance 64, FCP 4,099 ms, LCP 9,007 ms, TBT 27 ms, CLS 0.073, SI 4,099 ms; lh_desktop.json: 85, LCP 2,229 ms; audit ids are Lighthouse-13 insights (render-blocking-insight, network-dependency-tree-insight; uses-text-compression absent). @lhci/cli latest confirmed 0.15.1 bundling Lighthouse 12.6.1 (GitHub releases page fetched 2026-09-30). perf/assert-lh.mjs + budgets.json executed on both JSONs: mobile 18, desktop 14 failing assertions.",
+   "root_cause": "The pinned LHCI would not produce the audit ids the audit used; there are no budgets or profiles.",
+   "fix": "perf/run-lighthouse.mjs (Node API, fresh Chrome per run, 5 runs) + assert-lh.mjs (medians from raw LHR JSON; tiers green|target; per-metric score>=0.9 self-calibration; resource budgets) + budgets.json that only tighten; profiles mobile, mobile-lowend (CPU x6, RTT 300, 700 kbps), desktop; Playwright interaction profile for lab INP (CPU x4 via CDP, >=20 interactions) and warm profile; 6 URLs on PRs, all sitemap URLs nightly; ratchet G0 (lock 64/85) to G1 70, G2 85, G3 90, G4 95; nightly drift job vs newest Lighthouse.",
+   "acceptance_test": "assert-lh reproduces the audit at G0; PR comment shows medians; each perf phase flips matching rows; a >3-point drift vs newest Lighthouse opens an issue; raising a budget without the label fails CI.",
+   "metric_or_grade_moved": "Performance (D+/C to A+); P1, P2, P4, P5, P6, P7, C6",
+   "depends_on": [
+    "qa-ci-03",
+    "qa-ci-11"
+   ],
+   "audit_refs": [
+    "P1",
+    "P2",
+    "P4",
+    "P5",
+    "P6",
+    "P7",
+    "C6"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "All Lighthouse numbers verified; @lhci/cli latest 0.15.1 bundles Lighthouse 12.6.1 (npm), lighthouse latest 13.5.0. But preview.yml runs 60 sequential Lighthouse runs in a 30-min job that also runs browser/axe/visual suites (shard per URL or 3 runs), and budgets.json demands seo=1 and is-crawlable=1 while previews send X-Robots-Tag noindex, which fails is-crawlable (Chrome docs) so every preview LH gate is red; assert the header on previews and run SEO on production."
+  },
+  {
+   "id": "qa-ci-11",
+   "title": "Bundle, request and network budgets (size-limit, request invariants, WebGL context count, source maps)",
+   "severity": "high",
+   "effort": "M",
+   "evidence": "lh_mobile.json resource-summary: 156 requests, 1,577,215 B; script 6 requests 614,184 B; 'other' 143 requests; third-party 61 requests 801,856 B. bundle-anatomy.md 4.1 budgets (entry <=58 KB br, map <=470 KB br, per-panel); prov-recon T-22 / deploy-history 9.7: mobile layout creates a second Mapbox map; prov-recon T-02: 4 variants of index-Cg8FAMXN.js under one URL.",
+   "root_cause": "No enforceable byte or request budget; multiple maps per session go unnoticed.",
+   "fix": "size-limit entries per chunk (raw+brotli), HTML/poster/data budgets, budgets-only-tighten diff check; Playwright invariants: <=3 /data/ requests before first interaction, 0 duplicate URLs, 1 document request, 1 WebGL context (init script counts getContext('webgl2')), wire bytes before LCP <=65 KB via response.request().sizes(), long tasks in first 5 s <=50 ms (map init <=100 ms) at CPU x4; every assets/*.js has a reachable .map; asset-integrity AI-01..03.",
+   "acceptance_test": "A deliberately bloated PR (+100 KB import) fails; second visit shows 0 network data requests; a mobile session shows 1 WebGL context; LH valid-source-maps = 1.",
+   "metric_or_grade_moved": "Performance, Reliability; P2, P3, P4, P6, T-22",
+   "depends_on": [
+    "qa-ci-03",
+    "bundle-anatomy-08"
+   ],
+   "audit_refs": [
+    "P2",
+    "P3",
+    "P4",
+    "P6"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Budgets and LH data verified. The '1 WebGL context' invariant counting getContext('webgl2') reads 2 on a single-map build: bundle.pretty.js:53944 is mapbox supported() probe (temp canvas) and :94081 is the real map; mobile adds a third. Count canvas.mapboxgl-canvas / __gtbg.mapInstances() instead. request.sizes() and size-limit brotli:true are valid."
+  },
+  {
+   "id": "qa-ci-12",
+   "title": "Deterministic visual-regression baselines for chrome states",
+   "severity": "medium",
+   "effort": "M",
+   "evidence": "No visual tests exist; H6 toolbar iconography inconsistent (emoji + letters); prov-recon 6.5: renderer changes by design so map pixels are not comparable; Google Fonts (Spectral) and Mapbox are network dependencies that would flake screenshots.",
+   "root_cause": "Chrome regressions (icons, spacing, tokens) are invisible to geometry tests.",
+   "fix": "Playwright toHaveScreenshot only inside the pinned container (Linux baselines, no platform in snapshotPathTemplate), animations disabled, ?test=1 freezes tick, fonts + Mapbox routed to local fixtures incl. local sprite/glyph PBFs; ~40 states x 4 projects (w375-p, w768-p, w1440-d, w1920-d) ~160 PNGs; map masked and asserted semantically; maxDiffPixelRatio 0.002; manual update-baselines workflow committing to the PR branch; PR template requires initials for changed baselines; ADR compares hosted tools (prices unverified).",
+   "acceptance_test": "Three consecutive CI runs on an unchanged commit give 0 diffs; a deliberate toolbar icon change yields a reviewable diff; a baseline can only change through the update workflow.",
+   "metric_or_grade_moved": "Visual design and brand, Fit-and-finish; H6, D2, S4",
+   "depends_on": [
+    "qa-ci-03",
+    "qa-ci-30"
+   ],
+   "audit_refs": [
+    "H6",
+    "D2",
+    "S4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Premise wrong: no page or bundle loads Google Fonts (no fonts.googleapis/gstatic reference outside the netlify.toml CSP, no @font-face); 'Spectral' is a CSS-in-JS family with Georgia fallback that never loads. Real risk is system fonts differing by OS. Also preview.yml runs tests/visual on the host runner, not in the pinned container its comment claims; remove fonts.* from the candidate CSP and ORG-01."
+  },
+  {
+   "id": "qa-ci-13",
+   "title": "Security and privacy contract tests and a test-driven CSP roll-out",
+   "severity": "high",
+   "effort": "M",
+   "evidence": "netlify.toml:19 Content-Security-Policy-Report-Only with script-src 'unsafe-inline' and no report-uri/report-to; live /embed.html sends X-Frame-Options: DENY, Content-Security-Policy: frame-ancestors * and the site-wide report-only CSP (netlify.toml:83-85 tries to blank both); privacy.html omits PeerJS 0.peerjs.com, jsDelivr, NPS, Mapbox events, AR camera/motion (SL-18/19); pk. token literal in 9 HTML pages and the bundle (SL-26); /unit-rendering-reference.html answers 200 (HP-13). Two CSP headers are intersected by browsers, so a second frame-ancestors * cannot rescue /embed.html once a site-wide enforcing policy exists.",
+   "root_cause": "Security headers are hand-written cascades that Netlify merges; the CSP soak has no collection endpoint; disclosures are unchecked.",
+   "fix": "Adopt HP-01..15, KEY-01/02, EMB-01, ORG-01 (origins contacted across the whole e2e run == docs/privacy-origins.json == privacy.html), ATTR-01, AUD-01, DEP-01, OBS-01; generate dist/_headers from one $CONTEXT template with per-path rules and NO site-wide framing rule for /embed.html (tools/gen-headers.mjs, 4 tests pass); add report-uri /api/csp now; run the e2e suite against the enforcing candidate (console gate captures securitypolicyviolation), then 14 days report-only in production, then enforce with hashes/nonces (SL-24 to 0) and remove unsafe-inline; keep RUM hosts in connect-src while Netlify RUM runs; restrict Mapbox/Google keys by referrer.",
+   "acceptance_test": "HP-01..15 green on a Deploy Preview; a foreign-origin page can iframe /embed.html but not /; ORG-01 fails when a new origin is added without disclosure; CSP enforced with 0 new violation signatures for 14 days; Observatory >= A+; KEY-01 returns 403 for a foreign Referer.",
+   "metric_or_grade_moved": "Security (B to A+), Privacy/legal (B+ to A+); X1-X5, T-08, T-09, T-23, T-31",
+   "depends_on": [
+    "qa-ci-19",
+    "qa-ci-16"
+   ],
+   "audit_refs": [
+    "X1",
+    "X2",
+    "X3",
+    "X4",
+    "X5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Live headers re-verified and the two-CSP-intersection reasoning is right. But gen-headers.mjs emits rules only for top-level *.html plus a few asset paths and its invariant bans any /* rule, so /manifest.json, /site-nav.js, /robots.txt, /sitemap.xml, /screenshots/*, legacy /data/*, all 404s and any /classic/* lose the HSTS/nosniff/Referrer-Policy/Permissions-Policy that netlify.toml:5-19 applies today. Keep a /* rule for non-framing headers and limit the invariant to XFO/CSP. Candidate CSP style-src without 'unsafe-inline' breaks inline <style>/style attributes; state the target."
+  },
+  {
+   "id": "qa-ci-14",
+   "title": "Function specs mapped to the H/D findings (first-run, keyboard, jump-state, search, minimap, ancestor, distance, walkthrough, help, mobile shell, deep links, seek safety, nav, embed)",
+   "severity": "high",
+   "effort": "L",
+   "evidence": "Code anchors: bundle.pretty.js:112951/113068 (gtbg_onboarded is the only persisted flag), :101542 'Fast-forwarding 3 days of battle...', :113033 Escape handler, :99821 `units · tick`, :101117 the only parsed deep link (?ancestor=), :97429 speed label, :103482 'Desktop View'; pagesB-01 (8 dead links); prov-recon P-22 (ghost units).",
+   "root_cause": "Behaviour was verified by hand once per audit; nothing prevents re-breakage.",
+   "fix": "One spec per feature (section 5.3), each with >=1 red proof on legacy before its fix and a registry entry with the audit id: first-run (layout persisted, auto-detect, splash), playback, jump-state (panels reset, toast <=6 s, map flies), keyboard (Esc stack from inputs), search (natural sort, no alias rows, chip contrast), filter-legend-minimap (label == unitCount), unit-panel loop over 467, ancestor, distance-tool, walkthrough (stop 1 vs 8 iframe src), help (feedback <=100 ms), mobile-shell, deeplink (9 link builders), seek-safety, extra-features-nav, embed.",
+   "acceptance_test": "Every listed spec exists, is red on legacy for its audit id before its fix and green after; the tag diff against docs/traceability.json finds every H/D id covered.",
+   "metric_or_grade_moved": "Core function (B/D to A+), Usability (B-/D+ to A+); H2-H5, H9, H11-H13, D1, D3, D4, P-22, P-62",
+   "depends_on": [
+    "qa-ci-03",
+    "qa-ci-30"
+   ],
+   "audit_refs": [
+    "H2",
+    "H3",
+    "H4",
+    "H5",
+    "H9",
+    "H11",
+    "H12",
+    "H13",
+    "D1",
+    "D3",
+    "D4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Anchors verified (:112951/:113068, :101542, :113033 with INPUT early return at :112967, :99821, :97429, :103482). Mislabel: bundle.pretty.js:101117 builds the ancestor share link; the only parser of ?ancestor= is :101019. The 9 link builders are correct; ?tick/?unit/?vignette are read by nothing."
+  },
+  {
+   "id": "qa-ci-15",
+   "title": "Static-page suites for the 20 tool pages, legal pages, 404, embed and the guide PDF",
+   "severity": "medium",
+   "effort": "M",
+   "evidence": "site-lint: 12 pages lack twitter:card, privacy/terms lack og:image and canonical-in-sitemap; sitemap has 21 <loc> (/ + 20 tool pages); user-guide.pdf: /Title and /Author '(anonymous)', no /Lang, no /MarkInfo or /StructTreeRoot, characters per page 1,577/503/2,034/270/1,695/916 (pages 2 and 4 under-filled); both URL forms serve 200 (HP-11); dashboard/regiment/report pages sparse (S1).",
+   "root_cause": "Sub-pages were hand-copied; every page re-implements head, nav and time logic and nothing checks them collectively.",
+   "fix": "subpages.spec (20 pages x 3 viewports: title/h1/main, console-zero, offline/retry UI, map poster then idle <3 s, canvas painted, dashboard numeric cards + chart nodes on 10 cold loads, Living Ledger tick-1 value); seo-probe (single canonical URL form 301, sitemap == nav == files == canonical, JSON-LD validates, OG image decodes at 1200x630, historical sitemap URLs 200/301, internal link depth <=3, >=3 inbound links per tool page, 404 status+branding); DOC-01..07; SL-27/28; lychee nightly + external weekly.",
+   "acceptance_test": "All pages pass; PDF DOC-01..04 green after regeneration with real metadata, /Lang, tags and >=50%-of-median page fill; both URL forms collapse to one canonical with a single cache policy.",
+   "metric_or_grade_moved": "SEO/metadata, Documentation, Fit-and-finish; S1-S4, E1-E5, G1, T1, T3",
+   "depends_on": [
+    "qa-ci-02",
+    "qa-ci-03"
+   ],
+   "audit_refs": [
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "E5",
+    "G1",
+    "T1",
+    "T3"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Sitemap 21 <loc>, 12 pages without twitter:card, PDF (anonymous)/no Lang/no tags verified. PDF per-page character counts do not reproduce (raw 1,753/574/2,376/303/1,954/1,025; non-whitespace 1,454/485/1,983/260/1,644/869) though pages 2 and 4 are indeed under-filled. seo-probe wants OG 1200x630 while the file is 1280x720. 'Undecodable' is decoder-specific: PIL refuses it, GDI+ loads it as garbled stripes; still a corrupt OG image."
+  },
+  {
+   "id": "qa-ci-16",
+   "title": "First-party RUM (web-vitals attribution), collector, evaluator, error and CSP beacons",
+   "severity": "high",
+   "effort": "L",
+   "evidence": "Netlify RUM PDF: p75 badges Poor for LCP (>4000 ms), INP (>500 ms), CLS (>0.25), FCP (>3000 ms), FID Good; charts only min/avg/p75/p95/p99/max, no alerting/attribution; Web Analytics: 3,389 page views / 1,529 visitors in 30 days (~113/day), ~18% of views from China/Singapore/Hong Kong/Germany; spikes Sep 7-8, 18, 26 unexplained; privacy.html names only Netlify RUM. rum/evaluate.mjs implemented with 6 passing tests.",
+   "root_cause": "No field attribution or alerting; the audience is too small for daily p75s.",
+   "fix": "rum/web-vitals-beacon.js (web-vitals v5 attribution, sendBeacon text/plain, GPC/DNT honoured, bucketed viewport/DPR, sw/bot/layout/build dimensions, error + CSP beacons), netlify/functions/rum.mjs (schema gate, append-only Blobs writes, 4 KB cap, country only) and csp-report.mjs, scheduled compaction/evaluation, alert routing to issues + ntfy/Pushover, weekly digest (top LCP elements, INP targets, error signatures, bot/mobile share), privacy.html updated in the same PR, Netlify RUM kept as cross-check.",
+   "acceptance_test": "Unit tests produce the expected alert classes; on staging a page load stores a metric within 5 s and the evaluator sees it; GPC/DNT sends nothing; no cookie set; beacon <=3 KB br; a synthetic bad deploy raises 'regress' before 'page'.",
+   "metric_or_grade_moved": "Performance (field), Reliability; P1, C5, X3, T2",
+   "depends_on": [
+    "qa-ci-19",
+    "qa-ci-13"
+   ],
+   "audit_refs": [
+    "P1",
+    "C5",
+    "X3",
+    "T2",
+    "X5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "RUM PDF and Analytics numbers (3,389 views, 1,529 visitors, ~18% DE/CN/SG/HK) verified. web-vitals latest is 6.2.2 not v5 (attribution field names unchanged; v6 adds longestScript/LoAF INP attribution). The collector sketch is forgeable/unbounded (see M4). Netlify injects its own RUM script (/.netlify/scripts/rum) into live HTML, so 'skip RUM snippets on non-production' covers only the first-party beacon."
+  },
+  {
+   "id": "qa-ci-17",
+   "title": "Synthetic production monitors, post-deploy smoke, alert routing and traffic hygiene",
+   "severity": "medium",
+   "effort": "M",
+   "evidence": "prod-probe.mjs against production: 10 of 15 fail; a later re-run hit UND_ERR_CONNECT_TIMEOUT from this machine (curl also timed out), so probes need retry/timeouts and exit code 2 for probe errors; traffic is ~113 page views/day so hourly browser runs would inflate analytics ~20%.",
+   "root_cause": "No scheduled verification of production; naive probes distort tiny traffic and confuse network failure with site failure.",
+   "fix": "prod-monitor.yml: curl-probes + browser-smoke every 6 h and after each production deploy (repository_dispatch from a Netlify outgoing webhook); browser runs block the Netlify RUM host and send X-GTBG-Synthetic and a distinctive UA; SYN-01..08 (probe, smoke, version SHA, sitemap, daily views baseline, TLS/HSTS/domain expiry, Mapbox referrer + usage, data manifest hashes); failures open prod-incident issues.",
+   "acceptance_test": "A forced failing probe opens an issue; a network timeout exits 2 (not a site FAIL); two weeks of runs add <5% to Netlify page views; a bad deploy on staging triggers the auto-rollback workflow.",
+   "metric_or_grade_moved": "Reliability, Security; T2, N1, C6",
+   "depends_on": [
+    "qa-ci-19"
+   ],
+   "audit_refs": [
+    "T2",
+    "N1",
+    "C6"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "prod-probe numbers reproduced. A Netlify outgoing webhook cannot call GitHub repository_dispatch directly (it only supports a JWS signature header; GitHub needs an Authorization header): add a relay Netlify function or poll /version.json. 'Curl probes cost no page views' is unverified since Web Analytics counts edge-side."
+  },
+  {
+   "id": "qa-ci-18",
+   "title": "Parity harness, intended-diff registry, hermetic legacy build and cut-over gates",
+   "severity": "critical",
+   "effort": "L",
+   "evidence": "prov-recon.md 6.6 specifies tiers and checkpoints; the registry logic is implemented and unit-tested here (tests/parity/intended-diffs.mjs, 4 passing tests: a different wrong date is a regression, expired entries stop excusing, stale entries reported); prov-recon T-12 (legacy renderer is history dependent) and 6.5 (pixels not comparable).",
+   "root_cause": "The rebuild replaces a 2.28 MB unmaintained bundle with no way to know what it changed.",
+   "fix": "Implement section 6: /classic/ = frozen legacy bytes; parity.spec.ts snapshots text + accessible names + control geometry on both builds (Mapbox stubbed, fresh page, fake clock); T1 goldens for 675 ticks from the legacy pure functions; registry docs/parity/intended-diffs.json seeded with C1-C5, H2-H5, H9-H12, D3, P-22 (audit id + expiry each); 12 go/no-go criteria (0 unexplained, 0 stale/expired, exact T1, console subset, scorecard A+, LH >=0.90 floor, INP <=200, real devices, AT log, rollback drill, 14-day opt-in beta, no freeze).",
+   "acceptance_test": "legacy-vs-legacy: 0 diffs on 3 consecutive runs; a seeded regression (changed clock format) is reported unexplained; an expired or stale entry fails --strict; all 12 criteria are computed by cutover.yml.",
+   "metric_or_grade_moved": "De-risks the rebuild; Core function, Historical consistency, Reliability; N1, C1-C4, H2-H5, H9-H12",
+   "depends_on": [
+    "qa-ci-03",
+    "qa-ci-30",
+    "prov-recon-03"
+   ],
+   "audit_refs": [
+    "N1",
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "H2",
+    "H3",
+    "H4",
+    "H5",
+    "H9",
+    "H10",
+    "H11",
+    "H12",
+    "D3"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Registry logic and the 12 go/no-go criteria exist as tabled. Criterion 5 (all categories A+) cannot hold pre-cut-over because 9.2 makes RUM 28-day p75 (n>=200/layout) a must gate for Performance; criterion 11 (>=100 beta sessions) conflicts with the >=100 samples per (metric, layout, page group) rule, so the beta cohort reads 'insufficient' at ~113 views/day. Define a lab-only pre-cut-over scorecard profile."
+  },
+  {
+   "id": "qa-ci-19",
+   "title": "Netlify pipeline: production branch, Deploy Previews, generated _headers, noindex previews, version.json, redirects, rollback workflow",
+   "severity": "high",
+   "effort": "M",
+   "evidence": "netlify.toml:2 publish '.'; :83-85 embed overrides do not work (live: XFO DENY + frame-ancestors * + report-only CSP); live /dashboard vs /dashboard.html send different Cache-Control; /index.html 200; no /version.json; Netlify credit table: Deploy Previews and Branch Deploys non-metered, production deploy 15 credits, Password Protection Pro-only; deploy-history 9.4 (/landing.html removed without redirect).",
+   "root_cause": "Hand-written header cascades and a repo-root publish dir; no way to tell which build production runs.",
+   "fix": "Production branch `production` fast-forwarded by release.yml from a green SHA (required reviewer = owner); main = staging via branch deploy; preview.yml on deployment_status (fallback poll commit status or CLI alias deploy); generate dist/_headers from a $CONTEXT template (per-path rules; X-Robots-Tag noindex on non-production) and delete toml [[headers]]; publish=dist + build command incl. site-lint/size-limit/asset-integrity; 301 collapse /index.html and /x.html; redirects for retired URLs; /version.json {app,data,timeModel,sha,builtAt,deployId}; Netlify outgoing webhook to repository_dispatch; rollback.yml with L0-L3 runbook.",
+   "acceptance_test": "Preview has X-Robots-Tag noindex and production does not; HP-06/07 green; /index.html 301; /version.json SHA == promoted SHA; rollback drill completes <1 min; promotion refused when any gate is red.",
+   "metric_or_grade_moved": "Reliability, SEO, Security; N1, X4, T3, E5",
+   "depends_on": [
+    "qa-ci-01",
+    "qa-ci-02"
+   ],
+   "audit_refs": [
+    "N1",
+    "X4",
+    "T3",
+    "E5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Live facts and Netlify credit table verified. Netlify does not emit GitHub deployment_status for Deploy Previews (Netlify staff: 'it only adds comments'), so preview.yml's primary trigger will not fire; make the commit-status poll or CLI alias fallback primary. Outgoing webhook needs a relay (qa-ci-17). Rollback endpoint exists (POST /sites/{site_id}/deploys/{deploy_id}/restore) but locks auto-publish, so also call /deploys/{id}/unlock. Live HTML is post-processed (Pretty URLs rewrite, injected RUM tag), so gates on dist miss it; set pretty_urls=false and add a dist-vs-live diff. Generated _headers gap (M1)."
+  },
+  {
+   "id": "qa-ci-20",
+   "title": "Versioning, changelog, public What's new, PR template and Definition of Done",
+   "severity": "medium",
+   "effort": "S",
+   "evidence": "No version anywhere: user-guide has no version/date (G1); Help says 445+ vs 467 (H10); privacy.html 'Last updated: September 7, 2026' is manual; prov-recon T-02 shows 4 bodies under the name index-Cg8FAMXN.js.",
+   "root_cause": "Nothing ties a shipped byte, a data set or a document to a release.",
+   "fix": "SemVer app + CalVer data + integer timeModel in /version.json, Help About and the PDF footer; Conventional Commits; release-please (verify) generating CHANGELOG.md and a release PR; public /changelog.html with a Corrections section; PR template with the 8.1 checklist; CODEOWNERS; `fix:` requires Refs/audit label (CI check).",
+   "acceptance_test": "version.json values render in About, PDF footer and RUM samples; a PR without the audit label fails; a release PR is generated from commits.",
+   "metric_or_grade_moved": "Documentation, Fit-and-finish, Privacy/legal; G1, H10, N1",
+   "depends_on": [
+    "qa-ci-19"
+   ],
+   "audit_refs": [
+    "G1",
+    "H10",
+    "N1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "privacy.html:21 manual 'Last updated: September 7, 2026', 445+ vs 467 and release-please availability verified."
+  },
+  {
+   "id": "qa-ci-21",
+   "title": "Cross-browser and real-device programme (iOS Safari, Samsung Internet, low-end Android, iPad)",
+   "severity": "medium",
+   "effort": "M",
+   "evidence": "Audit 'Not tested': real touch gestures on a physical phone, Safari/Firefox; Playwright WebKit is the engine, not iOS Safari (documented limitation); RUM Poor likely concentrated on low-end devices (assumption; mobile share unknown until QA-16 runs).",
+   "root_cause": "Emulation cannot reproduce iOS fixed-position/visual-viewport/ITP behaviour, Samsung Internet dark-mode forcing, or low-end memory/WebGL limits.",
+   "fix": "Section 5.15 matrix; owner phones + one low-end Android kept for RCs; hosted device cloud only for a cut-over trial (prices unverified); docs/qa/rc-device-checklist.md (15 min/device); on-device Lighthouse over adb port forward; nightly WebKit/Firefox; optional w280 foldable row.",
+   "acceptance_test": "RC checklist completed on iOS Safari, Android Chrome and the low-end device before each minor release; nightly WebKit/Firefox smoke green.",
+   "metric_or_grade_moved": "Core function (mobile), Reliability, Performance (field realism); C1, C2, H3, P1",
+   "depends_on": [
+    "qa-ci-03"
+   ],
+   "audit_refs": [
+    "C1",
+    "C2",
+    "H3",
+    "P1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Audit line 5 lists real phone and Safari/Firefox as not tested; WebKit-is-not-iOS-Safari and Firefox-no-isMobile are correct."
+  },
+  {
+   "id": "qa-ci-22",
+   "title": "Ask-the-Historian evaluation harness (retrieval, abstention, grounding, injection, performance)",
+   "severity": "medium",
+   "effort": "L",
+   "evidence": "historian.html:154-167 score() uses t.includes(w) (substring: 'war' matches 'toward') plus a phrase bonus; :172 `div.innerHTML = html + ...` renders data as HTML; :177-190 returns top 3 with no minimum relevance; audit H8: 'why did Lee lose the war' returns Archer Captured; corpus today 467 regiments, 24 vignettes, 137 chronology events, 30 terrain features.",
+   "root_cause": "No way to measure answer quality; expanding the corpus would multiply an unmeasured, injectable pipeline.",
+   "fix": "HC-01..HC-15: corpus schema + provenance + license allowlist + dedupe + entity linking + PII scan; golden set >=200 questions (recall@5 >=0.90, MRR >=0.70, no metric drop >2 points), abstention (>=0.95 precision) including the 'Lee lost the war' negative, grounding (every number/date/unit in an answer appears in cited passages), hostile-passage XSS/prompt-injection fixtures, word-boundary tokenization tests, performance and index-size budgets, UI overlap/aria-live, claims registry for the page's self-description, nightly LLM-mode rubric run (pinned model, temperature 0).",
+   "acceptance_test": "HC-06 recall/MRR reported on the golden set in <=60 s; the abstention regression and XSS fixture pass; a ranking or corpus change that drops a metric >2 points fails CI.",
+   "metric_or_grade_moved": "Concept/content depth, Core function, Security; H8",
+   "depends_on": [
+    "Historian architecture ADR",
+    "qa-ci-07"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "historian.html:154-167 substring score(), :172 innerHTML, top-3 slice with only s>0 filter, corpus counts at :48 verified; the war/toward mechanism is right."
+  },
+  {
+   "id": "qa-ci-23",
+   "title": "Scorecard, gate catalogue, PR comment and weekly report (A+ stays A+)",
+   "severity": "high",
+   "effort": "M",
+   "evidence": "tools/scorecard.mjs (50 lines, 4 tests) + gates.json (109 gates) executed: data F/F, polish F/F, usability B/B, reliability F/F, performance D/F, a11y F/F, seo B/B, security F/F, docs A- (thin: 1 gate), privacy F/F; content, design, function unmeasured (no gates yet). Thin-category guard (<6 gates cannot exceed A-) and not-run=failed implemented.",
+   "root_cause": "Grades are subjective and cannot regress-protect.",
+   "fix": "Adapters (Playwright JSON to gate ids via @cat/@audit tags, Lighthouse assertions to gates; static/DV/HP outputs are already gate-shaped), PR comment with delta, weekly digest, docs/scorecard.md history, docs/traceability.json diffed against @audit tags so deleting a test needs deleting its claim; A+ requires two consecutive weekly runs.",
+   "acceptance_test": "An uncatalogued gate id fails CI; a catalogued gate that did not run is red; a category below 6 gates cannot be A+; exit code 0 only when all 13 categories are A+ on both device classes.",
+   "metric_or_grade_moved": "Overall grade governance (all 13 rows)",
+   "depends_on": [
+    "qa-ci-02",
+    "qa-ci-03"
+   ],
+   "audit_refs": [
+    "N1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "gates.json has 109 gates (52 LH, 26 SL, 15 DV, 15 HP, 1 UNDEF); scorecard logic and 4 tests pass; baseline letters and thin-category/not-run rules reproduced."
+  },
+  {
+   "id": "qa-ci-24",
+   "title": "Flake management and test health",
+   "severity": "medium",
+   "effort": "S",
+   "evidence": "A solo owner will ignore a flaky red; the plan adds Playwright retries, sharding and several timing-sensitive tests (SW lifecycle, map idle, LCP).",
+   "root_cause": "No policy for retries, quarantine, runtime budgets or ownership.",
+   "fix": "retries:1; pass-on-retry is reported flaky and opens/updates an issue (tools/flake-report.mjs); two flaky reports in 7 days quarantine (test.fixme + issue + 14-day expiry, expired quarantines fail); tier runtime budgets as gates (T1 8 min, T2 35 min); determinism checklist in fixtures/base.ts; artifacts 14 days; CODEOWNERS per spec.",
+   "acceptance_test": "30 consecutive CI runs on an unchanged commit show <1% flaky; an expired quarantine fails the build; T1 over 8 min fails.",
+   "metric_or_grade_moved": "Reliability of the quality system itself",
+   "depends_on": [
+    "qa-ci-03"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "Policy sound; see qa-ci-05 and M7 for the expiry side effect."
+  },
+  {
+   "id": "qa-ci-25",
+   "title": "Golden / fixture / secret governance",
+   "severity": "medium",
+   "effort": "S",
+   "evidence": "Goldens (tick-clock.csv, keyframes.json, intended-diffs.json, visual PNGs) become the spec; Mapbox pk. literals in 9 HTML pages + bundle (SL-26); 12 stale bundles and .env.local copies in Downloads (deploy-history section 8).",
+   "root_cause": "Regenerating a golden or widening a token silently changes what 'correct' means.",
+   "fix": "Each golden has a documented regeneration command and CODEOWNERS review; golden diffs must appear in the PR description; separate MAPBOX_PUBLIC_TOKEN_CI restricted to preview/CI origins so CI never spends production quota; job-level permissions blocks; gitleaks on push and once on full history before the repo is ever made non-private; rotate keys that lived in archived envs.",
+   "acceptance_test": "A PR that changes a golden without the regeneration note fails the template check; gitleaks finds 0 secrets in history; the CI token cannot load the production style from a foreign origin.",
+   "metric_or_grade_moved": "Security, Reliability; X1, X2",
+   "depends_on": [
+    "qa-ci-01"
+   ],
+   "audit_refs": [
+    "X1",
+    "X2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "pk. token is in 9 HTML pages (incl. dev page unit-rendering-reference) and twice in the bundle, NOT in index.html; live check: token answers 200 to a foreign Referer (X1 confirmed). deploy-history.md:22,252 says token #1 is already revoked and #2 valid, so first list which keys are still live before 'rotating'."
+  },
+  {
+   "id": "qa-ci-26",
+   "title": "QA documentation, ADRs and runbooks",
+   "severity": "low",
+   "effort": "S",
+   "evidence": "docs/ does not exist; decisions (Lighthouse runner, visual tool, RUM storage, budgets) would otherwise live only in chat.",
+   "root_cause": "No durable record of why the system is shaped this way.",
+   "fix": "docs/qa/README.md (how to run each tier locally, tags, hooks contract), ADRs 0003 Lighthouse runner, 0004 visual tool, 0005 RUM storage, runbooks rollback/incident/cutover, rc-device-checklist, at-test-log, usability-log, expert-review-log.",
+   "acceptance_test": "A new contributor can run T1 locally from the README; every runbook has a dated drill entry.",
+   "metric_or_grade_moved": "Documentation",
+   "depends_on": [
+    "qa-ci-01"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "No docs/ in the publish tree."
+  },
+  {
+   "id": "qa-ci-27",
+   "title": "Manual programmes and the claims registry (AT, usability, expert review, copy)",
+   "severity": "medium",
+   "effort": "M",
+   "evidence": "H8 (overpromising names), H10 (467 vs 445+), H13 (Soldier's Eye hand-off) and G1 (guide claims Esc closes any panel; says Street View panoramas) are claims that drifted from behaviour; automation cannot judge historical accuracy or usability.",
+   "root_cause": "Claims are prose, not contracts.",
+   "fix": "docs/claims.json {id, text, where[], test}; data-claim attributes in copy; lint fails on unknown ids or non-green tests; cadences: AT each RC (15 tasks), usability session at cut-over and yearly (5 participants, SUS >=85, success >=90%), two-reviewer expert log for any data release touching anchors/counts/casualties/vignettes, copy review each release.",
+   "acceptance_test": "Every data-claim id resolves to a green test; logs exist and are within cadence before promotion.",
+   "metric_or_grade_moved": "Usability, Concept/content depth, Historical consistency, Documentation; H8, H10, H13, G1",
+   "depends_on": [
+    "qa-ci-03"
+   ],
+   "audit_refs": [
+    "H8",
+    "H10",
+    "H13",
+    "G1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Guide text verified in user-guide.pdf: 'Esc ... Close any panel', 'Google Street View panoramas from 8 key battlefield positions', 'Panel won't close: Press Escape'."
+  },
+  {
+   "id": "qa-ci-28",
+   "title": "Gate the bridge patches to the frozen bundle",
+   "severity": "medium",
+   "effort": "M",
+   "evidence": "prov-recon.md 6.10 bridge patches by exact-string replacement with asserted occurrence count and new hashed filename; app-time.md 3.3 in-place patching of a hashed bundle defeats cache-busting; prov-recon T-02 4 bodies under one name; UG-01 flags exactly 4 identifiers.",
+   "root_cause": "Interim fixes are the riskiest edits in the plan (2.28 MB minified file, no source).",
+   "fix": "Each patch run must: pass UG-01; assert exactly one occurrence per replacement and refuse a second run; emit a content-hashed filename and pass asset-integrity; rewrite index.html, sw.js precache and lazy-chunk imports and pass SL-01/22; run the parity subset (first-run, tick 1/538, mobile shell, ancestor) with the patch's intended-diff entries; commit patch-report.json (before/after hashes, counts).",
+   "acceptance_test": "Applying a patch twice fails; a patch leaving an undefined identifier fails UG-01; renaming without updating sw.js fails SL-22; a patch report exists per release.",
+   "metric_or_grade_moved": "Reliability during the interim; C1, C3, C5, C6",
+   "depends_on": [
+    "qa-ci-02",
+    "qa-ci-18"
+   ],
+   "audit_refs": [
+    "C1",
+    "C3",
+    "C5",
+    "C6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Three +2 sites and single-occurrence replacement strings match deploy-history.md DH-04; UG-01 identifiers verified."
+  },
+  {
+   "id": "qa-ci-29",
+   "title": "Third-party inventory, attribution and audio-policy tests",
+   "severity": "medium",
+   "effort": "S",
+   "evidence": "SL-18: peerjs.com, cdn.jsdelivr.net, nps.gov used but not named on privacy.html; prov-recon T-09: Mapbox attribution disabled on the mobile map (bundle.pretty.js:102988) and walkthrough map (110777); T-07: sound path references undefined CanvasRenderer (96556) while the banner promises sound; watch-together.html:19 loads peerjs@1.5.4 from jsDelivr.",
+   "root_cause": "Licence and disclosure obligations are not tested.",
+   "fix": "ORG-01 (contacted origins across the whole e2e run == docs/privacy-origins.json == privacy text), ATTR-01 (attribution control visible and unclipped on every map), AUD-01 (no AudioContext before a user gesture; default matches documented policy), third-party script pin/SRI check.",
+   "acceptance_test": "Adding a new origin without disclosure fails ORG-01; a mobile map without attribution fails ATTR-01; AudioContext created on load fails AUD-01.",
+   "metric_or_grade_moved": "Privacy/legal, Security; X5, T-09, T-07",
+   "depends_on": [
+    "qa-ci-13"
+   ],
+   "audit_refs": [
+    "X5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "attributionControl:!1 at bundle.pretty.js:102988 and :110777; watch-together.html:19 loads peerjs@1.5.4 from jsDelivr; privacy.html names none of PeerJS/jsDelivr/NPS; CanvasRenderer undefined at :96556."
+  },
+  {
+   "id": "qa-ci-30",
+   "title": "Testability requirements for the rebuild (hooks contract)",
+   "severity": "medium",
+   "effort": "S",
+   "evidence": "bundle.pretty.js has no data-testid and no aria/role in app code (prov-recon T-33); deep links are dead (pagesB-01); the app exposes no state (the legacy driver reads 'Tick N/675' text).",
+   "root_cause": "Without hooks every suite degrades to fragile text scraping.",
+   "fix": "Requirements (section 3.5): URL hooks (?intro=0, layout, tick, panel, test=1, motion, contrast); window.__gtbg (state, seek, play, unitsAt, labelCollisions, mapInstances, swState) only when test=1; real roles/names (getByRole); data-testid only for role-less items; data-overlap-ignore and data-historical-quote markers; <html data-build data-layout>; /version.json.",
+   "acceptance_test": "The rebuild's first CI run passes a hooks smoke spec (__gtbg.state().ready, unitsAt(1).length > 0, labelCollisions() is a number, version.json matches); the legacy driver is no longer needed for new specs.",
+   "metric_or_grade_moved": "Enabler for Core function, Fit-and-finish, Accessibility; C1-C4, D3",
+   "depends_on": [
+    "prov-recon-14",
+    "prov-recon-16"
+   ],
+   "audit_refs": [
+    "N1",
+    "C3",
+    "C4",
+    "D3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Zero data-testid; HUD text is [\"Tick \", c, \"/675\"] at bundle.pretty.js:112357 (report cites ~112202, the start of IO()), so the regex driver works."
+  }
+ ],
+ "open_questions": [
+  "Canonical URL form: extensionless (/dashboard) or .html (what the sitemap uses)? Redirects, probes HP-10/11 and the cache-policy fix need one answer (T3).",
+  "Brand name (E2): 'Animated Battlefield Map' vs 'Interactive Map'? SL-27 needs docs/brand.json before it can gate.",
+  "Sound policy (T-07): keep or remove? AUD-01 encodes whichever policy is chosen.",
+  "Netlify plan: confirm Pro (30-day RUM/Analytics history suggests it) so Password Protection for previews is possible if wanted; confirm GitHub plan/minutes for private-repo Actions.",
+  "Who are the two reviewers for the expert/historian review log, and is a licensed battlefield guide or NPS historian available?",
+  "Which phones does the owner have (iOS version, Android model)? One low-end Android is the single most valuable purchase for the real-device programme.",
+  "Alert channel: GitHub issues only, or also a push channel (ntfy/Pushover)?",
+  "Freeze windows: confirm June 25 - July 5 and Nov 15-20 or supply a traffic calendar once SYN-05 has data (no anniversary baseline exists; current 30-day data is September).",
+  "Unverified third-party facts to confirm before adoption: Playwright container tag and version, whether Netlify's GitHub app emits deployment_status for Deploy Previews, Netlify Split Testing cookie, @netlify/blobs/Functions v2 API shapes, web-vitals v5 attribution field names, device-cloud pricing, release-please options, and whether a newer @lhci/cli bundles Lighthouse 13.",
+  "Browser-level red-today claims (C1, C2, H1-H4, H11-H13, D1, D3, D4, S1-S4) rely on the audit's measurements and code reading; the Playwright specs and detector have not been run in a browser in this session."
+ ],
+ "verification_summary": "The qa-ci report is largely real and well grounded. I re-ran the prototypes: 40 of 40 node tests pass, and site-lint (16 errors, 6 warnings), prod-probe (10 of 15 failing) and the DV data checks reproduce. I also re-checked the cited lines in netlify.toml, index.html, sw.js, bundle.pretty.js, historian.html, the Lighthouse JSON, both Netlify PDFs and the live headers, and fetched the Netlify, GitHub, Chrome and npm sources it relies on. I could not re-run the browser-level claims (C1, C2, H1 and similar), since I had no browser tools. Nothing is refuted outright; 13 findings are confirmed and 17 are corrected. The corrections that change the plan:\n- **DV counts are inflated.** The DV-03 and DV-04 unit-id checks miss `battalion_id` values. DV-03 is 87 unresolved placement ids, not 100. DV-04 is 2 unresolved references, not 28. One DV-07 speed flag, U-8IL, is a cavalry-classification artifact.\n- **Generated `_headers` drops the baseline security headers.** Non-HTML assets and 404s would lose HSTS and nosniff.\n- **Preview Lighthouse runs are red by design.** Previews send `X-Robots-Tag: noindex`, which fails the `is-crawlable` and SEO gates.\n- **The nightly matrix targets production.** It would swamp roughly 113 page views a day.\n- **The T2 trigger will not fire.** Netlify does not emit GitHub `deployment_status` for Deploy Previews, and its outgoing webhook cannot authenticate to `repository_dispatch`.\n- **GitHub plan and minutes are unquantified.** Private-repo branch protection and environments need a paid plan, and the CI minutes far exceed the free allowance.\n- **The RUM collector is forgeable.** It spreads client-supplied keys into stored records.\n- **The 26-day effort figure is the sum of every minimum.** The findings' own efforts total 25 to 75 days.\n\nThe Verification section is appended to qa-ci.md.",
+ "missed_by_specialist": [
+  {
+   "title": "Generated _headers drops the site-wide baseline security headers",
+   "severity": "high",
+   "evidence": "Appendix B.1 gen-headers.mjs buildHeaders() emits rules only for top-level *.html (non-recursive readdirSync) plus /assets/*, /data/v2/*, /icons/*, /sw.js, /version.json and the PDF, and invariants() rejects any /* rule. Today netlify.toml:5-19 applies HSTS, nosniff, Referrer-Policy, Permissions-Policy and X-Permitted-Cross-Domain-Policies to every response; the legacy /data/* cache rule (netlify.toml:27-30) is not regenerated either.",
+   "fix": "Keep a /* rule for non-framing headers only; restrict the invariant to 'no /* or shared rule sets X-Frame-Options or a CSP'; recurse the file list (covers /classic/*, /next/*); add HP probes for /manifest.json, /site-nav.js and a scanner-path 404."
+  },
+  {
+   "title": "Lighthouse SEO / is-crawlable gates on Deploy Previews are permanently red",
+   "severity": "high",
+   "evidence": "perf/budgets.json requires categories.seo=1 and is-crawlable=1; gen-headers.mjs adds X-Robots-Tag: noindex, nofollow on non-production; preview.yml runs assert-lh --tier green on the preview URL. Lighthouse is-crawlable fails on an X-Robots-Tag noindex header (developer.chrome.com/docs/lighthouse/seo/is-crawlable).",
+   "fix": "On previews assert the noindex header instead and skip SEO/is-crawlable; run the SEO category on production (or a build context without noindex) nightly."
+  },
+  {
+   "title": "Nightly full matrix runs against PRODUCTION",
+   "severity": "high",
+   "evidence": "nightly.yml: env { TIER: full, BASE_URL: 'https://gettysburginteractivemap.com' } for 6 shards x 3 engines (24 viewport rows x ~45 states, each a fresh page load); Netlify Web Analytics PDF counts edge-side (pageviews, bandwidth, 'Resource not found') at ~113 views/day, so blocking the RUM host does not help; contradicts section 7.6 traffic hygiene.",
+   "fix": "Point the matrix at the main-branch deploy (staging); production gets curl probes plus two smoke loads only."
+  },
+  {
+   "title": "RUM collector accepts forged and unbounded data",
+   "severity": "medium",
+   "evidence": "netlify/functions/rum.mjs: { ...base, kind: 'error', ...b.error } and { ...base, kind: 'csp', ...b.csp } spread client keys last, so a client can set kind:'metric', metric, value, bot, layout; no Origin/Sec-Fetch-Site check; no rate limit; 4 KB cap applied after req.text(); attr stored unvalidated. An attacker can trigger or mask the 'page a human' alerts and burn Blobs/credits.",
+   "fix": "Whitelist fields per kind, cap metrics.length, require same-origin Sec-Fetch-Site/Origin, add function rateLimit config (verify), drop the object spreads."
+  },
+  {
+   "title": "CI cost and GitHub plan gating not quantified",
+   "severity": "medium",
+   "evidence": "Report 4.10 numbers (T3 = 6 shards x 3 engines x ~30 min = 540 min/night, ~16,200/month, plus T1/T2) vs GitHub included minutes for private repos: Free 2,000, Pro/Team 3,000 (docs.github.com fetched); nightly.yml timeout-minutes 90 x 18 jobs. Branch protection and environment required reviewers (qa-ci-01/19/4.4) are not available for private repos on GitHub Free.",
+   "fix": "Chromium-only nightly from day one (WebKit/Firefox Mon/Thu); consider a public repo after the gitleaks history scan (public runners free) or budget for Pro; state the plan required."
+  },
+  {
+   "title": "Effort and gate contradictions: 26 dev-days is the sum of minimums",
+   "severity": "medium",
+   "evidence": "Section 11 'roughly 26 developer-days' = 8 L x 2 + 16 M x 0.5 + 6 S x 0.25 ~ 25.5 d; the same finding efforts sum to ~75 d at maximum (midpoint ~50 d). Phase 1 'days 3-8' packs qa-ci-03/04/05/06/08 plus parts of 09/10/14. Promotion gate 1 (nightly green at S' >= S within 24 h, 4.4) contradicts the same-day hotfix path (4.7).",
+   "fix": "Restate as a 40-60 d range with a critical path; add a hotfix mode to release.yml (T1+T2 green, nightly waived, T4 mandatory)."
+  },
+  {
+   "title": "Expiry semantics can turn the whole CI red on a single date",
+   "severity": "medium",
+   "evidence": "tests/fixtures/base.ts pushes every expired tests/console-allowlist.json entry into every test's problems array; known-failures.json 'until' uses the same pattern.",
+   "fix": "One dedicated registry-expiry job; expired entries merely stop suppressing so only the affected tests fail."
+  },
+  {
+   "title": "Sketch defects that would produce false results",
+   "severity": "low",
+   "evidence": "nightly.yml keys-and-security extracts pk. from / but index.html has no token (it is in the JS bundle and 9 sub-pages), so the probe gets 401 not 403; base.ts STUB_STYLE lacks glyphs/sprite though symbol layers need them; preview.yml runs visual tests outside the pinned container; smoke row id w812-l does not exist; web-vitals pinned as v5 (npm latest 6.2.2); Playwright pinned 1.50.0 (tag exists, latest 1.63.0).",
+   "fix": "Extract the token from the bundle or a sub-page in the probe, add local glyph/sprite to the stub, run T2 browser jobs in the container, fix ids and pins."
+  }
+ ]
+}

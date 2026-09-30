@@ -1,0 +1,920 @@
+{
+ "agent": "pages-B",
+ "summary": "Deep audit of documentary, education, aftermath, sandbox, viewshed, regiment and ground-remembers (plus site-nav shared code and every data file they fetch), 53 findings, full long-form report with per-page fix specs, time-model appendix (four conflicting tick-to-clock formulas plus chronology drift tables), a measured H8 feasibility study, shared-module spec and test plan. Headline results, all evidence-backed: (1) every \"See it on the map\" deep link from these pages (?tick=, ?unit=, ?vignette=) is dead because the deployed bundle's only URL-query reader is ?ancestor=; (2) the three Mapbox pages block first paint on a synchronous 481 KB-gzip / 1.8 MB mapbox-gl.js and create the map only after 9 serial fetches (root cause of S2 blank ~3 s); (3) Documentary renders 24/24 multi-paragraph narratives as one paragraph; (4) Regimental Biography's vignette-mention join finds 1 of 467 regiments, shows empty timelines for 444/467 units though 422 have brigade-level placements, and never loads 103 artillery batteries; (5) Sandbox's edit panel is mis-positioned, drag is mouse-only (no touch/keyboard, WCAG 2.5.7), disposition control mislabels 3 real dispositions, and all three scenario labels contradict the data by clock and event order; (6) terrain.json coordinates/elevations disagree with USGS 3DEP (mean abs 62 ft, 13/30 off >50 ft, Big Round Top point is 365 m from the summit), so the current ranking is unreliable; (7) a real viewshed is feasible: USGS 3DEP 1 m lidar DEM is public domain, 10 m terrain-RGB PNG is 0.54 MB (5 m is 1.65 MB), ray-casting runs in 44-240 ms in Node/V8, 5 m vs 10 m results differ by <=1.4 points, and Mapbox terrain-DEM must be used for rendering only (SDK-only, derivative-data restriction per docs summary); (8) Ground Remembers' heat reflects keyframe authoring density (21% non-combat keyframes; top hotspot flips from The Angle to Culp's Hill when duration-weighted); (9) og:image on all pages is a malformed PNG identical for Day 1 and Day 3. Nothing was verified by running the pages (browser tools off-limits), so layout claims are tagged [C]/[U] with acceptance tests.",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/pages-B.md",
+ "findings": [
+  {
+   "id": "pagesB-01",
+   "title": "Deep links from these pages into the map are dead",
+   "severity": "critical",
+   "evidence": "documentary.html:92, education.html:81, regiment.html:247 emit /index.html?tick=..&vignette=.. and /?unit=..&tick=..; search/turning-points/historian emit the same. The only location.search reader in the deployed app is bundle.pretty.js:101019 (get(\"ancestor\")); bookmark writer bundle.pretty.js:97822-97830 emits t,u,z,ll which nothing reads; no reader in index.html; Jun 13 and Jul 20 deploys identical.",
+   "root_cause": "Pages built against an assumed URL contract the app never implemented; app share links use a second, unread contract.",
+   "fix": "Define URL contract v1 (?tick=&day=&unit=&vignette=&lat=&lng=&z=, accept legacy t,u,z,ll). App side: parse before onboarding, set currentTick (bundle.pretty.js:9362), select unit, open vignette, fly to lat/lng, skip splash when a deep link is present; minimal no-source patch: replace initial currentTick:1 with __gtbgInitialTick() plus a ~20-line pre-script in index.html; long term rebuild from source. My pages use one shared mapLink() helper (/js/links.js).",
+   "effort": "M",
+   "acceptance_test": "Playwright: open /?tick=300 shows TimeModel.label(300) with no splash; Documentary card 10 -> Watch this moment opens that vignette at that tick; same for Regiment ?unit= and Students cards.",
+   "audit_refs": [],
+   "depends_on": [
+    "app patch owned by app agents",
+    "pagesB-05"
+   ],
+   "metric_or_grade_moved": "Core function / UX (Documentary, Students, Regiment, Search, Turning Points, Historian CTAs)",
+   "verdict": "CORRECTED",
+   "correction": "Evidence confirmed (no reader except ancestor at bundle.pretty.js:101019, in the deploy or any archived bundle; emitters incl. search.html:114,127,139, turning-points.html:118, historian.html:110). The minimal patch fails: splash tO overwrites currentTick each frame (:101494) and resets to 1 (:101500, Skip intro :101576); it mounts while vn is false (:112948,:113059); layout chooser dO shows while Zn is null (:112949,:113061). Must default vn true (or apply state after onComplete), auto-pick layout, and consume unit/vignette. Effort M-L."
+  },
+  {
+   "id": "pagesB-02",
+   "title": "Render-blocking Mapbox GL JS and serial waterfall on sandbox/viewshed/ground-remembers",
+   "severity": "high",
+   "evidence": "sandbox.html:19-20, viewshed.html:19-20, ground-remembers.html:15-16 sync <script> in head; curl: mapbox-gl.js 481,197 B gzip / 1,796,551 B raw, max-age=31536000; ~2.4 s on Slow-4G before parse. Inline IIFEs fetch only after it runs; ground-remembers.html:64-73 creates the map only after 9 fetches.",
+   "root_cause": "Parser-blocking head script, data fetch serialised behind it, map created after data, no placeholder.",
+   "fix": "Remove sync script; shared /js/map-loader.js loads mapbox-gl async (preconnect api.mapbox.com, dns-prefetch events.mapbox.com, preload only if above the fold); start data fetch at top of body in parallel; create map as soon as script ready; skeleton with aria-busy removed on map.once('idle'); init via requestIdleCallback(2500 ms) or first interaction (facade); cooperativeGestures on viewshed and ground-remembers.",
+   "effort": "M",
+   "acceptance_test": "Lighthouse mobile each page: FCP<=1.8 s, LCP<=2.5 s (LCP is text or poster, not canvas), TBT<=200 ms, CLS<=0.1; filmstrip shows header painted before mapbox-gl.js completes.",
+   "audit_refs": [
+    "S2",
+    "P4"
+   ],
+   "metric_or_grade_moved": "Performance mobile (FCP/LCP/TBT), S2",
+   "verdict": "CORRECTED",
+   "correction": "Sizes confirmed (gzip 481,197; raw 1,796,551). Browsers get brotli 385,039 B so ~1.9 s not 2.4 s. Preload as=script with crossorigin plus an injected script without crossOrigin = double download; drop crossorigin (ACAO is *). loadMapbox must also await the CSS. Skeleton placement: see pagesB-49."
+  },
+  {
+   "id": "pagesB-03",
+   "title": "No error, retry, empty or offline state on any data fetch",
+   "severity": "high",
+   "evidence": "documentary.html:70-72, education.html:65-67, regiment.html:131-135, sandbox.html:85, ground-remembers.html:64, viewshed.html:60: Promise.all(fetch().then(r=>r.json())) with no r.ok check or try/catch; a single failure leaves 'Loading...' forever (regiment.html:73).",
+   "fix": "Shared /js/data.js loadJSON with timeout, retries, r.ok check and showError(role=alert, 44px Try again); wrap every boot in try/catch; noscript fallbacks once prerender exists; map.on('error') UI; explicit empty states (no match, no units at this moment).",
+   "effort": "S",
+   "acceptance_test": "Playwright route.abort() on one data file shows an alert with Retry and no uncaught error; offline reload of a visited page works.",
+   "audit_refs": [],
+   "metric_or_grade_moved": "Reliability",
+   "verdict": "CONFIRMED",
+   "correction": "All six pages use fetch().then(r=>r.json()) with no r.ok/try-catch; lines verified."
+  },
+  {
+   "id": "pagesB-04",
+   "title": "Request fan-out, data bundling and cache/SW strategy",
+   "severity": "medium",
+   "evidence": "Fetch counts: documentary 3, education 3, sandbox 9, ground 9, regiment 20 (369 KB raw / ~79 KB gzip); live files tiny (7 KB, 5.9 KB, 2.6 KB brotli) so cost is requests and sw.js network-first + cache.put per /data file; netlify.toml:28-30 max-age=3600 without hashed names.",
+   "fix": "Build vignettes.all.json, placements.all.json, oob.all.json, names.json with content hashes (/data/v/<hash>/), tiny manifest.json; immutable caching for hashed files; SW stale-while-revalidate for /data/v/*; regiment fetches oob.all first and lazy-loads placements/vignettes.",
+   "effort": "M",
+   "acceptance_test": "Regiment page makes <=2 data requests before first interaction; repeat visit makes 0 network data requests.",
+   "audit_refs": [
+    "P3"
+   ],
+   "metric_or_grade_moved": "Performance / Reliability",
+   "verdict": "CORRECTED",
+   "correction": "Counts/sizes confirmed (20 files, 368,893 B raw, 79.8 KB gzip; OOB 181,612 B; sw.js:61-70; netlify.toml:27-30). Caveat: /data/v/<hash>/ still matches /data/* (max-age=3600) and Netlify concatenates same-name headers from overlapping rules; use a non-overlapping path (e.g. under /assets/) or verify with curl -I."
+  },
+  {
+   "id": "pagesB-05",
+   "title": "Adopt a single shared time-model module",
+   "severity": "high",
+   "evidence": "Pages hard-code dayForTick (documentary.html:84, regiment.html:189), DAY_TICK_RANGES (education.html:63), raw tick labels (documentary.html:89, regiment.html:218-219, ground-remembers.html:47), sandbox ticks 260/553/62 (sandbox.html:103-107). Four different clock formulas exist in the deploy (bundle.pretty.js:9370 start 6:00 day1 / 4:00 days2-3; :100838 and :101001 5:00 with July day+2; :97428 day+2; chronology tick_formula 5:00 + 5 min).",
+   "fix": "/js/time-model.js: dayOf, tickInDay, dateOf (never day+2), piecewise-linear clockMinutes over an ANCHORS table, formatClock, label, tickForClock, simMinPerTick; unit-tested; all seven pages consume it. Time-model owner decides Option A (anchor table over existing ticks, recommended first) vs B (re-time data).",
+   "effort": "M",
+   "acceptance_test": "node:test: dayOf boundaries 225/226/450/451; clockMinutes strictly increasing; label(anchorTick) equals authored anchor clock; nothing returns 'July 5'; tickForClock round-trips within 1 tick.",
+   "audit_refs": [
+    "C3",
+    "C4",
+    "H9"
+   ],
+   "depends_on": [
+    "time-model specialist anchors"
+   ],
+   "metric_or_grade_moved": "Historical/data consistency (C- toward A)",
+   "verdict": "CONFIRMED",
+   "correction": "Formulas verified (9371, 100836-100842, 100998-101006, 97428); drift table recomputed. Minor: Day 2 is -10 through tick 340, -50 at 360. tickForClock snippet is pseudo-code."
+  },
+  {
+   "id": "pagesB-06",
+   "title": "Layout-shift risk: placeholders replaced by taller content, footer jumps, nav mount",
+   "severity": "medium",
+   "evidence": "documentary.html:52-53, education.html:52-53, regiment.html:73 swap ~100 px Loading block for 600+ px content while footer (site-nav.css:127-135) is visible on phones; viewshed.html:53 #ranking (30 rows) filled after map load; site-nav.js:161-171 replaces empty #gtbg-nav-mount with ~57 px sticky nav at DOMContentLoaded.",
+   "fix": "#gtbg-nav-mount{min-height:57px}; main{min-height:calc(100dvh - 57px - 140px)}; skeletons at final height; render #ranking from terrain JSON before map load; aspect-ratio on poster images.",
+   "effort": "S",
+   "acceptance_test": "Lighthouse CLS<=0.02 on each page (mobile); Playwright layout-shift sum<=0.05.",
+   "audit_refs": [
+    "P1"
+   ],
+   "metric_or_grade_moved": "CLS",
+   "verdict": "CONFIRMED",
+   "correction": "Code-reading finding; nav ~55 px. min-height variant safe; flex-column variant has the pagesB-12 pitfall."
+  },
+  {
+   "id": "pagesB-07",
+   "title": "Accessibility baseline missing on all seven pages",
+   "severity": "high",
+   "evidence": "grep: zero aria-* on all seven pages; no skip link; no <main> on sandbox/viewshed/ground-remembers; titles are <div> (documentary.html:57, aftermath.html:50); maps unnamed (sandbox.html:62, viewshed.html:52, ground-remembers.html:52); tab state only by class (education.html:48-50); no live regions; regiment.html:70-71 search unlabeled; smooth scroll ignores reduced motion (documentary.html:96, regiment.html:248).",
+   "fix": "Skip link + <main id=main>; h1>h2>h3 outline; role=region + aria-label on maps with text/table equivalents; aria-live status regions; tablist or aria-pressed toggles; combobox pattern; reduced-motion checks; axe-core wcag2a/2aa/22aa gate in CI.",
+   "effort": "M",
+   "acceptance_test": "axe 0 violations at 320/375/768/1440 and landscape; manual NVDA and VoiceOver run of each page.",
+   "audit_refs": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "D2"
+   ],
+   "metric_or_grade_moved": "Accessibility (C to A)",
+   "verdict": "CONFIRMED",
+   "correction": "aria- count is 0 on all seven pages; no main on sandbox/viewshed/ground; no h2 on five pages; no skip link, noscript, reduced-motion."
+  },
+  {
+   "id": "pagesB-08",
+   "title": "Touch targets, type sizes and contrast failures on these pages",
+   "severity": "medium",
+   "evidence": "Computed contrast: footer #6f7686 on #0a0a14 4.32 (site-nav.css:129), 2.53 on education blue; .gtbg-group-why 4.08 (site-nav.css:96); sandbox .hint #777 4.15 (:41), controls hint 4.15 (:60), empty list #666 3.43 (:66), timestamp #555 2.64 (:219); regiment hover/focus side-tag 3.53 (regiment.html:31-32); nav focus desc 3.53. Targets: .nav-btn ~37 px, sandbox .btn ~33 px, .play-btn ~33 px, match-row ~36 px; text <12 px: 11 px eyebrow/event-date/tl-meta, 10 px side-tag, 9.5 px gtbg-here.",
+   "fix": "Tokens --tap:44px and --fs-min:0.875rem; .btn min-height 44px; back links inline-flex 44px; muted text to >=#9aa3b8 or lighten #6f7686; replace #777/#666/#555 with var(--muted); focus rows share hover text colours.",
+   "effort": "S",
+   "acceptance_test": "axe color-contrast and target-size pass; Playwright asserts every button/a/[role=option]/input >=44x44 at 375 px.",
+   "audit_refs": [
+    "A1",
+    "A3",
+    "A4",
+    "S4"
+   ],
+   "metric_or_grade_moved": "Accessibility / mobile fit and finish",
+   "verdict": "CONFIRMED",
+   "correction": "All 9 contrast ratios recompute exactly; #9aa3b8 is 7.79:1. Shared nav/footer targets not covered (see missed M2)."
+  },
+  {
+   "id": "pagesB-09",
+   "title": "SEO/social: malformed og:image, missing twitter tags, JS-only content, duplicate URLs",
+   "severity": "medium",
+   "evidence": "og:image/twitter:image = /screenshots/day3.png on all seven pages; PNG IHDR says RGB (colour type 2) but IDAT inflates to 3,687,120 B = RGBA rows vs 2,765,520 B expected, Pillow cannot decode; day1.png and day3.png byte-identical (md5 3f6646c99f3416a1aa35fea67bed21c5). regiment.html and ground-remembers.html lack twitter:* and shorten og:description. Documentary/Students/Regiment text is client-fetched only. /regiment and /ground-remembers both 200 (curl). viewshed.html:8,11,17 description claims sightlines.",
+   "fix": "Generate distinct 1200x630 og images per page (+og:image:width/height/alt) and fix manifest screenshots; shared head partial with all tags; Netlify 301 from extensionless twins; prerender text for Documentary/Students/Regiment; JSON-LD Article/BreadcrumbList/ItemList.",
+   "effort": "M",
+   "acceptance_test": "Facebook/LinkedIn/X card validators render an image for each page; Pillow/browser decode og images; view-source of documentary contains all 24 moments; /regiment 301s.",
+   "audit_refs": [
+    "T1",
+    "T3",
+    "E2"
+   ],
+   "metric_or_grade_moved": "SEO / discovery, Lighthouse SEO stays 100",
+   "verdict": "CONFIRMED",
+   "correction": "Malformed PNG reproduced (3,687,120 vs 2,765,520 B; Pillow fails; day1=day3 md5). Extra: data is RGBA alpha 0xFF near-uniform dark (17.6 KB), i.e. a placeholder; fixing IHDR alone won't help. Twin-URL 200s not re-tested (site unreachable)."
+  },
+  {
+   "id": "pagesB-10",
+   "title": "Dev-log copy, internal terms and ' -- ' typography",
+   "severity": "medium",
+   "evidence": "viewshed.html:46 'Earlier drafts...'; regiment.html:102 'likely recorded at the brigade level'; regiment.html:66; sandbox.html:54,200; ground-remembers.html:43; aftermath.html:44. Data leaks: union_artillery.json 2nd Maine key_action 'subject of a Gettysburg Animated YouTube vignette', 16th Vermont 'across several ticks'; raw ids shown (regiment.html:198-199 'Indiana · U-I · U-I-1-1', sandbox.html:196). ' -- ' appears 31x in the seven pages and 139x in the 24 vignettes.",
+   "fix": "Rewrite in museum voice (copy given per page in report); build-time replace ' -- ' with em dash; scripts/lint-copy.mjs fails CI on ' -- ', 'tick' in display strings, youtube/animation/placed-with/must-be in OOB text, and U-/C- ids rendered into the DOM.",
+   "effort": "S",
+   "acceptance_test": "lint-copy passes; grep of built pages finds none of the listed strings.",
+   "audit_refs": [
+    "H7"
+   ],
+   "metric_or_grade_moved": "Fit and finish / copy voice",
+   "verdict": "CONFIRMED",
+   "correction": "31 ' -- ' in the pages; 140 (not 139) in vignettes by JSON dump; dev text at union_artillery.json:91 and union_regiments_i_ii_corps.json:51."
+  },
+  {
+   "id": "pagesB-11",
+   "title": "Hard-coded Mapbox token and version pins; no map error handling",
+   "severity": "medium",
+   "evidence": "Same pk. token literal at sandbox.html:71, viewshed.html:57, ground-remembers.html:56 (and in bundle); mapbox-gl v3.24.1 pinned in 9 HTML files, bundle also 3.24.1 (bundle.pretty.js:53873); no map.on('error').",
+   "fix": "Single /config.js (MAPBOX_TOKEN, MAPBOX_VERSION); URL-restrict the token in the Mapbox dashboard; map.on('error') mapping 401/403/429 to a friendly 'map unavailable' state; CI check that CDN version equals bundle version.",
+   "effort": "S",
+   "acceptance_test": "Token restricted (foreign Referer gets 403); blocked-token test shows friendly message; CI version-equality check passes.",
+   "audit_refs": [
+    "X1",
+    "X3"
+   ],
+   "metric_or_grade_moved": "Security hygiene / reliability",
+   "verdict": "CORRECTED",
+   "correction": "pk. token literal and v3.24.1 pin appear in NINE HTML files (camera, cinematic-export, compare, ground-remembers, immersive, sandbox, unit-rendering-reference, viewshed, watch-together), not three."
+  },
+  {
+   "id": "pagesB-12",
+   "title": "Shared page shell: tokens, sticky footer, back-link semantics",
+   "severity": "medium",
+   "evidence": "Each page redeclares :root tokens (education.html:20 differs); #gtbg-footer margin-top:40px with no flex column (site-nav.css:130) gives floating footer on short pages; wireBackLinks only rewires a[href=\"/\"] (site-nav.js:212) so documentary/education/aftermath (href=/index.html: documentary.html:47, education.html:42, aftermath.html:41) skip it; history.back() used when referrer is same-origin even if previous entry is another sub-page (site-nav.js:215-216).",
+   "fix": "/css/tokens.css + /css/shell.css (body flex column, main flex:1, footer margin-top:auto); data-theme for Students variant; Back link always a real <a href=/>, History API only when history.state.fromMap; shared head partial for title/description/canonical/OG/Twitter/theme-color.",
+   "effort": "M",
+   "acceptance_test": "Footer at viewport bottom on 1440x900 and 375x812 with empty Regiment page; Historian -> Documentary -> Back to the map lands on the map.",
+   "audit_refs": [
+    "S1"
+   ],
+   "metric_or_grade_moved": "Fit and finish / design-system consistency",
+   "verdict": "CORRECTED",
+   "correction": "Evidence confirmed. Fix pitfall: main{max-width;margin:0 auto} inside a flex-column body loses stretch (auto cross-axis margins) and shrinks to content width; add width:100% or width:min(100%,720px)."
+  },
+  {
+   "id": "pagesB-13",
+   "title": "No automated tests for these pages",
+   "severity": "high",
+   "evidence": "No tests, CI, or lint exist in the deploy or reconstructed source for the sub-pages.",
+   "fix": "Playwright (desktop 1440x900, mobile 375x812, tablet 768x1024, landscape 812x375), axe-core, Lighthouse CI budgets, console-silent gate, overflow/target/type checks, data-lint and copy-lint, unit tests for time-model, joins, heat weights, viewshed core, DEM decode, combobox and sandbox math.",
+   "effort": "L",
+   "acceptance_test": "CI red on any of: axe violation, console message, CLS>0.05, target<44 px, lint finding, golden viewshed drift >1.5 points.",
+   "audit_refs": [],
+   "metric_or_grade_moved": "Reliability / regression safety",
+   "verdict": "CONFIRMED",
+   "correction": "No tests exist; severity arguably medium (process gap); effort L realistic."
+  },
+  {
+   "id": "pagesB-14",
+   "title": "Documentary narrative renders as one paragraph",
+   "severity": "high",
+   "evidence": "documentary.html:91 el.textContent = v.full_script; .script (documentary.html:34) has no white-space rule; all 24 full_script strings contain \\n\\n (avg 10.4 paragraphs, 206-375 words).",
+   "root_cause": "Plain-text paragraphs rendered without splitting; browsers collapse newlines.",
+   "fix": "Split on /\\n{2,}/ and create <p> elements with textContent; .script p{margin:0 0 1.1em;max-width:65ch}; reuse anywhere full_script is shown.",
+   "effort": "S",
+   "acceptance_test": "Playwright: every moment renders >=5 <p> and joined text equals source minus newlines; no horizontal scroll at 320 px.",
+   "audit_refs": [],
+   "metric_or_grade_moved": "Fit and finish / readability",
+   "verdict": "CONFIRMED",
+   "correction": "documentary.html:34,91; all 24 scripts have blank-line breaks (avg 10.4 paragraphs); fix works."
+  },
+  {
+   "id": "pagesB-15",
+   "title": "Documentary eyebrow shows raw tick beside prose that contradicts the clock",
+   "severity": "high",
+   "evidence": "documentary.html:89 'Day N · Tick T · location'; V-001 prose says ~7:30 am while formula maps tick 12 to 5:55 (chronology label 6:00, map store 6:55); V-002 says ~10:15 am at tick 28 (formula 7:15); V-022 ~7:30 am at tick 460 (formula 5:45); V-017 1:00 pm at tick 518 (formula 10:35).",
+   "fix": "Eyebrow 'Day 1 · July 1, 1863 · about 7:30 a.m. · location' from new vignette fields historical_time/time_confidence/time_source; never show raw ticks; do not show the map clock on the card until the time-model owner reconciles anchors, then show TimeModel.label(tick) only on the 'Watch on map' link.",
+   "effort": "M",
+   "acceptance_test": "data-lint requires historical_time on all 24 vignettes and matches prose time regex; no 'Tick' string in the DOM.",
+   "audit_refs": [
+    "C4"
+   ],
+   "depends_on": [
+    "pagesB-05",
+    "pagesB-53"
+   ],
+   "metric_or_grade_moved": "Historical consistency",
+   "verdict": "CONFIRMED",
+   "correction": "Prose-time vs formula vs map-store clock table verified cell by cell for all 10 vignettes."
+  },
+  {
+   "id": "pagesB-16",
+   "title": "Documentary mobile: navigation row overflow and small targets",
+   "severity": "medium",
+   "evidence": "documentary.html:35 .nav-row flex space-between no wrap holding Prev (~108 px), a 30-char link (~195 px) and Next (~90 px) vs ~271 px content width at 375 px (stage padding 28/32 px, :31); .nav-btn ~37 px (:36); progress segments are 4 px non-interactive bars (:29). Estimated, verify visually.",
+   "fix": "clamp padding; grid nav row with link on its own full-width 44 px row; .nav-btn min-height 44; sticky bottom bar on mobile; progress becomes <ol> of buttons with aria-label 'Moment 5 of 24: ...' and aria-current, grouped by day.",
+   "effort": "S",
+   "acceptance_test": "320/375/414 px screenshots show no wrapped link text or clipped buttons; all targets >=44 px.",
+   "audit_refs": [
+    "S4",
+    "A3"
+   ],
+   "metric_or_grade_moved": "Mobile fit and finish",
+   "verdict": "UNVERIFIABLE",
+   "correction": "Arithmetic confirmed (271.5 px content width, 37 px buttons); wrapping needs a browser."
+  },
+  {
+   "id": "pagesB-17",
+   "title": "Documentary keyboard, screen-reader, deep-link and focus behaviour",
+   "severity": "medium",
+   "evidence": "documentary.html:101-104 global ArrowLeft/Right handler without modifier/target guards; no focus management after step; render() calls scrollTo smooth including first render (:96,:106) ignoring reduced motion; titles are divs (:57); no URL state (refresh returns to moment 1).",
+   "fix": "Guard key handler and scope to the stage; hash routing #v-010 with replaceState/hashchange; after each step update document.title, focus <h2 tabindex=-1>, announce via aria-live status; scroll only if stage top off-screen and honour reduced motion; <h2>/<article> markup.",
+   "effort": "M",
+   "acceptance_test": "axe 0; keyboard-only pass through 24 moments; screen reader announces new moment; documentary.html#v-013 opens that moment and survives refresh.",
+   "audit_refs": [
+    "A6",
+    "D2",
+    "H2"
+   ],
+   "metric_or_grade_moved": "Accessibility / usability",
+   "verdict": "CONFIRMED",
+   "correction": "documentary.html lines 57, 96, 101-104, 106 verified."
+  },
+  {
+   "id": "pagesB-18",
+   "title": "Documentary feature completions (read-aloud, map, sources, chapters, prerender)",
+   "severity": "medium",
+   "evidence": "site-nav.js:27 advertises 'narrated' but no audio exists; vignettes carry trigger_lat/lng and per-file metadata.sources (Pfanz, Oates, Desjardin, OR) that no page shows; 24 moments = 7,205 words (~36 min).",
+   "fix": "Web Speech read-aloud (rate/voice/highlight/auto-advance, feature-detected); per-moment mini-map from trigger_lat/lng over 3DEP hillshade; per-moment Sources disclosure; day dividers, chapter menu, resume position, reading-time chips, share, print CSS; end-of-tour links to Turning Points, featured units and Students; prerender 24 <article id=v-###> + JSON-LD ItemList.",
+   "effort": "L",
+   "acceptance_test": "Read-aloud works in Chrome/Safari/Firefox or hides; JS-off page shows all 24; Sources visible; Lighthouse mobile >=98.",
+   "audit_refs": [],
+   "metric_or_grade_moved": "Concept depth / UX / SEO",
+   "verdict": "CORRECTED",
+   "correction": "Only vignettes_part1.json has metadata.sources (7 entries); parts 2 and 3 (16 of 24 moments) have none, so per-moment sources must be authored. 'narrated' (site-nav.js:27) and lat/lng confirmed."
+  },
+  {
+   "id": "pagesB-19",
+   "title": "Documentary small defects: hard-coded 24, tick-556 tie, epilogue vignette",
+   "severity": "low",
+   "evidence": "documentary.html:49 and site-nav.js:27 hard-code 'All 24'; sort at :72 is by tick only (V-019 and V-023 tie at 556); V-024 triggers at tick 675 (formula 11:40 pm) but is about the afternoon; back link /index.html (:47).",
+   "fix": "Render count from data; sort by tick then vignette_id or explicit order field; mark V-024 kind=epilogue; use shared Back link; rewrite .sub copy.",
+   "effort": "S",
+   "acceptance_test": "Count string equals vignettes.length; deterministic order test; epilogue shown last with label.",
+   "audit_refs": [],
+   "metric_or_grade_moved": "Polish",
+   "verdict": "CONFIRMED",
+   "correction": "Tick-556 tie (V-019/V-023), V-024 at 675, hard-coded 24 verified."
+  },
+  {
+   "id": "pagesB-20",
+   "title": "Students page palette clashes with site and fails footer contrast",
+   "severity": "medium",
+   "evidence": "education.html:6,20 blue #0a3a6a palette vs dark navy/gold elsewhere; shared nav (#0d0d18) and footer (#6f7686/#8a93a8, site-nav.css:20,129-133) on the blue page give 2.53:1 text and 3.73:1 links; page's own text passes (>=6.5:1).",
+   "fix": "Use shared tokens with data-theme=students changing scale not palette (18 px body/1.75, 48 px tabs, larger cards, illustrated header); if a light classroom look is wanted implement a site-wide light theme (prefers-color-scheme + toggle); set shared theme-color.",
+   "effort": "M",
+   "acceptance_test": "axe contrast 0 on Students in every theme; visual regression against shared shell.",
+   "audit_refs": [
+    "A1"
+   ],
+   "metric_or_grade_moved": "Design consistency / accessibility",
+   "verdict": "CONFIRMED",
+   "correction": "2.53:1 and 3.73:1 reproduce; palette at education.html:20."
+  },
+  {
+   "id": "pagesB-21",
+   "title": "Students content is not written for students",
+   "severity": "high",
+   "evidence": "education.html:80 renders panel_summary; heuristic Flesch-Kincaid: panel_summary mean 11.1 (median 11.2, range 5.5-16.6) vs full_script mean 7.1; sub promises 'A simple guide' (:44); DAY_INTRO hard-coded (:58-62) with contestable 'both armies were at full strength' (:60).",
+   "fix": "Author student_summary (<=60 words, grade 5-7) per vignette and student_intro per day in the data with review/source fields; Simple/Detailed toggle (Detailed = full_script paragraphs); per-card key terms glossary, 'Why it matters', 'Meet the people' chips from OOB commanders.",
+   "effort": "L",
+   "acceptance_test": "data-lint FK<=8.0 for student_summary; teacher review sign-off.",
+   "audit_refs": [],
+   "depends_on": [
+    "pagesB-14",
+    "pagesB-53"
+   ],
+   "metric_or_grade_moved": "Content quality / education value",
+   "verdict": "CONFIRMED",
+   "correction": "Direction reproduces with own heuristic (panel_summary FK 11.9 vs full_script 7.4). panel_summary already averages 59 words, so a <=60-word target changes vocabulary, not length."
+  },
+  {
+   "id": "pagesB-22",
+   "title": "Students tabs, innerHTML injection, no-JS and link semantics",
+   "severity": "medium",
+   "evidence": "education.html:48-50 class-only tab state, no tablist; tabs inert until data loads (listeners attached after await :86-92); innerHTML with DAY_INTRO and v.title/v.panel_summary (:75,79-81); identical link text 'See it on the map' on every card (:81); no #day-2 deep link; no server-rendered text.",
+   "fix": "role=tablist/tab/tabpanel with roving tabindex (or aria-pressed toggles); aria-disabled until data ready; build nodes with textContent; link text 'See The Railroad Cut on the map'; #day-1..3 hash; prerender all three days and only toggle visibility in JS.",
+   "effort": "M",
+   "acceptance_test": "axe 0; keyboard tab test; JS-on and JS-off DOM text equal; each link has unique accessible name.",
+   "audit_refs": [
+    "A6"
+   ],
+   "metric_or_grade_moved": "Accessibility / SEO",
+   "verdict": "CONFIRMED",
+   "correction": "Listeners attached after await (education.html:86-92); innerHTML at 75, 79-81; identical link text verified."
+  },
+  {
+   "id": "pagesB-23",
+   "title": "Students classroom kit and feature completions",
+   "severity": "medium",
+   "evidence": "Page has only day tabs and cards; no progress, practice, printable, teacher notes or read-aloud.",
+   "fix": "Progress tracker (localStorage try/catch), 3-5 client-side self-check questions per day (no data collection), print CSS worksheets, Teacher notes page (goals, 45-min plan, vocabulary), shared Read-aloud/Share; standards alignment only after teacher review (C3 Framework, state history/ELA literacy: candidates, not claims).",
+   "effort": "L",
+   "acceptance_test": "Print preview fits one page per day; quiz works offline; no network beacons; axe 0.",
+   "audit_refs": [],
+   "metric_or_grade_moved": "Concept depth / education value",
+   "verdict": "UNVERIFIABLE",
+   "correction": "Feature proposal; no factual claims to check."
+  },
+  {
+   "id": "pagesB-24",
+   "title": "Aftermath thin content, no citations, weak semantics",
+   "severity": "medium",
+   "evidence": "aftermath.html:48-67 four events for 4.5 months, no sources/images/map links; timeline is divs; dates 11 px (:32), caveat 12 px (:27).",
+   "fix": "Expand to ~15-20 dated entries in five chapters (retreat; pursuit and the river; town and wounded; the dead and the cemetery; the Address) as <ol> with <time datetime>, 60-120 words each and 1-2 citations (NPS, Coddington, Sears, OR: every fact needs a source before publishing; none verified here); related-unit and map links; rewrite caveat as 'About this timeline' with a sources list; reuse the site's single sourced casualty figure.",
+   "effort": "L",
+   "acceptance_test": "Every entry has <time>, >=1 citation and passes link checker; axe 0; Lighthouse 100 all categories.",
+   "audit_refs": [],
+   "metric_or_grade_moved": "Concept depth / SEO long-tail / documentation",
+   "verdict": "CONFIRMED",
+   "correction": "Four events, 11 px dates, 12 px caveat verified; sourcing caution appropriate."
+  },
+  {
+   "id": "pagesB-25",
+   "title": "Aftermath fact-check list for existing text",
+   "severity": "low",
+   "evidence": "aftermath.html:51 (Vicksburg same day, rainstorm, wagon train 'stretched for miles'); :56 (Potomac, Williamsport, crossing by July 14, Lincoln's criticism); :61 'roughly 2,400 residents'; :66 'Cemetery Hill -- ground your map shows...' (National Cemetery adjoins Cemetery Hill); Everett ~2 h, Lincoln ~2 min.",
+   "fix": "Add citations for each claim, verify the 1860 population figure, reword 'beside Cemetery Hill', keep 'about two minutes' with source.",
+   "effort": "S",
+   "acceptance_test": "Each sentence maps to a cited source in the page's sources list.",
+   "audit_refs": [],
+   "metric_or_grade_moved": "Historical accuracy",
+   "verdict": "CORRECTED",
+   "correction": "Do not reword to 'beside Cemetery Hill': NPS says the Soldiers' National Cemetery was established on Cemetery Hill. The loose phrase is 'the Union army's central anchor' (verify). Population/duration figures still unverified."
+  },
+  {
+   "id": "pagesB-26",
+   "title": "Sandbox edit panel appears in the wrong place",
+   "severity": "high",
+   "evidence": "sandbox.html:37 #edit-panel position:absolute; it is a sibling after #map (:62-63) with no positioned ancestor; showEditPanel sets left=point.x+20, top=point.y (:192-193) from map-local e.point, so it lands ~280 px above the unit (nav+banner+header+controls) and ignores scroll. Code-reading finding, verify visually.",
+   "root_cause": "Absolute positioning against the wrong coordinate space.",
+   "fix": "Wrap map and panel in position:relative .map-wrap; clamp panel inside the map box; bottom sheet at <=640 px; role=dialog, labelled Close, Esc, focus moved in (or use mapboxgl.Popup).",
+   "effort": "S",
+   "acceptance_test": "Playwright clicks a unit at three positions on 1440x900 and 375x812: panel box inside map box and within 40 px of the unit.",
+   "audit_refs": [],
+   "metric_or_grade_moved": "Core function / fit and finish",
+   "verdict": "CORRECTED",
+   "correction": "Root cause, lines, fix confirmed. 'Ignores scroll' is wrong: the panel is document-anchored and scrolls with the page; the bug is a constant vertical offset equal to the map's top offset (x is correct)."
+  },
+  {
+   "id": "pagesB-27",
+   "title": "Sandbox not operable by touch or keyboard (WCAG 2.5.7 / 2.1.1)",
+   "severity": "high",
+   "evidence": "sandbox.html:167-182 select and drag exist only on map 'mousedown'/'mousemove'; Mapbox uses touchstart/touchmove for touch; click (:183-186) only hides the panel, so on phones a tap never opens the panel and a drag pans the map; no keyboard path and no single-pointer alternative to dragging.",
+   "fix": "Add touchstart/touchmove/touchend handlers with preventDefault and dragPan.disable during a hold, rAF-throttled setData; click-to-move alternative (tap unit, tap Move here); keyboard: unit table with Select buttons, arrow-key nudge 50 m (Shift 200, Alt 10), Enter/Esc, Ctrl+Z, aria-live announcements; chooser list when several units overlap (e.features[0] is arbitrary, :169).",
+   "effort": "M",
+   "acceptance_test": "Playwright touch emulation moves a unit; keyboard-only move and undo; axe 0.",
+   "audit_refs": [
+    "A3",
+    "D2"
+   ],
+   "metric_or_grade_moved": "Accessibility / mobile function",
+   "verdict": "CORRECTED",
+   "correction": "Touch drag unsupported (sandbox.html:167). But Mapbox registers touchstart passive (bundle.pretty.js:90324) and only touch-pan preventDefaults (:89498), so a tap likely triggers synthesized mousedown and opens the mispositioned panel; 'tap never opens' should be dropped/verified. touchstart is preventable, touchmove is not (:89049-89066); attach touchmove on the map. WCAG 2.5.7/2.1.1 conclusions stand."
+  },
+  {
+   "id": "pagesB-28",
+   "title": "Sandbox scenario labels contradict the data",
+   "severity": "high",
+   "evidence": "sandbox.html:104-106: tick 260 labelled 'mid-afternoon ... before Longstreet's assault' but chronology tick 256 is 'LONGSTREET'S ASSAULT BEGINS' (7:30am label) and tick 260 (7:50am) has Law reaching Big Round Top and 15th Alabama assaulting; tick 553 labelled '~3:00pm ... moments before Pickett's Charge reaches the wall' but tick 551 is Armistead over the wall and 553 is Cushing KIA (12:20pm); tick 62 labelled 'I Corps holding McPherson's Ridge' but tick 62 is I Corps right flank crumbling (holding is tick 30). Comment at :102 says 'all verified real ticks'.",
+   "fix": "Generate options from chronology_day*.json events (significance critical/high), label with TimeModel.label(tick) + short title; curated set: tick 25, 30, 254, 267, 537, 548, 551; user can scrub any tick; auto-load on change; default from first curated event.",
+   "effort": "M",
+   "acceptance_test": "Lint asserts each option text contains TimeModel.label(tick) and a keyword from chronology[tick].event.",
+   "audit_refs": [
+    "C4"
+   ],
+   "depends_on": [
+    "pagesB-05"
+   ],
+   "metric_or_grade_moved": "Historical consistency",
+   "verdict": "CONFIRMED",
+   "correction": "Chronology events at ticks 30, 62, 256, 260, 551, 553 verified. Nuance: ~3pm matches history, not the data clock (12:20pm); generated labels copy the wrong clock until the time model lands."
+  },
+  {
+   "id": "pagesB-29",
+   "title": "Sandbox disposition control is wrong and cosmetic",
+   "severity": "medium",
+   "evidence": "sandbox.html:79 DISPOSITIONS lacks Charging Line (54 keyframes), Mounted Cavalry (3), Dismounted Cavalry (1); :198 selected only on exact match so the browser pre-selects 'Line of Battle' for a Charging Line unit; circle paint (:157-161) ignores disposition; panel admits 'purely cosmetic' (:200).",
+   "fix": "Derive the list from data; encode disposition visually (symbol layer icons rotated by bearing, with legend) or hide the dropdown until it has an effect; copy 'posture label only; no combat is simulated'.",
+   "effort": "M",
+   "acceptance_test": "Unit test over all 694 keyframes: select shows the true disposition; visual change on edit.",
+   "audit_refs": [],
+   "metric_or_grade_moved": "Core function / trust",
+   "verdict": "CONFIRMED",
+   "correction": "9 options vs 11 dispositions (Charging Line 54, Mounted 3, Dismounted 1; Column unused)."
+  },
+  {
+   "id": "pagesB-30",
+   "title": "Sandbox change-log spam, raw ids, no undo",
+   "severity": "medium",
+   "evidence": "sandbox.html:174-181 logs every mousemove with previous-move position, list capped at 30 (:212), innerHTML rebuild per event (:216-220); timestamps #555 2.64:1; names are ids (:196,:219): 144/152 placement ids resolve via OOB, 8 VI Corps brigades (U-VI-1-1..U-VI-3-3) do not; 'Reset sandbox' identical to 'Load' (:229-231).",
+   "fix": "Capture start lngLat on down and log once on up ('Pettigrew's Brigade moved 340 m north-east'); haversine helper; undo/redo (100); Reset unit vs Reset all; names via names.json; ghost original positions; muted-token timestamps.",
+   "effort": "M",
+   "acceptance_test": "One drag yields one log entry; undo/redo restore; no U-/C- ids in DOM.",
+   "audit_refs": [
+    "H7"
+   ],
+   "depends_on": [
+    "pagesB-53"
+   ],
+   "metric_or_grade_moved": "UX / fit and finish",
+   "verdict": "CONFIRMED",
+   "correction": "Lines verified; the 8 unresolved VI Corps brigades parent 36 regiments."
+  },
+  {
+   "id": "pagesB-31",
+   "title": "Sandbox fragile first render and no resize/error handling",
+   "severity": "low",
+   "evidence": "sandbox.html:146-150 adds layer only if map.loaded(), first called from load handler (:222-224); if false the map stays empty until the user presses Load (uncertain); no ResizeObserver/map.resize, no map.on('error').",
+   "fix": "Add source/layer unconditionally in load handler then setData; ResizeObserver -> map.resize(); map.on('error') handler.",
+   "effort": "S",
+   "acceptance_test": "Throttled-CPU Playwright run always shows >=100 points within 5 s.",
+   "audit_refs": [],
+   "metric_or_grade_moved": "Reliability",
+   "verdict": "UNVERIFIABLE",
+   "correction": "Speculative: Mapbox fires load once loaded, so map.loaded() is normally true in the handler; harmless to harden."
+  },
+  {
+   "id": "pagesB-32",
+   "title": "Sandbox mobile layout and accessibility of page chrome",
+   "severity": "medium",
+   "evidence": "Option text 75-78 chars (sandbox.html:104-106) in a select inside a flex-wrap label (:57) can exceed a 375 px viewport (uncertain, verify); #map 60vh/min 420 (:36) traps page scroll; .btn ~33 px (:33); hint #777 4.15:1, empty list #666 3.43:1; banner lacks role=note, map lacks region/name, log not live, panel not dialog.",
+   "fix": "select max-width/width 100% and shorter labels; explicit Edit-mode toggle or cooperativeGestures; 44 px buttons; contrast tokens; role=note/region/status/dialog.",
+   "effort": "M",
+   "acceptance_test": "No horizontal scroll at 320-414 px; axe 0; targets >=44 px.",
+   "audit_refs": [
+    "A1",
+    "A3",
+    "A4",
+    "S4"
+   ],
+   "metric_or_grade_moved": "Mobile usability / accessibility",
+   "verdict": "UNVERIFIABLE",
+   "correction": "Plausible (longest option 77 chars in a flex-wrap label); needs a browser at 320/375."
+  },
+  {
+   "id": "pagesB-33",
+   "title": "Sandbox feature completions",
+   "severity": "low",
+   "evidence": "Sandbox shows anonymous dots, no legend, ignores bearing, holds last keyframe instead of interpolating like the main app, offers 3 fixed ticks.",
+   "fix": "Unit names/tooltips (strength, commander from OOB), side legend and corps filter, facing wedge from bearing, shared interpolation with the map, any-tick scrubber, ghost original positions with 'moved X m' summary, framed hypothetical prompts (no outcome predicted), share scenario via URL hash (local only), PNG export, scenario diff panel, calmer HYPOTHETICAL callout.",
+   "effort": "L",
+   "acceptance_test": "Sandbox at tick T positions equal the map at tick T; shareable hash round-trips; axe 0.",
+   "audit_refs": [],
+   "metric_or_grade_moved": "Concept / UX",
+   "verdict": "UNVERIFIABLE",
+   "correction": "Feature list."
+  },
+  {
+   "id": "pagesB-34",
+   "title": "Viewshed name, description and nav copy overpromise (rename honestly now)",
+   "severity": "high",
+   "evidence": "viewshed.html:7,44 'What They Could See'; :8,11,17 'approximate sightlines ... based on real elevation data'; site-nav.js:19 'Real elevation, ranked by vantage point.'; the page itself disclaims (:46) and narrates 'Earlier drafts' and what 'this deployment doesn't have access to' (dev-log voice).",
+   "fix": "Track 1: after pagesB-35 fixes numbers, retitle 'High Ground: Battlefield Vantage Points', H1 'High Ground', new description/nav/OG copy ('elevation of 30 landmarks from USGS lidar-derived terrain data'), delete the caveat box for one neutral line 'Elevation only. Line-of-sight maps are not shown on this page.'; keep URL. Track 2 restores the original name only for the real viewshed.",
+   "effort": "S",
+   "acceptance_test": "grep of deploy finds no sightline/viewshed/Earlier drafts in user-visible strings or meta; title, description and nav agree.",
+   "audit_refs": [
+    "H8",
+    "H7"
+   ],
+   "depends_on": [
+    "pagesB-35"
+   ],
+   "metric_or_grade_moved": "Honesty / copy voice",
+   "verdict": "CONFIRMED",
+   "correction": "viewshed.html:7,8,11,17,44,46 and site-nav.js:19 verified."
+  },
+  {
+   "id": "pagesB-35",
+   "title": "terrain.json coordinates and elevations do not match USGS 3DEP",
+   "severity": "high",
+   "evidence": "Sampled USGS 3DEP (validated vs EPQS within 1 ft) at the 30 key_locations coordinates: mean |listed-3DEP| 62 ft, median 45, max 201; 21/30 >25 ft, 13/30 >50 ft. Big Round Top point (39.7889,-77.2367) samples 584 ft vs listed 785 while the crest (39.7862,-77.2391, 784 ft) is ~365 m away; Little Round Top point samples 505 ft, crest 665-668 ft ~272 m away; Culp's Hill listed 640 samples 462; LOC-029 name typo 'Gulp's'. 30-row table in Appendix A.",
+   "root_cause": "Hand-authored/approximate coordinates and elevations without per-point provenance.",
+   "fix": "scripts/fix-terrain.mjs: classify type (summit/ridge/farm/woods/valley/structure); snap summit/ridge points to the DEM local max within 150 m after checking against authoritative points (GNIS, NPS, HABS, Warren 1868-69 map; not verified here) and review on hillshade; store DEM-sampled elevation_ft, elevation_ft_listed_old, coord_error_m, coords_source, dem_source/dem_retrieved; add vantage flag and observer_height_m; fix typo.",
+   "effort": "M",
+   "acceptance_test": "CI re-samples the DEM at every stored coordinate: |stored - sampled| <= 2 ft; ranking uses the same numbers.",
+   "audit_refs": [
+    "H8"
+   ],
+   "depends_on": [
+    "pagesB-36"
+   ],
+   "metric_or_grade_moved": "Data accuracy",
+   "verdict": "CONFIRMED",
+   "correction": "Re-queried USGS EPQS: BRT listed 584.9 ft, LRT listed 504.7 ft, BRT crest 783.3, LRT crest 665.5; 8/10 Appendix rows within 1.3 ft; stats recompute (mean 61.9, median 45, max 201, 21>25, 13>50). Scope gap: see missed M1."
+  },
+  {
+   "id": "pagesB-36",
+   "title": "Real viewshed: USGS 3DEP DEM pipeline",
+   "severity": "medium",
+   "evidence": "EPQS at LRT returns resolution 1 m, AcquisitionDate 11/4/2017, rasterId 122544; ImageServer exportImage works without a key (5 m UTM export 1928x1824 = 15.7 MB TIFF in ~17 s); first EPSG:4326 export mis-registered by 33-87 ft, UTM square-pixel export matched EPQS within 1 ft. Sizes (terrain-RGB PNG, 0.1 m): 5 m 1.65 MB, 10 m 0.54 MB, 15 m 0.28 MB, 30 m 0.09 MB. USGS says 3DEP products are free without use restrictions; USGS data public domain, credit requested.",
+   "fix": "scripts/build-dem: export square-pixel rasters (EPSG:3857 for the overlay; margin bbox W -77.32 E -77.14 S 39.74 N 39.88 at 10 m plus 5 m core), average-resample from 1 m COG, quantise to Mapbox-formula terrain-RGB PNG (decode with createImageBitmap colorSpaceConversion:none, strip gAMA/iCCP), hashed immutable files under /data/dem/, meta.json (bbox, cell, datum NAVD88, source, retrieved, credit), hillshade WebP poster; CI verifies 20 random points vs EPQS <=1 ft.",
+   "effort": "M",
+   "acceptance_test": "20-point EPQS check <=1 ft; 10 m core PNG <=0.6 MB and 5 m <=1.7 MB; files hashed and immutable.",
+   "audit_refs": [
+    "H8"
+   ],
+   "metric_or_grade_moved": "Enables real viewshed; SEO/poster for map pages",
+   "verdict": "CONFIRMED",
+   "correction": "ImageServer (F32, 8000 max, keyless export 200), EPQS, USGS 'free of charge and without use restrictions' / public domain, PNG sizes 1.65/0.54/0.28/0.09 MB all reproduce. ImageServer resampling isn't area-average; averaging implies downloading 1 m tiles."
+  },
+  {
+   "id": "pagesB-37",
+   "title": "Real viewshed: worker, ray-casting algorithm and overlay",
+   "severity": "high",
+   "evidence": "Prototype (numpy/Node) on 3DEP bare earth, eye=target=1.7 m, R=5 km, k=0.13: numpy 0.33-0.42 s for 7.2 M samples; Node/V8 236 ms (R=5 km, 5 m), 56 ms (R=3 km), 44 ms (10 m step); LRT crest 52.5% visible (33.0 km2), Big Round Top 76.8%, Angle 10.6%, Seminary Ridge 7.3%, Cemetery Hill (off-crest) 3.3%; 5 m vs 10 m vs 15 m differ <=1.4 points; target height 0 vs 1.7 m: 33.2% vs 52.5%; LRT at listed coords 1.8%.",
+   "fix": "Module worker: fetch DEM PNG -> createImageBitmap -> OffscreenCanvas -> Float32Array; radial ray casting with running max slope, bilinear sampling, curvature+refraction drop d^2(1-k)/(2Re), Re 6,371,000, k 0.13, N=ceil(2*pi*R/cell) rays; generation-id cancellation and progress; stats (visible km2, % within 1/2/5 km, farthest per 10-degree sector); mask -> ImageData -> Mapbox image source with mercator-aligned corners and updateImage; raster layer with opacity slider and nearest resampling; default 10 m/R=3 km on mobile, upgrade to 5 m on desktop when idle.",
+   "effort": "L",
+   "acceptance_test": "Golden numbers from the prototype within +/-1.5 points; 10 m compute <400 ms desktop and <1.5 s mid-phone; no main-thread long task; INP<200 ms.",
+   "audit_refs": [
+    "H8"
+   ],
+   "depends_on": [
+    "pagesB-35",
+    "pagesB-36"
+   ],
+   "metric_or_grade_moved": "Core function; H8 resolved",
+   "verdict": "CORRECTED",
+   "correction": "Numbers and curvature math reproduce (horizon 4.99 km; drop 1.707 m at 5 km; Node 33-108 ms here). Spec ambiguity: if the DEM is EPSG:3857 (~6.5 m px), the worker's cell must be ground metres (5 m), else distances/curvature inflate 1.30x; store cell_ground_m and cell_mercator_m in meta.json. Quote only the area-weighted 52.5% (vs.js prints sample-weighted 58.6%)."
+  },
+  {
+   "id": "pagesB-38",
+   "title": "Real viewshed: UX, accessibility and mobile spec",
+   "severity": "medium",
+   "evidence": "Current page has a select and 30 unlabeled dots; no observer/target/range controls, no stats, no text alternative, no mobile pattern.",
+   "fix": "Curated 12-15 vantage list (observer_height_m, day/time, why it matters, source) + place-your-own tap; eye height, target type (standing soldier default), range (default 3 km mobile/5 km desktop), opacity, show hidden ground, compare two points; point-to-point LOS with SVG elevation profile and first blocker; stats card, 36-row sector table + CSV as non-visual alternative, aria-live summary, permalink ?vp=&eye=&r=; always-visible 'Terrain only (modern ground, USGS 3DEP); woods, buildings and smoke not included'; mobile bottom sheet, cooperative gestures, 44 px controls.",
+   "effort": "M",
+   "acceptance_test": "axe 0; keyboard-only completion of select->compute->read results; permalink round trip; Lighthouse mobile >=90 (>=95 with facade).",
+   "audit_refs": [
+    "H8"
+   ],
+   "depends_on": [
+    "pagesB-37"
+   ],
+   "metric_or_grade_moved": "UX / accessibility",
+   "verdict": "UNVERIFIABLE",
+   "correction": "UX spec; nothing factual to check."
+  },
+  {
+   "id": "pagesB-39",
+   "title": "Real viewshed: obstruction modelling and validation",
+   "severity": "medium",
+   "evidence": "3DEP is bare earth (no trees/buildings/smoke); modern canopy differs from 1863 and NPS has restored woodlots since the 1999 GMP; NPS vegetation inventory GIS for GETT is listed on catalog.data.gov (licence unverified); Warren 1868-69 and Bachelder maps are period sources; an NPS/Seminary GIS study of Lee's cupola view exists per search.",
+   "fix": "Stage 0 terrain-only with explicit label; Stage 1 modern first-return lidar DSM-DTM as an upper-bound 'today' view; Stage 2 1863 layer (woodlots, orchards, thickets, buildings digitised from period maps and/or NPS vegetation data, assumed heights per class each cited or labelled assumption) with toggle 'Terrain only / With modelled 1863 woods and buildings'; validate with synthetic-DEM tests, golden tests, cross-check against GDAL gdal_viewshed/GRASS r.viewshed (not run here) and >=10 cited historical sightline assertions, publishing disagreements instead of tuning.",
+   "effort": "XL",
+   "acceptance_test": ">=10 cited assertions evaluated and published; accuracy statement in 'How this works'; independent implementation agrees within 2 points on 5 vantage points.",
+   "audit_refs": [
+    "H8"
+   ],
+   "depends_on": [
+    "pagesB-37"
+   ],
+   "metric_or_grade_moved": "Historical accuracy / credibility",
+   "verdict": "CONFIRMED",
+   "correction": "NPS 1999 GMP woodlot/orchard rehabilitation confirmed. NPS Vegetation Mapping Inventory exists on catalog.data.gov (accessLevel public, no licence text, 2003 imagery/2006 dataset): modern-vegetation product, weak 1863 proxy, licence unstated. Warren/Bachelder not checked."
+  },
+  {
+   "id": "pagesB-40",
+   "title": "Mapbox terrain-DEM boundary and 3D first-person view",
+   "severity": "medium",
+   "evidence": "Docs summary (fetched): tileset mapbox://mapbox.mapbox-terrain-dem-v1, height=-10000+((R*256*256+G*256+B)*0.1), zoom<=14 (~7.3 m/px at 39.8N by arithmetic), available only via Mapbox SDKs not Raster Tiles API, mixed datums, attribution required; ToS summary restricts caching beyond normal browser behaviour, bulk extraction and derivative datasets. Not tested with the site's token.",
+   "fix": "Do not feed Mapbox DEM values into the viewshed (compute from USGS 3DEP). Use Mapbox terrain for rendering only: raster-dem source + setTerrain exaggeration 1.0 + fog, free camera at vantage using ground height from our 3DEP DEM + eye height and lookAtPoint(target) for a first-person 'look toward X' view; keep Mapbox attribution; same 'terrain only' caveat.",
+   "effort": "M",
+   "acceptance_test": "Camera never below ground at all vantage points; attribution visible; no code path reads Mapbox DEM values for computation.",
+   "audit_refs": [
+    "H8"
+   ],
+   "depends_on": [
+    "pagesB-37"
+   ],
+   "metric_or_grade_moved": "UX / ToS compliance",
+   "verdict": "CORRECTED",
+   "correction": "SDK-only, zoom 14, formula, attribution confirmed. Restrictions are in Mapbox Product Terms (2026-07-21) s1.6 (no tracing/deriving/extracting), s1.9 (no bulk/scraping/caching), s2.8.1 (30-day device cache; no static-image distribution), not in /legal/tos. '~7.3 m/px' assumes 256-px tiles; docs give no resolution; with tileSize 512 it is ~3.7 m/px. Relabel or delete."
+  },
+  {
+   "id": "pagesB-41",
+   "title": "Viewshed page defects: no labels, dead code, unneeded flyTo, resize, CLS",
+   "severity": "medium",
+   "evidence": "viewshed.html:35-36 dead popup CSS; 30 anonymous dots; ranking rows inert (:113-118); const nearby unused (:111) and heading 'Nearby in elevation' above the full ranking (:112); flyTo on first load (:107,123-127); #ranking filled after map load (:53,110-118); list mixes woods/farms/valley with vantage points; day_relevance ignored; S3 incomplete map painting likely test artefact.",
+   "fix": "Symbol layer or accessible markers with names; ranking rows as buttons that select the vantage; delete dead code and fix heading; jumpTo first then flyTo, none when reduced motion; render ranking before map; vantage flag with optgroups and day chips; ResizeObserver -> map.resize().",
+   "effort": "S",
+   "acceptance_test": "Every dot has a visible name; ranking rows keyboard-selectable; no CLS from ranking; emulated-viewport screenshot fully painted.",
+   "audit_refs": [
+    "S3",
+    "H7"
+   ],
+   "metric_or_grade_moved": "UX / CLS",
+   "verdict": "CONFIRMED",
+   "correction": "viewshed.html:35-36,53,107,110-118,123-127 verified."
+  },
+  {
+   "id": "pagesB-42",
+   "title": "Regiment page opens as one search box above a floating footer (S1)",
+   "severity": "high",
+   "evidence": "regiment.html:34 #bio{display:none} is the only content; no min-height; footer margin-top:40px (site-nav.css:130); no examples, browse or featured units.",
+   "fix": "Landing state: Browse tabs Union/Confederate -> corps -> division -> brigade -> regiments (union_oob_corps_division 8 corps/22 divisions, union_oob_brigades 51, confederate_oob 3/9/37); Featured cards (most casualties, highest rate min 150 men, famous stands from units_featured, by state, random); Recently viewed (localStorage try/catch); sticky footer via shell; replaceState ?unit=ID on selection.",
+   "effort": "M",
+   "acceptance_test": "First screen at 1440x900 and 375x812 shows search + >=6 featured units + browse; footer at bottom; Lighthouse mobile >=98.",
+   "audit_refs": [
+    "S1"
+   ],
+   "depends_on": [
+    "pagesB-12"
+   ],
+   "metric_or_grade_moved": "Usability / fit and finish (S1)",
+   "verdict": "CONFIRMED",
+   "correction": "regiment.html:34,68-73 and site-nav.css:130 verified."
+  },
+  {
+   "id": "pagesB-43",
+   "title": "Regiment 'Mentioned in the battle's narrative moments' finds 1 of 467 units",
+   "severity": "high",
+   "evidence": "regiment.html:228-233 substring-matches the full lowercase designation ('20th maine volunteer infantry') against vignette prose; running the exact logic over all 467 regiments gives 1 match (8th Illinois Cavalry -> V-001); 20th Maine shows 'No narrative vignette specifically names this unit' (:108) though V-010 features U-20ME; short-name heuristic finds 28; units_featured has 40 ids (10 regiment ids, 30 brigade/division/corps/battery ids).",
+   "root_cause": "Wrong join key; data already has units_featured.",
+   "fix": "Build-time index unit->vignettes from (a) units_featured on the regiment id and its ancestors (brigade->division->corps, labelled 'In this brigade's story'), (b) curated data/unit-aliases.json with word-boundary regex, (c) optional hand-curated mentions; cards show panel_summary + Read the full story (#v-010) + Watch on the map.",
+   "effort": "M",
+   "acceptance_test": "Unit tests: U-20ME -> [V-010]; U-1MN -> [V-012]; >=60 regiments have >=1 mention via ancestors; lint fails if any units_featured id yields no mention.",
+   "audit_refs": [],
+   "depends_on": [
+    "pagesB-53"
+   ],
+   "metric_or_grade_moved": "Core function / content depth",
+   "verdict": "CORRECTED",
+   "correction": "1/467 reproduced exactly. U-20ME is featured in V-009 AND V-010 (expected [V-009,V-010]). Regiments have only parent_brigade_id/parent_corps_id (no division id). Own/brigade matches = 87 regiments; corps-level ids U-I and U-III would add 68 by corps alone, so label separately or skip."
+  },
+  {
+   "id": "pagesB-44",
+   "title": "Regiment timelines empty though brigade data exists; artillery batteries never loaded",
+   "severity": "high",
+   "evidence": "regiment.html:210 looks up placements by regiment_id only: of 152 placement units 23 are regiment ids (20th Maine 13 keyframes, 1st Minnesota 11, 15th Alabama 7), 96 are brigade ids parenting 422 more regiments, 33 are batteries/battalions/divisions; 444/467 show the empty note (:102) while a parent fallback gives 445/467 (95%). regiment.html:137 reads only f.regiments so 50 Union + 45 Confederate batteries and 5+3 horse batteries (103) are unsearchable despite 'any regiment or battery' (:66).",
+   "fix": "positionsFor(unit): own keyframes, else parent brigade labelled 'Brigade position (Third Brigade, First Division, Twelfth Corps)', else corps note; ingest artillery/horse artillery into the unit index (unit_type, gun_count, gun_type, strength, casualties, key_action) with the same page; replace empty-state copy with a link to the brigade.",
+   "effort": "M",
+   "acceptance_test": "U-20ME uses its 13 own keyframes; a U-XII-1-3 regiment shows Colgrove's Brigade timeline; U-ART-9MA resolves; >=569 searchable units.",
+   "audit_refs": [
+    "H10"
+   ],
+   "metric_or_grade_moved": "Core function / content coverage",
+   "verdict": "CONFIRMED",
+   "correction": "23 own / 96 brigade ids / 422 fallback / 445 total; 50+45+5+3 = 103 batteries reproduce."
+  },
+  {
+   "id": "pagesB-45",
+   "title": "Regiment raw ids, alias stub, blank derivable fields, generic and dev text",
+   "severity": "medium",
+   "evidence": "regiment.html:198-199 prints 'Indiana · U-I · U-I-1-1'; alias stub U-14BK ('14th Brooklyn (alias for U-84NY)', strength 0) is searchable; casualty_percentage null for 222/467 (page shows dash, :202) although casualties/strength reproduces all 245 present values within 1 pt; days_engaged empty for 37; 27 without commander (successor data and commander_successions.json unused); 22 cavalry without parent_corps_id; key_action duplicated for 127 (20 = 'Army reserve.') and <40 chars for 169; dev text in 2nd Maine Battery and 16th Vermont key_action.",
+   "fix": "names.json (728 named ids) for 'I Corps · First Division · First Brigade (Meredith's Iron Brigade)'; skip alias_for records in search, fold aliases into the target, redirect ?unit=U-14BK to U-84NY; compute rate client-side with footnote; days as 'July 1, 2 and 3'; show succession chain; scrub dev text; review queue for 169 thin key_actions and hide generic ones.",
+   "effort": "M",
+   "acceptance_test": "No U-/C- id or alias stub visible; all 467 records show a casualty rate; lint-copy passes.",
+   "audit_refs": [
+    "H7"
+   ],
+   "depends_on": [
+    "pagesB-53"
+   ],
+   "metric_or_grade_moved": "Fit and finish / data quality",
+   "verdict": "CONFIRMED",
+   "correction": "222, 37, 27, 22, 127, 20, 169 and 0/245 rate mismatches all reproduce; alias stub U-14BK confirmed."
+  },
+  {
+   "id": "pagesB-46",
+   "title": "Regiment search: no label, no combobox semantics, weak matching",
+   "severity": "medium",
+   "evidence": "regiment.html:70 input has no label; rows div role=option tabindex=0 in role=listbox without aria-selected; input lacks role=combobox/aria-expanded/aria-controls/aria-activedescendant; Enter does nothing (:169 rows only); no ArrowDown/Esc; designation.includes(q) only (:158) so '19 Indiana', '20 ME', 'Chamberlain', 'Iron Brigade' fail; cap 12 with no count; rows ~36 px; no no-results row; URL not updated.",
+   "fix": "WAI-ARIA 1.2 combobox with listbox (arrow keys, Enter, Esc, Home/End), visible label, live region '12 of 47 matches'; normalised token matching over designation+state+commander+brigade+aliases ranked prefix>token>substring with light typo tolerance; up to 25 results + Show all; 44 px rows; replaceState ?unit=.",
+   "effort": "M",
+   "acceptance_test": "'20 me' -> 20th Maine first; 'chamberlain' -> 20th Maine; 'iron brigade' -> its regiments; keyboard-only selection; axe 0.",
+   "audit_refs": [
+    "A2",
+    "A6",
+    "D2"
+   ],
+   "metric_or_grade_moved": "Accessibility / usability",
+   "verdict": "CONFIRMED",
+   "correction": "regiment.html:70,71,158,163-169 verified; rows ~35 px."
+  },
+  {
+   "id": "pagesB-47",
+   "title": "Prerender per-unit pages for search discovery",
+   "severity": "medium",
+   "evidence": "All unit content renders client-side on one URL; 466 distinct regiments + 103 batteries = 569 units cannot rank for long-tail queries; only ~8% of referrals come from search (T1).",
+   "fix": "Build /units/<slug>.html (static h1, dl of facts, commander chain, positions, mentions, JSON-LD Article+BreadcrumbList, canonical, per-corps OG image) plus /units/index.html and sitemap-units.xml in a sitemap index; regiment.html?unit= client-redirects to the static URL; internal links from Documentary/Students/Historian/Find-Ancestor; per-unit sources from OOB metadata.",
+   "effort": "L",
+   "acceptance_test": "569 pages build; JS-off render complete; each has unique title/description/canonical; sitemap validates; Search Console indexes them.",
+   "audit_refs": [
+    "T1"
+   ],
+   "depends_on": [
+    "pagesB-53"
+   ],
+   "metric_or_grade_moved": "SEO / traffic",
+   "verdict": "CONFIRMED",
+   "correction": "Plan sound; add a thin-content indexing gate (missed M5)."
+  },
+  {
+   "id": "pagesB-48",
+   "title": "Regiment feature completions",
+   "severity": "medium",
+   "evidence": "Bio shows text stats only; no visualization, path, comparison, siblings, sources or correction path; smooth scrolls to bio even on initial deep link (regiment.html:248).",
+   "fix": "Strength/casualty bar with text equivalent; casualty rate vs corps/army median; position path on a small map (brigade fallback flagged); timeline with TimeModel clock labels; same-brigade siblings; compare-two-units; share/print; Find-your-ancestor link; per-unit sources; Report-a-correction mailto with unit id; keep top on load and honour reduced motion.",
+   "effort": "L",
+   "acceptance_test": "Visualizations have text alternatives; axe 0; deep link loads at top.",
+   "audit_refs": [],
+   "metric_or_grade_moved": "Concept depth / UX",
+   "verdict": "CONFIRMED",
+   "correction": "regiment.html:248 scrolls on deep link; also lands under the sticky nav (missed M2)."
+  },
+  {
+   "id": "pagesB-49",
+   "title": "Ground Remembers S2: blank ~3 s, waterfall and loading state",
+   "severity": "high",
+   "evidence": "Ordered root cause: sync 481 KB-gzip mapbox-gl in head (ground-remembers.html:16) blocks paint; 9 fetches start only after it runs (:64); map created only after all resolve (:69); dark-v11 style/tiles then load; heat source added on load (:88-89); #map is an empty #0a0a14 box and the loading text (:51) disappears at step 3.",
+   "fix": "pagesB-02 pattern; combined data file started at top of body; build-time poster (SVG/PNG heat over public-domain 3DEP hillshade, no Mapbox tiles) as <img width height> inside #map; skeleton with aria-busy and status text; create map in parallel with data; fade poster out on map.once('idle') after the heat layer is added.",
+   "effort": "M",
+   "acceptance_test": "Filmstrip: header + poster visible <1.5 s on Slow 4G; LCP<=2.0 s; idle <4 s; CLS 0.",
+   "audit_refs": [
+    "S2"
+   ],
+   "depends_on": [
+    "pagesB-02",
+    "pagesB-36"
+   ],
+   "metric_or_grade_moved": "LCP / FCP / S2",
+   "verdict": "CORRECTED",
+   "correction": "Order of operations verified. Fix (c) puts a poster img inside #map; Mapbox 3.24.1 warns when the container has any child node (bundle.pretty.js:92787), breaking zero-console-warnings and possibly interactivity. Use a sibling overlay in a position:relative wrapper, remove on idle, keep #map empty."
+  },
+  {
+   "id": "pagesB-50",
+   "title": "Ground Remembers heat measures keyframe authoring density, not fighting",
+   "severity": "high",
+   "evidence": "ground-remembers.html:83 weight 2 for artillery else 1 over 694 keyframes (152 units, 117 of 675 ticks); 145/694 (21%) are Bivouac 65, Line of March 69, Limbered Artillery 10, Reserve 1; strength/duration ignored; 200 m-grid experiment: naive top cell The Angle (45 keyframes) vs duration-weighted engaged strength top cell Culp's Hill (749,656 vs 332,139 strength-ticks at the Angle), Little Round Top 5th by count and absent from weighted top six; page ignores 38 density_*.json files (1,110 entries) and casualty_apportionment.json (bell-curve sigma 8 infantry / 4 artillery).",
+   "fix": "Heat v2: interpolate combat keyframes (dt<=20 ticks) and sample every tick, weight = strength_at_tick x disposition weight (documented constants, non-combat = 0); include density files; second mode 'Where men fell' distributing OOB unit casualties along combat ticks with the apportionment bell curve; Presence/Casualties switch, legend, rewritten caveat stating constants.",
+   "effort": "M",
+   "acceptance_test": "Unit test on synthetic 2-unit dataset; golden top-5 hotspots reviewed by owner; caveat lists constants.",
+   "audit_refs": [],
+   "depends_on": [
+    "pagesB-05"
+   ],
+   "metric_or_grade_moved": "Historical accuracy / concept honesty",
+   "verdict": "CONFIRMED",
+   "correction": "Qualitative result reproduces (Angle by count, Culp's Hill duration-weighted; 145/694 non-combat exact). Exact figures (45; 749,656 vs 332,139) do not: script not saved; my 200 m grid gave 38 and 428,646 vs 327,068. Ship the script; treat numbers as illustrative."
+  },
+  {
+   "id": "pagesB-51",
+   "title": "Ground Remembers controls, legend and text alternative",
+   "severity": "medium",
+   "evidence": "ground-remembers.html:47 raw-tick slider label with no aria-valuetext; #reveal fixed 220 px (:30); Play always restarts at tick 1 (:123) so Pause->Play cannot resume; slider drag fights interval (:124-130); fixed +8 ticks/90 ms (~7.6 s) and no speed control; no reduced-motion handling; play ~33 px (:31); no legend; no text alternative; map gestures capture scroll.",
+   "fix": "Label and aria-valuetext with TimeModel.label(tick); 44 px controls and full-width slider on mobile; Play resumes and stops on user input; speed select; reduced-motion disables auto-play; on-map legend; Top-10 hotspots list with aria-live summary; cooperativeGestures.",
+   "effort": "M",
+   "acceptance_test": "axe 0; Pause->Play resumes; legend and hotspot list present; reduced-motion test.",
+   "audit_refs": [
+    "A2",
+    "A3"
+   ],
+   "metric_or_grade_moved": "Accessibility / UX",
+   "verdict": "CONFIRMED",
+   "correction": "ground-remembers.html lines 30-31, 47, 121-130 verified."
+  },
+  {
+   "id": "pagesB-52",
+   "title": "Ground Remembers stale hard-coded counts and dev-log caveat",
+   "severity": "low",
+   "evidence": "ground-remembers.html:42-43 'all 675 five-minute snapshots' and '694 recorded unit positions' typed constants; only 117 ticks have keyframes and ticks are not five historical minutes.",
+   "fix": "Render counts from data; reword to 'Built from the site's recorded unit positions (N positions, M units, July 1-3, 1863)'.",
+   "effort": "S",
+   "acceptance_test": "Counts in DOM equal data-derived values; lint-copy passes.",
+   "audit_refs": [
+    "H7"
+   ],
+   "metric_or_grade_moved": "Copy accuracy",
+   "verdict": "CONFIRMED",
+   "correction": "694 positions, 117 keyframe ticks verified."
+  },
+  {
+   "id": "pagesB-53",
+   "title": "Name index, true unit counts, VI Corps gap, vignette schema v2",
+   "severity": "medium",
+   "evidence": "467 OOB records include alias stub U-14BK -> 466 distinct regiments (274 Union, 192 Confederate + stub arithmetic per files) plus 103 batteries (50+45+5+3) = 569 units vs site claims '467 regiments/batteries' and '445+'; 728 ids have names; 144/152 placement ids resolve, the 8 unresolved are VI Corps brigades U-VI-1-1..U-VI-3-3 absent from union_oob_brigades.json.",
+   "fix": "Build unit_counts and inject into every count string; publish names.json (id -> name, short, type, side, parent); author the 8 VI Corps brigade records from OR/Busey and Martin; vignette schema v2 (historical_time, time_confidence, time_source, student_summary, sources[], order, kind); scripts/lint-data.mjs (units_featured and placement ids resolve, disposition enum, dev-copy regexes, historical_time present, counts from unit_counts, JSON schema).",
+   "effort": "M",
+   "acceptance_test": "lint-data passes; every count string derives from unit_counts; all 152 placement ids resolve to names.",
+   "audit_refs": [
+    "H10"
+   ],
+   "metric_or_grade_moved": "Data consistency",
+   "verdict": "CORRECTED",
+   "correction": "Counts reproduce but the split is misstated: alias stub U-14BK is Union, so 273 Union + 193 Confederate = 466 distinct (summary says 192 Confederate; section 5 says 193 'incl. the stub'). VI Corps gap = 8 brigades parenting 36 regiments."
+  }
+ ],
+ "open_questions": [
+  "Time-model decision (owner + time-model specialist): Option A (anchor table over the existing 675 ticks, variable sim-minutes per tick) vs Option B (re-time ~1,800 keyframes/events so ticks are uniform 5 historical minutes). My pages are written against a TimeModel interface and are agnostic, but the Documentary/Sandbox/Ground labels cannot be finalised until anchors are chosen and verified against Pfanz/Coddington/OR.",
+  "Deep links (pagesB-01): is the app patch to be done by patching the minified bundle (inject currentTick initial state + boot hook) or by rebuilding from source (N1)? A 2-minute manual test of /?tick=300 should confirm the static-analysis finding before work starts.",
+  "Keep the name 'What They Could See' (and URL) for the real viewshed, or use 'High Ground' now and reintroduce the old name only when Phase V3 ships? Also whether to accept a facade/click-to-activate map pattern on the three Mapbox pages to reach Lighthouse mobile 95+.",
+  "Authoring capacity and ownership for content work: 24 student_summary + 24 historical_time entries, 15-20 sourced Aftermath entries, 169 thin key_action rewrites, 8 VI Corps brigade records, ~40 time anchors, 1863 obstruction layer digitisation.",
+  "Legal/licence checks not done: exact Mapbox ToS clauses and GL JS billing for terrain tile requests (my reading is from WebFetch summaries), NPS vegetation GIS and Library of Congress map licences for derived layers, any TTS voice licence if pre-rendered audio is wanted.",
+  "Sub-pages currently use Mapbox GL JS v3 (proprietary, per-map-load billing, unrestricted token). Is migrating Ground Remembers/Viewshed to a self-hosted hillshade + MapLibre (BSD) acceptable to remove the 481 KB-gzip vendor dependency and quota exposure? Not verified here.",
+  "Unverified by execution: sandbox panel offset (pagesB-26), documentary mobile wrap (pagesB-16), sandbox select overflow at 320-414 px (pagesB-32), map.loaded() race at load (pagesB-31), viewshed worker speed on real phones, og:image behaviour in specific scrapers."
+ ],
+ "verification_summary": "Evidence in pages-B is high quality. I re-ran the data joins, contrast math, PNG defect, USGS EPQS and ImageServer queries, DEM payload sizes and the viewshed prototype, and nearly every number reproduced (the exceptions are the exact heat-experiment figures and a few miscounts noted below). Deploy line cites match. The live site was unreachable from the verifier host, so live-curl claims (TTFB, twin-URL 200s) were not re-tested. The material errors are in the proposed fixes, not the findings: (1) pagesB-01's minimal deep-link patch fails because the splash overwrites and resets currentTick (bundle.pretty.js:101494/101500/101576); (2) pagesB-02's preload uses crossorigin against a non-CORS injected script, so the file downloads twice; (3) pagesB-12's flex-column shell collapses `main{max-width;margin:0 auto}` to content width; (4) pagesB-49 puts a poster inside #map, which triggers Mapbox's 'container should be empty' warning (bundle.pretty.js:92787); (5) pagesB-27 wrongly says a tap never opens the sandbox panel; (6) pagesB-25's 'beside Cemetery Hill' rewording contradicts NPS; (7) pagesB-40 cites /legal/tos, but the restrictions are in Mapbox Product Terms s1.6/1.9/2.8.1. Other corrections: only vignettes_part1 has metadata.sources (pagesB-18); the Mapbox token appears in 9 HTML files, not 3 (pagesB-11); U-20ME is featured in V-009 and V-010 (pagesB-43); the Union/Confederate split is 273/193 (pagesB-53). The biggest scope gap is that the terrain.json coordinate defect also affects vignette triggers and placements. Verification section appended to pages-B.md (report file was appended to; nothing else modified).",
+ "missed_by_specialist": [
+  {
+   "title": "Coordinate defect extends beyond terrain.json to vignettes and placements",
+   "severity": "high",
+   "evidence": "V-009 trigger (39.7933,-77.2394) is identical to terrain.json LOC-003 (EPQS 504.7 ft, ~283 m from the 665 ft crest). U-20ME 'holds Little Round Top' keyframes (ticks 375-675) use the same point (505 ft); its tick 267-275 point (39.7922,-77.2389) samples 535 ft; C-15AL keyframes sample 501-523 ft. These feed Sandbox, Ground Remembers, Regiment position path (pagesB-48), Documentary mini-map (pagesB-18), deep links.",
+   "fix": "Run the pagesB-35 DEM coordinate QA over vignette triggers, all placements_*.json and density_*.json points, and monuments.json; report per-file error stats; do not build mini-map/path features on unaudited coordinates."
+  },
+  {
+   "title": "Sticky nav hides scroll targets; shared nav/footer touch targets under 44 px",
+   "severity": "medium",
+   "evidence": "#gtbg-nav is position:sticky;top:0;z-index:500 (site-nav.css:17); grep finds no scroll-margin/scroll-padding in any CSS/HTML, so regiment.html:248 scrollIntoView({block:'start'}) puts the bio h2 under the ~55 px nav (WCAG 2.4.11). .gtbg-menu-btn ~34 px tall, icon-only .gtbg-historian-pin ~46x34 at <=640 px (site-nav.css:34-62), footer links 12 px unpadded (:129-133) on every page.",
+   "fix": "html{scroll-padding-top:72px}; nav controls min-height:44px; footer links inline-flex min-height:44px padding-inline:8px."
+  },
+  {
+   "title": "OG/PWA image capture must not contain Mapbox map content",
+   "severity": "medium",
+   "evidence": "pagesB-09 proposes headless capture of pages (three show Mapbox basemaps). Mapbox Product Terms 2026-07-21 s2.8.1 forbids distributing Licensed Map Content 'by using a screenshot or other static image'; s1.7.3 limits static/print rights. The report already avoids Mapbox tiles for the Ground poster for this reason.",
+   "fix": "Generate /og/*.png and manifest screenshots from 3DEP hillshade plus first-party art (or confirm Static Images API terms); lint rejects captures from pages with a Mapbox canvas."
+  },
+  {
+   "title": "Header-rule overlap for proposed hashed data path",
+   "severity": "medium",
+   "evidence": "netlify.toml:27-30 sets /data/* max-age=3600; /data/v/<hash>/* (pagesB-04) also matches and Netlify concatenates same-name headers across overlapping rules (docs silent; consistent with X4 embed.html), risking 'max-age=3600, ..., max-age=31536000, immutable'.",
+   "fix": "Serve hashed files from a path matched by exactly one rule (e.g. /assets/data/<hash>/, immutable at netlify.toml:22-25) and verify with curl -I on a deploy preview."
+  },
+  {
+   "title": "Regiment prerender would publish thin, near-duplicate pages",
+   "severity": "medium",
+   "evidence": "pagesB-47 templates ~569 pages, but 127 units share a duplicated key_action (20 are 'Army reserve.') and 169 have <40 characters (recomputed from oob/*.json).",
+   "fix": "Emit noindex and omit from sitemap-units.xml until a unit has a distinct key_action >=80 chars or a vignette mention/positions; enrich featured units first."
+  },
+  {
+   "title": "Global body fade delays first content paint on all sub-pages",
+   "severity": "low",
+   "evidence": "site-nav.css:12-14 animates body from opacity:0 for 340 ms on every page; Chrome ignores zero-opacity content for LCP (and by my reading FCP), adding ~0.34 s to FCP/LCP on all 27 sub-pages. Not measured here ([U]).",
+   "fix": "Drop the opacity keyframe (keep at most a transform) or start at opacity:.99."
+  },
+  {
+   "title": "Ground Remembers controls inert until the map style loads",
+   "severity": "low",
+   "evidence": "Slider and Play listeners are registered inside map.on('load') (ground-remembers.html:88,109-134); for the first ~3+ s the slider moves but label/heat do not update (same class as pagesB-22).",
+   "fix": "Attach listeners immediately, apply state on load, and use aria-disabled until ready."
+  },
+  {
+   "title": "Unescaped innerHTML in Regiment and Sandbox",
+   "severity": "low",
+   "evidence": "regiment.html:166,219,239 and sandbox.html:137,160 interpolate data/ids into innerHTML; safe with first-party JSON today, brittle (same issue pagesB-22 flags only for Students).",
+   "fix": "Build nodes with textContent or a shared esc() helper (/js/dom.js) and add a lint rule."
+  }
+ ]
+}

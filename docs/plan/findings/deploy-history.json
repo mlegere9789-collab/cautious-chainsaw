@@ -1,0 +1,720 @@
+{
+ "agent": "deploy-history",
+ "summary": "Regression archaeology across 126 Downloads zips, six Netlify deploys (A-F), the real Jun 12-13 source trees and the abandoned code-split lineage. Key conclusions: (1) Netlify deploy IDs are ObjectIds; decoded, the live deploy 6aa16d61 was created Sep 9 2026 10:29:53 EDT (Sep 29 is only the download date) and nothing has been deployed since, so the Sep 18/26 RUM spikes are not code; the three grey RUM bands at Sep 7-9 most likely equal an un-downloaded deploy plus E (Sep 8 16:05) and F (Sep 9 10:29). (2) The main JS (index-Cg8FAMXN.js md5 7ef75b95) has been byte-identical since Jul 29 and in every deploy C-F; data files are byte-identical since Jun 12; so every bundle bug predates the RUM window and September changes are index.html/SW/site-nav/netlify.toml/sub-pages only. (3) Oldest bugs are day-one: date +2 at 4 sites in the first source; setGoldUnit/clearGoldTrail/drawGoldTrailSegment unbound since gettysburg_FIXED_circular (Jun 13 13:57) and the whole gold-trail engine is absent from the bundle (108 days live). (4) C3/C4 is a partial-fix artifact: v10 (Jun 13 18:49) re-based only the toolbar clock to 6:00/4:00, v20 (Jun 16 10:48) fixed only that function's date; chronology labels fit the 5:00 formula for 43/137 events and the toolbar clock for 2/137; the data schema itself says Day 2 = 5:00am-7:50pm in 225 ticks. (5) C1/C2 were born with the mobile layout (v16 Jun 16 09:55, Tools sheet v26 11:31, credit row v28 13:46): App renders desktop Timeline/header/Sound unconditionally at equal z-index 100. (6) C6: SW registration first appears in E, controllerchange reload in F; Lighthouse trace shows two Document requests (t=1 and 909 ms), 37 data URLs fetched twice, redirect audit 9,070 ms vs simulated mobile LCP 9,007 ms while observed LCP is 287 ms, so the mobile lab failure is mostly the reload artifact. (7) C8 is E's span-to-button conversion without a background reset (D was fine). (8) The 'content hash' name is reused for >=40 different byte-contents under immutable caching and SW cache-first. (9) No earlier deploy is a better base; best interim is F minus its three F-only additions (reload, extra h1s, Monuments hack) via index.html hotfix. (10) Lost goods: code-splitting (276 KB / 6 KB entry / 100 KB entry builds), real 65-file source + 63-check validator + CI, lineage-Y features (Night Mode, Distance panel with units+march time, Find Location, unit history), GSC verification file, a working enforcing CSP (Jun 22), A's canvas Distance line. (11) Secrets: no private keys; Mapbox token #1 in deploy A/older bundles and .env.local files is revoked, token #2 valid; Google Maps Embed key in bundle since Jun 16; old deploy permalinks and the netlify.app host still serve landing.html (pricing), diagnostics.html and the full site. 34 fix-spec findings follow; full evidence, per-issue introduced-in table, timeline, and rollback matrix are in the report.",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/deploy-history.md",
+ "findings": [
+  {
+   "id": "deploy-history-01",
+   "title": "Content-hash every asset; stop reusing index-Cg8FAMXN.js for different bytes; generate the SW precache list from the manifest",
+   "severity": "critical",
+   "evidence": "index-Cg8FAMXN.js is the filename of >=40 distinct byte-contents across 62 zips from v29 (Jun 16 13:50) to Sep 6 (zipscan.py). Deploy B md5 0903f96b (2,280,095 B) vs C-F md5 7ef75b95 (2,280,438 B) under the same name. netlify.toml /assets/* is 'public, max-age=31536000, immutable' (B:23, F:23). F sw.js:41-47 is cache-first for every /assets/* request and F sw.js:5-13 hardcodes '/assets/index-Cg8FAMXN.js' in PRECACHE_ASSETS with a manual CACHE_NAME ('gbg-v5', line 3). F index.html:259-263 comment: deploy changes 'silently don't show up until a hard refresh'.",
+   "root_cause": "The deployed app is hand-patched minified output (no source); the filename is kept so index.html and sw.js need no edit, which defeats content-hash cache busting and makes browsers/SW serve stale JS. F's reload-on-controllerchange hack is a band-aid over this.",
+   "fix": "Add scripts/release.mjs run before every deploy: (1) for each file in assets/ compute sha256, rename to <name>-<hash8>.<ext>, rewrite references in index.html (modulepreload + script tag + css), inside JS chunks (dynamic imports './HelpModal-CFV9T0zH.js', './BookmarkPanel-C5YT4b5k.js', worker URL) and in sw.js; (2) write dist/asset-manifest.json and have sw.js precache only entries from it (no hand-edited list); (3) add a CI/pre-deploy guard that downloads the currently published deploy's asset list and fails when any filename exists with different bytes; (4) keep Cache-Control immutable only for hashed names; (5) until the pipeline exists, every manual patch must rename the file (sha8) and update index.html and sw.js in the same commit.",
+   "effort": "M",
+   "acceptance_test": "For every file in assets/, basename hash == sha256(file)[:8]. Guard script: 'compare published deploy vs candidate' exits non-zero if a same-name file differs. After deploying a patched bundle, a browser holding the previous deploy loads the new JS on the next plain navigation (Playwright: visit old deploy permalink, then new deploy, assert new bundle URL requested).",
+   "metric_or_grade_moved": "Reliability (stale JS), repeat-visit performance, removes root cause of C6 workaround; prerequisite for any SW/precache strategy",
+   "depends_on": [],
+   "audit_refs": [
+    "N1",
+    "C6",
+    "P1",
+    "P5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Name reuse reproduced (45 distinct md5 across 86 of 189 zips vs >=40 claimed); sw.js:5-13/41-47, netlify.toml:23, index.html:259-263 ok. Hash in dependency order (chunks, entry, then index.html/sw.js). InterpolationWorker-UfIWA2-E.js (672 B) is an orphan with no referrer, so the worker-URL rewrite is moot; delete the file."
+  },
+  {
+   "id": "deploy-history-02",
+   "title": "Hotfix C6: delete the controllerchange location.reload() and reg.update() hack from index.html",
+   "severity": "critical",
+   "evidence": "f_sep09cur/index.html:258-272: 'var gtbgReloadedForSW=false; navigator.serviceWorker.addEventListener(\"controllerchange\", ... location.reload())' plus 'register(...).then(reg=>reg.update())'. First appears in F (deploy 6aa16d61, Sep 9 10:29 EDT); E (Sep 8) registered the SW without the reload; the Jun 13 launch-day bundle stripped SW registration at 14:41. sw.js install calls skipWaiting() (line 17) and activate calls clients.claim() (line 30), so first install fires controllerchange for every first-time visitor. Only reload path in the site (bundle has none). Lighthouse lh_mobile.json: Document requests at t=1 ms and t=909 ms; 37 distinct /data URLs requested 76 times; redirects audit 9,070 ms; simulated LCP 9,007 ms vs observed LCP 287 ms.",
+   "root_cause": "controllerchange reload added to make deploys show without hard refresh (symptom of DH-01); clients.claim() on first install turns it into a guaranteed second page load for every new visitor and a mid-session reload on every SW update.",
+   "fix": "In index.html delete lines 259-268 (gtbgReloadedForSW + controllerchange listener) and change register call to 'navigator.serviceWorker.register(\"/sw.js\").catch(function(err){console.warn(\"SW registration failed:\",err)})' (drop reg.update()). Either also remove clients.claim() from sw.js activate (page becomes controlled on next navigation) or ship the kill-switch in DH-03. No automatic reload anywhere; if an update prompt is wanted, show a non-blocking 'New version available - Reload' button that calls reg.waiting.postMessage('SKIP_WAITING') and reloads only on click.",
+   "effort": "S",
+   "acceptance_test": "Playwright cold-profile visit to / for 15 s: exactly one framenavigated to '/' and one document request; requests to /data/*.json == 37 (not 76). Lighthouse mobile+desktop: 'redirects' audit passes; 'performance.getEntriesByType(\"navigation\").length === 1'.",
+   "metric_or_grade_moved": "Mobile Lighthouse perf 64 -> expected >=85 (FCP 4.1 s and LCP 9.0 s lab values are dominated by the reload), desktop 85 -> 95+; RUM FCP/LCP for first-time visitors; Netlify pageviews stop being double-counted",
+   "depends_on": [],
+   "audit_refs": [
+    "C6",
+    "P1",
+    "P7"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Code and Lighthouse facts reproduce (Document requests at 0.63 ms and 908.8 ms, 37/76 data fetches, redirects 9,066.6 ms, observed FCP=LCP 287 ms; no other location.reload in bundle). Impact on simulated LCP is a hypothesis; see DH-26."
+  },
+  {
+   "id": "deploy-history-03",
+   "title": "Service worker: ship a self-unregistering kill-switch now, then a guarded SW with user-initiated updates",
+   "severity": "high",
+   "evidence": "History: SW registration existed in the Jun 13 14:31 bundle (FIXED_FINAL), sw.js became a 407-byte kill-switch at 14:37 (USEREF_FIXED) and registration was stripped at 14:41 (FINAL_v2). B-D shipped a caching sw.js that was never registered; E (Sep 8) registered it. F sw.js:41-47: cache-first for /assets/* with cache.put(e.request, clone) and NO res.ok guard (a transient 404/5xx during a deploy is cached and served forever until CACHE_NAME changes); sw.js:5-13 hardcodes hashed names so a rebuild with a new name makes cache.addAll reject and the SW stop updating; /data/ handler (61-68) also caches every response.",
+   "root_cause": "SW written for static hashed assets but paired with patched same-name assets and no build step; no update UX.",
+   "fix": "Interim (S): replace sw.js with 'self.addEventListener(\"install\",()=>self.skipWaiting()); self.addEventListener(\"activate\",e=>e.waitUntil((async()=>{for(const k of await caches.keys())await caches.delete(k);await self.registration.unregister();})()));' (do NOT navigate clients) and remove the register call from index.html, or keep registration but with no fetch handler. Target (M, after DH-01): Workbox injectManifest or hand-written SW that precaches asset-manifest.json entries with cache.addAll(urls.map(u=>new Request(u,{cache:'reload'}))), caches only responses where res.ok && res.type==='basic', network-first for HTML and /data/, versioned data URLs, message-based SKIP_WAITING, no clients.claim() on first install.",
+   "effort": "M",
+   "acceptance_test": "Interim: after deploy, navigator.serviceWorker.getRegistrations() returns [] on a browser that had the E/F SW after one more page load and caches.keys() is empty. Target: DevTools offline test loads app shell; forced 404 on one asset during install does not populate cache; two sequential deploys update without any auto-reload.",
+   "metric_or_grade_moved": "Reliability, repeat-visit LCP/FCP, removes P5 cross-world warnings source",
+   "depends_on": [
+    "deploy-history-01"
+   ],
+   "audit_refs": [
+    "C6",
+    "P5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Jun 13 SW timeline verified from zips (FIXED_FINAL 14:31 sw 4,060 B with 3 serviceWorker refs; USEREF_FIXED 14:37 sw 407 B; FINAL_v2 14:41 refs 0). A's 407 B sw is pass-through plus clients.claim(), not self-unregistering; the proposed unregistering interim SW is correct."
+  },
+  {
+   "id": "deploy-history-04",
+   "title": "C3: patch the three remaining 'July ${day+2}' sites (unique strings) and add a shared date helper with a regression test",
+   "severity": "critical",
+   "evidence": "Original source has four '+ 2' sites: useAppStore.js:68, PlaybackStatus.jsx:32, FollowAncestor.jsx:28, MonumentSystem.jsx:48 (gettysburg_v2_fixed/src). Deploy A bundle has all 4 ('July ${R+2}' in getTickTime, header, JF, QF). v20 (gettysburg_v20.zip, Jun 16 10:48) fixed only getTickTime ('July ${P}'). Deployed bundle.pretty.js:97428 (header 'July ${l + 2}, 1863'), :100842 (JF tooltip '... July ${f + 2}'), :101006 (QF ancestor journey 'July ${f + 2}, ...'); minified offsets in bundle.min.js 1988148, 2053520, 2056190, each pattern occurs exactly once. RECON_SRC store.js:60 and MonumentsLayer.jsx:21 still contain '+ 2'.",
+   "root_cause": "Off-by-two in the original date template, copied to four components; later fix touched one.",
+   "fix": "Patch script (Python) on assets/index-Cg8FAMXN.js (then rename per DH-01): replace 'R=`July ${l+2}, 1863`' -> 'R=`July ${l}, 1863`'; ' ${l} July ${f+2}`' -> ' ${l} July ${f}`'; 'return`July ${f+2}, ${R}:' -> 'return`July ${f}, ${R}:'; assert count==1 for each and count of '+2}' date sites == 0 afterwards. In source form create tickToDate(tick) in one module used by getTickTime, PlaybackStatus, FollowAncestor, MonumentSystem (part of DH-05).",
+   "effort": "S",
+   "acceptance_test": "Unit/Playwright: header shows 'July 1, 1863' at tick 1, 'July 2' at tick 226, 'July 3' at tick 451; Follow Your Ancestor journey rows and monument tooltips show July 1-3; grep of built bundle for 'July \\${[a-zA-Z]+\\+2}' returns nothing.",
+   "metric_or_grade_moved": "Historical/data consistency C- -> B; credibility",
+   "depends_on": [
+    "deploy-history-01"
+   ],
+   "audit_refs": [
+    "C3",
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "All lines and offsets (1988148/2053520/2056190) verified, each pattern occurs once. Scope the post-patch assertion to 'July ${' because '+2}' also occurs in Mapbox code at offset 659987; offsets are char offsets, use string replace. Fixing dates alone leaves JF/QF clocks at 5:00 vs toolbar 6:00."
+  },
+  {
+   "id": "deploy-history-05",
+   "title": "C4: define one tick-to-clock/date model shared by the app and all sub-pages, and reconcile chronology labels/schema",
+   "severity": "critical",
+   "evidence": "Formulas in play: (1) getTickTime bundle.pretty.js:9371-9382 start 6:00 Day 1, 4:00 Days 2-3 (introduced v10 Jun 13 18:49: '5*60' -> '(R===1?6*60:4*60)'); (2) JF :100837 and QF :100996 start 5:00; (3) compare.html:120 approxTimeForTick and living-ledger.html:135 timeForTick start 5:00 (living-ledger date +1 correct); (4) sandbox.html:104-105 hand-written 'mid-afternoon (tick 260)', '~3:00pm (tick 553)'; (5) documentary text '~7:30' at tick 12. chronofit.py on data/chronology_day1-3.json (unchanged since Jun 12): only 43/137 event labels equal 5:00+5min*(tick-dayStart); 2/137 equal the toolbar clock; Day 2 drift up to -230 min (tick 450 '7:50pm' vs formula 11:45pm), Day 3 median -70 min. data/placement_schema.json metadata.ticks_per_day says Day 1 '5:00am to 12:40am', Day 2 '5:00am to 7:50pm', Day 3 '5:00am to 8:05pm' (225 ticks each) which contradicts every uniform 5-minute formula. Anchor: tick 267 'Vincent arrives 8:25am' vs ~4:30pm historically.",
+   "root_cause": "No single time model was ever defined; the chronology was authored with labels that do not follow the tick grid, then partially 'fixed' in one function.",
+   "fix": "1) Decide the model: (a) keep ticks as narrative order and derive labels via per-day piecewise scale from schema spans (Day1 1180 min/224 = 5.27, Day2 890/224 = 3.97, Day3 905/224 = 4.04 min per tick starting 05:00), or (b) re-key each event/placement tick from a historian-reviewed table of real clock times (needed for historical accuracy; e.g. Vincent 4:30pm -> tick ~400 on a 3.97 min grid). 2) Implement src/time.js exporting tickToClock(tick), tickToDate(tick), clockToTick(); import it in App/PlaybackStatus/FollowAncestor/MonumentSystem/Timeline/EventPanel and publish it as /assets/time-<hash>.js for compare/living-ledger/sandbox/documentary. 3) Regenerate all 137 chronology 'time' labels and vignette clock text from the model (script + reviewer sign-off list). 4) Delete the four private formulas.",
+   "effort": "L",
+   "acceptance_test": "Test: for all 137 events abs(parse(event.time) - tickToClock(event.tick)) <= 5 min; Playwright: same tick shows the identical clock string in toolbar, header, unit tooltip, Compare, Living Ledger, Sandbox labels, Documentary; historian sign-off checklist for 24 anchor events (first shot, Reynolds KIA, Vincent, Pickett step-off, etc.).",
+   "metric_or_grade_moved": "Historical/data consistency C- -> A; Core function; credibility",
+   "depends_on": [
+    "deploy-history-04",
+    "deploy-history-16"
+   ],
+   "audit_refs": [
+    "C4",
+    "C3"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Numbers reproduce (43/137, 2/137, drift). QF head is bundle.pretty.js:100998 with the 5:00 line at :101002, not :100996. Option (a) piecewise scale does not reproduce existing labels (Day 2 labels are 5-min-exact for early ticks 34/49 then compress; tick 267 at 3.97 min/tick = 7:43am vs label 8:25am), so it is a full relabel needing historian sign-off. The ~7:30 text is vignette data (vignettes_part1.json:32), not documentary.html."
+  },
+  {
+   "id": "deploy-history-06",
+   "title": "C5: restore the missing gold-trail engine, bind the three unbound identifiers, and make activateAncestor fail-safe",
+   "severity": "critical",
+   "evidence": "Source FollowAncestor.jsx:15 (gettysburg_FIXED_circular, Jun 13 13:57; identical in v2_fixed) is 'export { initGoldCanvas, setGoldUnit, getGoldUnitId, drawGoldTrailSegment, clearGoldTrail } from ../engine/GoldTrailEngine.js' - a re-export does not create local bindings - but lines 103/104/115/204 call setGoldUnit/clearGoldTrail/drawGoldTrailSegment. Deployed bundle.pretty.js:101086 '(l(it), setGoldUnit(it), clearGoldTrail());' throws ReferenceError before flyTo/selectUnit run (101093-101111); :101101 drawGoldTrailSegment, :101229 setGoldUnit(null). bundle has 0 references to initGoldCanvas/getGoldUnitId/goldCanvas (grep) - the engine (GoldTrailEngine.js 1,442 B, MapView.jsx:66 init, AnimationEngine.js:117-122 per-frame draw) is tree-shaken out entirely. Present in deploys A-F (108 days) and in lineage Y (panels chunk).",
+   "root_cause": "Circular-import 'fix' moved the functions to an engine module and left call sites without imports; no test ever clicked an ancestor.",
+   "fix": "Minimal (M): (1) paste GoldTrailEngine.js content into the bundle scope as function declarations (setGoldUnit, getGoldUnitId, drawGoldTrailSegment, clearGoldTrail, initGoldCanvas) so the three bare identifiers resolve; (2) call initGoldCanvas(mapContainer) when the map loads (where the desktop map component gF mounts) and in the mobile map pO load handler; (3) in the animation frame function draw the gold segment for getGoldUnitId() as in AnimationEngine.js:117-122; (4) wrap the first statements of activateAncestor in try/finally so flyTo, selectedUnitId and currentTick=1 still run if the trail fails. Proper (with DH-15): import from engine in FollowAncestor.jsx, keep engine in its own module, add a unit test.",
+   "effort": "M",
+   "acceptance_test": "Playwright: open Follow Your Ancestor, pick '20th Maine', zero pageerror events, map flyTo changes center, selected unit id set, a canvas with z-index 9 exists and has non-transparent pixels along the unit path, 'Change Regiment' clears it.",
+   "metric_or_grade_moved": "Reliability B- -> A (zero console errors), Core function; feature actually works",
+   "depends_on": [],
+   "audit_refs": [
+    "C5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Root cause confirmed (unbound identifiers at 101086/101101/101229; no definitions anywhere in DEPLOY_DIR; engine tree-shaken). The fix is wrong: st() (:101081-101111) projects segments before flyTo onto a screen-space canvas sized once, so the restored trail is misplaced after fly-to/pan/zoom. Use a lng/lat GeoJSON line layer updated via setData (like GtbgDist) and wrap trail calls in try/catch so flyTo/select always run. Effort M-L."
+  },
+  {
+   "id": "deploy-history-07",
+   "title": "C1/C2: stop rendering desktop widgets in mobile layout; fix stacking; move the credit line out of the transport row",
+   "severity": "critical",
+   "evidence": "Layout chooser + first mobile layout v16 (gettysburg_v16.zip Jun 16 09:55); Tools sheet v26 (11:31); 'Created by: Mike Legere' + email added inside the Timeline controls row v28 (13:46). bundle.pretty.js:113233 gates only toolbar+map with Zn!==\"mobile\"; unconditional widgets at :113240-113270 include _F (PlaybackStatus :113248), IO (desktop Timeline :113249, defined :112202), Sound button yO (:113255). Mobile root tn.root position:fixed z-index 100 (:103698-103703); IO wrapper Po.wrap z-index 100 (:112386) and later in DOM, so it paints above the mobile root; the Tools overlay z-index 500 (:104033-104038) is trapped inside the root's stacking context (C2). Po.controls (:112425) display:flex; justifyContent:center; no wrap: 5 buttons + 6 speed buttons + 'Tick n/675' + credit (:112357-112366) ~800 px wide (audit: Back button at x=-213 in a 375 px viewport). The mobile pO (:102914) also creates a second Mapbox map and refetches chronology while the desktop map is mounted underneath the chooser (Zn null).",
+   "root_cause": "Mobile layout was bolted on as an overlay without gating the desktop components; z-index/DOM-order tie.",
+   "fix": "Bundle patch (unique string, offset 2277405 in bundle.min.js): replace 'V.jsx(_F,{}),V.jsx(IO,{}),' with 'Zn!==\"mobile\"&&V.jsx(_F,{}),Zn!==\"mobile\"&&V.jsx(IO,{}),' and gate 'V.jsx(yO,{})' (Sound) likewise or relocate it; do not mount the desktop tree (gF map + toolbar) until Zn is chosen and auto-select mobile when matchMedia('(pointer:coarse)') or innerWidth<768 (persist as gtbg_layout). Move the credit/email line to the About/Help footer. In source form: make the mobile Tools overlay a portal at document.body with z-index above everything, and give the mobile bottom bar env(safe-area-inset-bottom) padding and >=44 px targets.",
+   "effort": "M",
+   "acceptance_test": "Playwright 375x812 and 320x568 and landscape 812x375: after choosing Mobile, document.querySelector of the desktop Timeline (title 'Back 1hr') is absent; Play/Prev/Next visible with getBoundingClientRect inside viewport; every row in the Tools sheet (Legend, Bookmarks, Help, Mini Map, Desktop View) has elementFromPoint === the row; no horizontal overflow.",
+   "metric_or_grade_moved": "Mobile core function D -> A, usability D+ -> A-; removes second-map cost on mobile",
+   "depends_on": [
+    "deploy-history-01"
+   ],
+   "audit_refs": [
+    "C1",
+    "C2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Gating (:113071/:113233), unconditional widgets (:113240-113270), z-index tie (tn.root 103703, Po.wrap 112387 - cited 112386), toolsOverlay z500 (:104037), patch string unique at min.js 2277405 all verified. IO is display-only, mobile has its own play row (:103218+), data load is in App (sF :112963) so deferring the desktop map is safe. The patch gates only _F/IO/yO; VF, CF, LF, KF, XF, iO, nO, qF, MF still mount on mobile and need device checks."
+  },
+  {
+   "id": "deploy-history-08",
+   "title": "C8: reset button styles on search filter chips (1.10:1 contrast) and audit every span->button conversion",
+   "severity": "critical",
+   "evidence": "D search.html:44-47 used <span class=\"filter-chip\"> (readable). E converted to <button type=\"button\" class=\"filter-chip\"> (f_sep09cur/search.html:56-59) but .filter-chip (lines 30-31) sets padding/border/color only: UA background #F0F0F0 under color var(--muted) #8a93a8/#E8E6DF = 1.10:1. Same E change on compare/camera/education/sandbox is safe because their classes define background (verified). Introduced Sep 8 16:05 EDT, live 21 days.",
+   "root_cause": "Accessibility conversion to <button> without resetting UA background/font.",
+   "fix": "In search.html CSS: '.filter-chip{background:transparent;font:inherit;min-height:44px;cursor:pointer}' and '.filter-chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}'; keep .active background. Add a shared 'button.reset{all:unset}' utility in site-nav.css for future conversions. Do not revert to spans.",
+   "effort": "S",
+   "acceptance_test": "axe-core color-contrast passes on /search.html (Lighthouse a11y 90 -> >=95 for this page); chips readable in light UA mode; keyboard Tab shows visible focus; screenshot diff.",
+   "metric_or_grade_moved": "Accessibility C+ -> B+; fit/finish",
+   "depends_on": [],
+   "audit_refs": [
+    "C8",
+    "A1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Root cause is site-nav.css:143-147 button.filter-chip{color:inherit;...} (specificity 0,1,1) overriding search.html:30 color:var(--muted): ink #E8E6DF on UA #F0F0F0 = 1.096:1 (muted on #EFEFEF would be 2.68:1). 'Safe on camera/compare/education/sandbox' is refuted for color/font (.play-btn ink on gold = 1.92:1). The proposed button.reset{all:unset} repeats the specificity trap; use :where() or @layer. background:transparent on the chip cures contrast but inactive chips read as ink."
+  },
+  {
+   "id": "deploy-history-09",
+   "title": "C7: dashboard stat-card builder for nested highest_single_regiment_rate; remove the developer data note",
+   "severity": "high",
+   "evidence": "dashboard.html first shipped in D (Aug 23). f_sep09cur/dashboard.html:244-249: 'for (const key in data.notable_intensity_notes){ const n=...; cards.push({num: n.unit || key, lbl: key.replace(/_/g,\" \"), note: n.note}) }'. data/casualty_apportionment.json (unchanged since Jun 12) has notable_intensity_notes.highest_single_regiment_rate = {union:{unit,rate,note}, confederate:{unit,rate,note}} so the card shows the raw key and 'undefined'. Lines 261-263 render 'Data note: ... should be reconciled against the underlying research' to users. svg width=1000 (line 71) drives S4 mobile scroll.",
+   "root_cause": "UI assumed a flat shape for every note; data has one nested entry; developer note left in production copy.",
+   "fix": "Replace the loop with: 'for (const [key,n] of Object.entries(data.notable_intensity_notes)){ const list = (n && (n.unit||n.note)) ? [[key,n]] : Object.entries(n||{}).map(([side,v])=>[key+\" \"+side,v]); list.forEach(([k,v])=>cards.push({num:v.unit||(v.rate!=null?v.rate+\"%\":\"\"), lbl:k.replace(/_/g,\" \"), note:v.note||\"\"})); }'; delete the mismatched footnote or replace with a neutral 'Source: Busey & Martin' line; make the SVG responsive (viewBox + width:100%).",
+   "effort": "S",
+   "acceptance_test": "Playwright: no stat card text equals 'undefined' or contains '_'; page has no 'reconciled' string; chart renders on first load at 375 px without horizontal scroll; 5 or 6 cards render with unit names.",
+   "metric_or_grade_moved": "Fit/finish; Reliability (empty chart intermittency to be retested)",
+   "depends_on": [],
+   "audit_refs": [
+    "C7",
+    "H7",
+    "S4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "dashboard.html:244-247 loop, :258-263 note, nested data shape verified. The SVG already has viewBox; the scroll comes from width=1000 plus #chart-wrap{overflow-x:auto} (line 31), so the fix is CSS width:100%/height:auto (re-test tooltip math at :192). Proposed num:v.unit would show raw ids like U-1MN."
+  },
+  {
+   "id": "deploy-history-10",
+   "title": "H1: fold Extra Features / Ask the Historian into the real toolbar; delete the collision-mover, force-reveal and eight inline scripts",
+   "severity": "high",
+   "evidence": "D (Aug 23) d_aug23/index.html:138-146 '#extra-features{position:fixed;top:14px;left:400px;z-index:999999}' with comment 'calibrated to the reference screenshot at ~1917px width'. E added a 6-candidate collision-mover (querySelectorAll of every interactive element + getBoundingClientRect x6 after every click/resize), reveal-by-regex on onboarding button text, localStorage hide toggle, banner injection ('an AI-style historian', f_sep09cur/index.html:377). F added a 10ms/5s CSS force-reveal (index.html:202-205). index.html grew 958 -> 39,638 B with 8 inline scripts (23.7 KB). Lighthouse desktop layout-shifts includes body > div#extra-features (0.0072 of 0.0297).",
+   "root_cause": "The toolbar is React-rendered from a minified bundle that cannot be edited, so features were bolted on from outside.",
+   "fix": "Short term (S): remove the collision-mover and toggle, anchor the pill in the toolbar row via CSS grid slot with a reserved width, keep only the menu markup, and hide it while any modal/onboarding overlay exists using a body[data-modal] attribute set by a 10-line patch. Real fix (with DH-15): implement ToolMenu and HistorianButton as React components in the toolbar, delete #extra-features CSS (F:176-215) and inline scripts F:294-714, and use the shared GROUPS data module for both app and sub-pages.",
+   "effort": "M",
+   "acceptance_test": "At 320-2560 px and landscape, elementFromPoint at the pill center is the pill only when no modal is open; no overlap with story panel, layout chooser, help backdrop or tour text (screenshot matrix); document.querySelectorAll('script:not([src])').length === 0 on /; desktop CLS contribution from #extra-features = 0.",
+   "metric_or_grade_moved": "Fit/finish C+ -> A-, CLS, INP, enables CSP enforcement",
+   "depends_on": [
+    "deploy-history-15"
+   ],
+   "audit_refs": [
+    "H1",
+    "X3",
+    "P4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "D:138-146, collision mover F:520-606, 'AI-style' :377, LH desktop shift 0.007165 verified. F has 7 executable inline scripts plus 1 JSON-LD block (not 8 for CSP purposes). The 'CSS grid slot in toolbar' short-term fix is impossible from outside React (needs a bundle patch or fixed free slot); effort S->M."
+  },
+  {
+   "id": "deploy-history-11",
+   "title": "Netlify hygiene: delete stale deploys, redirect the netlify.app host, fix pretty-URL duplicates, redirect /landing, block dev pages",
+   "severity": "medium",
+   "evidence": "curl: 6a3a0355...--friendly-lolly-da85c0.netlify.app serves /landing.html (200, $9.99 pricing/free-trial page) and /diagnostics.html (200); 6a8a9268... serves /diagnostics.html (200); 6a2da5d2... returns 404. friendly-lolly-da85c0.netlify.app/ returns 200 with X-Frame-Options DENY and CSP-RO but no redirect to the custom domain (canonical tag only). live https://gettysburginteractivemap.com/landing.html is 404 (removed in D without redirect; it was in the Aug 22 sitemap and indexed). unit-rendering-reference.html (dev page, E) returns 200. Live index.html differs from deploy F only by Netlify post-processing: hrefs rewritten from /historian.html to /historian (Pretty URLs), which explains both /dashboard and /dashboard.html in analytics (T3).",
+   "root_cause": "Old deploys are never deleted; primary-domain redirect and pretty-URL settings not configured; removed pages not redirected.",
+   "fix": "1) Netlify UI: delete all non-current deploys (keep F and one known-good); 2) Domain management: set gettysburginteractivemap.com primary so *.netlify.app 301s, or add [[redirects]] from=\"https://friendly-lolly-da85c0.netlify.app/*\" to=\"https://gettysburginteractivemap.com/:splat\" status=301 force=true; 3) add [[redirects]] '/landing' and '/landing.html' -> '/' 301 force; 4) choose ONE URL form: disable Asset optimization > Pretty URLs (keep .html) or add 301 from /*.html to clean URLs and update sitemap/canonicals; 5) add '/unit-rendering-reference.html' to the force-404 list (or remove the file); 6) after deleting deploys, re-check permalinks.",
+   "effort": "S",
+   "acceptance_test": "curl -sI matrix: every old permalink 404; netlify.app host 301 -> custom domain; /landing.html 301 -> /; /dashboard and /dashboard.html do not both return 200; /unit-rendering-reference.html 404.",
+   "metric_or_grade_moved": "Security hygiene B -> A-, SEO duplicate-content, analytics accuracy",
+   "depends_on": [],
+   "audit_refs": [
+    "T3",
+    "T1",
+    "X4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Live curl reproduces: 6a3a0355 permalink serves /landing.html (200, $9.99/free trial) and /diagnostics.html; 6a8a9268 serves /diagnostics.html; 6a2da5d2 404; netlify.app host 200 with no redirect; live /landing.html 404; /unit-rendering-reference.html 200; /dashboard and /dashboard.html both 200; live index differs from F only by pretty-URL rewrite + RUM script. Prefer setting the primary domain over a from=https://...netlify.app rule (force semantics not verified)."
+  },
+  {
+   "id": "deploy-history-12",
+   "title": "Search Console: re-verify ownership (DNS TXT), resubmit sitemap, remove /landing.html",
+   "severity": "medium",
+   "evidence": "google0dca4879c9657741.html ('google-site-verification: google0dca4879c9657741.html') exists only in deploy B (Jun 22); absent from C-F and 404 live. SEO scaffolding is recent: OG/canonical/twitter appear in C (Aug 22), 10-URL sitemap in D, 20 URLs in E, JSON-LD in F. Web analytics: only ~8% of referrals from search engines (175/30 d).",
+   "root_cause": "Verification file dropped when the deploy tree was rebuilt in C; site is only 1-2 months old for SEO purposes.",
+   "fix": "Add a DNS TXT verification for the domain property (preferred; survives redeploys), or restore the file to the deploy root; submit sitemap.xml; run URL Inspection on '/', /historian, /documentary; request removal of /landing.html; watch Coverage for 'Submitted URL not found (404)'.",
+   "effort": "S",
+   "acceptance_test": "Search Console shows the property verified via DNS; sitemap status Success with 20 discovered URLs; /landing.html marked removed; index coverage report exported weekly.",
+   "metric_or_grade_moved": "SEO discoverability (T1)",
+   "depends_on": [
+    "deploy-history-11"
+   ],
+   "audit_refs": [
+    "T1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "GSC file only in deploy B, live 404, no meta verification token anywhere. Sitemap has 21 <loc> (home + 20 pages), not 20."
+  },
+  {
+   "id": "deploy-history-13",
+   "title": "Replace the corrupt screenshots/day1.png and day3.png (used for og:image/twitter:image/PWA screenshots) and add an image-decode CI check",
+   "severity": "medium",
+   "evidence": "screenshots/day1.png and day3.png are the same 17,585 B file (md5 3f6646c9...) in deploys B-F. IHDR = 1280x720, 8-bit color type 2 (RGB) but the inflated IDAT is 3,687,120 B = (1280*4+1)*720 (RGBA size) instead of 2,765,520; PIL raises 'unrecognized data stream contents' and the API rejected it as an image. Every page's og:image and twitter:image (C onward) and manifest.json screenshots point to /screenshots/day3.png. B-D apple-touch-icon.png was a 32x32 ICO with a .png name and PNG icons had transparent backgrounds with purpose 'any maskable' (fixed in E).",
+   "root_cause": "Placeholder image generated with a mismatched PNG header; no asset validation.",
+   "fix": "Render a real 1200x630 OG image (map + title) and distinct 1280x720 screenshots (Day 1 and Day 3) from the live app; save as PNG/JPEG via a known encoder; reference per-page images where useful; add a pre-deploy check that opens every image referenced in HTML/manifest with PIL and asserts size >= expected.",
+   "effort": "S",
+   "acceptance_test": "PIL/pngcheck open succeeds for all images; Facebook Sharing Debugger and LinkedIn Post Inspector render the card; Lighthouse PWA screenshots valid; CI check fails on a deliberately truncated PNG.",
+   "metric_or_grade_moved": "SEO/social share quality, PWA installability polish",
+   "depends_on": [],
+   "audit_refs": [
+    "T1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Corrupt PNG reproduced (day1=day3 md5 3f6646c9, IHDR RGB, inflated 3,687,120 B, PIL error). But 'transparent maskable icons fixed in E' is wrong: F icon-192/512 and apple-touch-icon are still 22-24% alpha-0 and manifest.json:15,21 still says 'any maskable'; only the ICO-named-PNG problem was fixed."
+  },
+  {
+   "id": "deploy-history-14",
+   "title": "Restore code-splitting via rebuild: entry chunk <= 150 KB gzip, lazy tools, Mapbox loaded on demand",
+   "severity": "high",
+   "evidence": "Jun 12 FINAL_v24 PROJECT_SUMMARY: 'Bundle size 276KB' and vite.config.js manualChunks (mapbox/react/zustand/engine/components). Jun 13 14:25 DEPLOY_NOW: index-DZbqI9Qb.js 6.2 KB + components/engine/react/zustand/mapbox chunks. Jun 13 14:31 FIXED_FINAL: single 2.09 MB chunk (after circular-import fixes; merge reason undocumented). Lineage Y (v30 (1), Jun 18 18:20 -> v31b Jun 22): index 99.9-118.8 KB + react 141.9 KB + panels 61 KB + engine 22 KB + walkthrough 31 KB + mapbox 1.8 MB chunk. Deployed: one 2,280,438 B (604 KB brotli) chunk, 52% unused JS, 3.3 s bootup mobile.",
+   "root_cause": "Workaround of a chunk/circular error became permanent because only the minified output is patched.",
+   "fix": "After DH-15: restore manualChunks with dynamic import() for HelpModal, BookmarkPanel, Walkthrough (+512 monument array), OrderOfBattle, NPS tour, Follow Ancestor, Monument story markers, Distance, Soldier's Eye; break circular imports (engine must not import components); load mapbox-gl in its own chunk started at first paint; keep the HTML splash; drop the always-mounted desktop tree behind the layout chooser; add a bundle budget (entry <= 150 KB gz, total initial JS <= 500 KB gz) and rollup-plugin-visualizer report in CI.",
+   "effort": "L",
+   "acceptance_test": "Build output shows entry chunk <= 150 KB gz; Lighthouse 'unused-javascript' < 20% and 'bootup-time' < 2 s mobile; mobile TBT < 200 ms; Playwright confirms tools' chunks are requested only when opened.",
+   "metric_or_grade_moved": "Performance mobile/desktop (TBT, LCP, TTI), RUM INP/LCP",
+   "depends_on": [
+    "deploy-history-15"
+   ],
+   "audit_refs": [
+    "P2",
+    "P7"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "History verified (276KB summary line 27, manualChunks). The 'total initial JS <= 500 KB gz' budget is unattainable with mapbox-gl in the initial payload: bundle.pretty.js lines 10,500-96,000 are ~2.09 MB stripped / ~541 KB gzip, while app code is ~85 KB gzip and React ~54 KB gzip (estimates). Entry <=150 KB gz is feasible; Mapbox must load lazily after first paint and be excluded from the budget, or the total budget must be ~700 KB gz."
+  },
+  {
+   "id": "deploy-history-15",
+   "title": "Recover a real source tree: pick a baseline, run a fidelity diff against the deployed bundle, port patches, fix RECON defects",
+   "severity": "critical",
+   "evidence": "Real React/Vite source exists: gettysburg_v2_fixed/src and gettysburg_COMPLETE_FIXED (1)/src (65 files, 8,422 lines, Jun 13 14:00/14:21), gettysburg_FINAL_v24 and FIXED_v25 (40 files, Jun 12) with tests/validate_data.py (279 lines, 63 checks), tests/perf_test.py, .github/workflows/ci.yml, README/PROJECT_SUMMARY/DEPLOYMENT_CHECKLIST. After Jun 13 14:21 only dist output was patched (GtbgDist, GtbgLayers, GtbgLoc, __gtbgApp hack, chooser, mobile pO, Tools sheet, Walkthrough, monuments, roster, OOB). RECON_SRC README says 'no original source ever existed'; RECON store.js:53-60 getTickTime uses 5:00 start and 'day + 2' (stale vs deployed bundle.pretty.js:9371-9382) and mapbox-gl ^2.15 vs deployed 3.24.1. Lineage Y (v30 (1)...v31b) is a second real build with extra features but only dist exists.",
+   "root_cause": "Source was discarded in favor of patching the minified bundle after launch day.",
+   "fix": "1) Create git repo: commit deploy F tree (correct-case assets from the Netlify 'source' zip) as commit 1; add research/ with v2_fixed src, lineage-Y dist, FINAL_v24 tests, RECON_SRC. 2) Build v2_fixed with Node 20 (npm ci, fix or drop manualChunks) and confirm it runs. 3) Fidelity report: diff UI strings/style keys/data constants between that build and the deployed bundle (chain2.py/strsets approach) to enumerate every post-Jun-13 patch (list in report section 2.3). 4) Port each patch to real components in this order: chooser+mobile layout (fix C1/C2), Tools sheet, Walkthrough+512 monuments (extract array per RECON method), OOB panel, Roster, Map Layers, Toggle Units, Distance, Street View, Follow Ancestor (fix C5), story markers, Help/Bookmark chunks. 5) Reconcile RECON components per file (keep its AncestorTracker/Search ports where higher fidelity; replace getTickTime with DH-05 module). 6) Pin mapbox-gl 3.24.1; commit lockfile; add Vite build to CI and publish a preview deploy per PR.",
+   "effort": "XL",
+   "acceptance_test": "'npm ci && npm run build' produces a deployable dist; a Playwright golden script of 40 interactions (chooser, playback, day jumps, search, ancestor, walkthrough, tools sheet, help) gives equal visible results on deployed F vs rebuilt build (except intentional fixes); >=99% of deployed UI strings present; repo pushed to a remote with CI green.",
+   "metric_or_grade_moved": "Maintainability; unlocks every bundle-level fix, code-splitting, tests, CSP; Overall grade ceiling",
+   "depends_on": [],
+   "audit_refs": [
+    "N1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "RECON README/PENDING, store.js:53-60, MonumentsLayer.jsx:21, mapbox-gl ^2.15.0, v2_fixed 65 files/8,423 lines all verified. Unweighed alternative: the deployed bundle's app region is only ~17k lines (bundle.pretty.js ~96,000-113,378 plus store ~9,300-9,500), so splitting it directly may be cheaper and more faithful than porting patches onto Jun-13 v2_fixed."
+  },
+  {
+   "id": "deploy-history-16",
+   "title": "Restore and extend the data validator, perf test and CI that shipped with the Jun 12 source",
+   "severity": "medium",
+   "evidence": "gettysburg_FINAL_v24/tests/validate_data.py (279 lines: placements fields/ticks/dispositions/coords, OOB, chronology, vignettes, terrain, successions) and perf_test.py (103 lines); FIXED_v25 CI (.github/workflows/ci.yml) calls 'python3 tests/validate_data.py' and 'python3 tests/perf_test.py' but tests/ is missing from that zip. Data is byte-identical Jun 12 -> Sep 29 except monuments.json; datacmp.py: 1,804 placement records, 478 unique unit ids, 70 data files. Doc claims differ by file (PROJECT_SUMMARY 1,553 records/602 OOB slots; README 1,391 records/467 OOB).",
+   "root_cause": "Tests were not carried forward into the deployed tree or the patch workflow.",
+   "fix": "Copy tests/ into the repo; update expected counts to measured values; add checks: chronology time labels vs the DH-05 model, no 'TEMPLATE'/'[DATE]'/'undefined' strings in HTML/JSON, every referenced asset exists and decodes, every OOB unit referenced by placements exists, JSON size budgets. Run in CI on push and before deploy.",
+   "effort": "S",
+   "acceptance_test": "'python tests/validate_data.py' exits 0 in CI and fails when a chronology label is off by 10 min or a placement uses an unknown unit_id (mutation test).",
+   "metric_or_grade_moved": "Historical/data consistency, reliability; guards the Historian data expansion",
+   "depends_on": [],
+   "audit_refs": [
+    "N1",
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "validate_data.py 279 lines, perf_test.py 103, ci.yml calls missing tests/ in FIXED_v25, 46 vs 63 passing claims, and 47 files/1,804 records/478 unique ids all reproduced."
+  },
+  {
+   "id": "deploy-history-17",
+   "title": "Privacy/Terms completeness after the E/F feature additions (PeerJS, Mapbox telemetry, AR sensors, Google embed) and remove stale claims",
+   "severity": "medium",
+   "evidence": "C and D shipped privacy.html/terms.html as templates ('TEMPLATE -- DO NOT PUBLISH AS-IS', '[DATE]', pricing/refund placeholders) from <= Aug 22 to Sep 8 16:05; E replaced them (dated Sep 7). f_sep09cur/privacy.html omits Watch Together's PeerJS broker (netlify.toml CSP allows 0.peerjs.com and wss://0.peerjs.com), Mapbox telemetry (events.mapbox.com), AR camera/location/motion permissions (Permissions-Policy camera/geolocation/accelerometer/gyroscope/magnetometer=(self)), and says Street View is used on 'documentary and report pages' only while the main app embeds Google Street View (bundle.pretty.js:110661). terms.html invites embedding 'its widget'. Contact address changed from support@gettysburginteractivemap.com to gettysburginteractivemap@gmail.com.",
+   "root_cause": "Policy written before/independently of Watch Together, AR and telemetry pages.",
+   "fix": "Update privacy.html: WebRTC/PeerJS (IP address visible to peers/broker), Mapbox telemetry (opt-out flag), Google Maps Embed in the main app, AR permission use (camera/location/motion, on-device only), Netlify RUM; document opt-outs; update the date; align terms with embed.html docs or remove the 'widget' wording; add both pages to sitemap.",
+   "effort": "S",
+   "acceptance_test": "Checklist: every third-party host in netlify.toml CSP and every permission in Permissions-Policy is named on the page; page date updated; legal review sign-off recorded.",
+   "metric_or_grade_moved": "Privacy/legal B+ -> A",
+   "depends_on": [],
+   "audit_refs": [
+    "X5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "privacy.html lacks PeerJS/WebRTC/AR/telemetry and limits Street View to documentary/report pages while the bundle embeds it (:110610/:110661); terms.html:27 widget wording verified."
+  },
+  {
+   "id": "deploy-history-18",
+   "title": "CSP: recover the Jun 22 enforcing allow-list, externalize inline scripts, add the RUM host, run Report-Only then enforce",
+   "severity": "medium",
+   "evidence": "An enforcing CSP worked for the app on Jun 22: gettysburg_v17_csp_fix netlify.toml:13 \"default-src 'self'; script-src 'self' blob:; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.mapbox.com https://*.mapbox.cn https://*.google.com https://*.googleapis.com; connect-src 'self' https://api.mapbox.com https://events.mapbox.com https://events.mapbox.cn https://*.mapbox.com; font-src 'self' data:; frame-src https://www.google.com; frame-ancestors 'none'\"; removed in v17_nocsp (22:59). E added Content-Security-Policy-Report-Only (f netlify.toml:19) with script-src 'unsafe-inline' (needed by 8 inline scripts, 23.7 KB) and connect-src without the Netlify RUM host ingesteer.services-prod.nsvcs.net (Lighthouse inspector-issues).",
+   "root_cause": "Inline shell scripts and undocumented third-party hosts block enforcement.",
+   "fix": "After DH-10/DH-15 remove all inline scripts (or hash them); adopt the Jun 22 policy as base plus: connect-src add ingesteer.services-prod.nsvcs.net, 0.peerjs.com wss://0.peerjs.com; img-src add maps.gstatic.com streetviewpixels-pa.googleapis.com; font-src fonts.gstatic.com if used; frame-src www.google.com; script-src 'self' blob: https://api.mapbox.com only for sub-pages using the CDN (or self-host mapbox-gl). Run Report-Only with report-uri for 7 days, fix violations, then switch to Content-Security-Policy.",
+   "effort": "M",
+   "acceptance_test": "Zero CSP violations in console across all 20 pages on desktop+mobile Playwright runs; Lighthouse 'inspector-issues' and Best Practices CSP audit pass; securityheaders.com A.",
+   "metric_or_grade_moved": "Security hygiene B -> A; Best Practices 96 -> 100",
+   "depends_on": [
+    "deploy-history-10",
+    "deploy-history-15"
+   ],
+   "audit_refs": [
+    "X3",
+    "P7"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Quoted policy matches v17_csp_fix netlify.toml:13, but 'worked for the app' is unsupported: it was removed ~5 minutes later. The proposed script-src omits cdn.jsdelivr.net used by watch-together.html:19 (PeerJS), so enforcing breaks Watch Together. Inline onload= on the CSS preload (index.html:56-57) and inline style attributes also need handling. Executable inline scripts = 7."
+  },
+  {
+   "id": "deploy-history-19",
+   "title": "embed.html header conflict: stop sending both X-Frame-Options: DENY and frame-ancestors *",
+   "severity": "low",
+   "evidence": "D added embed.html (blocked by sitewide X-Frame-Options DENY, netlify.toml:8). E added an override (f netlify.toml:78-86: 'X-Frame-Options = \"\"', 'Content-Security-Policy = \"frame-ancestors *\"') that does not remove the sitewide header; live sends both. Modern browsers obey frame-ancestors and ignore XFO when both exist.",
+   "root_cause": "Netlify [[headers]] cannot unset a header set by an earlier matching rule.",
+   "fix": "Remove X-Frame-Options from the global /* block and express the policy only with CSP: global Content-Security-Policy frame-ancestors 'none' (when DH-18 lands) with the embed path override 'frame-ancestors *' (or a chosen allow-list); verify Netlify merge order on a preview deploy.",
+   "effort": "S",
+   "acceptance_test": "curl -sI /embed.html shows no X-Frame-Options and CSP frame-ancestors * (or allow-list); curl -sI / shows frame-ancestors 'none'; a test page on another origin embeds /embed.html successfully and cannot embed /.",
+   "metric_or_grade_moved": "Security hygiene hygiene item; embed feature works as Terms promise",
+   "depends_on": [],
+   "audit_refs": [
+    "X4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Live embed.html sends XFO DENY + frame-ancestors * and also still the global CSP-Report-Only despite the '' override. Netlify staff confirm headers cannot be unset but same-name overrides replace; the fix is sound. When CSP is enforced the embed override replaces the whole CSP, so it must repeat the full policy with only frame-ancestors changed."
+  },
+  {
+   "id": "deploy-history-20",
+   "title": "Sub-page map pages: pin and defer the Mapbox CDN script, add skeletons, retest S2/S3",
+   "severity": "medium",
+   "evidence": "camera/compare/sandbox/viewshed loaded mapbox-gl 3.6.0 from api.mapbox.com in D and were bumped to 3.24.1 in E together with new pages ground-remembers, immersive, watch-together, cinematic-export and unit-rendering-reference (all with a synchronous <script src=\".../mapbox-gl.js\"> in <head>). Main bundle embeds mapbox-gl 3.24.1. S2 (Ground Remembers blank ~3 s) and S3 (Camera/Viewshed incomplete paint) first exist in E.",
+   "root_cause": "Render-blocking CDN script with no skeleton; version bump not regression-tested.",
+   "fix": "Add 'defer' (and preconnect api.mapbox.com), a CSS skeleton for the map container, map.on('idle') to hide it; self-host mapbox-gl 3.24.1 with SRI once CSP is enforced; retest camera/viewshed in a real 1440x900 and 375x812 browser and, if the painting issue reproduces, pin the page-level version that works.",
+   "effort": "S",
+   "acceptance_test": "Ground Remembers first paint of map container < 1 s with skeleton visible; Camera/Viewshed canvases fully painted at 1440x900 and 375x812 (screenshot compare); no console errors.",
+   "metric_or_grade_moved": "Sub-page performance and fit/finish",
+   "depends_on": [],
+   "audit_refs": [
+    "S2",
+    "S3"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Diagnosis ok, but adding defer to the Mapbox script breaks every map page: inline scripts call mapboxgl.accessToken/new mapboxgl.Map at parse time (camera.html:62-65,144; ground-remembers.html:54-69; viewshed.html:58-73) and run before deferred scripts, causing a ReferenceError. Move page code into DOMContentLoaded/defer/module in the same change."
+  },
+  {
+   "id": "deploy-history-21",
+   "title": "Remove F's Monuments star-overlay hack and port monuments natively (one dataset, Mapbox layer)",
+   "severity": "medium",
+   "evidence": "F only: f_sep09cur/index.html:608-714 wires the toolbar 'Monuments' button to a DOM overlay projecting 9 monuments from data/monuments.json using a Web-Mercator formula for the default view (comment: 'doesn't track the live map's real-time pan/zoom, so alignment is exact at the app's default view and can drift'). The app already contains a 20-entry story-marker component (KF, bundle.pretty.js:100858+) driven by the same button and a 512-entry monument directory in the Walkthrough. data/monuments.json note: 'starting set ... not the park's full ~1,328 monuments'.",
+   "root_cause": "Bolt-on written without access to the app's map instance; assumed the app's button did nothing.",
+   "fix": "Delete the overlay script (F:608-714) and data/monuments.json; in source render the 512-monument directory and the 20 story markers as a single Mapbox GeoJSON symbol layer (clustered) toggled by the 🗿 button, sharing coordinates with the Walkthrough; add unit_id/tick links from story markers.",
+   "effort": "M",
+   "acceptance_test": "After pan/zoom/rotate the stars stay on their monuments (Playwright: compare projected pixel of 3 monuments before/after zoom); toggling 🗿 shows one consistent marker set; no second monuments dataset shipped.",
+   "metric_or_grade_moved": "Core function/accuracy, fit/finish",
+   "depends_on": [
+    "deploy-history-15"
+   ],
+   "audit_refs": [
+    "H6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Overlay F:608-714, 9-entry monuments.json and KF verified. Extra: sn defaults true (:112946) so app markers are ON at load; the overlay hooks the same button, so the first click hides app markers and shows stars (inverted state)."
+  },
+  {
+   "id": "deploy-history-22",
+   "title": "Single source of truth for unit counts: fix '445+' in Help and align all copy to the data (467 OOB slots / 478 placement unit ids)",
+   "severity": "medium",
+   "evidence": "'tracking 445+ Union and Confederate units' is in the original source (HelpModal.jsx:67) and in the deployed HelpModal-CFV9T0zH.js (not in the main bundle: 0 matches in bundle.min.js). E (Sep 8) changed meta/OG/manifest description from '430,000+ unit positions' to '467 regiments and batteries' (index.html:15/18/24 in E, manifest.json:4), creating the conflict. landing.html (A-C) said '445+ Regiments tracked'. datacmp.py: 1,804 placement records, 478 unique unit ids in placements; PROJECT_SUMMARY/README quote different totals.",
+   "root_cause": "Copy hardcoded in many places; no generated stats.",
+   "fix": "Generate data/site-stats.json in the pre-deploy script (units, ticks, events, vignettes, terrain) and inject into HelpModal, meta tags, manifest, JSON-LD, historian/search pages; patch HelpModal chunk string and rename per DH-01; decide the public term ('467 regiments and batteries') and document what the 11 extra placement ids are (brigades/divisions).",
+   "effort": "S",
+   "acceptance_test": "grep -R '445' dist returns nothing; every page shows the same count string; unit test compares copy to site-stats.json.",
+   "metric_or_grade_moved": "Data/content consistency, professional polish",
+   "depends_on": [
+    "deploy-history-01"
+   ],
+   "audit_refs": [
+    "H10"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "'445+' only in helpmodal chunk and source HelpModal.jsx:67; 467 in meta/manifest verified."
+  },
+  {
+   "id": "deploy-history-23",
+   "title": "One <h1>: reconcile boot splash, #seo-content and noscript; drop 'AI-style' wording",
+   "severity": "medium",
+   "evidence": "h1 count: B-E 1 (boot splash h1), F 3 (index.html #seo-content h1 line ~718, noscript h1, splash h1). #seo-content (F:155-166 CSS, 717-741 markup) sits in normal flow under the fixed #boot-splash and is removed by the toolbar-label script (F:424-426) or React mount; banner text says 'an AI-style historian' (F:377) while historian.html states 'not a live AI model'. E3/E4 first appear in F (Sep 9).",
+   "root_cause": "SEO content added as a hidden-by-overlay block plus duplicate headings.",
+   "fix": "Make the splash title a <p role=\"presentation\"> and keep a single <h1> in the server-rendered #seo-content (visible text, truthful, no display:none); noscript uses a paragraph and link list without a second h1; keep JSON-LD; replace 'AI-style' with 'search-based historian' until DH historian plan ships.",
+   "effort": "S",
+   "acceptance_test": "document.querySelectorAll('h1').length === 1 on / (with and without JS); Lighthouse SEO 100 retained; Search Console rendered HTML shows the content; copy review.",
+   "metric_or_grade_moved": "SEO/metadata, accessibility (landmarks/headings)",
+   "depends_on": [],
+   "audit_refs": [
+    "E3",
+    "E4",
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "h1 counts B-E=1, F=3 (index.html:718, 744, 753); 'AI-style' at :377 verified."
+  },
+  {
+   "id": "deploy-history-24",
+   "title": "Manifest: remove the landscape lock and align app name with the domain",
+   "severity": "low",
+   "evidence": "manifest.json:9 \"orientation\": \"landscape\" and name 'Gettysburg Animated Battlefield Map' unchanged in all six deploys (A-F); domain is gettysburginteractivemap.com; index.html title/OG/JSON-LD use 'Animated'. Icons were transparent 'any maskable' until E.",
+   "root_cause": "Original PWA manifest from Jun 12 never revisited.",
+   "fix": "Delete 'orientation' (or 'any'); rename to 'Gettysburg Interactive Map' (or keep 'Animated' consistently everywhere incl. domain-facing copy); provide separate 'any' and 'maskable' icon entries with an opaque maskable version; regenerate screenshots (DH-13).",
+   "effort": "S",
+   "acceptance_test": "Lighthouse installability passes; installed PWA rotates on phone; name identical across title, OG, JSON-LD, manifest.",
+   "metric_or_grade_moved": "Mobile usability, PWA polish",
+   "depends_on": [
+    "deploy-history-13"
+   ],
+   "audit_refs": [
+    "E1",
+    "E2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "manifest.json:9 landscape and name verified, but the icon note inherits the DH-13 error: icons are still transparent and marked 'any maskable'; an opaque maskable entry is still needed."
+  },
+  {
+   "id": "deploy-history-25",
+   "title": "CLS: reserve height for the chronology EventPanel, keep the intro from re-laying out, and place the overlay without shifts",
+   "severity": "high",
+   "evidence": "Lighthouse mobile layout-shifts (15, total 0.072): 9 repeated shifts (0.004-0.0096 each) on the element 'position:absolute; bottom:120px; left:50%; transform:translateX(-50%)' = Vc.panel EventPanel (bundle.pretty.js:98660-98668) re-sized as ticks advance during the 3.5 s intro fast-forward (tO :101472; eO = 3500 in every build since Jun 13), plus the opening content block (0.0098). Desktop (total 0.030): body > div#extra-features re-placed by the E collision-mover (0.0072). RUM CLS p75 spike 0.19 / p99 0.32 about 0.4-0.9 day after F (Sep 9 10:29).",
+   "root_cause": "Content-driven height changes of a bottom-anchored panel during autoplay/intro; JS-moved fixed overlay.",
+   "fix": "Give EventPanel a fixed height (e.g. min-height 96px, overflow auto, contain: layout) or hide it while the intro overlay is up (add isIntro guard); position #extra-features with a CSS slot (no JS top/right changes) or transform-only; reserve space for the toolbar/timeline (already in B's #root contain:strict); measure with a PerformanceObserver('layout-shift') script in CI.",
+   "effort": "M",
+   "acceptance_test": "Lighthouse mobile CLS <= 0.02 and desktop <= 0.01; Playwright PerformanceObserver over intro + 10 s autoplay records total CLS <= 0.05; RUM CLS p75 <= 0.1 over 7 days.",
+   "metric_or_grade_moved": "RUM CLS Poor -> Good; Lighthouse perf +2-4",
+   "depends_on": [
+    "deploy-history-10"
+   ],
+   "audit_refs": [
+    "P1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "LF is the EventPanel (Vc.panel :98615/:98659). Lighthouse mobile: 15 shifts, 8 (not 9) attributed to the bottom:120px div, summing 0.0441 (61% of 0.0726); one more 0.0079 shift unattributed. RUM CLS spike values are read off chart images (approximate). Gating LF on intro-complete vn is a viable one-token patch."
+  },
+  {
+   "id": "deploy-history-26",
+   "title": "LCP/FCP: re-baseline after DH-02, then make the LCP element stable across the splash -> chooser -> intro sequence",
+   "severity": "high",
+   "evidence": "lh_mobile.json: observedFirstContentfulPaint = observedLargestContentfulPaint = 287 ms; simulated FCP 4,099 ms, LCP 9,007 ms; redirects audit 9,070 ms; TTFB 152 ms; element render delay 457 ms. lh_desktop.json: simulated LCP 2,229 ms but observedLargestContentfulPaint 4,580 ms (a later React overlay paint). Render-blocking: site-nav.js (5.4 KB) and site-nav.css (2.5 KB). HTML splash h1 is clamp(2.75rem,11vw,6rem) (index.html:91+), React opening overlay appName fontSize 52 (bundle.pretty.js:101593+), chooser card text renders after data loads.",
+   "root_cause": "LCP is the largest text block before first input; later React overlays can replace the small early splash as LCP, and the reload artifact inflates the simulated mobile numbers.",
+   "fix": "1) Remove the reload (DH-02) and re-run Lighthouse x5 mobile/desktop to get a clean baseline. 2) Log LCP element with PerformanceObserver in a preview build. 3) Keep the HTML splash h1 visible until the first React frame renders a same-or-larger LCP candidate, or size later overlays smaller than the splash (or give the splash h1 an elementtiming attribute and hide overlays' large text until after LCP). 4) Defer site-nav (DH-27), preload only what is used (drop unused preconnects: a.tiles/b.tiles/google), and start the Mapbox chunk early. 5) Consider 103 Early Hints via Netlify headers for the entry JS.",
+   "effort": "M",
+   "acceptance_test": "Lighthouse mobile LCP <= 2.5 s, FCP <= 1.8 s, TBT <= 200 ms, perf >= 95 (5 runs median); desktop perf >= 95; RUM p75 LCP <= 2.5 s over 7 days.",
+   "metric_or_grade_moved": "Lighthouse perf mobile 64 -> 95, RUM LCP/FCP Poor -> Good",
+   "depends_on": [
+    "deploy-history-02",
+    "deploy-history-27",
+    "deploy-history-14"
+   ],
+   "audit_refs": [
+    "P1",
+    "P7"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Metric numbers verified, but 'removing the reload collapses the gap' is a hypothesis: document-latency-insight says avoids redirects true/duration 0 and lcp-breakdown-insight totals ~609 ms; the simulated 4.1/9.0 s may be driven by the 604 KB modulepreloaded JS and 4x CPU. Require an A/B before claiming green. Line drift: splash h1 clamp is index.html:108; appName fontSize is bundle :101618."
+  },
+  {
+   "id": "deploy-history-27",
+   "title": "Defer site-nav.js/css on the home page (render-blocking since E)",
+   "severity": "medium",
+   "evidence": "E and F index.html head (F:279-280): '<link rel=\"stylesheet\" href=\"/site-nav.css\"> <script src=\"/site-nav.js\"></script>' synchronous; site-nav.js is 15,829 B with a ~10 KB inlined sprite and is used on the home page only to fill the Extra Features menu (window.GTBG_MENU). Lighthouse render-blocking-insight lists both. D's shell had zero render-blocking resources.",
+   "root_cause": "Sub-page nav script reused unchanged on the SPA shell.",
+   "fix": "On /: change to '<script src=\"/site-nav.js\" defer></script>' and load the CSS with the media swap pattern or inline the ~2.4 KB used by the overlay; better, move the menu into the React toolbar (DH-10) and drop both from the home page.",
+   "effort": "S",
+   "acceptance_test": "Lighthouse render-blocking audit lists no requests on /; FCP unchanged or better; overlay still populated on DOMContentLoaded.",
+   "metric_or_grade_moved": "FCP/LCP mobile, Lighthouse perf +2-5",
+   "depends_on": [],
+   "audit_refs": [
+    "P4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "F:279-280 and Lighthouse 5,396 B/2,463 B verified; defer is safe on index.html because the populate script waits for DOMContentLoaded (:300) and currentScript is valid for deferred classic scripts."
+  },
+  {
+   "id": "deploy-history-28",
+   "title": "Replace the CSS preload + onload swap that produces 'preload not used' warnings",
+   "severity": "medium",
+   "evidence": "C onward (c_aug22cur/index.html:43-45; F:56-58): '<link rel=\"preload\" as=\"style\" href=\"/assets/index-B4G7Z_2G.css\" crossorigin onload=\"this.onload=null;this.rel=\\'stylesheet\\'\">' with the real <link rel=stylesheet> deleted (B had both) and a <noscript> fallback. The 40,827 B file is mapbox-gl.css. Warnings amplified once E registered the SW (SW-controlled fetch vs crossorigin preload); exact browser cause not proven.",
+   "root_cause": "Non-standard async-CSS pattern with an unnecessary crossorigin attribute on a same-origin file, then SW interception.",
+   "fix": "Use a plain '<link rel=\"stylesheet\" href=\"/assets/index-<hash>.css\">' (small) or inline critical CSS and load the mapbox stylesheet with rel=stylesheet media=print onload swap without preload; drop crossorigin for same-origin CSS; verify no console warnings in fresh and SW-controlled sessions.",
+   "effort": "S",
+   "acceptance_test": "Console shows zero preload warnings on first and second visit (Playwright console listener); FOUC screenshot check on throttled mobile.",
+   "metric_or_grade_moved": "Reliability/console cleanliness, Best Practices",
+   "depends_on": [
+    "deploy-history-01"
+   ],
+   "audit_refs": [
+    "P5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence verified (F:56-58, 40,827 B css, 3 CSS requests). A plain blocking link puts 40 KB on the mobile FCP path, and the media-swap alternative relies on inline onload, which conflicts with an enforced CSP (DH-18). Prefer importing the CSS from the entry JS or an external loader."
+  },
+  {
+   "id": "deploy-history-29",
+   "title": "Dev-log copy and data strings that leak internals",
+   "severity": "medium",
+   "evidence": "viewshed.html (D, unchanged E/F): 'Earlier drafts...' and 'doesn't have access'; ar.html (E): 'we haven't been able to do from here'; dashboard.html:261-263 developer data note; search.html:112 fallback 'Commander unrecorded'; data/oob/union_regiments_i_ii_corps.json (frozen since Jun 12) has designation '14th Brooklyn (alias for U-84NY)'; index.html:377 'AI-style historian'.",
+   "root_cause": "Working notes committed as UI copy and alias metadata stored in display fields.",
+   "fix": "Rewrite each string in institutional voice; move alias into a separate alias_of field and show it as a subtle 'also known as'; replace 'Commander unrecorded' with omission or 'Commander not documented'; add a copy-lint step (DH-34) failing on words like 'draft', 'earlier', 'we haven't', 'TODO', 'alias for'.",
+   "effort": "S",
+   "acceptance_test": "grep for the listed phrases returns nothing in dist and data; copy review checklist signed.",
+   "metric_or_grade_moved": "Fit/finish, professional voice",
+   "depends_on": [],
+   "audit_refs": [
+    "H7"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "All strings verified (viewshed.html:46, ar.html:56, search.html:112, 'alias for U-84NY' in union_regiments_i_ii_corps.json, dashboard note)."
+  },
+  {
+   "id": "deploy-history-30",
+   "title": "Distance tool: restore the working line/marker behavior and the lineage-Y measurement panel",
+   "severity": "medium",
+   "evidence": "Deploy A shipped the source DistanceTool.jsx canvas tool (dashed line: source DistanceTool.jsx:127-153; setLineDash x3 in A bundle; toolbar button 'Distance Tool'). Jun 22 (final/v5 (1)) replaced it with hand-patched GtbgDist: Mapbox source 'gbdist' + line/circle layers created inside try{}catch(e){} (bundle.pretty.js:112677-112760), which silently swallows 'Style is not done loading' and later setData failures. Lineage Y had a 'Distance Measurement' panel with feet/yards/meters and march time (DistanceTool chunk, UI strings 'March time', 'at route march pace (4 km/h)'); the deployed bundle has 0 matches for 'Distance Measurement'. Live 'Click map to reset' only.",
+   "root_cause": "Replacement patch swallows errors and depends on map style load state; features from A/Y were dropped.",
+   "fix": "In source: port DistanceTool.jsx + Y's panel: wait for map.isStyleLoaded()/once('idle') before addSource, remove catch-all, draw line and both markers, show ft/yd/m and march time (67 m/min), Esc/close resets; add unit test. Interim bundle patch: run addSource/addLayer inside map.once('idle') and log errors.",
+   "effort": "M",
+   "acceptance_test": "Two clicks -> both markers + dashed line + result panel in all three units and march time; reset works via click/Esc; no pageerror.",
+   "metric_or_grade_moved": "Core function B -> A-, fit/finish",
+   "depends_on": [
+    "deploy-history-15"
+   ],
+   "audit_refs": [
+    "H12"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Part refuted: the deployed GtbgDist (:112677-112919) already shows ft/yd/m and 'March time' (67 m/min) and draws two markers plus a dashed line when setData succeeds, so nothing needs restoring from lineage Y except the header text. The catch-all-swallow root cause for the one-marker symptom is unproven; add a style-loaded guard and logging as a diagnostic. Effort S-M."
+  },
+  {
+   "id": "deploy-history-31",
+   "title": "Street View: add missing pano IDs (stops 3 and 5) and re-key the iframe per stop",
+   "severity": "low",
+   "evidence": "Hand-off to Google Maps since v13 (Jun 13 18:56); embedded Walkthrough Street View with 3 pano IDs in B and 14 since Jul 29 (v21_streetview_fix). bundle.pretty.js:104149 (stop 3 Oak Ridge) and :104188 (stop 5 Virginia Memorial) have no pano; stops 1 and 8 have different panos (NPoPaAZH82fn6rRlPiFK9w vs A7rGaIwx9lZjUK9N1PW0sA) and coordinates, so the identical '48 Reynolds Ave S' caption points to iframe reuse or embed caption behavior; embed URL built at :110661 with Google Maps Embed key. User guide claims 'Street View panoramas'.",
+   "root_cause": "Location-only embeds resolve to nearest road pano; iframe not re-keyed.",
+   "fix": "Add verified pano IDs for stops 3 and 5; render <iframe key={stop.id} src=...>; align user guide wording with actual behavior (embedded in Walkthrough, hand-off in Soldier's Eye) or embed in both.",
+   "effort": "S",
+   "acceptance_test": "Playwright cycles 16 stops; iframe src differs per stop and the caption/title changes; guide text matches behavior.",
+   "metric_or_grade_moved": "Content accuracy, docs consistency",
+   "depends_on": [],
+   "audit_refs": [
+    "H13",
+    "G1"
+   ],
+   "verdict": "UNVERIFIABLE",
+   "correction": "Stops 3 and 5 lacking pano is verified (:104149, :104188; 14 of 16 stops have pano), but the iframe-reuse/key theory is unproven (changing src always navigates; the caption may be a load-timing artifact) and pano IDs cannot be verified offline."
+  },
+  {
+   "id": "deploy-history-32",
+   "title": "Long-standing bundle/UX defects present since the original source: Esc, layout persistence/auto-detect, defaults, natural sort, speed and minimap labels",
+   "severity": "high",
+   "evidence": "Esc: bundle.pretty.js:112967 'if (Ur.target.tagName === \"INPUT\") return;' (source App.jsx:73) and Escape closes only 3 store flags + 7 local states (:113010-113025). Layout: [Zn,Dt]=useState(null) (:112949) with no persistence, chooser shown when !Zn (:113061), only gtbg_onboarded stored (:112951); chooser added v16 (Jun 16), intro constant eO=3500 in every build. Legend/minimap default true (source useAppStore.js:114). Follow Ancestor list: Xe.sort((a,b)=>a.name.localeCompare(b.name)) (:101039; source FollowAncestor.jsx:67) => '102nd... 10th'. Speed label '1x (real time)' :97429 (source PlaybackStatus.jsx:38). Minimap label '{n} units - tick {t}' :99821 (source Minimap.jsx:159). Toast code auto-dismisses at 4.5 s in all builds (:99909-99915) so the audit's 'toasts never dismiss' is not reproducible from code. Help lazy chunk Suspense fallback:null (:113277; source App.jsx:150).",
+   "root_cause": "Original design decisions never revisited; no tests.",
+   "fix": "Esc: handle Escape before the INPUT guard, blur inputs, close story/event/unit panels; persist gtbg_layout and auto-select mobile via matchMedia('(pointer:coarse)') or width<768; skip splash/intro for returning users (gtbg_seen_intro) and offer 'Replay intro'; first-visit defaults: legend/minimap collapsed until requested and clear panels on day jump; natural sort with new Intl.Collator(undefined,{numeric:true}); speed label computed from actual ticks/s (10 simulated minutes per second at 1x) and renamed; minimap label recomputed on placements load; Help: preload on hover + skeleton fallback. Retest the toast behavior in a foreground tab before changing it.",
+   "effort": "L",
+   "acceptance_test": "Playwright: Esc in search box closes it and then panels; reload restores chosen layout and skips splash within 1 s; ancestor list order is 1st...10th...102nd; speed label matches measured ticks/s; minimap label never shows stale count; Help shows skeleton within 100 ms.",
+   "metric_or_grade_moved": "Usability B-/D+ -> A-, accessibility, INP",
+   "depends_on": [
+    "deploy-history-15"
+   ],
+   "audit_refs": [
+    "H2",
+    "H3",
+    "H4",
+    "H5",
+    "H9",
+    "H11",
+    "D1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "All cited lines verified (:112967 INPUT guard, :112949, :112951, :113061, :101039, :97429, :99821, toast 4.5 s :99909-99915, Suspense fallback null). Minimap label counts placements keyed at exactly that tick, so it is semantically wrong rather than stale."
+  },
+  {
+   "id": "deploy-history-33",
+   "title": "Per-deploy performance baselines and RUM annotation so regressions are attributable",
+   "severity": "medium",
+   "evidence": "RUM window Aug 30-Sep 29 = 9 days of D + <1 day of E + 20 days of F; ~4.7 sessions/hour means hourly p75 is a single session; three unlabeled grey bands at Sep 7-9 cannot be mapped to deploy IDs without the Deploys list; only six deploys have zips; F unchanged since Sep 9 so spikes on Sep 18 and 26 are outliers; Netlify pageviews double-counted for new visitors since F.",
+   "root_cause": "No deploy log, budgets or annotation; metrics read at 30-day aggregate.",
+   "fix": "Keep a DEPLOYS.md table (id, time, git sha, bundle sha, purpose); run Lighthouse CI (mobile+desktop, 5 runs) against the deploy permalink '<id>--friendly-lolly-da85c0.netlify.app' before publishing with budgets (perf>=95, LCP<=2.5 s, CLS<=0.1, TBT<=200 ms, JS<=500 KB gz); add web-vitals attribution logging (console in previews) and record navigation type; report RUM as 7-day rolling p75 with sample count and exclude sessions with visibilityState hidden > 60 s.",
+   "effort": "S",
+   "acceptance_test": "Publishing is blocked when budgets fail; DEPLOYS.md updated in CI; weekly RUM report lists sample size per metric.",
+   "metric_or_grade_moved": "Ability to prove all metrics green",
+   "depends_on": [
+    "deploy-history-01"
+   ],
+   "audit_refs": [
+    "P1"
+   ],
+   "verdict": "UNVERIFIABLE",
+   "correction": "Arithmetic ok (D 9.7 d, E 0.77 d, F 20.5 d) but the meaning of the grey RUM bands is unknown and Netlify's 30-day 'Poor' headline is not obviously derivable from the hourly p75 lines; the aggregation is opaque. Process advice is sound."
+  },
+  {
+   "id": "deploy-history-34",
+   "title": "Pre-deploy gate script: block template text, dev pages, corrupt images, same-name assets, secrets and placeholders",
+   "severity": "medium",
+   "evidence": "Shipped to production in the past: TEMPLATE privacy/terms (C-D, Aug 22-Sep 8), landing.html pricing page (A-C), diagnostics.html public (A-D), corrupt OG PNG (B-F), 'undefined' stat card (D-F), developer notes in UI (D-F), same-name patched JS (>=40 times), unit-rendering-reference.html dev page (E-F), reload hack (F).",
+   "root_cause": "No automated checks; drag-and-drop deploys from ad hoc folders.",
+   "fix": "scripts/predeploy-check.mjs (run locally and in CI): fail on strings 'TEMPLATE','[DATE]','PLACEHOLDER','undefined','TODO','alias for','Earlier drafts'; forbidden files (diagnostics*, landing*, unit-rendering-reference*); every referenced image decodes; every link/asset resolves; count of inline <script> == 0 (after DH-18); same-name/different-bytes vs published deploy (DH-01); secret patterns (sk., private keys) and Mapbox/Google key presence only for allowed public keys; bundle size budgets.",
+   "effort": "S",
+   "acceptance_test": "Script exits non-zero on seeded failures for each rule and zero on the clean tree; runs in CI on every PR.",
+   "metric_or_grade_moved": "Reliability, professional polish; prevents recurrence of regressions",
+   "depends_on": [
+    "deploy-history-01",
+    "deploy-history-13"
+   ],
+   "audit_refs": [
+    "X5",
+    "C7",
+    "T1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Unscoped bans on 'undefined'/'TODO' over raw file bytes would fail on the 2.28 MB bundle, Mapbox code and inline scripts. Scope to rendered visible text/JSON string values; use sk\\.eyJ for Mapbox secret tokens; count executable inline scripts and exclude JSON-LD."
+  }
+ ],
+ "open_questions": [
+  "Exact creation times of the deploys with no zip (three unlabeled grey RUM bands at Sep 7-9 imply one un-downloaded deploy besides E and F; any deploy between Jul 29 and Aug 22). Export Netlify's Deploys list (IDs between 6a9e52e0 and 6aa06a6d for the Sep 7-8 cluster).",
+  "Whether Netlify RUM draws deploy markers: the grey vertical bands are unlabeled in the PDF, so the band-to-deploy mapping is inferred by pixel interpolation with +-0.75 day uncertainty.",
+  "Whether the audit's 'toasts never auto-dismiss' is real: code auto-dismisses at 4.5 s in every build (bundle.pretty.js:99909-99915); needs a foreground-tab retest.",
+  "Decision needed on the time model (DH-05): keep tick order and relabel via the schema spans, or re-key ticks from a historian-reviewed real-clock table (historically accurate but touches every placement).",
+  "Which lineage to use as the rebuild baseline (v2_fixed 65-file source vs RECON_SRC vs lineage Y dist), and whether lineage-Y features (Night Mode, Distance panel, Find Location, unit history) should be re-ported.",
+  "Mapbox token #2 URL restrictions and Google Maps Embed key restrictions can only be verified in the Mapbox/Google consoles (public tokens are meant to ship; restriction status unknown).",
+  "Real-device confirmation of the C1/C2 root cause and of S3 (Camera/Viewshed partial paint) - static analysis only; I did not run a browser.",
+  "Whether #seo-content (F) will be judged hidden text by search engines: it sits under a position:fixed splash but is not display:none; keep truthful or remove."
+ ],
+ "verification_summary": "Most of the deploy-history evidence reproduces: line numbers, minified offsets, byte counts, deploy-ID decoding and the live curls all check out. Of 34 findings, 19 are confirmed, 13 corrected, 2 unverifiable and none refuted outright. The corrections mostly hit proposed fixes that would misfire:\n- DH-06: the restored gold-trail canvas would be misaligned after flyTo.\n- DH-08: root cause is incomplete; the site-nav.css button reset (color:inherit) overrides page colors.\n- DH-18: the proposed CSP would break Watch Together (cdn.jsdelivr.net omitted).\n- DH-20: adding defer to the Mapbox script breaks every map page.\n- DH-28: the swap alternative conflicts with an enforced CSP.\n- DH-30: the \"lost\" distance panel is not lost; the deployed one already shows ft/yd/m and march time.\n- DH-13/24: \"icons fixed in E\" is wrong; the icons are still ~23% transparent and marked maskable.\n- DH-14: the 500 KB gz initial-JS budget is unattainable with mapbox-gl in the initial payload.\n- DH-02/26: the claim that the reload dominates the mobile LCP/FCP is a hypothesis, and Lighthouse's own document-latency-insight says no redirects.\nA \"## Verification\" section with the full table, prose corrections and 8 missed issues was appended to deploy-history.md.",
+ "missed_by_specialist": [
+  {
+   "title": "Shared site-nav.css button reset (specificity 0,1,1) is the real cause of C8 and of 1.92:1 Play buttons, still live on 10+ pages",
+   "evidence": "site-nav.css:143-147 'button.mode-btn, button.play-btn, button.toggle-btn, button.day-tab, button.filter-chip, button.btn, button.match{font:inherit;color:inherit;appearance:none}' beats page classes (0,1,0): search chips ink #E8E6DF on #F0F0F0 = 1.096:1; camera.html:34 .play-btn color #0a0a14 overridden to ink on gold #c9a24b = 1.92:1; compare .toggle-btn 10px becomes 16px (pages-A pagesA-02). DH-08 declared these 'safe (verified)' and proposed another (0,1,1) button.reset{all:unset}.",
+   "fix": "Make the reset zero-specificity (:where(button,input,select,textarea){font:inherit;color:inherit}, or @layer), do not add all:unset, then add background:transparent to search .filter-chip and re-check every converted button's contrast.",
+   "severity": "high"
+  },
+  {
+   "title": "Restoring the gold-trail engine as a screen-space canvas draws a misaligned trail",
+   "evidence": "bundle.pretty.js:101081-101111 st() calls map.project for every segment BEFORE flyTo({zoom:14,duration:1200}); the source GoldTrailEngine.js:8-16 sizes a fixed canvas once and never re-projects on move/zoom/resize.",
+   "fix": "Render the ancestor trail as a lng/lat GeoJSON LineString source+layer (same pattern as the working GtbgDist at bundle.pretty.js:112677+), update with setData, clear on close, and wrap trail calls in try/catch so flyTo/selectedUnitId/currentTick always run.",
+   "severity": "high"
+  },
+  {
+   "title": "Lighthouse mobile baseline is contaminated by the reload well beyond LCP, and Lighthouse contradicts itself on redirects",
+   "evidence": "lh_mobile.json: unused-javascript lists index-Cg8FAMXN.js twice (315,185 and 314,039 wasted B); network-requests shows the JS fetched at t=160 ms (604,586 B) and again at t=1,046 ms (0 B cache), so bootup-time 3.3 s and mainthread-work 5.6 s span two loads; document-latency-insight reports 'Avoids redirects' true with redirectDuration 0 while the legacy redirects audit says 9,070 ms.",
+   "fix": "Take the pre-fix baseline with the SW blocked (or on a preview build without the reload) and A/B DH-02 before setting budgets; expect bootup/main-thread to drop roughly by half independent of code changes and do not attribute the 9.0 s simulated LCP to any one cause until measured.",
+   "severity": "medium"
+  },
+  {
+   "title": "CSP enforcement blockers missing from DH-18",
+   "evidence": "watch-together.html:19 loads peerjs@1.5.4 from cdn.jsdelivr.net (in the current RO policy, netlify.toml:19, but omitted from the proposed script-src); index.html:56-57 inline onload= handler on the CSS preload is blocked without unsafe-inline/hashes; on embed.html the override replaces the whole CSP (Netlify overwrites same-name headers, cannot unset); RUM host ingesteer.services-prod.nsvcs.net flagged in Lighthouse inspector-issues.",
+   "fix": "Keep jsdelivr, peerjs (0.peerjs.com/wss), RUM ingest, Mapbox and Google hosts in the allow-list, remove inline event handlers, repeat the full policy in the embed override with only frame-ancestors changed, and run Report-Only with reporting for 7 days before enforcing.",
+   "severity": "medium"
+  },
+  {
+   "title": "PWA and iOS icons are still transparent and the manifest still marks them maskable",
+   "evidence": "F icons/icon-192.png, icon-512.png and apple-touch-icon.png have 22-24% fully transparent pixels (corner and margin alpha 0, rounded gold-bordered square only); manifest.json:15,21 'purpose': 'any maskable'. The report claims this was fixed in E; only the ICO-as-PNG problem was fixed.",
+   "fix": "Ship an opaque 512x512 maskable icon with content inside the safe zone, a separate 'any' entry, and an opaque 180x180 apple-touch-icon (iOS renders transparency as black); add an image-alpha check to the pre-deploy gate.",
+   "severity": "medium"
+  },
+  {
+   "title": "Adding defer to the CDN Mapbox script (DH-20 fix as written) breaks every sub-page map",
+   "evidence": "camera.html:20 (sync script) and :62-65,144; ground-remembers.html:16, :54-69; viewshed.html:58-73: classic inline scripts call mapboxgl.accessToken and new mapboxgl.Map at parse time and run before deferred scripts, causing ReferenceError: mapboxgl is not defined (same on compare, sandbox, immersive, watch-together, cinematic-export, unit-rendering-reference).",
+   "fix": "Wrap each page's inline map code in DOMContentLoaded (or make it defer/type=module) in the same change as deferring the library, and add a CI smoke test that opens every map page and asserts zero console errors.",
+   "severity": "medium"
+  },
+  {
+   "title": "Publish tree still ships dev pages and an orphan asset that are only hidden by rules",
+   "evidence": "F permalink and live site serve /unit-rendering-reference.html (200, verified by curl); diagnostics.html is in the deploy tree and hidden only by the force=true 404 rule (netlify.toml); assets/interpolationworker-ufiwa2-e.js (672 B) has zero references in the bundle, HTML or sw.js.",
+   "fix": "Remove unit-rendering-reference.html, diagnostics.html and the orphan worker file from the deploy tree (keep any dev pages in a non-published folder) instead of relying on 404 rules; add them to the pre-deploy forbidden-files list.",
+   "severity": "low"
+  },
+  {
+   "title": "F's Monuments star overlay inverts the button state against the app's own story markers",
+   "evidence": "Bundle App state [sn,$n]=useState(!0) (bundle.pretty.js:112946) makes the app's 20 story markers ON at load, and the toolbar button toggles them; index.html:608-714 attaches a second click handler to the same button whose overlay defaults OFF, so the first click hides the app's markers while showing the misaligned star overlay.",
+   "fix": "Delete the overlay script and data/monuments.json (as DH-21 proposes) and, when porting natively, use a single shared toggle state for one monument layer; until then remove the click hook from index.html.",
+   "severity": "low"
+  }
+ ]
+}

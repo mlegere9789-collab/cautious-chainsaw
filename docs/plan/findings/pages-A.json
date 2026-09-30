@@ -1,0 +1,930 @@
+{
+ "agent": "pages-A",
+ "summary": "pages-A audited dashboard, search, compare, camera, report plus site-nav.js/css (read every line, then verified in a private headless Chrome on the deployed files and the live site, curl to live + Mapbox, and data analysis). Full 44-item fix plan with code sketches is in the report file. Headline results: (1) CRITICAL shared bug: site-nav.js injects an icon sprite whose <symbol id=\"chart|search|clock|...> collides with page ids; getElementById then returns the hidden symbol, so the dashboard chart draws inside the sprite (empty chart, C7), report.html/regiment.html search inputs never get listeners (S1 'lone search box'), living-ledger clock is dead. It is a race between the data fetch and a requestIdleCallback (hence intermittent, fine on reload); reproduced on LIVE: report search dead 2/4 fresh loads (4/4 throttled), regiment 3/4 (4/4), dashboard chart empty 1/4 throttled, deterministic with 2.5 s injected latency. (2) CRITICAL: the deployed app parses only ?ancestor= (bundle.pretty.js:101019) so every Search result and every 'see it on the map' link (?unit/?tick/?vignette/?lat&lng) on 7+ pages is inert. (3) site-nav.css:143-147 global button reset (0,1,1) out-specifies page classes: search chips 1.10:1 (C8), Play button 1.92:1 on camera/ground-remembers/immersive/watch-together, Compare toggles render 16px not 10px (S4 'Parc...' clip). (4) Dashboard: highest_single_regiment_rate has a nested {union,confederate} shape -> raw key + 'undefined'; that unbreakable word widens the phone layout viewport to 446px; the dev 'data note' reflects real JSON discrepancies (U-I 6,059 vs 6,394; C-CAV 583 vs 483) and totals (46,163) contradict vignette '51,000'. (5) Compare/Camera use only placements_* (152 ids: 23 regiments, 92 brigades, 29 batteries) vs the app's 478 ids (38 density files); median keyframe age at tick 300 is 150 ticks; Follow lists 23 regiments, 11 with a single keyframe. (6) Map sub-pages block first paint on a sync 1.8 MB mapbox-gl.js: throttled-mobile FCP 3.6-3.8 s, TBT up to 491 ms; search CLS 0.147 under throttling. (7) Report: 'undefined / C-CAV-1' for 22 records, alias renders blank, 221 computable rates shown as dashes, div-buttons not keyboard operable, print includes nav/footer, claims 'moment' reports that don't exist. (8) Every page's og:image (and manifest screenshots) is one corrupt, byte-identical PNG (renders blank). (9) Corrects audit X1: Mapbox tile requests are URL-restricted (403 off-domain) though the styles endpoint is not; previews/localhost show blank maps. S3 (camera canvas) could not be reproduced; hardening specified. Plan also covers shared-component/build/manifest/derived-data extraction, CSP enforcement, single clock module, tests/CI, SEO head, feature completions per page, and sequencing in 4 waves.",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/pages-A.md",
+ "findings": [
+  {
+   "id": "pagesA-01",
+   "title": "Icon-sprite id collision: dashboard chart empty, report/regiment search dead, ledger clock static",
+   "severity": "critical",
+   "evidence": "site-nav.js:71-91 defines <symbol id=chart|search|clock|book|pin|...>; :105 inserts sprite as FIRST child of <body>; :107 requestIdleCallback(timeout 1500). Colliding page ids: dashboard.html:71 <svg id=\"chart\"> + :144 getElementById('chart') after await fetch(:121); report.html:54/:81 id=search; regiment.html:70/:151; living-ledger.html:64/:126. Repro [V-local] JSON delayed 2.5 s: getElementById('chart') -> <symbol> inside #gtbg-icon-sprite, visible svg#chart has 0 children (symbol got 27); report typing '20th Maine' -> 0 matches. [V-live] fresh profile: report search worked 2/4 fast, 0/4 throttled; regiment 1/4 and 0/4; dashboard chart empty 1/4 throttled.",
+   "root_cause": "Duplicate ids in one document; getElementById returns first in tree order (the sprite). Sprite is injected on an idle callback, so success depends on whether the data fetch resolves before it: cached/fast repeat loads win, first loads lose -> 'intermittent, fine on reload'.",
+   "fix": "(1) Namespace all 19 symbol ids (gtbg-i-chart etc.), update icon() at site-nav.js:61-63, export GTBG_MENU.icon and migrate index.html:309,310,337,376. (2) Inject the sprite synchronously at top of render() (or inline at build time) - removes icon pop-in and the race. (3) Rename page ids (strength-chart, report-search, regiment-search, ledger-clock) and capture element refs before the first await. (4) CI: no-duplicate-ids test on every page + route-delay test (0/300/1500/4000 ms) on /data/**.",
+   "effort": "S",
+   "acceptance_test": "After networkidle and +3 s no duplicate ids on all pages; with /data/** delayed 0/300/1500/4000 ms, dashboard svg has >=24 direct children, report+regiment show >=1 match for '20th Maine', ledger clock updates; 20/20 runs each.",
+   "metric_or_grade_moved": "Reliability B-/C -> A; Core function; fixes C7 empty chart and S1",
+   "depends_on": [],
+   "audit_refs": [
+    "C7",
+    "S1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-02",
+   "title": "Global button reset out-specifies page classes (chips 1.10:1, Play 1.92:1, toggles 16px)",
+   "severity": "high",
+   "evidence": "site-nav.css:143-147 'button.mode-btn, button.play-btn, button.toggle-btn, button.day-tab, button.filter-chip, button.btn, button.match {font:inherit; color:inherit;...}' specificity (0,1,1) > page (0,1,0); comment :140-142 claims no visual change. Computed [V-local]: search .filter-chip #E8E6DF on UA #F0F0F0 = 1.10:1 (search.html:30 sets no background); camera .play-btn #E8E6DF on gold = 1.92:1 (page asks #0a0a14 bold, camera.html:34) - also ground-remembers, immersive, watch-together; compare .toggle-btn font-size 16px vs designed 10px (compare.html:38). button.btn on 10 pages.",
+   "root_cause": "High-specificity reset silently overrides font/color of page classes; several classes never set background so UA ButtonFace shows.",
+   "fix": "Make the reset zero-specificity: ':where(button,input,select,textarea){font:inherit;color:inherit} :where(button){appearance:none;margin:0;text-align:inherit;background:none;border:0;padding:0}' and delete the 7-class list; move button styling into shared .btn/.btn-primary/.chip/.seg components that always declare background, color, border, font-size, min-height; add computed-contrast regression test for every button/chip state.",
+   "effort": "S",
+   "acceptance_test": "axe color-contrast 0 violations on search/camera/ground-remembers/immersive/watch-together/compare; .play-btn contrast >=8:1; .filter-chip >=6:1; .toggle-btn font-size >=12px and row wraps at 320px.",
+   "metric_or_grade_moved": "Accessibility C+/C -> A-; Fit&finish; fixes C8, A1, part of S4",
+   "depends_on": [],
+   "audit_refs": [
+    "C8",
+    "A1",
+    "S4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "button.btn is on 1 page (sandbox.html), not 10, and button.match matches nothing. site-nav.css is also loaded by index.html, so a global :where(button) reset also touches the SPA's buttons. Regression-test / or ship the class-list :where() variant first."
+  },
+  {
+   "id": "pagesA-03",
+   "title": "Deep-link contract not implemented: every 'see it on the map' link is inert",
+   "severity": "critical",
+   "evidence": "Only URL read in the app: bundle.pretty.js:101019 new URLSearchParams(location.search).get('ancestor'). grep of bundle for .get(\"..\")/location.search/searchParams/location.hash finds only mapbox internals; index.html reads no params (only location.reload():267). App WRITES ?t=&u=&z=&ll= share links (bundle.pretty.js:97822-97830, TF :97831) that nothing parses. Pages emitting ignored links: search.html:114,127,139; documentary.html:92; education.html:81; embed.html:60; historian.html:110; regiment.html:247; turning-points.html:118. Store actions exist: setTick/jumpToDay bundle.pretty.js:9366-9370, selectUnit/pinUnit. Verified by code only, not by driving the live splash.",
+   "root_cause": "Schema designed on sub-page side; receiving half never built in the (minified/reconstructed) app.",
+   "fix": "Define one schema (?tick, ?unit, ?vignette, ?ll=lat,lng, ?z, ?day, existing ?ancestor; aliases t,u,lat+lng). App boot: if any param present, skip splash/onboarding (H3), setTick, select/pin unit, flyTo, open vignette, keep URL. Implement in rebuilt source or via head script -> window.__GTBG_DEEPLINK consumed after sF() (bundle.pretty.js:96897). Pages use shared lib/deeplink.js mapUrl() builder with unit tests.",
+   "effort": "L",
+   "acceptance_test": "Playwright: /?tick=300&unit=U-20ME -> no splash, currentTick 300, 20th Maine panel open, map centre within 300 m; /?vignette=V-011 opens it; all Search result links for 10 sample queries land on expected state; old ?t=&u=&ll= links round-trip.",
+   "metric_or_grade_moved": "Core function B->A, Usability, shareability/SEO",
+   "depends_on": [],
+   "audit_refs": [
+    "H3",
+    "H4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-04",
+   "title": "site-nav menu accessibility: aria wiring, focus management, focus rings, contrast, sizes, targets",
+   "severity": "high",
+   "evidence": "site-nav.js:169 button has aria-expanded only (no aria-controls/haspopup; panel no role/label); current page only via CSS .current (:121) - no aria-current (measured null); closePanel :175 / keydown :184 never call btn.focus(); opening doesn't move focus. site-nav.css:44,110 'outline:none' on :focus-visible with only #1a3a7a background (~1.5:1). Contrast [V-local]: .gtbg-group-why (#6f7686 on #12121e) 4.08:1; #gtbg-footer text 4.32:1 on every page. Sizes 9.5px (:98), 11px (:96), 11.5px (:124). Targets: brand 137x18, pin 156x34 (48x34 phone), Explore 98x34, footer links 16px tall.",
+   "fix": "Disclosure-navigation pattern: aria-controls, hidden/inert toggling, groups as <h2>+<ul>, aria-current='page', focus first link on open and RETURN focus to button on Esc/close, close on focusout/link click, keep 2px gold :focus-visible ring, muted text token #9aa3b8 (7.3:1), all nav text >=12px, min 44px targets on pointer:coarse (24 fine), scrim + overscroll-behavior:contain + max-height calc(100dvh-72px) on <=720px.",
+   "effort": "M",
+   "acceptance_test": "axe (wcag2a/aa/22aa) 0 violations with menu open on every page; keyboard script: Tab to Explore, Enter opens with focus inside, Esc closes with focus on button; aria-current present; nav targets >=44px on coarse pointer.",
+   "metric_or_grade_moved": "Accessibility C+ -> A on ~24 pages; Usability",
+   "depends_on": [
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "A1",
+    "A3",
+    "A4",
+    "A6",
+    "D2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-05",
+   "title": "Nav/footer are JS-injected: not crawlable, sprite pop-in, latent CLS, flat 20-item menu long on phones",
+   "severity": "medium",
+   "evidence": "site-nav.js:161-171 outerHTML replaces empty #gtbg-nav-mount at DOMContentLoaded (:232-236), footer :187-198; no <noscript> -> sub-pages have no internal links without JS. Panel scrollHeight 1,471px at 375 (client 615), 1,616 at 320, landscape 812x375 panel 285px [V-local menu.mjs]. Button 'Explore' opens group also called 'Explore'; index overlay says 'Extra Features'. CLS was 0 locally (script at end of body) but mount is 0px tall until replaced [code].",
+   "fix": "Pre-render nav+footer into every page at build (sprite inlined once); keep JS only for behaviour. Interim: #gtbg-nav-mount{min-height:56px}, #gtbg-footer-mount{min-height:120px}. Rename button/overlay to 'All tools'. Mobile menu as <details name> accordions with current group open, Historian pinned; two-column in short landscape. Generate groups from pages.manifest.json.",
+   "effort": "M",
+   "acceptance_test": "curl of any sub-page contains all 20 /*.html links + footer links in raw HTML; Lighthouse CLS 0; on 375x812 first group + two headings visible without scrolling; landscape shows >=6 items.",
+   "metric_or_grade_moved": "SEO (T1), Perf (CLS), Usability, Fit&finish",
+   "depends_on": [
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "P4",
+    "D2",
+    "T1",
+    "H1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-06",
+   "title": "wireBackLinks() returns to previous same-origin page, not the map; relies on Netlify link rewriting",
+   "severity": "medium",
+   "evidence": "site-nav.js:211-228: cameFromThisSite = document.referrer startsWith origin -> history.back() (Map->Search->Compare then brand click returns to Search). Only a[href=\"/\"] wired (:212) but pages author href=\"/index.html\" (dashboard.html:58, search.html:50, compare.html:53, camera.html:46, report.html:49); live HTML differs exactly there: Netlify rewrote to <a class='back' href='/'> [V-live diff], so it works only via a Netlify setting.",
+   "fix": "Author href=\"/\"; select a.back, #gtbg-nav a.brand, a[href=\"/\"], a[href=\"/index.html\"]; index.html sets sessionStorage.gtbg_map_seen, sub-pages track gtbg_subdepth on pageshow (non-persisted) and call history.go(-depth) only if map seen, else navigate to '/'. Brand text '<- Back to map' + aria-label.",
+   "effort": "S",
+   "acceptance_test": "Playwright: map->search->compare->brand click lands on '/' restored via bfcache; direct /compare.html brand click -> '/'; identical with Netlify Pretty URLs on/off.",
+   "metric_or_grade_moved": "Usability, polish",
+   "depends_on": [],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-07",
+   "title": "esc() incomplete/private; pages inject unescaped strings via innerHTML",
+   "severity": "medium",
+   "evidence": "site-nav.js:60 esc() omits ' and is private to the IIFE; search.html:194-196 inserts ${item.title}/${item.meta} unescaped; dashboard.html:196,212,253 unescaped names/notes; compare.html:216 popup setHTML with raw p.unit_id/p.disposition. Data is first-party today (hygiene, blocks strict CSP review and any user-supplied data).",
+   "fix": "Export window.GTBG.esc (escape ' and `, coerce null) and an auto-escaping html`` tagged template in lib/dom.js; textContent for single values; ESLint no-unsanitized/property in CI.",
+   "effort": "S",
+   "acceptance_test": "Unit test esc(\"<img onerror=x>'\"); payload placed in a fixture regiment name renders as text on search/report/compare; grep finds no raw ${} in innerHTML templates outside html``.",
+   "metric_or_grade_moved": "Security hygiene B -> A-",
+   "depends_on": [
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "X3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-08",
+   "title": "Footer/brand: no sources/credits/accessibility statement, name mismatch, low contrast, harvestable mailto",
+   "severity": "medium",
+   "evidence": "site-nav.js:187-198 footer '(c) <year> Gettysburg Animated Battlefield Map' (domain says Interactive: E2), links Privacy/Terms/Contact(mailto)/User Guide; no About/Sources/Accessibility/Sitemap; year computed by JS; text 4.32:1. Data provenance (Busey & Martin, OR, Pfanz) appears nowhere on sub-pages though oob/*.json metadata lists it.",
+   "fix": "Manifest-driven footer: single product name, About & Sources, Accessibility, Privacy, Terms, Contact (form or assembled mailto), User Guide with size, Sitemap, one-line data/map credit. Create /about.html (sources, method, corrections policy, how to report errors) - also an E-E-A-T page for SEO.",
+   "effort": "S",
+   "acceptance_test": "Every page footer has credits line and >=6 links, contrast >=7:1, present without JS.",
+   "metric_or_grade_moved": "Docs/Legal, SEO trust, brand consistency",
+   "depends_on": [
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "E2",
+    "T1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-09",
+   "title": "Shared motion/dead assets/cache: body fade, infinite box-shadow glow, dead .gtbg-lift and icons.svg, nav assets max-age=0",
+   "severity": "low",
+   "evidence": "site-nav.css:12 body{animation:gtbg-page-in 340ms both} (opacity+transform; also loaded by index.html - body becomes containing block during animation); :41 pin glow animates box-shadow infinite (non-composited); :151-152 .gtbg-lift unused by any page; /icons.svg (3,938 B) referenced only in a comment (site-nav.js:66); site-nav.js/css served Cache-Control public,max-age=0,must-revalidate [V-live] -> conditional request on the render-blocking CSS path every page.",
+   "fix": "Delete body animation (or scope to main only on first visit); make glow an opacity pseudo-element animation or drop; delete .gtbg-lift and icons.svg; fingerprint site-nav.<hash>.css/js and serve immutable via netlify.toml header.",
+   "effort": "S",
+   "acceptance_test": "Lighthouse: no non-composited animations; repeat view issues 0 network requests for nav css; FCP improves >=100 ms mobile.",
+   "metric_or_grade_moved": "Performance (FCP), Fit&finish",
+   "depends_on": [
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "P4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-10",
+   "title": "Dashboard stat cards: highest_single_regiment_rate / undefined; the card also widens the phone layout to 446px",
+   "severity": "high",
+   "evidence": "dashboard.html:244-249 cards.push({num:n.unit||key, lbl:key.replace(/_/g,' '), note:n.note}); :253 innerHTML. casualty_apportionment.json notable_intensity_notes.highest_single_regiment_rate = {union:{unit:'U-1MN',rate:85.5,note:...}, confederate:{unit:'C-26NC',rate:69.7,note:...}} -> num='highest_single_regiment_rate', note undefined. [V-local screenshot] At 375px mobile emulation innerWidth becomes 446 because the unbreakable 26px Georgia word overflows (.stat-card .num :47).",
+   "root_cause": "Generic key->card loop with no schema awareness or guards; raw snake_case used as UI copy.",
+   "fix": "notesToCards() with NOTE_TITLES map and per-shape handling (flat {unit,note} vs {union,confederate}), console.warn on unknown shape, render via textContent/html``; CSS .num{overflow-wrap:anywhere;font-size:clamp(20px,6vw,26px)}, grid minmax(min(180px,100%),1fr), .stat-card{min-width:0}; add build-time schema check.",
+   "effort": "S",
+   "acceptance_test": "DOM has no 'undefined' and no '_' in any .lbl; highest single-regiment card appears twice (Union/Confederate) with designations; on 375 mobile emulation innerWidth===375 and scrollWidth===innerWidth.",
+   "metric_or_grade_moved": "Function/Polish; Mobile D -> B+ (with pagesA-12)",
+   "depends_on": [
+    "pagesA-07"
+   ],
+   "audit_refs": [
+    "C7",
+    "S4",
+    "H7"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-11",
+   "title": "Dashboard developer 'Data note' exposes real data discrepancies; three different casualty totals; model not labelled as modeled",
+   "severity": "high",
+   "evidence": "dashboard.html:257-265 footnote ('...should be reconciled against the underlying research'), legend ⚠ :212, tooltip :199. Data [V-local]: U-I total_casualties 6,059 vs periods sum 6,394 (diff 335 = Day-3 Vermont Brigade period), C-CAV 583 vs 483 (exactly 100), overall_rate U-I 49.6 vs 52.3, C-CAV 6.1 vs 5.1. Totals: period sums Union 23,138 + Confederate 23,025 = 46,163 (cards); field sums 22,803+23,125 = 45,928; vignettes_part1 (V-001) and part3 say '51,000 casualties'. buildStrengthCurve (:98-118) is synthetic (70% drop at peak) but page says 'effective strength'. Unverified watch-list: 1st Minnesota 224/262 (85.5%) vs commonly cited 215/262 (82%); 26th NC.",
+   "fix": "Research+correct JSON (U-I likely 6,394; C-CAV verify; recompute overall_rate); scripts/validate-data.mjs in CI (total==sum, rate==round, ids resolve, tick ranges); delete footnote/⚠; add 'About these figures' <details> (sources from metadata.sources, definition of casualties, curves modeled from peak ticks); reconcile 51,000 vs 46,163 in one sentence site-wide (vignette edits = pages-B/history agent); retitle 'Modeled strength by corps'.",
+   "effort": "M",
+   "acceptance_test": "validate script exits 0; page has no 'Data note'/⚠; cards sum equals table rows; text search for '51,000' returns only the reconciled sentence; historian sign-off on the 4 watch-list figures.",
+   "metric_or_grade_moved": "Historical/data consistency C- -> B+; Copy/voice; trust",
+   "depends_on": [],
+   "audit_refs": [
+    "C7",
+    "H7"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Numbers reproduce, but the direction is wrong. U-I total 6,059 is the official I Corps figure and already includes Stannard's Vermont Brigade (about 350). The Day-1 period alone equals 6,059, so the periods double-count the 335. Reduce the Day-1 period by about 335; do not raise the total to 6,394."
+  },
+  {
+   "id": "pagesA-12",
+   "title": "Chart is a fixed 1000px SVG: sideways scroll on phones, 10px labels",
+   "severity": "high",
+   "evidence": "dashboard.html:71 <svg width=\"1000\" height=\"440\">; :31 #chart-wrap overflow-x:auto padding 20; :33 .axis-label 10px, :38 .day-label 11px; :81 fixed W=1000. [V-local] at 375: svg#chart w=1000 right=1040, only 'July 1' label visible. Naively scaling to width:100% would shrink 10px labels to ~3.4px.",
+   "fix": "Re-layout at container width: layout() returns W=max(300,wrap.clientWidth-40), H by breakpoint, PAD, yStep 5000 on narrow, font 12; ResizeObserver(debounce 120) redraw; svg{width:100%;height:auto}; y-axis title; day bands; touch-action:pan-y; small multiples (Union/Confederate panels) on phones.",
+   "effort": "M",
+   "acceptance_test": "At 320/360/375/414/768/1024/1440/2560 and 812x375: scrollWidth===innerWidth, no horizontal scroll in #chart-wrap, all 3 day labels visible, every SVG text >=12px computed, redraws on rotation.",
+   "metric_or_grade_moved": "Mobile D -> A-; A4; S4",
+   "depends_on": [
+    "pagesA-10"
+   ],
+   "audit_refs": [
+    "S4",
+    "A4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-13",
+   "title": "Chart accessibility and interaction: touch/keyboard, non-text contrast, legend controls",
+   "severity": "high",
+   "evidence": "dashboard.html:71 svg has no role/title/desc; paths mouse-only (:187-203 mousemove/mouseleave); legend items are <div> click handlers (:209-218), dim = opacity .3 (:41); tooltip positioned from svg rect but child of #chart-wrap (relative, padding 20, scrollable :31,:43,:192-195) -> offset/clipped. Series colours on #12121e: Union XII #1a4488 1.97:1, Union VI #2255aa 2.61:1 (<3:1); 8 near-identical blues. Checkboxes 13x13 (:30). toLocaleString() without locale.",
+   "fix": "figure role=group + svg role=img with title/desc; series paths tabindex=0 with aria-labels; arrow-key crosshair + aria-live readout; Pointer Events crosshair and persistent tap readout; legend as <button aria-pressed> >=44px with colour+dash+end-marker; palette validated >=3:1 vs panel in CI; 'View as table' <details> (also no-JS/SEO fallback); Intl.NumberFormat('en-US'); segmented Both/Union/Confederate at 44px.",
+   "effort": "M",
+   "acceptance_test": "axe 0 violations (color-contrast, svg-img-alt, target-size); keyboard-only user can read every corps' figures; palette validator min 3:1 for every series; tooltip inside viewport at 320px; legend buttons >=44x44 on coarse pointer.",
+   "metric_or_grade_moved": "Accessibility D -> A; Usability",
+   "depends_on": [
+    "pagesA-12"
+   ],
+   "audit_refs": [
+    "A1",
+    "A3",
+    "A4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Contrast findings are right, but the proposed replacement palette fails its own criterion: #8ec5ff vs #93c5fd is dE 1.6 and #6ea8ff vs #60a5fa is dE 3.0 (indistinguishable). Derive with a validator and prefer small multiples or direct labels."
+  },
+  {
+   "id": "pagesA-14",
+   "title": "Dashboard loading/error/no-JS states, request waterfall, SW offline hole",
+   "severity": "medium",
+   "evidence": "dashboard.html:68-69 'Loading casualty data…' / dev-voice error naming /data/casualty_apportionment.json, no retry/role; fetch :121 has no timeout; #chart-wrap display:none until everything built (:70,:267-268) -> no reserved height; no <noscript>/table (thin text for crawlers/AT); sw.js:61-68 (.catch(() => caches.match(e.request)) at :67, HTML at :74) can pass undefined to respondWith on offline cache miss.",
+   "fix": "Inline the 3KB JSON at build (<script type=application/json>) with fetch fallback; skeleton with reserved min-height; <noscript> + prerendered data table; role=alert error with plain copy, Try again button, 8s AbortController timeout; sw catch -> caches.match(...).then(r=>r||Response.error()).",
+   "effort": "S",
+   "acceptance_test": "Offline first visit shows friendly error with retry; slow-3G shows skeleton then chart with CLS 0; page text without JS contains all corps figures; no console.error on success.",
+   "metric_or_grade_moved": "Reliability, SEO (indexable text), Copy",
+   "depends_on": [
+    "pagesA-13"
+   ],
+   "audit_refs": [
+    "C7"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-15",
+   "title": "Dashboard feature completions for A+ (metric switch, corps drawer, KPIs, CSV, print, Dataset JSON-LD)",
+   "severity": "medium",
+   "evidence": "JSON already has engagements[] and notes per period (e.g. 'Nearly all I Corps casualties fell in a 3-hour window July 1') that dashboard.html never shows; no URL state, no export, no print CSS, no explainer/sources, thin static content.",
+   "fix": "Metric switch (Strength / Cumulative casualties / Rate %), day chips; corps drawer with engagements timeline + 'Watch on the map' deep links at peak tick; KPI cards from data linking to /report.html?unit=; CSV download, copy link with state in URL, print stylesheet; 'How to read this', definitions, sources, last updated; JSON-LD Dataset + dashboard-specific OG image.",
+   "effort": "L",
+   "acceptance_test": "Playwright: metric toggle changes axis title/values; URL state restores; CSV has 12 rows+header; print emulation has no nav/footer and readable table; JSON-LD validates.",
+   "metric_or_grade_moved": "Content depth, Usability, SEO",
+   "depends_on": [
+    "pagesA-03",
+    "pagesA-36",
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "S1"
+   ],
+   "verdict": "UNVERIFIABLE",
+   "correction": "Data evidence is real (engagements[] and notes exist); the feature list is a proposal I cannot judge."
+  },
+  {
+   "id": "pagesA-16",
+   "title": "Search filter chips unreadable (C8): missing styles + cascade + invisible borders",
+   "severity": "high",
+   "evidence": "search.html:30 .filter-chip has no background/min-height/font; elements are <button> (:56-59); with site-nav.css:143-147 text is #E8E6DF on UA #F0F0F0 = 1.10:1 (Regiments/Vignettes/Locations) [V-local computed]; chips 26px tall, 39-83px wide; border --line #1e1e2e is 1.2:1 vs page.",
+   "fix": "Shared .chip: min-height:44px, border 1px var(--line-strong #5b6478 = 3.3:1), transparent bg, colour var(--muted), [aria-pressed=true] gold; chips as <button aria-pressed> inside role=group aria-label='Filter by type', with per-type result counts; wrap or scroll-snap on phones.",
+   "effort": "S",
+   "acceptance_test": "Every chip state contrast >=4.5:1 (inactive 6.4:1); chip >=44x44 on coarse pointer; axe color-contrast 0 on /search.html; visual regression 375/1440.",
+   "metric_or_grade_moved": "Accessibility, Fit&finish; fixes C8",
+   "depends_on": [
+    "pagesA-02"
+   ],
+   "audit_refs": [
+    "C8",
+    "A1",
+    "A3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-17",
+   "title": "Search shows alias rows, 'Commander unrecorded', dangling ' · ' separators",
+   "severity": "high",
+   "evidence": "Data: U-14BK '14th Brooklyn (alias for U-84NY)' alias_for, strength 0, indexed as a regiment (search.html:108-115 never checks alias_for) -> query '14th brooklyn' returns alias first (score 90). :112 meta template prints 'Commander unrecorded' for 27 records (1 alias + 22 CSA cavalry + 4 detachments) and a dangling trailing ' · ' for 222 records lacking casualty_percentage though 221 are computable [V-local searchsim.mjs]. Also dev-voice :61 'Building search index…', :163 double-hyphen error.",
+   "fix": "Index build skips alias_for records and folds their names into target aliases[]; meta = [state, commander?.name, pct!=null? `${pct}% casualties`].filter(Boolean).join(' · ') with pct computed from casualties/strength when missing; never print placeholders; ' -- ' -> ' — ' at build; copy: 'Searching…', 'No matches for “q”…', friendly error + retry.",
+   "effort": "S",
+   "acceptance_test": "'14th brooklyn' -> exactly 1 regiment result; innerText for 30 sampled queries has no 'Commander unrecorded', 'alias for', or line ending ' ·'; unit test: no indexed record with strength 0.",
+   "metric_or_grade_moved": "Copy/voice, Polish; fixes H7 search rows",
+   "depends_on": [],
+   "audit_refs": [
+    "H7",
+    "C8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-18",
+   "title": "Search ranking is noisy: character-subsequence fallback, no tokenisation, no aliases/normalisation",
+   "severity": "high",
+   "evidence": "search.html:83-96 score(): exact/prefix/word/substr then subsequence=20; searchText concatenates designation+state+commander+id (+full panel_summary for vignettes) :113,:126. Simulation on deployed data: 'lee' 453 hits (448 subsequence noise); 'lincoln' 348 hits, 0 real; 'devils den' 33 noise, exact location missed (needs apostrophe); '20 maine' -> 20th Massachusetts first; 'maine 20th' all noise; 'iron/irish brigade' no brigade entity; 'bloody angle' 0 real; 'hancock' top = Captain David Hancock, not W.S. Hancock; empty query shows first 30 records in file order (:174); cap 40, no 'show more'.",
+   "fix": "Replace with token-AND field-weighted scoring, no subsequence: norm() strips diacritics/apostrophes, 20th->20, punctuation; weights title 10, alias 8, commander 6, place 4, state 2, body 1; prefix .6, edit-1 typo .35 for tokens>=5; synonyms file (High Water Mark/The Angle/Copse of Trees/Bloody Angle, Iron Brigade…); group by kind with counts, <=8 per kind + Show more, did-you-mean; ship one prebuilt search-index.v1.json (or MiniSearch/FlexSearch vendored - verify version/licence).",
+   "effort": "M",
+   "acceptance_test": "Golden queries: '20th maine'/'20 maine'/'maine 20th' -> U-20ME first; '14th brooklyn' -> U-84NY only; 'devils den'='devil\\'s den' -> Devil's Den first; 'cushing'; 'wheatfield'; 'hancock' -> Winfield Scott Hancock; 'iron brigade' -> U-I-1-1; 'bloody angle' -> The Angle; 'lee' <=25 results none by subsequence; 'lincoln' -> 0 + friendly empty state; p95 <30 ms on 4x CPU.",
+   "metric_or_grade_moved": "Function/Usability C -> A; H8 relevance",
+   "depends_on": [
+    "pagesA-19",
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-19",
+   "title": "Search index coverage: make copy true (batteries), then expand to brigades, commanders, events, monuments, pages",
+   "severity": "medium",
+   "evidence": "Index = 521 entries (467 regiments, 24 vignettes, 30 locations; search.html:144-147). Meta description promises 'regiment, battery, vignette, location' (:8) but 95 batteries (union_artillery 50 + confederate_artillery 45) are absent. Unindexed data present: 88 brigades (51+37, nicknames Iron/Irish/Stannard's Vermont/Philadelphia/Excelsior), divisions, 12 corps, commanders (every OOB record), commander_successions.json, 137 chronology events, terrain roads/structures/features; monuments.json has 9 of the app's 512 (rest inside bundle).",
+   "fix": "Build typed entity index data/entities.v1.json (regiment|battery|brigade|division|corps|commander|vignette|event|location|monument|page) with id, aliases, side, state, parents, commander, dates, place, summary, sources, link; shared by Search/Historian/Report/Regiment/Find-Ancestor; page docs make 'Search Everything' cover the 20 tools; build-time counts in meta description; extract 512 monuments from bundle (app agent).",
+   "effort": "L",
+   "acceptance_test": "'Battery' returns batteries; 'Hancock','Buford','Longstreet' return people cards; 'Iron Brigade' returns brigade + 5 regiments; index >=1,000 docs and description states generated counts.",
+   "metric_or_grade_moved": "Content depth A-; Search usefulness",
+   "depends_on": [
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "H8",
+    "H10"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-20",
+   "title": "Search UX/a11y completions: label, keyboard, highlight, URL state, live region, and mobile CLS 0.147",
+   "severity": "high",
+   "evidence": "search.html:54 <input type=text placeholder autofocus> unlabeled (probe unlabeled), autofocus pops phone keyboard; no <form role=search>, no aria-live for count (:62,:187), #empty/#loading no role=status; no arrow-key nav, Esc does nothing (H2); .kind 10px (:35); no highlight/grouping/URL state; renders on every keystroke (:151,:184). CLS 0.1466 [V-live throttled mobile, 2/2 runs]: sole source FOOTER#gtbg-footer at ~1.0 s when 30 result cards render above the JS-built footer.",
+   "fix": "form role=search + <label> + type=search enterkeyhint; autofocus only on fine pointers; / focuses, ↓/↑ roving, Enter opens, Esc clears then blurs; <mark> highlights + snippets; ?q=&type= via replaceState (300 ms) restored on load; role=status count; 'Try' chips + recent searches (localStorage try/catch) instead of arbitrary first 30; reserve results min-height, skeleton rows, prerendered footer; debounce 120 ms + chunked render; working destinations (unit -> /regiment.html?unit= today, map deep link once pagesA-03).",
+   "effort": "M",
+   "acceptance_test": "axe 0 violations; keyboard-only script completes search and opens 3rd result; SR announces '12 results' (manual); Lighthouse mobile CLS <=0.02 under throttling; /search.html?q=cushing&type=vignette renders filtered list on load.",
+   "metric_or_grade_moved": "Accessibility C -> A; UX; Perf CLS red->green; H2",
+   "depends_on": [
+    "pagesA-05",
+    "pagesA-03",
+    "pagesA-18"
+   ],
+   "audit_refs": [
+    "H2",
+    "A2",
+    "P1",
+    "D2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-21",
+   "title": "Report data bugs: 'undefined / C-CAV-1', blank alias report, dashes for computable rates, raw ids, numeric days",
+   "severity": "high",
+   "evidence": "report.html:101 parent_corps_id+' / '+parent_brigade_id: 22 CSA cavalry records lack parent_corps_id -> 'undefined / C-CAV-1' [V-local reportflow]; alias match renders strength 0, casualties 0, dashes and 'Dual designation alias -- see U-84NY.'; :106 dash for 221 units where strength/casualties exist; :101 raw ids not names (names exist in oob brigade/corps files); :107 days '2'/'1, 2, 3' not dates; 37 empty days_engaged; ' -- ' in fate/key_action; label 'Initial strength' (:62) is strength engaged.",
+   "fix": "Shared unitView(r, ctx): resolve alias_for to target; computed pct; chain of corps/brigade NAMES with fallback (no 'undefined'); commander/fate typography; days -> 'July 2'; omit null rows instead of dashes; rename to 'Strength engaged'; build-time typo() converting ' -- ' to em dash.",
+   "effort": "S",
+   "acceptance_test": "Unit test over all 467 records: no output contains undefined/null/NaN/' -- '/alias for; every unit with strength>0 has a rate; 22 cavalry reports show Cavalry Corps/brigade names; alias search resolves to real unit.",
+   "metric_or_grade_moved": "Function/Polish D -> A-",
+   "depends_on": [
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "S1",
+    "H7"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "The bug reproduces, but 58 regiments reference 13 brigade ids with no record (8 U-VI-*, C-CAV-1..5) and there is no C-CAV corps record. The acceptance test for brigade/corps names is unattainable until data-integrity adds them. The 'Not engaged in the fighting' fallback invents a fact; omit the row instead."
+  },
+  {
+   "id": "pagesA-22",
+   "title": "Report match list not keyboard-operable; search field unlabeled; inline onclick",
+   "severity": "high",
+   "evidence": "report.html:90-94 div.match with click listener only (tabindex=null role=null measured); site-nav.css:143-147 lists button.match (regression from an earlier button version); :54 input#search unlabeled (probe); no live region; no focus move to report card; :67 onclick=\"window.print()\" inline handler.",
+   "fix": "Matches as <ul><li><button class=match>; arrow-key nav; role=status count; on select focus #report h2 (tabindex=-1); <label>; type=search enterkeyhint; 44px rows; replace inline onclick with addEventListener.",
+   "effort": "S",
+   "acceptance_test": "Keyboard-only: type, ↓, Enter -> report shown with focus on its h2; axe 0 violations; grep finds no inline handlers.",
+   "metric_or_grade_moved": "Accessibility D -> A",
+   "depends_on": [
+    "pagesA-01"
+   ],
+   "audit_refs": [
+    "A2",
+    "D2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-23",
+   "title": "Report print stylesheet: nav/footer print, empty shell prints, gold-on-white headings, no header/citation",
+   "severity": "high",
+   "evidence": "[V-local printToPDF] report.html:37-42 hides header,#search,#matches,.print-btn,.back but not #gtbg-nav/#gtbg-footer (PDF text ends '© 2026 … Privacy Terms Contact User Guide (PDF) ← GETTYSBURG Ask the Historian Explore'); #report{display:block !important} prints an empty State/Corps/Commander shell with no selection; h2 gold #c9a24b on white 2.4:1; muted labels #8a93a8; no @page, no page header/URL/date, no sources footer.",
+   "fix": "@page Letter margin .6in; hide nav/footer/skip-link/actions; #report hidden unless .has-unit; ink colours (#111/#444), Georgia 11pt, break-inside:avoid; print-only header (site, unit, URL, generated date) and footer (sources from OOB metadata, /about.html#sources); short deep-link URL.",
+   "effort": "S",
+   "acceptance_test": "Print emulation: no nav/footer text, contrast >=7:1, 20th Maine fits one page, empty state prints nothing, PDF text contains sources and URL.",
+   "metric_or_grade_moved": "Fit&finish, Documentation",
+   "depends_on": [],
+   "audit_refs": [
+    "S1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-24",
+   "title": "Report is sparse (S1): featured/sample state, content model, deep link, batteries/brigades",
+   "severity": "high",
+   "evidence": "report.html:54-68 search box + 9-row echo of raw OOB record; no default content; no ?unit= deep link although regiment.html:252 already reads URLSearchParams and :247 links /?unit=; brigade/division/corps names+commanders (oob files), commander_successions, vignettes units_featured, chronology units_involved, placements/density keyframes, monuments, metadata.sources all unused. flag_notes/notes are animation-engine instructions ('CRITICAL: refused flank (bent back ~90 degrees)…') - must never be rendered.",
+   "fix": "Landing: 12 featured cards (U-20ME, U-1MN, C-26NC, U-24MI, U-69PA, U-84NY, C-15AL, U-16ME, U-6WI, C-1TX, U-8OH, U-140NY - all verified present), side>corps>brigade browse, rendered sample report. /report.html?unit= canonical + per-unit title. Sections: command/succession, organisation, numbers with rank among 467, timeline of dispositions (shared clock), in-the-story links, monuments, sources, data notes; inline SVG mini-map; actions Print/Copy link/Copy citation/JSON; extend to batteries+brigades; whitelist fields.",
+   "effort": "L",
+   "acceptance_test": "/report.html (no params) shows featured+sample, no empty shell; ?unit=U-20ME shows all sections without dashes; keyboard+print pass; Lighthouse a11y/SEO >=95; content lint: no flag_notes text.",
+   "metric_or_grade_moved": "Content depth A-, Usability; fixes S1",
+   "depends_on": [
+    "pagesA-21",
+    "pagesA-23",
+    "pagesA-36",
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "S1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-25",
+   "title": "Copy claims exceed coverage: 'moment' reports, 'battery' search, 'whole battle' follow; field hygiene",
+   "severity": "medium",
+   "evidence": "report.html:8,11,17 'any regiment or moment' (only regiments); search.html:8 'every regiment, battery, vignette…' (95 batteries missing); camera.html:48 'Follow Cam locks onto one regiment and tracks it through the whole battle' (false for 20 of 23 options); compare.html:55 'snap to the nearest recorded position at or before the tick' (jargon).",
+   "fix": "Correct each string to match reality now; expand coverage later (pagesA-19/24/31). Add whitelist of user-visible unit fields in unitView() and a CI check failing if rendered text equals any flag_notes/notes value.",
+   "effort": "S",
+   "acceptance_test": "Copy lint passes; report/search/camera descriptions match generated coverage counts.",
+   "metric_or_grade_moved": "Copy/voice, trust; H8-type overpromise",
+   "depends_on": [],
+   "audit_refs": [
+    "H8",
+    "H7"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-26",
+   "title": "Compare mobile layout broken: side-by-side maps at 375px, toggle rows overflow, layout viewport 528px",
+   "severity": "high",
+   "evidence": "compare.html:29-33 .split flex height 62vh/min 420; .pane-controls absolute over each map; :37 .toggle-row flex no wrap; :38 asks 10px but site-nav.css makes 16px -> ~330px row in ~163px control; [V-live screenshot] right pane paints over left row ('Parc…'), '3D Terrain' at x≈528; mobile emulation innerWidth 528; sliders 16px tall; controls 32x32; min-height 420 > 375px landscape height.",
+   "fix": "CSS grid; <=760px stack panes (each min(62dvh,520px)), controls static above each map, .seg wrap with min-height 44px buttons, range height 44px, mapboxgl-ctrl-group buttons 44px; landscape short viewport keeps two columns at calc(100dvh-64px); rename Parchment -> Light; second map created on IntersectionObserver; cap DPR 2.",
+   "effort": "M",
+   "acceptance_test": "At 320/375/414/768: innerWidth==device width, no horizontal scroll, all controls fully visible >=44x44 (coarse), each map >=320px tall uncovered; landscape 812x375 shows both maps side by side; visual baselines 320/375/768/1440/2560.",
+   "metric_or_grade_moved": "Mobile D- -> A-; A3; S4",
+   "depends_on": [
+    "pagesA-02"
+   ],
+   "audit_refs": [
+    "S4",
+    "A3",
+    "D2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence reproduces (viewport 528, 187px panes, 16px toggles), but the CSS sketch fails. compare.html:163 sets split.style.display='flex' inline, so display:grid is overridden and the panes stay side by side (verified by render). Static controls also land below the map in DOM order, and the fixed .pane height overflows."
+  },
+  {
+   "id": "pagesA-27",
+   "title": "Compare shows a third of the units, stale positions, raw ids, its own clock",
+   "severity": "high",
+   "evidence": "compare.html:100-110,:133-146 loads only placements_*: 152 ids/694 keyframes (23 regiments, 92 brigades, 29 batteries, 8 other); app also loads 38 density_* files (bundle.pretty.js:96788-96831) -> 478 ids. Units positioned at tick 60/300/553: 56/123/147 vs 126/349/454. :149-160 snaps to last keyframe with no age limit: median age 150 ticks at tick 300, 85% >30 ticks (max gap 658). :216 popup shows raw unit_id ('U-I-1-1'), 'as of tick N'. :120-129 own clock (5:00+5min/tick each day) vs app getTickTime (bundle.pretty.js:9371-9383: Day1 6:00, Days2-3 4:00): tick 60 9:55 vs 10:55; tick 300 11:10 vs 10:10.",
+   "fix": "Shared positions.js over merged positions.v1.json + units.v1.json: at(tick,{maxAge}) with carry-forward + interpolation mirroring app y1/F4 (bundle.pretty.js:96266-96300); markers older than maxAge (24 ticks) drawn as hollow rings 'last seen 3:40 PM'; popups with designation, side/corps/brigade, commander, plain disposition, strength then vs engaged, clock, links to report/map; brigade markers distinct + 'Units shown N of M'.",
+   "effort": "L",
+   "acceptance_test": "Marker counts at ticks 60/300/553 >= app's within 5% (test computes both from data); no popup contains raw id or 'tick'; unit tests for at() (carry-forward, interpolation, maxAge).",
+   "metric_or_grade_moved": "Core function C -> A-; historical fidelity",
+   "depends_on": [
+    "pagesA-36",
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "C4",
+    "H10"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-28",
+   "title": "Map sub-pages block first paint on 1.8MB third-party script; misleading/missing error handling",
+   "severity": "high",
+   "evidence": "compare.html:19-20 (camera.html:19-20 identical): render-blocking mapbox-gl.css (41KB) + sync mapbox-gl.js (1,796,551 B raw, ~385KB br) from api.mapbox.com, no preconnect/defer. [V-live throttled mobile, 2 runs] compare FCP 3.61-3.73 s, LCP 3.61-4.16 s, TBT 137-364 ms, 1.13MB/49 req; desktop FCP 0.64-0.68 s. try/catch :131,:275-279 reports 'Couldn't load placement data' for ANY failure (mapboxgl undefined, no WebGL, token 403); no map.on('error'); 403 tiles on non-allowed origins spam console (qt at mapbox-gl.js:11:22827).",
+   "fix": "preconnect api.mapbox.com; script defer + SRI + crossorigin (CDN sends ACAO *); CSS non-blocking or below critical; shell/skeleton with aspect-ratio paints immediately (LCP = h1/lead); create maps only when window.mapboxgl exists (10s timeout) and WebGL context succeeds else text fallback; error taxonomy with retry (data/library/tiles-403) role=alert; shared map.js with data-map-ready on first idle.",
+   "effort": "M",
+   "acceptance_test": "Lighthouse mobile (Moto G Power, Slow-4G): Compare FCP<=1.5 s, LCP<=2.0 s, TBT<=200 ms, CLS<=0.05; mapbox-gl.js not in renderBlockingResources; Playwright blocks mapbox CDN -> library-error message; disables WebGL -> text fallback.",
+   "metric_or_grade_moved": "Performance mobile C -> A; Reliability",
+   "depends_on": [
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "P1",
+    "P2",
+    "P4",
+    "D1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "All figures reproduce (my throttled compare FCP 4.1-4.7 s). One conflict: step 1's media=print onload trick is an inline handler, which contradicts the CSP goal in pagesA-38."
+  },
+  {
+   "id": "pagesA-29",
+   "title": "Compare accessibility: unlabeled sliders, unlabeled toggles, no text alternative, no landmarks",
+   "severity": "high",
+   "evidence": "compare.html:63-65 <label> without for + input#slider-a/b (probe unlabeled), no aria-valuetext ('60'); .tick-label 11px (:35); toggles no aria-pressed; no <main> (probe main:false), no skip link; no text alternative for map content; Mapbox controls 32x32; popup setHTML unescaped (:216); no keyboard time stepping.",
+   "fix": "section+h2+label for=slider with aria-valuetext 'July 2, 4:25 PM (moment 300 of 675)', throttled role=status; <details> unit table (designation, side, disposition, strength, last seen) doubling as no-WebGL fallback; <main id=main> + skip link; keyboard [ ] ±1 tick, Shift ±12, A/B focus sliders; extend map aria-label.",
+   "effort": "M",
+   "acceptance_test": "axe 0 violations (default, popup open, mobile); SR reads 'Time on left map, July 2, 4:25 PM'; all controls keyboard-operable; targets >=44px.",
+   "metric_or_grade_moved": "Accessibility D -> A",
+   "depends_on": [
+    "pagesA-36",
+    "pagesA-26"
+   ],
+   "audit_refs": [
+    "A2",
+    "A3",
+    "A4",
+    "D2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-30",
+   "title": "Compare feature completions: linked view, presets, URL state, curtain mode, what-changed panel",
+   "severity": "medium",
+   "evidence": "Two independent unsynced maps with fixed centre [-77.235,39.81] zoom 13 (only 2 dots at tick 60 live); no presets, share, swap, difference summary, image export (compare.html:190-196,:272-273).",
+   "fix": "Sync pan/zoom toggle (default on) with re-entrancy guard; swap sides; presets from chronology/vignettes with correct clock; ?a=&b=&style=&sync=&ll=&z= URL state + copy link; curtain/swipe single-map mode for phones; 'What changed' panel (moved >300 m, disposition change, >10% strength loss) with deep links; day chips/event jump; auto-fit; maxBounds; canvas toBlob export with caption.",
+   "effort": "L",
+   "acceptance_test": "Playwright per feature; sync stays within 1 frame; ?a=60&b=300 round-trips; what-changed counts equal independent Node computation on data.",
+   "metric_or_grade_moved": "Usability/content depth A",
+   "depends_on": [
+    "pagesA-27",
+    "pagesA-26",
+    "pagesA-36"
+   ],
+   "audit_refs": [
+    "S4"
+   ],
+   "verdict": "UNVERIFIABLE",
+   "correction": "Evidence (fixed centre/zoom, single dot) matches; the feature list is a proposal."
+  },
+  {
+   "id": "pagesA-31",
+   "title": "Camera 'Follow a Unit' offers 23 regiments (11 with one position); default unit absent at start",
+   "severity": "high",
+   "evidence": "camera.html:72-75,89-103: options = OOB regiments with a placements keyframe = 23 (U-12NJ, U-13VT, U-140NY, U-14VT, C-15AL, U-16ME, U-16MI, U-16VT, U-17ME, U-19MA, U-1MD-EH, U-1MN, U-1US-SS, U-20ME, U-27IN, U-2MA, C-2MS, C-42MS, U-44NY, U-6WI, U-83PA, U-84NY, U-8OH); 11 have exactly one keyframe; only 20th Maine (13, first tick 225), 1st Minnesota (11, first 200), 15th Alabama (7, first 260) have >3. :103 defaults U-20ME; :208-209 if(p) flyTo does nothing when no keyframe -> Follow at tick 1 silently no-ops. Regiments with any keyframe across placements+density: 217/467 (median 2); 231 of 250 others have a parent brigade with keyframes.",
+   "fix": "Use merged positions; inherit brigade track for regiments without own keyframes flagged 'approximate' (confirm app rule); replace <select> with labelled searchable combobox over all units grouped side>corps showing 'first seen 4:05 PM July 2 · 13 positions'; 'Jump to when this unit first appears' auto-run with aria-live message; trail line, label, disposition chip/timeline; hysteresis on camera; honest copy.",
+   "effort": "L",
+   "acceptance_test": "Follow options >=217; for every option jumping to first appearance shows marker in viewport (automated loop); no no-op options.",
+   "metric_or_grade_moved": "Core function D+ -> A-",
+   "depends_on": [
+    "pagesA-27",
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Minor: 37 regiments (not 32) have >=5 keyframes."
+  },
+  {
+   "id": "pagesA-32",
+   "title": "Camera controls: no timeline, fixed 1 tick/s, 'Tick' jargon, small targets, unlabeled select",
+   "severity": "high",
+   "evidence": "camera.html:50-56 mode buttons, unlabeled <select id=unit-select> (:33,:218), play, 'Tick 1 / 675' - no scrubber/day jump/speed/clock. :226-236 setInterval(1000), wraps tick>=675?1:tick+1 silently, not cleared on pagehide/hidden; button state via innerHTML (:228) no aria-pressed. Targets 31px (.mode-btn) and 33px (.play-btn); Play 1.92:1 (pagesA-02).",
+   "fix": "Add labelled range scrubber with aria-valuetext clock/date; Day 1/2/3 buttons; speed 0.5/1/2/4x labelled honestly ('1x = 10 battle-minutes per second', H9); Replay at end; rAF accumulator; visibilitychange pause; Space/←/→/Shift+←→/Home/End; aria-pressed + aria-label on Play; show 'July 2 · 4:25 PM' + nearest chronology caption; targets >=44px; sticky bottom control bar on phones.",
+   "effort": "M",
+   "acceptance_test": "Scrub updates <=100 ms; keyboard play/pause; at 4x clock advances 40 battle-min/s; aria-valuetext changes; axe 0 violations; no timer advance in hidden tab.",
+   "metric_or_grade_moved": "Usability D+ -> A-; Accessibility; H9",
+   "depends_on": [
+    "pagesA-36",
+    "pagesA-02"
+   ],
+   "audit_refs": [
+    "H9",
+    "D2",
+    "A3",
+    "A5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-33",
+   "title": "Camera: no error handling, serial fetch waterfall, blocking script, heavy phone cost",
+   "severity": "high",
+   "evidence": "camera.html:63-238 async IIFE has no try/catch (unhandled rejection -> empty map, no message); :77 await Promise.all(placements) THEN :78 await Promise.all(oob); r.json() without r.ok; blocking head script (:19-20). [V-live throttled mobile] FCP 3.70-3.79 s, LCP same, TBT 416-491 ms (6-8 long tasks), 966KB/51 req; desktop FCP 0.53 s, LCP 0.72 s, 1.50MB/98 req. render() every second does setData + fitBounds (:190-211).",
+   "fix": "As pagesA-28 plus: single parallel/merged data load; try/catch with error UI + retry; map.on('error'); setData only when visible set changes; cap DPR, fadeDuration 0, maxTileCacheSize; disable atmosphere overlay under reduced-motion/low power; pause when hidden.",
+   "effort": "M",
+   "acceptance_test": "Lighthouse mobile FCP<=1.5 s, TBT<=200 ms; route-abort /data/** shows friendly error; blocked mapbox script shows library error; <20% main-thread busy during 4x playback on 4x CPU throttle.",
+   "metric_or_grade_moved": "Performance mobile C -> A; Reliability",
+   "depends_on": [
+    "pagesA-28",
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "P1",
+    "P2",
+    "D1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-34",
+   "title": "S3 camera canvas 'painted incompletely': not reproducible; hardening + solar atmosphere model",
+   "severity": "medium",
+   "evidence": "Live camera.html in headless Chrome (SwiftShader) 1440x900 and 375x812: fully painted at 1.8 s and 9 s (shots/live_camera_html_*.png, live_early_camera_html_mobile.png) - NOT reproduced. Candidates: capture before tiles finish after fitBounds(800ms) from load (:157-173,:206); #atmosphere mix-blend-mode:multiply over WebGL canvas (:38-39) [?]; #map 62vh/min 420 resized w/o map.resize (:29); fetch failure with no try/catch leaving map uncreated. Atmosphere uses hard-coded hour bands (:175-188) on the inconsistent page clock.",
+   "fix": "Replace blended overlay with plain-alpha overlay or drive mood via raster paint props/setFog; set document.body.dataset.mapReady on first idle and gate tests on it; map.resize() on visualViewport/orientation; #0d0d18 skeleton behind map; dvh heights. Solar model for lat 39.82,lon -77.23 dates 1-3 July 1863 using NOAA solar equations (no dependency), tint alpha from altitude via smoothstep; verify sunrise/sunset numerically (roughly 4:45-5:00 / 7:30-7:45 local).",
+   "effort": "M",
+   "acceptance_test": "20/20 throttled headless loads reach mapReady with fully painted canvas (pixel sampling <1% transparent/black in map box); overlay has no mix-blend-mode; sun-model unit tests.",
+   "metric_or_grade_moved": "Reliability, Fit&finish (S3 = unreproduced/hardened, not fixed)",
+   "depends_on": [
+    "pagesA-36",
+    "pagesA-28"
+   ],
+   "audit_refs": [
+    "S3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Hypotheses are honest; the S3 cause is unreproduced by anyone, including me."
+  },
+  {
+   "id": "pagesA-35",
+   "title": "Director Mode heuristic and camera feature completions (engagement score, hysteresis, manual handoff, event cues)",
+   "severity": "medium",
+   "evidence": "camera.html:125-142 densestClusterBounds counts ALL placements in ~1km grid cells regardless of disposition, picks max cell every tick and fitBounds (800ms, maxZoom 15) at :206 -> at night (all bivouac) 'auto-flies to wherever the most units are engaged' (:48) is false; retargets every second; recentres after user drags; no captions. chronology_day*.json has 137 events (critical 45/high 73/medium 16/low 3; 66 carry an engine-internal 'flag' field to never render).",
+   "fix": "Engagement score by disposition (Charging 3, Line of Battle 2, Artillery 2, Skirmish 1.5, Retreat 1.5, Cavalry 1, March .5, Reserve/Bivouac/Limbered .1) x sqrt(strength), 3x3 kernel; hysteresis (>1.25x for >=6 s wall-clock) + dwell + distance-scaled easeTo; Auto/Manual handoff with 'Resume Director'; event cues + aria-live captions from chronology; follow trail/label; Cinematic toggle; reduced-motion jump cuts.",
+   "effort": "L",
+   "acceptance_test": "Camera retargets <=1x per 6 s in Day-2 playback; night ticks hold position with 'Quiet — armies in camp'; Manual never recentres; reduced-motion emulation uses duration 0; captions match chronology data.",
+   "metric_or_grade_moved": "Core function/UX A",
+   "depends_on": [
+    "pagesA-31",
+    "pagesA-32",
+    "pagesA-36"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-36",
+   "title": "One clock: three implementations disagree with each other, the app, the schema and history",
+   "severity": "high",
+   "evidence": "compare.html:120-129 approxTimeForTick and camera.html:175-179 hourForTick: 5:00 + 5min x ticks-into-day each day (+ living-ledger). App bundle.pretty.js:9371-9383 getTickTime: Day1 starts 6:00, Days 2-3 start 4:00; +2-day date bug bundle.pretty.js:97428,100842,101006. placement_schema.json: tick 1 = 5:00am but day1 ends '12:40am July 2', day2 '7:50pm', day3 '8:05pm' although each day has 225 ticks (=18h45 -> 11:45pm); placements_day3_ticks601_675 metadata '3:20pm to 8:05pm' (75 ticks=6h15). Same tick: Compare 60 -> 9:55am vs app 10:55am; tick 300 -> 11:10am (live) vs 10:10am (computed).",
+   "fix": "lib/clock.js + data/clock.v1.json (piecewise anchors per day, each with citation): tickToTime -> {day,date,clock,minutes,label}, timeToTick, dayOf, sun(tick). All consumers import it (app getTickTime via patch/rebuild, Compare, Camera, Dashboard, Search, Report, Ledger, Documentary, Sandbox); ESLint/grep ban local clock arithmetic; replace 'Tick N' with date+clock on these pages. Values come from the C4 time-facts work.",
+   "effort": "M",
+   "acceptance_test": "Unit tests: anchors round-trip, monotonic, each cites a source; 20 sampled ticks show identical clock strings in app, Compare, Camera, Report; CI grep finds no local clock functions.",
+   "metric_or_grade_moved": "Historical consistency C- -> A-; Fit&finish",
+   "depends_on": [],
+   "audit_refs": [
+    "C4",
+    "C3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-37",
+   "title": "Head/SEO: corrupt shared OG image, no JSON-LD/alt/site_name/icons, duplicate URL forms, thin static text",
+   "severity": "high",
+   "evidence": "All five pages og:image/twitter:image = /screenshots/day3.png (dashboard.html:14,18; search/compare/camera/report same; also index.html). day1.png and day3.png byte-identical (17,585 B, md5 3f6646c99f3416a1aa35fea67bed21c5) and corrupt: IHDR 1280x720 RGB but IDAT inflates to 3,687,120 B (RGBA rows) vs 2,765,520; PIL raises 'unrecognized data stream'; Chrome renders blank grey (shots/og_day3_rendered.png); manifest screenshots use same files; 16:9 not 1.91:1. Missing: og:site_name, og:image:width/height/alt, twitter:image:alt, icon/manifest links, JSON-LD (0), noscript. [V-live] /dashboard and /dashboard.html both 200; /index.html 200; Netlify rewrites /index.html hrefs to '/'.",
+   "fix": "Regenerate og/<page>.png 1200x630 (<200KB) + default, decodable manifest screenshots, CI pngcheck/PIL; head template emits unique title (‘Casualty Dashboard — Gettysburg Interactive Map’), <=155-char description, canonical, full OG/Twitter with alt, icons/manifest, theme-color; JSON-LD WebPage+BreadcrumbList (+Dataset on dashboard, SearchAction on home); extensionless canonical policy with netlify.toml 301 /*.html -> /:splat and /index.html -> / (verify Pretty URLs to avoid loops); static intro text + noscript blocks.",
+   "effort": "M",
+   "acceptance_test": "pngcheck clean; Sharing Debugger/LinkedIn show unique 1200x630 cards; curl -sI /dashboard.html -> 301 /dashboard; schema validator passes; Lighthouse SEO 100 with valid structured data.",
+   "metric_or_grade_moved": "SEO A- -> A+; T1, T3, E2",
+   "depends_on": [
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "T1",
+    "T3",
+    "E2",
+    "E5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Image corruption evidence is exact (md5, IDAT 3,687,120 vs 2,765,520). The extensionless-canonical plus 301 step is unsafe: live curl shows /embed lacks the frame-ancestors override that /embed.html has, and /dashboard gets different Cache-Control than /dashboard.html. Existing rel=canonical already consolidates duplicates, so keep .html canonical or duplicate header rules and exclude /embed*."
+  },
+  {
+   "id": "pagesA-38",
+   "title": "External deps/Mapbox token/CSP enforceability (X1 correction: tiles are URL-restricted)",
+   "severity": "high",
+   "evidence": "Third parties: api.mapbox.com (GL 3.24.1 CSS/JS matches bundle.pretty.js:53873, styles, tiles, DEM), events.mapbox.com telemetry, Netlify RUM (ingesteer.services-prod.nsvcs.net). Token duplicated compare.html:97, camera.html:64. [V-live curl] tile /v4/mapbox.satellite/14/4676/6213.webp: 200 with Referer https://gettysburginteractivemap.com/..., 403 with example.org, 127.0.0.1:8765, or none; /styles/v1/mapbox/satellite-v9 200 for all -> restricted for tiles (corrects X1); previews/localhost render blank maps. CSP is Report-Only with unsafe-inline, lacks RUM host. Blockers: inline <style>/<script> on all five, static style attrs (dashboard.html:66,70; compare.html:59,63,77; search.html:62,64; report.html:51), runtime style= in innerHTML (dashboard.html:199,212), inline onclick (report.html:67).",
+   "fix": "Single config.js for token/styles/version; keep URL restrictions, decide on www and *.netlify.app or a second restricted dev/preview token chosen by hostname; scopes styles:tiles/styles:read/fonts:read only; pin GL 3.24.1 with SRI+crossorigin and assert version==bundle; make pages CSP-clean (external CSS/JS, classes, no inline handlers) then enforce: default-src 'self'; script-src 'self' https://api.mapbox.com; style-src 'self' https://api.mapbox.com; img-src 'self' data: blob: https://api.mapbox.com https://*.tiles.mapbox.com; connect-src 'self' https://api.mapbox.com https://events.mapbox.com https://*.tiles.mapbox.com https://ingesteer.services-prod.nsvcs.net; worker-src 'self' blob:; child-src blob:; frame-ancestors 'none'; Report-Only for one release first; disclose Mapbox telemetry/RUM in privacy page.",
+   "effort": "M",
+   "acceptance_test": "Preview URL renders tiles; enforced CSP has 0 violations on 5 pages in Chromium+Firefox; header curl test; test asserts Mapbox script version == bundle version.",
+   "metric_or_grade_moved": "Security B -> A; Reliability of previews",
+   "depends_on": [
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "X1",
+    "X3",
+    "X5",
+    "P5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-39",
+   "title": "Shared-component extraction, manifest-driven build and derived-data pipeline (structural fix)",
+   "severity": "high",
+   "evidence": "Five pages ~1,100 lines with duplicated :root tokens and ~20 lines head boilerplate each; four different OOB fetch lists (search.html:69-73, report.html:73-77, camera.html:72-75, regiment.html); three clock functions; three error-handling styles; esc() private to nav; no source control/tests (N1); SRC_DIR is a copy of the deploy; deploy zip has case-mangled asset names.",
+   "fix": "Small repo, plain ES modules + one Node build script: pages/ partials/ css/{tokens,base,components} js/lib/{dom,data,clock,units,positions,map,search,a11y,deeplink} js/nav.js js/pages/*.js scripts/{build,validate-data,build-search-index,build-og-images,check-links} tests/. pages.manifest.json = single source for nav, footer, sitemap(+lastmod), head, breadcrumbs, search page docs, Historian tool directory. Build renders templates, inlines sprite once, hashes lowercase assets, emits derived data units.v1/positions.v1/search-index.v1/casualties.v1/clock.v1 (pages fetch 1-2 files instead of 8-15). Migration: hotfixes -> git+Playwright CI -> extract tokens/components -> lib modules page by page -> manifest+build -> derived data -> enforce CSP.",
+   "effort": "XL",
+   "acceptance_test": "Clean-clone build yields dist/ with no inline script/style/style=, all 20 nav links in static HTML, schema-validated heads, Lighthouse >=95 in 4 categories; SRC_DIR no longer source of truth.",
+   "metric_or_grade_moved": "All categories via consistency; unblocks CSP, P3, N1",
+   "depends_on": [
+    "pagesA-40"
+   ],
+   "audit_refs": [
+    "N1",
+    "P3",
+    "P4",
+    "X3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-40",
+   "title": "Tests, CI and source control for sub-pages (would have caught RC-1/RC-2)",
+   "severity": "high",
+   "evidence": "No git/tests for sub-pages (N1); duplicate ids, 1.10:1 chips, 446/528px layout expansion, 'undefined', dashboard cards and CLS 0.147 all shipped unnoticed.",
+   "fix": "Playwright+axe+Lighthouse-CI+Node data tests on every PR against Netlify preview; matrix Chromium desktop 1440x900, mobile 375x812 touch, 320x568, 768x1024, 2560x1440, landscape 812x375, WebKit/Firefox smoke. Specs: no-duplicate-ids, race-injection (delay /data/** 0/300/1500/4000), axe wcag2a/aa/21aa/22aa incl. menu-open/popup states, contrast tokens, target-size, layout (scrollWidth==innerWidth, mobile innerWidth==device width, min font 12px), console-clean, per-page specs (dashboard/search golden queries/report print/compare/camera/nav), seo, validate-data; Lighthouse budgets Perf>=95, A11y 100, BP>=95, SEO 100, LCP<=2.0 s, TBT<=150 ms, CLS<=0.05, JS<=60KB (non-map). Manual NVDA/VoiceOver/TalkBack + real low-end phones checklist. Put SRC_DIR in git, protect main, deploy previews, CODEOWNERS/CONTRIBUTING.",
+   "effort": "M",
+   "acceptance_test": "Suite fails on today's main in exactly the described ways and passes after fixes; CI blocks merge on failure.",
+   "metric_or_grade_moved": "Reliability, all categories (regression protection)",
+   "depends_on": [],
+   "audit_refs": [
+    "N1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Effort M is understated (L). The Performance >=95 / TBT <=150 ms budget is unreachable for the Mapbox pages without a facade or a separate budget, and it conflicts with pagesA-43's camera TBT <=200 ms target."
+  },
+  {
+   "id": "pagesA-41",
+   "title": "Copy, voice and typography pass on the five pages and nav",
+   "severity": "medium",
+   "evidence": "Dev-voice strings: dashboard.html:69 error naming /data/casualty_apportionment.json; :257-265 data note; search.html:61 'Building search index…', :163 '-- try reloading', :64; compare.html:55,58 'tick', 'reads the same public /data/*.json files'; :69 'Parchment' is light-v11; camera.html:48,55 'Tick 1 / 675', report.html:8 'or moment', 'Initial strength'; data strings contain ' -- '; nav button 'Explore' + group 'Explore' + overlay 'Extra Features'; footer name mismatch.",
+   "fix": "Museum voice (plain, specific, no dev talk, sentence case, one product name); replacement table per string (see report pagesA-41); Intl.NumberFormat('en-US'); consistent 'July 2, 4:25 PM'; build-time typo() ' -- ' -> em dash; grep lint over rendered text for --, undefined, tick, alias for, .json, Commander unrecorded, snake_case.",
+   "effort": "S",
+   "acceptance_test": "Rendered-text lint finds none of the banned tokens on any page; copy checklist signed off.",
+   "metric_or_grade_moved": "Copy/voice (DIY -> professional); H7",
+   "depends_on": [
+    "pagesA-36"
+   ],
+   "audit_refs": [
+    "H7",
+    "E2",
+    "H8"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "The replacement copy hard-codes '1st Minnesota, 85.5%', which sources contradict (215 of 262 = 82% in the charge). search.html:125 'Tick N' is also missing from the table."
+  },
+  {
+   "id": "pagesA-42",
+   "title": "Type scale, touch targets and layout tokens (min 12px, 44px targets, aligned containers, color-scheme)",
+   "severity": "medium",
+   "evidence": "Sub-12px text: dashboard .lbl 11px (:48), .axis-label 10px (:33), .day-label 11px; search .kind 10px (:35); compare .tick-label 11px (:35); nav 9.5/11/11.5px. Targets <44px per page [V-local]: dashboard 10 (checkboxes 13x13), search 12 (chips 26px), compare 32 (18 mobile), camera 18/15, report 9. header{padding 5%} left-aligned vs main max-width 1100/800/700 centred (dashboard :23,:27; search :26; report :26): heading x=72 vs content x=242 at 1440. Fonts: generic sans-serif/Georgia vs nav system-ui.",
+   "fix": "tokens.css: --fs-1 .75rem floor..--fs-6, body 1rem, --tap:44px (32px pointer:fine), --content via shared .container for header/main/footer, scroll-padding-top for sticky nav, :root{color-scheme:dark}, unified --sans/--serif stacks, focus-ring token, prefers-contrast:more variant.",
+   "effort": "M",
+   "acceptance_test": "layout.spec + target-size.spec pass; computed min font >=12px on every page; header/main/footer left edges equal at 1440.",
+   "metric_or_grade_moved": "Accessibility, Fit&finish, Mobile",
+   "depends_on": [
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "A3",
+    "A4",
+    "D2",
+    "S4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-43",
+   "title": "Performance budgets and page-by-page route to green (CWV/Lighthouse)",
+   "severity": "medium",
+   "evidence": "[V-live, throttled mobile unless noted, 2 runs, headless SwiftShader, cache disabled] dashboard FCP 0.88-1.18 s TBT 77-159 ms CLS 0 (23KB/6 req); search FCP 0.9 s (one 8.5 s outlier), CLS 0.147, 74KB/17 req; report FCP 0.77-1.52 s TBT 79-297 ms 47KB/13 req; compare FCP 3.61-3.73 s LCP 3.61-4.16 s TBT 137-364 ms 1.13MB/49 req; camera FCP 3.70-3.79 s TBT 416-491 ms 966KB/51 req; desktop FCP 0.4-1.2 s. site-nav.* max-age=0.",
+   "fix": "dashboard: inline JSON, skeleton, JS<30KB; search: prerendered footer, reserved results, single index file; report: units.v1 (1-2 requests); compare/camera: defer mapbox-gl (+SRI, preconnect), shell first, lazy second map, DPR cap, merged data, throttled setData, pause hidden; common: fingerprinted immutable assets, remove body fade, /data cache max-age=3600+SWR with versioned derived files, modulepreload, no late layout injections; optional web-vitals attribution; Lighthouse-CI budgets.",
+   "effort": "M",
+   "acceptance_test": "Lighthouse mobile+desktop per page: Perf>=95, LCP<=2.0 s, TBT<=150 ms, CLS<=0.05; RUM p75 LCP<=2.5 s, INP<=200 ms, CLS<=0.1, FCP<=1.8 s after release.",
+   "metric_or_grade_moved": "Performance mobile C/D+ -> A; RUM CWV green",
+   "depends_on": [
+    "pagesA-28",
+    "pagesA-33",
+    "pagesA-39"
+   ],
+   "audit_refs": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P7"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "pagesA-44",
+   "title": "Motion, visibility and reduced-motion handling in map pages",
+   "severity": "low",
+   "evidence": "camera.html:206,209 fitBounds/flyTo (800 ms) every tick and compare.html:263-264 easeTo(600) ignore prefers-reduced-motion; playback setInterval not paused on visibilitychange/pagehide (:230-233); nav glow infinite (site-nav.css:41).",
+   "fix": "const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches -> duration 0, no overlay transition; pause timers when hidden; avoid infinite decorative animation.",
+   "effort": "S",
+   "acceptance_test": "Emulate reduce: map.isMoving() false 50 ms after a camera change; hidden tab stops tick counter.",
+   "metric_or_grade_moved": "Accessibility (motion), battery/perf",
+   "depends_on": [
+    "pagesA-33"
+   ],
+   "audit_refs": [
+    "A6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  }
+ ],
+ "open_questions": [
+  "Deep links (pagesA-03): established from code only (no parser in bundle.pretty.js or index.html); nobody has driven the live app through its ~15 s splash to watch a ?tick= link fail. App agent should confirm in a browser and own the receiver + splash-skip behaviour.",
+  "S3 (camera canvas painted incompletely) could NOT be reproduced in headless Chrome on the live site (desktop or phone); hypotheses and hardening are specified but a real-device check (iOS/Android) is still needed.",
+  "Mapbox token: I only observed behaviour via curl (tiles 403 off-domain, styles endpoint 200). Owner must confirm the real URL allow-list and scopes in the Mapbox dashboard and whether www. and *.netlify.app previews should be allowed or use a second token.",
+  "Casualty figures: which of U-I 6,059 vs 6,394 and C-CAV 583 vs 483 is correct, the Busey & Martin grand totals (46,163 vs 51,000 wording), and the watch-list numbers (1st Minnesota 224/262, 26th NC 588/843, 20th Maine 'nearly 400 prisoners') need a source check by the owner/historian; I flagged them as unverified, not wrong.",
+  "How does the main map place the 250 regiments that have no own keyframe (231 have a parent brigade with keyframes)? I did not find the resolver in the bundle; the Compare/Camera plan assumes brigade inheritance flagged 'approximate' until the app agent confirms.",
+  "Monuments: app shows 512 but data/monuments.json holds 9; the rest lives inside the bundle and must be extracted for Search/Report.",
+  "Netlify Post-processing/Pretty URLs setting: live HTML shows /index.html links rewritten to '/', yet /x and /x.html both return 200 - confirm settings in the Netlify UI before adding 301 redirect rules.",
+  "CLS 0.147 on search appears only under mobile throttling in my runs (0 unthrottled) - confirm with RUM/CrUX.",
+  "Screen readers, Safari, Firefox and physical phones were not tested by me; a manual checklist is in pagesA-40.",
+  "Clock values (pagesA-36) depend on the time-facts/C4 decision; my deliverable is the single-module contract and its consumers, not the anchor values.",
+  "Deploy zip lower-cases five assets/* filenames vs HTML references (N1 redeploy trap) - the new build should emit lowercase hashed names."
+ ],
+ "verification_summary": "Most of pages-A holds up: I confirmed 30 of 44 findings as written and corrected 10 (two more, 15 and 30, are UNVERIFIABLE). None is refuted, though a few sub-claims are. My own live repros matched the specialist's numbers: id collision, search CLS 0.14655, mobile perf, token 403s and the corrupt OG PNG. Four corrections change what should be built. The pagesA-11 data fix goes the wrong way. The pagesA-26 CSS does not stack the panes. The pagesA-37 extensionless-URL migration would break /embed framing. The pagesA-13 palette has near-identical colours. I also found 8 missed issues, listed below. The Verification section is appended to pages-A.md (line 993 onward). I did not re-run printToPDF, screen readers, real devices, Safari/Firefox or Lighthouse itself.",
+ "missed_by_specialist": [
+  {
+   "title": "Nav bar overflows at 320px on every page",
+   "evidence": "At 320x568 mobile emulation, innerWidth becomes 329 on search, report, camera, historian, regiment and education (dashboard 444, compare 502 for other reasons). #gtbg-nav has padding 10px 16px and gap 10px, so brand 137 + pin 48 + button 98 puts the button's right edge at 329 (site-nav.css:17-25, :31-36). Scripts: tmp-verify-pages-A/w320.mjs and w320b.mjs.",
+   "fix": "Add min-width:0 on nav children, shrink or shorten the brand under 360px, add a flex-wrap fallback, and add a 320x568 layout test.",
+   "severity": "medium"
+  },
+  {
+   "title": "1st Minnesota '224 of 262 in 15 minutes' (85.5%) contradicts sources and is baked into the plan's replacement copy",
+   "evidence": "The OOB U-1MN record and the casualty_apportionment note both say 224 of 262 in about 15 minutes. Sources: 262 charged, 215 killed or wounded (82%), 17 more lost on July 3 (civilwarmed.org, Minnesota state proclamation quoted in search results). pagesA-41 writes 'Highest single-regiment loss rate · Union — 1st Minnesota, 85.5 %' into the copy.",
+   "fix": "Correct the data (215/262 = 82.1% for the charge; state the whole-battle total separately per Busey & Martin, which I could not access) and generate the copy from the data.",
+   "severity": "high"
+  },
+  {
+   "title": "Path-literal Netlify header rules break under the proposed extensionless URL policy",
+   "evidence": "curl -I: /embed.html has CSP frame-ancestors * plus X-Frame-Options DENY; /embed has X-Frame-Options DENY only. /dashboard.html gets no-cache,must-revalidate; /dashboard gets public,max-age=0,must-revalidate. netlify.toml uses for=\"/embed.html\" and for=\"/*.html\".",
+   "fix": "Keep .html canonical (rel=canonical already consolidates duplicates), or duplicate the header rules per URL form and exclude /embed* from redirects. Add a per-URL-form header test using curl -I.",
+   "severity": "high"
+  },
+  {
+   "title": "Data prerequisites for report and browse pages are missing (brigade and corps records)",
+   "evidence": "58 regiments reference 13 parent_brigade_id values with no record: U-VI-1-1..3, 2-1..2, 3-1..3 and C-CAV-1..5. Only 88 brigades exist in the OOB files. The corps files have no C-CAV record (8 Union corps incl. U-VI and U-CAV, 3 Confederate).",
+   "fix": "Add an explicit dependency on the data-integrity group records for pagesA-19/21/24. Meanwhile show 'Brigade C-CAV-1 (name not in database)' rather than blank or undefined.",
+   "severity": "medium"
+  },
+  {
+   "title": "'View on map' targets for units with no position; deep-link schema conflicts with ux-flows",
+   "evidence": "Only 217 of 467 regiments have any keyframe; 231 of the other 250 have a brigade with keyframes; the app's behaviour for the rest is unknown. pagesA-03/20 acceptance tests only U-20ME. ux-flows.md s5.6 proposes ?v= / at= / dv= while pagesA-03 uses ?vignette= / ll=.",
+   "fix": "Fall back to the brigade track flagged 'approximate', or hide the button. Reconcile one URL schema across specialists before implementing the parser.",
+   "severity": "medium"
+  },
+  {
+   "title": "Lighthouse >=95 budgets unreachable on Mapbox pages; budgets inconsistent",
+   "evidence": "pagesA-40 sets Performance >=95 and TBT <=150 ms everywhere; pagesA-43 sets camera TBT <=200 ms. My throttled mobile runs show TBT 185-563 ms and FCP 3.8-4.7 s on compare/camera before deferral. Deferral fixes FCP/LCP but not the library's parse/init cost.",
+   "fix": "Use a facade (poster plus 'Load interactive map') or set a separate mobile budget for compare/camera (for example Performance >=85 with all CWV green). Keep 95+ for dashboard, search and report.",
+   "severity": "medium"
+  },
+  {
+   "title": "pagesA-28 step 1 non-blocking CSS uses an inline onload handler that the pagesA-38 CSP would block",
+   "evidence": "Proposed `<link media=\"print\" onload=\"this.media='all'\">`; the target CSP has script-src without 'unsafe-inline', which blocks inline event handlers.",
+   "fix": "Self-host or inline critical mapbox-gl CSS, or use preload plus an external script, and record the constraint in pagesA-28.",
+   "severity": "low"
+  },
+  {
+   "title": "No <main> on camera.html, no skip link on any of the five pages, and jargon strings missing from the copy table",
+   "evidence": "grep finds no <main> in camera.html (the report only notes compare). search.html:125 prints 'Tick N' in vignette rows and location rows print 'Days 1, 2, 3'; neither is in the pagesA-41 replacement table.",
+   "fix": "Add <main id=main> and a skip link via the shared template; add the two strings to the pagesA-41 copy table and the grep lint.",
+   "severity": "low"
+  },
+  {
+   "title": "Mapbox billing side effect of Compare (two map loads per visit)",
+   "evidence": "compare.html creates two mapboxgl.Map instances per visit and camera.html one; each map load is billable and the plan never counts them.",
+   "fix": "Track map loads per visit in the perf/cost budget and consider loading the second Compare map only on demand on phones.",
+   "severity": "low"
+  }
+ ]
+}

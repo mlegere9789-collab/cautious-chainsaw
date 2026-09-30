@@ -1,0 +1,354 @@
+{
+ "agent": "time-facts",
+ "summary": "Built an authoritative real-time table of 129 events for July 1-4, 1863 (98 core + 31 supplementary; confidence H/M/L 18/66/45; 33 documented inter-source disagreements), then compared it with the site. Every audited site time surface is wrong: over 102 chronology events that map to a single real event, the JSON label is off by a mean 4.8 h (median 3.9 h; 5/102 within 30 min), the main-map clock by a mean 4.8 h (1/102 within 30 min), and the 5-minute formula used by Compare/Living Ledger/Camera/lighting by a mean 4.5 h (7/102). There are six independent tick-to-clock implementations in code (map clock with 6:00/4:00 bases, header and tooltip/panel date +2 bug, 5:00-base tint and static pages), hand-authored JSON labels, and hand-typed times in the bundle. Structure of the error: not an offset and not a uniform scale. Real minus label rises from about 0 at each day's start to about +5-6 h (Day 1 afternoon), +7-9.5 h (Day 2), +3.2-3.9 h (Day 3 cannonade/charge) and relaxes to about 0 at the end of Day 3. The best straight line per day leaves RMS 39/51/79 min (Day 1 is close to a uniform 9.25 min/tick dilation; Day 2's morning is collapsed into a few ticks). A 33-anchor monotone piecewise-linear tick-to-time map (12 solid, 13 medium, 5 needing a historian decision at t75/t90/t248/t275/t538, 5 design anchors) gives mean abs error 21 min, median 10 min, 86/102 events within 30 min, leave-one-out RMS 44 min. Independent validation: 30 hand-typed real clock claims already in the bundle (walkthrough subtitles, monument tooltips, timeline markers) sit a median 14 min from the proposed clock at the same ticks (21/30 within 30 min) versus 214 min from today's map clock (1/30). So the authors knew the real times; the clock function is what is broken. Not everything is a relabel: of 137 chronology events, 4 are on the wrong day (t8, t360, t380, t420), 12 are misordered (suggested new ticks listed), 9 are composites, 6 contradict their own label in their own text, 2 carry quotes not found in any source, and 36 are relabels whose real time is contested. Also found: vignette bugs V-022 (7:30 am vs real ~10-11:30 am), V-020/V-021 (eight days vs four), Alexander's notes misattributed at t525/t530, Pickett's brigades placed on Seminary Ridge from tick 400 (July 2 evening) versus arrival ~9 am July 3, lighting tint fed the wrong hour so the dusk assaults render in afternoon light, and playback label '1x (real time)' being false (cF=500 ms/tick; anchors imply 0.8-42 min/tick). Honest limits: Pfanz, Coddington, Sears, Hessler, Wert, Gottfried, Busey/Hartwig and most Official Records reports could not be read this session (only NPS-hosted OR for Doubleday, Hall, Wainwright, Longstreet, Work, Cabell, Hodges, plus ABT maps/articles, raw Wikipedia wikitext with printed footnote pages, Stone Sentinels and HistoryNet); 5 rows are tagged L (literature recall, unverified) and 5 S (search-summary only), listed for historian sign-off. Deliverables: the report plus four CSVs (master events, per-event discrepancy, anchors, other-site-claims).",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/time-facts.md",
+ "findings": [
+  {
+   "id": "time-facts-01",
+   "title": "One time model: time_anchors.json + shared module replacing the six divergent tick-to-clock implementations",
+   "severity": "critical",
+   "evidence": "getTickTime uses Day1 base 6:00 / Day2-3 base 4:00 (bundle.pretty.js:9371-9383 `R = (P === 1 ? 6 * 60 : 4 * 60) + H`); header date `July ${l + 2}` (97428); JF() and QF() use 5:00 base and date +2 (100836-100843, 100998-101007, used at 100889/101078); M4()/E4() tint hour uses 5:00 base (9856-9884); compare.html:120-128, living-ledger.html:135-143, camera.html:175-179 use another 5:00-base copy; chronology_day1.json:5 tick_formula is false. Against 102 matched events: label mean error 4.8 h (5/102 within 30 min), map clock 4.8 h (1/102), 5-min formula 4.5 h (7/102); proposed anchors 21 min mean (86/102 within 30 min).",
+   "fix": "Create public/data/time_anchors.json (33 tick-to-local-1863-time anchors with status S/M/R/D and a gaps list; full JSON sketch in report section 7.5) and src/time/timeModel.js exporting tickToMinutes (binary search + linear interpolation, 5 min/tick extrapolation), minutesToTick, dayOf, formatClock(tick,{approx}), lightingHour, isGap. Replace getTickTime (9371), header badge (97428), JF (100836), QF (100998), M4 (9856), and the three static-page formulas; load the module from site-nav.js or /assets with long cache. Because no real source exists (N1), apply to the reconstructed source or patch the bundle.",
+   "effort": "L",
+   "acceptance_test": "Unit tests: anchors monotone; formatClock(12)='July 1, 1863, 7:30 AM'; formatClock(538)='July 3, 1863, c. 3:00 PM'; every time-facts.csv core row with linked ticks is within 45 min or inside its [lo,hi] of the model; grep test forbids '+ 2' date arithmetic and '* 5' clock arithmetic outside the module; Playwright shows July 3 / 3:00 PM at t538 in header, tooltip, history panel and static pages.",
+   "root_cause": "Each surface re-implemented tick-to-clock with different constants; none derived from real time; the data labels were hand-authored and the metadata formula is false.",
+   "metric_or_grade_moved": "Function/accuracy and content credibility to A+; removes 6 duplicate code paths; no performance effect (<1 KB).",
+   "depends_on": [
+    "time-facts-05"
+   ],
+   "audit_refs": [
+    "C3",
+    "C4",
+    "H9",
+    "N1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Code evidence and line numbers are exact and the error stats reproduce (label 4.79 h, map 4.82 h, 5-min 4.52 h). The 21-min/86-of-102 accuracy is in-sample: 30 of 102 events sit on anchor ticks. Off-anchor (n=72) the mean is 28.8 min, median 17.5, RMS 55. 32 of 102 'real' comparators are the specialist's own 'custom' estimates. The 30-claim 'independent' check (median 14.5 min) has 11 claims on anchor ticks, and off-anchor the median is 27 min. The spec'd formatClock string 'July 1, 1863, 7:30 AM' breaks the mobile clock: bundle.pretty.js:102977 does Es.split(', ')[1], so it would render '1863'. An unhashed /assets/time-model.js is immutable plus SW cache-first and would be stale forever; inline the 33 anchors instead of adding a first-paint JSON fetch. immersive.html:169-173 is a fourth static copy that was missed."
+  },
+  {
+   "id": "time-facts-02",
+   "title": "Fix the +2 date bug and missing day roll-over (header, monument tooltip, unit-history/Follow-Your-Ancestor panel)",
+   "severity": "critical",
+   "evidence": "bundle.pretty.js:97428 `July ${l + 2}, 1863`; :100842 `July ${f + 2}`; :101006 `July ${f + 2}` (renders July 3/4/5 for July 1/2/3). getTickTime (9371-9383) prints tick 225 as '12:40 AM July 1' (no date carry).",
+   "fix": "Replace all three with formatClock(tick).dateLabel from time-facts-01 (date derived from absolute minutes so the post-midnight wrap becomes July 2). If 01 is delayed, hot-patch the three sites to `July ${l}` / `July ${f}` (nothing else depends on +2).",
+   "effort": "S",
+   "acceptance_test": "At ticks 1, 226, 451 the header, monument tooltip and history panel read July 1/2/3; tick 225 reads July 2; Follow-Your-Ancestor shows the 20th Maine at Little Round Top on July 2.",
+   "root_cause": "Off-by-two day constant; no date carry past midnight.",
+   "metric_or_grade_moved": "Function A+ (C3); trust.",
+   "depends_on": [],
+   "audit_refs": [
+    "C3"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Root cause confirmed: July ${l+2} at 97428, July ${f+2} at 100842 and 101006, and nothing else depends on +2. The 'one-character in-place hot-patch' is not deployable: the bundle is served immutable and sw.js precaches it cache-first (CACHE_NAME gbg-v5). A patch needs a new hashed filename, updated index.html and sw.js PRECACHE, and a CACHE_NAME bump. Day roll-over also needs a battle-day versus calendar-date decision, because midnight falls at t160 and t368 under the anchors. Effort stays S."
+  },
+  {
+   "id": "time-facts-03",
+   "title": "Regenerate every chronology label and embedded clock time from the model; fix false metadata",
+   "severity": "critical",
+   "evidence": "time-facts-discrepancy.csv (137 rows): 6 events whose own text contradicts their label (t12 text 7:30am vs label 6:00am; t38 'Noon lull' vs 8:10am; t314/t326 'at dusk' vs 12:10pm/1:10pm; t515 'approximately 11:00am' vs 9:15am; t518 'approximately 1:00pm' vs 9:30am); t100 text 'Meade arrives ~11pm' vs sources after midnight/~1am; chronology_day1.json:5 tick_formula and placement_schema.json:8-10 real_time strings are false (day2 '5:00am to 7:50pm' for 225 ticks).",
+   "fix": "scripts/relabel_chronology.mjs: time = formatClock(tick) (keep time_legacy); scan event/narrative text for clock times and report mismatches >30 min vs the model; fix contradicting text; replace tick_formula and placements chunk descriptions/real_time fields with 'derived from time_anchors.json'. Dry-run diff for owner review before applying.",
+   "effort": "M",
+   "acceptance_test": "Script exits 0 with zero text/clock mismatches; CI reruns it; label snapshot for the 13 key ticks in report section 2.2.",
+   "root_cause": "Labels were hand-written per chunk window (5am-8pm story compression) and the formula metadata was never true.",
+   "metric_or_grade_moved": "Content accuracy and internal consistency A+.",
+   "depends_on": [
+    "time-facts-01"
+   ],
+   "audit_refs": [
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "All 6 TEXT-VS-LABEL rows and the false tick_formula/real_time metadata verified. My scan finds additional label/text conflicts (t75, t340, t420), so 6 is a lower bound. historian.html:123 prints 'Day N, time', so relabelled post-midnight ticks need a date, not just an am time."
+  },
+  {
+   "id": "time-facts-04",
+   "title": "Re-tick 15 misordered/wrong-day chronology entries and split 9 composites; move Day-2 tail events to Day 3",
+   "severity": "high",
+   "evidence": "Section 7.4 table: t310 Stuart arrives (real ~12:30pm) sits among 6:15-7:00pm events; t360 Lee/Longstreet meeting, t380 Alexander positions guns, t420 Pickett moves into position are July 3 events labelled July 2 (real ~4:30am, ~11:30am, ~9am); t400 council of war (9-11:30pm) placed 60 ticks after 'fighting dies down' (t340 10:30pm); t283/t298/t304/t335 out of order by 20-90 min; t460/t490 (Colgrove/Johnson exhausted, ~10:30-11am) placed at 5:45/7:35am; t560/t563 East Cavalry Field precedes the infantry step-off; t8 is a June-30 conversation. Composites: t50, t95, t100, t226, t270, t278, t440, t516, t620.",
+   "fix": "Apply suggested-tick table (t310->~242, t335->~302, t360->~451, t380->~516, t400->~334, t420->~500, t460->~511, t490->~515, t560->~522, t563->~538, t283->~272, t298->~278, t304->~290, t243->~255, t273->~271) after historian confirmation; split composites into one card per real event; turn t8 into a 'night before' card or delete; keep vignettes trigger_tick in sync. Spot-check the map at each new tick because placements with density passes are aligned to their ticks.",
+   "effort": "M",
+   "acceptance_test": "For every matched event |model(tick) - real best| <= 45 min or inside its range; re-run of analyze.py shows zero MISORDERED/WRONG-DAY rows; real times non-decreasing along tick order for core events.",
+   "root_cause": "Narrative ordering by theme instead of time; Day 2 tail t341-t450 used as a catch-all.",
+   "metric_or_grade_moved": "Content accuracy and narrative coherence A+.",
+   "depends_on": [
+    "time-facts-01",
+    "time-facts-05"
+   ],
+   "audit_refs": [
+    "C4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "The suggested new ticks re-derive correctly from the anchors, and multiple events per tick are supported (PF groups by tick), so collisions are safe. But t420 'WRONG-DAY, delete the July 2 evening placement' is not established. Wikipedia second day says Pickett had arrived by the night of July 2; the Pickett's Division monument says 'July 2 on march, July 3 reached the field about 9 AM'; a Black Horse Tavern marker (seen only in a search summary) says he lay that night on the west side of Spangler's Woods. Only SS2 says he was still at Chambersburg. Treat t420/t500 as a historian decision, not a delete. Key 460 'Mudge's charge' in the bookmark-label dictionary IF() (97865-97894) must be re-keyed with any re-tick. The count is 16 (12 + 4), not 15."
+  },
+  {
+   "id": "time-facts-05",
+   "title": "Historian review queue and sign-off workflow for contested times (5 review anchors, 33 disagreements, 45 L-confidence rows)",
+   "severity": "high",
+   "evidence": "Register of 33 disagreements in report section 4, e.g. 20th Maine charge 5:10pm / 5:30 / ~6:30 / after 7pm (SRCH, SS2, THJ, Cross in HistoryNet); infantry step-off ~3:00 (ABT; WP main citing Coddington 402, McPherson 662, Eicher 546, Trudeau 484, Walsh 281) vs 'about 2:00' (WP Pickett's Charge citing Coddington 502, Hess 162, Sears 415, Wert 182); Colgrove's charge 6:00am (Stone Sentinels) vs 7:30am (site V-022) vs ~10-noon (Sears via Wikipedia); Sickles's advance noon-3:30pm; Reynolds 10:15 vs 10:40-10:50; Howard 10:30 (Pfanz p.137) vs 11:30 (Martin p.198). Pfanz, Coddington, Sears, Hessler, Wert, Gottfried, Busey/Hartwig and most OR reports could not be read this session.",
+   "fix": "Give the owner/historian time-facts.csv filtered to confidence=L or tag in (S,L) plus the register and the reading list (report 9.1). Record each decision in time-facts-decisions.json {id, decision, display string, citation with page, reviewer, date}; the time model reads display strings. Priority: 20th Maine, step-off, Colgrove, Sickles, Longstreet/Warren, Reynolds, Pickett arrival, Lee's order.",
+   "effort": "M",
+   "acceptance_test": "Decisions file has an entry for every L row; the 5 R anchors are decided or explicitly accepted as approximate; no S or L tags remain on core rows.",
+   "root_cause": "Several key times are genuinely contested; sources disagree by 15-30 min routinely and by hours in a few cases; 1863 had no standard time.",
+   "metric_or_grade_moved": "Historical credibility A+; finalises anchor values for time-facts-01.",
+   "depends_on": [],
+   "audit_refs": [
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Counts reproduced: 129 rows, confidence 18/66/45, tags 117/5/5/2, 33 register rows, 5 R anchors, 45 L or S/L rows. Spot-checked sources match (Wikipedia Reynolds 10:15 vs 10:40-10:50, Howard 11:30 vs 10:30, Pickett's Charge 2:00 vs 3:00, ABT 'about 3:00', Longstreet OR 'about 2 p.m.' = line arrangement). Add: Wikipedia cites Coddington p.502 for both a 2:00 step-off and a 3:00 bombardment end, so the 2:00 reading is weak. 4 of the 12 'S' anchors rest on M-confidence rows and belong in the review queue."
+  },
+  {
+   "id": "time-facts-06",
+   "title": "Correct vignette/chronology text errors found during time checking (V-022, V-020, V-021, t525/t530 quotes, t324, t100)",
+   "severity": "high",
+   "evidence": "vignettes_part3.json V-022 'The order came down at approximately 7:30 in the morning of July 3' (real best ~10:00-11:30am; Stone Sentinels says 6:00am); V-020 Custer 'brigadier general for exactly eight days' and V-021 Farnsworth 'a general for eight days' then 'four days' (Custer's commission and Farnsworth's nomination date to June 29 per Wikipedia, so 4 days on July 3); chronology_day3.json t525 quotes 'For God's sake come quick...' as Alexander's first message but that is the second real note (1:35pm; first at 1:25pm reads 'If you are coming at all, come at once...'); t530 quote 'I would not make the charge now...' not found in any source read; chronology_day2.json t324 'Night attack repossesses most of the upper works'; t100 'Meade arrives at ~11pm'.",
+   "fix": "V-022 -> late morning (or historian-confirmed time); V-020/V-021 -> four days; t525 -> the real 1:25pm note text, t530 -> the real 1:35pm note text (each with a citation field); delete the unmatched quote unless a citation is found; rewrite t324 and t100 per report 5.3.",
+   "effort": "S",
+   "acceptance_test": "Grep tests for the removed strings pass; every quoted message has a citation field and a time within 15 min of the register.",
+   "root_cause": "Narrative text was generated without source checking.",
+   "metric_or_grade_moved": "Content accuracy and professional voice.",
+   "depends_on": [],
+   "audit_refs": [
+    "C4",
+    "H7"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "V-022, V-020, V-021, t525/t530, t324 and t100 are verified. REFUTED sub-claim: vignettes_part2.json V-015 quotes the first message correctly ('If you are to advance at all...') and the second ('For God's sake come quick'); only chronology t525 is wrong. The proposed t525 replacement uses Wikipedia's wording, which differs from V-015 at the same tick, so pick one primary-source text for both. Farnsworth was nominated June 29 but never Senate-confirmed, so word it 'held the rank about four days'. Culp's Hill's 'near noon' means the Colgrove range should extend to about noon."
+  },
+  {
+   "id": "time-facts-07",
+   "title": "Generate walkthrough/monument/timeline-marker/turning-point/sandbox times from the model and fix their tick placements",
+   "severity": "medium",
+   "evidence": "Walkthrough stops bundle.pretty.js:100065-100313: stop 2 'July 1, 10:00 AM' at t22 but narrates Iverson (real ~2:30pm); stop 4 'retreat 4:00 PM' at t75; stops 7/8 Wheatfield 5:00pm at t275 and Peach Orchard 6:00pm at t270 reversed; stop 13 East Cavalry 3:00pm at t522; stop 16 'July 4-5' at t610. Monument tooltips :100617-100835: Cushing 3:00, Armistead 3:15, Hancock 3:20pm (15-35 min early vs ABT/SS3), Barlow 2:30pm at t63, Iron Brigade t20. Timeline marker 'First shot' at t17 (:112193) vs t12. turning-points.html:53-93: Ewell t175 (chronology t75), Cannonade t540, Charge t560. sandbox.html:104-106 labels wrong under the model. 30 hand-typed claims are a median 14 min from the proposed clock but 214 min from the map clock.",
+   "fix": "Store an event id per stop/monument/marker and derive tick via minutesToTick(best) and subtitle via formatClock; apply corrections: stop 2 -> ~t53, stop 4 -> ~t64, reorder stops 7/8, stop 13 -> ~t538, monuments Cushing/Armistead/Hancock -> ~3:30/3:35/3:40pm, marker First shot -> t12, turning points -> t75/t256/t275/t518/t538, sandbox labels generated.",
+   "effort": "M",
+   "acceptance_test": "Script diff shows all hand-typed times replaced by generated ones; jumping to any stop shows the same clock as the header; turning-point ticks match chronology ticks.",
+   "root_cause": "Ticks were chosen independently of any clock and subtitle times typed by hand.",
+   "metric_or_grade_moved": "Consistency across features (H13/D3 area).",
+   "depends_on": [
+    "time-facts-01"
+   ],
+   "audit_refs": [
+    "C4",
+    "H13"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "All cited lines verified (walkthrough stops, monument labels, markers, turning points, sandbox). The claim inventory misses the 15-stop tour array d2 (bundle.pretty.js:104097-104420), whose prose has hand-typed clock claims ('Around 1 p.m.', 'By about 3:30', 'The storm breaks, 4 p.m.', 'around 6:30 p.m.', 'Around 7 p.m.'). The sandbox t260 note (~4:25) contradicts its table row (4:11)."
+  },
+  {
+   "id": "time-facts-08",
+   "title": "Drive day/night tint (and optional moon) from real hours and computed sunrise/sunset",
+   "severity": "medium",
+   "evidence": "bundle.pretty.js:9856-9884 M4()/E4() and C4 (:9903): hour = 5:00-base, tint dusk 18-21 h; dusk assaults t314-t330 therefore render at hours 12.3-13.3 (bright afternoon). Computed for Gettysburg (NOAA algorithm): civil twilight 4:03am, sunrise 4:35am, sunset 7:32pm LMT (Stone Sentinels 7:29pm), civil dusk 8:04pm, nautical dusk 8:46pm; moon ~full July 1-2 (SS2: one day past full, smoke obscured). camera.html:175-190 has a similar 5:00-base model.",
+   "fix": "lightingHour(tick) from time-facts-01; replace hard-coded thresholds with a function of meta.sunrise/sunset/civil_* in the anchors file (pre-dawn blue 4:03-4:35, warm to 5:30, day, warm 17:30-19:32, twilight to 20:04, dark to 20:46, night after); optional moon glow.",
+   "effort": "S",
+   "acceptance_test": "Screenshot tests: t314 (7:20pm) amber-violet, t326 (8:00pm) deep dusk, t451 (4:30am) pre-dawn, t538 (3:00pm) no tint; overlay contrast checks.",
+   "root_cause": "Tint fed the compressed 5:00-base hour instead of real time.",
+   "metric_or_grade_moved": "Historical immersion/polish; consistency with the clock.",
+   "depends_on": [
+    "time-facts-01"
+   ],
+   "audit_refs": [
+    "C4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Tint code verified; A4/C4 are wired on the desktop map only. My NOAA recomputation matches the report within 1 min (sunrise 4:35, sunset 7:31-32, civil 4:03/8:04, nautical 8:45). The moon is misdated: full moon was 1863-07-01 about 06:45 UT, so about 1.7 days past full at July 2 dusk, not age 14.9-15.9 d. Missed risk: under the anchors 220 of 675 ticks (33%) are full night, with tint alpha 0.35-0.4 multiply over the desktop map, and Jump to Day 2/3 lands at 4:30 am pre-dawn. Cap alpha to about 0.2-0.25, keep unit layers above the tint, and add a daylight toggle."
+  },
+  {
+   "id": "time-facts-09",
+   "title": "Playback semantics: replace false '1x (real time)', handle gap/stall segments, add clock-time mode and optional July 4 ticks",
+   "severity": "medium",
+   "evidence": "cF = 500 ms per tick (bundle.pretty.js:96948; tick advance Pe = cF / R at :96973) = 2 ticks/s; label '1x (real time)' built at :97429. Anchor segments run from 0.8 to 42 min/tick (t226-t240 32 min/tick and t515-t518 42 min/tick are GAPS; t302-t314 0.8 min/tick is a STALL) so the sim clock runs 1.6-84 sim-min per second at '1x'. Chronology ends at t675 (8:05pm July 3) while walkthrough stop 16 and V-024 describe the July 4 retreat.",
+   "fix": "(a) relabel speeds as sim-minutes per second using local min/tick, or (b) add a 'Clock time' mode: simMin += dt*speed, tick = minutesToTick(simMin) with fractional-tick interpolation (an InterpolationWorker chunk already exists); (c) honour gaps with auto fast-forward and a 'quiet interval' caption; (d) optional Day-4 stub (ticks 676+: July 4 rain, Imboden train ~1-4pm, infantry after sunset).",
+   "effort": "L",
+   "acceptance_test": "At '60 sim-min/s' one second advances the clock by 60 min +-1%; playback accelerates through t226-t240 and t515-t518; no UI string says 'real time'.",
+   "root_cause": "Playback is tick-driven and the label assumed 5 real minutes per tick.",
+   "metric_or_grade_moved": "UX accuracy (H9).",
+   "depends_on": [
+    "time-facts-01"
+   ],
+   "audit_refs": [
+    "H9"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "cF=500 ms (96948), 2 ticks/s and the '1x (real time)' label at 97429 are verified. The 'InterpolationWorker chunk already exists' claim is misleading: interpolationworker-ufiwa2-e.js (672 B) is an orphan referenced by nothing (0 matches in bundle.min.js and index.html), and bundle-anatomy finding 05 recommends deleting it. Interpolation is inline (ut = Hc/Pe). Option (a) would change the speed label mid-playback, so prefer option (b). Keep the tick-keyed lazy loads (>=200, >=420) and s2=675."
+  },
+  {
+   "id": "time-facts-10",
+   "title": "Audit placements for arrival/timing errors (starting with Pickett's division)",
+   "severity": "high",
+   "evidence": "Placement records for C-I-3-1/2/3 (Garnett, Kemper, Armistead): first record tick 180 'Line of March' at lat 39.8067-39.8089, lng -77.2917 (west of town, July 1 evening by label) and 'Bivouac' at ~39.82/-77.255 on Seminary Ridge at ticks 400-451 (July 2 evening/night by label). Stone Sentinels: Pickett still at Chambersburg during the night of July 2 (SS2) and arrived ~9:00am July 3 (SS3); Wikipedia second day says arrived by the night of July 2 (probably Marsh Creek). Chronology t420 puts him in position on July 2 night while t500 has him move up on July 3 morning. placements_day2_ticks376_450.json description repeats the July-2 claim.",
+   "fix": "Script audit_placements.py: for each corps/division/brigade with an arrival time in the time-facts table (Heth 5am; I Corps ~10-noon; XI Corps noon-1pm; XII Corps 5pm on; III, II, V, VI, Pickett, Stuart per SS1-SS3), find the first placement tick, convert via the model, list discrepancies >90 min; patch positions or first-appearance ticks; resolve Pickett first with a historian.",
+   "effort": "L",
+   "acceptance_test": "Audit script reports zero >90 min discrepancies for the tabulated arrivals; Pickett's brigades absent from Seminary Ridge until the confirmed arrival tick.",
+   "root_cause": "Placement chunks were authored from the same compressed narrative as the chronology.",
+   "metric_or_grade_moved": "Historical accuracy A+.",
+   "depends_on": [
+    "time-facts-01",
+    "time-facts-05"
+   ],
+   "audit_refs": [
+    "C4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Placement rows verified but the report omits the t200 'Bivouac on Chambersburg Pike, resting before July 3' rows. A July 1 presence west of Gettysburg is definitely wrong (Longstreet OR: Pickett 'not yet relieved from duty at Chambersburg' on July 1; the Pickett's Division monument says 'July 1 guarding trains at Chambersburg'). The claim that a July 2-night Seminary Ridge bivouac (t400-451) is wrong rests on SS2 alone and conflicts with Wikipedia, the monument and the Black Horse Tavern marker snippet, so reword it as undecided. The dataset has only 1,804 placement rows, so the audit script is trivial; the real effort is arrival-time research, about M overall."
+  },
+  {
+   "id": "time-facts-11",
+   "title": "Move Compare, Living Ledger, Camera/Viewshed and Sandbox to the shared time model",
+   "severity": "medium",
+   "evidence": "compare.html:120-128 approximateTimeForTick 5:00-base ('Ticks are 5-minute intervals starting 5:00am'), page copy at :55 suggests 'the Union line at 4:00pm vs. 6:00pm on Day 2' (meaningless under that formula); living-ledger.html:135-143 timeForTick uses `July ${dayIdx + 1}` and 5:00 AM (audit: starts at '4 casualties' S4); camera.html:175-179 hourForTick; sandbox.html:104-106 hand-typed labels.",
+   "fix": "Import the shared module; sliders show model clock plus nearest event caption; rewrite Compare example copy (e.g. 'Longstreet steps off (t256, about 4:00 pm) vs. the Peach Orchard falls (t280, about 6:30 pm)'); generate sandbox labels from formatClock.",
+   "effort": "M",
+   "acceptance_test": "Playwright cross-page test: identical clock strings for the same tick on the app and all sub-pages; no '* 5' clock arithmetic remains in *.html.",
+   "root_cause": "Each static page copied a private 5:00-base formula.",
+   "metric_or_grade_moved": "Cross-page consistency (S4 area).",
+   "depends_on": [
+    "time-facts-01"
+   ],
+   "audit_refs": [
+    "C4",
+    "S4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "compare, living-ledger, camera and sandbox lines are verified. Missed: immersive.html:169-173 is a fourth copy of the 5:00-base hourForTick feeding a 0.45-alpha night tint. The static pages' own DAY_BOUNDS need the calendar-date decision too."
+  },
+  {
+   "id": "time-facts-12",
+   "title": "CI contract tests and lint for time claims",
+   "severity": "medium",
+   "evidence": "No test currently ties chronology, vignette, walkthrough, monument or static-page times to any model; six separate implementations drifted apart (report section 2.1) and 137 chronology labels are wrong by up to 9.5 h.",
+   "fix": "tests/time-contract.test.mjs: anchors monotone; every chronology/vignette/walkthrough/monument time string parsed and compared to the model (30 min tolerance, contested rows use their range); time-facts.csv core rows' linked ticks within range; JSON schema for time_anchors.json and time-facts-decisions.json; forbidden patterns ('+ 2' date offsets, '4 * 60'/'6 * 60' base constants); Playwright smoke for headline ticks; report of uncited events.",
+   "effort": "M",
+   "acceptance_test": "CI turns red on an injected +2 date offset and on a deliberately mislabelled chronology entry; green on the repaired data.",
+   "root_cause": "No regression protection for a data-derived clock.",
+   "metric_or_grade_moved": "Reliability/regression prevention; tested-quality criterion.",
+   "depends_on": [
+    "time-facts-01",
+    "time-facts-03"
+   ],
+   "audit_refs": [
+    "C3",
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Sound. State the dependency on source reconstruction (N1): forbidden-pattern greps ('* 5', '+ 2') can only run on reconstructed source or static pages, because in the built bundle '* 5' also matches Mapbox code (22030, 32804, 61302)."
+  },
+  {
+   "id": "time-facts-13",
+   "title": "Time display UX: approximate marking, 5-minute rounding, Sources & Times disclosure",
+   "severity": "low",
+   "evidence": "Sources routinely disagree by 15-30 min (1863 had no standard time) and by hours for 5 anchors; the site currently shows minute-precision (e.g. map clock '6:55 AM') for values that are wrong or contested.",
+   "fix": "Show the clock rounded to 5 minutes with 'c.'/'about' prefix when the nearest anchor is status R or confidence L; tooltip 'Times are approximate; sources disagree by 15-30 minutes'; a 'Sources & Times' page listing key anchors with sources and ranges (from time-facts.csv); hour ticks and sunrise/sunset glyphs on the timeline; accessible labels ('July 3, 1863, about 3:00 PM').",
+   "effort": "M",
+   "acceptance_test": "axe passes on clock/timeline; snapshot tests show 'about' for R anchors; Sources & Times page lists every core event with a citation.",
+   "root_cause": "False precision on uncertain historical times.",
+   "metric_or_grade_moved": "UX, accessibility, transparency.",
+   "depends_on": [
+    "time-facts-01"
+   ],
+   "audit_refs": [
+    "C4",
+    "A2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "The 'c.' prefix keyed to anchor status R or confidence L misses contested points with status S or M. 4 of the 12 S anchors rest on M rows: t1 (SS1+THJ only), t28 Reynolds (10:15 vs 10:40-10:50, verified in Wikipedia), t53 Iverson (Rodes 2:00-3:00), t515 (about 11 vs near noon). Key the prefix to the disagreement register or to a range width above 20 min. 5-minute rounding also freezes the clock on the 0.8 min/tick stall."
+  },
+  {
+   "id": "time-facts-14",
+   "title": "Feed the real-time event table into Ask the Historian with range-aware answers",
+   "severity": "medium",
+   "evidence": "Historian answers today come from site JSON whose times are wrong (e.g. vignette/chronology say Pickett's Charge begins 11:05am, Longstreet's assault 7:30am); time-facts.csv now holds 129 events with ranges, confidence, tags and source keys.",
+   "fix": "Convert time-facts.csv to data/historian/events.json {id, date, start, end, best, confidence, display, disagreements[], sources[]} (example record in report item 14); Historian answers 'when' questions from it, always giving a range and citations; add a 40-question 'when' evaluation set (e.g. step-off must answer 'between about 2:00 and 3:00 pm; most accounts about 3:00 pm').",
+   "effort": "M",
+   "acceptance_test": "'When' eval set passes >=95% with range-aware, cited answers; no answer cites the removed 11:05am/7:30am times.",
+   "root_cause": "Historian retrieval inherits the site's mislabelled times.",
+   "metric_or_grade_moved": "Historian accuracy; supports the database-expansion plan.",
+   "depends_on": [
+    "time-facts-05"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "The mechanism is verified: historian.html:121-123 prints 'Day N, time' from the chronology labels, and time-facts-03's relabel fixes most of it. Add rights handling. NPS OR text is public domain; Wikipedia is CC BY-SA 4.0 (attribution and share-alike); ABT, HistoryNet and Stone Sentinels are copyrighted. Store facts, ranges and source keys, keep quotes short with attribution, and flag SS/THJ/CWC as low-authority compilations."
+  },
+  {
+   "id": "time-facts-15",
+   "title": "Option B (only if uniform 5-minute real-time ticks are required): resample placements to a uniform real-time grid",
+   "severity": "low",
+   "evidence": "430k placement records are tied to the compressed tick scale; the anchor approach in time-facts-01 achieves a consistent clock (mean error 21 min) without touching them.",
+   "fix": "If uniform ticks are mandated, resample placements to a 5-minute grid from July 1 5:00am to July 4 midnight (~840 ticks) using the anchor model plus the existing interpolation logic; regenerate chronology/vignette trigger ticks and all tick-keyed features.",
+   "effort": "XL",
+   "acceptance_test": "Every tick equals exactly 5 real minutes; placements at any tick match interpolated positions of the old data within 1 pixel at zoom 15; all features pass the contract tests from time-facts-12.",
+   "root_cause": "Ticks are an event-ordinal axis, not a time axis.",
+   "metric_or_grade_moved": "Only architectural purity; not recommended before time-facts-01 to 14.",
+   "depends_on": [
+    "time-facts-01"
+   ],
+   "audit_refs": [],
+   "verdict": "REFUTED",
+   "correction": "'430k placement records' is false metadata from placement_schema.json. The deployed data has 1,804 rows (694 placements + 1,110 density) across 188 of 675 ticks; I recounted and data-integrity.md agrees. Re-keying 1,804 rows is S-M, not XL; the real cost is the dense-movement model (data-integrity-01), so merge the two. Also July 1 05:00 to July 4 00:00 is 804 ticks, not about 840."
+  }
+ ],
+ "open_questions": [
+  "Accept the five review anchors (t75 Lee's 'if practicable' order, t90 XII Corps/Johnson arrival, t248 Sickles's advance, t275 20th Maine bayonet charge, t538 infantry step-off) as approximate, or have a historian decide them? The 20th Maine charge ranges from 5:10 pm to after 7 pm across sources and the step-off from 2:00 to 3:00 pm.",
+  "When was Colgrove's charge (Mudge killed)? Wikipedia citing Sears puts it near the end of the morning fight (~10:00-11:30 am), Stone Sentinels says 6:00 am, the site says 7:30 am; check Pfanz Culp's Hill pp.310-25.",
+  "When did each of Pickett's brigades reach Marsh Creek and Seminary Ridge? This drives the placement data (Line of March from tick 180, Bivouac from tick 400) and chronology t420/t500.",
+  "Should a Day 4 (July 4 retreat, ticks 676+) be added so the retreat is on the timeline rather than only in captions?",
+  "Display convention: local sun time as reported by sources (recommended) with 'about'/'c.' prefixes for contested anchors, and Sickles's advance shown as ~2:30 pm or as an explicit range noon-3:30 pm?",
+  "Can a historian or NPS-affiliated reviewer verify the 5 L-tagged and 5 S-tagged rows and the register against Pfanz, Coddington, Sears, Hessler, Wert, Gottfried, Busey/Hartwig and the Official Records? Those sources could not be read this session (npshistory.com refused connections, gdg.org certificate expired, civilwartalk and warfarehistorynetwork returned 403)."
+ ],
+ "verification_summary": "The time-facts core diagnosis holds: six-plus divergent tick-to-clock functions, a +2 date bug, labels off by hours, and the tint fed the wrong hour. All 15 findings were checked. Verdicts: 3 CONFIRMED (03, 05, 12), 11 CORRECTED, 1 REFUTED (15). Every bundle.pretty.js line number I re-opened is exact, and the headline error stats reproduce from the CSVs (label 4.79 h with 5/102 within 30 min; map clock 4.82 h with 1/102; 5-minute formula 4.52 h with 7/102). Main problems found:\n- **Accuracy figures are in-sample and partly circular.** 30 of the 102 matched events sit on anchor ticks, and 32 of 102 comparators are the specialist's own 'custom' estimates. Off-anchor the mean error is 28.8 min (median 17.5), not 21 min. The 30-claim 'independent validation' has 11 claims on anchor ticks.\n- **The spec'd clock string breaks the mobile clock.** bundle.pretty.js:102977 does `split(\", \")[1]`, so 'July 1, 1863, 7:30 AM' would render '1863'.\n- **The delivery plan would never reach returning visitors.** /assets/* is immutable for a year and sw.js is cache-first. An in-place bundle hot-patch or an unhashed /assets/time-model.js would be invisible to them.\n- **Two report claims are wrong.** The V-015 vignette quotes Alexander's notes correctly; only chronology t525 is wrong. The '430k placement records' is false metadata; the data has 1,804 rows across 188 ticks.\n- **Pickett is overstated.** A July 1 presence west of Gettysburg is definitely wrong, but a July 2 night bivouac on Seminary Ridge is not established as wrong.\n- **Eight missed issues are appended to the report.**\nThe '## Verification' section, with the verdict table, recomputation notes, missed issues and limits, is appended to time-facts.md. Scratch scripts are in plan-work/tmp-verify-time-facts/.",
+ "missed_by_specialist": [
+  {
+   "title": "Calendar date vs battle day is unspecified",
+   "severity": "high",
+   "evidence": "Under the anchors midnight falls at t160 and t368, so 149 ticks (22%) carry a calendar date different from their Day. Consumers that keep tick-range 'Day' semantics: getCurrentDay (bundle.pretty.js:9384), mobile day label/tabs (103144, 103168), desktop dayLabel (113086), f2 day chips (112187-112190), jumpToDay (9369), unit-history 'July 1/2/3' thirds (101555-101563), static DAY_BOUNDS, historian.html:123 ('Day N, time'). 5 chronology events (t380-t450) are affected today.",
+   "fix": "Define battleDay (chips, data loading, jumps) and calendarDate (clock). Show e.g. 'Night of July 1-2, 1:20 AM'. Add a date field to regenerated JSON labels for t160-t225 and t368-t450. Update historian.html:123."
+  },
+  {
+   "title": "Mobile clock string contract breaks under the spec'd formatClock",
+   "severity": "high",
+   "evidence": "bundle.pretty.js:102976-102977: Es = getTickTime(); Xa = Es.split(', ')[1] || Es. The spec'd 'July 1, 1863, 7:30 AM' would render '1863' on the mobile clock; desktop 112226 and 113054 print the raw string.",
+   "fix": "Keep getTickTime's 'July N, h:mm AM' contract and add a separate long formatter, or patch 102977. Acceptance-test the mobile header at t12 and t538."
+  },
+  {
+   "title": "Delivery and cache invalidation is missing for every time fix",
+   "severity": "high",
+   "evidence": "netlify.toml sets /assets/* to immutable for 1 year; sw.js is cache-first for /assets/* and PRECACHE_ASSETS (includes /assets/index-Cg8FAMXN.js; CACHE_NAME 'gbg-v5'). An in-place bundle patch or an unhashed /assets/time-model.js never reaches returning visitors. /data/* is network-first with a 1 h cache, which is fine.",
+   "fix": "Use new hashed filenames and update index.html plus the sw.js precache and CACHE_NAME. Inline the 33 anchors (about 2 KB) in the bundle and site-nav.js (loaded on every page) rather than adding a JSON fetch on the critical path."
+  },
+  {
+   "title": "Site copy claims 'real time' and 'five-minute snapshots'",
+   "severity": "medium",
+   "evidence": "index.html:15,18,24,32 (meta/OG/Twitter/JSON-LD 'unfold in real time ... 675 five-minute snapshots'), index.html:719,754, in-app splash bundle.pretty.js:111893, ground-remembers.html:42, terms.html:30. Under the anchors the mean is about 5.6 min/tick (6.3 on Day 1), ranging 0.8-42 locally.",
+   "fix": "Rewrite as '675 snapshots, about five minutes apart on average, denser in the fighting and coarser overnight'; drop 'real time'."
+  },
+  {
+   "title": "More tick-to-time consumers are not in the fix list",
+   "severity": "medium",
+   "evidence": "immersive.html:169-173 (fourth 5:00-base formula plus 0.45 night tint); IF() at bundle.pretty.js:97865-97894 (tick-to-title bookmark defaults, persisted in users' localStorage; 460 'Mudge's charge'); tour array d2 at 104097-104420 with clock prose; onboarding text 111844/111851.",
+   "fix": "Add them all to the contract tests and regenerate from the event table; re-key IF() when re-ticking."
+  },
+  {
+   "title": "Night tint would darken a third of playback",
+   "severity": "medium",
+   "evidence": "220 of 675 ticks are full night under the anchors (t100-t226, t340-t450). E4 night alpha is 0.35-0.4 multiply over the whole desktop map (A4 z-index 6, wired at 97259/97310). Jump to Day 2/3 (t226/t451) lands at 4:30 am pre-dawn.",
+   "fix": "Cap alpha at about 0.2-0.25, keep unit/label layers above the tint, add a daylight toggle, and include WCAG label-contrast checks in the acceptance test."
+  },
+  {
+   "title": "Anchor evidence authority and licensing not controlled",
+   "severity": "medium",
+   "evidence": "Many anchors and register rows rest on Stone Sentinels (self-described uncited compilation), The History Junkie, Civil War Cycling and unopened search summaries; only 7 NPS-hosted ORs were readable. 4 of 12 'S' anchors are on M rows. Wikipedia is CC BY-SA 4.0; ABT, HistoryNet and Stone Sentinels are copyrighted.",
+   "fix": "Tag each anchor with an evidence class and require one primary or two independent scholarly sources for 'S'. Store facts, ranges and source keys, and keep quotes short with attribution."
+  },
+  {
+   "title": "Dependency on data-integrity-01 (dense generated tracks) is not stated",
+   "severity": "medium",
+   "evidence": "72% of ticks (487/675) carry no placement row (hold-and-snap; data-integrity.md, my recount 1,804 rows/188 ticks). data-integrity-01 proposes generating dense tracks from anchors (XL), which makes the anchors load-bearing; time-facts-15 duplicates it on a false 430k premise.",
+   "fix": "Require time-facts-05 historian sign-off before any generated-track work, merge time-facts-15 into data-integrity-01, and state the dependency in both reports."
+  }
+ ]
+}

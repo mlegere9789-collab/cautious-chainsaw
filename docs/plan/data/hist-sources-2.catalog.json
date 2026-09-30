@@ -1,0 +1,2764 @@
+{
+  "meta": {
+    "agent": "hist-sources-2",
+    "generated": "2026-09-30",
+    "scope": "Ask the Historian expansion - SOURCE CATALOG part 2 (modern/open/government data)",
+    "method": "WebSearch/WebFetch plus curl/python against live APIs; every canonical URL below was fetched (see verification_log); counts are measured unless the field says ESTIMATE or UNVERIFIED.",
+    "evidence_quality_legend": {
+      "primary text read": "page/JSON/README text read directly by script (strongest)",
+      "fetch-summarizer": "WebFetch summary by a small model; quotes must be re-read on the source before publishing wording",
+      "search snippet": "WebSearch result text only (weakest)"
+    },
+    "not_legal_advice": true,
+    "headline_findings": [
+      "A real ancestor lookup is possible: NPS CWSS bulk data exists as a public S3 mirror (Soldiers_Personz.tsv 1.19 GB, ~6.26M cards est., 42% Confederate in a 400 KB sample) - but its redistribution status needs written NPS confirmation.",
+      "OpenStreetMap contains 867 historic monument/memorial elements in the battlefield bbox; 177 of them are >60 m from any of the site's 512 monuments (38 named Confederate) and 20 site monuments have no OSM feature within 60 m; only 9 of the site's 512 monuments carry a src value.",
+      "Official Records Series I Vol 27 (3 IA items, 11.26 MB OCR, 3,578 pages) is public domain and is the best evidence base for the clock/time conflict (audit C4).",
+      "USGS 3DEP 1 m DEM (4 tiles, ~470-485 MB each) and LoC Warren/Bachelder maps make a real viewshed and an 1863-landscape layer possible (audit H8).",
+      "Rights-restricted sources must be link-out only: American Battlefield Trust (ToS forbids scraping and AI use), Ancestry family incl. Fold3 and Find a Grave (ToS forbids programmatic access and ML training), FamilySearch, ACHS, HMDB bulk (non-commercial only), Stone Sentinels, NHGIS.",
+      "NPS/Dyer battle-unit data lists 300 Union units and ZERO Confederate units for Gettysburg; the NPS public GIS has no monuments/fences/orchards/cannon layers."
+    ],
+    "counts": {
+      "sources": 46,
+      "urls_checked": 135,
+      "url_status_counts": {
+        "206": 59,
+        "200": 76
+      },
+      "rights_tier_counts": {
+        "A": 26,
+        "C": 7,
+        "A-pending": 2,
+        "B": 6,
+        "A/B": 4,
+        "n/a": 1
+      },
+      "priority_counts": {
+        "P0": 10,
+        "P2": 14,
+        "P3": 9,
+        "P1": 12,
+        "-": 1
+      }
+    }
+  },
+  "rights_tiers": {
+    "A": "Public domain / CC0 / permissive with notice only: may be ingested, redistributed in derived shards, and embedded in retrieval index.",
+    "B": "Reusable with attribution and/or share-alike (CC BY, CC BY-SA, ODbL, MIT): ingest only into clearly separated files with per-record license + attribution; share-alike scope must be contained.",
+    "C": "Link-out only: rights-restricted or terms forbid scraping/AI use (ABT, Ancestry family, FamilySearch, ACHS, HMDB bulk, Stone Sentinels, NHGIS). Provide deep links, never fetch, store or embed content; never feed to any model.",
+    "A-pending": "Believed public but needs a written confirmation or a source-level check before publication (CWSS mirror)."
+  },
+  "sources": [
+    {
+      "id": "SRC-01",
+      "name": "NPS Data Store (IRMA): Gettysburg cultural landscape, history, and monument reports",
+      "publisher": "National Park Service (Olmsted Center for Landscape Preservation, NER, GNMP)",
+      "category": "government-documents",
+      "urls": {
+        "canonical": "https://irma.nps.gov/DataStore/",
+        "api_search": "https://irmaservices.nps.gov/datastore/v7/rest/QuickSearch?q=<query>&top=25&skip=0",
+        "api_profile": "https://irmaservices.nps.gov/datastore/v7/rest/Profile/<referenceId>",
+        "download_pattern": "https://irma.nps.gov/DataStore/DownloadFile/<fileId>",
+        "rights_statement": "https://www.nps.gov/aboutus/disclaimer.htm"
+      },
+      "format": "PDF (born-digital 2004-2026 reports; scanned 1907/1970s items), JSON metadata API (unauthenticated, verified; v6 endpoint returned HTTP 500)",
+      "size": "~745 MB of PDFs for the 10 items with a measured byte size (sum of HTTP HEAD Content-Length values below; 2 more items unmeasured); extracted text expected 5-8 MB (estimate, measure in Phase 0)",
+      "items_verified": [
+        {
+          "referenceId": 2186022,
+          "title": "Gettysburg Landscape: Cultural Landscapes Inventory (2025 update)",
+          "pages": 118,
+          "fileId": 733629,
+          "bytes": 6972170,
+          "note": "smallest, best first target"
+        },
+        {
+          "referenceId": 2293618,
+          "title": "CLR First Day - Union 1st Corps Battlefield (2021)",
+          "pages": 580,
+          "fileId": 672770,
+          "bytes": 170160982
+        },
+        {
+          "referenceId": 2288417,
+          "title": "CLI First Day - Union 1st Corps Battlefield (2021)",
+          "pages": 148,
+          "fileId": 719489
+        },
+        {
+          "referenceId": 2242136,
+          "title": "Little Round Top CLR, Treatment & Management Plan (2012)",
+          "pages": 178,
+          "fileId": 580673,
+          "bytes": 63950146
+        },
+        {
+          "referenceId": 2288635,
+          "title": "Little Round Top CLI (2026 update)",
+          "pages": 109,
+          "fileId": 761474,
+          "bytes": 68972693
+        },
+        {
+          "referenceId": 2223481,
+          "title": "Defense of Cemetery Hill CLR (2004)",
+          "pages": 215,
+          "fileId": 526565,
+          "bytes": 30207496
+        },
+        {
+          "referenceId": 2188403,
+          "title": "The 1863 Landscape: Treatment Philosophy (2004)",
+          "pages": 140,
+          "fileId": 472822,
+          "bytes": 33729297
+        },
+        {
+          "referenceId": 2257218,
+          "title": "CLR for GNMP, Record of Treatment Vol I & II (2018; period of significance 1863-1938)",
+          "pages": "470 + 374",
+          "fileIds": [
+            621486,
+            621487
+          ]
+        },
+        {
+          "referenceId": 2313784,
+          "title": "Treatment Philosophy and Guidelines, Battlefield Commemorative Area (2025)",
+          "pages": 198,
+          "fileId": 731087,
+          "bytes": 85725914
+        },
+        {
+          "referenceId": 2248348,
+          "title": "CLR for Gettysburg National Cemetery (2017)",
+          "pages": 464,
+          "fileId": 593500,
+          "bytes": 270675783
+        },
+        {
+          "referenceId": 2196766,
+          "title": "Administrative History: GNMP and National Cemetery (Unrau, 1991)",
+          "pages": 449,
+          "fileId": 472789,
+          "bytes": 13217713
+        },
+        {
+          "referenceId": 2196751,
+          "title": "The Gettysburg National Park: Location of the Monuments, Markers and Tablets (1907)",
+          "pages": 58,
+          "fileId": 472768,
+          "bytes": 1220721
+        }
+      ],
+      "items_not_publicly_downloadable": [
+        {
+          "referenceId": 2268160,
+          "title": "Location of the Monuments, Markers, and Tablets (Feb 1982)",
+          "observed": "DownloadFile/632513 returned an HTML page (21,937 B) not a PDF on 2026-09-30"
+        },
+        {
+          "referenceId": 2268162,
+          "title": "The Biology of an 1860 Farm (Slyder farm, 1973)",
+          "observed": "DownloadFile/632515 returned HTML (21,937 B)"
+        },
+        {
+          "referenceId": 2268163,
+          "title": "Preliminary Survey/Proposal for Conservation of the Sculptural Monuments (1978)",
+          "observed": "DownloadFile/632516 not checked; sibling files returned HTML"
+        }
+      ],
+      "api_limits": "No key, no documented numeric limit observed; a 25-item QuickSearch loop with 19 queries hit gateway 504s once; throttle to <=1 req/s and cache.",
+      "license_rights": "US federal work: NPS 'Copyright and Public Domain' statement (disclaimer page): 'Copyright law does not protect any work of the U.S. Government'; material created by NPS 'generally considered in the public domain'; attribution 'appreciated'; BUT 'Not all materials ... are in the public domain. Some content is protected by third party rights' (photos, drawings, quoted text inside reports).",
+      "rights_statement_url": "https://www.nps.gov/aboutus/disclaimer.htm",
+      "evidence_quality": "fetch-summarizer quotes (page read via WebFetch); re-read before publishing wording",
+      "rights_tier": "A (text) / B (embedded third-party figures: link, do not copy images)",
+      "extraction": "pdftotext -layout for born-digital; OCR (ocrmypdf) for scanned 1907/1970s items; split by heading; build 'landscape_feature' records (feature_type=orchard|woodlot|fence|farm_lane|farmstead|road|field, name, 1863_status, current_status, treatment, page, quote) from the 'Landscape Characteristics' inventories; keep page numbers for citation; never republish figures/photos (third-party rights).",
+      "record_counts": "~3,500 PDF pages across the 12 items (sum of the verified page counts, excluding the 1982/1973/1978 items); expected 800-1,500 landscape_feature records (estimate)",
+      "enables": [
+        "Was the Peach Orchard an orchard in 1863 and what stood there?",
+        "Which woodlots/fences/farm lanes existed at Culp's Hill / Wheatfield / Emmitsburg Road?",
+        "What was restored 1999-2014 vs still missing?",
+        "Which monuments were placed where and when (1907 book)?",
+        "History of the park and cemetery (Unrau 1991)"
+      ],
+      "quality_notes": "Authoritative but modern-author synthesis of 1863 conditions; each CLR states its own period of significance (Record of Treatment: 1863-1938). Treat as 'NPS landscape historians' interpretation', not 1863 primary.",
+      "priority": "P0 (landscape + monument provenance)",
+      "effort": "L",
+      "depends_on": [],
+      "risks": [
+        "170-270 MB PDFs: run OCR/extract in CI or locally; do not commit PDFs",
+        "Some Data Store items are not public (see items_not_publicly_downloadable)"
+      ]
+    },
+    {
+      "id": "SRC-02",
+      "name": "NPS GIS packages for Gettysburg NMP (tracts/boundary, geology, vegetation map, land cover)",
+      "publisher": "NPS Land Resources Division; NPS Geologic Resources Inventory; NPS Inventory & Monitoring",
+      "category": "gis",
+      "urls": {
+        "tracts": "https://irma.nps.gov/DataStore/DownloadFile/698026 (gett_tracts.zip, 560,645 B, ref 2302050, issued 2023-12-31)",
+        "geology": "ref 1041800: gett_geology_gpkg.zip 3,927,125 B (fileId 663816); gett_geology_gdb.zip 2,250,029 B (670432); gett_geology_kml.zip (663857)",
+        "geology_quad": "ref 1041801 Gettysburg 15' quadrangle (gtty_geology_*.zip)",
+        "vegetation_map": "ref 2233298 gett_eisegisdata.zip 513,325 B (fileId 617323) and 519,894 B (610918), 2006, association-level vegetation map",
+        "vegetation_plots": "ref 2314554: 12 CSV files (GETT_EISE_Plots.csv, AA_Species, Locations ...) 2022",
+        "landcover": "ref 2167054 GETT_Landcover_Data.zip 2,307,878 B (NOAA C-CAP 1996/2001/2006)"
+      },
+      "format": "Shapefile / File GDB / GeoPackage / KML / CSV",
+      "size": "0.5-4 MB each (all sizes verified by HTTP HEAD)",
+      "api_limits": "None (same Data Store).",
+      "license_rights": "Same NPS public-domain statement as SRC-01.",
+      "rights_statement_url": "https://www.nps.gov/aboutus/disclaimer.htm",
+      "evidence_quality": "fetch-summarizer quotes",
+      "rights_tier": "A",
+      "extraction": "ogr2ogr to GeoJSON (EPSG:4326), simplify to 1 m; keep attribute tables; only use as MODERN context layers (not 1863).",
+      "record_counts": "tract polygons: not counted (measure); vegetation map polygons: not counted",
+      "enables": [
+        "What geology underlies Devil's Den (diabase boulders)?",
+        "What forest cover is on Culp's Hill TODAY vs the 1863 woodlots?",
+        "Park boundary vs. tract history"
+      ],
+      "quality_notes": "Modern conditions only. There is NO public NPS layer for monuments, fences, orchards, cannon or tablets (see SRC-03 and gap G-01).",
+      "priority": "P2",
+      "effort": "M",
+      "depends_on": [],
+      "risks": [
+        "Do not present modern vegetation as 1863 vegetation"
+      ]
+    },
+    {
+      "id": "SRC-03",
+      "name": "NPS public national ArcGIS layers (roads, trails, buildings, parking, POIs) filtered to GETT",
+      "publisher": "NPS National Geospatial Program",
+      "category": "gis",
+      "urls": {
+        "service_root": "https://mapservices.nps.gov/arcgis/rest/services/NationalDatasets/",
+        "roads": "https://mapservices.nps.gov/arcgis/rest/services/NationalDatasets/NPS_Public_Roads/FeatureServer/0/query?where=UNITCODE%3D%27GETT%27&outFields=*&f=geojson",
+        "trails": ".../NPS_Public_Trails/FeatureServer/0",
+        "buildings": ".../NPS_Public_Buildings/FeatureServer/0",
+        "parking": ".../NPS_Public_ParkingLots/FeatureServer/0",
+        "pois": ".../NPS_Public_POIs/FeatureServer/0",
+        "hub": "https://public-nps.opendata.arcgis.com/"
+      },
+      "format": "ArcGIS FeatureServer (f=geojson supported); maxRecordCount 2000",
+      "size": "tiny",
+      "api_limits": "No key; standard ArcGIS Server; paging by resultOffset.",
+      "license_rights": "NPS public data; dataset descriptions say features are 'appropriate for public sharing'; see NPS disclaimer.",
+      "rights_statement_url": "https://www.nps.gov/aboutus/disclaimer.htm",
+      "evidence_quality": "service metadata read directly (JSON)",
+      "rights_tier": "A",
+      "extraction": "Query UNITCODE='GETT'; verified counts 2026-09-30: roads 55, trails 480, buildings 19, parking lots 26, POIs 7 (6 parking lots + 1 visitor center).",
+      "record_counts": {
+        "roads": 55,
+        "trails": 480,
+        "buildings": 19,
+        "parking_lots": 26,
+        "pois": 7
+      },
+      "enables": [
+        "Where can I park near Little Round Top?",
+        "Which modern avenues correspond to 1863 roads (only with SRC-15 georeferenced maps)"
+      ],
+      "quality_notes": "MODERN park infrastructure only. The national POI layer has just 7 GETT points and no monuments. The NPS does not publish GNMP monument/fence/orchard/cannon/tablet GIS in these public services.",
+      "priority": "P3",
+      "effort": "S",
+      "depends_on": [],
+      "risks": [
+        "Do not imply these are 1863 features"
+      ]
+    },
+    {
+      "id": "SRC-04",
+      "name": "NPS Data API (developer.nps.gov)",
+      "publisher": "NPS Digital Services",
+      "category": "api",
+      "urls": {
+        "base": "https://developer.nps.gov/api/v1/",
+        "docs": "https://www.nps.gov/subjects/developer/index.htm",
+        "guides_rate_limits": "https://www.nps.gov/subjects/developer/guides.htm",
+        "get_started": "https://www.nps.gov/subjects/developer/get-started.htm",
+        "data_api_overview": "https://www.nps.gov/subjects/digital/nps-data-api.htm"
+      },
+      "format": "JSON over HTTPS; API key in header or query",
+      "size": "small",
+      "api_limits": "Free 40-character API key; default 1,000 requests per hour per key (rolling hour; exceeding -> HTTP 429 and block until the hour lapses); X-RateLimit-Limit / X-RateLimit-Remaining response headers (verified from the Guides page). Unauthenticated call returned 403.",
+      "license_rights": "Content is NPS-authored (see disclaimer statement); the guide points to the Disclaimer page for reuse; no separate API license text found.",
+      "rights_statement_url": "https://www.nps.gov/aboutus/disclaimer.htm",
+      "evidence_quality": "fetch-summarizer; rate limit also matches independent search snippet",
+      "rights_tier": "A",
+      "extraction": "One-time build script: /parks?parkCode=gett, /places, /people, /articles, /lessonplans, /multimedia filtered by parkCode=gett; store as normalized JSON with NPS URL + retrieved date. DO NOT put the key in the client bundle (build-time only, key in Netlify env var).",
+      "record_counts": "not counted (needs a key; I did not register one)",
+      "enables": [
+        "NPS-authored short articles/lesson plans about people and places for grounding answers"
+      ],
+      "quality_notes": "Endpoint list per NPS 'Data API' page: alerts, articles, people, places, campgrounds, events, lesson plans, news releases, parks, visitor centers. Exact GETT record counts UNVERIFIED (no key used).",
+      "priority": "P2",
+      "effort": "S",
+      "depends_on": [],
+      "risks": [
+        "Registering a key is an account action for the site owner, not done here"
+      ]
+    },
+    {
+      "id": "SRC-05",
+      "name": "NPS Gettysburg NMP 'History & Culture' web pages (orders of battle, commanders, civilians, places, monument pages)",
+      "publisher": "Gettysburg National Military Park, NPS",
+      "category": "government-web",
+      "urls": {
+        "index": "https://www.nps.gov/gett/learn/historyculture/index.htm",
+        "aop_oob": "https://www.nps.gov/gett/learn/historyculture/aop-orderofbattle.htm (last updated Jan 8, 2026)",
+        "anv_oob": "https://www.nps.gov/gett/learn/historyculture/anv-orderofbattle.htm",
+        "civilians": "https://www.nps.gov/articles/000/civilians-at-gettysburg.htm",
+        "federals": "https://www.nps.gov/articles/000/federals-gettysburg.htm",
+        "confederates": "https://www.nps.gov/articles/000/confederates-gettysburg.htm",
+        "us_monuments": "https://www.nps.gov/gett/learn/historyculture/united-states-monuments.htm",
+        "confederate_monuments": "https://www.nps.gov/gett/learn/historyculture/confederate-monuments.htm",
+        "places": "https://www.nps.gov/gett/learn/historyculture/places.htm (6 articles: First Day's Battlefield, US Line, Confederate Line, East Cavalry Field, Town, National Cemetery)",
+        "collections": "https://www.nps.gov/gett/learn/historyculture/collections.htm (approx. 1.2 million objects)",
+        "research_center": "https://www.nps.gov/gett/learn/historyculture/research-center.htm",
+        "library_guide": "https://www.nps.gov/gett/learn/historyculture/library-resource-guide.htm"
+      },
+      "format": "HTML",
+      "size": "AoP page ~81 KB, ANV page ~86 KB",
+      "api_limits": "Polite crawling only (not an API); ~15 pages total.",
+      "license_rights": "NPS statement (see SRC-01): NPS-created material generally public domain; embedded photos often credited to LoC or third parties.",
+      "rights_statement_url": "https://www.nps.gov/aboutus/disclaimer.htm",
+      "evidence_quality": "pages fetched and parsed; rights via summarizer",
+      "rights_tier": "A (text) / B (images)",
+      "extraction": "Regex parse of OOB lines 'Unit- Col. Name (w), Capt. Name (k|c|w/c|MOH)' -> {corps, division, brigade, unit_string, commanders[{name, rank, status_flags}]}; roughly 352 (AoP) and 265 (ANV) unit-like lines by regex (estimate, includes batteries and headquarters lines). Use as an INDEPENDENT cross-check of the site's 467-unit OOB and commander-fate fields.",
+      "record_counts": "~617 unit-like lines (regex estimate); 6 place articles; 4 people/commander articles; 12 Confederate monument pages (11 state monuments + Soldiers and Sailors Monument) + 5 US monument pages (Delaware, Indiana, Kentucky, Pennsylvania, Lincoln Speech Memorial)",
+      "enables": [
+        "Who commanded the Iron Brigade and who replaced him when wounded?",
+        "Which brigade was the 20th Maine in?",
+        "Civilian stories: John Burns etc."
+      ],
+      "quality_notes": "No strengths/casualties; commander succession flags only. The site's own OOB metadata cites Busey & Martin (copyrighted); this NPS page gives a PD-safe second source for commanders.",
+      "priority": "P0",
+      "effort": "M",
+      "depends_on": [
+        "SRC-10"
+      ],
+      "risks": [
+        "HTML structure can change: pin retrieval date + hash"
+      ]
+    },
+    {
+      "id": "SRC-06",
+      "name": "NPS Civil War Series: The Battle of Gettysburg (handbook text, hosted on npshistory.com)",
+      "publisher": "National Park Service (handbook); hosted by npshistory.com (unofficial NPS history archive)",
+      "category": "government-documents",
+      "urls": {
+        "section_page": "https://npshistory.com/publications/civil_war_series/16/sec20.htm"
+      },
+      "format": "HTML sections (20+)",
+      "size": "small",
+      "api_limits": "None (static).",
+      "license_rights": "NPS-authored handbook (federal work); the mirrored page carries no rights statement; treat as public domain but cite NPS as author and npshistory.com as host.",
+      "rights_statement_url": "https://www.nps.gov/aboutus/disclaimer.htm",
+      "evidence_quality": "page fetched via WebFetch",
+      "rights_tier": "A",
+      "extraction": "Scrape 20+ section pages, keep section titles as topics; contains the damage-claims narrative (e.g., Catherine Trostle farm: '27 acres wheat destroyed, worth $600.00', '32 acres Grass' $650, '20 tons of Hay' $300).",
+      "record_counts": "20+ sections",
+      "enables": [
+        "Farm-level wartime damage facts (wheat acreage lost) for Wheatfield-type questions",
+        "Battle narrative by location"
+      ],
+      "quality_notes": "Older NPS handbook; narrative is dated versus Pfanz/Hessler. Use for damage-claim anecdotes and orientation, not for tactical timing.",
+      "priority": "P1",
+      "effort": "S",
+      "depends_on": [],
+      "risks": [
+        "npshistory.com is a mirror; prefer nps.gov URL if the same text exists"
+      ]
+    },
+    {
+      "id": "SRC-07",
+      "name": "Gettysburg Seminar Papers (NPS/GNMP symposium essays, 1995-2018)",
+      "publisher": "Gettysburg National Military Park (hosted at npshistory.com)",
+      "category": "scholarship",
+      "urls": {
+        "index": "https://npshistory.com/series/symposia/gettysburg_seminars/index.htm",
+        "example_pdf": "https://npshistory.com/series/symposia/gettysburg_seminars/13/essay5.pdf (1,643,678 B)"
+      },
+      "format": "PDF per essay",
+      "size": "~1-3 MB each",
+      "api_limits": "None.",
+      "license_rights": "Index page states no reuse terms; essays are by outside scholars so copyright status is UNVERIFIED -> treat as link-out/quote-with-citation only.",
+      "rights_statement_url": "",
+      "evidence_quality": "index fetched (published vols 4-13, 15, 16; vols 1-3 and 14 'no papers published')",
+      "rights_tier": "C until verified",
+      "extraction": "Link-out registry with title/author/volume; short fair-use quotes only.",
+      "record_counts": "12 published volumes",
+      "enables": [
+        "Where can I read scholarly debate on X (Sickles at the Peach Orchard, Culp's Hill, Pickett's Charge timing)?"
+      ],
+      "quality_notes": "Peer-quality essays; excellent for 'further reading' and for validating timings.",
+      "priority": "P2",
+      "effort": "S",
+      "depends_on": [],
+      "risks": [
+        "Do not ingest full text until rights are confirmed with GNMP"
+      ]
+    },
+    {
+      "id": "SRC-08",
+      "name": "CWSAC battle summaries (Gettysburg = PA002) and CWSAC State Report Update (Pennsylvania)",
+      "publisher": "NPS American Battlefield Protection Program",
+      "category": "government-web",
+      "urls": {
+        "battle_record": "https://www.nps.gov/civilwar/search-battles-detail.htm?battleCode=PA002",
+        "battle_search": "https://www.nps.gov/civilwar/search-battles.htm",
+        "battle_units_search": "https://www.nps.gov/civilwar/search-battle-units.htm",
+        "cws2_pa_update_pdf": "https://npshistory.com/publications/battlefield/cwsac/updates/pa.pdf (4,261,280 B)"
+      },
+      "format": "HTML fields (Other Name, Campaign, Date(s), Principal Commanders, Forces Engaged, Estimated Casualties, Description, Results, Preservation Priority) + PDF",
+      "size": "small",
+      "api_limits": "None (HTML).",
+      "license_rights": "NPS federal work (see SRC-01).",
+      "rights_statement_url": "https://www.nps.gov/aboutus/disclaimer.htm",
+      "evidence_quality": "fetched",
+      "rights_tier": "A",
+      "extraction": "PA002 values read: forces 158,343 total (US 83,289 / CS 75,054); estimated casualties 51,000 (US 23,000 / CS 28,000); result Union victory; Reference PA002; preservation I.2; significance A; study area 43,522.59 ac, core 8,585.47 ac, potential NR boundary 33,993.87 ac (from the CC BY dataset SRC-11). CWSAC identified 384 battles (SRC-11 cwsac_battles.csv 384 rows).",
+      "record_counts": "384 CWSAC battles; 1 Gettysburg record",
+      "enables": [
+        "Official NPS force/casualty estimates and preservation status",
+        "How does Gettysburg rank among the 384 principal battles?"
+      ],
+      "quality_notes": "NPS round-number casualty estimates (23,000/28,000) differ from ABT-published figures (23,049/28,063): Historian must show ranges + source attribution, not one silent number.",
+      "priority": "P1",
+      "effort": "S",
+      "depends_on": [],
+      "risks": []
+    },
+    {
+      "id": "SRC-09",
+      "name": "NPS Civil War Soldiers and Sailors System (CWSS) website",
+      "publisher": "National Park Service",
+      "category": "genealogy",
+      "urls": {
+        "overview": "https://www.nps.gov/civilwar/soldiers-and-sailors-database.htm",
+        "records_origin": "https://home.nps.gov/civilwar/soldiers-and-sailors-recordsorigin.htm",
+        "search_soldiers": "https://www.nps.gov/civilwar/search-soldiers.htm",
+        "search_battle_units": "https://www.nps.gov/civilwar/search-battle-units.htm",
+        "search_monuments": "https://www.nps.gov/civilwar/search-monuments.htm",
+        "search_cemeteries": "https://www.nps.gov/civilwar/search-cemeteries.htm",
+        "search_prisoners": "https://www.nps.gov/civilwar/search-prisoners.htm"
+      },
+      "format": "HTML search forms; NO public API or bulk download on nps.gov",
+      "size": "n/a",
+      "api_limits": "No API. Do not scrape the search forms (unpublished limits; use SRC-10 for bulk).",
+      "license_rights": "Page says: 'This database is no longer maintained and updated.' (verbatim, fetched 2026-09-30). No rights statement on the page; NPS-general statement applies. Records origin: ~6.3 million General Index Cards from NARA Compiled Military Service Records (cards created from the 1880s), ~3.5 million soldiers; digitized 1993-2000 by volunteers in 36+ states using LDS software, edited by Genealogical Society of Utah / Family Groups Society; 18,000 sailors; regiment histories from Dyer; Andersonville & Fort McHenry prisoners; Medals of Honor.",
+      "rights_statement_url": "https://home.nps.gov/civilwar/soldiers-and-sailors-recordsorigin.htm",
+      "evidence_quality": "fetch-summarizer",
+      "rights_tier": "A (federal) with a documentation caveat on the volunteer-compiled index",
+      "extraction": "Use only as the verification/link-out target: deep link https://www.nps.gov/civilwar/search-soldiers.htm (no documented name-prefill URL parameters: UNVERIFIED).",
+      "record_counts": "6M+ soldier records, 18,000 sailors, 4,000+ regiment histories (NPS overview page)",
+      "enables": [
+        "Ancestor lookup verification link",
+        "Regiment history text (via SRC-10)"
+      ],
+      "quality_notes": "Index cards, not proof of presence at Gettysburg; Confederate muster rolls obtained 'with the permission and assistance of the Governors of the eleven states' (NPS wording) -> completeness varies by state.",
+      "priority": "P0 (as link-out/verification)",
+      "effort": "S",
+      "depends_on": [],
+      "risks": [
+        "Site is unmaintained: it may vanish; keep own extract (SRC-10)"
+      ]
+    },
+    {
+      "id": "SRC-10",
+      "name": "CWSS bulk data snapshot (jrnold-nps-cwss public S3 bucket; 'received by request from NPS')",
+      "publisher": "Jeffrey Arnold (mirror) of NPS data; README: 'Data ... received by request from the National Park Service'",
+      "category": "genealogy",
+      "urls": {
+        "readme": "https://raw.githubusercontent.com/jrnold/cwss/master/README.md (repo archived 2026-08-29, no license file, GitHub API license=None)",
+        "bucket_listing": "https://jrnold-nps-cwss.s3.amazonaws.com/?list-type=2 (39 keys, listing is public)",
+        "soldiers_tsv": "https://jrnold-nps-cwss.s3.amazonaws.com/new/tsv/Soldiers_Personz.tsv (1,194,562,274 B)",
+        "regiments_tsv": "https://jrnold-nps-cwss.s3.amazonaws.com/new/tsv/Regiments_Unitz.tsv (9,308,412 B)",
+        "notes_tsv": "https://jrnold-nps-cwss.s3.amazonaws.com/new/tsv/Soldiers_notez.tsv (342,195,545 B)",
+        "fortmchenry_tsv": "https://jrnold-nps-cwss.s3.amazonaws.com/new/tsv/Prisoners_FtMcHenry.tsv (850,570 B)",
+        "sqlite": "https://jrnold-nps-cwss.s3.amazonaws.com/new/nps_cwss.sqlite3 (2,197,368,832 B)"
+      },
+      "format": "Tab-separated (UTF-8-ish, CR/LF inside HTML fields), SQLite, MSSQL .bak; total ~7.7 GB per README; snapshot dates 2012-10-31 (.bak) / 2015-12-13 (tsv)",
+      "size": "Soldiers_Personz 1.19 GB; Soldiers_notez 342 MB; focus 173 MB; MEMORIAL 28.9 MB; Regiments_Unitz 9.3 MB; Prisoners_Andersonville 8.6 MB; Cemeteries_Info 0.83 MB; Prisoners_FtMcHenry 0.85 MB; Medal_Ofhonor 0.35 MB",
+      "api_limits": "S3 anonymous GET; no published limits. Use HTTP Range to sample; stream-filter the 1.19 GB file once in CI (est. 5-15 min) rather than downloading interactively.",
+      "license_rights": "No license file in the mirror repo (GitHub license=None). Upstream: NPS (federal) index of NARA cards (public records); NPS 'records origin' credits volunteers + GSU. Status of the compiled database as 'public domain' is NOT stated on the NPS page -> Phase-0 task: obtain written confirmation from NPS (aboutus/contactus) before publishing derived shards; until then treat as Tier A-pending.",
+      "rights_statement_url": "https://github.com/jrnold/cwss",
+      "evidence_quality": "README and bucket listing read directly; row samples fetched by HTTP Range",
+      "rights_tier": "A-pending (legal confirmation)",
+      "extraction": "1) Build crosswalk site regiment_id -> CWSS unit code: U-20ME -> UME0020RI (side U/C + 2-letter state, 4-digit ordinal, arm code RI/RC/RAH/YAL...). 2) Stream Soldiers_Personz.tsv, keep rows where PER_UNIT_CODE in the ~467-unit crosswalk and PER_ISDELETE='False'. 3) Normalize: trim, title-case, split 'PER_AKA_NAME_ORIG' ('Asa P./Lacy') into alias list, rank codes via Rankz.tsv, company letters. 4) Emit per-regiment JSON shards (compact arrays) + a surname-prefix index. 5) Attach REG_HISTORY/REG_LONGHISTORY from Regiments_Unitz.tsv (Dyer text with HTML links to old NPS battle URLs: strip tags, keep text).",
+      "record_counts": "Soldiers_Personz ~6.26M rows (estimate = 1,194,562,274 B / 190.75 B per row measured on a 400 KB sample; matches NPS '6.3 million' cards). Sample of 2,097 rows: 1,213 Union / 884 Confederate (42%). Gettysburg-unit subset ESTIMATED 420k-700k cards (assumes 900-1,500 cards per unit x 467 units; MEASURE in Phase 0). Cemeteries_Info: 5,672 rows, covers Poplar Grove (Petersburg) burial places, NO Gettysburg rows (0 of 5,672 mention Gettysburg).",
+      "enables": [
+        "Who was in the 20th Maine / Company K? (name roster)",
+        "REAL ancestor lookup by the ancestor's own surname + state (today's find-ancestor.html only filters by state or commander surname)",
+        "How many men named X served in the 1st Minnesota?",
+        "Regiment history paragraph (Dyer) for each Union and Confederate unit",
+        "Confederate POW notes captured at Gettysburg (Fort McHenry table has notes like 'Gettysburg 07/03/63')"
+      ],
+      "quality_notes": "Index cards record service anywhere 1861-65, NOT presence at Gettysburg; duplicates and spelling variants inflate counts; Confederate coverage uneven by state. Soldiers_Personz first rows are admin test records (PER_LAST_NAME 'admin1'); filter. State totals file shows e.g. AL 2,842 Union / 197,427 Confederate cards. MEMORIAL.tsv (28.9 MB) rows such as 'Isaac Bibb', unit code UUS0028RI00C, plaque B-43 appear to be memorial-plaque names for U.S. Colored Troops (my interpretation of sampled rows, UNVERIFIED) and are not needed for Gettysburg.",
+      "priority": "P0",
+      "effort": "L (roster ETL) + XL (battery/independent unit crosswalk)",
+      "depends_on": [
+        "SRC-05 for the crosswalk"
+      ],
+      "risks": [
+        "Third-party mirror may disappear: archive needed slices in the owner's own storage",
+        "Rights confirmation pending",
+        "Do not ship 1.2 GB; only regiment shards (~6-12 MB brotli estimate)"
+      ],
+      "site_evidence": {
+        "file": "C:/Users/mlege/AppData/Local/Temp/claude/site/deploy/find-ancestor.html",
+        "line": 48,
+        "snippet": "Search by state, or by a commander's surname, to narrow down which of the 467 Union and Confederate regiments and batteries at Gettysburg your ancestor may have served in."
+      }
+    },
+    {
+      "id": "SRC-11",
+      "name": "American Civil War Battle Data (compiled datasets incl. NPS/CWSAC/CWSS/Dyer/Fox/Phisterer)",
+      "publisher": "Jeffrey B. Arnold (figshare 10.6084/m9.figshare.1515995 v14)",
+      "category": "structured-dataset",
+      "urls": {
+        "figshare_api": "https://api.figshare.com/v2/articles/1515995 (acw_battle_data.zip 2,526,832 B, published 2018-03-19)",
+        "github": "https://github.com/jrnold/acw_battle_data (build/acw_battle_data/*.csv)",
+        "docs": "https://acw-battle-data.readthedocs.io/en/latest/data.html (87 datasets)"
+      },
+      "format": "CSV + datapackage.json",
+      "size": "2.5 MB zip",
+      "api_limits": "GitHub raw / figshare; none.",
+      "license_rights": "figshare API: license 'CC BY 4.0'; README: documentation CC-BY 4.0, code BSD-3-Clause. CAUTION: the CC BY grant is the compiler's; upstream sources vary (NPS/Dyer/Fox/Phisterer/Livermore/Bodart are public domain; Clodfelter/Kennedy/Thorpe slices may carry upstream copyright) -> use only the NPS/CWSAC/Dyer/Fox/Phisterer/Livermore/Bodart tables.",
+      "rights_statement_url": "https://api.figshare.com/v2/articles/1515995",
+      "evidence_quality": "figshare JSON + README read directly",
+      "rights_tier": "B (CC BY 4.0 attribution) for the safe slices",
+      "extraction": "Join nps_battle_units.csv (17,993 rows; unit_code == CWSS code) to nps_units.csv (7,011 units: 3,246 US + 3,765 CS; 1,163 with dbpedia_uri) -> Wikipedia/DBpedia link per unit. For PA002: 300 Union units (all src=DYER; ZERO Confederate units because Dyer's Compendium is Union-only).",
+      "record_counts": "nps_battles 381; cwsac_battles 384; dyer_engagements 9,972; fox_forces 408; phisterer_engagements 2,259; thorpe_engagements 4,342; PA002 units 300 (US only)",
+      "enables": [
+        "Crosswalk key for units (CWSS code) incl. DBpedia link for 1,163 units",
+        "Which Union units did Dyer credit with Gettysburg? (300) vs the site's ~280 Union units - a reconciliation test",
+        "Battle-level comparisons (how many battles had >50,000 casualties)"
+      ],
+      "quality_notes": "Gettysburg Confederate participation must come from NPS ANV OOB / OR / Busey, not from Dyer. Note Dyer's list is 300 units while the site holds ~279 'U-' IDs in regiment files - reconcile.",
+      "priority": "P1",
+      "effort": "S",
+      "depends_on": [],
+      "risks": [
+        "CC BY attribution required on /sources page"
+      ]
+    },
+    {
+      "id": "SRC-12",
+      "name": "NPS Museum collections and NPGallery (images/objects)",
+      "publisher": "NPS Museum Management Program / NPGallery",
+      "category": "images",
+      "urls": {
+        "museum": "https://museum.nps.gov/",
+        "npgallery": "https://npgallery.nps.gov/",
+        "gnmp_collections": "https://www.nps.gov/gett/learn/historyculture/collections.htm"
+      },
+      "format": "Web search UIs (no bulk export verified)",
+      "size": "GNMP collection approx. 1.2 million objects (NPS statement)",
+      "api_limits": "Unknown; no documented API verified.",
+      "license_rights": "NPS photos generally public domain with third-party exceptions (NPS statement, SRC-01); donor/copyright exceptions per item.",
+      "rights_statement_url": "https://www.nps.gov/aboutus/disclaimer.htm",
+      "evidence_quality": "fetch",
+      "rights_tier": "B (item-level check)",
+      "extraction": "Manual curation of ~50-100 images (Cyclorama, hospital bed tags, maps) with per-item credit; no scraping.",
+      "record_counts": "n/a",
+      "enables": [
+        "Illustrating answers with NPS object photos"
+      ],
+      "quality_notes": "Search endpoints not stable/documented.",
+      "priority": "P3",
+      "effort": "M",
+      "depends_on": [],
+      "risks": [
+        "Item rights"
+      ]
+    },
+    {
+      "id": "SRC-13",
+      "name": "NARA Catalog API v2 (finding aids, maps, records descriptions)",
+      "publisher": "US National Archives and Records Administration",
+      "category": "api",
+      "urls": {
+        "base": "https://catalog.archives.gov/api/v2/api-docs/",
+        "readme": "https://raw.githubusercontent.com/usnationalarchives/Catalog-API/master/README.md",
+        "civil_war_resources": "https://www.archives.gov/research/military/civil-war/resources",
+        "blog_maps": "https://unwritten-record.blogs.archives.gov/2018/07/03/mapping-the-battle-of-gettysburg/"
+      },
+      "format": "JSON REST",
+      "size": "n/a",
+      "api_limits": "Key by email (Catalog_API@nara.gov); 10,000 queries per month per key, then blocked until the 1st of next month (README, read directly).",
+      "license_rights": "README: 'NARA's archival metadata is all assumed to be in the public domain, as a work of the federal government, with only rare exceptions'; digital images generally public domain; check each record's 'Use Restrictions'.",
+      "rights_statement_url": "https://github.com/usnationalarchives/Catalog-API",
+      "evidence_quality": "README read directly (raw)",
+      "rights_tier": "A",
+      "extraction": "Use for finding NARA-held Warren survey maps and CMSR series descriptions; CMSR microfilm M594 (Union, 225 rolls) and M861 (Confederate, 74 rolls, 'typically less complete') per NARA page.",
+      "record_counts": "not queried (no key)",
+      "enables": [
+        "Pointers to primary maps and record series for citations"
+      ],
+      "quality_notes": "Does not give soldier-level data.",
+      "priority": "P3",
+      "effort": "S",
+      "depends_on": [],
+      "risks": [
+        "Key request is an account action for the owner"
+      ]
+    },
+    {
+      "id": "SRC-14",
+      "name": "NARA Compiled Military Service Records on Fold3 / Ancestry / Find a Grave / FamilySearch (commercial front-ends)",
+      "publisher": "Ancestry.com family (Fold3, Find a Grave, Newspapers.com), FamilySearch",
+      "category": "genealogy-commercial",
+      "urls": {
+        "ancestry_terms": "https://www.ancestry.com/c/legal/termsandconditions",
+        "fold3": "https://www.fold3.com/go/about",
+        "findagrave_gnc": "https://www.findagrave.com/cemetery/1584934/gettysburg-national-cemetery",
+        "findagrave_robots": "https://www.findagrave.com/robots.txt",
+        "familysearch_terms": "https://www.familysearch.org/en/legal/terms"
+      },
+      "format": "Web only",
+      "size": "Find a Grave: Gettysburg National Cemetery page shows 7,131 memorials (2026-09-30)",
+      "api_limits": "No public APIs for this use.",
+      "license_rights": "Ancestry T&Cs (cover Ancestry, Newspapers.com, Find a Grave, Fold3): users agree 'Not to access, acquire, copy, or monitor any portion of the Services by any manual, automated, or programmatic method that exceeds the intended standard human use of the Services; or to use any data or content from the Services to train, develop, or fine-tune any machine learning model, algorithm, or artificial intelligence system' (read directly from the terms page text). FamilySearch terms: no 'bulk download, ... scrape content, or otherwise harvest any information'; personal non-commercial use; 'may not post content from this site on another website ... without our permission' (fetch-summarizer). Find a Grave robots.txt disallows /memorial/search and /cemetery/*/memorial-search.",
+      "rights_statement_url": "https://www.ancestry.com/c/legal/termsandconditions",
+      "evidence_quality": "Ancestry: primary text read; FamilySearch: summarizer; robots: read directly",
+      "rights_tier": "C (link-out only; NEVER ingest, scrape, or feed to any model)",
+      "extraction": "Provide per-soldier 'Look up on Find a Grave / Fold3 / FamilySearch / NPS CWSS' outbound links built from name+state search URLs; no fetching.",
+      "record_counts": "n/a",
+      "enables": [
+        "Ancestor next steps (service file images, burial photos) via user-initiated links"
+      ],
+      "quality_notes": "Fold3/Ancestry images are of PD NARA records but the hosting service's terms still bind automated access.",
+      "priority": "P2 (link-out)",
+      "effort": "S",
+      "depends_on": [
+        "SRC-10"
+      ],
+      "risks": [
+        "Any automated access violates terms; also blocks future LLM training on this content"
+      ]
+    },
+    {
+      "id": "SRC-15",
+      "name": "Library of Congress: loc.gov JSON API, Chronicling America, Maps, Prints & Photographs",
+      "publisher": "Library of Congress",
+      "category": "api+collections",
+      "urls": {
+        "api_docs": "https://www.loc.gov/apis/json-and-yaml/",
+        "limits": "https://www.loc.gov/apis/json-and-yaml/working-within-limits/",
+        "chronicling_america_status": "https://www.loc.gov/apis/additional-apis/chronicling-america-api/",
+        "ca_bulk_ocr": "https://chroniclingamerica.loc.gov/data/ocr/",
+        "legal": "https://www.loc.gov/legal/",
+        "maps_items": [
+          "https://www.loc.gov/item/lva0000067/ (Bachelder 1876, 3 maps, from 200 ft/inch survey under Warren)",
+          "https://www.loc.gov/item/2007630423/ (Bachelder isometric 1863)",
+          "https://www.loc.gov/item/99447503/ (GBMA map 1894, ca. 1:12,000)",
+          "https://www.loc.gov/item/99447498/ (Gettysburg battlefield 1863)",
+          "https://www.loc.gov/item/2004629148/ and /2004629149/ (Map of Adams Co., Pennsylvania, 1858)"
+        ],
+        "search_examples": [
+          "https://www.loc.gov/collections/chronicling-america/?q=gettysburg&dates=1863-07-03/1863-07-10&fo=json&c=5",
+          "https://www.loc.gov/collections/civil-war-maps/?q=Gettysburg&fo=json",
+          "https://www.loc.gov/collections/civil-war-glass-negatives/?q=Gettysburg&fo=json"
+        ]
+      },
+      "format": "JSON (?fo=json), IIIF images, OCR text via tile.loc.gov text-services",
+      "size": "OCR page text ~ tens of KB each",
+      "api_limits": "No key. loc.gov JSON/YAML API: 20 requests/minute (1-hour block); Text Services 150/min; Image Services 150/min; Streaming 60/min; MARCXML 30/min (72-hour block that resets if you keep calling); max 1,000 items/page; deep paging limit 100,000 (page read via WebFetch). Web resource pages return 403 to non-browser clients: use ?fo=json.",
+      "license_rights": "Chronicling America item rights field (read directly): 'The Library of Congress believes that the newspapers in Chronicling America are in the public domain or have no known copyright restrictions.' Geography & Map items (read directly): 'free to use and reuse unless a Rights Advisory statement is present ... Credit Line: Library of Congress, Geography and Map Division.' Prints & Photographs items: 'The Library of Congress does not own rights to material in its collections. Therefore, it does not license or charge permission fees ...' (researcher must assess).",
+      "rights_statement_url": "https://www.loc.gov/legal/",
+      "evidence_quality": "item JSON rights fields read directly; legal page via summarizer",
+      "rights_tier": "A (US public-domain items) - check Rights Advisory per item",
+      "extraction": "Chronicling America: query 'gettysburg' 1863-07-03..1863-07-31 (verified: 437 page hits for Jul 3-10; 1,560 for Jul 1-31; top titles NY Daily Tribune 28, NY Herald 26, Worcester Daily Spy 17, Chicago Daily Tribune 15), fetch OCR through the result's fulltext_file, chunk to passages, tag 'newspaper' + date + paper; ~1,600 pages x ~10-25 KB OCR = est. 16-40 MB raw. Maps: download IIIF/JPEG for Bachelder 1876 / GBMA 1894 / Adams 1858 and georeference (SRC-16). Rate: <=15 req/min in the build script, cache everything.",
+      "record_counts": "Chronicling America 'gettysburg' pages: 437 (Jul 3-10 1863), 1,560 (Jul 1-31 1863); Civil War Maps collection: 130 Gettysburg hits; Civil War glass negatives: 185 Gettysburg hits; photos search 'Gettysburg 1863 Gardner O'Sullivan' 9 hits",
+      "enables": [
+        "What did Northern/Southern papers report on July 4-10, 1863?",
+        "What did the field look like (photographs) in July 1863?",
+        "Farm/owner names on the 1858 Adams County map (LoC 2004629148/9)",
+        "Which maps show fences/woods (Warren survey)?"
+      ],
+      "quality_notes": "Newspaper OCR is noisy (example page OCR: 'V ill I 6 THE RUTLAND WEEKLY HKItAM ...'); wartime reports were often wrong or contradictory - present as 'what the press reported', never as fact. Old chroniclingamerica.loc.gov API retired 2025; use loc.gov API only.",
+      "priority": "P1 (maps P0)",
+      "effort": "L (newspapers) / M (maps download)",
+      "depends_on": [],
+      "risks": [
+        "429 blocks last 1 hour: implement back-off",
+        "Bulk OCR tarballs are 175-770 MB per batch (not needed)"
+      ]
+    },
+    {
+      "id": "SRC-16",
+      "name": "Historic maps as data: Warren survey (1868-69) via Bachelder 1876, Bachelder isometric 1863, GBMA 1894, Adams County 1858 (georeferencing project)",
+      "publisher": "LoC Geography & Map Division (public domain scans); NARA RG 77 originals",
+      "category": "historic-maps",
+      "urls": {
+        "bachelder_1876": "https://www.loc.gov/item/lva0000067/",
+        "bachelder_isometric_1863": "https://www.loc.gov/item/2007630423/",
+        "gbma_1894": "https://www.loc.gov/item/99447503/",
+        "adams_1858": "https://www.loc.gov/item/2004629148/",
+        "nara_blog": "https://unwritten-record.blogs.archives.gov/2018/07/03/mapping-the-battle-of-gettysburg/"
+      },
+      "format": "IIIF/JPEG/GIF scans; produce GeoJSON + optional XYZ raster tiles",
+      "size": "each scan tens of MB at full res",
+      "api_limits": "See SRC-15.",
+      "license_rights": "Free to use and reuse unless Rights Advisory (see SRC-15 rights quote); credit 'Library of Congress, Geography and Map Division'.",
+      "rights_statement_url": "https://www.loc.gov/legal/",
+      "evidence_quality": "rights fields read directly",
+      "rights_tier": "A",
+      "extraction": "Georeference with 8-15 ground control points per sheet (Allmaps or QGIS), then hand-trace: roads, farm lanes, woodlots, orchards, fence lines, building footprints with owner names; tag each feature with map, year, and 'year gap vs 1863' (the Warren survey is dated 1868-69 in search results, i.e. five years after the battle - the LoC record text I read says only that the survey was 'ordered by Brevet Major General A. A. Humphreys ... and conducted under' Warren, so confirm the year on the LoC page; the isometric drawing is dated 1863).",
+      "record_counts": "est. 300-600 traced features for the core battlefield (estimate)",
+      "enables": [
+        "Was there a fence along the Emmitsburg Road at X?",
+        "Which farm stood where, and whose was it?",
+        "What did woods vs. open ground look like on the Warren map?"
+      ],
+      "quality_notes": "Warren/Bachelder woods reflect 1868-76 not July 1863; reconcile with NPS CLR '1863 Landscape' (SRC-01). Cite both.",
+      "priority": "P1",
+      "effort": "XL",
+      "depends_on": [
+        "SRC-01",
+        "SRC-15"
+      ],
+      "risks": [
+        "Interpretation risk: keep 'traced from map, not surveyed' provenance on every feature"
+      ]
+    },
+    {
+      "id": "SRC-17",
+      "name": "HathiTrust (Bibliographic API open; Data API by key)",
+      "publisher": "HathiTrust",
+      "category": "api",
+      "urls": {
+        "bib_api_example": "https://catalog.hathitrust.org/api/volumes/brief/oclc/424023.json",
+        "key_request": "https://babel.hathitrust.org/cgi/kgs/request"
+      },
+      "format": "JSON / XML",
+      "size": "n/a",
+      "api_limits": "Bibliographic API: none published (verified working, unauthenticated). Data API: 2-legged OAuth key; per search snippets ~10,000-volume practical cap and Google-digitized PD volumes only from approved IPs; hathitrust.org docs and babel.hathitrust.org return 403 to non-browser clients so details are UNVERIFIED.",
+      "license_rights": "Item-level (rightsCode e.g. 'ic', 'pd'); PD volumes downloadable per HathiTrust policy.",
+      "rights_statement_url": "",
+      "evidence_quality": "bib API JSON read; Data API details from search snippets only",
+      "rights_tier": "A/B item-level",
+      "extraction": "Use only to resolve bibliographic records for citations; use Internet Archive (SRC-18) for OCR text (no key needed).",
+      "record_counts": "n/a",
+      "enables": [
+        "Stable catalog links for cited books"
+      ],
+      "quality_notes": "Redundant with IA for our PD corpus.",
+      "priority": "P3",
+      "effort": "S",
+      "depends_on": [],
+      "risks": []
+    },
+    {
+      "id": "SRC-18",
+      "name": "Internet Archive: Advanced Search, metadata, OCR text downloads, and full-text search (beta)",
+      "publisher": "Internet Archive",
+      "category": "api+texts",
+      "urls": {
+        "advancedsearch": "https://archive.org/advancedsearch.php?q=<query>&fl[]=identifier&rows=50&output=json",
+        "metadata": "https://archive.org/metadata/<identifier>",
+        "ocr_text": "https://archive.org/download/<identifier>/<identifier>_djvu.txt",
+        "fts_beta": "https://archive.org/services/search/beta/page_production/?service_backend=fts&user_query=<q>&hits_per_page=20&page=1 (undocumented; worked unauthenticated on 2026-09-30)"
+      },
+      "format": "JSON, plain-text OCR (_djvu.txt), hOCR/DjVu XML, PDF",
+      "size": "see items (OCR text 0.05-4 MB each)",
+      "api_limits": "No published numeric limits; be polite (<=1 request/s, cache, identify the client in the User-Agent). FTS beta endpoint is not a supported contract: wrap behind a build script, never call from the browser.",
+      "license_rights": "Item-level; pre-1929 US-published works are in the US public domain; IA items may carry licenseurl/possible-copyright-status metadata (e.g., newyorkatgettysb00foxw 'NOT_IN_COPYRIGHT'; Dyer Google-Books scan bub_gb_OBkNAQAAMAAJ carries licenseurl publicdomain/mark/1.0). Post-1929 reprints (e.g., 1959/1994 editions) may be copyrighted: use original-date scans only.",
+      "rights_statement_url": "https://archive.org/about/terms.php",
+      "evidence_quality": "metadata JSON read; policy page not fetched",
+      "rights_tier": "A (original pre-1929 scans)",
+      "extraction": "Download _djvu.txt (OCR), keep page breaks (form feed), clean hyphenation and running heads, chunk by section; store archive identifier + page image number for citation.",
+      "record_counts": "advancedsearch counts: 802 texts with subject 'Gettysburg, Battle of, Gettysburg, Pa., 1863'; 711 'war of the rebellion ... official records' texts; 113 Battles and Leaders items; 167 Confederate Veteran items (1893-1932); 380 Southern Historical Society Papers hits",
+      "enables": [
+        "Full-text passage retrieval over PD primary/secondary works",
+        "Quotable regimental narratives with page citations"
+      ],
+      "quality_notes": "OCR quality varies; prefer HathiTrust/Google/LoC scans of same edition when IA scan is poor; do a 1% manual QA sample.",
+      "priority": "P0",
+      "effort": "L",
+      "depends_on": [],
+      "risks": [
+        "Copyright status per item must be logged in the registry (edition year!)"
+      ]
+    },
+    {
+      "id": "SRC-19",
+      "name": "War of the Rebellion (Official Records), Series I, Volume 27 (Gettysburg Campaign), Parts 1-3",
+      "publisher": "US War Department (1889); scans on Internet Archive",
+      "category": "primary-source",
+      "urls": {
+        "part1": "https://archive.org/details/warofrebellion271unit",
+        "part2": "https://archive.org/details/warofrebellion272unit",
+        "part3": "https://archive.org/details/warofrebellion273unit",
+        "ocr": "https://archive.org/download/warofrebellion271unit/warofrebellion271unit_djvu.txt"
+      },
+      "format": "OCR text (djvu.txt): 3,970,479 + 3,880,513 + 3,406,041 = 11,257,033 bytes; 1,190 + 1,132 + 1,256 = 3,578 scanned pages",
+      "size": "11.3 MB raw text",
+      "api_limits": "IA (see SRC-18).",
+      "license_rights": "US government publication of 1889 (public domain); scans on IA carry no rights metadata in the items checked.",
+      "rights_statement_url": "https://archive.org/about/terms.php",
+      "evidence_quality": "metadata JSON read directly (page counts and file sizes)",
+      "rights_tier": "A",
+      "extraction": "Segment into reports: split on headings 'No. NN. Reports of ...' / 'Abstract from returns'; for each report capture author, rank, unit, date, page; extract time mentions with a regex family ('about 4 p. m.', 'at daybreak', 'at 3 o'clock') into {text, minutes_since_midnight|null, confidence, day}; map unit mentions ('Twentieth Maine', '20th Me.') to site IDs via alias table; extract place mentions (Devil's Den, Peach Orchard, Wheat-field, Emmitsburg road ...) against a gazetteer built from terrain.json + OSM names + NPS CLR features. Embed sentences later. Keep the OR citation form 'O.R., Ser. I, Vol. 27, pt. 1, p. NNN'.",
+      "record_counts": "3,578 pages; number of reports UNVERIFIED (expected several hundred; count during segmentation)",
+      "enables": [
+        "What did Colonel Chamberlain report about the 20th Maine?",
+        "When did Longstreet's attack begin according to the participants' own reports? (evidence for the clock conflict C4)",
+        "Which regiments reported fighting at the Wheatfield and when?",
+        "Official casualty returns by unit (Union) as a PD alternative to Busey & Martin"
+      ],
+      "quality_notes": "Times in OR reports are approximate and mutually inconsistent (that is itself historical evidence): store them as evidence with variance, never as a single truth. OCR needs QA on numbers/tables.",
+      "priority": "P0",
+      "effort": "L",
+      "depends_on": [
+        "SRC-05 alias table"
+      ],
+      "risks": [
+        "Table OCR (returns) is poor: manual QA for returns pages"
+      ],
+      "audit_refs": [
+        "C4"
+      ]
+    },
+    {
+      "id": "SRC-20",
+      "name": "Fox, Regimental Losses in the American Civil War 1861-1865 (1889)",
+      "publisher": "William F. Fox; IA scan regimentallosses00infoxw",
+      "category": "statistics",
+      "urls": {
+        "ia": "https://archive.org/details/regimentallosses00infoxw",
+        "ocr": "https://archive.org/download/regimentallosses00infoxw/regimentallosses00infoxw_djvu.txt"
+      },
+      "format": "OCR text 2,193,581 B; 618 pages",
+      "size": "2.2 MB",
+      "api_limits": "IA.",
+      "license_rights": "1889 publication; public domain.",
+      "rights_statement_url": "",
+      "evidence_quality": "IA metadata read",
+      "rights_tier": "A",
+      "extraction": "Semi-automated table extraction (regiment, killed, wounded, missing, aggregate) for Union regiments engaged at Gettysburg; QA by double-entry on a sample of 50 regiments; join through the crosswalk.",
+      "record_counts": "Gettysburg rows: not counted (measure)",
+      "enables": [
+        "Regiment casualty figures with a PD citation",
+        "Cross-check of site's casualty numbers (currently sourced to Busey & Martin 1994, copyrighted)"
+      ],
+      "quality_notes": "Fox is the 1889 standard for Union losses; Confederate coverage is much weaker (do not assume).",
+      "priority": "P1",
+      "effort": "L",
+      "depends_on": [
+        "SRC-10 crosswalk"
+      ],
+      "risks": [
+        "OCR of multi-column tables"
+      ]
+    },
+    {
+      "id": "SRC-21",
+      "name": "Dyer, A Compendium of the War of the Rebellion (1908) - unit histories",
+      "publisher": "Frederick H. Dyer; IA/Google scans; also embedded in CWSS REG_HISTORY",
+      "category": "unit-histories",
+      "urls": {
+        "ia_1908": "https://archive.org/details/bub_gb_OBkNAQAAMAAJ (licenseurl publicdomain/mark/1.0)",
+        "ia_1959_reprint_vol1": "https://archive.org/details/compendiumofwaro0001dyer (OCR 4,057,457 B; reprint - prefer the 1908 scan)"
+      },
+      "format": "OCR text; or use the CWSS Regiments_Unitz.tsv text (already structured by unit code)",
+      "size": "4 MB per volume",
+      "api_limits": "IA.",
+      "license_rights": "1908; public domain.",
+      "rights_statement_url": "",
+      "evidence_quality": "IA search result licenseurl read",
+      "rights_tier": "A",
+      "extraction": "Prefer CWSS REG_HISTORY/REG_LONGHISTORY (already keyed by unit_code and containing Dyer text with 'Attached to ... Corps' and 'SERVICE' paragraphs); use IA only to verify.",
+      "record_counts": "~3,246 US units in nps_units.csv; Dyer covers Union only",
+      "enables": [
+        "Regiment service history ('Attached to 2nd Brigade, 3rd Division, 5th Corps ... Gettysburg July 1-3')"
+      ],
+      "quality_notes": "Union only; Confederate unit histories need other sources (state histories, Confederate Military History (IA: 72 hits), OR).",
+      "priority": "P1",
+      "effort": "S",
+      "depends_on": [
+        "SRC-10"
+      ],
+      "risks": []
+    },
+    {
+      "id": "SRC-22",
+      "name": "State-at-Gettysburg and monument-dedication volumes (regimental narratives) + Vanderslice + GBMA history",
+      "publisher": "State monument commissions (1889-1914); Vanderslice (1897/1899)",
+      "category": "secondary-pd",
+      "urls": {
+        "maine": "https://archive.org/details/maineatgettysbur01main (OCR 1,606,755 B, 696 pp)",
+        "pennsylvania_vol2_1914": "https://archive.org/details/pennsylvaniaatg02penn (OCR 2,013,624 B, 826 pp)",
+        "new_york": "https://archive.org/details/newyorkatgettysb0001unse (Vols I & II, 1900)",
+        "michigan_1889": "https://archive.org/details/cu31924030924736",
+        "minnesota_1890": "https://archive.org/details/minnesotacivil01minnrich",
+        "vanderslice_1899": "https://archive.org/details/thenandnowgetty00vandrich (OCR 373,618 B)",
+        "gbma_history_1897": "https://archive.org/details/gettysburghistor00vand"
+      },
+      "format": "OCR text",
+      "size": "~10-15 MB raw for the set",
+      "api_limits": "IA.",
+      "license_rights": "Published 1889-1914; public domain (US).",
+      "rights_statement_url": "",
+      "evidence_quality": "IA metadata read",
+      "rights_tier": "A",
+      "extraction": "Chunk by regiment section; attach to unit IDs via alias table; keep page numbers; capture dedication-speech passages separately labeled 'reminiscence (retrospective)'.",
+      "record_counts": "Maine 696 pp; PA vol.2 826 pp; others not counted",
+      "enables": [
+        "What did the 20th Maine's own historian say about the bayonet charge?",
+        "Regiment-level narrative for hundreds of units",
+        "Where exactly did the regiment stand (Vanderslice 'where and how the regiments fought')"
+      ],
+      "quality_notes": "Veteran memory 20-50 years later: label as retrospective; good for color and positions, weak for timing.",
+      "priority": "P1",
+      "effort": "L",
+      "depends_on": [
+        "SRC-18",
+        "SRC-10"
+      ],
+      "risks": [
+        "Do not use post-1929 reprints"
+      ]
+    },
+    {
+      "id": "SRC-23",
+      "name": "Civilian narratives and reporters (Pierce, Buehler, Hoke, Jacobs, Bates) + NPS 'Civilians at Gettysburg'",
+      "publisher": "Various authors 1864-1900 (IA scans); NPS article",
+      "category": "primary-source",
+      "urls": {
+        "pierce_1889": "https://archive.org/details/atgettysburgorwh00alle",
+        "buehler_1900": "https://archive.org/details/recollectionsofr00bueh",
+        "hoke_1887": "https://archive.org/details/greatinvasionof100hoke",
+        "jacobs_1864": "https://archive.org/details/notesonrebelinv00jacogoog",
+        "bates_1875": "https://archive.org/details/battlegettysbur00bategoog",
+        "nps_civilians": "https://www.nps.gov/articles/000/civilians-at-gettysburg.htm"
+      },
+      "format": "OCR text",
+      "size": "<1 MB each",
+      "api_limits": "IA.",
+      "license_rights": "Published 1864-1900: public domain; NPS article: NPS statement.",
+      "rights_statement_url": "",
+      "evidence_quality": "IA metadata read",
+      "rights_tier": "A",
+      "extraction": "Paragraph-level passages tagged: witness, age/residence, day, place (Baltimore St, Cemetery Hill, Culp's Hill, Seminary), sense (sound/sight/smell), account_date (retrospective flag: Pierce wrote in 1889 at ~15->41 y).",
+      "record_counts": "5 books + 1 NPS article (Sarah Broadhead's diary was NOT found on IA by title search: UNVERIFIED)",
+      "enables": [
+        "What did civilians see and hear on July 1-3?",
+        "What happened in the town on the night of July 1?",
+        "How did civilians describe the smell/sound of the cannonade?"
+      ],
+      "quality_notes": "Retrospective accounts vary in reliability; label each with writing date; do not present as verified fact.",
+      "priority": "P0",
+      "effort": "M",
+      "depends_on": [
+        "SRC-18"
+      ],
+      "risks": [
+        "Gettysburg College / ACHS diaries and letters are separate (SRC-30): Tier C"
+      ]
+    },
+    {
+      "id": "SRC-24",
+      "name": "July 1863 weather at Gettysburg (Prof. Michael Jacobs meteorological observations)",
+      "publisher": "M. Jacobs, Pennsylvania College (1864 'Notes on the Rebel invasion...'); summaries by Emerging Civil War / CivilWarTalk",
+      "category": "primary-source",
+      "urls": {
+        "primary_ocr": "https://archive.org/download/notesonrebelinva00gett/notesonrebelinva00gett_djvu.txt (83,032 B; 66 pp)",
+        "ia_1864": "https://archive.org/details/notesonrebelinv00jacogoog",
+        "secondary_summary": "https://emergingcivilwar.com/2023/02/22/the-thunder-seemed-tame-weather-at-the-battle-of-gettysburg/"
+      },
+      "format": "OCR text -> hand-keyed 3 days x 3 readings table",
+      "size": "<100 KB",
+      "api_limits": "IA.",
+      "license_rights": "1864 publication: public domain; the summaries are copyrighted (do not copy, link only).",
+      "rights_statement_url": "",
+      "evidence_quality": "Secondary values seen in one search result only (NOT yet checked against the primary text)",
+      "rights_tier": "A (primary) / C (blog summaries)",
+      "extraction": "Hand-key from the primary: date, 7am/2pm/9pm temperature (F), wind, sky, rain. Values reported by the secondary summary (VERIFY against primary before shipping): Jul 1 72/76/74 cloudy, ~12 mph S breeze; Jul 2 74/81/76 clearing afternoon; Jul 3 73/87/76, storm, 'the thunder seemed tame, after the artillery firing of the afternoon'; Jul 4 rain >1 inch.",
+      "record_counts": "~12 rows",
+      "enables": [
+        "What was the weather during Pickett's Charge?",
+        "Why was the retreat so muddy?",
+        "How hot was it when the Wheatfield was fought?"
+      ],
+      "quality_notes": "Single-station record from town; excellent as the only quantitative weather; also feeds the ground-condition context.",
+      "priority": "P0",
+      "effort": "S",
+      "depends_on": [],
+      "risks": [
+        "Do not ship the secondary-summary numbers unverified"
+      ]
+    },
+    {
+      "id": "SRC-25",
+      "name": "Soldiers' National Cemetery reports (1864, revised 1865): burial lists with names, regiments, companies",
+      "publisher": "Pennsylvania Select Committee / Soldiers' National Cemetery Association (1864-65); IA scans",
+      "category": "primary-source",
+      "urls": {
+        "revised_1865_a": "https://archive.org/details/revisedreportofs01penn",
+        "revised_1865_b": "https://archive.org/details/revisedrepor2743penn",
+        "report_1864": "https://archive.org/details/reportofselectcopenn",
+        "association_charter_1864": "https://archive.org/details/charterproceedin00sold"
+      },
+      "format": "OCR text with tabular lists",
+      "size": "~1-2 MB",
+      "api_limits": "IA.",
+      "license_rights": "1864-65 publications: public domain.",
+      "rights_statement_url": "",
+      "evidence_quality": "IA search results read (titles/dates); contents of the lists NOT yet inspected",
+      "rights_tier": "A",
+      "extraction": "OCR + parse burial tables per state section: {name, rank, company, regiment, state, grave/plot}; QA sample of 200 rows.",
+      "record_counts": "UNVERIFIED count (search snippet: nearly 3,500 Union soldiers buried in 1863-64)",
+      "enables": [
+        "Where is Private X buried? Which regiments lost men buried in the National Cemetery?",
+        "Dead by state/unit (Union) from a PD source"
+      ],
+      "quality_notes": "Only Union dead in the Soldiers' National Cemetery; Confederate dead were later removed to Southern cemeteries (1870s) - not in these lists. The CWSS mirror has NO Gettysburg cemetery rows (checked).",
+      "priority": "P1",
+      "effort": "L",
+      "depends_on": [
+        "SRC-18"
+      ],
+      "risks": [
+        "OCR of tabular names: manual QA"
+      ]
+    },
+    {
+      "id": "SRC-26",
+      "name": "Medical: Medical and Surgical History of the War of the Rebellion; Camp Letterman information",
+      "publisher": "US Surgeon General's Office (1870-1888); IA scans; NMCWM (article)",
+      "category": "primary-source",
+      "urls": {
+        "ia_example": "https://archive.org/details/medicalsurgical32barnrich",
+        "nmcwm_camp_letterman": "https://www.civilwarmed.org/camp-letterman/"
+      },
+      "format": "OCR text",
+      "size": "multi-MB per volume",
+      "api_limits": "IA.",
+      "license_rights": "1870s publication: public domain; NMCWM article copyrighted (link only).",
+      "rights_statement_url": "",
+      "evidence_quality": "IA hits read; Camp Letterman patient-record availability comes from a forum thread (weak) - UNVERIFIED",
+      "rights_tier": "A / C",
+      "extraction": "Selective: wound statistics and Gettysburg case narratives only; do not attempt whole-volume ingestion in phase 1.",
+      "record_counts": "45 IA hits for the title",
+      "enables": [
+        "What kinds of wounds were common at Gettysburg?",
+        "Camp Letterman timeline (opened July 20, closed Nov 20, 1863 per NMCWM/search snippets)"
+      ],
+      "quality_notes": "Search snippets claim 14,000 Union + 6,800 Confederate patients and no comprehensive patient list; verify before publishing numbers.",
+      "priority": "P3",
+      "effort": "L",
+      "depends_on": [],
+      "risks": [
+        "Sensitive content: age-appropriate framing"
+      ]
+    },
+    {
+      "id": "SRC-27",
+      "name": "1860 Census: Agriculture of the United States in 1860 (Kennedy, 1864) and Population volume; NHGIS alternative",
+      "publisher": "US Census Bureau (PD); IPUMS NHGIS (restricted redistribution)",
+      "category": "statistics",
+      "urls": {
+        "census_pdf": "https://www2.census.gov/library/publications/decennial/1860/agriculture/1860b-01.pdf",
+        "census_page": "https://www.census.gov/library/publications/1864/dec/1860b.html",
+        "ia": "https://archive.org/details/cu31924096440932",
+        "nhgis_terms": "https://www.nhgis.org/ipums-nhgis-terms-use"
+      },
+      "format": "PDF tables (Adams County PA rows: wheat, rye, oats, corn, hay, livestock)",
+      "size": "PDF (multi-MB)",
+      "api_limits": "None.",
+      "license_rights": "Census Bureau publications are US government works (public domain). NHGIS (search snippet, terms page URL verified 200): 'you will not redistribute the data without permission' -> DO NOT ship NHGIS extracts.",
+      "rights_statement_url": "https://www.nhgis.org/ipums-nhgis-terms-use",
+      "evidence_quality": "Census PDF reachable (200 application/pdf); NHGIS wording from search snippet",
+      "rights_tier": "A (Census PDF) / C (NHGIS)",
+      "extraction": "Hand-key the Adams County, PA rows (a few dozen numbers) from the PDF; store with page number and 'crop year 1859' note.",
+      "record_counts": "~30-60 numbers",
+      "enables": [
+        "How much wheat did Adams County grow (1859 crop)?",
+        "Context for Wheatfield questions (county-level only!)"
+      ],
+      "quality_notes": "County totals cannot tell the height/ripeness of a specific field on July 2, 1863.",
+      "priority": "P2",
+      "effort": "S",
+      "depends_on": [],
+      "risks": [
+        "Never let the Historian imply farm-level data from county totals"
+      ]
+    },
+    {
+      "id": "SRC-28",
+      "name": "Civil War damage claims (Adams County) - PA State Archives claim volumes; ACHS Damage Claims Index; NPS narrative examples",
+      "publisher": "Pennsylvania State Archives; Adams County Historical Society (Gettysburg History); NPS",
+      "category": "primary-source",
+      "urls": {
+        "nps_example": "https://npshistory.com/publications/civil_war_series/16/sec20.htm",
+        "achs_research": "https://gettysburghistory.org/research/"
+      },
+      "format": "Bound volumes/microfilm; ACHS index (research room); NPS narrative HTML",
+      "size": "n/a",
+      "api_limits": "No public API found.",
+      "license_rights": "State archive records are public records (rights not checked); ACHS page: 'Reproduction of any of the materials found below is prohibited without the express permission of Gettysburg History.' (read directly).",
+      "rights_statement_url": "https://gettysburghistory.org/research/",
+      "evidence_quality": "ACHS text read directly; PA Archives holding statement from a search snippet (claims applications 1871-1879, arranged by county/surname) UNVERIFIED at source",
+      "rights_tier": "C for ACHS index; A for state archive originals after verification",
+      "extraction": "Phase-1: transcribe only the examples already printed in the NPS handbook (e.g., Catherine Trostle: 27 acres wheat, 9 acres corn, 32 acres grass, 6,400 fence rails). Phase-2: request permission from ACHS / arrange transcription from PA Archives volumes.",
+      "record_counts": "Adams County claim count UNVERIFIED",
+      "enables": [
+        "How many acres of wheat did the Trostle farm lose?",
+        "Which farms lost fences/crops and how much (damage claims)?"
+      ],
+      "quality_notes": "Claims are self-interested and partial; they document what was destroyed, not what stood on July 2.",
+      "priority": "P1",
+      "effort": "L",
+      "depends_on": [],
+      "risks": [
+        "Permission needed for ACHS; private-individual descendants: names are 1860s people (low sensitivity)"
+      ]
+    },
+    {
+      "id": "SRC-29",
+      "name": "USGS 3DEP elevation (1 m DEM, lidar point cloud, 1/9 and 1/3 arc-second) via TNM Access API",
+      "publisher": "US Geological Survey",
+      "category": "terrain",
+      "urls": {
+        "tnm_api": "https://tnmaccess.nationalmap.gov/api/v1/products?datasets=Digital%20Elevation%20Model%20(DEM)%201%20meter&bbox=-77.29,39.77,-77.16,39.86&outputFormat=JSON",
+        "dem_1m_tiles": [
+          "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/PA_South_Central_B1_2017/TIFF/USGS_one_meter_x30y441_PA_South_Central_B1_2017.tif (485,186,601 B)",
+          "...x30y442... (479,387,976 B)",
+          "...x31y441... (468,996,588 B)",
+          "...x31y442... (469,898,363 B)"
+        ],
+        "lidar_LPC": "project PA_17County_D24, published 2026-05-04, 236 LAZ tiles returned for the bbox (86-108 MB each)",
+        "credit_policy": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits"
+      },
+      "format": "GeoTIFF (1 m), LAZ point clouds, IMG",
+      "size": "4 tiles ~1.9 GB in total for 1 m DEM; derived 5 m grid ~9 MB raw (est.)",
+      "api_limits": "No key; TNM Access API and public S3 (no documented limits).",
+      "license_rights": "'USGS-authored or produced data and information are considered to be in the U.S. Public Domain.' Credit requested: 'U.S. Geological Survey' / 'Department of the Interior/USGS' (fetch-summarizer).",
+      "rights_statement_url": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits",
+      "evidence_quality": "TNM API JSON read; policy via summarizer",
+      "rights_tier": "A",
+      "extraction": "gdalwarp -t_srs EPSG:32618 -tr 5 5 -te <bbox> to merge/clip; write 16-bit PNG height grid (5 m: about 2,200 x 2,000 cells = 4.4M cells ~ 9 MB raw, est. 3-5 MB PNG) and a 10 m grid (~1-2 MB); derive slope/aspect/hillshade; build optional Terrain-RGB tiles (own data) for the map. Viewshed: browser Web Worker line-of-sight with observer height 1.65 m (5 ft 5 in), target height 1.5 m, earth curvature/refraction correction (small under 5 km).",
+      "record_counts": "bbox 39.77-39.86 N, 77.29-77.16 W is roughly 10 km x 11 km (~110 km2 = ~110 M 1 m cells; computed)",
+      "enables": [
+        "Could Lee see Little Round Top from Seminary Ridge? (viewshed, deterministic)",
+        "How steep is the climb up Culp's Hill / Round Top? (slope)",
+        "Elevation at the Angle / Copse of Trees"
+      ],
+      "quality_notes": "Bare-earth LiDAR shows TODAY's terrain (roads, railroad cut and park grading present) and no 1863 trees; combine with 1863 woodlot polygons (SRC-16/SRC-01). This DEM is what the site's 'What They Could See' page should be built on (audit H8: it is not a viewshed today).",
+      "priority": "P0",
+      "effort": "L",
+      "depends_on": [
+        "SRC-16 for vegetation blockers"
+      ],
+      "risks": [
+        "Large source downloads (1.9 GB): do in CI/local only, not committed"
+      ],
+      "audit_refs": [
+        "H8",
+        "S3"
+      ]
+    },
+    {
+      "id": "SRC-30",
+      "name": "USGS Historical Topographic Maps: Gettysburg quadrangles (1908, 1942, 1944, 1951, 1990, 1994)",
+      "publisher": "USGS TNM Historical Topographic Map Collection",
+      "category": "historic-maps",
+      "urls": {
+        "tnm_api": "https://tnmaccess.nationalmap.gov/api/v1/products?datasets=Historical%20Topographic%20Maps&bbox=-77.26,39.80,-77.20,39.83&outputFormat=JSON"
+      },
+      "format": "GeoPDF + GeoTIFF",
+      "size": "7.35-8.13 MB (1908 1:62,500 editions: 6 listed); 8.5 MB (1942 1:125,000); 6.2 MB (1944 1:31,680); 8.6-9.5 MB (1951 1:24,000)",
+      "api_limits": "TNM API/S3 (no key).",
+      "license_rights": "USGS public domain (see SRC-29), credit USGS.",
+      "rights_statement_url": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits",
+      "evidence_quality": "TNM API JSON read",
+      "rights_tier": "A",
+      "extraction": "Use GeoTIFF for contour/road comparison and place names (1908 is the closest USGS depiction to the early-park landscape); extract farm labels if legible.",
+      "record_counts": "52 results in the bbox across scales/editions; Gettysburg-titled editions: 1908 (x6), 1942, 1944, 1951 (x7), 1990, 1994",
+      "enables": [
+        "How did the road network look in 1908 vs today?",
+        "Contour cross-check of the DEM"
+      ],
+      "quality_notes": "1908 is 45 years after the battle; quarrying and road changes since 1863.",
+      "priority": "P2",
+      "effort": "M",
+      "depends_on": [],
+      "risks": []
+    },
+    {
+      "id": "SRC-31",
+      "name": "Mapbox Terrain-DEM v1 (in-SDK elevation, no export)",
+      "publisher": "Mapbox",
+      "category": "terrain",
+      "urls": {
+        "tileset_doc": "https://docs.mapbox.com/data/tilesets/reference/mapbox-terrain-dem-v1/",
+        "tos": "https://www.mapbox.com/legal/tos"
+      },
+      "format": "Raster-DEM tiles (Terrain-RGB): height = -10000 + ((R*256*256 + G*256 + B) * 0.1)",
+      "size": "n/a",
+      "api_limits": "Through Mapbox GL JS quota/pricing of the site's token.",
+      "license_rights": "Doc: 'Available in Mapbox SDK's only' (GL JS, iOS, Android, Flutter); not available via the Raster Tiles API; multiple source datasets by location/zoom; attribution required. Do NOT download/cache tiles as files.",
+      "rights_statement_url": "https://docs.mapbox.com/data/tilesets/reference/mapbox-terrain-dem-v1/",
+      "evidence_quality": "fetch-summarizer; the ToS excerpt fetched did not include tile-caching clauses (UNVERIFIED which product-terms clause applies)",
+      "rights_tier": "B (in-SDK use only)",
+      "extraction": "Use map.queryTerrainElevation(lngLat) for live elevation readouts in the main map (data up to zoom 14); for viewshed/slope use the own 3DEP-derived grid (SRC-29) so results are deterministic and citable.",
+      "record_counts": "n/a",
+      "enables": [
+        "Elevation readout on tap/hover"
+      ],
+      "quality_notes": "Vertical precision 0.1 m increments but real resolution limited; source data undisclosed.",
+      "priority": "P2",
+      "effort": "S",
+      "depends_on": [],
+      "risks": [
+        "Cinematic Export/recording of Mapbox tiles: check Mapbox product terms before promoting exports (open question)"
+      ]
+    },
+    {
+      "id": "SRC-32",
+      "name": "PASDA / Adams County GIS (parcels, lidar/imagery indexes) and historic aerials",
+      "publisher": "Pennsylvania Spatial Data Access (Penn State); Adams County GIS Hub",
+      "category": "gis",
+      "urls": {
+        "pasda": "https://www.pasda.psu.edu/",
+        "adams_hub": "https://gis-hub-adamsgis.hub.arcgis.com/",
+        "pa_lidar_page": "https://pa-geo-data-pennmap.hub.arcgis.com/pages/lidar-and-imagery-build",
+        "parcels_search": "https://www.pasda.psu.edu/uci/SearchResults.aspx?Keyword=adams%20county%20parcels"
+      },
+      "format": "Shapefile ZIP, KMZ, GeoJSON, ArcGIS services (Adams County Parcels 2026: pattern .../download/adamscounty/AdamsCounty_Parcels<YYYYMM>.zip)",
+      "size": "not measured",
+      "api_limits": "Not stated.",
+      "license_rights": "PASDA: 'Standard PSU legal statements and copyright information apply' (no license text seen). Parcel attributes contain CURRENT owner names/addresses: privacy risk -> strip attributes.",
+      "rights_statement_url": "https://www.pasda.psu.edu/",
+      "evidence_quality": "PASDA search page fetched; lidar page content not retrievable via fetch tool (UNVERIFIED specifics)",
+      "rights_tier": "B (verify) + privacy rule",
+      "extraction": "Use geometry only (no owner fields) to align historic farm outlines with modern boundaries; PAMAP/USGS lidar already covered by SRC-29.",
+      "record_counts": "n/a",
+      "enables": [
+        "Where is the Rose farm relative to today's parcels/park boundary?"
+      ],
+      "quality_notes": "Parcels are modern; farm names for 1863 come from historic maps (SRC-16) and NPS farm histories.",
+      "priority": "P3",
+      "effort": "M",
+      "depends_on": [
+        "SRC-16"
+      ],
+      "risks": [
+        "Do not publish private owner info"
+      ]
+    },
+    {
+      "id": "SRC-33",
+      "name": "Smithsonian Open Access (NMAH/NPG etc.) - CC0 images and metadata",
+      "publisher": "Smithsonian Institution",
+      "category": "images",
+      "urls": {
+        "api": "https://api.si.edu/openaccess/api/v1.0/search?q=gettysburg&api_key=<key>",
+        "open_access": "https://www.si.edu/openaccess"
+      },
+      "format": "JSON API (api.data.gov key; DEMO_KEY works for low-volume tests)",
+      "size": "n/a",
+      "api_limits": "api.data.gov key limits apply (DEMO_KEY is heavily limited; register a key for build use - owner action).",
+      "license_rights": "Sampled records show metadata_usage.access = 'CC0'.",
+      "rights_statement_url": "https://www.si.edu/openaccess",
+      "evidence_quality": "API JSON read (3 sample rows)",
+      "rights_tier": "A (CC0 rows only)",
+      "extraction": "Query 'gettysburg' with online_media_type Images; filter access=='CC0'; store title, unit, media URL, credit.",
+      "record_counts": "737 records match 'gettysburg'; 236 with images (2026-09-30)",
+      "enables": [
+        "Portraits and objects (NMAH/NPG) to illustrate commanders and material culture"
+      ],
+      "quality_notes": "Many hits are not battle-related (e.g., memorial coins); curate.",
+      "priority": "P2",
+      "effort": "S",
+      "depends_on": [],
+      "risks": [
+        "Filter to CC0 only"
+      ]
+    },
+    {
+      "id": "SRC-34",
+      "name": "Wikipedia (English) - battle articles, orders of battle, commander biographies",
+      "publisher": "Wikimedia Foundation / volunteer editors",
+      "category": "encyclopedia",
+      "urls": {
+        "battle": "https://en.wikipedia.org/wiki/Battle_of_Gettysburg (wikitext 134,435 B)",
+        "day1": "https://en.wikipedia.org/wiki/Battle_of_Gettysburg,_first_day (57,043 B)",
+        "day2": "https://en.wikipedia.org/wiki/Battle_of_Gettysburg,_second_day (52,541 B)",
+        "oob_union": "https://en.wikipedia.org/wiki/Battle_of_Gettysburg_order_of_battle:_Union (60,906 B)",
+        "oob_confederate": "https://en.wikipedia.org/wiki/Battle_of_Gettysburg_order_of_battle:_Confederate (38,288 B)",
+        "reuse_guidance": "https://en.wikipedia.org/wiki/Wikipedia:Reusing_Wikipedia_content",
+        "terms": "https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use",
+        "api_limits": "https://www.mediawiki.org/wiki/Wikimedia_APIs/Rate_limits"
+      },
+      "format": "MediaWiki API (action=query&prop=extracts|revisions), REST, wikitext/HTML",
+      "size": "~0.5 MB for the 6 key articles",
+      "api_limits": "Verified table (fetch of the Rate_limits page + observed HTTP 429 when the client was unidentified): unidentified IP 10 req/min; requests with a meaningful User-Agent incl. contact info 200 req/min; 429 with Retry-After. Use a descriptive User-Agent (project + contact).",
+      "license_rights": "Text: CC BY-SA 4.0 (and GFDL for older text) per Terms of Use section 7. Reuse page (fetch-summarizer): attribute by hyperlink to the article, or a stable copy, or an author list; 'If you make modifications or additions ... you must license them under the Creative Commons Attribution-Share-Alike License 4.0 or later'; 'indicate in a reasonable fashion that the original work has been modified'; include a license notice with link http://creativecommons.org/licenses/by-sa/4.0/ ; each media file has separate licensing on its own page.",
+      "rights_statement_url": "https://en.wikipedia.org/wiki/Wikipedia:Reusing_Wikipedia_content",
+      "evidence_quality": "fetch-summarizer (reuse + ToU); rate limits read from the MediaWiki page",
+      "rights_tier": "B (CC BY-SA 4.0 - attribution + share-alike on adaptations)",
+      "extraction": "Fetch rendered extracts + oldid permalink + timestamp; store {title, revid, retrieved_at, license:'CC BY-SA 4.0', url:'https://en.wikipedia.org/w/index.php?title=...&oldid=...', text_hash}. Use ONLY for context, commander biographies and 'how do other reference works describe it' - NOT as the source of orders of battle (use NPS/OR: SRC-05/SRC-19). Static-site compliance pattern: (1) every Wikipedia-derived passage rendered in its own labeled block with 'Source: Wikipedia, <article>, CC BY-SA 4.0' linking the oldid permalink and the license; (2) /sources.html lists all articles + revision ids + the change note ('condensed/excerpted'); (3) keep Wikipedia-derived excerpts as separate JSON files with their own LICENSE header so share-alike scope is clear and does not attach to the site's original vignettes; (4) do not paraphrase-blend Wikipedia text into site-authored vignettes.",
+      "record_counts": "6 articles above + ~130 commander/unit biographies (estimate; count via the crosswalk)",
+      "enables": [
+        "Biography snippets for corps/division/brigade commanders",
+        "'What do reference works say?' side-by-side with primary sources",
+        "Links to further reading"
+      ],
+      "quality_notes": "Tertiary source; article quality varies; the OOB pages are large hand-edited lists (Union 60,906 B; Confederate 38,288 B) - good for cross-checking spelling/rank, not authoritative.",
+      "priority": "P1",
+      "effort": "M",
+      "depends_on": [],
+      "risks": [
+        "ShareAlike contagion if blended: keep separation",
+        "429 blocks: identify client and cache"
+      ]
+    },
+    {
+      "id": "SRC-35",
+      "name": "Wikidata (CC0) - identifiers and enrichment",
+      "publisher": "Wikimedia Foundation",
+      "category": "linked-data",
+      "urls": {
+        "battle_item": "https://www.wikidata.org/wiki/Q33132 (Battle of Gettysburg)",
+        "sparql": "https://query.wikidata.org/sparql (User-Agent required)",
+        "licensing": "https://www.wikidata.org/wiki/Wikidata:Licensing"
+      },
+      "format": "SPARQL JSON, JSON entity dumps",
+      "size": "small",
+      "api_limits": "Same Wikimedia limits as SRC-34; SPARQL timeout 60 s.",
+      "license_rights": "'All structured data (i.e. the main, Property, Lexeme, and EntitySchema namespaces) is released into the public domain under Creative Commons Zero.' Text in other namespaces: CC BY-SA 4.0 (fetch-summarizer).",
+      "rights_statement_url": "https://www.wikidata.org/wiki/Wikidata:Licensing",
+      "evidence_quality": "fetch-summarizer; SPARQL results read directly",
+      "rights_tier": "A (structured data)",
+      "extraction": "Measured 2026-09-30: 87 items with 'significant event' P607 = Q33132 (mostly people); 88 items via P607 -> part-of chain; 4,116 items with P607 = American Civil War (Q8676); 174 geolocated items within 8 km of the town (14 cemeteries, 8 sculptures, 4 monuments, 4 battles, ...); only 2 items with participant-in P1344 = Q33132. Use to attach QIDs, P18 images (Commons) and Wikipedia sitelinks to commanders and to the 1,163 units that have DBpedia URIs (SRC-11).",
+      "record_counts": "87 people/items tied to Gettysburg; 174 nearby geolocated items",
+      "enables": [
+        "Cross-links and images for commanders",
+        "Disambiguation (which 'John Buford')"
+      ],
+      "quality_notes": "NOT a source for regiment rosters or unit positions (only 2 units have P1344 Gettysburg). Gettysburg monuments are largely absent (4 'monument' instances nearby).",
+      "priority": "P2",
+      "effort": "S",
+      "depends_on": [
+        "SRC-10",
+        "SRC-11"
+      ],
+      "risks": []
+    },
+    {
+      "id": "SRC-36",
+      "name": "Wikimedia Commons - Gettysburg photographs, maps, monuments/tablets",
+      "publisher": "Wikimedia Commons contributors",
+      "category": "images",
+      "urls": {
+        "nmp": "https://commons.wikimedia.org/wiki/Category:Gettysburg_National_Military_Park",
+        "battlefield": "https://commons.wikimedia.org/wiki/Category:Gettysburg_Battlefield",
+        "battle": "https://commons.wikimedia.org/wiki/Category:Battle_of_Gettysburg",
+        "api": "https://commons.wikimedia.org/w/api.php?action=query&prop=imageinfo&iiprop=extmetadata|url|size&titles=File:<name>&format=json"
+      },
+      "format": "Image files + extmetadata (LicenseShortName, Artist, Credit, AttributionRequired, UsageTerms)",
+      "size": "n/a",
+      "api_limits": "Wikimedia limits (SRC-34).",
+      "license_rights": "Per-file: PD-USGov, PD-old, CC0, CC BY, CC BY-SA and others; 'It is the responsibility of the reuser to determine how a license applies' (Wikipedia reuse page).",
+      "rights_statement_url": "https://en.wikipedia.org/wiki/Wikipedia:Reusing_Wikipedia_content",
+      "evidence_quality": "category counts read directly via the API on 2026-09-30",
+      "rights_tier": "A/B per file (build-time allowlist)",
+      "extraction": "Measured category sizes: 'Gettysburg National Military Park' 462 (422 files, 40 subcats); 'Gettysburg Battlefield' 338 (314 files, 23 subcats); 'Battle of Gettysburg' 311 (296 files, 14 subcats); 'Gettysburg National Cemetery' 117 (110 files); 'Maps of the Battle of Gettysburg' 20 (16 files). Subcategories of interest: 'Battle of Gettysburg memorials', 'Gettysburg National Military Park - markers, plaques and tablets', 'Cannons in Gettysburg National Military Park', 'Maps of Gettysburg National Military Park', 'Annual reports to the Secretary of War (1893-1901)', farm categories (Bushman, Leister, Trostle, Slyder, Codori, Wisler). Allowlist rule at build time: keep only files whose LicenseShortName matches ^(Public domain|PD|CC0|CC BY( |-)?[0-9.]*|CC BY-SA)$; store credit string; reject 'GFDL only', 'CC BY-NC', 'fair use'.",
+      "record_counts": "~1,000 files across the categories (counted above; overlapping)",
+      "enables": [
+        "Photos of monuments/tablets to illustrate answers",
+        "Tablet-text transcription source (photographs of War Department tablets)"
+      ],
+      "quality_notes": "Modern photographs of PD monument text: the text is PD (1890s tablets are federal/state works), the photo license is per-file.",
+      "priority": "P1",
+      "effort": "M",
+      "depends_on": [],
+      "risks": [
+        "Attribution strings for CC BY/CC BY-SA files must appear next to each image"
+      ]
+    },
+    {
+      "id": "SRC-37",
+      "name": "Wikisource (transcribed texts: cyclopedias, SHSP items, court case)",
+      "publisher": "Wikimedia Foundation",
+      "category": "texts",
+      "urls": {
+        "api": "https://en.wikisource.org/w/api.php?action=query&list=search&srsearch=Gettysburg&format=json"
+      },
+      "format": "MediaWiki API",
+      "size": "small",
+      "api_limits": "Wikimedia limits (SRC-34); one retry hit HTTP 429 earlier in the session.",
+      "license_rights": "Hosted transcriptions of public-domain works; page-level license templates vary (verify per page).",
+      "rights_statement_url": "https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use",
+      "evidence_quality": "totalhits read directly",
+      "rights_tier": "A/B per page",
+      "extraction": "Optional: pick 20-30 specific pages (e.g., 'The American Cyclopaedia (1879)/Gettysburg, Battle of' 15,888 B; 'United States v. Gettysburg Electric Railway Company' 10,426 B; SHSP appendix to Rodes' report).",
+      "record_counts": "1,036 search hits for 'Gettysburg' (mostly short pages)",
+      "enables": [
+        "Legal history of the battlefield park (US v. Gettysburg Electric Railway)",
+        "SHSP transcriptions of Confederate reports"
+      ],
+      "quality_notes": "Sparse and uneven; the IA/OR route is more complete.",
+      "priority": "P3",
+      "effort": "S",
+      "depends_on": [],
+      "risks": []
+    },
+    {
+      "id": "SRC-38",
+      "name": "OpenStreetMap - monuments, memorials, tablets, cannon positions in the battlefield bbox",
+      "publisher": "OpenStreetMap contributors",
+      "category": "geodata",
+      "urls": {
+        "overpass": "https://overpass-api.de/api/interpreter (POST data=<query>; a User-Agent header is REQUIRED: HTTP 406 without one)",
+        "copyright": "https://www.openstreetmap.org/copyright",
+        "query_used": "[out:json][timeout:60];(node[\"historic\"~\"memorial|monument|cannon|battlefield|ruins|building\"](39.77,-77.29,39.86,-77.16);way[\"historic\"~\"memorial|monument|cannon|battlefield\"](39.77,-77.29,39.86,-77.16););out tags center;"
+      },
+      "format": "Overpass JSON (tags + center)",
+      "size": "189 KB for the query above",
+      "api_limits": "Public Overpass instance: fair-use (identify client, low volume); build-time only.",
+      "license_rights": "ODbL 1.0: 'OpenStreetMap is open data, licensed under the Open Data Commons Open Database License (ODbL)'; 'You are free to copy, distribute, transmit and adapt our data, as long as you credit OpenStreetMap and its contributors.' 'If you alter or build upon our data, you may distribute the result only under the same license.' The API response itself states 'The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.'",
+      "rights_statement_url": "https://www.openstreetmap.org/copyright",
+      "evidence_quality": "copyright page via summarizer; Overpass response 'copyright' field read directly",
+      "rights_tier": "B (ODbL: attribution + share-alike for derived DATABASE)",
+      "extraction": "Measured 2026-09-30 (OSM base 2026-09-30T04:07:31Z): 867 elements with coordinates (790 historic=monument; 77 historic=memorial: 32 plaque, 24 statue, 12 unspecified, 8 grave, 1 stone), 852 named, 131 with an 'inscription' tag, 9 with wikidata, 2 with wikipedia, 0 with image/commons tags. Match to the site's 512 monuments (bundle.pretty.js:104442-110597) by distance + normalized name: 302 OSM elements are >30 m from any site monument, 177 are >60 m, 131 are >100 m; of the 177, 38 are named Confederate ('CS ...'/'CSA') and 39 'US ...' (site's side split is Union 457 / Confederate 40 / Other 15). Conversely 20 of the site's 512 monuments have NO OSM feature within 60 m (suspect coordinates or OSM gaps). ODbL compliance pattern: publish the OSM-derived monument dataset as its OWN file (e.g. /data/monuments_osm.geojson) with an ODbL LICENSE + 'Contains information from OpenStreetMap' notice; the site (a 'Produced Work') needs attribution only; do not merge OSM attributes into the site's proprietary JSON.",
+      "record_counts": {
+        "osm_historic_elements": 867,
+        "named": 852,
+        "with_inscription": 131,
+        "site_monuments": 512,
+        "osm_gt60m_from_any_site_monument": 177,
+        "site_monuments_without_osm_within_60m": 20
+      },
+      "enables": [
+        "Which monuments/tablets are near the Angle / Little Round Top?",
+        "Where is the Confederate marker for Benning's Brigade?",
+        "Inscription text for ~131 monuments/plaques",
+        "Validation of the site's 512 coordinates"
+      ],
+      "quality_notes": "Crowd-sourced: names are abbreviations ('106th PA Curry', 'US HQ 5th Corps Artillery Brigade Martin'); need normalization; positions typically surveyed from photos/GPS, accuracy unknown. Only 9 of the site's 512 monuments have a `src` provenance value (bundle lines ~104442-110597).",
+      "priority": "P0",
+      "effort": "M",
+      "depends_on": [
+        "SRC-10 crosswalk (unit names)"
+      ],
+      "risks": [
+        "Share-alike scope",
+        "Do not overwrite site data with OSM: treat as candidates + validate against SRC-01 1907 book"
+      ],
+      "site_evidence": {
+        "file": "bundle.pretty.js",
+        "lines": "104442-110597",
+        "snippet": "no: 46, name: \"Pennsylvania State Memorial\", lat: 39.807588, lon: -77.235153, mn: \"MN 260\", side: \"Union\", group: \"United States & State Monuments\", src: \"\""
+      }
+    },
+    {
+      "id": "SRC-39",
+      "name": "Historical Marker Database (HMDB)",
+      "publisher": "HMdb.org LLC",
+      "category": "crowd-database",
+      "urls": {
+        "copyright": "https://www.hmdb.org/copyright.asp",
+        "terms": "https://www.hmdb.org/terms.asp",
+        "gettysburg_results": "https://www.hmdb.org/results.asp?Search=Place&Town=Gettysburg&State=Pennsylvania",
+        "robots": "https://www.hmdb.org/robots.txt (Disallow: /PhotoFullSize.asp, /map.asp; Crawl-delay 0.1)"
+      },
+      "format": "HTML pages (marker id 'db m<ID>'), no public API found",
+      "size": "n/a",
+      "api_limits": "No API; robots.txt permits /results.asp and marker pages; scripted bulk copying is not explicitly licensed.",
+      "license_rights": "Copyright page (read directly): '1. You may make copies of the pages, information and most images on this site without requesting permission if you follow the requirement set forth in the second paragraph ... 2. ... you must attribute what you copy to HMdb.org ... 3. You may not use content from this site commercially without written permission ... Commercial use also includes the receipt of any compensation from the publishing, display, or mirroring of any content from this site, even when received by a not-for-profit ... 4. Displaying pages or images ... in a frame ... is considered copying ... 5. Linking to pages on this site is not copying.' Certain images carry restricted rights. Terms: information 'may be incomplete, out-of-date, obsolete, or incorrect'.",
+      "rights_statement_url": "https://www.hmdb.org/copyright.asp",
+      "evidence_quality": "primary text read",
+      "rights_tier": "C for bulk ingestion until written permission; A for deep links",
+      "extraction": "Store only {hmdb_id, title, lat/lng if displayed} as LINK-OUT records (facts), never inscription text or photos, unless HMDB grants written permission for a derivative dataset (ask; effort S). Gettysburg PA search shows '1227 entries match your criteria' (2026-09-30) - includes markers and war memorials (also town markers).",
+      "record_counts": "1,227 entries (Gettysburg, PA; markers + war memorials)",
+      "enables": [
+        "Deep-link chips 'Read the marker on HMdb.org' in monument popups",
+        "Discovery of markers not in OSM (via manual review)"
+      ],
+      "quality_notes": "Volunteer-transcribed inscriptions; excellent coverage; commercial-use restriction is broad (any compensation, even by a non-profit): if the site ever sells anything or carries ads, HMDB-derived content must go.",
+      "priority": "P2",
+      "effort": "S (link-out) / M (with permission)",
+      "depends_on": [
+        "SRC-38"
+      ],
+      "risks": [
+        "Broad non-commercial clause"
+      ]
+    },
+    {
+      "id": "SRC-40",
+      "name": "American Battlefield Trust (ABT)",
+      "publisher": "American Battlefield Trust",
+      "category": "advocacy-site",
+      "urls": {
+        "terms": "https://www.battlefields.org/about/accountability/terms-service (last updated October 2025)",
+        "cite": "https://www.battlefields.org/learn/articles/how-cite-american-battlefield-trust",
+        "gettysburg": "https://www.battlefields.org/learn/civil-war/battles/gettysburg"
+      },
+      "format": "HTML, videos, animated maps",
+      "size": "n/a",
+      "api_limits": "None; scraping prohibited.",
+      "license_rights": "Terms of Service (fetch-summarizer quotes): content 'proprietary property of American Battlefield Trust or our licensors or users'; 'limited, nonexclusive, nontransferable, nonsublicensable license ... for your own personal use'; prohibited: 'sell, resell or use commercially', 'data mining, robots or similar data gathering, web scraping, web harvesting, web data extraction', 'use ... for artificial intelligence technologies such as large language models, generative AI', 'download (other than the page caching) any portion of the Sites'; allowed: 'text hyperlink to the Sites for noncommercial purposes' but no logos or 'framing techniques' without written consent. Citation page: 'These conventions do not imply any permissions to re-post or re-use American Battlefield Trust materials without express consent from the Trust.'",
+      "rights_statement_url": "https://www.battlefields.org/about/accountability/terms-service",
+      "evidence_quality": "fetch-summarizer (re-read exact ToS before quoting publicly)",
+      "rights_tier": "C (link-out only; explicit AI/scraping ban)",
+      "extraction": "Text hyperlinks only: 'Learn more at American Battlefield Trust' on relevant answers. Do NOT feed ABT text to the retrieval index or any LLM. ABT-published casualty figures (US 23,049; CS 28,063; total 51,112 per the Gettysburg page) may be cited as facts with attribution, but prefer NPS/CWSAC or OR-derived figures.",
+      "record_counts": "n/a",
+      "enables": [
+        "Outbound learning links (animated maps, biographies)"
+      ],
+      "quality_notes": "High-quality educational content, but rights-restricted. Numbers differ from NPS round estimates (23,000/28,000): present as ranges.",
+      "priority": "P2 (link-out)",
+      "effort": "S",
+      "depends_on": [],
+      "risks": [
+        "Any ingestion breaches ToS"
+      ]
+    },
+    {
+      "id": "SRC-41",
+      "name": "Stone Sentinels (gettysburg.stonesentinels.com) and companion sites; Emerging Civil War; Gettysburg Compiler; Gettysburg Daily",
+      "publisher": "Steve A. Hawks (Stone Sentinels: '(c)2026 Steve A. Hawks'); Emerging Civil War; Gettysburg College students; Gettysburg Daily",
+      "category": "enthusiast-sites",
+      "urls": {
+        "stone_sentinels": "https://gettysburg.stonesentinels.com/",
+        "compiler": "https://gettysburgcompiler.org/",
+        "gettysburg_daily": "https://www.gettysburgdaily.com/",
+        "ecw_weather": "https://emergingcivilwar.com/2023/02/22/the-thunder-seemed-tame-weather-at-the-battle-of-gettysburg/"
+      },
+      "format": "HTML",
+      "size": "n/a",
+      "api_limits": "None.",
+      "license_rights": "Copyright reserved by the authors ('(c)2026 Steve A. Hawks' is the only statement on the Stone Sentinels home page). No reuse license found.",
+      "rights_statement_url": "https://gettysburg.stonesentinels.com/",
+      "evidence_quality": "stone sentinels via fetch; others by URL check only",
+      "rights_tier": "C (link-out only)",
+      "extraction": "Curated 'Further reading' outbound links; the existing site already cites Stone Sentinels in 3 monument entries in data/monuments.json (source: 'Stone Sentinels: State of Indiana monument' etc.): keep as citation, do not copy text/photos.",
+      "record_counts": "n/a",
+      "enables": [
+        "Farm/monument background reading (outbound)"
+      ],
+      "quality_notes": "Very useful monument photographs and farm histories; rights-restricted.",
+      "priority": "P3",
+      "effort": "S",
+      "depends_on": [],
+      "risks": []
+    },
+    {
+      "id": "SRC-42",
+      "name": "Gettysburg College Special Collections (GettDigital, Cupola), Adams County Historical Society (Gettysburg History), Gettysburg Foundation",
+      "publisher": "Musselman Library; Gettysburg History (ACHS); Gettysburg Foundation",
+      "category": "local-archives",
+      "urls": {
+        "gettdigital": "https://gettdigital.gettysburg.edu/ (Quartex portal; robots disallows /login and /cms)",
+        "special_collections": "https://www.gettysburg.edu/special-collections/",
+        "cupola": "https://cupola.gettysburg.edu/",
+        "achs": "https://gettysburghistory.org/research/",
+        "foundation": "https://www.gettysburgfoundation.org/"
+      },
+      "format": "Quartex/CONTENTdm-style item pages; research-room finding aids",
+      "size": "ACHS: 'more than one million historic items' (ACHS page)",
+      "api_limits": "No public APIs verified.",
+      "license_rights": "ACHS (read directly): 'Reproduction of any of the materials found below is prohibited without the express permission of Gettysburg History.' GettDigital: item-level Copyright/Terms pages exist in the footer (not read).",
+      "rights_statement_url": "https://gettysburghistory.org/research/",
+      "evidence_quality": "ACHS page text read directly; GettDigital home page read (no item-level rights read)",
+      "rights_tier": "C until permission (outbound links) ",
+      "extraction": "Outreach plan: email Special Collections + ACHS asking permission to (a) index item titles/abstracts and link out, (b) reproduce 5-10 selected letters/diaries with credit. Until then link-out only.",
+      "record_counts": "n/a",
+      "enables": [
+        "Civilian and soldier letters/diaries with archival credit (after permission)",
+        "Damage Claims Index (ACHS)"
+      ],
+      "quality_notes": "Best local primary material, but access requires partnership; ACHS research room is open Thu-Sat with fees (page).",
+      "priority": "P2",
+      "effort": "M (outreach)",
+      "depends_on": [],
+      "risks": [
+        "Do not scrape GettDigital"
+      ]
+    },
+    {
+      "id": "SRC-43",
+      "name": "Prisoner-of-war and hospital records related to Gettysburg (Fort McHenry table in CWSS; Fort Delaware Society; NARA registers)",
+      "publisher": "NPS CWSS (mirror), Fort Delaware Society, NARA, FamilySearch",
+      "category": "records",
+      "urls": {
+        "cwss_fortmchenry": "https://jrnold-nps-cwss.s3.amazonaws.com/new/tsv/Prisoners_FtMcHenry.tsv (850,570 B)",
+        "fort_delaware_society_queries": "http://www.fortdelaware.org/Prisoner%20&%20Garrison%20Queries.htm (found via search; not fetched)"
+      },
+      "format": "TSV (PRM_TYPE PW/PP, PRM_NAME, PRM_REGISTRATIONDATE, PRM_RESIDENCE (unit), PRM_DISP, PRM_NOTES)",
+      "size": "~0.85 MB (about 5,000 rows, estimate 850,570 B / ~170 B per row)",
+      "api_limits": "Not applicable.",
+      "license_rights": "CWSS-derived (SRC-10 caveats). Fort Delaware Society answers individual queries by email (no bulk terms known). NARA registers viewable free at NARA facilities.",
+      "rights_statement_url": "",
+      "evidence_quality": "two sample rows read: e.g. 'PW Crudup, A.D. 1863-10-22 47 NC ... Gettysburg 07/03/63'",
+      "rights_tier": "A-pending (SRC-10) / C (Fort Delaware DB)",
+      "extraction": "Filter PRM_NOTES for 'Gettysburg' (count unknown; measure) to build a 'Confederates captured at Gettysburg held at Fort McHenry' lookup; link to NPS record.",
+      "record_counts": "Gettysburg-note subset UNKNOWN (measure)",
+      "enables": [
+        "Was my Confederate ancestor captured at Gettysburg? (partial: Fort McHenry only)"
+      ],
+      "quality_notes": "Only one prison's register; many Gettysburg prisoners went on to Fort Delaware/Point Lookout/Johnson's Island; note completeness limits explicitly.",
+      "priority": "P2",
+      "effort": "M",
+      "depends_on": [
+        "SRC-10"
+      ],
+      "risks": [
+        "Sensitive: present neutrally"
+      ]
+    },
+    {
+      "id": "SRC-44",
+      "name": "WarOfTheRebellion annotated corpus (University of Texas at Austin, MIT)",
+      "publisher": "UT Austin (Grant DeLozier et al.; GeoAnnotate)",
+      "category": "nlp-corpus",
+      "urls": {
+        "github": "https://github.com/utcompling/WarOfTheRebellion",
+        "docgeo_json": "DocGeo/wotr-docgeo-jan-5-2016-625pm-by-vol.json (19,679,249 B) and ...80-0-20-by-split.json (19,671,062 B)",
+        "toponym_json": "Toponym/json/wotr-topo-train.json (8,603,222 B), wotr-topo-test.json (1,935,679 B)"
+      },
+      "format": "JSON: spans of corrected OCR text by OR volume with GeoJSON points/polygons and named entities (person, org, place)",
+      "size": "~50 MB total JSON (2,275 files in the repo)",
+      "api_limits": "GitHub raw.",
+      "license_rights": "MIT License, (c) 2016 University of Texas at Austin (LICENSE file read directly) - permits use/copy/modify/publish.",
+      "rights_statement_url": "https://github.com/utcompling/WarOfTheRebellion",
+      "evidence_quality": "README + license read directly",
+      "rights_tier": "A/B (MIT: keep notice)",
+      "extraction": "Use as (1) a geographic-entity training/lookup resource to geotag OR place mentions; (2) possible corrected-OCR text if it includes volume 27 (UNVERIFIED - the volume coverage was not inspected).",
+      "record_counts": "repo has 2,275 files; span counts UNKNOWN",
+      "enables": [
+        "Toponym resolution for OR passages (Pfanz-style local names still need a local gazetteer)"
+      ],
+      "quality_notes": "Sparse local Gettysburg place names (Peach Orchard, Devil's Den) are unlikely to be in a national gazetteer: use SRC-38/SRC-01 lists.",
+      "priority": "P2",
+      "effort": "M",
+      "depends_on": [
+        "SRC-19"
+      ],
+      "risks": []
+    },
+    {
+      "id": "SRC-45",
+      "name": "Other GitHub / Kaggle / Zenodo / Civil War Data 150 searches (negative results)",
+      "publisher": "various",
+      "category": "negative-results",
+      "urls": {
+        "github_search": "https://api.github.com/search/repositories?q=gettysburg (264 repos; none data-focused)",
+        "zenodo": "https://zenodo.org/api/records?q=gettysburg (124 hits; top 20 by recency irrelevant)",
+        "cwd150": "https://www.civilwardata150.net/ (site returns 200; linked-data project; downloadable dataset NOT verified)",
+        "rejected_gpl": "https://github.com/AdmiralEM/dataset-civil_war_records (GPL-3.0; OR volumes 1-4 only)"
+      },
+      "format": "n/a",
+      "size": "n/a",
+      "api_limits": "GitHub unauthenticated search: 10 requests/min (observed rate_limit resource: search limit 10).",
+      "license_rights": "n/a",
+      "rights_statement_url": "",
+      "evidence_quality": "searches run 2026-09-30; single-word GitHub queries worked, multi-word AND queries returned 0 (query syntax), Kaggle not directly searchable without a login/API key (web search found no dataset)",
+      "rights_tier": "n/a",
+      "extraction": "Conclusion: no ready-made Gettysburg order-of-battle JSON/CSV, regiment roster dataset, or casualty-by-regiment table exists on GitHub/Zenodo that is better than SRC-05/10/11/19/20. AdmiralEM's OR dataset stops at volume 4 (not Gettysburg; GPL-3.0 would also copyleft the corpus). mbaker21231/CivilWarSurgeryPublic (Dr. Edmund Andrews surgery data) exists (search result) but was NOT inspected.",
+      "record_counts": "n/a",
+      "enables": [],
+      "quality_notes": "Kaggle search UNVERIFIED (no key/login used). Re-check with an authenticated Kaggle API before ruling out.",
+      "priority": "-",
+      "effort": "S (re-check)",
+      "depends_on": [],
+      "risks": []
+    },
+    {
+      "id": "SRC-46",
+      "name": "Freesound and other audio (cannon/ambience) - media rights",
+      "publisher": "Freesound (Music Technology Group, UPF)",
+      "category": "audio",
+      "urls": {
+        "faq": "https://freesound.org/help/faq/"
+      },
+      "format": "WAV/MP3/OGG + per-sound licence",
+      "size": "n/a",
+      "api_limits": "API key required (not verified).",
+      "license_rights": "Freesound (fetch-summarizer): CC0 (do 'pretty much what you want ... could even sell'), CC BY (credit creators), CC BY-NC (no earning money; commercial use prohibited), Sampling+ (retired).",
+      "rights_statement_url": "https://freesound.org/help/faq/",
+      "evidence_quality": "fetch-summarizer",
+      "rights_tier": "A (CC0) / B (CC BY) / C (CC BY-NC)",
+      "extraction": "For Immersive/cannon audio: allowlist CC0 and CC BY only; record sound id, author, license, URL in /sources.html; avoid CC BY-NC even if the site is non-commercial today (future monetization risk).",
+      "record_counts": "n/a",
+      "enables": [
+        "Ambient/cannon sound for the immersive page with lawful credit"
+      ],
+      "quality_notes": "Recordings of modern reproduction cannon are not 1863 acoustics: label as 'modern recording'.",
+      "priority": "P3",
+      "effort": "S",
+      "depends_on": [],
+      "risks": []
+    }
+  ],
+  "crosswalk_design": {
+    "purpose": "One row per site unit so every source joins on the same key; enables 'who was in the 20th Maine?', OR-report tagging, monument-to-unit links, and DBpedia/Wikipedia links.",
+    "keys": {
+      "site_id": "regiment_id in data/oob/*.json, e.g. U-20ME, C-2SC, U-1ME-CAV (467 units incl. batteries per site UI; 487 dict rows counted when iterating the OOB files: 279 'U', 196 'C', 12 without id)",
+      "cwss_unit_code": "e.g. UME0020RI (Union Maine 20th Regiment Infantry), CVA0021RC (Confederate Virginia 21st Cavalry), UNY0071RI, UPA0028RI, UCT0002YAL (2nd Independent Battery CT Light Artillery)",
+      "dbpedia_uri": "nps_units.csv column, present for 1,163 of 7,011 units",
+      "nps_oob_string": "e.g. '19th Indiana Infantry- Col. Samuel J. Williams' from the NPS pages",
+      "or_alias_table": "hand-curated ordinal spellings: Twentieth Maine / 20th Me. / 20th Maine Vol. Inf.",
+      "monument_ids": "site monument 'no' (1-512) and mn ('MN 267'); OSM osm_id; HMDB db m<ID>"
+    },
+    "algorithm": [
+      "parse site_id with ^(U|C)-(\\d+)([A-Z]{2})(?:-(CAV|ART|SS|SHARP))?$ -> side, ordinal, state",
+      "cwss_unit_code = side + STATE + zero_pad(ordinal, 4) + arm  where arm: infantry RI, cavalry RC, heavy artillery RAH; (verify arm code inventory from Regiments_Unitz.tsv REG_ARM/REG_TYPE)",
+      "batteries and independent units ('2nd Independent Battery, Connecticut Light Artillery' = UCT0002YAL; Confederate battery names like 'Carter's Battery'): fuzzy name match to Regiments_Unitz REG_UNIT_NAME + manual review CSV",
+      "US Regulars (site group 'United States Regular & Sharpshooter Units', 23 monuments) map to UUS.... codes: manual",
+      "emit crosswalk.csv + unmatched.csv; unit-test: >= 99% of infantry/cavalry matched automatically; every batteries row human-reviewed; CI fails if a site id disappears"
+    ],
+    "reconciliation_checks": [
+      "site ~279 U- ids vs Dyer/NPS 300 Union units at Gettysburg (nps_battle_units PA002): list symmetric difference; investigate each",
+      "site commander names vs NPS AoP/ANV OOB pages (352 + 265 unit-like lines by regex)",
+      "site casualty numbers vs Fox 1889 for Union regiments (P1)"
+    ]
+  },
+  "question_matrix": [
+    {
+      "q": "Who was in the 20th Maine?",
+      "mode": "structured lookup",
+      "sources": [
+        "SRC-10 roster shard UME0020RI",
+        "SRC-05 commanders",
+        "SRC-21 Dyer history",
+        "SRC-22 Maine at Gettysburg",
+        "SRC-19 OR report"
+      ],
+      "answerability": "exact for index-card roster ('served in the regiment 1861-65'); NOT proof of presence at Gettysburg",
+      "guardrail": "always print the caveat + link to NPS CWSS + Fold3/FamilySearch search (link-out)"
+    },
+    {
+      "q": "Was my ancestor John Lacey at Gettysburg with the 71st New York?",
+      "mode": "name lookup + evidence",
+      "sources": [
+        "SRC-10",
+        "SRC-20 Fox losses",
+        "SRC-19 OR returns"
+      ],
+      "answerability": "partial: can say he appears on 71st NY cards; presence at Gettysburg needs muster/casualty records",
+      "guardrail": "no inference from regiment membership to battle presence without a returns citation"
+    },
+    {
+      "q": "What did civilians see and hear?",
+      "mode": "passage retrieval",
+      "sources": [
+        "SRC-23 Pierce/Buehler/Hoke/Jacobs/Bates",
+        "SRC-05 civilians article",
+        "SRC-24 weather"
+      ],
+      "answerability": "evidence-based, subjective",
+      "guardrail": "cite witness + writing date; label retrospective"
+    },
+    {
+      "q": "How deep was the wheat at the Wheatfield?",
+      "mode": "evidence synthesis (no direct data)",
+      "sources": [
+        "SRC-28 damage claims (acres)",
+        "SRC-27 1860 Ag census (county totals)",
+        "SRC-19/22 soldier descriptions",
+        "SRC-01 CLR (Rose farm)",
+        "SRC-24 weather"
+      ],
+      "answerability": "NO dataset records stalk height; answer only with what witnesses said (e.g., crop state: standing vs harvested) and explicitly state that height is unknown",
+      "guardrail": "refuse to invent a number; show each snippet with author and date"
+    },
+    {
+      "q": "Could Lee see Little Round Top from Seminary Ridge?",
+      "mode": "computation",
+      "sources": [
+        "SRC-29 DEM viewshed",
+        "SRC-16 woods (1868-76 maps)",
+        "SRC-01 1863 woodlots"
+      ],
+      "answerability": "terrain-only yes/no; vegetation blockers uncertain",
+      "guardrail": "show assumptions (observer height, no trees vs trees)"
+    },
+    {
+      "q": "What was the weather when Pickett's Charge began?",
+      "mode": "table lookup",
+      "sources": [
+        "SRC-24"
+      ],
+      "answerability": "3 readings/day; 2 pm reading 87 F (verify primary)",
+      "guardrail": "state station is in town and readings are 7 am/2 pm/9 pm"
+    },
+    {
+      "q": "When did Longstreet's assault start?",
+      "mode": "evidence table",
+      "sources": [
+        "SRC-19 OR reports",
+        "SRC-22 regimental narratives",
+        "SRC-34 Wikipedia (context)"
+      ],
+      "answerability": "range of participant claims (~4 pm is the standard scholarly consensus but the historian must show reports)",
+      "guardrail": "ties to audit C4; display distribution of times in reports"
+    },
+    {
+      "q": "Which monuments are near the Angle?",
+      "mode": "geo lookup",
+      "sources": [
+        "site 512 monuments",
+        "SRC-38 OSM 867",
+        "SRC-01 1907 book",
+        "SRC-39 HMDB links"
+      ],
+      "answerability": "exact for included coordinates",
+      "guardrail": "show provenance and 'location approximate' badge"
+    },
+    {
+      "q": "Who commanded the Iron Brigade and what happened to him?",
+      "mode": "structured lookup",
+      "sources": [
+        "SRC-05 OOB (Meredith w; Robinson)",
+        "SRC-34 bio"
+      ],
+      "answerability": "exact",
+      "guardrail": "cite NPS page + retrieval date"
+    },
+    {
+      "q": "What did the newspapers say on July 4, 1863?",
+      "mode": "passage retrieval",
+      "sources": [
+        "SRC-15 Chronicling America (437 pages Jul 3-10)"
+      ],
+      "answerability": "what the press reported",
+      "guardrail": "label as contemporary reports (often wrong)"
+    },
+    {
+      "q": "How many acres of wheat did the Trostle farm lose?",
+      "mode": "fact lookup",
+      "sources": [
+        "SRC-06 / SRC-28"
+      ],
+      "answerability": "27 acres wheat destroyed ($600) per claim",
+      "guardrail": "claim, not measurement"
+    },
+    {
+      "q": "Where is Private X buried?",
+      "mode": "table lookup",
+      "sources": [
+        "SRC-25 cemetery reports"
+      ],
+      "answerability": "Union burials in Soldiers' National Cemetery only",
+      "guardrail": "state that Confederate dead were removed to the South in the 1870s (verify wording from the source)"
+    },
+    {
+      "q": "How steep is Culp's Hill?",
+      "mode": "computation",
+      "sources": [
+        "SRC-29"
+      ],
+      "answerability": "exact for today's terrain",
+      "guardrail": "label 'today's ground'"
+    }
+  ],
+  "media_rights": [
+    {
+      "media": "1863 photographs (Gardner, O'Sullivan, Brady studio)",
+      "source": "LoC Prints & Photographs (SRC-15)",
+      "rights": "LoC does not own rights; 1863 photos are public domain by age but the researcher must assess each item; keep the LoC credit line and call number",
+      "action": "Store lccn/URL + credit; check Rights Advisory field per item",
+      "verified": "LoC item JSON rights text read"
+    },
+    {
+      "media": "Historic maps (Bachelder, Warren, GBMA, 1858 county map)",
+      "source": "LoC Geography & Map (SRC-15/16)",
+      "rights": "Free to use and reuse unless Rights Advisory present; credit line 'Library of Congress, Geography and Map Division'",
+      "action": "Credit line in the map layer attribution",
+      "verified": "item JSON rights text read"
+    },
+    {
+      "media": "Newspapers 1863",
+      "source": "Chronicling America",
+      "rights": "Public domain or no known copyright restrictions (LoC statement)",
+      "action": "Cite title/date/page URL",
+      "verified": "item JSON rights text read"
+    },
+    {
+      "media": "NPS photos, diagrams, museum objects",
+      "source": "nps.gov, museum.nps.gov, NPGallery",
+      "rights": "NPS-created works public domain; third-party items marked; some pages embed LoC or donor images",
+      "action": "Item-level check; credit 'NPS Photo' where shown",
+      "verified": "NPS disclaimer via summarizer"
+    },
+    {
+      "media": "Wikimedia Commons photos of monuments and tablets",
+      "source": "Commons (SRC-36)",
+      "rights": "Per-file licenses (PD, CC0, CC BY, CC BY-SA...)",
+      "action": "Build-time allowlist + credit string beside each image; reject NC/ND/GFDL-only",
+      "verified": "category counts read; license rule from Wikipedia reuse page"
+    },
+    {
+      "media": "Portraits and objects",
+      "source": "Smithsonian Open Access (SRC-33)",
+      "rights": "CC0 rows only (sample rows show CC0)",
+      "action": "Filter access==CC0",
+      "verified": "API rows read"
+    },
+    {
+      "media": "Audio (cannon, ambience)",
+      "source": "Freesound (SRC-46)",
+      "rights": "CC0 / CC BY / CC BY-NC per sound",
+      "action": "CC0 and CC BY only; credits page",
+      "verified": "FAQ via summarizer"
+    },
+    {
+      "media": "Text-to-speech read-aloud of answers",
+      "source": "Browser SpeechSynthesis",
+      "rights": "No third-party media rights issue; voices vary by device",
+      "action": "None",
+      "verified": "n/a"
+    },
+    {
+      "media": "ABT maps/videos/photos",
+      "source": "battlefields.org (SRC-40)",
+      "rights": "Proprietary; ToS forbids scraping, downloading, framing, AI use",
+      "action": "Text links only",
+      "verified": "ToS via summarizer"
+    },
+    {
+      "media": "HMDB photos and inscriptions",
+      "source": "hmdb.org (SRC-39)",
+      "rights": "Copy with attribution for non-commercial use; commercial use needs written permission; some images restricted",
+      "action": "Link-out; ask permission for datasets",
+      "verified": "copyright page read directly"
+    },
+    {
+      "media": "Fold3 / Ancestry / Find a Grave / FamilySearch images",
+      "source": "SRC-14",
+      "rights": "Automated access and AI use prohibited by terms",
+      "action": "User-initiated outbound links only",
+      "verified": "Ancestry terms text read directly; FamilySearch via summarizer"
+    },
+    {
+      "media": "Google Maps / Street View imagery (already used by the site)",
+      "source": "Google",
+      "rights": "Not researched here",
+      "action": "Keep to official embeds; do not cache or scrape; verify current Google Maps Platform terms (open question)",
+      "verified": "NOT verified"
+    },
+    {
+      "media": "Mapbox tiles/terrain (already used)",
+      "source": "Mapbox (SRC-31)",
+      "rights": "Terrain-DEM: SDK-only; attribution required",
+      "action": "No tile export; verify product terms before promoting Cinematic Export of map video",
+      "verified": "doc via summarizer; ToS clause NOT found"
+    },
+    {
+      "media": "Site-authored vignettes and historian copy",
+      "source": "Owner",
+      "rights": "Owner copyright; sources cited in JSON metadata include copyrighted books (Busey & Martin 1994, Pfanz, Desjardin, Moe, Hessler)",
+      "action": "Governance review: facts vs. expression; add LICENSE/NOTICE; (not legal advice)",
+      "verified": "data/oob/*.json metadata.sources read"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "G-01",
+      "gap": "No public NPS GIS for monuments, tablets, cannon positions, fences, orchards or woodlots (only tracts, geology, vegetation, C-CAP, and 7 GETT POIs / 55 roads / 480 trails).",
+      "evidence": "SRC-02/03 measured counts; Hub search for 'gettysburg' returned no NPS monument layer",
+      "workaround": "OSM (867) + 1907 book + NPS CLR inventories + georeferenced Warren/Bachelder maps; ask GNMP Research Center for a monument/cannon inventory (contact via research-center page)"
+    },
+    {
+      "id": "G-02",
+      "gap": "Dyer/NPS battle-unit table lists ZERO Confederate units at Gettysburg (PA002 = 300 Union units only).",
+      "evidence": "nps_battle_units.csv PA002 rows: 300, belligerent all 'US', src all 'DYER'",
+      "workaround": "NPS ANV OOB page + OR Vol 27 pt 2 + site OOB"
+    },
+    {
+      "id": "G-03",
+      "gap": "Gettysburg National Cemetery burials are not in the CWSS mirror (Cemeteries_Info has 5,672 rows, none mention Gettysburg).",
+      "evidence": "streamed count on 2026-09-30",
+      "workaround": "Soldiers' National Cemetery reports 1864/65 (SRC-25); Find a Grave link-out only"
+    },
+    {
+      "id": "G-04",
+      "gap": "No dataset gives regiment 'present at Gettysburg' rosters (who actually marched), only service index cards.",
+      "evidence": "CWSS records origin: index cards from muster rolls",
+      "workaround": "Caveat + returns/casualty lists; do not claim presence"
+    },
+    {
+      "id": "G-05",
+      "gap": "CWSS mirror is a snapshot (2012/2015) by a third party; NPS says the site 'is no longer maintained'.",
+      "evidence": "NPS overview page; bucket LastModified 2015-12-13",
+      "workaround": "Copy needed shards into owner's storage; seek NPS written confirmation and any newer export"
+    },
+    {
+      "id": "G-06",
+      "gap": "1863 vegetation/fence data are interpretations (CLR) or 1868+ maps; no 1863 survey.",
+      "evidence": "Warren survey 1868-69; CLR period of significance 1863-1938",
+      "workaround": "Label provenance; show uncertainty"
+    },
+    {
+      "id": "G-07",
+      "gap": "Camp Letterman patient roster: none found (weak forum evidence).",
+      "evidence": "civilwartalk thread quoted in search (unverified)",
+      "workaround": "Do not promise; link NMCWM article"
+    },
+    {
+      "id": "G-08",
+      "gap": "Adams County damage-claims data is not available in bulk.",
+      "evidence": "ACHS: reproduction prohibited; PA Archives volumes not digitized (unverified)",
+      "workaround": "Permission + selective transcription"
+    },
+    {
+      "id": "G-09",
+      "gap": "Kaggle and DPLA were not directly checked (no key/login; DPLA docs returned 403).",
+      "evidence": "fetch results",
+      "workaround": "Owner-authenticated re-check (S)"
+    },
+    {
+      "id": "G-10",
+      "gap": "Sarah Broadhead diary and Gutenberg-hosted memoirs not verified (Gutendex/Gutenberg search timed out or returned 503/504).",
+      "evidence": "tool errors 2026-09-30",
+      "workaround": "Re-run later; IA title search did not find the Broadhead diary"
+    }
+  ],
+  "pipeline_rate_budget": {
+    "principle": "All third-party fetches happen at BUILD time in CI/local scripts with a descriptive User-Agent and on-disk cache; the shipped Historian makes zero third-party requests (keeps CSP connect-src 'self' and privacy page simple).",
+    "limits": {
+      "loc.gov JSON API": "20 req/min -> target 12 req/min (1-hour block on violation)",
+      "loc.gov text/image services": "150 req/min -> target 60/min",
+      "Wikimedia APIs": "200 req/min with contact User-Agent (10/min unidentified) -> target 60/min",
+      "NPS Data API": "1,000 req/hour per key -> target 500/hour",
+      "NARA Catalog API": "10,000 queries/month per key -> target <2,000/month",
+      "Internet Archive": "unpublished -> 1 req/s, sequential downloads",
+      "Overpass": "fair-use -> 1 query per build",
+      "GitHub API (unauthenticated)": "60 core/hr and 10 search/min -> use raw.githubusercontent.com",
+      "S3 (jrnold-nps-cwss)": "anonymous; stream once and cache slices"
+    }
+  },
+  "phases": [
+    {
+      "phase": 0,
+      "name": "Legal + measurement (1 week)",
+      "items": [
+        "Email NPS asking written confirmation that CWSS data may be redistributed as derived shards; ask GNMP Research Center for monument/cannon inventories",
+        "Ask HMDB for a written permission for a 1,227-record derived dataset (optional)",
+        "Ask ACHS and Gettysburg College Special Collections for permission/partnership",
+        "Stream-count CWSS rows for the 467 crosswalk units to replace estimates",
+        "Draft sources.yaml registry with rights_tier and attribution text"
+      ]
+    },
+    {
+      "phase": 1,
+      "name": "P0 corpora (3-4 weeks)",
+      "items": [
+        "Crosswalk + roster shards (SRC-10)",
+        "OR Vol 27 segmentation (SRC-19)",
+        "NPS OOB/commander parse (SRC-05)",
+        "Jacobs weather table (SRC-24)",
+        "Civilian narratives (SRC-23)",
+        "OSM monuments + validation of 512 coordinates (SRC-38)",
+        "3DEP DEM grid and viewshed (SRC-29)",
+        "NPS CLR text + landscape features (SRC-01)"
+      ]
+    },
+    {
+      "phase": 2,
+      "name": "P1 corpora (3-5 weeks)",
+      "items": [
+        "Fox casualties (SRC-20)",
+        "State-at-Gettysburg volumes (SRC-22)",
+        "Chronicling America July 1863 (SRC-15)",
+        "Soldiers' National Cemetery lists (SRC-25)",
+        "Wikipedia/Wikidata/Commons with compliance UI (SRC-34/35/36)",
+        "Georeferenced Warren/Bachelder traces (SRC-16)",
+        "CWSAC/Dyer/battle facts (SRC-08/21)"
+      ]
+    },
+    {
+      "phase": 3,
+      "name": "P2/P3 and outreach outcomes (ongoing)",
+      "items": [
+        "HMDB link chips (SRC-39)",
+        "Smithsonian CC0 images (SRC-33)",
+        "Prisoner subsets (SRC-43)",
+        "Damage claims after permission (SRC-28)",
+        "Medical history extracts (SRC-26)",
+        "Audio credits (SRC-46)"
+      ]
+    }
+  ],
+  "verification_log": {
+    "https://www.nps.gov/civilwar/soldiers-and-sailors-database.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/civilwar/soldiers-and-sailors-database.htm"
+    },
+    "https://home.nps.gov/civilwar/soldiers-and-sailors-recordsorigin.htm": {
+      "status": "200",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://home.nps.gov/civilwar/soldiers-and-sailors-recordsorigin.htm"
+    },
+    "https://www.nps.gov/civilwar/search-soldiers.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/civilwar/search-soldiers.htm"
+    },
+    "https://www.nps.gov/civilwar/search-battles-detail.htm?battleCode=PA002": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/civilwar/search-battles-detail.htm?battleCode=PA002"
+    },
+    "https://www.nps.gov/civilwar/search-battle-units.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/civilwar/search-battle-units.htm"
+    },
+    "https://www.nps.gov/civilwar/search-monuments.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/civilwar/search-monuments.htm"
+    },
+    "https://www.nps.gov/civilwar/search-cemeteries.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/civilwar/search-cemeteries.htm"
+    },
+    "https://www.nps.gov/civilwar/search-prisoners.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/civilwar/search-prisoners.htm"
+    },
+    "https://jrnold-nps-cwss.s3.amazonaws.com/?list-type=2": {
+      "status": "200",
+      "content_type": "application/xml",
+      "eff": "https://jrnold-nps-cwss.s3.amazonaws.com/?list-type=2"
+    },
+    "https://github.com/jrnold/cwss": {
+      "status": "206",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://github.com/jrnold/cwss"
+    },
+    "https://github.com/jrnold/acw_battle_data": {
+      "status": "206",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://github.com/jrnold/acw_battle_data"
+    },
+    "https://acw-battle-data.readthedocs.io/en/latest/data.html": {
+      "status": "200",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://acw-battle-data.readthedocs.io/en/latest/data.html"
+    },
+    "https://api.figshare.com/v2/articles/1515995": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://api.figshare.com/v2/articles/1515995"
+    },
+    "https://irma.nps.gov/DataStore/": {
+      "status": "200",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://irma.nps.gov/DataStore/"
+    },
+    "https://irmaservices.nps.gov/datastore/v7/rest/Profile/2257218": {
+      "status": "200",
+      "content_type": "application/json; charset=utf-8",
+      "eff": "https://irmaservices.nps.gov/datastore/v7/rest/Profile/2257218"
+    },
+    "https://irmaservices.nps.gov/datastore/v7/rest/QuickSearch?q=gettysburg&top=3&skip=0": {
+      "status": "200",
+      "content_type": "application/json; charset=utf-8",
+      "eff": "https://irmaservices.nps.gov/datastore/v7/rest/QuickSearch?q=gettysburg&top=3&skip=0"
+    },
+    "https://irma.nps.gov/DataStore/DownloadFile/472768": {
+      "status": "200",
+      "content_type": "application/pdf",
+      "eff": "https://irma.nps.gov/DataStore/DownloadFile/472768"
+    },
+    "https://irma.nps.gov/DataStore/DownloadFile/698026": {
+      "status": "206",
+      "content_type": "application/zip",
+      "eff": "https://irma.nps.gov/DataStore/DownloadFile/698026"
+    },
+    "https://irma.nps.gov/DataStore/DownloadFile/610918": {
+      "status": "206",
+      "content_type": "application/zip",
+      "eff": "https://irma.nps.gov/DataStore/DownloadFile/610918"
+    },
+    "https://irma.nps.gov/DataStore/DownloadFile/421888": {
+      "status": "206",
+      "content_type": "application/zip",
+      "eff": "https://irma.nps.gov/DataStore/DownloadFile/421888"
+    },
+    "https://irma.nps.gov/DataStore/DownloadFile/663816": {
+      "status": "206",
+      "content_type": "application/zip",
+      "eff": "https://irma.nps.gov/DataStore/DownloadFile/663816"
+    },
+    "https://irma.nps.gov/DataStore/DownloadFile/672770": {
+      "status": "200",
+      "content_type": "application/pdf",
+      "eff": "https://irma.nps.gov/DataStore/DownloadFile/672770"
+    },
+    "https://irma.nps.gov/DataStore/DownloadFile/733629": {
+      "status": "200",
+      "content_type": "application/pdf",
+      "eff": "https://irma.nps.gov/DataStore/DownloadFile/733629"
+    },
+    "https://irma.nps.gov/DataStore/DownloadFile/472789": {
+      "status": "200",
+      "content_type": "application/pdf",
+      "eff": "https://irma.nps.gov/DataStore/DownloadFile/472789"
+    },
+    "https://irma.nps.gov/DataStore/DownloadFile/472822": {
+      "status": "200",
+      "content_type": "application/pdf",
+      "eff": "https://irma.nps.gov/DataStore/DownloadFile/472822"
+    },
+    "https://mapservices.nps.gov/arcgis/rest/services/NationalDatasets/NPS_Public_Roads/FeatureServer/0?f=json": {
+      "status": "200",
+      "content_type": "application/json; charset=UTF-8",
+      "eff": "https://mapservices.nps.gov/arcgis/rest/services/NationalDatasets/NPS_Public_Roads/FeatureServer/0?f=json"
+    },
+    "https://public-nps.opendata.arcgis.com/": {
+      "status": "200",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://public-nps.opendata.arcgis.com/"
+    },
+    "https://www.nps.gov/subjects/developer/guides.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/subjects/developer/guides.htm"
+    },
+    "https://www.nps.gov/subjects/developer/get-started.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/subjects/developer/get-started.htm"
+    },
+    "https://www.nps.gov/subjects/developer/index.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/subjects/developer/index.htm"
+    },
+    "https://www.nps.gov/aboutus/disclaimer.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/aboutus/disclaimer.htm"
+    },
+    "https://www.nps.gov/gett/learn/historyculture/index.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/gett/learn/historyculture/index.htm"
+    },
+    "https://www.nps.gov/gett/learn/historyculture/aop-orderofbattle.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/gett/learn/historyculture/aop-orderofbattle.htm"
+    },
+    "https://www.nps.gov/gett/learn/historyculture/anv-orderofbattle.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/gett/learn/historyculture/anv-orderofbattle.htm"
+    },
+    "https://www.nps.gov/articles/000/civilians-at-gettysburg.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/articles/000/civilians-at-gettysburg.htm"
+    },
+    "https://www.nps.gov/articles/000/federals-gettysburg.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/articles/000/federals-gettysburg.htm"
+    },
+    "https://www.nps.gov/articles/000/confederates-gettysburg.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/articles/000/confederates-gettysburg.htm"
+    },
+    "https://www.nps.gov/gett/learn/historyculture/united-states-monuments.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/gett/learn/historyculture/united-states-monuments.htm"
+    },
+    "https://www.nps.gov/gett/learn/historyculture/confederate-monuments.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/gett/learn/historyculture/confederate-monuments.htm"
+    },
+    "https://www.nps.gov/gett/learn/historyculture/collections.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/gett/learn/historyculture/collections.htm"
+    },
+    "https://www.nps.gov/gett/learn/historyculture/research-center.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/gett/learn/historyculture/research-center.htm"
+    },
+    "https://www.nps.gov/gett/learn/historyculture/library-resource-guide.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/gett/learn/historyculture/library-resource-guide.htm"
+    },
+    "https://www.nps.gov/gett/learn/historyculture/places.htm": {
+      "status": "206",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.nps.gov/gett/learn/historyculture/places.htm"
+    },
+    "https://npshistory.com/publications/civil_war_series/16/sec20.htm": {
+      "status": "206",
+      "content_type": "text/html",
+      "eff": "https://npshistory.com/publications/civil_war_series/16/sec20.htm"
+    },
+    "https://npshistory.com/series/symposia/gettysburg_seminars/index.htm": {
+      "status": "206",
+      "content_type": "text/html",
+      "eff": "https://npshistory.com/series/symposia/gettysburg_seminars/index.htm"
+    },
+    "https://npshistory.com/publications/battlefield/cwsac/updates/pa.pdf": {
+      "status": "206",
+      "content_type": "application/pdf",
+      "eff": "https://npshistory.com/publications/battlefield/cwsac/updates/pa.pdf"
+    },
+    "https://npshistory.com/publications/gett/mon-locations-1932.pdf": {
+      "status": "206",
+      "content_type": "application/pdf",
+      "eff": "https://npshistory.com/publications/gett/mon-locations-1932.pdf"
+    },
+    "https://museum.nps.gov/": {
+      "status": "206",
+      "content_type": "text/html",
+      "eff": "https://museum.nps.gov/"
+    },
+    "https://npgallery.nps.gov/": {
+      "status": "200",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://npgallery.nps.gov/"
+    },
+    "https://raw.githubusercontent.com/usnationalarchives/Catalog-API/master/README.md": {
+      "status": "206",
+      "content_type": "text/plain; charset=utf-8",
+      "eff": "https://raw.githubusercontent.com/usnationalarchives/Catalog-API/master/README.md"
+    },
+    "https://www.archives.gov/research/military/civil-war/resources": {
+      "status": "206",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://www.archives.gov/research/military/civil-war/resources"
+    },
+    "https://unwritten-record.blogs.archives.gov/2018/07/03/mapping-the-battle-of-gettysburg/": {
+      "status": "206",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://unwritten-record.blogs.archives.gov/2018/07/03/mapping-the-battle-of-gettysburg/"
+    },
+    "https://www.loc.gov/apis/json-and-yaml/working-within-limits/": {
+      "status": "206",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://www.loc.gov/apis/json-and-yaml/working-within-limits/"
+    },
+    "https://www.loc.gov/apis/additional-apis/chronicling-america-api/": {
+      "status": "206",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://www.loc.gov/apis/additional-apis/chronicling-america-api/"
+    },
+    "https://chroniclingamerica.loc.gov/data/ocr/": {
+      "status": "206",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://chroniclingamerica.loc.gov/data/ocr/"
+    },
+    "https://www.loc.gov/legal/": {
+      "status": "206",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://www.loc.gov/legal/"
+    },
+    "https://www.loc.gov/item/2004629148/?fo=json": {
+      "status": "206",
+      "content_type": "application/json",
+      "eff": "https://www.loc.gov/item/2004629148/?fo=json"
+    },
+    "https://www.loc.gov/item/2018666316/?fo=json": {
+      "status": "206",
+      "content_type": "application/json",
+      "eff": "https://www.loc.gov/item/2018666316/?fo=json"
+    },
+    "https://www.loc.gov/item/lva0000067/?fo=json": {
+      "status": "206",
+      "content_type": "application/json",
+      "eff": "https://www.loc.gov/item/lva0000067/?fo=json"
+    },
+    "https://www.loc.gov/item/2007630423/?fo=json": {
+      "status": "206",
+      "content_type": "application/json",
+      "eff": "https://www.loc.gov/item/2007630423/?fo=json"
+    },
+    "https://www.loc.gov/item/99447503/?fo=json": {
+      "status": "206",
+      "content_type": "application/json",
+      "eff": "https://www.loc.gov/item/99447503/?fo=json"
+    },
+    "https://www.loc.gov/item/99447498/?fo=json": {
+      "status": "206",
+      "content_type": "application/json",
+      "eff": "https://www.loc.gov/item/99447498/?fo=json"
+    },
+    "https://catalog.hathitrust.org/api/volumes/brief/oclc/424023.json": {
+      "status": "206",
+      "content_type": "application/json; charset=UTF-8",
+      "eff": "https://catalog.hathitrust.org/api/volumes/brief/oclc/424023.json"
+    },
+    "https://archive.org/metadata/warofrebellion271unit": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/warofrebellion271unit"
+    },
+    "https://archive.org/metadata/warofrebellion272unit": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/warofrebellion272unit"
+    },
+    "https://archive.org/metadata/warofrebellion273unit": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/warofrebellion273unit"
+    },
+    "https://archive.org/metadata/regimentallosses00infoxw": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/regimentallosses00infoxw"
+    },
+    "https://archive.org/metadata/compendiumofwaro0001dyer": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/compendiumofwaro0001dyer"
+    },
+    "https://archive.org/metadata/gettysburgthenno00vand": {
+      "status": "200",
+      "note": "first bulk run timed out (000), retried OK; 96,789-byte JSON"
+    },
+    "https://archive.org/metadata/gettysburghistor00vand": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/gettysburghistor00vand"
+    },
+    "https://archive.org/metadata/maineatgettysbur01main": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/maineatgettysbur01main"
+    },
+    "https://archive.org/metadata/pennsylvaniaatg02penn": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/pennsylvaniaatg02penn"
+    },
+    "https://archive.org/metadata/newyorkatgettysb0001unse": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/newyorkatgettysb0001unse"
+    },
+    "https://archive.org/metadata/cu31924030924736": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/cu31924030924736"
+    },
+    "https://archive.org/metadata/minnesotacivil01minnrich": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/minnesotacivil01minnrich"
+    },
+    "https://archive.org/metadata/atgettysburgorwh00alle": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/atgettysburgorwh00alle"
+    },
+    "https://archive.org/metadata/recollectionsofr00bueh": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/recollectionsofr00bueh"
+    },
+    "https://archive.org/metadata/greatinvasionof100hoke": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/greatinvasionof100hoke"
+    },
+    "https://archive.org/metadata/notesonrebelinv00jacogoog": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/notesonrebelinv00jacogoog"
+    },
+    "https://archive.org/metadata/battlegettysbur00bategoog": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/battlegettysbur00bategoog"
+    },
+    "https://archive.org/metadata/revisedreportofs01penn": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/revisedreportofs01penn"
+    },
+    "https://archive.org/metadata/reportofselectcopenn": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/reportofselectcopenn"
+    },
+    "https://archive.org/metadata/medicalsurgical32barnrich": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/medicalsurgical32barnrich"
+    },
+    "https://archive.org/metadata/GardnersPhotographicSketchBookOfTheWar": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/GardnersPhotographicSketchBookOfTheWar"
+    },
+    "https://archive.org/metadata/bachelderpapersg0001unse": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/bachelderpapersg0001unse"
+    },
+    "https://archive.org/metadata/cu31924096440932": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://archive.org/metadata/cu31924096440932"
+    },
+    "https://www2.census.gov/library/publications/decennial/1860/agriculture/1860b-01.pdf": {
+      "status": "206",
+      "content_type": "application/pdf",
+      "eff": "https://www2.census.gov/library/publications/decennial/1860/agriculture/1860b-01.pdf"
+    },
+    "https://www.census.gov/library/publications/1864/dec/1860b.html": {
+      "status": "200",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://www.census.gov/library/publications/1864/dec/1860b.html"
+    },
+    "https://en.wikipedia.org/wiki/Battle_of_Gettysburg_order_of_battle:_Union": {
+      "status": "200",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://en.wikipedia.org/wiki/Battle_of_Gettysburg_order_of_battle:_Union"
+    },
+    "https://en.wikipedia.org/wiki/Battle_of_Gettysburg_order_of_battle:_Confederate": {
+      "status": "200",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://en.wikipedia.org/wiki/Battle_of_Gettysburg_order_of_battle:_Confederate"
+    },
+    "https://en.wikipedia.org/wiki/Wikipedia:Reusing_Wikipedia_content": {
+      "status": "200",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://en.wikipedia.org/wiki/Wikipedia:Reusing_Wikipedia_content"
+    },
+    "https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use": {
+      "status": "200",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use"
+    },
+    "https://www.mediawiki.org/wiki/Wikimedia_APIs/Rate_limits": {
+      "status": "200",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://www.mediawiki.org/wiki/Wikimedia_APIs/Rate_limits"
+    },
+    "https://www.wikidata.org/wiki/Wikidata:Licensing": {
+      "status": "200",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://www.wikidata.org/wiki/Wikidata:Licensing"
+    },
+    "https://www.wikidata.org/wiki/Q33132": {
+      "status": "200",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://www.wikidata.org/wiki/Q33132"
+    },
+    "https://query.wikidata.org/": {
+      "status": "206",
+      "content_type": "text/html",
+      "eff": "https://query.wikidata.org/"
+    },
+    "https://commons.wikimedia.org/wiki/Category:Gettysburg_National_Military_Park": {
+      "status": "200",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://commons.wikimedia.org/wiki/Category:Gettysburg_National_Military_Park"
+    },
+    "https://commons.wikimedia.org/wiki/Category:Gettysburg_Battlefield": {
+      "status": "200",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://commons.wikimedia.org/wiki/Category:Gettysburg_Battlefield"
+    },
+    "https://commons.wikimedia.org/wiki/Category:Battle_of_Gettysburg": {
+      "status": "200",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://commons.wikimedia.org/wiki/Category:Battle_of_Gettysburg"
+    },
+    "https://overpass-api.de/api/status": {
+      "status": "200",
+      "content_type": "text/plain; charset=utf-8",
+      "eff": "https://overpass-api.de/api/status"
+    },
+    "https://www.openstreetmap.org/copyright": {
+      "status": "200",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://www.openstreetmap.org/copyright"
+    },
+    "https://www.hmdb.org/copyright.asp": {
+      "status": "200",
+      "content_type": "text/html; Charset=windows-1252",
+      "eff": "https://www.hmdb.org/copyright.asp"
+    },
+    "https://www.hmdb.org/terms.asp": {
+      "status": "200",
+      "content_type": "text/html; Charset=windows-1252",
+      "eff": "https://www.hmdb.org/terms.asp"
+    },
+    "https://www.hmdb.org/results.asp?Search=Place&Town=Gettysburg&State=Pennsylvania": {
+      "status": "200",
+      "content_type": "text/html; Charset=windows-1252",
+      "eff": "https://www.hmdb.org/results.asp?Search=Place&Town=Gettysburg&State=Pennsylvania"
+    },
+    "https://www.findagrave.com/cemetery/2130381/gettysburg-national-cemetery": {
+      "status": "200",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://www.findagrave.com/cemetery/2130381/gettysburg-national-cemetery"
+    },
+    "https://www.findagrave.com/robots.txt": {
+      "status": "206",
+      "content_type": "text/plain; charset=utf-8",
+      "eff": "https://www.findagrave.com/robots.txt"
+    },
+    "https://www.ancestry.com/c/legal/termsandconditions": {
+      "status": "200",
+      "content_type": "text/html;charset=utf-8",
+      "eff": "https://www.ancestry.com/c/legal/termsandconditions"
+    },
+    "https://www.familysearch.org/en/legal/terms": {
+      "status": "200",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://www.familysearch.org/en/legal/terms"
+    },
+    "https://www.fold3.com/go/about": {
+      "status": "200",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://www.fold3.com/go/about"
+    },
+    "https://www.battlefields.org/about/accountability/terms-service": {
+      "status": "200",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://www.battlefields.org/about/accountability/terms-service"
+    },
+    "https://www.battlefields.org/learn/articles/how-cite-american-battlefield-trust": {
+      "status": "200",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://www.battlefields.org/learn/articles/how-cite-american-battlefield-trust"
+    },
+    "https://www.battlefields.org/learn/civil-war/battles/gettysburg": {
+      "status": "200",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://www.battlefields.org/learn/civil-war/battles/gettysburg"
+    },
+    "https://gettysburg.stonesentinels.com/": {
+      "status": "200",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://gettysburg.stonesentinels.com/"
+    },
+    "https://gettdigital.gettysburg.edu/": {
+      "status": "200",
+      "content_type": "text/html",
+      "eff": "https://gettdigital.gettysburg.edu/"
+    },
+    "https://www.gettysburg.edu/special-collections/": {
+      "status": "200",
+      "content_type": "text/html;charset=UTF-8",
+      "eff": "https://www.gettysburg.edu/special-collections/"
+    },
+    "https://gettysburghistory.org/research/": {
+      "status": "200",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://gettysburghistory.org/research/"
+    },
+    "https://gettysburgcompiler.org/": {
+      "status": "200",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://gettysburgcompiler.org/"
+    },
+    "https://www.civilwarmed.org/camp-letterman/": {
+      "status": "206",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://www.civilwarmed.org/camp-letterman/"
+    },
+    "https://www.civilwardata150.net/": {
+      "status": "200",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://www.civilwardata150.net/"
+    },
+    "https://tnmaccess.nationalmap.gov/api/v1/products?datasets=Digital%20Elevation%20Model%20(DEM)%201%20meter&bbox=-77.26,39.80,-77.20,39.83&max=1&outputFormat=JSON": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://tnmaccess.nationalmap.gov/api/v1/products?datasets=Digital%20Elevation%20Model%20(DEM)%201%20meter&bbox=-77.26,39.80,-77.20,39.83&max=1&outputFormat=JSON"
+    },
+    "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/PA_South_Central_B1_2017/TIFF/USGS_one_meter_x30y441_PA_South_Central_B1_2017.tif": {
+      "status": "206",
+      "content_type": "image/tiff",
+      "eff": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/PA_South_Central_B1_2017/TIFF/USGS_one_meter_x30y441_PA_South_Central_B1_2017.tif"
+    },
+    "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits": {
+      "status": "206",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits"
+    },
+    "https://docs.mapbox.com/data/tilesets/reference/mapbox-terrain-dem-v1/": {
+      "status": "206",
+      "content_type": "text/html",
+      "eff": "https://docs.mapbox.com/data/tilesets/reference/mapbox-terrain-dem-v1/"
+    },
+    "https://www.mapbox.com/legal/tos": {
+      "status": "200",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://www.mapbox.com/legal/tos"
+    },
+    "https://www.pasda.psu.edu/": {
+      "status": "206",
+      "content_type": "text/html",
+      "eff": "https://www.pasda.psu.edu/"
+    },
+    "https://gis-hub-adamsgis.hub.arcgis.com/": {
+      "status": "200",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://gis-hub-adamsgis.hub.arcgis.com/"
+    },
+    "https://pa-geo-data-pennmap.hub.arcgis.com/pages/lidar-and-imagery-build": {
+      "status": "200",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://pa-geo-data-pennmap.hub.arcgis.com/pages/lidar-and-imagery-build"
+    },
+    "https://www.nhgis.org/ipums-nhgis-terms-use": {
+      "status": "206",
+      "content_type": "text/html; charset=UTF-8",
+      "eff": "https://www.nhgis.org/ipums-nhgis-terms-use"
+    },
+    "https://api.si.edu/openaccess/api/v1.0/search?q=gettysburg&start=0&rows=0&api_key=DEMO_KEY": {
+      "status": "200",
+      "content_type": "application/json;charset=utf-8",
+      "eff": "https://api.si.edu/openaccess/api/v1.0/search?q=gettysburg&start=0&rows=0&api_key=DEMO_KEY"
+    },
+    "https://freesound.org/help/faq/": {
+      "status": "200",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://freesound.org/help/faq/"
+    },
+    "https://github.com/utcompling/WarOfTheRebellion": {
+      "status": "206",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://github.com/utcompling/WarOfTheRebellion"
+    },
+    "https://github.com/AdmiralEM/dataset-civil_war_records": {
+      "status": "206",
+      "content_type": "text/html; charset=utf-8",
+      "eff": "https://github.com/AdmiralEM/dataset-civil_war_records"
+    },
+    "https://zenodo.org/api/records?q=gettysburg&size=1": {
+      "status": "200",
+      "content_type": "application/json",
+      "eff": "https://zenodo.org/api/records?q=gettysburg&size=1"
+    },
+    "https://www.findagrave.com/cemetery/1584934/gettysburg-national-cemetery": {
+      "status": "200",
+      "note": "title: Gettysburg National Cemetery in Gettysburg, Pennsylvania; 7,131 memorials (fetched 2026-09-30)"
+    },
+    "https://archive.org/metadata/thenandnowgetty00vandrich": {
+      "status": "200",
+      "note": "OCR file thenandnowgetty00vandrich_djvu.txt 373,618 B"
+    }
+  }
+}

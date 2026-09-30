@@ -1,0 +1,597 @@
+{
+ "agent": "app-mobile",
+ "summary": "Main-app MOBILE analysis complete; full report (117 KB, 27 findings, A+ design spec, verified hot-fix pack, Playwright matrix) is at report_file. Key results, all measured in headless Chrome 153 with real CDP touch/mouse input on the live site and re-verified on a patched scratch copy: (1) C1 and C2 share one root cause — the desktop timeline bar `IO` (bundle.pretty.js:113249) and 14 other desktop-only overlays render unconditionally in the Mobile layout; IO (z100, later in DOM) ties the mobile root (z100) and paints over the entire mobile dock and the bottom 127 px of the Tools sheet; the '572 px row' is IO's desktop transport row (scrollWidth 574 / clientWidth 343), the real mobile dock is hidden underneath and tapping the mobile Play button actually scrubs IO's range input. (2) NEW critical: a full-size overlay canvas (pointer-events:auto, z10, sibling of Mapbox's canvas container) swallows every touch/mouse/wheel event on BOTH mobile and desktop — 15 events reach the overlay, 0 reach Mapbox; drag/wheel leave center/zoom unchanged; touch unit-tap is also broken (touchend preventDefault + touches[0] undefined => NaN). Present in every archived build since Jun 13. (3) NEW critical: search, filter, story/vignette, event card and unit panels are rendered at z85-95 under the opaque mobile root, so they never appear on phones. (4) Five of 14 Tools tiles are dead (Map Layers, Bookmarks, Help, NPS Auto Tour, Monuments write unread state); Virtual Walkthrough/Distance/Locations/Sound have no mobile entry; mobile map lacks road/river/breastwork layers, tint and trails; the Walkthrough's mobile branch has no map container id so its map is permanently blank (also reachable today from any <=860 px window). (5) H3 is worse than audited: no auto-detect, no persistence, false 'settings menu' promise, a second Mapbox map mounted behind the chooser, and the chooser is unusable below ~380 px height. (6) Landscape is unusable (map 140 px @812x375, 85 px @568x320; Tools sheet header 55 px off-screen and un-closable) while the manifest locks landscape. (7) index.html `.mapboxgl-map{height:100%!important}` breaks the mobile map box (812 vs 578 px tall; logo/attribution hidden behind dock). (8) Contrast/target/type audit with computed ratios (e.g. tool icons black on dark 1.10:1, tick label 2.10:1, splash skip 2.09:1). (9) Deploy trap: /assets/* is immutable and sw.js is cache-first, so any bundle edit must ship under a new hash with SW cache bump. (10) Correction to audit X1: raster tile requests with the production token return 403 for foreign/localhost Referers (200 for the site), so the token is restricted; local dev shows a blank map. I built apply_patches.py (68 logged assert-unique edits to index-Cg8FAMXN.js/index.html/sw.js, output bundle index-mHF1a.js, +6.5 KB) and verified on a scratch copy: pan, pinch, wheel, tap-select (mobile+desktop), transport reachability, all 14 Tools tiles, Search/Filter/Help/Bookmarks/Layers/Walkthrough, story+event cards, 10-viewport matrix (320x568..768x1024 + landscape) with zero <44 px controls, landscape map 267 px (71 %), returning-visitor shell in 626 ms, desktop unaffected with 0 console errors. iOS/WebKit and real hardware were NOT testable. The report also specifies the A+ mobile design (tokens, per-viewport table 320/360/375/390/412/430/768 + landscape, dock/scrubber/sheet system/story chip/Tools sheet, states, gestures, a11y, perf/GPU budgets), maps each patch to a proper source tree (RECON_SRC has no mobile shell at all), and gives a Playwright viewport-matrix spec.",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/app-mobile.md",
+ "findings": [
+  {
+   "id": "mobile-01",
+   "title": "Desktop-only overlays (IO timeline bar + 14 others) render inside the Mobile layout: root cause of C1, C2 and duplicate transport/time",
+   "severity": "critical",
+   "root_cause": "AO gates only the desktop toolbar and gF map behind Zn!==\"mobile\"; IO (Po.wrap position:absolute bottom:0 z100) ties tn.root (z100) and wins on DOM order, painting over the mobile dock and the z500 Tools sheet trapped in tn.root's stacking context.",
+   "evidence": "bundle.pretty.js:113249 V.jsx(IO,{}) unconditional; 112375-112387 Po.wrap z100; 103699-103706 tn.root z100; live 375x812: IO rect [0,685,375,127], controls row scrollWidth 574 / clientWidth 343 justify:center nowrap, mobile Play/step/speed hit-test returns IO range <input>, Tools tiles NPS/Legend/Bookmarks/Help/MiniMap/DesktopView unreachable.",
+   "fix": "HF-1a/b: wrap VF,WF,CF,LF,_F,IO,KF,XF,iO,nO,yO,qF(+FF,OF) in Zn!==\"mobile\"&&Fragment and gate MF; re-host needed panels inside pO (mobile-03). Source: separate DesktopShell/MobileShell sharing one BattleMap.",
+   "effort": "S",
+   "acceptance_test": "Playwright 320-430 px: play/step/prev-next-moment/scrubber/speed elementFromPoint(center) is the control and inside viewport; no element containing /⏮|⏭|Created by/ in compact layout; every Tools tile reachable. Scratch copy passes.",
+   "metric_or_grade_moved": "Mobile Core function D->B+, Fit&finish D+->B; INP/CPU (fewer mounted components)",
+   "depends_on": [],
+   "audit_refs": [
+    "C1",
+    "C2",
+    "H1",
+    "N1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Live 375x812: IO rect [0,685,375,127], row scrollWidth 574 / clientWidth 343, all 4 mobile buttons hit-test to INPUT:range, 6 Tools tiles unreachable. BP:113249, 112375-112387, 103699-103706 match."
+  },
+  {
+   "id": "mobile-02",
+   "title": "Overlay canvas swallows all map gestures: pan/zoom/tap-select dead on touch AND desktop (new)",
+   "severity": "critical",
+   "root_cause": "Unit canvas (pointer-events:auto, z10) is a sibling of Mapbox's canvas container; Mapbox binds listeners to getCanvasContainer(), so no event reaches it. Touch tap handler also preventDefault()s touchend and reads touches[0] (empty at touchend) => NaN coordinates.",
+   "evidence": "bundle.pretty.js:102993-103035 and 103076-103108 (mobile), 97393-97399 + 97364-97377 (desktop), 90310/90323-90342 (Mapbox listener target); same style string in every archived index bundle Jun 13-Sep 29. Live Chrome 153: overlay 15 events (touchstart1, touchmove12, touchend1, pointerdown1) vs container 0; desktop drag+wheel leaves center/zoom -77.235/39.812/13.5 unchanged; touch tap no popup, mouse click popup.",
+   "fix": "HF-3a/b/c: overlay pointer-events:none; select via map.on('click') (mobile) and a synthesized {target,clientX,clientY} event into ht()/_gbDist (desktop); HF-4 disable rotation + maxBounds. Source: BattleMap map.on('click'); long term units as a Mapbox layer (mobile-24).",
+   "effort": "S",
+   "acceptance_test": "With test hook: swipe 200 px moves center >=0.004 deg, pinch 60->200 px zooms +>=1.5, bearing stays 0, touch tap on a unit opens its sheet, desktop drag/wheel/click work. Scratch copy: center (-77.235,39.812)->(-77.2184,39.8063), zoom 13->14.82, U-XI-2-1 selected by touch and by mouse.",
+   "metric_or_grade_moved": "Mobile Core function D->A, desktop B->A-, Usability D+->B",
+   "depends_on": [],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "Live desktop: overlay got mousemove/mousedown/wheel/click, container got 0; drag, wheel and the zoom-in button (covered by the canvas) leave centre and zoom at -77.235/39.812/13.5. Mobile: overlay got touch events, container 0, centre unchanged. Nuances: k4() (BP:9909-9982) does tap-select via changedTouches on the desktop overlay, and HF-3b makes it inert. The mobile overlay string only exists in builds with the mobile shell (the Jun 13 bundle has none). The current entry hash dates from Jul 20 or earlier."
+  },
+  {
+   "id": "mobile-03",
+   "title": "Search, Filter, story, event card and unit panels are painted under the opaque mobile root (invisible on phones)",
+   "severity": "critical",
+   "root_cause": "Desktop panels are absolutely positioned at z85-95 with desktop widths in AO's stacking context; the mobile root (z100, opaque #050508) covers them.",
+   "evidence": "z-index FF/OF 95 (bundle.pretty.js:98964, 99288), CF 92 (98431), unit panel 92 (98124), LF 85 (98673), VF/WF/_F 88; FF width 440 no max-width (98965). Live: search panel [-32,56,440,343] input not visible; filter checkbox not visible; 5 panels (story '~2 min read', event 'HIGH 7:35am', legend, minimap, status) present but visibleToUser=false at tick 31.",
+   "fix": "HF-2: render FF/OF (gtbg-mp-top), qF (gtbg-mp-toast), CF+LF (gtbg-mp-story column above dock) inside pO plus CSS re-positioning (fixed, safe-area aware, max-height in dvh). Bridge only: final design = story chip + Story sheet (mobile-23).",
+   "effort": "M",
+   "acceptance_test": "At 8 viewports story+event panels visible=true, search input visible, typing '20th Maine' returns the row, no console errors (scratch: pass). Final: one chip visible, no panel >25 % of map.",
+   "metric_or_grade_moved": "Mobile Core function, Usability; narrative layer becomes visible",
+   "depends_on": [
+    "mobile-01"
+   ],
+   "audit_refs": [
+    "H1",
+    "H4",
+    "H2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Live: search input rect [-15,97,406,34], elementFromPoint at its centre is the map overlay CANVAS; z-indices 95/92/88/85 vs root 100 verified."
+  },
+  {
+   "id": "mobile-04",
+   "title": "Five dead Tools tiles and missing feature parity on the mobile map (incl. blank mobile-branch Walkthrough map)",
+   "severity": "critical",
+   "root_cause": "pO has its own map, own state and a hand-copied tool list never wired to the shared features: unread state Zn/An, lo handled only for 'roster'/'legend', mobile map never calls setMapRef/T4/tint/trails, KF/XF/Gtbg* take the desktop map ref; walkthrough mobile branch lacks id gtbg-wt-map.",
+   "evidence": "bundle.pretty.js:103389-103486 tiles; 102946/102948 unread state; 103505/103617 lo handling vs 103442/103462/103468; 112941-112950 AO-only state; 102981-103049 mobile map init; 112484/112577/112690 store mapRef consumers; 110767 vs 111096 walkthrough id. Live JS-click of Monuments/Map Layers/NPS/Bookmarks/Help => no DOM change (text length constant); walkthrough map blank.",
+   "fix": "Phase 0 (HF-5c/d, HF-6a-m): pass onHelp/onBookmarks/onLayers/onWalkthrough from AO, drop dead Monuments/NPS tiles, add Virtual Walkthrough, Ask the Historian and 'More tools' (20 Extra Features via GTBG_MENU.buildGroupsHtml), scrolling auto-fill grid, visible icon colour, aria-labels, 44 px close, add id to walkthrough map div. Phase 1: setMapRef + T4 + tint + trails on the mobile map; re-add Monuments, NPS tour, Distance, Locations, Sound, Toggle Units, Trails. Source: shared tool descriptors for both shells.",
+   "effort": "M",
+   "acceptance_test": "Every ToolsSheet tile produces an observable state change (dialog visible or aria-pressed flip); queryRenderedFeatures on roads-1863-line non-empty on mobile map; walkthrough shows 2 .mapboxgl-canvas (scratch: maps 1->2, 14 tiles reachable).",
+   "metric_or_grade_moved": "Mobile Core function D->A-, Usability D+->B+",
+   "depends_on": [
+    "mobile-01",
+    "mobile-02"
+   ],
+   "audit_refs": [
+    "C2",
+    "H1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Static: Zn (NPS tour) and An never read, lo handles only roster/legend, setMapRef only at BP:97222, walkthrough mobile branch has no id (BP:110767 vs 111096). Caveat: HF-6c/6d make Layers and Bookmarks open panels that are inert without a mapRef (MISSED-4)."
+  },
+  {
+   "id": "mobile-05",
+   "title": "Layout chooser: no auto-detect/persistence, false settings-menu promise, second Mapbox map behind it, unusable at short heights",
+   "severity": "high",
+   "root_cause": "Device choice delegated to a blocking modal; Zn is plain useState(null); desktop gF mounts while Zn is null.",
+   "evidence": "bundle.pretty.js:102752-102820, 102815 note, 112949, 113061, 113071/113233, 97263 (map removed on choice) vs 102981 (second map); no matchMedia/pointer:coarse anywhere in app code. Live: cards 145-159 px wide; 320x568 Select Mobile bottom 583>568; 667x375/812x375 buttons y344-376 and title y-78, overlay no scroll.",
+   "fix": "HF-5a/b: init Zn from ?layout= / sessionStorage / matchMedia('(max-width:820px) and (pointer:coarse)') so chooser never renders and only one map mounts; Desktop View stores a session override; html[data-layout]. Source: useLayoutMode (auto|compact|full, matchMedia listener, Settings->Layout persisted in gtbg_prefs) switching at runtime without remounting the map; delete DeviceSelect.",
+   "effort": "S",
+   "acceptance_test": "Phone first visit: no 'Choose Your Experience', data-layout=compact, exactly 1 .mapboxgl-map; rotate keeps tick/selection/center; override persists; ?layout= wins.",
+   "metric_or_grade_moved": "Mobile Usability D+->B+, GPU/INP, shorter LCP path",
+   "depends_on": [
+    "mobile-01"
+   ],
+   "audit_refs": [
+    "H3"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence confirmed (Zn useState(null), no matchMedia in app code, chooser title y=-78 @667x375 and y=-92 @320x568). The shipped HF-5a query (max-width:820 and coarse, evaluated once) sends 844x390 and 915x412 landscape phones to the desktop layout with 42 controls under 44 px, and never re-evaluates on rotation. Acceptance text says data-layout compact/full but HF-5b writes mobile/desktop."
+  },
+  {
+   "id": "mobile-06",
+   "title": "Splash and first run: clipped title, tiny targets, three blocking screens, repeated every visit, keyboard copy on touch",
+   "severity": "high",
+   "root_cause": "Desktop-first fixed pixel sizes; fast-forward animation drives the whole store per rAF on every visit; onboarding assumes keyboard/mouse.",
+   "evidence": "bundle.pretty.js:101472-101592, 101471 eO=3500, 101486 800 ms, 101503 600 ms, 101617-101624 appName 52px/8px spacing, 101647/101661 width 320, 101670 skip 11px #444 (2.09:1), 111856-112021 tour modal z1000 over splash, skipBtn #555 12px 89x14, 111813 Power User, 111825-111860 keyboard hints. Live: title box x=-46.8 w=468.6 at 375; tour at 1.2 s.",
+   "fix": "HF-10a-h + HF-11a-d: clamp() title/spacing, min(320px,80vw) tracks, 44 px skip targets and contrast, returning-visitor fast path (gtbg_seen), fast-forward 3.5->1.8 s, hide Power User on (pointer:coarse), touch copy. Source: single splash (inline HTML node continues into React, progress from real events), one dismissible coach-mark, opt-in 3-day overview.",
+   "effort": "M",
+   "acceptance_test": "Splash title inside viewport at 320-430; all splash/tour interactive elements >=44x44 and >=4.5:1; returning-visitor controls interactive <1.5 s (Moto G Power, 4x CPU). Scratch: 626 ms returning, 2 archetypes on touch.",
+   "metric_or_grade_moved": "Fit&finish D+->B+, LCP/FCP, INP",
+   "depends_on": [
+    "mobile-05"
+   ],
+   "audit_refs": [
+    "H3",
+    "C6",
+    "P1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Live splash title x=-47 w=469 @375 (x=-74 @320); eO=3500 / 800 ms / 600 ms; skip #444 at 2.09:1. HF-11b only rewrites the first tour hint; steps 2-5 keep keyboard copy, so the mobile-26 acceptance regex fails after Phase 0."
+  },
+  {
+   "id": "mobile-07",
+   "title": "index.html .mapboxgl-map height:100% !important breaks the mobile map box; Mapbox logo/attribution hidden",
+   "severity": "high",
+   "root_cause": "CLS pre-size rule applied to every .mapboxgl-map overrides tn.map top:94/bottom:140; attributionControl:false on mobile and walkthrough maps.",
+   "evidence": "index.html:72-78; bundle.pretty.js:103707-103714, 102988, 110777. Live/sim: map rect [0,94,375,812] (should be 578); canvas centre ~117 px below visible centre; logo behind dock.",
+   "fix": "HF-12b drop .mapboxgl-map from the rule; HF-4 compact AttributionControl top-right; HF-7h/i move legend/minimap; enlarge attribution button to 44 px. Source: size containers by their own layout, never !important on Mapbox internals; compact attribution in every Mapbox instance.",
+   "effort": "S",
+   "acceptance_test": ".mapboxgl-map rect equals [0, header+tabs, W, H-header-tabs-dock] at every viewport; logo and attribution inside viewport and un-covered (scratch: [0,94,375,578]).",
+   "metric_or_grade_moved": "Fit&finish, Best-practices/ToS, GPU memory (-29..40 % canvas area)",
+   "depends_on": [],
+   "audit_refs": [
+    "P2",
+    "X1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Live .mapboxgl-map = [0,94,375,812]; centre offset 117 px; after HF-12b [0,94,375,578] on the patched copy."
+  },
+  {
+   "id": "mobile-08",
+   "title": "Landscape/short viewports unusable (27-37 % map, Tools sheet trap, chooser off-screen) while manifest locks landscape",
+   "severity": "high",
+   "root_cause": "Fixed 234 px of chrome (52+42+140) and un-scrollable, un-capped sheets; manifest orientation:landscape.",
+   "evidence": "manifest.json orientation; bundle.pretty.js:103715-103782, 104041-104047. Live/sim: visible map 140 px @812x375 (63 % chrome), 85 px @568x320 (73 %); Tools panel top -55 @320 tall, close button off-screen; chooser buttons below fold.",
+   "fix": "HF-12c landscape block (header 48, dock 60 single row, day tabs hidden, minimap hidden, Tools as right rail min(440px,50vw), story side-docked). Source: compact-landscape layout + right-rail sheets; drop manifest orientation.",
+   "effort": "M",
+   "acceptance_test": "Map >=65 % of viewport height in landscape; every sheet close control inside viewport at 320 px height. Scratch: 267 px (71 %) @812x375/667x375, 212 px (66 %) @568x320.",
+   "metric_or_grade_moved": "Mobile Usability, Fit&finish",
+   "depends_on": [
+    "mobile-18"
+   ],
+   "audit_refs": [
+    "E1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Arithmetic confirmed (234 px chrome, 141 px map @375 tall, panel top -55 @320 tall). manifest.orientation only affects an installed standalone PWA, not a browser tab. HF-12c's landscape CSS keys on data-layout=mobile, which phones at 821 px or wider never get (MISSED-2)."
+  },
+  {
+   "id": "mobile-09",
+   "title": "Duplicate and contradictory time displays; developer wording (Tick n/675, 1x real time, same glyph for Play and Next)",
+   "severity": "high",
+   "root_cause": "Mobile clock + day tabs + tick label plus the whole IO bar (clock, day buttons, tick, credit) and hidden _F date +2; several independent tick-to-clock formulas.",
+   "evidence": "bundle.pretty.js:103141-103147, 103158-103173, 103238, 112226-112246, 112357, 97415-97440 (July ${l+2}), 9371-9383 (getTickTime), 100836-100842 and 100998-101006 (5*60 offset, July ${f+2}). Live: tick 31 header 8:30 AM while visible event card says 7:35am.",
+   "fix": "HF-1 removes IO duplicates; HF-7a-d labels and distinct glyphs (‹ › vs ▶/⏸). Source: one clock (weekday+date+time from one formatBattleTime shared with Compare/Ledger/Documentary), aria-valuetext on scrubber, Tick only under ?debug=1, rate label '10 min/s'.",
+   "effort": "M",
+   "acceptance_test": "One time readout in the header region; no text /Tick \\d+\\/675/; event-card time equals header time for the same tick (property test over all 137 events).",
+   "metric_or_grade_moved": "Historical consistency, Usability",
+   "depends_on": [
+    "mobile-01"
+   ],
+   "audit_refs": [
+    "C3",
+    "C4",
+    "H9"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "BP:9371-9383, 97428, 100836-100842 and 100998-101006 verified; tick 31 = 8:30 AM."
+  },
+  {
+   "id": "mobile-10",
+   "title": "Extra Features / Ask-the-Historian overlay collides with the phone UI",
+   "severity": "high",
+   "root_cause": "Injected fixed z999999 element with a collision mover that lands mid-map; three text-matching scripts keyed to strings the redesign removes.",
+   "evidence": "index.html:176-206, 212-223, 294-606 (collision candidates 535-541); live rect [184,387,177,39], toggle 30x30, pin 48x34, painted over splash, chooser, Tools sheet.",
+   "fix": "HF-12c hide #extra-features in html[data-layout=mobile]; 20 features + Historian shown in the Tools sheet (HF-6f/g). Source: delete overlay and its inline scripts; Extra Features as toolbar/sheet entries fed by site-nav GROUPS; Historian gets its own mobile sheet.",
+   "effort": "S",
+   "acceptance_test": "No fixed element with z-index>1000 outside the React root in compact layout; Tools sheet lists the 20 features, each >=44 px tall.",
+   "metric_or_grade_moved": "Fit&finish D+->A-",
+   "depends_on": [],
+   "audit_refs": [
+    "H1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Live: #extra-features.gtbg-visible (z999999) is the element at (300,400) in the mobile layout; index.html:176-206."
+  },
+  {
+   "id": "mobile-11",
+   "title": "Touch targets, type sizes and contrast on the mobile shell (measured)",
+   "severity": "high",
+   "root_cause": "Hard-coded 8-13 px sizes and greys (#444/#555/#666/#8b6914) on near-black; toolIcon has no colour so text glyphs render black on dark.",
+   "evidence": "Computed WCAG ratios: toolIcon black 1.10, tickInfo #444 2.10, splash skip 2.09, chooser note 2.11, tour skip 2.64, dayTab #666 3.56, #666 elements 3.54, #8b6914 4.02-4.04; sizes: day tabs 125x42, popup/tools close ~20-22 px glyphs, story/event close 11x19 / 39x12, attribution 24x24; OOB/roster 2,093-2,095 text nodes with 7-9 px text. bundle.pretty.js:103698-104095.",
+   "fix": "HF-6j/k/l, HF-7e-g/j/k, HF-10e/f, HF-11c/d, min 44 px CSS for re-homed buttons. Source: token set (--ink #f1eee4 17.5:1, --ink-2 #c9ccd6, --ink-3 #a9adb8 9.05, --gold #d4b25a 9.98, --union #6b9bf0, --confed #ef7d6b), min font 12 px, stylelint bans raw hex and <0.75rem, virtual lists.",
+   "effort": "M",
+   "acceptance_test": "axe color-contrast 0 violations on splash/dock/each sheet; all visible interactive elements >=44x44; no text node <12 px. Scratch matrix: zero <44 px controls at all 10 viewports.",
+   "metric_or_grade_moved": "Accessibility C->A-, Fit&finish",
+   "depends_on": [],
+   "audit_refs": [
+    "A1",
+    "A3",
+    "A4",
+    "A5",
+    "D2",
+    "H6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Contrast recomputed: #444 2.09-2.11, #555 2.73, #666 3.54-3.58, #8b6914 4.04, all token ratios match. Minor: black toolIcon is 1.03 on #05050c (1.10 is on the tile fill); #aaa is 8.75, not 8.2."
+  },
+  {
+   "id": "mobile-12",
+   "title": "Scrubber usability and semantics: touch-only, 36 px, no ARIA/keyboard, no snapping or value bubble",
+   "severity": "high",
+   "root_cause": "Custom div with onTouchStart/Move only; dots pointer-events:none; thumb clipped at extremes.",
+   "evidence": "bundle.pretty.js:103178-103214, 103783-103812; live: tap x=17 => Tick 31 (8:30 AM), drag 20->200 => tick 360; 1.97 ticks/px; thumb x=-11 at tick 1.",
+   "fix": "Source: pointer-events slider with setPointerCapture, touch-action:none on track only, 44 px hit/8 px track, magnetic snap to key events within 12 px, time bubble while dragging, role=slider with aria-valuetext, Arrow/Shift/PageUp/PageDown/Home/End, haptic tick, labelled day notches, prev/next-moment buttons.",
+   "effort": "M",
+   "acceptance_test": "Screen reader announces value text; keyboard operable; tap on an event dot lands exactly on that tick; one pointer stream can traverse 10->90 %.",
+   "metric_or_grade_moved": "Usability, Accessibility",
+   "depends_on": [
+    "mobile-22"
+   ],
+   "audit_refs": [
+    "A2",
+    "D2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "The scrub track spans the full 375 px, so it is 1.8 ticks/px (9 sim-min/px), not 1.97 (675/343 uses the desktop IO row width). The report's own tap numbers imply 375. Everything else confirmed."
+  },
+  {
+   "id": "mobile-13",
+   "title": "Viewport meta, safe-area insets, dvh, on-screen keyboard, overscroll, standalone meta",
+   "severity": "high",
+   "root_cause": "No viewport-fit=cover so env(safe-area-inset-*) is inert; fixed pixel chrome heights; vh units; no overscroll/standalone handling.",
+   "evidence": "index.html:5; bundle.pretty.js:103779, 103921, 104046 (env), 103914 65vh, 98116/98424/99290 100vh calc; #root contain:strict (index.html:66-70).",
+   "fix": "HF-12a viewport-fit=cover + meta; HF-8 --gt-sat/sab/sal/sar and --gt-hdr/tabs/dock variables on map/top/tabs/dock/popup; overscroll-behavior:none. Source: tokens, useVisualViewport (--vvh), dock hidden while search keyboard open, interactive-widget=resizes-content, dvh/svh only.",
+   "effort": "M",
+   "acceptance_test": "CDP Emulation.setSafeAreaInsetsOverride (47/34 portrait, 47/47 landscape): controls >=8 px clear of home indicator and notch; keyboard emulation (-320 px) keeps search input and first results visible. iOS/WebKit device pass required (untested).",
+   "metric_or_grade_moved": "Fit&finish, PWA quality",
+   "depends_on": [],
+   "audit_refs": [
+    "E1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence confirmed, but HF-8c is broken: paddingTop is set before the padding:'0 14px' shorthand, so it computes to 0px. With CDP insets top 47 the header is 99 px tall but the clock text sits at y=31..67, overlapping the notch band. Made worse by HF-12a's black-translucent meta (MISSED-3). Bottom safe-area is fine."
+  },
+  {
+   "id": "mobile-14",
+   "title": "Gesture conflicts, sheet/back-button behaviour and Escape handling",
+   "severity": "high",
+   "root_cause": "Each panel has its own z-index and no shared sheet manager; tn.root touch-action:none; no History API use; Esc ignores INPUT targets and mobile-local state.",
+   "evidence": "bundle.pretty.js:103705, 112967-112968 and 113033-113046, toolsOverlay 104033-104040, z 300/400/500 layers; scratch: Esc does not close Search while input is focused.",
+   "fix": "Source: single SheetHost (stack, only top interactive), role=dialog, inert shell for modal states, history.pushState + popstate, Esc (clears text then closes), focus trap/restore, non-modal peek sheets, gesture table (pan/pinch/tap/scrub/sheet-drag/edge zones inert).",
+   "effort": "L",
+   "acceptance_test": "page.goBack() closes Tools and stays on site; Esc closes topmost only; focus returns to opener; scrim tap never triggers a map click; scrolling sheet content never pans the map.",
+   "metric_or_grade_moved": "Usability, Accessibility",
+   "depends_on": [
+    "mobile-22"
+   ],
+   "audit_refs": [
+    "H2",
+    "A6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "No pushState/popstate in app code (>95500); Esc handler returns early on INPUT (BP:112967-112968); tn.root touch-action none (103705)."
+  },
+  {
+   "id": "mobile-15",
+   "title": "GPU/memory/CPU on low-end phones: multiple Mapbox instances, non-DPR canvas, per-frame layout and O(n^2) declutter, whole-store re-renders, rAF setState loop",
+   "severity": "high",
+   "root_cause": "Up to 3 Mapbox maps alive; overlay canvas sized in CSS px and re-measured every frame; pO subscribes to whole store and recomputes 100-tick scan + two 467-entry sorts per render; KF rAF loop setStates every frame; no Mapbox perf options or context-loss UX.",
+   "evidence": "bundle.pretty.js:97237, 102981, 110770 (maps); 96510, 96558-96581 (lS); 102916-102941, 103124-103133, 102957-102960 (pO); 100845-100870 (KF); 97004-97012 (throttle); no devicePixelRatio/maxTileCacheSize/fadeDuration/performanceMetricsCollection in app code. Live: maps=1 at chooser, 2 with walkthrough.",
+   "fix": "Deployed: HF-1, HF-5a, HF-4, HF-12b. Source: single BattleMap; useStore selectors + memo; chronology in store; canvas dpr=min(dpr,2) with ResizeObserver rect, spatial-hash declutter or Mapbox symbol collision; Mapbox options maxTileCacheSize:24, fadeDuration:0, performanceMetricsCollection:false, renderWorldCopies:false (verify any pixel-ratio cap exists in installed v3 before relying on it); webglcontextlost UX; drop backdrop-filter in compact; Lite mode for deviceMemory<=2.",
+   "effort": "L",
+   "acceptance_test": "4x CPU/Slow-4G 8x playback: frame <=16 ms at 300 units, <=1 long task per 10 s, INP <=200 ms over a 5-min script, heap <=150 MB, exactly 1 canvas.mapboxgl-canvas at all times, no WebGL-lost warnings.",
+   "metric_or_grade_moved": "RUM INP/LCP mobile, Reliability C->A-",
+   "depends_on": [
+    "mobile-01",
+    "mobile-05"
+   ],
+   "audit_refs": [
+    "P1",
+    "P2",
+    "P5",
+    "X5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Core claims confirmed (no DPR, maxTileCacheSize, fadeDuration, performanceMetricsCollection or webglcontextlost in app code; per-frame getBoundingClientRect and the 8-pass O(n^2) declutter; whole-store subscription). Two details wrong: KF only calls setState when mapRef is non-null (BP:100845-100870), so on mobile it is an idle rAF poll and the per-frame setState cost is on desktop. 'Two 467-entry sorts' is two sorts over U-/C- partitions totalling 467."
+  },
+  {
+   "id": "mobile-16",
+   "title": "Accessibility semantics of the mobile shell (landmarks, labels, focus, live regions, reduced motion, canvas alternative)",
+   "severity": "medium",
+   "root_cause": "Shell built from styled divs/glyph buttons; no dialog semantics or focus management; no reduced-motion handling in app code.",
+   "evidence": "bundle.pretty.js:101570-101582 (div onClick skip), 103150-103155 and 103218-103237 (glyph buttons), scrubber div, sheets; grep finds no prefers-reduced-motion in app code.",
+   "fix": "aria-labels (HF-6l, HF-7a-d) now; source: header/main/nav landmarks, role=dialog aria-modal aria-labelledby, aria-current on day chips, polite live region for pause time/story titles, virtualised 'Units in view' list as canvas alternative, reduced-motion rules, skip link, focus ring tokens.",
+   "effort": "M",
+   "acceptance_test": "axe 0 serious/critical on every sheet; keyboard-only traversal header->map->dock->sheet; VoiceOver/TalkBack smoke pass.",
+   "metric_or_grade_moved": "Accessibility C->A",
+   "depends_on": [
+    "mobile-22"
+   ],
+   "audit_refs": [
+    "A2",
+    "A5",
+    "A6",
+    "D2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "No aria-label, role or aria-live in app code outside Mapbox: confirmed. 'No prefers-reduced-motion in app code' holds only for the React code; index.html has three reduced-motion blocks (lines 139, 206, 252) and Mapbox honours it (BP:11447)."
+  },
+  {
+   "id": "mobile-17",
+   "title": "320 px, tablets and in-between widths",
+   "severity": "medium",
+   "root_cause": "innerWidth<500/<560 inline style constants evaluated once at module load; phone shell stretched on 768; story panels take 58 % of a 320x568 screen.",
+   "evidence": "bundle.pretty.js:98111-98115, 102708-102712, 100900, 100948; scratch matrix 320x568 and 768x1024.",
+   "fix": "Source: >=768 compact shell with side sheets (--sheet-w), >=1024/fine pointer full shell with (pointer:coarse) 44 px scaling, replace innerWidth conditions with CSS media/container queries, speed chip moves into Timeline sheet if scrub <200 px.",
+   "effort": "M",
+   "acceptance_test": "Matrix at 320/768/820/834/1024 both orientations: no overflow, targets >=44, sheets within viewport.",
+   "metric_or_grade_moved": "Fit&finish",
+   "depends_on": [
+    "mobile-22"
+   ],
+   "audit_refs": [
+    "D2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Module-level innerWidth constants confirmed (BP:98107-98115, 102705-102712). The 58% / 42% story-panel figures do not reproduce: at 320x568 tick 31 the story container is 261 px (46% of the viewport; panels 193+60 px), i.e. 78% of the 334 px map. The conclusion stands."
+  },
+  {
+   "id": "mobile-18",
+   "title": "Web app manifest / installability (orientation lock, combined any+maskable icons, missing fields)",
+   "severity": "medium",
+   "root_cause": "Manifest written for a landscape desktop-like app.",
+   "evidence": "manifest.json: orientation landscape, icons purpose 'any maskable', no id/lang/scope/shortcuts/narrow screenshots, theme #0a0a14 vs shell #050508.",
+   "fix": "Remove orientation; separate any and maskable icons; add id, lang, scope, shortcuts (Day 1/2/3, Search), narrow screenshots, display_override; unify theme colours with --bg.",
+   "effort": "S",
+   "acceptance_test": "Lighthouse installability clean; installed PWA rotates; orientation key absent.",
+   "metric_or_grade_moved": "SEO/PWA, Mobile Usability",
+   "depends_on": [],
+   "audit_refs": [
+    "E1",
+    "E2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Manifest facts confirmed. Acceptance is invalid: Lighthouse 13.5 (lh_mobile.json) has no PWA/installability category. Use CDP Page.getInstallabilityErrors, DevTools Application > Manifest, or PWABuilder."
+  },
+  {
+   "id": "mobile-19",
+   "title": "Deploy trap for any bundle edit: immutable /assets/*, cache-first service worker, case-mangled deploy zip",
+   "severity": "high",
+   "root_cause": "Same-name asset under 1-year immutable cache and SW cache-first would never reach returning visitors.",
+   "evidence": "netlify.toml /assets/* immutable; sw.js:3-47 CACHE_NAME gbg-v5 precaches /assets/index-Cg8FAMXN.js cache-first; index.html:55,282; deploy zip lower-cases 5 asset names.",
+   "fix": "Ship patched bundle under a new hashed name, update index.html modulepreload+script and sw.js PRECACHE+CACHE_NAME together (HF-13a/b/c automate: index-mHF1a.js, gbg-v6-hf1); start from SRC_DIR not the deploy zip; keep old file one release. Real build: Vite hashing + Workbox manifest.",
+   "effort": "S",
+   "acceptance_test": "A browser with SW v5 loads index-mHF1a.js on second navigation (resource timing); every referenced asset returns 200.",
+   "metric_or_grade_moved": "Reliability",
+   "depends_on": [],
+   "audit_refs": [
+    "N1",
+    "C6"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Immutable cache, cache-first SW and same-name-asset trap confirmed. The 'case-mangled zip 404s' claim is unsupported: live /assets/index-cg8famxn.js, INDEX-CG8FAMXN.JS and /ASSETS/... all return 200 with identical size, so Netlify serves case-insensitively (hygiene only). Critical omission: HF-13 renames only the entry, but HelpModal-CFV9T0zH.js and BookmarkPanel-C5YT4b5k.js import './index-Cg8FAMXN.js' by name (MISSED-1)."
+  },
+  {
+   "id": "mobile-20",
+   "title": "Mapbox token is URL-restricted for tiles (403 from localhost/foreign Referer): local dev impossible; correction to audit X1",
+   "severity": "medium",
+   "root_cause": "Single production token restricted to the site; no dev token.",
+   "evidence": "curl on /v4/mapbox.satellite tile: 200 with Referer https://gettysburginteractivemap.com/, 403 for https://example.com/, http://127.0.0.1:8123/, http://localhost:8123/ and no Referer; styles endpoint returned 200 for a foreign Referer.",
+   "fix": "Create a dev-only token restricted to localhost/127.0.0.1 via VITE_MAPBOX_TOKEN; keep prod token restricted (+deploy-preview domain if used); confirm in dashboard which resources are covered before closing X1.",
+   "effort": "S",
+   "acceptance_test": "npm run dev renders tiles; foreign-Referer tile request 403.",
+   "metric_or_grade_moved": "Security hygiene, developer experience",
+   "depends_on": [],
+   "audit_refs": [
+    "X1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "curl reproduces exactly: tile 200 with the prod Referer and 403 for example.com, 127.0.0.1, localhost and no Referer; styles endpoint 200 for a foreign or no Referer."
+  },
+  {
+   "id": "mobile-21",
+   "title": "Source adoption path for the mobile shell: RECON_SRC has no mobile layout and cannot host these fixes",
+   "severity": "medium",
+   "root_cause": "RECON_SRC (2,106 lines, mapbox-gl 2.15) omits pO, the unit canvas engine, IO, tour and has a 34-line DeviceSelect; deployed app code is ~17,400 lines in the bundle.",
+   "evidence": "RECON_SRC App.jsx renders nothing for deviceMode==='mobile'; MapView.jsx 82 lines; TimelineScrubber.jsx 70 lines; bundle.pretty.js app ranges 9326-9990 and 96266-113377.",
+   "fix": "Slice bundle.pretty.js into ES modules with a script, rename identifiers via mapping (pO->MobileShell, tn->mobileStyles, IO->TimelineBar, Zn->layout), pin the bundled mapbox-gl 3.x minor, build a golden-master Playwright + 675-tick screenshot diff against the live bundle, then apply mobile-01..16 as source edits and retire apply_patches.py.",
+   "effort": "L",
+   "acceptance_test": "Built output passes the same 10 golden flows as the live bundle (pixel diff <=0.5 % on 12 ticks x 3 viewports); bundle-size report attached.",
+   "metric_or_grade_moved": "All categories (enabler)",
+   "depends_on": [],
+   "audit_refs": [
+    "N1",
+    "P6"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "RECON_SRC facts confirmed (App.jsx 264 lines, no mobile branch, DeviceSelect 34, TimelineScrubber 70, MapView 82, mapbox-gl ^2.15). Effort L is optimistic: scope-aware renaming of ~17k minified lines with reused 1-2 letter names (e.g. Zn differs between AO and pO) plus a golden-master harness is realistically XL."
+  },
+  {
+   "id": "mobile-22",
+   "title": "A+ mobile information architecture and component system (header, dock, scrubber, sheet system, Tools grid, tokens)",
+   "severity": "high",
+   "root_cause": "Mobile shell is a bolt-on with no design system, sheet manager or shared tool registry.",
+   "evidence": "Design spec in report section 5: tokens, per-viewport table (320/360/375/390/412/430/768 + landscape), screen anatomy (52 px header, 100 px dock, 44 px scrub row, 56 px control row), states table, sheet CSS contract, Tools sheet content, landscape rail, tablet side sheets.",
+   "fix": "Build order: tokens -> BattleMap -> Header -> Dock (Scrubber, SpeedChip) -> SheetHost -> ToolsSheet -> TimelineSheet -> UnitSheet -> Search/Filter sheets -> StoryChip/StorySheet -> remaining panels re-skinned as sheets; single clock; auto layout via matchMedia.",
+   "effort": "XL",
+   "acceptance_test": "Full section-8 Playwright matrix green plus manual real-device pass (iPhone SE/15, iPad, Pixel 6a, Galaxy A14).",
+   "metric_or_grade_moved": "Mobile Usability D+->A, Fit&finish D+->A, Core function D->A, Accessibility C->A",
+   "depends_on": [
+    "mobile-21",
+    "mobile-09"
+   ],
+   "audit_refs": [
+    "H1",
+    "H3",
+    "H4",
+    "H6",
+    "D2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Section 5.2 arithmetic recomputed (row widths, scrub widths, ticks/px, map heights with and without insets) and token contrast ratios match. Design quality itself is not verifiable."
+  },
+  {
+   "id": "mobile-23",
+   "title": "Story and unit as sheets/chips; clutter control on jump/load (H4 on mobile)",
+   "severity": "high",
+   "root_cause": "Desktop story/event/toast components appear unprompted and never dismiss on navigation.",
+   "evidence": "Scratch 320x568: story+event stack takes 58 % of screen; toasts never cleared on jump (audit H4); bundle.pretty.js:97897, 98252, 98595, 99888.",
+   "fix": "Story chip (56 px, 44 px Read target) only when paused or Follow story is on, never at >=4x, one at a time, auto-hide 8 s; Story sheet (half); toasts collapse to one auto-dismissing status chip (4 s); jumpToDay/search closes non-modal chips; Unit sheet peek 132 px with Follow/Pin/Details.",
+   "effort": "L",
+   "acceptance_test": "At a key-moment tick during pause exactly one chip and no panel >25 % of map; after jumpToDay zero stale panels.",
+   "metric_or_grade_moved": "Usability, visible narrative depth",
+   "depends_on": [
+    "mobile-22",
+    "mobile-03"
+   ],
+   "audit_refs": [
+    "H4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "'Toasts never dismiss' is unsupported: qF removes toasts after 4500 ms and only creates them while playing (BP:99888-99930); nO commander toasts fade at 1.2 s and are removed at 3 s (BP:101679-101715); the story CF lists vignettes only for ticks c..c-2. A 4 s auto-dismiss is already current behaviour; the real clutter is story/event/legend panels persisting after a paused jump. The 58% figure does not reproduce (see mobile-17)."
+  },
+  {
+   "id": "mobile-24",
+   "title": "Render units as a Mapbox GeoJSON/symbol layer instead of a hand-synchronised canvas overlay (Phase 3)",
+   "severity": "medium",
+   "root_cause": "Overlay canvas caused gesture loss, DPR blur, per-frame layout and custom O(n^2) declutter/hit-testing.",
+   "evidence": "bundle.pretty.js:96506-96688 (lS), 96965-97017 (Ed), 97364-97377.",
+   "fix": "units GeoJSON source updated from the interpolation worker at <=30 Hz (or feature-state) + symbol layer (icon-rotate=bearing, text collision) + trail line layer; queryRenderedFeatures for hit-testing; accessible list from same features; prototype behind a flag against perf gates.",
+   "effort": "XL",
+   "acceptance_test": "Parity screenshots on 12 ticks; 300-unit frame <=16 ms on throttled profile; tap selection via queryRenderedFeatures; no overlay canvas.",
+   "metric_or_grade_moved": "INP, GPU memory, maintainability",
+   "depends_on": [
+    "mobile-21"
+   ],
+   "audit_refs": [
+    "P1",
+    "P2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Static rationale verified (overlay canvas, per-frame layout, custom hit-test); XL effort and flag-gated prototype risk are appropriate."
+  },
+  {
+   "id": "mobile-25",
+   "title": "Mobile test infrastructure: Playwright viewport matrix, CDP helpers, axe, visual snapshots, Lighthouse-CI, real-device checklist",
+   "severity": "high",
+   "root_cause": "No automated test ever exercised touch, safe areas, landscape or overlap; regressions like C1/C2/mobile-02 shipped unnoticed.",
+   "evidence": "Report section 8 skeleton (T0-T12) and helper CDP scripts in plan-work/tmp-app-mobile (cdp.mjs, lib3.mjs, probe*/pt*.mjs) that reproduced every finding.",
+   "fix": "Create tests/playwright/mobile-matrix.spec.ts from the skeleton; add ?test=1 hook exposing window.__gtbg={map,store}; CI gates (matrix, axe, Lighthouse mobile budgets, web-vitals beacon tagged by data-layout); manual device checklist per release.",
+   "effort": "M",
+   "acceptance_test": "CI red on any matrix failure; the hot-fix pack output passes the suite.",
+   "metric_or_grade_moved": "Reliability, all mobile grades (regression protection)",
+   "depends_on": [],
+   "audit_refs": [
+    "C1",
+    "C2",
+    "H1",
+    "H3"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Helper scripts exist. But the T0-T12 skeleton cannot run on the deployed bundle or the patch pack: it needs data-testid attributes, window.__gtbg, role=dialog/searchbox and data-layout=compact, none of which exist (HF-9 adds only gtbg-m-* classes; HF-5b emits mobile/desktop). The section 9 Phase-1 gate and the mobile-25 acceptance nonetheless claim the patched output passes it. Add a test-hook step or use class selectors."
+  },
+  {
+   "id": "mobile-26",
+   "title": "Mobile microcopy and voice (false settings-menu claim, dev-speak, keyboard copy on touch)",
+   "severity": "low",
+   "root_cause": "Copy written for the desktop build and for developers.",
+   "evidence": "bundle.pretty.js:102762, 102800, 102815, 101542, 103238, 111813, 111825-111860, 101536-101582 ('Fast-forwarding 3 days of battle...', 'Tick n/675', '1x (real time)', 'Press Space...', 'Scroll the map', 'settings menu').",
+   "fix": "Museum-voice copy deck with touch-specific tour steps, 'Layout: Auto (compact)', '10 min of battle per second', 'Tools' with an icon.",
+   "effort": "S",
+   "acceptance_test": "No string matching /Tick|keyboard|Press |Scroll the map/ in compact layout; copy review checklist signed.",
+   "metric_or_grade_moved": "Fit&finish",
+   "depends_on": [],
+   "audit_refs": [
+    "H7",
+    "H9"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "All cited strings present at BP:102762, 102800, 102815, 101535, 101542, 101581, 97429."
+  },
+  {
+   "id": "mobile-27",
+   "title": "Order-of-Battle and Roster panels on phones: unvirtualised, 7-9 px text, lexicographic sort, inconsistent counts",
+   "severity": "medium",
+   "root_cause": "Full unit lists rendered as thousands of DOM nodes with desktop typography.",
+   "evidence": "bundle.pretty.js:102321-102659 (Xk), 102660-102751 (Jk); live: 2,093-2,095 text nodes each, min font 7-8 px, order 102nd,104th...10th, headers '410 units / 295 units' (=705 vs 467 elsewhere).",
+   "fix": "Virtual list, localeCompare numeric sort, >=13 px 48 px rows, sticky Union/Confederate segmented control, counts from one source.",
+   "effort": "M",
+   "acceptance_test": "DOM nodes <300 while open; natural-sort unit test; no text <12 px.",
+   "metric_or_grade_moved": "Accessibility, INP, Fit&finish",
+   "depends_on": [
+    "mobile-22"
+   ],
+   "audit_refs": [
+    "H5",
+    "H10"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Code-level: non-numeric localeCompare sorts at BP:102346-102354 and 102674-102681; header counts from R.length/he.length. The live 2,09x text-node and 7-9 px counts were not re-measured."
+  }
+ ],
+ "open_questions": [
+  "Please do a 10-second check of the biggest new finding: on the live site in a desktop browser, choose Desktop and try to drag the map or scroll-zoom it. My synthetic-input test in Chrome 153 shows nothing moves (0 events reach Mapbox). If it does pan for you, which browser? That would mean a real-browser behaviour my headless probe does not reproduce.",
+  "Should tablets in portrait (768-834 px) get the compact shell with side sheets (recommended) or the full desktop toolbar with 44 px targets?",
+  "Keep the 3-day 'Fast-forward' intro? Recommendation: make it an opt-in overview from the Timeline sheet instead of a gate on every visit.",
+  "Do you want a manual layout override (Settings -> Layout: Auto / Compact / Full) persisted across visits? The hot-fix uses ?layout=mobile|desktop plus a session-only override.",
+  "Is Sound (cannon) meant to exist on mobile? It is currently unreachable on phones, and RECON_SRC README says Sound was removed on purpose.",
+  "Please confirm in the Mapbox dashboard which resource types the production token's URL restriction covers (tiles return 403 for foreign Referers, styles API returned 200), and create a separate localhost-only dev token.",
+  "iOS Safari/WebKit and real-device behaviour (touch-action:none, dvh, env() insets, visualViewport, standalone PWA, back-swipe) could not be tested here; who can run the Phase 0 pack on an iPhone and a low-end Android before deploy?",
+  "The single-clock refactor (mobile-09) depends on the data agent's resolution of the tick-to-clock mapping and the +2 day offset; which mapping is authoritative (data labels 5:00 AM Day 1 vs map 6:00 AM)?",
+  "Does the installed mapbox-gl v3 minor expose a pixel-ratio cap? I could not confirm it and did not assume one; check the version string in the bundle and its docs before relying on it in mobile-15."
+ ],
+ "verification_summary": "Diagnosis holds and most evidence is real. I reproduced mobile-01/02/03/07 on the live site and re-applied the patch pack with all 68 edits (the output bundle is md5-identical to the specialist's). The pack is not safe to ship as written. Opening Help or Bookmarks in the patched build blanks the whole app on every layout. Three other pack defects showed up as well: landscape phones wider than 820 px get the desktop layout, the iOS header padding is overridden, and Map Layers and Bookmarks open panels that do nothing on the mobile map. Of 27 findings, 15 are confirmed and 12 corrected (nuance, numbers, effort or acceptance); none are refuted. The corrections include one critical case: mobile-19's case-mangled zip trap is false (live Netlify serves any path case), and its rename fix breaks the lazy chunks. The verification section is appended to app-mobile.md.",
+ "missed_by_specialist": [
+  {
+   "title": "HF-13 rename breaks Help and Bookmarks: app goes blank on every layout",
+   "severity": "critical",
+   "evidence": "HelpModal-CFV9T0zH.js and BookmarkPanel-C5YT4b5k.js begin with import{...}from\"./index-Cg8FAMXN.js\" (shared React, jsx runtime and zustand store live in the entry). With the entry renamed to index-mHF1a.js and the old file kept, opening Help or Bookmarks evaluates the old entry as a second module graph. Scratch copy, 3/3 runs (Help x2, Bookmarks x1): React error #321 plus removeChild NotFoundError, #root has 0 children, innerText empty; the request log shows index-Cg8FAMXN.js loaded after HelpModal. The specialist's pt8_help.png shows Help open, but that does not reproduce with the pack as written.",
+   "fix": "Rename all three files together and rewrite specifiers: HelpModal-HF1a.js and BookmarkPanel-HF1a.js importing ./index-mHF1a.js, and in the entry replace \"./HelpModal-CFV9T0zH.js\" and \"./BookmarkPanel-C5YT4b5k.js\" (each occurs exactly once) with the new names. I verified on a scratch copy that Help and Bookmarks then open with 0 exceptions and 0 requests to the old entry. New chunk names are also needed because the SW caches /assets/* cache-first by name. Add as HF-13d/e/f in apply_patches.py and gate the release on opening Help, Bookmarks and Walkthrough on both layouts with 0 console errors. Effort S."
+  },
+  {
+   "title": "HF-5a auto-detect sends landscape phones (>820 px wide) to the desktop layout and never re-evaluates",
+   "severity": "high",
+   "evidence": "Scratch copy: 812x375 gives data-layout=mobile, but 844x390 and 915x412 give data-layout=desktop (toolbar rendered, 42 controls under 44 px). The query (max-width:820px) and (pointer:coarse) is evaluated once in a useState initialiser, so a phone opened in landscape stays desktop after rotating to portrait; the only way back is ?layout=mobile. The report's section 5.2 lists 915x412 and its source-level MQ includes (max-height:480px) and (pointer:coarse), but the deployed HF-5a omits it.",
+   "fix": "Use '(max-width:820px) and (pointer:coarse), (max-height:480px) and (pointer:coarse)' and add a matchMedia change listener that updates Zn unless a session override exists. Effort S."
+  },
+  {
+   "title": "HF-8c safe-area top padding is overridden by the padding shorthand; header sits under the notch or status bar in iOS standalone",
+   "severity": "high",
+   "evidence": "HF-8c inserts paddingTop:\"var(--gt-sat)\" before the existing padding:\"0 14px\" in the topBar object, so the shorthand wins. Scratch copy with CDP Emulation.setSafeAreaInsetsOverride top 47 / bottom 34: topBar height 99 but computed padding-top 0px; the clock spans y=31..67, overlapping the 0-47 status band. HF-12a adds apple-mobile-web-app-capable plus black-translucent, so an installed iOS app draws the header under the status bar.",
+   "fix": "Replace the topBar padding:\"0 14px\" with padding:\"var(--gt-sat) 14px 0\" (keep the .gtbg-m-top left/right !important rules), and run the T8 safe-area check before shipping the meta tags. Effort S."
+  },
+  {
+   "title": "HF-6c/6d make Map Layers and Bookmarks open panels whose map actions are inert on the mobile map",
+   "severity": "medium",
+   "evidence": "GtbgLayers toggles act only 'if (m)' with m = yn.getState().mapRef (BP:112484-112497). BookmarkPanel reads mapRef from the store for getCenter()/flyTo. mapRef is set only by the desktop map (BP:97222), and the mobile map never adds the T4 road/river layers, so checkboxes change nothing and bookmarks save the tick only and cannot fly the map. The report's 'known residuals' list omits this.",
+   "fix": "Ship yn.getState().setMapRef($t) and T4($t) in the mobile map's load handler in Phase 0 (two calls, mirroring the desktop handler at BP:97260-97267), or hide those tiles until Phase 1."
+  },
+  {
+   "title": "HF-1a silently removes features that work on mobile today (commander-succession toasts, author credit)",
+   "severity": "low",
+   "evidence": "nO (commander toasts, position:absolute z400, BP:101679-101780) currently floats over the mobile root and is not re-homed by HF-2 (only qF is). The 'Created by: Mike Legere' credit/contact link exists only inside IO's text, so it disappears from the phone UI once IO is gated.",
+   "fix": "Re-host nO inside the gtbg-mp-toast wrapper and add a credit/Privacy/Terms footer line to the Tools sheet."
+  },
+  {
+   "title": "HF-3b makes the desktop touch handlers inert (touch indicator and crosshair cursor lost)",
+   "severity": "low",
+   "evidence": "k4() (BP:9909-9982) attaches touchstart/move/end to the desktop overlay canvas for the finger ring (P4) and tap-select. With pointer-events:none those listeners never fire, and cursor:crosshair no longer shows. Selection still works through map.on('click').",
+   "fix": "Accept the loss, or move the indicator listeners to the map canvas container."
+  },
+  {
+   "title": "Phase-1 acceptance and exit gate (section 9 / mobile-25) are unattainable as written",
+   "severity": "medium",
+   "evidence": "The T0-T12 skeleton needs data-testid attributes, window.__gtbg, role=dialog name=Tools, role=searchbox and data-layout=compact. The pack adds only gtbg-m-* class hooks and sets data-layout to mobile/desktop. Section 9 nevertheless claims the patched output passes the suite. Help/Bookmarks were 'verified' only on a build where the entry name was unchanged.",
+   "fix": "Add an HF-14 test-hook step (data-testid attributes plus a window.__gtbg map/store hook behind ?test=1) or rewrite the selectors to the class hooks. Re-run the whole matrix on the exact renamed artefact that will be deployed."
+  },
+  {
+   "title": "mobile-18 and mobile-25 rely on a Lighthouse PWA/installability audit that no longer exists",
+   "severity": "low",
+   "evidence": "lh_mobile.json (Lighthouse 13.5.0) has categories performance, accessibility, best-practices and seo only; no installable-manifest or PWA audits.",
+   "fix": "Check installability in CI with CDP Page.getInstallabilityErrors (or PWABuilder / the DevTools Application > Manifest panel) instead of Lighthouse."
+  }
+ ]
+}

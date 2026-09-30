@@ -1,0 +1,63 @@
+kind,id,name,site_tick,site_claim,claimed_or_real_time,map_clock_at_tick_getTickTime,proposed_clock_at_tick,minutes_claimed_minus_map_clock,minutes_claimed_minus_proposed_clock,note
+walkthrough stop,1,McPherson Ridge,12,"July 1, 7:30 AM",July 1 7:30am,July 1 6:55am,July 1 7:30am,35,0,
+walkthrough stop,2,Oak Ridge,22,"July 1, 10:00 AM",July 1 10:00am,July 1 7:45am,July 1 9:13am,135,47,"Narrative describes Iverson's ambush (real ~2:30pm), so tick and clock are both ~4-5h early; should sit near t53."
+walkthrough stop,3,Barlow's Knoll,62,"July 1, 2:30 PM",July 1 2:30pm,July 1 11:05am,July 1 3:43pm,205,-73,
+walkthrough stop,4,Seminary Ridge - The Union Retreat,75,"July 1, 4:00 PM",July 1 4:00pm,July 1 12:10pm,July 1 5:00pm,230,-60,Retreat is t58-t68 in chronology; t75 is the Lee/Ewell order.
+walkthrough stop,5,Little Round Top,264,"July 2, 4:00 PM",July 2 4:00pm,July 2 7:10am,July 2 4:22pm,530,-22,
+walkthrough stop,6,Devil's Den,268,"July 2, 4:30 PM",July 2 4:30pm,July 2 7:30am,July 2 4:41pm,540,-11,
+walkthrough stop,7,The Wheatfield,275,"July 2, 5:00 PM",July 2 5:00pm,July 2 8:05am,July 2 6:00pm,535,-60,"Ticks 270 (Peach Orchard, 6:00pm) and 275 (Wheatfield, 5:00pm) are in reverse order of their claimed times."
+walkthrough stop,8,Peach Orchard,270,"July 2, 6:00 PM",July 2 6:00pm,July 2 7:40am,July 2 5:04pm,620,56,See stop 7.
+walkthrough stop,9,Cemetery Hill,322,"July 2, 8:00 PM",July 2 8:00pm,July 2 12:00pm,July 2 7:47pm,480,13,
+walkthrough stop,10,Culp's Hill - overnight,380,July 2-3,,July 2 4:50pm,July 3 12:40am,,,tick 380 is the WRONG-DAY Alexander event in chronology; proposed clock ~12:40am July 3.
+walkthrough stop,11,Cemetery Ridge - Wright's Breakthrough,315,"July 2, 7:30 PM",July 2 7:30pm,July 2 11:25am,July 2 7:23pm,485,7,"Real ~6:30-7:15pm (SS2), i.e. 15-60 min earlier than claimed."
+walkthrough stop,12,The Angle,548,"July 3, 3:00 PM",July 3 3:00pm,July 3 12:05pm,July 3 3:27pm,175,-27,"Narrative: ""At 3:00 PM ... the survivors ... reached the stone wall"" - the wall was reached ~3:30 (step-off ~3:00)."
+walkthrough stop,13,East Cavalry Field,522,"July 3, 3:00 PM",July 3 3:00pm,July 3 9:55am,July 3 1:30pm,305,90,tick 522 is in the cannonade (1:07-3:00pm); chronology places East Cav at t560.
+walkthrough stop,14,Pickett's Charge,540,"July 3, 3:00 PM",July 3 3:00pm,July 3 11:25am,July 3 3:05pm,215,-5,Narrative states cannonade at 1:07 PM - correct - but the tick's own clock shows 9:40am.
+walkthrough stop,15,The High Water Mark,555,July 3,,July 3 12:40pm,July 3 3:55pm,,,
+walkthrough stop,16,Confederate Avenue - The Retreat,610,"July 4-5, 1863",,July 3 5:15pm,July 3 6:20pm,,,tick 610 is ~6pm July 3; the retreat is July 4-5 (no ticks exist after July 3 ~8pm).
+monument tooltip,mon_20me_lrt,20th Maine (LRT),268,"""...at 4:30 PM July 2""",July 2 4:30pm,July 2 7:30am,July 2 4:41pm,540,-11,"Tooltip header time comes from JF() (5:00-base, date+2); body text carries the clock shown here."
+monument tooltip,mon_iron_brig,Iron Brigade,20,"""Charged into Herbst Woods at 10:00 AM July 1""",July 1 10:00am,July 1 7:35am,July 1 8:52am,145,68,"Tooltip header time comes from JF() (5:00-base, date+2); body text carries the clock shown here."
+monument tooltip,mon_reynolds,Reynolds death site,28,"""killed here at 10:15 AM July 1""",July 1 10:15am,July 1 8:15am,July 1 10:15am,120,0,"Tooltip header time comes from JF() (5:00-base, date+2); body text carries the clock shown here."
+monument tooltip,mon_cushing,Cushing Battery A,548,"""fired his last rounds ... at 3:00 PM July 3""",July 3 3:00pm,July 3 12:05pm,July 3 3:27pm,175,-27,"Tooltip header time comes from JF() (5:00-base, date+2); body text carries the clock shown here."
+monument tooltip,mon_armistead,Armistead,551,"""July 3, 3:15 PM""",July 3 3:15pm,July 3 12:20pm,July 3 3:35pm,175,-20,"Tooltip header time comes from JF() (5:00-base, date+2); body text carries the clock shown here."
+monument tooltip,mon_hancock,Hancock wounded,554,"""at 3:20 PM July 3""",July 3 3:20pm,July 3 12:35pm,July 3 3:50pm,165,-30,"Tooltip header time comes from JF() (5:00-base, date+2); body text carries the clock shown here."
+monument tooltip,mon_barlow,Barlow wounded,63,"""at 2:30 PM July 1""",July 1 2:30pm,July 1 11:10am,July 1 3:51pm,200,-81,"Tooltip header time comes from JF() (5:00-base, date+2); body text carries the clock shown here."
+monument tooltip,mon_6wis,6th Wisconsin,29,"""Charged the Railroad Cut at 10:30 AM July 1""",July 1 10:30am,July 1 8:20am,July 1 10:21am,130,9,"Tooltip header time comes from JF() (5:00-base, date+2); body text carries the clock shown here."
+monument tooltip,mon_hood,Hood wounded,262,"""at 4:00 PM July 2""",July 2 4:00pm,July 2 7:00am,July 2 4:16pm,540,-16,"Tooltip header time comes from JF() (5:00-base, date+2); body text carries the clock shown here."
+timeline marker,First shot,First shot,17,(marker label; compared with real time of the named event),July 1 7:30am,July 1 7:20am,July 1 8:22am,10,-52,marker at t17 = Calef's guns (chronology puts the first shot at t12)
+timeline marker,Reynolds KIA,Reynolds KIA,28,(marker label; compared with real time of the named event),July 1 10:15am,July 1 8:15am,July 1 10:15am,120,0,
+timeline marker,Iverson's Pits,Iverson's Pits,52,(marker label; compared with real time of the named event),July 1 2:30pm,July 1 10:15am,July 1 2:18pm,255,12,
+timeline marker,Little Round Top,Little Round Top,267,(marker label; compared with real time of the named event),July 2 4:30pm,July 2 7:25am,July 2 4:30pm,545,0,
+timeline marker,1st Minnesota,1st Minnesota,302,(marker label; compared with real time of the named event),July 2 7:00pm,July 2 10:20am,July 2 7:10pm,520,-10,
+timeline marker,Cannonade,Cannonade,518,(marker label; compared with real time of the named event),July 3 1:07pm,July 3 9:35am,July 3 1:07pm,212,0,
+timeline marker,Pickett's Charge,Pickett's Charge,538,(marker label; compared with real time of the named event),July 3 3:00pm,July 3 11:15am,July 3 3:00pm,225,0,
+timeline marker,The Angle,The Angle,551,(marker label; compared with real time of the named event),July 3 3:35pm,July 3 12:20pm,July 3 3:35pm,195,0,
+turning point,Buford's Decision to Stand,Buford's Decision to Stand,1,Day 1 - Morning,July 1 7:30am,July 1 6:00am,July 1 5:00am,90,150,"tick 1 = 5:00am, before the first shot"
+turning point,Ewell's Discretion,Ewell's Discretion,175,Day 1 - Late afternoon,July 1 5:00pm,July 1 8:30pm,July 2 1:04am,-210,-484,chronology has this at t75; page uses t175 (= 1:07am July 2 under the proposed anchors)
+turning point,Longstreet's Delayed Attack,Longstreet's Delayed Attack,240,Day 2 - Afternoon,July 2 4:00pm,July 2 5:10am,July 2 12:00pm,650,240,text: attack ~4:00pm; t240 is Berdan probe ~noon
+turning point,Chamberlain's Bayonet Charge,Chamberlain's Bayonet Charge,267,Day 2 - Late afternoon,July 2 6:15pm,July 2 7:25am,July 2 4:30pm,650,105,t267 is Vincent arrival; charge is t275
+turning point,Wheatfield / Peach Orchard collapse,Wheatfield / Peach Orchard collapse,300,Day 2 - Evening,July 2 6:30pm,July 2 10:10am,July 2 7:07pm,500,-37,
+turning point,Night Assault on Culp's/Cemetery Hill,Night Assault on Culp's/Cemetery Hill,340,Day 2 - Night,July 2 8:00pm,July 2 1:30pm,July 2 10:30pm,390,-150,t340 = end-of-fight summary
+turning point,Culp's Hill Retaken,Culp's Hill Retaken,460,Day 3 - Morning,July 3 10:30am,July 3 4:45am,July 3 5:20am,345,310,"text says ""after roughly seven hours"""
+turning point,The Cannonade,The Cannonade,540,Day 3 - Afternoon,July 3 1:07pm,July 3 11:25am,July 3 3:05pm,102,-118,"text says ""Around 1:00pm"" but tick 540 is after the cannonade ended"
+turning point,Pickett's Charge,Pickett's Charge,560,Day 3 - Afternoon,July 3 3:00pm,July 3 1:05pm,July 3 4:25pm,115,-85,tick 560 is after the Angle
+sandbox start,"'Day 2, mid-afternoon (tick 260) -- before Longstreet's assault'","'Day 2, mid-afternoon (tick 260) -- before Longstreet's assault'",260,label text,July 2 3:00pm,July 2 6:50am,July 2 4:11pm,490,-71,Proposed clock for t260 is ~4:25pm - after the assault began
+sandbox start,"'Day 3, ~3:00pm (tick 553) -- moments before Pickett's Charge reaches the wall'","'Day 3, ~3:00pm (tick 553) -- moments before Pickett's Charge reaches the wall'",553,label text,July 3 3:00pm,July 3 12:30pm,July 3 3:45pm,150,-45,"Proposed clock ~3:33pm = at the wall, not before"
+sandbox start,"'Day 1, mid-morning (tick 62) -- I Corps holding McPherson's Ridge'","'Day 1, mid-morning (tick 62) -- I Corps holding McPherson's Ridge'",62,label text,July 1 10:30am,July 1 11:05am,July 1 3:43pm,-35,-313,Proposed clock ~3:40pm - the I Corps was being driven off Seminary Ridge
+vignette,V-001,The First Shot,12,"""approximately 7:30am"" (panel + script)",July 1 7:30am,July 1 6:55am,July 1 7:30am,35,0,correct; clocks shown at t12 are 6:00 (label) / 6:55 (map)
+vignette,V-002,Reynolds Falls,28,"""approximately 10:15am""",July 1 10:15am,July 1 8:15am,July 1 10:15am,120,0,correct; clocks 7:20 / 8:15
+vignette,V-004,The Railroad Cut,36,"""morning of July 1""",July 1 11:00am,July 1 8:55am,July 1 11:00am,125,0,ok
+vignette,V-007,Sickles Moves Forward,248,"""Around 3:00 in the afternoon""; also ""On the morning of July 2...""",July 2 3:00pm,July 2 5:50am,July 2 2:30pm,550,30,within range (noon-3:30); clocks 6:50am / 5:50am
+vignette,V-008,Berdan's Reconnaissance,240,"""On the morning of July 2""",July 2 12:00pm,July 2 5:10am,July 2 12:00pm,410,0,real ~noon
+vignette,V-009,Vincent and Little Round Top,267,"""shot ... late in the afternoon""; ""July 7 ... died that afternoon""",July 2 5:30pm,July 2 7:25am,July 2 4:30pm,605,60,ok (Vincent died July 7); clocks 8:25am / 7:25am
+vignette,V-010,Chamberlain's Charge,275,"""On the afternoon of July 2, 1863""; ""repulsed five ... assaults""",July 2 6:15pm,July 2 8:05am,July 2 6:00pm,610,15,"time ok; clocks 9:05am / 8:05am. (Site monument tooltip says Oates ""made 4 assaults"".)"
+vignette,V-013,Greene's Lone Stand,315,"""The orders came at dusk""",July 2 6:30pm,July 2 11:25am,July 2 7:23pm,425,-53,Slocum was ordered to send troops ~6:30pm; dusk ~7:30; ok
+vignette,V-014,Louisiana Tigers on Cemetery Hill,326,"""At dusk on July 2""",July 2 8:00pm,July 2 12:20pm,July 2 8:00pm,460,0,correct but clocks 1:10pm / 12:20pm
+vignette,V-015,Alexander's Two Messages,525,no clock; first quoted message is the second real note,July 3 1:25pm,July 3 10:10am,July 3 1:47pm,195,-22,clocks 10:05am / 10:10am; see UNVERIFIED-QUOTE
+vignette,V-016,Armistead at The Angle,551,"""afternoon of July 3""; ""Armistead died two days later""",July 3 3:35pm,July 3 12:20pm,July 3 3:35pm,195,0,ok (Armistead died July 5); clocks 12:10pm / 12:20pm
+vignette,V-017,The Cannonade,518,"""At approximately 1:00pm""; ""For two hours"" (V-015)",July 3 1:07pm,July 3 9:35am,July 3 1:07pm,212,0,correct but clocks 9:30am / 9:35am
+vignette,V-020,Custer at East Cavalry Field,563,"""afternoon of July 3, while Pickett's infantry was crossing...""; ""brigadier general for exactly eight days""",July 3 3:00pm,July 3 1:20pm,July 3 4:44pm,100,-104,BUG: commission dated June 29 => 4 days (July 3). 
+vignette,V-021,Farnsworth's Charge,568,"""general for eight days"" ... ""a general for four days""",July 3 5:15pm,July 3 1:45pm,July 3 5:15pm,210,0,BUG: internal contradiction (8 vs 4); 4 is right (nominated June 29).
+vignette,V-022,Mudge and the Charge at Culp's Hill,460,"""approximately 7:30 in the morning of July 3""",July 3 10:30am,July 3 4:45am,July 3 5:20am,345,310,BUG: real best ~10:00-11:30am (SS3 says 6:00am); needs Pfanz/Sears check
+vignette,V-023,Lee Meets His Men,556,"""That night, Lee found Imboden waiting""",July 4 1:00am,July 3 12:45pm,July 3 4:00pm,735,540,ok (~1:00am July 4)
+vignette,V-024,The High Water Mark,675,"""Lee began his retreat on July 4 in a driving rainstorm""",July 4 4:00pm,July 3 10:40pm,July 3 8:00pm,1040,1200,ok

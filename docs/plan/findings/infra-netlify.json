@@ -1,0 +1,737 @@
+{
+ "agent": "infra-netlify",
+ "summary": "Full NO-BUILD infrastructure/security/privacy/PWA plan written to infra-netlify.md (1,729 lines, 39 fix-spec findings plus appendices: 24 code/config drafts, runbooks, full privacy.html and terms.html replacement text, security checklist). Key results from live verification on 2026-09-30: (1) Three earlier claims are corrected: the Mapbox public token IS URL-restricted (403 for no/foreign/localhost/netlify.app Referer on tiles, TileJSON, geocoding, static; the earlier 200 came from public style/sprite/glyph endpoints), so the real risks are unknown allow-list, blank maps for dev/preview/Referer-stripping users, 11 literal copies of the token; /diagnostics (extensionless) still serves 200 because the force-404 rule only matches .html; Netlify serves paths case-insensitively so the N1 'redeploy would 404' trap does not exist. (2) The service worker (index.html:263-268 controllerchange reload + sw.js skipWaiting/claim) makes every first visit load twice (Lighthouse: Document at 1 ms and 909 ms, 9,070 ms wasted) and creates two billable Mapbox map sessions (same tile with two sku values); the SW also has no real offline support, caches error responses and hard-codes 2 of 5 hashed assets. Hotfix (S) and a full Workbox redesign (prompt-based updates, navigation preload, offline page, versioned caches, kill switch, ToS-bounded tile cache) are specified. (3) CSP can be enforced: Netlify's edge does not alter inline bytes (sha256 identical), no eval, no fonts, no img tags, every runtime origin is known (self, api.mapbox.com, events.mapbox.com, ingesteer.services-prod.nsvcs.net; user-opened frames: Google Maps Embed and an nps.gov video page, the latter missing from today's frame-src). A tested generator script (run against a copy of the deployed HTML) emits per-page CSP/Permissions-Policy/redirects with hashes; staged Report-Only to Enforce rollout, Playwright crawl, framing test and collector are specified. embed.html conflict root cause: Netlify cannot unset inherited headers and rules match the as-requested path (/embed gets XFO DENY and no frame-ancestors); fix via a one-rule-per-header-name invariant. (4) New findings: Watch Together persistent DOM-XSS via imported tour notes (watch-together.html:172) and guessable global room codes; OG/manifest screenshots are one corrupt duplicated placeholder PNG (IHDR RGB vs RGBA data) on 21 pages; app ignores every deep-link parameter it emits (only ?ancestor= parsed); icons immutable for a year on unfingerprinted names; pretty-URL rewriting vs .html canonical/sitemap; netlify.app duplicate host; Mapbox attribution disabled on two maps; DNS has no CAA/SPF/DMARC (Netlify DNS lacks DNSSEC), HSTS not preloaded; Google key cannot call any paid API today (all probed APIs REQUEST_DENIED) but referrer restriction is unverifiable from outside. (5) Privacy text is inaccurate (Street View is not on documentary/report pages; omits NPS frame, PeerJS+Google STUN+PeerJS TURN+jsDelivr, Mapbox telemetry fields, AR permissions, Netlify analytics); full replacements drafted with bracketed owner decisions. Also covered: Git-based CD, CI gates (Lighthouse plugin, header/CSP tests), plan/credit exposure, Historian Functions v2 skeleton (rate limits, secrets, budget guard, cache, output safety), bot/scanner strategy (do nothing to scanners; first-party vitals; block RUM in own test profiles), monitoring, accounts/supply chain, Netlify feature assessment.",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/infra-netlify.md",
+ "findings": [
+  {
+   "id": "infra-netlify-01",
+   "title": "Enforce a real per-page CSP (staged Report-Only to Enforce) with corrected allow-list and reporting",
+   "severity": "high",
+   "effort": "L",
+   "audit_refs": [
+    "X3",
+    "P7"
+   ],
+   "depends_on": [
+    "infra-netlify-10",
+    "infra-netlify-03",
+    "infra-netlify-11"
+   ],
+   "metric_or_grade_moved": "Security B->A+; MDN Observatory 75->100+; securityheaders A+; Lighthouse Best Practices csp-xss and inspector-issues",
+   "root_cause": "One global Report-Only policy for 27 different pages with no reporting endpoint, so violations were never seen and enforcement never happened; inline code and CDN tags block a strict policy.",
+   "evidence": "netlify.toml:19 single Report-Only CSP with 'unsafe-inline' and no report-uri; Lighthouse csp-xss 'No CSP found in enforcement mode' and inspector-issues flags ingesteer.services-prod.nsvcs.net/rum_collection; MDN Observatory B/75. Runtime origins on / (lh_mobile.json network log): self, api.mapbox.com, events.mapbox.com, ingesteer.services-prod.nsvcs.net, blob:, data:. User-opened frames: Google Maps Embed (bundle.pretty.js:110660-110665) and nps.gov video page (bundle.pretty.js:100461-100466, 17 URLs at :100080,104112-104432) while frame-src only lists www.google.com. Dead allowances: fonts.googleapis/gstatic (no fonts anywhere), *.tiles.mapbox.com, events.mapbox.cn (bundle.pretty.js:11332), jsdelivr and peerjs on every page (used only watch-together.html:19,224,251). Inline: 27 executable scripts, 25 style blocks, 40 markup + 11 JS-string style attrs, 2 handlers (index.html:57, report.html:67). sha256 of inline blocks identical live vs deployed (Netlify edge only rewrites links and injects the RUM tag); no eval/new Function in bundle.",
+   "fix": "Generate per-class policies with scripts/gen-netlify-config.mjs (written and tested against a copy of the deployed HTML; appendix B.2). Stage 0: corrected Report-Only (add https://ingesteer.services-prod.nsvcs.net to connect-src, frame-src https://www.google.com/maps/embed/ + https://www.nps.gov/media/video/ on / only, drop fonts/tiles/.cn, peerjs+jsdelivr on watch-together only, add frame-ancestors/form-action/manifest-src/upgrade-insecure-requests, report-uri+report-to). Stage 1: enforce mini-CSP frame-ancestors/base-uri/object-src/form-action everywhere. Stage 3: hash-based full policy (VENDOR_CDN=1 STYLE_ATTR=1 interim) enforced in order legal/404, static, AR, cinematic, map sub-pages, / last, each gated by zero violations in the Playwright crawl plus 7 days of reports. Do not use strict-dynamic (Netlify-injected RUM script has no nonce); do not adopt the nonce extension. Later externalise inline code and drop hashes.",
+   "acceptance_test": "curl -sI / shows enforced CSP with no unsafe-inline in script-src and connect-src limited to self, api.mapbox.com, events.mapbox.com, ingesteer host; Playwright crawl of 25 pages x 2 viewports reports 'violations: 0'; Netlify RUM beacons still return 2xx; Observatory >=100, securityheaders A+, CSP Evaluator no High; Lighthouse csp-xss and inspector-issues pass.",
+   "verdict": "CORRECTED",
+   "correction": "Evidence and root cause confirmed (netlify.toml:19, 27+25 inline blocks, no eval, hashes identical live vs deployed on all 26 pages, Observatory B/75 rescanned). Plan fixes: Stage-0 report-uri/Reporting-Endpoints point at /api/csp-report which is 404 today, so reports never arrive and each POST adds a 404; use a hosted collector or CLI-deployed function. Deploy-Preview crawl gate 'violations: 0' fails because Netlify injects /.netlify/scripts/cdp and the Drawer frames app.netlify.com. embed class connect-src omits the RUM host."
+  },
+  {
+   "id": "infra-netlify-02",
+   "title": "embed.html framing conflict: X-Frame-Options cannot be unset; /embed clean URL is broken; fix with one-rule-per-header-name invariant",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "X4"
+   ],
+   "depends_on": [
+    "infra-netlify-11"
+   ],
+   "metric_or_grade_moved": "Security hygiene; Terms accuracy; embed usability",
+   "root_cause": "Netlify cannot remove an inherited header (empty value ignored, staff-confirmed) and header rules match the path as requested, so a catch-all /* X-Frame-Options can never be selectively removed and the embed rule only matches /embed.html.",
+   "evidence": "Live: /embed.html returns X-Frame-Options: DENY plus Content-Security-Policy: frame-ancestors * plus the site-wide Report-Only; /embed returns only X-Frame-Options: DENY (no frame-ancestors). netlify.toml:80-85 sets X-Frame-Options=\"\" and Content-Security-Policy-Report-Only=\"\" which have no effect. Netlify forum thread 26263: unset not possible, empty ignored, specific rule must come later. Per CSP2/3 frame-ancestors overrides XFO so /embed.html likely works today but is self-contradictory.",
+   "fix": "Remove X-Frame-Options, CSP and Permissions-Policy from /*; emit document headers per page path (clean URL, plus .html twin until redirects ship); /embed and /embed.html get 'Content-Security-Policy: frame-ancestors *; ...' with no XFO and a tight embed policy; all other pages get frame-ancestors 'self' (+ optional XFO SAMEORIGIN). Ready-to-paste interim _headers block in appendix B.1, generator in B.2. Add cross-origin framing test page (C.5). Option B later: host widget on its own subdomain/site.",
+   "acceptance_test": "curl -sI /embed and /embed.html show frame-ancestors * and no X-Frame-Options and no Report-Only; / /privacy /dashboard show frame-ancestors 'self'; cross-origin test page renders embed variants and blocks / and /privacy in Chrome, Firefox, Safari.",
+   "verdict": "CORRECTED",
+   "correction": "Live headers exactly as claimed and the fix is valid, but severity 'high' is unsupported: /embed.html carries frame-ancestors * and the CSP spec says XFO MUST be ignored then; the only documented embed URL is a code comment (embed.html:38-39), it is not linked from site-nav.js, and only terms.html:27 mentions the widget. Real defects: /embed clean URL blocked, contradictory headers. Rate medium/low hygiene; keep in Phase 0 (S)."
+  },
+  {
+   "id": "infra-netlify-03",
+   "title": "Externalise or hash inline scripts, styles, handlers and style attributes so CSP needs no unsafe-inline",
+   "severity": "medium",
+   "effort": "L",
+   "audit_refs": [
+    "X3"
+   ],
+   "depends_on": [
+    "infra-netlify-28",
+    "infra-netlify-01"
+   ],
+   "metric_or_grade_moved": "Observatory no-unsafe bonus; Lighthouse csp-xss",
+   "root_cause": "Page logic is inlined in 27 script blocks and 25 style blocks with style attributes and two inline event handlers.",
+   "evidence": "Inventory (tmp-infra-netlify/inventory.py, appendix C.2): index.html has 7 inline scripts (23,146 bytes, lines 255-714) and 9,205 bytes of CSS (60-253); every tool page has one inline script and style; 40 markup style= plus 11 in JS strings (dashboard.html:212, site-nav.js:71, index.html:651); handlers index.html:57 onload and report.html:67 onclick; noscript inline style index.html:751; 50 innerHTML/outerHTML sinks (24 interpolating). The generator run on a copy of the deploy refuses to proceed until the 2 handlers are removed and lists 16 pages with style attributes.",
+   "fix": "Interim (works with drag-and-drop): run the generator to hash every inline block per page with STYLE_ATTR=1 and VENDOR_CDN=1; replace the two handlers now (plain stylesheet link; addEventListener). End state: multi-page Vite build moving each page's script/style to hashed external files, absorb the 7 index scripts into the app or one boot.js, convert style attributes to classes/CSSOM (sprite hidden attr, star SVG class, noscript class), then script-src 'self' style-src 'self' with no hashes and style-src-attr 'none'.",
+   "acceptance_test": "grep for inline executable <script> and ' style=' in dist/*.html returns 0 (JSON-LD excluded); final CSP contains no hashes and no unsafe-*; crawl violations 0.",
+   "verdict": "CONFIRMED",
+   "correction": "54 blocks/26 pages reproduced, exactly 2 handlers, none in strings or bundle; 11 deployed pages have CRLF so the generator's norm() is required (browser hashes LF-normalised text)."
+  },
+  {
+   "id": "infra-netlify-04",
+   "title": "Permissions-Policy least privilege per page (camera/geolocation/sensors only on /ar)",
+   "severity": "medium",
+   "effort": "S",
+   "audit_refs": [],
+   "depends_on": [
+    "infra-netlify-02"
+   ],
+   "metric_or_grade_moved": "Security A+; privacy posture",
+   "evidence": "netlify.toml:13 grants camera, geolocation, accelerometer, gyroscope, magnetometer to self on all 27 pages; only ar.html:160,172,184-193 uses getUserMedia/geolocation/DeviceOrientation; GeolocateControl code exists in the bundle (bundle.pretty.js:94853-95434) but is never instantiated; Cinematic Export uses captureStream (no permission). Iframes use allowFullScreen only (bundle.pretty.js:110663, 100465).",
+   "fix": "Baseline string (accelerometer=(), autoplay=(self), camera=(), display-capture=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), publickey-credentials-get=(), usb=()); /ar adds camera/geolocation/accelerometer/gyroscope/magnetometer=(self); / uses fullscreen=(self \"https://www.google.com\" \"https://www.nps.gov\") and allow=\"fullscreen\" on both iframes; do not add interest-cohort (console warning); optional Privacy-Sandbox features only after testing in Firefox/Safari.",
+   "acceptance_test": "curl -sI /ar shows camera=(self); curl -sI / shows camera=(); zero Permissions-Policy console messages in Chrome/Firefox/Safari on every page class; AR permission prompts still fire on a phone.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-05",
+   "title": "COOP yes, CORP optional, COEP no (decision record)",
+   "severity": "low",
+   "effort": "S",
+   "audit_refs": [],
+   "depends_on": [],
+   "metric_or_grade_moved": "Best Practices origin-isolation; Security A+",
+   "evidence": "No COOP/COEP/CORP sent today. External links all use rel=noopener noreferrer (bundle.pretty.js:102038-102060, 110668-110723) and no window.open exists, so COOP same-origin is safe. Street View and NPS frames are cross-origin without COEP/CORP, so COEP would break them; nothing needs SharedArrayBuffer.",
+   "fix": "Add Cross-Origin-Opener-Policy: same-origin in /*; do not enable COEP (require-corp or credentialless); CORP same-site on /data/* only if hotlinking is ever observed (it does not stop CORS fetches).",
+   "acceptance_test": "Observatory shows no COOP warning; embedding / from another origin is still blocked; Street View panel still loads.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-06",
+   "title": "Trusted Types in Report-Only, then enforce on static pages; sink hygiene",
+   "severity": "low",
+   "effort": "M",
+   "audit_refs": [],
+   "depends_on": [
+    "infra-netlify-01",
+    "infra-netlify-03"
+   ],
+   "metric_or_grade_moved": "Security defense in depth; enables safe Historian output",
+   "evidence": "50 HTML sinks across pages/site-nav.js (24 interpolate data, appendix C.2); one dangerouslySetInnerHTML in app code (bundle.pretty.js:110653, static strings); the future Historian will render model output.",
+   "fix": "After CSP stage 3 add Report-Only 'require-trusted-types-for script; trusted-types default gtbg-static'; introduce one setHtml/esc helper for the ~24 interpolating sinks; enforce only after 14 days of empty reports; accept a permissive default policy if React/Mapbox force it.",
+   "acceptance_test": "TT report stream empty for 14 days across the crawl; enforced header on static pages with crawl clean.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-07",
+   "title": "Watch Together: persistent DOM-XSS via imported/stored tour notes, guessable global room code, unbounded connections",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [],
+   "depends_on": [],
+   "metric_or_grade_moved": "Security; Reliability",
+   "root_cause": "Template-literal innerHTML with unescaped data from localStorage/imported JSON, Math.random 5-letter codes on the public PeerJS broker namespace, no message validation.",
+   "evidence": "watch-together.html:172 row.innerHTML with ${s.note}; stops from localStorage (:159) and imported files (:326 only Array.isArray checked), re-rendered every visit; page invites sharing tour files (:63, export :312-319, import :320-330). randomCode :205-209 (24^5 codes, Math.random), new Peer('gtbg-wt-'+code) :224 on public 0.peerjs.com, guests accept {type:'goto',tick,note} unvalidated :256, host connections array unbounded :230-236, PeerJS from jsDelivr without SRI :19. Today CSP is report-only with unsafe-inline so a payload executes.",
+   "fix": "Build rows with createElement/textContent; schema-validate stops on load/import (<=200 stops, tick integer 1..675, note <=140 chars, strip control chars) with try/catch around JSON.parse; validate guest messages; 6-char codes from a 31-char alphabet via crypto.getRandomValues; cap host connections at 20 (optional host approval); self-host PeerJS; disclose STUN/TURN/broker; Phase 3 decision: keep Live Sync or replace with URL-encoded shareable tours.",
+   "acceptance_test": "Importing a tour with an HTML/JS payload note renders inert text and executes nothing; corrupt localStorage value yields an empty tour; codes come from crypto; 21st peer connection is closed.",
+   "verdict": "CONFIRMED",
+   "correction": "Severity arguably low today: needs the victim to import an attacker file; guest captions use textContent (:192) so a hostile host cannot XSS guests."
+  },
+  {
+   "id": "infra-netlify-08",
+   "title": "Self-host Mapbox GL JS and PeerJS (interim SRI + upgrade); remove third-party script origins",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "P4",
+    "X3"
+   ],
+   "depends_on": [
+    "infra-netlify-28"
+   ],
+   "metric_or_grade_moved": "Security A+ (no third-party script origins); sub-page performance",
+   "evidence": "9 sub-pages load https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js and .css synchronously without SRI (camera.html:19-20, cinematic-export.html:15-16, compare.html:19-20, ground-remembers.html:15-16, immersive.html:15-16, sandbox.html:19-20, unit-rendering-reference.html:9-10, viewshed.html:19-20, watch-together.html:15-16) plus PeerJS from jsDelivr (watch-together.html:19). mapbox-gl.js is 1,796,551 bytes; the main bundle inlines its own copy (bundle.pretty.js:53873 3.24.1). Latest mapbox-gl 3.32.0, peerjs 1.5.5. Both CDNs send ACAO *.",
+   "fix": "Interim: integrity+crossorigin hashes (sha384 computed, appendix D.1) with pinned versions. End state: publish /vendor/mapbox-gl/<ver>/ and /vendor/peerjs/<ver>/ immutable from own origin, drop api.mapbox.com from script/style-src and jsdelivr everywhere; app team should also split a vendor-mapbox chunk (about 600 KB br) out of the 2.28 MB entry chunk so its hash survives deploys; upgrade to current 3.x in a Deploy Preview with crawl and visual regression; Dependabot/Renovate.",
+   "acceptance_test": "grep -R 'api.mapbox.com/mapbox-gl-js|cdn.jsdelivr' dist/ returns nothing; CSP script-src 'self'; no third-party render-blocking on sub-pages in Lighthouse.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-09",
+   "title": "Publish /.well-known/security.txt (survive Netlify dot-folder stripping)",
+   "severity": "low",
+   "effort": "S",
+   "audit_refs": [],
+   "depends_on": [],
+   "metric_or_grade_moved": "Security hygiene; disclosure readiness",
+   "evidence": "/.well-known/security.txt and /security.txt return 404 (verified). Netlify manual/CLI/API deploys strip dot-folders (forum threads 37728, 44897); Git deploys keep them.",
+   "fix": "Ship well-known/security.txt (no dot) plus _redirects '/.well-known/* /well-known/:splat 200'; content: Contact mailto:gettysburginteractivemap@gmail.com, Expires 2027-09-30T00:00:00.000Z, Preferred-Languages en, Canonical URL; X-Robots-Tag noindex, text/plain; link from privacy policy; calendar reminder Aug 2027; make sure no future dotfile-blocking wildcard shadows /.well-known/.",
+   "acceptance_test": "curl -sI /.well-known/security.txt returns 200 text/plain with future Expires.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-10",
+   "title": "CSP/Reporting collector (report-to + report-uri) with extension-noise filtering",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "X3"
+   ],
+   "depends_on": [
+    "infra-netlify-28"
+   ],
+   "metric_or_grade_moved": "Enables safe CSP rollout",
+   "evidence": "No report endpoint exists (netlify.toml:19 has no report-uri/report-to) so violations are invisible. Function rate-limit rules are limited to 2 (Free/Personal) or 5 (Pro).",
+   "fix": "Netlify Function /api/csp-report (code in appendix E.4, syntax-checked): accepts application/csp-report and reports+json, drops chrome-extension/moz-extension/safari/webkit-masked-url/about noise, 16 KB cap, code-based rate limit, dedupes per (directive, blocked host, document path) per day in Blobs, returns 204; headers Reporting-Endpoints csp=... and report-uri + report-to csp. Interim without functions: a hosted collector (report-uri.com or Sentry) disclosed in the privacy policy.",
+   "acceptance_test": "A seeded violation appears within a minute; extension noise filtered; bodies over 16 KB rejected; per-IP rate limit returns 429.",
+   "verdict": "CORRECTED",
+   "correction": "Dependency on finding 28 (Git) is over-stated: Netlify docs list manual CLI/API deploys as a Functions path, so the collector (and 31/32) can ship in Phase 1 via netlify deploy. Stage-0 reporting gap: /api/csp-report is 404 today."
+  },
+  {
+   "id": "infra-netlify-11",
+   "title": "One canonical URL form: clean URLs, stop Netlify rewriting authored links, 301 the .html form",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "T3",
+    "E5"
+   ],
+   "depends_on": [],
+   "metric_or_grade_moved": "SEO consistency; analytics accuracy; closes header-rule holes",
+   "root_cause": "Netlify Pretty URLs post-processing rewrites authored links to extensionless while canonical/og:url/sitemap/JSON-LD say .html; both forms return 200; header rules match only the as-requested path.",
+   "evidence": "Both /x and /x.html return 200 (historian, dashboard, embed, index.html, 404); /x/ 301 to /x; wrong-case 301 to lowercase. Live HTML has href='/search' where the file has /search.html (index.html:288,722-739; dashboard.html:58) but canonical, og:url, 21 sitemap <loc> and JSON-LD use .html. /dashboard got default Cache-Control while /dashboard.html got the /*.html rule (rules match as requested). Netlify staff (forum 102840): disabling Pretty URLs only stops rewriting; both forms stay served; redirect docs: * only at path end so /*.html is invalid.",
+   "fix": "Decide clean URLs canonical; [build.processing.html] pretty_urls=false; generated _redirects with '/index.html / 301!' and one '/page.html /page 301!' line per page (27 rules, force); mechanical edit of all authored links/canonical/og:url/JSON-LD/sitemap (embed.html:31,60; documentary.html:92; search.html:192; regiment.html:247; site-nav.js menu); sitemap keeps 21 URLs with real lastmod and no changefreq/priority; verify on a Deploy Preview that no redirect loop occurs.",
+   "acceptance_test": "curl -sI /search.html returns 301 with Location /search for every page; canonical on /search is /search; no internal .html links remain in dist; Netlify Analytics shows one row per page.",
+   "verdict": "CONFIRMED",
+   "correction": "All evidence real; bundle has no .html hrefs (edit confined to 27 pages + site-nav.js); Netlify redirects preserve query strings so /index.html?tick= links survive. Severity closer to medium (canonical/og:url/sitemap/JSON-LD agree; only Netlify's link rewriting disagrees)."
+  },
+  {
+   "id": "infra-netlify-12",
+   "title": "Remove developer pages from the deploy (diagnostics, unit-rendering-reference, duplicate icon)",
+   "severity": "medium",
+   "effort": "S",
+   "audit_refs": [
+    "X4"
+   ],
+   "depends_on": [],
+   "metric_or_grade_moved": "Security hygiene; Best Practices",
+   "evidence": "/diagnostics returns 200 (page reads only the visitor's browser, diagnostics.html:60-120) because the force rule only matches /diagnostics.html (netlify.toml:192-196); /unit-rendering-reference and .html return 200 (noindex, loads Mapbox with the public token, unit-rendering-reference.html:8,56-57); apple-touch-icon-precomposed.png is a byte-identical duplicate; diagnostics references a gtbg_session key the app never writes.",
+   "fix": "Delete diagnostics.html, unit-rendering-reference.html and the precomposed icon from the deployable tree (keep under tools/ in the repo); remove the two toml rules; if a support diagnostics page is wanted ship it under /support with noindex and a strict CSP.",
+   "acceptance_test": "curl -sI /diagnostics /unit-rendering-reference /unit-rendering-reference.html all return 404.",
+   "verdict": "CONFIRMED",
+   "correction": "Unverified caveat: deleting apple-touch-icon-precomposed.png may add iOS 404 probes; a 301 to /apple-touch-icon.png is an alternative."
+  },
+  {
+   "id": "infra-netlify-13",
+   "title": "Cache policy rework: fingerprint cacheable files, hash /data for immutable caching, fix icons rule",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "P3",
+    "P4",
+    "P1"
+   ],
+   "depends_on": [
+    "infra-netlify-28"
+   ],
+   "metric_or_grade_moved": "Repeat-visit LCP/FCP; CDN cost",
+   "evidence": "site-nav.js/css, icons.svg, screenshots revalidate on every load (public,max-age=0,must-revalidate) and site-nav.* are blocking on 20 tool pages and /; /icons/* is immutable 1 year on unfingerprinted names (netlify.toml:32-35); /data/* max-age=3600 without SWR causes about 76 conditional GETs per revisit after an hour (46 /data + 30 /data/oob in Lighthouse, commander_successions.json fetched twice, bundle.pretty.js:97522); Netlify edge caches indefinitely and invalidates on deploy.",
+   "fix": "Fingerprint site-nav, icons.svg, icons, screenshots (immutable); content-hash every /data JSON and inline a tiny id manifest as <script type=application/json> so there is no extra round trip, /data/* immutable 1 year (also removes code/data version skew); interim: keep max-age=3600 + stale-while-revalidate=86400 + Netlify-CDN-Cache-Control durable; keep HTML no-cache (bfcache), sw.js no-cache; X-Robots-Tag noindex on /data/* and /api/*; memoise JSON fetches (perf team).",
+   "acceptance_test": "Second visit within a day makes 0 conditional requests for /data/*; site-nav and icon URLs return immutable; a data change ships a new file name and old clients keep working until the update prompt.",
+   "verdict": "CORRECTED",
+   "correction": "'76 conditional GETs per revisit' is an artefact of the C6 double load: both Lighthouse logs show 76 /data requests but only 37 unique URLs, each fetched twice (one load = 39 requests); only 71 data files exist (824,704 B; 37 boot files = 138,605 B br). Also Netlify-CDN-Cache-Control 'durable' is functions-only and a no-op for static assets, which the edge already caches up to a year."
+  },
+  {
+   "id": "infra-netlify-14",
+   "title": "Prune the 19 scanner redirect rules; explain and de-noise the 404 stream",
+   "severity": "low",
+   "effort": "S",
+   "audit_refs": [
+    "T2"
+   ],
+   "depends_on": [],
+   "metric_or_grade_moved": "Config simplicity; analytics clarity",
+   "evidence": "netlify.toml:89-187 has 19 scanner rules; all such paths already 404 with the branded page (verified /.env, /wp-login.php, /.git/config, /phpmyadmin/, /server-status, /.aws/credentials, /backup.zip, /db.sql, /a.bak); /*.sql and /*.bak are invalid patterns (splat only at end). The unexplained '/' 404s reproduce with OPTIONS / and GET /./ (verified) - non-GET probes.",
+   "fix": "Delete all 19 rules; treat wp-*, xmlrpc.php, .env*, .git/*, graphql as known noise in reporting; use client-side RUM for human counts; no geo blocking.",
+   "acceptance_test": "No scanner rules remain in netlify.toml/_redirects; /wp-login.php still returns 404.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-15",
+   "title": "friendly-lolly-da85c0.netlify.app serves the full site: add host 301 and noindex previews",
+   "severity": "medium",
+   "effort": "S",
+   "audit_refs": [
+    "T3"
+   ],
+   "depends_on": [],
+   "metric_or_grade_moved": "SEO duplicate content; blank-map avoidance",
+   "evidence": "curl -sI https://friendly-lolly-da85c0.netlify.app/ returns 200 with the full header set (verified); robots.txt identical; canonical tags are the only mitigation; the Mapbox token is restricted so that copy shows a blank map.",
+   "fix": "_redirects host rules https:// and http://friendly-lolly-da85c0.netlify.app/* to https://gettysburginteractivemap.com/:splat 301!; deploy-preview/branch-deploy hosts are different hostnames and unaffected; add X-Robots-Tag noindex for those contexts.",
+   "acceptance_test": "curl -sI https://friendly-lolly-da85c0.netlify.app/historian returns 301 to the custom domain; a deploy preview returns 200 with X-Robots-Tag noindex.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-16",
+   "title": "user-guide.pdf: serve inline, version the file name, keep explicit download link",
+   "severity": "low",
+   "effort": "S",
+   "audit_refs": [
+    "G1"
+   ],
+   "depends_on": [],
+   "metric_or_grade_moved": "Documentation/UX",
+   "evidence": "netlify.toml:200-204 Content-Disposition attachment (audit said inline: corrected); footer link site-nav.js:196 has no download attribute so users get an unexpected download; app Help link has download (bundle.pretty.js:113115-113117).",
+   "fix": "Content-Disposition inline; version the file name (/guide/user-guide-2026.10.pdf) with immutable caching and show the version in the footer; keep download attribute on the Help link; PDF metadata fixed by docs team.",
+   "acceptance_test": "curl -sI /user-guide.pdf shows inline; footer link opens the browser viewer.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-17",
+   "title": "404 semantics and OPTIONS handling",
+   "severity": "low",
+   "effort": "S",
+   "audit_refs": [],
+   "depends_on": [],
+   "metric_or_grade_moved": "Hygiene",
+   "evidence": "/404 and /404.html return 200 (noindex meta present, 404.html:7); OPTIONS / returns 404.",
+   "fix": "Keep noindex on 404.html; no redirect needed; future /api/* functions must implement OPTIONS and return Allow.",
+   "acceptance_test": "404.html retains noindex; API functions answer OPTIONS.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-18",
+   "title": "Mapbox token is URL-restricted: verify list/scopes, split dev/preview tokens, single config, blank-map UX, alerts",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "X1"
+   ],
+   "depends_on": [
+    "infra-netlify-28"
+   ],
+   "metric_or_grade_moved": "Security B->A; Reliability (silent blank maps); cost control",
+   "root_cause": "Restriction exists and works (audit X1 was a false positive from unrestricted public-style endpoints) but leaves 11 literal token copies, no dev/preview tokens, no failure UX.",
+   "evidence": "Cache-busted probes: tiles/TileJSON/vector/geocoding/static return 403 for no Referer, evil.example, localhost, netlify.app, deploy-preview host and gettysburginteractivemap.com.evil.example; 200 only for https://gettysburginteractivemap.com/; style/sprite/glyph endpoints 200 for any Referer. Token is pk (TokenValid); scopes and exact URL list unverified. Literals at bundle.pretty.js:97210,102899 and camera.html:64, cinematic-export.html:85, compare.html:97, ground-remembers.html:56, immersive.html:68, sandbox.html:71, unit-rendering-reference.html:56, viewshed.html:57, watch-together.html:109. No app-level map error handler (only library on('error') at bundle.pretty.js:61005). Referrer-Policy strict-origin-when-cross-origin (netlify.toml:10) is now load-bearing.",
+   "fix": "Runbook F.1: confirm URL list is only gettysburginteractivemap.com (no netlify.app), public read scopes only; create gtbg-dev (localhost) and gtbg-preview (netlify.app, low value, rotate monthly) tokens; replace 11 literals with one build-time constant per Netlify context (or one config module); optional rotation after that; enable usage/billing notifications and monthly Statistics check; app team: 401/403 tile-error notice plus network-free fallback style; never proxy tiles; never loosen Referrer-Policy.",
+   "acceptance_test": "Referrer matrix unchanged (403/403/403/403/200); dev token works only from localhost; grep for pk.eyJ in dist finds one config module or none; with Referrer-Policy no-referrer the in-app notice appears and the timeline still works.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-19",
+   "title": "Third-party frames (Google Street View, NPS video): restrict Google key, click-to-load, sandbox, remove Google preconnects, disclose",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "X2",
+    "X5",
+    "H13"
+   ],
+   "depends_on": [
+    "infra-netlify-01",
+    "infra-netlify-36"
+   ],
+   "metric_or_grade_moved": "Security, Privacy, INP/Best Practices",
+   "evidence": "Google key AIzaSyC-1eIr... at bundle.pretty.js:110610 used at :110661; probes: Geocoding, Directions, Distance Matrix, Elevation, Time Zone, Places legacy+New, Static Maps, Street View Static all REQUEST_DENIED (no paid API callable); referrer/API restrictions unverifiable from outside. Street View iframe renders for every walkthrough stop with no click-to-load, lazy, referrerpolicy or sandbox (bundle.pretty.js:110660-110665). NPS video panel frames a full nps.gov CMS page (bundle.pretty.js:100461-100466, 17 URLs; no XFO from nps.gov) after 'Show Video'. index.html:47-52 preconnects to 3 Google hosts on every load.",
+   "fix": "Runbook F.2 (referrer + Maps Embed API only, disable other APIs, USD 1 budget alert, separate dev key, rotate); click-to-load facade 'Load Street View (contacts Google)' remembered per session; loading=lazy, referrerpolicy, allow=fullscreen and sandbox='allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox' on both frames; disclosure next to Show Video (consider replacing the tiny PiP with an outbound link); delete Google and dead tiles preconnects; CSP frame-src on / only; privacy disclosure.",
+   "acceptance_test": "Opening the walkthrough makes zero google.com/gstatic/googleapis requests until the button is pressed; console export shows referrer+API restrictions and curl of paid APIs with the key still denied; Lighthouse no unused preconnects.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-20",
+   "title": "Mapbox attribution disabled on two maps (ToS)",
+   "severity": "low",
+   "effort": "S",
+   "audit_refs": [],
+   "depends_on": [],
+   "metric_or_grade_moved": "Compliance/fit and finish",
+   "evidence": "attributionControl: !1 at bundle.pretty.js:102988 (mini map) and :110777 (Watch Together in-app map); Mapbox docs: logo mandatory, text attribution required, no small-map exception; Cinematic Export records the canvas without logo/attribution (cinematic-export.html:141-196).",
+   "fix": "Add compact AttributionControl to both maps, keep the logo, burn an attribution line into exported video copied from the style source attribution field.",
+   "acceptance_test": "Every map instance shows logo and attribution toggle; exported video shows the attribution line.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-21",
+   "title": "HOTFIX: stop the service worker forcing a second page load (and second Mapbox map session)",
+   "severity": "critical",
+   "effort": "S",
+   "audit_refs": [
+    "C6",
+    "P1",
+    "P5",
+    "P7"
+   ],
+   "depends_on": [],
+   "metric_or_grade_moved": "Lighthouse mobile Performance (removes 9,070 ms redirects audit), first-visit LCP/FCP in RUM, Mapbox billing, Reliability",
+   "root_cause": "skipWaiting + clients.claim + controllerchange->location.reload fires on the very first install when there is nothing to refresh.",
+   "evidence": "index.html:263-268 controllerchange->location.reload(); sw.js:17 skipWaiting, :30 clients.claim. Lighthouse log: Document / at t=1 ms and again t=909 ms, second load transferSize 0, redirects audit wastedMs 9066; the same satellite tile appears with two different sku values (two Map sessions). Same file: sw.js:5-13 hard-codes only 2 of 5 hashed assets (missing BookmarkPanel, HelpModal, InterpolationWorker), cache.addAll is all-or-nothing (install fails forever after a rename), sw.js:43-46 caches error responses forever, precache of 2.3 MB competes with the page's critical requests.",
+   "fix": "index.html lines 255-277: idle registration with no controllerchange reload (snippet in report); sw.js: bump CACHE_NAME to gbg-v6, no skipWaiting, precache all 5 hashed assets via Promise.allSettled(cache.add), guard every put with res.ok and event.waitUntil, return Response.error() instead of undefined, claim on activate.",
+   "acceptance_test": "Fresh profile with 4G throttle: exactly one Document request for /, serviceWorker.controller set without navigation, one styles/v1 request (one sku); Lighthouse mobile redirects audit passes; after a deploy renaming the main JS an old tab still opens Help without errors.",
+   "verdict": "CONFIRMED",
+   "correction": "Nuances: two-sku double-session proof is mobile-run only (desktop shows 1 sku but 2 Documents); InterpolationWorker chunk is referenced nowhere (orphan), only BookmarkPanel and HelpModal are real lazy chunks (bundle.pretty.js:112469-112470)."
+  },
+  {
+   "id": "infra-netlify-22",
+   "title": "Rebuild the service worker (Workbox, prompt-based updates, navigation preload, offline page, versioned caches, kill switch)",
+   "severity": "high",
+   "effort": "L",
+   "audit_refs": [
+    "C6",
+    "P1",
+    "P5"
+   ],
+   "depends_on": [
+    "infra-netlify-21",
+    "infra-netlify-28"
+   ],
+   "metric_or_grade_moved": "Repeat-visit LCP/FCP/INP; PWA/offline grade; Reliability",
+   "evidence": "sw.js:35-76: every same-origin request goes through respondWith; HTML never cached and caches.match returns undefined offline so there is no offline capability (:72-75); precached manifest/icons un-fingerprinted (:53-56); puts not in waitUntil, no res.ok guard, no caps (:41-50,:61-70); /data network-first defeats HTTP cache (:61-70); hand-maintained precache list (:5-13); no update UX; index.html:56-57 preload/onload swap causes the cross-world warnings; map.on('load') needs the Mapbox style so offline needs a fallback style.",
+   "fix": "vite-plugin-pwa injectManifest + Workbox 7.4 (or workbox-cli against the deploy folder now); deferred registration after load+idle; precache all hashed assets, shell, offline.html, icons, core data (~76 JSON, ~825 KB raw/170 KB br) with maximumFileSizeToCacheInBytes 4 MB; no auto skipWaiting, clientsClaim only, update toast (role=status, Reload/Later, top of screen, reload only on user accept, persist URL state first); NetworkFirst 3 s + navigation preload for pages, offline.html catch handler, SWR data-v1 fallback, CacheFirst assets-v1, redirect-safe responses, versioned runtime caches, cleanup of gbg-v5/v6, kill-switch (F.6) and /reset page. Full source in appendix E.",
+   "acceptance_test": "Offline reload of / shows shell and fallback-style notice, unvisited page shows offline.html; deploy v2 with tab on v1 shows toast and never reloads without click, old chunks never 404; first visit one Document request; warm repeat visit serves JS/data from cache; caches.keys() has no legacy gbg-* caches.",
+   "verdict": "CORRECTED",
+   "correction": "71 data files/37 boot (not ~76). Design contradiction: precaching index.html makes / cache-first via the Workbox precache route, so the NetworkFirst+preload row cannot apply to / and fresh deploys wait for the toast, contradicting netlify.toml:65-71. Test Workbox precache vs forced /index.html 301. 'preload/onload causes P5 warnings' is speculative (errors-in-console clean in both LH runs)."
+  },
+  {
+   "id": "infra-netlify-23",
+   "title": "Mapbox tile caching: allowed on-device, bounded and optional",
+   "severity": "low",
+   "effort": "M",
+   "audit_refs": [],
+   "depends_on": [
+    "infra-netlify-22"
+   ],
+   "metric_or_grade_moved": "Returning-visitor map paint (not billing)",
+   "evidence": "Mapbox Product Terms (Oct 1 2025 text; a 2026-07-21 revision unread): licensed map content may be cached on the same end-user device up to 30 days, cache populated directly from the API, proxying/redistribution prohibited; tile responses max-age 43200; tile URLs carry per-session sku.",
+   "fix": "Optional Workbox CacheFirst route for api.mapbox.com/v4/mapbox.satellite/ with 400 entries, 14 days, purgeOnQuotaError, cacheKeyWillBeUsed stripping sku and access_token; verify blob-worker fetches are controlled by the SW; re-read current terms before shipping; never server-side cache.",
+   "acceptance_test": "Warm revisit shows tiles served by ServiceWorker; entries capped at 400/14 days; map stays fresh after maxAge.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-24",
+   "title": "Web app manifest and icon set overhaul",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "E1",
+    "E2"
+   ],
+   "depends_on": [
+    "infra-netlify-11",
+    "infra-netlify-25",
+    "infra-netlify-26"
+   ],
+   "metric_or_grade_moved": "PWA/installability; mobile fit and finish; branding consistency",
+   "evidence": "manifest.json:9 orientation landscape; :12-22 single entries 'any maskable' but icons have 4 colours, transparent corners and artwork filling ~95% of canvas (PIL), so maskable crops and fills badly; apple-touch-icon.png 180x180 also transparent (renders black on iOS); name mismatch (:2, title, og, JSON-LD, site-nav.js:190); missing id/scope/lang/shortcuts/form_factor; screenshots are the corrupt duplicate; served application/json; /icons immutable on unversioned names; manifest linked only from index.html:7.",
+   "fix": "Replacement manifest in appendix E.2: id and scope '/', no orientation, separate any (192/512 PNG + SVG) and maskable (192/512 full-bleed #0a0a14, glyph in central 60-66%) icons, shortcuts (/historian, /search, /turning-points, /ar; tick shortcuts after deep links), wide+narrow real screenshots with form_factor, categories education/entertainment/travel, lang/dir; fingerprint icon files; favicon.svg; opaque apple-touch icon; Content-Type application/manifest+json; link manifest/theme-color/apple-touch-icon on every page; single brand string constant.",
+   "acceptance_test": "DevTools Manifest pane zero warnings with both purposes previewed; installed Android app rotates; maskable not clipped; iOS icon no black corners; content-type application/manifest+json.",
+   "verdict": "CORRECTED",
+   "correction": "Icon opaque area is 89% of canvas width (11..181 of 192), not ~95%, though gold art reaches 1.40x the maskable safe radius so the conclusion stands; theme-color already exists on 26 of 27 pages (only manifest link and apple-touch-icon are index-only)."
+  },
+  {
+   "id": "infra-netlify-25",
+   "title": "OG and manifest screenshots are one corrupt, duplicated placeholder PNG",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [],
+   "depends_on": [],
+   "metric_or_grade_moved": "SEO/social sharing; PWA install UI",
+   "evidence": "screenshots/day1.png and day3.png byte-identical (md5 3f6646c99f3416a1aa35fea67bed21c5, 17,585 bytes); IHDR 1280x720 RGB (colour type 2) but inflated IDAT is 3,687,120 bytes = RGBA (expected 2,765,520); PIL cannot open it; decoded content is an 80-colour dark gradient. Used by index.html:21,25 and og:image on 21 pages, twitter:image on 11, manifest.json:27-37.",
+   "fix": "Generate real images with a repeatable Playwright script: OG 1200x630 (<300 KB) per key page with width/height/alt meta and twitter summary_large_image on every page; manifest wide/narrow screenshots; content-hashed immutable names; CI check that every og:image returns 200, decodes and matches declared size. Phase 0: replace with any valid PNG.",
+   "acceptance_test": "Facebook Sharing Debugger and X card validator render the intended image; PIL opens every referenced image; distinct hash per scene.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-26",
+   "title": "Deep-link contract not implemented: share links, embed CTA, regiment map links and PWA shortcuts land on default state",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [],
+   "depends_on": [
+    "infra-netlify-28"
+   ],
+   "metric_or_grade_moved": "Core function; UX; enables manifest shortcuts and embed CTA",
+   "evidence": "Only location.search read in the main app is get('ancestor') at bundle.pretty.js:101019 (plus Mapbox #map hash). Emitters: bookmark/share links ?t=&u=&z=&ll= (bundle.pretty.js:97823-97830), embed.html:60 and documentary.html:92 ?tick=&vignette=, regiment.html:247 ?unit=&tick=. None parsed (static evidence; confirm in a browser).",
+   "fix": "One documented URL-state contract parsed after data load and applied via the store: tick (alias t), day, unit (alias u), vignette, z, ll, ancestor, speed; validate/clamp; write back with history.replaceState (debounced); update all emitters to canonical names; unit tests for round trip; querystrings must not fragment analytics.",
+   "acceptance_test": "Every emitted URL form restores tick/unit/zoom/center; ?tick=999 clamps to 675; invalid unit ignored; back/forward works; manifest tick shortcuts work.",
+   "verdict": "CORRECTED",
+   "correction": "Core confirmed, but (a) ?ancestor= is NOT working today: it is read only in the Follow-Your-Ancestor panel's mount effect (bundle.pretty.js:101018-101021) and the panel renders only when useState(!1) flags are true, so ancestor share links also land on default state; (b) more emitters than listed: education.html:81, historian.html:110, search.html:114,127, turning-points.html:118."
+  },
+  {
+   "id": "infra-netlify-27",
+   "title": "index.html head: remove CSS preload/onload swap, dead preconnects and cross-world SW mismatch",
+   "severity": "medium",
+   "effort": "S",
+   "audit_refs": [
+    "P4",
+    "P5",
+    "X3"
+   ],
+   "depends_on": [],
+   "metric_or_grade_moved": "Lighthouse render-blocking and console cleanliness; strict-CSP readiness",
+   "evidence": "index.html:55-58 modulepreload plus preload as=style with inline onload swap and noscript copy (inline handler blocks strict CSP; likely source of the P5 'preload not used/cross-world SW' warnings; CSS is 5,224 bytes br). index.html:41-52 has 10 hints of which only api.mapbox.com is needed early (no request to a/b.tiles in Lighthouse; Google hosts only after user action). index.html:279-280 blocking site-nav.css/js.",
+   "fix": "Replace lines 56-58 with a plain stylesheet link (or attach the swap from an external script with matching crossorigin); keep modulepreload and exactly one preconnect (api.mapbox.com); defer site-nav.js and test the Extra Features overlay; drop the preload entirely if warnings persist after finding 21/22.",
+   "acceptance_test": "Zero preload warnings on warm and cold load; no ' onload=' in index.html; exactly one preconnect; render-blocking savings shrink; overlay still populates.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-28",
+   "title": "Move to Git-connected deploys (previews, contexts, env vars, functions, build plugins); retire drag-and-drop",
+   "severity": "high",
+   "effort": "XL",
+   "audit_refs": [
+    "N1",
+    "P6"
+   ],
+   "depends_on": [],
+   "metric_or_grade_moved": "Enables every phase 2/3 item; release safety",
+   "root_cause": "No source project: Netlify 'Download source' returns the deployed tree, and manual deploys cannot run builds, plugins, functions or previews.",
+   "evidence": "SRC identical to DEPLOY (119 files); netlify.toml:1-2 publish='.'; Netlify docs: manual deploys run no build command, no build plugins/CSP extension, functions need a build, dot-folders stripped, previews/branch deploys/context env vars only with Git; symptoms: dev pages shipped, placeholder screenshot, hand-patched minified bundle.",
+   "fix": "Private GitHub repo with recovered source (legacy/deploy-6aa16d61 kept as reference), link to Netlify, main=production, Deploy Previews on, build npm run build publish dist, pretty_urls=false, headers/redirects generated into dist/_headers and _redirects, per-context VITE_MAPBOX_TOKEN, secrets flagged and scoped, branch protection requiring CI, optional stop-auto-publish gate, rollback via Publish deploy, exact-case CI check, deploy notifications.",
+   "acceptance_test": "Branch push yields a noindex preview with the dev token and passing checks; merge to main is the only route to production; every deploy is explained by git log; bad deploy rolled back in under 2 minutes.",
+   "verdict": "CONFIRMED",
+   "correction": "Functions do not require Git (CLI deploy works); the true bottleneck is source recovery (N1)."
+  },
+  {
+   "id": "infra-netlify-29",
+   "title": "Automated quality gates (Lighthouse, headers, CSP crawl, links, images, axe, secrets)",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "P7"
+   ],
+   "depends_on": [
+    "infra-netlify-28"
+   ],
+   "metric_or_grade_moved": "Keeps every category green after the first fix pass",
+   "evidence": "No CI exists; Lighthouse score history is manual; Netlify plugin supports thresholds, fail_deploy_on_score_thresholds, multiple audits, mobile default (desktop needs its own entry).",
+   "fix": "@netlify/plugin-lighthouse 6.x or treosh/lighthouse-ci-action on previews (perf/a11y/bp/seo >= 0.95 both presets, LCP<=2500, CLS<=0.1, TBT<=200); scripts/check-headers.sh (sketch in D.4); csp-crawl.mjs (C.4, syntax-checked); netlify-plugin-checklinks + exact-case resolver + og:image decode check; axe-core; npm audit, Dependabot/Renovate, gitleaks; sample TOML in report.",
+   "acceptance_test": "A PR that reintroduces unsafe-inline, breaks embed framing or drops mobile perf below 95 fails checks.",
+   "verdict": "CORRECTED",
+   "correction": "@netlify/plugin-lighthouse defaults to post-deploy (non-gating); fail_deploy_on_score_thresholds runs onPostBuild serving dist on localhost, where the URL-restricted production Mapbox token returns 403 (tiles fail, console errors, unrepresentative perf). Gate via treosh/LHCI on the Deploy Preview with the preview token or a dev-token build."
+  },
+  {
+   "id": "infra-netlify-30",
+   "title": "Verify Netlify plan and credit exposure; adopt deploy discipline",
+   "severity": "medium",
+   "effort": "S",
+   "audit_refs": [],
+   "depends_on": [],
+   "metric_or_grade_moved": "Reliability (avoid site pause)",
+   "evidence": "Netlify credit plans: Free 300 credits/month hard limit, production deploy 15 credits (20 deploys = 300), bandwidth 20 credits/GB (328 MB/30 d ~ 6.6), requests 2 credits/10k; RUM/analytics history windows vary by plan (30-day windows in the PDFs suggest Pro or legacy; unverified); BRIEF shows heavy deploy days (Sep 7-9).",
+   "fix": "Read Team > Usage and billing; if Free/Personal batch releases and iterate on previews (confirm whether previews consume credits), enable usage notifications, add credits to the monthly ops checklist, budget Historian compute before launch.",
+   "acceptance_test": "Plan and credit balance recorded; deploy cadence policy written; alert at 70% of monthly credits.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-31",
+   "title": "Historian platform skeleton: Functions v2 API with rate limits, secrets, budget guard, cache, graceful degradation",
+   "severity": "medium",
+   "effort": "L",
+   "audit_refs": [
+    "H8"
+   ],
+   "depends_on": [
+    "infra-netlify-28",
+    "infra-netlify-07",
+    "infra-netlify-06",
+    "infra-netlify-10"
+   ],
+   "metric_or_grade_moved": "Enables expanded Ask the Historian without exposing keys or cost",
+   "evidence": "Netlify code-based rate limiting (windowLimit, windowSize 1-180 s, aggregateBy ip/domain, 429; 2 rules Free/Personal, 5 Pro, defined in function config not toml); edge functions 50 ms CPU and no custom headers; Blobs/Scheduled functions available; no server exists today (historian.html is client-side).",
+   "fix": "Same-origin POST /api/historian (config.path + rateLimit), PoW (self-hosted) or Turnstile if disclosed, body/query caps and Sec-Fetch-Site check, provider key only in Netlify secret env (Functions+Runtime scope), Blobs budget guard returning static mode, normalised-question cache with data-version salt, streaming, structured cited output rendered as text nodes with Trusted Types, prompt-injection posture, counters-only logging, /api/health and HISTORIAN_ENABLED kill switch; merge csp-report+vitals into /api/ingest on plans limited to 2 rate rules; client-side semantic search implications for CSP (wasm-unsafe-eval on /historian only) and COEP. Skeleton in appendix E.4.",
+   "acceptance_test": "13th request/minute from one IP gets 429; budget exhaustion returns static mode with HTTP 200; no secret in any client asset; injection tests cannot execute script in the UI.",
+   "verdict": "CONFIRMED",
+   "correction": "Minor: redirects in netlify.toml can also carry [redirects.rate_limit]."
+  },
+  {
+   "id": "infra-netlify-32",
+   "title": "Traffic quality: proportionate bot handling, RUM pollution control, first-party Web Vitals with attribution",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "T2",
+    "P1"
+   ],
+   "depends_on": [
+    "infra-netlify-28"
+   ],
+   "metric_or_grade_moved": "Makes 'RUM green' measurable and truthful",
+   "evidence": "~18% views from CN/SG/HK/DE; ~1,900 scanner 404s/30 d; only ~51 visitors/~113 views per day so a few synthetic sessions swing p75; RUM chart maxima (LCP 1.67 min, INP 2.08 min) indicate backgrounded/automated sessions; RUM script (rum.js) collects on every top-level HTML incl. 404 and dev pages and skips iframes; owner's own Lighthouse/PSI runs report to the same project; no path/UA filter in the PDF.",
+   "fix": "Block /.netlify/scripts/rum in the owner's test browser profile now; do not geo-block or challenge users (scanners touch nothing dynamic; use rate limits only on /api/*); add first-party web-vitals attribution beacon to a Function storing only path/device/connection/metric/attribution (no IP or ID), discarding webdriver/Headless/Lighthouse/prerender/hidden loads, daily p75 by scheduled function into Blobs and a private summary; keep Netlify RUM as external witness; label scanner paths as noise.",
+   "acceptance_test": "First-party dashboard shows p75 LCP/INP/CLS/FCP by device with bots excluded; owner's Lighthouse runs do not appear; scanner traffic needs no configuration.",
+   "verdict": "UNVERIFIABLE",
+   "correction": "Traffic shares come from BRIEF/PDFs; RUM script facts (window===window.top, no storage, pathname only) verified."
+  },
+  {
+   "id": "infra-netlify-33",
+   "title": "Monitoring, expiry and alerting",
+   "severity": "low",
+   "effort": "S",
+   "audit_refs": [],
+   "depends_on": [],
+   "metric_or_grade_moved": "Reliability",
+   "evidence": "No monitor observed; TLS cert expires 2026-11-10 (Netlify auto-renew), domain expires 2027-06-13 (Name.com), security.txt will expire.",
+   "fix": "External HEAD-based uptime checks on /, /manifest.json, /data/chronology_day1.json, /api/health; cert expiry check; deploy notifications; monthly Observatory scan and weekly LHCI on production written to the repo; calendar reminders (security.txt Aug 2027, domain renewal, quarterly key review); 5-year domain registration or auto-renew.",
+   "acceptance_test": "A deliberate 404 on a data file in a preview alerts within 5 minutes; expiry calendar exists.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-34",
+   "title": "DNS hardening: CAA, deny-all mail records, HSTS preload submission, registrar security (DNSSEC not available on Netlify DNS)",
+   "severity": "medium",
+   "effort": "S",
+   "audit_refs": [],
+   "depends_on": [
+    "infra-netlify-11",
+    "infra-netlify-02"
+   ],
+   "metric_or_grade_moved": "Security A+; domain-spoofing protection",
+   "evidence": "DoH/RDAP: NS dns1-4.p09.nsone.net (Netlify DNS); A 98.84.224.111 and 18.208.88.157; no AAAA/CAA/MX/TXT; DNSSEC unsigned (Netlify DNS lacks DNSSEC); registrar Name.com, registered 2026-06-13, expires 2027-06-13, client transfer prohibited; hstspreload.org status unknown but preloadable with no errors; www 301 to apex.",
+   "fix": "Add CAA (0 issue/issuewild letsencrypt.org, iodef), null MX (skip if UI rejects), SPF v=spf1 -all, DMARC p=reject, Search Console/Bing TXT; submit HSTS preload after confirming all subdomains will be HTTPS-only and after findings 11/02 are live; do not move DNS for DNSSEC; registrar 2FA, locks, auto-renew, 3-5 years.",
+   "acceptance_test": "DoH queries return the records; DMARC checker shows reject; hstspreload.org shows pending then preloaded; Search Console verified.",
+   "verdict": "CORRECTED",
+   "correction": "DNS/RDAP/TLS facts verified. Netlify's HTTPS docs recommend binding CAA to Netlify's LE account (accounturi=https://acme-v02.api.letsencrypt.org/acme/acct/54403714); plain letsencrypt.org lets any LE customer issue. Test a renewal afterwards."
+  },
+  {
+   "id": "infra-netlify-35",
+   "title": "Search Console/Bing verification, sitemap and robots hygiene (infra side of T1)",
+   "severity": "low",
+   "effort": "S",
+   "audit_refs": [
+    "T1",
+    "E5"
+   ],
+   "depends_on": [
+    "infra-netlify-11",
+    "infra-netlify-34"
+   ],
+   "metric_or_grade_moved": "SEO discovery",
+   "evidence": "sitemap.xml has 21 <loc> entries all .html, no <lastmod>; changefreq/priority ignored by Google; robots.txt has no Disallow; /data/*.json crawlable; two URL forms both 200.",
+   "fix": "Clean-URL sitemap with real lastmod, drop changefreq/priority, verify and submit in Search Console and Bing via DNS TXT, X-Robots-Tag noindex on /data, /api, /.well-known, permissive robots.txt with explicit Sitemap line, written AI-crawler stance (recommend allow).",
+   "acceptance_test": "Search Console shows 21 discovered URLs with 0 errors and no /data/* pages.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-36",
+   "title": "Privacy policy: replace with an accurate, complete text",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "X5"
+   ],
+   "depends_on": [
+    "infra-netlify-19",
+    "infra-netlify-07",
+    "infra-netlify-31"
+   ],
+   "metric_or_grade_moved": "Privacy/legal pages B+ -> A+; GDPR/CCPA exposure",
+   "evidence": "privacy.html:21 dated Sep 7 2026; :28 RUM 'cannot identify you' (it sends hostname, path, browser/OS family, device class, screen size; no cookies/localStorage; skips iframes); :29 Mapbox 'standard request data' (real: telemetry to events.mapbox.com with anonymous ID rotating ~24 h in localStorage mapbox.eventData*, UA, screen/window size, DPR, connection, WebGL renderer/vendor: bundle.pretty.js:54238-54290,54560-54600); :30 Street View on documentary/report pages is wrong (frame is in the main app walkthrough bundle.pretty.js:110660); omits NPS frame (:100461), PeerJS broker + Google STUN + PeerJS TURN + jsDelivr (watch-together.html:19,224; peerjs defaults verified), AR camera/location/motion (ar.html:160,172,184), Netlify server-side analytics, localStorage inventory (gtbg_prefs, gtbg_onboarded, gettysburg_bookmarks, gtbg-ef-hidden, gtbg_watch_together_tour), Cache Storage, rights/legal bases/transfers.",
+   "fix": "Publish appendix H.1 full text (summary, per-feature disclosures, storage table, cookies, children, rights, legal bases, transfers, retention, security, changes) with bracketed owner decisions; add conditional Historian paragraph H.3; CI check that every CSP origin and localStorage key appears in docs/data-inventory.md from which the policy is maintained; counsel review.",
+   "acceptance_test": "Every CSP origin and every localStorage key is covered in the policy; owner/counsel sign-off recorded; date updated.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-37",
+   "title": "Terms of service: replace, scope embedding, decide content licence",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "X5"
+   ],
+   "depends_on": [
+    "infra-netlify-02"
+   ],
+   "metric_or_grade_moved": "Privacy/legal pages; embedding clarity",
+   "evidence": "terms.html:27 invites embedding 'its widget' while only /embed.html is intended to be framed (and was conflicted); :30 sources cited but no licence for compiled data; :33 credit request is not a licence; no AR safety text, third-party terms, governing law, takedown contact or AI clause.",
+   "fix": "Publish appendix H.2 full draft (acceptable use, embed clause limited to /embed with snippet, content licence option A CC BY-NC 4.0 / B CC BY 4.0, third-party services, historical accuracy, AI clause, live sessions, AR safety, disclaimers, copyright notices, governing law) with owner decisions bracketed; counsel review.",
+   "acceptance_test": "Embed clause matches headers (only /embed frameable); licence linked from footer; sign-off recorded.",
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "infra-netlify-38",
+   "title": "Data controls and consent posture for EU/UK visitors",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [],
+   "depends_on": [
+    "infra-netlify-36",
+    "infra-netlify-19"
+   ],
+   "metric_or_grade_moved": "Privacy A+",
+   "evidence": "No cookies set, but Mapbox stores an anonymous ID in localStorage (mapbox.eventData*, refreshed ~24 h, bundle.pretty.js:54277-54290) and posts turnstile/map.load/metrics events (enabled.telemetry:false only for interaction telemetry, :54381-54423); Google/NPS/PeerJS contacts happen after user actions; ePrivacy Art. 5(3) 'strictly necessary' status of the Mapbox identifier is arguable and needs counsel.",
+   "fix": "Precise disclosure (finding 36); footer 'Privacy and data' panel listing stored items with 'Clear my saved data' (bookmarks, prefs, tours, Mapbox event data, SW caches) and per-feature third-party notes; honour GPC; no banner unless counsel advises; do not suppress Mapbox telemetry client-side; revisit if EU share/complaints grow.",
+   "acceptance_test": "Clear-data button empties every inventoried key and caches.keys(); panel lists every item in docs/data-inventory.md.",
+   "verdict": "CONFIRMED",
+   "correction": "Facts confirmed; the ePrivacy legal conclusion remains unverifiable."
+  },
+  {
+   "id": "infra-netlify-39",
+   "title": "Account, secret and supply-chain security for a solo maintainer",
+   "severity": "medium",
+   "effort": "S",
+   "audit_refs": [],
+   "depends_on": [
+    "infra-netlify-28"
+   ],
+   "metric_or_grade_moved": "Security",
+   "evidence": "One Gmail address is the public contact (terms.html:42, privacy.html:47) and the likely recovery address for Netlify, Mapbox, Google Cloud, Name.com and GitHub; account takeover is the biggest realistic compromise path; no repo/CI yet.",
+   "fix": "Passkeys/TOTP on Gmail, Netlify, GitHub, Mapbox, Google Cloud, Name.com with offline recovery codes; separate public alias from recovery mailbox; minimal Netlify tokens/deploy keys; GitHub branch protection, secret scanning + push protection, Dependabot/Renovate, Actions pinned by SHA; lockfile, npm ci, --ignore-scripts in CI, audit gate; written token inventory with created/rotate-by dates; lost-laptop procedure.",
+   "acceptance_test": "2FA ticked on all accounts; Dependabot PRs appear; a fake sk. token commit is blocked by push protection.",
+   "verdict": "UNVERIFIABLE",
+   "correction": "Account posture is not externally observable."
+  }
+ ],
+ "open_questions": [
+  "Netlify: which plan and how many production deploys this month, and are all deploys drag-and-drop/zip today? (findings 28, 30)",
+  "Mapbox: please screenshot the token's scopes and URL restriction list; create dev and preview tokens now? (finding 18)",
+  "Google Cloud: please screenshot the Maps Embed key's application/API restrictions and the enabled-APIs list (finding 19)",
+  "Brand: one name for title/og/manifest/footer/legal - 'Interactive' (domain) or 'Animated Battlefield Map'? (finding 24)",
+  "Legal: operator identity to publish (name only or city/state), governing-law state, content licence (CC BY-NC vs CC BY vs all rights reserved), counsel review, and confirm the site is not affiliated with NPS/Gettysburg Foundation (findings 36, 37)",
+  "Watch Together: keep WebRTC live sync with hardening and disclosure, or replace with URL-encoded shareable tours? (finding 07)",
+  "NPS video: keep the small picture-in-picture iframe or replace with outbound links? (finding 19)",
+  "Offline scope: shell + data offline only (recommended), plus optional bounded tile cache, or just an offline page? (findings 22, 23)",
+  "Ask the Historian: is a server-side AI mode in scope (Functions, secrets, privacy text, budget cap, provider, whether questions may ever be stored)? (finding 31)",
+  "DNS: OK to publish deny-all mail records (null MX, SPF -all, DMARC reject) because no mail is sent from the domain? (finding 34)",
+  "Search Console/Bing: who owns the properties and can the TXT verification records be added? (findings 34, 35)",
+  "Are you willing to enforce CSP on / last, accepting roughly 4 to 5 weeks end to end? (finding 01)",
+  "Mapbox Product Terms revision dated 2026-07-21: please read the caching clause before tile caching is enabled (finding 23)"
+ ],
+ "verification_summary": "Reviewed all 39 infra-netlify findings against the deployed files, bundle.pretty.js, the Lighthouse JSONs, live curl and Netlify/Mapbox docs: 28 CONFIRMED, 9 CORRECTED, 0 REFUTED, 2 UNVERIFIABLE. Evidence quality is very high (about 60 sampled line numbers all exact; SRI hashes, Mapbox referrer matrix, DNS/TLS/RDAP, Observatory B/75 and the corrupt PNG all reproduce). Corrections are to severity, numbers and plan dependencies, not to root causes. Five missed issues found. A Verification section with the full table was appended to infra-netlify.md.",
+ "missed_by_specialist": [
+  {
+   "title": "Deploy Previews inject Netlify's own script and Drawer frame, breaking every CSP 'violations: 0' gate",
+   "evidence": "Netlify injects /.netlify/scripts/cdp on previews and the Drawer frames https://app.netlify.com/ (forum threads answers.netlify.com/t/38006, 49318 and GitHub reports); the report's crawl (C.4), LHCI (D.3) and finding 29 all run against Deploy Previews and expect 0 violations, but frame-src/default-src would block the Drawer.",
+   "fix": "Turn the Netlify Drawer off in Project configuration, or add only frame-src https://app.netlify.com (and netlify-cdp-loader.netlify.app for script-src) in a [context.deploy-preview] policy, and have the crawl ignore those hosts.",
+   "severity": "medium"
+  },
+  {
+   "title": "Stage 0 report-uri / Reporting-Endpoints target an endpoint that does not exist yet",
+   "evidence": "GET https://gettysburginteractivemap.com/api/csp-report returns 404 (verified 2026-09-30); B.1 line 813 and A.2 already reference it while finding 10 says the function needs Git/CLI. Reports are lost, the 'reports arriving' gate is unreachable, and each violation POST adds to the 404 stream finding 14 wants to reduce.",
+   "fix": "Deploy the single collector function with netlify deploy (CLI/API deploys support Functions) or use the hosted collector first; omit report-uri/Reporting-Endpoints until the endpoint returns 204.",
+   "severity": "medium"
+  },
+  {
+   "title": "Service-worker design (precached index.html) conflicts with the owner's fresh-deploy intent",
+   "evidence": "E.1 comment and E.5 globPatterns precache index.html; workbox precacheAndRoute serves / cache-first, so the NetworkFirst+navigation-preload route only covers other pages; after a deploy / stays on the old shell until the update toast is accepted, while netlify.toml:65-71 documents that a fresh deploy must show up immediately.",
+   "fix": "Exclude index.html from the precache manifest and route / NetworkFirst with navigation preload (offline fallback = precached offline.html), or explicitly adopt app-shell semantics with a max-staleness rule; also test the forced /index.html 301 (finding 11) against Workbox precache fetches.",
+   "severity": "medium"
+  },
+  {
+   "title": "B.1 interim duplicates universal header names between netlify.toml /* and _headers /*",
+   "evidence": "netlify.toml:5-15 keeps X-Content-Type-Options, Referrer-Policy, Strict-Transport-Security, X-Permitted-Cross-Domain-Policies in the /* block; B.1 lines 805-809 repeat three of them in _headers /*, violating the report's own one-rule-per-header-name invariant (Netlify docs do not define cross-rule same-name merging).",
+   "fix": "State explicitly that the entire /* block leaves netlify.toml when _headers is adopted (or omit the repeated names from _headers).",
+   "severity": "low"
+  },
+  {
+   "title": "Embed CSP omits the Netlify RUM host, so top-level visits to /embed log blocked beacons",
+   "evidence": "Generator csp() embed branch and C.1 use connect-src 'self'; rum.js beacons to https://ingesteer.services-prod.nsvcs.net/rum_collection whenever window===window.top (verified in /.netlify/scripts/rum), which is true when /embed is opened directly.",
+   "fix": "Add https://ingesteer.services-prod.nsvcs.net to the embed connect-src (only exercised top-level) or filter the resulting report noise.",
+   "severity": "low"
+  }
+ ]
+}

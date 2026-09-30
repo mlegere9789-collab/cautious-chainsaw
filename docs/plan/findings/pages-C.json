@@ -1,0 +1,1537 @@
+{
+ "agent": "pages-C",
+ "summary": "Audited 14 pages (historian UI, immersive, ar, watch-together, turning-points, find-ancestor, cinematic-export, living-ledger, privacy, terms, 404, embed, diagnostics, unit-rendering-reference) plus shared plumbing they inherit. 92 fix specs (1 critical, 35 high, 47 medium, 9 low); full long-form with code sketches, copy deck, test matrix, sequencing (Tier 0-3, ~95-100 person-days serial; Tier 0+1 in ~2-3 weeks removes visible brokenness) and open questions is in the report file. Newly proven defects beyond the earlier audit: (1) the map app parses only ?ancestor= (bundle.pretty.js:101019) so every ?tick=/?vignette=/?unit= 'See this moment on the map' link on 8+ pages is dead and the app's own ?t=&u=&z=&ll= share links are never read; (2) screenshots/day1.png and day3.png are byte-identical, malformed (RGB header, RGBA data) near-black placeholders used as every og:image and manifest screenshot; (3) all 137 Historian chronology answers render the word 'undefined' (data key is 'event', code reads description/title) and raw IDs like 'U-I / U-I-1-1' leak into prose; (4) Living Ledger starts at 4 because of an inclusive-loop off-by-one and overshoots the dataset by 838 (47,001 vs 46,163) while ignoring the file's documented bell-curve model; (5) Immersive: Pause leaves the drone running, cannon is eligible in 662/675 ticks including all 135 'night' ticks, no limiter/mute/silent path; (6) AR requests iOS motion permission after two awaits (gesture likely lost), treats Chrome's relative alpha as compass, ignores ~10-11 degree declination, leaks camera stream and GPS watch on failure/exit, and shows 22 of 30 labels stacked from Little Round Top; (7) Watch Together imports/notes go through innerHTML (stored XSS via shared tour files), empty 'Add stop' adds tick 1, and PeerJS 1.5.4 defaults to 0.peerjs.com + Google STUN + PeerJS shared TURN (verified in the library) with no SLA; recommended replacement is a Netlify Function+Blobs polling relay (no WebSockets on Netlify Functions) with server-issued host-token rooms; (8) Cinematic Export throws unhandled on Safari<18.4, captions/attribution are DOM and never in the video, and copy claims 'narrated flyover' with no audio; deterministic WebCodecs+MP4 renderer specified; (9) NPS CWSS is an unmaintained index with no documented API/bulk data: deep-link out, do not scrape; (10) embed.html live headers still carry X-Frame-Options DENY + frame-ancestors * + report-only CSP (netlify.toml empty-string override did not work): Edge Function fix; docs/oEmbed missing; diagnostics.html hidden only by a force redirect; unit-rendering-reference.html is a live dev prototype with a perpetual rAF loop. Mapbox bundled version equals the CDN pin (3.24.1) so no skew today, only drift risk. Not verified: anything requiring a real browser/device (iOS AR gesture chain, Safari recording, VoiceOver, caption/logo overlap), declination value, WebCodecs version support, Netlify header-override and Blobs option semantics; legal points need counsel.",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/pages-C.md",
+ "findings": [
+  {
+   "id": "pages-C-01",
+   "title": "?tick=/?vignette=/?unit= deep links are dead site-wide (app reads only ?ancestor=)",
+   "severity": "high",
+   "evidence": "bundle.pretty.js:101019 is the only query reader (get('ancestor')); share-link writer bundle.pretty.js:97823-97832 emits ?t=&u=&z=&ll= that nothing reads; dead links emitted by historian.html:110, turning-points.html:118, embed.html:60, regiment.html:247, documentary.html:92, education.html:81, search.html:127.",
+   "root_cause": "Deep-link contract exists in static pages but was never implemented in the compiled bundle (no source, N1).",
+   "fix": "Define canonical schema /?t=&v=&u=&ll=&z=&ancestor= (accept tick/vignette/unit aliases); implement one-time parse+validate at store init, set tick/vignette/unit, pause, open panel, strip params via replaceState, skip splash/layout chooser; interim deeplink.js shim driving the timeline input; until then change CTA text to 'Open the map'; generate all static links from one gtbgLink() helper.",
+   "effort": "M",
+   "acceptance_test": "Playwright: for all 24 vignettes /?v=V-0NN and /?tick=N&vignette=V-0NN set timeline and open the matching panel; /?ancestor=U-20ME still works; invalid params ignored with no console errors; crawler asserts every href='/?...' round-trips.",
+   "metric_or_grade_moved": "Core function, UX, shareability/SEO",
+   "depends_on": [
+    "app deep-link router (app-bugs/bundle-anatomy)"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "bundle.pretty.js:101019 is the only query reader; writer $k at :97823-97832 emits t,u,z,ll that nothing reads. Emitters verified at historian:110, turning-points:118, embed:60, regiment:247, documentary:92, education:81, search:114,127. regiment.html:252 does read ?unit= itself (works)."
+  },
+  {
+   "id": "pages-C-02",
+   "title": "Every og:image and both manifest screenshots are one corrupt near-black placeholder",
+   "severity": "high",
+   "evidence": "screenshots/day1.png and day3.png identical md5 3f6646c99f3416a1aa35fea67bed21c5 (17,585 B); IHDR colour type 2 (RGB) but inflated IDAT 3,687,120 B = 720x(1280x4+1) RGBA rows; PIL rejects; re-wrapped it is a dark gradient. Used at line 14 of historian/immersive/ar/watch-together/turning-points/find-ancestor/cinematic-export/living-ledger/index and manifest.json:27,33.",
+   "root_cause": "Placeholder generated with wrong PNG colour type and never replaced.",
+   "fix": "Playwright-capture real 1200x630 OG cards per page group plus real Day1/Day3 screenshots (1280x720 wide, 750x1334 narrow), <200 KB, unique filenames; add og:image:width/height/alt, twitter:card summary_large_image, twitter:image.",
+   "effort": "S",
+   "acceptance_test": "identify/PIL decodes all images; unique md5 per page group; FB Sharing Debugger, LinkedIn Post Inspector, Slack/iMessage unfurl and Twitter validator show image; Lighthouse installability screenshots pass.",
+   "metric_or_grade_moved": "SEO/social, installability, fit and finish",
+   "audit_refs": [
+    "T1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Reproduced md5 3f6646c9..., 17,585 B, IHDR colour type 2, inflated IDAT 3,687,120 = RGBA size. Wider scope: og:image=day3.png on 21 HTML pages, not only the 9 listed."
+  },
+  {
+   "id": "pages-C-03",
+   "title": "Mapbox GL 3.24.1 render-blocking CDN script (481 KB br) and token copy on 9 pages",
+   "severity": "high",
+   "evidence": "immersive.html:15-16, watch-together.html:15-16, cinematic-export.html:15-16, unit-rendering-reference.html:9-10 (+camera, compare, ground-remembers, sandbox, viewshed); token pasted at immersive.html:68, watch-together.html:109, cinematic-export.html:85, unit-rendering-reference.html:56; bundle version 3.24.1 (bundle.pretty.js:53873) so no skew today.",
+   "root_cause": "Independent single-file pages, no shared config/module.",
+   "fix": "preconnect + defer mapbox-gl.js and init on DOMContentLoaded with skeleton map box; /js/gtbg-config.js for token/version/constants; optionally self-host the same npm build with SRI+immutable cache (check Mapbox licence) to drop api.mapbox.com from script-src; URL-restrict token (X1); do not load Mapbox on pages that don't need it at first paint.",
+   "effort": "M",
+   "acceptance_test": "Lighthouse mobile Slow4G/4xCPU on the 4 pages: FCP<=1.8s, LCP<=2.5s, no render-blocking api.mapbox.com; one config edit rotates token; no 'pk.' outside config.",
+   "metric_or_grade_moved": "Performance (FCP/LCP), security",
+   "depends_on": [
+    "pages-C-11"
+   ],
+   "audit_refs": [
+    "P4",
+    "X1",
+    "X3"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "481,197 B is the gzip size. Live curl: brotli 385,039 B, gzip 481,197 B, identity 1,796,551 B. Rest confirmed; lab Lighthouse shows Mapbox sub-pages at 68-69 mobile, FCP 4.1-4.2 s, LCP 5.4 s."
+  },
+  {
+   "id": "pages-C-04",
+   "title": "No fetch/storage error handling: infinite 'Loading...' or half-initialised pages",
+   "severity": "high",
+   "evidence": "Promise.all(fetch().then(r=>r.json())) with no res.ok/catch/timeout at historian.html:75-80, immersive.html:76, watch-together.html:117, cinematic-export.html:93-98, living-ledger.html:92-97, find-ancestor.html:75, ar.html:114; unguarded JSON.parse(localStorage) at watch-together.html:159-161. Only embed.html has try/catch.",
+   "root_cause": "Happy-path prototypes, no shared loader.",
+   "fix": "Shared loadJson(path,{timeout,retries}) with AbortController and res.ok; allSettled for multi-file loads; safeStorage wrapper with in-memory fallback; reusable role=alert error card with Retry; noscript message.",
+   "effort": "M",
+   "acceptance_test": "Playwright route.abort('**/data/**') on each page shows error+Retry, no spinner, no uncaught exception; Retry succeeds after restore; stubbed throwing localStorage leaves watch-together functional.",
+   "metric_or_grade_moved": "Reliability, function",
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "No res.ok/catch/timeout at cited lines; unguarded localStorage JSON.parse at watch-together:159 kills all later handlers."
+  },
+  {
+   "id": "pages-C-05",
+   "title": "Inputs under 16 px trigger iOS focus-zoom",
+   "severity": "medium",
+   "evidence": "historian.html:36 #ask 15px; find-ancestor.html:28-29 15/14px; cinematic-export.html:35 inherits 13.33px; watch-together.html:40,54 13/14px; living-ledger.html:76 select 13px.",
+   "root_cause": "iOS zooms on focus when computed font-size <16px.",
+   "fix": "input,select,textarea{font-size:16px} in shared CSS; never use maximum-scale=1.",
+   "effort": "S",
+   "acceptance_test": "Real iPhone: focusing controls leaves visualViewport.scale unchanged; WebKit Playwright asserts fontSize>=16.",
+   "metric_or_grade_moved": "Mobile UX",
+   "audit_refs": [
+    "S4",
+    "A4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Font sizes verified: historian:36 15px, find-ancestor:28-29 15/14px, etc."
+  },
+  {
+   "id": "pages-C-06",
+   "title": "Nav/footer injected after first paint shifts every sub-page ~55 px; body fade delays paint",
+   "severity": "high",
+   "evidence": "site-nav.js:164 replaces empty #gtbg-nav-mount via outerHTML at DOMContentLoaded with a sticky ~55px nav (estimate); site-nav.css:12 body{animation:gtbg-page-in 340ms both} starts opacity:0 (Chrome excludes opacity-0 from LCP); site-nav.css:41 infinite glow on Historian pin.",
+   "root_cause": "Progressive-enhancement nav with no reserved space; decorative fade on body.",
+   "fix": "Reserve min-height on nav/footer mounts now; preferably inline nav/footer HTML into each page with a one-off script; drop body opacity fade or gate on prefers-reduced-motion:no-preference with transform-only 120ms; defer site-nav.js.",
+   "effort": "S",
+   "acceptance_test": "Lighthouse/trace: zero CLS from #gtbg-nav on every sub-page mobile+desktop; LCP element visible at first paint; RUM sub-page p75 CLS<=0.1.",
+   "metric_or_grade_moved": "CLS, FCP, LCP",
+   "depends_on": [
+    "shared site-nav owner"
+   ],
+   "audit_refs": [
+    "P1",
+    "P4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Downgrade high to low. Refuted by lab Lighthouse (replica, mobile): regiment/documentary/search CLS=0; historian 0.0564 and dashboard 0.1446 come only from body>footer#gtbg-footer (async content above it), not the nav. site-nav.js is parser-blocking at end of body, so render() runs at DOMContentLoaded before first paint. FCP 0.8-0.9 s and LCP 1.1-1.2 s, so the body fade is not harmful (reduced-motion guard already at site-nav.css:14). Keep min-height as insurance; real fix is reserving space for async content above the footer."
+  },
+  {
+   "id": "pages-C-07",
+   "title": "Missing landmarks, skip link, reduced-motion handling and color-scheme",
+   "severity": "medium",
+   "evidence": "No <main> on immersive, ar, cinematic-export, privacy, terms, 404, embed, diagnostics, unit-rendering-reference; watch-together main wraps lower half only; no skip link; zero aria-live/role= and zero prefers-reduced-motion in the 14 pages; no color-scheme meta so native controls render light.",
+   "root_cause": "No shared page template.",
+   "fix": "Shared shell: skip link, header/main#main/footer, meta color-scheme dark + :root color-scheme, global reduced-motion block, .sr-only.",
+   "effort": "S",
+   "acceptance_test": "axe landmark-one-main/region/bypass/label = 0; reduced-motion emulation leaves document.getAnimations().length===0.",
+   "metric_or_grade_moved": "Accessibility",
+   "audit_refs": [
+    "A6",
+    "D2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Counts exact: 0 role=/aria-live/prefers-reduced-motion/color-scheme on all 14 pages; no <main> on 9."
+  },
+  {
+   "id": "pages-C-08",
+   "title": "Head metadata parity: 8 feature pages lack twitter cards, og:image:alt, JSON-LD, icons",
+   "severity": "medium",
+   "evidence": "grep twitter:card = 0 in historian, immersive, ar, watch-together, turning-points, find-ancestor, cinematic-export, living-ledger; no og:site_name, og:image:alt, rel=icon; titles use 'Animated Battlefield Map' (E2); privacy/terms absent from sitemap.xml (E5).",
+   "fix": "One shared head partial (icons, manifest, OG/Twitter, canonical, WebPage/BreadcrumbList JSON-LD; Article/ItemList on Turning Points); decide product name once; add privacy/terms to sitemap.",
+   "effort": "S",
+   "acceptance_test": "Rich Results Test and Schema validator pass; SEO stays 100; social validators show title/description/image on all 8 pages.",
+   "metric_or_grade_moved": "SEO",
+   "depends_on": [
+    "pages-C-02"
+   ],
+   "audit_refs": [
+    "T1",
+    "E2",
+    "E5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "twitter:card grep=0 on 8 pages. Low impact: /favicon.ico and /apple-touch-icon.png exist at root, so missing <link rel=icon> is minor."
+  },
+  {
+   "id": "pages-C-09",
+   "title": "No shared page CSS: duplicated tokens, generic sans-serif, 26-40 px targets, 10-13 px text",
+   "severity": "medium",
+   "evidence": "Identical :root/header/.controls/.play-btn/#loading blocks (immersive.html:19-38 == watch-together.html:22-55); pages use sans-serif vs nav system-ui (site-nav.css:22); 10px at turning-points.html:29, find-ancestor.html:36, watch-together.html:49, ar.html:45, embed.html:13,17; targets ~30px .play-btn, ~26px .sugg, ~34px .btn-sec.",
+   "fix": "/css/pages.css with tokens, type scale (body 16, UI>=14, meta>=12), --tap:44px, system-ui stack, focus ring, card/btn/chip/field/status components; delete per-page duplicates.",
+   "effort": "M",
+   "acceptance_test": "Playwright: every button/a/input/select >=44x44 at 375px (>=24 desktop) and fontSize>=12; visual regression at 375/768/1440.",
+   "metric_or_grade_moved": "Fit and finish, a11y, mobile UX",
+   "audit_refs": [
+    "A3",
+    "A4",
+    "S4",
+    "D2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Font-size and family line refs verified."
+  },
+  {
+   "id": "pages-C-10",
+   "title": "'Back to the map' uses history.back() and can return to a different page",
+   "severity": "medium",
+   "evidence": "site-nav.js:211-227 wireBackLinks(): if referrer is same-origin and history.length>1 it preventDefaults and calls history.back(); map->AR->Historian->'Back to the map' lands on AR.",
+   "fix": "Use history.back() only when the previous entry is the map (sessionStorage flag set when arriving from / or /index.html, cleared on other navigation); otherwise follow the link.",
+   "effort": "S",
+   "acceptance_test": "Playwright: map->historian->ar->Back ends on /; map->historian->Back restores via bfcache (pageshow.persisted).",
+   "metric_or_grade_moved": "UX, function",
+   "depends_on": [
+    "shared site-nav owner"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "site-nav.js:211-227 logic as described."
+  },
+  {
+   "id": "pages-C-11",
+   "title": "CSP enforcement readiness for these pages",
+   "severity": "medium",
+   "evidence": "netlify.toml:19 Report-Only with 'unsafe-inline'; inline scripts on all 14 pages, inline style attributes (watch-together 9, historian 3, find-ancestor 3, living-ledger 2), innerHTML templating, api.mapbox.com and cdn.jsdelivr.net scripts; RUM host ingesteer.services-prod.nsvcs.net missing from connect-src (X3).",
+   "fix": "Move inline scripts to /js/<page>.js, classes instead of style=, drop 'unsafe-inline' from script-src, add RUM/relay hosts to connect-src, frame-ancestors 'none' globally, separate embed policy; enforce page-by-page after clean report period with report-to.",
+   "effort": "M",
+   "acceptance_test": "securityheaders.com >=A, Observatory >=A, zero CSP violations under Playwright on all pages, RUM beacon still sent.",
+   "metric_or_grade_moved": "Security, best practices",
+   "depends_on": [
+    "pages-C-03",
+    "pages-C-06"
+   ],
+   "audit_refs": [
+    "X3"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "'inline <script> on all 14 pages' is wrong: privacy, terms, 404 have none. watch-together has 10 style= attributes, not 9. Also see missed item 6 (style-src 'self' would block api.mapbox.com CSS)."
+  },
+  {
+   "id": "pages-C-12",
+   "title": "Copy voice: ASCII ' -- ' punctuation and developer-log phrasing",
+   "severity": "low",
+   "evidence": "' -- ' at historian.html:48, immersive.html:46-47, ar.html:56, watch-together.html:63-64,104, cinematic-export.html:49, living-ledger.html:59, find-ancestor.html:52; dev-log at ar.html:56, watch-together.html:64, unit-rendering-reference.html:35.",
+   "fix": "Apply report section 15 copy deck (plain, specific, honest about limits, no build narration).",
+   "effort": "S",
+   "acceptance_test": "grep ' -- ' in shipped HTML = 0; editorial checklist signed.",
+   "metric_or_grade_moved": "Fit and finish, trust",
+   "audit_refs": [
+    "H7",
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Incomplete list: also turning-points:8,46,89,90; immersive:8; ar:165,179,196; cinematic-export:190."
+  },
+  {
+   "id": "pages-C-13",
+   "title": "Shared nav: contrast below AA and menu semantics",
+   "severity": "medium",
+   "evidence": "site-nav.css:96 .gtbg-group-why #6f7686 on #12121e = 4.08:1; :129 footer #6f7686 on #0a0a14 = 4.32:1; .gtbg-here 9.5px; site-nav.js:169 menu button lacks aria-controls/haspopup; Esc closes (:184) but focus not returned; icon-only Historian pin ~32px below 640px.",
+   "fix": "Raise muted colours to >=4.5:1 (#8a93a8=6.0:1), sizes >=12px, aria-controls, return focus on close, pin >=44px.",
+   "effort": "S",
+   "acceptance_test": "axe color-contrast 0 on nav/footer; keyboard test open menu then Esc returns focus to button.",
+   "metric_or_grade_moved": "Accessibility",
+   "depends_on": [
+    "shared site-nav owner"
+   ],
+   "audit_refs": [
+    "A1",
+    "A6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Contrast recomputed 4.08 / 4.32 / 6.03. Historian pin below 640px is about 48x34 px, short in height only."
+  },
+  {
+   "id": "pages-C-14",
+   "title": "Historian: last answer hidden behind sticky input; scroll goes to end of answer not start",
+   "severity": "high",
+   "evidence": "historian.html:35 #ask-row sticky bottom:0 (~78px) overlays scrollport; :174 scrollIntoView({block:'end'}) aligns bubble bottom under the bar; up to 4 addMsg calls per ask each start a smooth scroll; sticky nav (~55px) also covers top if aligned to start.",
+   "root_cause": "Scroll target ignores both sticky bars; answer split into 3 sibling bubbles.",
+   "fix": "One .answer group per question; scroll-margin-top: calc(var(--nav-h)+12px); #transcript padding-bottom: calc(var(--ask-h)+24px) with ResizeObserver-measured --ask-h; group.scrollIntoView({block:'start', behavior: reduced-motion?'auto':'smooth'}); 'Jump to newest' pill; never auto-scroll if user is reading earlier.",
+   "effort": "S",
+   "acceptance_test": "Playwright 375x667 and 1440x900: answer group top within [navH,navH+24]; first 6 lines never intersect #ask-row; >=16px clearance at end; reduced-motion uses instant scroll.",
+   "metric_or_grade_moved": "Usability, mobile UX, core function",
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Static reasoning only: sticky #ask-row :35, scrollIntoView block:end :174, up to 4 addMsg per ask."
+  },
+  {
+   "id": "pages-C-15",
+   "title": "Historian answers are walls of text (206-375-word vignette dumps, 3 at a time)",
+   "severity": "high",
+   "evidence": "historian.html:109 renders full_script in full; 24 vignettes measure min 206/median 303/max 375 words; up to 3 bubbles per query; .msg 14px/1.65 with no paragraph breaks.",
+   "fix": "Answer-card model {title,summary,body?,facts,time,place,units,sources[],links,confidence}; primary card with summary + fact chips + collapsed 'Read the full account' <details> + sources + 'See on the map'; max two collapsed 'Also relevant' cards; 16px/1.6, max-width 65ch, paragraphs every 2-3 sentences; <=120 words visible by default.",
+   "effort": "M",
+   "acceptance_test": "All 24 vignette queries show <=120 words initially; details keyboard-operable; Lighthouse a11y 100; 5-tester task 'who commanded the 20th Maine' <15s.",
+   "metric_or_grade_moved": "UX, fit and finish",
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Vignette words min 206, median 303, max 375 recomputed."
+  },
+  {
+   "id": "pages-C-16",
+   "title": "All 137 chronology answers render 'undefined'; intro overclaims sources; raw IDs leak into prose",
+   "severity": "high",
+   "evidence": "chronology_day*.json keys are tick,time,event,units_involved,location,significance but historian.html:119 reads e.title/e.description and :123 renders ${e.description||e.title}: 137/137 render '...: undefined' (e.g. \"Devil's Den\" query). :48 claims every answer has a source link but chronology sets srcHref:null (:123-124), counts hard-coded; :93 prints 'part of U-I / U-I-1-1'; index.html:377 says 'AI-style historian'.",
+   "root_cause": "Page written against an older schema; no schema test or ID-to-name lookup.",
+   "fix": "Read e.event/significance/units_involved; render 'Day 2 - 7:50am - place - event' with units resolved and map link; resolve corps/brigade IDs via data/oob/*_oob_*.json; every answer gets Sources from file metadata.sources; compute counts at load; rewrite intro (deck 15.1); schema assertion + unit test rendering all 658 entries.",
+   "effort": "M",
+   "acceptance_test": "Node/Playwright renders all 658 corpus entries: none contains 'undefined'/'null'/U-/C- ID patterns/empty href; 100% have >=1 source.",
+   "metric_or_grade_moved": "Core function, trust",
+   "audit_refs": [
+    "H7",
+    "H8"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Core exact (137/137, keys, lines). But: 5 of 15 loaded files have no metadata.sources (vignettes_part2/3, three Confederate regiment corps files = 171 regiments, 16/24 vignettes), so 'Sources from metadata' and the 100%-source test need a data task first; chronology has a dev-instruction 'flag' field on 20 Day-3 events that must not be rendered; rendering e.time re-publishes the C4 clock."
+  },
+  {
+   "id": "pages-C-17",
+   "title": "Historian: no skeleton/error/empty/low-confidence states; leading-space scoring bug",
+   "severity": "high",
+   "evidence": "historian.html:75-80 no catch; :160 t.includes(' '+w) never boosts the first word (text starts with designation): '20th Maine' returns Chamberlain vignette, 15th Alabama, Little Round Top but not the 20th Maine record; 'Gettysburg Address' returns 3 vignettes at 3.9; 'who commanded the Iron Brigade' returns 'Reynolds Falls'; no min score so 'war' matches 'Warren'/'toward'.",
+   "fix": "UI: skeleton+progress, error card with Retry, confidence threshold with 'no good answer' state showing closest matches, 'Did you mean', 'Matched on' line; contract returns confidence+matchedOn; ask retrieval agents to fix boundary bug and stemming.",
+   "effort": "M",
+   "acceptance_test": "Golden set of 60 questions: 100% out-of-scope produce no-answer state; precision@1 target met; offline shows error card.",
+   "metric_or_grade_moved": "Reliability, UX",
+   "depends_on": [
+    "retrieval agents"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Reproduced with page scorer. Nuance: 15th Alabama wins because its key_action contains '20th Maine'; the apostrophe-split 's' token is a second cause and defeats the no-answer path (already owned by hist-current.md:51). The page's own placeholder query '1st Minnesota' ranks 8th Alabama above the regiment record."
+  },
+  {
+   "id": "pages-C-18",
+   "title": "Historian accessibility: unlabeled input, no live region, undersized chips",
+   "severity": "medium",
+   "evidence": "historian.html:55 input has placeholder only; #transcript (:52) no role=log/aria-live; .sugg (:33) ~26px at 12px; back link 12px (:21); .src 11px (:30); focus stays on chip after click.",
+   "fix": "Hidden <label for=ask>; role=log aria-live=polite plus separate role=status short summary ('Answer ready: ... 2 related'); chips min-height 44px 14px in role=group; return focus to #ask; sizes >=14px.",
+   "effort": "S",
+   "acceptance_test": "axe 0 violations; VoiceOver/NVDA announces answer once; targets >=44px at 375.",
+   "metric_or_grade_moved": "Accessibility",
+   "audit_refs": [
+    "A2",
+    "A3",
+    "A4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Line refs verified."
+  },
+  {
+   "id": "pages-C-19",
+   "title": "Historian mobile keyboard/viewport handling",
+   "severity": "medium",
+   "evidence": "historian.html:36 15px input (iOS zoom); viewport meta lacks viewport-fit=cover/interactive-widget; sticky bar has no safe-area padding; no visualViewport handling.",
+   "fix": "16px input; viewport 'viewport-fit=cover, interactive-widget=resizes-content'; visualViewport resize re-scrolls to answer start; padding-bottom env(safe-area-inset-bottom); enterkeyhint=send, autocapitalize=sentences, spellcheck; dvh units.",
+   "effort": "S",
+   "acceptance_test": "Real iPhone and Pixel: keyboard opens, latest answer top visible, no zoom, bar clears home indicator.",
+   "metric_or_grade_moved": "Mobile UX",
+   "audit_refs": [
+    "S4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Viewport meta plain at historian:5; 15px input at :36."
+  },
+  {
+   "id": "pages-C-20",
+   "title": "Historian chips and follow-ups are static",
+   "severity": "medium",
+   "evidence": "historian.html:147 five hard-coded chips rendered once between transcript and input and pushed down as chat grows; no follow-ups; :150 chip click leaves input filled.",
+   "fix": "Grouped starter chips collapsing to a Suggestions popover after first ask; 2-4 contextual follow-up chips from answer links/units/place; clear input; rotating 'question of the day'.",
+   "effort": "M",
+   "acceptance_test": "After '20th Maine' follow-ups reference that unit; chips >=44px; input cleared.",
+   "metric_or_grade_moved": "UX, discoverability",
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Five static chips at :147."
+  },
+  {
+   "id": "pages-C-21",
+   "title": "Historian conversation features missing (persistence, clear, copy/share, ?q=, shortcuts)",
+   "severity": "medium",
+   "evidence": "No code for history, deep link, copy or shortcuts; transcript lost on reload.",
+   "fix": "?q= deep link (updates title), Copy answer/link, New conversation, last 20 turns in sessionStorage only, shortcuts (/ focus, Esc clear, ArrowUp recall), local-only 'Was this right?' with export-by-mailto for evaluation set (no analytics).",
+   "effort": "M",
+   "acceptance_test": "/historian.html?q=20th+Maine answers without interaction; refresh keeps session; shortcuts work; privacy page lists the storage key.",
+   "metric_or_grade_moved": "UX, SEO",
+   "audit_refs": [
+    "H8",
+    "T1"
+   ],
+   "verdict": "NOT_VERIFIED",
+   "correction": null
+  },
+  {
+   "id": "pages-C-22",
+   "title": "Historian innerHTML sinks with data-driven strings",
+   "severity": "low",
+   "evidence": "historian.html:172 div.innerHTML = html + '<a class=src href=\"${src.srcHref}\">' with data-built html and unescaped attribute; :178 user echo escapes only '<'.",
+   "fix": "Build DOM with createElement/textContent, whitelist <b>/<i> via tiny renderer or DOMPurify allow-list, validate href ^/(?!/); mandatory before ingesting third-party text.",
+   "effort": "S",
+   "acceptance_test": "Unit test injects '<img src=x onerror=alert(1)>' and attribute-breaking strings in every field: no script runs, DOM text-only.",
+   "metric_or_grade_moved": "Security hygiene",
+   "audit_refs": [
+    "X3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "innerHTML with unescaped srcHref at :172; user echo escapes only '<' at :178."
+  },
+  {
+   "id": "pages-C-23",
+   "title": "Historian client architecture will not scale: 15 fetches (350 KB) and main-thread corpus build",
+   "severity": "medium",
+   "evidence": "historian.html:75-80 8 OOB + 3 vignette + 3 chronology + terrain = 214,547+136,176 = 350,723 B raw; corpus built before UI shown (:142-145); sw.js:61-70 data network-first.",
+   "fix": "Show UI immediately; build index in a Web Worker or precompute historian-index.json shards; lazy load on first focus; cache in IndexedDB keyed by data version; keep answer-card contract stable across keyword/hybrid/LLM engines.",
+   "effort": "M",
+   "acceptance_test": "Lighthouse mobile TBT<=200ms, INP<=200ms while typing; input usable <=1s on Slow 4G; <=3 requests before first render.",
+   "metric_or_grade_moved": "Performance (INP/TBT), scalability",
+   "depends_on": [
+    "retrieval-architecture agent"
+   ],
+   "audit_refs": [
+    "P3"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "15 fetches right, bytes wrong: 8 OOB files = 181,612 B (not 214,547); total 317,788 B (not 350,723), matching hist-current.md's 318 KB."
+  },
+  {
+   "id": "pages-C-24",
+   "title": "Immersive: no mute or silent mode; Pause leaves the drone running",
+   "severity": "high",
+   "evidence": "immersive.html:53-55,154-158 only 'Enable Sound & Start'; Play disabled until then (:58); droneOsc.start() (:125) never stopped, Pause only clearInterval (:219) so 55 Hz drone continues; no mute toggle.",
+   "fix": "Two-button gate (Start with sound / Continue without sound); persistent mute toggle (aria-pressed, M key); Pause ramps master to 0 in 150ms then audioCtx.suspend(); stop drone on pagehide.",
+   "effort": "S",
+   "acceptance_test": "AnalyserNode probe: RMS < -80 dB within 300 ms of Pause; silent mode never creates AudioContext; Play enabled in silent mode.",
+   "metric_or_grade_moved": "Usability, accessibility (WCAG 1.4.2)",
+   "audit_refs": [
+    "A2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Downgrade high to medium. Drone not stopped on Pause is real (immersive:125,219) but WCAG 1.4.2 is misapplied: no autoplay (gate click) and an independent volume slider exists (0=silent); drone is 0.06 x master."
+  },
+  {
+   "id": "pages-C-25",
+   "title": "Immersive volume: unlabeled, abrupt linear mapping, not persisted",
+   "severity": "medium",
+   "evidence": "immersive.html:61-62 span+range not associated; :117,160 gain.value = v/100*0.35 set instantly (zipper noise) and linearly; reload resets to 55.",
+   "fix": "<label for=volume>, aria-valuetext, g=0.35*(v/100)^2, setTargetAtTime(g,t,0.02), persist {vol,muted} in localStorage gtbg_immersive_v1 with try/catch (never auto-start audio), step 5, visible percent.",
+   "effort": "S",
+   "acceptance_test": "axe label passes; slider sweep has no discontinuities >0.05 in offline render; reload restores value.",
+   "metric_or_grade_moved": "Accessibility, usability",
+   "audit_refs": [
+    "A2"
+   ],
+   "verdict": "NOT_VERIFIED",
+   "correction": null
+  },
+  {
+   "id": "pages-C-26",
+   "title": "Immersive hearing safety: no limiter, instantaneous attacks, no warning",
+   "severity": "high",
+   "evidence": "immersive.html:133,146 buffers start at full-scale noise on sample 0 (gain 0.9 at :136); no DynamicsCompressorNode, polyphony cap or fade-in; peak sum currently <~0.8 at slider 100 so risk is harsh transient, not clipping; no content warning on gate (:53-55).",
+   "fix": "Chain voices->master->DynamicsCompressor(-18dB,knee 12,ratio 8,attack 3ms,release 250ms)->soft clip/second compressor(-3dB,ratio 20)->destination; 8-15ms attack envelopes; cap 4 voices; 1.5s fade-in; ceiling ~-6 dBFS; default volume 35%; gate warning about sudden loud sounds/headphones.",
+   "effort": "M",
+   "acceptance_test": "OfflineAudioContext 60s at max intensity and slider 100: sample peak <=0.5 and no onset jump >0.2; warning visible.",
+   "metric_or_grade_moved": "Safety, trust, accessibility",
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "Downgrade high to low/medium. Simulated the actual graph: default slider peaks cannon -26.5 dBFS, musket -17.6 dBFS; slider 100 cannon -21.4, musket -12.4; worst-case straight sum -7.3 dBFS. No clipping; limiter/warning are hygiene."
+  },
+  {
+   "id": "pages-C-27",
+   "title": "Immersive sound model never goes quiet and contradicts its copy",
+   "severity": "high",
+   "evidence": "Copy immersive.html:46-47 promises quiet and 'more units in contact means more and louder cues'; :202-207 cannon eligible if artilleryCount>0 with fixed gain (662/675 ticks), musket if lines>3 (640/675); simulated loop ~209 booms+400 crackles in 236s; all 135 page-defined 'night' ticks (hourForTick :169-173) remain cannon-eligible because forward-fill never expires; only 152 of 467 units have placements.",
+   "root_cause": "Disposition strings used as combat proxy; forward-fill keeps units Deployed forever.",
+   "fix": "Per-tick intensity series from casualty_apportionment engagement windows (tick_range, peak_tick), chronology significance and artillery-in-range tests; cannon rate ~ intensity*sqrt(artillery in view); silence outside windows plus low night bed; StereoPanner/distance from map camera; honest copy (deck 15.2).",
+   "effort": "L",
+   "acceptance_test": "Offline render: RMS in unified-clock 22:00-04:00 >=20 dB below Pickett's cannonade; no night cannon; cannon/min correlates r>=0.7 with intensity series.",
+   "metric_or_grade_moved": "Historical accuracy, function, trust",
+   "depends_on": [
+    "pages-C-31",
+    "data agents"
+   ],
+   "audit_refs": [
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Reproduced 694 records, 152 units, 662/675 cannon, 640/675 musket, 135 night ticks all cannon-eligible."
+  },
+  {
+   "id": "pages-C-28",
+   "title": "Immersive: iOS silent switch, interruptions and visibility unmanaged",
+   "severity": "high",
+   "evidence": "AudioContext created in click (immersive.html:114-115,154) which is correct; no navigator.audioSession (Safari 16.4+; needed or ring/silent switch mutes Web Audio), no statechange handling (iOS interrupted/suspended), no visibilitychange/pagehide (setInterval throttles but booms continue).",
+   "fix": "Set navigator.audioSession.type='playback' before creating context (silent looping <audio> fallback for older iOS); statechange UI 'Tap to resume'; pause on hidden; ctx.close() on pagehide.",
+   "effort": "M",
+   "acceptance_test": "Real iPhone with silent switch on plays; lock/unlock and incoming call resume with one tap; hidden tab pauses.",
+   "metric_or_grade_moved": "Function on iOS, reliability",
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "No visibilitychange/pagehide/statechange/audioSession in any of the 5 pages; Safari 16.4+ audioSession confirmed by search."
+  },
+  {
+   "id": "pages-C-29",
+   "title": "Immersive CPU/GC and GPU cost: per-event buffers and whole-map blend layer",
+   "severity": "medium",
+   "evidence": "immersive.html:128-152 allocates a 0.9s buffer (~43k samples) with Math.random on main thread plus new filter/gain graph per event (~47 MB churn per 236s loop); :29 mix-blend-mode:multiply overlay over the WebGL map; backdrop-filter on gate.",
+   "fix": "Pre-render 4 cannon + 6 musket variants once (OfflineAudioContext) and reuse with random playbackRate/detune/pan; replace multiply overlay with normal-blend rgba or map fog/light; drop backdrop-filter.",
+   "effort": "M",
+   "acceptance_test": "Trace: no GC pause >5ms during playback, scripting <2% of frames, 60fps on mid-range Android.",
+   "metric_or_grade_moved": "Performance, battery",
+   "audit_refs": [
+    "P2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Downgrade medium to low: ~47 MB per 236 s is about 0.2 MB/s, negligible GC. Only the multiply-blend overlay is a plausible GPU cost."
+  },
+  {
+   "id": "pages-C-30",
+   "title": "Immersive reduced motion, captions and a11y for an audio-only feature",
+   "severity": "medium",
+   "evidence": "No prefers-reduced-motion (overlay transition 1.2s, immersive.html:29); no captions/visual cues for deaf users; #tick-display raw 'Tick N / 675' (:59); #map no role/label; focus falls to body after gate removal (:156); Play ~30px.",
+   "fix": "Sound-caption strip ('[distant cannon fire]') driving a subtle map pulse (disabled under reduced motion); region label on map; focus Play after gate; day/time readout; aria-pressed; 44px controls.",
+   "effort": "M",
+   "acceptance_test": "axe clean; reduced-motion shows no transitions; every audio event has a text equivalent within 250 ms.",
+   "metric_or_grade_moved": "Accessibility",
+   "audit_refs": [
+    "A2",
+    "A3",
+    "A6"
+   ],
+   "verdict": "NOT_VERIFIED",
+   "correction": null
+  },
+  {
+   "id": "pages-C-31",
+   "title": "Immersive atmosphere/readout uses a third clock",
+   "severity": "medium",
+   "evidence": "immersive.html:169-173 hourForTick = 5:00+(tick-dayStart)*5min (time-facts variant F) vs map base 6:00/4:00; dusk/night tints at wrong real moments; tick 675 reads night hour.",
+   "fix": "Import shared gtbg-clock.js once C4 resolved; derive daylight from a solar model for lat 39.83, lng -77.23 on July 1-3 1863.",
+   "effort": "S",
+   "acceptance_test": "Unit test: sunrise/dusk tints within 15 min of computed solar times (constants verified with time agents).",
+   "metric_or_grade_moved": "Historical consistency",
+   "depends_on": [
+    "unified clock (C4)"
+   ],
+   "audit_refs": [
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "hourForTick :169-173; tick 675 = hour 23."
+  },
+  {
+   "id": "pages-C-32",
+   "title": "Immersive start-up: map gated behind all data, blocking script, no error path",
+   "severity": "medium",
+   "evidence": "immersive.html:76 waits for 9 placement files (126,698 B) before new Map (:106); Mapbox script blocks head; no map.on('error'); no WebGL check (verify mapboxgl.supported in v3).",
+   "fix": "Construct map immediately, fetch in parallel, enable Play when both ready; map.on('error') UI; WebGL feature message; aspect-ratio/dvh map box.",
+   "effort": "S",
+   "acceptance_test": "Offline/blocked-token Playwright run shows visible error; LCP/FCP improve vs baseline.",
+   "metric_or_grade_moved": "Performance, reliability",
+   "audit_refs": [
+    "P3",
+    "P4"
+   ],
+   "verdict": "NOT_VERIFIED",
+   "correction": null
+  },
+  {
+   "id": "pages-C-33",
+   "title": "Immersive controls: silent loop wrap, no scrubber/presets/deep link",
+   "severity": "low",
+   "evidence": "immersive.html:217 wraps 675->1 forever; fixed 350ms/tick; no scrubber, day tabs, key-moment presets or ?t=.",
+   "fix": "Scrubber with day markers, key-moment presets from vignettes, speeds labelled in sim-minutes/second (H9), end card, ?t=/?v= support.",
+   "effort": "M",
+   "acceptance_test": "Presets land within one tick of trigger; keyboard operable; ?v=V-018 starts there.",
+   "metric_or_grade_moved": "UX, completeness",
+   "audit_refs": [
+    "H9"
+   ],
+   "verdict": "NOT_VERIFIED",
+   "correction": null
+  },
+  {
+   "id": "pages-C-34",
+   "title": "AR: iOS compass permission requested after two awaits (user gesture likely lost)",
+   "severity": "critical",
+   "evidence": "ar.html:154-202 order: await loadLocations() (:156) -> await getUserMedia (:160) -> await geolocation promise (:170-177) -> DeviceOrientationEvent.requestPermission() (:184-186); web sources: iOS throws NotAllowedError without a gesture; catch (:189) then shows 'Compass unavailable' and heading stays 0. Inference: confirm on iPhone.",
+   "root_cause": "Permission order chosen for narrative flow, not platform constraints.",
+   "fix": "Call requestPermission() as the first synchronous statement in the click handler, preload terrain at page load, then camera, then location; per-step Retry buttons (each its own gesture).",
+   "effort": "S",
+   "acceptance_test": "Real iPhone iOS 17/18: Start shows Motion & Orientation prompt first and heading updates; Android unaffected; unit test asserts requestPermission called before any await.",
+   "metric_or_grade_moved": "Core function (mobile), reliability",
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "Call order and lines exact. Gesture loss across two OS prompts is inference, not verified; label severity 'high until iPhone-tested' (critical only if confirmed)."
+  },
+  {
+   "id": "pages-C-35",
+   "title": "AR heading math: relative alpha on Chrome, upright-only formula, magnetic vs true north, no smoothing/calibration",
+   "severity": "high",
+   "evidence": "ar.html:141-152 uses webkitCompassHeading else 360-alpha; Chrome>=50 deviceorientation alpha is relative (needs deviceorientationabsolute); bearings are true (:103-107) while sensors are magnetic (declination roughly -10 to -11 deg at Gettysburg, compute exactly) = ~56px error at 375px/70deg FOV, ~490 ft lateral at 0.5 mi; raw 60Hz events applied (:151).",
+   "fix": "getHeading(): iOS webkitCompassHeading+accuracy; Android deviceorientationabsolute (absolute===true) else AbsoluteOrientationSensor; W3C compassHeading(alpha,beta,gamma) formula; trueHeading=magnetic+WMM declination; circular low-pass filter, 1 deg dead-band, <=30Hz; one-tap 'Align' landmark calibration; accuracy chip.",
+   "effort": "M",
+   "acceptance_test": "On site or replayed traces: bearing error to Big Round Top from Little Round Top <5 deg; still-phone jitter <=1 deg; unit tests for heading formula, declination, filter.",
+   "metric_or_grade_moved": "Core function, accuracy",
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "Math and lines confirmed (56 px, 490 ft). Blanket 'true = magnetic + declination' is unsafe on iOS: Apple docs say webkitCompassHeading is magnetic, other sources say true when location is available. Measure on device; apply declination only to proven-magnetic sources (Android deviceorientationabsolute)."
+  },
+  {
+   "id": "pages-C-36",
+   "title": "AR camera stream and GPS watch never released on failure/exit",
+   "severity": "high",
+   "evidence": "ar.html:159-167 camera acquired then return at :178-181 on geolocation failure without stopping tracks; :172 watchPosition id never stored and Exit (:204-210) never clearWatch; repeated Start stacks streams/watchers.",
+   "fix": "state={stream,watchId,handler} with one stopAll() on failure, Exit, pagehide, visibilitychange:hidden, track.onended; disable Start while starting.",
+   "effort": "S",
+   "acceptance_test": "Playwright fake devices: no live tracks after geolocation denial; clearWatch spy called on Exit; camera indicator off on device.",
+   "metric_or_grade_moved": "Privacy, battery, reliability",
+   "audit_refs": [
+    "X5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "ar.html:159-167,172,178-181,204-210 as described; Start never disabled."
+  },
+  {
+   "id": "pages-C-37",
+   "title": "AR geolocation errors conflated as 'denied'; 10s timeout unrealistic",
+   "severity": "high",
+   "evidence": "ar.html:174 error callback ignores err.code -> 'Location denied'; :175 {enableHighAccuracy:true,timeout:10000} without maximumAge; no coords.accuracy shown; raw lat/lng HUD (:137).",
+   "fix": "Branch on err.code (denied -> OS recovery steps; unavailable -> move outdoors; timeout -> keep waiting, retry timeout 30000/maximumAge 5000, low-accuracy first fix); Permissions API pre-check; show 'GPS +/- 12 m', warn >30 m; remove raw coordinates.",
+   "effort": "S",
+   "acceptance_test": "Simulate each error code: distinct message and recovery action; accuracy chip updates.",
+   "metric_or_grade_moved": "Reliability, UX",
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "err.code ignored :174; timeout 10000 without maximumAge :175."
+  },
+  {
+   "id": "pages-C-38",
+   "title": "AR gives desktop/no-sensor/off-site visitors a broken experience",
+   "severity": "high",
+   "evidence": "ar.html:192 'DeviceOrientationEvent' in window is true on desktop so 'Compass active' with heading fixed 0; webcam shows the room; no distance check (terrain.json bounds N39.850 S39.770 E-77.180 W-77.290); copy just says 'needs a phone' (:56).",
+   "fix": "Detect sensors (wait <=1.5s for non-null alpha/beta/gamma); distance gate >15 km with message; Preview mode (choose vantage, drag/keys/gyro look-around, markers over Mapbox 3D terrain or panorama); always-available List view.",
+   "effort": "L",
+   "acceptance_test": "Desktop Chrome offers Preview instead of webcam; mocked far location shows distance message; keyboard pan works; Lighthouse a11y 100.",
+   "metric_or_grade_moved": "Function on desktop, UX, engagement",
+   "audit_refs": [
+    "S4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Bounds verified in terrain.json metadata; 'DeviceOrientationEvent' in window true on desktop."
+  },
+  {
+   "id": "pages-C-39",
+   "title": "AR markers: unreadable pile-ups, not tappable, ignore elevation/pitch, hard-coded FOV, DOM rebuilt at sensor rate",
+   "severity": "high",
+   "evidence": "From Little Round Top facing north 22 of 30 labels are in FOV (computed) at top:40% with 12px ~120px labels; town square facing south 18; ar.html:41 pointer-events:none; :38 constant vertical; :122 FOV=70 guess (portrait cameras narrower, uncertain); :120 overlay.innerHTML='' per orientation event defeats :40 transition; .dist 10px.",
+   "fix": "Persistent nodes keyed by location_id with translate3d in rAF <=30Hz; cap 6 labels via importance*proximity, row-stack collisions, '+N more' to list; vertical = horizon-(elevAngle-pitch)*pxPerDeg using elevations; FOV calibration slider with device defaults; tap opens bottom sheet; >=14px labels, 44px hit areas; skip markers <30 m.",
+   "effort": "L",
+   "acceptance_test": "From LRT facing north <=6 labels with zero bbox overlaps; tap opens details; <2ms scripting/frame at 60fps; no innerHTML rebuild.",
+   "metric_or_grade_moved": "Core function, fit and finish",
+   "audit_refs": [
+    "A3",
+    "A4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "22 of 30 labels from LRT facing north recomputed; 29/30 within 3 mi."
+  },
+  {
+   "id": "pages-C-40",
+   "title": "AR disclaimer voice, safety notice and beta labelling",
+   "severity": "medium",
+   "evidence": "ar.html:56 'real, working implementation ... which we haven't been able to do from here' (dev narration); no physical-safety or park-rules notice.",
+   "fix": "Deck 15.3 copy with expected accuracy (10-15 deg, 5-30 m), Beta badge, 'Tested on ... <date>' after field test, safety/NPS-rules line, mirrored in Terms.",
+   "effort": "S",
+   "acceptance_test": "Copy review; device test log attached.",
+   "metric_or_grade_moved": "Trust, legal, voice",
+   "audit_refs": [
+    "H7"
+   ],
+   "verdict": "NOT_VERIFIED",
+   "correction": null
+  },
+  {
+   "id": "pages-C-41",
+   "title": "AR permission education and persistent status",
+   "severity": "medium",
+   "evidence": "ar.html:62-66 status rows live in start card hidden at :200 so denied compass/low GPS never visible again; #err-box no role=alert; no aria-live.",
+   "fix": "Primer cards per permission ('nothing leaves your device'), sequential steps with per-step Retry, platform-specific re-enable instructions via Permissions API, persistent HUD chips (Camera, GPS +/- m, Compass), role=status/alert.",
+   "effort": "M",
+   "acceptance_test": "Deny each permission in turn: correct recovery text, HUD chip persists, screen reader announces.",
+   "metric_or_grade_moved": "UX, reliability",
+   "audit_refs": [],
+   "verdict": "NOT_VERIFIED",
+   "correction": null
+  },
+  {
+   "id": "pages-C-42",
+   "title": "AR battery/wake lock/layout",
+   "severity": "medium",
+   "evidence": "No navigator.wakeLock (screen locks ~30s and camera stops); continuous enableHighAccuracy; DOM rebuild at sensor rate; ar.html:34 68vh card not full-screen; manifest orientation:landscape (E1) conflicts.",
+   "fix": "Request screen wake lock (release on exit/hidden, re-acquire on visibility); Battery saver (15Hz UI, low accuracy after first fix); idle auto-exit prompt; 100dvh layout with safe-area, landscape support; drop manifest orientation lock.",
+   "effort": "M",
+   "acceptance_test": "Screen stays on 5 min; <=8%/10min battery in saver mode on mid-range phone; portrait and landscape usable.",
+   "metric_or_grade_moved": "Reliability, mobile UX",
+   "audit_refs": [
+    "E1"
+   ],
+   "verdict": "NOT_VERIFIED",
+   "correction": null
+  },
+  {
+   "id": "pages-C-43",
+   "title": "AR has no non-visual alternative",
+   "severity": "medium",
+   "evidence": "Purely visual overlay; #ar-hud 11px, .dist 10px, Exit ~30px; no text equivalent.",
+   "fix": "Always-available List view (nearest first with compass words, distance, elevation, significance); 'What am I facing?' button announcing top 3 via aria-live; works without camera/compass.",
+   "effort": "M",
+   "acceptance_test": "Screen-reader user completes 'find the nearest high ground' without the camera.",
+   "metric_or_grade_moved": "Accessibility",
+   "audit_refs": [
+    "A6"
+   ],
+   "verdict": "NOT_VERIFIED",
+   "correction": null
+  },
+  {
+   "id": "pages-C-44",
+   "title": "AR data: terrain.json typo and thin POI set",
+   "severity": "low",
+   "evidence": "data/terrain.json:50 name 'Gulp's Hill saddle' (should be Culp's; only occurrence); AR uses only 30 key_locations (ar.html:115); 29 of 30 within 3 mi of LRT so :125 filter rarely helps.",
+   "fix": "Correct name; extend with 512 monuments, NPS wayside/tour/walkthrough stops (lat,lng,elevation,category,text) and importance weights.",
+   "effort": "S",
+   "acceptance_test": "Data lint/gazetteer spell-check passes; AR list from 5 sample vantages shows >=6 relevant POIs each.",
+   "metric_or_grade_moved": "Data accuracy, function",
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "terrain.json:50 typo is the only occurrence. The 512 monuments exist only as _A in bundle.pretty.js:104440 (lat/lon, no elevation); data/monuments.json has 9."
+  },
+  {
+   "id": "pages-C-45",
+   "title": "Permissions-Policy grants camera/geolocation/motion to every page",
+   "severity": "low",
+   "evidence": "netlify.toml:13 camera=(self), geolocation=(self), accelerometer/gyroscope/magnetometer=(self) on /*; only /ar.html needs camera/sensors; bundled Mapbox has GeolocateControl (bundle.pretty.js:94853; verify app use).",
+   "fix": "Default camera=(), accelerometer=(), gyroscope=(), magnetometer=(); grant only on /ar.html; verify override semantics on deploy preview with curl -I, else Edge Function.",
+   "effort": "S",
+   "acceptance_test": "curl -I shows expected policy per path; AR works; other pages cannot getUserMedia.",
+   "metric_or_grade_moved": "Security (least privilege)",
+   "depends_on": [
+    "pages-C-87"
+   ],
+   "audit_refs": [
+    "X3"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Map never uses geolocation (GeolocateControl class never instantiated; navigator.geolocation only at ar.html:171-172), so geolocation=(self) can also be restricted to /ar.html."
+  },
+  {
+   "id": "pages-C-46",
+   "title": "Watch Together stored XSS: notes and imported tour files injected with innerHTML",
+   "severity": "high",
+   "evidence": "watch-together.html:172 row.innerHTML template with ${s.tick} and ${s.note}; import (:320-333) does stops=data.stops after only Array.isArray then saveStops (:161) so payload re-executes on every load; sharing .json files is the stated use (:63); PoC note '<img src=x onerror=alert(document.domain)>'; report-only CSP with 'unsafe-inline' blocks nothing; no size/count limits.",
+   "root_cause": "String-template rendering of untrusted data; no schema validation.",
+   "fix": "Render with createElement/textContent; strict parseTour(): <=64KB, type/version check, <=100 stops, integer tick 1..675, note stripped of control chars and <=280 chars; validate localStorage on load; inline role=alert errors instead of alert(); CSP without unsafe-inline later.",
+   "effort": "S",
+   "acceptance_test": "Unit test with PoC and 20 fuzz payloads plus 10 MB file: none executes, invalid rejected, DOM text-only; valid export round-trips.",
+   "metric_or_grade_moved": "Security, trust",
+   "audit_refs": [
+    "X3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "innerHTML :172, import assigns data.stops after only Array.isArray :320-333, persisted :161."
+  },
+  {
+   "id": "pages-C-47",
+   "title": "Replace public PeerJS broker with an owned relay (reliability, privacy, supply chain)",
+   "severity": "high",
+   "evidence": "watch-together.html:17-19 public broker comment, :224,251 new Peer() with no config; peerjs@1.5.4 min.js (92,865 B; 25,491 gz) defaults to 0.peerjs.com, stun:stun.l.google.com:19302 and turn:eu-0/us-0.turn.peerjs.com:3478 with shared credential peerjs/peerjsp (verified); broker HTTP 200 EU; sources: donation-funded, no SLA, past outages; no SRI (:19); IPs exposed to broker/STUN/TURN/jsDelivr and between peers; privacy page silent (X5).",
+   "fix": "Option A (recommended): Netlify Function v2 + @netlify/blobs polling relay (POST /api/room -> {code,hostToken}; PUT with Bearer; GET ?since=seq with ETag/304; DELETE), function-level rateLimit, TTL 6h, clients interpolate tick from serverT0/rate; Option B Cloudflare Worker+Durable Object WebSocket; C self-host PeerServer+coturn; D managed realtime. Netlify Functions have no WebSockets.",
+   "effort": "L",
+   "acceptance_test": "Host + 3 viewers on different networks (incl. CGNAT, corporate firewall) follow within 2s p95; host kill shows 'Host disconnected' <10s; no requests to *.peerjs.com or stun.l.google.com; privacy page updated.",
+   "metric_or_grade_moved": "Reliability, privacy, function",
+   "depends_on": [
+    "pages-C-48",
+    "pages-C-49",
+    "pages-C-50",
+    "pages-C-81"
+   ],
+   "audit_refs": [
+    "X5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "PeerJS facts verified (92,865 B, 25,489 B gz, defaults, broker 200). Netlify rateLimit facts verified. Design flaw: windowLimit 120/60 s per IP on 1 Hz polling would 429 a classroom of 25-30 students on one NAT IP; rate-limit create/join only, key polling by room token, or poll every 3-5 s."
+  },
+  {
+   "id": "pages-C-48",
+   "title": "Room codes: 5 letters from Math.random in a shared global namespace; generic collision error",
+   "severity": "high",
+   "evidence": "watch-together.html:205-210 24^5=7,962,624 codes via Math.random; peer id gtbg-wt-CODE (:224) in global PeerJS namespace; unavailable-id mapped to generic error (:241); no host secret, join auth, rate limit or expiry.",
+   "fix": "Server-issued 6-8 char code via crypto.getRandomValues from consonants+digits (28^6=481M, no vowels), 256-bit host token required to publish, read-only viewers, TTL 6h, rateLimit on create/poll, constant-time compare, silent collision retry.",
+   "effort": "M",
+   "acceptance_test": "1,000 creates unique; publish without token 401; 200 rapid joins trigger 429; expired room returns 410 with friendly copy.",
+   "metric_or_grade_moved": "Security, reliability",
+   "depends_on": [
+    "pages-C-47"
+   ],
+   "audit_refs": [
+    "X5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "24^5=7,962,624; 28^6=481,890,304."
+  },
+  {
+   "id": "pages-C-49",
+   "title": "'Live Sync' only shares stop-to-stop slides; viewers can run their own tour; copy overpromises",
+   "severity": "high",
+   "evidence": "broadcastTick only from goToTick when host (watch-together.html:193), called only on add stop (:287), tour play (:301), load (:275,:328); no live playback/scrub/camera; viewers compute own bounds (:190-191) and can press Play tour (:291); copy ':64' and ':104' claim same tick moves in real time; sync lives on a dots-only lite map.",
+   "fix": "Shared state {tick,playing,rate,serverT0,cam,note,seq}; host Play/Pause/scrub/speed/camera; viewer Follow/Explore toggle with Return to host and locked authoring; late-join snapshot; host handoff; participant count; add playback+scrubber to lite map now; in-app sync depends on deep-link/store hooks.",
+   "effort": "L",
+   "acceptance_test": "Host scrubs 200 ticks: viewers within +/-1 tick after 2s; pause/resume propagate; viewer Play disabled while following; late joiner lands on current state.",
+   "metric_or_grade_moved": "Core function, UX",
+   "depends_on": [
+    "pages-C-47",
+    "pages-C-01"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "broadcast only from goToTick when host; viewers can Play tour."
+  },
+  {
+   "id": "pages-C-50",
+   "title": "Watch Together connection robustness: no timeouts, reconnect, end session or specific errors",
+   "severity": "high",
+   "evidence": "Join never times out if ICE fails (watch-together.html:250-255; STUN-only/CGNAT failure commonly cited 10-20%, not measured); peer 'disconnected' unhandled; errors collapse to generic (:241,:260,:262); no Leave/End session (re-clicking Host destroys the session silently, :220); iOS background kills link.",
+   "fix": "If WebRTC remains: 15s watchdog, peer.reconnect(), err.type-specific copy, Leave/End buttons, auto-retry unavailable-id, own TURN and optional relay-only mode; with relay: heartbeat + resume-from-snapshot.",
+   "effort": "M",
+   "acceptance_test": "Blocked UDP shows clear message within 15s; broker drop auto-recovers; End session tears down with confirmation.",
+   "metric_or_grade_moved": "Reliability, UX",
+   "depends_on": [
+    "pages-C-47"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "No 'disconnected' handler; generic errors at :241,:260,:262. The 10-20% ICE failure rate is unmeasured."
+  },
+  {
+   "id": "pages-C-51",
+   "title": "'Add stop' adds tick 1 when field empty; out-of-range silently clamped",
+   "severity": "medium",
+   "evidence": "watch-together.html:281-282 Math.max(1,Math.min(675,parseInt(v,10)||0)) yields 1 for empty/NaN so 'if(!tick) return' is dead; 700 -> 675 silently; input type=text (:79).",
+   "fix": "Strict integer parse with inline role=alert error; type=number min/max or key-moment picker.",
+   "effort": "S",
+   "acceptance_test": "Unit tests: '', 'abc', '0', '676', '12.5' rejected; ' 12 ' accepted; empty Add stop adds nothing.",
+   "metric_or_grade_moved": "Function",
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "NaN||0 then Math.max(1,0)=1 so empty input adds tick 1."
+  },
+  {
+   "id": "pages-C-52",
+   "title": "Unguarded localStorage/JSON.parse kills the page script",
+   "severity": "medium",
+   "evidence": "watch-together.html:159 JSON.parse(localStorage.getItem(...)) and :161 setItem without try/catch; throws in blocked storage or on corrupt value; everything after :159 never runs while map renders.",
+   "fix": "safeStorage wrapper + schema validation; message 'Your tour won't be saved after you leave; export to keep it'; keep working in memory.",
+   "effort": "S",
+   "acceptance_test": "Playwright with throwing localStorage: page fully functional and message shown.",
+   "metric_or_grade_moved": "Reliability",
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "watch-together:159,161."
+  },
+  {
+   "id": "pages-C-53",
+   "title": "Tour authoring and playback UX is a prototype",
+   "severity": "medium",
+   "evidence": "Raw ticks with no day/time (watch-together.html:172); no moment picker; auto-sort by tick (:168); no edit/reorder/undo/title; 16px delete buttons all labelled 'Remove stop' (:172); fixed 3.2s dwell (:304); Pause restarts at stop 1 (:297); no prev/next; import replaces silently (:326) and uses alert() (:330).",
+   "fix": "Editor with key-moment picker (unified clock labels), 'Add current moment', inline edit, per-stop duration (3s+60ms/char), reorder, title/author, autosave, undo toast, merge/replace confirm; player with Play/Pause/Resume, Prev/Next, keys, progress; accessible names with stop info.",
+   "effort": "L",
+   "acceptance_test": "Keyboard-only create/edit/reorder/undo; Pause then Play resumes at same stop; 280-char note readable (dwell >= reading time).",
+   "metric_or_grade_moved": "UX, completeness",
+   "depends_on": [
+    "unified clock (C4)"
+   ],
+   "audit_refs": [
+    "C4",
+    "H9"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "playIdx=0 on every play toggle; alert() on import error."
+  },
+  {
+   "id": "pages-C-54",
+   "title": "Watch Together sharing: file-only, Safari download bug, inaccessible import, no link/QR",
+   "severity": "medium",
+   "evidence": "watch-together.html:312-318 revokeObjectURL immediately after a.click() (anchor not in DOM) can cancel Safari/iOS download; :90 label-wrapped display:none file input not keyboard-focusable; only .json sharing.",
+   "fix": "'Copy share link' with tour in URL fragment (#tour=base64url(deflate(json)), never sent to server) through the validator; Web Share API; local QR; append anchor + setTimeout(revoke,1000); real button that calls input.click(); ?join=CODE links.",
+   "effort": "M",
+   "acceptance_test": "iOS Safari downloads file; 20-stop link opens identically on another device; keyboard-only import works.",
+   "metric_or_grade_moved": "UX, mobile",
+   "audit_refs": [
+    "A6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "revokeObjectURL right after a.click(); display:none input inside label."
+  },
+  {
+   "id": "pages-C-55",
+   "title": "Watch Together accessibility/mobile; caption bar overlaps Mapbox logo/attribution",
+   "severity": "medium",
+   "evidence": "Placeholder-only inputs (watch-together.html:79,80,97); .sync-status 10px no aria-live (:49); h1->h3 skip (:77,84,87,93); ~34px buttons; div list not ul; join input lacks autocapitalize/spellcheck and no form so Enter does nothing (:97); #caption-bar (:34) absolute at map bottom over the bottom-left Mapbox wordmark (visual check needed; attribution must stay visible).",
+   "fix": "Labels, h2 sections, ul, aria-live status, form wrapper, 16px inputs, 44px controls; move captions above map controls (bottom:44px) or below map.",
+   "effort": "M",
+   "acceptance_test": "axe clean; 375/1440 screenshots show logo and attribution unobstructed.",
+   "metric_or_grade_moved": "Accessibility, ToS compliance",
+   "audit_refs": [
+    "A2",
+    "A3",
+    "A4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Heading order, 10px status, caption z-index reasoning consistent; visual check still needed."
+  },
+  {
+   "id": "pages-C-56",
+   "title": "Blocking third-party scripts on every visit for a rare feature",
+   "severity": "medium",
+   "evidence": "watch-together.html:16 Mapbox (481 KB br) and :19 PeerJS (92.8 KB raw/25.5 KB gz) block head parsing; jsDelivr contacted for every visitor even if only building a tour.",
+   "fix": "If PeerJS retained, load on first Host/Join click with pinned version + SRI integrity + crossorigin; delete with relay; Mapbox per pages-C-03.",
+   "effort": "S",
+   "acceptance_test": "No jsDelivr request until Host/Join clicked; third-party time drops in Lighthouse.",
+   "metric_or_grade_moved": "Performance, privacy",
+   "audit_refs": [
+    "P4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Mapbox (:16) and PeerJS (:19) both sync in head."
+  },
+  {
+   "id": "pages-C-57",
+   "title": "Watch Together copy inaccuracies",
+   "severity": "low",
+   "evidence": "watch-together.html:104 'nothing about your session is stored anywhere' though broker sees IPs/ids and tours persist in localStorage (:161); :64 leads with Live Sync while meta (:8) and first paragraph (:63) describe async sharing; 'best-effort' dev-log tone.",
+   "fix": "Deck 15.4 copy reflecting final architecture; disclose exactly what is transmitted, to whom, retention (6h).",
+   "effort": "S",
+   "acceptance_test": "Copy reviewed against final architecture and privacy page line by line.",
+   "metric_or_grade_moved": "Trust, privacy",
+   "audit_refs": [
+    "H7",
+    "X5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Nuance: :64 already discloses 'third-party public broker' and 'best-effort' (honest, not dev-log); real gap is privacy.html and ':104 nothing stored'."
+  },
+  {
+   "id": "pages-C-58",
+   "title": "Turning Points deep links land on wrong moments; ticks contradict own chronology",
+   "severity": "high",
+   "evidence": "turning-points.html:118 /?tick=N ignored by app; joined to chronology: tick 240 'Longstreet ~4pm' = 6:10am Berdan sharpshooters; 267 Chamberlain = 8:25am Vincent arrives; 300 Wheatfield collapse = 11:10am Bigelow withdrawal; 340 'Night assault' = 2:20pm 'Fighting dies down'; 540 'Cannonade ~1pm' = 11:15am Union artillery opens; 560 Pickett's Charge = 12:55pm East Cavalry Field.",
+   "fix": "Key each point by vignette_id/chronology id, derive tick at load, show unified clock; CI test label time vs clock +/-20 min; until C4 lands drop clock words from link label ('Open the closest moment').",
+   "effort": "M",
+   "acceptance_test": "Each point opens an event whose title/units match the card; test asserts |labelTime-clockTime(tick)|<=20min.",
+   "metric_or_grade_moved": "Historical consistency, core function",
+   "depends_on": [
+    "pages-C-01",
+    "unified clock (C4)"
+   ],
+   "audit_refs": [
+    "C3",
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Table reproduced exactly. Extra: Chamberlain's Charge is V-010 trigger tick 275, not 267. Root cause is the C4 data clock, so re-pointing ticks may be the right fix."
+  },
+  {
+   "id": "pages-C-59",
+   "title": "Turning Points content only exists after JS runs (invisible to crawlers, no-JS, LCP)",
+   "severity": "high",
+   "evidence": "turning-points.html:48 <main id='list'></main> empty; nine articles injected by JS (:99-121); no anchors/JSON-LD; best evergreen copy on the site (T1: ~8% search referrals).",
+   "fix": "One-off Node script pre-renders POINTS into static <article id=...> with h2, <details name=turning-points>, sources, share/embed controls, Article+ItemList JSON-LD, hash updates; JS only for Expand/Collapse all.",
+   "effort": "M",
+   "acceptance_test": "curl shows all nine titles/bodies; mobile LCP <=1.5s; URL Inspection renders content; #bufords-decision opens that card.",
+   "metric_or_grade_moved": "SEO, LCP, accessibility",
+   "audit_refs": [
+    "T1",
+    "E4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Empty <main id=list> at :48; content injected :99-121."
+  },
+  {
+   "id": "pages-C-60",
+   "title": "Turning Points has no sources; claims need verification; meta contradicts body",
+   "severity": "medium",
+   "evidence": "No citations though data lists Pfanz/Desjardin/Hessler/OR; verify 'over 50% casualties' (:94), 'four different Union corps' (:74), superlatives (:60,:95), 4:00pm vs site clock; meta (:8) says historians 'agree' vs header (:46) 'argued about'.",
+   "fix": "Sources list per card and Further reading (NPS, key books); soften superlatives; reconcile casualty figure with casualty data; align meta/body; corrections contact and Last reviewed date.",
+   "effort": "M",
+   "acceptance_test": "Every factual sentence traceable to a listed source in a review sheet; second reader (historian/volunteer) sign-off.",
+   "metric_or_grade_moved": "Historical accuracy, trust",
+   "audit_refs": [
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Quoted claims at lines 60,64,74,89,94,95; meta :8 vs :46 contradiction verified."
+  },
+  {
+   "id": "pages-C-61",
+   "title": "Turning Points accordion semantics and accessibility",
+   "severity": "medium",
+   "evidence": "turning-points.html:109 .tp-title is a div; h4 at :114,116 with no h2/h3 (h1->h4); div in span in summary invalid; .tp-day 10px (:29), h4 11px (:34); chevron not aria-hidden (:111); closed details don't print; no Expand/Collapse all.",
+   "fix": "<summary><h2>...</h2></summary>, h3 subsections, >=12/14px, aria-hidden chevron, print CSS/beforeprint to open all, Expand/Collapse all.",
+   "effort": "S",
+   "acceptance_test": "axe heading-order clean; SR heading list shows nine h2; print preview shows all content.",
+   "metric_or_grade_moved": "Accessibility",
+   "audit_refs": [
+    "A4",
+    "A6"
+   ],
+   "verdict": "NOT_VERIFIED",
+   "correction": null
+  },
+  {
+   "id": "pages-C-62",
+   "title": "Turning Points A+ feature completion",
+   "severity": "low",
+   "evidence": "Cards are text-only with one link each.",
+   "fix": "Pre-rendered mini-map per point, timeline strip navigator with time of day, related regiments (regiment.html?unit=), What-if Sandbox presets, Copy link/Embed buttons, historian disagreement spectrum, glossary tooltips, classroom worksheet PDF.",
+   "effort": "L",
+   "acceptance_test": "Each card has >=3 internal links and >=2 sources; Lighthouse 95+ maintained.",
+   "metric_or_grade_moved": "UX, engagement, education",
+   "audit_refs": [],
+   "verdict": "NOT_VERIFIED",
+   "correction": null
+  },
+  {
+   "id": "pages-C-63",
+   "title": "Find Your Ancestor finds commanders, not ancestors: promise mismatch and weak genealogy funnel",
+   "severity": "high",
+   "evidence": "site-nav.js:37 label 'Find Your Ancestor'; find-ancestor.html:99-102 filters r.commander.name by substring of the whole string (first names included: 'joh' matches 50 records); honest caveat (:51-53) is below the H1; only one outbound link.",
+   "fix": "Rename 'Find Your Ancestor's Regiment' everywhere; three-step guide: (1) find your soldier via NPS CWSS + state archives/FamilySearch/Fold3/Find a Grave with a what-to-write-down checklist, (2) pick the regiment via typeahead plus state/side filters, (3) follow it (biography, battle path, /?ancestor=<id> which the app does support).",
+   "effort": "M",
+   "acceptance_test": "5 genealogists reach a regiment page from a soldier name in <2 min; none believes the page searched soldier names.",
+   "metric_or_grade_moved": "UX, trust, function",
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Downgrade high to medium. The page H1 is already 'Find Your Ancestor's Regiment' (find-ancestor:45), sub-line says regiments, and the caveat with the NPS CWSS link is at :51-53. Only nav label/desc (site-nav.js:37) overpromise."
+  },
+  {
+   "id": "pages-C-64",
+   "title": "Feasibility decision: real individual lookup via NPS Soldiers and Sailors (CWSS)",
+   "severity": "medium",
+   "evidence": "Verified via nps.gov pages: ~6.3M index records from National Archives muster-roll index cards (name, rank, unit, sometimes company), 3.5M distinct men; banner 'no longer maintained and updated'; no API/bulk download/licence statement found; form method/params not visible to my fetch; soldiers-and-sailors-database.htm returns 200; /civilwar/search-soldiers.htm and /search-regiments.htm are entry points.",
+   "fix": "Do not scrape or live-query. Now: deep-link out with clear instructions. Later (XL, separate legal review): per-regiment rosters from redistributable public-domain sources (state adjutant-general rosters, Bates' History of Pennsylvania Volunteers 1869, Official Army Register, National Cemetery burial lists) with OCR + entity resolution to our 467 IDs; or moderated contributed stories (L, needs backend). Show CWSS provenance caveats (duplicates, alternate names).",
+   "effort": "S",
+   "acceptance_test": "Decision recorded; deep links tested; any future roster ingestion has a per-source licence row.",
+   "metric_or_grade_moved": "Feature scope, legal",
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "NPS facts verified (over 6M, no longer maintained, no API/licence). search-regiments.htm redirects to search-battle-units.htm; link to the final URL."
+  },
+  {
+   "id": "pages-C-65",
+   "title": "Find Ancestor matching and sorting: full-name substring, no fuzzy/phonetic, text sort",
+   "severity": "medium",
+   "evidence": "find-ancestor.html:99-102 name.includes(surname) on 'Colonel Joshua Chamberlain'; no alternate spellings; :108 localeCompare text sort puts '102nd New York' before '10th Alabama' (reproduced); 31 state values incl. 'Regular Army' and 'Multi-state'; 27 of 467 records lack commander name.",
+   "fix": "Token-prefix match on last-name token, fuzzy fallback (Damerau-Levenshtein <=1-2, Double Metaphone/Soundex) with 'Did you mean', highlight matches, natural sort {numeric:true} grouped by side/corps/brigade, side filter, designation typeahead.",
+   "effort": "M",
+   "acceptance_test": "'Chamberlain' returns 20th Maine commander first; 'Chamberlin' suggests Chamberlain; sorted list runs 1st,2nd,...10th,...102nd.",
+   "metric_or_grade_moved": "Function, UX",
+   "audit_refs": [
+    "H5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "27 records without commander, 31 states, text sort puts 102nd before 10th."
+  },
+  {
+   "id": "pages-C-66",
+   "title": "Find Ancestor result cards leak internal IDs and omit facts",
+   "severity": "medium",
+   "evidence": "find-ancestor.html:121 prints 'state · U-I / U-I-1-1'; 22 Confederate cavalry rows lack parent_corps_id (blank); strength/casualties/casualty_percentage/days_engaged/key_action (all 467 populated) unused; one link only; :114 silent cap of 100 (largest state 75); six duplicate designations with different IDs (U-107NY/U-107NY-XII, U-11PA/U-11PA-B, -b cavalry records) render as look-alike cards.",
+   "fix": "Resolve IDs to 'I Corps, 1st Division, 2nd Brigade (Meredith)' from data/oob/*_oob_*.json; show strength, losses and %, days engaged, key action; actions Biography / Follow on map (/?ancestor=ID) / Find soldiers (NPS); 'Showing N of M'; disambiguate duplicates (data agents); role=status count.",
+   "effort": "M",
+   "acceptance_test": "No 'U-'/'C-' codes in visible text; every card >=3 facts and >=2 actions.",
+   "metric_or_grade_moved": "Fit and finish, UX",
+   "audit_refs": [
+    "H7"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "casualty_percentage populated in only 245/467 (other four fields 467/467). 'Duplicates' have distinct designations ('(XII Corps)', '(Baxter detachment)')."
+  },
+  {
+   "id": "pages-C-67",
+   "title": "Find Ancestor accessibility, mobile, URL state, empty state",
+   "severity": "medium",
+   "evidence": "find-ancestor.html:56-59 no labels; 15/14px fonts (iOS zoom); .kind-tag 10px (:36); results link 12px inline-styled (:123); initial state empty until a filter (:106); no ?state=&q= state or Clear.",
+   "fix": "Labels, 16px, 44px targets, URL state via replaceState, Clear filters, starter cards per state with counts (New York 75, Pennsylvania 74, Virginia 59...) and Popular list, aria-live count.",
+   "effort": "M",
+   "acceptance_test": "axe clean; shared URL reproduces the result list.",
+   "metric_or_grade_moved": "Accessibility, UX",
+   "audit_refs": [
+    "A2",
+    "A3",
+    "A4",
+    "S4"
+   ],
+   "verdict": "NOT_VERIFIED",
+   "correction": null
+  },
+  {
+   "id": "pages-C-68",
+   "title": "Cinematic Export fails silently on Safari<18.4 / no MediaRecorder; no try/finally",
+   "severity": "high",
+   "evidence": "cinematic-export.html:190 checks captureStream but :193-196 calls MediaRecorder.isTypeSupported unguarded (ReferenceError where undefined) and falls back only through WebM; new MediaRecorder(..., 'video/webm') throws NotSupportedError on Safari before 18.4 (sources: MP4-only until 18.4) inside an async handler before btn.disabled (:201) so user sees nothing; later exceptions leave button disabled and badge visible.",
+   "fix": "Probe ['video/mp4;codecs=avc1.640028','video/mp4;codecs=avc1.42E01E','video/mp4','video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm'], derive extension from chosen type, try/catch/finally UI reset, show support notice and hide Record when unsupported.",
+   "effort": "S",
+   "acceptance_test": "Matrix Chrome/Edge/Firefox/Safari 17/18.4+/iOS 17-18: each records a playable file or shows a specific unsupported message; forced exceptions restore UI.",
+   "metric_or_grade_moved": "Function on Safari/iOS, reliability",
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "Unguarded MediaRecorder :190-196 and throw before btn.disabled :201; Safari 18.4 added WebM confirmed."
+  },
+  {
+   "id": "pages-C-69",
+   "title": "Captions, logo and attribution are not in the exported video",
+   "severity": "high",
+   "evidence": "cinematic-export.html:189-192 captures only map.getCanvas(); caption bar (:55; set :175,226), recording badge and Mapbox wordmark/attribution are DOM so the Captions option (:76) does nothing and the clip has no title/clock/legend/credits; Mapbox docs (via search) require logo + text attribution on maps and exported images (video not explicit).",
+   "fix": "Composite each frame on an offscreen 2D canvas: map canvas + title card + lower-third caption with unified clock + legend + Mapbox wordmark + '(c) Mapbox (c) OpenStreetMap (c) Maxar' read from the live attribution + site URL; captureStream from the composite; 'Usage and credits' note.",
+   "effort": "M",
+   "acceptance_test": "Frame grabs at 0s/5s/end show title, caption, legend, attribution, wordmark; Captions Off removes only lower third; reviewer checks Mapbox's current guide.",
+   "metric_or_grade_moved": "Function, legal/ToS, fit and finish",
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "Only map canvas captured. Mapbox attribution docs cover live and static/print maps, not video; the report's hedge is right."
+  },
+  {
+   "id": "pages-C-70",
+   "title": "'Narrated flyover' is false: no audio track and no camera path",
+   "severity": "high",
+   "evidence": "cinematic-export.html:8 and :11 say 'narrated flyover video'; capture has no audio (no MediaStreamAudioDestinationNode); 'flyover' is fitBounds(densestClusterBounds,{duration:0}) each frame (:173,223) so camera teleports when the densest 0.01deg cell changes.",
+   "fix": "Now: copy 'record a silent, downloadable timelapse'. Later: keyframed, eased, low-pass-filtered camera path via jumpTo per frame; pre-generated narration audio per vignette (not speechSynthesis, which cannot be captured) mixed via createMediaStreamDestination; burned-in captions.",
+   "effort": "L",
+   "acceptance_test": "Copy matches capability; when narration ships ffprobe shows audio track and camera steps <2% viewport per frame.",
+   "metric_or_grade_moved": "Trust, function",
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "'narrated flyover' at cinematic-export:8,11,49; no audio; fitBounds per frame."
+  },
+  {
+   "id": "pages-C-71",
+   "title": "Cinematic Export: deterministic offline rendering (WebCodecs MP4) replaces real-time capture",
+   "severity": "high",
+   "evidence": "Wall-clock progress (cinematic-export.html:208-214) skips frames on slow devices; no tile/idle wait; hidden tab stops rAF leaving frozen frames (status only says 'stay on this tab', :203); setData+fitBounds every frame though tick changes ~every 250ms (~900 redundant rebuilds); totalFrames unused (:206); preserveDrawingBuffer:true (:145) taxes every device.",
+   "fix": "Off-screen W x H Map; per frame apply state from keyframes, triggerRepaint + once('idle'), draw composite + overlays, VideoFrame -> VideoEncoder (avc1.640028, ~10 Mbps, 30fps) -> MIT mp4 muxer; abort/pause when hidden; feature-detect WebCodecs (Chromium, Safari 16.4+, Firefox 130+ per recollection, verify) with MediaRecorder fallback; cap by deviceMemory.",
+   "effort": "XL",
+   "acceptance_test": "30s 1080p renders <3x real time, exactly 900 frames, deterministic frame hashes across runs, no blank/blurry tile frames (Laplacian floor), pauses/resumes when tab briefly hidden.",
+   "metric_or_grade_moved": "Function, quality, performance",
+   "depends_on": [
+    "pages-C-68",
+    "pages-C-69",
+    "pages-C-72"
+   ],
+   "audit_refs": [
+    "P2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "mp4-muxer is MIT but deprecated; successor Mediabunny is MPL-2.0, not MIT. WebCodecs VideoEncoder in Safari 16.4 and Firefox 130 desktop confirmed."
+  },
+  {
+   "id": "pages-C-72",
+   "title": "Cinematic Export lacks progress/cancel/limits; debug text; leaks; poor download path; low bitrate; unvalidated inputs",
+   "severity": "medium",
+   "evidence": "Status text only (cinematic-export.html:203); Record disabled whole clip (:201) so no Cancel; 'Done -- N chunks recorded.' debug string (:240; always 1 chunk since recorder.start() has no timeslice :205); createObjectURL never revoked (:243); .webm download (:246) not accepted by Instagram/TikTok/iMessage/Photos; no videoBitsPerSecond; Number('')=0 and no 1-675 clamp (:165,181); preview only on start-tick change (:177); dead code :248.",
+   "fix": "Progress bar with elapsed/remaining, Cancel that frees memory, size estimate, friendly done message, revoke old URLs, bitrate scaled to resolution (8-12 Mbps @1080p), MP4 default, Web Share with File on mobile plus download link, inline validation, preview on end-tick change.",
+   "effort": "M",
+   "acceptance_test": "Cancel returns to ready <500ms and releases memory; second recording doesn't grow retained Blob URLs; iOS share sheet offers Save Video; invalid inputs show messages.",
+   "metric_or_grade_moved": "UX, reliability",
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "Blob URL never revoked; status string is an em dash in source."
+  },
+  {
+   "id": "pages-C-73",
+   "title": "Cinematic Export output geometry is the on-screen map box; no presets",
+   "severity": "medium",
+   "evidence": "cinematic-export.html:27 #map height 56vh min 380px so exports are viewport-dependent (~1440x500 desktop, ~375x380 phone, times DPR); default ticks 540-600 arbitrary (:60-64); raw tick inputs.",
+   "fix": "Format presets 16:9 1920x1080, 9:16 1080x1920, 1:1 1080x1080 via off-screen renderer with crop guides; moment presets from vignettes with unified clock; durations 8/15/30/60s with pace explanation; vertical safe-area guides.",
+   "effort": "M",
+   "acceptance_test": "Exported resolution equals preset exactly on all devices; presets start at vignette trigger.",
+   "metric_or_grade_moved": "UX, shareability",
+   "audit_refs": [],
+   "verdict": "NOT_VERIFIED",
+   "correction": null
+  },
+  {
+   "id": "pages-C-74",
+   "title": "Cinematic Export accessibility/mobile polish",
+   "severity": "medium",
+   "evidence": "cinematic-export.html:59-76 four <label> without for and not wrapping control; 11px labels (:34); inputs ~28px 13.33px (:35); Record ~36px (:36); #export-status no role=status; #rec-badge pulse (:30) unguarded; loads full map and 12 data files even on unsupported browsers.",
+   "fix": "Associate labels, 16px/44px controls, role=status, reduced-motion, skip data load when unsupported, focus download link when done.",
+   "effort": "S",
+   "acceptance_test": "axe clean; keyboard-only record/download works.",
+   "metric_or_grade_moved": "Accessibility",
+   "audit_refs": [
+    "A2",
+    "A3",
+    "A4"
+   ],
+   "verdict": "NOT_VERIFIED",
+   "correction": null
+  },
+  {
+   "id": "pages-C-75",
+   "title": "Living Ledger starts at '4 casualties' and overshoots the dataset by 838",
+   "severity": "high",
+   "evidence": "living-ledger.html:193 render() at tick 1 reads curve[1]; buildCurve (:102-118) loops t=start..end inclusive adding casualties/span with span=end-start (applied over span+1 ticks, up to +5% for 20-tick periods); U-CAV [1,75] (290) adds 3.9 at tick 1 (computed U=4,C=0); tick 675 shows 47,001 (U 23,550/C 23,451) vs sum of period casualties 46,163 (U 23,138 + C 23,025) = +838 (1.8%).",
+   "root_cause": "Off-by-one in distribution and cumulative-at-end indexing.",
+   "fix": "cum[t] = casualties before tick t (tick 0/1 = 0, header 'Before the first shot'); distribute exactly with the file's documented bell curve (peak_tick, sigma 8 infantry/4 artillery from metadata.formulas) normalised to sum casualties; largest-remainder rounding.",
+   "effort": "S",
+   "acceptance_test": "Unit tests: cum[0]=cum[1]=0, monotonic, cum[675] equals sum of period casualties per side exactly; Playwright shows 0 and 'Before the first shot'.",
+   "metric_or_grade_moved": "Function, historical accuracy, trust",
+   "audit_refs": [
+    "S4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Exact: tick1 4/0; tick675 23,550/23,451=47,001 vs period sums 23,138/23,025=46,163 (+838); declared totals 22,803/23,125; clock July 3 11:40 PM."
+  },
+  {
+   "id": "pages-C-76",
+   "title": "Living Ledger method/sources/discrepancies undisclosed; 'minute by minute' overclaim",
+   "severity": "medium",
+   "evidence": "living-ledger.html:8,59 say 'minute by minute' but data are per-corps engagement periods on 5-min ticks; file metadata says bell-curve, page uses linear ramp (:110); total_casualties sums (U 22,803 / C 23,125) differ from period sums (23,138 / 23,025); notes say Union III Corps ~4,200 'in approximately 2 hours' over tick_range 256-330 (6.25h) and Pickett's Division ~2,700 in 30 min over 538-558 (100 min) (C4); terms.html:30 promises discrepancies are noted.",
+   "fix": "'About these numbers' disclosure (method, sources OR + Busey & Martin, estimates label), 'Estimated casualties so far' counter label, per-period notes in callouts, Data notes list with chosen figures; data agents reconcile totals; change copy to 'across the three days'.",
+   "effort": "M",
+   "acceptance_test": "Disclosure keyboard-reachable; final totals equal published totals shown in disclosure; Terms statement true.",
+   "metric_or_grade_moved": "Trust, historical accuracy",
+   "depends_on": [
+    "data agents"
+   ],
+   "audit_refs": [
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "notable_intensity_notes tick ranges vs 'approximately 2 hours'/'30 minutes' verified; metadata says bell curve."
+  },
+  {
+   "id": "pages-C-77",
+   "title": "Living Ledger clock uses 5:00 AM-per-day formula and ends 'July 3, 11:40 PM'",
+   "severity": "medium",
+   "evidence": "living-ledger.html:135-144 timeForTick = 5:00+(tick-dayStart)*5min; tick 675 = 11:40 PM; initial header 'July 1, 5:00 AM' (:64) vs map 6:00 base.",
+   "fix": "Shared clock module; show 'Day 1 - July 1, 1863' + clock; end at last fighting tick.",
+   "effort": "S",
+   "acceptance_test": "Header equals map clock at all 675 ticks (parametrised test).",
+   "metric_or_grade_moved": "Historical consistency",
+   "depends_on": [
+    "unified clock (C4)"
+   ],
+   "audit_refs": [
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "5:00+minutes formula and tick 675 = 11:40 PM verified."
+  },
+  {
+   "id": "pages-C-78",
+   "title": "Living Ledger play-through UX: dead Play after end, no scrubber, meaningless speeds, no ending",
+   "severity": "medium",
+   "evidence": "At tick 675 step() clamps and stop()s (living-ledger.html:165-169) so Play does nothing until Restart; #progress plain div (:71); no scrubbing/day markers/Space key; callouts only on forward play (:157-162); 1x/3x/10x = 80/30/10 ms per tick = 62/167/500 sim-min per second (H9); no closing card.",
+   "fix": "Accessible scrubber with aria-valuetext including casualties, Play restarts from end, Space toggles, speeds labelled by battle-minutes/second, closing card (totals, sources, Aftermath/National Cemetery link), callouts recomputed on seek.",
+   "effort": "M",
+   "acceptance_test": "Play at end restarts; scrubbing shows correct callout; keyboard operable; labels match measured speeds.",
+   "metric_or_grade_moved": "UX, function",
+   "audit_refs": [
+    "H9"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "step() stops at 675 so Play is inert."
+  },
+  {
+   "id": "pages-C-79",
+   "title": "Living Ledger accessibility, reduced motion, sensitivity",
+   "severity": "medium",
+   "evidence": "Counters have no accessible name and no way to read totals; #callout (living-ledger.html:38) not role=status; speed select unlabeled (:76); 11px labels (:37); no reduced-motion for continuous counting and 0.5s fade (:41).",
+   "fix": "aria-labelledby counters with aria-live=off plus polite status announcing totals on pause/day change/callouts; labelled speed; reduced-motion mode jumping between key moments; content note ('This page counts real people') and pause option; >=12px, 44px targets.",
+   "effort": "M",
+   "acceptance_test": "Screen reader announces totals on pause/key moments only; reduced-motion shows no continuous counting; axe clean.",
+   "metric_or_grade_moved": "Accessibility, trust",
+   "audit_refs": [
+    "A2",
+    "A4"
+   ],
+   "verdict": "NOT_VERIFIED",
+   "correction": null
+  },
+  {
+   "id": "pages-C-80",
+   "title": "Living Ledger timer loop: setInterval 10ms, hidden-tab, share/OG",
+   "severity": "low",
+   "evidence": "living-ledger.html:148-163,182 setInterval(step,10) does 3 toLocaleString + DOM writes + vignettes.find up to 100x/s; not paused on visibilitychange; no share link/OG art.",
+   "fix": "rAF dt-based loop, pause when hidden, cache formatted strings/skip identical writes, Share this moment (?t=) and OG image.",
+   "effort": "S",
+   "acceptance_test": "<1ms scripting/frame; paused when hidden.",
+   "metric_or_grade_moved": "Performance, shareability",
+   "audit_refs": [],
+   "verdict": "NOT_VERIFIED",
+   "correction": null
+  },
+  {
+   "id": "pages-C-81",
+   "title": "Privacy policy incomplete and partly inaccurate",
+   "severity": "high",
+   "evidence": "privacy.html:26-38 lists only Netlify RUM, Mapbox, Street View, localStorage, cookies. Missing/wrong: Watch Together PeerJS broker/Google STUN/PeerJS TURN/jsDelivr and WebRTC IP exposure (verified in peerjs.min.js); Mapbox telemetry (events.mapbox.com in CSP netlify.toml:19); AR on-device sensors; Netlify hosting logs and Web Analytics vs 'no third-party analytics' claim; storage inventory (gettysburg_bookmarks bundle.pretty.js:97821, gtbg_onboarded, gtbg_watch_together_tour watch-together.html:159, planned layout key, SW cache, immersive volume); :41 'collects no personal information' too absolute (IP addresses); date Sep 7 predates build.",
+   "fix": "Rewrite as provider table (who receives what, when, policy link), on-device storage list with keys, what we never do, your choices, retention (relay rooms 6h), rephrased children paragraph, contact, date; plain language; counsel review (not legal advice).",
+   "effort": "S",
+   "acceptance_test": "Checklist maps every third-party origin in CSP/network logs and every storage key in code to a sentence; date updated; link in footer of every page.",
+   "metric_or_grade_moved": "Privacy/legal, trust",
+   "depends_on": [
+    "pages-C-47"
+   ],
+   "audit_refs": [
+    "X5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "privacy.html:21,28,35,41 verified; CSP lists events.mapbox.com and 0.peerjs.com."
+  },
+  {
+   "id": "pages-C-82",
+   "title": "Privacy/Terms presentation and discoverability",
+   "severity": "medium",
+   "evidence": "privacy.html and terms.html have no nav/footer/main/skip link; p Georgia 16px vs ul system-ui 15px (privacy.html:16); hard-coded .updated; no heading anchors; absent from sitemap.xml (E5); no print style.",
+   "fix": "Shared shell, <time datetime>, heading ids, print CSS, add both to sitemap, changes log.",
+   "effort": "S",
+   "acceptance_test": "axe clean; both URLs in sitemap; keyboard flow footer link -> page -> back.",
+   "metric_or_grade_moved": "Fit and finish, accessibility, SEO",
+   "audit_refs": [
+    "E5",
+    "A6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "privacy:16 Georgia vs system-ui 15px; no nav/main."
+  },
+  {
+   "id": "pages-C-83",
+   "title": "Terms: embedding and data-reuse terms unsupported (no widget docs, no data licence, header conflict)",
+   "severity": "high",
+   "evidence": "terms.html:27 invites embedding 'its widget' while /embed.html returns X-Frame-Options DENY plus frame-ancestors * (verified) and no docs exist; same paragraph forbids scraping data files although /data/*.json is public with Cache-Control public and no licence; :33 asks credit without a licence/citation format; :30 cites Busey & Martin tabulations without an attribution/permission statement.",
+   "fix": "Choose licence (e.g. text/vignettes CC BY 4.0, data CC BY 4.0 or ODbL) with citation string; publish official data.zip with LICENSE, CITATION.cff, data dictionary; per-source licence ledger for the historian databases; link widget docs; counsel review of Busey & Martin use.",
+   "effort": "M",
+   "acceptance_test": "Terms link to embed docs and data licence; data.zip with checksums exists; outside reader can cite correctly.",
+   "metric_or_grade_moved": "Legal, docs, ecosystem",
+   "depends_on": [
+    "pages-C-87",
+    "pages-C-88"
+   ],
+   "audit_refs": [
+    "X4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "terms.html:27,30,33 quoted correctly."
+  },
+  {
+   "id": "pages-C-84",
+   "title": "Terms missing clauses: NPS independence, AR safety, user content, third-party terms, liability, takedown",
+   "severity": "medium",
+   "evidence": "terms.html has only service, acceptable use, accuracy, IP, no warranty, changes, contact; no statement of non-affiliation with NPS/Gettysburg Foundation; no AR safety/park rules; no UGC (tours, exports); no Mapbox/Google/Netlify terms; no limitation of liability/governing law; no takedown/corrections process; :30 'notes the discrepancy' currently untrue.",
+   "fix": "Add plain-language sections, 'Report an error' prefilled mailto, accessibility statement page; counsel review.",
+   "effort": "M",
+   "acceptance_test": "Checklist sign-off; footer links to Accessibility and Corrections.",
+   "metric_or_grade_moved": "Legal, trust",
+   "audit_refs": [
+    "X5"
+   ],
+   "verdict": "NOT_VERIFIED",
+   "correction": null
+  },
+  {
+   "id": "pages-C-85",
+   "title": "404 has good voice but no recovery paths",
+   "severity": "medium",
+   "evidence": "404.html has no nav/footer/site-nav, search, popular links or <main>; doesn't show failing path; CTA ~41px tall (14px + 24px padding, :18).",
+   "fix": "Shared shell, show location.pathname in <code>, 'Did you mean' edit-distance over static slug list (handles .html/case), list of 20 tools by group, search box to /search.html?q=, 'Report a broken link' prefilled mailto, keep noindex and 404 status, CTA >=44px.",
+   "effort": "S",
+   "acceptance_test": "/historain suggests /historian; Lighthouse a11y 100; status 404.",
+   "metric_or_grade_moved": "UX, fit and finish",
+   "audit_refs": [
+    "T2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "404 has no nav/main/recovery; CTA about 41px."
+  },
+  {
+   "id": "pages-C-86",
+   "title": "Duplicate URL forms with different cache policy",
+   "severity": "low",
+   "evidence": "curl: /historian -> 200 Cache-Control public,max-age=0,must-revalidate; /historian.html -> 200 no-cache,must-revalidate (netlify.toml:63 matches only *.html); canonical/sitemap use .html.",
+   "fix": "Pick extensionless (recommended), 301 the other with force=true, update canonicals/sitemap/links, test on deploy preview for redirect loops (unproven).",
+   "effort": "S",
+   "acceptance_test": "Exactly one URL form returns 200 per page; analytics no longer split.",
+   "metric_or_grade_moved": "SEO, performance",
+   "audit_refs": [
+    "T3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Live curl shows /historian and /historian.html both 200 with different Cache-Control."
+  },
+  {
+   "id": "pages-C-87",
+   "title": "embed.html header conflict: X-Frame-Options DENY + frame-ancestors * + report-only CSP",
+   "severity": "medium",
+   "evidence": "Live curl /embed.html: X-Frame-Options: DENY, Content-Security-Policy: frame-ancestors *, and still Content-Security-Policy-Report-Only: default-src 'self'...; netlify.toml:6-13,19 global; :81-85 empty-string overrides did not remove them; browsers give frame-ancestors precedence over XFO (verify Safari/older); Netlify docs don't document header removal.",
+   "fix": "Netlify Edge Function on ['/embed','/embed.html'] that deletes x-frame-options and content-security-policy-report-only and sets a dedicated CSP (default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors *) once inline code is externalised; decide * vs allow-list.",
+   "effort": "S",
+   "acceptance_test": "curl -I /embed.html shows exactly one CSP and no XFO; cross-origin test page (localhost:8080/jsfiddle) embeds in Chromium/Firefox/WebKit; /index.html still DENY.",
+   "metric_or_grade_moved": "Security hygiene, function",
+   "audit_refs": [
+    "X4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Live headers: X-Frame-Options DENY + CSP frame-ancestors * + report-only CSP; netlify.toml:81-85. Edge Function fix plausible; test on preview."
+  },
+  {
+   "id": "pages-C-88",
+   "title": "Embed widget has no documentation, generator or oEmbed",
+   "severity": "high",
+   "evidence": "Usage exists only in a JS comment (embed.html:38-39); terms.html:27 invites embedding; vignette ids V-001..V-024 unpublished; no snippet, size guidance, iframe title, theme option or resize protocol; no oEmbed discovery links.",
+   "fix": "/embed-docs.html with live preview, vignette picker, theme (dark|light|transparent), size presets and copyable iframe snippet (loading=lazy, title, max-width:100%); 'Embed this' buttons on vignette cards; postMessage resize protocol with origin validation guidance; static /oembed/V-018.json (type rich) plus <link rel=alternate type=application/json+oembed>, optional /oembed?url= Function; attribution in Terms.",
+   "effort": "M",
+   "acceptance_test": "Outside teacher embeds in Google Sites/Canvas from docs in <5 min; oEmbed validator passes; iframe resizes to content.",
+   "metric_or_grade_moved": "Docs, ecosystem/SEO, education",
+   "depends_on": [
+    "pages-C-87"
+   ],
+   "audit_refs": [
+    "X4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Example wrong: V-018 is Cushing's Battery (tick 553); Chamberlain's Charge is V-010 (tick 275). Fix iframe title and oEmbed sample."
+  },
+  {
+   "id": "pages-C-89",
+   "title": "Embed widget quality: dead CTA, heavy data, timezone pick, tiny low-contrast text, no semantics",
+   "severity": "medium",
+   "evidence": "embed.html:60 CTA index.html?tick=..&vignette=.. ignored by app; :44-46 three ~19-21 KB fetches to show one blurb; :53-55 local-time dayOfYear%24 pick; :51,67 invalid id -> generic error no fallback; .eyebrow/.brand 10px (:13,17); .brand #555 on #0a0a14 = 2.64:1, .brand a #777 = 4.40:1; no heading elements; dark only.",
+   "fix": "Precomputed data/embed-index.json (~10 KB); UTC daily pick labelled 'Moment of the day'; fallback to daily pick on invalid id; h1/p semantics, >=12px, contrast >=4.5, prefers-color-scheme and ?theme=; CTA via gtbgLink.",
+   "effort": "M",
+   "acceptance_test": "axe clean inside iframe; payload <15 KB; screenshots in light and dark hosts.",
+   "metric_or_grade_moved": "UX, accessibility, performance",
+   "audit_refs": [
+    "A1",
+    "A4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Contrast 2.64 / 4.40, 10px at embed:13,17, three vignette fetches of about 20 KB."
+  },
+  {
+   "id": "pages-C-90",
+   "title": "diagnostics.html ships in publish dir, hidden only by a forced redirect",
+   "severity": "medium",
+   "evidence": "Live /diagnostics.html 404 via netlify.toml:189-196 force=true but file (4,824 B) is in the deploy; no noindex, no viewport meta (diagnostics.html:4-5), string-concatenated innerHTML with unclosed <div class=sec> (:30), async rows appended out of order (:72-74,109-114); dumps UA, GPU strings, storage key names.",
+   "fix": "Remove from publish dir (move to repo tools/); optionally add user-facing /support.html with WebGL2/storage/SW/Mapbox checks and a 'Copy report' button (shows exactly what is copied, no auto-upload), shared shell, linked from Help modal.",
+   "effort": "S",
+   "acceptance_test": "curl shows 404 with file absent (no redirect reliance); support page passes axe; copied report has no PII beyond UA/GPU.",
+   "metric_or_grade_moved": "Security hygiene, support",
+   "audit_refs": [
+    "X4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "No viewport, 4,824 B, unclosed div at :30, live 404."
+  },
+  {
+   "id": "pages-C-91",
+   "title": "unit-rendering-reference.html is a live dev prototype with dev-log copy and an always-on render loop",
+   "severity": "medium",
+   "evidence": "Live 200 noindex (:8); unreferenced in HTML/JS/sitemap; loads Mapbox 3.24.1 CDN + token (:9-10,56); copy narrates build ('build plan', 'compiled bundle with no source project', 'copied into the real app's source', :34-35); pulseTick (:222-234) calls setPaintProperty every rAF forever even paused/hidden; no robots Disallow; bundled version also 3.24.1 so no skew.",
+   "fix": "Unpublish (docs/prototypes/ in git); port interpolation/bearing/collision/halo into the reconstructed source after confirming what the shipped InterpolationWorker already does; if kept gate behind ?dev=1, X-Robots-Tag noindex, stop rAF when idle/hidden, rewrite copy.",
+   "effort": "S",
+   "acceptance_test": "URL 404 and no references in code; if kept CPU idle <1% when paused.",
+   "metric_or_grade_moved": "Fit and finish, security hygiene, battery",
+   "audit_refs": [
+    "X4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Live 200 noindex; rAF setPaintProperty loop :222-234; no inbound references."
+  },
+  {
+   "id": "pages-C-92",
+   "title": "Automated regression suite (Playwright + axe + Lighthouse CI + data contracts + header assertions)",
+   "severity": "high",
+   "evidence": "None of the defects above (dead links, 'undefined', 4 casualties, broken OG image, off-screen buttons) would survive a basic smoke test; project has no tests and no source (N1).",
+   "fix": "tests/ in the reconstructed repo or standalone against deploy previews: Node data-contract tests; link crawler incl. deep-link round trips; Playwright Chromium/WebKit/Firefox x desktop 1440x900, mobile 375x812/320x568/landscape with offline, keyboard, reduced-motion, fake-device AR, MediaRecorder matrix; axe on all pages/modals; Lighthouse CI budgets per page (perf>=95, a11y 100, BP>=95, SEO 100, LCP<=2.5s, CLS<=0.1, TBT<=200ms) and curl -I header assertions per path; visual regression at 320/375/768/1440; run on every deploy preview and block promote on failure.",
+   "effort": "L",
+   "acceptance_test": "Suite fails today on each finding it targets and passes after fixes; CI runtime <10 min.",
+   "metric_or_grade_moved": "All categories (regression protection), reliability",
+   "audit_refs": [
+    "N1",
+    "P1",
+    "P2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Suite design sound, but 'perf >= 95 mobile' on the 9 Mapbox pages is unrealistic: perf-cwv measured 68-69 and projects about 86 after deferring Mapbox, and sets acceptance >= 90. Harmonise budgets (text pages >= 95, map pages >= 90) with LCP/CLS/TBT as hard gates."
+  }
+ ],
+ "open_questions": [
+  "Live Sync: adopt an owned relay (Netlify Function + Blobs recommended first) or keep PeerJS with full disclosure? Any Netlify plan/quota constraints on Functions or willingness to add a Cloudflare account?",
+  "Content and data licence (CC BY 4.0? ODbL?), comfort publishing an official data.zip, and counsel review of use of Busey and Martin tabulations and any book-derived text.",
+  "Who can field-test Battlefield AR on site (Little Round Top, Cemetery Ridge, Oak Ridge, town) and with which phones? Until then keep the Beta label.",
+  "Narration for Cinematic Export: budget, voice and audio licence, or ship silent timelapse only?",
+  "Product name (E2): 'Animated Battlefield Map' vs 'Interactive Map' to apply once across titles, og:site_name, footer, manifest.",
+  "Is Netlify Web Analytics enabled (privacy page must say so) and what are the RUM/analytics retention settings?",
+  "Should embed.html be embeddable by any site (frame-ancestors *) or an allow-list?",
+  "Will the reconstructed source (N1) become the canonical repo so shared modules (config, clock, data loader, page shell) and the regression suite have a home?",
+  "Find Your Ancestor: link-out guide only, or a later moderated contributed-stories feature (needs backend and moderation capacity)?",
+  "Which unified-clock definition (C4) will time agents deliver, and when, since pages-C-27/31/53/58/77 depend on it?",
+  "Deep-link router (pages-C-01): will it be implemented in reconstructed source or via bundle patch, and what canonical parameter names are chosen?"
+ ],
+ "verification_summary": "Verified pages-C (92 findings) against DEPLOY_DIR, bundle.pretty.js, live curl, third-party CDNs and other specialists' lab Lighthouse data. About 70 findings were re-checked; every cited line number I opened matched, and the headline numbers reproduce exactly: 137/137 chronology \"undefined\", Living Ledger 4 to 47,001 vs 46,163, cannon-eligible 662 of 675 ticks, 22 of 30 AR labels, the identical corrupt PNG, and the live header conflict on /embed.html. Real errors: gzip size labelled as brotli (C-03), a wrong byte total (C-23), one refuted performance premise (C-06), over-rated severity on C-24, C-26 and C-63, an unsafe blanket declination fix for iOS (C-35), a rate-limit design that would 429 a classroom (C-47), a data-source gap that makes C-16's \"every answer has a source\" impossible without data work, a wrong vignette id in the embed snippet (C-88), a Lighthouse budget that contradicts measured results on map pages (C-92), and a licence slip (C-71). Seven missed issues are listed. The Verification section has been appended to plan-work/pages-C.md; my scripts are in plan-work/tmp-verify-pages-C/. No browser or device was used, so iOS, Safari and AR behaviour stays inference.",
+ "missed_by_specialist": [
+  {
+   "title": "Historian chronology payload carries developer notes and C4 clock labels",
+   "severity": "medium",
+   "evidence": "chronology_day3.json has a 'flag' field on 20 events that is animation-engine text (tick 460: 'Mudge KIA. Colgrove's charge -- show regiments advancing across open ground ... Commander succession US-022 activates'; tick 516: 'deploy to Online position'). C-16's fix renders e.time ('8:25am' for Vincent, tick 267) while turning-points.html calls the same moment 'late afternoon' (C4).",
+   "fix": "Whitelist fields (event, significance, units_involved, narrative), never render flag, show the unified clock or 'Day 2, tick 267' until C4 lands, and add C4 as a dependency of C-16."
+  },
+  {
+   "title": "Source metadata missing for 5 of the 15 files Ask the Historian loads",
+   "severity": "medium",
+   "evidence": "vignettes_part2.json, vignettes_part3.json and confederate_regiments_first/second/third_corps.json have metadata with no sources key (171 CSA regiments, 16 of 24 vignettes); records have no per-record source. C-15/C-16 make sources[] REQUIRED and test 100%.",
+   "fix": "Data task first: add metadata.sources per file or a data/sources.json ledger; until then show a fallback 'Compiled by the site author from published sources' line linking to a Sources page."
+  },
+  {
+   "title": "Three different casualty models on three pages",
+   "severity": "medium",
+   "evidence": "dashboard.html:98-118 uses a piecewise curve (70% at peak, 100% at end); living-ledger.html:101-118 a linear ramp with an inclusive off-by-one; casualty_apportionment.json metadata.formulas documents a bell curve. C-75 fixes only the ledger, so ledger and dashboard chart will disagree at every tick.",
+   "fix": "One shared casualty-model.js (bell curve, normalised, largest-remainder rounding) used by both, with a parity test; reuse the dashboard's period-sum vs declared-total note (dashboard.html:130-136)."
+  },
+  {
+   "title": "AR camera preview may stay black on iOS Safari (inference)",
+   "severity": "medium",
+   "evidence": "ar.html:71 <video autoplay playsinline muted> is inside #ar-stage which is display:none (:34); srcObject is set at :161 before the stage is shown at :199; no video.play() anywhere in the file.",
+   "fix": "Show the stage first, then await video.play() in try/catch with a 'Tap to start camera' fallback; verify on an iPhone."
+  },
+  {
+   "title": "Watch Together viewers trust host messages without validation",
+   "severity": "low",
+   "evidence": "watch-together.html:256-257 conn.on('data') calls goToTick(data.tick, data.note, true) with no type or range check; rooms are 5-letter public ids anyone can host. Captions use textContent so no XSS, but arbitrary ticks and very long notes can be pushed.",
+   "fix": "Schema-validate every message (integer 1..675, note <= 280 chars, control characters stripped) on the client and on the future relay."
+  },
+  {
+   "title": "Proposed enforcing CSP would block the Mapbox map CSS",
+   "severity": "low",
+   "evidence": "C-11's final feature-page policy has style-src 'self' and script-src 'self' [self-hosted mapbox], but all 9 map pages load mapbox-gl.css from api.mapbox.com (immersive.html:15).",
+   "fix": "Self-host CSS and JS together (and use mapbox-gl-csp.js + worker for strict CSP) or keep https://api.mapbox.com in style-src/script-src; ship as a matched pair with C-03 item 3."
+  },
+  {
+   "title": "Effort roll-up arithmetic and Tier-0 estimate",
+   "severity": "low",
+   "evidence": "Tags in the report count 43 S, 12 S-M, 28 M, 1 M-L, 7 L, 1 XL across 92 findings, not the stated 40 S / 41 M / 9 L / 1 XL (91 items). Tier 0 ('3-4 person-days') lists about 17 items, several S-M.",
+   "fix": "Recompute the roll-up from the tags and raise Tier 0 to about 6-7 person-days so scheduling is not optimistic."
+  }
+ ]
+}

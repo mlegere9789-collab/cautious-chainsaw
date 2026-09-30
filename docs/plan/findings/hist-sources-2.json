@@ -1,0 +1,545 @@
+{
+ "agent": "hist-sources-2",
+ "summary": "Catalog of 46 modern/open/government sources for expanding Ask the Historian, all canonical URLs fetched on 2026-09-30 (135 URL checks, HTTP 200/206), with rights tiers (A public domain, B attribution/share-alike, C link-out only, A-pending), API limits, exact license statements, extraction methods, measured or explicitly-estimated record counts, questions enabled, and 27 actionable plan items. Key results: (1) real ancestor lookup is feasible via the NPS CWSS bulk snapshot (public S3 mirror, Soldiers_Personz.tsv 1,194,562,274 B, ~6.26M cards est., 42% Confederate in a sample, unit codes like UNY0071RI join to site ids) but redistribution needs written NPS confirmation; (2) Official Records Ser. I Vol. 27 (3 IA items, 3,578 pp, 11,257,033 B OCR, public domain) is the evidence layer for the clock conflict (site labels Longstreet's assault 7:30am at data/chronology_day2.json:23 and Pickett's Charge 11:05am at chronology_day3.json:35); (3) OpenStreetMap has 867 historic monument/memorial elements in the battlefield bbox vs the site's 512 (177 are >60 m from any site monument, 38 named Confederate; 20 site monuments have no OSM feature within 60 m; only 9/512 have a src) - ODbL, keep in a separate file; (4) USGS 3DEP 1 m DEM (4 tiles, 469-485 MB each) plus LoC Warren/Bachelder maps enable a genuine viewshed and an 1863-landscape layer; (5) rights-restricted sources must be link-out only: American Battlefield Trust (ToS forbids scraping and LLM/AI use), Ancestry family incl. Fold3 and Find a Grave (ToS forbids programmatic access and ML training), FamilySearch, ACHS, HMDB bulk (non-commercial only), Stone Sentinels, NHGIS. Negative results: no public NPS GIS for monuments/fences/orchards/cannon (GETT has only 7 national POIs), Dyer/NPS lists 300 Union and 0 Confederate units at Gettysburg, no Gettysburg OOB/roster dataset on GitHub/Zenodo, CWSS mirror has no Gettysburg cemetery rows. The current Historian eager-loads 15 JSON files (317,788 B) at historian.html:67-79, so the expansion must be lazy/sharded (target <=40 MB brotli lazy, zero added to first paint). Unverified items are flagged (Kaggle, DPLA, Gutenberg, NPS Data API record counts, NARA API, Jacobs weather values vs primary text, Sarah Broadhead diary).",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/hist-sources-2.md",
+ "findings": [
+  {
+   "id": "hist-sources-2-01",
+   "title": "Source registry and rights-tier gate enforced in CI",
+   "severity": "high",
+   "evidence": "historian.html:48 'answers only from this site's own published data -- 467 regimental records, 24 narrative vignettes, 137 chronology events, and 30 mapped terrain features'; data/oob/union_regiments_i_ii_corps.json:7-8 cites 'Busey, John W. and Martin, David G. -- Regimental Strengths and Losses at Gettysburg (Longstreet House, 1994)'; bundle.pretty.js:104437-110597 (512 monuments, src empty on 503).",
+   "root_cause": "No per-record provenance/license model and no attribution surface; nothing stops a Tier C source from entering a future index.",
+   "fix": "Add historian-data/sources.yaml {id,tier,license,rights_url,retrieved,sha256,attribution,may_index,may_redistribute}; qa/tier_gate.py fails the build if any output record lacks source_id/license, references a tier-C id, or a tier-B record lacks attribution; generate /sources.html and THIRD_PARTY_LICENSES.md from the registry.",
+   "effort": "M",
+   "acceptance_test": "tier_gate.py fails on a synthetic record with source_id SRC-40 (ABT) and passes on the real build; /sources.html lists every source id with license link and retrieval date; 100% of Historian answers render a source chip.",
+   "metric_or_grade_moved": "Privacy/legal B+ -> A; Historian trust (H8)",
+   "depends_on": [],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence real but `_A = [` is at bundle.pretty.js:104440 (not 104437); no:512 at 110597 correct; array closes 110609. Root cause understated: Tier C is already shipped. All 9 non-empty monument src strings are Stone Sentinels (lines 104475, 104932, 106138, 108468, 110569) or HMDB (110071, 110180, 110496, 110533); data/monuments.json (loaded at index.html:677) cites Wikipedia x6 and Stone Sentinels x3. The tier gate must scan existing data retroactively. Fix otherwise sound."
+  },
+  {
+   "id": "hist-sources-2-02",
+   "title": "Phase-0 written permissions and confirmations (NPS CWSS, GNMP monument inventory, HMDB, ACHS, Gettysburg College)",
+   "severity": "high",
+   "evidence": "NPS CWSS page: 'This database is no longer maintained and updated.'; mirror README has no license and GitHub API license=None (github.com/jrnold/cwss); ACHS page: 'Reproduction of any of the materials found below is prohibited without the express permission of Gettysburg History.'; HMDB copyright para 3: commercial use needs written permission and includes any compensation even by a not-for-profit.",
+   "root_cause": "High-value sources have unclear or restrictive rights and depend on third-party goodwill.",
+   "fix": "Owner sends 4 short emails and files replies under legal/: NPS (confirm public-domain status of CWSS data for derived per-regiment shards; ask for a newer export), GNMP Research Center (monument/marker/cannon/tablet inventory or GIS), HMDB (optional written permission for a derived link/coordinate dataset), Gettysburg History and Musselman Library Special Collections (link/index titles; reproduce 5-10 items with credit).",
+   "effort": "S",
+   "acceptance_test": "Each reply is stored with date; sources.yaml tiers updated (A-pending -> A, or the source removed); no shard built from SRC-10 is published before the NPS reply.",
+   "metric_or_grade_moved": "Legal risk; unblocks findings 04, 09, 25",
+   "depends_on": [],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "All four quotes verified (CWSS 'no longer maintained', GitHub license null/archived true, ACHS reproduction sentence, HMDB para 3). Nuances: HMDB paras 1-2 allow non-commercial copying with attribution so that email is optional; the ACHS sentence scopes to the Research Room holdings on that page; '2026-08-29' is updated_at, not a proven archive date."
+  },
+  {
+   "id": "hist-sources-2-03",
+   "title": "Unit crosswalk: site id <-> CWSS/Dyer code <-> DBpedia <-> NPS OOB string <-> monuments, with reconciliation report",
+   "severity": "high",
+   "evidence": "Site ids U-20ME/C-2SC/U-1ME-CAV in data/oob/*.json (487 list rows: 279 U-, 196 C-, 12 no id); CWSS codes UME0020RI / CVA0021RC / UCT0002YAL sampled from Soldiers_Personz.tsv, Regiments_Unitz.tsv, nps_units.csv; NPS/Dyer PA002 = 300 Union units and 0 Confederate (nps_battle_units.csv); nps_units.csv 7,011 units, 1,163 with dbpedia_uri.",
+   "root_cause": "Every source names units differently; there is no shared key so cross-source questions and count drift (467 vs '445+') cannot be tested.",
+   "fix": "ID_RE=^(?P<side>[UC])-(?P<num>\\d+)(?P<st>[A-Z]{2})(?:-(?P<arm>CAV|ART|SS))?$; code=side+STATE+zero_pad(num,4)+arm (RI infantry, RC cavalry; inventory REG_ARM/REG_TYPE first); batteries/independents/regulars via fuzzy name match to Regiments_Unitz REG_UNIT_NAME plus manual review; emit crosswalk.csv and unmatched.csv; qa/test_crosswalk.py.",
+   "effort": "L",
+   "acceptance_test": ">=99% of infantry/cavalry rows auto-matched; every battery/regular row human-reviewed and committed; symmetric-difference report vs the 300 Dyer/NPS Union units committed; CI fails if a site id has no crosswalk row.",
+   "metric_or_grade_moved": "Historical/data consistency; count consistency (H10)",
+   "depends_on": [],
+   "audit_refs": [
+    "H10"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Real ids are `regiment_id`; 467 regiment rows (274 U-, 193 C-), 480 list rows (not 487). The ID_RE misses 49/467 ids (-B,-R,-1,-b,-XII,-EH,-S... and name ids like C-Cobb-GA) plus 1 -SS. Only 417 ids derive a code and 375 of those exist in Regiments_Unitz: 80.3% overall, not 99%. 42 derived codes fail because CWSS disambiguates duplicates with suffixes (UDE0001RI01, UMI0001RI01, CVA0003RI01..03, UNY0002RC01) and Regulars are state 'UR' (UUR0004RI) not 'US'. Corrected rule (exact-first, US->UR, PA002 seed, suffix/name filters) resolves 409/467 (87.6%); 50 need a hand table, 7 ambiguous, 1 none (alias row). Replace the 99% acceptance test; effort L stands."
+  },
+  {
+   "id": "hist-sources-2-04",
+   "title": "CWSS roster shards and real ancestor lookup by the ancestor's own name",
+   "severity": "high",
+   "evidence": "find-ancestor.html:48 'Search by state, or by a commander's surname, to narrow down which of the 467 ... regiments and batteries ... your ancestor may have served in'; jrnold-nps-cwss bucket: new/tsv/Soldiers_Personz.tsv 1,194,562,274 B (~6.26M rows est. at 190.75 B/row), sampled rows 'James / Lacey / U / 71 N.Y. Infantry. / UNY0071RI / I / Corpl.' and 'John S.E. / McGee / C / 21 Virgnia Cavalry ... / CVA0021RC'; 884 of 2,097 sampled rows Confederate.",
+   "root_cause": "The site holds no soldier-level data so it can only guess from commander names.",
+   "fix": "After 02, copy the needed slice into owner storage; stream-filter Soldiers_Personz.tsv where PER_UNIT_CODE in crosswalk codes and PER_ISDELETE=False; emit data/historian/roster/<site_id>.<hash>.json {u,code,cards:[[last,first,company,rank_in,rank_out,alias]]} plus surname-prefix index files; UI on Find Ancestor: surname (+first name, state) -> cards grouped by regiment with the fixed caveat 'index card of service 1861-65, not proof of presence at Gettysburg' and user-initiated outbound links to NPS CWSS, Fold3, FamilySearch, Find a Grave.",
+   "effort": "XL",
+   "acceptance_test": "Known commanders printed on the NPS OOB pages are found in the right unit (Chamberlain/20th Maine, Dawes/6th Wisconsin, Fairchild/2nd Wisconsin, Colvill/1st Minnesota, Oates/15th Alabama, Burgwyn/26th North Carolina); median shard <=30 KB brotli; a query fetches <=4 shards; INP <200 ms on a mobile profile; first-load bytes unchanged.",
+   "metric_or_grade_moved": "Function/content depth A -> A+; Ancestor feature honesty",
+   "depends_on": [
+    "hist-sources-2-02",
+    "hist-sources-2-03"
+   ],
+   "audit_refs": [
+    "H5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Column indices, size (1,194,562,274 B), sample row and csv parsing verified. Corrections: the '42% Confederate' sample is not representative because the file is sorted by surname (400 KB samples at 0/100M/300M/500M/800M/1.1G bytes give 35/37/26/45/62/47%); 420k-700k card subset still unmeasured; soldier rows carry the same suffixed unit codes (CVA0002RI01) so finding 03's suffix logic is a prerequisite; '<=4 shards per query' only holds with counts in the index and lazy shard loading (Smith appears in hundreds of units)."
+  },
+  {
+   "id": "hist-sources-2-05",
+   "title": "Official Records Ser. I Vol. 27 ingestion as the participant-time evidence layer",
+   "severity": "high",
+   "evidence": "IA items warofrebellion271unit (1,190 pp; 3,970,479 B OCR), warofrebellion272unit (1,132 pp; 3,880,513 B), warofrebellion273unit (1,256 pp; 3,406,041 B); data/chronology_day2.json:23 tick 256 '7:30am' 'LONGSTREET'S ASSAULT BEGINS'; data/chronology_day3.json:35 tick 538 '11:05am' 'PICKETT'S CHARGE BEGINS'; data/chronology_day2.json:50 tick 314 '12:10pm' 'at dusk'.",
+   "root_cause": "The timeline has no cited clock evidence, so the Historian cannot answer 'when' questions honestly.",
+   "fix": "Build-time download of the three _djvu.txt files; clean (de-hyphenate, strip running heads, keep page markers); segment on 'No. NN. Report of ...' headings; store author/rank/unit/date/page; regex family for times ('about 4 p. m.', 'at daybreak', 'at 3 o'clock') -> {clock_text, minutes|null, confidence}; unit aliases from the crosswalk; place aliases from terrain.json + OSM names + CLR features; emit evidence records with citation 'O.R., Ser. I, vol. 27, pt. N, p. NNN'.",
+   "effort": "L",
+   "acceptance_test": ">=95% of pages assigned to a report; 100-passage manual sample <2% word errors with correct page numbers; a 'when did X start' query returns >=3 dated participant statements where they exist.",
+   "metric_or_grade_moved": "Historical/data consistency C- -> toward A; Historian trust",
+   "depends_on": [
+    "hist-sources-2-01",
+    "hist-sources-2-03"
+   ],
+   "audit_refs": [
+    "C4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "IA _djvu.txt has 0 form-feed page markers (3,954,662 chars, 110,793 lines) so 'keep page markers' and the 'every passage carries p. NNN' acceptance cannot be met from it; use <id>_page_numbers.json (1,170/1,188 leaves have printed page numbers in Part 1) with _hocr_searchtext + _hocr_pageindex, or _djvu.xml (46.6 MB). Headings are OCR'd with double spaces/newlines: strict 'No. NN. Report of' regex gets 0 hits, whitespace-tolerant gets 290 in Part 1. Time extraction is feasible (Part 1: 2,179 N a.m./p.m., 507 hh:mm, 292 o'clock). Part 3 needs a dispatch-header segmenter (see missed item)."
+  },
+  {
+   "id": "hist-sources-2-06",
+   "title": "Chronology-vs-evidence table for all 137 events (handoff for the time re-work)",
+   "severity": "high",
+   "evidence": "tick_formula 'Tick 1 = 5:00am ... Each tick = 5 minutes' at data/chronology_day1.json:5, day2:5, day3:5; tick 12 labeled 6:00am while the event text says 'approximately 7:30am' (data/chronology_day1.json:19).",
+   "root_cause": "Ticks are uniformly spaced but events were placed by narrative order, not by clock evidence.",
+   "fix": "Generate event_time_evidence.csv (tick, data_time, event, or_citations, or_minutes_min, or_minutes_max, delta_minutes, confidence, note) from the OR evidence records; publish the delta distribution; hand to the time/data agents.",
+   "effort": "M",
+   "acceptance_test": "All 137 events have >=1 cited time or an explicit 'no report time found'; a reviewer can trace each proposed time to an OR page number.",
+   "metric_or_grade_moved": "Historical/data consistency",
+   "depends_on": [
+    "hist-sources-2-05"
+   ],
+   "audit_refs": [
+    "C4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence exact (tick_formula line 5 in each chronology file; tick 12 at day1:19 with 'approximately 7:30am'). Effort M is optimistic: the automatic candidate table is M but adjudicating 137 events against multiple OR passages is L. The table must state which clock data_time uses (map vs data labels differ). Should draw on Part 3 timestamped dispatches."
+  },
+  {
+   "id": "hist-sources-2-07",
+   "title": "Cross-check the site's OOB and commander fates against the NPS AoP/ANV order-of-battle pages",
+   "severity": "medium",
+   "evidence": "NPS aop-orderofbattle.htm 'Last updated: January 8, 2026' lines like '19th Indiana Infantry- Col. Samuel J. Williams', '24th Michigan Infantry- Col. Henry A. Morrow (w), Capt. Albert M. Edwards'; site U-19IN commander 'Colonel Samuel Williams ... Wounded July 1' (data/oob/union_regiments_i_ii_corps.json).",
+   "root_cause": "OOB rests on copyrighted books with no independent check.",
+   "fix": "Regex parse '^(?P<unit>.+?)- (?P<cmdrs>.+)$', split commanders with flags (w)(k)(c)(w/c)(MOH), join by crosswalk, write oob_diff.csv (missing/extra units, commander and status differences).",
+   "effort": "M",
+   "acceptance_test": "Diff reviewed; every discrepancy resolved or annotated with a citation; unit count reconciles to the number shown in the UI.",
+   "metric_or_grade_moved": "Historical/data consistency",
+   "depends_on": [
+    "hist-sources-2-03"
+   ],
+   "audit_refs": [
+    "H10"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "NPS lines and 'Last updated: January 8, 2026' verified (ANV page Dec 22, 2025). Parse the DOM split on <br /> rather than text lines: hyperlinked commander names split 8 lines in the AoP text (e.g. '24th Michigan Infantry-'). My line-level counts 333/232 vs report estimates 352/265. NPS also links commanders to official-report pages, an extra source."
+  },
+  {
+   "id": "hist-sources-2-08",
+   "title": "Monument validation and expansion from OpenStreetMap (ODbL, separate file)",
+   "severity": "high",
+   "evidence": "512 site monuments bundle.pretty.js:104437-110597 (Union 457/Confederate 40/Other 15; src non-empty 9); Overpass bbox 39.77,-77.29,39.86,-77.16 -> 867 elements (790 monument, 77 memorial), 852 named, 131 with inscription; tmp-hist-sources-2/monument_osm_overlap.py: 177 OSM elements >60 m from any site monument (131 >100 m, 302 >30 m), 38 of 177 named CS/Confederate, 20 site monuments with no OSM feature within 60 m, 32 site latitudes with 4 decimals and 3 with 3.",
+   "root_cause": "Weak monument provenance, Union-heavy composition, no independent coordinate check.",
+   "fix": "score=token_overlap(norm(site.name),norm(osm.name)); matched=(score>=0.6 and dist_m<=60); emit monuments_osm.geojson (ODbL, all 867 with match status) and monument_qa.csv (site_no, nearest_osm_id, dist_m, name_score, flag); treat the 177 unmatched as unverified candidates until confirmed by the 1907 NPS book or NPS pages; resolve the 20 suspect coordinates; use OSM for validation only (option 1) and attribute per section 8.",
+   "effort": "L",
+   "acceptance_test": "monument_qa.csv reviewed; each of the 20 suspect coordinates fixed or annotated; >=38 Confederate tablets added only with a second evidence source; OSM attribution visible whenever the layer is on; ODbL file carries LICENSE header.",
+   "metric_or_grade_moved": "Content depth; Union/Confederate balance",
+   "depends_on": [
+    "hist-sources-2-03",
+    "hist-sources-2-09"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "Re-ran monument_osm_overlap.py (identical: 177/131/302 unmatched, 20 site monuments with no OSM within 60 m, 38 CS/39 US/100 other) and re-queried Overpass live: 867 (790/77), 852 named, 131 inscriptions. Unmatched set is mostly real park tablets; 68 of 177 lie north of lat 39.822. Name-token matching will be weak given OSM abbreviations, so the 0.6 threshold needs a manual review pass."
+  },
+  {
+   "id": "hist-sources-2-09",
+   "title": "Provenance for all 512 monuments from public-domain NPS documents and move the array out of the JS bundle",
+   "severity": "medium",
+   "evidence": "src non-empty for 9 of 512 records; mn values 'MN 260' (meaning undocumented, UNVERIFIED); 1907 book irma.nps.gov/DataStore/DownloadFile/472768 (1,220,721 B, 58 pp); 1932 list npshistory.com/publications/gett/mon-locations-1932.pdf (2,095,190 B); literal `_A = [` at bundle.pretty.js:104437 spans ~158 KB pretty-printed (est. 60-80 KB minified).",
+   "root_cause": "Provenance never stored per record; data is compiled into the bundle.",
+   "fix": "OCR both PDFs, parse names/locations, match to the 512, write src like 'NPS 1907 Location of Monuments p. 23'; extract the array to data/monuments_v2.json lazy-loaded when the monument layer/walkthrough opens (requires a source rebuild).",
+   "effort": "L",
+   "acceptance_test": "100% of records have src; the bundle no longer contains the literal; walkthrough still lists >=512 items.",
+   "metric_or_grade_moved": "Docs/provenance; JS bundle size (P2)",
+   "depends_on": [
+    "hist-sources-2-08"
+   ],
+   "audit_refs": [
+    "N1",
+    "P2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Array is ~110,937 chars (~111 KB) minified in bundle.min.js (offset 2,124,258), ~18 KB gzip, not 60-80 KB; starts at bundle.pretty.js:104440. The 1907 book (38.8k chars text) and 1932 list (140k chars, columns scrambled) give avenue locations not coordinates and cannot cover post-1932 monuments (Alabama Nov 1933, Tennessee 1982 per search-result summaries; also Longstreet statue, Women's Memorial, Return Visit statue, MN 7xx-8xx items), so '100% have src' is unreachable and cannot supply coordinate provenance, which is what src currently records. Split id_src vs coord_src."
+  },
+  {
+   "id": "hist-sources-2-10",
+   "title": "USGS 3DEP DEM grid and a genuine viewshed",
+   "severity": "high",
+   "evidence": "viewshed.html:46 'This shows relative elevation, not a computed sightline. A genuine viewshed analysis needs full terrain elevation data (a digital elevation raster)'; data/terrain.json has 30 locations with one elevation_ft each; TNM API returns four 1 m tiles USGS_one_meter_x30y441/x30y442/x31y441/x31y442_PA_South_Central_B1_2017.tif (468,996,588-485,186,601 B each).",
+   "root_cause": "The page has no raster to compute from.",
+   "fix": "gdalbuildvrt + gdalwarp -t_srs EPSG:32618 -tr 5 5 -te <bbox> -r average -> 16-bit PNG height grid (~2,200x2,000 cells; est 3-5 MB) plus 10 m fallback; metadata {crs,origin,cell,zmin,zmax,source,credit}; Web Worker line-of-sight with observer 1.65 m, target 1.5 m, curvature correction; UI shows assumptions and later a with/without 1863 woodlots toggle; credit 'U.S. Geological Survey'.",
+   "effort": "L",
+   "acceptance_test": "Known pairs plausible (Little Round Top summit sees the Wheatfield; Cemetery Hill sees Seminary Ridge); a run on the 5 m grid <2 s on a mid-tier phone; page states the DEM is today's bare-earth terrain.",
+   "metric_or_grade_moved": "Function honesty (H8); content depth",
+   "depends_on": [
+    "hist-sources-2-21"
+   ],
+   "audit_refs": [
+    "H7",
+    "H8"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Four tiles/sizes/date verified; 5 m grid ~2,000x2,220 cells correct. Flaw: a 16-bit grayscale PNG cannot be read at full precision in the browser via canvas/getImageData (8-bit per channel; platform behavior, not tested here). Ship terrain-RGB packed PNG or raw Uint16 .bin with brotli, or use a JS PNG decoder."
+  },
+  {
+   "id": "hist-sources-2-11",
+   "title": "1863 landscape layer from NPS CLR inventories and georeferenced Warren/Bachelder maps",
+   "severity": "medium",
+   "evidence": "historian.html:48 '30 mapped terrain features'; NPS Data Store CLR/CLI files 2186022 (118 pp, 6,972,170 B), 2293618 (580 pp, 170,160,982 B), 2242136 (178 pp), 2188403 ('The 1863 Landscape', 140 pp), 2257218 ('Period of significance: 1863-1938'); LoC maps lva0000067 (Bachelder 1876 from a 200 ft/inch survey under Warren), 2007630423 (isometric 1863), 99447503 (GBMA 1894, ca. 1:12,000), 2004629148 (Adams County 1858).",
+   "root_cause": "No structured 1863 landscape data; the Historian cannot say whether a place was orchard, woods or fenced in 1863.",
+   "fix": "Extract landscape_feature records with page citations from the CLR/CLI inventories; georeference the LoC scans (8-15 control points per sheet, Allmaps/QGIS) and trace roads/lanes/woodlots/orchards/fences/buildings into GeoJSON with {map,map_year,gap_years_vs_1863,confidence}; label all as 'traced from map / interpreted by NPS'.",
+   "effort": "XL",
+   "acceptance_test": ">=300 traced features on the core battlefield each with map+year+confidence; 'Was the Peach Orchard an orchard in 1863?' returns a cited CLR page and a map feature.",
+   "metric_or_grade_moved": "Content depth",
+   "depends_on": [
+    "hist-sources-2-10",
+    "hist-sources-2-01"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "All cited reference ids resolve via the Data Store profile API (Public visibility) to file ids 733629/672770/580673/472822/621486+621487; HEAD sizes match; the four LoC maps are as described. List both reference and file ids. Page counts not re-checked. Tier A for contractor-authored CLRs is too generous (see missed item)."
+  },
+  {
+   "id": "hist-sources-2-12",
+   "title": "July 1-4, 1863 weather table from Prof. Jacobs",
+   "severity": "medium",
+   "evidence": "IA notesonrebelinva00gett (83,032 B OCR, 66 pp) and notesonrebelinv00jacogoog (1864); values seen only in a secondary summary (Emerging Civil War): Jul 1 72/76/74, Jul 2 74/81/76, Jul 3 73/87/76 with storm, Jul 4 rain >1 inch - NOT yet checked against the primary text.",
+   "root_cause": "No weather data anywhere in the app.",
+   "fix": "Hand-key a 4-day x 3-reading table from the primary (date,hour,temp_F,wind,sky,rain,page); Tier A; label 'town station'.",
+   "effort": "S",
+   "acceptance_test": "Every row has a page citation; a second person re-checks all values; 'weather when Pickett's Charge began' returns the 2 pm reading with the station caveat.",
+   "metric_or_grade_moved": "Content depth",
+   "depends_on": [],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "None of the four IA copies of Jacobs' Notes (notesonrebelinva00gett, notesonrebelinv00jacogoog, notesonrebelinva00jaco, notesonrebelinva00jaco_0 1888) contains a readings table (0 hits for meteorolog/thermometer/temperature/degrees/cloudy); only incidental rain mentions and a thunder-storm simile for the cannonade. ECW (per fetch summary) attributes readings to the 1864 Lippincott Notes and an Aug 11, 1885 Star and Sentinel republication, and gives no July 4 readings, so 'Jul 4 rain >1 inch' is unsupported. Effort S is unrealistic until the real primary is located; re-scope to M with a source-hunt step."
+  },
+  {
+   "id": "hist-sources-2-13",
+   "title": "Civilian testimony corpus (Pierce, Buehler, Hoke, Jacobs, Bates, NPS article)",
+   "severity": "medium",
+   "evidence": "IA ids atgettysburgorwh00alle, recollectionsofr00bueh, greatinvasionof100hoke, notesonrebelinv00jacogoog, battlegettysbur00bategoog; NPS nps.gov/articles/000/civilians-at-gettysburg.htm; current corpus has 24 vignettes and no civilian testimony (historian.html:48).",
+   "root_cause": "Only site-authored vignettes exist.",
+   "fix": "Paragraph passages tagged {witness, age_at_battle, residence, day, place, sense, written_year, retrospective:true}; sensory keyword index.",
+   "effort": "M",
+   "acceptance_test": "'What did civilians see?' returns >=3 witnesses with dates and titles; each passage shows its writing year.",
+   "metric_or_grade_moved": "Content depth",
+   "depends_on": [
+    "hist-sources-2-01",
+    "hist-sources-2-23"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "All five IA ids exist; three carry NOT_IN_COPYRIGHT. Buehler's IA date is '[19--]'; the report's '1900' is unverified."
+  },
+  {
+   "id": "hist-sources-2-14",
+   "title": "Regiment narratives from state volumes, Vanderslice and Dyer (via CWSS)",
+   "severity": "medium",
+   "evidence": "IA maineatgettysbur01main (1,606,755 B OCR), pennsylvaniaatg02penn (2,013,624 B), newyorkatgettysb0001unse, cu31924030924736, minnesotacivil01minnrich, thenandnowgetty00vandrich (373,618 B); regiment records carry one-line key_action strings e.g. 'Iron Brigade left flank -- Herbst Woods charge July 1. 68% casualties.'",
+   "root_cause": "Regiment pages have no narrative depth.",
+   "fix": "Chunk by regiment section, attach via crosswalk, flag retrospective; strip HTML from Dyer text in Regiments_Unitz.tsv; add 'History' and 'Their own words' panels.",
+   "effort": "L",
+   "acceptance_test": ">=80% of Union and >=50% of Confederate regiments have a narrative passage or an explicit 'none found'; every passage cites volume+page.",
+   "metric_or_grade_moved": "Content depth",
+   "depends_on": [
+    "hist-sources-2-03"
+   ],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "Sizes and ids verified, but CWSS Confederate unit histories are not Dyer (Dyer is Union-only; SRC-10 and this finding blur it). Proper CSV parse of Regiments_Unitz: 7,002 records; REG_HISTORY present for 2,466/3,250 Union and 1,184/3,752 Confederate units (523/729 Confederate infantry regiments). Confederate texts carry 1999 CWSS edit dates, hard-wrapped lines with blank-line doubling, dead old nps.gov battle links, and unstated authorship/rights: treat as A-pending with SRC-10."
+  },
+  {
+   "id": "hist-sources-2-15",
+   "title": "Fox 1889 casualty layer and governance note on the Busey & Martin dependency",
+   "severity": "medium",
+   "evidence": "data/oob/union_regiments_i_ii_corps.json:7-8 cites Busey & Martin (1994); IA regimentallosses00infoxw (618 pp, 2,193,581 B OCR).",
+   "root_cause": "Casualty/strength figures rest on one copyrighted compilation.",
+   "fix": "Extract Fox rows for Union regiments engaged at Gettysburg, join via crosswalk, compare to site numbers, publish differences; keep facts not book wording; add a NOTICE explaining that figures are factual data cross-checked against Fox/OR (not legal advice).",
+   "effort": "L",
+   "acceptance_test": "Double-entry check on 50 regiments; discrepancy list committed; UI shows the source per figure.",
+   "metric_or_grade_moved": "Data consistency; legal hygiene",
+   "depends_on": [
+    "hist-sources-2-03",
+    "hist-sources-2-05"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "oob/union_regiments_i_ii_corps.json:7-8 verified; terms.html:30 names Busey & Martin publicly. Fox covers Union only, so the 193 C- regiments get no PD cross-check from this finding."
+  },
+  {
+   "id": "hist-sources-2-16",
+   "title": "July 1863 newspapers (Chronicling America) as 'what the press reported'",
+   "severity": "low",
+   "evidence": "loc.gov API on 2026-09-30: q=gettysburg dates 1863-07-03/1863-07-10 -> 437 pages; 1863-07-01/1863-07-31 -> 1,560 pages; documented limit 20 requests/min (1-hour block).",
+   "root_cause": "No contemporary press in the corpus.",
+   "fix": "Build script at <=12 req/min with caching; rank pages by term density; ship ~300 curated pages via fulltext_file OCR; label as contemporary press.",
+   "effort": "L",
+   "acceptance_test": "No 429s in logs; each passage carries paper/date/page URL; UI label 'reported in the press - often wrong'.",
+   "metric_or_grade_moved": "Content depth",
+   "depends_on": [
+    "hist-sources-2-21"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "437 (Jul 3-10) and 1,560 (Jul 1-31) page counts and the 20/min, 1-hour block limit verified (block countdown resets on requests made during the block)."
+  },
+  {
+   "id": "hist-sources-2-17",
+   "title": "Soldiers' National Cemetery burial lists (1864/65) as the Union burials layer",
+   "severity": "low",
+   "evidence": "IA revisedreportofs01penn, revisedrepor2743penn, reportofselectcopenn; CWSS mirror Cemeteries_Info.tsv has 5,672 rows and 0 mention Gettysburg.",
+   "root_cause": "No public Gettysburg burial dataset in the CWSS mirror.",
+   "fix": "OCR-parse per-state tables to {name,rank,company,regiment,state,plot}; QA 200 rows; label 'Union burials as of the 1865 report'; Find a Grave link-out only.",
+   "effort": "L",
+   "acceptance_test": "Parse yield reported; manual sample error <3%; no Find a Grave fetches.",
+   "metric_or_grade_moved": "Content depth",
+   "depends_on": [
+    "hist-sources-2-03"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "IA ids exist; Cemeteries_Info.tsv has 5,672 rows and 0 mention Gettysburg."
+  },
+  {
+   "id": "hist-sources-2-18",
+   "title": "Implement attribution/compliance for CC BY-SA, ODbL, CC BY, MIT and agency credit lines",
+   "severity": "high",
+   "evidence": "Wikipedia reuse page (attribution + share-alike + change note); OSM copyright page ('If you alter or build upon our data, you may distribute the result only under the same license.'); figshare API license 'CC BY 4.0'; utcompling/WarOfTheRebellion LICENSE (MIT); sitemap lists 20 URLs and no /sources.html.",
+   "root_cause": "No attribution surface and no separation of share-alike material.",
+   "fix": "Section 8 pattern: Wikipedia excerpts in their own JSON with license header and labeled quote blocks (never blended into composed answers); OSM-derived data in data/ext/monuments_osm.geojson with LICENSE-ODbL.txt and map attribution entry; /sources.html and THIRD_PARTY_LICENSES.md.",
+   "effort": "M",
+   "acceptance_test": "Every B-tier record renders attribution; link checker confirms permalinks; repo checklist passes.",
+   "metric_or_grade_moved": "Privacy/legal B+ -> A",
+   "depends_on": [
+    "hist-sources-2-01"
+   ],
+   "audit_refs": [
+    "X5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Licenses verified (figshare CC BY 4.0, WarOfTheRebellion MIT). Minor: sitemap.xml has 21 <loc> entries (home + 20), not 20; still no /sources.html, privacy or terms."
+  },
+  {
+   "id": "hist-sources-2-19",
+   "title": "Tier C link-out registry (ABT, Fold3, Find a Grave, FamilySearch, HMDB, Stone Sentinels, ACHS) with CI guard",
+   "severity": "medium",
+   "evidence": "ABT ToS (fetch-summarizer): forbids 'web scraping' and 'use ... for artificial intelligence technologies such as large language models'; Ancestry T&Cs (text read) forbid automated access beyond human use and use 'to train, develop, or fine-tune any machine learning model'; findagrave.com/robots.txt 'Disallow: /memorial/search'; HMDB copyright page (text read).",
+   "root_cause": "High risk of accidental ingestion of terms-restricted content.",
+   "fix": "data/linkouts.json {source_id,label,url_template,terms_url} rendered as buttons; CI grep failing if battlefields.org, fold3.com, findagrave.com, familysearch.org or hmdb.org appear in fetch scripts for content.",
+   "effort": "S",
+   "acceptance_test": "No fetch script contacts those hosts for content; ABT/Ancestry text never appears in normalized/.",
+   "metric_or_grade_moved": "Legal risk",
+   "depends_on": [
+    "hist-sources-2-01"
+   ],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "ABT ToS (scraping clause e, AI clause), Ancestry T&C quote and Find a Grave robots.txt verified from primary text. HMDB is not link-out-only by its own terms: paras 1-2 allow copying with attribution for non-commercial use; only commercial use needs written permission. Label it B-NC/attribution rather than Tier C, and note 4 shipped monument rows already derive from HMDB. FamilySearch terms remain summarizer-only."
+  },
+  {
+   "id": "hist-sources-2-20",
+   "title": "Media rights register and image/audio allowlist",
+   "severity": "medium",
+   "evidence": "Commons category sizes 462/338/311 with per-file licenses; Freesound licenses CC0/CC BY/CC BY-NC; LoC photo rights text: 'The Library of Congress does not own rights to material in its collections'.",
+   "root_cause": "No register of asset rights.",
+   "fix": "media_register.csv {asset,source_url,license,credit,retrieved,tier} plus CI allowlist (CC0, PD*, CC BY, CC BY-SA); captions render credit; credits page for audio.",
+   "effort": "S",
+   "acceptance_test": "Build fails on an image without a register row or with a disallowed license.",
+   "metric_or_grade_moved": "Legal risk; polish",
+   "depends_on": [
+    "hist-sources-2-01"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "Commons category sizes 462/338/311 verified via API; Freesound licenses not re-checked (UNVERIFIED)."
+  },
+  {
+   "id": "hist-sources-2-21",
+   "title": "Reproducible data pipeline with lockfile, caching, rate budgets and CI",
+   "severity": "medium",
+   "evidence": "No real source project exists (audit N1); verified limits: loc.gov 20/min, Wikimedia 10/min unidentified vs 200/min with contact User-Agent, NPS API 1,000/hr, NARA 10,000/month, GitHub search 10/min; CSP is Report-Only (audit X3).",
+   "root_cause": "Ad-hoc one-off data work would not be repeatable and could get blocked.",
+   "fix": "historian-data/ tree (fetch, normalize, qa, build) with sources.lock.json (sha256) and RATE_BUDGET read from the catalog; monthly CI job produces a diff PR; shipped app uses only connect-src 'self'.",
+   "effort": "M",
+   "acceptance_test": "Clean-machine re-run reproduces identical shard hashes; no 429s; Historian makes zero third-party requests at runtime.",
+   "metric_or_grade_moved": "Reliability; security (CSP)",
+   "depends_on": [],
+   "audit_refs": [
+    "N1",
+    "X3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "loc.gov 20/min, Wikimedia 10 vs 200/min, NPS 1,000/hr, NARA 10,000/month verified; GitHub search 10/min not re-run. 'connect-src self only' needs a per-path header because the live /historian.html carries the sitewide Report-Only CSP naming Mapbox/PeerJ hosts."
+  },
+  {
+   "id": "hist-sources-2-22",
+   "title": "Lazy, sharded delivery and performance budget for the expanded Historian",
+   "severity": "high",
+   "evidence": "historian.html:67-79 fetches 15 JSON files (317,788 B raw) with Promise.all before answering; audit P1 (INP/LCP Poor) and P3 (~30 JSON fetches on load).",
+   "root_cause": "One-shot eager loading does not scale to ~40 MB of corpora.",
+   "fix": "manifest.json (<=5 KB) + content-hashed shards fetched on demand (Cache-Control immutable) + Web Worker tokenization/BM25; input handlers return <50 ms; prefetch only after first interaction.",
+   "effort": "M",
+   "acceptance_test": "Lighthouse mobile >=95 performance on /historian.html with full corpora present; INP <200 ms p75 over a 100-query script; first-load bytes <= today's (~11 KB HTML + <100 KB brotli data).",
+   "metric_or_grade_moved": "Performance (INP/LCP) and reliability",
+   "depends_on": [
+    "hist-sources-2-23"
+   ],
+   "audit_refs": [
+    "P1",
+    "P3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "historian.html:67-79 fetch block, Promise.all at 75-79 and the 317,788 B sum of the 15 files verified exactly."
+  },
+  {
+   "id": "hist-sources-2-23",
+   "title": "Evidence-record JSON schema and validators",
+   "severity": "medium",
+   "evidence": "historian.html builds ad-hoc corpus entries (e.g. kind:'vignette', text, weight:1.3, srcHref at ~lines 104-110).",
+   "root_cause": "No common record shape carrying license, tier, citation, time and unit/place ids.",
+   "fix": "Adopt the JSONL schema in report section 9 with JSON Schema validation in CI; every normalizer emits it.",
+   "effort": "S",
+   "acceptance_test": "100% of records validate; tier and license present; a link check shows citations resolve.",
+   "metric_or_grade_moved": "Data quality",
+   "depends_on": [
+    "hist-sources-2-01"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "Corpus entry shapes verified at historian.html:89,97,107,110."
+  },
+  {
+   "id": "hist-sources-2-24",
+   "title": "Answer guardrails and evaluation seed from the question matrix",
+   "severity": "medium",
+   "evidence": "Report section 6 (13 questions incl. 'Who was in the 20th Maine?', 'What did civilians see?', 'How deep was the wheat at the Wheatfield?'); audit H8 ('why did Lee lose the war' returned Archer Captured).",
+   "root_cause": "No answerability classes; risk of invented specifics.",
+   "fix": "Commit eval/questions.jsonl with expected source ids and answerability class (exact/derivable/evidence-only/no direct data); for no-direct-data questions require >=2 cited passages and refuse to invent numbers (wheat stalk height is not recorded anywhere I found).",
+   "effort": "S",
+   "acceptance_test": "13/13 eval questions pass on class and citations; the wheat-height question answers 'unknown - here is what witnesses said' with citations.",
+   "metric_or_grade_moved": "Historian accuracy/trust",
+   "depends_on": [
+    "hist-sources-2-05",
+    "hist-sources-2-13",
+    "hist-sources-2-25"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Section 6 contains 13 questions as claimed; the wheat-height 'no direct data' guardrail is consistent with evidence."
+  },
+  {
+   "id": "hist-sources-2-25",
+   "title": "Farm-level evidence: damage claims (permission) starting with the printed Trostle example",
+   "severity": "low",
+   "evidence": "NPS Civil War Series page (npshistory.com/publications/civil_war_series/16/sec20.htm): '27 acres wheat destroyed, worth $600.00', '32 acres Grass', '20 tons of Hay'; ACHS: reproduction prohibited without permission.",
+   "root_cause": "No farm-level crop/damage data in the app.",
+   "fix": "Phase 1 transcribe examples printed in the NPS handbook (Tier A); Phase 2 after finding 02 pursue ACHS/State Archives cooperation; store {farm,claimant,crop,acres,value,source}.",
+   "effort": "L",
+   "acceptance_test": "Each record cites a page; UI states claims are self-reported losses.",
+   "metric_or_grade_moved": "Content depth",
+   "depends_on": [
+    "hist-sources-2-02"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "Trostle claim text on npshistory.com sec20.htm verified (27 acres wheat $600.00, 32 acres Grass $650.00, 20 tons hay $300.00; Cumberland Township). Trostle is a different farm from the Rose Wheatfield used in the wheat question."
+  },
+  {
+   "id": "hist-sources-2-26",
+   "title": "Prisoners and hospitals: Fort McHenry subset and Medical & Surgical History extracts",
+   "severity": "low",
+   "evidence": "Prisoners_FtMcHenry.tsv (850,570 B) sample row 'PW / Crudup, A.D. / 1863-10-22 / 47 NC / ... / Gettysburg 07/03/63'; IA medicalsurgical32barnrich; no complete Camp Letterman roster found (forum-thread evidence only, UNVERIFIED).",
+   "root_cause": "No prisoner/hospital content.",
+   "fix": "After 02 filter PRM_NOTES containing 'Gettysburg' (count unknown); extract only Gettysburg wound statistics/cases; state 'no complete roster is known' only after verifying.",
+   "effort": "M",
+   "acceptance_test": "Count of Gettysburg-note rows reported; disclaimers present; no Fold3/Fort Delaware scraping.",
+   "metric_or_grade_moved": "Content depth",
+   "depends_on": [
+    "hist-sources-2-02",
+    "hist-sources-2-03"
+   ],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "The count is knowable now: 811 of 5,184 Prisoners_FtMcHenry.tsv records mention Gettysburg in PRM_NOTES (file size 850,570 B verified)."
+  },
+  {
+   "id": "hist-sources-2-27",
+   "title": "Re-check the unverified items (Kaggle, DPLA, Gutenberg, NPS API counts, Broadhead diary, Wikisource)",
+   "severity": "low",
+   "evidence": "Kaggle needs a login; DPLA docs returned 403; Gutendex/Gutenberg timed out/503; Sarah Broadhead diary not found on IA by title; NPS Data API counts need a key; Wikisource hit HTTP 429 earlier in the session.",
+   "root_cause": "Tool limits during research.",
+   "fix": "Owner-authenticated re-checks; record the result per item in sources.yaml.",
+   "effort": "S",
+   "acceptance_test": "Each item marked verified or dropped in the registry.",
+   "metric_or_grade_moved": "Completeness of the source catalog",
+   "depends_on": [],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "Process item; partly resolved by re-check: Gutendex answers (13 'gettysburg' hits), Wikisource API 200, Kaggle search page 200 (data needs login), DPLA docs 403, gutenberg.org search 504; Broadhead diary not found by IA title search or Gutendex (still unverified elsewhere)."
+  }
+ ],
+ "open_questions": [
+  "Will the site stay strictly non-commercial (no ads, no sales)? It decides whether HMDB-derived content or CC BY-NC audio could ever be allowed.",
+  "Is the owner willing to send the Phase-0 emails (NPS, GNMP Research Center, HMDB, ACHS, Gettysburg College)? They are messages in the owner's name; I sent none.",
+  "Does NPS confirm that CWSS data may be redistributed as derived per-regiment shards, and is there a newer export than the 2012/2015 snapshot on the jrnold mirror?",
+  "What is the meaning of the monument field mn ('MN 260') in bundle.pretty.js (probably an NPS monument number - unverified)?",
+  "Which Mapbox and Google Maps Platform terms apply to Cinematic Export video and Street View captions (not researched here)?",
+  "Do the Jacobs weather values (72/76/74, 74/81/76, 73/87/76) match the primary 1864 text? They came from one secondary summary.",
+  "Real count of Gettysburg-unit cards in Soldiers_Personz.tsv and of Gettysburg-note rows in Prisoners_FtMcHenry.tsv (estimates only until Phase 0 streams the files)."
+ ],
+ "verification_summary": "Re-checked all 27 findings against the deployed files, bundle.pretty.js, the CWSS S3 mirror, IA, NPS Data Store, USGS TNM, LoC and Overpass. Most facts reproduce exactly (byte sizes, counts, quotes, OSM overlap numbers). 12 verdicts are CORRECTED, none REFUTED. The main defects: (1) the unit-crosswalk rule auto-matches only 375/467 (80.3%) rather than 99%, breaks on 49 off-grammar ids plus CWSS suffix variants, and Section 5 maps US Regulars to UUS (that prefix is USCT; Regulars are UUR); (2) IA _djvu.txt has no page markers (0 form feeds), so the OR page-citation acceptance test cannot be met without _page_numbers.json / hOCR, and Part 3 contains 118+ timestamped dispatches the plan ignores; (3) the Jacobs weather table is not in any of the four cited IA scans; (4) 16-bit PNG height grid loses precision through browser canvas; (5) the 1907/1932 PDFs cannot give 100% monument provenance (post-1932 monuments, no coordinates) and the monument array is ~111 KB minified, not 60-80 KB; (6) Tier C sources (Stone Sentinels x8, HMDB x4) and Wikipedia x6 are already in shipped data, which the report never flags. Verification section appended to hist-sources-2.md.",
+ "missed_by_specialist": [
+  {
+   "title": "Tier C and CC BY-SA sources are already inside shipped site data",
+   "severity": "high",
+   "evidence": "bundle.pretty.js:104475, 104932, 106138, 108468, 110569 (Stone Sentinels) and 110071, 110180, 110496, 110533 (HMDB markers 17965/15142/14539/16865) are the only 9 non-empty monument `src` strings; data/monuments.json lines 10/18/34/42/50/66 cite Wikipedia and 26/58/74 cite Stone Sentinels, loaded by index.html:677. The report's own tier table puts Stone Sentinels in Tier C and Wikipedia in Tier B with attribution, and no attribution surface exists.",
+   "fix": "Retro-audit those 18 coordinates: replace from OSM-verified/NPS/PD sources or a field check, or keep with a 'From HMdb.org' / Wikipedia credit on /sources.html; record them as legacy rows in sources.yaml; make the CI tier gate scan data/*.json and the extracted monument array, not only new build output."
+  },
+  {
+   "title": "US Regulars mapped to the wrong CWSS code prefix (UUS = US Colored Troops)",
+   "severity": "high",
+   "evidence": "Report Section 5 (line 1367) says Regulars map to UUS.... codes. In Regiments_Unitz, UUS0004RI00C is '4th Regiment, United States Colored Infantry'; Regular Army units are state code UR (UUR0004RI = '4th Regiment, US Infantry (Regular Army)'), and PA002 contains 22 UUR codes. A prefix/fuzzy match of site id U-4US would join USCT rosters to a Regular regiment.",
+   "fix": "Add state map US->UR in the crosswalk and a test asserting the matched REG_UNIT_NAME contains 'Regular Army' iff the site id state is US; hand-review the remaining U-*US* rows."
+  },
+  {
+   "title": "OR Vol. 27 Part 3 timestamped dispatches are not exploited",
+   "severity": "high",
+   "evidence": "warofrebellion273unit_djvu.txt contains 118 dispatch headers like 'July 2, 1863—3.40 a. m.' and 'July 1, 1863 — 6 a. m.' (125 date-dash-digit matches), each with sender and recipient. The specified 'No. NN. Report of' segmenter finds 0 of them. They are contemporaneous, unlike retrospective reports, and are the best evidence for audit C4 and finding 06.",
+   "fix": "Add a dispatch segmenter (date-dash-time header line, then sender/recipient lines) storing {sender, recipient, clock_text, minutes, page}; rank contemporaneous timestamps above retrospective report times in event_time_evidence.csv. Handle '3.40' period separators. Effort M."
+  },
+  {
+   "title": "The '467 regimental records' headline includes an alias row",
+   "severity": "medium",
+   "evidence": "data/oob/union_regiments_i_ii_corps.json:26 is U-14BK '14th Brooklyn (alias for U-84NY)' with alias_for U-84NY and strength 0, counted in metadata.total_regiments (77). historian.html:48 and find-ancestor.html:48 both print 467; distinct units are 466.",
+   "fix": "Have the crosswalk and test_crosswalk.py collapse alias_for rows, publish an explicit inventory of the off-grammar id families, and correct the UI count once the OOB is reconciled."
+  },
+  {
+   "title": "Tier A for contractor- or partner-authored NPS reports is too generous",
+   "severity": "medium",
+   "evidence": "NPS Data Store profile 2242136 cites 'Einhorn, Yaffee Prescott, Contractor and Others. 2012'; profile 2293618 is Auwaerter et al. (Olmsted Center) with partner owners (@partner.nps.gov). The NPS disclaimer grants public-domain status to works 'prepared by an officer or employee of the U.S. Government' and says 'not all materials ... are in the public domain'.",
+   "fix": "Record author affiliation and the PDF's own copyright/credit page per document in sources.yaml; treat contractor-authored CLRs as A-pending (quote with citation, no figure reuse) until checked."
+  },
+  {
+   "title": "Weather-table primary source is unlocated, so the weather question rests on a secondary summary",
+   "severity": "medium",
+   "evidence": "No cited IA Jacobs scan (4 copies incl. 1888 edition) contains a readings table; ECW summary cites Lippincott 1864 and a Star and Sentinel (Gettysburg) republication of Aug 11, 1885, and gives no July 4 readings.",
+   "fix": "Add a 'locate primary' step (1885 newspaper, Smithsonian observer record) before hand-keying; mark Section 6 row 6 (weather when Pickett's Charge began) unanswerable until then."
+  },
+  {
+   "title": "Data-entry artifact in user-visible monument text",
+   "severity": "low",
+   "evidence": "bundle.pretty.js:110600 (record 512, Jennie Wade Memorial) has honors '...(WGS-84 decimal degrees). MN ID'; honors is rendered at bundle.pretty.js:110704.",
+   "fix": "Rewrite the text and add a CI lint over honors/loc for 'WGS', 'decimal', 'MN ID', 'http'."
+  }
+ ]
+}

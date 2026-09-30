@@ -1,0 +1,826 @@
+{
+ "agent": "app-design",
+ "summary": "DESIGN SYSTEM and VISUAL POLISH plan (no-build). Long-form report (1,660 lines, 37 fix specs, appendices, reproducible scripts) is at report_file. Method: scripted inventory of every colour/type/spacing/radius/shadow/z-index/duration across index.html CSS+JS, site-nav.css/js, 26 sub-pages and the bundle's 613 inline style props (bundle.pretty.js 96200-113377), plus WCAG contrast, CIEDE2000 colour-blind simulation, NOAA solar maths and live font-size measurements.\n\nPROOF OF INCONSISTENCY: 307 colour literals (185 opaque, 122 translucent; 140 perceptual clusters; 95 used once) incl. 30 blue-ish hexes for 'Union', 31 red-ish for 'Confederate', two golds (#c8a84a app vs #c9a24b pages, dE2000 2.9); 41 font-size declarations, 165 below 12 px (50% of the app UI) plus canvas labels at 8-10 px; 42% of 1,153 spacing values off the 4 px grid; 15 radii; 20 durations; 27 z-index levels (up to 999999); 1 media query on the whole site; 0 aria/role, 0 media queries, 0 reduced-motion handling in the app UI; the gold primary button is defined 11 times with 7 paddings; 86 of 260 app text declarations (33%) fail 4.5:1; 108 emoji/letter glyph icons (44 distinct chars) vs a 19-symbol sprite with a dead 'sabers' symbol and 3x reused book/pulse/users icons.\n\nDISCOVERIES THAT CHANGE THE PLAN: (1) C1/C2 root cause = the desktop timeline IO (bundle.pretty.js:113249) and other desktop widgets are mounted unconditionally in Mobile layout; mobile root tn.root is z-index:100 (a stacking context, 103699) and IO (z100, later in DOM, 112386) paints over the whole mobile UI and Tools sheet; IO's 572 px row includes a 'Created by ... e-mail' credit. (2) Legend != map: 9 of 11 posture colours differ from the canvas, legend text describes dots/circles while units are strength-wide rectangles. (3) Side colours are already colour-blind-safe (dE2000 41.7/42.3/51.0/65.8) but postures are not (deutan 7.8 Charging vs Retreat). (4) 'Spectral' (x14) and 'Cormorant Garamond' (x4) are referenced but never loaded anywhere; Georgia cannot legally be self-hosted. (5) og:image/twitter:image/manifest screenshots are one identical malformed gradient placeholder (md5 3f6646c9..., IHDR RGB but RGBA-sized data). Also: C8 root cause verified (search.html:30 chip lacks background; site-nav.css:143-147 button.filter-chip{color:inherit} outranks it => 1.10:1); no error path for boot fetches (infinite splash) and no error boundary; Help renders behind OOB/Roster (z600 vs 800-900); mobile/walkthrough maps hide Mapbox attribution (attributionControl:false 102988/110777); canvas is not devicePixelRatio-aware (blurry on all phones); engaged glow is a 40-screen-px heuristic; two monument systems on one button with a per-frame setState loop.\n\nTARGET SYSTEM: tokens.json (DTCG) -> tokens.css/js with @layer, one hashed app.css (<=4 KB br), validated dark/light/forced-colors/contrast tokens (all contrast numbers measured), Spectral 400+700 self-hosted (~45 KB, OFL) with metric-override fallback and system UI sans, 12 px floor, tabular numerals, spacing/radius/elevation/motion scales with migration map, z-scale --z-map..--z-skip with overlay-root portal and reserved zones, ~50-icon SVG system (Lucide ISC + custom historic set) with full glyph mapping, 16 components with states and acceptance criteria (button, toolbar button, chip, tabs, segmented, cards, panel/sheet, dialog, menu, toast, tooltip, slider, combobox, switch, badge, skeleton), one responsive shell replacing the two forks (grid, dvh, landscape rule, compact chrome 136 px vs 234 px today), panel-management rules P1-P8 (one panel per dock, LayerStack Esc chain, jump hygiene), H1 = Ask the Historian pill + Explore menu in the header (desktop) / top bar + Tools-sheet cards (compact) with the 6 injected scripts (index.html:294-714) and z-999999 overlay deleted, H3 = HTML splash only + auto layout + versioned gb.v2.prefs + welcome card + non-modal coach-mark tour, cartography (symbology.json: colour=side, shape=branch, line style=posture, strength bar; aggregation instead of displacement; >=12 px haloed priority labels; single-source legend; DPR-aware canvas; overlays from data; computed-solar day/night with civil dawn 4:02, sunrise 4:34-4:35, sunset 19:31-19:32, civil dusk 20:04 LMT; hillshade; scale bar; attribution), 22-row motion catalogue, state catalogue (skeleton/empty/error/offline + ErrorBoundary), theming, print stylesheet for Battle Reports, sub-page templates, brand/share assets, governance (stylelint/ESLint/Playwright matrix/axe/styleguide/budgets), 5-phase roadmap (Phase 0 quick wins in days; Phase 2 depends on the N1 source decision).\n\nGRADE IMPACT (design-owned): Visual design B+/B- -> A; Fit and finish C+/D+ -> A; Usability mobile D+ -> A-; Accessibility C+/C -> A- (Lighthouse A11y 90 -> 98-100); plus small performance/CLS gains from removing entrance fades, the 4.9 s forced React splash, per-frame React loops and ~420 lines of injected inline JS.",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/app-design.md",
+ "findings": [
+  {
+   "id": "app-design-01",
+   "title": "Desktop timeline and widgets mount in Mobile layout; shell roots create stacking contexts (true root cause of C1/C2)",
+   "severity": "critical",
+   "evidence": "bundle.pretty.js:113249 `V.jsx(IO, {})` is unconditional while only toolbar (113071) and map (113233) are gated by `Zn !== \"mobile\"`; mobile root tn.root = `position:fixed; inset:0; zIndex:100; touchAction:\"none\"` (103699-103706); IO wrapper Po.wrap = `position:absolute; bottom:0; zIndex:100` (112386), later in DOM, so it paints over the mobile UI; toolsOverlay zIndex 500 (104037) is inside the z-100 context; IO's Po.controls row = 5 transport btns + 6 speed btns + Tick label + `Created by: Mike Legere · gettysburginteractivemap@gmail.com` nowrap (112361-112370) = the 572 px row of C1. Even mobile's own tn.playRow is ~380-405 px wide by arithmetic (103813-103858).",
+   "root_cause": "Two forked app shells sharing one root; desktop-only components never unmounted in compact layout; shell roots set z-index (stacking context) so descendants cannot rise above later siblings.",
+   "fix": "Phase-0 minimum: mount FF/OF/VF/WF/CF/LF/_F/IO/KF/XF/iO/nO/yO/qF only when layout==='full' (AO 113243-113270); delete zIndex from tn.root and tc.root; render toolsOverlay/slidePanel/modals through a body-level #overlay-root portal at --z-sheet/--z-modal; delete the credit/e-mail from the transport row (move to About). Then the single-shell rebuild (app-design-02).",
+   "effort": "M",
+   "acceptance_test": "Playwright at 375x667, 320x568 and 667x375: desktop timeline absent in compact; elementFromPoint at the centre of each of the 14 Tools-sheet items returns that item; every transport button boundingBox within viewport and >=44x44; no horizontal overflow.",
+   "metric_or_grade_moved": "C1, C2 closed; Usability (mobile) D+ -> B-; Core function (mobile) D -> B",
+   "depends_on": [],
+   "audit_refs": [
+    "C1",
+    "C2",
+    "H1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Root cause and line evidence confirmed (113249, 113071, 113233, 103699-103706, 112386, 104037, 112361-112370). Fix step (b) is wrong: tc.root (113301, used at 113057) has no zIndex, and tn.root's stacking context comes from position:fixed, so deleting zIndex:100 leaves Po.wrap (z100) still painting over it. Only unmounting IO in compact layout and portaling the Tools sheet fix C1/C2. Gating qF/nO/yO also removes toasts and the sound button on mobile; route them through the single toast region instead."
+  },
+  {
+   "id": "app-design-02",
+   "title": "Replace the two app forks with ONE responsive shell (grid regions, dvh, safe-area, landscape rule)",
+   "severity": "high",
+   "evidence": "pO (bundle.pretty.js:102914-103697) is a second complete app: own new z_.Map (102981; desktop 97237; walkthrough 110770 = three GL contexts), own canvas+picking ya (103076), popup, roster, legend, 80x64 minimap, day tabs, scrubber, tools grid + 740 lines of styles tn (103698-104440). Fixed chrome: topBar 52 + dayTabs 42 => map top:94 (103709), bottomBar height:140 (103775) = 234 px: 375x667 leaves 433 px (65%), 667x375 leaves 141 px (38%). manifest.json orientation:landscape.",
+   "root_cause": "Layout mode chosen by a chooser screen, implemented as two component trees with pixel offsets instead of CSS layout; breakpoints as 13 window.innerWidth reads (8 evaluated once at module load inside style literals ji 98111-98115, gp 102708-102712).",
+   "fix": ".gb-app{display:grid;block-size:100dvh;grid-template:'top top' var(--toolbar-h) 'dock map' 1fr 'transport transport' auto}; container query <768 px turns docks into a bottom sheet; compact chrome = top 48 + transport 88 = 136 px (80% map in portrait); landscape rule (max-height:500px) 40+56 px; viewport-fit=cover; remove manifest orientation lock; one MapView, shared Dock/Sheet; delete pO+tn (~1,500 lines).",
+   "effort": "XL",
+   "acceptance_test": "Playwright matrix 320x568..2560x1440 + 667x375/812x375: map >=74% of viewport height in every compact case; resize 375->1024 flips layout live; exactly one Mapbox map instance; no overlap between toolbar/transport/docks.",
+   "metric_or_grade_moved": "Usability mobile D+ -> A-; Fit&finish mobile D+ -> A; -1 WebGL context, -1,500 lines",
+   "depends_on": [
+    "app-design-01",
+    "app-design-03",
+    "N1 source decision"
+   ],
+   "audit_refs": [
+    "C1",
+    "C2",
+    "H3",
+    "E1",
+    "N1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence confirmed (pO 102914, tn 103698, three new z_.Map sites, top 94 = 52+42, bottomBar 140, manifest landscape). The CSS sketch is invalid: @container (...) { .gb-app {...} } cannot match the container element itself. Use @media (max-width:767px) or a wrapper container. The desktop and mobile Map configs differ (maxBounds, dragPan inertia, NavigationControl), so 'one MapView' must reconcile them. XL is realistic only if source exists (N1)."
+  },
+  {
+   "id": "app-design-03",
+   "title": "Token system (tokens.json -> tokens.css/js) with cascade layers and a single hashed app.css",
+   "severity": "high",
+   "evidence": "Inventory (tmp-app-design/inventory.py): 307 colour literals (140 perceptual clusters, 95 used once), 41 font-size declarations, 36 spacing values (42% off the 4 px grid), 15 radii, >=16 shadows, 20 durations, 27 z-index levels, 10 font-family strings, 1 CSS media query (site-nav.css:52). Bundle app UI = 613 inline style props, 33 style consts/462 keys, 0 aria/role, 0 media queries; assets/index-b4g7z_2g.css is 149/154 .mapboxgl-* rules. Static HTML: 27 <style> blocks + 51 style=\"\" attributes.",
+   "root_cause": "Design decisions copy-pasted as literals in 27 <style> blocks, one CSS file and 613 inline objects; inline styles cannot express :hover, :focus-visible, @media, forced-colors, print, pseudo-elements.",
+   "fix": "design/tokens.json (DTCG) -> node build -> /css/tokens.css (Tier1 primitives, Tier2 semantics; dark default + light + prefers-contrast + forced-colors), /js/tokens.js (canvas & Mapbox paint), tokens.d.ts, styleguide data; `@layer reset,tokens,base,components,utilities,page`; ONE hashed /css/app.<hash>.css via normal <link> (no preload swap). Replaces site-nav.css, 26 inline <style> blocks, index.html:60-253. React: codemod the 33 style consts (style_consts.json) into CSS Modules/gb-* classes; inline style only for dynamic --custom-props.",
+   "effort": "L",
+   "acceptance_test": "No hex/rgb literal outside tokens.css; 0 <style> blocks and 0 style=\"\" in HTML; stylelint+ESLint pass; app.css <=4 KB brotli; CSP style-src 'self' in Report-Only shows 0 violations on HTML pages.",
+   "metric_or_grade_moved": "Visual design B+/B- -> A; Fit&finish +1 grade; enables CSP without unsafe-inline for styles",
+   "depends_on": [],
+   "audit_refs": [
+    "A1",
+    "A4",
+    "X3",
+    "N1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Inventory reproduces. '1 CSS media query' is imprecise: static files hold 8 @media (1 layout max-width:640, 6 reduced-motion, 1 print) and the vendor CSS has 18, so say 'one layout breakpoint'. #c8a84a = 41 uses in the bundle (46 only with the 5 static-page uses) and #c9a24b = 40 in static files. Effort L covers tokens plus static pages only; the React half (613 inline props, 33 consts) needs source and belongs to XL Phase 2."
+  },
+  {
+   "id": "app-design-04",
+   "title": "Consolidate colour: one gold/Union/Confederate/neutral ramp, accessible text variants, light + forced-colors themes",
+   "severity": "high",
+   "evidence": "30 blue-ish, 31 red-ish, 17 gold-ish, 27 grey, 28 near-black hexes. Two golds: #c8a84a (46 uses, app) vs #c9a24b (41, pages) dE2000 2.9. Union blue spelled #3a6bc4 (bundle 96427), #4477cc (search.html :root, 97924, 98876), #3355cc (99413), #5588dd (103530); Confederate #c43a3a (96428), #cc5544, #cc4433, #dd5544 (103575), #cc4444. Legend vs canvas posture colours differ for 9/11 (99384-99412 vs 96306-96318). education.html uses a separate blue palette.",
+   "root_cause": "No shared palette; each surface picked its own literals.",
+   "fix": "Adopt the validated ramp (ink-1000..600, slate-100..600, brass-200..800, union-200/300/500/700, conf-200/300/500/700, sage/amber/coral/sky) + semantic tokens (--bg,--surface-1..3,--text-1..4,--accent*,--union/--union-text,--conf/--conf-text,--border-control). Keep #3a6bc4/#c43a3a (already CVD-safe: dE2000 41.7/42.3/51.0/65.8). map_tokens.py codemod: 81/180 opaque colours auto-map (dE<6, 64% of uses), 99 need role review. Light/forced-colors/prefers-contrast per report sections 3.2/12.",
+   "effort": "M",
+   "acceptance_test": "Colour inventory <=45 distinct values (tokens only); every text/background token pair >=4.5 (UI >=3); axe color-contrast 0 on all 27 pages in dark, light, forced-colors.",
+   "metric_or_grade_moved": "Visual design +1 grade; Lighthouse A11y 90 -> >=98",
+   "depends_on": [
+    "app-design-03"
+   ],
+   "audit_refs": [
+    "A1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-design-05",
+   "title": "Contrast remediation: 33% of app text declarations fail 4.5:1; translucent panels; print colours",
+   "severity": "high",
+   "evidence": "Bundle text colour declarations: #444 x4 = 2.02:1, #555 x14 = 2.64, #666 x32 = 3.43, #777 x7 = 4.40, #8b6914 x8 = 3.87 => 86/260 declarations, 17/57 colours fail (Va.skip 101670, tn.tickInfo 103853). site-nav.css:96,129 #6f7686 = 4.32:1 (4.08 on #12121e). Panels at alpha .80-.86 (Sd.wrap, tn.miniLegend, tn.minimapBox): #8a93a8 falls to 4.49:1 over white imagery. report.html:35 .key-action #ccc = 1.61:1 in print.",
+   "root_cause": "Greys chosen ad hoc; no text-tier floor; translucency ignored over bright satellite tiles.",
+   "fix": "Text tiers only: --text-1 #e8e6df, --text-2 #b9bac6, --text-3 #8a93a8 (>=4.93 on surfaces 0-3), --text-4 #7b849a (placeholder/disabled, surfaces<=2). #444/#555/#666/#777 text -> --text-3/-4; #8b6914 only borders/fills; overlay panels alpha >=.92 + blur(10px) (text-3 stays >=5.6:1 over white); print palette per report section 12.2.",
+   "effort": "M",
+   "acceptance_test": "contrast.py on built CSS/JS: 0 text declarations <4.5:1 (non-disabled), 0 UI-boundary colours <3:1; axe color-contrast 0; panel contrast over a white test tile >=4.5.",
+   "metric_or_grade_moved": "Lighthouse A11y +8 pts; Accessibility contrast portion fixed",
+   "depends_on": [
+    "app-design-04"
+   ],
+   "audit_refs": [
+    "A1",
+    "D2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "All raw ratios reproduce. Translucent-panel figures are off: #8a93a8 over rgba(8,8,18,a) on white is 3.69 (a .80), 3.98 (.82), 4.43 (.85), 4.58 (.86), 5.50 (.92), 5.79 (.94), not 4.49 at .86, and >=5.6 only from about .94. The failing panel is Sd.wrap at .80 (97492). Fix direction unchanged."
+  },
+  {
+   "id": "app-design-06",
+   "title": "C8 root cause: .filter-chip has no background/font and global button.filter-chip{color:inherit} outranks it",
+   "severity": "critical",
+   "evidence": "search.html:30 `.filter-chip { padding:5px 12px; border-radius:14px; border:1px solid var(--line); color:var(--muted); cursor:pointer }` (no background, no font); chips are <button> (56-59); site-nav.css:143-147 `button.filter-chip{font:inherit;color:inherit;appearance:none}` (0,1,1 > 0,1,0) => inherited #e8e6df on UA ButtonFace #efefef = 1.10:1; .filter-chip.active (0,2,0) wins so only the active chip is legible. Same trap for button.mode-btn/.play-btn/.toggle-btn/.day-tab/.btn/.match.",
+   "root_cause": "Component styles duplicated per page plus a specificity-raising global reset in another file.",
+   "fix": "Immediate (S): add background:transparent; font:inherit; font-size:12px to .filter-chip and set colour via `.filter-chip:not(.active){color:var(--muted)}`. Systemic: reset in @layer reset; one .gb-chip (report 5.3) with explicit background/colour/font used by Search filters, Historian suggestions, Compare toggles, Camera modes.",
+   "effort": "S",
+   "acceptance_test": "Computed contrast of every unselected chip on search.html >=4.5:1 (was 1.10); grep 'button.filter-chip' site-nav.css = 0; all chip variants render from .gb-chip.",
+   "metric_or_grade_moved": "C8 closed; Lighthouse color-contrast passes on /search",
+   "depends_on": [],
+   "audit_refs": [
+    "C8",
+    "A1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Root cause confirmed (search.html:30-31/56-59, site-nav.css:143-147). The immediate fix is incomplete and partly inert: font-size:12px on .filter-chip loses to button.filter-chip{font:inherit}. The same override is live, not latent, on .play-btn (camera, ground-remembers, immersive, watch-together at 1.92:1, weight 400) and .toggle-btn (computed 16 px). Fix the reset at zero specificity (:where or @layer reset) in the same change."
+  },
+  {
+   "id": "app-design-07",
+   "title": "Typography: load the fonts the code asks for (Spectral self-hosted), 12 px floor, one ramp, tabular numerals",
+   "severity": "high",
+   "evidence": "'Spectral' x14, 'Cormorant Garamond' x4 in the bundle but no @font-face/Google link/font file in the deploy => all text is Georgia/system/monospace. font-family strings: sans-serif x287, Georgia x54, monospace x28, system-ui x14. 165 font-size declarations <12 px (bundle 135/271=50%); canvas labels bold 8/9/10 px (96663-96665). 8 h1 scales. Splash wordmark 52 px+8 px tracking ALL-CAPS (101618-101620) clips at 375 px. Measured latin woff2 sizes 2026-09-29: Spectral 400 21.7 KB, 600 22.9, 700 23.0; Inter var 48.3; Source Serif 4 var 122; Newsreader var 132; Literata var 85.7. Georgia is Microsoft-owned; core fonts pack never licensed for embedding.",
+   "root_cause": "Font intent declared in code but never delivered; no type scale or size floor.",
+   "fix": "Self-host Spectral 400+700 latin WOFF2 (~45 KB, SIL OFL 1.1, ship OFL.txt; check RFN when subsetting) with font-display:swap and metric-override fallback (@capsize/metrics vs Georgia); system-ui for controls; .gb-num tabular-nums replaces monospace clocks; ramp --fs-2xs 12 px..--fs-display clamp; splash/LCP text on fallback stack; preload only spectral-700 on sub-pages; CSP font-src 'self' (drop fonts.googleapis/gstatic, netlify.toml:19); drop Cormorant; canvas/map labels >=12 px.",
+   "effort": "M",
+   "acceptance_test": "0 font-size <12 px (stylelint) and canvas label >=12; no font-attributable CLS in a Lighthouse trace; splash h1 is LCP without a webfont; font bytes <=50 KB; OFL.txt served; wordmark fully visible at 320x568.",
+   "metric_or_grade_moved": "A4/D2 fixed; Visual design +; CLS/LCP protected",
+   "depends_on": [
+    "app-design-03"
+   ],
+   "audit_refs": [
+    "A4",
+    "D2",
+    "H3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Spectral x14 and Cormorant x4 confirmed, no @font-face/link/font file in deploy, and CSP font-src at netlify.toml:19 confirmed. woff2 sizes re-measured at 21,696 / 22,936 / 23,036 B. Spectral is SIL OFL 1.1 by Production Type; the Reserved Font Name is not verified. The Georgia licensing statement is legal advice and unverified."
+  },
+  {
+   "id": "app-design-08",
+   "title": "Spacing/radius/elevation/motion/breakpoint tokens and a reviewed codemod",
+   "severity": "medium",
+   "evidence": "667/1,153 spacing declarations on a 4 px grid, 486 (42%) off-grid: 10px x122, 6px x96, 14px x76, 3px x28, 7px x26, 18px x25, 5px x22; site-nav.css 65% off-grid. 15 radii; 20 durations (10 ms..5000 ms); one @media (site-nav.css:52) + JS thresholds <500 (98111, 96604), <560 (102708), <=860 (110615).",
+   "root_cause": "No spacing/radius/motion scale; layout logic in JS.",
+   "fix": "Scale per report 3.4 (--sp-2xs..4xl, --r-xs/sm/md/pill, --elev-1..4, --dur-fast/base/slow/emph + easings, --hit-min 24, --hit-touch 44, --control-sm/md/lg with coarse override) + migration table; container queries on .gb-app; codemod in three reviewed passes (colour -> type -> spacing) with map-masked screenshot baselines.",
+   "effort": "M",
+   "acceptance_test": "100% of spacing/radius/duration declarations resolve to tokens (stylelint); 0 JS innerWidth breakpoint reads; screenshot diff on baseline pages within agreed threshold after pass 3.",
+   "metric_or_grade_moved": "Fit&finish +; maintainability",
+   "depends_on": [
+    "app-design-03"
+   ],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "13 innerWidth reads (8 at module load) confirmed. 'one @media (site-nav.css:52)' should read 'one layout media query' (8 @media exist in total). Mapping radius 20/24 to --r-pill (999px) turns cards into stadium shapes, so the reviewed-diff caveat is essential."
+  },
+  {
+   "id": "app-design-09",
+   "title": "z-index scale, overlay root and reserved zones (27 ad-hoc levels; Help renders behind OOB; 999999 overlay)",
+   "severity": "high",
+   "evidence": "27 levels: 1,2,3,5,6,8,10,20,30,85,88,92,95,100,150,160,200,300,301,400,500,600,700,800,900,1000,999999. Help & Bookmarks z600 (assets/helpmodal-cfv9t0zh.js, bookmarkpanel-c5yt4b5k.js) < Ancestor 700 (101299), Soldier's Eye 800 (102076), OOB 900 (102445), Roster 900 (102716), Layers/Distance 1000 (112514, 112863) => ? with OOB open shows Help behind it. Magic offsets guess timeline height: legend bottom:160 (99578), minimap 130 (99835), event card 120 (98662), NPS launch 90 (100475), sound 58 (111788); estimated timeline ~120-130 px so sound/NPS buttons sit inside the bar. #root has contain:strict (index.html:66-70).",
+   "root_cause": "No stacking model; components positioned against guessed neighbours; overlays nested in stacking contexts.",
+   "fix": "Legal scale --z-map 0,-map-overlay 10,-hud 100,-dock 200,-sheet 300,-menu 400,-tooltip 500,-toast 600,-modal 700,-tour 800,-splash 900,-skip 1000; #overlay-root portal for all overlays; no z-index/transform/filter/contain on component roots; stylelint allow-list; reserved zones via --toolbar-h/--transport-h (delete magic bottoms); modal open => inert on .gb-app.",
+   "effort": "M",
+   "acceptance_test": "Every non-auto computed z-index is in the scale; open every modal pair: exactly one visible and topmost (elementFromPoint at centre); no docked panel rect intersects toolbar/transport at 6 viewports.",
+   "metric_or_grade_moved": "H1/H4 collisions closed; UI layering reliability",
+   "depends_on": [
+    "app-design-01"
+   ],
+   "audit_refs": [
+    "H1",
+    "H4",
+    "C2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-design-10",
+   "title": "Panel management: one panel per dock, LayerStack Esc chain, jump hygiene, toast-class event card, persisted HUD prefs",
+   "severity": "high",
+   "evidence": "Top-right slot claimed by 7 elements (story Cr top60/right16 z92; toasts eh z200; tour pip top58/right16 z400; Layers top60/right10 z1000; Mapbox nav; trails btn; Extra Features top60/right14 z999999); top-left by 5. Esc handler returns for INPUT targets (bundle.pretty.js:112967) and its cascade (113033-113050) omits Layers/Distance/legend/story/event card; story dismissed-set resets on remount (98261); event card is a permanent bottom:120 panel (98660); no reset on jump (H4).",
+   "root_cause": "Each panel owns position and visibility; no exclusivity or layer stack.",
+   "fix": "Rules P1-P8 (report 6.4): left dock {Unit,Search,Filter,Roster,OOB,Ancestor}, right dock {Story,Layers,Tour,Historian drawer,Bookmarks}, replace-not-stack with back-stack breadcrumb; LayerStack Esc order modal>menu>tooltip>toast>input text>right dock>left dock>selection; jump hygiene on |delta tick|>3/day jump/bookmark/deep link (close story+event card, clear toasts, fly camera); event card -> transient; persist HUD/dock prefs in gb.v2.prefs.",
+   "effort": "L",
+   "acceptance_test": "Playwright all 13x13 panel pairs at 6 viewports: <=1 panel per dock, no intersections; Esc closes topmost each time incl. caret in Search; after a day jump 0 toasts/story/event card; prefs survive reload.",
+   "metric_or_grade_moved": "H1/H2/H4 closed; Usability desktop B- -> A-",
+   "depends_on": [
+    "app-design-09",
+    "app-design-12"
+   ],
+   "audit_refs": [
+    "H1",
+    "H2",
+    "H4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Esc guard (112967), cascade (113033-113050), story dismissed-set reset, event card bottom:120 and the top-right claimants all confirmed. The 768 px overlap arithmetic in section 6.3 is wrong (see missed/errata)."
+  },
+  {
+   "id": "app-design-11",
+   "title": "SVG icon system replacing 108 emoji/letter glyph uses (44 distinct characters)",
+   "severity": "high",
+   "evidence": "Toolbar = letters S F L B ? + emoji (bundle.pretty.js:113146-113240); Search duplicated (S 113146 and magnifier 113213 both call toggleSearchPanel); globe means Map Layers (113193), Virtual Walkthrough (113137) and Map Layers/Mini Map in the mobile sheet (103439, 103474); desktop/phone icons dark-on-dark (102773, 102795); x19 unlabeled close glyphs; sprite site-nav.js:71-91 = 19 symbols, 'sabers' unused, book/pulse/users each reused 3x for different features; React app never uses the sprite; icon-only buttons labelled via title= (60) and by index.html:398-440 text-matching patch.",
+   "root_cause": "No icon system in the React app; sprite exists only for static pages.",
+   "fix": "Report section 4: 24x24, 1.75 stroke, currentColor; Lucide (ISC + Feather MIT notices in /icons/LICENSE-lucide.txt) + custom historic set (infantry, cavalry, artillery, legend, commander-KIA, wounded, captured); build-time sprite inlined in static HTML, generated <Icon> in React; distinct icon per Explore item; full glyph->icon mapping table; decorative aria-hidden, icon-only aria-label + tooltip.",
+   "effort": "M",
+   "acceptance_test": "Emoji/pictograph regex over src/ and HTML = 0 (except tour/story content); axe button-name 0; every Explore item has a unique icon; icons render identically Win/macOS/Android.",
+   "metric_or_grade_moved": "H6 closed; Visual design +; A5 fixed",
+   "depends_on": [
+    "app-design-03"
+   ],
+   "audit_refs": [
+    "H6",
+    "A5",
+    "D2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "13 toolbar buttons, the duplicate search and the mobile sheet glyphs confirmed. The 'globe' is U+1F5FA WORLD MAP. The index.html:398-440 label patch is inert: it early-returns on b.title and every Vs button already has a title, so aria-label is never applied and labeled never reaches 3. Glyph count 108/44 is the right order (my broader count: 120/52)."
+  },
+  {
+   "id": "app-design-12",
+   "title": "Toolbar/header redesign: grouped, labelled, 40/44 px, roving tabindex, command palette; add missing Order of Battle",
+   "severity": "high",
+   "evidence": "Desktop toolbar height 48 (tc.toolbar 113308); 13 icon buttons `padding:4px 10px; fontSize:12; fontFamily:monospace` (113356) ~28x26 px; header holds 'Toggle Units', 'Download Website Tutorial PDF' (12 px bold gold), 'Virtual Walkthrough' (113112-113137); no Order of Battle on desktop (only mobile list 103404); no landmarks/h1.",
+   "root_cause": "Toolbar grown by accretion; no grouping or IA.",
+   "fix": "56 px header: [brand + date/time chip] ... [Search][Filter][Layers] | [Tools v] | [Ask the Historian][Explore v] | [?]; icon buttons 40 (44 coarse), labels >=1280; Tools menu = Roster, OOB, Monuments, Soldier's Eye, Ancestor, Distance, Bookmarks, NPS Tour, Walkthrough; PDF -> Help; Toggle Units -> Layers switch; role=toolbar roving tabindex; command palette on / and Ctrl/Cmd+K.",
+   "effort": "L",
+   "acceptance_test": "All header controls >=40x40 (>=44 coarse) with aria-label + tooltip; one tab stop into toolbar, arrows move; OOB reachable from desktop header; axe 0 issues; screenshots at 1024/1280/1440.",
+   "metric_or_grade_moved": "H6/D2/D4/A3 closed; Usability desktop B- -> A-",
+   "depends_on": [
+    "app-design-11",
+    "app-design-09"
+   ],
+   "audit_refs": [
+    "H6",
+    "D2",
+    "D4",
+    "A3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Stronger than reported: Br is only ever called with false (112954, 113257), so Order of Battle cannot be opened at all on desktop."
+  },
+  {
+   "id": "app-design-13",
+   "title": "H1: integrate Ask the Historian + Extra Features into header/Tools sheet; delete the floating overlay and 6 injected scripts",
+   "severity": "high",
+   "evidence": "index.html:176-237 CSS (`position:fixed;top:60px;right:14px;z-index:999999;opacity:0;visibility:hidden`, force-reveal animation at 202); markup 285-292; six inline scripts 294-714 (~420 lines): populate (294-353), onboarding banner via body-wide text scan every 200 ms x25 (355-396), title patching + #seo-content removal (398-440), reveal by regex on clicked ancestors' textContent (441-519), collision-mover across 6 corners re-measuring every interactive element per click (521-606), monuments overlay (608-714). Overlay paints above every React modal (999999 vs <=1000). site-nav.css:41,48 infinite glow; :52 collapses pill to icon-only on phones.",
+   "root_cause": "Map SPA has no source and no global header, so entry points were bolted on from outside the React tree.",
+   "fix": "Report section 7: desktop = Ask pill + Explore menu in the header right cluster (same component as sub-page header); compact = Ask + Tools in top bar and two cards at top of Tools sheet (Ask, Explore all 20); mid = icon-only with labels for Ask/Explore; landscape = side sheet; remove eye toggle; keys A/E; contextual 'Ask about this' on Unit/Story panels -> /historian.html?q=&unit=&tick=; one-time coach mark; glow = 2 pulses then stop. Interim Track 0b: patch bundle (toolbarRight 113146/113355; tn.topActions 103149; sheet 103390). Delete index.html 168-253, 285-353, 355-606.",
+   "effort": "M",
+   "acceptance_test": "#extra-features absent; Ask/Explore bounding rect identical (+-1 px) across 30 random states and never intersects another interactive element over 200 random panel states; no z-index >1000; scrim covers header while a modal is open; index.html inline JS shrinks >=25 KB; Tab -> Ask -> Explore; Esc returns focus.",
+   "metric_or_grade_moved": "H1 closed; Fit&finish desktop C+ -> A-, mobile D+ -> B+",
+   "depends_on": [
+    "app-design-09",
+    "app-design-12",
+    "app-design-01"
+   ],
+   "audit_refs": [
+    "H1",
+    "H6",
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-design-14",
+   "title": "H3: splash and onboarding redesign - no forced React splash, auto layout, persisted prefs, welcome card, coach-mark tour",
+   "severity": "high",
+   "evidence": "tO (bundle.pretty.js:101472-101592): waits for placements, +800 ms (101484), 3,500 ms fake fast-forward (eO=3500, 101471) doing yn.setState({currentTick}) every rAF (101492-101497), 0.6 s fade (101503, 101520) => ~4.9 s forced; 'Skip intro' is <div onClick> 11 px #444 (101581, 101670); wordmark 52 px/8 px tracking (101618-101620). dO chooser (102752-102820) div onClick cards, emoji icons, result only in React state Zn (112949) => shown every visit. bO (111856-112021) offers 'Power User keyboard shortcuts' on touch (111814), tour steps setTick behind a modal; gtbg_onboarded (113068) vs unused store flag onboardingComplete (9441-9444); index.html:99 boot-fade-in starts at opacity 0.",
+   "root_cause": "Onboarding built as three blocking screens with state scattered across React state, two localStorage keys and injected scripts.",
+   "fix": "Report section 8: HTML boot splash only (no artificial delay, staged progress, >4 s 'still loading', >12 s error); fast-forward film opt-in on the real map (skipped for reduced-motion/Save-Data); chooser deleted (resolveLayout via matchMedia, live); single versioned key gb.v2.prefs {layout,theme,motion,onboarding,hud,resume} read synchronously, try/catch, legacy keys migrated; first-visit welcome card; 5 non-modal coach marks Back/Next/Skip, Esc=skip, resume in Help; touch vs fine-pointer copy; remove entrance fade on LCP element; credit moved to About.",
+   "effort": "L",
+   "acceptance_test": "Fast-4G first visit: Play works <=1.5 s after data-ready; 0 full-screen modals before the map is usable; second visit: no chooser/card/tour, same layout, gb.v2.prefs present; wordmark fully visible at 320x568; skip/continue are <button> >=44 px, >=4.5:1; touch users never see keyboard-shortcut copy; live resize flips layout.",
+   "metric_or_grade_moved": "H3 closed; FCP/LCP no longer include a 4.9 s React splash; startup INP contention reduced; Usability mobile D+ -> B+",
+   "depends_on": [
+    "app-design-01",
+    "app-design-03",
+    "C6 no reload after splash",
+    "C3/C4 clock for tour copy"
+   ],
+   "audit_refs": [
+    "H3",
+    "C6",
+    "H10"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "The 4.9 s React splash (800 + 3500 + 600 ms) and the per-rAF setState are confirmed. Removing the splash improves time-to-map and main-thread contention, but the HTML splash h1 is already the LCP/FCP element, so it does not by itself move LCP or FCP."
+  },
+  {
+   "id": "app-design-15",
+   "title": "Timeline/transport redesign + accessible slider (no thumb styles, unlabeled, 8 px markers, #eee speed pills, credit in row)",
+   "severity": "high",
+   "evidence": "Scrub <input type=range min=0 max=100 step=.01> with inline appearance:none/height:4px/transparent (IO 112202+); grep ::-webkit-slider-thumb/::-moz-range-thumb across deploy = 0; no aria-label (A2); event markers are 8x8 <div onClick title> (112275-112296) coloured #0044cc (2.5:1)/#cc0000; inactive speed buttons background:#eee on a dark bar (112348); day buttons pastel (112187-112191); mobile scrubber is <div onTouchStart/Move> (103179-103184) inside touch-action:none root (103705); '1x' label but real rate = 500 ms/tick = 2 ticks/s = 10 sim-min per real second (Ed 96965, cF 96948, 96982).",
+   "root_cause": "Custom controls built from divs/inline styles without native semantics or CSS hooks.",
+   "fix": "Report 5.12: native range in ticks (1-675), track 6 px/hit 44 px, thumb 20 px/hit 44 px with ring, aria-label 'Battle time' + aria-valuetext from the canonical clock, arrows +-1, Shift/PgUp/PgDn +-12, Home/End, 1/2/3, [ ] prev/next event; 24 px marker lane of <button> markers (shape+colour); pointer events with setPointerCapture; preview tooltip; day segments from tokens; speed as segmented radiogroup with true rates ('x2 - 20 min/s'); credit removed.",
+   "effort": "L",
+   "acceptance_test": "axe aria-input-field-name 0; thumb hit area >=44x44 (coarse); Playwright drag 0->100% monotonic; keyboard-only user reaches every event marker; scrubbing INP <=200 ms in lab (rAF-throttled commits).",
+   "metric_or_grade_moved": "A2/A3/H9/C1 closed; INP (scrub) protected",
+   "depends_on": [
+    "app-design-03",
+    "app-design-01"
+   ],
+   "audit_refs": [
+    "A2",
+    "A3",
+    "C1",
+    "H9",
+    "D2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-design-16",
+   "title": "Modal/dialog system with focus management; fix z-order inversion and blank lazy-load (Help 1-2 s)",
+   "severity": "high",
+   "evidence": "Help is React.lazy (112469-112470) with Suspense fallback:null (113276-113284) => nothing for 1-2 s (D1); no focus trap/return/aria-modal anywhere (0 aria/role in app UI); help/bookmarks overlays have backdrop-click + x close but no trap/return; Bookmarks falls back to window.prompt('Copy this link:'); z inversion see app-design-09.",
+   "root_cause": "Overlays are plain divs; no dialog primitive.",
+   "fix": "Native <dialog>.showModal() (top layer, inert background, Esc, ::backdrop) or equivalent; aria-labelledby; initial focus; focus return; one modal at a time; skeleton within 100 ms for lazy chunks; inline read-only copy field instead of window.prompt.",
+   "effort": "M",
+   "acceptance_test": "axe dialog rules 0; Tab cycles inside; Esc closes; focus returns to opener; only one modal open; Help skeleton <=100 ms, content <=300 ms cached; no window.prompt in bundle.",
+   "metric_or_grade_moved": "A6/D1 closed; Accessibility +",
+   "depends_on": [
+    "app-design-09"
+   ],
+   "audit_refs": [
+    "A6",
+    "D1",
+    "H2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-design-17",
+   "title": "One toast system (today two) with live region, flood control and the missing slideIn keyframe",
+   "severity": "medium",
+   "evidence": "qF (bundle.pretty.js:99888) container eh top60/right16 z200 (100008), setTimeout 4500 (99909/99915), animation `slideIn 0.2s ease` (100024) references a @keyframes that exists nowhere in deployed CSS/JS; nO (101679) container nh top58/left60 z400 (101775), fade 1.2 s/remove 3 s, `opacity: z.phase===\"dying\"?1:(z.phase===\"fading\",0)` (101731) zeroes opacity instantly; colours #ff4444/#ff9944/#aa88ff/#88aacc (99971-99982). Audit saw toasts persist after a jump (H4); code shows timeouts, so persistence is likely timer throttling or a burst from a large tick delta - reproduce before asserting.",
+   "root_cause": "Two independent toast implementations, no jump suppression, no live region, dead keyframe.",
+   "fix": "One <ToastRegion role=status aria-live=polite> at --z-toast, bottom-centre (compact, above transport) / bottom-left (desktop), max 3, dedupe, 5 s (errors 8 s), pause on hover/focus, Esc dismisses newest, suppress+clear on |delta tick|>3; icon+label not colour-only; define gb-slide-in in tokens.css; reduced-motion fade.",
+   "effort": "M",
+   "acceptance_test": "After day jump 0 toasts; burst of 6 leaves <=3; toast never overlaps a docked panel/transport; entrance animation runs and is off under reduced-motion; <=1 live announcement per 2 s.",
+   "metric_or_grade_moved": "H4 closed; Fit&finish +",
+   "depends_on": [
+    "app-design-09",
+    "app-design-10"
+   ],
+   "audit_refs": [
+    "H4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "slideIn has no keyframes and the qF timers are confirmed. REFUTED sub-claim: the comma-expression opacity on nO (101731) yields 0 in the fading phase, and the 1.8 s transition is applied in the same style change, so the card does fade from 1.2 s to removal at 3.0 s. 'zeroes opacity instantly / nothing to animate' is wrong. The one-toast-system fix stands."
+  },
+  {
+   "id": "app-design-18",
+   "title": "Custom accessible tooltip replacing 60 title= attributes",
+   "severity": "medium",
+   "evidence": "60 `title:` props are the only labels for icon-only controls (Vs() 113288); hover popups fF/Ar.popup (97063, 97157: width 260, z500) and dx.tooltip (100965: width 280, z600) have different styles; index.html:398-440 patches title/aria-label by matching letter glyphs.",
+   "root_cause": "No tooltip primitive; title used as accessible name.",
+   "fix": ".gb-tip: hover 500 ms / focus immediate, role=tooltip + aria-describedby, --z-tooltip, hoverable (WCAG 1.4.13), Esc dismiss, edge-flip; touch shows visible labels in the Tools sheet; replace all title= and unit/monument hover popups with it.",
+   "effort": "S",
+   "acceptance_test": "0 title: props on interactive elements; every icon-only control has aria-label AND tooltip; tooltip keyboard-reachable and hoverable.",
+   "metric_or_grade_moved": "A5/D2 closed",
+   "depends_on": [
+    "app-design-11"
+   ],
+   "audit_refs": [
+    "A5",
+    "D2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-design-19",
+   "title": "Cartography: one symbology spec (shape=branch, line style=posture, colour=side, bar=strength) driving renderer AND legend",
+   "severity": "high",
+   "evidence": "Legend NF/UF/jF (bundle.pretty.js:99384-99420) vs canvas Lp/sA/aA (96306-96318, 96427-96428): 9/11 posture colours differ; legend note 'Dot outline = side color / Dot fill = disposition color' (99519) but canvas draws a side-filled rect + 3.5 px posture dot (96596-96640); 'Size' legend circles r=5/7/9 (99559) vs strength-wide rectangles; tour copy 'blue dots / yellow dots' (111823-111831). CVD dE2000 (deutan): Charging vs Retreat 7.8, Retreat vs Deployed Artillery 7.8, legend LoB vs Skirmish blue 8.1; tritan Deployed vs Limbered 7.9. Side pair itself safe (41.7/42.3/51.0/65.8).",
+   "root_cause": "Legend, map, mobile mini-legend and tour copy each hard-code their own colours; posture encoded by 11 hues.",
+   "fix": "data/symbology.json (report 9.2) consumed by renderer, legend (same draw function), Help, tour copy and print; fixed frame 24x16 (0.75x@z13..1.15x@z17), APP-6-style inner glyphs (x / slash / dot), posture via frame style + mark (solid/dashed/hollow/column, chevrons, tail, muzzle ticks, tent), 3 px strength bar (fraction of initial), light outline for imagery contrast, upright icon + facing arrow, footprint mode >=z16.5 with true frontage (rule of thumb to validate).",
+   "effort": "L",
+   "acceptance_test": "Legend/map parity: per-posture glyph pixel diff <=1% (Playwright fixture tick); greyscale and protan/deutan/tritan simulations: every posture and both sides distinguishable by shape alone; tour/Help text generated from the same JSON.",
+   "metric_or_grade_moved": "Visual design/cartography A; learnability +",
+   "depends_on": [
+    "app-design-03",
+    "app-design-04"
+   ],
+   "audit_refs": [
+    "D3",
+    "H6"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "8 of 11 posture colours differ, not 9 (Charging, Retreat and Line of March match). CVD numbers reproduce (7.8 / 7.8 deutan, 7.9 tritan), but legend Line of Battle vs Skirmish is 8.7 deutan and 8.1 tritan, not 8.1 deutan."
+  },
+  {
+   "id": "app-design-20",
+   "title": "Cartography: aggregate instead of displace, >=12 px priority labels, DPR-aware canvas, screen-space picking, data-driven 'engaged'",
+   "severity": "high",
+   "evidence": "Relaxation displaces symbols (8 passes, 12 px) bundle.pretty.js:96558-96581 with 0.5 px leaders (96582-96594); width = strength/4 clamped 10-120 px constant across zoom (lA 96433-96437); devicePixelRatio occurs 0 times in app UI, canvas sized from getBoundingClientRect (96510-96512) => blurry on 2x/3x; labels bold 8/9/10 px on 72% black plates (96653-96682); engaged = opposing units within 40 screen px (X4 96480-96505, 96499) + infinite |sin(t/300)| glow (96615); pick radius 0.002 deg regardless of zoom/input (97336, 103016, 103087).",
+   "root_cause": "Screen-space heuristics where world-space or data-driven logic is needed.",
+   "fix": "Zoom tiers: <=12.5 corps/division, 12.5-14.5 brigades, 14.5-16.5 regiments, >=16.5 footprints (OOB parent ids exist); never displace; label rank = 1000*selected+500*engaged+100*echelon+strength/100 on a 64 px hash, anchors top/right/left/bottom, cap ~60, halo 1.5-2 px instead of plates, min 12 px; canvas backing store = css*dpr; picking radius 14/22 px by screen distance; engaged from data flag or metres; one 700 ms pulse then static.",
+   "effort": "L",
+   "acceptance_test": "At z11-13 symbol anchor equals project(lng,lat) +-0.5 px for all units; label bbox overlaps 0; min label 12 px; <=60 labels; on 2x/3x emulation canvas.width === cssWidth*dpr; click within 22 px selects nearest; reduced-motion => no pulse.",
+   "metric_or_grade_moved": "D3 closed; crispness on all phones; map honesty",
+   "depends_on": [
+    "app-design-19"
+   ],
+   "audit_refs": [
+    "D3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-design-21",
+   "title": "Cartography renderer migration: GeoJSON symbol layers (fix SDF), single monuments layer, remove per-frame React loops",
+   "severity": "medium",
+   "evidence": "Units drawn per frame on canvas with project()+measureText for 467 units; KF monuments: rAF loop calls map.project and setState with a new object every frame even when hidden (bundle.pretty.js:100850-100868), 20 emoji DOM markers z160; second overlay index.html:608-714 projected once from default view (drifts on pan/zoom), both wired to the same button; unit-rendering-reference.html PoC calls map.addImage('unit-arrow',...) without {sdf:true} so icon-color cannot recolour it (Mapbox: icon-color only for SDF images); cursor glow iO (101817-101875) does setState on every mousemove.",
+   "root_cause": "Hand-rolled canvas/DOM overlays instead of Mapbox layers; no source to iterate.",
+   "fix": "Option B (report 9.10): SDF frame (side colour) + SDF branch glyph layers, icon-image = concat('frame-', posture), symbol-sort-key priority, feature-state hover/selected, queryRenderedFeatures picking, line-gradient trails, one clustered monuments symbol layer; delete KF loop, index.html monuments script, cursor glow. Option A (canvas patch) first if source is unavailable.",
+   "effort": "XL",
+   "acceptance_test": "React Profiler: 0 commits per frame from overlays while idle/playing; frame time at 8x <=16 ms p95 on a mid-range phone profile; hover/select via feature-state; monuments = 1 layer; overlay rAF loops = 0.",
+   "metric_or_grade_moved": "INP/main-thread relief; Fit&finish",
+   "depends_on": [
+    "app-design-19",
+    "app-design-20",
+    "N1"
+   ],
+   "audit_refs": [
+    "P1",
+    "P2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-design-22",
+   "title": "Cartography overlays from data with a real style (roads/streams/works/farms/locations)",
+   "severity": "medium",
+   "evidence": "Hand-typed GeoJSON x4/b4/w4/S4 in the bundle (9450-9740); Chambersburg Pike = 5 vertices all at lat 39.8306 (9498-9520), Baltimore Pike all 39.82 (9484-9497); roads #44bb44 (9748-9760), rivers #8844cc purple (9773-9780), breastworks #884422 dashed; labels 9-13 px; Locations toggle draws 10 hard-coded points (112573-112676) while data/terrain.json has 30 key_locations, 8 roads, 8 structures, 4 terrain_features unused.",
+   "root_cause": "Overlay data duplicated inside JS; styling ad hoc.",
+   "fix": "Load data/geo/*.geojson lazily after idle; accuracy pass vs imagery/NPS GIS (verify availability/licence); styles: roads parchment #e4d3a6 with dark casing, streams #5aa9e6 with halo, breastworks tick pattern in side colour, farms icon+label >=z15, 30 locations in 3 tiers (12-14 px), labels >=12 px.",
+   "effort": "M",
+   "acceptance_test": "0 GeoJSON literals in JS; overlay colour dE>=25 vs sampled imagery (measured, not assumed); all 30 key_locations render; labels >=12 px; roads registered at z16 (manual sign-off).",
+   "metric_or_grade_moved": "Visual design/cartography; content consistency",
+   "depends_on": [
+    "app-design-03"
+   ],
+   "audit_refs": [
+    "D3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "terrainData is stored (9391, 9395) but never read, so the terrain.json boot fetch is also wasted."
+  },
+  {
+   "id": "app-design-23",
+   "title": "Day/night styling from computed solar altitude on the single canonical clock (GPU raster props, 300-500 ms)",
+   "severity": "medium",
+   "evidence": "A4 full-screen div mix-blend-mode:multiply with transition:background 8s (bundle.pretty.js:9885-9900, 9895); E4 hour table (9861-9884) keyed to M4 = 5:00+5 min*tick (9856-9860) - a third clock beside getTickTime (6:00 day1/4:00 days 2-3) and data labels (5:00). Computed local-mean-solar sunrise 4:34-4:35, sunset 19:31-19:32, civil dawn 4:02, civil dusk 20:04 (sun.py) so the first hour of each day renders at twilight (E4 <6 h alpha .25).",
+   "root_cause": "Tint keyed to an arbitrary clock and hour table, implemented as a DOM overlay.",
+   "fix": "alt = solarAltitude(lat,lon,utc(canonical clock)); day = smoothstep((alt+6)/12); set raster-brightness-max/saturation/hue-rotate on the satellite layer (verify layer id via map.getStyle().layers in GL JS 3.24.1); golden-hour wash alpha .14*exp(-((alt-3)^2)/50) via one soft-light div; 300-500 ms transition, instant on drag; night boosts unit outline/halo and shows a 'Night - civil dusk 8:04 PM' chip; reduced-motion no transitions. Starting values to tune by eye.",
+   "effort": "M",
+   "acceptance_test": "Unit tests: sunrise 4:34-4:35, sunset 19:31-19:32 (+-2 min) for Jul 1-3 1863; first frame of each day daylit; scrubbing across dusk changes brightness in <500 ms; no full-screen mix-blend-mode div (or exactly one documented).",
+   "metric_or_grade_moved": "Cartography polish; removes an 8 s lag and a full-screen composited layer",
+   "depends_on": [
+    "C3/C4 canonical clock",
+    "app-design-03"
+   ],
+   "audit_refs": [
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Solar times recomputed: sunrise 4:35-4:36, sunset 19:32, civil dawn 4:02-4:03, dusk 20:04-20:05, within 1 min of the report."
+  },
+  {
+   "id": "app-design-24",
+   "title": "Mapbox attribution hidden on mobile and walkthrough maps; add scale bar; keep compass",
+   "severity": "high",
+   "evidence": "`attributionControl: !1` at bundle.pretty.js:102988 (mobile map) and 110777 (walkthrough map); desktop map default (visible). No ScaleControl (0). Mapbox attribution guidance: logo and text attribution must remain visible (may be moved/compact) - docs.mapbox.com/help/dive-deeper/attribution/.",
+   "root_cause": "Attribution removed to save space on small screens.",
+   "fix": "Compact AttributionControl (or customAttribution) on every map, keep the wordmark; add ScaleControl({unit:'imperial'}) with metric toggle above the transport bar; hide zoom buttons on touch but keep the compass.",
+   "effort": "S",
+   "acceptance_test": "Playwright: every page/mode with a Mapbox map shows .mapboxgl-ctrl-attrib and the logo; ScaleControl visible on desktop and compact.",
+   "metric_or_grade_moved": "Compliance risk closed; cartography polish",
+   "depends_on": [],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "attributionControl:!1 at 102988 and 110777 and no AttributionControl anywhere are confirmed. The Mapbox page requires logo plus text attribution but does not mention attributionControl:false by name. The Mapbox logo control still shows by default (nothing hides it), so the missing element on mobile and walkthrough is the text attribution, not the wordmark."
+  },
+  {
+   "id": "app-design-25",
+   "title": "Relief (hillshade) and optional contours / historic map overlay",
+   "severity": "low",
+   "evidence": "No hillshade/terrain/contour code in app UI (grep raster-, hillshade = 0); satellite-v9 only (97239, 102983, 110772). Mapbox hillshade example uses raster-dem source mapbox://mapbox.mapbox-terrain-dem-v1; maxBounds small (97244-97247: [-77.36,39.72]-[-77.12,39.91]).",
+   "root_cause": "Imagery-only base; relief legibility left to satellite shading.",
+   "fix": "After first idle add raster-dem source + hillshade layer below overlays, exaggeration .25-.4, illumination 315, shadow #0b0f1a, highlight #fff4de; 'Relief' toggle in Layers (off on Save-Data); do NOT enable setTerrain on the main map (canvas uses map.project, elevation-unaware - test first); optional Terrain v2 contours (verify tileset/layer names); optional georeferenced public-domain map overlay with opacity slider (verify rights/accuracy).",
+   "effort": "M",
+   "acceptance_test": "Relief toggle adds a measured, budgeted number of tile requests and no LCP regression in Lighthouse; hillshade below overlays; setTerrain unused; toggle persists.",
+   "metric_or_grade_moved": "Visual polish (relief legibility)",
+   "depends_on": [
+    "app-design-24"
+   ],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "The hillshade example URL and source string are confirmed. The example positions the layer with slot:'bottom', a Standard-style concept; satellite-v9 is a classic style, so place the layer with addLayer(layer, beforeId) after checking getStyle().layers."
+  },
+  {
+   "id": "app-design-26",
+   "title": "Empty/loading/error states, ErrorBoundary and a boot-failure path (today: infinite splash, white screen on render error)",
+   "severity": "high",
+   "evidence": "sF (bundle.pretty.js:96939-96941) = Promise.all([iF(),rF(),oF(),zp(1)]); iF (96834), rF (96919), oF (96923) have no .catch; AO calls sF without a handler (112963); tO waits on Object.keys(he).length>5 (101479) => infinite 'Loading battle data...' on any failed fetch. No error boundary in app code (grep 0). Suspense fallback:null (113276-113284). Map creation has no WebGL/token failure UI (97235, 97386 `!a2`). Missing empty states: Filter->0 units, Historian low-confidence, dashboard/ledger baselines (S4).",
+   "root_cause": "Happy-path-only implementation.",
+   "fix": "Report section 11: <StateBlock>, <Skeleton> (dimensions from final content, CLS 0), <ErrorBoundary> at root and per dock/panel, staged boot progress with 4 s/12 s thresholds and Retry, WebGL fallback poster, tile-error toast, offline banner, museum-voice copy, timeouts on every loader.",
+   "effort": "M",
+   "acceptance_test": "Playwright route.abort on /data/oob/* => error state <=12 s with Retry that recovers; block Mapbox tiles => toast and usable UI; WebGL off => poster fallback; throw in Unit panel => boundary fallback, map alive; no infinite spinner.",
+   "metric_or_grade_moved": "Reliability mobile C -> A-, desktop B- -> A; Usability +",
+   "depends_on": [
+    "app-design-03"
+   ],
+   "audit_refs": [
+    "C7",
+    "S2",
+    "S4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-design-27",
+   "title": "Motion policy: reduced-motion everywhere, remove LCP-blocking entrance fades, ambient loops, cursor glow",
+   "severity": "medium",
+   "evidence": "0 prefers-reduced-motion references in app UI (6 in static CSS); site-nav.css:12 `body{animation:gtbg-page-in 340ms ease both}` starts at opacity:0 on every sub-page; index.html:99 boot-fade-in .4s on the LCP element; site-nav.css:41,48 Historian glow infinite 3.4 s; engaged glow pulses forever (bundle.pretty.js:96615); cursor glow iO (101817-101875) setState per mousemove; animation slideIn (100024) has no keyframes.",
+   "root_cause": "Motion added as decoration without a policy or reduced-motion path.",
+   "fix": "Report section 10 catalogue (22 rows) with token durations, global reduced-motion rule + JS matchMedia gate (never pass essential:true to flyTo), remove body page-in and boot-fade-in, loops limited to loaders, define gb-slide-in, pulse-once for engaged, cursor glow removed/transform-driven.",
+   "effort": "M",
+   "acceptance_test": "Playwright reducedMotion:'reduce' => getAnimations() empty except loaders; Lighthouse trace: first paint on sub-pages contains text; all animation/transition durations use tokens.",
+   "metric_or_grade_moved": "A6 closed; FCP/LCP on sub-pages and boot improved ~340-400 ms; INP contention reduced",
+   "depends_on": [
+    "app-design-03"
+   ],
+   "audit_refs": [
+    "A6",
+    "P1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Mapbox camera methods already honour reduced motion unless essential:true, and the app passes none, so 'never pass essential' is the right rule."
+  },
+  {
+   "id": "app-design-28",
+   "title": "Theming: light theme, prefers-color-scheme, prefers-contrast, forced-colors, no-flash theme script, density option",
+   "severity": "medium",
+   "evidence": "0 occurrences of prefers-color-scheme/forced-colors/prefers-contrast/color-scheme across all HTML/CSS/JS; single static theme-color #0a0a14 (index.html:6); html,body overflow hidden + fixed pixel panels prevent reflow at 320 px (index.html:62; Cr.panel width 340).",
+   "root_cause": "Dark-only, JS-inline styling.",
+   "fix": "Report 12.1: Tier-2 token swaps for light/contrast/forced-colors; Settings Theme System/Dark/Light + Density; ~200-byte head script sets data-theme before paint (needs CSP hash); media-specific theme-color metas; reflow at 320 CSS px via compact layout.",
+   "effort": "L",
+   "acceptance_test": "Light/dark/forced-colors screenshots pass axe contrast; theme persists and follows OS live; no theme flash (trace); 400% zoom uses compact layout with no horizontal scroll (chrome).",
+   "metric_or_grade_moved": "Accessibility (forced-colors, contrast pref, zoom) +; Visual design +",
+   "depends_on": [
+    "app-design-03",
+    "app-design-04"
+   ],
+   "audit_refs": [
+    "A1",
+    "A6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "All light-token contrast values reproduce. Small gaps are listed as missed item 6."
+  },
+  {
+   "id": "app-design-29",
+   "title": "Print stylesheet + designed one-page Battle Report (and print layer for Regiment/Dashboard/Historian)",
+   "severity": "medium",
+   "evidence": "report.html:37-43 print block hides header/#search/#matches/.print-btn/.back only; report.html:35 `#report .key-action{color:#ccc}` = 1.61:1 on white in print; #report h2 gold 2.40:1; row labels #8a93a8 3.08:1; #gtbg-nav/#gtbg-footer not hidden; no @page, no source/URL footer; raw ids `r.parent_corps_id + ' / ' + r.parent_brigade_id` (report.html:101; regiment.html:199) e.g. 'U-I / U-I-1-1'; no print CSS on regiment/dashboard/historian/documentary.",
+   "root_cause": "Print treated as an afterthought on one page.",
+   "fix": "Report 12.2: shared @layer print + report anatomy (names not ids, side word + hatch band, data table, 'Where they stood' inline SVG trace from placements, key action, footer with URL/date/sources), @page margins, link expansion, break-inside rules; Historian 'Print this conversation'.",
+   "effort": "M",
+   "acceptance_test": "Save-as-PDF of 5 regiments (Letter+A4, background graphics off): one page each, text >=4.5:1 measured on raster, no nav/footer artefacts, side by word+hatch, footer present, no raw ids.",
+   "metric_or_grade_moved": "S1 improved; Fit&finish (print)",
+   "depends_on": [
+    "app-design-03",
+    "app-design-07"
+   ],
+   "audit_refs": [
+    "S1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-design-30",
+   "title": "Sub-page harmonisation: templates, static header/footer (CLS), breadcrumbs, one h1 scale, component reuse, privacy/terms/404 parity",
+   "severity": "high",
+   "evidence": "<div id=gtbg-nav-mount> is empty until site-nav.js (end of body, e.g. search.html:203) replaces it at DOMContentLoaded (site-nav.js:161-171, 232-236) => ~47 px block inserted after first paint (likely CLS; verify on a sub-page); privacy/terms/404/embed/unit-rendering-reference load no nav/footer/js/css and privacy/terms/404 have no <main>; 20 pages carry both nav brand '<- GETTYSBURG' and 'header a.back'; 8 h1 scales and 3 h1 colours; education.html separate blue palette; 11 gold-primary button definitions with 7 paddings/3 radii; 34 button/chip/tab-like rules with 22 paddings.",
+   "root_cause": "Pages authored independently with copy-pasted CSS; header injected by JS.",
+   "fix": "Report 13.1: four templates on app.css; header/footer emitted in static HTML (or reserved height), site-nav.js only for behaviour and deferred; breadcrumb + BreadcrumbList JSON-LD replaces duplicate back link; h1 --fs-2xl/--accent-hi; education folds into default with density option (owner Q-2); privacy/terms/404 adopt Content template; reuse map (.gb-btn/.gb-chip/.gb-card--row/.gb-bubble/.gb-stat/.gb-panel--inline).",
+   "effort": "L",
+   "acceptance_test": "Sub-page Lighthouse CLS <=0.02; 1 back-link pattern; h1 computed size/colour identical across pages; every page has <main>, one h1, nav landmark; visual-regression baselines green; app.css is the only stylesheet on all 27 pages.",
+   "metric_or_grade_moved": "S1/S4 improved; Fit&finish +; CLS on sub-pages",
+   "depends_on": [
+    "app-design-03",
+    "app-design-06"
+   ],
+   "audit_refs": [
+    "S1",
+    "S4",
+    "E3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "There are 9 h1 scales, not 8 (404.html uses clamp(2rem,6vw,3rem); privacy and terms use the browser default). CLS from the injected header remains 'likely, measure', as the report hedges."
+  },
+  {
+   "id": "app-design-31",
+   "title": "Mobile sub-page items: dashboard chart, compare tabs, targets, min font",
+   "severity": "medium",
+   "evidence": "Dashboard chart fixed 1000 px (audit S4); compare .toggle-btn {font-size:10px; padding:3px 8px}; site-nav.css:98 .gtbg-here 9.5 px; ~10-12 sub-40 px targets per page (audit).",
+   "root_cause": "Fixed-size SVG and undersized controls per page.",
+   "fix": "Report 13.2: viewBox-fluid chart, one-day-at-a-time segmented control <=480 px, tabs with scroll-snap/wrap, chips at 32/44 px, 12 px minimum, baseline state for ledger.",
+   "effort": "M",
+   "acceptance_test": "No horizontal scroll at 320-480 px on dashboard/compare/living-ledger; all targets >=44x44 (coarse); 0 text <12 px; no clipped tab labels.",
+   "metric_or_grade_moved": "S4 closed; Usability mobile +",
+   "depends_on": [
+    "app-design-03",
+    "app-design-30"
+   ],
+   "audit_refs": [
+    "S4",
+    "A3",
+    "A4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "The dashboard svg width=1000 is confirmed. The Compare tab clipping is mis-diagnosed: .toggle-btn declares 10 px but button.toggle-btn{font:inherit} makes it compute 16 px (row about 330 px in a 163 px pane, per pages-A). Once the reset is fixed the declared 10 px returns and violates the 12 px floor, so raise the page rule in the same change."
+  },
+  {
+   "id": "app-design-32",
+   "title": "Brand and share assets are placeholders: identical malformed screenshots, flat icons, merged manifest purpose",
+   "severity": "high",
+   "evidence": "screenshots/day1.png and day3.png md5 3f6646c99f3416a1aa35fea67bed21c5 (identical), 17,585 B for 1280x720; IHDR colour-type 2 (RGB) but decompressed stream 3,687,120 B = 5121 B/row (RGBA-sized) so Pillow raises 'unrecognized data stream'; sampled decode ~80 colours, dark gradient from #0a0a14. Used as og:image/twitter:image on all pages (index.html:21,25) and manifest screenshots. icons/icon-512.png has 4 distinct colours (#0a0a14,#c9a24b,#9a7a33,transparent), aliased, transparent corners; manifest single entry purpose 'any maskable'; only favicon.ico 32 px; no SVG favicon; 'Animated' vs domain 'interactive' (E2).",
+   "root_cause": "Assets generated programmatically as stand-ins and never replaced.",
+   "fix": "Report 13.3: real captures (3 moments, 1280x720 + narrow set) for manifest; designed 1200x630 OG cards per page family (Spectral title, gold rule, map crop, <=100 KB) with og:image:width/height/alt; SVG master + favicon.svg (dark-mode aware) + apple-touch 180 opaque + separate any/maskable 192/512 (safe zone) + monochrome; settle product name once.",
+   "effort": "M",
+   "acceptance_test": "`file` reports valid decodable PNG/WebP for every image; day1/day3 differ; Facebook/Twitter/LinkedIn debuggers render a real card; maskable.app preview shows no clipping; Lighthouse installable manifest shows real screenshots.",
+   "metric_or_grade_moved": "Visual/brand B+/B- -> A; share/PWA polish; supports T1 discovery",
+   "depends_on": [],
+   "audit_refs": [
+    "T1",
+    "E1",
+    "E2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "og:image is on 21 pages (index plus 20), not all pages. The PNG facts reproduce (identical md5, 17,585 B, 5,121 B/row, Pillow error)."
+  },
+  {
+   "id": "app-design-33",
+   "title": "Unit/Story/Event panel content design: reading typography, fluid widths, contextual 'Ask about this'",
+   "severity": "low",
+   "evidence": "Fixed pixel panels: ji.panel width 280 (bottom:150/right:16 only when innerWidth<500 evaluated once, 98108-98118), Cr.panel 340 (98418), Vc.panel 460 (98660), ar.panel 440; body text sans 12 px; story script long-form with no measure limit; unit id monospace 10 px #666.",
+   "root_cause": "Panels sized in px; no reading style for narrative.",
+   "fix": "Panel width clamp(320px,26vw,400px); story body Spectral 16/1.65, max-inline-size 62ch, read-time chip + progress bar kept; unit header serif title, side swatch + word, posture word, strength n/initial, commander; footer 'Ask the Historian about this...', 'Copy link', 'Pin'; ids behind 'Details'.",
+   "effort": "M",
+   "acceptance_test": "Panels fit at 320/768/1024 without overlap; narrative line length 55-70 ch; all text >=12 px and >=4.5:1; 'Ask about this' deep-links with unit+tick.",
+   "metric_or_grade_moved": "Visual/usability polish",
+   "depends_on": [
+    "app-design-10",
+    "app-design-13"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Nit: Cr.panel (98418) and Vc.panel (98660) already have maxWidth calc(100vw-32px), so 'fixed pixel panels' is overstated for those two."
+  },
+  {
+   "id": "app-design-34",
+   "title": "Design governance: lint rules, Playwright viewport/theme matrix, axe on 27 pages, living styleguide, budgets",
+   "severity": "high",
+   "evidence": "No tests, lint, style guide or budgets exist in the deploy/source zips (source zip = built output + netlify.toml). Regressions found here (C8, z-index inversions, dead keyframe, unused sprite symbol, unwired onboardingComplete) are the class a linter/test catches.",
+   "root_cause": "No automated design QA; solo maintainer; no source repo (N1).",
+   "fix": "Report 14.1: stylelint (no hex outside tokens, font-size floor, z-index allow-list, specificity cap), ESLint (forbid style prop/zIndex/emoji/div-onClick via jsx-a11y), generated /styleguide.html (noindex) incl. symbology sheet, Playwright matrix (10 viewports x dark/light/forced-colors x key states) asserting overflow/overlap/targets/axe/z-order/reduced-motion + map-masked screenshots, Lighthouse CI budgets (app.css <=4 KB br, fonts <=50 KB, icons <=10 KB br), PR checklist, design-system version stamp.",
+   "effort": "L",
+   "acceptance_test": "CI red on: a hex literal, a z-index outside the scale, a <12 px font, a div with onClick, axe serious/critical on any of 27 pages, a docked-panel overlap; styleguide renders every component state and passes axe.",
+   "metric_or_grade_moved": "Keeps A+ durable; reliability",
+   "depends_on": [
+    "app-design-03"
+   ],
+   "audit_refs": [
+    "N1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Process finding, so not falsifiable beyond the absence of tests, lint and budgets. Phase the 10-viewport x 3-theme Playwright matrix."
+  },
+  {
+   "id": "app-design-35",
+   "title": "Core component library: button, chip, tabs, segmented, card, panel, sheet, menu, switch, badge/kbd (replaces ~34 button-like definitions + inline styles)",
+   "severity": "high",
+   "evidence": "34 button/chip/tab-like base rules across sub-pages (22 paddings, 10 radii, 7 font sizes); app buttons inline: walkthroughBtn (113324), 'Toggle Units' (113112), PDF link (113132), ko.cardBtn (102881), tr.nextBtn (112155); only 6 app controls declare a 44 px min (101342, 102119, 102486, 102744, 103851, 104003); 75 <button> and 6 div/span onClick in app UI; Layers checkboxes 13 px (112534).",
+   "root_cause": "No shared components; styles per instance.",
+   "fix": "Report section 5: .gb-btn (primary/secondary/ghost/danger/icon; sm/md/lg; states default/hover/focus/active/disabled/loading/pressed), .gb-chip, tablist, segmented radiogroup, cards (row/tool/story), panel + sheet, menu/disclosure, switch (44x24) and checkbox (44 px row), badge/kbd/side swatch; ARIA attributes as CSS hooks; coarse-pointer sizing; per-component acceptance criteria.",
+   "effort": "L",
+   "acceptance_test": "One definition per component (grep of legacy class names = 0); all controls >=24 (fine)/44 (coarse); focus ring >=3:1; axe 0 issues; every state rendered on /styleguide.html and covered by a screenshot test.",
+   "metric_or_grade_moved": "Fit&finish A; Accessibility (targets/focus) A-; A3 closed",
+   "depends_on": [
+    "app-design-03",
+    "app-design-06",
+    "app-design-11"
+   ],
+   "audit_refs": [
+    "A3",
+    "A5",
+    "D2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "The six 44 px minimums and the 75 buttons are confirmed. Interactive div/span onClick sites number at least 13 (19 including backdrop overlays), not 6. Layers checkbox text is a span, not a label."
+  },
+  {
+   "id": "app-design-36",
+   "title": "Search field/combobox: Esc behaviour, natural sort, no autofocus on touch, 16 px input, empty-state suggestions",
+   "severity": "medium",
+   "evidence": "Search panel FF (bundle.pretty.js:98738-98951): autoFocus:!0 (98819) opens the keyboard over the sheet on touch; Esc ignored while caret in input (112967); results are div onClick rows (~98876); no combobox roles; text sort elsewhere (H5: 102nd..109th before 10th Alabama); empty state only 'No units found for \"x\"' (98947).",
+   "root_cause": "Custom search built from divs; text sort.",
+   "fix": "Report 5.13: role=combobox + listbox + aria-activedescendant, Esc clears then closes, 16 px/44 px input, autofocus only on pointer:fine, results grouped Units/Places/Moments with counts, Intl.Collator numeric natural sort (also Follow-Ancestor list), empty state with suggestions.",
+   "effort": "M",
+   "acceptance_test": "Keyboard-only search->select works; Esc clears then closes; '10th Alabama' sorts before '102nd ...'; no keyboard pop on touch open; axe combobox rules 0.",
+   "metric_or_grade_moved": "H2/H5 closed; A11y +",
+   "depends_on": [
+    "app-design-35",
+    "app-design-10"
+   ],
+   "audit_refs": [
+    "H2",
+    "H5",
+    "A5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": null
+  },
+  {
+   "id": "app-design-37",
+   "title": "App-shell semantics: landmarks, h1, skip link, focus management, labels for 613 inline-styled controls",
+   "severity": "high",
+   "evidence": "0 aria-*/role and 1 tabIndex in app UI (bundle.pretty.js:96200-113377); no <main>/<h1>/<nav> in the shell (only the crawler block index.html:717-741, removed once >=3 toolbar labels match, index.html:422-426); layout chooser/tour/help lack focus management; splash progressbar has no value (index.html:746); 19 unlabeled x buttons.",
+   "root_cause": "UI built as styled divs; semantics never added.",
+   "fix": "Report 6.4 P8: <header> toolbar, <nav aria-label=Explore>, <main aria-label='Battle map'> with visually-hidden <h1>, <aside> docks with labels, <footer role=region aria-label=Timeline>, skip link 'Skip to map' (--z-skip), focus to panel heading on keyboard open and return on close, aria-label on every icon-only control, live regions for toasts and load stages; jsx-a11y lint.",
+   "effort": "M",
+   "acceptance_test": "axe 0 serious/critical on the map app in all layouts; landmark tree matches spec; Tab reaches skip link first; screen-reader smoke test (NVDA/VoiceOver) can open Search, select a unit and play/pause.",
+   "metric_or_grade_moved": "D2/A5/A6 closed; Lighthouse A11y >=98; Accessibility C+/C -> A-",
+   "depends_on": [
+    "app-design-35",
+    "app-design-16"
+   ],
+   "audit_refs": [
+    "D2",
+    "A5",
+    "A6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "The seo-content removal branch in index.html:398-440 never fires (inert), but React clears #root's children at first render regardless."
+  }
+ ],
+ "open_questions": [
+  "Q-1 Do you want a light theme ('Archive paper', recommended for classrooms/print) or dark-only?",
+  "Q-2 education.html: fold into the default theme with a 'larger text and targets' density option (recommended) or keep a distinct classroom theme implemented as a token override?",
+  "Q-3 OK to spend ~45 KB on self-hosted Spectral 400+700 (SIL OFL) or use system fonts only?",
+  "Q-4 OK to move 'Download Website Tutorial PDF' and 'Toggle Units' out of the top bar and to remove the hide/show eye toggle on the Extra Features control?",
+  "Q-5 Which clock convention (local mean solar time vs another 'battle time' convention) will the C3/C4 fix settle on? Day/night styling, tour copy and slider aria-valuetext all depend on it.",
+  "Q-6 Product name: 'Animated Battlefield Map' vs 'Interactive Map' (E2) - one name everywhere (title, header, splash, manifest, OG)?",
+  "Q-7 Are there licensed or self-owned geodata sources (NPS GIS layers, LOC georeferenced maps) you want to use for accurate roads/works/overlays? Availability and licence were not verified.",
+  "Q-8 Track 0b (patch the minified bundle now for H1/C1/C2) vs wait for a proper source rebuild (N1)? This gates Phase 2 scheduling.",
+  "Q-9 Do brand assets/logo already exist? The current icons and share screenshots look programmatically generated placeholders.",
+  "Unverified in this plan (needs device/browser or measurement at implementation): rendered pixels on real devices, Safari/Firefox behaviour, the satellite-v9 raster layer id in GL JS 3.24.1, hillshade/contour tile bytes, whether 3-D terrain would misalign the canvas overlay, the true timeline bar height (estimated 120-130 px), the CLS contribution of the JS-injected sub-page header, whether Mapbox skips flyTo under reduced motion in 3.24.1, and the OFL Reserved Font Name status of the Spectral files at download time."
+ ],
+ "verification_summary": "The app-design report is highly accurate. About 45 bundle.pretty.js line citations that I opened resolved exactly, and the token inventory, contrast, CVD, solar-time and PNG numbers all reproduce. The catalogue and licence claims I could check were confirmed. Mapbox layer ids and the Terrain v2 names could not be checked, and the Georgia licensing statement is legal advice, so both are unverified. I found two wrong fix mechanics, three false sub-claims, one mis-diagnosis, and several omissions. Wrong fix mechanics: (1) Phase-0 \"remove zIndex from tn.root/tc.root\" is a no-op or ineffective, because tc.root has no zIndex and position:fixed alone creates the stacking context. Only unmounting IO in compact layout and portaling the sheet fix C1/C2. (2) The @container sketch in 6.1 cannot restyle its own container. False sub-claims: (1) the nO fade opacity works, since the 1.8 s transition runs from 1.2 s to removal at 3.0 s. (2) 8 of 11 posture colours differ, not 9. (3) Story and unit panels collide below about 652 px, not at 768 px. Mis-diagnosis: the Compare tab clipping comes from the site-nav.css button reset forcing a computed 16 px font (declared 10 px), not from undersized controls. The report body was left unedited; the corrections and 7 missed items are appended as a \"## Verification\" section in app-design.md.",
+ "missed_by_specialist": [
+  {
+   "title": "Button-reset cascade override is live on primary CTAs; fixing it exposes 10 px declared type",
+   "severity": "high",
+   "evidence": "site-nav.css:143-147 button.play-btn/.toggle-btn/... {font:inherit;color:inherit} (0,1,1) beats page classes (0,1,0). camera.html:34, ground-remembers.html:31, immersive.html:33 and watch-together.html:36 .play-btn render #e8e6df on #c9a24b = 1.92:1 at weight 400 (declared #0a0a14 bold = 8.21:1; measured in pages-A.md:113-118, recomputed here). compare.html:38 .toggle-btn declares 10px but computes 16px. The report calls this 'latent' and its immediate fix touches only .filter-chip.",
+   "fix": "One S PR: wrap the reset in @layer reset (unlayered page <style> wins) or make it :where(button.mode-btn, ...). In the same PR raise .toggle-btn to >=12 px / >=32 px tall, give .filter-chip an explicit background:transparent, and add axe/computed-contrast assertions for every button and chip on all 27 pages."
+  },
+  {
+   "title": "sw.js precaches icons, manifest and apple-touch cache-first, so brand-asset and manifest fixes will not reach returning visitors",
+   "severity": "medium",
+   "evidence": "sw.js:5-13 PRECACHE_ASSETS includes /icons/icon-192.png, /icons/icon-512.png, /apple-touch-icon.png, /manifest.json; sw.js:52-55 serves them cache-first with no revalidation; CACHE_NAME='gbg-v5' (sw.js:3). Same-URL replacement of icons or removal of manifest orientation is invisible until the cache name changes, and that change then triggers the existing skipWaiting/clients.claim/controllerchange-reload path (C6).",
+   "fix": "Ship new icons and manifest under versioned URLs (or network-first for /manifest.json), remove them from PRECACHE_ASSETS, bump CACHE_NAME, and land it after the C6 fix."
+  },
+  {
+   "title": "Mobile Tools sheet cannot scroll and overflows in landscape, the only orientation the manifest allows",
+   "severity": "medium",
+   "evidence": "tn.toolsPanel (bundle.pretty.js:104041-104047) has no max-height or overflow. 14 tools in a 4-column grid with minHeight:72 (104074-104085), gap 2, padding 10, header about 52 px and safe-area total about 380 px, which exceeds a 375 px landscape height. The overlay is align-items:flex-end, so the header/close and first row clip off the top, and tn.root is touch-action:none (103699-103706). Derived by arithmetic; measure in DOM.",
+   "fix": "Phase-0 patch: max-height:calc(100dvh - 16px); overflow-y:auto; overscroll-behavior:contain; touch-action:pan-y on toolsPanel. The target sheet spec covers it, but the defect is not in the findings list."
+  },
+  {
+   "title": "Layers panel checkboxes lack label association and are swallowed by the global INPUT key guard",
+   "severity": "low",
+   "evidence": "GtbgLayers (bundle.pretty.js:112548-112565): native 13 px checkbox plus a <span> label, so tapping the text does nothing. Checkboxes are INPUT elements, so the global handler early return at 112967 stops Esc and shortcuts after any checkbox click.",
+   "fix": "Wrap each row in a <label> with a 44 px row. Narrow the guard to text-entry inputs (input type text/search/number/email, textarea, select, contenteditable)."
+  },
+  {
+   "title": "Boot splash caption fails AA and is missing from the contrast sweep",
+   "severity": "low",
+   "evidence": "index.html:128-131 .boot-caption{color:#6f7686; font-size:.8rem} = 4.32:1 on #0a0a14. The report lists #6f7686 only for site-nav.css:96,129. Every user sees it during boot.",
+   "fix": "Use the --text-3 token (#8a93a8, 6.39:1)."
+  },
+  {
+   "title": "Light-theme tokens have small contrast gaps on surface-2/3",
+   "severity": "low",
+   "evidence": "Recomputed from the report's own values: --warn #8a5200 on surface-3 = 4.46:1 as text; --accent #a67c1a = 3.03:1 on surface-2 and 2.66:1 on surface-3 as graphics; --danger #b3261e on surface-3 = 4.56:1 (borderline). Only --ok carries a 'not on s2/s3' note.",
+   "fix": "Darken --warn to about #7f4b00; restrict --accent marks to surfaces 0-1 or add an --accent-on-s3; extend the 'not on s2/s3' note to warn and danger."
+  },
+  {
+   "title": "Report-body errata that could mislead an implementer",
+   "severity": "low",
+   "evidence": "Section 6.3 says the unit and story panels overlap at 768 px, but 16+280=296 < 768-16-340=412, so they collide only below about 652 px and Cr/Vc already have maxWidth calc(100vw-32px). Also: '9 of 11' postures should be 8 of 11; the nO fade works (101731); the Phase-0 zIndex removal and the @container sketch are wrong (findings 01 and 02).",
+   "fix": "Correct the numbers in sections 2.4, 6.1, 6.3 and 14.2 before the report is used as a spec. Add 640 and 700 px to the Playwright overlap test widths."
+  }
+ ]
+}

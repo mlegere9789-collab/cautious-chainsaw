@@ -1,0 +1,626 @@
+{
+ "agent": "perf-cwv",
+ "summary": "Full report at plan-work/perf-cwv.md (about 800 lines: per-metric analysis, RUM extraction, lab A/B experiments, budgets, beacon plan, roadmap, 30 fix specs). Key results, all measured on a local h2+brotli replica of the deploy that reproduces the live Lighthouse score (64 vs 64) plus real 4x-CPU/Slow-4G puppeteer probes. (1) Mobile lab LCP 9.0 s / FCP 4.1 s / TTI 9.1 s is mostly the first-visit service-worker location.reload() (index.html:267; Lighthouse redirects audit 9,066 ms; second GET / at t=909 ms; observed LCP in the same trace only 287 ms) plus a main thread blocked by the 2.28 MB bundle before first paint (the first three filmstrip frames are white; the boot-splash comment is only true when JS arrives after paint). (2) Fixing the reload alone makes the lab score worse (64 to 51; TBT 16 to 492 ms) because Lantern hid the bundle evaluation before FCP: the reload fix, a boot-after-first-paint loader and removal of the entrance animations must ship in one release. (3) True LCP element: not a resource; it is the story-panel vignette text painted by the app's own 3.5 s auto fast-forward intro (bundle.pretty.js:101471-101560): final LCP 4,776 ms mobile / 4,928 ms desktop with no input at 4x CPU; the same intro is the main CLS source (25 shifts, 0.115 on mobile), and an index.html banner hack adds 0.05. (4) Entrance animations (site-nav.css:12, index.html:99) stop the splash from being recorded as FCP (observed FCP 4,304 ms vs 1,259 ms with animations off). (5) HTML-only changes plus deleting the intro lift mobile lab 64 to 88-93 and desktop 85 to 100; a boot-behind-user-choice ceiling variant scores 100; remaining gap to a robust 95+ is TBT (294-472 ms) and needs bundle splitting (Mapbox GL is about 77% of the 2.28 MB), one map instead of two on mobile, removal of a perpetual 60 Hz rAF+setState loop (KF monuments) and an O(n^2) per-frame label-collision pass (1.3-8.4 ms desktop per frame). (6) RUM: I recovered the p75/p95/p99 series from the PDF vector paths; only LCP is genuinely bimodal (33% of hourly p75 buckets above 4 s); FCP/INP/CLS Poor badges are outlier-driven (83/83/96% of buckets Good; single events of 27 s FCP=LCP, 19 s INP, 0.38 CLS; badge reproducible only by the max bucket), and RUM understates first-visit pain (first page torn down before FCP/LCP is recorded; two RUM rows per first visit). Netlify's script is web-vitals v3 without attribution, so a first-party attribution beacon (Netlify Function + Blobs) is specified. Sub-pages: 9 map pages load a parser-blocking Mapbox script (lab 68-69; camera fixed to 86 by deferring); footer-driven CLS on dashboard (0.145) and historian (0.056). Also found: day 2/3 data loads only when playback crosses tick 200/420, so jumps leave the map empty (likely D3), and the mobile layout eagerly loads 47 JSON files and creates a second Mapbox map. INP has no lab-proven culprit (processing 1-32 ms at 4x); suspects and a harness are specified.",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/perf-cwv.md",
+ "findings": [
+  {
+   "id": "perf-cwv-01",
+   "title": "Remove the service-worker controllerchange reload; register the SW on idle (ship with 02+03)",
+   "severity": "critical",
+   "audit_refs": [
+    "C6",
+    "P1",
+    "P5",
+    "P7"
+   ],
+   "evidence": "index.html:263-268 controllerchange -> location.reload(); index.html:269-275 register on load; sw.js:17 skipWaiting(), sw.js:30 clients.claim(). Lighthouse redirects: 9,066.6 ms mobile / 1,575 ms desktop; network log Document at t=1 ms and t=909 ms with whole first boot repeated from SW cache; real-throttle probe: reload issued at 4,090 ms wall and first page produced no FCP/LCP. Removing only the reload lowered replica lab score 64 to 51 (TBT 16 to 492 ms).",
+   "root_cause": "skipWaiting()+clients.claim() give the SW control of the already-loaded first page, firing controllerchange, and the handler reloads unconditionally (also on every deploy that changes sw.js, reloading open tabs).",
+   "fix": "Delete the controllerchange listener; register on requestIdleCallback after load (timeout 8 s) without reg.update(); add a once-per-session vite:preloadError reload guard for stale lazy chunks; in sw.js drop skipWaiting/clients.claim (or keep skipWaiting and show an 'update available' toast instead of auto-reload). Release together with perf-cwv-02 and 03.",
+   "effort": "S",
+   "metric_or_grade_moved": "Mobile lab LCP/FCP (redirects 9.07 s to 0), TTI 9.1 s to about 4.4 s, RUM duplicate rows, first-visit UX",
+   "acceptance_test": "Lighthouse redirects audit passes; probe.mjs shows exactly 1 document request on first visit; RUM/beacon shows 1 row per first visit; no visible reload.",
+   "depends_on": [],
+   "verdict": "CONFIRMED",
+   "correction": "Lines index.html:263-275 and sw.js:17/30 exact; summ.py reproduces base 64 and v1 51 (TBT 16 to 492). The comment at index.html:257-262 justifying the reload is moot because HTML and /data/ are already network-first (sw.js:61-75). The exact idle-register/no-skipWaiting variant was not lab-measured (v10 kept the SW; v4 had no SW)."
+  },
+  {
+   "id": "perf-cwv-02",
+   "title": "Yield to first paint before evaluating the 2.28 MB bundle (boot-after-FCP loader)",
+   "severity": "critical",
+   "audit_refs": [
+    "P2",
+    "P7",
+    "C6"
+   ],
+   "evidence": "index.html:55 modulepreload of entry; index.html:282 parser-inserted module script. Variant v1 filmstrip: frames at 0.65/1.29/1.94 s are pure white; DCL 506 ms, first paint 2,285 ms, FCP 2,485 ms unthrottled. Lab FCP sim 3.94-4.05 s in base/v1-v4 vs 0.91-1.00 s in v5-v11.",
+   "root_cause": "A parser-inserted module whose bytes are already available runs at end of parse without a rendering opportunity (1.5-2.4 s on a dev machine, 6-9 s on a 4x phone); modulepreload also makes Lantern count the 604 KB transfer as FCP-critical.",
+   "fix": "Remove the modulepreload; replace index.html:282 by an inline script that waits for first-contentful-paint via PerformanceObserver (fallback load+rAF, safety net 3 s), then setTimeout(0) and import('/assets/index-XXXX.js'); add <meta name=color-scheme content=dark>. Patch the hashed name per deploy (10-line script) or via a Vite transformIndexHtml plugin; hash the inline script when enforcing CSP.",
+   "effort": "S",
+   "metric_or_grade_moved": "FCP 4.1 s to 0.9-1.0 s (lab mobile), desktop 0.83 to 0.26 s; SI; blank-white boot removed; TBT moves after FCP (see perf-cwv-09)",
+   "acceptance_test": "First filmstrip frame is dark, FCP <= 1.2 s at 4x/Slow-4G, unused-javascript FCP savings 0, app maps within 6 s, works without PerformanceObserver.",
+   "depends_on": [
+    "perf-cwv-03"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence real (index.html:55, :282; v1 filmstrip frames 1-3 white; v10 88/93/93). But (a) the proposed `.catch(function(){location.reload();})` was not what v5/v10 tested and can reload forever on a persistent failure (bundle 404 from the case-mangled redeploy trap, CSP enforcement, top-level throw): use a once-per-session sessionStorage guard plus a visible retry state in #boot-splash; (b) index.html:282 is inside <head> (</head> is :283), not end of body; (c) the hashed name must be patched in index.html:55, :282 and sw.js:6 (css sw.js:7)."
+  },
+  {
+   "id": "perf-cwv-03",
+   "title": "Remove entrance animations that hide the splash from FCP/LCP; dark pre-paint canvas",
+   "severity": "high",
+   "audit_refs": [
+    "P1",
+    "P7"
+   ],
+   "evidence": "site-nav.css:12 body{animation:gtbg-page-in 340ms ease both} (opacity 0 start); index.html:99 #boot-splash fade. A/B: v5 (animations on) observed FCP/LCP 4,304 ms; v8 (off) 1,259 ms; base probe: first-paint at 1,276 ms but no FCP entry on the first page.",
+   "root_cause": "Text painted while a compositor opacity animation is at 0 is not recorded as contentful and not re-recorded when opacity rises (mechanism inferred; A/B measured).",
+   "fix": "Delete the body animation from site-nav.css (all 20 pages) or use transform-only; delete the splash fade; add color-scheme dark meta + html{color-scheme:dark}; keep prefers-reduced-motion.",
+   "effort": "S",
+   "metric_or_grade_moved": "Field and lab FCP/LCP/SI",
+   "acceptance_test": "PerformanceObserver paint reports FCP <= 1.2 s at 4x/Slow-4G on / and /search; LCP element is the splash hero.",
+   "depends_on": [],
+   "verdict": "CONFIRMED",
+   "correction": "site-nav.css:12 and index.html:99 exact. Caveats: v5 to v8 changed three things at once (two animations plus color-scheme), so the mechanism stays inferred; site-nav.css is linked by 22 pages, not 20; html{color-scheme:dark} site-wide can change UA-default controls on sub-pages (e.g. search.html chips), so scope it to index.html or test."
+  },
+  {
+   "id": "perf-cwv-04",
+   "title": "Delete or make opt-in the 3.5 s 'Fast-forwarding 3 days of battle' intro (it defines LCP, CLS and boot jank)",
+   "severity": "critical",
+   "audit_refs": [
+    "H3",
+    "P1",
+    "P7"
+   ],
+   "evidence": "bundle.pretty.js:101471 eO=3500; :101472-101591 tO: after data >5 ticks, 800 ms timer then rAF loop yn.setState({currentTick}) per frame for 3.5 s + 0.6 s fade; mounted unconditionally at :113059. Probe (4x CPU, Slow-4G, no input): final LCP 4,776 ms mobile / 4,928 ms desktop = vignette text ('The battle was over...' 108k/145k px2); mobile CLS 0.115 from 25 shifts (intro block, event card, story panel, clock).",
+   "root_cause": "The intro drives the real UI through all 675 ticks, so the largest text paints at its tail and every card/panel change shifts layout; LCP keeps updating until first input.",
+   "fix": "Recommended: delete (patch verified in lab/v9-v10: replace setTimeout(()=>{x('playing'),l.current=performance.now(),Se()},800) with setTimeout(()=>{x('done'),c()},0); source: remove tO and init vn=true). Alternatives: CSS-only 1.2 s title card without store writes, or an opt-in 'Watch the whole battle in 60 s' button in the chooser.",
+   "effort": "M",
+   "metric_or_grade_moved": "Real LCP 4.8-4.9 s to about 0.5-0.6 s; CLS 0.115 to <=0.02; TBT/TTI; removes H3's every-visit splash",
+   "acceptance_test": "probe.mjs wait (4x, Slow-4G, 20 s no input): final LCP <= 1.0 s mobile / <= 0.6 s desktop and element on allow-list; CLS <= 0.02.",
+   "depends_on": [
+    "perf-cwv-02",
+    "perf-cwv-03"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Byte diff of lab/base vs lab/v10 bundle shows exactly the claimed tO change; skipped Kx()/currentTick reset are no-ops at boot; the intro does not incidentally preload days 2/3 (only Ed's isPlaying branch does, :96991-92). Probe numbers reproduced (LCP 4,776 ms/108,016 px2; 25 shifts sum 0.115). Caveat: replica Mapbox requests 403, so the 88-93 score is an upper bound."
+  },
+  {
+   "id": "perf-cwv-05",
+   "title": "Lock the LCP element: one visible hero; no large text before first input",
+   "severity": "high",
+   "audit_refs": [
+    "P1",
+    "E3",
+    "E4"
+   ],
+   "evidence": "#seo-content (index.html:717-741, LCP candidate 74,227 px2 on mobile) sits under fixed #boot-splash (index.html:742-748; h1 116,472 px2 desktop); React createRoot render at bundle.pretty.js:113365 removes both; any later larger text block takes LCP over (observed with the intro).",
+   "fix": "Make the hero a single visible h1+paragraph (fold the SEO copy into the splash, also fixes 3 h1); do not render story panel/event card/vignette text until first interaction (collapsed or content-visibility hidden); lint in tools/check-index.mjs (one h1; no text nodes in #root larger than hero).",
+   "effort": "S",
+   "metric_or_grade_moved": "Field LCP stability (p75 <=1.5 s), SEO block honesty",
+   "acceptance_test": "Attribution target for LCP equals hero selector in >=95% of beacon rows; probe final LCP equals hero for 20 s without input.",
+   "depends_on": [
+    "perf-cwv-04"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Severity high should be low/medium: probe_v10_*_wait.json already show LCP frozen at 604 ms (mobile #seo-content>p) and 448 ms (desktop #boot-splash>h1) for 20 s after 04 alone, and LCP stops at the first tap. Residual value is the 3-h1 cleanup (index.html:718,744,753) and the fact that the mobile LCP element is text occluded by the opaque splash."
+  },
+  {
+   "id": "perf-cwv-06",
+   "title": "Kill the perpetual 60 Hz rAF+setState loop in the always-mounted monuments component",
+   "severity": "high",
+   "audit_refs": [
+    "P1",
+    "P7"
+   ],
+   "evidence": "bundle.pretty.js:100844-100870 KF: requestAnimationFrame(ut) re-arms forever and calls H(xe) with a fresh object each frame; mounted unconditionally at :113250, showMonuments initial !0 at :112946; second per-frame setState loop _F at :97415-97426 while playing. Desktop live trace ran 44.5 s ('page loaded too slowly'); idle 2 s profile at 4x still shows ut and requestAnimationFrame samples and 43% (program) time.",
+   "root_cause": "Projection of 20 monuments is polled every frame instead of on map move; new object identity forces a React re-render 60x/s even when idle.",
+   "fix": "Update on map 'move'/'resize' only, setState only when a projected position changes >=0.5 px, render nothing when !showMonuments, FPS HUD at 1 Hz only while playing; better: render monuments as a Mapbox symbol layer.",
+   "effort": "S",
+   "metric_or_grade_moved": "INP, TTI, idle CPU/battery, Lighthouse trace termination",
+   "acceptance_test": "5 s idle CDP profile shows no app rAF callbacks and main thread busy <=2%; desktop Lighthouse trace ends well before 45 s.",
+   "depends_on": [],
+   "verdict": "CORRECTED",
+   "correction": "Code evidence exact (bundle.pretty.js:100844-100870, :113250, :112946). But the causal link to the 44.5 s 'loaded too slowly' cap is contradicted by the report's own data: the replica runs the same bundle and desktop ended at 3,146 ms while replica mobile hit 44,639 ms; live mobile ended 2,860 ms while live desktop hit 44,543 ms. The cap is nondeterministic, so drop it from the acceptance test. Magnitude is tiny: ut has 5 ms self time and rAF 10 ms in a 3,011 ms profile; re-render is confined to KF. Keep as an S hygiene fix, severity medium/low."
+  },
+  {
+   "id": "perf-cwv-07",
+   "title": "Zustand selectors and memoisation instead of 25 whole-store subscriptions",
+   "severity": "high",
+   "audit_refs": [
+    "P1",
+    "P7"
+   ],
+   "evidence": "Store bundle.pretty.js:9361; 25 '= yn()' call sites after line 96000 (e.g. 97065, 97233, 97416, 98596, 99423, 99713, 100845, 102322, 102661, 102941, 112940); App AO :112921 destructures 20+ fields so every tick re-renders the tree; panels Xk/Jk recompute 50-100-tick look-backs per render (:102322-102340, :102661-102670).",
+   "fix": "Selector hooks with shallow equality, split store slices (playback/ui/data), React.memo panels, drive canvas/map imperatively via store.subscribe, startTransition for non-urgent updates, hoist style objects, useDeferredValue for search.",
+   "effort": "L",
+   "metric_or_grade_moved": "INP, TBT, frame cost",
+   "acceptance_test": "React Profiler: <=20 commits/s and <=4 ms each at 4x during 8x playback; scripted INP for panel toggles <=100 ms at 4x.",
+   "depends_on": [
+    "N1 (buildable source)"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "25 yn() call sites re-counted exactly; AO (:112921) destructures 17 fields. Xk/Jk are already useMemo'd on [tick, placements] and mounted only while the OOB panel is open (:103363-64, :113257-58), so 'recompute per render' is overstated. No per-tick commit baseline exists and the scripted INP is invalid for playback (see 28): severity high to medium until profiled; effort L only with recovered source, XL if patching minified."
+  },
+  {
+   "id": "perf-cwv-08",
+   "title": "Frame-loop rewrite: O(n^2) label collision, interpolation and per-frame layout reads",
+   "severity": "high",
+   "audit_refs": [
+    "P1",
+    "P7",
+    "D3"
+   ],
+   "evidence": "Ed bundle.pretty.js:96965-97017 (mobile throttled to 33 ms via re-arm :97004-97011); y1 :96266-96296 spread + M.find per unit; X4 :96480-96505; lS :96506-96690 with getBoundingClientRect (:96510), canvas size reset, 8-pass n^2/2 collision loop (:96560-96585), per-unit save/rotate/shadowBlur draws. Microbenchmark (bench_frame.js, desktop): collision 1.27/3.52/4.34/8.41 ms for n=120/250/350/467; y1 0.13-0.48; X4 0.03-0.34. Unused InterpolationWorker asset implements the same math off-thread.",
+   "fix": "Typed-array tracks precomputed at load; interpolate in the existing worker or GPU; spatial-hash collision (12 px cells, 2 passes, cached until zoom/unit-set/selection change, <=10 Hz during play); render markers as Mapbox layer from one GeoJSON source or sprite-atlas drawImage; ResizeObserver instead of per-frame getBoundingClientRect; redraw only when dirty; cap mobile by skipping work not re-arming.",
+   "effort": "L",
+   "metric_or_grade_moved": "Playback FPS, INP during playback, mobile battery",
+   "acceptance_test": "Per-frame cost at n=467 <=6 ms at 4x; CDP profile of 5 s at 8x shows no LoAF >50 ms; >=55 fps on Moto G Power emulation.",
+   "depends_on": [
+    "N1 (or bundle patch)"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Line refs exact (lS :96506, collision loop :96560-96585, y1 :96266, :97004-97011, _F :97415-97426). The frame loop runs only while isPlaying (Gk started at :97285-97296). 'Use the existing InterpolationWorker' is not viable as written: the 672 B worker takes the whole placementsByTick per message (structured clone every frame) and its math differs from y1; a new init-once/transferable protocol is needed. Effort L assumes source, XL if patching."
+  },
+  {
+   "id": "perf-cwv-09",
+   "title": "Split the bundle, share Mapbox across pages, yield between chunks, publish source maps",
+   "severity": "high",
+   "audit_refs": [
+    "P2",
+    "P6",
+    "P7"
+   ],
+   "evidence": "index-Cg8FAMXN.js 2,280,438 B raw / 603,995 B br; unused-javascript 52% (315,185 B); composition est. Mapbox GL v3.24.1 (bundle.pretty.js:53873, lines 10015-96205) about 1.76 MB (77%), React about 158 KB, app about 297 KB; only BookmarkPanel/HelpModal lazy (:112469-112470); 9 map sub-pages re-download Mapbox from CDN; valid-source-maps fails; v10 observed 58+67+142 ms evaluation tasks; TBT 294-472 ms after FCP fix.",
+   "fix": "Externalise mapbox-gl to a shared /vendor file (CSP build) used by home and the 9 map pages; manualChunks react/zustand/app; React.lazy for Search, Filter, Legend, Minimap, OOB panels, Walkthrough, monument/distance/layer tools, Sound; evaluate chunks in separate tasks with scheduler.yield()/setTimeout between them and create the map in rAF after first React commit; build.sourcemap 'hidden' uploaded privately; size-limit gate.",
+   "effort": "L",
+   "metric_or_grade_moved": "TBT 294-472 to 150-250 ms, TTI, unused JS, mobile lab 94-97, repeat-visit cost",
+   "acceptance_test": "mapbox chunk <=420 KB br, entry <=240 KB br, no task >250 ms at 4x, LHCI TBT <=200.",
+   "depends_on": [
+    "N1",
+    "perf-cwv-02"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Re-derived composition from stripped prettier characters: Mapbox 79.5% (1.81 MB), React 7.2%, app 13.3% (report 77%/1.76 MB). Lazy chunks :112469-70 and Mapbox 3.24.1 :53873 confirmed. Notes: the '9 map pages' include the noindex dev page unit-rendering-reference (8 real); home could simply load the same versioned api.mapbox.com file (CDN file 385,039 B br, max-age=31536000, ACAO *, already allowed by CSP script-src), which requires the source change (N1)."
+  },
+  {
+   "id": "perf-cwv-10",
+   "title": "Mobile layout: mount one map and stop the eager 47-file data load",
+   "severity": "high",
+   "audit_refs": [
+    "C1",
+    "C2",
+    "H3",
+    "P3"
+   ],
+   "evidence": "AO mounts desktop shell+map gF while Zn is null (bundle.pretty.js:113069+); choosing Mobile mounts pO (:102914) which creates a second mapboxgl.Map (:102981) and on load calls zp(1),zp(2),zp(3) (:103040-103042) = 47 JSON files, plus a second chronology fetch (:102958-102960); commander_successions.json and icon-192.png fetched twice in the network log.",
+   "fix": "Detect layout before mounting anything (coarse pointer + width), persist it, mount one shell and reuse one map across layouts, remove zp(2)/zp(3) from pO in favour of the lazy loader in perf-cwv-11, dedupe fetches with a module-level promise cache.",
+   "effort": "M",
+   "metric_or_grade_moved": "Mobile LCP/TBT/INP, data transfer, memory",
+   "acceptance_test": "Mobile first visit creates one mapboxgl.Map and one worker pair; <=12 JSON requests before first interaction; <200 MB after 60 s.",
+   "depends_on": [
+    "perf-cwv-11"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Eager zp(1..3) in pO (:103040-42), duplicate chronology fetch (:102958-60) and duplicated commander_successions/icon-192 confirmed. But the two maps are sequential, not co-resident: gF mounts when Zn !== 'mobile' (:113234) and its cleanup calls Xe.remove() (:97262) before pO creates its map (:102981). Ordering hazard: removing zp(2)/zp(3) from pO before perf-cwv-11's ensureDay ships would newly break mobile day jumps; ship 11 first."
+  },
+  {
+   "id": "perf-cwv-11",
+   "title": "Data loading: 38 JSON at boot to a small core set; ensureDay(tick) also fixes empty map after jumps",
+   "severity": "high",
+   "audit_refs": [
+    "P3",
+    "D3",
+    "H4"
+   ],
+   "evidence": "First navigation = 38 data requests, 584 KB raw / 135 KB br (OOB 15 files, density 13, vignettes 3, chronology 3, placements 3, terrain 1); sF() bundle.pretty.js:96939; day 2/3 loaded only when playback crosses tick 200/420 (Ed :96991-96992) and no other desktop caller of zp(2)/zp(3), so jumpToDay/keys 2,3/slider/bookmarks show an empty map until playback crosses (likely D3); data Cache-Control max-age=3600 (netlify.toml:28-30); SW cache.put per response (sw.js:61-69).",
+   "fix": "core.json (<=40 KB br) first; ensureDay(day) subscribed to currentTick so jumps/deep links load their day with a skeleton; fetch priority low for non-critical; content-hashed immutable data URLs; compact array-based JSON.",
+   "effort": "M",
+   "metric_or_grade_moved": "Bandwidth contention with tiles, parse cost, LCP on slow networks; correctness after jumps",
+   "acceptance_test": "<=12 requests and <=60 KB br before first interaction; cold jump to July 2/3 renders units within 1 s; no duplicate URLs.",
+   "depends_on": [],
+   "verdict": "CONFIRMED",
+   "correction": "Re-counted from lh_mobile.json: 38 data requests (oob 15, density 13, chronology 3, vignettes 3, placements 3, terrain 1), 598,455 B raw / 138,605 B transfer (the report's KB are KiB). Only Ed (:96991-92) and pO load days 2/3; jumpToDay (:9369) and keys 2/3 (:112990-96) only set the tick. Stronger than stated: the first-run tour (ticks 267 and 538, :111842/:111849, setTick :111865/:111869) also lands on unloaded days."
+  },
+  {
+   "id": "perf-cwv-12",
+   "title": "Remove the CSS preload/onload swap (40 KB CSS is only Mapbox's stylesheet)",
+   "severity": "medium",
+   "audit_refs": [
+    "P5",
+    "P7"
+   ],
+   "evidence": "index.html:56-58 preload as=style crossorigin onload swap + noscript; CSS requested twice per navigation; index-B4G7Z_2G.css 40,827 B (5.2 KB br) contains only .mapboxgl-* rules; numFonts 0; 'preload not used' warnings from SW crossorigin mode mismatch.",
+   "fix": "Plain <link rel=stylesheet href=/assets/index-B4G7Z_2G.css> (no crossorigin) or load it inside the boot loader before import(); delete noscript twin.",
+   "effort": "S",
+   "metric_or_grade_moved": "Console warnings, duplicate request, FCP path",
+   "acceptance_test": "Zero console warnings on load; single CSS request.",
+   "depends_on": [],
+   "verdict": "CONFIRMED",
+   "correction": "index-B4G7Z_2G.css is 40,827 B (5,102 B br live) and all 174 selectors are .mapboxgl-*, no @font-face. Prefer loading it inside the boot loader rather than as a render-blocking link."
+  },
+  {
+   "id": "perf-cwv-13",
+   "title": "Trim preconnect/dns-prefetch to api.mapbox.com only; Google origins on intent",
+   "severity": "medium",
+   "audit_refs": [
+    "P7"
+   ],
+   "evidence": "index.html:41-52 seven preconnects; network-dependency-tree-insight score 0: >4 preconnects and 5 unused (a/b.tiles.mapbox.com, google.com, maps.googleapis.com, streetviewpixels-pa.googleapis.com); tiles are served from api.mapbox.com over h3.",
+   "fix": "Keep only preconnect api.mapbox.com; add Google preconnects on hover/focus of Street View/Soldier's Eye buttons; scope the global iframe[title][src*=streetview]{contain:strict} CSS.",
+   "effort": "S",
+   "metric_or_grade_moved": "network-dependency-tree audit, mobile bandwidth/CPU on connect",
+   "acceptance_test": "network-dependency-tree-insight passes; no unused-preconnect warnings.",
+   "depends_on": [],
+   "verdict": "CONFIRMED",
+   "correction": "First navigation hosts: api.mapbox.com 25 requests, events.mapbox.com 4, no a/b.tiles and no Google origin; Lighthouse flags a/b.tiles and the Google preconnects as unused."
+  },
+  {
+   "id": "perf-cwv-14",
+   "title": "Take site-nav.js/css off the home critical path; version and immutably cache them",
+   "severity": "medium",
+   "audit_refs": [
+    "P4",
+    "P7"
+   ],
+   "evidence": "index.html:279-280 render-blocking link + parser-blocking script; render-blocking-insight lists both; dependency depth 354 ms; site-nav.* served max-age=0,must-revalidate; home only needs GTBG_MENU for the deferred Extra Features menu (index.html:294-353).",
+   "fix": "Home: <script src=/site-nav.vN.js defer>, load site-nav.css after first paint (or inline the needed 7 KB in the loader); sub-pages: defer + reserved mounts (perf-cwv-21); version filenames and add netlify.toml headers rule public,max-age=31536000,immutable.",
+   "effort": "S",
+   "metric_or_grade_moved": "FCP on real slow links (about +150-450 ms), render-blocking audit, repeat-visit requests",
+   "acceptance_test": "render-blocking-insight passes on /; repeat visit has no site-nav request.",
+   "depends_on": [],
+   "verdict": "CORRECTED",
+   "correction": "index.html:279-280 confirmed, but the 354 ms longest chain in network-dependency-tree-insight is / to manifest.json (site-nav chains end at 213-214 ms), and render-blocking-insight scores 0.5 with 0 ms savings, so the benefit is small. The home page also needs site-nav.css for the Extra Features menu styles (index.html:154,172); deferring it must preserve them. The defer/currentScript safety claim is verified."
+  },
+  {
+   "id": "perf-cwv-15",
+   "title": "App-shell CLS: fixed boxes for event card, story panel, clock; remove banner-injection shift",
+   "severity": "high",
+   "audit_refs": [
+    "P1"
+   ],
+   "evidence": "Event card LF bundle.pretty.js:98595-98700 (bottom:120px, variable height) 8 LH entries 0.004-0.0096; story panel :98258+ 0.0088-0.0353; clock label 0.0002 each; #gtbg-onboarding-banner index.html:355-396 = 0.0497 single shift in v10 probe; intro block 0.0098; EF overlay repositioning 0.0072 desktop / 0.025 mobile at 10.2 s.",
+   "fix": "Event card fixed min-height (or fixed inner scroll box) + contain: layout paint; story panel fixed-height scroll container; tabular-nums min-width clock; render the banner in React or reserve its 60 px in CSS; EF via transform only or docked in toolbar.",
+   "effort": "M",
+   "metric_or_grade_moved": "CLS lab 0.073 to <=0.02, field spikes 0.2-0.38 removed",
+   "acceptance_test": "probe CLS <=0.02 after boot; no shift >0.005 without input.",
+   "depends_on": [
+    "perf-cwv-04"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "The 25 shifts sum to 0.115. Shifts from the intro vanish with 04, but event-card/story-panel shifts also occur during normal playback (no input within 500 ms), so the fix remains needed."
+  },
+  {
+   "id": "perf-cwv-16",
+   "title": "Replace the injected hack scripts in index.html with in-app components",
+   "severity": "medium",
+   "audit_refs": [
+    "H1",
+    "H6",
+    "P1"
+   ],
+   "evidence": "index.html:294-353 populate, :355-396 banner (200 ms polling x25, querySelectorAll('body *')), :398-440 label sniffing (polling x25), :441-519 reveal (click sniffing, body* scan + getBoundingClientRect on every leaf), :521-606 collision mover (after every click +150 ms: up to 6 style-write/getBoundingClientRect cycles over all interactive elements), :608-714 monuments star overlay (polling x40); three document-level capture click handlers.",
+   "fix": "Implement Extra Features button, Historian pin, aria-labels, onboarding banner and monuments overlay as React toolbar components; delete all timers/capture listeners; CSS positioning only.",
+   "effort": "M",
+   "metric_or_grade_moved": "INP, CLS, main-thread noise, H1 overlap",
+   "acceptance_test": "No setInterval in index.html; no forced reflow in a click trace; EF CLS = 0.",
+   "depends_on": [
+    "N1 or bundle patch"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Polling x25/x25/x40 (index.html:388,432,710), querySelectorAll('body *') (:369,498), capture-phase document click handlers (:476-482, :599-602) and getBoundingClientRect loops (:504,564,573,658) all verified."
+  },
+  {
+   "id": "perf-cwv-17",
+   "title": "First-party web-vitals attribution beacon (client + Netlify Function + Blobs + report)",
+   "severity": "high",
+   "audit_refs": [
+    "P1"
+   ],
+   "evidence": "Netlify RUM script (rum_script.js) is web-vitals v3 without attribution, fires on pagehide, no bot filter, no custom events per docs; only p75/p95/p99 hourly lines, no export; INP 19-96 s artifacts undiagnosable.",
+   "fix": "Section 8: /vitals.js using web-vitals/attribution v5 (LCP target/render delay, CLS largestShiftTarget, INP target/inputDelay/processing/presentation + LoAF script + hidden-before-paint flag, FCP/TTFB subparts), segment fields (device, viewport, effectiveType, navType, swControlled, firstVisit, layout, bot, country via context.geo), sendBeacon to /api/vitals -> Netlify Function writing to Netlify Blobs, tools/vitals-report.mjs producing p50/p75/p95 with n per segment.",
+   "effort": "M",
+   "metric_or_grade_moved": "Makes every field metric diagnosable; prerequisite for INP/CLS/LCP sign-off",
+   "acceptance_test": "1 document + 1 beacon per first visit; hidden-tab INP flagged; LCP target equals hero for no-input sessions; bot rows split; 7 days with n>=30 per device x firstVisit segment.",
+   "depends_on": [],
+   "verdict": "CORRECTED",
+   "correction": "Field names verified against web-vitals README (Apache-2.0). Snippet bugs: (a) the visibilitychange flush listener is registered before the on*() calls, so it runs first with an empty queue and final LCP/CLS/INP only leave via pagehide (unreliable on mobile); the README registers it after; (b) base() reads localStorage unguarded (only setItem is in try), so blocked storage silently drops the beacon; (c) type=module defer runs at parse end, not after load+idle; (d) config.path makes the redirect redundant; (e) public unauthenticated write endpoint with an ineffective in-memory rate limit; (f) the server half needs a functions-capable deploy path, so 'Depends on: none' is wrong."
+  },
+  {
+   "id": "perf-cwv-18",
+   "title": "RUM hygiene: read the series not the badge; bot/outlier handling",
+   "severity": "medium",
+   "audit_refs": [
+    "P1",
+    "T2"
+   ],
+   "evidence": "Series extracted from the PDF: FCP/INP/CLS/FID buckets 83/83/96/100% Good, LCP 57% Good; badges reproducible only by the max bucket; hourly n tiny (p75=p95=p99); FCP=LCP=27.67 s (Sep 8) and 26.91 s (Sep 19) single loads; INP 18.8 s (Sep 26) hidden-tab artifact; docs: badge uses p75 of all loads, hourly buckets.",
+   "fix": "Export Netlify RUM for Mobile and Desktop and 24 h/7 d; treat charts as smoke alarm; split bot rows and flag hid:true INP in the beacon store; alert only when n>=30; expect FCP/INP/CLS badges to stay red until outlier hours leave the 30-day window; optionally disable/re-enable Netlify RUM after Phase 2 for a clean window (no backfill).",
+   "effort": "S",
+   "metric_or_grade_moved": "Trustworthy field reporting",
+   "acceptance_test": "Monthly report shows p75 per segment with n, excluding bots and hidden-tab INP.",
+   "depends_on": [
+    "perf-cwv-17"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Re-extracted the p75 series; the 0.25 px plot-floor offset is validated by CLS (28 of 133 points at exactly 0.25 px), and the report's bucket counts reproduce (LCP 94/18/54, FCP 145/20/9, INP 83/12/5). Docs quotes verified; only p75/p95/p99 have visible strokes. The 'badge equals max bucket' idea stays UNVERIFIED, and INP classes rest on the offset (1.3 s/px axis). Export before any RUM disable/re-enable."
+  },
+  {
+   "id": "perf-cwv-19",
+   "title": "Performance budgets and CI gates (Lighthouse budget, LHCI, HTML lint, probe, size-limit)",
+   "severity": "high",
+   "audit_refs": [
+    "P7"
+   ],
+   "evidence": "No budget or CI exists; regressions such as modulepreload, sync scripts, entrance animations and location.reload were all introduced by hand. Section 7 gives perf-budget.json (FCP<=1.5 s, LCP<=2.0 s, TBT<=150, CLS<=0.05, TTI<=3.8 s, script<=640 KB, font 0), custom budgets and lighthouserc.json.",
+   "fix": "Add perf-budget.json + lighthouserc.json (5 runs, mobile+desktop, median), tools/check-index.mjs (fail on sync scripts, entry modulepreload, html/body animation, location.reload, >1 h1), probe.mjs wait job, size-limit for chunks, @netlify/plugin-lighthouse thresholds on deploy previews.",
+   "effort": "M",
+   "metric_or_grade_moved": "Holds all Lighthouse/CWV grades",
+   "acceptance_test": "A PR re-adding modulepreload/sync script/animation/reload or exceeding entry budget fails CI.",
+   "depends_on": [
+    "N1 (for bundle gates)"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "lighthouserc.json places budgetsFile under collect.settings; per the LHCI docs it is an assert option, exclusive with assertions/preset, and collect.settings.budgetPath only prints budgets in the report, so the budgets would be silently unenforced. Use assert.assertions (resource-summary:*, total-byte-weight, metric audits). render-blocking-insight minScore 1 is unattainable on sub-pages where site-nav.css must stay blocking. Preview URLs see 403 tiles."
+  },
+  {
+   "id": "perf-cwv-20",
+   "title": "Map sub-pages: defer the parser-blocking Mapbox script and CSS",
+   "severity": "high",
+   "audit_refs": [
+    "S3",
+    "S4",
+    "P7"
+   ],
+   "evidence": "9 pages (camera, cinematic-export, compare, ground-remembers, immersive, sandbox, viewshed, watch-together, unit-rendering-reference) load api.mapbox.com/.../mapbox-gl.js (385 KB br, 1.8 MB raw) + .css as blocking head resources (camera.html char 1,523 before body at 3,421); replica lab mobile 68-69, FCP 4.1-4.2 s, LCP 5.4 s; camera with defer + preconnect + DOMContentLoaded wrapper: 69 to 86 (FCP 4.19 to 1.61 s, TBT 58); watch-together also blocks on peerjs from jsDelivr; page scripts fetch 9 placement + 6 OOB files before creating the map.",
+   "fix": "preconnect api.mapbox.com; defer mapbox-gl.js (or inject after first paint with the home loader); page script in DOMContentLoaded or type=module; non-blocking css; reserve #map-wrap min-height; fetch data in parallel with map creation; peerjs on demand.",
+   "effort": "M",
+   "metric_or_grade_moved": "Sub-page FCP/LCP/Performance 68 to >=90",
+   "acceptance_test": "Each of the 9 pages >=90 mobile lab, FCP<=1.5 s, LCP<=2.5 s, TBT<=200.",
+   "depends_on": [],
+   "verdict": "CONFIRMED",
+   "correction": "Nine pages verified (8 real plus unit-rendering-reference); camera 69 to 86 reproduced. Unresolved: compare, immersive and watch-together returned Lighthouse NO_FCP from a single run with no retry and were labelled a harness flake; rerun once with the body animation disabled, since NO_FCP is the symptom perf-cwv-03's mechanism predicts."
+  },
+  {
+   "id": "perf-cwv-21",
+   "title": "Sub-page CLS: reserve nav/footer/async content space",
+   "severity": "medium",
+   "audit_refs": [
+    "S4",
+    "P1"
+   ],
+   "evidence": "dashboard.html CLS 0.1446 and historian.html 0.0564, culprit body > footer#gtbg-footer; nav and footer injected client-side at site-nav.js:164 and :189 with no reserved height; sub-pages are 47% of pageviews (wa1).",
+   "fix": "#gtbg-nav-mount{display:block;min-height:57px}, #gtbg-footer-mount{display:block;min-height:120px} or inline nav/footer at deploy; skeleton min-height for dashboard chart/cards and historian transcript; contain: layout on async panes.",
+   "effort": "S",
+   "metric_or_grade_moved": "Sub-page CLS 0.145/0.056 to <=0.02",
+   "acceptance_test": "LHCI CLS <=0.02 on >=5 sub-pages.",
+   "depends_on": [],
+   "verdict": "CORRECTED",
+   "correction": "Numbers reproduce (dashboard CLS 0.1446, historian 0.0564, footer culprit), but the footer moves because unreserved async content above it grows (dashboard.html:68-75, fetch :121), not because its mount is unreserved. Nav/footer injection is CLS 0.0000 on every other sub-page, and site-nav.js renders synchronously. #gtbg-footer-mount min-height will not remove the shift; reserve #chart-wrap/#stats-row/transcript heights as the primary fix."
+  },
+  {
+   "id": "perf-cwv-22",
+   "title": "Service worker redesign (no forced control, navigation preload, SWR data, build-id versioning)",
+   "severity": "medium",
+   "audit_refs": [
+    "C6",
+    "P5"
+   ],
+   "evidence": "sw.js:15-31 install/activate; :41-49 cache-first hashed assets; :61-69 network-first + cache.put for ~40 /data/ files each visit; :73 network-first HTML without navigation preload (adds SW start-up + fetch to every navigation TTFB); CACHE_NAME 'gbg-v5' hand-bumped (:2-3) while PRECACHE lists hashed names.",
+   "fix": "Precache only build-manifest entry files; no skipWaiting/claim (or update toast); enable navigationPreload and respondWith(preloadResponse||fetch()) for navigations or stop intercepting them; /data/* stale-while-revalidate on versioned URLs; never cache Mapbox tiles/APIs; version by build id and prune old caches.",
+   "effort": "M",
+   "metric_or_grade_moved": "Repeat-visit TTFB (-30 to -150 ms on slow phones), reliability, offline",
+   "acceptance_test": "Navigation TTFB with SW <= no-SW + 20 ms; offline repeat visit opens the app; one cache with current build id.",
+   "depends_on": [
+    "perf-cwv-01"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "sw.js:3,15-31,41-49,61-69,73 exact and all PRECACHE URLs return 200 live. Add registration.navigationPreload.enable() in activate."
+  },
+  {
+   "id": "perf-cwv-23",
+   "title": "Mapbox map options and request trimming",
+   "severity": "medium",
+   "audit_refs": [
+    "P2",
+    "P3"
+   ],
+   "evidence": "bundle.pretty.js:97237-97256 new Map with defaults for fadeDuration (300), refreshExpiredTiles (true), performanceMetricsCollection (true), renderWorldCopies (true); third-party Mapbox 368 KB at load (20 tiles 337 KB, 2 glyph PBFs 87 KB) + 4 telemetry POSTs; road/river label layers (bundle.pretty.js:9746-9841) force glyph downloads.",
+   "fix": "fadeDuration:0, refreshExpiredTiles:false, renderWorldCopies:false, performanceMetricsCollection:false (verify Mapbox terms), drop label layers or draw labels on the existing canvas, prefer 512 px tiles where possible.",
+   "effort": "S",
+   "metric_or_grade_moved": "First-load bytes, main-thread map work",
+   "acceptance_test": "First-load tile+glyph bytes <=250 KB; no long task >50 ms in the first 3 s of map life.",
+   "depends_on": [],
+   "verdict": "CORRECTED",
+   "correction": "Map options at :97237-97256 exact and option names/defaults valid. Numbers are off: first-navigation Mapbox transfer is 456 KB (20 tiles 345 KB, 3 glyph PBFs 110 KB), not 368 KB with 2 glyphs 87 KB. Removing the label layers (:9756) removes content and is a product decision."
+  },
+  {
+   "id": "perf-cwv-24",
+   "title": "Mapbox worker from a static, cacheable file (CSP build)",
+   "severity": "medium",
+   "audit_refs": [
+    "P2",
+    "X3"
+   ],
+   "evidence": "bundle.pretty.js:10011-10027 builds the worker from a Blob; two workers x 838,974 B recompiled every load (blob: rows); Mapbox ships mapbox-gl-csp.js (1.74 MB raw) + mapbox-gl-csp-worker.js (780 KB raw, 195 KB br q5 / 171 KB q11) with documented mapboxgl.workerUrl.",
+   "fix": "Self-host both under /vendor (immutable), set mapboxgl.workerUrl before new Map, remove blob: from CSP worker-src, precache in SW.",
+   "effort": "S",
+   "metric_or_grade_moved": "Worker compile on repeat visits (code-cache eligible), CSP strictness",
+   "acceptance_test": "No blob: script rows; worker-src 'self' enforced without violations.",
+   "depends_on": [
+    "perf-cwv-09"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "workerUrl blob assignment :10024 and setter :96162-66 exist in the bundled standard build; the CSP worker v3.24.1 is 780,619 B raw / 171,204 B br and mapbox-gl-csp.js is 1,743,709 B, both max-age=31536000 with ACAO *. A one-line patch can point the standard build at the CSP worker without externalising the library, but that main+worker mix is undocumented, so smoke-test."
+  },
+  {
+   "id": "perf-cwv-25",
+   "title": "netlify.toml headers, caching and CSP matched to the new boot",
+   "severity": "medium",
+   "audit_refs": [
+    "X3",
+    "P4",
+    "P5"
+   ],
+   "evidence": "netlify.toml:19 CSP Report-Only with 'unsafe-inline' and no RUM host (inspector-issues: ingesteer.services-prod.nsvcs.net); :28-30 data max-age=3600; no rules for site-nav.*, /screenshots/*, /vendor/*; live HTML differs from deploy (Pretty URLs href rewriting, injected RUM tag).",
+   "fix": "Immutable rules for site-nav.* and /vendor/*; /data/* stale-while-revalidate until hashed then immutable; do not add a modulepreload Link header for the entry; add RUM host to connect-src; replace inline 'unsafe-inline' with hashes computed on the served HTML.",
+   "effort": "S",
+   "metric_or_grade_moved": "Repeat visits, TTFB, Best Practices (CSP)",
+   "acceptance_test": "Enforcing CSP produces no violations on all 20 pages.",
+   "depends_on": [
+    "perf-cwv-02"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "netlify.toml:19, :28-30, :74-76 exact. Q9 partly resolved: all 8 inline script bodies are byte-identical between deploy and live HTML; Netlify only rewrites hrefs/attribute quoting and appends the async RUM script, so hashes computed on the deploy file are valid."
+  },
+  {
+   "id": "perf-cwv-26",
+   "title": "Static HTML chooser and map boot behind the user's choice or idle",
+   "severity": "medium",
+   "audit_refs": [
+    "H3",
+    "P2",
+    "P7"
+   ],
+   "evidence": "Ceiling variant v11 (boot on first input or 12 s) scores 100 mobile with 9 requests; chooser screens bO (bundle.pretty.js:111856+) and dO (:102752+) are simple forms rendered by React only after the 2.3 MB evaluation.",
+   "fix": "Render both chooser steps as native HTML in index.html (works without JS; persist gtbg_layout/gtbg_onboarded; auto-select mobile on coarse pointers); fetch bundle at low priority after FCP; evaluate at choice or requestIdleCallback (timeout 3-5 s); paint a 'Loading the battlefield' state before starting the boot so the choosing tap costs <100 ms INP.",
+   "effort": "L",
+   "metric_or_grade_moved": "TBT <=100 ms, mobile lab 97-100, first-tap INP",
+   "acceptance_test": "Probe with a tap at 1.5 s: INP <=150 ms and map ready <=6 s at 4x/Slow-4G.",
+   "depends_on": [
+    "perf-cwv-04"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "bO :111856 (shown only when gtbg_onboarded is unset, :112951) and dO :102752 (shown every visit) confirmed; L effort is realistic."
+  },
+  {
+   "id": "perf-cwv-27",
+   "title": "Lab harness guard for the LCP that Lighthouse's early stop hides",
+   "severity": "medium",
+   "audit_refs": [
+    "P7"
+   ],
+   "evidence": "Replica desktop trace stopped at 3.1 s (observed LCP 167 ms) while live desktop ran 44.5 s (observed LCP 4,580 ms): outcome depends on whether the intro text paints before 'quiet'.",
+   "fix": "Required CI job probe.mjs wait (20 s, no input, 4x CPU, Slow-4G) recording final LCP and element; pass --max-wait-for-load >=15 s in LHCI.",
+   "effort": "S",
+   "metric_or_grade_moved": "Lab/CI reliability of LCP",
+   "acceptance_test": "CI fails when final LCP >2.0 s or element not on allow-list.",
+   "depends_on": [],
+   "verdict": "CONFIRMED",
+   "correction": "Stronger than cited: with the same bundle the 44.5 s cap flips by profile (live mobile 2,860 ms / desktop 44,543 ms; replica mobile 44,639 ms / desktop 3,146 ms)."
+  },
+  {
+   "id": "perf-cwv-28",
+   "title": "Scripted INP harness with long-animation-frame attribution",
+   "severity": "medium",
+   "audit_refs": [
+    "P1"
+   ],
+   "evidence": "Field INP undiagnosable; headless event duration unreliable (frames only on damage); measured processing at 4x was 1-32 ms across F/S/L keys, typing, Escape, arrows, slider drag; CPU profile of warm boot 66% idle, React render 540 ms, aT spatial index 62 ms.",
+   "fix": "Extend lab/inp_profile.mjs into tools/inp-scenario.mjs (cold visit, choose layout, panel toggles, search typing, unit click paused and playing at 8x, slider drag, Help open) at CPU 4x desktop+mobile emulation; assert input delay and processing <=100 ms and LoAF blocking; run once per release on a real mid-range Android over USB.",
+   "effort": "M",
+   "metric_or_grade_moved": "INP regression protection",
+   "acceptance_test": "CI artefact table per step; fail on inputDelay or processing >100 ms.",
+   "depends_on": [],
+   "verdict": "CORRECTED",
+   "correction": "The scripted INP evidence is invalid for the states it claims: after typing '20th' focus stays in the search INPUT and the hotkey handler returns for INPUT targets (bundle.pretty.js:112967), so key Right, key 3 and Space (start play) never executed (events show INPUT: targets; the '3 s of playback' profile has no Ed/lS/y1 samples). No 'L' key step exists either. The 1-32 ms result covers only F/S, typing, paused map clicks and slider drag; the frame-loop and store re-render suspects remain unmeasured in-browser, so the 'not suspects' conclusion is unsupported."
+  },
+  {
+   "id": "perf-cwv-29",
+   "title": "App performance marks and a 'map ready' definition",
+   "severity": "low",
+   "audit_refs": [
+    "P1"
+   ],
+   "evidence": "Only Mapbox create/load/fullLoad user timings exist; no app-level marks to explain boot in RUM.",
+   "fix": "performance.mark gtbg:boot, gtbg:data-core, gtbg:map-load, gtbg:choice, gtbg:interactive (map idle after first render) with measures; include in beacon field k.",
+   "effort": "S",
+   "metric_or_grade_moved": "Diagnosability of boot time",
+   "acceptance_test": "p75 of interactive minus navigationStart <=4 s on 4G in beacon data.",
+   "depends_on": [
+    "perf-cwv-17"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Only Mapbox performance marks exist (bundle.pretty.js:53877,53880); the proposal is sound."
+  },
+  {
+   "id": "perf-cwv-30",
+   "title": "Housekeeping that shows up in vitals audits",
+   "severity": "low",
+   "audit_refs": [
+    "E1",
+    "P7"
+   ],
+   "evidence": "screenshots/day1.png and day3.png byte-identical near-black 1280x720 placeholders (17,585 B) used as og:image with max-age=0; assets/InterpolationWorker-*.js referenced nowhere in bundle.pretty.js; dns-prefetch duplicates of preconnects (index.html:45,51,52); index.html carries 24 KB inline JS + 9 KB CSS (script-treemap marks about 25% unused).",
+   "fix": "Replace og images with real optimised 1200x630 files and 1-day caching; delete or use the worker; drop duplicate dns-prefetch; move inline hacks into a cached file after perf-cwv-16.",
+   "effort": "S",
+   "metric_or_grade_moved": "Best Practices/SEO polish, small byte savings",
+   "acceptance_test": "og:image differs per day and is <=100 KB; no unreferenced assets in the deploy.",
+   "depends_on": [],
+   "verdict": "CONFIRMED",
+   "correction": "day1.png and day3.png have identical md5 (17,585 B) and index.html:21,25 uses day3.png; InterpolationWorker is referenced 0 times in the bundle."
+  }
+ ],
+ "open_questions": [
+  "Q1 (N1): Is there any buildable source for the deployed bundle? Options C/D and findings 07-11 and 19 assume a recovered Vite/React project or a careful patch pipeline; Phases 1-2 work on index.html plus the minified bundle.",
+  "Q2: Please export Netlify RUM for Mobile and Desktop separately and for 24 h / 7 d / 30 d; mobile share and per-device Poor status are unknown, and it is the fastest test of whether the headline badge is peak-driven.",
+  "Q3: How does Netlify compute the headline badge? My reproduction from the plotted hourly p75 series only fits a peak-sensitive aggregate (max bucket); docs say p75 of all loads. Unverified.",
+  "Q4: True field INP baseline is unknown; all INP suspects are code-derived and lab processing at 4x was 1-32 ms. Needs the beacon plus one real mid-range Android run (headless uses software GL, so presentation delay is unreliable).",
+  "Q5: Safari/Firefox behaviour of the boot loader (falls back to load+rAF), Safari has no LCP; iOS run needed.",
+  "Q6 (security agent, X1): Mapbox raster tile requests return 403 with Referer localhost/example.com/none and 200 with the site's Referer while the styles endpoint returns 200 for all referers, so the token appears URL-restricted for tiles; this partly contradicts X1. Please confirm in the Mapbox dashboard.",
+  "Q7: Are the 27 s FCP=LCP hours (Sep 8, Sep 19) real users on stalled connections, crawlers or lab tools? Beacon TTFB sub-parts, bot flag and effectiveType will discriminate.",
+  "Q8: Did the three deploys around Sep 7-9 change sw.js (which would have reloaded open tabs mid-session)? Check the Netlify deploy diff.",
+  "Q9: Netlify post-processing rewrites hrefs and injects the RUM tag in served HTML (verified); whether it ever alters inline script bodies is unverified, which matters for CSP hashes.",
+  "Not tested: real touch devices, iOS Safari, Firefox, screen readers, real mid-range Android CPU/GPU, Netlify edge under load. Lab numbers come from a local h2+brotli replica (Mapbox tiles 403 there), single runs vary about +/-5 points."
+ ],
+ "verification_summary": "Verified perf-cwv against source: the specialist's measurements and line references are largely real (lab table, probes, RUM extraction and live headers all reproduced). Of 30 findings, 17 are CONFIRMED and 13 CORRECTED (02, 05, 06, 07, 08, 10, 14, 17, 19, 21, 23, 28); none is fully refuted. Main problems: (1) the proposed boot loader's `.catch(location.reload)` can loop forever and was never lab-tested; (2) the scripted INP harness never executed its playback/jump/Space steps because focus stayed in the search INPUT, which the app's hotkey handler ignores (bundle.pretty.js:112967), so the \"INP not a suspect\" conclusion is unsupported; (3) the perf-cwv-06 link to the 44.5 s Lighthouse cap is contradicted by the replica data, and the KF loop measures about 5 ms self time in 3 s; (4) perf-cwv-17's beacon snippet has a flush-ordering bug and an unguarded localStorage read; (5) perf-cwv-19's lighthouserc puts budgetsFile in the wrong section, so budgets would go unenforced; (6) perf-cwv-21's nav/footer min-height fix would not remove the measured shifts. The report also missed that the first-run tour (ticks 267 and 538) hits the empty-day-data bug. A \"## Verification\" section with the full table and 8 missed items was appended to perf-cwv.md (line 808 onward).",
+ "missed_by_specialist": [
+  {
+   "title": "INP/playback lab measurements were never taken (harness focus trap)",
+   "evidence": "lab/inp_profile.mjs:60-64 types '20th' into the search input and then sends ArrowRight, 3, Space; bundle.pretty.js:112967 returns early when target.tagName === 'INPUT'. inp_profile_base_d4.json events show INPUT: targets for those steps and no Ed/lS/y1/dA samples in the '3 s of playback' profile (80% idle). The later 'Space (pause)' with a BODY target actually starts playback, so the slider-drag step ran during playback while labelled otherwise.",
+   "fix": "Blur or click body before every hotkey step, assert store.isPlaying and Ed presence in the profile, and re-run at 4x on desktop and 412x823 mobile with real Mapbox tiles (Referer injected). Treat INP suspects 1 and 2 as untested until then.",
+   "severity": "high"
+  },
+  {
+   "title": "Boot-loader reload loop in the proposed fix for perf-cwv-02",
+   "evidence": "The report's snippet: import('/assets/index-Cg8FAMXN.js').catch(function () { location.reload(); }). Not what v5/v10 tested (bare import()). A persistent rejection (404 from the lower-cased asset names in BRIEF, CSP enforcement, top-level throw) reloads indefinitely.",
+   "fix": "Once-per-session guard via sessionStorage, then show a visible 'Couldn't load the map. Retry' state inside #boot-splash; add a test that 404s the bundle.",
+   "severity": "high"
+  },
+  {
+   "title": "First-run tour and deep jumps show an empty map (day data never loaded)",
+   "evidence": "Tour stops Gc at ticks 267 and 538 (bundle.pretty.js:111842,111849) advance via setTick only (:111865,111869); only Ed loads days 2/3 (:96991-92) and only while isPlaying; jumpToDay (:9369) and keys 2/3 (:112990-96) also only set the tick. Mobile is spared only because pO eager-loads all three days (:103040-42), which perf-cwv-10 proposes to remove.",
+   "fix": "Implement ensureDay(tickToDay(currentTick)) via a store subscription (perf-cwv-11) before altering pO; add a cold-start test that opens tour steps 4 and 5.",
+   "severity": "high"
+  },
+  {
+   "title": "LHCI on deploy previews measures a different workload",
+   "evidence": "Report Q6: Mapbox tile requests return 403 unless the Referer is the production host; the replica probes show repeated 403 console errors. Preview (*.netlify.app) and localhost runs therefore skip tile decode/GL work and log console errors (errors-in-console / best-practices).",
+   "fix": "Use a second referrer-restricted preview token or allow the preview pattern, or gate on a nightly production run and use previews only for HTML/bundle lint.",
+   "severity": "medium"
+  },
+  {
+   "title": "Beacon function needs a functions-capable deploy pipeline that does not exist",
+   "evidence": "The site is a static publish='.' tree with no package.json or build (netlify.toml:1-3); netlify/functions/vitals.mjs imports @netlify/blobs, and the Netlify functions deploy doc lists Git, CLI or API for manual deploys (drag-and-drop not documented). perf-cwv-17 says 'Depends on: none'.",
+   "fix": "Add a CLI/Git deploy path (and package.json) as an explicit dependency of perf-cwv-17 and of every tools/ CI gate.",
+   "severity": "medium"
+  },
+  {
+   "title": "Replica/probe numbers exclude Mapbox tile and GL work",
+   "evidence": "All replica requests to api.mapbox.com return 403 (probe console lines), so the headline 'mobile 88-93 / ceiling 100' and TBT 294-472 ms omit decoding/upload of 20 tiles (345 KB) plus 3 glyph PBFs (110 KB) seen in lh_mobile.json.",
+   "fix": "Re-measure v10 under production-equivalent conditions by injecting Referer https://gettysburginteractivemap.com/ for api.mapbox.com via CDP request interception, and treat 88-93 as an upper bound until then.",
+   "severity": "medium"
+  },
+  {
+   "title": "mapboxgl.workerCount defaults to 2 for a single-map app",
+   "evidence": "bundle.pretty.js:58225 Cl.workerCount = 2 (setter :96147-96151); lh_mobile.json shows two 838,974 B blob workers recompiled per load.",
+   "fix": "Set mapboxgl.workerCount = 1 (at least on mobile) alongside perf-cwv-24 and measure tile-parse latency.",
+   "severity": "low"
+  },
+  {
+   "title": "Help/Bookmarks first-open delay (D1) has no finding",
+   "evidence": "Suspense fallback: null at bundle.pretty.js:113276-113277 with lazy HelpModal/BookmarkPanel chunks (:112469-70) fetched only on click; the report mentions it under INP but assigns no ID or effort.",
+   "fix": "Prefetch both chunks via import() on idle or hover and add a skeleton fallback (S).",
+   "severity": "low"
+  }
+ ]
+}

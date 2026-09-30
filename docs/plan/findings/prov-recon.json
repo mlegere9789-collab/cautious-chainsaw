@@ -1,0 +1,996 @@
+{
+ "agent": "prov-recon",
+ "summary": "RECON_SRC is not a usable source of truth and the plan should use Strategy C: a TypeScript strangler rebuild with a parity harness built first, RECON kept only as a salvage quarry, and Strategy A limited to scripted, asserted bridge patches until cutover. I ran RECON's own OOB flatten logic against the real data in Node and it yields 0 entries (the deployed loader yields 705 keys from 712 raw records). RECON also has no unit renderer or playback loop (Play toggles a flag nothing consumes), and mobile mode renders nothing (recon:src/App.jsx:153). Parity matrix over 62 surfaces: 4 verified, 8 verified with a defect, 1 UI-only stub, 8 different, 9 wrong against real data, 25 missing, 6 dead or decision items; about 65 unassisted developer-days at row midpoints, planned at 30-38 AI-assisted days for parity and 38-50 for parity plus A+ including the parallel sub-page track. Provenance: the deployed main bundle (index-Cg8FAMXN.js, 2,280,438 B, md5 7ef75b95f4) is byte-identical to gettysburg_v21_streetview_fix.zip (Jul 29) and unchanged in every deploy zip from Aug 22 to Sep 29, so RECON was cut from this exact bundle and there is no post-v21 drift in the React code; all newer behavior is in index.html, sw.js, site-nav, data and sub-pages. The name index-Cg8FAMXN.js has been reused for four different byte streams (plus a hand-renamed fifth) while /assets/* is served immutable and the SW is cache-first, which is a live stale-code trap. Version drift: mapbox-gl 2.15.0 in RECON versus 3.24.1 deployed (WebGL 2 mandatory in v3); React 18.3.1 and zustand 4.5.x match. None of RECON's four performance claims is in the deployed build and three are unsound: the SW race is really stale-while-revalidate that can cache errors, the gradient LCP placeholder is excluded from LCP and by stacking analysis sits above #root and is never removed on mobile, and the Google Fonts change targets a font the site never loads; code splitting is directionally right but its numbers came from a partial app on mapbox v2. New root causes found in the deployed bundle: setGoldUnit, clearGoldTrail and drawGoldTrailSegment are called but defined nowhere (C5, and the ?ancestor= mount path throws in useEffect); CanvasRenderer is an undefined global in the sound path; the minimap tick is stale because the store's subscribe takes one argument (H11); the renderer's module-level accumulator i2 makes rendering history-dependent; five clock code paths use two formulas and two date conventions and disagree with the NPS tour subtitles by 35 minutes to 9 hours; Esc leaves pinnedUnitId set so the unit panel never closes; mobile tool sheet has 5 dead controls; dragPan and scrollZoom options are no-ops in Mapbox; Mapbox attribution is disabled on two deployed maps and RECON's; and at least 8 sub-page, embed and share deep links target params the bundle never parses. Also: netlify.toml publish=\".\" would expose committed source; RECON's monuments.json collides with a live 9-entry file of a different schema; OG and PWA screenshots are identical and structurally invalid PNGs. The report contains the full parity matrix, version-drift table, claim verification, decision matrix, phased cutover plan, harness spec, flags and rollback, Astro-based repo layout, tokens, data pipeline, CI, a 34-item trap catalogue, and 46 findings. I did not run a browser or build; items marked analysis only need one confirming run in the parity-harness phase.",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/prov-recon.md",
+ "findings": [
+  {
+   "id": "prov-recon-01",
+   "title": "Adopt Strategy C (TypeScript strangler rebuild); demote RECON to a salvage quarry; keep A only as a scripted bridge",
+   "severity": "critical",
+   "effort": "XL",
+   "audit_refs": [
+    "N1"
+   ],
+   "depends_on": [],
+   "evidence": "RECON parity tally (report section 3.8): 4 verified, 8 verified-with-defect, 8 different, 9 wrong, 25 missing of 62 surfaces; running RECON's own OOB flatten on the real data gives 0 entries (deployed logic gives 705; tmp-prov-recon/recon_loader_test.mjs); recon:src has no rAF playback loop and mobile mode renders nothing (recon:src/App.jsx:153). Deployed bundle md5 7ef75b95f4 (2,280,438 B) is frozen since Jul 29; 81% of it is vendored mapbox-gl 3.24.1, so app logic is about 17k readable lines at bundle.pretty.js:96209-113377.",
+   "root_cause": "No source of truth exists (N1). The only reconstruction is a partial JavaScript port on the wrong mapbox major with wrong data adapters; patching the minified bundle has already produced undefined identifiers in production paths (bundle.pretty.js:96556, 101086).",
+   "fix": "Record docs/adr/0001-source-of-truth.md. Execute report section 6: Phase 0 archive and byte-identical Git deploy; Phase 1 parity harness before any app code; Phases 2-6 TypeScript rebuild under /next/ behind flags using the deployed bundle as executable spec; Phase 7 Astro sub-pages in parallel; Phase 8 hardening and canary. Freeze RECON under legacy/recon-2026-07-30/ and copy only the salvage list (DistanceTool math, LocationLabels coords, MapLayers ids, HelpModal text, BookmarkPanel markup, monuments and story-marker JSON renamed). Strategy A survives only as the patch runner in finding 40 and is deleted at cutover.",
+   "acceptance_test": "ADR merged; legacy tag exists; parity harness green legacy-vs-legacy (finding 03) before the first new UI code; at cutover every audit category has an A+ verification test in CI (axe, Lighthouse CI, parity).",
+   "effort_note": "",
+   "metric_or_grade_moved": "Enables A+ in every category and green Core Web Vitals; removes the maintainability ceiling (Documentation, Reliability, Fit and finish).",
+   "verdict": "CORRECTED",
+   "correction": "Numbers verified (md5 7ef75b95f4, 2,280,438 B; mapbox region 10002-96208 = 81.3%; app region 490,044 B; RECON absorb 0 vs 705). Corrections: tally is 10 wrong (not 9) and P-62 is already among the 6 dead rows; and the premise 'no source exists elsewhere / RECON is the only quarry' is false: Downloads/gettysburg_v2_fixed/src and gettysburg_COMPLETE_FIXED (1)/src (65 files, 8,423 lines, mapbox ^3.2.0, CanvasRenderer/Interpolator/GoldTrailEngine/SoundEngine/NPSTour/FollowAncestor etc.) and FINAL_v24/FIXED_v25 (40 files, manualChunks, validate_data.py, ci.yml) exist. Strategy C direction defensible; salvage list and 38-50 day estimate must be redone."
+  },
+  {
+   "id": "prov-recon-02",
+   "title": "Phase 0: archive all zips, git init a private repo, commit the baseline of record, prove a Git-driven deploy is byte-identical",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "N1"
+   ],
+   "depends_on": [],
+   "evidence": "16 gettysburg zips scanned by tmp-prov-recon/zipscan.py (report section 2); deploy zip has five lower-cased assets while deploy:index.html:282 references index-Cg8FAMXN.js; deploy:netlify.toml:1-2 publish = \".\"; Downloads holds v2..v37 and dozens of variants with no manifest.",
+   "root_cause": "There is no repo, no lineage record, and the downloadable deploy zip is not redeployable as-is (case sensitivity).",
+   "fix": "1) Copy zips to cold storage outside the repo; write ARCHIVE_MANIFEST.tsv (name, mtime, size, sha256, main bundle name and md5, lineage). 2) git init (private). 3) Commit legacy/dist with the five asset names restored to the case referenced by index.html, sw.js and the two chunk imports (index-Cg8FAMXN.js, index-B4G7Z_2G.css, BookmarkPanel-C5YT4b5k.js, HelpModal-CFV9T0zH.js, InterpolationWorker-ufiwa2-e.js); add legacy/analysis/bundle.pretty.js and legacy/recon-2026-07-30/. 4) Tag legacy-2026-09-29. 5) Connect Netlify with publish=legacy/dist and no build. 6) Restrict Mapbox and Google keys by referrer (finding 08). 7) Crawl index.html plus the sw.js precache list and HEAD every asset.",
+   "acceptance_test": "sha256 of every file served by the Git-driven deploy equals the manifest of the current production deploy; all 119 files return 200 on Netlify (case-sensitive); SW install (cache.addAll) succeeds in a clean profile.",
+   "metric_or_grade_moved": "Reliability (redeploy safety), Documentation; unlocks rollback and split testing.",
+   "verdict": "CORRECTED",
+   "correction": "toml:1-2, index.html:282 and lower-cased deploy-zip assets verified. But the Netlify source zip (6aa16d6080...) already has correct-case names, so Phase 0 is 'copy from the source zip and prove md5 equality', not a manual rename. Downloads holds 126 zips, 86 contain index-Cg8FAMXN.js; '16 scanned' understates archive work."
+  },
+  {
+   "id": "prov-recon-03",
+   "title": "Build the parity harness first (data goldens, DOM/ARIA snapshots, visual smoke, intended-diff registry) against a hermetic legacy build",
+   "severity": "critical",
+   "effort": "L",
+   "audit_refs": [
+    "N1"
+   ],
+   "depends_on": [
+    "prov-recon-02"
+   ],
+   "evidence": "Legacy exposes no state (store yn at bundle.pretty.js:9361 is not global); legacy rendering is history-dependent (module-level i2 at 96265, never cleared); Mapbox tiles are non-deterministic; legacy app code has zero aria/role attributes (grep of 96209-113377); Lighthouse layout-shift audit shows motion sources (splash swap, #extra-features mover).",
+   "root_cause": "Without a harness a rewrite cannot prove parity or distinguish intended fixes from regressions.",
+   "fix": "Implement report section 6.6: serve legacy/dist locally; stub Mapbox style/tiles/events via page.route; fake clock; fresh page per checkpoint; T1 data goldens from extracted legacy pure functions (y1, F4, iF, zp, Hk, vF) for all 675 ticks; T2 text/ARIA snapshots; T3 SSIM smoke; console and request diffs; checkpoint list (ticks, panels, shortcuts, deep links, viewports 320-2560, offline, no-JS, reduced motion); docs/parity/intended-diffs.yml keyed by audit id with expiry.",
+   "acceptance_test": "Three consecutive legacy-vs-legacy runs produce zero diffs; deliberately mutating one legacy string fails exactly the expected checkpoints; registry lint rejects entries without an audit id or expiry.",
+   "metric_or_grade_moved": "Regression control for every category; prerequisite for safe A+ work.",
+   "verdict": "CONFIRMED",
+   "correction": "i2 at 96265, store yn 9361 not global (only window.__gtbgApp 112757), zero aria/role in 96209-113377."
+  },
+  {
+   "id": "prov-recon-04",
+   "title": "Implement one deep-link router; today 8 sub-page and embed links land on the default map and share links do nothing",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "H3"
+   ],
+   "depends_on": [
+    "prov-recon-03"
+   ],
+   "evidence": "Only get(\"ancestor\") exists in the bundle (bundle.pretty.js:101019); sub-pages emit /?tick=N (turning-points.html:118), /?unit=ID&tick=N (regiment.html:247), /?tick=N&vignette=ID (historian.html:110), /index.html?unit=... and ?tick=...&vignette=... (search.html:114,127; embed.html CTA); the app emits ?t&u&z&ll (bundle.pretty.js:97823) and ?ancestor= (101117); RECON emits ?tick&unit and parses nothing.",
+   "root_cause": "Three deep-link vocabularies were built independently and the consumer side was never written; ?ancestor only works if the panel is already open.",
+   "fix": "Add lib/deeplink.ts: parse on boot and popstate: tick|t, unit|u, vignette, ancestor (auto-opens the panel), z, lat+lng or ll, layout; validate (tick 1..675, unit exists); apply after data load; write canonical URLs via history.replaceState on share; keep legacy aliases forever. Update sub-page link generators to the canonical vocabulary. Add all eight links plus the share round trip to the parity harness. Optional bridge patch (finding 40) parses tick/unit in legacy now.",
+   "acceptance_test": "Playwright opens each of the eight links and the share round trip: expected tick label, unit panel and vignette are shown; unknown or out-of-range params degrade to defaults without console errors.",
+   "metric_or_grade_moved": "Function and Usability (map deep links), SEO engagement (Turning Points, Historian, Search click-throughs), Reliability.",
+   "verdict": "CORRECTED",
+   "correction": "Only get('ancestor') parsed (101019) is right, but there are 9 links across 8 files, not 8 across 6: also documentary.html:92, education.html:81 and search.html:139 (?lat=&lng=). Add them to the router and harness. ?ancestor= is read only in Zk's mount effect after the panel is opened."
+  },
+  {
+   "id": "prov-recon-05",
+   "title": "Stop reusing filenames for different bytes: enforce content-hash naming and build-only-in-CI",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "N1",
+    "C6"
+   ],
+   "depends_on": [
+    "prov-recon-02"
+   ],
+   "evidence": "index-Cg8FAMXN.js appears with four different md5s (a6a94abc9c 2,279,751 B; 150ef117c1 2,280,389 B; 7ef75b95f4 2,280,438 B; b943b2fd9f 2,287,335 B) plus a hand-renamed index-Cg8FAMXN-v36.js (report section 2); deploy:netlify.toml serves /assets/* immutable for a year; deploy:sw.js is cache-first for /assets/; lazy chunks import ./index-Cg8FAMXN.js by name.",
+   "root_cause": "Previous sessions patched bundles in place and kept the name, which defeats content hashing; immutable caching plus cache-first SW then pins returning users to old code (consistent with the comment at deploy:index.html:259-262 and the reload hack).",
+   "fix": "Build only in CI from git. scripts/assert-hashed-assets.mjs: every dist/assets filename suffix must equal Vite's content hash; fetch the last production asset-manifest.json and fail if any name repeats with different bytes; generate the SW precache list from the build manifest (no hard-coded names); manualChunks so lazy chunks do not import the entry (finding 19). Keep /assets/* immutable only after this check exists.",
+   "acceptance_test": "Synthetic test: patching one byte in a built asset without renaming fails CI; a clean build passes; grep of lazy chunks finds no import from ./index-.",
+   "metric_or_grade_moved": "Reliability (stale-code incidents), RUM stability; supports P1 recovery.",
+   "verdict": "CORRECTED",
+   "correction": "Understated: 45 distinct byte streams across 86 zips share the name index-Cg8FAMXN.js (28 zips hold 7ef75b95f4, 11 hold 37be334491), not four. Conclusion and fix stand and are stronger."
+  },
+  {
+   "id": "prov-recon-06",
+   "title": "Change netlify.toml from publish=\".\" to a build/publish pair before any source enters the repo",
+   "severity": "high",
+   "effort": "S",
+   "audit_refs": [
+    "N1",
+    "X3"
+   ],
+   "depends_on": [
+    "prov-recon-02"
+   ],
+   "evidence": "deploy:netlify.toml:1-2 has [build] publish = \".\" and no command; only /package.json and /package-lock.json are 404-redirected; RECON README/PENDING say to carry netlify.toml forward unchanged.",
+   "root_cause": "The publish root is the repo root, so committed source, docs and config would be served publicly (including RECON MapView.jsx with a hard-coded token default).",
+   "fix": "Set [build] command = \"pnpm build\", publish = \"dist\" (or apps/web/dist), NODE_VERSION pinned; keep legacy/dist publish only for Phase 0; add explicit 404 rules for /src/*, /*.md, /vite.config.*, /pnpm-lock.yaml, /tsconfig.json, /.github/*; add a preview probe in CI.",
+   "acceptance_test": "curl against a deploy preview returns 404 for /src/main.tsx, /README.md, /PENDING.md, /package.json, /pnpm-lock.yaml; only dist contents are reachable.",
+   "metric_or_grade_moved": "Security hygiene (B to A), Reliability.",
+   "verdict": "CONFIRMED",
+   "correction": "netlify.toml:1-2 publish='.' verified; the /src/* 404 rules are redundant once publish is a build output dir (the publish dir is the real control)."
+  },
+  {
+   "id": "prov-recon-07",
+   "title": "Resolve data name collisions and never copy RECON's public/ over the deployed tree",
+   "severity": "high",
+   "effort": "S",
+   "audit_refs": [
+    "H10"
+   ],
+   "depends_on": [
+    "prov-recon-02"
+   ],
+   "evidence": "tmp-prov-recon/cmp_data.py: 69 identical, 2 different, 1 RECON-only. data/monuments.json is {_note, monuments[9]} in deploy (consumed by deploy:index.html:677-679) but a 512-item array in RECON; RECON's union_oob_corps_division.json has double-encoded UTF-8 (mojibake for em dashes) where deploy has --; RECON user-guide.pdf 9,282 B vs deploy 14,321 B; RECON apple-touch-icon is 32x32 (deploy 180x180); icon-192, favicon.ico and robots.txt differ.",
+   "root_cause": "RECON copied an older data snapshot and reused a live filename for a different schema.",
+   "fix": "Data of record is deploy/data. Rename the new datasets to data/v2/monuments_directory.json (512) and data/v2/story_markers.json (20) with schemas; delete the star-overlay script (finding 30); import only the salvage list from RECON; add a data checksum manifest to the repo.",
+   "acceptance_test": "A diff between legacy/dist/data and the frozen legacy tree shows zero changes; schema validation passes for the renamed files; no code path fetches /data/monuments.json after the overlay script is removed.",
+   "metric_or_grade_moved": "Historical/data consistency, Reliability.",
+   "verdict": "CONFIRMED",
+   "correction": "69 same / 2 different / 1 RECON-only, 5-byte mojibake diff, PDF 9,282 vs 14,321 B reproduced. Nit: RECON apple-touch-icon.png is really an ICO container (16+32 px), deploy is a 180x180 PNG."
+  },
+  {
+   "id": "prov-recon-08",
+   "title": "Restrict the Mapbox and Google keys and keep them out of source; add secret scanning before the first commit",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "X1",
+    "X2"
+   ],
+   "depends_on": [
+    "prov-recon-02"
+   ],
+   "evidence": "Mapbox pk. token at bundle.pretty.js:97210 and 102899, in 9 static pages (camera, cinematic-export, compare, ground-remembers, immersive, sandbox, unit-rendering-reference, viewshed, watch-together) and as a default in recon:src/components/MapView.jsx:19; Google Maps key at bundle.pretty.js:110610; audit X1 measured a 200 with a foreign Referer.",
+   "root_cause": "Public browser tokens are unavoidable, but they are unrestricted and duplicated across 12 places, and RECON would commit one into source history.",
+   "fix": "Now: restrict the Mapbox token to the production domain (plus one preview domain) and the Google key to HTTP referrers and the Maps Embed API only. Create three tokens (prod, preview, localhost). In the rebuild use env (VITE_MAPBOX_TOKEN) with no default; one shared config module for pages and app; .env.example; gitleaks in pre-commit and CI; keep the repo private until legacy/ is scrubbed or explicitly accepted.",
+   "acceptance_test": "A request with Referer https://example.org returns 403 for the production token; gitleaks passes on apps/ and packages/; the built site contains no token except the injected production one.",
+   "metric_or_grade_moved": "Security hygiene (B to A), cost control (map loads).",
+   "verdict": "CONFIRMED",
+   "correction": "Token at 97210/102899 and 9 pages, Google key 110610; foreign Referer to api.mapbox.com returned 200 again today. Google key restriction not testable (unverifiable)."
+  },
+  {
+   "id": "prov-recon-09",
+   "title": "Restore Mapbox attribution on the mobile, walkthrough and (RECON) main maps",
+   "severity": "high",
+   "effort": "S",
+   "audit_refs": [],
+   "depends_on": [
+    "prov-recon-10"
+   ],
+   "evidence": "attributionControl: !1 at bundle.pretty.js:102988 (mobile shell) and 110777 (walkthrough); recon:src/components/MapView.jsx:44 removes it from the main map, which the deployed desktop map (97237-97250) keeps; Mapbox attribution docs: logo and text attribution are required and may not be hidden.",
+   "root_cause": "The option was copied from a first prototype and propagated to three of the four map instances.",
+   "fix": "Single MapCanvas component always includes the Mapbox logo and AttributionControl (compact under 640 px is fine), positioned by tokens to clear the timeline bar and safe-area inset. Lint rule bans attributionControl:false.",
+   "acceptance_test": "Screenshots of every map surface at 320, 375, 768 and 1440 px show the Mapbox logo and attribution unobscured by the timeline; grep gate finds no attributionControl:false.",
+   "metric_or_grade_moved": "Legal/terms compliance; Fit and finish.",
+   "verdict": "CONFIRMED",
+   "correction": "attributionControl:!1 at 102988 and 110777; desktop map keeps default; Mapbox attribution page confirms logo mandatory and text may not be hidden, no compact exception stated."
+  },
+  {
+   "id": "prov-recon-10",
+   "title": "Pin mapbox-gl 3.24.1, guard WebGL 2, and drop no-op map options",
+   "severity": "medium",
+   "effort": "S",
+   "audit_refs": [
+    "P2"
+   ],
+   "depends_on": [],
+   "evidence": "bundle.pretty.js:53873 R = \"3.24.1\"; RECON pins 2.15.0 (package-lock); Mapbox v3.0.0 release notes: WebGL 2 mandatory, optimizeForTerrain removed; dragPan {inertia, inertiaDeceleration, inertiaMaxSpeed} (97248) and scrollZoom {speed, smooth} (97249) are unread: bundled v3 code reads deceleration/maxSpeed/linearity (88952) and only around (89624); desktop zoom 13.5 vs mobile/RECON 13; three new Map calls (97237, 102981, 110770).",
+   "root_cause": "Options were copied from another library and never verified; each surface builds its own map, multiplying billed map loads.",
+   "fix": "package.json: \"mapbox-gl\": \"3.24.1\" exact; import the CSS from the same package; one lib/map.ts factory (token, style, center [-77.235, 39.812], zoom 13.5, minZoom 11, maxZoom 18, maxBounds [[-77.36,39.72],[-77.12,39.91]], NavigationControl); guard with mapboxgl.supported() and show a message when WebGL 2 is unavailable; use documented dragPan/scrollZoom options or defaults; reuse one map across desktop and mobile layouts.",
+   "acceptance_test": "Unit test asserts the factory options; a WebGL-disabled headless run shows the fallback message; only one Map instance is created on the home route (harness asserts map-load count).",
+   "metric_or_grade_moved": "Reliability, cost, parity of default view.",
+   "verdict": "CONFIRMED",
+   "correction": "53873 version marker, no-op dragPan/scrollZoom options vs reads at 88952/89624, v3.0.0 notes (WebGL2 mandatory, optimizeForTerrain removed) confirmed; mapboxgl.supported is still exported in 3.24.1 (92669), so the guard is valid."
+  },
+  {
+   "id": "prov-recon-11",
+   "title": "Rewrite the data layer to the deployed contract (712 OOB records, lazy days, density files, tolerant fetches)",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "P3"
+   ],
+   "depends_on": [
+    "prov-recon-03"
+   ],
+   "evidence": "iF (bundle.pretty.js:96834-96899) keys by regiment_id/brigade_id/corps_id/division_id/battery_id plus nested battery arrays: 712 raw records (467 regiments, 93 brigades, 31 divisions, 11 corps, 95 batteries, 8 horse artillery, 7 corps-artillery brigade wrappers) give 705 keys (the 7 wrappers are not keyed; their batteries are); zp (96900) merges base + density files by day; aF/lF load day 2 at tick >= 200 (96991) and day 3 at >= 420 (96992); placements: 694 base + 1,110 density records over 188 ticks and 478 unit ids (plc.mjs); RECON absorb() yields 0 entries (recon_loader_test.mjs) and loads only the 9 base files.",
+   "root_cause": "RECON guessed the loader shape; the deployed loader is the spec.",
+   "fix": "data/index.ts with zod schemas: loadUnits() returns Map<string, Unit> and asserts id uniqueness (712 raw minus 7 wrapper records = 705 keys) instead of overwriting silently; loadPlacements(day) fetches base plus density and merges deterministically (documented precedence per unit and tick), tolerating per-file failure with a visible notice; commander typed {name, fate, notes?, successor?}; prefetch days 2-3 on idle instead of tick thresholds; single-flight cache. Golden unit tests for the counts above.",
+   "acceptance_test": "Vitest: unit count (705) and the excluded-wrapper list match the golden; placements per day, ticks and unit ids match; a 404 on one density file yields a notice, not a blank app.",
+   "metric_or_grade_moved": "Performance (P3), Reliability, Function.",
+   "verdict": "CONFIRMED",
+   "correction": "Independent recount: 712 records, 705 keys, 0 collisions; 694+1,110 placements; 188 ticks; 478 ids; RECON 117 ticks/152 units. Nit: eF holds 13 OOB files plus commander_successions.json. See MISSED-4 and MISSED-5."
+  },
+  {
+   "id": "prov-recon-12",
+   "title": "Replace the canvas renderer and stateful interpolation with a pure keyframe engine and Mapbox symbol layers",
+   "severity": "critical",
+   "effort": "XL",
+   "audit_refs": [
+    "D3",
+    "P2"
+   ],
+   "depends_on": [
+    "prov-recon-11",
+    "prov-recon-13"
+   ],
+   "evidence": "Legacy: lS 2D overlay canvas (96506-96688) with per-frame collision spreading (96561-96581) and labels; y1/F4 adjacent-tick lerp (96238-96305); module-level i2 accumulator (96265) never cleared (only references 96271/96279/96291) and mutated from an effect (97324); only 188 of 675 ticks carry records so lerp rarely engages; fF hover popup unreachable (97384); RECON has no renderer. Owner's own reference: deploy:unit-rendering-reference.html (keyframes, binary search, symbol layer, symbol-sort-key, halo layer).",
+   "root_cause": "The renderer was built on a per-tick snapshot model with hidden global state; correctness depends on navigation history and every frame runs O(n^2) collision math on the main thread.",
+   "fix": "lib/engine: per-unit sorted keyframes; stateAt(tick, frac) is pure; explicit carry-forward rule (visible from first record until last record + TTL or an explicit withdrawn marker; needs a data decision recorded in the intended-diff registry). Renderer: one GeoJSON source per side updated once per animation frame, symbol layer with icon-rotate from bearing, strength-based icon-size, icon-allow-overlap:false and symbol-sort-key, halo circle layer for engaged units, label layer with zoom expressions, trail line layer, filters as layer filter expressions; picking via queryRenderedFeatures; keyboard-reachable unit list for accessibility.",
+   "acceptance_test": "Property test: random tick walks produce identical unit sets to a fresh load; at every recorded keyframe (694 + 1,110) engine output equals the record; no long tasks over 50 ms during 8x playback; Day 3 label collisions absent at default zoom.",
+   "metric_or_grade_moved": "Performance (INP/TBT), Function, Usability (D3), Historical consistency (no ghost units).",
+   "verdict": "CORRECTED",
+   "correction": "i2 accumulator, y1 in effect (97324), fF wrong props verified. Fix hazard: symbol layers with icon-allow-overlap:false (as in unit-rendering-reference.html:155) hide colliding units, whereas the deployed renderer draws all units and only spreads labels; use icon overlap allowed and collide only text labels or T1 unit-set parity fails on screen. Carry-forward (i2) is today's visibility rule; changing it needs owner sign-off."
+  },
+  {
+   "id": "prov-recon-13",
+   "title": "Single tick-to-clock module driven by a tick-to-timestamp table; remove the +2 date offset and the duplicate formulas",
+   "severity": "critical",
+   "effort": "M",
+   "audit_refs": [
+    "C3",
+    "C4"
+   ],
+   "depends_on": [
+    "prov-recon-03"
+   ],
+   "evidence": "Clock logic in six places, two formulas (6:00/4:00 base and 5:00 base) and two date conventions (July {day} and July {day+2}): getTickTime 9371; M4 9856; JF 100836 and QF 100998 (5:00 base, July {f+2}); HUD _F 97428 (July {l+2}); RECON store adds 5:00 with July {day+2}. tmp-prov-recon/clocks.mjs: NPS tour tick 264 subtitle July 2, 4:00 PM vs store 7:10 AM; tick 548 July 3, 3:00 PM vs 12:05 PM; tick 12 July 1, 7:30 AM vs 6:55 AM. Only 188 ticks carry data, so ticks are event-indexed, not uniform in wall time.",
+   "root_cause": "The mapping was invented per component and never tied to the chronology data; a linear 5-minute formula cannot match event-indexed ticks.",
+   "fix": "data/ticks.json (tick to ISO timestamp) built from chronology_day*.json time fields plus anchors and monotone interpolation, reviewed by a historian; lib/time.ts exports tickToClock, tickToDay, formatClock; every consumer (HUD, toolbar, mobile clock, tooltips, ancestor journey, bookmark labels, daylight tint, tour subtitles, Story and Event cards) uses it; delete all other formulas; lint rule bans arithmetic on day + 2.",
+   "acceptance_test": "Unit tests: monotone, day boundaries at ticks 1/226/451, every NPS tour stop and story marker time equals tickToClock within 5 minutes; grep gate finds no July {x + 2}; parity registry lists C3/C4 as intended diffs.",
+   "metric_or_grade_moved": "Historical/data consistency (C- to A), user trust.",
+   "verdict": "CORRECTED",
+   "correction": "Six clock sites and July+2 verified. Reasoning wrong: '188 populated ticks => event-indexed' conflates placements with the clock. chronology_day*.json declare tick_formula 'Tick 1 = 5:00am, 5 min per tick', 137 events are monotone (0 inversions) and run at exactly 5.0 min/tick for most of days 1-2, drifting to about 3.0 min/tick after tick 340 (tick 360 = 3:20pm, tick 450 = 7:50pm). So ticks.json is right as a piecewise map anchored on chronology; the 6:00/4:00 base in getTickTime is the outlier. NPS subtitles fit history but not the chronology; reconcile them to it."
+  },
+  {
+   "id": "prov-recon-14",
+   "title": "Build one responsive mobile experience instead of the separate pO shell (fixes C1, C2 and 5 dead controls)",
+   "severity": "critical",
+   "effort": "XL",
+   "audit_refs": [
+    "C1",
+    "C2",
+    "H3",
+    "S4"
+   ],
+   "depends_on": [
+    "prov-recon-12",
+    "prov-recon-34",
+    "prov-recon-46"
+   ],
+   "evidence": "pO (bundle.pretty.js:102914-103700): own map without attribution (102981-102988), own canvas and picking (103008-103103), playRow = 4 round buttons at 52 px + play button 64 px + speed button + tick text in one centered flex row with gap 14 (styles playRow 103813, ctrlBtn 103820, playBtn 103834, speedBtn 103842, tickInfo 103853) = root of the 572 px row; tools sheet has 14 items (103419-103470) but only lo === \"legend\" (103617) renders (the roster branch at 103505 is unreachable; Roster uses state er); Br(\"layers\") 103442, Br(\"bookmarks\") 103463, Br(\"help\") 103470 have no renderer; NPS Auto Tour (103447) and Monuments (103419) set states nothing reads; RECON renders nothing for mobile (recon:src/App.jsx:153).",
+   "root_cause": "The mobile shell duplicates the desktop map, renderer and picking, and its controls were sized in fixed pixels without a 320-390 px budget.",
+   "fix": "One AppShell with layout modes selected by matchMedia (pointer: coarse and width) and persisted as gtbg:layout; shared MapCanvas, engine and panels. Mobile controls: transport row wraps or scrolls with 44x44 targets, tick text above the slider, safe-area insets, bottom sheet above the timeline via the token z-scale, all 14 tools wired (Bookmarks, Help, Layers, NPS Tour, Monuments, layout switch), sheet scrolls when taller than the viewport.",
+   "acceptance_test": "At 320, 375, 390, 768 and landscape 812x375: getBoundingClientRect of every transport control is inside the viewport; elementFromPoint at the centre of each sheet item returns that item; every sheet item opens a visible panel; axe target-size passes; parity checkpoints pass with C1/C2 in the registry.",
+   "metric_or_grade_moved": "Core function (mobile D to A), Usability, Accessibility targets, Performance (single map).",
+   "verdict": "CORRECTED",
+   "correction": "14 tools and 5 dead controls verified. Root cause of C1/C2 is wrong: pO's playRow has 5 children (2x52 + 64 + speed + tick text, about 376 px). The 572 px off-screen row is the desktop IO timeline, mounted unconditionally at bundle.pretty.js:113249 with FF, OF, VF, WF, CF, LF, _F, KF, XF, iO, nO, yO, qF, MF (113242-113284) outside the Zn !== 'mobile' guard, painting over tn.root (103699). Matches app-mobile.md. C1/C2 need a gating fix, not the one-shell rebuild."
+  },
+  {
+   "id": "prov-recon-15",
+   "title": "Move the playback clock out of React and remove per-frame state updates (splash, HUD, story-marker layer)",
+   "severity": "high",
+   "effort": "L",
+   "audit_refs": [
+    "H9",
+    "P1"
+   ],
+   "depends_on": [
+    "prov-recon-12"
+   ],
+   "evidence": "Splash sets store state on every frame (bundle.pretty.js:101486-101505); HUD _F runs its own rAF calling sT() and toggling state each frame (97419-97426) while Ed also calls sT() (96976), double-counting FPS; KF sets a new positions object every frame regardless of showMonuments (100850-100868, deps [c] only); tick interval cF = 500 ms (96948) so 1x is 10 simulated minutes per second, labelled real time (97429); RECON MonumentsLayer repeats the pattern (recon:src/components/MonumentsLayer.jsx:43-55). RUM shows INP poor (P1).",
+   "root_cause": "UI state and animation loops are coupled and no selectors are used (yn() callers re-render on every write).",
+   "fix": "lib/playback.ts owns one rAF loop and writes to the store only when the integer tick changes; fractional progress is published via a lightweight external store read with useSyncExternalStore in the few components that need it; HUD and marker layer subscribe with selectors; markers become a Mapbox layer (no React per frame); speed label states the real ratio (e.g. 10 simulated min per second at 1x) or the speed model is redefined; pause on document.hidden.",
+   "acceptance_test": "React Profiler assertion: zero React commits between tick changes during 8x playback; INP lab under 200 ms while dragging the slider during playback; label test for the speed text.",
+   "metric_or_grade_moved": "Performance (INP, TBT), Usability (H9).",
+   "verdict": "CONFIRMED",
+   "correction": "Splash per-frame setState (101486-101505), _F own rAF plus sT(), KF rAF regardless of showMonuments (100850-100868), cF=500 (96948) all verified."
+  },
+  {
+   "id": "prov-recon-16",
+   "title": "Redesign boot: HTML splash only until first map idle, no React splash on returning visits, no HTML-to-React swap",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "H3",
+    "P1"
+   ],
+   "depends_on": [
+    "prov-recon-15",
+    "prov-recon-28"
+   ],
+   "evidence": "tO (bundle.pretty.js:101472-101600) waits for >5 placement ticks, then 800 ms, a 3.5 s fast-forward (eO = 3500) and 600 ms fade on every visit; rAF-driven so a hidden tab never finishes; Lighthouse layout-shifts (mobile) attributes the first shift (0.0098) to the React splash node replacing the HTML splash; RECON unmounts its splash as soon as data loads so the fast-forward never plays (recon:src/App.jsx:135), and adds an opaque z-index:1 placeholder above #root that is never removed in mobile mode (recon:index.html:83-89, App.jsx:153; analysis only).",
+   "root_cause": "Two splashes with different DOM and a timing model that depends on animation frames.",
+   "fix": "index.astro contains the only splash (existing CSS); the map app removes it on first Mapbox idle plus data ready; returning visitors (gtbg:layout and gtbg:intro set) never see an animated intro; first-time visitors get an optional skippable intro that respects reduced motion and is not the boot gate; never gate boot on rAF. Do not port #map-lcp-placeholder.",
+   "acceptance_test": "Lighthouse mobile: no layout-shift entry from the splash; returning-visit time to interactive map under 2.5 s lab; boot completes in a background tab; reduced-motion run skips the fast-forward.",
+   "metric_or_grade_moved": "LCP, FCP, CLS (P1), Usability (H3).",
+   "verdict": "CONFIRMED",
+   "correction": "tO (101472), eO=3500, >5 ticks gate, 800 ms, rAF, 600 ms fade, mounted whenever !vn (113059) every visit verified."
+  },
+  {
+   "id": "prov-recon-17",
+   "title": "Replace sw.js and the controllerchange reload with a versioned, update-prompting service worker plus a migration SW",
+   "severity": "critical",
+   "effort": "M",
+   "audit_refs": [
+    "C6",
+    "P1",
+    "P5"
+   ],
+   "depends_on": [
+    "prov-recon-05"
+   ],
+   "evidence": "deploy:index.html:255-277 reloads on controllerchange and registers at window load; deploy:sw.js calls skipWaiting/clients.claim, precaches /assets/index-Cg8FAMXN.js and /assets/index-B4G7Z_2G.css by hard-coded name and is cache-first for /assets/; Lighthouse: redirects audit wastes 9,067 ms (mobile) and 1,575 ms (desktop); RECON sw.js is stale-while-revalidate for all cached URLs with no res.ok or method checks (recon:public/sw.js:37-70) and RECON registers nothing.",
+   "root_cause": "First visit installs the SW (its cache.addAll fetches the 2.28 MB bundle again unless the HTTP cache serves it), then claims and reloads the page: the measured mobile LCP of 9.0 s is essentially the 9.07 s the redirects audit attributes to that reload.",
+   "fix": "Generate the SW at build time (Workbox injectManifest or a small hand-written worker) from the build manifest; precache only the app shell and small critical files; runtime caching: /data/v2 immutable cache-first, navigations network-first with a 3 s timeout and navigation preload, never cache non-ok or non-GET responses; no skipWaiting unless the user accepts an in-app Update available toast; no automatic reload; register on idle after first paint. Ship a migration SW on first deploy that deletes gbg-* caches and takes over cleanly. Keep sw.js Cache-Control no-store.",
+   "acceptance_test": "Clean-profile Lighthouse mobile: redirects audit passes (0 ms wasted) and LCP under 2.5 s; second visit offline serves the shell; a browser controlled by the old SW upgrades with exactly one activation and no reload loop; injected 500 responses are not cached.",
+   "metric_or_grade_moved": "LCP (9.0 s to green), FCP, Best Practices, Reliability; removes the main RUM outlier source.",
+   "verdict": "CONFIRMED",
+   "correction": "sw.js and index.html:255-277 verified; Lighthouse redirects 9,066.6/1,575.1 ms with both chain entries '/'. LCP breakdown of the final navigation is only 609 ms vs 9,007 ms LCP, supporting the reload claim; it remains an inference from simulated throttling."
+  },
+  {
+   "id": "prov-recon-18",
+   "title": "Do not port RECON's Google Fonts change; fix the two real CLS sources",
+   "severity": "low",
+   "effort": "S",
+   "audit_refs": [
+    "P1"
+   ],
+   "depends_on": [
+    "prov-recon-16",
+    "prov-recon-30"
+   ],
+   "evidence": "No font is loaded in the deployed HTML; 'Spectral' is named in 14 style declarations (bundle.pretty.js:111327-111740, 113108, 113124) but always falls back to Georgia; RECON adds a render-blocking fonts.googleapis.com stylesheet with display=optional (recon:index.html:44); Lighthouse layout shifts: splash swap (mobile 0.0098) and #extra-features repositioning (desktop 0.0072); the privacy page does not mention Google Fonts.",
+   "root_cause": "The CLS fix targeted a font that was never loaded.",
+   "fix": "Decide the typeface deliberately: Georgia only, or self-host a latin subset with font-display: swap and a size-adjusted fallback; remove phantom family names; eliminate the two real shifts (findings 16 and 30).",
+   "acceptance_test": "No third-party font request in the network log; CLS from splash and overlay is 0 in Lighthouse and in the harness.",
+   "metric_or_grade_moved": "CLS, Privacy (no third-party font call), Fit and finish.",
+   "verdict": "CORRECTED",
+   "correction": "No font loaded: confirmed. But CLS attribution is incomplete: mobile 0.0726 over 15 shifts; splash swap only 0.0098 (13%); event-card (LF, bottom:120px) shifts sum about 0.044 (61%) plus story-panel text 0.0088, all driven by the boot fast-forward. Desktop 0.0229: #extra-features 0.0072 plus about 0.016 unattributed. Finding 16 must be named as the CLS fix with a boot-time CLS assertion."
+  },
+  {
+   "id": "prov-recon-19",
+   "title": "Code-splitting and asset plan for mapbox-gl 3.24.1 with measured budgets",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "P2",
+    "P3",
+    "P4",
+    "P6"
+   ],
+   "depends_on": [
+    "prov-recon-05",
+    "prov-recon-10"
+   ],
+   "evidence": "Deployed: one 2,280,438-byte entry; mapbox-gl 3.24.1 is 3,273,745 of 4,027,234 pretty bytes (81%); React 236,040; app 490,084 (about 145 KB of JSON-equivalent is the inline 512-monument literal at 104440-110610); only BookmarkPanel and HelpModal are lazy (112469-112470); Lighthouse unused-javascript 614 KiB mobile / 654 KiB desktop, bootup 3.3 s / 2.5 s; RECON's 171 KB + 986 KB split was measured on a partial app with mapbox-gl 2.15 and imports mapbox after MapView mounts.",
+   "root_cause": "The bundle has no vendor split and inlines large data; RECON's numbers do not transfer to v3.",
+   "fix": "manualChunks: react-vendor (react, react-dom, zustand), mapbox (dynamic import started from a modulepreload link in the HTML and from main.ts before createRoot), panel groups panels-core, panels-tools, walkthrough-tour; data as JSON fetched on demand (monuments and tour history leave the JS); build.sourcemap true (or hidden with a deliberate Lighthouse exception) for valid-source-maps; render-blocking site-nav removed via Astro components. First build sets the baseline; size-limit budgets = baseline + 5%; target initial route JS (entry + react) <= 120 KB brotli, map chunk measured and tracked.",
+   "acceptance_test": "size-limit passes in CI; Lighthouse unused-javascript under 100 KB before interaction; mobile bootup <= 2 s; no network-dependency-tree warning for the critical chain.",
+   "metric_or_grade_moved": "LCP, TBT, Performance score (mobile 64 to 95+), Best Practices (source maps).",
+   "verdict": "CONFIRMED",
+   "correction": "81.3% mapbox, unused JS 614/654 KiB, bootup 3.3/2.5 s, main-thread 5.6/5.1 s match lh_*.json. The map is the index route, so the mapbox chunk still gates the map paint; the 120 KB budget is for the shell."
+  },
+  {
+   "id": "prov-recon-20",
+   "title": "Freeze the dependency matrix and record bundle identity in ADR 0002",
+   "severity": "medium",
+   "effort": "S",
+   "audit_refs": [
+    "N1"
+   ],
+   "depends_on": [
+    "prov-recon-01"
+   ],
+   "evidence": "React 18.3.1 both sides (bundle.pretty.js:440, 8927; lock 18.3.1); zustand 4.5.x both sides (deprecation text 9303, getInitialState 9133; lock 4.5.7); mapbox-gl 2.15.0 vs 3.24.1; Vite 5.4.21 in RECON vs unknown in deploy (uses __vitePreload); vite-plugin-pwa unused; deployed bundle md5 7ef75b95f4 unchanged Jul 29 to Sep 29.",
+   "root_cause": "No record of what produced the running site.",
+   "fix": "docs/adr/0002-dependency-matrix.md listing exact versions, Node LTS, package manager, the legacy bundle md5 and an upgrade policy (stay on React 18.3.1 and zustand 4.5.7 through cutover, upgrade afterwards behind the harness); renovate or dependabot grouped weekly.",
+   "acceptance_test": "ADR merged; pnpm ls output matches the ADR in CI.",
+   "metric_or_grade_moved": "Documentation, Reliability.",
+   "verdict": "CONFIRMED",
+   "correction": "React 18.3.1 (440, 8927), zustand 4.5.7, Vite 5.4.21, mapbox 2.15.0 in RECON, vite-plugin-pwa unused."
+  },
+  {
+   "id": "prov-recon-21",
+   "title": "Define the store contract in TypeScript with selectors and drop 13 dead members",
+   "severity": "medium",
+   "effort": "S",
+   "audit_refs": [
+    "H8"
+   ],
+   "depends_on": [
+    "prov-recon-03"
+   ],
+   "evidence": "Deployed store yn (bundle.pretty.js:9361-9449) has 49 members; 13 are dead: terrainData/setTerrainData (loaded but never read), activeMapRef/setActiveMapRef, getCurrentDay, bookmarkCount/bumpBookmarkCount, onboardingComplete/setOnboardingComplete (gtbg_onboarded is used instead), showCasualtyHeatmap/toggleHeatmap/casualtyData/setCasualtyData; filters schema {sides[], dispositions[], unitTypes[], minStrength} vs RECON {side, type, disposition}; RECON also renames bumpBookmarkCount and changes getTickTime.",
+   "root_cause": "Store grew by accretion; components subscribe to the whole store.",
+   "fix": "store/ slices (playback, selection, panels, filters, prefs) typed with selectors and subscribeWithSelector; delete dead members; keep persisted keys via the storage.ts migration; useShallow where needed; the GF hook becomes a selector.",
+   "acceptance_test": "tsc strict passes with no any in the store; a test restores showLegend and showMinimap from legacy gtbg_prefs; knip reports no unused store members.",
+   "metric_or_grade_moved": "Maintainability, Performance (renders).",
+   "verdict": "CONFIRMED",
+   "correction": "49 store members counted; 13 named members have no functional consumer."
+  },
+  {
+   "id": "prov-recon-22",
+   "title": "Rebuild the Unit panel (commander succession, strength bar, key action, history) with resolved parent chain and data-driven alerts",
+   "severity": "high",
+   "effort": "L",
+   "audit_refs": [
+    "H7"
+   ],
+   "depends_on": [
+    "prov-recon-11",
+    "prov-recon-13",
+    "prov-recon-34"
+   ],
+   "evidence": "MF (bundle.pretty.js:97897-98089), wF commander with successions (97571), SF strength bar (97664) with hard-coded alerts for U-1MN ticks 302-310 and C-26NC (97743-97756); breadcrumb, type and casualties_killed/wounded never render because those fields do not exist (tmp-prov-recon/oobkeys.mjs: corps 7 records, division 0, brigade 0, type 0, casualties_killed 0, strength_at_start 0); RECON has no unit panel.",
+   "root_cause": "The UI expects a denormalized shape the data never had.",
+   "fix": "Resolve parents through parent_brigade_id, parent_division_id, parent_corps_id to render Corps > Division > Brigade; move the two special alerts into casualty_highlights.json with sources; succession lookup from approx_tick/from_commander/to_commander; last-5 positions from the engine; non-modal aside landmark with a heading; copy-link uses the deeplink router.",
+   "acceptance_test": "Unit test: every one of the 467 regiments resolves a full parent chain or is on a documented exception list; U-20ME shows the correct commander at ticks 200 and 268; axe passes; keyboard focus moves to the panel on select and returns on close.",
+   "metric_or_grade_moved": "Function, Usability, Accessibility.",
+   "verdict": "CONFIRMED",
+   "correction": "MF/wF/SF lines and hard-coded alerts (97743-97756) verified; fields division/brigade/type/casualties_killed absent; corps exists on 7 records only."
+  },
+  {
+   "id": "prov-recon-23",
+   "title": "Unify story panel, event card and commander toasts into one notification system with correct auto-dismiss and Esc behavior",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "H4",
+    "H2"
+   ],
+   "depends_on": [
+    "prov-recon-13",
+    "prov-recon-46"
+   ],
+   "evidence": "CF story panel (bundle.pretty.js:98252) and LF event card (98595) keep local dismissed-sets and are not touched by Esc or jumps; qF toasts (99888) work (approx_tick, 4.5 s) but only while playing; nO cards (101679) filter on H.tick which does not exist (data uses approx_tick) so they never appear; RECON toasts use ev.tick/commander_out/commander_in (recon:src/components/CommanderToasts.jsx:13).",
+   "root_cause": "Three overlapping notification implementations with inconsistent data fields and no shared lifecycle.",
+   "fix": "One Notifications region (aria-live polite) with a queue (max 3), auto-dismiss 6 s that pauses on hover and focus, dismiss all; Story panel as a labelled aside; Esc closes the topmost transient; day and tick jumps clear transient UI; delete nO; use approx_tick.",
+   "acceptance_test": "After clicking a day button, Story panel, event card and toasts are closed; fake-timer test: a toast disappears after 6 s and pauses under hover; axe live-region checks pass; parity registry lists H4 and H2.",
+   "metric_or_grade_moved": "Usability (H4), Accessibility, Fit and finish.",
+   "verdict": "CONFIRMED",
+   "correction": "qF 99888 works (approx_tick, 4.5 s, only while playing); nO 101679 filters nonexistent H.tick."
+  },
+  {
+   "id": "prov-recon-24",
+   "title": "Rebuild Search, Filter, Legend, Minimap, Roster and Order of Battle against the real data shapes (fixes H5, H11, D4)",
+   "severity": "high",
+   "effort": "L",
+   "audit_refs": [
+    "H5",
+    "H11",
+    "D4",
+    "H2"
+   ],
+   "depends_on": [
+    "prov-recon-11",
+    "prov-recon-21",
+    "prov-recon-34"
+   ],
+   "evidence": "FF search matches commander.name, min 2 chars, 12 results (bundle.pretty.js:98738-98807); RECON search calls string methods on commander, an object in 685 of 712 records; OF filter uses sides/dispositions/unitTypes/minStrength (99082); GF calls yn.subscribe(selector, listener) but the store's subscribe takes one argument (9134), so the minimap footer never updates (99650, footer 99821); Xk OOB derives depth from dashes in the id (102321+) and has no desktop toolbar button; Jk/Xk sort with localeCompare (text order gives 102nd before 10th); RECON OOB groups on u.corps/u.division which do not exist.",
+   "root_cause": "Panels were written against imagined shapes, and one hook misuses the store API.",
+   "fix": "Search: debounced, role=combobox listbox, matches designation, state, commander.name and aliases, natural sort (Intl.Collator numeric), Esc closes even from the input. Filter: layer filter expressions, chips with counts. Minimap: selector hook, correct count. Roster/OOB: one tree built from parent ids with a desktop toolbar entry and keyboard tree semantics. Legend: three tabs from tokens.",
+   "acceptance_test": "Search for 20th Maine returns U-20ME first; sort test shows 10th before 102nd; minimap footer changes while playing; OOB tree has no Unassigned bucket for regiments; Esc inside the search input closes the panel.",
+   "metric_or_grade_moved": "Usability, Function, Accessibility, Polish (H5, H11, D4).",
+   "verdict": "CONFIRMED",
+   "correction": "GF misuses one-argument subscribe (99644 vs 9134); Xk dash-depth 102359; localeCompare sorts; no Order of Battle toolbar entry (113147-113226)."
+  },
+  {
+   "id": "prov-recon-25",
+   "title": "Rebuild Follow Your Ancestor with a defined gold trail and a working ?ancestor= entry",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "C5",
+    "H5",
+    "H7"
+   ],
+   "depends_on": [
+    "prov-recon-04",
+    "prov-recon-12"
+   ],
+   "evidence": "Zk (bundle.pretty.js:101008-101471) calls setGoldUnit, clearGoldTrail and drawGoldTrailSegment (101086, 101101, 101229), which are defined nowhere in the deploy tree (grep of all html and js); st() throws before flyTo and before selecting the unit; on the ?ancestor= mount path it throws inside useEffect (101019) and, with no error boundary, unmounts the app; the unit list is sorted with localeCompare; RECON AncestorTracker is a different stepper with no trail and no deep link.",
+   "root_cause": "A half-applied patch added calls to helpers that were never written.",
+   "fix": "Implement the trail as a line layer plus highlighted symbol for the followed unit; journey timeline from engine keyframes and the time module; ?ancestor= auto-opens the panel and never throws; error boundary around every panel; natural sort; search includes alias names (fixes rows such as 14th Brooklyn alias U-84NY).",
+   "acceptance_test": "Playwright: open /?ancestor=U-20ME then panel, trail and journey render with zero console errors; ESLint no-undef gate; selecting any of 467 regiments raises no exception.",
+   "metric_or_grade_moved": "Reliability (C5), Function, Usability.",
+   "verdict": "CORRECTED",
+   "correction": "Undefined setGoldUnit/clearGoldTrail/drawGoldTrailSegment verified, but root cause 'never written' is wrong: they exist in Downloads/gettysburg_FIXED_circular/src/engine/GoldTrailEngine.js and COMPLETE_FIXED (1)/src/engine/GoldTrailEngine.js; bug born when FollowAncestor re-exported instead of importing (deploy-history.md). Port those helpers as a stopgap; the Mapbox line-layer plan is still fine."
+  },
+  {
+   "id": "prov-recon-26",
+   "title": "Extract Walkthrough and Soldier's Eye data to schema-validated JSON; do not use RECON tourStops",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "H13",
+    "G1",
+    "X3"
+   ],
+   "depends_on": [
+    "prov-recon-11"
+   ],
+   "evidence": "d2 (bundle.pretty.js:104096) has 16 stops with distinct map lat/lng, sv {lat,lng,heading,pano?}, label, dayClass, video URL and 3 history paragraphs each (48) using <span class='lead'> injected via dangerouslySetInnerHTML (110653); RECON tourStops has no history or video, uses the sv coordinate as the map coordinate (all 16 differ) and differs in sv data for stops 2, 3, 6, 12, 13, 15 (tmp-prov-recon/svdiff.mjs); rO has 8 Soldier's Eye sites that hand off to Google Maps (101958-102060) while RECON renders 16 Google embeds keyed by VITE_GOOGLE_MAPS_KEY defaulting to an empty string; the guide says Street View panoramas (G1).",
+   "root_cause": "RECON reconstructed the tour data from an older understanding and merged two different features.",
+   "fix": "Use tmp-prov-recon/d2.json and soldiers_eye_rO.json as spec; data/v2/walkthrough_stops.json with a zod schema (structured paragraphs with an emphasis flag instead of HTML); verify each pano id and heading against Google Street View; decide embed versus hand-off for Soldier's Eye (align copy and guide); add www.google.com and www.nps.gov to frame-src for the CSP that will be enforced.",
+   "acceptance_test": "Schema validation passes for 16 stops; a unit test asserts 48 history paragraphs and 16 video links; no innerHTML in the walkthrough; stops 1 and 8 load different panoramas (H13 verified in a real browser).",
+   "metric_or_grade_moved": "Content depth, Accessibility, Security (XSS surface).",
+   "verdict": "CONFIRMED",
+   "correction": "16 stops, 48 paragraphs, 16 videos, 16 sv blocks, 8 Soldier's Eye sites verified. svdiff shows 7 differing stops (2,3,5,6,12,13,15); stop 5 is trivial (pano:null), so 6 substantive as reported."
+  },
+  {
+   "id": "prov-recon-27",
+   "title": "Extract NPS Auto Tour, story markers and the 512-monument directory into data with sources and corrected times",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "C4",
+    "H7"
+   ],
+   "depends_on": [
+    "prov-recon-13",
+    "prov-recon-26"
+   ],
+   "evidence": "th (bundle.pretty.js:100063) 16 tour stops with subtitles containing wall-clock times, tick, tickWindow, narrative and videoUrl; mA (100615) 20 story markers with times embedded in labels; _A (104440-110610) 512 monuments; RECON's 512 monuments and 20 markers verified identical (tmp-prov-recon/d2cmp.mjs, diff entries 0); tour subtitle times contradict the map clock (report section 3.7).",
+   "root_cause": "Narrative text carries hard-coded times that were never reconciled with the tick clock.",
+   "fix": "Emit data/v2/nps_tour.json, story_markers.json and monuments_directory.json with schemas; replace embedded times with tick references formatted by the time module; add source fields (the monument src field is empty for many entries: report coverage) and a review checklist for the historian.",
+   "acceptance_test": "Schema validation passes; a test asserts each tour stop's displayed time equals tickToClock(tick) within 5 minutes; a coverage report lists monuments without src.",
+   "metric_or_grade_moved": "Historical consistency, Content quality.",
+   "verdict": "CONFIRMED",
+   "correction": "16 tour stops, 20 markers, 512 monuments identical to RECON. src is empty on 503 of 512 monuments ('many' understates)."
+  },
+  {
+   "id": "prov-recon-28",
+   "title": "First-run flow and layout persistence: merge chooser and onboarding, auto-detect device, remember the choice",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "H3",
+    "A6"
+   ],
+   "depends_on": [
+    "prov-recon-14",
+    "prov-recon-46"
+   ],
+   "evidence": "dO chooser (bundle.pretty.js:102752) and bO onboarding (111856; xO archetypes 111799, Gc 5-step tour 111819) are both mounted on first visit (AO gate gtbg_onboarded at 113068); layout choice is never stored; the Power User shortcut screen is offered on touch; deploy:index.html regex-matches these button labels; RECON invented a separate OnboardingModal and merged the archetype text into VirtualWalkthrough.",
+   "root_cause": "Two modal systems and no persisted layout.",
+   "fix": "Auto-detect layout (coarse pointer and width), store gtbg:layout, drop the chooser except a small Switch layout menu item; single accessible Dialog for an optional 3-5 step intro using onboarding_tour_Gc.json copy, hide keyboard shortcuts on touch, remember dismissal.",
+   "acceptance_test": "A returning visitor lands on the map with no modal; first visit on 375 px never shows Desktop first; focus trap and Esc work; parity registry lists H3.",
+   "metric_or_grade_moved": "Usability (D+ to A), Accessibility.",
+   "verdict": "CONFIRMED",
+   "correction": "dO and bO both mounted on first visit (113059-113070), layout not persisted."
+  },
+  {
+   "id": "prov-recon-29",
+   "title": "Decide the sound policy for the whole product and remove the undefined-global freeze",
+   "severity": "medium",
+   "effort": "S",
+   "audit_refs": [
+    "H8"
+   ],
+   "depends_on": [],
+   "evidence": "yO toggle (bundle.pretty.js:111768), engine Uk/jk/N4/U4 (96319-96372); lS references CanvasRenderer._lastSoundMs (96556-96557), an identifier defined nowhere; with sound on and any Union/Confederate collision it throws inside the rAF callback before the next frame is scheduled (analysis only); RECON README deleted sound as not wanted; deploy:index.html:377 banner promises live sound; immersive.html uses AudioContext (the only page with audio).",
+   "root_cause": "The sound feature was half-integrated and RECON's removal is inconsistent with the rest of the site.",
+   "fix": "Owner decides: (a) remove entirely, updating banner copy, guide, Help and the immersive page and deleting the renderer hook; or (b) keep as opt-in: default muted, unlock on user gesture, local throttle variable, visual cue and caption, respect reduced-motion, add a test. Record the decision in an ADR.",
+   "acceptance_test": "grep finds no CanvasRenderer; a Playwright run of Day 3 with sound on completes without console errors; copy in banner, guide and Help matches the decision.",
+   "metric_or_grade_moved": "Reliability, Polish, Copy consistency.",
+   "verdict": "CORRECTED",
+   "correction": "Freeze verified (only when N4() sound is on; throws before the next rAF at 97017). Additions: the CanvasRenderer._lastSoundMs reference is also in the real source (COMPLETE_FIXED/src/engine/CanvasRenderer.js:130), a source bug not a bundle-patch scar; and the guide is now checked: user-guide.pdf promises 'Live cannon and musket sound' and 'A heatmap that builds across all three days', and index.html:377 says 'live sound', so removal means copy edits."
+  },
+  {
+   "id": "prov-recon-30",
+   "title": "Retire the index.html hook scripts and integrate Extra Features and Ask the Historian into the toolbar",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "H1",
+    "H6"
+   ],
+   "depends_on": [
+    "prov-recon-34",
+    "prov-recon-35"
+   ],
+   "evidence": "deploy:index.html: overlay markup 285-292 and CSS 176-237 (z-index 999999), populate script 294-353, banner injector 355-396, toolbar label patcher 398-440 (no-op because every button already has a title), reveal script 441-519 (regex on button text), collision mover 521-606, monument star overlay 608-714 (fed by the 9-entry monuments.json, duplicates the toolbar monument toggle, never tracks pan/zoom), SW script 255-277; overlay repositioning causes the desktop layout shift.",
+   "root_cause": "The React app could not be edited, so features were bolted on from outside and coupled to React's strings.",
+   "fix": "Delete all seven scripts. The toolbar gets a native Extra Features menu built from a shared nav data module used by the Astro pages and the app; Ask the Historian becomes a first-class toolbar button; banner copy moves into the first-run dialog (no 'AI-style' wording, per H8); one z-index scale.",
+   "acceptance_test": "DOM contains none of the injected ids (#extra-features, #gtbg-onboarding-banner, #gtbg-monuments-overlay); no overlay/panel overlap in the harness at 20 viewport sizes; CLS from the overlay is 0.",
+   "metric_or_grade_moved": "Fit and finish (C+ to A), Usability, CLS.",
+   "verdict": "CONFIRMED",
+   "correction": "Script/CSS line ranges, z-index 999999, dead label patcher (Vs sets title on every button) and desktop #extra-features shift verified. Unnoted side effect: icon buttons keep accessible names S/F/L/B/? because content beats title."
+  },
+  {
+   "id": "prov-recon-31",
+   "title": "One hotkey registry: Esc works everywhere, no duplicate handlers, Help generated from the registry",
+   "severity": "medium",
+   "effort": "S",
+   "audit_refs": [
+    "H2",
+    "A6"
+   ],
+   "depends_on": [
+    "prov-recon-46"
+   ],
+   "evidence": "AO handler (bundle.pretty.js:112966-113050) returns for INPUT targets so Esc is ignored in search, and its Esc case clears selectedUnitId but not pinnedUnitId (a unit click sets both at 97348 and MF shows when either is set at 97909), so the unit panel never closes on Esc, while story panel, event card, toasts, distance tool, layers and NPS tour keep local state Esc cannot reach; the IO wrapper has tabIndex 0 and its own onKeyDown (112223-112224), so Space toggles twice and arrows step 2 when focus is inside the bar (analysis only); Help lists M and H (H is dead); RECON omits M; the HelpModal chunk exports an unused useGlobalKeyboard.",
+   "root_cause": "Keyboard handling is spread across three places with inconsistent guards.",
+   "fix": "lib/hotkeys.ts registry with scope (global, panel, input), an escape stack that closes the topmost transient, blur on Esc in inputs, a single window listener; Help renders from the registry; add aria-keyshortcuts; remove the H shortcut unless heatmap is implemented (finding 32).",
+   "acceptance_test": "Tests: Space toggles once with focus in the timeline; Esc in the search box closes search; Esc closes a clicked unit's panel; every shortcut shown in Help works; no duplicate keydown listeners (harness counts them).",
+   "metric_or_grade_moved": "Accessibility, Usability (H2).",
+   "verdict": "CONFIRMED",
+   "correction": "INPUT skip (112968), wrapper tabIndex/onKeyDown (112223-112224), Help lists m and h, unused useGlobalKeyboard export verified."
+  },
+  {
+   "id": "prov-recon-32",
+   "title": "Disposition table for dead code and unfinished features (delete by default)",
+   "severity": "low",
+   "effort": "S",
+   "audit_refs": [
+    "H8"
+   ],
+   "depends_on": [
+    "prov-recon-01"
+   ],
+   "evidence": "Dead or unreachable: heatmap state, H key and Help row (bundle.pretty.js:9419, 9436, 112930; casualty_apportionment.json is used by dashboard and living-ledger only); terrainData load (96919); fF hover popup (97384); nO cards (101679); GF subscribe (99650); toolbar label patcher (deploy:index.html:398-440); InterpolationWorker chunk (0 references); getCurrentDay; mobile tool targets without renderers (103419-103470); Unit-panel conditionals for absent fields; sO expression (102236); HelpModal useGlobalKeyboard; RECON PENDING says to carry heatmap dead code over deliberately.",
+   "root_cause": "Accreted features without owners.",
+   "fix": "docs/adr/0003-dead-code.md with one row per item: delete, implement or replace, with owner and reason; default is delete; knip and no-unused-exports in CI so it cannot regrow. Heatmap: delete unless the owner wants a new feature (then spec it from casualty_apportionment.json).",
+   "acceptance_test": "ADR lists every item above with a decision; CI knip run is clean.",
+   "metric_or_grade_moved": "Maintainability, Polish.",
+   "verdict": "CORRECTED",
+   "correction": "Dead items verified, but 'delete by default' for the heatmap conflicts with published copy (guide text, Help H row); it is an owner decision with copy edits."
+  },
+  {
+   "id": "prov-recon-33",
+   "title": "Storage migration module for old keys and bookmark shape",
+   "severity": "medium",
+   "effort": "S",
+   "audit_refs": [
+    "H3"
+   ],
+   "depends_on": [
+    "prov-recon-21"
+   ],
+   "evidence": "Keys: gtbg_prefs (bundle.pretty.js:9329), gtbg_onboarded (112951), gettysburg_bookmarks (97821), gtbg-ef-hidden (deploy:index.html:328), gtbg_watch_together_tour (watch-together.html); deployed bookmark record {id: Date.now(), tick, label, unitId, center, zoom, created, url} vs RECON {id: 'bm_...', ...} under gtbg_bookmarks (recon:src/components/BookmarkPanel.jsx:15-29).",
+   "root_cause": "RECON changed key names and record shape, which would orphan existing users' data.",
+   "fix": "lib/storage.ts: typed get/set wrapped in try/catch, namespaced gtbg:v2:*, one-time import of the old keys (kept for one release), bookmark shape converter, quota-safe writes.",
+   "acceptance_test": "Playwright storageState seeded with old keys: the new app shows the same bookmarks and prefs; a rollback to legacy still reads its own keys.",
+   "metric_or_grade_moved": "Reliability, Usability (no data loss).",
+   "verdict": "CONFIRMED",
+   "correction": "All storage keys and record shapes verified; share URL builder emits ?t&u&z&ll."
+  },
+  {
+   "id": "prov-recon-34",
+   "title": "Design tokens and CSS architecture (one gold, z-index scale, 12 px minimum, 44 px targets)",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "A1",
+    "A4",
+    "D2",
+    "H6"
+   ],
+   "depends_on": [
+    "prov-recon-35"
+   ],
+   "evidence": "App inline style objects everywhere; app gold #c8a84a/#8b6914/#e8d5a3/#d4a840 vs pages #c9a24b; panel backgrounds #0f0f1a, #12121e, rgba(8,8,18,.96); app z-index values span 1 to 1000 plus 999999 on the overlay; 9-11 px fonts (for example Ar.sideBadge 9 and Ar.lbl 10 at bundle.pretty.js:97177-97197); toolbar buttons padding 4px 10px and fontSize 12 (tc.toolBtn at 113356); emoji icons vs the existing SVG sprite icons.svg used by site-nav.",
+   "root_cause": "Styles were authored per component with no shared scale.",
+   "fix": "packages/tokens (tokens.json to CSS variables and TS types): contrast-checked color pairs, type scale with a 12 px floor, 4-pt spacing, radii, a named z-index scale, motion tokens with prefers-reduced-motion; CSS Modules in the app, shared CSS in Astro; SVG icon set replaces emoji; stylelint bans raw hex, numeric z-index and font-size under 12 px; a coarse-pointer rule enforces 44 px.",
+   "acceptance_test": "Stylelint clean; axe color-contrast zero violations; a script asserts no computed font-size under 12 px and no coarse-pointer target under 44 px at harness checkpoints.",
+   "metric_or_grade_moved": "Accessibility, Visual design (B+/B- to A), Fit and finish.",
+   "verdict": "CONFIRMED",
+   "correction": "Gold variants, 9-10 px fonts, toolBtn 12 px/4px 10px verified; z-index census slightly incomplete (also 2,3,20,30,301,800)."
+  },
+  {
+   "id": "prov-recon-35",
+   "title": "Repository layout and Astro for the 20+ static pages",
+   "severity": "high",
+   "effort": "L",
+   "audit_refs": [
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "T3",
+    "E5"
+   ],
+   "depends_on": [
+    "prov-recon-06"
+   ],
+   "evidence": "Pages are hand-written HTML with copy-pasted head and inline CSS (deploy:aftermath.html:1-30 shows 8 social tags per page) and runtime nav from site-nav.js plus icons.svg; the sitemap has 20 URLs and omits privacy/terms (E5); /dashboard and /dashboard.html both return 200 (T3).",
+   "root_cause": "No templating or build for the static layer, so head data and design drift per page and CSP needs 'unsafe-inline'.",
+   "fix": "Adopt the report section 7.1 layout (apps/web Astro, apps/map React, packages/tokens, packages/data-schema, data, pipeline, tests, legacy). Base.astro owns title/description/canonical/OG/Twitter/JSON-LD; SiteNav.astro and Footer.astro replace runtime injection; @astrojs/sitemap includes legal pages; build.format file keeps .html URLs with 301s for extensionless and /index.html; scripts and styles are external hashed files so CSP can drop 'unsafe-inline'. Confirm Astro option names in Phase 2 (not verified here).",
+   "acceptance_test": "pnpm build emits every current URL; view-source of each page has a single canonical and consistent OG tags; the sitemap lists all indexable pages; a CSP report-only run shows no inline violations.",
+   "metric_or_grade_moved": "SEO, Security (CSP), Maintainability, consistency across pages.",
+   "verdict": "CORRECTED",
+   "correction": "Sitemap has 21 loc entries (home + 20), not 20. Astro option names remain unverified (report says so)."
+  },
+  {
+   "id": "prov-recon-36",
+   "title": "Sub-page migration runbook that preserves URLs, bfcache back-navigation and embed behavior",
+   "severity": "high",
+   "effort": "L",
+   "audit_refs": [
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "T3",
+    "E5",
+    "X4"
+   ],
+   "depends_on": [
+    "prov-recon-35",
+    "prov-recon-34"
+   ],
+   "evidence": "20 feature pages plus privacy, terms, 404, embed; site-nav wireBackLinks relies on history.back() and bfcache (deploy:site-nav.js); embed.html links back with /index.html?tick=&vignette= and currently receives both X-Frame-Options DENY and frame-ancestors * (deploy:netlify.toml embed block); unit-rendering-reference.html is a public noindex dev page; several pages pull /data/terrain.json.",
+   "root_cause": "Pages diverged in structure and behavior, and headers are site-wide with path overrides that do not remove earlier headers.",
+   "fix": "Migrate in batches of 4-5 pages (legal and simple first, map pages last) keeping .html canonicals; build a redirect table (extensionless and /index.html to canonical); path-scoped header rules so embed.html gets only frame-ancestors *; no unload handlers so bfcache works; move unit-rendering-reference to /dev/ excluded from production; verify S1-S4 fixes per page (Reports/Biography layout, Ground Remembers blank map, Camera/Viewshed paint, mobile chart scroll and tab clipping).",
+   "acceptance_test": "Crawler diff: every URL in the old sitemap returns 200 or a single 301 to canonical; embed.html loads inside a cross-origin iframe; pageshow.persisted is true when returning to the map; Lighthouse 95+ in all four categories on each page at mobile and desktop.",
+   "metric_or_grade_moved": "SEO, Accessibility, Performance for 20 pages, Fit and finish.",
+   "verdict": "CORRECTED",
+   "correction": "Deep-link/bfcache facts verified. Header fix will not work as written: Netlify docs do not define same-header override or removal, and audit X4 shows X-Frame-Options='' did not remove the /* header. Generate an explicit _headers path list excluding embed.html (or drop XFO and use per-path CSP frame-ancestors) and test on a preview."
+  },
+  {
+   "id": "prov-recon-37",
+   "title": "Data pipeline directory with schemas, validators and versioned /data/v2 output",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "P3",
+    "H10"
+   ],
+   "depends_on": [
+    "prov-recon-11",
+    "prov-recon-07"
+   ],
+   "evidence": "Legacy bundle fetches fixed names under /data/; deploy:netlify.toml caches /data/* for 1 h; RECON and deploy data differ (finding 07); counts disagree across the site (445+, 467, 430,000+); 188 of 675 ticks are populated.",
+   "root_cause": "Data is edited in place and the same names serve both old and new code.",
+   "fix": "data/raw, data/curated, pipeline/* and packages/data-schema with zod; build emits content-hashed files under /data/v2 plus manifest.json; validators: unique ids, ticks 1-675, coordinates inside maxBounds, parent ids resolve, sources present; a generated stats file feeds every count shown in the UI (fixes 445+ and 467); legacy /data names frozen until sunset except deliberate hotfixes; Historian corpora and the search-index build attach here.",
+   "acceptance_test": "CI runs validators and fails on any violation; counts shown in the UI come from the stats file (grep finds no hard-coded 445 or 467); legacy data hashes unchanged.",
+   "metric_or_grade_moved": "Historical consistency, Performance (cacheable data), Maintainability.",
+   "verdict": "CORRECTED",
+   "correction": "Validators must add (unit_id, tick) uniqueness (117 duplicate pairs, 73 conflicting) and can start from FINAL_v24/tests/validate_data.py (63 checks)."
+  },
+  {
+   "id": "prov-recon-38",
+   "title": "CI/CD pipeline with a11y, perf, parity, link and secret gates",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "P1",
+    "A1",
+    "X3"
+   ],
+   "depends_on": [
+    "prov-recon-02",
+    "prov-recon-03"
+   ],
+   "evidence": "No CI, tests, lint or types exist in RECON or the deploy; the audit shows regressions shipping (undefined identifiers, contrast failures, console warnings).",
+   "root_cause": "Nothing automated stands between an edit and production.",
+   "fix": "GitHub Actions per report section 7.5: ci (lint, tsc, vitest, build, size-limit, knip, gitleaks, osv, hashed-asset assertion), e2e, a11y (axe on every route, desktop and mobile), lhci (LCP <= 2.5 s, TBT <= 200 ms, CLS <= 0.1, FCP <= 1.8 s, score >= 95), parity (nightly and on label), links (lychee), Netlify previews with required status and the header/source probe.",
+   "acceptance_test": "Branch protection requires all checks; a PR that adds an inline hex color, an undefined identifier, a 300 KB dependency or a broken link fails.",
+   "metric_or_grade_moved": "All categories (prevents regression), Documentation, Security.",
+   "verdict": "CORRECTED",
+   "correction": "'No CI/tests exist' is false for the older lineage: FINAL_v24 has .github/workflows/ci.yml, tests/validate_data.py (279 lines) and tests/perf_test.py; reuse them."
+  },
+  {
+   "id": "prov-recon-39",
+   "title": "Cutover, feature flags and rollback runbook",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "N1"
+   ],
+   "depends_on": [
+    "prov-recon-03",
+    "prov-recon-17"
+   ],
+   "evidence": "Netlify Split Testing requires a Git-connected site, branch deploys and two deployed branches; Publish deploy rolls back atomically (Netlify docs); current /sw.js is no-store; the old SW remains installed on returning users; legacy data names must stay stable.",
+   "root_cause": "A big-bang replacement of a single-file app has no safety net today.",
+   "fix": "Implement report sections 6.7-6.8: flags.ts (URL, localStorage, remote /flags.json kill switch); build to /next/ noindex; per-panel flags with Classic links; canary via branch split test 10/50/100 over about a week with RUM, a JS-error beacon and nightly parity as gates; cutover moves legacy to /classic/ for 60 days; rehearse rollback steps 1-5 once before canary.",
+   "acceptance_test": "Rehearsal: publishing the previous deploy restores service in under a minute; flipping a kill-switch flag removes a panel without a deploy; an old-SW client upgrades cleanly.",
+   "metric_or_grade_moved": "Reliability, risk management, Performance (RUM stays green through cutover).",
+   "verdict": "CORRECTED",
+   "correction": "Netlify docs (fetched twice) plus search: since 2026-08-26 Split Testing cannot be added to new projects and never left Beta, so the 10/50/100 canary is unavailable. Use client-side percentage bucketing via /flags.json (sticky in localStorage) or an app-set cookie with a conditional rewrite (verify on preview). Publish-deploy rollback confirmed instantaneous and atomic and does not need Git."
+  },
+  {
+   "id": "prov-recon-40",
+   "title": "Scripted legacy bridge patches for the critical defects (asserted, versioned, retired at cutover)",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "C1",
+    "C5",
+    "C6",
+    "H11"
+   ],
+   "depends_on": [
+    "prov-recon-02",
+    "prov-recon-05"
+   ],
+   "evidence": "Undefined identifiers at bundle.pretty.js:101086/101101/101229 (setGoldUnit, clearGoldTrail, drawGoldTrailSegment) and 96556 (CanvasRenderer); mobile playRow single centered flex row (103813, buttons 103820-103860); GF subscribe misuse (99650); SW reload script (deploy:index.html:255-277); the bundle is 2.28 MB minified with no source.",
+   "root_cause": "Critical user-visible bugs would otherwise wait 5+ weeks for the rebuild.",
+   "fix": "legacy/patches runner: exact string anchors with asserted count 1, idempotent, output a new content-hashed filename and rewrite index.html, sw.js precache and lazy-chunk imports, run the parity harness, refuse re-run. Patches: (1) define no-op setGoldUnit/clearGoldTrail/drawGoldTrailSegment or remove the calls; (2) local CanvasRenderer stand-in; (3) parse tick and unit params on boot; (4) mobile playRow flexWrap:wrap and gap 8; (5) GF to a selector-style subscription; (6) remove the controllerchange reload and generate the SW precache list. Retire at cutover.",
+   "acceptance_test": "After patching: no ReferenceError in a scripted session (Ancestor, sound on, Day 3 playback); mobile transport row fully inside a 375 px viewport; first-visit Lighthouse redirects audit passes; deep links work; the runner refuses a second run.",
+   "metric_or_grade_moved": "Core function (mobile D to C+ interim), Reliability, interim LCP gain.",
+   "verdict": "CORRECTED",
+   "correction": "Patches 1-3,5,6 sound. Patch 4 targets the wrong element (pO playRow is not the overflowing row). Replace with gating desktop overlays (IO at 113249 and siblings) on Zn !== 'mobile'; for patch 1 port the real GoldTrailEngine helpers instead of no-ops."
+  },
+  {
+   "id": "prov-recon-41",
+   "title": "Effort roll-up and critical path",
+   "severity": "medium",
+   "effort": "S",
+   "audit_refs": [
+    "N1"
+   ],
+   "depends_on": [
+    "prov-recon-01"
+   ],
+   "evidence": "Parity matrix midpoints: 30 S + 20 M + 5 L + 2 XL + 5 delete-only rows give about 65 unassisted days; phases in report section 6.4 sum to 38-50 AI-assisted days including the parallel sub-page track.",
+   "root_cause": "Planning risk: underestimating verification effort.",
+   "fix": "Critical path: Phase 0 (1.5) then harness (4-5) then foundations (4-5) then core (8-10) then desktop panels (6-8) then mobile (4-5) then walkthrough/tour/onboarding (4-5) then hardening (4-5); Astro sub-pages (6-8) and the data pipeline run in parallel; bridge patches (2-3) run during Phases 1-2. Re-baseline after Phase 3.",
+   "acceptance_test": "Plan tracked with phase exit gates; a slip over 20% triggers scope review (defer mobile-only polish, never the harness or a11y).",
+   "metric_or_grade_moved": "Planning.",
+   "verdict": "CORRECTED",
+   "correction": "Section 6.4 ranges sum to 35.5-44.5 days without Phase 7 and 41.5-52.5 with it; '38-50' matches neither. Bridge patches, data/historian corrections and per-page A+ work are not costed; treat as optimistic."
+  },
+  {
+   "id": "prov-recon-42",
+   "title": "Regenerate the OG and PWA screenshots and fix manifest hygiene",
+   "severity": "medium",
+   "effort": "S",
+   "audit_refs": [
+    "E1",
+    "T1"
+   ],
+   "depends_on": [
+    "prov-recon-36"
+   ],
+   "evidence": "screenshots/day1.png and day3.png are byte-identical (md5 3f6646c99f3416a1aa35fea67bed21c5) in deploy and RECON; PNG validation: IHDR declares 8-bit RGB but the decompressed IDAT is 3,687,120 bytes = 720 x (1 + 1280 x 4), RGBA-sized; Pillow raises 'unrecognized data stream contents'; og:image and twitter:image point at day3.png (deploy:index.html:21,25) and the manifest lists both as different screenshots; manifest icons use purpose 'any maskable' combined; orientation landscape (deploy:manifest.json). Browser decoding not verified.",
+   "root_cause": "The screenshots were written with a mismatched header, and the same file was reused for two days.",
+   "fix": "Generate real 1280x720 screenshots (day 1, day 3) and a 1200x630 OG image from the new build with Playwright in CI; separate any and maskable icons; remove orientation; add form_factor for wide and narrow screenshots; validate PNGs in CI.",
+   "acceptance_test": "Pillow decodes all images; Facebook, LinkedIn and Twitter validators render a preview; Lighthouse installability passes; distinct day1 and day3 files.",
+   "metric_or_grade_moved": "SEO/social sharing (T1), PWA, Best Practices.",
+   "verdict": "CONFIRMED",
+   "correction": "IHDR RGB 1280x720 vs IDAT 3,687,120 B (RGBA-sized), Pillow error, identical md5 verified. Added: Windows GDI+ and WIC decode it without error but render striped noise (viewed), so the images are corrupt in lenient decoders and rejected by strict ones. og:image is 1280x720, not 1200x630."
+  },
+  {
+   "id": "prov-recon-43",
+   "title": "Delete the orphan InterpolationWorker chunk and remove entry-chunk imports",
+   "severity": "low",
+   "effort": "S",
+   "audit_refs": [
+    "P2"
+   ],
+   "depends_on": [
+    "prov-recon-19"
+   ],
+   "evidence": "assets/interpolationworker-ufiwa2-e.js (672 B) is not referenced anywhere in bundle.min.js (0 matches); lazy chunks import { r, j, u, ... } from ./index-Cg8FAMXN.js and the entry exports TF, RO, j, kO, r, PO, IF, yn at the end of the bundle (bundle.pretty.js:113371-113377).",
+   "root_cause": "Leftover build output and a shared-module layout that lets the entry own shared code.",
+   "fix": "Do not carry the worker; use manualChunks so shared code lives in a named shared chunk and lazy chunks never import the entry.",
+   "acceptance_test": "Built dist has no interpolation worker; grep of lazy chunks finds no import from the entry file.",
+   "metric_or_grade_moved": "Reliability (cache coupling), Performance.",
+   "verdict": "CONFIRMED",
+   "correction": "0 references to InterpolationWorker; entry exports 8 names at 113370-113377."
+  },
+  {
+   "id": "prov-recon-44",
+   "title": "Spec-extraction task: per-component spec sheets from bundle.pretty.js",
+   "severity": "medium",
+   "effort": "L",
+   "audit_refs": [
+    "N1"
+   ],
+   "depends_on": [
+    "prov-recon-02"
+   ],
+   "evidence": "The rewrite spec is spread over 17k lines with mangled names (AO, gF, pO, _O, Zk, MF, CF, LF, FF, OF, IO ...) and inline data literals; extraction already done for d2, _A, th, mA, rO, Gc, xO, zF, TO in tmp-prov-recon.",
+   "root_cause": "Without spec sheets each rewrite task re-reads the bundle.",
+   "fix": "For each of the ~40 components produce docs/spec/<name>.md: original identifier and line range, props, state, effects, store fields read and written, data files, DOM copy strings, hooks into other files (P-61), known defects and the harness checkpoint that covers it; commit extracted JSON assets under legacy/extracted with schemas.",
+   "acceptance_test": "Every component row P-01..P-62 links to a spec sheet; a reviewer can implement a panel from its sheet alone.",
+   "metric_or_grade_moved": "Documentation, delivery speed, parity fidelity.",
+   "verdict": "CONFIRMED",
+   "correction": "25 of 25 sampled component/data line anchors match. The '~40 components' count and L effort are not independently checkable."
+  },
+  {
+   "id": "prov-recon-45",
+   "title": "Cut the boot request waterfall (34 JSON requests, duplicate chronology fetch, unused terrain)",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "P3"
+   ],
+   "depends_on": [
+    "prov-recon-11",
+    "prov-recon-37"
+   ],
+   "evidence": "sF (bundle.pretty.js:96939) fires 14 OOB files (eF 96755) + terrain.json + 3 vignette files + day 1 (3 base + 13 density) = 34 requests before the app is usable; chronology (3 files) is fetched again by PF (98548) and by the mobile shell (102958); terrain.json is never read by the main app; /data/* cache is 1 h.",
+   "root_cause": "Many small files are fetched on the critical path and refetched by independent components.",
+   "fix": "Build merged artifacts: units.json (all OOB, ids and parents), placements-day1.json (base + density, sorted), placements-day2/3.json, chronology.json, vignettes.json; only units.json and day 1 on the critical path (about 3 requests); prefetch the rest on idle; content-hashed names with immutable caching; share one chronology cache; drop terrain from the map bundle.",
+   "acceptance_test": "Harness request log before first interaction shows at most 6 data requests; total JSON brotli bytes recorded and budgeted; no duplicate fetch of the same URL.",
+   "metric_or_grade_moved": "Performance (P3), LCP and TTI.",
+   "verdict": "CORRECTED",
+   "correction": "34 = 13 OOB + commander_successions + terrain + 3 vignettes + 16 day-1 files. commander_successions.json is fetched a second time by Hk (97522); merged artifacts should share one successions fetch as well as one chronology fetch."
+  },
+  {
+   "id": "prov-recon-46",
+   "title": "Accessibility primitives first: Dialog, landmarks, labelled controls, live regions, target sizes",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "A2",
+    "A3",
+    "A5",
+    "A6",
+    "D2"
+   ],
+   "depends_on": [
+    "prov-recon-34"
+   ],
+   "evidence": "Zero aria-* or role attributes in application code (grep of bundle.pretty.js:96209-113377); the only tabIndex is the timeline wrapper (112223); the whole bundle has 12 aria-label lines, all inside the vendored map library; icon-only close buttons are the character x; range inputs are unlabeled (IO 112202); RECON repeats the pattern.",
+   "root_cause": "Components were built as styled divs with click handlers.",
+   "fix": "Build and test in Phase 2, before panels: Dialog (focus trap, initial focus, return focus, Esc via the escape stack, aria-modal), Panel aside with heading, Toast region, IconButton (required aria-label, 44 px hit area), labelled Slider with aria-valuetext (clock and tick), landmarks (header, nav, main, footer) and a visually hidden h1 plus skip link in the app shell; axe runs at every harness checkpoint.",
+   "acceptance_test": "axe reports zero violations at all checkpoints; a keyboard-only run completes first-run, search, unit selection, playback and closing every panel; a script asserts every control has a non-empty accessible name.",
+   "metric_or_grade_moved": "Accessibility (C+/C to A+), Usability.",
+   "verdict": "CONFIRMED",
+   "correction": "Zero aria/role in app code; single tabIndex at 112223."
+  }
+ ],
+ "open_questions": [
+  "Sound: keep it as an opt-in feature (fixed) or remove it everywhere, including the onboarding banner copy, the user guide and immersive.html? (finding 29)",
+  "Is the deployed bundle (md5 7ef75b95f4) the intended latest, or should behavior from the v36/v37 lineage (2,287,335-byte bundle also named index-Cg8FAMXN.js) be carried over?",
+  "Which is authoritative for the battle clock: the chronology text times or the tick index? The rebuild needs one anchor table signed off by a historian (finding 13).",
+  "Canonical URL style: keep .html (recommended, no SEO churn) or move to extensionless with 301s? (finding 35)",
+  "Has the Mapbox token been restricted since audit X1, and are the Google key restrictions known? This could not be verified from outside (finding 08).",
+  "Is the Netlify site Git-connected or are deploys manual zip uploads? Split testing and Publish-deploy rollback planning depend on it (findings 02, 39).",
+  "Are the Extra Features pages (Watch Together, Sandbox, AR and others) in scope for the first-pass Astro migration, or should they keep inline scripts until the core app cuts over? (finding 36)",
+  "Not verified because no browser or build was allowed: RECON placeholder stacking behavior, the sound-path playback freeze (CanvasRenderer), the timeline double key handling, and browser handling of the invalid OG PNG. Each needs one confirming run in the parity-harness phase.",
+  "Heatmap: delete the dead H key and store fields, or commission a real heatmap layer from casualty_apportionment.json? (finding 32)",
+  "Should the Mapbox style stay satellite-v9 (classic) or move to a Standard-based style in the rebuild? Not needed for parity; noted for a later design pass."
+ ],
+ "verification_summary": "Verified prov-recon against bundle.pretty.js, DEPLOY_DIR, data files, Lighthouse JSONs, Downloads zips and cited web pages. Evidence quality is high: about 60 line anchors and all data counts (712 records, 705 keys, 694+1,110 placements, 188 ticks, 478 ids, 45-way name reuse) reproduced. The defects are root causes and omissions. Five change the plan. (1) Real modular source trees exist in Downloads (gettysburg_v2_fixed and COMPLETE_FIXED, 65 files, mapbox ^3.2.0; FINAL_v24 and FIXED_v25 with manualChunks, tests and CI), so the N1 premise and the RECON-as-quarry choice are wrong; they even hold the \"undefined\" GoldTrailEngine helpers. (2) The C1/C2 root cause is wrong: the desktop IO timeline and about 12 other desktop overlays are mounted unconditionally over the mobile shell (bundle.pretty.js:113249), so pO's playRow (about 376 px) is not the 572 px row and bridge patch 4 will not fix it. (3) Netlify Split Testing cannot be added to new projects since 2026-08-26, which breaks the canary design. (4) The clock rationale is wrong: the chronology declares 5:00 base at 5 min per tick, is monotone, and only drifts to about 3 min per tick after tick 340. (5) About 73% of mobile CLS comes from event-card and story-panel content driven by the boot fast-forward, not the two sources named. Also corrected: 9 deep links across 8 files, 45 (not 4) byte streams under one filename, missing icon-overlap hazard in the symbol-layer plan, header-override plan that cannot work on Netlify, effort arithmetic, sitemap count 21. The live site was unreachable from this machine, so live-header claims stayed unverified. The Verification section was appended to prov-recon.md.",
+ "missed_by_specialist": [
+  {
+   "title": "Real modular source trees exist and were never evaluated; N1 and the RECON salvage plan rest on a false premise",
+   "severity": "high",
+   "evidence": "Downloads/gettysburg_v2_fixed/src and gettysburg_COMPLETE_FIXED (1)/src: 65 files, 8,423 lines, mapbox-gl ^3.2.0, engine/{CanvasRenderer,Interpolator,AnimationEngine,GoldTrailEngine,SoundEngine,TrailRenderer,TimeOfDayLighting,OverlayLayers}.js and components/{FollowAncestor,NPSTour,OpeningSequence,MonumentSystem,StreetViewPanel,StrengthBar,PlaybackStatus,...}.jsx; string probes find the deployed strings ('Fast-forwarding', '1x (real time)', 'Highest Union regimental casualty'). gettysburg_FINAL_v24 and FIXED_v25 (40 files) have vite.config.js manualChunks (mapbox/react/zustand/engine/components), .github/workflows/ci.yml, tests/validate_data.py (279 lines, 63 checks), tests/perf_test.py. RECON PENDING.md claims 'No original source ever existed anywhere else' and the report repeats it (N1, sections 2 and 6.1).",
+   "fix": "Add these trees to Phase 0 (commit under legacy/source-2026-06/); diff COMPLETE_FIXED/src against bundle.pretty.js:96209-113377 to build a component-to-minified-name map (cuts finding 44 and parity effort); salvage GoldTrailEngine.js, validate_data.py, perf_test.py, ci.yml and the manualChunks config; rank RECON last. They lack the device chooser, Virtual Walkthrough, Gtbg layers/distance/locations and mobile shell pO, which still come from the bundle. Effort S to add, M to diff."
+  },
+  {
+   "title": "Desktop-only overlays are mounted in the mobile layout: real root of C1/C2 and always-on per-frame work on phones",
+   "severity": "high",
+   "evidence": "bundle.pretty.js:113242-113284 renders FF, OF, VF, WF, CF, LF, _F, IO (113249), KF, XF, iO, nO, yO, qF, MF with no Zn !== 'mobile' guard (only the toolbar and gF are guarded, 113233-113240). IO (112202, Back/Prev/Play/Next/Fwd) paints over the mobile root tn.root (103699, z-index 100) and is the 572 px row; _F (97419) and KF (100850) run always-on rAF setState on phones. pO's own playRow (103216-103241) is only about 376 px.",
+   "fix": "Bridge patch (S): gate every desktop overlay on Zn !== 'mobile', keeping only those the mobile shell needs (audit CF/LF/qF, reposition above the mobile transport). Rebuild: single layout switch, no unconditional siblings. Acceptance at 375 px: one transport row, Tools sheet rows 10-14 tappable, fewer long tasks in playback. Moves C1, C2, INP, TBT."
+  },
+  {
+   "title": "Boot fast-forward generates about 73% of mobile CLS (missed CLS source)",
+   "severity": "medium",
+   "evidence": "lh_mobile.json layout-shifts: total 0.0726. Event-card node (position:absolute; bottom:120px; left:50%; translateX(-50%); labels 'HIGH 10:00am Coster's brigade...', 'HIGH 7:35am...', 'CRITICAL 9:20am McLaws's...') gives eight shifts summing about 0.044 (61%); story-panel text 0.0088; HTML-to-React splash swap only 0.0098. tO drives currentTick 1 to 675 in 3.5 s behind the splash (bundle.pretty.js:101483-101494), mounting and unmounting LF and CF content.",
+   "fix": "Rebuild: never drive tick during boot. Bridge: skip or shorten the intro for returning visitors and keep transient panels unmounted until onComplete. Add a Lighthouse/Playwright CLS assertion over the first 5 s. Expected mobile CLS 0.073 to about 0.01."
+  },
+  {
+   "title": "117 duplicate (unit_id, tick) placement pairs, 73 conflicting, resolved only by load order",
+   "severity": "medium",
+   "evidence": "tmp-prov-recon-verify/dups.mjs over 9 base + 38 density files (1,804 records): 117 repeated (unit,tick) pairs, 44 identical, 73 with different lat/lng/strength/disposition (e.g. C-III-1-3@304 twice in placements_day2_ticks301_375.json; U-HAB-E4US@1 in base and density_artillery_positions.json). Loader concatenates base then density ([...x, ...M], bundle.pretty.js:96906) and y1 keeps the last, so density silently wins.",
+   "fix": "Add (unit_id, tick) uniqueness to the finding-37 validators, adjudicate each conflicting pair with a historian, and record 'last record wins' as the T1 golden rule until then. Effort S to detect, M to adjudicate."
+  },
+  {
+   "title": "Parity harness would freeze a legacy bug as a golden (jump-to-day never loads day 2/3 data)",
+   "severity": "medium",
+   "evidence": "zp (96900) is called only from the playback loop at ticks >=200/420 while playing (96991-96992) and from the mobile shell (103040-103042); jumpToDay (9369), keys 1-3 and day buttons only set the tick. A fresh desktop page that jumps to Day 2/3 without playing has no data for those days (ghost units from i2). The report's harness rule 'fresh page per checkpoint, scripted navigation' (6.6) would record that empty state as expected.",
+   "fix": "In T1 load all three days before each checkpoint (or call zp(2)/zp(3) in the legacy fixture) and register 'jump while paused shows empty Day 2/3' as an intended diff keyed to D3. app-bugs.md lists the defect; this prevents the harness from encoding it."
+  },
+  {
+   "title": "Published copy promises the features findings 29 and 32 propose deleting (sound, heatmap)",
+   "severity": "medium",
+   "evidence": "user-guide.pdf text: 'Live cannon and musket sound tied to real troop density.' and 'A heatmap that builds across all three days.'; index.html:377 banner: 'search, an AI-style historian, live sound, AR, and more'; Help chunk row 'Toggle heatmap' (case 'h'). The report only says the guide 'may' mention sound (T-07, finding 29).",
+   "fix": "Turn 29 and 32 into a decision table with a copy checklist (guide PDF, banner, Help, meta description, JSON-LD) per outcome; if the owner chooses delete, the same PR edits every string, and a grep test fails the build if 'heatmap' or 'sound' appears in shipped copy while the feature is absent."
+  }
+ ]
+}

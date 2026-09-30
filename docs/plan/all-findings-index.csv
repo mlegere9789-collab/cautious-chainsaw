@@ -1,0 +1,853 @@
+agent,id,severity,effort,verdict,audit_refs,title
+app-a11y,app-a11y-01,critical,S,CORRECTED,A1;A3;A4;A6;D2;E3,"Tier-0 shell + CSS shim: landmarks, skip link, single h1, two-tone focus ring, contrast overrides, 12px font floor, reduced-motion, forced-colors, coarse-pointer target minimum"
+app-a11y,app-a11y-02,critical,M,CORRECTED,A2;A5;A6;H2;D2;N1,Tier-0 bundle string patches (18 FIND strings validated on the deployed bundle) + safe re-hash pipeline
+app-a11y,app-a11y-03,critical,M,CORRECTED,H3;A6;C6,"Entry flow: intro splash, layout chooser, onboarding - keyboard/SR operable, remembered, auto-detected, with a Text-view option"
+app-a11y,app-a11y-04,critical,M,CONFIRMED,A5;A6,Replace every click-only div/canvas control with native semantics (16 functional sites + BookmarkPanel row + 7 backdrops)
+app-a11y,app-a11y-05,critical,L,CONFIRMED,A6;H1;H2;H4,"Dialog/overlay/panel system: real dialogs, focus move/trap/restore, inert background, Esc stack, z-index scale"
+app-a11y,app-a11y-06,critical,M,CORRECTED,H2;A6;D2,"Single keyboard/shortcut module: 2.1.4 compliance, no Mapbox conflicts, correct Esc, truthful Help"
+app-a11y,app-a11y-07,critical,M,CONFIRMED,A2;D2;H9;C3;C4,"Timeline and clock semantics: native integer slider with valuetext, day/speed groups, named transport, key-moments list, one clock formatter"
+app-a11y,app-a11y-08,critical,L,CORRECTED,A5;H8,Data View: accessible table alternative to the canvas + auto-generated situation summary
+app-a11y,app-a11y-09,critical,L,CONFIRMED,A5,Keyboard unit cursor + map surface semantics + Mapbox keyboard integration
+app-a11y,app-a11y-10,high,M,CONFIRMED,D3,"Single-pointer/non-drag alternatives: on-screen pan and zoom, Go-to-location, mobile NavigationControl, minimap semantics"
+app-a11y,app-a11y-11,high,M,CONFIRMED,H4,"Live regions, persistent event log, status messages and time-limited content"
+app-a11y,app-a11y-12,high,M,CONFIRMED,E4;T1;C4,Screen-reader narrative alternative: static chronology transcript ('Battle Chronicle') generated from chronology + vignettes
+app-a11y,app-a11y-13,high,M,CONFIRMED,A5;D2;H6,"Accessible names, roles and states for every control (75 button sites, 18+3+2 close glyphs, toolbar, tabs, toggles)"
+app-a11y,app-a11y-14,high,M,CONFIRMED,A2;H2;H12,"Forms and search: labels, combobox pattern, Distance tool without a mouse, errors and empty states"
+app-a11y,app-a11y-15,high,M,CONFIRMED,H1;D2;E3;E4,"Landmarks, headings, skip links, document title; fold the injected Extra Features overlay into the real header"
+app-a11y,app-a11y-16,high,M,CONFIRMED,A1;C8,"Design tokens and contrast to AA (AAA where cheap), CI-enforced"
+app-a11y,app-a11y-17,high,L,CONFIRMED,A1;H6,"Colour-independent encoding: luminance-separated sides + hatch + letters, disposition glyphs, imagery halo, CVD-safe palette, one palette object for canvas/legend/badges"
+app-a11y,app-a11y-18,high,L,CONFIRMED,A4;D2;S4,"Type scale in rem, 12px floor, user text-size control, canvas label scaling"
+app-a11y,app-a11y-19,high,M,CORRECTED,A3;D2;S4,"Target size: 44px on touch, >=32px on desktop pointers, never <24px"
+app-a11y,app-a11y-20,high,L,UNVERIFIABLE,C1;C2;D2;S4;E1,"Reflow, zoom, text spacing, landscape: one responsive tree by container width, toolbar overflow, no load-time layout constants"
+app-a11y,app-a11y-21,medium,M,CONFIRMED,A6,"Motion: honour prefers-reduced-motion in the app, add an in-app control, make intro and tour stoppable"
+app-a11y,app-a11y-22,medium,S,CONFIRMED,H6,"Hover-only and title-only content (1.4.13): monument markers, timeline markers, toolbar tooltips; remove the duplicate injected star overlay"
+app-a11y,app-a11y-23,high,S,CORRECTED,A6;H1,"Focus visibility and focus-not-obscured: two-tone ring, remove outline:none sites, retire the floating overlay"
+app-a11y,app-a11y-24,high,M,CONFIRMED,C1;C2;H3;S4,"Mobile layout accessibility: one control set, native scrubber, dialog sheets, zoom buttons, no covered focusables, pinch-zoom allowed"
+app-a11y,app-a11y-25,medium,M,CONFIRMED,H13;D2,"Virtual Walkthrough view: tabs, monument cards, heading hierarchy, labels, iframe titles"
+app-a11y,app-a11y-26,medium,M,CONFIRMED,H3,Accessibility settings dialog + URL state (deep links) + working share links
+app-a11y,app-a11y-27,medium,S,CONFIRMED,H7;H10,"Copy, debug text and dead-code hygiene that affects AT and clarity"
+app-a11y,app-a11y-28,medium,M,CONFIRMED,,Errors are invisible: map/WebGL/data failures need messages and a fallback to Text view
+app-a11y,app-a11y-29,medium,S,CORRECTED,E1;C6,PWA and reload behaviour: remove the landscape orientation lock and the first-visit forced reload
+app-a11y,app-a11y-30,low,M,CONFIRMED,A1;A3,Cheap Level AAA set: implementation and sign-off checklist
+app-a11y,app-a11y-31,medium,S,CONFIRMED,H1;E4,"Retire the legacy injected scripts in index.html (inert label patch, banner scraper, reveal/collision scripts, duplicate star overlay)"
+app-a11y,app-a11y-32,high,L,CORRECTED,N1,"Automated accessibility test infrastructure and CI gates (Playwright+axe state matrix, pa11y-ci, LHCI, jsx-a11y, token/palette/cursor unit tests, sweeps)"
+app-a11y,app-a11y-33,high,M,CORRECTED,,"Manual assistive-technology program: scripts, matrix, exit criteria (15 core tasks)"
+app-a11y,app-a11y-34,medium,S,CORRECTED,G1,"Accessibility statement, WCAG 2.2 Accessibility Conformance Report (VPAT 2.5) and feedback channel; accessible PDF guide"
+app-bugs,app-bugs-01,critical,S,CONFIRMED,C5;C1;C2;C3;H2;H11;D3;H3;H4,"Tranche 0: 24 validated string patches to the deployed bundle (C5, sound crash, minimap, +2 date, Esc, mobile overlays, Locations, day data, storage, skip-tour)"
+app-bugs,app-bugs-02,critical,M,CONFIRMED,C5,"C5 root cause: undefined gold-trail helpers, ?ancestor white-screen path, and a real gold trail"
+app-bugs,app-bugs-03,critical,S,CONFIRMED,,"NEW: CanvasRenderer undefined, sound ON freezes playback or blanks the app"
+app-bugs,app-bugs-04,high,M,CONFIRMED,C5,"No error boundary, unguarded localStorage read in AO's first render, no crash telemetry"
+app-bugs,app-bugs-05,high,M,CONFIRMED,H4;D3,Deep links: ?tick/?unit/?vignette/?ancestor/?t links from 7 sub-pages and share buttons are never read
+app-bugs,app-bugs-06,high,M,CORRECTED,D3;H4;P3,July 2/3 data only loads when playback crosses tick 200/420; day-load failures cached as loaded
+app-bugs,app-bugs-07,high,L,CORRECTED,D3;C4;H11,y1 has a never-reset global carry-forward cache (i2); backward seeks show the future; keyframes teleport
+app-bugs,app-bugs-08,high,M,CONFIRMED,C3;C4,Date +2 bug in three places and four tick-to-clock functions (C3/C4 call-site inventory)
+app-bugs,app-bugs-09,high,M,CONFIRMED,H2;A6;D4,Keyboard/Escape system: root causes of H2 and a single hotkey registry with an overlay stack
+app-bugs,app-bugs-10,high,L,CONFIRMED,H4;H3;H1,"Load/jump state, panel exclusivity, toasts and the boot sequence (H4)"
+app-bugs,app-bugs-11,high,M,CONFIRMED,H3;C1;C2,"Layout choice: persistence, auto-detect, single map, and why desktop overlays cover the mobile UI (H3, C1, C2 root cause)"
+app-bugs,app-bugs-12,high,M,CORRECTED,C2;H1,Mobile Tools sheet: five dead tiles and a nonexistent store key
+app-bugs,app-bugs-13,medium,M,CONFIRMED,D4;H6;D2,"Order of Battle unreachable on desktop and not hierarchical; single TOOLS registry for toolbar, mobile sheet, Help and guide"
+app-bugs,app-bugs-14,medium,M,CONFIRMED,H5;H7,"Natural sort, search normalisation and Follow-Ancestor coverage (H5)"
+app-bugs,app-bugs-15,medium,M,CONFIRMED,H10;H11,Every hard-coded count and how to derive it from data (H10)
+app-bugs,app-bugs-16,medium,S,CORRECTED,H11,"Minimap frozen at tick 1: yn.subscribe(selector, cb) on a plain zustand store (H11 root cause)"
+app-bugs,app-bugs-17,medium,M,CONFIRMED,H12,Distance tool: one marker and no line (H12)
+app-bugs,app-bugs-18,medium,M,CONFIRMED,H13;G1,Soldier's Eye View hands off to Google Maps instead of embedding panoramas (H13a)
+app-bugs,app-bugs-19,medium,M,CORRECTED,H13,"Walkthrough Street View: frame reuse and caption, pano offsets, and no map on mobile (H13b)"
+app-bugs,app-bugs-20,medium,S,CORRECTED,D1,Help modal appears 1-2 s late: lazy chunk behind a null Suspense fallback (D1)
+app-bugs,app-bugs-21,medium,M,CONFIRMED,D3,Map does not auto-fly to the action after day jumps (D3a)
+app-bugs,app-bugs-22,medium,M,CONFIRMED,D3;A4,"Label collisions, empty-OOB label text and per-frame cost (D3b)"
+app-bugs,app-bugs-23,medium,S,CONFIRMED,D4;G1;H8,Feature-claim parity: guide/Help/tour statements vs actual behaviour (D4)
+app-bugs,app-bugs-24,low,S,CONFIRMED,D4;G1,"Dead heatmap code, H key and unused casualty_apportionment.json (D4)"
+app-bugs,app-bugs-25,medium,M,CORRECTED,H1;H3;H8;A5,"The six inline scripts in index.html: real behaviour, defects, native replacements"
+app-bugs,app-bugs-26,medium,M,CONFIRMED,D4;H6;A5,"Toggle Units, Trails, dead unit-type filter and a hover tooltip that can never render"
+app-bugs,app-bugs-27,medium,L,CONFIRMED,C4;H8;D4,"NPS Auto Tour (XF): stacked timers, hijacked speed, misleading name, wrong printed times, dead on mobile"
+app-bugs,app-bugs-28,low,M,CONFIRMED,D4;A5;A6,Bookmarks and share links
+app-bugs,app-bugs-29,medium,M,CONFIRMED,H3;X5,localStorage inventory and a single storage layer
+app-bugs,app-bugs-30,medium,M,CONFIRMED,P1;D4,"Monuments layer KF: 48 px offset, endless 60 Hz React loop, three datasets; same offset in cursor ring"
+app-bugs,app-bugs-31,low,S,CONFIRMED,,Locations labels never appear until the button is toggled twice
+app-bugs,app-bugs-32,high,L,CONFIRMED,P1;P2;D2,Playback loop and React subscription architecture (INP/TBT)
+app-bugs,app-bugs-33,low,S,CONFIRMED,H9;D4,Speed labelling and speed-ladder mismatch (H9)
+app-bugs,app-bugs-34,low,S,CONFIRMED,X1,Mapbox attribution disabled on two maps; token literal duplicated
+app-bugs,app-bugs-35,medium,M,CONFIRMED,C4;H7,"Data IDs as consumed by the app: side from ID prefix, phantom Confederate rows shown as Union, 100 animated ids missing from the OOB"
+app-bugs,app-bugs-36,low,M,CONFIRMED,C4;D4,"Hard-coded moment tables (scrubber key ticks, bookmark names, notable units, tour steps)"
+app-bugs,app-bugs-37,medium,L,UNVERIFIABLE,,Test harness and ?debug=1 hook needed to lock every fix
+app-bugs,app-bugs-38,medium,M,CONFIRMED,C4;H13,Place coordinates hard-coded in six places disagree by up to 2.1 km
+app-bugs,app-bugs-39,high,L,CONFIRMED,A1;A2;A3;A4;A5;A6;D2;S4,"Accessibility primitives: zero ARIA in 17,000 lines of app code; 136 of 271 font sizes under 12 px; failing text contrast"
+app-design,app-design-01,critical,M,CORRECTED,C1;C2;H1,Desktop timeline and widgets mount in Mobile layout; shell roots create stacking contexts (true root cause of C1/C2)
+app-design,app-design-02,high,XL,CORRECTED,C1;C2;H3;E1;N1,"Replace the two app forks with ONE responsive shell (grid regions, dvh, safe-area, landscape rule)"
+app-design,app-design-03,high,L,CORRECTED,A1;A4;X3;N1,Token system (tokens.json -> tokens.css/js) with cascade layers and a single hashed app.css
+app-design,app-design-04,high,M,CONFIRMED,A1,"Consolidate colour: one gold/Union/Confederate/neutral ramp, accessible text variants, light + forced-colors themes"
+app-design,app-design-05,high,M,CORRECTED,A1;D2,Contrast remediation: 33% of app text declarations fail 4.5:1; translucent panels; print colours
+app-design,app-design-06,critical,S,CORRECTED,C8;A1,C8 root cause: .filter-chip has no background/font and global button.filter-chip{color:inherit} outranks it
+app-design,app-design-07,high,M,CONFIRMED,A4;D2;H3,"Typography: load the fonts the code asks for (Spectral self-hosted), 12 px floor, one ramp, tabular numerals"
+app-design,app-design-08,medium,M,CORRECTED,,Spacing/radius/elevation/motion/breakpoint tokens and a reviewed codemod
+app-design,app-design-09,high,M,CONFIRMED,H1;H4;C2,"z-index scale, overlay root and reserved zones (27 ad-hoc levels; Help renders behind OOB; 999999 overlay)"
+app-design,app-design-10,high,L,CONFIRMED,H1;H2;H4,"Panel management: one panel per dock, LayerStack Esc chain, jump hygiene, toast-class event card, persisted HUD prefs"
+app-design,app-design-11,high,M,CORRECTED,H6;A5;D2,SVG icon system replacing 108 emoji/letter glyph uses (44 distinct characters)
+app-design,app-design-12,high,L,CONFIRMED,H6;D2;D4;A3,"Toolbar/header redesign: grouped, labelled, 40/44 px, roving tabindex, command palette; add missing Order of Battle"
+app-design,app-design-13,high,M,CONFIRMED,H1;H6;H8,H1: integrate Ask the Historian + Extra Features into header/Tools sheet; delete the floating overlay and 6 injected scripts
+app-design,app-design-14,high,L,CONFIRMED,H3;C6;H10,"H3: splash and onboarding redesign - no forced React splash, auto layout, persisted prefs, welcome card, coach-mark tour"
+app-design,app-design-15,high,L,CONFIRMED,A2;A3;C1;H9;D2,"Timeline/transport redesign + accessible slider (no thumb styles, unlabeled, 8 px markers, #eee speed pills, credit in row)"
+app-design,app-design-16,high,M,CONFIRMED,A6;D1;H2,Modal/dialog system with focus management; fix z-order inversion and blank lazy-load (Help 1-2 s)
+app-design,app-design-17,medium,M,CORRECTED,H4,"One toast system (today two) with live region, flood control and the missing slideIn keyframe"
+app-design,app-design-18,medium,S,CONFIRMED,A5;D2,Custom accessible tooltip replacing 60 title= attributes
+app-design,app-design-19,high,L,CORRECTED,D3;H6,"Cartography: one symbology spec (shape=branch, line style=posture, colour=side, bar=strength) driving renderer AND legend"
+app-design,app-design-20,high,L,CONFIRMED,D3,"Cartography: aggregate instead of displace, >=12 px priority labels, DPR-aware canvas, screen-space picking, data-driven 'engaged'"
+app-design,app-design-21,medium,XL,CONFIRMED,P1;P2,"Cartography renderer migration: GeoJSON symbol layers (fix SDF), single monuments layer, remove per-frame React loops"
+app-design,app-design-22,medium,M,CONFIRMED,D3,Cartography overlays from data with a real style (roads/streams/works/farms/locations)
+app-design,app-design-23,medium,M,CONFIRMED,C4,"Day/night styling from computed solar altitude on the single canonical clock (GPU raster props, 300-500 ms)"
+app-design,app-design-24,high,S,CORRECTED,,Mapbox attribution hidden on mobile and walkthrough maps; add scale bar; keep compass
+app-design,app-design-25,low,M,CORRECTED,,Relief (hillshade) and optional contours / historic map overlay
+app-design,app-design-26,high,M,CONFIRMED,C7;S2;S4,"Empty/loading/error states, ErrorBoundary and a boot-failure path (today: infinite splash, white screen on render error)"
+app-design,app-design-27,medium,M,CONFIRMED,A6;P1,"Motion policy: reduced-motion everywhere, remove LCP-blocking entrance fades, ambient loops, cursor glow"
+app-design,app-design-28,medium,L,CONFIRMED,A1;A6,"Theming: light theme, prefers-color-scheme, prefers-contrast, forced-colors, no-flash theme script, density option"
+app-design,app-design-29,medium,M,CONFIRMED,S1,Print stylesheet + designed one-page Battle Report (and print layer for Regiment/Dashboard/Historian)
+app-design,app-design-30,high,L,CONFIRMED,S1;S4;E3,"Sub-page harmonisation: templates, static header/footer (CLS), breadcrumbs, one h1 scale, component reuse, privacy/terms/404 parity"
+app-design,app-design-31,medium,M,CORRECTED,S4;A3;A4,"Mobile sub-page items: dashboard chart, compare tabs, targets, min font"
+app-design,app-design-32,high,M,CONFIRMED,T1;E1;E2,"Brand and share assets are placeholders: identical malformed screenshots, flat icons, merged manifest purpose"
+app-design,app-design-33,low,M,CONFIRMED,H8,"Unit/Story/Event panel content design: reading typography, fluid widths, contextual 'Ask about this'"
+app-design,app-design-34,high,L,CONFIRMED,N1,"Design governance: lint rules, Playwright viewport/theme matrix, axe on 27 pages, living styleguide, budgets"
+app-design,app-design-35,high,L,CORRECTED,A3;A5;D2,"Core component library: button, chip, tabs, segmented, card, panel, sheet, menu, switch, badge/kbd (replaces ~34 button-like definitions + inline styles)"
+app-design,app-design-36,medium,M,CONFIRMED,H2;H5;A5,"Search field/combobox: Esc behaviour, natural sort, no autofocus on touch, 16 px input, empty-state suggestions"
+app-design,app-design-37,high,M,CONFIRMED,D2;A5;A6,"App-shell semantics: landmarks, h1, skip link, focus management, labels for 613 inline-styled controls"
+app-latent,app-latent-01,critical,S,CORRECTED,C5,"Follow Your Ancestor calls 3 undefined functions (setGoldUnit, clearGoldTrail, drawGoldTrailSegment); every shared ?ancestor= link white-screens the app"
+app-latent,app-latent-02,critical,M,CONFIRMED,N1,"No error boundary or global handler anywhere: a storage exception, missing WebGL, failed lazy chunk or any effect throw blanks the whole app; no error UX for token/network/WebGL failure"
+app-latent,app-latent-03,critical,S,CONFIRMED,C5,`CanvasRenderer` is not defined: turning the cannon-sound toggle on kills the animation loop the first time armies touch
+app-latent,app-latent-04,critical,M,CONFIRMED,D2;H12,"The overlay unit canvas (pointer-events:auto, z-index 10) swallows every mouse, wheel and +/- click: the desktop map cannot be panned or zoomed by the user"
+app-latent,app-latent-05,critical,M,CORRECTED,D3;H4;C3,"Jumping to July 2/3 (day tabs, keys 2/3, scrubber, bookmarks, search) never fetches that day's placements: the map keeps drawing Day-1 positions under a July 3 header"
+app-latent,app-latent-06,critical,S,CONFIRMED,C1;C2,"Mobile layout: tapping a unit throws `Invalid LngLat object: (NaN, NaN)`; tap-to-select never works on touch devices"
+app-latent,app-latent-07,high,S,CONFIRMED,D3;H12,"Unit canvas is not redrawn when the camera moves while paused: units float at old screen positions after every flyTo (search, ancestor, minimap, monuments, tour); trails smear"
+app-latent,app-latent-08,high,M,CONFIRMED,C4;D3,Sticky module-level cache `i2` in y1() draws 'ghost' units from other ticks and never resets; the boot sweep contaminates tick 1
+app-latent,app-latent-09,high,M,CONFIRMED,C2;H1,"Mobile Tools sheet: 5 of 14 items are dead (Help, Bookmarks, Map Layers, Monuments, NPS Auto Tour); their state is set but never rendered"
+app-latent,app-latent-10,high,M,CONFIRMED,P3;N1,"Data loaders have no res.ok/catch/retry; failures are silent or unhandled, days are marked loaded after partial failure, and files are fetched redundantly (up to ~72 requests on mobile)"
+app-latent,app-latent-11,high,M,CONFIRMED,C6;P5;P1,"Service worker failure modes: caches 404/500 responses permanently, never caches HTML (offline shell impossible), precache is all-or-nothing, cache grows forever, forced reload on every SW change (first visit loads twice)"
+app-latent,app-latent-12,high,M,CONFIRMED,T3;H4,Deep/share links are generated in 9 places but the map only parses ?ancestor=; every 'See this moment on the map' and Copy-Link URL lands on the splash at tick 1
+app-latent,app-latent-13,high,M,CONFIRMED,H8;H7,"Ask the Historian: chronology answers render 'undefined' (137/137), page has no error handling or labels, and retrieval baseline is poor"
+app-latent,app-latent-14,high,M,CORRECTED,C4;H10;H7,"Data integrity: 15 units are on the wrong side, 100 placement ids have no OOB record, required fields missing, shipped data is ~0.4% of the schema's stated size; no build or load-time validation"
+app-latent,app-latent-15,high,M,CONFIRMED,H7,"Battlefield AR: iOS compass permission requested after multiple awaits (fails on iOS), GPS watch and camera stream leak, unguarded fetch, DOM rebuilt at sensor rate"
+app-latent,app-latent-16,high,M,CORRECTED,X5;X3,"Watch Together: HTML-injection sinks, unvalidated tour import and localStorage, guessable room codes, no disconnect/timeout/WebRTC handling, unguarded startup"
+app-latent,app-latent-17,medium,M,CONFIRMED,H2;D2;A2;A6,"Global keyboard handler: hijacks browser shortcuts, ignores Esc in inputs, leaves pinned unit open, double-handles timeline keys, arrow keys on the slider net to zero"
+app-latent,app-latent-18,medium,S,CONFIRMED,P1,"Backgrounding the tab during playback makes the simulation leap ahead by hundreds of ticks (no dt clamp, no visibilitychange handling)"
+app-latent,app-latent-19,medium,S,CONFIRMED,H11,"Minimap 'tick' is frozen: yn.subscribe(selector, listener) is used on a store without subscribeWithSelector, so the listener never fires"
+app-latent,app-latent-20,medium,M,CORRECTED,H12;H6,"Mapbox add/remove races and swallowed errors: default-on Locations labels never render, Layers checkboxes disagree with layer state, Distance tool fails silently"
+app-latent,app-latent-21,medium,M,CORRECTED,H1;P1;D2,"Monuments are implemented twice and both are flawed: a perpetual rAF+setState loop runs at all times, markers are likely 48 px off, a static DOM overlay ignores pan/zoom, mobile monuments are dead"
+app-latent,app-latent-22,medium,L,CONFIRMED,S2;S1;N1,"Every map/data sub-page has the same fragile skeleton: unguarded top-level async, no res.ok, no map error/WebGL handling, render-before-load races, sequential awaits, no live regions"
+app-latent,app-latent-23,medium,M,CONFIRMED,C4;S4,"Sandbox: no touch support, stuck drag, log flooding, and a disposition list that misrepresents units"
+app-latent,app-latent-24,medium,S,CONFIRMED,S4,Compare page: duplicate click/hover handlers accumulate on every style switch; popup throws when strength is missing
+app-latent,app-latent-25,medium,M,CORRECTED,,"Cinematic Export: missing MediaRecorder detection, stuck 'recording' state on any error, unvalidated ticks, leaking blob URLs"
+app-latent,app-latent-26,medium,S,CONFIRMED,C4,"Immersive Mode: sound logic misclassifies 'Line of Battle' as charging, no audio resume/pause, background timers"
+app-latent,app-latent-27,medium,S,CONFIRMED,X1,Mapbox/OSM attribution is disabled on the mobile map and the walkthrough map (attributionControl:false)
+app-latent,app-latent-28,medium,L,CONFIRMED,P1;P2,"Render architecture hot spots: 26 whole-store subscriptions, un-virtualised 700-row panels (5.5k DOM nodes), O(n^2*8) label collision every frame, 210 full-app renders during the boot sweep"
+app-latent,app-latent-29,medium,L,CONFIRMED,H1;H3;E3;E4;X3;A6,"index.html inline-script layer is brittle: DOM scraping by button text, overlay revealed at 5 s during onboarding, unhandled promise, inline handlers block CSP, no boot watchdog"
+app-latent,app-latent-30,medium,M,CORRECTED,C3;C4,Clock/date logic exists in 6 inconsistent copies; the +2-day bug lives in 3 of them; even placement_schema.json contradicts the tick arithmetic
+app-latent,app-latent-31,medium,M,CORRECTED,H7;H8;S1;S4,"Search/Regimental Biography/Battle Reports/Find Ancestor data-rendering defects: subsequence noise, substring collisions, 'undefined / X', innerHTML from data"
+app-latent,app-latent-32,medium,S,CONFIRMED,C7;H7;S4,Dashboard: nested notable_intensity_notes entry renders as raw key + 'undefined'; innerHTML from data; unannounced states
+app-latent,app-latent-33,medium,M,CONFIRMED,H3;C2;D2,Panel layout computed once at module load (window.innerWidth) and layout choice never persisted
+app-latent,app-latent-34,medium,L,CONFIRMED,A1;A2;A5;A6;D2,"prefers-reduced-motion, live regions and focus management are absent in the app and sub-page scripts"
+app-latent,app-latent-35,medium,M,CONFIRMED,X3;X4,CSP enforcement blockers in the code and a Report-Only policy that reports nowhere
+app-latent,app-latent-36,medium,M,UNVERIFIABLE,P1;N1,Observability pipeline: window.onerror/unhandledrejection/CSP reports -> RUM logging (design)
+app-latent,app-latent-37,low,S,CONFIRMED,P4;A6,"site-nav.js: back link goes to the previous page (not the map), incomplete esc(), late document.body access, no menu focus management"
+app-latent,app-latent-38,low,S,CONFIRMED,S4,Living Ledger cannot replay after it finishes; ledger and dashboard duplicate curve logic
+app-latent,app-latent-39,low,S,CONFIRMED,N1;P2,"Dead and orphaned code that misleads maintainers (commander card, hover popup, dead canvas, unused worker chunk, dead helpers)"
+app-latent,app-latent-40,low,S,CONFIRMED,H4;X3,NPS Auto Tour: stale timers pause playback unexpectedly; toasts/cards leave uncancelled timers; NPS iframe not in CSP
+app-latent,app-latent-41,low,S,CORRECTED,,Zero-render hazards: 48 `value && <jsx>` sites where the left side can be numeric 0
+app-latent,app-latent-42,low,S,NOT_VERIFIED,P1,Minor closure/timer hygiene: touch and cursor indicators re-render on every pointer event; FPS counter double counted
+app-latent,app-latent-43,medium,XL,UNVERIFIABLE,N1;P6,"Prevention infrastructure: recover real source, add lint/type/test gates and a Playwright suite that encodes every probe in this report"
+app-mobile,mobile-01,critical,S,CONFIRMED,C1;C2;H1;N1,"Desktop-only overlays (IO timeline bar + 14 others) render inside the Mobile layout: root cause of C1, C2 and duplicate transport/time"
+app-mobile,mobile-02,critical,S,CONFIRMED,,Overlay canvas swallows all map gestures: pan/zoom/tap-select dead on touch AND desktop (new)
+app-mobile,mobile-03,critical,M,CONFIRMED,H1;H4;H2,"Search, Filter, story, event card and unit panels are painted under the opaque mobile root (invisible on phones)"
+app-mobile,mobile-04,critical,M,CONFIRMED,C2;H1,Five dead Tools tiles and missing feature parity on the mobile map (incl. blank mobile-branch Walkthrough map)
+app-mobile,mobile-05,high,S,CORRECTED,H3,"Layout chooser: no auto-detect/persistence, false settings-menu promise, second Mapbox map behind it, unusable at short heights"
+app-mobile,mobile-06,high,M,CONFIRMED,H3;C6;P1,"Splash and first run: clipped title, tiny targets, three blocking screens, repeated every visit, keyboard copy on touch"
+app-mobile,mobile-07,high,S,CONFIRMED,P2;X1,index.html .mapboxgl-map height:100% !important breaks the mobile map box; Mapbox logo/attribution hidden
+app-mobile,mobile-08,high,M,CORRECTED,E1,"Landscape/short viewports unusable (27-37 % map, Tools sheet trap, chooser off-screen) while manifest locks landscape"
+app-mobile,mobile-09,high,M,CONFIRMED,C3;C4;H9,"Duplicate and contradictory time displays; developer wording (Tick n/675, 1x real time, same glyph for Play and Next)"
+app-mobile,mobile-10,high,S,CONFIRMED,H1,Extra Features / Ask-the-Historian overlay collides with the phone UI
+app-mobile,mobile-11,high,M,CONFIRMED,A1;A3;A4;A5;D2;H6,"Touch targets, type sizes and contrast on the mobile shell (measured)"
+app-mobile,mobile-12,high,M,CORRECTED,A2;D2,"Scrubber usability and semantics: touch-only, 36 px, no ARIA/keyboard, no snapping or value bubble"
+app-mobile,mobile-13,high,M,CORRECTED,E1,"Viewport meta, safe-area insets, dvh, on-screen keyboard, overscroll, standalone meta"
+app-mobile,mobile-14,high,L,CONFIRMED,H2;A6,"Gesture conflicts, sheet/back-button behaviour and Escape handling"
+app-mobile,mobile-15,high,L,CORRECTED,P1;P2;P5;X5,"GPU/memory/CPU on low-end phones: multiple Mapbox instances, non-DPR canvas, per-frame layout and O(n^2) declutter, whole-store re-renders, rAF setState loop"
+app-mobile,mobile-16,medium,M,CORRECTED,A2;A5;A6;D2,"Accessibility semantics of the mobile shell (landmarks, labels, focus, live regions, reduced motion, canvas alternative)"
+app-mobile,mobile-17,medium,M,CORRECTED,D2,"320 px, tablets and in-between widths"
+app-mobile,mobile-18,medium,S,CORRECTED,E1;E2,"Web app manifest / installability (orientation lock, combined any+maskable icons, missing fields)"
+app-mobile,mobile-19,high,S,CORRECTED,N1;C6,"Deploy trap for any bundle edit: immutable /assets/*, cache-first service worker, case-mangled deploy zip"
+app-mobile,mobile-20,medium,S,CONFIRMED,X1,Mapbox token is URL-restricted for tiles (403 from localhost/foreign Referer): local dev impossible; correction to audit X1
+app-mobile,mobile-21,medium,L,CORRECTED,N1;P6,Source adoption path for the mobile shell: RECON_SRC has no mobile layout and cannot host these fixes
+app-mobile,mobile-22,high,XL,CONFIRMED,H1;H3;H4;H6;D2,"A+ mobile information architecture and component system (header, dock, scrubber, sheet system, Tools grid, tokens)"
+app-mobile,mobile-23,high,L,CORRECTED,H4,Story and unit as sheets/chips; clutter control on jump/load (H4 on mobile)
+app-mobile,mobile-24,medium,XL,CONFIRMED,P1;P2,Render units as a Mapbox GeoJSON/symbol layer instead of a hand-synchronised canvas overlay (Phase 3)
+app-mobile,mobile-25,high,M,CORRECTED,C1;C2;H1;H3,"Mobile test infrastructure: Playwright viewport matrix, CDP helpers, axe, visual snapshots, Lighthouse-CI, real-device checklist"
+app-mobile,mobile-26,low,S,CONFIRMED,H7;H9,"Mobile microcopy and voice (false settings-menu claim, dev-speak, keyboard copy on touch)"
+app-mobile,mobile-27,medium,M,CONFIRMED,H5;H10,"Order-of-Battle and Roster panels on phones: unvirtualised, 7-9 px text, lexicographic sort, inconsistent counts"
+app-time,app-time-01,critical,S,CORRECTED,C3;C4,Phase-0 hotfix: one date and one clock that at least agree with each other
+app-time,app-time-02,critical,M,CORRECTED,C4;H9;H11,Canonical time module + time_anchors.json (piecewise-linear time-warp; ticks stay permanent frame IDs)
+app-time,app-time-03,critical,M,CORRECTED,C4,"Adopt and review the time-facts anchor proposal, then refit with kinematic constraints"
+app-time,app-time-04,high,L,CORRECTED,C4;H7,Event registry (events.json); resolve cross-source tick disagreements and order inversions
+app-time,app-time-05,high,M,CONFIRMED,C4,Regenerate data-level time strings and metadata from the model
+app-time,app-time-06,high,M,CORRECTED,,Deep-link consumer (urlState.js) with full backward compatibility
+app-time,app-time-07,high,M,CORRECTED,H4;D3;H11,"Seek-safe, gap-tolerant renderer state (stateAt) replacing the forward-fill cache"
+app-time,app-time-08,high,M,CORRECTED,C4;H4,"Crossing-based triggers with minute look-back; show the clock in cards, toasts and panels"
+app-time,app-time-09,medium,M,CONFIRMED,H9,"Playback semantics and labels: honest speed label, hour steps, tour windows, gaps, optional clock pacing"
+app-time,app-time-10,medium,M,CONFIRMED,C4,"Solar-driven day/night lighting (with moon cap) for the map, Camera and Immersive"
+app-time,app-time-11,medium,L,CONFIRMED,C4,Sub-pages adopt one shared time-model script
+app-time,app-time-12,medium,M,CONFIRMED,C4;H7,Generate captions from the model; fix known wrong labels
+app-time,app-time-13,high,S,CORRECTED,N1;C6,"Rollout hygiene: content-hashed names, service worker and data cache policy, anchors versioning"
+app-time,app-time-14,medium,L,CORRECTED,,"Validator (V1-V15), unit/golden/property tests and e2e 'one clock' suite"
+app-time,app-time-15,medium,S,CORRECTED,H9;H10;G1,Truthful copy and documentation about time
+app-time,app-time-16,medium,M,CONFIRMED,,"Battle intensity per battle-minute (audio cadence, Living Ledger, Dashboard) and immersive night-artillery fix"
+app-time,app-time-17,low,M,CORRECTED,,Data repairs the warp exposes; disclose sparse keyframes
+app-time,app-time-18,low,S,CONFIRMED,A2;A6,"Accessible, honest time display"
+app-time,app-time-19,low,M,CONFIRMED,H8,Temporal index for Ask the Historian
+app-time,app-time-20,medium,S,CORRECTED,C1;C2,Exactly one clock surface per layout
+bundle-anatomy,bundle-anatomy-01,critical,S,CONFIRMED,C6;P1;P5;P7,"Kill the first-visit service-worker controllerchange reload (self-redirect, second full load)"
+bundle-anatomy,bundle-anatomy-02,high,S,CORRECTED,P5;P4;P7,Remove CSS preload/onload swap + duplicate modulepreload; stop SW intercepting /assets (source of 'cross-world service worker resource mismatch' warnings)
+bundle-anatomy,bundle-anatomy-03,medium,M,CONFIRMED,C6;P5;E1,"Rewrite sw.js: versioned cache, no cache poisoning, no stale manifest, no useless navigation interception"
+bundle-anatomy,bundle-anatomy-04,medium,M,CORRECTED,P4;H1;E3;E4,"Diet index.html: 23.7 KB inline scripts, render-blocking site-nav.js/css, 5 unused preconnects, crawler-only seo block"
+bundle-anatomy,bundle-anatomy-05,low,S,CONFIRMED,N1,"Deploy hygiene: correct-case tree, orphan interpolationworker chunk, stale builds"
+bundle-anatomy,bundle-anatomy-06,medium,S,CORRECTED,P1,Add web-vitals attribution RUM to prove which element/interaction causes Poor LCP/INP/CLS
+bundle-anatomy,bundle-anatomy-07,critical,L,CORRECTED,P2;P7;P1,Put mapbox-gl 3.24.1 (79.2% of bundle) in its own lazily loaded chunk
+bundle-anatomy,bundle-anatomy-08,high,L,CONFIRMED,P2;P7;D1,Split the app into entry shell + lazy panels with hard byte budgets
+bundle-anatomy,bundle-anatomy-09,high,M,CONFIRMED,P2;H10,Move 150 KB of inline data literals (512 monuments etc.) out of JS into hashed JSON
+bundle-anatomy,bundle-anatomy-10,high,M,CORRECTED,P3;P1,"Consolidate 38 boot JSON fetches to <=3, strip unused metadata, hashed immutable names, preload Day 1"
+bundle-anatomy,bundle-anatomy-11,medium,S,CORRECTED,P3,"Remove duplicate and eager data fetches (commander_successions x2, chronology x2, mobile loads all 3 days)"
+bundle-anatomy,bundle-anatomy-12,high,M,CORRECTED,H3;P1;P2,Mobile creates two Mapbox Map instances per visit; create the map only after layout is known
+bundle-anatomy,bundle-anatomy-13,high,M,CONFIRMED,H3;C6;P1,Replace the 3.5 s per-frame setState 'fast-forward' splash with a static poster; make any intro opt-in
+bundle-anatomy,bundle-anatomy-14,high,L,CONFIRMED,P1;P7;H9,Zustand selector subscriptions + memoization; stop whole-tree re-render per tick
+bundle-anatomy,bundle-anatomy-15,high,M,CONFIRMED,P1;P7;H3;E4,"Static full-viewport LCP poster, inline critical CSS, HTML-first shell"
+bundle-anatomy,bundle-anatomy-16,high,L,CORRECTED,P2;X1;S2,Map-engine decision record + 1-day spike (Mapbox v3 lazy vs v2.15 vs MapLibre vs Leaflet-lite vs own tiles)
+bundle-anatomy,bundle-anatomy-17,medium,M,CONFIRMED,P2;X3,"Mapbox runtime options to cut work now (workerCount, glyph PBFs, iconset, unused preconnects, CSP worker)"
+bundle-anatomy,bundle-anatomy-18,medium,L,CORRECTED,S2;S3;S4;P2,Eight sub-pages load a second 1.8 MB mapbox-gl copy from the CDN; six need only basic APIs
+bundle-anatomy,bundle-anatomy-19,medium,M,CORRECTED,P2;P6,"Build config when a real build exists: es2022 target, no modulepreload polyfill, manualChunks, source maps"
+bundle-anatomy,bundle-anatomy-20,low,L,CONFIRMED,P2,Optional: Preact-compat instead of React on the critical path
+bundle-anatomy,bundle-anatomy-21,high,XL,CONFIRMED,N1,No editable source: commit an AST chunk-splitter (stop-gap) or recover source (N1)
+bundle-anatomy,bundle-anatomy-22,medium,M,CONFIRMED,P1;P7,"Performance budgets and CI guardrails (size-limit, Lighthouse CI, Playwright network tests)"
+bundle-anatomy,bundle-anatomy-23,high,M,CONFIRMED,C3;C4,Four divergent tick-to-clock implementations (root cause of C3/C4 clock/date bugs)
+bundle-anatomy,bundle-anatomy-24,medium,L,CORRECTED,,Data-format scale plan for expanded databases (row JSON -> columnar -> typed-array binary + Worker)
+bundle-anatomy,bundle-anatomy-25,low,S,CONFIRMED,X1;X2,Mapbox token duplicated twice and Google key in the bundle; mobile map disables attribution
+bundle-anatomy,bundle-anatomy-26,low,S,CONFIRMED,P2,Compression ceiling: Netlify edge brotli ~q4-5 (604 KB) vs q11 (509 KB)
+bundle-anatomy,bundle-anatomy-27,medium,S,CORRECTED,N1;C6,Content-hash integrity: same asset URL served different bytes (Jul 20 vs Aug 22+) under immutable 1-year caching
+data-integrity,data-integrity-01,critical,XL,CORRECTED,,"Dense, validated unit-movement model: replace 1,804 sparse rows and hold-and-snap rendering with authored anchors plus generated per-tick tracks"
+data-integrity,data-integrity-02,critical,L,CORRECTED,H5,"Canonical unit-ID namespace, explicit side field, alias crosswalk and collision resolution"
+data-integrity,data-integrity-03,critical,L,CORRECTED,C7;H10,One authority for casualty and strength numbers; derive every roll-up
+data-integrity,data-integrity-04,critical,S,CORRECTED,C7,Fix Dashboard stat-card contract (highest_single_regiment_rate) and compute all notable stats
+data-integrity,data-integrity-05,high,M,CONFIRMED,H8,"Repair the Historian/data contract: chronology 'undefined', lost paragraphs, unindexed entity kinds"
+data-integrity,data-integrity-06,high,M,CONFIRMED,,Deep-link and share-link contract: 521+ generated links land on tick 1
+data-integrity,data-integrity-07,high,M,CORRECTED,,Complete the OOB hierarchy (VI Corps) and make it add up
+data-integrity,data-integrity-08,high,M,CONFIRMED,H7;H8,"Aliases, duplicates, detachments, misfiled rows and 'Commander unrecorded' leaking into Search/Historian"
+data-integrity,data-integrity-09,high,M,CORRECTED,H10,Single-source-of-truth facts registry for every count and label
+data-integrity,data-integrity-10,high,L,CORRECTED,,Placement strength becomes computed from casualties instead of hand-typed
+data-integrity,data-integrity-11,high,M,CORRECTED,C4;C3,One tick-to-clock function in data; remove hand-typed times
+data-integrity,data-integrity-12,high,M,CONFIRMED,,Machine-enforced JSON Schemas replace prose placement_schema.json
+data-integrity,data-integrity-13,medium,M,CORRECTED,S3,"Geometry: map extent, East Cavalry Field, precision, stacking, terrain duplicates, road geometry"
+data-integrity,data-integrity-14,medium,S,CORRECTED,,"Duplicate and conflicting (unit_id,tick) rows; deterministic precedence"
+data-integrity,data-integrity-15,medium,L,CORRECTED,P2;P3,"Monuments: one dataset with provenance, moved out of the JS bundle"
+data-integrity,data-integrity-16,medium,M,CONFIRMED,C4;H13,"Move other embedded content (tour stops, tutorial, timeline markers, roads) to versioned data with a canonical events.json"
+data-integrity,data-integrity-17,medium,L,CONFIRMED,H7,Commander model with tenures; fix succession unit keys
+data-integrity,data-integrity-18,medium,M,CONFIRMED,H5;H7,Regiment record completeness and normalisation
+data-integrity,data-integrity-19,medium,XL,CORRECTED,H10,OOB-to-map coverage: every regiment and battery has a position when present
+data-integrity,data-integrity-20,medium,M,CONFIRMED,H7,Text lint and typographic normalisation pipeline
+data-integrity,data-integrity-21,medium,M,CONFIRMED,S4,One casualty-timeline algorithm generated once
+data-integrity,data-integrity-22,medium,M,CONFIRMED,C4;H8,Vignette data fixes and structure
+data-integrity,data-integrity-23,medium,XL,CONFIRMED,G1,"Per-record provenance, source registry and confidence"
+data-integrity,data-integrity-24,medium,L,CONFIRMED,N1,Data validator and CI gate implementing the rule catalogue
+data-integrity,data-integrity-25,medium,M,CONFIRMED,N1,"Repository, data versioning, changelog and public errata page"
+data-integrity,data-integrity-26,medium,M,CORRECTED,P3;P1;P2,Package 71 data files into a few immutable packs and strip authoring bytes
+data-integrity,data-integrity-27,high,XL,CORRECTED,H8,Historian knowledge-base data contract and corpus expansion (data side)
+data-integrity,data-integrity-28,low,S,CONFIRMED,H7,Stop leaking internal IDs into the UI: add display names to OOB output
+data-integrity,data-integrity-29,medium,M,CONFIRMED,,Historical verification backlog for a human historian
+data-integrity,data-integrity-30,low,S,CONFIRMED,A1,Disposition/enum/style tables have two owners (schema vs renderer)
+deploy-history,deploy-history-01,critical,M,CONFIRMED,N1;C6;P1;P5,Content-hash every asset; stop reusing index-Cg8FAMXN.js for different bytes; generate the SW precache list from the manifest
+deploy-history,deploy-history-02,critical,S,CONFIRMED,C6;P1;P7,Hotfix C6: delete the controllerchange location.reload() and reg.update() hack from index.html
+deploy-history,deploy-history-03,high,M,CONFIRMED,C6;P5,"Service worker: ship a self-unregistering kill-switch now, then a guarded SW with user-initiated updates"
+deploy-history,deploy-history-04,critical,S,CONFIRMED,C3;C4,C3: patch the three remaining 'July ${day+2}' sites (unique strings) and add a shared date helper with a regression test
+deploy-history,deploy-history-05,critical,L,CORRECTED,C4;C3,"C4: define one tick-to-clock/date model shared by the app and all sub-pages, and reconcile chronology labels/schema"
+deploy-history,deploy-history-06,critical,M,CORRECTED,C5,"C5: restore the missing gold-trail engine, bind the three unbound identifiers, and make activateAncestor fail-safe"
+deploy-history,deploy-history-07,critical,M,CONFIRMED,C1;C2,C1/C2: stop rendering desktop widgets in mobile layout; fix stacking; move the credit line out of the transport row
+deploy-history,deploy-history-08,critical,S,CORRECTED,C8;A1,C8: reset button styles on search filter chips (1.10:1 contrast) and audit every span->button conversion
+deploy-history,deploy-history-09,high,S,CONFIRMED,C7;H7;S4,C7: dashboard stat-card builder for nested highest_single_regiment_rate; remove the developer data note
+deploy-history,deploy-history-10,high,M,CONFIRMED,H1;X3;P4,"H1: fold Extra Features / Ask the Historian into the real toolbar; delete the collision-mover, force-reveal and eight inline scripts"
+deploy-history,deploy-history-11,medium,S,CONFIRMED,T3;T1;X4,"Netlify hygiene: delete stale deploys, redirect the netlify.app host, fix pretty-URL duplicates, redirect /landing, block dev pages"
+deploy-history,deploy-history-12,medium,S,CONFIRMED,T1,"Search Console: re-verify ownership (DNS TXT), resubmit sitemap, remove /landing.html"
+deploy-history,deploy-history-13,medium,S,CORRECTED,T1,Replace the corrupt screenshots/day1.png and day3.png (used for og:image/twitter:image/PWA screenshots) and add an image-decode CI check
+deploy-history,deploy-history-14,high,L,CORRECTED,P2;P7,"Restore code-splitting via rebuild: entry chunk <= 150 KB gzip, lazy tools, Mapbox loaded on demand"
+deploy-history,deploy-history-15,critical,XL,CONFIRMED,N1,"Recover a real source tree: pick a baseline, run a fidelity diff against the deployed bundle, port patches, fix RECON defects"
+deploy-history,deploy-history-16,medium,S,CONFIRMED,N1;C4,"Restore and extend the data validator, perf test and CI that shipped with the Jun 12 source"
+deploy-history,deploy-history-17,medium,S,CONFIRMED,X5,"Privacy/Terms completeness after the E/F feature additions (PeerJS, Mapbox telemetry, AR sensors, Google embed) and remove stale claims"
+deploy-history,deploy-history-18,medium,M,CORRECTED,X3;P7,"CSP: recover the Jun 22 enforcing allow-list, externalize inline scripts, add the RUM host, run Report-Only then enforce"
+deploy-history,deploy-history-19,low,S,CONFIRMED,X4,embed.html header conflict: stop sending both X-Frame-Options: DENY and frame-ancestors *
+deploy-history,deploy-history-20,medium,S,CORRECTED,S2;S3,"Sub-page map pages: pin and defer the Mapbox CDN script, add skeletons, retest S2/S3"
+deploy-history,deploy-history-21,medium,M,CONFIRMED,H6,"Remove F's Monuments star-overlay hack and port monuments natively (one dataset, Mapbox layer)"
+deploy-history,deploy-history-22,medium,S,CONFIRMED,H10,Single source of truth for unit counts: fix '445+' in Help and align all copy to the data (467 OOB slots / 478 placement unit ids)
+deploy-history,deploy-history-23,medium,S,CONFIRMED,E3;E4;H8,"One <h1>: reconcile boot splash, #seo-content and noscript; drop 'AI-style' wording"
+deploy-history,deploy-history-24,low,S,CORRECTED,E1;E2,Manifest: remove the landscape lock and align app name with the domain
+deploy-history,deploy-history-25,high,M,CORRECTED,P1,"CLS: reserve height for the chronology EventPanel, keep the intro from re-laying out, and place the overlay without shifts"
+deploy-history,deploy-history-26,high,M,CORRECTED,P1;P7,"LCP/FCP: re-baseline after DH-02, then make the LCP element stable across the splash -> chooser -> intro sequence"
+deploy-history,deploy-history-27,medium,S,CONFIRMED,P4,Defer site-nav.js/css on the home page (render-blocking since E)
+deploy-history,deploy-history-28,medium,S,CORRECTED,P5,Replace the CSS preload + onload swap that produces 'preload not used' warnings
+deploy-history,deploy-history-29,medium,S,CONFIRMED,H7,Dev-log copy and data strings that leak internals
+deploy-history,deploy-history-30,medium,M,CORRECTED,H12,Distance tool: restore the working line/marker behavior and the lineage-Y measurement panel
+deploy-history,deploy-history-31,low,S,UNVERIFIABLE,H13;G1,Street View: add missing pano IDs (stops 3 and 5) and re-key the iframe per stop
+deploy-history,deploy-history-32,high,L,CONFIRMED,H2;H3;H4;H5;H9;H11;D1,"Long-standing bundle/UX defects present since the original source: Esc, layout persistence/auto-detect, defaults, natural sort, speed and minimap labels"
+deploy-history,deploy-history-33,medium,S,UNVERIFIABLE,P1,Per-deploy performance baselines and RUM annotation so regressions are attributable
+deploy-history,deploy-history-34,medium,S,CORRECTED,X5;C7;T1,"Pre-deploy gate script: block template text, dev pages, corrupt images, same-name assets, secrets and placeholders"
+docs-copy,docs-copy-01,high,S,CORRECTED,H7;C7,Remove development-history and process voice from user-facing copy
+docs-copy,docs-copy-02,high,M,CORRECTED,C7;H7,"Stop printing identifiers, variable names, undefined and debug text"
+docs-copy,docs-copy-03,high,M,CORRECTED,H8,"Make names, descriptions and answers truthful (Historian, Vantage Points, Fact Sheets, Export, meta)"
+docs-copy,docs-copy-04,high,M,CONFIRMED,H9;C4,"Retire 'real time', 'minute-by-minute', 'five-minute snapshots' and 'tick'; adopt one clock format"
+docs-copy,docs-copy-05,medium,M,CONFIRMED,E2;D4;H6,One canonical name for the product and for each feature
+docs-copy,docs-copy-06,medium,M,CORRECTED,H7,"Normalise typography once at build time (dashes, ellipses, clocks, caps, KIA, apostrophes, ranges)"
+docs-copy,docs-copy-07,medium,S,CORRECTED,H6;A5,Replace emoji-as-label and unexplained abbreviations (copy side of H6)
+docs-copy,docs-copy-08,high,M,CORRECTED,H10,Derive every count from data and reconcile the numbers that disagree
+docs-copy,docs-copy-09,medium,S,CORRECTED,H7,Missing-data phrasing and honest completeness
+docs-copy,docs-copy-10,high,M,CONFIRMED,H10;G1;D1,"Rewrite Help and About (counts, sources, keys, links, version)"
+docs-copy,docs-copy-11,high,M,CONFIRMED,H3;D4,"First-run, layout chooser and panel microcopy (device-aware)"
+docs-copy,docs-copy-12,high,M,CORRECTED,G1;D4;H8;H13,Make every statement in the user guide true (32-row audit)
+docs-copy,docs-copy-13,high,L,CORRECTED,G1;N1,"Reproducible guide generator (HTML-first, committed, CI-built)"
+docs-copy,docs-copy-14,high,M,CONFIRMED,G1,"Guide layout, pagination, type size and contrast"
+docs-copy,docs-copy-15,high,L,CONFIRMED,G1,"Accessible tagged PDF, metadata, bookmarks and links; serve the guide inline"
+docs-copy,docs-copy-16,high,L,CORRECTED,D4;G1;H6;H10,"One manifest for tools, hotkeys, dispositions, extras and facts (feeds Help, nav, guide, sitemap)"
+docs-copy,docs-copy-17,high,L,CONFIRMED,,Sources and Methods page
+docs-copy,docs-copy-18,medium,M,CONFIRMED,,Corrections and Feedback page plus in-app 'Report a problem'
+docs-copy,docs-copy-19,medium,S,CONFIRMED,,About the creator page
+docs-copy,docs-copy-20,medium,M,CORRECTED,T1,FAQ page
+docs-copy,docs-copy-21,medium,M,CONFIRMED,A6,Accessibility statement page
+docs-copy,docs-copy-22,low,S,CONFIRMED,,"Changelog, version stamp and Known Issues"
+docs-copy,docs-copy-23,medium,M,CORRECTED,X4;T1,Press and Embed kit page
+docs-copy,docs-copy-24,medium,L,CORRECTED,,Teacher resources page
+docs-copy,docs-copy-25,high,M,CONFIRMED,X5;X4,Privacy and Terms copy accuracy; footer identity
+docs-copy,docs-copy-26,high,L,CORRECTED,H7,"Ratify and enforce the style guide (Vale, copy_lint, string catalogue, lint rule)"
+docs-copy,docs-copy-27,high,L,CONFIRMED,,Historical context and responsible-language gap; quotation policy
+docs-copy,docs-copy-28,low,S,CONFIRMED,P4;N1,Strip shipped source comments and developer diaries
+docs-copy,docs-copy-29,medium,S,CONFIRMED,E2;T1;E3,"Titles, descriptions and social copy that match the pages"
+docs-copy,docs-copy-30,medium,M,CONFIRMED,H4,"Microcopy patterns for loading, empty, error, success and permission states"
+docs-copy,docs-copy-31,low,M,CONFIRMED,N1,"Small trust and documentation additions (glossary, contact, security.txt, HTML site map, repo docs)"
+docs-copy,docs-copy-32,medium,M,CONFIRMED,N1,Fallback copy patch if the app is not rebuilt (codemod with occurrence assertions)
+docs-copy,docs-copy-33,medium,S,CORRECTED,C4;H10,Adjudicate headline statistics and quotations before new pages repeat them
+hist-current,hist-current-01,critical,S,CONFIRMED,H8,Revive the dead chronology: page reads fields that do not exist
+hist-current,hist-current-02,high,M,CONFIRMED,H8,Replace the ranking model so the entity's own card comes first
+hist-current,hist-current-03,high,S,CORRECTED,H8,"Fix tokenizer, substring and stop-word bugs (stray 's', substring hits, 'me'/'in')"
+hist-current,hist-current-04,high,M,CONFIRMED,H8,"Name normalisation and alias layer (ordinals, state abbreviations, nicknames, derived + curated)"
+hist-current,hist-current-05,high,M,CONFIRMED,H8,"Typo tolerance, join/split and did-you-mean"
+hist-current,hist-current-06,high,L,CONFIRMED,H8,Intent classification and deterministic answer composition
+hist-current,hist-current-07,high,M,CORRECTED,H8,Decline / scope logic: say what the records cannot answer
+hist-current,hist-current-08,high,L,CONFIRMED,H8,Index the site data that already ships but the historian cannot see
+hist-current,hist-current-09,high,M,CORRECTED,,"Regiment cards are stubs: add context lines, brigade/chronology links and gap flags"
+hist-current,hist-current-10,high,S,CONFIRMED,H7,"Render hygiene: raw ids, lower-cased proper nouns, '--', walls of text, lost paragraphs"
+hist-current,hist-current-11,high,L,CONFIRMED,N1,Build pipeline with field whitelist and validators (keep developer notes out)
+hist-current,hist-current-12,high,M,CORRECTED,C4,"Clock display: hold labels, then consume the canonical time model"
+hist-current,hist-current-13,medium,S,CORRECTED,,"Source links, citations and deep-link dependency"
+hist-current,hist-current-14,medium,M,CONFIRMED,C8;H7,search.html: replace whole-string + subsequence scoring
+hist-current,hist-current-15,medium,L,CORRECTED,,Unify the three search implementations on one engine and one index
+hist-current,hist-current-16,medium,S,CONFIRMED,H8,"Answer-first layout, scroll and sticky-bar fixes, reduced motion"
+hist-current,hist-current-17,medium,M,CONFIRMED,A3;A4,Accessibility of historian.html
+hist-current,hist-current-18,medium,M,CONFIRMED,P4,"Loading, error and payload robustness (single index, progressive enable)"
+hist-current,hist-current-19,medium,M,CONFIRMED,,"Conversation: context memory, follow-up chips, ?q= deep link, persistence, clear"
+hist-current,hist-current-20,medium,S,CONFIRMED,H8,First impression: suggestion chips and placeholder must be canonical and tested
+hist-current,hist-current-21,medium,S,CONFIRMED,H7,De-duplicate and diversify results (alias and detachment records)
+hist-current,hist-current-22,low,S,CONFIRMED,X3,Use DOM APIs instead of innerHTML (CSP-ready)
+hist-current,hist-current-23,medium,S,CONFIRMED,H8,Honest copy and a capability/limits panel
+hist-current,hist-current-24,high,M,CONFIRMED,,"Evaluation harness, gates, CI and unresolved-query loop"
+hist-current,hist-current-25,medium,L,CONFIRMED,,Precomputed facts for aggregate and relational questions
+hist-current,hist-current-26,medium,L,CONFIRMED,,"Passage-level retrieval, extractive answers and proximity scoring"
+hist-current,hist-current-27,low,M,UNVERIFIABLE,X5,Privacy-safe feedback and unresolved-query logging
+hist-current,hist-current-28,medium,S,CONFIRMED,,Ancestor routing and honesty about individual soldiers
+hist-current,hist-current-29,medium,M,CORRECTED,,Data-quality items that will surface in answers
+hist-current,hist-current-30,medium,S,CORRECTED,P4;P1,"Historian page performance, CLS and render-blocking assets"
+hist-sources-1,hist-sources-1-01,high,L,CORRECTED,H8;C4,"Ingest Official Records Series I Vol.27 Parts 1-3 (589 numbered report entries + ~2,200 dispatches) as the backbone unit-report corpus"
+hist-sources-1,hist-sources-1-02,high,M,CORRECTED,H7;H10,"Build the unit alias/crosswalk table joining 570 site unit records to OR, Fox, Phisterer, Clark, Dyer and monument-list naming"
+hist-sources-1,hist-sources-1-03,high,L,CORRECTED,H8,"Ingest the state monument-commission corpus in priority order: New York Final Report, Pennsylvania at Gettysburg, then Maine/NJ/Michigan/Minnesota and small states"
+hist-sources-1,hist-sources-1-04,high,L,CORRECTED,H10;C4,Replace copyrighted-compilation provenance in the OOB data with a PD-derived casualty/strength table (OR returns + Fox + Phisterer + Dyer + Livermore) and a documented reconciliation policy
+hist-sources-1,hist-sources-1-05,medium,L,CONFIRMED,H8,"Ingest participant narratives (Battles & Leaders v3, SHSP v1-43, Joint Committee v1, Haskell/Oates/Curtis/Holcombe/Polley) with mandatory perspective/bias tags"
+hist-sources-1,hist-sources-1-06,high,L,CORRECTED,C4,"Extract ~5,400 clock-time expressions and dated dispatches from the OR and use them as ground-truth time anchors to reconcile the site's timeline (C4)"
+hist-sources-1,hist-sources-1-07,medium,XL,CONFIRMED,D3;C4,Georeference LoC/Leventhal Bachelder (1876/1883/1863) and Warren maps; locate the reported 28 time-stamped Bachelder maps (NARA RG 77 / GNMP) before digitising troop positions
+hist-sources-1,hist-sources-1-08,medium,M,CORRECTED,S1,"Curate 40-75 rights-gated LoC photographs (Gardner/O'Sullivan/Gibson, July 5-7 1863 aftermath) for the Historian and Ground Remembers pages"
+hist-sources-1,hist-sources-1-09,low,XL,CONFIRMED,,Newspapers: curated Chronicling America harvest now; re-OCR The Compiler (Pennsylvania Newspaper Archive) later; open licence talks for the Adams Sentinel
+hist-sources-1,hist-sources-1-10,low,M,CORRECTED,,"Parse GNMP monument/marker lists (1903-1921 IA, 1932/1993 NPS) and Commission annual reports into a monument + landscape-change register"
+hist-sources-1,hist-sources-1-11,high,M,CORRECTED,,"Licensing governance: per-source rights registry, exclusion list and permission outreach (Ladd/Bachelder Papers, NHHS, Stone Sentinels, NYSMM, Rumsey, Busey & Martin)"
+hist-sources-1,hist-sources-1-12,medium,M,CONFIRMED,,"Polite, resumable fetch infrastructure with raw-source cache, manifest and per-host rate limits"
+hist-sources-1,hist-sources-1-13,medium,M,UNVERIFIABLE,H8,"OCR quality gates and targeted re-OCR: measure every source, re-OCR the poor ones (Compiler, Confederate Veteran, Gardner captions, Atlas)"
+hist-sources-1,hist-sources-1-14,medium,M,CORRECTED,H8,Page-accurate citation model (IA leaf -> printed page -> deep link) for every quoted passage
+hist-sources-1,hist-sources-1-15,low,S,CORRECTED,,"Close source-coverage gaps: Wisconsin, Massachusetts, Delaware, New Hampshire, West Virginia, Confederate state monument commissions; outreach for Bachelder holdings"
+hist-sources-1,hist-sources-1-16,medium,M,UNVERIFIABLE,H8,Source-level QA harness: 100-passage random audit per source plus a 25-question retrieval gold set
+hist-sources-1,hist-sources-1-17,low,S,CONFIRMED,P2;P3,Corpus size and hosting budget for P0/P1 sources (raw ~75 MB P0 text; 20-50k chunks) to inform retrieval architecture
+hist-sources-2,hist-sources-2-01,high,M,CORRECTED,H8,Source registry and rights-tier gate enforced in CI
+hist-sources-2,hist-sources-2-02,high,S,CONFIRMED,,"Phase-0 written permissions and confirmations (NPS CWSS, GNMP monument inventory, HMDB, ACHS, Gettysburg College)"
+hist-sources-2,hist-sources-2-03,high,L,CORRECTED,H10,"Unit crosswalk: site id <-> CWSS/Dyer code <-> DBpedia <-> NPS OOB string <-> monuments, with reconciliation report"
+hist-sources-2,hist-sources-2-04,high,XL,CORRECTED,H5,CWSS roster shards and real ancestor lookup by the ancestor's own name
+hist-sources-2,hist-sources-2-05,high,L,CORRECTED,C4,Official Records Ser. I Vol. 27 ingestion as the participant-time evidence layer
+hist-sources-2,hist-sources-2-06,high,M,CORRECTED,C4,Chronology-vs-evidence table for all 137 events (handoff for the time re-work)
+hist-sources-2,hist-sources-2-07,medium,M,CONFIRMED,H10,Cross-check the site's OOB and commander fates against the NPS AoP/ANV order-of-battle pages
+hist-sources-2,hist-sources-2-08,high,L,CONFIRMED,,"Monument validation and expansion from OpenStreetMap (ODbL, separate file)"
+hist-sources-2,hist-sources-2-09,medium,L,CORRECTED,N1;P2,Provenance for all 512 monuments from public-domain NPS documents and move the array out of the JS bundle
+hist-sources-2,hist-sources-2-10,high,L,CORRECTED,H7;H8,USGS 3DEP DEM grid and a genuine viewshed
+hist-sources-2,hist-sources-2-11,medium,XL,CONFIRMED,,1863 landscape layer from NPS CLR inventories and georeferenced Warren/Bachelder maps
+hist-sources-2,hist-sources-2-12,medium,S,CORRECTED,,"July 1-4, 1863 weather table from Prof. Jacobs"
+hist-sources-2,hist-sources-2-13,medium,M,CONFIRMED,,"Civilian testimony corpus (Pierce, Buehler, Hoke, Jacobs, Bates, NPS article)"
+hist-sources-2,hist-sources-2-14,medium,L,CORRECTED,,"Regiment narratives from state volumes, Vanderslice and Dyer (via CWSS)"
+hist-sources-2,hist-sources-2-15,medium,L,CONFIRMED,,Fox 1889 casualty layer and governance note on the Busey & Martin dependency
+hist-sources-2,hist-sources-2-16,low,L,CONFIRMED,,July 1863 newspapers (Chronicling America) as 'what the press reported'
+hist-sources-2,hist-sources-2-17,low,L,CONFIRMED,,Soldiers' National Cemetery burial lists (1864/65) as the Union burials layer
+hist-sources-2,hist-sources-2-18,high,M,CORRECTED,X5,"Implement attribution/compliance for CC BY-SA, ODbL, CC BY, MIT and agency credit lines"
+hist-sources-2,hist-sources-2-19,medium,S,CORRECTED,,"Tier C link-out registry (ABT, Fold3, Find a Grave, FamilySearch, HMDB, Stone Sentinels, ACHS) with CI guard"
+hist-sources-2,hist-sources-2-20,medium,S,CONFIRMED,,Media rights register and image/audio allowlist
+hist-sources-2,hist-sources-2-21,medium,M,CONFIRMED,N1;X3,"Reproducible data pipeline with lockfile, caching, rate budgets and CI"
+hist-sources-2,hist-sources-2-22,high,M,CONFIRMED,P1;P3,"Lazy, sharded delivery and performance budget for the expanded Historian"
+hist-sources-2,hist-sources-2-23,medium,S,CONFIRMED,,Evidence-record JSON schema and validators
+hist-sources-2,hist-sources-2-24,medium,S,CONFIRMED,H8,Answer guardrails and evaluation seed from the question matrix
+hist-sources-2,hist-sources-2-25,low,L,CONFIRMED,,Farm-level evidence: damage claims (permission) starting with the printed Trostle example
+hist-sources-2,hist-sources-2-26,low,M,CORRECTED,,Prisoners and hospitals: Fort McHenry subset and Medical & Surgical History extracts
+hist-sources-2,hist-sources-2-27,low,S,CONFIRMED,,"Re-check the unverified items (Kaggle, DPLA, Gutenberg, NPS API counts, Broadhead diary, Wikisource)"
+infra-netlify,infra-netlify-01,high,L,CORRECTED,X3;P7,Enforce a real per-page CSP (staged Report-Only to Enforce) with corrected allow-list and reporting
+infra-netlify,infra-netlify-02,high,M,CORRECTED,X4,embed.html framing conflict: X-Frame-Options cannot be unset; /embed clean URL is broken; fix with one-rule-per-header-name invariant
+infra-netlify,infra-netlify-03,medium,L,CONFIRMED,X3,"Externalise or hash inline scripts, styles, handlers and style attributes so CSP needs no unsafe-inline"
+infra-netlify,infra-netlify-04,medium,S,CONFIRMED,,Permissions-Policy least privilege per page (camera/geolocation/sensors only on /ar)
+infra-netlify,infra-netlify-05,low,S,CONFIRMED,,"COOP yes, CORP optional, COEP no (decision record)"
+infra-netlify,infra-netlify-06,low,M,CONFIRMED,,"Trusted Types in Report-Only, then enforce on static pages; sink hygiene"
+infra-netlify,infra-netlify-07,medium,M,CONFIRMED,,"Watch Together: persistent DOM-XSS via imported/stored tour notes, guessable global room code, unbounded connections"
+infra-netlify,infra-netlify-08,medium,M,CONFIRMED,P4;X3,Self-host Mapbox GL JS and PeerJS (interim SRI + upgrade); remove third-party script origins
+infra-netlify,infra-netlify-09,low,S,CONFIRMED,,Publish /.well-known/security.txt (survive Netlify dot-folder stripping)
+infra-netlify,infra-netlify-10,medium,M,CORRECTED,X3,CSP/Reporting collector (report-to + report-uri) with extension-noise filtering
+infra-netlify,infra-netlify-11,high,M,CONFIRMED,T3;E5,"One canonical URL form: clean URLs, stop Netlify rewriting authored links, 301 the .html form"
+infra-netlify,infra-netlify-12,medium,S,CONFIRMED,X4,"Remove developer pages from the deploy (diagnostics, unit-rendering-reference, duplicate icon)"
+infra-netlify,infra-netlify-13,medium,M,CORRECTED,P3;P4;P1,"Cache policy rework: fingerprint cacheable files, hash /data for immutable caching, fix icons rule"
+infra-netlify,infra-netlify-14,low,S,CONFIRMED,T2,Prune the 19 scanner redirect rules; explain and de-noise the 404 stream
+infra-netlify,infra-netlify-15,medium,S,CONFIRMED,T3,friendly-lolly-da85c0.netlify.app serves the full site: add host 301 and noindex previews
+infra-netlify,infra-netlify-16,low,S,CONFIRMED,G1,"user-guide.pdf: serve inline, version the file name, keep explicit download link"
+infra-netlify,infra-netlify-17,low,S,CONFIRMED,,404 semantics and OPTIONS handling
+infra-netlify,infra-netlify-18,medium,M,CONFIRMED,X1,"Mapbox token is URL-restricted: verify list/scopes, split dev/preview tokens, single config, blank-map UX, alerts"
+infra-netlify,infra-netlify-19,medium,M,CONFIRMED,X2;X5;H13,"Third-party frames (Google Street View, NPS video): restrict Google key, click-to-load, sandbox, remove Google preconnects, disclose"
+infra-netlify,infra-netlify-20,low,S,CONFIRMED,,Mapbox attribution disabled on two maps (ToS)
+infra-netlify,infra-netlify-21,critical,S,CONFIRMED,C6;P1;P5;P7,HOTFIX: stop the service worker forcing a second page load (and second Mapbox map session)
+infra-netlify,infra-netlify-22,high,L,CORRECTED,C6;P1;P5,"Rebuild the service worker (Workbox, prompt-based updates, navigation preload, offline page, versioned caches, kill switch)"
+infra-netlify,infra-netlify-23,low,M,CONFIRMED,,"Mapbox tile caching: allowed on-device, bounded and optional"
+infra-netlify,infra-netlify-24,medium,M,CORRECTED,E1;E2,Web app manifest and icon set overhaul
+infra-netlify,infra-netlify-25,medium,M,CONFIRMED,,"OG and manifest screenshots are one corrupt, duplicated placeholder PNG"
+infra-netlify,infra-netlify-26,high,M,CORRECTED,,"Deep-link contract not implemented: share links, embed CTA, regiment map links and PWA shortcuts land on default state"
+infra-netlify,infra-netlify-27,medium,S,CONFIRMED,P4;P5;X3,"index.html head: remove CSS preload/onload swap, dead preconnects and cross-world SW mismatch"
+infra-netlify,infra-netlify-28,high,XL,CONFIRMED,N1;P6,"Move to Git-connected deploys (previews, contexts, env vars, functions, build plugins); retire drag-and-drop"
+infra-netlify,infra-netlify-29,medium,M,CORRECTED,P7,"Automated quality gates (Lighthouse, headers, CSP crawl, links, images, axe, secrets)"
+infra-netlify,infra-netlify-30,medium,S,CONFIRMED,,Verify Netlify plan and credit exposure; adopt deploy discipline
+infra-netlify,infra-netlify-31,medium,L,CONFIRMED,H8,"Historian platform skeleton: Functions v2 API with rate limits, secrets, budget guard, cache, graceful degradation"
+infra-netlify,infra-netlify-32,medium,M,UNVERIFIABLE,T2;P1,"Traffic quality: proportionate bot handling, RUM pollution control, first-party Web Vitals with attribution"
+infra-netlify,infra-netlify-33,low,S,CONFIRMED,,"Monitoring, expiry and alerting"
+infra-netlify,infra-netlify-34,medium,S,CORRECTED,,"DNS hardening: CAA, deny-all mail records, HSTS preload submission, registrar security (DNSSEC not available on Netlify DNS)"
+infra-netlify,infra-netlify-35,low,S,CONFIRMED,T1;E5,"Search Console/Bing verification, sitemap and robots hygiene (infra side of T1)"
+infra-netlify,infra-netlify-36,high,M,CONFIRMED,X5,"Privacy policy: replace with an accurate, complete text"
+infra-netlify,infra-netlify-37,medium,M,CONFIRMED,X5,"Terms of service: replace, scope embedding, decide content licence"
+infra-netlify,infra-netlify-38,medium,M,CONFIRMED,,Data controls and consent posture for EU/UK visitors
+infra-netlify,infra-netlify-39,medium,S,UNVERIFIABLE,,"Account, secret and supply-chain security for a solo maintainer"
+pages-A,pagesA-01,critical,S,CONFIRMED,C7;S1,"Icon-sprite id collision: dashboard chart empty, report/regiment search dead, ledger clock static"
+pages-A,pagesA-02,high,S,CORRECTED,C8;A1;S4,"Global button reset out-specifies page classes (chips 1.10:1, Play 1.92:1, toggles 16px)"
+pages-A,pagesA-03,critical,L,CONFIRMED,H3;H4,Deep-link contract not implemented: every 'see it on the map' link is inert
+pages-A,pagesA-04,high,M,CONFIRMED,A1;A3;A4;A6;D2,"site-nav menu accessibility: aria wiring, focus management, focus rings, contrast, sizes, targets"
+pages-A,pagesA-05,medium,M,CONFIRMED,P4;D2;T1;H1,"Nav/footer are JS-injected: not crawlable, sprite pop-in, latent CLS, flat 20-item menu long on phones"
+pages-A,pagesA-06,medium,S,CONFIRMED,,"wireBackLinks() returns to previous same-origin page, not the map; relies on Netlify link rewriting"
+pages-A,pagesA-07,medium,S,CONFIRMED,X3,esc() incomplete/private; pages inject unescaped strings via innerHTML
+pages-A,pagesA-08,medium,S,CONFIRMED,E2;T1,"Footer/brand: no sources/credits/accessibility statement, name mismatch, low contrast, harvestable mailto"
+pages-A,pagesA-09,low,S,CONFIRMED,P4,"Shared motion/dead assets/cache: body fade, infinite box-shadow glow, dead .gtbg-lift and icons.svg, nav assets max-age=0"
+pages-A,pagesA-10,high,S,CONFIRMED,C7;S4;H7,Dashboard stat cards: highest_single_regiment_rate / undefined; the card also widens the phone layout to 446px
+pages-A,pagesA-11,high,M,CORRECTED,C7;H7,Dashboard developer 'Data note' exposes real data discrepancies; three different casualty totals; model not labelled as modeled
+pages-A,pagesA-12,high,M,CONFIRMED,S4;A4,"Chart is a fixed 1000px SVG: sideways scroll on phones, 10px labels"
+pages-A,pagesA-13,high,M,CORRECTED,A1;A3;A4,"Chart accessibility and interaction: touch/keyboard, non-text contrast, legend controls"
+pages-A,pagesA-14,medium,S,CONFIRMED,C7,"Dashboard loading/error/no-JS states, request waterfall, SW offline hole"
+pages-A,pagesA-15,medium,L,UNVERIFIABLE,S1,"Dashboard feature completions for A+ (metric switch, corps drawer, KPIs, CSV, print, Dataset JSON-LD)"
+pages-A,pagesA-16,high,S,CONFIRMED,C8;A1;A3,Search filter chips unreadable (C8): missing styles + cascade + invisible borders
+pages-A,pagesA-17,high,S,CONFIRMED,H7;C8,"Search shows alias rows, 'Commander unrecorded', dangling ' · ' separators"
+pages-A,pagesA-18,high,M,CONFIRMED,H8,"Search ranking is noisy: character-subsequence fallback, no tokenisation, no aliases/normalisation"
+pages-A,pagesA-19,medium,L,CONFIRMED,H8;H10,"Search index coverage: make copy true (batteries), then expand to brigades, commanders, events, monuments, pages"
+pages-A,pagesA-20,high,M,CONFIRMED,H2;A2;P1;D2,"Search UX/a11y completions: label, keyboard, highlight, URL state, live region, and mobile CLS 0.147"
+pages-A,pagesA-21,high,S,CORRECTED,S1;H7,"Report data bugs: 'undefined / C-CAV-1', blank alias report, dashes for computable rates, raw ids, numeric days"
+pages-A,pagesA-22,high,S,CONFIRMED,A2;D2,Report match list not keyboard-operable; search field unlabeled; inline onclick
+pages-A,pagesA-23,high,S,CONFIRMED,S1,"Report print stylesheet: nav/footer print, empty shell prints, gold-on-white headings, no header/citation"
+pages-A,pagesA-24,high,L,CONFIRMED,S1,"Report is sparse (S1): featured/sample state, content model, deep link, batteries/brigades"
+pages-A,pagesA-25,medium,S,CONFIRMED,H8;H7,"Copy claims exceed coverage: 'moment' reports, 'battery' search, 'whole battle' follow; field hygiene"
+pages-A,pagesA-26,high,M,CORRECTED,S4;A3;D2,"Compare mobile layout broken: side-by-side maps at 375px, toggle rows overflow, layout viewport 528px"
+pages-A,pagesA-27,high,L,CONFIRMED,C4;H10,"Compare shows a third of the units, stale positions, raw ids, its own clock"
+pages-A,pagesA-28,high,M,CONFIRMED,P1;P2;P4;D1,Map sub-pages block first paint on 1.8MB third-party script; misleading/missing error handling
+pages-A,pagesA-29,high,M,CONFIRMED,A2;A3;A4;D2,"Compare accessibility: unlabeled sliders, unlabeled toggles, no text alternative, no landmarks"
+pages-A,pagesA-30,medium,L,UNVERIFIABLE,S4,"Compare feature completions: linked view, presets, URL state, curtain mode, what-changed panel"
+pages-A,pagesA-31,high,L,CONFIRMED,H8,Camera 'Follow a Unit' offers 23 regiments (11 with one position); default unit absent at start
+pages-A,pagesA-32,high,M,CONFIRMED,H9;D2;A3;A5,"Camera controls: no timeline, fixed 1 tick/s, 'Tick' jargon, small targets, unlabeled select"
+pages-A,pagesA-33,high,M,CONFIRMED,P1;P2;D1,"Camera: no error handling, serial fetch waterfall, blocking script, heavy phone cost"
+pages-A,pagesA-34,medium,M,CONFIRMED,S3,S3 camera canvas 'painted incompletely': not reproducible; hardening + solar atmosphere model
+pages-A,pagesA-35,medium,L,CONFIRMED,,"Director Mode heuristic and camera feature completions (engagement score, hysteresis, manual handoff, event cues)"
+pages-A,pagesA-36,high,M,CONFIRMED,C4;C3,"One clock: three implementations disagree with each other, the app, the schema and history"
+pages-A,pagesA-37,high,M,CORRECTED,T1;T3;E2;E5,"Head/SEO: corrupt shared OG image, no JSON-LD/alt/site_name/icons, duplicate URL forms, thin static text"
+pages-A,pagesA-38,high,M,CONFIRMED,X1;X3;X5;P5,External deps/Mapbox token/CSP enforceability (X1 correction: tiles are URL-restricted)
+pages-A,pagesA-39,high,XL,CONFIRMED,N1;P3;P4;X3,"Shared-component extraction, manifest-driven build and derived-data pipeline (structural fix)"
+pages-A,pagesA-40,high,M,CORRECTED,N1,"Tests, CI and source control for sub-pages (would have caught RC-1/RC-2)"
+pages-A,pagesA-41,medium,S,CORRECTED,H7;E2;H8,"Copy, voice and typography pass on the five pages and nav"
+pages-A,pagesA-42,medium,M,CONFIRMED,A3;A4;D2;S4,"Type scale, touch targets and layout tokens (min 12px, 44px targets, aligned containers, color-scheme)"
+pages-A,pagesA-43,medium,M,CONFIRMED,P1;P2;P3;P4;P7,Performance budgets and page-by-page route to green (CWV/Lighthouse)
+pages-A,pagesA-44,low,S,CONFIRMED,A6,"Motion, visibility and reduced-motion handling in map pages"
+pages-B,pagesB-01,critical,M,CORRECTED,,Deep links from these pages into the map are dead
+pages-B,pagesB-02,high,M,CORRECTED,S2;P4,Render-blocking Mapbox GL JS and serial waterfall on sandbox/viewshed/ground-remembers
+pages-B,pagesB-03,high,S,CONFIRMED,,"No error, retry, empty or offline state on any data fetch"
+pages-B,pagesB-04,medium,M,CORRECTED,P3,"Request fan-out, data bundling and cache/SW strategy"
+pages-B,pagesB-05,high,M,CONFIRMED,C3;C4;H9,Adopt a single shared time-model module
+pages-B,pagesB-06,medium,S,CONFIRMED,P1,"Layout-shift risk: placeholders replaced by taller content, footer jumps, nav mount"
+pages-B,pagesB-07,high,M,CONFIRMED,A1;A2;A3;A4;A5;A6;D2,Accessibility baseline missing on all seven pages
+pages-B,pagesB-08,medium,S,CONFIRMED,A1;A3;A4;S4,"Touch targets, type sizes and contrast failures on these pages"
+pages-B,pagesB-09,medium,M,CONFIRMED,T1;T3;E2,"SEO/social: malformed og:image, missing twitter tags, JS-only content, duplicate URLs"
+pages-B,pagesB-10,medium,S,CONFIRMED,H7,"Dev-log copy, internal terms and ' -- ' typography"
+pages-B,pagesB-11,medium,S,CORRECTED,X1;X3,Hard-coded Mapbox token and version pins; no map error handling
+pages-B,pagesB-12,medium,M,CORRECTED,S1,"Shared page shell: tokens, sticky footer, back-link semantics"
+pages-B,pagesB-13,high,L,CONFIRMED,,No automated tests for these pages
+pages-B,pagesB-14,high,S,CONFIRMED,,Documentary narrative renders as one paragraph
+pages-B,pagesB-15,high,M,CONFIRMED,C4,Documentary eyebrow shows raw tick beside prose that contradicts the clock
+pages-B,pagesB-16,medium,S,UNVERIFIABLE,S4;A3,Documentary mobile: navigation row overflow and small targets
+pages-B,pagesB-17,medium,M,CONFIRMED,A6;D2;H2,"Documentary keyboard, screen-reader, deep-link and focus behaviour"
+pages-B,pagesB-18,medium,L,CORRECTED,,"Documentary feature completions (read-aloud, map, sources, chapters, prerender)"
+pages-B,pagesB-19,low,S,CONFIRMED,,"Documentary small defects: hard-coded 24, tick-556 tie, epilogue vignette"
+pages-B,pagesB-20,medium,M,CONFIRMED,A1,Students page palette clashes with site and fails footer contrast
+pages-B,pagesB-21,high,L,CONFIRMED,,Students content is not written for students
+pages-B,pagesB-22,medium,M,CONFIRMED,A6,"Students tabs, innerHTML injection, no-JS and link semantics"
+pages-B,pagesB-23,medium,L,UNVERIFIABLE,,Students classroom kit and feature completions
+pages-B,pagesB-24,medium,L,CONFIRMED,,"Aftermath thin content, no citations, weak semantics"
+pages-B,pagesB-25,low,S,CORRECTED,,Aftermath fact-check list for existing text
+pages-B,pagesB-26,high,S,CORRECTED,,Sandbox edit panel appears in the wrong place
+pages-B,pagesB-27,high,M,CORRECTED,A3;D2,Sandbox not operable by touch or keyboard (WCAG 2.5.7 / 2.1.1)
+pages-B,pagesB-28,high,M,CONFIRMED,C4,Sandbox scenario labels contradict the data
+pages-B,pagesB-29,medium,M,CONFIRMED,,Sandbox disposition control is wrong and cosmetic
+pages-B,pagesB-30,medium,M,CONFIRMED,H7,"Sandbox change-log spam, raw ids, no undo"
+pages-B,pagesB-31,low,S,UNVERIFIABLE,,Sandbox fragile first render and no resize/error handling
+pages-B,pagesB-32,medium,M,UNVERIFIABLE,A1;A3;A4;S4,Sandbox mobile layout and accessibility of page chrome
+pages-B,pagesB-33,low,L,UNVERIFIABLE,,Sandbox feature completions
+pages-B,pagesB-34,high,S,CONFIRMED,H8;H7,"Viewshed name, description and nav copy overpromise (rename honestly now)"
+pages-B,pagesB-35,high,M,CONFIRMED,H8,terrain.json coordinates and elevations do not match USGS 3DEP
+pages-B,pagesB-36,medium,M,CONFIRMED,H8,Real viewshed: USGS 3DEP DEM pipeline
+pages-B,pagesB-37,high,L,CORRECTED,H8,"Real viewshed: worker, ray-casting algorithm and overlay"
+pages-B,pagesB-38,medium,M,UNVERIFIABLE,H8,"Real viewshed: UX, accessibility and mobile spec"
+pages-B,pagesB-39,medium,XL,CONFIRMED,H8,Real viewshed: obstruction modelling and validation
+pages-B,pagesB-40,medium,M,CORRECTED,H8,Mapbox terrain-DEM boundary and 3D first-person view
+pages-B,pagesB-41,medium,S,CONFIRMED,S3;H7,"Viewshed page defects: no labels, dead code, unneeded flyTo, resize, CLS"
+pages-B,pagesB-42,high,M,CONFIRMED,S1,Regiment page opens as one search box above a floating footer (S1)
+pages-B,pagesB-43,high,M,CORRECTED,,Regiment 'Mentioned in the battle's narrative moments' finds 1 of 467 units
+pages-B,pagesB-44,high,M,CONFIRMED,H10,Regiment timelines empty though brigade data exists; artillery batteries never loaded
+pages-B,pagesB-45,medium,M,CONFIRMED,H7,"Regiment raw ids, alias stub, blank derivable fields, generic and dev text"
+pages-B,pagesB-46,medium,M,CONFIRMED,A2;A6;D2,"Regiment search: no label, no combobox semantics, weak matching"
+pages-B,pagesB-47,medium,L,CONFIRMED,T1,Prerender per-unit pages for search discovery
+pages-B,pagesB-48,medium,L,CONFIRMED,,Regiment feature completions
+pages-B,pagesB-49,high,M,CORRECTED,S2,"Ground Remembers S2: blank ~3 s, waterfall and loading state"
+pages-B,pagesB-50,high,M,CONFIRMED,,"Ground Remembers heat measures keyframe authoring density, not fighting"
+pages-B,pagesB-51,medium,M,CONFIRMED,A2;A3,"Ground Remembers controls, legend and text alternative"
+pages-B,pagesB-52,low,S,CONFIRMED,H7,Ground Remembers stale hard-coded counts and dev-log caveat
+pages-B,pagesB-53,medium,M,CORRECTED,H10,"Name index, true unit counts, VI Corps gap, vignette schema v2"
+pages-C,pages-C-01,high,M,CONFIRMED,,?tick=/?vignette=/?unit= deep links are dead site-wide (app reads only ?ancestor=)
+pages-C,pages-C-02,high,S,CONFIRMED,T1,Every og:image and both manifest screenshots are one corrupt near-black placeholder
+pages-C,pages-C-03,high,M,CORRECTED,P4;X1;X3,Mapbox GL 3.24.1 render-blocking CDN script (481 KB br) and token copy on 9 pages
+pages-C,pages-C-04,high,M,CONFIRMED,,No fetch/storage error handling: infinite 'Loading...' or half-initialised pages
+pages-C,pages-C-05,medium,S,CONFIRMED,S4;A4,Inputs under 16 px trigger iOS focus-zoom
+pages-C,pages-C-06,high,S,CORRECTED,P1;P4,Nav/footer injected after first paint shifts every sub-page ~55 px; body fade delays paint
+pages-C,pages-C-07,medium,S,CONFIRMED,A6;D2,"Missing landmarks, skip link, reduced-motion handling and color-scheme"
+pages-C,pages-C-08,medium,S,CONFIRMED,T1;E2;E5,"Head metadata parity: 8 feature pages lack twitter cards, og:image:alt, JSON-LD, icons"
+pages-C,pages-C-09,medium,M,CONFIRMED,A3;A4;S4;D2,"No shared page CSS: duplicated tokens, generic sans-serif, 26-40 px targets, 10-13 px text"
+pages-C,pages-C-10,medium,S,CONFIRMED,,'Back to the map' uses history.back() and can return to a different page
+pages-C,pages-C-11,medium,M,CORRECTED,X3,CSP enforcement readiness for these pages
+pages-C,pages-C-12,low,S,CONFIRMED,H7;H8,Copy voice: ASCII ' -- ' punctuation and developer-log phrasing
+pages-C,pages-C-13,medium,S,CONFIRMED,A1;A6,Shared nav: contrast below AA and menu semantics
+pages-C,pages-C-14,high,S,CONFIRMED,H8,Historian: last answer hidden behind sticky input; scroll goes to end of answer not start
+pages-C,pages-C-15,high,M,CONFIRMED,H8,"Historian answers are walls of text (206-375-word vignette dumps, 3 at a time)"
+pages-C,pages-C-16,high,M,CORRECTED,H7;H8,All 137 chronology answers render 'undefined'; intro overclaims sources; raw IDs leak into prose
+pages-C,pages-C-17,high,M,CONFIRMED,H8,Historian: no skeleton/error/empty/low-confidence states; leading-space scoring bug
+pages-C,pages-C-18,medium,S,CONFIRMED,A2;A3;A4,"Historian accessibility: unlabeled input, no live region, undersized chips"
+pages-C,pages-C-19,medium,S,CONFIRMED,S4,Historian mobile keyboard/viewport handling
+pages-C,pages-C-20,medium,M,CONFIRMED,H8,Historian chips and follow-ups are static
+pages-C,pages-C-21,medium,M,NOT_VERIFIED,H8;T1,"Historian conversation features missing (persistence, clear, copy/share, ?q=, shortcuts)"
+pages-C,pages-C-22,low,S,CONFIRMED,X3,Historian innerHTML sinks with data-driven strings
+pages-C,pages-C-23,medium,M,CORRECTED,P3,Historian client architecture will not scale: 15 fetches (350 KB) and main-thread corpus build
+pages-C,pages-C-24,high,S,CORRECTED,A2,Immersive: no mute or silent mode; Pause leaves the drone running
+pages-C,pages-C-25,medium,S,NOT_VERIFIED,A2,"Immersive volume: unlabeled, abrupt linear mapping, not persisted"
+pages-C,pages-C-26,high,M,CORRECTED,,"Immersive hearing safety: no limiter, instantaneous attacks, no warning"
+pages-C,pages-C-27,high,L,CONFIRMED,C4,Immersive sound model never goes quiet and contradicts its copy
+pages-C,pages-C-28,high,M,CONFIRMED,,"Immersive: iOS silent switch, interruptions and visibility unmanaged"
+pages-C,pages-C-29,medium,M,CORRECTED,P2,Immersive CPU/GC and GPU cost: per-event buffers and whole-map blend layer
+pages-C,pages-C-30,medium,M,NOT_VERIFIED,A2;A3;A6,"Immersive reduced motion, captions and a11y for an audio-only feature"
+pages-C,pages-C-31,medium,S,CONFIRMED,C4,Immersive atmosphere/readout uses a third clock
+pages-C,pages-C-32,medium,S,NOT_VERIFIED,P3;P4,"Immersive start-up: map gated behind all data, blocking script, no error path"
+pages-C,pages-C-33,low,M,NOT_VERIFIED,H9,"Immersive controls: silent loop wrap, no scrubber/presets/deep link"
+pages-C,pages-C-34,critical,S,CONFIRMED,,AR: iOS compass permission requested after two awaits (user gesture likely lost)
+pages-C,pages-C-35,high,M,CORRECTED,,"AR heading math: relative alpha on Chrome, upright-only formula, magnetic vs true north, no smoothing/calibration"
+pages-C,pages-C-36,high,S,CONFIRMED,X5,AR camera stream and GPS watch never released on failure/exit
+pages-C,pages-C-37,high,S,CONFIRMED,,AR geolocation errors conflated as 'denied'; 10s timeout unrealistic
+pages-C,pages-C-38,high,L,CONFIRMED,S4,AR gives desktop/no-sensor/off-site visitors a broken experience
+pages-C,pages-C-39,high,L,CONFIRMED,A3;A4,"AR markers: unreadable pile-ups, not tappable, ignore elevation/pitch, hard-coded FOV, DOM rebuilt at sensor rate"
+pages-C,pages-C-40,medium,S,NOT_VERIFIED,H7,"AR disclaimer voice, safety notice and beta labelling"
+pages-C,pages-C-41,medium,M,NOT_VERIFIED,,AR permission education and persistent status
+pages-C,pages-C-42,medium,M,NOT_VERIFIED,E1,AR battery/wake lock/layout
+pages-C,pages-C-43,medium,M,NOT_VERIFIED,A6,AR has no non-visual alternative
+pages-C,pages-C-44,low,S,CONFIRMED,,AR data: terrain.json typo and thin POI set
+pages-C,pages-C-45,low,S,CORRECTED,X3,Permissions-Policy grants camera/geolocation/motion to every page
+pages-C,pages-C-46,high,S,CONFIRMED,X3,Watch Together stored XSS: notes and imported tour files injected with innerHTML
+pages-C,pages-C-47,high,L,CORRECTED,X5,"Replace public PeerJS broker with an owned relay (reliability, privacy, supply chain)"
+pages-C,pages-C-48,high,M,CONFIRMED,X5,Room codes: 5 letters from Math.random in a shared global namespace; generic collision error
+pages-C,pages-C-49,high,L,CONFIRMED,H8,'Live Sync' only shares stop-to-stop slides; viewers can run their own tour; copy overpromises
+pages-C,pages-C-50,high,M,CONFIRMED,,"Watch Together connection robustness: no timeouts, reconnect, end session or specific errors"
+pages-C,pages-C-51,medium,S,CONFIRMED,,'Add stop' adds tick 1 when field empty; out-of-range silently clamped
+pages-C,pages-C-52,medium,S,CONFIRMED,,Unguarded localStorage/JSON.parse kills the page script
+pages-C,pages-C-53,medium,L,CONFIRMED,C4;H9,Tour authoring and playback UX is a prototype
+pages-C,pages-C-54,medium,M,CONFIRMED,A6,"Watch Together sharing: file-only, Safari download bug, inaccessible import, no link/QR"
+pages-C,pages-C-55,medium,M,CONFIRMED,A2;A3;A4,Watch Together accessibility/mobile; caption bar overlaps Mapbox logo/attribution
+pages-C,pages-C-56,medium,S,CONFIRMED,P4,Blocking third-party scripts on every visit for a rare feature
+pages-C,pages-C-57,low,S,CONFIRMED,H7;X5,Watch Together copy inaccuracies
+pages-C,pages-C-58,high,M,CONFIRMED,C3;C4,Turning Points deep links land on wrong moments; ticks contradict own chronology
+pages-C,pages-C-59,high,M,CONFIRMED,T1;E4,"Turning Points content only exists after JS runs (invisible to crawlers, no-JS, LCP)"
+pages-C,pages-C-60,medium,M,CONFIRMED,C4,Turning Points has no sources; claims need verification; meta contradicts body
+pages-C,pages-C-61,medium,S,NOT_VERIFIED,A4;A6,Turning Points accordion semantics and accessibility
+pages-C,pages-C-62,low,L,NOT_VERIFIED,,Turning Points A+ feature completion
+pages-C,pages-C-63,high,M,CORRECTED,H8,"Find Your Ancestor finds commanders, not ancestors: promise mismatch and weak genealogy funnel"
+pages-C,pages-C-64,medium,S,CORRECTED,,Feasibility decision: real individual lookup via NPS Soldiers and Sailors (CWSS)
+pages-C,pages-C-65,medium,M,CONFIRMED,H5,"Find Ancestor matching and sorting: full-name substring, no fuzzy/phonetic, text sort"
+pages-C,pages-C-66,medium,M,CORRECTED,H7,Find Ancestor result cards leak internal IDs and omit facts
+pages-C,pages-C-67,medium,M,NOT_VERIFIED,A2;A3;A4;S4,"Find Ancestor accessibility, mobile, URL state, empty state"
+pages-C,pages-C-68,high,S,CONFIRMED,,Cinematic Export fails silently on Safari<18.4 / no MediaRecorder; no try/finally
+pages-C,pages-C-69,high,M,CONFIRMED,,"Captions, logo and attribution are not in the exported video"
+pages-C,pages-C-70,high,L,CONFIRMED,H8,'Narrated flyover' is false: no audio track and no camera path
+pages-C,pages-C-71,high,XL,CORRECTED,P2,Cinematic Export: deterministic offline rendering (WebCodecs MP4) replaces real-time capture
+pages-C,pages-C-72,medium,M,CONFIRMED,,Cinematic Export lacks progress/cancel/limits; debug text; leaks; poor download path; low bitrate; unvalidated inputs
+pages-C,pages-C-73,medium,M,NOT_VERIFIED,,Cinematic Export output geometry is the on-screen map box; no presets
+pages-C,pages-C-74,medium,S,NOT_VERIFIED,A2;A3;A4,Cinematic Export accessibility/mobile polish
+pages-C,pages-C-75,high,S,CONFIRMED,S4,Living Ledger starts at '4 casualties' and overshoots the dataset by 838
+pages-C,pages-C-76,medium,M,CONFIRMED,C4,Living Ledger method/sources/discrepancies undisclosed; 'minute by minute' overclaim
+pages-C,pages-C-77,medium,S,CONFIRMED,C4,"Living Ledger clock uses 5:00 AM-per-day formula and ends 'July 3, 11:40 PM'"
+pages-C,pages-C-78,medium,M,CONFIRMED,H9,"Living Ledger play-through UX: dead Play after end, no scrubber, meaningless speeds, no ending"
+pages-C,pages-C-79,medium,M,NOT_VERIFIED,A2;A4,"Living Ledger accessibility, reduced motion, sensitivity"
+pages-C,pages-C-80,low,S,NOT_VERIFIED,,"Living Ledger timer loop: setInterval 10ms, hidden-tab, share/OG"
+pages-C,pages-C-81,high,S,CONFIRMED,X5,Privacy policy incomplete and partly inaccurate
+pages-C,pages-C-82,medium,S,CONFIRMED,E5;A6,Privacy/Terms presentation and discoverability
+pages-C,pages-C-83,high,M,CONFIRMED,X4,"Terms: embedding and data-reuse terms unsupported (no widget docs, no data licence, header conflict)"
+pages-C,pages-C-84,medium,M,NOT_VERIFIED,X5,"Terms missing clauses: NPS independence, AR safety, user content, third-party terms, liability, takedown"
+pages-C,pages-C-85,medium,S,CONFIRMED,T2,404 has good voice but no recovery paths
+pages-C,pages-C-86,low,S,CONFIRMED,T3,Duplicate URL forms with different cache policy
+pages-C,pages-C-87,medium,S,CONFIRMED,X4,embed.html header conflict: X-Frame-Options DENY + frame-ancestors * + report-only CSP
+pages-C,pages-C-88,high,M,CORRECTED,X4,"Embed widget has no documentation, generator or oEmbed"
+pages-C,pages-C-89,medium,M,CONFIRMED,A1;A4,"Embed widget quality: dead CTA, heavy data, timezone pick, tiny low-contrast text, no semantics"
+pages-C,pages-C-90,medium,S,CONFIRMED,X4,"diagnostics.html ships in publish dir, hidden only by a forced redirect"
+pages-C,pages-C-91,medium,S,CONFIRMED,X4,unit-rendering-reference.html is a live dev prototype with dev-log copy and an always-on render loop
+pages-C,pages-C-92,high,L,CORRECTED,N1;P1;P2,Automated regression suite (Playwright + axe + Lighthouse CI + data contracts + header assertions)
+perf-cwv,perf-cwv-01,critical,S,CONFIRMED,C6;P1;P5;P7,Remove the service-worker controllerchange reload; register the SW on idle (ship with 02+03)
+perf-cwv,perf-cwv-02,critical,S,CORRECTED,P2;P7;C6,Yield to first paint before evaluating the 2.28 MB bundle (boot-after-FCP loader)
+perf-cwv,perf-cwv-03,high,S,CONFIRMED,P1;P7,Remove entrance animations that hide the splash from FCP/LCP; dark pre-paint canvas
+perf-cwv,perf-cwv-04,critical,M,CONFIRMED,H3;P1;P7,"Delete or make opt-in the 3.5 s 'Fast-forwarding 3 days of battle' intro (it defines LCP, CLS and boot jank)"
+perf-cwv,perf-cwv-05,high,S,CORRECTED,P1;E3;E4,Lock the LCP element: one visible hero; no large text before first input
+perf-cwv,perf-cwv-06,high,S,CORRECTED,P1;P7,Kill the perpetual 60 Hz rAF+setState loop in the always-mounted monuments component
+perf-cwv,perf-cwv-07,high,L,CORRECTED,P1;P7,Zustand selectors and memoisation instead of 25 whole-store subscriptions
+perf-cwv,perf-cwv-08,high,L,CORRECTED,P1;P7;D3,"Frame-loop rewrite: O(n^2) label collision, interpolation and per-frame layout reads"
+perf-cwv,perf-cwv-09,high,L,CONFIRMED,P2;P6;P7,"Split the bundle, share Mapbox across pages, yield between chunks, publish source maps"
+perf-cwv,perf-cwv-10,high,M,CORRECTED,C1;C2;H3;P3,Mobile layout: mount one map and stop the eager 47-file data load
+perf-cwv,perf-cwv-11,high,M,CONFIRMED,P3;D3;H4,Data loading: 38 JSON at boot to a small core set; ensureDay(tick) also fixes empty map after jumps
+perf-cwv,perf-cwv-12,medium,S,CONFIRMED,P5;P7,Remove the CSS preload/onload swap (40 KB CSS is only Mapbox's stylesheet)
+perf-cwv,perf-cwv-13,medium,S,CONFIRMED,P7,Trim preconnect/dns-prefetch to api.mapbox.com only; Google origins on intent
+perf-cwv,perf-cwv-14,medium,S,CORRECTED,P4;P7,Take site-nav.js/css off the home critical path; version and immutably cache them
+perf-cwv,perf-cwv-15,high,M,CONFIRMED,P1,"App-shell CLS: fixed boxes for event card, story panel, clock; remove banner-injection shift"
+perf-cwv,perf-cwv-16,medium,M,CONFIRMED,H1;H6;P1,Replace the injected hack scripts in index.html with in-app components
+perf-cwv,perf-cwv-17,high,M,CORRECTED,P1,First-party web-vitals attribution beacon (client + Netlify Function + Blobs + report)
+perf-cwv,perf-cwv-18,medium,S,CONFIRMED,P1;T2,RUM hygiene: read the series not the badge; bot/outlier handling
+perf-cwv,perf-cwv-19,high,M,CORRECTED,P7,"Performance budgets and CI gates (Lighthouse budget, LHCI, HTML lint, probe, size-limit)"
+perf-cwv,perf-cwv-20,high,M,CONFIRMED,S3;S4;P7,Map sub-pages: defer the parser-blocking Mapbox script and CSS
+perf-cwv,perf-cwv-21,medium,S,CORRECTED,S4;P1,Sub-page CLS: reserve nav/footer/async content space
+perf-cwv,perf-cwv-22,medium,M,CONFIRMED,C6;P5,"Service worker redesign (no forced control, navigation preload, SWR data, build-id versioning)"
+perf-cwv,perf-cwv-23,medium,S,CORRECTED,P2;P3,Mapbox map options and request trimming
+perf-cwv,perf-cwv-24,medium,S,CONFIRMED,P2;X3,"Mapbox worker from a static, cacheable file (CSP build)"
+perf-cwv,perf-cwv-25,medium,S,CONFIRMED,X3;P4;P5,"netlify.toml headers, caching and CSP matched to the new boot"
+perf-cwv,perf-cwv-26,medium,L,CONFIRMED,H3;P2;P7,Static HTML chooser and map boot behind the user's choice or idle
+perf-cwv,perf-cwv-27,medium,S,CONFIRMED,P7,Lab harness guard for the LCP that Lighthouse's early stop hides
+perf-cwv,perf-cwv-28,medium,M,CORRECTED,P1,Scripted INP harness with long-animation-frame attribution
+perf-cwv,perf-cwv-29,low,S,CONFIRMED,P1,App performance marks and a 'map ready' definition
+perf-cwv,perf-cwv-30,low,S,CONFIRMED,E1;P7,Housekeeping that shows up in vitals audits
+perf-runtime,perf-runtime-01,critical,M,CORRECTED,,Unit canvas swallows all pointer input; map cannot pan/zoom/rotate (desktop + mobile)
+perf-runtime,perf-runtime-02,high,S,CORRECTED,C5,"Dead monuments rAF loop: exception storm, 45 commits/s idle, ref-of-ref bug breaks Monuments/NPS Tour/Ancestor fly-to"
+perf-runtime,perf-runtime-03,high,M,CONFIRMED,P1,Whole-store subscription: every store write re-renders the entire app
+perf-runtime,perf-runtime-04,high,M,CONFIRMED,H3;P1,"Boot intro writes the store every frame for 3.5 s, stalls input and creates the late LCP element"
+perf-runtime,perf-runtime-05,high,S,CONFIRMED,P1;P4,body{animation:gtbg-page-in} delays FCP from ~0.9 s to ~4.2 s
+perf-runtime,perf-runtime-06,high,M,CONFIRMED,C6;P1;P5;N1,First-visit SW reload and service-worker runtime design
+perf-runtime,perf-runtime-07,high,M,CONFIRMED,P3;P1,Boot waterfall: data requests start only after 2.28 MB JS runs; 38 requests (72 on mobile)
+perf-runtime,perf-runtime-08,high,L,CORRECTED,H3;C1;P1,Layout chooser mounts desktop app + Mapbox map; choosing Mobile tears it down and builds a second map
+perf-runtime,perf-runtime-09,high,M,CONFIRMED,H5,"Roster/OOB/Ancestor lists: 705 rows -> +4,989 DOM nodes, 680 ms open, re-rendered every tick"
+perf-runtime,perf-runtime-10,high,XL,CORRECTED,D3;P1,Replace full-viewport canvas unit renderer with Mapbox layers (dynamic GeoJSON + updateData)
+perf-runtime,perf-runtime-11,high,L,CORRECTED,P2;S2;S3;S4,Map sub-pages block first paint on a 1.8 MB third-party Mapbox script; no shared cache (FCP 3.3-5.5 s)
+perf-runtime,perf-runtime-12,high,S,CONFIRMED,X5,"watch-together.html runs PeerJS synchronously: 1.2 s long task, TBT 1,626 ms"
+perf-runtime,perf-runtime-13,medium,S,CONFIRMED,C3;H9;H7,"Clock widget _F: 60 Hz setState while playing, double-counted FPS, visible 'NN fps' debug text"
+perf-runtime,perf-runtime-14,medium,S,CONFIRMED,,Infinite box-shadow animation repaints every frame on every page
+perf-runtime,perf-runtime-15,medium,S,CONFIRMED,H9,"Playback clock: unclamped dt (jump to end after backgrounding), no visibility handling"
+perf-runtime,perf-runtime-16,medium,M,CONFIRMED,D3,"y1 interpolation: module-global accumulator, O(n^2), per-frame allocation; precompute timeline"
+perf-runtime,perf-runtime-17,medium,M,CONFIRMED,D3,"If canvas renderer stays: make it cheap (sprites, spatial hash, dirty flag, DPR cap)"
+perf-runtime,perf-runtime-18,medium,S,CORRECTED,,"Redundant per-tick work: three y1 passes, full redraw when paused, index rebuild, 8 s tint transition"
+perf-runtime,perf-runtime-19,medium,S,CONFIRMED,D2;A2,"Scrubber: per-event whole-tree writes, 10,000-step controlled range, unlabeled"
+perf-runtime,perf-runtime-20,medium,S,CONFIRMED,,Touch indicator and cursor glow setState per input event (and dead hover popup)
+perf-runtime,perf-runtime-21,medium,M,CONFIRMED,,"GPU-heavy CSS: 20 backdrop-filter blurs, mix-blend-mode multiply tint, drop-shadow filters"
+perf-runtime,perf-runtime-22,medium,S,CORRECTED,H1,"index.html Extra Features overlay scripts: boot task, forced reflows, per-click textContent, duplicated monuments overlay"
+perf-runtime,perf-runtime-23,medium,M,CORRECTED,X5,"Mapbox configuration and multiplicity: 3 map instances, no perf options, telemetry on"
+perf-runtime,perf-runtime-24,medium,S,CONFIRMED,H11,Dead/unused runtime artifacts and broken subscription (H11 root cause)
+perf-runtime,perf-runtime-25,medium,M,CONFIRMED,P3;T3,"Data layer: duplicate fetches, hourly revalidation, blocking site-nav revalidation"
+perf-runtime,perf-runtime-26,medium,S,CONFIRMED,,Story/event/toast panels: two commits per tick and effect-driven state chains
+perf-runtime,perf-runtime-27,medium,S,CONFIRMED,P2,148 KB of data literals compiled into the main JS
+perf-runtime,perf-runtime-28,medium,S,CONFIRMED,D1,Lazy chunks without prefetch or fallback (Help/Bookmarks appear late)
+perf-runtime,perf-runtime-29,medium,M,CONFIRMED,H13,Virtual Walkthrough opens a third Mapbox map and an immediate Google Street View iframe
+perf-runtime,perf-runtime-30,medium,M,CONFIRMED,S2,Ground Remembers: map waits for all data; whole-collection setData every 90 ms
+perf-runtime,perf-runtime-31,medium,M,CONFIRMED,S4,"Compare/Camera/Immersive/Cinematic: two maps, setData per input event, data before map"
+perf-runtime,perf-runtime-32,medium,M,CONFIRMED,H8,Search/Historian/Regiment/Ancestor/Report: N fetches + main-thread index assembly per visit
+perf-runtime,perf-runtime-33,medium,L,UNVERIFIABLE,H8,Ask-the-Historian scale: performance budgets and architecture constraints for the expanded databases
+perf-runtime,perf-runtime-34,low,M,CONFIRMED,A6,"No adaptive quality, DPR handling, reduced-motion or visibility handling in the app"
+perf-runtime,perf-runtime-35,medium,S,CONFIRMED,,"Prefetch/prerender/bfcache: add Speculation Rules for light pages, keep bfcache eligibility"
+perf-runtime,perf-runtime-36,medium,M,UNVERIFIABLE,P2;P7,"Boot long tasks: module eval, React mount, Map constructor, first render, shader compile"
+perf-runtime,perf-runtime-37,medium,M,CONFIRMED,P6;X5,"Measurement infrastructure: INP attribution, LoAF beacon, perf CI, real-device lab"
+perf-runtime,perf-runtime-38,low,S,CONFIRMED,H2,Found while profiling (functional hand-off): stale-mapRef effects and silent failures
+perf-runtime,perf-runtime-39,high,S,CORRECTED,N1;C6;P1,"Interim hot-patch set that needs no rebuild (verified anchors, A/B-tested locally)"
+prov-recon,prov-recon-01,critical,XL,CORRECTED,N1,Adopt Strategy C (TypeScript strangler rebuild); demote RECON to a salvage quarry; keep A only as a scripted bridge
+prov-recon,prov-recon-02,high,M,CORRECTED,N1,"Phase 0: archive all zips, git init a private repo, commit the baseline of record, prove a Git-driven deploy is byte-identical"
+prov-recon,prov-recon-03,critical,L,CONFIRMED,N1,"Build the parity harness first (data goldens, DOM/ARIA snapshots, visual smoke, intended-diff registry) against a hermetic legacy build"
+prov-recon,prov-recon-04,high,M,CORRECTED,H3,Implement one deep-link router; today 8 sub-page and embed links land on the default map and share links do nothing
+prov-recon,prov-recon-05,high,M,CORRECTED,N1;C6,Stop reusing filenames for different bytes: enforce content-hash naming and build-only-in-CI
+prov-recon,prov-recon-06,high,S,CONFIRMED,N1;X3,"Change netlify.toml from publish=""."" to a build/publish pair before any source enters the repo"
+prov-recon,prov-recon-07,high,S,CONFIRMED,H10,Resolve data name collisions and never copy RECON's public/ over the deployed tree
+prov-recon,prov-recon-08,high,M,CONFIRMED,X1;X2,Restrict the Mapbox and Google keys and keep them out of source; add secret scanning before the first commit
+prov-recon,prov-recon-09,high,S,CONFIRMED,,"Restore Mapbox attribution on the mobile, walkthrough and (RECON) main maps"
+prov-recon,prov-recon-10,medium,S,CONFIRMED,P2,"Pin mapbox-gl 3.24.1, guard WebGL 2, and drop no-op map options"
+prov-recon,prov-recon-11,high,M,CONFIRMED,P3,"Rewrite the data layer to the deployed contract (712 OOB records, lazy days, density files, tolerant fetches)"
+prov-recon,prov-recon-12,critical,XL,CORRECTED,D3;P2,Replace the canvas renderer and stateful interpolation with a pure keyframe engine and Mapbox symbol layers
+prov-recon,prov-recon-13,critical,M,CORRECTED,C3;C4,Single tick-to-clock module driven by a tick-to-timestamp table; remove the +2 date offset and the duplicate formulas
+prov-recon,prov-recon-14,critical,XL,CORRECTED,C1;C2;H3;S4,"Build one responsive mobile experience instead of the separate pO shell (fixes C1, C2 and 5 dead controls)"
+prov-recon,prov-recon-15,high,L,CONFIRMED,H9;P1,"Move the playback clock out of React and remove per-frame state updates (splash, HUD, story-marker layer)"
+prov-recon,prov-recon-16,high,M,CONFIRMED,H3;P1,"Redesign boot: HTML splash only until first map idle, no React splash on returning visits, no HTML-to-React swap"
+prov-recon,prov-recon-17,critical,M,CONFIRMED,C6;P1;P5,"Replace sw.js and the controllerchange reload with a versioned, update-prompting service worker plus a migration SW"
+prov-recon,prov-recon-18,low,S,CORRECTED,P1,Do not port RECON's Google Fonts change; fix the two real CLS sources
+prov-recon,prov-recon-19,high,M,CONFIRMED,P2;P3;P4;P6,Code-splitting and asset plan for mapbox-gl 3.24.1 with measured budgets
+prov-recon,prov-recon-20,medium,S,CONFIRMED,N1,Freeze the dependency matrix and record bundle identity in ADR 0002
+prov-recon,prov-recon-21,medium,S,CONFIRMED,H8,Define the store contract in TypeScript with selectors and drop 13 dead members
+prov-recon,prov-recon-22,high,L,CONFIRMED,H7,"Rebuild the Unit panel (commander succession, strength bar, key action, history) with resolved parent chain and data-driven alerts"
+prov-recon,prov-recon-23,high,M,CONFIRMED,H4;H2,"Unify story panel, event card and commander toasts into one notification system with correct auto-dismiss and Esc behavior"
+prov-recon,prov-recon-24,high,L,CONFIRMED,H5;H11;D4;H2,"Rebuild Search, Filter, Legend, Minimap, Roster and Order of Battle against the real data shapes (fixes H5, H11, D4)"
+prov-recon,prov-recon-25,high,M,CORRECTED,C5;H5;H7,Rebuild Follow Your Ancestor with a defined gold trail and a working ?ancestor= entry
+prov-recon,prov-recon-26,high,M,CONFIRMED,H13;G1;X3,Extract Walkthrough and Soldier's Eye data to schema-validated JSON; do not use RECON tourStops
+prov-recon,prov-recon-27,medium,M,CONFIRMED,C4;H7,"Extract NPS Auto Tour, story markers and the 512-monument directory into data with sources and corrected times"
+prov-recon,prov-recon-28,high,M,CONFIRMED,H3;A6,"First-run flow and layout persistence: merge chooser and onboarding, auto-detect device, remember the choice"
+prov-recon,prov-recon-29,medium,S,CORRECTED,H8,Decide the sound policy for the whole product and remove the undefined-global freeze
+prov-recon,prov-recon-30,high,M,CONFIRMED,H1;H6,Retire the index.html hook scripts and integrate Extra Features and Ask the Historian into the toolbar
+prov-recon,prov-recon-31,medium,S,CONFIRMED,H2;A6,"One hotkey registry: Esc works everywhere, no duplicate handlers, Help generated from the registry"
+prov-recon,prov-recon-32,low,S,CORRECTED,H8,Disposition table for dead code and unfinished features (delete by default)
+prov-recon,prov-recon-33,medium,S,CONFIRMED,H3,Storage migration module for old keys and bookmark shape
+prov-recon,prov-recon-34,high,M,CONFIRMED,A1;A4;D2;H6,"Design tokens and CSS architecture (one gold, z-index scale, 12 px minimum, 44 px targets)"
+prov-recon,prov-recon-35,high,L,CORRECTED,S1;S2;S3;S4;T3;E5,Repository layout and Astro for the 20+ static pages
+prov-recon,prov-recon-36,high,L,CORRECTED,S1;S2;S3;S4;T3;E5;X4,"Sub-page migration runbook that preserves URLs, bfcache back-navigation and embed behavior"
+prov-recon,prov-recon-37,high,M,CORRECTED,P3;H10,"Data pipeline directory with schemas, validators and versioned /data/v2 output"
+prov-recon,prov-recon-38,high,M,CORRECTED,P1;A1;X3,"CI/CD pipeline with a11y, perf, parity, link and secret gates"
+prov-recon,prov-recon-39,high,M,CORRECTED,N1,"Cutover, feature flags and rollback runbook"
+prov-recon,prov-recon-40,high,M,CORRECTED,C1;C5;C6;H11,"Scripted legacy bridge patches for the critical defects (asserted, versioned, retired at cutover)"
+prov-recon,prov-recon-41,medium,S,CORRECTED,N1,Effort roll-up and critical path
+prov-recon,prov-recon-42,medium,S,CONFIRMED,E1;T1,Regenerate the OG and PWA screenshots and fix manifest hygiene
+prov-recon,prov-recon-43,low,S,CONFIRMED,P2,Delete the orphan InterpolationWorker chunk and remove entry-chunk imports
+prov-recon,prov-recon-44,medium,L,CONFIRMED,N1,Spec-extraction task: per-component spec sheets from bundle.pretty.js
+prov-recon,prov-recon-45,medium,M,CORRECTED,P3,"Cut the boot request waterfall (34 JSON requests, duplicate chronology fetch, unused terrain)"
+prov-recon,prov-recon-46,high,M,CONFIRMED,A2;A3;A5;A6;D2,"Accessibility primitives first: Dialog, landmarks, labelled controls, live regions, target sizes"
+qa-ci,qa-ci-01,critical,M,CORRECTED,N1,"Create the repo, CI skeleton and the red-first ratchet (no quality system exists today)"
+qa-ci,qa-ci-02,critical,M,CORRECTED,C5;C6;E1;E3;E5;X3;X4;X5;T3;P4;P5,"Adopt the executable static gate suite (SL-01..SL-30, UG-01, AI-01..03, HP-01..15)"
+qa-ci,qa-ci-03,critical,L,CORRECTED,C1;C2;H3;D2;A3;N1,"Playwright foundation: generated viewport matrix, fixtures, dual legacy/next driver, state catalogue"
+qa-ci,qa-ci-04,critical,L,CONFIRMED,C1;C2;H1;S4;A3;A4;D2;D3;H3;H6,Overlap / occlusion / clipping / tappability detector suite with self-testing fixtures
+qa-ci,qa-ci-05,high,M,CORRECTED,C5;C7;H7;P5;X3,Console / pageerror / request / CSP gate plus interaction coverage and runtime debug-text scan
+qa-ci,qa-ci-06,critical,M,CONFIRMED,C3;C4;H9,"One clock, one date: golden tick-clock, time-model fallback, TM validators and browser proof"
+qa-ci,qa-ci-07,high,L,CORRECTED,C4;H5;H7;H10;D3;N1,"Data validator suite DV-00..DV-30 with ratchet registry, alias table and provenance gates"
+qa-ci,qa-ci-08,high,M,CONFIRMED,C6;P1;P5;T3,"Service-worker and first-load suite (first visit, warm visit, update, poisoning, migration, offline, bfcache)"
+qa-ci,qa-ci-09,high,L,CONFIRMED,A1;A2;A3;A4;A5;A6;D2;H2;H6;C8;S4,Accessibility automation gates and manual assistive-technology programme wiring
+qa-ci,qa-ci-10,high,M,CORRECTED,P1;P2;P4;P5;P6;P7;C6,"Lighthouse / Core Web Vitals lab gate on Lighthouse 13 with budgets, profiles and ratchet"
+qa-ci,qa-ci-11,high,M,CORRECTED,P2;P3;P4;P6,"Bundle, request and network budgets (size-limit, request invariants, WebGL context count, source maps)"
+qa-ci,qa-ci-12,medium,M,CORRECTED,H6;D2;S4,Deterministic visual-regression baselines for chrome states
+qa-ci,qa-ci-13,high,M,CORRECTED,X1;X2;X3;X4;X5,Security and privacy contract tests and a test-driven CSP roll-out
+qa-ci,qa-ci-14,high,L,CORRECTED,H2;H3;H4;H5;H9;H11;H12;H13;D1;D3;D4,"Function specs mapped to the H/D findings (first-run, keyboard, jump-state, search, minimap, ancestor, distance, walkthrough, help, mobile shell, deep links, seek safety, nav, embed)"
+qa-ci,qa-ci-15,medium,M,CORRECTED,S1;S2;S3;S4;E1;E2;E3;E4;E5;G1;T1;T3,"Static-page suites for the 20 tool pages, legal pages, 404, embed and the guide PDF"
+qa-ci,qa-ci-16,high,L,CORRECTED,P1;C5;X3;T2;X5,"First-party RUM (web-vitals attribution), collector, evaluator, error and CSP beacons"
+qa-ci,qa-ci-17,medium,M,CORRECTED,T2;N1;C6,"Synthetic production monitors, post-deploy smoke, alert routing and traffic hygiene"
+qa-ci,qa-ci-18,critical,L,CORRECTED,N1;C1;C2;C3;C4;H2;H3;H4;H5;H9;H10;H11;H12;D3,"Parity harness, intended-diff registry, hermetic legacy build and cut-over gates"
+qa-ci,qa-ci-19,high,M,CORRECTED,N1;X4;T3;E5,"Netlify pipeline: production branch, Deploy Previews, generated _headers, noindex previews, version.json, redirects, rollback workflow"
+qa-ci,qa-ci-20,medium,S,CONFIRMED,G1;H10;N1,"Versioning, changelog, public What's new, PR template and Definition of Done"
+qa-ci,qa-ci-21,medium,M,CONFIRMED,C1;C2;H3;P1,"Cross-browser and real-device programme (iOS Safari, Samsung Internet, low-end Android, iPad)"
+qa-ci,qa-ci-22,medium,L,CONFIRMED,H8,"Ask-the-Historian evaluation harness (retrieval, abstention, grounding, injection, performance)"
+qa-ci,qa-ci-23,high,M,CONFIRMED,N1,"Scorecard, gate catalogue, PR comment and weekly report (A+ stays A+)"
+qa-ci,qa-ci-24,medium,S,CONFIRMED,,Flake management and test health
+qa-ci,qa-ci-25,medium,S,CORRECTED,X1;X2,Golden / fixture / secret governance
+qa-ci,qa-ci-26,low,S,CONFIRMED,,"QA documentation, ADRs and runbooks"
+qa-ci,qa-ci-27,medium,M,CONFIRMED,H8;H10;H13;G1,"Manual programmes and the claims registry (AT, usability, expert review, copy)"
+qa-ci,qa-ci-28,medium,M,CONFIRMED,C1;C3;C5;C6,Gate the bridge patches to the frozen bundle
+qa-ci,qa-ci-29,medium,S,CONFIRMED,X5,"Third-party inventory, attribution and audio-policy tests"
+qa-ci,qa-ci-30,medium,S,CONFIRMED,N1;C3;C4;D3,Testability requirements for the rebuild (hooks contract)
+seo-growth,seo-growth-01,high,S,CONFIRMED,T1,"Re-establish Search Console and Bing Webmaster ownership (DNS TXT), submit sitemaps, add IndexNow"
+seo-growth,seo-growth-02,high,S,CORRECTED,T1;E1,Replace the corrupt og:image/PWA screenshot with valid distinct cards; complete twitter/og tags on all pages
+seo-growth,seo-growth-03,high,M,CORRECTED,T3;E5,"One canonical URL per page: extensionless canonicals, generated 301s, netlify.app host redirect, /landing.html, fix internal /index.html links"
+seo-growth,seo-growth-04,medium,M,CONFIRMED,E2;T1,Decide and apply the name 'Gettysburg Interactive Map' (drop 'Animated Battlefield Map' and 'minute-by-minute')
+seo-growth,seo-growth-05,medium,M,CORRECTED,T1;E3,"Per-page metadata, indexability disposition and visible intro copy for all 27 HTML files"
+seo-growth,seo-growth-06,medium,S,CONFIRMED,E5;T1,"Sitemap index with real lastmod, robots.txt with explicit AI-crawler policy, llms.txt"
+seo-growth,seo-growth-07,medium,S,CONFIRMED,T1,"Domain continuity: renew multi-year, keep lock, add second contact"
+seo-growth,seo-growth-08,medium,S,CORRECTED,E1,Manifest and PWA discoverability hygiene
+seo-growth,seo-growth-09,high,L,CORRECTED,E3;E4;T1,"Landing-first home (static / with app at /map), single h1, retire #seo-content; cloaking risk assessment"
+seo-growth,seo-growth-10,medium,M,CONFIRMED,T1,"Structured data programme: one JSON-LD @graph per template, validated in CI"
+seo-growth,seo-growth-11,medium,M,CONFIRMED,T1,"Build-time dynamic OG images per page (Satori + resvg), with alt text and validation"
+seo-growth,seo-growth-12,high,M,CONFIRMED,T1;P1;X1,"Static-first content pages: SVG mini-maps, no map engine on content pages, click-to-load only"
+seo-growth,seo-growth-13,high,XL,CORRECTED,T1;E4;E5,"Content-gated programmatic engine: generator, URL taxonomy, tiers, thin-content gate, staged release"
+seo-growth,seo-growth-14,high,XL,CONFIRMED,T1;H8,Enrichment corpus that makes entity pages genuinely unique (shared with Historian expansion)
+seo-growth,seo-growth-15,high,L,CONFIRMED,T1;E4,Moment pages (24) and /moments hub
+seo-growth,seo-growth-16,high,L,CORRECTED,C4;T1,Battle-by-day and part-of-day pages with hour anchors (blocked on time model)
+seo-growth,seo-growth-17,high,XL,CONFIRMED,T1;H10,"Order-of-battle hub tree: corps, divisions, 101 brigades, gated regiment/battery pages"
+seo-growth,seo-growth-18,medium,L,CONFIRMED,T1,"Place pages (30 key locations + structures/roads) from computed neighbours, gated on elevation fix"
+seo-growth,seo-growth-19,medium,M,CONFIRMED,T1,"Commander pages: ~40 Tier-A people, not 686"
+seo-growth,seo-growth-20,high,L,CORRECTED,T1;H5,"Ancestor funnel: 19 state pages, long-form guide, better lookup"
+seo-growth,seo-growth-21,medium,M,CONFIRMED,T1,Monument aggregation pages (13 groups) instead of 512 thin pages; source the data first
+seo-growth,seo-growth-22,medium,M,CONFIRMED,T1;C4,"Turning Points: nine pages with sources, timeline and map"
+seo-growth,seo-growth-23,medium,L,CONFIRMED,H8;T1,Curated static Q&A hub of ~60 questions ('Gettysburg questions answered')
+seo-growth,seo-growth-24,high,M,CONFIRMED,T1;E4,"Internal linking system: crawlable nav/footer in raw HTML, breadcrumbs, related graph, HTML sitemap, depth <=3"
+seo-growth,seo-growth-25,high,M,CONFIRMED,T1;G1;H10,"E-E-A-T pages: About, Sources, Method, Corrections, Changelog, Cite, Press; fix overclaims"
+seo-growth,seo-growth-26,medium,L,CONFIRMED,T1,"Open dataset with licence, DOI and matching Terms"
+seo-growth,seo-growth-27,medium,M,CORRECTED,T1,AI-search and answer-engine visibility
+seo-growth,seo-growth-28,medium,M,UNVERIFIABLE,T1,Keyword and intent map with a method that needs no paid tools
+seo-growth,seo-growth-29,medium,M,CONFIRMED,T1;E2,Competitive positioning statement and differentiation
+seo-growth,seo-growth-30,high,L,CORRECTED,T1,"Backlink and outreach programme with named targets, assets and KPIs"
+seo-growth,seo-growth-31,high,L,CORRECTED,T1;G1,"Classroom kit at /learn: 6 lesson plans, printables, standards, Classroom share, IT-admin and student-privacy pages"
+seo-growth,seo-growth-32,medium,M,CONFIRMED,X4;T1,"Embeds, share links, citation and print mechanics that earn links"
+seo-growth,seo-growth-33,medium,L,CONFIRMED,T1,Video: YouTube channel built from Cinematic Export
+seo-growth,seo-growth-34,medium,M,CONFIRMED,H7;H10;T1,"Editorial calendar, content operations, style guide and dev-copy lint"
+seo-growth,seo-growth-35,medium,M,CONFIRMED,T1;T2;X5,"Privacy-respecting analytics, event taxonomy, goals and privacy-policy update"
+seo-growth,seo-growth-36,medium,M,CONFIRMED,T2,Bot-traffic segmentation protocol for Netlify analytics
+seo-growth,seo-growth-37,medium,M,UNVERIFIABLE,T1;T3;E5,"Monitoring, SEO CI checks and weekly/monthly routines"
+seo-growth,seo-growth-38,high,M,CORRECTED,T1;T2;T3,"KPI dashboard, phase gates and risk register"
+time-facts,time-facts-01,critical,L,CORRECTED,C3;C4;H9;N1,One time model: time_anchors.json + shared module replacing the six divergent tick-to-clock implementations
+time-facts,time-facts-02,critical,S,CORRECTED,C3,"Fix the +2 date bug and missing day roll-over (header, monument tooltip, unit-history/Follow-Your-Ancestor panel)"
+time-facts,time-facts-03,critical,M,CONFIRMED,C4,Regenerate every chronology label and embedded clock time from the model; fix false metadata
+time-facts,time-facts-04,high,M,CORRECTED,C4,Re-tick 15 misordered/wrong-day chronology entries and split 9 composites; move Day-2 tail events to Day 3
+time-facts,time-facts-05,high,M,CONFIRMED,C4,"Historian review queue and sign-off workflow for contested times (5 review anchors, 33 disagreements, 45 L-confidence rows)"
+time-facts,time-facts-06,high,S,CORRECTED,C4;H7,"Correct vignette/chronology text errors found during time checking (V-022, V-020, V-021, t525/t530 quotes, t324, t100)"
+time-facts,time-facts-07,medium,M,CORRECTED,C4;H13,Generate walkthrough/monument/timeline-marker/turning-point/sandbox times from the model and fix their tick placements
+time-facts,time-facts-08,medium,S,CORRECTED,C4,Drive day/night tint (and optional moon) from real hours and computed sunrise/sunset
+time-facts,time-facts-09,medium,L,CORRECTED,H9,"Playback semantics: replace false '1x (real time)', handle gap/stall segments, add clock-time mode and optional July 4 ticks"
+time-facts,time-facts-10,high,L,CORRECTED,C4,Audit placements for arrival/timing errors (starting with Pickett's division)
+time-facts,time-facts-11,medium,M,CORRECTED,C4;S4,"Move Compare, Living Ledger, Camera/Viewshed and Sandbox to the shared time model"
+time-facts,time-facts-12,medium,M,CONFIRMED,C3;C4,CI contract tests and lint for time claims
+time-facts,time-facts-13,low,M,CORRECTED,C4;A2,"Time display UX: approximate marking, 5-minute rounding, Sources & Times disclosure"
+time-facts,time-facts-14,medium,M,CORRECTED,H8,Feed the real-time event table into Ask the Historian with range-aware answers
+time-facts,time-facts-15,low,XL,REFUTED,,Option B (only if uniform 5-minute real-time ticks are required): resample placements to a uniform real-time grid
+ux-flows,ux-flows-01,critical,L,CORRECTED,,"One URL-state contract: parse on load, serialise on share, legacy migration, data-version stamp"
+ux-flows,ux-flows-02,critical,L,CORRECTED,H3;A6,Remove the three entry gates; auto layout; add a skippable 20-second guided moment
+ux-flows,ux-flows-03,high,L,CORRECTED,H5;H7,"Unified search and command palette (Ctrl/Cmd+K): units, people, places, monuments, moments, commands, Ask"
+ux-flows,ux-flows-04,high,L,CORRECTED,H1;H6;D4,"One global IA: shared header, five destinations plus More, Features index, every control re-homed"
+ux-flows,ux-flows-05,high,L,CONFIRMED,C4,"One moments.json (ids, chapters, playlists) replaces six divergent lists; fix Turning Points anchors; named chapters"
+ux-flows,ux-flows-06,high,M,CONFIRMED,H7,"Share sheet: labelled Share everywhere, Web Share, QR, embed generator, image card, print, cite; mobile parity"
+ux-flows,ux-flows-07,high,S,CORRECTED,T3,Reliable 'Back to the battle': real link with last view; fix /index.html back links and cross-page history.back()
+ux-flows,ux-flows-08,high,M,CORRECTED,H3,Resume where you left off and a zero-click returning-visit path
+ux-flows,ux-flows-09,high,L,CONFIRMED,H5;H7,"One 'Find a regiment or ancestor' flow: alias-tolerant finder, canonical Unit page, working Follow, what-next"
+ux-flows,ux-flows-10,high,M,CONFIRMED,H7;D2,"Unit, Story and Moment cards: cross-links (Profile, Follow, Ask, Share), no ids or ticks, labelled controls"
+ux-flows,ux-flows-11,high,M,CONFIRMED,H4;D2,"Progressive disclosure: tiers, calm defaults on load, one card at a time, capped hints"
+ux-flows,ux-flows-12,high,M,CONFIRMED,C7;S1;S2;S4;D1,"State catalog and StateCard: loading, empty, error, offline, permission, boot failure, retry"
+ux-flows,ux-flows-13,high,L,CORRECTED,G1,"Classroom and Present modes with a Teach hub: lessons, class link/QR, print kit, student edition, cite, no accounts"
+ux-flows,ux-flows-14,high,XL,CORRECTED,E1;H13,"On-site mode: Near me, GPS dot, 528 POIs, AR redesign with radar fallback, offline pack, portrait"
+ux-flows,ux-flows-15,medium,M,CONFIRMED,E4;P1,"Text and Lite route: Battle Chronicle, skip link, data-saver/no-WebGL fallback, upgrade in place"
+ux-flows,ux-flows-16,medium,M,CONFIRMED,H7;H8;H9;H10;E2,"Naming and copy pass: honest names, no jargon, no dev-log voice, no 'AI-style', non-affiliation notice"
+ux-flows,ux-flows-17,medium,M,CONFIRMED,G1;D1,"Help and documentation IA: task-based Help, in-context hints, keyboard sheet from the registry, guide in sync"
+ux-flows,ux-flows-18,medium,M,CONFIRMED,H8,"Ask the Historian UX contract: contextual entry, answer cards with citations and coverage, drawer, thread, opt-in question log"
+ux-flows,ux-flows-19,high,S,CONFIRMED,,Quick fix: Historian chronology answers render the literal word 'undefined' (137 of 137)
+ux-flows,ux-flows-20,medium,M,CONFIRMED,H2;D2,"Shortcut and Esc contract with discoverability: registry-driven, hints on desktop, none on touch"
+ux-flows,ux-flows-21,medium,M,CONFIRMED,P1,"Measurement: two-week baseline, privacy-safe event taxonomy, web-vitals attribution, dashboards, experiments"
+ux-flows,ux-flows-22,medium,M,UNVERIFIABLE,,"Research program: card sort, tree test, first-click, three rounds of five-user moderated tests, ongoing loops"
+ux-flows,ux-flows-23,medium,XL,CONFIRMED,S2;S3;P2,"Map-mode convergence roadmap: Compare, Camera, Heat map, What-if, Sightlines, Sound, Human cost, Video as views of one map"
+ux-flows,ux-flows-24,medium,M,CONFIRMED,H9;D3,"Playback UX: Story pace, previous/next moment, quiet-stretch skip, honest speed labels, chapter chips, marker buttons"
+ux-flows,ux-flows-25,medium,L,CORRECTED,T1;E5,"Content permalink pages with unique share cards for moments, units, places and stops"
+ux-flows,ux-flows-26,high,L,CONFIRMED,C4,Fill the Day-1 afternoon silence and other quiet stretches with sourced moments
+ux-flows,ux-flows-27,medium,S,UNVERIFIABLE,,UX release gate: heuristic and cognitive-walkthrough checklist per release; friction register kept alive
+ux-flows,ux-flows-28,medium,M,CONFIRMED,G1;H7,"Trust layer: per-moment sources, data version and 'Updated' line, Report a problem, public corrections log, Sources and method"

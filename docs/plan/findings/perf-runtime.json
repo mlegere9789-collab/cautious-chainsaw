@@ -1,0 +1,816 @@
+{
+ "agent": "perf-runtime",
+ "summary": "Runtime/INP/main-thread analysis of gettysburginteractivemap.com (deployed bundle md5 7ef75b95 = SRC_DIR) using bundle.pretty.js reading plus ~100 live headless-Chrome loads (CDP; 4x CPU, Slow-4G profile; software GL so raster numbers are pessimistic, JS attribution valid) and local A/B patch experiments. Headline: JS drawing cost is tiny (lS 0.5 ms/frame); the problems are a stack of independent defects. (1) The z-10 unit canvas has pointer-events:auto and swallows all mouse/touch/wheel input, so the map cannot pan/zoom (live pixel-diff 0.01-0.02 vs 26.7 when hidden), desktop and mobile. (2) A dead monuments rAF loop throws 20 TypeErrors per frame (ref-of-ref bug), causing 45 React commits/s on an idle map and the top JS self-time on mobile; it also breaks NPS Tour/Ancestor fly-to. (3) 25 selector-less zustand subscribers incl. root AO re-render the whole app per tick/scrub/intro frame. (4) FCP is 4.2 s only because of body{animation:gtbg-page-in}; removing it gives 0.86 s. (5) First-visit LCP ~10 s: SW controllerchange reload at ~4.5 s, data fetch (38 requests, 72 on mobile) starts only after 2.28 MB JS runs, LCP element is story text revealed by the boot fast-forward. (6) 'Select Mobile' INP 584 ms (desktop shell+map mounted under the chooser, rebuilt for mobile); Roster open +4,989 DOM nodes/680 ms; boot 'Skip intro' 984 ms. (7) At 8x playback 11 fps -> 59 fps by removing canvas draw (17.8 fps by removing blur/blend). (8) Map sub-pages block on a 1.8 MB CDN Mapbox script (FCP 3.3-5.5 s), PeerJS blocks 1.2 s; infinite box-shadow animation repaints 60x/s forever. Verified good: bfcache works, JSON parse 2.6 ms, heap 10-20 MB. 39 fix specs with acceptance tests, a no-build hot-patch table, measurement plan and target table are in the report. Connectivity to Netlify dropped ~15 min mid-session (possible rate limit from my loads; recovered, status green).",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/perf-runtime.md",
+ "findings": [
+  {
+   "id": "perf-runtime-01",
+   "title": "Unit canvas swallows all pointer input; map cannot pan/zoom/rotate (desktop + mobile)",
+   "severity": "critical",
+   "evidence": "bundle.pretty.js:97393-97399 ux.canvas {position:absolute;inset:0;pointerEvents:'auto';zIndex:10} is a sibling after the Mapbox container (97364-97365); Mapbox HandlerManager listens on map.getCanvasContainer() (90310,90323-90342). Live CDP: elementFromPoint(700,450)=CANVAS z=10 pe=auto; NavigationControl zoom-in hit-test=CANVAS; map-area screenshot diff idle 0.27, mouse drag 0.018, wheel 0.014, touch drag 0.014 vs 26.7 after Toggle Units hides the canvas. Mobile canvas: pointer-events:auto;z-index:10;touch-action:none (102995) plus touchend preventDefault (102997-103003).",
+   "root_cause": "Unit picking implemented as a click target above the map instead of map.on('click'); hover/touch helpers (k4 9909, fF 97063, iO 101817) bolted on the same canvas.",
+   "fix": "Set pointerEvents:'none' on both unit canvases; move picking to map.on('click', e=>pick(e.lngLat)) using existing Xx(spatialIndex,...) (Mapbox suppresses click after drag); delete canvas onClick and k4 tap logic. Better: draw units as a Mapbox layer (perf-runtime-10) and use map.on('click','units')/queryRenderedFeatures with cursor via mouseenter/leave. Decide explicitly whether rotate gestures stay enabled.",
+   "effort": "M",
+   "acceptance_test": "Playwright: drag 300 px on #map changes map.getCenter(); wheel changes zoom; tap on a unit selects it; +/- buttons return the button from elementFromPoint; same with touch emulation at 375 px; pixel-diff test (flow4.js) shows >5 mean diff after drag.",
+   "metric_or_grade_moved": "Core function (B/D -> A), removes need for Toggle Units workaround; no perf cost",
+   "depends_on": [
+    "N1"
+   ],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "Evidence and root cause reproduced live: the overlay canvas is z10 with pointer-events auto, the zoom-in button hit-tests to the canvas, and the map container receives 0 mouse events. The fix is incomplete. The canvas onClick (97367-97376) also gates the Distance tool via window.__gtbgApp._gbDist(ev), and _gbDist (112758-112760) uses ev.target.getBoundingClientRect(). Deleting the onClick or switching to map.on('click') without adapting _gbDist to accept e.point/e.lngLat breaks the Distance tool or throws a TypeError. Map-click picking must also be gated on the Toggle Units flag (_uv), or hidden units become selectable. The rotate/pitch decision must be made explicitly, because canvas icons ignore map bearing."
+  },
+  {
+   "id": "perf-runtime-02",
+   "title": "Dead monuments rAF loop: exception storm, 45 commits/s idle, ref-of-ref bug breaks Monuments/NPS Tour/Ancestor fly-to",
+   "severity": "high",
+   "evidence": "KF (100844) recurses requestAnimationFrame(ut) forever (100850-100868) and per frame runs mA.forEach(pe=>{try{kt.project(...)}catch{}}) (100856-100862) then H(xe) (new object => re-render). AO stores the ref object: onMapReady:(ii,Ur)=>{Nn.current=ii;...} (113235-113238) while gF calls c(M,f) with M=useRef (97255); kt.project is undefined so 20 TypeErrors/frame, no monument renders (why index.html:608-714 built a star overlay). XF kt.flyTo (100852/100884) throws in the click handler; Zk Xe.flyTo (101087-101107). Measured: idle paused 45.1 React commits/s all KF; mobile 4x 1x: ut inclusive 914 ms/11.3 s (709 ms = throwing body); patched out: idle commits 0.0/s, idle script 744->65 ms per 10 s.",
+   "root_cause": "Ref object passed where the map instance is expected + always-on animation loop used to reposition DOM markers.",
+   "fix": "onMapReady must pass M.current; delete the per-frame loop; render monuments as a Mapbox symbol/circle layer from monuments.json (map.on('click','monuments')) or mapboxgl.Marker, or update on map 'move' with rAF coalescing only while showMonuments; remove index.html monuments overlay script (608-714) afterwards; add a test that no exception is thrown per frame during playback.",
+   "effort": "S",
+   "acceptance_test": "Idle paused: React commits/s == 0, ScriptDuration delta <20 ms per 10 s, no rAF callbacks other than Mapbox; Monuments toggle shows 20 stars aligned after pan/zoom; NPS Auto Tour flies and auto-plays; console 0 TypeErrors.",
+   "metric_or_grade_moved": "INP, TBT, battery/idle CPU; fixes Monuments, NPS Tour, Ancestor fly-to (functional)",
+   "depends_on": [
+    "N1",
+    "perf-runtime-39"
+   ],
+   "audit_refs": [
+    "C5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Mechanism and numbers confirmed. KF.props.mapRef.current is {current: Map}, so .project is undefined; idle commits were 59.3/s, and 0.0 with patch A. Corrections: (a) XF's flyTo is at 100330-100334, not 100852/100884, which are KF; the 'kt &&' guard does not help because the ref object is truthy, so the TypeError aborts before Kx() and the playback setState. (b) Zk's flyTo (101107) is masked by the C5 setGoldUnit ReferenceError at ~101086, so C5 and patch D must ship together. (c) The proposed window.onerror==0 test cannot detect this bug because the throws are inside try/catch. Use idle commits/s==0 or assert typeof mapRef.current.project==='function'. (d) The storm only starts after Mapbox 'load' fires, and the rate depends on rAF rate (45-60/s)."
+  },
+  {
+   "id": "perf-runtime-03",
+   "title": "Whole-store subscription: every store write re-renders the entire app",
+   "severity": "high",
+   "evidence": "yn() with no selector at 25 sites (9910, 97065, 97233, 97416, 97572, 97665, 97907, 98258, 98596, 98747, 99088, 99423, 99713, 99889, 100324, 100845, 101009, 101478, 101680, 102322, 102661, 102941, 111857, 112213 IO, 112940/112961 root AO); 0 selectors, 0 React.memo. setState({currentTick:same}) still notifies. React-hook measurement: each tick commit re-renders AO,gF,fF,P4,VF,WF,IO,XF,iO,nO,yO,qF,GtbgLoc,MF + 13 Vs toolbar buttons (27 renders); CF/LF commit twice per tick (98264-98289, 98600-98603).",
+   "root_cause": "Store consumed as a global object; children not memoized and re-created by the root render.",
+   "fix": "Create store with subscribeWithSelector; components use useStore(s=>s.x) / useShallow; split clock/ui/data stores; AO selects only layout flags; React.memo leaf components; renderer subscribes imperatively via useStore.subscribe(s=>s.currentTick, engine.onTick); make setTick a no-op when unchanged.",
+   "effort": "M",
+   "acceptance_test": "renders.js: during 1x playback <=1 commit per tick and <=5 components re-rendered per tick; during scrub <=2 components; idle 0 commits.",
+   "metric_or_grade_moved": "INP, TBT, battery",
+   "depends_on": [
+    "N1"
+   ],
+   "audit_refs": [
+    "P1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "26 yn() lines (report says 25 sites; 112940 and 112961 are both in AO), 0 selectors, 0 memo. zustand setState always creates a new state object, so unchanged writes still notify."
+  },
+  {
+   "id": "perf-runtime-04",
+   "title": "Boot intro writes the store every frame for 3.5 s, stalls input and creates the late LCP element",
+   "severity": "high",
+   "evidence": "tO ze(st) calls P(kt) and yn.setState({currentTick}) every rAF for eO=3500 ms (101489-101505, 101471) after 800 ms; each write re-renders the tree and (not playing) re-runs e1 (97285-97308): 13.3 commits/s, Vs 90 renders/s. Input during it: desktop 'Skip intro' INP-proxy 984 ms (input delay 330). Story panel CF shows the tick-675 vignette; LCP = its full_script paragraph at 9.7-10.1 s (104,562 px2).",
+   "root_cause": "Splash animates by driving real simulation state; story/toast/event/canvas widgets all react to it.",
+   "fix": "Replace fast-forward with CSS/SVG progress (no store writes) or remove it (H3); gate CF, LF, qF, nO, MF until onboarding done; don't mount desktop shell before layout is known (perf-runtime-08); keep a static large LCP anchor.",
+   "effort": "M",
+   "acceptance_test": "No yn.setState between mount and first user action; first tap INP-proxy <=150 ms at 4x; LCP element is the static splash; LCP <=2.5 s on mobile profile with warm SW.",
+   "metric_or_grade_moved": "LCP, INP, TBT",
+   "depends_on": [
+    "perf-runtime-08",
+    "N1"
+   ],
+   "audit_refs": [
+    "H3",
+    "P1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "101471-101505 as cited; the LCP element of 104,562 px2 at ~10.1-10.6 s was reproduced. Clarification: LCP keeps the largest painted candidate, so a static LCP anchor alone cannot fix it. The story/toast panels must be gated during boot; that gate is the actual fix."
+  },
+  {
+   "id": "perf-runtime-05",
+   "title": "body{animation:gtbg-page-in} delays FCP from ~0.9 s to ~4.2 s",
+   "severity": "high",
+   "evidence": "site-nav.css:12 body{animation:gtbg-page-in 340ms ease both} (from opacity:0 + translateY), loaded by index.html:279 and every page. Trace: firstPaint 935 ms but firstContentfulPaint 4,501 ms (when React replaces #root). CDP A/B rewriting site-nav.css: FCP 892 ms vs 4,196 ms; removing only splash boot-fade-in (index.html:99) no effect (4,264 ms).",
+   "root_cause": "Text painted under an opacity:0 ancestor is not counted as contentful and the compositor fade never repaints it, so FCP waits for the next DOM-driven repaint (hypothesis confirmed by A/B).",
+   "fix": "Delete the rule (or animate a non-root wrapper only after first paint, never from opacity 0 at document start); drop transform from body (containing block for fixed descendants); keep prefers-reduced-motion guard. Overlaps perf-cwv.",
+   "effort": "S",
+   "acceptance_test": "Mobile profile FCP <=1.2 s cold; Lighthouse mobile FCP <=1.8 s; verified on all 25 pages.",
+   "metric_or_grade_moved": "FCP Poor -> Good; Lighthouse Performance; partly LCP",
+   "depends_on": [],
+   "audit_refs": [
+    "P1",
+    "P4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Reproduced: FCP on / went from 3.8-4.3 s to 0.74-1.15 s. Scope note: the benefit is on / only. Sub-pages gain 0.15-0.45 s, and map sub-pages gain nothing (compare 3,272 vs 3,712 ms, because the Mapbox script blocks). The fix alone leaves LCP at ~10.1 s until 04 is done."
+  },
+  {
+   "id": "perf-runtime-06",
+   "title": "First-visit SW reload and service-worker runtime design",
+   "severity": "high",
+   "evidence": "index.html:264-267 controllerchange->location.reload(); sw.js:17 skipWaiting, :30 clients.claim. Live SW-on mobile run: second navigation at 4,555 ms, first-visit LCP ~10 s vs ~5.5 s without reload; 76 /data requests (two loads). sw.js:61-72 /data network-first + cache.put of every response (34-72 Cache Storage writes/visit); no navigationPreload; PRECACHE_ASSETS (sw.js:5-13) hard-codes index-Cg8FAMXN.js (fails install with case-mangled zip).",
+   "root_cause": "Auto-reload to hand control to new SW; naive network-first data strategy; precache list hard-coded.",
+   "fix": "Remove auto-reload; skipWaiting only after user-confirmed update toast (or let next navigation pick up); register at idle after LCP; enable navigationPreload; /data stale-while-revalidate keyed by version and only put on ETag change (or hashed immutable cache-first); generate precache from build manifest, skip big JS precache on saveData; add offline fallback.",
+   "effort": "M",
+   "acceptance_test": "Cold first visit has exactly 1 main-frame navigation; repeat visit /data served with 0 revalidations; first-visit LCP within 10% of returning-visit LCP + network.",
+   "metric_or_grade_moved": "LCP (first visit -4 to -5 s at 4G/4x), Lighthouse redirects audit, reliability",
+   "depends_on": [],
+   "audit_refs": [
+    "C6",
+    "P1",
+    "P5",
+    "N1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Reproduced: second navigation at 4,641 ms, 76 /data requests, second-load LCP 5,624 ms. Add to the fix: a vite:preloadError / dynamic-import catch when the auto-reload is removed, and only cache res.ok responses in the /data handler (sw.js:63-66)."
+  },
+  {
+   "id": "perf-runtime-07",
+   "title": "Boot waterfall: data requests start only after 2.28 MB JS runs; 38 requests (72 on mobile)",
+   "severity": "high",
+   "evidence": "Data requests issue at 4,400-4,532 ms (JS done 3,579 ms) and finish at 6.07 s (mobile profile); 34 files 516 KB raw/95.5 KB br, JSON.parse total 2.6 ms so cost is round trips. commander_successions.json fetched twice (96769, 97522); zp has no in-flight de-dupe (96900-96918); mobile calls zp(1..3) (103040-103042) and refetches chronology (102958-102960).",
+   "root_cause": "Fetches are issued from a React effect after full bundle execution; many tiny files; no shared data layer.",
+   "fix": "Build step emits one hashed boot.<hash>.json (~96 KB br) and one binary timeline.<hash>.bin for all 1,804 placements (~15-20 KB br); preload as=fetch fetchpriority=high plus inline window.__boot=fetch(...) so it overlaps the JS download; dataLayer.get(url) memo; parse via scheduler.postTask/worker; immutable caching for hashed files.",
+   "effort": "M",
+   "acceptance_test": "<=3 requests before first unit paint; data ready at JS-ready time (no gap in waterfall); /data requests per mobile session <=4; 0 conditional revalidations on repeat visit.",
+   "metric_or_grade_moved": "LCP/TTI, INP, reliability",
+   "depends_on": [
+    "N1"
+   ],
+   "audit_refs": [
+    "P3",
+    "P1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Duplicate fetches (96769, 97522), missing in-flight de-dupe in zp (96900), mobile zp(1..3) and chronology re-fetches, and data numbers (1,804 / 478 / 188 / median 7 / p90 18 / max 87) all match."
+  },
+  {
+   "id": "perf-runtime-08",
+   "title": "Layout chooser mounts desktop app + Mapbox map; choosing Mobile tears it down and builds a second map",
+   "severity": "high",
+   "evidence": "AO renders desktop shell for Zn!=='mobile' (113071) incl. null: under chooser maps=1, canvases=5, 526 nodes. Select Mobile: gF unmount Xe.remove (97263), pO new Map (102981); INP-proxy 584 ms (LoAF 433, blocking 361), 2 style requests, +50 requests (34 /data), 619 nodes; desktop IO timeline (transport row x -213..-54) and MF/CF/LF/_F/KF still mounted in mobile (113242-113283).",
+   "root_cause": "Layout is a post-boot user choice; two parallel component trees each owning a map.",
+   "fix": "Choose layout before mount: localStorage layout ?? matchMedia('(pointer:coarse) and (max-width:820px)'); replace full-screen chooser with a small switch control; mount one MapStage (one Mapbox instance reused by both layouts and Walkthrough) and swap only chrome; remove duplicate IO/panels in mobile; load days lazily/from single timeline file.",
+   "effort": "L",
+   "acceptance_test": "Exactly one .mapboxgl-map at all times; one style request per session; layout-select INP-proxy <=150 ms at 4x; mobile /data requests <=4; no negative-x transport row.",
+   "metric_or_grade_moved": "Mobile INP, LCP, memory (-1 WebGL context), C1",
+   "depends_on": [
+    "perf-runtime-10",
+    "N1"
+   ],
+   "audit_refs": [
+    "H3",
+    "C1",
+    "P1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence confirmed (113071 Zn!=='mobile' is true for null). Effort L is understated for one MapStage shared by both layouts and the Walkthrough in a minified bundle with no source. Realistically XL, or L only after N1 source reconstruction. A cheap interim gate is not S either, because IO/KF/CF/LF/_F/MF render regardless of layout and KF/XF/Zk read Nn.current."
+  },
+  {
+   "id": "perf-runtime-09",
+   "title": "Roster/OOB/Ancestor lists: 705 rows -> +4,989 DOM nodes, 680 ms open, re-rendered every tick",
+   "severity": "high",
+   "evidence": "Jk (102660) maps all U-/C- entries (410+295) through un-memoized hO rows (102548) in gA; subscribes to whole store and recomputes P each tick. Measured: 501->5,490 nodes, 354 ms to next paint (direct), INP-proxy 680 ms @4x, LoAF 557 ms, +11 ms/tick while open. Xk (102321) recomputes two entries/filter/localeCompare sorts per render (102345-102350); pO sorts twice per render (103127-103131, ~3 ms phone); Zk localeCompare sort ~101044 (H5).",
+   "root_cause": "No virtualization/memoization; list bound to per-tick state.",
+   "fix": "Virtualize with react-window FixedSizeList per column and React.memo rows (or content-visibility:auto; contain-intrinsic-size as first step); lazy mount; rows get placement via tick-keyed Map and re-render only if disposition/strength changed (or refresh at 1 Hz); memoize sorted arrays once per oobData with hoisted Intl.Collator numeric (fixes H5); group by corps.",
+   "effort": "M",
+   "acceptance_test": "Opening Roster/OOB adds <=400 DOM nodes and INP-proxy <=120 ms (desktop) / <=200 ms (mobile) at 4x; per-tick commit touches <=30 rows; steady-state nodes <=1,500.",
+   "metric_or_grade_moved": "INP (worst interaction), DOM size, memory",
+   "depends_on": [
+    "perf-runtime-03"
+   ],
+   "audit_refs": [
+    "H5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "+4,989 DOM nodes exact. Jk's sorted arrays are already memoized (102665-102679); fix item (3) applies only to Xk and pO."
+  },
+  {
+   "id": "perf-runtime-10",
+   "title": "Replace full-viewport canvas unit renderer with Mapbox layers (dynamic GeoJSON + updateData)",
+   "severity": "high",
+   "evidence": "8x playback @4x CPU: 11.4 fps -> 59.3 fps by skipping lS (17.8 fps after removing blur/blend) [local, software GL]; lS JS is only 0.54/2.8 ms per call so cost is canvas raster+composite of a 1440x852 layer cleared/redrawn each frame with shadowBlur (96612,96616), save/restore per unit, measureText per label (96669), 8-pass O(n^2) repel (96561-96581), an unused full-size canvas Uc; canvas not DPR-aware (c.width=getBoundingClientRect().width, 96510-96512; no devicePixelRatio in app code). Mapbox 3.24.1 ships GeoJSONSource#updateData with dynamic:true (bundle.pretty.js:59674-59711). Per-tick changed units: median 7, p90 18, max 87.",
+   "root_cause": "Units built as an immediate-mode overlay instead of GPU layers in the map's own frame.",
+   "fix": "Typed-array timeline + engine (16,03,15); source {type:'geojson',dynamic:true} with 478 pre-created features (numeric id), send only changed features per tick via updateData; symbol layer (icon-rotate from bearing, icon-size from strength, symbol-sort-key) + circle glow via feature-state + separate label symbol layer (text-optional, variable-anchor) so Mapbox collision replaces the repel loop; picking via map.on('click','units'); in-between motion at <=15 Hz or a small CustomLayerInterface uploading a Float32Array. Reuse unit-rendering-reference.html as prototype but avoid its permanent pulse rAF and per-frame setData. Fallback: perf-runtime-17 / OffscreenCanvas worker.",
+   "effort": "XL",
+   "acceptance_test": "8x playback at 4x CPU >=30 fps p95, 0 frames >100 ms (real Android >=30 fps at 4x); no per-frame Canvas2D Paint in trace; labels never overlap; one WebGL context.",
+   "metric_or_grade_moved": "INP during playback (0.5-1.5 s -> <200 ms), TBT, battery, D3, crisp DPR",
+   "depends_on": [
+    "perf-runtime-01",
+    "perf-runtime-03",
+    "perf-runtime-08",
+    "perf-runtime-16",
+    "N1"
+   ],
+   "audit_refs": [
+    "D3",
+    "P1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "updateData/dynamic at 59674-59711 verified; reference-page flaws verified. (a) The '11.4 to 59.3 fps by skipping lS' figure is cumulative with removing blur/blend. Re-run with valid tiles: base 13.6, skip lS alone 31.1, no blur/blend alone 19.6, both 57.9. (b) 'median 7 changed units per tick' only holds under today's sparse keyframe semantics; finding 16's real interpolation moves up to ~478 units per frame, so updateData cost at 478 features x 15 Hz must be re-benchmarked."
+  },
+  {
+   "id": "perf-runtime-11",
+   "title": "Map sub-pages block first paint on a 1.8 MB third-party Mapbox script; no shared cache (FCP 3.3-5.5 s)",
+   "severity": "high",
+   "evidence": "9 pages load classic non-defer <script src=api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js> (1,796,551 B raw / 385,039 B br, max-age 1y) + render-blocking CDN css in <head> (compare.html:19-20), no preconnect/defer; data fetch starts only after it (3.0-5.1 s). Mobile 4x FCP: compare 3,308, camera 3,508, sandbox 5,496, immersive 3,556, ground-remembers 3,456, viewshed 3,480, watch-together 4,912, cinematic 3,732. Main bundle carries a private copy of the same version.",
+   "root_cause": "Synchronous CDN script before content; app and sub-pages use different copies/cache keys.",
+   "fix": "Self-host one hashed /vendor/mapbox-gl-3.24.1.<hash>.js(+css) with immutable cache shared by app (Vite external + import map) and sub-pages; load with defer/dynamic import; preconnect/preload meanwhile; render page chrome + skeleton first, start data fetch in parallel, create map when both ready; evaluate v2.15.0 (985,978 B raw/219,663 B br, -165 KB br; no updateData) or MapLibre only after visual/licence check.",
+   "effort": "L",
+   "acceptance_test": "Mobile FCP <=1.5 s on all map pages, map interactive <=3.5 s; second sub-page visit downloads 0 bytes of Mapbox JS; TBT <=200 ms.",
+   "metric_or_grade_moved": "FCP/LCP/TBT on 9 pages, transfer size",
+   "depends_on": [
+    "N1"
+   ],
+   "audit_refs": [
+    "P2",
+    "S2",
+    "S3",
+    "S4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Facts exact (9 pages incl. the dev page; 1,796,551 / 385,039 br; v2.15.0 985,978; max-age 1y). Fix step (2) 'defer' would break all 8 product map pages because each runs an inline IIFE that sets mapboxgl.accessToken at parse time; the inline scripts must be wrapped in DOMContentLoaded or deferred at the same time. Sharing one cache entry needs the same URL and format in the app and sub-pages: UMD global, or the ESM entry dist/esm/mapbox-gl.js; an import map pointed at the UMD file will not work."
+  },
+  {
+   "id": "perf-runtime-12",
+   "title": "watch-together.html runs PeerJS synchronously: 1.2 s long task, TBT 1,626 ms",
+   "severity": "high",
+   "evidence": "watch-together.html:19 <script src=cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js> blocking; LoAF 4,154 ms with peerjs.min.js classic-script 1,211 ms + mapbox-gl.js 125 ms (live, 4x). PeerJS only needed at new Peer(...) (lines 224/251).",
+   "root_cause": "Eager third-party script for a feature that starts on button click.",
+   "fix": "Remove tag; load self-hosted PeerJS dynamically inside Host/Join handlers with a Connecting state (also fixes CSP/privacy accuracy X5); lazy-load mapbox-gl per perf-runtime-11.",
+   "effort": "S",
+   "acceptance_test": "TBT <=150 ms on load; no peerjs request until a button is pressed; Host/Join still works.",
+   "metric_or_grade_moved": "TBT/INP on that page (1,626 -> <200 ms)",
+   "depends_on": [],
+   "audit_refs": [
+    "X5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Reproduced: peerjs.min.js 1,080 ms LoAF, TBT 1,248 vs 247 ms without it, FCP +1.0 s. Caveat: lazy-loading on the Host/Join click moves the ~1 s cost onto that click's INP. Show the Connecting state and yield to paint before executing, or load at idle after LCP."
+  },
+  {
+   "id": "perf-runtime-13",
+   "title": "Clock widget _F: 60 Hz setState while playing, double-counted FPS, visible 'NN fps' debug text",
+   "severity": "medium",
+   "evidence": "_F (97415) runs its own rAF loop sT();P(Yx());H(ze=>!ze) (97419-97426), toggling a boolean each frame to blink a dot: ~23 commits/s at 1x; sT() called here and in Ed (96976) so FPS reads ~2x; fpsWarn renders '{M} fps' to users when M<55 (97446-97448) and lS paints orange fps text when <45 (96684-96687). Label `July ${l+2}` (97428) = C3; '1x (real time)' (97429) = H9.",
+   "root_cause": "Debug/blink loop implemented as React state per frame.",
+   "fix": "Delete rAF loop; blink via CSS opacity animation or drop; single shared formatTick() for toolbar/clock/story; hide FPS overlays behind ?debug=1.",
+   "effort": "S",
+   "acceptance_test": "Playing 1x: React commits ~= tick rate; no 'fps' text in DOM/canvas in prod.",
+   "metric_or_grade_moved": "INP/TBT, battery, polish",
+   "depends_on": [
+    "N1",
+    "perf-runtime-39"
+   ],
+   "audit_refs": [
+    "C3",
+    "H9",
+    "H7"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "97415-97448 verified; the sT() double-count means the '<55 fps' text only shows when real fps is below ~27."
+  },
+  {
+   "id": "perf-runtime-14",
+   "title": "Infinite box-shadow animation repaints every frame on every page",
+   "severity": "medium",
+   "evidence": "site-nav.css:41 .gtbg-historian-pin{animation:gtbg-pin-glow 3.4s ease-in-out infinite}, keyframes animate box-shadow (48-51): non-compositor property => style recalc+paint+commit per frame forever. Idle paused: 594 style recalcs/10 s, desktop 7% busy (GPU proc 16% in lab); removing it (with KF loop): recalcs 0, desktop idle 2%, mobile idle script 744->74 ms/10 s.",
+   "root_cause": "Attention-glow animated via main-thread property.",
+   "fix": "Animate opacity of a ::after pseudo-element with pre-rendered shadow (compositor-only), only while on-screen/not hovered (IntersectionObserver or animation-play-state), stop after N iterations; keep reduced-motion override.",
+   "effort": "S",
+   "acceptance_test": "Idle page: RecalcStyleCount delta 0 and no FireAnimationFrame over 10 s; Paint flashing shows no repaint.",
+   "metric_or_grade_moved": "Battery/thermals, idle CPU, INP baseline",
+   "depends_on": [],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "site-nav.css:41 and 48-51; reproduced 592-610 recalcs per 10 s on the map and 601 on search.html; 0 with the glow disabled."
+  },
+  {
+   "id": "perf-runtime-15",
+   "title": "Playback clock: unclamped dt (jump to end after backgrounding), no visibility handling",
+   "severity": "medium",
+   "evidence": "const ze=F_?c-F_:16; Hc+=ze (96977,96983); ht=Math.floor(Hc/Pe); it=Math.min(H+ht,675) (96984-96986). rAF stops in hidden tabs; on return dt can be minutes -> hundreds of ticks in one frame, >=5 min = instant end and isPlaying:false (96993-96999); flash table uF only sees first->last tick (97033-97044). [code-derived]",
+   "root_cause": "No dt clamp; no visibilitychange/pagehide handling.",
+   "fix": "Engine: dt=Math.min(now-last,100); pause on visibilitychange/pagehide, resume on pageshow; make ms-per-tick explicit and fix H9 label (2 ticks/s = 10 sim-min/s).",
+   "effort": "S",
+   "acceptance_test": "Play 1x, hide tab 60 s, return: tick advanced <=1; bfcache round trip resumes cleanly.",
+   "metric_or_grade_moved": "Functional correctness; RUM INP outliers",
+   "depends_on": [
+    "perf-runtime-03"
+   ],
+   "audit_refs": [
+    "H9"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "96977-96986 verified. Minor: the '5 min hidden = instant end' case requires a starting tick of at least ~75 at 1x."
+  },
+  {
+   "id": "perf-runtime-16",
+   "title": "y1 interpolation: module-global accumulator, O(n^2), per-frame allocation; precompute timeline",
+   "severity": "medium",
+   "evidence": "const i2={} (96265) filled by M.forEach(R=>i2[R.unit_id]=R) (96270) and never cleared: rewinding/jumping days keeps every unit ever seen at last-visited position (after tick 675, tick 1 shows ~405 extra units at future positions; matches D3 'July 3 dawn empty fields'). Per frame: two {...i2} copies of up to 478 keys, Object.values, M.find inside .map (96297), dA reprojects (97019) and lS projects again (96544). Data is keyframes (188/675 ticks populated) so most frames have M=[].",
+   "root_cause": "Stateful global accumulator instead of a queryable timeline.",
+   "fix": "Build step converts placements to per-unit keyframe SoA typed arrays (tick u16, lat/lng i32 1e-6, bearing u16, strength u16, disp u8, unitStart u32); runtime stateAt(tickFloat) binary-searches each unit's keys (~2.4k ops for 478 units), lerps between its own consecutive keyframes with existing easing, writes into preallocated Float32Arrays; build hit-test grid lazily from that buffer.",
+   "effort": "M",
+   "acceptance_test": "Jump 1->451->1 yields the same unit set as fresh load at tick 1; stateAt <=0.1 ms at 4x for 478 units; GC <5 ms/10 s.",
+   "metric_or_grade_moved": "Correctness (D3), CPU, GC; enables perf-runtime-10",
+   "depends_on": [
+    "perf-runtime-07",
+    "N1"
+   ],
+   "audit_refs": [
+    "D3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "const i2 = {} at 96265, merged in y1 and never cleared."
+  },
+  {
+   "id": "perf-runtime-17",
+   "title": "If canvas renderer stays: make it cheap (sprites, spatial hash, dirty flag, DPR cap)",
+   "severity": "medium",
+   "evidence": "lS (96506-96688): getBoundingClientRect per frame (96510); second project per unit; X4 O(U*C) proximity with Object.fromEntries (96480-96505,96552); 8-pass O(n^2) repel (96561-96581); save/translate/rotate/restore + stroke per unit; shadowBlur 8/14; measureText+fillRect+fillText per label uncached (96664-96682); no dirty check; c.width= resets state; K4 getImageData readback on resize (96710).",
+   "root_cause": "Immediate-mode drawing without caching or change detection.",
+   "fix": "Pre-rendered ImageBitmap sprites per side x disposition x size bucket with drawImage; one pre-blurred glow sprite instead of shadowBlur; label bitmap cache; spatial-hash repel (24 px, 2 passes) or none below zoom 14; project once into shared Float32Array; skip draw when (tickInt,fracBucket,cameraHash,selection,filters,size) unchanged; DPR cap min(dpr,2) (1.5 on deviceMemory<=4); getContext('2d',{alpha:true,desynchronized:true}); ResizeObserver only; 30 fps cap on coarse pointers independent of width.",
+   "effort": "M",
+   "acceptance_test": "lS <=1.0 ms at 4x for 300 visible units; no shadowBlur/measureText in a 10 s trace; 8x playback p90 frame <=33 ms at 4x (lab).",
+   "metric_or_grade_moved": "Frame time, INP during playback",
+   "depends_on": [
+    "perf-runtime-01",
+    "perf-runtime-16",
+    "N1"
+   ],
+   "audit_refs": [
+    "D3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "lS structure and the cited costs (getBoundingClientRect, shadowBlur, measureText, K4 getImageData) verified."
+  },
+  {
+   "id": "perf-runtime-18",
+   "title": "Redundant per-tick work: three y1 passes, full redraw when paused, index rebuild, 8 s tint transition",
+   "severity": "medium",
+   "evidence": "Effects 97281-97326: C4(Se) tint (background transitions 8 s under mix-blend-mode), [Se,ze,Ee]->e1 (y1+lS) whenever not playing, [Se,Ie]->y1+aT (string-keyed grid) : 3 y1 computations per tick; mobile duplicates (103063-103096); index only needed on pointer events.",
+   "root_cause": "Each effect recomputes state independently.",
+   "fix": "Single engine callback per integer tick computing state once and feeding renderer + shared buffer; build hit-test grid lazily on first pointer event; update tint only when hour bucket changes.",
+   "effort": "S",
+   "acceptance_test": "1 stateAt per tick + 1 per rendered frame; scrubbing 40 ticks builds 0 indexes until a pointer event.",
+   "metric_or_grade_moved": "TBT/INP during scrub/playback",
+   "depends_on": [
+    "perf-runtime-03",
+    "perf-runtime-16"
+   ],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "Two y1 passes per tick on desktop (e1 at 97046 via the effect at 97318, plus the index effect at 97324), or Ed + the index effect while playing; not three. The fix is unchanged."
+  },
+  {
+   "id": "perf-runtime-19",
+   "title": "Scrubber: per-event whole-tree writes, 10,000-step controlled range, unlabeled",
+   "severity": "medium",
+   "evidence": "<input type=range min=0 max=100 step=0.01 value={he} onChange=setTick(Math.round(...))> (112294-112303) writes store every input event even when tick unchanged; mobile onTouchMove setTick per touchmove (103184-103189) re-renders 7,000-line pO (+2 sorts). Scrub-drag INP-proxy 304 ms paused, 800 ms playing @4x.",
+   "root_cause": "Controlled input tied to global store; no coalescing.",
+   "fix": "step=1 min=1 max=675 with aria-label and aria-valuetext=formatTick(tick); local thumb state; commit tick via rAF coalescing + startTransition; skip unchanged writes; pause playback while dragging; pointer events single path; touch-action:pan-y.",
+   "effort": "S",
+   "acceptance_test": "Scrub INP-proxy <=150 ms paused, <=250 ms playing at 4x; <=1 store write per frame; axe: slider named.",
+   "metric_or_grade_moved": "INP, A2",
+   "depends_on": [
+    "perf-runtime-03"
+   ],
+   "audit_refs": [
+    "D2",
+    "A2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "112294-112303 (min 0, max 100, step 0.01) and 103184-103189 verified."
+  },
+  {
+   "id": "perf-runtime-20",
+   "title": "Touch indicator and cursor glow setState per input event (and dead hover popup)",
+   "severity": "medium",
+   "evidence": "k4 (9909) H({x,y}) on every touchmove (9926) inside gF (map + fF + P4) => 60-120 renders/s; iO CursorGlow (101817) setState per mousemove with getBoundingClientRect and left/top transition (101828,101870-101872) attached to the map container that the canvas covers (dead today); fF hover popup receives {map,canvas} (97384) instead of {hoveredUnit,mousePos} so is permanently null.",
+   "root_cause": "Pointer-driven visuals implemented as React state.",
+   "fix": "Remove fF/k4 state; if a ripple is wanted move one fixed div with transform translate3d from a passive pointermove handler (no React); same for glow or drop it.",
+   "effort": "S",
+   "acceptance_test": "0 React commits during touch/mouse move over map (renders.js).",
+   "metric_or_grade_moved": "Touch INP, dead-code removal",
+   "depends_on": [
+    "perf-runtime-01"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "iO listens on the map container (dead today); fF receives {map, canvas} and returns null."
+  },
+  {
+   "id": "perf-runtime-21",
+   "title": "GPU-heavy CSS: 20 backdrop-filter blurs, mix-blend-mode multiply tint, drop-shadow filters",
+   "severity": "medium",
+   "evidence": "backdropFilter blur appears 20x in app inline styles (toolbar 113315, timeline 112381, panels, minimap, chooser 102922, intro 101614); A4() adds full-viewport div mix-blend-mode:multiply with 8 s background transition (9885-9899); KF glow filter drop-shadow x2 (100911). Lab A/B 8x@4x: removing all backdrop-filter+mix-blend-mode: 11.3 -> 17.8 fps (p50 67 -> 33 ms) [software GL; direction reliable, magnitude not].",
+   "root_cause": "Decorative effects layered over a live WebGL map.",
+   "fix": "Solid/semi-opaque backgrounds on map chrome; blur only on static screens and hover-capable >=900 px; night/day tint via Mapbox raster paint props or plain rgba overlay without blend mode/8 s transition. No-build interim in index.html <style>: @media (max-width:900px){[style*=\"backdrop-filter\"]{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background-color:rgb(8 8 18/.96)!important}} [style*=\"mix-blend-mode\"]{mix-blend-mode:normal!important}.",
+   "effort": "M",
+   "acceptance_test": "Real Android 8x playback +>=10 fps vs base; no backdrop-filter on elements over the map on coarse pointers.",
+   "metric_or_grade_moved": "Frame time/battery, INP during playback",
+   "depends_on": [],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "20 backdropFilter occurrences; mix-blend-mode is inside the A4 cssText string at 9895. The drop-shadow at 100911 is on monument markers that never render today. The interim CSS changes multiply to normal, which visibly changes the day/night tint."
+  },
+  {
+   "id": "perf-runtime-22",
+   "title": "index.html Extra Features overlay scripts: boot task, forced reflows, per-click textContent, duplicated monuments overlay",
+   "severity": "medium",
+   "evidence": "Seven inline scripts (index.html:294-714): populate() at idle = 183 ms task @4x during React/Mapbox boot (forced layout 69 ms; LoAF 4,650 ms); reposition = 6x(style write->getBoundingClientRect on every interactive element) 150 ms after every click (599-602), measured 1.4 ms/call idle but scales with open panels; capture click handler reads textContent of 6 ancestors (0.35 ms, 476-482) even after reveal; tryInject/tryLabel run querySelectorAll('body *')/('button') every 200 ms up to 25x (369,411); monuments overlay (608-714) duplicates KF; overlay reveal shift CLS 0.02.",
+   "root_cause": "Injected workaround layer instead of native toolbar integration.",
+   "fix": "Fold Ask the Historian/Extra Features into the React toolbar (H1) and delete scripts; interim: remove click-capture listener after reveal, use a fixed layout slot instead of 6-candidate measuring, add contain:layout style.",
+   "effort": "S",
+   "acceptance_test": "No inline-script FunctionCall >5 ms after DOMContentLoaded; overlay causes 0 CLS.",
+   "metric_or_grade_moved": "TBT, CLS, INP under load, H1",
+   "depends_on": [],
+   "audit_refs": [
+    "H1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Six inline overlay scripts (lines 294, 355, 398, 441, 521, 608), not seven. The other cited line numbers were verified."
+  },
+  {
+   "id": "perf-runtime-23",
+   "title": "Mapbox configuration and multiplicity: 3 map instances, no perf options, telemetry on",
+   "severity": "medium",
+   "evidence": "new Map({container,style,center,zoom,minZoom,maxZoom,maxBounds,dragPan,scrollZoom}) (97237-97250): no fadeDuration:0, renderWorldCopies:false, pixelRatio cap, maxTileCacheSize, performanceMetricsCollection:false (default true, 91907; 4 events.mapbox.com POSTs during load). Instances: gF (97237), pO (102981), Walkthrough _O (110770) while the desktop map keeps rendering underneath. First-map cost @4x: ctor 375 ms, _setupPainter 301 ms, first _render 596 ms (getOrCreateProgram 181 ms); ~15 @2x WebP tiles ~570 KB at first paint on 375x812.",
+   "root_cause": "Each feature creates its own map; defaults left on.",
+   "fix": "One shared map (08); options {fadeDuration:0,renderWorldCopies:false,pixelRatio:Math.min(devicePixelRatio,2),performanceMetricsCollection:false,collectResourceTiming:false,maxTileCacheSize:64}; lower raster pixelRatio on low tier; Walkthrough flies the shared map; warm shaders at map 'idle'.",
+   "effort": "M",
+   "acceptance_test": "One .mapboxgl-map/WebGL context per page; <=1 events.mapbox.com request per load; satellite tile bytes at first paint <=300 KB on mobile profile.",
+   "metric_or_grade_moved": "Boot long tasks, memory, transfer, privacy",
+   "depends_on": [
+    "perf-runtime-08"
+   ],
+   "audit_refs": [
+    "X5"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Options and defaults verified; 4 events.mapbox.com POSTs (style.load, appUserTurnstile, gljs.performance, map.load) verified. performanceMetricsCollection:false removes only gljs.performance (4 to 3), so the acceptance '<=1 request (or 0)' is not achievable by configuration."
+  },
+  {
+   "id": "perf-runtime-24",
+   "title": "Dead/unused runtime artifacts and broken subscription (H11 root cause)",
+   "severity": "medium",
+   "evidence": "GF (99644) calls yn.subscribe(selector,listener) but store lacks subscribeWithSelector so listener never fires: minimap tick stuck at initial (H11); Uc canvas 1440x852 created never drawn (I4 9842-9854); trail canvas so created 300x150 (J4 96693) never resized (97267-97279), measured 300x150 z8, trails clipped and screen-space; InterpolationWorker chunk (672 B) unreferenced; fF dead; casualty heatmap toggle/H shortcut unimplemented (9419,9435,111995,113022); sT double-count (96376,97423); two commander toast systems qF (99888) and nO (101679).",
+   "root_cause": "Accumulated patches without cleanup.",
+   "fix": "Delete Uc, worker chunk, fF, sT double-count; replace trails with a Mapbox line layer from the timeline or drop; fix GF via subscribeWithSelector/useStore selector; implement or remove heatmap shortcut; merge toast systems.",
+   "effort": "S",
+   "acceptance_test": "canvas count = map + minimap; minimap footer follows tick; trails correct after pan/zoom; no unreferenced chunk in dist.",
+   "metric_or_grade_moved": "Memory, H11, hygiene",
+   "depends_on": [
+    "N1"
+   ],
+   "audit_refs": [
+    "H11"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "GF (99644) passes (selector, listener) to plain subscribe, so the listener never fires; this is the H11 root cause."
+  },
+  {
+   "id": "perf-runtime-25",
+   "title": "Data layer: duplicate fetches, hourly revalidation, blocking site-nav revalidation",
+   "severity": "medium",
+   "evidence": "commander_successions fetched 2x, chronology 3x by LF + 3x by mobile pO, monuments.json by overlay; per-page refetches (search 12, historian 15, regiment 20 files). Live headers: /data/* max-age=3600 unhashed; site-nav.css (7.2 KB), site-nav.js (15.8 KB), icons.svg, /.netlify/scripts/rum = public,max-age=0,must-revalidate and render-blocking on every navigation.",
+   "root_cause": "No shared data layer or content-hashed assets for data/nav files.",
+   "fix": "Shared dataLayer (in-flight + result memo); hashed data filenames + immutable; hashed site-nav.<hash>.js|css + immutable + defer; one prebuilt search-index.<hash>.json (~50-80 KB raw/~15 KB br) reused by search, historian, find-ancestor, report; interim: max-age=86400 stale-while-revalidate for site-nav.*.",
+   "effort": "M",
+   "acceptance_test": "Repeat visit within a week: 0 conditional requests for data/nav assets; search/historian <=3 requests before interactive.",
+   "metric_or_grade_moved": "LCP/TTI on sub-pages, repeat-load RUM",
+   "depends_on": [
+    "perf-runtime-07",
+    "N1"
+   ],
+   "audit_refs": [
+    "P3",
+    "T3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Duplicate fetches and live cache headers verified via curl."
+  },
+  {
+   "id": "perf-runtime-26",
+   "title": "Story/event/toast panels: two commits per tick and effect-driven state chains",
+   "severity": "medium",
+   "evidence": "CF (98252): useEffect([c,f,R]) builds array and z(it)+l(0) every tick (98264-98274); AF() splits full script text every render (98247); scroll handler setState per scroll (98278-98286). LF (98595) setState per tick (98601-98603); qF setState per tick when playing (99897-99916).",
+   "root_cause": "Derived state stored in state and updated from effects.",
+   "fix": "Derive with useMemo keyed (tick,dismissed); setState only when id-list changes; precompute reading time in data build; scroll progress via ref + CSS variable with rAF; render CF/LF/qF only when an item is due (derived selector).",
+   "effort": "S",
+   "acceptance_test": "<=1 commit/tick and 0 commits on ticks without a due item; no per-scroll commits.",
+   "metric_or_grade_moved": "INP/TBT",
+   "depends_on": [
+    "perf-runtime-03"
+   ],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "CF (98252-98292) and LF (98595-98610) effect-driven state verified."
+  },
+  {
+   "id": "perf-runtime-27",
+   "title": "148 KB of data literals compiled into the main JS",
+   "severity": "medium",
+   "evidence": "Monuments _A 110,936 B (104440), Walkthrough stops d2 16,494 B, NPS tour th 14,027 B (bundle.min.js offsets 2,124,255/2,107,756/2,030,718); _O builds two GeoJSON collections from _A at each open (110819-110826).",
+   "root_cause": "Feature data authored as JS arrays.",
+   "fix": "Move to hashed JSON (monuments, tour, walkthrough) loaded/prefetched at idle when feature opens; dedupe with data layer (overlay already fetches monuments.json).",
+   "effort": "S",
+   "acceptance_test": "Main entry JS -148 KB raw (~-35 KB br); features open <=150 ms after idle prefetch.",
+   "metric_or_grade_moved": "JS parse/compile, P2",
+   "depends_on": [
+    "N1"
+   ],
+   "audit_refs": [
+    "P2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Array sizes 110,937 / 16,495 / 14,028 B match within 1 byte."
+  },
+  {
+   "id": "perf-runtime-28",
+   "title": "Lazy chunks without prefetch or fallback (Help/Bookmarks appear late)",
+   "severity": "medium",
+   "evidence": "MO/EO=lazy(()=>import('./BookmarkPanel...'|'./HelpModal...')) (112469-112470) inside Suspense fallback={null} (113276-113282): first click waits on network (7 KB / 4.9 KB) with no visual response so INP includes the fetch on slow links.",
+   "root_cause": "No idle prefetch and null Suspense fallback.",
+   "fix": "requestIdleCallback(()=>{import HelpModal; import BookmarkPanel}) after map idle; immediate skeleton/spinner fallback with aria-live 'Loading help'; add chunks to SW precache.",
+   "effort": "S",
+   "acceptance_test": "Help shows visible feedback <=100 ms and content <=300 ms on mobile profile at first click.",
+   "metric_or_grade_moved": "INP (first Help click), D1",
+   "depends_on": [
+    "N1"
+   ],
+   "audit_refs": [
+    "D1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "lazy imports with empty preload deps and fallback null verified; chunk sizes 7,027 / 4,869 B; InterpolationWorker (672 B) unreferenced."
+  },
+  {
+   "id": "perf-runtime-29",
+   "title": "Virtual Walkthrough opens a third Mapbox map and an immediate Google Street View iframe",
+   "severity": "medium",
+   "evidence": "_O creates new z_.Map (110770) while gF's map keeps rendering; each stop renders iframe https://www.google.com/maps/embed/v1/streetview?key=... (110660-110669) with no loading=lazy or click-to-load, plus dangerouslySetInnerHTML paragraphs (110637); open INP-proxy 168-216 ms @4x.",
+   "root_cause": "Per-feature map and eager third-party embed.",
+   "fix": "Reuse shared map; pause playback loop while a full-screen overlay is open; Street View behind a 'Load Street View' facade (loading=lazy iframe after click, re-keyed per stop for H13); sanitize/pre-render paragraph HTML at build time.",
+   "effort": "M",
+   "acceptance_test": "Opening Walkthrough adds 0 WebGL contexts and 0 third-party requests until Street View requested; open INP-proxy <=150 ms.",
+   "metric_or_grade_moved": "INP, memory, privacy",
+   "depends_on": [
+    "perf-runtime-08"
+   ],
+   "audit_refs": [
+    "H13"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Iframe at 110660-110669 verified; dangerouslySetInnerHTML is at 110653, not 110637; the '~1 MB of Google embed JS' figure is an unverified estimate."
+  },
+  {
+   "id": "perf-runtime-30",
+   "title": "Ground Remembers: map waits for all data; whole-collection setData every 90 ms",
+   "severity": "medium",
+   "evidence": "ground-remembers.html: await Promise.all(9 fetches) then new mapboxgl.Map (blank-map window S2); geojsonThroughTick filters+maps all 1,804 placements into a new FeatureCollection per slider input and every 90 ms setInterval step -> setData; JSON .then 174 ms @4x, 9 long tasks, heap 16.9 MB; no tile request within 16 s on that run [verify].",
+   "root_cause": "Data-before-map ordering; data rebuilt instead of filtered.",
+   "fix": "Create map immediately, fetch in parallel; build GeoJSON once with numeric tick property and drive reveal with map.setFilter('scars-heat',['<=',['get','tick'],T]) or heatmap-weight case expression; rAF-coalesce slider; use shared timeline file.",
+   "effort": "M",
+   "acceptance_test": "Map canvas visible <=1.2 s after mapbox-gl ready; slider drag <8 ms main-thread per event; 0 setData after load; TBT <=150 ms.",
+   "metric_or_grade_moved": "S2, TBT/INP on that page",
+   "depends_on": [
+    "perf-runtime-11"
+   ],
+   "audit_refs": [
+    "S2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "ground-remembers.html:64-70 awaits 9 fetches before creating the map; setData per input and per 90 ms; features have no tick property, so the fix must add it."
+  },
+  {
+   "id": "perf-runtime-31",
+   "title": "Compare/Camera/Immersive/Cinematic: two maps, setData per input event, data before map",
+   "severity": "medium",
+   "evidence": "compare.html:95-283 fetches 9 files then builds two mapboxgl.Map (4 style requests, 12 tiles, 1,181 nodes measured); slider input rebuilds FeatureCollection via per-unit binary search and setData synchronously; camera.html:230 and immersive.html:217 setInterval (350 ms)+setData; cinematic-export.html:167-232 setData in rAF while MediaRecorder captures.",
+   "root_cause": "No rAF coalescing; two WebGL contexts; sequential init.",
+   "fix": "Init maps in parallel with data; one update per frame via rAF flush; dynamic:true+updateData or setFilter; on phones default Compare to one map with curtain (or lazy pane B on idle); shared timeline; setInterval -> rAF with dt clamp + visibility pause.",
+   "effort": "M",
+   "acceptance_test": "Compare at 4x TBT <=200 ms; slider drag <=8 ms/event; <=1 WebGL context at <=400 px width.",
+   "metric_or_grade_moved": "TBT/INP/memory on 4 pages, S4",
+   "depends_on": [
+    "perf-runtime-11",
+    "perf-runtime-16"
+   ],
+   "audit_refs": [
+    "S4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "compare.html:133 and 242-247, camera/immersive setInterval + setData, and cinematic rAF setData verified. The 'two maps' count was not separately verified."
+  },
+  {
+   "id": "perf-runtime-32",
+   "title": "Search/Historian/Regiment/Ancestor/Report: N fetches + main-thread index assembly per visit",
+   "severity": "medium",
+   "evidence": "search.html 12 requests -> 521 entries (build ~1-2 ms; waterfall-bound: FCP 924 ms, data ends 1,109 ms); historian.html 15 requests -> 658-doc corpus with substring scoring per query; regiment.html 20 requests; render() per keystroke without debounce; innerHTML with unescaped data; CLS 0.147 in one of two mobile runs of search.html, 0.058 historian.",
+   "root_cause": "Corpus assembled client-side from many files each visit.",
+   "fix": "One prebuilt hashed search-index.json shared by all five pages; reserve result-list min-height (CLS); debounce 100 ms, cap DOM at 40 rows, escape output; build with MiniSearch/FlexSearch at build time and deserialize client-side.",
+   "effort": "M",
+   "acceptance_test": "<=3 requests before interactive; CLS <=0.02; per-query <=5 ms at 4x.",
+   "metric_or_grade_moved": "LCP/CLS/TTI on 5 pages",
+   "depends_on": [
+    "perf-runtime-25"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "search.html:151 renders per keystroke with no debounce; innerHTML at 194. Request counts not re-measured."
+  },
+  {
+   "id": "perf-runtime-33",
+   "title": "Ask-the-Historian scale: performance budgets and architecture constraints for the expanded databases",
+   "severity": "medium",
+   "evidence": "Current 658-doc corpus scanned linearly with includes per question (historian.html script), O(corpus) main-thread work; at 100x corpus this is 50-200 ms/query on a phone plus a multi-MB download.",
+   "root_cause": "Client-side linear scan over an in-memory corpus.",
+   "fix": "Never ship the raw expanded corpus: sharded static inverted index (Pagefind-style 10-30 KB shards, immutable) queried in a Web Worker; passages by id from static shards (<=50 KB br each); semantic/LLM tier behind a Netlify Function/Edge endpoint with streaming, AbortController, request coalescing (vectors server-side: 20k x 384-d int8 = 7.7 MB too big for phones); IndexedDB/SW cache-first for shards. Budgets: initial JS <=30 KB br, initial data <=50 KB, local query p95 <=50 ms at 4x, server TTFB <=400 ms p75, no task >50 ms, heap <=50 MB, memoized transcript with content-visibility:auto.",
+   "effort": "L",
+   "acceptance_test": "historian.html at 4x: TBT <=100 ms, Ask INP-proxy <=150 ms with a 10x corpus fixture.",
+   "metric_or_grade_moved": "INP/TBT of flagship feature; feasibility of expansion",
+   "depends_on": [
+    "perf-runtime-25"
+   ],
+   "audit_refs": [
+    "H8"
+   ],
+   "verdict": "UNVERIFIABLE",
+   "correction": "Architecture proposal; the arithmetic (20k x 384 int8 = 7.68 MB) is correct, but the budgets are targets, not measurements."
+  },
+  {
+   "id": "perf-runtime-34",
+   "title": "No adaptive quality, DPR handling, reduced-motion or visibility handling in the app",
+   "severity": "low",
+   "evidence": "No devicePixelRatio, matchMedia, prefers-reduced-motion, deviceMemory, hardwareConcurrency or connection.saveData anywhere in app code (grep bundle.pretty.js >96000); app CSS has 0 reduced-motion rules (index-B4G7Z_2G.css) while index.html/site-nav.css do.",
+   "root_cause": "Single quality path.",
+   "fix": "Quality tier low|med|high chosen once from deviceMemory, hardwareConcurrency, coarse pointer, saveData and first-second frame time controlling DPR cap, label density, glow, blur, max fps, tile pixelRatio; honor prefers-reduced-motion (no glow/pulse/auto-fly, slower default speed); pause loops on visibilitychange.",
+   "effort": "M",
+   "acceptance_test": "Low tier at 4x CPU holds >=30 fps at 8x; reduced-motion emulation disables non-essential animation.",
+   "metric_or_grade_moved": "Accessibility (motion), low-end frame time",
+   "depends_on": [
+    "perf-runtime-10",
+    "perf-runtime-17",
+    "N1"
+   ],
+   "audit_refs": [
+    "A6"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "No devicePixelRatio, matchMedia, prefers-reduced-motion, deviceMemory, hardwareConcurrency or saveData in app code; 0 reduced-motion rules in the app CSS."
+  },
+  {
+   "id": "perf-runtime-35",
+   "title": "Prefetch/prerender/bfcache: add Speculation Rules for light pages, keep bfcache eligibility",
+   "severity": "medium",
+   "evidence": "bfcache verified working: /, /historian.html, /compare.html, /search.html, /dashboard.html restored with JS state intact (no backForwardCacheNotUsed). No speculationrules or prefetch hints; site-nav.js:212-224 uses history.back() for 'Back to the map' (good).",
+   "root_cause": "No speculative navigation; bfcache health not monitored.",
+   "fix": "Add speculationrules prefetch (eagerness moderate) for light static pages only (historian, search, documentary, education, dashboard, regiment, find-ancestor, report, aftermath, turning-points); do NOT prerender/prefetch map pages (each would init Mapbox = billable map load + WebGL); keep no-unload/no-store; pageshow handler to resume loops; log notRestoredReasons in RUM.",
+   "effort": "S",
+   "acceptance_test": "Hover->click on a light page LCP <=300 ms; RUM bfcache restore rate >=90%.",
+   "metric_or_grade_moved": "Perceived navigation speed, sub-page LCP",
+   "depends_on": [],
+   "audit_refs": [],
+   "verdict": "CONFIRMED",
+   "correction": "HTML is not no-store (live headers), so it is bfcache-eligible. Add: once CSP drops unsafe-inline, inline speculationrules need 'inline-speculation-rules', a hash or a nonce, or an external rules file via the Speculation-Rules header."
+  },
+  {
+   "id": "perf-runtime-36",
+   "title": "Boot long tasks: module eval, React mount, Map constructor, first render, shader compile",
+   "severity": "medium",
+   "evidence": "Mobile 4x single load: tasks >=100 ms at 3,539 (154), 3,787 (490 incl. 478 ms Layout of 271 objects; not emoji-font related: removing emoji 246->188 ms locally), 4,297 (491), 9,500 (351); LoAF 4,130 = React scheduler 420 ms. CPU profile: eval 155, React effects 651, Map ctor 375, _setupPainter 301, first _render 596 (getOrCreateProgram 181), populate 183.",
+   "root_cause": "Everything runs in one chunk on first render.",
+   "fix": "Code-split: entry = React shell+store+static splash (~170 KB per RECON_SRC), import('mapbox-gl') chunk started right after first paint overlapping data preload; scheduler.yield() (fallback setTimeout) between parse boot JSON, build oob index, create map, add layers, first units; mount Mapbox in rAF after splash paint; lazy non-critical panels; warm shaders at idle; inspect the 478 ms first Layout in DevTools.",
+   "effort": "M",
+   "acceptance_test": "No task >100 ms between FCP and interactive on mobile profile except Mapbox first render (<250 ms); Lighthouse mobile TBT <=150 ms; first-tap INP-proxy <=150 ms.",
+   "metric_or_grade_moved": "TBT, TTI, first-interaction INP",
+   "depends_on": [
+    "N1",
+    "perf-runtime-11"
+   ],
+   "audit_refs": [
+    "P2",
+    "P7"
+   ],
+   "verdict": "UNVERIFIABLE",
+   "correction": "CPU-profile figures were not re-run; the observations are consistent with what I saw."
+  },
+  {
+   "id": "perf-runtime-37",
+   "title": "Measurement infrastructure: INP attribution, LoAF beacon, perf CI, real-device lab",
+   "severity": "medium",
+   "evidence": "Netlify RUM gives p75 CWV only (no attribution); no source maps (P6) so LoAF/INP function names are minified; no automated performance tests; my tmp-perf-runtime scripts (cdp.js, observers.js, renders.js, interactions.js, playback.js, measure_page.js, patch.js) are a working seed.",
+   "root_cause": "No field attribution or regression guardrails.",
+   "fix": "Self-hosted web-vitals/attribution beacon (INP element/type/inputDelay/processingDuration/presentationDelay + LoAF scripts[]) to a Netlify Function with layout/device tier/effectiveType/notRestoredReasons; hidden/private or public source maps; Playwright/CDP perf suite with budgets in CI; Lighthouse CI with 4x CPU + Slow-4G; monthly real-device trace (chrome://inspect) on Moto G-class + iPhone SE; update privacy page (X5).",
+   "effort": "M",
+   "acceptance_test": "RUM dashboard shows INP element/phase breakdown; CI fails a PR that regresses a budget from the target table.",
+   "metric_or_grade_moved": "Sustained green metrics, P6",
+   "depends_on": [
+    "N1"
+   ],
+   "audit_refs": [
+    "P6",
+    "X5"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Only the no-source-maps claim was verified (0 sourceMappingURL); the rest is a proposal."
+  },
+  {
+   "id": "perf-runtime-38",
+   "title": "Found while profiling (functional hand-off): stale-mapRef effects and silent failures",
+   "severity": "low",
+   "evidence": "GtbgLoc (112573) and GtbgLayers read yn.getState().mapRef once inside an effect with deps [active] (112673): mapRef is null at mount so effect returns early and never reruns => default-on Locations labels never appear until toggled; Nn.current consumers (see 02); GF minimap tick (see 24); casualty heatmap unimplemented (see 24); Escape handler returns early for INPUT targets (112967) = H2 root cause.",
+   "root_cause": "Effects not keyed on the map instance; global key handler guard too broad.",
+   "fix": "Select mapRef (or use map.on('load')) as effect dependency; allow Escape in inputs to clear/blur/close panel.",
+   "effort": "S",
+   "acceptance_test": "Locations labels visible on first load; Esc closes Search from inside its input.",
+   "metric_or_grade_moved": "Functional correctness, H2",
+   "depends_on": [
+    "N1"
+   ],
+   "audit_refs": [
+    "H2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "GtbgLoc effect deps [active] read mapRef once at mount (112573-112577, 112673); Escape guard at 112967."
+  },
+  {
+   "id": "perf-runtime-39",
+   "title": "Interim hot-patch set that needs no rebuild (verified anchors, A/B-tested locally)",
+   "severity": "high",
+   "evidence": "Anchors exist exactly once in assets/index-Cg8FAMXN.js: A 'function ut(){const kt=c==null?void 0:c.current;if(!kt){Se.current=requestAnimationFrame(ut)' -> insert return; (idle commits 45/s->0); B 'P(Yx()),H(ze=>!ze),' -> 'P(Yx()),'; C canvas pointerEvents auto->none (needs companion map.on click); D 'Nn.current = ii' -> 'ii.current' (only with A applied); E delete site-nav.css:12; F disable pin glow site-nav.css:41; G remove index.html:264-267 reload; H CSS overrides for backdrop-filter/blend; I lazy PeerJS; J defer+preconnect on map sub-pages; K netlify.toml stale-while-revalidate for site-nav.*.",
+   "root_cause": "No source tree (N1); quick wins still editable in HTML/CSS/toml and via minified-bundle patch.",
+   "fix": "Apply E,F,G,I,J,K (plain files) and A,B,D (bundle) first; C with companion click handler; H as CSS in index.html. Re-run the harness after each and expect FCP ~0.9 s, idle 0 commits/0 recalcs, first-visit LCP -4.5 s, watch-together TBT <200 ms.",
+   "effort": "S",
+   "acceptance_test": "After A+B+E+F: idle React commits 0/s, RecalcStyleCount delta 0 per 10 s, mobile FCP <=1.2 s; console 0 TypeErrors during 10 s playback.",
+   "metric_or_grade_moved": "FCP, idle CPU, TBT, first-visit LCP",
+   "depends_on": [],
+   "audit_refs": [
+    "N1",
+    "C6",
+    "P1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Anchors A, B, D and the desktop canvas string each occur exactly once in the minified bundle. Corrections: J (defer on the Mapbox script) needs the inline scripts wrapped or all 8 pages throw; C needs the _gbDist adapter; A+D must ship with the C5 setGoldUnit fix; G (remove reload) needs a chunk-error handler."
+  }
+ ],
+ "open_questions": [
+  "Real-GPU behavior: all frame-rate/raster numbers come from headless software GL (SwiftShader); ranking is reliable but magnitudes (e.g. 11 -> 59 fps at 8x, blur/blend gains) need confirmation on a real mid-tier Android phone.",
+  "Connectivity from this machine to Netlify's edge dropped for ~15 minutes after ~100 automated live loads and then recovered (status page green). Unknown whether that was IP rate-limiting from my traffic or an unrelated blip; those loads also consumed ~100 Mapbox map loads on the public token.",
+  "Cause of the 478 ms first Layout (271 objects) at first React mount, and why ground-remembers.html made no tile request within 16 s in one run, need a manual DevTools look.",
+  "Mapbox GL v2.15.0 (219,663 B br) or MapLibre vs v3.24.1 (385,039 B br) for a lighter bundle: needs regression, feature (updateData exists only in v3.24.1) and terms-of-service check before switching.",
+  "Netlify RUM has no per-interaction breakdown, so the field INP Poor rating cannot be attributed until the attribution beacon (perf-runtime-37) ships; lab hypotheses: Select Mobile 584 ms, Roster 680 ms, boot Skip intro 984 ms, and saturated playback frames.",
+  "Should the map keep rotate/pitch gestures once picking is fixed? The canvas renderer's projection assumes top-down; this affects whether an OffscreenCanvas fallback is viable.",
+  "oobData contains only 378 of the 478 placement unit ids (100 units have no OOB record so unit panel/roster show nothing for them) - hand to data specialists.",
+  "Owner decision needed on rebuilding from RECON_SRC (N1): most code-level fixes assume a real source tree; until then only the perf-runtime-39 hot-patches are possible."
+ ],
+ "verification_summary": "The perf-runtime report holds up well. Every critical and high finding has real evidence, and I reproduced 12 of them independently. I re-measured in headless Chrome 153 against a local copy of the build, and checked headers and CDN sizes live with curl. Reproduced: the input-swallowing overlay canvas (01), the ref-of-ref monuments loop and its ~59 commits/s idle storm (02), the FCP delay from the body fade (05, FCP 3.8-4.3 s down to 0.74-1.15 s), the LCP element (04, 104,562 px2 at ~10.1-10.6 s), the first-visit SW reload (06, second navigation at 4,641 ms, 76 /data requests, ~10.3 s LCP), the roster DOM growth (09, +4,989 nodes exactly), PeerJS blocking (12, 1,080 ms), and the pin-glow recalcs (14). The data facts, Mapbox sizes, data-literal sizes and cache headers match to within a byte.\n\nSix findings are CORRECTED for wrong references, wrong effort, or a fix that would break something: 01, 02, 08, 10, 11 and 39.\n- **01:** the fix as written kills the Distance tool. `_gbDist` (112758) depends on the canvas click event.\n- **02:** the XF line numbers are wrong (100330-100334, not 100852/100884). The proposed `window.onerror` test cannot see the swallowed exceptions. Fixing C5 alone will expose the ref-of-ref TypeError in Zk's flyTo.\n- **08:** effort L is understated for a single shared map stage in a minified bundle with no source.\n- **10:** \"skip `lS`\" alone gives ~31 fps, not 59. I re-ran the A/B with valid tiles: base 13.6 fps, no blur/blend 19.6, skip `lS` 31.1, both 57.9.\n- **11:** `defer` on the Mapbox script breaks all 8 product map pages, because each runs an inline script that sets `mapboxgl.accessToken` at parse time.\n- **39:** carries the corrections from 01, 02 and 11.\n\nFour more are CORRECTED on smaller points:\n- **18:** two `y1` passes per tick on desktop, not three.\n- **22:** six inline scripts, not seven.\n- **23:** `performanceMetricsCollection:false` removes only 1 of the 4 events.mapbox.com POSTs (4 to 3), so the \"or 0\" acceptance is unachievable.\n- **05:** kept as CONFIRMED, but the benefit is only on `/`. Sub-pages gain 0.15-0.45 s, and map sub-pages gain nothing.\n\nI gave verdicts on all 39 findings and appended a \"## Verification\" section (table, reproduction results, 8 missed items) to `perf-runtime.md`. Two findings (33, 36) are UNVERIFIABLE and 37 is only partly verified; the rest are CONFIRMED.\n\nTwo things to reconcile outside this report:\n- **Local lab runs had errored tiles.** The Mapbox token is referrer-restricted for tiles (403 for a non-production Referer; the style API returns 200). Every local run in the report therefore had errored satellite tiles. My re-run with a valid Referer keeps the conclusions.\n- **Audit item X1 needs re-checking.** \"Token unrestricted\" is only true for the styles endpoint.",
+ "missed_by_specialist": [
+  {
+   "title": "Fix 01 regresses the Distance tool and unit-hidden gating",
+   "severity": "high",
+   "evidence": "The canvas onClick (bundle.pretty.js:97367-97376) calls window.__gtbgApp._gbDist(ev) before unit picking. _gbDist (112758-112760) uses ev.target.getBoundingClientRect() and m.unproject. Toggle Units hides the canvas with display:none (97354-97358), which is what currently blocks picking of hidden units.",
+   "fix": "Make _gbDist accept lngLat/point, or pass a synthesized event, from a single map.on('click') handler. Gate picking on the showUnits/_uv flag and on the distance-tool mode."
+  },
+  {
+   "title": "Cost model conflict between findings 10 and 16 (updateData payload)",
+   "severity": "medium",
+   "evidence": "Finding 10 sizes updateData at median 7 / p90 18 / max 87 changed units per tick. That only holds because y1 leaves units static between keyframes (96266-96300). Finding 16 proposes real interpolation across gaps, which moves up to ~478 units every frame.",
+   "fix": "Benchmark updateData with 478 features at 15 Hz (worker re-tile) on a real Android phone before committing. Otherwise choose the CustomLayerInterface / Float32Array path, or keep sparse updates plus camera-space interpolation."
+  },
+  {
+   "title": "Local lab runs had errored Mapbox tiles; the token is referrer-restricted for tiles (conflicts with audit X1)",
+   "severity": "medium",
+   "evidence": "curl to api.mapbox.com/v4/mapbox.satellite/15/9353/12428.webp: 200 with Referer https://gettysburginteractivemap.com/, 403 with http://127.0.0.1:8911/ and https://evil.example/. The styles API returns 200 for all three. The report's LOCAL runs used no Referer spoofing (tmp-perf-runtime/localserver.js); the local map showed 68 tile 403s.",
+   "fix": "Re-run local labs with a valid Referer injected for api.mapbox.com/v4 (I did: conclusions hold, base 13.6 vs 13.0 fps). Correct the audit's X1 claim to 'styles endpoint unrestricted, tiles referrer-restricted', and record the lab methodology caveat."
+  },
+  {
+   "title": "FCP fix does not fix LCP; the 'static large LCP anchor' advice cannot work",
+   "severity": "medium",
+   "evidence": "With site-nav.css:12 removed, LCP was still 10,140 ms (104,562 px2 story paragraph) after the static text LCP of 744 ms (74,592 px2). LCP keeps the largest candidate painted before first input.",
+   "fix": "Treat the FCP change and the gating of CF/LF/qF/nO/MF during boot (finding 04) as one acceptance unit. Verify by asserting no text node above the splash size paints before onboarding completes."
+  },
+  {
+   "title": "SW /data/ handler caches non-OK responses",
+   "severity": "low",
+   "evidence": "sw.js:63-66 does cache.put(e.request, clone) for every response with no res.ok check. A transient 404/500 is stored and later served offline by caches.match.",
+   "fix": "Cache only res.ok GET responses (skip 206 and Vary:*), ideally keyed by version with stale-while-revalidate."
+  },
+  {
+   "title": "Removing the auto-reload needs a version-skew handler",
+   "severity": "medium",
+   "evidence": "HelpModal and BookmarkPanel are lazy(() => rT(() => import('./X-hash.js'), [])) (112469-112470) with no preload and Suspense fallback null. Netlify serves only the latest deploy, and sw.js is cache-first for /assets/*. An old page under a new SW will 404 on the old hashed chunks.",
+   "fix": "Add a vite:preloadError / import().catch handler that shows a 'New version available - Refresh' toast or reloads once, and bump CACHE_NAME plus regenerate PRECACHE_ASSETS on every deploy."
+  },
+  {
+   "title": "Speculation Rules conflict with a future enforcing CSP",
+   "severity": "low",
+   "evidence": "The live CSP-Report-Only has script-src 'unsafe-inline' today. Once X3 removes it, inline <script type=speculationrules> is blocked unless script-src has 'inline-speculation-rules', a hash or a nonce (MDN CSP docs).",
+   "fix": "Use an external rules file via the Speculation-Rules HTTP header, or add 'inline-speculation-rules'/hash to script-src when the CSP is enforced."
+  },
+  {
+   "title": "Citation and count errors in the report that would propagate into tickets",
+   "severity": "low",
+   "evidence": "XF flyTo is at 100330-100334 (report cites 100852/100884, which are KF); dangerouslySetInnerHTML is at 110653 (report says 110637); the index.html overlay has 6 inline scripts (294, 355, 398, 441, 521, 608), not 7; there are 26 yn() call lines, not 25.",
+   "fix": "Correct the references before creating tickets; the underlying numbers are unaffected."
+  }
+ ]
+}

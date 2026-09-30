@@ -1,0 +1,557 @@
+{
+ "agent": "bundle-anatomy",
+ "summary": "Deployed bundle-anatomy: index-Cg8FAMXN.js (2,280,438 B; live brotli 603,777 B) is 79.2% mapbox-gl 3.24.1 (1,806,133 B: shared 782,666 / worker 55,694 / main 966,763, plus two 838,974 B blob workers), 6.5% React 18.3.1 + react-dom + scheduler + zustand 4.5 (149,028 B), and only 14.2% app code (324,549 B), of which 46% (150,092 B) is inline data arrays (512 monuments = 111,003 B, 16 tour stops, NPS tour, etc.) and ~17% is CSS-in-JS. The app uses about five mapbox APIs (raster satellite style, NavigationControl, ~8 tiny GeoJSON sources / 13 line-symbol-circle layers, flyTo, project/unproject; units are drawn on the app's own canvas), ~24% of mapbox bytes (431 KB, excluding 177 KB shaders) belong to features it never uses, and the namespace `z_` is referenced only 5 times inside useEffect bodies, so mapbox can be split into a lazy chunk with a tiny patch; a statement-level cross-reference scan shows ENTRY/MAP/PANELS chunks with a small interface (7 + 29 + 13 names). Key runtime findings: first-visit SW controllerchange reload (redirects audit 9,066 ms; observed unthrottled FCP/LCP were only 287 ms, so lab FCP 4.1 s / LCP 9.0 s are mostly a JS-on-critical-path + reload artifact); CSS preload/onload swap + duplicate modulepreload + SW interception of /assets cause the 'cross-world service worker resource mismatch' warnings (CSS is requested twice on SW-controlled loads); a 3.5 s boot fast-forward that calls setState every frame with 26 whole-store subscribers and 0 selectors/memo; mobile creates TWO mapbox Map instances per visit and eagerly loads all 3 days of data; 38 boot fetches (37 unique, commander_successions twice; 598 KB raw, 138.6 KB wire) that merge to 81 KB br11 (-28%) and 6.4 KB br11 for Day-1 first paint; the same asset name index-Cg8FAMXN.js has served different bytes (Jul 20 vs Aug 22+), and the bundle is unchanged since Aug 22 with no editable source (N1; Jun-12 v25 source is a structural skeleton without any post-Jun feature). The report gives a byte-budgeted chunk map (entry <=180 KB raw/<=58 KB br; map chunk <=470 KB br for v3, ~240 KB for mapbox 2.15/MapLibre, ~50 KB for Leaflet-lite; panels lazy; data in <=3 hashed immutable JSON files), a map-engine option matrix with sizes/licences/prices (mapbox-gl 3.24.1 1.80 MB vs 2.15.0 986 KB vs MapLibre 5.6.0 939 KB vs Leaflet 148 KB; Mapbox ToS licence; 50k free map loads/$5 per 1k; Raster Tiles 750k free), the proposed waterfall, a phase-by-phase gain estimate (lab mobile after Phase 2: FCP 0.8-1.0 s, LCP 0.9-1.4 s, TBT 80-250 ms to verify, CLS <=0.03, Perf 92-99; warning that today's TBT 27 ms is an artifact that will worsen when FCP improves unless the long tasks are removed), and the dead-code list (no dead top-level app declarations; savings come from moving data and splitting).",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/bundle-anatomy.md",
+ "findings": [
+  {
+   "id": "bundle-anatomy-01",
+   "title": "Kill the first-visit service-worker controllerchange reload (self-redirect, second full load)",
+   "severity": "critical",
+   "evidence": "deploy/index.html:263-268 controllerchange->location.reload(); deploy/sw.js:17 skipWaiting(), :30 clients.claim(). lh_mobile.json redirects wastedMs 9066.55 (2nd document request at t=908 ms, 40,068 B, transfer 0); simulated LCP 9,007 ms vs observed LCP 287 ms; second load repeats 38 data fetches + tiles (rows t=1046-1442 ms).",
+   "root_cause": "New SW claims a page that is already fine on first install and the handler reloads unconditionally; guard is per-page-load so updated sw.js also reloads mid-session.",
+   "fix": "const hadController=!!navigator.serviceWorker.controller; on controllerchange return if !hadController; otherwise show a 'New version - Refresh' toast (never auto-reload during playback). Or drop skipWaiting/clients.claim so a new SW controls only the next navigation.",
+   "effort": "S",
+   "acceptance_test": "Playwright: clear storage, load /, wait 5 s: exactly 1 document request and 1 navigation entry; LH mobile redirects audit score 1.",
+   "metric_or_grade_moved": "Removes 9.07 s redirect penalty (lab LCP/TTI ~9.0/9.1 s -> ~4-5 s before other fixes); RUM first-visit FCP/LCP/INP",
+   "depends_on": [],
+   "audit_refs": [
+    "C6",
+    "P1",
+    "P5",
+    "P7"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Evidence and fix are correct (index.html:264-267, sw.js:17/:30, LH second document at 909 ms with 38 repeated data fetches). Caveats: the '~4-5 s post-fix simulated LCP' is a guess (LH's own redirects.metricSavings claims -9,050 ms for both LCP and FCP, larger than FCP itself); the '45% of page loads are first visits' divides all-site pageviews by uniques and is only an upper bound (home page 1,713 pageviews; SW registered only from /)."
+  },
+  {
+   "id": "bundle-anatomy-02",
+   "title": "Remove CSS preload/onload swap + duplicate modulepreload; stop SW intercepting /assets (source of 'cross-world service worker resource mismatch' warnings)",
+   "severity": "high",
+   "evidence": "deploy/index.html:55-58 (modulepreload of entry JS; rel=preload as=style crossorigin onload->rel=stylesheet) + :282 module script; sw.js:41-50 respondWith cache-first for /assets/*. LH second (SW-controlled) load requests index-B4G7Z_2G.css twice (t=1046 and 1050 ms, 40,827 B) vs once on first load. index CSS is byte-identical to mapbox-gl.css (only global CSS; app uses inline styles). Chromium message text per vite-pwa issue #945: 'A preload for X is found, but is not used because it is a cross-world service worker resource mismatch'.",
+   "root_cause": "Hand-written preload hints under /assets/ combined with a SW that controls the page (and clients.claim() changing controller mid-load) and an onload rel flip that re-issues the request; the entry JS is already discovered by the module script.",
+   "fix": "Delete both hints; load mapbox-gl.css as a dependency of the lazy map chunk (Vite preload helper rT already in bundle at bundle.pretty.js:9065 accepts CSS deps) or a plain <link rel=stylesheet>; stop the SW handling /assets/*; keep no <noscript> CSS (app needs JS).",
+   "effort": "S",
+   "acceptance_test": "DevTools console shows zero preload/cross-world messages on cold, warm and SW-controlled loads; one request per CSS/entry JS per load.",
+   "metric_or_grade_moved": "Best Practices console-clean; one fewer 40 KB duplicate fetch; removes FCP-graph dependency",
+   "depends_on": [
+    "bundle-anatomy-01"
+   ],
+   "audit_refs": [
+    "P5",
+    "P4",
+    "P7"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Real: hints at index.html:55-58 and duplicate CSS request in the SW-controlled load (t=1046 and t=1051, not 1050). The deployed CSS is byte-identical to Vite's minified dist/assets/mapbox-B4G7Z_2G.css (md5 8e7defef...), NOT to npm mapbox-gl.css (40,806 B, md5 b99a6c72...). vite-pwa#945 documents the cross-world message for modulePreload JS chunks, not preload as=style, so the CSS mapping is inference. Deleting the inline onload= handler also removes a CSP unsafe-inline dependency. Fix direction is sound."
+  },
+  {
+   "id": "bundle-anatomy-03",
+   "title": "Rewrite sw.js: versioned cache, no cache poisoning, no stale manifest, no useless navigation interception",
+   "severity": "medium",
+   "evidence": "sw.js:3 constant CACHE_NAME gbg-v5; :5-13 hardcoded hashed names + /manifest.json cached cache-first forever (:53-54); :43-47 caches any response with no res.ok check; :28 deletes only differently-named caches so old hashed assets accumulate; navigations fall to fetch().catch(caches.match) but HTML is never put, so offline gives a network error.",
+   "root_cause": "Hand-maintained SW without a build-time manifest.",
+   "fix": "Generate precache manifest at build (Workbox injectManifest / vite-plugin-pwa), name cache from manifest hash, require res.ok && type basic before put, do not intercept /assets/* (HTTP immutable already), manifest.json network-first (else E1 orientation fix never reaches installs), navigationPreload or no navigation handling, /data/* stale-while-revalidate by hashed name.",
+   "effort": "M",
+   "acceptance_test": "Playwright deploy v1 then v2: caches.keys() has only new cache; injected 500 not cached; changed manifest.json seen on next load.",
+   "metric_or_grade_moved": "Reliability, repeat-visit correctness, storage bloat",
+   "depends_on": [
+    "bundle-anatomy-01",
+    "bundle-anatomy-19"
+   ],
+   "audit_refs": [
+    "C6",
+    "P5",
+    "E1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "All sw.js line cites verified. Resolve the tension between fix items (1) precache manifest and (4) do not intercept /assets/*: precache routes must still serve /assets from cache; only the runtime catch-all cache-first should go. No build exists for the frozen bundle, so a small Node script over the deploy dir replaces Workbox injectManifest. See missed issue 3 (cache.addAll goes through HTTP cache)."
+  },
+  {
+   "id": "bundle-anatomy-04",
+   "title": "Diet index.html: 23.7 KB inline scripts, render-blocking site-nav.js/css, 5 unused preconnects, crawler-only seo block",
+   "severity": "medium",
+   "evidence": "index.html 39,638 B (br11 10,827; wire 13,556): inline scripts 23,721 B at L27,255,294,355,398,441,521,608 + 9,205 B inline CSS; setInterval x25 and querySelectorAll('body *') polling (L497-508); L279-280 site-nav.css/js blocking (LH render-blocking-insight 0.5); LH network-dependency-tree flags unused preconnects a.tiles, b.tiles, www.google.com, maps.googleapis.com, streetviewpixels (L43-44, 48-50); #seo-content L717-741 (1,809 B).",
+   "root_cause": "Integration layer implemented as unbundled inline patches around a React app that cannot be edited.",
+   "fix": "Move overlay/banner/labeler/monuments scripts into one deferred module (better: React toolbar, H1); site-nav.js defer/module and CSS non-blocking or lazy on first click of Extra Features; keep only preconnect to api.mapbox.com (+events at most); remove #seo-content and duplicate h1.",
+   "effort": "M",
+   "acceptance_test": "HTML <=14 KB raw/<=5 KB br; LH render-blocking-insight score 1; no unused preconnect; no setInterval in HTML; single h1.",
+   "metric_or_grade_moved": "FCP -0.2-0.4 s lab; fewer main-thread scans; SEO/a11y",
+   "depends_on": [
+    "bundle-anatomy-15"
+   ],
+   "audit_refs": [
+    "P4",
+    "H1",
+    "E3",
+    "E4"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Byte figures verified (39,638 B HTML, 23,721 B inline script incl. 570 B JSON-LD, 9,205 B inline CSS, 3 h1). Wrong details: there are 3 setInterval calls (25/25/40 tries x 200 ms, bounded 5-8 s), not x25; onboardingVisible() runs once at 1.5 s (index.html:509-511), not as polling. 'site-nav.js lazy on first click' is not viable: index.html:285-291 buttons/pin/menu are empty shells filled by the L294-353 inline script from window.GTBG_MENU (site-nav.js:154). defer/type=module is safe (runs before DOMContentLoaded); lazy-on-click needs static button markup first."
+  },
+  {
+   "id": "bundle-anatomy-05",
+   "title": "Deploy hygiene: correct-case tree, orphan interpolationworker chunk, stale builds",
+   "severity": "low",
+   "evidence": "deploy zip lower-cases 5 asset names (BRIEF); deploy/assets/interpolationworker-ufiwa2-e.js (672 B) referenced nowhere (no new Worker( in app region); Jul 20 zip carried 13 index-*.js builds (29 MB).",
+   "fix": "Deploy only from a clean build output; delete orphan chunk; CI verify-deploy.mjs checks every asset referenced by index.html/sw.js exists with exact case and no unreferenced file ships.",
+   "effort": "S",
+   "acceptance_test": "CI script passes; curl -I on each referenced exact-case URL returns 200.",
+   "depends_on": [],
+   "audit_refs": [
+    "N1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "interpolationworker-ufiwa2-e.js (672 B) is referenced nowhere (case-insensitive grep of deploy tree; bundle has only two import() calls); Jul 20 folder has exactly 13 index-*.js; exact-case live URLs return 200."
+  },
+  {
+   "id": "bundle-anatomy-06",
+   "title": "Add web-vitals attribution RUM to prove which element/interaction causes Poor LCP/INP/CLS",
+   "severity": "medium",
+   "evidence": "RUM p75 LCP >4 s vs Lighthouse observed LCP 287 ms; no attribution exists so the fast-forward-text-block LCP hypothesis (finding 13) and INP causes cannot be verified.",
+   "fix": "Ship web-vitals/attribution (~2 KB br) and sendBeacon to a first-party endpoint with lcp.element/url, inp.interactionTarget, cls.largestShiftTarget, navigationType, first-visit and sw-controlled flags, effectiveType, deviceMemory, layout.",
+   "effort": "S",
+   "acceptance_test": "Dashboard shows LCP element selector distribution within 24 h.",
+   "metric_or_grade_moved": "Evidence for P1",
+   "depends_on": [],
+   "audit_refs": [
+    "P1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "web-vitals attribution is not ~2 KB br. Measured: v5 attribution iife 11,689 B raw / 3,882 B br11; latest 6.2.2 attribution iife 15,665 B / 4,971 B br11 (standard build 8,991 / 3,037). Budget 4-5 KB br and load at idle. Netlify already injects /.netlify/scripts/rum (11,141 B raw, 4,202 B wire), so pick a system of record."
+  },
+  {
+   "id": "bundle-anatomy-07",
+   "title": "Put mapbox-gl 3.24.1 (79.2% of bundle) in its own lazily loaded chunk",
+   "severity": "critical",
+   "evidence": "bundle.min.js stmts 606-607 = 1,806,133 B (bundle.pretty.js:10002-96206); only 5 app references to z_ : bundle.pretty.js:97236,97237,97252,102980,102981, all inside useEffect bodies (L97234-97266, L102978-103044); xref scan: stmts 606-607 consumed only via Ok (stmts 608-609 define R4/z_), consume only gB.",
+   "root_cause": "Static import of mapbox-gl from MapView bundled into the single entry chunk.",
+   "fix": "With source: lazy(() => import('./map/MapView')), import mapbox css inside it, manualChunks {mapbox:['mapbox-gl']}. Without source: move stmts 606-609 to map-vendor.js (export default cS(Ok.exports)) and change the two effects to loadMapbox().then(mb=>{ if(dead)return; mb.accessToken=...; new mb.Map(...)}) with cleanup flag; loadMapbox = rT(()=>import('./map-vendor-HASH.js'),['assets/mapbox-HASH.css']).",
+   "effort": "L",
+   "acceptance_test": "LH mobile: entry <=60 KB br; map request starts after LCP; satellite-v9 style requested once per session and only after layout known; map loads on Slow-4G CPU x4.",
+   "metric_or_grade_moved": "Initial JS -1.8 MB raw (~-465 KB wire); FCP/TTI/TBT; Map Loads billing",
+   "depends_on": [
+    "bundle-anatomy-21",
+    "bundle-anatomy-15"
+   ],
+   "audit_refs": [
+    "P2",
+    "P7",
+    "P1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Region, size and single-consumer (Ok/R4) claims verified, but there are EIGHT z_ references and THREE new z_.Map, not five/two: Virtual Walkthrough _O has z_.accessToken at bundle.pretty.js:110769 and new z_.Map at :110770 (attributionControl:!1 at :110777). The report's own xref table lists z_ under PANELS->MAP. The patch must cover all three effects with a shared createMap(); the 'one satellite-v9 request per session' test must exclude walkthrough opens. The '40 vendor names' in 4.3 is a scope-blind artifact: Babel scope analysis of stmts 606-607 gives one entry-scope free variable, gB (= globalThis, bundle.pretty.js:31-39), so map-vendor.js can use globalThis. Effort L stands (M for the mapbox cut alone)."
+  },
+  {
+   "id": "bundle-anatomy-08",
+   "title": "Split the app into entry shell + lazy panels with hard byte budgets",
+   "severity": "high",
+   "evidence": "Region table: app 324,549 B; Walkthrough 151,420; search/filter/legend/minimap 18,060; toasts+NPS tour 25,247; roster 9,654; mobile layout 14,992 etc. xref: ENTRY->PANELS 29 names (AO JSX L113242-113275); lazy pattern already used at bundle.pretty.js:112469-112470 inside Suspense L113276-113282.",
+   "fix": "pt.lazy + shared Suspense per panel; chunk groups per report section 4.1; entry keeps store, timeline, root/toolbar, HUD, loaders, layout chooser; panel shells render immediately with aria-busy (fixes D1); prefetch Help/Bookmarks on hover/idle.",
+   "effort": "L",
+   "acceptance_test": "Entry <=180 KB raw/<=58 KB br; each panel open = one extra JS request; INP for panel opens <=200 ms with CPU x4.",
+   "metric_or_grade_moved": "Initial JS, INP, TBT",
+   "depends_on": [
+    "bundle-anatomy-07",
+    "bundle-anatomy-21"
+   ],
+   "audit_refs": [
+    "P2",
+    "P7",
+    "D1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "AO JSX refs, existing lazy pattern (L112469-112470) and Suspense (L113276-113282) verified. Entry budget arithmetic (~176.7 KB vs 180 KB) leaves ~3 KB slack and omits splash tO, Va/tc style maps and onboarding styles; realistic entry ~185-195 KB unless the splash is replaced. Treat 180 KB as a target."
+  },
+  {
+   "id": "bundle-anatomy-09",
+   "title": "Move 150 KB of inline data literals (512 monuments etc.) out of JS into hashed JSON",
+   "severity": "high",
+   "evidence": "bundle.pretty.js:104440 _A 512 monuments 111,003 B (br11 14,140); :104096 d2 16 tour stops 16,563 B; :100063 th NPS tour 14,104; :100615 mA 4,228; :101876 rO 2,108; :111819 Gc 2,086 = 150,092 B (46.2% of app, 6.6% of bundle); _A/d2 used only by Virtual Walkthrough _O (L110733).",
+   "fix": "Emit data/v1/<name>.<hash8>.json (monuments columnar with category dictionary, tour-stops, nps-tour, sites, steps) fetched on first open with skeleton; immutable headers; share monuments/tour dataset with historian/search/regiment pages (supports Historian DB expansion).",
+   "effort": "M",
+   "acceptance_test": "Entry+panel JS drops >=150 KB raw; monuments.<hash>.json requested only after Walkthrough opens; 512 records snapshot-identical.",
+   "metric_or_grade_moved": "Bundle -150 KB raw (~-25 KB br11); cache efficiency",
+   "depends_on": [
+    "bundle-anatomy-10"
+   ],
+   "audit_refs": [
+    "P2",
+    "H10"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "All six literals reproduced exactly (512/16/16/20/8/5 elements; 150,092 B). _A used only at L110744/110749/110819 and d2 only at L110739/110784/110900/111176, all inside _O. Simplest no-source implementation is top-level await fetch inside the walkthrough chunk."
+  },
+  {
+   "id": "bundle-anatomy-10",
+   "title": "Consolidate 38 boot JSON fetches to <=3, strip unused metadata, hashed immutable names, preload Day 1",
+   "severity": "high",
+   "evidence": "38 requests (37 unique) 598,455 B raw / 138,605 B wire, all starting t=606-615 ms after JS eval (LH); loaders bundle.pretty.js:96755-96941, called at L112962; data_an2.py: boot files individually br11 112,203 B, merged+metadata-stripped 81,247 B br11 (-27.6%; br5 130,827 -> 95,557); metadata blocks 18,660 B unused; Day-1 (16 files, 717 records) merged 116,522 B min = 14,615 B br11, no-notes 6,440 B br11, notes 7,952 B br11; netlify.toml /data/* max-age=3600, SW network-first.",
+   "fix": "scripts/build-data.mjs emits data/v1/day1, oob (14 files merged, commander_successions once), story (chronology+vignettes, lazy), terrain (lazy), day2/day3 (prefetch tick>=200/420 and day jump), notes-day* (on unit panel); inline hashed manifest in HTML; <link rel=preload as=fetch> for day1; headers immutable for /data/v1/*, SWR for legacy names.",
+   "effort": "M",
+   "acceptance_test": "Playwright: <=3 JSON requests before first interaction; all /data/v1 immutable; repeat visit 0 data requests; placementsByTick schema tests unchanged.",
+   "metric_or_grade_moved": "Requests 38->3; wire data -31% (equal encoder), first-paint data ~8-15 KB",
+   "depends_on": [],
+   "audit_refs": [
+    "P3",
+    "P1"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Boot table, totals, merged/stripped sizes (81,343 B br11 vs reported 81,247), Day-1 sizes, headers, and unused metadata (0 references) all reproduced. Wrong: placement notes are not only shown in the unit panel. Consumers: unit info panel (bundle.pretty.js:98025), Follow-Your-Ancestor timeline Zk (:101075), and roster/OOB trees via oO (:102214/:102244) and cO (:102529/:102604). A notes-day*.json loaded only when a unit panel opens would blank ancestor timeline and roster summaries. Add a shared lazy getNotes(day) for all four consumers with an async fallback. First-paint saving (6.4 vs 14.6 KB br11) is unaffected."
+  },
+  {
+   "id": "bundle-anatomy-11",
+   "title": "Remove duplicate and eager data fetches (commander_successions x2, chronology x2, mobile loads all 3 days)",
+   "severity": "medium",
+   "evidence": "commander_successions in eF (bundle.pretty.js:96769) and again by Hk (L97520); chronology by PF (L98548) and mobile pO (L102956-102973); mobile zp(1);zp(2);zp(3) at L103040-103042 vs desktop lazy at tick>=200/420 (L96991-96992): +31 files, +~220 KB raw.",
+   "fix": "One module-level promise per URL; reuse OOB result in Hk; mobile uses lazy day loading + idle prefetch of next day.",
+   "effort": "S",
+   "acceptance_test": "No URL requested twice in LH network table; mobile first load requests only Day 1 data.",
+   "metric_or_grade_moved": "-1 request desktop; -31 requests/-220 KB raw mobile",
+   "depends_on": [],
+   "audit_refs": [
+    "P3"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Duplicates verified (commander_successions at L96769 and L97522, not 97520; mobile zp(1..3) at L103040-103042). The fix 'mobile uses the same lazy day loading as desktop' is unsafe: desktop lazy loading fires only from the playback loop at tick>=200/420 (Ed, L96991-96992); jumpToDay (L9369), keys 1/2/3 (L112987-112993), scrubber and bookmarks never call zp. Copying desktop behaviour to mobile makes Day 2/3 taps show no units until playback crosses a threshold. First add an in-flight-deduped ensureDay(day) called from setTick/jumpToDay."
+  },
+  {
+   "id": "bundle-anatomy-12",
+   "title": "Mobile creates two Mapbox Map instances per visit; create the map only after layout is known",
+   "severity": "high",
+   "evidence": "gF mounts new z_.Map (bundle.pretty.js:97237) while layout Zn===null behind the chooser; choosing Mobile unmounts gF (guard L113071, cleanup L97262-97264) and pO creates a second Map (L102981) with its own chronology fetch and zp(1..3).",
+   "fix": "Persist layout (localStorage), default from pointer:coarse/width, mount the Map only once a layout exists (returning users: behind poster; first-timers: after choice); one shared map-init module.",
+   "effort": "M",
+   "acceptance_test": "Playwright 375x812: exactly one satellite-v9 style request and one map-sessions request per session.",
+   "metric_or_grade_moved": "Halves Map Loads/tile bytes on mobile; removes remount task; less GPU memory",
+   "depends_on": [
+    "bundle-anatomy-07"
+   ],
+   "audit_refs": [
+    "H3",
+    "P1",
+    "P2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Code path verified (Zn=null at L112949, guard L113071, gF at L113233-113234, pO map L102981). Corrections: up to THREE Map constructors per session (walkthrough adds L110770); and 'first-timers: mount the map only after the choice' adds a click-to-map delay for every first-time desktop user. Better: auto-select from pointer:coarse/width, start the matching map immediately behind the chooser, remount only on override."
+  },
+  {
+   "id": "bundle-anatomy-13",
+   "title": "Replace the 3.5 s per-frame setState 'fast-forward' splash with a static poster; make any intro opt-in",
+   "severity": "high",
+   "evidence": "tO bundle.pretty.js:101472-101592; eO=3500 (L101471); rAF loop calls yn.setState({currentTick}) each frame (L101487-101505) then 600 ms fade; LH layout-shifts 15 (0.0726) attributed to splash content, event card and story text; 14 long tasks (433 ms max) at ~1.0-2.5 s unthrottled; late large text blocks are the plausible RUM LCP candidate (inference).",
+   "fix": "Boot shows poster+title; layout chooser is first interactive state; intro becomes optional canvas-only or pre-rendered clip; suppress story panels/event cards/toasts until first user gesture.",
+   "effort": "M",
+   "acceptance_test": "Trace: zero >50 ms tasks before first input (excluding map-init tasks <=100 ms); final LCP entry is the poster; CLS <=0.02 first 5 s.",
+   "metric_or_grade_moved": "INP, TBT, CLS, LCP stability",
+   "depends_on": [
+    "bundle-anatomy-14",
+    "bundle-anatomy-15"
+   ],
+   "audit_refs": [
+    "H3",
+    "C6",
+    "P1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "eO=3500 at L101471, per-frame yn.setState in rAF (L101487-101505), 600 ms fade, Skip intro present; LH shows 15 layout shifts (splash div, event card bottom:120px, Hancock story text) and long tasks clustered 0.89-2.47 s. RUM-LCP link is correctly labelled inference."
+  },
+  {
+   "id": "bundle-anatomy-14",
+   "title": "Zustand selector subscriptions + memoization; stop whole-tree re-render per tick",
+   "severity": "high",
+   "evidence": "26 '= yn()' calls, 0 selector calls, 0 React.memo in app region; AO destructures the whole store (bundle.pretty.js:112922-112961); playback loop Ed (L96965) setState per tick; splash sets state per frame.",
+   "fix": "useStore(s=>s.currentTick) style selectors, split playback/ui/data slices with shallow, React.memo for tick-independent panels, keep canvas reading getState() in rAF, hoist style objects; codemod for the 26 destructuring sites when no source.",
+   "effort": "L",
+   "acceptance_test": "Profiler script: 10 s of 8x playback: commits/s <= ticks/s and Legend/Filter/Search/toolbar commit 0 times; Play/Pause INP <=100 ms at CPU x4.",
+   "metric_or_grade_moved": "INP (RUM Poor >500 ms), TBT, mobile battery",
+   "depends_on": [
+    "bundle-anatomy-21"
+   ],
+   "audit_refs": [
+    "P1",
+    "P7",
+    "H9"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "26 '= yn()' bundle-wide (25 in the app region; two inside AO at L112940 and L112961), 0 selector calls, 0 memo; Ed at L96965; 16x playback = 31.25 ms per tick (~32 store updates/s)."
+  },
+  {
+   "id": "bundle-anatomy-15",
+   "title": "Static full-viewport LCP poster, inline critical CSS, HTML-first shell",
+   "severity": "high",
+   "evidence": "Splash already in HTML (index.html:742-748, CSS L90-142) so observed FCP 287 ms, but #seo-content text (L717-741) is a stray LCP candidate, React replaces the container, later text blocks compete for LCP, and LH simulated FCP 4,099 ms most likely tracks the 604 KB High-priority script (inference).",
+   "fix": "Full-bleed poster <img> (AVIF/WebP <=35 KB mobile, srcset, width/height, fetchpriority=high, preload with imagesrcset); art from own GeoJSON SVG sketch, public-domain map, or Mapbox Static Images (ToS check before re-hosting); inline CSS <=6 KB; entry script fetchpriority=low; no modulepreload; map fades in on map.once('idle').",
+   "effort": "M",
+   "acceptance_test": "LH LCP element = poster, LCP <=1.5 s; field LCP element = poster >=95%.",
+   "metric_or_grade_moved": "LCP, FCP (lab), CLS",
+   "depends_on": [
+    "bundle-anatomy-04",
+    "bundle-anatomy-13"
+   ],
+   "audit_refs": [
+    "P1",
+    "P7",
+    "H3",
+    "E4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "index.html:742-748 splash, CSS L90-142, #seo-content L717-741 inside #root verified; LH lcp-breakdown shows only TTFB 152 ms + render delay 457 ms (text element). The 'High-priority script counted as FCP-blocking' mechanism stays an unverified inference. Poster sizes give ~0.9/~0.5 bpp, well above Chrome's 0.05 bpp low-entropy LCP exclusion."
+  },
+  {
+   "id": "bundle-anatomy-16",
+   "title": "Map-engine decision record + 1-day spike (Mapbox v3 lazy vs v2.15 vs MapLibre vs Leaflet-lite vs own tiles)",
+   "severity": "high",
+   "evidence": "Sizes (jsDelivr): mapbox-gl 3.24.1 1,796,551 B; ESM core+shared+worker 1,701,330; 2.15.0 985,978; 1.13.3 767,202; maplibre-gl 5.6.0 939,269 (6.11.2 ESM 1,125,285); leaflet 1.9.4 147,552. Licences: mapbox v2+ Mapbox ToS (LICENSE.txt), MapLibre BSD-3, Leaflet BSD-2. Pricing (mapbox.com/pricing): 50k map loads free then $5/1k; Static Tiles 200k free/$0.50; Raster Tiles 750k free/$0.25. App API surface tiny; 6 of 8 sub-page maps use only addSource/addLayer/flyTo.",
+   "fix": "Put map behind 6-method facade; measure candidates; ladder: (1) lazy v3.24.1; (2) pin mapbox-gl 2.15.0 (-45% raw); (3) MapLibre + Mapbox Raster/Static Tiles + self-hosted glyphs (-48%); (4) Leaflet + Static Tiles 512 px (-92%); (5) own PMTiles/USGS NAIP (public domain) long term. Confirm Mapbox ToS for raster tiles in non-Mapbox SDKs.",
+   "effort": "L",
+   "acceptance_test": "ADR with measured table; chosen engine passes visual regression (initial view, Day 1 opening, Pickett's Charge, distance tool, layers panel, mobile 375x812).",
+   "metric_or_grade_moved": "Map chunk 465 KB br -> ~240 KB -> ~50 KB; TTI/TBT; billing model",
+   "depends_on": [
+    "bundle-anatomy-07"
+   ],
+   "audit_refs": [
+    "P2",
+    "X1",
+    "S2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Sizes, licences, pricing, tile counts and USGS endpoint verified exactly. Wrong evidence '6 of 8 sub-page maps use only addSource/addLayer/flyTo': ground-remembers.html:91 uses a heatmap layer (GL-only), sandbox.html:184 uses queryRenderedFeatures, compare.html uses setStyle x2, easeTo, raster-dem, setTerrain x3, Popup and two maps (setupPane L190/L272), cinematic-export uses preserveDrawingBuffer. Only camera, viewshed, immersive, watch-together are purely basic; ground-remembers should go to MapLibre, not Leaflet."
+  },
+  {
+   "id": "bundle-anatomy-17",
+   "title": "Mapbox runtime options to cut work now (workerCount, glyph PBFs, iconset, unused preconnects, CSP worker)",
+   "severity": "medium",
+   "evidence": "LH: 2 blob workers x 838,974 B, iconset.pbf 72,372 B raw/20,828 B wire, 2 glyph PBFs 152,750 B raw/88,898 B wire, 20 tiles 345,177 B, 5 unused preconnects; mapbox-gl.d.ts 3.24.1 has localFontFamily, maxTileCacheSize, fadeDuration, renderWorldCopies, static workerCount.",
+   "fix": "mapboxgl.workerCount=1 on mobile (verify public); localFontFamily to drop glyph PBFs (-89 KB wire, look changes); minimal inline raster-only style to drop iconset.pbf + style JSON round trip (verify sprite unused); renderWorldCopies:false; fadeDuration:0 on mobile; mapbox-gl-csp + self-hosted worker file so CSP can drop worker-src blob: (X3).",
+   "effort": "M",
+   "acceptance_test": "Network log: <=1 worker parse, no fonts/v1/mapbox or iconset.pbf requests; labels render.",
+   "metric_or_grade_moved": "-110 KB wire, -3 requests, less worker parsing",
+   "depends_on": [
+    "bundle-anatomy-07"
+   ],
+   "audit_refs": [
+    "P2",
+    "X3"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "mapboxgl.workerCount is public (getter/setter bundle.pretty.js:96147-96151) with fixed default 2 (L58225); localFontFamily semantics verified (mapbox-gl.d.ts:19216-19218: overrides all glyphs, keeps weight keywords, so italic rivers labels lose italics). Counts 8 sources / 13 layers are right only when the pre-mapbox region L9342-10001 (4 sources, 7 layers) is included. Note the walkthrough and GtbgLoc use Open Sans Bold stacks (L110811, L112659) not analysed for glyph impact."
+  },
+  {
+   "id": "bundle-anatomy-18",
+   "title": "Eight sub-pages load a second 1.8 MB mapbox-gl copy from the CDN; six need only basic APIs",
+   "severity": "medium",
+   "evidence": "camera, viewshed, compare, sandbox, ground-remembers, watch-together, immersive, cinematic-export, unit-rendering-reference .html load api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js (cache max-age 1y, br); only compare (pitch, raster-dem, setTerrain x3, Popup) and cinematic-export (preserveDrawingBuffer, captureStream) need GL; compare creates two maps.",
+   "fix": "Shared self-hosted map-vendor chunk, or Leaflet/MapLibre map-lite for six basic pages, or click-to-activate facade with poster/Static Images snapshot; keep GL only for compare and cinematic-export.",
+   "effort": "L",
+   "acceptance_test": "home->camera->compare downloads mapbox code once; Ground Remembers shows poster within LCP budget.",
+   "metric_or_grade_moved": "Sub-page JS 1.8 MB -> 0-50 KB; Map Loads",
+   "depends_on": [
+    "bundle-anatomy-16"
+   ],
+   "audit_refs": [
+    "S2",
+    "S3",
+    "S4",
+    "P2"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "All nine pages load the CDN mapbox-gl 3.24.1 js+css (verified). 'Six need only basic APIs' is wrong (see 16): ground-remembers needs heatmap, sandbox needs queryRenderedFeatures. Facade and shared vendor chunk remain valid; the Leaflet swap applies to four pages."
+  },
+  {
+   "id": "bundle-anatomy-19",
+   "title": "Build config when a real build exists: es2022 target, no modulepreload polyfill, manualChunks, source maps",
+   "severity": "medium",
+   "evidence": "Optional chaining lowered to ==null?void 0 (65 sites, e.g. bundle.pretty.js:96867); modulepreload polyfill stmt 0 (710 B); LH valid-source-maps fails; zustand dev shims and 6 React licence banners present.",
+   "fix": "vite.config: build.target es2022, modulePreload.polyfill false, sourcemap true (public maps for entry/app), cssCodeSplit, manualChunks {react, mapbox}, hashed file names, esbuild.legalComments none + THIRD-PARTY-NOTICES.txt.",
+   "effort": "M",
+   "acceptance_test": "LH unused-javascript and valid-source-maps pass for entry; no polyfill in HTML.",
+   "metric_or_grade_moved": "Best Practices valid-source-maps; -2-4 KB br",
+   "depends_on": [
+    "bundle-anatomy-21"
+   ],
+   "audit_refs": [
+    "P2",
+    "P6"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "65 lowered optional-chaining sites (60 in app), 710 B polyfill and 6 banners (1,492 B) verified, but 'es2022 target saves -2..4 KB br' is overstated: ~404 B raw for the 21 simplest sites, ~1-1.5 KB raw overall, ~0.3-0.6 KB br. The valid-source-maps acceptance only covers the entry chunk; a self-hosted 1.8 MB mapbox chunk would still fail it (see missed issue 2)."
+  },
+  {
+   "id": "bundle-anatomy-20",
+   "title": "Optional: Preact-compat instead of React on the critical path",
+   "severity": "low",
+   "evidence": "react+jsx+scheduler+react-dom 143,345 B raw (br5 45,473); preact 10.29.8 preact 11,693 + hooks 3,647 + compat 10,300 = 25,640 B raw (jsDelivr).",
+   "fix": "Alias react/react-dom to preact/compat behind a flag for one release; app uses hooks, lazy/Suspense, StrictMode, createRoot, zustand useSyncExternalStore.",
+   "effort": "L",
+   "acceptance_test": "Full Playwright regression; entry <=65 KB raw (~22 KB br).",
+   "metric_or_grade_moved": "Entry -117 KB raw / ~-35 KB br5",
+   "depends_on": [
+    "bundle-anatomy-08",
+    "bundle-anatomy-14"
+   ],
+   "audit_refs": [
+    "P2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "143,345 B React stack vs 25,640 B preact+hooks+compat verified; savings arithmetic (-117.7 KB raw) and effort L are reasonable behind a regression suite."
+  },
+  {
+   "id": "bundle-anatomy-21",
+   "title": "No editable source: commit an AST chunk-splitter (stop-gap) or recover source (N1)",
+   "severity": "high",
+   "evidence": "Bundle frozen since Aug 22 and hand-patched 13+ times (Jul 20 zip); gettysburg_FIXED_v25/src (40 modules, 192,650 B, manualChunks) contains no walkthrough/ancestor/Soldier code, so all post-Jun features exist only in the minified bundle; app region is 17,831 lines/508 KB pretty-printed; xref scan shows small ENTRY/MAP/PANELS interface (7+29 ENTRY refs, 13 PANELS->MAP, 6 MAP->ENTRY).",
+   "fix": "Track A (L): tools/split-bundle.mjs with rollup parseAst assigns statements to chunks, emits import/export for the interface, rewrites AO's ~29 component refs to pt.lazy, applies mapbox loader patch; keep playback let-bindings in one chunk. Track B (XL): treat bundle.pretty.js app region as source of truth, AST-rename to modules with tests.",
+   "effort": "XL",
+   "acceptance_test": "Reproducible build; Playwright smoke passes on both old and split builds (same Day 1 opening screenshots).",
+   "metric_or_grade_moved": "Unblocks every code-level performance item",
+   "depends_on": [],
+   "audit_refs": [
+    "N1"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "FIXED_v25/src is 40 modules / 192,650 B with no walkthrough/ancestor/soldier code; its manualChunks still statically imports mapbox from the entry (never lazy). 17,831 line total = 17,171 + 660. Add circular-import/TDZ risk between ENTRY/MAP/PANELS as an explicit splitter constraint."
+  },
+  {
+   "id": "bundle-anatomy-22",
+   "title": "Performance budgets and CI guardrails (size-limit, Lighthouse CI, Playwright network tests)",
+   "severity": "medium",
+   "evidence": "No budgets exist; regression from split Jun-12 build to single 2.28 MB chunk went unnoticed.",
+   "fix": "Enforce report section 4.1 budgets per chunk; LHCI mobile+desktop assertions (FCP<=1800, LCP<=2500, TBT<=200, CLS<=0.1, unused-javascript, render-blocking, valid-source-maps, errors-in-console); Playwright: request counts, no duplicate URLs, one document request, one Map per session, immutable /data/v1.",
+   "effort": "M",
+   "acceptance_test": "CI fails on a deliberately bloated PR.",
+   "depends_on": [
+    "bundle-anatomy-08"
+   ],
+   "audit_refs": [
+    "P1",
+    "P7"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Cited Lighthouse audit IDs (render-blocking-insight, errors-in-console, valid-source-maps, unused-javascript) exist in the LH 13.5 JSON. Unverified: that the installed @lhci/cli bundles a Lighthouse with the same IDs."
+  },
+  {
+   "id": "bundle-anatomy-23",
+   "title": "Four divergent tick-to-clock implementations (root cause of C3/C4 clock/date bugs)",
+   "severity": "high",
+   "evidence": "getTickTime bundle.pretty.js:9371-9383 (Day1 base 6*60, Days 2-3 base 4*60); M4 L9856-9859 (5*60); JF L100836-100838; QF L100998-101001; HUD `July ${l+2}, 1863` L97428; chronology_day1.json tick_formula 'Tick 1 = 5:00am'.",
+   "fix": "One exported tickToClock/tickToDate in the entry chunk with single constants (or explicit offset table), imported by store, HUD, overlay, event card, toasts; unit tests for ticks 1,17,225,226,451,675. Historical correctness owned by data specialists.",
+   "effort": "M",
+   "acceptance_test": "grep finds one implementation; snapshot of 20 ticks across all UIs identical.",
+   "metric_or_grade_moved": "Correctness (C3/C4); ~0.6 KB less code",
+   "depends_on": [],
+   "audit_refs": [
+    "C3",
+    "C4"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "getTickTime L9371-9383, M4 L9856-9859, JF L100836-100838, QF L100998-101001, HUD L97428 all verified; note the +2 date bug is in three places (JF, QF and HUD all emit July ${f+2} / ${l+2})."
+  },
+  {
+   "id": "bundle-anatomy-24",
+   "title": "Data-format scale plan for expanded databases (row JSON -> columnar -> typed-array binary + Worker)",
+   "severity": "medium",
+   "evidence": "Deployed data = 694 placements + 1,110 density = 1,804 keyframes (placements_day1_ticks1_50 says record_count 4890, contains 100) vs placement_schema total ~430,000; Day 1 prototype: row JSON no-notes 86,733 B raw/6,440 B br11 vs columnar 25,668/5,374 vs binary struct 11,472/4,556; 430k rows would be ~63 MB row JSON.",
+   "fix": "Format-agnostic loader: row JSON (today) -> columnar with dictionaries (<=100k rows) -> typed-array binary per tick-range decoded in a Worker (>=100k rows); prose in separate files keyed by id; share schema/manifest with Historian ingestion.",
+   "effort": "L",
+   "acceptance_test": "Loader tests over 3 formats; synthetic 430k-row dataset loads <1 s off-main-thread and <5 MB wire.",
+   "metric_or_grade_moved": "Future-proofing INP/TBT at scale",
+   "depends_on": [
+    "bundle-anatomy-10"
+   ],
+   "audit_refs": [],
+   "verdict": "CORRECTED",
+   "correction": "1,804 keyframes and the 4,890-vs-100 mismatch verified. The prototype binary struct <HHiiBHB is 16 B/record (717 x 16 = 11,472 B), so 430k rows = ~6.9 MB raw, not '~9 B/row => ~4 MB'. Compressed is ~6.4 B/row = ~2.7 MB, so the '<5 MB on the wire' acceptance still holds."
+  },
+  {
+   "id": "bundle-anatomy-25",
+   "title": "Mapbox token duplicated twice and Google key in the bundle; mobile map disables attribution",
+   "severity": "low",
+   "evidence": "Token literal at bundle.pretty.js:97209-97210 (a2) and 102898-102899 (fO); Google Maps key mO at L110610; mobile Map uses attributionControl:!1 (L102988).",
+   "fix": "Single config constant from build-time env; restrict both keys by referrer/API in provider consoles; verify Mapbox attribution requirement is met on mobile.",
+   "effort": "S",
+   "acceptance_test": "grep pk.eyJ and AIza find one each; foreign-Referer request returns 403.",
+   "depends_on": [],
+   "audit_refs": [
+    "X1",
+    "X2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "Token literals at L97209-97210 and L102898-102899, Google key at L110610, attributionControl:!1 at L102988 verified; the walkthrough map also disables attribution (L110777), which the report omits."
+  },
+  {
+   "id": "bundle-anatomy-26",
+   "title": "Compression ceiling: Netlify edge brotli ~q4-5 (604 KB) vs q11 (509 KB)",
+   "severity": "low",
+   "evidence": "Live Content-Length 603,777 B; local br q4 629,053, q5 580,517, q11 509,235 (+18.6%, +94.5 KB).",
+   "fix": "Test whether Netlify honours a committed .br sidecar or a fronting CDN pre-compressing at q11 (unverified); otherwise the lever is fewer raw bytes (plan).",
+   "effort": "S",
+   "acceptance_test": "curl -H 'Accept-Encoding: br' size for a test asset with/without sidecar.",
+   "depends_on": [],
+   "audit_refs": [
+    "P2"
+   ],
+   "verdict": "CONFIRMED",
+   "correction": "br q4 629,053 / q5 580,517 / q11 509,235 reproduced; live body 603,679 B (header now 604,243), varies slightly per request. Sidecar .br support remains untested."
+  },
+  {
+   "id": "bundle-anatomy-27",
+   "title": "Content-hash integrity: same asset URL served different bytes (Jul 20 vs Aug 22+) under immutable 1-year caching",
+   "severity": "medium",
+   "evidence": "index-Cg8FAMXN.js 2,280,095 B md5 0903f96b... (Jul 20 zip) vs 2,280,438 B md5 7ef75b95... (Aug 22-Sep 29 zips); first diff at offset 151,648 (showUnits/toggleUnits added to store, bundle.pretty.js:9419-9437); netlify.toml /assets/* immutable max-age=31536000; sw.js:41-50 cache-first; sw.js:5-13 precaches fixed name.",
+   "root_cause": "Built file patched in place without re-hashing.",
+   "fix": "Deploy script recomputes sha256(content)[0:8], renames files and rewrites references (or deploy only Vite output); CI check hash(file)==name suffix; bump SW cache name once shipped.",
+   "effort": "S",
+   "acceptance_test": "CI fails on any assets/* name/content mismatch; a browser holding the Jul-20 file receives current bytes after the fix.",
+   "metric_or_grade_moved": "Caching correctness; prevents lazy chunks importing stale index exports",
+   "depends_on": [],
+   "audit_refs": [
+    "N1",
+    "C6"
+   ],
+   "verdict": "CORRECTED",
+   "correction": "Evidence exact (Jul 20 md5 0903f96b... 2,280,095 B vs 7ef75b95... 2,280,438 B, offset 151,648, Jul 20 index.html references the same name). Bumping the SW cache name does NOT fix stale clients: sw.js:19 cache.addAll goes through the HTTP cache and /assets is immutable for a year, so a stale copy is re-precached. Only a hash rename (or cache:'reload') works; acceptance test must rely on the rename."
+  }
+ ],
+ "open_questions": [
+  "Which element is the real-user LCP (hypothesis: late large story/event-card text blocks during the 3.5 s boot fast-forward)? Needs web-vitals attribution (finding 06).",
+  "Exact current Chromium wording/mechanism for the CSS preload warnings was inferred from LH's duplicate CSS request on SW-controlled loads and vite-pwa issue #945; not reproduced in a browser (browser tools were off-limits).",
+  "Does Netlify honour pre-built .br sidecars or allow a higher brotli level? Live brotli is between local q4 and q5.",
+  "Mapbox Product Terms: may Mapbox Raster/Static Tiles be used inside MapLibre/Leaflet on a public site, and may a Static Images snapshot be re-hosted as an LCP poster? Also confirm mapboxgl.workerCount is public in 3.24.1, whether iconset.pbf can be skipped with an inline raster-only style, mapbox-gl 2.x support status, and that mobile attributionControl:false is compliant.",
+  "Compressed sizes of maplibre/leaflet/mapbox 2.15/1.13 in the option table are estimated from mapbox v3 compression ratios, not measured; MapLibre/Leaflet visual and behavioural parity (labels, fractional zoom) needs the spike.",
+  "Owner decision needed on N1: stop-gap AST chunk-splitter over the frozen bundle (Track A) vs full source recovery (Track B); this gates nearly every code-level performance fix.",
+  "Data/animation specialists: do 1,804 keyframes plus the sticky forward-fill cache (bundle.pretty.js:96271) reproduce the intended 467-unit-per-tick view after arbitrary tick jumps, versus the ~430,000-record schema claim?"
+ ],
+ "verification_summary": "Verified all 13 critical/high and all 14 medium/low findings of bundle-anatomy (27 total). The measurements are very solid: every count, byte size, Lighthouse figure, compression number, library size, Mapbox price and licence quote I re-derived matched, most to the byte. Verdicts: 13 CONFIRMED, 14 CORRECTED, 0 REFUTED, 0 UNVERIFIABLE as a whole (a few sub-claims are flagged unverified inside individual verdicts, e.g. post-fix lab LCP of 4-5 s and the Lantern \"High-priority script = FCP-blocking\" mechanism). The main faults are in interpretation and fix design. (1) The \"only five mapbox references / two Map constructors\" claim is wrong: bundle.pretty.js has 8 `z_` references and 3 `new z_.Map`; the Virtual Walkthrough creates its own map at L110769-110770, so the proposed lazy-mapbox patch would throw ReferenceError there. Babel scope analysis confirms the mapbox statements' only entry-scope free variable is `gB` (= globalThis). (2) Finding 04's \"site-nav.js lazy on first click\" would blank the Extra Features/Historian buttons (index.html fills empty shells from window.GTBG_MENU); `defer` is safe. (3) Finding 10's notes split ignores that placement notes are consumed by the ancestor timeline and OOB/roster trees as well as the unit panel; finding 11's \"mobile uses desktop's lazy day loading\" would regress jump-to-day because desktop only loads Day 2/3 from the playback loop. (4) Overstated numbers: web-vitals attribution is ~4-5 KB br not ~2 KB (06); es2022 target saves ~0.3-0.6 KB br not 2-4 KB (19); binary format is 16 B/row not ~9 (24). (5) \"Six sub-page maps need only basic APIs\" is wrong: ground-remembers uses a heatmap layer, sandbox uses queryRenderedFeatures (16/18). (6) SW cache-name bump does not guarantee fresh bytes because cache.addAll goes through the immutable HTTP cache (27). Five MISSED items reported (1 high, 3 medium, 1 low). A \"## Verification\" section with the full verdict table was appended to plan-work/bundle-anatomy.md; scratch scripts are in plan-work/tmp-verify-bundle-anatomy/.",
+ "missed_by_specialist": [
+  {
+   "title": "Third Mapbox Map in the Virtual Walkthrough breaks the lazy-mapbox patch surface (findings 07/12/17)",
+   "severity": "high",
+   "evidence": "bundle.pretty.js:110769 `z_.accessToken = a2` and :110770 `M.current = new z_.Map({... style: \"mapbox://styles/mapbox/satellite-v9\", attributionControl: !1})` (:110777) inside _O's useEffect (:110768); layers at L110780-110830 with `text-font: [\"Open Sans Bold\", ...]` (:110811). grep of `\\bz_\\b` shows 8 references (97236, 97237, 97252, 102980, 102981, 110769, 110770 plus the L96208 definition), not the 5 claimed. The report's xref table lists z_ under PANELS->MAP.",
+   "fix": "Include the third effect in the loadMapbox() patch via a shared createMap(); decide whether the walkthrough reuses the main map's style/session or the main map is disposed/hidden while it is open (today desktop runs two live GL contexts); update the 'one satellite-v9 request per session' acceptance test; include the walkthrough's Open Sans Bold glyphs in the localFontFamily decision and check attribution requirements for its attributionControl:!1."
+  },
+  {
+   "title": "valid-source-maps will still fail after the split because the self-hosted lazy mapbox chunk is >500 KiB first-party JS",
+   "severity": "medium",
+   "evidence": "lh_mobile.json valid-source-maps flags index-Cg8FAMXN.js twice ('Large JavaScript file is missing a source map'); the report's own waterfall loads the ~1.8 MB mapbox chunk at ~1.6 s, inside the trace window. Finding 19's acceptance test only covers the entry chunk.",
+   "fix": "Publish a source map for the mapbox chunk (npm package ships dist/mapbox-gl.js.map; strip sourcesContent if the Mapbox licence is a concern) or keep the vendor chunk under 500 KiB (only true for Leaflet/MapLibre-lite); add the check to the Lighthouse CI assertions."
+  },
+  {
+   "title": "SW precache re-fetches through the HTTP cache, so stale immutable bytes survive a cache-name bump",
+   "severity": "medium",
+   "evidence": "sw.js:16-20 `caches.open(CACHE_NAME).then(cache => cache.addAll(PRECACHE_ASSETS))` uses default cache mode; netlify.toml serves /assets/* `public, max-age=31536000, immutable`; sw.js:6-7 precaches fixed names; Jul 20 vs Aug 22+ index-Cg8FAMXN.js differ in bytes under the same URL.",
+   "fix": "Build the precache from content-hashed URLs; for any unhashed precache entry (/manifest.json, icons, /favicon.ico) fetch with new Request(url, {cache:'reload'}); rename assets on content change rather than relying on the cache-name bump."
+  },
+  {
+   "title": "Lazy/consolidated day loading regresses jump paths unless a store-level ensureDay() exists first",
+   "severity": "medium",
+   "evidence": "zp at bundle.pretty.js:96900 is called only from sF (L96939), aF/lF (L96942-96946, invoked by Ed at L96991-96992 during playback) and mobile map load (L103040-103042). jumpToDay (L9369), keys 1/2/3 (L112987-112993), IO day buttons (jumpToDay at L112211) and bookmarks never load data. zp checks loadedDays only after the fetch completes (no in-flight dedupe) and marks a day loaded even if every file failed (.catch(() => ({placements: []}))).",
+   "fix": "Add ensureDay(day) with a per-day promise in the store, called from setTick/jumpToDay/scrubber/bookmarks before implementing findings 10/11 (mobile lazy loading, data consolidation, prefetch); do not mark a day loaded when all files fail. Coordinate with app-bugs E4/J1."
+  },
+  {
+   "title": "CSP enforcement blockers (inline scripts and onload handler) are not tied to the load-path acceptance criteria",
+   "severity": "low",
+   "evidence": "index.html has 7 executable inline scripts (L255, 294, 355, 398, 441, 521, 608) and an inline onload= handler at L56-57; netlify.toml CSP is Report-Only with 'unsafe-inline' in script-src; Mapbox needs worker-src blob: unless the mapbox-gl-csp build is used.",
+   "fix": "Add 'no inline script or inline event handler remains' as an acceptance criterion of findings 02/04, then drop 'unsafe-inline' from script-src and enforce CSP; choose mapbox-gl-csp (finding 17) if worker-src blob: must go."
+  }
+ ]
+}

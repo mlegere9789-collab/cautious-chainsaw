@@ -1,0 +1,666 @@
+{
+ "agent": "ux-flows",
+ "summary": "Full UX research and IA plan written to plan-work/ux-flows.md (about 250 KB: 6 personas, 11 cognitive-walkthrough journeys on desktop and mobile, Nielsen evaluation, a 59-item friction register, redesigned IA, permalink schema, unified Ctrl+K palette, 20-second guided moment, progressive disclosure, 27-state catalog, resume, Classroom/Present and On-site modes, 12 ASCII wireframes, metrics plan, moderated 5-user test script, 28 fix specs, phasing). Read-only; nothing built or modified. No real users were observed, so times and completion rates are predictions from code, data and analytics, each graded V/C/I/E.\n\nVerdict: the site is two products stitched together (an SPA map plus 20 static pages) behind three blocking gates (fake fast-forward splash, layout chooser, onboarding modal). First visit needs >= 3 clicks and about 14 s before the map; keyboard-only users cannot get in; a shared link lands on July 1 tick 1.\n\nNew or sharpened discoveries: (1) Sharing is write-only end to end (app writes ?t/u/z/ll, sub-pages write ?tick/vignette/unit/lat/lng, nothing reads them; no navigator.share; mobile has no working Bookmarks). (2) Six divergent moment lists: Pickett's Charge is tick 538, 551 or 560 depending on entry point, and 6 of 9 Turning Points anchors do not land on the event they name (e.g. 560 is East Cavalry Field). (3) Day 1 ticks 101-225 (125 ticks, 56% of Day 1) have no chronology event and no vignette. (4) Historian chronology answers all render the literal word 'undefined' (137 of 137; historian.html:119-125 reads e.title/e.description but data has e.event). (5) On-site is unsupported three ways: no geolocation in the map, HTML and tiles never cached (sw.js:38,72-75), AR uses 30 places while 528 POIs sit unused in the bundle. (6) No teacher surface; Student page median FK grade about 10.9 (heuristic). (7) 'Explore' names both the menu and its first group; 'NPS Auto Tour' is not NPS's tour and no non-affiliation notice exists. (8) 10 sub-pages link back via /index.html, bypassing the history return; /index.html is the 2nd most viewed URL (86 views/30 d).\n\nProposed IA: shared header on map and all pages with five destinations (Battle, Stories, Find, Ask, Visit) plus More; every one of the 13 toolbar buttons, 14 mobile tiles and 20 features re-homed once; one Ctrl/Cmd+K palette over units, people, places, 512 monuments, moments and commands with an Ask fallback (prototype index 185 KB raw / 32 KB gzip); one URL-state contract with a data-version stamp so links survive the clock fix; modes (Classroom, Present, On-site) instead of pages.\n\nSequencing: P0 static quick wins (weeks 0-1: undefined fix, /index.html links, copy, moments.json v0, card sort/tree test, baseline metrics), P1 front door and state (weeks 2-5), P2 one product (5-9), P3 contexts and content (9-16); about 62 developer-days before overlap with sibling plans. Everything in-app depends on the N1 source decision.\n\nDisclosure: while extracting the two Netlify PDFs my loop accidentally opened an unrelated personal PDF in C:/Users/mlege/Videos; I discarded its contents, used none of it, and re-ran extraction on the two exact Netlify filenames.",
+ "report_file": "C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work/ux-flows.md",
+ "findings": [
+  {
+   "id": "ux-flows-01",
+   "title": "One URL-state contract: parse on load, serialise on share, legacy migration, data-version stamp",
+   "severity": "critical",
+   "effort": "L",
+   "audit_refs": [],
+   "depends_on": [
+    "app-bugs-05",
+    "app-bugs-06",
+    "app-bugs-10",
+    "ux-flows-05"
+   ],
+   "evidence": "App writes ?t=&u=&z=&ll= (bundle.pretty.js:97821-97829, prompt fallback :97932) and ?ancestor= (:101225); sub-pages write ?tick=&vignette= (documentary.html:92, education.html:81, historian.html:110, search.html:127, embed.html:60), ?unit= (search.html:114, regiment.html:247), ?lat=&lng= (search.html:139). Only reader is ?ancestor in the Follow panel (pretty:101019). /index.html is the 2nd most viewed URL (86 views/30 d).",
+   "root_cause": "No routing layer; each feature invented its own params; no data-version concept, so a clock/retime fix would silently re-point every shared link and bookmark.",
+   "fix": "Implement report section 5.6: lib/state-url.js parseState (total, ordered, aliases t/u/ll/lat+lng/ancestor/vignette), serializeState (minimal, stable key order, 4 dp lat/lng), migrateTick(dv,tick) via data/tick-migrations.json; boot reader runs before the intro decision, awaits ensureDay() then applies tick/unit/v/panel/follow/cam then camera.frame(); pushState for discrete navigation, replaceState for scrub-end/pause/move-end, never while playing; one mapLink() helper for all 10 producer sites; write dv into every URL and bookmark; 301 /index.html to / (verify query kept). Params: tick, day, v, unit, follow, at, z, br, pt, cam, panel, q, ask, view, mode, level, layout, pl, step, tick2, dv, intro, src; fragment reserved for #n= notes and #tour=.",
+   "acceptance_test": "Table-driven Playwright over 60 URLs: /?tick=551&v=V-016 loads Day 3 data, tick 551, story open, camera on the Angle, no intro; /?tick=9999&unit=nope gives normal start plus chip; serialize(parse(u))==u; link crawler over the 10 producers lands each on its intended state; Back returns to previous discrete state; legacy t/u/z/ll links still open.",
+   "metric_or_grade_moved": "Core function (both layouts), Usability; deep_link_ok >= 99%; closes UXF-16, UXF-24.",
+   "verdict": "CORRECTED",
+   "correction": "Evidence is real ($k at pretty:97821-97829, prompt at :97932, only reader :101019). The fix has five gaps. (1) parseState validates unit/follow against an undefined facts.unitIds; it must be OOB ids plus animated ids, because 87-100 of 478 animated ids are not in the OOB and the app emits u= for any selected unit. (2) dv plus tick-migrations.json conflicts with app-time's decision that ticks stay the stable key with zero migration, and event-identity migration is undefined for non-event ticks; keep dv as a reserved stamp with an identity migration. (3) The 'at' param collides with app-time section 8, where 'at' is an ISO time and 'av' and 'vignette' are also used. (4) It has an unlisted hard dependency on seek-safe stateAt (app-bugs-07 / app-time-07). (5) The /index.html 301 needs force = true. The ancestor URL is built at :101117 and the button is at :101225."
+  },
+  {
+   "id": "ux-flows-02",
+   "title": "Remove the three entry gates; auto layout; add a skippable 20-second guided moment",
+   "severity": "critical",
+   "effort": "L",
+   "audit_refs": [
+    "H3",
+    "A6"
+   ],
+   "depends_on": [
+    "app-design-14",
+    "bundle-anatomy-13",
+    "app-bugs-10",
+    "app-bugs-11",
+    "app-a11y-03",
+    "ux-flows-01",
+    "ux-flows-05"
+   ],
+   "evidence": "Splash tO: wait + 800 ms + 3.5 s sweep writing the store per frame + 0.6 s fade (pretty:101471-101590), Skip is an 11 px #444 div (:101581); chooser dO cards are div onClick and promise a non-existent settings menu (pretty:102759-102815); layout state useState(null), only gtbg_onboarded stored (pretty:112949-112951); Power User archetype on touch (pretty:111814); banner index.html:377. J1: >= 3 blocking screens, >= 3 clicks, about 14 s before first choice on mobile.",
+   "root_cause": "Layout is treated as a user decision instead of a detected preference; onboarding explains controls before showing value; nothing persists.",
+   "fix": "Delete splash sweep, chooser, archetype modal and banner script (index.html:355-396). resolveLayout() from matchMedia with a Settings override. GuidedMoment driven by moments.json intro: fly-in 1.5 s, play ticks 535-556 at 1x (about 10.5 s; captions at 3.0, 6.0, 9.5, 12.0 s from chronology events 538/544/551/556), hold, end card (Watch whole battle / Explore / Ask); non-modal, no focus trap, Skip button + Esc, map gesture takes control, polite live captions <= 1 per 2.5 s, reduced-motion = static steps, data-saver = Lite mode, never on deep link/classroom/resume. Three one-time hints; Help replay and optional 60-second tour. Day-3 slice for ticks 521-600 is 4 KB gzip.",
+   "acceptance_test": "Fresh private profile: no dialog or full-screen overlay before first interaction; keyboard-only reaches Play with Tab+Enter; 320/375 px no clipped glyphs; reduced-motion no autoplay; second visit no guided moment; moderated T1 5/5 start playback within 60 s; guided moment 20 s +-2 s in a trace.",
+   "metric_or_grade_moved": "Usability D+/B- to A-, keyboard/SR entry (UXF-01..08, 53), time_to_first_play; fewer store writes in the RUM load window.",
+   "verdict": "CORRECTED",
+   "correction": "Splash timings (800 ms + 3500 ms + 600 ms) and the 11 px #444 skip div are confirmed. The sweep also primes the never-cleared forward-fill cache i2 (pretty:96265-96305), so deleting it without stateAt leaves jumps nearly empty. The '4 KB gzip' data claim only covers the 521-600 placements file. Tick 535 has 18 exact rows but 451 units have a keyframe at or before it, and tick 556 has zero exact rows. 12 overlapping density files add about 18.6 KB gz, so budget about 25-45 KB gz or ship a pre-baked snapshot. Desktop loads only Day 1 at boot (:96991-96992); the mobile map loads all three days (:103040-103042). A hot-patch auto-layout shortcut exists and is S effort. Add a test that no location.reload() happens mid-intro on a fresh profile (C6)."
+  },
+  {
+   "id": "ux-flows-03",
+   "title": "Unified search and command palette (Ctrl/Cmd+K): units, people, places, monuments, moments, commands, Ask",
+   "severity": "high",
+   "effort": "L",
+   "audit_refs": [
+    "H5",
+    "H7"
+   ],
+   "depends_on": [
+    "ux-flows-05",
+    "app-bugs-14",
+    "app-a11y-14"
+   ],
+   "evidence": "Three search entry points with different corpora: S panel (pretty:98822, units only), magnifier opening the same panel (pretty:113214), Search Everything (search.html:99-141, autofocus :54); six regiment pickers; includes/subsequence scoring; localeCompare sorts (H5); no aliases; terrain.json has 'Gulp's Hill saddle' (typo hides a 'culp' match).",
+   "root_cause": "Each feature built its own picker and index; nothing normalises ordinals, abbreviations or punctuation.",
+   "fix": "Report 5.7: build data/search-index.v1.json at deploy (about 225 KB raw / 40 KB gzip; prototype 184.6/31.6 KB for 1,086 entries); hand-rolled scorer plus normaliser (ordinal words, optional suffix, state abbreviations both ways, Inf./Vols./Btty, 'Co. G' recognised and dropped, corps roman/word), curated place alias table; ranking exact>prefix>word-prefix>substring>fuzzy with type priors by context and query shape; groups of 5; > commands, @ # ? accelerators; clock queries disabled until the canonical clock exists; Ask fallback row and Shift+Enter; lazy-load on first focus; ARIA 1.2 combobox, status region, Esc contract, 56 px rows, 16 px input, no autofocus on load/touch. Replace S panel, magnifier tool, search.html body. Fix Gulp's/Culp's.",
+   "acceptance_test": "60-query golden set returns expected type at rank <= 3 ('20 maine', 'twentieth maine', '24th mich.', '1st minn', 'chamberlain', 'devils den', 'culp', 'pickett's charge', question form gives Ask first, 'zzzz' gives no-results state); p95 < 20 ms on mid-range phone; axe 0 and NVDA/VoiceOver announce counts; index counts equal data counts.",
+   "metric_or_grade_moved": "Usability B- to A (P3, P5, P6), UXF-10, 41; zero-result rate <= 8%.",
+   "verdict": "CORRECTED",
+   "correction": "Evidence is real (pretty:98822, :113214, six pickers, the 'Gulp's Hill saddle' typo). '467 units (regiments and batteries)' is wrong: 467 is regiments only, and 103 batteries sit in nested artillery dicts, so there are 570 units plus 135 brigade/division/corps nodes. The index_size.py prototype counted only 'regiments' and parsed 428 of 512 monuments. The 225 KB / 40 KB size estimate is still plausible. Entry counts, the golden set and the '0 of 467' copy must use 570."
+  },
+  {
+   "id": "ux-flows-04",
+   "title": "One global IA: shared header, five destinations plus More, Features index, every control re-homed",
+   "severity": "high",
+   "effort": "L",
+   "audit_refs": [
+    "H1",
+    "H6",
+    "D4"
+   ],
+   "depends_on": [
+    "app-design-12",
+    "app-design-13",
+    "app-bugs-13",
+    "ux-flows-16",
+    "ux-flows-22"
+   ],
+   "evidence": "Four drifting nav lists: 13-icon toolbar (pretty:113145-113240), 14 mobile tiles (pretty:103391-103482), injected 20-item pill hopping among six positions (index.html:176-206, :535-542), sub-page nav (site-nav.js:12-58); 'Explore' is both button and first group (site-nav.js:14,169); OOB absent on desktop, Walkthrough/Distance/Locations absent on mobile; tab order differs from visual (index.html:285 vs :716); flat hierarchy (Play differs only by padding, pretty:112431-112440).",
+   "root_cause": "Navigation added per feature and per layout; no tool registry and no IA.",
+   "fix": "Report 5.4-5.5: one GlobalHeader on map and all sub-pages (Battle, Stories, Find, Ask, Visit, search field, Share, More; bottom tab bar on compact); map tools (Layers, Filter, Key, Measure, Saved, Units) in a rail/sheet from the single registry (app-bugs-13); re-home every control per the 5.5 tables (13 toolbar, 14 mobile tiles, 20 pages); Features index as crawl hub; delete injected overlay and six scripts (index.html:168-237, 285-606); keep file URLs; validate labels first with card sort and tree test.",
+   "acceptance_test": "Card sort >= 70% agreement on >= 15/20 cards and tree test >= 80% on >= 8/10 tasks before build; header identical (DOM and position within 1 px) on 27 pages and 30 app states; #extra-features absent; each of the 20 features <= 2 clicks from any page; tab order equals visual order; registry test: every tool has a panel and a Help row.",
+   "metric_or_grade_moved": "Usability B-/D+ to A-/B+, Fit and finish; UXF-09..14, 56, 59; feature reach.",
+   "verdict": "CORRECTED",
+   "correction": "The 13-button toolbar, 14 mobile tiles, 20-item pill and duplicate 'Explore' label are confirmed. Deleting index.html:285-606 removes five inline scripts, not six. One of them (398-440) is the only source of aria-label/title for the S/F/L/B/? toolbar buttons and the only remover of #seo-content, so app-level labels must land first. The Monuments star overlay script (608-714) is not covered by any finding. The desktop Unit Roster and mobile Order of Battle are two separate panels; 5.5 already merges them."
+  },
+  {
+   "id": "ux-flows-05",
+   "title": "One moments.json (ids, chapters, playlists) replaces six divergent lists; fix Turning Points anchors; named chapters",
+   "severity": "high",
+   "effort": "L",
+   "audit_refs": [
+    "C4"
+   ],
+   "depends_on": [
+    "app-time"
+   ],
+   "evidence": "Lists: 8 scrubber markers (pretty:112192-112200), 5 tour steps (pretty:111819), 24 vignettes, 137 events, 9 Turning Points, 16 stops (pretty:104096), Documentary, Students, bookmarks. Pickett's Charge = tick 538 (scrubber, tour), 551 (V-016), 560 (Turning Points; chronology@560 = EAST CAVALRY FIELD). 6 of 9 Turning Points anchors miss: 175 has no event, 240 = Berdan (Longstreet is 256), 267 = Vincent arrives (charge is 275), 340 = 'fighting dies down', 540 = Union artillery replying (cannonade 518), 560 = East Cavalry Field. Markers are 8 px divs, none on mobile.",
+   "root_cause": "Each moment is hand-typed per place and never validated against events.",
+   "fix": "Create data/moments.json (permanent ids, kind, tick, chapter, place, units, summary, story, marker, sources, intro) with 13 draft chapters (report 6.2) and playlists (documentary, debates, intro-tour, lessons, per-day student). Generate timeline chapter bands/marker buttons, mobile chapter chips, Documentary, Turning Points, Students, tour steps, palette results. Correct the 6 wrong anchors (owner/historian choose targets). CI lint: unique ids, tick in chapter, curated keyword within +-3 ticks of a chronology event, units exist, student summary FK <= 8 with a real tool, sources present. Derive E-D<day>-<\\tick> ids.",
+   "acceptance_test": "Lint passes in CI; Turning Points 9/9 anchors match a chronology event with the keyword within +-3 ticks; deleting a hand-kept list breaks the build (proves generation); V-019/V-023 tie ordered deterministically; 13 named chapters at 375 and 1440 px with 44 px touch hit areas.",
+   "metric_or_grade_moved": "Historical/data consistency C- to B+ (with time specialist), Usability; UXF-18..21.",
+   "verdict": "CONFIRMED",
+   "correction": "All 6 anchors re-verified: 175 has no event; 240 is Berdan vs 256; 267 is Vincent vs 275; 340 is 'fighting dies down'; 540 vs 518; 560 is East Cavalry. Anchors 240 and 540 may be deliberate lead-ins (the report's A10 says so), so 4 are unambiguous. Do not derive permanent ids as E-D<day>-<\\tick>, because app-time lists events that must be re-ticked; use sequence slugs."
+  },
+  {
+   "id": "ux-flows-06",
+   "title": "Share sheet: labelled Share everywhere, Web Share, QR, embed generator, image card, print, cite; mobile parity",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "H7"
+   ],
+   "depends_on": [
+    "ux-flows-01"
+   ],
+   "evidence": "Share is a letter-B button plus an unlabeled glyph (pretty:113221, :97964-97970); clipboard failure uses window.prompt (:97932); no navigator.share in the app region (grep zero); mobile Bookmarks tile dead (app-bugs-12); embed CTA dead (embed.html:60) though Terms invite embedding; one og:image for all URLs (index.html:21).",
+   "root_cause": "Share was a side effect of Bookmarks with no reader and no mobile path.",
+   "fix": "Report 5.6.10: Share in the header, Tools sheet and on every Story/Unit card (44 px, labelled); sheet with preview, scope switch (moment / exact view / playlist), Copy link with live-region confirmation and a selected read-only fallback (no prompt), Share... when navigator.canShare, client-side QR (inline SVG, save as image), embed snippet with preview, image card 1200x630 (attribution kept; verify toBlob on iOS), print view, Cite this (MLA/APA/Chicago templates checked against current guides), Report a problem. Recipient sees a 'Shared moment' chip with Explore from here.",
+   "acceptance_test": "Moderated T5 5/5 within 30 s and the second window shows the same moment; Playwright copy-then-open in a fresh context restores state; native share sheet on iOS Safari and Android Chrome; QR scans to same URL; embed iframe renders; keyboard and screen-reader operable.",
+   "metric_or_grade_moved": "Usability, Core function (mobile D to B+); UXF-25, 27, 28.",
+   "verdict": "CONFIRMED",
+   "correction": "Evidence is real (prompt fallback, no navigator.share, dead embed CTA, single og:image). Add that unit dots are drawn on a separate overlay canvas above the map (pretty:102993-103007), so the image card must composite both canvases and needs a preserveDrawingBuffer/render-event patch."
+  },
+  {
+   "id": "ux-flows-07",
+   "title": "Reliable 'Back to the battle': real link with last view; fix /index.html back links and cross-page history.back()",
+   "severity": "high",
+   "effort": "S",
+   "audit_refs": [
+    "T3"
+   ],
+   "depends_on": [
+    "ux-flows-01"
+   ],
+   "evidence": "10 pages use href=\"/index.html\" (aftermath.html:41, documentary.html:47, education.html:42, search.html:50, camera, compare, dashboard, report, sandbox, viewshed) but wireBackLinks rewires only a[href=\"/\"] (site-nav.js:212); history.back() fires whenever referrer is same-origin, so Historian to Regiment to Back returns to Historian (pagesB:134); /index.html = 86 views/30 d.",
+   "root_cause": "Back is emulated with history heuristics instead of a link to a known state.",
+   "fix": "Phase 0 (S, no app change): change the 10 hrefs to \"/\" and call history.back() only when history.state.fromMap. Phase 1: map writes sessionStorage gtbg:lastView (state-url string) on pagehide and after discrete changes; header 'Back to the battle' is a real <a href> to '/?'+lastView (fallback '/'); 301 /index.html to /.",
+   "acceptance_test": "Historian to Regiment to Back to the battle lands on the pre-Historian map state; sub-page opened in a new tab links to '/'; grep finds no href=\"/index.html\"; no /index.html hits in access logs after deploy.",
+   "metric_or_grade_moved": "Usability, navigation reliability (UXF-15), fewer forced reloads.",
+   "verdict": "CORRECTED",
+   "correction": "The 10 /index.html hrefs and the wireBackLinks heuristic are confirmed. Two design errors. First, history.state.fromMap can never be true on the sub-page, since state belongs to the entry that set it; gate on document.referrer pathname being / or /index.html instead. Second, Phase 1 replaces history.back() with a real link, but netlify.toml:65-70 and site-nav.js:203-210 deliberately restored bfcache so Back returns instantly with no reload. Prefer history.back() when the previous entry is the map, and fall back to '/?'+lastView otherwise. Changing the hrefs to '/' alone routes them into the same-origin history.back() bug. The 301 needs force = true."
+  },
+  {
+   "id": "ux-flows-08",
+   "title": "Resume where you left off and a zero-click returning-visit path",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "H3"
+   ],
+   "depends_on": [
+    "ux-flows-01",
+    "ux-flows-02",
+    "app-bugs-29"
+   ],
+   "evidence": "Only gtbg_onboarded, gtbg_prefs (legend/minimap) and gettysburg_bookmarks persist (app-bugs Appendix D); layout state is in memory (pretty:112949); returning visitors repeat splash + chooser (J2); Direct = 2,034 of 2,221 referrals (92%).",
+   "root_cause": "No persisted view state.",
+   "fix": "Report 5.12: gb.v2.prefs.resume {tick, unit, at, z, panel, plStep, dv, savedAt} written on pause, scrub end, selection and pagehide (try/catch, memory fallback); recent[5] feeds the palette; auto-resume if <= 7 days with a 10-second 'Start over' chip, banner if 8-30 days, fresh after 30; not applied with deep link or ?mode; Help > Reset saved data; list keys on the privacy page.",
+   "acceptance_test": "Second visit reopens at last view with the chip within LCP + 300 ms and zero clicks; Start over restores default; blocked storage still works; deep link beats resume; keys documented in privacy.html.",
+   "metric_or_grade_moved": "Usability, retention (resume accepted >= 50%); UXF-26.",
+   "verdict": "CORRECTED",
+   "correction": "Code evidence is real (layout state is in memory, only gtbg_onboarded and gtbg_prefs persist). 'Direct 92% means most visitors are returning' is not supported by the data. Direct includes bots (about 18% of views from CN/SG/HK/DE), dark-social shares and first-time typed URLs. Severity holds on code grounds, but the weight must come from the ux-flows-21 baseline."
+  },
+  {
+   "id": "ux-flows-09",
+   "title": "One 'Find a regiment or ancestor' flow: alias-tolerant finder, canonical Unit page, working Follow, what-next",
+   "severity": "high",
+   "effort": "L",
+   "audit_refs": [
+    "H5",
+    "H7"
+   ],
+   "depends_on": [
+    "ux-flows-03",
+    "ux-flows-01",
+    "app-bugs-06",
+    "app-bugs-14"
+   ],
+   "evidence": "find-ancestor.html searches commander surname and state only (:56-59,106), localeCompare sort (:108), cap 100 (:114), raw parent ids (:121); Follow picker uses lower-case includes with 15/20-row caps and only loaded animated units (pretty:101039-101050; 217 of 478 missing until a day is played); biography map link dead (regiment.html:247); NPS Soldiers and Sailors link buried in a caveat (find-ancestor.html:52); three ancestor tools, six pickers.",
+   "root_cause": "Three tools for different inputs; a descendant's mental model (number, state, arm) is never parsed.",
+   "fix": "One finder on the palette normaliser (accepts 'Co. G, 24th Mich. Vol. Inf.', '1st Minn', 'twentieth maine', '26 NC'); chips for state/side/arm; natural sort; brigade/division names not ids; featured units; three-step explainer with NPS Soldiers and Sailors link on every result; canonical Unit page (regiment.html) with day chips, casualties, commander, mentions, Follow on map (follow=), Share, Print; commander search as secondary filter; replace other pickers with a shared UnitPicker; 'not animated' state.",
+   "acceptance_test": "Golden queries return the expected unit first; order 2nd, 4th, 24th; moderated T4 >= 4/5 within 120 s; Follow on map shows the trail; grep finds one UnitPicker; no 'U-' ids in results; NPS link on each result.",
+   "metric_or_grade_moved": "Usability (P3), Core function; finder_open to unit_page_open >= 70%; UXF-39..42.",
+   "verdict": "CONFIRMED",
+   "correction": "find-ancestor.html 56-59 and 106-121, the 15/20 caps, the localeCompare sort and the six pickers are verified. '217 of 478 missing' applies to desktop only, because Day 2/3 data loads during playback. Use 570 units (467 regiments + 103 batteries), not 467."
+  },
+  {
+   "id": "ux-flows-10",
+   "title": "Unit, Story and Moment cards: cross-links (Profile, Follow, Ask, Share), no ids or ticks, labelled controls",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "H7",
+    "D2"
+   ],
+   "depends_on": [
+    "ux-flows-01",
+    "ux-flows-06",
+    "ux-flows-18"
+   ],
+   "evidence": "Unit panel shows the raw unit id (pretty:97955), 'Recent Positions' with tick numbers (pretty:98031-98060), unlabeled share glyph (:97964-97970), no link to profile, Follow or Ask; story panel exposes 'Jump to tick' (pretty:98322-98342).",
+   "root_cause": "Cards are data dumps; the pages that deepen them are separate products with no link back.",
+   "fix": "Report W6: Unit card [Follow] [Profile] [Ask about this] [Share]; hide ids; times from the canonical formatter; labelled controls; 'Not on the field at this moment' with 'Jump to when it first appears'; Story card [Watch] [Ask] [Share], Sources disclosure, n-of-m pager; Ask opens the right-dock drawer with context prefilled.",
+   "acceptance_test": "Each action works by mouse, touch and keyboard; no text matching /^U-|^C-/ visible in card DOM; axe 0; T2/T3 flows use the actions without hints.",
+   "metric_or_grade_moved": "Usability (P3, P5), Ask/Profile discoverability; UXF-34, 45.",
+   "verdict": "CONFIRMED",
+   "correction": "pretty:97955 (raw unit id), :98031-98060 (Recent Positions), :97964-97970 (unlabeled share glyph) and :98322-98340 (Jump to tick) are all verified."
+  },
+  {
+   "id": "ux-flows-11",
+   "title": "Progressive disclosure: tiers, calm defaults on load, one card at a time, capped hints",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "H4",
+    "D2"
+   ],
+   "depends_on": [
+    "app-bugs-10",
+    "app-design-10"
+   ],
+   "evidence": "After entry legend, minimap, story panel, event card and toasts are all open (showLegend default true pretty:9417, minimap default :9418, app-bugs-10); five components claim the top-right slot (app-bugs Appendix E); tour Skip leaves the map at the step's tick (pretty:111856-111874).",
+   "root_cause": "No owner of what is open; each panel keeps local state and its own anchor.",
+   "fix": "Report 5.10: tiers 0-3; first-load defaults (Key collapsed, Overview off < 1200 px, no story/event card on load, <= 3 toasts auto-dismissed at 4.5 s with pause on hover/focus, Monuments off below zoom 14, HUD = clock chip); right dock holds one card; ladder suggests next tier once per session; 'New' dot 14 days; per-mode differences (Classroom, Present, On-site).",
+   "acceptance_test": "Fresh load: open panels/cards = 0, toasts = 0; a jump opens at most one card (story over event); toasts clear within 5 s under fake timers and hidden-tab throttling; Playwright over 200 random panel states shows no overlapping interactive rects.",
+   "metric_or_grade_moved": "Fit and finish C+/D+ to A-, INP/CLS; UXF-07, 31, 59.",
+   "verdict": "CONFIRMED",
+   "correction": "Legend and minimap default to open at pretty:9417/9418, and the tour Skip leaves the map at the step's tick; both verified."
+  },
+  {
+   "id": "ux-flows-12",
+   "title": "State catalog and StateCard: loading, empty, error, offline, permission, boot failure, retry",
+   "severity": "high",
+   "effort": "M",
+   "audit_refs": [
+    "C7",
+    "S1",
+    "S2",
+    "S4",
+    "D1"
+   ],
+   "depends_on": [
+    "app-design-26",
+    "app-bugs-04",
+    "app-bugs-06"
+   ],
+   "evidence": "No error boundary: render error white-screens or leaves the splash (app-bugs-04); Help appears 1-2 s late with no state (D1); Ground Remembers blank ~3 s (S2); failed day data cached as loaded (app-bugs-06); sub-pages no retry (pagesB-03); Regiment page is a lone search box over a floating footer (S1); Living Ledger starts at 4 casualties (S4); Dashboard 'undefined' (C7).",
+   "root_cause": "Only the happy path was designed.",
+   "fix": "Implement the 27-row catalog (report 5.11) as one StateCard (loading/empty/error/offline/permission), ErrorBoundary with text-version fallback, boot-failure path, per-fetch timeout/retry/ok-check wrapper on sub-pages, aria-busy skeletons with reserved height, polite status vs assertive alert rules, Retry focus management.",
+   "acceptance_test": "Playwright fault injection: block a day file gives 'We couldn't load July 3' with Retry (not cached as loaded); throw in a component gives the boundary card with 'Open text version'; offline gives banner; one test per catalog row; axe 0 per state; no focus stealing.",
+   "metric_or_grade_moved": "Reliability B-/C to A-, UXF-29..33; fewer blank frames in RUM.",
+   "verdict": "CONFIRMED",
+   "correction": "The day-loader catches errors as an empty placements list and then marks the day loaded (pretty:96900-96925, store :9397-9406); verified. The 27-row state catalog is a design spec, not testable evidence."
+  },
+  {
+   "id": "ux-flows-13",
+   "title": "Classroom and Present modes with a Teach hub: lessons, class link/QR, print kit, student edition, cite, no accounts",
+   "severity": "high",
+   "effort": "L",
+   "audit_refs": [
+    "G1"
+   ],
+   "depends_on": [
+    "ux-flows-01",
+    "ux-flows-05",
+    "ux-flows-06",
+    "pagesB-23",
+    "app-design-29"
+   ],
+   "evidence": "No teacher surface (site-nav.js:12-58 has For Students only); education.html uses panel_summary (median Flesch-Kincaid grade about 10.9 by heuristic, 21/24 above 8; fk.py), own blue palette (:20), dead map links (:81); Watch Together needs typed ticks and a public WebRTC broker (watch-together.html:64,79); app type 9-11 px unreadable on a projector; privacy.html says the site is often used in classrooms and collects no personal information.",
+   "root_cause": "Classroom was a page, not a context; teacher tasks (prepare, project, distribute, print, cite) were never mapped.",
+   "fix": "Report 6.6: /teach/ hub (60-second start, 3 lessons with focus questions, vocabulary, handout, link, QR, /l/<slug> alias), Build your own (pl= playlist, notes in the URL fragment #n= so they never reach logs), Present (UI x1.35, captions >= 28 px, PageUp/PageDown/arrow clicker keys, B dim, Q QR), Classroom mode (type +12%, 48 px targets, lesson bar, unstored self-checks, third-party embeds off by default, Ask records-only), Student edition (level=student, grade <= 8 with a real tool), Cite this site, print kit; pilot Watch Together on 2-3 school networks or replace with link+QR; keep 'no accounts, no PII'.",
+   "acceptance_test": "Moderated T6: 4/5 teachers find lesson/Present within 180 s and the student link opens on the same step; Present legible at 5 m (photo test); lesson opens on a Chromebook with zero third-party requests; #n= never in server logs; student summaries lint <= 8.0; handout fits one page.",
+   "metric_or_grade_moved": "Usability (P1, P2), growth (teacher adoption); UXF-47, 48.",
+   "verdict": "CORRECTED",
+   "correction": "Evidence is real (education.html:20,80,81, watch-together.html:64,79, privacy line 41). I re-ran the Flesch-Kincaid heuristic: panel_summary median 10.9, 21 of 24 above grade 8. Effort L (2-5 d) is too low for 3 lessons with questions/vocabulary/handouts, Present, Classroom, QR and /l/ aliases, a print kit, rewriting 24 summaries to grade 8 and a school-network pilot. Class it XL (8-15 d including content); the report's 62-day total is understated."
+  },
+  {
+   "id": "ux-flows-14",
+   "title": "On-site mode: Near me, GPS dot, 528 POIs, AR redesign with radar fallback, offline pack, portrait",
+   "severity": "high",
+   "effort": "XL",
+   "audit_refs": [
+    "E1",
+    "H13"
+   ],
+   "depends_on": [
+    "ux-flows-01",
+    "ux-flows-05",
+    "bundle-anatomy-03",
+    "bundle-anatomy-16",
+    "app-a11y-29"
+   ],
+   "evidence": "No geolocation in the app region; AR uses 30 terrain places within 3 mi and a 70-degree FOV (ar.html:122-129), requests camera, location, then iOS motion in one async chain (:154-186), heading 360-alpha fallback (:142-150), rebuilds overlay.innerHTML each orientation event (:120,151), HUD 11-12 px (:46-47); 16 stops with GPS/Street View (pretty:104096) and 512 monuments with lat/lon (pretty:104440) unused by AR; sw.js never caches HTML (:72-75) or cross-origin tiles (:38); manifest landscape lock (manifest.json:9).",
+   "root_cause": "On-site use was never a designed context; AR was built on the smallest place list.",
+   "fix": "Report 6.7: Visit tab with Near me (explicit 'Use my location' tap, never on load; nearest 5 of 528 POIs + 30 places with distance and arrow; POI card: What happened here, Watch it happen, Street View, Directions, Save, Share); You-are-here dot and follow; POIs to JSON; AR sequence Motion first inside the click handler, then Location, then Camera, degrading to Radar or a distance list; deviceorientationabsolute/webkitCompassHeading with smoothing and calibration hint; persistent label elements via transform <= 30 fps, <= 5 labels; HUD >= 14 px; offline pack (shell, data, POIs, index, park-bbox map) with status, persist(), estimate(); tile caching only after a licence check or with a self-hosted extract; remove landscape lock; Outdoor option; battery saver; safety line; non-affiliation notice; ?demo=lrt test location.",
+   "acceptance_test": "On iPhone and mid-range Android at the park (or demo location): T7 4/5 reach 'What happened here' within 60 s; camera denied gives Radar, motion denied a list, location denied the stop list; airplane-mode open works for Near me; portrait install keeps orientation; label jitter < 3 degrees at rest (estimate); 15-minute battery drain measured and reported.",
+   "metric_or_grade_moved": "Usability (P4), Core function and Performance on mobile; UXF-37, 49..52.",
+   "verdict": "CORRECTED",
+   "correction": "Evidence is real (528 POIs = 16 stops + 512 monuments, sw.js:38 and :72-75, manifest.json:9, the ar.html permission chain). XL is the right class but the 8-day midpoint is not. The AR rebuild across iOS/Android sensors, POI cards, offline pack with a tile-licence decision, portrait mode, battery saver and a field test realistically take 20-30 days. The iOS motion-ordering claim is [I], which the report flags correctly."
+  },
+  {
+   "id": "ux-flows-15",
+   "title": "Text and Lite route: Battle Chronicle, skip link, data-saver/no-WebGL fallback, upgrade in place",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "E4",
+    "P1"
+   ],
+   "depends_on": [
+    "ux-flows-05",
+    "app-a11y-08",
+    "app-a11y-12",
+    "app-a11y-15"
+   ],
+   "evidence": "Keyboard/SR users cannot pass the first gate and the map is a canvas with no alternative (app-a11y section 1 facts 2, 3); #seo-content sits under the splash and is removed on mount (index.html:717-741, :424-426), crawler-only (E4); Lighthouse mobile transfer 1,577,215 B is >= 31.5 s at 400 kbps (12.6 Mb) with only an indeterminate bar (index.html:117-127).",
+   "root_cause": "No text-first path; the only pre-app content is hidden.",
+   "fix": "Report 5.13: static indexable Battle Chronicle generated from moments.json (H1/H2 chapters/H3 moments; summary, Read more, Open on map, Ask about this; Data View per moment); entry points: first-Tab skip link, More > Text version, ?view=text, automatic on saveData/2g/3g or after 6 s without map-ready, WebGL failure, noscript; persistent 'Load the interactive map (about 1.6 MB)' upgrade keeping the moment; page < 100 KB; replaces #seo-content.",
+   "acceptance_test": "JS disabled: chronicle reads end to end; screen reader: first Tab stop is the skip link and headings traverse chapters; Lighthouse mobile performance and accessibility >= 98 on the chronicle; LCP <= 1.5 s on Fast 4G; upgrade keeps the moment.",
+   "metric_or_grade_moved": "Accessibility entry D to B+, SEO/growth, slow-network performance; UXF-54, J8, J10.",
+   "verdict": "CONFIRMED",
+   "correction": "The 1,577,215 B transfer and the 31.5 s at 400 kbps arithmetic are verified, as are the #seo-content line numbers. navigator.connection is Chromium-only, which the report already notes."
+  },
+  {
+   "id": "ux-flows-16",
+   "title": "Naming and copy pass: honest names, no jargon, no dev-log voice, no 'AI-style', non-affiliation notice",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "H7",
+    "H8",
+    "H9",
+    "H10",
+    "E2"
+   ],
+   "depends_on": [
+    "ux-flows-04",
+    "ux-flows-22"
+   ],
+   "evidence": "'Explore' collision (site-nav.js:14,169); 'Tick 267/675' (pretty:112357); '1x (real time)' (pretty:97429); banner 'AI-style historian' (index.html:377) vs 'not a live AI model' (historian.html:48); dev-log sentences (ar.html:56, viewshed, dashboard note); raw ids and 'Commander unrecorded' (search.html:112); 'NPS Auto Tour' for a non-NPS tour (app-bugs-27) with no non-affiliation statement (grep zero).",
+   "root_cause": "Copy written during development and never edited as product voice; names coined per feature.",
+   "fix": "Apply report tables 5.8 and 8.2 via one strings file or the registry/moments data so counts come from facts; edit site-nav.js GROUPS labels/descriptions and index.html copy now (no app patch); app strings via tranche-0 patch or R1; add footer/About non-affiliation sentence (owner confirms it is true); copy read-through in museum voice.",
+   "acceptance_test": "grep of deployed HTML/JS finds none of: 'Tick ' in user text, 'AI-style', 'real time' beside 1x, 'undefined', 'alias for', 'Earlier drafts', 'haven't been able to do from here'; tree-test labels match final names; non-affiliation text on footer and About.",
+   "metric_or_grade_moved": "Fit and finish, Usability (comprehension), trust; UXF-06, 12, 13, 34, 46.",
+   "verdict": "CONFIRMED",
+   "correction": "site-nav.js:14/169, 'Tick n/675' at :112357, '1x (real time)' at :97429, 'AI-style' at index.html:377 and 'Commander unrecorded' at search.html:112 are all verified. No non-affiliation text exists in any HTML."
+  },
+  {
+   "id": "ux-flows-17",
+   "title": "Help and documentation IA: task-based Help, in-context hints, keyboard sheet from the registry, guide in sync",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "G1",
+    "D1"
+   ],
+   "depends_on": [
+    "app-bugs-13",
+    "ux-flows-04"
+   ],
+   "evidence": "Help modal has two tabs, Keyboard Shortcuts and About (helpmodal chunk strings); manual is a PDF behind a 12 px gold top-bar button (pretty:113115-113132); guide says Esc closes any panel and describes Street View panoramas (G1); Help lists an H shortcut that does nothing; About says '445+ units' (H10).",
+   "root_cause": "Help, guide, toolbar and mobile sheet are four hand-written lists.",
+   "fix": "Help tabs: Start here (task cards: watch, find, ask, visit, share, teach), Shortcuts (generated from the registry), About and sources, Accessibility, Contact and Report a problem; Replay the 20-second intro and 60-second tour; PDF as a link inside Help; guide text generated from registry and facts; loading skeleton (D1).",
+   "acceptance_test": "Help opens < 300 ms or shows a skeleton; shortcut table equals registry (test); every registry tool appears in Help and guide build; counts equal facts; PDF reachable from Help.",
+   "metric_or_grade_moved": "Documentation B to A, Usability; UXF-17.",
+   "verdict": "CONFIRMED",
+   "correction": "The Help chunk has two tabs (Keyboard Shortcuts, About) and '445+ Union and Confederate units'. The PDF button is at pretty:113115-113132 (12 px). The H key only toggles a store flag that nothing renders."
+  },
+  {
+   "id": "ux-flows-18",
+   "title": "Ask the Historian UX contract: contextual entry, answer cards with citations and coverage, drawer, thread, opt-in question log",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "H8"
+   ],
+   "depends_on": [
+    "ux-flows-01",
+    "ux-flows-03",
+    "ux-flows-19"
+   ],
+   "evidence": "Answers paste whole vignettes (median 293 words, historian.html:109), newest bubble scrolls under the sticky input (:35,174), 5 static chips (:147), chronology answers have no source link (:124), 'AI-style' banner (index.html:377), Ask only on a separate page and a corner pill; Historian is the most-visited feature page in Netlify's top-15 (110 combined views).",
+   "root_cause": "Keyword lister with a chat skin; no interface contract; no context entry.",
+   "fix": "Report 6.4: stable ask() interface {mode, answer{summary,bullets}, citations[], coverage, followups[], confidence}; answer card with numbered citation chips to working permalinks, coverage line, follow-up chips, Show sources, local helpful vote, Report an error; entries: header field, Ask tab, 'Ask about this' on cards, palette Shift+Enter, permalink pages; right-dock drawer on the map; last 10 exchanges in sessionStorage; input never covers content; opt-in 'Send this question' (mailto or Netlify Form) builds the unanswered-question log; Classroom: external model off by default and disclosed. Retrieval stays with the historian specialist.",
+   "acceptance_test": "Moderated T3: 4/5 restate one reason with a named source in <= 90 s; every citation opens the right record; last answer fully visible above the input at 320 px; no-answer state offers alternatives; log receives only opted-in text.",
+   "metric_or_grade_moved": "Usability (P6, P1), trust; ask_citation_open >= 30%; UXF-44..46.",
+   "verdict": "CONFIRMED",
+   "correction": "historian.html:35 (sticky input), :109 (full_script dump, median 293 words), :124 (no source link), :147 (5 static chips) and :174 (scrollIntoView) are verified. User text escapes only '<', with no XSS."
+  },
+  {
+   "id": "ux-flows-19",
+   "title": "Quick fix: Historian chronology answers render the literal word 'undefined' (137 of 137)",
+   "severity": "high",
+   "effort": "S",
+   "audit_refs": [],
+   "depends_on": [],
+   "evidence": "historian.html:119 builds text from e.title/e.description/e.location and :123 renders e.description || e.title, but chronology events have keys tick,time,event,units_involved,location,significance. Simulation over all 137 events (tmp-ux-flows/hist_undefined.js): 137/137 answers end with ': undefined', e.g. 'Day 3, 11:45am — South of The Angle: undefined'. Because text is built from location only, chronology also matches only on place names.",
+   "root_cause": "Schema mismatch between page and data file.",
+   "fix": "In historian.html use e.event: text = `${e.event} ${e.location||''} ${(e.units_involved||[]).join(' ')}`; html = `<b>Day ${day}${e.time?', '+e.time:''}${e.location?' — '+e.location:''}:</b> ${e.event}`; add srcHref for the moment (per ux-flows-01) labelled 'See this moment on the map'. Add a test that renders every corpus entry and fails on /undefined|null|NaN/.",
+   "acceptance_test": "Script renders all 137 chronology entries with none matching /undefined/; 'Herbst Woods' returns event text; same lint passes for regiment, vignette and terrain entries.",
+   "metric_or_grade_moved": "Reliability, trust (H9), Usability; UXF-43.",
+   "verdict": "CONFIRMED",
+   "correction": "Re-ran the exact code path: chronResults entries are {day: i+1, ...d}, so c.day is defined. All 137 events render '...: undefined', and none has a title or description key. The live page still ships the bug. The fix text uses a bare 'day'; in the page it is c.day."
+  },
+  {
+   "id": "ux-flows-20",
+   "title": "Shortcut and Esc contract with discoverability: registry-driven, hints on desktop, none on touch",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "H2",
+    "D2"
+   ],
+   "depends_on": [
+    "app-bugs-09",
+    "app-a11y-06",
+    "ux-flows-04"
+   ],
+   "evidence": "Bare-letter shortcuts fire without modifier checks and ignore only INPUT targets (pretty:112966-113052); '1/2/3' set the tick without loading or framing (pretty:112987-113010); Esc ignored in inputs and does not clear pinned units (pretty:112967, :97909 vs :113034); dead H shortcut in Help; shortcuts unseen on screen and offered on touch (pretty:111814).",
+   "root_cause": "One hand-written global handler; no registry; no affordance.",
+   "fix": "Registry-driven shortcuts (app-bugs-09, app-a11y-06) plus UX: key hints in tooltips and palette rows on (hover:hover) devices only; ? opens the cheat sheet; Esc stack (clear text, close top overlay, clear selection, exit tool); 1/2/3 jump to day and frame; ] and [ next/previous moment and , . step (proposal to reconcile in the registry); guards for modifiers, editable targets, dialogs, focused buttons; no shortcut copy on touch.",
+   "acceptance_test": "Keyboard matrix test (input, select, dialog, button, Ctrl/Alt/Meta) passes; Esc order test; cheat sheet equals registry; touch emulation shows no shortcut copy; ] and [ move between marker moments.",
+   "metric_or_grade_moved": "Usability (P5), Accessibility; UXF-55.",
+   "verdict": "CONFIRMED",
+   "correction": "Keys 1/2/3 set the tick with no data load on desktop (correct, since Day 2/3 load only in the playback loop). H toggles a dead heatmap flag, Esc omits pinnedUnitId, and the handler ignores only INPUT targets with no modifier check. WCAG 2.1.4 is covered by app-a11y-06."
+  },
+  {
+   "id": "ux-flows-21",
+   "title": "Measurement: two-week baseline, privacy-safe event taxonomy, web-vitals attribution, dashboards, experiments",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "P1"
+   ],
+   "depends_on": [
+    "bundle-anatomy-06",
+    "ux-flows-22"
+   ],
+   "evidence": "No click analytics; privacy.html promises no third-party analytics beyond Netlify RUM; RUM is Poor on LCP, INP, CLS, FCP with no attribution or device split; Lighthouse never passes the gates so it cannot measure the map (lh_mobile.json).",
+   "root_cause": "No measurement design, so no fix can be proven.",
+   "fix": "Report section 9: baseline first; event taxonomy (no PII, no raw text, in-memory session id, DNT/GPC honoured); option 1 first-party Netlify Function with daily aggregates, or option 2 a privacy-focused hosted tool after a legal read (vendor claims unverified); web-vitals attribution (LCP element, INP target and phases, CLS sources) segmented by layout/first-vs-return/mode/network; marks time_to_map_interactive, time_to_first_play; weekly KPI and monthly unanswered-question review; experiments with sample-size arithmetic; update privacy policy (X5) and add 'How we measure'.",
+   "acceptance_test": "Baseline dashboard live before Phase 1 ships; every 9.3 event fires in Playwright with expected properties and no text fields; GPC on gives zero events; privacy page updated; p75 CWV visible by mobile/desktop.",
+   "metric_or_grade_moved": "Enables verification of every grade and green-metric claim.",
+   "verdict": "CONFIRMED",
+   "correction": "The privacy promise (no third-party analytics beyond Netlify RUM) is verified in privacy.html. Effort M understates baseline + endpoint + taxonomy + dashboards + experiments; closer to L."
+  },
+  {
+   "id": "ux-flows-22",
+   "title": "Research program: card sort, tree test, first-click, three rounds of five-user moderated tests, ongoing loops",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [],
+   "depends_on": [],
+   "evidence": "No user research exists; every completion/time figure in the report is a prediction from code (grade E); persona weights unknown (no device split).",
+   "root_cause": "Design decisions made without observing users.",
+   "fix": "Report section 10: Week 1 unmoderated closed card sort (15-20), tree test (20, 10 tasks), first-click (20); moderated rounds of five (Round 0 baseline or 3-user reduced baseline; Round 1 after Phase 1; Round 2 after Phases 2-3) with the same nine tasks, consent and minor-safety rules, hint ladder, observer sheet, SUS and SEQ; gates in 9.7; monthly and quarterly loops; spring classroom pilot; on-site field test before July.",
+   "acceptance_test": "Card sort >= 70% agreement on >= 15/20 cards; tree test >= 80% on >= 8/10 tasks; each round yields a top-10 problem report and task table; a round passes when 9.7 targets are met; SUS mean >= 80 by Round 2.",
+   "metric_or_grade_moved": "Confidence in Usability grades; feeds ux-flows-04, 13, 14.",
+   "verdict": "UNVERIFIABLE",
+   "correction": "'No user research exists' and the persona weights cannot be checked from files. The sample-size arithmetic checks out (about 387 per arm vs the report's 384; 1,529/30 = 51 visitors/day)."
+  },
+  {
+   "id": "ux-flows-23",
+   "title": "Map-mode convergence roadmap: Compare, Camera, Heat map, What-if, Sightlines, Sound, Human cost, Video as views of one map",
+   "severity": "medium",
+   "effort": "XL",
+   "audit_refs": [
+    "S2",
+    "S3",
+    "P2"
+   ],
+   "depends_on": [
+    "ux-flows-01",
+    "ux-flows-04",
+    "bundle-anatomy-18",
+    "app-design-02"
+   ],
+   "evidence": "Eight sub-pages each create their own Mapbox map (second 1.8 MB Mapbox copy from CDN, bundle-anatomy-18) and refetch data; none read the map's state (pages-outline.txt); Compare defaults ticks 60 vs 300, Export defaults 540-600, Camera has its own director algorithm (camera.html:105-141).",
+   "root_cause": "Features were added as pages to avoid touching the un-editable bundle (N1).",
+   "fix": "Interim (S-M, no app change): every mode page accepts the state contract (?tick=&unit=&tick2=&at=), shows 'Back to the battle at <moment>' and 'Open this moment in the map', uses the shared header. Target (XL, after source recovery): map view switcher (Live, Compare split, Heat layer, What-if lab, Sightlines lab, Follow camera, Sound toggle, Human-cost HUD, Record clip) sharing one map instance, store and data; retire duplicate maps.",
+   "acceptance_test": "Interim: each mode page round-trips a state (open at a moment, return to same moment). Target: exactly one canvas.mapboxgl-canvas in every mode; no second Mapbox script request; each view has a permalink.",
+   "metric_or_grade_moved": "Performance (one map, less JS), Usability (P5), Fit and finish; UXF-16, 23.",
+   "verdict": "CONFIRMED",
+   "correction": "Eight feature pages each construct their own Mapbox map from the CDN copy (3.24.1, 1,796,551 B). Compare defaults 60/300 and Export defaults 540/600 are verified, and so is camera.html:105 placementAtTick."
+  },
+  {
+   "id": "ux-flows-24",
+   "title": "Playback UX: Story pace, previous/next moment, quiet-stretch skip, honest speed labels, chapter chips, marker buttons",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "H9",
+    "D3"
+   ],
+   "depends_on": [
+    "ux-flows-05",
+    "app-bugs-21",
+    "app-bugs-33",
+    "app-a11y-07"
+   ],
+   "evidence": "Markers are 8x8 px divs with title only and none on mobile (pretty:112270-112293); transport has only +-1 and +-12 ticks (pretty:112324-112356); '1x (real time)' is 2 ticks/s (pretty:97429, app-bugs-33); playback never pauses at narrative cards; Day 1 ticks 101-225 have no events.",
+   "root_cause": "Transport designed for scrubbing, not story pacing.",
+   "fix": "Report 6.3: Pace segmented control (Story | Continuous); Story = 1x, auto-pause at 45 critical events for <= 4 s or Space, skip event-free runs >= 20 ticks at 8x with a 'Jump back' toast; Previous/Next moment buttons; , and . fine step, long-press on mobile; speed ladder labelled '1x: 10 battle minutes per second'; chapter chips (mobile) and bands (desktop); marker buttons 24 px (44 px touch) with names; aria-valuetext 'Day 3, Pickett's Charge'; time chip from the canonical clock.",
+   "acceptance_test": "Story mode runs Day 1 with no silent stretch over 20 ticks (skipped) and pauses on every critical event; manual scrub cancels auto-pause; markers pass axe and target-size; T2 <= 30 s desktop, <= 45 s phone; whole-battle Story run measured (target about 9 minutes).",
+   "metric_or_grade_moved": "Usability (P6, P1), Core function; UXF-20..22, 59.",
+   "verdict": "CONFIRMED",
+   "correction": "8x8 px marker divs, transport with only +-1/+-12 ticks, 45 critical events and the Day-1 silence are verified. Previous/next-moment and chapter jumps inherit the stateAt dependency (missed-01)."
+  },
+  {
+   "id": "ux-flows-25",
+   "title": "Content permalink pages with unique share cards for moments, units, places and stops",
+   "severity": "medium",
+   "effort": "L",
+   "audit_refs": [
+    "T1",
+    "E5"
+   ],
+   "depends_on": [
+    "ux-flows-05",
+    "ux-flows-01",
+    "N1"
+   ],
+   "evidence": "One og:image (screenshots/day3.png) and near-identical metadata everywhere (index.html:21, pagesB-09); only about 8% of referrals come from search (Netlify PDF); shared URLs are query state only and cannot carry unique previews.",
+   "root_cause": "The app is a single URL; there are no per-entity pages.",
+   "fix": "Report 5.6.9: generate /moments/<slug>/ (24), /units/<slug>/ (467), /places/<slug>/ (30), /stops/<n>/ (16) from JSON at deploy time: unique title/description/canonical/JSON-LD, summary and sources, big 'Watch it on the map' (view permalink), 'Ask about this'; 1200x630 share card (template first, map crops later); sitemap entries; view permalinks canonicalise to /. Generation owned by the seo specialist.",
+   "acceptance_test": "Each page has a unique title and og:image; social preview validators render the card; Lighthouse SEO 100 and performance >= 95; sitemap lists all; 'Watch it on the map' restores state (ux-flows-01).",
+   "metric_or_grade_moved": "SEO/growth (T1), shareability, Usability; UXF-27.",
+   "verdict": "CORRECTED",
+   "correction": "Unit permalink pages number 570 (467 regiments + 103 batteries), not 467. There is no build step today (N1), so generation needs a pipeline. The thin-content/duplicate-template risk for 500+ near-identical pages is not discussed; add unique fields (key_action, strength, casualties, commander, related moments)."
+  },
+  {
+   "id": "ux-flows-26",
+   "title": "Fill the Day-1 afternoon silence and other quiet stretches with sourced moments",
+   "severity": "high",
+   "effort": "L",
+   "audit_refs": [
+    "C4"
+   ],
+   "depends_on": [
+    "ux-flows-05",
+    "app-time"
+   ],
+   "evidence": "Ticks 101-225 (125 ticks, 56% of Day 1, 18.5% of the battle) have no chronology event and no vignette; last Day-1 event is tick 100, next is 226; Turning Points anchors tick 175 (Ewell's decision) to nothing; gaps between vignette triggers 57 to 240 (183), 326 to 460 (134), 568 to 675 (107); Day 3 ticks 576-675 have 5 events and a 29-tick silent run (chapters.py, moments_xref.py).",
+   "root_cause": "Content authored around dramatic moments; the Day-1 collapse and retreat has no record in the data.",
+   "fix": "Owner and a historian author 5-8 moments for chapter 4 (afternoon assaults on McPherson's and Seminary Ridge, collapse north of town, retreat through the streets, rally on Cemetery Hill, Ewell's discretionary order), each sourced and anchored to a tick; fill Day 3 chapter 13 similarly; until then Story mode skips and timeline/chronicle state 'No recorded events in this stretch'. Machine-derived 'what changed' digests only after accuracy review and clearly labelled.",
+   "acceptance_test": "No run of >= 20 event-free ticks remains in Day 1; every new moment passes the moments lint and has >= 1 source; owner/historian sign-off recorded.",
+   "metric_or_grade_moved": "Content depth A- to A, Historical consistency, Usability (dead air); UXF-21.",
+   "verdict": "CONFIRMED",
+   "correction": "125 silent ticks (last Day-1 event at 100, next at 226), no event at tick 175 and the vignette gaps 183/134/107 are all verified. Research and sourcing for 5-8 cited moments plus Day 3 is likely above L, and tick placement depends on the canonical clock (already listed as a dependency)."
+  },
+  {
+   "id": "ux-flows-27",
+   "title": "UX release gate: heuristic and cognitive-walkthrough checklist per release; friction register kept alive",
+   "severity": "medium",
+   "effort": "S",
+   "audit_refs": [],
+   "depends_on": [
+    "ux-flows-22",
+    "app-design-34"
+   ],
+   "evidence": "No UX or acceptance checklist exists; dead links, gates and dead tiles shipped repeatedly (deploy-history.md); one solo developer.",
+   "root_cause": "No definition of done that includes user-facing flows.",
+   "fix": "One-page gate per release: the journeys as Playwright smoke flows (J1-J11 except on-site), a 10-heuristic self-check on changed surfaces, a 4-question cognitive walkthrough for any new flow, friction register updated (UXF ids opened/closed), the copy grep list from ux-flows-16; any severity-4 item blocks release.",
+   "acceptance_test": "Gate is in repo and CI; a deliberately broken link, an added gate and a new 'Tick' string each fail it.",
+   "metric_or_grade_moved": "Sustains A+ grades; regression prevention.",
+   "verdict": "UNVERIFIABLE",
+   "correction": "This is a process item. I did not verify that no acceptance checklist exists (deploy-history was not opened). The plan is reasonable."
+  },
+  {
+   "id": "ux-flows-28",
+   "title": "Trust layer: per-moment sources, data version and 'Updated' line, Report a problem, public corrections log, Sources and method",
+   "severity": "medium",
+   "effort": "M",
+   "audit_refs": [
+    "G1",
+    "H7"
+   ],
+   "depends_on": [
+    "ux-flows-05",
+    "ux-flows-16"
+   ],
+   "evidence": "Only feedback route is a footer mailto (site-nav.js:194); map shows no sources per moment or data version; C3/C4 contradictions are visible to the audience most sensitive to them (P5, P3); no non-affiliation statement while using 'NPS' names (grep zero).",
+   "root_cause": "No provenance surface and no correction loop.",
+   "fix": "Report 8.3: Report a problem dialog (categories, <= 500 chars, optional reply email, read-only permalink and version) via mailto first, Netlify Form later (update privacy page); /corrections public log; 'Updated <date>' and Sources disclosure on every moment and unit page; Sources and method page (modelled vs sourced, how ticks map to time, known limits); footer non-affiliation sentence.",
+   "acceptance_test": "Every moment card shows Sources (>= 1) and an Updated date; Report opens with permalink and version prefilled and sends nothing else; /corrections lists changes; method page linked from Ask, Help and footer.",
+   "metric_or_grade_moved": "Trust, Documentation, historical credibility (P5, P3, P2); UXF-57, 58.",
+   "verdict": "CONFIRMED",
+   "correction": "The footer mailto at site-nav.js:194 is verified, and no non-affiliation statement exists in any HTML."
+  }
+ ],
+ "open_questions": [
+  "Approve removing the layout chooser, onboarding modal and fake fast-forward (D1), and choose the default 20-second moment (Pickett's Charge recommended; First Shot alternative)?",
+  "Approve the five-destination IA (Battle, Stories, Find, Ask, Visit plus More) and labels after the card sort and tree test (D4)?",
+  "For the clock fix (C3/C4): relabel only, or re-time the data? This decides whether dv migrations must map ticks (report 5.6.7).",
+  "Measurement route (D6): first-party aggregate endpoint or a hosted privacy-focused tool, and is a privacy-policy update acceptable? (Vendor claims were not verified.)",
+  "Do you have two or three teachers for a classroom pilot, and is 'no accounts, ever' a permanent principle?",
+  "Is 'an independent project, not affiliated with or endorsed by the National Park Service' true for the site? I cannot verify it.",
+  "Who reviews chapter names, captions, lesson text, student summaries and the missing Day-1 afternoon moments (a named historian or trusted reader)?",
+  "Offline maps: self-host a park extract, or check and accept the current map provider's terms before caching tiles?",
+  "Watch Together: keep the peer-to-peer broker feature or replace it with link plus QR and Present?",
+  "Merge Light theme and Student edition into one design system (app-design Q-1, Q-2)?",
+  "Budget for participant incentives and one paid assistive-technology session per test round?",
+  "Is Spanish (or another language) for classrooms in scope later?",
+  "Sound: remove or rebuild (app-bugs Appendix L Q1)? It decides whether Sound appears among the Battle views.",
+  "N1: hot-patch route (R0) for small string-level UX changes now, or wait for the readable-source port (R1) before any in-app UX work?"
+ ],
+ "verification_summary": "The ux-flows report holds up well. Nothing was refuted. Line numbers, snippets and counts checked out almost everywhere (splash timings, the ten /index.html back links, the six wrong Turning Points anchors, the 125-tick Day-1 silence, the historian 'undefined' bug). I re-ran the historian bug against the data and 137 of 137 chronology answers end in 'undefined'. The corrections are mostly hidden dependencies and fix mechanics: 10 findings CORRECTED (01, 02, 03, 04, 07, 08, 13, 14, 25), 16 CONFIRMED, 2 UNVERIFIABLE (22, 27). The biggest gap is that the report never mentions seek-safe rendering (`stateAt`). Deleting the splash sweep, deep links and the guided moment all depend on it. I added 7 missed issues. A Verification section with the verdict table and missed issues is appended to the report.",
+ "missed_by_specialist": [
+  {
+   "title": "Seek-safe rendering (stateAt) is an unlisted hard dependency of deep links, the guided moment, resume, chapters and next/previous moment",
+   "evidence": "y1 forward-fills from a module-global cache i2 that is never cleared (bundle.pretty.js:96265-96305; app-bugs-07, app-time-07). The splash sweep currently primes it (:101494). Data: 1,804 keyframe rows on only 188 of 675 ticks. Exact rows at tick 535 = 18, at 538 = 32, at 551 = 10, at 556 = 0, while 451 units have a keyframe at or before tick 535. ux-flows.md never mentions seek, forward-fill, i2 or stateAt.",
+   "fix": "Add app-time-07 / app-bugs-07 as a dependency of ux-flows-01, 02, 05, 08 and 24. Add a '?tick=551 shows N units' render test to their acceptance tests. Do not delete the splash sweep before stateAt ships.",
+   "severity": "high"
+  },
+  {
+   "title": "URL-state contract collides with app-time section 8 and its 'ticks stay stable, zero migration' decision",
+   "evidence": "app-time.md section 8 defines 'at' as an ISO time, plus 'av', 'vignette' and stable ticks with no migration. ux-flows 5.6 defines 'at' as lat,lng, plus 'dv', 'v' and event-identity migration via tick-migrations.json. The report claims to unify the plans but never reads app-time section 8.",
+   "fix": "Choose one owner module. Rename one 'at' (for example 'clock' vs 'center'), fold 'av' into 'dv', and drop tick-migrations.json unless a real retime is chosen. Settle relabel vs re-time first (open question 3 is already answered by app-time).",
+   "severity": "high"
+  },
+  {
+   "title": "Unit-id domain and unit counts are wrong or undefined in the parser, palette and permalink plan",
+   "evidence": "parseState uses facts.unitIds, which is never defined. 87-100 of 478 animated ids are not in the OOB (verified by set difference; app-bugs counts 100). 467 is regiments only (8 regiment files sum to 467); 103 batteries sit in nested artillery dicts, so 570 units. index_size.py counted only 'regiments'. The report uses 467 for units, /units/ pages and the '0 of 467' copy.",
+   "fix": "Define unitIds as OOB ids union animated ids, regenerate every count from data, and use 570 for pages, the palette and empty-state copy.",
+   "severity": "medium"
+  },
+  {
+   "title": "Deleting index.html:285-606 removes the toolbar accessible-name workaround and the #seo-content remover; the Monuments overlay is unowned",
+   "evidence": "index.html has 5 inline scripts in 285-606, not 6. The one at 398-440 sets title/aria-label on the S/F/L/B/? buttons and calls seo.remove(). Script 608-714 is the Monuments star overlay (approximate projection, drifts after pan/zoom) and is covered by no finding. Script 441-519 reveals the overlay on clicks of 'select desktop|select mobile|skip intro'.",
+   "fix": "Ship app-level toolbar labels first (tranche 0 or R1), then delete the injected scripts. Give the Monuments overlay its own finding, and re-time the overlay reveal when the gates are removed.",
+   "severity": "medium"
+  },
+  {
+   "title": "Netlify redirect /index.html to / is a no-op without force = true",
+   "evidence": "index.html exists in the deploy tree, and live curl of /index.html?tick=551 returns 200 with no redirect. Netlify redirect docs say redirects do not shadow existing files unless forced, and confirm query strings pass through on 200/301/302. The report's 5.6.8 and ux-flows-01/07 say 'verify query kept' but omit force.",
+   "fix": "Add [[redirects]] from = \"/index.html\", to = \"/\", status = 301, force = true. Query preservation is confirmed by Netlify docs; test with ?tick=551 after deploy.",
+   "severity": "medium"
+  },
+  {
+   "title": "Permanent event ids built as E-D<day>-<\\tick> will break when events are re-ticked",
+   "evidence": "ux-flows 6.1 derives E-D<day>-<\\tick> ids and calls all moment ids permanent. app-time.md lists MISORDERED / WRONG-DAY chronology events that need re-ticking. Chronology ticks are unique (no duplicates), so the scheme works today but not after those fixes.",
+   "fix": "Use sequence slugs (E-001..E-137) plus an alias table for the old tick-based form.",
+   "severity": "low"
+  },
+  {
+   "title": "Story-mode copy 'skipped 125 moments' mislabels ticks as moments",
+   "evidence": "ux-flows 5.11 row 27 and 6.3 say 'Quiet stretch: skipped 125 moments'. 125 is the tick count of ticks 101-225, while the same report defines a moment as a curated entry (24 vignettes / 137 events) and renames ticks to moments in 5.8.",
+   "fix": "Use 'a quiet stretch' without a count, or 'about 10 hours of battle time' once the canonical clock exists.",
+   "severity": "low"
+  }
+ ]
+}

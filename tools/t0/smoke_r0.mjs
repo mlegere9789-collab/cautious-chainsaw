@@ -1,0 +1,20 @@
+import { launch } from './cdp.mjs';
+const url = process.argv[2] || 'http://127.0.0.1:8201/';
+const c = await launch(9411, 1440, 900, false);
+const docs = []; const errs = []; const reqs = [];
+c.ws.addEventListener('message', ev => { const m = JSON.parse(ev.data);
+  if (m.method === 'Network.requestWillBeSent') { reqs.push(m.params.request.url + ' [' + m.params.type + ']'); if (m.params.type === 'Document') docs.push(m.params.request.url); }
+  if (m.method === 'Runtime.exceptionThrown') errs.push('EXC ' + (m.params.exceptionDetails.exception?.description || m.params.exceptionDetails.text).slice(0, 160));
+  if (m.method === 'Runtime.consoleAPICalled' && m.params.type === 'error') errs.push('CONSOLE.ERROR ' + (m.params.args[0]?.value || m.params.args[0]?.description || '').toString().slice(0, 160));
+  if (m.method === 'Log.entryAdded' && m.params.entry.level === 'error') errs.push('LOG ' + m.params.entry.text.slice(0, 160) + ' ' + (m.params.entry.url||''));
+});
+await c.send('Log.enable');
+await c.send('Page.addScriptToEvaluateOnNewDocument', { source: "try{window.__fcp=[];new PerformanceObserver(l=>l.getEntries().forEach(e=>window.__fcp.push([e.name,Math.round(e.startTime)]))).observe({type:'paint',buffered:true});window.__nav=performance.now()}catch(e){}" });
+const t0 = Date.now();
+await c.send('Page.navigate', { url });
+await c.sleep(14000);
+const info = await c.ev(() => ({ ctl: navigator.serviceWorker.controller ? navigator.serviceWorker.controller.scriptURL : null, reg: null, paint: window.__fcp, text: (document.body.innerText||'').replace(/\s+/g,' ').slice(0, 260), rootKids: document.getElementById('root') ? document.getElementById('root').childElementCount : -1, splash: !!document.getElementById('boot-splash') }));
+info.reg = await c.evs("navigator.serviceWorker.getRegistration().then(r=>r?{active:r.active&&r.active.scriptURL,waiting:!!r.waiting,installing:!!r.installing}:null)");
+console.log(JSON.stringify({ docs, info, errs: errs.slice(0, 12), nreq: reqs.length, assets: reqs.filter(r => r.includes('/assets/')) }, null, 1));
+await c.close();
+process.exit(0);
