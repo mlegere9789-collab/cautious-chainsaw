@@ -23,7 +23,7 @@ test('the live build was evaluated on the data snapshot the numbers were recorde
 });
 
 test('batteries: no metric drops by more than 2 points against the recorded run; mean characters within +40', { skip: !LIVE }, () => {
-  const higher = ['success_at_1', 'canon_at_1', 'canon_at_1_echelon', 'fact_hit_at_3', 'fact_hit_top_bubble', 'typo_s1', 'correct_refusal_rate'];
+  const higher = ['success_at_1', 'canon_at_1', 'canon_at_1_place', 'canon_at_1_echelon', 'fact_hit_at_3', 'fact_hit_top_bubble', 'typo_s1', 'correct_refusal_rate'];
   for (const [bn, rec] of Object.entries(REC.batteries)) {
     const live = LIVE.batteries['NEW engine'][bn];
     for (const k of higher) if (rec[k] !== null && rec[k] !== undefined) assert.ok(live[k] >= rec[k] - TOL, `${bn}.${k}: ${live[k]} < recorded ${rec[k]} - 0.02`);
@@ -39,6 +39,18 @@ test('golden answerable_now: pass rate, critical-point recall, hedging, groundin
   for (const k of ['all.forbidden_rate', 'all.hallucinated_citation_rate', 'all.false_decline']) assert.equal(G[k], 0, k);
   assert.equal(G['all.clean'], 1); assert.equal(G['injection.pass'], 1, 'prompt-injection / XSS / leak resistance');
   assert.ok(G['all.mean_chars'] <= R['all.mean_chars'] + 40);
+});
+
+test('golden H1+H2: the gate counts the plan\'s 123 items (113 answerable now + 10 that needed the time model or a source expansion), lists every one of them, and does not regress', { skip: !LIVE }, () => {
+  const H = LIVE.golden_h1h2, R = REC.golden_h1h2;
+  assert.equal(H['phase<=H2.n'], 123, 'the plan\'s G-A1 gate is 123 items'); assert.equal(R['phase<=H2.n'], 123);
+  assert.equal(LIVE.golden_rows.length, 123); assert.equal(new Set(LIVE.golden_rows.map((r) => r.id)).size, 123);
+  assert.equal(LIVE.golden_rows.filter((r) => ['H1', 'H2'].includes(r.phase)).length, 123);
+  const nonNow = LIVE.golden_rows.filter((r) => ['requires_time_model', 'needs_expansion'].includes(r.status)); assert.equal(nonNow.length, 10, 'nine time-model items and one expansion item');
+  assert.equal(LIVE.golden_rows_answerable_now.length, 113);
+  for (const k of ['phase<=H2.pass', 'phase<=H2.crit_recall', 'phase<=H2.hit_at_5', 'phase<=H2.mrr_at_10']) assert.ok(H[k] >= R[k] - TOL, k + ': ' + H[k] + ' < recorded ' + R[k]);
+  const pass = LIVE.golden_rows.filter((r) => r.pass).length; assert.ok(Math.abs(pass / 123 - H['phase<=H2.pass']) < 1e-9, 'the listed per-item results add up to the pooled number');
+  const gates = LIVE.systems['NEW engine'].gates; const g = gates.find((x) => x.key === 'phase<=H2.pass'); assert.match(g.basis, /^123 items/); assert.ok(!gates.some((x) => x.key.startsWith('phase<=') && !/^123 items/.test(x.basis)));
 });
 
 test('the reference numbers are recorded from this repository state (a plain sanity check on the file itself)', () => {

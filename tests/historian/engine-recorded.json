@@ -14,28 +14,28 @@
  },
  "batteries": {
   "primary": {
-   "success_at_1": 0.9900990099009901,
-   "canon_at_1": 0.8793103448275862,
+   "success_at_1": 1,
+   "canon_at_1": 0.896551724137931,
    "canon_at_1_echelon": 1,
-   "fact_hit_at_3": 0.9090909090909091,
-   "fact_hit_top_bubble": 0.8181818181818182,
+   "fact_hit_at_3": 1,
+   "fact_hit_top_bubble": 1,
    "typo_s1": 1,
-   "correct_refusal_rate": 0.9411764705882353,
+   "correct_refusal_rate": 1,
    "refusal_rate_on_answerable": 0,
    "defect_rate": 0,
-   "mean_chars_shown": 583.0762711864406
+   "mean_chars_shown": 581.8050847457627
   },
   "heldout": {
    "success_at_1": 0.9807692307692307,
    "canon_at_1": 0.9090909090909091,
    "canon_at_1_echelon": 1,
    "fact_hit_at_3": 1,
-   "fact_hit_top_bubble": 0.8461538461538461,
+   "fact_hit_top_bubble": 0.9230769230769231,
    "typo_s1": 1,
    "correct_refusal_rate": 1,
    "refusal_rate_on_answerable": 0,
    "defect_rate": 0,
-   "mean_chars_shown": 572
+   "mean_chars_shown": 570.6140350877193
   },
   "fresh": {
    "success_at_1": 0.9879518072289156,
@@ -47,26 +47,33 @@
    "correct_refusal_rate": 1,
    "refusal_rate_on_answerable": 0,
    "defect_rate": 0,
-   "mean_chars_shown": 519.7070707070707
+   "mean_chars_shown": 491.1111111111111
   }
+ },
+ "golden_h1h2": {
+  "phase<=H2.n": 123,
+  "phase<=H2.pass": 0.9512195121951219,
+  "phase<=H2.crit_recall": 0.967479674796748,
+  "phase<=H2.hit_at_5": 0.9072164948453608,
+  "phase<=H2.mrr_at_10": 0.7654639175257731
  },
  "golden_answerable_now": {
   "all.n": 113,
-  "all.pass": 0.8672566371681416,
-  "all.crit_recall": 0.9203539823008849,
-  "all.behavior_ok": 0.9911504424778761,
+  "all.pass": 0.9557522123893806,
+  "all.crit_recall": 0.9646017699115044,
+  "all.behavior_ok": 1,
   "all.clean": 1,
   "all.forbidden_rate": 0,
   "all.hallucinated_citation_rate": 0,
   "all.decline_correct": 1,
   "all.false_decline": 0,
-  "all.hedge_rate": 0.9411764705882353,
-  "all.grounded": 0.9772727272727273,
+  "all.hedge_rate": 1,
+  "all.grounded": 0.9886363636363636,
   "all.hit_at_5": 0.9080459770114943,
-  "all.mrr_at_10": 0.760536398467433,
-  "all.readability_ok": 0.8,
-  "all.mean_chars": 507.2212389380531,
-  "dev.pass": 0.9113924050632911,
-  "locked.pass": 0.7647058823529411
+  "all.mrr_at_10": 0.7557471264367817,
+  "all.readability_ok": 1,
+  "all.mean_chars": 579.4159292035398,
+  "dev.pass": 0.9493670886075949,
+  "locked.pass": 0.9705882352941176
  }
 }

@@ -2,7 +2,7 @@
 // eval.mjs - evaluation harness for Ask the Historian (H0-H2, current corpus).
 //   node tests/historian/eval.mjs [--system engine|legacy|both] [--suite batteries|golden|all] [--split all|dev|locked] [--gates H1|H2] [--json out.json] [--verbose] [--baseline-update]
 // Runs (1) the hist-current batteries: primary (118, tuned-on in the prototype), held-out (57) and the FRESH battery (written for this build before the
-// engine existed) and (2) the golden set (150 questions; the answerable_now subset is the gated one), against the new engine and, live, against the deployed
+// engine existed) and (2) the golden set (150 questions; the plan's H1+H2 gate counts 123 of them, the behaviour gates the 113 answerable_now), against the new engine and, live, against the deployed
 // historian.html script (baseline B0, run from legacy/dist). Prints the metrics the hist-current baseline used and the plan's gates.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -123,10 +123,11 @@ if (suite === 'batteries' || suite === 'all') {
     report.battery_gates = checks;
     // informational, never a gate: the strict canonical@1 counts a regiment / place record only; the echelon-aware variant also accepts the brigade / division card for a brigade nickname and the site's own TF:/STR:/ROAD: record
     const NE = results['NEW engine'];
-    console.log('\ncanonical@1 strict (the plan metric)  vs  echelon-aware variant (this build, informational):');
+    console.log('\ncanonical@1 (the gate is the STRICT one: ids U- C- LOC-, as recorded for B0). Two variants of this build are reported next to it, informational, and which of them the plan means is the owner\'s decision:');
+    console.log('  strict = the entity\'s own regiment or place record (U- C- LOC-)   place-aware = plan wording read literally, also the site\'s own TF: STR: ROAD: place records   echelon-aware = also the brigade / division / corps card of an expected regiment');
     for (const [bn, b] of Object.entries(NE)) {
       const rows = b.rows.filter((r) => r.canon1 === 0);
-      console.log(`  ${bn.padEnd(8)} strict ${pct(b.summary.canon_at_1)} (n=${b.summary.n_canon})   echelon-aware ${pct(b.summary.canon_at_1_echelon)} (n=${b.summary.n_canon_echelon})   strict misses that the variant accepts: ${rows.filter((r) => r.canon1e === 1).map((r) => JSON.stringify(r.q)).join(', ') || '-'}`);
+      console.log(`  ${bn.padEnd(8)} strict ${pct(b.summary.canon_at_1)} (n=${b.summary.n_canon})   place-aware ${pct(b.summary.canon_at_1_place)} (n=${b.summary.n_canon_place})   echelon-aware ${pct(b.summary.canon_at_1_echelon)} (n=${b.summary.n_canon_echelon})   strict misses the variants accept: ${rows.filter((r) => r.canon1e === 1).map((r) => JSON.stringify(r.q) + (r.canon1p === 1 ? ' [place]' : ' [echelon]')).join(', ') || '-'}`);
       const still = b.rows.filter((r) => r.canon1e === 0); if (still.length) console.log(`           still missed by both: ${still.map((r) => JSON.stringify(r.q) + ' -> ' + r.shown.slice(0, 2).join('/')).join('; ')}`);
     }
     if (verbose) {
@@ -146,38 +147,51 @@ if (suite === 'batteries' || suite === 'all') {
 if (suite === 'golden' || suite === 'all') {
   const gates = JSON.parse(fs.readFileSync(path.join(here, 'fixtures/golden-gates.json'), 'utf8'));
   gates.__phase = phase === true ? 'H1' : phase;
-  console.log(`\n### Golden set ${GOLDEN.version} (150 questions; answerable_now = ${GOLDEN.questions.filter((q) => q.answerable_now).length})`);
+  const nNow = GOLDEN.questions.filter((q) => q.answerable_now).length;
+  const nH12 = GOLDEN.questions.filter((q) => ['H1', 'H2'].includes(q.phase_ready)).length;
+  console.log(`\n### Golden set ${GOLDEN.version} (${GOLDEN.questions.length} questions; answerable_now = ${nNow}; H1+H2 = ${nH12}: the plan's "Golden-Core H1+H2 (123 items)" gate counts ${nNow} answerable-now items plus ${nH12 - GOLDEN.questions.filter((q) => q.answerable_now && ['H1', 'H2'].includes(q.phase_ready)).length} H2 items the current corpus could not answer before the time model)`);
   const table = [];
   for (const [name, kind] of [['B0 legacy page (live)', 'legacy'], ['NEW engine', 'engine']]) {
     if (kind === 'legacy' && !legacy) continue;
     if (kind === 'engine' && !engine) continue;
     const answers = await goldenAnswers(kind, { legacy, engine });
     const vids = kind === 'engine' ? validIds : null;
+    // `full` scores all 150 questions: its phase<=H2.* aggregates are the plan's 123-item gate (phase_ready H1 or H2, answerable now or not); `now` scores the 113 answerable_now questions
     const full = scoreGolden({ golden: GOLDEN, answers, split, subset: 'all', gates: null, validIds: vids });
-    const now = scoreGolden({ golden: GOLDEN, answers, split, subset: 'answerable_now', gates, validIds: vids });
-    table.push([name, full, now]);
-    report.systems[name] = { golden_all: full.flat, golden_answerable_now: now.flat, gates_answerable_now: now.gates };
-    if (kind === 'engine') report.golden_rows = now.per_question.map((r) => ({ id: r.id, pass: r.pass, cat: r.category, beh: r.inferred_behavior, exp: r.expected_behavior, missed: r.missed, forbidden: r.forbidden, defects: r.defects }));
-    if (kind === 'engine') { report._golden_full = now; }
+    const now = scoreGolden({ golden: GOLDEN, answers, split, subset: 'answerable_now', gates: null, validIds: vids });
+    // gates: the phase-keyed ones (phase<=H2.pass, .crit_recall, .hit_at_5, .mrr_at_10) read the 123-item aggregate, the behaviour gates (all.*, oos.*, injection.*) the 113 answerable-now subset as before
+    const active = (gates.always || []).concat(gates.__phase && gates[gates.__phase] ? gates[gates.__phase] : []);
+    const gateRows = active.map((g) => { const src = g.key.startsWith('phase<=') ? full.flat : now.flat; const v = src[g.key]; const ok = v === undefined || v === null ? false : (g.min !== undefined ? v >= g.min : true) && (g.max !== undefined ? v <= g.max : true); return { name: g.name || g.key, key: g.key, min: g.min, max: g.max, value: v === undefined ? null : v, ok, basis: g.key.startsWith('phase<=') ? `${src[g.key.split('.')[0] + '.n']} items (phase_ready <= ${g.key.slice(7, 9)})` : `${now.meta.scored} answerable-now items` }; });
+    table.push([name, full, now, gateRows]);
+    report.systems[name] = { golden_all: full.flat, golden_answerable_now: now.flat, gates: gateRows };
+    if (kind === 'engine') {
+      const row = (r) => ({ id: r.id, pass: r.pass, cat: r.category, status: r.data_status, phase: r.phase_ready, split: r.split, beh: r.inferred_behavior, exp: r.expected_behavior, crit_recall: r.crit_recall, missed: r.missed, forbidden: r.forbidden, defects: r.defects, grounded: r.grounded, readability_ok: r.readability_ok });
+      // the per-item list of the 123 the gate counts, and of the answerable-now 113
+      report.golden_rows = full.per_question.filter((r) => ['H1', 'H2'].includes(r.phase_ready)).map(row);
+      report.golden_rows_answerable_now = now.per_question.map(row);
+      report._golden_full = full;
+    }
   }
-  console.log('system'.padEnd(26) + ['pass(all150)', 'pass(now)', 'crit(now)', 'behav', 'clean', 'declineOK', 'clarify', 'hedge', 'ground', 'hit@5', 'mrr@10', 'inject', 'chars', 'p95ms'].map((c) => c.padStart(11)).join(''));
+  console.log('system'.padEnd(26) + ['pass(all150)', 'pass(H1+H2)', 'crit(H1+H2)', 'pass(now113)', 'crit(now113)', 'behav', 'clean', 'declineOK', 'clarify', 'hedge', 'ground', 'hit@5', 'mrr@10', 'inject', 'chars', 'p95ms'].map((c) => c.padStart(12)).join(''));
   for (const [name, full, now] of table) {
     const F = now.flat;
-    console.log(name.padEnd(26) + [full.flat['all.pass'], F['all.pass'], F['all.crit_recall'], F['all.behavior_ok'], F['all.clean'], F['all.decline_correct'], F['all.clarify_rate'], F['all.hedge_rate'], F['all.grounded'], F['all.hit_at_5'], F['all.mrr_at_10'], F['injection.resist']].map((x) => pct(x, 11)).join('') + String(Math.round(F['all.mean_chars'])).padStart(11) + String((F['all.p95_latency_ms'] || 0).toFixed(1)).padStart(11));
+    console.log(name.padEnd(26) + [full.flat['all.pass'], full.flat['phase<=H2.pass'], full.flat['phase<=H2.crit_recall'], F['all.pass'], F['all.crit_recall'], F['all.behavior_ok'], F['all.clean'], F['all.decline_correct'], F['all.clarify_rate'], F['all.hedge_rate'], F['all.grounded'], F['all.hit_at_5'], F['all.mrr_at_10'], F['injection.resist']].map((x) => pct(x, 12)).join('') + String(Math.round(F['all.mean_chars'])).padStart(12) + String((F['all.p95_latency_ms'] || 0).toFixed(1)).padStart(12));
   }
   const eng = table.find((t) => t[0] === 'NEW engine');
   if (eng) {
-    const now = eng[2];
-    console.log(`\nGolden gates (phase ${gates.__phase}, answerable_now subset, split=${split}):`);
-    for (const g of now.gates) console.log(`  ${g.ok ? 'PASS' : 'FAIL'}  ${g.name.padEnd(58)} value ${g.value === null ? 'n/a' : g.value.toFixed(3)} ${g.min !== undefined ? '>= ' + g.min : ''}${g.max !== undefined ? '<= ' + g.max : ''}`);
-    console.log(`  dev split pass ${pct(now.flat['dev.pass'])}  locked split pass ${pct(now.flat['locked.pass'])}  (locked: aggregate only)`);
+    const [, full, now, gateRows] = eng;
+    console.log(`\nGolden gates (phase ${gates.__phase}; split=${split}):`);
+    for (const g of gateRows) console.log(`  ${g.ok ? 'PASS' : 'FAIL'}  ${g.name.padEnd(58)} value ${g.value === null ? 'n/a' : g.value.toFixed(3)} ${g.min !== undefined ? '>= ' + g.min : ''}${g.max !== undefined ? '<= ' + g.max : ''}   [${g.basis}]`);
+    const p = full.flat; const nonNow = full.per_question.filter((r) => ['H1', 'H2'].includes(r.phase_ready) && !GOLDEN.questions.find((q) => q.id === r.id).answerable_now);
+    console.log(`  H1+H2 (${p['phase<=H2.n']} items): pass ${pct(p['phase<=H2.pass'])} crit ${pct(p['phase<=H2.crit_recall'])} | of these, ${nonNow.length} were not answerable from the data before the time model: ${nonNow.filter((r) => r.pass).length} pass (${nonNow.map((r) => r.id + (r.pass ? '+' : '-')).join(' ')}) | answerable-now ${now.meta.scored}: pass ${pct(now.flat['all.pass'])} crit ${pct(now.flat['all.crit_recall'])}`);
+    console.log(`  dev split pass ${pct(now.flat['dev.pass'])}  locked split pass ${pct(now.flat['locked.pass'])}  (answerable-now; the locked split was READ item by item while the engine was fixed in the historian-core pass, so it is no longer a held-out estimate)`);
     const byCat = now.summary.by_category;
-    console.log('  by category: ' + Object.entries(byCat).map(([k, v]) => `${k} ${(v.pass * 100).toFixed(0)}% (n=${v.n})`).join(' | '));
+    console.log('  by category (answerable-now): ' + Object.entries(byCat).map(([k, v]) => `${k} ${(v.pass * 100).toFixed(0)}% (n=${v.n})`).join(' | '));
     if (verbose) {
-      console.log('\n--- golden answerable_now items that did not pass (dev split only unless --split all)');
-      for (const r of now.per_question) if (!r.pass && (split !== 'locked')) console.log(`  ${r.id} [${r.category}] ${r.split} exp=${r.expected_behavior} got=${r.inferred_behavior} missed=${JSON.stringify(r.missed)} forbidden=${JSON.stringify(r.forbidden)} defects=${r.defects.join(',')} ${r.grounded === false ? 'UNGROUNDED' : ''}\n      Q: ${r.question}`);
+      console.log('\n--- H1+H2 items that did not pass (all splits, as the gate counts them)');
+      for (const r of full.per_question) if (!r.pass && ['H1', 'H2'].includes(r.phase_ready)) console.log(`  ${r.id} [${r.category}/${r.data_status}] ${r.split} exp=${r.expected_behavior} got=${r.inferred_behavior} missed=${JSON.stringify(r.missed)} forbidden=${JSON.stringify(r.forbidden)} defects=${r.defects.join(',')} ${r.grounded === false ? 'UNGROUNDED' : ''}\n      Q: ${r.question}`);
     }
-    if (arg('json', null)) report.golden_flat = now.flat;
+    report.golden_flat = now.flat; report.golden_h1h2 = Object.fromEntries(Object.entries(full.flat).filter(([k]) => k.startsWith('phase<=H2.')));
   }
 }
 
@@ -185,13 +199,14 @@ const jsonOut = arg('json', null);
 if (jsonOut && jsonOut !== true) { fs.mkdirSync(path.dirname(path.resolve(jsonOut)), { recursive: true }); delete report._golden_full; fs.writeFileSync(jsonOut, JSON.stringify(report, null, 1)); console.log(`\nwrote ${jsonOut}`); }
 
 // --baseline-update: record this engine's numbers as the regression reference (tests/historian/engine-recorded.json; read by regress.test.mjs). Percentages are fractions here.
-if (arg('baseline-update', false) && report.batteries && report.batteries['NEW engine'] && report.golden_flat) {
+if (arg('baseline-update', false) && report.batteries && report.batteries['NEW engine'] && report.golden_flat && report.golden_h1h2) {
   const B = report.batteries['NEW engine']; const G = report.golden_flat;
   const pick = (S) => Object.fromEntries(['success_at_1', 'canon_at_1', 'canon_at_1_echelon', 'fact_hit_at_3', 'fact_hit_top_bubble', 'typo_s1', 'correct_refusal_rate', 'refusal_rate_on_answerable', 'defect_rate', 'mean_chars_shown'].map((k) => [k, S[k]]));
   const rec = {
     $comment: 'Regression reference written by: node tests/historian/eval.mjs --baseline-update. regress.test.mjs fails when a metric drops by more than 2 points (or mean characters rise by more than 40). It records where this build IS, not what the plan requires (that is gates.json).',
     recorded: new Date().toISOString().slice(0, 10), kb: report.kb,
     batteries: Object.fromEntries(Object.entries(B).map(([bn, S]) => [bn, pick(S)])),
+    golden_h1h2: Object.fromEntries(['phase<=H2.n', 'phase<=H2.pass', 'phase<=H2.crit_recall', 'phase<=H2.hit_at_5', 'phase<=H2.mrr_at_10'].map((k) => [k, report.golden_h1h2[k]])),
     golden_answerable_now: Object.fromEntries(['all.n', 'all.pass', 'all.crit_recall', 'all.behavior_ok', 'all.clean', 'all.forbidden_rate', 'all.hallucinated_citation_rate', 'all.decline_correct', 'all.false_decline', 'all.hedge_rate', 'all.grounded', 'all.hit_at_5', 'all.mrr_at_10', 'all.readability_ok', 'all.mean_chars', 'dev.pass', 'locked.pass'].map((k) => [k, G[k]])),
   };
   fs.writeFileSync(path.join(here, 'engine-recorded.json'), JSON.stringify(rec, null, 1) + '\n');

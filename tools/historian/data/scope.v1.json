@@ -134,7 +134,57 @@
         "\\b(battle|july (1|2|3)|gettysburg|1863|pickett|charge|cannonade|retreat)\\b.*\\b(how (?:hot|cold|warm)|was it (?:a |very |so )?(?:hot|cold|warm|raining|rainy|sunny|cloudy|foggy|humid|muddy|dry))\\b"
       ],
       "text": "The site's records do not include a weather series for the battle, so I cannot give temperatures or a day-by-day forecast.",
-      "answer_with": "A weather answer would need period observations, such as soldiers’ diaries and letters or weather records kept at the time. Those are not part of this site’s data."
+      "answer_with": "A weather answer would need period observations, such as soldiers’ diaries and letters or weather records kept at the time. Those are not part of this site’s data.",
+      "standalone": true,
+      "evidence": {
+        "terms": [
+          "rain",
+          "rainstorm",
+          "thunderstorm",
+          "fog",
+          "drizzle",
+          "weather",
+          "downpour"
+        ],
+        "re": "\\b(?:rain(?:s|ed|ing|y|storm)?|thunderstorms?|fog|drizzle|downpour|weather)\\b",
+        "kinds": [
+          "chronicle",
+          "narrative",
+          "commentary"
+        ],
+        "same_day": true,
+        "intro": "The site’s own text touches on it only in the passages below."
+      }
+    },
+    {
+      "id": "gettysburg-address",
+      "standalone": true,
+      "re": [
+        "\\b(gettysburg address|lincoln s (?:famous )?address|lincoln s (?:famous )?speech|lincoln s gettysburg|four score and seven|dedication (?:of|at) the (?:soldiers )?national cemetery|soldiers national cemetery dedication)\\b",
+        "\\btext of the (?:gettysburg )?address\\b"
+      ],
+      "text": "The text of the Gettysburg Address is not in this site’s records, which are scoped to the Battle of Gettysburg (July 1 to 3, 1863) and its people, units and places.",
+      "answer_with": "The text of the Address is published by the Library of Congress and the National Park Service.",
+      "evidence": {
+        "terms": [
+          "lincoln",
+          "address",
+          "dedication",
+          "cemetery",
+          "remarks",
+          "national"
+        ],
+        "re": "\\b(?:Lincoln|President)\\b[^.]{0,120}\\b(?:dedicat\\w*|remarks|address|speech)\\b|\\bdedication\\b[^.]{0,120}\\bLincoln\\b",
+        "kinds": [
+          "tour",
+          "walkthrough",
+          "narrative",
+          "chronicle",
+          "commentary"
+        ],
+        "same_day": false,
+        "intro": "The site’s tour of the cemetery mentions it in these words."
+      }
     }
   ],
   "routes": [

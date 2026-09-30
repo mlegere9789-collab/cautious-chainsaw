@@ -11,7 +11,19 @@ import { tierProblems } from './sources.mjs';
 import { checkCoverage } from './coverage.mjs';
 
 const BUDGET = { t1BrotliMax: 250 * 1024, coldQueryMaxBytes: 120 * 1024, shardMaxBytes: 64 * 1024 };
-const BAD_TOKENS = /\bundefined\b|\bNaN\b|\bnull\b|\s--\s/;
+
+/** what is wrong with a string a reader could be shown: [] when clean. The pure core of V05 / V06, exported so that each check can be tested to FAIL (a check no test can trip is not a check). */
+export function showTextProblems(s) {
+  const out = [];
+  if (typeof s !== 'string' || !s) return out;
+  if (hasDevNote(s)) out.push({ rule: 'V05', what: 'developer note' });
+  if (/\bundefined\b/.test(s)) out.push({ rule: 'V06', what: 'undefined' });
+  if (/\bNaN\b/.test(s)) out.push({ rule: 'V06', what: 'NaN' });
+  if (/\bnull\b/.test(s)) out.push({ rule: 'V06', what: 'null' });
+  if (/\s--\s/.test(s)) out.push({ rule: 'V06', what: 'double-hyphen' });
+  if (hasRawId(s)) out.push({ rule: 'V06', what: 'raw internal id' });
+  return out;
+}
 
 export function validate({ site, reg, t1, entix, passages, facts, sources, sizes, aliasRules = {}, coverage = null }) {
   const findings = [];
@@ -71,12 +83,7 @@ export function validate({ site, reg, t1, entix, passages, facts, sources, sizes
   for (const rows of Object.values(facts.rank)) for (const row of rows.rows) if (!ids.has(row[0])) err('V04', `rank row references unknown id ${row[0]}`);
   for (const lst of Object.values(facts.succ.byUnit)) for (const id of lst) if (!ids.has(id)) err('V04', `succ index references ${id}`);
   // ---- V05 / V06 text hygiene over everything a reader can be shown --------------------------------------------------------------------------------
-  const showText = (where, s) => {
-    if (typeof s !== 'string' || !s) return;
-    if (hasDevNote(s)) err('V05', `${where}: developer note in shown text: ${s.slice(0, 90)}`);
-    if (BAD_TOKENS.test(s)) err('V06', `${where}: forbidden token in shown text: ${s.slice(0, 90)}`);
-    if (hasRawId(s)) err('V06', `${where}: raw internal id in shown text: ${s.slice(0, 90)}`);
-  };
+  const showText = (where, s) => { for (const p of showTextProblems(s)) err(p.rule, `${where}: ${p.what} in shown text: ${s.slice(0, 90)}`); };
   for (const r of t1.records) {
     showText(`${r.id}.title`, r.title); showText(`${r.id}.label`, r.label);
     const a = r.attrs || {};

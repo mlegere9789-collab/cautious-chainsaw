@@ -14,6 +14,7 @@ const PROBES = {
   'weather-at-battle': ['What was the weather on July 2, 1863?', 'Was it raining during Pickett\'s Charge?', 'How hot was it at Gettysburg on July 3?', 'What was the weather like at the battle?', 'Was it foggy on July 1?'],
   'individual-soldier': ['Was John Smith of the 20th Maine at Gettysburg?', 'Was Thomas Brown of the 1st Minnesota at Gettysburg?', 'Was Sgt. William Davis in the 69th Pennsylvania at Gettysburg?'],
   'per-location-casualties': ['How many men died at the Wheatfield?', 'How many were killed at Little Round Top?', 'What were the casualties at the Peach Orchard?'],
+  'gettysburg-address': ['What was the Gettysburg Address and who gave it?', 'Can you show me the text of the Gettysburg Address?', "Lincoln's Gettysburg Address", 'Recite four score and seven years ago'],
 };
 
 test('every compiled known unknown has a probe and is answered with its own text and what would answer it', async () => {
@@ -56,4 +57,15 @@ test('the individual-soldier limit names the regiment the reader asked about, no
   const a = await ask('Was John Smith of the 20th Maine at Gettysburg?');
   assert.equal(a.limited, true); assert.ok(a.shown.includes('U-20ME') && !a.shown.includes('ART:U-ART-4NYIND'), a.shown.join());
   assert.match(a.text, /cannot tell whether a specific soldier was at Gettysburg/); assert.match(a.text, /Find Your Ancestor/);
+});
+
+test('the Gettysburg Address: not declined as out of scope (the cemetery tour of the site mentions it) and not answered from memory: the limitation, the tour words, what would answer it', async () => {
+  const a = await ask('What was the Gettysburg Address and who gave it?');
+  assert.equal(a.mode, 'partial'); assert.equal(a.limited, true);
+  assert.match(a.text, /text of the Gettysburg Address is not in this site.s records/);
+  const q = a.blocks.filter((b) => b.t === 'quote'); assert.equal(q.length, 1); assert.match(q[0].text, /President Abraham Lincoln/); assert.equal(q[0].rec, 'TOUR:16'); assert.match(q[0].attrib, /tour stop 16/);
+  assert.match(a.text, /What would answer it: The text of the Address is published by the Library of Congress and the National Park Service/);
+  assert.ok(!/four score/i.test(a.text), 'the text is never reproduced from memory');
+  assert.ok(!a.blocks.some((b) => b.t === 'note' && b.code === 'compound-part'), 'one known unknown, not two questions');
+  assert.equal((await ask('Explain the causes of the Civil War')).mode, 'decline', 'the scope-out topics are unchanged');
 });

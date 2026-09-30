@@ -151,6 +151,15 @@ export function splitSentences(text) {
 }
 export const sentencesOf = (text) => splitSentences(text).map(({ s, e }) => text.slice(s, e).trim());
 
+/** Flesch-Kincaid grade of a text (the formula the golden scorer uses): 0.39 * words per sentence + 11.8 * syllables per word - 15.59 */
+export function fkGrade(text) {
+  const sents = Math.max(1, (String(text).match(/[.!?]+(\s|$)/g) || []).length);
+  const w = String(text).match(/[A-Za-z']+/g) || [];
+  if (!w.length) return 0;
+  const syl = w.reduce((n, x) => n + Math.max(1, (x.toLowerCase().replace(/e$/, '').match(/[aeiouy]+/g) || []).length), 0);
+  return 0.39 * (w.length / sents) + 11.8 * (syl / w.length) - 15.59;
+}
+
 /** True when a sentence carries a clock time ("1:00pm", "4 p.m.", "10:15 a.m.", "noon"). Used by invariant I5. */
 export const CLOCK_RE = /\b\d{1,2}(?::\d{2})?\s?(?:a\.?\s?m\.?|p\.?\s?m\.?|am|pm)\b|\b\d{1,2}:\d{2}\b|\bo['’]clock\b|\b(?:noon|midnight)\b/i;
 

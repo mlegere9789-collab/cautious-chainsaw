@@ -356,3 +356,9 @@ test('the cached 2 MB sample (V-11): no passage carries a head or signature mark
   assert.ok(r.report.table_debris_dropped.length >= 1 && r.report.table_debris_dropped.length < 0.05 * (r.passages.length + r.report.table_debris_dropped.length), `${r.report.table_debris_dropped.length} dropped`);
   assert.equal(r.report.passages, r.passages.length); assert.ok(r.passages.every((p, i, a) => i === 0 || a[i - 1].doc_id !== p.doc_id || p.seq === a[i - 1].seq + 1), 'seq is contiguous per document after the drop');
 });
+
+test('sourceForUrl reads a host the way the gate does: a trailing dot, upper case and "www." do not hide a registered source', () => {
+  const a = sourceForUrl(REG, 'https://www.loc.gov/item/2003666161/'); assert.ok(a, 'control');
+  for (const u of ['https://www.loc.gov./item/2003666161/', 'https://WWW.LOC.GOV/item/2003666161/', 'https://loc.gov/item/2003666161/']) assert.equal(sourceForUrl(REG, u) && sourceForUrl(REG, u).id, a.id, u);
+  assert.equal(sourceForUrl(REG, 'https://example.org./x'), null);
+});

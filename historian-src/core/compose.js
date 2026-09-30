@@ -261,7 +261,7 @@ function rankSentence(kb, u, which) {
   const pos = row.rows.findIndex((x) => x[0] === u.id);
   if (pos < 0 || pos > 4) return '';
   const nth = ['highest', 'second highest', 'third highest', 'fourth highest', 'fifth highest'][pos];
-  return which === 'casualties' ? `That is the ${nth} casualty rate among ${SIDE_NAME[u.side]} ${u.k}s in the site’s records.` : '';
+  return which === 'casualties' ? `That is the ${nth} casualty rate among ${SIDE_NAME[u.side]} ${u.k === 'corps' ? 'corps' : u.k + 's'} in the site’s records.` : '';
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------
@@ -305,6 +305,35 @@ export function superlativeAnswer(kb, S) {
     if (c26 && first.r.id !== c26.id) { blocks.push(note('site-summary', `The site’s own summary note names the ${c26.title.replace(/ Infantry$/, '')} (${fmtPct(conf.rate)}), which has the most casualties by count rather than the highest rate.`)); src.push('CAS:notable_intensity_notes', c26.id); }
   }
   return { mode: 'answer', blocks, src };
+}
+
+/** "where did the brigade fight", "where was the 20th Maine": the unit's own record of where it was (its key-action text), with the days it was engaged */
+export function unitWhere(kb, S, u) {
+  const H = helpers(kb); const a = u.attrs || {};
+  if (!a.ka) return null;
+  const runs = [ent(u, ucfirst(H.nameForLead(u))), `: ${endSent(a.ka)}`];
+  const days = H.daysOf(u); if (days) runs.push(` It was engaged on ${days}.`);
+  return { mode: 'answer', blocks: [lead(runs, [u.id])], src: [u.id] };
+}
+
+/** "which regiment in the Iron Brigade lost the most men": the members of one brigade / division / corps ranked by the asked measure (their own recorded figures) */
+export function memberSuperlative(kb, S, parent) {
+  const H = helpers(kb); const q = S.norm;
+  const kids = H.kids(parent).filter((k) => k.attrs && typeof k.attrs.casualties === 'number');
+  if (kids.length < 2) return null;
+  const asc = /\b(smallest|fewest|lowest|least)\b/.test(q);
+  const rate = /\b(percent|percentage|rate|share)\b/.test(q), size = /\b(largest|biggest|smallest|size|strength|numerous)\b/.test(q) && !/\b(lost|lose|losses|casualt\w*|killed|died)\b/.test(q);
+  const key = rate ? 'pct' : size ? 'strength' : 'casualties';
+  const rows = kids.filter((k) => typeof k.attrs[key] === 'number' && !(key === 'pct' && k.attrs.estStrength)).sort((a, b) => (asc ? a.attrs[key] - b.attrs[key] : b.attrs[key] - a.attrs[key]) || (a.id < b.id ? -1 : 1));
+  if (rows.length < 2) return null;
+  const noun = { brigade: 'regiments', division: 'brigades', corps: 'divisions' }[parent.k];
+  const fmt = (k) => (key === 'pct' ? `${fmtPct(k.attrs.pct)} (${fmtN(k.attrs.casualties)} of about ${fmtN(k.attrs.strength)} men)` : key === 'strength' ? `about ${fmtN(k.attrs.strength)} men` : `${fmtN(k.attrs.casualties)} casualties${k.attrs.strength > 0 && !k.attrs.estStrength ? ` of about ${fmtN(k.attrs.strength)} men` : ''}`);
+  const what = key === 'pct' ? (asc ? 'the lowest casualty rate' : 'the highest casualty rate') : key === 'strength' ? (asc ? 'the smallest strength' : 'the largest strength') : (asc ? 'the fewest casualties' : 'the most casualties');
+  const top = rows[0];
+  const blocks = [lead([ent(top, ucfirst(top.label)), ` had ${what} of the ${noun} in `, ent(parent, withThe(parent.label)), `: ${fmt(top)}.`], [top.id, parent.id])];
+  if (rows.length > 1) blocks.push({ t: 'list', title: 'Next in the site’s records:', items: rows.slice(1, 3).map((k) => ({ txt: `${k.label} — ${fmt(k)}`, ent: k.id })), src: rows.slice(1, 3).map((k) => k.id) });
+  blocks.push(note('rank-rule', `Rule: the ${noun} recorded under ${parent.label}, ranked by their own figures. ${AUTH_NOTE}`));
+  return { mode: 'answer', blocks, src: [top.id, parent.id, ...rows.slice(1, 3).map((k) => k.id)] };
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------
@@ -591,11 +620,26 @@ export function comparePlaces(kb, places) {
   return { mode: 'answer', blocks, src: [a.id, b.id] };
 }
 
-/** short lead for young readers: name and place only; the quotes carry the story */
+/**
+ * Lead for young readers: short plain lines, each a template whose slots are the record's own attributes; the verbatim quotes that follow carry the story.
+ * The site's own sentences are long and full of proper nouns (measured: the simplest verbatim sentences about Pickett's Charge score Flesch-Kincaid grade 9.5 to 10.7 even alone),
+ * so the plain lines around them are what a 5th grader can read. Nothing is paraphrased and no number appears that is not in the record.
+ */
 export function simpleLead(kb, r) {
-  const a = r.attrs || {};
-  if (r.k === 'chronology') return [ent(r, ucfirst(r.title)), ` (${r.place || a.location}, ${DAY_NAME[a.day]}).`];
-  if (r.k === 'vignette') return [ent(r, `“${r.title}”`), ` (${a.location}, ${DAY_NAME[a.day]}).`];
+  const a = r.attrs || {}; const H = helpers(kb);
+  const place = r.place || a.location;
+  if (r.k === 'chronology') return [ent(r, ucfirst(String(r.title).replace(/[.\s]+$/, ''))), `. This happened on ${DAY_NAME[a.day] || 'one of the three days'}${place ? `, at ${place}` : ''}.${a.sig === 'critical' ? ' The site calls it one of the key moments of the battle.' : a.sig === 'high' ? ' The site calls it an important moment of the battle.' : ''}`];
+  if (r.k === 'vignette') return [ent(r, `“${r.title}”`), ` is a story from ${DAY_NAME[a.day] || 'the battle'}${a.location ? `, at ${a.location}` : ''}.`];
+  if (H.isUnit(r) && ['regiment', 'brigade', 'division', 'corps', 'artillery'].includes(r.k)) {
+    const what = { regiment: 'regiment', brigade: 'brigade', division: 'division', corps: 'corps', artillery: 'battery' }[r.k];
+    const sp = statsPieces(r); const c = H.cmdOf(r); const a2 = r.attrs || {};
+    const runs = [ent(r, ucfirst(H.nameForLead(r))), ` was a ${H.sideName(r)} ${what}${r.state && r.k === 'regiment' ? ` from ${r.state}` : ''}.`];
+    if (sp.strength && typeof a2.casualties === 'number' && a2.casualties > 0) runs.push(` About ${fmtN(a2.strength)} men fought in it. ${fmtN(a2.casualties)} of them were killed, wounded or missing.`);
+    else if (sp.strength) runs.push(` About ${fmtN(a2.strength)} men fought in it.`);
+    else if (typeof a2.casualties === 'number' && a2.casualties > 0) runs.push(` ${fmtN(a2.casualties)} of its men were killed, wounded or missing.`);
+    if (c) runs.push(` Its leader was ${H.cmdText(c)}.`);
+    return runs;
+  }
   return profileLead(kb, r);
 }
 
@@ -611,9 +655,9 @@ export function sharedNameList(kb, focus, ids) {
  * A known unknown (facts.unknowns, compiled from tools/historian/data/scope.v1.json): the limitation in the rule's own words, what the site's own text does say about it (verbatim quotes chosen by the
  * caller), and what would answer it. Mode "partial": the reader gets an honest "not in my sources", never an unrelated summary.
  */
-export function unknownAnswer(kb, S, rule, { place = null, quotes = [], src = [] } = {}) {
+export function unknownAnswer(kb, S, rule, { place = null, quotes = [], src = [], intro = null } = {}) {
   const blocks = [lead([String(rule.text).replace('{place}', place || 'that place')], src)];
-  if (quotes.length) blocks.push(note('unknown-says', 'The site’s own text touches on it only in the passages below.'), ...quotes);
+  if (quotes.length) blocks.push(note('unknown-says', intro || 'The site’s own text touches on it only in the passages below.'), ...quotes);
   if (rule.answer_with) blocks.push(note('unknown-basis', `What would answer it: ${rule.answer_with}`));
   return { mode: 'partial', blocks, src: [...src, ...quotes.map((q) => q.rec)], limited: true };
 }

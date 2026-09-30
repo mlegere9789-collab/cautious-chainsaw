@@ -2,7 +2,7 @@
 //   sentence score = sum idf(query stem in sentence) + 4[names a linked entity] + 3[has a clock time when the question is about time]
 //                    - 1.5[clock time when it is not] - 0.02 * max(0, words - 45)
 //   window = best run of 1-3 contiguous sentences up to 90 words; at most one quote per record; contemporaneous/dispatch kinds first when equal.
-import { tokenize, stem, STOP, CLOCK_RE, normalizeWs } from './text.js';
+import { tokenize, stem, STOP, CLOCK_RE, normalizeWs, fkGrade } from './text.js';
 
 const idfOf = (kb, t) => {
   const df = kb.lexDf.get(t) || 0;
@@ -10,6 +10,15 @@ const idfOf = (kb, t) => {
   return df ? Math.log(1 + (N - df + 0.5) / (df + 0.5)) : 0.5;
 };
 const stemsOf = (s) => tokenize(s, { keepStop: false }).map(stem);
+const VERBS = 'said|says|saying|told|telling|replied|cried|shouted|called|declared|asked|wrote|spoke|greeted|yelled|whispered|exclaimed|answered|muttered';
+/** patterns that say a named person is the SPEAKER: the name, then (lower-case words only, so another name in between breaks it) a speech verb; or a speech verb then the name ("said General Lee") */
+export function speakerPatterns(words) {
+  const ci = (w) => [...w].map((c) => (/[a-z]/i.test(c) ? `[${c.toLowerCase()}${c.toUpperCase()}]` : c)).join('');
+  return [...new Set(words)].filter((w) => /^[A-Za-z'\u2019-]{3,}$/.test(w)).flatMap((w) => [
+    new RegExp('\\b' + ci(w) + '\\b(?:\\s+[a-z\'\\u2019-]+){0,9}?\\s+(?:' + VERBS + ')\\b'),
+    new RegExp('\\b(?:said|says|replied|cried|asked|shouted)\\s+(?:(?:General|Gen\\.|Colonel|Col\\.|Captain|Capt\\.)\\s+)?' + ci(w) + '\\b'),
+  ]);
+}
 const SPEECH = new Set(['said', 'say', 'says', 'told', 'tell', 'telling', 'cried', 'shouted', 'replied', 'answered', 'exclaimed', 'called', 'declared', 'wrote', 'asked', 'whispered', 'muttered', 'yelled', 'greeted', 'speaking', 'spoke'].map(stem));
 
 /** a stated length of time: "seven hours", "for three hours", "20 minutes", "all day" (used by "how long / how many hours" questions) */
@@ -44,13 +53,20 @@ export function bestWindow(kb, p, ctx, { maxWords = 90, maxSents = 3, plain = fa
     if (ctx.quoteQ) sc += /["\u201c\u201d]/.test(text) ? 4 : -1;
     if (ctx.durationQ) sc += DURATION_RE.test(text) ? 4 : -1;
     // "what did Lee say to his men": the sentence in which the named person is the speaker (his name, then a speech verb within a few words) is the one that answers
-    if (ctx.speakerStems && ctx.speakerStems.size) { const i = toks.findIndex((t) => ctx.speakerStems.has(t)); if (i >= 0 && toks.slice(Math.max(0, i - 3), i + 9).some((t) => SPEECH.has(t))) sc += 5; }
+    const spk = !!(ctx.speakerRes && ctx.speakerRes.some((re) => re.test(text)));
+    if (spk) sc += 5;
+    else if (!(ctx.speakerRes && ctx.speakerRes.length) && ctx.speakerStems && ctx.speakerStems.size) { const k = toks.findIndex((x) => ctx.speakerStems.has(x)); if (k >= 0 && toks.slice(Math.max(0, k - 3), k + 9).some((x) => SPEECH.has(x))) sc += 5; }   // write / shout / reply: his name near the verb
     const words = (text.match(/\S+/g) || []).length;
-    if (plain) sc -= 0.08 * Math.max(0, words - 18);     // "plain" (young readers): the shorter of two comparable sentences wins
-    return { s, e, text, sc, words, clk, caps: text.length > 2 && text === text.toUpperCase() && /[A-Z]/.test(text) };
+    // "plain" (young readers): the shorter and simpler of two comparable sentences wins; the penalty is the sentence's own Flesch-Kincaid grade above 6 (the golden student items allow 7 to 10)
+    if (plain) sc -= 0.08 * Math.max(0, words - 18) + 0.9 * Math.max(0, fkGrade(text) - 6);
+    return { s, e, text, sc, words, clk, spk, caps: text.length > 2 && text === text.toUpperCase() && /[A-Z]/.test(text) };
   });
   let best = null;
+  // a question about what a named person SAID: when a sentence of this passage has that person as the speaker, only windows that start on such a sentence compete (context after it is fine,
+  // context before it is not: the sentences before are about someone else)
+  const speakerMode = !!(ctx.speakerRes && ctx.speakerRes.length) && info.some((x) => x.spk);
   for (let i = 0; i < info.length; i++) {
+    if (speakerMode && !info[i].spk) continue;
     let words = 0, sc = 0, clk = false, caps = true;
     for (let j = i; j < Math.min(info.length, i + maxSents); j++) {
       words += info[j].words; if (words > maxWords && j > i) break;
@@ -62,6 +78,8 @@ export function bestWindow(kb, p, ctx, { maxWords = 90, maxSents = 3, plain = fa
     }
   }
   if (!best) return null;
+  // a question about what a named person said, and this passage never has him speaking: it is about him, not his words
+  if (ctx.speakerRes && ctx.speakerRes.length && !speakerMode) best.score -= 8;
   return { ...best, text: normalizeWs(p.text.slice(best.s, best.e)) };
 }
 

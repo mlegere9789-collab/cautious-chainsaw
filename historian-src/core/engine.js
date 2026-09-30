@@ -8,7 +8,7 @@ import { classify, INTENT_WORDS, sideHint } from './intent.js';
 import { scoreCards, dfOf } from './entities.js';
 import { STATES, STATE_ABBR, stateAt } from './units.js';
 import * as C from './compose.js';
-import { selectQuotes, DURATION_RE } from './select.js';
+import { selectQuotes, DURATION_RE, speakerPatterns } from './select.js';
 import { renderText, SIDE_NAME, personLabel, withThe } from './format.js';
 import { lintAnswer } from './lint.js';
 import { makeChips } from './chips.js';
@@ -278,7 +278,8 @@ export function createEngine(kb, opts = {}) {
       for (const i of ids) {
         const r = R[i];
         // a bare surname is weak evidence for the person record itself, a little stronger for the unit that person commanded
-        if (r.k === 'person' && m.kind === 'surname') { const f = residual >= 2 ? 0.25 : 1; bump(i, 3 * f); for (const u of commandedUnits(r)) bump(idx.byId.get(u.id), m.w * 0.5 * f); continue; }
+        // a surname that one person dominates ("Reynolds": the First Corps commander, not a battery captain who shares the name) lifts that person's units fully and the namesakes' only a little
+        if (r.k === 'person' && m.kind === 'surname') { const f = (residual >= 2 ? 0.25 : 1) * (!m.amb && m.ids.length > 1 && i !== m.ids[0] ? 0.3 : 1); bump(i, 3 * f); for (const u of commandedUnits(r)) bump(idx.byId.get(u.id), m.w * 0.5 * f); continue; }
         bump(i, m.w);
         if (r.k === 'person') for (const u of commandedUnits(r)) bump(idx.byId.get(u.id), m.w * 0.8);
       }
@@ -487,7 +488,48 @@ export function createEngine(kb, opts = {}) {
     return out;
   }
 
-  async function ask(rawQuery, ctx = {}) {
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  // compound questions: "Who replaced Sickles as Third Corps commander, and how badly was the corps hurt?" is two questions. Each part is answered by the ordinary pipeline; the second part
+  // inherits the subject of the first when it points back at it ("the corps", "it", "the brigade"). Two parts at most; a part that cannot be answered is said so, never guessed.
+  // ------------------------------------------------------------------------------------------------------------------------------------
+  const WH = '(?:who|what|where|when|why|how|which)';
+  const COMPOUND = new RegExp('^(' + WH + '\\b.{8,}?)(?:\\s*,\\s*and|\\s*,|\\s+and)\\s+(' + WH + '\\b.{6,})$', 'i');
+  const splitCompound = (text) => {
+    const m = String(text).match(COMPOUND); if (!m) return null;
+    const a = m[1].replace(/[\s,]+$/, ''), b = m[2];
+    return a.split(/\s+/).length >= 3 && b.replace(/[?.!\s]+$/, '').split(/\s+/).length >= 3 ? [a + '?', b] : null;
+  };
+  const dedup = (arr, key = (x) => x) => { const seen = new Set(); return arr.filter((x) => { const k = key(x); if (seen.has(k)) return false; seen.add(k); return true; }); };
+
+  async function askCompound(S, parts, ctx) {
+    const a1 = await ask(parts[0], ctx, { noCompound: true });
+    if (a1.mode !== 'answer' && a1.mode !== 'partial') return null;
+    // the subject the second part may point back at: what the first answer is about (its cards), then what it named
+    const order = (id) => { const r = idx.get(id); return r ? ({ regiment: 0, artillery: 0, brigade: 1, division: 2, corps: 3, army: 4, 'artillery-unit': 1, terrain: 5, road: 5, structure: 5, feature: 5, person: 8 }[r.k] ?? 9) : 10; };
+    const KIND = { regiment: ['regiment'], brigade: ['brigade'], division: ['division'], corps: ['corps'], battery: ['artillery'], army: ['army'], unit: null };
+    const noun = ((parts[1].match(/\b(?:the|that|this)\s+(regiment|brigade|division|corps|battery|army|unit)\b/i) || [])[1] || '').toLowerCase();
+    let carry = dedup([...(a1.shown || []), ...((a1.entities || []).map((e) => e.id))]).filter((id) => order(id) < 9);
+    if (noun && KIND[noun]) { const want = carry.filter((id) => KIND[noun].includes(idx.get(id).k)); carry = [...want, ...carry.filter((id) => !want.includes(id))]; }
+    carry = carry.slice(0, 2);
+    const a2 = await ask(parts[1], { ...(a1.ctx || {}), lastEntities: carry, shownPassages: (a1.ctx && a1.ctx.shownPassages) || [] }, { noCompound: true });
+    const note2 = (a2.mode === 'answer' || a2.mode === 'partial') ? null : C.note('compound-part', 'I could not find a record on this site that answers the second part of your question (“' + parts[1].replace(/[?.!\s]+$/, '') + '”).');
+    const dropNote = (b) => b.t === 'note' && a1.blocks.some((x) => x.t === 'note' && x.code === b.code);
+    const seen = a1.text.replace(/\s+/g, ' ');
+    const b2 = note2 ? [note2] : a2.blocks.filter((b) => b.t !== 'quote' && !dropNote(b) && !(b.t === 'lead' && seen.includes(renderText([b]).replace(/\s+/g, ' ').trim())));   // a sentence the first answer already said is not said twice
+    const blocks = [...a1.blocks, ...b2];
+    const out = { ...a1, blocks, intent: note2 ? a1.intent : a1.intent + '+' + a2.intent, compound: [{ q: parts[0], intent: a1.intent, mode: a1.mode }, { q: parts[1], intent: a2.intent, mode: a2.mode }], query: S.text };
+    if (!note2) {
+      out.entities = dedup([...(a1.entities || []), ...(a2.entities || [])], (e) => e.id).slice(0, 8); out.shown = dedup([...(a1.shown || []), ...(a2.shown || [])]).slice(0, 12);
+      out.sources = dedup([...(a1.sources || []), ...(a2.sources || [])], (x) => x.id); out.ranked = dedup([...(a1.ranked || []), ...(a2.ranked || [])]).slice(0, 60);
+      out.limited = !!(a1.limited || a2.limited); out.did_you_mean = (a1.did_you_mean || a2.did_you_mean) ? dedup([...(a1.did_you_mean || []), ...(a2.did_you_mean || [])], (d) => d.from) : null;
+      out.chips = a2.chips || a1.chips; out.ctx = a2.ctx || a1.ctx;
+    }
+    out.text = renderText(blocks); out.cites = dedup([...(a1.cites || []), ...(note2 ? [] : a2.cites || [])]);
+    delete out.lint; const lint = lintAnswer(kb, out); if (lint.length) out.lint = lint;
+    return out;
+  }
+
+  async function ask(rawQuery, ctx = {}, opts = {}) {
     const t0 = typeof performance !== 'undefined' ? performance.now() : Date.now();
     ctx = cleanCtx(ctx);
     const S = { kb, ctx, raw: rawQuery, notes: [], mentions: [], side: null, intent: 'lookup', ranked: [], quotes: [], trace: {} };
@@ -507,14 +549,18 @@ export function createEngine(kb, opts = {}) {
     if (gate) { S.intent = gate.id; return declineAnswer(S, { reason: gate.id, text: gate.text, pointer: gate.pointer, mode: gate.mode === 'decline_pointer' ? 'decline' : gate.mode === 'refuse_injection' ? 'decline' : 'decline', suggest: true }); }
     S.text = text;
 
+    // ---- compound question: two questions in one sentence ------------------------------------------------------------------------------------------------
+    const wholeUnknown = (facts.unknowns || []).some((u) => u.standalone && u.re.some((x) => new RegExp(x, 'i').test(baseNorm(text))));   // "what was the Gettysburg Address and who gave it" is one known unknown, not two questions
+    if (!opts.noCompound && !wholeUnknown) { const parts = splitCompound(text); if (parts) { const c = await askCompound(S, parts, ctx); if (c) return c; } }
+
     // ---- normalise / tokenise / repair ----------------------------------------------------------------------------------------------------------
     const aud = /\b(?:to|for)\s+(?:an?\s+)?(?:\d+(?:st|nd|rd|th)|fifth|fourth|third|sixth|seventh|eighth)[- ]grad(?:e|er)s?\b|\bfor my (?:school )?(?:report|project|class)\b|\bin simple terms\b|\blike i'?m (?:five|5)\b|\b(?:kid|child)[- ]friendly\b/i;
     if (aud.test(text)) { S.simple = true; text = text.replace(aud, ' ').replace(/\s+/g, ' ').trim(); S.text = text; }
     const raw = tokenize(text);
     S.norm = baseNorm(text);
-    // a known unknown that needs no entity: the weather at the battle (facts.unknowns, compiled from scope.v1.json). An honest limitation, what the records do say, and what would answer it.
-    const unkW = (facts.unknowns || []).find((u) => u.id === 'weather-at-battle');
-    if (unkW && unkW.re.some((x) => new RegExp(x, 'i').test(S.norm))) { S.intent = 'unknown'; S.tokens = tokenize(text); S.qStems = []; S.passageTerms = []; return finalize(S, await weatherAnswer(S, unkW), t0); }
+    // a known unknown that needs no entity (the weather at the battle, the text of the Gettysburg Address; facts.unknowns, compiled from scope.v1.json): an honest limitation, what the records do say, and what would answer it
+    const unk = (facts.unknowns || []).find((u) => u.standalone && u.re.some((x) => new RegExp(x, 'i').test(S.norm)));
+    if (unk) { S.intent = 'unknown'; S.tokens = tokenize(text); S.qStems = []; S.passageTerms = []; S.unknownId = unk.id; return finalize(S, await unknownEvidenceAnswer(S, unk), t0); }
     S.side = sideHint(raw);
     const rep = repair(raw);
     S.tokens = rep.tokens; S.notes = rep.notes; S.unknown = rep.unknown;
@@ -533,7 +579,7 @@ export function createEngine(kb, opts = {}) {
     S.day = dayOf(text);
     if (S.day) S.mentions = S.mentions.filter((m) => !(m.kind === 'surname' && (m.phrase === 'day' || m.phrase === 'second' || m.phrase === 'third')));
     phraseFuzzy(S, lk.used);
-    if (follow && follow.inject) for (const m of follow.inject) S.mentions.push(m);
+    if (follow && follow.inject) { for (const m of follow.inject) S.mentions.push(m); S.injectedIds = follow.inject.map((m) => R[m.best].id); }
     applyOnsite(S);
     applySide(S);
     disambiguatePeople(S);
@@ -601,6 +647,7 @@ export function createEngine(kb, opts = {}) {
     const out = finish(S, res, res.extra || {});
     const t1 = typeof performance !== 'undefined' ? performance.now() : Date.now();
     out.chips.follow = makeChips(kb, S, out);
+    if (S.plainChip) out.chips.follow = [S.plainChip, ...out.chips.follow.filter((c) => c.q !== S.plainChip.q)].slice(0, 5);
     if (S.route) out.links.pages.push(S.route);
     out.trace = { intent: S.intent, notes: S.notes, unknown: S.unknown, mentions: S.mentions.map((m) => ({ kind: m.kind, phrase: m.phrase, w: m.w, amb: m.amb, ids: (m.ids || []).slice(0, 4).map((i) => R[i].id) })), ranked: S.ranked.slice(0, 8).map((x) => `${x.id}:${x.s.toFixed(1)}`), ms: +(t1 - t0).toFixed(2), fetched: kb.stats.fetched };
     out.ctx = { lastEntities: (out.shown || []).slice(0, 2), lastIntent: S.intent, lastSide: S.side, shownPassages: [...(S.ctx.shownPassages || []), ...S.quotes.map((q) => q.passage)].slice(-20) };
@@ -612,22 +659,22 @@ export function createEngine(kb, opts = {}) {
   const DOMAIN_NOISE = new Set(['gettysburg', 'battle', 'happened', 'happen']);
 
   // ------------------------------------------------------------------------------------------------------------------------------------
-  // weather at the battle: the site holds no weather series. It says so, quotes the few remarks its own text makes (rain on the evening of July 3, the retreat in a rainstorm), and says what would answer
+  // standalone known unknowns (facts.unknowns with "standalone": the weather at the battle, the text of the Gettysburg Address): the site does not hold what was asked. The answer is the rule's own
+  // limitation, the few passages of the site's own text that touch the topic (verbatim, chosen by the rule's evidence pattern, only from the asked day when the rule says so), and what would answer it.
+  // Nothing is asserted beyond those passages: no passage that matches means no quote, which is an honest answer too.
   // ------------------------------------------------------------------------------------------------------------------------------------
-  const WEATHER_STEMS = ['rain', 'rainstorm', 'thunderstorm', 'fog', 'drizzle', 'weather', 'downpour'].map(stem);
-  // genuine weather words only: "the storm breaks" (a figure for the attack) and "the heat is heavy" (a visitor's line about today) are not observations of 1863
-  const WEATHER_WORD = /\b(?:rain(?:s|ed|ing|y|storm)?|thunderstorms?|fog|drizzle|downpour|weather)\b/i;
-  async function weatherAnswer(S, rule) {
-    const day = dayOf(S.text);
-    const sc = await kb.scorePassages(WEATHER_STEMS);
+  async function unknownEvidenceAnswer(S, rule) {
+    const ev = rule.evidence || {};
+    const terms = (ev.terms || []).map(stem); const re = ev.re ? new RegExp(ev.re, 'i') : null;
+    const day = ev.same_day ? dayOf(S.text) : null;
+    const sc = terms.length ? await kb.scorePassages(terms) : new Map();
     const nums = [...sc.entries()].sort((a, b) => b[1] - a[1] || a[0] - b[0]).slice(0, 80).map((x) => x[0]);
     const P = await kb.passages(nums);
-    let cand = nums.map((n) => ({ p: P.get(n), score: sc.get(n) })).filter((x) => x.p && WEATHER_WORD.test(x.p.text) && ['chronicle', 'narrative', 'commentary'].includes(x.p.kind));
+    let cand = nums.map((n) => ({ p: P.get(n), score: sc.get(n) })).filter((x) => x.p && (!re || re.test(x.p.text)) && (!ev.kinds || ev.kinds.includes(x.p.kind)));
     if (day) cand = cand.filter((x) => x.p.day === day);                 // asked about one day: only that day's remarks (none is an honest answer too)
-    const quotes = selectQuotes(kb, cand, { qStems: new Set(WEATHER_STEMS), entStems: new Set(), timeQ: false }, { max: 2, minScore: 0.5 });
+    const quotes = selectQuotes(kb, cand, { qStems: new Set(terms), entStems: new Set(), timeQ: false }, { max: 2, minScore: 0.5 });
     S.quotes = quotes;
-    const res = C.unknownAnswer(kb, S, rule, { quotes });
-    return res;
+    return C.unknownAnswer(kb, S, rule, { quotes, intro: ev.intro });
   }
 
   /** the day of the battle a question names (1 to 3), or null: one reader for "July 2", "the 3rd of July", "day two", "the second day"; "July 10" and "July 1-3" are not a day */
@@ -655,8 +702,10 @@ export function createEngine(kb, opts = {}) {
     const q = S.norm;
     const more = /^(?:tell me more|more|go on|continue|and\??|what else|anything else|say more|more details?)$/.test(q) || /^tell me more( about (it|that|this|them))?$/.test(q);
     const flip = q.match(/^(?:what about|how about|and) (?:the )?(union|confederates?|federals?|rebels?|confederacy|north|south)\??$/);
-    const pron = /\b(it|they|them|its|their|that unit|this unit|the regiment|the brigade|that regiment|that brigade|he|him|his)\b/.test(q) && raw.length <= 9;
-    const bareQ = !kb.link(S.tokens, {}).mentions.some((m) => m.kind !== 'unit-miss');
+    const pron = /\b(it|they|them|its|their|that unit|this unit|the regiment|the brigade|the division|the corps|the battery|the unit|that regiment|that brigade|that division|that corps|he|him|his)\b/.test(q) && raw.length <= 9;
+    // "how badly was the corps hurt": a single lower-case word that merely equals a name ("hurt" -> Hurt's Battery) is not a subject, so the question still points back at the last one
+    const capSet = new Set([...S.text.matchAll(/\b[A-Z][A-Za-z']*/g)].map((m) => stem(m[0].toLowerCase().replace(/'s$/, ''))));
+    const bareQ = !kb.link(S.tokens, { caps: capSet }).mentions.some((m) => m.kind !== 'unit-miss' && !((m.kind === 'alias' || m.kind === 'surname') && m.n === 1 && !capSet.has(m.phrase)));
     if (!(more || flip || (pron && bareQ))) return null;
     if (!last.length) {
       const res = { mode: 'clarify', blocks: [C.lead(['What would you like to know more about? Name a regiment, commander, place or moment of the battle.'], [])], src: [], limited: true };
@@ -838,17 +887,39 @@ export function createEngine(kb, opts = {}) {
     if (!pool.length) return null;
     const entStems = new Set(); for (const m of S.mentions) if (m.kind !== 'unit-miss') for (const t of (m.phrase || '').split(' ')) if (t && !/^#|\|/.test(t)) entStems.add(t);
     // the people whose words are asked for ("what did Lee say ...", "what did Longstreet tell Lee"): the speaker is named before the verb
-    const speakerStems = new Set(); { const who = S.norm.match(/\b(?:what|who)\s+(?:did|does|was)\s+(\S+(?:\s+\S+)?)\s+(?:say|said|tell|told|write|wrote|shout|shouted|reply|replied)\b/); if (who) for (const t of who[1].split(' ')) if (!STOP.has(t) && t.length > 2) speakerStems.add(stem(t)); }
-    const ctx = { qStems: new Set(S.passageTerms), entStems, timeQ: false, quoteQ: true, speakerStems };
+    // say / tell: the named person must be the SPEAKER of the window (strict); write / shout / reply: his name near the verb is a bonus (soft)
+    const speakerWords = [], speakerSoft = new Set(); { const who = S.norm.match(/\b(?:what|who)\s+(?:did|does|was)\s+(\S+(?:\s+\S+)?)\s+(say|said|tell|told|write|wrote|shout|shouted|reply|replied)\b/); if (who) for (const t of who[1].split(' ')) if (!STOP.has(t) && t.length > 2) { speakerSoft.add(stem(t)); if (/^(?:say|said|tell|told)$/.test(who[2])) speakerWords.push(t); } }
+    const ctx = { qStems: new Set(S.passageTerms), entStems, timeQ: false, quoteQ: true, speakerRes: speakerPatterns(speakerWords), speakerStems: speakerSoft };
     const quotes = selectQuotes(kb, pool, ctx, { max: 2, skip: new Set(S.ctx && S.ctx.shownPassages || []), rerank: true });
     if (!quotes.length) return null;
     S.quotes = quotes;
     return { mode: 'answer', blocks: [C.lead(['According to the site\u2019s records, this is what was said, word for word.'], []), ...quotes], src: quotes.map((q) => q.rec) };
   }
 
+  /**
+   * The member of a brigade / division / corps whose own record matches the other words of the question. Evidence, not inference: a member is chosen only when at least two of the remaining question
+   * words occur in its record (title, aliases, commander, place, body) and it clearly beats every other member; otherwise null and the caller lists the members.
+   */
+  function whichMember(S, parent) {
+    const own = new Set(); for (const m of S.mentions) if (m.kind !== 'unit-miss' && m.phrase) for (const t of String(m.phrase).split(' ')) own.add(t);
+    const skip = new Set(['regiment', 'brigade', 'division', 'corps', 'batteri', 'battery', 'which', 'nearli', 'nearly']);
+    const terms = [...new Set(S.qStemsAll.filter((t) => !/^#/.test(t) && !STOP.has(t) && !INTENT_WORDS.has(t) && !FILLERS.has(t) && !own.has(t) && !skip.has(t) && t.length > 2))];
+    const withNearly = [...new Set([...terms, ...(/\bnearly\b/.test(S.norm) ? ['nearly'] : [])])];
+    if (withNearly.length < 2) return null;
+    const kids = (parent.kids || []).map((id) => idx.byId.get(id)).filter((i) => i !== undefined);
+    if (kids.length < 2) return null;
+    const sc = scoreCards(entix, withNearly);
+    const rows = kids.map((i) => ({ i, matched: withNearly.filter((t) => entix.post[t] && entix.post[t].some((e) => e[0] === i)).length, s: sc.get(i) || 0 })).sort((a, b) => b.matched - a.matched || b.s - a.s);
+    const [a, b] = rows;
+    if (!a || a.matched < 2 || (b && b.matched === a.matched && b.s > a.s * 0.75)) return null;
+    return R[a.i];
+  }
+
   async function composeFor(S) {
     const echelonWord = /\b(brigade|division|corps|army)\b|corps[iv]+/.test(S.norm);
     let units = unitOrder(S, echelonWord);
+    // what a pronoun or "the corps" pointed back at is the subject; units linked only by a word that happens to be in their name come after it
+    if (S.injectedIds && S.injectedIds.length) { const inj = S.injectedIds.map((id) => idx.get(id)).filter((r) => r && UNIT_KINDS.has(r.k)); units = [...inj, ...units.filter((u) => !inj.includes(u))]; }
     const person = S.persons[0] || null;
     const place = S.places[0] || null;
     const soleUnitMention = (() => { const u = S.mentions.filter((m) => m.kind === 'unit'); return u.length ? R[u[0].best] : null; })();
@@ -894,6 +965,18 @@ export function createEngine(kb, opts = {}) {
       if (u) { res = C.membershipAnswer(kb, S, u, ech); if (res) return res; }
     }
     if (intent === 'succession') { res = C.successionAnswer(kb, S); if (res) { await addQuotes(S, res, { max: 1 }); return res; } }
+    if (intent === 'who-commanded' && /\bchief of artillery\b|\bartillery chief\b|\b(?:directed|ran|led|commanded|ordered)\b.*\bcannonade\b|\bcannonade\b.*\b(?:directed|commanded)\b/.test(S.norm)) {
+      const cannonadeQ = /\bcannonade\b/.test(S.norm);
+      const chiefs = R.filter((r) => r.k === 'person' && (r.attrs.roles || []).some((x) => x.r === 'chief-artillery')).map((p) => ({ p, ro: p.attrs.roles.find((x) => x.r === 'chief-artillery') })).map((x) => ({ ...x, u: idx.get(x.ro.u) }));
+      let pick = chiefs.filter((x) => !S.side || (x.u && x.u.side === S.side));
+      if (cannonadeQ) { const c = pick.filter((x) => /cannonade/i.test(x.p.attrs.notes || '')); if (c.length) pick = c; }
+      else { const armyLevel = pick.filter((x) => x.u && x.u.k === 'army'); if (armyLevel.length) pick = armyLevel; }
+      if (pick.length && pick.length <= 2) {
+        const blocks = pick.map((x) => C.lead(C.profileLead(kb, x.p), [x.p.id, x.u ? x.u.id : x.p.id]));
+        res = { mode: 'answer', blocks, src: pick.flatMap((x) => [x.p.id, x.u ? x.u.id : x.p.id]) };
+        await addQuotes(S, res, { max: 1 }); return res;
+      }
+    }
     if (intent === 'who-commanded') {
       let us = units.length ? units : person ? commandedUnits(person) : [];
       // "who directed the Confederate cannonade ... the Union chief of artillery" names a role or an event, not the army's commander: a bare side word must not turn it into "who commanded the army"
@@ -909,12 +992,23 @@ export function createEngine(kb, opts = {}) {
       }
     }
     if (intent === 'superlative') {
+      const pu = units.find((x) => ['brigade', 'division', 'corps'].includes(x.k));
+      if (pu && /^which\s+(?:regiments?|brigades?|divisions?)\b/.test(S.norm)) { res = C.memberSuperlative(kb, S, pu); if (res) return res; }
       if (/\b(highest|tallest|lowest)\b/.test(S.norm) && /\b(point|hill|ridge|mountain|peak|elevation|ground|spot|place)\b/.test(S.norm) && !/\b(regiment|brigade|division|corps|casualt|men)\b/.test(S.norm)) { res = C.terrainSuperlative(kb, S); if (res) return res; }
       res = C.superlativeAnswer(kb, S); if (res) return res;
     }
     if (intent === 'count') {
       if (/\b(guns?|cannons?|batter(?:y|ies))\b/.test(S.norm) && !units.length) { res = C.gunsAnswer(kb, S); if (res) return res; }
       res = C.rollupAnswer(kb, S, { units }); if (res) return res;
+    }
+    // "which regiment in Vincent's brigade nearly broke on Little Round Top": the member whose own record fits the rest of the question, by evidence in its record, not by reasoning
+    if (['list', 'lookup', 'what-happened'].includes(intent) && /^which\s+(?:regiments?|brigades?|batter(?:y|ies)|divisions?)\b/.test(S.norm)) {
+      const parent = units.find((x) => ['brigade', 'division', 'corps'].includes(x.k));
+      const pick = parent ? whichMember(S, parent) : null;
+      if (pick) {
+        const blocks = [C.lead(['Among ', withThe(parent.label), '’s ', { brigade: 'regiments', division: 'brigades', corps: 'divisions' }[parent.k], ', the closest match in the site’s records is ', C.ent(pick), '.'], [pick.id, parent.id]), C.lead(C.profileLead(kb, pick), [pick.id])];
+        res = { mode: 'answer', blocks, src: [pick.id, parent.id] }; await addQuotes(S, res, { max: 1 }); return res;
+      }
     }
     if (intent === 'list' || (intent === 'lookup' && S.stateMention && /\bregiments?\b/.test(S.norm))) {
       res = C.rollupAnswer(kb, S, { units }); if (res) return res;
@@ -947,6 +1041,7 @@ export function createEngine(kb, opts = {}) {
     if (intent === 'day-summary') { res = C.daySummary(kb, S.day, S); if (res) return res; }
     if (intent === 'sequence') { res = sequenceAnswer(S); if (res) return res; }
     if (intent === 'quote') { res = await quoteAnswer(S); if (res) return res; }
+    if (intent === 'where' && !S.places.length && units.length && /\b(?:fight|fought|position|posted|located|was|were|stand|stood|deployed)\b/.test(S.norm)) { const r0 = C.unitWhere(kb, S, soleUnitMention || units[0]); if (r0) { res = r0; await addQuotes(S, res, { max: 1 }); return res; } }
     if (intent === 'when' && /\bhow (?:long|many (?:hours?|minutes?|days?))\b|\bduration\b|\bhow much time\b|\bfor how long\b/.test(S.norm)) {
       // "how many hours did the July 3 fight for Culp's Hill last?": the length is stated in the site's own words (a chronology entry, a terrain note, the casualty highlights); quote the sentence that states it
       let cands = (await getPassages(S, { limit: 40 })).filter((x) => DURATION_RE.test(x.p.text));
@@ -995,8 +1090,12 @@ export function createEngine(kb, opts = {}) {
     const gram = ordered.slice().sort((x, y) => unitOrder(S, echelonWord).indexOf(x) - unitOrder(S, echelonWord).indexOf(y));
     if (!S.onsite) { ordered.length = 0; gram.forEach(push); }
     for (const x of S.ranked) push(R[x.i]);
-    const focus = ordered[0];
+    let focus = ordered[0];
     if (!focus) return null;
+    // "Bucktails": the word is the nickname of regiments (the original Bucktails are the 13th Pennsylvania Reserves) and only the name of the brigade that borrowed it; when the asked phrase is an alias of
+    // regiments themselves, the lowest-numbered of them is the subject and the brigade comes with the other records that share the name
+    { const nick = S.mentions.find((m) => m.kind === 'alias' && m.ids && m.ids.length > 1 && m.n === 1 && ['brigade', 'division'].includes(focus.k) && m.ids.some((i) => R[i].id === focus.id));
+      if (nick) { const hits = idx.aliasMap.get(nick.phrase) || []; const regs = hits.filter((x) => R[x.i].k === 'regiment' && (x.s === 'a' || x.s === 't')).map((x) => R[x.i]).sort((a, b) => (a.ord || 999) - (b.ord || 999)); if (regs.length) focus = regs[0]; } }
     const blocks = [];
     const src = [];
     if (focus.k === 'person') {
@@ -1004,6 +1103,11 @@ export function createEngine(kb, opts = {}) {
       blocks.push(C.lead(C.profileLead(kb, focus), [u ? u.id : focus.id])); src.push(u ? u.id : focus.id);
       if (u) { blocks.push(C.lead(['About the unit: ', ...C.profileLead(kb, u)], [u.id])); src.push(u.id); }
     } else { blocks.push(C.lead(S.simple ? C.simpleLead(kb, focus) : C.profileLead(kb, focus), [focus.id])); src.push(focus.id); }
+    // a brigade or division asked about by name: its members follow the card (the brigade card first, and the regiment cards it is made of)
+    if (['brigade', 'division'].includes(focus.k) && ['lookup', 'what-happened', 'who'].includes(S.intent) && !S.onsite && !S.simple) {
+      const ks = (focus.kids || []).map((id) => idx.get(id)).filter(Boolean);
+      if (ks.length) { const n = ks.length; blocks.push({ t: 'list', title: `${focus.k === 'brigade' ? 'Regiments' : 'Brigades'} in it:`, items: ks.slice(0, 8).map((k) => ({ txt: k.label, ent: k.id })), more: n > 8 ? `and ${n - 8} more` : '', src: ks.slice(0, 8).map((k) => k.id) }); src.push(...ks.slice(0, 4).map((k) => k.id)); }
+    }
     // one nickname, several records ("the Bucktails")
     const am = S.mentions.find((m) => m.kind === 'alias' && m.ids && m.ids.length > 1 && m.ids.some((i) => R[i].id === focus.id));
     if (am) { const lst = C.sharedNameList(kb, focus, am.ids); if (lst) { blocks.push(lst); src.push(...lst.src.slice(0, 2)); } }
@@ -1015,7 +1119,11 @@ export function createEngine(kb, opts = {}) {
     const res = { mode: 'answer', blocks, src };
     const causal = S.intent === 'why';
     if (causal) res.blocks.push(C.note('debate', 'Historians debate questions like this one. These are the accounts in the site\u2019s records, not a verdict.'));
-    await addQuotes(S, res, { max: causal ? 3 : 2, leadHasText: focus.k === 'chronology' && !S.simple });
+    // a young reader asked ("to a 5th grader", "for my school report"): an event, story or unit gets the plain card only. The site's own sentences are far above grade 7 even without their
+    // attribution (measured), so they are one click away instead: a chip that asks the same question in the site's own words.
+    const plainCard = S.simple && !causal && ['chronology', 'vignette', 'regiment', 'brigade', 'division', 'corps', 'artillery'].includes(focus.k);
+    if (plainCard) S.plainChip = { label: 'The site’s own words', q: focus.k === 'chronology' || focus.k === 'vignette' ? 'Tell me about ' + String(focus.title).replace(/[.\s]+$/, '') : 'Tell me about ' + focus.label };
+    else await addQuotes(S, res, { max: causal ? 3 : 2, leadHasText: focus.k === 'chronology' && !S.simple });
     return res;
   }
 
