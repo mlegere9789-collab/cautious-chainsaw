@@ -158,3 +158,13 @@ test('R-16 "what happened on day 4" is about a day, not "Which 4th do you mean? 
   const a = await ask('what happened on day 4');
   assert.ok(!/Which 4th do you mean/.test(a.text), a.text);
 });
+
+// ---- test gap found by mutation (passes today; a mutant of the gate that decodes only ONCE survived the whole committed suite) --------------------------------------------------
+test('R-17 the fetch gate decodes percent-escapes twice: a refused identifier and a banned host survive double encoding (mutation: safeDecode applied once -> the committed suite still passed)', () => {
+  const reg = loadSources();
+  const twice = (s) => encodeURIComponent(encodeURIComponent(s));
+  const refused = ['https://archive.org/download/warrebellionaco%2530%2530cowlgoog/x', 'https://archive.org/download/%2577arrebellionaco00cowlgoog/x', `https://archive.org/download/${twice('warrebellionaco00cowlgoog')}/x`];
+  const banned = [`https://web.archive.org/web/2020/${twice('https://battlefields.org/x')}`, `https://example.org/?u=${twice('https://www.findagrave.com/memorial/1')}`, `https://example.org/?u=${twice('https://www.fold3.com/y')}`];
+  for (const u of [...refused, ...banned]) assert.equal(fetchAllowed(reg, u).ok, false, u);
+  for (const u of ['https://archive.org/download/warofrebellion271unit/x', `https://example.org/?u=${twice('https://www.loc.gov/item/2003666161/')}`]) assert.equal(fetchAllowed(reg, u).ok, true, u);
+});
