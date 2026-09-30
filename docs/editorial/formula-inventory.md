@@ -13,8 +13,8 @@ There are 9 independent implementations that turn a tick into a clock, a date or
 | E | day/night lighting M4 + E4 | assets/index-Cg8FAMXN.js:56@158317 | hour = 05:00 base + 5 min/tick per tab; tint table keyed on hour (night before 05, dusk 16-21) | 586 | 562 | 0 | 264.4 | desktop map tint overlay |
 | F | compare.html | compare.html:120@7398 | base 05:00 per tab, 5 min/tick, lower-case am/pm, no date ("Day N" shown separately) | 586 | 562 | 0 | 264.4 | Compare time labels |
 | G | living-ledger.html | living-ledger.html:135@7249 | base 05:00 per tab, 5 min/tick, date = tab number (DAY_BOUNDS [1,226,451,676]) | 586 | 562 | 149 | 264.4 | Living Ledger clock |
-| H | camera.html | camera.html:175@8984 | integer hour, base 05:00 per tab, 5 min/tick, wraps at 24 | 610 | 610 | 0 | 263.5 | Camera atmosphere overlay |
-| I | immersive.html | immersive.html:169@9027 | integer hour, base 05:00 per tab, 5 min/tick (same code as camera.html) | 610 | 610 | 0 | 263.5 | Immersive atmosphere overlay |
+| H | camera.html | camera.html:175@8984 | integer hour, base 05:00 per tab, 5 min/tick, wraps at 24 | 610 | 610 | 0 | 264.9 | Camera atmosphere overlay |
+| I | immersive.html | immersive.html:169@9027 | integer hour, base 05:00 per tab, 5 min/tick (same code as camera.html) | 610 | 610 | 0 | 264.9 | Immersive atmosphere overlay |
 
 ## The same ticks through every implementation
 

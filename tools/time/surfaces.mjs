@@ -50,11 +50,23 @@ function pageFunction(file, name) {
   }
   return null;
 }
-function run(code, args) { const sb = { Math, String, Number }; vm.createContext(sb); return vm.runInContext('(' + code + ')', sb)(...args); }
+// the inlined module (patched trees): var GTBGT=(function(){...})(); in the bundle, window.GTBGTime in a page <script>
+const GT = {};
+{
+  const m = /var GTBGT=(\(function\(\)\{[\s\S]*?\}\)\(\));(?=function v4\()/.exec(bundle);
+  if (m) { const sb = {}; vm.createContext(sb); vm.runInContext('var G=' + m[1] + ';', sb); GT.GTBGT = sb.G; }
+  for (const [f, text] of Object.entries(files)) {
+    if (!f.endsWith('.html')) continue;
+    const mm = /\(function\(g\)\{g\.GTBGTime=(\(function\(\)\{[\s\S]*?\}\)\(\));\}\)\(/.exec(text);
+    if (mm) { const sb = {}; vm.createContext(sb); vm.runInContext('var G=' + mm[1] + ';', sb); GT.GTBGTime = sb.G; break; }
+  }
+}
+const sandbox = () => { const sb = { Math, String, Number, ...GT }; vm.createContext(sb); return sb; };
+function run(code, args) { const sb = sandbox(); return vm.runInContext('(' + code + ')', sb)(...args); }
 
 // ---------------------------------------------------------------- parse printed clocks
 function parsePrinted(s) {
-  s = String(s);
+  s = String(s).replace(/about /g, '').replace(/Night of July (\d+)-(\d+)/g, 'July $2');
   let mm;
   if ((mm = /July (\d+), (\d+):(\d\d) (AM|PM)/i.exec(s))) return { date: +mm[1], mod: ((+mm[2] % 12) + (mm[4].toUpperCase() === 'PM' ? 12 : 0)) * 60 + +mm[3] };
   if ((mm = /(\d+):(\d\d) (AM|PM) July (\d+)/i.exec(s))) return { date: +mm[4], mod: ((+mm[1] % 12) + (mm[3].toUpperCase() === 'PM' ? 12 : 0)) * 60 + +mm[2] };
@@ -73,8 +85,7 @@ function addImpl(o) { impls.push(o); }
 {
   const p = findProperty(bundleAst, 'getTickTime');
   const src = bundle.slice(p.value.start, p.value.end);
-  const f = (t) => run('(fn)=>fn(()=>({currentTick:' + t + '}))', [(g) => run(src, [])(g)]);
-  const call = (t) => new Function('f', 'return (' + src + ')()')(() => ({ currentTick: t }));
+  const call = (t) => run('(f)=>(' + src + ')()', [() => ({ currentTick: t })]);
   addImpl({ id: 'A', name: 'store getTickTime', file: bundleName, at: locOf(bundleName, bundle, p.value.start), src, rule: 'base 06:00 (Day 1) / 04:00 (Days 2-3), 5 min/tick, date = Day tab number, no midnight rollover', feeds: 'toolbar label, time bar, mobile header clock', out: call, kind: 'clock+date' });
 }
 // 2 HUD date badge: template `July ${l+2}, 1863`
@@ -103,7 +114,7 @@ for (const [id, fn, name, rule, feeds, args] of [
   if (a && b) {
     const srcA = bundle.slice(a.start, a.end), srcB = bundle.slice(b.start, b.end);
     addImpl({ id: 'E', name: 'day/night lighting M4 + E4', file: bundleName, at: locOf(bundleName, bundle, a.start), src: srcA + srcB, rule: 'hour = 05:00 base + 5 min/tick per tab; tint table keyed on hour (night before 05, dusk 16-21)', feeds: 'desktop map tint overlay', kind: 'hour',
-      out: (t) => { const sb = { Math }; vm.createContext(sb); vm.runInContext(srcA + srcB, sb); return { hour: vm.runInContext(`M4(${t})`, sb), alpha: vm.runInContext(`E4(M4(${t}))`, sb).alpha }; } });
+      out: (t) => { const sb = sandbox(); vm.runInContext(srcA + srcB, sb); return { hour: vm.runInContext(`M4(${t})`, sb), alpha: vm.runInContext(`E4(M4(${t}))`, sb).alpha }; } });
   }
 }
 // 6-9 static pages
@@ -115,7 +126,7 @@ for (const [id, file, fn, extra] of [['F', 'compare.html', 'approxTimeForTick', 
   const src = f.src + (id === 'G' ? '' : '');
   const pre = id === 'G' ? 'const DAY_BOUNDS=[1,226,451,676];' : '';
   addImpl({ id, name: file, file, at: locOf(file, files[file], f.idx), src: f.src, rule, feeds, kind: id === 'H' || id === 'I' ? 'hour' : id === 'F' ? 'clock' : 'clock+date',
-    out: (t) => { const sb = { Math, String }; vm.createContext(sb); vm.runInContext(pre + f.src, sb); return vm.runInContext(`${fn}(${t})`, sb); } });
+    out: (t) => { const sb = sandbox(); vm.runInContext(pre + f.src, sb); return vm.runInContext(`${fn}(${t})`, sb); } });
 }
 
 // ---------------------------------------------------------------- evaluate every implementation on all ticks against the canonical model
@@ -127,14 +138,14 @@ for (const im of impls) {
     let o; try { o = im.out(t); } catch (e) { o = null; }
     const c = canon(t);
     if (im.id === 'E') { const h = o.hour, e = circ(Math.round(h * 60), c.mod); per.push(e); errs.push(e); if (e > 30) over30++; if (e > 60) over60++; if (SAMPLE.includes(t)) samples[t] = `hour ${h.toFixed(2)} alpha ${o.alpha}`; continue; }
-    if (im.id === 'H' || im.id === 'I') { const e = circ(o * 60 + 30, c.mod); errs.push(e); if (Math.abs(o - Math.floor(c.mod / 60)) >= 1 && circ(o * 60, c.mod - (c.mod % 60)) >= 60) over60++; if (o !== Math.floor(c.mod / 60)) over30++; if (SAMPLE.includes(t)) samples[t] = `hour ${o}`; continue; }
+    if (im.id === 'H' || im.id === 'I') { const oh = Math.floor(o), e = circ(oh * 60 + 30, c.mod - (c.mod % 60) + 30); errs.push(e); if (circ(oh * 60, c.mod - (c.mod % 60)) >= 60) over60++; if (oh !== Math.floor(c.mod / 60)) over30++; if (SAMPLE.includes(t)) samples[t] = `hour ${o}`; continue; }
     const pr = parsePrinted(o);
     if (SAMPLE.includes(t)) samples[t] = o;
     if (!pr) continue;
     if (pr.date !== null && pr.date !== c.date) dateWrong++;
     if (pr.mod !== null) { const e = circ(pr.mod, c.mod); errs.push(e); if (e > 30) over30++; if (e > 60) over60++; }
   }
-  inventory.push({ id: im.id, name: im.name, file: im.file, at: im.at, hash: sha(im.src), bytes: im.src.length, rule: im.rule, feeds: im.feeds, kind: im.kind,
+  inventory.push({ id: im.id, name: im.name, file: im.file, at: im.at, routed: /GTBGT(?:ime)?\b/.test(im.src), hash: sha(im.src), bytes: im.src.length, rule: im.rule, feeds: im.feeds, kind: im.kind,
     ticksOver30MinFromModel: over30, ticksOver60MinFromModel: over60, datesWrong: dateWrong, meanAbsErrMin: errs.length ? r1(mean(errs)) : null, medianAbsErrMin: errs.length ? r1(median(errs)) : null, samples });
 }
 
@@ -180,7 +191,8 @@ const result = {
 // ---------------------------------------------------------------- output
 const lines = [];
 lines.push(`Formula inventory for ${result.tree} (${inventory.length} tick-to-clock/date implementations found, canonical model ${m.version} dv${m.dv} CANDIDATE)`);
-lines.push(mdTable(['id', 'implementation', 'location', 'rule', 'ticks >30 min off', 'ticks >60 min off', 'dates wrong', 'mean abs err (min)'], inventory.map((i) => [i.id, i.name, i.at, i.rule, i.ticksOver30MinFromModel, i.ticksOver60MinFromModel, i.datesWrong, i.meanAbsErrMin ?? 'n/a'])));
+lines.push(mdTable(['id', 'implementation', 'location', 'rule', 'routed through the module', 'ticks >30 min off', 'ticks >60 min off', 'dates wrong', 'mean abs err (min)'], inventory.map((i) => [i.id, i.name, i.at, i.rule, i.routed ? 'yes' : 'no', i.ticksOver30MinFromModel, i.ticksOver60MinFromModel, i.datesWrong, i.meanAbsErrMin ?? 'n/a'])));
+lines.push(`Legacy formulas still in use (not routed through the module): ${inventory.filter((i) => !i.routed).length} of ${inventory.length}`);
 lines.push('');
 lines.push('Generic detectors (matches / attributed to one of the implementations above): ' + Object.entries(byDetector).map(([k, v]) => `${k}: ${v.total}/${v.attributed}`).join('; '));
 lines.push(`Unattributed tick formulas: ${unknownTickFormulas.length}${unknownTickFormulas.length ? '\n  ' + result.unknownTickFormulas.join('\n  ') : ''}`);
@@ -216,12 +228,13 @@ Typed clocks beside ticks (monument labels, tour subtitles, Turning Points day p
 `;
 
 const BASELINE = P('tools', 'time', 'surfaces.baseline.json');
-const compact = { implementations: inventory.map(({ id, name, hash, bytes, ticksOver30MinFromModel, ticksOver60MinFromModel, datesWrong, meanAbsErrMin }) => ({ id, name, hash, bytes, ticksOver30MinFromModel, ticksOver60MinFromModel, datesWrong, meanAbsErrMin })), detectors: Object.fromEntries(Object.entries(byDetector).map(([k, v]) => [k, { total: v.total, attributed: v.attributed }])), unknownTickFormulas: unknownTickFormulas.length, copy: Object.fromEntries(Object.entries(copy).map(([k, v]) => [k, v.total])) };
+const compact = { implementations: inventory.map(({ id, name, routed, hash, bytes, ticksOver30MinFromModel, ticksOver60MinFromModel, datesWrong, meanAbsErrMin }) => ({ id, name, routed, hash, bytes, ticksOver30MinFromModel, ticksOver60MinFromModel, datesWrong, meanAbsErrMin })), detectors: Object.fromEntries(Object.entries(byDetector).map(([k, v]) => [k, { total: v.total, attributed: v.attributed }])), unknownTickFormulas: unknownTickFormulas.length, copy: Object.fromEntries(Object.entries(copy).map(([k, v]) => [k, v.total])) };
 if (flags.baseline) { fs.writeFileSync(BASELINE, JSON.stringify(compact, null, 2) + '\n'); console.log('baseline written'); }
 else if (flags.check) {
   const base = JSON.parse(readText(BASELINE)); const diffs = [];
-  const a = JSON.stringify(base, null, 1).split('\n'), b = JSON.stringify(compact, null, 1).split('\n');
-  for (let i = 0; i < Math.max(a.length, b.length); i++) if (a[i] !== b[i]) diffs.push(`baseline: ${a[i]}   now: ${b[i]}`);
+  const flat = (o, pre = '', out = {}) => { if (Array.isArray(o)) o.forEach((v, i) => flat(v && v.id ? v : v, `${pre}[${o[i] && o[i].id ? o[i].id : i}]`, out)); else if (o && typeof o === 'object') for (const [k, v] of Object.entries(o)) flat(v, pre ? `${pre}.${k}` : k, out); else out[pre] = o; return out; };
+  const fa = flat(base), fb = flat(compact);
+  for (const k of new Set([...Object.keys(fa), ...Object.keys(fb)])) if (fa[k] !== fb[k]) diffs.push(`${k}: baseline ${JSON.stringify(fa[k])} -> now ${JSON.stringify(fb[k])}`);
   if (diffs.length) { console.error('SURFACE REGRESSION vs tools/time/surfaces.baseline.json:\n' + diffs.slice(0, 40).join('\n')); process.exit(1); }
   console.log('surfaces match the baseline');
 } else if (!flags.root) {

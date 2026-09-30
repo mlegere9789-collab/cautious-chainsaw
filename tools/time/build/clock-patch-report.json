@@ -1,0 +1,61 @@
+{
+ "patches": 56,
+ "applied": 56,
+ "changed": [
+  "assets/index-Cg8FAMXN.js",
+  "assets/BookmarkPanel-C5YT4b5k.js",
+  "assets/HelpModal-CFV9T0zH.js",
+  "compare.html",
+  "living-ledger.html",
+  "camera.html",
+  "immersive.html",
+  "documentary.html",
+  "education.html",
+  "turning-points.html",
+  "sandbox.html",
+  "regiment.html",
+  "search.html"
+ ],
+ "problems": [],
+ "notes": [],
+ "evals": [
+  "inline module parity: 675 ticks x 9 styles, after(+-60), hour, hostile inputs: identical to src/lib/time",
+  "rewritten getTickTime, JF, QF evaluate to the module strings (mobile split(\", \")[1] is the time, never 1863): ok",
+  "HUD date expression routed: true",
+  "compare.html approxTimeForTick: evaluates to the module",
+  "living-ledger.html timeForTick: evaluates to the module",
+  "camera.html hourForTick: evaluates to the module",
+  "immersive.html hourForTick: evaluates to the module"
+ ],
+ "validators": [
+  [
+   "TM-V2",
+   25,
+   20
+  ],
+  [
+   "TM-V9",
+   55,
+   27
+  ],
+  [
+   "TM-V16",
+   7,
+   1
+  ],
+  [
+   "TM-V17",
+   13,
+   0
+  ],
+  [
+   "TM-V18",
+   0,
+   0
+  ]
+ ],
+ "remaining": [
+  "E day/night lighting M4 + E4"
+ ],
+ "bundleDelta": 10177
+}

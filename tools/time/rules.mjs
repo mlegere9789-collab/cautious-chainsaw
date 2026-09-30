@@ -17,7 +17,7 @@ export function buildContext(model, doc, opts = {}) {
   const chron = loadChronology(root), vig = loadVignettes(root), succ = loadSuccessions(root);
   const placements = loadPlacements(root);
   return {
-    model, doc, tree, files, bundleName, chron, vig, succ, placements, casualty: loadCasualty(root), schema: loadSchema(root), chronMeta: loadChronologyMeta(root), placementFiles: loadPlacementFiles(root),
+    model, doc, tree, decisionsFile: opts.decisions || P('data-src', 'time', 'decisions.jsonl'), files, bundleName, chron, vig, succ, placements, casualty: loadCasualty(root), schema: loadSchema(root), chronMeta: loadChronologyMeta(root), placementFiles: loadPlacementFiles(root),
     literals: literalTickStrings(files, bundleName), dataStrings: dataTickStrings(root),
     disc: readCsv(P('docs', 'plan', 'data', 'time-facts-discrepancy.csv')), facts: readCsv(P('docs', 'plan', 'data', 'time-facts.csv')),
   };
@@ -311,7 +311,7 @@ rule('TM-V17', 'Every printed time carries "about" when sigma >= approx_sigma_mi
 });
 
 rule('TM-V18', '"Reviewed" / "accurate to the minute" copy requires a signed decision', 'error', 'none', (c) => {
-  const decisions = P('data-src', 'time', 'decisions.jsonl'), signed = fs.existsSync(decisions) ? readText(decisions).split('\n').filter((l) => l.trim()).map((l) => JSON.parse(l)).filter((d) => d.state === 'signed') : [];
+  const decisions = c.decisionsFile, signed = fs.existsSync(decisions) ? readText(decisions).split('\n').filter((l) => l.trim()).map((l) => JSON.parse(l)).filter((d) => d.state === 'signed') : [];
   const claim = /accurate to the minute|minute[- ]accurate|historian[- ]reviewed|reviewed by (?:a |the )?(?:historian|expert)|verified by (?:a |the )?historian|\b(?:fully )?(?:verified|reviewed) (?:times?|timeline|clock)\b/gi;
   const hits = [];
   for (const [f, text] of Object.entries(c.files)) { if (!/\.(html|js|json)$/.test(f)) continue; let m; claim.lastIndex = 0; while ((m = claim.exec(text))) hits.push(`${f}:${lineOf(text, m.index)} "${m[0]}"`); }
