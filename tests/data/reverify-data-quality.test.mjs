@@ -253,6 +253,20 @@ test('RV-15 facts: day ranges, day starts and the total follow the chronology me
   assert.equal(f.ticks.total, 700);
 });
 
+test('RV-18 facts basis strings name the alias stub and the battery filed among the regiments from the data, not from a constant', () => {
+  const f0 = factsOf(clone());
+  assert.match(f0.units.basis['units.total'], /alias stub U-14BK excluded; the horse battery C-McClanahan-ART filed among the regiments counted as a battery/);
+  const d = clone();
+  for (const [rel, f] of d.files) {
+    if (!rel.startsWith('oob/')) continue;
+    for (const r of f.json.regiments ?? []) { delete r.alias_for; if (r.regiment_id === 'C-McClanahan-ART') r.unit_type = 'regiment'; }
+  }
+  const f = factsOf(d);
+  assert.doesNotMatch(f.units.basis['units.total'], /U-14BK|McClanahan/, 'neither the stub nor the misfiled battery exists in this data, so neither may be named');
+  assert.match(f.units.basis['units.total'], /no battery filed among the regiments/);
+  assert.equal(f.units.regiments, f0.units.regiments + 2, 'the stub and the former battery are ordinary regiments now');
+});
+
 // Inputs the validator reads: removing any one of them must turn the run RED, never green.
 test('RV-16 a missing bundle, authority table, policy file or guard file turns the validator RED from a full repo copy', () => {
   const { base, root } = makeRepoCopy('repo', { full: true });
