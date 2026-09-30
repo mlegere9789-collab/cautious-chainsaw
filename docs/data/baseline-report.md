@@ -226,7 +226,7 @@ The legacy tree is frozen and is known to be defective (chapter 13). This report
 | R011 dual meaning | the strict note-versus-commander rule finds 17 ids / 33 rows (same kind, target exists); the specialist heuristic found 28 ids / 44 rows. The collision table in data-src/build/id_collisions.json widens the definition (a note that BEGINS with another formation's name at any level, parent/child cameos excluded, plus rows whose strength exceeds twice the record's) and reaches 28 ids, the audit's count; the membership was not diffed because the audit's CSV is not in the repository. |
 | G003 speed caps | 18 segments over the DI-01 lenient caps on the 5-minute clock and 24 on the unsigned warped-clock proposal; the specialist quotes 6 and 20 with caps that were not published in full |
 | C004 coverage | 248 real regiments + 66 batteries; the specialist 250 counts the alias stub and the horse battery filed as a regiment |
-| N005 roll-ups | interim tolerances (brigades 10 %, divisions/corps exact) reproduce the specialist counts within one record |
+| N005 roll-ups | interim tolerances (brigades 10 %, divisions and corps exact): brigades over tolerance 16 on strength / 33 on casualties (audit 17 / 34); 28 divisions and 10 corps do not roll up (audit: 28 divisions with resolvable children, 10 of 11 corps); divisions whose brigades do not exist (VI Corps) are left to R003 |
 
 ## 4. Skipped and partial rules
 

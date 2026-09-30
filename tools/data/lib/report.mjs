@@ -78,7 +78,12 @@ export function writeBaselineReport({ ctx, results, verdict, baseline, treeInfo,
     ['R011 dual meaning', `the strict note-versus-commander rule finds ${new Set(results.get('R011').violations.map((v) => v.data.unit_id)).size} ids / ${results.get('R011').violations.length} rows (same kind, target exists); the specialist heuristic found 28 ids / 44 rows. The collision table in data-src/build/id_collisions.json widens the definition (a note that BEGINS with another formation's name at any level, parent/child cameos excluded, plus rows whose strength exceeds twice the record's) and reaches 28 ids, the audit's count; the membership was not diffed because the audit's CSV is not in the repository.`],
     ['G003 speed caps', `${extras.g003_linear_over_cap} segments over the DI-01 lenient caps on the 5-minute clock and ${extras.g003_warped_over_cap ?? 'n/a'} on the unsigned warped-clock proposal; the specialist quotes 6 and 20 with caps that were not published in full`],
     ['C004 coverage', '248 real regiments + 66 batteries; the specialist 250 counts the alias stub and the horse battery filed as a regiment'],
-    ['N005 roll-ups', 'interim tolerances (brigades 10 %, divisions/corps exact) reproduce the specialist counts within one record'],
+    ['N005 roll-ups', (() => {
+      const v = results.get('N005').violations;
+      const k = (kind) => v.filter((x) => x.kind === kind).length;
+      const d = (lvl) => new Set(v.filter((x) => x.kind.startsWith(`${lvl}_`)).map((x) => x.key.split('|')[1])).size;
+      return `interim tolerances (brigades 10 %, divisions and corps exact): brigades over tolerance ${k('brigade_strength')} on strength / ${k('brigade_casualties')} on casualties (audit 17 / 34); ${d('division')} divisions and ${d('corps')} corps do not roll up (audit: 28 divisions with resolvable children, 10 of 11 corps); divisions whose brigades do not exist (VI Corps) are left to R003`;
+    })()],
   ];
   L.push(table(['Item', 'Difference'], diffs));
   L.push('');
