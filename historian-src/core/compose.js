@@ -381,8 +381,10 @@ export function rollupAnswer(kb, S, { units }) {
 export function gunsAnswer(kb, S) {
   const g = kb.facts.rollup.guns;
   if (!g || !g.U || !g.C) return null;
-  const blocks = [lead([`According to the site’s battery records there are ${fmtN(g.U.guns)} Union guns in ${g.U.batteries} batteries and ${fmtN(g.C.guns)} Confederate guns in ${g.C.batteries} batteries.`], ['ARMY:U', 'ARMY:C']),
-    note('guns-basis', 'These are counts from the site’s 103 battery records, which may be incomplete or overlap (some batteries appear under more than one corps); they are not an authoritative order-of-battle total.')];
+  // the totals are sums over every battery record, so every battery record is a source of the answer (and the count in the note is computed, never typed)
+  const batteries = kb.idx.R.filter((r) => r.k === 'artillery').map((r) => r.id);
+  const blocks = [lead([`According to the site’s battery records there are ${fmtN(g.U.guns)} Union guns in ${g.U.batteries} batteries and ${fmtN(g.C.guns)} Confederate guns in ${g.C.batteries} batteries.`], ['ARMY:U', 'ARMY:C', ...batteries]),
+    note('guns-basis', `These are counts from the site’s ${g.U.batteries + g.C.batteries} battery records, which may be incomplete or overlap (some batteries appear under more than one corps); they are not an authoritative order-of-battle total.`)];
   return { mode: 'answer', blocks, src: ['ARMY:U', 'ARMY:C'] };
 }
 

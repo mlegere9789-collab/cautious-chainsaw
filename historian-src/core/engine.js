@@ -308,7 +308,7 @@ export function createEngine(kb, opts = {}) {
     };
     for (const id of res.src || []) add(id);
     for (const b of res.blocks) { if (b.t === 'lead') (b.src || []).forEach(add); if (b.t === 'list' || b.t === 'table') (b.src || []).forEach(add); }
-    return out;
+    return out.slice(0, 12);                                  // what the answer is ABOUT; the full list of records it relies on is answer.cites
   }
   /** card ranking as record ids (people map to the unit they commanded), for retrieval metrics only */
   function rankedIds(S) {
@@ -733,7 +733,10 @@ export function createEngine(kb, opts = {}) {
     if (intent === 'succession') { res = C.successionAnswer(kb, S); if (res) { await addQuotes(S, res, { max: 1 }); return res; } }
     if (intent === 'who-commanded') {
       let us = units.length ? units : person ? commandedUnits(person) : [];
-      if (!us.length && (S.side === 'U' || S.side === 'C' || /\barmy\b/.test(S.norm))) { const a = idx.get('ARMY:' + (S.side || 'U')); if (a) us = [a]; }
+      // "who directed the Confederate cannonade ... the Union chief of artillery" names a role or an event, not the army's commander: a bare side word must not turn it into "who commanded the army"
+      const otherRole = /\bchief of (?:artillery|staff|cavalry)\b|\bartillery chief\b|\bcannonade\b|\bbombardment\b/.test(S.norm);
+      if (otherRole && us.length && us.every((u) => u.k === 'army')) us = [];
+      if (!us.length && !otherRole && (S.side === 'U' || S.side === 'C' || /\barmy\b/.test(S.norm))) { const a = idx.get('ARMY:' + (S.side || 'U')); if (a) us = [a]; }
       if (!us.length && /\bcavalry\b/.test(S.norm)) { us = R.filter((r) => r.k === 'corps' && /Cavalry/.test(r.title)); }
       if (us.length) {
         res = C.commandAnswer(kb, us.length > 1 && us[0].k === 'corps' ? us : (echelonWord && !hop ? unitOrder(S, true) : us), S);
