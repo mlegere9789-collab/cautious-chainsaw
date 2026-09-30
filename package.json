@@ -23,7 +23,7 @@
     "data:facts": "node tools/data/facts.mjs",
     "data:rights": "node tools/data/rights_audit.mjs",
     "data:manifest:verify": "node tools/data/manifest.mjs verify",
-    "data:test": "node --test tests/data/",
+    "data:test": "node --test \"tests/data/*.test.mjs\"",
     "data:check": "node tools/data/manifest.mjs verify && node tools/data/validate.mjs && node tools/data/unit_registry.mjs --check && node tools/data/facts.mjs --check && node tools/data/rights_audit.mjs --check"
   },
   "devDependencies": {

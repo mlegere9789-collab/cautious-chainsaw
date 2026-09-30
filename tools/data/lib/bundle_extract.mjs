@@ -75,6 +75,7 @@ export function findLiteralArrays(ast, { keys, minLen }) {
           start: node.loc.start.line,
           end: node.loc.end.line,
           value: literalFromAst(node),
+          items: node.elements.map((e) => ({ start: e.loc.start.line, end: e.loc.end.line, props: Object.fromEntries(e.properties.map((pr) => [pr.key.name ?? String(pr.key.value), pr.loc.start.line])) })),
         });
       } catch (e) {
         if (!(e instanceof NonLiteralError)) throw e;
@@ -92,17 +93,17 @@ export function extractEmbeddedDatasets(bundlePath) {
   const { ast } = parseBundle(bundlePath);
   const warnings = [];
   const pick = (arrs, label) => {
-    if (arrs.length === 0) { warnings.push(`${label}: not found`); return { value: [], loc: null }; }
+    if (arrs.length === 0) { warnings.push(`${label}: not found`); return { value: [], loc: null, items: [] }; }
     if (arrs.length > 1) warnings.push(`${label}: ${arrs.length} candidates, using the longest`);
     const best = arrs.slice().sort((a, b) => b.value.length - a.value.length)[0];
-    return { value: best.value, loc: { start: best.start, end: best.end, name: best.name } };
+    return { value: best.value, loc: { start: best.start, end: best.end, name: best.name }, items: best.items };
   };
   const monuments = pick(findLiteralArrays(ast, { keys: ['no', 'name', 'honors', 'loc', 'lat', 'lon', 'mn', 'side', 'group'], minLen: 100 }), 'monuments');
   // story markers and tour stops are small; find by distinctive keys and check the counts the plan cites.
   const story = pick(findLiteralArrays(ast, { keys: ['id', 'name', 'unit_id', 'lat', 'lng', 'tick', 'day', 'label'], minLen: 5 }), 'story markers');
   const tour = pick(findLiteralArrays(ast, { keys: ['id', 'name', 'label', 'day', 'lat', 'lng', 'sv', 'history'], minLen: 10 }), 'tour stops');
   return {
-    monuments: monuments.value, monumentsLoc: monuments.loc,
+    monuments: monuments.value, monumentsLoc: monuments.loc, monumentItems: monuments.items,
     story: story.value, storyLoc: story.loc,
     tour: tour.value, tourLoc: tour.loc,
     warnings,

@@ -6,7 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { buildContext } from './lib/context.mjs';
 import { buildRegistry, buildCrosswalk, buildDualMeaning, buildViCorpsCandidates } from './lib/registry.mjs';
-import { buildUnitIndex } from './lib/unit_index.mjs';
+import { buildUnitIndex, buildBatteryShim } from './lib/unit_index.mjs';
 import { runRules } from './lib/runner.mjs';
 import { REPO_ROOT, prettyJson } from './lib/util.mjs';
 
@@ -55,6 +55,7 @@ export async function generate({ ctx = buildContext({}) } = {}) {
     }),
     'candidates/vi_corps_brigades.json': prettyJson({ schema: 'gtbg/candidate-vi-corps-brigades/1', ...base, count: vi.length, brigades: vi }),
     'unit_index.json': prettyJson(index),
+    'candidates/batteries_regiment_shape.json': prettyJson(buildBatteryShim(ctx, registry)),
   };
 }
 

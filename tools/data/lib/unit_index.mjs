@@ -2,7 +2,7 @@
 // including the 104 batteries the five static pages never load today. CANDIDATE data derived from the legacy tree.
 import fs from 'node:fs';
 import path from 'node:path';
-import { chainOf, commanderChain, sortKeyOf } from './orgchain.mjs';
+import { chainOf, commanderChain, sortKeyOf, STATE_CODES } from './orgchain.mjs';
 import { fileGroups } from './load.mjs';
 
 const stripDesignation = (d) => String(d ?? '')
@@ -102,6 +102,40 @@ export function searchIndex(index, query, { limit = 10 } = {}) {
   }
   scored.sort((a, b) => b.score - a.score || (a.id < b.id ? -1 : 1));
   return scored.slice(0, limit);
+}
+
+/**
+ * Interim compat shape: the 103 batteries as { regiments: [...] } records so that the five static pages that only read
+ * `.regiments` (search, regiment, find-ancestor, historian, report) would list them by adding ONE file name to their OOB list.
+ * The pages print the word "regiment" and read only regiment_id, designation, state, commander, key_action, parent_*, strength,
+ * casualties and days_engaged; days_engaged is [] here (batteries carry none). The page edits are outside this workstream.
+ */
+export function buildBatteryShim(ctx, registry) {
+  const oob = ctx.oob;
+  const regs = [];
+  for (const u of registry.units) {
+    if (u.kind !== 'battery') continue;
+    const rec = oob.records.get(u.id);
+    if (rec.filed_as === 'regiment') continue; // C-McClanahan-ART is already listed as a regiment
+    const st = Object.keys(STATE_CODES).find((n) => new RegExp(`\\b${n}\\b`).test(rec.raw.designation)) ?? null;
+    const corps = u.path.corps?.id ?? rec.parent_corps_id ?? null;
+    regs.push({
+      regiment_id: u.id,
+      designation: rec.raw.designation,
+      parent_brigade_id: u.path.artillery_unit?.id ?? rec.raw.division_attached ?? null,
+      ...(corps ? { parent_corps_id: corps } : {}),
+      ...(st ? { state: st } : {}),
+      unit_type: 'battery',
+      ...(rec.raw.commander ? { commander: { name: rec.raw.commander.name, fate: rec.raw.commander.fate } } : {}),
+      strength: rec.raw.strength,
+      casualties: rec.raw.casualties,
+      days_engaged: [],
+      gun_count: rec.raw.gun_count,
+      gun_type: rec.raw.gun_type,
+      key_action: rec.raw.key_action,
+    });
+  }
+  return { metadata: { title: 'CANDIDATE compat shape: batteries as regiment-shaped records (not served)', total_regiments: regs.length, generated_by: 'tools/data/unit_registry.mjs' }, regiments: regs };
 }
 
 export function writeJson(file, obj) {

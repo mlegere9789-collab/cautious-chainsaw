@@ -1,0 +1,1724 @@
+{
+  "metadata": {
+    "title": "CANDIDATE compat shape: batteries as regiment-shaped records (not served)",
+    "total_regiments": 103,
+    "generated_by": "tools/data/unit_registry.mjs"
+  },
+  "regiments": [
+    {
+      "regiment_id": "U-ART-1CTB",
+      "designation": "1st Connecticut Heavy Artillery, Battery B",
+      "parent_brigade_id": "U-ART-RES-2",
+      "state": "Connecticut",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Albert Brooker",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 0,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "4.5-inch siege rifle",
+      "key_action": "Heavy artillery -- July 3 cannonade."
+    },
+    {
+      "regiment_id": "U-ART-1CTM",
+      "designation": "1st Connecticut Heavy Artillery, Battery M",
+      "parent_brigade_id": "U-ART-RES-2",
+      "state": "Connecticut",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Franklin Pratt",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 0,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "4.5-inch siege rifle",
+      "key_action": "Heavy artillery -- July 3 cannonade."
+    },
+    {
+      "regiment_id": "U-ART-1NH",
+      "designation": "1st New Hampshire Battery",
+      "parent_brigade_id": "U-ART-RES-3",
+      "state": "New Hampshire",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Frederick Edgell",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 11,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Cemetery Hill -- July 2-3 fighting."
+    },
+    {
+      "regiment_id": "U-ART-1NYIND",
+      "designation": "1st New York Battery Independent (Cowan's)",
+      "parent_brigade_id": "U-ART-RES-4",
+      "state": "New York",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Andrew Cowan",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 8,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Cemetery Ridge -- fired canister at point-blank range into Armistead's Confederates breaching The Angle July 3. Approximately 50 yards from Armistead's men."
+    },
+    {
+      "regiment_id": "U-ART-2ME",
+      "designation": "2nd Maine Battery (Hall's Battery)",
+      "parent_brigade_id": "U-ART-I-CORPS",
+      "parent_corps_id": "U-I",
+      "state": "Maine",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain James Hall",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 18,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "McPherson's Ridge July 1 -- subject of a Gettysburg Animated YouTube vignette. Hall's battery in the Railroad Cut area is precisely documented."
+    },
+    {
+      "regiment_id": "U-ART-3NY",
+      "designation": "3rd New York Battery Independent",
+      "parent_brigade_id": "U-ART-RES-4",
+      "state": "New York",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain William Harn",
+        "fate": "Survived"
+      },
+      "strength": 114,
+      "casualties": 4,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Reserve support."
+    },
+    {
+      "regiment_id": "U-ART-4NYIND",
+      "designation": "4th New York Battery Independent (Smith's)",
+      "parent_brigade_id": "U-ART-III-CORPS",
+      "parent_corps_id": "U-III",
+      "state": "New York",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain James Smith",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 19,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "10-pdr Parrott",
+      "key_action": "Devil's Den -- one of the most famous artillery positions of the battle. Guns briefly captured by Hood's Confederates then recaptured."
+    },
+    {
+      "regiment_id": "U-ART-5MA",
+      "designation": "5th Massachusetts Battery (E)",
+      "parent_brigade_id": "U-ART-RES-1",
+      "state": "Massachusetts",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Charles Phillips",
+        "fate": "Survived"
+      },
+      "strength": 104,
+      "casualties": 10,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "McGilvery's Line July 2 evening -- helped stop Confederate advance. Fought during Pickett's Charge July 3."
+    },
+    {
+      "regiment_id": "U-ART-5NY",
+      "designation": "5th New York Battery",
+      "parent_brigade_id": "U-ART-RES-2",
+      "state": "New York",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Elijah Taft",
+        "fate": "Survived"
+      },
+      "strength": 114,
+      "casualties": 2,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "20-pdr Parrott",
+      "key_action": "Long-range Parrott rifles for counterbattery fire."
+    },
+    {
+      "regiment_id": "U-ART-9MA",
+      "designation": "9th Massachusetts Battery (Bigelow's)",
+      "parent_brigade_id": "U-ART-RES-1",
+      "state": "Massachusetts",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain John Bigelow",
+        "fate": "Survived -- wounded"
+      },
+      "strength": 104,
+      "casualties": 28,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Fighting withdrawal from Trostle Farm July 2 -- ordered to hold without support to buy time for McGilvery to form the Plum Run line. Lost 28 men and several guns but accomplished the mission. One of the most celebrated artillery actions of the battle."
+    },
+    {
+      "regiment_id": "U-ART-13NY",
+      "designation": "13th New York Battery (Wheeler's)",
+      "parent_brigade_id": "U-ART-XI-CORPS",
+      "parent_corps_id": "U-XI",
+      "state": "New York",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant William Wheeler",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 4,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "XI Corps -- Cemetery Hill."
+    },
+    {
+      "regiment_id": "U-ART-15NY",
+      "designation": "15th New York Battery (Hart's)",
+      "parent_brigade_id": "U-ART-RES-1",
+      "state": "New York",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Patrick Hart",
+        "fate": "Survived"
+      },
+      "strength": 73,
+      "casualties": 4,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "McGilvery's brigade -- Plum Run Line July 2-3."
+    },
+    {
+      "regiment_id": "C-ART-Bachman",
+      "designation": "Bachman's Battery (German Artillery SC)",
+      "parent_brigade_id": "C-ART-I-3",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain William Bachman",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 14,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Hood's division support -- Devil's Den and Round Top area July 2."
+    },
+    {
+      "regiment_id": "U-ART-A1RI",
+      "designation": "Battery A, 1st Rhode Island Artillery (Arnold's)",
+      "parent_brigade_id": "U-ART-II-CORPS",
+      "parent_corps_id": "U-II",
+      "state": "Rhode Island",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain William Arnold",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 11,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Second Corps artillery -- Cemetery Ridge July 2-3."
+    },
+    {
+      "regiment_id": "U-HAB-A2US",
+      "designation": "Battery A, 2nd US Artillery (Calef's Battery)",
+      "parent_brigade_id": "U-CAV-1",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant John Calef",
+        "fate": "Survived"
+      },
+      "strength": 89,
+      "casualties": 5,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "FIRST UNION ARTILLERY TO FIRE at Gettysburg -- approximately 7:30am July 1, before any Union infantry arrived. Fought on McPherson's Ridge alongside Buford's dismounted cavalry."
+    },
+    {
+      "regiment_id": "U-ART-A4US",
+      "designation": "Battery A, 4th US Artillery (Cushing's Battery)",
+      "parent_brigade_id": "U-ART-II-CORPS",
+      "parent_corps_id": "U-II",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant Alonzo Cushing",
+        "fate": "KIA July 3 -- killed at The Angle while serving his last gun. Received Medal of Honor posthumously 2014 -- longest gap between action and award in MOH history."
+      },
+      "strength": 107,
+      "casualties": 25,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "The Angle -- Cushing's battery stood directly opposite the Confederate breakthrough. As Armistead's men surged over the wall Cushing rolled his last two guns to the wall and was killed serving them."
+    },
+    {
+      "regiment_id": "U-ART-B1NJ",
+      "designation": "Battery B, 1st New Jersey Artillery (Clark's)",
+      "parent_brigade_id": "U-ART-III-CORPS",
+      "parent_corps_id": "U-III",
+      "state": "New Jersey",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain A. Judson Clark",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 19,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Peach Orchard -- heavily engaged. 19 casualties."
+    },
+    {
+      "regiment_id": "U-ART-B1PA",
+      "designation": "Battery B, 1st Pennsylvania Artillery",
+      "parent_brigade_id": "U-ART-I-CORPS",
+      "parent_corps_id": "U-I",
+      "state": "Pennsylvania",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain James Cooper",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 5,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "First Corps artillery -- Seminary Ridge then Cemetery Hill."
+    },
+    {
+      "regiment_id": "U-ART-B1RI",
+      "designation": "Battery B, 1st Rhode Island Artillery (Brown's)",
+      "parent_brigade_id": "U-ART-II-CORPS",
+      "parent_corps_id": "U-II",
+      "state": "Rhode Island",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant T. Fred Brown",
+        "fate": "Wounded July 3 -- severely wounded in Confederate cannonade"
+      },
+      "strength": 107,
+      "casualties": 16,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Cemetery Ridge -- opposite The Angle during Pickett's Charge. Brown severely wounded in the cannonade."
+    },
+    {
+      "regiment_id": "U-ART-B4US",
+      "designation": "Battery B, 4th US Artillery (Stewart's)",
+      "parent_brigade_id": "U-ART-I-CORPS",
+      "parent_corps_id": "U-I",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant James Stewart",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 17,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Seminary Ridge July 1 -- one of the last Union batteries to leave, covering the infantry retreat."
+    },
+    {
+      "regiment_id": "U-ART-C1MA",
+      "designation": "Battery C, 1st Massachusetts Artillery",
+      "parent_brigade_id": "U-ART-V-CORPS",
+      "parent_corps_id": "U-V",
+      "state": "Massachusetts",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant Aaron Walcott",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 0,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Fifth Corps -- reserve. Little Round Top area."
+    },
+    {
+      "regiment_id": "U-ART-C1NY",
+      "designation": "Battery C, 1st New York Artillery",
+      "parent_brigade_id": "U-ART-RES-4",
+      "state": "New York",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Almont Barnes",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 0,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Reserve."
+    },
+    {
+      "regiment_id": "U-ART-C1RI",
+      "designation": "Battery C, 1st Rhode Island Artillery",
+      "parent_brigade_id": "U-ART-VI-CORPS",
+      "parent_corps_id": "U-VI",
+      "state": "Rhode Island",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Richard Waterman",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 0,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Sixth Corps -- army reserve, no significant action."
+    },
+    {
+      "regiment_id": "U-ART-C4US",
+      "designation": "Battery C, 4th US Artillery (Thomas's)",
+      "parent_brigade_id": "U-ART-RES-REG",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant Evan Thomas",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 9,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Cemetery Ridge -- July 3 cannonade and Pickett's Charge repulse."
+    },
+    {
+      "regiment_id": "U-ART-C5US",
+      "designation": "Battery C, 5th US Artillery (Weir's)",
+      "parent_brigade_id": "U-ART-RES-REG",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant Gulian Weir",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 16,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Rushed forward July 2 evening to stop Wilcox's advance -- placed in exposed position, lost men and a gun before withdrawing."
+    },
+    {
+      "regiment_id": "U-ART-CWV",
+      "designation": "Battery C, West Virginia Artillery",
+      "parent_brigade_id": "U-ART-RES-3",
+      "state": "Virginia",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Wallace Hill",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 1,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Reserve."
+    },
+    {
+      "regiment_id": "U-ART-D1NY",
+      "designation": "Battery D, 1st New York Artillery (Winslow's)",
+      "parent_brigade_id": "U-ART-III-CORPS",
+      "parent_corps_id": "U-III",
+      "state": "New York",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain George Winslow",
+        "fate": "Survived"
+      },
+      "strength": 114,
+      "casualties": 7,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Wheatfield area -- one of the most contested artillery positions of Day 2."
+    },
+    {
+      "regiment_id": "U-ART-D2US",
+      "designation": "Battery D, 2nd US Artillery",
+      "parent_brigade_id": "U-ART-VI-CORPS",
+      "parent_corps_id": "U-VI",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant Edward Williston",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 0,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Sixth Corps -- reserve."
+    },
+    {
+      "regiment_id": "U-ART-D5US",
+      "designation": "Battery D, 5th US Artillery (Hazlett's Battery)",
+      "parent_brigade_id": "U-ART-V-CORPS",
+      "parent_corps_id": "U-V",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant Charles Hazlett",
+        "fate": "KIA July 2 -- shot on Little Round Top summit beside the dying Weed"
+      },
+      "strength": 107,
+      "casualties": 9,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "10-pdr Parrott",
+      "key_action": "Hazlett's battery dragged its guns up the steep rocky slope of Little Round Top. Technically too elevated to fire effectively on Confederate infantry below but their moral effect was significant. Hazlett killed beside Weed -- both dying on the summit at nearly the same moment."
+    },
+    {
+      "regiment_id": "U-HAB-E1US",
+      "designation": "Battery E, 1st US Artillery",
+      "parent_brigade_id": "U-CAV-3",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant Edward Heaton",
+        "fate": "Survived"
+      },
+      "strength": 90,
+      "casualties": 4,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Kilpatrick's division horse artillery -- supported Farnsworth's charge July 3."
+    },
+    {
+      "regiment_id": "U-ART-E4US-III",
+      "designation": "Battery E, 4th US Artillery (Seeley's)",
+      "parent_brigade_id": "U-ART-III-CORPS",
+      "parent_corps_id": "U-III",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant Francis Seeley",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 8,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Third Corps -- Peach Orchard salient July 2."
+    },
+    {
+      "regiment_id": "U-HAB-E4US",
+      "designation": "Battery E, 4th US Artillery",
+      "parent_brigade_id": "U-CAV-1",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant Samuel Elder",
+        "fate": "Survived"
+      },
+      "strength": 60,
+      "casualties": 2,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Buford's division horse artillery -- supported July 1 dismounted defense."
+    },
+    {
+      "regiment_id": "U-ART-EPA",
+      "designation": "Battery E, Pennsylvania Artillery (Knap's Battery)",
+      "parent_brigade_id": "U-ART-XII-CORPS",
+      "parent_corps_id": "U-XII",
+      "state": "Pennsylvania",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Charles Atwell",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 3,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Knap's Battery at Culp's Hill -- unique firing angle across the saddle between Culp's Hill and Cemetery Hill."
+    },
+    {
+      "regiment_id": "U-ART-F1PA",
+      "designation": "Battery F, 1st Pennsylvania Artillery (Ricketts's)",
+      "parent_brigade_id": "U-ART-RES-3",
+      "state": "Pennsylvania",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain R. Bruce Ricketts",
+        "fate": "Survived"
+      },
+      "strength": 117,
+      "casualties": 19,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Cemetery Hill -- fought in the East Cemetery Hill action July 2 evening when Early's Confederates briefly seized the crest."
+    },
+    {
+      "regiment_id": "U-ART-F4US-XI",
+      "designation": "Battery F, 4th US Artillery (XI Corps)",
+      "parent_brigade_id": "U-ART-XI-CORPS",
+      "parent_corps_id": "U-XI",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant Chandler Eakin",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 9,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "XI Corps artillery -- north of town July 1 then Cemetery Hill."
+    },
+    {
+      "regiment_id": "U-ART-F4US-XII",
+      "designation": "Battery F, 4th US Artillery (XII Corps)",
+      "parent_brigade_id": "U-ART-XII-CORPS",
+      "parent_corps_id": "U-XII",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant Sylvanus Rugg",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 1,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "XII Corps -- Culp's Hill. Supported July 3 morning attack to recapture Confederate works."
+    },
+    {
+      "regiment_id": "U-ART-F4US",
+      "designation": "Battery F, 4th US Artillery",
+      "parent_brigade_id": "U-ART-RES-REG",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant Chandler Eakin",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 7,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Cemetery Ridge -- July 3."
+    },
+    {
+      "regiment_id": "U-ART-F5US-VI",
+      "designation": "Battery F, 5th US Artillery (VI Corps)",
+      "parent_brigade_id": "U-ART-VI-CORPS",
+      "parent_corps_id": "U-VI",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant Leonard Martin",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 0,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Sixth Corps -- reserve."
+    },
+    {
+      "regiment_id": "U-ART-F5US",
+      "designation": "Battery F, 5th US Artillery",
+      "parent_brigade_id": "U-ART-RES-REG",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant Leonard Martin",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 5,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Reserve."
+    },
+    {
+      "regiment_id": "U-ART-G1NY",
+      "designation": "Battery G, 1st New York Artillery (Ames's)",
+      "parent_brigade_id": "U-ART-II-CORPS",
+      "parent_corps_id": "U-II",
+      "state": "New York",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Nelson Ames",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 6,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Second Corps artillery -- Cemetery Ridge."
+    },
+    {
+      "regiment_id": "U-ART-G2US",
+      "designation": "Battery G, 2nd US Artillery",
+      "parent_brigade_id": "U-ART-VI-CORPS",
+      "parent_corps_id": "U-VI",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant John Butler",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 0,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Sixth Corps -- reserve."
+    },
+    {
+      "regiment_id": "U-ART-G4US",
+      "designation": "Battery G, 4th US Artillery (Wilkeson's Battery)",
+      "parent_brigade_id": "U-ART-XI-CORPS",
+      "parent_corps_id": "U-XI",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant Bayard Wilkeson",
+        "fate": "KIA July 1 -- both legs shattered; reportedly amputated one leg himself with a penknife before dying"
+      },
+      "strength": 107,
+      "casualties": 19,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Barlow's Knoll July 1 -- most exposed Union artillery position. Wilkeson had both legs shattered. He reportedly amputated one leg himself with a penknife and bled to death."
+    },
+    {
+      "regiment_id": "U-ART-H1OH",
+      "designation": "Battery H, 1st Ohio Artillery",
+      "parent_brigade_id": "U-ART-RES-3",
+      "state": "Ohio",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant George Norton",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 0,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Reserve artillery."
+    },
+    {
+      "regiment_id": "U-ART-I1OH",
+      "designation": "Battery I, 1st Ohio Artillery (Dilger's Battery)",
+      "parent_brigade_id": "U-ART-XI-CORPS",
+      "parent_corps_id": "U-XI",
+      "state": "Ohio",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Hubert Dilger",
+        "fate": "Survived -- Medal of Honor for Gettysburg"
+      },
+      "strength": 107,
+      "casualties": 12,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Fought in the most dramatic artillery action of July 1 -- engaged Confederate infantry at close range IN THE STREETS OF GETTYSBURG to cover the Union retreat. Fighting withdrawal through the town itself."
+    },
+    {
+      "regiment_id": "U-ART-I1US",
+      "designation": "Battery I, 1st US Artillery (Woodruff's)",
+      "parent_brigade_id": "U-ART-II-CORPS",
+      "parent_corps_id": "U-II",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant George Woodruff",
+        "fate": "KIA July 3 -- killed during Pickett's Charge"
+      },
+      "strength": 107,
+      "casualties": 11,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Cemetery Ridge -- Woodruff killed during Pickett's Charge. Guns fired canister into Pettigrew's and Trimble's advancing Confederates."
+    },
+    {
+      "regiment_id": "U-ART-K1OH",
+      "designation": "Battery K, 1st Ohio Artillery (Heckman's)",
+      "parent_brigade_id": "U-ART-XI-CORPS",
+      "parent_corps_id": "U-XI",
+      "state": "Ohio",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Lewis Heckman",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 10,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "XI Corps -- north of town July 1 then Cemetery Hill."
+    },
+    {
+      "regiment_id": "U-HAB-K1US",
+      "designation": "Battery K, 1st US Artillery",
+      "parent_brigade_id": "U-CAV-2",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain William Graham",
+        "fate": "Survived"
+      },
+      "strength": 95,
+      "casualties": 3,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Gregg's division horse artillery -- East Cavalry Field July 3."
+    },
+    {
+      "regiment_id": "U-ART-K5US",
+      "designation": "Battery K, 5th US Artillery",
+      "parent_brigade_id": "U-ART-XII-CORPS",
+      "parent_corps_id": "U-XII",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant David Kinzie",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 0,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "XII Corps -- Culp's Hill."
+    },
+    {
+      "regiment_id": "U-ART-L1NY-I",
+      "designation": "Battery L, 1st New York Artillery (I Corps)",
+      "parent_brigade_id": "U-ART-I-CORPS",
+      "parent_corps_id": "U-I",
+      "state": "New York",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Gilbert Reynolds",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 10,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "First Corps artillery -- McPherson's Ridge then Seminary Ridge July 1."
+    },
+    {
+      "regiment_id": "U-ART-L1NY",
+      "designation": "Battery L, 1st New York Artillery",
+      "parent_brigade_id": "U-ART-RES-4",
+      "state": "New York",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Gilbert Reynolds",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 3,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Support of Union left July 2."
+    },
+    {
+      "regiment_id": "U-ART-L1OH",
+      "designation": "Battery L, 1st Ohio Artillery (Gibbs's)",
+      "parent_brigade_id": "U-ART-V-CORPS",
+      "parent_corps_id": "U-V",
+      "state": "Ohio",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Frank Gibbs",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 1,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Fifth Corps -- Little Round Top area."
+    },
+    {
+      "regiment_id": "U-ART-M1NY",
+      "designation": "Battery M, 1st New York Artillery (Winegar's)",
+      "parent_brigade_id": "U-ART-XII-CORPS",
+      "parent_corps_id": "U-XII",
+      "state": "New York",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant Charles Winegar",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 1,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "XII Corps -- Culp's Hill."
+    },
+    {
+      "regiment_id": "U-HAB-M2US",
+      "designation": "Battery M, 2nd US Artillery (Pennington's Battery)",
+      "parent_brigade_id": "U-CAV-2",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Lieutenant Alexander Pennington",
+        "fate": "Survived"
+      },
+      "strength": 100,
+      "casualties": 9,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Gregg's division -- East Cavalry Field July 3. Pennington's battery provided critical fire support during Custer's action against Stuart."
+    },
+    {
+      "regiment_id": "C-ART-Blount",
+      "designation": "Blount's Battery (Wise Artillery VA)",
+      "parent_brigade_id": "C-ART-I-2",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Joseph Blount",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 6,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "July 3 cannonade."
+    },
+    {
+      "regiment_id": "C-ART-Brander",
+      "designation": "Brander's Battery (Letcher Artillery VA)",
+      "parent_brigade_id": "C-ART-III-3",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Thomas Brander",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 9,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Pegram's battalion."
+    },
+    {
+      "regiment_id": "C-HAB-Breathed",
+      "designation": "Breathed's Battery (1st Stuart Horse Artillery)",
+      "parent_brigade_id": null,
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain James Breathed",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 8,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Stuart's horse artillery -- East Cavalry Field July 3. Exchanged fire with Pennington's Union battery."
+    },
+    {
+      "regiment_id": "C-ART-Brown-C",
+      "designation": "Brown's Battery (4th Maryland Artillery CSA)",
+      "parent_brigade_id": "C-ART-II-4",
+      "state": "Maryland",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain William Brown",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 7,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Benner's Hill -- Johnson's division artillery."
+    },
+    {
+      "regiment_id": "C-ART-Brown-J",
+      "designation": "Brown's Battery (Chesapeake Artillery MD)",
+      "parent_brigade_id": "C-ART-II-1",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain William Brown",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 6,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Second Corps support July 1-3."
+    },
+    {
+      "regiment_id": "C-ART-Carlton",
+      "designation": "Carlton's Battery (Troup Artillery GA)",
+      "parent_brigade_id": "C-ART-I-1",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Henry Carlton",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 8,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "First Corps artillery support July 2."
+    },
+    {
+      "regiment_id": "C-ART-Carpenter",
+      "designation": "Carpenter's Battery (Alleghany Artillery VA)",
+      "parent_brigade_id": "C-ART-II-1",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Joseph Carpenter",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 8,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Oak Hill July 1 -- flanking fire on Union I Corps."
+    },
+    {
+      "regiment_id": "C-ART-Carrington",
+      "designation": "Carrington's Battery (Charlottesville Artillery VA)",
+      "parent_brigade_id": "C-ART-II-3",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain James Carrington",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 9,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Oak Hill July 1 -- flanking fire that helped destroy I Corps. Key battery in Rodes's attack."
+    },
+    {
+      "regiment_id": "C-ART-Carter",
+      "designation": "Carter's Battery (King William Artillery VA)",
+      "parent_brigade_id": "C-ART-II-3",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain William Carter",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 12,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr / 3-inch rifle",
+      "key_action": "Oak Hill -- flanking fire on Union I Corps July 1."
+    },
+    {
+      "regiment_id": "C-ART-Caskie",
+      "designation": "Caskie's Battery (Hampden Artillery VA)",
+      "parent_brigade_id": "C-ART-I-2",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain William Caskie",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 9,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "July 3 cannonade."
+    },
+    {
+      "regiment_id": "C-ART-Crenshaw",
+      "designation": "Crenshaw's Battery (Crenshaw Battery VA)",
+      "parent_brigade_id": "C-ART-III-3",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain William Crenshaw",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 11,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Pegram's battalion -- Herr Ridge July 1."
+    },
+    {
+      "regiment_id": "C-ART-Cunningham",
+      "designation": "Cunningham's Battery (Rockbridge Artillery VA)",
+      "parent_brigade_id": "C-ART-II-2",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Arthur Cunningham",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 5,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Second Corps artillery."
+    },
+    {
+      "regiment_id": "C-ART-Dement",
+      "designation": "Dement's Battery (1st Maryland Artillery CSA)",
+      "parent_brigade_id": "C-ART-II-1",
+      "state": "Maryland",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain William Dement",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 10,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Oak Hill July 1 bombardment -- cross-fire on Union I Corps."
+    },
+    {
+      "regiment_id": "C-ART-Doll",
+      "designation": "Doll's Battery (2nd Maryland Artillery CSA)",
+      "parent_brigade_id": "C-ART-II-4",
+      "state": "Maryland",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Charles Doll",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 15,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Benner's Hill July 2 -- exposed position systematically destroyed by Union counterbattery fire."
+    },
+    {
+      "regiment_id": "C-ART-Fraser",
+      "designation": "Fraser's Battery (Pulaski Artillery GA)",
+      "parent_brigade_id": "C-ART-I-1",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain John Fraser",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 5,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Supporting Hood's assault July 2."
+    },
+    {
+      "regiment_id": "C-ART-Fry",
+      "designation": "Fry's Battery (Orange Artillery VA)",
+      "parent_brigade_id": "C-ART-II-3",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Charles Fry",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 8,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Oak Hill July 1 bombardment."
+    },
+    {
+      "regiment_id": "C-ART-Garber",
+      "designation": "Garber's Battery (Staunton Artillery VA)",
+      "parent_brigade_id": "C-ART-II-4",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Asher Garber",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 10,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Benner's Hill -- driven back by Union artillery."
+    },
+    {
+      "regiment_id": "C-ART-Garden",
+      "designation": "Garden's Battery (Palmetto Light Artillery SC)",
+      "parent_brigade_id": "C-ART-I-3",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Hugh Garden",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 10,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Hood's division artillery -- July 2."
+    },
+    {
+      "regiment_id": "C-ART-Grandy",
+      "designation": "Grandy's Battery (Norfolk Blues Artillery VA)",
+      "parent_brigade_id": "C-ART-III-1",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Charles Grandy",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 4,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Anderson's division support."
+    },
+    {
+      "regiment_id": "C-HAB-Hart",
+      "designation": "Hart's Battery (Washington Artillery SC)",
+      "parent_brigade_id": null,
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain James Hart",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 5,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Blakely rifle",
+      "key_action": "Stuart's horse artillery -- East Cavalry Field."
+    },
+    {
+      "regiment_id": "C-ART-Hupp",
+      "designation": "Hupp's Battery (Salem Artillery VA)",
+      "parent_brigade_id": "C-ART-II-2",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Abraham Hupp",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 4,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Second Corps support."
+    },
+    {
+      "regiment_id": "C-ART-Hurt",
+      "designation": "Hurt's Battery (Hardaway Artillery AL)",
+      "parent_brigade_id": "C-ART-III-2",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain William Hurt",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 14,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle / Whitworth rifle",
+      "key_action": "Heth's division -- McPherson's Ridge July 1 and July 3 cannonade. Two Whitworth rifles with exceptional range used for long-range counterbattery fire."
+    },
+    {
+      "regiment_id": "C-HAB-Jackson",
+      "designation": "Jackson's Battery (Charlottesville Artillery)",
+      "parent_brigade_id": null,
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Thomas Jackson",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 3,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Stuart's horse artillery."
+    },
+    {
+      "regiment_id": "C-ART-Johnson-M",
+      "designation": "Johnson's Battery (1st Rockbridge Artillery VA)",
+      "parent_brigade_id": "C-ART-III-2",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Marmaduke Johnson",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 10,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "McPherson's Ridge July 1 -- fired on Buford's cavalry and Hall's battery."
+    },
+    {
+      "regiment_id": "C-ART-Lewis",
+      "designation": "Lewis's Battery (Pittsylvania Artillery VA)",
+      "parent_brigade_id": "C-ART-III-1",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain John Lewis",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 6,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Anderson's division artillery -- Cemetery Ridge approach July 2."
+    },
+    {
+      "regiment_id": "C-ART-Macon",
+      "designation": "Macon's Battery (Richmond Fayette Artillery VA)",
+      "parent_brigade_id": "C-ART-I-2",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Miles Macon",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 8,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "July 3 cannonade."
+    },
+    {
+      "regiment_id": "C-ART-Manly",
+      "designation": "Manly's Battery (1st NC Artillery)",
+      "parent_brigade_id": "C-ART-I-1",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Basil Manly",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 12,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr / 3-inch rifle",
+      "key_action": "Peach Orchard and Emmitsburg Road -- supporting McLaws July 2."
+    },
+    {
+      "regiment_id": "C-ART-Marye",
+      "designation": "Marye's Battery (Fredericksburg Artillery VA)",
+      "parent_brigade_id": "C-ART-III-3",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Edward Marye",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 13,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Pegram's battalion on Herr Ridge July 1 -- among the first Confederate batteries to open fire. Supported Heth's assault against Buford."
+    },
+    {
+      "regiment_id": "U-ART-MAE",
+      "designation": "Massachusetts Battery E (10th)",
+      "parent_brigade_id": "U-ART-V-CORPS",
+      "parent_corps_id": "U-V",
+      "state": "Massachusetts",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Josiah Porter",
+        "fate": "Survived"
+      },
+      "strength": 107,
+      "casualties": 0,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Fifth Corps -- reserve."
+    },
+    {
+      "regiment_id": "U-ART-MAF",
+      "designation": "Massachusetts Battery F",
+      "parent_brigade_id": "U-ART-RES-1",
+      "state": "Massachusetts",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Timothy Regan",
+        "fate": "Survived"
+      },
+      "strength": 67,
+      "casualties": 1,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "McGilvery's brigade reserve."
+    },
+    {
+      "regiment_id": "C-ART-Maurin",
+      "designation": "Maurin's Battery (Donaldsonville Artillery LA)",
+      "parent_brigade_id": "C-ART-III-1",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Victor Maurin",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 8,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Anderson's division artillery July 2."
+    },
+    {
+      "regiment_id": "C-ART-McCarthy",
+      "designation": "McCarthy's Battery (1st Richmond Howitzers)",
+      "parent_brigade_id": "C-ART-I-1",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Edward McCarthy",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 6,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "First Corps artillery."
+    },
+    {
+      "regiment_id": "C-ART-McGraw",
+      "designation": "McGraw's Battery (Purcell Artillery VA)",
+      "parent_brigade_id": "C-ART-III-3",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Joseph McGraw",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 10,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Pegram's battalion -- Herr Ridge July 1 and July 3 cannonade."
+    },
+    {
+      "regiment_id": "C-ART-Miller-WA",
+      "designation": "Miller's Battery (3rd Co., Washington Artillery)",
+      "parent_brigade_id": "C-ART-I-4",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Merritt Miller",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 9,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "July 3 cannonade."
+    },
+    {
+      "regiment_id": "C-ART-Moore",
+      "designation": "Moore's Battery (Norfolk Light Artillery VA)",
+      "parent_brigade_id": "C-ART-III-1",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Joseph Moore",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 5,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Anderson's division support."
+    },
+    {
+      "regiment_id": "U-ART-NYC",
+      "designation": "New York Battery C (Roemer's)",
+      "parent_brigade_id": "U-ART-RES-2",
+      "state": "New York",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Jacob Roemer",
+        "fate": "Survived"
+      },
+      "strength": 100,
+      "casualties": 3,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Taft's brigade -- July 3 cannonade support."
+    },
+    {
+      "regiment_id": "C-ART-Norcom",
+      "designation": "Norcom's Battery (4th Co., Washington Artillery)",
+      "parent_brigade_id": "C-ART-I-4",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Joseph Norcom",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 7,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "July 3 cannonade."
+    },
+    {
+      "regiment_id": "C-ART-Page",
+      "designation": "Page's Battery (Morris Artillery VA)",
+      "parent_brigade_id": "C-ART-II-3",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Richard Page",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 6,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Rodes's division support."
+    },
+    {
+      "regiment_id": "C-ART-Raine",
+      "designation": "Raine's Battery (Lee Battery VA)",
+      "parent_brigade_id": "C-ART-II-1",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Charles Raine",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 7,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle / 10-pdr Parrott",
+      "key_action": "Second Corps artillery July 1."
+    },
+    {
+      "regiment_id": "C-ART-Reilly",
+      "designation": "Reilly's Battery (Rowan Artillery NC)",
+      "parent_brigade_id": "C-ART-I-3",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain James Reilly",
+        "fate": "Survived"
+      },
+      "strength": 95,
+      "casualties": 16,
+      "days_engaged": [],
+      "gun_count": 6,
+      "gun_type": "Napoleon 12-pdr / 3-inch rifle",
+      "key_action": "Supporting Hood's attack -- fired on Little Round Top and Devil's Den approaches."
+    },
+    {
+      "regiment_id": "C-ART-Rice-B",
+      "designation": "Rice's Battery (Danville Artillery VA)",
+      "parent_brigade_id": "C-ART-III-2",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain William Rice",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 8,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Heth's division artillery July 1 and 3."
+    },
+    {
+      "regiment_id": "C-ART-Richardson",
+      "designation": "Richardson's Battery (2nd Co., Washington Artillery)",
+      "parent_brigade_id": "C-ART-I-4",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain John Richardson",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 11,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "July 3 cannonade -- Washington Artillery of New Orleans."
+    },
+    {
+      "regiment_id": "C-ART-Ross",
+      "designation": "Ross's Battery (Sumter Flying Artillery GA)",
+      "parent_brigade_id": "C-ART-I-3",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Hugh Ross",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 7,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Hood's division support."
+    },
+    {
+      "regiment_id": "C-ART-Smith-B",
+      "designation": "Smith's Battery (3rd Richmond Howitzers)",
+      "parent_brigade_id": "C-ART-II-2",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Benjamin Smith",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 7,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Second Corps support."
+    },
+    {
+      "regiment_id": "C-ART-Squires",
+      "designation": "Squires's Battery (1st Co., Washington Artillery)",
+      "parent_brigade_id": "C-ART-I-4",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Charles Squires",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 8,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "July 3 cannonade from Seminary Ridge."
+    },
+    {
+      "regiment_id": "C-ART-Stribling",
+      "designation": "Stribling's Battery (Fauquier Artillery VA)",
+      "parent_brigade_id": "C-ART-I-2",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Robert Stribling",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 7,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "July 3 cannonade supporting Pickett's charge."
+    },
+    {
+      "regiment_id": "C-ART-Tanner",
+      "designation": "Tanner's Battery (Courtney Artillery VA)",
+      "parent_brigade_id": "C-ART-II-4",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain William Tanner",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 9,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Benner's Hill -- Latimer's battalion."
+    },
+    {
+      "regiment_id": "C-ART-Wallace",
+      "designation": "Wallace's Battery (2nd Rockbridge Artillery VA)",
+      "parent_brigade_id": "C-ART-III-2",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain Samuel Wallace",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 7,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Heth's division artillery."
+    },
+    {
+      "regiment_id": "C-ART-Watson",
+      "designation": "Watson's Battery (2nd Richmond Howitzers)",
+      "parent_brigade_id": "C-ART-II-2",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain David Watson",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 9,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "Napoleon 12-pdr",
+      "key_action": "Second Corps -- Cemetery Hill area July 2-3."
+    },
+    {
+      "regiment_id": "C-ART-Zimmerman",
+      "designation": "Zimmerman's Battery (Pee Dee Artillery SC)",
+      "parent_brigade_id": "C-ART-III-3",
+      "unit_type": "battery",
+      "commander": {
+        "name": "Captain William Zimmerman",
+        "fate": "Survived"
+      },
+      "strength": 80,
+      "casualties": 8,
+      "days_engaged": [],
+      "gun_count": 4,
+      "gun_type": "3-inch ordnance rifle",
+      "key_action": "Pegram's battalion -- Herr Ridge."
+    }
+  ]
+}

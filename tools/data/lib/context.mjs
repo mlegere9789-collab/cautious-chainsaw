@@ -81,7 +81,7 @@ export function buildContext(opts = {}) {
   const terrain = data.files.get('terrain.json')?.json ?? null;
   const extent = terrain?.metadata?.battlefield_bounds ?? { north: 39.85, south: 39.77, east: -77.18, west: -77.29 };
 
-  let embedded = null;
+  let embedded = opts.embedded ?? null;
   const getEmbedded = () => {
     if (embedded === null) {
       embedded = bundlePath && fs.existsSync(bundlePath) ? extractEmbeddedDatasets(bundlePath) : { monuments: [], story: [], tour: [], warnings: ['bundle not available'], monumentsLoc: null };
