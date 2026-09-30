@@ -7,6 +7,7 @@ import { buildCrosswalk, buildRegistry, buildDualMeaning } from './registry.mjs'
 import { measureSection2, measureExtras } from './measure.mjs';
 import { provenanceCoverage } from '../rules/prov_rules.mjs';
 import { retiredLiteralHits } from '../rules/facts_rules.mjs';
+import { SPECIALIST_DV07, compareKeySets, explainDv07Difference } from './specialist.mjs';
 import { REPO_ROOT, prettyJson } from './util.mjs';
 import { FAMILY_EXPIRY } from '../rules/define.mjs';
 
@@ -54,7 +55,7 @@ export function writeBaselineReport({ ctx, results, verdict, baseline, treeInfo,
   L.push('');
   L.push('## 1. What this baseline means');
   L.push('');
-  L.push('The legacy tree is frozen and is known to be defective (chapter 13). This report does not say the data is acceptable; it records **today\'s known violations** so that CI can fail on any *new* violation, on any baseline entry that no longer occurs (a fix must delete exactly its entry), and on entries past their expiry. `E` rules fail the build on a new violation; `W` rules warn (`--strict` makes them fail). A rule that could not run is listed as SKIPPED and is never counted as clean: the ratchet FAILS on a non-deferred rule whose input is missing and on any baselined rule that did not run.');
+  L.push('The legacy tree is frozen and is known to be defective (chapter 13). This report does not say the data is acceptable; it records **today\'s known violations** so that CI can fail on any *new* violation and on any baseline entry that no longer occurs (a fix must delete exactly its entry); every entry also carries an expiry date that `tools/data/expiry.mjs` warns about 30 days ahead and fails after (the ratchet verdict itself does not depend on the date). `E` rules fail the build on a new violation; `W` rules warn (`--strict` makes them fail). A rule that could not run is listed as SKIPPED and is never counted as clean: the ratchet FAILS on a non-deferred rule whose input is missing and on any baselined rule that did not run.');
   L.push('');
   L.push('## 2. Rule results');
   L.push('');
@@ -92,13 +93,21 @@ export function writeBaselineReport({ ctx, results, verdict, baseline, treeInfo,
   L.push('### Where this suite differs from the specialist numbers (and why)');
   L.push('');
   const diffs = [
-    ['median rows per populated tick', 'true median of 188 ticks is 6.5; the chapter\'s 6 is the lower median'],
+    ['median rows per populated tick', (() => { const f = (rx) => sec2.find((x) => rx.test(x.fact)); const med = f(/^median rows per populated tick/), ticks = f(/^ticks with at least one row/); return `true median of ${ticks.measured} ticks is ${med.measured}; the chapter's ${med.expected} is the lower median`; })()],
     ['" -- " count', `the nine field groups the data-integrity report names add to 1,590 by its own figures (stated total 1,591); this suite reproduces 1,590. Rule X001 uses a wider, defined scope (all published prose plus successions, casualty notes and every commander fate): ${n(results.get('X001').violations.length)} occurrences`],
     ['S008 loose tick ranges', `the specialist counted 3 (ticks101_225, ticks601_675, ticks451_520); a fourth file, placements_day1_ticks51_100 (declared 51-100, first row at tick 52), is also loose: ${results.get('S008').violations.filter((v) => v.kind === 'tick_range_loose').length} measured`],
-    ['R002 wrong side', 'exactly 10 ids (state code contradicts prefix, twin exists); brigade/division-shaped ids that exist on both sides (U-I-2-3, C-CAV-2-1..3) are NOT flipped'],
+    ['R002 wrong side', `exactly ${crosswalk.wrong_side.length} ids (state code contradicts prefix, twin exists); brigade/division-shaped ids that exist on both sides (U-I-2-3, C-CAV-2-1..3) are NOT flipped`],
     ['R011 dual meaning', `the strict note-versus-commander rule finds ${new Set(results.get('R011').violations.map((v) => v.data.unit_id)).size} ids / ${results.get('R011').violations.length} rows (same kind, target exists); the specialist heuristic found 28 ids / 44 rows. The collision table in data-src/build/id_collisions.json widens the definition (a note that BEGINS with another formation's name at any level, parent/child cameos excluded, plus rows whose strength exceeds twice the record's) and reaches 28 ids, the audit's count; the membership was not diffed because the audit's CSV is not in the repository.`],
-    ['G003 speed caps', `${extras.g003_linear_over_cap} segments over the qa-ci DV-07 caps (infantry 150 / artillery 250 / cavalry 400 m per model-minute, segments over 300 m, snap:true exempt) on the linear clock the files declare (the specialist quotes 6${extras.g003_linear_over_cap === 6 ? ': reproduced' : ''}) and ${extras.g003_warped_over_cap ?? 'n/a'} on the unsigned warped-clock proposal (the specialist quotes 20${extras.g003_warped_over_cap === 20 ? ': reproduced' : '; not reproduced, the cause is not established because the proposal is unsigned and its interpolation was written for this suite'}). A day-seam pair (tick 225 to 226, 450 to 451) spans the night between the two ticks, not 5 minutes`],
-    ['C004 coverage', '248 real regiments + 66 batteries; the specialist 250 counts the alias stub and the horse battery filed as a regiment'],
+    ['G003 speed caps', (() => {
+      const cmp = compareKeySets(results.get('G003').violations.map((v) => v.key), SPECIALIST_DV07.keys);
+      const why = [...cmp.theirs_only, ...cmp.ours_only].map((k) => explainDv07Difference(ctx, k));
+      return `${extras.g003_linear_over_cap} segments over the qa-ci DV-07 caps (infantry 150 / artillery 250 / cavalry 400 m per model-minute, segments over 300 m, snap:true exempt) on the linear clock the files declare; the specialist lists ${SPECIALIST_DV07.keys.length} (${SPECIALIST_DV07.source}): ${cmp.sentence}${cmp.all_match ? '' : `; only in the specialist's list: ${cmp.theirs_only.join(', ') || 'none'}; only here: ${cmp.ours_only.join(', ') || 'none'}. ${why.join('. ')}. The specialist's DV-07 walks every raw row sorted by tick; this suite judges the merged track (one row per unit and tick, last writer wins)`}. On the unsigned warped-clock proposal this suite finds ${extras.g003_warped_over_cap ?? 'n/a'} (the specialist quotes 20${extras.g003_warped_over_cap === 20 ? ': same count, keys not compared' : '; not reproduced, the cause is not established because the proposal is unsigned and its interpolation was written for this suite'}). A day-seam pair (tick 225 to 226, 450 to 451) spans the night between the two ticks, not 5 minutes`;
+    })()],
+    ['C004 coverage', (() => {
+      const count = (kind) => results.get('C004').violations.filter((v) => v.kind === kind).length;
+      const records = sec2.find((x) => /^regiment records with no own placement/.test(x.fact))?.measured;
+      return `${count('regiment')} real regiments + ${count('battery')} batteries without an own placement; the specialist's ${records} counts the alias stub and the horse battery filed as a regiment`;
+    })()],
     ['N005 roll-ups', (() => {
       const v = results.get('N005').violations;
       const k = (kind) => v.filter((x) => x.kind === kind).length;
@@ -159,7 +168,7 @@ export function writeBaselineReport({ ctx, results, verdict, baseline, treeInfo,
   L.push('## 9. Baseline size');
   L.push('');
   const fp = Object.values(baseline.rules).reduce((a, r) => a + r.count, 0);
-  L.push(`${Object.keys(baseline.rules).length} rules carry ${n(fp)} fingerprints; expiry per family is a proposal (${expiryByDate()}) to be aligned with the roadmap gates. The baseline also records the catalogue of all ${(baseline.catalogue ?? []).length} registered rules: a rule that vanishes from the code fails the ratchet even if it had no entries.`);
+  L.push(`${Object.keys(baseline.rules).length} rules carry ${n(fp)} fingerprints; expiry per family is a proposal (${expiryByDate()}) to be aligned with the roadmap gates. The baseline also records the catalogue of all ${(baseline.catalogue ?? []).length} registered rules and each rule's severity and status (\`rule_state\`): a rule that vanishes from the code, is switched to deferred or is lowered from E to W fails the ratchet even if it had no entries.`);
   L.push('');
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, L.join('\n') + '\n', 'utf8');

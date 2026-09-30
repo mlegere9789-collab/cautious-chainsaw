@@ -142,11 +142,18 @@ test('validate.mjs: an unknown rule id and an empty --rules exit 2 with a messag
   assert.match(r.stdout, /PASS/);
 });
 
-test('validate.mjs is date-driven by design and --now pins it: the same tree passes on the pinned date and fails once the baselines expired', () => {
+test('validate.mjs does not depend on the date: the same tree passes on the pinned date and after every baseline expired, prints the expiry report, and only the explicit gates (--enforce-expiry, tools/data/expiry.mjs) fail on it', () => {
   assert.equal(run([VALIDATE, '--no-site', '--now', NOW]).status, 0);
   const late = run([VALIDATE, '--no-site', '--now', '2099-01-01']);
-  assert.equal(late.status, 1);
-  assert.match(late.stdout, /expired/);
+  assert.equal(late.status, 0, late.stdout.slice(-600));
+  assert.match(late.stdout, /EXPIRED: /, 'the expiry is visible, not silent');
+  assert.match(late.stdout, /tools\/data\/expiry\.mjs|expiry\.mjs/);
+  const enforced = run([VALIDATE, '--no-site', '--now', '2099-01-01', '--enforce-expiry']);
+  assert.equal(enforced.status, 1);
+  assert.match(enforced.stdout, /\[expired\]/);
+  const gate = run([path.join(REPO_ROOT, 'tools', 'data', 'expiry.mjs'), '--now', '2099-01-01']);
+  assert.equal(gate.status, 1, gate.stdout.slice(-300));
+  assert.equal(run([path.join(REPO_ROOT, 'tools', 'data', 'expiry.mjs'), '--now', NOW]).status, 0);
 });
 
 test('--rebaseline refuses a rule that did not run and --retire-rule refuses a live rule (each would silently delete baseline entries)', () => {
@@ -396,7 +403,7 @@ test('G003 caps are the qa-ci DV-07 caps by arm: infantry 150, artillery 250, ca
   assert.ok(!(await g003For(pair(u, 620, 621, 290))).some((x) => x.data.unit === u), 'under 300 m is never a teleport');
 });
 
-test('G003 on the frozen tree = the six DV-07 candidates of qa-ci and chapter 13; the arm comes from the OOB record; every measured seam pair spans the night', async () => {
+test('G003 on the frozen tree finds six DV-07 candidates (the count of qa-ci and chapter 13; five of the six keys qa-ci lists, see class_sweeps CS-19); the arm comes from the OOB record; every measured seam pair spans the night', async () => {
   const { results: res } = await runValidation({ only: ['G003'], site: false, now: NOW });
   assert.deepEqual(res.get('G003').violations.map((v) => v.key).sort(), ['C-7TN|9-14', 'C-I-3-1|548-549', 'C-I-3-3|550-551', 'U-20ME|264-265', 'U-8NY-CAV|3-4', 'U-I-2-2|52-53']);
   assert.equal(res.get('G003').violations.find((v) => v.key === 'U-8NY-CAV|3-4').kind, 'cavalry');

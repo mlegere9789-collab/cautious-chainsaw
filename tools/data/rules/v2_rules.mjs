@@ -46,6 +46,10 @@ export function monumentIssues(ctx) {
   return out;
 }
 
+const UNIT_INDEX_PATH = path.join(REPO_ROOT, 'data-src', 'build', 'unit_index.json');
+const UNIT_REGISTRY_PATH = path.join(REPO_ROOT, 'data-src', 'build', 'unit_registry.json');
+const U001_PAGES = ['search.html', 'regiment.html', 'find-ancestor.html', 'historian.html', 'report.html'];
+
 export const rules = [
   defineRule({
     id: 'D002', sev: 'E', family: 'release', tier: 'v2', wp: 'WP-DATA-02', status: 'implemented', dv: ['DV-29'],
@@ -65,7 +69,7 @@ export const rules = [
     },
   }),
   defineRule({
-    id: 'M001', sev: 'E', family: 'v2', tier: 'v2', wp: 'WP-DATA-15', status: 'implemented', dv: ['DV-19'],
+    id: 'M001', site: true, sev: 'E', family: 'v2', tier: 'v2', wp: 'WP-DATA-15', status: 'implemented', dv: ['DV-19'],
     title: 'monuments: 512 unique numbers, coordinates in extent, none within 3 m, mn present and unique, id_src present, no header fragments, no _note key',
     scope: 'the 512-monument array extracted from the bundle (acorn) + monuments.json',
     spec_baseline: '503 unsourced; 51 blank mn; MN 96 duplicated; 28 outside the bbox; #512 text corrupted; identical coordinate pairs',
@@ -83,28 +87,27 @@ export const rules = [
     run() { return null; },
   }),
   defineRule({
-    id: 'U001', sev: 'E', family: 'v2', tier: 'v2', wp: 'WP-DATA-20', status: 'implemented', dv: [],
+    id: 'U001', site: true, sev: 'E', family: 'v2', tier: 'v2', wp: 'WP-DATA-20', status: 'implemented', dv: [],
     title: 'unit-index coverage: every registered unit is searchable (index rows == facts.units.total) and the ordinary static pages load the artillery files',
     scope: 'data-src/build/unit_index.json + 5 static pages',
     spec_baseline: '0 of 104 batteries searchable; search/regiment/find-ancestor/historian/report read only .regiments',
     run(ctx) {
+      // Both halves are the rule. An input that is missing means the half that reads it did not run: the rule did not run (null), it is
+      // never "ok". (Deleting unit_index.json / unit_registry.json used to skip the whole index half and leave U001 green.)
+      const idx = readJsonIfExists(UNIT_INDEX_PATH);
+      const reg = readJsonIfExists(UNIT_REGISTRY_PATH);
+      if (!idx || !reg) return null;
+      if (!Array.isArray(idx.units) || !Array.isArray(reg.units)) throw new Error('unit_index.json / unit_registry.json have no "units" array');
+      if (!ctx.distText || ctx.distText.size === 0) return ctx.siteDisabled ? notApplicable('site scans disabled (distDir: null)') : null;
+      if (U001_PAGES.some((page) => !ctx.distText.has(page))) return null; // a page the rule names is not in the deploy tree
       const out = [];
-      const idxPath = path.join(REPO_ROOT, 'data-src', 'build', 'unit_index.json');
-      const regPath = path.join(REPO_ROOT, 'data-src', 'build', 'unit_registry.json');
-      if (fs.existsSync(idxPath) && fs.existsSync(regPath)) {
-        const idx = JSON.parse(fs.readFileSync(idxPath, 'utf8'));
-        const reg = JSON.parse(fs.readFileSync(regPath, 'utf8'));
-        const inIdx = new Set(idx.units.map((u) => u.id));
-        for (const u of reg.units) if (!inIdx.has(u.id)) out.push(V(`index|${u.id}`, `${u.id} is in the registry but not in the unit index`, { kind: 'not_indexed' }));
-        if (idx.units.length !== reg.units.length) out.push(V('index|count', `index has ${idx.units.length} units, registry ${reg.units.length}`, { kind: 'count' }));
-      }
-      if (ctx.distText && ctx.distText.size) {
-        for (const page of ['search.html', 'regiment.html', 'find-ancestor.html', 'historian.html', 'report.html']) {
-          const t = ctx.distText.get(page);
-          if (!t) continue;
-          const loadsArtillery = /union_artillery\.json/.test(t) && /confederate_artillery\.json/.test(t);
-          if (!loadsArtillery) out.push(V(`page|${page}`, `${page} does not load union_artillery.json / confederate_artillery.json: batteries are invisible`, { kind: 'batteries_invisible', file: page }));
-        }
+      const inIdx = new Set(idx.units.map((u) => u.id));
+      for (const u of reg.units) if (!inIdx.has(u.id)) out.push(V(`index|${u.id}`, `${u.id} is in the registry but not in the unit index`, { kind: 'not_indexed' }));
+      if (idx.units.length !== reg.units.length) out.push(V('index|count', `index has ${idx.units.length} units, registry ${reg.units.length}`, { kind: 'count' }));
+      for (const page of U001_PAGES) {
+        const t = ctx.distText.get(page);
+        const loadsArtillery = /union_artillery\.json/.test(t) && /confederate_artillery\.json/.test(t);
+        if (!loadsArtillery) out.push(V(`page|${page}`, `${page} does not load union_artillery.json / confederate_artillery.json: batteries are invisible`, { kind: 'batteries_invisible', file: page }));
       }
       return out;
     },

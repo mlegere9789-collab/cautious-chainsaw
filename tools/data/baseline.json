@@ -1,13 +1,357 @@
 {
   "schema": "gtbg/data-baseline/1",
   "generated": "2026-09-30",
-  "note": "Ratchet baseline of KNOWN violations in the legacy tree. CI (tools/data/validate.mjs) fails on new violations, on entries that no longer occur (delete them with --tighten), and on entries past their expiry. Never add an entry by hand: use --rebaseline <RULE> --reason \"...\", which logs to history.",
+  "note": "Ratchet baseline of KNOWN violations in the legacy tree. CI (tools/data/validate.mjs) fails on new violations, on entries that no longer occur (delete them with --tighten), and on a rule that stops running (catalogue, rule_state). Entries carry an expiry: tools/data/expiry.mjs warns 30 days before it and fails after it (renew with --renew <RULE> --until <date> --reason \"...\"). Never add an entry by hand: use --rebaseline <RULE> --reason \"...\", which logs to history.",
   "data": {
     "dir": "legacy/dist/data",
     "files": 71,
     "bytes": 824704,
     "content_sha256": "7c767baa7f7855f944718da9172d4742b7066cdf75f7aa9356ee80a86a1487c8",
     "data_version": "0.9.0"
+  },
+  "catalogue": [
+    "S001",
+    "S002",
+    "S003",
+    "S004",
+    "S005",
+    "S006",
+    "S007",
+    "S008",
+    "R001",
+    "R002",
+    "R003",
+    "R004",
+    "R005",
+    "R006",
+    "R007",
+    "R008",
+    "R009",
+    "R010",
+    "R011",
+    "C001",
+    "C002",
+    "C003",
+    "C004",
+    "C005",
+    "G001",
+    "G002",
+    "G003",
+    "G004",
+    "G005",
+    "G006",
+    "G007",
+    "G008",
+    "N001",
+    "N002",
+    "N003",
+    "N004",
+    "N005",
+    "N006",
+    "N007",
+    "N008",
+    "N009",
+    "N010",
+    "T001",
+    "T002",
+    "T003",
+    "T004",
+    "T005",
+    "X001",
+    "X002",
+    "X003",
+    "X004",
+    "X005",
+    "X006",
+    "X007",
+    "P001",
+    "P002",
+    "P003",
+    "P004",
+    "F001",
+    "F002",
+    "K001",
+    "L001",
+    "D001",
+    "D002",
+    "M001",
+    "E001",
+    "U001",
+    "H001"
+  ],
+  "rule_state": {
+    "S001": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "S002": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "S003": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "S004": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "S005": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "S006": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "S007": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "S008": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "R001": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "R002": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "R003": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "R004": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "R005": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "R006": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "R007": {
+      "sev": "E",
+      "status": "partial"
+    },
+    "R008": {
+      "sev": "E",
+      "status": "partial"
+    },
+    "R009": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "R010": {
+      "sev": "W",
+      "status": "implemented"
+    },
+    "R011": {
+      "sev": "W",
+      "status": "partial"
+    },
+    "C001": {
+      "sev": "E",
+      "status": "partial"
+    },
+    "C002": {
+      "sev": "W",
+      "status": "implemented"
+    },
+    "C003": {
+      "sev": "E",
+      "status": "partial"
+    },
+    "C004": {
+      "sev": "W",
+      "status": "implemented"
+    },
+    "C005": {
+      "sev": "E",
+      "status": "deferred"
+    },
+    "G001": {
+      "sev": "E",
+      "status": "deferred"
+    },
+    "G002": {
+      "sev": "E",
+      "status": "partial"
+    },
+    "G003": {
+      "sev": "W",
+      "status": "partial"
+    },
+    "G004": {
+      "sev": "W",
+      "status": "implemented"
+    },
+    "G005": {
+      "sev": "W",
+      "status": "implemented"
+    },
+    "G006": {
+      "sev": "W",
+      "status": "implemented"
+    },
+    "G007": {
+      "sev": "W",
+      "status": "implemented"
+    },
+    "G008": {
+      "sev": "W",
+      "status": "partial"
+    },
+    "N001": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "N002": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "N003": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "N004": {
+      "sev": "W",
+      "status": "implemented"
+    },
+    "N005": {
+      "sev": "W",
+      "status": "partial"
+    },
+    "N006": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "N007": {
+      "sev": "E",
+      "status": "partial"
+    },
+    "N008": {
+      "sev": "E",
+      "status": "deferred"
+    },
+    "N009": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "N010": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "T001": {
+      "sev": "E",
+      "status": "partial"
+    },
+    "T002": {
+      "sev": "E",
+      "status": "partial"
+    },
+    "T003": {
+      "sev": "W",
+      "status": "partial"
+    },
+    "T004": {
+      "sev": "E",
+      "status": "partial"
+    },
+    "T005": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "X001": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "X002": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "X003": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "X004": {
+      "sev": "W",
+      "status": "partial"
+    },
+    "X005": {
+      "sev": "W",
+      "status": "partial"
+    },
+    "X006": {
+      "sev": "W",
+      "status": "implemented"
+    },
+    "X007": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "P001": {
+      "sev": "W",
+      "status": "partial"
+    },
+    "P002": {
+      "sev": "E",
+      "status": "partial"
+    },
+    "P003": {
+      "sev": "W",
+      "status": "partial"
+    },
+    "P004": {
+      "sev": "W",
+      "status": "deferred"
+    },
+    "F001": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "F002": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "K001": {
+      "sev": "E",
+      "status": "partial"
+    },
+    "L001": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "D001": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "D002": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "M001": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "E001": {
+      "sev": "E",
+      "status": "deferred"
+    },
+    "U001": {
+      "sev": "E",
+      "status": "implemented"
+    },
+    "H001": {
+      "sev": "E",
+      "status": "deferred"
+    }
   },
   "history": [
     {
@@ -22,6 +366,12 @@
       "date": "2026-09-30",
       "action": "tighten",
       "removed": 0
+    },
+    {
+      "date": "2026-09-30",
+      "action": "init-baseline",
+      "forced": true,
+      "note": "rebuilt from the code and the tree: catalogue and rule_state re-recorded"
     }
   ],
   "rules": {
@@ -7017,75 +7367,5 @@
         "page|search.html"
       ]
     }
-  },
-  "catalogue": [
-    "S001",
-    "S002",
-    "S003",
-    "S004",
-    "S005",
-    "S006",
-    "S007",
-    "S008",
-    "R001",
-    "R002",
-    "R003",
-    "R004",
-    "R005",
-    "R006",
-    "R007",
-    "R008",
-    "R009",
-    "R010",
-    "R011",
-    "C001",
-    "C002",
-    "C003",
-    "C004",
-    "C005",
-    "G001",
-    "G002",
-    "G003",
-    "G004",
-    "G005",
-    "G006",
-    "G007",
-    "G008",
-    "N001",
-    "N002",
-    "N003",
-    "N004",
-    "N005",
-    "N006",
-    "N007",
-    "N008",
-    "N009",
-    "N010",
-    "T001",
-    "T002",
-    "T003",
-    "T004",
-    "T005",
-    "X001",
-    "X002",
-    "X003",
-    "X004",
-    "X005",
-    "X006",
-    "X007",
-    "P001",
-    "P002",
-    "P003",
-    "P004",
-    "F001",
-    "F002",
-    "K001",
-    "L001",
-    "D001",
-    "D002",
-    "M001",
-    "E001",
-    "U001",
-    "H001"
-  ]
+  }
 }

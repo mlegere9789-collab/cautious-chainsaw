@@ -35,6 +35,20 @@ export async function catalogueIds() {
   return (await loadAllRules()).map((r) => r.id).sort((a, b) => ruleSortKey(a) - ruleSortKey(b));
 }
 
+/** Ids of the rules that read the deploy tree or the bundle (flag `site: true` on the rule; `validate.mjs --no-site` leaves them out). */
+export async function siteRuleIds() {
+  return (await loadAllRules()).filter((r) => r.site).map((r) => r.id).sort((a, b) => ruleSortKey(a) - ruleSortKey(b));
+}
+
+/**
+ * { id: { sev, status } } for every registered rule. tools/data/baseline.json records this as `rule_state` when it is written; the
+ * ratchet fails a rule that was running and is `deferred` now, and an E rule that became W (a rule is not switched off or softened by
+ * editing one word: `validate.mjs --accept-rule-change ID --reason "..."` records the change in the baseline history).
+ */
+export async function ruleStates() {
+  return Object.fromEntries((await loadAllRules()).sort((a, b) => ruleSortKey(a.id) - ruleSortKey(b.id)).map((r) => [r.id, { sev: r.sev, status: r.status }]));
+}
+
 export function ruleSortKey(id) {
   const m = id.match(/^([A-Z]+)(\d+)$/);
   const order = ['S', 'R', 'C', 'G', 'N', 'T', 'X', 'P', 'F', 'K', 'L', 'D', 'M', 'E', 'U', 'H'];

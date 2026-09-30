@@ -207,7 +207,8 @@ test('site-level rules: F001, F002, K001, R008 and U001 flag seeded deploy fixtu
 });
 
 test('U001: a page that starts loading the artillery files makes its baseline entry stale', async () => {
-  const dist = fixtureDist({ 'search.html': "fetch('/data/oob/union_artillery.json'); fetch('/data/oob/confederate_artillery.json');" });
+  // the five pages U001 names must all be in the deploy tree (a missing page is "input not available", not a skipped check)
+  const dist = fixtureDist({ 'search.html': "fetch('/data/oob/union_artillery.json'); fetch('/data/oob/confederate_artillery.json');", 'regiment.html': 'x', 'find-ancestor.html': 'x', 'historian.html': 'x', 'report.html': 'x' });
   try {
     const { results } = await runValidation({ data: clone(), site: false, ctxOpts: { distDir: dist, bundlePath: null }, now: NOW, only: ['U001'] });
     const v = evaluateRatchet(results, baselineFor('U001'), { now: NOW });

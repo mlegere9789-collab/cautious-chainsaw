@@ -2,10 +2,14 @@
 // baseline report can show expected-versus-measured side by side. Every "expected" value is quoted from the chapter.
 import { fileGroups } from './load.mjs';
 import { haversineM, MPH_PER_MS } from './util.mjs';
-import { segmentsOf, placementCensus } from '../rules/coverage_rules.mjs';
+import { segmentsOf, placementCensus, MOVING_M, STATIONARY_M } from '../rules/coverage_rules.mjs';
+import { tickModel } from './facts.mjs';
 import { speedsOf, linearClock } from '../rules/geometry_rules.mjs';
 import { walkStrings } from './util.mjs';
 import { unionCasualtySums } from '../rules/numbers_rules.mjs';
+
+/** The ticks chapter 13 section 2.3 probes for "units inside their evidence window" (query parameters of the measurement, not counts). */
+const WINDOW_PROBES = [1, 100, 300, 450, 538, 550, 600, 675];
 
 const median = (a) => { const s = [...a].sort((x, y) => x - y); const m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
 
@@ -19,23 +23,29 @@ export function measureSection2(ctx, { crosswalk, registry }) {
   const files = [...ctx.data.files.values()];
   add('inventory', 'JSON files', 71, files.length, 'ch13 2.1');
   add('inventory', 'bytes', 824704, files.reduce((a, f) => a + f.bytes, 0), 'ch13 2.1');
-  // placements
-  const ticks = new Set(rows.map((r) => r.tick));
+  // placements. The tick model (days and their tick ranges) is the one the chronology files declare (facts.mjs tickModel): a row outside it
+  // fills none of its ticks, so it is not counted as a populated tick (same rule as facts.placements.ticks_with_rows).
+  const tm = tickModel(ctx);
+  const dayOf = (t) => (tm.day_ranges ? tm.day_ranges.findIndex(([a, b]) => Number.isInteger(t) && t >= a && t <= b) : -1);
+  const inModel = (t) => (tm.day_ranges ? dayOf(t) >= 0 : true);
+  const ticks = new Set(rows.map((r) => r.tick).filter(inModel));
   const perTick = new Map();
-  for (const r of rows) perTick.set(r.tick, (perTick.get(r.tick) || 0) + 1);
+  for (const r of rows) if (inModel(r.tick)) perTick.set(r.tick, (perTick.get(r.tick) || 0) + 1);
   add('placements', 'placement rows (placements_*)', 694, rows.filter((r) => r.group === 'placements').length, 'ch13 2.1');
   add('placements', 'density rows (density_*)', 1110, rows.filter((r) => r.group === 'density').length, 'ch13 2.1');
   add('placements', 'unique (unit,tick) keys', 1687, ctx.perKey.size, 'ch13 2.1');
   add('placements', 'ticks with at least one row', 188, ticks.size, 'ch13 2.1');
-  const byDay = [0, 0, 0];
-  for (const t of ticks) byDay[t <= 225 ? 0 : t <= 450 ? 1 : 2]++;
-  add('placements', 'populated ticks by day (1/2/3)', '59/72/57', byDay.join('/'), 'ch13 2.1');
+  const byDay = (tm.day_ranges ?? []).map(() => 0);
+  for (const t of ticks) byDay[dayOf(t)]++;
+  add('placements', 'populated ticks by day (1/2/3)', '59/72/57', tm.day_ranges ? byDay.join('/') : 'n/a (no tick model)', 'ch13 2.1');
   add('placements', 'median rows per populated tick', 6, median([...perTick.values()]), 'ch13 2.1');
   add('placements', 'max rows at one tick', 87, Math.max(...perTick.values()), 'ch13 2.1');
   // OOB
   const bk = oob.byKind;
+  // the regiment-filed records (regiments, the alias stub, and the horse battery filed among them): derived once, reused wherever a count needs it
+  const regimentRecords = (bk.regiment || 0) + oob.list.filter((r) => r.kind === 'battery' && r.filed_as === 'regiment').length;
   add('oob', 'distinct OOB ids (excluding the army record)', 728, oob.records.size - (bk.army || 0), 'ch13 2.1');
-  add('oob', 'regiment records (regiment + the horse battery filed as one)', 467, (bk.regiment || 0) + oob.list.filter((r) => r.kind === 'battery' && r.filed_as === 'regiment').length, 'ch13 2.1');
+  add('oob', 'regiment records (regiment + the horse battery filed as one)', 467, regimentRecords, 'ch13 2.1');
   add('oob', 'union / confederate regiment records', '274/193', `${oob.list.filter((r) => (r.kind === 'regiment' || r.filed_as === 'regiment') && r.side === 'union').length}/${oob.list.filter((r) => (r.kind === 'regiment' || r.filed_as === 'regiment') && r.side === 'confederate').length}`, 'ch13 2.1');
   add('oob', 'battery records (excluding the one filed as a regiment)', 103, oob.list.filter((r) => r.kind === 'battery' && r.filed_as !== 'regiment').length, 'ch13 2.1');
   add('oob', 'brigades / divisions / corps', '93/31/11', `${bk.brigade}/${bk.division}/${bk.corps}`, 'ch13 2.1');
@@ -53,24 +63,26 @@ export function measureSection2(ctx, { crosswalk, registry }) {
   add('identity', 'wrong-side ids (U- prefix, Confederate regiment)', 10, crosswalk.wrong_side.length, 'ch13 2.1');
   // coverage
   const c = placementCensus(ctx);
-  add('coverage', 'regiments with an own placement (of 465)', 217, c.regimentsOwn, 'ch13 DQ-2');
-  add('coverage', 'batteries with an own placement (of 104)', 38, c.batteriesOwn, 'ch13 DQ-2');
+  add('coverage', `regiments with an own placement (of ${c.regimentsTotal})`, 217, c.regimentsOwn, 'ch13 DQ-2');
+  add('coverage', `batteries with an own placement (of ${c.batteriesTotal})`, 38, c.batteriesOwn, 'ch13 DQ-2');
   add('coverage', 'batteries never placed', 66, c.batteriesTotal - c.batteriesOwn, 'ch13 2.1 (65 of the 103 + the misfiled one)');
-  add('coverage', 'regiment records with no own placement (467 - 217)', 250, 467 - c.regimentsOwn, 'ch13 2.1', 'the 250 counts the alias stub and the horse battery filed as a regiment; 248 real regiments');
+  const unplacedRecords = regimentRecords - c.regimentsOwn;
+  add('coverage', 'regiment records with no own placement (regiment records minus regiments with an own placement)', 250, unplacedRecords, 'ch13 2.1', `the ${unplacedRecords} counts the alias stub and the horse battery filed as a regiment; ${c.regimentsTotal - c.regimentsOwn} real regiments`);
   // successions / references
   add('references', 'VI Corps: regiments pointing at missing brigades', 36, oob.list.filter((r) => r.kind === 'regiment' && /^U-VI-/.test(r.raw.parent_brigade_id || '') && !oob.records.has(r.raw.parent_brigade_id)).length, 'ch13 2.2');
   add('references', 'VI Corps: distinct missing brigade ids', 8, new Set(oob.list.filter((r) => r.kind === 'regiment' && /^U-VI-/.test(r.raw.parent_brigade_id || '') && !oob.records.has(r.raw.parent_brigade_id)).map((r) => r.raw.parent_brigade_id)).size, 'ch13 2.2');
   // motion
   const segs = segmentsOf(ctx);
   add('motion', 'consecutive keyframe pairs', 1209, segs.length, 'ch13 2.3');
-  add('motion', 'stationary (< 30 m)', 274, segs.filter((s) => s.d < 30).length, 'ch13 2.3');
-  add('motion', 'drift (30-250 m)', 345, segs.filter((s) => s.d >= 30 && s.d <= 250).length, 'ch13 2.3');
-  add('motion', 'moving (> 250 m)', 590, segs.filter((s) => s.d > 250).length, 'ch13 2.3');
+  add('motion', `stationary (< ${STATIONARY_M} m)`, 274, segs.filter((s) => s.d < STATIONARY_M).length, 'ch13 2.3');
+  add('motion', `drift (${STATIONARY_M}-${MOVING_M} m)`, 345, segs.filter((s) => s.d >= STATIONARY_M && s.d <= MOVING_M).length, 'ch13 2.3');
+  add('motion', `moving (> ${MOVING_M} m)`, 590, segs.filter((s) => s.d > MOVING_M).length, 'ch13 2.3');
   add('motion', 'pairs spanning more than one tick', 1116, segs.filter((s) => s.dt > 1).length, 'ch13 2.3');
   add('motion', 'units with a single keyframe', 173, [...ctx.merged.values()].filter((l) => l.length === 1).length, 'ch13 2.3');
-  add('motion', 'units whose last keyframe is on Day 1', 153, [...ctx.merged.values()].filter((l) => l[l.length - 1].tick <= 225).length, 'ch13 2.3');
+  const day1End = tm.day_ranges ? tm.day_ranges[0][1] : null;
+  add('motion', 'units whose last keyframe is on Day 1', 153, day1End === null ? 'n/a (no tick model)' : [...ctx.merged.values()].filter((l) => l[l.length - 1].tick <= day1End).length, 'ch13 2.3');
   const win = (t) => [...ctx.merged.values()].filter((l) => l[0].tick <= t && t <= l[l.length - 1].tick).length;
-  add('motion', 'units inside their evidence window at t1/t100/t300/t450/t538/t550/t600/t675', '71/91/114/125/99/85/68/21', [1, 100, 300, 450, 538, 550, 600, 675].map(win).join('/'), 'ch13 2.3');
+  add('motion', `units inside their evidence window at ${WINDOW_PROBES.map((t) => `t${t}`).join('/')}`, '71/91/114/125/99/85/68/21', WINDOW_PROBES.map(win).join('/'), 'ch13 2.3');
   // conflicts
   const conflicting = ctx.conflicts.filter((c2) => ['lat', 'lng', 'disposition', 'strength'].some((f) => c2.rows.some((r) => r[f] !== c2.rows[0][f])));
   add('conflicts', 'duplicate (unit,tick) keys', 103, ctx.conflicts.length, 'ch13 5 / DI 3.1');

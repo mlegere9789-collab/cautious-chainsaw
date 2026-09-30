@@ -39,7 +39,7 @@ export function retiredLiteralHits(ctx) {
 
 export const rules = [
   defineRule({
-    id: 'F001', sev: 'E', family: 'facts', wp: 'WP-DATA-19', status: 'implemented', dv: ['DV-11', 'DV-23'],
+    id: 'F001', site: true, sev: 'E', family: 'facts', wp: 'WP-DATA-19', status: 'implemented', dv: ['DV-11', 'DV-23'],
     title: 'retired count/total literals (467, 445+, 51,000, "467 regiments and batteries", 28,000) are not typed into pages or data',
     scope: 'legacy/dist html + manifest + Help chunk + data strings', spec_baseline: '>= 30 literal occurrences (DI section 7: 467 x10, 445+ x1, 51,000 x6 ...)',
     note: 'The banned list is data-src/policy/retired_literals.json; the values that replace them come from data-src/build/facts.json.',
@@ -49,7 +49,7 @@ export const rules = [
     },
   }),
   defineRule({
-    id: 'F002', sev: 'E', family: 'facts', wp: 'WP-DATA-19', status: 'implemented', dv: [],
+    id: 'F002', site: true, sev: 'E', family: 'facts', wp: 'WP-DATA-19', status: 'implemented', dv: [],
     title: 'every {{facts.path}} token resolves in facts.json', scope: 'legacy/dist text, data-src/**/*.{md,html,json}',
     spec_baseline: 'n/a (no tokens exist yet)',
     run(ctx) {
@@ -76,7 +76,7 @@ export const rules = [
     },
   }),
   defineRule({
-    id: 'K001', sev: 'E', family: 'corpus', wp: 'WP-DATA-17', status: 'partial', dv: [],
+    id: 'K001', site: true, sev: 'E', family: 'corpus', wp: 'WP-DATA-17', status: 'partial', dv: [],
     title: 'every field a page reads from a dataset exists in that dataset\'s schema (kills the chronology e.title drift)',
     scope: 'legacy/dist html (for...of loops over .regiments/.vignettes/.events/.key_locations)',
     spec_baseline: '1 (Historian chronology reads e.title/e.description; the rows have event/narrative)',

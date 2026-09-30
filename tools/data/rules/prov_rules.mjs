@@ -78,7 +78,7 @@ export function provenanceCoverage(ctx) {
 
 export const rules = [
   defineRule({
-    id: 'P001', sev: 'W', family: 'provenance', wp: 'WP-DATA-04', status: 'partial', dv: ['DV-24'],
+    id: 'P001', site: true, sev: 'W', family: 'provenance', wp: 'WP-DATA-04', status: 'partial', dv: ['DV-24'],
     title: 'published records carry at least one source that resolves in the source registry (>= 95 % per class)', scope: 'all record classes',
     spec_baseline: 'about 1 % (42 successions + 9 + 9 monuments)', metric: true,
     note: 'partial: no source registry exists yet, so "carries a per-record source string" is the measure; every such string is claimed_only (chapter 13 WP-DATA-04).',
@@ -115,7 +115,7 @@ export const rules = [
     },
   }),
   defineRule({
-    id: 'L001', sev: 'E', family: 'provenance', wp: 'WP-DATA-04', status: 'implemented', dv: [],
+    id: 'L001', site: true, sev: 'E', family: 'provenance', wp: 'WP-DATA-04', status: 'implemented', dv: [],
     title: 'rights-tier gate: no Tier C claimed source and no Tier B without attribution on shipped rows (legacy rows must be in the retro-audit)',
     scope: 'row-level source claims (monuments.json + the bundle monument array)',
     spec_baseline: 'exactly the 18 legacy coordinates: 8 Stone Sentinels, 4 HMDB, 6 Wikipedia (WP-HIST-02 test)',

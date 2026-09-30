@@ -6,6 +6,12 @@ import { loadAllRules, ruleSortKey } from '../rules/index.mjs';
  */
 export async function runRules(ctx, { only = null } = {}) {
   const rules = (await loadAllRules()).sort((a, b) => ruleSortKey(a.id) - ruleSortKey(b.id));
+  // judging zero rules is not a pass: an empty or unknown selection is an error here, for every caller (CLI, report, tests)
+  if (only !== null) {
+    if (!Array.isArray(only) || only.length === 0) throw new Error('runRules: `only` selects no rule; judging zero rules is not a pass');
+    const unknown = only.filter((id) => !rules.some((r) => r.id === id));
+    if (unknown.length) throw new Error(`runRules: unknown rule id ${unknown.join(', ')}`);
+  }
   const results = new Map();
   for (const rule of rules) {
     if (only && !only.includes(rule.id)) continue;

@@ -86,7 +86,7 @@ export const rules = [
     id: 'G003', sev: 'W', family: 'geometry', wp: 'WP-DATA-11', status: 'partial', dv: ['DV-07'],
     title: 'implied speed between consecutive keyframes <= cap by arm (qa-ci DV-07: infantry 150 / artillery 250 / cavalry 400 m per model-minute, segments > 300 m, snap:true exempt)', scope: 'tracks',
     spec_baseline: '20 on the warped clock, 6 on the 5-minute clock (DI, qa-ci DV-07)',
-    note: 'partial: runs on the linear clock the files declare (5:00 am at the first tick of each day, 5 min per tick, so a day-seam pair spans the night) as W (chapter 13 WP-03 point 4); the warped-clock count is an informational metric only. Arm comes from the OOB record, not from the id text.',
+    note: 'partial: runs on the linear clock the files declare (5:00 am at the first tick of each day, 5 min per tick, so a day-seam pair spans the night) as W (chapter 13 WP-03 point 4); the warped-clock count is an informational metric only. Arm comes from the OOB record, not from the id text. Same count as the specialist (6), not the same keys: 5 of the 6 listed keys match; the sixth differs because a duplicate (unit,tick) key is resolved last-writer-wins here and by raw row there (baseline report, section 3).',
     run(ctx) {
       const out = [];
       for (const s of speedsOf(ctx, linearClock)) {

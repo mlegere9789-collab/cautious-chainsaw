@@ -30,11 +30,16 @@ export function defineRule(meta) {
   for (const k of required) if (!(k in meta)) throw new Error(`rule ${meta.id ?? '?'} missing ${k}`);
   if (!['E', 'W'].includes(meta.sev)) throw new Error(`rule ${meta.id}: bad severity`);
   if (!['implemented', 'partial', 'deferred'].includes(meta.status)) throw new Error(`rule ${meta.id}: bad status`);
+  // a deferred rule judges nothing: it must say what blocks it (the runner prints it as the SKIPPED reason)
+  if (meta.status === 'deferred' && !(typeof meta.blocked_by === 'string' && meta.blocked_by.trim())) throw new Error(`rule ${meta.id}: status deferred needs blocked_by`);
   return {
     dv: [],
     tier: 'core', // core (60) | v2 (8)
     spec_baseline: '',
     blocked_by: null,
+    // true = the rule reads the deploy tree (legacy/dist html, js) or the bundle: `validate.mjs --no-site` leaves it out. The list of such
+    // rules is DERIVED from this flag (it used to be typed in validate.mjs); tests sweep every rule with the site switched off to keep it honest.
+    site: false,
     metric: false,
     expires: FAMILY_EXPIRY[meta.family],
     ...meta,

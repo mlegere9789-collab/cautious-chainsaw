@@ -333,7 +333,7 @@ export const rules = [
     },
   }),
   defineRule({
-    id: 'R008', sev: 'E', family: 'refs', wp: 'WP-DATA-20', status: 'partial', dv: [],
+    id: 'R008', site: true, sev: 'E', family: 'refs', wp: 'WP-DATA-20', status: 'partial', dv: [],
     title: 'every deep link a page generates uses a query parameter the map app actually reads',
     scope: 'legacy/dist html + bundle (static text scan)',
     spec_baseline: '521 search links + 24 vignette links + share links unread (the app reads only ?ancestor)',

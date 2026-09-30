@@ -1,7 +1,7 @@
 // Programmatic entry point (used by the CLI, the report generator and the tests).
 import { buildContext } from './context.mjs';
 import { runRules } from './runner.mjs';
-import { DEFAULT_DATA_DIR, isoDate } from './util.mjs';
+import { DEFAULT_DATA_DIR } from './util.mjs';
 
 /**
  * @param {object} o
@@ -10,7 +10,7 @@ import { DEFAULT_DATA_DIR, isoDate } from './util.mjs';
  * @param {string[]|null} [o.only] rule ids
  * @param {boolean} [o.site]       false = skip html/bundle scans
  */
-export async function runValidation({ dataDir = DEFAULT_DATA_DIR, now = isoDate(), only = null, site = true, data = null, ctxOpts = {} } = {}) {
+export async function runValidation({ dataDir = DEFAULT_DATA_DIR, now = null, only = null, site = true, data = null, ctxOpts = {} } = {}) {
   const ctx = buildContext({ dataDir, now, data, ...(site ? {} : { bundlePath: null, distDir: null }), ...ctxOpts });
   const { rules, results } = await runRules(ctx, { only });
   return { ctx, rules, results };

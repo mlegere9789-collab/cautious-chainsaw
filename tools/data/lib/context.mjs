@@ -35,7 +35,7 @@ function readDistText(distDir) {
  * @param {object} [opts.data]       pre-loaded data (tests, seeded defects)
  * @param {string|null} [opts.bundlePath] pretty bundle for embedded datasets; null disables
  * @param {string|null} [opts.distDir]    deploy root for site-text rules (F001/R008/K001); null disables
- * @param {string} [opts.now]        ISO date used for baseline expiry
+ * @param {string} [opts.now]        the caller's ISO date, if it has one. No rule reads it: a rule's verdict never depends on the date (tests sweep this), and the context never reads the wall clock.
  */
 export function buildContext(opts = {}) {
   const dataDir = opts.dataDir ?? DEFAULT_DATA_DIR;
@@ -96,7 +96,7 @@ export function buildContext(opts = {}) {
 
   return {
     opts,
-    now: opts.now ?? new Date().toISOString().slice(0, 10),
+    now: opts.now ?? null,
     data, dataDir, oob, rows, rowsByUnit, merged, conflicts, perKey,
     terrain, extent,
     distDir, distText,

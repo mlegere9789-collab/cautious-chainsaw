@@ -42,7 +42,12 @@ export function buildFacts(ctx, registry, crosswalk, { contentSha256 = null, dat
   const placedResolved = [...placedIds].filter((id) => oob.records.has(id));
   const placedByKind = {};
   for (const id of placedResolved) { const r = oob.records.get(id); const key = r.kind === 'battery' && r.horse_artillery ? 'horse_battery' : r.kind; placedByKind[key] = (placedByKind[key] || 0) + 1; }
-  const ticksWithRows = new Set(ctx.rows.map((r) => r.tick));
+  const ticks = tickModel(ctx);
+  // a tick "has rows" only if it is one of the ticks the model declares: a row at tick 9999 (or 2.5, or "7") fills none of them
+  const inTickModel = (t) => Number.isInteger(t) && Boolean(ticks.day_ranges?.some(([a, b]) => t >= a && t <= b));
+  const rowTicks = new Set(ctx.rows.map((r) => r.tick));
+  const ticksWithRows = new Set([...rowTicks].filter(inTickModel));
+  const rowsOutsideTickModel = ticks.total === null ? null : ctx.rows.filter((r) => !inTickModel(r.tick)).length;
   const sums = unionCasualtySums(ctx);
   const auth = ctx.authorities;
   const navItems = distTextCount(ctx, 'site-nav.js', /\{\s*id:\s*'/g);
@@ -53,7 +58,6 @@ export function buildFacts(ctx, registry, crosswalk, { contentSha256 = null, dat
     return m ? (m[1].match(/<a href=/g) || []).length : null;
   })();
   const regs = registry.census;
-  const ticks = tickModel(ctx);
   // OOB record partitions, derived (never typed): regiment-filed records (incl. the alias stub and the horse battery filed among the
   // regiments) and batteries filed as batteries; together they are `records`
   const regimentRecords = oob.list.filter((r) => r.filed_as === 'regiment').length;
@@ -118,8 +122,10 @@ export function buildFacts(ctx, registry, crosswalk, { contentSha256 = null, dat
       rows: ctx.rows.length,
       unique_unit_tick_keys: ctx.perKey.size,
       duplicate_keys: ctx.conflicts.length,
-      ticks_with_rows: ticksWithRows.size,
+      ticks_with_rows: ticks.total === null ? null : ticksWithRows.size,
       ticks_without_rows: ticks.total === null ? null : ticks.total - ticksWithRows.size,
+      rows_outside_tick_model: rowsOutsideTickModel,
+      distinct_row_ticks: rowTicks.size,
       by_group: { placements: ctx.rows.filter((r) => r.group === 'placements').length, density: ctx.rows.filter((r) => r.group === 'density').length },
     },
     content: {
