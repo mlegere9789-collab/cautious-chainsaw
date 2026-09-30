@@ -18,6 +18,7 @@ export class AnchorError extends Error {
 
 const CLASS_OF = { S: 'A', M: 'B', R: 'C', D: 'D' };
 const STATES = ['open', 'proposed', 'reviewed', 'confirmed', 'signed', 'contested', 'deferred', 'withdrawn'];
+const REVIEW_FLAGS = ['none', 'evidence-weak', 'owner-sign', 'owner-decision', 'needs-historian'];
 const POLICIES = ['fast_forward', 'time_lapse'];
 const HM = /^([01]\d|2[0-3]):([0-5]\d)$/;
 const hmMin = (s) => +s.slice(0, 2) * 60 + +s.slice(3, 5);
@@ -59,6 +60,7 @@ function check(doc, opts) {
   if (doc.schema !== 1) E('V1.schema', 'schema must be 1');
   if (typeof doc.version !== 'string' || !/^\d{4}-\d{2}-\d{2}\.\d+$/.test(doc.version)) E('V1.version', 'version must look like 2026-09-30.1');
   if (!Number.isInteger(doc.dv) || doc.dv < 1) E('V1.dv', 'dv must be an integer >= 1');
+  if (doc.release !== undefined && doc.release !== null && typeof doc.release !== 'string') E('V1.release', 'release must be a string (candidate, approved ...), got ' + show(doc.release));
   if (doc.tz !== 'LMT') E('V1.tz', 'tz must be LMT (local mean time)');
   const A = Array.isArray(doc.anchors) ? doc.anchors : [];
   if (A.length < 2) { E('V1.anchors', 'need at least two anchors'); return out(); }
@@ -90,6 +92,7 @@ function check(doc, opts) {
     if (a.effective_status !== undefined && !(typeof a.effective_status === 'string' && has(CLASS_OF, a.effective_status))) E('V1.effective', 'tick ' + tk + ' effective_status must be S, M, R or D, got ' + show(a.effective_status), tk);
     if (!(typeof a.sigma_min === 'number' && a.sigma_min >= 1 && a.sigma_min <= cap)) E('V1.sigma', 'tick ' + tk + ' sigma_min must be 1..' + cap, tk);
     if (!STATES.includes(a.state)) E('V1.state', 'tick ' + tk + ' unknown state ' + show(a.state), tk);
+    if (a.review_flag !== undefined && a.review_flag !== null && !REVIEW_FLAGS.includes(a.review_flag)) E('V1.review-flag', 'tick ' + tk + ' review_flag must be one of ' + REVIEW_FLAGS.join(', ') + ', got ' + show(a.review_flag), tk);
     if (a.state === 'signed' && !a.decision) E('V18.signed', 'tick ' + tk + ' is signed without a decision id', tk);
     for (const k of ['families', 'flags', 'facts', 'sources']) if (a[k] !== undefined && !Array.isArray(a[k])) E('V1.type', 'tick ' + tk + ' ' + k + ' must be an array, got ' + show(a[k]), tk);
     if (a.fact_confidences !== undefined && !isObj(a.fact_confidences)) E('V1.type', 'tick ' + tk + ' fact_confidences must be an object, got ' + show(a.fact_confidences), tk);

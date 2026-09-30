@@ -21,6 +21,8 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const ABOUT = 'about ';
 const CLASS = { S: 'A', M: 'B', R: 'C', D: 'D' };
+/** every label style format() knows (the public model rejects anything else, the bridge replaces it by 'compat', the lean core by 'long') */
+export const STYLES = ['time', 'day', 'date', 'long', 'short', 'compat', 'chip', 'iso', 'aria', 'frame'];
 
 // Howard Hinnant's civil-date algorithms (proleptic Gregorian, days relative to 1970-01-01).
 /*@strip the ISO parser is not part of the inlined bridge: its document carries minutes */
@@ -71,15 +73,31 @@ export function makeCore(doc) {
   let raw = doc && doc.anchors;
   /*@strip load-time validation and ISO parsing: the inlined document is validated at build time and carries minutes */
   if (!raw || raw.length < 2) throw new Error('need at least two anchors');
+  // A configuration value that is PRESENT is used exactly as written or refused: never replaced by a default (validateAnchors in anchors.js
+  // accepts and rejects the same values; tests/time/agreement.test.mjs sweeps both). Only an ABSENT (undefined or null) value takes its default.
+  const given = (x) => x !== undefined && x !== null, known = (set, x) => typeof x === 'string' && Object.prototype.hasOwnProperty.call(set, x);
+  const STATES = { open: 1, proposed: 1, reviewed: 1, confirmed: 1, signed: 1, contested: 1, deferred: 1, withdrawn: 1 }, FLAGS = { none: 1, 'evidence-weak': 1, 'owner-sign': 1, 'owner-decision': 1, 'needs-historian': 1 };
+  const nonNeg = (x) => typeof x === 'number' && x >= 0 && x < Infinity; // a finite number >= 0 (NaN fails)
+  if (given(doc.dv) && !(Number.isInteger(doc.dv) && doc.dv >= 1)) throw new Error('dv is not an integer >= 1: ' + String(doc.dv));
+  for (const k of ['version', 'release']) if (given(doc[k]) && typeof doc[k] !== 'string') throw new Error(k + ' is not a string: ' + String(doc[k]));
+  if (given(doc.approx_sigma_min) && !nonNeg(doc.approx_sigma_min)) throw new Error('approx_sigma_min is not a finite number >= 0: ' + String(doc.approx_sigma_min));
+  if (given(doc.slope) && (typeof doc.slope !== 'object' || Array.isArray(doc.slope))) throw new Error('slope is not an object');
+  for (const k of ['min_min_per_tick', 'error_over']) if (doc.slope && given(doc.slope[k]) && !(nonNeg(doc.slope[k]) && doc.slope[k] > 0)) throw new Error('slope.' + k + ' is not a finite number > 0: ' + String(doc.slope[k]));
+  if (given(doc.tab_days) && !(Array.isArray(doc.tab_days) && doc.tab_days.length && doc.tab_days.every((r) => Array.isArray(r) && r.length === 2 && Number.isInteger(r[0]) && Number.isInteger(r[1])))) throw new Error('tab_days is not a list of [from, to] integer pairs');
+  if (given(doc.gaps) && !(Array.isArray(doc.gaps) && doc.gaps.every((g) => g && typeof g === 'object' && Number.isInteger(g.from) && Number.isInteger(g.to)))) throw new Error('gaps is not a list of { from, to, policy } objects with integer ticks');
   raw = raw.map((a, i) => {
     if (!a || !Number.isInteger(a.tick)) throw new Error('anchor tick must be an integer (index ' + i + ')');
+    if (given(a.sigma_min) && !nonNeg(a.sigma_min)) throw new Error('anchor ' + i + ' (tick ' + a.tick + ') sigma_min is not a finite number >= 0: ' + String(a.sigma_min));
+    for (const k of ['status', 'effective_status']) if (given(a[k]) && !known(CLASS, a[k])) throw new Error('anchor ' + i + ' (tick ' + a.tick + ') ' + k + ' is not S, M, R or D: ' + String(a[k]));
+    if (given(a.state) && !known(STATES, a.state)) throw new Error('anchor ' + i + ' (tick ' + a.tick + ') has an unknown state: ' + String(a.state));
+    if (given(a.review_flag) && !known(FLAGS, a.review_flag)) throw new Error('anchor ' + i + ' (tick ' + a.tick + ') has an unknown review_flag: ' + String(a.review_flag));
     return typeof a.min === 'number' ? a : Object.assign({}, a, { min: parseLocal(a.t) });
   });
   /*@endstrip*/
-  const approxSigma = doc.approx_sigma_min || 10, sl = doc.slope || {}, slopeLo = sl.min_min_per_tick == null ? 0.75 : sl.min_min_per_tick, slopeHi = sl.error_over == null ? 60 : sl.error_over;
+  const approxSigma = doc.approx_sigma_min == null ? 10 : doc.approx_sigma_min, sl = doc.slope || {}, slopeLo = sl.min_min_per_tick == null ? 0.75 : sl.min_min_per_tick, slopeHi = sl.error_over == null ? 60 : sl.error_over;
   const A = raw.map((a) => {
-    const eff = a.effective_status || a.status; // the status the model uses: it differs from `status` only for the circular t5 (D)
-    return { tick: a.tick, min: a.min, sigma: a.sigma_min == null ? 15 : a.sigma_min, status: a.status || 'M', cls: CLASS[eff] || 'B', state: a.state || 'proposed', review: a.review_flag || 'none' };
+    const eff = a.effective_status == null ? a.status : a.effective_status; // the status the model uses: it differs from `status` only for the circular t5 (D)
+    return { tick: a.tick, min: a.min, sigma: a.sigma_min == null ? 15 : a.sigma_min, status: a.status == null ? 'M' : a.status, cls: CLASS[eff] || 'B', state: a.state == null ? 'proposed' : a.state, review: a.review_flag == null ? 'none' : a.review_flag };
   });
   const nA = A.length, tickMax = A[nA - 1].tick;
   /*@strip load-time validation (chapter 04 section 4.2) */
@@ -91,7 +109,7 @@ export function makeCore(doc) {
     if (s < slopeLo || s > slopeHi) throw new Error('slope ' + s.toFixed(2) + ' min/tick between ticks ' + p.tick + ' and ' + a.tick + ' is outside ' + slopeLo + '..' + slopeHi + ' (chapter 04 section 4.2)');
   });
   if (A[0].tick !== 1) throw new Error('first anchor must be tick 1');
-  if (doc.tick_max && doc.tick_max !== tickMax) throw new Error('last anchor must be tick_max (' + doc.tick_max + ')');
+  if (given(doc.tick_max) && doc.tick_max !== tickMax) throw new Error('last anchor must be tick_max (' + doc.tick_max + ')');
   /*@endstrip*/
   const tabDays = doc.tab_days || [[1, tickMax]], gaps = doc.gaps || [], solarDoc = doc.solar || {};
 
@@ -164,7 +182,7 @@ export function makeCore(doc) {
    * After midnight and before civil dawn the date part reads "Night of July 1-2" (a tab is not a date).
    */
   const format = (tick, style, opts) => {
-    style = style || 'long';
+    style = STYLES.indexOf(style) < 0 ? 'long' : style; // undefined, an unknown word, a Symbol or an object can neither throw here nor reach the memo key
     const roundMin = (opts && opts.roundMin) || 0, ap = opts ? opts.approx : false;
     const t = clamp(tick), key = t === (t | 0) ? t + '|' + style + '|' + roundMin + '|' + ap : null;
     if (key && memo.has(key)) return memo.get(key);
@@ -201,7 +219,7 @@ export function makeCore(doc) {
   };
 
   return {
-    version: doc.version || '', dv: doc.dv || 2, release: doc.release || 'candidate', tickMax, tabDays, gaps, approxSigmaMin: approxSigma,
+    version: doc.version == null ? '' : doc.version, dv: doc.dv == null ? 2 : doc.dv, release: doc.release == null ? 'candidate' : doc.release, tickMax, tabDays, gaps, approxSigmaMin: approxSigma,
     tickToMinutes, minutesToTick, floorTick, minutesPerTick, uncertaintyMin, tabDay, tabStart, parts, format, tickToLabel, isApprox, gapAt, tickAfterMinutes,
     dayPart: (t) => parts(t, 0).phase,
     /** decimal hour of day (0..24, local mean time, exact): for lighting and atmosphere code */

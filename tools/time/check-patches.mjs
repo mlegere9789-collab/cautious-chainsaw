@@ -23,6 +23,11 @@ import { buildContext, runAll } from './rules.mjs';
 
 const { flags } = parseArgs(process.argv.slice(2));
 const FILE = flags.file ? path.resolve(String(flags.file)) : P('tools', 't0', 'patches-next', 'CLOCK.json');
+// The tree the patches are applied to. Standalone: the immutable legacy/dist the CLOCK anchors were written against. With --after-t0: the tree the T0
+// build system itself starts from (tools/t0/trains.json "base.dir": since the 2026-09-30 re-baseline baseline/dist, what production serves; legacy/dist
+// when the file names nothing usable), so the emulation sees the same text as build.py does (index.html is CRLF there).
+const t0Base = () => { try { const d = path.resolve(P(), String(readJson(P('tools', 't0', 'trains.json')).base.dir)); return fs.existsSync(path.join(d, 'index.html')) ? d : LEGACY; } catch { return LEGACY; } };
+const TREE0 = flags['after-t0'] ? t0Base() : LEGACY;
 const OUT = flags.out ? path.resolve(String(flags.out)) : P('tmp', 'time', 'patched');
 const BUNDLE_TARGETS = ['js', 'help', 'book', 'css'];
 const CHUNKS = { js: BUNDLE, help: 'assets/HelpModal-CFV9T0zH.js', book: 'assets/BookmarkPanel-C5YT4b5k.js', css: 'assets/index-B4G7Z_2G.css' };
@@ -49,11 +54,15 @@ for (const p of spec.patches) {
 
 // ------------------------------------------------------------------ apply
 function pyExpand(m, repl) { return repl.replace(/\\g<(\w+)>/g, (_, n) => (m.groups && m.groups[n]) || '').replace(/\\(\d)/g, (_, i) => m[+i] || ''); }
-const pristine = (rel) => readText(path.join(LEGACY, rel));
+const pristine = (rel) => readText(path.join(TREE0, rel));
 const get = (st, rel) => { if (!st.has(rel)) st.set(rel, pristine(rel)); return st.get(rel); };
+// tools/t0/t0build/util.py eol_adapt: an LF-authored string applied to a pure-CRLF page is converted to CRLF (a string that already holds a CRLF is left as authored); counts stay strict
+const isPureCrlf = (t) => t.includes('\r\n') && !t.replace(/\r\n/g, '').includes('\n');
+const eolAdapt = (t, s) => (s.includes('\n') && !s.includes('\r\n') && isPureCrlf(t) ? s.replace(/\n/g, '\r\n') : s);
 function applyPatch(st, p, log) {
   const rel = relOf(p.target), t = get(st, rel);
   let n, out;
+  if (!p.regex && !BUNDLE_TARGETS.includes(p.target)) p = { ...p, find: eolAdapt(t, p.find), repl: eolAdapt(t, p.repl) };
   if (p.regex) {
     let re; try { re = new RegExp(p.find, 'g'); } catch { log(`${p.id}: regex does not compile in JS (Python-only syntax?)`); return false; }
     n = [...t.matchAll(re)].length; out = t.replace(re, (...m) => pyExpand(m, p.repl));
@@ -95,7 +104,7 @@ if (flags['after-t0']) notes.push(`--after-t0 --position=${position}: ${patched.
 
 // ------------------------------------------------------------------ write the patched tree
 fs.rmSync(OUT, { recursive: true, force: true });
-fs.cpSync(LEGACY, OUT, { recursive: true, filter: (s) => !/[\\/](screenshots|icons)([\\/]|$)/.test(s) && !/\.(png|pdf|ico)$/.test(s) });
+fs.cpSync(TREE0, OUT, { recursive: true, filter: (s) => !/[\\/](screenshots|icons)([\\/]|$)/.test(s) && !/\.(png|pdf|ico)$/.test(s) });
 for (const [rel, text] of patched.st) fs.writeFileSync(path.join(OUT, rel), text);
 const baseText = (rel) => (base.st.has(rel) ? base.st.get(rel) : pristine(rel));
 const changed = [...patched.st.keys()].filter((rel) => patched.st.get(rel) !== baseText(rel));
@@ -172,7 +181,7 @@ for (const [rel, fn] of [['compare.html', 'approxTimeForTick'], ['living-ledger.
 
 // ------------------------------------------------------------------ inventory and validators on the patched tree
 const anchorsDoc = readJson(P('data-src', 'time', 'time_anchors.json'));
-const rb = Object.fromEntries(runAll(buildContext(model, anchorsDoc)).map((r) => [r.id, r])), ra = Object.fromEntries(runAll(buildContext(model, anchorsDoc, { tree: OUT })).map((r) => [r.id, r]));
+const rb = Object.fromEntries(runAll(buildContext(model, anchorsDoc, { tree: TREE0 })).map((r) => [r.id, r])), ra = Object.fromEntries(runAll(buildContext(model, anchorsDoc, { tree: OUT })).map((r) => [r.id, r]));
 const cmpRows = ['TM-V2', 'TM-V9', 'TM-V16', 'TM-V17', 'TM-V18'].map((id) => [id, rb[id].count, ra[id].count]);
 let surf = ''; try { surf = execFileSync(process.execPath, [P('tools', 'time', 'surfaces.mjs'), '--root=' + OUT], { encoding: 'utf8' }); } catch (e) { surf = String(e.stdout || e.message); }
 const rowsOf = surf.split('\n').filter((l) => /^\| [A-I] \|/.test(l));
@@ -182,10 +191,11 @@ const routedN = rowsOf.filter((l) => /\| yes \|/.test(l)).length, unatt = (/Unat
 // ------------------------------------------------------------------ report
 const delta = texts.get(BUNDLE).length - baseText(BUNDLE).length;
 console.log(`CLOCK bridge check: ${spec.patches.length} patches in group "${spec.group}" (${spec.patches.filter((p) => p.regex).length} regex), ${patched.applied} applied${flags['after-t0'] ? ' on top of the T0 groups' : ' to the pristine legacy text'}, ${changed.length} files changed`);
+if (flags['after-t0']) notes.unshift(`base tree of the T0 emulation: ${path.relative(P(), TREE0).split(path.sep).join('/')}`);
 console.log(synt.join('\n'));
 console.log('scope: ' + scopeNote);
 console.log(evals.join('\n'));
-console.log('validators, legacy -> patched: ' + cmpRows.map((r) => `${r[0]} ${r[1]} -> ${r[2]}`).join('; '));
+console.log(`validators, ${flags['after-t0'] ? 'T0 base' : 'legacy'} -> patched: ` + cmpRows.map((r) => `${r[0]} ${r[1]} -> ${r[2]}`).join('; '));
 console.log(`formula inventory on the patched tree: ${rowsOf.length} implementations found, ${routedN} routed through the module, ${remaining.length} still legacy (unattributed formulas: ${unatt}): ${remaining.join('; ') || 'none'}`);
 console.log(`bundle size delta from CLOCK: +${delta} bytes`);
 for (const n of notes) console.log(n);

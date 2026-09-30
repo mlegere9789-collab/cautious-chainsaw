@@ -1,12 +1,21 @@
 // Rich objects and tooling on top of the lean core: tickToClock, label parts, clock -> tick, URL parameter, golden and ticks tables, and the
 // argument validation of the PUBLIC API (the lean core trusts its callers; the bridge coerces, this layer rejects).
 // CANDIDATE (WP-TIME-02). Zero dependencies. NOT inlined into the legacy bridge (size): the bridge uses core.js + bridge.js only.
-import { parseLocal } from './core.js';
+import { parseLocal, STYLES } from './core.js';
 
 const REVIEW_RANK = { none: 0, 'evidence-weak': 1, 'owner-sign': 2, 'owner-decision': 3, 'needs-historian': 4 };
 const show = (x) => (typeof x === 'string' ? JSON.stringify(x) : x === null ? 'null' : Array.isArray(x) ? 'an array' : typeof x === 'object' ? 'an object' : String(x));
 /** x when it is a finite number, else a TypeError that names the argument and what was passed (NaN, undefined, an object, a numeric string ...). */
 const num = (x, what) => { if (typeof x !== 'number' || x !== x || x === Infinity || x === -Infinity) throw new TypeError(what + ' must be a finite number, got ' + show(x)); return x; };
+// Options are arguments too (RV-02): each one is checked where it enters the public API, so a bad value is a TypeError/RangeError that names it,
+// never "NaN:NaN AM" or "undefined NaN". An ABSENT option (undefined or null) takes its default; a present one is used as written or refused.
+/** the options object: undefined or null is {}, anything that is not a plain object (a number, a string, an array ...) is a TypeError */
+const optsOf = (o, what) => { if (o === undefined || o === null) return {}; if (typeof o !== 'object' || Array.isArray(o)) throw new TypeError(what + ' must be an object, got ' + show(o)); return o; };
+const styleOf = (s, dflt) => { if (s === undefined || s === null) return dflt; if (typeof s !== 'string') throw new TypeError('style must be a string, got ' + show(s)); if (STYLES.indexOf(s) < 0) throw new RangeError('unknown style ' + show(s) + ' (one of ' + STYLES.join(', ') + ')'); return s; };
+/** roundMin: a whole number of minutes, 0 (to the minute) .. 1440 (a day); a fractional or negative value would print "7:32.5" or round the wrong way */
+const roundOf = (r, dflt) => { if (r === undefined || r === null) return dflt; num(r, 'roundMin'); if (!Number.isInteger(r) || r < 0 || r > 1440) throw new RangeError('roundMin must be a whole number of minutes from 0 to 1440, got ' + r); return r; };
+const approxOf = (a, dflt) => { if (a === undefined || a === null) return dflt; if (a !== true && a !== false && a !== 'auto') throw new TypeError("approx must be true, false or 'auto', got " + show(a)); return a; };
+const extrapOf = (o) => { const x = optsOf(o, 'options').extrapolate; if (x !== undefined && x !== null && typeof x !== 'boolean') throw new TypeError('extrapolate must be true or false, got ' + show(x)); return { extrapolate: x === true }; };
 
 /** Adds the rich API to a core model built from `doc`. Returns a new object; the core is not modified. */
 export function extend(core, doc) {
@@ -36,12 +45,12 @@ export function extend(core, doc) {
   /** ISO local time string (RangeError when it is not a real calendar time) or finite minutes; anything else is a TypeError */
   const asMinutes = (x) => (typeof x === 'string' ? parseLocal(x) : num(x, 'clock (an ISO local time string like "1863-07-03T15:00", or minutes since 1863-07-01T00:00)'));
   /** clock (ISO "1863-07-03T15:00" | minutes since 1863-07-01T00:00) -> fractional tick, clamped to 1..tickMax. */
-  const clockToTick = (x, opts) => minutesToTick(asMinutes(x), opts);
+  const clockToTick = (x, opts) => minutesToTick(asMinutes(x), extrapOf(opts));
   const clockToTickInfo = (x) => { const m = asMinutes(x); return { tick: minutesToTick(m), exact: m >= A[0].min && m <= A[A.length - 1].min }; };
   const tickToLabelParts = (tick, opts) => {
     num(tick, 'tick');
-    const o = opts || {}, rm = o.roundMin == null ? 5 : o.roundMin, t = clamp(tick), p = parts(t, rm), ap = o.approx == null || o.approx === 'auto' ? isApprox(t) : !!o.approx;
-    return { tick: t, day: dayLabelOf(p), date: dayLabelOf(p) + ', ' + p.year, time: hm12(p.hour24, p.minute), prefix: ap ? 'about ' : '', approx: ap, text: format(t, o.style || 'long', { roundMin: rm, approx: ap }), night: !!p.nightOf, nightOf: p.nightOf, weekday: p.weekday, iso: isoOf(p) };
+    const o = optsOf(opts, 'label options'), style = styleOf(o.style, 'long'), rm = roundOf(o.roundMin, 5), want = approxOf(o.approx, 'auto'), t = clamp(tick), p = parts(t, rm), ap = want === 'auto' ? isApprox(t) : want;
+    return { tick: t, day: dayLabelOf(p), date: dayLabelOf(p) + ', ' + p.year, time: hm12(p.hour24, p.minute), prefix: ap ? 'about ' : '', approx: ap, text: format(t, style, { roundMin: rm, approx: ap }), night: !!p.nightOf, nightOf: p.nightOf, weekday: p.weekday, iso: isoOf(p) };
   };
   const ticksJson = () => { const r = []; for (let t = 1; t <= tickMax; t++) { const c = tickToClock(t); r.push([t, c.iso, c.tab, c.date, Math.round(c.mpt * 1000) / 1000]); } return r; };
   const goldenCsv = () => {
@@ -58,8 +67,11 @@ export function extend(core, doc) {
   };
   // the public API rejects what the lean core would silently turn into NaN or a wrong tick (NaN, undefined, null, strings, objects, +-Infinity)
   const guard = {};
-  for (const k of ['tickToMinutes', 'minutesPerTick', 'uncertaintyMin', 'tabDay', 'parts', 'format', 'tickToLabel', 'isApprox', 'gapAt', 'dayPart', 'hour']) guard[k] = (tick, ...rest) => core[k](num(tick, 'tick'), ...rest);
-  guard.minutesToTick = (min, opts) => core.minutesToTick(num(min, 'minutes'), opts);
+  for (const k of ['tickToMinutes', 'minutesPerTick', 'uncertaintyMin', 'tabDay', 'isApprox', 'gapAt', 'dayPart', 'hour']) guard[k] = (tick) => core[k](num(tick, 'tick'));
+  guard.parts = (tick, roundMin) => core.parts(num(tick, 'tick'), roundOf(roundMin, 0));
+  guard.format = (tick, style, opts) => { num(tick, 'tick'); const o = optsOf(opts, 'format options'); return core.format(tick, styleOf(style, 'long'), { roundMin: roundOf(o.roundMin, 0), approx: approxOf(o.approx, false) }); };
+  guard.tickToLabel = (tick, opts) => { num(tick, 'tick'); const o = optsOf(opts, 'label options'); return core.tickToLabel(tick, { style: styleOf(o.style, 'long'), roundMin: roundOf(o.roundMin, 5), approx: approxOf(o.approx, 'auto') }); };
+  guard.minutesToTick = (min, opts) => core.minutesToTick(num(min, 'minutes'), extrapOf(opts));
   guard.floorTick = (min) => core.floorTick(num(min, 'minutes'));
   guard.tabStart = (day) => core.tabStart(num(day, 'day'));
   /** dm: real minutes, a finite number (a string such as "60" is a TypeError, never concatenated) */
@@ -70,9 +82,11 @@ export function extend(core, doc) {
     anchors: A.map((a, i) => ({ tick: a.tick, minutes: a.min, sigmaMin: a.sigma, status: a.status, effectiveStatus: meta[i].eff, confidence: a.cls, state: a.state, review: a.review, label: meta[i].label, circular: meta[i].circular, facts: meta[i].facts, range: meta[i].range, approx: a.sigma >= core.approxSigmaMin || a.state !== 'signed' })),
     /** ?tick=538 | ?t=538 -> integer tick, else null (D-URLSTATE: tick and t are read; no time-address parameter is defined here). */
     resolveTickParam: (q) => {
-      const g = (k) => (q && typeof q.get === 'function' ? q.get(k) : q ? q[k] : null);
-      const raw = g('tick') != null ? g('tick') : g('t');
-      return raw != null && /^\d{1,6}$/.test(String(raw)) ? clamp(+raw) : null;
+      try { // a hostile getter or a Symbol value is not a tick
+        const g = (k) => (q && typeof q.get === 'function' ? q.get(k) : q ? q[k] : null);
+        const raw = g('tick') != null ? g('tick') : g('t');
+        return raw != null && /^\d{1,6}$/.test(String(raw)) ? clamp(+raw) : null;
+      } catch (e) { return null; }
     },
   });
 }
