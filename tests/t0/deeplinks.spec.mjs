@@ -8,13 +8,13 @@
 //
 // Ids: T0-DL-01 tick/t/day (and precedence), -02 t+u+z+ll on a real map, -03 ?ancestor=, -04 junk degrades to defaults (blocked map + real map),
 // -05 round trip through the app's own share writer and the sub-page emitters, -06 moments.json lint, -07 vignette, -08 onboarding suppression,
-// -09 Turning Points links land on the repointed anchors.
+// -09 Turning Points links land on the repointed anchors, -10 the same links on the phone shell.
 process.env.T0_AGENT ??= 't0-ab';
 process.env.T0_PORT_BASE ??= '8320';
 import fs from 'node:fs';
 import path from 'node:path';
 const {
-  REPO, PORT_BASE, openSession, createStaticServer, createSuite, assert, assertEq, sleep, waitFor, waitForApp, chooseLayout, mapView, tileBudget, Skip,
+  REPO, PORT_BASE, openSession, createStaticServer, createSuite, assert, assertEq, sleep, waitFor, waitForApp, chooseLayout, mapView, tileBudget, VIEWPORTS, Skip,
 } = await import('./lib.mjs');
 
 const argv = process.argv.slice(2);
@@ -24,12 +24,23 @@ const FILTER = opt('filter', null);
 const EXPECT_RED = !!opt('expect-red', false);
 const IS_LEGACY = DIST === path.resolve(REPO, 'legacy/dist');
 if (!fs.existsSync(DIST)) { console.error(`dist not found: ${DIST}\nbuild it first: python tools/t0/build.py --train R1c`); process.exit(2); }
+const GROUPS = IS_LEGACY ? [] : (JSON.parse(fs.readFileSync(path.join(DIST, 'version.json'), 'utf8')).groups || []);
+const needGroup = (g) => { if (!IS_LEGACY && !GROUPS.includes(g)) throw new Skip(`group ${g} is not in this train (${GROUPS.join(', ')})`); };
 const resultsDir = IS_LEGACY ? path.join(REPO, 'tmp', 't0-ab') : path.dirname(DIST);
 const srv = await createStaticServer({ root: DIST, port: PORT_BASE });
 const ORIGIN = srv.url;
 const sessions = [];
-const PORTS = { map: 1, blocked: 2, onboard: 3 };
-const open = async (opts) => { const s = await openSession({ cdpPort: PORT_BASE + PORTS[opts.profile], ...opts }); sessions.push(s); return s; };
+let seq = 0;
+/** every session gets its own profile directory and one of nine CDP ports: on Windows a just-killed Chrome still holds its profile dir for a moment (EPERM on the next rmSync) */
+const open = async (opts) => {
+  for (let attempt = 1; ; attempt++) {
+    const n = ++seq;
+    const live = new Set(sessions.map((x) => x.chrome.port));
+    let port = PORT_BASE + 1 + (n % 9); while (live.has(port)) port = PORT_BASE + 1 + ((port - PORT_BASE) % 9);      // never a port of a session that is still open
+    try { const s = await openSession({ ...opts, cdpPort: port, profile: `${opts.profile}-${n}` }); sessions.push(s); return s; }
+    catch (e) { if (attempt >= 3) throw e; await sleep(2000); }
+  }
+};
 const closeSession = async (s) => { await s.close(); const i = sessions.indexOf(s); if (i >= 0) sessions.splice(i, 1); };
 
 // ------------------------------------------------------------------ helpers (the app's data model, read from the built tree)
@@ -77,6 +88,7 @@ const suite = createSuite('deeplinks');
 
 // ================================================================== T0-DL-01 tick / t / day
 suite.test('T0-DL-01', '?tick=451, ?t=451, ?day=2, ?day=3: tick, HUD/toolbar date (July 1-3 only) and the played-through state; tick beats t beats day; all three days requested (X7, X6)', async (t) => {
+  needGroup('DL');
   const S = await open({ profile: 'blocked', tiles: 'block' });
   try {
     const rows = [];
@@ -100,6 +112,7 @@ suite.test('T0-DL-01', '?tick=451, ?t=451, ?day=2, ?day=3: tick, HUD/toolbar dat
 
 // ================================================================== T0-DL-02 t + u + z + ll on a real map
 suite.test('T0-DL-02', '?t=538&u=U-20ME&z=15.5&ll=39.7918,-77.2359 (the app\'s own share-link shape): July 3, tick 538, the 20th Maine panel, camera at ll/z (X7)', async (t) => {
+  needGroup('DL');
   const S = await mapSession();
   {
     await boot(S, '?t=538&u=U-20ME&z=15.5&ll=39.7918,-77.2359');
@@ -123,6 +136,7 @@ suite.test('T0-DL-02', '?t=538&u=U-20ME&z=15.5&ll=39.7918,-77.2359 (the app\'s o
 
 // ================================================================== T0-DL-03 ?ancestor=
 suite.test('T0-DL-03', '?ancestor=U-20ME opens Follow Your Ancestor on that regiment (no white screen); an unknown but well-formed id and a hostile one degrade without errors', async (t) => {
+  needGroup('DL');
   const S = await open({ profile: 'blocked', tiles: 'block' });
   try {
     await boot(S, '?ancestor=U-20ME');
@@ -155,6 +169,7 @@ const JUNK = [
   '?z=abc', '?z=-3', '?vignette=nope', '?v=%3Cb%3E', '?ancestor=%3Cb%3E', '?tick[]=5', '?tick=1&tick=451&tick=abc', `?x=${'A'.repeat(4000)}`, '?%E0%A4%A', '?layout=%00&tick=zzz',
 ];
 suite.test('T0-DL-04', 'junk parameters degrade to the defaults (tick 1, no unit, no Follow panel, home camera) with 0 errors and no script execution (X7)', async (t) => {
+  needGroup('DL');
   const S = await open({ profile: 'blocked', tiles: 'block' });
   try {
     const bad = [];
@@ -172,6 +187,7 @@ suite.test('T0-DL-04', 'junk parameters degrade to the defaults (tick 1, no unit
 });
 
 suite.test('T0-DL-04b', 'junk map parameters leave the camera at home (ll=0,0 with z=abc); z alone moves only the zoom and is clamped to 11..18', async (t) => {
+  needGroup('DL');
   const S = await mapSession();
   {
     const seen = {};
@@ -192,6 +208,7 @@ suite.test('T0-DL-04b', 'junk map parameters leave the camera at home (ll=0,0 wi
 
 // ================================================================== T0-DL-05 round trip through the app's own share writer
 suite.test('T0-DL-05', 'round trip: the unit panel\'s share button writes ?t=&u=&z=&ll=; loading that link reproduces tick, unit, zoom and centre (X7)', async (t) => {
+  needGroup('DL');
   const S = await mapSession();
   {
     F.prompted = null;
@@ -219,6 +236,7 @@ suite.test('T0-DL-05', 'round trip: the unit panel\'s share button writes ?t=&u=
 });
 
 suite.test('T0-DL-05b', 'every link shape the site and the app emit is read: ?tick=&vignette= (documentary/education/embed/historian/search), ?unit=&tick= (regiment), ?unit= (search)', async (t) => {
+  needGroup('DL');
   const S = await open({ profile: 'blocked', tiles: 'block' });
   try {
     const rows = [];
@@ -242,6 +260,7 @@ suite.test('T0-DL-05b', 'every link shape the site and the app emit is read: ?ti
 
 // ================================================================== T0-DL-06 moments.json v0 lint (WP-T0-09: +-3 ticks of a chronology event)
 suite.test('T0-DL-06', 'moments.json v0: 9 Turning Points + 8 markers + 5 tour stops, ids unique, every row unreviewed, every tick within +-3 of a chronology event, Ewell/Night Assault provisional', async (t) => {
+  needGroup('DL');
   const file = path.join(DIST, 'data', 'moments.json');
   if (IS_LEGACY) throw new Skip('legacy/dist has no moments.json (red-first: the file is absent)');
   assert(fs.existsSync(file), 'data/moments.json is not in the build');
@@ -272,6 +291,7 @@ suite.test('T0-DL-06', 'moments.json v0: 9 Turning Points + 8 markers + 5 tour s
 
 // ================================================================== T0-DL-07 vignette
 suite.test('T0-DL-07', '?vignette=V-016 (and ?v=) without a tick resolves to the vignette\'s trigger tick (551) and shows its story; a tick given with it wins', async (t) => {
+  needGroup('DL');
   const S = await open({ profile: 'blocked', tiles: 'block' });
   try {
     for (const [q, tick, story] of [['?vignette=V-016', 551, 'Armistead at The Angle'], ['?v=V-001', 12, 'The First Shot'], ['?vignette=V-016&tick=300', 300, null]]) {
@@ -285,6 +305,7 @@ suite.test('T0-DL-07', '?vignette=V-016 (and ?v=) without a tick resolves to the
 
 // ================================================================== T0-DL-08 onboarding
 suite.test('T0-DL-08', 'a deep link skips the first-run onboarding modal; a plain first visit still shows it', async (t) => {
+  needGroup('DL');
   const S = await open({ profile: 'onboard', tiles: 'block', onboarded: false });
   try {
     await S.page.goto(`${ORIGIN}/`, { waitUntil: 'load' }); await waitForApp(S.page, 45000); await chooseLayout(S.page, 'desktop').catch(() => {}); await sleep(1800);
@@ -304,6 +325,7 @@ suite.test('T0-DL-08', 'a deep link skips the first-run onboarding modal; a plai
 
 // ================================================================== T0-DL-09 Turning Points
 suite.test('T0-DL-09', 'turning-points.html: nine anchors match moments.json and each "See this moment on the map" link lands on that tick (Ewell 75, Longstreet 256, Chamberlain 275, Night 326, Cannonade 518, Pickett 538)', async (t) => {
+  needGroup('DL');
   if (IS_LEGACY) throw new Skip('legacy/dist keeps the wrong anchors by definition');
   const html = fs.readFileSync(path.join(DIST, 'turning-points.html'), 'utf8');
   const ticks = [...html.matchAll(/title: "([^"]+)", tick: (\d+),/g)].map((m) => ({ title: m[1], tick: +m[2] }));
@@ -322,6 +344,32 @@ suite.test('T0-DL-09', 'turning-points.html: nine anchors match moments.json and
       await boot(S, href.slice(1)); await waitState(S.page, (x) => x.tick === want, `${href}: tick ${want}`);
     }
     assertEq(S.collector.firstParty, [], 'errors');
+  } finally { await closeSession(S); }
+});
+
+// ================================================================== T0-DL-10 phone shell
+suite.test('T0-DL-10', 'phone 375x812 (mobile shell): ?t=268&u=U-20ME&z=15.5&ll=... lands on tick, unit panel (the phone panel needs a keyframe at the tick: 268) and camera; ?ancestor= opens the Follow panel; a junk link degrades (X7 mobile)', async (t) => {
+  needGroup('DL');
+  needGroup('C');
+  const S = await open({ profile: 'phone', viewport: VIEWPORTS.portrait[0] });
+  try {
+    await S.page.goto(`${ORIGIN}/?t=268&u=U-20ME&z=15.5&ll=39.7918,-77.2359`, { waitUntil: 'load' }); await waitForApp(S.page, 45000);
+    const s = await waitFor(async () => { const x = await bodyText(S.page); return /Tick 268\/675/.test(x) ? x : null; }, { timeout: 15000, label: 'phone shell at tick 268' });
+    assert(/JULY\s+2\s+\d{1,2}:\d{2}/i.test(s), 'phone clock does not read July 2');
+    await waitFor(async () => /20th Maine/i.test(await bodyText(S.page)), { timeout: 8000, label: 'unit panel for the 20th Maine on the phone' });
+    const v = await waitFor(async () => { const m = await mapView(S.page); return m && Math.abs(m.zoom - 15.5) < 0.06 ? m : null; }, { timeout: 25000, label: 'phone camera jump to z=15.5' });
+    t.note('phone camera', { center: v.center.map((x) => +x.toFixed(4)), zoom: +v.zoom.toFixed(2) });
+    assert(metres(v.center, [-77.2359, 39.7918]) < 60, `phone centre ${metres(v.center, [-77.2359, 39.7918]).toFixed(0)} m from ll`);
+    assertEq(S.collector.firstParty, [], 'errors on the phone deep link');
+    S.setTiles('block');
+    await S.page.goto(`${ORIGIN}/?ancestor=U-20ME`, { waitUntil: 'load' }); await waitForApp(S.page, 45000);
+    const anc = await waitFor(async () => (/Change Regiment/i.test(await bodyText(S.page)) ? true : null), { timeout: 12000, label: 'Follow panel on the phone' }).catch(() => false);
+    t.note('?ancestor= opens the Follow panel on the phone', !!anc);
+    await S.page.goto(`${ORIGIN}/?tick=9999&unit=%3Cscript%3E&ll=0,0&z=abc`, { waitUntil: 'load' }); await waitForApp(S.page, 45000); await sleep(1200);
+    const junk = await bodyText(S.page); t.note('junk link tick 1', /Tick 1\/675/.test(junk));
+    assert(/Tick 1\/675/.test(junk), 'a junk link moved the phone clock');
+    assertEq(S.collector.firstParty, [], 'errors on the phone links');
+    assert(anc, '?ancestor= did not open the Follow panel in the mobile shell');
   } finally { await closeSession(S); }
 });
 
