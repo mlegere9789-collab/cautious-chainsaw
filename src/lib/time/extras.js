@@ -19,7 +19,7 @@ export function extend(core, doc) {
       tick: t, requested: req, clamped: t !== req, exact: t === req, minutes: tickToMinutes(t), iso: isoOf(p), year: p.year, month: p.month, date: p.date, weekday: p.weekday,
       hour24: p.hour24, minute: p.minute, time: hm12(p.hour24, p.minute), tab: tabDay(t), mpt, sigmaMin: b.sigma, approx: isApprox(t), signed: b.ends.every((e) => e.state === 'signed'),
       night: p.phase === 'night', phase: p.phase, nightOf: p.nightOf, dayLabel: dayLabelOf(p), review, basis: weakest, lull: mpt > 15, gap,
-      contested: b.ends.some((e) => e.status === 'R' || e.state === 'contested'), band: [tickToMinutes(t) - b.sigma, tickToMinutes(t) + b.sigma],
+      contested: b.ends.some((e) => e.status === 'R' || e.state === 'contested'), band: Object.freeze([tickToMinutes(t) - b.sigma, tickToMinutes(t) + b.sigma]),
     };
   };
   const cache = new Array(tickMax + 1);

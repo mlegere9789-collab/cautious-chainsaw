@@ -89,7 +89,7 @@
    "id": "CLK-10-timebar-hour-back",
    "target": "js",
    "find": "onClick:()=>P(c-12),style:Po.btn,title:\"Back 1hr (Shift+Left)\"",
-   "repl": "onClick:()=>P(GTBGT.after(c,-60)),style:Po.btn,title:\"Back 1 hour of battle time (Shift+Left)\"",
+   "repl": "onClick:()=>P(GTBGT.after(c,-60)),style:Po.btn,title:\"Back 1hr (Shift+Left)\"",
    "expect": 1,
    "note": "Back 1hr was 12 ticks (12 minutes to 42 hours of battle time): now 60 battle minutes"
   },
@@ -97,7 +97,7 @@
    "id": "CLK-11-timebar-hour-forward",
    "target": "js",
    "find": "onClick:()=>P(c+12),style:Po.btn,title:\"Fwd 1hr (Shift+Right)\"",
-   "repl": "onClick:()=>P(GTBGT.after(c,60)),style:Po.btn,title:\"Forward 1 hour of battle time (Shift+Right)\"",
+   "repl": "onClick:()=>P(GTBGT.after(c,60)),style:Po.btn,title:\"Fwd 1hr (Shift+Right)\"",
    "expect": 1,
    "note": "Fwd 1hr: same"
   },

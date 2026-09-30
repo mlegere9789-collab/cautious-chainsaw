@@ -1,0 +1,1283 @@
+{
+ "note": "CANDIDATE data edits computed from the PROPOSED anchors (unreviewed). Legacy data is never modified. Materialise with node tools/time/relabel-data.mjs --write-tree <dir>.",
+ "textPatches": {
+  "chronology_day1.json": [
+   {
+    "id": "chron-t8",
+    "find": "{\"tick\":8,\"time\":\"5:35am\",",
+    "repl": "{\"tick\":8,\"time\":\"6:15am\",\"time_legacy\":\"5:35am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t12",
+    "find": "{\"tick\":12,\"time\":\"6:00am\",",
+    "repl": "{\"tick\":12,\"time\":\"7:30am\",\"time_legacy\":\"6:00am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t14",
+    "find": "{\"tick\":14,\"time\":\"6:10am\",",
+    "repl": "{\"tick\":14,\"time\":\"7:50am\",\"time_legacy\":\"6:10am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t17",
+    "find": "{\"tick\":17,\"time\":\"6:25am\",",
+    "repl": "{\"tick\":17,\"time\":\"8:20am\",\"time_legacy\":\"6:25am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t20",
+    "find": "{\"tick\":20,\"time\":\"6:40am\",",
+    "repl": "{\"tick\":20,\"time\":\"8:55am\",\"time_legacy\":\"6:40am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t22",
+    "find": "{\"tick\":22,\"time\":\"6:50am\",",
+    "repl": "{\"tick\":22,\"time\":\"9:15am\",\"time_legacy\":\"6:50am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t25",
+    "find": "{\"tick\":25,\"time\":\"7:05am\",",
+    "repl": "{\"tick\":25,\"time\":\"9:45am\",\"time_legacy\":\"7:05am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t26",
+    "find": "{\"tick\":26,\"time\":\"7:10am\",",
+    "repl": "{\"tick\":26,\"time\":\"9:55am\",\"time_legacy\":\"7:10am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t27",
+    "find": "{\"tick\":27,\"time\":\"7:15am\",",
+    "repl": "{\"tick\":27,\"time\":\"10:05am\",\"time_legacy\":\"7:15am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t28",
+    "find": "{\"tick\":28,\"time\":\"7:20am\",",
+    "repl": "{\"tick\":28,\"time\":\"10:15am\",\"time_legacy\":\"7:20am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t29",
+    "find": "{\"tick\":29,\"time\":\"7:25am\",",
+    "repl": "{\"tick\":29,\"time\":\"10:20am\",\"time_legacy\":\"7:25am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t30",
+    "find": "{\"tick\":30,\"time\":\"7:30am\",",
+    "repl": "{\"tick\":30,\"time\":\"10:25am\",\"time_legacy\":\"7:30am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t31",
+    "find": "{\"tick\":31,\"time\":\"7:35am\",",
+    "repl": "{\"tick\":31,\"time\":\"10:30am\",\"time_legacy\":\"7:35am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t33",
+    "find": "{\"tick\":33,\"time\":\"7:45am\",",
+    "repl": "{\"tick\":33,\"time\":\"10:45am\",\"time_legacy\":\"7:45am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t35",
+    "find": "{\"tick\":35,\"time\":\"7:55am\",",
+    "repl": "{\"tick\":35,\"time\":\"10:55am\",\"time_legacy\":\"7:55am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t36",
+    "find": "{\"tick\":36,\"time\":\"8:00am\",",
+    "repl": "{\"tick\":36,\"time\":\"11:00am\",\"time_legacy\":\"8:00am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t37",
+    "find": "{\"tick\":37,\"time\":\"8:05am\",",
+    "repl": "{\"tick\":37,\"time\":\"11:10am\",\"time_legacy\":\"8:05am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t38",
+    "find": "{\"tick\":38,\"time\":\"8:10am\",",
+    "repl": "{\"tick\":38,\"time\":\"11:25am\",\"time_legacy\":\"8:10am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t42",
+    "find": "{\"tick\":42,\"time\":\"8:30am\",",
+    "repl": "{\"tick\":42,\"time\":\"12:15pm\",\"time_legacy\":\"8:30am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t48",
+    "find": "{\"tick\":48,\"time\":\"9:00am\",",
+    "repl": "{\"tick\":48,\"time\":\"1:30pm\",\"time_legacy\":\"9:00am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t49",
+    "find": "{\"tick\":49,\"time\":\"9:05am\",",
+    "repl": "{\"tick\":49,\"time\":\"1:40pm\",\"time_legacy\":\"9:05am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t50",
+    "find": "{\"tick\":50,\"time\":\"9:10am\",",
+    "repl": "{\"tick\":50,\"time\":\"1:55pm\",\"time_legacy\":\"9:10am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t52",
+    "find": "{\"tick\":52,\"time\":\"9:20am\",",
+    "repl": "{\"tick\":52,\"time\":\"2:20pm\",\"time_legacy\":\"9:20am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t53",
+    "find": "{\"tick\":53,\"time\":\"9:25am\",",
+    "repl": "{\"tick\":53,\"time\":\"2:30pm\",\"time_legacy\":\"9:25am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t54",
+    "find": "{\"tick\":54,\"time\":\"9:30am\",",
+    "repl": "{\"tick\":54,\"time\":\"2:40pm\",\"time_legacy\":\"9:30am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t56",
+    "find": "{\"tick\":56,\"time\":\"9:40am\",",
+    "repl": "{\"tick\":56,\"time\":\"2:55pm\",\"time_legacy\":\"9:40am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t57",
+    "find": "{\"tick\":57,\"time\":\"9:45am\",",
+    "repl": "{\"tick\":57,\"time\":\"3:00pm\",\"time_legacy\":\"9:45am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t58",
+    "find": "{\"tick\":58,\"time\":\"9:50am\",",
+    "repl": "{\"tick\":58,\"time\":\"3:10pm\",\"time_legacy\":\"9:50am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t60",
+    "find": "{\"tick\":60,\"time\":\"10:00am\",",
+    "repl": "{\"tick\":60,\"time\":\"3:25pm\",\"time_legacy\":\"10:00am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t62",
+    "find": "{\"tick\":62,\"time\":\"10:10am\",",
+    "repl": "{\"tick\":62,\"time\":\"3:45pm\",\"time_legacy\":\"10:10am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t64",
+    "find": "{\"tick\":64,\"time\":\"10:20am\",",
+    "repl": "{\"tick\":64,\"time\":\"4:00pm\",\"time_legacy\":\"10:20am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t66",
+    "find": "{\"tick\":66,\"time\":\"10:30am\",",
+    "repl": "{\"tick\":66,\"time\":\"4:05pm\",\"time_legacy\":\"10:30am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t68",
+    "find": "{\"tick\":68,\"time\":\"10:40am\",",
+    "repl": "{\"tick\":68,\"time\":\"4:10pm\",\"time_legacy\":\"10:40am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t72",
+    "find": "{\"tick\":72,\"time\":\"11:00am\",",
+    "repl": "{\"tick\":72,\"time\":\"4:20pm\",\"time_legacy\":\"11:00am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t75",
+    "find": "{\"tick\":75,\"time\":\"11:15am\",",
+    "repl": "{\"tick\":75,\"time\":\"5:00pm\",\"time_legacy\":\"11:15am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t80",
+    "find": "{\"tick\":80,\"time\":\"11:40am\",",
+    "repl": "{\"tick\":80,\"time\":\"5:20pm\",\"time_legacy\":\"11:40am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t90",
+    "find": "{\"tick\":90,\"time\":\"12:30pm\",",
+    "repl": "{\"tick\":90,\"time\":\"6:00pm\",\"time_legacy\":\"12:30pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t95",
+    "find": "{\"tick\":95,\"time\":\"1:05pm\",",
+    "repl": "{\"tick\":95,\"time\":\"7:00pm\",\"time_legacy\":\"1:05pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t100",
+    "find": "{\"tick\":100,\"time\":\"1:30pm\",",
+    "repl": "{\"tick\":100,\"time\":\"8:00pm\",\"time_legacy\":\"1:30pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-meta-d1",
+    "find": "    \"tick_formula\": \"Tick 1 = 5:00am July 1. Each tick = 5 minutes. Day 1 = ticks 1-225.\",\n",
+    "repl": "    \"tick_formula\": \"Tick numbers are permanent frame ids, not fixed five-minute steps. The clock is derived from data/time_anchors.json (candidate dv 2, 33 proposed anchors, unreviewed): Day 1 = ticks 1-225, from about 5:00 AM to about 4:25 AM (local mean time). A Day tab is a tick range, not a calendar date.\",\n",
+    "expect": 1
+   }
+  ],
+  "chronology_day2.json": [
+   {
+    "id": "chron-t226",
+    "find": "{\"tick\":226,\"time\":\"5:00am July 2\",",
+    "repl": "{\"tick\":226,\"time\":\"4:30am\",\"time_legacy\":\"5:00am July 2\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t230",
+    "find": "{\"tick\":230,\"time\":\"5:20am\",",
+    "repl": "{\"tick\":230,\"time\":\"6:40am\",\"time_legacy\":\"5:20am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t235",
+    "find": "{\"tick\":235,\"time\":\"5:45am\",",
+    "repl": "{\"tick\":235,\"time\":\"9:20am\",\"time_legacy\":\"5:45am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t240",
+    "find": "{\"tick\":240,\"time\":\"6:10am\",",
+    "repl": "{\"tick\":240,\"time\":\"12:00pm\",\"time_legacy\":\"6:10am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t243",
+    "find": "{\"tick\":243,\"time\":\"6:25am\",",
+    "repl": "{\"tick\":243,\"time\":\"12:55pm\",\"time_legacy\":\"6:25am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t248",
+    "find": "{\"tick\":248,\"time\":\"6:50am\",",
+    "repl": "{\"tick\":248,\"time\":\"2:30pm\",\"time_legacy\":\"6:50am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t252",
+    "find": "{\"tick\":252,\"time\":\"7:10am\",",
+    "repl": "{\"tick\":252,\"time\":\"3:15pm\",\"time_legacy\":\"7:10am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t256",
+    "find": "{\"tick\":256,\"time\":\"7:30am\",",
+    "repl": "{\"tick\":256,\"time\":\"4:00pm\",\"time_legacy\":\"7:30am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t258",
+    "find": "{\"tick\":258,\"time\":\"7:40am\",",
+    "repl": "{\"tick\":258,\"time\":\"4:05pm\",\"time_legacy\":\"7:40am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t260",
+    "find": "{\"tick\":260,\"time\":\"7:50am\",",
+    "repl": "{\"tick\":260,\"time\":\"4:10pm\",\"time_legacy\":\"7:50am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t263",
+    "find": "{\"tick\":263,\"time\":\"8:05am\",",
+    "repl": "{\"tick\":263,\"time\":\"4:20pm\",\"time_legacy\":\"8:05am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t265",
+    "find": "{\"tick\":265,\"time\":\"8:15am\",",
+    "repl": "{\"tick\":265,\"time\":\"4:25pm\",\"time_legacy\":\"8:15am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t267",
+    "find": "{\"tick\":267,\"time\":\"8:25am\",",
+    "repl": "{\"tick\":267,\"time\":\"4:30pm\",\"time_legacy\":\"8:25am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t268",
+    "find": "{\"tick\":268,\"time\":\"8:30am\",",
+    "repl": "{\"tick\":268,\"time\":\"4:40pm\",\"time_legacy\":\"8:30am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t270",
+    "find": "{\"tick\":270,\"time\":\"8:40am\",",
+    "repl": "{\"tick\":270,\"time\":\"5:05pm\",\"time_legacy\":\"8:40am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t271",
+    "find": "{\"tick\":271,\"time\":\"8:45am\",",
+    "repl": "{\"tick\":271,\"time\":\"5:15pm\",\"time_legacy\":\"8:45am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t272",
+    "find": "{\"tick\":272,\"time\":\"8:50am\",",
+    "repl": "{\"tick\":272,\"time\":\"5:25pm\",\"time_legacy\":\"8:50am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t273",
+    "find": "{\"tick\":273,\"time\":\"8:55am\",",
+    "repl": "{\"tick\":273,\"time\":\"5:40pm\",\"time_legacy\":\"8:55am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t275",
+    "find": "{\"tick\":275,\"time\":\"9:05am\",",
+    "repl": "{\"tick\":275,\"time\":\"6:00pm\",\"time_legacy\":\"9:05am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t278",
+    "find": "{\"tick\":278,\"time\":\"9:20am\",",
+    "repl": "{\"tick\":278,\"time\":\"6:20pm\",\"time_legacy\":\"9:20am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t280",
+    "find": "{\"tick\":280,\"time\":\"9:30am\",",
+    "repl": "{\"tick\":280,\"time\":\"6:30pm\",\"time_legacy\":\"9:30am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t283",
+    "find": "{\"tick\":283,\"time\":\"9:45am\",",
+    "repl": "{\"tick\":283,\"time\":\"6:35pm\",\"time_legacy\":\"9:45am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t285",
+    "find": "{\"tick\":285,\"time\":\"9:55am\",",
+    "repl": "{\"tick\":285,\"time\":\"6:40pm\",\"time_legacy\":\"9:55am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t287",
+    "find": "{\"tick\":287,\"time\":\"10:05am\",",
+    "repl": "{\"tick\":287,\"time\":\"6:45pm\",\"time_legacy\":\"10:05am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t290",
+    "find": "{\"tick\":290,\"time\":\"10:20am\",",
+    "repl": "{\"tick\":290,\"time\":\"6:50pm\",\"time_legacy\":\"10:20am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t293",
+    "find": "{\"tick\":293,\"time\":\"10:35am\",",
+    "repl": "{\"tick\":293,\"time\":\"6:55pm\",\"time_legacy\":\"10:35am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t295",
+    "find": "{\"tick\":295,\"time\":\"10:45am\",",
+    "repl": "{\"tick\":295,\"time\":\"7:00pm\",\"time_legacy\":\"10:45am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t298",
+    "find": "{\"tick\":298,\"time\":\"11:00am\",",
+    "repl": "{\"tick\":298,\"time\":\"7:05pm\",\"time_legacy\":\"11:00am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t299",
+    "find": "{\"tick\":299,\"time\":\"11:05am\",",
+    "repl": "{\"tick\":299,\"time\":\"7:05pm\",\"time_legacy\":\"11:05am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t300",
+    "find": "{\"tick\":300,\"time\":\"11:10am\",",
+    "repl": "{\"tick\":300,\"time\":\"7:05pm\",\"time_legacy\":\"11:10am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t302",
+    "find": "{\"tick\":302,\"time\":\"11:20am\",",
+    "repl": "{\"tick\":302,\"time\":\"7:10pm\",\"time_legacy\":\"11:20am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t303",
+    "find": "{\"tick\":303,\"time\":\"11:25am\",",
+    "repl": "{\"tick\":303,\"time\":\"7:10pm\",\"time_legacy\":\"11:25am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t304",
+    "find": "{\"tick\":304,\"time\":\"11:30am\",",
+    "repl": "{\"tick\":304,\"time\":\"7:10pm\",\"time_legacy\":\"11:30am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t310",
+    "find": "{\"tick\":310,\"time\":\"12:00pm\",",
+    "repl": "{\"tick\":310,\"time\":\"7:15pm\",\"time_legacy\":\"12:00pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t314",
+    "find": "{\"tick\":314,\"time\":\"12:10pm\",",
+    "repl": "{\"tick\":314,\"time\":\"7:20pm\",\"time_legacy\":\"12:10pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t315",
+    "find": "{\"tick\":315,\"time\":\"12:15pm\",",
+    "repl": "{\"tick\":315,\"time\":\"7:25pm\",\"time_legacy\":\"12:15pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t320",
+    "find": "{\"tick\":320,\"time\":\"12:40pm\",",
+    "repl": "{\"tick\":320,\"time\":\"7:40pm\",\"time_legacy\":\"12:40pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t324",
+    "find": "{\"tick\":324,\"time\":\"1:00pm\",",
+    "repl": "{\"tick\":324,\"time\":\"7:55pm\",\"time_legacy\":\"1:00pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t326",
+    "find": "{\"tick\":326,\"time\":\"1:10pm\",",
+    "repl": "{\"tick\":326,\"time\":\"8:00pm\",\"time_legacy\":\"1:10pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t328",
+    "find": "{\"tick\":328,\"time\":\"1:20pm\",",
+    "repl": "{\"tick\":328,\"time\":\"8:20pm\",\"time_legacy\":\"1:20pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t330",
+    "find": "{\"tick\":330,\"time\":\"1:30pm\",",
+    "repl": "{\"tick\":330,\"time\":\"8:45pm\",\"time_legacy\":\"1:30pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t335",
+    "find": "{\"tick\":335,\"time\":\"1:55pm\",",
+    "repl": "{\"tick\":335,\"time\":\"9:35pm\",\"time_legacy\":\"1:55pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t340",
+    "find": "{\"tick\":340,\"time\":\"2:20pm\",",
+    "repl": "{\"tick\":340,\"time\":\"10:30pm\",\"time_legacy\":\"2:20pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t360",
+    "find": "{\"tick\":360,\"time\":\"3:20pm\",",
+    "repl": "{\"tick\":360,\"time\":\"11:35pm\",\"time_legacy\":\"3:20pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t380",
+    "find": "{\"tick\":380,\"time\":\"4:20pm\",",
+    "repl": "{\"tick\":380,\"time\":\"12:40am\",\"time_legacy\":\"4:20pm\",\"date\":\"July 3\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t400",
+    "find": "{\"tick\":400,\"time\":\"5:20pm\",",
+    "repl": "{\"tick\":400,\"time\":\"1:45am\",\"time_legacy\":\"5:20pm\",\"date\":\"July 3\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t420",
+    "find": "{\"tick\":420,\"time\":\"6:20pm\",",
+    "repl": "{\"tick\":420,\"time\":\"2:50am\",\"time_legacy\":\"6:20pm\",\"date\":\"July 3\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t440",
+    "find": "{\"tick\":440,\"time\":\"7:20pm\",",
+    "repl": "{\"tick\":440,\"time\":\"3:55am\",\"time_legacy\":\"7:20pm\",\"date\":\"July 3\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t450",
+    "find": "{\"tick\":450,\"time\":\"7:50pm\",",
+    "repl": "{\"tick\":450,\"time\":\"4:25am\",\"time_legacy\":\"7:50pm\",\"date\":\"July 3\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-meta-d2",
+    "find": "    \"tick_formula\": \"Tick 226 = 5:00am July 2. Each tick = 5 minutes. Day 2 = ticks 226-450.\",\n",
+    "repl": "    \"tick_formula\": \"Tick numbers are permanent frame ids, not fixed five-minute steps. The clock is derived from data/time_anchors.json (candidate dv 2, 33 proposed anchors, unreviewed): Day 2 = ticks 226-450, from about 4:30 AM to about 4:25 AM (local mean time). A Day tab is a tick range, not a calendar date.\",\n",
+    "expect": 1
+   }
+  ],
+  "chronology_day3.json": [
+   {
+    "id": "chron-t451",
+    "find": "{\"tick\":451,\"time\":\"5:00am July 3\",",
+    "repl": "{\"tick\":451,\"time\":\"4:30am\",\"time_legacy\":\"5:00am July 3\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t452",
+    "find": "{\"tick\":452,\"time\":\"5:05am\",",
+    "repl": "{\"tick\":452,\"time\":\"4:35am\",\"time_legacy\":\"5:05am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t455",
+    "find": "{\"tick\":455,\"time\":\"5:20am\",",
+    "repl": "{\"tick\":455,\"time\":\"4:50am\",\"time_legacy\":\"5:20am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t460",
+    "find": "{\"tick\":460,\"time\":\"5:45am\",",
+    "repl": "{\"tick\":460,\"time\":\"5:20am\",\"time_legacy\":\"5:45am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t465",
+    "find": "{\"tick\":465,\"time\":\"6:10am\",",
+    "repl": "{\"tick\":465,\"time\":\"5:45am\",\"time_legacy\":\"6:10am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t480",
+    "find": "{\"tick\":480,\"time\":\"7:05am\",",
+    "repl": "{\"tick\":480,\"time\":\"7:10am\",\"time_legacy\":\"7:05am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t490",
+    "find": "{\"tick\":490,\"time\":\"7:35am\",",
+    "repl": "{\"tick\":490,\"time\":\"8:05am\",\"time_legacy\":\"7:35am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t500",
+    "find": "{\"tick\":500,\"time\":\"8:05am\",",
+    "repl": "{\"tick\":500,\"time\":\"9:00am\",\"time_legacy\":\"8:05am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t505",
+    "find": "{\"tick\":505,\"time\":\"8:30am\",",
+    "repl": "{\"tick\":505,\"time\":\"9:40am\",\"time_legacy\":\"8:30am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t510",
+    "find": "{\"tick\":510,\"time\":\"8:50am\",",
+    "repl": "{\"tick\":510,\"time\":\"10:20am\",\"time_legacy\":\"8:50am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t515",
+    "find": "{\"tick\":515,\"time\":\"9:15am\",",
+    "repl": "{\"tick\":515,\"time\":\"11:00am\",\"time_legacy\":\"9:15am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t516",
+    "find": "{\"tick\":516,\"time\":\"9:20am\",",
+    "repl": "{\"tick\":516,\"time\":\"11:40am\",\"time_legacy\":\"9:20am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t518",
+    "find": "{\"tick\":518,\"time\":\"9:30am\",",
+    "repl": "{\"tick\":518,\"time\":\"1:05pm\",\"time_legacy\":\"9:30am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t520",
+    "find": "{\"tick\":520,\"time\":\"9:40am\",",
+    "repl": "{\"tick\":520,\"time\":\"1:20pm\",\"time_legacy\":\"9:40am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t522",
+    "find": "{\"tick\":522,\"time\":\"9:50am\",",
+    "repl": "{\"tick\":522,\"time\":\"1:30pm\",\"time_legacy\":\"9:50am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t525",
+    "find": "{\"tick\":525,\"time\":\"10:05am\",",
+    "repl": "{\"tick\":525,\"time\":\"1:45pm\",\"time_legacy\":\"10:05am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t530",
+    "find": "{\"tick\":530,\"time\":\"10:30am\",",
+    "repl": "{\"tick\":530,\"time\":\"2:15pm\",\"time_legacy\":\"10:30am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t532",
+    "find": "{\"tick\":532,\"time\":\"10:40am\",",
+    "repl": "{\"tick\":532,\"time\":\"2:25pm\",\"time_legacy\":\"10:40am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t535",
+    "find": "{\"tick\":535,\"time\":\"10:50am\",",
+    "repl": "{\"tick\":535,\"time\":\"2:45pm\",\"time_legacy\":\"10:50am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t538",
+    "find": "{\"tick\":538,\"time\":\"11:05am\",",
+    "repl": "{\"tick\":538,\"time\":\"3:00pm\",\"time_legacy\":\"11:05am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t540",
+    "find": "{\"tick\":540,\"time\":\"11:15am\",",
+    "repl": "{\"tick\":540,\"time\":\"3:05pm\",\"time_legacy\":\"11:15am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t542",
+    "find": "{\"tick\":542,\"time\":\"11:25am\",",
+    "repl": "{\"tick\":542,\"time\":\"3:10pm\",\"time_legacy\":\"11:25am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t544",
+    "find": "{\"tick\":544,\"time\":\"11:35am\",",
+    "repl": "{\"tick\":544,\"time\":\"3:15pm\",\"time_legacy\":\"11:35am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t546",
+    "find": "{\"tick\":546,\"time\":\"11:45am\",",
+    "repl": "{\"tick\":546,\"time\":\"3:20pm\",\"time_legacy\":\"11:45am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t547",
+    "find": "{\"tick\":547,\"time\":\"11:50am\",",
+    "repl": "{\"tick\":547,\"time\":\"3:25pm\",\"time_legacy\":\"11:50am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t548",
+    "find": "{\"tick\":548,\"time\":\"11:55am\",",
+    "repl": "{\"tick\":548,\"time\":\"3:25pm\",\"time_legacy\":\"11:55am\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t549",
+    "find": "{\"tick\":549,\"time\":\"12:00pm\",",
+    "repl": "{\"tick\":549,\"time\":\"3:30pm\",\"time_legacy\":\"12:00pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t550",
+    "find": "{\"tick\":550,\"time\":\"12:05pm\",",
+    "repl": "{\"tick\":550,\"time\":\"3:30pm\",\"time_legacy\":\"12:05pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t551",
+    "find": "{\"tick\":551,\"time\":\"12:10pm\",",
+    "repl": "{\"tick\":551,\"time\":\"3:35pm\",\"time_legacy\":\"12:10pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t552",
+    "find": "{\"tick\":552,\"time\":\"12:15pm\",",
+    "repl": "{\"tick\":552,\"time\":\"3:40pm\",\"time_legacy\":\"12:15pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t553",
+    "find": "{\"tick\":553,\"time\":\"12:20pm\",",
+    "repl": "{\"tick\":553,\"time\":\"3:45pm\",\"time_legacy\":\"12:20pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t554",
+    "find": "{\"tick\":554,\"time\":\"12:25pm\",",
+    "repl": "{\"tick\":554,\"time\":\"3:50pm\",\"time_legacy\":\"12:25pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t555",
+    "find": "{\"tick\":555,\"time\":\"12:30pm\",",
+    "repl": "{\"tick\":555,\"time\":\"3:55pm\",\"time_legacy\":\"12:30pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t556",
+    "find": "{\"tick\":556,\"time\":\"12:35pm\",",
+    "repl": "{\"tick\":556,\"time\":\"4:00pm\",\"time_legacy\":\"12:35pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t558",
+    "find": "{\"tick\":558,\"time\":\"12:45pm\",",
+    "repl": "{\"tick\":558,\"time\":\"4:15pm\",\"time_legacy\":\"12:45pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t560",
+    "find": "{\"tick\":560,\"time\":\"12:55pm\",",
+    "repl": "{\"tick\":560,\"time\":\"4:25pm\",\"time_legacy\":\"12:55pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t563",
+    "find": "{\"tick\":563,\"time\":\"1:10pm\",",
+    "repl": "{\"tick\":563,\"time\":\"4:45pm\",\"time_legacy\":\"1:10pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t565",
+    "find": "{\"tick\":565,\"time\":\"1:20pm\",",
+    "repl": "{\"tick\":565,\"time\":\"4:55pm\",\"time_legacy\":\"1:20pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t568",
+    "find": "{\"tick\":568,\"time\":\"1:35pm\",",
+    "repl": "{\"tick\":568,\"time\":\"5:15pm\",\"time_legacy\":\"1:35pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t569",
+    "find": "{\"tick\":569,\"time\":\"1:40pm\",",
+    "repl": "{\"tick\":569,\"time\":\"5:15pm\",\"time_legacy\":\"1:40pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t572",
+    "find": "{\"tick\":572,\"time\":\"1:55pm\",",
+    "repl": "{\"tick\":572,\"time\":\"5:20pm\",\"time_legacy\":\"1:55pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t580",
+    "find": "{\"tick\":580,\"time\":\"2:20pm\",",
+    "repl": "{\"tick\":580,\"time\":\"5:35pm\",\"time_legacy\":\"2:20pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t590",
+    "find": "{\"tick\":590,\"time\":\"3:10pm\",",
+    "repl": "{\"tick\":590,\"time\":\"5:50pm\",\"time_legacy\":\"3:10pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t620",
+    "find": "{\"tick\":620,\"time\":\"5:10pm\",",
+    "repl": "{\"tick\":620,\"time\":\"6:35pm\",\"time_legacy\":\"5:10pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t650",
+    "find": "{\"tick\":650,\"time\":\"6:40pm\",",
+    "repl": "{\"tick\":650,\"time\":\"7:20pm\",\"time_legacy\":\"6:40pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-t675",
+    "find": "{\"tick\":675,\"time\":\"8:05pm\",",
+    "repl": "{\"tick\":675,\"time\":\"8:00pm\",\"time_legacy\":\"8:05pm\",",
+    "expect": 1
+   },
+   {
+    "id": "chron-meta-d3",
+    "find": "    \"tick_formula\": \"Tick 451 = 5:00am July 3. Each tick = 5 minutes. Day 3 = ticks 451-675.\",\n",
+    "repl": "    \"tick_formula\": \"Tick numbers are permanent frame ids, not fixed five-minute steps. The clock is derived from data/time_anchors.json (candidate dv 2, 33 proposed anchors, unreviewed): Day 3 = ticks 451-675, from about 4:30 AM to about 8:00 PM (local mean time). A Day tab is a tick range, not a calendar date.\",\n",
+    "expect": 1
+   }
+  ],
+  "placement_schema.json": [
+   {
+    "id": "schema-day1",
+    "find": "\"real_time\": \"5:00am July 1 to 12:40am July 2\"",
+    "repl": "\"real_time\": \"about 5:00 AM July 1 to about 4:25 AM July 2\"",
+    "expect": 1
+   },
+   {
+    "id": "schema-day2",
+    "find": "\"real_time\": \"5:00am July 2 to 7:50pm July 2\"",
+    "repl": "\"real_time\": \"about 4:30 AM July 2 to about 4:25 AM July 3\"",
+    "expect": 1
+   },
+   {
+    "id": "schema-day3",
+    "find": "\"real_time\": \"5:00am July 3 to 8:05pm July 3\"",
+    "repl": "\"real_time\": \"about 4:30 AM July 3 to about 8:00 PM July 3\"",
+    "expect": 1
+   },
+   {
+    "id": "schema-purpose",
+    "find": "Defines the exact data structure for all 430,000+ unit placement records.",
+    "repl": "Defines the data structure for the unit placement records (1,804 rows in 47 files, on 188 of 675 ticks).",
+    "expect": 1
+   },
+   {
+    "id": "schema-per-tick",
+    "find": "\"expected_units_per_tick\": \"600-700\"",
+    "repl": "\"expected_units_per_tick\": \"about 10 rows on a populated tick (sparse keyframes; 487 ticks hold none)\"",
+    "expect": 1
+   },
+   {
+    "id": "schema-total",
+    "find": "\"total_placement_records\": \"approximately 430000\"",
+    "repl": "\"total_placement_records\": \"1804\"",
+    "expect": 1
+   },
+   {
+    "id": "schema-tick-desc",
+    "find": "\"description\": \"The 5-minute tick number. Tick 1 = 5:00am July 1.\"",
+    "repl": "\"description\": \"Frame number 1-675, a permanent id. The clock time comes from time_anchors.json (about 5:00am on July 1 at tick 1); a tick is not a fixed five minutes.\"",
+    "expect": 1
+   }
+  ],
+  "placements_day1_ticks101_225.json": [
+   {
+    "id": "desc-placements_day1_ticks101_225.json",
+    "find": "\"description\": \"Unit placements July 1, 1863, 1:30pm to 12:40am July 2. Covers: both armies consolidating overnight positions, all corps arriving and deploying on their final Day 1 lines, Meade arriving, council of war, fish-hook Union line fully established, Confederate Seminary Ridge line established.\"",
+    "repl": "\"description\": \"Unit placements July 1, 1863, about 8:05 PM to about 4:25 AM July 2. Covers: both armies consolidating overnight positions, all corps arriving and deploying on their final Day 1 lines, Meade arriving, council of war, fish-hook Union line fully established, Confederate Seminary Ridge line established.\"",
+    "expect": 1
+   }
+  ],
+  "placements_day1_ticks1_50.json": [
+   {
+    "id": "desc-placements_day1_ticks1_50.json",
+    "find": "\"description\": \"Unit placements July 1, 1863, 5:00am to approximately 9:10am. Covers: both armies approaching, Buford's cavalry deployment, opening skirmishing, first infantry engagement, Iron Brigade charge, Archer captured, Railroad Cut action, Rodes arriving Oak Hill, I Corps and XI Corps deploying.\"",
+    "repl": "\"description\": \"Unit placements July 1, 1863, about 5:00 AM to about 1:55 PM. Covers: both armies approaching, Buford's cavalry deployment, opening skirmishing, first infantry engagement, Iron Brigade charge, Archer captured, Railroad Cut action, Rodes arriving Oak Hill, I Corps and XI Corps deploying.\"",
+    "expect": 1
+   },
+   {
+    "id": "count-placements_day1_ticks1_50.json",
+    "find": "\"record_count\": 4890",
+    "repl": "\"record_count\": 100",
+    "expect": 1
+   }
+  ],
+  "placements_day1_ticks51_100.json": [
+   {
+    "id": "desc-placements_day1_ticks51_100.json",
+    "find": "\"description\": \"Unit placements July 1, 1863, approximately 9:10am to 1:30pm. Covers: Iverson's Pits, Gordon's flank attack, Barlow's Knoll collapse, XI Corps rout, Dilger's battery in Gettysburg streets, Union rally on Cemetery Hill, XII Corps arriving, both armies consolidating fish-hook line, end of Day 1 fighting.\"",
+    "repl": "\"description\": \"Unit placements July 1, 1863, about 2:05 PM to about 8:00 PM. Covers: Iverson's Pits, Gordon's flank attack, Barlow's Knoll collapse, XI Corps rout, Dilger's battery in Gettysburg streets, Union rally on Cemetery Hill, XII Corps arriving, both armies consolidating fish-hook line, end of Day 1 fighting.\"",
+    "expect": 1
+   }
+  ],
+  "placements_day2_ticks226_300.json": [
+   {
+    "id": "desc-placements_day2_ticks226_300.json",
+    "find": "\"description\": \"Unit placements July 2, 1863, 5:00am to approximately 11:10am. Covers: morning consolidation, Sickles's unauthorized advance, Berdan's recon, Longstreet's assault beginning, Hood's attack toward Round Tops, Little Round Top crisis, Vincent deploying, 15th Alabama vs 20th Maine, Chamberlain's charge, Barksdale's Peach Orchard assault, Wheatfield fighting, Bigelow's withdrawal.\"",
+    "repl": "\"description\": \"Unit placements July 2, 1863, about 4:30 AM to about 7:05 PM. Covers: morning consolidation, Sickles's unauthorized advance, Berdan's recon, Longstreet's assault beginning, Hood's attack toward Round Tops, Little Round Top crisis, Vincent deploying, 15th Alabama vs 20th Maine, Chamberlain's charge, Barksdale's Peach Orchard assault, Wheatfield fighting, Bigelow's withdrawal.\"",
+    "expect": 1
+   }
+  ],
+  "placements_day2_ticks301_375.json": [
+   {
+    "id": "desc-placements_day2_ticks301_375.json",
+    "find": "\"description\": \"Unit placements July 2, 1863, approximately 11:10am to 2:35pm. Covers: 1st Minnesota charge, Wright's Cemetery Ridge breakthrough, Willard's countercharge, Barksdale mortally wounded, McGilvery Plum Run Line, Cemetery Hill assault by Louisiana Tigers and Avery, Carroll's counterattack, Greene's lone stand on Culp's Hill, Johnson's attack on Culp's Hill, Stuart arriving.\"",
+    "repl": "\"description\": \"Unit placements July 2, 1863, about 7:10 PM to about 12:25 AM. Covers: 1st Minnesota charge, Wright's Cemetery Ridge breakthrough, Willard's countercharge, Barksdale mortally wounded, McGilvery Plum Run Line, Cemetery Hill assault by Louisiana Tigers and Avery, Carroll's counterattack, Greene's lone stand on Culp's Hill, Johnson's attack on Culp's Hill, Stuart arriving.\"",
+    "expect": 1
+   }
+  ],
+  "placements_day2_ticks376_450.json": [
+   {
+    "id": "desc-placements_day2_ticks376_450.json",
+    "find": "\"description\": \"Unit placements July 2-3, 1863, approximately 2:35pm to 7:50pm. Covers: both armies consolidating overnight positions after Day 2 fighting, Pickett's division moving into position behind Seminary Ridge, Pettigrew and Trimble positioning, Alexander preparing artillery, XII Corps back on Culp's Hill, all units in final positions for Day 3.\"",
+    "repl": "\"description\": \"Unit placements July 2-3, 1863, about 12:25 AM to about 4:25 AM. Covers: both armies consolidating overnight positions after Day 2 fighting, Pickett's division moving into position behind Seminary Ridge, Pettigrew and Trimble positioning, Alexander preparing artillery, XII Corps back on Culp's Hill, all units in final positions for Day 3.\"",
+    "expect": 1
+   }
+  ],
+  "placements_day3_ticks451_520.json": [
+   {
+    "id": "desc-placements_day3_ticks451_520.json",
+    "find": "\"description\": \"Unit placements July 3, 1863, 5:00am to approximately 9:20am. Covers: Culp's Hill bombardment opening Day 3, Colgrove's charge (Mudge KIA), seven hours of Culp's Hill fighting, Johnson's Confederates finally driven back, Pickett's division forming in the woods, Confederate artillery moving into cannonade positions, both armies preparing for the climactic afternoon.\"",
+    "repl": "\"description\": \"Unit placements July 3, 1863, about 4:30 AM to about 1:20 PM. Covers: Culp's Hill bombardment opening Day 3, Colgrove's charge (Mudge KIA), seven hours of Culp's Hill fighting, Johnson's Confederates finally driven back, Pickett's division forming in the woods, Confederate artillery moving into cannonade positions, both armies preparing for the climactic afternoon.\"",
+    "expect": 1
+   }
+  ],
+  "placements_day3_ticks521_600.json": [
+   {
+    "id": "desc-placements_day3_ticks521_600.json",
+    "find": "\"description\": \"Unit placements July 3, 1863, approximately 9:30am to 3:20pm. THE CLIMACTIC SEQUENCE: Confederate cannonade ticks 518-542, Pickett's Charge steps off tick 538, Confederate assault crosses open fields ticks 538-553, Armistead over The Angle tick 551, Armistead falls tick 552, Cushing KIA tick 553, Confederate repulse ticks 554-556, East Cavalry Field ticks 560-565, Farnsworth's charge ticks 568-569, both armies exhausted.\"",
+    "repl": "\"description\": \"Unit placements July 3, 1863, about 1:25 PM to about 6:05 PM. THE CLIMACTIC SEQUENCE: Confederate cannonade ticks 518-542, Pickett's Charge steps off tick 538, Confederate assault crosses open fields ticks 538-553, Armistead over The Angle tick 551, Armistead falls tick 552, Cushing KIA tick 553, Confederate repulse ticks 554-556, East Cavalry Field ticks 560-565, Farnsworth's charge ticks 568-569, both armies exhausted.\"",
+    "expect": 1
+   }
+  ],
+  "placements_day3_ticks601_675.json": [
+   {
+    "id": "desc-placements_day3_ticks601_675.json",
+    "find": "\"description\": \"Unit placements July 3, 1863, approximately 3:20pm to 8:05pm. Covers: both armies holding final positions after Pickett's repulse, Meade deciding not to counterattack, Lee organizing for defense and retreat, Imboden's cavalry preparing to escort the wounded wagon train, rain beginning, the battle ending. Final snapshot of every unit at tick 675.\"",
+    "repl": "\"description\": \"Unit placements July 3, 1863, about 6:05 PM to about 8:00 PM. Covers: both armies holding final positions after Pickett's repulse, Meade deciding not to counterattack, Lee organizing for defense and retreat, Imboden's cavalry preparing to escort the wounded wagon train, rain beginning, the battle ending. Final snapshot of every unit at tick 675.\"",
+    "expect": 1
+   }
+  ],
+  "casualty_apportionment.json": [
+   {
+    "id": "cas-most_compressed_union",
+    "find": "\"tick_range\": [256, 330]\n",
+    "repl": "\"tick_range\": [256, 330],\n      \"claimed_duration_min\": 120,\n      \"model_duration_min\": 283\n",
+    "expect": 1
+   },
+   {
+    "id": "cas-most_compressed_confederate",
+    "find": "\"tick_range\": [538, 558]\n",
+    "repl": "\"tick_range\": [538, 558],\n      \"claimed_duration_min\": 30,\n      \"model_duration_min\": 73\n",
+    "expect": 1
+   },
+   {
+    "id": "cas-longest_sustained_action",
+    "find": "\"tick_range\": [451, 534]\n",
+    "repl": "\"tick_range\": [451, 534],\n      \"claimed_duration_min\": 420,\n      \"model_duration_min\": 607\n",
+    "expect": 1
+   },
+   {
+    "id": "cas-U-I-18-75",
+    "find": "\"notes\": \"Nearly all I Corps casualties fell in a 3-hour window July 1 -- one of the most compressed casualty periods of the battle.\"",
+    "repl": "\"claimed_duration_min\": 180,\n          \"model_duration_min\": 508,\n          \"notes\": \"Nearly all I Corps casualties fell in a 3-hour window July 1 -- one of the most compressed casualty periods of the battle.\"",
+    "expect": 1
+   },
+   {
+    "id": "cas-U-III-256-330",
+    "find": "\"notes\": \"Nearly ALL III Corps casualties fell in approximately 2 hours -- one of the most compressed casualty periods of the battle. Sickles's unauthorized advance created this vulnerability.\"",
+    "repl": "\"claimed_duration_min\": 120,\n          \"model_duration_min\": 283,\n          \"notes\": \"Nearly ALL III Corps casualties fell in approximately 2 hours -- one of the most compressed casualty periods of the battle. Sickles's unauthorized advance created this vulnerability.\"",
+    "expect": 1
+   },
+   {
+    "id": "cas-C-I-535-570",
+    "find": "\"notes\": \"Pickett's division alone suffered ~2,700 casualties -- 49% of its strength -- in approximately 30 minutes of close combat.\"",
+    "repl": "\"claimed_duration_min\": 30,\n          \"model_duration_min\": 155,\n          \"notes\": \"Pickett's division alone suffered ~2,700 casualties -- 49% of its strength -- in approximately 30 minutes of close combat.\"",
+    "expect": 1
+   }
+  ]
+ },
+ "successions": [
+  {
+   "id": "US-001",
+   "tick": 28,
+   "old": "July 1 ~10:15am",
+   "nu": "July 1 ~10:15am"
+  },
+  {
+   "id": "US-002",
+   "tick": 72,
+   "old": "July 1 evening",
+   "nu": "July 1 ~4:20pm"
+  },
+  {
+   "id": "US-003",
+   "tick": 33,
+   "old": "July 1 ~11:30am",
+   "nu": "July 1 ~10:45am"
+  },
+  {
+   "id": "US-004",
+   "tick": 46,
+   "old": "July 1 ~2:00pm",
+   "nu": "July 1 ~1:05pm"
+  },
+  {
+   "id": "US-005",
+   "tick": 47,
+   "old": "July 1 ~2:15pm",
+   "nu": "July 1 ~1:15pm"
+  },
+  {
+   "id": "US-006",
+   "tick": 48,
+   "old": "July 1 ~2:30pm",
+   "nu": "July 1 ~1:30pm"
+  },
+  {
+   "id": "US-007",
+   "tick": 46,
+   "old": "July 1 ~2:00pm",
+   "nu": "July 1 ~1:05pm"
+  },
+  {
+   "id": "US-008",
+   "tick": 48,
+   "old": "July 1 ~2:30pm",
+   "nu": "July 1 ~1:30pm"
+  },
+  {
+   "id": "US-009",
+   "tick": 550,
+   "old": "July 3 ~3:15pm",
+   "nu": "July 3 ~3:30pm"
+  },
+  {
+   "id": "US-010",
+   "tick": 550,
+   "old": "July 3 ~3:20pm",
+   "nu": "July 3 ~3:30pm"
+  },
+  {
+   "id": "US-011",
+   "tick": 295,
+   "old": "July 2 ~5:45pm",
+   "nu": "July 2 ~7:00pm"
+  },
+  {
+   "id": "US-012",
+   "tick": 293,
+   "old": "July 2 ~5:30pm",
+   "nu": "July 2 ~6:55pm"
+  },
+  {
+   "id": "US-013",
+   "tick": 302,
+   "old": "July 2 ~6:40pm",
+   "nu": "July 2 ~7:10pm"
+  },
+  {
+   "id": "US-014",
+   "tick": 303,
+   "old": "July 2 ~6:45pm",
+   "nu": "July 2 ~7:10pm"
+  },
+  {
+   "id": "US-015",
+   "tick": 300,
+   "old": "July 2 ~6:30pm",
+   "nu": "July 2 ~7:05pm"
+  },
+  {
+   "id": "US-016",
+   "tick": 551,
+   "old": "July 3 ~3:15pm",
+   "nu": "July 3 ~3:35pm"
+  },
+  {
+   "id": "US-017",
+   "tick": 298,
+   "old": "July 2 ~6:00pm",
+   "nu": "July 2 ~7:05pm"
+  },
+  {
+   "id": "US-018",
+   "tick": 295,
+   "old": "July 2 ~5:45pm",
+   "nu": "July 2 ~7:00pm"
+  },
+  {
+   "id": "US-019",
+   "tick": 300,
+   "old": "July 2 ~6:15pm",
+   "nu": "July 2 ~7:05pm"
+  },
+  {
+   "id": "US-020",
+   "tick": 290,
+   "old": "July 2 ~5:15pm",
+   "nu": "July 2 ~6:50pm"
+  },
+  {
+   "id": "US-021",
+   "tick": 293,
+   "old": "July 2 ~5:30pm",
+   "nu": "July 2 ~6:55pm"
+  },
+  {
+   "id": "US-022",
+   "tick": 50,
+   "old": "July 1 ~2:45pm",
+   "nu": "July 1 ~1:55pm"
+  },
+  {
+   "id": "US-023",
+   "tick": 552,
+   "old": "July 3 ~3:30pm",
+   "nu": "July 3 ~3:40pm"
+  },
+  {
+   "id": "US-024",
+   "tick": 295,
+   "old": "July 2 ~5:45pm",
+   "nu": "July 2 ~7:00pm"
+  },
+  {
+   "id": "US-025",
+   "tick": 461,
+   "old": "July 3 ~7:30am",
+   "nu": "July 3 ~5:25am"
+  },
+  {
+   "id": "CS-001",
+   "tick": 278,
+   "old": "July 2 ~4:15pm",
+   "nu": "July 2 ~6:20pm"
+  },
+  {
+   "id": "CS-002",
+   "tick": 278,
+   "old": "July 2 ~4:15pm",
+   "nu": "July 2 ~6:20pm"
+  },
+  {
+   "id": "CS-003",
+   "tick": 298,
+   "old": "July 2 ~6:00pm",
+   "nu": "July 2 ~7:05pm"
+  },
+  {
+   "id": "CS-004",
+   "tick": 293,
+   "old": "July 2 ~5:30pm",
+   "nu": "July 2 ~6:55pm"
+  },
+  {
+   "id": "CS-005",
+   "tick": 550,
+   "old": "July 3 ~3:20pm",
+   "nu": "July 3 ~3:30pm"
+  },
+  {
+   "id": "CS-006",
+   "tick": 551,
+   "old": "July 3 ~3:25pm",
+   "nu": "July 3 ~3:35pm"
+  },
+  {
+   "id": "CS-007",
+   "tick": 552,
+   "old": "July 3 ~3:30pm",
+   "nu": "July 3 ~3:40pm"
+  },
+  {
+   "id": "CS-008",
+   "tick": 48,
+   "old": "July 1 ~2:30pm",
+   "nu": "July 1 ~1:30pm"
+  },
+  {
+   "id": "CS-009",
+   "tick": 501,
+   "old": "July 3 morning",
+   "nu": "July 3 ~9:10am"
+  },
+  {
+   "id": "CS-010",
+   "tick": 550,
+   "old": "July 3 ~3:20pm",
+   "nu": "July 3 ~3:30pm"
+  },
+  {
+   "id": "CS-011",
+   "tick": 29,
+   "old": "July 1 ~10:30am",
+   "nu": "July 1 ~10:20am"
+  },
+  {
+   "id": "CS-012",
+   "tick": 310,
+   "old": "July 2 afternoon",
+   "nu": "July 2 ~7:15pm"
+  },
+  {
+   "id": "CS-013",
+   "tick": 52,
+   "old": "July 1 ~3:30pm",
+   "nu": "July 1 ~2:20pm"
+  },
+  {
+   "id": "CS-014",
+   "tick": 328,
+   "old": "July 2 ~9:00pm",
+   "nu": "July 2 ~8:20pm"
+  },
+  {
+   "id": "CS-015",
+   "tick": 315,
+   "old": "July 2 evening",
+   "nu": "July 2 ~7:25pm"
+  },
+  {
+   "id": "CS-016",
+   "tick": 310,
+   "old": "July 2 late afternoon",
+   "nu": "July 2 ~7:15pm"
+  },
+  {
+   "id": "CS-017",
+   "tick": 556,
+   "old": "July 3 ~3:45pm",
+   "nu": "July 3 ~4:00pm"
+  }
+ ],
+ "stats": {
+  "model": "2026-09-30.1",
+  "dv": 2,
+  "chronology": {
+   "events": 137,
+   "relabeled": 134,
+   "unchanged": 3,
+   "dated": 5,
+   "timeLegacyKept": 134
+  },
+  "files": {
+   "chronology_day1.json": 40,
+   "chronology_day2.json": 50,
+   "chronology_day3.json": 47,
+   "placement_schema.json": 7,
+   "placements_day1_ticks101_225.json": 1,
+   "placements_day1_ticks1_50.json": 2,
+   "placements_day1_ticks51_100.json": 1,
+   "placements_day2_ticks226_300.json": 1,
+   "placements_day2_ticks301_375.json": 1,
+   "placements_day2_ticks376_450.json": 1,
+   "placements_day3_ticks451_520.json": 1,
+   "placements_day3_ticks521_600.json": 1,
+   "placements_day3_ticks601_675.json": 1,
+   "casualty_apportionment.json": 6
+  },
+  "successions": {
+   "rows": 42,
+   "parseable": 37,
+   "agreeWithModel30": 13,
+   "agreeWithLegacyFormula30": 0,
+   "byteExact2Space": true
+  },
+  "placementRows": 1804,
+  "populatedTicks": 188
+ }
+}

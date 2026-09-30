@@ -47,7 +47,7 @@ describe('the checker: apply, parse, scope, evaluate', () => {
   test('it also applies on top of the real T0 groups (R0 A B DL C AX CP), with CLOCK at the end and right after group B (the regex anchors survive D1-D3)', () => {
     for (const pos of ['end', 'after-B']) {
       const r = check('--after-t0', '--position=' + pos, '--out=' + tmpdir('t0'), '--no-scope'); assert.equal(r.status, 0, pos + '\n' + r.stdout + r.stderr);
-      assert.match(r.stdout, /125 T0 patches applied/); assert.match(r.stdout, /0 did not apply/); assert.match(r.stdout, /56 patches in group "CLOCK" \(3 regex\), 56 applied on top of the T0 groups/);
+      assert.ok(+/(\d+) T0 patches applied/.exec(r.stdout)[1] >= 125, 'the T0 groups (125 when this was written; other workstreams add more)'); assert.match(r.stdout, /0 did not apply/); assert.match(r.stdout, /56 patches in group "CLOCK" \(3 regex\), 56 applied on top of the T0 groups/);
     }
   });
   test('validators before -> after: TM-V17 13 -> 0, TM-V16 7 -> 1, TM-V9 falls', () => {

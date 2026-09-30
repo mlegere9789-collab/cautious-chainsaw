@@ -42,8 +42,8 @@ B('CLK-06-toolbar-clock', 'const xi=(kt==null?void 0:kt())||`Tick ${c}`,va=c<=22
 B('CLK-07-mobile-header-date', 'V.jsxs("div",{style:tn.clockDay,children:["July ",di]})', 'V.jsx("div",{style:tn.clockDay,children:GTBGT.f(f,"day")})');
 B('CLK-08-mobile-transport-frame', 'V.jsxs("div",{style:tn.tickInfo,children:["Tick ",f,"/",P]})', 'V.jsx("div",{style:tn.tickInfo,children:GTBGT.f(f,"frame")})');
 B('CLK-09-timebar-frame', 'V.jsxs("span",{style:Po.tickNum,children:["Tick ",c,"/675"]})', 'V.jsx("span",{style:Po.tickNum,children:GTBGT.f(c,"frame")})');
-B('CLK-10-timebar-hour-back', 'onClick:()=>P(c-12),style:Po.btn,title:"Back 1hr (Shift+Left)"', 'onClick:()=>P(GTBGT.after(c,-60)),style:Po.btn,title:"Back 1 hour of battle time (Shift+Left)"');
-B('CLK-11-timebar-hour-forward', 'onClick:()=>P(c+12),style:Po.btn,title:"Fwd 1hr (Shift+Right)"', 'onClick:()=>P(GTBGT.after(c,60)),style:Po.btn,title:"Forward 1 hour of battle time (Shift+Right)"');
+B('CLK-10-timebar-hour-back', 'onClick:()=>P(c-12),style:Po.btn,title:"Back 1hr (Shift+Left)"', 'onClick:()=>P(GTBGT.after(c,-60)),style:Po.btn,title:"Back 1hr (Shift+Left)"');
+B('CLK-11-timebar-hour-forward', 'onClick:()=>P(c+12),style:Po.btn,title:"Fwd 1hr (Shift+Right)"', 'onClick:()=>P(GTBGT.after(c,60)),style:Po.btn,title:"Fwd 1hr (Shift+Right)"');
 B('CLK-12-timebar-keys', 'Ie.key==="ArrowRight"&&P(Ie.shiftKey?c+12:c+1),Ie.key==="ArrowLeft"&&P(Ie.shiftKey?c-12:c-1)', 'Ie.key==="ArrowRight"&&P(Ie.shiftKey?GTBGT.after(c,60):c+1),Ie.key==="ArrowLeft"&&P(Ie.shiftKey?GTBGT.after(c,-60):c-1)');
 B('CLK-13-global-key-forward', 'currentTick:Math.min(675,Bo+(Ur.shiftKey?12:1))', 'currentTick:Math.min(675,Ur.shiftKey?GTBGT.after(Bo,60):Bo+1)');
 B('CLK-14-global-key-back', 'currentTick:Math.max(1,Bo-(Ur.shiftKey?12:1))', 'currentTick:Math.max(1,Ur.shiftKey?GTBGT.after(Bo,-60):Bo-1)');

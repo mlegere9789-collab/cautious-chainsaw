@@ -8,6 +8,7 @@ import * as walk from 'acorn-walk';
 import { P, LEGACY, readJson, readText, readCsv, parseJulyClock, parseHm, mean, median, rms, r1 } from './lib.mjs';
 import { validate as jsonSchemaValidate } from './jsonschema.mjs';
 import { validateAnchors, anchorsDoc } from '../../src/lib/time/index.js';
+import { spanText, CLOCK_SPAN_RE } from './clocktext.mjs';
 import { clocksIn, dayPartsIn, dataTickStrings, literalTickStrings, loadChronology, loadChronologyMeta, loadVignettes, loadSuccessions, loadCasualty, loadSchema, loadPlacementFiles, loadPlacements, loadTreeFiles, DATA } from './data.mjs';
 
 // ------------------------------------------------------------------ context
@@ -261,14 +262,19 @@ rule('TM-V13', 'record_count, tick_range and schema prose equal what the files c
   }
   const md = c.schema.metadata, td = md.ticks_per_day;
   for (const d of ['day1', 'day2', 'day3']) {
-    const i = +d.slice(3) - 1, last = c.model.tabDays[i][1], want = `${c.model.format(c.model.tabDays[i][0], 'time')} ${c.model.format(c.model.tabDays[i][0], 'day')} to ${c.model.format(last, 'time')} ${c.model.format(last, 'day')}`;
-    issues.push(`placement_schema ${d}.real_time "${td[d].real_time}" (model: ${want})`);
+    const i = +d.slice(3) - 1, want = spanText(c.model, c.model.tabDays[i][0], c.model.tabDays[i][1]);
+    if (td[d].real_time !== want) issues.push(`placement_schema ${d}.real_time "${td[d].real_time}" (model: ${want})`);
   }
   const recs = c.placements.length;
   if (/430/.test(String(md.total_placement_records)) || /430,000/.test(md.purpose)) issues.push(`placement_schema total_placement_records "${md.total_placement_records}" but the files hold ${recs} rows`);
   if (String(md.expected_units_per_tick) === '600-700') issues.push(`placement_schema expected_units_per_tick "600-700" but ticks hold ${(recs / new Set(c.placements.map((p) => p.tick)).size).toFixed(1)} rows on average`);
   for (const { file, metadata } of c.chronMeta) if (/5 minutes/i.test(metadata.tick_formula || '')) issues.push(`${file}: tick_formula "${metadata.tick_formula}" (must point to time_anchors.json)`);
-  for (const { file, json } of c.placementFiles) if (/\d:\d\d ?[ap]m/i.test((json.metadata || {}).description || '')) issues.push(`${file}: description prints typed clock "${((json.metadata || {}).description || '').match(/\d:\d\d ?[ap]m[^.]{0,30}/i)[0]}"`);
+  for (const { file, json } of c.placementFiles) {
+    const md2 = json.metadata || {}, m = CLOCK_SPAN_RE.exec(md2.description || '');
+    if (!m || !md2.tick_range) continue;
+    const [a, b] = md2.tick_range, want = `${c.model.tickToLabel(a, { style: 'time', approx: true, roundMin: 5 })} to ${c.model.tickToLabel(b, { style: 'time', approx: true, roundMin: 5 })}`;
+    if (m[0] !== want) issues.push(`${file}: description prints the clock span "${m[0]}" but the model says "${want}" for ticks ${a}-${b}`);
+  }
   return R({ status: issues.length ? 'fail' : 'pass', count: issues.length, headline: `${issues.length} metadata claims disagree with the data or the model`, details: issues });
 });
 
