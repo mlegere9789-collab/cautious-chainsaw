@@ -11,7 +11,7 @@ node   tools/t0/gate.mjs --train R1a                                       # re-
 python tools/t0/overlap.py                                                 # geometric overlap audit of the patch set
 python tools/t0/ledger.py seed|check|record                                # used-names ledger (ops/used-names.txt)
 node   tools/t0/serve.mjs release/R0/dist 8300                             # Netlify-like static server (npm run serve)
-python tests/t0/build_selftest.py                                          # 9 properties of the build system (npm run t0:test:build)
+python tests/t0/build_selftest.py                                          # 10 properties of the build system (npm run t0:test:build)
 node   tests/t0/lib_selftest.mjs                                            # the browser harness proves itself (npm run t0:test:lib)
 node   tests/t0/r0.mjs                                                     # R0 acceptance in real Chrome (npm run t0:test:r0)
 ```
