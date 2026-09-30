@@ -1,0 +1,178 @@
+{
+  "metadata": {
+    "chunk": "013",
+    "title": "Confederate Army -- Artillery, All Corps",
+    "sources": [
+      "Busey, John W. and Martin, David G. -- Regimental Strengths and Losses at Gettysburg (Longstreet House, 1994)",
+      "OR Vol. 27, Parts I and II",
+      "Gottfried, Bradley M. -- The Artillery of Gettysburg (Cumberland House, 2008)",
+      "Alexander, Edward Porter -- Fighting for the Confederacy (UNC Press, 1989)"
+    ],
+    "army_chief_of_artillery": {
+      "name": "Brigadier General William Pendleton",
+      "fate": "Survived",
+      "notes": "Pendleton exercised little tactical control. Corps chiefs -- especially Alexander -- made the real decisions."
+    },
+    "total_batteries": 45,
+    "total_guns_approximately": 283,
+    "alexander_cannonade_notes": {
+      "event": "July 3 Confederate Cannonade -- approximately 1:00-3:00pm",
+      "tick_range": [518, 542],
+      "total_confederate_guns_engaged": 170,
+      "alexander_message_1": "For God's sake come quick or we cannot support you -- ammunition nearly exhausted",
+      "alexander_message_2": "I would not make the charge now -- but the order has been given and the troops are already moving",
+      "notes": "Alexander's two messages to Pickett are among the most famous command communications of the battle. The cannonade consumed most of the Confederate ammunition reserve.",
+      "placement_note": "During cannonade ticks all Confederate batteries on Seminary Ridge show Deployed Artillery disposition. Most complex artillery animation sequence in the entire battle."
+    }
+  },
+  "first_corps_artillery": {
+    "chief": {
+      "name": "Colonel Edward Porter Alexander",
+      "fate": "Survived -- lost arm later in war",
+      "notes": "Alexander directed the July 3 cannonade and wrote one of the finest Civil War memoirs. His two messages to Pickett are definitive primary sources."
+    },
+    "battalions": [
+      {
+        "battalion_id": "C-ART-I-1",
+        "designation": "Cabell's Battalion",
+        "commander": {"name": "Colonel Henry Cabell", "fate": "Survived"},
+        "batteries": [
+          {"battery_id":"C-ART-Manly","designation":"Manly's Battery (1st NC Artillery)","commander":{"name":"Captain Basil Manly","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr / 3-inch rifle","strength":80,"casualties":12,"key_action":"Peach Orchard and Emmitsburg Road -- supporting McLaws July 2."},
+          {"battery_id":"C-ART-Carlton","designation":"Carlton's Battery (Troup Artillery GA)","commander":{"name":"Captain Henry Carlton","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":8,"key_action":"First Corps artillery support July 2."},
+          {"battery_id":"C-ART-McCarthy","designation":"McCarthy's Battery (1st Richmond Howitzers)","commander":{"name":"Captain Edward McCarthy","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":6,"key_action":"First Corps artillery."},
+          {"battery_id":"C-ART-Fraser","designation":"Fraser's Battery (Pulaski Artillery GA)","commander":{"name":"Captain John Fraser","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":5,"key_action":"Supporting Hood's assault July 2."}
+        ]
+      },
+      {
+        "battalion_id": "C-ART-I-2",
+        "designation": "Dearing's Battalion (Pickett's Division Artillery)",
+        "commander": {"name": "Major James Dearing", "fate": "Survived"},
+        "batteries": [
+          {"battery_id":"C-ART-Stribling","designation":"Stribling's Battery (Fauquier Artillery VA)","commander":{"name":"Captain Robert Stribling","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":7,"key_action":"July 3 cannonade supporting Pickett's charge."},
+          {"battery_id":"C-ART-Caskie","designation":"Caskie's Battery (Hampden Artillery VA)","commander":{"name":"Captain William Caskie","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":9,"key_action":"July 3 cannonade."},
+          {"battery_id":"C-ART-Blount","designation":"Blount's Battery (Wise Artillery VA)","commander":{"name":"Captain Joseph Blount","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":6,"key_action":"July 3 cannonade."},
+          {"battery_id":"C-ART-Macon","designation":"Macon's Battery (Richmond Fayette Artillery VA)","commander":{"name":"Captain Miles Macon","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":8,"key_action":"July 3 cannonade."}
+        ]
+      },
+      {
+        "battalion_id": "C-ART-I-3",
+        "designation": "Henry's Battalion (Hood's Division Artillery)",
+        "commander": {"name": "Major M.W. Henry", "fate": "Survived"},
+        "batteries": [
+          {"battery_id":"C-ART-Bachman","designation":"Bachman's Battery (German Artillery SC)","commander":{"name":"Captain William Bachman","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":14,"key_action":"Hood's division support -- Devil's Den and Round Top area July 2."},
+          {"battery_id":"C-ART-Reilly","designation":"Reilly's Battery (Rowan Artillery NC)","commander":{"name":"Captain James Reilly","fate":"Survived"},"gun_count":6,"gun_type":"Napoleon 12-pdr / 3-inch rifle","strength":95,"casualties":16,"key_action":"Supporting Hood's attack -- fired on Little Round Top and Devil's Den approaches."},
+          {"battery_id":"C-ART-Garden","designation":"Garden's Battery (Palmetto Light Artillery SC)","commander":{"name":"Captain Hugh Garden","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":10,"key_action":"Hood's division artillery -- July 2."},
+          {"battery_id":"C-ART-Ross","designation":"Ross's Battery (Sumter Flying Artillery GA)","commander":{"name":"Captain Hugh Ross","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":7,"key_action":"Hood's division support."}
+        ]
+      },
+      {
+        "battalion_id": "C-ART-I-4",
+        "designation": "Washington Artillery of New Orleans (Eshleman's Battalion)",
+        "commander": {"name": "Major Benjamin Eshleman", "fate": "Survived"},
+        "notes": "One of the most famous artillery units in the Confederate army. Positioned on Seminary Ridge for the July 3 cannonade.",
+        "batteries": [
+          {"battery_id":"C-ART-Squires","designation":"Squires's Battery (1st Co., Washington Artillery)","commander":{"name":"Captain Charles Squires","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":8,"key_action":"July 3 cannonade from Seminary Ridge."},
+          {"battery_id":"C-ART-Richardson","designation":"Richardson's Battery (2nd Co., Washington Artillery)","commander":{"name":"Captain John Richardson","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":11,"key_action":"July 3 cannonade -- Washington Artillery of New Orleans."},
+          {"battery_id":"C-ART-Miller-WA","designation":"Miller's Battery (3rd Co., Washington Artillery)","commander":{"name":"Captain Merritt Miller","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":9,"key_action":"July 3 cannonade."},
+          {"battery_id":"C-ART-Norcom","designation":"Norcom's Battery (4th Co., Washington Artillery)","commander":{"name":"Captain Joseph Norcom","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":7,"key_action":"July 3 cannonade."}
+        ]
+      }
+    ]
+  },
+  "second_corps_artillery": {
+    "chief": {"name": "Colonel J. Thompson Brown", "fate": "Survived"},
+    "battalions": [
+      {
+        "battalion_id": "C-ART-II-1",
+        "designation": "Andrews's Battalion",
+        "commander": {"name": "Lieutenant Colonel R. Snowden Andrews", "fate": "Wounded July 1"},
+        "batteries": [
+          {"battery_id":"C-ART-Dement","designation":"Dement's Battery (1st Maryland Artillery CSA)","commander":{"name":"Captain William Dement","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":10,"key_action":"Oak Hill July 1 bombardment -- cross-fire on Union I Corps.","flag_notes":"Oak Hill artillery placement critical for Day 1 -- Confederate guns must be positioned on the ridge northwest of town firing into the flank of the Union I Corps on Oak Ridge."},
+          {"battery_id":"C-ART-Carpenter","designation":"Carpenter's Battery (Alleghany Artillery VA)","commander":{"name":"Captain Joseph Carpenter","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":8,"key_action":"Oak Hill July 1 -- flanking fire on Union I Corps."},
+          {"battery_id":"C-ART-Brown-J","designation":"Brown's Battery (Chesapeake Artillery MD)","commander":{"name":"Captain William Brown","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":6,"key_action":"Second Corps support July 1-3."},
+          {"battery_id":"C-ART-Raine","designation":"Raine's Battery (Lee Battery VA)","commander":{"name":"Captain Charles Raine","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle / 10-pdr Parrott","strength":80,"casualties":7,"key_action":"Second Corps artillery July 1."}
+        ]
+      },
+      {
+        "battalion_id": "C-ART-II-2",
+        "designation": "Dance's Battalion",
+        "commander": {"name": "Colonel Willis Dance", "fate": "Survived"},
+        "batteries": [
+          {"battery_id":"C-ART-Watson","designation":"Watson's Battery (2nd Richmond Howitzers)","commander":{"name":"Captain David Watson","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":9,"key_action":"Second Corps -- Cemetery Hill area July 2-3."},
+          {"battery_id":"C-ART-Smith-B","designation":"Smith's Battery (3rd Richmond Howitzers)","commander":{"name":"Captain Benjamin Smith","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":7,"key_action":"Second Corps support."},
+          {"battery_id":"C-ART-Cunningham","designation":"Cunningham's Battery (Rockbridge Artillery VA)","commander":{"name":"Captain Arthur Cunningham","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":5,"key_action":"Second Corps artillery."},
+          {"battery_id":"C-ART-Hupp","designation":"Hupp's Battery (Salem Artillery VA)","commander":{"name":"Captain Abraham Hupp","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":4,"key_action":"Second Corps support."}
+        ]
+      },
+      {
+        "battalion_id": "C-ART-II-3",
+        "designation": "Jones's Battalion (Rodes's Division Artillery)",
+        "commander": {"name": "Lieutenant Colonel Hilary Jones", "fate": "Survived"},
+        "batteries": [
+          {"battery_id":"C-ART-Carrington","designation":"Carrington's Battery (Charlottesville Artillery VA)","commander":{"name":"Captain James Carrington","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":9,"key_action":"Oak Hill July 1 -- flanking fire that helped destroy I Corps. Key battery in Rodes's attack."},
+          {"battery_id":"C-ART-Carter","designation":"Carter's Battery (King William Artillery VA)","commander":{"name":"Captain William Carter","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr / 3-inch rifle","strength":80,"casualties":12,"key_action":"Oak Hill -- flanking fire on Union I Corps July 1."},
+          {"battery_id":"C-ART-Fry","designation":"Fry's Battery (Orange Artillery VA)","commander":{"name":"Captain Charles Fry","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":8,"key_action":"Oak Hill July 1 bombardment."},
+          {"battery_id":"C-ART-Page","designation":"Page's Battery (Morris Artillery VA)","commander":{"name":"Captain Richard Page","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":6,"key_action":"Rodes's division support."}
+        ]
+      },
+      {
+        "battalion_id": "C-ART-II-4",
+        "designation": "Latimer's Battalion (Johnson's Division Artillery)",
+        "commander": {
+          "name": "Major Joseph Latimer",
+          "fate": "Mortally wounded July 2 -- died August 1, 1863; age 19",
+          "notes": "Latimer was only 19 years old. He positioned his battalion on Benner's Hill to bombard Cemetery Hill and Culp's Hill. The Union artillery response was overwhelming. Latimer was mortally wounded."
+        },
+        "batteries": [
+          {"battery_id":"C-ART-Doll","designation":"Doll's Battery (2nd Maryland Artillery CSA)","commander":{"name":"Captain Charles Doll","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":15,"key_action":"Benner's Hill July 2 -- exposed position systematically destroyed by Union counterbattery fire.","flag_notes":"Benner's Hill placement July 2 -- show battery going from Deployed Artillery to Limbered Artillery/retreating across 2-3 ticks as Union counterbattery destroys the position. Latimer's mortal wounding recorded at correct tick."},
+          {"battery_id":"C-ART-Garber","designation":"Garber's Battery (Staunton Artillery VA)","commander":{"name":"Captain Asher Garber","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":10,"key_action":"Benner's Hill -- driven back by Union artillery."},
+          {"battery_id":"C-ART-Tanner","designation":"Tanner's Battery (Courtney Artillery VA)","commander":{"name":"Captain William Tanner","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":9,"key_action":"Benner's Hill -- Latimer's battalion."},
+          {"battery_id":"C-ART-Brown-C","designation":"Brown's Battery (4th Maryland Artillery CSA)","commander":{"name":"Captain William Brown","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":7,"key_action":"Benner's Hill -- Johnson's division artillery."}
+        ]
+      }
+    ]
+  },
+  "third_corps_artillery": {
+    "chief": {"name": "Colonel R. Lindsay Walker", "fate": "Survived"},
+    "battalions": [
+      {
+        "battalion_id": "C-ART-III-1",
+        "designation": "Garnett's Battalion (Anderson's Division)",
+        "commander": {"name": "Lieutenant Colonel John Garnett", "fate": "Survived"},
+        "batteries": [
+          {"battery_id":"C-ART-Lewis","designation":"Lewis's Battery (Pittsylvania Artillery VA)","commander":{"name":"Captain John Lewis","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":6,"key_action":"Anderson's division artillery -- Cemetery Ridge approach July 2."},
+          {"battery_id":"C-ART-Maurin","designation":"Maurin's Battery (Donaldsonville Artillery LA)","commander":{"name":"Captain Victor Maurin","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":8,"key_action":"Anderson's division artillery July 2."},
+          {"battery_id":"C-ART-Moore","designation":"Moore's Battery (Norfolk Light Artillery VA)","commander":{"name":"Captain Joseph Moore","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":5,"key_action":"Anderson's division support."},
+          {"battery_id":"C-ART-Grandy","designation":"Grandy's Battery (Norfolk Blues Artillery VA)","commander":{"name":"Captain Charles Grandy","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":4,"key_action":"Anderson's division support."}
+        ]
+      },
+      {
+        "battalion_id": "C-ART-III-2",
+        "designation": "McIntosh's Battalion (Heth's Division)",
+        "commander": {"name": "Major D.G. McIntosh", "fate": "Survived"},
+        "batteries": [
+          {"battery_id":"C-ART-Hurt","designation":"Hurt's Battery (Hardaway Artillery AL)","commander":{"name":"Captain William Hurt","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle / Whitworth rifle","strength":80,"casualties":14,"key_action":"Heth's division -- McPherson's Ridge July 1 and July 3 cannonade. Two Whitworth rifles with exceptional range used for long-range counterbattery fire.","flag_notes":"Two Whitworth rifles -- exceptionally long range. Note as special long-range weapons in unit tooltip."},
+          {"battery_id":"C-ART-Johnson-M","designation":"Johnson's Battery (1st Rockbridge Artillery VA)","commander":{"name":"Captain Marmaduke Johnson","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":10,"key_action":"McPherson's Ridge July 1 -- fired on Buford's cavalry and Hall's battery."},
+          {"battery_id":"C-ART-Rice-B","designation":"Rice's Battery (Danville Artillery VA)","commander":{"name":"Captain William Rice","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":8,"key_action":"Heth's division artillery July 1 and 3."},
+          {"battery_id":"C-ART-Wallace","designation":"Wallace's Battery (2nd Rockbridge Artillery VA)","commander":{"name":"Captain Samuel Wallace","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":7,"key_action":"Heth's division artillery."}
+        ]
+      },
+      {
+        "battalion_id": "C-ART-III-3",
+        "designation": "Pegram's Battalion (Pender's Division)",
+        "commander": {
+          "name": "Major William Pegram",
+          "fate": "Survived Gettysburg -- killed Five Forks 1865",
+          "notes": "One of the most aggressive and talented Confederate artillerists. Posted on Herr Ridge July 1 in support of Heth."
+        },
+        "batteries": [
+          {"battery_id":"C-ART-Marye","designation":"Marye's Battery (Fredericksburg Artillery VA)","commander":{"name":"Captain Edward Marye","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":13,"key_action":"Pegram's battalion on Herr Ridge July 1 -- among the first Confederate batteries to open fire. Supported Heth's assault against Buford.","flag_notes":"Herr Ridge placement critical for Day 1 opening ticks -- Pegram's guns open fire before Confederate infantry engages in earnest."},
+          {"battery_id":"C-ART-Crenshaw","designation":"Crenshaw's Battery (Crenshaw Battery VA)","commander":{"name":"Captain William Crenshaw","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":11,"key_action":"Pegram's battalion -- Herr Ridge July 1."},
+          {"battery_id":"C-ART-Brander","designation":"Brander's Battery (Letcher Artillery VA)","commander":{"name":"Captain Thomas Brander","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":9,"key_action":"Pegram's battalion."},
+          {"battery_id":"C-ART-Zimmerman","designation":"Zimmerman's Battery (Pee Dee Artillery SC)","commander":{"name":"Captain William Zimmerman","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":8,"key_action":"Pegram's battalion -- Herr Ridge."},
+          {"battery_id":"C-ART-McGraw","designation":"McGraw's Battery (Purcell Artillery VA)","commander":{"name":"Captain Joseph McGraw","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":10,"key_action":"Pegram's battalion -- Herr Ridge July 1 and July 3 cannonade."}
+        ]
+      }
+    ]
+  }
+}

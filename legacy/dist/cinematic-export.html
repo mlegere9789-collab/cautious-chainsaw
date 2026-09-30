@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0a0a14" />
+<title>Cinematic Export — Gettysburg Animated Battlefield Map</title>
+<meta name="description" content="Pick a stretch of the battle and export a narrated flyover video, right from your browser -- no editing software required." />
+<link rel="canonical" href="https://gettysburginteractivemap.com/cinematic-export.html" />
+<meta property="og:title" content="Cinematic Export — Gettysburg Animated Battlefield Map" />
+<meta property="og:description" content="Export a narrated flyover video of any stretch of the battle." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gettysburginteractivemap.com/cinematic-export.html" />
+<meta property="og:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.css" rel="stylesheet" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js"></script>
+<link rel="stylesheet" href="/site-nav.css">
+<style>
+  :root { --bg:#0a0a14; --panel:#12121e; --ink:#e8e6df; --gold:#c9a24b; --muted:#8a93a8; --line:#1e1e2e; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family: Georgia, serif; }
+  header { padding: 20px 5% 10px; }
+  header a.back { font-family: sans-serif; font-size: 12px; color: var(--muted); text-decoration:none; }
+  h1 { font-size: clamp(20px, 3.2vw, 28px); color: var(--gold); margin: 8px 0 4px; }
+  .sub { font-family: sans-serif; color: var(--muted); font-size: 13px; max-width: 640px; }
+  #map-wrap { position: relative; }
+  #map { height: 56vh; min-height: 380px; }
+  #caption-bar { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 20px; background: linear-gradient(transparent, rgba(0,0,0,0.75)); font-family: sans-serif; font-size: 13px; color: #f0e8d0; text-align: center; min-height: 20px; }
+  #rec-badge { position: absolute; top: 12px; right: 12px; display: none; align-items: center; gap: 6px; font-family: sans-serif; font-size: 11px; color: #ff6b6b; background: rgba(10,10,20,0.7); padding: 5px 10px; border-radius: 14px; }
+  #rec-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: #ff3b3b; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .controls { display:flex; gap:16px; align-items:center; flex-wrap:wrap; padding: 16px 5%; font-family: sans-serif; font-size: 13px; background: var(--panel); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+  .field select, .field input[type=number] { padding: 6px 10px; border-radius: 6px; background: var(--bg); color: var(--ink); border: 1px solid var(--line); }
+  #record-btn { padding: 10px 22px; border-radius: 8px; border: 1px solid var(--gold); background: var(--gold); color: #0a0a14; font-weight: bold; cursor: pointer; }
+  #record-btn:disabled { opacity: 0.5; cursor: default; }
+  #export-status { font-family: sans-serif; font-size: 12px; color: var(--muted); padding: 0 5% 30px; }
+  #download-row { padding: 0 5% 40px; }
+  #download-link { display: inline-block; padding: 10px 22px; border-radius: 8px; background: #2e7d4f; color: #fff; font-family: sans-serif; font-weight: bold; text-decoration: none; font-size: 13px; }
+  #loading { font-family: sans-serif; color: var(--muted); padding: 30px 5%; }
+</style>
+</head>
+<body>
+<div id="gtbg-nav-mount"></div>
+<header>
+  <a class="back" href="/">&larr; Back to the map</a>
+  <h1>Cinematic Export</h1>
+  <p class="sub">Pick a stretch of the battle, and record a real, downloadable video of the camera flying across it -- entirely in your browser, nothing uploaded.</p>
+</header>
+<div id="loading">Loading battlefield data&hellip;</div>
+<div id="map-wrap">
+  <div id="map"></div>
+  <div id="rec-badge"><span class="dot"></span> Recording</div>
+  <div id="caption-bar"></div>
+</div>
+<div class="controls">
+  <div class="field">
+    <label>Start tick</label>
+    <input type="number" id="start-tick" min="1" max="675" value="540" />
+  </div>
+  <div class="field">
+    <label>End tick</label>
+    <input type="number" id="end-tick" min="1" max="675" value="600" />
+  </div>
+  <div class="field">
+    <label>Duration</label>
+    <select id="duration">
+      <option value="8">8 seconds</option>
+      <option value="15" selected>15 seconds</option>
+      <option value="30">30 seconds</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>Captions</label>
+    <select id="captions"><option value="on" selected>Nearest moment</option><option value="off">Off</option></select>
+  </div>
+  <button id="record-btn" type="button" disabled>&#9679; Record</button>
+</div>
+<div id="export-status"></div>
+<div id="download-row"></div>
+
+<script>
+(async function() {
+  const MAPBOX_TOKEN = "pk.eyJ1IjoibWxlZ2VyZTk3ODkiLCJhIjoiY21xcHptODEyMGJydDJycWFhaWY0ZHVsMCJ9.aJvnELJlXEs3nYrWx4Eg5Q";
+  mapboxgl.accessToken = MAPBOX_TOKEN;
+
+  const PLACEMENT_FILES = [
+    'placements_day1_ticks1_50.json','placements_day1_ticks51_100.json','placements_day1_ticks101_225.json',
+    'placements_day2_ticks226_300.json','placements_day2_ticks301_375.json','placements_day2_ticks376_450.json',
+    'placements_day3_ticks451_520.json','placements_day3_ticks521_600.json','placements_day3_ticks601_675.json',
+  ];
+  const [responses, vig1, vig2, vig3] = await Promise.all([
+    Promise.all(PLACEMENT_FILES.map(f => fetch('/data/' + f).then(r => r.json()))),
+    fetch('/data/vignettes_part1.json').then(r => r.json()),
+    fetch('/data/vignettes_part2.json').then(r => r.json()),
+    fetch('/data/vignettes_part3.json').then(r => r.json()),
+  ]);
+  const vignettes = [...vig1.vignettes, ...vig2.vignettes, ...vig3.vignettes].sort((a,b) => a.trigger_tick - b.trigger_tick);
+
+  const byUnit = new Map();
+  for (const fileData of responses) {
+    for (const p of fileData.placements) {
+      if (!byUnit.has(p.unit_id)) byUnit.set(p.unit_id, []);
+      byUnit.get(p.unit_id).push(p);
+    }
+  }
+  for (const arr of byUnit.values()) arr.sort((a,b) => a.tick - b.tick);
+  function placementsAtTick(tick) {
+    const out = [];
+    for (const arr of byUnit.values()) {
+      let lo = 0, hi = arr.length - 1, best = -1;
+      while (lo <= hi) { const mid = (lo+hi)>>1; if (arr[mid].tick <= tick) { best = mid; lo = mid+1; } else hi = mid-1; }
+      if (best >= 0) out.push(arr[best]);
+    }
+    return out;
+  }
+  function nearestVignette(tick) {
+    let best = null, bestDiff = Infinity;
+    for (const v of vignettes) { const d = Math.abs(v.trigger_tick - tick); if (d < bestDiff) { bestDiff = d; best = v; } }
+    return bestDiff <= 30 ? best : null;
+  }
+  function densestClusterBounds(tick) {
+    const placements = placementsAtTick(tick);
+    if (!placements.length) return null;
+    const CELL = 0.01;
+    const cells = new Map();
+    for (const p of placements) {
+      const key = Math.round(p.lat / CELL) + ',' + Math.round(p.lng / CELL);
+      if (!cells.has(key)) cells.set(key, []);
+      cells.get(key).push(p);
+    }
+    let best = null, bestCount = 0;
+    for (const group of cells.values()) if (group.length > bestCount) { bestCount = group.length; best = group; }
+    const lats = best.map(p => p.lat), lngs = best.map(p => p.lng);
+    return [[Math.min(...lngs)-0.006, Math.min(...lats)-0.006],[Math.max(...lngs)+0.006, Math.max(...lats)+0.006]];
+  }
+
+  document.getElementById('loading').style.display = 'none';
+
+  // preserveDrawingBuffer is required for canvas.captureStream() to pull real frames
+  // from a WebGL canvas -- must be set at map creation, can't be toggled later.
+  const map = new mapboxgl.Map({
+    container: 'map', style: 'mapbox://styles/mapbox/satellite-v9',
+    center: [-77.235, 39.81], zoom: 13, preserveDrawingBuffer: true,
+  });
+  map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+  map.on('load', () => {
+    map.addSource('exp-units', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+    map.addLayer({
+      id: 'exp-units-layer', type: 'circle', source: 'exp-units',
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['get', 'strength'], 0, 3, 500, 5, 2000, 9, 6000, 14],
+        'circle-color': ['match', ['get', 'side'], 'union', '#4477cc', 'confederate', '#cc5544', '#888888'],
+        'circle-stroke-width': 1, 'circle-stroke-color': '#0a0a14',
+      }
+    });
+    document.getElementById('record-btn').disabled = false;
+    updatePreview();
+  });
+
+  function updatePreview() {
+    if (!map.isStyleLoaded() || !map.getSource('exp-units')) return;
+    const startTick = Number(document.getElementById('start-tick').value);
+    const placements = placementsAtTick(startTick);
+    map.getSource('exp-units').setData({
+      type: 'FeatureCollection',
+      features: placements.map(p => ({ type:'Feature', geometry:{type:'Point',coordinates:[p.lng,p.lat]},
+        properties:{ side: p.unit_id.startsWith('U-')?'union':'confederate', strength: p.strength } }))
+    });
+    const bounds = densestClusterBounds(startTick);
+    if (bounds) map.fitBounds(bounds, { padding: 60, duration: 0, maxZoom: 15 });
+    const v = nearestVignette(startTick);
+    document.getElementById('caption-bar').textContent = v ? `${v.trigger_location} — tick ${startTick}` : `Tick ${startTick}`;
+  }
+  document.getElementById('start-tick').addEventListener('change', updatePreview);
+
+  document.getElementById('record-btn').addEventListener('click', async () => {
+    const startTick = Number(document.getElementById('start-tick').value);
+    const endTick = Number(document.getElementById('end-tick').value);
+    const durationSec = Number(document.getElementById('duration').value);
+    const captionsOn = document.getElementById('captions').value === 'on';
+    const statusEl = document.getElementById('export-status');
+    const dlRow = document.getElementById('download-row');
+    dlRow.innerHTML = '';
+
+    if (endTick <= startTick) { statusEl.textContent = 'End tick must be after start tick.'; return; }
+    const canvas = map.getCanvas();
+    if (!canvas.captureStream) { statusEl.textContent = "This browser doesn't support recording a canvas (captureStream) -- try a recent Chrome, Edge, or Firefox."; return; }
+
+    const stream = canvas.captureStream(30);
+    let mimeType = 'video/webm;codecs=vp9';
+    if (!MediaRecorder.isTypeSupported(mimeType)) mimeType = 'video/webm;codecs=vp8';
+    if (!MediaRecorder.isTypeSupported(mimeType)) mimeType = 'video/webm';
+    const recorder = new MediaRecorder(stream, { mimeType });
+    const chunks = [];
+    recorder.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
+
+    const btn = document.getElementById('record-btn');
+    btn.disabled = true;
+    document.getElementById('rec-badge').style.display = 'flex';
+    statusEl.textContent = 'Recording... stay on this tab.';
+
+    recorder.start();
+    const totalFrames = Math.round(durationSec * 30);
+    const tickSpan = endTick - startTick;
+    const startTime = performance.now();
+
+    await new Promise((resolve) => {
+      function frame() {
+        const elapsed = (performance.now() - startTime) / 1000;
+        const progress = Math.min(1, elapsed / durationSec);
+        const tick = Math.round(startTick + progress * tickSpan);
+
+        const placements = placementsAtTick(tick);
+        map.getSource('exp-units').setData({
+          type: 'FeatureCollection',
+          features: placements.map(p => ({ type:'Feature', geometry:{type:'Point',coordinates:[p.lng,p.lat]},
+            properties:{ side: p.unit_id.startsWith('U-')?'union':'confederate', strength: p.strength } }))
+        });
+        const bounds = densestClusterBounds(tick);
+        if (bounds) map.fitBounds(bounds, { padding: 60, duration: 0, maxZoom: 15 });
+        if (captionsOn) {
+          const v = nearestVignette(tick);
+          document.getElementById('caption-bar').textContent = v ? `${v.trigger_location} — tick ${tick}` : `Tick ${tick}`;
+        }
+
+        if (progress >= 1) { resolve(); return; }
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    });
+
+    recorder.stop();
+    await new Promise((resolve) => { recorder.onstop = resolve; });
+
+    document.getElementById('rec-badge').style.display = 'none';
+    btn.disabled = false;
+    statusEl.textContent = `Done — ${chunks.length} chunks recorded.`;
+
+    const blob = new Blob(chunks, { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `gettysburg-tick${startTick}-${endTick}.webm`;
+    a.id = 'download-link';
+    a.textContent = '&#8681; Download video (.webm)';
+    a.innerHTML = '&#8681; Download video (.webm)';
+    dlRow.appendChild(a);
+  });
+})();
+</script>
+
+<div id="gtbg-footer-mount"></div>
+<script src="/site-nav.js" data-current="cinematic-export"></script>
+</body>
+</html>

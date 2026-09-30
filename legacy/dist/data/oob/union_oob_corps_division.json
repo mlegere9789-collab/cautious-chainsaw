@@ -1,0 +1,184 @@
+{
+  "metadata": {
+    "chunk": "001",
+    "title": "Union Army of the Potomac — Corps and Division Level Order of Battle",
+    "battle": "Battle of Gettysburg, July 1–3, 1863",
+    "sources": [
+      "Busey, John W. and Martin, David G. -- Regimental Strengths and Losses at Gettysburg (Longstreet House, 1994)",
+      "OR Vol. 27, Parts I and II",
+      "Pfanz, Harry W. -- Gettysburg: The First Day (UNC Press, 2001)",
+      "Pfanz, Harry W. -- Gettysburg: The Second Day (UNC Press, 1987)",
+      "Pfanz, Harry W. -- Gettysburg: Culp's Hill and Cemetery Hill (UNC Press, 1993)",
+      "Coddington, Edwin B. -- The Gettysburg Campaign (Scribner's, 1968)"
+    ],
+    "army_commander": {
+      "name": "Major General George Gordon Meade",
+      "assumed_command": "June 28, 1863",
+      "notes": "Meade assumed command only 3 days before the battle began."
+    },
+    "total_strength": 93921,
+    "total_casualties": 23049,
+    "casualty_percentage": 24.5
+  },
+  "corps": [
+    {
+      "corps_id": "U-I",
+      "designation": "First Corps",
+      "commander": {
+        "name": "Major General John F. Reynolds",
+        "fate": "KIA July 1, 1863 — shot through the head at approximately 10:15am while directing the Iron Brigade into Herbst Woods",
+        "successor": {
+          "name": "Major General Abner Doubleday",
+          "assumed_command": "July 1, ~10:15am",
+          "successor": {
+            "name": "Major General John Newton",
+            "assumed_command": "July 1, evening — sent by Meade to replace Doubleday"
+          }
+        }
+      },
+      "strength": 12222,
+      "casualties": 6059,
+      "casualty_percentage": 49.6,
+      "days_engaged": [1, 3],
+      "division_ids": ["U-I-1", "U-I-2", "U-I-3"],
+      "chief_of_artillery": "Colonel Charles Wainwright",
+      "notes": "I Corps bore the brunt of July 1 fighting. Nearly 50% casualties — the highest of any Union corps at Gettysburg."
+    },
+    {
+      "corps_id": "U-II",
+      "designation": "Second Corps",
+      "commander": {
+        "name": "Major General Winfield Scott Hancock",
+        "fate": "Severely wounded July 3 during Pickett's Charge — nail and saddle pommel fragments drove into his thigh",
+        "successor": {
+          "name": "Brigadier General William Hays",
+          "assumed_command": "July 3, after Hancock wounded"
+        }
+      },
+      "strength": 11347,
+      "casualties": 4369,
+      "casualty_percentage": 38.5,
+      "days_engaged": [2, 3],
+      "division_ids": ["U-II-1", "U-II-2", "U-II-3"],
+      "chief_of_artillery": "Captain John Hazard",
+      "notes": "Held Cemetery Ridge on Days 2 and 3. Hancock sent to Cemetery Hill on July 1 by Meade to assess the situation and take command."
+    },
+    {
+      "corps_id": "U-III",
+      "designation": "Third Corps",
+      "commander": {
+        "name": "Major General Daniel Sickles",
+        "fate": "Right leg amputated July 2 after artillery shell shattered it — Sickles famously smoked a cigar as he was carried from the field",
+        "successor": {
+          "name": "Major General David Birney",
+          "assumed_command": "July 2, ~6:00pm"
+        }
+      },
+      "strength": 10675,
+      "casualties": 4211,
+      "casualty_percentage": 39.4,
+      "days_engaged": [2],
+      "division_ids": ["U-III-1", "U-III-2"],
+      "chief_of_artillery": "Captain George Randolph",
+      "notes": "Sickles's unauthorized advance to the Peach Orchard salient on July 2 created the crisis of the second day."
+    },
+    {
+      "corps_id": "U-V",
+      "designation": "Fifth Corps",
+      "commander": {
+        "name": "Major General George Sykes",
+        "fate": "Survived"
+      },
+      "strength": 10907,
+      "casualties": 2187,
+      "casualty_percentage": 20.1,
+      "days_engaged": [2],
+      "division_ids": ["U-V-1", "U-V-2", "U-V-3"],
+      "chief_of_artillery": "Captain Augustus Martin",
+      "notes": "Rushed to Little Round Top on July 2. Vincent's brigade arrived just in time to hold the position."
+    },
+    {
+      "corps_id": "U-VI",
+      "designation": "Sixth Corps",
+      "commander": {
+        "name": "Major General John Sedgwick",
+        "fate": "Survived"
+      },
+      "strength": 13596,
+      "casualties": 242,
+      "casualty_percentage": 1.8,
+      "days_engaged": [2],
+      "division_ids": ["U-VI-1", "U-VI-2", "U-VI-3"],
+      "chief_of_artillery": "Colonel Charles Tompkins",
+      "notes": "Largest Union corps. Marched 34 miles in 17 hours to reach the battlefield. Arrived July 2 and served as army reserve — saw almost no direct action."
+    },
+    {
+      "corps_id": "U-XI",
+      "designation": "Eleventh Corps",
+      "commander": {
+        "name": "Major General Oliver Otis Howard",
+        "fate": "Survived"
+      },
+      "strength": 9188,
+      "casualties": 3801,
+      "casualty_percentage": 41.4,
+      "days_engaged": [1],
+      "division_ids": ["U-XI-1", "U-XI-2", "U-XI-3"],
+      "chief_of_artillery": "Major Thomas Osborn",
+      "notes": "Routed north of Gettysburg on July 1. Many units were German immigrants — corps unfairly blamed for the collapse that was largely unavoidable given flanking attacks."
+    },
+    {
+      "corps_id": "U-XII",
+      "designation": "Twelfth Corps",
+      "commander": {
+        "name": "Major General Henry Slocum",
+        "fate": "Survived"
+      },
+      "strength": 9788,
+      "casualties": 1082,
+      "casualty_percentage": 11.1,
+      "days_engaged": [1, 2, 3],
+      "division_ids": ["U-XII-1", "U-XII-2"],
+      "chief_of_artillery": "Lieutenant Edward Muhlenberg",
+      "notes": "Held Culp's Hill. When pulled to reinforce Cemetery Ridge on July 2 evening, Greene's single brigade held the entire hill alone against Johnson's Confederate division."
+    },
+    {
+      "corps_id": "U-CAV",
+      "designation": "Cavalry Corps",
+      "commander": {
+        "name": "Major General Alfred Pleasonton",
+        "fate": "Survived"
+      },
+      "strength": 12441,
+      "casualties": 852,
+      "casualty_percentage": 6.9,
+      "days_engaged": [1, 2, 3],
+      "division_ids": ["U-CAV-1", "U-CAV-2", "U-CAV-3"],
+      "notes": "Buford's division fought the critical dismounted delaying action on July 1 morning. East Cavalry Field action July 3 stopped Stuart from reaching the Union rear."
+    }
+  ],
+  "divisions": [
+    {"division_id":"U-I-1","designation":"First Division, First Corps","commander":{"name":"Brigadier General James Wadsworth","fate":"Survived Gettysburg"},"strength":3748,"casualties":2153,"casualty_percentage":57.4,"brigade_ids":["U-I-1-1","U-I-1-2"],"days_engaged":[1]},
+    {"division_id":"U-I-2","designation":"Second Division, First Corps","commander":{"name":"Brigadier General John Robinson","fate":"Survived"},"strength":3093,"casualties":1766,"casualty_percentage":57.1,"brigade_ids":["U-I-2-1","U-I-2-2"],"days_engaged":[1]},
+    {"division_id":"U-I-3","designation":"Third Division, First Corps","commander":{"name":"Major General Abner Doubleday","fate":"Survived — assumed corps command when Reynolds killed","notes":"Doubleday himself commanded the division; when he took corps command Colonel Roy Stone briefly led until division command sorted out."},"strength":4802,"casualties":2140,"casualty_percentage":44.6,"brigade_ids":["U-I-3-1","U-I-3-2","U-I-3-3"],"days_engaged":[1,3]},
+    {"division_id":"U-II-1","designation":"First Division, Second Corps","commander":{"name":"Brigadier General John Caldwell","fate":"Survived"},"strength":3320,"casualties":1253,"casualty_percentage":37.7,"brigade_ids":["U-II-1-1","U-II-1-2","U-II-1-3","U-II-1-4"],"days_engaged":[2]},
+    {"division_id":"U-II-2","designation":"Second Division, Second Corps","commander":{"name":"Brigadier General John Gibbon","fate":"Wounded July 3","notes":"Gibbon wounded during Pickett's Charge; Harrow assumed division command"},"strength":3609,"casualties":1536,"casualty_percentage":42.6,"brigade_ids":["U-II-2-1","U-II-2-2","U-II-2-3"],"days_engaged":[2,3]},
+    {"division_id":"U-II-3","designation":"Third Division, Second Corps","commander":{"name":"Brigadier General Alexander Hays","fate":"Survived"},"strength":3765,"casualties":1287,"casualty_percentage":34.2,"brigade_ids":["U-II-3-1","U-II-3-2","U-II-3-3"],"days_engaged":[2,3]},
+    {"division_id":"U-III-1","designation":"First Division, Third Corps","commander":{"name":"Major General David Birney","fate":"Survived — assumed corps command when Sickles wounded"},"strength":5093,"casualties":2011,"casualty_percentage":39.5,"brigade_ids":["U-III-1-1","U-III-1-2","U-III-1-3"],"days_engaged":[2]},
+    {"division_id":"U-III-2","designation":"Second Division, Third Corps","commander":{"name":"Brigadier General Andrew Humphreys","fate":"Survived"},"strength":4924,"casualties":2088,"casualty_percentage":42.4,"brigade_ids":["U-III-2-1","U-III-2-2","U-III-2-3"],"days_engaged":[2],"notes":"Humphreys's division held the Emmitsburg Road line and conducted a fighting withdrawal under heavy pressure."},
+    {"division_id":"U-V-1","designation":"First Division, Fifth Corps","commander":{"name":"Brigadier General James Barnes","fate":"Survived"},"strength":4188,"casualties":1180,"casualty_percentage":28.2,"brigade_ids":["U-V-1-1","U-V-1-2","U-V-1-3"],"days_engaged":[2]},
+    {"division_id":"U-V-2","designation":"Second Division, Fifth Corps","commander":{"name":"Brigadier General Romeyn Ayres","fate":"Survived"},"strength":4029,"casualties":856,"casualty_percentage":21.2,"brigade_ids":["U-V-2-1","U-V-2-2","U-V-2-3"],"days_engaged":[2]},
+    {"division_id":"U-V-3","designation":"Third Division, Fifth Corps (Pennsylvania Reserves)","commander":{"name":"Brigadier General Samuel Crawford","fate":"Survived","notes":"Crawford led the famous charge down Little Round Top's western slope July 2 evening, driving Wofford's Confederates back through the Wheatfield."},"strength":2145,"casualties":151,"casualty_percentage":7.0,"brigade_ids":["U-V-3-1","U-V-3-2"],"days_engaged":[2]},
+    {"division_id":"U-VI-1","designation":"First Division, Sixth Corps","commander":{"name":"Brigadier General Horatio Wright","fate":"Survived"},"strength":4173,"casualties":22,"brigade_ids":["U-VI-1-1","U-VI-1-2","U-VI-1-3"],"days_engaged":[]},
+    {"division_id":"U-VI-2","designation":"Second Division, Sixth Corps","commander":{"name":"Brigadier General Albion Howe","fate":"Survived"},"strength":3388,"casualties":25,"brigade_ids":["U-VI-2-1","U-VI-2-2"],"days_engaged":[]},
+    {"division_id":"U-VI-3","designation":"Third Division, Sixth Corps","commander":{"name":"Major General John Newton","fate":"Survived — transferred to command I Corps July 1 evening"},"strength":4290,"casualties":195,"brigade_ids":["U-VI-3-1","U-VI-3-2","U-VI-3-3"],"days_engaged":[2]},
+    {"division_id":"U-XI-1","designation":"First Division, Eleventh Corps","commander":{"name":"Brigadier General Francis Barlow","fate":"Severely wounded July 1 — left for dead on Barlow's Knoll; Gordon gave him water believing him dying","notes":"Barlow and Gordon met after the war — one of the famous post-war reconciliation stories."},"strength":2877,"casualties":1355,"casualty_percentage":47.1,"brigade_ids":["U-XI-1-1","U-XI-1-2"],"days_engaged":[1]},
+    {"division_id":"U-XI-2","designation":"Second Division, Eleventh Corps","commander":{"name":"Brigadier General Adolph von Steinwehr","fate":"Survived"},"strength":2709,"casualties":555,"casualty_percentage":20.5,"brigade_ids":["U-XI-2-1","U-XI-2-2"],"days_engaged":[1]},
+    {"division_id":"U-XI-3","designation":"Third Division, Eleventh Corps","commander":{"name":"Major General Carl Schurz","fate":"Survived — assumed corps command when Howard went to Cemetery Hill","notes":"Schurz was a prominent German-American political figure."},"strength":3057,"casualties":1421,"casualty_percentage":46.5,"brigade_ids":["U-XI-3-1","U-XI-3-2"],"days_engaged":[1]},
+    {"division_id":"U-XII-1","designation":"First Division, Twelfth Corps","commander":{"name":"Brigadier General Alpheus Williams","fate":"Survived — assumed corps command when Slocum went to right wing"},"strength":5256,"casualties":338,"brigade_ids":["U-XII-1-1","U-XII-1-2","U-XII-1-3"],"days_engaged":[1,2,3]},
+    {"division_id":"U-XII-2","designation":"Second Division, Twelfth Corps","commander":{"name":"Brigadier General John Geary","fate":"Survived"},"strength":3812,"casualties":744,"casualty_percentage":19.5,"brigade_ids":["U-XII-2-1","U-XII-2-2","U-XII-2-3"],"days_engaged":[1,2,3],"notes":"Geary's division held the right of Culp's Hill. Greene's brigade (U-XII-2-3) held the entire hill alone on the night of July 2."},
+    {"division_id":"U-CAV-1","designation":"First Division, Cavalry Corps (Buford)","commander":{"name":"Brigadier General John Buford","fate":"Survived Gettysburg — died of typhoid fever December 1863"},"strength":4538,"casualties":335,"brigade_ids":["U-CAV-1-1","U-CAV-1-2","U-CAV-1-R"],"days_engaged":[1,2,3],"notes":"Buford's dismounted cavalry delaying action on McPherson's Ridge July 1 morning bought time for Reynolds to bring up I Corps."},
+    {"division_id":"U-CAV-2","designation":"Second Division, Cavalry Corps (Gregg)","commander":{"name":"Brigadier General David Gregg","fate":"Survived"},"strength":4786,"casualties":327,"brigade_ids":["U-CAV-2-1","U-CAV-2-2","U-CAV-2-3"],"days_engaged":[2,3],"notes":"Gregg and Custer blocked Stuart at East Cavalry Field on July 3."},
+    {"division_id":"U-CAV-3","designation":"Third Division, Cavalry Corps (Kilpatrick)","commander":{"name":"Brigadier General Judson Kilpatrick","fate":"Survived","notes":"Kilpatrick ordered Farnsworth's suicidal charge July 3. Farnsworth was killed."},"strength":3117,"casualties":190,"brigade_ids":["U-CAV-3-1","U-CAV-3-2"],"days_engaged":[2,3]}
+  ]
+}

@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a0a14" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <!-- Icons (fixes 404s) -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/icons/icon-192.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <title>Gettysburg Animated Battlefield Map</title>
+  <meta name="description" content="Watch the Battle of Gettysburg unfold in real time -- 467 regiments and batteries across 675 five-minute snapshots of July 1-3, 1863." />
+  <link rel="canonical" href="https://gettysburginteractivemap.com/" />
+  <meta property="og:title" content="Gettysburg Animated Battlefield Map" />
+  <meta property="og:description" content="Watch the Battle of Gettysburg unfold in real time -- 467 regiments and batteries across 675 five-minute snapshots of July 1-3, 1863." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://gettysburginteractivemap.com/" />
+  <meta property="og:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Gettysburg Animated Battlefield Map" />
+  <meta name="twitter:description" content="Watch the Battle of Gettysburg unfold in real time -- 467 regiments and batteries across 675 five-minute snapshots of July 1-3, 1863." />
+  <meta name="twitter:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Gettysburg Animated Battlefield Map",
+    "description": "Watch the Battle of Gettysburg unfold in real time -- 467 regiments and batteries across 675 five-minute snapshots of July 1-3, 1863.",
+    "url": "https://gettysburginteractivemap.com/",
+    "applicationCategory": "EducationalApplication",
+    "author": { "@type": "Person", "name": "Mike Legere" },
+    "about": { "@type": "Event", "name": "Battle of Gettysburg", "startDate": "1863-07-01", "endDate": "1863-07-03" }
+  }
+  </script>
+
+  <!-- DNS preconnect for Mapbox (LCP fix) -->
+  <link rel="preconnect" href="https://api.mapbox.com" crossorigin />
+  <link rel="preconnect" href="https://events.mapbox.com" crossorigin />
+  <link rel="preconnect" href="https://a.tiles.mapbox.com" crossorigin />
+  <link rel="preconnect" href="https://b.tiles.mapbox.com" crossorigin />
+  <link rel="dns-prefetch" href="https://api.mapbox.com" />
+
+  <!-- Preconnect: Google Maps Street View (FCP/INP fix) -->
+  <link rel="preconnect" href="https://www.google.com" crossorigin />
+  <link rel="preconnect" href="https://maps.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://streetviewpixels-pa.googleapis.com" crossorigin />
+  <link rel="dns-prefetch" href="https://maps.googleapis.com" />
+  <link rel="dns-prefetch" href="https://www.google.com" />
+
+  <!-- Preload critical assets (FCP fix) -->
+  <link rel="modulepreload" href="/assets/index-Cg8FAMXN.js" crossorigin />
+  <link rel="preload" as="style" href="/assets/index-B4G7Z_2G.css" crossorigin
+        onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/assets/index-B4G7Z_2G.css" crossorigin /></noscript>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #0a0a14; }
+    button { font-family: inherit; }
+
+    /* CLS fix: reserve space before React mounts */
+    #root {
+      width: 100%; height: 100%;
+      position: fixed; inset: 0;
+      contain: strict;
+    }
+
+    /* CLS fix: pre-size Mapbox canvas */
+    .mapboxgl-map,
+    .mapboxgl-canvas-container,
+    .mapboxgl-canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* CLS fix: reserve Street View iframe height before Google loads it */
+    iframe[title][src*="streetview"] {
+      display: block;
+      width: 100%;
+      height: 240px;
+      border: none;
+      background: #111;
+      contain: strict;
+    }
+
+    /* Splash: renders from HTML so FCP fires at parse time, not after 2.2MB JS */
+    #boot-splash {
+      position: fixed; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1.5rem; padding: 2rem; text-align: center;
+      color: #e8e6df;
+      background: radial-gradient(ellipse at 50% 35%, rgba(74,92,122,0.22), transparent 60%), #0a0a14;
+      font-family: Georgia, "Times New Roman", serif;
+      animation: boot-fade-in 0.4s ease both;
+    }
+    #boot-splash .boot-eyebrow {
+      font-size: clamp(0.7rem, 2.4vw, 0.85rem);
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: #8a93a8;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    #boot-splash h1 {
+      font-size: clamp(2.75rem, 11vw, 6rem);
+      font-weight: 700; line-height: 1;
+      color: #f4f2ec;
+      text-shadow: 0 2px 30px rgba(0,0,0,0.6);
+    }
+    #boot-splash .boot-sub {
+      font-size: clamp(1rem, 3.4vw, 1.35rem);
+      color: #b9bac6; max-width: 32ch;
+    }
+    #boot-splash .boot-bar {
+      width: min(240px, 60vw); height: 2px;
+      margin-top: 0.5rem; border-radius: 2px;
+      background: rgba(255,255,255,0.08); overflow: hidden;
+    }
+    #boot-splash .boot-bar::after {
+      content: ""; display: block; height: 100%; width: 40%;
+      border-radius: 2px;
+      background: linear-gradient(90deg, transparent, #6b7da3, #c9a24b, transparent);
+      animation: boot-slide 1.4s ease-in-out infinite;
+    }
+    #boot-splash .boot-caption {
+      font-size: 0.8rem; letter-spacing: 0.12em; color: #6f7686;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    @keyframes boot-slide {
+      0%   { transform: translateX(-120%); }
+      100% { transform: translateX(360%);  }
+    }
+    @keyframes boot-fade-in {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #boot-splash { animation: none; }
+      #boot-splash .boot-bar::after { animation: none; transform: translateX(75%); }
+    }
+
+    /* Real, plainly-visible content for the ~1-2s before the map takes over -- and the
+       only content a crawler that doesn't run JavaScript, or Google's own first indexing
+       pass, ever sees. No opacity:0/display:none/visibility:hidden anywhere in here: those
+       are exactly the properties that make text read as hidden-from-users-shown-to-
+       crawlers, which is not what this is. #boot-splash is `position:fixed`, so by normal
+       CSS paint order it renders on top of this normal-flow block regardless of which one
+       comes first in the markup -- real visitors see the familiar loading screen, not this;
+       crawlers reading the DOM's text see this either way. Cleared the same way
+       #boot-splash already reliably is once the real app mounts; the reveal script near the
+       end of <body> also explicitly empties it as a second guarantee, the same pattern
+       already used for #gtbg-onboarding-banner. */
+    #seo-content {
+      max-width: 640px; margin: 0 auto; padding: 2rem 1.25rem 1rem;
+      color: #cfd0da; font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.6;
+    }
+    #seo-content h1 { font-size: 1.6rem; color: #f4f2ec; margin-bottom: 0.5rem; }
+    #seo-content p { margin: 0 0 0.85rem; }
+    #seo-content nav {
+      display: flex; flex-wrap: wrap; gap: 0.5rem 0.9rem;
+      font-family: system-ui, -apple-system, sans-serif; font-size: 0.9rem;
+    }
+    #seo-content nav a { color: #c9a24b; }
+
+    /* Extra Features overlay -- a separate element, NOT part of the app's own toolbar
+       (that toolbar is rendered by React at runtime and isn't present in this file's
+       markup, so it can't be edited directly). Docking below the entire toolbar row
+       means it can never overlap a toolbar button, regardless of what that row contains.
+       The menu panel itself now reuses the same card-style component (site-nav.css's
+       .gtbg-menu-panel/.gtbg-group/.gtbg-item) as every other page's Explore menu, and
+       its right edge is pinned to the button's right edge so it grows leftward, into
+       the page, instead of off the right edge of the screen. */
+    #extra-features {
+      position: fixed;
+      /* top/right below are only the initial fallback -- once revealed, a JS collision
+         check measures this box against every real visible interactive element on the
+         page and moves it (via inline top/right/bottom/left) to whichever of the four
+         corners is actually clear, re-checking on resize and after clicks elsewhere in
+         the app so it never sits on top of a real control again. */
+      top: 60px;
+      right: 14px;
+      z-index: 999999;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex; align-items: center; gap: 8px;
+      /* Hidden until the script near the end of <body> confirms the real map (not just
+         the boot splash or an onboarding screen) is actually on screen -- see the
+         "reveal once the real map exists" script. Starts hidden rather than removed so
+         it still exists to be found/filled in by the populate script above. */
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity 0.35s ease;
+      /* Pure-CSS fallback, independent of every script on this page: if any JS on this
+         page fails to run at all for a given visitor -- a browser extension blocking a
+         script it mistakes for a chat widget, a future browser quirk, anything -- this
+         still forces the pin and button visible on its own after 5s. Costs nothing when
+         JS runs normally (the .gtbg-visible class from the reveal script below usually
+         wins first anyway; this only ever matters when JS-driven reveal has failed).
+         10ms duration, not 0s: a zero-duration animation was confirmed live to never apply
+         its forwards fill at all in testing -- a real cross-browser animation quirk. */
+      animation: gtbg-force-reveal 10ms linear 5s forwards;
+    }
+    #extra-features.gtbg-visible { opacity: 1; visibility: visible; pointer-events: auto; }
+    @keyframes gtbg-force-reveal { to { opacity: 1; visibility: visible; pointer-events: auto; } }
+    @media (prefers-reduced-motion: reduce) { #extra-features { transition: none; } }
+    #ef-controls { display: flex; align-items: center; gap: 8px; }
+    /* Manual on/off toggle (persisted in localStorage) -- independent of the reveal state
+       above. Hiding the pin/button/menu never removes the tiny toggle itself, so a visitor
+       who switches it off can always switch it back on. */
+    #ef-controls.gtbg-user-hidden { display: none; }
+    #ef-toggle {
+      display: flex; align-items: center; justify-content: center;
+      width: 30px; height: 30px; flex: none;
+      background: #12121e;
+      color: #9a9ba8;
+      border: 1px solid rgba(154,155,168,0.5);
+      border-radius: 50%;
+      cursor: pointer;
+      font: inherit;
+    }
+    #ef-toggle:hover { color: #c9a24b; border-color: #c9a24b; }
+    #ef-toggle .gicon { width: 15px; height: 15px; }
+    #ef-btn {
+      display: flex; align-items: center; gap: 7px;
+      background: #12121e;
+      color: #c9a24b;
+      border: 1px solid #c9a24b;
+      border-radius: 20px;
+      padding: 7px 16px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      font: inherit;
+    }
+    #ef-btn:hover { background: #1a1a2a; }
+    #ef-menu.gtbg-menu-panel { top: calc(100% + 8px); }
+
+    /* Injected onto the React-rendered onboarding screen -- see the script near the end
+       of <body>. Styled to sit comfortably inside whatever container it lands in. */
+    #gtbg-onboarding-banner {
+      display: flex; align-items: center; gap: 10px;
+      margin: 14px auto 0; padding: 12px 18px; max-width: 520px;
+      background: rgba(201,162,75,0.1); border: 1px solid rgba(201,162,75,0.4);
+      border-radius: 10px; color: #e8d5a3; font-family: system-ui, -apple-system, sans-serif;
+      font-size: 13px; line-height: 1.5; text-align: left;
+      animation: gtbg-banner-in 0.4s ease both;
+    }
+    #gtbg-onboarding-banner .gicon { color: #c9a24b; }
+    #gtbg-onboarding-banner b { color: #f0e0b8; }
+    @keyframes gtbg-banner-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { #gtbg-onboarding-banner { animation: none; } }
+  </style>
+
+  <script>
+    // Register the service worker (sw.js existed before but nothing ever registered it --
+    // repeat visits got no offline support and no cached-asset speedup until this ran).
+    if ('serviceWorker' in navigator) {
+      // Without this, a tab left open (or even just reloaded normally, not hard-refreshed)
+      // keeps being served by whichever service worker was already controlling it -- the
+      // new one installs in the background but a plain reload doesn't hand control to it,
+      // so deploy changes silently don't show up until a hard refresh.
+      var gtbgReloadedForSW = false;
+      navigator.serviceWorker.addEventListener('controllerchange', function () {
+        if (gtbgReloadedForSW) return;
+        gtbgReloadedForSW = true;
+        location.reload();
+      });
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').then(function (reg) {
+          reg.update();
+        }).catch(function(err) {
+          console.warn('Service worker registration failed:', err);
+        });
+      });
+    }
+  </script>
+
+  <link rel="stylesheet" href="/site-nav.css">
+  <script src="/site-nav.js"></script>
+
+  <script type="module" crossorigin src="/assets/index-Cg8FAMXN.js"></script>
+</head>
+<body>
+  <div id="extra-features">
+    <button id="ef-toggle" type="button" aria-pressed="true"></button>
+    <div id="ef-controls">
+      <a class="gtbg-historian-pin" href="/historian.html" title="Ask the Historian" aria-label="Ask the Historian"></a>
+      <button id="ef-btn" type="button" aria-expanded="false"></button>
+      <div id="ef-menu" class="gtbg-menu-panel"></div>
+    </div>
+  </div>
+
+  <script>
+    // Fills in the historian pin, the Extra Features button, and the menu panel from the
+    // same GROUPS data site-nav.js uses everywhere else, so this page's menu can never
+    // silently drift out of sync with the one every sub-page shows. Deferred to idle time
+    // (falling back to a short setTimeout) since none of this is needed for first paint --
+    // the whole overlay starts hidden anyway until onboarding is dismissed.
+    document.addEventListener('DOMContentLoaded', function () {
+      function populate() {
+        var pin = document.querySelector('.gtbg-historian-pin');
+        var btn = document.getElementById('ef-btn');
+        var menu = document.getElementById('ef-menu');
+        var toggleBtn = document.getElementById('ef-toggle');
+        var controls = document.getElementById('ef-controls');
+        if (!btn || !menu || !toggleBtn || !controls || !window.GTBG_MENU) return;
+
+        pin.innerHTML = '<svg class="gicon" aria-hidden="true"><use href="#broadcast"></use></svg><span>Ask the Historian</span>';
+        btn.innerHTML = '<svg class="gicon" aria-hidden="true"><use href="#menu"></use></svg><span>Extra Features</span> &#9662;';
+        menu.innerHTML = window.GTBG_MENU.buildGroupsHtml(null);
+
+        function closeMenu() { menu.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+        function openMenu() { menu.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          menu.classList.contains('open') ? closeMenu() : openMenu();
+          if (window.GTBG_REPOSITION_EF) setTimeout(window.GTBG_REPOSITION_EF, 120);
+        });
+        document.addEventListener('click', function (e) {
+          if (menu.classList.contains('open') && !menu.contains(e.target) && e.target !== btn) closeMenu();
+        });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+
+        // Manual on/off toggle for both buttons -- persisted so it holds across visits.
+        // The toggle control itself is never subject to this: it stays reachable no
+        // matter which state it's in, so a visitor can always turn the menu back on.
+        var TOGGLE_KEY = 'gtbg-ef-hidden';
+        var userHidden = false;
+        try { userHidden = localStorage.getItem(TOGGLE_KEY) === 'true'; } catch (e) {}
+        function applyToggleState() {
+          controls.classList.toggle('gtbg-user-hidden', userHidden);
+          toggleBtn.setAttribute('aria-pressed', String(!userHidden));
+          var label = userHidden ? 'Show Extra Features menu' : 'Hide Extra Features menu';
+          toggleBtn.title = label;
+          toggleBtn.setAttribute('aria-label', label);
+          toggleBtn.innerHTML = '<svg class="gicon" aria-hidden="true"><use href="#' + (userHidden ? 'eye-off' : 'eye') + '"></use></svg>';
+        }
+        applyToggleState();
+        toggleBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          userHidden = !userHidden;
+          applyToggleState();
+          try { localStorage.setItem(TOGGLE_KEY, String(userHidden)); } catch (e) {}
+          if (window.GTBG_REPOSITION_EF) setTimeout(window.GTBG_REPOSITION_EF, 120);
+        });
+
+        if (window.GTBG_REPOSITION_EF) window.GTBG_REPOSITION_EF();
+      }
+      if (window.requestIdleCallback) requestIdleCallback(populate, { timeout: 1500 });
+      else setTimeout(populate, 50);
+    });
+  </script>
+
+  <script>
+    // Workaround for the "check Extra Features" banner: the Desktop/Mobile onboarding
+    // screen is rendered by the React app itself, not by this file, so it can't be edited
+    // directly. This watches the live page for that screen's own heading text and, the
+    // moment it appears, adds a banner beneath it -- without touching anything React
+    // renders. Fragile by nature (depends on matching text the app controls), but the
+    // failure mode is simply "the banner doesn't show," never a broken page.
+    (function () {
+      var injected = false;
+      function tryInject() {
+        if (injected) return;
+        // The app renders this heading as a plain <div>, not a semantic h1/h2 -- match
+        // any leaf-level element whose own text is exactly this phrase, rather than
+        // assuming a specific tag the app is free to change.
+        var heading = Array.from(document.querySelectorAll('body *')).find(function (el) {
+          return el.tagName !== 'SCRIPT' && el.tagName !== 'STYLE' && el.children.length === 0 &&
+            /choose your experience/i.test((el.textContent || '').trim());
+        });
+        if (!heading || !heading.parentElement) return;
+        var banner = document.createElement('div');
+        banner.id = 'gtbg-onboarding-banner';
+        banner.innerHTML = '<svg class="gicon" aria-hidden="true"><use href="#broadcast"></use></svg>' +
+          '<span>20 more tools live behind <b>Extra Features</b>, top right &mdash; search, an AI-style historian, live sound, AR, and more. Don&rsquo;t miss them.</span>';
+        heading.parentElement.insertBefore(banner, heading.nextSibling);
+        injected = true;
+      }
+      // A body-wide MutationObserver({subtree:true}) here used to fire on every single DOM
+      // change anywhere on the page -- including every one of Mapbox's own per-tick unit
+      // re-renders -- which meant it was contending with the browser during exactly the
+      // window RUM uses to measure INP/CLS. A handful of bounded, spaced-out checks find
+      // the same onboarding heading (it appears within the first couple of seconds either
+      // way) without watching the DOM continuously.
+      var tries = 0;
+      var timer = setInterval(function () {
+        tryInject();
+        tries++;
+        if (injected || tries >= 25) clearInterval(timer); // ~5s at 200ms, then give up
+      }, 200);
+      document.addEventListener('DOMContentLoaded', tryInject);
+      window.addEventListener('load', tryInject);
+    })();
+  </script>
+
+  <script>
+    // Workaround for unlabeled toolbar icon buttons: also React-rendered, also not
+    // editable directly. This scans the real toolbar once it exists and attaches a
+    // native title attribute (a real browser tooltip) to any icon-only button that
+    // doesn't already have an accessible label -- matched by each button's visible
+    // glyph text, which is the only signal available from outside the app.
+    (function () {
+      var LABELS = {
+        'S': 'Search units', 'F': 'Filter panel', 'L': 'Toggle legend', 'B': 'Bookmarks',
+        '?': 'Help & keyboard shortcuts',
+      };
+      var done = false;
+      function tryLabel() {
+        var buttons = document.querySelectorAll('button');
+        var labeled = 0;
+        buttons.forEach(function (b) {
+          if (b.title || b.getAttribute('aria-label')) return;
+          var text = (b.textContent || '').trim();
+          if (LABELS[text]) {
+            b.title = LABELS[text];
+            b.setAttribute('aria-label', LABELS[text]);
+            labeled++;
+          }
+        });
+        if (labeled >= 3) {
+          done = true; // enough of the toolbar matched; stop rescanning
+          var seo = document.getElementById('seo-content');
+          if (seo) seo.remove();
+        }
+      }
+      // Same change as the onboarding-banner script above: a bounded, spaced-out set of
+      // checks instead of a continuous body-wide MutationObserver, so this stops competing
+      // with the browser's own measurement window for INP/CLS.
+      var tries = 0;
+      var timer = setInterval(function () {
+        if (done) { clearInterval(timer); return; }
+        tryLabel();
+        tries++;
+        if (done || tries >= 25) clearInterval(timer);
+      }, 200);
+      window.addEventListener('load', tryLabel);
+    })();
+  </script>
+  <script>
+    // Reveal Extra Features and the Ask the Historian pin only once the visitor is past the
+    // two blocking onboarding screens -- not during the boot splash, not during "How do you
+    // want to explore the battle?", not during "Choose Your Experience".
+    //
+    // Every attempt at inferring this from polling the DOM's current state afterward broke
+    // in a different way, each confirmed live before moving on:
+    //  - button[title="Search"] existing: wrong, that toolbar is already in the DOM
+    //    underneath the onboarding modal from the very start.
+    //  - "neither onboarding heading is present": wrong, equally true in the instant before
+    //    React has rendered anything at all, revealing it too early.
+    //  - debouncing one reading by 400ms: still latched onto a single bad instant, and the
+    //    one-way "revealed" flag meant that one bad reading was then permanent.
+    //  - continuous polling of document.body.textContent: never turned false, even on the
+    //    real live map -- it was matching THIS SCRIPT's own code comments, which mention
+    //    "Choose Your Experience" in plain English, since textContent includes script tags.
+    //  - the same polling with document.body.innerText instead: still wrong, seemingly
+    //    unreliable early in the page's life in a background/automated browser context.
+    // Every one of those tried to infer onboarding had *ended* by re-examining DOM state
+    // afterward -- inherently indirect. What's actually reliable is the *event* that ends
+    // it: a real click on one of the small number of buttons that specifically dismiss
+    // these two screens. Listening for that click directly, rather than guessing about it
+    // from the DOM afterward, needs no polling and no timing assumptions at all.
+    (function () {
+      // Substring match, not exact -- the real buttons carry a trailing arrow glyph
+      // ("Select Desktop →"), which an anchored ^...$ match rejected the first time.
+      var EXIT_BUTTONS = /select desktop|select mobile|skip introduction|skip tour|skip intro/i;
+      var overlay = document.getElementById('extra-features');
+      var revealed = false;
+      function reveal() {
+        if (revealed) return;
+        overlay.classList.add('gtbg-visible');
+        revealed = true;
+        if (window.GTBG_REPOSITION_EF) setTimeout(window.GTBG_REPOSITION_EF, 60);
+      }
+      document.addEventListener('click', function (e) {
+        var el = e.target;
+        for (var i = 0; i < 6 && el; i++, el = el.parentElement) {
+          var text = (el.textContent || '').trim();
+          if (EXIT_BUTTONS.test(text)) { reveal(); return; }
+        }
+      }, true);
+      // Returning visitors who land straight on the live map never click an exit button at
+      // all -- there's nothing to dismiss -- so the click listener above never fires for
+      // them, and they used to wait out the full safety-net timeout below to see the menu.
+      // One check, run once (not polling), ~1.5s after load: if none of the same exit
+      // buttons the click listener above watches for is currently on screen, there's
+      // nothing left to dismiss, so reveal immediately.
+      //
+      // This deliberately reuses EXIT_BUTTONS rather than a separate list of onboarding
+      // heading text: an earlier version matched specific headings ("Choose Your
+      // Experience") and wrongly revealed the overlay early on a screen that heading list
+      // didn't happen to cover (a "Fast-forwarding 3 days of battle..." intro with its own
+      // "Skip introduction" exit button) -- caught live in testing. Checking for the same
+      // exit buttons the click handler already watches for means there's only one place
+      // that has to know what "still in onboarding" means.
+      function onboardingVisible() {
+        var els = document.querySelectorAll('body *');
+        for (var i = 0; i < els.length; i++) {
+          var el = els[i];
+          if (el.tagName === 'SCRIPT' || el.tagName === 'STYLE' || el.children.length !== 0) continue;
+          var text = (el.textContent || '').trim();
+          if (!text || !EXIT_BUTTONS.test(text)) continue;
+          var rect = el.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) return true;
+        }
+        return false;
+      }
+      setTimeout(function () {
+        if (!revealed && !onboardingVisible()) reveal();
+      }, 1500);
+      // Safety net: never leave a visitor permanently unable to reach Extra Features if a
+      // future button label changes and stops matching. Shortened from the original 25s
+      // now that the two checks above cover the common cases (a fresh visit ends with a
+      // click; a returning visit is caught by the 1.5s check) -- this is genuinely the
+      // last resort, not the main path.
+      setTimeout(reveal, 10000);
+    })();
+  </script>
+
+  <script>
+    // Collision avoidance for the Extra Features overlay: instead of guessing a fixed
+    // corner and hoping nothing real ever renders there, measure the overlay's own box
+    // against every real visible interactive element on the page and place it in whichever
+    // of the four corners is actually clear. Re-checked on resize and shortly after clicks
+    // elsewhere in the app (a panel opening or closing is exactly the kind of layout change
+    // that can newly collide) -- event-driven, not a continuous poll.
+    (function () {
+      var MARGIN = '14px';
+      var TOP = '60px'; // clears the app's own toolbar row
+      // Six candidates, not just the four corners: on a dense screen (an open panel along
+      // the top edge AND a playback control bar along the bottom edge -- confirmed live
+      // with the real Map Layers panel open) every corner can be occupied at once while the
+      // vertical middle of an edge is still clear. Listed in order of preference.
+      var CANDIDATES = [
+        { top: TOP, right: MARGIN },
+        { top: TOP, left: MARGIN },
+        { top: '50%', right: MARGIN, transform: 'translateY(-50%)' },
+        { top: '50%', left: MARGIN, transform: 'translateY(-50%)' },
+        { bottom: MARGIN, right: MARGIN },
+        { bottom: MARGIN, left: MARGIN },
+      ];
+      var overlay = document.getElementById('extra-features');
+
+      function applyPosition(pos) {
+        overlay.style.top = pos.top || '';
+        overlay.style.bottom = pos.bottom || '';
+        overlay.style.left = pos.left || '';
+        overlay.style.right = pos.right || '';
+        overlay.style.transform = pos.transform || '';
+      }
+
+      function rectsOverlap(a, b) {
+        return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
+      }
+
+      // Returns how many real interactive elements this candidate's box would overlap,
+      // not just whether it collides at all -- so that when nothing is fully clear (a
+      // large panel can cover every corner and edge at once), the fallback can pick the
+      // candidate that overlaps the fewest real controls instead of blindly reverting to
+      // the default corner regardless of how bad it is.
+      function collisionCount(pos) {
+        applyPosition(pos);
+        var rect = overlay.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) return 0;
+        var interactive = document.querySelectorAll(
+          'button, a, input, select, [role="button"], [role="dialog"], [role="checkbox"], [role="switch"]'
+        );
+        var count = 0;
+        for (var i = 0; i < interactive.length; i++) {
+          var el = interactive[i];
+          if (overlay.contains(el)) continue;
+          var r = el.getBoundingClientRect();
+          if (r.width === 0 || r.height === 0) continue;
+          if (rectsOverlap(rect, r)) count++;
+        }
+        return count;
+      }
+
+      function reposition() {
+        if (!overlay || !overlay.classList.contains('gtbg-visible')) return;
+        var best = CANDIDATES[0];
+        var bestCount = Infinity;
+        for (var i = 0; i < CANDIDATES.length; i++) {
+          var count = collisionCount(CANDIDATES[i]);
+          if (count === 0) { applyPosition(CANDIDATES[i]); return; } // first fully clear spot wins
+          if (count < bestCount) { bestCount = count; best = CANDIDATES[i]; }
+        }
+        applyPosition(best); // nothing was fully clear; use whichever overlapped the least
+      }
+
+      var resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(reposition, 150);
+      });
+      // Any click outside our own overlay can be a panel opening or closing in the real
+      // app; give the app a moment to finish re-rendering, then re-check.
+      document.addEventListener('click', function (e) {
+        if (overlay.contains(e.target)) return;
+        setTimeout(reposition, 150);
+      }, true);
+
+      window.GTBG_REPOSITION_EF = reposition;
+    })();
+  </script>
+
+  <script>
+    // Wires the app's own real "Monuments" toolbar button -- confirmed live to otherwise do
+    // nothing -- to a star-marker overlay instead of leaving it dead.
+    //
+    // Mechanism: a plain absolutely-positioned overlay (not a Mapbox layer) sized to the
+    // real .mapboxgl-map container, with star icons placed using the same Web Mercator
+    // projection formula Mapbox itself uses (512 * 2^zoom scale), computed from the app's
+    // real default view (-77.235/39.812/13.5, cross-checked against the Mapbox attribution
+    // "Improve this map" link's own URL hash, a standard always-present Mapbox GL feature).
+    // Doesn't need any access to the app's internals, so it can't go dead the way reaching
+    // into the live map instance could (that approach was tried and abandoned after it
+    // worked once live then failed every repeat test afterward).
+    // Known, disclosed limitation: doesn't track the live map's real-time pan/zoom, so
+    // alignment is exact at the app's default view and can drift after a visitor pans or
+    // zooms substantially.
+    (function () {
+      var DEFAULT_CENTER = { lng: -77.235, lat: 39.812 };
+      var DEFAULT_ZOOM = 13.5;
+      var TILE_SIZE = 512;
+
+      function lngToWorldX(lng) { return (lng + 180) / 360; }
+      function latToWorldY(lat) {
+        var sin = Math.sin(lat * Math.PI / 180);
+        return 0.5 - Math.log((1 + sin) / (1 - sin)) / (4 * Math.PI);
+      }
+      function project(lng, lat, containerW, containerH) {
+        var scale = TILE_SIZE * Math.pow(2, DEFAULT_ZOOM);
+        var cx = lngToWorldX(DEFAULT_CENTER.lng) * scale, cy = latToWorldY(DEFAULT_CENTER.lat) * scale;
+        var x = lngToWorldX(lng) * scale, y = latToWorldY(lat) * scale;
+        return { x: containerW / 2 + (x - cx), y: containerH / 2 + (y - cy) };
+      }
+
+      var overlay = null, loaded = false, visible = false, monuments = [];
+
+      function buildOverlay() {
+        overlay = document.createElement('div');
+        overlay.id = 'gtbg-monuments-overlay';
+        overlay.style.cssText = 'position:absolute; inset:0; pointer-events:none; z-index:400; overflow:hidden;';
+        var mapContainer = document.querySelector('.mapboxgl-map');
+        (mapContainer || document.getElementById('root')).appendChild(overlay);
+      }
+
+      function starSvg(color) {
+        return '<svg viewBox="0 0 24 24" width="16" height="16" style="filter:drop-shadow(0 1px 2px rgba(0,0,0,0.8));">' +
+          '<polygon points="12,1.5 15,9 23,9.3 16.7,14.3 18.9,22 12,17.6 5.1,22 7.3,14.3 1,9.3 9,9" ' +
+          'fill="' + color + '" stroke="rgba(0,0,0,0.55)" stroke-width="1"/></svg>';
+      }
+
+      function renderMarkers() {
+        if (!overlay) return;
+        var rect = (document.querySelector('.mapboxgl-map') || overlay).getBoundingClientRect();
+        // Defensive: caught live, the map container can transiently measure as zero-size
+        // right after a click. Retry shortly rather than render every star at (0,0).
+        if (rect.width === 0 || rect.height === 0) { setTimeout(renderMarkers, 150); return; }
+        overlay.innerHTML = '';
+        monuments.forEach(function (m) {
+          var p = project(m.lng, m.lat, rect.width, rect.height);
+          if (p.x < -20 || p.x > rect.width + 20 || p.y < -20 || p.y > rect.height + 20) return;
+          var el = document.createElement('div');
+          el.title = m.name + (m.side === 'confederate' ? ' (Confederate)' : ' (Union)');
+          el.style.cssText = 'position:absolute; left:' + p.x + 'px; top:' + p.y + 'px; ' +
+            'transform:translate(-50%,-50%); pointer-events:auto; cursor:default;';
+          el.innerHTML = starSvg(m.side === 'confederate' ? '#9a9ba8' : '#4a9eff');
+          overlay.appendChild(el);
+        });
+      }
+
+      function ensureLoaded(cb) {
+        if (loaded) { cb(); return; }
+        fetch('/data/monuments.json').then(function (r) { return r.json(); }).then(function (data) {
+          monuments = data.monuments;
+          loaded = true;
+          cb();
+        }).catch(function (err) { console.warn('Monuments overlay failed to load:', err); });
+      }
+
+      var resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () { if (visible) renderMarkers(); }, 150);
+      });
+
+      function wireButton() {
+        // The real toolbar button's visible content is just its emoji glyph (🗿) -- its
+        // accessible name, "Monuments", lives in its title/aria-label instead. Matching on
+        // textContent alone never finds it.
+        var btn = Array.from(document.querySelectorAll('button')).find(function (b) {
+          var name = (b.getAttribute('aria-label') || b.title || '').trim();
+          return name === 'Monuments';
+        });
+        if (!btn || btn.dataset.gtbgWired) return false;
+        btn.dataset.gtbgWired = '1';
+        if (!overlay) buildOverlay();
+        btn.addEventListener('click', function () {
+          visible = !visible;
+          overlay.style.display = visible ? 'block' : 'none';
+          if (visible) ensureLoaded(renderMarkers);
+        });
+        return true;
+      }
+
+      var tries = 0;
+      var timer = setInterval(function () {
+        if (wireButton() || ++tries >= 40) clearInterval(timer); // ~8s at 200ms, then give up
+      }, 200);
+    })();
+  </script>
+
+  <div id="root">
+    <div id="seo-content">
+      <h1>Gettysburg Animated Battlefield Map</h1>
+      <p>An interactive, minute-by-minute reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): 467 regiments and batteries tracked across 675 five-minute snapshots, built from primary-source unit records, chronology, and terrain data.</p>
+      <p>Watch the three-day battle unfold on a real satellite map with animated unit movement, or explore it through any of the tools below &mdash; search every regiment by name, ask a data-grounded historian assistant about a commander or a moment, compare two points in time side by side, follow one regiment's entire battle as a single story, or test what-if scenarios on the historical positions.</p>
+      <nav aria-label="Explore the map's tools">
+        <a href="/search.html">Search Everything</a>
+        <a href="/historian.html">Ask the Historian</a>
+        <a href="/documentary.html">Documentary Mode</a>
+        <a href="/compare.html">Compare Two Moments</a>
+        <a href="/camera.html">Camera Modes</a>
+        <a href="/sandbox.html">What-If Sandbox</a>
+        <a href="/turning-points.html">Turning Points</a>
+        <a href="/dashboard.html">Casualty &amp; Strength Dashboard</a>
+        <a href="/viewshed.html">What They Could See</a>
+        <a href="/regiment.html">Regimental Biography</a>
+        <a href="/ground-remembers.html">The Ground Remembers</a>
+        <a href="/find-ancestor.html">Find an Ancestor</a>
+        <a href="/watch-together.html">Watch Together</a>
+        <a href="/immersive.html">Immersive Mode</a>
+        <a href="/ar.html">Battlefield AR</a>
+        <a href="/living-ledger.html">Living Ledger</a>
+        <a href="/aftermath.html">Aftermath</a>
+        <a href="/education.html">For Students</a>
+      </nav>
+    </div>
+    <div id="boot-splash">
+      <p class="boot-eyebrow">July 1&ndash;3, 1863</p>
+      <h1>Gettysburg</h1>
+      <p class="boot-sub">Watch the battle unfold in real time across 675 five-minute snapshots.</p>
+      <div class="boot-bar" role="progressbar" aria-label="Loading the battlefield"></div>
+      <p class="boot-caption">Loading the battlefield&hellip;</p>
+    </div>
+  </div>
+  <noscript>
+    <div style="position:fixed;inset:0;overflow:auto;padding:2rem;text-align:left;background:#0a0a14;color:#e8e6df;font-family:Georgia,serif;">
+      <div style="max-width:640px;margin:0 auto;line-height:1.6;">
+        <h1 style="color:#f4f2ec;">Gettysburg Animated Battlefield Map</h1>
+        <p>An interactive, minute-by-minute reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): 467 regiments and batteries tracked across 675 five-minute snapshots, built from primary-source unit records, chronology, and terrain data.</p>
+        <p>This interactive map requires JavaScript to run. Please enable JavaScript in your browser to watch the battle unfold and use its tools &mdash; regiment search, an "Ask the Historian" data-grounded assistant, side-by-side moment comparison, and more.</p>
+      </div>
+    </div>
+  </noscript>
+</body>
+</html>

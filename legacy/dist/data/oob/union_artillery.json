@@ -1,0 +1,172 @@
+{
+  "metadata": {
+    "chunk": "007",
+    "title": "Union Army -- Artillery Reserve and Corps Artillery Brigades",
+    "sources": [
+      "Busey, John W. and Martin, David G. -- Regimental Strengths and Losses at Gettysburg (Longstreet House, 1994)",
+      "OR Vol. 27, Parts I and II",
+      "Gottfried, Bradley M. -- The Artillery of Gettysburg (Cumberland House, 2008)",
+      "Hessler, James A. and Motts, Wayne E. -- Pickett's Charge at Gettysburg (Savas Beatie, 2015)"
+    ],
+    "army_chief_of_artillery": {
+      "name": "Brigadier General Henry Hunt",
+      "fate": "Survived Gettysburg",
+      "notes": "Hunt managed ammunition supply before Pickett's Charge -- deliberately silenced Union guns over Hancock's objections to conserve rounds. His decision is credited with allowing Union artillery to devastate Confederate infantry during the charge itself."
+    },
+    "total_batteries": 50,
+    "total_guns": 278,
+    "notes": "A 6-gun battery online occupies roughly 42 yards of front. Total Union guns approximately 370 including horse artillery."
+  },
+  "artillery_reserve": {
+    "commander": "Brigadier General Robert O. Tyler",
+    "brigades": [
+      {
+        "brigade_id": "U-ART-RES-1",
+        "designation": "First Volunteer Brigade (McGilvery's)",
+        "commander": {
+          "name": "Lieutenant Colonel Freeman McGilvery",
+          "fate": "Survived",
+          "notes": "McGilvery's emergency construction of the Plum Run Line on July 2 evening -- assembling guns from multiple batteries to plug the gap left by Sickles' collapse -- is one of the finest improvised artillery actions of the war."
+        },
+        "batteries": [
+          {"battery_id":"U-ART-5MA","designation":"5th Massachusetts Battery (E)","commander":{"name":"Captain Charles Phillips","fate":"Survived"},"gun_count":6,"gun_type":"3-inch ordnance rifle","strength":104,"casualties":10,"key_action":"McGilvery's Line July 2 evening -- helped stop Confederate advance. Fought during Pickett's Charge July 3."},
+          {"battery_id":"U-ART-9MA","designation":"9th Massachusetts Battery (Bigelow's)","commander":{"name":"Captain John Bigelow","fate":"Survived -- wounded"},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":104,"casualties":28,"key_action":"Fighting withdrawal from Trostle Farm July 2 -- ordered to hold without support to buy time for McGilvery to form the Plum Run line. Lost 28 men and several guns but accomplished the mission. One of the most celebrated artillery actions of the battle.","flag_notes":"CRITICAL ANIMATION: withdrawal from Trostle Farm lane -- battery limbering under fire, moving by sections, losing a gun, final stand at the Trostle Farm wall. Multiple disposition changes across 4-5 ticks."},
+          {"battery_id":"U-ART-15NY","designation":"15th New York Battery (Hart's)","commander":{"name":"Captain Patrick Hart","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":73,"casualties":4,"key_action":"McGilvery's brigade -- Plum Run Line July 2-3."},
+          {"battery_id":"U-ART-MAF","designation":"Massachusetts Battery F","commander":{"name":"Captain Timothy Regan","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":67,"casualties":1,"key_action":"McGilvery's brigade reserve."}
+        ]
+      },
+      {
+        "brigade_id": "U-ART-RES-2",
+        "designation": "Second Volunteer Brigade (Taft's)",
+        "commander": {"name": "Captain Elijah Taft", "fate": "Survived"},
+        "batteries": [
+          {"battery_id":"U-ART-1CTB","designation":"1st Connecticut Heavy Artillery, Battery B","commander":{"name":"Captain Albert Brooker","fate":"Survived"},"gun_count":4,"gun_type":"4.5-inch siege rifle","strength":80,"casualties":0,"key_action":"Heavy artillery -- July 3 cannonade."},
+          {"battery_id":"U-ART-1CTM","designation":"1st Connecticut Heavy Artillery, Battery M","commander":{"name":"Captain Franklin Pratt","fate":"Survived"},"gun_count":4,"gun_type":"4.5-inch siege rifle","strength":80,"casualties":0,"key_action":"Heavy artillery -- July 3 cannonade."},
+          {"battery_id":"U-ART-5NY","designation":"5th New York Battery","commander":{"name":"Captain Elijah Taft","fate":"Survived"},"gun_count":6,"gun_type":"20-pdr Parrott","strength":114,"casualties":2,"key_action":"Long-range Parrott rifles for counterbattery fire."},
+          {"battery_id":"U-ART-NYC","designation":"New York Battery C (Roemer's)","commander":{"name":"Captain Jacob Roemer","fate":"Survived"},"gun_count":6,"gun_type":"3-inch ordnance rifle","strength":100,"casualties":3,"key_action":"Taft's brigade -- July 3 cannonade support."}
+        ]
+      },
+      {
+        "brigade_id": "U-ART-RES-3",
+        "designation": "Third Volunteer Brigade (Huntington's)",
+        "commander": {"name": "Captain James Huntington", "fate": "Survived"},
+        "batteries": [
+          {"battery_id":"U-ART-1NH","designation":"1st New Hampshire Battery","commander":{"name":"Captain Frederick Edgell","fate":"Survived"},"gun_count":6,"gun_type":"3-inch ordnance rifle","strength":107,"casualties":11,"key_action":"Cemetery Hill -- July 2-3 fighting."},
+          {"battery_id":"U-ART-H1OH","designation":"Battery H, 1st Ohio Artillery","commander":{"name":"Lieutenant George Norton","fate":"Survived"},"gun_count":6,"gun_type":"3-inch ordnance rifle","strength":107,"casualties":0,"key_action":"Reserve artillery."},
+          {"battery_id":"U-ART-F1PA","designation":"Battery F, 1st Pennsylvania Artillery (Ricketts's)","commander":{"name":"Captain R. Bruce Ricketts","fate":"Survived"},"gun_count":6,"gun_type":"3-inch ordnance rifle","strength":117,"casualties":19,"key_action":"Cemetery Hill -- fought in the East Cemetery Hill action July 2 evening when Early's Confederates briefly seized the crest.","flag_notes":"Cemetery Hill July 2 evening -- battery must show Online position during Confederate assault on the hill."},
+          {"battery_id":"U-ART-CWV","designation":"Battery C, West Virginia Artillery","commander":{"name":"Captain Wallace Hill","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":1,"key_action":"Reserve."}
+        ]
+      },
+      {
+        "brigade_id": "U-ART-RES-4",
+        "designation": "Fourth Volunteer Brigade (Fitzhugh's)",
+        "commander": {"name": "Captain Robert Fitzhugh", "fate": "Survived"},
+        "batteries": [
+          {"battery_id":"U-ART-C1NY","designation":"Battery C, 1st New York Artillery","commander":{"name":"Captain Almont Barnes","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":0,"key_action":"Reserve."},
+          {"battery_id":"U-ART-L1NY","designation":"Battery L, 1st New York Artillery","commander":{"name":"Captain Gilbert Reynolds","fate":"Survived"},"gun_count":6,"gun_type":"3-inch ordnance rifle","strength":107,"casualties":3,"key_action":"Support of Union left July 2."},
+          {"battery_id":"U-ART-1NYIND","designation":"1st New York Battery Independent (Cowan's)","commander":{"name":"Captain Andrew Cowan","fate":"Survived"},"gun_count":6,"gun_type":"3-inch ordnance rifle","strength":107,"casualties":8,"key_action":"Cemetery Ridge -- fired canister at point-blank range into Armistead's Confederates breaching The Angle July 3. Approximately 50 yards from Armistead's men.","flag_notes":"Cowan's canister fire at The Angle -- guns must be placed very close to the Confederate breakthrough point, approximately 50 yards."},
+          {"battery_id":"U-ART-3NY","designation":"3rd New York Battery Independent","commander":{"name":"Captain William Harn","fate":"Survived"},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":114,"casualties":4,"key_action":"Reserve support."}
+        ]
+      },
+      {
+        "brigade_id": "U-ART-RES-REG",
+        "designation": "Regular Army Brigade (Ransom's)",
+        "commander": {"name": "Captain Dunbar Ransom", "fate": "Wounded July 3"},
+        "batteries": [
+          {"battery_id":"U-ART-C4US","designation":"Battery C, 4th US Artillery (Thomas's)","commander":{"name":"Lieutenant Evan Thomas","fate":"Survived"},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":107,"casualties":9,"key_action":"Cemetery Ridge -- July 3 cannonade and Pickett's Charge repulse."},
+          {"battery_id":"U-ART-F4US","designation":"Battery F, 4th US Artillery","commander":{"name":"Lieutenant Chandler Eakin","fate":"Survived"},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":107,"casualties":7,"key_action":"Cemetery Ridge -- July 3."},
+          {"battery_id":"U-ART-C5US","designation":"Battery C, 5th US Artillery (Weir's)","commander":{"name":"Lieutenant Gulian Weir","fate":"Survived"},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":107,"casualties":16,"key_action":"Rushed forward July 2 evening to stop Wilcox's advance -- placed in exposed position, lost men and a gun before withdrawing."},
+          {"battery_id":"U-ART-F5US","designation":"Battery F, 5th US Artillery","commander":{"name":"Lieutenant Leonard Martin","fate":"Survived"},"gun_count":6,"gun_type":"3-inch ordnance rifle","strength":107,"casualties":5,"key_action":"Reserve."}
+        ]
+      }
+    ]
+  },
+  "corps_artillery_brigades": [
+    {
+      "brigade_id": "U-ART-I-CORPS",
+      "designation": "First Corps Artillery Brigade",
+      "corps": "U-I",
+      "commander": {"name": "Colonel Charles Wainwright", "fate": "Survived", "notes": "Wainwright kept a superb diary -- one of the best artillery primary sources for Gettysburg."},
+      "batteries": [
+        {"battery_id":"U-ART-2ME","designation":"2nd Maine Battery (Hall's Battery)","commander":{"name":"Captain James Hall","fate":"Survived"},"gun_count":6,"gun_type":"3-inch ordnance rifle","strength":107,"casualties":18,"key_action":"McPherson's Ridge July 1 -- subject of a Gettysburg Animated YouTube vignette. Hall's battery in the Railroad Cut area is precisely documented.","flag_notes":"Hall's Battery is featured in a Gettysburg Animated YouTube vignette. Must be placed with high precision at McPherson's Ridge and Railroad Cut area."},
+        {"battery_id":"U-ART-L1NY-I","designation":"Battery L, 1st New York Artillery (I Corps)","commander":{"name":"Captain Gilbert Reynolds","fate":"Survived"},"gun_count":6,"gun_type":"3-inch ordnance rifle","strength":107,"casualties":10,"key_action":"First Corps artillery -- McPherson's Ridge then Seminary Ridge July 1."},
+        {"battery_id":"U-ART-B4US","designation":"Battery B, 4th US Artillery (Stewart's)","commander":{"name":"Lieutenant James Stewart","fate":"Survived"},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":107,"casualties":17,"key_action":"Seminary Ridge July 1 -- one of the last Union batteries to leave, covering the infantry retreat."},
+        {"battery_id":"U-ART-B1PA","designation":"Battery B, 1st Pennsylvania Artillery","commander":{"name":"Captain James Cooper","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":5,"key_action":"First Corps artillery -- Seminary Ridge then Cemetery Hill."}
+      ]
+    },
+    {
+      "brigade_id": "U-ART-II-CORPS",
+      "designation": "Second Corps Artillery Brigade",
+      "corps": "U-II",
+      "commander": {"name": "Captain John Hazard", "fate": "Survived"},
+      "batteries": [
+        {"battery_id":"U-ART-B1RI","designation":"Battery B, 1st Rhode Island Artillery (Brown's)","commander":{"name":"Lieutenant T. Fred Brown","fate":"Wounded July 3 -- severely wounded in Confederate cannonade","successor":{"name":"Sergeant William Perrin","assumed_command":"July 3"}},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":107,"casualties":16,"key_action":"Cemetery Ridge -- opposite The Angle during Pickett's Charge. Brown severely wounded in the cannonade."},
+        {"battery_id":"U-ART-A1RI","designation":"Battery A, 1st Rhode Island Artillery (Arnold's)","commander":{"name":"Captain William Arnold","fate":"Survived"},"gun_count":6,"gun_type":"3-inch ordnance rifle","strength":107,"casualties":11,"key_action":"Second Corps artillery -- Cemetery Ridge July 2-3."},
+        {"battery_id":"U-ART-I1US","designation":"Battery I, 1st US Artillery (Woodruff's)","commander":{"name":"Lieutenant George Woodruff","fate":"KIA July 3 -- killed during Pickett's Charge","successor":{"name":"Lieutenant Tully McCrea","assumed_command":"July 3"}},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":107,"casualties":11,"key_action":"Cemetery Ridge -- Woodruff killed during Pickett's Charge. Guns fired canister into Pettigrew's and Trimble's advancing Confederates."},
+        {"battery_id":"U-ART-A4US","designation":"Battery A, 4th US Artillery (Cushing's Battery)","commander":{"name":"Lieutenant Alonzo Cushing","fate":"KIA July 3 -- killed at The Angle while serving his last gun. Received Medal of Honor posthumously 2014 -- longest gap between action and award in MOH history."},"gun_count":6,"gun_type":"3-inch ordnance rifle","strength":107,"casualties":25,"key_action":"The Angle -- Cushing's battery stood directly opposite the Confederate breakthrough. As Armistead's men surged over the wall Cushing rolled his last two guns to the wall and was killed serving them.","flag_notes":"HIGHEST PRIORITY PLACEMENT: Cushing's battery must be positioned immediately behind The Angle stone wall. Precision required to within 20 meters."},
+        {"battery_id":"U-ART-G1NY","designation":"Battery G, 1st New York Artillery (Ames's)","commander":{"name":"Captain Nelson Ames","fate":"Survived"},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":107,"casualties":6,"key_action":"Second Corps artillery -- Cemetery Ridge."}
+      ]
+    },
+    {
+      "brigade_id": "U-ART-III-CORPS",
+      "designation": "Third Corps Artillery Brigade",
+      "corps": "U-III",
+      "commander": {"name": "Captain George Randolph", "fate": "Survived"},
+      "batteries": [
+        {"battery_id":"U-ART-E4US-III","designation":"Battery E, 4th US Artillery (Seeley's)","commander":{"name":"Lieutenant Francis Seeley","fate":"Survived"},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":107,"casualties":8,"key_action":"Third Corps -- Peach Orchard salient July 2."},
+        {"battery_id":"U-ART-B1NJ","designation":"Battery B, 1st New Jersey Artillery (Clark's)","commander":{"name":"Captain A. Judson Clark","fate":"Survived"},"gun_count":6,"gun_type":"3-inch ordnance rifle","strength":107,"casualties":19,"key_action":"Peach Orchard -- heavily engaged. 19 casualties."},
+        {"battery_id":"U-ART-D1NY","designation":"Battery D, 1st New York Artillery (Winslow's)","commander":{"name":"Captain George Winslow","fate":"Survived"},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":114,"casualties":7,"key_action":"Wheatfield area -- one of the most contested artillery positions of Day 2."},
+        {"battery_id":"U-ART-4NYIND","designation":"4th New York Battery Independent (Smith's)","commander":{"name":"Captain James Smith","fate":"Survived"},"gun_count":6,"gun_type":"10-pdr Parrott","strength":107,"casualties":19,"key_action":"Devil's Den -- one of the most famous artillery positions of the battle. Guns briefly captured by Hood's Confederates then recaptured.","flag_notes":"Devil's Den gun position -- must be placed precisely among the boulders. Among the most photographed positions on the battlefield."}
+      ]
+    },
+    {
+      "brigade_id": "U-ART-V-CORPS",
+      "designation": "Fifth Corps Artillery Brigade",
+      "corps": "U-V",
+      "commander": {"name": "Captain Augustus Martin", "fate": "Survived"},
+      "batteries": [
+        {"battery_id":"U-ART-C1MA","designation":"Battery C, 1st Massachusetts Artillery","commander":{"name":"Lieutenant Aaron Walcott","fate":"Survived"},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":107,"casualties":0,"key_action":"Fifth Corps -- reserve. Little Round Top area."},
+        {"battery_id":"U-ART-L1OH","designation":"Battery L, 1st Ohio Artillery (Gibbs's)","commander":{"name":"Captain Frank Gibbs","fate":"Survived"},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":107,"casualties":1,"key_action":"Fifth Corps -- Little Round Top area."},
+        {"battery_id":"U-ART-D5US","designation":"Battery D, 5th US Artillery (Hazlett's Battery)","commander":{"name":"Lieutenant Charles Hazlett","fate":"KIA July 2 -- shot on Little Round Top summit beside the dying Weed","successor":{"name":"Lieutenant Benjamin Rittenhouse","assumed_command":"July 2"}},"gun_count":6,"gun_type":"10-pdr Parrott","strength":107,"casualties":9,"key_action":"Hazlett's battery dragged its guns up the steep rocky slope of Little Round Top. Technically too elevated to fire effectively on Confederate infantry below but their moral effect was significant. Hazlett killed beside Weed -- both dying on the summit at nearly the same moment.","flag_notes":"Little Round Top summit -- guns placed at rocky peak. Hazlett and Weed killed together is a vignette-worthy simultaneous event."},
+        {"battery_id":"U-ART-MAE","designation":"Massachusetts Battery E (10th)","commander":{"name":"Captain Josiah Porter","fate":"Survived"},"gun_count":6,"gun_type":"3-inch ordnance rifle","strength":107,"casualties":0,"key_action":"Fifth Corps -- reserve."}
+      ]
+    },
+    {
+      "brigade_id": "U-ART-VI-CORPS",
+      "designation": "Sixth Corps Artillery Brigade",
+      "corps": "U-VI",
+      "commander": {"name": "Colonel Charles Tompkins", "fate": "Survived"},
+      "batteries": [
+        {"battery_id":"U-ART-C1RI","designation":"Battery C, 1st Rhode Island Artillery","commander":{"name":"Captain Richard Waterman","fate":"Survived"},"gun_count":6,"gun_type":"3-inch ordnance rifle","strength":107,"casualties":0,"key_action":"Sixth Corps -- army reserve, no significant action."},
+        {"battery_id":"U-ART-D2US","designation":"Battery D, 2nd US Artillery","commander":{"name":"Lieutenant Edward Williston","fate":"Survived"},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":107,"casualties":0,"key_action":"Sixth Corps -- reserve."},
+        {"battery_id":"U-ART-G2US","designation":"Battery G, 2nd US Artillery","commander":{"name":"Lieutenant John Butler","fate":"Survived"},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":107,"casualties":0,"key_action":"Sixth Corps -- reserve."},
+        {"battery_id":"U-ART-F5US-VI","designation":"Battery F, 5th US Artillery (VI Corps)","commander":{"name":"Lieutenant Leonard Martin","fate":"Survived"},"gun_count":6,"gun_type":"3-inch ordnance rifle","strength":107,"casualties":0,"key_action":"Sixth Corps -- reserve."}
+      ]
+    },
+    {
+      "brigade_id": "U-ART-XI-CORPS",
+      "designation": "Eleventh Corps Artillery Brigade",
+      "corps": "U-XI",
+      "commander": {"name": "Major Thomas Osborn", "fate": "Survived", "notes": "Osborn organized the massed artillery on Cemetery Hill that played a critical defensive role."},
+      "batteries": [
+        {"battery_id":"U-ART-I1OH","designation":"Battery I, 1st Ohio Artillery (Dilger's Battery)","commander":{"name":"Captain Hubert Dilger","fate":"Survived -- Medal of Honor for Gettysburg","notes":"'Leatherbreeches' Dilger was born in Germany, served in European armies. MOH for delaying Rodes's attack at close range while Union infantry retreated through Gettysburg."},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":107,"casualties":12,"key_action":"Fought in the most dramatic artillery action of July 1 -- engaged Confederate infantry at close range IN THE STREETS OF GETTYSBURG to cover the Union retreat. Fighting withdrawal through the town itself.","flag_notes":"UNIQUE PLACEMENT: Dilger's battery moved THROUGH Gettysburg's streets during the retreat -- the only artillery unit to fight in the town. Requires precise in-town placement across several ticks."},
+        {"battery_id":"U-ART-K1OH","designation":"Battery K, 1st Ohio Artillery (Heckman's)","commander":{"name":"Captain Lewis Heckman","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":10,"key_action":"XI Corps -- north of town July 1 then Cemetery Hill."},
+        {"battery_id":"U-ART-G4US","designation":"Battery G, 4th US Artillery (Wilkeson's Battery)","commander":{"name":"Lieutenant Bayard Wilkeson","fate":"KIA July 1 -- both legs shattered; reportedly amputated one leg himself with a penknife before dying","successor":{"name":"Sergeant Eugene Bancroft","assumed_command":"July 1"}},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":107,"casualties":19,"key_action":"Barlow's Knoll July 1 -- most exposed Union artillery position. Wilkeson had both legs shattered. He reportedly amputated one leg himself with a penknife and bled to death.","flag_notes":"Barlow's Knoll -- most exposed Union position July 1. Wilkeson's mortal wounding is one of the most harrowing stories of Day 1."},
+        {"battery_id":"U-ART-F4US-XI","designation":"Battery F, 4th US Artillery (XI Corps)","commander":{"name":"Lieutenant Chandler Eakin","fate":"Survived"},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":107,"casualties":9,"key_action":"XI Corps artillery -- north of town July 1 then Cemetery Hill."},
+        {"battery_id":"U-ART-13NY","designation":"13th New York Battery (Wheeler's)","commander":{"name":"Lieutenant William Wheeler","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":4,"key_action":"XI Corps -- Cemetery Hill."}
+      ]
+    },
+    {
+      "brigade_id": "U-ART-XII-CORPS",
+      "designation": "Twelfth Corps Artillery Brigade",
+      "corps": "U-XII",
+      "commander": {"name": "Lieutenant Edward Muhlenberg", "fate": "Survived"},
+      "batteries": [
+        {"battery_id":"U-ART-F4US-XII","designation":"Battery F, 4th US Artillery (XII Corps)","commander":{"name":"Lieutenant Sylvanus Rugg","fate":"Survived"},"gun_count":6,"gun_type":"Napoleon 12-pdr","strength":107,"casualties":1,"key_action":"XII Corps -- Culp's Hill. Supported July 3 morning attack to recapture Confederate works."},
+        {"battery_id":"U-ART-EPA","designation":"Battery E, Pennsylvania Artillery (Knap's Battery)","commander":{"name":"Captain Charles Atwell","fate":"Survived"},"gun_count":6,"gun_type":"3-inch ordnance rifle","strength":107,"casualties":3,"key_action":"Knap's Battery at Culp's Hill -- unique firing angle across the saddle between Culp's Hill and Cemetery Hill."},
+        {"battery_id":"U-ART-K5US","designation":"Battery K, 5th US Artillery","commander":{"name":"Lieutenant David Kinzie","fate":"Survived"},"gun_count":4,"gun_type":"3-inch ordnance rifle","strength":80,"casualties":0,"key_action":"XII Corps -- Culp's Hill."},
+        {"battery_id":"U-ART-M1NY","designation":"Battery M, 1st New York Artillery (Winegar's)","commander":{"name":"Lieutenant Charles Winegar","fate":"Survived"},"gun_count":4,"gun_type":"Napoleon 12-pdr","strength":80,"casualties":1,"key_action":"XII Corps -- Culp's Hill."}
+      ]
+    }
+  ]
+}

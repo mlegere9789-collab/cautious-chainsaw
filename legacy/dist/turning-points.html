@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0a0a14" />
+<title>Turning Points — Gettysburg Animated Battlefield Map</title>
+<meta name="description" content="The nine moments historians agree could have changed the outcome of the battle -- what happened, and what the real debate over 'what if' actually is." />
+<link rel="canonical" href="https://gettysburginteractivemap.com/turning-points.html" />
+<meta property="og:title" content="Turning Points — Gettysburg Animated Battlefield Map" />
+<meta property="og:description" content="The moments historians agree could have changed the outcome of the battle." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gettysburginteractivemap.com/turning-points.html" />
+<meta property="og:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<link rel="stylesheet" href="/site-nav.css">
+<style>
+  :root { --bg:#0a0a14; --panel:#12121e; --ink:#e8e6df; --gold:#c9a24b; --muted:#8a93a8; --line:#1e1e2e; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family: Georgia, serif; }
+  header { padding: 28px 5% 12px; }
+  header a.back { font-family: sans-serif; font-size: 12px; color: var(--muted); text-decoration:none; }
+  h1 { font-size: clamp(24px, 4vw, 36px); color: var(--gold); margin: 12px 0 6px; }
+  .sub { font-family: sans-serif; color: var(--muted); font-size: 13px; max-width: 640px; }
+  main { padding: 20px 5% 70px; max-width: 780px; margin: 0 auto; }
+  .tp { background: var(--panel); border:1px solid var(--line); border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
+  .tp-head { display: flex; align-items: center; gap: 16px; padding: 18px 22px; cursor: pointer; }
+  .tp-num { font-family: sans-serif; font-size: 12px; color: var(--gold); border: 1px solid var(--gold); border-radius: 50%; width: 26px; height: 26px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .tp-titles { flex: 1; }
+  .tp-day { font-family: sans-serif; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+  .tp-title { font-size: 19px; color: #e8d5a3; margin-top: 2px; }
+  .tp-chevron { font-family: sans-serif; color: var(--muted); transition: transform 0.2s; flex-shrink: 0; }
+  .tp[open] .tp-chevron { transform: rotate(180deg); }
+  .tp-body { padding: 0 22px 22px; font-family: sans-serif; font-size: 14px; line-height: 1.75; color: #ccc; }
+  .tp-body h4 { color: var(--gold); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; margin: 18px 0 8px; }
+  .tp-body h4:first-child { margin-top: 0; }
+  .tp-link { display:inline-block; margin-top: 14px; color: var(--gold); text-decoration: none; font-weight: bold; font-size: 13px; }
+  summary::-webkit-details-marker { display: none; }
+  summary { list-style: none; }
+</style>
+</head>
+<body>
+<div id="gtbg-nav-mount"></div>
+<header>
+  <a class="back" href="/">&larr; Back to the map</a>
+  <h1>Turning Points</h1>
+  <p class="sub">Nine moments where the battle could plausibly have gone differently -- not a free-form sandbox, but the specific decisions historians have actually argued about for over 160 years.</p>
+</header>
+<main id="list"></main>
+
+<script>
+const POINTS = [
+  {
+    day: 'Day 1 · Morning', title: "Buford's Decision to Stand", tick: 1, location: "McPherson's Ridge",
+    what: "Brigadier General John Buford chose to dismount his two cavalry brigades and fight a delaying action west of town on the morning of July 1, rather than screen and fall back as cavalry doctrine of the era usually called for. His men held the ridges long enough for the Union I Corps infantry to arrive and occupy the high ground south and east of town.",
+    debate: "Historians broadly agree this was the single most consequential tactical choice of the battle's opening hours: had Buford withdrawn, Confederate infantry likely would have seized Cemetery Hill and the other high ground before Union infantry could contest it -- ground the Army of the Potomac held for the rest of the battle. The debate isn't whether it mattered, but how deliberately Buford foresaw its importance versus simply buying time for Reynolds's corps."
+  },
+  {
+    day: 'Day 1 · Late afternoon', title: "Ewell's Discretion on Cemetery Hill", tick: 175, location: 'Cemetery Hill',
+    what: "After Confederate forces routed the Union I and XI Corps through the town by late afternoon, Lee sent Lieutenant General Richard Ewell discretionary orders to take Cemetery Hill 'if practicable.' Ewell, with his men disorganized from the day's fighting and uncertain of Union strength on the hill, chose not to press the attack.",
+    debate: "This is the most famous 'what if' of the entire battle. Lee's former corps commander Stonewall Jackson was dead by this point, and many contemporaries and historians argue Jackson would have read 'if practicable' as an order to attack immediately, possibly taking the hill before it was fully manned and denying the Union army its strongest defensive anchor for the rest of the battle. Others note Ewell's caution was reasonable given fresh Union troops were visibly arriving on the hill as he considered the order."
+  },
+  {
+    day: 'Day 2 · Afternoon', title: "Longstreet's Delayed Attack", tick: 240, location: 'Seminary Ridge / Emmitsburg Road',
+    what: "Lee wanted Lieutenant General James Longstreet's First Corps to attack the Union left early on July 2. Longstreet, who had argued against the whole offensive and preferred a defensive maneuver around the Union flank, did not get his divisions into attack position until roughly 4:00pm, hours later than Lee intended.",
+    debate: "The delay meant Union III Corps commander Dan Sickles had hours to advance his corps forward to the Peach Orchard (against orders) and Union V Corps had time to rush reinforcements to Little Round Top just before Confederate troops reached it. Defenders of Longstreet point to the genuine difficulty of his approach march, which had to avoid Union signal stations; critics argue a faster attack could have taken Little Round Top before it was defended at all."
+  },
+  {
+    day: 'Day 2 · Late afternoon', title: "Chamberlain's Bayonet Charge", tick: 267, location: 'Little Round Top',
+    what: "With the 20th Maine's ammunition nearly exhausted and his line bent into a horseshoe under repeated Confederate assaults on the extreme left of the Union army, Colonel Joshua Chamberlain ordered a downhill bayonet charge that broke the attacking 15th Alabama and secured the Union flank.",
+    debate: "Little Round Top anchored the entire Union left; if it fell, Confederate artillery and infantry could have enfiladed the whole Union line along Cemetery Ridge. Historians debate less whether the charge mattered (it clearly did) and more whether it was the improvisation of a desperate moment or a more calculated decision than Chamberlain's own later, heavily mythologized accounts suggest."
+  },
+  {
+    day: 'Day 2 · Evening', title: "The Collapse at the Wheatfield and Peach Orchard", tick: 300, location: 'Wheatfield / Peach Orchard',
+    what: "Sickles's advanced III Corps line at the Peach Orchard was overwhelmed after hours of fighting that also consumed the Wheatfield in a chaotic, repeatedly-reinforced struggle involving troops from four different Union corps.",
+    debate: "Sickles's unauthorized advance is still debated: it created a salient that was tactically indefensible and cost enormous casualties, but it also arguably absorbed and slowed the Confederate assault before it could reach Cemetery Ridge with full force, buying time for Meade to shift reinforcements from elsewhere on the line."
+  },
+  {
+    day: 'Day 2 · Night', title: "The Night Assault on Culp's and Cemetery Hill", tick: 340, location: "Culp's Hill / East Cemetery Hill",
+    what: "As evening fell on July 2, Confederate troops under Ewell attacked the Union right at Culp's Hill and East Cemetery Hill, briefly seizing lower Culp's Hill and cresting the works at Cemetery Hill before being driven back by counterattacks and reinforcements arriving in the dark.",
+    debate: "This assault came close enough to succeeding, in the dark and against a thinly held line, that many historians consider it the battle's second most dangerous moment for the Union army after Little Round Top. Coordination between Ewell's divisions and Longstreet's attack on the other end of the line was poor; a genuinely simultaneous, fully coordinated assault along the whole Union line that evening might have stretched Meade's defense past its breaking point."
+  },
+  {
+    day: 'Day 3 · Morning', title: "Culp's Hill Retaken", tick: 460, location: "Culp's Hill",
+    what: "Union XII Corps troops, having returned overnight from reinforcing the Union left, launched a dawn counterattack and, after roughly seven hours of fighting, drove Confederate troops off the lower works of Culp's Hill they had seized the evening before.",
+    debate: "Had this position remained in Confederate hands, it would have threatened the Baltimore Pike, the Union army's vital supply and retreat line. Its recapture on the morning of July 3 is less debated as a turning point in itself and more understood as closing the door Ewell's night assault had briefly opened."
+  },
+  {
+    day: 'Day 3 · Afternoon', title: "The Cannonade and Its Effect", tick: 540, location: 'Seminary Ridge / Cemetery Ridge',
+    what: "Around 1:00pm on July 3, Confederate artillery opened a massive bombardment -- some 150 to 170 guns -- meant to weaken the Union center at Cemetery Ridge ahead of the infantry assault that would become known as Pickett's Charge.",
+    debate: "Union artillery chief Henry Hunt deliberately conserved his ammunition and had his gunners slacken fire partway through, in part to save shells for the coming infantry assault. Confederate artillery commanders read the slackening as their bombardment succeeding in silencing Union guns, when in fact most Union artillery -- and the infantry sheltered behind the ridge -- was largely intact. Historians consider this miscommunication a significant factor in launching the infantry assault into a defense that was far less damaged than Confederate commanders believed."
+  },
+  {
+    day: 'Day 3 · Afternoon', title: "Pickett's Charge and the Decision to Attack the Center", tick: 560, location: 'The Angle / Cemetery Ridge',
+    what: "Roughly 12,500 Confederate soldiers advanced across nearly a mile of open ground against the Union center. A small group under Brigadier General Lewis Armistead breached the low stone wall at 'the Angle' before being overwhelmed. The assault failed with over 50% casualties among the attacking force.",
+    debate: "This is the second-most argued decision of the battle, after Ewell's discretion on Day 1. Longstreet opposed the attack and recommended maneuvering around the Union left instead; Lee, believing his army had come close to breaking the Union line on both prior days and that one more push would succeed, ordered it anyway. Whether any tactical adjustment could have made a frontal assault across that ground survivable against a fully intact defense remains the central military debate of the entire battle."
+  },
+];
+
+const container = document.getElementById('list');
+POINTS.forEach((p, i) => {
+  const det = document.createElement('details');
+  det.className = 'tp';
+  if (i === 0) det.open = true;
+  det.innerHTML = `
+    <summary class="tp-head">
+      <span class="tp-num">${i + 1}</span>
+      <span class="tp-titles">
+        <div class="tp-day">${p.day} &middot; ${p.location}</div>
+        <div class="tp-title">${p.title}</div>
+      </span>
+      <span class="tp-chevron">&#9662;</span>
+    </summary>
+    <div class="tp-body">
+      <h4>What happened</h4>
+      <p>${p.what}</p>
+      <h4>The historical debate</h4>
+      <p>${p.debate}</p>
+      <a class="tp-link" href="/?tick=${p.tick}">See this moment on the map &rarr;</a>
+    </div>`;
+  container.appendChild(det);
+});
+</script>
+
+<div id="gtbg-footer-mount"></div>
+<script src="/site-nav.js" data-current="turning-points"></script>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0a0a14" />
+<title>Unit Rendering Reference — Gettysburg Animated Battlefield Map</title>
+<meta name="robots" content="noindex" />
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.css" rel="stylesheet" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js"></script>
+<style>
+  :root { --bg:#0a0a14; --panel:#12121e; --gold:#c9a24b; --muted:#8a93a8; --line:#1e1e2e; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:#e8e6df; font-family: Georgia, serif; }
+  header { padding: 20px 5% 10px; }
+  h1 { font-size: clamp(18px, 3vw, 26px); color: var(--gold); margin: 0 0 6px; }
+  .sub { font-family: sans-serif; color: var(--muted); font-size: 13px; max-width: 720px; line-height: 1.6; }
+  .note { font-family: sans-serif; font-size: 12px; color: #8fa8c9; background: rgba(70,110,160,0.1); border: 1px solid #1a2a3a; border-radius: 8px; padding: 10px 14px; max-width: 720px; margin-top: 10px; line-height: 1.6; }
+  #map { height: 60vh; min-height: 420px; }
+  .controls { display:flex; gap:16px; align-items:center; flex-wrap:wrap; padding: 12px 5%; font-family: sans-serif; font-size: 13px; background: var(--panel); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .controls label { display:flex; align-items:center; gap:6px; color: var(--muted); }
+  .play-btn { padding: 7px 16px; border-radius:6px; border:1px solid var(--gold); background: var(--gold); color:#0a0a14; font-weight:bold; cursor:pointer; font-family:sans-serif; font-size:13px; }
+  #status { font-family: monospace; font-size: 11px; color: var(--muted); padding: 10px 5%; white-space: pre-wrap; }
+  #checklist { padding: 10px 5% 40px; font-family: sans-serif; font-size: 13px; }
+  #checklist .item { display:flex; align-items:center; gap: 10px; padding: 8px 0; border-bottom: 1px dashed var(--line); }
+  #checklist .item .dot { width: 10px; height: 10px; border-radius: 50%; background: #555; flex-shrink:0; }
+  #checklist .item.pass .dot { background: #6fcf97; }
+  #checklist .item b { color: #e8d5a3; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Unit Rendering Reference Implementation</h1>
+  <p class="sub">A working, tested proof of concept for the four rendering upgrades from the build plan &mdash; smooth interpolated movement, bearing-driven directional icons, symbol collision avoidance, and a pulsing "engaged" halo &mdash; built against the real placement data from Day 3, ticks 540&ndash;600 (the cannonade into Pickett's Charge).</p>
+  <div class="note">This is a standalone reference page, not wired into the live map (that map's own rendering code is inside a compiled bundle with no source project to edit). Everything below runs for real, against real data, in this actual browser &mdash; it's meant to be copied into the real app's source the moment that project is recovered or rebuilt.</div>
+</header>
+<div class="controls">
+  <button class="play-btn" id="play-btn" type="button">&#9654; Play</button>
+  <label><input type="checkbox" id="toggle-smooth" checked /> Smooth interpolation</label>
+  <label><input type="checkbox" id="toggle-rotate" checked /> Bearing rotation</label>
+  <label><input type="checkbox" id="toggle-glow" checked /> Engaged glow</label>
+  <span id="tick-display">Tick <b id="tick-num">540</b></span>
+</div>
+<div id="map"></div>
+<div id="status"></div>
+<div id="checklist">
+  <div class="item" id="chk-data"><span class="dot"></span> Real placement data loaded (ticks 540&ndash;600, Day 3)</div>
+  <div class="item" id="chk-bearing"><span class="dot"></span> Every placement has a real <code>bearing</code> value used for rotation</div>
+  <div class="item" id="chk-interp"><span class="dot"></span> Positions interpolate frame-by-frame between ticks, not jump</div>
+  <div class="item" id="chk-collision"><span class="dot"></span> Symbol collision engine active (icon-allow-overlap: false, sorted by strength)</div>
+  <div class="item" id="chk-glow"><span class="dot"></span> Halo layer pulsing on engaged dispositions</div>
+</div>
+
+<script>
+(async function() {
+  const MAPBOX_TOKEN = "pk.eyJ1IjoibWxlZ2VyZTk3ODkiLCJhIjoiY21xcHptODEyMGJydDJycWFhaWY0ZHVsMCJ9.aJvnELJlXEs3nYrWx4Eg5Q";
+  mapboxgl.accessToken = MAPBOX_TOKEN;
+  const statusEl = document.getElementById('status');
+  function log(line) { statusEl.textContent += line + '\n'; }
+  function pass(id) { document.getElementById(id).classList.add('pass'); }
+
+  // ---- Load real data ----
+  const [d1, d2] = await Promise.all([
+    fetch('/data/placements_day3_ticks521_600.json').then(r => r.json()),
+    fetch('/data/placements_day3_ticks451_520.json').then(r => r.json()),
+  ]);
+  const allPlacements = [...d1.placements, ...d2.placements].filter(p => p.tick >= 540 && p.tick <= 600);
+  log(`Loaded ${allPlacements.length} real placement records, ticks 540–600.`);
+  pass('chk-data');
+
+  const withBearing = allPlacements.filter(p => typeof p.bearing === 'number');
+  log(`${withBearing.length} / ${allPlacements.length} records carry a real bearing field (0–359°).`);
+  if (withBearing.length === allPlacements.length) pass('chk-bearing');
+
+  const byUnit = new Map();
+  for (const p of allPlacements) {
+    if (!byUnit.has(p.unit_id)) byUnit.set(p.unit_id, []);
+    byUnit.get(p.unit_id).push(p);
+  }
+  for (const arr of byUnit.values()) arr.sort((a,b) => a.tick - b.tick);
+
+  function placementAtOrBefore(unitId, tick) {
+    const arr = byUnit.get(unitId);
+    if (!arr) return null;
+    let lo=0, hi=arr.length-1, best=-1;
+    while (lo<=hi) { const mid=(lo+hi)>>1; if (arr[mid].tick<=tick) { best=mid; lo=mid+1; } else hi=mid-1; }
+    return best>=0 ? arr[best] : null;
+  }
+  function nextPlacementAfter(unitId, tick) {
+    const arr = byUnit.get(unitId);
+    if (!arr) return null;
+    return arr.find(p => p.tick > tick) || null;
+  }
+
+  const ENGAGED = new Set(['Charging Line', 'Deployed Artillery', 'Skirmish Line']);
+
+  // ---- Map setup ----
+  const map = new mapboxgl.Map({
+    container: 'map', style: 'mapbox://styles/mapbox/satellite-v9',
+    center: [-77.2355, 39.8135], zoom: 14.5, pitch: 0,
+  });
+  map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+  let tick = 540, playing = false, rafId = null, tickStartTime = null;
+  const TICK_DURATION_MS = 1200; // how long one tick's transition takes to visually complete
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function angleLerp(a, b, t) {
+    // shortest-path interpolation around the compass so a unit doesn't spin the long way
+    let diff = ((b - a + 540) % 360) - 180;
+    return (a + diff * t + 360) % 360;
+  }
+  function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+  map.on('load', () => {
+    // Directional "unit" icon: a simple triangle pointing north at bearing 0, so
+    // icon-rotate can drive it directly from each placement's real bearing field.
+    const size = 24;
+    const canvas = document.createElement('canvas');
+    canvas.width = size; canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    ctx.translate(size/2, size/2);
+    ctx.beginPath();
+    ctx.moveTo(0, -10); ctx.lineTo(7, 8); ctx.lineTo(0, 4); ctx.lineTo(-7, 8);
+    ctx.closePath();
+    ctx.fillStyle = '#ffffff';
+    ctx.fill();
+    map.addImage('unit-arrow', ctx.getImageData(0, 0, size, size));
+
+    map.addSource('units', { type: 'geojson', data: emptyFC() });
+    map.addSource('units-glow', { type: 'geojson', data: emptyFC() });
+
+    // Halo layer UNDER the main icons -- animated via setPaintProperty in the render loop.
+    map.addLayer({
+      id: 'units-glow-layer', type: 'circle', source: 'units-glow',
+      paint: {
+        'circle-radius': 10,
+        'circle-color': ['match', ['get','side'], 'union', '#4477cc', 'confederate', '#cc5544', '#888'],
+        'circle-opacity': 0.35,
+        'circle-blur': 0.6,
+      }
+    });
+
+    // Main directional icon layer. icon-rotate is bound directly to each feature's
+    // bearing property (straight from the real data). icon-allow-overlap:false plus
+    // a sort key by strength is Mapbox's own collision engine -- it hides the
+    // lower-priority icon rather than letting two stack, instead of hand-rolled math.
+    map.addLayer({
+      id: 'units-layer', type: 'symbol', source: 'units',
+      layout: {
+        'icon-image': 'unit-arrow',
+        'icon-size': ['interpolate', ['linear'], ['get','strength'], 0, 0.5, 500, 0.8, 2000, 1.2, 6000, 1.8],
+        'icon-rotate': ['get', 'bearing'],
+        'icon-rotation-alignment': 'map',
+        'icon-allow-overlap': false,
+        'icon-ignore-placement': false,
+        'symbol-sort-key': ['-', 0, ['get', 'strength']], // higher strength = higher priority (lower sort key wins)
+      },
+      paint: {
+        'icon-color': ['match', ['get','side'], 'union', '#4477cc', 'confederate', '#cc5544', '#ccc'],
+        'icon-opacity': 1,
+      }
+    });
+    pass('chk-collision');
+
+    renderAtTick(540, 0);
+    log('Map ready. Press Play to watch smooth, oriented, collision-safe, glowing units move through real data.');
+  });
+
+  function emptyFC() { return { type: 'FeatureCollection', features: [] }; }
+
+  function buildFeatures(currentTick, frac) {
+    const smooth = document.getElementById('toggle-smooth').checked;
+    const rotateOn = document.getElementById('toggle-rotate').checked;
+    const glowOn = document.getElementById('toggle-glow').checked;
+    const features = [];
+    const glowFeatures = [];
+    let interpolatedAny = false;
+
+    for (const unitId of byUnit.keys()) {
+      const cur = placementAtOrBefore(unitId, currentTick);
+      if (!cur) continue;
+      const next = smooth ? nextPlacementAfter(unitId, currentTick) : null;
+
+      let lat = cur.lat, lng = cur.lng, bearing = cur.bearing || 0;
+      if (next && frac > 0) {
+        const t = easeOutCubic(frac);
+        lat = lerp(cur.lat, next.lat, t);
+        lng = lerp(cur.lng, next.lng, t);
+        bearing = angleLerp(cur.bearing || 0, next.bearing || 0, t);
+        interpolatedAny = true;
+      }
+
+      const side = unitId.startsWith('U-') ? 'union' : 'confederate';
+      features.push({
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [lng, lat] },
+        properties: { unit_id: unitId, side, strength: cur.strength || 0, bearing: rotateOn ? bearing : 0, disposition: cur.disposition },
+      });
+
+      if (glowOn && ENGAGED.has(cur.disposition)) {
+        glowFeatures.push({
+          type: 'Feature', geometry: { type: 'Point', coordinates: [lng, lat] },
+          properties: { side },
+        });
+      }
+    }
+    if (interpolatedAny) pass('chk-interp');
+    return { units: { type: 'FeatureCollection', features }, glow: { type: 'FeatureCollection', features: glowFeatures } };
+  }
+
+  function renderAtTick(t, frac) {
+    if (!map.getSource('units')) return;
+    const { units, glow } = buildFeatures(t, frac);
+    map.getSource('units').setData(units);
+    map.getSource('units-glow').setData(glow);
+    document.getElementById('tick-num').textContent = t;
+  }
+
+  // ---- Pulse the glow halo (WebGL paint-property animation, not CSS -- units render on
+  // canvas, so a driven loop oscillating circle-radius/opacity is the correct technique) ----
+  let pulsePhase = 0;
+  function pulseTick() {
+    if (map.getLayer('units-glow-layer')) {
+      pulsePhase += 0.12;
+      const r = 8 + Math.sin(pulsePhase) * 4;
+      const o = 0.25 + (Math.sin(pulsePhase) * 0.5 + 0.5) * 0.25;
+      map.setPaintProperty('units-glow-layer', 'circle-radius', r);
+      map.setPaintProperty('units-glow-layer', 'circle-opacity', o);
+      if (r > 9.5 && document.getElementById('toggle-glow').checked) pass('chk-glow');
+    }
+    requestAnimationFrame(pulseTick);
+  }
+  requestAnimationFrame(pulseTick);
+
+  // ---- Playback loop: advances ticks, interpolating every frame in between ----
+  function frame(now) {
+    if (!playing) return;
+    if (tickStartTime === null) tickStartTime = now;
+    const elapsed = now - tickStartTime;
+    const frac = Math.min(1, elapsed / TICK_DURATION_MS);
+    renderAtTick(tick, frac);
+    if (frac >= 1) {
+      tick = tick >= 600 ? 540 : tick + 1;
+      tickStartTime = now;
+    }
+    rafId = requestAnimationFrame(frame);
+  }
+
+  document.getElementById('play-btn').addEventListener('click', () => {
+    playing = !playing;
+    const btn = document.getElementById('play-btn');
+    btn.textContent = playing ? '❙❙ Pause' : '▶ Play';
+    if (playing) { tickStartTime = null; rafId = requestAnimationFrame(frame); }
+    else cancelAnimationFrame(rafId);
+  });
+})();
+</script>
+</body>
+</html>

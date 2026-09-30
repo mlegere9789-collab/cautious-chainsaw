@@ -1,0 +1,204 @@
+[build]
+  publish = "."
+
+# === SECURITY HEADERS (applied to all routes first) ===
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # camera/geolocation/motion-sensors are allowed for this origin only (used by /ar.html's
+    # on-site AR overlay); microphone and payment stay fully blocked -- nothing on this site needs them.
+    Permissions-Policy = "camera=(self), microphone=(), geolocation=(self), payment=(), accelerometer=(self), gyroscope=(self), magnetometer=(self)"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    X-Permitted-Cross-Domain-Policies = "none"
+    # Report-only for now: logs violations without blocking anything, so we can confirm this
+    # allow-list is complete (Mapbox tiles/telemetry, Google Street View frame + fonts, Netlify's
+    # own RUM script) before switching to an enforcing Content-Security-Policy header.
+    Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self' 'unsafe-inline' api.mapbox.com cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' api.mapbox.com fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: blob: api.mapbox.com *.tiles.mapbox.com; connect-src 'self' api.mapbox.com events.mapbox.com events.mapbox.cn *.tiles.mapbox.com 0.peerjs.com wss://0.peerjs.com; frame-src www.google.com; worker-src 'self' blob:; media-src 'self' blob:; object-src 'none'; base-uri 'self'"
+
+# === CACHE HEADERS ===
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/icons/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/favicon.ico"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/apple-touch-icon.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    # no-store was disqualifying every HTML page from the browser's back-forward cache,
+    # so clicking a page's own back button ("Back to the map") always forced a full reload
+    # -- replaying the whole boot splash and onboarding sequence from scratch every time.
+    # no-cache alone still makes the browser revalidate with the server on every ordinary
+    # navigation (so a fresh deploy shows up immediately either way) -- it just no longer
+    # blocks the browser from instantly restoring a page on a genuine back navigation.
+    Cache-Control = "no-cache, must-revalidate"
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+# embed.html is meant to be iframed on other people's sites -- override the site-wide
+# X-Frame-Options: DENY for this one path only. Everything else keeps DENY.
+[[headers]]
+  for = "/embed.html"
+  [headers.values]
+    X-Frame-Options = ""
+    Content-Security-Policy = "frame-ancestors *"
+    Content-Security-Policy-Report-Only = ""
+
+# === SECURITY REDIRECTS ===
+
+# WordPress scanners
+[[redirects]]
+  from = "/wp-admin/*"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/wp-login.php"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/wp-content/*"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/xmlrpc.php"
+  to = "/404"
+  status = 404
+
+# Environment and config file probes
+[[redirects]]
+  from = "/.env"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/.env.local"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/.env.production"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/.git/*"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/.htaccess"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/config.php"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/config.json"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/phpinfo.php"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/phpmyadmin/*"
+  to = "/404"
+  status = 404
+
+# Framework paths
+[[redirects]]
+  from = "/storage/*"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/vendor/*"
+  to = "/404"
+  status = 404
+
+# Node package files
+[[redirects]]
+  from = "/package.json"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/package-lock.json"
+  to = "/404"
+  status = 404
+
+# Database dumps and backups
+[[redirects]]
+  from = "/*.sql"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/*.bak"
+  to = "/404"
+  status = 404
+
+# Internal tools - block from public. force = true is required here: Netlify serves an
+# existing file before it evaluates redirects, so without `force` this rule never fired
+# and /diagnostics.html was reachable at 200 despite this entry.
+[[redirects]]
+  from = "/diagnostics.html"
+  to = "/404"
+  status = 404
+  force = true
+
+# 404 page (Netlify auto-serves /404.html for unmatched paths when it exists in the publish dir)
+
+[[headers]]
+  for = "/user-guide.pdf"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+    Content-Disposition = "attachment; filename=\"Gettysburg-Interactive-Map-User-Guide.pdf\""

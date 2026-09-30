@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0a0a14" />
+<title>What They Could See — Gettysburg Animated Battlefield Map</title>
+<meta name="description" content="Explore approximate sightlines from key battlefield vantage points, based on real elevation data." />
+<link rel="canonical" href="https://gettysburginteractivemap.com/viewshed.html" />
+<meta property="og:title" content="What They Could See — Gettysburg Animated Battlefield Map" />
+<meta property="og:description" content="Explore approximate sightlines from key battlefield vantage points, based on real elevation data." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gettysburginteractivemap.com/viewshed.html" />
+<meta property="og:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="What They Could See — Gettysburg Animated Battlefield Map" />
+<meta name="twitter:description" content="Explore approximate sightlines from key battlefield vantage points, based on real elevation data." />
+<meta name="twitter:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.css" rel="stylesheet" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js"></script>
+<style>
+  :root { --bg:#0a0a14; --panel:#12121e; --ink:#e8e6df; --gold:#c9a24b; --muted:#8a93a8; --line:#1e1e2e; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family: Georgia, serif; }
+  header { padding: 20px 5% 10px; }
+  header a.back { font-family: sans-serif; font-size: 12px; color: var(--muted); text-decoration:none; }
+  h1 { font-size: clamp(20px, 3.2vw, 28px); color: var(--gold); margin: 8px 0 4px; }
+  .sub { font-family: sans-serif; color: var(--muted); font-size: 13px; max-width: 640px; }
+  .caveat { font-family: sans-serif; font-size: 12px; color: #dd9955; background: rgba(200,140,50,0.08); border: 1px solid #3a2a10; border-radius: 8px; padding: 12px 16px; max-width: 640px; margin: 12px 0; line-height: 1.6; }
+  #map { height: 60vh; min-height: 420px; }
+  .controls { display:flex; gap:12px; align-items:center; flex-wrap:wrap; padding: 12px 5%; background: var(--panel); border-top:1px solid var(--line); border-bottom: 1px solid var(--line); font-family: sans-serif; font-size:13px; }
+  #vp-select { padding:6px 10px; border-radius:6px; background:var(--bg); color:var(--ink); border:1px solid var(--line); min-width:260px; }
+  #info { font-family: sans-serif; font-size:12px; color: var(--muted); }
+  #info b { color: var(--gold); }
+  .mapboxgl-popup-content { background:#12121e !important; color:#e8e6df !important; font-family: sans-serif; font-size:12px; border:1px solid var(--line); }
+  .mapboxgl-popup-tip { border-top-color:#12121e !important; }
+</style>
+<link rel="stylesheet" href="/site-nav.css">
+</head>
+<body>
+<div id="gtbg-nav-mount"></div>
+<header>
+  <a class="back" href="/index.html">&larr; Back to the map</a>
+  <h1>What They Could See</h1>
+  <p class="sub">Pick a vantage point used during the battle and see roughly how far a soldier standing there could see toward the horizon, based on that location's real elevation.</p>
+  <div class="caveat">&#9888; <b>This shows relative elevation, not a computed sightline.</b> A genuine viewshed analysis needs full terrain elevation data (a digital elevation raster) plus real obstruction modeling for hills, woods, buildings, and smoke -- this deployment doesn't have access to that. Earlier drafts of this tool tried a distance-to-horizon formula based on elevation alone, but that produced 30+ mile "visibility" circles that are physically correct as pure earth-curvature math yet meaningless at this battlefield's actual ~5-mile scale, where nearby terrain -- not the curve of the earth -- is what actually blocked a soldier's view. So instead: below is each vantage point's real elevation, ranked against the other 29 mapped locations, so you can see genuine high-ground advantage without a fabricated distance claim.</div>
+</header>
+<div class="controls">
+  <label>Vantage point: <select id="vp-select"></select></label>
+  <span id="info"></span>
+</div>
+<div id="map"></div>
+<div id="ranking" style="padding:20px 5% 50px; font-family:sans-serif; font-size:13px; max-width:640px; margin:0 auto;"></div>
+
+<script>
+(async function() {
+  const MAPBOX_TOKEN = "pk.eyJ1IjoibWxlZ2VyZTk3ODkiLCJhIjoiY21xcHptODEyMGJydDJycWFhaWY0ZHVsMCJ9.aJvnELJlXEs3nYrWx4Eg5Q";
+  mapboxgl.accessToken = MAPBOX_TOKEN;
+
+  const terrain = await fetch('/data/terrain.json').then(r => r.json());
+  const locations = terrain.key_locations;
+  const sortedByElevation = [...locations].sort((a,b) => b.elevation_ft - a.elevation_ft);
+  const lowestElevation = Math.min(...locations.map(l => l.elevation_ft));
+
+  const select = document.getElementById('vp-select');
+  for (const loc of sortedByElevation) {
+    const opt = document.createElement('option');
+    opt.value = loc.location_id;
+    opt.textContent = `${loc.name} (${loc.elevation_ft} ft)`;
+    select.appendChild(opt);
+  }
+
+  const map = new mapboxgl.Map({
+    container: 'map', style: 'mapbox://styles/mapbox/satellite-v9',
+    center: [-77.235, 39.81], zoom: 12.5,
+  });
+  map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+  function showVantage(locId) {
+    const loc = locations.find(l => l.location_id === locId);
+    const rank = sortedByElevation.findIndex(l => l.location_id === locId) + 1;
+    const aboveLowest = loc.elevation_ft - lowestElevation;
+
+    const data = {
+      type: 'FeatureCollection',
+      features: locations.map(l => ({
+        type: 'Feature', geometry: { type: 'Point', coordinates: [l.lng, l.lat] },
+        properties: { name: l.name, elevation: l.elevation_ft, isSelected: l.location_id === locId }
+      }))
+    };
+
+    if (map.getSource('viewshed')) {
+      map.getSource('viewshed').setData(data);
+    } else {
+      map.addSource('viewshed', { type: 'geojson', data });
+      map.addLayer({ id: 'viewshed-points', type: 'circle', source: 'viewshed',
+        paint: {
+          'circle-radius': ['interpolate', ['linear'], ['get', 'elevation'], 490, 5, 785, 16],
+          'circle-color': ['interpolate', ['linear'], ['get', 'elevation'], 490, '#4488cc', 640, '#ffaa44', 785, '#ff5533'],
+          'circle-stroke-width': ['case', ['get', 'isSelected'], 3, 1],
+          'circle-stroke-color': ['case', ['get', 'isSelected'], '#ffdd66', '#0a0a14'],
+        }
+      });
+    }
+
+    document.getElementById('info').innerHTML = `<b>${loc.name}</b> · ${loc.elevation_ft} ft · #${rank} highest of ${locations.length} mapped points · ${aboveLowest} ft above the lowest mapped point`;
+    map.flyTo({ center: [loc.lng, loc.lat], zoom: 12.5, duration: 800 });
+
+    // Show the 4 nearest-elevation comparisons so the ranking has concrete context
+    const ranked = document.getElementById('ranking');
+    const nearby = sortedByElevation.filter(l => l.location_id !== locId).slice(0, 6);
+    ranked.innerHTML = `<h3 style="color:#c9a24b;font-size:13px;">Nearby in elevation</h3>` +
+      sortedByElevation.map((l, i) => {
+        const isSelf = l.location_id === locId;
+        return `<div style="padding:5px 0;border-bottom:1px dashed #1e1e2e;${isSelf?'color:#ffdd66;font-weight:bold;':'color:#999;'}">
+          #${i+1} &middot; ${l.name} &middot; ${l.elevation_ft} ft ${isSelf ? '&larr; selected' : ''}
+        </div>`;
+      }).join('');
+  }
+
+  select.addEventListener('change', () => showVantage(select.value));
+
+  map.on('load', () => {
+    const initial = locations.find(l => l.name === 'Little Round Top') || sortedByElevation[0];
+    select.value = initial.location_id;
+    showVantage(initial.location_id);
+  });
+})();
+</script>
+<div id="gtbg-footer-mount"></div>
+<script src="/site-nav.js" data-current="viewshed"></script>
+</body>
+</html>

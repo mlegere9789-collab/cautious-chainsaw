@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0a0a14" />
+<title>Search — Gettysburg Animated Battlefield Map</title>
+<meta name="description" content="Search every regiment, battery, vignette, and battlefield location by name." />
+<link rel="canonical" href="https://gettysburginteractivemap.com/search.html" />
+<meta property="og:title" content="Search — Gettysburg Animated Battlefield Map" />
+<meta property="og:description" content="Search every regiment, battery, vignette, and battlefield location by name." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gettysburginteractivemap.com/search.html" />
+<meta property="og:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Search — Gettysburg Animated Battlefield Map" />
+<meta name="twitter:description" content="Search every regiment, battery, vignette, and battlefield location by name." />
+<meta name="twitter:image" content="https://gettysburginteractivemap.com/screenshots/day3.png" />
+<style>
+  :root { --bg:#0a0a14; --panel:#12121e; --ink:#e8e6df; --gold:#c9a24b; --muted:#8a93a8; --line:#1e1e2e; --union:#4477cc; --conf:#cc5544; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family: Georgia, serif; min-height:100vh; }
+  header { padding: 24px 5% 8px; }
+  header a.back { font-family: sans-serif; font-size: 12px; color: var(--muted); text-decoration:none; }
+  h1 { font-size: clamp(22px, 3.5vw, 32px); color: var(--gold); margin: 10px 0 16px; }
+  main { padding: 0 5% 60px; max-width: 800px; margin: 0 auto; }
+  #search-box { width:100%; padding: 14px 18px; font-size:16px; font-family: sans-serif; background: var(--panel); border:1px solid var(--line); border-radius:10px; color: var(--ink); outline:none; }
+  #search-box:focus { border-color: var(--gold); }
+  #filters { display:flex; gap:10px; margin: 14px 0 20px; font-family:sans-serif; font-size:12px; flex-wrap:wrap; }
+  .filter-chip { padding: 5px 12px; border-radius:14px; border:1px solid var(--line); color: var(--muted); cursor:pointer; user-select:none; }
+  .filter-chip.active { border-color: var(--gold); color: var(--gold); background: rgba(201,162,75,0.08); }
+  #results { display:flex; flex-direction:column; gap:8px; }
+  .result { background: var(--panel); border:1px solid var(--line); border-radius:8px; padding: 12px 16px; text-decoration:none; color:inherit; display:block; }
+  .result:hover { border-color: var(--gold); }
+  .result .kind { font-family: sans-serif; font-size:10px; text-transform:uppercase; letter-spacing:1px; padding:2px 7px; border-radius:4px; }
+  .kind.regiment.union { background: rgba(68,119,204,0.2); color:#88aaee; }
+  .kind.regiment.confederate { background: rgba(204,85,68,0.2); color:#ee9988; }
+  .kind.vignette { background: rgba(201,162,75,0.2); color: var(--gold); }
+  .kind.location { background: rgba(120,200,150,0.15); color: #8dcf9f; }
+  .result .title { font-size: 16px; margin: 6px 0 2px; }
+  .result .meta { font-family: sans-serif; font-size:12px; color: var(--muted); }
+  #empty, #loading { font-family: sans-serif; color: var(--muted); padding: 40px 0; text-align:center; }
+  #count { font-family: sans-serif; font-size:12px; color: var(--muted); margin-bottom:10px; }
+</style>
+<link rel="stylesheet" href="/site-nav.css">
+</head>
+<body>
+<div id="gtbg-nav-mount"></div>
+<header>
+  <a class="back" href="/index.html">&larr; Back to the map</a>
+  <h1>Search Everything</h1>
+</header>
+<main>
+  <input id="search-box" type="text" placeholder="Search regiments, vignettes, locations… (e.g. '20th Maine', 'Wheatfield', 'Cushing')" autofocus />
+  <div id="filters">
+    <button type="button" class="filter-chip active" data-filter="all">All</button>
+    <button type="button" class="filter-chip" data-filter="regiment">Regiments</button>
+    <button type="button" class="filter-chip" data-filter="vignette">Vignettes</button>
+    <button type="button" class="filter-chip" data-filter="location">Locations</button>
+  </div>
+  <div id="loading">Building search index&hellip;</div>
+  <div id="count" style="display:none;"></div>
+  <div id="results"></div>
+  <div id="empty" style="display:none;">No results. Try a different search term.</div>
+</main>
+
+<script>
+(async function() {
+  const OOB_FILES = [
+    'union_regiments_i_ii_corps.json','union_regiments_iii_v_corps.json','union_regiments_vi_xi_xii_corps.json',
+    'confederate_regiments_first_corps.json','confederate_regiments_second_corps.json','confederate_regiments_third_corps.json',
+    'union_cavalry_artillery.json','confederate_cavalry.json',
+  ];
+  const VIGNETTE_FILES = ['vignettes_part1.json','vignettes_part2.json','vignettes_part3.json'];
+
+  let index = [];
+  let activeFilter = 'all';
+
+  function norm(s) { return (s || '').toLowerCase(); }
+
+  // Simple, dependency-free fuzzy-ish scoring: exact substring match scores highest,
+  // then word-start matches, then a loose character-subsequence fallback.
+  function score(query, text) {
+    const q = norm(query), t = norm(text);
+    if (!q) return 0;
+    if (t === q) return 100;
+    if (t.startsWith(q)) return 90;
+    if (t.includes(' ' + q)) return 80;
+    if (t.includes(q)) return 60;
+    // subsequence check (letters of q appear in order within t)
+    let qi = 0;
+    for (let ti = 0; ti < t.length && qi < q.length; ti++) {
+      if (t[ti] === q[qi]) qi++;
+    }
+    return qi === q.length ? 20 : 0;
+  }
+
+  try {
+    const [oobResults, vigResults, terrainResult] = await Promise.all([
+      Promise.all(OOB_FILES.map(f => fetch('/data/oob/' + f).then(r => r.json()))),
+      Promise.all(VIGNETTE_FILES.map(f => fetch('/data/' + f).then(r => r.json()))),
+      fetch('/data/terrain.json').then(r => r.json()),
+    ]);
+
+    // Regiments
+    for (const fileData of oobResults) {
+      for (const reg of (fileData.regiments || [])) {
+        index.push({
+          kind: 'regiment',
+          side: reg.regiment_id.startsWith('U-') ? 'union' : 'confederate',
+          title: reg.designation,
+          meta: `${reg.state || ''} · ${reg.commander?.name || 'Commander unrecorded'} · ${reg.casualty_percentage != null ? reg.casualty_percentage + '% casualties' : ''}`,
+          searchText: `${reg.designation} ${reg.state || ''} ${reg.commander?.name || ''} ${reg.regiment_id}`,
+          link: `/index.html?unit=${encodeURIComponent(reg.regiment_id)}`,
+        });
+      }
+    }
+
+    // Vignettes
+    for (const fileData of vigResults) {
+      for (const v of (fileData.vignettes || [])) {
+        index.push({
+          kind: 'vignette',
+          title: v.title,
+          meta: `${v.trigger_location} · Tick ${v.trigger_tick}`,
+          searchText: `${v.title} ${v.trigger_location} ${v.panel_summary}`,
+          link: `/index.html?tick=${v.trigger_tick}&vignette=${encodeURIComponent(v.vignette_id)}`,
+        });
+      }
+    }
+
+    // Locations
+    for (const loc of (terrainResult.key_locations || [])) {
+      index.push({
+        kind: 'location',
+        title: loc.name,
+        meta: `${loc.elevation_ft ? loc.elevation_ft + ' ft elevation · ' : ''}Days ${(loc.day_relevance || []).join(', ')}`,
+        searchText: `${loc.name} ${loc.significance || ''}`,
+        link: `/index.html?lat=${loc.lat}&lng=${loc.lng}`,
+      });
+    }
+
+    document.getElementById('loading').style.display = 'none';
+    console.log('Search index built:', index.length, 'entries (', 
+      index.filter(i=>i.kind==='regiment').length, 'regiments,',
+      index.filter(i=>i.kind==='vignette').length, 'vignettes,',
+      index.filter(i=>i.kind==='location').length, 'locations)');
+
+    render('');
+
+    document.getElementById('search-box').addEventListener('input', (e) => render(e.target.value));
+    document.querySelectorAll('.filter-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        activeFilter = chip.dataset.filter;
+        render(document.getElementById('search-box').value);
+      });
+    });
+
+  } catch (err) {
+    console.error('Search index build error:', err);
+    document.getElementById('loading').textContent = "Couldn't build the search index -- try reloading.";
+  }
+
+  function render(query) {
+    const resultsEl = document.getElementById('results');
+    const countEl = document.getElementById('count');
+    const emptyEl = document.getElementById('empty');
+
+    let pool = activeFilter === 'all' ? index : index.filter(i => i.kind === activeFilter);
+    let matches;
+    if (!query.trim()) {
+      matches = pool.slice(0, 30);
+    } else {
+      matches = pool
+        .map(item => ({ item, s: score(query, item.searchText) }))
+        .filter(x => x.s > 0)
+        .sort((a,b) => b.s - a.s)
+        .slice(0, 40)
+        .map(x => x.item);
+    }
+
+    resultsEl.innerHTML = '';
+    emptyEl.style.display = matches.length === 0 ? 'block' : 'none';
+    countEl.style.display = query.trim() ? 'block' : 'none';
+    countEl.textContent = query.trim() ? `${matches.length} result${matches.length===1?'':'s'}` : '';
+
+    for (const item of matches) {
+      const a = document.createElement('a');
+      a.className = 'result';
+      a.href = item.link;
+      const kindClass = item.kind + (item.side ? ' ' + item.side : '');
+      a.innerHTML = `<span class="kind ${kindClass}">${item.kind}${item.side ? ' · ' + item.side : ''}</span>
+        <div class="title">${item.title}</div>
+        <div class="meta">${item.meta}</div>`;
+      resultsEl.appendChild(a);
+    }
+  }
+})();
+</script>
+<div id="gtbg-footer-mount"></div>
+<script src="/site-nav.js" data-current="search"></script>
+</body>
+</html>
