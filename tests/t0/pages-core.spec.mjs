@@ -7,8 +7,15 @@
 //   node tests/t0/pages-core.spec.mjs --dist tmp/pages-core/r1a/dist    any built tree
 //   node tests/t0/pages-core.spec.mjs --filter 'PGC-0[1-3]'             subset by id regex
 //   node tests/t0/pages-core.spec.mjs --real-maps                       also run the real-Mapbox smoke tests
+//   node tests/t0/pages-core.spec.mjs --full --filter 'PGC-01'          duplicate-id sweep of all 20 pages under 0/300/1500/4000 ms data delay (X11)
 //   node tests/t0/pages-core.spec.mjs --dist legacy/dist --expect-red   red-first proof: every red-able test must FAIL on the legacy tree
 //
+// Scope notes (decisions, not omissions):
+//   * Immersive: the fix is Pause -> audioCtx.suspend() only.  The hearing-safety limiter (DynamicsCompressor, fade-in, volume ceiling, content warning)
+//     is DEFERRED by owner default O-T0-7 / chapter 02 section 12 item 5; pages-C-26 (corrected to low/medium) simulated the default peak at about -26 dBFS.
+//   * Watch Together: XSS fix only (textContent + input validation); Live Sync stays, its privacy text belongs to the legal group.
+//   * AR: hidden (menus, sitemap, crawlable list) + noindex + honest notice; the page itself is not repaired.
+//   * Nothing here edits /data/*, a URL form, a <title>, a canonical, the product name or a clock label.
 // Env: T0_AGENT=pages-core  T0_PORT_BASE=8380 (static server = base, CDP ports base+1..2)  T0_TILE_CAP=300
 import fs from 'node:fs';
 import path from 'node:path';
@@ -26,6 +33,7 @@ const DIST = path.resolve(REPO, opt('dist', 'release/R1a/dist'));
 const FILTER = opt('filter', null);
 const EXPECT_RED = !!opt('expect-red', false);
 const REAL_MAPS = !!opt('real-maps', false);
+const FULL = !!opt('full', false);   // T0-PGC-01: sweep ALL 20 pages under every data delay (default: the 4 collision pages)
 const IS_LEGACY = path.resolve(DIST) === path.resolve(REPO, 'legacy/dist');
 if (!fs.existsSync(DIST)) { console.error(`dist not found: ${DIST}\nbuild it first: python tools/t0/build.py --train R1a`); process.exit(2); }
 const LEGACY = path.join(REPO, 'legacy', 'dist');
@@ -129,7 +137,7 @@ test('T0-PGC-01', 'no duplicate ids (sprite symbols vs page ids) on 20 pages, an
     if (d.length || uses.length) bad[name] = { dup: d, danglingUse: uses };
     await page.close();
   }
-  for (const name of ['dashboard', 'report', 'regiment', 'living-ledger']) {
+  for (const name of FULL ? NAV_PAGES : ['dashboard', 'report', 'regiment', 'living-ledger']) {
     for (const delay of [0, 300, 1500, 4000]) {
       const { page } = await freshPage();
       await open(page, name, { delay });
@@ -238,6 +246,9 @@ test('T0-PGC-06', 'axe: 0 serious/critical on the 12 patched sub-pages (X10, des
 });
 
 test('T0-PGC-07', 'layout shift: CLS <= 0.02 on 6 data pages at 375x812 and 1280x800 with data held back 800 ms (footer/nav reservation)', async (t) => {
+  // the reservation itself: the six pages that fill their <main> after a fetch opt in, and the shared rule exists
+  for (const name of ['search', 'education', 'documentary', 'living-ledger', 'dashboard', 'historian']) assert(/<main class="gtbg-fill">/.test(readDist(name + '.html')), name + ' is missing main.gtbg-fill');
+  assert(/main\.gtbg-fill\s*\{[^}]*min-height/.test(readDist('site-nav.css')), 'site-nav.css has no main.gtbg-fill rule');
   const worst = {};
   for (const kind of ['phone', 'desktop']) {
     for (const name of ['search', 'education', 'documentary', 'living-ledger', 'dashboard', 'historian']) {

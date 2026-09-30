@@ -47,9 +47,57 @@
    "id": "PGC-css-reserve-mounts",
    "target": "site-nav.css",
    "find": "#gtbg-footer .gtbg-footer-spacer { flex: 1; }\n",
-   "repl": "#gtbg-footer .gtbg-footer-spacer { flex: 1; }\n\n/* Layout stability. (1) The nav is 55px tall; reserve that while #gtbg-nav-mount is still empty (site-nav.js swaps the nav in at\n   DOMContentLoaded) so the page does not jump down by one nav bar when it appears. (2) Several pages fill their <main> only after a data\n   fetch, which used to push the just-injected footer out of the first screen (CLS 0.15-0.55). Keep <main> about one screen tall so the\n   footer starts below the fold and is never moved while it is visible. */\n#gtbg-nav-mount { display: block; min-height: 55px; }\n@media screen { body > main:not(.body-pad) { min-height: calc(100vh - 100px); } }\n",
+   "repl": "#gtbg-footer .gtbg-footer-spacer { flex: 1; }\n\n/* Layout stability. (1) The nav is 55px tall; reserve that while #gtbg-nav-mount is still empty (site-nav.js swaps the nav in at\n   DOMContentLoaded) so the page does not jump down by one nav bar when it appears. (2) Pages that fill their <main> only after a data\n   fetch (main.gtbg-fill: search, dashboard, documentary, education, ledger, historian) used to push the just-injected footer out of the first screen (CLS 0.09-0.55). Keep such a <main> about one screen tall so the\n   footer starts below the fold and is never moved while it is visible. */\n#gtbg-nav-mount { display: block; min-height: 55px; }\n@media screen { main.gtbg-fill { min-height: calc(100vh - 100px); } }\n",
    "expect": 1,
    "note": "WP-T0-11 (footer/nav CLS): reserve the nav height; keep main about a screen tall so the JS-injected footer starts below the fold"
+  },
+  {
+   "id": "PGC-fill-search",
+   "target": "search.html",
+   "find": "<main>",
+   "repl": "<main class=\"gtbg-fill\">",
+   "expect": 1,
+   "note": "WP-T0-11 footer CLS: this page fills its <main> after a data fetch (see site-nav.css main.gtbg-fill)"
+  },
+  {
+   "id": "PGC-fill-dashboard",
+   "target": "dashboard.html",
+   "find": "<main>",
+   "repl": "<main class=\"gtbg-fill\">",
+   "expect": 1,
+   "note": "WP-T0-11 footer CLS: this page fills its <main> after a data fetch (see site-nav.css main.gtbg-fill)"
+  },
+  {
+   "id": "PGC-fill-documentary",
+   "target": "documentary.html",
+   "find": "<main>",
+   "repl": "<main class=\"gtbg-fill\">",
+   "expect": 1,
+   "note": "WP-T0-11 footer CLS: this page fills its <main> after a data fetch (see site-nav.css main.gtbg-fill)"
+  },
+  {
+   "id": "PGC-fill-education",
+   "target": "education.html",
+   "find": "<main>",
+   "repl": "<main class=\"gtbg-fill\">",
+   "expect": 1,
+   "note": "WP-T0-11 footer CLS: this page fills its <main> after a data fetch (see site-nav.css main.gtbg-fill)"
+  },
+  {
+   "id": "PGC-fill-living-ledger",
+   "target": "living-ledger.html",
+   "find": "<main>",
+   "repl": "<main class=\"gtbg-fill\">",
+   "expect": 1,
+   "note": "WP-T0-11 footer CLS: this page fills its <main> after a data fetch (see site-nav.css main.gtbg-fill)"
+  },
+  {
+   "id": "PGC-fill-historian",
+   "target": "historian.html",
+   "find": "<main>",
+   "repl": "<main class=\"gtbg-fill\">",
+   "expect": 1,
+   "note": "WP-T0-11 footer CLS: this page fills its <main> after a data fetch (see site-nav.css main.gtbg-fill)"
   },
   {
    "id": "PGC-css-footer-contrast",
