@@ -213,7 +213,10 @@ def build_notes(train, summary, head):
         w('| suite id | result | seconds | tiles | what |')
         w('|---|---|---|---|---|')
         for r in rows:
-            w('| `%s` | %s %s | %s | %s | %s |' % (r['id'], 'PASS' if r.get('ok') else 'FAIL', fmt_res(r), r.get('seconds', ''), r.get('tiles') or '', r['title']))
+            what = r['title']
+            if r['id'].startswith('mobile.'):
+                what += ' (19 results = 13 distinct tests: MOB-02..06 and MOB-12 run once per orientation slice; each slice has its own 300-request cap)'
+            w('| `%s` | %s %s | %s | %s | %s |' % (r['id'], 'PASS' if r.get('ok') else 'FAIL', fmt_res(r), r.get('seconds', ''), r.get('tiles') or '', what))
         if any(r.get('skipped') for r in rows):
             w('')
             w('Skipped tests are by design: a test of a group that the train does not contain (B, DL, C on R1a; DL and B on R1b) skips itself, and A11Y-14 (real tiles) runs as the separate `a11y.R1c.tiles` suite. No test failed.')

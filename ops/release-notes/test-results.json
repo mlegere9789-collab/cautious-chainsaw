@@ -1,0 +1,877 @@
+{
+ "finished": "see file mtime",
+ "seconds": 3670,
+ "portBase": "8480",
+ "totals": {
+  "suites": 36,
+  "ok": 36,
+  "notOk": 0,
+  "greenTests": 390,
+  "greenTestsTotal": 413,
+  "redProofs": 8,
+  "redProofsOk": 8,
+  "redTestsRedAsRequired": 58
+ },
+ "results": [
+  {
+   "id": "static.gates",
+   "title": "build gates of the four trains (gate.json written by build.py)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "gates": [
+    {
+     "train": "R0",
+     "ok": true,
+     "checks": 10,
+     "failed": []
+    },
+    {
+     "train": "R1a",
+     "ok": true,
+     "checks": 10,
+     "failed": []
+    },
+    {
+     "train": "R1b",
+     "ok": true,
+     "checks": 10,
+     "failed": []
+    },
+    {
+     "train": "R1c",
+     "ok": true,
+     "checks": 10,
+     "failed": []
+    }
+   ],
+   "seconds": 0,
+   "ok": true,
+   "passed": 4,
+   "total": 4,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 0
+  },
+  {
+   "id": "static.overlap",
+   "title": "geometric overlap audit of the patch set",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 0.2,
+   "passed": null,
+   "total": null,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "geometric overlaps: 2 (2 known and resolved by group order)",
+    "  known   [C] mob:HF-6l close label+target  <->  [AX] a11:G-close-mobile   (js 2097755-2097794 / 2097755-2097806)",
+    "  known   [A] bug:K-skip-tour  <->  [AX] AX-onboarding-dialog   (js 2255760-2255823 / 2255794-2255872)"
+   ]
+  },
+  {
+   "id": "static.verify",
+   "title": "verify_release: manifest, static crawl, dev pages, names, identity, cumulative, legacy pinned",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 0.6,
+   "passed": 6,
+   "total": 6,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  cumulative  R0 -> R1a: +220 patches, 118->120 non-asset files; R1a -> R1b: +133 patches, 120->120 non-asset files; R1b -> R1c: +50 patches, 120->124 non-asset files",
+    "PASS  names/legacy  14 distinct asset names across trains, reuse with other bytes: 0; legacy entry md5 7ef75b95f4c02700430b8aa91e3a7459",
+    "verify_release: all checks passed"
+   ]
+  },
+  {
+   "id": "static.selftest",
+   "title": "build system self-test (10 properties incl. determinism and ledger)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 67.6,
+   "passed": 10,
+   "total": 10,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  7 ledger: reused name / archived collision fail, idempotent rebuild passes                 3.4s  reuse and (case-insensitive) collision rejected; recorded same-bytes name accepted",
+    "PASS  8 legacy/ is untouched (pinned tree digest, git clean)                                     0.1s  tree 90d819d0a948e0e0 (119 files), git status clean",
+    "build selftest: all passed"
+   ]
+  },
+  {
+   "id": "static.legal",
+   "title": "privacy/terms fact base vs the built R1c tree",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 0.2,
+   "passed": 13,
+   "total": 13,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  peerjs-timing privacy.html and watch-together.html agree on when PeerJS is fetched (on Host/Join)",
+    "PASS  terms-embed  Terms invite embedding the widget and _headers frees /embed and /embed.html (frame-ancestors *, no X-Frame-Options)",
+    "C:\\Users\\mlege\\gettysburg-map\\release\\R1c\\dist: no FAIL, 0 WARN"
+   ]
+  },
+  {
+   "id": "static.lib",
+   "title": "browser harness self-test",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 15.3,
+   "passed": 8,
+   "total": 8,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 122,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"R1a\":{\"layout\":\"clicked\",\"dragMoved\":true,\"zoomChanged\":true},\"R0\":{\"dragMoved\":false,\"zoomChanged\":false}}",
+    "lib-selftest: 8/8 passed",
+    "mapbox requests used this run: 122 of 300"
+   ]
+  },
+  {
+   "id": "r0.R0",
+   "title": "R0 acceptance (X1/X2) on R0",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 35.6,
+   "passed": 12,
+   "total": 12,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 100,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"documents (first load + one reload)\":2,\"caption\":\"The map could not be loaded.\"}",
+    "r0-acceptance: 12/12 passed",
+    "mapbox requests used this run: 100 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "r0.R1a",
+   "title": "R0 acceptance (X1/X2) on R1a",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 35.3,
+   "passed": 12,
+   "total": 12,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 104,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"documents (first load + one reload)\":2,\"caption\":\"The map could not be loaded.\"}",
+    "r0-acceptance: 12/12 passed",
+    "mapbox requests used this run: 104 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "r0.R1b",
+   "title": "R0 acceptance (X1/X2) on R1b",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 37.1,
+   "passed": 12,
+   "total": 12,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 104,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"documents (first load + one reload)\":2,\"caption\":\"The map could not be loaded.\"}",
+    "r0-acceptance: 12/12 passed",
+    "mapbox requests used this run: 104 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "r0.R1c",
+   "title": "R0 acceptance (X1/X2) on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 37.5,
+   "passed": 12,
+   "total": 12,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 104,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"documents (first load + one reload)\":2,\"caption\":\"The map could not be loaded.\"}",
+    "r0-acceptance: 12/12 passed",
+    "mapbox requests used this run: 104 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "journeys.R1a",
+   "title": "desktop journeys J1-J8, inputs, group A on R1a",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 208.9,
+   "passed": 29,
+   "total": 40,
+   "skipped": 11,
+   "failed": 0,
+   "tiles": 181,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"tile requests in the shared session\":181,\"ignored tile noise\":{\"tile\":0,\"telemetry\":0}}",
+    "journeys-desktop: 29/40 passed, 11 skipped",
+    "mapbox requests used this run: 181 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "journeys.R1b",
+   "title": "desktop journeys J1-J8, inputs, group A on R1b",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 158,
+   "passed": 30,
+   "total": 40,
+   "skipped": 10,
+   "failed": 0,
+   "tiles": 229,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"tile requests in the shared session\":184,\"ignored tile noise\":{\"tile\":0,\"telemetry\":0}}",
+    "journeys-desktop: 30/40 passed, 10 skipped",
+    "mapbox requests used this run: 229 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "journeys.R1c",
+   "title": "desktop journeys J1-J8, inputs, group A, group B on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 184.4,
+   "passed": 40,
+   "total": 40,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 224,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"tile requests in the shared session\":181,\"ignored tile noise\":{\"tile\":2,\"telemetry\":0}}",
+    "journeys-desktop: 40/40 passed",
+    "mapbox requests used this run: 224 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "deeplinks.R1c",
+   "title": "deep links, moments.json, Turning Points (X7)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 149.8,
+   "passed": 12,
+   "total": 12,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 214,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"phone camera\":{\"center\":[-77.2359,39.7918],\"zoom\":15.5},\"?ancestor= opens the Follow panel on the phone\":true,\"junk link tick 1\":true}",
+    "deeplinks: 12/12 passed",
+    "mapbox requests used this run: 214 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "mobile.R1b",
+   "title": "mobile shell matrix (X5) on R1b: portrait, landscape, misc, touch slices",
+   "kind": "green",
+   "inverted": false,
+   "parts": [
+    {
+     "exit": 0,
+     "seconds": 223.7,
+     "passed": 6,
+     "total": 6,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 89,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 101.4,
+     "passed": 6,
+     "total": 6,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 47,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 47.8,
+     "passed": 4,
+     "total": 4,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": null,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 119.7,
+     "passed": 3,
+     "total": 3,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": null,
+     "tail": []
+    }
+   ],
+   "exit": 0,
+   "seconds": 223.7,
+   "passed": 19,
+   "total": 19,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 89,
+   "ok": true,
+   "failLines": []
+  },
+  {
+   "id": "mobile.R1c",
+   "title": "mobile shell matrix (X5) on R1c: portrait, landscape, misc, touch slices",
+   "kind": "green",
+   "inverted": false,
+   "parts": [
+    {
+     "exit": 0,
+     "seconds": 224.4,
+     "passed": 6,
+     "total": 6,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 93,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 100.7,
+     "passed": 6,
+     "total": 6,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 48,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 48.6,
+     "passed": 4,
+     "total": 4,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": null,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 107.7,
+     "passed": 3,
+     "total": 3,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": null,
+     "tail": []
+    }
+   ],
+   "exit": 0,
+   "seconds": 224.4,
+   "passed": 19,
+   "total": 19,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 93,
+   "ok": true,
+   "failLines": []
+  },
+  {
+   "id": "a11y.R1b",
+   "title": "a11y bridge (axe, keyboard, contrast) on R1b (AX without CP)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 290.9,
+   "passed": 15,
+   "total": 16,
+   "skipped": 1,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "SKIP  T0-A11Y-14   real tiles: axe on the loaded desktop map with the production Referer (<= T0_TILE_CAP Mapbox requests) - 0 serious/critical; playback with reduced motion ON and OFF draws and advanc",
+    "      run with --tiles inject to spend Mapbox requests (default: blocked; without the style the draw loop never starts)",
+    "a11y-bridge: 15/16 passed, 1 skipped"
+   ]
+  },
+  {
+   "id": "a11y.R1c",
+   "title": "a11y bridge on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 291.3,
+   "passed": 15,
+   "total": 16,
+   "skipped": 1,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "SKIP  T0-A11Y-14   real tiles: axe on the loaded desktop map with the production Referer (<= T0_TILE_CAP Mapbox requests) - 0 serious/critical; playback with reduced motion ON and OFF draws and advanc",
+    "      run with --tiles inject to spend Mapbox requests (default: blocked; without the style the draw loop never starts)",
+    "a11y-bridge: 15/16 passed, 1 skipped"
+   ]
+  },
+  {
+   "id": "a11y.R1c.tiles",
+   "title": "a11y with real tiles (A11Y-14, production Referer, capped)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 22,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-A11Y-14   real tiles: axe on the loaded desktop map with the production Referer (<= T0_TILE_CAP Mapbox requests) - 0 serious/critical; playback with reduced motion ON and OFF draws and advanc",
+    "      {\"tiles\":{\"seen\":52,\"statuses\":{\"200\":52,\"204\":4},\"referers\":[\"https://gettysburginteractivemap.com/\"]},\"axe with map\":{\"loaded\":[],\"help\":[],\"search\":[]},\"playback 3 s at 1x\":{\"reduce\":{\"mode\":",
+    "a11y-bridge: 1/1 passed"
+   ]
+  },
+  {
+   "id": "copy.R1c",
+   "title": "truthful-copy subset (CP-01..03)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 40.4,
+   "passed": 3,
+   "total": 3,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-CP-03     rendered phone 375x812: the Tools footer shows Privacy, Terms and the credit (no mailto), links >= 44 px and pointing at /privacy.html and /terms.html",
+    "      {\"footer\":{\"links\":[{\"t\":\"Privacy\",\"href\":\"/privacy.html\",\"w\":65,\"h\":44},{\"t\":\"Terms\",\"href\":\"/terms.html\",\"w\":59,\"h\":44}],\"credit\":true,\"mailtoInFooter\":false,\"inViewport\":true}}",
+    "copy-truthful-subset: 3/3 passed"
+   ]
+  },
+  {
+   "id": "pagescore.R1a",
+   "title": "page defect pack PGC-01..27 on R1a",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 308.1,
+   "passed": 27,
+   "total": 27,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 0,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-PGC-27    legacy/ untouched: git reports no change under legacy/ and the pinned tree gate passes",
+    "pages-core: 27/27 passed",
+    "mapbox requests used this run: 0 of 300"
+   ]
+  },
+  {
+   "id": "pagescore.R1c",
+   "title": "page defect pack PGC-01..27 on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 307.3,
+   "passed": 27,
+   "total": 27,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 0,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-PGC-27    legacy/ untouched: git reports no change under legacy/ and the pinned tree gate passes",
+    "pages-core: 27/27 passed",
+    "mapbox requests used this run: 0 of 300"
+   ]
+  },
+  {
+   "id": "pagescore.R1c.real",
+   "title": "PGC-28 Watch Together + Immersive with the real Mapbox library",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 2.7,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 19,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"WT mapbox requests so far\":3,\"mapbox requests used\":19}",
+    "pages-core: 1/1 passed",
+    "mapbox requests used this run: 19 of 300"
+   ]
+  },
+  {
+   "id": "pagescore.R1c.full",
+   "title": "PGC-01 duplicate-id sweep of every page under 0/300/1500/4000 ms data delay (X11)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 306.7,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 0,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"pages with a problem\":{}}",
+    "pages-core: 1/1 passed",
+    "mapbox requests used this run: 0 of 300"
+   ]
+  },
+  {
+   "id": "pagesmaps.R1a",
+   "title": "map sub-pages, og card, manifest (PG-01..08) on R1a",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 71.8,
+   "passed": 34,
+   "total": 34,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 99,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"skipped\":\"pass --online to re-fetch\"}",
+    "T0-PG (map pages, og/manifest): 34/34 passed",
+    "mapbox requests used this run: 99 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "pagesmaps.R1c",
+   "title": "map sub-pages, og card, manifest (PG-01..08) on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 72.3,
+   "passed": 34,
+   "total": 34,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 97,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"skipped\":\"pass --online to re-fetch\"}",
+    "T0-PG (map pages, og/manifest): 34/34 passed",
+    "mapbox requests used this run: 97 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "headers.R1c",
+   "title": "R1c generated _headers/_redirects + real-Chrome framing and CSP crawl",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 51.8,
+   "passed": 13,
+   "total": 13,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  HDR-22       negative control: the same crawl DOES report a violation when the app policy lacks a Mapbox origin (tiles blocked: nothing leaves the machine)",
+    "      {\"violations\":[\"connect-src <- https://api.mapbox.com/styles/v1/mapbox/ (report)\",\"connect-src <- https://api.mapbox.com/styles/v1/mapbox/ (report)\"]}",
+    "headers: 13/13 passed"
+   ]
+  },
+  {
+   "id": "red.r0",
+   "title": "legacy/dist: X1 (one Document, controller, one sku) is RED",
+   "kind": "red",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 3.6,
+   "passed": 0,
+   "total": 3,
+   "skipped": 0,
+   "failed": 3,
+   "tiles": 51,
+   "failLines": [
+    "FAIL  T0-R0-01     first visit: exactly one Document request for / (X1)",
+    "FAIL  T0-R0-02     first visit: SW controller set without any navigation (X1)",
+    "FAIL  T0-R0-03     first visit: one Mapbox sku, one style request (one map session) (X1)"
+   ],
+   "ok": true,
+   "tail": [
+    "r0-acceptance: 0/3 passed, 3 FAILED",
+    "mapbox requests used this run: 51 of 300 (blocked by cap: 0)",
+    "expected-red: every selected test failed on this tree (red-first proven)"
+   ]
+  },
+  {
+   "id": "red.journeys",
+   "title": "legacy/dist: input, sound and C5 tests are RED",
+   "kind": "red",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 43.5,
+   "passed": 0,
+   "total": 5,
+   "skipped": 0,
+   "failed": 5,
+   "tiles": 51,
+   "failLines": [
+    "FAIL  T0-IN-01     real mouse drag on the map changes getCenter()",
+    "FAIL  T0-IN-02     real wheel on the map changes zoom in both directions",
+    "FAIL  T0-C5-01     Follow Your Ancestor: pick a regiment -> timeline, camera flies to it, Change Regiment works, 0 exceptions (C5, ref-of-ref)",
+    "FAIL  T0-C5-02     C5 without a map: picking a regiment and Change Regiment (DOM-dispatched clicks) throw nothing and show the true caption",
+    "FAIL  T0-SND-01    no in-app sound control (D-SOUND): no button, title or label mentions sound/audio/mute"
+   ],
+   "ok": true,
+   "tail": [
+    "journeys-desktop: 0/5 passed, 5 FAILED",
+    "mapbox requests used this run: 51 of 300 (blocked by cap: 0)",
+    "expected-red: every selected test failed on this tree (red-first proven)"
+   ]
+  },
+  {
+   "id": "red.deeplinks",
+   "title": "legacy/dist: the app reads none of tick/u/ancestor links (DL-01,02,07 RED)",
+   "kind": "red",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 39.6,
+   "passed": 0,
+   "total": 3,
+   "skipped": 0,
+   "failed": 3,
+   "tiles": 51,
+   "failLines": [
+    "FAIL  T0-DL-01     ?tick=451, ?t=451, ?day=2, ?day=3: tick, HUD/toolbar date (July 1-3 only) and the played-through state; tick beats t beats day; all three days requested (X7, X6)",
+    "FAIL  T0-DL-02     ?t=538&u=U-20ME&z=15.5&ll=39.7918,-77.2359 (the app's own share-link shape): July 3, tick 538, the 20th Maine panel, camera at ll/z (X7)",
+    "FAIL  T0-DL-07     ?vignette=V-016 (and ?v=) without a tick resolves to the vignette's trigger tick (551) and shows its story; a tick given with it wins"
+   ],
+   "ok": true,
+   "tail": [
+    "deeplinks: 0/3 passed, 3 FAILED",
+    "mapbox requests used this run: 51 of 300 (blocked by cap: 0)",
+    "expected-red: every selected test failed on this tree (red-first proven)"
+   ]
+  },
+  {
+   "id": "red.mobile",
+   "title": "legacy/dist: no mobile shell (MOB-02..05 RED)",
+   "kind": "red",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 74.2,
+   "passed": 0,
+   "total": 4,
+   "skipped": 0,
+   "failed": 4,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-MOB-02    mobile dock: 4 transport buttons + scrubber + Tools + day tabs pass elementFromPoint, >= 44 px, on screen (all viewports)",
+    "FAIL  T0-MOB-03    Tools sheet: 14 tiles + 44 px close + Extra Features groups pass elementFromPoint (scrolling grid; real touch scroll)",
+    "FAIL  T0-MOB-04    tile actions: Search/Filter/OOB/Roster/Soldier/Ancestor/Layers/Legend/Bookmarks/Help/Walkthrough panels visible, unoccluded, closable by touch",
+    "FAIL  T0-MOB-05    no desktop-only overlay mounted (no timeline IO / range input / HUD / NPS button / sound / monuments), no chooser, exactly one map"
+   ],
+   "ok": true,
+   "tail": [
+    "      locator.boundingBox: Timeout 30000ms exceeded. | Call log: | \u001b[2m  - waiting for locator('.gtbg-m-top button').filter({ hasText: 'Tools' }).first()\u001b[22m | ",
+    "mobile-matrix: 0/4 passed, 4 FAILED",
+    "expect-red: failing as expected"
+   ]
+  },
+  {
+   "id": "red.a11y",
+   "title": "legacy/dist: axe finds serious/critical violations and failing contrast (A11Y-01, A11Y-15 assert the red state)",
+   "kind": "red",
+   "inverted": true,
+   "exit": 0,
+   "seconds": 15.1,
+   "passed": 2,
+   "total": 2,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-A11Y-15   text contrast, own compositing audit (covers what axe reports as \"incomplete\"): 0 failing text nodes across 20 desktop and 8 phone states",
+    "      {\"failing text nodes per state\":{\"desktop loaded\":[\"Animated Battlefield Map \u00b7 J|4:1|rgb(139, 105, 20) on rgb(5,5,8)|14px\",\"Fast-forwarding 3 days of ba|3.55:1|rgb(102, 102, 102) on rgb(5,5,8)|1",
+    "a11y-bridge: 2/2 passed"
+   ]
+  },
+  {
+   "id": "red.copy",
+   "title": "legacy/dist: every shipped copy row is still present (CP-01 asserts the red state)",
+   "kind": "red",
+   "inverted": true,
+   "exit": 0,
+   "seconds": 0.3,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-CP-01     string level: each shipped row present once before / gone after, CP == exactly those replacements, held rows unchanged, no 445+, no heatmap row, no new \"undefined\"",
+    "      {\"shipped rows\":18,\"held rows\":\"b02 b03 b04 b05 b06 b07 b08 b09 b12 b19 b20 b21 b22 b23 b24 b25 b26 b27 b28 b29 b30 b31 b32 b33 b34 b35 b36 b37 b38 b39 b40 b45 b46 b47 b48 h02 h04 h05 h06 h07 h0",
+    "copy-truthful-subset: 1/1 passed"
+   ]
+  },
+  {
+   "id": "red.pagescore",
+   "title": "legacy/dist: page defect pack (every red-able PGC test RED)",
+   "kind": "red",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 302.3,
+   "passed": 0,
+   "total": 26,
+   "skipped": 0,
+   "failed": 26,
+   "tiles": 0,
+   "failLines": [
+    "FAIL  T0-PGC-01    no duplicate ids (sprite symbols vs page ids) on 20 pages, and on the 4 collision pages under 0/300/1500/4000 ms data delay (X11)",
+    "FAIL  T0-PGC-02    icon sprite: 19 symbols, all gtbg-i- prefixed; index.html uses migrated atomically (its 4 <use> resolve)",
+    "FAIL  T0-PGC-03    button reset is zero-specificity: chips >= 6:1, Play buttons >= 8:1, Compare toggles keep their designed 10px (C8)",
+    "FAIL  T0-PGC-04    Compare toggle rows wrap inside a 375px phone pane instead of clipping (S4)",
+    "FAIL  T0-PGC-05    axe color-contrast = 0 on search, camera, compare, ground-remembers, immersive, watch-together (WP-T0-11 acceptance) and on the 6 other pages that share only the footer",
+    "FAIL  T0-PGC-06    axe: 0 serious/critical on the 12 patched sub-pages (X10, desktop) and on dashboard at 375px (scrollable chart region)",
+    "FAIL  T0-PGC-07    layout shift: CLS <= 0.02 on 6 data pages at 375x812 and 1280x800 with data held back 800 ms (footer/nav reservation)",
+    "FAIL  T0-PGC-08    Historian pin glow animation is gone (no infinite box-shadow recalcs); nav height reserved = real nav height"
+   ],
+   "ok": true,
+   "tail": [
+    "pages-core: 0/26 passed, 26 FAILED",
+    "mapbox requests used this run: 0 of 300",
+    "expected-red: every selected test failed on this tree (red-first proven)"
+   ]
+  },
+  {
+   "id": "red.pagesmaps",
+   "title": "legacy/dist: blocking Mapbox, PeerJS eager, corrupt og (PG-01, 02-*, 05*, 06, 08 RED; PG-02b is a guard for our own change and cannot be red)",
+   "kind": "red",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 46.8,
+   "passed": 0,
+   "total": 14,
+   "skipped": 0,
+   "failed": 14,
+   "tiles": 0,
+   "failLines": [
+    "FAIL  PG-01        static markup of the 8 map pages: deferred SRI-pinned Mapbox GL, DOMContentLoaded wrapper, preconnect, valid inline JS",
+    "FAIL  PG-02-camera camera: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)",
+    "FAIL  PG-02-cinematic-export cinematic-export: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)",
+    "FAIL  PG-02-compare compare: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)",
+    "FAIL  PG-02-ground-remembers ground-remembers: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)",
+    "FAIL  PG-02-immersive immersive: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)",
+    "FAIL  PG-02-sandbox sandbox: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)",
+    "FAIL  PG-02-viewshed viewshed: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)"
+   ],
+   "ok": true,
+   "tail": [
+    "T0-PG (map pages, og/manifest): 0/14 passed, 14 FAILED",
+    "mapbox requests used this run: 0 of 300 (blocked by cap: 0)",
+    "expected-red: every selected test failed on this tree (red-first proven)"
+   ]
+  },
+  {
+   "id": "red.legal",
+   "title": "legacy/dist: privacy/terms fact base fails",
+   "kind": "check",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 0.2,
+   "passed": 10,
+   "total": 41,
+   "skipped": 0,
+   "failed": 31,
+   "tiles": null,
+   "failLines": [
+    "FAIL  storage      cache:gbg-v5 is used (sw.js) but is not in the inventory",
+    "FAIL  policy       privacy.html does not mention origin netlify-rum: \"ingesteer.services-prod.nsvcs.net\"",
+    "FAIL  policy       privacy.html does not mention origin netlify-rum: \"/.netlify/scripts/rum\"",
+    "FAIL  policy       privacy.html does not mention origin mapbox-api: \"api.mapbox.com\"",
+    "FAIL  policy       privacy.html does not mention origin mapbox-events: \"events.mapbox.com\"",
+    "FAIL  policy       privacy.html does not mention origin mapbox-events: \"mapbox.eventData\"",
+    "FAIL  policy       privacy.html does not mention origin google-streetview: \"google.com\"",
+    "FAIL  policy       privacy.html does not mention origin google-streetview: \"maps.googleapis.com\""
+   ],
+   "ok": true,
+   "tail": [
+    "PASS  local-only   immersive.html: only same-origin GET /data/* fetches (policy says it stays on the device)",
+    "PASS  peerjs-timing privacy.html and watch-together.html agree on when PeerJS is fetched (page load)",
+    "C:\\Users\\mlege\\gettysburg-map\\legacy\\dist: 31 FAIL, 8 WARN"
+   ]
+  }
+ ]
+}
