@@ -1,0 +1,21 @@
+{
+  "name": "gettysburg-interactive-map",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Gettysburg Interactive Map: release tooling, tests and rebuild workspace (see docs/plan/FINAL/00-README.md)",
+  "scripts": {
+    "t0:build": "python tools/t0/build.py",
+    "test:gate": "node tools/t0/gate.mjs",
+    "serve": "node tools/t0/serve.mjs release/dist 8200"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "acorn": "^8.18.0",
+    "acorn-walk": "^8.3.5",
+    "axe-core": "^4.13.0",
+    "eslint-scope": "^9.1.2",
+    "playwright-core": "^1.63.0"
+  }
+}
