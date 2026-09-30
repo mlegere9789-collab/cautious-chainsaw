@@ -1,0 +1,12 @@
+{
+ "group": "EB",
+ "patches": [
+  {
+   "id": "EB-error-boundary (AMENDMENT AMD-T0-1)",
+   "target": "js",
+   "find": "Rk(document.getElementById(\"root\")).render(V.jsx(pt.StrictMode,{children:V.jsx(AO,{})}));",
+   "repl": "class GtbgEB extends pt.Component{constructor(p){super(p);this.state={e:null}}static getDerivedStateFromError(e){return{e:e||!0}}componentDidCatch(e){try{console.error(\"gtbg boundary:\",e&&e.message)}catch(_){}}render(){return this.state.e?V.jsxs(\"div\",{role:\"alert\",style:{position:\"fixed\",inset:0,display:\"flex\",flexDirection:\"column\",alignItems:\"center\",justifyContent:\"center\",gap:16,background:\"#0a0a14\",color:\"#e8e6df\",fontFamily:\"Georgia,serif\",textAlign:\"center\",padding:24},children:[V.jsx(\"p\",{style:{fontSize:20,margin:0},children:\"Something went wrong drawing the map.\"}),V.jsx(\"button\",{type:\"button\",onClick:()=>location.reload(),style:{font:\"inherit\",minHeight:44,padding:\"0 22px\",borderRadius:8,border:\"1px solid #c9a24b\",background:\"#12121e\",color:\"#c9a24b\",cursor:\"pointer\"},children:\"Reload\"}),V.jsx(\"a\",{href:\"/historian\",style:{color:\"#c9a24b\",minHeight:44,display:\"inline-flex\",alignItems:\"center\"},children:\"Ask the Historian\"})]}):this.props.children}}Rk(document.getElementById(\"root\")).render(V.jsx(pt.StrictMode,{children:V.jsx(GtbgEB,{children:V.jsx(AO,{})})}));",
+   "expect": 1
+  }
+ ]
+}

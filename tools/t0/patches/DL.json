@@ -1,0 +1,12 @@
+{
+ "group": "DL",
+ "patches": [
+  {
+   "id": "DL-deeplink-reader (NEW, D-URLSTATE T0 subset)",
+   "target": "js",
+   "find": "pt.useEffect(()=>{function ii(Ur){",
+   "repl": "pt.useEffect(()=>{try{const q=new URLSearchParams(location.search),g=k=>{const v=q.get(k);return v===null||v===\"\"?null:v};const t=parseInt(g(\"tick\")??g(\"t\"),10),d=parseInt(g(\"day\"),10),u=g(\"unit\")??g(\"u\"),z=parseFloat(g(\"z\")),ll=(g(\"ll\")||\"\").split(\",\").map(Number),la=parseFloat(g(\"lat\")),ln=parseFloat(g(\"lng\")),anc=g(\"ancestor\");const tk=t>=1&&t<=675?t:d>=1&&d<=3?(d===1?1:d===2?226:451):null;const okll=ll.length===2&&isFinite(ll[0])&&isFinite(ll[1]),lat=okll?ll[0]:la,lng=okll?ll[1]:ln;if(tk===null&&!u&&!anc&&!(z>=0)&&!(isFinite(lat)&&isFinite(lng)))return;const s=yn.getState();if(tk!==null){s.setTick(tk);s.setPlaying(!1)}if(u&&/^[A-Za-z0-9._-]{1,32}$/.test(u))yn.setState({selectedUnitId:u,pinnedUnitId:u});if(anc&&/^[A-Za-z0-9._-]{1,32}$/.test(anc))hi(!0);if(isFinite(lat)&&isFinite(lng)||z>=0){const go=m=>{try{const o={};if(isFinite(lat)&&isFinite(lng))o.center=[lng,lat];if(z>=0)o.zoom=Math.max(11,Math.min(18,z));m.jumpTo(o)}catch(e){}};const cur=yn.getState().mapRef;if(cur)go(cur);else{const un=yn.subscribe(st=>{if(st.mapRef){un();go(st.mapRef)}})}}}catch(e){}},[]),pt.useEffect(()=>{function ii(Ur){",
+   "expect": 1
+  }
+ ]
+}

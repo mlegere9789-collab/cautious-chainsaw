@@ -1,0 +1,11 @@
+{
+  "_doc": "Standard Web platform / ECMAScript globals that a patch may reference by bare name without being flagged as a NEW unresolved identifier by gate.mjs. Anything not listed here and not already unresolved in the legacy bundle fails the gate (that is how the four undefined app names setGoldUnit, clearGoldTrail, drawGoldTrailSegment, CanvasRenderer were found). Add names deliberately, with a reason in the commit message.",
+  "names": [
+    "AbortController", "AudioContext", "BroadcastChannel", "CSS", "CustomEvent", "DOMRect", "Element", "EventTarget", "File", "FileReader",
+    "FormData", "IntersectionObserver", "KeyboardEvent", "Node", "Notification", "PerformanceObserver", "PointerEvent", "TextEncoder",
+    "Touch", "TouchEvent", "WebSocket", "alert", "clearInterval", "confirm", "crypto", "devicePixelRatio", "getComputedStyle",
+    "indexedDB", "innerHeight", "innerWidth", "matchMedia", "open", "orientation", "outerHeight", "outerWidth", "print", "prompt",
+    "screen", "scrollBy", "scrollTo", "scrollX", "scrollY", "sessionStorage", "setInterval", "speechSynthesis", "visualViewport",
+    "webkitAudioContext"
+  ]
+}

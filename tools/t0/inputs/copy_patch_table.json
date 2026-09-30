@@ -1,0 +1,514 @@
+[
+ {
+  "id": "b01",
+  "file": "bundle",
+  "find": "Loading battle data...",
+  "replace": "Loading the battlefield…",
+  "occurrences_in_minified": 1,
+  "note": "boot splash state 1; match static splash caption"
+ },
+ {
+  "id": "b02",
+  "file": "bundle",
+  "find": "Fast-forwarding 3 days of battle...",
+  "replace": "Loading the battlefield…",
+  "occurrences_in_minified": 1,
+  "note": "boot splash state 2; also delete the 3.5 s animation (H3)"
+ },
+ {
+  "id": "b03",
+  "file": "bundle",
+  "find": "Animated Battlefield Map · July 1–3, 1863",
+  "replace": "Interactive Map · July 1–3, 1863",
+  "occurrences_in_minified": 1,
+  "note": "product name"
+ },
+ {
+  "id": "b04",
+  "file": "bundle",
+  "find": "Skip intro ›",
+  "replace": "Skip intro",
+  "occurrences_in_minified": 1,
+  "note": "glyph in string; index.html:472 EXIT_BUTTONS regex still matches \"skip intro\""
+ },
+ {
+  "id": "b05",
+  "file": "bundle",
+  "find": "Created by: Mike Legere",
+  "replace": "Created by Mike Legere",
+  "occurrences_in_minified": 2,
+  "note": "colon; 2 occurrences expected (splash + timeline)"
+ },
+ {
+  "id": "b06",
+  "file": "bundle",
+  "find": "ANIMATED BATTLEFIELD MAP",
+  "replace": "INTERACTIVE MAP",
+  "occurrences_in_minified": 1,
+  "note": "onboarding logo subtitle (CSS uppercases anyway; store sentence case)"
+ },
+ {
+  "id": "b07",
+  "file": "bundle",
+  "find": "July 1–3, 1863 · 675 five-minute snapshots",
+  "replace": "July 1–3, 1863 · {MOMENTS} moments",
+  "occurrences_in_minified": 1,
+  "note": "placeholder to be facts-driven"
+ },
+ {
+  "id": "b08",
+  "file": "bundle",
+  "find": "Power User",
+  "replace": "Just the map",
+  "occurrences_in_minified": 1,
+  "note": "archetype label"
+ },
+ {
+  "id": "b09",
+  "file": "bundle",
+  "find": "Show me the keyboard shortcuts and let me go.",
+  "replace": "Skip the guidance. Show me the shortcuts and let me explore.",
+  "occurrences_in_minified": 1,
+  "note": "archetype desc (hide on touch)"
+ },
+ {
+  "id": "b10",
+  "file": "bundle",
+  "find": "1x (real time)",
+  "replace": "1x (base speed)",
+  "occurrences_in_minified": 1,
+  "note": "H9; final wording depends on time model (app-time 7.2)"
+ },
+ {
+  "id": "b11",
+  "file": "bundle",
+  "find": "Download Website Tutorial PDF",
+  "replace": "User Guide (PDF)",
+  "occurrences_in_minified": 1,
+  "note": "matches site footer label"
+ },
+ {
+  "id": "b12",
+  "file": "bundle",
+  "find": "Toggle Units",
+  "replace": "Show or hide units",
+  "occurrences_in_minified": 1,
+  "note": "stateful label preferred: Hide units / Show units"
+ },
+ {
+  "id": "b13",
+  "file": "bundle",
+  "find": "← Animated Map",
+  "replace": "← Back to the map",
+  "occurrences_in_minified": 1,
+  "note": "Walkthrough header"
+ },
+ {
+  "id": "b14",
+  "file": "bundle",
+  "find": "← Back to Animated Map",
+  "replace": "← Back to the map",
+  "occurrences_in_minified": 1,
+  "note": "Walkthrough footer"
+ },
+ {
+  "id": "b15",
+  "file": "bundle",
+  "find": "Culps Hill",
+  "replace": "Culp's Hill",
+  "occurrences_in_minified": 1,
+  "note": "terrain label"
+ },
+ {
+  "id": "b16",
+  "file": "bundle",
+  "find": "Devils Den",
+  "replace": "Devil's Den",
+  "occurrences_in_minified": 1,
+  "note": "terrain label"
+ },
+ {
+  "id": "b17",
+  "file": "bundle",
+  "find": "Barlows Knoll",
+  "replace": "Barlow's Knoll",
+  "occurrences_in_minified": 1,
+  "note": "terrain label"
+ },
+ {
+  "id": "b18",
+  "file": "bundle",
+  "find": "Picketts Charge",
+  "replace": "Pickett's Charge",
+  "occurrences_in_minified": 1,
+  "note": "stop text (16th Vermont)"
+ },
+ {
+  "id": "b19",
+  "file": "bundle",
+  "find": "Follow Ancestor",
+  "replace": "Follow a Regiment",
+  "occurrences_in_minified": 1,
+  "note": "mobile Tools tile"
+ },
+ {
+  "id": "b20",
+  "file": "bundle",
+  "find": "⭐ Follow Your Ancestor",
+  "replace": "Follow a Regiment",
+  "occurrences_in_minified": 1,
+  "note": "panel title, drop emoji (icon component instead)"
+ },
+ {
+  "id": "b21",
+  "file": "bundle",
+  "find": "Follow Your Ancestor",
+  "replace": "Follow a Regiment",
+  "occurrences_in_minified": 2,
+  "note": "desktop toolbar title + doc"
+ },
+ {
+  "id": "b22",
+  "file": "bundle",
+  "find": "Soldier's View",
+  "replace": "Soldier's Eye View",
+  "occurrences_in_minified": 1,
+  "note": "mobile Tools tile"
+ },
+ {
+  "id": "b23",
+  "file": "bundle",
+  "find": "Mini Map",
+  "replace": "Minimap",
+  "occurrences_in_minified": 1,
+  "note": "mobile Tools tile"
+ },
+ {
+  "id": "b24",
+  "file": "bundle",
+  "find": "🎖 NPS Auto Tour",
+  "replace": "Guided Battle Tour",
+  "occurrences_in_minified": 1,
+  "note": "the 16 battle moments are not the NPS-numbered stops"
+ },
+ {
+  "id": "b25",
+  "file": "bundle",
+  "find": "NPS Auto Tour",
+  "replace": "Guided Battle Tour",
+  "occurrences_in_minified": 2,
+  "note": "mobile tile label"
+ },
+ {
+  "id": "b26",
+  "file": "bundle",
+  "find": "Tick ",
+  "replace": "Moment ",
+  "occurrences_in_minified": 6,
+  "note": "ambiguous: several uses (Tick N/675 UI, bookmarks) - patch by hand, not blind replace"
+ },
+ {
+  "id": "b27",
+  "file": "bundle",
+  "find": "Step tick",
+  "replace": "Step forward",
+  "occurrences_in_minified": 1,
+  "note": "quick reference"
+ },
+ {
+  "id": "b28",
+  "file": "bundle",
+  "find": "Prev tick (Left)",
+  "replace": "Previous moment (←)",
+  "occurrences_in_minified": 1,
+  "note": "title"
+ },
+ {
+  "id": "b29",
+  "file": "bundle",
+  "find": "Next tick (Right)",
+  "replace": "Next moment (→)",
+  "occurrences_in_minified": 1,
+  "note": "title"
+ },
+ {
+  "id": "b30",
+  "file": "bundle",
+  "find": "Back 1hr (Shift+Left)",
+  "replace": "Back 1 hour (Shift+←)",
+  "occurrences_in_minified": 1,
+  "note": "title"
+ },
+ {
+  "id": "b31",
+  "file": "bundle",
+  "find": "Fwd 1hr (Shift+Right)",
+  "replace": "Forward 1 hour (Shift+→)",
+  "occurrences_in_minified": 1,
+  "note": "title"
+ },
+ {
+  "id": "b32",
+  "file": "bundle",
+  "find": "Confed",
+  "replace": "Confederate",
+  "occurrences_in_minified": 162,
+  "note": "mobile legend chip; check width"
+ },
+ {
+  "id": "b33",
+  "file": "bundle",
+  "find": "Lt Col",
+  "replace": "Lt. Col.",
+  "occurrences_in_minified": 1,
+  "note": "rank abbreviations"
+ },
+ {
+  "id": "b34",
+  "file": "bundle",
+  "find": "Cmd: ",
+  "replace": "Commander: ",
+  "occurrences_in_minified": 1,
+  "note": "popup"
+ },
+ {
+  "id": "b35",
+  "file": "bundle",
+  "find": "Search monuments...",
+  "replace": "Search monuments…",
+  "occurrences_in_minified": 1,
+  "note": "ellipsis"
+ },
+ {
+  "id": "b36",
+  "file": "bundle",
+  "find": "Search by name or unit...",
+  "replace": "Search by name or unit…",
+  "occurrences_in_minified": 1,
+  "note": "ellipsis"
+ },
+ {
+  "id": "b37",
+  "file": "bundle",
+  "find": "Name, state, commander, or unit ID...",
+  "replace": "Name, state, or commander…",
+  "occurrences_in_minified": 1,
+  "note": "drop \"unit ID\" (internal)"
+ },
+ {
+  "id": "b38",
+  "file": "bundle",
+  "find": "Type regiment name (e.g. 20th Maine, 26th NC...)",
+  "replace": "Type a regiment (for example 20th Maine)",
+  "occurrences_in_minified": 1,
+  "note": "placeholder"
+ },
+ {
+  "id": "b39",
+  "file": "bundle",
+  "find": "You can switch at any time from the settings menu",
+  "replace": "You can switch layouts later from Tools.",
+  "occurrences_in_minified": 1,
+  "note": "there is no \"settings menu\"; mobile->desktop only today"
+ },
+ {
+  "id": "b40",
+  "file": "bundle",
+  "find": "Select the format that best fits your device",
+  "replace": "Choose the layout that fits your device",
+  "occurrences_in_minified": 1,
+  "note": "chooser sub-head"
+ },
+ {
+  "id": "b41",
+  "file": "bundle",
+  "find": "Stand where history happened — Street View panoramas from the battlefield",
+  "replace": "Stand where history happened. Eight viewpoints open in Google Street View.",
+  "occurrences_in_minified": 1,
+  "note": "H13 (opens Google Maps)"
+ },
+ {
+  "id": "b42",
+  "file": "bundle",
+  "find": "⭐ Gold trail active — their path glows on the map",
+  "replace": "Trail on: the regiment’s path is drawn in gold.",
+  "occurrences_in_minified": 1,
+  "note": "app-bugs-02: trail may not render; only ship when true"
+ },
+ {
+  "id": "b43",
+  "file": "bundle",
+  "find": "🔗 Copy Shareable Link",
+  "replace": "Copy link",
+  "occurrences_in_minified": 1,
+  "note": "app-bugs-05: link must work first"
+ },
+ {
+  "id": "b44",
+  "file": "bundle",
+  "find": "No placement data found for this unit",
+  "replace": "This regiment has no recorded positions. It moves with its brigade.",
+  "occurrences_in_minified": 1,
+  "note": ""
+ },
+ {
+  "id": "b45",
+  "file": "bundle",
+  "find": "First shot -- Knoxlyn Ridge",
+  "replace": "First shot — Knoxlyn Ridge",
+  "occurrences_in_minified": 1,
+  "note": "default bookmark label; generate from registry instead"
+ },
+ {
+  "id": "b46",
+  "file": "bundle",
+  "find": "★ Highest Confederate regimental casualties: 588 total",
+  "replace": "Highest Confederate regimental losses: 588 of 843 (69.7%)",
+  "occurrences_in_minified": 1,
+  "note": "hard-coded; data says 588 of 843, monument text says 714 of 800"
+ },
+ {
+  "id": "b47",
+  "file": "bundle",
+  "find": "★ Highest Union regimental casualty rate: 85.5% in 15 minutes",
+  "replace": "Highest Union regimental losses: 224 of 262 (85.5%), in about 15 minutes",
+  "occurrences_in_minified": 1,
+  "note": "hard-coded; derive from casualty_apportionment.json"
+ },
+ {
+  "id": "b48",
+  "file": "bundle",
+  "find": "⚠ Virtually destroyed — ",
+  "replace": "⚠ Nearly destroyed — ",
+  "occurrences_in_minified": 1,
+  "note": "\"Virtually\" reads as \"in effect\"; also emoji -> icon"
+ },
+ {
+  "id": "b49",
+  "file": "bundle",
+  "find": "Regiment (~400)",
+  "replace": "Regiment (about 400)",
+  "occurrences_in_minified": 1,
+  "note": "tilde"
+ },
+ {
+  "id": "b50",
+  "file": "bundle",
+  "find": "Brigade (~2000)",
+  "replace": "Brigade (about 2,000)",
+  "occurrences_in_minified": 1,
+  "note": "thousands separator"
+ },
+ {
+  "id": "b51",
+  "file": "bundle",
+  "find": "Division (~6000)",
+  "replace": "Division (about 6,000)",
+  "occurrences_in_minified": 1,
+  "note": "thousands separator"
+ },
+ {
+  "id": "b52",
+  "file": "bundle",
+  "find": "Click to navigate",
+  "replace": "Click to move the map",
+  "occurrences_in_minified": 1,
+  "note": "minimap title"
+ },
+ {
+  "id": "b53",
+  "file": "bundle",
+  "find": "Dedicated to the 51,000 casualties of July 1–3, 1863.",
+  "replace": null,
+  "occurrences_in_minified": 0,
+  "note": "in helpmodal chunk, see h-rows"
+ },
+ {
+  "id": "h01",
+  "file": "help",
+  "find": "445+ Union and Confederate units",
+  "replace": "{REGIMENTS} regiments and batteries",
+  "occurrences_in_minified": 1,
+  "note": "H10; must be facts-driven"
+ },
+ {
+  "id": "h02",
+  "file": "help",
+  "find": "across 675 five-minute ticks",
+  "replace": "across {MOMENTS} moments",
+  "occurrences_in_minified": 1,
+  "note": ""
+ },
+ {
+  "id": "h03",
+  "file": "help",
+  "find": "Primary Sources",
+  "replace": "Sources",
+  "occurrences_in_minified": 1,
+  "note": "list mixes primary and secondary works"
+ },
+ {
+  "id": "h04",
+  "file": "help",
+  "find": "Dismiss panel / deselect unit",
+  "replace": "Close the open panel",
+  "occurrences_in_minified": 1,
+  "note": "until Esc handler is unified (app-bugs-09)"
+ },
+ {
+  "id": "h05",
+  "file": "help",
+  "find": "Advance one tick (5 minutes)",
+  "replace": "Next moment",
+  "occurrences_in_minified": 1,
+  "note": ""
+ },
+ {
+  "id": "h06",
+  "file": "help",
+  "find": "Go back one tick",
+  "replace": "Previous moment",
+  "occurrences_in_minified": 1,
+  "note": ""
+ },
+ {
+  "id": "h07",
+  "file": "help",
+  "find": "Advance one hour (12 ticks)",
+  "replace": "Forward about one hour",
+  "occurrences_in_minified": 1,
+  "note": "depends on time model (12 ticks != 1 hour after warp)"
+ },
+ {
+  "id": "h08",
+  "file": "help",
+  "find": "Jump to July 1, dawn (tick 1)",
+  "replace": "Jump to July 1, dawn",
+  "occurrences_in_minified": 1,
+  "note": ""
+ },
+ {
+  "id": "h09",
+  "file": "help",
+  "find": "Toggle heatmap",
+  "replace": null,
+  "occurrences_in_minified": 1,
+  "note": "delete row unless app-bugs-24 option B is built"
+ },
+ {
+  "id": "h10",
+  "file": "help",
+  "find": "Show / hide this help panel",
+  "replace": "Open or close Help",
+  "occurrences_in_minified": 1,
+  "note": ""
+ },
+ {
+  "id": "h11",
+  "file": "help",
+  "find": "Gettysburg Animated Battlefield Map",
+  "replace": "Gettysburg Interactive Map",
+  "occurrences_in_minified": 1,
+  "note": "About title"
+ }
+]

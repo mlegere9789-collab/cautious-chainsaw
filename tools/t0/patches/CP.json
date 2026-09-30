@@ -1,0 +1,131 @@
+{
+ "group": "CP",
+ "patches": [
+  {
+   "id": "cp:b01",
+   "target": "js",
+   "find": "Loading battle data...",
+   "repl": "Loading the battlefield…",
+   "expect": 1
+  },
+  {
+   "id": "cp:b10",
+   "target": "js",
+   "find": "1x (real time)",
+   "repl": "1x (base speed)",
+   "expect": 1
+  },
+  {
+   "id": "cp:b11",
+   "target": "js",
+   "find": "Download Website Tutorial PDF",
+   "repl": "User Guide (PDF)",
+   "expect": 1
+  },
+  {
+   "id": "cp:b13",
+   "target": "js",
+   "find": "← Animated Map",
+   "repl": "← Back to the map",
+   "expect": 1
+  },
+  {
+   "id": "cp:b14",
+   "target": "js",
+   "find": "← Back to Animated Map",
+   "repl": "← Back to the map",
+   "expect": 1
+  },
+  {
+   "id": "cp:b15",
+   "target": "js",
+   "find": "Culps Hill",
+   "repl": "Culp's Hill",
+   "expect": 1
+  },
+  {
+   "id": "cp:b16",
+   "target": "js",
+   "find": "Devils Den",
+   "repl": "Devil's Den",
+   "expect": 1
+  },
+  {
+   "id": "cp:b17",
+   "target": "js",
+   "find": "Barlows Knoll",
+   "repl": "Barlow's Knoll",
+   "expect": 1
+  },
+  {
+   "id": "cp:b18",
+   "target": "js",
+   "find": "Picketts Charge",
+   "repl": "Pickett's Charge",
+   "expect": 1
+  },
+  {
+   "id": "cp:b41",
+   "target": "js",
+   "find": "Stand where history happened — Street View panoramas from the battlefield",
+   "repl": "Stand where history happened. Eight viewpoints open in Google Street View.",
+   "expect": 1
+  },
+  {
+   "id": "cp:b43",
+   "target": "js",
+   "find": "🔗 Copy Shareable Link",
+   "repl": "Copy link",
+   "expect": 1
+  },
+  {
+   "id": "cp:b44",
+   "target": "js",
+   "find": "No placement data found for this unit",
+   "repl": "This regiment has no recorded positions. It moves with its brigade.",
+   "expect": 1
+  },
+  {
+   "id": "cp:b49",
+   "target": "js",
+   "find": "Regiment (~400)",
+   "repl": "Regiment (about 400)",
+   "expect": 1
+  },
+  {
+   "id": "cp:b50",
+   "target": "js",
+   "find": "Brigade (~2000)",
+   "repl": "Brigade (about 2,000)",
+   "expect": 1
+  },
+  {
+   "id": "cp:b51",
+   "target": "js",
+   "find": "Division (~6000)",
+   "repl": "Division (about 6,000)",
+   "expect": 1
+  },
+  {
+   "id": "cp:b52",
+   "target": "js",
+   "find": "Click to navigate",
+   "repl": "Click to move the map",
+   "expect": 1
+  },
+  {
+   "id": "cp:h01 (445+ -> hundreds; no number without the facts pipeline)",
+   "target": "help",
+   "find": "445+ Union and Confederate units",
+   "repl": "hundreds of Union and Confederate regiments and batteries",
+   "expect": 1
+  },
+  {
+   "id": "cp:h03",
+   "target": "help",
+   "find": "Primary Sources",
+   "repl": "Sources",
+   "expect": 1
+  }
+ ]
+}

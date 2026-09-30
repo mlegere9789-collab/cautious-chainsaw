@@ -1,0 +1,17 @@
+/* Gettysburg Interactive Map service worker, release {{RID}} (chapter 02 appendix A.2, D-SW).
+ * No install-time precache, no skipWaiting, never reloads a page, never handles navigations.  It caches only same-origin,
+ * ok, basic responses of hashed /assets/* files (cache-first), purges only gbg-* caches on activate and leaves /data/, /hx/,
+ * /api/, /.netlify/ and everything else (including Mapbox's own `mapbox-tiles` cache) alone.
+ * Emergency removal: deploy _ops/sw-kill.js as /sw.js. */
+const CACHE = 'gbg-r0-{{RID}}';
+self.addEventListener('install', function () {});
+self.addEventListener('activate', function (e) { e.waitUntil((async function () {
+  const ks = await caches.keys();
+  await Promise.all(ks.filter(function (k) { return k.indexOf('gbg-') === 0 && k !== CACHE; }).map(function (k) { return caches.delete(k); }));
+  await self.clients.claim(); })()); });
+self.addEventListener('fetch', function (e) {
+  const r = e.request; if (r.method !== 'GET' || r.mode === 'navigate') return;
+  const u = new URL(r.url); if (u.origin !== self.location.origin || u.pathname.indexOf('/assets/') !== 0) return;
+  e.respondWith((async function () { const c = await caches.open(CACHE), h = await c.match(r); if (h) return h;
+    const res = await fetch(r); if (res.ok && res.status === 200 && res.type === 'basic') e.waitUntil(c.put(r, res.clone())); return res; })());
+});

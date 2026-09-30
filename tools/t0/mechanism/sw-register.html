@@ -1,0 +1,15 @@
+  <script>
+    // Service worker (D-SW): registered only when the browser is idle after `load`, and it never reloads the page.
+    // A stale lazy chunk after a deploy reloads at most once per session (vite:preloadError guard).
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        (window.requestIdleCallback || function (f) { setTimeout(f, 3000); })(function () {
+          navigator.serviceWorker.register('/sw.js').catch(function (e) { console.warn('Service worker registration failed:', e); });
+        }, { timeout: 8000 });
+      });
+    }
+    window.addEventListener('vite:preloadError', function (ev) {
+      try { if (sessionStorage.getItem('gtbg_chunk_reload')) return; sessionStorage.setItem('gtbg_chunk_reload', '1'); } catch (e) {}
+      ev.preventDefault && ev.preventDefault(); location.reload();
+    });
+  </script>

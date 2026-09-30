@@ -1,0 +1,89 @@
+{
+ "group": "B",
+ "patches": [
+  {
+   "id": "bug:D1-hud-date",
+   "target": "js",
+   "find": "R=`July ${l+2}, 1863`",
+   "repl": "R=`July ${l}, 1863`",
+   "expect": 1
+  },
+  {
+   "id": "bug:D2-monument-tooltip",
+   "target": "js",
+   "find": "${l} July ${f+2}`",
+   "repl": "${l} July ${f}`",
+   "expect": 1
+  },
+  {
+   "id": "bug:D3-ancestor-timeline",
+   "target": "js",
+   "find": "return`July ${f+2}, ${R}:",
+   "repl": "return`July ${f}, ${R}:",
+   "expect": 1
+  },
+  {
+   "id": "bug:J1-jumpToDay",
+   "target": "js",
+   "find": "jumpToDay:x=>c({currentTick:x===1?1:x===2?226:451,isPlaying:!1})",
+   "repl": "jumpToDay:x=>{for(let i=1;i<=x;i++)zp(i);c({currentTick:x===1?1:x===2?226:451,isPlaying:!1})}",
+   "expect": 1
+  },
+  {
+   "id": "bug:J2-setTick",
+   "target": "js",
+   "find": "setTick:x=>c({currentTick:Math.max(1,Math.min(nA,x))})",
+   "repl": "setTick:x=>{const t=Math.max(1,Math.min(nA,x)),d=t<=225?1:t<=450?2:3;for(let i=1;i<=d;i++)zp(i);c({currentTick:t})}",
+   "expect": 1
+  },
+  {
+   "id": "bug:J3-zp",
+   "target": "js",
+   "find": "async function zp(c){const{loadedDays:f}=yn.getState();if(f.has(c))return;const x=tF[c]||[],M=nF[c]||[],P=await Promise.all([...x,...M].map(z=>fetch(`${v1}/${z}`).then(H=>H.json()).catch(()=>({placements:[]}))));yn.getState().addPlacementsForDay(c,P.flatMap(z=>Array.isArray(z)?z:Array.isArray(z.placements)?z.placements:[]))}",
+   "repl": "async function zp(c){const{loadedDays:f}=yn.getState();if(f.has(c))return;zp._p=zp._p||{};if(zp._p[c])return zp._p[c];return zp._p[c]=(async()=>{const x=tF[c]||[],M=nF[c]||[];let bad=0;const P=await Promise.all([...x,...M].map(z=>fetch(`${v1}/${z}`).then(H=>{if(!H.ok)throw new Error(\"HTTP \"+H.status);return H.json()}).catch(()=>{bad++;return{placements:[]}})));delete zp._p[c];if(bad>0&&bad===x.length+M.length)return;yn.getState().addPlacementsForDay(c,P.flatMap(z=>Array.isArray(z)?z:Array.isArray(z.placements)?z.placements:[]))})()}",
+   "expect": 1
+  },
+  {
+   "id": "bug:J4-redraw-on-data",
+   "target": "js",
+   "find": "},[Se,ze,Ee]),pt.useEffect(()=>{const Xe=y1(Ie,Se,0)",
+   "repl": "},[Se,ze,Ee,Ie]),pt.useEffect(()=>{const Xe=y1(Ie,Se,0)",
+   "expect": 1
+  },
+  {
+   "id": "B-M1-addPlacements-merge (app-bugs missed M1)",
+   "target": "js",
+   "find": "c(z=>({placementsByTick:{...z.placementsByTick,...P},loadedDays:new Set([...z.loadedDays,x])}))",
+   "repl": "c(z=>{const m={...z.placementsByTick};for(const k in P){const cur=m[k];if(!cur){m[k]=P[k];continue}const seen=new Map();cur.forEach(r=>seen.set(r.unit_id,r));P[k].forEach(r=>seen.set(r.unit_id,r));m[k]=[...seen.values()]}return{placementsByTick:m,loadedDays:new Set([...z.loadedDays,x])}})",
+   "expect": 1
+  },
+  {
+   "id": "B-i2-stateless-carry-forward (app-latent-08 / app-bugs-07)",
+   "target": "js",
+   "find": "const i2={};function y1(c,f,x){const M=c[f]||[],P=c[f+1]||[];",
+   "repl": "const i2={};let i2c=null,i2t=0;function y1(c,f,x){if(c!==i2c||f<i2t){for(const k in i2)delete i2[k];i2t=0;i2c=c}for(let t=i2t+1;t<f;t++){const r=c[t];r&&r.forEach(R=>{i2[R.unit_id]=R})}i2t=f;const M=c[f]||[],P=c[f+1]||[];",
+   "expect": 1
+  },
+  {
+   "id": "bug:C-minimap-GF",
+   "target": "js",
+   "find": "function GF(){const c=pt.useRef(null),[f,x]=pt.useState(()=>yn.getState().currentTick);return pt.useEffect(()=>yn.subscribe(M=>M.currentTick,M=>{c.current||(c.current=requestAnimationFrame(()=>{x(M),c.current=null}))}),[]),f}",
+   "repl": "function GF(){return yn(c=>c.currentTick)}",
+   "expect": 1
+  },
+  {
+   "id": "B-minimap-draw-carry",
+   "target": "js",
+   "find": "(x[z]||[]).forEach(st=>{var pe;if(!st.lat||!st.lng)return;",
+   "repl": "y1(x,z,0).forEach(st=>{var pe;if(!st.lat||!st.lng)return;",
+   "expect": 1
+  },
+  {
+   "id": "B-minimap-count-carry",
+   "target": "js",
+   "find": "(x[z]||[]).length,\" units · tick \",z",
+   "repl": "y1(x,z,0).length,\" units · tick \",z",
+   "expect": 1
+  }
+ ]
+}

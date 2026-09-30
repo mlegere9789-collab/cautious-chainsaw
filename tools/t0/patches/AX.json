@@ -1,0 +1,98 @@
+{
+ "group": "AX",
+ "patches": [
+  {
+   "id": "a11:A-slider",
+   "target": "js",
+   "find": "V.jsx(\"input\",{type:\"range\",min:0,max:100,step:.01,value:he,onChange:Ie=>P(Math.round(1+Ie.target.value/100*(M-1))),style:Po.scrubInput})",
+   "repl": "V.jsx(\"input\",{type:\"range\",\"aria-label\":\"Battle time\",\"aria-valuetext\":R(),min:1,max:M,step:1,value:c,onChange:Ie=>P(Number(Ie.target.value)),style:Po.scrubInput})",
+   "expect": 1
+  },
+  {
+   "id": "a11:D-toolbar-vs",
+   "target": "js",
+   "find": "V.jsx(\"button\",{onClick:M,title:f,style:{...tc.toolBtn,",
+   "repl": "V.jsx(\"button\",{type:\"button\",onClick:M,title:f,\"aria-label\":f,\"aria-pressed\":x===void 0?void 0:!!x,style:{...tc.toolBtn,",
+   "expect": 1
+  },
+  {
+   "id": "a11:G-close-generic",
+   "target": "js",
+   "find": "style:([A-Za-z]+)\\.(closeBtn|close|dismiss|dismissBtn|pipClose),children:\"✕\"",
+   "repl": "style:\\1.\\2,\"aria-label\":\"Close\",children:\"✕\"",
+   "expect": 14,
+   "regex": true
+  },
+  {
+   "id": "a11:G-close-mobile",
+   "target": "js",
+   "find": "style:(tn\\.(?:popupClose|toolsClose|slidePanelClose)),onClick:([^,]+),children:\"✕\"",
+   "repl": "style:\\1,\"aria-label\":\"Close\",onClick:\\2,children:\"✕\"",
+   "expect": 3,
+   "regex": true
+  },
+  {
+   "id": "a11:H-filter-range",
+   "target": "js",
+   "find": "V.jsx(\"input\",{type:\"range\",min:0,max:500,step:50,value:l,",
+   "repl": "V.jsx(\"input\",{type:\"range\",\"aria-label\":\"Minimum unit strength\",\"aria-valuetext\":l>0?`${l} men or more`:\"All units\",min:0,max:500,step:50,value:l,",
+   "expect": 1
+  },
+  {
+   "id": "a11:H-search-input",
+   "target": "js",
+   "find": "placeholder:\"Name, state, commander, or unit ID...\",",
+   "repl": "placeholder:\"Name, state, commander, or unit ID...\",\"aria-label\":\"Search units\",",
+   "expect": 1
+  },
+  {
+   "id": "a11:H-ancestor-input",
+   "target": "js",
+   "find": "placeholder:\"Type regiment name (e.g. 20th Maine, 26th NC...)\",",
+   "repl": "placeholder:\"Type regiment name (e.g. 20th Maine, 26th NC...)\",\"aria-label\":\"Regiment name\",",
+   "expect": 1
+  },
+  {
+   "id": "a11:H-mon-search-1",
+   "target": "js",
+   "find": "placeholder:\"Search monuments...\",",
+   "repl": "placeholder:\"Search monuments...\",\"aria-label\":\"Search monuments\",",
+   "expect": 1
+  },
+  {
+   "id": "a11:H-mon-search-2",
+   "target": "js",
+   "find": "placeholder:\"Search by name or unit...\",",
+   "repl": "placeholder:\"Search by name or unit...\",\"aria-label\":\"Search monuments by name or unit\",",
+   "expect": 1
+  },
+  {
+   "id": "AX-map-container-id (skip-link target, a11y verifier 01b)",
+   "target": "js",
+   "find": "V.jsx(\"div\",{ref:f,style:ux.map})",
+   "repl": "V.jsx(\"div\",{ref:f,id:\"gt-map\",tabIndex:-1,style:ux.map})",
+   "expect": 1
+  },
+  {
+   "id": "a11:I-toast-log",
+   "target": "js",
+   "find": "x.length===0?null:V.jsx(\"div\",{style:eh.container,children:x.map(",
+   "repl": "V.jsx(\"div\",{style:eh.container,role:\"log\",\"aria-live\":\"off\",\"aria-relevant\":\"additions\",\"aria-label\":\"Battle events\",children:x.map(",
+   "expect": 1
+  },
+  {
+   "id": "a11:J2-glow-pulse",
+   "target": "js",
+   "find": "Math.abs(Math.sin(l/300))",
+   "repl": "(window.__gtbgReduceMotion?.7:Math.abs(Math.sin(l/300)))",
+   "expect": 1
+  },
+  {
+   "id": "a11:J3-no-subtick-interp",
+   "target": "js",
+   "find": "ut=Hc/Pe",
+   "repl": "ut=window.__gtbgReduceMotion?0:Hc/Pe",
+   "expect": 2
+  }
+ ]
+}

@@ -1,0 +1,173 @@
+{
+ "group": "A",
+ "patches": [
+  {
+   "id": "bug:A1-C5-selectHandler",
+   "target": "js",
+   "find": "l(it),setGoldUnit(it),clearGoldTrail();const Xe=f==null?void 0:f.current;",
+   "repl": "l(it);const Xe=f==null?void 0:f.current;",
+   "expect": 1
+  },
+  {
+   "id": "bug:A2-C5-trailSegment",
+   "target": "js",
+   "find": "It&&drawGoldTrailSegment(It.x,It.y,$n.x,$n.y),It=$n",
+   "repl": "It=$n",
+   "expect": 1
+  },
+  {
+   "id": "bug:A3-C5-changeRegiment",
+   "target": "js",
+   "find": "{l(null),setGoldUnit(null),clearGoldTrail(),z(\"\")}",
+   "repl": "{l(null),z(\"\")}",
+   "expect": 1
+  },
+  {
+   "id": "bug:A4-honest-copy",
+   "target": "js",
+   "find": "\"⭐ Gold trail active — their path glows on the map\"",
+   "repl": "\"⭐ Every recorded position for this regiment, in order\"",
+   "expect": 1
+  },
+  {
+   "id": "bug:B-sound-ReferenceError",
+   "target": "js",
+   "find": "CanvasRenderer._lastSoundMs",
+   "repl": "lS._lastSoundMs",
+   "expect": 3
+  },
+  {
+   "id": "A-sound-remove-button (D-SOUND default)",
+   "target": "js",
+   "find": "function yO(){",
+   "repl": "function yO(){return null}function yO__dead(){",
+   "expect": 1
+  },
+  {
+   "id": "A-KF-loop-off (perf-runtime-39 A)",
+   "target": "js",
+   "find": "function ut(){const kt=c==null?void 0:c.current;if(!kt){Se.current=requestAnimationFrame(ut)",
+   "repl": "function ut(){return;const kt=c==null?void 0:c.current;if(!kt){Se.current=requestAnimationFrame(ut)",
+   "expect": 1
+  },
+  {
+   "id": "A-onMapReady-ref (perf-runtime-39 D)",
+   "target": "js",
+   "find": "onMapReady:(ii,Ur)=>{Nn.current=ii,wi.current=Ur==null?void 0:Ur.current}",
+   "repl": "onMapReady:(ii,Ur)=>{Nn.current=ii&&ii.current,wi.current=Ur==null?void 0:Ur.current}",
+   "expect": 1
+  },
+  {
+   "id": "mob:HF-3b desktop overlay canvas pointer-events:none",
+   "target": "js",
+   "find": "canvas:{position:\"absolute\",inset:0,pointerEvents:\"auto\",cursor:\"crosshair\",zIndex:10}",
+   "repl": "canvas:{position:\"absolute\",inset:0,pointerEvents:\"none\",cursor:\"crosshair\",zIndex:10}",
+   "expect": 1
+  },
+  {
+   "id": "mob:HF-3c desktop map click handler",
+   "target": "js",
+   "find": "Xe.on(\"load\",()=>{M.current=Xe,he(Xe),c&&c(M,f),T4(Xe),",
+   "repl": "Xe.on(\"click\",ev=>{const cv=x.current;if(!cv)return;const r=cv.getBoundingClientRect(),e={target:cv,clientX:ev.point.x+r.left,clientY:ev.point.y+r.top};if(window.__gtbgApp&&window.__gtbgApp._gbDist&&window.__gtbgApp._gbDist(e))return;ht(e)}),Xe.on(\"load\",()=>{M.current=Xe,he(Xe),c&&c(M,f),T4(Xe),",
+   "expect": 1
+  },
+  {
+   "id": "A-keys-guard (bug:E1 + a11y:C merged)",
+   "target": "js",
+   "find": "if(Ur.target.tagName===\"INPUT\")return;const{currentTick:Bo,isPlaying:cs,playbackSpeed:jr}=yn.getState();switch(Ur.key){",
+   "repl": "{if(Ur.defaultPrevented||Ur.ctrlKey||Ur.metaKey||Ur.altKey)return;const t=Ur.target,n=t&&t.tagName;if(n===\"INPUT\"||n===\"TEXTAREA\"||n===\"SELECT\"||t&&t.isContentEditable){if(Ur.key!==\"Escape\")return;t.blur&&t.blur()}else{if((Ur.key===\" \"||Ur.key===\"Enter\")&&t&&t.closest&&t.closest('button,a,[role=\"button\"]'))return;if(t&&t.classList&&t.classList.contains(\"mapboxgl-canvas\")&&/^(Arrow|\\+|=|-|_)/.test(Ur.key))return}if(Ur.key!==\"Escape\"&&document.querySelector('[role=\"dialog\"][aria-modal=\"true\"]'))return}const{currentTick:Bo,isPlaying:cs,playbackSpeed:jr}=yn.getState();switch(Ur.key){",
+   "expect": 1
+  },
+  {
+   "id": "bug:E2-escape-set",
+   "target": "js",
+   "find": "case\"Escape\":yn.setState({selectedUnitId:null,showFilterPanel:!1,showSearchPanel:!1});hi(!1);",
+   "repl": "case\"Escape\":yn.setState({selectedUnitId:null,pinnedUnitId:null,showFilterPanel:!1,showSearchPanel:!1});It(!1);Lt(!1);hi(!1);",
+   "expect": 1
+  },
+  {
+   "id": "a11:B-io-wrapper",
+   "target": "js",
+   "find": "V.jsxs(\"div\",{style:Po.wrap,tabIndex:0,onKeyDown:Se,children:",
+   "repl": "V.jsxs(\"div\",{style:Po.wrap,id:\"gt-timeline\",tabIndex:-1,role:\"group\",\"aria-label\":\"Battle timeline controls\",children:",
+   "expect": 1
+  },
+  {
+   "id": "bug:E4-day-keys",
+   "target": "js",
+   "find": "case\"2\":yn.setState({currentTick:226,isPlaying:!1});break;case\"3\":yn.setState({currentTick:451,isPlaying:!1});break;",
+   "repl": "case\"2\":yn.getState().jumpToDay(2);break;case\"3\":yn.getState().jumpToDay(3);break;",
+   "expect": 1
+  },
+  {
+   "id": "A-wt-attribution (Mapbox ToS, walkthrough map)",
+   "target": "js",
+   "find": "minZoom:11,maxZoom:18,attributionControl:!1});M.current.on(\"load\",function(){M.current.addSource(\"wt-stops\"",
+   "repl": "minZoom:11,maxZoom:18,attributionControl:!0});M.current.on(\"load\",function(){M.current.addSource(\"wt-stops\"",
+   "expect": 1
+  },
+  {
+   "id": "A-heatmap-key-remove (D-HEATMAP)",
+   "target": "js",
+   "find": "case\"h\":case\"H\":ut();break;",
+   "repl": "",
+   "expect": 1
+  },
+  {
+   "id": "A-heatmap-tour-row-remove (D-HEATMAP)",
+   "target": "js",
+   "find": "[\"H\",\"Heatmap\"],",
+   "repl": "",
+   "expect": 1
+  },
+  {
+   "id": "A-heatmap-help-row-remove (D-HEATMAP, copy h09)",
+   "target": "help",
+   "find": "{key:\"H\",desc:\"Toggle heatmap\"},",
+   "repl": "",
+   "expect": 1
+  },
+  {
+   "id": "bug:G1-locations-start",
+   "target": "js",
+   "find": "var GtbgLoc=function(props){var active=props.active;pt.useEffect(function(){var m=yn.getState().mapRef;if(!m)return;",
+   "repl": "var GtbgLoc=function(props){var active=props.active;var mapS=yn(function(s){return s.mapRef});pt.useEffect(function(){var m=mapS;if(!m)return;",
+   "expect": 1
+  },
+  {
+   "id": "bug:G2-locations-deps",
+   "target": "js",
+   "find": "else{cleanup();}return cleanup;},[active]);return null;};var GtbgDist",
+   "repl": "else{cleanup();}return cleanup;},[active,mapS]);return null;};var GtbgDist",
+   "expect": 1
+  },
+  {
+   "id": "A-onboarded-guard (bug:H1 + deep-link suppress)",
+   "target": "js",
+   "find": "pt.useState(()=>!localStorage.getItem(\"gtbg_onboarded\"))",
+   "repl": "pt.useState(()=>{try{return!localStorage.getItem(\"gtbg_onboarded\")&&!/[?&](tick|t|unit|u|vignette|ancestor|day|ll|z)=/.test(location.search)}catch(e){return!0}})",
+   "expect": 1
+  },
+  {
+   "id": "bug:H2-onboarded-write",
+   "target": "js",
+   "find": "pi(!1),localStorage.setItem(\"gtbg_onboarded\",\"1\")}",
+   "repl": "pi(!1);try{localStorage.setItem(\"gtbg_onboarded\",\"1\")}catch(e){}}",
+   "expect": 1
+  },
+  {
+   "id": "bug:I-dt-cap",
+   "target": "js",
+   "find": "const ze=F_?c-F_:16;",
+   "repl": "const ze=F_?Math.min(c-F_,100):16;",
+   "expect": 1
+  },
+  {
+   "id": "bug:K-skip-tour",
+   "target": "js",
+   "find": "function Se(){c==null||c()}return V.jsx(\"div\",{style:tr.overlay",
+   "repl": "function Se(){f(1),x(1),c==null||c()}return V.jsx(\"div\",{style:tr.overlay",
+   "expect": 1
+  }
+ ]
+}

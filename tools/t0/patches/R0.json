@@ -1,0 +1,12 @@
+{
+ "group": "R0",
+ "patches": [
+  {
+   "id": "R0-intro-delete (perf-cwv-04)",
+   "target": "js",
+   "find": "const Ie=setTimeout(()=>{x(\"playing\"),l.current=performance.now(),Se()},800)",
+   "repl": "const Ie=setTimeout(()=>{x(\"done\"),c()},0)",
+   "expect": 1
+  }
+ ]
+}

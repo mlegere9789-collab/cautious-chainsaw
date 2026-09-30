@@ -6,8 +6,14 @@
   "description": "Gettysburg Interactive Map: release tooling, tests and rebuild workspace (see docs/plan/FINAL/00-README.md)",
   "scripts": {
     "t0:build": "python tools/t0/build.py",
+    "t0:build:all": "python tools/t0/build.py --all",
+    "t0:gate": "node tools/t0/gate.mjs",
+    "t0:overlap": "python tools/t0/overlap.py",
+    "t0:ledger:seed": "python tools/t0/ledger.py seed",
+    "t0:test:build": "python tests/t0/build_selftest.py",
+    "t0:test:r0": "python tools/t0/build.py --train R0 && node tests/t0/r0.mjs",
     "test:gate": "node tools/t0/gate.mjs",
-    "serve": "node tools/t0/serve.mjs release/dist 8200"
+    "serve": "node tools/t0/serve.mjs release/R0/dist 8300"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

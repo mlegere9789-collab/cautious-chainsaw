@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "_doc": "Train definitions for tools/t0/build.py (see tools/t0/README.md). Trains are cumulative: a group whose 'first' train is X applies to X and every later train. Bundle groups always apply in 'group_order'.",
+  "legacy": {
+    "dir": "legacy/dist",
+    "entry": "assets/index-Cg8FAMXN.js",
+    "entry_md5": "7ef75b95f4c02700430b8aa91e3a7459",
+    "help": "assets/HelpModal-CFV9T0zH.js",
+    "book": "assets/BookmarkPanel-C5YT4b5k.js",
+    "css": "assets/index-B4G7Z_2G.css",
+    "orphans": ["assets/InterpolationWorker-ufiwa2-e.js"],
+    "sha256": {
+      "assets/index-Cg8FAMXN.js": "86f48d0442492e2963a58789d91a5e25646b81d75b09ae9abc97ebd716fb7337",
+      "assets/HelpModal-CFV9T0zH.js": "26c3351693b73638120d84922f030c42a75a3bed5309b034233b1a5d1bdee1a8",
+      "assets/BookmarkPanel-C5YT4b5k.js": "f2f2da503932d886b710cbbcd519d10d89daf52eac38fb3823ace00b87e1bd36",
+      "assets/index-B4G7Z_2G.css": "90a0a5cfd3a080778bb88d4ef6460bfe048c9859b90dcd29d2edb76847236f1b",
+      "assets/InterpolationWorker-ufiwa2-e.js": "a44f17c2727fd84ee437c9f732884767a2fdf305c6c082731c6d96dc6b7c865b"
+    },
+    "tree_sha256": "90d819d0a948e0e0164333ab519f3941ab78ac147f4c93d8e18802dfb253905d",
+    "file_count": 119,
+    "removed_globals": ["setGoldUnit", "clearGoldTrail", "drawGoldTrailSegment", "CanvasRenderer"]
+  },
+  "train_order": ["R0", "R1a", "R1b", "R1c"],
+  "group_order": ["R0", "A", "B", "DL", "C", "AX", "CP"],
+  "runbook_order": ["R0", "A", "C", "AX", "B", "DL", "CP"],
+  "optional_groups": ["EB"],
+  "pg_default_first": "R1a",
+  "groups": {
+    "R0": {"first": "R0", "what": "R0-intro-delete (perf-cwv-04); the rename/loader/SW mechanism itself is code, not a group"},
+    "A":  {"first": "R1a", "what": "crash and input: C5 calls, sound, pointer capture, monuments loop, keys, storage, attribution, D-HEATMAP removals"},
+    "B":  {"first": "R1c", "what": "clock and data: date +2, day loading on jump, merge fix, stateless i2, minimap"},
+    "DL": {"first": "R1c", "what": "deep-link reader"},
+    "C":  {"first": "R1b", "what": "mobile shell (53 bundle patches + 3 index.html rows); must precede AX"},
+    "AX": {"first": "R1b", "what": "a11y bridge (13 bundle patches); must follow C (G-close-mobile expects 3 hits)"},
+    "CP": {"first": "R1c", "what": "truthful-copy subset (16 bundle rows + 2 Help rows)"}
+  },
+  "trains": {
+    "R0":  {"page_groups": false, "overlay": ["R0"], "config": false, "what": "mechanism: hashed names, boot loader, no-reload SW, kill switch, version.json, intro deletion"},
+    "R1a": {"page_groups": true,  "overlay": ["R0", "common", "R1a"], "config": false, "what": "R0 + group A + page groups (PG-*) + assets overlay"},
+    "R1b": {"page_groups": true,  "overlay": ["R0", "common", "R1a", "R1b"], "config": false, "what": "R1a + C + AX"},
+    "R1c": {"page_groups": true,  "overlay": ["R0", "common", "R1a", "R1b", "R1c"], "config": true, "what": "R1b + B + DL + CP + generated config (headers/redirects)"}
+  },
+  "known_overlaps": [
+    {"a": "mob:HF-6l close label+target", "b": "a11:G-close-mobile", "resolution": "C applies first; the a11y row then expects 3 hits instead of 4 (chapter 02 section 7)"}
+  ],
+  "config_hook": "tools/t0/config/gen.mjs",
+  "config_allowed_outputs": ["_headers", "_redirects", "netlify.toml", "_ops/"]
+}

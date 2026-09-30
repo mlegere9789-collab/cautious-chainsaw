@@ -1,39 +1,74 @@
-import json,re,sys
-PW='C:/Users/mlege/AppData/Roaming/Claude/scratch-workspaces/fe20000a-2144-4d85-ac4c-4e19e62f5823/1fb796a8-22ef-47aa-b6e3-227d4048a221/scratch-2026-09-30-719300/plan-work'
-base=open(PW+'/bundle.min.js',encoding='utf8').read()
-sets={}
-sets['MOB']=[p for p in json.load(open('mobile_patches.json',encoding='utf8')) if p['target']=='js']
-sets['BUG']=json.load(open('bugs_patches.json',encoding='utf8'))
-sets['A11Y']=json.load(open('a11y_patches.json',encoding='utf8'))
-cp=json.load(open(PW+'/tmp-docs-copy/copy_patch_table.json',encoding='utf-8'))
-sets['COPY']=[dict(id=r['id'],find=r['find'],repl=r['replace'] or '',expect=r['occurrences_in_minified']) for r in cp if r['file']=='bundle' and r['find']]
-spans=[]  # (start,end,set,id)
-report=[]
-for sname,plist in sets.items():
-    for p in plist:
-        f=p['find']
-        if p.get('regex'):
-            ms=[(m.start(),m.end()) for m in re.finditer(f,base)]
-        else:
-            ms=[];i=base.find(f)
-            while i!=-1:
-                ms.append((i,i+len(f)));i=base.find(f,i+1)
-        exp=p.get('expect',p.get('count',1))
-        p['n']=len(ms)
-        if len(ms)!=exp: report.append(('COUNT',sname,p['id'],len(ms),exp))
-        for s,e in ms: spans.append((s,e,sname,p['id']))
-spans.sort()
-print('total spans',len(spans))
-for r in report: print(r)
-# overlaps
-ov=[]
-for i in range(len(spans)):
-    s,e,sn,pid=spans[i]
-    for j in range(i+1,len(spans)):
-        s2,e2,sn2,pid2=spans[j]
-        if s2>=e: break
-        if (sn,pid)!=(sn2,pid2):
-            ov.append((sn,pid,sn2,pid2,s,e,s2,e2))
-print('overlaps',len(ov))
-for o in ov: print(o[:4],'span1',o[4],o[5],'span2',o[6],o[7])
-json.dump({k:[dict(id=p['id'],n=p['n']) for p in v] for k,v in sets.items()},open('counts.json','w',encoding='utf8'))
+#!/usr/bin/env python3
+"""Overlap audit of the de-conflicted patch set against the PRISTINE legacy bundle (chapter 02 section 7: "the 14 overlaps").
+
+    python tools/t0/overlap.py [--with EB]
+
+For every bundle-target patch (js/help/book/css) of every group in the fixed order it lists the spans of its `find` in the pristine
+text, reports count mismatches against `expect`, and prints every pair of patches whose spans intersect.  In the shipped set the
+overlap list must be empty: the sequential applier (asserted counts on the CURRENT text) already fails loudly on a semantic overlap,
+this tool shows the geometric one before anything is built.  Exit 1 when there is an overlap or a pristine-count mismatch, except
+that a pristine-count mismatch is expected for patches whose anchor only exists after an earlier patch (listed as "chained").
+"""
+import os
+import re
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from t0build import patches  # noqa: E402
+from t0build.util import REPO, T0, load_json, read_text  # noqa: E402
+
+
+def main():
+    for _st in (sys.stdout, sys.stderr):      # patch ids / paths may hold non-ASCII text; never die on a cp1252 console
+        try:
+            _st.reconfigure(encoding='utf-8', errors='replace')
+        except (AttributeError, ValueError):
+            pass
+    cfg = load_json(os.path.join(T0, 'trains.json'))
+    found = patches.load_groups(os.path.join(T0, 'patches'), cfg)
+    with_groups = ['EB'] if '--with' in sys.argv and 'EB' in sys.argv else []
+    groups = list(cfg['group_order']) + with_groups
+    texts = {'js': read_text(os.path.join(REPO, cfg['legacy']['dir'], cfg['legacy']['entry'])),
+             'help': read_text(os.path.join(REPO, cfg['legacy']['dir'], cfg['legacy']['help'])),
+             'book': read_text(os.path.join(REPO, cfg['legacy']['dir'], cfg['legacy']['book'])),
+             'css': read_text(os.path.join(REPO, cfg['legacy']['dir'], cfg['legacy']['css']))}
+    spans, mismatches = [], []
+    for g in groups:
+        for p in found[g]['patches']:
+            if p['target'] not in patches.BUNDLE_TARGETS:
+                continue
+            text = texts[p['target']]
+            if p.get('regex'):
+                ms = [(m.start(), m.end()) for m in re.finditer(p['find'], text)]
+            else:
+                ms, i = [], text.find(p['find'])
+                while i != -1:
+                    ms.append((i, i + len(p['find'])))
+                    i = text.find(p['find'], i + 1)
+            if len(ms) != p['expect']:
+                mismatches.append((g, p['id'], len(ms), p['expect']))
+            spans += [(p['target'], s, e, g, p['id']) for s, e in ms]
+    spans.sort()
+    known = {(k['a'], k['b']) for k in cfg.get('known_overlaps', [])} | {(k['b'], k['a']) for k in cfg.get('known_overlaps', [])}
+    known_ids = {i for k in cfg.get('known_overlaps', []) for i in (k['a'], k['b'])}
+    overlaps = []
+    for i, a in enumerate(spans):
+        for b in spans[i + 1:]:
+            if b[0] != a[0] or b[1] >= a[2]:
+                break
+            if (a[3], a[4]) != (b[3], b[4]):
+                overlaps.append((a, b, (a[4], b[4]) in known))
+    print('patches with spans: %d, total spans: %d' % (len({(s[3], s[4]) for s in spans}), len(spans)))
+    bad_mis = [m for m in mismatches if m[1] not in known_ids]
+    print('pristine-count mismatches: %d (%d explained by a known overlap)' % (len(mismatches), len(mismatches) - len(bad_mis)))
+    for m in mismatches:
+        print('  %s [%s] %s: %d in pristine, expect %d' % ('mismatch' if m in bad_mis else 'known   ', m[0], m[1], m[2], m[3]))
+    bad_ov = [o for o in overlaps if not o[2]]
+    print('geometric overlaps: %d (%d known and resolved by group order)' % (len(overlaps), len(overlaps) - len(bad_ov)))
+    for a, b, ok in overlaps:
+        print('  %s [%s] %s  <->  [%s] %s   (%s %d-%d / %d-%d)' % ('known  ' if ok else 'OVERLAP', a[3], a[4], b[3], b[4], a[0], a[1], a[2], b[1], b[2]))
+    return 1 if bad_ov or bad_mis else 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

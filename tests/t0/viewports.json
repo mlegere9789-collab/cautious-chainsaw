@@ -1,0 +1,16 @@
+{
+  "_doc": "Viewport matrix (chapter 02 section 2 / WP-T0-18). mobile=true emulates a phone (touch, DPR 3, mobile UA hints).",
+  "portrait": [
+    {"id": "iphone-se-375x812", "width": 375, "height": 812, "dpr": 3, "mobile": true},
+    {"id": "small-320x568", "width": 320, "height": 568, "dpr": 2, "mobile": true},
+    {"id": "iphone-390x844", "width": 390, "height": 844, "dpr": 3, "mobile": true},
+    {"id": "android-412x915", "width": 412, "height": 915, "dpr": 2.625, "mobile": true},
+    {"id": "tablet-768x1024", "width": 768, "height": 1024, "dpr": 2, "mobile": true},
+    {"id": "desktop-1440x900", "width": 1440, "height": 900, "dpr": 1, "mobile": false}
+  ],
+  "landscape": [
+    {"id": "land-812x375", "width": 812, "height": 375, "dpr": 3, "mobile": true},
+    {"id": "land-844x390", "width": 844, "height": 390, "dpr": 3, "mobile": true},
+    {"id": "land-915x412", "width": 915, "height": 412, "dpr": 2.625, "mobile": true}
+  ]
+}

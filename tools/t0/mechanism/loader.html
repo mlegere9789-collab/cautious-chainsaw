@@ -1,0 +1,23 @@
+  <script>
+  // Boot after first paint (perf-cwv-02): the 2.3 MB app is imported one task after the first contentful paint, so the static
+  // splash is what the browser paints and measures.  Guarded: one automatic retry per session, then a visible "Try again".
+  (function () {
+    var started = false, ENTRY = '/assets/{{ENTRY}}';
+    function fail() {
+      var again = false;
+      try { again = sessionStorage.getItem('gtbg_boot_retry') === '1'; if (!again) sessionStorage.setItem('gtbg_boot_retry', '1'); } catch (e) {}
+      if (!again) { location.reload(); return; }
+      var s = document.getElementById('boot-splash'); if (!s || s.querySelector('button')) return;
+      var c = s.querySelector('.boot-caption'); if (c) c.textContent = 'The map could not be loaded.';
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = 'Try again';
+      b.style.cssText = 'font:inherit;min-height:44px;padding:0 22px;color:#c9a24b;background:#12121e;border:1px solid #c9a24b;border-radius:8px';
+      b.onclick = function () { try { sessionStorage.removeItem('gtbg_boot_retry'); } catch (e) {} location.reload(); };
+      s.appendChild(b);
+    }
+    function start() { if (started) return; started = true; setTimeout(function () { import(ENTRY).catch(fail); }, 0); }
+    try { new PerformanceObserver(function (l, o) { if (l.getEntriesByName('first-contentful-paint').length) { o.disconnect(); start(); } })
+            .observe({ type: 'paint', buffered: true }); }
+    catch (e) { addEventListener('load', function () { requestAnimationFrame(function () { setTimeout(start, 0); }); }); }
+    setTimeout(start, 3000);
+  })();
+  </script>
