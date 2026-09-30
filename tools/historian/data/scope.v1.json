@@ -1,43 +1,235 @@
 {
   "$comment": "Scope, known-unknowns and routes. Compiled into hx/facts (tables scope, unknowns, routes). Patterns are matched against the normalised query (baseNorm: lowercase, no punctuation, possessives dropped). Decline text never contains numbers or claims about the world; pointers are neutral public sources named without URLs unless the site itself links them.",
   "scope_out": [
-    { "id": "medical", "mode": "decline", "re": ["\\b(chest pain|heart attack|overdose|suicid|bleeding|symptoms? of|diagnos|medication|dosage|should i take)\\b", "\\b(tingling|numb) (arm|hand|leg)\\b"],
-      "text": "That is a health question, and a history site cannot advise on it. If someone may be in danger, call your local emergency number (911 in the United States) or contact a doctor.", "pointer": "emergency" },
-    { "id": "finance", "mode": "decline", "re": ["\\b(which|what) stocks?\\b", "\\bshould i (buy|sell|invest)\\b", "\\b(invest(ing)? in|crypto(currency)?|bitcoin|mortgage|tax advice)\\b"],
-      "text": "I do not give financial advice; this tool only searches the battle records on this site.", "pointer": null },
-    { "id": "creative", "mode": "decline", "re": ["\\b(write|compose|make) (me )?(a |an )?(poem|song|haiku|limerick|story|essay|joke|rap|speech|letter)\\b", "\\btell me a joke\\b", "\\b(poem|haiku|limerick) (about|on)\\b"],
-      "text": "I cannot write new creative text: this tool only quotes and summarises the site's own records. I can look up what the records say about a person, unit or place.", "pointer": null },
-    { "id": "code", "mode": "decline", "re": ["\\b(write|debug|fix) (me )?(a |some |the )?(code|script|program|function|sql|regex)\\b", "\\bhotwire|pick a lock|make a bomb|build a weapon\\b"],
-      "text": "That is outside what this tool does. It searches the records of the Battle of Gettysburg on this site.", "pointer": null },
-    { "id": "visit", "mode": "decline_pointer", "re": ["\\b(hotel|motel|lodging|accommodation|airbnb|bed and breakfast|book a room|where (to|can i) (stay|sleep|eat)|restaurant|cafe|dinner|lunch|breakfast|parking|park my car|admission|ticket|tickets|opening hours|hours of operation|what time does .* open|visitor center|visitors center|gift shop|guided tour|book a tour|licensed battlefield guide|bus tour|directions to|how do i get to|how to get to|drive from|nearest airport|train to|bike rental|camping)\\b"],
-      "text": "Visitor planning (lodging, food, tickets, hours, directions) is outside this tool's records. For current information use the National Park Service Gettysburg National Military Park website or the Gettysburg visitor bureau.", "pointer": "visit" },
-    { "id": "weather", "mode": "decline_pointer", "re": ["\\b(weather|forecast|temperature|will it rain|is it going to rain)\\b.*\\b(gettysburg|today|tomorrow|weekend|this week|now|tonight)\\b", "\\bwhat will the weather\\b", "\\bweather (in|at|for) gettysburg\\b(?! (on|during|in) (july|1863))"],
-      "text": "I cannot give live or forecast data. For the weather, use the National Weather Service forecast for Gettysburg, Pennsylvania (weather.gov).", "pointer": "weather" },
-    { "id": "adjacent", "mode": "decline_pointer", "re": ["\\b(antietam|sharpsburg|vicksburg|chancellorsville|fredericksburg|shiloh|bull run|manassas|appomattox|wilderness|spotsylvania|cold harbor|petersburg|chickamauga|chattanooga|atlanta campaign|sherman's march|fort sumter|pearl harbor|d day|normandy|waterloo|gulf of tonkin)\\b(?!.*\\b(at|during|in) gettysburg)"],
-      "text": "That is outside this site's records, which cover the Battle of Gettysburg (July 1 to 3, 1863) and the people, units and places in it. I will not substitute Gettysburg figures for another battle. The National Park Service Civil War pages are a good place to start.", "pointer": "nps-civil-war" },
-    { "id": "causes", "mode": "decline_pointer", "re": ["\\b(causes? of the (civil )?war|why did the (civil )?war (start|begin)|what caused the (civil )?war|reasons? for (the )?(civil )?war|slavery and the war|secession)\\b"],
-      "text": "The causes of the Civil War are outside this site's records, which are scoped to the Battle of Gettysburg. The National Park Service Civil War pages give an authoritative overview.", "pointer": "nps-civil-war" },
-    { "id": "injection", "mode": "refuse_injection", "re": ["\\b(ignore|disregard|forget) (all |any |the |your )?(previous|prior|above|earlier|preceding)( instructions?| prompts?| messages?| rules?)?\\b", "\\b(system prompt|your (hidden )?(instructions|configuration|prompt|rules)|reveal .*(prompt|instructions|configuration|keys?))\\b", "^\\s*system\\b", "\\b(api keys?|secret keys?|access tokens?|password)\\b.*\\b(reveal|print|show|reply|give|tell)\\b|\\b(reveal|print|show|reply with|give|tell)\\b.*\\b(api keys?|secret keys?|access tokens?|passwords?)\\b", "\\b(pretend|act|roleplay|role play) (you are|as|to be)\\b", "\\b(dan|do anything now|developer mode|jailbreak)\\b", "\\bno restrictions\\b"],
-      "text": "I cannot share or change my instructions, and a message typed here cannot grant permissions. This tool only searches the Gettysburg records on this site and quotes them. Ask about a regiment, commander, place or moment of the battle." }
+    {
+      "id": "medical",
+      "mode": "decline",
+      "re": [
+        "\\b(chest pain|heart attack|overdose|suicid|bleeding|symptoms? of|diagnos|medication|dosage|should i take)\\b",
+        "\\b(tingling|numb) (arm|hand|leg)\\b"
+      ],
+      "text": "That is a health question, and a history site cannot advise on it. If someone may be in danger, call your local emergency number (911 in the United States) or contact a doctor.",
+      "pointer": "emergency"
+    },
+    {
+      "id": "finance",
+      "mode": "decline",
+      "re": [
+        "\\b(which|what) stocks?\\b",
+        "\\bshould i (buy|sell|invest)\\b",
+        "\\b(invest(ing)? in|crypto(currency)?|bitcoin|mortgage|tax advice)\\b"
+      ],
+      "text": "I do not give financial advice; this tool only searches the battle records on this site.",
+      "pointer": null
+    },
+    {
+      "id": "creative",
+      "mode": "decline",
+      "re": [
+        "\\b(write|compose|make) (me )?(a |an )?(poem|song|haiku|limerick|story|essay|joke|rap|speech|letter)\\b",
+        "\\btell me a joke\\b",
+        "\\b(poem|haiku|limerick) (about|on)\\b"
+      ],
+      "text": "I cannot write new creative text: this tool only quotes and summarises the site's own records. I can look up what the records say about a person, unit or place.",
+      "pointer": null
+    },
+    {
+      "id": "code",
+      "mode": "decline",
+      "re": [
+        "\\b(write|debug|fix) (me )?(a |some |the )?(code|script|program|function|sql|regex)\\b",
+        "\\bhotwire|pick a lock|make a bomb|build a weapon\\b"
+      ],
+      "text": "That is outside what this tool does. It searches the records of the Battle of Gettysburg on this site.",
+      "pointer": null
+    },
+    {
+      "id": "visit",
+      "mode": "decline_pointer",
+      "re": [
+        "\\b(hotel|motel|lodging|accommodation|airbnb|bed and breakfast|book a room|where (to|can i) (stay|sleep|eat)|restaurant|cafe|dinner|lunch|breakfast|parking|park my car|admission|ticket|tickets|opening hours|hours of operation|what time does .* open|visitor center|visitors center|gift shop|guided tour|book a tour|licensed battlefield guide|bus tour|directions to|how do i get to|how to get to|drive from|nearest airport|train to|bike rental|camping)\\b"
+      ],
+      "text": "Visitor planning (lodging, food, tickets, hours, directions) is outside this tool's records. For current information use the National Park Service Gettysburg National Military Park website or the Gettysburg visitor bureau.",
+      "pointer": "visit"
+    },
+    {
+      "id": "weather",
+      "mode": "decline_pointer",
+      "re": [
+        "\\b(weather|forecast|temperature|will it rain|is it going to rain)\\b.*\\b(gettysburg|today|tomorrow|weekend|this week|now|tonight)\\b",
+        "\\bwhat will the weather\\b",
+        "\\bweather (in|at|for) gettysburg\\b(?! (on|during|in) (july|1863))"
+      ],
+      "text": "I cannot give live or forecast data. For the weather, use the National Weather Service forecast for Gettysburg, Pennsylvania (weather.gov).",
+      "pointer": "weather"
+    },
+    {
+      "id": "adjacent",
+      "mode": "decline_pointer",
+      "re": [
+        "\\b(antietam|sharpsburg|vicksburg|chancellorsville|fredericksburg|shiloh|bull run|manassas|appomattox|wilderness|spotsylvania|cold harbor|petersburg|chickamauga|chattanooga|atlanta campaign|sherman's march|fort sumter|pearl harbor|d day|normandy|waterloo|gulf of tonkin)\\b(?!.*\\b(at|during|in) gettysburg)"
+      ],
+      "text": "That is outside this site's records, which cover the Battle of Gettysburg (July 1 to 3, 1863) and the people, units and places in it. I will not substitute Gettysburg figures for another battle. The National Park Service Civil War pages are a good place to start.",
+      "pointer": "nps-civil-war"
+    },
+    {
+      "id": "causes",
+      "mode": "decline_pointer",
+      "re": [
+        "\\b(causes? of the (civil )?war|why did the (civil )?war (start|begin)|what caused the (civil )?war|reasons? for (the )?(civil )?war|slavery and the war|secession)\\b"
+      ],
+      "text": "The causes of the Civil War are outside this site's records, which are scoped to the Battle of Gettysburg. The National Park Service Civil War pages give an authoritative overview.",
+      "pointer": "nps-civil-war"
+    },
+    {
+      "id": "injection",
+      "mode": "refuse_injection",
+      "re": [
+        "\\b(ignore|disregard|forget) (all |any |the |your )?(previous|prior|above|earlier|preceding)( instructions?| prompts?| messages?| rules?)?\\b",
+        "\\b(system prompt|your (hidden )?(instructions|configuration|prompt|rules)|reveal .*(prompt|instructions|configuration|keys?))\\b",
+        "^\\s*system\\b",
+        "\\b(api keys?|secret keys?|access tokens?|password)\\b.*\\b(reveal|print|show|reply|give|tell)\\b|\\b(reveal|print|show|reply with|give|tell)\\b.*\\b(api keys?|secret keys?|access tokens?|passwords?)\\b",
+        "\\b(pretend|act|roleplay|role play) (you are|as|to be)\\b",
+        "\\b(dan|do anything now|developer mode|jailbreak)\\b",
+        "\\bno restrictions\\b"
+      ],
+      "text": "I cannot share or change my instructions, and a message typed here cannot grant permissions. This tool only searches the Gettysburg records on this site and quotes them. Ask about a regiment, commander, place or moment of the battle."
+    }
   ],
   "premises": [
-    { "id": "survivor-died", "kind": "person-died", "note": "verify against the commander record: fate text starts with Survived" }
+    {
+      "id": "survivor-died",
+      "kind": "person-died",
+      "note": "verify against the commander record: fate text starts with Survived"
+    }
   ],
   "unknowns": [
-    { "id": "per-location-casualties", "re": ["\\b(how many|number of|total)\\b.*\\b(died|killed|dead|casualties|lost|deaths)\\b.*\\b(at|in|on|around|near)\\b.*", "\\bcasualties (at|in|of|on) the\\b"], "needs_place": true,
-      "text": "The records here do not give an exact figure or tally of casualties by location, so I cannot say precisely how many men fell at {place}." },
-    { "id": "individual-soldier", "re": ["\\b(was|were|did) [a-z]+ [a-z]+ (of|in|with|at|serve)\\b.*\\b(gettysburg|regiment|company|army)\\b", "\\bwas .* at gettysburg\\b", "\\b(soldier|private|corporal|sergeant) named\\b", "\\b(my|his|her) (ancestor|grandfather|great grandfather|great great grandfather|relative|uncle|father|great uncle)\\b"],
-      "text": "I cannot tell whether a specific soldier was at Gettysburg: the site holds regiments, not individual muster rolls." },
-    { "id": "weather-at-battle", "re": ["\\b(weather|rain|raining|hot|temperature|cloudy|sunny|fog)\\b.*\\b(during|on|at|in)\\b.*\\b(battle|july (1|2|3)|gettysburg)\\b"],
-      "text": "The site's records do not include a weather series for the battle, so I cannot give temperatures or a day-by-day forecast." }
+    {
+      "id": "per-location-casualties",
+      "re": [
+        "\\b(how many|number of|total)\\b.*\\b(died|killed|dead|casualties|lost|deaths)\\b.*\\b(at|in|on|around|near)\\b.*",
+        "\\bcasualties (at|in|of|on) the\\b"
+      ],
+      "needs_place": true,
+      "text": "The records here do not give an exact figure or tally of casualties by location, so I cannot say precisely how many men fell at {place}."
+    },
+    {
+      "id": "individual-soldier",
+      "re": [
+        "\\b(was|were|did) [a-z]+ [a-z]+ (of|in|with|at|serve)\\b.*\\b(gettysburg|regiment|company|army)\\b",
+        "\\bwas .* at gettysburg\\b",
+        "\\b(soldier|private|corporal|sergeant) named\\b",
+        "\\b(my|his|her) (ancestor|grandfather|great grandfather|great great grandfather|relative|uncle|father|great uncle)\\b"
+      ],
+      "text": "I cannot tell whether a specific soldier was at Gettysburg: the site holds regiments, not individual muster rolls."
+    },
+    {
+      "id": "weather-at-battle",
+      "re": [
+        "\\b(weather|rain|raining|hot|temperature|cloudy|sunny|fog)\\b.*\\b(during|on|at|in)\\b.*\\b(battle|july (1|2|3)|gettysburg)\\b"
+      ],
+      "text": "The site's records do not include a weather series for the battle, so I cannot give temperatures or a day-by-day forecast."
+    }
   ],
   "routes": [
-    { "id": "ancestor", "page": "/find-ancestor.html", "label": "Find Your Ancestor", "why": "Look up a regiment by state or commander and follow it through the battle. The site holds regiments, not individual soldiers; for a person's name the National Park Service Soldiers and Sailors Database is the place to search." },
-    { "id": "map", "page": "/", "label": "the animated battle map", "why": "See where units were as the battle unfolded." },
-    { "id": "regiment", "page": "/regiment.html", "label": "the regiment page", "why": "Open a regiment's own page." },
-    { "id": "search", "page": "/search.html", "label": "Search Everything", "why": "Search the site's units, vignettes and places by name." }
+    {
+      "id": "ancestor",
+      "page": "/find-ancestor.html",
+      "label": "Find Your Ancestor",
+      "why": "Look up a regiment by state or commander and follow it through the battle. The site holds regiments, not individual soldiers; for a person's name the National Park Service Soldiers and Sailors Database is the place to search."
+    },
+    {
+      "id": "map",
+      "page": "/",
+      "label": "the animated battle map",
+      "why": "See where units were as the battle unfolded."
+    },
+    {
+      "id": "regiment",
+      "page": "/regiment.html",
+      "label": "the regiment page",
+      "why": "Open a regiment's own page."
+    },
+    {
+      "id": "search",
+      "page": "/search.html",
+      "label": "Search Everything",
+      "why": "Search the site's units, vignettes and places by name."
+    }
   ],
-  "domain_terms": ["gettysburg", "battle", "battlefield", "civil", "war", "union", "confederate", "federal", "rebel", "regiment", "regiments", "brigade", "division", "corps", "army", "cavalry", "artillery", "battery", "infantry",
-    "commander", "commanded", "general", "colonel", "major", "captain", "lieutenant", "soldier", "soldiers", "troops", "men", "casualties", "killed", "wounded", "captured", "charge", "cannonade", "retreat",
-    "july", "day", "ridge", "hill", "woods", "field", "farm", "road", "pike", "cemetery", "seminary", "monument", "vignette", "regimental", "1863", "lee", "meade", "longstreet"]
+  "domain_terms": [
+    "gettysburg",
+    "battle",
+    "battlefield",
+    "civil",
+    "war",
+    "union",
+    "confederate",
+    "federal",
+    "rebel",
+    "regiment",
+    "regiments",
+    "brigade",
+    "division",
+    "corps",
+    "army",
+    "cavalry",
+    "artillery",
+    "battery",
+    "infantry",
+    "commander",
+    "commanded",
+    "general",
+    "colonel",
+    "major",
+    "captain",
+    "lieutenant",
+    "soldier",
+    "soldiers",
+    "troops",
+    "men",
+    "casualties",
+    "killed",
+    "wounded",
+    "captured",
+    "charge",
+    "cannonade",
+    "retreat",
+    "july",
+    "day",
+    "ridge",
+    "hill",
+    "woods",
+    "field",
+    "farm",
+    "road",
+    "pike",
+    "cemetery",
+    "seminary",
+    "monument",
+    "vignette",
+    "regimental",
+    "1863",
+    "lee",
+    "meade",
+    "longstreet"
+  ],
+  "outcome": {
+    "winner": "U",
+    "text": "The Union won the battle. The Confederate army lost its attack on July 3 and began to retreat on July 4.",
+    "auth": "site-chronology",
+    "basis": "The site chronology records Lee ordering the retreat (D3T620) and states that the strategic initiative passed permanently to the Union (D3T675).",
+    "reviewed": false,
+    "records": [
+      "D3T675",
+      "D3T620"
+    ]
+  },
+  "glossary": {
+    "echelons": {
+      "text": "An army was built in layers. Several regiments made up a brigade, several brigades made up a division, and several divisions made up a corps.",
+      "basis": "general description of Civil War army organisation; illustrated with the site order-of-battle records",
+      "reviewed": false
+    }
+  }
 }

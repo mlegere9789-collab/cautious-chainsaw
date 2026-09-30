@@ -33,6 +33,7 @@ export const ARM_WORDS = { infantry: 'inf', volunteer: 'inf', volunteers: 'inf',
 const isOrd = (t) => t && t.charCodeAt(0) === 35 && /^#\d+$/.test(t);
 // abbreviations that are also everyday words; "on July 3 in Pennsylvania" must not read as "3rd Indiana"
 const AMBIG_ABBR = new Set(['in', 'me', 'la', 'al', 'us', 'de', 'ma', 'mo', 'oh', 'ar', 'ia', 'mi']);
+const BLOCK_NEXT = new Set(['the', 'a', 'an', 'this', 'that', 'these', 'those', 'of', 'at', 'on', 'by', 'to', 'is', 'was', 'were', 'are', 'be', 'from', 'with', 'my', 'your', 'our', 'his', 'her', 'their', 'it', 'its']);
 const BLOCK_PREV = new Set(['july', 'day', 'days', 'on', 'at', 'by', 'about', 'than', 'around', 'of', 'to', 'until', 'since', 'from', 'for', 'these', 'those', 'last', 'next', 'top', 'first']);
 
 /**
@@ -54,7 +55,7 @@ export function findUnitMentions(tokens) {
     const three = tokens.slice(j, j + 3).join(' '), two = tokens.slice(j, j + 2).join(' '), one = tokens[j];
     if (STATES.includes(two)) { state = two; used = 2; }
     else if (one && STATES.includes(one)) { state = one; used = 1; }
-    else if (one && STATE_ABBR[one] && !(AMBIG_ABBR.has(one) && (BLOCK_PREV.has(tokens[i - 1]) || ords[ords.length - 1] > 200))) { state = STATE_ABBR[one]; used = 1; abbr = true; }
+    else if (one && STATE_ABBR[one] && !(AMBIG_ABBR.has(one) && (BLOCK_PREV.has(tokens[i - 1]) || BLOCK_NEXT.has(tokens[j + 1]) || ords[ords.length - 1] > 200))) { state = STATE_ABBR[one]; used = 1; abbr = true; }
     else if (three === 'us colored troops') { state = 'united states'; used = 1; }
     if (!state) { i = j - 1; continue; }
     // "1 n y" (unpunctuated) and "n c"/"s c" split forms: try to glue two single letters

@@ -274,9 +274,10 @@ export function createEngine(kb, opts = {}) {
     return final;
   }
 
-  async function addQuotes(S, res, { max = 2, timeQ = false, requireClock = false, leadHasText = false } = {}) {
+  async function addQuotes(S, res, { max = 2, timeQ = false, requireClock = false, leadHasText = false, onlyRecs = null } = {}) {
     let ranked = await getPassages(S, { limit: requireClock ? 30 : 12 });
     if (requireClock) ranked = ranked.filter((x) => x.p.clk && x.p.clk.length);
+    if (onlyRecs) ranked = ranked.filter((x) => onlyRecs.has(x.p.rec));
     const entStems = new Set();
     for (const m of S.mentions) { if (m.kind === 'unit-miss') continue; for (const t of (m.phrase || '').split(' ')) if (t && !/^#|\|/.test(t)) entStems.add(t); }
     for (const b of res.blocks) if (b.t === 'lead') for (const r of b.runs) if (r.ent && idx.get(r.ent)) for (const t of idx.get(r.ent).label.toLowerCase().split(/[^a-z0-9]+/)) if (t.length > 3) entStems.add(stem(t));
@@ -285,7 +286,7 @@ export function createEngine(kb, opts = {}) {
     // avoid quoting a record whose card already led the answer with the same text
     const leadSrc = new Set(res.src || []);
     const pool = ranked.filter((x) => !(leadSrc.has(x.p.rec) && (!['narrative', 'commentary', 'chronicle', 'walkthrough', 'tour'].includes(x.p.kind) || (leadHasText && x.p.kind === 'chronicle'))));
-    const quotes = selectQuotes(kb, pool, ctx, { max, skip });
+    const quotes = selectQuotes(kb, pool, ctx, S.simple ? { max: Math.max(max, 3), skip, maxWords: 24, maxSents: 1 } : { max, skip });
     for (const q of quotes) { res.blocks.push(q); res.src.push(q.rec); }
     S.quotes = quotes;
     return quotes;
@@ -394,6 +395,8 @@ export function createEngine(kb, opts = {}) {
     S.text = text;
 
     // ---- normalise / tokenise / repair ----------------------------------------------------------------------------------------------------------
+    const aud = /\b(?:to|for)\s+(?:an?\s+)?(?:\d+(?:st|nd|rd|th)|fifth|fourth|third|sixth|seventh|eighth)[- ]grad(?:e|er)s?\b|\bfor my (?:school )?(?:report|project|class)\b|\bin simple terms\b|\blike i'?m (?:five|5)\b|\b(?:kid|child)[- ]friendly\b/i;
+    if (aud.test(text)) { S.simple = true; text = text.replace(aud, ' ').replace(/\s+/g, ' ').trim(); S.text = text; }
     const raw = tokenize(text);
     S.norm = baseNorm(text);
     S.side = sideHint(raw);
@@ -421,6 +424,9 @@ export function createEngine(kb, opts = {}) {
     S.day = dayOf(text);
     const C0 = collect(S);
     Object.assign(S, { units: C0.units, persons: C0.persons, places: C0.places, others: C0.others });
+    // the site holds no casualty tally per location: any "how many died at <place>" is answered as that limitation
+    const unkLoc = facts.unknowns.find((u) => u.id === 'per-location-casualties');
+    if (unkLoc && S.places.length && !S.units.length && unkLoc.re.some((x) => new RegExp(x, 'i').test(S.norm))) S.intent = 'casualties';
     if (S.intent === 'lookup' && S.day && !S.mentions.some((m) => m.kind !== 'unit-miss')) S.intent = 'day-summary';
     if (S.intent === 'what-happened' && S.day && !S.mentions.some((m) => m.kind !== 'unit-miss')) S.intent = 'day-summary';
     if (S.intent === 'when' && /\bhappen/.test(S.norm) && S.day && !S.mentions.length) S.intent = 'day-summary';
@@ -449,6 +455,7 @@ export function createEngine(kb, opts = {}) {
     }
     if (!res) res = await fallbackProfile(S);
     if (!res) return declineAnswer(S, { reason: 'no-composer', text: 'I could not find a record on this site that answers that.' });
+    if (S.simple) res.blocks = res.blocks.filter((b) => !(b.t === 'note' && ['authority', 'authority-mixed', 'debate', 'rank-rule', 'basis'].includes(b.code)));
     if (S.injectionStripped) res.blocks.push(C.note('injection', 'Your message also contained an instruction; I ignored it. I only search and quote this site’s records.'));
     const out = finish(S, res);
     const t1 = typeof performance !== 'undefined' ? performance.now() : Date.now();
@@ -757,6 +764,8 @@ export function createEngine(kb, opts = {}) {
     if (intent === 'compare') {
       const us = S.units.filter((u) => u.attrs && typeof u.attrs.strength === 'number');
       if (us.length >= 2) { res = C.compareAnswer(kb, us, S); if (res) { await addQuotes(S, res, { max: 1 }); return res; } }
+      const pl = S.places.filter((r) => r.k === 'terrain');
+      if (us.length < 2 && pl.length >= 2) { res = C.comparePlaces(kb, pl.slice(0, 2)); if (res) return res; }
       if (!us.length && /\b(union|confederate)\b/.test(S.norm)) { res = C.battleTotals(kb, S, { which: 'both' }); if (res) return res; }
     }
     if (intent === 'echelons') { res = C.echelonAnswer(kb, S); if (res) return res; }
@@ -800,14 +809,14 @@ export function createEngine(kb, opts = {}) {
       const u = commandedUnits(focus)[0];
       blocks.push(C.lead(C.profileLead(kb, focus), [u ? u.id : focus.id])); src.push(u ? u.id : focus.id);
       if (u) { blocks.push(C.lead(['About the unit: ', ...C.profileLead(kb, u)], [u.id])); src.push(u.id); }
-    } else { blocks.push(C.lead(C.profileLead(kb, focus), [focus.id])); src.push(focus.id); }
+    } else { blocks.push(C.lead(S.simple ? C.simpleLead(kb, focus) : C.profileLead(kb, focus), [focus.id])); src.push(focus.id); }
     // one nickname, several records ("the Bucktails")
     const am = S.mentions.find((m) => m.kind === 'alias' && m.ids && m.ids.length > 1 && m.ids.some((i) => R[i].id === focus.id));
     if (am) { const lst = C.sharedNameList(kb, focus, am.ids); if (lst) { blocks.push(lst); src.push(...lst.src.slice(0, 2)); } }
     const res = { mode: 'answer', blocks, src };
     const causal = S.intent === 'why';
     if (causal) res.blocks.push(C.note('debate', 'Questions of cause and judgement like this one are debated by historians; these are the accounts in the site\u2019s records, not a verdict.'));
-    await addQuotes(S, res, { max: causal ? 3 : 2, leadHasText: focus.k === 'chronology' });
+    await addQuotes(S, res, { max: causal ? 3 : 2, leadHasText: focus.k === 'chronology' && !S.simple });
     return res;
   }
 

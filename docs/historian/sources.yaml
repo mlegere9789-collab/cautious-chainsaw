@@ -13,17 +13,33 @@ tier_rules:
 refused_identifiers:
   - warrebellionaco00cowlgoog
 banned_hosts:
-  - battlefields.org
   - ancestry.com
-  - fold3.com
-  - findagrave.com
+  - battlefields.org
+  - census.gov
+  - civilwarmed.org
+  - cupola.gettysburg.edu
+  - davidrumsey.com
+  - ehistory.osu.edu
+  - emergingcivilwar.com
   - familysearch.org
-  - hmdb.org
+  - findagrave.com
+  - fold3.com
+  - fortdelaware.org
+  - freesound.org
+  - gettdigital.gettysburg.edu
+  - gettysburg.edu
   - gettysburg.stonesentinels.com
-  - stonesentinels.com
+  - gettysburgcompiler.org
+  - gettysburgdaily.com
+  - gettysburgfoundation.org
   - gettysburghistory.org
-  - nhgis.org
+  - hmdb.org
+  - jrnold-nps-cwss.s3.amazonaws.com
   - newspapers.com
+  - nhgis.org
+  - npshistory.com
+  - stonesentinels.com
+  - www2.census.gov
 sources:
   - id: site-records
     title: Gettysburg Interactive Map site records (legacy/dist/data: order of battle, vignettes, chronology, terrain, successions, placement notes)
@@ -61,3 +77,1663 @@ sources:
     archive_url: null
     status: candidate
     notes: Extracted at build time with acorn from legacy/dist/assets/index-*.js. Clock-bearing subtitles are dropped; clock claims inside paragraphs are flagged per passage and only ever quoted as the site's own wording.
+  - id: or27-1
+    xref: {hs1: SRC-01, hs2: null}
+    title: "Official Records (War of the Rebellion), Series I, Vol. 27, Part 1 - Reports (Union) and Gettysburg Campaign summary, orders of battle, casualty returns"
+    tier: A
+    tier_detail: public domain | US Government publication (17 U.S.C. 105) published 1889; HathiTrust rightsCode 'pd' (Full view); UC copy IA possible-copyright-status NOT_IN_COPYRIGHT
+    license: {id: PD-US-Gov, statement_text: "rightsCode: pd; usRightsString: Full view (HathiTrust API, fetched 2026-09-30). IA terms: https://archive.org/about/terms", statement_url: https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077699761.json, verified_at: null, reviewer: null}
+    imprint: {year: 1889, publisher: "U.S. War Department / GPO, 1889 (Chap. XXXIX 'The Gettysburg Campaign')", reprint: false, ia_id: warofrebellion271unit}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: official_records
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/warofrebellion271unit
+    hosts: [archive.org, catalog.hathitrust.org, collections.library.cornell.edu]
+    status: planned
+    wave: W1
+    notes: "expected records: [object Object]; Reports were written days to months after the fight (Chamberlain July 6; some 1864); times are approximate ('somewhere near 4 p. m.').,Self-serving/defensive bias; commanders sometimes contradict each other by 1-2 h; treat as testimony, no…"
+  - id: or27-2
+    xref: {hs1: SRC-02, hs2: null}
+    title: "Official Records, Series I, Vol. 27, Part 2 - Reports: Middle Dept./Dept. of the Susquehanna/W.Va. (Union) and ARMY OF NORTHERN VIRGINIA (Confederate)"
+    tier: A
+    tier_detail: public domain | US Government publication 1889; Hathi rightsCode pd
+    license: {id: PD-US-Gov, statement_text: rightsCode pd / Full view, statement_url: https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077728255.json, verified_at: null, reviewer: null}
+    imprint: {year: 1889, publisher: "War Department / GPO, 1889", reprint: false, ia_id: warofrebellion272unit}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: official_records
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/warofrebellion272unit
+    hosts: [archive.org, catalog.hathitrust.org]
+    status: planned
+    wave: W1
+    notes: "expected records: [object Object]; Confederate coverage is uneven: the parsed ToC shows no report by Pickett himself (Garnett's brigade appears via Maj. Peyton, No. 441); extract each report's date line to measure the lag between battle and writing rather than assuming it.,…"
+  - id: nyfr
+    xref: {hs1: SRC-03, hs2: null}
+    title: "New York Monuments Commission - Final Report on the Battlefield of Gettysburg (3 vols., incl. Fox, 'New York at Gettysburg')"
+    tier: A
+    tier_detail: public domain | published 1900/1902 (pre-1931); NY State publication
+    license: {id: PD-pre-1931-proposed, statement_text: "IA metadata possible-copyright-status: NOT_IN_COPYRIGHT (UC copy). IA terms: https://archive.org/about/terms", statement_url: https://archive.org/details/finalreportongettys01burgrich, verified_at: null, reviewer: null}
+    imprint: {year: 1900, publisher: "New York Monuments Commission for the Battlefields of Gettysburg and Chattanooga; J.B. Lyon Co., 1900 (vol.1) / 1902 pr…", reprint: false, ia_id: finalreportongettys01burgrich}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: state_monument_commission
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/finalreportongettys01burgrich
+    hosts: [archive.org, museum.dmna.ny.gov, nysl.nysed.gov]
+    status: planned
+    wave: W2a
+    notes: "expected records: [object Object]; Written 1890s by W.F. Fox from veteran accounts + OR; more accurate on NY than other states but state-centric.,Contains post-war controversies (e.g. Sickles/Slocum claims) - tag as advocacy."
+  - id: pa-at-gettysburg
+    xref: {hs1: SRC-04, hs2: null}
+    title: "Pennsylvania at Gettysburg: Ceremonies at the dedication of the monuments erected by the Commonwealth of Pennsylvania (1893 1st ed., 2 vols; 1914 2nd ed.)"
+    tier: A
+    tier_detail: public domain | Pennsylvania state publication 1893/1914 (pre-1931)
+    license: {id: PD-pre-1931-proposed, statement_text: possible-copyright-status NOT_IN_COPYRIGHT (LoC scan). Terms https://archive.org/about/terms, statement_url: https://archive.org/details/pennsylvaniaatge05penn, verified_at: null, reviewer: null}
+    imprint: {year: 1893, publisher: "Commonwealth of Pennsylvania: 1893 (2 vols); IA also lists a 1904 vol.2 (pennsylvaniaatge02lcpenn); 2nd ed. 1914", reprint: false, ia_id: pennsylvaniaatge05penn}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: state_monument_commission
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/pennsylvaniaatge05penn
+    hosts: [archive.org]
+    status: planned
+    wave: W2b
+    notes: "expected records: [object Object]; Veteran memory 25-50 years after the battle; contains errors and boosterism; keep provenance tag 'veteran_address_18xx'.,Editions overlap: dedupe by regiment section hash."
+  - id: fox-1889
+    xref: {hs1: SRC-05, hs2: null}
+    title: "Fox, William F. - Regimental Losses in the American Civil War, 1861-1865 (1889)"
+    tier: A
+    tier_detail: public domain | published 1889 (pre-1931)
+    license: {id: PD-pre-1931-proposed, statement_text: possible-copyright-status NOT_IN_COPYRIGHT, statement_url: https://archive.org/details/reglossescivilwar00foxwrich, verified_at: null, reviewer: null}
+    imprint: {year: 1889, publisher: "Albany Publishing Co., 1889", reprint: false, ia_id: reglossescivilwar00foxwrich}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: reference_statistics
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/reglossescivilwar00foxwrich
+    hosts: [archive.org]
+    status: planned
+    wave: W2c
+    notes: "expected records: [object Object]; Union only. Fox counts killed+mortally wounded (may differ from OR returns and from modern Busey/Martin).,'Missing' includes captured and deserters."
+  - id: or27-3
+    xref: {hs1: SRC-06, hs2: null}
+    title: "Official Records, Series I, Vol. 27, Part 3 - Correspondence, orders, returns (Union June 3-Aug 3 1863; Confederate correspondence)"
+    tier: A
+    tier_detail: public domain | US Government publication 1889
+    license: {id: PD-US-Gov, statement_text: rightsCode pd / Full view, statement_url: https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077700262.json, verified_at: null, reviewer: null}
+    imprint: {year: 1889, publisher: "War Department / GPO, 1889", reprint: false, ia_id: warofrebellion273unit}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: official_records
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/warofrebellion273unit
+    hosts: [archive.org, catalog.hathitrust.org]
+    status: planned
+    wave: W1
+    notes: "expected records: [object Object]; Telegraph times are the most reliable clock evidence in the corpus but different HQs used local sun-time; document the +/- 5-10 min uncertainty.,Correspondence continues through Aug 3 - crop by date for the 'battle window' (June 28-July 4)…"
+  - id: battles-leaders-3
+    xref: {hs1: SRC-07, hs2: null}
+    title: "Battles and Leaders of the Civil War, Vol. 3 (Gettysburg section pp. ~244-440 + Doubleday maps)"
+    tier: A
+    tier_detail: public domain | published 1887-88
+    license: {id: PD-pre-1931-proposed, statement_text: IA terms https://archive.org/about/terms; no possible-copyright-status field on item, statement_url: https://archive.org/details/battlesleadersof03cent, verified_at: null, reviewer: null}
+    imprint: {year: 1887, publisher: "Century Co., 1887-88 (vol.3)", reprint: false, ia_id: battlesleadersof03cent}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: participant_narratives
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/battlesleadersof03cent
+    hosts: [archive.org]
+    status: planned
+    wave: W3a
+    notes: "expected records: [object Object]; Written 1880s under editor Robert U. Johnson; cf. Lost-Cause debate: Longstreet, Alexander, Allan, Law, Kershaw are advocates in a live controversy - tag 'controversy'.,Unit-level facts (e.g. Melcher on 20th Maine) are memory-based."
+  - id: shsp
+    xref: {hs1: SRC-08, hs2: null}
+    title: "Southern Historical Society Papers (SHSP), vols. 1-43 (1876-1920; later volumes exist, not measured)"
+    tier: A
+    tier_detail: public domain | published 1876-1920 (pre-1931)
+    license: {id: PD-pre-1931-proposed, statement_text: "possible-copyright-status: 'Copyright status reviewed by UF staff - Out of copyright' (vol.4)", statement_url: https://archive.org/details/southernhistoric4187sout, verified_at: null, reviewer: null}
+    imprint: {year: 1876, publisher: "Richmond, 1876-1920 for vols 1-43 (IA dates: v.42 = new ser.4 1917; v.43 = new ser.5 1920)", reprint: false, ia_id: southernhistoric4187sout}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: participant_narratives
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/southernhistoric4187sout
+    hosts: [archive.org]
+    status: planned
+    wave: W3c
+    notes: "expected records: [object Object]; SHSP is the institutional publication of the postwar Lost Cause movement (Southern Historical Society, Richmond). Good for Confederate perspective/testimony; poor as neutral fact.,Sensitive content - add editorial framing/labels in the UI …"
+  - id: loc-bachelder-maps
+    xref: {hs1: SRC-09, hs2: null}
+    title: Library of Congress - Bachelder maps (1863 isometric; 1876/1883 three-sheet troop-position maps) and G.K. Warren survey map (Gettysburg)
+    tier: A
+    tier_detail: public domain (age) / free to use per LoC G&M statement | Bachelder 1863/1876/1883 and Warren 187-? pre-1931; LoC does not hold rights but item JSON 'rights_advisory' absent for the G&M items
+    license: {id: PD-pre-1931-proposed, statement_text: "The content of the Library of Congress Geography and Map Division digitized collections is free to use and reuse unless a Rights Advisory statement is present that indicates otherwise. Credit Line: Library of Congress, Geography and Map Division.", statement_url: https://www.loc.gov/legal/, verified_at: null, reviewer: null}
+    imprint: {year: 1863, publisher: 1863-1888, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: historic_maps
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://www.loc.gov/item/99447491/?fo=json
+    hosts: [allmaps.org, collections.leventhalmap.org, loc.gov, mapwarper.net, tile.loc.gov]
+    status: planned
+    wave: null
+    notes: "expected records: [object Object]; Bachelder positions come from veteran testimony collected 1863-1886 and are not minute-accurate; use as spatial priors for placements, not timing.,Dealers report a 28-map 'hourly' Bachelder set (1880s, time-stamped) - existence and digital…"
+  - id: loc-cw-photos
+    xref: {hs1: SRC-10, hs2: null}
+    title: "Library of Congress - Civil War Glass Negatives and Related Prints (Brady/Gardner/O'Sullivan/Gibson/Smith), Gettysburg July 1863 and aftermath"
+    tier: A
+    tier_detail: no known restrictions on publication (LoC statement); PD by age | photographed 1863; LoC statement per item
+    license: {id: PD-pre-1931-proposed, statement_text: "No known restrictions on publication. For information, see \"Civil war photographs, 1861-1865,\" https://www.loc.gov/rr/print/res/120_cwar.html (118 of 185 records); 55 records: 'No known restrictions on publication.'; 12 records: no advisory field", statement_url: https://www.loc.gov/rr/print/res/120_cwar.html, verified_at: null, reviewer: null}
+    imprint: {year: 1863, publisher: 1863 (negatives); prints 1880s-1917, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: photographs
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://www.loc.gov/collections/civil-war-glass-negatives/?fo=json&c=50&q=gettysburg
+    hosts: [loc.gov]
+    status: planned
+    wave: W6
+    notes: "expected records: [object Object]; Photos date from ~July 5 onward (aftermath); they must NOT be attached to battle ticks; label as 'aftermath, July 5-7'.,Caption errors are known (LoC title itself flags '[i.e., Devil's Den]' correction for a 'Little Round Top' sharpshooter…"
+  - id: itinerary-aop
+    xref: {hs1: SRC-11, hs2: null}
+    title: "Itinerary of the Army of the Potomac and co-operating forces in the Gettysburg campaign, June 5 to July 31, 1863 (Adjutant-General, 1888) + Official Records ATLAS (Gettysburg plates)"
+    tier: A
+    tier_detail: public domain | US Government publications 1888/1891
+    license: {id: PD-US-Gov, statement_text: NOT_IN_COPYRIGHT (itinerary), statement_url: https://archive.org/details/itineraryofarmy00united, verified_at: null, reviewer: null}
+    imprint: {year: 1888, publisher: 1888 (Itinerary); 1891 (Atlas), reprint: false, ia_id: itineraryofarmy00united}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: official_records
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/itineraryofarmy00united
+    hosts: [archive.org]
+    status: planned
+    wave: W4b
+    notes: "expected records: [object Object]; Itinerary is by day, not hour - supports day-level 'where were they on June 30/July 1 morning' not minute ticks."
+  - id: clark-nc-regiments
+    xref: {hs1: SRC-12, hs2: null}
+    title: "Clark, Walter (ed.) - Histories of the several regiments and battalions from North Carolina, in the great war 1861-'65 (5 vols., 1901)"
+    tier: A
+    tier_detail: public domain | published 1901
+    license: {id: PD-pre-1931-proposed, statement_text: IA terms https://archive.org/about/terms (Emory scan; no status field), statement_url: https://archive.org/details/01300611.3315.emory.edu, verified_at: null, reviewer: null}
+    imprint: {year: 1901, publisher: "Raleigh, 1901", reprint: false, ia_id: 01300611.3314.emory.edu}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: regimental_histories
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/01300611.3314.emory.edu
+    hosts: [archive.org]
+    status: planned
+    wave: W4b
+    notes: "expected records: [object Object]; Author-contributed veteran chapters of uneven quality; hometown-pride; numbers unreliable."
+  - id: jccw-1865
+    xref: {hs1: SRC-13, hs2: null}
+    title: "Report of the Joint Committee on the Conduct of the War (1865) - Army of the Potomac vol. incl. Gettysburg testimony (witness headings verified in OCR: Meade, Warren, Sickles, Howe, Birney, Doubleday, Pleasonton, Hancock, Butterfield, Gibb…"
+    tier: A
+    tier_detail: public domain | US Government publication 1865
+    license: {id: PD-US-Gov, statement_text: IA terms; U.S. Government work, statement_url: https://archive.org/details/reportofjointcomm01unit, verified_at: null, reviewer: null}
+    imprint: {year: 1865, publisher: "U.S. Congress, 1865", reprint: false, ia_id: reportofjointcomm01unit}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: government_testimony
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/reportofjointcomm01unit
+    hosts: [archive.org]
+    status: planned
+    wave: W3b
+    notes: "expected records: [object Object]; Highly partisan 1864 committee (Sickles/Butterfield vs Meade); the most contested account on the site (Sickles at the Peach Orchard) - must be labelled 'testimony, partisan context'."
+  - id: maine-at-gettysburg
+    xref: {hs1: SRC-14, hs2: null}
+    title: "Maine at Gettysburg (Report of Maine Commissioners, 1898) + 20th Maine set (Gerrish 'Army Life' 1882; Reunions of the 20th Maine 1881)"
+    tier: A
+    tier_detail: public domain | published 1881-1915
+    license: {id: PD-pre-1931-proposed, statement_text: possible-copyright-status NOT_IN_COPYRIGHT (UC copy), statement_url: https://archive.org/details/maineatgettysbu01commgoog, verified_at: null, reviewer: null}
+    imprint: {year: 1898, publisher: "Portland, 1898; 1882; 1881", reprint: false, ia_id: maineatgettysbu01commgoog}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: state_monument_commission
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/maineatgettysbu01commgoog
+    hosts: [archive.org]
+    status: planned
+    wave: W4a
+    notes: "expected records: [object Object]; 20th Maine is the site's most-visited narrative; sources conflict on details of the bayonet charge timing - triangulate and store each as separate claim with source."
+  - id: nj-final-report
+    xref: {hs1: SRC-15, hs2: null}
+    title: "New Jersey: Final Report of the Gettysburg Battle-field Commission of New Jersey (1891) + Toombs, New Jersey Troops in the Gettysburg Campaign (1888)"
+    tier: A
+    tier_detail: public domain | published 1888/1891
+    license: {id: PD-pre-1931-proposed, statement_text: "'The Library of Congress is unaware of any copyright restrictions for this item.'", statement_url: https://archive.org/details/finalreportofget00newj, verified_at: null, reviewer: null}
+    imprint: {year: 1888, publisher: 1888; 1891, reprint: false, ia_id: finalreportofget00newj}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: state_monument_commission
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/finalreportofget00newj
+    hosts: [archive.org]
+    status: planned
+    wave: W4a
+    notes: "expected records: [object Object]; Toombs compiled NJ accounts in 1888; still veteran-sourced."
+  - id: michigan-at-gettysburg
+    xref: {hs1: SRC-16, hs2: null}
+    title: "Michigan at Gettysburg (1889 dedication proceedings) + Curtis, History of the Twenty-fourth Michigan of the Iron Brigade (1891)"
+    tier: A
+    tier_detail: public domain | published 1889/1891
+    license: {id: PD-pre-1931-proposed, statement_text: possible-copyright-status NOT_IN_COPYRIGHT (LoC copy), statement_url: https://archive.org/details/historyoftwentyf00curti, verified_at: null, reviewer: null}
+    imprint: {year: 1889, publisher: "Detroit, 1889; 1891", reprint: false, ia_id: cu31924030924736}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: state_monument_commission
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/cu31924030924736
+    hosts: [archive.org]
+    status: planned
+    wave: W4a
+    notes: "expected records: [object Object]; Curtis was a 24th Michigan veteran; strong on July 1 detail; lists names."
+  - id: minnesota-civil-war
+    xref: {hs1: SRC-17, hs2: null}
+    title: "Minnesota in the Civil and Indian Wars 1861-1865 (2 vols., 1890-93) + Holcombe, History of the First Regiment Minnesota Volunteer Infantry (1916)"
+    tier: A
+    tier_detail: public domain | published 1890-93 / 1916
+    license: {id: PD-pre-1931-proposed, statement_text: IA terms, statement_url: https://archive.org/details/historyoffirstre00minn, verified_at: null, reviewer: null}
+    imprint: {year: 1890, publisher: 1890-93; 1916, reprint: false, ia_id: minnesotacivil01minnrich}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: state_monument_commission
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/minnesotacivil01minnrich
+    hosts: [archive.org]
+    status: planned
+    wave: W4a
+    notes: "expected records: [object Object]; Regimental-association narrative; celebratory; verify the widely repeated casualty figures and quotes against the OR reports (e.g. Hancock) before publishing."
+  - id: bates-pa-volunteers
+    xref: {hs1: SRC-18, hs2: null}
+    title: "Bates, Samuel P. - History of Pennsylvania Volunteers, 1861-5 (5 vols., 1869-71)"
+    tier: A
+    tier_detail: public domain | published 1869-71
+    license: {id: PD-pre-1931-proposed, statement_text: possible-copyright-status NOT_IN_COPYRIGHT, statement_url: https://archive.org/details/historyofpennsyl01bate, verified_at: null, reviewer: null}
+    imprint: {year: 1869, publisher: "Harrisburg, 1869-71", reprint: false, ia_id: historyofpennsyl01bate}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: regimental_histories
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/historyofpennsyl01bate
+    hosts: [archive.org]
+    status: planned
+    wave: W4b
+    notes: "expected records: [object Object]; 1869 state-commissioned histories are closer in time than 1890s commission books; sketches are short and formulaic."
+  - id: phisterer-ny
+    xref: {hs1: SRC-19, hs2: null}
+    title: "Phisterer, Frederick - New York in the War of the Rebellion, 1861 to 1865 (3rd ed., 1912, 6 vols.)"
+    tier: A
+    tier_detail: public domain | published 1912 (pre-1931)
+    license: {id: PD-pre-1931-proposed, statement_text: NOT_IN_COPYRIGHT, statement_url: https://archive.org/details/newyorkinwarofre01phisrich, verified_at: null, reviewer: null}
+    imprint: {year: 1912, publisher: "Albany, 1912 (3rd ed.)", reprint: false, ia_id: newyorkinwarofre01phisrich}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: reference_statistics
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/newyorkinwarofre01phisrich
+    hosts: [archive.org]
+    status: planned
+    wave: W4b
+    notes: "expected records: [object Object]; Compilation from state records; statistical tone, few narratives."
+  - id: dyer-compendium-1908
+    xref: {hs1: SRC-20, hs2: null}
+    title: "Dyer, Frederick H. - A Compendium of the War of the Rebellion (1908)"
+    tier: A
+    tier_detail: public domain (1908 original only) | published 1908
+    license: {id: PD-pre-1931-proposed, statement_text: IA terms, statement_url: https://archive.org/details/08697590.3359.emory.edu, verified_at: null, reviewer: null}
+    imprint: {year: 1908, publisher: "Des Moines: Dyer Publishing Co., 1908", reprint: false, ia_id: 08697590.3359.emory.edu}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: reference_statistics
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/08697590.3359.emory.edu
+    hosts: [archive.org]
+    status: planned
+    wave: W4b
+    notes: "expected records: [object Object]; Union only; concise; occasional discrepancies vs Fox."
+  - id: gnmp-monument-lists
+    xref: {hs1: SRC-22, hs2: null}
+    title: "GNMP Commission monument-location lists (1903, 1912, 1916, 1921 on IA; 1932 and 1993 on npshistory.com) + annual Reports of the Gettysburg National Military Park Commission 1893-1933"
+    tier: A
+    tier_detail: public domain | US Government publications (War Department 1903-1921; NPS 1932/1993) - 17 U.S.C. 105
+    license: {id: PD-US-Gov, statement_text: "17 U.S.C. 105: copyright protection under this title is not available for any work of the United States Government (statute; NPS disclaimer page https://www.nps.gov/aboutus/disclaimer.htm)", statement_url: https://www.copyright.gov/title17/92chap1.html, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: U.S. War Department / NPS, reprint: false, ia_id: locationofmonume00unit}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: monuments
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/locationofmonume00unit
+    hosts: [archive.org, gdg.org, npshistory.com]
+    status: planned
+    wave: null
+    notes: "expected records: [object Object]; Monument locations are post-1880 memorial positions and may differ from 1863 battle positions (many regimental tablets mark positions per Bachelder's research) - do not equate with battle-time locations.,Monuments can carry commemorative i…"
+  - id: period-guides
+    xref: {hs1: SRC-23, hs2: null}
+    title: "Period battlefield guides by Bachelder (1864-1904), Vanderslice (1897/1899), Wert (1886), Hammond (1899)"
+    tier: A
+    tier_detail: public domain | published 1864-1904
+    license: {id: PD-pre-1931-proposed, statement_text: "LoC copy: 'The Library of Congress is unaware of any copyright restrictions for this item.'", statement_url: https://archive.org/details/gettysburgwhatto00bach, verified_at: null, reviewer: null}
+    imprint: {year: 1864, publisher: 1864-1904, reprint: false, ia_id: gettysburgwhatto00bach}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: guides_secondary_period
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/gettysburgwhatto00bach
+    hosts: [archive.org]
+    status: planned
+    wave: W5
+    notes: "expected records: [object Object]; Bachelder was the government-appointed battlefield historian (1880-86) and a promoter; his own maps/guides encode the 'Bachelder consensus' that later scholarship revised."
+  - id: confederate-memoirs
+    xref: {hs1: SRC-24, hs2: null}
+    title: "Confederate regimental memoirs: Oates, The War Between the Union and the Confederacy (1905; 15th Alabama); Polley, Hood's Texas Brigade (1910)"
+    tier: A
+    tier_detail: public domain | published 1905/1910
+    license: {id: PD-pre-1931-proposed, statement_text: IA terms, statement_url: https://archive.org/details/hoodstexasbriga00poll, verified_at: null, reviewer: null}
+    imprint: {year: 1905, publisher: 1905; 1910, reprint: false, ia_id: 01897724.3053.emory.edu}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: participant_narratives
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/01897724.3053.emory.edu
+    hosts: [archive.org]
+    status: planned
+    wave: W3d
+    notes: "expected records: [object Object]; Oates wrote in 1905 as postwar Alabama politician; strong bias; conflicts with Chamberlain on numbers/time - present as paired claims."
+  - id: the-compiler
+    xref: {hs1: SRC-27, hs2: null}
+    title: "The Compiler (Gettysburg, Pa.) 1857-1866 - Pennsylvania Newspaper Archive (Penn State / NDNP)"
+    tier: A
+    tier_detail: "public domain (NDNP position: pre-1931 newspapers) | NDNP/Chronicling America statement"
+    license: {id: PD-pre-1931-proposed, statement_text: "\"Newspapers published in the United States more than 95 years ago are in the public domain in entirety.\" (guide, fetched 2026-09-30). PNA 'About' page has no explicit reuse statement.", statement_url: https://guides.loc.gov/chronicling-america/about-the-collection, verified_at: null, reviewer: null}
+    imprint: {year: 1863, publisher: "weekly, Henry J. Stahle; 1863 = 51 issues (no July 6 issue)", reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: newspapers
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://panewsarchive.psu.edu/lccn/sn85055100/issues/1863/
+    hosts: [panewsarchive.psu.edu]
+    status: planned
+    wave: null
+    notes: "expected records: [object Object]; Democratic paper (per catalog note) - partisan tone; issue of July 6 absent (battle week).,Adams Sentinel (Republican) not freely available (see X-05)."
+  - id: chronicling-america
+    xref: {hs1: SRC-28, hs2: null}
+    title: Chronicling America (LoC / NDNP) - July 1863 national coverage of the battle via loc.gov JSON API
+    tier: A
+    tier_detail: public domain (NDNP position) | pre-1931 newspapers
+    license: {id: PD-pre-1931-proposed, statement_text: "\"Newspapers published in the United States more than 95 years ago are in the public domain in entirety.\"", statement_url: https://guides.loc.gov/chronicling-america/about-the-collection, verified_at: null, reviewer: null}
+    imprint: {year: 1863, publisher: 1863 dailies and weeklies, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: newspapers
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://www.loc.gov/collections/chronicling-america/?q=gettysburg&dates=1863-07-04/1863-07-31&dl=page&fo=json&c=5
+    hosts: [chroniclingamerica.loc.gov, guides.loc.gov, loc.gov]
+    status: planned
+    wave: W5
+    notes: "expected records: [object Object]; Second-hand, telegraph-based, often wrong on numbers - use for 'what the public believed when'.,No Gettysburg-published 1863 title turned up in my Chronicling America title queries; the Adams Sentinel LoC record (sn83032079) is title-level…"
+  - id: nara-rg77-maps
+    xref: {hs1: SRC-30, hs2: null}
+    title: NARA Record Group 77 (Civil Works Map File) Gettysburg maps + NPS Gettysburg museum collection drawings (GNPC numbered maps 1893-1922; Commission general maps)
+    tier: A
+    tier_detail: public domain (US Government records) | 17 U.S.C. 105; RG 77 federal records
+    license: {id: PD-US-Gov, statement_text: "federal works not copyrightable; NARA blog states copies via Cartographic Research Room, no rights statement", statement_url: https://www.copyright.gov/title17/92chap1.html, verified_at: null, reviewer: null}
+    imprint: {year: 1863, publisher: 1863-1922, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: historic_maps
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://unwritten-record.blogs.archives.gov/2018/07/03/mapping-the-battle-of-gettysburg/
+    hosts: [catalog.archives.gov, museum.nps.gov, nps.gov, unwritten-record.blogs.archives.gov]
+    status: planned
+    wave: null
+    notes: "expected records: [object Object]; If the 28 hourly maps exist digitally they should outrank all other cartographic sources for tick placement."
+  - id: livermore-1901
+    xref: {hs1: SRC-21, hs2: null}
+    title: "Livermore, Thomas L. - Numbers and Losses in the Civil War in America, 1861-65 (1900/1901)"
+    tier: A
+    tier_detail: public domain | 1901
+    license: {id: PD-pre-1931-proposed, statement_text: NOT_IN_COPYRIGHT, statement_url: https://archive.org/details/numberslosses00liverich, verified_at: null, reviewer: null}
+    imprint: {year: 1900, publisher: 1900/1901, reprint: false, ia_id: numberslosses00liverich}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: reference_statistics
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/numberslosses00liverich
+    hosts: [archive.org]
+    status: planned
+    wave: null
+    notes: "expected records: [object Object]; Aggregate only; Confederate strength figures are contested; present as range."
+  - id: confederate-military-history
+    xref: {hs1: SRC-25, hs2: null}
+    title: "Evans, Clement A. (ed.) - Confederate Military History (12 vols., 1899)"
+    tier: A
+    tier_detail: public domain | published 1899
+    license: {id: PD-pre-1931-proposed, statement_text: NOT_IN_COPYRIGHT (UC copy), statement_url: https://archive.org/details/confedmilhist01evanrich, verified_at: null, reviewer: null}
+    imprint: {year: 1899, publisher: "Atlanta: Confederate Publishing Co., 1899", reprint: false, ia_id: confedmilhist01evanrich}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: regimental_histories
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/confedmilhist01evanrich
+    hosts: [archive.org]
+    status: planned
+    wave: null
+    notes: "expected records: [object Object]; Heavily Lost Cause; 1899 popular history - lowest evidentiary weight in the catalog; tag 'secondary_period_advocacy'."
+  - id: small-state-reports
+    xref: {hs1: SRC-26, hs2: null}
+    title: "Smaller state/regiment commemorative reports: Vermont (1890), Maryland (1891), Illinois (1892), Indiana (1913), Rhode Island (1914), Virginia (1917), Ohio (1887), Connecticut (1884-87), Massachusetts monuments (Roe, 1910)"
+    tier: A
+    tier_detail: public domain | published 1884-1917
+    license: {id: PD-pre-1931-proposed, statement_text: LoC/IA statuses per item (NOT_IN_COPYRIGHT or 'unaware of any copyright restrictions'), statement_url: https://archive.org/details/vermontmonuments00verm, verified_at: null, reviewer: null}
+    imprint: {year: 1884, publisher: 1884-1917, reprint: false, ia_id: vermontmonuments00verm}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: state_monument_commission
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/vermontmonuments00verm
+    hosts: [archive.org]
+    status: planned
+    wave: null
+    notes: "expected records: [object Object]; Ohio (13 KB) and Rhode Island (55 KB) volumes are thin; Massachusetts has no dedicated Gettysburg commission book in IA title search (Roe covers all MA memorials)."
+  - id: gettysburg-address-mss
+    xref: {hs1: SRC-29, hs2: null}
+    title: "Gettysburg Address - five manuscript versions (Nicolay, Hay, Everett, Bancroft, Bliss) + Everett oration + contemporaneous reports"
+    tier: A
+    tier_detail: public domain | 1863-64 works of A. Lincoln
+    license: {id: PD-pre-1931-proposed, statement_text: Gutenberg license page; LoC exhibit pages state no reuse limits in the fetched summary, statement_url: https://www.gutenberg.org/policy/license.html, verified_at: null, reviewer: null}
+    imprint: {year: 1863, publisher: 1863-64, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: addresses_speeches
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://www.loc.gov/exhibits/gettysburg-address/
+    hosts: [exhibits.library.cornell.edu, gutenberg.org, loc.gov]
+    status: planned
+    wave: null
+    notes: "expected records: [object Object]; Fixed documents; only the 'which version is canonical' editorial choice matters."
+  - id: gutenberg-gettysburg
+    xref: {hs1: SRC-31, hs2: null}
+    title: Project Gutenberg - Gettysburg-related e-texts (Haskell #33121; Drake #49530; Storrick #50504; H.D. Longstreet #44459; Bond #57392; Doubleday #20762; Tilberg #56209; Lincoln #4)
+    tier: A
+    tier_detail: public domain in the U.S. (Gutenberg) | works published before 1931; PG license page
+    license: {id: PD-pre-1931-proposed, statement_text: eBook 'for the use of anyone anywhere in the United States and most other parts of the world at no cost and with almost no restrictions whatsoever' (from #33121 header), statement_url: https://www.gutenberg.org/policy/license.html, verified_at: null, reviewer: null}
+    imprint: {year: 1863, publisher: various 1863-1962 originals, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: clean_text_seed
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://www.gutenberg.org/ebooks/33121
+    hosts: [gutenberg.org]
+    status: planned
+    wave: null
+    notes: "expected records: [object Object]; Haskell (1863 letter, published 1908) is a classic; Doubleday (1882) is a partisan Union general's narrative; H.D. Longstreet (1904) is advocacy."
+  - id: wikimedia-commons-s1
+    xref: {hs1: SRC-32, hs2: null}
+    title: Wikimedia Commons - Gettysburg categories (secondary image source / cross-check)
+    tier: A-pending
+    tier_detail: varies per file (mostly PD-US) | per-file template
+    license: {id: PENDING-CONFIRMATION, statement_text: each file page carries its own license; only accept PD-Old/PD-US/PD-USGov/CC0/CC-BY(-SA with attribution), statement_url: https://commons.wikimedia.org/wiki/Commons:Licensing, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: n/a, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: false
+    may_redistribute: false
+    may_send_to_llm: false
+    genre: photographs
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://commons.wikimedia.org/wiki/Category:Battle_of_Gettysburg
+    hosts: [commons.wikimedia.org]
+    status: blocked-until-confirmed
+    wave: null
+    notes: "expected records: [object Object]; Captions are community-written; provenance varies."
+  - id: nps-history-elibrary
+    xref: {hs1: SRC-33, hs2: null}
+    title: "NPS History e-Library (npshistory.com) - Gettysburg administrative histories, Cultural Landscape Reports, Gettysburg Seminar Papers, 'National Park Civil War Series: The Battle of Gettysburg'"
+    tier: A-pending
+    tier_detail: "mixed: federal works are public domain; contractor/outside-author papers may be copyrighted | 17 U.S.C. 105"
+    license: {id: PENDING-CONFIRMATION, statement_text: NPS disclaimer page (fetched 206); verify authorship per PDF, statement_url: https://www.nps.gov/aboutus/disclaimer.htm, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: NPS 1930s-2010s, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: false
+    may_redistribute: false
+    may_send_to_llm: false
+    genre: nps_secondary
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://npshistory.com/publications/gett/index.htm
+    hosts: [npshistory.com]
+    status: blocked-until-confirmed
+    wave: null
+    notes: "expected records: [object Object]; Modern secondary literature - good for correcting Bachelder-era claims; use as 'interpretive', label accordingly."
+  - id: hathitrust-metadata
+    xref: {hs1: SRC-36, hs2: null}
+    title: HathiTrust Digital Library - use for metadata and rights verification only (not bulk text)
+    tier: A
+    tier_detail: rights codes per volume (pd = public domain worldwide/US) | HathiTrust rights determination
+    license: {id: PD-pre-1931-proposed, statement_text: rightsCode 'pd'; usRightsString 'Full view', statement_url: https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077699761.json, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: n/a, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: aggregator_metadata
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077699761.json
+    hosts: [babel.hathitrust.org, catalog.hathitrust.org, hathitrust.org]
+    status: planned
+    wave: null
+    notes: "expected records: [object Object]; Excellent as a provenance/rights oracle; not an ingestion source."
+  - id: confederate-veteran
+    xref: {hs1: SRC-34, hs2: null}
+    title: "Confederate Veteran (serial, 1893-1932) - adjacent source (candidate for hist-sources part 2)"
+    tier: A
+    tier_detail: public domain for issues published <= 1930 | publication date
+    license: {id: PD-pre-1931-proposed, statement_text: IA terms, statement_url: https://archive.org/details/confederateveter01conf, verified_at: null, reviewer: null}
+    imprint: {year: 1893, publisher: "Nashville, 1893-1932", reprint: false, ia_id: confederateveter01conf}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: participant_narratives
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/confederateveter01conf
+    hosts: [archive.org]
+    status: planned
+    wave: null
+    notes: "expected records: [object Object]; Lost Cause periodical; anecdotal."
+  - id: confederate-veteran-2
+    xref: {hs1: SRC-35, hs2: null}
+    title: Gardner's Photographic Sketch Book of the War (1866) - original captions
+    tier: A
+    tier_detail: public domain | 1866
+    license: {id: PD-pre-1931-proposed, statement_text: IA terms, statement_url: https://archive.org/details/GardnersPhotographicSketchBookOfTheWar, verified_at: null, reviewer: null}
+    imprint: {year: 1866, publisher: "1866", reprint: false, ia_id: GardnersPhotographicSketchBookOfTheWar}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: photographs
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://archive.org/details/GardnersPhotographicSketchBookOfTheWar
+    hosts: [archive.org]
+    status: planned
+    wave: null
+    notes: "expected records: [object Object]; Gardner's captions themselves contain errors (e.g., attribution of locations); use with correction notes."
+  - id: rumsey-maps
+    xref: {hs1: SRC-37, hs2: null}
+    title: "David Rumsey Map Collection (Stanford) - Gettysburg maps (Warren, Hotchkiss) - DISPLAY-ONLY, non-commercial license"
+    tier: C
+    tier_detail: NON-COMMERCIAL license on scans (CC BY-NC-SA 3.0 per about page; 2.0 on record page - inconsistent) | Rumsey terms
+    license: {id: RESTRICTED-LINK-OUT, statement_text: This work is licensed under a Creative Commons License (CC BY-NC-SA 3.0); non-commercial; credit required, statement_url: https://www.davidrumsey.com/about/copyright-and-permissions, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: n/a, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: false
+    may_redistribute: false
+    may_send_to_llm: false
+    genre: historic_maps
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: http://www.davidrumsey.com/maps1100223-26924.html
+    hosts: [davidrumsey.com]
+    status: link-out
+    wave: null
+    notes: "expected records: [object Object]; Luna site served an access-verification interstitial to my scripted fetch (page content unreadable)."
+  - id: ehistory-or-transcriptions
+    xref: {hs1: SRC-38, hs2: null}
+    title: eHistory (Ohio State) - Official Records transcriptions - NOT VERIFIED
+    tier: C
+    tier_detail: UNVERIFIED | site blocked
+    license: {id: RESTRICTED-LINK-OUT, statement_text: not retrievable, statement_url: https://ehistory.osu.edu/books/official-records, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: n/a, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: false
+    may_redistribute: false
+    may_send_to_llm: false
+    genre: official_records
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: accept}
+    archive_url: https://ehistory.osu.edu/books/official-records
+    hosts: [ehistory.osu.edu]
+    status: link-out
+    wave: null
+    notes: "expected records: [object Object];"
+  - id: nps-data-store-irma-gettysburg-cultural
+    xref: {hs1: null, hs2: SRC-01}
+    title: "NPS Data Store (IRMA): Gettysburg cultural landscape, history, and monument reports"
+    tier: B
+    tier_detail: "A (text) / B (embedded third-party figures: link, do not copy images) | US federal work: NPS 'Copyright and Public Domain' statement (disclaimer page): 'Copyright law does not protect any work of the U.S. Government'; material created by NPS 'generally considered in the public domain'; attribution 'appreciated'; BUT 'Not all mate…"
+    license: {id: ATTRIBUTION-OR-SHARE-ALIKE, statement_text: "US federal work: NPS 'Copyright and Public Domain' statement (disclaimer page): 'Copyright law does not protect any work of the U.S. Government'; material created by NPS 'generally considered in the public domain'; attribution 'appreciated'; BUT 'Not all materials ... are in the public domain. Some…", statement_url: https://www.nps.gov/aboutus/disclaimer.htm, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: "National Park Service (Olmsted Center for Landscape Preservation, NER, GNMP)", reprint: false, ia_id: null}
+    author_affiliation: NPS (federal employee vs contractor to be confirmed per document)
+    attribution: "Attribution required: see statement_text"
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: government-documents
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://irma.nps.gov/DataStore/
+    hosts: [irma.nps.gov, irmaservices.nps.gov, nps.gov]
+    status: planned
+    wave: null
+    notes: "170-270 MB PDFs: run OCR/extract in CI or locally; do not commit PDFs,Some Data Store items are not public (see items_not_publicly_downloadable)"
+  - id: nps-gis-packages-for-gettysburg-nmp
+    xref: {hs1: null, hs2: SRC-02}
+    title: "NPS GIS packages for Gettysburg NMP (tracts/boundary, geology, vegetation map, land cover)"
+    tier: A
+    tier_detail: A | Same NPS public-domain statement as SRC-01.
+    license: {id: PD-or-CC0-per-catalog, statement_text: Same NPS public-domain statement as SRC-01., statement_url: https://www.nps.gov/aboutus/disclaimer.htm, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: NPS Land Resources Division; NPS Geologic Resources Inventory; NPS Inventory & Monitoring, reprint: false, ia_id: null}
+    author_affiliation: NPS (federal employee vs contractor to be confirmed per document)
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: gis
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://irma.nps.gov/DataStore/DownloadFile/698026
+    hosts: [irma.nps.gov]
+    status: planned
+    wave: null
+    notes: Do not present modern vegetation as 1863 vegetation
+  - id: nps-public-national-arcgis-layers-roads
+    xref: {hs1: null, hs2: SRC-03}
+    title: "NPS public national ArcGIS layers (roads, trails, buildings, parking, POIs) filtered to GETT"
+    tier: A
+    tier_detail: A | NPS public data; dataset descriptions say features are 'appropriate for public sharing'; see NPS disclaimer.
+    license: {id: PD-or-CC0-per-catalog, statement_text: NPS public data; dataset descriptions say features are 'appropriate for public sharing'; see NPS disclaimer., statement_url: https://www.nps.gov/aboutus/disclaimer.htm, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: NPS National Geospatial Program, reprint: false, ia_id: null}
+    author_affiliation: NPS (federal employee vs contractor to be confirmed per document)
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: gis
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://mapservices.nps.gov/arcgis/rest/services/NationalDatasets/
+    hosts: [mapservices.nps.gov, public-nps.opendata.arcgis.com]
+    status: planned
+    wave: null
+    notes: Do not imply these are 1863 features
+  - id: nps-data-api-developer-nps-gov
+    xref: {hs1: null, hs2: SRC-04}
+    title: NPS Data API (developer.nps.gov)
+    tier: A
+    tier_detail: A | Content is NPS-authored (see disclaimer statement); the guide points to the Disclaimer page for reuse; no separate API license text found.
+    license: {id: PD-or-CC0-per-catalog, statement_text: Content is NPS-authored (see disclaimer statement); the guide points to the Disclaimer page for reuse; no separate API license text found., statement_url: https://www.nps.gov/aboutus/disclaimer.htm, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: NPS Digital Services, reprint: false, ia_id: null}
+    author_affiliation: NPS (federal employee vs contractor to be confirmed per document)
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: api
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://developer.nps.gov/api/v1/
+    hosts: [developer.nps.gov, nps.gov]
+    status: planned
+    wave: null
+    notes: "Registering a key is an account action for the site owner, not done here"
+  - id: nps-gettysburg-nmp-history-and-culture
+    xref: {hs1: null, hs2: SRC-05}
+    title: "NPS Gettysburg NMP 'History & Culture' web pages (orders of battle, commanders, civilians, places, monument pages)"
+    tier: B
+    tier_detail: "A (text) / B (images) | NPS statement (see SRC-01): NPS-created material generally public domain; embedded photos often credited to LoC or third parties."
+    license: {id: ATTRIBUTION-OR-SHARE-ALIKE, statement_text: "NPS statement (see SRC-01): NPS-created material generally public domain; embedded photos often credited to LoC or third parties.", statement_url: https://www.nps.gov/aboutus/disclaimer.htm, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: "Gettysburg National Military Park, NPS", reprint: false, ia_id: null}
+    author_affiliation: NPS (federal employee vs contractor to be confirmed per document)
+    attribution: "Attribution required: see statement_text"
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: government-web
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://www.nps.gov/gett/learn/historyculture/index.htm
+    hosts: [nps.gov]
+    status: planned
+    wave: null
+    notes: "HTML structure can change: pin retrieval date + hash"
+  - id: nps-civil-war-series-the-battle
+    xref: {hs1: null, hs2: SRC-06}
+    title: "NPS Civil War Series: The Battle of Gettysburg (handbook text, hosted on npshistory.com)"
+    tier: A
+    tier_detail: A | NPS-authored handbook (federal work); the mirrored page carries no rights statement; treat as public domain but cite NPS as author and npshistory.com as host.
+    license: {id: PD-or-CC0-per-catalog, statement_text: NPS-authored handbook (federal work); the mirrored page carries no rights statement; treat as public domain but cite NPS as author and npshistory.com as host., statement_url: https://www.nps.gov/aboutus/disclaimer.htm, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: National Park Service (handbook); hosted by npshistory.com (unofficial NPS history archive), reprint: false, ia_id: null}
+    author_affiliation: NPS (federal employee vs contractor to be confirmed per document)
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: government-documents
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://npshistory.com/publications/civil_war_series/16/sec20.htm
+    hosts: [npshistory.com]
+    status: planned
+    wave: null
+    notes: npshistory.com is a mirror; prefer nps.gov URL if the same text exists
+  - id: gettysburg-seminar-papers-nps-gnmp-symposium
+    xref: {hs1: null, hs2: SRC-07}
+    title: "Gettysburg Seminar Papers (NPS/GNMP symposium essays, 1995-2018)"
+    tier: C
+    tier_detail: C until verified | Index page states no reuse terms; essays are by outside scholars so copyright status is UNVERIFIED -> treat as link-out/quote-with-citation only.
+    license: {id: RESTRICTED-LINK-OUT, statement_text: Index page states no reuse terms; essays are by outside scholars so copyright status is UNVERIFIED -> treat as link-out/quote-with-citation only., statement_url: null, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: Gettysburg National Military Park (hosted at npshistory.com), reprint: false, ia_id: null}
+    author_affiliation: NPS (federal employee vs contractor to be confirmed per document)
+    attribution: null
+    may_index: false
+    may_redistribute: false
+    may_send_to_llm: false
+    genre: scholarship
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://npshistory.com/series/symposia/gettysburg_seminars/index.htm
+    hosts: [npshistory.com]
+    status: link-out
+    wave: null
+    notes: Do not ingest full text until rights are confirmed with GNMP
+  - id: cwsac-battle-summaries-gettysburg-pa002-and
+    xref: {hs1: null, hs2: SRC-08}
+    title: CWSAC battle summaries (Gettysburg = PA002) and CWSAC State Report Update (Pennsylvania)
+    tier: A
+    tier_detail: A | NPS federal work (see SRC-01).
+    license: {id: PD-or-CC0-per-catalog, statement_text: NPS federal work (see SRC-01)., statement_url: https://www.nps.gov/aboutus/disclaimer.htm, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: NPS American Battlefield Protection Program, reprint: false, ia_id: null}
+    author_affiliation: NPS (federal employee vs contractor to be confirmed per document)
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: government-web
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://www.nps.gov/civilwar/search-battles-detail.htm?battleCode=PA002
+    hosts: [nps.gov, npshistory.com]
+    status: planned
+    wave: null
+    notes: ""
+  - id: cwss-website
+    xref: {hs1: null, hs2: SRC-09}
+    title: NPS Civil War Soldiers and Sailors System (CWSS) website
+    tier: A
+    tier_detail: "A (federal) with a documentation caveat on the volunteer-compiled index | Page says: 'This database is no longer maintained and updated.' (verbatim, fetched 2026-09-30). No rights statement on the page; NPS-general statement applies. Records origin: ~6.3 million General Index Cards from NARA Compiled Military Service Records (cards…"
+    license: {id: PD-or-CC0-per-catalog, statement_text: "Page says: 'This database is no longer maintained and updated.' (verbatim, fetched 2026-09-30). No rights statement on the page; NPS-general statement applies. Records origin: ~6.3 million General Index Cards from NARA Compiled Military Service Records (cards created from the 1880s), ~3.5 million s…", statement_url: https://home.nps.gov/civilwar/soldiers-and-sailors-recordsorigin.htm, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: National Park Service, reprint: false, ia_id: null}
+    author_affiliation: NPS (federal employee vs contractor to be confirmed per document)
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: genealogy
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://www.nps.gov/civilwar/soldiers-and-sailors-database.htm
+    hosts: [home.nps.gov, nps.gov]
+    status: planned
+    wave: null
+    notes: "Site is unmaintained: it may vanish; keep own extract (SRC-10)"
+  - id: cwss-bulk-snapshot
+    xref: {hs1: null, hs2: SRC-10}
+    title: CWSS bulk data snapshot (jrnold-nps-cwss public S3 bucket; 'received by request from NPS')
+    tier: A-pending
+    tier_detail: "A-pending (legal confirmation) | No license file in the mirror repo (GitHub license=None). Upstream: NPS (federal) index of NARA cards (public records); NPS 'records origin' credits volunteers + GSU. Status of the compiled database as 'public domain' is NOT stated on the NPS page -> Phase-0 …"
+    license: {id: PENDING-CONFIRMATION, statement_text: "No license file in the mirror repo (GitHub license=None). Upstream: NPS (federal) index of NARA cards (public records); NPS 'records origin' credits volunteers + GSU. Status of the compiled database as 'public domain' is NOT stated on the NPS page -> Phase-0 task: obtain written confirmation from N…", statement_url: https://github.com/jrnold/cwss, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: "Jeffrey Arnold (mirror) of NPS data; README: 'Data ... received by request from the National Park Service'", reprint: false, ia_id: null}
+    author_affiliation: NPS (federal employee vs contractor to be confirmed per document)
+    attribution: null
+    may_index: false
+    may_redistribute: false
+    may_send_to_llm: false
+    genre: genealogy
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://raw.githubusercontent.com/jrnold/cwss/master/README.md
+    hosts: [jrnold-nps-cwss.s3.amazonaws.com, raw.githubusercontent.com]
+    status: blocked-until-confirmed
+    wave: rosters
+    notes: "Third-party mirror may disappear: archive needed slices in the owner's own storage,Rights confirmation pending,Do not ship 1.2 GB; only regiment shards (~6-12 MB brotli estimate)"
+  - id: american-civil-war-battle-data-compiled
+    xref: {hs1: null, hs2: SRC-11}
+    title: American Civil War Battle Data (compiled datasets incl. NPS/CWSAC/CWSS/Dyer/Fox/Phisterer)
+    tier: B
+    tier_detail: "B (CC BY 4.0 attribution) for the safe slices | figshare API: license 'CC BY 4.0'; README: documentation CC-BY 4.0, code BSD-3-Clause. CAUTION: the CC BY grant is the compiler's; upstream sources vary (NPS/Dyer/Fox/Phisterer/Livermore/Bodart are public domain; Clodfelter/Kennedy/Thorpe slices may carry ups…"
+    license: {id: ATTRIBUTION-OR-SHARE-ALIKE, statement_text: "figshare API: license 'CC BY 4.0'; README: documentation CC-BY 4.0, code BSD-3-Clause. CAUTION: the CC BY grant is the compiler's; upstream sources vary (NPS/Dyer/Fox/Phisterer/Livermore/Bodart are public domain; Clodfelter/Kennedy/Thorpe slices may carry upstream copyright) -> use only the NPS/CWS…", statement_url: https://api.figshare.com/v2/articles/1515995, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: Jeffrey B. Arnold (figshare 10.6084/m9.figshare.1515995 v14), reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: "Attribution required: see statement_text"
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: structured-dataset
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://api.figshare.com/v2/articles/1515995
+    hosts: [acw-battle-data.readthedocs.io, api.figshare.com, github.com]
+    status: planned
+    wave: null
+    notes: CC BY attribution required on /sources page
+  - id: nps-museum-collections-and-npgallery-images
+    xref: {hs1: null, hs2: SRC-12}
+    title: NPS Museum collections and NPGallery (images/objects)
+    tier: B
+    tier_detail: "B (item-level check) | NPS photos generally public domain with third-party exceptions (NPS statement, SRC-01); donor/copyright exceptions per item."
+    license: {id: ATTRIBUTION-OR-SHARE-ALIKE, statement_text: "NPS photos generally public domain with third-party exceptions (NPS statement, SRC-01); donor/copyright exceptions per item.", statement_url: https://www.nps.gov/aboutus/disclaimer.htm, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: NPS Museum Management Program / NPGallery, reprint: false, ia_id: null}
+    author_affiliation: NPS (federal employee vs contractor to be confirmed per document)
+    attribution: "Attribution required: see statement_text"
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: images
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://museum.nps.gov/
+    hosts: [museum.nps.gov, npgallery.nps.gov, nps.gov]
+    status: planned
+    wave: null
+    notes: Item rights
+  - id: nara-catalog-api-v2-finding-aids
+    xref: {hs1: null, hs2: SRC-13}
+    title: "NARA Catalog API v2 (finding aids, maps, records descriptions)"
+    tier: A
+    tier_detail: "A | README: 'NARA's archival metadata is all assumed to be in the public domain, as a work of the federal government, with only rare exceptions'; digital images generally public domain; check each record's 'Use Restrictions'."
+    license: {id: PD-or-CC0-per-catalog, statement_text: "README: 'NARA's archival metadata is all assumed to be in the public domain, as a work of the federal government, with only rare exceptions'; digital images generally public domain; check each record's 'Use Restrictions'.", statement_url: https://github.com/usnationalarchives/Catalog-API, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: US National Archives and Records Administration, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: api
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://catalog.archives.gov/api/v2/api-docs/
+    hosts: [archives.gov, catalog.archives.gov, raw.githubusercontent.com, unwritten-record.blogs.archives.gov]
+    status: planned
+    wave: null
+    notes: Key request is an account action for the owner
+  - id: fold3-ancestry
+    xref: {hs1: null, hs2: SRC-14}
+    title: NARA Compiled Military Service Records on Fold3 / Ancestry / Find a Grave / FamilySearch (commercial front-ends)
+    tier: C
+    tier_detail: "C (link-out only; NEVER ingest, scrape, or feed to any model) | Ancestry T&Cs (cover Ancestry, Newspapers.com, Find a Grave, Fold3): users agree 'Not to access, acquire, copy, or monitor any portion of the Services by any manual, automated, or programmatic method that exceeds the intended standard human use of the Service…"
+    license: {id: RESTRICTED-LINK-OUT, statement_text: "Ancestry T&Cs (cover Ancestry, Newspapers.com, Find a Grave, Fold3): users agree 'Not to access, acquire, copy, or monitor any portion of the Services by any manual, automated, or programmatic method that exceeds the intended standard human use of the Services; or to use any data or content from th…", statement_url: https://www.ancestry.com/c/legal/termsandconditions, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: "Ancestry.com family (Fold3, Find a Grave, Newspapers.com), FamilySearch", reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: false
+    may_redistribute: false
+    may_send_to_llm: false
+    genre: genealogy-commercial
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://www.ancestry.com/c/legal/termsandconditions
+    hosts: [ancestry.com, familysearch.org, findagrave.com, fold3.com]
+    status: link-out
+    wave: null
+    notes: Any automated access violates terms; also blocks future LLM training on this content
+  - id: library-of-congress-loc-gov-json
+    xref: {hs1: null, hs2: SRC-15}
+    title: "Library of Congress: loc.gov JSON API, Chronicling America, Maps, Prints & Photographs"
+    tier: A
+    tier_detail: "A (US public-domain items) - check Rights Advisory per item | Chronicling America item rights field (read directly): 'The Library of Congress believes that the newspapers in Chronicling America are in the public domain or have no known copyright restrictions.' Geography & Map items (read directly): 'free to use and reus…"
+    license: {id: PD-or-CC0-per-catalog, statement_text: "Chronicling America item rights field (read directly): 'The Library of Congress believes that the newspapers in Chronicling America are in the public domain or have no known copyright restrictions.' Geography & Map items (read directly): 'free to use and reuse unless a Rights Advisory statement is …", statement_url: https://www.loc.gov/legal/, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: Library of Congress, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: api+collections
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://www.loc.gov/apis/json-and-yaml/
+    hosts: [chroniclingamerica.loc.gov, loc.gov]
+    status: planned
+    wave: null
+    notes: "429 blocks last 1 hour: implement back-off,Bulk OCR tarballs are 175-770 MB per batch (not needed)"
+  - id: historic-maps-as-data-warren-survey
+    xref: {hs1: null, hs2: SRC-16}
+    title: "Historic maps as data: Warren survey (1868-69) via Bachelder 1876, Bachelder isometric 1863, GBMA 1894, Adams County 1858 (georeferencing project)"
+    tier: A
+    tier_detail: "A | Free to use and reuse unless Rights Advisory (see SRC-15 rights quote); credit 'Library of Congress, Geography and Map Division'."
+    license: {id: PD-or-CC0-per-catalog, statement_text: "Free to use and reuse unless Rights Advisory (see SRC-15 rights quote); credit 'Library of Congress, Geography and Map Division'.", statement_url: https://www.loc.gov/legal/, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: LoC Geography & Map Division (public domain scans); NARA RG 77 originals, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: historic-maps
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://www.loc.gov/item/lva0000067/
+    hosts: [loc.gov, unwritten-record.blogs.archives.gov]
+    status: planned
+    wave: null
+    notes: "Interpretation risk: keep 'traced from map, not surveyed' provenance on every feature"
+  - id: hathitrust-bibliographic-api-open-data-api
+    xref: {hs1: null, hs2: SRC-17}
+    title: HathiTrust (Bibliographic API open; Data API by key)
+    tier: B
+    tier_detail: "A/B item-level | Item-level (rightsCode e.g. 'ic', 'pd'); PD volumes downloadable per HathiTrust policy."
+    license: {id: ATTRIBUTION-OR-SHARE-ALIKE, statement_text: "Item-level (rightsCode e.g. 'ic', 'pd'); PD volumes downloadable per HathiTrust policy.", statement_url: null, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: HathiTrust, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: "Attribution required: see statement_text"
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: api
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://catalog.hathitrust.org/api/volumes/brief/oclc/424023.json
+    hosts: [babel.hathitrust.org, catalog.hathitrust.org]
+    status: planned
+    wave: null
+    notes: ""
+  - id: internet-archive-advanced-search-metadata-ocr
+    xref: {hs1: null, hs2: SRC-18}
+    title: "Internet Archive: Advanced Search, metadata, OCR text downloads, and full-text search (beta)"
+    tier: A
+    tier_detail: "A (original pre-1929 scans) | Item-level; pre-1929 US-published works are in the US public domain; IA items may carry licenseurl/possible-copyright-status metadata (e.g., newyorkatgettysb00foxw 'NOT_IN_COPYRIGHT'; Dyer Google-Books scan bub_gb_OBkNAQAAMAAJ carries licenseurl publicdomain/…"
+    license: {id: PD-or-CC0-per-catalog, statement_text: "Item-level; pre-1929 US-published works are in the US public domain; IA items may carry licenseurl/possible-copyright-status metadata (e.g., newyorkatgettysb00foxw 'NOT_IN_COPYRIGHT'; Dyer Google-Books scan bub_gb_OBkNAQAAMAAJ carries licenseurl publicdomain/mark/1.0). Post-1929 reprints (e.g., 195…", statement_url: https://archive.org/about/terms.php, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: Internet Archive, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: api+texts
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: "https://archive.org/advancedsearch.php?q=<query>&fl[]=identifier&rows=50&output=json"
+    hosts: [archive.org]
+    status: planned
+    wave: null
+    notes: Copyright status per item must be logged in the registry (edition year!)
+  - id: or27-s2
+    xref: {hs1: null, hs2: SRC-19}
+    title: "War of the Rebellion (Official Records), Series I, Volume 27 (Gettysburg Campaign), Parts 1-3"
+    tier: A
+    tier_detail: A | US government publication of 1889 (public domain); scans on IA carry no rights metadata in the items checked.
+    license: {id: PD-or-CC0-per-catalog, statement_text: US government publication of 1889 (public domain); scans on IA carry no rights metadata in the items checked., statement_url: https://archive.org/about/terms.php, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: US War Department (1889); scans on Internet Archive, reprint: false, ia_id: warofrebellion271unit}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: primary-source
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://archive.org/details/warofrebellion271unit
+    hosts: [archive.org]
+    status: planned
+    wave: null
+    notes: "Table OCR (returns) is poor: manual QA for returns pages"
+  - id: fox-s2
+    xref: {hs1: null, hs2: SRC-20}
+    title: "Fox, Regimental Losses in the American Civil War 1861-1865 (1889)"
+    tier: A
+    tier_detail: A | 1889 publication; public domain.
+    license: {id: PD-or-CC0-per-catalog, statement_text: 1889 publication; public domain., statement_url: null, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: William F. Fox; IA scan regimentallosses00infoxw, reprint: false, ia_id: regimentallosses00infoxw}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: statistics
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://archive.org/details/regimentallosses00infoxw
+    hosts: [archive.org]
+    status: planned
+    wave: null
+    notes: OCR of multi-column tables
+  - id: dyer-s2
+    xref: {hs1: null, hs2: SRC-21}
+    title: "Dyer, A Compendium of the War of the Rebellion (1908) - unit histories"
+    tier: A
+    tier_detail: A | 1908; public domain.
+    license: {id: PD-or-CC0-per-catalog, statement_text: 1908; public domain., statement_url: null, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: Frederick H. Dyer; IA/Google scans; also embedded in CWSS REG_HISTORY, reprint: false, ia_id: bub_gb_OBkNAQAAMAAJ}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: unit-histories
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://archive.org/details/bub_gb_OBkNAQAAMAAJ
+    hosts: [archive.org]
+    status: planned
+    wave: null
+    notes: ""
+  - id: state-at-gettysburg-volumes
+    xref: {hs1: null, hs2: SRC-22}
+    title: State-at-Gettysburg and monument-dedication volumes (regimental narratives) + Vanderslice + GBMA history
+    tier: A
+    tier_detail: A | Published 1889-1914; public domain (US).
+    license: {id: PD-or-CC0-per-catalog, statement_text: Published 1889-1914; public domain (US)., statement_url: null, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: State monument commissions (1889-1914); Vanderslice (1897/1899), reprint: false, ia_id: maineatgettysbur01main}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: secondary-pd
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://archive.org/details/maineatgettysbur01main
+    hosts: [archive.org]
+    status: planned
+    wave: null
+    notes: Do not use post-1929 reprints
+  - id: civilian-narratives
+    xref: {hs1: null, hs2: SRC-23}
+    title: "Civilian narratives and reporters (Pierce, Buehler, Hoke, Jacobs, Bates) + NPS 'Civilians at Gettysburg'"
+    tier: A
+    tier_detail: "A | Published 1864-1900: public domain; NPS article: NPS statement."
+    license: {id: PD-or-CC0-per-catalog, statement_text: "Published 1864-1900: public domain; NPS article: NPS statement.", statement_url: null, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: Various authors 1864-1900 (IA scans); NPS article, reprint: false, ia_id: atgettysburgorwh00alle}
+    author_affiliation: NPS (federal employee vs contractor to be confirmed per document)
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: primary-source
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://archive.org/details/atgettysburgorwh00alle
+    hosts: [archive.org, nps.gov]
+    status: planned
+    wave: W5
+    notes: "Gettysburg College / ACHS diaries and letters are separate (SRC-30): Tier C"
+  - id: jacobs-weather-1863
+    xref: {hs1: null, hs2: SRC-24}
+    title: July 1863 weather at Gettysburg (Prof. Michael Jacobs meteorological observations)
+    tier: C
+    tier_detail: "A (primary) / C (blog summaries) | 1864 publication: public domain; the summaries are copyrighted (do not copy, link only)."
+    license: {id: RESTRICTED-LINK-OUT, statement_text: "1864 publication: public domain; the summaries are copyrighted (do not copy, link only).", statement_url: null, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: "M. Jacobs, Pennsylvania College (1864 'Notes on the Rebel invasion...'); summaries by Emerging Civil War / CivilWarTalk", reprint: false, ia_id: notesonrebelinv00jacogoog}
+    author_affiliation: null
+    attribution: null
+    may_index: false
+    may_redistribute: false
+    may_send_to_llm: false
+    genre: primary-source
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://archive.org/details/notesonrebelinv00jacogoog
+    hosts: [archive.org, emergingcivilwar.com]
+    status: link-out
+    wave: W5
+    notes: Do not ship the secondary-summary numbers unverified
+  - id: soldiers-national-cemetery-reports
+    xref: {hs1: null, hs2: SRC-25}
+    title: "Soldiers' National Cemetery reports (1864, revised 1865): burial lists with names, regiments, companies"
+    tier: A
+    tier_detail: "A | 1864-65 publications: public domain."
+    license: {id: PD-or-CC0-per-catalog, statement_text: "1864-65 publications: public domain.", statement_url: null, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: Pennsylvania Select Committee / Soldiers' National Cemetery Association (1864-65); IA scans, reprint: false, ia_id: revisedreportofs01penn}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: true
+    genre: primary-source
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://archive.org/details/revisedreportofs01penn
+    hosts: [archive.org]
+    status: planned
+    wave: null
+    notes: "OCR of tabular names: manual QA"
+  - id: medical-medical-and-surgical-history-of
+    xref: {hs1: null, hs2: SRC-26}
+    title: "Medical: Medical and Surgical History of the War of the Rebellion; Camp Letterman information"
+    tier: C
+    tier_detail: "A / C | 1870s publication: public domain; NMCWM article copyrighted (link only)."
+    license: {id: RESTRICTED-LINK-OUT, statement_text: "1870s publication: public domain; NMCWM article copyrighted (link only).", statement_url: null, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: US Surgeon General's Office (1870-1888); IA scans; NMCWM (article), reprint: false, ia_id: medicalsurgical32barnrich}
+    author_affiliation: null
+    attribution: null
+    may_index: false
+    may_redistribute: false
+    may_send_to_llm: false
+    genre: primary-source
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://archive.org/details/medicalsurgical32barnrich
+    hosts: [archive.org, civilwarmed.org]
+    status: link-out
+    wave: null
+    notes: "Sensitive content: age-appropriate framing"
+  - id: 1860-census-agriculture-of-the-united
+    xref: {hs1: null, hs2: SRC-27}
+    title: "1860 Census: Agriculture of the United States in 1860 (Kennedy, 1864) and Population volume; NHGIS alternative"
+    tier: C
+    tier_detail: "A (Census PDF) / C (NHGIS) | Census Bureau publications are US government works (public domain). NHGIS (search snippet, terms page URL verified 200): 'you will not redistribute the data without permission' -> DO NOT ship NHGIS extracts."
+    license: {id: RESTRICTED-LINK-OUT, statement_text: "Census Bureau publications are US government works (public domain). NHGIS (search snippet, terms page URL verified 200): 'you will not redistribute the data without permission' -> DO NOT ship NHGIS extracts.", statement_url: https://www.nhgis.org/ipums-nhgis-terms-use, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: US Census Bureau (PD); IPUMS NHGIS (restricted redistribution), reprint: false, ia_id: cu31924096440932}
+    author_affiliation: null
+    attribution: null
+    may_index: false
+    may_redistribute: false
+    may_send_to_llm: false
+    genre: statistics
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://archive.org/details/cu31924096440932
+    hosts: [archive.org, census.gov, nhgis.org, www2.census.gov]
+    status: link-out
+    wave: null
+    notes: Never let the Historian imply farm-level data from county totals
+  - id: civil-war-damage-claims-adams-county
+    xref: {hs1: null, hs2: SRC-28}
+    title: Civil War damage claims (Adams County) - PA State Archives claim volumes; ACHS Damage Claims Index; NPS narrative examples
+    tier: C
+    tier_detail: "C for ACHS index; A for state archive originals after verification | State archive records are public records (rights not checked); ACHS page: 'Reproduction of any of the materials found below is prohibited without the express permission of Gettysburg History.' (read directly)."
+    license: {id: RESTRICTED-LINK-OUT, statement_text: "State archive records are public records (rights not checked); ACHS page: 'Reproduction of any of the materials found below is prohibited without the express permission of Gettysburg History.' (read directly).", statement_url: https://gettysburghistory.org/research/, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: Pennsylvania State Archives; Adams County Historical Society (Gettysburg History); NPS, reprint: false, ia_id: null}
+    author_affiliation: NPS (federal employee vs contractor to be confirmed per document)
+    attribution: null
+    may_index: false
+    may_redistribute: false
+    may_send_to_llm: false
+    genre: primary-source
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://npshistory.com/publications/civil_war_series/16/sec20.htm
+    hosts: [gettysburghistory.org, npshistory.com]
+    status: link-out
+    wave: null
+    notes: "Permission needed for ACHS; private-individual descendants: names are 1860s people (low sensitivity)"
+  - id: usgs-3dep
+    xref: {hs1: null, hs2: SRC-29}
+    title: "USGS 3DEP elevation (1 m DEM, lidar point cloud, 1/9 and 1/3 arc-second) via TNM Access API"
+    tier: A
+    tier_detail: "A | 'USGS-authored or produced data and information are considered to be in the U.S. Public Domain.' Credit requested: 'U.S. Geological Survey' / 'Department of the Interior/USGS' (fetch-summarizer)."
+    license: {id: PD-or-CC0-per-catalog, statement_text: "'USGS-authored or produced data and information are considered to be in the U.S. Public Domain.' Credit requested: 'U.S. Geological Survey' / 'Department of the Interior/USGS' (fetch-summarizer).", statement_url: https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: US Geological Survey, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: terrain
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://tnmaccess.nationalmap.gov/api/v1/products?datasets=Digital%20Elevation%20Model%20(DEM
+    hosts: [prd-tnm.s3.amazonaws.com, tnmaccess.nationalmap.gov, usgs.gov]
+    status: planned
+    wave: null
+    notes: "Large source downloads (1.9 GB): do in CI/local only, not committed"
+  - id: usgs-topo
+    xref: {hs1: null, hs2: SRC-30}
+    title: "USGS Historical Topographic Maps: Gettysburg quadrangles (1908, 1942, 1944, 1951, 1990, 1994)"
+    tier: A
+    tier_detail: "A | USGS public domain (see SRC-29), credit USGS."
+    license: {id: PD-or-CC0-per-catalog, statement_text: "USGS public domain (see SRC-29), credit USGS.", statement_url: https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: USGS TNM Historical Topographic Map Collection, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: historic-maps
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: "https://tnmaccess.nationalmap.gov/api/v1/products?datasets=Historical%20Topographic%20Maps&bbox=-77.26,39.80,-77.20,39.83&outputFormat=JSON"
+    hosts: [tnmaccess.nationalmap.gov]
+    status: planned
+    wave: null
+    notes: ""
+  - id: mapbox-terrain-dem
+    xref: {hs1: null, hs2: SRC-31}
+    title: "Mapbox Terrain-DEM v1 (in-SDK elevation, no export)"
+    tier: B
+    tier_detail: "B (in-SDK use only) | Doc: 'Available in Mapbox SDK's only' (GL JS, iOS, Android, Flutter); not available via the Raster Tiles API; multiple source datasets by location/zoom; attribution required. Do NOT download/cache tiles as files."
+    license: {id: ATTRIBUTION-OR-SHARE-ALIKE, statement_text: "Doc: 'Available in Mapbox SDK's only' (GL JS, iOS, Android, Flutter); not available via the Raster Tiles API; multiple source datasets by location/zoom; attribution required. Do NOT download/cache tiles as files.", statement_url: https://docs.mapbox.com/data/tilesets/reference/mapbox-terrain-dem-v1/, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: Mapbox, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: "Attribution required: see statement_text"
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: terrain
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://docs.mapbox.com/data/tilesets/reference/mapbox-terrain-dem-v1/
+    hosts: [docs.mapbox.com, mapbox.com]
+    status: planned
+    wave: null
+    notes: "Cinematic Export/recording of Mapbox tiles: check Mapbox product terms before promoting exports (open question)"
+  - id: pasda-adams-county-gis-parcels-lidar
+    xref: {hs1: null, hs2: SRC-32}
+    title: "PASDA / Adams County GIS (parcels, lidar/imagery indexes) and historic aerials"
+    tier: B
+    tier_detail: "B (verify) + privacy rule | PASDA: 'Standard PSU legal statements and copyright information apply' (no license text seen). Parcel attributes contain CURRENT owner names/addresses: privacy risk -> strip attributes."
+    license: {id: ATTRIBUTION-OR-SHARE-ALIKE, statement_text: "PASDA: 'Standard PSU legal statements and copyright information apply' (no license text seen). Parcel attributes contain CURRENT owner names/addresses: privacy risk -> strip attributes.", statement_url: https://www.pasda.psu.edu/, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: Pennsylvania Spatial Data Access (Penn State); Adams County GIS Hub, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: "Attribution required: see statement_text"
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: gis
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://www.pasda.psu.edu/
+    hosts: [gis-hub-adamsgis.hub.arcgis.com, pa-geo-data-pennmap.hub.arcgis.com, pasda.psu.edu]
+    status: planned
+    wave: null
+    notes: Do not publish private owner info
+  - id: smithsonian-open-access-nmah-npg-etc
+    xref: {hs1: null, hs2: SRC-33}
+    title: Smithsonian Open Access (NMAH/NPG etc.) - CC0 images and metadata
+    tier: A
+    tier_detail: A (CC0 rows only) | Sampled records show metadata_usage.access = 'CC0'.
+    license: {id: PD-or-CC0-per-catalog, statement_text: Sampled records show metadata_usage.access = 'CC0'., statement_url: https://www.si.edu/openaccess, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: Smithsonian Institution, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: images
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://api.si.edu/openaccess/api/v1.0/search?q=gettysburg&api_key=<key>
+    hosts: [api.si.edu, si.edu]
+    status: planned
+    wave: null
+    notes: Filter to CC0 only
+  - id: wikipedia
+    xref: {hs1: null, hs2: SRC-34}
+    title: "Wikipedia (English) - battle articles, orders of battle, commander biographies"
+    tier: B
+    tier_detail: "B (CC BY-SA 4.0 - attribution + share-alike on adaptations) | Text: CC BY-SA 4.0 (and GFDL for older text) per Terms of Use section 7. Reuse page (fetch-summarizer): attribute by hyperlink to the article, or a stable copy, or an author list; 'If you make modifications or additions ... you must license them under the Cre…"
+    license: {id: ATTRIBUTION-OR-SHARE-ALIKE, statement_text: "Text: CC BY-SA 4.0 (and GFDL for older text) per Terms of Use section 7. Reuse page (fetch-summarizer): attribute by hyperlink to the article, or a stable copy, or an author list; 'If you make modifications or additions ... you must license them under the Creative Commons Attribution-Share-Alike Li…", statement_url: https://en.wikipedia.org/wiki/Wikipedia:Reusing_Wikipedia_content, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: Wikimedia Foundation / volunteer editors, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: "Source: Wikipedia, \"<title>\", revision <revid>, CC BY-SA 4.0. Excerpted/condensed."
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: encyclopedia
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://en.wikipedia.org/wiki/Battle_of_Gettysburg
+    hosts: [en.wikipedia.org, foundation.wikimedia.org, mediawiki.org]
+    status: planned
+    wave: W6
+    notes: "ShareAlike contagion if blended: keep separation,429 blocks: identify client and cache"
+  - id: wikidata
+    xref: {hs1: null, hs2: SRC-35}
+    title: Wikidata (CC0) - identifiers and enrichment
+    tier: A
+    tier_detail: "A (structured data) | 'All structured data (i.e. the main, Property, Lexeme, and EntitySchema namespaces) is released into the public domain under Creative Commons Zero.' Text in other namespaces: CC BY-SA 4.0 (fetch-summarizer)."
+    license: {id: PD-or-CC0-per-catalog, statement_text: "'All structured data (i.e. the main, Property, Lexeme, and EntitySchema namespaces) is released into the public domain under Creative Commons Zero.' Text in other namespaces: CC BY-SA 4.0 (fetch-summarizer).", statement_url: https://www.wikidata.org/wiki/Wikidata:Licensing, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: Wikimedia Foundation, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: linked-data
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://www.wikidata.org/wiki/Q33132
+    hosts: [query.wikidata.org, wikidata.org]
+    status: planned
+    wave: W6
+    notes: ""
+  - id: wikimedia-commons
+    xref: {hs1: null, hs2: SRC-36}
+    title: "Wikimedia Commons - Gettysburg photographs, maps, monuments/tablets"
+    tier: B
+    tier_detail: "A/B per file (build-time allowlist) | Per-file: PD-USGov, PD-old, CC0, CC BY, CC BY-SA and others; 'It is the responsibility of the reuser to determine how a license applies' (Wikipedia reuse page)."
+    license: {id: ATTRIBUTION-OR-SHARE-ALIKE, statement_text: "Per-file: PD-USGov, PD-old, CC0, CC BY, CC BY-SA and others; 'It is the responsibility of the reuser to determine how a license applies' (Wikipedia reuse page).", statement_url: https://en.wikipedia.org/wiki/Wikipedia:Reusing_Wikipedia_content, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: Wikimedia Commons contributors, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: "Attribution required: see statement_text"
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: images
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://commons.wikimedia.org/wiki/Category:Gettysburg_National_Military_Park
+    hosts: [commons.wikimedia.org]
+    status: planned
+    wave: W6
+    notes: Attribution strings for CC BY/CC BY-SA files must appear next to each image
+  - id: wikisource-transcribed-texts-cyclopedias-shsp-items
+    xref: {hs1: null, hs2: SRC-37}
+    title: "Wikisource (transcribed texts: cyclopedias, SHSP items, court case)"
+    tier: B
+    tier_detail: A/B per page | Hosted transcriptions of public-domain works; page-level license templates vary (verify per page).
+    license: {id: ATTRIBUTION-OR-SHARE-ALIKE, statement_text: Hosted transcriptions of public-domain works; page-level license templates vary (verify per page)., statement_url: https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: Wikimedia Foundation, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: "Attribution required: see statement_text"
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: texts
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://en.wikisource.org/w/api.php?action=query&list=search&srsearch=Gettysburg&format=json
+    hosts: [en.wikisource.org]
+    status: planned
+    wave: null
+    notes: ""
+  - id: openstreetmap
+    xref: {hs1: null, hs2: SRC-38}
+    title: "OpenStreetMap - monuments, memorials, tablets, cannon positions in the battlefield bbox"
+    tier: B
+    tier_detail: "B (ODbL: attribution + share-alike for derived DATABASE) | ODbL 1.0: 'OpenStreetMap is open data, licensed under the Open Data Commons Open Database License (ODbL)'; 'You are free to copy, distribute, transmit and adapt our data, as long as you credit OpenStreetMap and its contributors.' 'If you alter or build upon o…"
+    license: {id: ATTRIBUTION-OR-SHARE-ALIKE, statement_text: "ODbL 1.0: 'OpenStreetMap is open data, licensed under the Open Data Commons Open Database License (ODbL)'; 'You are free to copy, distribute, transmit and adapt our data, as long as you credit OpenStreetMap and its contributors.' 'If you alter or build upon our data, you may distribute the result o…", statement_url: https://www.openstreetmap.org/copyright, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: OpenStreetMap contributors, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: "© OpenStreetMap contributors, ODbL 1.0"
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: geodata
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://overpass-api.de/api/interpreter
+    hosts: [openstreetmap.org, overpass-api.de]
+    status: planned
+    wave: W6
+    notes: "Share-alike scope,Do not overwrite site data with OSM: treat as candidates + validate against SRC-01 1907 book"
+  - id: hmdb
+    xref: {hs1: null, hs2: SRC-39}
+    title: Historical Marker Database (HMDB)
+    tier: C
+    tier_detail: "C for bulk ingestion until written permission; A for deep links | Copyright page (read directly): '1. You may make copies of the pages, information and most images on this site without requesting permission if you follow the requirement set forth in the second paragraph ... 2. ... you must attribute what you copy to HMdb.or…"
+    license: {id: RESTRICTED-LINK-OUT, statement_text: "Copyright page (read directly): '1. You may make copies of the pages, information and most images on this site without requesting permission if you follow the requirement set forth in the second paragraph ... 2. ... you must attribute what you copy to HMdb.org ... 3. You may not use content from th…", statement_url: https://www.hmdb.org/copyright.asp, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: HMdb.org LLC, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: false
+    may_redistribute: false
+    may_send_to_llm: false
+    genre: crowd-database
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://www.hmdb.org/copyright.asp
+    hosts: [hmdb.org]
+    status: link-out
+    wave: null
+    notes: Broad non-commercial clause
+  - id: american-battlefield-trust
+    xref: {hs1: null, hs2: SRC-40}
+    title: American Battlefield Trust (ABT)
+    tier: C
+    tier_detail: "C (link-out only; explicit AI/scraping ban) | Terms of Service (fetch-summarizer quotes): content 'proprietary property of American Battlefield Trust or our licensors or users'; 'limited, nonexclusive, nontransferable, nonsublicensable license ... for your own personal use'; prohibited: 'sell, resell or …"
+    license: {id: RESTRICTED-LINK-OUT, statement_text: "Terms of Service (fetch-summarizer quotes): content 'proprietary property of American Battlefield Trust or our licensors or users'; 'limited, nonexclusive, nontransferable, nonsublicensable license ... for your own personal use'; prohibited: 'sell, resell or use commercially', 'data mining, robots …", statement_url: https://www.battlefields.org/about/accountability/terms-service, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: American Battlefield Trust, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: false
+    may_redistribute: false
+    may_send_to_llm: false
+    genre: advocacy-site
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://www.battlefields.org/about/accountability/terms-service
+    hosts: [battlefields.org]
+    status: link-out
+    wave: null
+    notes: Any ingestion breaches ToS
+  - id: stone-sentinels
+    xref: {hs1: null, hs2: SRC-41}
+    title: Stone Sentinels (gettysburg.stonesentinels.com) and companion sites; Emerging Civil War; Gettysburg Compiler; Gettysburg Daily
+    tier: C
+    tier_detail: C (link-out only) | Copyright reserved by the authors ('(c)2026 Steve A. Hawks' is the only statement on the Stone Sentinels home page). No reuse license found.
+    license: {id: RESTRICTED-LINK-OUT, statement_text: Copyright reserved by the authors ('(c)2026 Steve A. Hawks' is the only statement on the Stone Sentinels home page). No reuse license found., statement_url: https://gettysburg.stonesentinels.com/, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: "Steve A. Hawks (Stone Sentinels: '(c)2026 Steve A. Hawks'); Emerging Civil War; Gettysburg College students; Gettysburg…", reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: false
+    may_redistribute: false
+    may_send_to_llm: false
+    genre: enthusiast-sites
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://gettysburg.stonesentinels.com/
+    hosts: [emergingcivilwar.com, gettysburg.stonesentinels.com, gettysburgcompiler.org, gettysburgdaily.com]
+    status: link-out
+    wave: null
+    notes: ""
+  - id: gettysburg-college-achs
+    xref: {hs1: null, hs2: SRC-42}
+    title: "Gettysburg College Special Collections (GettDigital, Cupola), Adams County Historical Society (Gettysburg History), Gettysburg Foundation"
+    tier: C
+    tier_detail: "C until permission (outbound links) | ACHS (read directly): 'Reproduction of any of the materials found below is prohibited without the express permission of Gettysburg History.' GettDigital: item-level Copyright/Terms pages exist in the footer (not read)."
+    license: {id: RESTRICTED-LINK-OUT, statement_text: "ACHS (read directly): 'Reproduction of any of the materials found below is prohibited without the express permission of Gettysburg History.' GettDigital: item-level Copyright/Terms pages exist in the footer (not read).", statement_url: https://gettysburghistory.org/research/, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: Musselman Library; Gettysburg History (ACHS); Gettysburg Foundation, reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: false
+    may_redistribute: false
+    may_send_to_llm: false
+    genre: local-archives
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://gettdigital.gettysburg.edu/
+    hosts: [cupola.gettysburg.edu, gettdigital.gettysburg.edu, gettysburg.edu, gettysburgfoundation.org, gettysburghistory.org]
+    status: link-out
+    wave: null
+    notes: Do not scrape GettDigital
+  - id: prisoner-of-war-and-hospital-records
+    xref: {hs1: null, hs2: SRC-43}
+    title: Prisoner-of-war and hospital records related to Gettysburg (Fort McHenry table in CWSS; Fort Delaware Society; NARA registers)
+    tier: C
+    tier_detail: A-pending (SRC-10) / C (Fort Delaware DB) | CWSS-derived (SRC-10 caveats). Fort Delaware Society answers individual queries by email (no bulk terms known). NARA registers viewable free at NARA facilities.
+    license: {id: RESTRICTED-LINK-OUT, statement_text: CWSS-derived (SRC-10 caveats). Fort Delaware Society answers individual queries by email (no bulk terms known). NARA registers viewable free at NARA facilities., statement_url: null, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: "NPS CWSS (mirror), Fort Delaware Society, NARA, FamilySearch", reprint: false, ia_id: null}
+    author_affiliation: NPS (federal employee vs contractor to be confirmed per document)
+    attribution: null
+    may_index: false
+    may_redistribute: false
+    may_send_to_llm: false
+    genre: records
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://jrnold-nps-cwss.s3.amazonaws.com/new/tsv/Prisoners_FtMcHenry.tsv
+    hosts: [fortdelaware.org, jrnold-nps-cwss.s3.amazonaws.com]
+    status: link-out
+    wave: null
+    notes: "Sensitive: present neutrally"
+  - id: ut-austin-or-corpus
+    xref: {hs1: null, hs2: SRC-44}
+    title: "WarOfTheRebellion annotated corpus (University of Texas at Austin, MIT)"
+    tier: B
+    tier_detail: "A/B (MIT: keep notice) | MIT License, (c) 2016 University of Texas at Austin (LICENSE file read directly) - permits use/copy/modify/publish."
+    license: {id: ATTRIBUTION-OR-SHARE-ALIKE, statement_text: "MIT License, (c) 2016 University of Texas at Austin (LICENSE file read directly) - permits use/copy/modify/publish.", statement_url: https://github.com/utcompling/WarOfTheRebellion, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: UT Austin (Grant DeLozier et al.; GeoAnnotate), reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: "Attribution required: see statement_text"
+    may_index: true
+    may_redistribute: true
+    may_send_to_llm: false
+    genre: nlp-corpus
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://github.com/utcompling/WarOfTheRebellion
+    hosts: [github.com]
+    status: planned
+    wave: null
+    notes: ""
+  - id: freesound-and-other-audio-cannon-ambience
+    xref: {hs1: null, hs2: SRC-46}
+    title: Freesound and other audio (cannon/ambience) - media rights
+    tier: C
+    tier_detail: "A (CC0) / B (CC BY) / C (CC BY-NC) | Freesound (fetch-summarizer): CC0 (do 'pretty much what you want ... could even sell'), CC BY (credit creators), CC BY-NC (no earning money; commercial use prohibited), Sampling+ (retired)."
+    license: {id: RESTRICTED-LINK-OUT, statement_text: "Freesound (fetch-summarizer): CC0 (do 'pretty much what you want ... could even sell'), CC BY (credit creators), CC BY-NC (no earning money; commercial use prohibited), Sampling+ (retired).", statement_url: https://freesound.org/help/faq/, verified_at: null, reviewer: null}
+    imprint: {year: null, publisher: "Freesound (Music Technology Group, UPF)", reprint: false, ia_id: null}
+    author_affiliation: null
+    attribution: null
+    may_index: false
+    may_redistribute: false
+    may_send_to_llm: false
+    genre: audio
+    scope_default: core
+    ocr: {engine: null, proxy: null, gate: n/a}
+    archive_url: https://freesound.org/help/faq/
+    hosts: [freesound.org]
+    status: link-out
+    wave: null
+    notes: ""

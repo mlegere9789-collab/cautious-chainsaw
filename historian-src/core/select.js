@@ -34,6 +34,7 @@ export function bestWindow(kb, p, ctx, { maxWords = 90, maxSents = 3 } = {}) {
     let ent = false;
     for (const t of toks) if (ctx.entStems.has(t)) { ent = true; break; }
     if (ent) sc += 4;
+    if (text.length > 6 && text === text.toUpperCase() && /[A-Z]/.test(text)) sc -= 3; // an ALL-CAPS heading is a label, not a statement
     const clk = CLOCK_RE.test(text);
     if (clk) sc += ctx.timeQ ? 3 : -1.5;
     if (ctx.quoteQ) sc += /["\u201c\u201d]/.test(text) ? 4 : -1;
@@ -55,7 +56,7 @@ export function bestWindow(kb, p, ctx, { maxWords = 90, maxSents = 3 } = {}) {
 }
 
 /** Choose up to `max` quotes from ranked passages [{p, score}] (distinct records first). Returns quote blocks. */
-export function selectQuotes(kb, ranked, ctx, { max = 2, skip = new Set(), minScore = 0.5, sameRec = false } = {}) {
+export function selectQuotes(kb, ranked, ctx, { max = 2, skip = new Set(), minScore = 0.5, sameRec = false, maxWords = 90, maxSents = 3 } = {}) {
   const out = [];
   const seenRec = new Set();
   let first = null;
@@ -63,7 +64,7 @@ export function selectQuotes(kb, ranked, ctx, { max = 2, skip = new Set(), minSc
     if (out.length >= max) break;
     if (skip.has(p.id)) continue;
     if (!sameRec && seenRec.has(p.rec)) continue;
-    const w = bestWindow(kb, p, ctx);
+    const w = bestWindow(kb, p, ctx, { maxWords, maxSents });
     if (!w || w.score < minScore) continue;
     // later quotes must be at least 35% as relevant as the first (no filler)
     if (first !== null && w.score < 0.35 * first) continue;

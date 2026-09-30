@@ -71,7 +71,7 @@ export function buildFacts(site, reg, scopeCfg) {
   // ---- scope, unknowns, routes ------------------------------------------------------------------------------------------------------------
   const facts = {
     schema: 1, rank, rollup, succ, events,
-    scope: scopeCfg.scope_out, unknowns: scopeCfg.unknowns, routes: scopeCfg.routes, domain: scopeCfg.domain_terms, premises: scopeCfg.premises,
+    scope: scopeCfg.scope_out, unknowns: scopeCfg.unknowns, routes: scopeCfg.routes, domain: scopeCfg.domain_terms, premises: scopeCfg.premises, outcome: scopeCfg.outcome, glossary: scopeCfg.glossary,
     authority: {
       U: { site: 'the site’s order of battle', ...rollup.armyVsCorps.U },
       C: { site: 'the site’s order of battle', ...rollup.armyVsCorps.C },

@@ -68,12 +68,12 @@ export function buildPassages(site, reg, { bundle = null, stats = {} } = {}) {
     const subjects = [ev.id, ...(e.attrs.units || [])];
     if (text) P.push(mkPassage({
       doc: `site-records:${ev.id}`, rec: ev.id, seq: 0, kind: 'chronicle', text, day: ev.day, prior: 1.0, subjects,
-      cite: { short: `Site chronology entry “${e.title}”, Day ${ev.day}`, author_line: 'Ask the Historian site records (chronology)' },
+      cite: { short: `Site chronology, Day ${ev.day}${ev.location ? ` (${cleanShort(ev.location, CP)})` : ''}`, author_line: 'Ask the Historian site records (chronology)' },
     }));
     const nar = cleanProse(ev.narrative, CP);
     if (nar) P.push(mkPassage({
       doc: `site-records:${ev.id}`, rec: ev.id, seq: 1, kind: 'commentary', text: nar, day: ev.day, prior: 0.8, subjects,
-      cite: { short: `Site chronology commentary on “${e.title}”, Day ${ev.day}`, author_line: 'Ask the Historian site records (chronology commentary)' },
+      cite: { short: `Site chronology commentary, Day ${ev.day}`, author_line: 'Ask the Historian site records (chronology commentary)' },
     }));
   }
   // ---- successions: the record's own words plus the site's cited source -----------------------------------------------------------------

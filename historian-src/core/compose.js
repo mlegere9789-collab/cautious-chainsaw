@@ -193,8 +193,8 @@ export function successionAnswer(kb, S, opts = {}) {
     const cause = { KIA: 'was killed in action', MW: 'was mortally wounded', WIA: 'was wounded', SICK: 'fell ill', REL: 'was relieved' }[a.cause];
     const runs = [];
     if (a.to && a.from) {
-      if (opts.relieved) runs.push(`${personLabel(a.fromRank, a.from)} ${cause || 'left command'}${unit ? ` while commanding ${unit.label}` : ''}; ${personLabel(a.toRank, a.to)} took over.`);
-      else runs.push(`${personLabel(a.toRank, a.to)} took over`, unit ? ` ${unit.label}` : '', ` after ${personLabel(a.fromRank, a.from)}`, cause ? ` ${cause}` : (a.cause ? ` (${a.cause})` : ''), '.');
+      if (opts.relieved) runs.push(`${personLabel(a.fromRank, a.from)} ${cause || 'left command'}${unit ? ` while commanding ${withThe(unit.label)}` : ''}; ${personLabel(a.toRank, a.to)} took over.`);
+      else runs.push(`${personLabel(a.toRank, a.to)} took over`, unit ? ` ${withThe(unit.label)}` : '', ` after ${personLabel(a.fromRank, a.from)}`, cause ? ` ${cause}` : (a.cause ? ` (${a.cause})` : ''), '.');
       if (a.when) runs.push(` The record gives the time as ${a.when}.`);
     } else runs.push(ent(s, endSent(s.title)));
     if (a.notes) runs.push(' ', endSent(a.notes));
@@ -410,12 +410,12 @@ export function battleTotals(kb, S, { which = 'both', clarify = false } = {}) {
 // outcome
 // ---------------------------------------------------------------------------------------------------------------------------------------
 export function outcomeAnswer(kb, S, premise) {
-  const end = kb.idx.get('D3T675');
-  if (!end) return null;
+  const row = kb.facts.outcome;
+  if (!row) return null;
   const blocks = [];
   if (premise) blocks.push(lead([premise], ['ARMY:C', 'ARMY:U']));
-  blocks.push(lead(['The Union won the battle: Lee’s assault on July 3 failed and the Army of Northern Virginia began its retreat, after which it never again mounted a strategic offensive into the North. ', end.attrs.text ? '' : ''], ['D3T675', 'D3T620']));
-  return { mode: 'answer', blocks, src: ['D3T675', 'D3T620', 'ARMY:U'] };
+  blocks.push(lead([row.text], row.records));
+  return { mode: 'answer', blocks, src: [...row.records, 'ARMY:U'], simpleOk: true };
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------
@@ -470,7 +470,8 @@ export function echelonAnswer(kb, S) {
   const H = helpers(kb);
   const reg = H.get('U-20ME'), bde = reg && H.parents(reg).find((x) => x.k === 'brigade'), div = reg && H.parents(reg).find((x) => x.k === 'division'), co = reg && H.parents(reg).find((x) => x.k === 'corps');
   if (!reg || !bde || !div || !co) return null;
-  const blocks = [lead(['Armies were built in nested layers: several regiments made up a brigade, several brigades made up a division, and several divisions made up a corps. ',
+  if (S.simple) return { mode: 'answer', blocks: [lead([kb.facts.glossary.echelons.text], [reg.id, bde.id, div.id, co.id])], src: [reg.id, bde.id, div.id, co.id] };
+  const blocks = [lead([`${kb.facts.glossary.echelons.text} `,
     `As an example from the site’s records, the ${reg.label} (about ${fmtN(reg.attrs.strength)} men) served in ${bde.label} (about ${fmtN(bde.attrs.strength)} men), which was part of the ${div.title} (about ${fmtN(div.attrs.strength)} men) of the ${co.title.replace(/^(First|Second|Third|Fifth|Sixth|Eleventh|Twelfth) Corps$/, '$1 Corps')} (about ${fmtN(co.attrs.strength)} men).`], [reg.id, bde.id, div.id, co.id]),
     note('authority', AUTH_NOTE)];
   return { mode: 'answer', blocks, src: [reg.id, bde.id, div.id, co.id] };
@@ -495,7 +496,7 @@ export function daySummary(kb, day, S) {
 // ---------------------------------------------------------------------------------------------------------------------------------------
 export function limitedPlace(kb, S, place, rule) {
   const H = helpers(kb);
-  const runs = [rule.text.replace('{place}', place.label.replace(/^The /, ''))];
+  const runs = [rule.text.replace('{place}', /^The /.test(place.label) ? place.label.replace(/^The /, 'the ') : place.label)];
   const blocks = [lead(runs, [place.id])];
   const a = place.attrs || {};
   if (a.ka) blocks.push(lead(['What the records do say about it: ', endSent(a.ka)], [place.id]));
@@ -562,10 +563,30 @@ export function overviewAnswer(kb, S) {
   if (!U || !Cn) return null;
   const when = (kb.facts.battle && kb.facts.battle.dates) || 'July 1 to 3, 1863';
   const blocks = [
-    lead([`The Battle of Gettysburg was fought ${when}. The `, ent(U), ' under ', H.cmdText(H.cmdOf(U)), ' defeated the ', ent(Cn), ' under ', H.cmdText(H.cmdOf(Cn)), '. ',
-      `The site\u2019s records give about ${fmtN(U.attrs.strength)} Union and ${fmtN(Cn.attrs.strength)} Confederate men, with ${fmtN(U.attrs.casualties)} and ${fmtN(Cn.attrs.casualties)} casualties (killed, wounded and missing) respectively. `, 'The battle is often called the turning point of the war: the Confederate army never again mounted a strategic offensive into the North.'], ['ARMY:U', 'ARMY:C', 'D3T675']),
+    lead([`The Battle of Gettysburg was fought ${when}. The `, ent(U), ' under ', H.cmdText(H.cmdOf(U)), ' fought the ', ent(Cn), ' under ', H.cmdText(H.cmdOf(Cn)), `. ${kb.facts.outcome ? kb.facts.outcome.text + ' ' : ''}`,
+      `The site’s records give about ${fmtN(U.attrs.strength)} Union and ${fmtN(Cn.attrs.strength)} Confederate men, with ${fmtN(U.attrs.casualties)} and ${fmtN(Cn.attrs.casualties)} casualties (killed, wounded and missing) respectively.`], ['ARMY:U', 'ARMY:C', 'D3T675']),
     note('authority-mixed', AUTH_NOTE)];
   return { mode: 'answer', blocks, src: ['ARMY:U', 'ARMY:C', 'D3T675'] };
+}
+
+/** two places side by side: elevation, the days they mattered, and the site's own one-line description of each */
+export function comparePlaces(kb, places) {
+  const [a, b] = places;
+  const row = (r) => [r.label, typeof r.attrs.elevation === 'number' ? `about ${fmtN(r.attrs.elevation)} ft` : '—', daysText(r.attrs.days) || '—', r.attrs.ka || '—'];
+  const blocks = [];
+  const bits = [];
+  if (typeof a.attrs.elevation === 'number' && typeof b.attrs.elevation === 'number' && a.attrs.elevation !== b.attrs.elevation) { const hi = a.attrs.elevation > b.attrs.elevation ? [a, b] : [b, a]; bits.push(`${hi[0].label} is the higher, at about ${fmtN(hi[0].attrs.elevation)} feet against about ${fmtN(hi[1].attrs.elevation)}.`); }
+  blocks.push(lead([ent(a), ' and ', ent(b), ': ', ...(bits.length ? [bits[0]] : ['the site records them as separate places.'])], [a.id, b.id]));
+  blocks.push({ t: 'table', kind: 'compare-places', caption: 'Side by side', cols: ['Place', 'Elevation', 'Relevant on', 'Site description'], rows: [row(a), row(b)], src: [a.id, b.id], note: 'Elevations are the figures in the site’s terrain records.' });
+  return { mode: 'answer', blocks, src: [a.id, b.id] };
+}
+
+/** short lead for young readers: name and place only; the quotes carry the story */
+export function simpleLead(kb, r) {
+  const a = r.attrs || {};
+  if (r.k === 'chronology') return [ent(r, ucfirst(r.title)), ` (${r.place || a.location}, ${DAY_NAME[a.day]}).`];
+  if (r.k === 'vignette') return [ent(r, `“${r.title}”`), ` (${a.location}, ${DAY_NAME[a.day]}).`];
+  return profileLead(kb, r);
 }
 
 /** several records sharing one nickname ("the Bucktails"): list the others after the lead */

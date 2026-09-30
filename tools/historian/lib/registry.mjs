@@ -256,8 +256,8 @@ export function buildRegistry(site, { curated = { entries: [] } } = {}) {
     if (to) notePerson(s.to, { unit: uid, label: labels.get(uid) || '', role: 'successor', when: cleanShort(s.approx_time, CP), cause: s.cause });
     add({
       id: 'SUCC:' + s.id, k: 'succession', side: s.side, title: cleanShort(s.event, CP), label: cleanShort(s.event, CP), short: cleanShort(s.event, CP), par: uid ? [uid] : [],
-      body: cleanProse(`${s.notes} ${s.cause} ${s.approx_time}`, CP), people: [s.from, s.to].filter(Boolean),
-      attrs: { unit: uid, from: from && from.name, fromRank: from && from.rank, to: to && to.name, toRank: to && to.rank, cause: s.cause, when: cleanShort(s.approx_time, CP), notes: cleanProse(s.notes, CP), source: cleanShort(s.source, CP) },
+      body: cleanProse(`${s.notes} ${s.cause} ${s.approx_time}`, CP), people: [from && from.name, to && to.name].filter(Boolean),
+      attrs: { unit: uid, from: from && from.name, fromRank: from && from.rank, to: to && to.name, toRank: to && to.rank, cause: cleanShort(s.cause || '', CP), when: cleanShort(s.approx_time, CP), notes: cleanProse(s.notes, CP), source: cleanShort(s.source, CP) },
     });
   }
 
@@ -319,7 +319,7 @@ export function buildRegistry(site, { curated = { entries: [] } } = {}) {
     id: 'CAS:notable_intensity_notes', k: 'casualty-note', side: null, title: 'Highest regimental casualty rates and most intense periods of the battle', label: 'Casualty highlights', short: 'Casualty highlights', par: [],
     body: cleanProse(`Highest single-regiment casualty rate: Union ${n.highest_single_regiment_rate.union.note} (${n.highest_single_regiment_rate.union.rate}%); Confederate ${n.highest_single_regiment_rate.confederate.note} (${n.highest_single_regiment_rate.confederate.rate}%). ${n.most_compressed_union.note} ${n.most_compressed_confederate.note} ${n.longest_sustained_action.note}`, CP),
     aliases: ['highest casualties', 'deadliest regiment', 'worst casualties', 'highest casualty rate', 'most casualties', 'bloodiest regiment'],
-    attrs: { ka: '', notes: n },
+    attrs: { ka: '', notes: (() => { const c = JSON.parse(JSON.stringify(n)); const walk = (o) => { for (const k of Object.keys(o)) { if (k === 'note') o[k] = cleanShort(o[k], CP); else if (o[k] && typeof o[k] === 'object') walk(o[k]); } }; walk(c); return c; })() },
   });
   for (const m of site.monuments) {
     const e = add({ id: 'MON:' + m.id, k: 'monument', side: m.side === 'confederate' ? 'C' : m.side === 'union' ? 'U' : null, title: m.name, label: m.name, short: m.name, par: [], body: cleanProse(m.name, CP), attrs: { ka: '', src: m.source, lat: m.lat, lng: m.lng } });
