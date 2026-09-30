@@ -27,15 +27,29 @@ export const STATE_CODE = { alabama: 'AL', arkansas: 'AR', connecticut: 'CT', de
 export const STATE_TITLE = (s) => s.replace(/\b[a-z]/g, (c) => c.toUpperCase());
 
 // arm words -> arm code
-export const ARM_WORDS = { infantry: 'inf', volunteer: 'inf', volunteers: 'inf', cavalry: 'cav', cav: 'cav', reserves: 'res', reserve: 'res', battalion: 'bn', sharpshooters: 'ss',
-  sharpshooter: 'ss', battery: 'art', artillery: 'art', zouaves: 'inf', militia: 'inf', legion: 'inf', regiment: null, regt: null };
+export const ARM_WORDS = { infantry: 'inf', inf: 'inf', volunteer: 'inf', volunteers: 'inf', vol: null, vols: null, cavalry: 'cav', cav: 'cav', reserves: 'res', reserve: 'res', battalion: 'bn', sharpshooters: 'ss',
+  sharpshooter: 'ss', battery: 'art', artillery: 'art', zouaves: 'inf', militia: 'inf', legion: 'inf', regiment: null, regt: null, regiments: null };
 
 const isOrd = (t) => t && t.charCodeAt(0) === 35 && /^#\d+$/.test(t);
 // abbreviations that are also everyday words; "on July 3 in Pennsylvania" must not read as "3rd Indiana"
 const AMBIG_ABBR = new Set(['in', 'me', 'la', 'al', 'us', 'de', 'ma', 'mo', 'oh', 'ar', 'ia', 'mi']);
 const BLOCK_NEXT = new Set(['the', 'a', 'an', 'this', 'that', 'these', 'those', 'of', 'at', 'on', 'by', 'to', 'is', 'was', 'were', 'are', 'be', 'from', 'with', 'my', 'your', 'our', 'his', 'her', 'their', 'it', 'its']);
 // words that may stand between the ordinal and the state name ("19th Regiment, Indiana", "1st Infantry Michigan")
-const PRE_FILLER = new Set(['regiment', 'regt', 'infantry', 'volunteer', 'volunteers', 'cavalry']);
+const PRE_FILLER = new Set(['regiment', 'regt', 'infantry', 'inf', 'volunteer', 'volunteers', 'vol', 'vols', 'cavalry']);
+// words that join a regiment to its state when a reader writes the relation out ("the 6th regiment FROM Wisconsin", "the 24th Infantry OUT OF Michigan", "the 19th regiment raised IN Indiana"); query time only
+const CONNECT_PAIR = new Set(['out of', 'raised in', 'raised from', 'raised by', 'recruited in', 'recruited from', 'organized in', 'organised in', 'enlisted in', 'enlisted from', 'mustered in', 'mustered from', 'hailing from', 'coming from', 'belonging to', 'originating in', 'originating from']);
+const CONNECT_ONE = new Set(['of', 'from', 'in', 'for', 'representing']);
+const CONNECT_FILL = new Set(['the', 'state', 'commonwealth', 'great']);
+// a bare ordinal ("the 24th from Michigan") takes only "of" and "from": "in" and "for" after a number are ordinary English ("the 3rd in Pennsylvania's line")
+/** index just past a connector phrase that starts at tokens[k] ("from", "out of", "of the state of"), or -1 */
+function connectorEnd(tokens, k, hasFiller) {
+  const w = tokens[k], w2 = tokens[k + 1]; let e = -1;
+  if (w !== undefined && w2 !== undefined && CONNECT_PAIR.has(`${w} ${w2}`)) { if (!hasFiller && w !== 'out') return -1; e = k + 2; }
+  else if (CONNECT_ONE.has(w)) { if (!hasFiller && w !== 'of' && w !== 'from') return -1; e = k + 1; }
+  else return -1;
+  for (let g = 0; g < 4 && e < tokens.length; g++) { const x = tokens[e]; if (CONNECT_FILL.has(x) || (x === 'of' && g > 0)) e++; else break; }
+  return e;
+}
 const BLOCK_PREV = new Set(['july', 'day', 'days', 'on', 'at', 'by', 'about', 'than', 'around', 'of', 'to', 'until', 'since', 'from', 'for', 'these', 'those', 'last', 'next', 'top', 'first']);
 
 /** the state (or abbreviation) that starts at tokens[j]: { state, used, abbr } or null. Ambiguous abbreviations ("in", "me") obey the same blocks as before; opts.noAmbig refuses them outright. */
@@ -52,23 +66,28 @@ export function stateAt(tokens, j, { prev = null, last = 0, noAmbig = false } = 
  * Find unit mentions in a token array (output of text.tokenize with stop words kept).
  * Returns [{ ords:[n..], state, arm|null, start, end, abbr }] where [start,end) is the token span consumed (ordinals, state, arm word).
  */
-export function findUnitMentions(tokens, { reversed = false } = {}) {
-  const out = findForward(tokens);
+export function findUnitMentions(tokens, { reversed = false, loose = false } = {}) {
+  const out = findForward(tokens, loose);
   if (reversed) {
-    // "Wisconsin's 2nd", "Wisconsin 2nd Infantry": the state first (query-time only; the build keeps the designation grammar)
+    // "Wisconsin's 2nd", "Wisconsin 2nd Infantry", "Michigan Regiment No. 24", "Wis. 6th": the state first (query-time only; the build keeps the designation grammar)
     const taken = new Array(tokens.length).fill(false);
     for (const m of out) for (let k = m.start; k < m.end; k++) taken[k] = true;
     for (let i = 0; i < tokens.length; i++) {
       if (taken[i]) continue;
       const two = tokens.slice(i, i + 2).join(' ');
-      const used = STATES.includes(two) ? 2 : STATES.includes(tokens[i]) ? 1 : 0;
+      let used = STATES.includes(two) ? 2 : STATES.includes(tokens[i]) ? 1 : 0, state = used === 2 ? two : tokens[i];
+      // an abbreviation ("wis 6th", "ny 104th", "mich regiment 24") counts only when it is not an everyday word and a regiment number follows
+      if (!used && loose && STATE_ABBR[tokens[i]] && !AMBIG_ABBR.has(tokens[i])) { used = 1; state = STATE_ABBR[tokens[i]]; }
       if (!used || tokens[i] === 'brooklyn' || tokens[i] === 'united') continue;
-      const state = used === 2 ? two : tokens[i];
-      const o = tokens[i + used];
-      if (!isOrd(o) || taken[i + used] || +o.slice(1) > 200) continue;
-      let end = i + used + 1, arm = null;
+      // "Michigan regiment 24", "Wisconsin Volunteer Infantry, Regiment No. 6": words between the state and its number
+      let oi = i + used;
+      for (let g = 0; g < 5 && oi < tokens.length && (PRE_FILLER.has(tokens[oi]) || tokens[oi] === 'number' || tokens[oi] === 'no' || tokens[oi] === 'num' || tokens[oi] === 'state' || tokens[oi] === 'of'); g++) oi++;
+      if (oi > i + used && !loose) continue;
+      const o = tokens[oi];
+      if (!isOrd(o) || taken[oi] || +o.slice(1) > 200) continue;
+      let end = oi + 1, arm = null;
       for (let g = 0; g < 2 && end < tokens.length; g++) { const w = tokens[end]; if (w in ARM_WORDS) { if (ARM_WORDS[w]) arm = arm || ARM_WORDS[w]; end++; } else break; }
-      out.push({ ords: [+o.slice(1)], state, arm, start: i, end, abbr: false, reversed: true });
+      out.push({ ords: [+o.slice(1)], state, arm, start: i, end, abbr: used === 1 && !STATES.includes(state), reversed: true });
       for (let k = i; k < end; k++) taken[k] = true;
       i = end - 1;
     }
@@ -77,7 +96,7 @@ export function findUnitMentions(tokens, { reversed = false } = {}) {
   return out;
 }
 
-function findForward(tokens) {
+function findForward(tokens, loose = false) {
   const out = [];
   for (let i = 0; i < tokens.length; i++) {
     if (!isOrd(tokens[i])) continue;
@@ -88,14 +107,22 @@ function findForward(tokens) {
       if ((tokens[j] === 'and' || tokens[j] === 'or') && isOrd(tokens[j + 1])) j++;
     }
     // words a reader puts between the ordinal and the state: "19th Regiment, Indiana", "19th Regiment of Indiana Volunteers", "1st Cavalry Michigan"
-    let pre = null, preArm = null, preSeen = false;
+    let pre = null, preArm = null, preSeen = false, afterFill = j;
     for (let g = 0, k = j; g < 3 && k < tokens.length; g++) {
       const w = tokens[k];
-      if (PRE_FILLER.has(w)) { if (w in ARM_WORDS && ARM_WORDS[w]) preArm = preArm || ARM_WORDS[w]; preSeen = true; k++; pre = k; }
+      if (PRE_FILLER.has(w)) { if (w in ARM_WORDS && ARM_WORDS[w]) preArm = preArm || ARM_WORDS[w]; preSeen = true; k++; pre = k; afterFill = k; }
       else if (preSeen && w === 'of') { k++; pre = k; }
       else break;
     }
-    const sj = pre !== null && stateAt(tokens, pre, { noAmbig: true }) ? pre : j;
+    let sj = pre !== null && stateAt(tokens, pre, { noAmbig: true }) ? pre : j;
+    // the relation written out: "the 24th regiment FROM Michigan", "the 19th Infantry OUT OF Indiana", "the 24th OF Michigan" (query time: loose)
+    if (loose && !(sj !== j || stateAt(tokens, j, { prev: tokens[i - 1], last: ords[ords.length - 1] }))) {
+      const last = ords[ords.length - 1];
+      if (last <= 200 && (preSeen || !BLOCK_PREV.has(tokens[i - 1]))) {
+        const ce = connectorEnd(tokens, afterFill, preSeen);
+        if (ce > 0 && stateAt(tokens, ce, { noAmbig: true })) sj = ce;
+      }
+    }
     // state (multi-word first), abbreviation only valid here because a number precedes
     let state = null, used = 0, abbr = false;
     const st = stateAt(tokens, sj, { prev: tokens[i - 1], last: ords[ords.length - 1] });

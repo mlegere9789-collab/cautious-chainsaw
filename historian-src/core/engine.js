@@ -13,10 +13,10 @@ import { renderText, SIDE_NAME, personLabel, withThe } from './format.js';
 import { lintAnswer } from './lint.js';
 import { makeChips } from './chips.js';
 import { W } from './linker.js';
-import { parseClock, julyDate, hm12 } from './clock.js';
+import { parseClock, julyDate, hm12, readDays } from './clock.js';
 import { clockAnswer, whenLine, eventSummary } from './atime.js';
 
-const CONSUMED = new Set(['who-commanded', 'casualties', 'strength', 'succession', 'ancestor', 'superlative', 'when', 'why', 'what-happened', 'compare', 'list', 'where', 'who', 'count', 'outcome', 'echelons', 'presence', 'opponent', 'membership', 'sequence', 'overview', 'quote', 'at-time']);
+const CONSUMED = new Set(['day-range', 'day-outside', 'who-commanded', 'casualties', 'strength', 'succession', 'ancestor', 'superlative', 'when', 'why', 'what-happened', 'compare', 'list', 'where', 'who', 'count', 'outcome', 'echelons', 'presence', 'opponent', 'membership', 'sequence', 'overview', 'quote', 'at-time']);
 const PRIOR = {
   'who-commanded': { regiment: 1.3, brigade: 1.4, division: 1.4, corps: 1.4, army: 1.4, artillery: 1.2, 'artillery-unit': 1.2 },
   casualties: { regiment: 1.3, brigade: 1.3, division: 1.3, corps: 1.3, army: 1.3, artillery: 1.2 },
@@ -28,7 +28,7 @@ export const QUOTE_BUDGET = 780;
 const PASSAGE_PRIOR = { chronicle: 1.0, narrative: 0.9, commentary: 0.85, succession_note: 1.0, walkthrough: 0.75, tour: 0.75, position_note: 0.3 };
 const UNIT_KINDS = new Set(['regiment', 'brigade', 'division', 'corps', 'army', 'artillery', 'artillery-unit']);
 const PLACE_KINDS = new Set(['terrain', 'road', 'structure', 'feature']);
-const STRUCTURED = new Set(['outcome', 'echelons', 'superlative', 'count', 'day-summary', 'sequence', 'overview', 'quote', 'at-time']);
+const STRUCTURED = new Set(['outcome', 'echelons', 'superlative', 'count', 'day-summary', 'day-range', 'day-outside', 'sequence', 'overview', 'quote', 'at-time']);
 const FILLERS = new Set(['many', 'much', 'happened', 'happen', 'tell', 'about', 'please', 'give', 'show', 'know', 'want', 'like', 'quick', 'facts', 'fact', 'story', 'explain', 'describe']);
 
 export function createEngine(kb, opts = {}) {
@@ -472,17 +472,33 @@ export function createEngine(kb, opts = {}) {
   // main
   // ------------------------------------------------------------------------------------------------------------------------------------
   /** the conversation context is caller data (the page passes back the engine's own ctx, but an embed or a test may pass anything): keep only well-typed fields */
+  // Every read of the caller's object is guarded: a getter that throws, a Proxy whose traps throw, a revoked Proxy, an array with a hostile length or a value whose toString throws
+  // all leave that field empty and never raise (ask() does not throw on caller data; it throws only a retryable ShardError when a shard cannot be fetched).
+  const peek = (o, k) => { try { return o[k]; } catch { return undefined; } };
+  const isObj = (v) => { try { return !!v && typeof v === 'object' && !Array.isArray(v); } catch { return false; } };
+  const strList = (v, n) => {
+    const out = [];
+    try {
+      if (!Array.isArray(v)) return out;
+      const len = Math.min(Number(v.length) || 0, 4294967295);
+      for (let i = Math.max(0, len - 200); i < len; i++) { let x; try { x = v[i]; } catch { continue; } if (typeof x === 'string' && x.length <= 80) out.push(x); }
+    } catch { return []; }
+    return out.slice(-n);
+  };
   function cleanCtx(ctx) {
-    const c = ctx && typeof ctx === 'object' && !Array.isArray(ctx) ? ctx : {};
-    const strs = (v, n) => (Array.isArray(v) ? v.filter((x) => typeof x === 'string' && x.length <= 80).slice(-n) : []);
-    const out = { lastEntities: strs(c.lastEntities, 6), shownPassages: strs(c.shownPassages, 40), lastIntent: typeof c.lastIntent === 'string' ? c.lastIntent.slice(0, 40) : null, lastSide: c.lastSide === 'U' || c.lastSide === 'C' ? c.lastSide : null };
-    const o = c.onsite;
-    if (o && typeof o === 'object' && !Array.isArray(o)) {
+    const out = { lastEntities: [], shownPassages: [], lastIntent: null, lastSide: null };
+    if (!isObj(ctx)) return out;
+    out.lastEntities = strList(peek(ctx, 'lastEntities'), 6); out.shownPassages = strList(peek(ctx, 'shownPassages'), 40);
+    const li = peek(ctx, 'lastIntent'); out.lastIntent = typeof li === 'string' ? li.slice(0, 40) : null;
+    const ls = peek(ctx, 'lastSide'); out.lastSide = ls === 'U' || ls === 'C' ? ls : null;
+    const o = peek(ctx, 'onsite');
+    if (isObj(o)) {
       const on = {};
-      if (typeof o.selected_unit === 'string') on.selected_unit = o.selected_unit.slice(0, 80);
-      if (typeof o.location === 'string') on.location = o.location.slice(0, 120);
-      if (typeof o.tick === 'number' && Number.isFinite(o.tick)) on.tick = o.tick;
-      if (o.day === 1 || o.day === 2 || o.day === 3) on.day = o.day;
+      const su = peek(o, 'selected_unit'), lo = peek(o, 'location'), tk = peek(o, 'tick'), dy = peek(o, 'day');
+      if (typeof su === 'string') on.selected_unit = su.slice(0, 80);
+      if (typeof lo === 'string') on.location = lo.slice(0, 120);
+      if (typeof tk === 'number' && Number.isFinite(tk)) on.tick = tk;
+      if (dy === 1 || dy === 2 || dy === 3) on.day = dy;
       if (Object.keys(on).length) out.onsite = on;
     }
     return out;
@@ -530,6 +546,7 @@ export function createEngine(kb, opts = {}) {
   }
 
   async function ask(rawQuery, ctx = {}, opts = {}) {
+    if (!opts || typeof opts !== 'object') opts = {};
     const t0 = typeof performance !== 'undefined' ? performance.now() : Date.now();
     ctx = cleanCtx(ctx);
     const S = { kb, ctx, raw: rawQuery, notes: [], mentions: [], side: null, intent: 'lookup', ranked: [], quotes: [], trace: {} };
@@ -607,7 +624,15 @@ export function createEngine(kb, opts = {}) {
     if (unkLoc && S.places.length && !S.units.length && unkLoc.re.some((x) => new RegExp(x, 'i').test(S.norm))) S.intent = 'casualties';
     if (S.intent === 'lookup' && S.day && !S.mentions.some((m) => m.kind !== 'unit-miss')) S.intent = 'day-summary';
     if (S.intent === 'what-happened' && S.day && !S.mentions.some((m) => m.kind !== 'unit-miss')) S.intent = 'day-summary';
-    if (S.intent === 'when' && /\bhappen/.test(S.norm) && S.day && !S.mentions.length) S.intent = 'day-summary';
+    if (S.intent === 'when' && /\bhappen/.test(S.norm) && S.day && !S.mentions.some((m) => m.kind !== 'unit-miss')) S.intent = 'day-summary';
+    // a stretch of days ("July 1 to 3", "the first two days") is answered across the stretch; a date the records do not cover ("July 4", "day 4") is said to be outside them
+    S.dayInfo = readDays(text);
+    if (!S.mentions.some((m) => m.kind !== 'unit-miss') && !S.clock) {
+      const di = S.dayInfo;
+      if (di.days.length >= 2 && ['lookup', 'what-happened', 'when', 'list', 'who', 'day-summary'].includes(S.intent)) { S.intent = 'day-range'; S.range = di.days; }
+      else if (di.days.length >= 1 && di.days.length < 3 && di.range && S.intent === 'overview') { S.intent = 'day-range'; S.range = di.days; }
+      else if (!di.days.length && di.outside.length && ['lookup', 'what-happened', 'when', 'overview', 'list', 'who'].includes(S.intent)) S.intent = 'day-outside';
+    }
     S.qStems = S.tokens.filter((t) => !STOP.has(t)).map((t) => (/^#/.test(t) ? t : stem(t)));
     const consumed = CONSUMED.has(S.intent) || S.intent === 'day-summary';
     S.passageTerms = S.qStems.filter((t) => !/^#\d+$/.test(t) && !(consumed && INTENT_WORDS.has(t)) && !FILLERS.has(t) && !DOMAIN_NOISE.has(t));
@@ -624,9 +649,10 @@ export function createEngine(kb, opts = {}) {
     // structured intents (totals, rankings, day summaries) do not need a linked entity: try their composer before the support gates
     let res = null;
     const compose1 = async () => { try { return await composeFor(S); } catch (e) { if (e && e.retryable) throw e; if (opts.debug) throw e; return null; } };
-    const anchored = S.tokens.some((t) => STRONG_DOMAIN.has(t)) || S.mentions.some((m) => m.kind !== 'unit-miss' && m.ids && m.ids.length) || !!S.day || !!S.clock;
+    const anchored = S.tokens.some((t) => STRONG_DOMAIN.has(t)) || S.mentions.some((m) => m.kind !== 'unit-miss' && m.ids && m.ids.length) || !!S.day || !!S.clock || S.intent === 'day-range' || S.intent === 'day-outside';
     // "the Wisconsin regiments": a state's roll-up is a structured question too (a state word inside a unit name has been excluded from stateMention)
-    const rollupQ = !!S.stateMention && /\bregiments?\b/.test(S.norm) && !S.units.length && ['list', 'lookup', 'count', 'what-happened'].includes(S.intent);
+    const rollupQ = !!S.stateMention && /\bregiments?\b/.test(S.norm) && !S.units.length && ['list', 'lookup', 'count', 'what-happened', 'who', 'when'].includes(S.intent);
+    S.rollupQ = rollupQ;
     const structured = STRUCTURED.has(S.intent) || rollupQ;
     if (structured && (anchored || rollupQ || S.intent === 'quote')) res = await compose1();
     if (!res) {
@@ -748,7 +774,7 @@ export function createEngine(kb, opts = {}) {
     const ords = S.tokens.filter((t) => /^#\d+$/.test(t));
     const anyUnit = S.mentions.some((m) => m.kind !== 'unit-miss');
     const contentLeft = S.tokens.filter((t) => !STOP.has(t) && !/^#/.test(t) && !INTENT_WORDS.has(t) && !FILLERS.has(t));
-    if (ords.length === 1 && !anyUnit && contentLeft.length === 0 && !S.day) {
+    if (ords.length === 1 && !anyUnit && contentLeft.length === 0 && !S.day && !(S.dayInfo && S.dayInfo.n)) {
       const n = +ords[0].slice(1);
       const cands = R.filter((r) => r.k === 'regiment' && r.ord === n && !r.canon && !r.detach && r.arm === 'inf').sort((a, b) => (b.attrs.strength || 0) - (a.attrs.strength || 0)).slice(0, 6);
       if (cands.length > 1) return mk([`Which ${n === 1 ? '1st' : n + 'th'} do you mean? The site has ${cands.length} such regiments, for example ${cands.slice(0, 4).map((c) => c.label).join(', ')}. Name the state (for instance “1st Minnesota”).`], cands.map((c) => ({ id: c.id, label: c.label, query: c.label })), 'bare-ordinal');
@@ -1010,7 +1036,8 @@ export function createEngine(kb, opts = {}) {
         res = { mode: 'answer', blocks, src: [pick.id, parent.id] }; await addQuotes(S, res, { max: 1 }); return res;
       }
     }
-    if (intent === 'list' || (intent === 'lookup' && S.stateMention && /\bregiments?\b/.test(S.norm))) {
+    // "list the Wisconsin regiments", "what are the regiments from Michigan", "the Maine regiments": the state's roll-up (its regiment records and their count), not one regiment of the state
+    if (intent === 'list' || S.rollupQ || (intent === 'lookup' && S.stateMention && /\bregiments?\b/.test(S.norm))) {
       res = C.rollupAnswer(kb, S, { units }); if (res) return res;
     }
     if ((intent === 'strength' || intent === 'casualties') && (units.length || person)) {
@@ -1039,6 +1066,8 @@ export function createEngine(kb, opts = {}) {
     if (intent === 'echelons') { res = C.echelonAnswer(kb, S); if (res) return res; }
     if (intent === 'overview' && !linkedAny) { res = C.overviewAnswer(kb, S); if (res) return res; }
     if (intent === 'day-summary') { res = C.daySummary(kb, S.day, S); if (res) return res; }
+    if (intent === 'day-range') { res = C.rangeSummary(kb, S.range || S.dayInfo.days, S.dayInfo.outside); if (res) return res; }
+    if (intent === 'day-outside') { res = C.outsideDay(kb, S.dayInfo); if (res) return res; }
     if (intent === 'sequence') { res = sequenceAnswer(S); if (res) return res; }
     if (intent === 'quote') { res = await quoteAnswer(S); if (res) return res; }
     if (intent === 'where' && !S.places.length && units.length && /\b(?:fight|fought|position|posted|located|was|were|stand|stood|deployed)\b/.test(S.norm)) { const r0 = C.unitWhere(kb, S, soleUnitMention || units[0]); if (r0) { res = r0; await addQuotes(S, res, { max: 1 }); return res; } }

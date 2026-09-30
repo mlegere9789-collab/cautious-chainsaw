@@ -7,15 +7,75 @@ export const DAY = 1440;
 
 const WORD_DAY = { one: 1, two: 2, three: 3, first: 1, second: 2, third: 3 };
 
-/** the July date a question names (calendar date, 1 to 31), or null. "July 10" is 10, never 1; "the second day" is 2 (the Day tab and the date agree by day, not by night). */
+const NUM_WORD = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12 };
+const ORD_WORD = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5, sixth: 6, seventh: 7, eighth: 8, ninth: 9, tenth: 10 };
+const NUMW = Object.keys(NUM_WORD).join('|'), ORDW = Object.keys(ORD_WORD).join('|');
+const OTHER_MONTH = '(?:january|jan|february|feb|march|mar|april|apr|may|june|jun|august|aug|september|sept|sep|october|oct|november|nov|december|dec)';
+const RANGE_SEP = '(?:-|to|through|thru|till|until)', LIST_SEP = '(?:,|and|&|or)';
+const isTimeAfter = (rest) => /^\s*(?:a\.?\s?m|p\.?\s?m|o['’]?\s?clock|:\d)/i.test(rest);   // "July 2, 3 pm": the 3 is an hour, not another day
+const span = (a, b) => { const out = []; if (b < a || b - a > 40) return [a, b].filter((x, i, arr) => arr.indexOf(x) === i); for (let d = a; d <= b; d++) out.push(d); return out; };
+const isRangeSep = (w) => new RegExp('^' + RANGE_SEP + '$').test(w);
+
+/**
+ * Every day a question names, read as one class: "July 2", "the 3rd of July", "day two", "the second day", "July 1-3", "July 1 to 3", "July 1 through July 3", "July 2 and 3", "1 to 3 July",
+ * "days one through three", "the first two days", "all three days", "day 4", "July 4", "June 28".
+ * Returns { days: [1..3 in battle order], outside: [{ m, d }], single: { m, d } | null, range: boolean, n }
+ *   days     the days of the battle (July 1 to 3) the question names, each once
+ *   outside  dates the records do not cover: July 4 and later, and any other month
+ *   single   the one date named, when exactly one is (a question about one day)
+ *   range    true when the question names more than one day (a stretch or a list)
+ */
+export function readDays(text) {
+  let t = ' ' + String(text || '').toLowerCase().replace(/[–—]/g, '-').replace(/\s+/g, ' ') + ' ';
+  const found = [];       // { m: 'july' | 'day' | another month, d, range? }
+  const take = (re, fn) => { t = t.replace(re, (...a) => { fn(a); return ' '; }); };
+  // 1. month first: "July 1-3", "July 1 to 3", "July 1 through July 3", "July 2 and 3rd", "July 1, 2 and 3", "June 28"
+  const MONTH_FIRST = new RegExp('\\b(july|jul|' + OTHER_MONTH + ')\\.?\\s*(?:the\\s*)?(\\d{1,2})(?:st|nd|rd|th)?(?!\\d)', 'g');
+  const CONT = new RegExp('^\\s*(' + RANGE_SEP + '|' + LIST_SEP + ')\\s*(?:and\\s*)?(?:the\\s*)?(?:(?:july|jul)\\.?\\s*)?(\\d{1,2})(?:st|nd|rd|th)?(?!\\d)');
+  let out = '', last = 0, m;
+  while ((m = MONTH_FIRST.exec(t))) {
+    const mon = /^jul/.test(m[1]) ? 'july' : m[1]; const days = [+m[2]]; let end = MONTH_FIRST.lastIndex, isRange = false;
+    for (;;) {
+      const c = CONT.exec(t.slice(end));
+      if (!c) break;
+      if (isTimeAfter(t.slice(end + c[0].length)) || /^\s*(?:,\s*)?(?:18|19)\d\d/.test(t.slice(end + c[1].length))) break;
+      if (isRangeSep(c[1]) || (c[1] === 'and' && days.length === 1 && /\bbetween\s*(?:the\s*)?$/.test(t.slice(0, m.index)))) { days.push(...span(days[days.length - 1], +c[2]).slice(1)); isRange = true; } else days.push(+c[2]);
+      end += c[0].length;
+    }
+    for (const d of days) found.push({ m: mon, d, range: isRange || days.length > 1 });
+    out += t.slice(last, m.index) + ' '; last = end; MONTH_FIRST.lastIndex = end;
+  }
+  t = out + t.slice(last);
+  // 2. day first: "the 2nd of July", "1 to 3 July", "the 1st through the 3rd of July"
+  take(new RegExp('\\b(\\d{1,2})(?:st|nd|rd|th)?(?:\\s*(' + RANGE_SEP + '|' + LIST_SEP + ')\\s*(?:the\\s*)?(\\d{1,2})(?:st|nd|rd|th)?)?\\s*(?:of\\s*)?(?:july|jul)\\b\\.?', 'g'), (a) => {
+    if (a[3] === undefined) found.push({ m: 'july', d: +a[1] }); else for (const d of isRangeSep(a[2]) ? span(+a[1], +a[3]) : [+a[1], +a[3]]) found.push({ m: 'july', d, range: true });
+  });
+  // 3. "day 4", "days 1-3", "days one through three", "day 1 to day 3", "day two and three"
+  const DN = '(\\d{1,2}|' + NUMW + ')'; const dn = (x) => (/^\d/.test(x) ? +x : NUM_WORD[x]);
+  take(new RegExp('\\bdays?\\s*(?:number\\s*|no\\.?\\s*|#)?' + DN + '(?![0-9])(?:\\s*(' + RANGE_SEP + '|' + LIST_SEP + ')\\s*(?:day\\s*)?' + DN + '(?![0-9]))?', 'g'), (a) => {
+    if (a[3] === undefined) found.push({ m: 'day', d: dn(a[1]) }); else for (const d of isRangeSep(a[2]) ? span(dn(a[1]), dn(a[3])) : [dn(a[1]), dn(a[3])]) found.push({ m: 'day', d, range: true });
+  });
+  // 4. "the first two days", "the first three days", "all three days", "the last two days", "first through third day", "first and second days"
+  take(/\b(first|last)\s+(two|three|2|3)\s+days?\b/g, (a) => { const k = dn(a[2]); for (const d of a[1] === 'first' ? span(1, k) : span(4 - k, 3)) found.push({ m: 'day', d, range: true }); });
+  take(/\b(?:all|the)\s+(?:three|3)\s+days?\b|\bthree days of (?:the )?battle\b/g, () => { for (const d of [1, 2, 3]) found.push({ m: 'day', d, range: true }); });
+  take(new RegExp('\\b(' + ORDW + ')\\s*(-|to|through|thru|and|&|,)\\s*(?:the\\s*)?(' + ORDW + ')\\s+days?\\b', 'g'), (a) => { for (const d of isRangeSep(a[2]) ? span(ORD_WORD[a[1]], ORD_WORD[a[3]]) : [ORD_WORD[a[1]], ORD_WORD[a[3]]]) found.push({ m: 'day', d, range: true }); });
+  // 5. "the second day", "2nd day", "the last day"
+  take(new RegExp('\\b(?:(' + ORDW + ')|(\\d{1,2})(?:st|nd|rd|th))[ -]+day\\b', 'g'), (a) => found.push({ m: 'day', d: a[1] ? ORD_WORD[a[1]] : +a[2] }));
+  take(/\b(?:last|final)\s+day\b/g, () => found.push({ m: 'day', d: 3 }));
+  take(new RegExp('\\b(' + ORDW + ')\\s+of\\s+july\\b', 'g'), (a) => found.push({ m: 'july', d: ORD_WORD[a[1]] }));
+  // the battle's days, and the dates the records do not cover
+  const inBattle = (f) => (f.m === 'july' || f.m === 'day') && f.d >= 1 && f.d <= 3;
+  const days = [...new Set(found.filter(inBattle).map((f) => f.d))].sort((x, y) => x - y);
+  const outside = []; for (const f of found) if (!inBattle(f) && !outside.some((o) => o.m === (f.m === 'day' ? 'july' : f.m) && o.d === f.d)) outside.push({ m: f.m === 'day' ? 'july' : f.m, d: f.d });
+  const uniq = new Set(found.map((f) => (f.m === 'day' ? 'july' : f.m) + '|' + f.d));
+  const range = found.some((f) => f.range) || uniq.size > 1;
+  return { days, outside, single: !range && found.length >= 1 ? { m: found[0].m === 'day' ? 'july' : found[0].m, d: found[0].d } : null, range, n: found.length };
+}
+
+/** the July date a question names (calendar date, 1 to 31), or null: "July 10" is 10, never 1; "the second day" is 2 (the Day tab and the date agree by day, not by night); a stretch ("July 1-3") is no single date */
 export function julyDate(text) {
-  const t = String(text || '').toLowerCase();
-  if (/\bjuly\s*\d{1,2}(?:st|nd|rd|th)?\s*(?:-|–|to|through|thru|and)\s*(?:july\s*)?\d{1,2}\b/.test(t)) return null;   // "July 1-3", "July 1 and 2": a stretch of days, not day 1
-  let m = t.match(/\b(first|second|third)\s+of\s+july\b/); if (m) return WORD_DAY[m[1]];
-  m = t.match(/\bjuly\s*(\d{1,2})(?![0-9])(?:st|nd|rd|th)?\b/) || t.match(/\b(\d{1,2})(?:st|nd|rd|th)?\s+of\s+july\b/) || t.match(/\b(?:day)\s*(?:number\s*)?(\d)(?![0-9])\b/);
-  if (m) return +m[1];
-  m = t.match(/\bday\s+(one|two|three)\b/) || t.match(/\b(first|second|third)\s+day\b/);
-  return m ? WORD_DAY[m[1]] : null;
+  const r = readDays(text);
+  return r.single && r.single.m === 'july' && r.single.d >= 1 && r.single.d <= 31 ? r.single.d : null;
 }
 
 const to24 = (h, mer) => (mer === 'a' ? (h === 12 ? 0 : h) : h === 12 ? 12 : h + 12);

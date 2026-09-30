@@ -31,7 +31,7 @@ export function helpers(kb) {
     else if (r.k === 'brigade') { if (div) parts.push(div.title); else if (co) parts.push(co.title); }
     else if (r.k === 'division') { if (co) parts.push(co.title); }
     else if (r.k === 'artillery-unit') { if (co) parts.push(co.title); }
-    if (r.k === 'regiment' && !bde && co) parts.push(co.title);
+    if (r.k === 'regiment' && !bde && co && !parts.includes(co.title)) parts.push(co.title);
     return parts.join(', ');
   };
   const daysOf = (r) => daysText(r.attrs && r.attrs.days);
@@ -46,8 +46,10 @@ function statsPieces(r) {
   const out = {};
   if (typeof a.strength === 'number' && a.strength > 0 && !a.estStrength) out.strength = `about ${fmtN(a.strength)} men`;
   if (typeof a.casualties === 'number') {
-    if (a.casualties === 0 && (a.estCas || a.strength > 0)) out.cas = 'no casualties are recorded for it';
-    else out.cas = `${fmtN(a.casualties)} casualties${a.pct != null && a.strength > 0 && !a.estStrength ? ` (${fmtPct(a.pct)})` : ''}`;
+    // two grammatical forms of one fact. `cas` is a noun phrase that follows "with", "and" or "had" ("with 12 casualties", "with no casualties recorded for it");
+    // `casSent` stands alone as a sentence once capitalised ("No casualties are recorded for it."). The sentence form must never follow "with".
+    if (a.casualties === 0 && (a.estCas || a.strength > 0)) { out.cas = 'no casualties recorded for it'; out.casSent = 'no casualties are recorded for it'; }
+    else { out.cas = `${fmtN(a.casualties)} casualties${a.pct != null && a.strength > 0 && !a.estStrength ? ` (${fmtPct(a.pct)})` : ''}`; out.casSent = out.cas; }
   }
   if (typeof a.gun_count === 'number') out.guns = `${a.gun_count} ${a.gun_count === 1 ? 'gun' : 'guns'}${a.gun_type ? ` (${a.gun_type})` : ''}`;
   return out;
@@ -78,7 +80,7 @@ export function profileLead(kb, r) {
     const sp = statsPieces(r);
     const bits = [sp.strength ? `${ucfirst(sp.strength)} were engaged` : null].filter(Boolean);
     const days = H.daysOf(r);
-    if (sp.strength && sp.cas) runs.push(`${ucfirst(sp.strength)} were engaged, with ${sp.cas}. `); else if (sp.cas) runs.push(`${ucfirst(sp.cas)}. `);
+    if (sp.strength && sp.cas) runs.push(`${ucfirst(sp.strength)} were engaged, with ${sp.cas}. `); else if (sp.cas) runs.push(`${ucfirst(sp.casSent)}. `);
     if (sp.guns) runs.push(`It had ${sp.guns}. `);
     if (days) runs.push(`Days engaged: ${days}. `);
     if (a.ka) runs.push(endSent(a.ka));
@@ -270,27 +272,39 @@ function rankSentence(kb, u, which) {
 export function superlativeAnswer(kb, S) {
   const H = helpers(kb);
   const q = S.norm;
-  const level = /\bcorps\b|corpsi|corpsv|corpsx/.test(q) ? 'corps' : /\bdivision/.test(q) ? 'division' : /\bbrigade/.test(q) ? 'brigade' : /\b(batter|gun|artiller)/.test(q) ? 'artillery' : 'regiment';
+  let level = /\bcorps\b|corpsi|corpsv|corpsx/.test(q) ? 'corps' : /\bdivision/.test(q) ? 'division' : /\bbrigade/.test(q) ? 'brigade' : /\b(batter|gun|artiller)/.test(q) ? 'artillery' : 'regiment';
   const wantsRate = /\b(percent|percentage|rate|share)\b/.test(q);
   const lossCue = /\b(lost|lose|losses|casualt\w*|killed|deadliest|bloodiest|died|dead)\b/.test(q);
   const sizeCue = /\b(largest|biggest|smallest|size|strength|numerous)\b/.test(q) || (/\bmost men\b/.test(q) && !lossCue);
   const metric = wantsRate ? 'rate' : sizeCue && !lossCue ? 'size' : 'losses';
   let side = S.side || 'A';
-  const words = q.split(' ');
   if (/\bconfederate|rebel|southern\b/.test(q)) side = 'C'; else if (/\bunion|federal|northern\b/.test(q)) side = 'U';
   // "highest casualty rate ... which regiment": rate when 'rate|percent|share' else losses (count) for "most men"; default for "highest casualties" -> rate is what the site's own note reports
   const met = metric === 'losses' && /\bhighest\b/.test(q) && !/\bmost\b|\bnumber\b|\bcount\b/.test(q) ? 'rate' : metric;
   const asc = /\b(smallest|fewest|lowest|least)\b/.test(q);
-  const rows = kb.facts.rank[`${level}.${met}.${side}`]; if (!rows || !rows.rows.length) return null;
-  const list = asc ? null : rows.rows;
-  if (!list) return null;
+  // a state named in the question scopes the ranking to that state's regiments ("which Michigan regiment lost the most men"); the state is never dropped
+  const st = S.stateMention && !(S.units && S.units.length) ? S.stateMention : null;
+  const stTitle = st ? st.replace(/\b[a-z]/g, (c) => c.toUpperCase()) : '';
+  if (st) level = 'regiment';
+  const rows = kb.facts.rank[st ? `regiment.${met}.${side}@${st}` : `${level}.${met}.${side}`];
+  if (st && !rows) return { mode: 'partial', limited: true, blocks: [lead([`The site’s order of battle has no ${side === 'A' ? '' : SIDE_NAME[side] + ' '}${stTitle} regiment records, so I cannot rank them.`], [])], src: [] };
+  if (!rows || !(asc ? rows.low : rows.rows) || !(asc ? rows.low : rows.rows).length) return null;
+  const list = asc ? rows.low : rows.rows;
   const blocks = []; const src = [];
   const top = list.slice(0, 3).map((x) => ({ r: H.get(x[0]), v: x[1], c: x[2], s: x[3] })).filter((x) => x.r);
+  if (!top.length) return null;
   const fmtRow = (x) => (met === 'rate' ? `${ent(x.r).txt} — ${fmtPct(x.v)} (${fmtN(x.c)} of about ${fmtN(x.s)} men)` : met === 'losses' ? `${x.r.label} — ${fmtN(x.v)} casualties${x.s ? ` of about ${fmtN(x.s)} men` : ''}` : `${x.r.label} — about ${fmtN(x.v)} men`);
   const first = top[0];
   const sideTxt = side === 'A' ? '' : `${SIDE_NAME[side]} `;
-  const what = met === 'rate' ? 'the highest casualty rate' : met === 'losses' ? 'the most casualties' : 'the largest strength';
-  blocks.push(lead([ent(first.r, ucfirst(first.r.title || first.r.label)), ` had ${what} of any ${sideTxt}${level} in the site’s records: `, met === 'rate' ? `${fmtPct(first.v)} (${fmtN(first.c)} of about ${fmtN(first.s)} men)` : met === 'losses' ? `${fmtN(first.v)} casualties${first.s ? ` of about ${fmtN(first.s)} men` : ''}` : `about ${fmtN(first.v)} men`, '.'], [first.r.id]));
+  const scope = `${sideTxt}${st ? stTitle + ' ' : ''}${level}`;
+  const what = asc ? (met === 'rate' ? 'the lowest casualty rate' : met === 'losses' ? 'the fewest casualties' : 'the smallest strength') : (met === 'rate' ? 'the highest casualty rate' : met === 'losses' ? 'the most casualties' : 'the largest strength');
+  // several records share the lowest casualty figure (zero): they cannot be ranked, and saying so is the answer
+  if (asc && met === 'losses' && rows.zero > 1) {
+    blocks.push(lead([`${fmtN(rows.zero)} ${scope} records show no casualties, which is the fewest, so they cannot be ranked against one another. `, `Among them: ${joinList(top.map((x) => x.r.label))}.`], top.map((x) => x.r.id)));
+    blocks.push(note('rank-rule', `Rule: ${rows.rule}. ${AUTH_NOTE}`));
+    return { mode: 'answer', blocks, src: top.map((x) => x.r.id) };
+  }
+  blocks.push(lead([ent(first.r, ucfirst(first.r.title || first.r.label)), ` had ${what} of any ${scope} in the site’s records: `, met === 'rate' ? `${fmtPct(first.v)} (${fmtN(first.c)} of about ${fmtN(first.s)} men)` : met === 'losses' ? `${fmtN(first.v)} casualties${first.s ? ` of about ${fmtN(first.s)} men` : ''}` : `about ${fmtN(first.v)} men`, '.'], [first.r.id]));
   src.push(first.r.id);
   if (top.length > 1) {
     blocks.push({ t: 'list', title: 'Next in the site’s records:', items: top.slice(1).map((x) => ({ txt: fmtRow(x).replace(/^.*?— /, `${x.r.label} — `), ent: x.r.id })), src: top.slice(1).map((x) => x.r.id) });
@@ -298,7 +312,7 @@ export function superlativeAnswer(kb, S) {
   }
   blocks.push(note('rank-rule', `Rule: ${rows.rule}. ${AUTH_NOTE}`));
   // the site's own summary note, where it disagrees with the computed ranking, is worth naming
-  if (level === 'regiment' && met === 'rate' && side !== 'U') {
+  if (!st && !asc && level === 'regiment' && met === 'rate' && side !== 'U') {
     const cn = H.get('CAS:notable_intensity_notes');
     const conf = cn && cn.attrs.notes && cn.attrs.notes.highest_single_regiment_rate && cn.attrs.notes.highest_single_regiment_rate.confederate;
     const c26 = conf ? H.get(conf.unit) : null;
@@ -528,6 +542,42 @@ export function daySummary(kb, day, S) {
   const blocks = [lead([`Key moments of ${DAY_NAME[day]} in the site’s chronology, in order: `], pick.slice(0, 3).map((r) => r.id)),
     { t: 'list', title: '', items: pick.map((r) => ({ txt: `${r.title}${r.place ? ` (${r.place})` : ''}`, ent: r.id })), src: pick.map((r) => r.id) }];
   return { mode: 'answer', blocks, src: pick.slice(0, 3).map((r) => r.id) };
+}
+
+/** a stretch of days ("July 1 to 3", "the first two days"): the key moments of each day in the stretch, day by day, not the summary of one of them */
+export function rangeSummary(kb, days, outside = []) {
+  const H = helpers(kb);
+  const ds = days.filter((d) => d >= 1 && d <= 3);
+  const blocks = []; const src = [];
+  const span = ds.length === 3 ? 'July 1 to 3' : daysText(ds);
+  const lists = [];
+  for (const d of ds) {
+    const recs = ((kb.facts.events.critical[d] || []).map(H.get).filter(Boolean)).sort((a, b) => a.attrs.tick - b.attrs.tick);
+    if (!recs.length) continue;
+    const pick = recs.length > 4 ? [0, 1, 2, 3].map((i) => recs[Math.round(i * (recs.length - 1) / 3)]).filter((r, i, a) => a.indexOf(r) === i) : recs;
+    lists.push({ d, pick });
+  }
+  if (!lists.length) return null;
+  blocks.push(lead([`Here are the key moments of each day across ${span}, from the site’s chronology, in order:`], lists.flatMap((x) => x.pick.slice(0, 1).map((r) => r.id))));
+  for (const x of lists) { blocks.push({ t: 'list', title: `${DAY_NAME[x.d]}:`, items: x.pick.map((r) => ({ txt: `${r.title}${r.place ? ` (${r.place})` : ''}`, ent: r.id })), src: x.pick.map((r) => r.id) }); src.push(...x.pick.slice(0, 2).map((r) => r.id)); }
+  if (outside.length) blocks.push(note('range-bounds', 'The site’s chronology covers July 1 to 3, 1863, so nothing outside those days is listed.'));
+  return { mode: 'answer', blocks, src };
+}
+
+/** a date the chronology does not cover ("July 4", "day 4", "June 28"): said plainly, with what the records do say about it when they say anything */
+export function outsideDay(kb, info) {
+  const o = (info && info.outside && info.outside[0]) || null;
+  if (!o) return null;
+  const label = o.m === 'july' ? `July ${o.d}` : `${o.m.charAt(0).toUpperCase()}${o.m.slice(1)} ${o.d}`;
+  const blocks = [lead([`The site’s chronology covers July 1 to 3, 1863, the three days of the battle, so it has no entry for ${label}. Ask about a moment on one of those three days.`], [])];
+  const src = [];
+  const row = kb.facts.outcome;
+  // the outcome row is the site's own statement of what followed the battle: quote the sentences of it that name the date asked about
+  if (row && o.m === 'july') {
+    const hit = String(row.text).split(/(?<=\.)\s+/).filter((s) => new RegExp(`\\bJuly ${o.d}\\b`).test(s));
+    if (hit.length) { blocks.push(lead([`What the site’s records do say: ${hit.join(' ')}`], row.records)); src.push(...row.records); }
+  }
+  return { mode: 'partial', limited: true, blocks, src };
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------

@@ -8,6 +8,13 @@
 
 export const nfc = (s) => String(s == null ? '' : s).normalize('NFC');
 
+// ---- invisible formatting characters ------------------------------------------------------------------------------------
+// Zero-width space / joiner / non-joiner, word joiner, soft hyphen, bidi marks and overrides, BOM, variation selectors, Hangul fillers, Mongolian free variation selectors: they print as nothing, so a
+// reader who pastes "20th Ma<ZWSP>ine" typed "20th Maine". They are deleted (never turned into a space): reading one as a word break turned the 20th Maine into the 20th Massachusetts.
+// The class is the Unicode "Format" category plus the few invisible characters that are not in it; it is a class, not a list of the five the first probe used.
+export const INVISIBLE_RE = /[\p{Cf}\u{34F}\u{115F}\u{1160}\u{17B4}\u{17B5}\u{180B}-\u{180F}\u{3164}\u{FE00}-\u{FE0F}\u{FFA0}]/gu;
+export const stripInvisible = (s) => String(s == null ? '' : s).replace(INVISIBLE_RE, '');
+
 // ---- ordinals ------------------------------------------------------------------------------------------------------
 const UNITS = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5, sixth: 6, seventh: 7, eighth: 8, ninth: 9,
   tenth: 10, eleventh: 11, twelfth: 12, thirteenth: 13, fourteenth: 14, fifteenth: 15, sixteenth: 16, seventeenth: 17,
@@ -62,7 +69,7 @@ function collapseStateAbbr(s) {
 
 /** Normalise free text to lowercase space-separated alphanumerics. Idempotent. */
 export function baseNorm(s) {
-  let t = String(s == null ? '' : s).normalize('NFKD').replace(/[̀-ͯ]/g, '');
+  let t = stripInvisible(String(s == null ? '' : s).normalize('NFKD')).replace(/[̀-ͯ]/g, '');
   t = collapseStateAbbr(t).toLowerCase()
     .replace(/[‘’ʼ`]/g, "'")
     .replace(/'s\b/g, '')
@@ -95,7 +102,10 @@ export function tokenize(s, { keepStop = true } = {}) {
   for (let i = 0; i < raw.length; i++) {
     const w = raw[i];
     let m;
-    if ((m = w.match(/^(\d+)(?:st|nd|rd|th|d)?$/))) { out.push('#' + parseInt(m[1], 10)); continue; }
+    if ((m = w.match(/^(\d+)(?:st|nd|rd|th|d)?$/))) {
+      if (/^\d+$/.test(w) && /^(?:st|nd|rd|th)$/.test(raw[i + 1] || '')) i++;                 // "24 th" typed with a space is the 24th
+      out.push('#' + parseInt(m[1], 10)); continue;
+    }
     const ord = parseOrdinalWords(raw, i);
     if (ord) { out.push('#' + ord.n); i += ord.len - 1; continue; }
     if (!keepStop && STOP.has(w)) continue;

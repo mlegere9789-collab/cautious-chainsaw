@@ -29,6 +29,7 @@ export function makeChips(kb, S, ans) {
       const u = f.attrs.unit && idx.get(f.attrs.unit); if (u) add('Who commanded it', `Who commanded ${u.k === 'corps' ? 'the ' + u.title : the(u.label)}?`);
     }
   }
+  if (S.intent === 'day-range' || S.intent === 'day-outside') for (const d of (S.intent === 'day-range' && S.range ? S.range : [1, 2, 3])) add(`Key moments of July ${d}`, `What happened on July ${d}?`);
   if (S.intent === 'ancestor' || S.intent === 'presence') add('Find your ancestor', 'How do I find my ancestor on this site?');
   if (!out.length) { add('20th Maine', '20th Maine'); add('Little Round Top', 'What happened at Little Round Top?'); add('Pickett’s Charge', 'What was Pickett’s Charge?'); }
   return out;
