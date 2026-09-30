@@ -178,3 +178,28 @@ test('R-18 invisible formatting characters inside a pasted name (zero-width spac
   assert.deepEqual(bad, [], 'a different regiment is answered, silently');
   assert.equal((await ask('Gettys­burg')).mode === 'decline', (await ask('Gettysburg')).mode === 'decline', 'a soft hyphen in "Gettysburg" changes whether the question is understood');
 });
+
+// ---- V-01 is fixed for the phrasings the fixer generated, not for the class: "<N> regiment from / in / out of <State>" is the state roll-up for 89% of regiments --------------------------
+import { plainRegiments, ordinal } from './lib/regiment-phrasings.mjs';
+import { load } from './lib/data.mjs';
+
+test('R-19 "the <N> regiment from / in <State>" is that regiment (verifier V-01 class; the fixer\'s 24 phrasings cover "of", "," and a suffix but not "from" / "in": 327 of 370 regiments return the state roll-up)', async () => {
+  assert.equal((await ask('the 24th regiment of Michigan')).shown[0], 'U-24MI', 'control: "of" works');
+  const regs = plainRegiments(); const tally = {}; const bad = [];
+  for (const prep of ['from', 'in']) {
+    let ok = 0;
+    for (const r of regs) { const q = `the ${ordinal(r.n)} regiment ${prep} ${r.state}`; const a = await ask(q); if (a.mode !== 'decline' && a.shown[0] === r.id) ok++; else if (bad.length < 4) bad.push(`${q} -> ${/regiment records/.test(a.text) ? 'state roll-up' : a.shown.slice(0, 2)}`); }
+    tally[prep] = ok / regs.length;
+  }
+  for (const [prep, rate] of Object.entries(tally)) assert.ok(rate >= 0.97, `"the <N> regiment ${prep} <State>": ${(100 * rate).toFixed(1)}% resolve to the regiment (floor 97%, the fixer's own); e.g. ${bad.join(' | ')}`);
+});
+
+test('R-20 a state-scoped superlative ("which Michigan regiment lost the most men", "the largest Wisconsin regiment") answers for that state, not for the whole army', async () => {
+  const d = load(); const top = (st, k) => d.regs.filter((r) => r.state === st && !r.alias_for).sort((a, b) => b[k] - a[k])[0].regiment_id;
+  assert.equal(top('Michigan', 'casualties'), 'U-24MI', 'ground truth from the raw data');
+  const bad = [];
+  for (const [q, want] of [['which Michigan regiment lost the most men?', top('Michigan', 'casualties')], ['what was the largest Wisconsin regiment', top('Wisconsin', 'strength')], ['which Maine regiment had the most casualties?', top('Maine', 'casualties')]]) {
+    const a = await ask(q); if (a.shown[0] !== want) bad.push(`${q} -> ${a.shown[0]} (want ${want})`);
+  }
+  assert.deepEqual(bad, [], 'the state in the question is dropped and the army-wide leader is printed as the answer');
+});
