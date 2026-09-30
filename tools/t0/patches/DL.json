@@ -5,7 +5,49 @@
    "id": "DL-deeplink-reader (NEW, D-URLSTATE T0 subset)",
    "target": "js",
    "find": "pt.useEffect(()=>{function ii(Ur){",
-   "repl": "pt.useEffect(()=>{try{const q=new URLSearchParams(location.search),g=k=>{const v=q.get(k);return v===null||v===\"\"?null:v};const t=parseInt(g(\"tick\")??g(\"t\"),10),d=parseInt(g(\"day\"),10),u=g(\"unit\")??g(\"u\"),z=parseFloat(g(\"z\")),ll=(g(\"ll\")||\"\").split(\",\").map(Number),la=parseFloat(g(\"lat\")),ln=parseFloat(g(\"lng\")),anc=g(\"ancestor\");const tk=t>=1&&t<=675?t:d>=1&&d<=3?(d===1?1:d===2?226:451):null;const okll=ll.length===2&&isFinite(ll[0])&&isFinite(ll[1]),lat=okll?ll[0]:la,lng=okll?ll[1]:ln;if(tk===null&&!u&&!anc&&!(z>=0)&&!(isFinite(lat)&&isFinite(lng)))return;const s=yn.getState();if(tk!==null){s.setTick(tk);s.setPlaying(!1)}if(u&&/^[A-Za-z0-9._-]{1,32}$/.test(u))yn.setState({selectedUnitId:u,pinnedUnitId:u});if(anc&&/^[A-Za-z0-9._-]{1,32}$/.test(anc))hi(!0);if(isFinite(lat)&&isFinite(lng)||z>=0){const go=m=>{try{const o={};if(isFinite(lat)&&isFinite(lng))o.center=[lng,lat];if(z>=0)o.zoom=Math.max(11,Math.min(18,z));m.jumpTo(o)}catch(e){}};const cur=yn.getState().mapRef;if(cur)go(cur);else{const un=yn.subscribe(st=>{if(st.mapRef){un();go(st.mapRef)}})}}}catch(e){}},[]),pt.useEffect(()=>{function ii(Ur){",
+   "repl": "pt.useEffect(()=>{try{const q=new URLSearchParams(location.search),g=k=>{const v=q.get(k);return v===null||v===\"\"?null:v},ID=/^[A-Za-z0-9._-]{1,32}$/,NUM=/^[+-]?\\d+(\\.\\d+)?$/,INT=/^\\d{1,4}(\\.\\d+)?$/,num=v=>v!==null&&NUM.test(v)?parseFloat(v):NaN,int=v=>v!==null&&INT.test(v)?parseInt(v,10):NaN;const t=int(g(\"tick\")??g(\"t\")),d=int(g(\"day\")),u=g(\"unit\")??g(\"u\"),anc=g(\"ancestor\"),vg=g(\"vignette\")??g(\"v\"),z=num(g(\"z\")),ll=(g(\"ll\")||\"\").split(\",\"),two=ll.length===2&&NUM.test(ll[0])&&NUM.test(ll[1]),lat=two?parseFloat(ll[0]):num(g(\"lat\")),lng=two?parseFloat(ll[1]):num(g(\"lng\")),okll=lat>=39.7&&lat<=39.93&&lng>=-77.38&&lng<=-77.1,tk=t>=1&&t<=675?t:d>=1&&d<=3?(d===1?1:d===2?226:451):null,uOk=!!u&&ID.test(u),aOk=!!anc&&ID.test(anc),vOk=!!vg&&ID.test(vg),zOk=z>=0;if(tk===null&&!uOk&&!aOk&&!vOk&&!zOk&&!okll)return;const s=yn.getState();if(tk!==null){s.setTick(tk);s.setPlaying(!1)}else if(vOk){const fv=vd=>{const m=vd&&vd.all&&vd.all.find(x=>x.vignette_id===vg);if(m&&m.trigger_tick>=1&&m.trigger_tick<=675){yn.getState().setTick(m.trigger_tick);yn.getState().setPlaying(!1)}};if(s.vignetteData)fv(s.vignetteData);else{let un2=null;const to=setTimeout(()=>{un2&&un2()},6e4);un2=yn.subscribe(st=>{if(st.vignetteData){clearTimeout(to);un2();fv(st.vignetteData)}})}}if(uOk)yn.setState({selectedUnitId:u,pinnedUnitId:u});if(aOk)hi(!0);if(okll||zOk){const go=m=>{try{const o={};if(okll)o.center=[lng,lat];if(zOk)o.zoom=Math.max(11,Math.min(18,z));m.jumpTo(o)}catch(e){}};const cur=yn.getState().mapRef;if(cur)go(cur);else{let un=null;un=yn.subscribe(st=>{if(st.mapRef){un();go(st.mapRef)}})}}}catch(e){}},[]),pt.useEffect(()=>{function ii(Ur){",
+   "expect": 1
+  },
+  {
+   "id": "DL-turning-points-anchor 175->75 (Ewell's Discretion on Cemete)",
+   "target": "turning-points.html",
+   "find": "title: \"Ewell's Discretion on Cemetery Hill\", tick: 175,",
+   "repl": "title: \"Ewell's Discretion on Cemetery Hill\", tick: 75,",
+   "expect": 1
+  },
+  {
+   "id": "DL-turning-points-anchor 240->256 (Longstreet's Delayed Attack)",
+   "target": "turning-points.html",
+   "find": "title: \"Longstreet's Delayed Attack\", tick: 240,",
+   "repl": "title: \"Longstreet's Delayed Attack\", tick: 256,",
+   "expect": 1
+  },
+  {
+   "id": "DL-turning-points-anchor 267->275 (Chamberlain's Bayonet Charge)",
+   "target": "turning-points.html",
+   "find": "title: \"Chamberlain's Bayonet Charge\", tick: 267,",
+   "repl": "title: \"Chamberlain's Bayonet Charge\", tick: 275,",
+   "expect": 1
+  },
+  {
+   "id": "DL-turning-points-anchor 340->326 (The Night Assault on Culp's )",
+   "target": "turning-points.html",
+   "find": "title: \"The Night Assault on Culp's and Cemetery Hill\", tick: 340,",
+   "repl": "title: \"The Night Assault on Culp's and Cemetery Hill\", tick: 326,",
+   "expect": 1
+  },
+  {
+   "id": "DL-turning-points-anchor 540->518 (The Cannonade and Its Effect)",
+   "target": "turning-points.html",
+   "find": "title: \"The Cannonade and Its Effect\", tick: 540,",
+   "repl": "title: \"The Cannonade and Its Effect\", tick: 518,",
+   "expect": 1
+  },
+  {
+   "id": "DL-turning-points-anchor 560->538 (Pickett's Charge and the Dec)",
+   "target": "turning-points.html",
+   "find": "title: \"Pickett's Charge and the Decision to Attack the Center\", tick: 560,",
+   "repl": "title: \"Pickett's Charge and the Decision to Attack the Center\", tick: 538,",
    "expect": 1
   }
  ]

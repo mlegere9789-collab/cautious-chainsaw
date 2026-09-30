@@ -1,0 +1,217 @@
+{
+ "_doc": "moments.json v0 (WP-T0-09, D-URLSTATE). One flat registry of the ticks the legacy app and the site point at: the 9 Turning Points (turning-points.html), the 8 scrubber markers and the 5 onboarding tour stops of the app. Ticks are LEGACY ticks (no clock re-timing: D-TIME); every row is review:\"unreviewed\"; provisional:true rows are the two anchors whose earlier ticks were wrong (Ewell 175 -> 75, Night Assault 340 -> 326). \"moment\" groups rows that are the same historical moment on different surfaces. Lint: every tick must lie within +-3 ticks of an event in chronology_day1..3.json (tests/t0/deeplinks.spec.mjs, T0-DL-06). Nothing in the app reads this file in Tranche 0.",
+ "schema": 1,
+ "version": "v0",
+ "dv": 1,
+ "tick_max": 675,
+ "moments": [
+  {
+   "id": "tp-buford-stands",
+   "kind": "turning-point",
+   "tick": 1,
+   "title": "Buford's Decision to Stand",
+   "moment": "buford-stands",
+   "source": "turning-points.html POINTS",
+   "review": "unreviewed"
+  },
+  {
+   "id": "tp-ewell-discretion",
+   "kind": "turning-point",
+   "tick": 75,
+   "title": "Ewell's Discretion on Cemetery Hill",
+   "moment": "ewell-order",
+   "source": "turning-points.html POINTS",
+   "review": "unreviewed",
+   "provisional": true,
+   "was": 175,
+   "note": "was tick 175 (no chronology event there); the same story is the critical event at t75 (Lee's discretionary order to Ewell); ships provisional, flagged for the reviewer (D-HIST-REVIEW)"
+  },
+  {
+   "id": "tp-longstreet-delay",
+   "kind": "turning-point",
+   "tick": 256,
+   "title": "Longstreet's Delayed Attack",
+   "moment": "longstreet-assault",
+   "source": "turning-points.html POINTS",
+   "review": "unreviewed",
+   "was": 240
+  },
+  {
+   "id": "tp-chamberlain-charge",
+   "kind": "turning-point",
+   "tick": 275,
+   "title": "Chamberlain's Bayonet Charge",
+   "moment": "chamberlain-charge",
+   "source": "turning-points.html POINTS",
+   "review": "unreviewed",
+   "was": 267
+  },
+  {
+   "id": "tp-wheatfield-peach-orchard",
+   "kind": "turning-point",
+   "tick": 300,
+   "title": "The Collapse at the Wheatfield and Peach Orchard",
+   "moment": "peach-orchard-collapse",
+   "source": "turning-points.html POINTS",
+   "review": "unreviewed"
+  },
+  {
+   "id": "tp-night-assault",
+   "kind": "turning-point",
+   "tick": 326,
+   "title": "The Night Assault on Culp's and Cemetery Hill",
+   "moment": "cemetery-hill-assault",
+   "source": "turning-points.html POINTS",
+   "review": "unreviewed",
+   "provisional": true,
+   "was": 340,
+   "note": "was tick 340 (a medium 'fighting dies down' event); t326 is the critical CEMETERY HILL ASSAULT event (t314, Johnson on Culp's Hill, is the alternate); ships provisional"
+  },
+  {
+   "id": "tp-culps-hill-retaken",
+   "kind": "turning-point",
+   "tick": 460,
+   "title": "Culp's Hill Retaken",
+   "moment": "culps-hill-retaken",
+   "source": "turning-points.html POINTS",
+   "review": "unreviewed"
+  },
+  {
+   "id": "tp-cannonade",
+   "kind": "turning-point",
+   "tick": 518,
+   "title": "The Cannonade and Its Effect",
+   "moment": "cannonade",
+   "source": "turning-points.html POINTS",
+   "review": "unreviewed",
+   "was": 540
+  },
+  {
+   "id": "tp-pickett-charge",
+   "kind": "turning-point",
+   "tick": 538,
+   "title": "Pickett's Charge and the Decision to Attack the Center",
+   "moment": "pickett-charge",
+   "source": "turning-points.html POINTS",
+   "review": "unreviewed",
+   "was": 560
+  },
+  {
+   "id": "mk-first-shot",
+   "kind": "marker",
+   "tick": 17,
+   "title": "First shot",
+   "moment": "first-artillery-fire",
+   "source": "bundle scrubber markers (TO)",
+   "review": "unreviewed"
+  },
+  {
+   "id": "mk-reynolds-kia",
+   "kind": "marker",
+   "tick": 28,
+   "title": "Reynolds KIA",
+   "moment": "reynolds-killed",
+   "source": "bundle scrubber markers (TO)",
+   "review": "unreviewed"
+  },
+  {
+   "id": "mk-iversons-pits",
+   "kind": "marker",
+   "tick": 52,
+   "title": "Iverson's Pits",
+   "moment": "iversons-pits",
+   "source": "bundle scrubber markers (TO)",
+   "review": "unreviewed"
+  },
+  {
+   "id": "mk-little-round-top",
+   "kind": "marker",
+   "tick": 267,
+   "title": "Little Round Top",
+   "moment": "little-round-top",
+   "source": "bundle scrubber markers (TO)",
+   "review": "unreviewed"
+  },
+  {
+   "id": "mk-1st-minnesota",
+   "kind": "marker",
+   "tick": 302,
+   "title": "1st Minnesota",
+   "moment": "1st-minnesota-charge",
+   "source": "bundle scrubber markers (TO)",
+   "review": "unreviewed"
+  },
+  {
+   "id": "mk-cannonade",
+   "kind": "marker",
+   "tick": 518,
+   "title": "Cannonade",
+   "moment": "cannonade",
+   "source": "bundle scrubber markers (TO)",
+   "review": "unreviewed"
+  },
+  {
+   "id": "mk-picketts-charge",
+   "kind": "marker",
+   "tick": 538,
+   "title": "Pickett's Charge",
+   "moment": "pickett-charge",
+   "source": "bundle scrubber markers (TO)",
+   "review": "unreviewed"
+  },
+  {
+   "id": "mk-the-angle",
+   "kind": "marker",
+   "tick": 551,
+   "title": "The Angle",
+   "moment": "the-angle",
+   "source": "bundle scrubber markers (TO)",
+   "review": "unreviewed"
+  },
+  {
+   "id": "tour-dawn",
+   "kind": "tour-stop",
+   "tick": 1,
+   "title": "July 1, 1863 - Dawn",
+   "moment": "buford-stands",
+   "source": "bundle onboarding tour stops (Gc)",
+   "review": "unreviewed"
+  },
+  {
+   "id": "tour-first-artillery",
+   "kind": "tour-stop",
+   "tick": 17,
+   "title": "First Artillery Fire",
+   "moment": "first-artillery-fire",
+   "source": "bundle onboarding tour stops (Gc)",
+   "review": "unreviewed"
+  },
+  {
+   "id": "tour-reynolds-killed",
+   "kind": "tour-stop",
+   "tick": 28,
+   "title": "Reynolds Killed",
+   "moment": "reynolds-killed",
+   "source": "bundle onboarding tour stops (Gc)",
+   "review": "unreviewed"
+  },
+  {
+   "id": "tour-little-round-top",
+   "kind": "tour-stop",
+   "tick": 267,
+   "title": "The Crisis at Little Round Top",
+   "moment": "little-round-top",
+   "source": "bundle onboarding tour stops (Gc)",
+   "review": "unreviewed"
+  },
+  {
+   "id": "tour-picketts-charge",
+   "kind": "tour-stop",
+   "tick": 538,
+   "title": "Pickett's Charge",
+   "moment": "pickett-charge",
+   "source": "bundle onboarding tour stops (Gc)",
+   "review": "unreviewed"
+  }
+ ]
+}

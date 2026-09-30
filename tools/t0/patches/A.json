@@ -68,7 +68,7 @@
    "id": "mob:HF-3c desktop map click handler",
    "target": "js",
    "find": "Xe.on(\"load\",()=>{M.current=Xe,he(Xe),c&&c(M,f),T4(Xe),",
-   "repl": "Xe.on(\"click\",ev=>{const cv=x.current;if(!cv)return;const r=cv.getBoundingClientRect(),e={target:cv,clientX:ev.point.x+r.left,clientY:ev.point.y+r.top};if(window.__gtbgApp&&window.__gtbgApp._gbDist&&window.__gtbgApp._gbDist(e))return;ht(e)}),Xe.on(\"load\",()=>{M.current=Xe,he(Xe),c&&c(M,f),T4(Xe),",
+   "repl": "Xe.on(\"click\",ev=>{const cv=x.current;if(!cv)return;const r=cv.getBoundingClientRect(),e={target:cv,clientX:ev.point.x+r.left,clientY:ev.point.y+r.top};if(window.__gtbgApp&&window.__gtbgApp._gbDist&&window.__gtbgApp._gbDist(e))return;if(yn.getState().showUnits===!1)return;ht(e)}),Xe.on(\"load\",()=>{M.current=Xe,he(Xe),c&&c(M,f),T4(Xe),",
    "expect": 1
   },
   {
@@ -145,7 +145,7 @@
    "id": "A-onboarded-guard (bug:H1 + deep-link suppress)",
    "target": "js",
    "find": "pt.useState(()=>!localStorage.getItem(\"gtbg_onboarded\"))",
-   "repl": "pt.useState(()=>{try{return!localStorage.getItem(\"gtbg_onboarded\")&&!/[?&](tick|t|unit|u|vignette|ancestor|day|ll|z)=/.test(location.search)}catch(e){return!0}})",
+   "repl": "pt.useState(()=>{try{return!localStorage.getItem(\"gtbg_onboarded\")&&!/[?&](tick|t|unit|u|vignette|v|ancestor|day|ll|z|lat|lng)=/.test(location.search)}catch(e){return!0}})",
    "expect": 1
   },
   {
@@ -167,6 +167,13 @@
    "target": "js",
    "find": "function Se(){c==null||c()}return V.jsx(\"div\",{style:tr.overlay",
    "repl": "function Se(){f(1),x(1),c==null||c()}return V.jsx(\"div\",{style:tr.overlay",
+   "expect": 1
+  },
+  {
+   "id": "A-error-boundary (AMD-T0-1, moved here from EB.json: owner asked for the full plan)",
+   "target": "js",
+   "find": "Rk(document.getElementById(\"root\")).render(V.jsx(pt.StrictMode,{children:V.jsx(AO,{})}));",
+   "repl": "class GtbgEB extends pt.Component{constructor(p){super(p);this.state={e:null}}static getDerivedStateFromError(e){return{e:e||!0}}componentDidCatch(e){try{console.error(\"gtbg boundary:\",e&&e.message)}catch(_){}}render(){return this.state.e?V.jsxs(\"div\",{role:\"alert\",style:{position:\"fixed\",inset:0,display:\"flex\",flexDirection:\"column\",alignItems:\"center\",justifyContent:\"center\",gap:16,background:\"#0a0a14\",color:\"#e8e6df\",fontFamily:\"Georgia,serif\",textAlign:\"center\",padding:24},children:[V.jsx(\"p\",{style:{fontSize:20,margin:0},children:\"Something went wrong drawing the map.\"}),V.jsx(\"button\",{type:\"button\",onClick:()=>location.reload(),style:{font:\"inherit\",minHeight:44,padding:\"0 22px\",borderRadius:8,border:\"1px solid #c9a24b\",background:\"#12121e\",color:\"#c9a24b\",cursor:\"pointer\"},children:\"Reload\"}),V.jsx(\"a\",{href:\"/historian\",style:{color:\"#c9a24b\",minHeight:44,display:\"inline-flex\",alignItems:\"center\"},children:\"Ask the Historian\"})]}):this.props.children}}Rk(document.getElementById(\"root\")).render(V.jsx(pt.StrictMode,{children:V.jsx(GtbgEB,{children:V.jsx(AO,{})})}));",
    "expect": 1
   }
  ]

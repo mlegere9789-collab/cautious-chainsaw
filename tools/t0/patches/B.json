@@ -84,6 +84,13 @@
    "find": "(x[z]||[]).length,\" units · tick \",z",
    "repl": "y1(x,z,0).length,\" units · tick \",z",
    "expect": 1
+  },
+  {
+   "id": "B-ancestor-loads-days (Follow panel + ?ancestor= need every day; app-bugs-06 \"217 of 478 units missing from Follow Your Ancestor\")",
+   "target": "js",
+   "find": "pt.useEffect(()=>{const Xe=new URLSearchParams(window.location.search).get(\"ancestor\");Xe&&(l(Xe),st(Xe))},[])",
+   "repl": "pt.useEffect(()=>{zp(1),zp(2),zp(3);const Xe=new URLSearchParams(window.location.search).get(\"ancestor\");Xe&&(l(Xe),st(Xe))},[])",
+   "expect": 1
   }
  ]
 }
