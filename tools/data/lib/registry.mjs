@@ -17,11 +17,11 @@ export const OR_VERIFIED = {
   },
   '107PA': {
     text: 'OR Ser. I vol. 27 pt. 1, I Corps, Second Division, Paul\'s First Brigade lists 16th Maine, 13th Massachusetts, 94th New York, 104th New York and the 107th PENNSYLVANIA: the I Corps record U-107NY is mislabelled.',
-    evidence: 'IA warofrebellion271unit_djvu.txt lines 17510-17560 (printed p.156)',
+    evidence: 'IA warofrebellion271unit_djvu.txt lines 17590-17600 (printed p.156; the 107th Pennsylvania is on line 17595)',
   },
   '84NY': {
     text: 'OR Ser. I vol. 27 pt. 1, I Corps, First Division, Cutler\'s Second Brigade lists "84th New York (14th Militia)": the 14th Brooklyn is the 84th New York.',
-    evidence: 'IA warofrebellion271unit_djvu.txt lines 17470-17480 (printed p.155)',
+    evidence: 'IA warofrebellion271unit_djvu.txt line 17516 (printed p.155)',
   },
 };
 
@@ -156,7 +156,7 @@ export function buildRegistry(ctx, crosswalkByTarget = new Map()) {
   setFlag('U-11PA-B', { code: 'assignment_transfer', needs_historian: false, or_verified: true, others: ['U-11PA'], text: OR_VERIFIED['11PA'].text, evidence: OR_VERIFIED['11PA'].evidence, decision: 'merge into U-11PA' });
   setFlag('U-107NY', { code: 'mislabelled_regiment', needs_historian: true, or_verified: true, text: OR_VERIFIED['107PA'].text, evidence: OR_VERIFIED['107PA'].evidence, decision: 'relabel to U-107PA after the historian confirms the strength (122 men) and casualties belong to the 107th Pennsylvania' });
   setFlag('C-61VA', { code: 'commander_or_mismatch', needs_historian: true, or_verified: true, text: 'OR Ser. I vol. 27 pt. 2, organization of the Army of Northern Virginia (Third Corps, Mahone\'s Brigade) prints "61st Virginia, Col. V. D. Groner"; the site record says "Colonel Virginia Boisseau", which looks like a merge error.', evidence: 'IA warofrebellion272unit_djvu.txt line 25775', decision: 'replace the name after the historian confirms; initials are as printed in the OR' });
-  setFlag('C-McClanahan-ART', { code: 'battery_in_imbodens_command', needs_historian: false, or_verified: true, text: 'OR Ser. I vol. 27 pt. 2 lists "Virginia Battery, Capt. J. H. McClanahan" under Imboden\'s Command, separate from the Stuart Horse Artillery: a battery, not a duplicate of the C-HAB-* records.', evidence: 'IA warofrebellion272unit_djvu.txt lines 26192-26235 (printed p.291)', decision: 'move to horse_artillery (WP-DATA-07)' });
+  setFlag('C-McClanahan-ART', { code: 'battery_in_imbodens_command', needs_historian: false, or_verified: true, text: 'OR Ser. I vol. 27 pt. 2 lists "Virginia Battery, Capt. J. H. McClanahan" under Imboden\'s Command, separate from the Stuart Horse Artillery: a battery, not a duplicate of the C-HAB-* records.', evidence: 'IA warofrebellion272unit_djvu.txt line 26229 (printed p.291; the OR index also lists McClanahan on p.291)', decision: 'move to horse_artillery (WP-DATA-07)' });
   const ny84 = byId.get('U-84NY');
   if (ny84) {
     ny84.aliases.push({ id: 'U-14BK', source: 'oob alias_for', confidence: 'high', status: 'decision_pending', decision: 'Q-DATA-8 (owner): search synonym, not a row', names: ['14th Brooklyn', '14th N.Y.S.M.'], hidden: true, evidence: OR_VERIFIED['84NY'].evidence, text: OR_VERIFIED['84NY'].text });
