@@ -81,7 +81,10 @@ def cmd_prove(a, P):
 def cmd_lock(a, P):
     if not os.path.isdir(P['dist']):
         raise BuildError('baseline tree %s does not exist (run reconstruct first)' % B.rel_to_repo(P['dist']))
-    meta = {'mirror': B.rel_to_repo(P['mirror']), 'legacy_tree_sha256': P['cfg']['legacy']['tree_sha256']}
+    leg, bas = B.read_tree(P['legacy']), B.read_tree(P['dist'])
+    changed = sorted(p for p in set(leg) | set(bas) if leg.get(p) != bas.get(p))
+    meta = {'mirror': B.rel_to_repo(P['mirror']), 'legacy_tree_sha256': P['cfg']['legacy']['tree_sha256'],
+            'changed_vs_legacy': changed}
     mj = os.path.join(P['mirror'], 'MIRROR.json')
     if os.path.isfile(mj):
         m = load_json(mj)

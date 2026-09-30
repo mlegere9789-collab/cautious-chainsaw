@@ -12,17 +12,20 @@
 //                  file: every local reference of every html page (script/link/img/source/iframe/a, srcset, inline style url(), og:image and
 //                  twitter:image on the own domain), every css url(), every /assets/ name and "./x.js" import in the entry, chunks, sw.js and
 //                  site-nav.js, every absolute "/x.ext" string literal of the bundle, manifest.json icons/screenshots/shortcuts, sitemap.xml <loc>
-//                  (own domain) and the GSC file resolve to HTTP 200.  The same crawl runs on legacy/dist: only references that are NEW relative to
-//                  that baseline (same page -> same target) fail, so a dangling link the deployed site already had is reported, not blamed.
+//                  (own domain) and the GSC file resolve to HTTP 200.  The same crawl runs on the BASELINE (baseline/dist = what production serves, since the
+//                  2026-09-30 re-baseline; legacy/dist before): only references that are NEW relative to it (same page -> same target) fail, so a dangling
+//                  link the deployed site already had is reported, not blamed.
 //   V3 devpages    /diagnostics(.html) and /unit-rendering-reference(.html) answer 404 from R1a on (200 in R0, which ships no page changes)
 //   V4 names       "never reuse a file name for different bytes": every assets/ name has ONE sha256 across all trains and legacy, the release-id
 //                  names (entry, both chunks) differ between trains, and every name agrees with ops/used-names.txt (same bytes or not in it)
 //   V6 identity    chapter 02 rule 5 (no identity change in T0): for every page present in both trees <title>, meta description, canonical, og:title/
-//                  og:description/og:url/og:type/og:site_name, twitter:title/twitter:description are byte-identical to legacy/dist; manifest.json name,
-//                  short_name and start_url are unchanged; sitemap.xml lists exactly the legacy URLs minus ar.html; every /data/* file is byte-identical
+//                  og:description/og:url/og:type/og:site_name, twitter:title/twitter:description are byte-identical to the baseline; manifest.json name,
+//                  short_name and start_url are unchanged; sitemap.xml lists exactly the baseline URLs minus ar.html; every /data/* file is byte-identical
 //   V7 cumulative every patch id of train N (release/<N>/anchors.json) is also in train N+1, every non-asset file path of N exists in N+1 (unless the manifest of N+1 lists it as deleted on purpose), and the
 //                  groups recorded in version.json only grow (R0 < R1a < R1b < R1c)
 //   V5 legacy      legacy/dist still hashes to the pinned tree digest and the main bundle md5 is 7ef75b95f4c02700430b8aa91e3a7459
+//   V8 baseline    baseline/dist matches tools/t0/baseline.lock.json (per-file sha256, tree digest) and differs from legacy/dist in exactly the locked files
+//                  (index.html, data/terrain.json: production drift of 2026-09-30, docs/baseline-drift.md); every train's manifest records that baseline tree
 // Exit 0 = all green, 1 = at least one failure.  Writes release/<train>/verify.json.  No network access beyond 127.0.0.1.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -188,14 +191,15 @@ const fail = (t, id, msg, detail) => { failed++; t.failures.push({ id, msg, deta
 
 // ------------------------------------------------------------------ V5 legacy pinned + baseline crawl
 const legacyDist = path.join(REPO, CFG.legacy.dir);
+const baseDist = path.join(REPO, CFG.base.dir);
 const entryMd5 = md5(fs.readFileSync(path.join(legacyDist, CFG.legacy.entry)));
 const legacyFiles = walk(legacyDist).sort();
 const legacyTree = sha(legacyFiles.map((f) => `${f}\0${sha(fs.readFileSync(path.join(legacyDist, f)))}\n`).join(''));
 const legacyAssetShas = {};
 for (const f of legacyFiles) if (f.startsWith('assets/')) legacyAssetShas[path.basename(f)] = sha(fs.readFileSync(path.join(legacyDist, f)));
-const base = await crawl(legacyDist, PORT);
+const base = await crawl(baseDist, PORT);
 const baselineKeys = new Set(base.missing.map(key));
-console.log(`legacy baseline: ${base.files} files, ${base.refs} references (${base.uniqueTargets} targets, ${base.skipped} non-reference strings ignored), ${base.missing.length} already-dangling (${baselineKeys.size} distinct), entry md5 ${entryMd5}`);
+console.log(`baseline (${CFG.base.dir}): ${base.files} files, ${base.refs} references (${base.uniqueTargets} targets, ${base.skipped} non-reference strings ignored), ${base.missing.length} already-dangling (${baselineKeys.size} distinct), entry md5 ${entryMd5}`);
 
 // ledger
 const ledger = {};
@@ -225,7 +229,7 @@ for (const t of TRAINS) {
   T.checks.inheritedList = [...new Set(c.missing.filter((m) => baselineKeys.has(key(m))).map((m) => `${role(m.from)} -> ${m.path} [${m.kind}] ${m.status}`))];
   const inherited = c.missing.filter((m) => baselineKeys.has(key(m)));
   T.checks.crawl = { files: c.files, references: c.refs, nonReferenceStringsIgnored: c.skipped, uniqueTargets: c.uniqueTargets, pagesFetched: c.pages, pagesNot200: c.badPages, newMissing, inheritedMissing: inherited.length, unknownPathStatus: c.notFoundStatus };
-  if (newMissing.length) fail(T, 'V2', `${newMissing.length} reference(s) to a missing file that legacy/dist did not have`, newMissing.slice(0, 20));
+  if (newMissing.length) fail(T, 'V2', `${newMissing.length} reference(s) to a missing file that the baseline did not have`, newMissing.slice(0, 20));
   if (c.badPages.length) fail(T, 'V2', `pages that do not answer 200: ${c.badPages.join(', ')}`);
   if (c.notFoundStatus !== 404) fail(T, 'V2', `an unknown path answers ${c.notFoundStatus}, not 404`);
   // V3 dev pages
@@ -252,22 +256,22 @@ for (const t of TRAINS) {
       return o;
     };
     const diffs = [];
-    for (const f of walk(legacyDist).filter((x) => /^[^/]+\.html$/.test(x))) {
+    for (const f of walk(baseDist).filter((x) => /^[^/]+\.html$/.test(x))) {
       const np = path.join(dist, f);
       if (!fs.existsSync(np)) { if (!/^(diagnostics|unit-rendering-reference)\.html$/.test(f)) diffs.push(`${f}: page removed`); continue; }
-      const a = id(fs.readFileSync(path.join(legacyDist, f), 'utf8')), b = id(fs.readFileSync(np, 'utf8'));
+      const a = id(fs.readFileSync(path.join(baseDist, f), 'utf8')), b = id(fs.readFileSync(np, 'utf8'));
       for (const k of new Set([...Object.keys(a), ...Object.keys(b)])) if (a[k] !== b[k]) diffs.push(`${f}: ${k} changed ${JSON.stringify(a[k])} -> ${JSON.stringify(b[k])}`);
     }
-    const lm = JSON.parse(fs.readFileSync(path.join(legacyDist, 'manifest.json'), 'utf8')), nm = JSON.parse(fs.readFileSync(path.join(dist, 'manifest.json'), 'utf8'));
+    const lm = JSON.parse(fs.readFileSync(path.join(baseDist, 'manifest.json'), 'utf8')), nm = JSON.parse(fs.readFileSync(path.join(dist, 'manifest.json'), 'utf8'));
     for (const k of ['name', 'short_name', 'start_url']) if (lm[k] !== nm[k]) diffs.push(`manifest.json: ${k} changed ${JSON.stringify(lm[k])} -> ${JSON.stringify(nm[k])}`);
     const locs = (d) => [...fs.readFileSync(path.join(d, 'sitemap.xml'), 'utf8').matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)].map((m) => m[1]).sort();
-    const wantLocs = locs(legacyDist).filter((u) => !/\/ar(\.html)?$/.test(u)), haveLocs = locs(dist);
-    if (t === 'R0' ? JSON.stringify(locs(legacyDist)) !== JSON.stringify(haveLocs) : JSON.stringify(wantLocs) !== JSON.stringify(haveLocs)) diffs.push(`sitemap.xml: URL set differs (legacy minus ar: ${wantLocs.length}, here ${haveLocs.length})`);
+    const wantLocs = locs(baseDist).filter((u) => !/\/ar(\.html)?$/.test(u)), haveLocs = locs(dist);
+    if (t === 'R0' ? JSON.stringify(locs(baseDist)) !== JSON.stringify(haveLocs) : JSON.stringify(wantLocs) !== JSON.stringify(haveLocs)) diffs.push(`sitemap.xml: URL set differs (baseline minus ar: ${wantLocs.length}, here ${haveLocs.length})`);
     const dataDiff = [];
-    for (const f of walk(legacyDist).filter((x) => x.startsWith('data/'))) { const np = path.join(dist, f); if (!fs.existsSync(np) || sha(fs.readFileSync(np)) !== sha(fs.readFileSync(path.join(legacyDist, f)))) dataDiff.push(f); }
+    for (const f of walk(baseDist).filter((x) => x.startsWith('data/'))) { const np = path.join(dist, f); if (!fs.existsSync(np) || sha(fs.readFileSync(np)) !== sha(fs.readFileSync(path.join(baseDist, f)))) dataDiff.push(f); }
     if (dataDiff.length) diffs.push(`data/* changed or removed: ${dataDiff.join(', ')}`);
-    T.checks.identity = { pagesCompared: walk(legacyDist).filter((x) => /^[^/]+\.html$/.test(x)).length, differences: diffs };
-    if (diffs.length) fail(T, 'V6', `${diffs.length} identity difference(s) versus legacy/dist`, diffs.slice(0, 12));
+    T.checks.identity = { pagesCompared: walk(baseDist).filter((x) => /^[^/]+\.html$/.test(x)).length, differences: diffs };
+    if (diffs.length) fail(T, 'V6', `${diffs.length} identity difference(s) versus the baseline`, diffs.slice(0, 12));
   }
   // V4 names
   const assets = fs.existsSync(path.join(dist, 'assets')) ? fs.readdirSync(path.join(dist, 'assets')) : [];
@@ -319,6 +323,28 @@ v4.checks.legacy = { treeSha256: legacyTree, pinnedTree: CFG.legacy.tree_sha256 
 if (CFG.legacy.tree_sha256 && legacyTree !== CFG.legacy.tree_sha256) fail(v4, 'V5', `legacy tree digest ${legacyTree} != pinned ${CFG.legacy.tree_sha256}`);
 if (legacyFiles.length !== CFG.legacy.file_count) fail(v4, 'V5', `legacy has ${legacyFiles.length} files, pinned ${CFG.legacy.file_count}`);
 if (entryMd5 !== CFG.legacy.entry_md5) fail(v4, 'V5', `legacy entry md5 ${entryMd5} != ${CFG.legacy.entry_md5}`);
+{
+  // V8: the baseline the trains were built from is the locked one, and the trains say so
+  const lock = JSON.parse(fs.readFileSync(path.join(REPO, CFG.base.lock), 'utf8'));
+  const baseFiles = walk(baseDist).sort();
+  const bad = [];
+  for (const f of new Set([...Object.keys(lock.files), ...baseFiles])) {
+    if (!baseFiles.includes(f)) bad.push(`missing: ${f}`);
+    else if (!lock.files[f]) bad.push(`extra: ${f}`);
+    else if (sha(fs.readFileSync(path.join(baseDist, f))) !== lock.files[f].sha256) bad.push(`changed: ${f}`);
+  }
+  const baseTree = sha(baseFiles.map((f) => `${f}\0${sha(fs.readFileSync(path.join(baseDist, f)))}\n`).join(''));
+  const drift = baseFiles.filter((f) => !legacyFiles.includes(f) || sha(fs.readFileSync(path.join(baseDist, f))) !== sha(fs.readFileSync(path.join(legacyDist, f)))).sort();
+  v4.checks.baseline = { tree: baseTree, locked: lock.tree_sha256, files: baseFiles.length, differsFromLegacy: drift, lockedDrift: lock.changed_vs_legacy };
+  if (bad.length || baseTree !== lock.tree_sha256) fail(v4, 'V8', `baseline/dist does not match ${CFG.base.lock}`, bad.slice(0, 10));
+  if (JSON.stringify(drift) !== JSON.stringify([...(lock.changed_vs_legacy || [])].sort())) fail(v4, 'V8', `baseline/dist differs from legacy/dist in ${JSON.stringify(drift)}, the lock records ${JSON.stringify(lock.changed_vs_legacy)}`);
+  for (const t of TRAINS) {
+    try {
+      const man = JSON.parse(fs.readFileSync(path.join(RELEASE_DIR, t, 'manifest.json'), 'utf8'));
+      if (!man.baseline || man.baseline.tree_sha256 !== lock.tree_sha256 || !man.baseline.locked) fail(v4, 'V8', `release/${t}/manifest.json was not built from the locked baseline (${JSON.stringify(man.baseline || null)})`);
+    } catch { /* unreadable manifests are reported by V1 */ }
+  }
+}
 results.push(v4);
 
 // ------------------------------------------------------------------ report
@@ -329,7 +355,7 @@ for (const T of results) {
     const c = T.checks.crawl || {};
     line = `${ok ? 'PASS' : 'FAIL'}  ${T.train}  rid ${T.checks.release || '?'}  files ${T.checks.manifest?.files ?? '?'}  refs ${c.references ?? '?'} (${c.uniqueTargets ?? '?'} targets, ${c.pagesFetched ?? '?'} page urls)  new dangling ${c.newMissing ? c.newMissing.length : '?'}  inherited dangling ${c.inheritedMissing ?? '?'}  dev pages ${JSON.stringify(T.checks.devpages?.status || {})}`;
   } else if (T.train === 'cumulative') line = `${ok ? 'PASS' : 'FAIL'}  cumulative  ${Object.entries(T.checks).map(([k, v]) => `${k}: +${v.addedPatches} patches, ${v.filesBefore}->${v.filesAfter} non-asset files`).join('; ')}`;
-  else line = `${ok ? 'PASS' : 'FAIL'}  names/legacy  ${v4.checks.namesAcrossTrains} distinct asset names across trains, reuse with other bytes: ${reused.length}; legacy entry md5 ${entryMd5}`;
+  else line = `${ok ? 'PASS' : 'FAIL'}  names/legacy/baseline  ${v4.checks.namesAcrossTrains} distinct asset names across trains, reuse with other bytes: ${reused.length}; legacy entry md5 ${entryMd5}; baseline tree ${String(v4.checks.baseline?.tree || '?').slice(0, 12)} (${(v4.checks.baseline?.differsFromLegacy || []).length} file(s) differ from legacy)`;
   console.log(line);
   for (const f of T.failures) console.log(`      ${f.id}: ${f.msg}${f.detail ? ' ' + JSON.stringify(f.detail).slice(0, 600) : ''}`);
   if (T.train !== 'all' && T.train !== 'cumulative' && fs.existsSync(path.join(RELEASE_DIR, T.train))) fs.writeFileSync(path.join(RELEASE_DIR, T.train, 'verify.json'), JSON.stringify({ ok, ...T }, null, 1) + '\n');

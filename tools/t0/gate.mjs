@@ -2,7 +2,7 @@
 // Release gates for a built train (chapter 02 WP-T0-03, section 7).  Machine-readable result: <out>/gate.json, exit code 1 on failure.
 //
 //   node tools/t0/gate.mjs --train R1a [--dist release/R1a/dist] [--anchors release/R1a/anchors.json] [--out release/R1a/gate.json]
-//                          [--legacy legacy/dist] [--ledger ops/used-names.txt]
+//                          [--legacy baseline/dist] [--ledger ops/used-names.txt]     (--legacy = the BASELINE the build started from)
 //
 // Checks: parse (acorn) of every JS asset, sw.js, root scripts and inline HTML scripts (new failures only); unresolved-global delta of
 // entry/Help/Bookmark chunks against the legacy bundle (eslint-scope), the four known undefined names must disappear exactly when
@@ -36,7 +36,9 @@ const rp = (p) => path.resolve(REPO, p);
 const distDir = rp(args.dist || `release/${train}/dist`);
 const outFile = rp(args.out || `release/${train}/gate.json`);
 const anchorsFile = rp(args.anchors || `release/${train}/anchors.json`);
-const legacyDir = rp(args.legacy || cfg.legacy.dir);
+// "legacyDir" below is the BASELINE the build started from (trains.json base.dir = baseline/dist since 2026-09-30); legacy/dist itself is
+// only checked for being unmodified (check id legacy-pinned).
+const legacyDir = rp(args.legacy || cfg.base.dir);
 const ledgerFile = rp(args.ledger || 'ops/used-names.txt');
 const trainIdx = cfg.train_order.indexOf(train);
 const hasA = trainIdx >= cfg.train_order.indexOf(cfg.groups.A.first);
@@ -297,10 +299,22 @@ function refsOf(root, list) {
     for (const rel of [...list].sort()) h.update(`${rel}\0${sha256(fs.readFileSync(path.join(root, rel)))}\n`);
     return h.digest('hex');
   };
-  const isDefaultLegacy = path.resolve(legacyDir) === path.resolve(REPO, cfg.legacy.dir);
-  if (isDefaultLegacy) {
-    const d = treeDigest(legacyDir, legacyFiles);
-    check('legacy-pinned', d === cfg.legacy.tree_sha256 && legacyFiles.length === cfg.legacy.file_count, { digest: d, pinned: cfg.legacy.tree_sha256, files: legacyFiles.length });
+  if (!args.legacy) {
+    // default build: legacy/dist (the downloaded deploy 6aa16d61) must still be byte-exact, and baseline/dist must match its lock
+    const legacyRoot = rp(cfg.legacy.dir);
+    const lf = walk(legacyRoot);
+    const d = treeDigest(legacyRoot, lf);
+    check('legacy-pinned', d === cfg.legacy.tree_sha256 && lf.length === cfg.legacy.file_count, { digest: d, pinned: cfg.legacy.tree_sha256, files: lf.length });
+    const lock = JSON.parse(fs.readFileSync(rp(cfg.base.lock), 'utf8'));
+    const bad = [];
+    for (const f of new Set([...Object.keys(lock.files), ...legacyFiles])) {
+      if (!legacyFiles.includes(f)) bad.push(`missing: ${f}`);
+      else if (!lock.files[f]) bad.push(`extra: ${f}`);
+      else if (sha256(fs.readFileSync(path.join(legacyDir, f))) !== lock.files[f].sha256) bad.push(`changed: ${f}`);
+    }
+    const bd = treeDigest(legacyDir, legacyFiles);
+    check('baseline-pinned', bad.length === 0 && bd === lock.tree_sha256 && legacyFiles.length === lock.file_count,
+      { digest: bd, pinned: lock.tree_sha256, files: legacyFiles.length, lock: cfg.base.lock, problems: bad.slice(0, 20) });
   }
   const ldata = legacyFiles.filter((f) => f.startsWith('data/'));
   const ddata = new Set(files.filter((f) => f.startsWith('data/')));
@@ -332,7 +346,7 @@ const result = { ok, train, dist: path.relative(REPO, distDir).split(path.sep).j
 fs.mkdirSync(path.dirname(outFile), { recursive: true });
 fs.writeFileSync(outFile, JSON.stringify(result, null, 2) + '\n');
 for (const c of checks) {
-  const extra = c.id === 'bytes' ? `${c.totalBytes} B in ${c.files} files (delta ${c.deltaBytes >= 0 ? '+' : ''}${c.deltaBytes} vs legacy)` :
+  const extra = c.id === 'bytes' ? `${c.totalBytes} B in ${c.files} files (delta ${c.deltaBytes >= 0 ? '+' : ''}${c.deltaBytes} vs the baseline)` :
     c.id === 'anchors' ? `${c.total ?? 0} patch records, ${c.failed?.length ?? '?'} failed` :
       c.id === 'references' ? `${c.checked} refs, ${c.uniqueAssetRefs} distinct /assets/ names, ${c.unresolved?.length ?? '?'} new unresolved` :
         c.id === 'unresolved-globals' ? `new: ${JSON.stringify(c.roles?.entry?.newUnresolved ?? '?')}, known removed: ${JSON.stringify(c.knownUndefinedRemoved ?? [])}` :

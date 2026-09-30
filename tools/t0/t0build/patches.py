@@ -7,7 +7,7 @@ the phase with every offending patch id listed.  An overlap with an earlier patc
 import os
 import re
 
-from .util import BuildError, expand_placeholders, has_placeholder, load_json, read_text, write_text
+from .util import BuildError, eol_adapt, expand_placeholders, has_placeholder, load_json, read_text, write_text
 
 BUNDLE_TARGETS = ('js', 'help', 'book', 'css')
 GROUP_KEYS = {'group', 'patches', 'delete', 'train', 'description'}
@@ -167,6 +167,8 @@ def apply_patch(text, p, rel=None):
     find, repl = p['find'], p['repl']
     if rel is not None:
         repl = expand_placeholders(repl, rel)
+    if rel is not None and p['target'] not in BUNDLE_TARGETS and not p.get('regex'):
+        find, repl = eol_adapt(text, find), eol_adapt(text, repl)     # LF-authored patch on a CRLF page (see util.eol_adapt)
     if p.get('regex'):
         pat = re.compile(find)
         n = len(pat.findall(text))

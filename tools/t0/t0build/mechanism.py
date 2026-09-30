@@ -6,13 +6,15 @@ All `index.html` / `site-nav.css` edits are asserted anchors and are recorded in
 import hashlib
 import os
 
-from .util import BuildError, REPO, T0, read_bytes, read_text, write_bytes, write_text
+from .util import BuildError, CRLF, LF, REPO, T0, eol_adapt, is_pure_crlf, read_bytes, read_text, write_bytes, write_text
 
 PH_HELP, PH_BOOK, PH_ENTRY = '__T0_HELP__', '__T0_BOOK__', '__T0_ENTRY__'
 
 
 def _once(text, find, repl, label, records, target, expect=1):
-    """Replace `find` (asserted to occur exactly `expect` times) and record the anchor in the report."""
+    """Replace `find` (asserted to occur exactly `expect` times) and record the anchor in the report.  The strings are LF-authored; on a
+    pure-CRLF target (index.html since the 2026-09-30 re-baseline) they are converted to CRLF (util.eol_adapt)."""
+    find, repl = eol_adapt(text, find), eol_adapt(text, repl)
     n = text.count(find)
     ok = n == expect
     records.append({'group': 'R0M', 'id': 'R0M:' + label, 'target': target, 'expect': expect, 'found': n, 'ok': ok,
@@ -108,7 +110,9 @@ def run(dist, texts, cfg, train, records):
               'color-scheme meta added', records, T)
     h = _once(h, '      animation: boot-fade-in 0.4s ease both;\n', '', 'boot splash fade removed', records, T)
     # service-worker block (deployed lines 255-277) -> idle registration + chunk-error guard
-    start_marker, end_marker = '  <script>\n    // Register the service worker', '  </script>\n'
+    nl = CRLF if is_pure_crlf(h) else LF
+    start_marker = '  <script>\n    // Register the service worker'.replace(LF, nl)
+    end_marker = '  </script>\n'.replace(LF, nl)
     if h.count(start_marker) != 1:
         raise BuildError('R0 mechanism: legacy service-worker script block not found exactly once')
     a = h.index(start_marker)
@@ -118,7 +122,7 @@ def run(dist, texts, cfg, train, records):
         raise BuildError('R0 mechanism: unexpected legacy service-worker block')
     records.append({'group': 'R0M', 'id': 'R0M:service-worker script block replaced', 'target': T, 'expect': 1, 'found': 1,
                     'ok': True, 'regex': False, 'phase': 'mechanism'})
-    h = h[:a] + _tmpl('sw-register.html') + h[b:]
+    h = h[:a] + _tmpl('sw-register.html').replace(LF, nl) + h[b:]
     h = _once(h, '  <script src="/site-nav.js"></script>\n', '  <script defer src="/site-nav.js"></script>\n',
               'site-nav.js deferred', records, T)
     h = _once(h, '  <script type="module" crossorigin src="/assets/%s"></script>\n' % old_entry,

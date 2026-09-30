@@ -103,3 +103,21 @@ def expand_placeholders(s, rel):
     table = {'RID': rel['rid'], 'ENTRY': rel['entry'], 'HELP': rel['help'], 'BOOK': rel['bookmark'],
              'CSS': rel['css'], 'TRAIN': rel['train']}
     return _PLACEHOLDER.sub(lambda m: table[m.group(1)], s)
+
+
+CRLF, LF = chr(13) + chr(10), chr(10)
+
+
+def is_pure_crlf(text):
+    """True when every line break of `text` is CRLF (at least one)."""
+    return CRLF in text and LF not in text.replace(CRLF, '')
+
+
+def eol_adapt(text, s):
+    """Patch strings are authored with LF.  When the TARGET text is pure CRLF (index.html since the 2026-09-30 re-baseline, several legacy
+    pages) an LF-only string is converted to CRLF so the same anchor matches and the inserted text keeps the file's line endings.  A string
+    that already contains a CRLF is left exactly as authored (the existing page patches for CRLF pages spell their CRLF out).  The anchor
+    count assertion stays strict either way."""
+    if LF in s and CRLF not in s and is_pure_crlf(text):
+        return s.replace(LF, CRLF)
+    return s
