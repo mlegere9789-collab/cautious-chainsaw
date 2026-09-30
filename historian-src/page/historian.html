@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="theme-color" content="#0a0a14">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="noindex">
+<title>Ask the Historian (preview) — Gettysburg Animated Battlefield Map</title>
+<meta name="description" content="Ask about a regiment, a commander, a place or a moment of the battle and get an answer built from this site's own historical records.">
+<!-- Candidate page. NOT wired into any release. Everything the page needs is in historian.css, historian.js and the hashed shards under hx-base; there is no inline script or style. -->
+<meta name="hx-base" content="../dist/hx/">
+<link rel="stylesheet" href="historian.css">
+<script type="module" src="historian.js"></script>
+</head>
+<body>
+<a class="skip" href="#ask">Skip to the question box</a>
+<div class="wrap">
+<header>
+  <a class="back" href="/">&larr; Back to the map</a>
+  <h1>Ask the Historian</h1>
+  <p class="sub">Ask about a regiment, a commander, a place, or a moment of the battle.</p>
+  <div class="how">
+    <p><span class="preview">Preview</span>Every answer is put together from this site's own published records and quotes them word for word. Nothing is invented.</p>
+    <p>It runs in your browser: your questions are not sent anywhere.</p>
+  </div>
+</header>
+
+<main id="main">
+  <div id="transcript" role="log" aria-live="polite" aria-relevant="additions" aria-label="Conversation with the Historian"></div>
+
+  <section id="intro" class="intro" aria-labelledby="intro-h">
+    <h2 id="intro-h">Try asking</h2>
+    <ul class="chips">
+      <li><button type="button" class="chip" data-q="What happened to the 1st Minnesota?">What happened to the 1st Minnesota?</button></li>
+      <li><button type="button" class="chip" data-q="Who commanded the Iron Brigade?">Who commanded the Iron Brigade?</button></li>
+      <li><button type="button" class="chip" data-q="Tell me about Little Round Top">Tell me about Little Round Top</button></li>
+      <li><button type="button" class="chip" data-q="Which regiment had the highest casualties?">Which regiment had the highest casualties?</button></li>
+      <li><button type="button" class="chip" data-q="How many men were in the Army of the Potomac?">How many men were in the Army of the Potomac?</button></li>
+    </ul>
+  </section>
+
+  <noscript><p>The Historian needs JavaScript to search the records in your browser. The regiment pages and the map work without it.</p></noscript>
+
+  <form id="ask-row" action="#" autocomplete="off">
+    <label class="sr-only" for="ask">Your question</label>
+    <input id="ask" name="q" type="text" inputmode="text" enterkeyhint="send" autocapitalize="sentences" autocorrect="on" spellcheck="true" maxlength="300" placeholder="Ask something, for example: What happened to the 1st Minnesota?" aria-describedby="status">
+    <button id="ask-btn" type="submit">Ask</button>
+  </form>
+  <p id="status" role="status" aria-live="polite"></p>
+</main>
+
+<footer>
+  <button type="button" id="reset" class="linkbtn" hidden>Start a new conversation</button>
+</footer>
+</div>
+</body>
+</html>

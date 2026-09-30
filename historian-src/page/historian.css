@@ -1,0 +1,126 @@
+/* historian.css - candidate "Ask the Historian" page (H2). Mobile first: the base rules are the 320 px layout, wider screens only add room.
+   Brand tokens are the ones the site already uses (legacy/dist/site-nav.css and the deployed historian page): #0a0a14 #12121e #e8e6df #c9a24b #8a93a8 #1e1e2e.
+   Nothing here depends on a script: the shell paints from HTML + this file alone. */
+:root {
+  color-scheme: dark;
+  --bg: #0a0a14;
+  --panel: #12121e;
+  --ink: #e8e6df;
+  --gold: #c9a24b;
+  --gold-soft: #e8d5a3;
+  --muted: #8a93a8;
+  --line: #1e1e2e;
+  --user: #1a3a7a;
+  --user-ink: #ffffff;
+  --note: #b7bfd0;
+  --danger: #f2b8b5;
+  --gutter: 16px;
+  --bar-h: 84px;               /* the height of the sticky ask bar; historian.js keeps it exact with a ResizeObserver */
+  --radius: 12px;
+  --tap: 44px;                 /* minimum touch target */
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-bottom: calc(var(--bar-h) + 12px); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body { margin: 0; min-height: 100vh; min-height: 100dvh; background: var(--bg); color: var(--ink); font: 16px/1.65 var(--sans); }
+a { color: var(--gold-soft); text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: var(--gold); }
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 6px; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+/* skip link: first tab stop, visible on focus */
+.skip { position: absolute; left: var(--gutter); top: -100px; z-index: 10; padding: 10px 14px; background: var(--gold); color: var(--bg); border-radius: 8px; font-weight: 700; text-decoration: none; }
+.skip:focus { top: 8px; }
+
+.wrap { width: 100%; max-width: 720px; margin: 0 auto; padding-left: max(var(--gutter), env(safe-area-inset-left)); padding-right: max(var(--gutter), env(safe-area-inset-right)); }
+
+header { padding-top: 18px; padding-bottom: 4px; }
+.back { display: inline-flex; align-items: center; min-height: var(--tap); font-size: 14px; color: var(--muted); text-decoration: none; }
+.back:hover, .back:focus-visible { color: var(--gold); }
+h1 { margin: 2px 0 6px; font: 700 clamp(24px, 6vw, 32px)/1.2 var(--serif); color: var(--gold); }
+.sub { margin: 0 0 12px; color: var(--muted); font-size: 15px; max-width: 60ch; }
+.how { margin: 12px 0 8px; padding: 12px 14px; font-size: 14px; line-height: 1.6; color: #a9bbd6; background: rgba(70, 110, 160, 0.1); border: 1px solid #1a2a3a; border-radius: 8px; }
+.how p { margin: 0 0 6px; } .how p:last-child { margin-bottom: 0; }
+.preview { display: inline-block; margin-right: 6px; padding: 1px 8px; border: 1px solid var(--gold); border-radius: 10px; color: var(--gold); font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+
+main { display: block; padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom, 0px) + 28px); }
+
+/* the conversation */
+#transcript { display: flex; flex-direction: column; gap: 14px; margin: 8px 0 0; padding: 0; }
+.msg { position: relative; max-width: 100%; padding: 14px 16px; border-radius: var(--radius); font-size: 16px; line-height: 1.65; overflow-wrap: anywhere; scroll-margin-top: 12px; }
+.msg.user { align-self: flex-end; max-width: 90%; background: var(--user); color: var(--user-ink); border-bottom-right-radius: 4px; }
+.msg.bot { align-self: stretch; background: var(--panel); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+.msg.bot:focus-visible { outline-offset: 3px; }
+.msg.mode-decline, .msg.mode-clarify, .msg.mode-partial { border-left: 3px solid var(--gold); }
+.msg.mode-error { border-left: 3px solid var(--danger); }
+.msg.pending { color: var(--muted); font-style: italic; }
+.msg p { margin: 0 0 10px; }
+.msg > :last-child { margin-bottom: 0; }
+.msg .ent { font-weight: 700; color: var(--gold-soft); }
+.msg a.ent { text-decoration-thickness: 1px; }
+.note { color: var(--note); font-size: 14px; }
+.dym { color: var(--muted); font-size: 14px; }
+.list-title { margin: 0 0 4px; font-weight: 700; }
+.msg ul { margin: 0 0 10px; padding-left: 1.2em; }
+.msg li { margin: 0 0 6px; }
+.msg li.more { color: var(--muted); list-style: none; margin-left: -1.2em; }
+
+figure.quote { margin: 0 0 12px; padding: 2px 0 2px 14px; border-left: 3px solid var(--gold); }
+figure.quote blockquote { margin: 0; font-family: var(--serif); font-style: italic; color: var(--ink); }
+figure.quote figcaption { margin-top: 6px; font-size: 13px; color: var(--muted); font-style: normal; }
+
+.tablewrap { margin: 0 0 12px; overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; -webkit-overflow-scrolling: touch; }
+.tablewrap:focus-visible { outline-offset: 0; }
+table { width: 100%; min-width: 30em; border-collapse: collapse; font-size: 14px; }
+caption { padding: 8px 10px; text-align: left; font-weight: 700; color: var(--gold-soft); }
+th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-top: 1px solid var(--line); }
+th { color: var(--muted); font-weight: 600; font-size: 13px; }
+
+details.sources { margin-top: 12px; font-size: 13px; color: var(--muted); }
+details.sources summary { display: inline-flex; align-items: center; min-height: var(--tap); cursor: pointer; color: var(--gold-soft); }
+details.sources ul { margin: 2px 0 0; padding-left: 1.2em; }
+
+/* chips: suggestions and follow-ups (real buttons, 44 px tall) */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; padding: 0; list-style: none; }
+.chip { min-height: var(--tap); padding: 8px 14px; font: 14px/1.3 var(--sans); color: var(--muted); background: transparent; border: 1px solid var(--line); border-radius: 22px; cursor: pointer; text-align: left; }
+.chip:hover, .chip:focus-visible { border-color: var(--gold); color: var(--gold); }
+.chip[disabled] { opacity: .55; cursor: default; }
+.intro h2 { margin: 18px 0 0; font: 700 16px/1.4 var(--sans); color: var(--ink); }
+.intro .chips { margin-top: 8px; }
+
+/* the ask bar sits in the flow at the end of main and sticks to the bottom edge; main reserves --bar-h below the last message, so nothing is ever hidden behind it */
+#ask-row { position: sticky; bottom: 0; z-index: 5; display: flex; gap: 10px; align-items: stretch; margin: 0 calc(-1 * var(--gutter)); padding: 12px var(--gutter) calc(12px + env(safe-area-inset-bottom, 0px)); background: linear-gradient(to top, var(--bg) 72%, rgba(10, 10, 20, 0)); }
+#ask { flex: 1; min-width: 0; min-height: 48px; padding: 10px 14px; font: 16px/1.3 var(--sans); color: var(--ink); background: var(--panel); border: 1px solid #2a2a40; border-radius: 10px; }
+#ask::placeholder { color: var(--muted); opacity: 1; }
+#ask:focus-visible { border-color: var(--gold); outline: 2px solid var(--gold); outline-offset: 1px; }
+#ask-btn { min-width: 72px; min-height: 48px; padding: 0 20px; font: 700 16px/1 var(--sans); color: var(--bg); background: var(--gold); border: 0; border-radius: 10px; cursor: pointer; }
+#ask-btn:hover { background: #d8b45f; }
+#ask-btn[disabled] { opacity: .6; cursor: progress; }
+#status { min-height: 1.4em; margin: 6px 0 0; font-size: 14px; color: var(--muted); }
+#status:empty { display: none; }
+#status.error { color: var(--danger); }
+.linkbtn { display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 4px; font: inherit; color: var(--gold-soft); background: none; border: 0; text-decoration: underline; cursor: pointer; }
+footer { padding: 8px 0 24px; font-size: 13px; color: var(--muted); }
+noscript p { padding: 12px 14px; border: 1px solid var(--gold); border-radius: 8px; }
+
+@media (min-width: 640px) {
+  :root { --gutter: 24px; }
+  header { padding-top: 28px; }
+  .msg { padding: 16px 20px; }
+  .msg.user { max-width: 80%; }
+  .chips { gap: 10px; }
+}
+@media (forced-colors: active) {
+  .msg.bot, .chip, #ask, #ask-btn { border: 1px solid CanvasText; }
+  #ask-btn { background: ButtonFace; color: ButtonText; }
+}
+@media print {
+  #ask-row, .chips, .skip, .back, .how { display: none !important; }
+  body { background: #fff; color: #000; }
+  .msg.bot, .msg.user { background: none; color: #000; border: 1px solid #999; }
+}
