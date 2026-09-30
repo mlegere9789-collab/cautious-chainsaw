@@ -1,0 +1,893 @@
+[
+ {
+  "summary": "Desktop hostile QA of release/R1c/dist (9feb2ee6) against legacy/dist, 1440x900 primary plus 1280x720, 1920x1080, 2560x1440. Method: system Chrome 153, real CDP Input mouse/wheel/keyboard, each tree served by a static server on 127.0.0.1 (8500 R1c, 8501 legacy), Mapbox only via the Referer-injecting harness (every process stayed <=300 tile requests; three runs hit the cap exactly; total not summed, roughly 60 processes). Scripts and ~440 screenshots are in tmp/verify-desktop/ (git-ignored). Nothing outside that dir was written; legacy/ md5 7ef75b95... verified unchanged; git status clean.\n\nScale: ~140 checks run identically on both trees at 1440x900 (final consolidated batch: tmp/verify-desktop/logs2, matrix via aggregate.mjs), plus the viewport sweeps. Every fix claimed for desktop was proven RED on legacy and GREEN on R1c: real drag/wheel/zoom-buttons/right-drag/minimap (legacy 0 events, overlay canvas pointer-events:auto), Esc (pinned unit, Distance, search input, Layers), Ctrl+F/Ctrl+=/Ctrl+B inert, Space after clicking Play toggles once, C5 (legacy 'setGoldUnit is not defined' + 'kt.flyTo is not a function' page errors; R1c none), date +2 (legacy HUD prints July 3/4/5 at ticks 1/226/451; R1c July 1/2/3 and HUD==toolbar), day jumps load data (R1c 260/421 units at ticks 226/451, legacy ~72), idle React commits 0/s (legacy 60-74/s), 1 Document on first visit (legacy 2), no toolbar overlap at 1440 (legacy Virtual Walkthrough covers Search/Filter), Locations layer present, Help without heatmap/'445+', no sound control (legacy 'Enable cannon sound'), AR hidden+noindex, Watch Together HTML note not interpreted, Immersive Pause suspends AudioContext (running/suspended/running), dashboard/turning-points fixes, all deep links (tick/t/day/unit/u/ancestor/vignette/z/ll and Copy Link round-trip; 14 junk URLs degrade cleanly), keyboard-only Tab order starts at 'Skip to the map', blocked localStorage boots, full 1->675 play-through at 8x (0 errors, heap 12->14 MB), day boundary dates correct.\n\nConsole: R1c has 0 first-party errors in every journey except the Virtual Walkthrough, where Google Maps' own script logs 'Permissions policy violation: accelerometer is not allowed' (third party; also in legacy). With real headers (my header-applying server built from _headers) R1c additionally logs 'deviceorientation events are blocked by permissions policy' there, caused by Permissions-Policy accelerometer=(). Legacy: 12x the accelerometer message plus 3x 'kt.flyTo is not a function' and 1x 'setGoldUnit is not defined'.\n\nRegressions vs legacy found (worked there, broken in R1c): (1) keyboard focus capture, (2) monument stars no longer track the map now that it can move. Details in defects. Pre-existing defects that R1c still ships are listed separately so they are not mistaken for regressions.\n\nNOT verified / limits: headed run was still CDP-synthesised input (no physical mouse); no iOS/WebKit/Firefox/Samsung/real devices; Chrome 153 only; static-server runs except one header-applying pass (Netlify's real _headers/_redirects parsing, enforced CSP, netlify.app redirect, embed framing from a foreign origin not exercised); Lighthouse/RUM not run; sub-page Record (cinematic-export) and AR camera deliberately not pressed; Google Street View/YouTube content only checked as links; audio is muted (--mute-audio), only AudioContext state was asserted; legacy PAGE-* (menu click-through) rows are not a clean baseline because the legacy menu flow cascades failures; screenshots reviewed by eye for ~35 key states only at 1440/1280/2560, not all 440.",
+  "checks": [
+   {
+    "id": "LOAD-01",
+    "result": "PASS",
+    "evidence": "R1c: 1 Document for /, boot splash replaced, canvas present, 0 first-party errors, no chooser (auto desktop), ready in ~2.1 s. Legacy: 2 Documents, intro sweep, 'Choose Your Experience' after ~6 s. core1.mjs"
+   },
+   {
+    "id": "LOAD-02",
+    "result": "PASS",
+    "evidence": "R1c tick 1/675, 'July 1, 6:00 AM', HUD July 1, minimap 70 units. Legacy HUD reads 'July 3, 1863' at tick 1 and 72 ghost units on the map (visible in load-legacy-1440x900.png)."
+   },
+   {
+    "id": "LOAD-03",
+    "result": "PASS",
+    "evidence": "One Mapbox sku per session on both trees, production Referer present (tileStats.skus size 1)."
+   },
+   {
+    "id": "LOAD-04",
+    "result": "PASS",
+    "evidence": "R1c: every full-size canvas other than mapboxgl-canvas is pointer-events:none, no horizontal scroll at 1280/1440/1920/2560. Legacy: z10 canvas 1440x852 pointer-events:auto."
+   },
+   {
+    "id": "LOAD-05",
+    "result": "FAIL",
+    "evidence": "1440x900 and 1280x720: credit-line email link overlaps the (covered) '© Mapbox' link by 47-55x3 px; clean at 1920/2560. Legacy at 1440/1280 is worse: Virtual Walkthrough button overlaps Search/Filter/Roster/Legend."
+   },
+   {
+    "id": "LOAD-07",
+    "result": "FAIL",
+    "evidence": "Main-map attribution links (© Mapbox, © OpenStreetMap, Improve this map, © Maxar) are covered by the bottom dock in R1c at all 4 viewports (elementFromPoint hits a DIV); identical in legacy (pre-existing). Walkthrough map attribution IS visible/compact (R1c fix works)."
+   },
+   {
+    "id": "LOAD-06",
+    "result": "PASS",
+    "evidence": "Idle React commits: R1c 0/s, legacy 60-74/s (monuments loop fix)."
+   },
+   {
+    "id": "IN-01",
+    "result": "PASS",
+    "evidence": "Real drag moves centre 1531-1543 m and reverse drag returns within 4-10 m at 1280/1440/1920/2560 and in headed Chrome. Legacy moved 0.0 m."
+   },
+   {
+    "id": "IN-02",
+    "result": "PASS",
+    "evidence": "Wheel zoom 13.5->14.0->14.5, out to 13.7; legacy stays 13.5."
+   },
+   {
+    "id": "IN-03",
+    "result": "PASS",
+    "evidence": "Zoom +/- buttons hit-test true and work, double-click zooms, right-drag rotates (bearing -162), Reset bearing returns to 0. Legacy: buttons covered by the overlay canvas."
+   },
+   {
+    "id": "IN-05",
+    "result": "PASS",
+    "evidence": "Click selects exactly that unit (panel U-CAV-1-R), Esc closes it. Legacy: panel opens but Esc does not close it (pinned)."
+   },
+   {
+    "id": "IN-06",
+    "result": "PASS",
+    "evidence": "Toggle Units hides the z10 canvas (display:none) and blocks selection; restored on second click. Legacy selects a unit while units are off."
+   },
+   {
+    "id": "IN-07",
+    "result": "FAIL",
+    "evidence": "REGRESSION. After any click or drag on the map the mapbox canvas holds focus; ArrowRight then pans the map 510 m instead of +1 tick (Help: 'Advance one tick'). Also after selecting a unit. Legacy: tick 1->2, map unchanged. dbg22.mjs"
+   },
+   {
+    "id": "IN-07b",
+    "result": "FAIL",
+    "evidence": "REGRESSION. Same cause: Shift+ArrowRight rotates the map 15 deg instead of +12 ticks; '=' zooms the map +1.5 levels instead of raising speed; '-'/'+' likewise. Legacy: +12 ticks, speed changes."
+   },
+   {
+    "id": "IN-08",
+    "result": "PASS",
+    "evidence": "Distance tool: two real map clicks give '3,469 ft / 1,156 yd / 1,057 m, March time 16 min'."
+   },
+   {
+    "id": "IN-09",
+    "result": "PASS",
+    "evidence": "Minimap click moves the map 2638 m (legacy 0 m)."
+   },
+   {
+    "id": "TOOL-all13",
+    "result": "PASS",
+    "evidence": "Search, Filter, Roster, Legend, Monuments, Soldier's Eye, Follow Ancestor, Distance, Layers, Locations, Find, Bookmarks, Help: each opens by real click with the button on top, closes by toggle/Esc/X (Eye/Ancestor/Bookmarks/Help toggle-click is covered by their modal overlay but Esc/X work). Legacy: Search, Filter, Roster at 1440 and Find cannot be clicked (covered by the Virtual Walkthrough button); Layers/Ancestor/Find Esc does not close."
+   },
+   {
+    "id": "TOOL-monuments",
+    "result": "PASS",
+    "evidence": "Button toggles #gtbg-monuments-overlay (8 stars at the default view)."
+   },
+   {
+    "id": "MON-ALIGN",
+    "result": "FAIL",
+    "evidence": "REGRESSION (newly exposed). Stars are a fixed screen-space DOM overlay: error 0 px at home, 282 px after a 250 px pan, 491 px after wheel zoom (median of 8 stars) at 1440/1280/1920/2560. Legacy cannot pan so it never showed. monuments-after-pan-r1c-1440x900.png"
+   },
+   {
+    "id": "FLOW-search",
+    "result": "PASS",
+    "evidence": "Typing '20th Maine' and clicking U-20ME opens the unit panel."
+   },
+   {
+    "id": "FLOW-filter",
+    "result": "FAIL",
+    "evidence": "Hiding Union does not repaint the paused canvas (ink 176486 -> 176486); it applies on the next tick (45721). Same in legacy via F key (85800 -> 85800): pre-existing."
+   },
+   {
+    "id": "FLOW-roster",
+    "result": "PASS",
+    "evidence": "Roster lists Union 410 / Confederate 295 units and scrolls (read-only list, rows not clickable in either tree)."
+   },
+   {
+    "id": "FLOW-layers",
+    "result": "PASS",
+    "evidence": "Clicking the 1863 Roads checkbox toggles the layer; clicking its label text does not (pre-existing, span not a label)."
+   },
+   {
+    "id": "FLOW-ancestor",
+    "result": "PASS",
+    "evidence": "20th Maine: 22-position timeline, dates July 1-3, Esc closes, map flies to z14 Little Round Top. Legacy: page error 'setGoldUnit is not defined', timeline shows July 4."
+   },
+   {
+    "id": "FLOW-bookmarks",
+    "result": "PASS",
+    "evidence": "Add (name field, Enter) -> saved (1), survives reopen, delete -> 0; Copy Link round-trips."
+   },
+   {
+    "id": "FLOW-help",
+    "result": "PASS",
+    "evidence": "Shortcuts + About render; no heatmap, no sound, no '445+'. Legacy documents heatmap and '445+'."
+   },
+   {
+    "id": "ESC-all",
+    "result": "PASS",
+    "evidence": "ESC-01..07: nothing-open no-op, search input, pinned unit, Layers, Distance, Help-over-unit (Help closes first, unit also closes), Roster/Filter/Bookmarks/Eye one press, Esc while playing keeps playing. Legacy fails ESC-02/03/04/06."
+   },
+   {
+    "id": "ESC-08",
+    "result": "FAIL",
+    "evidence": "Pop-up story/event card ('The First Shot') ignores Esc (4 presses). Same in legacy (known H2 partial, not regression)."
+   },
+   {
+    "id": "PLAY-01..11",
+    "result": "PASS",
+    "evidence": "Play/pause real clicks with aria-label flip; Space once after clicking Play (legacy toggles twice); speeds 1x=2, 2x=4, 4x=8, 8x=16 ticks/s and highlight follows click; step +-1/+-12; day tabs 226/451/1 with HUD==toolbar and units 260/421; keys 1/2/3; scrubber click 50%->tick 340, arrows +-1, drag; bounds 1..675 and stops at 675; day boundary date flips exactly at 226; marker click; 40 rapid clicks OK."
+   },
+   {
+    "id": "KEY-01..05",
+    "result": "PASS",
+    "evidence": "From body focus all Help shortcuts work (Space, arrows, Shift+arrows, 0/-/+/=, F/S/B/L/M/?), typing in search leaks nothing, Ctrl+F/Ctrl+=/Ctrl+B inert (legacy opens Filter/Bookmarks and changes speed), H inert. Caveat: all of these break after a map click (IN-07)."
+   },
+   {
+    "id": "TOUR-01",
+    "result": "PASS",
+    "evidence": "NPS Auto Tour: STOP 1->2->1 of 16, map moves 1228 m, X closes it. Leaves speed at 2x and playback at tick 18 (legacy throws 'kt.flyTo is not a function')."
+   },
+   {
+    "id": "WT-01",
+    "result": "PASS",
+    "evidence": "Virtual Walkthrough opens, 16 stops, stop 5 text/map, Monuments tab 'Showing 100 of 512 monuments', walkthrough-map attribution visible (compact 'i' at 1280), Back returns. Google Maps script logs an accelerometer policy console.error (third party)."
+   },
+   {
+    "id": "WT-02",
+    "result": "FAIL",
+    "evidence": "Ask-the-Historian / Extra Features floating controls sit on top of walkthrough body text and monument rows at 1440/1280/2560 (vw-overlay-check-r1c-1440x900.png). Identical in legacy: pre-existing."
+   },
+   {
+    "id": "DL-01..09",
+    "result": "PASS",
+    "evidence": "?tick=538 -> tick 538, July 3, paused, 47 data files, 451 units; ?t=538&u=U-20ME&z=15.5&ll=39.7918,-77.2359 -> tick 538, panel, z15.5 at the lat/lng; ?unit=/?u=; ?ancestor=U-20ME opens Follow, Esc closes; ?day=2/3 -> 226/451; 14 junk URLs -> tick 1, 0 errors, no injection; ?vignette=V-018 -> 553, ?v=V-015 -> 525; Turning Points link lands on 538. Legacy: all dead."
+   },
+   {
+    "id": "EF-01",
+    "result": "PASS",
+    "evidence": "Extra Features: 5 groups, 19 links (legacy 20 incl. AR), toggle/Esc/outside click close it."
+   },
+   {
+    "id": "EF-02",
+    "result": "FAIL",
+    "evidence": "The menu panel is ~680-820 px tall and starts at mid-screen, so its bottom is off-screen and cannot be scrolled into view: 3/19 items unreachable at 1280x720, 4/19 at 1440x900 (Living Ledger, Ground Remembers, Watch Together, Cinematic Export), 5/19 at 1920x1080 (plus Immersive). Legacy 4/20 at 1440x900: pre-existing."
+   },
+   {
+    "id": "PAGE-19menu",
+    "result": "PARTIAL",
+    "evidence": "15 of 19 pages opened by real menu click with no console errors, overflow, 'undefined', and Back to the map returns to a live map; the 4 pages at the bottom of the menu were loaded directly (render fine)."
+   },
+   {
+    "id": "PG-19pages",
+    "result": "PASS",
+    "evidence": "One interaction per page: search, compare (style swap), camera, viewshed, sandbox, historian, documentary, turning-points, education, aftermath, regiment, find-ancestor, dashboard (series toggles 12/4/8/12), report, immersive, living-ledger, ground-remembers, watch-together, cinematic-export (Record not pressed), ar (noindex, not in menu/sitemap), embed, privacy+terms: all pass at 1440; 1280 and 2560 pass (sandbox Reset can be covered by the disposition pop-up after a unit drag at 1280; same in legacy). Legacy fails turning-points, dashboard, immersive, watch-together, ar."
+   },
+   {
+    "id": "ONB-01..03",
+    "result": "PASS",
+    "evidence": "First visit: aria-modal dialog 'Welcome to the Gettysburg map', persona chooser then 5 tour steps; Start exploring leaves the clock at tick 538 (July 3); Skip tour returns to tick 1; deep link skips onboarding."
+   },
+   {
+    "id": "ST-01",
+    "result": "PASS",
+    "evidence": "localStorage/sessionStorage throwing SecurityError: R1c boots with 0 errors; legacy does not boot cleanly."
+   },
+   {
+    "id": "SW-01",
+    "result": "PASS",
+    "evidence": "R1c: controller set, cache gbg-r0-9feb2ee6, first visit 1 Document, reload 1 Document."
+   },
+   {
+    "id": "LONG-01",
+    "result": "PASS",
+    "evidence": "Full battle at 8x reaches tick 675 in 43 s, stops, HUD/toolbar day pairs only 1/1,2/2,3/3, heap 12 -> 14 MB, 0 errors."
+   },
+   {
+    "id": "KB-01",
+    "result": "PASS",
+    "evidence": "First Tab = 'Skip to the map' (2px outline), Enter focuses #gt-map, 54 unique stops in 60 Tabs, 1 without a ring."
+   },
+   {
+    "id": "RES-01",
+    "result": "PARTIAL",
+    "evidence": "Resize through 1280x720/820x600/2560x1440/1440x900 keeps the desktop shell, no overflow, 0 errors, but the unit canvas is BLANK until the next tick/step (recovers on step) and the z9 overlay canvas keeps 1440x852. Identical in legacy (pre-existing)."
+   },
+   {
+    "id": "ISO-01",
+    "result": "PASS",
+    "evidence": "Wheel over Roster scrolls the list (scrollTop 0->1200) without zooming; dragging inside the Legend does not pan."
+   },
+   {
+    "id": "EDGE-01",
+    "result": "PASS",
+    "evidence": "Wheel-out clamps at ~z12 (maxBounds), max zoom 18; 0 errors."
+   },
+   {
+    "id": "EDGE-02",
+    "result": "PARTIAL",
+    "evidence": "Pan 6 km away then minimap click returns within 217 m when run alone; in the full sequence it failed because the pop-up event card (and toasts) cover the minimap (event-card-r1c-1440x900.png), pre-existing overlay."
+   },
+   {
+    "id": "VIEWPORTS",
+    "result": "PASS",
+    "evidence": "core1/2/3/5/6 re-run at 1280x720, 1920x1080, 2560x1440 (core2 at all three, core3 at 1280/2560, core5 at 1280/1920, core6 at 1280/2560): same results; the only viewport-specific findings are the Extra Features clipping (EF-02) and the 1280-only email/attribution overlap."
+   }
+  ],
+  "defects": [
+   {
+    "title": "REGRESSION: map canvas steals keyboard focus, so Help-documented shortcuts stop working after any click/drag",
+    "severity": "medium-high",
+    "where": "R1c main map; key guard B.2 (lets Arrow/+/-/= through when target is .mapboxgl-canvas) combined with pointer capture fix",
+    "repro": "Load /, click or drag anywhere on the map (or click a unit). Press ArrowRight: map pans 510 m, tick stays 1 (legacy: tick 2). Shift+ArrowRight rotates the map 15 deg (legacy +12 ticks). '=' zooms the map +1.5 levels instead of raising speed. Clicking a toolbar button or Esc-blur restores them. Scripts: core1.mjs IN-07/IN-07b, dbg22.mjs."
+   },
+   {
+    "title": "REGRESSION (newly exposed): monument stars do not follow pan/zoom",
+    "severity": "medium",
+    "where": "index.html #gtbg-monuments-overlay (fixed default-view projection, disclosed limitation)",
+    "repro": "Click the Monuments toolbar button (8 stars), drag the map 250 px or wheel-zoom: stars stay at their screen positions, 282 px / 491 px away from their monuments. monuments-after-pan-r1c-1440x900.png. Legacy could not pan, so it never showed."
+   },
+   {
+    "title": "Extra Features menu taller than the viewport: bottom entries cannot be reached",
+    "severity": "high (pre-existing, not a regression)",
+    "where": "index.html #ef-menu (panel 684 px, top at ~53% of height, overflow:auto, bottom off-screen)",
+    "repro": "Open Extra Features and scroll the menu with the wheel: at 1440x900 Living Ledger, Ground Remembers, Watch Together and Cinematic Export never enter the viewport (3 at 1280x720, 5 at 1920x1080). Legacy: 4 of 20 at 1440x900. core5.mjs EF-02."
+   },
+   {
+    "title": "Main-map attribution (© Mapbox / OpenStreetMap / Maxar) hidden under the bottom dock",
+    "severity": "medium (ToS), pre-existing",
+    "where": "main map, all viewports",
+    "repro": "Load /; elementFromPoint at each .mapboxgl-ctrl-attrib link returns the dock DIV. LOAD-07 fails at 1280/1440/1920/2560; legacy identical. Walkthrough map attribution is fine."
+   },
+   {
+    "title": "Floating 'Ask the Historian' / 'Extra Features' pills overlap content and sit above modal backdrops",
+    "severity": "low-medium, pre-existing",
+    "where": "index.html overlay; Virtual Walkthrough text and monument rows, story/event cards, Help modal edge (eye icon over the modal at 1280)",
+    "repro": "Open Virtual Walkthrough (vw-overlay-check-r1c-1440x900.png), or wait for the 'The First Shot' card at tick ~14, or open Help at 1280x720."
+   },
+   {
+    "title": "Story/event card ignores Esc and covers the minimap, zoom controls and Trails toggle",
+    "severity": "low-medium, pre-existing (plan H2 partial)",
+    "where": "main map during playback",
+    "repro": "Play at 8x from tick 1 until the 'The First Shot' card opens; Esc x4 does not close it; card spans y 60-760 at x 1085-1424 (event-card-r1c-1440x900.png)."
+   },
+   {
+    "title": "Paused filter changes are not repainted until the next tick",
+    "severity": "low-medium, pre-existing",
+    "where": "Filter panel",
+    "repro": "Pause at tick 1, open Filter, click Union: canvas ink unchanged for 1.2 s; step one tick and Union units vanish. Legacy identical (F key path)."
+   },
+   {
+    "title": "Window resize blanks the unit canvas until the next tick; z9 overlay canvas keeps its old size",
+    "severity": "low, pre-existing",
+    "where": "main map",
+    "repro": "While paused, resize 1440x900 -> 1280x720: units disappear (resize-1280x720-r1c-1440x900.png); ArrowRight restores them. z9 canvas stays 1440x852 at 820/1280/2560 widths. Legacy identical."
+   },
+   {
+    "title": "NPS tour panel: progress dots drawn over the body text; panel covers the day tabs; speed left at 2x",
+    "severity": "low cosmetic",
+    "where": "NPS Auto Tour",
+    "repro": "Click NPS Auto Tour; nps-stop2-r1c-1440x900.png shows dots over paragraph 2 and July 1/2/3 tabs half hidden; after closing, speed remains 2x (fast)."
+   },
+   {
+    "title": "Permissions-Policy accelerometer=() on / adds a 'deviceorientation events are blocked' warning and keeps the Google accelerometer console.error in the Virtual Walkthrough",
+    "severity": "low (desktop), needs device check",
+    "where": "R1c _headers for / (legacy allowed accelerometer=(self))",
+    "repro": "Serve R1c with its _headers (VD_HEADERS=1 node tmp/verify-desktop/dbg20.mjs --target r1c), open Virtual Walkthrough: console shows both messages. The error itself also occurs without the header and in legacy."
+   },
+   {
+    "title": "Minor: Layers label text not clickable; sandbox disposition pop-up covers Reset button at 1280x720; Legend top hidden behind the unit card",
+    "severity": "cosmetic, pre-existing",
+    "where": "Layers panel, sandbox.html, unit card",
+    "repro": "Click the text '1863 Roads' (no toggle); drag a unit in sandbox at 1280x720 then click Reset; select any unit and view the left column."
+   }
+  ]
+ },
+ {
+  "summary": "VERDICT: PASS WITH DEFECTS for the R1c phone shell. NOT TESTED: iOS Safari/WebKit, any real device, Firefox, Samsung Internet. Everything below ran in headless Chrome 153 on Windows with CDP touch emulation (Input.dispatchTouchEvent), SwiftShader GL and emulated safe-area insets. That means no real OS gestures, kinetic scroll, URL-bar/dvh behaviour, virtual keyboard, pull-to-refresh or notch hardware.\n\nWHAT I TESTED: a byte-identical snapshot of release/R1c/dist (`diff -rq` clean; entry md5 198fc691...; legacy pinned md5 7ef75b95... intact; git status clean). I edited only tmp/verify-mobile/ and built nothing. I ran it at 320x568, 375x812, 390x844, 412x915, 768x1024, 812x375, 844x390 and 915x412, and compared against legacy/dist in the same harness. Scripts, JSON results and about 150 screenshots are in tmp/verify-mobile/ (git-ignored, so nothing to commit). I looked at about 40 of the screenshots, including onboarding, base, tools, story/event/unit cards, landscape states, tour, Help and Bookmarks. No browser or server of mine is left running.\n\nRESULT, R1c mobile core: all 8 viewports pass.\n- Layout: data-layout=mobile on first visit at all 8 (768x1024 gets the stretched phone shell, as chapter 14.14 predicts). One Document request, no chooser, no range input.\n- One map: one style request and one sku with real tiles at 375, 320, 812x375, 768 and 915x412.\n- Touch: drag, pinch, double-tap, blocked rotation and an unscrolled, unzoomed page pass at all 8 viewports.\n- Controls: transport, day tabs (portrait), scrubber, all 14 Tools tiles, 21 Extra Features links (real taps navigate), Walkthrough (2 maps while open, 1 after Back), Bookmarks, Layers and Follow Ancestor work.\n- Errors: 0 first-party pageerror or console.error. The only console error was a Google-embed Permissions-policy message from the Walkthrough Street View iframe, which is third-party.\n\nLEGACY IN THE SAME HARNESS (regressions vs legacy: none found on the phone shell; R1c is a large improvement):\n- Legacy makes 2 Document requests on first visit and shows \"Choose Your Experience\" about 5.3-5.9 s after load on every load and every new tab.\n- After \"Select Mobile\" legacy builds 2 maps (2 skus, 4-6 style requests).\n- Legacy map drag moves 0 m and pinch does not zoom (a z-10 canvas with pointer-events:auto sits on top).\n- Legacy transport buttons are occluded by a desktop range input, and legacy has 31-47 small targets, 45 texts under 12 px and a \"Invalid LngLat (NaN,NaN)\" pageerror.\n- Sub-pages: R1c fixed the horizontal overflow on compare (528 to 375 px) and dashboard (446 to 375 px). Everything else on sub-pages is unchanged from legacy.\n\nSUB-PAGES AT 375 (24 pages): FAIL on the 44 px target and 12 px font criteria, and on overflow for sandbox only. All pages return 200 with 0 errors. 8 of 8 map pages render a non-blank map at 375 and at 320 (pixel std 41-80). All are pre-existing, not regressions, and the T0 plan does not claim to fix them.\n\nPROCESS DEVIATION TO DISCLOSE: my first Google block covered only maps.googleapis.com and maps.gstatic.com, not www.google.com. In the first t2 and t3 runs (8 + 8 viewport sessions, before I widened it) the Virtual Walkthrough tile therefore loaded its Google Maps Embed Street View iframe (the app's own request, made from 127.0.0.1). I widened the block to all google, gstatic, googleapis and nps.gov hosts before the t3b, t7 and debug runs. A dedicated probe then showed 1 attempted request, failed with ERR_BLOCKED_BY_CLIENT. The t7 run, which did not open the Walkthrough, logged 0 Google requests. I have not reproduced the key here.\n\nMAPBOX TILE USAGE: Referer injection through the lib harness only. Every process stayed under the 300 cap (largest 248). Roughly 3,400 tile requests in total over about 30 processes, because I ran many viewports in parallel. Most network-only checks (t1, t8) ran with tiles blocked.\n\nNOT VERIFIED: real touch feel and latency, iOS dvh/env(safe-area) on hardware (insets were only CDP-emulated), keyboard resize on a phone (I only shrank the viewport), Firefox, WebKit, Samsung Internet, Lighthouse. For the same reason, the landscape Tools sheet spilling into the right inset (D-08) is only emulation-backed.",
+  "checks": [
+   {
+    "id": "MOB-LAYOUT-FIRSTVISIT",
+    "result": "PASS",
+    "evidence": "t2/t1: fresh profile, 8/8 viewports data-layout=mobile; 1 Document request; chooser probe never fired; 0 input[type=range]; onboarding modal dismissed by real touch at all 8 (812x375 and 844x390: Skip is below the fold, the modal scrolls, the two option cards are visible). Legacy: 2 Documents and chooser at ~5.3-5.9 s at all 8."
+   },
+   {
+    "id": "MOB-RETURNING-NO-CHOOSER",
+    "result": "PASS",
+    "evidence": "t1: reload and brand-new tab in the same profile: layout mobile, onboarding not re-shown (gtbg_onboarded=1), 0 chooser, 1 Document. Legacy: chooser shown again on every new tab at every viewport."
+   },
+   {
+    "id": "MOB-ONE-MAP",
+    "result": "PASS",
+    "evidence": "t3b with real tiles at 375, 320, 812x375, 768, 915x412: 1 satellite-v9 style request, 1 distinct sku, 1 Document, 13-23 tile requests. t1 (tiles blocked) at the other viewports: 1 style request, 1 .mapboxgl-map. Portrait<->landscape rotation and 1024x768<->768x1024 layout flip keep 1 map. Legacy after Select Mobile: 2 skus, 4-6 style requests."
+   },
+   {
+    "id": "MOB-LAYOUT-OVERRIDES-ROTATION",
+    "result": "PARTIAL",
+    "evidence": "?layout=desktop and ?layout=mobile work at every viewport, but only while the query is present (plain URL reverts). Rotation re-evaluates the layout (812x375<->375x812, 1024x768<->768x1024) without a second map. The Desktop View tile sets sessionStorage gtbg_layout=desktop and nothing in the desktop layout switches back (see D-01). 1440x900 and 1024x768 touch correctly stay desktop."
+   },
+   {
+    "id": "MOB-MAP-TOUCH",
+    "result": "PASS",
+    "evidence": "t3 at all 8 viewports with real CDP touch: drag moved the map 1.54-1.61 km, pinch-in 13->14.78, pinch-out ->12.86, double-tap +1.0 zoom, two-finger twist leaves bearing 0 and pitch 0, visualViewport.scale=1 and scrollY=0 after all gestures. Tap on a unit opens the .gtbg-m-popup, X closes it, reopen works. Legacy on the same harness: drag 0 m, pinch 13.5->13.5."
+   },
+   {
+    "id": "MOB-TRANSPORT",
+    "result": "PASS",
+    "evidence": "All 8: Play/Pause toggles and ticks advance (1->5 in 2.5 s), pause holds; step +/-1 tick; speed cycles 1/2/4/8/0.25/0.5; 8x play for 45 s goes 1->675 with 0 exceptions (JS heap 28 MB); 6 rapid Play taps stay consistent; end-of-timeline play/step clamp at 675. Sizes: 52/64/52/53x44 portrait, 44/48/44/44 landscape."
+   },
+   {
+    "id": "MOB-DAYTABS-SCRUBBER",
+    "result": "PASS",
+    "evidence": "Portrait 320-768: July 2/3/1 -> ticks 226/451/1 with HUD date following. Scrubber taps at 25/50/75% -> ticks 169/338/506 exactly; horizontal and diagonal drags scrub without panning the map or scrolling the page. Landscape (812x375, 844x390, 915x412) has no day tabs, tick label or minimap (see D-07). Scrubber tap 1 px from the right edge gives tick 673, not 675 (nit)."
+   },
+   {
+    "id": "MOB-TOOLS-14-TILES",
+    "result": "PASS",
+    "evidence": "All 8: exactly 14 tiles, each hit-tested with elementFromPoint after scrollIntoView (>=81x72), close button 44x44, real-touch swipe scrolls the sheet (scrollTop 0->369) without moving the map, tap on the dim overlay closes it, rotation with the sheet open keeps it in-viewport. 21 Extra Features links (incl. Privacy/Terms) each navigated by real tap to the right page (200, 0 horizontal overflow at 375). Ask the Historian navigates; Desktop View works (see D-01)."
+   },
+   {
+    "id": "MOB-PANELS-SEARCH-FILTER-HELP-BOOKMARKS-WALK",
+    "result": "PARTIAL",
+    "evidence": "t2/t3b: Search, Filter, Order of Battle, Roster, Soldier's View, Follow Ancestor, Layers (44x44 checkboxes, flip), Legend, Bookmarks (add named bookmark -> localStorage gettysburg_bookmarks, list, delete 44 px), Help (lazy HelpModal/BookmarkPanel chunks load, app stays mounted), Walkthrough (16 stops >=44 px, Monuments tab, Back -> 1 map) all open fully in viewport, pass 9/9 hit samples, close by touch, at 8/8 viewports, 0 first-party errors. Follow Ancestor pick flew 2.8 km. FAIL items: Search result pick shows nothing (D-02); Help close scrolls out of view (D-03)."
+   },
+   {
+    "id": "MOB-STORY-EVENT-UNIT-PANELS",
+    "result": "PARTIAL",
+    "evidence": "?t=12 (story+event), ?t=538 (event), ?t=556 (2 stories+event) and a tapped unit: cards visible, above the dock (dock controls hit-testable at 375 and above), close buttons 44x44 and closable by touch; event card appears by itself during play (533->538). Unit popup in viewport above the dock at all 8. At 320x568 cards with both shown overlap the day tabs and fill the visible map (D-04). Landscape shows a right-hand scrolling card column (2nd card's close/Dismiss all below the fold)."
+   },
+   {
+    "id": "MOB-GEOMETRY-TARGETS-FONTS",
+    "result": "PARTIAL",
+    "evidence": "Shell base, Tools sheet, every panel close, transport, day tabs, scrubber, attribution button: 0 OCCLUDED/OFFSCREEN and all >=44 px at 8/8 viewports; 0 text nodes <12 px in any audited mobile state; 0 horizontal overflow. Exceptions inside panels (inherited desktop components): Search rows 325x30, ancestor input 353x41, Filter range 329x16, story 'Event details' row 18-39 px, story pagination dots 6x6 (D-06)."
+   },
+   {
+    "id": "MOB-SAFE-AREA",
+    "result": "PASS",
+    "evidence": "t6 with CDP setSafeAreaInsetsOverride: portrait notch (top 47/bottom 34), 320x568 with top 20, landscape 812x375 and 915x412 (left/right 44/47, bottom 21): top bar clears the notch, dock/scrubber clear the home indicator and side insets, Tools sheet last link clear. Emulated only. Minor: the landscape Tools sheet close button sits at x=794 (> 768), inside the right inset (D-08)."
+   },
+   {
+    "id": "MOB-KEYBOARD-SHRINK",
+    "result": "PASS",
+    "evidence": "t6: with the viewport shrunk to 375x470 the focused Search and Follow Ancestor inputs stay in view (tops 75 / 152). Shrinking the viewport is a proxy, not a real virtual keyboard."
+   },
+   {
+    "id": "MOB-DEEPLINK-SHARE",
+    "result": "PARTIAL",
+    "evidence": "?t=300 and ?ancestor=U-20ME work on the phone shell; Bookmarks 'Copy Link' (Copied!) gives /?t=300&z=13.0&ll=... and opening it restores tick 300 on mobile. ?u=U-XII-2-3 (unit in view) selects nothing visible on phone (D-02); same URL on desktop shows the Greene's Brigade panel."
+   },
+   {
+    "id": "MOB-SUBPAGES-375",
+    "result": "FAIL",
+    "evidence": "t4 all 24 pages, 375x812 (+320x568 re-run): status 200 and 0 console/network errors everywhere; maps 8/8 non-blank at 375 and 320. FAIL: (a) sandbox.html is 527 px wide at 375 and 524 px at 320 (select#tick-select 508 px); at 320 also 19 site-nav pages are 329 px wide; (b) every page has >=1 control <44 px (site-nav brand 137x18, historian pin 48x34, Explore 98x34, plus 7-25 per page); (c) text <12 px on 10 of 24 pages (search 30 nodes at 10 px, turning-points 27, compare 12, dashboard 7, aftermath 4, cinematic-export 4). Numbers are equal or worse-by-measurement-artifact vs legacy (compare/dashboard overflow fixed)."
+   },
+   {
+    "id": "MOB-LEGACY-COMPARE",
+    "result": "PASS",
+    "evidence": "Same harness, legacy/dist: chooser every load (~5.6 s), 2 Documents on first visit, 2 sku/2 maps after choosing mobile, map drag 0 m and pinch 0, transport buttons OCCLUDED by a desktop range input, 31-47 target-size issues and 45 <12 px texts in the mobile base, pageerror Invalid LngLat (NaN,NaN). R1c fixes all of these; no phone-shell feature that worked in legacy was found broken in R1c (day tabs in landscape are dropped by design)."
+   },
+   {
+    "id": "MOB-NO-DESKTOP-WIDGETS",
+    "result": "PASS",
+    "evidence": "t8 fixed/absolute inventory on the mobile base: #extra-features display:none, no #gtbg-monuments-overlay, no range input, no stale banner; only main#root (fixed) plus the two off-screen skip links."
+   },
+   {
+    "id": "MOB-SCREENSHOTS-LOOKED-AT",
+    "result": "PASS",
+    "evidence": "About 40 screenshots viewed (tmp/verify-mobile/shots/), e.g. 375x812-01-base, -02-tools, -10-help, -10-bookmarks, -10-layers, -20-both, -b-tour1, -b-unit-popup, 320x568-01-base/-02-tools/-10-filter/-20-story/-20-both/-b-help-scrolled, 768x1024-01-base/-02-tools, 812x375-00-onboarding/-01-base/-02-tools/-10-layers/-10-search/-10-walk/-20-story/-20-both, 915x412-10-filter, 375x812-r1c-04-desktopview, pg-r1c-375x812-sandbox/-compare/-turning-points-menu/-immersive, 375x812-legacy-00-chooser/-01-mobile-base, debug-UnitRoster-open."
+   },
+   {
+    "id": "MOB-CONSOLE-ERRORS",
+    "result": "PASS",
+    "evidence": "0 first-party pageerror/console.error across t2, t3, t3b, t7 (the Walkthrough Google-embed Permissions-policy message is third-party; R1c _headers are not applied by the local static server)."
+   }
+  ],
+  "defects": [
+   {
+    "title": "D-01 'Desktop View' tile is one-way: no control in the desktop layout switches back to mobile for the rest of the tab session",
+    "severity": "Medium",
+    "where": "index entry: Tools sheet tile sets sessionStorage gtbg_layout=desktop and that is the only write (the code never stores 'mobile'); layout initial state reads it first. Reproduced at 320-915 px wide phones and 812x375, first-visit and returning.",
+    "repro": "Open release/R1c/dist at 375x812 (touch), tap Tools > Desktop View. The desktop layout renders (toolbar truncated, 23 sub-44 targets, ~20 occluded by the audit) and a scan of buttons/links for mobile/phone/switch finds none. Reload keeps desktop (session override). Only a new tab or hand-editing ?layout=mobile (not persisted) returns to the phone shell. Legacy's reload showed the chooser again, so this is a soft trap in R1c that legacy did not have. Screenshot: shots/375x812-r1c-04-desktopview.png."
+   },
+   {
+    "title": "D-02 Phone shell does not show a unit selected by Search or by ?u=/?unit= deep link (no unit popup, no fly-to)",
+    "severity": "Medium",
+    "where": "Mobile unit popup (.gtbg-m-popup) is driven by a map-tap local state (Si/Wo), not by store selectedUnitId; FF search onSelect only sets selected/pinned and jumps the tick; DL reader sets selectedUnitId/pinnedUnitId.",
+    "repro": "375x812 at ?t=300: Tools > Search, type '20th Maine', tap the result: panel closes, tick jumps to the unit's first tick (150), map moved 0 m, no popup (fails at 320, 375, 768, 812x375, 915x412). Deep link: /?t=538&u=U-XII-2-3&z=16&ll=39.8142,-77.2178 at 375x812 shows no unit card; the same URL at 1440x900 shows 'Greene's Brigade'. Unit Roster / Order of Battle rows are display-only on both layouts (by design)."
+   },
+   {
+    "title": "D-03 Help modal on a phone lists keyboard shortcuts only, and its header with the close X scrolls away",
+    "severity": "Low-Medium",
+    "where": "HelpModal chunk on mobile shell: Close help button is inside the scrolling content (static position); tabs are 'Keyboard Shortcuts' and 'About'.",
+    "repro": "375x812 or 320x568: Tools > Help, swipe the content up ~half a screen: the X is at y=-177 (375) / -242 (320) so it cannot be tapped and the top bar is covered. Only a tap on the 16 px backdrop margin closes it (verified closes at x=3). No touch gestures are documented; content is Space/Shift+arrows/Esc/scroll/click."
+   },
+   {
+    "title": "D-04 At 320x568 story + event cards together cover the whole map and overlap the day tabs",
+    "severity": "Low-Medium",
+    "where": ".gtbg-mp-story (max-height 62dvh) anchored above the dock; cards y=71..420 on a 568 px screen, day tabs at y=52..97.",
+    "repro": "320x568, open /?t=12 or /?t=556: both cards appear, the top card starts at y=71 so the July tab centres (y~74) are occluded (elementFromPoint returns the card) and the visible map is fully covered until both are dismissed (each close X is 44x44 and works). Also plays into autoplay: cards reappear at tick 12 on first play. Screenshots: shots/320x568-20-story.png, -20-both.png."
+   },
+   {
+    "title": "D-05 Onboarding 'New to Gettysburg' step 1 says 'Tap Play at the bottom' but the Play button is covered by the tour overlay",
+    "severity": "Low",
+    "where": "Tour modal (HF-11 touch tour) over the dock.",
+    "repro": "375x812 first visit > New to Gettysburg: elementFromPoint at the Play button returns the overlay div and a real tap on Play does nothing; the tour only advances with Next. Skip tour works and leaves tick 1 (bug K fixed)."
+   },
+   {
+    "title": "D-06 Sub-44 px touch targets inside re-homed desktop panels",
+    "severity": "Low",
+    "where": "Search result rows (325x30), Follow Ancestor input (353x41), Filter minimum-strength range (329x16, also <24 px), story card 'Event details' row (357x18-39) and story pagination dots (6x6, cursor:pointer).",
+    "repro": "Any phone viewport: Tools > Search (rows), Tools > Filter (slider at the bottom; still drags: value 0->350 at 375), /?t=556 for the dots. Shell controls, transport and all panel close buttons are >=44 px."
+   },
+   {
+    "title": "D-07 Landscape phone layout has no day tabs, tick label or minimap",
+    "severity": "Low",
+    "where": "Landscape (812x375, 844x390, 915x412) shell hides .gtbg-m-days, the 'Tick n/675' text and the minimap to give the map ~71% of the height.",
+    "repro": "812x375: only the scrubber can jump days; there is no July 1/2/3 control (legacy landscape had day tabs, though broken). Design trade-off, flagged so it is a conscious choice."
+   },
+   {
+    "title": "D-08 Landscape Tools sheet edge and close button ignore the right safe-area inset",
+    "severity": "Low (emulation only)",
+    "where": ".gtbg-m-toolspanel in landscape: sheet spans x=406..812, close button right edge 794 while --gt-sar is 44 (Tools button itself respects it: right 768).",
+    "repro": "t6: 812x375 with setSafeAreaInsetsOverride left/right 44: close X sits inside the inset. Needs a real notch device to judge."
+   },
+   {
+    "title": "D-09 (pre-existing, not a regression) sandbox.html overflows horizontally at 375 and 320",
+    "severity": "Medium",
+    "where": "sandbox.html: select#tick-select is 508 px wide; page content 527 px at 375 (524 at 320), same as legacy.",
+    "repro": "375x812 touch, open /sandbox.html, wait 3 s: documentElement.scrollWidth=527 and Chrome zooms the layout viewport out; the starting-moment select is cut off. shots/pg-r1c-375x812-sandbox.png."
+   },
+   {
+    "title": "D-10 (pre-existing) 19 sub-pages are 329 px wide at 320 (9 px overflow from the shared site-nav bar)",
+    "severity": "Low-Medium",
+    "where": "site-nav.css/js header (brand 137 + pin + Explore) on aftermath, ar, camera, cinematic-export, compare, dashboard, documentary, education, find-ancestor, ground-remembers, historian, immersive, living-ledger, regiment, report, search, turning-points, viewshed, watch-together.",
+    "repro": "320x568 touch: load any of these pages: innerWidth becomes 329 (layout viewport expanded) instead of 320. At 375 they are fine."
+   },
+   {
+    "title": "D-11 (pre-existing) every sub-page has controls under 44 px; shared nav is 18-34 px tall",
+    "severity": "Medium",
+    "where": "All 24 pages at 375: a.brand 137x18, .gtbg-historian-pin 48x34, #gtbg-menu-btn 98x34 on 20 pages; per-page extras (map zoom buttons 32x32, filter chips, sugg chips 28 px, footer links 16 px, dashboard checkboxes 13x13, sandbox select/buttons 31 px).",
+    "repro": "t4 at 375x812: results/t4-r1c-375x812.json audit.small; counts 1-25 per page, equal or near-equal to legacy."
+   },
+   {
+    "title": "D-12 (pre-existing) text under 12 px on 10 sub-pages",
+    "severity": "Low",
+    "where": "search.html 30 nodes at 10 px (regiment/kind badges), turning-points 27 (10-11 px), compare 12 (10 px Satellite/Dark/Parchment), dashboard 7, aftermath 4, cinematic-export 4, living-ledger 2, embed 2, documentary 1, watch-together 1.",
+    "repro": "t4 at 375x812: audit.tiny / minFont."
+   },
+   {
+    "title": "D-13 Scrubber right edge: tapping 1 px inside the track gives tick 673, not 675",
+    "severity": "Nit",
+    "where": ".gtbg-m-scrub touch handler rounds the touch fraction; 675 is reachable by dragging past the end.",
+    "repro": "375x812: tap at track x+width-1: Tick 673/675."
+   }
+  ]
+ },
+ {
+  "summary": "Independent a11y + perf audit of release R0/R1a/R1b/R1c vs legacy/dist. Nothing outside tmp/verify-a11y-perf/ was edited; legacy/ (md5 7ef75b95... OK) and release/*/dist (every file hash matches its manifest) are untouched; git status clean. Tools: Chrome 153.0.8010.54 (headless=new, SwiftShader), Lighthouse 13.5.0 (installed only in tmp/verify-a11y-perf), axe-core 4.13.0, t0 harness lib for Referer injection; own brotli static server (tools/t0/serve.mjs serves identity only). Snapshots of the five dists are in tmp/verify-a11y-perf/trees; raw results are in tmp/verify-a11y-perf/out (lh/*.json, axe-*.json, kbd-*.json, contrast-*.json, probe/*.json, sw-audit.json, transfer-*.json, lh-tables.md).\n\nACCESSIBILITY. R1c `/`: axe 0 serious/critical in 14 desktop states, 6 phone states (375x812) and both first-visit states; Lighthouse a11y 100 (mobile+desktop, 5/5 runs; legacy/R0/R1a 90). Progression: legacy 3 serious/critical per state (color-contrast, label, scrollable-region-focusable), R0/R1a 3-4 (+target-size; R1a Layers panel 8 unlabeled inputs), R1b/R1c 0. Sub-pages (25 real pages + the GSC stub): legacy 23 of 27 pages have serious/critical; R1c still has 4 real pages at 1440 (cinematic-export, find-ancestor, embed, sandbox) and 5 at 375 (+privacy); X10 is therefore not met on the sub-pages. Keyboard-only on R1c: skip link, 55-stop tab order with visible indicators and names, map arrow-key pan/zoom, named slider (+1 tick per ArrowRight), Space play/pause, Help dialog open/close all work; FAIL: Help has no focus containment (Tab leaves after 3 stops, no aria-modal) and no search result can be selected by keyboard (0 of 3 routes). Legacy/R0/R1a layout chooser cannot be operated by keyboard at all. Important caveat: axe reports 48-144 color-contrast nodes per state as incomplete, so its 0 is not contrast evidence; I added an independent pixel-sampling contrast audit (text made transparent, background pixels measured): R1c body text passes (min median 4.77:1) but placeholder text (#757575) is 3.7-4.3:1 on the home search/ancestor inputs and 4.03:1 on 5 sub-pages, and sandbox helper text is 3.43/4.15:1. Two pixel-audit flags (education day tab 1:1, dashboard axis label 1.22:1) were checked by screenshot/computed style and are false positives.\n\nPERFORMANCE (Lighthouse 13.5, real Mapbox tiles with production Referer via the harness, simulate throttling, median of 5; legacy -> R0 -> R1a -> R1b -> R1c). Mobile score 64 -> 84 -> 86 -> 89 -> 90; desktop 85 -> 100 for all trains. Mobile FCP 3939 -> 948 -> 947 -> 1090 -> 1091 ms; LCP 8882 -> 1301 -> 1289 -> 1419 -> 1451 ms; CLS 0.095 -> 0.050 -> 0.050 -> 0.000 -> 0.000; TBT 0 (artifact of the reload) -> 647 -> 553 -> 440 -> 420 ms; TTI 8897 -> 1960 -> 1834 -> 1970 -> 1970 ms; requests 143 -> 84 -> 86 -> 103 -> 103. Headline: R0 misses the runbook's >=85 mobile ship gate (84; runs 84/83/83/86/84; applied-throttling run 73) and its TBT (647 ms) is above the chapter's 190-470 ms prediction; R1a-R1c pass 85 and only R1c reaches 90. With tiles blocked R0 scores 99, so the plan's replica numbers are tile-free upper bounds (real tiles cost ~15 points via TBT). Document requests on first visit: legacy 2, every train 1 (LH 5/5 runs, browser net log, server ledger). Service worker: controller set 0.75-1.1 s after load with no navigation in all trains; upgrade drill legacy->R0/R1a/R1b/R1c passes (1 Document, old entry never requested, 0 exceptions, Help and Bookmarks open, new worker waits, gbg-v5 purged after all tabs close); kill drill leaves 0 registrations and only mapbox-tiles; rollback R0->legacy restores the reload band-aid (2 Documents, 0 exceptions). Reload-fix-alone claim: NOT reproduced under default simulated throttling (62 vs 64, range 54-64; +8 with tiles blocked) but reproduced under applied throttling (46 vs 66; LCP 6.0 s -> 15.0 s, FCP 1.1 -> 5.2 s). Combined R0 recovers it (84 simulated, 73 applied). The intro deletion is invisible to simulated Lighthouse (84 vs 84) but decisive when throttling is applied (LCP 15.7 s -> 1.5 s; 4x CPU probe 10.3 s -> 0.57 s), which confirms the plan's LCP-element diagnosis. First-visit bytes as served (brotli, tiles blocked): legacy 94 requests / 1420 KB (bundle downloaded twice, 2 x 549 KB), R0 47 / 709 KB, R1c 47 / 715 KB (phone 50 / 734 KB). Camera sub-page mobile 75 -> 100 (plan expected ~86).\n\nSIMULATED vs OBSERVED. Lighthouse's own observed (unthrottled, final navigation) FCP/LCP: legacy 217/4617 ms, R0 121/121 ms, versus simulated legacy 3939/8882 and R0 948/1301. Legacy's simulated FCP includes the discarded first document; in a 4x-CPU, 1.6 Mbps probe the first legacy document never reached first-contentful-paint before the SW reload at ~3.4 s. Legacy's TBT of 0 and the redirects penalty (610 ms mobile, 180 ms desktop, not the plan's 9,066 ms) are artifacts of that reload.\n\nWHAT COULD NOT BE VERIFIED. Real iOS/Android devices, Safari/WebKit, Firefox, Samsung Internet; any screen reader (NVDA/VoiceOver/TalkBack) or voice control; real Netlify headers/compression/CDN latency (own server emulates them) and production RUM; real-mouse check on the live site; contrast of text drawn directly over real map imagery; 30-day field data. The host was shared with other agents (Lighthouse-run CPU busy median ~30%, range 20-41%; Lighthouse benchmarkIndex ~4200) and headless SwiftShader replaces a real GPU, so absolute TBT and scores are environment-specific; relative deltas between trains were measured in interleaved runs. Mapbox use: ~120 separate harness processes, each under the 300-request cap (max 73), roughly 4,000 Referer-injected requests in total, all through lib.openSession.",
+  "checks": [
+   {
+    "id": "SETUP-01",
+    "result": "PASS",
+    "evidence": "node tmp/verify-a11y-perf/integrity.mjs: legacy/dist main bundle md5 7ef75b95f4c02700430b8aa91e3a7459 (119 files); release R0/R1a/R1b/R1c dist = 122/124/124/128 files, 0 hash mismatches, 0 extra, 0 missing vs manifest.json; git status clean at start and end; audited snapshots copied to tmp/verify-a11y-perf/trees."
+   },
+   {
+    "id": "A11Y-01",
+    "result": "PASS",
+    "evidence": "R1c axe (WCAG2 A/AA/2.1/2.2 + best-practice) on / at 1440x900: loaded, help, search, searchresults, filter, roster, unitpanel, ancestor, bookmarks, layers, monuments, findunit, efmenu, tick538 = 14 states, 0 violations of any impact, passes 39-40 per state (out/axe-home-R1c.json). Legacy: 3 serious/critical per state (color-contrast x2-9, label x1, scrollable-region-focusable x1-2) plus region x14-47."
+   },
+   {
+    "id": "A11Y-02",
+    "result": "PASS",
+    "evidence": "R1c phone 375x812 touch: loaded, tools, help, search, filter, roster = 6 states, 0 violations; first-visit desktop and phone (onboarding modal) 0 violations. R1b identical (0). Legacy phone: loaded state 2 serious/critical; tools/help/search/filter/roster not reachable by click (6 s timeouts)."
+   },
+   {
+    "id": "A11Y-03",
+    "result": "PASS",
+    "evidence": "Progression of serious/critical rule hits on / across trains: legacy 3/state (8 desktop states reachable); R0 3-4/state (adds target-size; 11 states reachable); R1a 3-4/state, Layers panel adds label x8 + target-size x8; R1b 0 in 22 states; R1c 0 in 22 states. The a11y bridge (group AX) lands in R1b as designed; R0/R1a do not change a11y (Lighthouse a11y stays 90)."
+   },
+   {
+    "id": "A11Y-04",
+    "result": "FAIL",
+    "evidence": "axe on every root page, R1c (26 html files incl. google0dca...html stub which has no title/lang and is not a page): desktop serious/critical on cinematic-export (label x2 #start-tick/#end-tick, select-name x2 #duration/#captions; all critical), find-ancestor (select-name #state, critical), embed (color-contrast 4.39:1 .brand a, unpatched page), sandbox (color-contrast 4.14 and 3.42), plus privacy at 375 px (scrollable-region-focusable .tablewrap). Legacy: 23 of 27 pages have serious/critical (31 rule hits); R0 identical to legacy; R1a 6 files, R1b/R1c 5 files. Moderate-only residue: landmark-one-main/region on ~10 pages, heading-order on 3. With live Mapbox GL (inject mode) the 8 map pages show 0 page errors and unchanged results (out/axe-pages-R1c-desktop-inject.json); in tiles-blocked mode they throw 'mapboxgl is not defined' because mapbox-gl.js itself is blocked (test artifact, not a defect). Which 12 pages X10 means was not specified; all 22 patched pages plus index were audited."
+   },
+   {
+    "id": "A11Y-05",
+    "result": "PASS",
+    "evidence": "Lighthouse accessibility category (same runs as perf, n=5 per cell): R1b and R1c 100 on mobile and desktop; legacy, R0, R1a 90. Camera sub-page 94 -> 98. X10 floor 97 met for R1b/R1c."
+   },
+   {
+    "id": "A11Y-06",
+    "result": "PARTIAL",
+    "evidence": "R1c keyboard-only (out/kbd-R1c-home.json): first Tab = visible 'Skip to the map' -> #gt-map, Enter focuses #gt-map; 55 Tab stops then focus leaves the page (no trap), 55/55 stops have a focus indicator and an accessible name, none off-screen; toolbar Search/Filter/Roster/Help/Play/ancestor/map canvas all reachable; canvas focus + ArrowRight x4 + '=' changes center and zoom; '?' opens a role=dialog named 'Help and keyboard shortcuts', focus moves into it, Esc closes; slider 'Battle time' min1 max675 step1 valuetext 'July 1, 6:00 AM', ArrowRight x3 = +3 ticks; Space on Play starts (tick 1 -> 6 in 2.5 s) and second Space pauses. FAIL: Tab leaves the Help dialog after 3 stops (sequence 1110000000000000, no aria-modal); no keyboard route selects a unit from search (Enter, ArrowDown+Enter, Tab+Enter all left 'Unpin unit' absent; results are not focusable). Info: 7 focus targets under 24x24 px (Mapbox attribution links, slider track). Legacy/R0/R1a: no skip link, slider unnamed 0-100 step .01, Help not a dialog and focus stays on body, and the 'Choose Your Experience' chooser cannot be passed with Tab+Enter (R0/R1a/legacy K0 FAIL); R1b/R1c have no chooser."
+   },
+   {
+    "id": "A11Y-07",
+    "result": "PARTIAL",
+    "evidence": "Independent pixel-sampling contrast audit (contrast.mjs; tiles blocked so the canvas is near-black). R1c / desktop loaded: 61 text runs, 0 fails, min median 4.77:1; help 6.77; searchresults/filter/roster min 4.73; unitpanel min 4.51; phone loaded min 5.26. Fails: home search placeholder 3.72:1 (#757575 on #1a1a2a), ancestor placeholder 4.26:1 and an ancestor list row 4.4:1. Sub-pages R1c: placeholder 4.03:1 on search, historian, regiment, report, find-ancestor (desktop+phone), sandbox 3.43:1 and 4.15:1. Fixed vs legacy: search filter chips 1.10:1 -> pass, camera/ground-remembers Play buttons 1.92:1 -> pass, footer copyright 4.32 -> pass, home intro texts 1.98-2.1:1 gone (intro removed). R0 home (no AX group) still has 25-65 definite failures per state (e.g. 'July 1/2/3' white on pastel 1.29-1.47:1). False positives checked and dismissed: education phone day tab (computed style navy on #ffd166, screenshot fine) and dashboard phone axis label (sits under the scrollbar). The R1c home run was interrupted in the phone Tools state (screenshot hang, process killed); phone/help 6.77 and phone/search 3.72 come from the earlier complete run."
+   },
+   {
+    "id": "A11Y-08",
+    "result": "PARTIAL",
+    "evidence": "axe coverage caveat: every R1c state lists color-contrast as incomplete for 48-144 nodes (desktop) and 6-96 (phone), so the 0 color-contrast violations in A11Y-01/02 cannot be read as a contrast pass; A11Y-07 (pixel audit) is the evidence used instead. axe does not test placeholder contrast at all."
+   },
+   {
+    "id": "A11Y-09",
+    "result": "FAIL",
+    "evidence": "Lighthouse label-content-name-mismatch (WCAG 2.5.3 Label in Name) on R1b/R1c mobile: div.gtbg-m-play > button shows '1x' but aria-label is 'Playback speed 1 times. Tap to change.' (zero weight, category still 100)."
+   },
+   {
+    "id": "PERF-01",
+    "result": "PASS",
+    "evidence": "Document requests on first visit: legacy 2, reload-only 1, R0/R1a/R1b/R1c 1 in all 5 Lighthouse runs per cell (network-requests), in the browser net log (sw-audit: documents=2 vs 1, main-frame navigations 2 vs 1) and in the server ledger (transfer.mjs: docs=2 vs 1). Lighthouse 'redirects' audit fails (score 0) only on legacy (est. 610 ms mobile, 180 ms desktop; plan cited 9,066 ms from its replica)."
+   },
+   {
+    "id": "PERF-02",
+    "result": "PASS",
+    "evidence": "sw-audit.json part A/B: fresh profile, first visit: controller set 755-811 ms after load in R0-R1c (legacy 1090 ms), 1 main-frame navigation, cache gbg-r0-<rid> (legacy gbg-v5), 0 console errors; reload: 1 Document. New sw.js is byte-identical between R0 and R1c modulo release id; comment/code: no install precache, no skipWaiting call, returns early for mode==='navigate'; index.html registers via requestIdleCallback and has no controllerchange reload."
+   },
+   {
+    "id": "PERF-03",
+    "result": "PASS",
+    "evidence": "Upgrade drill (profile seeded with legacy + gbg-v5 worker, same origin then serves the train) for R0, R1a, R1b, R1c: app mounts, 1 Document, /assets/index-Cg8FAMXN.js requested 0 times, 0 exceptions, '?' opens Help, 'b' opens Bookmarks, old worker stays controller with new worker waiting=true; after closing all tabs the new worker activates and caches = ['gbg-r0-<rid>'] only (gbg-v5 purged)."
+   },
+   {
+    "id": "PERF-04",
+    "result": "PASS",
+    "evidence": "Kill drill: R0 installed, caches ['gbg-r0-fb14ab00','mapbox-tiles'] seeded, /sw.js replaced by _ops/sw-kill.js, one navigation -> 0 registrations and caches ['mapbox-tiles'] (sw-audit.json D)."
+   },
+   {
+    "id": "PERF-05",
+    "result": "PASS",
+    "evidence": "Rollback drill R0 -> legacy on the same origin: app mounts, 2 navigations / 2 Documents (the reload band-aid returns), 0 exceptions, caches ['gbg-v5'] (sw-audit.json E). Matches the runbook's 'acceptable' description of R0 rollback."
+   },
+   {
+    "id": "PERF-06",
+    "result": "PARTIAL",
+    "evidence": "X8 mobile >=85 (target 90) with production-Referer tiles, Lighthouse 13.5 simulate, n=5 each (lh-tables.md): legacy 64 (59-65), R0 84 (84/83/83/86/84) = below the 85 floor, R1a 86, R1b 89, R1c 90 (89/89/90/90/90). Applied-throttling (devtools) mobile n=3: legacy 66, R0 73, R1c 75. So R0 alone misses its own ship gate by 1 point; R1a-R1c pass."
+   },
+   {
+    "id": "PERF-07",
+    "result": "PASS",
+    "evidence": "X8 desktop >=95: legacy 85 (84-86); R0, R1a, R1b, R1c all 100 in 5/5 runs (real tiles). Tiles blocked: legacy 91, all trains 100."
+   },
+   {
+    "id": "PERF-08",
+    "result": "PASS",
+    "evidence": "CLS <= 0.05 (mobile, real tiles, median of 5): legacy 0.095, R0 0.0497-0.050, R1a 0.050, R1b 0.000, R1c 0.000; desktop <= 0.011 everywhere. R0 and R1a pass with no headroom (0.0497); the r0-no-intro variant is 0.069."
+   },
+   {
+    "id": "PERF-09",
+    "result": "FAIL",
+    "evidence": "X8 also wants no redirects / render-blocking / unused-preload failure. redirects: fails only on legacy. unused preload: no failure (modulepreload removed). render-blocking-insight scores 0 on legacy and on EVERY train including R1c (est. savings 270-300 ms: /site-nav.css 2.8 KB 322-334 ms and /assets/index-<css>.css 6 KB 172-184 ms); this follows from R0 turning the preload/onload CSS swap into a plain blocking <link rel=stylesheet>."
+   },
+   {
+    "id": "PERF-10",
+    "result": "PARTIAL",
+    "evidence": "Claim 'fixing the reload alone can lower the lab score' (variant reload-only = legacy with only location.reload() in the controllerchange handler removed): simulated throttling + real tiles 62 vs 64 (runs 54/64/62/63/61; TBT 0 -> 490 ms, LCP 8882 -> 4297 ms, FCP 3939 -> 4047) = within noise, the plan's 64 -> 51 is not reproduced; simulated + tiles blocked 72 vs 64 (higher); applied throttling + real tiles 46 vs 66 (-20; FCP 1126 -> 5240 ms, LCP 6014 -> 14957 ms, CLS 0.044 -> 0.138). Desktop simulated 97 vs 85 (higher). The claim holds only when throttling is applied (and for TBT); it does not hold for the default Lighthouse score."
+   },
+   {
+    "id": "PERF-11",
+    "result": "PASS",
+    "evidence": "Combined R0 recovers/exceeds legacy: simulated mobile 84 vs legacy 64 and reload-only 62; applied-throttling mobile 73 vs legacy 66 and reload-only 46; desktop 100 vs 85. R0 (loader + animation removal + intro deletion + no-reload SW) is what lifts reload-only back up; reload fix must not ship alone (confirmed)."
+   },
+   {
+    "id": "PERF-12",
+    "result": "PARTIAL",
+    "evidence": "Intro deletion (variant r0-no-intro = R0 with the one-line R0-intro-delete reverted): simulated mobile 84 vs R0 84, LCP 1280 vs 1301 ms, so the plan's 'caps near 79-82 without it' is not reproduced by simulated Lighthouse (its trace ends before the intro text appears). Applied throttling: 47 vs 73, LCP 15737 vs 1471 ms. 4x CPU / 1.6 Mbps probe (tiles blocked): LCP 10324 ms (element div 'The battle was over...' = intro story text) vs 572 ms (p 'Watch the three-day battle unf...'). The LCP-element diagnosis is confirmed in applied conditions."
+   },
+   {
+    "id": "PERF-13",
+    "result": "PASS",
+    "evidence": "Tile effects measured (mobile, median of 3): real Referer-injected tiles vs tiles blocked: legacy 64/64, reload-only 62/72, R0 84/99, R1a 86/99, R1c 90/98; TBT R0 647 vs 135 ms. Real tiles add ~500 ms TBT and ~15 score points on R0, so replica (403-tile) numbers in the plan are upper bounds, as flagged. Tile 403 off-domain would behave like the blocked case."
+   },
+   {
+    "id": "PERF-14",
+    "result": "PASS",
+    "evidence": "First-visit requests/bytes as served (server ledger, brotli-9, Mapbox blocked, 14 s): legacy 94 req / 1420 KB / 2 Documents (assets-js 2 x 549 KB = bundle fetched twice); reload-only 52 / 1268 KB; R0 47 / 709 KB; R1a 47 / 710; R1b 47 / 708; R1c 47 / 715 KB desktop, phone R1b 50 / 727, R1c 50 / 734 KB. Lighthouse with real tiles, mobile: legacy 143 req / 1067 KB, R0 84 / 616 KB, R1c 103 / 549 KB (LH reports transferSize 0 for R0's dynamically imported entry, so use the ledger for bytes); Mapbox share R0 25 req / 447 KB, R1c 13 req / 319 KB. Duplicates: /data/oob/commander_successions.json x2 and /icons/icon-192.png x2 in all trains; R1b/R1c phone also fetch chronology_day1-3.json twice."
+   },
+   {
+    "id": "PERF-15",
+    "result": "PASS",
+    "evidence": "Simulated vs observed documented. Mobile median of 5: simulated FCP/LCP legacy 3939/8882 ms, R0 948/1301, R1c 1091/1451; Lighthouse observed (unthrottled, final navigation) legacy 217/4617, R0 121/121, R1c 132/132. Applied-throttling (devtools) FCP/LCP: legacy 1126/6014, R0 1471/1471, R1c 1528/1528 and TTI legacy 5.9 s vs R0 11.4 s (legacy's numbers come from the warm second document). 4x CPU probe: legacy first document has no FCP until it is replaced at ~3.4 s; R0 FCP 572 ms."
+   },
+   {
+    "id": "PERF-16",
+    "result": "PASS",
+    "evidence": "Camera sub-page (WP-T0-13), real tiles, n=3: mobile legacy 75 (79/74/75) -> R1c 100 (plan expected ~86), a11y 94 -> 98; desktop 96 -> 100."
+   },
+   {
+    "id": "PERF-17",
+    "result": "PASS",
+    "evidence": "App mounts within 6 s at 4x CPU + 1.6 Mbps/150 ms (probe, median of 3): R0 4.4 s, R1c 5.7 s with tiles blocked (2.7 s with real tiles, 2 runs), legacy 4.2 s; R0/R1c first paint 572-604 ms and CLS 0.05/0.000; R1c is the tightest against the 6 s criterion."
+   },
+   {
+    "id": "PERF-18",
+    "result": "FAIL",
+    "evidence": "Plan predicts R0 mobile TBT 190-470 ms; measured R0 647 ms (R1a 553, R1b 440, R1c 420) with real tiles; with tiles blocked 135 ms. total-blocking-time fails on every train (score 0.29 on R0)."
+   },
+   {
+    "id": "PERF-19",
+    "result": "PASS",
+    "evidence": "Mapbox budget: every harness process under the 300-request cap (max 73 per Lighthouse run; 85 home-page Lighthouse runs = 3,087 Referer-injected requests, plus camera/probe/keyboard/axe sessions, roughly 4,000 in total); Referer observed = https://gettysburginteractivemap.com/ only; telemetry stubbed (204); all tile responses 200; 1 sku per map session."
+   },
+   {
+    "id": "LIM-01",
+    "result": "NOT_RUN",
+    "evidence": "No real devices, iOS/WebKit, Firefox, Samsung Internet; no screen reader (NVDA/JAWS/VoiceOver/TalkBack) or voice-control pass; no real-mouse check on the live site; no live-site or Netlify measurements (own brotli server emulates headers; no CDN/HTTP2 latency); no RUM; contrast of text over real map imagery not evaluated; Lighthouse ran in headless SwiftShader on a shared 16-core host (benchmarkIndex ~4200, CPU busy ~20-41%)."
+   }
+  ],
+  "defects": [
+   {
+    "title": "R0 misses its own >=85 mobile Lighthouse ship gate with production-Referer tiles; TBT above the plan's range",
+    "severity": "medium",
+    "where": "release/R0 (runbook WP-T0-05 acceptance and section 8.1 gate)",
+    "repro": "cd C:/Users/mlege/gettysburg-map/tmp/verify-a11y-perf && node lh-run.mjs --tree R0 --preset mobile --mode inject --n 1 (repeat n=1..5, then node lh-agg.mjs): medians perf 84 (84/83/83/86/84), TBT 647 ms vs predicted 190-470; applied throttling (--throttling devtools) 73. R1a 86, R1b 89, R1c 90. With --mode block R0 scores 99, so the difference is the real-tile path. Environment caveat: shared host, headless SwiftShader."
+   },
+   {
+    "title": "A unit cannot be selected from Search by keyboard alone (search results are not focusable or key-operable)",
+    "severity": "medium",
+    "where": "R1c (and all trains) desktop / search panel",
+    "repro": "node tmp/verify-a11y-perf/kbd.mjs --tree R1c --part home -> step 'K6 a unit can be selected from search with the keyboard alone' FAIL: typing '20th Maine' then Enter, ArrowDown+Enter, or Tab+Enter never produces the 'Unpin unit' button; Tab lands on a 'Search results' group, not on items."
+   },
+   {
+    "title": "Help dialog does not contain focus and is not aria-modal; Tab escapes to the page behind it after 3 stops",
+    "severity": "medium",
+    "where": "R1b/R1c Help (role=dialog present and named, focus enters on open)",
+    "repro": "node tmp/verify-a11y-perf/kbd.mjs --tree R1c --part home -> 'K5 Tab stays inside the open Help dialog' FAIL, inDialogSequence 1110000000000000, ariaModal null."
+   },
+   {
+    "title": "Residual axe serious/critical violations on patched sub-pages: unlabeled form controls (critical) and low-contrast text",
+    "severity": "medium",
+    "where": "R1c cinematic-export.html (#start-tick, #end-tick number inputs, #duration and #captions selects), find-ancestor.html (#state select), sandbox.html (.controls span #777 4.14:1, #change-list #666 3.42:1), privacy.html at 375 px (.tablewrap scrollable region not focusable); embed.html brand link #777 on #0a0a14 4.39:1 (page not patched)",
+    "repro": "node tmp/verify-a11y-perf/axe-pages.mjs --tree R1c (out/axe-pages-R1c.json); X10 requires 0 serious/critical on the patched pages."
+   },
+   {
+    "title": "X8 'no render-blocking failure' is not met on any train: render-blocking-insight fails (est. 270-300 ms) for site-nav.css and the app stylesheet",
+    "severity": "low",
+    "where": "R0..R1c index.html (plain blocking <link rel=stylesheet> by R0 design; site-nav.css?v= also blocking)",
+    "repro": "node tmp/verify-a11y-perf/lh-run.mjs --tree R1c --preset mobile --mode inject --n 1, then read failing/insights in out/lh/inject__R1c__mobile__1.json (render-blocking-insight score 0, items /site-nav.css?v=9feb2ee6 and /assets/index-4ff85b41.css). Either the criterion or the design needs an amendment (e.g. inline critical CSS)."
+   },
+   {
+    "title": "Placeholder text contrast below 4.5:1 (#757575 on dark inputs)",
+    "severity": "low",
+    "where": "R1c: home search input 3.72:1, Follow-Ancestor input 4.26:1; search.html, historian.html, regiment.html, report.html, find-ancestor.html all 4.03:1 (desktop and phone)",
+    "repro": "node tmp/verify-a11y-perf/contrast.mjs --tree R1c --part pages (and --part home); axe and Lighthouse do not test placeholders, so they report nothing."
+   },
+   {
+    "title": "WCAG 2.5.3 Label in Name: phone playback-speed button shows '1x' but its accessible name is 'Playback speed 1 times. Tap to change.'",
+    "severity": "low",
+    "where": "R1b/R1c mobile dock, div.gtbg-m-play > button (Lighthouse label-content-name-mismatch, weight 0)",
+    "repro": "node tmp/verify-a11y-perf/lh-run.mjs --tree R1c --preset mobile --mode inject --n 1; inspect a11yFail in out/lh/inject__R1c__mobile__1.json or the gz LHR."
+   },
+   {
+    "title": "Layout chooser 'Choose Your Experience' cannot be passed by keyboard (legacy, R0, R1a)",
+    "severity": "low",
+    "where": "legacy/R0/R1a first load; fixed by R1b auto-detect",
+    "repro": "node tmp/verify-a11y-perf/kbd.mjs --tree R0 --part home -> 'K0 layout chooser operable by keyboard alone' FAIL (Tab stops land on toolbar controls behind the overlay, Enter does not dismiss it). Relevant because R0 and R1a are planned to ship alone for about a week each."
+   },
+   {
+    "title": "Duplicate data/icon requests on first visit",
+    "severity": "low",
+    "where": "all trains: /data/oob/commander_successions.json x2 and /icons/icon-192.png x2; R1b/R1c phone layout additionally /data/chronology_day1..3.json x2 (+~19 KB)",
+    "repro": "node tmp/verify-a11y-perf/transfer.mjs --viewport phone (out/transfer-phone.json duplicates field)."
+   },
+   {
+    "title": "Plan claims not reproduced under default Lighthouse: reload-alone drop (64 -> 51) and the intro-deletion lab gain (cap 79-82 without it)",
+    "severity": "low",
+    "where": "docs/plan/FINAL/02-tranche0-hotfix-runbook.md sections 3, 5 (WP-T0-05), 8.2, 14.1",
+    "repro": "make-variants.mjs builds reload-only and r0-no-intro; run-lh.sh inject 1 5 'legacy reload-only r0-no-intro R0' then node lh-agg.mjs: simulated mobile 64 / 62 / 84 / 84; with --throttling devtools 66 / 46 / 47 / 73. The mechanisms are real under applied throttling but the stated score numbers come from a tile-free replica."
+   },
+   {
+    "title": "CLS has no headroom on R0 and R1a (0.0497 / 0.050 against a 0.05 limit)",
+    "severity": "low",
+    "where": "R0, R1a mobile /",
+    "repro": "lh-run.mjs --tree R0 --preset mobile --mode inject (5 runs): CLS 0.050 every run; R1b/R1c are 0.000."
+   }
+  ]
+ },
+ {
+  "summary": "Verdict: the four trains R0 fb14ab00, R1a 740deb52, R1b 8ad6d7cd and R1c 9feb2ee6 are internally sound. Builds are deterministic, references resolve, asset names are never reused, legacy/ is untouched, the drills pass, and the 36 suites re-ran green. They are NOT safe to deploy yet because of one high-severity finding. Production no longer equals the legacy/dist baseline. Live data/terrain.json and live index.html differ from legacy/dist, and neither live version exists in any of the 127 archived zips. Every train is built from the stale baseline, so any deploy would silently revert those two live files (defect 1). The runbook also has factual errors and untested steps.\n\nWhat I did, all inside tmp/verify-release:\n- **Rebuild:** cloned HEAD 8a004d0 and ran build.py --all from scratch. All four dists are byte-identical to release/*/dist (my own hasher, 122/124/124/128 files). A second build into other directories, and a build with a different TZ, locale, hash seed and cwd, also matched. The only exception was --order runbook, where version.json and _ops/asset-manifest.json differ because they record the group order.\n- **Independent checks:** my own reference crawler, strict /assets/ check, archive-zip name scan and eslint-scope check all agree with the builder's gates.\n- **Drills and headers:** I wrote my own upgrade drill (seeded from legacy/dist plus the old gbg-v5 worker) and my own L2 kill drill (45 s watch for reload loops). I also ran an independent header/redirect analysis on _headers/_redirects and the ops/headers-probe emulator.\n- **Diff accounting:** every shipped byte re-derives from legacy + patch JSON + overlay + R0 mechanism output. The one exception is R0's index.html and site-nav.css, where I compared the mechanism hunks to the plan by hand. The 54 changed, added or removed files in R1c are all classified; none is unexplained.\n- **Suites:** I re-ran all 36 builder suites from the clean clone (R1c-tier 178/179 green + 1 skip, R1a/R1b 154/176 with 22 skipped by design, 9 red-first proofs RED as required), plus npm run t0:test, the build self-test, verify_release and the overlap audit. About 1,500 Mapbox tile requests in total, all through the harness, each run under its 300 cap.\n- **Notes and docs:** all identity numbers in the four release notes verified, and the notes regenerate byte-identically from release_notes.py.\n\nCould NOT verify:\n- Real devices, iOS/WebKit, Firefox, Samsung Internet; a real mouse on the live site.\n- Lighthouse gates (no runner exists).\n- Netlify's own header and _headers/_redirects semantics, CLI vs drag-and-drop handling, staging deploy, rollback timing and credits.\n- RUM; the runbook's section 7 deploy steps; the schtasks step (I did not touch scheduled tasks).\n- sha384 SRI values recomputed from the CDN files (I corroborated them by size, ETag and jsDelivr's sha256 instead).\n- npm ci (it would download packages).\n- Runbook section 8 step 5 (git tag, ledger record, tools/commit.sh): the permission system blocked it and I did not retry.\n\nSide effect: running chrome.exe --version from the runbook handed off to the owner's already-running Chrome (\"Opening in existing browser session\") and may have opened a window.",
+  "checks": [
+   {
+    "id": "REBUILD-BYTE-IDENTICAL",
+    "result": "PASS",
+    "evidence": "git clone of HEAD 8a004d0 into tmp/verify-release/clone, then python tools/t0/build.py --all (36 s). Trees match release/*/dist byte for byte: R0 12b1e64ceed8 (122 files), R1a 12be9e9dc245 (124), R1b fb281e9265d5 (124), R1c 727ea8a9c1f1 (128). Checked with tmp/verify-release/cmp.mjs. A second build per train via --out gave IDENTICAL results. A build with TZ=Pacific/Kiritimati, PYTHONHASHSEED=777, LANG=tr_TR from another cwd also matched. anchors.json and manifest.json are identical across three builds; gate.json differs only in its dist path. With --order runbook only version.json and _ops/asset-manifest.json differ (they list the group order). Build self-test case 1 also passes."
+   },
+   {
+    "id": "REFERENCES-EXIST",
+    "result": "PASS",
+    "evidence": "Independent crawler tmp/verify-release/refcheck.mjs: 0 new dangling refs vs legacy baseline in all four trains. The only flagged items are benign strings: a forced-404 rule for the deleted /diagnostics.html, a Content-Disposition filename in _headers, and a provenance string in _ops. assetrefs.mjs: each train's 4 assets (entry, Help, Bookmark, CSS) are all referenced and exist, with 0 missing and 0 legacy-name hits. tools/t0/verify_release.mjs on my clone builds: PASS for all trains, with an HTTP crawl and 0 new dangling refs."
+   },
+   {
+    "id": "ASSET-NAMES-LEDGER",
+    "result": "PASS",
+    "evidence": "tmp/verify-release/zipnames.py scanned the 127 archived zips independently: 157 (name, bytes) pairs, identical to ops/used-names.txt. python tools/t0/ledger.py seed in the clone reproduces the committed ledger exactly. names-check.mjs: every new asset name (14 across the four trains) is absent from the archive, and no name carries different bytes across trains. index-90a0a5cf.css is shared by R0 and R1a with identical bytes, and index-4ff85b41.css by R1b and R1c. ledger.py check --dist is ok for all four. ops/ARCHIVE_MANIFEST.tsv: 127 of 127 zips match size and sha256."
+   },
+   {
+    "id": "LEGACY-UNTOUCHED",
+    "result": "PASS",
+    "evidence": "Checked at start and end of the audit. git status is empty, git diff HEAD -- legacy is empty, legacy-2026-09-29 == 1cf462a, and tree digest is 119 files 90d819d0...5253905d. index-Cg8FAMXN.js md5 is 7ef75b95f4c02700430b8aa91e3a7459. legacy/dist is byte-identical to the archived source zip 6aa16d60... (119/119). release/*/dist and ops/used-names.txt are unchanged by my work."
+   },
+   {
+    "id": "GATE-JSON-PER-TRAIN",
+    "result": "PASS",
+    "evidence": "release/{R0,R1a,R1b,R1c}/gate.json all have ok=true with 10 checks each (parse, unresolved-globals, anchors 22/242/375/425, ledger, references, no-legacy-asset-names, r0-mechanism, legacy-pinned, data-untouched, bytes). Identical when regenerated in the clean clone. My independent acorn+eslint-scope run (scope-check.mjs) agrees: R1a+ removes setGoldUnit, clearGoldTrail, drawGoldTrailSegment and CanvasRenderer, and adds only the standard globals matchMedia and sessionStorage. Self-test case 4 (injected undefined identifier) fails the gate with exit 3."
+   },
+   {
+    "id": "UPGRADE-DRILL",
+    "result": "PASS",
+    "evidence": "Own harness tmp/verify-release/drills.mjs: legacy/dist plus the old gbg-v5 worker seeded, then each train served over it. All four trains: 1 Document on the upgrade navigation, new entry requested, old entry never re-requested, new worker WAITING with the old one still controlling, 0 page errors, Help and Bookmarks open through the NEW chunks. After closing all tabs, gbg-v5 is purged and the mapbox-tiles marker survives. Builder's tests/t0/r0.mjs (T0-R0-01..12) is 12/12 on all four trains, repeated by npm run t0:test."
+   },
+   {
+    "id": "KILL-DRILL",
+    "result": "PASS",
+    "evidence": "Runbook L2 procedure done literally in the clone (rm -rf release/kill && cp -r release/R1a/dist release/kill && cp ops/sw-kill.js release/kill/sw.js). The result differs from the dist only in sw.js (sha-list compare: DIFFERENT: 1). drills.mjs on R0, R1a, R1b and R1c: after one navigation 0 registrations, only mapbox-tiles remains (marker kept). 45 s watch: 2 Documents total, none in the last 15 s (no reload loop). A later visit with the kill file still live settles with clean caches. Probe against the local kill copy: T0-03 --kill and T0-04 PASS."
+   },
+   {
+    "id": "HEADERS-REDIRECTS-LOCAL",
+    "result": "PARTIAL",
+    "evidence": "ops/headers-probe.mjs --dist <R1c> --profile t0: 19/19 as expected. Independent parser and matcher (headers-indep.mjs): 71 rules, 163 URLs, no header name set by two rules. /embed and /embed.html have frame-ancestors * with no XFO and no Report-Only. All 49 other document URLs have XFO plus frame-ancestors. /sw.js is no-store, /assets is immutable, nosniff, HSTS, Referrer-Policy and the RUM host in Report-Only are present everywhere, and there is no report-uri. _redirects: netlify.app 301! over http and https, dev-page twins 404!, no forced 404 shadows a real file. tests/t0/headers.spec.mjs is 13/13. R0, R1a and R1b headers do not regress against the baseline profile (0 unexpected FAIL; the unexpected PASSes are HP-15 and HP-13). PARTIAL because R1c deviates from the plan text (XFO DENY/'none' vs SAMEORIGIN/'self'; Permissions-Policy tightened) and Netlify's real merge semantics are unverified."
+   },
+   {
+    "id": "NO-DATA-TITLE-URL-NAME-CHANGES",
+    "result": "PASS",
+    "evidence": "identity-check.mjs: title, description, canonical, og:title/url/description/site_name, twitter:title/description and JSON-LD are unchanged on every page in all trains. Only og:image/twitter:image (21 pages, to /og/card-r1.png), ar.html noindex and the removal of ar.html from the sitemap changed (20 loc, no lastmod). robots.txt is identical. manifest name, short_name, description and start_url are unchanged (id added, orientation removed). Only legacy 71 data files are byte-identical; the one addition is data/moments.json. url-forms.mjs: no existing href or URL path form changed (only ?v=<rid> on site-nav.*, AR links removed, /privacy and /terms links added). No product-name token changed beyond one hidden h1 that reuses the existing name. Clock tokens changed only via planned rows (cp:b10 'real time' to 'base speed', touch-tour July 3 copy)."
+   },
+   {
+    "id": "DIFF-CLASSIFICATION-R1C",
+    "result": "PARTIAL",
+    "evidence": "classify.py re-derives every shipped byte from legacy/dist + tools/t0/patches/*.json + overlay + the R0 mechanism output: R1a, R1b and R1c are byte-exact (the R0 index.html and site-nav.css hunks I checked by hand against plan Appendix A.1 and WP-T0-05). class-table.py: 54 changed, added or removed files in R1c, 0 unclassified: 42 EXPECTED, 2 expected with owner review (privacy.html, terms.html), 3 expected with a deviation (_headers, manifest.json, site-nav.js), 2 DEVIATION (screenshots/day1.png and day3.png replaced under the same names), 2 EXTRA (maskable icons), 3 minor extras/deviations (_ops/sw-kill.js, _ops/config-manifest.json, orphan InterpolationWorker removed). Patch counts differ from chapter 02 (A 25, B 13, DL 7, C 72, AX 61, CP 20); CHANGELOG documents this. PARTIAL because deviations need owner sign-off."
+   },
+   {
+    "id": "SECRETS-NEW-IN-DIFF",
+    "result": "PASS",
+    "evidence": "secrets-scan.mjs legacy vs R1c: 0 new Mapbox/Google/AWS/GitHub/Netlify/Slack/OpenAI tokens, 0 JWTs, 0 credential assignments, 0 private keys or basic-auth URLs. The Mapbox pk.* token and Google key counts (1 each) are unchanged legacy strings. The only new long hex values are sha256 digests in _ops/*. The new hostnames are ingesteer.services-prod.nsvcs.net (CSP), peerjs.com, www.jsdelivr.com and www.netlify.com (privacy text), and friendly-lolly-da85c0.netlify.app (only in the unserved _redirects). No new eval or document.write. repo-secrets.mjs over 713 tracked files added or changed since the baseline: no secret hits (only UUIDs from local scratch paths in docs). gitleaks is not installed."
+   },
+   {
+    "id": "RELEASE-NOTES-CLAIMS",
+    "result": "PASS",
+    "evidence": "notes-check.mjs verified, for all four ops/release-notes/*.md, rid, asset names, file count, bytes, tree sha256, added/removed/changed/identical counts, the added/removed file lists, anchor counts per group and the group order. All are correct. python tools/t0/release_notes.py in the clone regenerates all four notes identically (modulo the source-commit hash), and 989ff57..HEAD touches only notes and release_notes.py. I re-ran all 36 suites from the clean clone: r0 x4 12/12; journeys R1a 29/40+11 skipped, R1b 30/40+10 skipped, R1c 40/40; deeplinks 12/12; mobile R1b and R1c 19/19; a11y R1b and R1c 15/16+1 skipped; a11y tiles 1/1; copy 3/3; pagescore R1a and R1c 27/27, real 1/1, full 1/1; pagesmaps R1a and R1c 34/34; headers 13/13; red-first proofs 8/8 RED plus red.legal; self-test 10/10, lib 8/8, verify_release, overlap and legal facts all OK. The one wording nit is R0's 'no page change' while site-nav.css and index.html change."
+   },
+   {
+    "id": "RUNBOOK-FOLLOWED-LITERALLY",
+    "result": "PARTIAL",
+    "evidence": "Sections 3, 4, 5 (t0:test, the r0 suite), 6 steps 1 and 5 (locally), 11 L2, 12 and the calendar claims were executed. Weekdays are correct, TLS expiry is 2026-11-10 (live), and the freeze dates match the register. The build commands, reproducibility check, baseline digest, stage and compare steps, L2 copy and probe all work. Failures or gaps: section 3's chrome --version launches Chrome instead of printing a version; section 13 says the error boundary is 'not built' but it ships; the local emulator falsely fails HP-13a because it serves netlify.toml; section 8 step 5 bookkeeping was blocked. Steps that cannot run offline (7, the staging deploys, 8.1 schtasks, npm ci) were not executed."
+   },
+   {
+    "id": "README-RUNBOOK-MATCH-REALITY",
+    "result": "PARTIAL",
+    "evidence": "tools/t0/README.md counts (anchor records 22/242/375/425; dist files 122/124/124/128; 10 gates; build order; groups) and tests/README.md, tools/t0/CHANGELOG.md (16 commit hashes exist; anchors/manifest reproducibility) are accurate. doc-refs.mjs: the only unresolved references are docs/baseline-2026-09-30/, docs/releases.md and docs/runbooks/t0-release.md (plan names; ops/ substitutes are documented). Inconsistencies: trains.json says group C has 53 patches but it has 72; build.py says --order runbook gives 'identical bytes' (not quite, see the rebuild check); PG-core '118 patches' is 116 patches plus 2 deletes. See defects 3 and 11."
+   },
+   {
+    "id": "BASELINE-EQUALS-LIVE-PRODUCTION",
+    "result": "FAIL",
+    "evidence": "node ops/sha-list.mjs verify-url tmp/verify-release/legacy.tsv https://gettysburginteractivemap.com --kinds nonhtml: 90 identical, 1 DIFF: data/terrain.json served 17,517 B sha256 97d0f3a00d46... vs legacy 13,470 B efc8ce420b91... (live has 6-decimal corrected coordinates; re-fetched with a cache-busting query, same result). GET / compared with legacy/dist/index.html using tmp/verify-release/live-drift.py (RUM snippet, re-quoting and /x.html link rewriting undone): 9 differing regions, and live has CRLF line endings plus extra inline JS (animationend reveal fix, hide-desktop-timeline-in-Mobile). tmp/verify-release/terrain-zips.py and index-zips.py: neither live file matches any of the 127 archived zips."
+   },
+   {
+    "id": "PRODUCTION-PROBE-LEGACY",
+    "result": "PASS",
+    "evidence": "node tests/t0/prod-probe.mjs --base https://gettysburginteractivemap.com --train legacy --no-content (read-only HEAD): 8 pass, 0 FAIL, 13 known-red, 3 skipped. The known-red set is exactly the audit's 10 header probes plus the T0 probes due in later trains. Matches the runbook claim (their full run also counted HEADERS)."
+   },
+   {
+    "id": "SRI-PINS",
+    "result": "PARTIAL",
+    "evidence": "The integrity attributes in the shipped map pages equal tools/t0/assets-src/sri.json. HEAD of api.mapbox.com mapbox-gl.js and mapbox-gl.css v3.24.1 matches the pinned size and ETag. The jsDelivr metadata API sha256 for peerjs@1.5.4 dist/peerjs.min.js matches the cross-check value. The real library loads in the builder's pagescore.R1c.real test (PGC-28), which I re-ran. I did not recompute the sha384 values myself."
+   },
+   {
+    "id": "LIGHTHOUSE-REAL-DEVICES-STAGING",
+    "result": "NOT_RUN",
+    "evidence": "No Lighthouse runner exists in the repo (R0 gates mobile >= 85 and desktop >= 95 are unmeasured), and I did not download one. No real device, iOS/WebKit, Firefox or Samsung Internet run. No Netlify deploy, staging site, credit balance check or timed rollback rehearsal (outward actions; I made none)."
+   }
+  ],
+  "defects": [
+   {
+    "title": "Production no longer equals the legacy/dist baseline: live data/terrain.json and live index.html differ, and neither live version is archived",
+    "severity": "high",
+    "where": "legacy/dist/index.html and legacy/dist/data/terrain.json vs https://gettysburginteractivemap.com; affects tools/t0/patches R0M index.html anchors, ops/RELEASE-RUNBOOK.md sections 7 and 8, docs/plan/FINAL/02 rule 10",
+    "repro": "1) node ops/sha-list.mjs list legacy/dist --out tmp/verify-release/legacy.tsv. 2) node ops/sha-list.mjs verify-url tmp/verify-release/legacy.tsv https://gettysburginteractivemap.com --kinds nonhtml. It reports 1 DIFF: data/terrain.json (served 17,517 B sha256 97d0f3a0..., expected 13,470 B efc8ce42...). 3) curl -s https://gettysburginteractivemap.com/ -o tmp/verify-release/live-index.html, then python tmp/verify-release/live-drift.py legacy/dist/index.html tmp/verify-release/live-index.html. It shows 9 differing regions after undoing Netlify's post-processing (live is CRLF, with extra inline JS such as an animationend reveal fix and a hide-desktop-timeline-in-Mobile block). 4) python tmp/verify-release/terrain-zips.py and python tmp/verify-release/index-zips.py: neither live file matches any of the 127 archived zips. Consequence: every train is built from the stale baseline, so deploying R0..R1c would silently revert both live files, and R0's index.html patches were anchored on the old index.html. Also the runbook's 'no ad-hoc redeploys until R0' rule appears to have been broken, or the baseline was already stale. The owner must check the Netlify Deploys list, download and archive the currently live deploy, and decide how to re-baseline before any deploy."
+   },
+   {
+    "title": "verify-url --html-warn cannot detect real HTML content drift (it demotes it to WARN) and the runbook treats WARN as non-blocking",
+    "severity": "medium",
+    "where": "ops/sha-list.mjs (html-warn logic, lines ~198-206); ops/RELEASE-RUNBOOK.md section 6 ship-blockers; ops/STAGING-SETUP.md section 4",
+    "repro": "node ops/sha-list.mjs verify-url tmp/verify-release/legacy.tsv https://gettysburginteractivemap.com --kinds html --html-warn. It prints WARN for index.html ('RUM snippet injected; single-quoted attributes') although the page has 9 real content regions different from legacy (see the previous defect). Any differing .html with a post-processing signature becomes WARN. STAGING-SETUP.md section 4 also states '91 of 91 non-HTML files are byte-identical', which is now 90 of 91. Fix: compare a canonicalised form (strip RUM, normalise quoting and link rewrites, as live-drift.py does) and add a pre-deploy baseline-drift gate to the runbook."
+   },
+   {
+    "title": "Runbook section 13 says the error boundary is 'not built (proposal only)' but it ships in R1a, R1b and R1c",
+    "severity": "medium",
+    "where": "ops/RELEASE-RUNBOOK.md line 348; tools/t0/patches/A.json (A-error-boundary)",
+    "repro": "grep -n 'error boundary' ops/RELEASE-RUNBOOK.md shows the 'not built' wording; grep -c 'componentDidCatch' release/R1a/dist/assets/index-740deb52.js gives 2 (R0 gives 1, the React library). The bundle contains the text 'Something went wrong drawing the map.' CHANGELOG item 2 and the R1a notes say the boundary is part of group A. The owner is told to expect something different from what is deployed (AMD-T0-1 / O-T0-6)."
+   },
+   {
+    "title": "Runbook section 3 Chrome check does not print a version on Windows; it hands the command line to the running browser",
+    "severity": "medium",
+    "where": "ops/RELEASE-RUNBOOK.md section 3 table ('Chrome (for the browser tests)')",
+    "repro": "In Git Bash: \"C:/Program Files/Google/Chrome/Application/chrome.exe\" --version. It prints 'Opening in existing browser session.' and no version (it may open a window in the user's own Chrome). Use (Get-Item 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe').VersionInfo.ProductVersion instead."
+   },
+   {
+    "title": "R1c header deviations from the plan's acceptance text: X-Frame-Options DENY and frame-ancestors 'none' (plan: SAMEORIGIN and 'self'); Permissions-Policy tightened (plan: no tightening)",
+    "severity": "medium",
+    "where": "tools/t0/config/gen.mjs lines ~181-200; docs/plan/FINAL/02 WP-T0-15 acceptance; release/R1c/dist/_headers",
+    "repro": "node tmp/verify-release/headers-indep.mjs release/R1c/dist prints HDR-11b (XFO values: DENY; frame-ancestors: 'none'), whereas chapter 02 requires 'self' for /, /privacy and /dashboard. grep Permissions-Policy release/R1c/dist/_headers shows camera/geolocation/sensors '()' on 50 rules and '(self)' only on /ar and /ar.html (legacy allowed camera, geolocation and three sensors for self site-wide). I checked that only ar.html uses camera/getUserMedia/sensors and that the bundle's geolocation code is the unused Mapbox GeolocateControl, so the functional risk looks low. The deviation is documented in tools/t0/CHANGELOG.md and ops/release-notes/R1c.md, but the literal plan curl matrix would fail and needs owner sign-off."
+   },
+   {
+    "title": "R1c ships AI-drafted privacy and terms text with unresolved [OWNER TO CONFIRM] comments in the page source and hard-coded 'September 30, 2026' dates",
+    "severity": "medium",
+    "where": "tools/t0/patches/PG-legal.json; release/R1c/dist/privacy.html (lines 26-27, 35-36, 87, 95) and terms.html (lines 21-22)",
+    "repro": "grep -n 'OWNER TO CONFIRM' release/R1c/dist/privacy.html release/R1c/dist/terms.html: 3 markers in privacy.html and 1 in terms.html. They are HTML comments containing internal instructions, for example on Netlify Web Analytics (register question O-12). Visible text says 'Last updated: September 30, 2026' and 'Effective date: September 30, 2026', which will be stale on the planned 2026-11-03 deploy. Deploying R1c unchanged publishes unconfirmed legal statements. Hold-back works: building with PG-legal.json removed (tmp/verify-release/clone, --patches override) leaves privacy.html and terms.html identical to legacy and the same rid 9feb2ee6."
+   },
+   {
+    "title": "Overlay and manifest changes beyond or against chapter 02 WP-T0-14, and kill/config files published publicly",
+    "severity": "low",
+    "where": "tools/t0/overlay/common/*, tools/t0/assets-src/README.md, release/R1c/dist/manifest.json, _ops/",
+    "repro": "diff <(python -m json.tool legacy/dist/manifest.json) <(python -m json.tool release/R1c/dist/manifest.json). The plan says delete the two corrupt screenshots entries, but the two manifest screenshot entries are kept (with form_factor wide) and screenshots/day1.png and day3.png are replaced under the same names (108,348 B and 120,735 B; legacy was one 17,585 B file). Two maskable icons are added, and the existing icons change purpose from 'any maskable' to 'any'. _ops/sw-kill.js (plan: committed and tested, not deployed) and _ops/config-manifest.json (contains the string tools/t0/config/gen.mjs) are published. /screenshots/* has no cache rule (default must-revalidate), so stale bytes are not a serious risk."
+   },
+   {
+    "title": "Scope and count differences from chapter 02's closed list (plan says anything else needs an ADR amendment)",
+    "severity": "low",
+    "where": "tools/t0/trains.json, tools/t0/patches/*.json, tools/t0/CHANGELOG.md 'Deviations'",
+    "repro": "Patch counts: A 25 (plan 23), B 13 (12), DL 7 (1), C 72 (53), AX 61 (13), CP 20 (16+3); `node -e` over tools/t0/patches/*.json shows them. Also: DL resolves ?vignette= and ?v= through moments.json (the plan deferred it), PG-maps pins SRI (fails closed) and adds CLS guards, the layout query uses 834 px not 820 (owner decision O-T0-9), PG-core includes extra page copy and a11y fixes from chapters 07, 08 and 11, and PG-core sprite ids are prefixed gtbg-i- (the 4 index.html uses migrate together and I verified all <use> refs resolve). All are documented by the builder; the owner's 'execute full plan' authorisation likely covers them, but it should be acknowledged."
+   },
+   {
+    "title": "A failed build (exit 2, 'nothing shipped') leaves a fully populated dist/ with no manifest or gate files, and a malformed ledger crashes with a Python traceback",
+    "severity": "low",
+    "where": "tools/t0/build.py (rmtree_safe before mechanism; ledger check after dist is written); ops/RELEASE-RUNBOOK.md section 4 exit-code text",
+    "repro": "python tools/t0/build.py --train R0 --out tmp/badledger/R0 --ledger <ledger with a conflicting sha for assets/index-fb14ab00.js>. It exits 2 with 'BUILD FAILED: used-names ledger check failed', but tmp/badledger/R0/dist holds 45 top-level entries and no gate.json or manifest.json. The previous good output was already deleted, so release/<train>/dist could be deployed by mistake. A ledger line without tabs raises an IndexError traceback instead of a BuildError."
+   },
+   {
+    "title": "Local emulators are not faithful to Netlify for the runbook's local staging path",
+    "severity": "low",
+    "where": "tools/t0/config/emulate.mjs (serves netlify.toml as a public file), tools/t0/serve.mjs (applies no header rules)",
+    "repro": "Serve release/staging/R1a with node tools/t0/config/emulate.mjs release/staging/R1a 8563, then node tests/t0/prod-probe.mjs --base http://127.0.0.1:8563 --train R1a --staging --dist release/R1a/dist: HP-13a FAILs ('answers 200: /netlify.toml') and ops/sha-list.mjs verify-url reports 'PUB netlify.toml'. Production does not serve netlify.toml (verify-url against production: 'config file correctly not served'). With tools/t0/serve.mjs the kill-copy probe also FAILs HP-04, HP-05 and HP-14 because no headers are applied. So the local path can never go fully green; only a real staging deploy can."
+   },
+   {
+    "title": "Documentation inconsistencies and absent plan artifacts",
+    "severity": "low",
+    "where": "tools/t0/trains.json ('C' description), tools/t0/build.py --order help, tools/t0/README.md, ops/*.md, docs/",
+    "repro": "trains.json groups.C.what says '53 bundle patches + 3 index.html rows' but tools/t0/patches/C.json has 72 patches. build.py help says --order runbook 'must give identical bytes' but version.json and _ops/asset-manifest.json differ (the self-test acknowledges this). README 'PG-core (118)' is 116 patches plus 2 delete records. The docs reference docs/baseline-2026-09-30/, docs/releases.md and docs/runbooks/t0-release.md, which do not exist (ops/ substitutes are documented). The plan's WP-T0-02 acceptance command git grep -nE 'publish *= *\"\\.\"' returns docs, tools/t0/README.md and legacy/dist/netlify.toml (byte-exact baseline), and no repo-root netlify.toml exists."
+   },
+   {
+    "title": "tools/t0/gate.mjs writes a cache into release/.cache regardless of --out",
+    "severity": "low",
+    "where": "tools/t0/gate.mjs line ~111 (cacheDir = release/.cache)",
+    "repro": "Running python tools/t0/build.py --train R0 --out tmp/x in the main repo writes release/.cache/through-<hash>.json (git-ignored, content-keyed, harmless). It is a write outside the declared output directory; I avoided it by building in a clone."
+   },
+   {
+    "title": "Runbook section 8 step 5 bookkeeping was not exercised",
+    "severity": "info",
+    "where": "ops/RELEASE-RUNBOOK.md section 8 step 5 (git tag, ledger.py record, tools/commit.sh)",
+    "repro": "I attempted it in the sandbox clone and the permission system blocked it, so I did not retry. Only ledger.py seed and check were verified; record, the tag and commit.sh are untested."
+   }
+  ]
+ }
+]
