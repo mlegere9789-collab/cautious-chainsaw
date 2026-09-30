@@ -138,3 +138,11 @@ test('R-13 engine.ask does not throw on a context object whose getter throws (lo
   }
   assert.deepEqual(bad, []);
 });
+
+test('R-14 a correctly spelled ordinary word in a plain question is not "corrected" on the page (the golden set itself shows "fraction" -> "action", "percentage" -> "percent age", "newspapers" -> "news papers", "really" -> "rally")', async () => {
+  const G = JSON.parse(fs.readFileSync(path.join(ROOT, 'docs/plan/data/hist-golden-set.json'), 'utf8'));
+  const fine = new Set(['fraction', 'percentage', 'newspapers', 'really', 'world', 'list', 'midnight', 'thunderstorm', 'france']);
+  const bad = [];
+  for (const q of G.questions) { const a = await ask(q.question, q.context ? { onsite: q.context } : {}); for (const d of a.did_you_mean || []) if (fine.has(String(d.from).toLowerCase())) bad.push(`${q.id} "${d.from}" -> "${d.to}" (${a.mode})`); }
+  assert.deepEqual(bad, [], 'the reader is shown "Showing results for / Reading ... as ..." for words that were right');
+});
