@@ -1,0 +1,368 @@
+{
+  "schema": "gtbg/data-manifest/1",
+  "status": "CANDIDATE: describes the LEGACY tree under its legacy names; nothing is deployed from this file",
+  "data_version": "0.9.0",
+  "dv": 1,
+  "dv_note": "dv is the clock calibration stamp owned by chapter 04 (links without dv mean 1). This tool copies it and never bumps it.",
+  "built_at": null,
+  "schema_version": "1",
+  "time_model": null,
+  "content_sha256": "7c767baa7f7855f944718da9172d4742b7066cdf75f7aa9356ee80a86a1487c8",
+  "files": {
+    "casualty_apportionment": {
+      "path": "data/casualty_apportionment.json",
+      "sha256": "f9420f3e04120fc672f350ec280ef81918aebb42a290f814f5eec17df51ac642",
+      "bytes": 11681
+    },
+    "chronology_day1": {
+      "path": "data/chronology_day1.json",
+      "sha256": "b95420c7d21049e87a058f9d61206fb4876d81a0e3011096bfa0b3060d7debe4",
+      "bytes": 18207
+    },
+    "chronology_day2": {
+      "path": "data/chronology_day2.json",
+      "sha256": "a4ab94187a666444276395b24c70fff7bf09c411302387bd5230a2ecd98b7a7e",
+      "bytes": 22553
+    },
+    "chronology_day3": {
+      "path": "data/chronology_day3.json",
+      "sha256": "554089aac5011107accc2bf2bccdb15eed11754a6305cdcf7c16f643971d73a2",
+      "bytes": 21363
+    },
+    "density_artillery_positions": {
+      "path": "data/density_artillery_positions.json",
+      "sha256": "cc04025804a40555e7a46386d98d265781a36c5e0607be310932f443902d95e5",
+      "bytes": 7555
+    },
+    "density_cavalry_detail": {
+      "path": "data/density_cavalry_detail.json",
+      "sha256": "b2bdf8d3a578ef7b745c19b8323fe8725949b6b46e9aad6d3c0440a4169eda80",
+      "bytes": 6540
+    },
+    "density_day1_afternoon": {
+      "path": "data/density_day1_afternoon.json",
+      "sha256": "79db3f9b7a595080320e3d08e378ca55dc92be915e3dd6373d3205b969e19190",
+      "bytes": 7809
+    },
+    "density_day1_barlowsknoll": {
+      "path": "data/density_day1_barlowsknoll.json",
+      "sha256": "dd5ed7bd8fa62336756e253da6437da299c6bbd48f1084e5670ec0f46d203395",
+      "bytes": 4351
+    },
+    "density_day1_ironbrigade": {
+      "path": "data/density_day1_ironbrigade.json",
+      "sha256": "ea53d3cea54bcb2d8b2eef7df2a744ad3b949e536bc45ca6002115d9ff438150",
+      "bytes": 4077
+    },
+    "density_day1_iverson": {
+      "path": "data/density_day1_iverson.json",
+      "sha256": "02d7287e58e0735bb24e921e4d2bd1f9551310a2c397739e58e6d8efb18ba17e",
+      "bytes": 4130
+    },
+    "density_day1_lateafternoon": {
+      "path": "data/density_day1_lateafternoon.json",
+      "sha256": "b5a843f92083bad201907930e3c680d3b2aff393af6b108e06cc2e10c89da412",
+      "bytes": 5813
+    },
+    "density_day1_opening": {
+      "path": "data/density_day1_opening.json",
+      "sha256": "59551424afb50dcaebbb7424a8f821d8fcaed1222ab1c83abb14f609e6342da1",
+      "bytes": 4884
+    },
+    "density_day1_railroadcut": {
+      "path": "data/density_day1_railroadcut.json",
+      "sha256": "2513b253f5793a2c03acbd50de0094ff771b07a08b2e685b01efae284e988f8d",
+      "bytes": 4071
+    },
+    "density_day1_seminary": {
+      "path": "data/density_day1_seminary.json",
+      "sha256": "cef7b1e870cb1c84e16711580d4f416f8a4aa8a2cb052a0cffeae8cfd3213abb",
+      "bytes": 4878
+    },
+    "density_day1_ticks1_50": {
+      "path": "data/density_day1_ticks1_50.json",
+      "sha256": "06b42839093de6a6bc0386be7cd1f1ded58e3bb0114085ed4739efbd048d3b3e",
+      "bytes": 10748
+    },
+    "density_day1_ticks51_100": {
+      "path": "data/density_day1_ticks51_100.json",
+      "sha256": "8694a11f21adda4fe0d07b0ce1c3bc7e9e38bbd7cd72b516b2bfb5ee75b837ee",
+      "bytes": 9172
+    },
+    "density_day2_15alabama": {
+      "path": "data/density_day2_15alabama.json",
+      "sha256": "9194fb704507b2c3e69ec4cdc5e5e2fd069524c9320d77ae33d946bd0b317365",
+      "bytes": 4147
+    },
+    "density_day2_afternoon": {
+      "path": "data/density_day2_afternoon.json",
+      "sha256": "de7b24f758660f73dd06a181125b6162f7d0b653f6d9d42c42d10d13feb07ff3",
+      "bytes": 5336
+    },
+    "density_day2_bigelow": {
+      "path": "data/density_day2_bigelow.json",
+      "sha256": "d8588627a913cd8592f6dcc94233e75a0add316d3df606b22bac53b4b26bdaee",
+      "bytes": 4409
+    },
+    "density_day2_cemhill": {
+      "path": "data/density_day2_cemhill.json",
+      "sha256": "290bcd42de2ab44f21824796c9f42f33b5edb32bf3686bc15124fea6c66fbda6",
+      "bytes": 4308
+    },
+    "density_day2_culpshill": {
+      "path": "data/density_day2_culpshill.json",
+      "sha256": "07d9211fbb62abda5153cac6b37e01faacee025407bf6c65933087e81ae1729d",
+      "bytes": 7601
+    },
+    "density_day2_culpshill_overnight": {
+      "path": "data/density_day2_culpshill_overnight.json",
+      "sha256": "4f4e4760bc2417e04aaa1835a0f4f81ef64f46f787c9125e993a70a5fb170f4d",
+      "bytes": 4064
+    },
+    "density_day2_devilsden": {
+      "path": "data/density_day2_devilsden.json",
+      "sha256": "4aae14139d631222048d944f818f72bb20d171e89ed40fce470ed23c7666adf2",
+      "bytes": 4152
+    },
+    "density_day2_kershaw": {
+      "path": "data/density_day2_kershaw.json",
+      "sha256": "797c049c7158edb9432c9d8821f5a0bc0cda136d5f2abad6b8deb7b038b825dc",
+      "bytes": 3856
+    },
+    "density_day2_lrt": {
+      "path": "data/density_day2_lrt.json",
+      "sha256": "362ae01aff95da68dd571ddbe3ad5d3eb69fd2709bbfa75405877467396ffb78",
+      "bytes": 8779
+    },
+    "density_day2_morning": {
+      "path": "data/density_day2_morning.json",
+      "sha256": "09f74579511160445d7bdae40bc9ab5d730bd22d8e026b434fd6eba885f09325",
+      "bytes": 5497
+    },
+    "density_day2_overnight": {
+      "path": "data/density_day2_overnight.json",
+      "sha256": "94b9b440cdb72bcdb1c35eb27e01201d6276caa7062b6ed07924e891aaeab387",
+      "bytes": 7101
+    },
+    "density_day2_wheatfield": {
+      "path": "data/density_day2_wheatfield.json",
+      "sha256": "8756f8a6198f595afa91e73def8de3018a63c99ba8ea915201583478b430d370",
+      "bytes": 8187
+    },
+    "density_day2_wright": {
+      "path": "data/density_day2_wright.json",
+      "sha256": "68fc1adb9c8dbc6839a21a774c5cded8f72766619b3649095053c38090a95a00",
+      "bytes": 4136
+    },
+    "density_day3_aftermath": {
+      "path": "data/density_day3_aftermath.json",
+      "sha256": "56f9c0bca2cd3c83eb55c7a3151c76a6aad2f992c482af13f6deaaf843e232ce",
+      "bytes": 6633
+    },
+    "density_day3_angle": {
+      "path": "data/density_day3_angle.json",
+      "sha256": "897fc38d430a6d9b4eb2565afa4bff011975193d00ddfad37a68260321131bb9",
+      "bytes": 4250
+    },
+    "density_day3_cannonade": {
+      "path": "data/density_day3_cannonade.json",
+      "sha256": "c2f71812a06b5fc31f0aec0b0fa052874bb62081392cc0a717ef366ef0bf72e8",
+      "bytes": 5657
+    },
+    "density_day3_cavalry": {
+      "path": "data/density_day3_cavalry.json",
+      "sha256": "e7ccf90c9ec48fea56296de74b7a423c34be2ab88423cbc759137a8bccaec52b",
+      "bytes": 6356
+    },
+    "density_day3_culpshill": {
+      "path": "data/density_day3_culpshill.json",
+      "sha256": "d47db81f435c8acc7e374a272d1b665899ed16e392e8f016074c8f7ff37bd705",
+      "bytes": 7447
+    },
+    "density_day3_hancock": {
+      "path": "data/density_day3_hancock.json",
+      "sha256": "a0868773b05013d24abbf0f710b837572118a10a5aa461f25b9a45b82e314f95",
+      "bytes": 4029
+    },
+    "density_day3_morning": {
+      "path": "data/density_day3_morning.json",
+      "sha256": "fa0c565f38194c65fc1bc82f08f4268df137f0705a1dbc62146f6e95b2c583c6",
+      "bytes": 5150
+    },
+    "density_day3_pettigrew": {
+      "path": "data/density_day3_pettigrew.json",
+      "sha256": "0813081b9c5055760e6d83e6fefec70bd804d99062e831a24e27ffea5c65f55a",
+      "bytes": 5175
+    },
+    "density_day3_picketts_charge": {
+      "path": "data/density_day3_picketts_charge.json",
+      "sha256": "ace7d55ad152bfd71f6b31943d669b47dfc6bfe158994c8ceebc66f1edf9fac3",
+      "bytes": 9936
+    },
+    "density_day3_retreat": {
+      "path": "data/density_day3_retreat.json",
+      "sha256": "99b81aba28b784ead11830d9fefb6a553aeff680786a6deb83bc854065a5ff1b",
+      "bytes": 5697
+    },
+    "density_day3_vermont": {
+      "path": "data/density_day3_vermont.json",
+      "sha256": "2088cadebbfd7ac29da7ff6594624a16e02543f0eebb36eeafb0f66d1be7e2e8",
+      "bytes": 4105
+    },
+    "density_reserves": {
+      "path": "data/density_reserves.json",
+      "sha256": "dbe8bbc91d2c010d8f7d615b080e64e12a93d14cfb3a7f6f4a98d9f1cff2fe89",
+      "bytes": 5620
+    },
+    "density_skirmishers": {
+      "path": "data/density_skirmishers.json",
+      "sha256": "5f62171388131faffde73d4749e4232dc58005a4434681289f0921661f11f229",
+      "bytes": 5812
+    },
+    "monuments": {
+      "path": "data/monuments.json",
+      "sha256": "c23ef400f626f47c826583b7506744ba2347fac0c792ae47e82c305bd8ae09a7",
+      "bytes": 2554
+    },
+    "oob/commander_successions": {
+      "path": "data/oob/commander_successions.json",
+      "sha256": "0f1a089137dc36dece0bb3431d61ed2925733a0236e3fe8eb683873186427995",
+      "bytes": 20036
+    },
+    "oob/confederate_artillery": {
+      "path": "data/oob/confederate_artillery.json",
+      "sha256": "8477cf36447d4ebcfc4ad7ecb7193752dfcaaf7709ce1b110d3433ef9e068cfb",
+      "bytes": 19576
+    },
+    "oob/confederate_cavalry": {
+      "path": "data/oob/confederate_cavalry.json",
+      "sha256": "6562aeb5dee6b33f8d178c17b53a4d15f7258e59941a987a98368dab3380b5dc",
+      "bytes": 8677
+    },
+    "oob/confederate_oob_corps_div_bde": {
+      "path": "data/oob/confederate_oob_corps_div_bde.json",
+      "sha256": "7786047cb6d95081e748d652b998639c597eb360aa04ce9eca5b6d5034708049",
+      "bytes": 26231
+    },
+    "oob/confederate_regiments_first_corps": {
+      "path": "data/oob/confederate_regiments_first_corps.json",
+      "sha256": "347f96c59dc06c9c4ee045a8096432070e5f70e7b5331e3ce274710b9c795aec",
+      "bytes": 17729
+    },
+    "oob/confederate_regiments_second_corps": {
+      "path": "data/oob/confederate_regiments_second_corps.json",
+      "sha256": "de81432b2580c48f75af0dee0c7d30f3649b9583dd84f4108c300f49f5783ba6",
+      "bytes": 21258
+    },
+    "oob/confederate_regiments_third_corps": {
+      "path": "data/oob/confederate_regiments_third_corps.json",
+      "sha256": "ea22aaf0880dbf641eb0cd0d6d21cb32ee1abd52dd30ccffd95d67f7fa22d54b",
+      "bytes": 21289
+    },
+    "oob/union_artillery": {
+      "path": "data/oob/union_artillery.json",
+      "sha256": "11cb99dba0212e1697ce23b5faea4d62bae3cd07867a2ebd5763bbb6b979aefe",
+      "bytes": 22951
+    },
+    "oob/union_cavalry_artillery": {
+      "path": "data/oob/union_cavalry_artillery.json",
+      "sha256": "f1b27614f4a648151d791271e4247054db0b918d441bbef78ddd711561228cfb",
+      "bytes": 16581
+    },
+    "oob/union_oob_brigades": {
+      "path": "data/oob/union_oob_brigades.json",
+      "sha256": "caf1f313bdbdab6100201506110ae73b50085dde83459e986b45d15e78126cb7",
+      "bytes": 29647
+    },
+    "oob/union_oob_corps_division": {
+      "path": "data/oob/union_oob_corps_division.json",
+      "sha256": "f0c7113fa82b0ee50521709dff6b43f6455c18d06fc05b31b5ff4fa211abbcc0",
+      "bytes": 13751
+    },
+    "oob/union_regiments_i_ii_corps": {
+      "path": "data/oob/union_regiments_i_ii_corps.json",
+      "sha256": "1925fd9a5542db4e279a6f4b1c505910a68a32e0f2c180f4e71463b76e05d5a2",
+      "bytes": 32488
+    },
+    "oob/union_regiments_iii_v_corps": {
+      "path": "data/oob/union_regiments_iii_v_corps.json",
+      "sha256": "490991652bb21f880f48e3c03a56b06e926d3c6af0a4b3696b59d2ccb2132779",
+      "bytes": 30655
+    },
+    "oob/union_regiments_vi_xi_xii_corps": {
+      "path": "data/oob/union_regiments_vi_xi_xii_corps.json",
+      "sha256": "3479c214302edac49a23487180aad231faef1a858d5b60cadc66028110637b4a",
+      "bytes": 32935
+    },
+    "placement_schema": {
+      "path": "data/placement_schema.json",
+      "sha256": "5acf2119f651928441d67a1385205b4c583dea95fb0dc07406afdd62dc793232",
+      "bytes": 12323
+    },
+    "placements_day1_ticks101_225": {
+      "path": "data/placements_day1_ticks101_225.json",
+      "sha256": "2c3e6759ecd36194a85d137955f6858f9e67c24564a0fe502d7e508964efc3e6",
+      "bytes": 16511
+    },
+    "placements_day1_ticks1_50": {
+      "path": "data/placements_day1_ticks1_50.json",
+      "sha256": "737f722d7e53c81c68f08671f58994163352fda7d7ab3422faad00d5cbf86c6e",
+      "bytes": 15508
+    },
+    "placements_day1_ticks51_100": {
+      "path": "data/placements_day1_ticks51_100.json",
+      "sha256": "adfef3b6b7594ea25393b836a5c40bb30ca4504711cc455823953730c9633403",
+      "bytes": 16580
+    },
+    "placements_day2_ticks226_300": {
+      "path": "data/placements_day2_ticks226_300.json",
+      "sha256": "c42612d16b198611156b2ca9fc17a8f6b2eabc8b284235c990cc19c416b7547f",
+      "bytes": 14051
+    },
+    "placements_day2_ticks301_375": {
+      "path": "data/placements_day2_ticks301_375.json",
+      "sha256": "6093dc4668e565cb61d637f54da30b5472df0cf2242dfeec1a7aeeefc62c9f16",
+      "bytes": 12599
+    },
+    "placements_day2_ticks376_450": {
+      "path": "data/placements_day2_ticks376_450.json",
+      "sha256": "1163419449c4a35f223c4be45b972f171282adc8bb961c9ca84a3d431444d352",
+      "bytes": 10225
+    },
+    "placements_day3_ticks451_520": {
+      "path": "data/placements_day3_ticks451_520.json",
+      "sha256": "3ad791341e97f2a51e68bd0ca63aa1fc9cc28412112d92674815cbeb556d9fe7",
+      "bytes": 11349
+    },
+    "placements_day3_ticks521_600": {
+      "path": "data/placements_day3_ticks521_600.json",
+      "sha256": "1995803e5d1e540e30a56562b406f98c525b33bd5a05fae1cc4a343ba6a21aed",
+      "bytes": 19422
+    },
+    "placements_day3_ticks601_675": {
+      "path": "data/placements_day3_ticks601_675.json",
+      "sha256": "eb953d9781118325636e27247a36ad86dfe75b503e3b2327999a368e767e79ec",
+      "bytes": 10453
+    },
+    "terrain": {
+      "path": "data/terrain.json",
+      "sha256": "efc8ce420b91d58b2a88553c82514522ad1438ea620fd22198c311548663ef02",
+      "bytes": 13470
+    },
+    "vignettes_part1": {
+      "path": "data/vignettes_part1.json",
+      "sha256": "63c1583301215a2c8d0ac41b43cf9160e7a4cfc7580f3e786b208cb6fd7a6893",
+      "bytes": 19567
+    },
+    "vignettes_part2": {
+      "path": "data/vignettes_part2.json",
+      "sha256": "d8947c95703f6e26c7c1b30df69ba93edc9c727e8d4d3e1752183dfc2cdbfe1e",
+      "bytes": 21082
+    },
+    "vignettes_part3": {
+      "path": "data/vignettes_part3.json",
+      "sha256": "d11f49f520e6c37de6dc75679c694d14dc4c2db0d6e4e9ea84f8fe5e2b8fd13a",
+      "bytes": 19934
+    }
+  }
+}

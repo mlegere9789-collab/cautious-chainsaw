@@ -1,0 +1,11 @@
+{
+  "schema": "gtbg/retired_literals/1",
+  "basis": "Chapter 13 section 2.1/2.2 and WP-DATA-19: counts and totals that must come from facts.json. Each entry is a literal the site prints today that is either wrong for what it names or has no single authority. Retired by the WP named in `fixed_by`; rule F001 counts remaining occurrences.",
+  "literals": [
+    { "id": "count-467", "rx": "\\b467\\b", "scope": "html,manifest,helpmodal", "meaning": "467 = regiment RECORDS (incl. an alias stub and a horse battery filed as a regiment); the site names it 'regiments and batteries'", "replace_with": "{{facts.units.total}} ({{facts.units.regiments}} regiments + {{facts.units.batteries}} batteries)", "fixed_by": "WP-DATA-19 / Q-DATA-6" },
+    { "id": "count-445plus", "rx": "445\\+", "scope": "html,manifest,helpmodal", "meaning": "445 = 467 minus the 22 Confederate cavalry records added later", "replace_with": "{{facts.units.total}}", "fixed_by": "WP-DATA-19 / Q-DATA-6" },
+    { "id": "casualties-51000", "rx": "51,000", "scope": "html,manifest,helpmodal,data", "meaning": "23,049 Union (OR) + 28,000 Confederate (upper estimate): an OR-versus-upper-estimate mix", "replace_with": "the authority range wording (Q-DATA-2)", "fixed_by": "WP-DATA-08 / Q-DATA-2" },
+    { "id": "phrase-467-regiments-and-batteries", "rx": "467 regiments and batteries", "scope": "html,manifest,helpmodal", "meaning": "wrong two ways: 467 regiments + 103 batteries = 570 records", "replace_with": "{{facts.units.total}} units", "fixed_by": "WP-DATA-19" },
+    { "id": "casualties-28000", "rx": "28,000", "scope": "html,manifest,helpmodal,data", "meaning": "upper Confederate estimate used as if it were a total", "replace_with": "authority range wording", "fixed_by": "WP-DATA-08" }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schema": "gtbg/source_tiers/1",
+  "basis": "Rights-tier policy of docs/plan/specialists/hist-sources-2.md section 3 (recommended) as adopted by chapter 13 WP-DATA-04 and chapter 14 WP-HIST-02. This is a CANDIDATE gate for the data tooling: it classifies CLAIMED sources by name; it does not prove where a value really came from.",
+  "tiers": {
+    "A": "public domain, CC0 or notice-only: may be ingested and redistributed",
+    "B": "reusable with attribution and/or share-alike: only in separate files with per-record licence + attribution surface",
+    "C": "link-out only: never fetch, store, embed, or feed to a model",
+    "A-pending": "believed public, needs written confirmation",
+    "legacy": "already shipped before the gate existed; passes L001 until DG-3 only if listed in the retro-audit with a decided action"
+  },
+  "patterns": [
+    { "id": "stone-sentinels", "rx": "Stone Sentinels|stonesentinels", "tier": "C", "why": "(c) Steve A. Hawks, no reuse licence found (hist-sources-2 SRC-41)" },
+    { "id": "hmdb", "rx": "HMDB|hmdb\\.org|Historical Marker Database", "tier": "C", "why": "non-commercial copy-with-attribution only; bulk use needs written permission (hist-sources-2 SRC-39)" },
+    { "id": "wikipedia", "rx": "Wikipedia", "tier": "B", "why": "CC BY-SA 4.0: attribution and share-alike, none surfaced on the site (WP-DATA-04)" },
+    { "id": "osm", "rx": "OpenStreetMap|OSM\\b", "tier": "B", "why": "ODbL: attribution and share-alike; separate file required" },
+    { "id": "abt", "rx": "American Battlefield Trust|battlefields\\.org", "tier": "C", "why": "ToS forbids scraping and AI use" },
+    { "id": "ancestry-family", "rx": "Fold3|Find a Grave|findagrave|FamilySearch|Ancestry", "tier": "C", "why": "ToS forbids programmatic access" },
+    { "id": "achs", "rx": "Adams County Historical|gettysburghistory\\.org", "tier": "C", "why": "reproduction prohibited without permission" },
+    { "id": "or", "rx": "Official Records|O\\.R\\.|\\bOR Vol|\\bOR27", "tier": "A", "why": "US Government work (counsel to confirm the pre-1931 basis)" },
+    { "id": "fox-dyer", "rx": "Fox, William|Regimental Losses|Dyer,? Frederick|Compendium of the War", "tier": "A", "why": "published 1889 / 1908" }
+  ],
+  "copyrighted_books_claimed": [
+    { "id": "busey-martin", "rx": "Busey", "note": "Regimental Strengths and Losses at Gettysburg: copyrighted compilation; facts-only, attributed, never the tables or wording (Q-DATA-3)" },
+    { "id": "pfanz", "rx": "Pfanz", "note": "UNC Press 1987/1993/2001: bibliographic citation only" },
+    { "id": "gottfried", "rx": "Gottfried", "note": "Da Capo / Savas Beatie / Cumberland House: atlas and brigade histories; claimed sources for terrain and OOB" },
+    { "id": "laino", "rx": "Laino", "note": "Gettysburg Campaign Atlas: claimed source for terrain" },
+    { "id": "desjardin", "rx": "Desjardin", "note": "map and book: claimed source for terrain and Maine units" },
+    { "id": "hessler-motts", "rx": "Hessler", "note": "Pickett's Charge at Gettysburg (2015)" },
+    { "id": "moe", "rx": "Moe, Richard", "note": "The Last Full Measure (1993)" },
+    { "id": "coddington", "rx": "Coddington", "note": "The Gettysburg Campaign: the site cites 1968 in one file and (per F003 in the chunk-001 zip) 1984 elsewhere" },
+    { "id": "dawes", "rx": "Dawes", "note": "Service with the Sixth Wisconsin Volunteers (1890): published before 1931, likely Tier A" },
+    { "id": "oates", "rx": "Oates", "note": "1905: published before 1931, likely Tier A" }
+  ]
+}

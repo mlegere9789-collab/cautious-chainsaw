@@ -1,0 +1,315 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gtbg/oob.schema.json",
+  "title": "Order-of-battle files under oob/ (legacy)",
+  "description": "One $defs entry per record type and per file family. Files are validated against #/$defs/file* (see tools/data/lib/schemas.mjs for the file-to-schema map). Optional fields that are missing on many records (parent_corps_id, commander, casualty_percentage) are optional here so that S002 measures shape; completeness is reported separately.",
+  "$defs": {
+    "chiefOfArtillery": {
+      "type": "object",
+      "properties": { "name": { "type": "string", "minLength": 1 }, "fate": { "type": "string" }, "notes": { "type": "string" } },
+      "required": ["name"],
+      "additionalProperties": false
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "chunk": { "type": "string" },
+        "title": { "type": "string", "minLength": 1 },
+        "battle": { "type": "string" },
+        "purpose": { "type": "string" },
+        "notes": { "type": "string" },
+        "data_correction": { "type": "string" },
+        "sources": { "$ref": "common.schema.json#/$defs/sourcesList" },
+        "army_commander": {
+          "type": "object",
+          "properties": { "name": { "type": "string" }, "assumed_command": { "type": "string" }, "notes": { "type": "string" } },
+          "required": ["name"],
+          "additionalProperties": false
+        },
+        "army_chief_of_artillery": { "$ref": "#/$defs/chiefOfArtillery" },
+        "total_strength": { "$ref": "common.schema.json#/$defs/count" },
+        "total_casualties": { "$ref": "common.schema.json#/$defs/count" },
+        "casualty_percentage": { "type": "number" },
+        "total_regiments": { "$ref": "common.schema.json#/$defs/count" },
+        "total_regiment_slots": { "$ref": "common.schema.json#/$defs/count" },
+        "corps_covered": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/unitId" } },
+        "total_batteries": { "$ref": "common.schema.json#/$defs/count" },
+        "total_guns": { "$ref": "common.schema.json#/$defs/count" },
+        "total_guns_approximately": { "$ref": "common.schema.json#/$defs/count" },
+        "tick_duration_minutes": { "type": "integer", "minimum": 1 },
+        "alexander_cannonade_notes": { "type": "object", "additionalProperties": { "type": ["string", "integer", "array"] } }
+      },
+      "required": ["chunk", "title"],
+      "additionalProperties": false
+    },
+    "regiment": {
+      "type": "object",
+      "properties": {
+        "regiment_id": { "$ref": "common.schema.json#/$defs/unitId" },
+        "designation": { "type": "string", "minLength": 1 },
+        "parent_brigade_id": { "$ref": "common.schema.json#/$defs/unitId" },
+        "parent_corps_id": { "$ref": "common.schema.json#/$defs/unitId" },
+        "state": { "type": "string", "minLength": 1 },
+        "commander": { "$ref": "common.schema.json#/$defs/commander" },
+        "strength": { "$ref": "common.schema.json#/$defs/count" },
+        "casualties": { "$ref": "common.schema.json#/$defs/count" },
+        "casualty_percentage": { "$ref": "common.schema.json#/$defs/percent" },
+        "days_engaged": { "$ref": "common.schema.json#/$defs/dayList" },
+        "key_action": { "type": "string", "minLength": 1 },
+        "alias_for": { "$ref": "common.schema.json#/$defs/unitId" },
+        "flag_notes": { "type": "string" },
+        "notes": { "type": "string" },
+        "unit_type": { "enum": ["horse_artillery", "sharpshooter"] }
+      },
+      "required": ["regiment_id", "designation", "parent_brigade_id", "state", "strength", "casualties", "days_engaged", "key_action"],
+      "additionalProperties": false
+    },
+    "battery": {
+      "type": "object",
+      "properties": {
+        "battery_id": { "$ref": "common.schema.json#/$defs/unitId" },
+        "designation": { "type": "string", "minLength": 1 },
+        "division_attached": { "type": "string" },
+        "commander": { "$ref": "common.schema.json#/$defs/commander" },
+        "gun_count": { "type": "integer", "minimum": 1, "maximum": 12 },
+        "gun_type": { "type": "string", "minLength": 1 },
+        "strength": { "$ref": "common.schema.json#/$defs/count" },
+        "casualties": { "$ref": "common.schema.json#/$defs/count" },
+        "key_action": { "type": "string", "minLength": 1 },
+        "flag_notes": { "type": "string" }
+      },
+      "required": ["battery_id", "designation", "commander", "gun_count", "gun_type", "strength", "casualties", "key_action"],
+      "additionalProperties": false
+    },
+    "brigade": {
+      "type": "object",
+      "properties": {
+        "brigade_id": { "$ref": "common.schema.json#/$defs/unitId" },
+        "designation": { "type": "string", "minLength": 1 },
+        "parent_division_id": { "$ref": "common.schema.json#/$defs/unitId" },
+        "parent_corps_id": { "$ref": "common.schema.json#/$defs/unitId" },
+        "commander": { "$ref": "common.schema.json#/$defs/commander" },
+        "strength": { "$ref": "common.schema.json#/$defs/count" },
+        "casualties": { "$ref": "common.schema.json#/$defs/count" },
+        "casualty_percentage": { "$ref": "common.schema.json#/$defs/percent" },
+        "days_engaged": { "$ref": "common.schema.json#/$defs/dayList" },
+        "state": { "type": "string", "minLength": 1 },
+        "regiment_ids": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/unitId" }, "minItems": 1 },
+        "key_action": { "type": "string", "minLength": 1 },
+        "flag_notes": { "type": "string" }
+      },
+      "required": ["brigade_id", "designation", "parent_division_id", "parent_corps_id", "commander", "strength", "casualties", "days_engaged", "state", "regiment_ids", "key_action"],
+      "additionalProperties": false
+    },
+    "cavalryBrigadeConfed": {
+      "type": "object",
+      "properties": {
+        "brigade_id": { "$ref": "common.schema.json#/$defs/unitId" },
+        "designation": { "type": "string", "minLength": 1 },
+        "commander": { "$ref": "common.schema.json#/$defs/commander" },
+        "regiment_ids": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/unitId" }, "minItems": 1 },
+        "key_action": { "type": "string", "minLength": 1 }
+      },
+      "required": ["brigade_id", "designation", "commander", "regiment_ids", "key_action"],
+      "additionalProperties": false
+    },
+    "division": {
+      "type": "object",
+      "properties": {
+        "division_id": { "$ref": "common.schema.json#/$defs/unitId" },
+        "designation": { "type": "string", "minLength": 1 },
+        "parent_corps_id": { "$ref": "common.schema.json#/$defs/unitId" },
+        "commander": { "$ref": "common.schema.json#/$defs/commander" },
+        "strength": { "$ref": "common.schema.json#/$defs/count" },
+        "casualties": { "$ref": "common.schema.json#/$defs/count" },
+        "casualty_percentage": { "$ref": "common.schema.json#/$defs/percent" },
+        "brigade_ids": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/unitId" }, "minItems": 1 },
+        "days_engaged": { "$ref": "common.schema.json#/$defs/dayList" },
+        "notes": { "type": "string" }
+      },
+      "required": ["division_id", "designation", "commander", "strength", "casualties", "brigade_ids", "days_engaged"],
+      "additionalProperties": false
+    },
+    "corps": {
+      "type": "object",
+      "properties": {
+        "corps_id": { "$ref": "common.schema.json#/$defs/unitId" },
+        "designation": { "type": "string", "minLength": 1 },
+        "commander": { "$ref": "common.schema.json#/$defs/commander" },
+        "strength": { "$ref": "common.schema.json#/$defs/count" },
+        "casualties": { "$ref": "common.schema.json#/$defs/count" },
+        "casualty_percentage": { "$ref": "common.schema.json#/$defs/percent" },
+        "days_engaged": { "$ref": "common.schema.json#/$defs/dayList" },
+        "division_ids": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/unitId" }, "minItems": 1 },
+        "chief_of_artillery": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["corps_id", "designation", "commander", "strength", "casualties", "days_engaged", "division_ids"],
+      "additionalProperties": false
+    },
+    "army": {
+      "type": "object",
+      "properties": {
+        "army_id": { "$ref": "common.schema.json#/$defs/unitId" },
+        "designation": { "type": "string", "minLength": 1 },
+        "commander": { "$ref": "common.schema.json#/$defs/commander" },
+        "strength": { "$ref": "common.schema.json#/$defs/count" },
+        "total_casualties": { "$ref": "common.schema.json#/$defs/count" },
+        "casualty_percentage": { "type": "number" }
+      },
+      "required": ["army_id", "designation", "commander", "strength", "total_casualties", "casualty_percentage"],
+      "additionalProperties": false
+    },
+    "artilleryBrigade": {
+      "type": "object",
+      "properties": {
+        "brigade_id": { "$ref": "common.schema.json#/$defs/unitId" },
+        "designation": { "type": "string", "minLength": 1 },
+        "corps": { "$ref": "common.schema.json#/$defs/unitId" },
+        "commander": { "$ref": "common.schema.json#/$defs/commander" },
+        "batteries": { "type": "array", "items": { "$ref": "#/$defs/battery" }, "minItems": 1 }
+      },
+      "required": ["brigade_id", "designation", "commander", "batteries"],
+      "additionalProperties": false
+    },
+    "artilleryBattalion": {
+      "type": "object",
+      "properties": {
+        "battalion_id": { "$ref": "common.schema.json#/$defs/unitId" },
+        "designation": { "type": "string", "minLength": 1 },
+        "commander": { "$ref": "common.schema.json#/$defs/commander" },
+        "batteries": { "type": "array", "items": { "$ref": "#/$defs/battery" }, "minItems": 1 },
+        "notes": { "type": "string" }
+      },
+      "required": ["battalion_id", "designation", "commander", "batteries"],
+      "additionalProperties": false
+    },
+    "confedCorpsArtillery": {
+      "type": "object",
+      "properties": {
+        "chief": { "$ref": "#/$defs/chiefOfArtillery" },
+        "battalions": { "type": "array", "items": { "$ref": "#/$defs/artilleryBattalion" }, "minItems": 1 }
+      },
+      "required": ["chief", "battalions"],
+      "additionalProperties": false
+    },
+    "succession": {
+      "type": "object",
+      "properties": {
+        "event_id": { "type": "string", "pattern": "^(US|CS)-\\d{3}$" },
+        "unit_id": { "type": "string", "minLength": 1 },
+        "event": { "type": "string", "minLength": 1 },
+        "approx_time": { "type": "string", "minLength": 1 },
+        "approx_tick": { "$ref": "common.schema.json#/$defs/tick" },
+        "from_commander": { "type": "string", "minLength": 1 },
+        "to_commander": { "type": "string", "minLength": 1 },
+        "cause": { "type": "string", "minLength": 1 },
+        "notes": { "type": "string" },
+        "source": { "type": "string", "minLength": 1 }
+      },
+      "required": ["event_id", "unit_id", "event", "approx_time", "approx_tick", "from_commander", "to_commander", "cause", "source"],
+      "additionalProperties": false
+    },
+    "fileRegiments": {
+      "type": "object",
+      "properties": {
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "regiments": { "type": "array", "items": { "$ref": "#/$defs/regiment" }, "minItems": 1 }
+      },
+      "required": ["metadata", "regiments"],
+      "additionalProperties": false
+    },
+    "fileUnionCavalryArtillery": {
+      "type": "object",
+      "properties": {
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "regiments": { "type": "array", "items": { "$ref": "#/$defs/regiment" }, "minItems": 1 },
+        "horse_artillery": { "type": "array", "items": { "$ref": "#/$defs/battery" }, "minItems": 1 }
+      },
+      "required": ["metadata", "regiments", "horse_artillery"],
+      "additionalProperties": false
+    },
+    "fileConfedCavalry": {
+      "type": "object",
+      "properties": {
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "cavalry_commander": { "$ref": "#/$defs/chiefOfArtillery" },
+        "brigades": { "type": "array", "items": { "$ref": "#/$defs/cavalryBrigadeConfed" }, "minItems": 1 },
+        "regiments": { "type": "array", "items": { "$ref": "#/$defs/regiment" }, "minItems": 1 },
+        "horse_artillery": { "type": "array", "items": { "$ref": "#/$defs/battery" }, "minItems": 1 }
+      },
+      "required": ["metadata", "cavalry_commander", "brigades", "regiments", "horse_artillery"],
+      "additionalProperties": false
+    },
+    "fileBrigades": {
+      "type": "object",
+      "properties": {
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "brigades": { "type": "array", "items": { "$ref": "#/$defs/brigade" }, "minItems": 1 }
+      },
+      "required": ["metadata", "brigades"],
+      "additionalProperties": false
+    },
+    "fileCorpsDivision": {
+      "type": "object",
+      "properties": {
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "corps": { "type": "array", "items": { "$ref": "#/$defs/corps" }, "minItems": 1 },
+        "divisions": { "type": "array", "items": { "$ref": "#/$defs/division" }, "minItems": 1 }
+      },
+      "required": ["metadata", "corps", "divisions"],
+      "additionalProperties": false
+    },
+    "fileConfedCorpsDivBde": {
+      "type": "object",
+      "properties": {
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "army": { "$ref": "#/$defs/army" },
+        "corps": { "type": "array", "items": { "$ref": "#/$defs/corps" }, "minItems": 1 },
+        "divisions": { "type": "array", "items": { "$ref": "#/$defs/division" }, "minItems": 1 },
+        "brigades": { "type": "array", "items": { "$ref": "#/$defs/brigade" }, "minItems": 1 }
+      },
+      "required": ["metadata", "army", "corps", "divisions", "brigades"],
+      "additionalProperties": false
+    },
+    "fileUnionArtillery": {
+      "type": "object",
+      "properties": {
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "artillery_reserve": {
+          "type": "object",
+          "properties": {
+            "commander": { "type": "string" },
+            "brigades": { "type": "array", "items": { "$ref": "#/$defs/artilleryBrigade" }, "minItems": 1 }
+          },
+          "required": ["commander", "brigades"],
+          "additionalProperties": false
+        },
+        "corps_artillery_brigades": { "type": "array", "items": { "$ref": "#/$defs/artilleryBrigade" }, "minItems": 1 }
+      },
+      "required": ["metadata", "artillery_reserve", "corps_artillery_brigades"],
+      "additionalProperties": false
+    },
+    "fileConfedArtillery": {
+      "type": "object",
+      "properties": {
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "first_corps_artillery": { "$ref": "#/$defs/confedCorpsArtillery" },
+        "second_corps_artillery": { "$ref": "#/$defs/confedCorpsArtillery" },
+        "third_corps_artillery": { "$ref": "#/$defs/confedCorpsArtillery" }
+      },
+      "required": ["metadata", "first_corps_artillery", "second_corps_artillery", "third_corps_artillery"],
+      "additionalProperties": false
+    },
+    "fileSuccessions": {
+      "type": "object",
+      "properties": {
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "union_successions": { "type": "array", "items": { "$ref": "#/$defs/succession" } },
+        "confederate_successions": { "type": "array", "items": { "$ref": "#/$defs/succession" } }
+      },
+      "required": ["metadata", "union_successions", "confederate_successions"],
+      "additionalProperties": false
+    }
+  }
+}

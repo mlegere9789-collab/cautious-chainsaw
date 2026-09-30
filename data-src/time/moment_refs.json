@@ -1,0 +1,56 @@
+{
+  "$comment": "CANDIDATE. TM-V5 input: groups of places that refer to the SAME historical moment, found by matching text in the legacy files. The tick of every reference is READ from the legacy data at validation time, never typed here (a typed tick would be an invented fact). Until the moments registry (WP-TIME-05, moments.json) exists this file is the registry v0 for the ten cross-source disagreements chapter 04 lists. A reference resolves to (file, record, tick); a group passes when all resolved ticks lie within 2 ticks of each other.",
+  "spread_ticks": 2,
+  "groups": [
+    { "id": "first-shot", "title": "First shot (Lt. Jones)", "refs": [
+      { "kind": "chronology", "match": "FIRST SHOT|first shot", "field": "event" },
+      { "kind": "vignette", "id": "V-001" },
+      { "kind": "literal", "file": "bundle", "field": "subtitle", "match": "The Battle Begins" },
+      { "kind": "literal", "file": "bundle", "field": "label", "match": "^First shot" }
+    ] },
+    { "id": "ewell-order", "title": "Lee's discretionary order to Ewell", "refs": [
+      { "kind": "chronology", "match": "if practicable", "field": "event" },
+      { "kind": "literal", "file": "turning-points.html", "field": "title", "match": "Ewell" }
+    ] },
+    { "id": "hancock-wounded", "title": "Hancock wounded", "refs": [
+      { "kind": "succession", "match": "Hancock" },
+      { "kind": "literal", "file": "bundle", "field": "id", "match": "^mon_hancock$" }
+    ] },
+    { "id": "cushing-killed", "title": "Cushing killed at the wall", "refs": [
+      { "kind": "literal", "file": "bundle", "field": "id", "match": "^mon_cushing$" },
+      { "kind": "succession", "match": "Cushing" },
+      { "kind": "chronology", "match": "Cushing (?:KIA|killed|mortally)|Cushing.*(?:last two guns|KIA)", "field": "event" }
+    ] },
+    { "id": "armistead", "title": "Armistead over the wall", "refs": [
+      { "kind": "chronology", "match": "Armistead.*(?:over the wall|crosses the wall)|crosses the wall", "field": "event" },
+      { "kind": "literal", "file": "bundle", "field": "id", "match": "^mon_armistead$" },
+      { "kind": "vignette", "id": "V-016" }
+    ] },
+    { "id": "hood-wounded", "title": "Hood wounded", "refs": [
+      { "kind": "chronology", "match": "Hood wounded", "field": "event" },
+      { "kind": "literal", "file": "bundle", "field": "id", "match": "^mon_hood$" },
+      { "kind": "succession", "match": "Hood" }
+    ] },
+    { "id": "vincent-wounded", "title": "Vincent mortally wounded", "refs": [
+      { "kind": "chronology", "match": "Vincent falls|Vincent.*mortally", "field": "event" },
+      { "kind": "succession", "match": "Vincent" }
+    ] },
+    { "id": "weed-hazlett", "title": "Weed and Hazlett killed", "refs": [
+      { "kind": "chronology", "match": "Weed", "field": "event" },
+      { "kind": "succession", "match": "Weed" }
+    ] },
+    { "id": "first-minnesota", "title": "1st Minnesota's charge", "refs": [
+      { "kind": "chronology", "match": "1st Minnesota", "field": "event" },
+      { "kind": "vignette", "id": "V-012" },
+      { "kind": "literal", "file": "bundle", "field": "id", "match": "^mon_1mn$" }
+    ] },
+    { "id": "iron-brigade-herbst", "title": "Iron Brigade in Herbst Woods", "refs": [
+      { "kind": "chronology", "match": "Iron Brigade.*(?:charge|double-quick|counterattack)|Iron Brigade charge", "field": "event" },
+      { "kind": "literal", "file": "bundle", "field": "id", "match": "^mon_iron_brig" }
+    ] },
+    { "id": "26th-nc", "title": "26th North Carolina", "refs": [
+      { "kind": "literal", "file": "bundle", "field": "id", "match": "^mon_26nc$" },
+      { "kind": "chronology", "match": "26th (?:North Carolina|NC)", "field": "event" }
+    ] }
+  ]
+}

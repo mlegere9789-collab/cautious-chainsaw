@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gtbg/vignettes.schema.json",
+  "title": "vignettes_part{1,2,3}.json (legacy)",
+  "$defs": {
+    "vignette": {
+      "type": "object",
+      "properties": {
+        "vignette_id": { "type": "string", "pattern": "^V-\\d{3}$" },
+        "title": { "type": "string", "minLength": 1 },
+        "trigger_tick": { "$ref": "common.schema.json#/$defs/tick" },
+        "trigger_location": { "type": "string", "minLength": 1 },
+        "trigger_lat": { "type": "number" },
+        "trigger_lng": { "type": "number" },
+        "units_featured": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/unitId" } },
+        "panel_summary": { "type": "string", "minLength": 1 },
+        "full_script": { "type": "string", "minLength": 1 }
+      },
+      "required": ["vignette_id", "title", "trigger_tick", "trigger_location", "trigger_lat", "trigger_lng", "units_featured", "panel_summary", "full_script"],
+      "additionalProperties": false
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "chunk": { "type": "string" },
+        "title": { "type": "string" },
+        "total_vignettes_this_file": { "type": "integer", "minimum": 1 },
+        "vignette_id_range": { "type": "array", "items": { "type": "string", "pattern": "^V-\\d{3}$" }, "minItems": 2, "maxItems": 2 },
+        "sources": { "$ref": "common.schema.json#/$defs/sourcesList" },
+        "vignette_format": { "type": "object", "additionalProperties": { "type": "string" } }
+      },
+      "required": ["chunk", "title", "total_vignettes_this_file", "vignette_id_range"],
+      "additionalProperties": false
+    },
+    "file": {
+      "type": "object",
+      "properties": {
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "vignettes": { "type": "array", "items": { "$ref": "#/$defs/vignette" }, "minItems": 1 }
+      },
+      "required": ["metadata", "vignettes"],
+      "additionalProperties": false
+    }
+  },
+  "$ref": "#/$defs/file"
+}

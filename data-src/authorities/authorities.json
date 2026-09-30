@@ -1,0 +1,125 @@
+{
+  "schema": "gtbg/authorities/1",
+  "as_of": "2026-09-30",
+  "status": "CANDIDATE. Nothing here is shipped or displayed. Values marked verified_ocr were read by this workstream from Internet Archive OCR of the Official Records on 2026-09-30; values marked secondary_unverified are carried from the chapter-13 / data-integrity audit (Wikipedia wikitext citing Busey & Martin) and the book was NOT opened. Column assignment inside scrambled OCR blocks is stated where inferred.",
+  "policy": {
+    "order": "Official Records, then Fox, then Dyer; Busey and Martin as see-also (D-HIST-ARCH numbers policy, chapter 13 WP-DATA-08a).",
+    "confederate": "A range with named authorities until the OR27-2 Guild total is adjudicated by the historian (backlog H-01). This file does NOT pick a Confederate headline.",
+    "combined_default_wording_pending_owner": "about 46,000 (23,049 Union per the Official Records; roughly 23,000 Confederate per Busey and Martin); estimates run to 51,000",
+    "combined_wording_decision": "Q-DATA-2 (owner, due DG-1). The wording above is the chapter default, not a decision.",
+    "rights": "Numbers are stored as facts with source, edition and page; the tables and wording of Busey and Martin are never reproduced (Q-DATA-3, D-LEGAL step 3)."
+  },
+  "sources": {
+    "OR27-1": {
+      "citation": "The War of the Rebellion: Official Records of the Union and Confederate Armies, Series I, vol. 27, part 1 (US War Department, 1889)",
+      "tier": "A",
+      "host": "Internet Archive item warofrebellion271unit (djvu OCR text)",
+      "note": "US Government work; counsel to confirm the pre-1931 / 17 U.S.C. 105 basis (chapter 14 D.2)."
+    },
+    "OR27-2": {
+      "citation": "The War of the Rebellion: Official Records of the Union and Confederate Armies, Series I, vol. 27, part 2 (US War Department, 1889)",
+      "tier": "A",
+      "host": "Internet Archive item warofrebellion272unit (djvu OCR text)"
+    },
+    "BM": {
+      "citation": "Busey, John W. and Martin, David G., Regimental Strengths and Losses at Gettysburg (Longstreet House)",
+      "tier": "B/C (copyrighted compilation; facts-only, attributed, never the tables or wording)",
+      "edition": "UNRESOLVED: every site file cites 1994; Wikipedia's wikitext attributes the Confederate totals to the 2005 work (verifier MISSED-03)"
+    }
+  },
+  "casualties": {
+    "union": {
+      "site_value_candidate": "OR27-1-NO15",
+      "values": [
+        {
+          "id": "OR27-1-NO15",
+          "label": "OR Ser. I vol. 27 pt. 1, report No. 15, row 'Gettysburg, Pa., July 1-4'",
+          "basis": "battle, July 1-4 row of the campaign return",
+          "K": 3155, "W": 14529, "M": 5365, "total": 23049,
+          "components": "K = 246 + 2,909; W = 1,145 + 13,384; M = 183 + 5,182 (officers + enlisted pairs as printed)",
+          "source": "OR27-1",
+          "page": "report No. 15 begins under the printed page number 193 in the OCR; the row carries the footnote 'For detailed statement, see pp. 168-173' (report No. 13). Confirm the exact page on the scan.",
+          "status": "verified_ocr",
+          "evidence": "OCR line 26819 of warofrebellion271unit_djvu.txt (3,970,479 bytes): 'Gettysburg, Pa., July 1-4* || 246 || 2,909 || 1,145 || 13,384 || 183 || 5,182 || 23,049'; header 'No. 15. General Return of Casualties in the Union forces during the Gettysburg Campaign, June 3-August 1, 1863'. Arithmetic 246+2909+1145+13384+183+5182 = 23,049."
+        },
+        {
+          "id": "BM-UNION",
+          "label": "Busey and Martin, Union total",
+          "basis": "battle",
+          "K": 3155, "W": 14531, "M": 5369, "total": 23055,
+          "engaged": 93921,
+          "source": "BM",
+          "page": "p.125 (as cited by Wikipedia; not opened here)",
+          "status": "secondary_unverified"
+        },
+        {
+          "id": "ADJGEN-1888",
+          "label": "Adjutant-General 1888 as quoted on Wikipedia",
+          "total": 23003,
+          "status": "secondary_unverified",
+          "source": "data-integrity DI-03 (Wikipedia wikitext); primary not opened"
+        },
+        {
+          "id": "MEADE-CAMPAIGN",
+          "label": "Meade's report, whole campaign",
+          "basis": "campaign (not battle-only)",
+          "total": 23186,
+          "status": "chapter_verified_not_rechecked",
+          "source": "chapter 13 section 2.2 [V]"
+        }
+      ]
+    },
+    "confederate": {
+      "site_value_candidate": "BM-CONFED",
+      "site_value_note": "Candidate only, to compare aggregates in rule N007 and to word 'roughly 23,000 per Busey and Martin' (Q-DATA-2 default). NOT a headline: the OR27-2 Guild return (below) is lower and is itself incomplete (its own notes say 'Not found' and 'Loss, if any, not of record').",
+      "values": [
+        {
+          "id": "OR27-2-GUILD",
+          "label": "OR Ser. I vol. 27 pt. 2, report No. 427 (Surg. Lafayette Guild), Return of Casualties in the Army of Northern Virginia, RECAPITULATION",
+          "basis": "battle and retreat, as returned",
+          "K": 2592, "W": 12709, "M": 5150, "total": 20451,
+          "source": "OR27-2",
+          "page": "recapitulation at the foot of the return, printed p.346 (report No. 427 spans about pp.338-346)",
+          "status": "verified_ocr_scrambled",
+          "evidence": "OCR lines 34730-34737 of warofrebellion272unit_djvu.txt (3,880,513 bytes) contain the numerals 2,592, 12,709, 5,150, 20,451 in a scrambled table block. 2,592 + 12,709 + 5,150 = 20,451. The assignment of 2,592/12,709/5,150 to killed/wounded/missing is inferred from magnitude and the printed total, not read from column headers: confirm on the scan. Regiment and brigade sums inside the return do not tally (the return's own caveat); adjudication is historian backlog H-01."
+        },
+        {
+          "id": "BM-CONFED",
+          "label": "Busey and Martin, Confederate total",
+          "basis": "battle",
+          "K": 4708, "W": 12693, "M": 5830, "total": 23231,
+          "engaged": 71699,
+          "source": "BM",
+          "page": "p.260 (as cited by Wikipedia, which attributes it to the 2005 work; not opened here)",
+          "status": "secondary_unverified"
+        },
+        {
+          "id": "UPPER-ESTIMATE",
+          "label": "upper estimate (McPherson) as quoted on Wikipedia",
+          "total": 28000,
+          "campaign_start_strength": 75000,
+          "status": "secondary_unverified",
+          "source": "data-integrity DI-03 (Wikipedia wikitext)"
+        }
+      ]
+    },
+    "combined": {
+      "range_low_high_seen": [43500, 51000],
+      "note": "Not a headline. Low end is only OR Union + OR Guild Confederate (23,049 + 20,451 = 43,500, computed here); Wikipedia states 'between 46,000 and 51,000'. The bare '51,000' on the site is Union 23,049 + Confederate 28,000 (an OR-versus-upper-estimate mix) and is a retired literal (rule F001).",
+      "status": "computed_from_listed_values"
+    }
+  },
+  "engaged_strength": {
+    "union": { "value": 93921, "source": "BM p.125", "status": "secondary_unverified" },
+    "confederate": { "value": 71699, "alternates": [{ "value": 75000, "basis": "campaign start (McPherson)" }], "source": "BM p.260", "status": "secondary_unverified" }
+  },
+  "n007": {
+    "tolerance": 0.005,
+    "reference_ids": { "union": "OR27-1-NO15", "confederate": "BM-CONFED" },
+    "strength_reference_ids": { "union": "engaged.union", "confederate": "engaged.confederate" }
+  },
+  "artillery": {
+    "note": "The published gun totals (Wikipedia infobox: Union about 360, Confederate about 270) are well above the OOB's listed batteries (Union 55 batteries / 306 guns; Confederate 48 / 194). Derive gun totals only after the artillery OOB is completed from OR No. 9 (WP-DATA-07 step 4); until then label 'listed batteries'.",
+    "published_approx": { "union": 360, "confederate": 270, "status": "secondary_unverified" }
+  }
+}

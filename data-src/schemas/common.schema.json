@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gtbg/common.schema.json",
+  "title": "Shared definitions for the legacy Gettysburg data files",
+  "description": "Legacy (data_version 0.9.0) shapes. Closed (additionalProperties:false) on purpose: an unknown key is rule S006. New-format schemas for v2 packs live beside this file.",
+  "$defs": {
+    "tick": { "type": "integer", "minimum": 1, "maximum": 675 },
+    "day": { "type": "integer", "minimum": 1, "maximum": 3 },
+    "dayList": { "type": "array", "items": { "$ref": "#/$defs/day" }, "uniqueItems": true, "maxItems": 3 },
+    "tickRange": { "type": "array", "prefixItems": [{ "$ref": "#/$defs/tick" }, { "$ref": "#/$defs/tick" }], "items": false, "minItems": 2 },
+    "lat": { "type": "number", "minimum": -90, "maximum": 90 },
+    "lng": { "type": "number", "minimum": -180, "maximum": 180 },
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "sourcesList": { "type": "array", "items": { "$ref": "#/$defs/nonEmptyString" } },
+    "unitId": { "type": "string", "minLength": 2, "pattern": "^[UC]-[A-Za-z0-9][A-Za-z0-9-]*$" },
+    "count": { "type": "integer", "minimum": 0 },
+    "percent": { "type": "number", "minimum": 0, "maximum": 100 },
+    "disposition": {
+      "enum": [
+        "Line of Battle", "Charging Line", "Chaotic Retreat", "Deployed Artillery", "Line of March",
+        "Bivouac", "Skirmish Line", "Reserve", "Mounted Cavalry", "Limbered Artillery", "Dismounted Cavalry"
+      ]
+    },
+    "significance": { "enum": ["low", "medium", "high", "critical"] },
+    "commander": {
+      "type": "object",
+      "properties": {
+        "name": { "$ref": "#/$defs/nonEmptyString" },
+        "fate": { "type": "string" },
+        "notes": { "type": "string" },
+        "assumed_command": { "type": "string" },
+        "successor": { "$ref": "#/$defs/commander" },
+        "second_successor": { "$ref": "#/$defs/commander" },
+        "survivor": { "$ref": "#/$defs/commander" }
+      },
+      "required": ["name"],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gtbg/placement_doc.schema.json",
+  "title": "placement_schema.json (legacy prose document, shipped but read by no page)",
+  "description": "This file is documentation, not a validator. It is kept closed so that drift is visible; its claims (430,000 records, 600-700 units per tick) are checked by rule S008 and the baseline report.",
+  "type": "object",
+  "properties": {
+    "metadata": { "type": "object" },
+    "placement_record_schema": { "type": "object" },
+    "disposition_rendering_rules": { "type": "object" },
+    "placement_principles": { "type": "object" },
+    "placement_file_structure": { "type": "object" },
+    "sample_placement_records": { "type": ["array", "object"] }
+  },
+  "required": ["metadata", "placement_record_schema", "disposition_rendering_rules", "placement_principles", "placement_file_structure", "sample_placement_records"],
+  "additionalProperties": false
+}

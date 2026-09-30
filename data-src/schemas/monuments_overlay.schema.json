@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gtbg/monuments_overlay.schema.json",
+  "title": "monuments.json (legacy 9-row overlay set)",
+  "type": "object",
+  "properties": {
+    "_note": { "type": "string" },
+    "monuments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "name": { "type": "string", "minLength": 1 },
+          "side": { "enum": ["union", "confederate"] },
+          "lat": { "type": "number" },
+          "lng": { "type": "number" },
+          "source": { "type": "string", "minLength": 1 }
+        },
+        "required": ["id", "name", "side", "lat", "lng", "source"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["_note", "monuments"],
+  "additionalProperties": false
+}

@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gtbg/terrain.schema.json",
+  "title": "terrain.json (legacy)",
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "chunk": { "type": "string" },
+        "title": { "type": "string" },
+        "coordinate_system": { "const": "WGS84 decimal degrees" },
+        "sources": { "$ref": "common.schema.json#/$defs/sourcesList" },
+        "battlefield_bounds": {
+          "type": "object",
+          "properties": { "north": { "type": "number" }, "south": { "type": "number" }, "east": { "type": "number" }, "west": { "type": "number" } },
+          "required": ["north", "south", "east", "west"],
+          "additionalProperties": false
+        },
+        "town_center": {
+          "type": "object",
+          "properties": { "lat": { "type": "number" }, "lng": { "type": "number" } },
+          "required": ["lat", "lng"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["chunk", "title", "coordinate_system", "sources", "battlefield_bounds", "town_center"],
+      "additionalProperties": false
+    },
+    "key_locations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "location_id": { "type": "string", "pattern": "^LOC-\\d{3}$" },
+          "name": { "type": "string", "minLength": 1 },
+          "lat": { "type": "number" },
+          "lng": { "type": "number" },
+          "elevation_ft": { "type": "integer", "minimum": 300, "maximum": 1000 },
+          "significance": { "type": "string", "minLength": 1 },
+          "day_relevance": { "$ref": "common.schema.json#/$defs/dayList" }
+        },
+        "required": ["location_id", "name", "lat", "lng", "elevation_ft", "significance", "day_relevance"],
+        "additionalProperties": false
+      }
+    },
+    "roads": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "road_id": { "type": "string", "pattern": "^RD-\\d{3}$" },
+          "name": { "type": "string", "minLength": 1 },
+          "direction": { "type": "string" },
+          "significance": { "type": "string" },
+          "lat_approx": { "type": "number" },
+          "lng_approx": { "type": "number" }
+        },
+        "required": ["road_id", "name", "direction", "significance", "lat_approx", "lng_approx"],
+        "additionalProperties": false
+      }
+    },
+    "structures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "structure_id": { "type": "string", "pattern": "^STR-\\d{3}$" },
+          "name": { "type": "string", "minLength": 1 },
+          "lat": { "type": "number" },
+          "lng": { "type": "number" },
+          "type": { "type": "string" },
+          "significance": { "type": "string" }
+        },
+        "required": ["structure_id", "name", "lat", "lng", "type", "significance"],
+        "additionalProperties": false
+      }
+    },
+    "terrain_features": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "feature_id": { "type": "string", "pattern": "^TF-\\d{3}$" },
+          "name": { "type": "string", "minLength": 1 },
+          "type": { "type": "string" },
+          "significance": { "type": "string" },
+          "lat": { "type": "number" },
+          "lng": { "type": "number" }
+        },
+        "required": ["feature_id", "name", "type", "significance"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["metadata", "key_locations", "roads", "structures", "terrain_features"],
+  "additionalProperties": false
+}

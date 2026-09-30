@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gtbg/chronology.schema.json",
+  "title": "chronology_day{1,2,3}.json (legacy)",
+  "$defs": {
+    "event": {
+      "type": "object",
+      "properties": {
+        "tick": { "$ref": "common.schema.json#/$defs/tick" },
+        "time": { "type": "string", "minLength": 1 },
+        "event": { "type": "string", "minLength": 1 },
+        "units_involved": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "location": { "type": "string", "minLength": 1 },
+        "significance": { "$ref": "common.schema.json#/$defs/significance" },
+        "narrative": { "type": "string" },
+        "flag": { "type": "string" }
+      },
+      "required": ["tick", "time", "event", "units_involved", "location", "significance"],
+      "additionalProperties": false
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "chunk": { "type": "string" },
+        "title": { "type": "string" },
+        "tick_formula": { "type": "string" },
+        "day1_tick_range": { "$ref": "common.schema.json#/$defs/tickRange" },
+        "day2_tick_range": { "$ref": "common.schema.json#/$defs/tickRange" },
+        "day3_tick_range": { "$ref": "common.schema.json#/$defs/tickRange" },
+        "sources": { "$ref": "common.schema.json#/$defs/sourcesList" }
+      },
+      "required": ["chunk", "title", "tick_formula", "sources"],
+      "additionalProperties": false
+    },
+    "file": {
+      "type": "object",
+      "properties": {
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "events": { "type": "array", "items": { "$ref": "#/$defs/event" }, "minItems": 1 }
+      },
+      "required": ["metadata", "events"],
+      "additionalProperties": false
+    }
+  },
+  "$ref": "#/$defs/file"
+}

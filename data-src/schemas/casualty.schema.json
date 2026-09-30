@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gtbg/casualty.schema.json",
+  "title": "casualty_apportionment.json (legacy)",
+  "$defs": {
+    "period": {
+      "type": "object",
+      "properties": {
+        "day": { "$ref": "common.schema.json#/$defs/day" },
+        "casualties": { "$ref": "common.schema.json#/$defs/count" },
+        "rate": { "type": "number", "minimum": 0, "maximum": 100 },
+        "tick_range": { "$ref": "common.schema.json#/$defs/tickRange" },
+        "peak_tick": { "$ref": "common.schema.json#/$defs/tick" },
+        "engagements": { "type": "array", "items": { "type": "string" } },
+        "notes": { "type": "string" }
+      },
+      "required": ["day", "casualties", "rate", "tick_range", "peak_tick", "engagements"],
+      "additionalProperties": false
+    },
+    "corps": {
+      "type": "object",
+      "properties": {
+        "corps_id": { "$ref": "common.schema.json#/$defs/unitId" },
+        "initial_strength": { "$ref": "common.schema.json#/$defs/count" },
+        "total_casualties": { "$ref": "common.schema.json#/$defs/count" },
+        "overall_rate": { "type": "number", "minimum": 0, "maximum": 100 },
+        "engagement_periods": { "type": "array", "items": { "$ref": "#/$defs/period" }, "minItems": 1 }
+      },
+      "required": ["corps_id", "initial_strength", "total_casualties", "overall_rate", "engagement_periods"],
+      "additionalProperties": false
+    },
+    "noteFlat": {
+      "type": "object",
+      "properties": {
+        "unit": { "type": "string", "minLength": 1 },
+        "note": { "type": "string", "minLength": 1 },
+        "tick_range": { "$ref": "common.schema.json#/$defs/tickRange" }
+      },
+      "required": ["unit", "note", "tick_range"],
+      "additionalProperties": false
+    },
+    "noteRate": {
+      "type": "object",
+      "properties": {
+        "unit": { "type": "string", "minLength": 1 },
+        "rate": { "type": "number" },
+        "note": { "type": "string", "minLength": 1 }
+      },
+      "required": ["unit", "rate", "note"],
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "chunk": { "type": "string" },
+        "title": { "type": "string" },
+        "purpose": { "type": "string" },
+        "formulas": { "type": "object", "additionalProperties": { "type": ["string", "integer"] } },
+        "sources": { "$ref": "common.schema.json#/$defs/sourcesList" }
+      },
+      "required": ["chunk", "title", "purpose", "formulas", "sources"],
+      "additionalProperties": false
+    },
+    "union_corps": { "type": "array", "items": { "$ref": "#/$defs/corps" } },
+    "confederate_corps": { "type": "array", "items": { "$ref": "#/$defs/corps" } },
+    "notable_intensity_notes": {
+      "type": "object",
+      "properties": {
+        "most_compressed_union": { "$ref": "#/$defs/noteFlat" },
+        "most_compressed_confederate": { "$ref": "#/$defs/noteFlat" },
+        "longest_sustained_action": { "$ref": "#/$defs/noteFlat" },
+        "highest_single_regiment_rate": {
+          "type": "object",
+          "properties": { "union": { "$ref": "#/$defs/noteRate" }, "confederate": { "$ref": "#/$defs/noteRate" } },
+          "required": ["union", "confederate"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["most_compressed_union", "most_compressed_confederate", "longest_sustained_action", "highest_single_regiment_rate"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["metadata", "union_corps", "confederate_corps", "notable_intensity_notes"],
+  "additionalProperties": false
+}

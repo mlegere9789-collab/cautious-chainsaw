@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gtbg/placements.schema.json",
+  "title": "placements_*.json and density_*.json (legacy keyframe rows)",
+  "$defs": {
+    "row": {
+      "type": "object",
+      "properties": {
+        "unit_id": { "$ref": "common.schema.json#/$defs/unitId" },
+        "tick": { "$ref": "common.schema.json#/$defs/tick" },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
+        "bearing": { "type": "integer", "minimum": 0, "maximum": 359 },
+        "disposition": { "$ref": "common.schema.json#/$defs/disposition" },
+        "strength": { "type": "integer", "minimum": 10 },
+        "notes": { "type": "string", "minLength": 1 },
+        "vignette_trigger": { "type": "string", "pattern": "^V-\\d{3}$" }
+      },
+      "required": ["unit_id", "tick", "lat", "lng", "bearing", "disposition", "strength"],
+      "additionalProperties": false
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "chunk": { "type": "string", "pattern": "^(?:\\d{3}|bonus_[A-Z])$" },
+        "title": { "type": "string" },
+        "day": { "$ref": "common.schema.json#/$defs/day" },
+        "tick_range": { "$ref": "common.schema.json#/$defs/tickRange" },
+        "description": { "type": "string", "minLength": 1 },
+        "record_count": { "type": "integer", "minimum": 0 },
+        "supplements_file": { "type": "string" },
+        "supplements_files": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["chunk", "description"],
+      "additionalProperties": false
+    },
+    "file": {
+      "type": "object",
+      "properties": {
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "placements": { "type": "array", "items": { "$ref": "#/$defs/row" } }
+      },
+      "required": ["metadata", "placements"],
+      "additionalProperties": false
+    }
+  },
+  "$ref": "#/$defs/file"
+}

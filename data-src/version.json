@@ -1,0 +1,13 @@
+{
+  "schema": "gtbg/data-version/1",
+  "note": "data_version = bytes (MAJOR id removal/rename without alias, schema break, unit/tick semantics; MINOR new records/fields/sources; PATCH corrections). dv (clock calibration) is chapter 04 and is never bumped here.",
+  "data_version": "0.9.0",
+  "history": [
+    {
+      "data_version": "0.9.0",
+      "label": "legacy baseline of record (Netlify deploy 6aa16d61, 2026-09-09)",
+      "files": 71,
+      "content_sha256": "7c767baa7f7855f944718da9172d4742b7066cdf75f7aa9356ee80a86a1487c8"
+    }
+  ]
+}
