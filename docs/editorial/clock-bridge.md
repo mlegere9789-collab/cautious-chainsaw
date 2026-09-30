@@ -6,7 +6,7 @@
 
 A single patch group (`CLOCK`, 56 asserted patches, 3 of them regex) in the T0 patch format that routes every clock surface of the frozen bundle and ten static pages through the canonical module (`src/lib/time`), inlined as a small function. Every displayed time carries "about" while no anchor is signed. The 33 anchors are the specialist's proposal (all `proposed`); this bridge makes the app print their clock consistently, it does not make any time historically reviewed.
 
-Module size when inlined: 10492 bytes raw, 3765 gzip, 3408 brotli (the standalone inline build; the rebuild-native module is budgeted at 2.5 KB brotli and the bridge does not meet that: the module is inlined whole, 11 times across the bundle and pages, and not tree-shaken).
+Module size when inlined: 6073 bytes raw, 2649 gzip, 2418 brotli for one copy (the plan's TX-12 budget is 2560 bytes brotli: met). The inline build is pruned to the 13 members the bridge calls (the validation, the ISO parser and every unused accessor are cut from it; they stay in the ES route) and minified with terser (`tools/time/inline.mjs`, pinned exact in package.json). The bundle carries one copy and each of the ten static pages one more, so the figure is per copy and the pages pay it eleven times over. The ES-module route carries the 4029-byte runtime subset of the anchors, not the 15558-byte full document.
 
 ## 2. Before and after, computed
 
@@ -36,8 +36,8 @@ The HUD prints the date of the Day tab plus two (July 3 to 5), so a battle that 
 | CLK-02-store-getTickTime | js | 1 | store clock (toolbar label, time bar, mobile header): base 06:00/04:00 and no rollover replaced by the model; keeps the "July N, h:mm AM" shape the mobile header splits on |
 | CLK-06-toolbar-clock | js | 1 | desktop toolbar: time only ("about 3:00 PM"), no second date beside the "July N" tab label |
 | CLK-07-mobile-header-date | js | 1 | mobile header: date from the clock, "Night of July 1-2" after midnight (a Day tab is not a date) |
-| CLK-08-mobile-transport-frame | js | 1 | mobile transport row: "Frame n of 675" instead of "Tick n/675" |
-| CLK-09-timebar-frame | js | 1 | time bar footer: "Frame n of 675" instead of "Tick n/675" |
+| CLK-08-mobile-transport-frame | js | 1 | mobile transport row: the time ("about 3:00 PM") instead of "Tick n/675"; "Frame n of 675" only in the tooltip (chapter 04 section 4.9: never visible text) |
+| CLK-09-timebar-frame | js | 1 | time bar footer: the time instead of "Tick n/675"; "Frame n of 675" only in the tooltip (chapter 04 section 4.9) |
 
 ### Map HUD date, monument tooltips, ancestor timeline
 
@@ -136,6 +136,7 @@ The HUD prints the date of the Day tab plus two (July 3 to 5), so a battle that 
 - **Event text still contains typed clocks** ("At approximately 7:30am ...") that TM-V3 flags where they disagree with the model; the bridge does not rewrite prose.
 - **Everything reads "about".** 33 anchors, none signed: every tick is approximate by rule. The toolbar shows "about 3:00 PM"; the mobile header splits "July 3, about 3:00 PM" into a date line and "about 3:00 PM".
 - **Layout is not verified.** The strings are longer than before: the longest chip is "Night of July 1-2, about 12:05 AM" (33 characters) against "July 1, 6:00 AM" (15); the toolbar label is an 11 px monospace span and the mobile date line a 10 px label. Nothing was rendered; a device check at 320, 375 and 1440 px is owed before promotion (chapter 04 asks for `min-width` and `tabular-nums` in WP-TIME-17, which this bridge does not do).
+- **The frame number is never visible text** (chapter 04 section 4.9): the mobile transport row and the time bar footer used to print "Tick n/675"; they now print the time ("about 3:00 PM") and carry "Frame n of 675" only as a tooltip (title). No patch prints "tick" or the frame as text (tests/time/patches.test.mjs evaluates both rows).
 - **Hour buttons and Shift+arrows change meaning**: 60 battle minutes (one tick at t515, about 70 ticks in the 0.83 min/tick stall at t302-314) instead of 12 ticks. The Help chunk is patched so it does not claim otherwise.
 - **The lighting overlay is not bridged** (M4/E4 still keys on the 05:00-base hour: TM-V10: 96 ticks that are night by the solar table are drawn with almost no tint, 16 daylight ticks are heavily tinted). Replacing it needs the solar-driven design of WP-TIME-13 and a legibility check, not a one-line swap. Camera and Immersive get the real hour (their thresholds are unchanged).
 - **Not covered**: Historian (clock strings are held by D-TIME until sign-off), Cinematic Export, Watch Together, Ground Remembers, Dashboard (labels), the tour and monument prose, onboarding prose, product copy ("real time", "five-minute": the CP group and WP-TIME-16), the playback speed label, bookmarks' default names, and any data file (`chronology_day*.json` labels are untouched; regenerating them is WP-TIME-06).

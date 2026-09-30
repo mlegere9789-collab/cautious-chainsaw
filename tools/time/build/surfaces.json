@@ -329,6 +329,14 @@
     }
   ],
   "detectors": {
+    "July ${..+-N}": {
+      "total": 4,
+      "attributed": 4,
+      "byFile": {
+        "living-ledger.html": 1,
+        "assets/index-Cg8FAMXN.js": 3
+      }
+    },
     "tick*5": {
       "total": 8,
       "attributed": 8,
@@ -348,18 +356,17 @@
       }
     },
     "toLocale*String|getHours|Intl.DateTimeFormat": {
-      "total": 1,
+      "total": 0,
       "attributed": 0,
-      "byFile": {
-        "sandbox.html": 1
-      }
+      "byFile": {}
     },
-    "July ${..+-N}": {
-      "total": 4,
-      "attributed": 4,
+    "typed AM/PM literal": {
+      "total": 13,
+      "attributed": 13,
       "byFile": {
-        "living-ledger.html": 1,
-        "assets/index-Cg8FAMXN.js": 3
+        "compare.html": 5,
+        "living-ledger.html": 2,
+        "assets/index-Cg8FAMXN.js": 6
       }
     },
     "tab expression (<=225 ? 1 : <=450 ? 2 : 3)": {

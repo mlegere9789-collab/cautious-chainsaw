@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import { P, readJson, mdTable, writeIfChanged } from './lib.mjs';
 import model from '../../src/lib/time/index.js';
 import { legacyStoreClockMod, legacyFormulaMod } from './rules.mjs';
+import { KEEP } from './inline.mjs';
 import { execFileSync } from 'node:child_process';
 
 const spec = readJson(P('tools', 't0', 'patches-next', 'CLOCK.json'));
@@ -38,7 +39,7 @@ const md = `# The clock bridge: what changes in the frozen app if the candidate 
 
 A single patch group (\`CLOCK\`, ${spec.patches.length} asserted patches, ${spec.patches.filter((p) => p.regex).length} of them regex) in the T0 patch format that routes every clock surface of the frozen bundle and ten static pages through the canonical module (\`src/lib/time\`), inlined as a small function. Every displayed time carries "about" while no anchor is signed. The 33 anchors are the specialist's proposal (all \`proposed\`); this bridge makes the app print their clock consistently, it does not make any time historically reviewed.
 
-Module size when inlined: ${size.raw} bytes raw, ${size.gzip} gzip, ${size.brotli} brotli (the standalone inline build; the rebuild-native module is budgeted at 2.5 KB brotli and the bridge does not meet that: the module is inlined whole, 11 times across the bundle and pages, and not tree-shaken).
+Module size when inlined: ${size.raw} bytes raw, ${size.gzip} gzip, ${size.brotli} brotli for one copy (the plan's TX-12 budget is ${size.budget_brotli} bytes brotli: ${size.brotli <= size.budget_brotli ? 'met' : 'NOT met'}). The inline build is pruned to the ${KEEP.length} members the bridge calls (the validation, the ISO parser and every unused accessor are cut from it; they stay in the ES route) and minified with terser (\`tools/time/inline.mjs\`, pinned exact in package.json). The bundle carries one copy and each of the ten static pages one more, so the figure is per copy and the pages pay it eleven times over. The ES-module route carries the ${size.es_route_data.raw}-byte runtime subset of the anchors, not the ${size.full_document.raw}-byte full document.
 
 ## 2. Before and after, computed
 
@@ -68,6 +69,7 @@ ${byGroup.map(([name, ps]) => `### ${name}\n\n${mdTable(['id', 'target', 'anchor
 - **Event text still contains typed clocks** ("At approximately 7:30am ...") that TM-V3 flags where they disagree with the model; the bridge does not rewrite prose.
 - **Everything reads "about".** ${model.anchors.length} anchors, none signed: every tick is approximate by rule. The toolbar shows "about 3:00 PM"; the mobile header splits "July 3, about 3:00 PM" into a date line and "about 3:00 PM".
 - **Layout is not verified.** The strings are longer than before: the longest chip is "${model.format(160, 'chip', { roundMin: 5, approx: 'auto' })}" (${model.format(160, 'chip', { roundMin: 5, approx: 'auto' }).length} characters) against "July 1, 6:00 AM" (15); the toolbar label is an 11 px monospace span and the mobile date line a 10 px label. Nothing was rendered; a device check at 320, 375 and 1440 px is owed before promotion (chapter 04 asks for \`min-width\` and \`tabular-nums\` in WP-TIME-17, which this bridge does not do).
+- **The frame number is never visible text** (chapter 04 section 4.9): the mobile transport row and the time bar footer used to print "Tick n/675"; they now print the time ("about 3:00 PM") and carry "Frame n of 675" only as a tooltip (title). No patch prints "tick" or the frame as text (tests/time/patches.test.mjs evaluates both rows).
 - **Hour buttons and Shift+arrows change meaning**: 60 battle minutes (one tick at t515, about 70 ticks in the 0.83 min/tick stall at t302-314) instead of 12 ticks. The Help chunk is patched so it does not claim otherwise.
 - **The lighting overlay is not bridged** (M4/E4 still keys on the 05:00-base hour: TM-V10: ${v10.darkNoTint} ticks that are night by the solar table are drawn with almost no tint, ${v10.lightTint} daylight ticks are heavily tinted). Replacing it needs the solar-driven design of WP-TIME-13 and a legibility check, not a one-line swap. Camera and Immersive get the real hour (their thresholds are unchanged).
 - **Not covered**: Historian (clock strings are held by D-TIME until sign-off), Cinematic Export, Watch Together, Ground Remembers, Dashboard (labels), the tour and monument prose, onboarding prose, product copy ("real time", "five-minute": the CP group and WP-TIME-16), the playback speed label, bookmarks' default names, and any data file (\`chronology_day*.json\` labels are untouched; regenerating them is WP-TIME-06).

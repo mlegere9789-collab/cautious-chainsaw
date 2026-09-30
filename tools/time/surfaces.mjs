@@ -19,6 +19,7 @@ import * as acorn from 'acorn';
 import * as walk from 'acorn-walk';
 import { P, ROOT, LEGACY, BUNDLE, readText, writeIfChanged, parseArgs, mdTable, mean, median, r1 } from './lib.mjs';
 import m from '../../src/lib/time/index.js';
+import { findMatches, exemptModule, DETECTORS } from './detectors.mjs';
 
 const { flags } = parseArgs(process.argv.slice(2));
 const TREE = flags.root ? path.resolve(String(flags.root)) : LEGACY;
@@ -150,32 +151,29 @@ for (const im of impls) {
 }
 
 // ---------------------------------------------------------------- generic detectors (TM-V9 style), attributed to the known implementations or flagged UNKNOWN
+// The detector families live in detectors.mjs (shared with TM-V9/V16/V17): they match the SHAPE of a tick -> clock formula (a month plus a constant,
+// (x-k)*5, 300000, (tick-1)/12, 4/5/6 hour bases, time-of-day formatters off a bare new Date(), typed AM/PM), not one spelling. The module's own
+// inlined text is exempt (exact bytes); an edited copy of it is not.
 const known = [];
 for (const im of impls) { const text = files[im.file]; const i = text.indexOf(im.src); if (i >= 0) known.push({ file: im.file, from: i, to: i + im.src.length, id: im.id }); }
-const DETECTORS = [
-  ['tick*5', /\)\s*\*\s*5\b/g, (text, i) => /(?:-\s*1|-\s*dayStart(?:Tick)?|-\s*dayStart)\s*\)\s*\*\s*5\b/.test(text.slice(Math.max(0, i - 40), i + 8))],
-  ['5*60|6*60|4*60', /\b[456]\s*\*\s*60\b/g, () => true],
-  ['toLocale*String|getHours|Intl.DateTimeFormat', /toLocale(?:Time|Date)String|getHours\(|Intl\.DateTimeFormat/g, () => true],
-  ['July ${..+-N}', /July \$\{[^}]*[+-]\s*\d/g, () => true],
-  ['tab expression (<=225 ? 1 : <=450 ? 2 : 3)', /<=?\s*225\s*\?\s*1\s*:\s*\(?\s*\w+\s*<=?\s*450\s*\?\s*2\s*:\s*3/g, () => true],
-  ['hour step of 12 ticks', /shiftKey\?(?:\w+[+-]12\b|12:)|=>\w+\(\w+[+-]12\)/g, () => true],
+const LOCAL = [ // inventory-only detectors: shapes of the tab arithmetic itself (not printed clocks)
+  ['tab expression (<=225 ? 1 : <=450 ? 2 : 3)', /<=?\s*225\s*\?\s*1\s*:\s*\(?\s*\w+\s*<=?\s*450\s*\?\s*2\s*:\s*3/g],
+  ['hour step of 12 ticks', /shiftKey\?(?:\w+[+-]12\b|12:)|=>\w+\(\w+[+-]12\)/g],
 ];
 const generic = [];
-for (const [name, re, keep] of DETECTORS) {
-  for (const [file, text] of Object.entries(files)) {
-    if (/^assets\/index-.*\.js$/.test(file) === false && !/\.(html|js)$/.test(file)) continue;
-    let mm; re.lastIndex = 0;
-    while ((mm = re.exec(text))) {
-      if (!keep(text, mm.index)) continue;
-      const owner = known.find((k) => k.file === file && mm.index >= k.from && mm.index < k.to);
-      generic.push({ detector: name, file, at: lineOf(text, mm.index) + '@' + mm.index, attributedTo: owner ? owner.id : null, text: text.slice(Math.max(0, mm.index - 30), mm.index + mm[0].length + 20).replace(/\s+/g, ' ') });
-    }
-  }
+const scanFiles = exemptModule(files);
+const owner = (file, i) => known.find((k) => k.file === file && i >= k.from && i < k.to);
+for (const [file, text] of Object.entries(scanFiles)) {
+  if (!/\.(html|js)$/.test(file)) continue; // the bundle, chunks, pages and site scripts
+  const loc = (i) => lineOf(text, i) + '@' + i, ctx = (i, len) => text.slice(Math.max(0, i - 30), i + len + 20).replace(/\s+/g, ' ');
+  for (const h of findMatches(text)) { const o = owner(file, h.index); generic.push({ detector: h.surface, formula: h.formula, allowed: h.allowed, file, at: loc(h.index), attributedTo: o ? o.id : null, text: ctx(h.index, h.text.length) }); }
+  for (const [name, re] of LOCAL) { let mm; re.lastIndex = 0; while ((mm = re.exec(text))) { const o = owner(file, mm.index); generic.push({ detector: name, formula: false, allowed: false, file, at: loc(mm.index), attributedTo: o ? o.id : null, text: ctx(mm.index, mm[0].length) }); } }
 }
-const byDetector = {};
-for (const g of generic) { const d = (byDetector[g.detector] ||= { total: 0, attributed: 0, byFile: {} }); d.total++; if (g.attributedTo) d.attributed++; d.byFile[g.file] = (d.byFile[g.file] || 0) + 1; }
-const unknownTickFormulas = generic.filter((g) => (g.detector === 'tick*5' || g.detector === '5*60|6*60|4*60' || g.detector === 'July ${..+-N}') && !g.attributedTo);
-const wallClock = generic.filter((g) => g.detector.startsWith('toLocale'));
+// every detector has a row, even at 0 (a new one shows up in the baseline diff); the visitor's own clock (a bare `new Date()`) is not a tick formula and is not counted
+const byDetector = Object.fromEntries([...DETECTORS.map((d) => d.surface), ...LOCAL.map((l) => l[0])].filter((n, i, a) => a.indexOf(n) === i).map((n) => [n, { total: 0, attributed: 0, byFile: {} }]));
+for (const g of generic) { if (g.allowed) continue; const d = byDetector[g.detector]; d.total++; if (g.attributedTo) d.attributed++; d.byFile[g.file] = (d.byFile[g.file] || 0) + 1; }
+const unknownTickFormulas = generic.filter((g) => g.formula && !g.attributedTo && !g.allowed);
+const wallClock = generic.filter((g) => g.allowed);
 
 // visible jargon and copy related to the clock (counts only)
 const COPY = { 'Tick N (visible text)': /["`>](?:At )?Tick ["`$]|"Tick "|tick \$\{|Tick \$\{|"tick "/g, 'real time': /real[- ]time/gi, 'five-minute': /five[- ]minute|5[- ]minute/gi, 'minute-by-minute': /minute-by-minute/gi };

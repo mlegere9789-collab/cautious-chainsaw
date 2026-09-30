@@ -51,10 +51,10 @@ Report-only baseline: the legacy site is expected to fail; the counts are what C
 | TM-V6 | error | FAIL | 23 | 12 MISORDERED + 4 WRONG-DAY | 117 events with a single real time; weighted longest non-decreasing chain keeps 94 (tolerance 15 min); 23 inversions, 10 of them among the 16 the specialist classed MISORDERED/WRONG-DAY |
 | TM-V7 | warn | FAIL | 19 | 6 pairs at 5 min/tick, 19 under the proposal (1 a day seam) | 1209 consecutive keyframe pairs, 803 moving >=100 m: 6 over the cap at a uniform 5 min/tick, 19 under the proposed clock (1 on a day seam); 5 pairs straddle a day boundary |
 | TM-V8 | error | FAIL | 13 | app emits t alias; 9 link builders in 7 pages | 28 link emitters in 9 files; 13 write an alias parameter (vignette, lat, lng, u, t, ancestor); 0 out-of-range literal ticks |
-| TM-V9 | error | FAIL | 55 | 3 date hits (bundle); constants at 4 sites; 1 allow-listed wall clock; copy hits | date 4, tick*5 8, 5/6/4*60 5, locale 1 (1 allow-listed), typed AM/PM 13, banned copy 25 |
+| TM-V9 | error | FAIL | 55 | 4 date hits (bundle, ledger); tick arithmetic and hour bases at the nine implementations; 1 allow-listed wall clock; copy hits | date 4, tick*5 8, 5/6/4*60 5, locale 1 (1 allow-listed), typed AM/PM 13, banned copy 25 |
 | TM-V10 | warn | WARN | 112 | t326 "near-darkness" with tint 0 | legacy lighting (E4 keyed on the 05:00-base hour): 96 ticks that are night by the solar table have tint <= 0.08; 16 daylight ticks are heavily tinted; t326 (Early attacks East Cemetery Hill, 8:00 PM = dusk) is drawn at hour 13.3 with tint 0 |
 | TM-V11 | error | PASS | 0 | prototype passes | golden matches the model (675 rows, version 2026-09-30.1) |
-| TM-V12 | error | PASS | 0 | prototype passes | worst round-trip error 2.84e-13 tick over 675 ticks + 1000 fractions |
+| TM-V12 | error | PASS | 0 | prototype passes | worst round-trip error 3.98e-13 tick over 675 ticks + 1000 fractions; 0 integer ticks not exact, 0 floor mismatches |
 | TM-V13 | error | FAIL | 18 | 4,890 vs 100; schema prose "430,000"; day real_time strings | 18 metadata claims disagree with the data or the model |
 | TM-V14 | info | INFO | 487 | 487 empty ticks, 125 event-free | 487 of 675 ticks hold no placement record; 4 runs of >=20 ticks without a chronology event: 101-225 (125 ticks, 8:05 PM to 4:25 AM, July 1); 591-619 (29 ticks, 5:50 PM to 6:35 PM, July 3); 621-649 (29 ticks, 6:35 PM to 7:20 PM, July 3); 651-674 (24 ticks, 7:25 PM to 8:00 PM, July 3) |
 | TM-V15 | error | PASS | 0 | app emits t alias | 26 fixtures, 0 failing |

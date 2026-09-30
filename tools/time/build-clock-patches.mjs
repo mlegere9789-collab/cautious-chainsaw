@@ -40,8 +40,9 @@ BR('CLK-04-monument-tooltip-JF', 'function JF\\(c,f\\)\\{.*?\\}(?=function KF\\(
 BR('CLK-05-ancestor-timeline-QF', 'function QF\\(c\\)\\{.*?\\}(?=function Zk\\()', 'function QF(c){return GTBGT.f(c,"compat")}');
 B('CLK-06-toolbar-clock', 'const xi=(kt==null?void 0:kt())||`Tick ${c}`,va=c<=225?1:c<=450?2:3;', 'const xi=GTBGT.f(c,"chip"),va=c<=225?1:c<=450?2:3;');
 B('CLK-07-mobile-header-date', 'V.jsxs("div",{style:tn.clockDay,children:["July ",di]})', 'V.jsx("div",{style:tn.clockDay,children:GTBGT.f(f,"day")})');
-B('CLK-08-mobile-transport-frame', 'V.jsxs("div",{style:tn.tickInfo,children:["Tick ",f,"/",P]})', 'V.jsx("div",{style:tn.tickInfo,children:GTBGT.f(f,"frame")})');
-B('CLK-09-timebar-frame', 'V.jsxs("span",{style:Po.tickNum,children:["Tick ",c,"/675"]})', 'V.jsx("span",{style:Po.tickNum,children:GTBGT.f(c,"frame")})');
+// chapter 04 section 4.9: the frame number is a tooltip or ?debug=1 string, never visible text and never "tick": the visible text is the time
+B('CLK-08-mobile-transport-frame', 'V.jsxs("div",{style:tn.tickInfo,children:["Tick ",f,"/",P]})', 'V.jsx("div",{style:tn.tickInfo,title:GTBGT.f(f,"frame"),children:GTBGT.f(f,"time")})');
+B('CLK-09-timebar-frame', 'V.jsxs("span",{style:Po.tickNum,children:["Tick ",c,"/675"]})', 'V.jsx("span",{style:Po.tickNum,title:GTBGT.f(c,"frame"),children:GTBGT.f(c,"time")})');
 B('CLK-10-timebar-hour-back', 'onClick:()=>P(c-12),style:Po.btn,title:"Back 1hr (Shift+Left)"', 'onClick:()=>P(GTBGT.after(c,-60)),style:Po.btn,title:"Back 1hr (Shift+Left)"');
 B('CLK-11-timebar-hour-forward', 'onClick:()=>P(c+12),style:Po.btn,title:"Fwd 1hr (Shift+Right)"', 'onClick:()=>P(GTBGT.after(c,60)),style:Po.btn,title:"Fwd 1hr (Shift+Right)"');
 B('CLK-12-timebar-keys', 'Ie.key==="ArrowRight"&&P(Ie.shiftKey?c+12:c+1),Ie.key==="ArrowLeft"&&P(Ie.shiftKey?c-12:c-1)', 'Ie.key==="ArrowRight"&&P(Ie.shiftKey?GTBGT.after(c,60):c+1),Ie.key==="ArrowLeft"&&P(Ie.shiftKey?GTBGT.after(c,-60):c-1)');
@@ -104,6 +105,15 @@ F('CLK-44-regiment-day', 'regiment.html', '<div class="tl-meta">Day ${dayForTick
 // Search meta
 F('CLK-45-search-meta', 'search.html', 'meta: `${v.trigger_location} · Tick ${v.trigger_tick}`,', "meta: `${v.trigger_location} · ${GTBGTime.f(v.trigger_tick, 'compat')}`,");
 
+// ------------------------------------------------------------------ chapter 04 section 4.9: the frame number is never visible text
+// ("Frame 538 of 675" is allowed as a tooltip: every frame-style call must be the value of a `title:` property or attribute)
+for (const p of patches) {
+  for (const m of p.repl.matchAll(/\w+\.f\([^()]*,\s*["']frame["']\s*\)/g)) {
+    if (!/title\s*[:=]\s*["'`]?$/.test(p.repl.slice(Math.max(0, m.index - 12), m.index))) throw new Error(`${p.id}: the frame style must only feed a title (tooltip), found ${m[0]} outside one`);
+  }
+  if (/["'`]Tick\b|\btick \$\{|Tick \$\{/.test(p.repl)) throw new Error(`${p.id}: visible "Tick" text (chapter 04 section 4.9)`);
+}
+
 // ------------------------------------------------------------------ sanity: every anchor must match the pristine text exactly `expect` times
 const texts = { js: bundle, book: read('assets/BookmarkPanel-C5YT4b5k.js'), help: read('assets/HelpModal-CFV9T0zH.js') };
 for (const f of PAGES) texts[f] = page[f];
@@ -122,8 +132,8 @@ const NOTES = {
   'CLK-05-ancestor-timeline-QF': 'Follow-Your-Ancestor rows: same. Regex so it also matches after T0 patch D3',
   'CLK-06-toolbar-clock': 'desktop toolbar: time only ("about 3:00 PM"), no second date beside the "July N" tab label',
   'CLK-07-mobile-header-date': 'mobile header: date from the clock, "Night of July 1-2" after midnight (a Day tab is not a date)',
-  'CLK-08-mobile-transport-frame': 'mobile transport row: "Frame n of 675" instead of "Tick n/675"',
-  'CLK-09-timebar-frame': 'time bar footer: "Frame n of 675" instead of "Tick n/675"',
+  'CLK-08-mobile-transport-frame': 'mobile transport row: the time ("about 3:00 PM") instead of "Tick n/675"; "Frame n of 675" only in the tooltip (chapter 04 section 4.9: never visible text)',
+  'CLK-09-timebar-frame': 'time bar footer: the time instead of "Tick n/675"; "Frame n of 675" only in the tooltip (chapter 04 section 4.9)',
   'CLK-10-timebar-hour-back': 'Back 1hr was 12 ticks (12 minutes to 42 hours of battle time): now 60 battle minutes',
   'CLK-11-timebar-hour-forward': 'Fwd 1hr: same',
   'CLK-12-timebar-keys': 'time bar Shift+arrow: 60 battle minutes',

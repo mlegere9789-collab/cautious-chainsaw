@@ -1,4 +1,5 @@
 // GENERATED from data-src/time/time_anchors.json by tools/time/build.mjs. Do not edit. CANDIDATE anchors: all state "proposed".
+// The FULL document (labels, facts, evidence): tooling and tests import this; no runtime module does (see anchors.runtime.generated.js).
 export default {
   "$schema": "./time_anchors.schema.json",
   "schema": 1,

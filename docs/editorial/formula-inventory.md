@@ -42,10 +42,11 @@ There are 9 independent implementations that turn a tick into a clock, a date or
 
 | detector | matches | attributed to a known implementation | files |
 |---|---|---|---|
+| July ${..+-N} | 4 | 4 | living-ledger.html: 1, assets/index-Cg8FAMXN.js: 3 |
 | tick*5 | 8 | 8 | camera.html: 1, compare.html: 1, immersive.html: 1, living-ledger.html: 1, assets/index-Cg8FAMXN.js: 4 |
 | 5*60\|6*60\|4*60 | 5 | 5 | assets/index-Cg8FAMXN.js: 5 |
-| toLocale*String\|getHours\|Intl.DateTimeFormat | 1 | 0 | sandbox.html: 1 |
-| July ${..+-N} | 4 | 4 | living-ledger.html: 1, assets/index-Cg8FAMXN.js: 3 |
+| toLocale*String\|getHours\|Intl.DateTimeFormat | 0 | 0 |  |
+| typed AM/PM literal | 13 | 13 | compare.html: 5, living-ledger.html: 2, assets/index-Cg8FAMXN.js: 6 |
 | tab expression (<=225 ? 1 : <=450 ? 2 : 3) | 12 | 4 | documentary.html: 1, regiment.html: 1, assets/index-Cg8FAMXN.js: 10 |
 | hour step of 12 ticks | 8 | 0 | assets/HelpModal-CFV9T0zH.js: 2, assets/index-Cg8FAMXN.js: 6 |
 

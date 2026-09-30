@@ -24,10 +24,28 @@ Owned by workstream WP-TIME-02/03/06/20 (chapter `docs/plan/FINAL/04-time-model-
 3. **The packet** gives the historian what to decide; a decision becomes a `decisions.jsonl` line; the developer updates the anchor, regenerates the golden table (`node tools/time/build.mjs`) and reviews the diff.
 4. **The bridge** (candidate patches for the frozen app and static pages) only exists so the same clock can be shown in the legacy app if the rebuild is late; it is inert in `patches-next` and gated on sign-off.
 
+## What the module guarantees (and what proves it)
+
+| guarantee | where | proved by |
+|---|---|---|
+| Every integer tick has ONE exact clock value; `minutesToTick(tickToMinutes(t)) === t` for all 675 ticks, `Math.floor(minutesToTick(m)) === floorTick(m)` for every clock value (no epsilon anywhere) | `src/lib/time/core.js` (`MIN`, `floorTick`) | `tests/time/exact.test.mjs` (ulp neighbours of every tick, linear-scan oracle), TM-V12 (now exact, not a 1e-9 tolerance) |
+| Playback crosses each tick exactly once (`crossed` is decided by `floorTick`, the same table `tickToMinutes` reads); `advance(0)` never reports a crossing; a NaN frame length is a TypeError | `src/lib/time/playback.js` | `tests/time/playback-random.test.mjs` (long randomized runs against an independent pointer-walk oracle, seeks, gaps, clamped stalls) |
+| The public model rejects NaN, undefined, null, strings, objects and infinities with a TypeError that names the argument (`tickAfterMinutes(538, "60")` is an error, not a string concatenation); a string that is not a real calendar time is a RangeError | `src/lib/time/extras.js` (validation layer over the lean core) | `tests/time/exact.test.mjs` |
+| The bridge coerces every numeric argument (tick NaN becomes 1, minutes NaN becomes 0, +-Infinity clamps); nothing throws, nothing returns NaN | `src/lib/time/bridge.js` | `tests/time/bridge.test.mjs` (28 hostile values x every method, lean core equals validating model) |
+| `validateAnchors` never throws: every field is type-checked, a safety net reports an unforeseen crash as `V1.internal`; malformed ranges, gaps, slopes and configuration numbers are errors; "ok" always means the model builds | `src/lib/time/anchors.js` | `tests/time/anchors-robust.test.mjs` (targeted cases plus a seeded fuzz of 4000 mutated documents) |
+| Load-time limits of chapter 04 section 4.2 are enforced when the model is built: first tick 1, last tick = `tick_max`, strictly increasing in tick AND minutes, slope 0.75..60 min/tick (`doc.slope` overrides) | `makeCore` | `tests/time/exact.test.mjs` |
+| The circular anchor t5 is class D at runtime (`effective_status` is honoured: `tickToClock(5).basis`, the anchors view, the class) | `makeCore`, `extras.js` | `tests/time/exact.test.mjs` |
+| The bridge never prints the frame number as text and never says "tick" (chapter 04 section 4.9): the frame number is a tooltip only | `tools/time/build-clock-patches.mjs` (guard), CLK-08/09 | `tests/time/patches.test.mjs` (both rows evaluated with the real inlined module) |
+| The ES-module route bundles the 4 KB runtime subset of the anchors, not the 25 KB source document | `src/lib/time/index.js`, `anchors.runtime.generated.js` | `tests/time/bundle.test.mjs` (static import graph and a dynamic module-hook trace) |
+| The inlined bridge is pruned to what it calls, minified with terser, self-contained, deterministic, within the 2.5 KB brotli budget | `tools/time/inline.mjs` | `tests/time/inline.test.mjs` (byte-identical to the generated file, free-name check, parity on 675 ticks x 10 styles) |
+| A new tick-to-clock formula, however it is spelled, turns TM-V9 / V16 / V17 and `surfaces.mjs --check` red; the visitor's own clock does not | `tools/time/detectors.mjs` | `tests/time/detectors.test.mjs` (positive and negative shapes), `tests/time/mutation.test.mjs` (11 realistic injected defects, each red on both checks; 5 benign injections stay green) |
+
+Two builds of one source: the **ES route** (`src/lib/time/index.js`: validated public API, runtime anchors) and the **inline build** (`tools/time/build/gtbg-time.inline.js`: the lean core pruned to the bridge, anchors pre-parsed to minutes, no validation because the document is validated at build time). Code between `/*@strip ... */` and `/*@endstrip*/` markers in `core.js` is the part the inline build removes.
+
 ## Commands
 
 ```
-node tools/time/build.mjs                    # generated module, golden table, ticks.json, inline build (add --check for CI)
+node tools/time/build.mjs                    # generated modules (full + runtime subset), golden table, ticks.json, inline build (add --check for CI)
 node tools/time/validate.mjs [--report]      # TM-V1..V21; --report rewrites time-audit.md; --check compares with the baseline; --strict fails on errors
 node tools/time/surfaces.mjs [--check]       # formula inventory; rewrites formula-inventory.md
 node tools/time/build-review-packet.mjs      # anchor-review-packet.md
@@ -36,7 +54,7 @@ node tools/time/build-clock-patches.mjs      # tools/t0/patches-next/CLOCK.json
 node tools/time/check-patches.mjs [--after-t0 --position=end|after-B]
 node tools/time/sandbox-build.mjs            # the real T0 build system with CLOCK installed, in a throw-away copy
 node tools/time/build-bridge-doc.mjs         # clock-bridge.md
-node --test "tests/time/*.test.mjs"          # 130+ tests
+node --test "tests/time/*.test.mjs"          # 320+ tests (npm run time:test)
 ```
 
 ## What is not done, and what needs a person

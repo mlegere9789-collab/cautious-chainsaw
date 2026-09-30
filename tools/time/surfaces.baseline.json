@@ -101,6 +101,10 @@
     }
   ],
   "detectors": {
+    "July ${..+-N}": {
+      "total": 4,
+      "attributed": 4
+    },
     "tick*5": {
       "total": 8,
       "attributed": 8
@@ -110,12 +114,12 @@
       "attributed": 5
     },
     "toLocale*String|getHours|Intl.DateTimeFormat": {
-      "total": 1,
+      "total": 0,
       "attributed": 0
     },
-    "July ${..+-N}": {
-      "total": 4,
-      "attributed": 4
+    "typed AM/PM literal": {
+      "total": 13,
+      "attributed": 13
     },
     "tab expression (<=225 ? 1 : <=450 ? 2 : 3)": {
       "total": 12,

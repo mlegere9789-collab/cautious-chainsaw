@@ -52,6 +52,23 @@ export interface TimeAnchorsDoc {
   anchors: AnchorDoc[];
 }
 
+/** What the ES-module route bundles (src/lib/time/anchors.runtime.generated.js): the fields makeTimeModel reads, no labels, facts or evidence text. */
+export interface RuntimeAnchor {
+  tick: number;
+  t: string;
+  status: Status;
+  sigma_min: number;
+  /** the status the model uses when it differs from `status` (t5: circular, imported as D) */
+  effective_status?: Status;
+  state?: SignState;
+  review_flag?: ReviewFlag;
+  circular?: true;
+  range?: [string, string];
+}
+export interface RuntimeAnchorsDoc extends Omit<TimeAnchorsDoc, 'anchors' | 'notice' | 'tz_note' | 'evidence_families' | '$schema'> {
+  anchors: RuntimeAnchor[];
+}
+
 export interface Clock {
   /** the tick actually used (clamped into 1..tickMax) */
   tick: number;
@@ -129,10 +146,15 @@ export interface AnchorInfo {
   tick: number;
   minutes: number;
   sigmaMin: number;
+  /** the declared status */
   status: Status;
+  /** the status the model uses (differs only for the circular t5: D) */
+  effectiveStatus: Status;
+  /** evidence class of the EFFECTIVE status (t5: 'D') */
   confidence: EvidenceClass;
   state: SignState;
   review: ReviewFlag;
+  /** empty on the default model: labels are not in the runtime subset (use makeTimeModel(fullDocument)) */
   label: string;
   circular: boolean;
   facts: string[];
@@ -149,9 +171,9 @@ export interface TimeModel {
   gaps: Array<{ from: number; to: number; policy: string }>;
   approxSigmaMin: number;
   anchors: AnchorInfo[];
-  /** throws TypeError on NaN/Infinity; clamps 0 and 676 with clamped:true */
+  /** throws TypeError on NaN/Infinity/non-numbers; clamps 0 and 676 with clamped:true */
   tickToClock(tick: number): Clock;
-  /** ISO local time or minutes -> fractional tick, clamped to 1..tickMax; opts.extrapolate uses 5 min/tick beyond the ends (validation only) */
+  /** ISO local time or minutes -> fractional tick, clamped to 1..tickMax; opts.extrapolate uses 5 min/tick beyond the ends (validation only). RangeError for a string that is not a real calendar time, TypeError for anything that is neither a string nor a finite number. */
   clockToTick(x: string | number, opts?: { extrapolate?: boolean }): number;
   clockToTickInfo(x: string | number): { tick: number; exact: boolean };
   /** accepted range of an anchor tick ({from, to, text: 'between about 5:10 and 7:00 PM', contested}); null for other ticks */
@@ -159,7 +181,10 @@ export interface TimeModel {
   tickToLabel(tick: number, opts?: LabelOptions): string;
   tickToLabelParts(tick: number, opts?: LabelOptions): LabelParts;
   tickToMinutes(tick: number): number;
+  /** exact on the tick table: minutesToTick(tickToMinutes(t)) === t for every integer tick, and Math.floor(result) === floorTick(min) */
   minutesToTick(min: number, opts?: { extrapolate?: boolean }): number;
+  /** greatest integer tick whose exact clock is <= min (0 before tick 1): the epsilon-free "which frame has the clock reached" */
+  floorTick(min: number): number;
   minutesPerTick(tick: number): number;
   uncertaintyMin(tick: number): number;
   tabDay(tick: number): number;
@@ -171,7 +196,7 @@ export interface TimeModel {
   format(tick: number, style?: LabelStyle, opts?: { roundMin?: number; approx?: boolean | 'auto' }): string;
   dayPart(tick: number): Phase;
   isApprox(tick: number): boolean;
-  /** integer tick a real number of minutes away; never a no-op for |dm| >= half a segment except at the ends */
+  /** integer tick a real number of minutes away; never a no-op for |dm| >= half a segment except at the ends. TypeError unless both arguments are finite numbers (a string "60" is rejected, never concatenated) */
   tickAfterMinutes(tick: number, dm: number): number;
   gapAt(tick: number): { from: number; to: number; policy: string } | null;
   isGap(tick: number): boolean;
@@ -183,10 +208,11 @@ export interface TimeModel {
   goldenCsv(): string;
 }
 
+/** Throws Error for an invalid anchor set: first tick 1, last = tick_max, strictly increasing in tick AND minutes, slope inside doc.slope (default 0.75..60 min/tick). effective_status (t5: D) sets the evidence class. */
 export function makeTimeModel(doc: TimeAnchorsDoc | { anchors: Array<Pick<AnchorDoc, 'tick' | 't' | 'sigma_min' | 'status'> & Partial<AnchorDoc>>; [k: string]: any }): TimeModel;
 /** lean core (no tickToClock, tables or URL parsing); what the legacy bridge inlines */
 export function makeCore(doc: object): Omit<TimeModel, 'tickToClock' | 'clockToTick' | 'clockToTickInfo' | 'tickToLabelParts' | 'ticksJson' | 'goldenCsv' | 'isGap' | 'anchors' | 'resolveTickParam'> & { _: unknown };
-/** "1863-07-03T15:00" -> minutes since 1863-07-01T00:00; throws on bad input */
+/** "1863-07-03T15:00" -> minutes since 1863-07-01T00:00; TypeError for a non-string, RangeError for anything that is not a real calendar time (2/30, 24:00) */
 export function parseLocal(s: string): number;
 
 export interface ValidationIssue { code: string; msg: string; tick?: number }
@@ -200,9 +226,9 @@ export interface ValidationReport {
     evidenceFailures: number[]; needsHistorian: number[]; design: number[];
   };
 }
-/** TM-V1. Never throws; opts.evidenceAsError turns the S-anchor evidence rule into an error. */
+/** TM-V1. NEVER throws, whatever it is given (null entries, wrong types, malformed ranges are reported as errors); opts.evidenceAsError turns the S-anchor evidence rule into an error. */
 export function validateAnchors(doc: unknown, opts?: { evidenceAsError?: boolean }): ValidationReport;
-/** validates, throws AnchorError on any error, returns a model */
+/** validates, throws AnchorError on any error (invalid JSON text is one V1.json error), returns a model */
 export function loadAnchors(input: string | TimeAnchorsDoc): TimeModel;
 export class AnchorError extends Error { errors: ValidationIssue[] }
 export function deriveSigma(range: [string, string], cap?: number): number;
@@ -217,8 +243,12 @@ export interface Playback {
   seekMinutes(m: number): Playback;
   advance(dtMs: number): { tick: number; prevTick: number; crossed: [number, number] | null; gap: string | null; rate: number; done: boolean };
 }
-/** Constant-clock ("Battle-time") playback: rate is battle-minutes per real second */
-export function createPlayback(model: Pick<TimeModel, 'tickMax' | 'tickToMinutes' | 'minutesToTick' | 'gapAt'>, opts?: { rate?: number; tick?: number; maxDtMs?: number; gapRate?: number }): Playback;
+/**
+ * Constant-clock ("Battle-time") playback: rate is battle-minutes per real second. `crossed` uses an exact, epsilon-free rule (tick k is crossed when
+ * the clock first reaches the module's own clock value of k, model.floorTick): every tick is reported exactly once, never twice, and advance(0) reports none.
+ * advance(dtMs) throws TypeError for a dt that is not a finite number.
+ */
+export function createPlayback(model: Pick<TimeModel, 'tickMax' | 'tickToMinutes' | 'minutesToTick' | 'floorTick' | 'gapAt'>, opts?: { rate?: number; tick?: number; maxDtMs?: number; gapRate?: number }): Playback;
 /** Battle-minutes per real second at Story pace (2 ticks/s x speed x minutes per tick) */
 export function storyPace(model: Pick<TimeModel, 'minutesPerTick'>, tick: number, speed?: number, ticksPerSecond?: number): { minPerSec: number; label: number };
 
@@ -237,9 +267,14 @@ export interface Bridge {
   minutes(tick: number): number;
   tickAt(minutes: number): number;
 }
+/**
+ * The legacy facade. Every numeric argument is coerced (ticks: NaN -> 1; minutes: NaN -> 0; +-Infinity and huge values clamp), so no argument can throw or
+ * return NaN. 'frame' ("Frame 538 of 675") is for tooltips and ?debug=1 only (chapter 04 section 4.9): never visible text.
+ */
 export function makeBridge(model: Pick<TimeModel, 'version' | 'dv' | 'tickMax' | 'tickToLabel' | 'format' | 'tickAfterMinutes' | 'hour' | 'dayPart' | 'tabDay' | 'isApprox' | 'tabStart' | 'tickToMinutes' | 'minutesToTick'>): Bridge;
 
-export const anchorsDoc: TimeAnchorsDoc;
+/** the runtime subset of the anchors (about 4 KB); the full 25 KB document is src/lib/time/anchors.generated.js, which no runtime module imports */
+export const anchorsDoc: RuntimeAnchorsDoc;
 declare const model: TimeModel;
 export default model;
 export const tickToClock: TimeModel['tickToClock'];
@@ -250,6 +285,7 @@ export const tickToLabel: TimeModel['tickToLabel'];
 export const tickToLabelParts: TimeModel['tickToLabelParts'];
 export const tickToMinutes: TimeModel['tickToMinutes'];
 export const minutesToTick: TimeModel['minutesToTick'];
+export const floorTick: TimeModel['floorTick'];
 export const minutesPerTick: TimeModel['minutesPerTick'];
 export const uncertaintyMin: TimeModel['uncertaintyMin'];
 export const tabDay: TimeModel['tabDay'];

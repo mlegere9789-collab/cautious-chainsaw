@@ -94,8 +94,38 @@ describe('the inlined module as it ships in a page', () => {
     assert.equal(G.f(538, 'compat'), 'July 3, about 3:00 PM'); assert.equal(G.f(160, 'chip'), 'Night of July 1-2, about 12:05 AM'); assert.equal(G.f(226, 'day'), 'July 2');
     assert.equal(G.after(538, 60), 556); assert.equal(G.tabStart(2), 226); assert.equal(G.tabStart(3), 451); assert.equal(G.tickMax, 675);
   });
-  test('size is measured and recorded (TX-12 budget 2.5 KB brotli is NOT met by the standalone inline build)', () => {
-    const size = readJson(P('tools', 'time', 'build', 'size.json')); assert.ok(size.raw > 0 && size.brotli > 0);
+  test('size: within the plan\'s 2.5 KB brotli budget (TX-12), recorded honestly (the pruned + terser build; tests/time/inline.test.mjs re-derives the numbers)', () => {
+    const size = readJson(P('tools', 'time', 'build', 'size.json'));
+    assert.ok(size.raw > 0 && size.gzip > 0 && size.brotli > 0); assert.equal(size.budget_brotli, 2560);
+    assert.ok(size.brotli <= size.budget_brotli, `inline module ${size.brotli} B brotli is over the ${size.budget_brotli} B budget`);
     console.log(`# inline module: ${size.raw} B raw, ${size.gzip} B gzip, ${size.brotli} B brotli (budget ${size.budget_brotli}) - ${size.brotli <= size.budget_brotli ? 'within budget' : 'over budget'}`);
+  });
+  test('CLK-00 embeds exactly the current inline build (a stale CLOCK.json after a module change fails here), and the page form embeds the same bytes', () => {
+    const inline = readText(P('tools', 'time', 'build', 'gtbg-time.inline.js')).trim(), iife = readText(P('tools', 'time', 'build', 'gtbg-time.iife.js')).trim();
+    assert.equal(spec.patches.find((p) => p.id === 'CLK-00-module-inline').repl, ',nA=675;var GTBGT=' + inline + ';function v4(){');
+    const page = spec.patches.find((p) => p.id === 'CLK-30-module-compare'); assert.equal(page.repl, '<script>' + iife + '</script>\n</head>'); assert.ok(iife.includes(inline));
+  });
+});
+
+describe('chapter 04 section 4.9: the bridge never prints the frame number as visible text and never says "tick"', () => {
+  // the two rewritten rows are evaluated with a fake React (V.jsx returns its props) and the real inlined module
+  const sb = { window: {} }; vm.createContext(sb); vm.runInContext('var GTBGT=' + readText(P('tools', 'time', 'build', 'gtbg-time.inline.js')).trim() + ';', sb);
+  const props = (id, vars) => { const p = spec.patches.find((x) => x.id === id); const box = Object.assign({ V: { jsx: (tag, pr) => ({ tag, ...pr }) }, tn: { tickInfo: 'tickInfo' }, Po: { tickNum: 'tickNum' } }, vars, { GTBGT: sb.GTBGT }); vm.createContext(box); return vm.runInContext('(' + p.repl + ')', box); };
+  test('mobile transport row and time bar footer: the visible children are the time, "Frame n of 675" is only the title (tooltip)', () => {
+    for (const f of [1, 12, 226, 538, 675]) {
+      for (const [id, vars] of [['CLK-08-mobile-transport-frame', { f, P: 675 }], ['CLK-09-timebar-frame', { c: f }]]) {
+        const r = props(id, vars); assert.equal(r.title, `Frame ${f} of 675`, id); assert.equal(r.children, model.tickToLabel(f, { style: 'time' }), id); assert.doesNotMatch(String(r.children), /Frame|tick|\d+\s*\/\s*675|of 675/i, `${id} prints the frame number: ${r.children}`);
+      }
+    }
+  });
+  test('no patch replacement renders the frame style outside a title, and no replacement prints "Tick" text', () => {
+    for (const p of spec.patches.filter((x) => !/^CLK-(00|30)-/.test(x.id))) { // (CLK-00 and CLK-30 ARE the module: it formats "Frame n of 675" for tooltips)
+      for (const m of p.repl.matchAll(/\w+\.f\([^()]*,\s*["']frame["']\s*\)/g)) assert.match(p.repl.slice(Math.max(0, m.index - 12), m.index), /title\s*[:=]\s*["'`]?$/, `${p.id}: ${m[0]} is visible text`);
+      assert.doesNotMatch(p.repl, /["'`]Tick\b|\btick \$\{|Tick \$\{|Frame \$\{|["'`]Frame /, `${p.id} prints tick/frame text`);
+    }
+    assert.ok(spec.patches.filter((p) => /["']frame["']/.test(p.repl)).length >= 2, 'the two frame rows still exist');
+  });
+  test('the generator refuses a patch that would print the frame number (its own guard fails loudly)', () => {
+    const src = readText(P('tools', 'time', 'build-clock-patches.mjs')); assert.match(src, /the frame style must only feed a title/); assert.match(src, /visible "Tick" text/);
   });
 });

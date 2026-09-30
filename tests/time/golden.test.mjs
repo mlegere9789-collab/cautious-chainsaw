@@ -4,6 +4,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { P, parseHm, parseJulyDay, julyMinutes, parseJulyClock } from '../../tools/time/lib.mjs';
 import m, { makeTimeModel, anchorsDoc, ticksJson, goldenCsv } from '../../src/lib/time/index.js';
+import FULL from '../../src/lib/time/anchors.generated.js';
+import { runtimeDoc } from '../../tools/time/slim.mjs';
 import { doc, model, csv } from './helpers.mjs';
 
 const norm = (s) => s.replace(/(\d)a$/, '$1am').replace(/(\d)p$/, '$1pm');
@@ -14,8 +16,9 @@ describe('golden tick-clock table (TM-V11)', () => {
     assert.equal(file, model.goldenCsv(), 'regenerate with node tools/time/build.mjs and review the diff together with a time_anchors version bump');
     const rows = file.trim().split('\n'); assert.equal(rows.length, 676); assert.equal(rows[0], 'tick,iso,tab,mpt,sigma,approx,night,label');
   });
-  test('generated module, ticks.json and IIFE are current with time_anchors.json', () => {
-    assert.deepEqual(JSON.parse(JSON.stringify(anchorsDoc)), doc);
+  test('generated modules (full document and runtime subset), ticks.json and IIFE are current with time_anchors.json', () => {
+    assert.deepEqual(JSON.parse(JSON.stringify(FULL)), doc, 'anchors.generated.js (tooling) is the full document');
+    assert.deepEqual(JSON.parse(JSON.stringify(anchorsDoc)), runtimeDoc(doc), 'anchors.runtime.generated.js (the ES route) is exactly the runtime subset of it');
     const ticks = JSON.parse(fs.readFileSync(P('tools', 'time', 'build', 'ticks.json'), 'utf8'));
     assert.equal(ticks.rows.length, 675); assert.deepEqual(ticks.rows, ticksJson()); assert.equal(ticks.version, doc.version);
     assert.equal(goldenCsv(), model.goldenCsv());

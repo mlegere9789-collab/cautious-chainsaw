@@ -1249,9 +1249,9 @@
   },
   {
    "id": "TM-V9",
-   "title": "Lint bans: July ${..+N}; tick*5; 5*60/6*60/4*60; toLocale*String/getHours; AM/PM outside the module; banned copy",
+   "title": "Lint bans: month+constant dates, tick*5 / 300000 / (tick-1)/12 minute arithmetic, 4/5/6-hour bases, time-of-day formatters off a bare new Date(), typed AM/PM, banned copy",
    "severity": "error",
-   "today": "3 date hits (bundle); constants at 4 sites; 1 allow-listed wall clock; copy hits",
+   "today": "4 date hits (bundle, ledger); tick arithmetic and hour bases at the nine implementations; 1 allow-listed wall clock; copy hits",
    "status": "fail",
    "count": 55,
    "details": [
@@ -1331,6 +1331,9 @@
      "assets/HelpModal-CFV9T0zH.js:1@2321",
      "assets/index-Cg8FAMXN.js:3355@1988200",
      "assets/index-Cg8FAMXN.js:3421@2256125"
+    ],
+    "wallClock": [
+     "sandbox.html:211@11800"
     ]
    }
   },
@@ -1374,13 +1377,13 @@
   },
   {
    "id": "TM-V12",
-   "title": "Monotone inverse: minutesToTick(tickToMinutes(t)) == t for all ticks and 1,000 random fractions",
+   "title": "Monotone, EXACT inverse: minutesToTick(tickToMinutes(t)) === t for all ticks (floor semantics hold), 1,000 random fractions within 1e-9, and Math.floor(minutesToTick(m)) === floorTick(m)",
    "severity": "error",
    "today": "prototype passes",
    "status": "pass",
    "count": 0,
    "details": [],
-   "headline": "worst round-trip error 2.84e-13 tick over 675 ticks + 1000 fractions",
+   "headline": "worst round-trip error 3.98e-13 tick over 675 ticks + 1000 fractions; 0 integer ticks not exact, 0 floor mismatches",
    "data": {}
   },
   {
@@ -1469,43 +1472,43 @@
    "status": "fail",
    "count": 7,
    "details": [
-    "assets/index-Cg8FAMXN.js:3421@2093976 children:[\"July \",di]",
-    "assets/index-Cg8FAMXN.js:3421@2094314 children:[\"July \",$t] (tab button, allowed)",
-    "assets/index-Cg8FAMXN.js:3421@2275191 children:[\"July \",va]",
-    "assets/index-Cg8FAMXN.js@150789 July ${P}",
-    "assets/index-Cg8FAMXN.js@1988148 July ${l+2}",
-    "assets/index-Cg8FAMXN.js@2053524 July ${f+2}",
-    "assets/index-Cg8FAMXN.js@2056195 July ${f+2}",
-    "living-ledger.html:143 July ${dayIdx + 1} (date from the tab index)"
+    "assets/index-Cg8FAMXN.js:3421@2093985 [\"July \",di]",
+    "assets/index-Cg8FAMXN.js:3421@2094323 [\"July \",$t] (tab button, allowed)",
+    "assets/index-Cg8FAMXN.js:3421@2275200 [\"July \",va]",
+    "living-ledger.html:143@7618 July ${dayIdx + 1}",
+    "assets/index-Cg8FAMXN.js:56@150789 July ${P}",
+    "assets/index-Cg8FAMXN.js:3355@1988148 July ${l+2}",
+    "assets/index-Cg8FAMXN.js:3421@2053524 July ${f+2}",
+    "assets/index-Cg8FAMXN.js:3421@2056195 July ${f+2}"
    ],
    "headline": "2 places print a tab number as \"July N\" (mobile header, toolbar) and 5 templates build a date from a tab number; 1 Day-tab buttons (\"July N\" as the first-light label) are allowed by chapter 04 4.5",
    "data": {
     "sites": [
      {
-      "at": "assets/index-Cg8FAMXN.js:3421@2093976",
-      "text": "children:[\"July \",di]",
+      "at": "assets/index-Cg8FAMXN.js:3421@2093985",
+      "text": "[\"July \",di]",
       "ident": "di",
       "tabButton": false
      },
      {
-      "at": "assets/index-Cg8FAMXN.js:3421@2094314",
-      "text": "children:[\"July \",$t]",
+      "at": "assets/index-Cg8FAMXN.js:3421@2094323",
+      "text": "[\"July \",$t]",
       "ident": "$t",
       "tabButton": true
      },
      {
-      "at": "assets/index-Cg8FAMXN.js:3421@2275191",
-      "text": "children:[\"July \",va]",
+      "at": "assets/index-Cg8FAMXN.js:3421@2275200",
+      "text": "[\"July \",va]",
       "ident": "va",
       "tabButton": false
      }
     ],
     "derived": [
-     "assets/index-Cg8FAMXN.js@150789 July ${P}",
-     "assets/index-Cg8FAMXN.js@1988148 July ${l+2}",
-     "assets/index-Cg8FAMXN.js@2053524 July ${f+2}",
-     "assets/index-Cg8FAMXN.js@2056195 July ${f+2}",
-     "living-ledger.html:143 July ${dayIdx + 1} (date from the tab index)"
+     "living-ledger.html:143@7618 July ${dayIdx + 1}",
+     "assets/index-Cg8FAMXN.js:56@150789 July ${P}",
+     "assets/index-Cg8FAMXN.js:3355@1988148 July ${l+2}",
+     "assets/index-Cg8FAMXN.js:3421@2053524 July ${f+2}",
+     "assets/index-Cg8FAMXN.js:3421@2056195 July ${f+2}"
     ]
    }
   },
