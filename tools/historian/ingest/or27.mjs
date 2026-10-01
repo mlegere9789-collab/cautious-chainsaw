@@ -10,6 +10,7 @@
 // Nothing here downloads anything (see fetch.mjs) and nothing is committed except code and small fixtures.
 import crypto from 'node:crypto';
 import { splitSentences, dl } from '../../../historian-src/core/text.js';
+import { stripHeads, countHeads } from './heads.mjs';
 
 const sha8 = (s) => crypto.createHash('sha1').update(s).digest('hex').slice(0, 8);
 const words = (s) => (s.match(/\S+/g) || []).length;
@@ -91,6 +92,17 @@ export function stripRunningHeads(t) {
     // a head or signature mark run into a body line: cut it out of the line (and keep the printed page it carried)
     const inl = stripInline(l);
     if (inl.changed) { lines[i] = inl.text; if (inl.page) marks.push({ line: i, page: inl.page }); if (!inl.text.trim()) drop.add(i); }
+    // whatever the detectors above did not recognise is read by what it says (heads.mjs: CHAP + XXXIX, GETTYSBURG CAMPAIGN in capitals, "R R - VOL XXVII, PT I"), in any OCR spelling within a few edits
+    const fz = stripHeads(lines[i], 1);
+    if (fz.found.length) {
+      const kinds = new Set(fz.found.map((x) => x.kind));
+      lines[i] = fz.text;
+      if (fz.page) marks.push({ line: i, page: fz.page });
+      if (!/[A-Za-z0-9]{2}/.test(fz.text)) {
+        drop.add(i);
+        if (fz.page === null && (kinds.has('chap') || kinds.has('title'))) { const n = nearNumber(lines, i, 4); if (n && !drop.has(n.line)) { drop.add(n.line); marks.push({ line: Math.min(i, n.line), page: n.page }); } }
+      }
+    }
   }
   const out = []; const pages = []; let off = 0;
   // printed pages count up by one to four. A mark that continues the run is kept; one that restarts the numbering (front matter, then page 1) is kept when its successor
@@ -355,7 +367,7 @@ export function chunkDocument(doc, { target = 200, max = 250, min = 60, pageAt =
  * count used only the whole-line detectors and reported 0 while 80 of 1,513 passages still carried a head inside a body line (verifier defect V-11).
  */
 export function countRunningHeads(text) {
-  return String(text).split('\n').filter((l) => evenHead(l) || HEAD_TITLE_UP.test(l) || /^.{0,6}GETTYSBURG CAMPAIGN\.?$/.test(l) || stripInline(l).changed).length;
+  return String(text).split('\n').filter((l) => evenHead(l) || HEAD_TITLE_UP.test(l) || /^.{0,6}GETTYSBURG CAMPAIGN\.?$/.test(l) || stripInline(l).changed || countHeads(l) > 0).length;
 }
 
 /**
@@ -378,10 +390,63 @@ export function missingDetail(docs, toc) {
   return out;
 }
 
-/** a passage that is mostly one-cell paragraphs: the OCR of a table (20 or more paragraphs, half of them four characters or fewer) */
-export function isTableDebris(text) {
-  const parts = String(text).split(/\n{2,}/).map((x) => x.trim()).filter(Boolean);
-  return parts.length >= 20 && parts.filter((x) => x.length <= 4).length / parts.length >= 0.5;
+// ---- tables: the OCR of a table is hundreds of one-cell paragraphs ("B", "0)", "57", "Killed.", "2d United States"). They are taken out; the prose around them stays.
+//   strong cell   a paragraph of four characters or fewer, or only digits and punctuation ("2,296 1,540 1 1,013 96")
+//   label cell    a short row or column label (40 characters, 6 words at most: "Total Second Brigade", "Col. John R. Brooke.")
+//   table region  a run of consecutive cells with at least six strong ones making up two fifths of it (eight paragraphs at least), or five strong cells in a row
+// Prose never has that shape; the regions are removed wherever they sit, so a chunk that holds a paragraph of report and a table keeps the paragraph.
+const CELL_PUNCT = /^[\d\s.,;:|~\-—–_*'"“”‘’()\[\]<>!?$£&®#/\\=+•■]+$/;
+const strongCell = (p) => { const t = p.trim(); return t.length <= 4 || (t.length <= 120 && CELL_PUNCT.test(t)); };
+const labelCell = (p) => { const t = p.trim(); return t.length <= 40 && (t.match(/\S+/g) || []).length <= 6; };
+export function tableRegions(paras) {
+  const out = [];
+  let i = 0;
+  while (i < paras.length) {
+    if (!(strongCell(paras[i]) || labelCell(paras[i]))) { i++; continue; }
+    let j = i, strong = 0, run = 0, maxRun = 0;
+    while (j < paras.length && (strongCell(paras[j]) || labelCell(paras[j]))) { if (strongCell(paras[j])) { strong++; run++; maxRun = Math.max(maxRun, run); } else run = 0; j++; }
+    const len = j - i;
+    if ((len >= 8 && strong >= 6 && strong / len >= 0.4) || maxRun >= 5) out.push([i, j]);
+    i = j;
+  }
+  return out;
+}
+// Two measures of what is left of a chunk once its table is taken out:
+//   textWords       words in paragraphs of eight tokens or more that are mostly letters: anything a reader could read as text (prose, a footnote, a title, a list of officers killed with their units).
+//                   It decides whether a chunk is DROPPED: a chunk with a paragraph of text in it is never discarded.
+//   narrativeWords  the part of that which is report prose: at least three fifths of its tokens are lower-case words (the, of, and, was, regiment, ...). A table title, a row of unit names or a list of
+//                   places is mostly capitals, digits and abbreviations ("Return of Casualties in the Union forces at Upperville, Va., June"; "Maj. Gen. Henry W. Slocum.* Brig. Gen. Alpheus S. Williams.").
+//                   Reported, and used to count low-value passages that were kept; a verb list was tried for this first and it missed "performed", "mention", "skirmishing".
+const LOWER_WORD = /^[(["'“‘]*[a-z]{2,}[.,;:!?)"'”’\]*]*$/;
+const paraWords = (paras, ratioOf, minRatio) => {
+  let n = 0;
+  for (const p of paras) {
+    const toks = p.trim().match(/\S+/g) || [];
+    if (toks.length < 8 || CELL_PUNCT.test(p.trim())) continue;
+    if (toks.filter(ratioOf).length / toks.length >= minRatio) n += toks.length;
+  }
+  return n;
+};
+// the titles the Official Records print above a table are not text for this purpose ("No. 15.", "General Return of Casualties in the Union forces ...", "[Compiled from nominal list ...]", "Abstract from returns ...")
+const TABLE_TITLE = /^(?:No\.\s*\d+\.?$|\[?\s*Compiled\b|(?:General |Consolidated )?(?:Return|Abstract|Recapitulation)\b|.{0,80}\bContinued\.?$)/i;
+export const textWords = (paras) => paraWords(paras.filter((p) => !TABLE_TITLE.test(p.trim())), (t) => /[A-Za-z]{2,}/.test(t), 0.6);
+export const narrativeWords = (paras) => paraWords(paras, (t) => LOWER_WORD.test(t), 0.6);
+/** text without its table regions: { text, removed (paragraphs), regions, narrative (words left) } */
+export function stripTableCells(text) {
+  const paras = String(text).split(/\n{2,}/).map((x) => x.trim()).filter(Boolean);
+  const regions = tableRegions(paras);
+  if (!regions.length) return { text: paras.join('\n\n'), removed: 0, regions: 0, narrative: narrativeWords(paras), text_words: textWords(paras) };
+  const gone = new Set(); for (const [a, b] of regions) for (let k = a; k < b; k++) gone.add(k);
+  const kept = paras.filter((_, k) => !gone.has(k));
+  return { text: kept.join('\n\n'), removed: gone.size, regions: regions.length, narrative: narrativeWords(kept), text_words: textWords(kept) };
+}
+/**
+ * A chunk is table debris when it holds a table and what is left once the table is taken out is not worth keeping: fewer than `minText` words of text, or fewer than `minText` words of report prose
+ * together with less than `listText` words of text (a table title, a row of unit names). A chunk with a paragraph of report prose, or with a real list of names (officers killed, with their units), is cleaned, never dropped.
+ */
+export function isTableDebris(text, { minText = 15, listText = 40 } = {}) {
+  const r = stripTableCells(text);
+  return r.regions > 0 && (r.text_words < minText || (r.narrative < minText && r.text_words < listText));
 }
 
 export function ingestOr27(raw, { repair = true } = {}) {
@@ -392,13 +457,22 @@ export function ingestOr27(raw, { repair = true } = {}) {
   const chunked = seg.docs.flatMap((d) => chunkDocument(d, { pageAt }));
   // an OCR'd table comes out as hundreds of one-cell paragraphs ("B", "0)", "a", "57", ...): worthless as a quotable passage, so it is dropped and counted (never silently)
   const debris = chunked.filter((p) => isTableDebris(p.text));
-  const seqOf = new Map(); const passages = chunked.filter((p) => !debris.includes(p)).map((p) => { const k = seqOf.get(p.doc_id) || 0; seqOf.set(p.doc_id, k + 1); return { ...p, seq: k }; });
+  // a chunk that holds a table AND prose keeps the prose: the cells are taken out, the sentence offsets and the id (a hash of the text) are recomputed
+  let cleanedChunks = 0, cellParas = 0;
+  const cleaned = chunked.filter((p) => !debris.includes(p)).map((p) => {
+    const r = stripTableCells(p.text);
+    if (!r.regions) return p;
+    cleanedChunks++; cellParas += r.removed;
+    const sb = splitSentences(r.text).map((x) => x.s);
+    return { ...p, id: `${p.doc_id}#${sha8(r.text)}`, text: r.text, sb: sb.length ? sb : [0], words: words(r.text) };
+  });
+  const seqOf = new Map(); const passages = cleaned.map((p) => { const k = seqOf.get(p.doc_id) || 0; seqOf.set(p.doc_id, k + 1); return { ...p, seq: k }; });
   const bad = (x) => !Number.isFinite(x);
   const report = {
     chars_in: raw.length, chars_out: norm.text.length, edits: norm.edits.length, edit_kinds: norm.edits.reduce((m, e) => { m[e.why] = (m[e.why] || 0) + 1; return m; }, {}),
-    page_marks: norm.pages.length, page_marks_inferred: norm.pages_inferred, running_heads_left: countRunningHeads(norm.text), toc_entries: toc.length, toc_range: toc.length ? [toc[0].no, toc[toc.length - 1].no] : null, docs: seg.docs.length,
+    page_marks: norm.pages.length, page_marks_inferred: norm.pages_inferred, running_heads_left: countRunningHeads(norm.text), running_heads_left_passages: passages.filter((p) => countRunningHeads(p.text) > 0).length, toc_entries: toc.length, toc_range: toc.length ? [toc[0].no, toc[toc.length - 1].no] : null, docs: seg.docs.length,
     doc_range: seg.docs.length ? [seg.docs[0].no, seg.docs[seg.docs.length - 1].no] : null, number_fixes: seg.fixes, recovered_from_toc: seg.docs.filter((d) => d.recovered).map((d) => d.no),
-    docs_with_pages: seg.docs.filter((d) => d.pages.start !== null).length, passages: passages.length, table_debris_dropped: debris.map((p) => p.id), passage_words: { mean: passages.length ? Math.round(passages.reduce((a, p) => a + p.words, 0) / passages.length) : 0 },
+    docs_with_pages: seg.docs.filter((d) => d.pages.start !== null).length, passages: passages.length, table_debris_dropped: debris.map((p) => p.id), table_debris_text_words: debris.reduce((a, p) => a + stripTableCells(p.text).text_words, 0), low_value_kept: passages.filter((p) => narrativeWords(p.text.split(/\n{2,}/)) < 15).length, table_chunks_cleaned: cleanedChunks, table_paragraphs_removed: cellParas, passage_words: { mean: passages.length ? Math.round(passages.reduce((a, p) => a + p.words, 0) / passages.length) : 0 },
     confidence: seg.docs.reduce((m, d) => { m[d.confidence] = (m[d.confidence] || 0) + 1; return m; }, {}),
     missing_detail: missingDetail(seg.docs, toc),
     docs_missing_from_run: (() => { if (!seg.docs.length) return []; const have = new Set(seg.docs.map((d) => d.no)); const miss = []; for (let n = seg.docs[0].no; n <= seg.docs[seg.docs.length - 1].no; n++) if (!have.has(n)) miss.push(n); return miss; })(),

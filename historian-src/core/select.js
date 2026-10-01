@@ -24,6 +24,13 @@ const SPEECH = new Set(['said', 'say', 'says', 'told', 'tell', 'telling', 'cried
 /** a stated length of time: "seven hours", "for three hours", "20 minutes", "all day" (used by "how long / how many hours" questions) */
 export const DURATION_RE = /\b(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|half|several)(?:\s+and\s+a\s+half)?[ -](?:hours?|minutes?|days?)\b|\ball day\b|\bhours? of\b/i;
 
+/** does this quote have the named person as its speaker (his name, then a speech verb within a few words, or the verb then his name)? true when the question names no speaker */
+export function speakerSatisfied(text, ctx) {
+  if (ctx.speakerRes && ctx.speakerRes.length) return ctx.speakerRes.some((re) => re.test(text));
+  if (ctx.speakerStems && ctx.speakerStems.size) { const toks = tokenize(text, { keepStop: false }).map(stem); const k = toks.findIndex((x) => ctx.speakerStems.has(x)); return k >= 0 && toks.slice(Math.max(0, k - 3), k + 9).some((x) => SPEECH.has(x)); }
+  return true;
+}
+
 export function sentencesOfPassage(p) {
   const b = p.sb && p.sb.length ? p.sb : [0];
   return b.map((s, i) => ({ s, e: i + 1 < b.length ? b[i + 1] : p.text.length })).map((x) => {
@@ -66,7 +73,8 @@ export function bestWindow(kb, p, ctx, { maxWords = 90, maxSents = 3, plain = fa
   // context before it is not: the sentences before are about someone else)
   const speakerMode = !!(ctx.speakerRes && ctx.speakerRes.length) && info.some((x) => x.spk);
   for (let i = 0; i < info.length; i++) {
-    if (speakerMode && !info[i].spk) continue;
+    // a speaker's window starts on his sentence, or on the sentence of speech right before a bare attribution ("... ?" Bigelow asked.), which is the words themselves
+    if (speakerMode && !info[i].spk && !(info[i + 1] && info[i + 1].spk && info[i + 1].words < 5)) continue;
     let words = 0, sc = 0, clk = false, caps = true;
     for (let j = i; j < Math.min(info.length, i + maxSents); j++) {
       words += info[j].words; if (words > maxWords && j > i) break;
@@ -97,6 +105,7 @@ export function selectQuotes(kb, ranked, ctx, { max = 2, skip = new Set(), minSc
     if (!sameRec && seenRec.has(p.rec)) continue;
     const w = x.w !== undefined ? x.w : bestWindow(kb, p, ctx, { maxWords, maxSents, plain });
     if (!w || w.score < minScore) continue;
+    if (w.words < 5) continue;                                              // "Hancock said." is an attribution, not a quotation
     // later quotes must be at least 35% as relevant as the first (no filler)
     if (first !== null && w.score < 0.35 * first) continue;
     if (first === null) first = w.score;

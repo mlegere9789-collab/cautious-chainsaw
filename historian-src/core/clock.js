@@ -3,6 +3,8 @@
 //
 // Minutes are counted from 1863-07-01T00:00 local mean time, like the time model: July d, hh:mm = (d - 1) * 1440 + hh * 60 + mm.
 
+import { stripInvisible } from './text.js';
+
 export const DAY = 1440;
 
 const WORD_DAY = { one: 1, two: 2, three: 3, first: 1, second: 2, third: 3 };
@@ -109,53 +111,117 @@ export function phaseWindow(word, solar) {
 }
 
 const MER = '(a\\.?\\s?m|p\\.?\\s?m)\\b\\.?';
+const SPELL = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12 };
+const SPELLW = Object.keys(SPELL).join('|');
 const CLOCK_RES = {
-  range: new RegExp(`\\b(?:between|from)\\s+(\\d{1,2})(?:[:.](\\d{2}))?\\s*(?:${MER})?\\s*(?:and|to|-|\\u2013|until)\\s+(\\d{1,2})(?:[:.](\\d{2}))?\\s*${MER}`, 'i'),
-  meridiem: new RegExp(`\\b(\\d{1,2})(?:[:.](\\d{2}))?\\s*${MER}`, 'i'),
+  range: new RegExp('\\b(?:between|from)\\s+(\\d{1,2})(?:[:.](\\d{2}))?\\s*(?:' + MER + ')?\\s*(?:and|to|-|–|until)\\s+(\\d{1,2})(?:[:.](\\d{2}))?\\s*' + MER, 'i'),
+  meridiem: new RegExp('(?<![\\d:.])(\\d{1,2})(?:[:.](\\d{2}))?\\s*' + MER, 'i'),
   h24: /\b([01]\d|2[0-3])([0-5]\d)\s*(?:hours?|hrs?)\b/i,
-  colon: /\b(\d{1,2}):([0-5]\d)\b(?!\s*(?:a\.?\s?m|p\.?\s?m))/i,
-  oclock: /\b(\d{1,2})\s*o['’]?\s?clock\b/i,
-  inThe: /\b(\d{1,2})(?:[:.](\d{2}))?\s+(?:o['’]?\s?clock\s+)?(?:in the|at)\s+(morning|afternoon|evening|night)\b/i,
+  colon: /(?<![\d:.])(\d{1,2}):(\d{2})\b(?!\s*(?:a\.?\s?m|p\.?\s?m))/i,
+  oclock: /(?<![\d:.])(\d{1,2})\s*o['’]?\s?clock\b/i,
+  inThe: /(?<![\d:.])(\d{1,2})(?:[:.](\d{2}))?\s+(?:o['’]?\s?clock\s+)?(?:in the|at)\s+(morning|afternoon|evening|night)\b/i,
 };
 const PHASE_RE = /\b(?:(early|late)\s+)?(morning|forenoon|afternoon|evening|night|dawn|daybreak|sunrise|first light|dusk|sundown|sunset|twilight|nightfall)\b/i;
 const PHASE_CANON = { forenoon: 'morning', daybreak: 'dawn', sunrise: 'dawn', 'first light': 'dawn', sundown: 'dusk', sunset: 'dusk', twilight: 'dusk', nightfall: 'dusk' };
 
+// "at 3", "around 5", "by 4": a bare hour counts as a clock only right after one of these, and not when a unit or an ordinal follows ("at 3 corps", "by 4th")
+const TIME_PREP = '(?:at|around|about|by|before|after|until|till|since|near|towards?|approximately|roughly)';
+const UNIT_AFTER = /^\s*(?:st\b|nd\b|rd\b|th\b|men\b|soldiers?\b|troops\b|miles?\b|guns?\b|cannons?\b|regiments?\b|brigades?\b|divisions?\b|corps\b|batter|casualt|killed|wounded|dead\b|days?\b|hours?\b|minutes?\b|feet\b|foot\b|yards?\b|rounds?\b|prisoners?\b|horses\b|companies\b|%|percent\b|years?\b|of\b|to\s+\d|-\s*\d)/i;
+// words that may follow "noon" / "midnight" when it is a time and not part of a name ("noon on July 2", "noon that day"); any other word makes it a modifier ("the noon lull")
+const NEXT_OK = /^(?:on|of|in|at|and|or|to|the|a|an|that|this|these|those|july|jul|day|for|with|during|by|from|until|till|when|what|who|whom|how|why|did|does|do|was|were|is|are|had|has|have|last|lasted|lasts|begin|began|start|started|end|ended|ends|through|throughout|between|around|about|near|into|onto|after|before|since|as|if|while|which|where|i|we|you|it|they|he|she|lee|meade|today|yesterday|tomorrow)$/i;
+const PREP_BEFORE = /\b(?:at|around|about|by|near|until|till|before|after|since|toward|towards|from|between|past|approximately)\s*$/i;
+const TIME_PRE = '(?:at|around|about|by|near|until|till|before|after|since)';
+
+/** "half past three", "quarter to four", "ten past two", "three o'clock", "four pm", "three thirty in the afternoon" -> digit forms the readers below understand */
+function spelledClock(t) {
+  const H = '(' + SPELLW + '|\\d{1,2})', hv = (x) => (/^\d/.test(x) ? +x : SPELL[x.toLowerCase()]);
+  const spell = (m, w, dir, h) => {
+    const key = w.toLowerCase().replace(/[- ]five$/, '');
+    const mins = { half: 30, quarter: 15, ten: 10, five: 5, twenty: 20 }[key] + (/^twenty[- ]five$/i.test(w) ? 5 : 0);
+    if (/^(?:to|before)$/i.test(dir)) { if (/^half$/i.test(w)) return m; const hh = hv(h) - 1; return (hh < 1 ? 12 : hh) + ':' + String(60 - mins).padStart(2, '0'); }
+    return hv(h) + ':' + String(mins).padStart(2, '0');
+  };
+  let s = t;
+  // "half past three" and "quarter to four" are times wherever they stand; "ten to two" / "five past three" only after a time word ("outnumbered five to one" is a ratio)
+  s = s.replace(new RegExp('\\b(half|quarter)\\s+(past|after|to|before)\\s+' + H + '\\b', 'gi'), spell);
+  s = s.replace(new RegExp('\\b(ten|five|twenty|twenty[- ]five)\\s+(past|after|to|before)\\s+' + H + '\\b', 'gi'), (m, w, dir, h, off, str) => (new RegExp('\\b' + TIME_PRE + '\\s$', 'i').test(str.slice(0, off)) || /^\s*(?:a\.?\s?m|p\.?\s?m|in the|o['’]?\s?clock)/i.test(str.slice(off + m.length)) ? spell(m, w, dir, h) : m));
+  s = s.replace(new RegExp('\\b' + H + '\\s+(fifteen|thirty|forty[- ]five)\\b(?=\\s*(?:a\\.?\\s?m|p\\.?\\s?m|in the|at night|o))', 'gi'), (m, h, mm) => hv(h) + ':' + ({ fifteen: '15', thirty: '30' }[mm.toLowerCase()] || '45'));
+  s = s.replace(new RegExp('\\b(' + SPELLW + ')\\b(?=\\s*(?:o[\'’]?\\s?clock|a\\.?\\s?m\\b|p\\.?\\s?m\\b|in the (?:morning|afternoon|evening)|at night))', 'gi'), (m, h) => String(SPELL[h.toLowerCase()]));
+  return s;
+}
+
+/** a time that cannot exist ("13pm", "25:00", "15:75", "0 pm"): named so the caller can say so instead of answering as if no time had been asked */
+function invalidClock(t) {
+  let m;
+  if ((m = t.match(new RegExp('(?<![\\d:.])(\\d{1,2})(?:[:.](\\d{2}))?\\s*' + MER, 'i'))) && (+m[1] < 1 || +m[1] > 12 || (m[2] !== undefined && +m[2] > 59))) return m[0].trim();
+  if ((m = t.match(/(?<![\d:.])(\d{1,2}):(\d{2})\b/)) && (+m[1] > 23 || +m[2] > 59)) return m[0];
+  if ((m = t.match(/(?<![\d:.])(\d{1,2})\s*o['’]?\s?clock\b/i)) && (+m[1] < 1 || +m[1] > 12)) return m[0];
+  return null;
+}
+
 /**
  * Read the clock of day out of a question. Returns null when the question names no clock time and no part of the day.
- *   { kind: 'point', mod }                     a clock time ("3pm", "15:00", "noon", "midnight")
- *   { kind: 'window', from, to, phase? }       a stretch of the day ("the morning", "between 2 and 4 pm")
- *   { ambiguous: 'meridiem', hour }            "3 o'clock" / "3:30" with no am / pm and no part of the day: the caller asks which
- * plus { date: <July date or null>, text: <what matched> }. A part of the day next to a clock ("3 in the afternoon") settles the meridiem.
+ *   { kind: 'point', mod }                     a clock time ("3pm", "15:00", "noon", "midnight", "0300")
+ *   { kind: 'window', from, to, phase? }       a stretch of the day ("the morning", "between 2 and 4 pm"); with rel 'before' | 'after' the stretch of the day before / after a time ("before 4 pm", "after noon")
+ *   { ambiguous: 'meridiem', hour }            "3 o'clock" / "3:30" / "at 3" with no am / pm and no part of the day: the caller asks which
+ *   { invalid: true }                          a time that cannot exist ("13pm", "25:00")
+ * plus { date: <July date or null>, text: <what matched>, norm: <the question with spelled-out clocks written as digits> }. A part of the day next to a clock ("3 in the afternoon") settles the meridiem.
  */
 export function parseClock(text, { solar = null } = {}) {
-  const t = String(text || '').replace(/[‘’]/g, "'");
+  const t = spelledClock(stripInvisible(String(text || '')).replace(/[‘’]/g, "'"));
   const date = julyDate(t);
   const pm = t.match(PHASE_RE);
   const phase = pm ? ((pm[1] ? pm[1].toLowerCase() + ' ' : '') + (PHASE_CANON[pm[2].toLowerCase()] || pm[2].toLowerCase())) : null;
   const phaseMer = phase ? (/morning|dawn/.test(phase) ? 'a' : /afternoon|evening|dusk|night/.test(phase) ? 'p' : null) : null;
-  const res = (o) => ({ date, ...o });
+  const res = (o) => ({ date, norm: t, ...o });
+  // "before 4 pm" / "by 4 pm" / "until 4" ask for what had happened up to that time; "after" / "since" for what followed: a stretch of the day, never the moment itself
+  const relOf = (idx) => {
+    const before = t.slice(0, idx);
+    if (/\b(?:before|prior to|earlier than|by|until|till|up to|ahead of|through)\s*(?:about|around|roughly|approximately)?\s*$/i.test(before)) return 'before';
+    if (/\b(?:after|since|following|later than|past)\s*(?:about|around|roughly|approximately)?\s*$/i.test(before)) return 'after';
+    return null;
+  };
+  const span = (mod, rel, txt, extra = {}) => (rel === 'before' ? res({ kind: 'window', from: 0, to: mod, rel, at: mod, text: txt, ...extra }) : rel === 'after' ? res({ kind: 'window', from: mod, to: DAY, rel, at: mod, text: txt, ...extra }) : res({ kind: 'point', mod, text: txt, ...extra }));
+  const point = (mod, m, extra = {}) => span(mod, relOf(m.index), m[0], extra);
+  const prepRel = (p) => (/^(?:before|by|until|till)$/i.test(p) ? 'before' : /^(?:after|since)$/i.test(p) ? 'after' : null);
   let m;
   if ((m = t.match(CLOCK_RES.range))) {
     const mer2 = m[6].replace(/[.\s]/g, '')[0].toLowerCase(); let mer1 = m[3] ? m[3].replace(/[.\s]/g, '')[0].toLowerCase() : mer2;
-    const h1 = +m[1], h2 = +m[4]; const a = to24(h1, mer1) * 60 + (+m[2] || 0), b = to24(h2, mer2) * 60 + (+m[5] || 0);
-    if (!m[3] && a > b) mer1 = mer2 === 'p' ? 'a' : 'p';
-    const from = to24(h1, mer1) * 60 + (+m[2] || 0);
-    if (from < b) return res({ kind: 'window', from, to: b, text: m[0] });
+    const h1 = +m[1], h2 = +m[4];
+    if (h1 >= 1 && h1 <= 12 && h2 >= 1 && h2 <= 12) {
+      const a = to24(h1, mer1) * 60 + (+m[2] || 0), b = to24(h2, mer2) * 60 + (+m[5] || 0);
+      if (!m[3] && a > b) mer1 = mer2 === 'p' ? 'a' : 'p';
+      const from = to24(h1, mer1) * 60 + (+m[2] || 0);
+      if (from < b) return res({ kind: 'window', from, to: b, text: m[0] });
+    }
   }
+  const bad = invalidClock(t); if (bad) return res({ invalid: true, text: bad });
   if ((m = t.match(CLOCK_RES.meridiem))) {
-    const h = +m[1]; if (h >= 1 && h <= 12) return res({ kind: 'point', mod: to24(h, m[3].replace(/[.\s]/g, '')[0].toLowerCase()) * 60 + (+m[2] || 0), text: m[0] });
+    const h = +m[1]; if (h >= 1 && h <= 12) return point(to24(h, m[3].replace(/[.\s]/g, '')[0].toLowerCase()) * 60 + (+m[2] || 0), m);
   }
-  if ((m = t.match(CLOCK_RES.h24))) return res({ kind: 'point', mod: +m[1] * 60 + +m[2], text: m[0] });
-  if ((m = t.match(CLOCK_RES.inThe)) && +m[1] >= 1 && +m[1] <= 12) return res({ kind: 'point', mod: to24(+m[1], /morning/i.test(m[3]) || (/night/i.test(m[3]) && (+m[1] <= 4 || +m[1] === 12)) ? 'a' : 'p') * 60 + (+m[2] || 0), text: m[0] });
-  if (/\b(?:high )?noon\b|\bmidday\b/i.test(t)) return res({ kind: 'point', mod: 720, text: 'noon' });
-  if (/\bmidnight\b/i.test(t)) return res({ kind: 'point', mod: DAY, text: 'midnight' });
+  if ((m = t.match(CLOCK_RES.h24))) return point(+m[1] * 60 + +m[2], m);
+  // a military time written without "hours": "at 0300", "around 1500" (a year such as 1863 is not one: its minutes are over 59)
+  if ((m = t.match(new RegExp('\\b(' + TIME_PREP + ')\\s+([01]\\d|2[0-3])([0-5]\\d)\\b(?!\\s*[-\\d,])', 'i'))) && !UNIT_AFTER.test(t.slice(m.index + m[0].length))) return span(+m[2] * 60 + +m[3], prepRel(m[1]), m[2] + m[3]);
+  if ((m = t.match(CLOCK_RES.inThe)) && +m[1] >= 1 && +m[1] <= 12) return point(to24(+m[1], /morning/i.test(m[3]) || (/night/i.test(m[3]) && (+m[1] <= 4 || +m[1] === 12)) ? 'a' : 'p') * 60 + (+m[2] || 0), m);
+  // "noon" / "midnight" as a time ("at noon", "noon on July 2"), not as part of a name ("the noon lull", "the midnight council")
+  const mk = /\b(?:(?:high )?noon|midday|midnight)\b/i.exec(t);
+  if (mk) {
+    const after = t.slice(mk.index + mk[0].length), nw = /^\s*([A-Za-z][A-Za-z'-]*)/.exec(after), sep = /^\s*[,.;?!]/.test(after);
+    if (PREP_BEFORE.test(t.slice(0, mk.index)) || !nw || sep || NEXT_OK.test(nw[1])) { const mid = /midnight/i.test(mk[0]); return span(mid ? DAY : 720, relOf(mk.index), mid ? 'midnight' : 'noon'); }
+  }
   if ((m = t.match(CLOCK_RES.colon)) || (m = t.match(CLOCK_RES.oclock))) {
     const h = +m[1], mi = +(m[2] || 0);
-    if (m[2] !== undefined && h >= 13 && h <= 23) return res({ kind: 'point', mod: h * 60 + mi, text: m[0] });
+    if (m[2] !== undefined && h >= 13 && h <= 23) return point(h * 60 + mi, m);
     if (h >= 1 && h <= 12) {
-      if (phaseMer) return res({ kind: 'point', mod: to24(h, phaseMer) * 60 + mi, text: m[0] });
-      return res({ ambiguous: 'meridiem', hour: h, minute: mi, text: m[0] });
+      if (phaseMer) return point(to24(h, phaseMer) * 60 + mi, m);
+      return res({ ambiguous: 'meridiem', hour: h, minute: mi, text: m[0], rel: relOf(m.index) });
     }
+  }
+  // "at 3", "around 5", "by 4": a bare hour right after a time word. It is asked about (am or pm), not guessed.
+  if ((m = t.match(new RegExp('\\b(' + TIME_PREP + ')\\s+(\\d{1,2})\\b(?![:.]\\d)', 'i'))) && +m[2] >= 1 && +m[2] <= 12 && !UNIT_AFTER.test(t.slice(m.index + m[0].length))) {
+    const h = +m[2];
+    if (phaseMer) return span(to24(h, phaseMer) * 60, prepRel(m[1]), m[2]);
+    return res({ ambiguous: 'meridiem', hour: h, minute: 0, text: m[0], rel: prepRel(m[1]) });
   }
   if (phase) { const w = phaseWindow(phase, solar); if (w) return res({ kind: 'window', from: w[0], to: w[1], phase, text: pm[0] }); }
   return null;

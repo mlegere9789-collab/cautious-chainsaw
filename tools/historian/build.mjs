@@ -18,6 +18,7 @@ import { Emitter, writeManifest, brotliSize, stable } from './lib/emit.mjs';
 import { validate } from './lib/validate.mjs';
 import { loadSources } from './lib/sources.mjs';
 import { buildClock } from './lib/clock.mjs';
+import { loadEnglish } from './lib/english.mjs';
 import { fieldCoverage, coverageBaselineDoc } from './lib/coverage.mjs';
 import { prepareT1 } from '../../historian-src/core/entities.js';
 import { createLinker } from '../../historian-src/core/linker.js';
@@ -53,7 +54,7 @@ export function build({ dataDir = path.join(root, 'legacy/dist/data'), distDir =
   const { buckets: ixBuckets, lexicon } = buildPostings(P);
   const enBuckets = buildEntityPostings(P);
   const clock = buildClock(site);                                        // the canonical time model's clock for every chronology event (a proposal: see lib/clock.mjs)
-  const facts = buildFacts(site, reg, scopeCfg, { clock });
+  const facts = buildFacts(site, reg, scopeCfg, { clock, english: loadEnglish(path.join(here, 'data')) });
 
   // ---- emit (in memory first, to size and validate) ------------------------------------------------------------------------------------------------
   const em = new Emitter(outDir);

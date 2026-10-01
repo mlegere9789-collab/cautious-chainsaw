@@ -8,10 +8,12 @@ import { classify, INTENT_WORDS, sideHint } from './intent.js';
 import { scoreCards, dfOf } from './entities.js';
 import { STATES, STATE_ABBR, stateAt } from './units.js';
 import * as C from './compose.js';
-import { selectQuotes, DURATION_RE, speakerPatterns } from './select.js';
+import { selectQuotes, DURATION_RE, speakerPatterns, speakerSatisfied } from './select.js';
 import { renderText, SIDE_NAME, personLabel, withThe } from './format.js';
 import { lintAnswer } from './lint.js';
 import { makeChips } from './chips.js';
+import { createEnglish } from './english.js';
+import { createUnknowns } from './unknowns.js';
 import { W } from './linker.js';
 import { parseClock, julyDate, hm12, readDays } from './clock.js';
 import { clockAnswer, whenLine, eventSummary } from './atime.js';
@@ -35,6 +37,8 @@ export function createEngine(kb, opts = {}) {
   const { idx, facts, entix } = kb;
   const R = idx.R;
   const DOMAIN = new Set(facts.domain || []);
+  const unknownRules = createUnknowns(kb);                                    // known unknowns read by concept: weather, an individual soldier, a roster, what someone thought
+  const english = createEnglish(facts.english || '');                    // ordinary English words: never "corrected" into a name
   const STRONG_DOMAIN = new Set(['gettysburg', 'battle', 'battlefield', 'regiment', 'regiments', 'brigade', 'brigades', 'division', 'divisions', 'corps', 'army', 'cavalry', 'artillery', 'battery', 'infantry',
     'commander', 'commanded', 'general', 'colonel', 'confederate', 'confederates', 'union', 'federal', 'cannonade', 'vignette', 'regimental', 'soldier', 'soldiers', 'casualties', 'ridge', 'hill', 'pickett', 'lee', 'meade', 'longstreet']);
   const H = C.helpers(kb);
@@ -103,10 +107,18 @@ export function createEngine(kb, opts = {}) {
         if (best && !best.tie) break;
       }
       if (!best || best.tie) continue;
-      notes.push({ from: out.slice(j, j + best.len).join(' '), to: best.S, kind: 'fuzzy' });
+      notes.push({ from: out.slice(j, j + best.len).join(' '), to: best.S, kind: 'fuzzy', sure: true });            // a state name right after a regiment number: the number is the evidence
       out.splice(j, best.len, ...best.S.split(' '));
     }
     return out;
+  }
+
+  // the engine's own vocabulary: a repair toward one of these words is a repair toward something the engine understands without an entity (Gettysburg, brigade, casualties, Maine)
+  const OWN_STEMS = new Set([...DOMAIN, ...INTENT_WORDS, ...FILLERS, ...STATES.flatMap((s) => s.split(' '))].map((w) => stem(String(w))));
+  /** repairs (fuzzy / join / split) that no mention covers and that do not land on the engine's own vocabulary: they are taken back */
+  function unconfirmedRepairs(S, mentions) {
+    const spans = mentions.filter((m) => m.kind !== 'unit-miss' && m.start >= 0).map((m) => [m.start, m.end]);
+    return S.notes.filter((n) => n.at !== undefined && !n.sure && !(n.target && OWN_STEMS.has(n.target)) && !spans.some(([a, b]) => n.at < b && n.at + n.len > a));
   }
 
   function repair(rawTokens) {
@@ -115,14 +127,16 @@ export function createEngine(kb, opts = {}) {
     for (let i = 0; i < tokens.length; i++) {
       const t = tokens[i];
       if (known(t)) { out.push(t); continue; }
+      // a correctly spelled English word that the site's own words do not contain is left exactly as typed (the repair is for misspelled NAMES) and still counts as unknown for the scope decisions
+      if (english.has(t)) { out.push(t); unknown.push(t); continue; }
       // join with the next token ("wheat field" -> wheatfield)
       const nx = tokens[i + 1];
-      if (nx && (kb.lex.has(stem(t + nx)) || idx.nameVocab.has(stem(t + nx)))) { out.push(t + nx); notes.push({ from: `${t} ${nx}`, to: t + nx, kind: 'join' }); i++; continue; }
+      if (nx && (kb.lex.has(stem(t + nx)) || idx.nameVocab.has(stem(t + nx)))) { out.push(t + nx); notes.push({ from: `${t} ${nx}`, to: t + nx, kind: 'join', at: out.length - 1, len: 1, orig: [t, nx], target: stem(t + nx) }); i++; continue; }
       // split ("roundtop" -> round top)
       let done = false;
       for (let k = 3; k <= t.length - 3 && !done; k++) {
         const a = t.slice(0, k), b = t.slice(k);
-        if ((kb.lex.has(stem(a)) || idx.nameVocab.has(stem(a))) && (kb.lex.has(stem(b)) || idx.nameVocab.has(stem(b)))) { out.push(a, b); notes.push({ from: t, to: `${a} ${b}`, kind: 'split' }); done = true; }
+        if ((kb.lex.has(stem(a)) || idx.nameVocab.has(stem(a))) && (kb.lex.has(stem(b)) || idx.nameVocab.has(stem(b)))) { out.push(a, b); notes.push({ from: t, to: `${a} ${b}`, kind: 'split', at: out.length - 2, len: 2, orig: [t], target: null }); done = true; }
       }
       if (done) continue;
       // fuzzy against names
@@ -145,7 +159,7 @@ export function createEngine(kb, opts = {}) {
         }
       }
       if (!best && t.length >= 4 && t.length <= 5) { const sb = shortNameRepair(t); if (sb) best = { v: sb.v, w: sb.w }; }
-      if (best) { out.push(best.v); notes.push({ from: t, to: best.w || surfaceOf(best.v), kind: 'fuzzy' }); }
+      if (best) { out.push(best.v); notes.push({ from: t, to: best.w || surfaceOf(best.v), kind: 'fuzzy', at: out.length - 1, len: 1, orig: [t], target: best.v }); }
       else { out.push(t); unknown.push(t); }
     }
     return { tokens: out, notes, unknown };
@@ -591,7 +605,15 @@ export function createEngine(kb, opts = {}) {
     S.caps = new Set([...text.matchAll(/\b[A-Z][A-Za-z']*/g)].map((m) => stem(m[0].toLowerCase().replace(/'s$/, ''))));
     // a capitalised word that was repaired ("Mller" -> Miller) is still a capitalised word: the surname that is also an everyday word links on it
     for (const n of S.notes) if (n.kind === 'fuzzy' && S.caps.has(stem(n.from))) for (const w of tokenize(n.to)) S.caps.add(stem(w));
-    const lk = kb.link(S.tokens, { side: S.side, caps: S.caps });
+    let lk = kb.link(S.tokens, { side: S.side, caps: S.caps });
+    // A correction is kept only when it earns its place: the corrected word becomes part of an entity the question is about, or it is one of the engine's own vocabulary words (Gettysburg,
+    // brigade, casualties, a state). A word that was "repaired" into something that links nothing ("alley" -> "Allen", "carriages" -> "carri ages") goes back to what the reader typed.
+    const undone = unconfirmedRepairs(S, lk.mentions);
+    if (undone.length) {
+      for (const n of undone.slice().sort((a, b) => b.at - a.at)) { S.tokens.splice(n.at, n.len, ...n.orig); S.unknown.push(...n.orig); }
+      S.notes = S.notes.filter((n) => !undone.includes(n));
+      lk = kb.link(S.tokens, { side: S.side, caps: S.caps });
+    }
     S.mentions = lk.mentions;
     S.day = dayOf(text);
     if (S.day) S.mentions = S.mentions.filter((m) => !(m.kind === 'surname' && (m.phrase === 'day' || m.phrase === 'second' || m.phrase === 'third')));
@@ -617,6 +639,9 @@ export function createEngine(kb, opts = {}) {
     S.clock = kb.facts.clock ? parseClock(text, { solar: kb.facts.clock.solar }) : null;
     if (S.clock && S.clock.kind === 'window' && S.clock.phase && S.clock.date === null && !S.day) S.clock = null;   // "the evening attack at Culp's Hill": a part of the day alone is not a clock question
     if (S.clock) { S.clock.day = S.clock.date !== null ? S.clock.date : S.day || (S.ctx.onsite && S.ctx.onsite.day) || null; if (['lookup', 'what-happened', 'where', 'day-summary', 'list', 'who'].includes(S.intent)) S.intent = 'at-time'; else S.clock = null; }
+    // a known unknown read by concept (weather, an individual soldier, a roster, what someone thought): the limitation, what the records do say, and what would answer it
+    const ku = S.intent !== 'ancestor' ? unknownRules.classify(S) : null;
+    if (ku) { S.intent = 'unknown'; S.unknownId = ku.id; S.qStems = []; S.passageTerms = []; S.cardTerms = []; return finalize(S, await knownUnknownAnswer(S, ku), t0); }
     const C0 = collect(S);
     Object.assign(S, { units: C0.units, persons: C0.persons, places: C0.places, others: C0.others });
     // the site holds no casualty tally per location: any "how many died at <place>" is answered as that limitation
@@ -703,6 +728,26 @@ export function createEngine(kb, opts = {}) {
     return C.unknownAnswer(kb, S, rule, { quotes, intro: ev.intro });
   }
 
+  /** the answer to a known unknown the concept rules found: the rule's own limitation, what the records do say about the subject, and what would answer it */
+  async function knownUnknownAnswer(S, ku) {
+    const rule = (facts.unknowns || []).find((u) => u.id === ku.id);
+    if (ku.id === 'weather-at-battle') return unknownEvidenceAnswer(S, rule);
+    if (ku.id === 'individual-soldier') return C.soldierLimit(kb, S, ku.unit, 'individual-soldier');
+    if (ku.id === 'roster') return C.soldierLimit(kb, S, ku.unit, 'roster');
+    return subjectUnknown(S, rule, ku.subject);
+  }
+  /** a limitation about one named person or unit (what he thought, what he said), then what the records do say about him and one quote about him, then what would answer it */
+  async function subjectUnknown(S, rule, subj) {
+    const label = subj.k === 'person' ? personLabel(subj.attrs.rank, subj.attrs.name) : subj.label;
+    const res = C.unknownAnswer(kb, S, rule, { person: label, src: [subj.id] });
+    const basis = res.blocks.pop();
+    res.blocks.push(C.lead(['What the records do say: ', ...C.profileLead(kb, subj)], [subj.id]));
+    await addQuotes(S, res, { max: 1 });
+    res.blocks.push(basis);
+    res.src.push(...res.blocks.filter((b) => b.t === 'quote').map((b) => b.rec));
+    return res;
+  }
+
   /** the day of the battle a question names (1 to 3), or null: one reader for "July 2", "the 3rd of July", "day two", "the second day"; "July 10" and "July 1-3" are not a day */
   function dayOf(text) { const d = julyDate(text); return d >= 1 && d <= 3 ? d : null; }
 
@@ -767,7 +812,9 @@ export function createEngine(kb, opts = {}) {
       const c = S.clock;
       const ask2 = (line, chips, reason) => { const r = { mode: 'clarify', blocks: [C.lead([line], [])], src: [], limited: true }; const a = finish(S, r, { decline_reason: reason }); a.chips.follow = chips; a.shown = []; a.sources = []; return a; };
       const stem0 = S.text.replace(/[?.!\s]+$/, '');
-      if (c.ambiguous === 'meridiem') { const h = c.hour, mm = c.minute ? `:${String(c.minute).padStart(2, '0')}` : ''; return ask2(`Do you mean ${h}${mm} in the morning or in the afternoon or evening?`, [{ label: `${h}${mm} AM`, q: S.text.replace(c.text, `${h}${mm} AM`) }, { label: `${h}${mm} PM`, q: S.text.replace(c.text, `${h}${mm} PM`) }], 'clock-meridiem'); }
+      const base = c.norm || S.text, put = (x) => (base.includes(c.text) ? base.replace(c.text, x) : `${stem0} at ${x}`);
+      if (c.invalid) return ask2(`I could not read “${c.text}” as a time of day. Name an hour from 1 to 12 with AM or PM (for example “3 PM”), or a 24-hour time such as “15:00”.`, [1, 2, 3].map((d) => ({ label: `Key moments of July ${d}`, q: `What happened on July ${d}?` })), 'clock-unreadable');
+      if (c.ambiguous === 'meridiem') { const h = c.hour, mm = c.minute ? `:${String(c.minute).padStart(2, '0')}` : ''; const pre = /^(?:at|around|about|by|before|after|until|till|since|near|towards?|approximately|roughly)\s/i.exec(c.text); const lead0 = pre ? pre[0] : ''; return ask2(`Do you mean ${h}${mm} in the morning or in the afternoon or evening?`, [{ label: `${h}${mm} AM`, q: put(`${lead0}${h}${mm} AM`) }, { label: `${h}${mm} PM`, q: put(`${lead0}${h}${mm} PM`) }], 'clock-meridiem'); }
       if (c.day === null) return ask2('Which day do you mean? The battle ran from July 1 to July 3, 1863.', [1, 2, 3].map((d) => ({ label: `July ${d}`, q: `${stem0} on July ${d}` })), 'clock-day');
     }
     // bare ordinal with no state: "Tell me about the 1st"
@@ -916,7 +963,8 @@ export function createEngine(kb, opts = {}) {
     // say / tell: the named person must be the SPEAKER of the window (strict); write / shout / reply: his name near the verb is a bonus (soft)
     const speakerWords = [], speakerSoft = new Set(); { const who = S.norm.match(/\b(?:what|who)\s+(?:did|does|was)\s+(\S+(?:\s+\S+)?)\s+(say|said|tell|told|write|wrote|shout|shouted|reply|replied)\b/); if (who) for (const t of who[1].split(' ')) if (!STOP.has(t) && t.length > 2) { speakerSoft.add(stem(t)); if (/^(?:say|said|tell|told)$/.test(who[2])) speakerWords.push(t); } }
     const ctx = { qStems: new Set(S.passageTerms), entStems, timeQ: false, quoteQ: true, speakerRes: speakerPatterns(speakerWords), speakerStems: speakerSoft };
-    const quotes = selectQuotes(kb, pool, ctx, { max: 2, skip: new Set(S.ctx && S.ctx.shownPassages || []), rerank: true });
+    // a question about what a NAMED person said is answered only with words that have him as the speaker; a passage that merely mentions him is not "what he said" (the caller then says the records hold none)
+    const quotes = selectQuotes(kb, pool, ctx, { max: 4, skip: new Set(S.ctx && S.ctx.shownPassages || []), rerank: true }).filter((q) => speakerSatisfied(q.text, ctx)).slice(0, 2);
     if (!quotes.length) return null;
     S.quotes = quotes;
     return { mode: 'answer', blocks: [C.lead(['According to the site\u2019s records, this is what was said, word for word.'], []), ...quotes], src: quotes.map((q) => q.rec) };
@@ -1069,7 +1117,12 @@ export function createEngine(kb, opts = {}) {
     if (intent === 'day-range') { res = C.rangeSummary(kb, S.range || S.dayInfo.days, S.dayInfo.outside); if (res) return res; }
     if (intent === 'day-outside') { res = C.outsideDay(kb, S.dayInfo); if (res) return res; }
     if (intent === 'sequence') { res = sequenceAnswer(S); if (res) return res; }
-    if (intent === 'quote') { res = await quoteAnswer(S); if (res) return res; }
+    if (intent === 'quote') {
+      res = await quoteAnswer(S); if (res) return res;
+      // the records hold no words of his on this: said so, never a profile presented as if it answered "what did he say"
+      const who = person || (units.length === 1 ? units[0] : null); const rw = (facts.unknowns || []).find((u) => u.id === 'recorded-words');
+      if (who && rw) return subjectUnknown(S, rw, who);
+    }
     if (intent === 'where' && !S.places.length && units.length && /\b(?:fight|fought|position|posted|located|was|were|stand|stood|deployed)\b/.test(S.norm)) { const r0 = C.unitWhere(kb, S, soleUnitMention || units[0]); if (r0) { res = r0; await addQuotes(S, res, { max: 1 }); return res; } }
     if (intent === 'when' && /\bhow (?:long|many (?:hours?|minutes?|days?))\b|\bduration\b|\bhow much time\b|\bfor how long\b/.test(S.norm)) {
       // "how many hours did the July 3 fight for Culp's Hill last?": the length is stated in the site's own words (a chronology entry, a terrain note, the casualty highlights); quote the sentence that states it

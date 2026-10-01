@@ -101,9 +101,9 @@ export function clockAnswer(kb, S) {
   const picked = pool.slice().sort((a, b) => score(b) - score(a) || a.m - b.m).slice(0, limit).sort((a, b) => a.m - b.m || (a.r.id < b.r.id ? -1 : 1));
 
   const dayName = DAY_NAME[date];
-  const when = point ? `${clockWords(c.mod)} on ${dayName}`
+  const when = c.rel ? `${c.rel} ${clockWords(c.at)} on ${dayName}` : point ? `${clockWords(c.mod)} on ${dayName}`
     : c.phase === 'dawn' || c.phase === 'dusk' ? `${c.phase} on ${dayName}` : c.phase ? `the ${c.phase} of ${dayName}` : `the stretch from ${hm12(c.from)} to ${hm12(c.to)} on ${dayName}`;
-  const opener = c.phase === 'dawn' || c.phase === 'dusk' ? `At ${when}` : c.phase === 'night' ? `During ${when}` : c.phase ? `On ${when}` : `In ${when}`;
+  const opener = c.rel ? ucfirst(when) : c.phase === 'dawn' || c.phase === 'dusk' ? `At ${when}` : c.phase === 'night' ? `During ${when}` : c.phase ? `On ${when}` : `In ${when}`;
   const basis = CK.model && CK.model.signed
     ? 'Clock times come from the site’s reviewed timeline and are approximate.'
     : 'Clock times come from the site’s proposed revised timeline: they are approximate, a historian has not yet reviewed them, and sources differ on many of them.';
@@ -116,7 +116,7 @@ export function clockAnswer(kb, S) {
     if (after) bits.push(`the next is “${shortTitle(after.r)}” (${clockAt(after, date)})`);
     if (!bits.length) return null;
     const ids = [before, after].filter(Boolean).map((e) => e.r.id);
-    return { mode: 'partial', limited: true, rankOverride: ids, blocks: [lead([`The site’s chronology has no entry ${point ? 'at' : 'in'} ${when}; ${bits.join(' and ')}.`], ids), note('clock-basis', basis)], src: ids };
+    return { mode: 'partial', limited: true, rankOverride: ids, blocks: [lead([`The site’s chronology has no entry ${point ? 'at ' : c.rel ? '' : 'in '}${when}; ${bits.join(' and ')}.`], ids), note('clock-basis', basis)], src: ids };
   }
 
   const subject = focused && focusNames.length ? ` for ${focusNames.slice(0, 2).join(' and ')}${(S.units || []).length ? ` and the units above ${focusNames.length > 1 ? 'them' : 'it'}` : ''}`
@@ -124,7 +124,7 @@ export function clockAnswer(kb, S) {
   const gap = focused && point ? Math.min(...picked.map((e) => Math.abs(e.m - T))) : 0;
   const more = pool.length > picked.length || (!focused && inWindow > picked.length);
   let head;
-  if (focusMissing) head = `The site’s chronology has no entry ${point ? 'around' : 'for'} ${when} that names ${focusNames.length ? focusNames.slice(0, 2).join(' or ') : 'that place'}; here is what it records ${point ? 'around then' : 'in that stretch'}, in order:`;
+  if (focusMissing) head = `The site’s chronology has no entry ${point ? 'around ' : c.rel ? '' : 'for '}${when} that names ${focusNames.length ? focusNames.slice(0, 2).join(' or ') : 'that place'}; here is what it records ${point ? 'around then' : 'in that stretch'}, in order:`;
   else if (focused && point && gap > NEAR) head = `The site’s chronology has no entry${subject} at ${when}; the nearest ones are these, in order:`;
   else if (point) head = `Around ${when}${subject}, the site’s chronology places these events, in order:`;
   else head = `${opener}${subject}, the site’s chronology records ${more ? 'these main events' : 'these events'}, in order:`;

@@ -507,9 +507,9 @@ export function opponentsAnswer(kb, unit) {
   return { mode: 'answer', blocks, src: [...list.map((x) => x.u.id), unit.id, ...list.flatMap((x) => x.via.slice(0, 1).map((v) => v.id))] };
 }
 
-export function soldierLimit(kb, S, unit) {
-  // the limitation is the compiled known unknown "individual-soldier" (scope.v1.json), not a second copy of its wording
-  const rule = (kb.facts.unknowns || []).find((u) => u.id === 'individual-soldier');
+export function soldierLimit(kb, S, unit, ruleId = 'individual-soldier') {
+  // the limitation is the compiled known unknown (scope.v1.json: "individual-soldier", "roster"), not a second copy of its wording
+  const rule = (kb.facts.unknowns || []).find((u) => u.id === ruleId);
   const blocks = [lead([`${rule ? rule.text : 'I cannot tell whether a specific soldier was at Gettysburg: the site holds regiments, not individual muster rolls.'} For a soldier’s name, search the National Park Service Soldiers and Sailors Database, or use `, { ent: 'SITE:find-ancestor', txt: 'Find Your Ancestor' }, ' to look up a regiment.'], ['SITE:find-ancestor'])];
   const src = ['SITE:find-ancestor'];
   if (unit) { blocks.push(lead(['What the records do have is the regiment: ', ...profileLead(kb, unit)], [unit.id])); src.push(unit.id); }
@@ -705,8 +705,8 @@ export function sharedNameList(kb, focus, ids) {
  * A known unknown (facts.unknowns, compiled from tools/historian/data/scope.v1.json): the limitation in the rule's own words, what the site's own text does say about it (verbatim quotes chosen by the
  * caller), and what would answer it. Mode "partial": the reader gets an honest "not in my sources", never an unrelated summary.
  */
-export function unknownAnswer(kb, S, rule, { place = null, quotes = [], src = [], intro = null } = {}) {
-  const blocks = [lead([String(rule.text).replace('{place}', place || 'that place')], src)];
+export function unknownAnswer(kb, S, rule, { place = null, person = null, quotes = [], src = [], intro = null } = {}) {
+  const blocks = [lead([String(rule.text).replace('{place}', place || 'that place').replace('{person}', person || 'that person')], src)];
   if (quotes.length) blocks.push(note('unknown-says', intro || 'The site’s own text touches on it only in the passages below.'), ...quotes);
   if (rule.answer_with) blocks.push(note('unknown-basis', `What would answer it: ${rule.answer_with}`));
   return { mode: 'partial', blocks, src: [...src, ...quotes.map((q) => q.rec)], limited: true };

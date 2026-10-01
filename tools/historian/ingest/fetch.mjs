@@ -33,7 +33,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 export function sourceForUrl(registry, url) {
   const u = new URL(url);
   const host = normHost(u.hostname).replace(/^www\./, '');
-  const m = u.pathname.match(/^\/(?:details|download|stream|metadata)\/([^/]+)/);
+  const m = u.pathname.match(/^\/(?:\d+\/)?(?:details|download|stream|metadata|items)\/([^/]+)/);
   for (const s of registry.sources.values()) {
     if (m && s.imprint && s.imprint.ia_id === m[1]) return s;
   }
@@ -64,6 +64,15 @@ export function createFetcher({ cacheDir = DEFAULT_CACHE, registry = loadSources
     const problems = tierProblems(src);
     if (src.tier === 'C' || src.tier === 'A-pending' || problems.length) { stats.refusals++; throw new RightsRefusal(`source ${src.id} is ${src.tier}${problems.length ? ': ' + problems.join('; ') : ''}`, url); }
     return src;
+  }
+
+  /** a redirect target: the ban list and refused identifiers always; when its path names an archive.org item, registration and tier too (exactly the first request's gate) */
+  function hopGate(url, allowUnregistered) {
+    const named = /^\/(?:\d+\/)?(?:details|download|stream|metadata|items)\/[^/]+/.test(new URL(url).pathname);
+    if (named) return gate(url, { allowUnregistered });
+    const g = fetchAllowed(registry, url);
+    if (!g.ok) { stats.refusals++; throw new RightsRefusal(g.reason, url); }
+    return null;
   }
 
   async function polite(host, fn) {
@@ -109,8 +118,7 @@ export function createFetcher({ cacheDir = DEFAULT_CACHE, registry = loadSources
         if (!loc) throw new Error(`HTTP ${res.status} without a Location header for ${cur}`);
         if (hop >= 5) throw new Error(`too many redirects for ${url}`);
         const next = new URL(loc, cur).toString();
-        const g = fetchAllowed(registry, next);
-        if (!g.ok) { stats.refusals++; throw new RightsRefusal(`redirect target refused: ${g.reason}`, next); }
+        try { hopGate(next, allowUnregistered); } catch (e) { if (e instanceof RightsRefusal) throw new RightsRefusal(`redirect target refused: ${e.reason}`, next); throw e; }
         const nh = normHost(new URL(next).hostname);
         const same = (a, b) => a === b || a.endsWith('.' + b) || b.endsWith('.' + a);
         const rootOf = (h) => h.split('.').slice(-2).join('.');

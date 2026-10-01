@@ -12,7 +12,10 @@ const RULE = (id) => kb.facts.unknowns.find((u) => u.id === id);
 
 const PROBES = {
   'weather-at-battle': ['What was the weather on July 2, 1863?', 'Was it raining during Pickett\'s Charge?', 'How hot was it at Gettysburg on July 3?', 'What was the weather like at the battle?', 'Was it foggy on July 1?'],
-  'individual-soldier': ['Was John Smith of the 20th Maine at Gettysburg?', 'Was Thomas Brown of the 1st Minnesota at Gettysburg?', 'Was Sgt. William Davis in the 69th Pennsylvania at Gettysburg?'],
+  'individual-soldier': ['Was John Smith of the 20th Maine at Gettysburg?', 'Was Thomas Brown of the 1st Minnesota at Gettysburg?', 'Was Sgt. William Davis in the 69th Pennsylvania at Gettysburg?', 'What did Private John Smith of the 20th Maine do?', 'Did Corporal Jones of the 1st Minnesota survive?', 'Tell me about Private John Smith, 20th Maine'],
+  'roster': ['Who were the men in Company K of the 20th Maine?', 'list all the soldiers of the 1st Minnesota', 'Can I see a roster of the 69th Pennsylvania?', 'What are the names of the soldiers who died in the 24th Michigan?'],
+  'inner-thoughts': ["What did Lee think about Pickett's Charge?", 'How did Meade feel after the battle?', 'What was Longstreet thinking during the cannonade?', 'Did Pickett regret the charge?'],
+  'recorded-words': ['What did Sykes say about the hill?', 'What did Chamberlain say about his men?'],
   'per-location-casualties': ['How many men died at the Wheatfield?', 'How many were killed at Little Round Top?', 'What were the casualties at the Peach Orchard?'],
   'gettysburg-address': ['What was the Gettysburg Address and who gave it?', 'Can you show me the text of the Gettysburg Address?', "Lincoln's Gettysburg Address", 'Recite four score and seven years ago'],
 };
