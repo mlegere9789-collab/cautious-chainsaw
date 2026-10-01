@@ -20,13 +20,16 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { loadDistConfig, resolveHeaders, findRedirect } from './lib.mjs';
 
+// Content-Type per extension.  The entries marked (measured) are what production answers (HEAD requests, 2026-10-01); `--parity` against production compares Content-Type, and the
+// emulator used to answer text/javascript, application/json; charset=utf-8 and image/x-icon, i.e. five differences on R0 against the very site it imitates.  The others are guesses.
 const TYPES = {
-  '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8',
-  '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.webmanifest': 'application/manifest+json',
-  '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.gif': 'image/gif', '.svg': 'image/svg+xml',
-  '.ico': 'image/x-icon', '.pdf': 'application/pdf', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml', '.toml': 'text/plain; charset=utf-8',
+  '.html': 'text/html; charset=UTF-8' /* measured */, '.js': 'application/javascript; charset=UTF-8' /* measured */, '.mjs': 'application/javascript; charset=UTF-8',
+  '.css': 'text/css; charset=UTF-8' /* measured */, '.json': 'application/json' /* measured */, '.webmanifest': 'application/manifest+json',
+  '.png': 'image/png' /* measured */, '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.gif': 'image/gif', '.svg': 'image/svg+xml' /* measured */,
+  '.ico': 'image/vnd.microsoft.icon' /* measured */, '.pdf': 'application/pdf' /* measured */, '.txt': 'text/plain; charset=UTF-8' /* measured */, '.xml': 'application/xml' /* measured */, '.toml': 'text/plain; charset=UTF-8',
   '.woff2': 'font/woff2', '.woff': 'font/woff', '.mp3': 'audio/mpeg', '.wasm': 'application/wasm',
 };
+const NOT_FOUND_TYPE = 'text/html; charset=utf-8';   // (measured) Netlify's 404 page is lower-case utf-8, unlike every other html response
 const NOT_SERVED = new Set(['_headers', '_redirects', 'netlify.toml']);   // Netlify consumes these at deploy time; none of the three is ever served (verified on production: HP-13a, verify-url)
 
 export function createEmulator({ dist, port = 0, host = '127.0.0.1', merge = 'last' } = {}) {
@@ -61,7 +64,7 @@ export function createEmulator({ dist, port = 0, host = '127.0.0.1', merge = 'la
       if (cf.length) { conflicts.push({ path: p, conflicts: cf }); out['x-emulator-conflict'] = cf.map((c) => c.name).join(','); }
       if (!('cache-control' in out)) out['cache-control'] = 'public, max-age=0, must-revalidate';
       let body = Buffer.alloc(0);
-      if (file) { body = fs.readFileSync(file); out['content-type'] = out['content-type'] || TYPES[path.extname(file).toLowerCase()] || 'application/octet-stream'; }
+      if (file) { body = fs.readFileSync(file); out['content-type'] = out['content-type'] || (status === 404 ? NOT_FOUND_TYPE : (TYPES[path.extname(file).toLowerCase()] || 'application/octet-stream')); }
       out['content-length'] = String(body.length);
       Object.assign(out, extra);
       log.status = status;

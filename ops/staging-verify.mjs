@@ -17,8 +17,10 @@
 //   --staging-url URL    the deployed staging site (required unless --local or --checklist)
 //   --prod-url URL       production (default https://gettysburginteractivemap.com): header parity (R0-R1b) and the baseline-drift gate
 //   --skip-live-drift    skip `python tools/t0/baseline.py verify-live` (S5); it is the only step that needs the PRODUCTION site
+//   --no-rebuild         S0 normally rebuilds the train into tmp/ and requires the same tree digest (a stale dist is a FAIL); skip that (about 6-15 s), never for a deploy
 //   --expect-release R   the release id staging must report (default: version.json of the dist)
 //   --port N             --local: first port of the two emulators (default 8748 and 8749)
+//   --only S0,S2         run only these steps (a partial run never proves a deploy; for debugging and the self-tests)
 //   --json FILE          write the result as JSON
 //   --verbose            print the tail of every step's tool output
 // exit codes: 0 = every step PASS; 1 = at least one step FAIL (do not deploy to production); 2 = the script could not run (bad options, no network)
@@ -34,7 +36,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const argv = process.argv.slice(2);
-const FLAGS = new Set(['local', 'checklist', 'skip-live-drift', 'verbose', 'help']);
+const FLAGS = new Set(['local', 'checklist', 'skip-live-drift', 'no-rebuild', 'verbose', 'help']);
 const opt = {};
 for (let i = 0; i < argv.length; i++) {
   const a = argv[i];
@@ -88,9 +90,9 @@ const S = [];
 const step = (id, kind, title, cmd, expected, run) => S.push({ id, kind, title, cmd, expected, run });
 const ver = () => jf(path.join(DIST, 'version.json'));
 
-step('S0', 'local', 'the dist is a deployable build: manifest.json + gate.json (ok) beside it, no BUILD-FAILED.json, version.json names this train, the tree matches the manifest',
-  `read ${rel(OUTDIR)}/{manifest.json,gate.json,BUILD-FAILED.json} and ${rel(DIST)}/version.json; recompute the tree digest of the dist`,
-  'release <rid> train <T>, <N> files, tree <sha256>, gate ok, no failure marker', async () => {
+step('S0', 'local', 'the dist is a deployable build: manifest.json + gate.json (ok) beside it, no BUILD-FAILED.json, version.json names this train, the tree matches the manifest, and it is not stale (a fresh rebuild gives the same tree)',
+  `read ${rel(OUTDIR)}/{manifest.json,gate.json,BUILD-FAILED.json} and ${rel(DIST)}/version.json; recompute the tree digest of the dist; python tools/t0/build.py --train ${TRAIN} --out tmp/staging-verify-rebuild/${TRAIN} --no-gate and compare the tree`,
+  'release <rid> train <T>, <N> files, tree <sha256>, gate ok, identical to a fresh rebuild, no failure marker', async () => {
     if (!fs.existsSync(DIST)) return { ok: false, detail: `${rel(DIST)} does not exist: build it (python tools/t0/build.py --train ${TRAIN})` };
     if (fs.existsSync(path.join(OUTDIR, 'BUILD-FAILED.json'))) return { ok: false, detail: `${rel(OUTDIR)}/BUILD-FAILED.json exists: the build failed, this dist is NOT deployable` };
     for (const f of ['manifest.json', 'gate.json']) if (!fs.existsSync(path.join(OUTDIR, f))) return { ok: false, detail: `${rel(OUTDIR)}/${f} is missing (a build that finished writes it)` };
@@ -102,7 +104,22 @@ step('S0', 'local', 'the dist is a deployable build: manifest.json + gate.json (
     for (const f of walk(DIST).sort()) { h.update(Buffer.concat([Buffer.from(f), Buffer.from([0]), Buffer.from(sha(fs.readFileSync(path.join(DIST, f)))), Buffer.from('\n')])); n++; }
     const tree = h.digest('hex');
     if (tree !== m.tree_sha256 || n !== m.file_count) return { ok: false, detail: `the dist on disk (${n} files, tree ${tree.slice(0, 12)}) is not the build the manifest describes (${m.file_count} files, ${m.tree_sha256.slice(0, 12)}): rebuild instead of editing a dist by hand` };
-    return { ok: true, detail: `release ${v.release} train ${v.train}, ${n} files, tree ${tree.slice(0, 12)}..., gate ok, groups: ${v.groups.join(' ')}` };
+    // A dist that is internally consistent can still be OLD: release/ is git-ignored output that goes stale whenever a patch, the tooling or the baseline changes
+    // (found 2026-10-01: release/R1c/dist still held the pre-fix build, with the owner-note comments and a public sw-kill.js).  So rebuild the same train, with the same
+    // optional groups, into a scratch folder and require the same tree digest (the runbook's reproducibility check, here as a gate).  --no-rebuild skips it (not for a deploy).
+    let rebuilt = '';
+    if (!opt['no-rebuild']) {
+      const scratch = path.join('tmp', 'staging-verify-rebuild', TRAIN);
+      fs.rmSync(path.join(REPO, scratch), { recursive: true, force: true });
+      const extra = (v.groups || []).includes('PG-legal') ? ['--with', 'PG-legal'] : [];
+      const r = await py(['tools/t0/build.py', '--train', TRAIN, '--out', scratch.split(path.sep).join('/'), '--no-gate', ...extra]);
+      if (r.status !== 0) return { ok: false, detail: `rebuilding ${TRAIN} to compare failed (exit ${r.status}): ${tail(r, 3)}` };
+      const m2 = jf(path.join(REPO, scratch, 'manifest.json'));
+      fs.rmSync(path.join(REPO, scratch), { recursive: true, force: true });
+      if (m2.tree_sha256 !== tree) return { ok: false, detail: `STALE dist: the current patches/tooling/baseline build ${TRAIN} as tree ${m2.tree_sha256.slice(0, 12)} (release ${m2.release.rid}), this dist is tree ${tree.slice(0, 12)} (release ${v.release}): rebuild it (python tools/t0/build.py --train ${TRAIN}${extra.length ? ' --with PG-legal' : ''}) and run the checks again` };
+      rebuilt = ', identical to a fresh rebuild';
+    }
+    return { ok: true, detail: `release ${v.release} train ${v.train}, ${n} files, tree ${tree.slice(0, 12)}..., gate ok${rebuilt}, groups: ${v.groups.join(' ')}` };
   });
 
 step('S1', 'local', 'the locked baseline still holds (the trains were built from it)', 'python tools/t0/baseline.py verify', 'exit 0 ("baseline/dist matches tools/t0/baseline.lock.json")', async () => {
@@ -182,9 +199,10 @@ step('S9', 'net', TRAIN === 'R1c' ? 'header parity with production: not applicab
   });
 
 step('S10', 'local', 'the legal text matches what the headers allow (privacy/terms vs built tree; opt-in group reported)',
-  `node ops/legal-drafts/verify-facts.mjs --dist ${rel(DIST)}`, 'exit 0 ("no FAIL"); on R1c the INFO line says whether the opt-in legal group is in this build', async () => {
-    const r = await node(['ops/legal-drafts/verify-facts.mjs', '--dist', DIST]); const info = (r.stdout || '').split('\n').find((x) => /legal-opt-in/.test(x));
-    return { ok: r.status === 0, detail: `${tail(r, 1)}${info ? ` | ${info.trim().slice(0, 150)}` : ''}` };
+  `node ops/legal-drafts/verify-facts.mjs --dist ${rel(DIST)}`, 'exit 0 ("no FAIL"); on R1c the INFO line says whether the opt-in legal group is in this build; a WARN is an owner-visible gap and is printed (default build: the baseline privacy text does not mention the Street View sensor delegation)', async () => {
+    const r = await node(['ops/legal-drafts/verify-facts.mjs', '--dist', DIST]); const lines = (r.stdout || '').split('\n'); const info = lines.find((x) => /legal-opt-in/.test(x));
+    const warns = lines.filter((x) => /^WARN /.test(x)).map((x) => x.replace(/\s+/g, ' ').slice(0, 170));      // owner-visible gaps (e.g. the baseline privacy text is silent about the Street View sensor delegation)
+    return { ok: r.status === 0, detail: `${tail(r, 1)}${info ? ` | ${info.trim().slice(0, 150)}` : ''}${warns.length ? ` | ${warns.join(' | ')}` : ''}` };
   });
 
 step('S11', 'manual', 'what no script can check', '(by hand)', 'every item ticked in the log row', async () => ({
@@ -216,7 +234,9 @@ async function main() {
   }
   console.log(`staging-verify: train ${TRAIN}, dist ${rel(DIST)}, staging ${STAGING}${LOCAL ? ' (local)' : ''}\n`);
   const results = []; let fail = 0;
+  const ONLY = opt.only ? new Set(String(opt.only).split(',').map((x) => x.trim())) : null;
   for (const s of S) {
+    if (ONLY && !ONLY.has(s.id)) continue;
     let r;
     try { r = await s.run(); } catch (e) { r = { ok: false, detail: `error: ${e && (e.cause && e.cause.code || e.message) || e}`, error: true }; }
     const tag = r.manual ? 'MANUAL' : r.skipped ? 'SKIP  ' : r.ok ? 'PASS  ' : 'FAIL  ';
@@ -225,7 +245,8 @@ async function main() {
     console.log(`${tag} ${s.id.padEnd(4)} ${s.title}\n       expected: ${s.expected}\n       actual:   ${String(r.detail).split('\n').join('\n                 ')}\n`);
   }
   const netErr = results.some((r) => r.status === 'fail' && /fetch failed|ECONNREFUSED|ENOTFOUND|ETIMEDOUT|error:/.test(r.detail || ''));
-  const verdict = fail ? (netErr ? 'COULD NOT VERIFY (a request failed: check the URL and your connection; this is not a verdict on the site)' : 'RED: do not deploy to production') : 'GREEN: every automatic step passed (the manual list S11 is still yours)';
+  const verdict = ONLY ? `PARTIAL RUN of ${[...ONLY].join(',')}: ${fail ? 'a selected step FAILED' : 'the selected steps passed'} (this is not a verdict on the deploy)`
+    : fail ? (netErr ? 'COULD NOT VERIFY (a request failed: check the URL and your connection; this is not a verdict on the site)' : 'RED: do not deploy to production') : 'GREEN: every automatic step passed (the manual list S11 is still yours)';
   console.log(`staging-verify: ${results.filter((r) => r.status === 'pass').length} pass, ${fail} FAIL, ${results.filter((r) => r.status === 'skip').length} skipped, ${results.filter((r) => r.status === 'manual').length} manual  -> ${verdict}`);
   if (opt.json) { fs.mkdirSync(path.dirname(path.resolve(opt.json)), { recursive: true }); fs.writeFileSync(opt.json, JSON.stringify({ train: TRAIN, staging: STAGING, local: LOCAL, release: (() => { try { return ver().release; } catch { return null; } })(), verdict, results }, null, 2) + '\n'); }
   return fail ? (netErr ? 2 : 1) : 0;

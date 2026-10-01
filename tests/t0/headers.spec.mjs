@@ -49,8 +49,9 @@ const MANIFEST = JSON.parse(read(path.join(DIST, '_ops', 'config-manifest.json')
 const CFG = loadDistConfig(DIST);
 const LEG = loadDistConfig(LEGACY);
 const embedPaths = ['/embed', '/embed.html'];
-// The Street View sensor delegation exists only when the bundle carries the allow attribute AND privacy.html discloses it (gen.mjs); the tests below
-// recompute that rule independently.  The default spec build includes the opt-in legal text (--with PG-legal) so the delegation is exercised.
+// The Street View sensor delegation exists whenever the entry bundle carries the iframe allow attribute (gen.mjs): the default build delegates too, so the Walkthrough
+// logs no Google accelerometer error.  If privacy.html SAYS the site allows that frame to read the motion sensors (the opt-in legal text), the delegation must exist.
+// The tests below recompute that rule independently.  The default spec build includes the opt-in legal text (--with PG-legal) so both statements are exercised.
 const APP_DOC = MANIFEST.documents.find((d) => d.file === 'index.html');
 const DELEGATED = APP_DOC.permissions === 'streetview-frame';
 const ENTRY_TEXT = read(path.join(DIST, 'assets', VERSION.entry));
@@ -220,9 +221,10 @@ suite.test('HDR-07', 'Permissions-Policy: camera/geolocation only on /ar; sensor
     if (pp !== want) bad.push(`${r}: ${pp}`);
   }
   assertEq(bad, [], 'permissions-policy');
-  // the delegation exists iff the bundle carries the allow attribute AND privacy.html discloses it (recomputed here, independently of gen.mjs)
-  assertEq(DELEGATED, HAS_ATTR && DISCLOSED, `delegation ${DELEGATED} but allow attribute ${HAS_ATTR} / privacy disclosure ${DISCLOSED}`);
-  t.note('Street View delegation', DELEGATED ? 'on (attribute + disclosure present)' : `OFF (attribute ${HAS_ATTR}, disclosed ${DISCLOSED})`);
+  // the delegation exists iff the bundle carries the allow attribute (recomputed here, independently of gen.mjs); a privacy text that claims it needs it
+  assertEq(DELEGATED, HAS_ATTR, `delegation ${DELEGATED} but allow attribute ${HAS_ATTR}`);
+  if (DISCLOSED) assert(DELEGATED, 'privacy.html says the Street View frame may read the motion sensors but the header does not delegate them');
+  t.note('Street View delegation', DELEGATED ? `on (attribute present; privacy text ${DISCLOSED ? 'discloses it' : 'is silent'})` : `OFF (attribute ${HAS_ATTR}, disclosed ${DISCLOSED})`);
   // the only origin ever named in a Permissions-Policy is the Street View embed origin, and only for accelerometer + gyroscope
   const named = [...new Set(CFG.headerRules.flatMap((r) => r.headers).filter(([k]) => k.toLowerCase() === 'permissions-policy').flatMap(([, v]) => [...v.matchAll(/([a-z-]+)=\(([^)]*)\)/g)].filter((m) => /"https?:/.test(m[2])).map((m) => `${m[1]}:${m[2].match(/"https?:[^"]+"/g).join(',')}`)))].sort();
   assertEq(named, DELEGATED ? ['accelerometer:"https://www.google.com"', 'gyroscope:"https://www.google.com"'] : [], 'origins named in Permissions-Policy');
@@ -285,6 +287,9 @@ suite.test('HDR-10', 'emulator applies rules exactly like the resolver (spot che
     assertEq((await req('/diagnostics.html')).status, 404, 'dev page');
     const dup = await req('/search?q=1', { host: 'friendly-lolly-da85c0.netlify.app', 'x-forwarded-proto': 'https' });
     assertEq([dup.status, dup.h.location], [301, 'https://gettysburginteractivemap.com/search?q=1'], 'host redirect keeps the query string');
+    // Content-Type as MEASURED on production (2026-10-01), so that `--parity` of an emulated staging copy against the real site can pass (tools/t0/config/README.md, "Emulated rules")
+    assertEq([(await req('/sw.js')).h['content-type'], (await req('/version.json')).h['content-type'], (await req('/favicon.ico')).h['content-type'], (await req('/')).h['content-type'], (await req('/nope')).h['content-type']],
+      ['application/javascript; charset=UTF-8', 'application/json', 'image/vnd.microsoft.icon', 'text/html; charset=UTF-8', 'text/html; charset=utf-8'], 'content types as measured on production');
     assertEq(em.conflicts, [], 'the emulator saw a same-name header overlap');
     t.note('requests', em.requests.length);
   } finally { await em.close(); }
@@ -345,14 +350,14 @@ suite.test('HDR-13', 'iframe allow attributes: the Street View frame carries exa
   const pp = hdr('/')['permissions-policy'];
   for (const feat of allows[0].split(/;\s*/)) {
     if (DELEGATED) assert(pp.split(', ').includes(`${feat}=(self "https://www.google.com")`), `/ does not delegate ${feat} to https://www.google.com: ${pp}`);
-    else assert(pp.split(', ').includes(`${feat}=()`), `/ must keep ${feat} off while privacy.html does not disclose the delegation: ${pp}`);
+    else assert(pp.split(', ').includes(`${feat}=()`), `/ must keep ${feat} off while the bundle carries no allow attribute: ${pp}`);
   }
   // nothing outside the app page may name the Google origin
   const others = MANIFEST.documents.filter((d) => !d.routes.includes('/')).flatMap((d) => d.routes).filter((r) => /google\.com/.test(hdr(r)['permissions-policy'] || ''));
   assertEq(others, [], 'pages that delegate to google.com besides /');
 });
 
-suite.test('HDR-24', 'the DEFAULT R1c build (the opt-in legal group is NOT included): privacy/terms carry no draft text, and the Street View sensor delegation stays OFF because the privacy page does not disclose it', async (t) => {
+suite.test('HDR-24', 'the DEFAULT R1c build (the opt-in legal group is NOT included): privacy/terms carry no draft text, and the Street View sensor delegation is ON (the Walkthrough logs no Google accelerometer error) with the generator saying that the baseline privacy text is silent about it', async (t) => {
   const out = path.join(OUT, 'R1c-default'); const rel = path.relative(REPO, out).split(path.sep).join('/');
   const b = spawnSync('python', ['tools/t0/build.py', '--train', 'R1c', '--out', rel], { cwd: REPO, encoding: 'utf8' });
   assertEq(b.status, 0, `default build failed\n${b.stdout.slice(-1500)}${b.stderr.slice(-800)}`);
@@ -360,11 +365,18 @@ suite.test('HDR-24', 'the DEFAULT R1c build (the opt-in legal group is NOT inclu
   const d = path.join(out, 'dist');
   const v = JSON.parse(read(path.join(d, 'version.json'))); assert(!v.groups.includes('PG-legal'), 'PG-legal is in the default build');
   const man = JSON.parse(read(path.join(d, '_ops', 'config-manifest.json')));
-  assertEq(man.documents.find((x) => x.file === 'index.html').permissions, 'off', 'default build delegation');
-  assert(man.warnings.some((w) => /does not disclose it/.test(w)), `expected the generator warning, got ${JSON.stringify(man.warnings)}`);
+  assertEq(man.documents.find((x) => x.file === 'index.html').permissions, 'streetview-frame', 'default build delegation');
+  assert(man.warnings.some((w) => /privacy\.html does not say so/.test(w)), `expected the generator's note about the silent privacy text, got ${JSON.stringify(man.warnings)}`);
   const pp = H(loadDistConfig(d).headerRules, '/')['permissions-policy'];
-  assertEq(pp, 'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=()', '/ Permissions-Policy in the default build');
+  assertEq(pp, 'accelerometer=(self "https://www.google.com"), camera=(), geolocation=(), gyroscope=(self "https://www.google.com"), magnetometer=(), microphone=(), payment=()', '/ Permissions-Policy in the default build');
+  assert(read(path.join(d, 'assets', v.entry)).includes('allow:"accelerometer; gyroscope"'), 'the default build lacks the Street View allow attribute');
   for (const f of ['privacy.html', 'terms.html']) { const x = read(path.join(d, f)); assert(!/OWNER|September 30, 2026|November 3, 2026|motion sensors/.test(x), `${f} carries legal-draft text in the default build`); }
+  // a bundle without the attribute delegates nothing (the header would be inert), whatever the privacy page says
+  const bare = path.join(out, 'bare'); fs.cpSync(d, bare, { recursive: true });
+  const ef = path.join(bare, 'assets', v.entry); fs.writeFileSync(ef, read(ef).replace(',allow:"accelerometer; gyroscope"', ''));
+  const g = spawnSync(process.execPath, ['tools/t0/config/gen.mjs', bare, JSON.stringify({ rid: v.release, entry: v.entry, help: v.help, bookmark: v.bookmark, css: v.css })], { cwd: REPO, encoding: 'utf8', env: { ...process.env, T0_TRAIN: 'R1c' } });
+  assertEq(g.status, 0, `generator failed on the attribute-less copy: ${g.stderr.slice(-600)}`);
+  assertEq(H(loadDistConfig(bare).headerRules, '/')['permissions-policy'], 'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=()', '/ Permissions-Policy without the allow attribute');
   t.note('warnings', man.warnings.length);
   fs.rmSync(out, { recursive: true, force: true });
 });
@@ -489,7 +501,7 @@ suite.test('HDR-22', 'negative control: the same crawl DOES report a violation w
 suite.test('HDR-23', 'ONLINE (--online): the Virtual Walkthrough opens the REAL Google Street View frame and logs no permissions-policy error; the same page without the allow attribute logs it (control)', async (t) => {
   if (NO_BROWSER) throw new Skip('--no-browser');
   if (!ONLINE) throw new Skip('--online not given (this test loads https://www.google.com/maps/embed from the Walkthrough, about two page loads of the embed)');
-  if (!DELEGATED) throw new Skip('the Street View delegation is OFF in this build (privacy.html does not disclose it: build with --with PG-legal); Google then logs its own accelerometer error, as on the live site today');
+  if (!DELEGATED) throw new Skip('the Street View delegation is OFF in this build (the entry bundle has no allow attribute: CP+walkthrough-sensors.json is missing); Google then logs its own accelerometer error, as on the live site today');
   const entryRel = path.join('assets', VERSION.entry);
   const run = async (name, mutate) => {
     const dir = path.join(OUT, 'wt-' + name); fs.rmSync(dir, { recursive: true, force: true }); fs.cpSync(DIST, dir, { recursive: true });

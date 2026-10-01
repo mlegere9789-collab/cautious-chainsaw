@@ -6,7 +6,7 @@ The decisions behind the rules, with their evidence, are in `ops/header-decision
 
 ```
 python tools/t0/build.py --train R1c                         # production config, legal text NOT included (opt-in)
-python tools/t0/build.py --train R1c --with PG-legal         # the same plus the interim privacy/terms text (and with it the Street View sensor delegation)
+python tools/t0/build.py --train R1c --with PG-legal         # the same plus the interim privacy/terms text (which also says that the Street View frame may read the motion sensors)
 T0_CONTEXT=staging python tools/t0/build.py --train R1c --out release/R1c-staging   # adds X-Robots-Tag: noindex, nofollow (gbg-staging, previews)
 node tools/t0/config/emulate.mjs release/R1c/dist 8420       # Netlify-like server that applies the dist's own rules (see "Emulated rules" below)
 node ops/headers-probe.mjs --dist release/R1c/dist           # 15 prod probes + 4 T0 extras against that server
@@ -26,9 +26,10 @@ node ops/staging-verify.mjs --train R1c --staging-url https://gbg-staging.netlif
 | `/assets/*`, `/data/*`, `/icons/*`, `/screenshots/*`, `/og/*`, other dirs, each root file | their cache class + `X-Frame-Options: DENY`. `/assets/*` is the ONLY immutable class; files that keep their name across releases (`screenshots`, `og`, `icons`) are never immutable and the generator refuses to run if they were (`FIXED_NAME_DIRS`) |
 
 `Permissions-Policy`: `/ar` and `/ar.html` give camera, geolocation, accelerometer, gyroscope and magnetometer to `self` (the only page that uses them); `microphone` and `payment` are
-`()` everywhere. `/` and `/index.html` host the Virtual Walkthrough's Google Street View frame: accelerometer and gyroscope are `(self "https://www.google.com")` ONLY when the
-entry bundle carries the matching iframe `allow="accelerometer; gyroscope"` (patch `CP+walkthrough-sensors.json`) AND `privacy.html` discloses it (the opt-in `PG-legal` text);
-otherwise they are `()` and `_ops/config-manifest.json` carries a warning. Every other page: everything `()`.
+`()` everywhere. `/` and `/index.html` host the Virtual Walkthrough's Google Street View frame: accelerometer and gyroscope are `(self "https://www.google.com")` whenever the
+entry bundle carries the matching iframe `allow="accelerometer; gyroscope"` (patch `CP+walkthrough-sensors.json`, so in every R1c build, with or without the opt-in legal text:
+the Walkthrough then logs no Google accelerometer error); without the attribute they are `()`. A privacy page that claims the delegation while the bundle has no attribute makes the generator
+warn (`_ops/config-manifest.json`), and a delegating build whose privacy text is the silent baseline text carries a warning too (owner decision, `ops/header-decisions.md` sections 2 and 6). Every other page: everything `()`.
 
 Netlify cannot unset an inherited header, so `X-Frame-Options`/CSP/Permissions-Policy are **enumerated**, never put in `/*`. The generator classifies
 every file of the dist (a new HTML page, top-level directory or root file is picked up automatically; nested HTML is refused). Only unknown paths
@@ -53,6 +54,8 @@ The local servers prove that the GENERATED RULES say what we mean and that Chrom
 | `netlify.toml`, `_headers`, `_redirects` are consumed at deploy time and never served (production: HP-13a, `verify-url`) | yes (since 2026-09-30; it used to serve `netlify.toml` as a file, so probe HP-13a failed locally) | no: serves every file of the dist including the three config files |
 | pretty URLs (`/x` serves `x.html`), `404.html` with status 404 for unknown paths | yes | yes |
 | default `Cache-Control: public, max-age=0, must-revalidate` when no rule sets one | yes | its own table (legacy-like: `/icons/*` immutable, `/data/*` and `/manifest.json` 3600, html no-cache), NOT the generated one |
+| `Content-Type` per file type | the table `TYPES` of `emulate.mjs`: the types **measured on production on 2026-10-01** (`text/html; charset=UTF-8`, `application/javascript; charset=UTF-8`, `text/css; charset=UTF-8`, `application/json` with no charset, `image/vnd.microsoft.icon`, `text/plain; charset=UTF-8`, `application/xml`, `image/png`, `image/svg+xml`, `application/pdf`; the 404 page is lower-case `text/html; charset=utf-8`); other types are guesses. Before that fix the emulator answered `text/javascript`, `application/json; charset=utf-8` and `image/x-icon`, which made a parity run against production fail on 5 of 16 URLs | `serve.mjs` has its own table |
+| measured fidelity of the legacy `netlify.toml` rules (trains R0, R1a, R1b) | **the proof that the emulation is faithful for those trains:** the staging copy of each train served by `emulate.mjs` and compared with the real production site by `node tests/t0/prod-probe.mjs --base <emulator> --train <T> --staging --parity https://gettysburginteractivemap.com --staging-vs --no-content --headers-probe off` (Cache-Control, Content-Type, Content-Disposition, X-Frame-Options, both CSP headers, HSTS, Referrer-Policy, Permissions-Policy, X-Content-Type-Options, X-Permitted-Cross-Domain-Policies, X-Robots-Tag): `PASS PARITY  16 representative URLs carry identical security/caching headers on both sites` for R0, R1a and R1b (2026-10-01). No such proof exists for the generated R1c `_headers` (production does not serve it yet): only a deploy to `gbg-staging` and `ops/staging-verify.mjs` prove it | no |
 | injected RUM snippet, pretty-URL rewriting of `<a href="/x.html">`, asset optimisation | **no** (HTML is served as uploaded; `verify-url --tree` and the T0-HTML probe accept both the raw file and the post-processing model) | no |
 | edge cache, compression (brotli), HTTP/2, TLS, HSTS preload, CDN latency | **no** | no |
 | header application to redirect responses | same rules as any response (Netlify's exact behaviour unverified) | n/a |

@@ -12,8 +12,8 @@
 //   6. privacy.html / terms.html (or any shipped text file) contain an owner-review marker ("OWNER TO CONFIRM", "OWNER-REVIEW") anywhere, comments included, or a
 //      hard-coded "September 30, 2026"; in a tree that includes the legal group the dates must equal the pinned trains.json legal.effective_date,
 //   7. the Terms embed sentence is not backed by the generated headers (WP-T0-15; /embed and /embed.html freed),
-//   8. a third-party frame is allowed to use a device feature (iframe allow attribute / Permissions-Policy naming another origin) that privacy.html does not disclose,
-//      or privacy.html discloses a delegation the bundle and the headers do not back,
+//   8. a third-party frame is allowed to use a device feature (iframe allow attribute / Permissions-Policy naming another origin) that the privacy text of a tree WITH the legal
+//      group does not disclose (FAIL; on the baseline text, which is silent, a WARN), or privacy.html discloses a delegation the bundle and the headers do not back (FAIL),
 //   9. privacy.html says the referrer is only this site's address while _headers sets a different Referrer-Policy.
 // The legal group is OPT-IN (python tools/t0/build.py --train R1c --with PG-legal).  A tree built by the build system (it has version.json) without it keeps the
 // baseline privacy/terms pages: the policy-coverage checks (5, 5b, the dates of 6) are then reported as not applicable (INFO), every other check still runs.
@@ -223,7 +223,9 @@ if (files.includes('terms.html') && /embedding its widget/i.test(read('terms.htm
   const declared = (inv.frame_permissions || []).length > 0;
   if (hasAttr && !declared) add('FAIL', 'frame-permission', 'the bundle delegates device features to a frame but the inventory has no frame_permissions row for it');
   if (headerDelegates === true && !hasAttr) add('WARN', 'frame-permission', '_headers names https://www.google.com in Permissions-Policy but the bundle has no allow attribute: nothing is delegated (inert)');
-  if (headerDelegates === true && !disclosed) add('FAIL', 'frame-permission', `_headers delegates accelerometer/gyroscope to a third-party frame but privacy.html${legalIncluded ? '' : ' (the baseline page: the legal group is not included)'} does not disclose it ("This site allows that frame ... motion sensors")`);
+  // the legal text (opt-in) is written to be true of the headers: when it is part of the tree it must say what the headers allow.  The baseline text (no legal group) is silent
+  // about sensors; the headers still delegate (so the Walkthrough logs no Google accelerometer error), which is an owner-visible gap, not a false statement (ops/header-decisions.md section 6).
+  if (headerDelegates === true && !disclosed) add(legalIncluded ? 'FAIL' : 'WARN', 'frame-permission', `_headers delegates accelerometer/gyroscope to the Street View frame but privacy.html${legalIncluded ? '' : ' (the baseline page: the opt-in legal group is not included)'} does not disclose it ("This site allows that frame ... motion sensors")${legalIncluded ? '' : ': the baseline text is silent about sensors, it makes no false statement; building with --with PG-legal adds the sentence'}`);
   if (disclosed && headerDelegates === false) add('FAIL', 'frame-permission', 'privacy.html says the site lets the Street View frame read the motion sensors but _headers does not delegate them');
   if (disclosed && headerDelegates === null) add('WARN', 'frame-permission', 'privacy.html discloses a Street View motion-sensor delegation; this tree has no _headers to back it (train R1c config)');
   if (headerDelegates === true && hasAttr && disclosed) add('PASS', 'frame-permission', 'Street View frame: allow attribute, Permissions-Policy (self + https://www.google.com, accelerometer + gyroscope only) and the privacy text agree');

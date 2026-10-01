@@ -15,6 +15,9 @@ Each case was seen RED before the fix (the verifier's reproductions) and is GREE
   7  the legal group PG-legal is opt-in: absent from every default train, one flag includes it, the date is the pinned trains.json value, no owner marker ships;
      an invalid pinned date and a stray {{LEGAL_DATE}} are build errors; a leftover owner marker fails the gate (no-owner-notes)
   8  ops/sha-list.mjs stage refuses the dist of a failed build and prints that --html-warn is gone
+  9  ops/sha-list.mjs verify-url ends with its own exit code (0 identical / 1 a differing html file) and never aborts Node with the Windows libuv assertion
+     (`Assertion failed: !(handle->flags & UV_HANDLE_CLOSING)`, exit 127), which `process.exit()` did while keep-alive sockets were closing (2026-10-01)
+ 10  ops/staging-verify.mjs S0 fails a stale dist: internally consistent (manifest, gate) but not what the current patches/tooling build (release/ is git-ignored and goes stale)
 """
 import json
 import os
@@ -241,6 +244,65 @@ def _():
     r = subprocess.run(['node', os.path.join('ops', 'sha-list.mjs'), 'verify-url', rel(os.path.join(ROOT, 'none.tsv')), 'http://127.0.0.1:9', '--html-warn'], cwd=REPO, capture_output=True, text=True)
     assert 'html-warn is removed' in r.stderr, r.stderr
     return 'failed builds are not staged; a good one is; --html-warn says it is removed'
+
+
+@case('9 verify-url exit codes (no libuv abort, html drift is exit 1)')
+def _():
+    tree = out_dir('vu-tree')
+    os.makedirs(tree)
+    for i in range(1, 9):
+        open(os.path.join(tree, 'p%d.html' % i), 'w').write('<html><body>page %d <a href="/x.html">x</a></body></html>\n' % i)
+    lst = os.path.join(ROOT, 'vu.tsv')
+    r = subprocess.run(['node', os.path.join('ops', 'sha-list.mjs'), 'list', rel(tree), '--out', rel(lst)], cwd=REPO, capture_output=True, text=True)
+    assert r.returncode == 0, r.stderr
+    port = int(os.environ.get('T0_PORT_BASE', '8480')) + 4
+    # the local Netlify-like server of tools/t0/config (HTTP/1.1 keep-alive, like the real sites) is what made the old code abort
+    p = subprocess.Popen(['node', os.path.join('tools', 't0', 'config', 'emulate.mjs'), rel(tree), str(port)], cwd=REPO, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    try:
+        import time
+        import urllib.request
+        for _ in range(50):
+            try:
+                urllib.request.urlopen('http://127.0.0.1:%d/p1.html' % port, timeout=1).read()
+                break
+            except Exception:  # noqa: BLE001
+                time.sleep(0.1)
+
+        def vu(*extra):
+            r = subprocess.run(['node', os.path.join('ops', 'sha-list.mjs'), 'verify-url', rel(lst), 'http://127.0.0.1:%d' % port] + list(extra), cwd=REPO, capture_output=True, text=True)
+            assert 'Assertion failed' not in r.stdout + r.stderr, 'node aborted: ' + (r.stdout + r.stderr)[-400:]
+            return r
+        for extra in (['--kinds', 'html'], ['--kinds', 'all'], ['--kinds', 'html', '--tree', rel(tree)]):
+            r = vu(*extra)
+            assert r.returncode == 0 and '0 differ' in r.stdout, (extra, r.returncode, r.stdout[-300:], r.stderr[-300:])
+        # real HTML content drift is a DIFF and exit 1, never a warning
+        open(os.path.join(tree, 'p3.html'), 'w').write('<html><body>page 3 CHANGED <a href="/x.html">x</a></body></html>\n')
+        for extra in (['--kinds', 'html'], ['--kinds', 'all', '--tree', rel(tree)]):
+            r = vu(*extra)
+            assert r.returncode == 1 and 'DIFF p3.html' in r.stdout, (extra, r.returncode, r.stdout[-300:], r.stderr[-300:])
+    finally:
+        p.kill()
+        p.wait()
+    return 'identical tree: exit 0 on html/all/--tree; a changed html file: DIFF and exit 1; no libuv abort'
+
+
+@case('10 staging-verify S0 refuses a stale (internally consistent but outdated) dist')
+def _():
+    # a build made from an older patch set is consistent with its own manifest and gate; only a fresh rebuild shows that it is not what the tree builds today
+    pdir = out_dir('stale-patches')
+    shutil.copytree(os.path.join(REPO, 'tools', 't0', 'patches'), pdir)
+    os.remove(os.path.join(pdir, 'PG-maps.json'))
+    stale = out_dir('stale-R1a')
+    run(['--train', 'R1a', '--out', rel(stale), '--patches', rel(pdir)])
+    node = ['node', os.path.join('ops', 'staging-verify.mjs'), '--train', 'R1a', '--dist', rel(os.path.join(stale, 'dist')), '--staging-url', 'http://127.0.0.1:9', '--only', 'S0']
+    r = subprocess.run(node, cwd=REPO, capture_output=True, text=True, encoding='utf-8', errors='replace')
+    assert r.returncode == 1 and 'STALE dist' in r.stdout, (r.returncode, r.stdout[-700:], r.stderr[-300:])
+    # a current build passes the same step (and says it equals a fresh rebuild)
+    fresh = out_dir('fresh-R1a')
+    run(['--train', 'R1a', '--out', rel(fresh)])
+    r = subprocess.run(node[:5] + [rel(os.path.join(fresh, 'dist'))] + node[6:], cwd=REPO, capture_output=True, text=True, encoding='utf-8', errors='replace')
+    assert r.returncode == 0 and 'identical to a fresh rebuild' in r.stdout, (r.returncode, r.stdout[-700:], r.stderr[-300:])
+    return 'a dist built without PG-maps: S0 FAIL "STALE dist", exit 1; a current dist: S0 PASS "identical to a fresh rebuild"'
 
 
 def main():

@@ -76,10 +76,12 @@ const PP_SENSORS = 'accelerometer=(self), camera=(self), geolocation=(self), gyr
 // tools/t0/patches/CP+walkthrough-sensors.json) AND this header names the frame's origin.  `self` must stay in the list (Chrome 153 refused the delegation with
 // the Google origin alone).  magnetometer stays off: it was not needed (measured, ops/header-decisions.md section 2).  Only these two features, only this origin.
 //
-// The delegation is emitted ONLY when both halves exist AND the privacy page discloses it: the entry bundle carries the allow attribute (so the header has
-// something to back) and privacy.html says the site lets the Street View frame read the device's motion sensors (the opt-in PG-legal text does).  A build
-// without that text keeps `/` fully off (the Walkthrough then logs Google's own pre-existing accelerometer error): the headers can never grant a
-// third party more than the published privacy text admits.
+// The delegation is emitted whenever the entry bundle carries the allow attribute (the header then has something to back; without the attribute it would be inert)
+// -- including the DEFAULT build, which does not contain the opt-in legal text: the Walkthrough must not log Google's accelerometer error (a requirement of the
+// release-verifier follow-up, 2026-10-01).  The privacy page is kept honest in the other direction: if privacy.html SAYS the site lets that frame read the motion sensors (the
+// opt-in PG-legal text does) but the bundle has no attribute, nothing is delegated and the generator warns; ops/legal-drafts/verify-facts.mjs fails such a tree.
+// The baseline privacy text is silent about sensors (it says only that Google serves the Street View iframe and "we don't see anything from that embed ourselves",
+// which stays true); that gap is an owner decision, ops/header-decisions.md sections 2 and 6.
 const STREETVIEW_ORIGIN = 'https://www.google.com';
 const SENSOR_ALLOW_ATTR = 'allow:"accelerometer; gyroscope"';             // what bundle patch cp:walkthrough-streetview-allow writes
 const PP_APP = `accelerometer=(self "${STREETVIEW_ORIGIN}"), camera=(), geolocation=(), gyroscope=(self "${STREETVIEW_ORIGIN}"), magnetometer=(), microphone=(), payment=()`;
@@ -175,16 +177,17 @@ export function generate(dist, rel, { context = 'production' } = {}) {
   }
   docRoutes.sort((a, b) => (a.file === 'index.html' ? -1 : b.file === 'index.html' ? 1 : a.file < b.file ? -1 : 1));
 
-  // ---- is the Street View sensor delegation backed by the bundle AND disclosed in the privacy page?
+  // ---- Street View sensor delegation: on whenever the bundle carries the allow attribute (it backs the header); privacy.html's wording is cross-checked, not required
   let appPP = PP_OFF; let appPerm = 'off';
   {
     const readIf = (f) => { try { return fs.readFileSync(path.join(dist, f), 'utf8'); } catch { return ''; } };
     const hasAttr = !!rel.entry && readIf(`assets/${rel.entry}`).includes(SENSOR_ALLOW_ATTR);
     const privacyText = readIf('privacy.html').replace(/<!--[\s\S]*?-->/g, '').replace(/<(script|style)[\s\S]*?<\/\1>/gi, '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
     const discloses = /allows that frame[^.]*motion sensors/i.test(privacyText);
-    if (hasAttr && discloses) { appPP = PP_APP; appPerm = 'streetview-frame'; }
-    else if (hasAttr) warnings.push('the Street View iframe carries allow="accelerometer; gyroscope" but privacy.html does not disclose it (build with --with PG-legal): the header keeps accelerometer/gyroscope OFF on /, so the attribute is inert and Google logs its own accelerometer error as it always did');
-    else if (discloses) warnings.push('privacy.html discloses a Street View motion-sensor delegation but the entry bundle has no allow attribute (CP+walkthrough-sensors.json): nothing is delegated');
+    if (hasAttr) {
+      appPP = PP_APP; appPerm = 'streetview-frame';
+      if (!discloses) warnings.push('the Street View frame is allowed to read the device motion sensors (iframe allow="accelerometer; gyroscope" + Permissions-Policy of / naming https://www.google.com) but privacy.html does not say so: the baseline text is silent, the opt-in legal text (--with PG-legal) discloses it; owner decision, ops/header-decisions.md section 6');
+    } else if (discloses) warnings.push('privacy.html discloses a Street View motion-sensor delegation but the entry bundle has no allow attribute (CP+walkthrough-sensors.json): nothing is delegated, so the statement is untrue (verify-facts fails this tree)');
   }
 
   const sections = [];

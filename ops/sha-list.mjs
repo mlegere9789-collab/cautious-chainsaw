@@ -305,8 +305,10 @@ async function cmdVerifyUrl({ pos, opt }) {
   console.log(`\n${base.origin}: ${summary.requested} files checked (${kinds}): ${summary.ok} identical, ${summary.okRumOnly} identical apart from the injected RUM snippet, ${summary.okNotServed} config file(s) correctly not served, ${summary.differs} differ, ${summary.missing} missing, ${summary.servedUnexpectedly} config file(s) publicly served, ${summary.errors} errors`);
   if (kinds === 'nonhtml') console.log('NOTE: --kinds nonhtml did not check any html file: this is a quick look, not a deploy gate (html content drift is only caught by --kinds all/html)');
   if (opt.out) { fs.mkdirSync(path.dirname(path.resolve(opt.out)), { recursive: true }); fs.writeFileSync(opt.out, JSON.stringify({ summary, results: res }, null, 2) + '\n'); console.log(`report: ${opt.out}`); }
-  if (netErrors && netErrors === todo.length) process.exit(2);
-  process.exit(fail === 0 ? 0 : 1);
+  // No process.exit() here: calling it while undici's keep-alive sockets are still closing aborts Node on Windows with `Assertion failed:
+  // !(handle->flags & UV_HANDLE_CLOSING), src\win\async.c` and exit code 127 instead of 0/1 (seen with `--kinds html`, 2026-10-01).  The exit code is set
+  // and the event loop drains by itself.
+  process.exitCode = netErrors && netErrors === todo.length ? 2 : (fail === 0 ? 0 : 1);
 }
 
 function cmdStage({ pos, opt }) {
