@@ -1,0 +1,157 @@
+{
+ "group": "A2",
+ "patches": [
+  {
+   "id": "A2-helpers",
+   "target": "js",
+   "find": "function gF({onMapReady:c}){",
+   "repl": "function GtbgRepaint(cv,m){try{const s=yn.getState();if(!cv||!m||s.isPlaying||s.showUnits===!1||cv.style.display===\"none\")return;const g=cv.parentElement;g&&(cv.width!==g.clientWidth||cv.height!==g.clientHeight)&&(cv.width=g.clientWidth,cv.height=g.clientHeight);e1(cv,m,s.placementsByTick,s.currentTick,s.selectedUnitId,s.pinnedUnitId,s.filters)}catch(e){}}function GtbgMapSetup(m,cr){try{const cv=m.getCanvas(),rel=()=>{setTimeout(()=>{document.activeElement===cv&&cv.blur()},0)};cv.addEventListener(\"mousedown\",rel);cv.addEventListener(\"pointerdown\",rel);const ct=m.getContainer(),dk=()=>{const d=document.getElementById(\"gt-timeline\"),h=d?Math.round(d.getBoundingClientRect().height):127;document.documentElement.style.setProperty(\"--gt-dock-h\",h+\"px\");[\"bottom-left\",\"bottom-right\"].forEach(p=>{const e=ct.querySelector(\".mapboxgl-ctrl-\"+p);e&&(e.style.bottom=h+\"px\")})};dk();const dd=document.getElementById(\"gt-timeline\");window.ResizeObserver&&dd&&new ResizeObserver(dk).observe(dd);const mv=()=>{try{Kx()}catch(e){}GtbgRepaint(cr.current,m)};m.on(\"move\",mv);m.on(\"resize\",mv);GtbgEscKey()}catch(e){}}function GtbgEsc(o,s){try{const a=document.activeElement;a&&a.classList&&a.classList.contains(\"mapboxgl-canvas\")&&a.blur();o=o||{};if(o.xe||o.Pe||o.xt||o.Jt||o.Yn||o.Pn||o.lo||o._a||o.Vt||s.selectedUnitId||s.pinnedUnitId||s.showFilterPanel||s.showSearchPanel||document.querySelector('[role=\"dialog\"][aria-modal=\"true\"]'))return;const c=Array.from(document.querySelectorAll(\"[data-gtbg-card]\")).sort((p,q)=>Number(q.getAttribute(\"data-gtbg-card\"))-Number(p.getAttribute(\"data-gtbg-card\")))[0],b=c&&(c.querySelector('[data-gt-close],button[aria-label^=\"Close\"]')||Array.from(c.querySelectorAll(\"button\")).find(x=>x.textContent.trim()===\"✕\"));b&&b.click()}catch(e){}}function GtbgEscKey(){if(window.__gtbgEscKey)return;window.__gtbgEscKey=1;window.addEventListener(\"keydown\",e=>{if(e.key===\"Escape\"&&!e.defaultPrevented&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!e.isComposing)GtbgEsc(window.__gtbgOpen,yn.getState())},!0)}function gF({onMapReady:c}){",
+   "expect": 1,
+   "note": "Module-level helpers of group A2. GtbgRepaint redraws the unit canvas from the store (paused map only: while playing the rAF loop draws every frame). GtbgMapSetup (desktop map only) = (a) a pointer press on the map canvas does not leave it focused (Mapbox puts tabindex=0 on the canvas and the browser focuses it on mousedown, so after any click or drag Mapbox's own key handler took the arrow / + / - keys from the app's documented shortcuts; a keyboard user who Tabs to the map still gets Mapbox's arrows = pan, +/- = zoom, Shift+arrows = rotate/tilt: the group-A key guard leaves those keys to Mapbox only while the canvas holds focus), (c) the bottom map corners (Mapbox wordmark + compact attribution) are stacked above the transport dock (z 100) instead of under it, (b) the unit canvas follows the map on move / zoom / resize while paused (it was drawn only on tick, selection and data changes, so after a drag the units stayed where they had been drawn) and the trail canvas is cleared on every map move (screen-space lines would smear / go stale). GtbgEsc runs first in the Escape case: Esc leaves keyboard focus on the map canvas; and when no panel, modal or selection is open (flags: window.__gtbgOpen from the app root + the store) it dismisses the topmost card (rank 3 NPS tour panel > 2 story card > 1 event card) by clicking that card's own Close button."
+  },
+  {
+   "id": "A2-map-attribution-and-setup",
+   "target": "js",
+   "find": "scrollZoom:{speed:.02,smooth:!0}});return Xe.addControl(new z_.NavigationControl,\"top-right\"),",
+   "repl": "scrollZoom:{speed:.02,smooth:!0}});return Xe.addControl(new z_.NavigationControl,\"top-right\"),GtbgMapSetup(Xe,x),",
+   "expect": 1,
+   "note": "Desktop map: the Mapbox wordmark (bottom-left) and the attribution (bottom-right, full text above 640 px) sat under the transport dock (z 100, 127 px tall), which Mapbox's terms do not allow. GtbgMapSetup lifts both corners by the measured dock height (a ResizeObserver on #gt-timeline keeps it right) and publishes the height as the CSS variable --gt-dock-h for the other bottom-anchored panels (minimap, tour panel, event card)."
+  },
+  {
+   "id": "A2-resize-repaint",
+   "target": "js",
+   "find": "function It(){const Lt=xt.clientWidth,sn=xt.clientHeight;Xe.width=Lt,Xe.height=sn,K4(Lt,sn)}",
+   "repl": "function It(){const Lt=xt.clientWidth,sn=xt.clientHeight;Xe.width=Lt,Xe.height=sn,K4(Lt,sn),GtbgRepaint(Xe,M.current)}",
+   "expect": 1,
+   "note": "Resizing a canvas clears it: after a window resize the unit canvas stayed blank until the next tick. It now redraws at once (paused map; a playing map redraws every frame)."
+  },
+  {
+   "id": "A2-resize-z9",
+   "target": "js",
+   "find": "function K4(c,f){if(!so)return;",
+   "repl": "function K4(c,f){if(Uc){Uc.width=c,Uc.height=f}if(!so)return;",
+   "expect": 1,
+   "note": "The z-index 9 overlay canvas (I4) was created once at the size of the first layout and never resized: it follows the container now (K4 runs from the container ResizeObserver)."
+  },
+  {
+   "id": "A2-filter-repaint",
+   "target": "js",
+   "find": "pt.useEffect(()=>{if(!Ee&&M.current){const{placementsByTick:Xe,selectedUnitId:xt,pinnedUnitId:It,filters:Jt}=yn.getState();",
+   "repl": "pt.useEffect(()=>{!Ee&&M.current&&GtbgRepaint(x.current,M.current)},[ut,st,Vk2]),pt.useEffect(()=>{if(!Ee&&M.current){const{placementsByTick:Xe,selectedUnitId:xt,pinnedUnitId:It,filters:Jt}=yn.getState();",
+   "expect": 1,
+   "note": "The paused redraw effect depends on tick, selection, play state (and data with group B) but not on the filters or the pinned unit: a filter change on a paused map was painted at the next tick. A separate effect keyed on the filters, the pinned unit and the Toggle Units switch repaints at once (a new effect rather than a longer dependency array, so it does not touch the deps text that group B patches)."
+  },
+  {
+   "id": "A2-open-flags",
+   "target": "js",
+   "find": "const xi=(kt==null?void 0:kt())||`Tick ${c}`,va=c<=225?1:c<=450?2:3;return V.jsxs(\"div\",{style:tc.root,children:[",
+   "repl": "window.__gtbgOpen={xe,Pe,xt,Jt,Yn,Pn,lo,_a,Vt};const xi=(kt==null?void 0:kt())||`Tick ${c}`,va=c<=225?1:c<=450?2:3;return V.jsxs(\"div\",{style:tc.root,children:[",
+   "expect": 1,
+   "note": "The key handler is registered once (stale closure), so the app root publishes which of its own overlays are open (help, bookmarks, layers, distance, ancestor, eye, order of battle, roster, walkthrough) each render."
+  },
+  {
+   "id": "A2-story-card-position",
+   "target": "js",
+   "find": "panel:{position:\"absolute\",top:60,right:16,width:340,maxWidth:\"calc(100vw - 32px)\",maxHeight:\"calc(100vh - 200px)\",",
+   "repl": "panel:{position:\"absolute\",top:60,right:200,width:340,maxWidth:\"calc(100vw - 232px)\",maxHeight:\"calc(100vh - 400px)\",",
+   "expect": 1,
+   "note": "The story card (z 92) covered the zoom buttons, the Trails toggle and the minimap (right edge 16 px, 700 px tall). It now ends 200 px from the right edge (the minimap is 162 px wide at 16 px) and stops 400 px above the bottom, so it clears the top-right controls, the minimap and the event card."
+  },
+  {
+   "id": "A2-story-card-esc",
+   "target": "js",
+   "find": "return V.jsxs(\"div\",{style:Cr.panel,children:[",
+   "repl": "return V.jsxs(\"div\",{style:Cr.panel,\"data-gtbg-card\":\"2\",children:[",
+   "expect": 1,
+   "note": "rank 2 for Esc (GtbgEscKey in A2-helpers)"
+  },
+  {
+   "id": "A2-event-card-position",
+   "target": "js",
+   "find": "panel:{position:\"absolute\",bottom:120,left:\"50%\",transform:\"translateX(-50%)\",width:460,",
+   "repl": "panel:{position:\"absolute\",bottom:\"calc(var(--gt-dock-h, 127px) + 9px)\",left:\"50%\",transform:\"translateX(-50%)\",width:460,",
+   "expect": 1,
+   "note": "The event card hung 7 px into the transport dock (dock top = 127 px from the bottom); now 9 px above it (dock height read from --gt-dock-h)."
+  },
+  {
+   "id": "A2-event-card-esc",
+   "target": "js",
+   "find": "return V.jsxs(\"div\",{style:{...Vc.panel,borderColor:R},children:[",
+   "repl": "return V.jsxs(\"div\",{style:{...Vc.panel,borderColor:R},\"data-gtbg-card\":\"1\",children:[",
+   "expect": 1,
+   "note": "rank 1 for Esc (GtbgEscKey in A2-helpers)"
+  },
+  {
+   "id": "A2-minimap-position",
+   "target": "js",
+   "find": "wrap:{position:\"absolute\",bottom:130,right:16,background:\"rgba(8,8,18,0.92)\"",
+   "repl": "wrap:{position:\"absolute\",bottom:\"calc(var(--gt-dock-h, 127px) + 25px)\",right:16,background:\"rgba(8,8,18,0.92)\"",
+   "expect": 1,
+   "note": "The minimap panel sat 3 px above the dock, exactly where the lifted attribution strip (20 px) now is: it moves up by 22 px (dock height + 25 px)."
+  },
+  {
+   "id": "A2-minimap-fab-position",
+   "target": "js",
+   "find": "fab:{position:\"absolute\",bottom:130,right:16,background:\"rgba(15,15,25,0.85)\"",
+   "repl": "fab:{position:\"absolute\",bottom:\"calc(var(--gt-dock-h, 127px) + 25px)\",right:16,background:\"rgba(15,15,25,0.85)\"",
+   "expect": 1,
+   "note": "the \"show minimap\" button is the same panel collapsed: same position"
+  },
+  {
+   "id": "A2-tour-panel-position",
+   "target": "js",
+   "find": "panel:{position:\"absolute\",bottom:86,left:60,right:0,maxHeight:\"38vh\",",
+   "repl": "panel:{position:\"absolute\",bottom:\"calc(var(--gt-dock-h, 127px) + 25px)\",left:60,right:0,maxHeight:\"38vh\",",
+   "expect": 1,
+   "note": "The tour panel started 86 px from the bottom and covered the day tabs (y of the dock + 25..51 px); it now sits above the dock and the attribution strip (dock height + 25 px)."
+  },
+  {
+   "id": "A2-tour-panel-esc",
+   "target": "js",
+   "find": "z&&M&&V.jsxs(\"div\",{style:Zr.panel,children:[",
+   "repl": "z&&M&&V.jsxs(\"div\",{style:Zr.panel,\"data-gtbg-card\":\"3\",children:[",
+   "expect": 1,
+   "note": "rank 3 for Esc (GtbgEscKey in A2-helpers): Esc closes the tour like the X does"
+  },
+  {
+   "id": "A2-tour-dots-remove",
+   "target": "js",
+   "find": "z&&V.jsx(\"div\",{style:Zr.dotsBar,children:th.map((ut,kt)=>V.jsx(\"div\",{onClick:()=>{Ee(kt),Se(ut)},style:{...Zr.dot,background:kt===he?\"#c8a84a\":\"#334\",transform:kt===he?\"scale(1.3)\":\"scale(1)\"}},kt))}),",
+   "repl": "",
+   "expect": 1,
+   "note": "The 16 progress dots were a separate absolutely positioned bar at bottom:220 and landed on the narrative text; they move into the panel (A2-tour-dots-in-panel)."
+  },
+  {
+   "id": "A2-tour-dots-in-panel",
+   "target": "js",
+   "find": "V.jsxs(\"div\",{style:Zr.nav,children:[V.jsx(\"button\",{onClick:ze,style:Zr.navBtn,children:\"← Previous\"})",
+   "repl": "V.jsx(\"div\",{style:Zr.dotsBar,children:th.map((ut,kt)=>V.jsx(\"div\",{onClick:()=>{Ee(kt),Se(ut)},style:{...Zr.dot,background:kt===he?\"#c8a84a\":\"#334\",transform:kt===he?\"scale(1.3)\":\"scale(1)\"}},kt))}),V.jsxs(\"div\",{style:Zr.nav,children:[V.jsx(\"button\",{onClick:ze,style:Zr.navBtn,children:\"← Previous\"})",
+   "expect": 1,
+   "note": "the dots row sits between the narrative and the Previous / Next row inside the panel"
+  },
+  {
+   "id": "A2-tour-dots-style",
+   "target": "js",
+   "find": "dotsBar:{position:\"absolute\",bottom:220,left:\"50%\",transform:\"translateX(-50%)\",display:\"flex\",gap:6,zIndex:301}",
+   "repl": "dotsBar:{display:\"flex\",gap:6,justifyContent:\"center\",alignItems:\"center\",padding:\"8px 16px 0\",flexShrink:0}",
+   "expect": 1,
+   "note": "static flex row inside the panel instead of a floating bar"
+  },
+  {
+   "id": "A2-tour-speed-save",
+   "target": "js",
+   "find": "Kx(),yn.setState({currentTick:ut.tick,isPlaying:!0,playbackSpeed:2});",
+   "repl": "Kx(),window.__gtbgTourSp==null&&(window.__gtbgTourSp=yn.getState().playbackSpeed),yn.setState({currentTick:ut.tick,isPlaying:!0,playbackSpeed:2});",
+   "expect": 1,
+   "note": "The tour forces 2x on every stop and never gave the speed back: remember the speed the viewer had when the tour started (only the first stop of a tour records it)."
+  },
+  {
+   "id": "A2-tour-speed-restore",
+   "target": "js",
+   "find": "function st(){H(!1),R(!1),P(null),yn.setState({isPlaying:!1})}",
+   "repl": "function st(){H(!1),R(!1),P(null);const sp=window.__gtbgTourSp;window.__gtbgTourSp=null,yn.setState(sp!=null?{isPlaying:!1,playbackSpeed:sp}:{isPlaying:!1})}",
+   "expect": 1,
+   "note": "closing the tour (X or Esc) restores the speed from before the tour"
+  }
+ ]
+}

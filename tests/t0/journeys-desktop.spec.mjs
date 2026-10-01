@@ -9,9 +9,10 @@
 //
 // Ids: T0-J1..J8 (X3 journeys: load, play 30 ticks, pan + wheel + pinch, select unit, search, Help + Tools, day 2/3 jump, ?ancestor=),
 // T0-IN-01..05 (X4 input: drag, wheel, click-select + Toggle Units, overlay pointer-events + zoom button + Distance, phone touch),
-// group A: T0-C5-01/02, T0-SND-01, T0-KEY-01..07, T0-DT-01, T0-MON-01, T0-TOUR-01, T0-ST-01, T0-ONB-01, T0-EB-01, T0-ATTR-01, T0-A-STATIC,
+// group A: T0-C5-01/02, T0-SND-01, T0-KEY-01..08, T0-DT-01, T0-MON-01, T0-TOUR-01, T0-ST-01, T0-ONB-01, T0-EB-01, T0-ATTR-01, T0-A-STATIC,
 // group B (X6): T0-CLK-01..03, T0-DATA-01..04, T0-MM-01;  T0-X3 = the whole shared session: 0 uncaught exceptions, 0 first-party console.error.
-// Trains: tests that belong to a group the train does not contain are skipped (B, DL and C are not in R1a; A is proven on R1a, R1b and R1c).
+// Trains: tests that belong to a group the train does not contain are skipped (B, DL and C are not in R1a; A and A2 are proven on R1a, R1b and R1c).
+// Group A2 (desktop fixes after the verifier round) has its own spec, tests/t0/desktop-fixes.spec.mjs; T0-KEY-08 and the T0-ATTR-01 hit test here keep its two main regressions in the shared journeys session.
 // Mapbox budget: the shared session uses ~215 requests, the phone session ~45 (T0-IN-05 skips itself when fewer than 90 remain: run it alone with
 // --filter T0-IN-05); every invocation has its own budget of 300.
 process.env.T0_AGENT ??= 't0-ab';
@@ -544,6 +545,10 @@ suite.test('T0-ATTR-01', 'the walkthrough map keeps its Mapbox attribution contr
   const S = await shared(); const p = S.page;
   const main = await p.locator('.mapboxgl-ctrl-attrib').count();
   assert(main >= 1, 'no attribution control on the main map');
+  if (NEED('A2')) {                       // Mapbox terms: the attribution links must not sit under the transport dock (group A2)
+    const hits = await p.evaluate(() => [...document.querySelectorAll('.mapboxgl-ctrl-attrib a')].map((a) => { const b = a.getBoundingClientRect(); const top = document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2); return { text: a.textContent.trim(), onTop: !!top && (top === a || a.contains(top)) }; }));
+    t.note('main attribution links on top', hits); assert(hits.length >= 2, 'the main map attribution has no links'); assertEq(hits.filter((h) => !h.onTop), [], 'main-map attribution links covered by another element (the transport dock)');
+  }
   await clickTool(p.getByText('Virtual Walkthrough', { exact: false }).first());
   await waitFor(async () => (await p.locator('.mapboxgl-ctrl-attrib').count()) >= 2, { timeout: 25000, label: 'second attribution control (walkthrough map)' });
   t.note('attribution controls', await p.locator('.mapboxgl-ctrl-attrib').count());
@@ -588,6 +593,29 @@ suite.test('T0-KEY-07', 'the transport bar has no second key handler: ArrowRight
   assertEq(s.tick, 2, 'ArrowRight moved the clock by more or less than one tick');
   assertEq(wrap, { role: 'group', tabindex: '-1', label: 'Battle timeline controls' }, '#gt-timeline wrapper');
   await clickDayTab(p, 1, false); await waitState(p, (x) => x.tick === 1, 'tick 1');
+});
+
+suite.test('T0-KEY-08', 'after a real click and a real drag on the map the documented keys still drive the clock (ArrowRight +1, Shift+ArrowRight +12) and do not move the map: a pointer press does not leave the map canvas focused (group A2)', async (t) => {
+  needGroup('A2');
+  const S = await shared(); const p = S.page;
+  await setCamera(p, HOME); await sleep(400);
+  await clickDayTab(p, 1, false); await waitState(p, (s) => s.tick === 1, 'tick 1');
+  await p.evaluate(() => { const a = document.activeElement; a && a.blur && a.blur(); });
+  const rows = [];
+  for (const [name, act] of [['click', () => p.mouse.click(760, 420)], ['drag', async () => { await mouseDrag(p, [760, 420], [700, 400]); await sleep(900); }]]) {
+    await act(); await sleep(300);
+    const focus = await p.evaluate(() => { const a = document.activeElement; return a ? `${a.tagName}.${String(a.className).split(' ')[0]}` : null; });
+    const v0 = await mapView(p), s0 = await readState(p);
+    await p.keyboard.press('ArrowRight'); await sleep(250); const s1 = await readState(p);
+    await p.keyboard.press('Shift+ArrowRight'); await sleep(250); const s2 = await readState(p);
+    const v1 = await mapView(p);
+    rows.push({ name, focus, ticks: [s0.tick, s1.tick, s2.tick], mapMovedM: Math.round(mv(v0, v1)) });
+    assert(!/canvas/i.test(focus || ''), `after a ${name} the map canvas holds focus (${focus})`);
+    assertEq([s1.tick - s0.tick, s2.tick - s1.tick], [1, 12], `after a ${name}: ArrowRight, Shift+ArrowRight`);
+    assert(mv(v0, v1) < 3, `after a ${name} the arrow keys moved the map (${mv(v0, v1).toFixed(0)} m)`);
+    await clickDayTab(p, 1, false); await waitState(p, (s) => s.tick === 1, 'tick 1');
+  }
+  t.note('rows', rows);
 });
 
 suite.test('T0-DT-01', 'a background-tab time leap moves the clock by at most a couple of ticks (frame delta capped at 100 ms)', async (t) => {

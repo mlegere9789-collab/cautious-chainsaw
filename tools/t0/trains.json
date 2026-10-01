@@ -28,8 +28,8 @@
     "what": "the build baseline since 2026-09-30: what production serves, reconstructed at source level (baseline/dist); legacy/dist stays the immutable downloaded deploy 6aa16d61"
   },
   "train_order": ["R0", "R1a", "R1b", "R1c"],
-  "group_order": ["R0", "A", "B", "DL", "C", "AX", "CP", "SHELL", "PERF"],
-  "runbook_order": ["R0", "A", "C", "AX", "B", "DL", "CP", "SHELL", "PERF"],
+  "group_order": ["R0", "A", "B", "DL", "C", "AX", "CP", "A2", "SHELL", "PERF"],
+  "runbook_order": ["R0", "A", "C", "AX", "B", "DL", "CP", "A2", "SHELL", "PERF"],
   "optional_groups": [],
   "pg_default_first": "R1a",
   "groups": {
@@ -40,6 +40,7 @@
     "C":  {"first": "R1b", "what": "mobile shell (bundle patches + index.html rows; the counts are in release/<train>/anchors.json and tools/t0/README.md); must precede AX"},
     "AX": {"first": "R1b", "what": "a11y bridge (bundle patches + page rows); must follow C (G-close-mobile expects 3 hits)"},
     "CP": {"first": "R1c", "what": "truthful-copy subset (bundle rows + Help-chunk rows); must follow C"},
+    "A2": {"first": "R1a", "what": "desktop fixes after the verifier round (a pointer press leaves keyboard focus off the map canvas so the documented shortcuts keep working, attribution and wordmark above the dock, Esc dismisses the story/event/tour card and the cards leave the controls free, unit canvas repainted on map move/zoom/resize and on filter change while paused, z9 overlay resized, NPS tour panel); bundle patches only; the monument star overlay the verifier saw does not exist in the baseline-built trains (production removed it, docs/baseline-drift.md section 5), so there is nothing to reproject; applies after CP so it anchors on the finished text of A..CP"},
     "SHELL": {"first": "R1b", "what": "index.html shell: Extra Features overlay (menu fit, scroll and keyboard; hidden behind modals; placement that avoids panels and cards; Phone view, the way back from the desktop layout) and the phone onboarding overlay (the dock stays reachable); page-phase patches on index.html only, applied after CP so they anchor on the final text"},
     "PERF": {"first": "R1a", "what": "first-paint performance of index.html: both stylesheets stop blocking the first paint (media=print, switched on by the loader before the app is imported) with the AX first-paint rules inlined; page-phase patches on index.html only, applied after SHELL (anchors: the stylesheet links, the loader start(), the first <style> line)"}
   },

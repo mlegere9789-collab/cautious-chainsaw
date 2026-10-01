@@ -76,7 +76,8 @@
    "target": "js",
    "find": "if(Ur.target.tagName===\"INPUT\")return;const{currentTick:Bo,isPlaying:cs,playbackSpeed:jr}=yn.getState();switch(Ur.key){",
    "repl": "{if(Ur.defaultPrevented||Ur.ctrlKey||Ur.metaKey||Ur.altKey)return;const t=Ur.target,n=t&&t.tagName;if(n===\"INPUT\"||n===\"TEXTAREA\"||n===\"SELECT\"||t&&t.isContentEditable){if(Ur.key!==\"Escape\")return;t.blur&&t.blur()}else{if((Ur.key===\" \"||Ur.key===\"Enter\")&&t&&t.closest&&t.closest('button,a,[role=\"button\"]'))return;if(t&&t.classList&&t.classList.contains(\"mapboxgl-canvas\")&&/^(Arrow|\\+|=|-|_)/.test(Ur.key))return}if(Ur.key!==\"Escape\"&&document.querySelector('[role=\"dialog\"][aria-modal=\"true\"]'))return}const{currentTick:Bo,isPlaying:cs,playbackSpeed:jr}=yn.getState();switch(Ur.key){",
-   "expect": 1
+   "expect": 1,
+   "note": "Decision after the desktop verifier round (group A2): arrows, + - = and _ are left to Mapbox only while the map canvas itself holds keyboard focus, which now only a Tab (or a script) can give it: A2's GtbgMapSetup makes a mouse press hand focus back, so after a click or drag the documented shortcuts (arrows = tick, Shift+arrows = hour, +/-/0 = speed) work as Help says. Keyboard users keep a way to pan: Tab to the map, then arrows pan, +/- zoom, Shift+arrows rotate/tilt (Mapbox), Esc gives the keys back. app-a11y 6.3 expects Mapbox keys disabled and Shift+arrows panning; that is the rebuild model (needs the shortcut registry), not T0."
   },
   {
    "id": "bug:E2-escape-set",
