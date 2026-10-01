@@ -11,8 +11,8 @@ import { validateAnchors, anchorsDoc } from '../../src/lib/time/index.js';
 import FULL_DOC from '../../src/lib/time/anchors.generated.js';
 import { runtimeDoc } from './slim.mjs';
 import { spanText, CLOCK_SPAN_RE } from './clocktext.mjs';
-import { findMatches, monthSites, exemptModule, COPY_RE } from './detectors.mjs';
-import { clocksIn, dayPartsIn, dataTickStrings, literalTickStrings, loadChronology, loadChronologyMeta, loadVignettes, loadSuccessions, loadCasualty, loadSchema, loadPlacementFiles, loadPlacements, loadTreeFiles, DATA } from './data.mjs';
+import { findMatches, monthSites, exemptModule, hedgedBefore, COPY_RE } from './detectors.mjs';
+import { clocksIn, dayPartsIn, dataTickStrings, literalTickStrings, loadChronology, loadChronologyMeta, loadVignettes, loadSuccessions, loadCasualty, loadSchema, loadPlacementFiles, loadPlacements, loadTreeFiles, isCode, kindOf, DATA } from './data.mjs';
 
 // ------------------------------------------------------------------ context
 /** Build the validation context. opts.tree: another dist tree (default legacy/dist), e.g. a patched output or a mutated copy in tests. */
@@ -205,19 +205,19 @@ rule('TM-V8', 'Link parameters canonical and in range (D-URLSTATE); emitters lis
     details: [...bad, ...Object.entries(byFile).map(([f, n]) => `${f}: ${n}`)], data: { emit, vigCount: vigIds.size } });
 });
 
-rule('TM-V9', 'Lint bans: month+constant dates, tick*5 / 300000 / (tick-1)/12 minute arithmetic, 4/5/6-hour bases, time-of-day formatters off a bare new Date(), typed AM/PM, banned copy', 'error', '4 date hits (bundle, ledger); tick arithmetic and hour bases at the nine implementations; 1 allow-listed wall clock; copy hits', (c) => {
-  const hits = { date: [], tick5: [], minutes: [], locale: [], ampm: [], copy: [] }, wallClock = [];
+rule('TM-V9', 'Lint bans: month+constant dates and literal date tables, tick*5 / 300000 (any spelling) / (tick-1)/12 minute arithmetic, 4/5/6-hour bases, time-of-day formatters off a bare new Date(), typed AM/PM and typed clock strings, banned copy', 'error', '5 date hits (bundle, ledger, dashboard day names); tick arithmetic and hour bases at the nine implementations; 1 allow-listed wall clock; typed clocks in strings and markup; copy hits', (c) => {
+  const hits = { date: [], tick5: [], minutes: [], locale: [], ampm: [], clocktext: [], copy: [] }, wallClock = [];
   const at = (f, text, i) => `${f}:${lineOf(text, i)}@${i}`;
   for (const [f, text] of Object.entries(c.files)) {
-    if (!/\.(html|js|json)$/.test(f)) continue;
-    if (/^assets\//.test(f) || f.endsWith('.html')) for (const h of findMatches(text)) { hits[h.bucket].push(at(f, text, h.index)); if (h.allowed) wallClock.push(at(f, text, h.index)); }
+    if (!isCode(f) && !/\.json$/i.test(f)) continue;
+    if (isCode(f)) for (const h of findMatches(text, undefined, { kind: kindOf(f) })) { hits[h.bucket].push(at(f, text, h.index)); if (h.allowed) wallClock.push(at(f, text, h.index)); }
     let m; COPY_RE.lastIndex = 0;
     const strong = /\.(html|json|js)$/.test(f) && !/^assets\/index-/.test(f);
     while ((m = COPY_RE.exec(text))) if (strong || /["'`]/.test(text.slice(Math.max(0, m.index - 3), m.index + 40))) hits.copy.push(at(f, text, m.index));
   }
   // the visitor's own clock (`new Date().toLocaleTimeString()`, the Sandbox change log) is legitimate wherever it sits; a formatter on any other Date is not
-  const violations = hits.date.length + hits.tick5.length + hits.minutes.length + (hits.locale.length - wallClock.length) + hits.ampm.length + hits.copy.length;
-  return R({ status: violations ? 'fail' : 'pass', count: violations, headline: `date ${hits.date.length}, tick*5 ${hits.tick5.length}, 5/6/4*60 ${hits.minutes.length}, locale ${hits.locale.length} (${wallClock.length} allow-listed), typed AM/PM ${hits.ampm.length}, banned copy ${hits.copy.length}`,
+  const violations = hits.date.length + hits.tick5.length + hits.minutes.length + (hits.locale.length - wallClock.length) + hits.ampm.length + hits.clocktext.length + hits.copy.length;
+  return R({ status: violations ? 'fail' : 'pass', count: violations, headline: `date ${hits.date.length}, tick*5 ${hits.tick5.length}, 5/6/4*60 ${hits.minutes.length}, locale ${hits.locale.length} (${wallClock.length} allow-listed), typed AM/PM ${hits.ampm.length}, typed clock strings ${hits.clocktext.length}, banned copy ${hits.copy.length}`,
     details: Object.entries(hits).map(([k, v]) => `${k}: ${v.join(', ') || 'none'}`), data: { ...hits, wallClock } });
 });
 
@@ -299,11 +299,11 @@ rule('TM-V15', 'Permalink and bookmark fixtures resolve (tests/time/fixtures/url
 rule('TM-V16', 'Every printed date derives from the model, never a Day-tab number', 'error', 'mobile header, toolbar; HUD/JF/QF/store print tab-derived dates', (c) => {
   const sites = [], derived = [];
   for (const [f, text] of Object.entries(c.files)) {
-    if (!(/^assets\//.test(f) || f.endsWith('.html'))) continue;
+    if (!isCode(f)) continue;
     for (const s of monthSites(text)) {
       const at = `${f}:${lineOf(text, s.index)}@${s.index}`;
       if (s.kind === 'template') derived.push(`${at} ${s.text}`); // a date template built from a tab number or a constant
-      else sites.push({ at, text: s.text.slice(0, 40), ident: s.ident, tabButton: f === c.bundleName && s.ident === '$t' });
+      else sites.push({ at, kind: s.kind, text: s.text.slice(0, 40), ident: s.ident, tabButton: f === c.bundleName && s.ident === '$t' });
     }
   }
   const tabLabels = sites.filter((s) => s.tabButton).length;
@@ -314,11 +314,13 @@ rule('TM-V16', 'Every printed date derives from the model, never a Day-tab numbe
 rule('TM-V17', 'Every printed time carries "about" when sigma >= approx_sigma_min or the anchors are unsigned', 'error', 'none do', (c) => {
   let printed = 0, about = 0; const where = [];
   for (const [f, text] of Object.entries(c.files)) {
-    if (!/\.(html|js)$/.test(f) || !(/^assets\//.test(f) || f.endsWith('.html'))) continue;
-    const n = findMatches(text, ['ampm']).length; if (n) { printed += n; where.push(`${f}: ${n}`); }
+    if (!isCode(f)) continue;
+    // a typed AM/PM formatter, or a typed clock string that does not hedge itself ("about 3:00 PM", "~3pm")
+    const n = findMatches(text, ['ampm'], { kind: kindOf(f) }).length + findMatches(text, ['clocktext'], { kind: kindOf(f) }).filter((h) => !hedgedBefore(text, h.index)).length;
+    if (n) { printed += n; where.push(`${f}: ${n}`); }
     about += (text.match(/["'`]about /g) || []).length;
   }
-  return R({ status: printed ? 'fail' : 'pass', count: printed, headline: `${printed} typed AM/PM formatters in code (${where.join(', ')}), 0 with an "about" prefix (${about} found); every tick is approximate while no anchor is signed`, details: where });
+  return R({ status: printed ? 'fail' : 'pass', count: printed, headline: `${printed} typed AM/PM formatters and unhedged typed clock strings in code and markup (${where.join(', ')}), 0 with an "about" prefix (${about} found); every tick is approximate while no anchor is signed`, details: where });
 });
 
 rule('TM-V18', '"Reviewed" / "accurate to the minute" copy requires a signed decision', 'error', 'none', (c) => {

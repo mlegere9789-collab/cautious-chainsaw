@@ -20,6 +20,7 @@ import * as walk from 'acorn-walk';
 import { P, ROOT, LEGACY, BUNDLE, readText, writeIfChanged, parseArgs, mdTable, mean, median, r1 } from './lib.mjs';
 import m from '../../src/lib/time/index.js';
 import { findMatches, exemptModule, DETECTORS } from './detectors.mjs';
+import { loadTreeFiles, isCode, kindOf } from './data.mjs';
 
 const { flags } = parseArgs(process.argv.slice(2));
 const TREE = flags.root ? path.resolve(String(flags.root)) : LEGACY;
@@ -28,10 +29,9 @@ const sha = (s) => crypto.createHash('sha1').update(s).digest('hex').slice(0, 10
 const T = m.tickMax;
 
 // ---------------------------------------------------------------- load files
+// the same loader as TM-V9 (tools/time/data.mjs): root files, assets/*, and every script-bearing file in any subdirectory (a shared script in js/ or scripts/ is loaded by every page)
 const files = {};
-for (const f of fs.readdirSync(TREE)) if (/\.(html|js|json)$/.test(f)) files[f] = readText(path.join(TREE, f));
-const assetsDir = path.join(TREE, 'assets');
-if (fs.existsSync(assetsDir)) for (const f of fs.readdirSync(assetsDir)) if (/\.js$/.test(f)) files['assets/' + f] = readText(path.join(assetsDir, f));
+for (const [f, t] of Object.entries(loadTreeFiles(TREE).files)) if (!/\.css$/.test(f)) files[f] = t;
 const bundleName = Object.keys(files).find((f) => /^assets\/index-[\w-]+\.js$/.test(f)) || BUNDLE;
 const bundle = files[bundleName];
 if (!bundle) { console.error('bundle not found under ' + TREE); process.exit(2); }
@@ -164,9 +164,9 @@ const generic = [];
 const scanFiles = exemptModule(files);
 const owner = (file, i) => known.find((k) => k.file === file && i >= k.from && i < k.to);
 for (const [file, text] of Object.entries(scanFiles)) {
-  if (!/\.(html|js)$/.test(file)) continue; // the bundle, chunks, pages and site scripts
+  if (!isCode(file)) continue; // the bundle, chunks, pages, site scripts and modules
   const loc = (i) => lineOf(text, i) + '@' + i, ctx = (i, len) => text.slice(Math.max(0, i - 30), i + len + 20).replace(/\s+/g, ' ');
-  for (const h of findMatches(text)) { const o = owner(file, h.index); generic.push({ detector: h.surface, formula: h.formula, allowed: h.allowed, file, at: loc(h.index), attributedTo: o ? o.id : null, text: ctx(h.index, h.text.length) }); }
+  for (const h of findMatches(text, undefined, { kind: kindOf(file) })) { const o = owner(file, h.index); generic.push({ detector: h.surface, formula: h.formula, allowed: h.allowed, file, at: loc(h.index), attributedTo: o ? o.id : null, text: ctx(h.index, h.text.length) }); }
   for (const [name, re] of LOCAL) { let mm; re.lastIndex = 0; while ((mm = re.exec(text))) { const o = owner(file, mm.index); generic.push({ detector: name, formula: false, allowed: false, file, at: loc(mm.index), attributedTo: o ? o.id : null, text: ctx(mm.index, mm[0].length) }); } }
 }
 // every detector has a row, even at 0 (a new one shows up in the baseline diff); the visitor's own clock (a bare `new Date()`) is not a tick formula and is not counted

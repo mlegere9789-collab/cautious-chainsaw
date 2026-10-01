@@ -56,6 +56,13 @@ describe('realistic injected defects turn the checks red', () => {
     ['a minified clone of the store clock appended to the bundle', BUNDLE, inBundle('function GtbgZz9(f){const{currentTick:x}=f(),M=(x-1)*5,P=4*60+M;return P}'), ['TM-V9']],
     ['toLocaleTimeString on a tick-derived Date in sandbox.html (next to the allowed wall clock)', 'sandbox.html', inScript('const t = new Date(base + tick * 300000).toLocaleTimeString();'), ['TM-V9']],
     ['getHours on a Date built from the tick (no toLocale call)', 'regiment.html', inScript('const h = new Date(startMs + frame * 60000).getHours();'), ['TM-V9']],
+    // the spellings, the table and the typed clock the re-verification found (RV-03): each was invisible to both checks
+    ['the 5-minute step with a numeric separator, (t - 1) * 300_000', 'search.html', inScript('const ms = START + (t - 1) * 300_000;'), ['TM-V9']],
+    ['the 5-minute step as 300 * 1000 in a step constant', 'education.html', inScript('const STEP_MS = 300 * 1000;'), ['TM-V9']],
+    ['a literal date table indexed by the Day tab', 'turning-points.html', inScript('const dayText = ["July 1", "July 2", "July 3"][tab - 1];'), ['TM-V9', 'TM-V16']],
+    ['a hand-typed clock in a string', 'documentary.html', inScript('const hit = { when: "Pickett steps off at 3:00 PM" };'), ['TM-V9', 'TM-V17']],
+    ['a typed clock in markup text', 'search.html', (h) => h.replace('</body>', '<p class="eta">Arrives at 4:30 PM</p></body>'), ['TM-V9', 'TM-V17']],
+    ['the shared root script (site-nav.js) with a tick * 5 clock', 'site-nav.js', (js) => js + '\nwindow.__clock = (tick) => 300 + (tick - 1) * 5;\n', ['TM-V9']],
   ];
   for (const [name, rel, mutate, expected] of MUTANTS) test(name, async () => {
     const r = await inject(rel, mutate);
@@ -73,6 +80,10 @@ describe('benign injections stay green (the detectors are specific, not noisy)',
     ['the visitor\'s own clock and the current year', 'search.html', inScript('const stamp = new Date().toLocaleTimeString(); const y = new Date().getFullYear(); const started = Date.now();')],
     ['a month list and a comparison', 'search.html', inScript('const MONTHS = ["Jan","Feb","Mar"]; const cache = new Date(ttl).getTime() > Date.now();')],
     ['a number formatted with toLocaleString', 'search.html', inScript('label.textContent = strength.toLocaleString();')],
+    // common code that merely shares digits with the clock (RV-03: these were flagged, or spelled differently from what was tested)
+    ['a cache lifetime of 5 minutes, five ways', 'search.html', inScript('const ttl = 5 * 60 * 1000, ttl2 = 300_000, ttl3 = 3e5; setTimeout(refresh, 300 * 1000); cache.set(k, v, { maxAge: 60 * 5 * 1000 });')],
+    ['a minutes to milliseconds conversion and a duration', 'search.html', inScript('const ms = mins * 60000, elapsed = (end - start) * 60000, years = Math.floor(months / 12), span = (max - min) * 5;')],
+    ['a session expiry and a version bound', 'search.html', inScript('const until = new Date(Date.now() + 5 * 60 * 1000); if (browserVersion < 3e5) legacy();')],
   ];
   for (const [name, rel, mutate] of BENIGN) test(name, async () => {
     const r = await inject(rel, mutate);

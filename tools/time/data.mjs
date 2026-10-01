@@ -99,11 +99,30 @@ export function literalTickStrings(files, bundleName) {
   return out;
 }
 
+/** script-bearing files: pages, scripts, modules, SVG (which may carry a <script>) and component sources (.astro .vue .svelte .jsx .ts .tsx; not .d.ts) */
+export const CODE_EXT = /(?:\.(?:html?|xhtml|svg|m?js|cjs|jsx|mts|cts|astro|vue|svelte)|(?<!\.d)\.tsx?)$/i;
+export const isCode = (f) => CODE_EXT.test(f);
+/** how a code file is read by the detectors: markup (text, attributes, <script> bodies) or a script */
+export const kindOf = (f) => (/\.(?:html?|xhtml|svg|astro|vue|svelte)$/i.test(f) ? 'html' : 'js');
+const SKIP_DIRS = new Set(['data', 'icons', 'screenshots', 'node_modules', '.git']);
+/**
+ * Every file of a dist tree a rule can read: the root files (html, js, json, css) and assets/* as before, PLUS every script-bearing file in any
+ * subdirectory (a shared script in js/, scripts/, assets/chunks/ ... is loaded by every page and was invisible to TM-V9/V16/V17 and the inventory).
+ * Keys are posix paths relative to the tree. Symlinks are not followed; data/ holds JSON the data rules load on their own.
+ */
 export function loadTreeFiles(tree = LEGACY) {
   const files = {};
-  for (const f of fs.readdirSync(tree)) if (/\.(html|js|json|css)$/.test(f)) files[f] = readText(path.join(tree, f));
-  const ad = path.join(tree, 'assets');
-  if (fs.existsSync(ad)) for (const f of fs.readdirSync(ad)) if (/\.(js|css)$/.test(f)) files['assets/' + f] = readText(path.join(ad, f));
+  const walkDir = (dir, rel, depth) => {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const r = rel ? rel + '/' + e.name : e.name, p = path.join(dir, e.name);
+      if (e.isSymbolicLink()) continue;
+      if (e.isDirectory()) { if (depth < 8 && !SKIP_DIRS.has(e.name) && !e.name.startsWith('.')) walkDir(p, r, depth + 1); continue; }
+      if (!e.isFile()) continue;
+      const top = !rel, inAssets = rel === 'assets';
+      if (isCode(e.name) || (top && /\.(json|css)$/.test(e.name)) || (inAssets && /\.css$/.test(e.name))) files[r] = readText(p);
+    }
+  };
+  walkDir(tree, '', 0);
   const bundleName = Object.keys(files).find((f) => /^assets\/index-[\w-]+\.js$/.test(f));
   return { files, bundleName };
 }

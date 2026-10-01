@@ -56,6 +56,7 @@
    "status": "fail",
    "count": 25,
    "details": [
+    "assets/index-Cg8FAMXN.js: 16",
     "camera.html: 1",
     "compare.html: 2",
     "dashboard.html: 1",
@@ -64,7 +65,6 @@
     "immersive.html: 1",
     "living-ledger.html: 1",
     "regiment.html: 1",
-    "assets/index-Cg8FAMXN.js: 16",
     "living-ledger.html: DAY_BOUNDS [1, 226, 451, 676]",
     "dashboard.html: DAY_BOUNDS [1, 225, 450, 675]"
    ],
@@ -73,6 +73,7 @@
     "pages": 8,
     "bundleSites": 16,
     "byFile": {
+     "assets/index-Cg8FAMXN.js": 16,
      "camera.html": 1,
      "compare.html": 2,
      "dashboard.html": 1,
@@ -80,8 +81,7 @@
      "education.html": 1,
      "immersive.html": 1,
      "living-ledger.html": 1,
-     "regiment.html": 1,
-     "assets/index-Cg8FAMXN.js": 16
+     "regiment.html": 1
     },
     "wrong": 0,
     "tables": [
@@ -1034,6 +1034,7 @@
    "status": "fail",
    "count": 13,
    "details": [
+    "assets/index-Cg8FAMXN.js: 8",
     "documentary.html: 2",
     "education.html: 2",
     "embed.html: 3",
@@ -1041,12 +1042,67 @@
     "historian.html: 3",
     "regiment.html: 3",
     "search.html: 5",
-    "turning-points.html: 1",
-    "assets/index-Cg8FAMXN.js: 8"
+    "turning-points.html: 1"
    ],
-   "headline": "28 link emitters in 9 files; 13 write an alias parameter (vignette, lat, lng, u, t, ancestor); 0 out-of-range literal ticks",
+   "headline": "28 link emitters in 9 files; 13 write an alias parameter (u, t, ancestor, vignette, lat, lng); 0 out-of-range literal ticks",
    "data": {
     "emit": [
+     {
+      "file": "assets/index-Cg8FAMXN.js",
+      "line": 38,
+      "param": "z",
+      "alias": false,
+      "value": "he:H.next=he,H=R;var"
+     },
+     {
+      "file": "assets/index-Cg8FAMXN.js",
+      "line": 40,
+      "param": "z",
+      "alias": false,
+      "value": "vh(l,z):(z=Rd(z,H,x,"
+     },
+     {
+      "file": "assets/index-Cg8FAMXN.js",
+      "line": 63,
+      "param": "v",
+      "alias": false,
+      "value": "==void"
+     },
+     {
+      "file": "assets/index-Cg8FAMXN.js",
+      "line": 69,
+      "param": "u",
+      "alias": true,
+      "value": "d:s=d+1}for(;this.id"
+     },
+     {
+      "file": "assets/index-Cg8FAMXN.js",
+      "line": 70,
+      "param": "t",
+      "alias": true,
+      "value": "=="
+     },
+     {
+      "file": "assets/index-Cg8FAMXN.js",
+      "line": 3343,
+      "param": "t",
+      "alias": true,
+      "value": "[...this.options.cus"
+     },
+     {
+      "file": "assets/index-Cg8FAMXN.js",
+      "line": 3350,
+      "param": "t",
+      "alias": true,
+      "value": "!1:(this._classList."
+     },
+     {
+      "file": "assets/index-Cg8FAMXN.js",
+      "line": 3421,
+      "param": "ancestor",
+      "alias": true,
+      "value": "${encodeURIComponent"
+     },
      {
       "file": "documentary.html",
       "line": 92,
@@ -1186,62 +1242,6 @@
       "param": "tick",
       "alias": false,
       "value": "${p.tick}"
-     },
-     {
-      "file": "assets/index-Cg8FAMXN.js",
-      "line": 38,
-      "param": "z",
-      "alias": false,
-      "value": "he:H.next=he,H=R;var"
-     },
-     {
-      "file": "assets/index-Cg8FAMXN.js",
-      "line": 40,
-      "param": "z",
-      "alias": false,
-      "value": "vh(l,z):(z=Rd(z,H,x,"
-     },
-     {
-      "file": "assets/index-Cg8FAMXN.js",
-      "line": 63,
-      "param": "v",
-      "alias": false,
-      "value": "==void"
-     },
-     {
-      "file": "assets/index-Cg8FAMXN.js",
-      "line": 69,
-      "param": "u",
-      "alias": true,
-      "value": "d:s=d+1}for(;this.id"
-     },
-     {
-      "file": "assets/index-Cg8FAMXN.js",
-      "line": 70,
-      "param": "t",
-      "alias": true,
-      "value": "=="
-     },
-     {
-      "file": "assets/index-Cg8FAMXN.js",
-      "line": 3343,
-      "param": "t",
-      "alias": true,
-      "value": "[...this.options.cus"
-     },
-     {
-      "file": "assets/index-Cg8FAMXN.js",
-      "line": 3350,
-      "param": "t",
-      "alias": true,
-      "value": "!1:(this._classList."
-     },
-     {
-      "file": "assets/index-Cg8FAMXN.js",
-      "line": 3421,
-      "param": "ancestor",
-      "alias": true,
-      "value": "${encodeURIComponent"
      }
     ],
     "vigCount": 24
@@ -1249,36 +1249,38 @@
   },
   {
    "id": "TM-V9",
-   "title": "Lint bans: month+constant dates, tick*5 / 300000 / (tick-1)/12 minute arithmetic, 4/5/6-hour bases, time-of-day formatters off a bare new Date(), typed AM/PM, banned copy",
+   "title": "Lint bans: month+constant dates and literal date tables, tick*5 / 300000 (any spelling) / (tick-1)/12 minute arithmetic, 4/5/6-hour bases, time-of-day formatters off a bare new Date(), typed AM/PM and typed clock strings, banned copy",
    "severity": "error",
-   "today": "4 date hits (bundle, ledger); tick arithmetic and hour bases at the nine implementations; 1 allow-listed wall clock; copy hits",
+   "today": "5 date hits (bundle, ledger, dashboard day names); tick arithmetic and hour bases at the nine implementations; 1 allow-listed wall clock; typed clocks in strings and markup; copy hits",
    "status": "fail",
-   "count": 55,
+   "count": 92,
    "details": [
-    "date: living-ledger.html:143@7618, assets/index-Cg8FAMXN.js:3355@1988148, assets/index-Cg8FAMXN.js:3421@2053524, assets/index-Cg8FAMXN.js:3421@2056195",
-    "tick5: camera.html:177@9127, compare.html:123@7677, immersive.html:171@9168, living-ledger.html:138@7435, assets/index-Cg8FAMXN.js:56@150621, assets/index-Cg8FAMXN.js:56@158390, assets/index-Cg8FAMXN.js:3421@2053399, assets/index-Cg8FAMXN.js:3421@2056105",
+    "date: assets/index-Cg8FAMXN.js:3355@1988148, assets/index-Cg8FAMXN.js:3421@2053524, assets/index-Cg8FAMXN.js:3421@2056195, dashboard.html:163@9895, living-ledger.html:143@7618",
+    "tick5: assets/index-Cg8FAMXN.js:56@150617, assets/index-Cg8FAMXN.js:56@158362, assets/index-Cg8FAMXN.js:3421@2053371, assets/index-Cg8FAMXN.js:3421@2056077, camera.html:177@9107, compare.html:123@7657, immersive.html:171@9148, living-ledger.html:138@7419",
     "minutes: assets/index-Cg8FAMXN.js:56@150690, assets/index-Cg8FAMXN.js:56@150695, assets/index-Cg8FAMXN.js:56@158401, assets/index-Cg8FAMXN.js:3421@2053405, assets/index-Cg8FAMXN.js:3421@2056111",
     "locale: sandbox.html:211@11800",
-    "ampm: compare.html:127@7852, compare.html:127@7873, compare.html:127@7880, compare.html:128@7984, compare.html:128@7991, living-ledger.html:142@7593, living-ledger.html:142@7600, assets/index-Cg8FAMXN.js:56@150744, assets/index-Cg8FAMXN.js:56@150749, assets/index-Cg8FAMXN.js:3421@2053449, assets/index-Cg8FAMXN.js:3421@2053454, assets/index-Cg8FAMXN.js:3421@2056155, assets/index-Cg8FAMXN.js:3421@2056160",
-    "copy: ground-remembers.html:42@2993, immersive.html:47@3745, index.html:15@583, index.html:15@635, index.html:18@913, index.html:18@965, index.html:24@1458, index.html:24@1510, index.html:32@1879, index.html:32@1931, index.html:620@32107, index.html:719@36663, index.html:719@36794, index.html:745@38535, index.html:745@38556, index.html:754@39087, index.html:754@39218, manifest.json:4@143, manifest.json:4@195, terms.html:30@2092, watch-together.html:64@5869, watch-together.html:102@8162, assets/HelpModal-CFV9T0zH.js:1@2321, assets/index-Cg8FAMXN.js:3355@1988200, assets/index-Cg8FAMXN.js:3421@2256125"
+    "ampm: assets/index-Cg8FAMXN.js:56@150744, assets/index-Cg8FAMXN.js:56@150749, assets/index-Cg8FAMXN.js:3421@2053449, assets/index-Cg8FAMXN.js:3421@2053454, assets/index-Cg8FAMXN.js:3421@2056155, assets/index-Cg8FAMXN.js:3421@2056160, compare.html:127@7852, compare.html:127@7873, compare.html:127@7880, compare.html:128@7984, compare.html:128@7991, living-ledger.html:142@7593, living-ledger.html:142@7600",
+    "clocktext: assets/index-Cg8FAMXN.js:3355@2030791, assets/index-Cg8FAMXN.js:3359@2031794, assets/index-Cg8FAMXN.js:3363@2032601, assets/index-Cg8FAMXN.js:3367@2033420, assets/index-Cg8FAMXN.js:3371@2034283, assets/index-Cg8FAMXN.js:3375@2035131, assets/index-Cg8FAMXN.js:3379@2035904, assets/index-Cg8FAMXN.js:3383@2036857, assets/index-Cg8FAMXN.js:3387@2037735, assets/index-Cg8FAMXN.js:3395@2039486, assets/index-Cg8FAMXN.js:3399@2040301, assets/index-Cg8FAMXN.js:3399@2040379, assets/index-Cg8FAMXN.js:3403@2041227, assets/index-Cg8FAMXN.js:3407@2042136, assets/index-Cg8FAMXN.js:3407@2042215, assets/index-Cg8FAMXN.js:3409@2042444, assets/index-Cg8FAMXN.js:3421@2049347, assets/index-Cg8FAMXN.js:3421@2049734, assets/index-Cg8FAMXN.js:3421@2049915, assets/index-Cg8FAMXN.js:3421@2050129, assets/index-Cg8FAMXN.js:3421@2050354, assets/index-Cg8FAMXN.js:3421@2050538, assets/index-Cg8FAMXN.js:3421@2052444, assets/index-Cg8FAMXN.js:3421@2052674, assets/index-Cg8FAMXN.js:3421@2053078, assets/index-Cg8FAMXN.js:3421@2071144, assets/index-Cg8FAMXN.js:3421@2109485, assets/index-Cg8FAMXN.js:3421@2114774, assets/index-Cg8FAMXN.js:3421@2118117, assets/index-Cg8FAMXN.js:3421@2120785, compare.html:55@4112, compare.html:55@4123, living-ledger.html:64@4191, sandbox.html:105@7164, turning-points.html:64@5758, turning-points.html:89@9589",
+    "copy: assets/HelpModal-CFV9T0zH.js:1@2321, assets/index-Cg8FAMXN.js:3355@1988200, assets/index-Cg8FAMXN.js:3421@2256125, ground-remembers.html:42@2993, immersive.html:47@3745, index.html:15@583, index.html:15@635, index.html:18@913, index.html:18@965, index.html:24@1458, index.html:24@1510, index.html:32@1879, index.html:32@1931, index.html:620@32107, index.html:719@36663, index.html:719@36794, index.html:745@38535, index.html:745@38556, index.html:754@39087, index.html:754@39218, manifest.json:4@143, manifest.json:4@195, terms.html:30@2092, watch-together.html:64@5869, watch-together.html:102@8162"
    ],
-   "headline": "date 4, tick*5 8, 5/6/4*60 5, locale 1 (1 allow-listed), typed AM/PM 13, banned copy 25",
+   "headline": "date 5, tick*5 8, 5/6/4*60 5, locale 1 (1 allow-listed), typed AM/PM 13, typed clock strings 36, banned copy 25",
    "data": {
     "date": [
-     "living-ledger.html:143@7618",
      "assets/index-Cg8FAMXN.js:3355@1988148",
      "assets/index-Cg8FAMXN.js:3421@2053524",
-     "assets/index-Cg8FAMXN.js:3421@2056195"
+     "assets/index-Cg8FAMXN.js:3421@2056195",
+     "dashboard.html:163@9895",
+     "living-ledger.html:143@7618"
     ],
     "tick5": [
-     "camera.html:177@9127",
-     "compare.html:123@7677",
-     "immersive.html:171@9168",
-     "living-ledger.html:138@7435",
-     "assets/index-Cg8FAMXN.js:56@150621",
-     "assets/index-Cg8FAMXN.js:56@158390",
-     "assets/index-Cg8FAMXN.js:3421@2053399",
-     "assets/index-Cg8FAMXN.js:3421@2056105"
+     "assets/index-Cg8FAMXN.js:56@150617",
+     "assets/index-Cg8FAMXN.js:56@158362",
+     "assets/index-Cg8FAMXN.js:3421@2053371",
+     "assets/index-Cg8FAMXN.js:3421@2056077",
+     "camera.html:177@9107",
+     "compare.html:123@7657",
+     "immersive.html:171@9148",
+     "living-ledger.html:138@7419"
     ],
     "minutes": [
      "assets/index-Cg8FAMXN.js:56@150690",
@@ -1291,21 +1293,62 @@
      "sandbox.html:211@11800"
     ],
     "ampm": [
+     "assets/index-Cg8FAMXN.js:56@150744",
+     "assets/index-Cg8FAMXN.js:56@150749",
+     "assets/index-Cg8FAMXN.js:3421@2053449",
+     "assets/index-Cg8FAMXN.js:3421@2053454",
+     "assets/index-Cg8FAMXN.js:3421@2056155",
+     "assets/index-Cg8FAMXN.js:3421@2056160",
      "compare.html:127@7852",
      "compare.html:127@7873",
      "compare.html:127@7880",
      "compare.html:128@7984",
      "compare.html:128@7991",
      "living-ledger.html:142@7593",
-     "living-ledger.html:142@7600",
-     "assets/index-Cg8FAMXN.js:56@150744",
-     "assets/index-Cg8FAMXN.js:56@150749",
-     "assets/index-Cg8FAMXN.js:3421@2053449",
-     "assets/index-Cg8FAMXN.js:3421@2053454",
-     "assets/index-Cg8FAMXN.js:3421@2056155",
-     "assets/index-Cg8FAMXN.js:3421@2056160"
+     "living-ledger.html:142@7600"
+    ],
+    "clocktext": [
+     "assets/index-Cg8FAMXN.js:3355@2030791",
+     "assets/index-Cg8FAMXN.js:3359@2031794",
+     "assets/index-Cg8FAMXN.js:3363@2032601",
+     "assets/index-Cg8FAMXN.js:3367@2033420",
+     "assets/index-Cg8FAMXN.js:3371@2034283",
+     "assets/index-Cg8FAMXN.js:3375@2035131",
+     "assets/index-Cg8FAMXN.js:3379@2035904",
+     "assets/index-Cg8FAMXN.js:3383@2036857",
+     "assets/index-Cg8FAMXN.js:3387@2037735",
+     "assets/index-Cg8FAMXN.js:3395@2039486",
+     "assets/index-Cg8FAMXN.js:3399@2040301",
+     "assets/index-Cg8FAMXN.js:3399@2040379",
+     "assets/index-Cg8FAMXN.js:3403@2041227",
+     "assets/index-Cg8FAMXN.js:3407@2042136",
+     "assets/index-Cg8FAMXN.js:3407@2042215",
+     "assets/index-Cg8FAMXN.js:3409@2042444",
+     "assets/index-Cg8FAMXN.js:3421@2049347",
+     "assets/index-Cg8FAMXN.js:3421@2049734",
+     "assets/index-Cg8FAMXN.js:3421@2049915",
+     "assets/index-Cg8FAMXN.js:3421@2050129",
+     "assets/index-Cg8FAMXN.js:3421@2050354",
+     "assets/index-Cg8FAMXN.js:3421@2050538",
+     "assets/index-Cg8FAMXN.js:3421@2052444",
+     "assets/index-Cg8FAMXN.js:3421@2052674",
+     "assets/index-Cg8FAMXN.js:3421@2053078",
+     "assets/index-Cg8FAMXN.js:3421@2071144",
+     "assets/index-Cg8FAMXN.js:3421@2109485",
+     "assets/index-Cg8FAMXN.js:3421@2114774",
+     "assets/index-Cg8FAMXN.js:3421@2118117",
+     "assets/index-Cg8FAMXN.js:3421@2120785",
+     "compare.html:55@4112",
+     "compare.html:55@4123",
+     "living-ledger.html:64@4191",
+     "sandbox.html:105@7164",
+     "turning-points.html:64@5758",
+     "turning-points.html:89@9589"
     ],
     "copy": [
+     "assets/HelpModal-CFV9T0zH.js:1@2321",
+     "assets/index-Cg8FAMXN.js:3355@1988200",
+     "assets/index-Cg8FAMXN.js:3421@2256125",
      "ground-remembers.html:42@2993",
      "immersive.html:47@3745",
      "index.html:15@583",
@@ -1327,10 +1370,7 @@
      "manifest.json:4@195",
      "terms.html:30@2092",
      "watch-together.html:64@5869",
-     "watch-together.html:102@8162",
-     "assets/HelpModal-CFV9T0zH.js:1@2321",
-     "assets/index-Cg8FAMXN.js:3355@1988200",
-     "assets/index-Cg8FAMXN.js:3421@2256125"
+     "watch-together.html:102@8162"
     ],
     "wallClock": [
      "sandbox.html:211@11800"
@@ -1470,45 +1510,56 @@
    "severity": "error",
    "today": "mobile header, toolbar; HUD/JF/QF/store print tab-derived dates",
    "status": "fail",
-   "count": 7,
+   "count": 8,
    "details": [
     "assets/index-Cg8FAMXN.js:3421@2093985 [\"July \",di]",
     "assets/index-Cg8FAMXN.js:3421@2094323 [\"July \",$t] (tab button, allowed)",
     "assets/index-Cg8FAMXN.js:3421@2275200 [\"July \",va]",
-    "living-ledger.html:143@7618 July ${dayIdx + 1}",
+    "dashboard.html:163@9895 ['July 1', 'July 2', 'July 3']",
     "assets/index-Cg8FAMXN.js:56@150789 July ${P}",
     "assets/index-Cg8FAMXN.js:3355@1988148 July ${l+2}",
     "assets/index-Cg8FAMXN.js:3421@2053524 July ${f+2}",
-    "assets/index-Cg8FAMXN.js:3421@2056195 July ${f+2}"
+    "assets/index-Cg8FAMXN.js:3421@2056195 July ${f+2}",
+    "living-ledger.html:143@7618 July ${dayIdx + 1}"
    ],
-   "headline": "2 places print a tab number as \"July N\" (mobile header, toolbar) and 5 templates build a date from a tab number; 1 Day-tab buttons (\"July N\" as the first-light label) are allowed by chapter 04 4.5",
+   "headline": "3 places print a tab number as \"July N\" (mobile header, toolbar) and 5 templates build a date from a tab number; 1 Day-tab buttons (\"July N\" as the first-light label) are allowed by chapter 04 4.5",
    "data": {
     "sites": [
      {
       "at": "assets/index-Cg8FAMXN.js:3421@2093985",
+      "kind": "array",
       "text": "[\"July \",di]",
       "ident": "di",
       "tabButton": false
      },
      {
       "at": "assets/index-Cg8FAMXN.js:3421@2094323",
+      "kind": "array",
       "text": "[\"July \",$t]",
       "ident": "$t",
       "tabButton": true
      },
      {
       "at": "assets/index-Cg8FAMXN.js:3421@2275200",
+      "kind": "array",
       "text": "[\"July \",va]",
       "ident": "va",
+      "tabButton": false
+     },
+     {
+      "at": "dashboard.html:163@9895",
+      "kind": "table",
+      "text": "['July 1', 'July 2', 'July 3']",
+      "ident": "i",
       "tabButton": false
      }
     ],
     "derived": [
-     "living-ledger.html:143@7618 July ${dayIdx + 1}",
      "assets/index-Cg8FAMXN.js:56@150789 July ${P}",
      "assets/index-Cg8FAMXN.js:3355@1988148 July ${l+2}",
      "assets/index-Cg8FAMXN.js:3421@2053524 July ${f+2}",
-     "assets/index-Cg8FAMXN.js:3421@2056195 July ${f+2}"
+     "assets/index-Cg8FAMXN.js:3421@2056195 July ${f+2}",
+     "living-ledger.html:143@7618 July ${dayIdx + 1}"
     ]
    }
   },
@@ -1518,13 +1569,13 @@
    "severity": "error",
    "today": "none do",
    "status": "fail",
-   "count": 13,
+   "count": 42,
    "details": [
-    "compare.html: 5",
-    "living-ledger.html: 2",
-    "assets/index-Cg8FAMXN.js: 6"
+    "assets/index-Cg8FAMXN.js: 32",
+    "compare.html: 7",
+    "living-ledger.html: 3"
    ],
-   "headline": "13 typed AM/PM formatters in code (compare.html: 5, living-ledger.html: 2, assets/index-Cg8FAMXN.js: 6), 0 with an \"about\" prefix (0 found); every tick is approximate while no anchor is signed",
+   "headline": "42 typed AM/PM formatters and unhedged typed clock strings in code and markup (assets/index-Cg8FAMXN.js: 32, compare.html: 7, living-ledger.html: 3), 0 with an \"about\" prefix (0 found); every tick is approximate while no anchor is signed",
    "data": {}
   },
   {

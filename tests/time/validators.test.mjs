@@ -54,9 +54,9 @@ describe('today: what the frozen legacy site measures', () => {
     assert.equal(k.pairs, 1209); assert.equal(k.ge100, 803); assert.equal(k.uniform.length, 6); assert.equal(k.proposed.length, 19); assert.equal(k.proposed.filter((x) => x.seam).length, 1); assert.equal(k.seams.length, 5);
     assert.deepEqual(k.seams.map((s) => `${s.id}:${s.from}-${s.to}`).sort(), ['C-I-3-3:225-226', 'C-I-3-3:450-451', 'U-1MN:450-451', 'U-20ME:225-226', 'U-XII-2-3:450-451']);
   });
-  test('TM-V9: three "July ${..+2}" date sites in the bundle (plus the ledger tab-index date), 5 typed 4/5/6*60 constants, the visitor\'s wall clock allow-listed', () => {
-    const h = res['TM-V9'].data; assert.equal(h.date.filter((x) => x.startsWith('assets/')).length, 3); assert.equal(h.date.length, 4);
-    assert.equal(h.minutes.length, 5); assert.equal(h.tick5.length, 8); assert.equal(h.locale.length, 1); assert.match(h.locale[0], /^sandbox\.html/);
+  test('TM-V9: three "July ${..+2}" date sites in the bundle (plus the ledger tab-index date and the dashboard day-name table), 5 typed 4/5/6*60 constants, the visitor\'s wall clock allow-listed, 36 typed clock strings', () => {
+    const h = res['TM-V9'].data; assert.equal(h.date.filter((x) => x.startsWith('assets/')).length, 3); assert.equal(h.date.length, 5); assert.equal(h.date.filter((x) => x.startsWith('dashboard.html')).length, 1);
+    assert.equal(h.minutes.length, 5); assert.equal(h.tick5.length, 8); assert.equal(h.locale.length, 1); assert.match(h.locale[0], /^sandbox\.html/); assert.equal(h.ampm.length, 13); assert.equal(h.clocktext.length, 36);
   });
   test('TM-V13: placement_schema says 430,000 records and the per-day real_time strings; record_count 4,890 vs the 100 rows', () => {
     const d = res['TM-V13'].details.join('\n'); assert.match(d, /record_count 4890 but 100 records/); assert.match(d, /430/); assert.match(d, /ticks_per_day|day1\.real_time/);
@@ -66,8 +66,9 @@ describe('today: what the frozen legacy site measures', () => {
     assert.equal(model.dayPart(150), 'night');
   });
   test('TM-V15: the permalink fixtures resolve (26 lines)', () => { assert.equal(res['TM-V15'].status, 'pass'); assert.match(res['TM-V15'].headline, /^26 fixtures/); });
-  test('TM-V16/V17: the mobile header and the toolbar print a tab number as a date; 13 typed AM/PM formatters, none with "about"', () => {
-    assert.ok(res['TM-V16'].data.sites.some((s) => s.ident === 'di')); assert.ok(res['TM-V16'].data.sites.some((s) => s.ident === 'va')); assert.equal(res['TM-V17'].count, 13);
+  test('TM-V16/V17: the mobile header and the toolbar print a tab number as a date (and the dashboard indexes a typed date table by the day); 13 typed AM/PM formatters plus 29 unhedged typed clock strings, none with "about"', () => {
+    assert.ok(res['TM-V16'].data.sites.some((s) => s.ident === 'di')); assert.ok(res['TM-V16'].data.sites.some((s) => s.ident === 'va')); assert.ok(res['TM-V16'].data.sites.some((s) => s.kind === 'table' && s.at.startsWith('dashboard.html')));
+    assert.equal(res['TM-V16'].count, 8); assert.equal(res['TM-V17'].count, 42);
   });
   test('TM-V18 is clean today, V19/V20 are honestly skipped, V21 finds the two unverified quotations', () => {
     assert.equal(res['TM-V18'].status, 'pass'); assert.equal(res['TM-V19'].status, 'skip'); assert.equal(res['TM-V20'].status, 'skip');

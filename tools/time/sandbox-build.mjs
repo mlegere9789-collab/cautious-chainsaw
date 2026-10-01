@@ -18,6 +18,8 @@ fs.mkdirSync(SB, { recursive: true });
 const cp = (rel, filter) => fs.cpSync(P(rel), path.join(SB, rel), { recursive: true, filter });
 cp('tools/t0', (s) => !/[\\/](__pycache__|node_modules)([\\/]|$)/.test(s));
 cp('legacy/dist');
+// the T0 build starts from the tree trains.json names (baseline/dist since the 2026-09-30 re-baseline, pinned by tools/t0/baseline.lock.json, which is inside tools/t0)
+try { const base = readJson(P('tools', 't0', 'trains.json')).base; if (base && base.dir && fs.existsSync(P(base.dir))) { cp(base.dir); console.log(`sandbox: T0 base ${base.dir} copied`); } } catch { /* an older T0 tree builds from legacy/dist */ }
 cp('ops');
 for (const f of ['package.json']) if (fs.existsSync(P(f))) fs.copyFileSync(P(f), path.join(SB, f));
 

@@ -4,9 +4,9 @@
 
 ## 1. What it is
 
-A single patch group (`CLOCK`, 56 asserted patches, 3 of them regex) in the T0 patch format that routes every clock surface of the frozen bundle and ten static pages through the canonical module (`src/lib/time`), inlined as a small function. Every displayed time carries "about" while no anchor is signed. The 33 anchors are the specialist's proposal (all `proposed`); this bridge makes the app print their clock consistently, it does not make any time historically reviewed.
+A single patch group (`CLOCK`, 57 asserted patches, 3 of them regex) in the T0 patch format that routes every clock surface of the frozen bundle and ten static pages through the canonical module (`src/lib/time`), inlined as a small function. Every displayed time carries "about" while no anchor is signed. The 33 anchors are the specialist's proposal (all `proposed`); this bridge makes the app print their clock consistently, it does not make any time historically reviewed.
 
-Module size when inlined: 6073 bytes raw, 2649 gzip, 2418 brotli for one copy (the plan's TX-12 budget is 2560 bytes brotli: met). The inline build is pruned to the 13 members the bridge calls (the validation, the ISO parser and every unused accessor are cut from it; they stay in the ES route) and minified with terser (`tools/time/inline.mjs`, pinned exact in package.json). The bundle carries one copy and each of the ten static pages one more, so the figure is per copy and the pages pay it eleven times over. The ES-module route carries the 4029-byte runtime subset of the anchors, not the 15558-byte full document.
+Module size when inlined: 6299 bytes raw, 2730 gzip, 2497 brotli for one copy (the plan's TX-12 budget is 2560 bytes brotli: met). The inline build is pruned to the 13 members the bridge calls (the validation, the ISO parser and every unused accessor are cut from it; they stay in the ES route) and minified with terser (`tools/time/inline.mjs`, pinned exact in package.json). The bundle carries one copy and each of the ten static pages one more, so the figure is per copy and the pages pay it eleven times over. The ES-module route carries the 4029-byte runtime subset of the anchors, not the 15558-byte full document.
 
 ## 2. Before and after, computed
 
@@ -56,6 +56,7 @@ The HUD prints the date of the Day tab plus two (July 3 to 5), so a battle that 
 | CLK-17-toast-time | js | 1 | commander toast footer "Tick n" becomes a time |
 | CLK-18-succession-time | js | 1 | unit panel succession "(tick n)" becomes a time |
 | CLK-19-minimap-footer | js | 1 | minimap footer "tick n" becomes a time (the units count itself is a T0 patch) |
+| CLK-19b-bookmark-default-label | js | 1 | the default name of a new bookmark ("Tick n" when the tick has no event name) becomes "Saved moment": the last visible "Tick n" in the bundle; a neutral word, because the label is stored in the visitor's browser and must not freeze a clock string |
 | CLK-20-vignette-jump | js | 1 | vignette jump button and tooltip show a time, not a tick number |
 | CLK-21-bookmark-import | book | 1 | Bookmarks chunk imports GTBGT from the entry (export G) |
 | CLK-22-bookmark-list-time | book | 1 | Bookmarks list meta "Tick n" becomes a time |
@@ -128,7 +129,7 @@ The HUD prints the date of the Day tab plus two (July 3 to 5), so a battle that 
 - Every changed script parses (acorn); the eslint-scope through-references show **no new unresolved identifier** (the lazy chunks import `GTBGT` from the entry instead of touching `window`, which the T0 gate does not allow).
 - The inlined module evaluated in a vm equals `src/lib/time` for all 675 ticks and 9 styles, hour steps, hour of day and hostile inputs; the rewritten `getTickTime`, `JF`, `QF` and the four page functions evaluate to the module strings; the mobile header's `split(", ")[1]` still yields the time and never "1863".
 - The real T0 builder (R1c, sandbox): all gates pass, including parse, unresolved-globals, anchors (every patch found exactly `expect` times), references and ledger.
-- Measured on the checker's last run: validators, legacy -> patched: TM-V2 25 -> 20; TM-V9 55 -> 26; TM-V16 7 -> 1; TM-V17 13 -> 0; TM-V18 0 -> 0; formula inventory on the patched tree: 8 implementations found, 7 routed through the module, 1 still legacy (unattributed formulas: 0): E day/night lighting M4 + E4.
+- Measured on the checker's last run: (not measured); formula inventory on the patched tree: 8 implementations found, 7 routed through the module, 1 still legacy (unattributed formulas: 0): E day/night lighting M4 + E4.
 
 ## 5. Behaviour the owner should know before approving
 
@@ -137,9 +138,10 @@ The HUD prints the date of the Day tab plus two (July 3 to 5), so a battle that 
 - **Everything reads "about".** 33 anchors, none signed: every tick is approximate by rule. The toolbar shows "about 3:00 PM"; the mobile header splits "July 3, about 3:00 PM" into a date line and "about 3:00 PM".
 - **Layout is not verified.** The strings are longer than before: the longest chip is "Night of July 1-2, about 12:05 AM" (33 characters) against "July 1, 6:00 AM" (15); the toolbar label is an 11 px monospace span and the mobile date line a 10 px label. Nothing was rendered; a device check at 320, 375 and 1440 px is owed before promotion (chapter 04 asks for `min-width` and `tabular-nums` in WP-TIME-17, which this bridge does not do).
 - **The frame number is never visible text** (chapter 04 section 4.9): the mobile transport row and the time bar footer used to print "Tick n/675"; they now print the time ("about 3:00 PM") and carry "Frame n of 675" only as a tooltip (title). No patch prints "tick" or the frame as text (tests/time/patches.test.mjs evaluates both rows).
+- **A new bookmark's default name is "Saved moment"** (CLK-19b): it was the event name or "Tick n", the last visible "Tick n" in the bundle. It is a neutral word on purpose: the name is stored in the visitor's browser and must not freeze a clock string; the Bookmarks list shows the time beside it (CLK-22). Names the visitor typed are untouched, and bookmarks saved earlier keep their stored names.
 - **Hour buttons and Shift+arrows change meaning**: 60 battle minutes (one tick at t515, about 70 ticks in the 0.83 min/tick stall at t302-314) instead of 12 ticks. The Help chunk is patched so it does not claim otherwise.
 - **The lighting overlay is not bridged** (M4/E4 still keys on the 05:00-base hour: TM-V10: 96 ticks that are night by the solar table are drawn with almost no tint, 16 daylight ticks are heavily tinted). Replacing it needs the solar-driven design of WP-TIME-13 and a legibility check, not a one-line swap. Camera and Immersive get the real hour (their thresholds are unchanged).
-- **Not covered**: Historian (clock strings are held by D-TIME until sign-off), Cinematic Export, Watch Together, Ground Remembers, Dashboard (labels), the tour and monument prose, onboarding prose, product copy ("real time", "five-minute": the CP group and WP-TIME-16), the playback speed label, bookmarks' default names, and any data file (`chronology_day*.json` labels are untouched; regenerating them is WP-TIME-06).
+- **Not covered**: Historian (clock strings are held by D-TIME until sign-off), Cinematic Export, Watch Together, Ground Remembers, Dashboard (labels), the tour and monument prose, onboarding prose, product copy ("real time", "five-minute": the CP group and WP-TIME-16), the playback speed label, and any data file (`chronology_day*.json` labels are untouched; regenerating them is WP-TIME-06).
 - **Conflicts to reconcile at promotion**: Help strings "Advance one tick (5 minutes)" and "Advance one hour (12 ticks)" are also candidates for docs-copy rows; the T0 CP group changes only other Help rows today, and the sandbox build applies both without overlap.
 
 ## 6. How to activate (after sign-off)

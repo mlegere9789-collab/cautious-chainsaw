@@ -24,10 +24,12 @@ describe('date: a month name plus a constant, however it is built', () => {
 
 describe('tick5: tick -> minutes / hours arithmetic', () => {
   const POSITIVE = { '(tick - dayStart) * 5': 'const m = (tick - dayStart) * 5;', '(x-1)*5 minified': 'M=(x-1)*5,P=x<=225?1:x<=450?2:3', 'offset expression': 'M=(c-(f===1?0:f===2?225:450)-1)*5', 'tick * 5': 'const minutes = tick * 5;', 'currentTick*5': 'z=currentTick*5', '5 * tick': 'const m = 5 * tick;', '5 * frameIdx': 'm = 5*frameIdx',
-    'ms: 300000': 'return start + (tick - 1) * 300000;', 'ms: 3e5': 'Date.now() + i*3e5', 'ms: * 60000': 'const ms = mins * 60000;', 'ms: 5*60*1000': 'const ms = ticks * 5 * 60 * 1000;', 'ms: 6e4': 'x = m * 6e4',
+    'ms: 300000': 'return start + (tick - 1) * 300000;', 'ms: 3e5': 'Date.UTC(1863, 6, 1) + tickNo*3e5', 'ms: * 60000': 'const ms = tickCount * 60000;', 'ms: 5*60*1000': 'const ms = ticks * 5 * 60 * 1000;', 'ms: 6e4': 'x = frame * 6e4',
     '(tick - 1) / 12': 'const h = Math.floor((tick - 1) / 12);', 'hours by 12 ticks, minified': 'H=(c-1)/12', 'tick / 12': 'const hours = tick / 12;', 'Math.floor(t / 12)': 'h = 5 + Math.floor(t / 12)' };
   for (const [name, code] of Object.entries(POSITIVE)) test(`caught: ${name}`, () => assert.ok(hits(code, 'tick5').length >= 1, code));
-  const NEGATIVE = { 'half of a sum': 'T=.5*(g+v)', 'colour maths': 'i<=.04045?i/12.92:Math.pow((i+.055)/1.055,2.4)', 'a fixed product': 'const px = 5 * 4;', 'a size of five': 'size = n * 5 + pad', 'a call result times five': 'const n = f(x) * 5.5;', 'index scaling': 'e.int16[5*e+0]=n', 'a grid': 'const w = cols * 12;', 'time in prose': '<p>about 5 minutes</p>', 'a division by 12.5': 'a = b / 12.5', 'Math.floor by ten': 'Math.floor(t / 10)' };
+  const NEGATIVE = { 'half of a sum': 'T=.5*(g+v)', 'colour maths': 'i<=.04045?i/12.92:Math.pow((i+.055)/1.055,2.4)', 'a fixed product': 'const px = 5 * 4;', 'a size of five': 'size = n * 5 + pad', 'a call result times five': 'const n = f(x) * 5.5;', 'index scaling': 'e.int16[5*e+0]=n', 'a grid': 'const w = cols * 12;', 'time in prose': '<p>about 5 minutes</p>', 'a division by 12.5': 'a = b / 12.5', 'Math.floor by ten': 'Math.floor(t / 10)',
+    'a minutes to ms conversion (RV-03: it is not a tick)': 'const ms = mins * 60000;', 'a one-minute unit next to a duration': 'const d = (end - start) * 60000;', 'a cache time': 'const ttl = 5 * 60 * 1000;', 'a timer': 'setTimeout(f, 300_000);', 'a version bound': 'if (browserVersion < 3e5) return;',
+    'months to years': 'const years = Math.floor(months / 12);', 'pages of twelve': 'const pages = Math.ceil(items.length / 12);', 'interpolation': 'y = 5 * (1 - t) * D', 'a difference times five': 'const s = (max - min) * 5;' };
   for (const [name, code] of Object.entries(NEGATIVE)) test(`quiet: ${name}`, () => assert.deepEqual(hits(code, 'tick5').map((h) => h.text), [], code));
 });
 
@@ -82,8 +84,10 @@ describe('the module\'s own inlined text is exempt, an edited copy is not', () =
 });
 
 describe('legacy counts (the baselines these detectors must reproduce exactly)', () => {
-  test('TM-V9 buckets on the frozen legacy tree: date 4, tick*5 8, hour bases 5, locale 1 (allowed), typed AM/PM 13 - unchanged by the generalisation', async () => {
+  test('TM-V9 buckets on the frozen legacy tree: date 5 (the four templates and the dashboard day-name table), tick*5 8, hour bases 5, locale 1 (allowed), typed AM/PM 13, typed clock strings 36 - the first four unchanged by the generalisation (RV-03 added the table and the typed clocks)', async () => {
     const { buildContext, runAll } = await import('../../tools/time/rules.mjs'); const r = runAll(buildContext(model, doc)).find((x) => x.id === 'TM-V9');
-    assert.deepEqual([r.data.date.length, r.data.tick5.length, r.data.minutes.length, r.data.locale.length, r.data.wallClock.length, r.data.ampm.length], [4, 8, 5, 1, 1, 13]);
+    assert.deepEqual([r.data.date.length, r.data.tick5.length, r.data.minutes.length, r.data.locale.length, r.data.wallClock.length, r.data.ampm.length, r.data.clocktext.length], [5, 8, 5, 1, 1, 13, 36]);
+    assert.equal(r.data.date.filter((x) => x.startsWith('dashboard.html')).length, 1, 'the new date hit is dashboard.html: const dayNames = ["July 1", "July 2", "July 3"] indexed by the day (a typed date per Day tab, TM-V16)');
+    assert.deepEqual([...new Set(r.data.clocktext.map((x) => x.split(':')[0]))].sort(), ['assets/index-Cg8FAMXN.js', 'compare.html', 'living-ledger.html', 'sandbox.html', 'turning-points.html'], 'typed clocks in strings and markup: monument labels and tour text in the bundle, page prose and presets');
   });
 });

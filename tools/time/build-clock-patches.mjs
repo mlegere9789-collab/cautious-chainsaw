@@ -53,6 +53,9 @@ B('CLK-16-unit-panel-time', '["At Tick ",P]', '["At ",GTBGT.f(P,"time")]');
 B('CLK-17-toast-time', 'V.jsxs("div",{style:eh.toastTick,children:["Tick ",l.tick]})', 'V.jsx("div",{style:eh.toastTick,children:GTBGT.f(l.tick,"time")})');
 B('CLK-18-succession-time', '(tick ${c.successionTick})', '(${GTBGT.f(c.successionTick,"time")})');
 B('CLK-19-minimap-footer', '," units · tick ",z]', '," units · ",GTBGT.f(z,"time")]');
+// the default name of a new bookmark was the event name or "Tick n" (saved in localStorage, shown in the Bookmarks list): the last visible "Tick n" of the bundle.
+// A neutral word, not a clock: a stored label would freeze a clock string into the visitor's storage (the time is shown beside it by CLK-22).
+B('CLK-19b-bookmark-default-label', '675:"End of the battle"}[c]||`Tick ${c}`}', '675:"End of the battle"}[c]||"Saved moment"}');
 B('CLK-20-vignette-jump', 'title:`Jump to tick ${ze.trigger_tick}`,children:["⏩ ",ze.trigger_tick]', 'title:`Jump to ${GTBGT.f(ze.trigger_tick,"time")}`,children:["⏩ ",GTBGT.f(ze.trigger_tick,"time")]');
 
 // ------------------------------------------------------------------ lazy chunks (they read the module from window.GTBGT)
@@ -147,6 +150,7 @@ const NOTES = {
   'CLK-20-vignette-jump': 'vignette jump button and tooltip show a time, not a tick number',
   'CLK-21-bookmark-import': 'Bookmarks chunk imports GTBGT from the entry (export G)',
   'CLK-22-bookmark-list-time': 'Bookmarks list meta "Tick n" becomes a time',
+  'CLK-19b-bookmark-default-label': 'the default name of a new bookmark ("Tick n" when the tick has no event name) becomes "Saved moment": the last visible "Tick n" in the bundle; a neutral word, because the label is stored in the visitor\'s browser and must not freeze a clock string',
   'CLK-23-help-import': 'Help chunk imports GTBGT from the entry (export G)',
   'CLK-24-help-step-text': 'Help said one step is 5 minutes; steps are 0.8 to 42 minutes of battle time',
   'CLK-25-help-hour-text': 'Help said one hour is 12 ticks; the hour buttons now step 60 battle minutes',

@@ -26,7 +26,7 @@ describe('CLOCK.json structure (T0 patch-file format)', () => {
       assert.ok(Number.isInteger(p.expect) && p.expect >= 1); assert.ok(p.note && p.note.length > 10, `${p.id} has no note`);
       if (p.regex) assert.ok(!/\\/.test(p.repl), `${p.id}: m.expand would interpret a backslash`);
     }
-    assert.equal(spec.patches.length, 56); assert.equal(spec.patches.filter((p) => p.regex).length, 3);
+    assert.equal(spec.patches.length, 57); assert.equal(spec.patches.filter((p) => p.regex).length, 3);
   });
   test('it is regenerated deterministically from the module and the legacy text', () => {
     const before = readText(FILE); const r = spawnSync(process.execPath, [P('tools', 'time', 'build-clock-patches.mjs')], { encoding: 'utf8' });
@@ -38,21 +38,23 @@ describe('CLOCK.json structure (T0 patch-file format)', () => {
 });
 
 describe('the checker: apply, parse, scope, evaluate', () => {
-  test('all 56 anchors match the pristine legacy text exactly as often as expected; every patched script parses; no new free names; module parity', () => {
+  test('all 57 anchors match the pristine legacy text exactly as often as expected; every patched script parses; no new free names; module parity', () => {
     const r = check(); assert.equal(r.status, 0, r.stdout + r.stderr);
-    assert.match(r.stdout, /56 patches in group "CLOCK" \(3 regex\), 56 applied/); assert.match(r.stdout, /scope: no new unresolved identifiers/);
+    assert.match(r.stdout, /57 patches in group "CLOCK" \(3 regex\), 57 applied/); assert.match(r.stdout, /scope: no new unresolved identifiers/);
     assert.match(r.stdout, /inline module parity: 675 ticks x 9 styles/); assert.match(r.stdout, /7 routed through the module, 1 still legacy/);
     for (const f of ['assets/index-Cg8FAMXN.js', 'assets/HelpModal-CFV9T0zH.js', 'assets/BookmarkPanel-C5YT4b5k.js', 'compare.html', 'living-ledger.html', 'camera.html', 'immersive.html', 'documentary.html', 'education.html', 'turning-points.html', 'sandbox.html', 'regiment.html', 'search.html']) assert.match(r.stdout, new RegExp(f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ': parses'));
   });
   test('it also applies on top of the real T0 groups (R0 A B DL C AX CP), with CLOCK at the end and right after group B (the regex anchors survive D1-D3)', () => {
     for (const pos of ['end', 'after-B']) {
       const r = check('--after-t0', '--position=' + pos, '--out=' + tmpdir('t0'), '--no-scope'); assert.equal(r.status, 0, pos + '\n' + r.stdout + r.stderr);
-      assert.ok(+/(\d+) T0 patches applied/.exec(r.stdout)[1] >= 125, 'the T0 groups (125 when this was written; other workstreams add more)'); assert.match(r.stdout, /0 did not apply/); assert.match(r.stdout, /56 patches in group "CLOCK" \(3 regex\), 56 applied on top of the T0 groups/);
+      assert.ok(+/(\d+) T0 patches applied/.exec(r.stdout)[1] >= 125, 'the T0 groups (125 when this was written; other workstreams add more)'); assert.match(r.stdout, /0 did not apply/); assert.match(r.stdout, /57 patches in group "CLOCK" \(3 regex\), 57 applied on top of the T0 groups/);
     }
   });
-  test('validators before -> after: TM-V17 13 -> 0, TM-V16 7 -> 1, TM-V9 falls', () => {
-    const r = check('--out=' + tmpdir('val'), '--no-scope'); const m = /validators, legacy -> patched: (.*)/.exec(r.stdout)[1];
-    assert.match(m, /TM-V17 13 -> 0/); assert.match(m, /TM-V16 7 -> 1/); const v9 = /TM-V9 (\d+) -> (\d+)/.exec(m); assert.ok(+v9[2] < +v9[1] - 20);
+  test('validators before -> after: the 13 typed AM/PM formatters are gone, TM-V16 8 -> 2, TM-V17 and TM-V9 fall; what stays is typed clocks in prose and labels that the bridge does not rewrite (documented in clock-bridge.md)', () => {
+    const out = tmpdir('val'), r = check('--out=' + out, '--no-scope'); const m = /validators, legacy -> patched: (.*)/.exec(r.stdout)[1];
+    const v = (id) => { const x = new RegExp(id + ' (\\d+) -> (\\d+)').exec(m); return [+x[1], +x[2]]; };
+    assert.deepEqual(v('TM-V16'), [8, 2]); const [v17a, v17b] = v('TM-V17'); assert.ok(v17b <= v17a - 13, `TM-V17 ${v17a} -> ${v17b}: the 13 typed formatters must be gone`); const [v9a, v9b] = v('TM-V9'); assert.ok(v9b < v9a - 20, `TM-V9 ${v9a} -> ${v9b}`);
+    const bundle = fs.readFileSync(path.join(out, 'assets', 'index-Cg8FAMXN.js'), 'utf8'); assert.doesNotMatch(bundle, /`Tick \$\{c\}`/, 'the last visible "Tick n" of the bundle (the bookmark default label) is patched'); assert.match(bundle, /End of the battle"\}\[c\]\|\|"Saved moment"/);
   });
 });
 

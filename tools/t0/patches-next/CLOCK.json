@@ -166,6 +166,14 @@
    "note": "minimap footer \"tick n\" becomes a time (the units count itself is a T0 patch)"
   },
   {
+   "id": "CLK-19b-bookmark-default-label",
+   "target": "js",
+   "find": "675:\"End of the battle\"}[c]||`Tick ${c}`}",
+   "repl": "675:\"End of the battle\"}[c]||\"Saved moment\"}",
+   "expect": 1,
+   "note": "the default name of a new bookmark (\"Tick n\" when the tick has no event name) becomes \"Saved moment\": the last visible \"Tick n\" in the bundle; a neutral word, because the label is stored in the visitor's browser and must not freeze a clock string"
+  },
+  {
    "id": "CLK-20-vignette-jump",
    "target": "js",
    "find": "title:`Jump to tick ${ze.trigger_tick}`,children:[\"⏩ \",ze.trigger_tick]",

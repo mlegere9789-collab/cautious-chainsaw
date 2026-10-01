@@ -42,12 +42,14 @@ There are 9 independent implementations that turn a tick into a clock, a date or
 
 | detector | matches | attributed to a known implementation | files |
 |---|---|---|---|
-| July ${..+-N} | 4 | 4 | living-ledger.html: 1, assets/index-Cg8FAMXN.js: 3 |
-| tick*5 | 8 | 8 | camera.html: 1, compare.html: 1, immersive.html: 1, living-ledger.html: 1, assets/index-Cg8FAMXN.js: 4 |
+| July ${..+-N} | 4 | 4 | assets/index-Cg8FAMXN.js: 3, living-ledger.html: 1 |
+| literal date table | 1 | 0 | dashboard.html: 1 |
+| tick*5 | 8 | 8 | assets/index-Cg8FAMXN.js: 4, camera.html: 1, compare.html: 1, immersive.html: 1, living-ledger.html: 1 |
 | 5*60\|6*60\|4*60 | 5 | 5 | assets/index-Cg8FAMXN.js: 5 |
 | toLocale*String\|getHours\|Intl.DateTimeFormat | 0 | 0 |  |
-| typed AM/PM literal | 13 | 13 | compare.html: 5, living-ledger.html: 2, assets/index-Cg8FAMXN.js: 6 |
-| tab expression (<=225 ? 1 : <=450 ? 2 : 3) | 12 | 4 | documentary.html: 1, regiment.html: 1, assets/index-Cg8FAMXN.js: 10 |
+| typed AM/PM literal | 13 | 13 | assets/index-Cg8FAMXN.js: 6, compare.html: 5, living-ledger.html: 2 |
+| typed clock literal | 36 | 0 | assets/index-Cg8FAMXN.js: 30, compare.html: 2, living-ledger.html: 1, sandbox.html: 1, turning-points.html: 2 |
+| tab expression (<=225 ? 1 : <=450 ? 2 : 3) | 12 | 4 | assets/index-Cg8FAMXN.js: 10, documentary.html: 1, regiment.html: 1 |
 | hour step of 12 ticks | 8 | 0 | assets/HelpModal-CFV9T0zH.js: 2, assets/index-Cg8FAMXN.js: 6 |
 
 Unattributed tick formulas (must be 0 for the baseline; any new one is a regression): **0**.
@@ -57,9 +59,9 @@ Wall-clock use (the visitor's own clock, legitimate, allow-listed): sandbox.html
 
 | pattern | matches | files |
 |---|---|---|
-| Tick N (visible text) | 22 | cinematic-export.html: 4, compare.html: 1, documentary.html: 1, historian.html: 1, living-ledger.html: 1, regiment.html: 1, search.html: 1, watch-together.html: 3, assets/BookmarkPanel-C5YT4b5k.js: 1, assets/index-Cg8FAMXN.js: 8 |
-| real time | 11 | immersive.html: 1, index.html: 6, manifest.json: 1, watch-together.html: 2, assets/index-Cg8FAMXN.js: 1 |
-| five-minute | 16 | compare.html: 1, ground-remembers.html: 1, index.html: 7, manifest.json: 1, terms.html: 1, assets/HelpModal-CFV9T0zH.js: 2, assets/index-Cg8FAMXN.js: 3 |
+| Tick N (visible text) | 22 | assets/BookmarkPanel-C5YT4b5k.js: 1, assets/index-Cg8FAMXN.js: 8, cinematic-export.html: 4, compare.html: 1, documentary.html: 1, historian.html: 1, living-ledger.html: 1, regiment.html: 1, search.html: 1, watch-together.html: 3 |
+| real time | 11 | assets/index-Cg8FAMXN.js: 1, immersive.html: 1, index.html: 6, manifest.json: 1, watch-together.html: 2 |
+| five-minute | 16 | assets/HelpModal-CFV9T0zH.js: 2, assets/index-Cg8FAMXN.js: 3, compare.html: 1, ground-remembers.html: 1, index.html: 7, manifest.json: 1, terms.html: 1 |
 | minute-by-minute | 2 | index.html: 2 |
 
 Typed clocks beside ticks (monument labels, tour subtitles, Turning Points day parts, Sandbox presets) are counted by `tools/time/validate.mjs` (TM-V3), not here.
