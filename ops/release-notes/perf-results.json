@@ -1,7 +1,7 @@
 {
  "generated": "2026-09-30",
  "agent": "t0-perf",
- "what": "Lighthouse 13.5 lab numbers for the four T0 trains before and after the perf work (R0 banner CLS fix; PERF group for R1a+), plus the applied-throttling probe and the findings behind the gates proposed in docs/plan/FINAL/02-tranche0-hotfix-runbook.md section 14.18-14.20",
+ "what": "Lighthouse 13.5 lab numbers for the four T0 trains before and after the perf work (R0 banner CLS fix; PERF group for R1a+), plus the applied-throttling probe and the findings behind the gates proposed in docs/plan/FINAL/02-tranche0-hotfix-runbook.md section 14.18-14.20; round 2 (2026-10-01): the shader precompile (R0 extension part tools/t0/patches/R0+mapbox-precompile.json, runbook 14.21) with exact before/after pairs in \"round2\"",
  "method": {
   "lighthouse": "13.5.0 attached to the harness Chrome (tests/t0/lib.mjs openSession) over its debugging port; categories performance+accessibility; simulated (Lantern) throttling, mobile preset 412x823 @1.75 4x CPU 1.6 Mbps 150 ms, desktop preset; Mapbox tile requests carry the production Referer through the harness (tiles per run 13-72, cap 300 per process); telemetry stubbed",
   "runs": "fresh Chrome profile and server per run, one run at a time (lock), interleaved before/after per round; mobile n=15 per tree (rounds 61-65 and 71-80), desktop n=5, legacy baseline n=10 mobile / 5 desktop; process priority above normal",
@@ -613,22 +613,1633 @@
   "cpu_profile_1x": "first React commit layout 53 ms (LoAF render time; 271 layout objects), Map constructor 86 ms of which Context constructor self 66 ms and _setupPainter 10 ms, first full render 108 ms of which Program._finalize self 94 ms (blocking getProgramParameter(LINK_STATUS) for the symbol shaders); thread CPU time (trace tdur) of the 111 ms and 114 ms tasks is only 29 ms and 18 ms: the main thread waits on the software-GL process",
   "R1c_profile_1x": "Program._finalize self 127 ms in total, 93 ms of it in one 120 ms span",
   "inline_scripts_after_fcp": "index.html inline scripts total about 4-9 ms CPU after first paint (populate, mover, pollers): not a TBT lever",
-  "tiles_blocked": "verifier 2: R0 TBT 135 ms and score 99 with tiles blocked; real tiles add about 500 ms TBT and about 15 points"
+  "tiles_blocked": "verifier 2: R0 TBT 135 ms and score 99 with tiles blocked; real tiles add about 500 ms TBT and about 15 points",
+  "superseded_note": "the three tasks are real, but the first Mapbox render (the largest) was avoidable rather than unsplittable: round2 / runbook 14.21"
  },
  "rejected_experiments": {
   "prefetch_entry": "R0 + <link rel=prefetch as=script>: second download of the entry, mount 4.6 -> 7.1 s at 4x CPU / slow 4G (3 of 3 runs)",
   "modulepreload_low": "R0 + modulepreload fetchpriority=low: mount 4.1-4.5 vs 4.56-4.58 s, FCP unchanged; forbidden by gate r0-mechanism and prod-probe T0-05",
   "inline_css": "R0 with both stylesheets inlined: FCP 837 vs 945 ms, +9 KB brotli per no-cache HTML, score 79 (78-81) vs 81-82 for the interleaved control (n=5)",
-  "map_constructor_task": "R0 with new Map() moved into a setTimeout(0) task: score 79 (78-81) vs 81-82 for the interleaved control (n=5), no TBT gain; collides with A2-map-attribution-and-setup",
+  "map_constructor_task": "R0 with new Map() moved into a setTimeout(0) task: score 79 (78-81) vs 81-82 for the interleaved control (n=5), no TBT gain; collides with A2-map-attribution-and-setup ; re-tested with the shader precompile on R0 (n = 7): 93 vs 94, TBT 323 vs 288",
   "css_defer_without_critical_css": "R1b/R1c: CLS 0.040 (skip links and sr-only h1 visible at first paint) - cured by PERF-critical-css-inline",
   "duplicate_fetches": "0 duplicate requests reach the server on a first visit (server ledger, R0 and R1c phone): the second fetch of commander_successions.json, chronology_day1-3.json and icons/icon-192.png is a Chrome cache hit (Lighthouse transferSize 0)"
  },
  "gates_proposed": {
-  "R0": "mobile >= 82, desktop >= 95",
-  "R1a": "mobile >= 82, desktop >= 95",
-  "R1b": "mobile >= 85 (target 90), desktop >= 95",
-  "R1c": "mobile >= 85 (target 90), desktop >= 95",
+  "R0": "mobile >= 85 (measured 94 [91-95], 85 [82-87] without the shader precompile), desktop >= 95",
+  "R1a": "mobile >= 85 (92 [84-93]; 84 without), desktop >= 95",
+  "R1b": "mobile >= 85 (98 [96-99]; 91 without), desktop >= 95, TBT <= 200 ms (161)",
+  "R1c": "mobile >= 85, target 90 (98 [94-99]; 89 without), desktop >= 95, TBT <= 200 ms (154)",
   "rule": "median of 5, quiet host (benchmarkIndex >= 3800, nothing else running), real tiles",
-  "tbt_under_200": "not reachable in T0 (needs the rebuild: lazy map chunk, yielding between evaluation, mount, constructor and layers)"
+  "superseded": "the 2026-09-30 proposal (R0 and R1a >= 82) is withdrawn: it rested on \"TBT cannot be cut by patches\", which round 2 disproved",
+  "tbt_under_200": "reached on R1b and R1c (154-161 ms); not on R0 and R1a (286-345 ms): module evaluation (46 ms wall, 120-134 counted) and the React commit with the Mapbox constructor in one task (101-121 ms wall, 150-190 counted) need the rebuild (lazy map chunk, yielding)"
+ },
+ "updated": "2026-10-01",
+ "round2": {
+  "what": "Shader precompile: before = the same tree built without the extension part (--patches directory without R0+mapbox-precompile.json), after = with it; one Lighthouse run at a time, interleaved, fresh Chrome profile per run, simulated throttling, real tiles through the harness (production Referer, <= 300 requests per process), Lighthouse 13.5.0, Chrome 153",
+  "trees": "R0 fb14ab00 -> 54e21b2e; R1a 46144620 -> 3c540237; R1b 85929b07 -> 3f15130a; R1c 43a69ada -> c5959590 (ids of the working tree of 2026-10-01 without / with the extension part; the other agents' groups moved the R1x ids since the first matrix)",
+  "mobile_n7_quiet_host": {
+   "R0": {
+    "before_without_patch": {
+     "n": 7,
+     "perf_med": 85,
+     "perf_min": 82,
+     "perf_max": 87,
+     "perf_runs": [
+      85,
+      84,
+      87,
+      84,
+      87,
+      82,
+      86
+     ],
+     "fcp": 939,
+     "lcp": 1288,
+     "tbt": 590,
+     "tbt_runs": [
+      590,
+      657,
+      535,
+      619,
+      496,
+      739,
+      550
+     ],
+     "cls": 0,
+     "si": 985,
+     "tti": 1900,
+     "a11y": 90,
+     "benchmarkIndex_med": 4282,
+     "cpu_busy_pct_med": 23.2,
+     "requests": 84,
+     "tiles": 25
+    },
+    "after_with_patch": {
+     "n": 7,
+     "perf_med": 94,
+     "perf_min": 91,
+     "perf_max": 95,
+     "perf_runs": [
+      94,
+      94,
+      95,
+      92,
+      95,
+      91,
+      94
+     ],
+     "fcp": 941,
+     "lcp": 1267,
+     "tbt": 286,
+     "tbt_runs": [
+      293,
+      274,
+      273,
+      355,
+      271,
+      372,
+      286
+     ],
+     "cls": 0,
+     "si": 975,
+     "tti": 1518,
+     "a11y": 90,
+     "benchmarkIndex_med": 4158,
+     "cpu_busy_pct_med": 25.8,
+     "requests": 84,
+     "tiles": 25
+    }
+   },
+   "R1a": {
+    "before_without_patch": {
+     "n": 7,
+     "perf_med": 84,
+     "perf_min": 81,
+     "perf_max": 85,
+     "perf_runs": [
+      85,
+      83,
+      84,
+      84,
+      84,
+      81,
+      82
+     ],
+     "fcp": 672,
+     "lcp": 1110,
+     "tbt": 665,
+     "tbt_runs": [
+      578,
+      675,
+      665,
+      662,
+      642,
+      766,
+      714
+     ],
+     "cls": 0,
+     "si": 892,
+     "tti": 1916,
+     "a11y": 90,
+     "benchmarkIndex_med": 4224,
+     "cpu_busy_pct_med": 26.5,
+     "requests": 86,
+     "tiles": 27
+    },
+    "after_with_patch": {
+     "n": 7,
+     "perf_med": 92,
+     "perf_min": 84,
+     "perf_max": 93,
+     "perf_runs": [
+      92,
+      92,
+      92,
+      91,
+      93,
+      92,
+      84
+     ],
+     "fcp": 671,
+     "lcp": 1111,
+     "tbt": 345,
+     "tbt_runs": [
+      345,
+      362,
+      338,
+      365,
+      322,
+      341,
+      655
+     ],
+     "cls": 0,
+     "si": 918,
+     "tti": 1542,
+     "a11y": 90,
+     "benchmarkIndex_med": 4156,
+     "cpu_busy_pct_med": 24.3,
+     "requests": 86,
+     "tiles": 27
+    }
+   },
+   "R1b": {
+    "before_without_patch": {
+     "n": 7,
+     "perf_med": 91,
+     "perf_min": 83,
+     "perf_max": 92,
+     "perf_runs": [
+      90,
+      92,
+      92,
+      91,
+      92,
+      90,
+      83
+     ],
+     "fcp": 824,
+     "lcp": 1244,
+     "tbt": 383,
+     "tbt_runs": [
+      413,
+      344,
+      360,
+      383,
+      355,
+      417,
+      692
+     ],
+     "cls": 0.0,
+     "si": 1005,
+     "tti": 1937,
+     "a11y": 100,
+     "benchmarkIndex_med": 4139,
+     "cpu_busy_pct_med": 26.5,
+     "requests": 103,
+     "tiles": 13
+    },
+    "after_with_patch": {
+     "n": 7,
+     "perf_med": 98,
+     "perf_min": 96,
+     "perf_max": 99,
+     "perf_runs": [
+      98,
+      98,
+      98,
+      98,
+      98,
+      99,
+      96
+     ],
+     "fcp": 824,
+     "lcp": 1247,
+     "tbt": 161,
+     "tbt_runs": [
+      173,
+      176,
+      161,
+      154,
+      154,
+      136,
+      211
+     ],
+     "cls": 0.0,
+     "si": 1052,
+     "tti": 1467,
+     "a11y": 100,
+     "benchmarkIndex_med": 4159,
+     "cpu_busy_pct_med": 25.7,
+     "requests": 103,
+     "tiles": 14
+    }
+   },
+   "R1c": {
+    "before_without_patch": {
+     "n": 7,
+     "perf_med": 89,
+     "perf_min": 84,
+     "perf_max": 91,
+     "perf_runs": [
+      89,
+      89,
+      90,
+      91,
+      89,
+      90,
+      84
+     ],
+     "fcp": 822,
+     "lcp": 1245,
+     "tbt": 440,
+     "tbt_runs": [
+      440,
+      443,
+      418,
+      368,
+      440,
+      393,
+      632
+     ],
+     "cls": 0,
+     "si": 1033,
+     "tti": 2014,
+     "a11y": 100,
+     "benchmarkIndex_med": 4196,
+     "cpu_busy_pct_med": 25,
+     "requests": 103,
+     "tiles": 13
+    },
+    "after_with_patch": {
+     "n": 7,
+     "perf_med": 98,
+     "perf_min": 94,
+     "perf_max": 99,
+     "perf_runs": [
+      99,
+      98,
+      99,
+      99,
+      94,
+      98,
+      97
+     ],
+     "fcp": 825,
+     "lcp": 1245,
+     "tbt": 154,
+     "tbt_runs": [
+      146,
+      154,
+      148,
+      144,
+      287,
+      178,
+      205
+     ],
+     "cls": 0,
+     "si": 1032,
+     "tti": 1411,
+     "a11y": 100,
+     "benchmarkIndex_med": 4212,
+     "cpu_busy_pct_med": 26.4,
+     "requests": 103,
+     "tiles": 13
+    }
+   }
+  },
+  "desktop_n3_quiet_host": {
+   "R0": {
+    "before_without_patch": {
+     "n": 3,
+     "perf_med": 100,
+     "perf_min": 100,
+     "perf_max": 100,
+     "perf_runs": [
+      100,
+      100,
+      100
+     ],
+     "fcp": 291,
+     "lcp": 312,
+     "tbt": 29,
+     "tbt_runs": [
+      40,
+      29,
+      26
+     ],
+     "cls": 0,
+     "si": 478,
+     "tti": 516,
+     "a11y": 90,
+     "benchmarkIndex_med": 4177,
+     "cpu_busy_pct_med": 24.1,
+     "requests": 111,
+     "tiles": 53
+    },
+    "after_with_patch": {
+     "n": 3,
+     "perf_med": 100,
+     "perf_min": 100,
+     "perf_max": 100,
+     "perf_runs": [
+      100,
+      100,
+      100
+     ],
+     "fcp": 293,
+     "lcp": 315,
+     "tbt": 0,
+     "tbt_runs": [
+      0,
+      0,
+      0
+     ],
+     "cls": 0,
+     "si": 468,
+     "tti": 315,
+     "a11y": 90,
+     "benchmarkIndex_med": 4216,
+     "cpu_busy_pct_med": 20.7,
+     "requests": 111,
+     "tiles": 53
+    }
+   },
+   "R1a": {
+    "before_without_patch": {
+     "n": 3,
+     "perf_med": 100,
+     "perf_min": 100,
+     "perf_max": 100,
+     "perf_runs": [
+      100,
+      100,
+      100
+     ],
+     "fcp": 194,
+     "lcp": 308,
+     "tbt": 44,
+     "tbt_runs": [
+      19,
+      52,
+      44
+     ],
+     "cls": 0,
+     "si": 429,
+     "tti": 486,
+     "a11y": 90,
+     "benchmarkIndex_med": 4248,
+     "cpu_busy_pct_med": 21.2,
+     "requests": 113,
+     "tiles": 55
+    },
+    "after_with_patch": {
+     "n": 3,
+     "perf_med": 100,
+     "perf_min": 100,
+     "perf_max": 100,
+     "perf_runs": [
+      100,
+      100,
+      100
+     ],
+     "fcp": 193,
+     "lcp": 305,
+     "tbt": 0,
+     "tbt_runs": [
+      0,
+      0,
+      4
+     ],
+     "cls": 0,
+     "si": 429,
+     "tti": 310,
+     "a11y": 90,
+     "benchmarkIndex_med": 4235,
+     "cpu_busy_pct_med": 26.2,
+     "requests": 113,
+     "tiles": 55
+    }
+   },
+   "R1b": {
+    "before_without_patch": {
+     "n": 3,
+     "perf_med": 100,
+     "perf_min": 100,
+     "perf_max": 100,
+     "perf_runs": [
+      100,
+      100,
+      100
+     ],
+     "fcp": 236,
+     "lcp": 349,
+     "tbt": 31,
+     "tbt_runs": [
+      31,
+      19,
+      50
+     ],
+     "cls": 0.0,
+     "si": 513,
+     "tti": 568,
+     "a11y": 100,
+     "benchmarkIndex_med": 4122,
+     "cpu_busy_pct_med": 23.3,
+     "requests": 113,
+     "tiles": 55
+    },
+    "after_with_patch": {
+     "n": 3,
+     "perf_med": 100,
+     "perf_min": 100,
+     "perf_max": 100,
+     "perf_runs": [
+      100,
+      100,
+      100
+     ],
+     "fcp": 236,
+     "lcp": 349,
+     "tbt": 0,
+     "tbt_runs": [
+      0,
+      0,
+      0
+     ],
+     "cls": 0.0,
+     "si": 469,
+     "tti": 349,
+     "a11y": 100,
+     "benchmarkIndex_med": 4091,
+     "cpu_busy_pct_med": 22.3,
+     "requests": 113,
+     "tiles": 55
+    }
+   },
+   "R1c": {
+    "before_without_patch": {
+     "n": 3,
+     "perf_med": 100,
+     "perf_min": 100,
+     "perf_max": 100,
+     "perf_runs": [
+      100,
+      100,
+      100
+     ],
+     "fcp": 236,
+     "lcp": 345,
+     "tbt": 40,
+     "tbt_runs": [
+      42,
+      40,
+      36
+     ],
+     "cls": 0.0,
+     "si": 480,
+     "tti": 555,
+     "a11y": 100,
+     "benchmarkIndex_med": 4142,
+     "cpu_busy_pct_med": 22.6,
+     "requests": 113,
+     "tiles": 55
+    },
+    "after_with_patch": {
+     "n": 3,
+     "perf_med": 100,
+     "perf_min": 100,
+     "perf_max": 100,
+     "perf_runs": [
+      100,
+      100,
+      100
+     ],
+     "fcp": 236,
+     "lcp": 345,
+     "tbt": 0,
+     "tbt_runs": [
+      0,
+      0,
+      0
+     ],
+     "cls": 0.0,
+     "si": 464,
+     "tti": 345,
+     "a11y": 100,
+     "benchmarkIndex_med": 4232,
+     "cpu_busy_pct_med": 21.6,
+     "requests": 113,
+     "tiles": 55
+    }
+   }
+  },
+  "mobile_n7_busier_host_earlier_trees": {
+   "R0": {
+    "before_without_patch": {
+     "n": 7,
+     "perf_med": 83,
+     "perf_min": 80,
+     "perf_max": 87,
+     "perf_runs": [
+      81,
+      87,
+      83,
+      80,
+      82,
+      84,
+      84
+     ],
+     "fcp": 945,
+     "lcp": 1268,
+     "tbt": 700,
+     "tbt_runs": [
+      783,
+      515,
+      700,
+      840,
+      720,
+      638,
+      638
+     ],
+     "cls": 0,
+     "si": 1021,
+     "tti": 2030,
+     "a11y": 90,
+     "benchmarkIndex_med": 3998,
+     "cpu_busy_pct_med": 37.8,
+     "requests": 84,
+     "tiles": 25
+    },
+    "after_with_patch": {
+     "n": 7,
+     "perf_med": 92,
+     "perf_min": 75,
+     "perf_max": 94,
+     "perf_runs": [
+      93,
+      94,
+      93,
+      92,
+      92,
+      92,
+      75
+     ],
+     "fcp": 941,
+     "lcp": 1258,
+     "tbt": 339,
+     "tbt_runs": [
+      323,
+      282,
+      310,
+      348,
+      350,
+      339,
+      1354
+     ],
+     "cls": 0,
+     "si": 1042,
+     "tti": 1641,
+     "a11y": 90,
+     "benchmarkIndex_med": 3970,
+     "cpu_busy_pct_med": 32.7,
+     "requests": 84,
+     "tiles": 25
+    }
+   },
+   "R1a": {
+    "before_without_patch": {
+     "n": 7,
+     "perf_med": 83,
+     "perf_min": 80,
+     "perf_max": 85,
+     "perf_runs": [
+      81,
+      81,
+      84,
+      85,
+      80,
+      83,
+      84
+     ],
+     "fcp": 675,
+     "lcp": 1127,
+     "tbt": 705,
+     "tbt_runs": [
+      832,
+      770,
+      628,
+      597,
+      836,
+      705,
+      634
+     ],
+     "cls": 0,
+     "si": 897,
+     "tti": 1982,
+     "a11y": 90,
+     "benchmarkIndex_med": 4038,
+     "cpu_busy_pct_med": 33.7,
+     "requests": 86,
+     "tiles": 27
+    },
+    "after_with_patch": {
+     "n": 7,
+     "perf_med": 92,
+     "perf_min": 88,
+     "perf_max": 92,
+     "perf_runs": [
+      92,
+      92,
+      92,
+      89,
+      88,
+      92,
+      90
+     ],
+     "fcp": 669,
+     "lcp": 1112,
+     "tbt": 362,
+     "tbt_runs": [
+      360,
+      355,
+      345,
+      462,
+      489,
+      362,
+      426
+     ],
+     "cls": 0,
+     "si": 919,
+     "tti": 1618,
+     "a11y": 90,
+     "benchmarkIndex_med": 3992,
+     "cpu_busy_pct_med": 37.2,
+     "requests": 86,
+     "tiles": 27
+    }
+   },
+   "R1b": {
+    "before_without_patch": {
+     "n": 7,
+     "perf_med": 88,
+     "perf_min": 86,
+     "perf_max": 90,
+     "perf_runs": [
+      86,
+      89,
+      86,
+      86,
+      88,
+      89,
+      90
+     ],
+     "fcp": 831,
+     "lcp": 1260,
+     "tbt": 479,
+     "tbt_runs": [
+      570,
+      458,
+      562,
+      568,
+      479,
+      436,
+      402
+     ],
+     "cls": 0.0,
+     "si": 1082,
+     "tti": 2082,
+     "a11y": 100,
+     "benchmarkIndex_med": 3816,
+     "cpu_busy_pct_med": 39,
+     "requests": 103,
+     "tiles": 13
+    },
+    "after_with_patch": {
+     "n": 7,
+     "perf_med": 98,
+     "perf_min": 96,
+     "perf_max": 98,
+     "perf_runs": [
+      96,
+      98,
+      98,
+      96,
+      98,
+      98,
+      97
+     ],
+     "fcp": 831,
+     "lcp": 1251,
+     "tbt": 178,
+     "tbt_runs": [
+      235,
+      178,
+      164,
+      212,
+      176,
+      159,
+      194
+     ],
+     "cls": 0.0,
+     "si": 1088,
+     "tti": 1449,
+     "a11y": 100,
+     "benchmarkIndex_med": 3788,
+     "cpu_busy_pct_med": 37.5,
+     "requests": 103,
+     "tiles": 13
+    }
+   },
+   "R1c": {
+    "before_without_patch": {
+     "n": 7,
+     "perf_med": 86,
+     "perf_min": 84,
+     "perf_max": 90,
+     "perf_runs": [
+      86,
+      88,
+      86,
+      84,
+      89,
+      90,
+      84
+     ],
+     "fcp": 832,
+     "lcp": 1262,
+     "tbt": 548,
+     "tbt_runs": [
+      559,
+      487,
+      548,
+      648,
+      454,
+      414,
+      635
+     ],
+     "cls": 0,
+     "si": 1115,
+     "tti": 2170,
+     "a11y": 100,
+     "benchmarkIndex_med": 3911,
+     "cpu_busy_pct_med": 34.9,
+     "requests": 103,
+     "tiles": 13
+    },
+    "after_with_patch": {
+     "n": 7,
+     "perf_med": 98,
+     "perf_min": 97,
+     "perf_max": 99,
+     "perf_runs": [
+      98,
+      97,
+      98,
+      97,
+      98,
+      99,
+      97
+     ],
+     "fcp": 829,
+     "lcp": 1245,
+     "tbt": 172,
+     "tbt_runs": [
+      162,
+      190,
+      165,
+      189,
+      172,
+      147,
+      183
+     ],
+     "cls": 0,
+     "si": 1059,
+     "tti": 1422,
+     "a11y": 100,
+     "benchmarkIndex_med": 4027,
+     "cpu_busy_pct_med": 32.9,
+     "requests": 103,
+     "tiles": 14
+    }
+   }
+  },
+  "desktop_n5_busier_host_earlier_trees": {
+   "R0": {
+    "before_without_patch": {
+     "n": 5,
+     "perf_med": 100,
+     "perf_min": 100,
+     "perf_max": 100,
+     "perf_runs": [
+      100,
+      100,
+      100,
+      100,
+      100
+     ],
+     "fcp": 291,
+     "lcp": 313,
+     "tbt": 44,
+     "tbt_runs": [
+      76,
+      43,
+      16,
+      44,
+      44
+     ],
+     "cls": 0,
+     "si": 471,
+     "tti": 499,
+     "a11y": 90,
+     "benchmarkIndex_med": 4168,
+     "cpu_busy_pct_med": 27,
+     "requests": 111,
+     "tiles": 53
+    },
+    "after_with_patch": {
+     "n": 5,
+     "perf_med": 100,
+     "perf_min": 100,
+     "perf_max": 100,
+     "perf_runs": [
+      100,
+      100,
+      100,
+      100,
+      100
+     ],
+     "fcp": 291,
+     "lcp": 314,
+     "tbt": 0,
+     "tbt_runs": [
+      2,
+      0,
+      0,
+      0,
+      0
+     ],
+     "cls": 0,
+     "si": 465,
+     "tti": 314,
+     "a11y": 90,
+     "benchmarkIndex_med": 4093,
+     "cpu_busy_pct_med": 30.9,
+     "requests": 111,
+     "tiles": 53
+    }
+   },
+   "R1a": {
+    "before_without_patch": {
+     "n": 5,
+     "perf_med": 100,
+     "perf_min": 100,
+     "perf_max": 100,
+     "perf_runs": [
+      100,
+      100,
+      100,
+      100,
+      100
+     ],
+     "fcp": 197,
+     "lcp": 317,
+     "tbt": 28,
+     "tbt_runs": [
+      40,
+      22,
+      23,
+      28,
+      53
+     ],
+     "cls": 0,
+     "si": 437,
+     "tti": 499,
+     "a11y": 90,
+     "benchmarkIndex_med": 3948,
+     "cpu_busy_pct_med": 41.5,
+     "requests": 113,
+     "tiles": 55
+    },
+    "after_with_patch": {
+     "n": 5,
+     "perf_med": 100,
+     "perf_min": 100,
+     "perf_max": 100,
+     "perf_runs": [
+      100,
+      100,
+      100,
+      100,
+      100
+     ],
+     "fcp": 193,
+     "lcp": 306,
+     "tbt": 0,
+     "tbt_runs": [
+      0,
+      0,
+      3,
+      0,
+      0
+     ],
+     "cls": 0,
+     "si": 431,
+     "tti": 307,
+     "a11y": 90,
+     "benchmarkIndex_med": 3974,
+     "cpu_busy_pct_med": 35.1,
+     "requests": 113,
+     "tiles": 55
+    }
+   },
+   "R1b": {
+    "before_without_patch": {
+     "n": 5,
+     "perf_med": 100,
+     "perf_min": 100,
+     "perf_max": 100,
+     "perf_runs": [
+      100,
+      100,
+      100,
+      100,
+      100
+     ],
+     "fcp": 242,
+     "lcp": 356,
+     "tbt": 50,
+     "tbt_runs": [
+      60,
+      40,
+      51,
+      38,
+      50
+     ],
+     "cls": 0.0,
+     "si": 490,
+     "tti": 582,
+     "a11y": 100,
+     "benchmarkIndex_med": 4006,
+     "cpu_busy_pct_med": 27.6,
+     "requests": 113,
+     "tiles": 55
+    },
+    "after_with_patch": {
+     "n": 5,
+     "perf_med": 100,
+     "perf_min": 100,
+     "perf_max": 100,
+     "perf_runs": [
+      100,
+      100,
+      100,
+      100,
+      100
+     ],
+     "fcp": 236,
+     "lcp": 347,
+     "tbt": 0,
+     "tbt_runs": [
+      0,
+      0,
+      9,
+      0,
+      0
+     ],
+     "cls": 0.0,
+     "si": 479,
+     "tti": 347,
+     "a11y": 100,
+     "benchmarkIndex_med": 4004,
+     "cpu_busy_pct_med": 28.2,
+     "requests": 113,
+     "tiles": 55
+    }
+   },
+   "R1c": {
+    "before_without_patch": {
+     "n": 5,
+     "perf_med": 100,
+     "perf_min": 100,
+     "perf_max": 100,
+     "perf_runs": [
+      100,
+      100,
+      100,
+      100,
+      100
+     ],
+     "fcp": 240,
+     "lcp": 355,
+     "tbt": 41,
+     "tbt_runs": [
+      25,
+      30,
+      54,
+      41,
+      63
+     ],
+     "cls": 0.0,
+     "si": 499,
+     "tti": 584,
+     "a11y": 100,
+     "benchmarkIndex_med": 4161,
+     "cpu_busy_pct_med": 31.1,
+     "requests": 113,
+     "tiles": 55
+    },
+    "after_with_patch": {
+     "n": 5,
+     "perf_med": 100,
+     "perf_min": 100,
+     "perf_max": 100,
+     "perf_runs": [
+      100,
+      100,
+      100,
+      100,
+      100
+     ],
+     "fcp": 235,
+     "lcp": 346,
+     "tbt": 0,
+     "tbt_runs": [
+      0,
+      0,
+      0,
+      0,
+      6
+     ],
+     "cls": 0.0,
+     "si": 487,
+     "tti": 347,
+     "a11y": 100,
+     "benchmarkIndex_med": 4139,
+     "cpu_busy_pct_med": 30.1,
+     "requests": 113,
+     "tiles": 55
+    }
+   }
+  },
+  "legacy_live_baseline": {
+   "mobile": {
+    "n": 5,
+    "perf_med": 61,
+    "perf_min": 59,
+    "perf_max": 63,
+    "perf_runs": [
+     60,
+     63,
+     61,
+     61,
+     59
+    ],
+    "fcp": 3942,
+    "lcp": 8771,
+    "tbt": 0,
+    "tbt_runs": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "cls": 0.1369,
+    "si": 3942,
+    "tti": 8771,
+    "a11y": 90,
+    "benchmarkIndex_med": 4192,
+    "cpu_busy_pct_med": 18,
+    "requests": 143,
+    "tiles": 28
+   },
+   "desktop": {
+    "n": 3,
+    "perf_med": 85,
+    "perf_min": 84,
+    "perf_max": 85,
+    "perf_runs": [
+     85,
+     84,
+     85
+    ],
+    "fcp": 788,
+    "lcp": 2233,
+    "tbt": 0,
+    "tbt_runs": [
+     0,
+     0,
+     0
+    ],
+    "cls": 0.0494,
+    "si": 1923,
+    "tti": 2234,
+    "a11y": 90,
+    "benchmarkIndex_med": 4183,
+    "cpu_busy_pct_med": 24.6,
+    "requests": 168,
+    "tiles": 56
+   }
+  },
+  "r0_with_PERF_stylesheet_rows_n7": {
+   "R0_with_shader_precompile": {
+    "n": 7,
+    "perf_med": 93,
+    "perf_min": 88,
+    "perf_max": 94,
+    "perf_runs": [
+     93,
+     93,
+     94,
+     93,
+     88,
+     91,
+     94
+    ],
+    "fcp": 941,
+    "lcp": 1263,
+    "tbt": 324,
+    "tbt_runs": [
+     324,
+     308,
+     296,
+     328,
+     468,
+     385,
+     297
+    ],
+    "cls": 0,
+    "si": 982,
+    "tti": 1618,
+    "a11y": 90,
+    "benchmarkIndex_med": 4109,
+    "cpu_busy_pct_med": 31.9,
+    "requests": 84,
+    "tiles": 25
+   },
+   "R0_with_shader_precompile_and_PERF_rows": {
+    "n": 7,
+    "perf_med": 92,
+    "perf_min": 90,
+    "perf_max": 93,
+    "perf_runs": [
+     92,
+     90,
+     92,
+     92,
+     93,
+     92,
+     93
+    ],
+    "fcp": 672,
+    "lcp": 1111,
+    "tbt": 358,
+    "tbt_runs": [
+     358,
+     403,
+     352,
+     363,
+     327,
+     362,
+     335
+    ],
+    "cls": 0,
+    "si": 891,
+    "tti": 1572,
+    "a11y": 90,
+    "benchmarkIndex_med": 4130,
+    "cpu_busy_pct_med": 27.3,
+    "requests": 84,
+    "tiles": 25
+   }
+  },
+  "r0_map_constructor_in_own_task_n7": {
+   "R0": {
+    "n": 7,
+    "perf_med": 94,
+    "perf_min": 93,
+    "perf_max": 94,
+    "perf_runs": [
+     93,
+     94,
+     94,
+     94,
+     94,
+     94,
+     94
+    ],
+    "fcp": 947,
+    "lcp": 1273,
+    "tbt": 288,
+    "tbt_runs": [
+     309,
+     275,
+     280,
+     288,
+     299,
+     298,
+     284
+    ],
+    "cls": 0,
+    "si": 960,
+    "tti": 1533,
+    "a11y": 90,
+    "benchmarkIndex_med": 4225,
+    "cpu_busy_pct_med": 23.6,
+    "requests": 84,
+    "tiles": 25
+   },
+   "R0_ctorsplit": {
+    "n": 7,
+    "perf_med": 93,
+    "perf_min": 91,
+    "perf_max": 94,
+    "perf_runs": [
+     91,
+     94,
+     93,
+     94,
+     92,
+     93,
+     93
+    ],
+    "fcp": 948,
+    "lcp": 1278,
+    "tbt": 323,
+    "tbt_runs": [
+     372,
+     283,
+     327,
+     290,
+     358,
+     323,
+     323
+    ],
+    "cls": 0,
+    "si": 1014,
+    "tti": 1654,
+    "a11y": 90,
+    "benchmarkIndex_med": 4196,
+    "cpu_busy_pct_med": 23.3,
+    "requests": 84,
+    "tiles": 25
+   }
+  },
+  "probe_4xcpu_slow4g_n3_final": {
+   "N3c_R0": {
+    "n": 3,
+    "fcp": 588,
+    "lcp": 588,
+    "cls_max": 0.0,
+    "tbt_runs": [
+     313,
+     304,
+     289
+    ],
+    "tbt_med": 304,
+    "mount_ms_runs": [
+     "1373",
+     "4286",
+     "1349"
+    ]
+   },
+   "N3_R0": {
+    "n": 3,
+    "fcp": 580,
+    "lcp": 580,
+    "cls_max": 0.0,
+    "tbt_runs": [
+     246,
+     233,
+     255
+    ],
+    "tbt_med": 246,
+    "mount_ms_runs": [
+     "4242",
+     "4246",
+     "4214"
+    ]
+   },
+   "N3c_R1c": {
+    "n": 3,
+    "fcp": 444,
+    "lcp": 444,
+    "cls_max": 0.0,
+    "tbt_runs": [
+     354,
+     314,
+     341
+    ],
+    "tbt_med": 341,
+    "mount_ms_runs": [
+     "5352",
+     "5464",
+     "5491"
+    ]
+   },
+   "N3_R1c": {
+    "n": 3,
+    "fcp": 432,
+    "lcp": 432,
+    "cls_max": 0.0,
+    "tbt_runs": [
+     292,
+     209,
+     273
+    ],
+    "tbt_med": 273,
+    "mount_ms_runs": [
+     "5370",
+     "5364",
+     "5365"
+    ]
+   }
+  },
+  "probe_4xcpu_slow4g_n3_earlier_trees": {
+   "N_R0": {
+    "n": 3,
+    "fcp": 600,
+    "lcp": 600,
+    "cls_max": 0.0,
+    "tbt_runs": [
+     283,
+     416,
+     303
+    ],
+    "tbt_med": 303,
+    "mount_ms_runs": [
+     "4245",
+     "4579",
+     "4412"
+    ]
+   },
+   "N2_R0": {
+    "n": 3,
+    "fcp": 628,
+    "lcp": 628,
+    "cls_max": 0.0,
+    "tbt_runs": [
+     301,
+     308,
+     350
+    ],
+    "tbt_med": 308,
+    "mount_ms_runs": [
+     "4600",
+     "4484",
+     "1168"
+    ]
+   },
+   "N_R1a": {
+    "n": 3,
+    "fcp": 328,
+    "lcp": 328,
+    "cls_max": 0.0,
+    "tbt_runs": [
+     328,
+     436,
+     365
+    ],
+    "tbt_med": 365,
+    "mount_ms_runs": [
+     "4237",
+     "4274",
+     "4247"
+    ]
+   },
+   "N2_R1a": {
+    "n": 3,
+    "fcp": 388,
+    "lcp": 388,
+    "cls_max": 0.0,
+    "tbt_runs": [
+     245,
+     288,
+     242
+    ],
+    "tbt_med": 245,
+    "mount_ms_runs": [
+     "4073",
+     "4270",
+     "4272"
+    ]
+   },
+   "N_R1b": {
+    "n": 3,
+    "fcp": 472,
+    "lcp": 472,
+    "cls_max": 0.0,
+    "tbt_runs": [
+     357,
+     334,
+     391
+    ],
+    "tbt_med": 357,
+    "mount_ms_runs": [
+     "5446",
+     "5419",
+     "5395"
+    ]
+   },
+   "N2_R1b": {
+    "n": 3,
+    "fcp": 428,
+    "lcp": 428,
+    "cls_max": 0.0,
+    "tbt_runs": [
+     233,
+     279,
+     278
+    ],
+    "tbt_med": 278,
+    "mount_ms_runs": [
+     "5390",
+     "2681",
+     "5449"
+    ]
+   },
+   "N_R1c": {
+    "n": 3,
+    "fcp": 452,
+    "lcp": 452,
+    "cls_max": 0.0,
+    "tbt_runs": [
+     462,
+     305,
+     306
+    ],
+    "tbt_med": 306,
+    "mount_ms_runs": [
+     "2806",
+     "5353",
+     "5286"
+    ]
+   },
+   "N2_R1c": {
+    "n": 3,
+    "fcp": 436,
+    "lcp": 436,
+    "cls_max": 0.0,
+    "tbt_runs": [
+     301,
+     256,
+     228
+    ],
+    "tbt_med": 256,
+    "mount_ms_runs": [
+     "5433",
+     "5510",
+     "5453"
+    ]
+   }
+  },
+  "mapbox_compile_stats_phone_boot": {
+   "method": "map.painter.context._compileStats read through the React fiber tree after 7 s, real tiles, 412x823 touch viewport (tmp/t0-perf/cstats.mjs, shot-cmp.mjs)",
+   "R1c_without_patch": {
+    "precompiled": 0,
+    "onDemand": 6,
+    "totalStallMs": "138-160",
+    "symbol_sdf_ms": "87-99",
+    "line_ms": "14-20 each",
+    "raster_ms": "7-10"
+   },
+   "R1c_with_patch": {
+    "precompiled": 3,
+    "onDemand": 3,
+    "totalStallMs": "17-28"
+   },
+   "R0_without_patch": {
+    "precompiled": 0,
+    "onDemand": 6,
+    "totalStallMs": 145,
+    "symbol_sdf_ms": 88
+   },
+   "R0_with_patch": {
+    "precompiled": 3,
+    "onDemand": 3,
+    "totalStallMs": 45,
+    "symbol_sdf_ms": 24.6
+   },
+   "desktop_viewport_note": "the first program linked in the process (clippingMask) waits 66-84 ms there (GPU process warm-up), with and without the patch; desktop TBT is 0"
+  },
+  "lantern_anatomy_single_runs_ms_counted": {
+   "R1c_without_patch": {
+    "tasks": [
+     116,
+     12,
+     17,
+     25,
+     24,
+     279
+    ],
+    "sum": 473,
+    "note": "the 279 is the first frame that draws the symbol layers (82 ms task, simulated 329)"
+   },
+   "R1c_with_patch": {
+    "tasks": [
+     35,
+     6,
+     134,
+     19,
+     33
+    ],
+    "sum": 227,
+    "note": "134 = module evaluation (46 ms task)"
+   },
+   "R0_without_patch": {
+    "tasks": [
+     129,
+     191,
+     4,
+     49,
+     423
+    ],
+    "sum": 796,
+    "note": "423 = first symbol frame (118 ms task); 191 = React commit + Map constructor (121 ms task)"
+   },
+   "R0_with_patch": {
+    "tasks": [
+     120,
+     151,
+     16,
+     29
+    ],
+    "sum": 316,
+    "note": "120 = module evaluation (43 ms); 151 = React commit + Map constructor (101 ms: minimap 2D canvas 43 ms self, Map constructor 30 ms, layout 30-50 ms)"
+   }
+  },
+  "equivalence_screenshots_after_idle": {
+   "identical_sha1_with_and_without_patch": [
+    "R1c phone aedbb5bd84f8",
+    "R1b phone bd0c235cac97",
+    "R1a desktop 1dee9ab7a2a0",
+    "R1c desktop 2810fc96af8c",
+    "R0 phone 6a9e6be83df7"
+   ],
+   "r0_desktop": "varies run to run with and without the patch (4185 differing pixels between two controls); one patched run is pixel-identical (diff 0) to a control run",
+   "rendered_feature_counts_per_layer": "equal in every pair"
+  },
+  "isolated_experiments": [
+   {
+    "id": "prewarm1",
+    "what": "buildQueue + processQueue (idle slices) right after the layers are added",
+    "result": "no effect on the phone map (precompiled 0): the first attempt hooked the desktop map, the phone map is a different one, and the idle callback ran one program per slice"
+   },
+   {
+    "id": "prewarm3",
+    "what": "both maps; queue built at once, symbol program added, one short task with an unbounded deadline",
+    "result": "R1c 85 -> 95, TBT 589 -> 251 (n = 11-13); R0 82 -> 90 (n = 5); line keys did not match the draw (a second line program: layer paint properties not recalculated yet)"
+   },
+   {
+    "id": "prewarm4 (shipped)",
+    "what": "reset the precompiler, wait for the next style update, then the same batch",
+    "result": "R1c 97, TBT 195 (n = 12); precompiled 3, total stall 17-28 ms"
+   },
+   {
+    "id": "prewarm5",
+    "what": "prewarm4 + clippingMask/background/raster created right after the painter exists",
+    "result": "R1c 98, TBT 180 vs 195 with a wider spread (n = 7): dropped (second hook inside Mapbox _setupPainter)"
+   },
+   {
+    "id": "symlast",
+    "what": "symbol program queued last",
+    "result": "single boots: total stall 58 (R0) and 31 (R1c) vs 45 and 17-21: dropped"
+   },
+   {
+    "id": "symnow",
+    "what": "symbol program created inside the load task",
+    "result": "R0 symbol stall 24 -> 0-12 ms, line programs then wait behind it in the GPU process, total stall 38-43 vs 45: dropped"
+   },
+   {
+    "id": "ctorsplit (again)",
+    "what": "Mapbox constructor in its own task, on R0 with the shader precompile",
+    "result": "R0 93 vs 94, TBT 323 vs 288 (n = 7): dropped"
+   },
+   {
+    "id": "PERF rows on R0",
+    "what": "the PERF stylesheet rows applied to R0 (owner switch)",
+    "result": "FCP 941 -> 672, LCP 1263 -> 1111, score 93 -> 92 (n = 7): R0 stays without PERF"
+   }
+  ]
  }
 }
