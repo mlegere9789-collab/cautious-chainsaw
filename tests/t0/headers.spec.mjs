@@ -489,6 +489,7 @@ suite.test('HDR-22', 'negative control: the same crawl DOES report a violation w
 suite.test('HDR-23', 'ONLINE (--online): the Virtual Walkthrough opens the REAL Google Street View frame and logs no permissions-policy error; the same page without the allow attribute logs it (control)', async (t) => {
   if (NO_BROWSER) throw new Skip('--no-browser');
   if (!ONLINE) throw new Skip('--online not given (this test loads https://www.google.com/maps/embed from the Walkthrough, about two page loads of the embed)');
+  if (!DELEGATED) throw new Skip('the Street View delegation is OFF in this build (privacy.html does not disclose it: build with --with PG-legal); Google then logs its own accelerometer error, as on the live site today');
   const entryRel = path.join('assets', VERSION.entry);
   const run = async (name, mutate) => {
     const dir = path.join(OUT, 'wt-' + name); fs.rmSync(dir, { recursive: true, force: true }); fs.cpSync(DIST, dir, { recursive: true });
