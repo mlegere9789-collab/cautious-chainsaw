@@ -45,15 +45,17 @@
    "id": "a11:H-search-input",
    "target": "js",
    "find": "placeholder:\"Name, state, commander, or unit ID...\",",
-   "repl": "placeholder:\"Name, state, commander, or unit ID...\",\"aria-label\":\"Search units\",",
-   "expect": 1
+   "repl": "placeholder:\"Name, state, commander, or unit ID...\",\"aria-label\":\"Search units\",\"aria-controls\":he.length>0?\"gt-search-results\":void 0,onKeyDown:ev=>{if(he.length===0||ev.ctrlKey||ev.metaKey||ev.altKey)return;if(ev.key===\"Enter\"){ev.preventDefault();ut(he[0].id,void 0,1)}else if(ev.key===\"ArrowDown\"){ev.preventDefault();const o=document.querySelector(\"#gt-search-results [data-gt-row]\");o&&o.focus()}},",
+   "expect": 1,
+   "note": "name (a11y:H); Enter takes the first result, ArrowDown moves to the list (WCAG 2.1.1: search results were click-only divs)"
   },
   {
    "id": "a11:H-ancestor-input",
    "target": "js",
    "find": "placeholder:\"Type regiment name (e.g. 20th Maine, 26th NC...)\",",
-   "repl": "placeholder:\"Type regiment name (e.g. 20th Maine, 26th NC...)\",\"aria-label\":\"Regiment name\",",
-   "expect": 1
+   "repl": "placeholder:\"Type regiment name (e.g. 20th Maine, 26th NC...)\",\"aria-label\":\"Regiment name\",id:\"gt-anc-input\",onKeyDown:ev=>{if(ev.ctrlKey||ev.metaKey||ev.altKey)return;if(ev.key===\"Enter\"&&Ie.length>0){ev.preventDefault();ut(Ie[0],1)}else if(ev.key===\"ArrowDown\"){ev.preventDefault();const o=document.querySelector(\"#gt-anc-results [data-gt-row]\");o&&o.focus()}},",
+   "expect": 1,
+   "note": "name (a11y:H); Enter takes the first regiment, ArrowDown moves to the list"
   },
   {
    "id": "a11:H-mon-search-1",
@@ -103,9 +105,9 @@
    "id": "AX-flags-and-dialog-helper",
    "target": "js",
    "find": "(function(){const f=document.createElement(\"link\").relList;",
-   "repl": "(function(){try{const mq=matchMedia(\"(prefers-reduced-motion: reduce)\"),set=()=>{let p=null;try{p=localStorage.getItem(\"gtbg-motion\")}catch(e){}window.__gtbgReduceMotion=mq.matches||p===\"reduce\"};set();mq.addEventListener&&mq.addEventListener(\"change\",set)}catch(e){window.__gtbgReduceMotion=!1}const st=[];window.__gtbgDlg=document.__gtbgDlg=function(el){try{if(el){st.push(document.activeElement);el.contains(document.activeElement)||el.focus({preventScroll:!0})}else{const p=st.pop();p&&p!==document.body&&p.isConnected&&p.focus&&p.focus({preventScroll:!0})}}catch(e){}}})();(function(){const f=document.createElement(\"link\").relList;",
+   "repl": "(function(){try{const mq=matchMedia(\"(prefers-reduced-motion: reduce)\"),set=()=>{let p=null;try{p=localStorage.getItem(\"gtbg-motion\")}catch(e){}window.__gtbgReduceMotion=mq.matches||p===\"reduce\"};set();mq.addEventListener&&mq.addEventListener(\"change\",set)}catch(e){window.__gtbgReduceMotion=!1}try{const FOC='a[href],button,input,select,textarea,summary,[tabindex],[contenteditable=\"true\"]',vis=e=>!e.disabled&&e.tabIndex>=0&&e.getClientRects().length>0&&window.getComputedStyle(e).visibility!==\"hidden\"&&!e.closest(\"[inert]\"),tabs=el=>Array.from(el.querySelectorAll(FOC)).filter(vis),st=[];let trig=null,seen=0;const note=e=>{try{seen=Date.now();const t=e.type===\"click\"&&e.target&&e.target.closest?e.target.closest(FOC):null;trig=t||document.activeElement}catch(x){}};document.addEventListener(\"keydown\",note,!0);document.addEventListener(\"click\",note,!0);const key=ev=>{const el=ev.currentTarget;if(ev.key===\"Escape\"){if(ev.defaultPrevented)return;const b=el.querySelector('[data-gt-close],button[aria-label^=\"Close\"]');if(b){ev.preventDefault();ev.stopPropagation();b.click()}return}if(ev.key!==\"Tab\"||ev.ctrlKey||ev.altKey||ev.metaKey)return;const t=tabs(el),a=document.activeElement;if(!t.length){ev.preventDefault();el.focus();return}const f=t[0],l=t[t.length-1];if(ev.shiftKey){if(a===f||a===el||!el.contains(a)){ev.preventDefault();l.focus()}}else if(a===l||!el.contains(a)){ev.preventDefault();f.focus()}};document.addEventListener(\"focusin\",e=>{const r=st[st.length-1];if(!r||!r.modal||!r.el.isConnected)return;const t=e.target;if(r.el.contains(t)||t===document.body)return;(tabs(r.el)[0]||r.el).focus({preventScroll:!0})},!0);const mk=(el,modal)=>{try{if(el){if(st.some(r=>r.el===el))return;st.push({el,modal,opener:trig&&trig.isConnected&&!el.contains(trig)?trig:el.contains(document.activeElement)?null:document.activeElement});modal&&el.addEventListener(\"keydown\",key);el.contains(document.activeElement)||!modal&&Date.now()-seen>2e3||el.focus({preventScroll:!0})}else Promise.resolve().then(()=>{let last=null;for(let i=st.length-1;i>=0;i--)if(!st[i].el.isConnected){last=st[i];st.splice(i,1)}const a=document.activeElement;last&&last.opener&&last.opener.isConnected&&(!a||a===document.body)&&last.opener.focus({preventScroll:!0})})}catch(e){}};window.__gtbgDlg=document.__gtbgDlg=el=>mk(el,!0);window.__gtbgPanel=document.__gtbgPanel=el=>mk(el,!1);const rows=el=>Array.from(el.querySelectorAll(\"[data-gt-row]\"));window.__gtbgRow=(ev,fn,inp)=>{if(ev.ctrlKey||ev.metaKey||ev.altKey)return;const k=ev.key,el=ev.currentTarget,all=rows(el.parentElement),i=all.indexOf(el);let to=null;if(k===\"ArrowDown\")to=all[Math.min(all.length-1,i+1)];else if(k===\"ArrowUp\"){if(i<1){ev.preventDefault();ev.stopPropagation();inp?inp.focus():el.parentElement.focus();return}to=all[i-1]}else if(k===\"Home\")to=all[0];else if(k===\"End\")to=all[all.length-1];else if(k===\"Enter\"||k===\" \"){ev.preventDefault();ev.stopPropagation();fn();return}else if((k.length===1||k===\"Backspace\"||k===\"Delete\")&&inp){ev.stopPropagation();inp.focus();return}else return;ev.preventDefault();ev.stopPropagation();to&&to.focus()};window.__gtbgList=(ev,inp)=>{if(ev.target!==ev.currentTarget||ev.ctrlKey||ev.metaKey||ev.altKey)return;const all=rows(ev.currentTarget),k=ev.key;if(!all.length)return;if(k===\"ArrowDown\"||k===\"Home\"||k===\"End\"||k===\"Enter\"||k===\" \"){ev.preventDefault();ev.stopPropagation();const r=k===\"End\"?all[all.length-1]:all[0];k===\"Enter\"||k===\" \"?r.dispatchEvent(new KeyboardEvent(\"keydown\",{key:\"Enter\",bubbles:!0,cancelable:!0})):r.focus()}else if(k===\"ArrowUp\"&&inp){ev.preventDefault();ev.stopPropagation();inp.focus()}else if((k.length===1||k===\"Backspace\")&&inp){ev.stopPropagation();inp.focus()}};window.__gtbgFocusId=id=>{let n=0;const g=()=>{const p=document.getElementById(id);p?p.focus({preventScroll:!0}):n++<20&&setTimeout(g,50)};setTimeout(g,30)}}catch(e){}})();(function(){const f=document.createElement(\"link\").relList;",
    "expect": 1,
-   "note": "window.__gtbgReduceMotion (prefers-reduced-motion, live) read by J2/J3; window.__gtbgDlg (also on document: the Help chunk only has `document` as a baseline global) = stable ref callback: focus into a dialog on mount, back to the invoker on unmount"
+   "note": "window.__gtbgReduceMotion (prefers-reduced-motion, live) read by J2/J3. Dialog helpers (window.* and document.*: the Help chunk only has `document` as a baseline global): __gtbgDlg = ref callback of a MODAL dialog (focus in on mount, Tab/Shift+Tab trap, a document focusin guard pulls stray focus back, Esc clicks the dialog's own Close button and stops there, focus back to the element that opened it once the dialog is gone); __gtbgPanel = the same without trap/Esc for non-modal panels; __gtbgRow / __gtbgList = keyboard model of click-only lists (the list is ONE tab stop, ArrowDown/Home/End or Enter on it reach the rows, rows take Arrow/Home/End/Enter/Space, typing returns to the search field, keys are stopped so the group-A shortcut guard never sees Space/letters meant for the list); __gtbgFocusId = focus an element that is about to render"
   },
   {
    "id": "AX-toolbar-center-flow",
@@ -237,21 +239,69 @@
    "id": "AX-scroll-search-results",
    "target": "js",
    "find": "style:ar.results,",
-   "repl": "style:ar.results,tabIndex:0,role:\"group\",\"aria-label\":\"Search results\",",
+   "repl": "style:ar.results,id:\"gt-search-results\",tabIndex:0,role:\"listbox\",\"aria-label\":\"Search results\",onKeyDown:ev=>window.__gtbgList(ev,ze.current),",
+   "expect": 1,
+   "note": "scrollable result list: one tab stop (also the scrollable-region-focusable fix); ArrowDown / Home / End / Enter on it reach the rows"
+  },
+  {
+   "id": "AX-search-result-row",
+   "target": "js",
+   "find": "return V.jsxs(\"div\",{onClick:()=>ut(xe),style:ar.result,children:[",
+   "repl": "return V.jsxs(\"div\",{onClick:()=>ut(xe),role:\"option\",\"data-gt-row\":\"\",tabIndex:-1,onKeyDown:ev=>window.__gtbgRow(ev,()=>ut(xe,void 0,1),ze.current),style:ar.result,children:[",
+   "expect": 1,
+   "note": "result rows were click-only divs: option role, focusable by arrow keys, Enter/Space select the unit and move focus to the unit panel"
+  },
+  {
+   "id": "AX-search-quick-links",
+   "target": "js",
+   "find": "V.jsxs(\"div\",{style:ar.quickLinks,children:[V.jsx(\"div\",{style:ar.sectionHead,children:\"Notable Units\"}),zF.map(xe=>V.jsxs(\"div\",{onClick:()=>ut(xe.id,xe.tick),style:ar.quickLink,",
+   "repl": "V.jsxs(\"div\",{style:ar.quickLinks,role:\"listbox\",\"aria-label\":\"Notable units\",tabIndex:0,onKeyDown:ev=>window.__gtbgList(ev,ze.current),children:[V.jsx(\"div\",{style:ar.sectionHead,children:\"Notable Units\"}),zF.map(xe=>V.jsxs(\"div\",{onClick:()=>ut(xe.id,xe.tick),role:\"option\",\"data-gt-row\":\"\",tabIndex:-1,onKeyDown:ev=>window.__gtbgRow(ev,()=>ut(xe.id,xe.tick,1),ze.current),style:ar.quickLink,",
+   "expect": 1,
+   "note": "Notable Units: same keyboard model as the results (the 7 rows were click-only divs)"
+  },
+  {
+   "id": "AX-search-select-focus",
+   "target": "js",
+   "find": "function ut(xe,pe){var ht;z(xe),H(xe);",
+   "repl": "function ut(xe,pe,gtKb){var ht;z(xe),H(xe);gtKb&&window.__gtbgFocusId(\"gt-unit-panel\");",
+   "expect": 1,
+   "note": "a keyboard selection moves focus to the unit panel (the search panel closes and would leave focus on the page behind)"
+  },
+  {
+   "id": "AX-unit-panel-region",
+   "target": "js",
+   "find": "return!Ee||!Se?null:V.jsxs(\"div\",{style:{...ji.panel,borderColor:kt},children:[",
+   "repl": "return!Ee||!Se?null:V.jsxs(\"div\",{id:\"gt-unit-panel\",tabIndex:-1,role:\"region\",\"aria-label\":\"Unit details\",style:{...ji.panel,borderColor:kt},children:[",
    "expect": 1
+  },
+  {
+   "id": "AX-search-panel-focus-return",
+   "target": "js",
+   "find": "return V.jsxs(\"div\",{style:ar.panel,children:[V.jsxs(\"div\",{style:ar.header,children:[V.jsx(\"span\",{style:ar.title,children:\"Search Units\"})",
+   "repl": "return V.jsxs(\"div\",{style:ar.panel,ref:window.__gtbgPanel,children:[V.jsxs(\"div\",{style:ar.header,children:[V.jsx(\"span\",{style:ar.title,children:\"Search Units\"})",
+   "expect": 1,
+   "note": "closing the (non-modal) search panel returns focus to the control that opened it"
+  },
+  {
+   "id": "AX-search-status",
+   "target": "js",
+   "find": "he.length>1&&V.jsxs(\"div\",{style:ar.sortRow,",
+   "repl": "V.jsx(\"div\",{className:\"gt-sr-only\",role:\"status\",children:l.length>=2?he.length>0?he.length+(he.length===1?\" result. \":\" results. \")+\"Press Down Arrow to move to the list, Enter to open the first.\":\"No units found.\":\"\"}),he.length>1&&V.jsxs(\"div\",{style:ar.sortRow,",
+   "expect": 1,
+   "note": "result count for screen readers (WCAG 4.1.3)"
   },
   {
    "id": "AX-scroll-ancestor-results",
    "target": "js",
    "find": "style:lr.results,",
-   "repl": "style:lr.results,tabIndex:0,role:\"group\",\"aria-label\":\"Regiment results\",",
+   "repl": "style:lr.results,id:\"gt-anc-results\",tabIndex:0,role:\"listbox\",\"aria-label\":\"Regiment results\",onKeyDown:ev=>window.__gtbgList(ev,Ee.current),",
    "expect": 1
   },
   {
    "id": "AX-scroll-ancestor-journey",
    "target": "js",
    "find": "style:lr.timeline,",
-   "repl": "style:lr.timeline,tabIndex:0,role:\"group\",\"aria-label\":\"Journey timeline\",",
+   "repl": "style:lr.timeline,id:\"gt-journey\",tabIndex:0,role:\"group\",\"aria-label\":\"Journey timeline\",onKeyDown:ev=>window.__gtbgList(ev),",
    "expect": 1
   },
   {
@@ -286,7 +336,7 @@
    "id": "AX-scroll-viewpoints",
    "target": "js",
    "find": "style:Or.list,",
-   "repl": "style:Or.list,tabIndex:0,role:\"group\",\"aria-label\":\"Street View viewpoints\",",
+   "repl": "style:Or.list,id:\"gt-viewpoints\",tabIndex:0,role:\"group\",\"aria-label\":\"Street View viewpoints\",onKeyDown:ev=>window.__gtbgList(ev),",
    "expect": 1
   },
   {
@@ -354,9 +404,9 @@
    "id": "AX-help-dialog",
    "target": "help",
    "find": "e.jsxs(\"div\",{style:t.panel,children:[e.jsxs(\"div\",{style:t.header,",
-   "repl": "e.jsxs(\"div\",{style:t.panel,ref:document.__gtbgDlg,tabIndex:-1,role:\"dialog\",\"aria-label\":\"Help and keyboard shortcuts\",children:[e.jsxs(\"div\",{style:t.header,",
+   "repl": "e.jsxs(\"div\",{style:t.panel,ref:document.__gtbgDlg,tabIndex:-1,role:\"dialog\",\"aria-modal\":\"true\",\"aria-label\":gtP?\"Help\":\"Help and keyboard shortcuts\",onKeyDown:ev=>{ev.key===\"?\"&&(ev.preventDefault(),ev.stopPropagation(),r())},children:[e.jsxs(\"div\",{style:t.header,",
    "expect": 1,
-   "note": "no aria-modal: the Help row says \"? Show / hide\", and the group-A guard would swallow \"?\" while a modal dialog is open"
+   "note": "aria-modal + the trap of __gtbgDlg (Tab stays inside, Esc closes, focus returns to the opener). \"?\" still hides the panel (the Help row says so): a modal dialog makes the group-A guard ignore every key but Esc, so the panel handles \"?\" itself and stops the event. gtP = phone shell (AX-help-phone-list)"
   },
   {
    "id": "AX-help-close",
@@ -369,8 +419,9 @@
    "id": "AX-book-dialog",
    "target": "book",
    "find": "t.jsxs(\"div\",{style:o.panel,children:[t.jsxs(\"div\",{style:o.header,",
-   "repl": "t.jsxs(\"div\",{style:o.panel,ref:window.__gtbgDlg,tabIndex:-1,role:\"dialog\",\"aria-label\":\"Bookmarks and sharing\",children:[t.jsxs(\"div\",{style:o.header,",
-   "expect": 1
+   "repl": "t.jsxs(\"div\",{style:o.panel,ref:window.__gtbgDlg,tabIndex:-1,role:\"dialog\",\"aria-modal\":\"true\",\"aria-label\":\"Bookmarks and sharing\",children:[t.jsxs(\"div\",{style:o.header,",
+   "expect": 1,
+   "note": "aria-modal + trap + Esc + focus return (the B key no longer toggles it shut while open: Esc or the Close button do)"
   },
   {
    "id": "AX-book-close",
@@ -456,9 +507,179 @@
    "id": "AX-css-shim (app stylesheet)",
    "target": "css",
    "find": ".mapboxgl-ctrl button.mapboxgl-ctrl-level-button-selected:hover{background-color:#ccc}",
-   "repl": ".mapboxgl-ctrl button.mapboxgl-ctrl-level-button-selected:hover{background-color:#ccc}\n/* gt-a11y-bridge (Tranche 0, group AX / WP-T0-10): temporary CSS shim over inline-styled React; remove rule by rule as source fixes land */\n.gt-sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}\n.gt-skip{position:fixed;left:8px;top:-120px;z-index:1000001;padding:10px 16px;background:#0a0a14;color:#f4f0e4;border:2px solid #fff;border-radius:6px;font:600 14px/1.2 system-ui,sans-serif;text-decoration:none}\n.gt-skip:focus{top:8px}\n:focus-visible{outline:2px solid #fff!important;outline-offset:2px!important;box-shadow:0 0 0 4px #000!important}\n[style*=\" color: rgb(68, 68, 68)\"],[style^=\"color: rgb(68, 68, 68)\"],[style*=\" color: rgb(85, 85, 85)\"],[style^=\"color: rgb(85, 85, 85)\"]{color:#8f8fa3!important}\n[style*=\" color: rgb(102, 102, 102)\"],[style^=\"color: rgb(102, 102, 102)\"]{color:#9a9aab!important}\n[style*=\" color: rgb(119, 119, 119)\"],[style^=\"color: rgb(119, 119, 119)\"]{color:#a8a8b8!important}\n[style*=\" color: rgb(139, 105, 20)\"],[style^=\"color: rgb(139, 105, 20)\"]{color:#b8963c!important}\n[style*=\" color: rgb(58, 107, 196)\"],[style^=\"color: rgb(58, 107, 196)\"]{color:#7fa8ff!important}\n[style*=\" color: rgb(204, 68, 68)\"],[style^=\"color: rgb(204, 68, 68)\"],[style*=\" color: rgb(196, 58, 58)\"],[style^=\"color: rgb(196, 58, 58)\"]{color:#f07a7a!important}\n[style*=\" color: rgb(109, 122, 138)\"],[style^=\"color: rgb(109, 122, 138)\"]{color:#9aa6b6!important}\n[style*=\" color: rgba(200, 168, 74, 0.45)\"],[style^=\"color: rgba(200, 168, 74, 0.45)\"]{color:rgba(200,168,74,.8)!important}\n.gtbg-group-why,#gtbg-footer,#boot-splash .boot-caption{color:#9a9aab!important}\n[style*=\"font-size: 7px\"],[style*=\"font-size: 8px\"],[style*=\"font-size: 9px\"],[style*=\"font-size: 10px\"],[style*=\"font-size: 11px\"]{font-size:12px!important}\n#root input[type=checkbox],#root input[type=radio]{width:24px;height:24px}\n#root button,#extra-features button{min-width:24px;min-height:24px}\n@media (pointer:coarse){#root button,#root a[href],#root select,#extra-features button,#extra-features a{min-width:44px;min-height:44px}#root .gtbg-tb-right button{min-width:24px}}\n@media (max-width:1279px){.gtbg-tb-tick{display:none}}\n@media (max-width:1199px){.gtbg-tb-right{gap:2px!important}.gtbg-tb-right button{padding-left:6px!important;padding-right:6px!important}}\n@media (max-width:999px){.gtbg-tb-center{position:absolute!important;left:50%!important;transform:translateX(-50%)!important}}\n@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}\n@media (forced-colors:active){button,[role=button],input,select{border:1px solid ButtonText!important}:focus-visible{outline:2px solid Highlight!important;box-shadow:none!important}canvas{forced-color-adjust:none}}\n",
+   "repl": ".mapboxgl-ctrl button.mapboxgl-ctrl-level-button-selected:hover{background-color:#ccc}\n/* gt-a11y-bridge (Tranche 0, group AX / WP-T0-10): temporary CSS shim over inline-styled React; remove rule by rule as source fixes land */\n.gt-sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}\n.gt-skip{position:fixed;left:8px;top:-120px;z-index:1000001;padding:10px 16px;background:#0a0a14;color:#f4f0e4;border:2px solid #fff;border-radius:6px;font:600 14px/1.2 system-ui,sans-serif;text-decoration:none}\n.gt-skip:focus{top:8px}\n:focus-visible{outline:2px solid #fff!important;outline-offset:2px!important;box-shadow:0 0 0 4px #000!important}\n[style*=\" color: rgb(68, 68, 68)\"],[style^=\"color: rgb(68, 68, 68)\"],[style*=\" color: rgb(85, 85, 85)\"],[style^=\"color: rgb(85, 85, 85)\"]{color:#8f8fa3!important}\n[style*=\" color: rgb(102, 102, 102)\"],[style^=\"color: rgb(102, 102, 102)\"]{color:#9a9aab!important}\n[style*=\" color: rgb(119, 119, 119)\"],[style^=\"color: rgb(119, 119, 119)\"]{color:#a8a8b8!important}\n[style*=\" color: rgb(139, 105, 20)\"],[style^=\"color: rgb(139, 105, 20)\"]{color:#b8963c!important}\n[style*=\" color: rgb(58, 107, 196)\"],[style^=\"color: rgb(58, 107, 196)\"]{color:#7fa8ff!important}\n[style*=\" color: rgb(204, 68, 68)\"],[style^=\"color: rgb(204, 68, 68)\"],[style*=\" color: rgb(196, 58, 58)\"],[style^=\"color: rgb(196, 58, 58)\"]{color:#f07a7a!important}\n[style*=\" color: rgb(109, 122, 138)\"],[style^=\"color: rgb(109, 122, 138)\"]{color:#9aa6b6!important}\n[style*=\" color: rgba(200, 168, 74, 0.45)\"],[style^=\"color: rgba(200, 168, 74, 0.45)\"]{color:rgba(200,168,74,.8)!important}\n.gtbg-group-why,#gtbg-footer,#boot-splash .boot-caption{color:#9a9aab!important}\ninput::placeholder,textarea::placeholder{color:#9a9aab!important;opacity:1}\n[data-gt-row]:focus-visible{outline-offset:-4px!important;box-shadow:none!important;background-color:rgba(200,168,74,.16)!important}\n[style*=\"font-size: 7px\"],[style*=\"font-size: 8px\"],[style*=\"font-size: 9px\"],[style*=\"font-size: 10px\"],[style*=\"font-size: 11px\"]{font-size:12px!important}\n#root input[type=checkbox],#root input[type=radio]{width:24px;height:24px}\n#root button,#extra-features button{min-width:24px;min-height:24px}\n@media (pointer:coarse){#root button,#root a[href],#root select,#extra-features button,#extra-features a{min-width:44px;min-height:44px}#root .gtbg-tb-right button{min-width:24px}}\n@media (max-width:1279px){.gtbg-tb-tick{display:none}}\n@media (max-width:1199px){.gtbg-tb-right{gap:2px!important}.gtbg-tb-right button{padding-left:6px!important;padding-right:6px!important}}\n@media (max-width:999px){.gtbg-tb-center{position:absolute!important;left:50%!important;transform:translateX(-50%)!important}}\n@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}\n@media (forced-colors:active){button,[role=button],input,select{border:1px solid ButtonText!important}:focus-visible{outline:2px solid Highlight!important;box-shadow:none!important}canvas{forced-color-adjust:none}}\n",
    "expect": 1,
-   "note": "appended to the (mapbox-gl) app stylesheet: skip link, sr-only, two-tone focus ring, contrast overrides for React-serialised greys, 12 px floor, 44 px on coarse pointers, reduced motion, forced colors"
+   "note": "appended to the (mapbox-gl) app stylesheet: skip link, sr-only, two-tone focus ring, contrast overrides for React-serialised greys, 12 px floor, 44 px on coarse pointers, reduced motion, forced colors; placeholders #9a9aab (the browser default #757575 is 3.7:1 on the #1a1a2a search field); focused list rows (search results, journey, viewpoints) draw the ring inside the row (the scrolling list clips an outer ring)"
+  },
+  {
+   "id": "AX-ancestor-dialog",
+   "target": "js",
+   "find": "V.jsx(\"div\",{style:lr.overlay,onClick:it=>it.target===it.currentTarget&&c(),children:V.jsxs(\"div\",{style:lr.panel,children:[",
+   "repl": "V.jsx(\"div\",{style:lr.overlay,onClick:it=>it.target===it.currentTarget&&c(),children:V.jsxs(\"div\",{style:lr.panel,ref:window.__gtbgDlg,tabIndex:-1,role:\"dialog\",\"aria-modal\":\"true\",\"aria-label\":\"Follow your ancestor\",children:[",
+   "expect": 1,
+   "note": "a full-screen backdrop with a panel: a modal dialog (focus trap, Esc, focus return)"
+  },
+  {
+   "id": "AX-ancestor-result-row",
+   "target": "js",
+   "find": "Ie.map(it=>V.jsxs(\"div\",{onClick:()=>ut(it),style:{...lr.result,",
+   "repl": "Ie.map(it=>V.jsxs(\"div\",{onClick:()=>ut(it),role:\"option\",\"data-gt-row\":\"\",tabIndex:-1,onKeyDown:ev=>window.__gtbgRow(ev,()=>ut(it,1),Ee.current),style:{...lr.result,",
+   "expect": 1
+  },
+  {
+   "id": "AX-ancestor-select-focus",
+   "target": "js",
+   "find": "function ut(it){st(it.unit_id),z(it.name)}",
+   "repl": "function ut(it,gtKb){st(it.unit_id),z(it.name),gtKb&&window.__gtbgFocusId(\"gt-journey\")}",
+   "expect": 1,
+   "note": "picking a regiment by keyboard replaces the list with the journey: focus goes to the journey"
+  },
+  {
+   "id": "AX-ancestor-change-focus",
+   "target": "js",
+   "find": "style:lr.changeBtn,children:\"Change Regiment\"",
+   "repl": "style:lr.changeBtn,onClickCapture:()=>window.__gtbgFocusId(\"gt-anc-input\"),children:\"Change Regiment\"",
+   "expect": 1,
+   "note": "Change Regiment replaces the journey with the search field: focus goes to the field (anchored on text that group A leaves alone)"
+  },
+  {
+   "id": "AX-ancestor-journey-row",
+   "target": "js",
+   "find": "V.jsxs(\"div\",{onClick:()=>xe(it.tick),style:lr.entry,children:[",
+   "repl": "V.jsxs(\"div\",{onClick:()=>xe(it.tick),role:\"button\",\"data-gt-row\":\"\",tabIndex:-1,onKeyDown:ev=>window.__gtbgRow(ev,()=>xe(it.tick)),style:lr.entry,children:[",
+   "expect": 1,
+   "note": "journey entries jump the clock: click-only divs before"
+  },
+  {
+   "id": "AX-viewpoints-dialog",
+   "target": "js",
+   "find": "V.jsxs(\"div\",{style:Or.panel,children:[",
+   "repl": "V.jsxs(\"div\",{style:Or.panel,ref:window.__gtbgDlg,tabIndex:-1,role:\"dialog\",\"aria-modal\":\"true\",\"aria-label\":\"Soldier's Eye View\",children:[",
+   "expect": 1
+  },
+  {
+   "id": "AX-viewpoint-row",
+   "target": "js",
+   "find": "V.jsxs(\"div\",{onClick:()=>x(P),style:Or.locRow,",
+   "repl": "V.jsxs(\"div\",{onClick:()=>x(P),role:\"button\",\"data-gt-row\":\"\",tabIndex:-1,onKeyDown:ev=>window.__gtbgRow(ev,()=>{x(P),window.__gtbgFocusId(\"gt-viewer\")}),style:Or.locRow,",
+   "expect": 1
+  },
+  {
+   "id": "AX-viewpoint-viewer",
+   "target": "js",
+   "find": "V.jsxs(\"div\",{style:Or.viewerWrap,children:[",
+   "repl": "V.jsxs(\"div\",{id:\"gt-viewer\",tabIndex:-1,style:Or.viewerWrap,children:[",
+   "expect": 1
+  },
+  {
+   "id": "AX-viewpoint-back",
+   "target": "js",
+   "find": "V.jsx(\"button\",{onClick:()=>x(null),style:Or.backBtn,",
+   "repl": "V.jsx(\"button\",{onClick:()=>{x(null),window.__gtbgFocusId(\"gt-viewpoints\")},style:Or.backBtn,",
+   "expect": 1
+  },
+  {
+   "id": "AX-onboarding-esc-focus",
+   "target": "js",
+   "find": "function bO({onClose:c}){const{setTick:f,jumpToDay:x}=yn(),[M,P]=pt.useState(\"archetype\"),[z,H]=pt.useState(null),[l,R]=pt.useState(0);",
+   "repl": "function bO({onClose:c}){const{setTick:f,jumpToDay:x}=yn(),[M,P]=pt.useState(\"archetype\"),[z,H]=pt.useState(null),[l,R]=pt.useState(0);pt.useEffect(()=>{const h=ev=>{if(ev.key===\"Escape\"&&!ev.defaultPrevented){ev.preventDefault();ev.stopPropagation();M===\"shortcuts\"?c==null||c():Se()}};window.addEventListener(\"keydown\",h,!0);return()=>window.removeEventListener(\"keydown\",h,!0)},[M,c]),pt.useEffect(()=>{const a=document.activeElement;if(a&&a.closest&&a.closest('[role=\"dialog\"]'))return;const d=document.getElementById(\"gt-onb-step\")||document.querySelector('[aria-label=\"Welcome to the Gettysburg map\"]');d&&d.focus({preventScroll:!0})},[M,l]);",
+   "expect": 1,
+   "note": "Esc = the visible Skip (tour reset to tick 1, onboarded flag) or Start exploring on the last screen; capture phase so the app shortcuts never see it; when a step replaces the focused button, focus goes to the new step title (or the dialog)"
+  },
+  {
+   "id": "AX-onboarding-step-title-tour",
+   "target": "js",
+   "find": "V.jsx(\"div\",{style:tr.stepTitle,children:Gc[l].title})",
+   "repl": "V.jsx(\"div\",{style:tr.stepTitle,id:\"gt-onb-step\",tabIndex:-1,\"aria-live\":\"polite\",children:Gc[l].title})",
+   "expect": 1
+  },
+  {
+   "id": "AX-onboarding-step-title-keys",
+   "target": "js",
+   "find": "V.jsx(\"div\",{style:tr.stepTitle,children:\"Quick Reference\"})",
+   "repl": "V.jsx(\"div\",{style:tr.stepTitle,id:\"gt-onb-step\",tabIndex:-1,children:\"Quick Reference\"})",
+   "expect": 1
+  },
+  {
+   "id": "AX-walkthrough-dialog-mobile",
+   "target": "js",
+   "find": "V.jsxs(\"div\",{style:kr.root,children:[",
+   "repl": "V.jsxs(\"div\",{style:kr.root,ref:window.__gtbgDlg,tabIndex:-1,role:\"dialog\",\"aria-modal\":\"true\",\"aria-label\":\"Virtual Walkthrough\",children:[",
+   "expect": 1,
+   "note": "full-screen overlay over the whole app: modal dialog, focus trap, Esc via the Back button (data-gt-close)"
+  },
+  {
+   "id": "AX-walkthrough-dialog-desktop",
+   "target": "js",
+   "find": "V.jsxs(\"div\",{style:Tn.root,children:[V.jsxs(\"div\",{style:Tn.header,",
+   "repl": "V.jsxs(\"div\",{style:Tn.root,ref:window.__gtbgDlg,tabIndex:-1,role:\"dialog\",\"aria-modal\":\"true\",\"aria-label\":\"Virtual Walkthrough\",children:[V.jsxs(\"div\",{style:Tn.header,",
+   "expect": 1
+  },
+  {
+   "id": "AX-walkthrough-back-mobile",
+   "target": "js",
+   "find": "V.jsx(\"button\",{onClick:c,style:kr.backBtn,",
+   "repl": "V.jsx(\"button\",{onClick:c,\"data-gt-close\":\"\",style:kr.backBtn,",
+   "expect": 1,
+   "note": "marks the dialog's own close control for the Esc handling of __gtbgDlg (its visible label is copy, group CP)"
+  },
+  {
+   "id": "AX-walkthrough-back-desktop",
+   "target": "js",
+   "find": "V.jsx(\"button\",{onClick:c,style:Tn.backBtn,",
+   "repl": "V.jsx(\"button\",{onClick:c,\"data-gt-close\":\"\",style:Tn.backBtn,",
+   "expect": 1
+  },
+  {
+   "id": "AX-panel-filter",
+   "target": "js",
+   "find": "return V.jsxs(\"div\",{style:zr.panel,children:[V.jsxs(\"div\",{style:zr.header,",
+   "repl": "return V.jsxs(\"div\",{style:zr.panel,ref:window.__gtbgPanel,tabIndex:-1,role:\"group\",\"aria-label\":\"Filters\",children:[V.jsxs(\"div\",{style:zr.header,",
+   "expect": 1,
+   "note": "toolbar panels (non-modal): focus moves into the panel when it opens (it sits ~13 tab stops after its toolbar button) and returns to the toolbar button when it closes"
+  },
+  {
+   "id": "AX-panel-legend",
+   "target": "js",
+   "find": "c?V.jsxs(\"div\",{style:Fr.panel,children:[",
+   "repl": "c?V.jsxs(\"div\",{style:Fr.panel,ref:window.__gtbgPanel,tabIndex:-1,role:\"group\",\"aria-label\":\"Legend\",children:[",
+   "expect": 1
+  },
+  {
+   "id": "AX-panel-roster",
+   "target": "js",
+   "find": "V.jsxs(\"div\",{style:gp.columns,children:[",
+   "repl": "V.jsxs(\"div\",{style:gp.columns,ref:window.__gtbgPanel,tabIndex:-1,role:\"group\",\"aria-label\":\"All battle units\",children:[",
+   "expect": 1
+  },
+  {
+   "id": "AX-panel-layers",
+   "target": "js",
+   "find": "minWidth:200},children:[V.jsxs(\"div\",{style:{display:\"flex\",justifyContent:\"space-between\",alignItems:\"center\",marginBottom:10},children:[V.jsx(\"span\",{style:{fontSize:12,letterSpacing:1},children:\"Map Layers\"})",
+   "repl": "minWidth:200},ref:window.__gtbgPanel,tabIndex:-1,role:\"group\",\"aria-label\":\"Map layers\",children:[V.jsxs(\"div\",{style:{display:\"flex\",justifyContent:\"space-between\",alignItems:\"center\",marginBottom:10},children:[V.jsx(\"span\",{style:{fontSize:12,letterSpacing:1},children:\"Map Layers\"})",
+   "expect": 1
+  },
+  {
+   "id": "AX-help-phone-list",
+   "target": "help",
+   "find": "{key:\"?\",desc:\"Show / hide this help panel\"}];function f({onClose:r}){const[o,d]=g.useState(\"shortcuts\");",
+   "repl": "{key:\"?\",desc:\"Show / hide this help panel\"}];const gtM=[{section:\"Move around\"},{key:\"Drag\",desc:\"Pan the map\"},{key:\"Pinch\",desc:\"Zoom in or out\"},{key:\"Tap a unit\",desc:\"Show its details\"},{section:\"Time\"},{key:\"▶\",desc:\"Play or pause the battle\"},{key:\"‹  ›\",desc:\"Step back or forward\"},{key:\"Timeline\",desc:\"Drag the bar to move through July 1–3\"},{key:\"1×\",desc:\"Change the playback speed\"},{key:\"July 1 2 3\",desc:\"Jump to the start of a day\"},{section:\"More\"},{key:\"Tools\",desc:\"Search, filter, roster, legend, bookmarks and more\"},{key:\"Desktop View\",desc:\"Switch to the desktop layout\"}];function f({onClose:r}){const[o,d]=g.useState(\"shortcuts\"),gtP=document.documentElement.getAttribute(\"data-layout\")===\"mobile\";",
+   "expect": 1,
+   "note": "phone shell (data-layout=mobile, set by the app root): the Help list was the desktop keyboard-shortcut list (Space, arrows, Scroll, Click unit, Esc). Phones get the touch controls that exist in the shell (drag, pinch, tap a unit, dock buttons, speed, day tabs, Tools); each row names a control the phone shell really has (T0-MOB / T0-A11Y-18 check them)"
+  },
+  {
+   "id": "AX-help-phone-tab",
+   "target": "help",
+   "find": "children:\"Keyboard Shortcuts\"})",
+   "repl": "children:gtP?\"How to use\":\"Keyboard Shortcuts\"})",
+   "expect": 1
+  },
+  {
+   "id": "AX-help-phone-render",
+   "target": "help",
+   "find": "o===\"shortcuts\"&&e.jsx(\"div\",{style:t.content,children:p.map((s,n)=>",
+   "repl": "o===\"shortcuts\"&&e.jsx(\"div\",{style:t.content,children:(gtP?gtM:p).map((s,n)=>",
+   "expect": 1
   }
  ]
 }

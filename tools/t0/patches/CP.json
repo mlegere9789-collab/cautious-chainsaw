@@ -142,6 +142,14 @@
    "note": "the list mixes primary and secondary works"
   },
   {
+   "id": "cp:h-map-keys",
+   "target": "help",
+   "find": "{key:\"Scroll\",desc:\"Zoom in / out\"},{key:\"Drag\",desc:\"Pan the map\"},",
+   "repl": "{key:\"Scroll\",desc:\"Zoom in / out\"},{key:\"Drag\",desc:\"Pan the map\"},{key:\"Tab to the map\",desc:\"Arrow keys then pan it instead of stepping the clock, + / - zoom it, Shift + arrows rotate and tilt it; Esc gives the keys back\"},",
+   "expect": 1,
+   "note": "integrator note (arrows): the Help rows say the arrows step the clock, which is what they do after any mouse use (group A2 keeps focus off the map canvas on pointer press); a keyboard user who Tabs to the map gets Mapbox's own keys, so the row says so. Behaviour checked in Chrome: group A2 test T0-DF-02 (Tab to the map, ArrowRight pans, = and - zoom, Esc returns the arrows to the clock) and a probe for Shift+arrows (rotate / tilt)"
+  },
+  {
    "id": "cp:mobile-tools-footer (Privacy, Terms, credit; after group C HF-6g)",
    "target": "js",
    "find": "window.GTBG_MENU.buildGroupsHtml(null):\"\"}})])",

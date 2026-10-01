@@ -90,6 +90,15 @@ const CONTRAST_AUDIT = () => {
     const need = large ? 3 : 4.5; const cr = ratio(fg, bg);
     if (cr < need) out.push({ t: (el.textContent || '').trim().slice(0, 28), cr: +cr.toFixed(2), fg: cs.color, bg: `rgb(${Math.round(bg.r)},${Math.round(bg.g)},${Math.round(bg.b)})`, fs, op: +op.toFixed(2), tag: el.tagName.toLowerCase() });
   });
+  // placeholders (axe and Lighthouse do not test them): ::placeholder colour x its opacity over the field's own composited background
+  document.querySelectorAll('input[placeholder],textarea[placeholder]').forEach((el) => {
+    if (el.value || el.closest('.gt-sr-only')) return;
+    const r = el.getBoundingClientRect(); if (!r.width || !r.height) return;
+    const cs = getComputedStyle(el); if (cs.visibility === 'hidden' || cs.display === 'none' || +cs.opacity === 0) return;
+    const ph = getComputedStyle(el, '::placeholder'); const fg0 = parse(ph.color); if (!fg0) return;
+    const bg = bgOf(el); const op = +ph.opacity; const fg = over({ ...fg0, a: fg0.a * (Number.isFinite(op) ? op : 1) }, bg); const cr = ratio(fg, bg);
+    if (cr < 4.5) out.push({ t: 'placeholder: ' + (el.placeholder || '').slice(0, 20), cr: +cr.toFixed(2), fg: ph.color, bg: `rgb(${Math.round(bg.r)},${Math.round(bg.g)},${Math.round(bg.b)})`, fs: parseFloat(cs.fontSize), op: 1, tag: el.tagName.toLowerCase() });
+  });
   return out;
 };
 
@@ -404,7 +413,7 @@ suite.test('T0-A11Y-09', 'names and states: toolbar buttons labelled + aria-pres
     await boot(S.page, 'desktop');
     const r = await S.page.evaluate(() => {
       const tb = [...document.querySelectorAll('button[title]')].filter((b) => b.getBoundingClientRect().top < 48);
-      const bad = tb.filter((b) => !b.getAttribute('aria-label') || b.getAttribute('aria-label') !== b.title).map((b) => b.title);
+      const bad = tb.filter((b) => !b.getAttribute('aria-label') || !b.getAttribute('aria-label').toLowerCase().includes(b.title.toLowerCase())).map((b) => b.title);       // the name carries the title text (the shell's phone-view button says "Phone view: switch to the phone layout")
       const legend = document.querySelector('button[title="Legend"]');
       const log = document.querySelector('[role=log]');
       const tr = [...document.querySelectorAll('#gt-timeline button')].map((b) => b.getAttribute('aria-label') || b.textContent.trim());
@@ -416,7 +425,7 @@ suite.test('T0-A11Y-09', 'names and states: toolbar buttons labelled + aria-pres
     });
     t.note('names', r);
     assert(r.toolbar >= 13, `toolbar buttons: ${r.toolbar}`);
-    assertEq(r.unlabeled, [], 'toolbar buttons without aria-label = title');
+    assertEq(r.unlabeled, [], 'toolbar buttons without an aria-label that carries their title');
     assertEq(r.legendPressed, 'true', 'Legend toggle aria-pressed (legend is open at load)');
     assertEq(r.searchPressed, 'false', 'Search toggle aria-pressed');
     assert(r.log && r.log.live === 'off' && r.log.label === 'Battle events', `battle log region: ${JSON.stringify(r.log)}`);
@@ -563,6 +572,344 @@ suite.test('T0-A11Y-14', 'real tiles: axe on the loaded desktop map with the pro
     assertEq([rm.flag, nm.flag], [true, false], 'flag');
     assert(rm.t1 > rm.t0 && nm.t1 > nm.t0, `playback did not advance: ${JSON.stringify({ rm, nm })}`);
     assertEq(errs(S), [], 'uncaught exceptions / console errors (unit draw loop with the J2/J3 patches)');
+  } finally { await S.close().catch(() => {}); sessions.splice(sessions.indexOf(S), 1); }
+});
+
+// ------------------------------------------------------------------ T0-A11Y-17..24: dialogs and keyboard operation (fixes for the independent verifier's K0 / K5 / K6, 2026-09-30)
+// Every test here drives REAL CDP key events (page.keyboard) and reads document.activeElement; nothing is dispatched synthetically.
+const who = (page) => page.evaluate(() => { const a = document.activeElement; if (!a || a === document.body) return 'body'; return `${a.tagName.toLowerCase()}${a.id ? '#' + a.id : ''}|${(a.getAttribute('aria-label') || a.getAttribute('title') || a.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 40)}`; });
+const insideDialog = (page, sel) => page.evaluate((s) => { const d = document.querySelector(s); return !!d && d.contains(document.activeElement); }, sel);
+const unitPinned = (page) => page.locator('button[title="Unpin unit"]').count();
+
+suite.test('T0-A11Y-17', 'modal dialogs (Help, Bookmarks, Follow Your Ancestor, Soldier\'s Eye View, Virtual Walkthrough): role=dialog aria-modal named; focus inside on open; Tab and Shift+Tab never leave; Esc closes only the dialog and focus returns to its opener; "?" hides Help; Space inside does not start playback', async (t) => {
+  if (IS_LEGACY) throw new Skip('legacy dialogs are plain divs');
+  const S = await open({ profile: 'a11y-17', cdpPort: PORT_BASE + 4, viewport: DESKTOP });
+  try {
+    await boot(S.page, 'desktop');
+    const cases = [
+      { name: 'Help and keyboard shortcuts', btn: 'button[title="Help"]', opener: '|Help' },
+      { name: 'Bookmarks and sharing', btn: 'button[title="Bookmarks"]', opener: '|Bookmarks' },
+      { name: 'Follow your ancestor', btn: 'button[title="Follow Your Ancestor"]', opener: '|Follow Your Ancestor' },
+      { name: "Soldier's Eye View", btn: 'button[title^="Soldier"]', opener: "Soldier's Eye View" },
+      { name: 'Virtual Walkthrough', btn: 'button:has-text("Virtual Walkthrough")', opener: 'Virtual Walkthrough' },
+    ];
+    // a unit is pinned first: Esc inside a dialog must close the dialog ONLY, not also deselect it
+    await key(S.page, 's', 500); await S.page.keyboard.type('20th Maine'); await sleep(700); await key(S.page, 'Enter', 900);
+    assertEq(await unitPinned(S.page), 1, 'precondition: unit pinned through the keyboard');
+    const report = {};
+    for (const c of cases) {
+      await S.page.locator(c.btn).first().focus();
+      await key(S.page, 'Enter', 1100);
+      const sel = `[role="dialog"][aria-label="${c.name.replace(/"/g, '\\"')}"]`;
+      await visible(S.page, sel);
+      const attrs = await S.page.evaluate((s) => { const d = document.querySelector(s); return { modal: d.getAttribute('aria-modal'), focusIn: d.contains(document.activeElement), tabindex: d.getAttribute('tabindex') }; }, sel);
+      assertEq(attrs.modal, 'true', `${c.name}: aria-modal`);
+      assert(attrs.focusIn, `${c.name}: focus did not move into the dialog on open (active ${await who(S.page)})`);
+      const left = [];
+      for (let i = 0; i < 24; i++) { await S.page.keyboard.press('Tab'); await sleep(40); if (!(await insideDialog(S.page, sel))) left.push(`Tab#${i + 1}:${await who(S.page)}`); }
+      for (let i = 0; i < 24; i++) { await S.page.keyboard.press('Shift+Tab'); await sleep(40); if (!(await insideDialog(S.page, sel))) left.push(`Shift+Tab#${i + 1}:${await who(S.page)}`); }
+      assertEq(left, [], `${c.name}: focus left the dialog`);
+      await key(S.page, 'Escape', 700);
+      assertEq(await S.page.locator(sel).count(), 0, `${c.name}: Esc did not close the dialog`);
+      const back = await who(S.page); report[c.name] = { focusAfterEsc: back, pinnedAfterEsc: await unitPinned(S.page) };
+      assert(back.includes(c.opener), `${c.name}: focus did not return to the control that opened it (active ${back})`);
+      assertEq(await unitPinned(S.page), 1, `${c.name}: Esc also deselected the unit (it must close the dialog only)`);
+    }
+    t.note('dialogs', report);
+    // Help: "?" hides it again (the Help row says so), Space inside must not play
+    await S.page.evaluate(() => { document.activeElement && document.activeElement.blur && document.activeElement.blur(); });
+    await key(S.page, '?', 800); await visible(S.page, '[role="dialog"][aria-label="Help and keyboard shortcuts"]');
+    const playLabel = () => S.page.evaluate(() => { const b = document.querySelector('#gt-timeline button[aria-label="Play"],#gt-timeline button[aria-label="Pause"]'); return b && b.getAttribute('aria-label'); });
+    assertEq(await playLabel(), 'Play', 'precondition: paused');
+    await key(S.page, 'Space', 400);
+    assertEq(await playLabel(), 'Play', 'Space inside the Help dialog started playback on the map behind it');
+    await key(S.page, '?', 800);
+    assertEq(await S.page.locator('[role="dialog"]').count(), 0, '"?" did not hide Help');
+    await key(S.page, '?', 800); assertEq(await S.page.locator('[role="dialog"]').count(), 1, '"?" did not show Help again (double toggle)');
+    await key(S.page, 'Escape', 600);
+    assertEq(errs(S), [], 'uncaught exceptions / console errors');
+  } finally { await S.close().catch(() => {}); sessions.splice(sessions.indexOf(S), 1); }
+});
+
+suite.test('T0-A11Y-18', 'a unit can be selected from Search with the keyboard alone: Enter on the field, ArrowDown+Enter, Tab+Enter, Notable Units; listbox/option roles, arrow keys, typing returns to the field, focus lands on the unit panel, Esc returns focus to the opener (the verifier\'s K6)', async (t) => {
+  if (IS_LEGACY) throw new Skip('legacy results are click-only divs');
+  const S = await open({ profile: 'a11y-18', cdpPort: PORT_BASE + 5, viewport: DESKTOP });
+  try {
+    await boot(S.page, 'desktop');
+    const out = {};
+    const route = async (name, fn, expectFocus = '#gt-unit-panel') => {
+      await resetDesktop(S.page); await resetDesktop(S.page);
+      await S.page.evaluate(() => { document.activeElement && document.activeElement.blur && document.activeElement.blur(); });
+      await key(S.page, 's', 500); await visible(S.page, 'input[aria-label="Search units"]');
+      await fn(); await sleep(1100);
+      const r = { pinned: await unitPinned(S.page), searchOpen: await S.page.locator('input[aria-label="Search units"]').count(), active: await who(S.page) };
+      out[name] = r;
+      assertEq(r.pinned, 1, `${name}: no unit was pinned (${JSON.stringify(r)})`);
+      assertEq(r.searchOpen, 0, `${name}: the search panel stayed open`);
+      assert(r.active.startsWith('div' + expectFocus), `${name}: focus did not land on the unit panel (${r.active})`);
+    };
+    const type = async (q) => { await S.page.keyboard.type(q); await sleep(800); };
+    await route('Enter on the field', async () => { await type('20th Maine'); await key(S.page, 'Enter', 200); });
+    await route('ArrowDown, Enter', async () => { await type('20th Maine'); await key(S.page, 'ArrowDown', 200); assert((await who(S.page)).startsWith('div|'), 'ArrowDown did not focus a result row'); await key(S.page, 'Enter', 200); });
+    await route('Tab to the list, Enter', async () => { await type('20th Maine'); await key(S.page, 'Tab', 200); assertEq((await who(S.page)).split('|')[0], 'div#gt-search-results', 'Tab from the field lands on the result list'); await key(S.page, 'Enter', 200); });
+    await route('list, ArrowDown x2, Enter (a later row)', async () => {
+      await type('ma'); for (let i = 0; i < 8; i++) { await S.page.keyboard.press('Tab'); await sleep(60); if ((await who(S.page)).startsWith('div#gt-search-results')) break; }
+      await key(S.page, 'ArrowDown', 150); await key(S.page, 'ArrowDown', 150); const w = await who(S.page); assert(w.startsWith('div|'), `row focus: ${w}`);
+      await key(S.page, 'Enter', 200);
+    });
+    await route('Notable Units: Tab, ArrowDown, Enter', async () => { await key(S.page, 'Tab', 200); assertEq((await who(S.page)).split('|')[0], 'div', 'Tab from the empty field lands on the Notable Units list'); await key(S.page, 'ArrowDown', 150); await key(S.page, 'Enter', 200); });
+    await resetDesktop(S.page);
+    // semantics and the rest of the keyboard model
+    await key(S.page, 's', 500); await visible(S.page, 'input[aria-label="Search units"]');
+    await S.page.keyboard.type('20th'); await sleep(900);
+    const sem = await S.page.evaluate(() => { const lb = document.querySelector('#gt-search-results'); const rows = lb ? [...lb.querySelectorAll('[data-gt-row]')] : []; const inp = document.querySelector('input[aria-label="Search units"]'); const st = document.querySelector('[role=status]');
+      return { role: lb && lb.getAttribute('role'), name: lb && lb.getAttribute('aria-label'), rows: rows.length, roles: [...new Set(rows.map((r) => r.getAttribute('role')))], tabindex: [...new Set(rows.map((r) => r.getAttribute('tabindex')))], controls: inp.getAttribute('aria-controls'), status: st && st.textContent.trim() }; });
+    t.note('semantics', sem);
+    assertEq([sem.role, sem.name, sem.controls], ['listbox', 'Search results', 'gt-search-results'], 'result list semantics');
+    assert(sem.rows >= 3 && sem.roles.length === 1 && sem.roles[0] === 'option', `rows: ${JSON.stringify(sem)}`);
+    assert(/^\d+ results?\./.test(sem.status || ''), `status text for screen readers: ${JSON.stringify(sem.status)}`);
+    await key(S.page, 'ArrowDown', 150); await key(S.page, 'ArrowDown', 150); await key(S.page, 'End', 150);
+    const last = await who(S.page); await key(S.page, 'Home', 150); const first = await who(S.page); assert(last !== first, 'Home/End did not move between rows');
+    await S.page.keyboard.type('x'); await sleep(400);
+    const typed = await S.page.evaluate(() => ({ active: document.activeElement.getAttribute('aria-label'), value: document.querySelector('input[aria-label="Search units"]').value }));
+    assertEq(typed, { active: 'Search units', value: '20thx' }, 'typing while a row has focus must return to the field and type there');
+    await S.page.keyboard.press('Backspace'); await sleep(600);
+    // Space on a row must not toggle playback
+    const play = () => S.page.evaluate(() => document.querySelector('#gt-timeline button[aria-label="Play"],#gt-timeline button[aria-label="Pause"]').getAttribute('aria-label'));
+    await key(S.page, 'ArrowDown', 150);
+    assert((await who(S.page)).startsWith('div|'), 'ArrowDown to a row');
+    assertEq(await play(), 'Play', 'precondition: paused');
+    await key(S.page, 'Space', 900);
+    assertEq(await unitPinned(S.page), 1, 'Space on a row selects the unit');
+    assertEq(await play(), 'Play', 'Space on a result row also toggled playback');
+    // opened from the toolbar button: Esc closes the panel and returns focus to that button
+    await resetDesktop(S.page); await resetDesktop(S.page);
+    await S.page.locator('button[title="Search"]').focus(); await key(S.page, 'Enter', 600); await visible(S.page, 'input[aria-label="Search units"]');
+    await key(S.page, 'Escape', 600);
+    assertEq(await S.page.locator('input[aria-label="Search units"]').count(), 0, 'Esc did not close Search');
+    assertEq(await who(S.page), 'button|Search', 'focus did not return to the Search toolbar button');
+    t.note('routes', out);
+    assertEq(errs(S), [], 'uncaught exceptions / console errors');
+  } finally { await S.close().catch(() => {}); sessions.splice(sessions.indexOf(S), 1); }
+});
+
+suite.test('T0-A11Y-19', 'Follow Your Ancestor and Soldier\'s Eye View by keyboard: Enter picks the first regiment, the journey takes focus, entries jump the clock; "Change Regiment" returns to the field; viewpoint rows open the viewer and Back returns to the list', async (t) => {
+  if (IS_LEGACY) throw new Skip('legacy rows are click-only divs');
+  const S = await open({ profile: 'a11y-19', cdpPort: PORT_BASE + 6, viewport: DESKTOP });
+  try {
+    await boot(S.page, 'desktop');
+    const tick = () => S.page.evaluate(() => Number(document.querySelector('input[type=range][aria-label="Battle time"]').value));
+    await S.page.locator('button[title="Follow Your Ancestor"]').focus(); await key(S.page, 'Enter', 700);
+    await visible(S.page, '#gt-anc-input');
+    assertEq((await who(S.page)).split('|')[0], 'input#gt-anc-input', 'focus on the regiment field when the dialog opens');
+    await S.page.keyboard.type('20th Maine'); await sleep(700);
+    const lb = await S.page.evaluate(() => { const l = document.querySelector('#gt-anc-results'); return { role: l.getAttribute('role'), rows: l.querySelectorAll('[role=option][data-gt-row]').length }; });
+    assertEq(lb.role, 'listbox', 'regiment results are a listbox'); assert(lb.rows >= 1, 'regiment option rows');
+    await key(S.page, 'Enter', 900);
+    assertEq((await who(S.page)).split('|')[0], 'div#gt-journey', 'after Enter the journey takes focus');
+    const t0 = await tick();
+    await key(S.page, 'ArrowDown', 200);
+    assertEq((await who(S.page)).split('|')[0], 'div', 'ArrowDown reaches the first journey entry');
+    await key(S.page, 'ArrowDown', 200); await key(S.page, 'ArrowDown', 200);
+    await key(S.page, 'Enter', 700);
+    const t1 = await tick(); t.note('clock', { before: t0, after: t1 });
+    assert(t1 !== t0, 'Enter on a journey entry did not move the clock');
+    await S.page.getByRole('button', { name: 'Change Regiment' }).focus(); await key(S.page, 'Enter', 600);
+    assertEq((await who(S.page)).split('|')[0], 'input#gt-anc-input', '"Change Regiment" returns focus to the field');
+    await key(S.page, 'Escape', 600);
+    assertEq(await S.page.locator('[role="dialog"]').count(), 0, 'Esc closes the ancestor dialog');
+    // Soldier's Eye View
+    await S.page.locator('button[title^="Soldier"]').focus(); await key(S.page, 'Enter', 800); await visible(S.page, '#gt-viewpoints');
+    for (let i = 0; i < 6; i++) { await S.page.keyboard.press('Tab'); await sleep(60); if ((await who(S.page)).startsWith('div#gt-viewpoints')) break; }
+    assertEq((await who(S.page)).split('|')[0], 'div#gt-viewpoints', 'Tab reaches the viewpoint list');
+    await key(S.page, 'ArrowDown', 200); await key(S.page, 'Enter', 800);
+    assertEq((await who(S.page)).split('|')[0], 'div#gt-viewer', 'the viewer takes focus after Enter on a viewpoint');
+    const link = await S.page.locator('#gt-viewer a[href*="google.com/maps"]').count(); assert(link >= 1, 'viewer shows the Google Maps link');
+    await S.page.locator('#gt-viewer button').first().focus(); await key(S.page, 'Enter', 600);
+    assertEq((await who(S.page)).split('|')[0], 'div#gt-viewpoints', 'Back returns focus to the viewpoint list');
+    assertEq(errs(S), [], 'uncaught exceptions / console errors');
+  } finally { await S.close().catch(() => {}); sessions.splice(sessions.indexOf(S), 1); }
+});
+
+suite.test('T0-A11Y-20', 'first-visit onboarding (the desktop first screen) by keyboard: focus enters the dialog and stays, every step is operable with Enter, Esc skips (tour reset to tick 1, onboarded flag), background shortcuts are inert', async (t) => {
+  if (IS_LEGACY) throw new Skip('legacy shows the layout chooser (K0), not the onboarding modal');
+  const run = async (tag, port, fn) => {
+    const S = await open({ profile: `a11y-20-${tag}`, cdpPort: PORT_BASE + port, viewport: DESKTOP, onboarded: false });
+    try {
+      await S.page.goto(`${ORIGIN}/`, { waitUntil: 'load' }); await waitForApp(S.page, 45000); await settle(1800);
+      const sel = '[role="dialog"][aria-label="Welcome to the Gettysburg map"]';
+      await visible(S.page, sel);
+      const flag = () => S.page.evaluate(() => { try { return localStorage.getItem('gtbg_onboarded'); } catch { return 'n/a'; } });
+      const tick = () => S.page.evaluate(() => Number((document.querySelector('input[type=range][aria-label="Battle time"]') || {}).value));
+      await fn(S, sel, flag, tick);
+      assertEq(errs(S), [], `${tag}: uncaught exceptions / console errors`);
+    } finally { await S.close().catch(() => {}); sessions.splice(sessions.indexOf(S), 1); }
+  };
+  await run('tour', 7, async (S, sel, flag, tick) => {
+    assert(await insideDialog(S.page, sel), 'focus is not inside the onboarding dialog on load');
+    assertEq(await S.page.evaluate(() => document.querySelector('[role=dialog]').getAttribute('aria-modal')), 'true', 'aria-modal');
+    const left = []; const seen = [];
+    for (let i = 0; i < 12; i++) { await S.page.keyboard.press('Tab'); await sleep(50); seen.push(await who(S.page)); if (!(await insideDialog(S.page, sel))) left.push(await who(S.page)); }
+    for (let i = 0; i < 6; i++) { await S.page.keyboard.press('Shift+Tab'); await sleep(50); if (!(await insideDialog(S.page, sel))) left.push('shift:' + await who(S.page)); }
+    t.note('tab cycle on the first screen', seen.slice(0, 6)); assertEq(left, [], 'Tab left the onboarding dialog');
+    await key(S.page, 's', 500); assertEq(await S.page.locator('input[aria-label="Search units"]').count(), 0, 'the S shortcut leaked through the modal');
+    // choose the first path with Tab+Enter
+    await S.page.evaluate(() => document.querySelector('[role=dialog]').focus());
+    await key(S.page, 'Tab', 100); assert((await who(S.page)).includes('New to Gettysburg'), `first Tab stop: ${await who(S.page)}`);
+    await key(S.page, 'Enter', 700);
+    assert(await insideDialog(S.page, sel), 'focus left the dialog when the step changed');
+    assertEq((await who(S.page)).split('|')[0], 'div#gt-onb-step', 'focus on the new step title');
+    // walk the tour: Tab to "Next" (second button after the title), Enter, until the last step offers "Start exploring"
+    let steps = 0;
+    for (; steps < 20; steps++) {
+      const lab = await S.page.evaluate(() => [...document.querySelectorAll('[role=dialog] button')].map((b) => b.textContent.trim()));
+      if (lab.some((l) => /Start exploring/.test(l))) break;
+      await S.page.locator('[role=dialog] button', { hasText: 'Next' }).focus(); await key(S.page, 'Enter', 450);
+      assert(await insideDialog(S.page, sel), 'focus left the dialog during the tour');
+    }
+    t.note('tour steps taken with Enter on Next', steps);
+    assert(steps >= 2, 'the tour has several steps');
+    await S.page.locator('[role=dialog] button', { hasText: 'Start exploring' }).focus(); await key(S.page, 'Enter', 700);
+    assertEq(await S.page.locator('[role="dialog"]').count(), 0, 'the tour did not finish with Enter on "Start exploring"');
+    assertEq(await flag(), '1', 'onboarded flag after finishing');
+  });
+  await run('esc-first', 8, async (S, sel, flag, tick) => {
+    await key(S.page, 'Escape', 700);
+    assertEq(await S.page.locator('[role="dialog"]').count(), 0, 'Esc did not skip the introduction');
+    assertEq(await flag(), '1', 'onboarded flag after Esc'); assertEq(await tick(), 1, 'Esc = Skip: tick 1');
+    await key(S.page, 's', 500); assertEq(await S.page.locator('input[aria-label="Search units"]').count(), 1, 'app shortcuts work after the introduction');
+  });
+  await run('esc-tour', 9, async (S, sel, flag, tick) => {
+    await S.page.evaluate(() => document.querySelector('[role=dialog]').focus());
+    await key(S.page, 'Tab', 100); await key(S.page, 'Enter', 700);                      // New to Gettysburg -> tour step 1
+    await S.page.locator('[role=dialog] button', { hasText: 'Next' }).focus(); await key(S.page, 'Enter', 700);   // -> step 2 (the tour moves the clock)
+    const jumped = await tick();
+    assert(jumped > 1, `the tour jumps the clock (tick ${jumped})`);
+    await key(S.page, 'Escape', 700);
+    assertEq(await S.page.locator('[role="dialog"]').count(), 0, 'Esc did not skip the tour');
+    assertEq(await tick(), 1, 'Skip tour (Esc) must reset the clock to tick 1');
+    assertEq(await flag(), '1', 'onboarded flag');
+  });
+  await run('esc-power', 1, async (S, sel, flag) => {
+    await S.page.evaluate(() => document.querySelector('[role=dialog]').focus());
+    for (let i = 0; i < 3; i++) await key(S.page, 'Tab', 80);
+    assert((await who(S.page)).includes('Power User'), `third archetype: ${await who(S.page)}`);
+    await key(S.page, 'Enter', 700);
+    assertEq((await who(S.page)).split('|')[0], 'div#gt-onb-step', 'Quick Reference title focused');
+    assert((await S.page.evaluate(() => document.querySelector('[role=dialog]').innerText)).includes('Quick Reference'), 'quick reference step');
+    await key(S.page, 'Escape', 700);
+    assertEq(await S.page.locator('[role="dialog"]').count(), 0, 'Esc did not close the quick reference');
+    assertEq(await flag(), '1', 'onboarded flag');
+  });
+});
+
+suite.test('T0-A11Y-21', 'placeholder text >= 4.5:1 (the browser default #757575 was 3.7:1 on the search field): Search, Follow Your Ancestor and the Bookmarks name field, own compositing', async (t) => {
+  const S = await open({ profile: 'a11y-21', cdpPort: PORT_BASE + 8, viewport: DESKTOP });
+  try {
+    await boot(S.page, 'desktop');
+    const PH = () => S.page.evaluate(() => {
+      const parse = (s) => { const m = s.match(/rgba?\(([^)]+)\)/); if (!m) return null; const p = m[1].split(/[ ,\/]+/).filter(Boolean).map(Number); return { r: p[0], g: p[1], b: p[2], a: p.length > 3 ? p[3] : 1 }; };
+      const over = (top, bot) => { const a = top.a + bot.a * (1 - top.a); return { r: (top.r * top.a + bot.r * bot.a * (1 - top.a)) / a, g: (top.g * top.a + bot.g * bot.a * (1 - top.a)) / a, b: (top.b * top.a + bot.b * bot.a * (1 - top.a)) / a, a }; };
+      const lum = (c) => { const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b); };
+      const ratio = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+      const bgOf = (el) => { const chain = []; for (let p = el; p && p.nodeType === 1; p = p.parentElement) { const c = parse(getComputedStyle(p).backgroundColor); if (c && c.a > 0) { chain.push(c); if (c.a >= 1) break; } } let acc = { r: 5, g: 5, b: 8, a: 1 }; for (let i = chain.length - 1; i >= 0; i--) acc = over(chain[i], acc); return acc; };
+      return [...document.querySelectorAll('input[placeholder],textarea[placeholder]')].filter((e) => e.getClientRects().length && !e.value).map((e) => { const ph = getComputedStyle(e, '::placeholder'); const bg = bgOf(e); const fg0 = parse(ph.color); const op = +ph.opacity; const fg = over({ ...fg0, a: fg0.a * (Number.isFinite(op) ? op : 1) }, bg); return { field: e.getAttribute('aria-label') || e.placeholder, color: ph.color, opacity: ph.opacity, ratio: +ratio(fg, bg).toFixed(2) }; });
+    });
+    const res = {};
+    await key(S.page, 's', 500); await visible(S.page, 'input[placeholder^="Name, state"]'); res.search = await PH(); await resetDesktop(S.page);
+    await S.page.locator('button[title="Follow Your Ancestor"]').focus(); await key(S.page, 'Enter', 700); await visible(S.page, 'input[placeholder^="Type regiment"]'); res.ancestor = await PH(); await resetDesktop(S.page);
+    await S.page.locator('button[title="Bookmarks"]').focus(); await key(S.page, 'Enter', 700); await S.page.getByText('+ Bookmark current moment').click(); await sleep(400); res.bookmarks = await PH(); await resetDesktop(S.page);
+    t.note('placeholder contrast', res);
+    for (const [k, v] of Object.entries(res)) { assert(v.length >= 1, `${k}: no placeholder found (the test would be vacuous)`); for (const f of v) if (!EXPECT_RED) assert(f.ratio >= 4.5, `${k} "${f.field}": placeholder ${f.color} is ${f.ratio}:1, needs 4.5:1`); }
+    if (EXPECT_RED) assert(Object.values(res).flat().some((f) => f.ratio < 4.5), 'expected a placeholder below 4.5:1 on the legacy tree');
+  } finally { await S.close().catch(() => {}); sessions.splice(sessions.indexOf(S), 1); }
+});
+
+suite.test('T0-A11Y-22', 'WCAG 2.5.3 label in name (axe label-content-name-mismatch, an experimental rule run by id; Lighthouse reports it with weight 0): none on the desktop states; phone: none, except the speed button owned by group C while it still has the old label', async (t) => {
+  if (IS_LEGACY) throw new Skip('legacy is judged by T0-A11Y-01');
+  const lcn = async (page) => { const r = await new AxeBuilder({ page }).options({ runOnly: { type: 'rule', values: ['label-content-name-mismatch'] } }).analyze(); return r.violations.flatMap((v) => v.nodes.map((n) => `${n.target.join(' ')} :: ${String(n.html).slice(0, 90)}`)); };
+  const out = {};
+  const S = await open({ profile: 'a11y-22d', cdpPort: PORT_BASE + 1, viewport: DESKTOP });
+  try {
+    await boot(S.page, 'desktop');
+    for (const st of ['loaded', 'help', 'search', 'searchresults', 'filter', 'roster', 'ancestor', 'bookmarks', 'layers', 'soldier', 'efmenu']) { await DESKTOP_STATES[st](S.page); out['desktop ' + st] = await lcn(S.page); }
+  } finally { await S.close().catch(() => {}); sessions.splice(sessions.indexOf(S), 1); }
+  const P = await open({ profile: 'a11y-22p', cdpPort: PORT_BASE + 2, viewport: PHONE });
+  try {
+    await boot(P.page, 'mobile');
+    for (const st of ['loaded', 'tools', 'help', 'search']) { await MOBILE_STATES[st](P.page); out['phone ' + st] = await lcn(P.page); }
+    const speed = await P.page.evaluate(() => { const b = document.querySelector('.gtbg-m-play > button:nth-child(4), .gtbg-m-play button[aria-label*="speed" i]'); return b ? { text: b.textContent.trim(), label: b.getAttribute('aria-label') } : null; });
+    t.note('phone speed button', speed);
+    const oldLabel = !!(speed && /Playback speed [0-9.]+ times/.test(speed.label || ''));
+    for (const k of Object.keys(out)) if (k.startsWith('phone') && oldLabel) out[k] = out[k].filter((x) => !/Playback speed [0-9.]+ times\. Tap to change/.test(x));
+    if (oldLabel) t.note('KNOWN-OPEN', 'phone speed button still has the group-C label "Playback speed N times. Tap to change." (visible text "N×"): mobile owner, tools/t0/patches/C.json');
+  } finally { await P.close().catch(() => {}); sessions.splice(sessions.indexOf(P), 1); }
+  t.note('label-content-name-mismatch per state', out);
+  const bad = Object.entries(out).filter(([, v]) => v.length);
+  assertEq(bad, [], 'label in name');
+});
+
+suite.test('T0-A11Y-23', 'phone Help shows the touch controls the shell really has (not the desktop keyboard list), is a modal dialog (trap, Esc), and the desktop list is unchanged', async (t) => {
+  if (IS_LEGACY) throw new Skip('legacy has no phone shell');
+  const P = await open({ profile: 'a11y-23', cdpPort: PORT_BASE + 3, viewport: PHONE });
+  try {
+    await boot(P.page, 'mobile');
+    await MOBILE_STATES.help(P.page);
+    const sel = '[role="dialog"]'; await visible(P.page, sel);
+    const d = await P.page.evaluate(() => { const x = document.querySelector('[role=dialog]'); return { name: x.getAttribute('aria-label'), modal: x.getAttribute('aria-modal'), text: x.innerText, tab: x.querySelector('button').textContent.trim() }; });
+    t.note('phone Help', { name: d.name, tab: d.tab, head: d.text.slice(0, 160) });
+    assertEq(d.modal, 'true', 'aria-modal'); assertEq(d.tab, 'How to use', 'first tab label');
+    for (const k of ['Drag', 'Pinch', 'Tap a unit', 'Tools', 'Desktop View', 'Change the playback speed']) assert(d.text.includes(k), `phone Help is missing "${k}"`);
+    for (const k of ['Shift + ', 'Space', 'Esc', 'Scroll', 'Click unit', 'Toggle filter panel']) assert(!d.text.includes(k), `phone Help still lists the keyboard item "${k}"`);
+    // every control the Help names exists on the phone shell
+    const present = await P.page.evaluate(() => ({ play: !!document.querySelector('.gtbg-m-play button[aria-label="Play"],.gtbg-m-play button[aria-label="Pause"]'), speed: !!document.querySelector('.gtbg-m-play button'), days: [...document.querySelectorAll('button,[role=tab]')].filter((b) => /^July [123]$/.test(b.textContent.trim())).length, scrub: !!document.querySelector('.gtbg-m-scrub'), tools: [...document.querySelectorAll('button')].some((b) => /Tools/.test(b.textContent)) }));
+    t.note('controls named by Help exist', present);
+    assert(present.play && present.speed && present.days >= 3 && present.scrub && present.tools, `phone controls: ${JSON.stringify(present)}`);
+    const left = [];
+    for (let i = 0; i < 14; i++) { await P.page.keyboard.press('Tab'); await sleep(50); if (!(await insideDialog(P.page, sel))) left.push(await who(P.page)); }
+    assertEq(left, [], 'Tab left the phone Help dialog');
+    await key(P.page, 'Escape', 700);
+    assertEq(await P.page.locator('[role="dialog"]').count(), 0, 'Esc did not close the phone Help');
+    // the phone Virtual Walkthrough (a full-screen overlay over the whole app) is a modal dialog too
+    await MOBILE_STATES.tools(P.page);
+    await P.page.getByText('Virtual Walkthrough').first().click(); await sleep(1800);
+    const wt = await P.page.evaluate(() => { const d = document.querySelector('[role="dialog"][aria-label="Virtual Walkthrough"]'); return d && { modal: d.getAttribute('aria-modal'), inside: d.contains(document.activeElement) }; });
+    t.note('phone walkthrough', wt);
+    assert(wt && wt.modal === 'true' && wt.inside, `phone walkthrough dialog: ${JSON.stringify(wt)}`);
+    await key(P.page, 'Escape', 900);
+    assertEq(await P.page.locator('[role="dialog"][aria-label="Virtual Walkthrough"]').count(), 0, 'Esc did not close the phone walkthrough');
+  } finally { await P.close().catch(() => {}); sessions.splice(sessions.indexOf(P), 1); }
+  const S = await open({ profile: 'a11y-23d', cdpPort: PORT_BASE + 4, viewport: DESKTOP });
+  try {
+    await boot(S.page, 'desktop'); await key(S.page, '?', 900);
+    const txt = await S.page.evaluate(() => document.querySelector('[role=dialog]').innerText);
+    for (const k of ['Keyboard Shortcuts', 'Space', 'Play / Pause', 'Shift + ']) assert(txt.includes(k), `desktop Help lost "${k}"`);
+    assert(!txt.includes('Pinch'), 'desktop Help shows the phone list');
+  } finally { await S.close().catch(() => {}); sessions.splice(sessions.indexOf(S), 1); }
+});
+
+suite.test('T0-A11Y-24', 'toolbar panels take focus when they open and give it back when they close (Filter, Roster, Map Layers, Legend); the default-open Legend does not steal focus at load', async (t) => {
+  if (IS_LEGACY) throw new Skip('legacy panels do not manage focus');
+  const S = await open({ profile: 'a11y-24', cdpPort: PORT_BASE + 5, viewport: DESKTOP });
+  try {
+    await boot(S.page, 'desktop');
+    assertEq(await who(S.page), 'body', 'focus was moved at load (the Legend panel is open by default and must not take it)');
+    const out = {};
+    for (const [name, btn, label] of [['filter', 'Filter', 'Filters'], ['roster', 'Unit Roster', 'All battle units'], ['layers', 'Map Layers', 'Map layers']]) {
+      await resetDesktop(S.page);
+      await S.page.locator(`button[title="${btn}"]`).focus(); await key(S.page, 'Enter', 900);
+      const w = await who(S.page); out[name] = { opened: w };
+      assertEq(w, `div|${label}`, `${name}: focus did not move into the panel`);
+      assertEq(await S.page.evaluate(() => document.activeElement.getAttribute('role')), 'group', `${name}: panel role`);
+      await key(S.page, 'Escape', 700);
+      assertEq(await who(S.page), `button|${btn}`, `${name}: focus did not return to the toolbar button after Esc`);
+      out[name].closed = await who(S.page);
+    }
+    // Legend: open by default; toggle it off and on from the keyboard
+    const lg = S.page.locator('button[title="Legend"]'); await lg.focus(); await key(S.page, 'Enter', 700); await key(S.page, 'Enter', 700);
+    out.legend = await who(S.page); assertEq(out.legend, 'div|Legend', 'Legend: focus did not move into the panel when it was opened');
+    t.note('panels', out);
+    assertEq(errs(S), [], 'uncaught exceptions / console errors');
   } finally { await S.close().catch(() => {}); sessions.splice(sessions.indexOf(S), 1); }
 });
 

@@ -232,6 +232,39 @@ suite.test('T0-CP-03', 'rendered phone 375x812: the Tools footer shows Privacy, 
   } finally { await S.close().catch(() => {}); sessions.splice(sessions.indexOf(S), 1); }
 });
 
+// ------------------------------------------------------------------ CP-04 (desktop + phone, rendered): the Help text after the keyboard-focus decision (integrator notes)
+suite.test('T0-CP-04', 'Help text: the desktop list keeps the held arrow and Esc rows and adds "Tab to the map" (arrows pan once the map has keyboard focus); the phone shell shows touch controls, not the keyboard list', async (t) => {
+  if (IS_LEGACY) throw new Skip('the shipped copy is only asserted on release trees');
+  await ensureServer();
+  const S = await open({ profile: 'cp-04', cdpPort: PORT_BASE + 3, viewport: DESKTOP });
+  const seen = {};
+  try {
+    await boot(S.page, 'desktop');
+    await key(S.page, '?', 800);
+    await S.page.locator('[role="dialog"]').first().waitFor({ state: 'visible', timeout: 8000 });
+    seen.desktop = await S.page.evaluate(() => [...document.querySelectorAll('[role="dialog"] kbd')].map((k) => [k.textContent.trim(), (k.nextElementSibling || {}).textContent]));
+    await key(S.page, 'Escape', 400);
+    assertEq(errs(S), [], 'uncaught exceptions / console errors');
+  } finally { await S.close().catch(() => {}); sessions.splice(sessions.indexOf(S), 1); }
+  const rows = Object.fromEntries(seen.desktop);
+  t.note('desktop Help rows', rows);
+  // held (D-TIME) rows are untouched by this work
+  assertEq([rows['→'], rows['←'], rows['Shift + →']], ['Advance one tick (5 minutes)', 'Go back one tick', 'Advance one hour (12 ticks)'], 'held arrow rows');
+  assertEq(rows['Tab to the map'], 'Arrow keys then pan it instead of stepping the clock, + / - zoom it, Shift + arrows rotate and tilt it; Esc gives the keys back', 'map keyboard row');
+  assertEq(rows['Esc'], 'Dismiss panel / deselect unit', 'the Esc row is a held row (h04) and stays as it was');
+  const P = await open({ profile: 'cp-04p', cdpPort: PORT_BASE + 4, viewport: PHONE });
+  try {
+    await boot(P.page, 'mobile');
+    await P.page.getByText('Tools').first().click(); await sleep(700);
+    await P.page.getByText('Help', { exact: true }).first().click(); await sleep(1200);
+    seen.phone = await P.page.evaluate(() => [...document.querySelectorAll('[role="dialog"] kbd')].map((k) => k.textContent.trim()));
+    t.note('phone Help keys', seen.phone);
+    for (const k of ['Drag', 'Pinch', 'Tap a unit', 'Tools']) assert(seen.phone.includes(k), `phone Help is missing "${k}"`);
+    for (const k of ['Space', 'Shift + →', 'Scroll', 'Click unit', 'Esc', 'Tab to the map']) assert(!seen.phone.includes(k), `phone Help still shows "${k}"`);
+    assertEq(errs(P), [], 'uncaught exceptions / console errors');
+  } finally { await P.close().catch(() => {}); sessions.splice(sessions.indexOf(P), 1); }
+});
+
 let summary;
 try { summary = await suite.run({ filter: FILTER, outFile: OUT, extra: () => ({ dist: DIST ? rel(DIST) : null }) }); } finally { await closeAll(); }
 process.exit(summary.failed ? 1 : 0);
