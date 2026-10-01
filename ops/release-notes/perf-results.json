@@ -1,0 +1,634 @@
+{
+ "generated": "2026-09-30",
+ "agent": "t0-perf",
+ "what": "Lighthouse 13.5 lab numbers for the four T0 trains before and after the perf work (R0 banner CLS fix; PERF group for R1a+), plus the applied-throttling probe and the findings behind the gates proposed in docs/plan/FINAL/02-tranche0-hotfix-runbook.md section 14.18-14.20",
+ "method": {
+  "lighthouse": "13.5.0 attached to the harness Chrome (tests/t0/lib.mjs openSession) over its debugging port; categories performance+accessibility; simulated (Lantern) throttling, mobile preset 412x823 @1.75 4x CPU 1.6 Mbps 150 ms, desktop preset; Mapbox tile requests carry the production Referer through the harness (tiles per run 13-72, cap 300 per process); telemetry stubbed",
+  "runs": "fresh Chrome profile and server per run, one run at a time (lock), interleaved before/after per round; mobile n=15 per tree (rounds 61-65 and 71-80), desktop n=5, legacy baseline n=10 mobile / 5 desktop; process priority above normal",
+  "trees": "before = release/<train>/dist as built from HEAD 5de02c8 (R0 fb14ab00, R1a 740deb52, R1b 8ad6d7cd, R1c 9feb2ee6); after = the same plus the R0M banner row and, for R1a+, PERF.json (isolated working copy; the release ids do not change: no bundle byte changed)",
+  "host": "Windows 11, 16 cores, shared with other agents (cpu busy 30-50 % during runs, benchmarkIndex 3400-4300, median about 3800; the verifier's host was about 4200): absolute scores are 2-3 points lower than on a quiet host",
+  "probe": "boot-probe: Chrome with CDP Emulation.setCPUThrottlingRate 4 and Network.emulateNetworkConditions 1.6 Mbps/150 ms APPLIED, 412x823 touch viewport, real tiles, 14 s; FCP/LCP/CLS from PerformanceObserver, TBT = longtask API after FCP; app-mount time is unreliable in this probe (the network condition is sometimes not applied to the entry download: bimodal 1.4/4.6 s) and is not reported"
+ },
+ "legacy_baseline": {
+  "mobile": {
+   "perf_runs": [
+    59,
+    59,
+    60,
+    60,
+    61,
+    61,
+    61,
+    62,
+    63,
+    64
+   ],
+   "perf_median": 61,
+   "fcp": 3940,
+   "lcp": 8830,
+   "tbt": 0,
+   "cls": 0.111,
+   "documents": 2
+  },
+  "desktop": {
+   "n": 3,
+   "perf": [
+    84,
+    84,
+    84
+   ],
+   "perf_med": 84.0,
+   "fcp": 788.0205500000002,
+   "lcp": 2245.882553015136,
+   "tbt": 0,
+   "cls": 0.03962936371778594,
+   "si": 1966.5258299886334,
+   "a11y": 90.0,
+   "req": 185,
+   "kb": 1519.2646484375,
+   "bench": 3940.5,
+   "cpu": 26.2,
+   "docs": 2,
+   "render_blocking_fail": 3
+  }
+ },
+ "mobile_n15": {
+  "R0": {
+   "n": 15,
+   "perf_med": 84.0,
+   "p25": 82.0,
+   "p75": 85.0,
+   "min": 79.0,
+   "max": 85.0,
+   "fcp": 962.7149000000001,
+   "lcp": 1299.9047999999998,
+   "tbt": 640.0000000000001,
+   "cls": 0.04971623834207601
+  },
+  "W_R0": {
+   "n": 15,
+   "perf_med": 84.0,
+   "p25": 83.0,
+   "p75": 86.0,
+   "min": 81.0,
+   "max": 87.0,
+   "fcp": 956.8961000000002,
+   "lcp": 1289.24595,
+   "tbt": 653,
+   "cls": 0
+  },
+  "R1a": {
+   "n": 15,
+   "perf_med": 84.0,
+   "p25": 83.0,
+   "p75": 84.0,
+   "min": 78.0,
+   "max": 86.0,
+   "fcp": 950.5831,
+   "lcp": 1301.8012,
+   "tbt": 640.0000000000002,
+   "cls": 0.04971623834207601
+  },
+  "W_R1a": {
+   "n": 15,
+   "perf_med": 84.0,
+   "p25": 81.0,
+   "p75": 85.0,
+   "min": 79.0,
+   "max": 86.0,
+   "fcp": 675.9966,
+   "lcp": 1127.8339999999998,
+   "tbt": 652.5000000000001,
+   "cls": 0
+  },
+  "R1b": {
+   "n": 15,
+   "perf_med": 89.0,
+   "p25": 88.0,
+   "p75": 90.0,
+   "min": 82.0,
+   "max": 90.0,
+   "fcp": 934.1772,
+   "lcp": 1289.0124999999998,
+   "tbt": 431.5,
+   "cls": 2.083560674297373e-06
+  },
+  "W_R1b": {
+   "n": 15,
+   "perf_med": 90.0,
+   "p25": 87.0,
+   "p75": 90.0,
+   "min": 83.0,
+   "max": 92.0,
+   "fcp": 828.2568000000001,
+   "lcp": 1254.7639500000002,
+   "tbt": 426.5000000000001,
+   "cls": 2.083560674297373e-06
+  },
+  "R1c": {
+   "n": 15,
+   "perf_med": 90.0,
+   "p25": 89.0,
+   "p75": 91.0,
+   "min": 83.0,
+   "max": 93.0,
+   "fcp": 934.3005,
+   "lcp": 1284.2957499999998,
+   "tbt": 395.4999999999999,
+   "cls": 0
+  },
+  "W_R1c": {
+   "n": 15,
+   "perf_med": 89.0,
+   "p25": 85.0,
+   "p75": 90.0,
+   "min": 81.0,
+   "max": 92.0,
+   "fcp": 828.1687000000002,
+   "lcp": 1255.73805,
+   "tbt": 434.0000000000002,
+   "cls": 0
+  }
+ },
+ "mobile_n5_matrix": {
+  "R0": {
+   "n": 5,
+   "perf": [
+    81,
+    82,
+    79,
+    83,
+    82
+   ],
+   "perf_med": 82.0,
+   "fcp": 969.5074000000002,
+   "lcp": 1304.2611000000002,
+   "tbt": 726.5000000000001,
+   "cls": 0.04971623834207601,
+   "si": 1157.602227893095,
+   "a11y": 90.0,
+   "req": 84,
+   "kb": 615.5556640625,
+   "bench": 4090,
+   "cpu": 33.9,
+   "docs": 1,
+   "render_blocking_fail": 5
+  },
+  "W_R0": {
+   "n": 5,
+   "perf": [
+    81,
+    83,
+    81,
+    84,
+    84
+   ],
+   "perf_med": 83.0,
+   "fcp": 959.2977000000001,
+   "lcp": 1316.4027999999998,
+   "tbt": 690.9999999999999,
+   "cls": 0,
+   "si": 1108.933590881522,
+   "a11y": 90.0,
+   "req": 84,
+   "kb": 615.67578125,
+   "bench": 3803.5,
+   "cpu": 38.4,
+   "docs": 1,
+   "render_blocking_fail": 5
+  },
+  "R1a": {
+   "n": 5,
+   "perf": [
+    81,
+    83,
+    84,
+    82,
+    86
+   ],
+   "perf_med": 83.0,
+   "fcp": 961.1553999999999,
+   "lcp": 1305.74,
+   "tbt": 687.9999999999997,
+   "cls": 0.04971623834207601,
+   "si": 1107.1954250399513,
+   "a11y": 90.0,
+   "req": 86,
+   "kb": 706.8466796875,
+   "bench": 3867.5,
+   "cpu": 34.5,
+   "docs": 1,
+   "render_blocking_fail": 5
+  },
+  "W_R1a": {
+   "n": 5,
+   "perf": [
+    79,
+    81,
+    80,
+    81,
+    85
+   ],
+   "perf_med": 81.0,
+   "fcp": 685.0089000000002,
+   "lcp": 1148.8168,
+   "tbt": 822,
+   "cls": 0,
+   "si": 999.2054915504737,
+   "a11y": 90.0,
+   "req": 86,
+   "kb": 707.7373046875,
+   "bench": 3787,
+   "cpu": 35.1,
+   "docs": 1,
+   "render_blocking_fail": 0
+  },
+  "R1b": {
+   "n": 5,
+   "perf": [
+    86,
+    82,
+    88,
+    85,
+    88
+   ],
+   "perf_med": 86.0,
+   "fcp": 951.0739000000002,
+   "lcp": 1279.8453,
+   "tbt": 568.0000000000003,
+   "cls": 2.083560674297373e-06,
+   "si": 1182.0902448843935,
+   "a11y": 100,
+   "req": 103,
+   "kb": 548.0498046875,
+   "bench": 3918,
+   "cpu": 39.5,
+   "docs": 1,
+   "render_blocking_fail": 5
+  },
+  "W_R1b": {
+   "n": 5,
+   "perf": [
+    84,
+    86,
+    87,
+    89,
+    83
+   ],
+   "perf_med": 86.0,
+   "fcp": 838.0912999999999,
+   "lcp": 1264.8189000000002,
+   "tbt": 545.5000000000002,
+   "cls": 2.083560674297373e-06,
+   "si": 1164.6443591141579,
+   "a11y": 100,
+   "req": 103,
+   "kb": 548.9404296875,
+   "bench": 3881,
+   "cpu": 35.9,
+   "docs": 1,
+   "render_blocking_fail": 0
+  },
+  "R1c": {
+   "n": 5,
+   "perf": [
+    83,
+    86,
+    89,
+    89,
+    88
+   ],
+   "perf_med": 88.0,
+   "fcp": 944.8767000000003,
+   "lcp": 1279.5399,
+   "tbt": 475.5,
+   "cls": 0,
+   "si": 1130.8542733428312,
+   "a11y": 100,
+   "req": 103,
+   "kb": 548.6259765625,
+   "bench": 3880.5,
+   "cpu": 37.6,
+   "docs": 1,
+   "render_blocking_fail": 5
+  },
+  "W_R1c": {
+   "n": 5,
+   "perf": [
+    81,
+    82,
+    85,
+    89,
+    85
+   ],
+   "perf_med": 85.0,
+   "fcp": 850.2481,
+   "lcp": 1267.9583999999998,
+   "tbt": 611.5000000000002,
+   "cls": 0,
+   "si": 1163.2935527886366,
+   "a11y": 100,
+   "req": 103,
+   "kb": 549.0224609375,
+   "bench": 3731.5,
+   "cpu": 37.6,
+   "docs": 1,
+   "render_blocking_fail": 0
+  }
+ },
+ "desktop_n5": {
+  "R0": {
+   "n": 5,
+   "perf": [
+    100,
+    100,
+    97,
+    100,
+    100
+   ],
+   "perf_med": 100,
+   "fcp": 301.99620000000004,
+   "lcp": 332.4229,
+   "tbt": 62.5,
+   "cls": 0.00777758865248227,
+   "si": 528.2234099037764,
+   "a11y": 90.0,
+   "req": 111,
+   "kb": 1068.02734375,
+   "bench": 3843,
+   "cpu": 41.6,
+   "docs": 1,
+   "render_blocking_fail": 5
+  },
+  "W_R0": {
+   "n": 5,
+   "perf": [
+    100,
+    100,
+    99,
+    99,
+    99
+   ],
+   "perf_med": 99.0,
+   "fcp": 302.03499999999997,
+   "lcp": 328.6397,
+   "tbt": 84.99999999999994,
+   "cls": 0,
+   "si": 515.0422244350365,
+   "a11y": 90.0,
+   "req": 111,
+   "kb": 1068.22265625,
+   "bench": 3756.5,
+   "cpu": 39.5,
+   "docs": 1,
+   "render_blocking_fail": 5
+  },
+  "R1a": {
+   "n": 5,
+   "perf": [
+    100,
+    100,
+    100,
+    100,
+    99
+   ],
+   "perf_med": 100,
+   "fcp": 304.91140000000007,
+   "lcp": 337.11450000000013,
+   "tbt": 51.50000000000006,
+   "cls": 0.00777758865248227,
+   "si": 536.2270325892736,
+   "a11y": 90.0,
+   "req": 113,
+   "kb": 1159.373046875,
+   "bench": 3892,
+   "cpu": 38.7,
+   "docs": 1,
+   "render_blocking_fail": 5
+  },
+  "W_R1a": {
+   "n": 5,
+   "perf": [
+    100,
+    100,
+    100,
+    100,
+    100
+   ],
+   "perf_med": 100,
+   "fcp": 204.13440000000003,
+   "lcp": 333.5515500000001,
+   "tbt": 59,
+   "cls": 0,
+   "si": 493.2938202575394,
+   "a11y": 90.0,
+   "req": 113,
+   "kb": 1160.31640625,
+   "bench": 3834.5,
+   "cpu": 42.9,
+   "docs": 1,
+   "render_blocking_fail": 0
+  },
+  "R1b": {
+   "n": 5,
+   "perf": [
+    100,
+    100,
+    100,
+    100,
+    100
+   ],
+   "perf_med": 100,
+   "fcp": 303.9694999999999,
+   "lcp": 335.8001499999999,
+   "tbt": 48.5,
+   "cls": 4.310772553483349e-06,
+   "si": 555.2817423168433,
+   "a11y": 100,
+   "req": 113,
+   "kb": 1161.337890625,
+   "bench": 3696.5,
+   "cpu": 44.1,
+   "docs": 1,
+   "render_blocking_fail": 5
+  },
+  "W_R1b": {
+   "n": 5,
+   "perf": [
+    100,
+    100,
+    100,
+    100,
+    100
+   ],
+   "perf_med": 100,
+   "fcp": 247.18325,
+   "lcp": 344.82845,
+   "tbt": 45.02525000000003,
+   "cls": 4.310772553483349e-06,
+   "si": 534.7928306463718,
+   "a11y": 100,
+   "req": 113,
+   "kb": 1162.263671875,
+   "bench": 3854,
+   "cpu": 45.9,
+   "docs": 1,
+   "render_blocking_fail": 0
+  },
+  "R1c": {
+   "n": 5,
+   "perf": [
+    100,
+    100,
+    100,
+    99,
+    99
+   ],
+   "perf_med": 100,
+   "fcp": 300.45079999999996,
+   "lcp": 330.3503999999999,
+   "tbt": 51.50000000000006,
+   "cls": 4.310772553483349e-06,
+   "si": 531.6670716438895,
+   "a11y": 100,
+   "req": 113,
+   "kb": 1161.341796875,
+   "bench": 3849,
+   "cpu": 40.5,
+   "docs": 1,
+   "render_blocking_fail": 5
+  },
+  "W_R1c": {
+   "n": 5,
+   "perf": [
+    100,
+    100,
+    100,
+    100,
+    100
+   ],
+   "perf_med": 100,
+   "fcp": 248.4297,
+   "lcp": 374.11769999999996,
+   "tbt": 53,
+   "cls": 4.310772553483349e-06,
+   "si": 549.2131501814956,
+   "a11y": 100,
+   "req": 113,
+   "kb": 1162.25,
+   "bench": 3695.5,
+   "cpu": 46.6,
+   "docs": 1,
+   "render_blocking_fail": 0
+  }
+ },
+ "probe_4xcpu_slow4g_n3": {
+  "R0": {
+   "n": 3,
+   "fcp": 588,
+   "lcp": 588,
+   "cls": 0.0,
+   "tbt": 643,
+   "mount": 4640
+  },
+  "W_R0": {
+   "n": 3,
+   "fcp": 608,
+   "lcp": 608,
+   "cls": 0.0,
+   "tbt": 529,
+   "mount": 1441
+  },
+  "R1a": {
+   "n": 3,
+   "fcp": 580,
+   "lcp": 580,
+   "cls": 0.0,
+   "tbt": 714,
+   "mount": 4502
+  },
+  "W_R1a": {
+   "n": 3,
+   "fcp": 388,
+   "lcp": 388,
+   "cls": 0.0,
+   "tbt": 673,
+   "mount": 4501
+  },
+  "R1b": {
+   "n": 3,
+   "fcp": 608,
+   "lcp": 608,
+   "cls": 0.0,
+   "tbt": 566,
+   "mount": 5685
+  },
+  "W_R1b": {
+   "n": 3,
+   "fcp": 412,
+   "lcp": 412,
+   "cls": 0.0,
+   "tbt": 680,
+   "mount": 5705
+  },
+  "R1c": {
+   "n": 3,
+   "fcp": 648,
+   "lcp": 648,
+   "cls": 0.0,
+   "tbt": 558,
+   "mount": 2813
+  },
+  "W_R1c": {
+   "n": 3,
+   "fcp": 432,
+   "lcp": 432,
+   "cls": 0.0,
+   "tbt": 698,
+   "mount": 5701
+  }
+ },
+ "key": {
+  "R0": "before: HEAD build",
+  "W_R0": "after: R0 + banner row",
+  "R1a": "before",
+  "W_R1a": "after: + PERF",
+  "R1b": "before",
+  "W_R1b": "after",
+  "R1c": "before",
+  "W_R1c": "after"
+ },
+ "cls": {
+  "before_runs_nonzero": "R0 39/40, R1a 27/27 (0.050); R1b/R1c 0",
+  "after_runs_nonzero": "0 of 21 on each of R0, R1a, R1b, R1c",
+  "desktop": "0.008 -> 0.000 on R0/R1a",
+  "culprit": "div#root > div > div > div (the Choose Your Experience column), +89 px when the banner is inserted after the first paint"
+ },
+ "render_blocking_insight": {
+  "before": "fails on 126 of 126 runs (R0..R1c)",
+  "after": "passes on 63 of 63 runs (R1a..R1c); R0 unchanged by design"
+ },
+ "tbt_anatomy_R0_mobile_real_tiles": {
+  "lantern_replay": "R0 run: tasks counted = module compile+evaluate 48 ms (simulated 191, counted 141), React commit + Map constructor 111 ms (222, 172, layout-containing task scaled x2), first Mapbox render 114 ms (457, 407); TBT 724 before windowing (680 reported)",
+  "cpu_profile_1x": "first React commit layout 53 ms (LoAF render time; 271 layout objects), Map constructor 86 ms of which Context constructor self 66 ms and _setupPainter 10 ms, first full render 108 ms of which Program._finalize self 94 ms (blocking getProgramParameter(LINK_STATUS) for the symbol shaders); thread CPU time (trace tdur) of the 111 ms and 114 ms tasks is only 29 ms and 18 ms: the main thread waits on the software-GL process",
+  "R1c_profile_1x": "Program._finalize self 127 ms in total, 93 ms of it in one 120 ms span",
+  "inline_scripts_after_fcp": "index.html inline scripts total about 4-9 ms CPU after first paint (populate, mover, pollers): not a TBT lever",
+  "tiles_blocked": "verifier 2: R0 TBT 135 ms and score 99 with tiles blocked; real tiles add about 500 ms TBT and about 15 points"
+ },
+ "rejected_experiments": {
+  "prefetch_entry": "R0 + <link rel=prefetch as=script>: second download of the entry, mount 4.6 -> 7.1 s at 4x CPU / slow 4G (3 of 3 runs)",
+  "modulepreload_low": "R0 + modulepreload fetchpriority=low: mount 4.1-4.5 vs 4.56-4.58 s, FCP unchanged; forbidden by gate r0-mechanism and prod-probe T0-05",
+  "inline_css": "R0 with both stylesheets inlined: FCP 837 vs 945 ms, +9 KB brotli per no-cache HTML, score 79 (78-81) vs 81-82 for the interleaved control (n=5)",
+  "map_constructor_task": "R0 with new Map() moved into a setTimeout(0) task: score 79 (78-81) vs 81-82 for the interleaved control (n=5), no TBT gain; collides with A2-map-attribution-and-setup",
+  "css_defer_without_critical_css": "R1b/R1c: CLS 0.040 (skip links and sr-only h1 visible at first paint) - cured by PERF-critical-css-inline",
+  "duplicate_fetches": "0 duplicate requests reach the server on a first visit (server ledger, R0 and R1c phone): the second fetch of commander_successions.json, chronology_day1-3.json and icons/icon-192.png is a Chrome cache hit (Lighthouse transferSize 0)"
+ },
+ "gates_proposed": {
+  "R0": "mobile >= 82, desktop >= 95",
+  "R1a": "mobile >= 82, desktop >= 95",
+  "R1b": "mobile >= 85 (target 90), desktop >= 95",
+  "R1c": "mobile >= 85 (target 90), desktop >= 95",
+  "rule": "median of 5, quiet host (benchmarkIndex >= 3800, nothing else running), real tiles",
+  "tbt_under_200": "not reachable in T0 (needs the rebuild: lazy map chunk, yielding between evaluation, mount, constructor and layers)"
+ }
+}
