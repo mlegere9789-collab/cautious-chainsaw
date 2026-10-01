@@ -37,9 +37,9 @@
     "A":  {"first": "R1a", "what": "crash and input: C5 calls, sound, pointer capture, monuments loop, keys, storage, attribution, D-HEATMAP removals"},
     "B":  {"first": "R1c", "what": "clock and data: date +2, day loading on jump, merge fix, stateless i2, minimap"},
     "DL": {"first": "R1c", "what": "deep-link reader"},
-    "C":  {"first": "R1b", "what": "mobile shell (53 bundle patches + 3 index.html rows); must precede AX"},
-    "AX": {"first": "R1b", "what": "a11y bridge (13 bundle patches); must follow C (G-close-mobile expects 3 hits)"},
-    "CP": {"first": "R1c", "what": "truthful-copy subset (16 bundle rows + 2 Help rows)"}
+    "C":  {"first": "R1b", "what": "mobile shell (bundle patches + index.html rows; the counts are in release/<train>/anchors.json and tools/t0/README.md); must precede AX"},
+    "AX": {"first": "R1b", "what": "a11y bridge (bundle patches + page rows); must follow C (G-close-mobile expects 3 hits)"},
+    "CP": {"first": "R1c", "what": "truthful-copy subset (bundle rows + Help-chunk rows); must follow C"}
   },
   "trains": {
     "R0":  {"page_groups": false, "overlay": ["R0"], "config": false, "what": "mechanism: hashed names, boot loader, no-reload SW, kill switch, version.json, intro deletion"},
@@ -54,6 +54,10 @@
     {"a": "mob:HF-9d dock", "b": "AX-mobile-dock-id (after C HF-9d)", "resolution": "AX anchors on group C's output; AX must follow C"},
     {"a": "mob:HF-6g append Extra Features groups to sheet", "b": "cp:mobile-tools-footer (Privacy, Terms, credit; after group C HF-6g)", "resolution": "CP anchors on group C's output; CP must follow C"}
   ],
+  "legal": {
+    "_doc": "Only used when the opt-in page group PG-legal is built (python tools/t0/build.py --train R1c --with PG-legal). effective_date (ISO) is the day the interim privacy/terms text is published: the build prints it as 'Month D, YYYY' wherever the patches say {{LEGAL_DATE}} (no wall clock, so builds stay deterministic). Set it to the production deploy day before the build that is deployed.",
+    "effective_date": "2026-11-03"
+  },
   "config_hook": "tools/t0/config/gen.mjs",
   "config_allowed_outputs": ["_headers", "_redirects", "netlify.toml", "_ops/"]
 }
