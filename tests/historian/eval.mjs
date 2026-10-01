@@ -207,7 +207,7 @@ if (arg('baseline-update', false) && report.batteries && report.batteries['NEW e
     recorded: new Date().toISOString().slice(0, 10), kb: report.kb,
     batteries: Object.fromEntries(Object.entries(B).map(([bn, S]) => [bn, pick(S)])),
     golden_h1h2: Object.fromEntries(['phase<=H2.n', 'phase<=H2.pass', 'phase<=H2.crit_recall', 'phase<=H2.hit_at_5', 'phase<=H2.mrr_at_10'].map((k) => [k, report.golden_h1h2[k]])),
-    golden_answerable_now: Object.fromEntries(['all.n', 'all.pass', 'all.crit_recall', 'all.behavior_ok', 'all.clean', 'all.forbidden_rate', 'all.hallucinated_citation_rate', 'all.decline_correct', 'all.false_decline', 'all.hedge_rate', 'all.grounded', 'all.hit_at_5', 'all.mrr_at_10', 'all.readability_ok', 'all.mean_chars', 'dev.pass', 'locked.pass'].map((k) => [k, G[k]])),
+    golden_answerable_now: Object.fromEntries(['all.n', 'all.pass', 'all.crit_recall', 'all.behavior_ok', 'all.clean', 'all.forbidden_rate', 'all.hallucinated_citation_rate', 'all.decline_correct', 'all.false_decline', 'all.hedge_rate', 'all.grounded', 'all.hit_at_5', 'all.mrr_at_10', 'all.readability_ok', 'all.student_ok', 'all.mean_chars', 'dev.pass', 'locked.pass'].map((k) => [k, G[k]])),
   };
   fs.writeFileSync(path.join(here, 'engine-recorded.json'), JSON.stringify(rec, null, 1) + '\n');
   console.log('wrote tests/historian/engine-recorded.json');

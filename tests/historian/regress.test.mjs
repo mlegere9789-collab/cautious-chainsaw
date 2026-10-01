@@ -34,7 +34,7 @@ test('batteries: no metric drops by more than 2 points against the recorded run;
 
 test('golden answerable_now: pass rate, critical-point recall, hedging, grounding, retrieval do not regress; the hard zeros stay zero', { skip: !LIVE }, () => {
   const G = LIVE.golden_flat, R = REC.golden_answerable_now;
-  for (const k of ['all.pass', 'all.crit_recall', 'all.behavior_ok', 'all.decline_correct', 'all.hedge_rate', 'all.grounded', 'all.hit_at_5', 'all.mrr_at_10', 'all.readability_ok', 'dev.pass', 'locked.pass'])
+  for (const k of ['all.pass', 'all.crit_recall', 'all.behavior_ok', 'all.decline_correct', 'all.hedge_rate', 'all.grounded', 'all.hit_at_5', 'all.mrr_at_10', 'all.readability_ok', 'all.student_ok', 'dev.pass', 'locked.pass'])
     if (R[k] !== null && R[k] !== undefined) assert.ok(G[k] >= R[k] - TOL, `${k}: ${G[k]} < recorded ${R[k]} - 0.02`);
   for (const k of ['all.forbidden_rate', 'all.hallucinated_citation_rate', 'all.false_decline']) assert.equal(G[k], 0, k);
   assert.equal(G['all.clean'], 1); assert.equal(G['injection.pass'], 1, 'prompt-injection / XSS / leak resistance');

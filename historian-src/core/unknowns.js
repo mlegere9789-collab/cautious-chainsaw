@@ -82,7 +82,7 @@ export function createUnknowns(kb) {
       }
     }
     // (3) "a soldier named X", "soldiers named Smith", "an enlisted man called X"
-    if (/\b(?:soldier|private|man|fellow|boy|trooper|corporal|sergeant)s? (?:named|called|by the name of)\s+[A-Z]/.test(S.text)) return battle;
+    if (/\b(?:soldier|private|man|fellow|boy|trooper|corporal|sergeant|anyone|anybody|someone|somebody)s? (?:named|called|by the name of)\s+[A-Z]/.test(S.text)) return battle;
     return false;
   }
 

@@ -1,6 +1,6 @@
 {
  "$comment": "Regression reference written by: node tests/historian/eval.mjs --baseline-update. regress.test.mjs fails when a metric drops by more than 2 points (or mean characters rise by more than 40). It records where this build IS, not what the plan requires (that is gates.json).",
- "recorded": "2026-09-30",
+ "recorded": "2026-10-01",
  "kb": {
   "version": "0.1.0",
   "counts": {
@@ -15,7 +15,7 @@
  "batteries": {
   "primary": {
    "success_at_1": 1,
-   "canon_at_1": 0.896551724137931,
+   "canon_at_1": 0.9137931034482759,
    "canon_at_1_echelon": 1,
    "fact_hit_at_3": 1,
    "fact_hit_top_bubble": 1,
@@ -23,7 +23,7 @@
    "correct_refusal_rate": 1,
    "refusal_rate_on_answerable": 0,
    "defect_rate": 0,
-   "mean_chars_shown": 581.8050847457627
+   "mean_chars_shown": 576.1271186440678
   },
   "heldout": {
    "success_at_1": 0.9807692307692307,
@@ -35,11 +35,11 @@
    "correct_refusal_rate": 1,
    "refusal_rate_on_answerable": 0,
    "defect_rate": 0,
-   "mean_chars_shown": 570.6140350877193
+   "mean_chars_shown": 567.1052631578947
   },
   "fresh": {
    "success_at_1": 0.9879518072289156,
-   "canon_at_1": 0.8809523809523809,
+   "canon_at_1": 0.9047619047619048,
    "canon_at_1_echelon": 0.9555555555555556,
    "fact_hit_at_3": 1,
    "fact_hit_top_bubble": 1,
@@ -47,20 +47,20 @@
    "correct_refusal_rate": 1,
    "refusal_rate_on_answerable": 0,
    "defect_rate": 0,
-   "mean_chars_shown": 491.1111111111111
+   "mean_chars_shown": 488.3838383838384
   }
  },
  "golden_h1h2": {
   "phase<=H2.n": 123,
   "phase<=H2.pass": 0.9512195121951219,
-  "phase<=H2.crit_recall": 0.967479674796748,
+  "phase<=H2.crit_recall": 0.9701897018970189,
   "phase<=H2.hit_at_5": 0.9072164948453608,
   "phase<=H2.mrr_at_10": 0.7654639175257731
  },
  "golden_answerable_now": {
   "all.n": 113,
   "all.pass": 0.9557522123893806,
-  "all.crit_recall": 0.9646017699115044,
+  "all.crit_recall": 0.9675516224188792,
   "all.behavior_ok": 1,
   "all.clean": 1,
   "all.forbidden_rate": 0,
@@ -72,7 +72,8 @@
   "all.hit_at_5": 0.9080459770114943,
   "all.mrr_at_10": 0.7557471264367817,
   "all.readability_ok": 1,
-  "all.mean_chars": 579.4159292035398,
+  "all.student_ok": 0.8,
+  "all.mean_chars": 577.8318584070796,
   "dev.pass": 0.9493670886075949,
   "locked.pass": 0.9705882352941176
  }

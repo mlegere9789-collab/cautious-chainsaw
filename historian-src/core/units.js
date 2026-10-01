@@ -27,7 +27,7 @@ export const STATE_CODE = { alabama: 'AL', arkansas: 'AR', connecticut: 'CT', de
 export const STATE_TITLE = (s) => s.replace(/\b[a-z]/g, (c) => c.toUpperCase());
 
 // arm words -> arm code
-export const ARM_WORDS = { infantry: 'inf', inf: 'inf', volunteer: null, volunteers: null, vol: null, vols: null, cavalry: 'cav', cav: 'cav', reserves: 'res', reserve: 'res', battalion: 'bn', sharpshooters: 'ss',
+export const ARM_WORDS = { infantry: 'inf', inf: 'inf', reg: null, regts: null, volunteer: null, volunteers: null, vol: null, vols: null, cavalry: 'cav', cav: 'cav', reserves: 'res', reserve: 'res', battalion: 'bn', sharpshooters: 'ss',
   sharpshooter: 'ss', battery: 'art', artillery: 'art', zouaves: 'inf', militia: 'inf', legion: 'inf', regiment: null, regt: null, regiments: null };
 
 const isOrd = (t) => t && t.charCodeAt(0) === 35 && /^#\d+$/.test(t);
@@ -35,7 +35,7 @@ const isOrd = (t) => t && t.charCodeAt(0) === 35 && /^#\d+$/.test(t);
 const AMBIG_ABBR = new Set(['in', 'me', 'la', 'al', 'us', 'de', 'ma', 'mo', 'oh', 'ar', 'ia', 'mi']);
 const BLOCK_NEXT = new Set(['the', 'a', 'an', 'this', 'that', 'these', 'those', 'of', 'at', 'on', 'by', 'to', 'is', 'was', 'were', 'are', 'be', 'from', 'with', 'my', 'your', 'our', 'his', 'her', 'their', 'it', 'its']);
 // words that may stand between the ordinal and the state name ("19th Regiment, Indiana", "1st Infantry Michigan")
-const PRE_FILLER = new Set(['regiment', 'regt', 'infantry', 'inf', 'volunteer', 'volunteers', 'vol', 'vols', 'cavalry']);
+const PRE_FILLER = new Set(['regiment', 'regt', 'reg', 'infantry', 'inf', 'volunteer', 'volunteers', 'vol', 'vols', 'cavalry']);
 // words that join a regiment to its state when a reader writes the relation out ("the 6th regiment FROM Wisconsin", "the 24th Infantry OUT OF Michigan", "the 19th regiment raised IN Indiana"); query time only
 const CONNECT_PAIR = new Set(['out of', 'raised in', 'raised from', 'raised by', 'recruited in', 'recruited from', 'organized in', 'organised in', 'enlisted in', 'enlisted from', 'mustered in', 'mustered from', 'hailing from', 'coming from', 'belonging to', 'originating in', 'originating from']);
 const CONNECT_ONE = new Set(['of', 'from', 'in', 'for', 'representing']);
@@ -88,7 +88,8 @@ export function findUnitMentions(tokens, { reversed = false, loose = false, caps
       let oi = i + used, armBefore = null;
       for (let g = 0; g < 5 && oi < tokens.length && (PRE_FILLER.has(tokens[oi]) || tokens[oi] === 'number' || tokens[oi] === 'no' || tokens[oi] === 'num' || tokens[oi] === 'state' || tokens[oi] === 'of'); g++) { if (ARM_WORDS[tokens[oi]]) armBefore = armBefore || ARM_WORDS[tokens[oi]]; oi++; }
       if (oi > i + used && !loose) continue;
-      if (tokens[i] === 'united' && oi === i + used) continue;                       // "United States 3rd" alone is not a regiment; "United States Regiment 4" is
+      // "United States 3rd" alone is not a regiment; "United States Regiment 4" and "United States 4 regiment" are
+      if (tokens[i] === 'united' && oi === i + used && !(isOrd(tokens[oi]) && (PRE_FILLER.has(tokens[oi + 1]) || tokens[oi + 1] === 'regiments'))) continue;
       const o = tokens[oi];
       if (!isOrd(o) || taken[oi] || +o.slice(1) > 200) continue;
       let end = oi + 1, arm = armBefore;

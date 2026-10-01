@@ -4,7 +4,7 @@
 // Answer types (docs/plan A1..A14): profile, command, strength/casualties, superlative, evidence quotes, place, compare, list/rollup, route, limited, clarify.
 // A composer returns { mode, blocks, src[], chips? } or null (caller falls back to a profile of the best card).
 import { fmtN, fmtPct, SIDE_NAME, DAY_NAME, joinList, daysText, ucfirst, endSent, shortRank, personLabel, fateText, withThe } from './format.js';
-import { CLOCK_RE } from './text.js';
+import { CLOCK_RE, fkGrade, sentencesOf } from './text.js';
 
 const lead = (runs, src = []) => ({ t: 'lead', runs: runs.map((r) => (typeof r === 'string' ? { txt: r } : r)), src });
 const note = (code, txt) => ({ t: 'note', code, txt });
@@ -678,7 +678,7 @@ export function comparePlaces(kb, places) {
 export function simpleLead(kb, r) {
   const a = r.attrs || {}; const H = helpers(kb);
   const place = r.place || a.location;
-  if (r.k === 'chronology') return [ent(r, ucfirst(String(r.title).replace(/[.\s]+$/, ''))), `. This happened on ${DAY_NAME[a.day] || 'one of the three days'}${place ? `, at ${place}` : ''}.${a.sig === 'critical' ? ' The site calls it one of the key moments of the battle.' : a.sig === 'high' ? ' The site calls it an important moment of the battle.' : ''}`];
+  if (r.k === 'chronology') { const fig = plainFigure(r); return [ent(r, ucfirst(String(r.title).replace(/[.\s]+$/, ''))), `. This happened on ${DAY_NAME[a.day] || 'one of the three days'}${place ? `, at ${place}` : ''}.${a.sig === 'critical' ? ' The site calls it one of the key moments of the battle.' : a.sig === 'high' ? ' The site calls it an important moment of the battle.' : ''}${fig ? ` The record mentions ${fig}.` : ''}`]; }
   if (r.k === 'vignette') return [ent(r, `“${r.title}”`), ` is a story from ${DAY_NAME[a.day] || 'the battle'}${a.location ? `, at ${a.location}` : ''}.`];
   if (H.isUnit(r) && ['regiment', 'brigade', 'division', 'corps', 'artillery'].includes(r.k)) {
     const what = { regiment: 'regiment', brigade: 'brigade', division: 'division', corps: 'corps', artillery: 'battery' }[r.k];
@@ -691,6 +691,50 @@ export function simpleLead(kb, r) {
     return runs;
   }
   return profileLead(kb, r);
+}
+
+// ---- the plain card of an event says something: the record's own figure, and the site's own short lines that follow it --------------------------------------------------------------------------
+const bodyOf = (r) => String((r.attrs && r.attrs.text) || '').replace(/^[A-Z0-9'’ -]{6,}[.:]\s+/, '');
+/** a number in the event's own words with the noun it counts ("approximately 12,500 men in a mile-wide front"), verbatim; never a year, a clock or a bare small number */
+export function plainFigure(r) {
+  const m = bodyOf(r).match(/\b(?:(?:about|approximately|nearly|almost|over|around|some|more than)\s+)?(?:\d{1,3}(?:,\d{3})+|\d{2,4}-\d{2,4})\s+[a-z]+(?:\s+(?:in|of)\s+(?:an?\s+|the\s+)?[a-z-]+(?:\s+[a-z-]+)?)?(?=\s*[—,.;:)]|\s*$)/i);
+  return m && !/\b18\d\d\b/.test(m[0]) ? m[0].trim() : null;
+}
+const CHRONO = new WeakMap();
+const chronoOrder = (kb) => { let v = CHRONO.get(kb); if (!v) { v = Object.values(kb.idx.R).filter((r) => r && r.k === 'chronology' && r.attrs && Number.isFinite(r.attrs.tick)).sort((a, b) => a.attrs.tick - b.attrs.tick); CHRONO.set(kb, v); } return v; };
+/**
+ * "Soon after" for a young reader: lines from the site's own chronology for the same day, in the stretch (20 ticks) after the event. The stretch ends at its last "critical" entry; the critical and high entries up to
+ * there are the candidates, and the last of them is always shown (how the moment ended). Up to two earlier ones go with it: the earliest and the most central that keep the whole card within the grade. An entry with a
+ * heading is shown by its heading ("Brockenbrough Collapses."), one without by its first sentence, whole (4 to 18 words, no clock time, no "KIA"). Nothing is rewritten. The whole card (lead, title, lines) must stay at
+ * Flesch-Kincaid grade 6.8 or lower (the golden student items allow 7); three lines are tried first, then two, then the last alone, and none when even that is too hard.
+ */
+export function plainNext(kb, focus, { window = 20, grade = 6.8 } = {}) {
+  if (!focus || focus.k !== 'chronology' || !focus.attrs) return null;
+  const t0 = focus.attrs.tick, day = focus.attrs.day;
+  const inWin = chronoOrder(kb).filter((r) => r.attrs.day === day && r.attrs.tick > t0 && r.attrs.tick <= t0 + window && (r.attrs.sig === 'critical' || r.attrs.sig === 'high'));
+  const lastCrit = inWin.filter((r) => r.attrs.sig === 'critical').pop();
+  const line = (r) => {
+    const raw = String(r.attrs.text || ''), headed = /^[A-Z0-9'’ -]{6,}[.:]\s+/.test(raw);
+    const s = headed ? ucfirst(String(r.title).replace(/[.\s]+$/, '')) + '.' : (sentencesOf(raw)[0] || '');
+    const w = (s.match(/\S+/g) || []).length;
+    return (headed ? w >= 2 : w >= 4) && w <= 18 && /[.!?]$/.test(s) && !CLOCK_RE.test(s) && !/\bKIA\b/.test(s) ? s : null;
+  };
+  const cand = inWin.filter((r) => !lastCrit || r.attrs.tick <= lastCrit.attrs.tick).map((r) => ({ r, s: line(r) })).filter((x) => x.s);
+  if (!cand.length) return null;
+  const n = cand.length;
+  const lead = simpleLead(kb, focus).map((x) => (typeof x === 'string' ? x : x.txt)).join('');
+  const title = 'Soon after, in the site’s own words:';
+  // subsets that end on the last line, three then two then one; the earliest first line, then the middle line nearest the middle of the stretch, that keeps the card within the grade
+  const subsets = [];
+  for (let i = 0; i < n - 1; i++) for (let j = i + 1; j < n - 1; j++) subsets.push({ ix: [i, j, n - 1], mid: Math.abs(j - (n - 1) / 2) });
+  subsets.sort((a, b) => a.ix[0] - b.ix[0] || a.mid - b.mid);
+  const pairs = []; for (let i = 0; i < n - 1; i++) pairs.push({ ix: [i, n - 1] });
+  const tries = [...subsets, ...pairs, { ix: [n - 1] }];
+  for (const t of tries) {
+    const pick = t.ix.map((i) => cand[i]);
+    if (fkGrade(`${lead} ${title} ${pick.map((x) => x.s).join(' ')}`) <= grade) return { t: 'list', title, items: pick.map(({ r, s }) => ({ txt: s, ent: r.id })), src: pick.map(({ r }) => r.id) };
+  }
+  return null;
 }
 
 /** several records sharing one nickname ("the Bucktails"): list the others after the lead */

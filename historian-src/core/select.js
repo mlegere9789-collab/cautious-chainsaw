@@ -10,16 +10,23 @@ const idfOf = (kb, t) => {
   return df ? Math.log(1 + (N - df + 0.5) / (df + 0.5)) : 0.5;
 };
 const stemsOf = (s) => tokenize(s, { keepStop: false }).map(stem);
-const VERBS = 'said|says|saying|told|telling|replied|cried|shouted|called|declared|asked|wrote|spoke|greeted|yelled|whispered|exclaimed|answered|muttered';
+// verbs of utterance, every form: "Longstreet argues against it: '...'", "Lee told him", "Hancock replied", "he protested that ..." (a verb of command or movement is not one)
+const SPEECH_BASE = 'say tell reply respond cry shout call declare ask write speak greet yell whisper exclaim answer mutter argue protest warn urge insist remark state add announce demand beg plead retort vow admit predict observe testify recall object complain suggest advise promise swear shriek roar bellow growl snap mumble murmur sneer scoff boast admonish exhort implore entreat';
+const SPEECH_FORMS = [...new Set(SPEECH_BASE.split(' ').flatMap((b) => { const e = /e$/.test(b) ? b.slice(0, -1) : b; const y = /[^aeiou]y$/.test(b) ? b.slice(0, -1) + 'i' : null; return [b, b + 's', y ? y + 'es' : b + 'es', (y || e) + 'ed', e + 'ing']; }).concat(['said', 'told', 'spoke', 'spoken', 'wrote', 'written', 'cried', 'replied', 'answered']))];
+const VERBS = SPEECH_FORMS.join('|');
+const INV = 'said|says|replied|cried|asked|shouted|answered|exclaimed|declared|added|responded|whispered|yelled|muttered';
+const RANK = '(?:(?:General|Gen\\.|Colonel|Col\\.|Captain|Capt\\.|Lieutenant|Lt\\.|Major|Maj\\.)\\s+)?';
 /** patterns that say a named person is the SPEAKER: the name, then (lower-case words only, so another name in between breaks it) a speech verb; or a speech verb then the name ("said General Lee") */
 export function speakerPatterns(words) {
   const ci = (w) => [...w].map((c) => (/[a-z]/i.test(c) ? `[${c.toLowerCase()}${c.toUpperCase()}]` : c)).join('');
   return [...new Set(words)].filter((w) => /^[A-Za-z'\u2019-]{3,}$/.test(w)).flatMap((w) => [
-    new RegExp('\\b' + ci(w) + '\\b(?:\\s+[a-z\'\\u2019-]+){0,9}?\\s+(?:' + VERBS + ')\\b'),
-    new RegExp('\\b(?:said|says|replied|cried|asked|shouted)\\s+(?:(?:General|Gen\\.|Colonel|Col\\.|Captain|Capt\\.)\\s+)?' + ci(w) + '\\b'),
+    new RegExp('\\b' + ci(w) + '\\b(?:,?\\s+[a-z\'\\u2019-]+){0,9}?,?\\s+(?:' + VERBS + ')\\b'),
+    new RegExp('\\b' + ci(w) + '\\b(?:\\s+[a-z\'\\u2019-]+){0,9}?\\s*:\\s*[\'"\\u2018\\u201c]'),            // "Longstreet argues against it: '...'" : the name, a few plain words, a colon and the opening quotation mark
+    // the speech tag after the words: "...," said General Lee. / "...?" asked Hancock (not "Longstreet said Lee was ill": the name must close the tag, or the tag must follow a quotation)
+    new RegExp('(?:[,!?"\'\\u2019\\u201d]\\s*(?:' + INV + ')\\s+' + RANK + ci(w) + '\\b)|(?:\\b(?:' + INV + ')\\s+' + RANK + ci(w) + '\\b(?=\\s*[.,;!?]|\\s*$))'),
   ]);
 }
-const SPEECH = new Set(['said', 'say', 'says', 'told', 'tell', 'telling', 'cried', 'shouted', 'replied', 'answered', 'exclaimed', 'called', 'declared', 'wrote', 'asked', 'whispered', 'muttered', 'yelled', 'greeted', 'speaking', 'spoke'].map(stem));
+const SPEECH = new Set([...SPEECH_FORMS, 'speaking'].map(stem));
 
 /** a stated length of time: "seven hours", "for three hours", "20 minutes", "all day" (used by "how long / how many hours" questions) */
 export const DURATION_RE = /\b(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|half|several)(?:\s+and\s+a\s+half)?[ -](?:hours?|minutes?|days?)\b|\ball day\b|\bhours? of\b/i;

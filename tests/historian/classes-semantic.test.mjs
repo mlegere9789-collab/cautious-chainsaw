@@ -77,6 +77,13 @@ test('the typo repair does not rewrite correctly spelled English: a held-out sam
   assert.deepEqual(bad.slice(0, 8), [], `${bad.length} correctly spelled questions were "corrected"`);
 });
 
+test('contractions typed without an apostrophe are English words, not names to repair ("dont", "didnt", "whats", "thats"): nothing is rewritten', async () => {
+  for (const w of ['dont', 'doesnt', 'didnt', 'cant', 'couldnt', 'wouldnt', 'shouldnt', 'wasnt', 'werent', 'isnt', 'arent', 'hasnt', 'havent', 'hadnt', 'wont', 'ive', 'youre', 'theyre', 'weve', 'thats', 'whats', 'whos', 'lets', 'theres', 'hows', 'wheres']) {
+    const a = await ask(`${w} the men at Gettysburg fight on July 2`);
+    assert.deepEqual((a.did_you_mean || []).filter((x) => String(x.from).toLowerCase().includes(w)), [], `${w}: ${JSON.stringify(a.did_you_mean)}`);
+  }
+});
+
 test('typos of names are still repaired: single-edit mutations (drop, swap, substitute, double) of the longest word of 22 names reach the name (>= 88%, the plan\'s typo gate)', async () => {
   const NAMES = [['Chamberlain', ['U-20ME', 'V-010']], ['Longstreet', ['CORPS:C-I', 'D2T256', 'D2T235']], ['Barksdale', ['BDE:C-I-1-2', 'D2T278']], ['Armistead', ['V-016', 'BDE:C-I-3-3']], ['Hancock', ['CORPS:U-II', 'V-012']], ['Wheatfield', ['LOC-006']],
     ['Peach Orchard', ['LOC-007']], ['Little Round Top', ['LOC-003']], ['Cemetery Ridge', ['LOC-011']], ['Seminary Ridge', ['LOC-010']], ['Devils Den', ['LOC-005']], ['Iron Brigade', ['BDE:U-I-1-1']], ['Vincent', ['BDE:U-V-1-3', 'V-009']], ['Kemper', ['BDE:C-I-3-2']],
@@ -100,7 +107,8 @@ const heads = { weather: /weather series/, soldier: /cannot tell whether a speci
 const SOLDIER = ['What did Private John Smith of the 20th Maine do?', 'Did Corporal Jones of the 1st Minnesota survive?', 'Tell me about Private John Smith, 20th Maine', 'Was John Smith of the 20th Maine at Gettysburg?', 'Was Sgt. William Davis in the 69th Pennsylvania at Gettysburg?',
   'Where is Sgt. William Davis of the 69th Pennsylvania buried?', 'Did Pvt. Henry Clark of the 24th Michigan get wounded?', 'What happened to Private Thomas Brown, 1st Minnesota?', 'Was Corporal James Wilson of the 16th Maine captured?', 'Who was Private Samuel Green of the 19th Indiana?',
   'was private john smith of the 20th maine wounded', 'Did Musician Frank Taylor of the 69th Pennsylvania play at Gettysburg?', 'Tell me about a soldier named Smith in the 20th Maine', 'Was Drummer Charles White of the 6th Wisconsin there?', 'Did Sergeant Peter Moore of the 2nd Wisconsin fight on July 1?',
-  'Where did Private John Smith of the 20th Maine fight on July 2?', 'What was Corporal Davis of the 1st Minnesota doing on July 2?', 'Was there a Private George Hall in the 24th Michigan?', 'Did Pvt. William Jones serve in the 20th Maine at Gettysburg?', 'Was Thomas Brown of the 1st Minnesota at Gettysburg?'];
+  'Where did Private John Smith of the 20th Maine fight on July 2?', 'What was Corporal Davis of the 1st Minnesota doing on July 2?', 'Was there a Private George Hall in the 24th Michigan?', 'Did Pvt. William Jones serve in the 20th Maine at Gettysburg?', 'Was Thomas Brown of the 1st Minnesota at Gettysburg?',
+  'Did anyone named Smith serve in the 20th Maine?', 'Was somebody called Davis in the 69th Pennsylvania?', 'Is there someone by the name of Clark in the 24th Michigan?'];
 const ROSTER = ['Who were the men in Company K of the 20th Maine?', 'list all the soldiers of the 1st Minnesota', 'Can I see a roster of the 69th Pennsylvania?', 'What are the names of the soldiers who died in the 24th Michigan?', 'Give me the muster roll of the 20th Maine', 'who were the soldiers in the 16th Maine',
   'list every soldier in the Iron Brigade', 'names of all the men in the 1st Minnesota', 'Show me the company roster of the 6th Wisconsin', 'Who were the privates in Company B of the 2nd Wisconsin?', 'What is the nominal roll of the 19th Indiana?', 'list all the men of the 24th Michigan by name',
   'How many soldiers named Smith were in the 20th Maine?', 'who were the enlisted men of the 69th Pennsylvania', 'Which soldiers were in Company A of the 1st Minnesota?', 'give me a list of the names of everyone in the 20th Maine'];
@@ -149,4 +157,34 @@ test('the student-level gate: a short card that gives an event, a date and a pla
   assert.equal(hard.student_ok, false);
   const flat = scoreGolden({ golden, answers: new Map([['G1', { id: 'G1', answer_text: 'x', raw_html: '', cited_ids: [], retrieved_ids: [], behavior: 'answer' }]]), split: 'all', subset: 'all', gates: null, validIds: new Set() }).flat;
   assert.equal(flat['all.student_ok'], 0);
+});
+
+test('the plain card of an event for a young reader says something: the record\'s own figure and the site\'s own short lines that follow it, every line verbatim from the chronology, the whole card at grade 7 or lower (swept over every event)', async () => {
+  const { fkGrade } = await import('../../historian-src/core/text.js');
+  const events = Object.values(kb.idx.R).filter((r) => r.k === 'chronology' && r.attrs && Number.isFinite(r.attrs.tick));
+  assert.ok(events.length >= 100, `${events.length} events`);
+  const bad = []; let withLines = 0, withFigure = 0, longer = 0, notAnswered = 0;
+  const own = (r) => `${r.title} ${r.attrs.text}`;
+  for (const r of events) {
+    const title = String(r.title).replace(/[.\s]+$/, '');
+    const a = await ask(`Explain ${title} to a 5th grader.`);
+    if (a.mode !== 'answer') { notAnswered++; continue; }                     // a title that is itself a sentence with a place or a clock in it is read as a different question: counted, below
+    const asked = a.blocks.find((b) => b.t === 'lead' && (b.src || []).includes(r.id));
+    if (!asked) continue;                                                     // the question reached another record (a name shared with another entry): not this sweep's subject
+    const list = a.blocks.find((b) => b.t === 'list' && /^Soon after/.test(b.title || ''));
+    if (/The record mentions /.test(a.text)) { withFigure++; const f = a.text.match(/The record mentions (.+?)\.(?:\s|$)/); if (!f || !(r.attrs.text || '').includes(f[1])) bad.push(`${title}: figure "${f && f[1]}" is not in the record`); }
+    if (list) {
+      withLines++;
+      for (const it of list.items) { const rec = kb.idx.get(it.ent); const stripped = it.txt.replace(/[.\s]+$/, ''); if (!rec || rec.k !== 'chronology' || !own(rec).includes(stripped) || rec.attrs.day !== r.attrs.day || rec.attrs.tick <= r.attrs.tick || rec.attrs.tick > r.attrs.tick + 20) bad.push(`${title}: line "${it.txt}" is not a later line of the same day`); }
+      if (fkGrade(a.text) > 7) bad.push(`${title}: grade ${fkGrade(a.text).toFixed(1)}`);
+      if (list.items.length > 1) longer++;
+    }
+  }
+  console.log(`# plain event cards: ${events.length} events, ${withFigure} give the record's figure, ${withLines} add following lines (${longer} with more than one); ${notAnswered} titles are read as another kind of question`);
+  assert.ok(notAnswered <= events.length * 0.05, `${notAnswered} event titles were not answered`);
+  assert.deepEqual(bad.slice(0, 8), [], `${bad.length} defects`);
+  assert.ok(withLines >= 20 && withFigure >= 2, `too few cards say anything: ${withLines} with lines, ${withFigure} with a figure`);
+  const a = await ask("Explain Pickett's Charge to a 5th grader.");
+  assert.match(a.text, /approximately 12,500 men in a mile-wide front/); assert.match(a.text, /Soon after, in the site’s own words: /);
+  assert.ok(fkGrade(a.text) <= 7, `grade ${fkGrade(a.text)}`);
 });

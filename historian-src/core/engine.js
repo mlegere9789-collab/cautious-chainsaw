@@ -984,7 +984,7 @@ export function createEngine(kb, opts = {}) {
     const entStems = new Set(); for (const m of S.mentions) if (m.kind !== 'unit-miss') for (const t of (m.phrase || '').split(' ')) if (t && !/^#|\|/.test(t)) entStems.add(t);
     // the people whose words are asked for ("what did Lee say ...", "what did Longstreet tell Lee"): the speaker is named before the verb
     // say / tell: the named person must be the SPEAKER of the window (strict); write / shout / reply: his name near the verb is a bonus (soft)
-    const speakerWords = [], speakerSoft = new Set(); { const who = S.norm.match(/\b(?:what|who)\s+(?:did|does|was)\s+(\S+(?:\s+\S+)?)\s+(say|said|tell|told|write|wrote|shout|shouted|reply|replied)\b/); if (who) for (const t of who[1].split(' ')) if (!STOP.has(t) && t.length > 2) { speakerSoft.add(stem(t)); if (/^(?:say|said|tell|told)$/.test(who[2])) speakerWords.push(t); } }
+    const speakerWords = [], speakerSoft = new Set(); { const who = S.norm.match(/\b(?:what|who)\s+(?:did|does|was)\s+(\S+(?:\s+\S+)?)\s+(say|said|tell|told|write|wrote|shout|shouted|reply|replied|argue|protest|warn|urge|insist|respond|advise|suggest|demand|remark|announce|plead|exclaim|yell|answer)\b/); if (who) for (const t of who[1].split(' ')) if (!STOP.has(t) && t.length > 2) { speakerSoft.add(stem(t)); if (!/^(?:write|wrote|shout|shouted|reply|replied)$/.test(who[2])) speakerWords.push(t); } }
     const ctx = { qStems: new Set(S.passageTerms), entStems, timeQ: false, quoteQ: true, speakerRes: speakerPatterns(speakerWords), speakerStems: speakerSoft };
     // a question about what a NAMED person said is answered only with words that have him as the speaker; a passage that merely mentions him is not "what he said" (the caller then says the records hold none)
     const quotes = selectQuotes(kb, pool, ctx, { max: 4, skip: new Set(S.ctx && S.ctx.shownPassages || []), rerank: true }).filter((q) => speakerSatisfied(q.text, ctx)).slice(0, 2);
@@ -1227,7 +1227,11 @@ export function createEngine(kb, opts = {}) {
     // a young reader asked ("to a 5th grader", "for my school report"): an event, story or unit gets the plain card only. The site's own sentences are far above grade 7 even without their
     // attribution (measured), so they are one click away instead: a chip that asks the same question in the site's own words.
     const plainCard = S.simple && !causal && ['chronology', 'vignette', 'regiment', 'brigade', 'division', 'corps', 'artillery'].includes(focus.k);
-    if (plainCard) S.plainChip = { label: 'The site’s own words', q: focus.k === 'chronology' || focus.k === 'vignette' ? 'Tell me about ' + String(focus.title).replace(/[.\s]+$/, '') : 'Tell me about ' + focus.label };
+    if (plainCard) {
+      S.plainChip = { label: 'The site’s own words', q: focus.k === 'chronology' || focus.k === 'vignette' ? 'Tell me about ' + String(focus.title).replace(/[.\s]+$/, '') : 'Tell me about ' + focus.label };
+      const next = focus.k === 'chronology' ? C.plainNext(kb, focus) : null;
+      if (next) { res.blocks.push(next); res.src.push(...next.src); }
+    }
     else await addQuotes(S, res, { max: causal ? 3 : 2, leadHasText: focus.k === 'chronology' && !S.simple });
     return res;
   }

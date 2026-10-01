@@ -119,6 +119,19 @@ export const PHRASINGS = {
   'the <N> regiment, <State> Volunteers': (r) => `the ${ordinal(r.n)} regiment, ${r.state} Volunteers`,
   'the <N> raised in <State>': (r) => `the ${ordinal(r.n)} regiment raised in ${r.state}`,
   'the <N> regiment that came from <State>': (r) => `the ${ordinal(r.n)} regiment that came from ${r.state}`,
+  // ---- found by probing beyond the templates above: the abbreviation "reg.", capitals with periods, the number after the word regiment, a request wrapped around the name ---------------------------------------------
+  '<N> reg. <State>': (r) => `${ordinal(r.n)} reg. ${r.state}`,
+  'UPPER <N> <Abbr.>': (r) => `${ordinal(r.n)} ${ABBR[r.state][ABBR[r.state].length - 1]}`.toUpperCase(),
+  '<State> <number> regiment': (r) => `${r.state} ${r.n} regiment`,
+  '<State> <N spelled>': (r) => `${r.state} ${ordWords(r.n, true)}`,
+  'Regiment <number> from <State>': (r) => `Regiment ${r.n} from ${r.state}`,
+  'No. <number> <State>': (r) => `No. ${r.n} ${r.state}`,
+  '<State> Infantry <N> Regiment': (r) => `${r.state} Infantry ${ordinal(r.n)} Regiment`,
+  "I'd like to know about the <N> regiment from <State>, please.": (r) => `I'd like to know about the ${ordinal(r.n)} regiment from ${r.state}, please.`,
+  'Where was the <N> <State> Infantry on July 3?': (r) => `Where was the ${ordinal(r.n)} ${r.state} Infantry on July 3?`,
+  'How many men did the <N> regiment from <State> have?': (r) => `How many men did the ${ordinal(r.n)} regiment from ${r.state} have?`,
+  'the <State> <N>': (r) => `the ${r.state} ${ordinal(r.n)}`,
+  '<N> (<State>) abbreviated number': (r) => `${r.n} (${r.state})`,
 };
 
 // cavalry regiments with a simple designation ("8th Illinois Cavalry"): the same grammar with the arm word, ground truth from the raw designations

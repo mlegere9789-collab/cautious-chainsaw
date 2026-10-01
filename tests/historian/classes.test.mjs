@@ -165,9 +165,31 @@ test('quotes under "what did X say" have X as the speaker; where the records hol
   for (const q of ['what did Hancock say', 'What did Lee say to Longstreet?']) { const a = await ask(q); if (/word for word/.test(a.text)) for (const b of a.blocks.filter((x) => x.t === 'quote')) assert.ok(new RegExp(q.includes('Hancock') ? 'Hancock' : 'Lee').test(b.text) && !/^\S+ (?:said|asked|replied)\.$/.test(b.text), `${q}: ${b.text}`); }
 });
 
+test('words the records hold are given as his words, whatever the verb of speech (Longstreet argues against it, then a quotation): GQ-081 and its phrasings; a verb of command or movement is not speech', async () => {
+  for (const q of ['What did Longstreet tell Lee about attacking the Union center?', 'What did Longstreet say about attacking the Union center?', 'what did Longstreet say to Lee on July 2', 'What did Longstreet tell Lee about the attack on July 3?', "what did Longstreet argue about Pickett's Charge", 'What did Longstreet say about the assault?']) {
+    const a = await ask(q); assert.equal(a.intent, 'quote', q); assert.ok(!a.limited && /no 15,000 men ever arrayed/.test(a.text), `${q}: ${a.text.slice(0, 120)}`);
+  }
+  const { speakerPatterns, speakerSatisfied } = await import('../../historian-src/core/select.js');
+  const ctx = { speakerRes: speakerPatterns(['Lee']) };
+  for (const t of ['Lee told him to wait.', 'Lee, after a pause, replied that he would.', "Lee argues against it: 'No.'", 'Lee protested that the order was unwise.', 'Lee warns Longstreet.', '"We go on," said General Lee.', 'It is all my fault, cried Lee.']) assert.ok(speakerSatisfied(t, ctx), t);
+  for (const t of ['Lee ordered Longstreet to attack.', 'Lee rode to Seminary Ridge.', 'Lee commanded the army.', 'Longstreet said Lee was ill.']) assert.ok(!speakerSatisfied(t, ctx), t);
+});
+
 test('the cached hx facts hold the english dictionary, the lexicons and the state tables the engine reads (a stale build fails here)', () => {
   assert.ok(String(kb.facts.english).split(' ').length > 4000, 'english word list');
   for (const k of ['weather_strong', 'weather_weak', 'enlisted_ranks', 'roster_nouns', 'mental_verbs', 'metaphor_next', 'present_time']) assert.ok(kb.facts.lexicons[k].length >= 5, k);
   assert.ok(Object.keys(kb.facts.rank).filter((k) => /@/.test(k)).length >= 90, 'state rank tables');
   assert.ok(kb.facts.rank['regiment.losses.A@michigan'].rows.length >= 3 && kb.facts.rank['regiment.size.A@michigan'].low.length >= 1);
+});
+
+test('more ways to write a time and a date: a spelled bare hour is asked about, "and after / onwards / and earlier" make a stretch, "the noon hour" is a time, numeric dates are read, and ordinary phrases are not times or dates', () => {
+  for (const w of ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve']) {
+    for (const q of [`what happened at ${w} on July 2`, `what was going on around ${w}, July 3`, `what happened by ${w}?`]) { const c = parseClock(q); assert.ok(c && c.ambiguous === 'meridiem', q); }
+  }
+  for (const q of ['what happened at one point on July 2', 'what happened after three days', 'at two of the hills', 'by four brigades', 'around ten men on July 2']) assert.equal(parseClock(q), null, q);
+  for (const q of ['at 4 pm and after on July 2', 'at 4 pm onwards on July 3', '4 pm and later on July 2', 'from 4 pm on, July 2']) { const c = parseClock(`what happened ${q}`); assert.ok(c && c.kind === 'window' && c.rel === 'after' && c.at === 960, q); }
+  for (const q of ['at 4 pm and earlier on July 2', '4 pm or before on July 3']) { const c = parseClock(`what happened ${q}`); assert.ok(c && c.kind === 'window' && c.rel === 'before' && c.at === 960, q); }
+  assert.equal(parseClock('what happened during the noon hour on July 2').mod, 720);
+  for (const [q, d] of [['what happened on 7/2/1863', 2], ['what happened on 1863-07-03', 3], ['7/2', 2], ['what happened on 7/2', 2], ['what happened 7-3-63', 3], ['dated 7/1/63', 1]]) assert.deepEqual(readDays(q).days, [d], q);
+  for (const q of ['the ratio was 7/10', '7/10 of the men fell', 'a 7/8 majority']) assert.deepEqual(readDays(q).days, [], q);
 });

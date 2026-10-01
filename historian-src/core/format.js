@@ -33,7 +33,7 @@ export function renderText(blocks) {
     if (b.t === 'lead') out.push(b.runs.map((r) => r.txt).join(''));
     else if (b.t === 'quote') out.push(`“${b.text}” — ${b.attrib}.`);
     else if (b.t === 'note') out.push(endSent(b.txt));
-    else if (b.t === 'list') out.push((b.title ? b.title + ' ' : '') + b.items.map((i) => i.txt).join('; ') + (b.more ? `; ${b.more}` : ''));
+    else if (b.t === 'list') out.push((b.title ? b.title + ' ' : '') + b.items.map((i, k) => (k ? (/[.!?]$/.test(b.items[k - 1].txt) ? ' ' : '; ') : '') + i.txt).join('') + (b.more ? `; ${b.more}` : ''));
     else if (b.t === 'table') out.push((b.caption ? b.caption + ': ' : '') + b.rows.map((r) => r.join(' | ')).join('; ') + (b.note ? ` ${b.note}` : ''));
     else if (b.t === 'chips') out.push(b.items.map((i) => i.label).join(' / '));
   }

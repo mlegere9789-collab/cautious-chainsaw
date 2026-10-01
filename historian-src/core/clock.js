@@ -29,6 +29,9 @@ const isRangeSep = (w) => new RegExp('^' + RANGE_SEP + '$').test(w);
  */
 export function readDays(text) {
   let t = ' ' + String(text || '').toLowerCase().replace(/[–—]/g, '-').replace(/\s+/g, ' ') + ' ';
+  // numeric dates are July's when the month is 7: "7/2", "7/2/1863", "07-02-63", "1863-07-02"
+  t = t.replace(/(?<![\d/.-])1863-0?7-(0?[1-9]|[12]\d|3[01])(?![\d])/g, ' july $1 ').replace(/(?<![\d/.-])0?7[/.-](0?[1-9]|[12]\d|3[01])[/.-](?:18)?63(?![\d/])/g, ' july $1 ')
+    .replace(/(?<=\b(?:on|of|for|from|until|since|date|dated|during|by|to)\s)0?7[/.-](0?[1-9]|[12]\d|3[01])(?![\d/.-])/g, ' july $1 ').replace(/^\s*0?7[/.-](0?[1-9]|[12]\d|3[01])\s*$/, ' july $1 ');
   const found = [];       // { m: 'july' | 'day' | another month, d, range? }
   const take = (re, fn) => { t = t.replace(re, (...a) => { fn(a); return ' '; }); };
   // 1. month first: "July 1-3", "July 1 to 3", "July 1 through July 3", "July 2 and 3rd", "July 1, 2 and 3", "June 28"
@@ -128,7 +131,7 @@ const PHASE_CANON = { forenoon: 'morning', daybreak: 'dawn', sunrise: 'dawn', 'f
 const TIME_PREP = '(?:at|around|about|by|before|after|until|till|since|near|towards?|approximately|roughly)';
 const UNIT_AFTER = /^\s*(?:st\b|nd\b|rd\b|th\b|men\b|soldiers?\b|troops\b|miles?\b|guns?\b|cannons?\b|regiments?\b|brigades?\b|divisions?\b|corps\b|batter|casualt|killed|wounded|dead\b|days?\b|hours?\b|minutes?\b|feet\b|foot\b|yards?\b|rounds?\b|prisoners?\b|horses\b|companies\b|%|percent\b|years?\b|of\b|to\s+\d|-\s*\d)/i;
 // words that may follow "noon" / "midnight" when it is a time and not part of a name ("noon on July 2", "noon that day"); any other word makes it a modifier ("the noon lull")
-const NEXT_OK = /^(?:on|of|in|at|and|or|to|the|a|an|that|this|these|those|july|jul|day|for|with|during|by|from|until|till|when|what|who|whom|how|why|did|does|do|was|were|is|are|had|has|have|last|lasted|lasts|begin|began|start|started|end|ended|ends|through|throughout|between|around|about|near|into|onto|after|before|since|as|if|while|which|where|i|we|you|it|they|he|she|lee|meade|today|yesterday|tomorrow)$/i;
+const NEXT_OK = /^(?:hour|hours|on|of|in|at|and|or|to|the|a|an|that|this|these|those|july|jul|day|for|with|during|by|from|until|till|when|what|who|whom|how|why|did|does|do|was|were|is|are|had|has|have|last|lasted|lasts|begin|began|start|started|end|ended|ends|through|throughout|between|around|about|near|into|onto|after|before|since|as|if|while|which|where|i|we|you|it|they|he|she|lee|meade|today|yesterday|tomorrow)$/i;
 const PREP_BEFORE = /\b(?:at|around|about|by|near|until|till|before|after|since|toward|towards|from|between|past|approximately)\s*$/i;
 const TIME_PRE = '(?:at|around|about|by|near|until|till|before|after|since)';
 
@@ -147,6 +150,8 @@ function spelledClock(t) {
   s = s.replace(new RegExp('\\b(ten|five|twenty|twenty[- ]five)\\s+(past|after|to|before)\\s+' + H + '\\b', 'gi'), (m, w, dir, h, off, str) => (new RegExp('\\b' + TIME_PRE + '\\s$', 'i').test(str.slice(0, off)) || /^\s*(?:a\.?\s?m|p\.?\s?m|in the|o['’]?\s?clock)/i.test(str.slice(off + m.length)) ? spell(m, w, dir, h) : m));
   s = s.replace(new RegExp('\\b' + H + '\\s+(fifteen|thirty|forty[- ]five)\\b(?=\\s*(?:a\\.?\\s?m|p\\.?\\s?m|in the|at night|o))', 'gi'), (m, h, mm) => hv(h) + ':' + ({ fifteen: '15', thirty: '30' }[mm.toLowerCase()] || '45'));
   s = s.replace(new RegExp('\\b(' + SPELLW + ')\\b(?=\\s*(?:o[\'’]?\\s?clock|a\\.?\\s?m\\b|p\\.?\\s?m\\b|in the (?:morning|afternoon|evening)|at night))', 'gi'), (m, h) => String(SPELL[h.toLowerCase()]));
+  // a spelled hour after a time word and before the day or the end ("at three on July 2", "around five?", "by four, July 3"); "at one point", "after three days" are not hours
+  s = s.replace(new RegExp('(?<=\\b' + TIME_PRE + '\\s)(' + SPELLW + ')(?=\\s*(?:on\\b|,|\\?|\\.|!|$|july\\b|jul\\b|and\\b|or\\b|during\\b|that\\b|this\\b|of july\\b|on the (?:first|second|third|\\d)))', 'gi'), (m, h) => String(SPELL[h.toLowerCase()]));
   return s;
 }
 
@@ -182,7 +187,9 @@ export function parseClock(text, { solar = null } = {}) {
     return null;
   };
   const span = (mod, rel, txt, extra = {}) => (rel === 'before' ? res({ kind: 'window', from: 0, to: mod, rel, at: mod, text: txt, ...extra }) : rel === 'after' ? res({ kind: 'window', from: mod, to: DAY, rel, at: mod, text: txt, ...extra }) : res({ kind: 'point', mod, text: txt, ...extra }));
-  const point = (mod, m, extra = {}) => span(mod, relOf(m.index), m[0], extra);
+  // "4 pm and after", "4 pm onwards", "from 4 pm on" ask for what followed; "4 pm and earlier", "4 pm or before" for what came before
+  const tailRel = (end) => { const rest = t.slice(end); if (/^\s*(?:,\s*)?(?:and|or)\s+(?:later|after|afterwards?|afterward|onwards?|beyond|thereafter)\b|^\s*(?:,\s*)?onwards?\b|^\s*on\b(?!\s+(?:july|jul|the|day|\d))/i.test(rest)) return 'after'; if (/^\s*(?:,\s*)?(?:and|or)\s+(?:earlier|before|prior|previously)\b/i.test(rest)) return 'before'; return null; };
+  const point = (mod, m, extra = {}) => span(mod, relOf(m.index) || tailRel(m.index + m[0].length), m[0], extra);
   const prepRel = (p) => (/^(?:before|by|until|till)$/i.test(p) ? 'before' : /^(?:after|since)$/i.test(p) ? 'after' : null);
   let m;
   if ((m = t.match(CLOCK_RES.range))) {
