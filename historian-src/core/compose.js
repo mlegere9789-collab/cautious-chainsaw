@@ -698,7 +698,8 @@ export function sharedNameList(kb, focus, ids) {
   const H = helpers(kb);
   const others = ids.map((i) => kb.idx.R[i]).filter((r) => r && r.id !== focus.id && r.k !== 'person').slice(0, 6);
   if (!others.length) return null;
-  return { t: 'list', title: 'The same name is used for:', items: others.map((r) => ({ txt: r.title === r.label ? r.label : `${r.label} (${r.title})`, ent: r.id })), src: others.map((r) => r.id) };
+  const named = (r) => (r.title === r.label || r.title.startsWith(r.label) ? r.title : `${r.label} (${r.title})`);          // "The Angle (High Water Mark)", not "The Angle (The Angle (High Water Mark))"
+  return { t: 'list', title: 'The same name is used for:', items: others.map((r) => ({ txt: named(r), ent: r.id })), src: others.map((r) => r.id) };
 }
 
 /**

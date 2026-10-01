@@ -27,6 +27,13 @@ export function baseForms(w) {
   if (n > 6 && w.endsWith('less')) push(w.slice(0, -4));
   if (n > 6 && w.endsWith('able')) { push(w.slice(0, -4)); push(w.slice(0, -4) + 'e'); }
   if (n > 7 && w.endsWith('tion')) { push(w.slice(0, -4) + 'te'); push(w.slice(0, -3)); }
+  // derivations: hilly (hill + y), dependent (depend + ent), tolerance (tolerate), activity, joyous, active, selfish, civilize
+  if (n > 4 && w.endsWith('y')) { push(w.slice(0, -1)); const u = undouble(w.slice(0, -1)); if (u) push(u); }
+  if (n > 6 && /(?:ent|ant)$/.test(w)) { push(w.slice(0, -3)); push(w.slice(0, -3) + 'e'); }
+  if (n > 7 && /(?:ence|ance)$/.test(w)) { push(w.slice(0, -4)); push(w.slice(0, -4) + 'e'); }
+  if (n > 6 && w.endsWith('ity')) { push(w.slice(0, -3)); push(w.slice(0, -3) + 'e'); }
+  if (n > 6 && /(?:ive|ous|ish)$/.test(w)) { push(w.slice(0, -3)); push(w.slice(0, -3) + 'e'); }
+  if (n > 6 && /(?:ize|ise|ate)$/.test(w)) { push(w.slice(0, -3)); push(w.slice(0, -3) + 'e'); }
   return out;
 }
 

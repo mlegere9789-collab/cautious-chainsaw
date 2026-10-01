@@ -76,6 +76,11 @@
       "min": 0.85
     },
     {
+      "name": "student-level answers are readable AND substantive (>= 20 words, half of the checkable expected points)",
+      "key": "all.student_ok",
+      "min": 0.85
+    },
+    {
       "name": "retrieval hit@5 (HC-06)",
       "key": "phase<=H2.hit_at_5",
       "min": 0.9

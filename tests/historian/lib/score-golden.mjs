@@ -98,11 +98,17 @@ export function scoreGolden({ golden, answers, split = 'all', subset = 'all', ga
     const clean = hardDefects.length === 0;
     const pass = !!a && correct && behaviorOk && clean && (grounded !== false);
     const fk = q.readability_max_fk_grade ? fkGrade(text) : null;
+    // a student-level answer has to SAY something: a short card that gives only an event, a date and a place is as readable as a blank page (verifier defect: it met the readability gate for GQ-092).
+    // student_ok = readable AND substantive: at least 20 words, and at least half of the expected points that can be checked automatically are covered (or every critical one)
+    const wordsN = (text.match(/\S+/g) || []).length;
+    const ptsCov = auto.length ? cov.filter((c) => c === true).length / auto.length : null;
+    const critRec = critAuto.length ? critAuto.filter((x) => x.c).length / critAuto.length : null;
+    const substantive = wordsN >= 20 && ((ptsCov !== null && ptsCov >= 0.5) || (critRec !== null && critRec >= 1));
     rows.push({
       id: q.id, category: q.category, data_status: q.data_status, phase_ready: q.phase_ready, split: q.split, difficulty: q.difficulty, tags: q.tags || [], expected_behavior: exp, question: q.question,
       answered: !!a, inferred_behavior: beh, behavior_ok: behaviorOk, hedged, crit_recall: critAuto.length ? critAuto.filter((x) => x.c).length / critAuto.length : null,
       points_covered: auto.length ? cov.filter((c) => c === true).length / auto.length : null, forbidden, raw_forbidden: rawForbidden, correct, defects, hard_defects: hardDefects, clean, clean_strict: defects.length === 0,
-      needs_cite: needsCite, grounded, hallucinated_citations: halluc, hit5, rr, readability_ok: fk === null ? null : fk <= q.readability_max_fk_grade,
+      needs_cite: needsCite, grounded, hallucinated_citations: halluc, hit5, rr, readability_ok: fk === null ? null : fk <= q.readability_max_fk_grade, substantive: fk === null ? null : substantive, student_ok: fk === null ? null : (fk <= q.readability_max_fk_grade && substantive),
       chars: text.length, latency_ms: a && a.latency_ms != null ? a.latency_ms : null, pass,
       missed: pts.map((p, i) => ({ p, c: cov[i] })).filter((x) => x.p.critical && x.c === false).map((x) => x.p.text),
     });
@@ -127,7 +133,7 @@ export function scoreGolden({ golden, answers, split = 'all', subset = 'all', ga
       abstain_recall: dec.length ? pct(dec, (r) => r.inferred_behavior === 'decline') : null,
       clarify_rate: cla.length ? pct(cla, (r) => r.behavior_ok) : null, hedge_rate: cav.length ? pct(cav, (r) => r.hedged) : null,
       grounded: cit.length ? pct(cit, (r) => r.grounded) : null, hallucinated_citation_rate: R.length ? allCites / R.length : null,
-      clock_clean: clock.length ? pct(clock, (r) => r.forbidden.length === 0) : null, readability_ok: fkR.length ? pct(fkR, (r) => r.readability_ok) : null,
+      clock_clean: clock.length ? pct(clock, (r) => r.forbidden.length === 0) : null, readability_ok: fkR.length ? pct(fkR, (r) => r.readability_ok) : null, student_ok: fkR.length ? pct(fkR, (r) => r.student_ok) : null,
       mean_chars: mean(R.map((r) => r.chars)),
       p95_latency_ms: (() => { const a = R.map((r) => r.latency_ms).filter((x) => x !== null).sort((x, y) => x - y); return a.length ? a[Math.min(a.length - 1, Math.floor(a.length * 0.95))] : null; })(),
     };

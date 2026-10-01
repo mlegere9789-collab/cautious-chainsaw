@@ -2,7 +2,7 @@
 // Ids are the site's own ids (U-20ME, C-15AL, BDE:U-I-1-1, DIV:..., CORPS:..., ARMY:U, ART:..., SUCC:..., LOC-###, V-###, DdTt) so every existing battery and
 // golden-set id resolves; new namespaces: P:<slug> (person), ABDE:<id> (artillery brigade/battalion), MON:<id>, SITE:<route>, CAS:<name>.
 import { baseNorm, tokenize, contentStems, cleanSite, splitSentences } from '../../../historian-src/core/text.js';
-import { STATE_CODE, STATE_TITLE, parseDesignation, parseParenKeys, ARM_RANK } from '../../../historian-src/core/units.js';
+import { STATE_CODE, STATE_TITLE, STATES, parseDesignation, parseParenKeys, ARM_RANK } from '../../../historian-src/core/units.js';
 import { parseName, ordinal, ordinalWord, capitalize, shortRank, RANK_ORDER, isGeneral, CORPS_ROMAN } from './names.mjs';
 import { cleanProse, cleanShort, isCrossRef } from './clean.mjs';
 
@@ -16,6 +16,7 @@ function parenNicknames(des) {
   for (const m of des.matchAll(/\(([^)]*)\)/g)) {
     for (const part of m[1].split('/').map((s) => s.trim())) {
       if (!part) continue;
+      if (STATES.includes(part.toLowerCase())) continue;                     // "Cobb's Legion Infantry (Georgia)": the state is where it came from, not a name for it ("what are the Georgia regiments" is the state's roll-up)
       if (/detachment|companies|^xii corps|provisional|confederate|eastern shore|commanding|\bdivision$|\bcorps$/i.test(part) && !/brigade/i.test(part)) continue;
       out.push(part);
     }

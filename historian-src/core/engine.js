@@ -316,6 +316,14 @@ export function createEngine(kb, opts = {}) {
       if (!cur || x.s > cur.s) merged.set(ci, { i: ci, id: R[ci].id, k: R[ci].k, s: Math.max(x.s, cur ? cur.s : 0) });
     }
     ranked = [...merged.values()].sort((a, b) => b.s - a.s || (a.id < b.id ? -1 : 1));
+    // a landmark that a map location carries as one of its names ("Copse of Trees" is an alias of The Angle (High Water Mark)): the location is the place record and leads; the landmark follows it
+    const top = ranked[0];
+    if (top && ['feature', 'structure', 'road'].includes(top.k)) {
+      const own = (s) => baseNorm(String(s || ''));
+      const mine = own(R[top.i].label);
+      const j = ranked.findIndex((x, k) => k > 0 && k < 6 && x.k === 'terrain' && [R[x.i].label, R[x.i].title, ...(R[x.i].aliases || [])].some((a) => own(a) === mine));
+      if (j > 0) ranked.unshift(...ranked.splice(j, 1));
+    }
     return ranked;
   }
 
@@ -603,16 +611,18 @@ export function createEngine(kb, opts = {}) {
 
     // ---- link, intent ---------------------------------------------------------------------------------------------------------------------------------
     S.caps = new Set([...text.matchAll(/\b[A-Z][A-Za-z']*/g)].map((m) => stem(m[0].toLowerCase().replace(/'s$/, ''))));
+    // postal abbreviations written in capitals ("IN 19th", "ME 16th"), but only in a question that also has lower-case words (an all-capitals question proves nothing)
+    S.capsAbbr = /[a-z]/.test(text) ? new Set([...text.matchAll(/\b[A-Z]{2,3}\b/g), ...text.matchAll(/\b[A-Z][a-z]{1,2}\.(?=\s*\d)/g), ...text.matchAll(/\b(?:[A-Z]\.\s?){2,3}(?=\s*\d)/g)].map((m) => m[0].replace(/[.\s]/g, '').toLowerCase())) : new Set();
     // a capitalised word that was repaired ("Mller" -> Miller) is still a capitalised word: the surname that is also an everyday word links on it
     for (const n of S.notes) if (n.kind === 'fuzzy' && S.caps.has(stem(n.from))) for (const w of tokenize(n.to)) S.caps.add(stem(w));
-    let lk = kb.link(S.tokens, { side: S.side, caps: S.caps });
+    let lk = kb.link(S.tokens, { side: S.side, caps: S.caps, capsAbbr: S.capsAbbr });
     // A correction is kept only when it earns its place: the corrected word becomes part of an entity the question is about, or it is one of the engine's own vocabulary words (Gettysburg,
     // brigade, casualties, a state). A word that was "repaired" into something that links nothing ("alley" -> "Allen", "carriages" -> "carri ages") goes back to what the reader typed.
     const undone = unconfirmedRepairs(S, lk.mentions);
     if (undone.length) {
       for (const n of undone.slice().sort((a, b) => b.at - a.at)) { S.tokens.splice(n.at, n.len, ...n.orig); S.unknown.push(...n.orig); }
       S.notes = S.notes.filter((n) => !undone.includes(n));
-      lk = kb.link(S.tokens, { side: S.side, caps: S.caps });
+      lk = kb.link(S.tokens, { side: S.side, caps: S.caps, capsAbbr: S.capsAbbr });
     }
     S.mentions = lk.mentions;
     S.day = dayOf(text);
@@ -634,6 +644,15 @@ export function createEngine(kb, opts = {}) {
       return null;
     })();
     S.intent = follow && follow.intent ? follow.intent : classify(text);
+    if (S.intent === 'quote' && !(follow && follow.intent)) {
+      // quotation marks around something the records name ("19th Indiana", "Little Round Top") quote a name, not a speech: the question is read again without them
+      const qs = [...text.matchAll(/["\u201c]([^"\u201d]+)["\u201d]/g)].map((m) => m[1]);
+      const speech = /\b(?:say|said|write|wrote|tell|told|shout|shouted|cry|cried|reply|replied|declare|declared|whisper|mutter|last words|exact words|who said|who shouted)\b/i.test(text.replace(/["\u201c][^"\u201d]*["\u201d]/g, ' '));
+      if (qs.length && !speech) {
+        const covered = qs.every((q) => { const tk = tokenize(q); if (!tk.length) return false; const ms = kb.link(tk, { caps: S.caps, capsAbbr: S.capsAbbr }).mentions.filter((m) => m.kind !== 'surname'); const cov = new Set(); for (const m of ms) for (let k = m.start; k < m.end; k++) cov.add(k); return cov.size / tk.length >= 0.7; });
+        if (covered) S.intent = classify(text.replace(/["\u201c\u201d]/g, ' '));
+      }
+    }
     S.day = dayOf(text);
     // a clock time or a part of a named day ("at 3pm on July 2", "noon on July 3", "the morning of July 1") is answered from the time model's clock, never from a day summary
     S.clock = kb.facts.clock ? parseClock(text, { solar: kb.facts.clock.solar }) : null;
@@ -778,6 +797,8 @@ export function createEngine(kb, opts = {}) {
     const capSet = new Set([...S.text.matchAll(/\b[A-Z][A-Za-z']*/g)].map((m) => stem(m[0].toLowerCase().replace(/'s$/, ''))));
     const bareQ = !kb.link(S.tokens, { caps: capSet }).mentions.some((m) => m.kind !== 'unit-miss' && !((m.kind === 'alias' || m.kind === 'surname') && m.n === 1 && !capSet.has(m.phrase)));
     if (!(more || flip || (pron && bareQ))) return null;
+    // a pronoun is a follow-up only when there is something earlier to point back at: "was it sunny on the first day" and "how humid was it during the fighting" are questions of their own
+    if (!last.length && !more && !flip && (readDays(S.text).n > 0 || unknownRules.hasWeatherWord(S.text))) return null;
     if (!last.length) {
       const res = { mode: 'clarify', blocks: [C.lead(['What would you like to know more about? Name a regiment, commander, place or moment of the battle.'], [])], src: [], limited: true };
       const a = finish(S, res, { decline_reason: 'followup-without-context' }); a.chips.follow = [{ label: '20th Maine', q: '20th Maine' }, { label: 'Little Round Top', q: 'Little Round Top' }, { label: 'Pickett’s Charge', q: 'Pickett’s Charge' }]; a.shown = []; a.sources = [];

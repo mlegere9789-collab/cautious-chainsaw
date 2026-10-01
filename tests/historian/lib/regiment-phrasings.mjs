@@ -68,4 +68,82 @@ export const PHRASINGS = {
   '<N> <State> Volunteer Infantry Regiment': (r) => `${ordinal(r.n)} ${r.state} Volunteer Infantry Regiment`,
   '<N> <Abbr.> Inf.': (r) => `${ordinal(r.n)} ${ABBR[r.state][ABBR[r.state].length - 1]} Inf.`,
   'tell me about the <N> <State> Infantry Regiment': (r) => `tell me about the ${ordinal(r.n)} ${r.state} Infantry Regiment`,
+  // ---- the relation written out: "the 6th regiment FROM / IN / OUT OF / FOR Wisconsin" (verifier R-19: 327 of 370 regiments returned the state roll-up) ----------------------------------------------------
+  'the <N> regiment from <State>': (r) => `the ${ordinal(r.n)} regiment from ${r.state}`,
+  'the <N> regiment in <State>': (r) => `the ${ordinal(r.n)} regiment in ${r.state}`,
+  'the <N> regiment out of <State>': (r) => `the ${ordinal(r.n)} regiment out of ${r.state}`,
+  'the <N> regiment for <State>': (r) => `the ${ordinal(r.n)} regiment for ${r.state}`,
+  'the <N> regiment of <State>': (r) => `the ${ordinal(r.n)} regiment of ${r.state}`,
+  'the <N> Regiment of the State of <State>': (r) => `the ${ordinal(r.n)} Regiment of the State of ${r.state}`,
+  '<N> Infantry from <State>': (r) => `${ordinal(r.n)} Infantry from ${r.state}`,
+  'the <N> of <State>': (r) => `the ${ordinal(r.n)} of ${r.state}`,
+  'the <N> from <State>': (r) => `the ${ordinal(r.n)} from ${r.state}`,
+  'the <N> Volunteer Infantry Regiment out of <State>': (r) => `the ${ordinal(r.n)} Volunteer Infantry Regiment out of ${r.state}`,
+  'spelled <N> regiment from <State>': (r) => `the ${ordWords(r.n, true)} regiment from ${r.state}`,
+  'Tell me about the <N> regiment from <State>': (r) => `Tell me about the ${ordinal(r.n)} regiment from ${r.state}`,
+  'What did the <N> regiment from <State> do at Gettysburg?': (r) => `What did the ${ordinal(r.n)} regiment from ${r.state} do at Gettysburg?`,
+  'Who commanded the <N> regiment in <State>?': (r) => `Who commanded the ${ordinal(r.n)} regiment in ${r.state}?`,
+  // ---- the state first: "Michigan Regiment 24", "Wisconsin Infantry Regiment No. 6" -------------------------------------------------------------------------------------------------------------------
+  '<State> Regiment <number>': (r) => `${r.state} Regiment ${r.n}`,
+  '<State> regiment number <number>': (r) => `${r.state} regiment number ${r.n}`,
+  '<State> Infantry Regiment No. <number>': (r) => `${r.state} Infantry Regiment No. ${r.n}`,
+  '<State> Volunteers, <N> Regiment': (r) => `${r.state} Volunteers, ${ordinal(r.n)} Regiment`,
+  '<State> Volunteer Infantry <N>': (r) => `${r.state} Volunteer Infantry ${ordinal(r.n)}`,
+  '<USPS> <N>': (r) => `${ABBR[r.state][0]} ${ordinal(r.n)}`,
+  '<Abbr.> <N> (period abbreviation first)': (r) => `${ABBR[r.state][ABBR[r.state].length - 1]} ${ordinal(r.n)}`,
+  // ---- abbreviations and punctuation -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  'the <N> <Abbr.> Regiment': (r) => `the ${ordinal(r.n)} ${ABBR[r.state][ABBR[r.state].length - 1]} Regiment`,
+  '<N> <Abbr.> Vols.': (r) => `${ordinal(r.n)} ${ABBR[r.state][ABBR[r.state].length - 1]} Vols.`,
+  '<N> <Abbr.> Vol. Inf.': (r) => `${ordinal(r.n)} ${ABBR[r.state][ABBR[r.state].length - 1]} Vol. Inf.`,
+  '<N> <USPS> Volunteer Infantry': (r) => `${ordinal(r.n)} ${ABBR[r.state][0]} Volunteer Infantry`,
+  '<N> <State>.': (r) => `${ordinal(r.n)} ${r.state}.`,
+  '<N> <State>?': (r) => `${ordinal(r.n)} ${r.state}?`,
+  '"<N> <State>" (quoted)': (r) => `"${ordinal(r.n)} ${r.state}"`,
+  '<N> (<State>)': (r) => `${ordinal(r.n)} (${r.state})`,
+  '<N>, <State>': (r) => `${ordinal(r.n)}, ${r.state}`,
+  '<N>-<State>': (r) => `${ordinal(r.n)}-${r.state}`,
+  '<N> <State>  (double space)': (r) => `${ordinal(r.n)}  ${r.state}`,
+  '<N> <State> regiment please': (r) => `${ordinal(r.n)} ${r.state} regiment please`,
+  'spelled ordinal, no hyphen, <State> Infantry': (r) => `${ordWords(r.n, false)} ${r.state} Infantry`,
+  '<N> sp-suffix ("24 th <State>")': (r) => `${r.n} ${['th', 'st', 'nd', 'rd'][(r.n % 100 >= 11 && r.n % 100 <= 13) ? 0 : (r.n % 10 < 4 ? r.n % 10 : 0)]} ${r.state}`,
+  // ---- period abbreviations of the arm and the word "regiment", and the way a regimental history names a unit --------------------------------------------------------------------------------------------
+  '<N> <State> Regt.': (r) => `${ordinal(r.n)} ${r.state} Regt.`,
+  '<N> <State> Reg.': (r) => `${ordinal(r.n)} ${r.state} Reg.`,
+  '<N> <State> Regt. Vol. Inf.': (r) => `${ordinal(r.n)} ${r.state} Regt. Vol. Inf.`,
+  '<N> <State> Inf. Regt.': (r) => `${ordinal(r.n)} ${r.state} Inf. Regt.`,
+  'the <N> <State> Vols': (r) => `the ${ordinal(r.n)} ${r.state} Vols`,
+  '<N> <State> Volunteers Regiment': (r) => `${ordinal(r.n)} ${r.state} Volunteers Regiment`,
+  'Company K, <N> <State>': (r) => `Company K, ${ordinal(r.n)} ${r.state}`,
+  '<N> <State> at Gettysburg': (r) => `${ordinal(r.n)} ${r.state} at Gettysburg`,
+  'the <N> <State> in the Battle of Gettysburg': (r) => `the ${ordinal(r.n)} ${r.state} in the Battle of Gettysburg`,
+  'the <N> regiment, <State> Volunteers': (r) => `the ${ordinal(r.n)} regiment, ${r.state} Volunteers`,
+  'the <N> raised in <State>': (r) => `the ${ordinal(r.n)} regiment raised in ${r.state}`,
+  'the <N> regiment that came from <State>': (r) => `the ${ordinal(r.n)} regiment that came from ${r.state}`,
+};
+
+// cavalry regiments with a simple designation ("8th Illinois Cavalry"): the same grammar with the arm word, ground truth from the raw designations
+export function cavalryRegiments() {
+  const d = load(); const out = [];
+  for (const r of d.regs) {
+    if (!/^U-\d+[A-Z]{2}-CAV$|^C-\d+[A-Z]{2}-CAV$/.test(r.regiment_id) || r.alias_for) continue;
+    const m = r.designation.match(/^(\d+)(?:st|nd|rd|th) ([A-Za-z ]+?) Cavalry\b/); if (!m) continue;
+    const state = r.state === 'Regular Army' ? 'United States' : r.state;
+    if (!ABBR[state]) continue;
+    out.push({ id: r.regiment_id, n: +m[1], state, side: r.regiment_id[0], designation: r.designation });
+  }
+  return out;
+}
+export const CAVALRY_PHRASINGS = {
+  '<N> <State> Cavalry': (r) => `${ordinal(r.n)} ${r.state} Cavalry`,
+  '<N> <State> Cavalry Regiment': (r) => `${ordinal(r.n)} ${r.state} Cavalry Regiment`,
+  'the <N> <State> cavalry': (r) => `the ${ordinal(r.n)} ${r.state} cavalry`,
+  '<N> <State> Volunteer Cavalry': (r) => `${ordinal(r.n)} ${r.state} Volunteer Cavalry`,
+  '<N> Cavalry, <State>': (r) => `${ordinal(r.n)} Cavalry, ${r.state}`,
+  'the <N> cavalry regiment from <State>': (r) => `the ${ordinal(r.n)} cavalry regiment from ${r.state}`,
+  'the <N> cavalry of <State>': (r) => `the ${ordinal(r.n)} cavalry of ${r.state}`,
+  '<N> <Abbr.> Cav.': (r) => `${ordinal(r.n)} ${ABBR[r.state][ABBR[r.state].length - 1]} Cav.`,
+  '<N> <USPS> Cavalry': (r) => `${ordinal(r.n)} ${ABBR[r.state][0]} Cavalry`,
+  'spelled <N> <State> Cavalry': (r) => `${ordWords(r.n, true)} ${r.state} Cavalry`,
+  '<State> Cavalry <N>': (r) => `${r.state} Cavalry ${ordinal(r.n)}`,
+  'Who commanded the <N> <State> Cavalry?': (r) => `Who commanded the ${ordinal(r.n)} ${r.state} Cavalry?`,
 };

@@ -17,7 +17,7 @@ const RULES = [
   ['presence', /^\s*(?:was|were)\s+(?:the\s+)?[a-z0-9' .\-]{2,50}?\s+(?:present\s+)?(?:at|in|during)\s+(?:the\s+)?(?:battle of\s+)?gettysburg\s*\??\s*$|^\s*did\s+(?:the\s+)?[a-z0-9' .\-]{2,50}?\s+(?:fight|serve|take part|participate)\s+(?:at|in)\s+(?:the\s+)?(?:battle of\s+)?gettysburg\s*\??\s*$/i],
   ['succession', /\bwho (?:replaced|succeeded|took over|took command|assumed command|relieved|took the place|took charge|came after|followed)\b|\breplaced by\b|\bwho (?:commanded|led) (?:it |the \w+ )?(?:after|when)\b|\btook over (?:the )?(?:command|corps|division|brigade)\b|\bassumed command\b/i],
   ['membership', /\bwhich (?:brigade|division|corps|army)\b.*\b(?:was|is|did|were)\b.*\b(?:part of|belong\w*|in|under|served|assigned)\b|\bwhat (?:brigade|division|corps) (?:was|is|did)\b|\b(?:part of|belong(?:ed)? to) which\b/i],
-  ['quote', /\bwhat (?:did|does|was)\b.*\b(?:say|said|write|wrote|tell|told|shout|shouted|cry|cried|reply|replied|declare|declared|whisper|mutter)\b|\bwho (?:said|shouted|wrote|cried|yelled|exclaimed|uttered|screamed)\b|\blast words\b|\bexact words\b|["“][^"”]{6,}["”]/i],
+  ['quote', /\bwhat (?:did|does|was)\b.*\b(?:say|said|write|wrote|tell|told|shout|shouted|cry|cried|reply|replied|declare|declared|whisper|mutter)\b|\bwho (?:said|shouted|wrote|cried|yelled|exclaimed|uttered|screamed)\b|\blast words\b|\bexact words\b|["“][^"”]*\b\S+\s+\S+\s+\S+[^"”]*["”]/i],
   ['who-commanded', /\b(?:who (?:commanded|led|was in command|was the (?:commander|leader|general|colonel|captain|chief)|was in charge|directed|ran)|commander of|commanded by|in command of|led by|who led|who commanded|chief of artillery|who was (?:the )?(?:\w+ )?(?:commander|commanding))\b/i],
   // an explicit comparison of two things wins over the measure it names ("compare X and Y in size and losses" is a comparison, not a casualty question)
   ['echelons', /\b(?:difference between|differences between|what is|what are|explain)\b.*\bregiment\b.*\bbrigade\b.*\bdivision\b.*\bcorps\b|\bhow (?:is|are|was|were) (?:an? |the )?(?:armies|army) (?:organi[sz]ed|structured|divided|built|arranged)\b|\bwhat (?:is|are) (?:a |an )?regiments?\b.*\bbrigades?\b.*\bdivisions?\b.*\bcorps\b|\bchain of command\b/i],
@@ -42,8 +42,10 @@ export const intentRule = (name) => (RULES.find((r) => r[0] === name) || [])[1];
 
 /** Side hint from words: Union / Confederate. */
 export function sideHint(tokens) {
-  const u = tokens.some((t) => /^(union|federal|federals|yankee|yankees|northern|north|potomac)$/.test(t));
-  const c = tokens.some((t) => /^(confederate|confederates|confederacy|rebel|rebels|southern|south|anv)$/.test(t));
+  // "north" and "south" are sides only when they are not the first half of a state ("North Carolina", "South Carolina")
+  const side = (re) => tokens.some((t, i) => re.test(t) && !(/^(?:north|south)$/.test(t) && tokens[i + 1] === 'carolina'));
+  const u = side(/^(union|federal|federals|yankee|yankees|northern|north|potomac)$/);
+  const c = side(/^(confederate|confederates|confederacy|rebel|rebels|southern|south|anv)$/);
   if (u && !c) return 'U';
   if (c && !u) return 'C';
   return null;

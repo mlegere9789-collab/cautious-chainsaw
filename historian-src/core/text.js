@@ -63,8 +63,10 @@ export const corpsNorm = (s) => s.replace(CORPS_RE, (m, a) => 'corps' + CORPS_MA
 
 // "84th N.Y." / "1 M.N." / "20 Me." -> letters only, but only when a number precedes (initials elsewhere are left alone).
 const PERIOD_ABBR = /(\d+\s*(?:st|nd|rd|th|d)?)\s+(W\.\s?Va\.|(?:[A-Za-z]\.\s?){2,3}|[A-Z][a-z]{1,4}\.)(?=\s|$)/g;
+// the abbreviation FIRST: "N.Y. 76th", "Wis. 6th", "W.Va. 7th" (only with a regiment number after it, so initials elsewhere are left alone)
+const ABBR_FIRST = /(?<![A-Za-z])(W\.\s?Va\.|(?:[A-Za-z]\.\s?){2,3}|[A-Z][a-z]{1,4}\.)\s+(?=\d+(?:st|nd|rd|th|d)?(?![A-Za-z0-9]))/g;
 function collapseStateAbbr(s) {
-  return s.replace(PERIOD_ABBR, (m, num, ab) => `${num} ${ab.replace(/[.\s]/g, '')}`);
+  return s.replace(PERIOD_ABBR, (m, num, ab) => `${num} ${ab.replace(/[.\s]/g, '')}`).replace(ABBR_FIRST, (m, ab) => `${ab.replace(/[.\s]/g, '')} `);
 }
 
 /** Normalise free text to lowercase space-separated alphanumerics. Idempotent. */

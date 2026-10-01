@@ -27,7 +27,7 @@ export const STATE_CODE = { alabama: 'AL', arkansas: 'AR', connecticut: 'CT', de
 export const STATE_TITLE = (s) => s.replace(/\b[a-z]/g, (c) => c.toUpperCase());
 
 // arm words -> arm code
-export const ARM_WORDS = { infantry: 'inf', inf: 'inf', volunteer: 'inf', volunteers: 'inf', vol: null, vols: null, cavalry: 'cav', cav: 'cav', reserves: 'res', reserve: 'res', battalion: 'bn', sharpshooters: 'ss',
+export const ARM_WORDS = { infantry: 'inf', inf: 'inf', volunteer: null, volunteers: null, vol: null, vols: null, cavalry: 'cav', cav: 'cav', reserves: 'res', reserve: 'res', battalion: 'bn', sharpshooters: 'ss',
   sharpshooter: 'ss', battery: 'art', artillery: 'art', zouaves: 'inf', militia: 'inf', legion: 'inf', regiment: null, regt: null, regiments: null };
 
 const isOrd = (t) => t && t.charCodeAt(0) === 35 && /^#\d+$/.test(t);
@@ -42,7 +42,11 @@ const CONNECT_ONE = new Set(['of', 'from', 'in', 'for', 'representing']);
 const CONNECT_FILL = new Set(['the', 'state', 'commonwealth', 'great']);
 // a bare ordinal ("the 24th from Michigan") takes only "of" and "from": "in" and "for" after a number are ordinary English ("the 3rd in Pennsylvania's line")
 /** index just past a connector phrase that starts at tokens[k] ("from", "out of", "of the state of"), or -1 */
+const REL_PRON = new Set(['that', 'which', 'who']);
+const REL_VERB = new Set(['was', 'were', 'is', 'are', 'came', 'come', 'comes', 'hailed', 'hails', 'originated', 'enlisted', 'served', 'mustered', 'raised', 'organized', 'organised', 'recruited', 'formed', 'drawn', 'based', 'fought', 'called']);
 function connectorEnd(tokens, k, hasFiller) {
+  // "the 19th regiment THAT CAME from Indiana", "the 6th regiment WHICH WAS raised in Wisconsin": a relative clause before the preposition
+  if (hasFiller && REL_PRON.has(tokens[k])) { k++; for (let g = 0; g < 3 && REL_VERB.has(tokens[k]); g++) k++; }
   const w = tokens[k], w2 = tokens[k + 1]; let e = -1;
   if (w !== undefined && w2 !== undefined && CONNECT_PAIR.has(`${w} ${w2}`)) { if (!hasFiller && w !== 'out') return -1; e = k + 2; }
   else if (CONNECT_ONE.has(w)) { if (!hasFiller && w !== 'of' && w !== 'from') return -1; e = k + 1; }
@@ -66,7 +70,7 @@ export function stateAt(tokens, j, { prev = null, last = 0, noAmbig = false } = 
  * Find unit mentions in a token array (output of text.tokenize with stop words kept).
  * Returns [{ ords:[n..], state, arm|null, start, end, abbr }] where [start,end) is the token span consumed (ordinals, state, arm word).
  */
-export function findUnitMentions(tokens, { reversed = false, loose = false } = {}) {
+export function findUnitMentions(tokens, { reversed = false, loose = false, capsAbbr = null } = {}) {
   const out = findForward(tokens, loose);
   if (reversed) {
     // "Wisconsin's 2nd", "Wisconsin 2nd Infantry", "Michigan Regiment No. 24", "Wis. 6th": the state first (query-time only; the build keeps the designation grammar)
@@ -77,15 +81,17 @@ export function findUnitMentions(tokens, { reversed = false, loose = false } = {
       const two = tokens.slice(i, i + 2).join(' ');
       let used = STATES.includes(two) ? 2 : STATES.includes(tokens[i]) ? 1 : 0, state = used === 2 ? two : tokens[i];
       // an abbreviation ("wis 6th", "ny 104th", "mich regiment 24") counts only when it is not an everyday word and a regiment number follows
-      if (!used && loose && STATE_ABBR[tokens[i]] && !AMBIG_ABBR.has(tokens[i])) { used = 1; state = STATE_ABBR[tokens[i]]; }
-      if (!used || tokens[i] === 'brooklyn' || tokens[i] === 'united') continue;
+      // an everyday-word abbreviation ("IN 19th", "ME 16th", "MA 12th") counts when the reader wrote it in capitals inside a question that has lower-case words too
+      if (!used && loose && STATE_ABBR[tokens[i]] && (!AMBIG_ABBR.has(tokens[i]) || (capsAbbr && capsAbbr.has(tokens[i])))) { used = 1; state = STATE_ABBR[tokens[i]]; }
+      if (!used || tokens[i] === 'brooklyn') continue;
       // "Michigan regiment 24", "Wisconsin Volunteer Infantry, Regiment No. 6": words between the state and its number
-      let oi = i + used;
-      for (let g = 0; g < 5 && oi < tokens.length && (PRE_FILLER.has(tokens[oi]) || tokens[oi] === 'number' || tokens[oi] === 'no' || tokens[oi] === 'num' || tokens[oi] === 'state' || tokens[oi] === 'of'); g++) oi++;
+      let oi = i + used, armBefore = null;
+      for (let g = 0; g < 5 && oi < tokens.length && (PRE_FILLER.has(tokens[oi]) || tokens[oi] === 'number' || tokens[oi] === 'no' || tokens[oi] === 'num' || tokens[oi] === 'state' || tokens[oi] === 'of'); g++) { if (ARM_WORDS[tokens[oi]]) armBefore = armBefore || ARM_WORDS[tokens[oi]]; oi++; }
       if (oi > i + used && !loose) continue;
+      if (tokens[i] === 'united' && oi === i + used) continue;                       // "United States 3rd" alone is not a regiment; "United States Regiment 4" is
       const o = tokens[oi];
       if (!isOrd(o) || taken[oi] || +o.slice(1) > 200) continue;
-      let end = oi + 1, arm = null;
+      let end = oi + 1, arm = armBefore;
       for (let g = 0; g < 2 && end < tokens.length; g++) { const w = tokens[end]; if (w in ARM_WORDS) { if (ARM_WORDS[w]) arm = arm || ARM_WORDS[w]; end++; } else break; }
       out.push({ ords: [+o.slice(1)], state, arm, start: i, end, abbr: used === 1 && !STATES.includes(state), reversed: true });
       for (let k = i; k < end; k++) taken[k] = true;

@@ -9,6 +9,7 @@
 // The lexicons are data (tools/historian/data/scope.v1.json "lexicons"), compiled into facts.lexicons; a new word is a data change, not a code change.
 import { tokenize, baseNorm, stem } from './text.js';
 import { readDays } from './clock.js';
+import { STATES } from './units.js';
 
 const words = (a) => new Set((a || []).map((w) => String(w).toLowerCase()));
 
@@ -42,6 +43,8 @@ export function createUnknowns(kb) {
       // a weak word is weather only in a weather frame ("how hot was it", "what was the heat like", "was it muddy")
       const before = toks.slice(Math.max(0, i - 5), i).join(' ');
       if (FRAMES.some((f) => has(before + ' ' + w, f) || before.endsWith(f))) { hit = i; break; }
+      // a weak word after a copula is a predicate adjective ("was July 3 hot", "was the ground dry", "were the soldiers wet and cold"): weather, unless a person is the one it is said of ("was Hancock cold toward Meade")
+      if (/(?:^| )(?:was|were|is|are|be|been|being)(?: |$)/.test(before) && !S.mentions.some((m) => (m.kind === 'person' || m.kind === 'surname') && m.ids && m.ids.length)) { hit = i; break; }
     }
     if (hit < 0) return false;
     const present = PRESENT.some((p) => has(norm, p));
@@ -71,7 +74,8 @@ export function createUnknowns(kb) {
     if (unit) {
       for (const m of S.text.matchAll(/\b([A-Z][a-z]+(?:\s+[A-Z][a-z'.-]+){1,2})\b/g)) {
         const parts = m[1].split(/\s+/);
-        if (parts.some((p) => /^(?:july|june|august|the|union|confederate|army|corps|brigade|division|regiment|battery|hill|ridge|road|run|pike|farm|woods|house|field|top|little|big|round|cemetery|culp|seminary|peach|devil|wheatfield|new|north|south|west|east|fort|general|colonel|captain|major|lieutenant|gen|col|capt|maj|lt|what|who|was|did|how|tell|which)$/i.test(p))) continue;
+        if (parts.some((p) => /^(?:july|june|august|the|union|confederate|army|corps|brigade|division|regiment|regt|battery|volunteers?|infantry|cavalry|artillery|legion|militia|reserves?|sharpshooters|hill|ridge|road|run|pike|farm|woods|house|field|top|little|big|round|cemetery|culp|seminary|peach|devil|wheatfield|new|north|south|west|east|fort|general|colonel|captain|major|lieutenant|gen|col|capt|maj|lt|what|who|was|did|how|tell|which)$/i.test(p) || STATES.includes(p.toLowerCase()))) continue;
+        if (STATES.some((st) => m[1].toLowerCase().includes(st))) continue;              // "Rhode Island", "United States": the state of a regiment, not a man's name
         const t0 = tokenize(m[1]).map(stem);
         if (S.mentions.some((x) => (x.kind === 'person' || x.kind === 'surname' || x.kind === 'alias') && x.ids && x.ids.length && t0.some((w) => String(x.phrase || '').split(' ').includes(w)))) continue;
         if (/^\s*,?\s*(?:of|in|from|with|serving in|of the|in the)\b/i.test(S.text.slice(m.index + m[1].length, m.index + m[1].length + 24)) || /^\s*,\s*(?:the\s+)?(?:\d|first|second|third)/i.test(S.text.slice(m.index + m[1].length, m.index + m[1].length + 12))) return true;
@@ -85,7 +89,7 @@ export function createUnknowns(kb) {
   // ---- a roster / names of many ----------------------------------------------------------------------------------------------------------------
   function roster(S) {
     const n = baseNorm(S.text);
-    const noun = '(?:men|soldiers|privates|enlisted men|enlisted|members|volunteers|recruits|troops|individuals|people|dead|killed|wounded|casualties|prisoners|survivors|officers|fellows|boys)';
+    const noun = '(?:men|soldiers|privates|enlisted men|enlisted|members|volunteers|recruits|troops|individuals|people|dead|killed|wounded|casualties|prisoners|survivors|officers|fellows|boys|everyone|everybody|every man|each man|all of them)';
     const rx = [
       /\b(?:roster|rosters|muster rolls?|nominal rolls?|company rolls?|pension records?|service records?|regimental rolls?)\b/,
       new RegExp(`\\b(?:names?|list|lists|listing) of (?:all |the |every |each |those )?(?:the )?${noun}\\b`),
@@ -129,5 +133,7 @@ export function createUnknowns(kb) {
     } catch { return null; }
     return null;
   }
-  return { classify, weather, individual, roster, mental };
+  /** does the question hold a weather word at all (strong, or weak)? the pronoun follow-up reader uses it: "was it sunny on the first day" has no earlier answer to point back at */
+  const hasWeatherWord = (text) => baseNorm(String(text || '')).split(' ').some((w) => STRONG.has(w) || WEAK.has(w));
+  return { classify, weather, individual, roster, mental, hasWeatherWord };
 }
