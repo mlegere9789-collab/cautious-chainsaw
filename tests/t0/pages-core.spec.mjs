@@ -173,7 +173,7 @@ test('T0-PGC-02', 'icon sprite: 19 symbols, all gtbg-i- prefixed; index.html use
   await p2.close();
 });
 
-test('T0-PGC-03', 'button reset is zero-specificity: chips >= 6:1, Play buttons >= 8:1, Compare toggles keep their designed 10px (C8)', async (t) => {
+test('T0-PGC-03', 'button reset is zero-specificity: chips >= 6:1, Play buttons >= 8:1, Compare toggles keep the size their own page rule gives them (12px since pages-fixes raised the 10px minimum text; the old reset forced 16px) (C8)', async (t) => {
   const { page } = await freshPage();
   await open(page, 'search');
   await sleep(1200);
@@ -194,7 +194,7 @@ test('T0-PGC-03', 'button reset is zero-specificity: chips >= 6:1, Play buttons 
   await open(page, 'compare');
   await sleep(600);
   const fs = await page.evaluate(() => [...document.querySelectorAll('.toggle-btn')].map((b) => getComputedStyle(b).fontSize));
-  assert(fs.length === 8 && fs.every((x) => x === '10px'), `compare toggle font sizes ${fs}`);
+  assert(fs.length === 8 && fs.every((x) => x === '12px'), `compare toggle font sizes ${fs}`);
   await page.close();
 });
 
