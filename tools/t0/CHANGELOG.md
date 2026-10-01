@@ -26,7 +26,7 @@ note. Release ids of R1a-R1c change (bundle patch below, other agents' groups); 
    `gate.mjs`: the eslint cache lives beside `--out` (or `--cache`), the shared `release/.cache` only for a default build.
 5. **HTML drift is blocking.** `verify-url --html-warn` stays ignored and now says so; `--kinds nonhtml` says it is not a gate; new probe `T0-HTML` (served `/` and `/privacy` vs the built files, any
    difference beyond the post-processing model FAILs), `T0-04` now asserts the kill switch is NOT served, `T0-08` fixed-name images never immutable; `E-03` accepts the two valid states of `/`.
-6. **New:** `ops/staging-verify.mjs` (the staging checklist S0-S11, `--checklist`, `--local` rehearsal), `ops/release-fixes.selftest.py` (8 cases), `ops/header-decisions.md`, `ops/T0-DEVIATIONS.md`,
+6. **New:** `ops/staging-verify.mjs` (the staging checklist S0-S11, `--checklist`, `--local` rehearsal), `ops/release-fixes.selftest.py` (8 cases), `ops/header-decisions.md`, `ops/T0-DEVIATIONS.md`, `ops/walkthrough-policy-experiment.mjs` (the online Street View experiment behind the Permissions-Policy decision),
    `HDR-11/12/13/23/24` in `tests/t0/headers.spec.mjs` (`--online` for the real Street View frame; the scratch folder follows `T0_AGENT`).
 7. **Docs.** `ops/RELEASE-RUNBOOK.md` re-read command by command (Chrome version command that works on Windows, the error boundary ships, new "measured" numbers, section 16), `ops/STAGING-SETUP.md`
    (checklist table, emulators vs Netlify), `tools/t0/config/README.md` ("Emulated rules"), this README, `trains.json` group descriptions without counts.

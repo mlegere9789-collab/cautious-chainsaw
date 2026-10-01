@@ -33,18 +33,18 @@ R1c ships (`gen.mjs`, one rule per document, both URL spellings):
 | `/` and `/index.html` (the app; hosts the Virtual Walkthrough's Google Street View frame) | **delegated** (only when the next paragraph's two conditions hold): `accelerometer=(self "https://www.google.com"), camera=(), geolocation=(), gyroscope=(self "https://www.google.com"), magnetometer=(), microphone=(), payment=()`; otherwise all of them `()` |
 | every other page, including `/embed` | `accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=()` |
 
-### The finding, reproduced (Chrome 153, `tmp/release-fix/wt-pp.mjs`, the app's Virtual Walkthrough opened, console recorded)
+### The finding, reproduced (Chrome 153, `node ops/walkthrough-policy-experiment.mjs <variant> --dist <dist>`, the app's Virtual Walkthrough opened, console recorded; one real Google embed load per variant)
 
 The Street View frame is `<iframe src="https://www.google.com/maps/embed/v1/streetview?...">` with **no `allow` attribute** (`assets/index-Cg8FAMXN.js`). Google's own script inside that frame reads the device motion sensors and logs when it is not allowed to.
 
 | Variant (header on `/` / iframe attribute) | Console after opening the Walkthrough |
 |---|---|
-| no Permissions-Policy header at all / no attribute (this is what legacy does for the cross-origin frame: `accelerometer=(self)` does not name google.com) | **`[error] Permissions policy violation: accelerometer is not allowed in this document.`** and **`[warning] The deviceorientation events are blocked by permissions policy.`** (both from `maps.googleapis.com/.../main.js`, i.e. Google's code) |
-| R1c as first built: `accelerometer=()` / no attribute | the same two messages |
-| header names `https://www.google.com` / no attribute | the same two messages (a header alone cannot delegate: the iframe's own `allow` attribute is the other half) |
-| `accelerometer=()` / `allow="accelerometer; gyroscope; magnetometer; fullscreen"` | the same two messages (the parent's header still blocks) |
-| header `(self "https://www.google.com")` for accelerometer + gyroscope / `allow="accelerometer; gyroscope"` (magnetometer stays `()`) | **no message at all**; with the app's real Mapbox tiles injected (`--inject`) the console after opening the Walkthrough has **0 messages of any level** |
-| header `("https://www.google.com")` WITHOUT `self` / the attribute | the same two messages again: Chrome 153 did not accept the delegation unless `self` is also in the list |
+| (variant `nohdr`) no Permissions-Policy header at all / no attribute (this is what legacy does for the cross-origin frame: `accelerometer=(self)` does not name google.com) | **`[error] Permissions policy violation: accelerometer is not allowed in this document.`** and **`[warning] The deviceorientation events are blocked by permissions policy.`** (both from `maps.googleapis.com/.../main.js`, i.e. Google's code) |
+| (`off`) R1c as first built: `accelerometer=()` / no attribute | the same two messages |
+| (`pp-google`) header names `https://www.google.com` / no attribute | the same two messages (a header alone cannot delegate: the iframe's own `allow` attribute is the other half) |
+| (`off+allow`) `accelerometer=()` / `allow="accelerometer; gyroscope; magnetometer; fullscreen"` | the same two messages (the parent's header still blocks) |
+| (`min+allow`, and `asbuilt` on a build with the legal opt-in) header `(self "https://www.google.com")` for accelerometer + gyroscope / `allow="accelerometer; gyroscope"` (magnetometer stays `()`) | **no message at all**; with the app's real Mapbox tiles injected (`--inject`) the console after opening the Walkthrough has **0 messages of any level** |
+| (`min2+allow`) header `("https://www.google.com")` WITHOUT `self` / the attribute | the same two messages again: Chrome 153 did not accept the delegation unless `self` is also in the list |
 
 Two corrections to the desktop verifier's note: (1) R1c does **not** add the `deviceorientation` warning; it is logged by Google's frame in every variant that lacks the delegation, legacy included (the first row). (2) The `accelerometer` error is therefore not caused by the R1c header; it is a pre-existing third-party message that only the attribute + header pair can remove.
 

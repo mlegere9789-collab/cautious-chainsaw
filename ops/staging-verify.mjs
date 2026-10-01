@@ -18,7 +18,7 @@
 //   --prod-url URL       production (default https://gettysburginteractivemap.com): header parity (R0-R1b) and the baseline-drift gate
 //   --skip-live-drift    skip `python tools/t0/baseline.py verify-live` (S5); it is the only step that needs the PRODUCTION site
 //   --expect-release R   the release id staging must report (default: version.json of the dist)
-//   --port N             --local: first port of the two emulators (default 8750 and 8751)
+//   --port N             --local: first port of the two emulators (default 8748 and 8749)
 //   --json FILE          write the result as JSON
 //   --verbose            print the tail of every step's tool output
 // exit codes: 0 = every step PASS; 1 = at least one step FAIL (do not deploy to production); 2 = the script could not run (bad options, no network)
@@ -209,7 +209,7 @@ async function main() {
   if (LOCAL) {
     if (!fs.existsSync(STAGE)) { console.error(`--local needs the staging copy ${rel(STAGE)} (node ops/sha-list.mjs stage ${rel(DIST)} ${rel(STAGE)} --force)`); return 2; }
     const { createEmulator } = await import(pathToFileURL(path.join(REPO, 'tools', 't0', 'config', 'emulate.mjs')).href);
-    const p0 = Number(opt.port || 8750);
+    const p0 = Number(opt.port || 8748);
     const a = await createEmulator({ dist: STAGE, port: p0 }); const b = await createEmulator({ dist: DIST, port: p0 + 1 });
     servers.push(a, b); STAGING = a.url; PRODUCTION = b.url;
     console.log(`LOCAL REHEARSAL: staging = emulator on ${STAGING} serving ${rel(STAGE)}, "production" = emulator on ${PRODUCTION} serving ${rel(DIST)}. Proves the tree and this script, NOT Netlify's handling of an upload.\n`);
