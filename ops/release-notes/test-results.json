@@ -1,13 +1,13 @@
 {
  "finished": "see file mtime",
- "seconds": 3670,
- "portBase": "8480",
+ "seconds": 4019,
+ "portBase": "8600",
  "totals": {
-  "suites": 36,
-  "ok": 36,
+  "suites": 40,
+  "ok": 40,
   "notOk": 0,
-  "greenTests": 390,
-  "greenTestsTotal": 413,
+  "greenTests": 415,
+  "greenTestsTotal": 438,
   "redProofs": 8,
   "redProofsOk": 8,
   "redTestsRedAsRequired": 58
@@ -23,25 +23,25 @@
     {
      "train": "R0",
      "ok": true,
-     "checks": 10,
+     "checks": 9,
      "failed": []
     },
     {
      "train": "R1a",
      "ok": true,
-     "checks": 10,
+     "checks": 9,
      "failed": []
     },
     {
      "train": "R1b",
      "ok": true,
-     "checks": 10,
+     "checks": 9,
      "failed": []
     },
     {
      "train": "R1c",
      "ok": true,
-     "checks": 10,
+     "checks": 9,
      "failed": []
     }
    ],
@@ -75,11 +75,11 @@
   },
   {
    "id": "static.verify",
-   "title": "verify_release: manifest, static crawl, dev pages, names, identity, cumulative, legacy pinned",
+   "title": "verify_release: manifest, static crawl, dev pages, names, identity vs the baseline, cumulative, legacy and baseline pinned",
    "kind": "check",
    "inverted": false,
    "exit": 0,
-   "seconds": 0.6,
+   "seconds": 1,
    "passed": 6,
    "total": 6,
    "skipped": 0,
@@ -88,8 +88,8 @@
    "failLines": [],
    "ok": true,
    "tail": [
-    "PASS  cumulative  R0 -> R1a: +220 patches, 118->120 non-asset files; R1a -> R1b: +133 patches, 120->120 non-asset files; R1b -> R1c: +50 patches, 120->124 non-asset files",
-    "PASS  names/legacy  14 distinct asset names across trains, reuse with other bytes: 0; legacy entry md5 7ef75b95f4c02700430b8aa91e3a7459",
+    "PASS  cumulative  R0 -> R1a: +220 patches, 118->120 non-asset files; R1a -> R1b: +134 patches, 120->120 non-asset files; R1b -> R1c: +50 patches, 120->124 non-asset files",
+    "PASS  names/legacy/baseline  14 distinct asset names across trains, reuse with other bytes: 0; legacy entry md5 7ef75b95f4c02700430b8aa91e3a7459; baseline tree d2b126e99a88 (2 file(s) differ from lega",
     "verify_release: all checks passed"
    ]
   },
@@ -99,7 +99,7 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 67.6,
+   "seconds": 72.4,
    "passed": 10,
    "total": 10,
    "skipped": 0,
@@ -108,9 +108,47 @@
    "failLines": [],
    "ok": true,
    "tail": [
-    "PASS  7 ledger: reused name / archived collision fail, idempotent rebuild passes                 3.4s  reuse and (case-insensitive) collision rejected; recorded same-bytes name accepted",
-    "PASS  8 legacy/ is untouched (pinned tree digest, git clean)                                     0.1s  tree 90d819d0a948e0e0 (119 files), git status clean",
+    "PASS  7 ledger: reused name / archived collision fail, idempotent rebuild passes                 3.7s  reuse and (case-insensitive) collision rejected; recorded same-bytes name accepted",
+    "PASS  8 legacy/ is untouched (pinned tree digest, git clean)                                     0.0s  tree 90d819d0a948e0e0 (119 files), git status clean",
     "build selftest: all passed"
+   ]
+  },
+  {
+   "id": "static.baseline",
+   "title": "baseline machinery self-test (16 cases: Netlify post-processing model, lock and build refusal, CRLF-aware patching, overlay guard, verify-live against a local Netlify fake, mirror -> reconstruct -> prove, JS/Python model parity)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 49.2,
+   "passed": 16,
+   "total": 16,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS 15 legacy/ is untouched (pinned tree digest, git clean) and baseline/dist differs from it only in the two locked files -- legacy tree 90d819d0a948; drift ['data/terrain.json', 'index.html']",
+    "PASS 16 the JS mirror of the model (ops/sha-list.mjs forwardModel, used by verify-url --tree) gives the same bytes as the Python model on all 27 pages -- 27 pages identical in both implementations; ve",
+    "baseline selftest: all passed"
+   ]
+  },
+  {
+   "id": "static.baselinelock",
+   "title": "baseline/dist matches tools/t0/baseline.lock.json (per-file sha256, no network)",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 0.1,
+   "passed": null,
+   "total": null,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "baseline ok: baseline/dist matches tools/t0/baseline.lock.json (119 files, tree d2b126e99a88cbd9d708c0db237d2fd1dfbe7a3bf8c8d41c473536d3f727be6d)"
    ]
   },
   {
@@ -139,7 +177,7 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 15.3,
+   "seconds": 15,
    "passed": 8,
    "total": 8,
    "skipped": 0,
@@ -159,7 +197,7 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 35.6,
+   "seconds": 33.7,
    "passed": 12,
    "total": 12,
    "skipped": 0,
@@ -179,7 +217,7 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 35.3,
+   "seconds": 38.5,
    "passed": 12,
    "total": 12,
    "skipped": 0,
@@ -199,7 +237,7 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 37.1,
+   "seconds": 40.7,
    "passed": 12,
    "total": 12,
    "skipped": 0,
@@ -219,7 +257,7 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 37.5,
+   "seconds": 38.9,
    "passed": 12,
    "total": 12,
    "skipped": 0,
@@ -239,18 +277,18 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 208.9,
+   "seconds": 209,
    "passed": 29,
    "total": 40,
    "skipped": 11,
    "failed": 0,
-   "tiles": 181,
+   "tiles": 179,
    "failLines": [],
    "ok": true,
    "tail": [
-    "      {\"tile requests in the shared session\":181,\"ignored tile noise\":{\"tile\":0,\"telemetry\":0}}",
+    "      {\"tile requests in the shared session\":179,\"ignored tile noise\":{\"tile\":0,\"telemetry\":0}}",
     "journeys-desktop: 29/40 passed, 11 skipped",
-    "mapbox requests used this run: 181 of 300 (blocked by cap: 0)"
+    "mapbox requests used this run: 179 of 300 (blocked by cap: 0)"
    ]
   },
   {
@@ -259,18 +297,18 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 158,
+   "seconds": 158.8,
    "passed": 30,
    "total": 40,
    "skipped": 10,
    "failed": 0,
-   "tiles": 229,
+   "tiles": 223,
    "failLines": [],
    "ok": true,
    "tail": [
-    "      {\"tile requests in the shared session\":184,\"ignored tile noise\":{\"tile\":0,\"telemetry\":0}}",
+    "      {\"tile requests in the shared session\":180,\"ignored tile noise\":{\"tile\":0,\"telemetry\":0}}",
     "journeys-desktop: 30/40 passed, 10 skipped",
-    "mapbox requests used this run: 229 of 300 (blocked by cap: 0)"
+    "mapbox requests used this run: 223 of 300 (blocked by cap: 0)"
    ]
   },
   {
@@ -279,18 +317,18 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 184.4,
+   "seconds": 212.7,
    "passed": 40,
    "total": 40,
    "skipped": 0,
    "failed": 0,
-   "tiles": 224,
+   "tiles": 220,
    "failLines": [],
    "ok": true,
    "tail": [
-    "      {\"tile requests in the shared session\":181,\"ignored tile noise\":{\"tile\":2,\"telemetry\":0}}",
+    "      {\"tile requests in the shared session\":177,\"ignored tile noise\":{\"tile\":2,\"telemetry\":0}}",
     "journeys-desktop: 40/40 passed",
-    "mapbox requests used this run: 224 of 300 (blocked by cap: 0)"
+    "mapbox requests used this run: 220 of 300 (blocked by cap: 0)"
    ]
   },
   {
@@ -299,18 +337,18 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 149.8,
+   "seconds": 156.4,
    "passed": 12,
    "total": 12,
    "skipped": 0,
    "failed": 0,
-   "tiles": 214,
+   "tiles": 198,
    "failLines": [],
    "ok": true,
    "tail": [
     "      {\"phone camera\":{\"center\":[-77.2359,39.7918],\"zoom\":15.5},\"?ancestor= opens the Follow panel on the phone\":true,\"junk link tick 1\":true}",
     "deeplinks: 12/12 passed",
-    "mapbox requests used this run: 214 of 300 (blocked by cap: 0)"
+    "mapbox requests used this run: 198 of 300 (blocked by cap: 0)"
    ]
   },
   {
@@ -321,27 +359,27 @@
    "parts": [
     {
      "exit": 0,
-     "seconds": 223.7,
+     "seconds": 227.6,
      "passed": 6,
      "total": 6,
      "skipped": 0,
      "failed": 0,
-     "tiles": 89,
+     "tiles": 91,
      "tail": []
     },
     {
      "exit": 0,
-     "seconds": 101.4,
+     "seconds": 102.7,
      "passed": 6,
      "total": 6,
      "skipped": 0,
      "failed": 0,
-     "tiles": 47,
+     "tiles": 50,
      "tail": []
     },
     {
      "exit": 0,
-     "seconds": 47.8,
+     "seconds": 49.4,
      "passed": 4,
      "total": 4,
      "skipped": 0,
@@ -351,7 +389,7 @@
     },
     {
      "exit": 0,
-     "seconds": 119.7,
+     "seconds": 121.2,
      "passed": 3,
      "total": 3,
      "skipped": 0,
@@ -361,12 +399,12 @@
     }
    ],
    "exit": 0,
-   "seconds": 223.7,
+   "seconds": 227.6,
    "passed": 19,
    "total": 19,
    "skipped": 0,
    "failed": 0,
-   "tiles": 89,
+   "tiles": 91,
    "ok": true,
    "failLines": []
   },
@@ -378,17 +416,17 @@
    "parts": [
     {
      "exit": 0,
-     "seconds": 224.4,
+     "seconds": 233.9,
      "passed": 6,
      "total": 6,
      "skipped": 0,
      "failed": 0,
-     "tiles": 93,
+     "tiles": 94,
      "tail": []
     },
     {
      "exit": 0,
-     "seconds": 100.7,
+     "seconds": 108.6,
      "passed": 6,
      "total": 6,
      "skipped": 0,
@@ -398,7 +436,7 @@
     },
     {
      "exit": 0,
-     "seconds": 48.6,
+     "seconds": 60.7,
      "passed": 4,
      "total": 4,
      "skipped": 0,
@@ -408,7 +446,7 @@
     },
     {
      "exit": 0,
-     "seconds": 107.7,
+     "seconds": 116,
      "passed": 3,
      "total": 3,
      "skipped": 0,
@@ -418,12 +456,12 @@
     }
    ],
    "exit": 0,
-   "seconds": 224.4,
+   "seconds": 233.9,
    "passed": 19,
    "total": 19,
    "skipped": 0,
    "failed": 0,
-   "tiles": 93,
+   "tiles": 94,
    "ok": true,
    "failLines": []
   },
@@ -433,7 +471,7 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 290.9,
+   "seconds": 303.7,
    "passed": 15,
    "total": 16,
    "skipped": 1,
@@ -453,7 +491,7 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 291.3,
+   "seconds": 298.1,
    "passed": 15,
    "total": 16,
    "skipped": 1,
@@ -473,7 +511,7 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 22,
+   "seconds": 22.7,
    "passed": 1,
    "total": 1,
    "skipped": 0,
@@ -493,7 +531,7 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 40.4,
+   "seconds": 43,
    "passed": 3,
    "total": 3,
    "skipped": 0,
@@ -513,7 +551,7 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 308.1,
+   "seconds": 313.8,
    "passed": 27,
    "total": 27,
    "skipped": 0,
@@ -533,7 +571,7 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 307.3,
+   "seconds": 323.4,
    "passed": 27,
    "total": 27,
    "skipped": 0,
@@ -553,7 +591,7 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 2.7,
+   "seconds": 4.6,
    "passed": 1,
    "total": 1,
    "skipped": 0,
@@ -573,7 +611,7 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 306.7,
+   "seconds": 332.6,
    "passed": 1,
    "total": 1,
    "skipped": 0,
@@ -593,18 +631,18 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 71.8,
+   "seconds": 112.7,
    "passed": 34,
    "total": 34,
    "skipped": 0,
    "failed": 0,
-   "tiles": 99,
+   "tiles": 90,
    "failLines": [],
    "ok": true,
    "tail": [
     "      {\"skipped\":\"pass --online to re-fetch\"}",
     "T0-PG (map pages, og/manifest): 34/34 passed",
-    "mapbox requests used this run: 99 of 300 (blocked by cap: 0)"
+    "mapbox requests used this run: 90 of 300 (blocked by cap: 0)"
    ]
   },
   {
@@ -613,18 +651,18 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 72.3,
+   "seconds": 72.4,
    "passed": 34,
    "total": 34,
    "skipped": 0,
    "failed": 0,
-   "tiles": 97,
+   "tiles": 102,
    "failLines": [],
    "ok": true,
    "tail": [
     "      {\"skipped\":\"pass --online to re-fetch\"}",
     "T0-PG (map pages, og/manifest): 34/34 passed",
-    "mapbox requests used this run: 97 of 300 (blocked by cap: 0)"
+    "mapbox requests used this run: 102 of 300 (blocked by cap: 0)"
    ]
   },
   {
@@ -633,7 +671,7 @@
    "kind": "green",
    "inverted": false,
    "exit": 0,
-   "seconds": 51.8,
+   "seconds": 52.9,
    "passed": 13,
    "total": 13,
    "skipped": 0,
@@ -648,12 +686,52 @@
    ]
   },
   {
+   "id": "baseline.drift",
+   "title": "live drift: T0-BL-01..09 (hide-bar block, monuments overlay removed, animationend reveal, hide-bar block superseded in R1b/R1c and kept in R0/R1a, every train keeps the live index.html and terrain.json)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 108,
+   "passed": 9,
+   "total": 9,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 0,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"baseline tree\":\"d2b126e99a88cbd9d708c0db237d2fd1dfbe7a3bf8c8d41c473536d3f727be6d\",\"live deploy id at capture\":\"6abd6d6248919c2f4d7b7c02\"}",
+    "baseline-drift: 9/9 passed",
+    "mapbox requests used this run: 0 of 300"
+   ]
+  },
+  {
+   "id": "baseline.live",
+   "title": "verify-live: production still equals baseline/dist (network, read-only, about 150 requests)",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 9.8,
+   "passed": null,
+   "total": null,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "verify-live: baseline/dist (tree d2b126e99a88cbd9) vs https://gettysburginteractivemap.com ...",
+    "  (1 config file(s) are not served and cannot be compared by bytes: netlify.toml)",
+    "IDENTICAL: live == baseline/dist (119 files checked, 27 pages in both URL forms, 148 requests; live deploy 6abd6d6248919c2f4d7b7c02). Safe to deploy a release built on this baseline."
+   ]
+  },
+  {
    "id": "red.r0",
    "title": "legacy/dist: X1 (one Document, controller, one sku) is RED",
    "kind": "red",
    "inverted": false,
    "exit": 0,
-   "seconds": 3.6,
+   "seconds": 3.3,
    "passed": 0,
    "total": 3,
    "skipped": 0,
@@ -677,7 +755,7 @@
    "kind": "red",
    "inverted": false,
    "exit": 0,
-   "seconds": 43.5,
+   "seconds": 43.3,
    "passed": 0,
    "total": 5,
    "skipped": 0,
@@ -703,7 +781,7 @@
    "kind": "red",
    "inverted": false,
    "exit": 0,
-   "seconds": 39.6,
+   "seconds": 39.5,
    "passed": 0,
    "total": 3,
    "skipped": 0,
@@ -727,7 +805,7 @@
    "kind": "red",
    "inverted": false,
    "exit": 0,
-   "seconds": 74.2,
+   "seconds": 74.6,
    "passed": 0,
    "total": 4,
    "skipped": 0,
@@ -752,7 +830,7 @@
    "kind": "red",
    "inverted": true,
    "exit": 0,
-   "seconds": 15.1,
+   "seconds": 15.3,
    "passed": 2,
    "total": 2,
    "skipped": 0,
@@ -792,7 +870,7 @@
    "kind": "red",
    "inverted": false,
    "exit": 0,
-   "seconds": 302.3,
+   "seconds": 309.1,
    "passed": 0,
    "total": 26,
    "skipped": 0,
@@ -821,7 +899,7 @@
    "kind": "red",
    "inverted": false,
    "exit": 0,
-   "seconds": 46.8,
+   "seconds": 47.2,
    "passed": 0,
    "total": 14,
    "skipped": 0,

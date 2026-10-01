@@ -21,7 +21,7 @@ python tests/t0/build_selftest.py                                          # 10 
 node   tests/t0/lib_selftest.mjs                                            # the browser harness proves itself (npm run t0:test:lib)
 node   tests/t0/r0.mjs                                                     # R0 acceptance in real Chrome (npm run t0:test:r0)
 node   tools/t0/verify_release.mjs                                         # independent check of the four built trains: manifest, static crawl, names, identity, cumulative (npm run t0:verify)
-node   tools/t0/run_suites.mjs                                             # EVERY suite + red-first proofs against legacy/dist, one summary JSON (npm run t0:test:all; 45-60 min)
+node   tools/t0/run_suites.mjs                                             # EVERY suite + red-first proofs against legacy/dist, one summary JSON (npm run t0:test:all; about 65 min)
 ```
 npm: `t0:build`, `t0:build:all`, `t0:gate`, `t0:overlap`, `t0:ledger:seed`, `t0:verify`, `t0:test:build`, `t0:test:lib`, `t0:test:r0`, `t0:test` (those three), `t0:test:all` (the runner), `serve`.
 The per-suite commands (journeys, deeplinks, mobile, a11y, copy, pages-core, pages-maps, headers) are in `tests/README.md`; `run_suites.mjs --list` prints the suite table with the exact arguments.
