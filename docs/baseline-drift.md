@@ -20,6 +20,8 @@ python tools/t0/baseline.py lock          # tools/t0/baseline.lock.json
 python tools/t0/baseline.py verify-live   # (any time) live vs baseline/dist: IDENTICAL or DRIFTED with a per-file diff
 ```
 
+(`mirror` refuses to overwrite an existing mirror folder without `--force`, and `reconstruct` refuses to replace the locked `baseline/dist` without `--replace`, so the evidence cannot be lost by accident.)
+
 * **Mirror** (`baseline/live-2026-09-30/`): every path of the `legacy/dist` file list, both URL forms of every page (`/x.html` and `/x`, `/index.html` and `/`), everything the served pages, scripts, manifest, sitemap and `robots.txt` reference that the tree does not contain (crawl; only a dead string `/data/oob/` turned up, answering 404), and one unknown path for the 404 page. Each request is `curl --http1.1` with `Accept-Encoding: identity`, `Cache-Control: no-cache` and a `?t0cb=<ms>` query (Netlify ignores the query for static files; a request with and without it returned identical bytes). **147 requests: 144 answered 200 and three answered 404** (`/netlify.toml`, the forced-404 spelling `/diagnostics.html`, the probe). Raw bodies and headers are under `baseline/live-2026-09-30/raw/` (git-ignored: they carry Netlify's signed RUM token); `SHA256.tsv` (committed) lists the hash of every response; `headers.key.json` (committed) snapshots the non-volatile response headers of 17 key URLs; `MIRROR.json`, `RECONSTRUCTION.json` and `PROOF.json` are the machine-readable results.
 * **No new hashed asset exists.** The live `index.html` still loads `/assets/index-Cg8FAMXN.js`; the bundle, both chunks, the orphan worker and the stylesheet are byte-identical to `legacy/dist` (sha256 pins in `tools/t0/trains.json`). The used-names ledger is unaffected.
 * **Reconstruction:** non-HTML files are taken as served (`data/terrain.json` differs from `legacy/dist`, the other 90 are identical); HTML files have Netlify's post-processing undone (section 2). `index.html` is the only page whose source differs. `netlify.toml` is kept from `legacy/dist`: Netlify does not serve it, so a byte comparison is impossible (section 9).
@@ -48,7 +50,7 @@ The model is code (`tools/t0/t0build/netlify.py`, JS mirror `forwardModel` in `o
 
 ### 3.1 `index.html`: three changes (line numbers are in the live source)
 
-The diff was taken at source level (post-processing undone; line endings normalised) and read in full. The earlier audit counted "9 regions" after a coarser canonical comparison; the source-level diff has **three logical changes** (four unified-diff hunks), and **nothing in the JSON-LD, the `<style>` block or any other script changed**.
+The diff was taken at source level (post-processing undone; line endings normalised) and read in full. The release verifier's canonical-event diff (`tmp/verify-release/live-drift.py`) reports "9 differing regions" for `legacy/dist/index.html` against live (re-run on 2026-09-30: 9); several of those are text nodes (the JSON-LD block, the `<style>` block, scripts) that differ only because every line ending changed from LF to CRLF. The source-level diff with line endings normalised has **three logical changes** (four unified-diff hunks), and **nothing in the JSON-LD, the `<style>` block or any other script changed**. Cross-check: the same verifier script run on `baseline/dist/index.html` against the served page reports **0 differing regions**.
 
 | # | live lines | change | what it does |
 |---|---|---|---|

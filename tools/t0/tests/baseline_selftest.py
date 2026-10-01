@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.join(REPO, 'tools', 't0'))
 from t0build import baseline as B   # noqa: E402
 from t0build import netlify          # noqa: E402
 from t0build import patches          # noqa: E402
-from t0build.util import CRLF, LF, copy_tree, eol_adapt, is_pure_crlf, load_json, read_bytes, tree_digest, walk_files, write_bytes   # noqa: E402
+from t0build.util import copy_tree, eol_adapt, is_pure_crlf, load_json, read_bytes, tree_digest, write_bytes   # noqa: E402
 
 BUILD = os.path.join(REPO, 'tools', 't0', 'build.py')
 CLI = os.path.join(REPO, 'tools', 't0', 'baseline.py')

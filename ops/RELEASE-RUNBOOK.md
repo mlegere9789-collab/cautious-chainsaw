@@ -399,7 +399,7 @@ It means production serves something the baseline does not contain: somebody dep
 3. **Re-mirror and reconstruct:**
    ```
    python tools/t0/baseline.py mirror          # into baseline/live-<date>/ (pass --out; the old mirror stays as evidence)
-   python tools/t0/baseline.py reconstruct --out baseline/live-<date>
+   python tools/t0/baseline.py reconstruct --out baseline/live-<date> --replace
    python tools/t0/baseline.py prove --out baseline/live-<date>          # must say PROOF HOLDS
    python tools/t0/baseline.py compare-legacy  # every difference from the downloaded deploy, now including the new ones
    ```

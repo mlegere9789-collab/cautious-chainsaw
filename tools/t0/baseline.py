@@ -13,13 +13,12 @@ Exit codes: 0 ok / IDENTICAL, 1 DRIFTED or a failed proof, 2 could not run (netw
 See tools/t0/README.md ("The baseline") and docs/baseline-drift.md.
 """
 import argparse
-import json
 import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from t0build import baseline as B   # noqa: E402
-from t0build.util import BuildError, REPO, dump_json, load_json, read_bytes, walk_files, write_bytes   # noqa: E402
+from t0build.util import BuildError, REPO, dump_json, load_json   # noqa: E402
 
 DEFAULT_MIRROR = 'baseline/live-2026-09-30'
 
@@ -55,6 +54,8 @@ def print_findings(findings, out=print):
 
 def cmd_mirror(a, P):
     out = os.path.join(REPO, a.out) if a.out else P['mirror']
+    if os.path.isfile(os.path.join(out, 'SHA256.tsv')) and not a.force:
+        raise BuildError('%s already holds a mirror (committed evidence); pass --out baseline/live-<date> for a new one, or --force to replace it' % B.rel_to_repo(out))
     seeds = [P['legacy']] + ([P['dist']] if os.path.isdir(P['dist']) else [])
     B.mirror(out, a.origin or P['origin'], seeds, concurrency=a.concurrency)
     return 0
@@ -62,6 +63,8 @@ def cmd_mirror(a, P):
 
 def cmd_reconstruct(a, P):
     out = os.path.join(REPO, a.out) if a.out else P['mirror']
+    if os.path.isdir(P['dist']) and not B.check_lock(P['dist'], P['lock']) and not a.replace:
+        raise BuildError('%s is the LOCKED baseline; reconstruct would replace it. Pass --replace (the "live drifted" procedure, runbook section 15), then run lock' % B.rel_to_repo(P['dist']))
     seeds = [P['legacy']]
     rep = B.reconstruct(out, seeds, P['dist'])
     dump_json(os.path.join(out, 'RECONSTRUCTION.json'), rep)
@@ -177,6 +180,8 @@ def main(argv=None):
         p.add_argument('--origin', help='site origin (default %s)' % B.DEFAULT_ORIGIN)
         p.add_argument('--concurrency', type=int, default=4)
         p.add_argument('--no-headers', action='store_true', help='verify-live: skip the header snapshot comparison')
+        p.add_argument('--force', action='store_true', help='mirror: replace an existing mirror folder')
+        p.add_argument('--replace', action='store_true', help='reconstruct: replace the locked baseline/dist (then run lock)')
         p.add_argument('--verbose', action='store_true')
         p.add_argument('--limit', type=int, default=60, help='compare-legacy: diff lines per file')
     a = ap.parse_args(argv)

@@ -16,19 +16,17 @@ and tmp/.
 """
 import concurrent.futures as cf
 import difflib
-import hashlib
 import json
 import os
 import re
 import shutil
 import subprocess
-import sys
 import tempfile
 import time
 import urllib.parse
 
 from . import netlify
-from .util import BuildError, REPO, T0, dump_json, load_json, read_bytes, sha256_bytes, tree_digest, walk_files, write_bytes
+from .util import BuildError, REPO, T0, load_json, read_bytes, sha256_bytes, tree_digest, walk_files, write_bytes
 
 DEFAULT_ORIGIN = 'https://gettysburginteractivemap.com'
 UA = 'gbg-t0-baseline/1 (read-only release verification; curl)'
@@ -500,7 +498,10 @@ def mirror(out, origin=DEFAULT_ORIGIN, seeds=(), concurrency=4, cap=300, say=pri
 
 def load_raw(out):
     """The mirror on disk as {urlpath: Resp} (status and headers from raw/headers.json; bodies from raw/)."""
-    meta = load_json(os.path.join(out, 'raw', 'headers.json'))
+    hp = os.path.join(out, 'raw', 'headers.json')
+    if not os.path.isfile(hp):
+        raise BuildError('no mirror in %s: raw/ is git-ignored (it carries the RUM token); run "python tools/t0/baseline.py mirror" first' % rel_to_repo(out))
+    meta = load_json(hp)
     resp = {}
     for up, m in meta.items():
         body = b''
@@ -608,6 +609,14 @@ def prove(out, tree_dir, say=print):
 
 
 # ------------------------------------------------------------------------------------------------------------------ verify-live
+def _norm_header(name, value):
+    """Netlify answers an edge-cache MISS with `Strict-Transport-Security: max-age=31536000` and a cached copy of the same file with
+    `max-age=31536000; includeSubDomains; preload` (observed on /robots.txt, 2026-09-30), so only the max-age directive is compared."""
+    if value is not None and name == 'strict-transport-security':
+        return value.split(';')[0].strip().lower()
+    return value
+
+
 def verify_live(tree_dir, origin=DEFAULT_ORIGIN, concurrency=4, headers_ref=None, say=print, discover_new=True):
     """The pre-deploy check.  Returns (state, report): state is 'IDENTICAL', 'DRIFTED' or 'ERROR'."""
     tree = read_tree(tree_dir)
@@ -621,10 +630,17 @@ def verify_live(tree_dir, origin=DEFAULT_ORIGIN, concurrency=4, headers_ref=None
             reqs.append(pretty_of(p))
     probe = '/t0-verify-probe-%d' % int(time.time())
     reqs.append(probe)
+    first = fetcher.get('/')              # preflight: an unreachable origin fails fast instead of after 150 timeouts
+    if first.error:
+        return 'ERROR', {'error': 'cannot reach %s (%s); this is not a drift result' % (origin, first.error)}
     resp = fetch_many(fetcher, reqs, concurrency)
     errs = [u for u, r in resp.items() if r.error]
-    if errs and len(errs) > len(resp) // 2:
-        return 'ERROR', {'error': 'could not reach %s (%s ...)' % (origin, resp[errs[0]].error)}
+    if errs:                              # a network hiccup must never read as drift: retry once, then report ERROR (exit 2)
+        for u in errs:
+            resp[u] = fetcher.get(u)
+        errs = [u for u, r in resp.items() if r.error]
+    if errs:
+        return 'ERROR', {'error': 'could not fetch %d of %d URL(s) from %s (first: %s %s); this is not a drift result' % (len(errs), len(resp), origin, errs[0], resp[errs[0]].error)}
     rum = find_rum(resp)
     new_on_live = {}
     if discover_new:
@@ -659,7 +675,7 @@ def verify_live(tree_dir, origin=DEFAULT_ORIGIN, concurrency=4, headers_ref=None
                     continue
                 if k in VOLATILE_HEADERS or k.startswith('x-nf'):
                     continue
-                if want.get(k) != got.get(k):
+                if _norm_header(k, want.get(k)) != _norm_header(k, got.get(k)):
                     hdr_findings.append('%s: header %s is %r (snapshot %r)' % (u, k, got.get(k), want.get(k)))
     drifted = [f for f in findings if f['state'] in ('drift', 'missing', 'unexpected', 'new')]
     deploy = netlify.deploy_id(rum) if rum else None

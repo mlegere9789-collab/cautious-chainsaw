@@ -104,6 +104,7 @@ python tools/t0/baseline.py mirror          # fetch production (curl, identity e
 python tools/t0/baseline.py reconstruct     # raw -> baseline/dist (non-html as served; html with post-processing undone against legacy/dist as reference)
 python tools/t0/baseline.py prove           # model(baseline/dist) == every served response, byte for byte
 python tools/t0/baseline.py lock            # write the lock
+# mirror refuses an existing mirror folder without --force; reconstruct refuses to replace the locked baseline/dist without --replace
 python tools/t0/baseline.py compare-legacy  # every difference between legacy/dist and baseline/dist (source-level diff)
 ```
 `verify-live` compares non-HTML files byte for byte and HTML pages through the model, expects `/diagnostics.html` to answer 404 (forced redirect in `netlify.toml`) and the config files not to be served, finds files that live serves and references but the baseline lacks, and reports header drift against the snapshot. Procedure when it says DRIFTED: `ops/RELEASE-RUNBOOK.md` section 15.

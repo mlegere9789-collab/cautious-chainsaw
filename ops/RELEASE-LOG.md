@@ -16,14 +16,14 @@ How to fill a row (details: `ops/RELEASE-RUNBOOK.md` section 9):
 | Git SHA | `git rev-parse --short HEAD` at build time |
 | Method | `cli` or `drag-drop` |
 | Netlify deploy ID | from the Deploys list: click the deploy, the last part of its address, or the CLI output |
-| Rollback target | the Netlify deploy ID that was live BEFORE this change (what "Publish deploy" would restore) |
+| Rollback target | the Netlify deploy ID that was live BEFORE this change (what "Publish deploy" would restore). Before R0 that is **`6abd6d62...`** (the deploy production serves since the drift found on 2026-09-30, `docs/baseline-drift.md`), not the downloaded `6aa16d61` |
 | Soak (h) | hours the same tree sat on gbg-staging first |
-| Notes | credits used, probe verdict, anything odd |
+| Notes | credits used, probe verdict, the last line of `python tools/t0/baseline.py verify-live` run right before the deploy (`IDENTICAL ... live deploy <id>`), anything odd |
 
 A row whose rid is not exactly 8 lowercase hex characters (like the empty example below) is ignored by the probe.
 
 | # | Date (ET) | Action | Train | rid | Git SHA | Method | Netlify deploy ID | Rollback target | Soak (h) | Notes |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 0 | (example) | deploy | R0 | xxxxxxxx | abc1234 | cli | (id) | 6aa16d61... (legacy, 2026-09-09) | 48 | not a real row: replace this line with row 1 |
+| 0 | (example) | deploy | R0 | xxxxxxxx | abc1234 | cli | (id) | 6abd6d62... (live on 2026-09-30) | 48 | not a real row: replace this line with row 1 |
 
 <!-- Real rows go below the example row. Keep the first columns exactly as above. -->
