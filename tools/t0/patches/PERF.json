@@ -1,0 +1,39 @@
+{
+ "group": "PERF",
+ "description": "first-paint performance of index.html (R1a+): the two stylesheets stop blocking the first paint",
+ "patches": [
+  {
+   "id": "PERF-css-app-nonblocking",
+   "target": "index.html",
+   "regex": true,
+   "find": "(  <link rel=\"stylesheet\" href=\"/assets/index-[0-9a-f]{8}\\.css\" crossorigin) />",
+   "repl": "\\g<1> media=\"print\" data-gt-defer />",
+   "expect": 1,
+   "note": "the app stylesheet (Mapbox GL rules, app classes) is not needed for the first paint: media=print makes it non-blocking, the loader switches it on before the app is imported"
+  },
+  {
+   "id": "PERF-css-nav-nonblocking",
+   "target": "index.html",
+   "find": "  <link rel=\"stylesheet\" href=\"/site-nav.css\">\n",
+   "repl": "  <link rel=\"stylesheet\" href=\"/site-nav.css\" media=\"print\" data-gt-defer>\n",
+   "expect": 1,
+   "note": "site-nav.css only styles the hidden Extra Features overlay on this page; PGC-v-css-index (PG-core) still versions the href"
+  },
+  {
+   "id": "PERF-loader-applies-css",
+   "target": "index.html",
+   "find": "    function start() { if (started) return; started = true; setTimeout(function () { import(ENTRY).catch(fail); }, 0); }",
+   "repl": "    // The two stylesheets are linked with media=\"print\" (not render-blocking: the splash and the SEO text are styled by the inline <style>) and\n    // switched on here once each has loaded, before the app is imported, so the map controls are styled when React mounts.  A stylesheet that fails\n    // or takes longer than 3 s never holds the app back.  `gt-css` on <html> says \"the deferred stylesheets are applied (or given up on)\": until then the\n    // Extra Features overlay stays hidden (see the inline rule), so it can never be revealed unstyled.\n    function css(done) {\n      var ls = document.querySelectorAll('link[data-gt-defer]'), left = ls.length, over = false;\n      function fin() { if (!over) { over = true; done(); } }\n      function one() { if (--left <= 0) fin(); }\n      if (!left) return fin();\n      setTimeout(fin, 3000);\n      for (var i = 0; i < ls.length; i++) (function (l) {\n        function ok() { l.media = 'all'; one(); }\n        if (l.sheet) ok(); else { l.addEventListener('load', ok); l.addEventListener('error', one); }\n      })(ls[i]);\n    }\n    function start() { if (started) return; started = true; css(function () { document.documentElement.classList.add('gt-css'); setTimeout(function () { import(ENTRY).catch(fail); }, 0); }); }",
+   "expect": 1,
+   "note": "loader: apply the deferred stylesheets (load event, 3 s cap, error tolerant), then import the entry"
+  },
+  {
+   "id": "PERF-critical-css-inline",
+   "target": "index.html",
+   "find": "    button { font-family: inherit; }\n",
+   "repl": "    button { font-family: inherit; }\n    /* First-paint rules that live in the app stylesheet (the AX shim) but style the static shell.  The app stylesheet is applied after the first paint\n       (media=\"print\", switched on by the loader), so the skip links, the screen-reader heading and the splash caption must not wait for it.\n       Kept equal to the rules in the app stylesheet by tests/t0/perf-fixes.spec.mjs (PF-04). */\n    .gt-sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}\n    .gt-skip{position:fixed;left:8px;top:-120px;z-index:1000001;padding:10px 16px;background:#0a0a14;color:#f4f0e4;border:2px solid #fff;border-radius:6px;font:600 14px/1.2 system-ui,sans-serif;text-decoration:none}\n    .gt-skip:focus{top:8px}\n    #boot-splash .boot-caption{color:#9a9aab!important}\n    @media (pointer:coarse){#root a[href]{min-width:44px;min-height:44px}}\n    html:not(.gt-css) #extra-features{visibility:hidden!important}\n",
+   "expect": 1,
+   "note": "AX rules that style static shell elements move into the inline <style>: skip links, screen-reader h1, splash caption, 44 px SEO links on touch screens; plus the gate that keeps the Extra Features overlay hidden until the deferred stylesheets are applied. Dead CSS on R1a, where AX is not built"
+  }
+ ]
+}

@@ -28,8 +28,8 @@
     "what": "the build baseline since 2026-09-30: what production serves, reconstructed at source level (baseline/dist); legacy/dist stays the immutable downloaded deploy 6aa16d61"
   },
   "train_order": ["R0", "R1a", "R1b", "R1c"],
-  "group_order": ["R0", "A", "B", "DL", "C", "AX", "CP", "SHELL"],
-  "runbook_order": ["R0", "A", "C", "AX", "B", "DL", "CP", "SHELL"],
+  "group_order": ["R0", "A", "B", "DL", "C", "AX", "CP", "SHELL", "PERF"],
+  "runbook_order": ["R0", "A", "C", "AX", "B", "DL", "CP", "SHELL", "PERF"],
   "optional_groups": [],
   "pg_default_first": "R1a",
   "groups": {
@@ -40,7 +40,8 @@
     "C":  {"first": "R1b", "what": "mobile shell (bundle patches + index.html rows; the counts are in release/<train>/anchors.json and tools/t0/README.md); must precede AX"},
     "AX": {"first": "R1b", "what": "a11y bridge (bundle patches + page rows); must follow C (G-close-mobile expects 3 hits)"},
     "CP": {"first": "R1c", "what": "truthful-copy subset (bundle rows + Help-chunk rows); must follow C"},
-    "SHELL": {"first": "R1b", "what": "index.html shell: Extra Features overlay (menu fit, scroll and keyboard; hidden behind modals; placement that avoids panels and cards; Phone view, the way back from the desktop layout) and the phone onboarding overlay (the dock stays reachable); page-phase patches on index.html only, applied after CP so they anchor on the final text"}
+    "SHELL": {"first": "R1b", "what": "index.html shell: Extra Features overlay (menu fit, scroll and keyboard; hidden behind modals; placement that avoids panels and cards; Phone view, the way back from the desktop layout) and the phone onboarding overlay (the dock stays reachable); page-phase patches on index.html only, applied after CP so they anchor on the final text"},
+    "PERF": {"first": "R1a", "what": "first-paint performance of index.html: both stylesheets stop blocking the first paint (media=print, switched on by the loader before the app is imported) with the AX first-paint rules inlined; page-phase patches on index.html only, applied after SHELL (anchors: the stylesheet links, the loader start(), the first <style> line)"}
   },
   "trains": {
     "R0":  {"page_groups": false, "overlay": ["R0"], "config": false, "what": "mechanism: hashed names, boot loader, no-reload SW, kill switch, version.json, intro deletion"},

@@ -30,7 +30,7 @@ const srv = await createStaticServer({ root: DIST, port: PORT_BASE });
 const ORIGIN = srv.url;
 const resetServer = () => { srv.setRoot(DIST); srv.setOverrides({}); srv.setBlocked([]); };
 const sessions = [];
-const PORT_OF = { 'r0-first': 1, 'r0-upgrade': 2, 'r0-kill': 3, 'r0-loader': 4, 'r0-phone': 5 };   // one CDP port per profile (sessions may overlap)
+const PORT_OF = { 'r0-first': 1, 'r0-upgrade': 2, 'r0-kill': 3, 'r0-loader': 4, 'r0-phone': 5, 'r0-cls': 6 };   // one CDP port per profile (sessions may overlap)
 const open = async (opts) => { const s = await openSession({ cdpPort: PORT_BASE + PORT_OF[opts.profile], ...opts }); sessions.push(s); return s; };
 const closeSession = async (s) => { await s.close(); sessions.splice(sessions.indexOf(s), 1); };
 
@@ -309,6 +309,24 @@ suite.test('T0-R0-07', 'loader: entry 404 -> one automatic reload, then a visibl
     await waitForApp(S.page, 40000);
     assert((await rootKids(S.page)) > 0, 'app did not boot after Try again');
   } finally { resetServer(); await closeSession(S); }
+});
+
+// ------------------------------------------------------------------ layout stability of the first visit (X8: CLS <= 0.05, headroom)
+suite.test('T0-R0-13', 'first visit on a phone viewport: the "Choose Your Experience" banner is part of the screen\'s first frame (CLS ~ 0, was 0.0497 on R0/R1a)', async (t) => {
+  resetServer();
+  // not onboarded: the layout chooser (legacy, until R1b's auto-detect) is shown and index.html's script adds its banner under the heading
+  const S = await open({ profile: 'r0-cls', tiles: 'block', onboarded: false, viewport: VIEWPORTS.portrait[0], initScripts: [probe] });
+  try {
+    await S.page.goto(`${ORIGIN}/`, { waitUntil: 'load' });
+    await waitForApp(S.page, 40000);
+    await sleep(2500);                                    // the old poll injected the banner up to 200 ms after the screen's first paint, and the shift was recorded then
+    const m = await S.page.evaluate(() => ({ cls: window.__t0.cls, chooser: !!Array.from(document.querySelectorAll('body *')).find((e) => e.tagName !== 'SCRIPT' && e.tagName !== 'STYLE' && e.children.length === 0 && /choose your experience/i.test((e.textContent || '').trim())),
+      banner: !!document.getElementById('gtbg-onboarding-banner'), layout: document.documentElement.getAttribute('data-layout') }));
+    t.note('measurements', { ...m, cls: +m.cls.toFixed(4) });
+    if (!m.chooser) throw new Skip(`no layout chooser on this tree (data-layout=${m.layout}): the phone shell auto-detects the layout, nothing to shift`);
+    assert(m.banner, 'the chooser is on screen but the onboarding banner was not added');
+    assert(m.cls <= 0.001, `layout shift ${m.cls.toFixed(4)} on the chooser screen (the banner arrived after the first paint)`);
+  } finally { await closeSession(S); }
 });
 
 // ------------------------------------------------------------------ run

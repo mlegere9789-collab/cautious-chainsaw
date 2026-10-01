@@ -41,6 +41,30 @@ PRECONNECT_REMOVE = [
     '  <link rel="dns-prefetch" href="https://www.google.com" />\n',
 ]
 
+# The "20 more tools live behind Extra Features" banner is injected into the React-rendered "Choose Your Experience" screen by a 200 ms poll; a poll
+# that fires after the screen's first paint moves the centred column down by half the banner (the only remaining layout shift on R0/R1a: CLS 0.0497,
+# on or off by timing).  A MutationObserver (on body: #root is parsed after this script) runs in the microtask after React's commit, before that frame
+# is laid out, so the banner is part of the screen's first frame.  The poll stays as the fallback; the observer stops at the first injection or after
+# 8 s.  Only the polling lines are anchored: the banner text and the use href stay as they were for cp:banner and PGC-index-use-banner.
+BANNER_POLL_FIND = '''      var tries = 0;
+      var timer = setInterval(function () {
+        tryInject();
+'''
+BANNER_POLL_REPL = '''      if (window.MutationObserver) {
+        var mo = new MutationObserver(function (recs) {
+          for (var i = 0; i < recs.length; i++) for (var j = 0; j < recs[i].addedNodes.length; j++) {
+            var n = recs[i].addedNodes[j];
+            if (n.nodeType === 1 && /choose your experience/i.test(n.textContent || '')) { tryInject(); if (injected) mo.disconnect(); return; }
+          }
+        });
+        mo.observe(document.body, { childList: true, subtree: true });
+        setTimeout(function () { mo.disconnect(); }, 8000);
+      }
+      var tries = 0;
+      var timer = setInterval(function () {
+        tryInject();
+'''
+
 SITE_NAV_FADE = '''/* Pure-CSS page-load fade -- no JS dependency, so content is never stuck invisible if a
    script fails; the animation simply finishes on its own. */
 body { animation: gtbg-page-in 340ms ease both; }
@@ -109,6 +133,7 @@ def run(dist, texts, cfg, train, records):
               '  <meta name="theme-color" content="#0a0a14" />\n  <meta name="color-scheme" content="dark" />\n',
               'color-scheme meta added', records, T)
     h = _once(h, '      animation: boot-fade-in 0.4s ease both;\n', '', 'boot splash fade removed', records, T)
+    h = _once(h, BANNER_POLL_FIND, BANNER_POLL_REPL, 'onboarding banner added in the same frame as the chooser (CLS 0.0497 -> 0)', records, T)
     # service-worker block (deployed lines 255-277) -> idle registration + chunk-error guard
     nl = CRLF if is_pure_crlf(h) else LF
     start_marker = '  <script>\n    // Register the service worker'.replace(LF, nl)
