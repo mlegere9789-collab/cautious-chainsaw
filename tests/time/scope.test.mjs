@@ -73,6 +73,11 @@ describe('a tick -> clock formula, a typed clock and a typed date in any script-
     put('data/extra.json', '{"note":"at 3:00 PM July 3"}'); put('data/extra.js', 'const m = (tick - 1) * 5;'); put('node_modules/pkg/index.js', 'const m = (tick - 1) * 5;'); put('.hidden/x.js', 'const m = (tick - 1) * 5;');
     try { const w = worse(counts(tree)).filter((id) => ['TM-V9', 'TM-V16', 'TM-V17'].includes(id)); assert.deepEqual(w, []); } finally { for (const f of ['data/extra.json', 'data/extra.js', 'node_modules', '.hidden']) fs.rmSync(path.join(tree, f), { recursive: true, force: true }); }
   });
+  test('a clock in a comment is not printed: an HTML comment in a component page (.astro / .vue) and a JS comment in a nested module do not turn a rule red, a markup file is read as markup', () => {
+    put('pages/note.astro', '---\nconst a = 1;\n---\n<!-- Pickett steps off at 3:00 PM --><p>hello</p>\n'); put('src/note.vue', '<template><!-- at 4pm --><p>hello</p></template>\n'); put('js/note.mjs', '// at 3:00 PM the line broke\n/* 5 p.m. */\nexport const a = 1;\n');
+    try { assert.deepEqual(worse(counts(tree)).filter((id) => ['TM-V9', 'TM-V16', 'TM-V17'].includes(id)), []); } finally { for (const f of ['pages', 'src', 'js/note.mjs']) fs.rmSync(path.join(tree, f), { recursive: true, force: true }); }
+    put('pages/printed.astro', '---\nconst a = 1;\n---\n<p>Pickett steps off at 3:00 PM</p>\n'); try { assert.ok(worse(counts(tree)).includes('TM-V9'), 'a typed clock in a component page is printed text'); } finally { fs.rmSync(path.join(tree, 'pages'), { recursive: true, force: true }); }
+  });
   test('the module\'s own exact inlined text is exempt wherever it sits, an edited copy is not', () => {
     const inl = moduleInline(); assert.ok(inl);
     put('js/gtbg-time.js', 'var GTBGT=' + inl + ';'); try { assert.deepEqual(worse(counts(tree)), [], 'the module itself must not turn a rule red'); } finally { fs.rmSync(path.join(tree, 'js', 'gtbg-time.js'), { force: true }); }

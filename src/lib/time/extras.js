@@ -21,7 +21,7 @@ const extrapOf = (o) => { const x = optsOf(o, 'options').extrapolate; if (x !== 
 export function extend(core, doc) {
   const { A, basis, clamp, dayLabelOf, isoOf, hm12, seg } = core._;
   const { tickMax, gaps, parts, tickToMinutes, minutesToTick, tabDay, isApprox, format, tickToLabel } = core;
-  const meta = (doc.anchors || []).map((a) => ({ label: a.label || '', circular: !!a.circular, facts: a.facts || [], range: a.range || null, eff: a.effective_status || a.status || 'M' }));
+  const meta = (doc.anchors || []).map((a) => ({ label: a.label == null ? '' : a.label, circular: a.circular === true, facts: a.facts == null ? [] : a.facts, range: a.range == null ? null : a.range, eff: a.effective_status == null ? (a.status == null ? 'M' : a.status) : a.effective_status }));
 
   const buildClock = (req) => {
     const t = clamp(req), p = parts(t, 0), b = basis(t), i = seg(t, 'tick'), mpt = (A[i + 1].min - A[i].min) / (A[i + 1].tick - A[i].tick);

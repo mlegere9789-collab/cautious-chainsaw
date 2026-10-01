@@ -219,12 +219,12 @@ function findTickTimes5(text, cx) {
     const op = shaped(left) ? left : shaped(right) ? right : null;
     if (op) { out.push(site(Math.min(op.start, c.start), Math.max(op.end, c.end), text)); continue; }
     if (!isFive) continue;
-    const single = [left, right].find((o) => o && (o.kind === 'ident' || o.kind === 'call') && !/^[\d.]+$/.test(o.text));
+    const single = [left, right].find((o) => o && (o.kind === 'ident' || o.kind === 'call'));   // (a number times a number is one chain, never an operand)
     if (single && clockContext(windowAround(text, c.start, c.end))) out.push(site(Math.min(single.start, c.start), Math.max(single.end, c.end), text));
   }
   return out;
 }
-/** tick5: the 5-minute step in ms (or s) next to a tick-shaped operand or in a clock statement, the 1-minute unit next to a tick, a step constant named for a tick */
+/** tick5: the 5-minute step in ms (or s) next to a tick-shaped operand or in a clock statement, the 1-minute unit next to a tick (a step constant NAMED for a tick is findTickConst's) */
 function findTickMs(text, cx) {
   const out = [];
   for (const c of cx.chains()) {
@@ -234,9 +234,6 @@ function findTickMs(text, cx) {
     if (before && before.ch === '/' && text[before.at - 1] !== '/') continue;     // x / 60000 * ...: a quotient, not this product
     const left = mulLeft(text, c), right = mulRight(text, c), op = tickShaped(left) ? left : tickShaped(right) ? right : null;
     if (op) { out.push(site(Math.min(op.start, c.start), Math.max(op.end, c.end), text)); continue; }
-    if (ms1 && !ms5 && !sec5) continue;
-    const from = Math.max(0, c.start - 80), assigned = /([A-Za-z_$][\w$]*)\s*[:=]\s*\(*\s*$/.exec(text.slice(from, c.start));
-    if (assigned && tickStepName(assigned[1]) && (ms5 || sec5)) { out.push(site(from + assigned.index, c.end, text)); continue; }
     if (ms5 && clockContext(windowAround(text, c.start, c.end))) out.push(site(c.start, c.end, text));
   }
   return out;
@@ -286,7 +283,7 @@ function findHourBase(text, cx) {
   const out = [], SEC = [14400, 18000, 21600], MS = SEC.map((x) => x * 1000), UNITS = [60, 3600, 1000, 60000, 3600000];
   for (const c of cx.chains()) {
     const baseHour = [4, 5, 6].find((h) => c.atoms.includes(h)), rest = baseHour === undefined ? [] : c.atoms.filter((a, i, all) => a !== baseHour || all.indexOf(a) !== i);
-    const product = c.atoms.length >= 2 && baseHour !== undefined && rest.length >= 1 && rest.every((a) => UNITS.includes(a)) && ([240, 300, 360].some((v) => near(c.value, v)) || [...SEC, ...MS].some((v) => near(c.value, v)));
+    const product = baseHour !== undefined && rest.length >= 1 && rest.every((a) => UNITS.includes(a)) && ([240, 300, 360].some((v) => near(c.value, v)) || [...SEC, ...MS].some((v) => near(c.value, v)));
     const big = [...SEC, ...MS].some((v) => near(c.value, v));
     if (!(product || big)) continue;
     const before = charBefore(text, c.start);

@@ -85,8 +85,13 @@ export function makeCore(doc) {
   for (const k of ['min_min_per_tick', 'error_over']) if (doc.slope && given(doc.slope[k]) && !(nonNeg(doc.slope[k]) && doc.slope[k] > 0)) throw new Error('slope.' + k + ' is not a finite number > 0: ' + String(doc.slope[k]));
   if (given(doc.tab_days) && !(Array.isArray(doc.tab_days) && doc.tab_days.length && doc.tab_days.every((r) => Array.isArray(r) && r.length === 2 && Number.isInteger(r[0]) && Number.isInteger(r[1])))) throw new Error('tab_days is not a list of [from, to] integer pairs');
   if (given(doc.gaps) && !(Array.isArray(doc.gaps) && doc.gaps.every((g) => g && typeof g === 'object' && Number.isInteger(g.from) && Number.isInteger(g.to)))) throw new Error('gaps is not a list of { from, to, policy } objects with integer ticks');
+  if (given(doc.solar) && (typeof doc.solar !== 'object' || Array.isArray(doc.solar))) throw new Error('solar is not an object of days');
+  for (const day of Object.keys(doc.solar || {})) if (/^1863-07-\d{2}$/.test(day)) for (const f of ['civil_dawn', 'sunrise', 'sunset', 'nautical_dusk']) if (!(doc.solar[day] && typeof doc.solar[day][f] === 'string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(doc.solar[day][f]))) throw new Error('solar ' + day + ' ' + f + ' is not an HH:MM time: ' + String(doc.solar[day] && doc.solar[day][f]));
   raw = raw.map((a, i) => {
     if (!a || !Number.isInteger(a.tick)) throw new Error('anchor tick must be an integer (index ' + i + ')');
+    if (given(a.range) && !(Array.isArray(a.range) && a.range.length === 2 && a.range.every((x) => typeof x === 'string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(x)))) throw new Error('anchor ' + i + ' (tick ' + a.tick + ') range is not two HH:MM times: ' + JSON.stringify(a.range));
+    if (given(a.label) && typeof a.label !== 'string') throw new Error('anchor ' + i + ' (tick ' + a.tick + ') label is not a string');
+    if (given(a.circular) && typeof a.circular !== 'boolean') throw new Error('anchor ' + i + ' (tick ' + a.tick + ') circular is not true or false: ' + String(a.circular));
     if (given(a.sigma_min) && !nonNeg(a.sigma_min)) throw new Error('anchor ' + i + ' (tick ' + a.tick + ') sigma_min is not a finite number >= 0: ' + String(a.sigma_min));
     for (const k of ['status', 'effective_status']) if (given(a[k]) && !known(CLASS, a[k])) throw new Error('anchor ' + i + ' (tick ' + a.tick + ') ' + k + ' is not S, M, R or D: ' + String(a[k]));
     if (given(a.state) && !known(STATES, a.state)) throw new Error('anchor ' + i + ' (tick ' + a.tick + ') has an unknown state: ' + String(a.state));

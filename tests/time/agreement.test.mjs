@@ -22,7 +22,7 @@ const same = (a, b) => (typeof a === 'number' && typeof b === 'number' ? Object.
 const setTop = (k, v) => { const d = clone(doc); if (v === undefined) delete d[k]; else d[k] = v; return d; };
 const setAnchor = (i, k, v) => { const d = clone(doc); if (v === undefined) delete d.anchors[i][k]; else d.anchors[i][k] = v; if (k === 'status' && typeof v === 'string' && CLASS_OF[v]) d.anchors[i].confidence = CLASS_OF[v]; return d; };
 const CLASS_OF = { S: 'A', M: 'B', R: 'C', D: 'D' };
-const VALID = { state: ['open', 'proposed', 'reviewed', 'confirmed', 'contested', 'deferred', 'withdrawn'], status: ['S', 'M', 'R', 'D'], effective_status: ['S', 'M', 'R', 'D'], review_flag: ['none', 'evidence-weak', 'owner-sign', 'owner-decision', 'needs-historian'], sigma_min: [1, 5, 7.5, 30] };
+const VALID = { label: ['', 'a label', 'Reynolds killed'], circular: [true, false], range: [['05:00', '05:30'], ['00:00', '23:59']], facts: [[], ['F1', 'F2']], state: ['open', 'proposed', 'reviewed', 'confirmed', 'contested', 'deferred', 'withdrawn'], status: ['S', 'M', 'R', 'D'], effective_status: ['S', 'M', 'R', 'D'], review_flag: ['none', 'evidence-weak', 'owner-sign', 'owner-decision', 'needs-historian'], sigma_min: [1, 5, 7.5, 30] };
 const build = (d) => { try { return { m: makeTimeModel(d) }; } catch (e) { return { err: e }; } };
 
 // what the model must show for a value that was written (given) or left out (default)
@@ -40,6 +40,10 @@ const PER_ANCHOR = {
   status: { default: 'M', expose: (m, i) => m.anchors[i].status },
   effective_status: { default: undefined, expose: (m, i) => m.anchors[i].effectiveStatus },
   review_flag: { default: 'none', expose: (m, i) => m.anchors[i].review },
+  label: { default: '', expose: (m, i) => m.anchors[i].label },
+  circular: { default: false, expose: (m, i) => m.anchors[i].circular },
+  range: { default: null, expose: (m, i) => m.anchors[i].range },
+  facts: { default: [], expose: (m, i) => m.anchors[i].facts },
 };
 
 describe('top-level configuration: a value the validator accepts is the value the model uses', () => {
@@ -95,8 +99,9 @@ describe('a present value of the wrong kind is refused by the model as well (not
     approx_sigma_min: ['10', -1, NaN, Infinity, -Infinity, {}, [], true, false],
     dv: [0, 1.5, '2', NaN, -1, {}, true], release: [0, 1, {}, [], true], version: [0, {}, [], true],
     slope: ['x', [], 5, true, { min_min_per_tick: 0 }, { min_min_per_tick: -1 }, { error_over: '60' }, { error_over: NaN }, { error_over: 0 }],
-    tab_days: [[], 'x', 5, [null], [[1]], [['1', 2]], [[1.5, 675]], {}], gaps: ['x', 5, {}, [null], [{ from: '1', to: 5 }], [{ from: 1.5, to: 5 }]],
+    tab_days: [[], 'x', 5, [null], [[1]], [[1, 2, 3]], [['1', 2]], [[1.5, 675]], {}], gaps: ['x', 5, {}, [null], [{ from: '1', to: 5 }], [{ from: 1.5, to: 5 }]],
     tick_max: [0, '675', 674, 676, NaN, {}],
+    solar: ['x', [], 5, true, { '1863-07-01': 'x' }, { '1863-07-01': { civil_dawn: '4:03' } }, { '1863-07-01': { civil_dawn: '04:03', sunrise: '04:35', sunset: '19:32' } }, { '1863-07-01': { civil_dawn: '04:03', sunrise: '04:35', sunset: '19:32', nautical_dusk: 2046 } }, { '1863-07-01': { civil_dawn: '04:03', sunrise: '04:35', nautical_dusk: '20:46' } }, { '1863-07-02': { civil_dawn: '04:03', sunrise: '04:35', sunset: '25:00', nautical_dusk: '20:46' } }],
   };
   for (const [field, bad] of Object.entries(REFUSED)) test(`${field}: ${bad.length} wrong values throw (an Error that names the field), the validator reports them too`, () => {
     for (const v of bad) {
@@ -106,11 +111,30 @@ describe('a present value of the wrong kind is refused by the model as well (not
     }
   });
   test('per-anchor: a wrong status / effective_status / state / review_flag / sigma_min throws in the model too', () => {
-    for (const [k, vals] of Object.entries({ status: ['X', 's', '', 5, {}], effective_status: ['X', 5, {}], state: ['Signed', 'x', '', 5], review_flag: ['x', 'None', 5, {}], sigma_min: ['x', -1, NaN, Infinity, {}] })) for (const v of vals) {
+    for (const [k, vals] of Object.entries({ status: ['X', 's', '', 5, {}], effective_status: ['X', 5, {}], state: ['Signed', 'x', '', 5], review_flag: ['x', 'None', 5, {}], sigma_min: ['x', -1, NaN, Infinity, {}], range: ['x', 5, [], ['10:00'], ['10:00', '11:00', '12:00'], ['10:00', 'abc'], ['25:00', '26:00'], [5, 6], {}], circular: ['false', 'true', 1, 0, {}, []], label: [5, 0, {}, []] })) for (const v of vals) {
       const d = setAnchor(3, k, v), r = validateAnchors(d);
       assert.equal(r.ok, false, `anchors[3].${k}=${label(v)} must be a validator error`);
       assert.throws(() => makeTimeModel(d), /anchor 3|tick/, `anchors[3].${k}=${label(v)}`);
     }
+  });
+});
+
+describe('null means "absent" for the optional fields, in the validator and the model alike', () => {
+  test('release, review_flag, label, circular, range: null is accepted by both and shows the default (the validator is not stricter than the model about an absent value)', () => {
+    for (const [d, show] of [[setTop('release', null), (m) => m.release], [setAnchor(3, 'review_flag', null), (m) => m.anchors[3].review], [setAnchor(3, 'label', null), (m) => m.anchors[3].label], [setAnchor(3, 'circular', null), (m) => m.anchors[3].circular], [setAnchor(3, 'range', null), (m) => m.anchors[3].range]]) {
+      const r = validateAnchors(d); assert.equal(r.ok, true, JSON.stringify(r.errors)); const b = build(d); assert.ok(b.m, b.err && b.err.message); assert.ok(show(b.m) === 'candidate' || show(b.m) === 'none' || show(b.m) === '' || show(b.m) === false || show(b.m) === null, String(show(b.m)));
+    }
+  });
+  test('the lean model reads null as absent for every optional configuration value (approx_sigma_min, dv, version, tick_max, slope, tab_days, gaps, solar, sigma_min, state ...)', () => {
+    const d = clone(doc); for (const k of ['approx_sigma_min', 'dv', 'version', 'release', 'tick_max', 'slope', 'tab_days', 'gaps', 'solar']) d[k] = null; for (const a of d.anchors) { a.sigma_min = null; a.state = null; a.status = null; a.review_flag = null; a.effective_status = null; a.range = null; a.label = null; a.circular = null; a.facts = null; }
+    const m = makeTimeModel(d); assert.deepEqual([m.approxSigmaMin, m.dv, m.version, m.release], [10, 2, '', 'candidate']); assert.deepEqual(m.tabDays, [[1, 675]]); assert.deepEqual(m.gaps, []); assert.equal(m.uncertaintyMin(7), 15); assert.equal(m.anchors[3].state, 'proposed'); assert.equal(m.anchors[3].status, 'M');
+  });
+});
+
+describe('the lean core (what the inline build ships) never throws on a style and falls back to the long form', () => {
+  test('format on makeCore: undefined, null, an unknown word, a number, a Symbol, an object with a throwing toString, a Proxy: all the long form', () => {
+    const core = makeCore(doc), hostile = [undefined, null, 'nonsense', '', 5, NaN, Symbol('s'), {}, [], { toString() { throw new Error('boom'); } }, new Proxy({}, { get() { throw new Error('boom'); } })];
+    for (const s of hostile) for (const t of [1, 100, 538, 675]) { let out; assert.doesNotThrow(() => { out = core.format(t, s); }, String(typeof s)); assert.equal(out, core.format(t, 'long'), `${typeof s} ${t}`); assert.equal(core.tickToLabel(t, { style: s }), core.tickToLabel(t, { style: 'long' })); }
   });
 });
 

@@ -95,6 +95,8 @@ function check(doc, opts) {
     if (a.review_flag !== undefined && a.review_flag !== null && !REVIEW_FLAGS.includes(a.review_flag)) E('V1.review-flag', 'tick ' + tk + ' review_flag must be one of ' + REVIEW_FLAGS.join(', ') + ', got ' + show(a.review_flag), tk);
     if (a.state === 'signed' && !a.decision) E('V18.signed', 'tick ' + tk + ' is signed without a decision id', tk);
     for (const k of ['families', 'flags', 'facts', 'sources']) if (a[k] !== undefined && !Array.isArray(a[k])) E('V1.type', 'tick ' + tk + ' ' + k + ' must be an array, got ' + show(a[k]), tk);
+    if (a.label !== undefined && a.label !== null && typeof a.label !== 'string') E('V1.type', 'tick ' + tk + ' label must be a string, got ' + show(a.label), tk);
+    if (a.circular !== undefined && a.circular !== null && typeof a.circular !== 'boolean') E('V1.type', 'tick ' + tk + ' circular must be true or false, got ' + show(a.circular), tk);
     if (a.fact_confidences !== undefined && !isObj(a.fact_confidences)) E('V1.type', 'tick ' + tk + ' fact_confidences must be an object, got ' + show(a.fact_confidences), tk);
     if (knownStatus) info.byStatus[a.status] = (info.byStatus[a.status] || 0) + 1;
     if (a.status === 'R' || a.review_flag === 'needs-historian') info.needsHistorian.push(tk);

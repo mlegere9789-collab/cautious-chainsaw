@@ -13,7 +13,7 @@ import test, { describe } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import { findMatches, monthSites, dateTables, typedClocks, constantChains, isTickName, hedgedBefore } from '../../tools/time/detectors.mjs';
+import { findMatches, monthSites, dateTables, typedClocks, constantChains, isTickName, hedgedBefore, DETECTORS } from '../../tools/time/detectors.mjs';
 import { ROOT } from '../../tools/time/lib.mjs';
 
 const hits = (code, bucket, kind) => findMatches(code, bucket ? [bucket] : undefined, kind ? { kind } : {}).filter((h) => !h.allowed);
@@ -274,7 +274,7 @@ describe('PRECISION: the same constants and shapes in unrelated code stay quiet'
   });
   test('typed clocks that are not clocks: comments, identifiers, words, CSS, numbers next to "am"/"pm" inside a word', () => {
     for (const code of ['// Pickett steps off at 3:00 PM\nconst a = 1;', '/* at 3pm */ const a = 1;', '/**\n * starts 5:00am each day\n */\nfunction f() {}', 'const x5pm = 1, v3am = 2;', 'const I = "I am 5 years old";', 'const s = "5 amps";', 'const s = "3 PMs";', 'const s = "12pmx";', 'a.am = 1; b.pm = 2;', 'const s = "campaign";', 'const s = "program 3";', 'const s = "a1pm";', 'const url = "https://x.test/3pm";'.replace('/3pm', '/x')]) assert.deepEqual(hits(code, 'clocktext').map((h) => h.text), [], `false positive: ${code}`);
-    for (const html of ['<!-- Pickett steps off at 3:00 PM --><p>hello</p>', '<style>.a::after { content: "3:00 PM"; }</style><p>x</p>', '<p>The battle began in July 1863.</p>', '<script>// at 3:00 PM\nconst a = 1;</script>', '<script>/* 3pm */ const a = 1;</script>', '<p class="x5pm">x</p>', '<div id="a3am"></div>']) assert.deepEqual(hits(html, 'clocktext', 'html').filter((h) => !/style/.test(html) || true).map((h) => h.text), /<style>/.test(html) ? hits(html, 'clocktext', 'html').map((h) => h.text) : [], `false positive: ${html}`);
+    for (const html of ['<!-- Pickett steps off at 3:00 PM --><p>hello</p>', '<style>.a::after { content: "3:00 PM"; }</style><p>x</p>', '<p>The battle began in July 1863.</p>', '<script>// at 3:00 PM\nconst a = 1;</script>', '<script>/* 3pm */ const a = 1;</script>', '<p class="x5pm">x</p>', '<div id="a3am"></div>']) { assert.deepEqual(hits(html, 'clocktext', 'html').map((h) => h.text), [], `false positive: ${html}`); assert.deepEqual(typedClocks(html).map((h) => h.text), [], `false positive without a kind (sniffed as markup): ${html}`); }
   });
   test('date words that are not dates: a month in prose, a month list, a label, a count, a comparison, a template without a constant, Date.now', () => {
     for (const code of ['<p>The battle of July 1863 lasted three days; Lee left in July.</p>', 'const M = ["January","February","March"];', 'label:"Line of March",color:"#aaa"', '`July ${day}`.length', 'new Date(U+1e3*X["max-age"]).getTime()', 'new Date(expires).getTime()', 'new Date().getFullYear()', 'const t = Date.now() - start;', 'width: ${a + 2}px', 'if (July > 5) { x = "July"; }', 'const cache = new Date(ttl).getTime() > Date.now();', 'const a = ["July 1863", "Gettysburg"];', 'const s = ["July", "August"][i];', 'const d = ["July 1, 1863 - Buford"];', 'const x = ["Mar 5", "Mar 6"].length;', 'const name = ["Market 1", "Market 2"][i];']) assert.deepEqual(hits(code, 'date').map((h) => h.id), [], `false positive: ${code}`);
@@ -306,6 +306,99 @@ describe('PRECISION: real-world JavaScript (node_modules) is quiet for the arith
     assert.deepEqual(bad, [], 'false positives on real code:\n' + bad.slice(0, 12).join('\n'));
     const real = Object.entries(tally).reduce((a, [, n]) => a + n, 0); assert.ok(real < 60, `the remaining hits are real date / 12-hour code in playwright (Date.UTC, Intl.DateTimeFormat, "pm"/"am" formatters); got ${real}: ${JSON.stringify(tally)}`);
     console.log(`# precision corpus: ${files.length} files, remaining hits ${JSON.stringify(tally)}`);
+  });
+});
+
+describe('TIMER vs CLOCK in one statement: every timer word vetoes the weak (clock-statement) evidence, and without it the same statement is flagged', () => {
+  // an independent list of the timer words (not imported: a word dropped from the detector must fail here)
+  const TIMER_WORDS = ['setTimeout', 'timeout', 'timeoutMs', 'ttl', 'cacheTtl', 'cache', 'maxTileCacheSize', 'expires', 'expiry', 'expiration', 'max-age', 'maxAge', 'delay', 'delayMs', 'debounce', 'debounced', 'throttle', 'throttled', 'retry', 'retries', 'backoff', 'poll', 'polling', 'pollInterval', 'heartbeat', 'idle', 'idleTime', 'stale', 'staleWhileRevalidate', 'lifetime', 'cooldown', 'sleep', 'wait', 'waitFor', 'animation', 'animate', 'keepalive', 'keepAlive', 'session', 'sessionLength', 'cookie', 'cookies', 'threshold', 'budget', 'deadline', 'duration', 'setInterval'];
+  test(`${TIMER_WORDS.length} timer words: "<word>(...)" beside hours / minutes / a Date and a 5-minute step is quiet; with a neutral word it is flagged`, () => {
+    for (const K of MS5.filter((_, i) => i % 11 === 0)) {
+      const shapes = (w) => [`const ${w} = n * ${K}, hours = 1;`, `const x = ${w}(n * ${K}, minutes);`, `const x = ${w} + n * ${K} / 60000, label = "minutes";`, `const o = { ${w}: new Date(base + n * ${K}).getHours() };`];
+      for (const w of TIMER_WORDS) for (const code of shapes(w)) assert.deepEqual(hits(code, 'tick5').map((h) => h.text), [], `false positive (${w}): ${code}`);
+      for (const neutral of ['total', 'span', 'width', 'label']) for (const code of shapes(neutral)) assert.ok(hits(code, 'tick5').length > 0, `missed (${neutral}): ${code}`);
+    }
+  });
+  test('the same words veto an hour base in a clock statement, and a statement without them keeps it', () => {
+    for (const w of TIMER_WORDS) assert.deepEqual(hits(`const ${w} = 18000, hours = 5;`, 'minutes').map((h) => h.text), [], w);
+    for (const neutral of ['total', 'span', 'width']) assert.ok(hits(`const ${neutral} = 18000, hours = 5;`, 'minutes').length > 0, neutral);
+  });
+});
+
+describe('boundaries found by mutation testing the detectors (each line kills at least one one-line mutant)', () => {
+  test('a frame offset is `- 1` or a tab boundary: (x - 226) * 5, (c - 451) * K are formulas; (a * -1) * 5, (x ? -1 : 1) * 5, (2 - 1) * 5, (10 - 1) * 5 are not', () => {
+    for (const code of ['const m = (x - 226) * 5;', 'const m = (x-451)*5;', 'const m = (t - 225) * 300_000;', 'const m = 5 * (t - 450);']) assert.ok(hits(code, 'tick5').length > 0, `missed: ${code}`);
+    for (const code of ['const m = (a * -1) * 5;', 'const m = (x ? -1 : 1) * 5;', 'const m = (2 - 1) * 5;', 'const m = (10 - 1) * 5;', 'const m = (a * -226) * 5;', 'const m = (-1) * 5;', 'const m = (x - 2) * 5;', 'const m = (x - 1.5) * 5;', 'const m = (x - 1000) * 5;']) assert.deepEqual(hits(code, 'tick5').map((h) => h.text), [], `false positive: ${code}`);
+  });
+  test('the values are matched exactly: a step of 6, 4 or 5.5, 299999 or 60001 is not the 5-minute step', () => {
+    for (const code of ['const m = (tick - 1) * 6;', 'const m = tick * 4;', 'const m = tick * 5.5;', 'const ms = (tick - 1) * 299999;', 'const ms = (tick - 1) * 300001;', 'const ms = tick * 60001;', 'const ms = tick * 59999;', 'const s = tick * 301;', 'const h = tick / 13;', 'const h = tick / 11;']) assert.deepEqual(hits(code, 'tick5').map((h) => h.text), [], `false positive: ${code}`);
+  });
+  test('bare 300 needs a tick NAME (a frame offset times 300 is too common: pages, pixels); the weak 5 needs a non-numeric operand; a numerator in a quotient is not a product', () => {
+    for (const code of ['const o = (page - 1) * 300;', 'const o = 300 * (i - 1);', 'const o = (n - 226) * 300;']) assert.deepEqual(hits(code, 'tick5').map((h) => h.text), [], `false positive: ${code}`);
+    for (const code of ['const o = tick * 300;', 'const o = 300 * currentTick;', 'const o = (tick - 1) * 300;']) assert.ok(hits(code, 'tick5').length > 0, `missed: ${code}`);
+    for (const code of ['const minutes = 2 * 5;', 'const hours = 5 * 3;', 'const hours = 5 * 12 * 2; show(hours);']) assert.deepEqual(hits(code, 'tick5').map((h) => h.text), [], `false positive: ${code}`);
+    for (const code of ['const hours = total / 5 * 60000;', 'const minutes = ms / 300 * 1000;', 'const hours = total / 60 * 5000;']) assert.deepEqual(hits(code, 'tick5').map((h) => h.text), [], `false positive: ${code}`);
+  });
+  test('a clock word in ANOTHER statement is not evidence (statements end at ; { } and line breaks)', () => {
+    for (const code of ['const hours = 3; const n2 = k * 5;', 'show(minutes);\nconst n2 = k * 5;', 'if (hours) { go(); } const n2 = k * 5;', 'const hours = 3; const t = new Date(); const v = q * 300000;']) assert.deepEqual(hits(code, 'tick5').map((h) => h.text), [], `false positive: ${code}`);
+    assert.ok(hits('const minutes = k * 5;', 'tick5').length > 0);
+  });
+  test('the visitor\'s own clock is not evidence either: performance.now(), Date.now() and a bare new Date() beside a step', () => {
+    for (const code of ['const t = new Date(performance.now() + n * 300000);', 'const t = new Date(Date.now() + n * 300000); hours.textContent = 1;', 'const t = new Date().getTime() + n * 300000; label = "minutes";', 'const until = performance.now() + n * 300000; hours = 2;']) assert.deepEqual(hits(code, 'tick5').map((h) => h.text), [], `false positive: ${code}`);
+    for (const code of ['const t = new Date(Date.UTC(1863, 6, 1) + n * 300000);', 'const t = new Date(base + n * 300000); hours.textContent = 1;']) assert.ok(hits(code, 'tick5').length > 0, `missed: ${code}`);
+  });
+  test('AM/PM literals count as a clock statement; a step beside a ternary of "pm" / "am" is a clock', () => {
+    for (const q of ['"', "'", '`']) assert.ok(hits(`const t = n * 300000, label = h >= 12 ? ${q}pm${q} : ${q}am${q};`, 'tick5').length > 0, q);
+    assert.ok(hits('const t = n * 300000, s = x.toLocaleTimeString();', 'tick5').length > 0); assert.ok(hits('const t = n * 300000, year = 1863;', 'tick5').length > 0);
+  });
+  test('hours per tick with a base hour: 4 + t / 12, 5 + Math.floor(t / 12), 6 + Math.trunc(n / 12) (single letters, no clock word); 7 + t / 12 is not a base', () => {
+    for (const code of ['h = 4 + t / 12;', 'h = 5 + Math.floor(t / 12);', 'h = 6 + Math.trunc(n / 12);', 'const h = 6 + (n - k) / 12;']) assert.ok(hits(code, 'tick5').length > 0 || hits(code, 'minutes').length > 0, `missed: ${code}`);
+    for (const code of ['h = 7 + t / 12;', 'h = 3 + Math.floor(t / 12);', 'h = 56 + t / 12;', 'h = x4 + t / 12;']) assert.deepEqual(hits(code, 'tick5').map((h) => h.text), [], `false positive: ${code}`);
+  });
+  test('a product with a tick operand is seconds per tick (tick5), not a base hour (minutes): (tick - 1) * 5 * 60 and tick * 5 * 3600 report once, in tick5', () => {
+    for (const code of ['const s = (tick - 1) * 5 * 60;', 'const s = tick * 60 * 5;', 'const s = (x - 1) * 5 * 60;']) { assert.deepEqual(hits(code, 'minutes').map((h) => h.text), [], `reported as a base hour too: ${code}`); assert.equal(hits(code, 'tick5').length, 1, code); }
+  });
+  test('named base constants: dayStartHour = 4, dawnMinutes = 300, startMinutes: 240; a base name with another value is not one', () => {
+    for (const code of ['const dayStartHour = 4;', 'const dawnMinutes = 300;', 'cfg = { startMinutes: 240 };', 'const openingHour = 6;', 'const baseHour = 5;']) assert.ok(hits(code, 'minutes').length > 0, `missed: ${code}`);
+    for (const code of ['const dayStartHour = 7;', 'const dawnMinutes = 301;', 'const startMinutes = 24;', 'const baseHour = 50;']) assert.deepEqual(hits(code, 'minutes').map((h) => h.text), [], `false positive: ${code}`);
+  });
+  test('names are split into words, acronyms and camel case alike: TICKMs, FRAMEIdx, tickMS, getTick() * 5, model.currentTick() * 5, this.tick * 5', () => {
+    for (const code of ['const TICKMs = 300000;', 'const m = FRAMEIdx * 5;', 'const m = getTick() * 5;', 'const m = model.currentTick() * 5;', 'const m = this.tick * 5;', 'const m = state.frameIdx * 5;', 'const stepMS = 300000;']) assert.ok(hits(code, 'tick5').length > 0, `missed: ${code}`);
+  });
+  test('two detectors that land on one expression count once per bucket (an overlapping hit is dropped, a hit in another bucket is kept)', () => {
+    const fake = { id: 'fake-overlap', bucket: 'tick5', surface: 'x', formula: true, re: /\(tick - 1\) \* 5/g }, other = { id: 'fake-other', bucket: 'minutes', surface: 'x', formula: true, re: /\(tick - 1\) \* 5/g };
+    const code = 'const m = (tick - 1) * 5;', before = findMatches(code).length;
+    DETECTORS.push(fake, other); try { const got = findMatches(code); assert.equal(got.filter((h) => h.bucket === 'tick5').length, 1, 'one tick5 site'); assert.equal(got.filter((h) => h.bucket === 'minutes').length, 1, 'the other bucket keeps its own'); assert.equal(got.length, before + 1); } finally { DETECTORS.splice(DETECTORS.indexOf(fake), 1); DETECTORS.splice(DETECTORS.indexOf(other), 1); }
+    assert.equal(findMatches(code).length, before);
+  });
+  test('one site is one hit: a step constant, a Date built from a tick, a formula with a base are each counted once per bucket', () => {
+    for (const [code, bucket, n] of [['const STEP_MS = 5 * 60 * 1000;', 'tick5', 1], ['const m = (tick - 1) * 5 * 60000;', 'tick5', 1], ['const d = new Date(Date.UTC(1863, 6, 1) + (tick - 1) * 300000);', 'tick5', 1], ['const d = new Date(Date.UTC(1863, 6, 1) + (tick - 1) * 300000);', 'date', 2], ['const M = 300 + (tick - 1) * 5;', 'tick5', 1], ['const M = 300 + (tick - 1) * 5;', 'minutes', 1], ['const msPerTick = 5 * 60 * 1000;', 'tick5', 1], ['const m = (t - 1) * FIVE_MIN;', 'tick5', 1]]) assert.equal(hits(code, bucket).length, n, `${bucket} x${n}: ${code}`);
+  });
+  test('a Date built from a minutes value or a 5-step: new Date(t0 + m * 60000), new Date(t0 + n * 5) is a Date made of a clock (date bucket); with Date.now() it is not', () => {
+    for (const code of ['const d = new Date(t0 + m * 60000);', 'const d = new Date(t0 + n * 5);', 'const d = new Date(t0 + n * 300000);', 'const d = new Date(1863, 6, 3);']) assert.ok(hits(code, 'date').length > 0, `missed: ${code}`);
+    for (const code of ['const d = new Date(Date.now() + m * 60000);', 'const d = new Date(Date.now() + n * 5);', 'const d = new Date(performance.timeOrigin + performance.now() + n * 5);'.replace('performance.timeOrigin + ', ''), 'const d = new Date(x * 50);', 'const d = new Date(expires);', 'const d = new Date(ts);']) assert.deepEqual(hits(code, 'date').map((h) => h.text), [], `false positive: ${code}`);
+  });
+  test('month words: abbreviations in upper case, May, and a single-entry array that is not a table', () => {
+    for (const code of ['"JUL " + (d + 1)', '`JUL ${d + 2}`', '"May " + (d + 2)', '`May ${d + 2}`', '"MAY " + (d+1)', "'Aug ' + (d + 1)", '"SEPT " + (d + 1)', '"Sept " + (d + 1)']) assert.ok(hits(code, 'date').length > 0, `missed: ${code}`);
+    for (const code of ['const first = ["July 1"][0];', 'const d = ["July 1"];', 'const m = ["jul", "aug"][i];', 'const m = ["may", "june"][i];']) assert.deepEqual(hits(code, 'date').map((h) => h.text), [], `false positive: ${code}`);
+  });
+  test('typed clocks: a template script body, the markup sniffer, a clock in a <style> is not text', () => {
+    for (const html of ['<script type="text/template"><p>Arrives 3 PM</p></script>', '<script type="text/template">Arrives 3 PM</script>', '<script type="text/x-handlebars-template">Opens at 10 am</script>', '<script type="importmap">{"note":"at 3pm"}</script>']) assert.ok(typedClocks(html, 'html').length > 0, `missed: ${html}`);
+    assert.deepEqual(typedClocks('<!-- Pickett steps off at 3:00 PM --><p>hello</p>').map((h) => h.text), []); assert.ok(typedClocks('<p>Pickett steps off at 3:00 PM</p>').length > 0); assert.ok(typedClocks('const a = "Pickett steps off at 3:00 PM";').length > 0);
+    assert.ok(typedClocks('<p>at 12 am</p>').length > 0 && typedClocks('<p>at 12 AM</p>').length > 0 && typedClocks('<p>at 11:59 PM</p>').length > 0 && typedClocks('<p>at 13 pm</p>').length === 0 && typedClocks('<p>at 0 pm</p>').length === 0 && typedClocks('<p>at 12:60 pm</p>').length === 0);
+  });
+  test('an AM/PM marker that is an item of a list is a table of names, one after a block is not a marker, one after a template placeholder is', () => {
+    for (const code of ['const ext = ["pl", "pm"];', "{ext:['pl','pm']}", 'const m = ["x", "am", "y"];', 'f(["pm"]);']) assert.deepEqual(hits(code, 'ampm').map((h) => h.text), [], `false positive: ${code}`);
+    for (const code of ['if (x) { y(); } am = 1;', 'function f() { return 1; }\nam = 2;', 'const o = {a: 1}\npm = 3;']) assert.deepEqual(hits(code, 'ampm').map((h) => h.text), [], `false positive: ${code}`);
+    for (const code of ['`${h} pm`', '`${h}:${m} AM`', '`${h}am`'.replace('am', ' am')]) assert.ok(hits(code, 'ampm').length > 0, `missed: ${code}`);
+  });
+  test('the visitor\'s own clock: new Date(Date.now()).toLocaleTimeString() is allowed, new Date(ts) is not; the same through toLocaleString options and toTimeString', () => {
+    for (const code of ['new Date(Date.now()).toLocaleTimeString()', 'new Date().toTimeString()', 'new Date( ).getHours()']) assert.ok(findMatches(code, ['locale']).every((h) => h.allowed) && findMatches(code, ['locale']).length > 0, code);
+    for (const code of ['new Date(ts).toLocaleTimeString()', 'd.toTimeString()', 'new Date(Date.now() + 5).toLocaleTimeString()', 'new Date(x).toLocaleString("en", { hour: "numeric" })', 'x["toLocaleTimeString"]()']) assert.ok(findMatches(code, ['locale']).length > 0 && findMatches(code, ['locale']).every((h) => !h.allowed), code);
+  });
+  test('a name made of words: acronym and camel case split; `min` alone is not a step unit (minWidth), `mins` and `minutes` are', () => {
+    for (const code of ['const m = (t - 1) * stepMins;', 'const m = (t - 1) * MINUTES_PER_TICK;', 'const m = (t - 1) * secondsPerStep;']) assert.ok(hits(code, 'tick5').length > 0, `missed: ${code}`);
+    for (const code of ['const m = (t - 1) * minWidth;', 'const m = (t - 1) * MIN_ITEMS;', 'const m = (t - 1) * minimum;']) assert.deepEqual(hits(code, 'tick5').map((h) => h.text), [], `false positive: ${code}`);
   });
 });
 

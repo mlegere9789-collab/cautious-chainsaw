@@ -100,6 +100,14 @@ describe('every good option value gives a correct and clean result', () => {
   });
 });
 
+describe('resolveTickParam is a URL reader: a hostile query object is "no tick", never a crash', () => {
+  test('throwing getters, Symbols, proxies, objects, arrays and non-strings are null; the real forms still resolve', () => {
+    const boom = { get() { throw new Error('boom'); } };
+    for (const q of [{ get() { throw new Error('boom'); } }, new Proxy({}, { get() { throw new Error('boom'); }, has() { throw new Error('boom'); } }), { tick: Symbol('s') }, { tick: { toString() { throw new Error('boom'); } } }, { t: Symbol('s') }, Object.defineProperty({}, 'tick', { get() { throw new Error('boom'); } }), { tick: [538] }, { tick: {} }, { tick: () => 5 }, { tick: 10n }]) { let r; assert.doesNotThrow(() => { r = m.resolveTickParam(q); }); assert.ok(r === null || Number.isInteger(r), String(r)); }
+    assert.equal(m.resolveTickParam({ tick: Symbol('s') }), null); assert.equal(m.resolveTickParam(new Proxy({}, boom)), null); assert.equal(m.resolveTickParam(new URLSearchParams('tick=538')), 538); assert.equal(m.resolveTickParam({ t: '12' }), 12);
+  });
+});
+
 describe('a random sweep over (function x option x value) never returns garbage and never throws an engine error', () => {
   test('3000 random calls with random option objects: either a TypeError/RangeError that names an option, or clean text', () => {
     const r = rng(2468), pick = (a) => a[Math.floor(r() * a.length)];

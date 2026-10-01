@@ -108,14 +108,14 @@ const SKIP_DIRS = new Set(['data', 'icons', 'screenshots', 'node_modules', '.git
 /**
  * Every file of a dist tree a rule can read: the root files (html, js, json, css) and assets/* as before, PLUS every script-bearing file in any
  * subdirectory (a shared script in js/, scripts/, assets/chunks/ ... is loaded by every page and was invisible to TM-V9/V16/V17 and the inventory).
- * Keys are posix paths relative to the tree. Symlinks are not followed; data/ holds JSON the data rules load on their own.
+ * Keys are posix paths relative to the tree. Symlinks and junctions are not followed (a directory entry that is a link is neither a file nor a directory
+ * to readdir); data/ holds JSON the data rules load on their own.
  */
 export function loadTreeFiles(tree = LEGACY) {
   const files = {};
   const walkDir = (dir, rel, depth) => {
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
       const r = rel ? rel + '/' + e.name : e.name, p = path.join(dir, e.name);
-      if (e.isSymbolicLink()) continue;
       if (e.isDirectory()) { if (depth < 8 && !SKIP_DIRS.has(e.name) && !e.name.startsWith('.')) walkDir(p, r, depth + 1); continue; }
       if (!e.isFile()) continue;
       const top = !rel, inAssets = rel === 'assets';
