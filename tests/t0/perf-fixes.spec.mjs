@@ -1,14 +1,14 @@
 // PERF acceptance.  PF-01..06 (tools/t0/patches/PERF.json, R1a and later): the two stylesheets of index.html stop blocking the first paint, the loader
 // switches them on before the app is imported, and the first-paint rules that live in the app stylesheet (AX shim) are inlined.  Real Chrome,
 // Netlify-like static server on 127.0.0.1 with per-path delays, Mapbox tiles blocked (nothing there needs a map).
-// PF-07..09 (tools/t0/patches/R0+mapbox-precompile.json, every train): the app's own Mapbox layers get their shader programs requested before the first
-// frame that draws them (so the GPU process links them while the main thread is free); they run with real, harness-injected tiles (about 40 tile requests).
+// PF-07..10 (tools/t0/patches/R0+mapbox-precompile.json, every train): the app's own Mapbox layers get their shader programs requested before the first
+// frame that draws them (so the GPU process links them while the main thread is free); they run with real, harness-injected tiles (about 50 tile requests).
 //
 //   node tests/t0/perf-fixes.spec.mjs                         run against release/R1c/dist
 //   node tests/t0/perf-fixes.spec.mjs --dist release/R1a/dist  any train that contains the PERF group (version.json "groups")
 //   node tests/t0/perf-fixes.spec.mjs --filter 'PF-0[1-3]'     subset by id regex
 //   node tests/t0/perf-fixes.spec.mjs --dist release/R0/dist --expect-red --filter 'PF-0[12]'    red-first proof: R0 (no PERF group) keeps the blocking links
-//   node tests/t0/perf-fixes.spec.mjs --dist <tree built without R0+mapbox-precompile> --expect-red --filter 'PF-0[789]'    red-first proof of the precompile tests
+//   node tests/t0/perf-fixes.spec.mjs --dist <tree built without R0+mapbox-precompile> --expect-red --filter 'PF-0[789]'    red-first proof of the precompile tests (PF-10 is a guard for the browsers without the extension and is not red-able)
 //   node tests/t0/perf-fixes.spec.mjs --dist <tree built without R0+mapbox-precompile> --expect-red --behavior-only --filter 'PF-07'    the same for the behaviour (compile statistics of a real boot), not just the static check
 //
 // Tests that need a train without the PERF group skip loudly; a train without it is a valid R0 and the report says so.
@@ -211,7 +211,7 @@ suite.test('PF-06', 'first visit on a phone and on a desktop viewport: CLS ~ 0, 
   }
 });
 
-// ------------------------------------------------------------------ PF-07..09: the app's Mapbox shader programs are requested before they are drawn
+// ------------------------------------------------------------------ PF-07..10: the app's Mapbox shader programs are requested before they are drawn
 // The Mapbox maps of the app (desktop map `Xe`, phone map `$t` from group C on) are found through React's fiber tree like lib.mapView does.
 const mapsInfo = (page) => page.evaluate(() => {
   const root = document.getElementById('root'); if (!root) return [];
@@ -329,6 +329,26 @@ suite.test('PF-09', 'gtPrecompile only touches what it expects: an unknown or fa
     assertEq(res.removed, 0, 'a removed map is not touched');
     assertEq(res.restyled, 0, 'a map whose style was replaced is not touched');
     assertEq([res.batchThrowsRan, res.batchThrowsUncaught], [1, false], 'an exception inside the batch is swallowed');
+  } finally { await close(S); }
+});
+
+suite.test('PF-10', 'a browser without KHR_parallel_shader_compile (hidden by an init script): the app boots and draws as before, the precompile stays out of the way (nothing precompiled, no exception)', async (t) => {
+  needPre();
+  reset();
+  const hide = () => { for (const C of [window.WebGL2RenderingContext, window.WebGLRenderingContext]) { if (!C) continue; const g = C.prototype.getExtension; C.prototype.getExtension = function (n) { return n === 'KHR_parallel_shader_compile' ? null : g.call(this, n); }; const s = C.prototype.getSupportedExtensions; C.prototype.getSupportedExtensions = function () { const l = s.call(this); return l ? l.filter((n) => n !== 'KHR_parallel_shader_compile') : l; }; } };
+  const S = await open({ profile: 'pf-10', onboarded: true, viewport: PHONE, tiles: 'inject', initScripts: [hide] });
+  try {
+    await S.page.goto(`${srv.url}/`, { waitUntil: 'load' });
+    await waitForApp(S.page, 40000);
+    let m = null;
+    await waitFor(async () => { m = appMap(await mapsInfo(S.page)); return !!(m && m.loaded && (m.counts['roads-1863-line'] || 0) > 0); }, { timeout: 30000, label: 'rendered road lines without parallel compile' });
+    await sleep(2500);
+    m = appMap(await mapsInfo(S.page));
+    t.note('without KHR_parallel_shader_compile', { parallel: m.parallel, precompiled: m.stats.precompiled, onDemand: m.stats.onDemand, counts: m.counts });
+    assertEq(m.parallel, false, 'the extension was not hidden from Mapbox (test setup)');
+    assertEq(m.stats.precompiled, 0, 'programs were precompiled although creation is synchronous without the extension');
+    assert(m.layers.filter((l) => l.type === 'symbol' && l.visible).some((l) => m.counts[l.id] > 0), 'no label is rendered');
+    assertEq(S.collector.firstParty, [], 'uncaught exceptions / console errors');
   } finally { await close(S); }
 });
 
