@@ -100,7 +100,7 @@ async function loadApp(vp, { query = '', insets = null, idle = true } = {}) {
 const shot = async (page, name) => { const f = path.join(SHOTS, `${name}.png`); await page.screenshot({ path: f }); return f; };
 const layoutOf = (page) => page.evaluate(() => document.documentElement.getAttribute('data-layout'));
 
-// tick number: the dock prints "Tick n/675" on portrait phones; landscape hides that label, so fall back to the scrubber thumb position
+// tick number: the dock prints "Tick n/675" (portrait and, since the mobile-fix pass, landscape); fall back to the scrubber thumb position
 const readTick = (page) => page.evaluate(() => {
   const m = document.body.innerText.match(/Tick (\d+)\/675/); if (m) return m[1];
   const th = document.querySelector('.gtbg-m-scrub > div:last-child'); const pc = th && parseFloat(th.style.left);
@@ -221,7 +221,7 @@ const PANELS = [
   { key: 'layers', tile: 'Map Layers', text: 'Map Layers' },
   { key: 'legend', tile: 'Legend', text: 'Disposition Legend' },
   { key: 'bookmarks', tile: 'Bookmarks', text: 'Bookmarks & Sharing' },
-  { key: 'help', tile: 'Help', text: 'Keyboard Shortcuts' },
+  { key: 'help', tile: 'Help', text: 'About' },        // the Help modal's tabs differ between the phone list and the keyboard list; the About tab is in both
   { key: 'walkthrough', tile: 'Virtual Walkthrough', text: 'Virtual Walkthrough', wait: 3500, tilesNeeded: true },
 ];
 const WALK_VP = new Set(['320x568', '375x812', '768x1024', '812x375', '915x412']);      // the walkthrough builds a 2nd Mapbox map: keep the tile budget
@@ -272,7 +272,7 @@ async function collect(vp) {
     const q = (s) => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect(); const t = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
       return { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height), hit: !!t && (t === e || e.contains(t)), inViewport: r.left >= -1 && r.top >= -1 && r.right <= innerWidth + 1 && r.bottom <= innerHeight + 1 }; };
     return { stepBack: q('button[aria-label="Step back 5 minutes"]'), play: q('button[aria-label="Play"], button[aria-label="Pause"]'), stepFwd: q('button[aria-label="Step forward 5 minutes"]'),
-      speed: q('button[aria-label^="Playback speed"]'), tools: q('.gtbg-m-top button'), scrub: q('.gtbg-m-scrub'), days: [...document.querySelectorAll('.gtbg-m-days button')].map((b, i) => q(`.gtbg-m-days button:nth-child(${i + 1})`)),
+      speed: q('button[aria-label$="playback speed. Tap to change."]'), tools: q('.gtbg-m-top button'), scrub: q('.gtbg-m-scrub'), days: [...document.querySelectorAll('.gtbg-m-days button')].map((b, i) => q(`.gtbg-m-days button:nth-child(${i + 1})`)),
       map: q('.gtbg-m-map'), dock: q('.gtbg-m-dock'), top: q('.gtbg-m-top'), attribution: q('.mapboxgl-ctrl-attrib-button'), dockOverflow: (() => { const d = document.querySelector('.gtbg-m-dock'); return d ? [d.scrollWidth - d.clientWidth, d.scrollHeight - d.clientHeight] : null; })() };
   });
   rec.mapFraction = rec.baseNamed.map ? rec.baseNamed.map.h / rec.env.h : 0;
@@ -445,10 +445,9 @@ suite.test('T0-MOB-02', 'mobile dock: 4 transport buttons + scrubber + Tools + d
       if (!e.hit) lines.push(`${vp.id} ${k}: OCCLUDED at [${e.x},${e.y}]`);
       if (!e.inViewport) lines.push(`${vp.id} ${k}: OFFSCREEN [${e.x},${e.y} ${e.w}x${e.h}] in ${r.env.w}x${r.env.h}`);
     }
-    if (!vp.landscape) {
-      if (n.days.length !== 3) lines.push(`${vp.id} day tabs: ${n.days.length}, want 3`);
-      n.days.forEach((e, i) => { if (!e) return; if (Math.min(e.w, e.h) < 44) lines.push(`${vp.id} day tab ${i + 1}: TARGET_SIZE ${e.w}x${e.h}`); if (!e.hit) lines.push(`${vp.id} day tab ${i + 1}: OCCLUDED`); });
-    }
+    // the day tabs exist in every orientation (landscape: the compact control in the top bar, D-07 of the mobile-fix pass)
+    if (n.days.length !== 3) lines.push(`${vp.id} day tabs: ${n.days.length}, want 3`);
+    n.days.forEach((e, i) => { if (!e) return; if (Math.min(e.w, e.h) < 44) lines.push(`${vp.id} day tab ${i + 1}: TARGET_SIZE ${e.w}x${e.h}`); if (!e.hit) lines.push(`${vp.id} day tab ${i + 1}: OCCLUDED`); if (!e.inViewport) lines.push(`${vp.id} day tab ${i + 1}: OFFSCREEN`); });
     if (n.attribution && Math.min(n.attribution.w, n.attribution.h) < 44) lines.push(`${vp.id} attribution button: TARGET_SIZE ${n.attribution.w}x${n.attribution.h}`);
     // generic audit of everything interactive in the base state
     for (const it of r.base.items) {
@@ -554,7 +553,7 @@ suite.test('T0-MOB-07', 'safe-area insets: with notch/home-indicator insets the 
       const q = (s) => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect(); return { x: r.x, y: r.y, r: r.right, b: r.bottom, w: r.width, h: r.height }; };
       const cs = getComputedStyle(document.documentElement);
       return { sat: cs.getPropertyValue('--gt-sat'), sab: cs.getPropertyValue('--gt-sab'), clock: q('.gtbg-m-top > div'), tools: q('.gtbg-m-top button'), map: q('.gtbg-m-map'), play: q('button[aria-label="Play"], button[aria-label="Pause"]'),
-        back: q('button[aria-label="Step back 5 minutes"]'), speed: q('button[aria-label^="Playback speed"]'), dock: q('.gtbg-m-dock'), days: q('.gtbg-m-days'), top: q('.gtbg-m-top'), iw: innerWidth, ih: innerHeight,
+        back: q('button[aria-label="Step back 5 minutes"]'), speed: q('button[aria-label$="playback speed. Tap to change."]'), dock: q('.gtbg-m-dock'), days: q('.gtbg-m-days'), top: q('.gtbg-m-top'), iw: innerWidth, ih: innerHeight,
         insetProbe: (() => { const d = document.createElement('div'); d.style.cssText = 'position:fixed;top:env(safe-area-inset-top,0px);left:env(safe-area-inset-left,0px);width:1px;height:1px;visibility:hidden'; document.body.appendChild(d); const r = d.getBoundingClientRect(); d.remove(); return [r.top, r.left]; })() };
     });
     t.note(`${vp.id} insets`, JSON.stringify({ ins, sat: m.sat, sab: m.sab, probe: m.insetProbe }));
@@ -753,9 +752,9 @@ suite.test('T0-MOB-10', 'toasts: a commander-succession toast (tick 28, playing)
     const page = await loadApp(vp, { idle: false });
     const sc = await page.evaluate(() => { const r = document.querySelector('.gtbg-m-scrub').getBoundingClientRect(); return { x: r.x, y: r.y + r.height / 2, w: r.width }; });
     await touchTap(page, sc.x + sc.w * (26 / 675), sc.y); await sleep(700);
-    await tapEl(page, page.locator('button[aria-label^="Playback speed"]')); await sleep(200);
-    await tapEl(page, page.locator('button[aria-label^="Playback speed"]')); await sleep(200);
-    await tapEl(page, page.locator('button[aria-label^="Playback speed"]')); await sleep(200);
+    await tapEl(page, page.locator('button[aria-label$="playback speed. Tap to change."]')); await sleep(200);
+    await tapEl(page, page.locator('button[aria-label$="playback speed. Tap to change."]')); await sleep(200);
+    await tapEl(page, page.locator('button[aria-label$="playback speed. Tap to change."]')); await sleep(200);
     await tapEl(page, page.locator('button[aria-label="Play"]'));
     let seen = null;
     for (let i = 0; i < 40 && !seen; i++) {
