@@ -1,11 +1,15 @@
-// PERF group acceptance (tools/t0/patches/PERF.json, R1a and later): the two stylesheets of index.html stop blocking the first paint, the loader
+// PERF acceptance.  PF-01..06 (tools/t0/patches/PERF.json, R1a and later): the two stylesheets of index.html stop blocking the first paint, the loader
 // switches them on before the app is imported, and the first-paint rules that live in the app stylesheet (AX shim) are inlined.  Real Chrome,
-// Netlify-like static server on 127.0.0.1 with per-path delays, Mapbox tiles blocked (nothing here needs a map).
+// Netlify-like static server on 127.0.0.1 with per-path delays, Mapbox tiles blocked (nothing there needs a map).
+// PF-07..09 (tools/t0/patches/R0+mapbox-precompile.json, every train): the app's own Mapbox layers get their shader programs requested before the first
+// frame that draws them (so the GPU process links them while the main thread is free); they run with real, harness-injected tiles (about 40 tile requests).
 //
 //   node tests/t0/perf-fixes.spec.mjs                         run against release/R1c/dist
 //   node tests/t0/perf-fixes.spec.mjs --dist release/R1a/dist  any train that contains the PERF group (version.json "groups")
 //   node tests/t0/perf-fixes.spec.mjs --filter 'PF-0[1-3]'     subset by id regex
 //   node tests/t0/perf-fixes.spec.mjs --dist release/R0/dist --expect-red --filter 'PF-0[12]'    red-first proof: R0 (no PERF group) keeps the blocking links
+//   node tests/t0/perf-fixes.spec.mjs --dist <tree built without R0+mapbox-precompile> --expect-red --filter 'PF-0[789]'    red-first proof of the precompile tests
+//   node tests/t0/perf-fixes.spec.mjs --dist <tree built without R0+mapbox-precompile> --expect-red --behavior-only --filter 'PF-07'    the same for the behaviour (compile statistics of a real boot), not just the static check
 //
 // Tests that need a train without the PERF group skip loudly; a train without it is a valid R0 and the report says so.
 import fs from 'node:fs';
@@ -18,12 +22,16 @@ const opt = (name, dflt) => { const i = argv.indexOf(`--${name}`); return i >= 0
 const DIST = path.resolve(REPO, opt('dist', 'release/R1c/dist'));
 const FILTER = opt('filter', null);
 const EXPECT_RED = !!opt('expect-red', false);
+const BEHAVIOR_ONLY = !!opt('behavior-only', false); // PF-07 without the static check for gtPrecompile: proves the behavioural assertion itself is red on a tree without the patch
 if (!fs.existsSync(DIST)) { console.error(`dist not found: ${DIST}\nbuild it first: python tools/t0/build.py --train R1c`); process.exit(2); }
 const VERSION = fs.existsSync(path.join(DIST, 'version.json')) ? JSON.parse(fs.readFileSync(path.join(DIST, 'version.json'), 'utf8')) : null;
 const HAS_PERF = !!(VERSION && (VERSION.groups || []).includes('PERF'));
 const HAS_AX = !!(VERSION && (VERSION.groups || []).includes('AX'));
 const HTML = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8');
 const APP_CSS = VERSION ? `/assets/${VERSION.css}` : null;
+const ENTRY_NAME = VERSION ? VERSION.entry : ((HTML.match(/\/assets\/(index-[A-Za-z0-9_-]+\.js)/) || [])[1] || null);
+const BUNDLE = ENTRY_NAME && fs.existsSync(path.join(DIST, 'assets', ENTRY_NAME)) ? fs.readFileSync(path.join(DIST, 'assets', ENTRY_NAME), 'utf8') : '';
+const PRE_SRC = (() => { const a = BUNDLE.indexOf('function gtPrecompile('); const b = BUNDLE.indexOf('let Uc=null;function I4(', a); return a >= 0 && b > a ? BUNDLE.slice(a, b) : null; })();
 const PHONE = VIEWPORTS.portrait.find((v) => v.width === 412) || VIEWPORTS.portrait[0];
 const DESKTOP = { width: 1440, height: 900, dpr: 1, mobile: false };
 const needPerf = () => { if (!HAS_PERF && !EXPECT_RED) throw new Skip(`train ${VERSION ? VERSION.train : 'legacy'} has no PERF group (R0 keeps the blocking stylesheet links by design)`); };
@@ -201,6 +209,127 @@ suite.test('PF-06', 'first visit on a phone and on a desktop viewport: CLS ~ 0, 
       assertEq(S.collector.firstParty, [], `${name}: uncaught exceptions / console errors`);
     } finally { await close(S); }
   }
+});
+
+// ------------------------------------------------------------------ PF-07..09: the app's Mapbox shader programs are requested before they are drawn
+// The Mapbox maps of the app (desktop map `Xe`, phone map `$t` from group C on) are found through React's fiber tree like lib.mapView does.
+const mapsInfo = (page) => page.evaluate(() => {
+  const root = document.getElementById('root'); if (!root) return [];
+  const key = Object.keys(root).find((k) => k.startsWith('__reactContainer$')); if (!key) return [];
+  const stack = [root[key]]; const maps = []; let n = 0;
+  while (stack.length && n++ < 400000) {
+    const f = stack.pop(); if (!f) continue;
+    for (let h = f.memoizedState; h && typeof h === 'object' && 'next' in h; h = h.next) { const v = h.memoizedState; if (v && typeof v === 'object' && v.current && typeof v.current.getCenter === 'function' && !maps.includes(v.current)) maps.push(v.current); }
+    if (f.sibling) stack.push(f.sibling); if (f.child) stack.push(f.child);
+  }
+  return maps.map((map) => {
+    const st = map.style; const ids = st && st._order ? st._order : [];
+    const layers = ids.map((id) => ({ id, type: (st._layers[id] || {}).type, visible: (st._layers[id] || {}).visibility !== 'none' }));
+    const counts = {}; for (const l of layers) { try { counts[l.id] = map.queryRenderedFeatures({ layers: [l.id] }).length; } catch { counts[l.id] = -1; } }
+    const ctx = map.painter && map.painter.context; const cs = ctx && ctx._compileStats;
+    return { loaded: map.loaded(), layers, counts, parallel: !!(ctx && ctx.extParallelShaderCompile),
+      stats: cs ? { precompiled: cs.precompiled, onDemand: cs.onDemand, totalStallMs: cs.totalStallMs, maxStallMs: cs.maxStallMs, stalls: cs.stalls.map((x) => [x.name, +x.ms.toFixed(1)]) } : null };
+  });
+});
+const appMap = (maps) => maps.find((m) => m.layers.some((l) => l.id === 'roads-1863-line')) || null;
+const needPre = () => { if (!PRE_SRC && !BEHAVIOR_ONLY) throw new Error(`the entry bundle ${ENTRY_NAME} has no gtPrecompile (patch R0-mapbox-precompile): the app's own layers compile their shaders on first draw, which blocks the main thread`); };
+
+suite.test('PF-07', "the shader programs of the app's own layers are requested ahead of the first draw: Mapbox's compile statistics show precompiled programs and the symbol/SDF link no longer stalls the main thread", async (t) => {
+  needPre();
+  for (const [name, vp] of [['phone', PHONE], ['desktop', DESKTOP]]) {
+    reset();
+    const S = await open({ profile: `pf-07-${name}`, onboarded: true, viewport: vp, tiles: 'inject' });
+    try {
+      await S.page.goto(`${srv.url}/`, { waitUntil: 'load' });
+      await waitForApp(S.page, 40000);
+      let m = null;
+      await waitFor(async () => { m = appMap(await mapsInfo(S.page)); return !!(m && m.loaded && m.layers.some((l) => l.type === 'symbol') && (m.counts['roads-1863-line'] || 0) > 0); }, { timeout: 30000, label: `${name}: map with the app layers loaded` });
+      await sleep(3000);
+      m = appMap(await mapsInfo(S.page));
+      t.note(name, { precompiled: m.stats.precompiled, onDemand: m.stats.onDemand, totalStallMs: Math.round(m.stats.totalStallMs), stalls: m.stats.stalls, parallelCompile: m.parallel });
+      if (!m.parallel) throw new Skip('this browser has no KHR_parallel_shader_compile: Mapbox creates programs synchronously, there is nothing to overlap');
+      assert(m.stats.precompiled >= 2, `${name}: only ${m.stats.precompiled} programs were requested ahead of their first draw (symbol/SDF and line are expected)`);
+      const sym = m.stats.stalls.filter(([nm]) => /^symbol\//.test(nm)).map(([, ms]) => ms);
+      assert(sym.every((ms) => ms < 60), `${name}: the text/SDF symbol program still blocked the main thread for ${Math.max(...sym)} ms (80-100 ms when it is compiled on demand in a software-GL browser)`);
+      assertEq(S.collector.firstParty, [], `${name}: uncaught exceptions / console errors`);
+    } finally { await close(S); }
+  }
+});
+
+suite.test('PF-08', 'the app draws what it drew before: lines and labels of the app layers are rendered (placed features per layer > 0) and nothing throws', async (t) => {
+  needPre();
+  reset();
+  const S = await open({ profile: 'pf-08', onboarded: true, viewport: PHONE, tiles: 'inject' });
+  try {
+    await S.page.goto(`${srv.url}/`, { waitUntil: 'load' });
+    await waitForApp(S.page, 40000);
+    let m = null;
+    await waitFor(async () => { m = appMap(await mapsInfo(S.page)); return !!(m && m.loaded && (m.counts['roads-1863-line'] || 0) > 0); }, { timeout: 30000, label: 'rendered road lines' });
+    await sleep(2500);
+    m = appMap(await mapsInfo(S.page));
+    const lines = m.layers.filter((l) => l.type === 'line' && l.visible).map((l) => m.counts[l.id]); const labels = m.layers.filter((l) => l.type === 'symbol' && l.visible).map((l) => m.counts[l.id]);
+    t.note('rendered features per layer', m.counts);
+    assert(lines.some((c) => c > 0), 'no line feature of the app layers is rendered');
+    assert(labels.some((c) => c > 0), 'no label (symbol) feature of the app layers is rendered');
+    assertEq(S.collector.firstParty, [], 'uncaught exceptions / console errors');
+  } finally { await close(S); }
+});
+
+suite.test('PF-09', 'gtPrecompile only touches what it expects: an unknown or failing Mapbox leaves the app alone, a removed or re-styled map is not touched, the symbol program carries the defines and UBO size of the draw code', async (t) => {
+  needPre();
+  assert((BUNDLE.match(/function gtPrecompile\(/g) || []).length === 1, 'gtPrecompile is defined more than once');
+  assert(/"text-halo-width":2\}\}\),gtPrecompile\(c\)\}function gtPrecompile\(/.test(BUNDLE), 'gtPrecompile is not called at the end of T4 (the function that adds the app layers)');
+  const S = await open({ profile: 'pf-09', tiles: 'block' });
+  try {
+    await S.page.goto(`${srv.url}/privacy.html`, { waitUntil: 'load' });
+    const res = await S.page.evaluate(async (src) => {
+      const gt = new Function(`${src};return gtPrecompile;`)();
+      const out = {}; const tick = () => new Promise((r) => setTimeout(r, 25));
+      const quiet = (m) => { try { return gt(m) === undefined; } catch (e) { return 'THROWS ' + e; } };
+      out.noStyle = quiet({});
+      out.noPrecompiler = quiet({ style: { _programPrecompiler: null, _order: [], _layers: {} }, painter: {} });
+      out.noPainter = quiet({ style: { _programPrecompiler: {}, _order: [], _layers: {} } });
+      out.resetThrows = quiet({ style: { _programPrecompiler: { reset() { throw new Error('x'); } }, _order: [], _layers: {} }, painter: {}, once() {}, triggerRepaint() {} });
+      // a fake map: every render event stands for "the style update ran"; it rebuilds the queue unless `stuck`
+      const mk = (o = {}) => {
+        const st = { calls: [], handlers: [], batches: [], needs: false, stuck: !!o.stuck, queue: [] };
+        const pc = { reset() { st.calls.push('reset'); st.queue.length = 0; st.needs = true; }, needsBuild: () => st.needs, _queue: st.queue,
+          _executeBatch(d, p, s) { st.batches.push({ deadline: d.timeRemaining() > 1e6, painter: p === painter, style: s === style, queue: st.queue.map((q) => q.programId + ':' + (q.params.defines || []).join(',')) }); if (o.batchThrows) throw new Error('boom'); } };
+        const layers = o.noSymbol ? { a: { type: 'line' } } : { a: { type: 'line' }, b: { type: 'symbol' } };
+        const style = { _programPrecompiler: pc, _order: Object.keys(layers), _layers: layers };
+        const painter = { context: { maxUniformBlockSize: 65536, disableSymbolUBO: !!o.noUbo, extParallelShaderCompile: o.noParallel ? null : {} } };
+        const map = { style, painter, _removed: false, once(ev, f) { st.handlers.push(f); }, triggerRepaint() { st.calls.push('repaint'); } };
+        st.fire = () => { if (!st.stuck && st.needs) { st.needs = false; st.queue.push({ programId: 'line', params: { defines: [] } }); } st.handlers.splice(0).forEach((f) => f()); };
+        return { map, st };
+      };
+      { const { map, st } = mk(); gt(map); out.start = [st.calls.slice(), st.handlers.length];
+        st.fire(); await tick(); await tick(); out.normal = st.batches; }
+      { const { map, st } = mk({ stuck: true }); gt(map); st.fire(); out.stuckAfterOneRender = [st.handlers.length, st.batches.length];
+        for (let i = 0; i < 14; i++) st.fire(); await tick(); await tick(); out.stuckEventually = st.batches.length; }
+      { const { map, st } = mk({ noUbo: true }); gt(map); st.fire(); await tick(); await tick(); out.noUbo = st.batches.map((b) => b.queue); }
+      { const { map, st } = mk({ noParallel: true }); gt(map); st.fire(); await tick(); await tick(); out.noParallel = [st.calls.slice(), st.batches.length]; }
+      { const { map, st } = mk({ noSymbol: true }); gt(map); st.fire(); await tick(); await tick(); out.noSymbolLayer = st.batches.map((b) => b.queue); }
+      { const { map, st } = mk(); gt(map); map._removed = true; st.fire(); await tick(); await tick(); out.removed = st.batches.length; }
+      { const { map, st } = mk(); gt(map); map.style = { other: true }; st.fire(); await tick(); await tick(); out.restyled = st.batches.length; }
+      { const { map, st } = mk({ batchThrows: true }); let uncaught = false; const h = () => { uncaught = true; }; window.addEventListener('error', h);
+        gt(map); st.fire(); await tick(); await tick(); window.removeEventListener('error', h); out.batchThrowsUncaught = uncaught; out.batchThrowsRan = st.batches.length; }
+      return out;
+    }, PRE_SRC);
+    t.note('results', res);
+    for (const k of ['noStyle', 'noPrecompiler', 'noPainter', 'resetThrows']) assertEq(res[k], true, `${k}: must return quietly`);
+    assertEq(res.start, [['reset', 'repaint'], 1], 'start: one reset, one repaint, one render listener');
+    assertEq(res.normal.length, 1, 'the queue is run exactly once');
+    assertEq([res.normal[0].deadline, res.normal[0].painter, res.normal[0].style], [true, true, true], 'the batch gets an unbounded deadline, the painter and the style of the map');
+    assertEq(res.normal[0].queue, ['symbol:RENDER_SDF,USE_PAINT_PROPERTIES_UBO,MAX_UBO_SIZE_VEC4 4096u', 'line:'], 'symbol program first (defines and UBO size as the draw code builds them for maxUniformBlockSize 65536), then what the precompiler derived');
+    assertEq(res.stuckAfterOneRender, [1, 0], 'while the style update has not rebuilt the queue it waits for the next render (no batch yet)');
+    assertEq(res.stuckEventually, 1, 'it gives up waiting after 10 renders and still runs the queue once');
+    assertEq(res.noUbo, [['line:']], 'with disableSymbolUBO the symbol program (per-bucket configuration) is not precompiled');
+    assertEq(res.noParallel, [[], 0], 'without KHR_parallel_shader_compile (synchronous program creation) nothing is touched: Mapbox keeps its own idle-sliced precompiler');
+    assertEq(res.noSymbolLayer, [['line:']], 'no symbol layer, no symbol program');
+    assertEq(res.removed, 0, 'a removed map is not touched');
+    assertEq(res.restyled, 0, 'a map whose style was replaced is not touched');
+    assertEq([res.batchThrowsRan, res.batchThrowsUncaught], [1, false], 'an exception inside the batch is swallowed');
+  } finally { await close(S); }
 });
 
 const outFile = path.join(path.dirname(DIST), 'test-perf-fixes.json');
