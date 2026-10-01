@@ -1,10 +1,16 @@
-// T0-A11Y suite (chapter 02 WP-T0-10, exit criterion X10): the accessibility BRIDGE (group AX: 58 bundle/HTML/CSS patches) proved with
-// axe-core (@axe-core/playwright) in real Chrome, plus keyboard, structure, motion, font-floor, target-size and forced-colors checks.
+// T0-A11Y suite (chapter 02 WP-T0-10, exit criterion X10): the accessibility BRIDGE (group AX: 91 patches, 73 in the app bundle, 5 in each of the Help and
+// Bookmarks chunks, 7 in index.html, 1 CSS) proved with axe-core (@axe-core/playwright) in real Chrome, plus keyboard, focus, structure, motion, font-floor,
+// target-size and forced-colors checks.
 //
 // THIS IS A BRIDGE, NOT CONFORMANCE.  app-a11y grades the app D by code (26 of 55 WCAG 2.2 A/AA criteria still fail after the bridge:
-// canvas keyboard/SR access, dialog system, colour-only encodings, Data View ...; docs/plan/specialists/app-a11y.md section 4).  axe finds
-// roughly a third of WCAG issues; "0 serious/critical" below means "axe finds none in these states", nothing more.  Lighthouse itself is
-// not installed here (and is not downloaded): T0-A11Y-08 runs axe with the rule ids of Lighthouse's accessibility category instead.
+// canvas keyboard/SR access, colour-only encodings, Data View ...; docs/plan/specialists/app-a11y.md section 4).  axe finds roughly a third of WCAG
+// issues; "0 serious/critical" below means "axe finds none in these states", nothing more; Lighthouse's 100 is the same automated rule set.  No screen
+// reader, voice control, Firefox, Safari or real device was involved.  Lighthouse is not a dependency of this repo and is never downloaded: T0-A11Y-08 runs
+// axe with the rule ids of Lighthouse's accessibility category, and T0-A11Y-27 runs Lighthouse itself when you point it at an install (--lighthouse <dir>).
+//
+// Since the verifier round (docs/verification/t0-verifier-findings.json, verifier 2): T0-A11Y-17 (modal dialogs: focus trap, Esc, focus return), -18 (a unit
+// from Search by keyboard), -19 (Follow Your Ancestor / Soldier's Eye View), -20 (first-visit onboarding), -21 (placeholder contrast), -22 (label in name),
+// -23 (phone Help), -24 (toolbar panels), -25 (phone onboarding), -26 (phone Tools sheet), -27 (Lighthouse), -28 (layout chooser).
 //
 //   node tests/t0/a11y.spec.mjs                            builds R1c into tmp/<agent>/spec-build/R1c and tests it
 //   node tests/t0/a11y.spec.mjs --train R1b                same for R1b (AX without CP)
@@ -825,7 +831,7 @@ suite.test('T0-A11Y-21', 'placeholder text >= 4.5:1 (the browser default #757575
   } finally { await S.close().catch(() => {}); sessions.splice(sessions.indexOf(S), 1); }
 });
 
-suite.test('T0-A11Y-22', 'WCAG 2.5.3 label in name (axe label-content-name-mismatch, an experimental rule run by id; Lighthouse reports it with weight 0): none on the desktop states; phone: none, except the speed button owned by group C while it still has the old label', async (t) => {
+suite.test('T0-A11Y-22', 'WCAG 2.5.3 label in name (axe label-content-name-mismatch, an experimental rule run by id; Lighthouse reports it with weight 0): none on the desktop and phone states; the phone speed button (visible "1x") carries its visible text in its accessible name', async (t) => {
   if (IS_LEGACY) throw new Skip('legacy is judged by T0-A11Y-01');
   const lcn = async (page) => { const r = await new AxeBuilder({ page }).options({ runOnly: { type: 'rule', values: ['label-content-name-mismatch'] } }).analyze(); return r.violations.flatMap((v) => v.nodes.map((n) => `${n.target.join(' ')} :: ${String(n.html).slice(0, 90)}`)); };
   const out = {};
@@ -840,9 +846,11 @@ suite.test('T0-A11Y-22', 'WCAG 2.5.3 label in name (axe label-content-name-misma
     for (const st of ['loaded', 'tools', 'help', 'search']) { await MOBILE_STATES[st](P.page); out['phone ' + st] = await lcn(P.page); }
     const speed = await P.page.evaluate(() => { const b = document.querySelector('.gtbg-m-play > button:nth-child(4), .gtbg-m-play button[aria-label*="speed" i]'); return b ? { text: b.textContent.trim(), label: b.getAttribute('aria-label') } : null; });
     t.note('phone speed button', speed);
-    const oldLabel = !!(speed && /Playback speed [0-9.]+ times/.test(speed.label || ''));
-    for (const k of Object.keys(out)) if (k.startsWith('phone') && oldLabel) out[k] = out[k].filter((x) => !/Playback speed [0-9.]+ times\. Tap to change/.test(x));
-    if (oldLabel) t.note('KNOWN-OPEN', 'phone speed button still has the group-C label "Playback speed N times. Tap to change." (visible text "N×"): mobile owner, tools/t0/patches/C.json');
+    // the verifier's A11Y-09 defect: the button showed "1x" but was named "Playback speed 1 times. Tap to change." (group C, fixed by the mobile owner in 40844b8);
+    // axe's experimental rule needs a text match, so the visible text is also checked directly (case-insensitive, x and the multiplication sign are the same glyph for a reader)
+    assert(speed && speed.text, 'the phone speed button was not found (the check would be vacuous)');
+    const norm = (s) => String(s || '').toLowerCase().replace(/[×x]/g, 'x').replace(/\s+/g, ' ').trim();
+    assert(norm(speed.label).includes(norm(speed.text)), `phone speed button: visible text "${speed.text}" is not part of its accessible name "${speed.label}" (WCAG 2.5.3)`);
   } finally { await P.close().catch(() => {}); sessions.splice(sessions.indexOf(P), 1); }
   t.note('label-content-name-mismatch per state', out);
   const bad = Object.entries(out).filter(([, v]) => v.length);
@@ -911,6 +919,161 @@ suite.test('T0-A11Y-24', 'toolbar panels take focus when they open and give it b
     t.note('panels', out);
     assertEq(errs(S), [], 'uncaught exceptions / console errors');
   } finally { await S.close().catch(() => {}); sessions.splice(sessions.indexOf(S), 1); }
+});
+
+// ------------------------------------------------------------------ phone shell with a keyboard attached (an iPad or a phone with a Bluetooth keyboard)
+const hasGroup = (g) => { try { return (JSON.parse(fs.readFileSync(path.join(DIST, 'version.json'), 'utf8')).groups || []).includes(g); } catch { return false; } };
+
+suite.test('T0-A11Y-25', 'first-visit onboarding on a phone-width screen (375x812) by keyboard: dialog, focus inside, Tab and Shift+Tab stay, the dock below it is not covered, Esc skips (tick 1, onboarded flag)', async (t) => {
+  if (IS_LEGACY) throw new Skip('legacy shows the layout chooser (T0-A11Y-28)');
+  if (!hasGroup('AX')) throw new Skip('this tree has no group AX');
+  const S = await open({ profile: 'a11y-25', cdpPort: PORT_BASE + 6, viewport: PHONE, onboarded: false });
+  try {
+    await S.page.goto(`${ORIGIN}/`, { waitUntil: 'load' }); await waitForApp(S.page, 45000); await settle(2000);
+    const sel = '[role="dialog"][aria-label="Welcome to the Gettysburg map"]';
+    await visible(S.page, sel);
+    assertEq(await S.page.evaluate((s) => document.querySelector(s).getAttribute('aria-modal'), sel), 'true', 'aria-modal');
+    assert(await insideDialog(S.page, sel), `focus is not inside the onboarding dialog on load (${await who(S.page)})`);
+    const seen = [], left = [];
+    for (let i = 0; i < 9; i++) { await S.page.keyboard.press('Tab'); await sleep(50); seen.push(await who(S.page)); if (!(await insideDialog(S.page, sel))) left.push(await who(S.page)); }
+    for (let i = 0; i < 6; i++) { await S.page.keyboard.press('Shift+Tab'); await sleep(50); if (!(await insideDialog(S.page, sel))) left.push('shift:' + await who(S.page)); }
+    t.note('tab cycle on the phone first screen', seen.slice(0, 6)); assertEq(left, [], 'Tab left the onboarding dialog');
+    assert(seen.slice(0, 3).every((s) => s.startsWith('button|')), `the first three stops are the two paths and Skip: ${JSON.stringify(seen.slice(0, 3))}`);
+    // D-05 (the mobile verifier): the dock stays reachable under the tour overlay
+    const dock = await S.page.evaluate(() => { const b = document.querySelector('.gtbg-m-play button'); if (!b) return null; const r = b.getBoundingClientRect(); const e = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return { covered: !(e === b || b.contains(e)) }; });
+    t.note('dock play button', dock); assert(dock && !dock.covered, 'the dock play button sits under the onboarding overlay');
+    await key(S.page, 'Escape', 700);
+    assertEq(await S.page.locator('[role="dialog"]').count(), 0, 'Esc did not skip the introduction on the phone');
+    assertEq(await S.page.evaluate(() => { try { return localStorage.getItem('gtbg_onboarded'); } catch { return 'n/a'; } }), '1', 'onboarded flag after Esc');
+    assertEq(errs(S), [], 'uncaught exceptions / console errors');
+  } finally { await S.close().catch(() => {}); sessions.splice(sessions.indexOf(S), 1); }
+});
+
+suite.test('T0-A11Y-26', 'phone Tools sheet by keyboard: modal dialog named "Tools", focus moves in, Tab and Shift+Tab stay, Esc closes it and focus returns to the Tools button; a tool opened from it (Help) takes focus and Esc closes that too', async (t) => {
+  if (IS_LEGACY) throw new Skip('legacy has no phone shell');
+  if (!hasGroup('AX')) throw new Skip('this tree has no group AX');
+  const P = await open({ profile: 'a11y-26', cdpPort: PORT_BASE + 7, viewport: PHONE });
+  try {
+    await boot(P.page, 'mobile');
+    const sheet = () => P.page.evaluate(() => { const s = document.querySelector('.gtbg-m-toolspanel'); return s ? { role: s.getAttribute('role'), modal: s.getAttribute('aria-modal'), label: s.getAttribute('aria-label'), inside: s.contains(document.activeElement) } : null; });
+    const btn = P.page.locator('button', { hasText: 'Tools' }).first();
+    await btn.focus(); await key(P.page, 'Enter', 900);
+    const s0 = await sheet(); t.note('sheet after Enter on Tools', s0);
+    assertEq([s0 && s0.role, s0 && s0.modal, s0 && s0.label, s0 && s0.inside], ['dialog', 'true', 'Tools', true], 'Tools sheet semantics and focus on open');
+    const left = [];
+    for (let i = 0; i < 45; i++) { await P.page.keyboard.press('Tab'); await sleep(30); const s = await sheet(); if (!s || !s.inside) left.push(i); }
+    for (let i = 0; i < 6; i++) { await P.page.keyboard.press('Shift+Tab'); await sleep(30); const s = await sheet(); if (!s || !s.inside) left.push('shift' + i); }
+    assertEq(left, [], 'Tab left the Tools sheet');
+    await key(P.page, 'Escape', 700);
+    assertEq(await sheet(), null, 'Esc did not close the Tools sheet');
+    const back = await who(P.page); t.note('focus after Esc', back); assert(/Tools/.test(back), `focus did not return to the Tools button (${back})`);
+    // a tool opened from the sheet takes focus; Esc closes it
+    await btn.focus(); await key(P.page, 'Enter', 800);
+    await P.page.locator('.gtbg-m-toolspanel button', { hasText: 'Help' }).first().focus(); await key(P.page, 'Enter', 1200);
+    const h = await P.page.evaluate(() => { const d = document.querySelector('[role="dialog"]'); return { n: document.querySelectorAll('[role="dialog"]').length, name: d && d.getAttribute('aria-label'), inside: !!d && d.contains(document.activeElement), sheet: !!document.querySelector('.gtbg-m-toolspanel') }; });
+    t.note('Help opened from the sheet', h); assertEq([h.n, h.name, h.inside, h.sheet], [1, 'Help', true, false], 'Help from the Tools sheet');
+    await key(P.page, 'Escape', 800);
+    assertEq(await P.page.locator('[role="dialog"]').count(), 0, 'Esc did not close Help');
+    assert((await who(P.page)) !== 'body', 'focus fell to the page body after Esc on Help');
+    assertEq(errs(P), [], 'uncaught exceptions / console errors');
+  } finally { await P.close().catch(() => {}); sessions.splice(sessions.indexOf(P), 1); }
+});
+
+// ------------------------------------------------------------------ T0-A11Y-28: the layout chooser (R0 and R1a only; group C auto-detects the layout, so R1b and R1c never show it)
+suite.test('T0-A11Y-28', 'layout chooser ("Choose Your Experience") on a first visit, desktop and phone: with group C it is never reached (layout auto-detected); where it is still shown (legacy, R0, R1a) it is a dialog that a keyboard can pass', async (t) => {
+  if (IS_LEGACY && !EXPECT_RED) throw new Skip('legacy shows an unusable chooser by design (run with --expect-red)');
+  const problems = [], seen = {};
+  for (const [name, vp, port] of [['desktop', DESKTOP, 5], ['phone', PHONE, 6]]) {
+    const S = await open({ profile: `a11y-28-${name}`, cdpPort: PORT_BASE + port, viewport: vp, onboarded: false });
+    try {
+      await S.page.goto(`${ORIGIN}/`, { waitUntil: 'load' });
+      let state = 'timeout'; const t0 = Date.now(); let mounted = 0;     // legacy plays its 3.5 s intro before the chooser appears: wait longer there
+      while (Date.now() - t0 < 40000) {
+        if ((await S.page.getByText('Choose Your Experience').count()) > 0) { state = 'chooser'; break; }
+        if (await L.appMounted(S.page)) { mounted ||= Date.now(); if (Date.now() - mounted > (IS_LEGACY ? 7500 : 2500)) { state = 'app'; break; } } else mounted = 0;
+        await sleep(150);
+      }
+      seen[name] = state;
+      if (state === 'app') continue;                        // group C auto-detected the layout: nothing to operate
+      if (state !== 'chooser') { problems.push(`${name}: neither the chooser nor the app appeared (${state})`); continue; }
+      await sleep(600);
+      const d = await S.page.evaluate(() => { const x = document.querySelector('[role="dialog"]'); return { dialog: !!x, modal: x && x.getAttribute('aria-modal'), name: x && x.getAttribute('aria-label'), inside: !!x && x.contains(document.activeElement) }; });
+      seen[name] = { state, ...d };
+      if (!d.dialog || d.modal !== 'true' || !d.name) problems.push(`${name}: the chooser is not a named modal dialog (${JSON.stringify(d)})`);
+      if (!d.inside) problems.push(`${name}: focus is not inside the chooser on load (it is ${await who(S.page)})`);
+      const stops = []; for (let i = 0; i < 6; i++) { await S.page.keyboard.press('Tab'); await sleep(60); stops.push({ w: await who(S.page), inside: await S.page.evaluate(() => { const x = document.querySelector('[role="dialog"]'); return !!x && x.contains(document.activeElement); }) }); }
+      seen[name].tab = stops.map((s) => `${s.inside ? '' : 'OUT '}${s.w}`);
+      if (stops.some((s) => !s.inside)) problems.push(`${name}: Tab leaves the chooser (${seen[name].tab.join(' / ')})`);
+      await S.page.evaluate(() => { const x = document.querySelector('[role="dialog"]'); x && x.focus(); });
+      await S.page.keyboard.press('Tab'); await sleep(150);
+      const first = await who(S.page);
+      if (!/Desktop|Mobile/.test(first)) problems.push(`${name}: the first Tab stop is not one of the two choices (${first})`);
+      await S.page.keyboard.press('Enter'); await sleep(1500);
+      if ((await S.page.getByText('Choose Your Experience').count()) > 0) problems.push(`${name}: Enter on the first choice does not dismiss the chooser`);
+      else { try { await waitForApp(S.page, 45000); } catch { problems.push(`${name}: the app did not mount after the keyboard choice`); } }
+    } finally { await S.close().catch(() => {}); sessions.splice(sessions.indexOf(S), 1); }
+  }
+  t.note('first visit', seen);
+  if (EXPECT_RED) { t.note('expect-red', problems.length ? 'RED as expected' : 'unexpectedly green'); assert(problems.length > 0, 'expected the legacy chooser to fail the keyboard check'); return; }
+  assertEq(problems, [], 'layout chooser (R0 and R1a keep the legacy chooser until group C: the fix for them is the group-A proposal in the comment below)');
+});
+// PROPOSAL for group A (R1a), not applied here because group A is not owned by the a11y work: save as tools/t0/patches/A+chooser.json (an extension part
+// of group A; `python tools/t0/build.py --train R1a` then reports 48 instead of 45 bundle patches and T0-A11Y-28 turns green on R1a).  Verified on a scratch R1a
+// build (release id c53f1816, 2026-10-01): the chooser becomes a modal dialog that takes focus and keeps Tab inside, both cards are role=button with
+// tabindex=0 and Enter/Space, Enter on the first card dismisses it and the app mounts.  R0 stays as it is: it is mechanism-only (D-ORDER), so its
+// chooser still cannot be passed by keyboard (decision for the owner / t0-core: an R0 mechanism row, or accept it for the week R0 ships alone).
+//   { "group": "A", "patches": [
+//     { "id": "A+chooser-dialog", "target": "js", "expect": 1,
+//       "find": "V.jsx(\"div\",{style:ko.overlay,children:V.jsxs(\"div\",{style:ko.content,children:[V.jsx(\"div\",{style:ko.title,children:\"Choose Your Experience\"})",
+//       "repl": "V.jsx(\"div\",{style:ko.overlay,children:V.jsxs(\"div\",{style:ko.content,role:\"dialog\",\"aria-modal\":\"true\",\"aria-label\":\"Choose your experience\",tabIndex:-1,ref:el=>{el&&!el.contains(document.activeElement)&&el.focus({preventScroll:!0})},onKeyDown:ev=>{if(ev.key!==\"Tab\")return;const b=Array.from(ev.currentTarget.querySelectorAll('[role=\"button\"]')),i=b.indexOf(document.activeElement);if(ev.shiftKey?i<=0:i===b.length-1){ev.preventDefault();b[ev.shiftKey?b.length-1:0].focus()}},children:[V.jsx(\"div\",{style:ko.title,children:\"Choose Your Experience\"})" },
+//     { "id": "A+chooser-card-desktop", "target": "js", "expect": 1,
+//       "find": "{style:{...ko.card,...f===\"desktop\"?ko.cardHover:{}},onClick:()=>c(\"desktop\"),",
+//       "repl": "{style:{...ko.card,...f===\"desktop\"?ko.cardHover:{}},role:\"button\",tabIndex:0,onKeyDown:ev=>{(ev.key===\"Enter\"||ev.key===\" \")&&(ev.preventDefault(),c(\"desktop\"))},onClick:()=>c(\"desktop\")," },
+//     { "id": "A+chooser-card-mobile", "target": "js", "expect": 1,
+//       "find": "{style:{...ko.card,...f===\"mobile\"?ko.cardHover:{}},onClick:()=>c(\"mobile\"),",
+//       "repl": "{style:{...ko.card,...f===\"mobile\"?ko.cardHover:{}},role:\"button\",tabIndex:0,onKeyDown:ev=>{(ev.key===\"Enter\"||ev.key===\" \")&&(ev.preventDefault(),c(\"mobile\"))},onClick:()=>c(\"mobile\")," } ] }
+
+// ------------------------------------------------------------------ T0-A11Y-27: Lighthouse itself (optional: needs an installed Lighthouse)
+// Lighthouse is not a dependency of this repo and is never downloaded by the suite.  Point it at a copy you installed yourself:
+//   node tests/t0/a11y.spec.mjs --dist release/R1c/dist --filter A11Y-27 --lighthouse <dir of an npm install of lighthouse>     (or env T0_LIGHTHOUSE)
+// <dir> may be the package folder (<dir>/package.json is lighthouse) or a folder that has node_modules/lighthouse (the independent verifier used
+// tmp/verify-a11y-perf, Lighthouse 13.5).  The page is audited as a first-time visitor sees it (fresh profile: the onboarding dialog is up), with the
+// mobile and with the desktop preset; Mapbox is blocked (a11y does not depend on tiles; --tiles inject spends the capped, Referer-injected budget).
+suite.test('T0-A11Y-27', 'Lighthouse accessibility category on / (first visit; mobile and desktop presets): 100 on trains that carry group AX, and the audits that fail otherwise are named (needs --lighthouse <dir>)', async (t) => {
+  const given = opt('lighthouse', process.env.T0_LIGHTHOUSE || null);
+  if (!given || given === true) throw new Skip('Lighthouse is not installed in this repo: pass --lighthouse <dir of an npm install of lighthouse> (or T0_LIGHTHOUSE) to run it');
+  if (IS_LEGACY && !EXPECT_RED) throw new Skip('legacy scores below 100 by design (run with --expect-red)');
+  const pkgDir = [path.resolve(given), path.join(path.resolve(given), 'node_modules', 'lighthouse')].find((d) => { try { return JSON.parse(fs.readFileSync(path.join(d, 'package.json'), 'utf8')).name === 'lighthouse'; } catch { return false; } });
+  if (!pkgDir) throw new Skip(`no lighthouse package under ${given}`);
+  const { pathToFileURL } = await import('node:url');
+  const { default: lighthouse } = await import(pathToFileURL(path.join(pkgDir, 'core', 'index.js')).href);
+  const desktopConfig = (await import(pathToFileURL(path.join(pkgDir, 'core', 'config', 'desktop-config.js')).href)).default;
+  let hasAX = false; try { hasAX = (JSON.parse(fs.readFileSync(path.join(DIST, 'version.json'), 'utf8')).groups || []).includes('AX'); } catch { /* not a release tree */ }
+  const lhVersion = JSON.parse(fs.readFileSync(path.join(pkgDir, 'package.json'), 'utf8')).version;
+  const out = {};
+  for (const preset of ['mobile', 'desktop']) {
+    let S = null, chrome = null;
+    try {
+      if (TILES === 'inject') { S = await open({ profile: `a11y-27-${preset}`, cdpPort: PORT_BASE + 9, tiles: 'inject', onboarded: false }); chrome = S.chrome; }
+      else chrome = await L.launchChrome({ profileDir: path.join(TMP, 'chrome-profile', `a11y-27-${preset}`), port: PORT_BASE + 9, size: [1440, 900] });
+      const flags = { port: chrome.port, logLevel: 'error', output: 'json', onlyCategories: ['accessibility'], throttlingMethod: 'simulate', ...(TILES === 'inject' ? {} : { blockedUrlPatterns: ['*mapbox.com*'] }) };
+      const lhr = (await lighthouse(`${ORIGIN}/`, flags, preset === 'desktop' ? desktopConfig : undefined)).lhr;
+      const a = lhr.audits;
+      const refs = lhr.categories.accessibility.auditRefs;
+      const node = (i) => (i.node && (i.node.selector + ' ' + String(i.node.explanation || '').slice(0, 90))) || (i.selector || '');
+      const failing = refs.filter((r) => a[r.id] && a[r.id].score !== null && a[r.id].score < 1 && !['informative', 'manual', 'notApplicable'].includes(a[r.id].scoreDisplayMode))
+        .map((r) => `${r.id}(weight ${r.weight}): ${((a[r.id].details && a[r.id].details.items) || []).slice(0, 3).map(node).join(' | ')}`);
+      out[preset] = { score: Math.round(lhr.categories.accessibility.score * 100), failing, passed: refs.filter((r) => a[r.id] && a[r.id].score === 1).length, manual: refs.filter((r) => a[r.id] && a[r.id].scoreDisplayMode === 'manual').length,
+        labelInName: a['label-content-name-mismatch'] ? { score: a['label-content-name-mismatch'].score, items: ((a['label-content-name-mismatch'].details && a['label-content-name-mismatch'].details.items) || []).length } : null, finalUrl: lhr.finalDisplayedUrl };
+    } finally { try { if (S) { await S.close(); sessions.splice(sessions.indexOf(S), 1); } else if (chrome) chrome.kill(); } catch { /* gone */ } }
+  }
+  t.note(`Lighthouse ${lhVersion} accessibility (not WCAG conformance: automated rules only, ${out.mobile.manual} manual checks are never scored)`, out);
+  if (EXPECT_RED || !hasAX) {
+    t.note('tree', hasAX ? 'expect-red' : 'no group AX in this tree: scores are informational');
+    if (EXPECT_RED) assert(Object.values(out).some((v) => v.score < 100), 'expected a Lighthouse accessibility score below 100 on this tree');
+    return;
+  }
+  for (const [preset, v] of Object.entries(out)) assertEq([v.score, v.failing], [100, []], `Lighthouse accessibility on / (${preset})`);
 });
 
 let summary;

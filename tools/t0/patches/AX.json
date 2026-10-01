@@ -680,6 +680,14 @@
    "find": "o===\"shortcuts\"&&e.jsx(\"div\",{style:t.content,children:p.map((s,n)=>",
    "repl": "o===\"shortcuts\"&&e.jsx(\"div\",{style:t.content,children:(gtP?gtM:p).map((s,n)=>",
    "expect": 1
+  },
+  {
+   "id": "AX-tools-sheet-dialog",
+   "target": "js",
+   "find": "$t=>$t.stopPropagation(),children:[V.jsxs(\"div\",{style:tn.toolsHeader,",
+   "repl": "$t=>$t.stopPropagation(),ref:window.__gtbgDlg,tabIndex:-1,role:\"dialog\",\"aria-modal\":\"true\",\"aria-label\":\"Tools\",children:[V.jsxs(\"div\",{style:tn.toolsHeader,",
+   "expect": 1,
+   "note": "phone Tools sheet (the integrator's 'Esc does not close the mobile Tools sheet'): a modal dialog like Help: focus moves in when it opens, Tab and Shift+Tab stay inside, Esc clicks its own Close button, focus goes back to the Tools button (or stays on whatever the chosen tool opened). Anchored on legacy text that group C leaves alone and that does not overlap its row mob:HF-9i (which only adds a className in front of onClick), so it holds in either group order and the overlap audit stays clean"
   }
  ]
 }
