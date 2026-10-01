@@ -41,6 +41,10 @@ if (!fs.existsSync(DIST)) { console.error(`dist not found: ${DIST}\nbuild it fir
 const PAGES = ['404', 'aftermath', 'ar', 'camera', 'cinematic-export', 'compare', 'dashboard', 'documentary', 'education', 'embed', 'find-ancestor', 'ground-remembers', 'historian',
   'immersive', 'index', 'living-ledger', 'privacy', 'regiment', 'report', 'sandbox', 'search', 'terms', 'turning-points', 'viewshed', 'watch-together'];
 const SUBPAGES = PAGES.filter((p) => p !== 'index');
+const GROUPS = (() => { try { return JSON.parse(fs.readFileSync(path.join(DIST, 'version.json'), 'utf8')).groups || []; } catch { return []; } })();
+// index.html is the map app: its axe / field-name state is group AX's job (R1b and later; R1a has the legacy app plus group A), so it is asserted only on a tree that has AX.
+// The sub-pages are asserted on every train that has the page groups, and on legacy/dist (where they must fail).
+const A11Y_PAGES = PAGES.filter((p) => p !== 'index' || GROUPS.includes('AX'));
 const NAV_PAGES = ['aftermath', 'ar', 'camera', 'cinematic-export', 'compare', 'dashboard', 'documentary', 'education', 'find-ancestor', 'ground-remembers', 'historian', 'immersive', 'living-ledger', 'regiment', 'report', 'sandbox', 'search', 'turning-points', 'viewshed', 'watch-together'];
 const VPS = {
   desktop: { width: 1440, height: 900, dpr: 1, mobile: false, touch: false },
@@ -77,6 +81,9 @@ function createLab({ root, port }) {
   // the cache rule the train's _headers gives /icons/* (a tree without _headers, like legacy/dist, keeps the Netlify default)
   let iconCache = 'public, max-age=0';
   try { const m = /^\/icons\/\*\s*\n((?:[ \t]+.*\n)+)/m.exec(fs.readFileSync(path.join(rootDir, '_headers'), 'utf8')); const c = m && /Cache-Control:\s*(.+)/i.exec(m[1]); if (c) iconCache = c[1].trim(); } catch { /* no _headers */ }
+  if (iconCache === 'public, max-age=0') {   // no _headers (R1a, R1b): the netlify.toml of the tree carries the rule
+    try { const m = /\[\[headers\]\]\s*for\s*=\s*"\/icons\/\*"\s*\[headers\.values\]\s*Cache-Control\s*=\s*"([^"]+)"/.exec(fs.readFileSync(path.join(rootDir, 'netlify.toml'), 'utf8')); if (m) iconCache = m[1]; } catch { /* no netlify.toml */ }
+  }
   state.iconCache = iconCache;
   const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.png': 'image/png', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.xml': 'application/xml', '.txt': 'text/plain; charset=utf-8', '.pdf': 'application/pdf' };
   const send = (req, res, status, body, type, cache = 'public, max-age=0') => { res.writeHead(status, { 'content-type': type, 'cache-control': cache, 'content-length': body.length, 'x-content-type-options': 'nosniff' }); res.end(req.method === 'HEAD' ? undefined : body); };
@@ -303,10 +310,10 @@ const test = (id, title, fn, { red = true } = {}) => { if (red) RED.add(id); sui
 
 // ------------------------------------------------------------------------------------------------------------------ axe, overflow, targets, text
 for (const [kind, label] of [['desktop', '1440x900'], ['phone', '375x812']]) {
-  test(`T0-PGF-01${kind === 'desktop' ? 'a' : 'b'}`, `axe: 0 serious / critical violations on all 25 pages at ${label}, also with the nav menu open`, async (t) => {
+  test(`T0-PGF-01${kind === 'desktop' ? 'a' : 'b'}`, `axe: 0 serious / critical violations on all 24 sub-pages (and on the map app on trains that carry its a11y bridge, R1b+) at ${label}, also with the nav menu open`, async (t) => {
     const out = await collect(kind);
     assertEq(problems(out, (r) => r.error ? [r.error] : []), {}, 'pages that could not be audited');
-    const bad = problems(out, (r) => [...(r.axe || []), ...(r.axeMenu || []).map((v) => `menu open: ${v}`)]);
+    const bad = problems(out, (r) => [...(r.axe || []), ...(r.axeMenu || []).map((v) => `menu open: ${v}`)], A11Y_PAGES);
     t.note('violations', bad);
     assertEq(bad, {}, `serious/critical axe violations at ${label}`);
   });
@@ -344,11 +351,11 @@ test('T0-PGF-04', 'no text under 12 px (SVG text as drawn, nav menu included) on
   t.note('under 12 px', bad);
   assertEq(bad, {}, 'text under 12 px');
 });
-test('T0-PGF-05', 'every field has an accessible name and no placeholder is under 4.5:1 (all 25 pages, 375 and 1440 px)', async (t) => {
+test('T0-PGF-05', 'every field has an accessible name and no placeholder is under 4.5:1 (all 24 sub-pages and the map app on trains with its a11y bridge, 375 and 1440 px)', async (t) => {
   const bad = {};
   for (const kind of ['phone', 'desktop']) {
     const out = await collect(kind);
-    for (const name of PAGES) { const a = out[name].audit || {}; const v = [...(a.unlabeled || []).map((s) => `no name: ${s}`), ...(a.placeholders || []).map((s) => `placeholder ${s}`)]; if (v.length) bad[`${name}@${kind}`] = v; }
+    for (const name of A11Y_PAGES) { const a = out[name].audit || {}; const v = [...(a.unlabeled || []).map((s) => `no name: ${s}`), ...(a.placeholders || []).map((s) => `placeholder ${s}`)]; if (v.length) bad[`${name}@${kind}`] = v; }
   }
   t.note('problems', bad);
   assertEq(bad, {}, 'unnamed fields / low placeholder contrast');
@@ -453,6 +460,36 @@ test('T0-PGF-09', 'the nav menu works from the keyboard: Enter opens it, Esc clo
     await page.close();
   }
 });
+test('T0-PGF-19', 'keyboard focus is a real outline of 2 px or more, not only a glow or a tint, on the Ask the Historian pin, the menu rows, the Historian chips and question field, and the Regiment search field and result rows', async (t) => {
+  const ring = (page) => page.evaluate(() => { const e = document.activeElement; const cs = getComputedStyle(e); return { el: e.tagName.toLowerCase() + (e.id ? '#' + e.id : '') + (e.className && typeof e.className === 'string' ? '.' + e.className.trim().split(/\s+/)[0] : ''), style: cs.outlineStyle, width: parseFloat(cs.outlineWidth) }; });
+  const tabTo = async (page, sel, max) => { for (let i = 0; i < max; i++) { await page.keyboard.press('Tab'); if (await page.evaluate((s) => document.activeElement.matches(s), sel)) return true; } return false; };
+  const seen = {}; const bad = {};
+  const check = (label, r) => { seen[label] = `${r.el} ${r.style} ${r.width}px`; if (r.style === 'none' || !(r.width >= 2)) bad[label] = r; };
+  for (const kind of ['desktop', 'phone']) {
+    let { page } = await openPage(kind, 'historian', { wait: 1200 });
+    assert(await tabTo(page, '.gtbg-historian-pin', 6), `${kind}: the Ask the Historian pin is a Tab stop`);
+    check(`${kind}: Ask the Historian pin`, await ring(page));
+    assert(await tabTo(page, '#gtbg-menu-btn', 3), `${kind}: Explore is a Tab stop`);
+    await page.keyboard.press('Enter'); await sleep(300); await page.keyboard.press('Tab');
+    assert(await page.evaluate(() => !!document.activeElement.closest('#gtbg-menu-panel')), `${kind}: Tab moves into the open menu`);
+    check(`${kind}: menu row`, await ring(page));
+    await page.keyboard.press('Escape'); await sleep(250);
+    assert(await tabTo(page, '.sugg', 40), `${kind}: a suggestion chip is a Tab stop`);
+    check(`${kind}: Historian suggestion chip`, await ring(page));
+    assert(await tabTo(page, '#ask', 40), `${kind}: the question field is a Tab stop`);
+    check(`${kind}: Historian question field`, await ring(page));
+    await page.close();
+    ({ page } = await openPage(kind, 'regiment', { wait: 1200 }));
+    assert(await tabTo(page, '#regiment-search', 12), `${kind}: the Regiment search field is a Tab stop`);
+    check(`${kind}: Regiment search field`, await ring(page));
+    await page.keyboard.type('20th Maine'); await sleep(250); await page.keyboard.press('Tab');
+    assert(await page.evaluate(() => document.activeElement.classList.contains('match-row')), `${kind}: Tab from the field lands on a result row`);
+    check(`${kind}: Regiment result row`, await ring(page));
+    await page.close();
+  }
+  t.note('focus outlines', seen);
+  assertEq(bad, {}, 'controls whose keyboard focus is not a real outline');
+});
 test('T0-PGF-10', 'controls that only had a mouse handler work from the keyboard: Report and Regiment search results, the Dashboard legend, Watch Together Import tour and Add stop, the Immersive sound gate', async (t) => {
   // Report: type, Tab to the first result, Enter
   let { page } = await openPage('desktop', 'report', { wait: 1200 });
@@ -529,6 +566,24 @@ test('T0-PGF-12', 'Compare on a phone: each pane has its controls above its map 
   const dk = await page.evaluate(() => { const p = document.querySelector('.pane'); const c = p.querySelector('.pane-controls').getBoundingClientRect(), m = p.querySelector('.map').getBoundingClientRect(); return { ctrlInsideMap: c.top >= m.top && c.bottom <= m.bottom && c.left >= m.left && c.right <= m.right, mapH: Math.round(m.height) }; });
   assert(dk.ctrlInsideMap && dk.mapH >= 400, `desktop layout unchanged: ${JSON.stringify(dk)}`);
   await page.close();
+});
+test('T0-PGF-17', 'Compare: the two map canvases have different accessible names (both were "Map", axe landmark-unique), left before right', async (t) => {
+  const { page } = await openPage('desktop', 'compare', { wait: 2500 });
+  const names = await page.evaluate(() => ['#map-a', '#map-b'].map((id) => { const c = document.querySelector(`${id} canvas`); return c ? (c.getAttribute('aria-label') || '') : null; }));
+  t.note('canvas names', names);
+  assert(names.every((n) => typeof n === 'string' && n.trim()), `a map canvas is missing or unnamed: ${JSON.stringify(names)}`);
+  assert(names[0] !== names[1], `both canvases are named "${names[0]}"`);
+  await page.close();
+});
+test('T0-PGF-18', 'Sandbox: the HYPOTHETICAL banner text is one box at 375, 320 and 1440 px (the inline span wrapped on a phone and its first line stuck out of the background)', async (t) => {
+  const seen = {};
+  for (const kind of ['phone', 'small', 'desktop']) {
+    const { page } = await openPage(kind, 'sandbox', { wait: 600 });
+    seen[kind] = await page.evaluate(() => { const sp = document.querySelector('#banner span'); const b = document.getElementById('banner').getBoundingClientRect(); const r = sp.getBoundingClientRect(); return { boxes: sp.getClientRects().length, inside: r.left >= b.left - 0.5 && r.right <= b.right + 0.5 && r.top >= b.top - 0.5 && r.bottom <= b.bottom + 0.5, w: Math.round(r.width), h: Math.round(r.height) }; });
+    await page.close();
+  }
+  t.note('banner text box', seen);
+  for (const [kind, v] of Object.entries(seen)) { assertEq(v.boxes, 1, `${kind}: the banner text is split into ${v.boxes} boxes`); assert(v.inside, `${kind}: the text box sticks out of the banner ${JSON.stringify(v)}`); }
 });
 test('T0-PGF-13', 'Ask the Historian opens at the top on a 320x568 phone (the greeting no longer scrolls the page under the sticky nav) and an answer is still scrolled into view', async () => {
   const { page } = await openPage('small', 'historian', { wait: 2500 });

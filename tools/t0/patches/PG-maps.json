@@ -707,6 +707,14 @@
       "note": "keyboard order - 3/3 (map B after its controls)"
     },
     {
+      "id": "PGF-compare-canvas-names",
+      "target": "compare.html",
+      "find": "      map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');\n",
+      "repl": "      map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');\n      // both canvases were named \"Map\" (axe landmark-unique): a keyboard or screen-reader user could not tell the panes apart\n      map.getCanvas().setAttribute('aria-label', containerId === 'map-a' ? 'Left map' : 'Right map');\n",
+      "expect": 1,
+      "note": "the two map canvases have distinct names (Left map, Right map); axe landmark-unique (moderate) on Compare"
+    },
+    {
       "id": "PGF-css-compare",
       "target": "compare.html",
       "find": "</style>",
@@ -806,9 +814,9 @@
       "id": "PGF-css-historian",
       "target": "historian.html",
       "find": "</style>",
-      "repl": "/* pages-fixes: 12 px source links, 44 px tap targets */\n.sub { font-size: 14px; }\n.how { font-size: 13px; }\n.msg.bot .src { display: flex; align-items: center; font-size: 12px; margin-top: 2px; min-height: 44px; }\n@media (min-width: 835px) and (hover: hover) and (pointer: fine) { .msg.bot .src { min-height: 24px; } }\n</style>",
+      "repl": "/* pages-fixes: 12 px source links, 44 px tap targets */\n.sub { font-size: 14px; }\n.how { font-size: 13px; }\n.sugg:focus-visible, #ask:focus-visible { outline: 2px solid #c9a24b; outline-offset: 2px; }\n.msg.bot .src { display: flex; align-items: center; font-size: 12px; margin-top: 2px; min-height: 44px; }\n@media (min-width: 835px) and (hover: hover) and (pointer: fine) { .msg.bot .src { min-height: 24px; } }\n</style>",
       "expect": 1,
-      "note": "answer source links 11 px -> 12 px with a 44 px tap area"
+      "note": "answer source links 11 px -> 12 px with a 44 px tap area; the suggestion chips and the question field show a 2 px focus ring (they had a border colour only)"
     },
     {
       "id": "PGF-historian-greeting-scroll",
@@ -854,9 +862,9 @@
       "id": "PGF-css-regiment",
       "target": "regiment.html",
       "find": "</style>",
-      "repl": "/* pages-fixes: 12 px text, 44 px result rows */\n.sub { font-size: 14px; }\n.match-row .side-tag { font-size: 12px; }\n.side-pill { font-size: 12px; }\n.stat-card .lbl { font-size: 12px; }\n.tl-item .tl-meta { font-size: 12px; }\n.bio-meta, .tl-item, .vig-card p, .empty-note { font-size: 14px; }\n.match-row { align-items: center; }\n.match-row { min-height: 44px; }\n@media (min-width: 835px) and (hover: hover) and (pointer: fine) { .match-row { min-height: 24px; } }\n</style>",
+      "repl": "/* pages-fixes: 12 px text, 44 px result rows */\n.sub { font-size: 14px; }\n.match-row .side-tag { font-size: 12px; }\n.side-pill { font-size: 12px; }\n.stat-card .lbl { font-size: 12px; }\n.tl-item .tl-meta { font-size: 12px; }\n.bio-meta, .tl-item, .vig-card p, .empty-note { font-size: 14px; }\n.match-row { align-items: center; }\n#regiment-search:focus-visible { outline: 2px solid #c9a24b; outline-offset: 2px; }\n.match-row:focus-visible { outline: 2px solid #c9a24b; outline-offset: -2px; }\n.match-row { min-height: 44px; }\n@media (min-width: 835px) and (hover: hover) and (pointer: fine) { .match-row { min-height: 24px; } }\n</style>",
       "expect": 1,
-      "note": "side tag 10 px, side pill 11 px, stat labels 11 px, timeline meta 11 px -> 12 px; result rows 44 px"
+      "note": "side tag 10 px, side pill 11 px, stat labels 11 px, timeline meta 11 px -> 12 px; result rows 44 px; the search field and the result rows show a 2 px focus ring (border colour / background tint only before)"
     },
     {
       "id": "PGF-regiment-row-space",
@@ -926,9 +934,9 @@
       "id": "PGF-css-sandbox",
       "target": "sandbox.html",
       "find": "</style>",
-      "repl": "/* pages-fixes: no horizontal overflow on phones, 12 px text, readable hints */\n.sub { font-size: 14px; }\n#map-wrap { position: relative; }\n#edit-panel .hint { color: #9aa3b8; font-size: 12px; }\n#edit-panel { font-size: 13px; }\n#tick-select { width: 520px; max-width: 100%; min-width: 0; text-overflow: ellipsis; }\n.controls label { min-width: 0; max-width: 100%; }\n@media (max-width: 700px) {\n  .controls label { display: flex; flex-direction: column; gap: 4px; flex: 1 1 100%; }\n  .controls > span { flex: 1 1 100%; margin-left: 0 !important; }\n}\n</style>",
+      "repl": "/* pages-fixes: no horizontal overflow on phones, 12 px text, readable hints */\n.sub { font-size: 14px; }\n#map-wrap { position: relative; }\n#banner span { display: inline-block; max-width: 100%; box-sizing: border-box; line-height: 1.35; }\n#edit-panel .hint { color: #9aa3b8; font-size: 12px; }\n#edit-panel { font-size: 13px; }\n#tick-select { width: 520px; max-width: 100%; min-width: 0; text-overflow: ellipsis; }\n.controls label { min-width: 0; max-width: 100%; }\n@media (max-width: 700px) {\n  .controls label { display: flex; flex-direction: column; gap: 4px; flex: 1 1 100%; }\n  .controls > span { flex: 1 1 100%; margin-left: 0 !important; }\n}\n</style>",
       "expect": 1,
-      "note": "select#tick-select was 508 px wide, so the page was 527 px wide at 375 and 524 at 320: the select is at most as wide as the screen (ellipsis) and keeps that width while its options are still loading (no layout shift when they arrive), and stacks under its label on phones; hint 11 px -> 12 px"
+      "note": "select#tick-select was 508 px wide, so the page was 527 px wide at 375 and 524 at 320: the select is at most as wide as the screen (ellipsis) and keeps that width while its options are still loading (no layout shift when they arrive), and stacks under its label on phones; hint 11 px -> 12 px; the HYPOTHETICAL banner text is one box (an inline span wrapped on a phone and its first line stuck out of the background)"
     },
     {
       "id": "PGF-label-search-box",
