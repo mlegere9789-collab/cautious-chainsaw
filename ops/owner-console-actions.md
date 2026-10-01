@@ -190,6 +190,8 @@ Done when: every box above is ticked, the mailbox recovery address is separate, 
 
 Also (chapter 02 O-T0 decisions; the defaults are already in force and were chosen so the work can proceed): O-T0-3 accept the "played-through state" clock rule (this also accepts that after R0 tick 1 shows 71 units instead of the intro's accidental extra ghost units); O-T0-4 deploy path CLI (`ops/RELEASE-RUNBOOK.md`); O-T0-9 who runs the iPhone SE / Android / Samsung checks and when (by 2026-10-24, before R1b). Tell the AI in writing to change any of them.
 
+Also (added after the release verifier, 2026-09-30; the defaults are in force; reasons and evidence in `ops/header-decisions.md` and `ops/T0-DEVIATIONS.md`): (a) **R1c headers are stricter than the plan** (framing `DENY` / `'none'` instead of `SAMEORIGIN` / `'self'`; camera, location and sensors only on the hidden AR page): keep, or ask for the plan's wording; (b) **Street View motion sensors:** R1c lets the Virtual Walkthrough's Google frame read the phone's motion sensors (this removes the console error the frame logs today) and says so in the privacy text: keep, or drop it, and try the Walkthrough on your phone either way; (c) **the interim privacy and terms text is opt-in:** nothing ships unless you read `ops/legal-drafts/preview/*.html` and `ops/legal-drafts/OWNER-SIGNOFF.md` and the R1c build is made with `--with PG-legal`; set the effective date (`legal.effective_date` in `tools/t0/trains.json`) to the deploy day first; (d) **R0 alone measured 84 on mobile Lighthouse** (gate 85): ship it anyway, or hold it so it rides with R1a (86); (e) the Netlify site's primary-domain setting and plan facts (actions 5 and 6) are still needed before R1c.
+
 ---
 
 ## Final tick-list (by 2026-10-07)

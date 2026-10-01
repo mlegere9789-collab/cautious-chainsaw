@@ -422,7 +422,7 @@
       ],
       "when": "only after 'Start Battlefield AR' is pressed",
       "leaves_device": "no: the page's only fetch is GET /data/terrain.json; no MediaRecorder, canvas capture, sendBeacon or XHR",
-      "evidence": "ar.html:114, 160, 172, 184-193; Permissions-Policy in netlify.toml grants camera, geolocation, accelerometer, gyroscope, magnetometer to self only"
+      "evidence": "ar.html:114, 160, 172, 184-193; the generated _headers (tools/t0/config/gen.mjs) grants camera, geolocation, accelerometer, gyroscope and magnetometer to self on /ar and /ar.html only (every other page: off; the legacy netlify.toml granted them to self site-wide)"
     }
   ],
   "on_device_only": [
@@ -458,5 +458,20 @@
     "historian.html",
     "cinematic-export.html",
     "immersive.html"
+  ],
+  "frame_permissions": [
+    {
+      "id": "streetview-motion",
+      "page": "index.html (the app; the Virtual Walkthrough, also reachable from the mobile Tools sheet)",
+      "frame": "https://www.google.com/maps/embed/v1/streetview",
+      "delegated": [
+        "accelerometer",
+        "gyroscope"
+      ],
+      "mechanism": "the iframe carries allow=\"accelerometer; gyroscope\" (bundle patch CP+walkthrough-sensors, train R1c) and the Permissions-Policy of / and /index.html names https://www.google.com for accelerometer and gyroscope (tools/t0/config/gen.mjs PP_APP); no other page and no other frame is given them (the NPS video frame has no allow attribute)",
+      "when": "only after the Virtual Walkthrough is opened (the frame is created then)",
+      "leaves_device": "unknown: the frame is Google's code and the site cannot see what it sends",
+      "evidence": "ops/header-decisions.md section 2 (Chrome 153 run on 2026-09-30: without the attribute and the header the frame logs 'Permissions policy violation: accelerometer is not allowed in this document' and 'deviceorientation events are blocked by permissions policy'; with both it logs nothing)"
+    }
   ]
 }

@@ -9,9 +9,13 @@ level, per-file sha256 in tools/t0/baseline.lock.json; the build refuses a basel
 deploy 6aa16d61) is never modified and only checked for being unmodified.  Order of work:
   bundle groups (fixed order) -> R0 rename/hash + mechanism -> page groups (path targets, PG-*.json) -> overlay -> config hook
   -> finalize (_ops/asset-manifest.json, version.json, _ops/used-names.txt) -> ledger check -> gates (gate.mjs) -> manifest.
-See tools/t0/README.md for the plugin interface.  Exit codes: 0 ok, 2 precondition/anchor/overlay failure, 3 gate failure.
+See tools/t0/README.md for the plugin interface.  Exit codes: 0 ok, 2 precondition/anchor/overlay/ledger failure, 3 gate failure.
+A build that fails AFTER it started writing never leaves something deployable behind: exit 2 removes release/<train>/dist (and any manifest.json /
+gate.json of an earlier build) and writes BUILD-FAILED.json; exit 3 keeps the dist for inspection next to a BUILD-FAILED.json marker (the gate result
+is in gate.json).  --keep-failed keeps the partial tree of an exit-2 failure as dist.failed.  Optional page groups (PG-legal) are built with --with.
 """
 import argparse
+import datetime
 import json
 import os
 import subprocess
@@ -24,6 +28,7 @@ from t0build.util import (BuildError, REPO, T0, copy_tree, dump_json, load_json,
 
 SENTINEL = '/*t0:'
 SKIP_OVERLAY = ('.gitkeep', 'README.md', 'README.txt')
+MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 
 class GateFailed(BuildError):
@@ -32,6 +37,61 @@ class GateFailed(BuildError):
 
 def rel_to_repo(p):
     return os.path.relpath(p, REPO).replace(os.sep, '/')
+
+
+def check_ledger_format(path):
+    """The used-names ledger must be a well-formed TSV (name, sha256, bytes, zips, source) BEFORE anything is written: a line without tabs used to
+    surface as an IndexError traceback from finalize() after the dist had been created (release verifier 2026-09-30)."""
+    if not os.path.isfile(path):
+        raise BuildError('ledger %s does not exist; run `python tools/t0/ledger.py seed` first' % rel_to_repo(path))
+    with open(path, encoding='utf-8') as fh:
+        for n, line in enumerate(fh, 1):
+            line = line.rstrip('\n')
+            if not line or line.startswith('#'):
+                continue
+            f = line.split('\t')
+            if len(f) < 5 or not f[0] or len(f[1]) != 64 or any(c not in '0123456789abcdef' for c in f[1]) or not f[2].isdigit() or not f[3].isdigit() or not f[4]:
+                raise BuildError('ledger %s line %d is malformed (want name<TAB>sha256<TAB>bytes<TAB>zips<TAB>source, got %r); do not hand-edit the '
+                                 'ledger: restore it from git or regenerate with `python tools/t0/ledger.py seed`' % (rel_to_repo(path), n, line[:100]))
+
+
+def legal_date_text(cfg):
+    """'November 3, 2026' from the pinned ISO date trains.json legal.effective_date (no wall clock: builds stay deterministic)."""
+    v = (cfg.get('legal') or {}).get('effective_date')
+    try:
+        y, m, d = (int(x) for x in str(v).split('-'))
+        datetime.date(y, m, d)
+        if len(str(v)) != 10:
+            raise ValueError(v)
+    except (ValueError, TypeError):
+        raise BuildError('trains.json legal.effective_date must be an ISO date YYYY-MM-DD (the day the legal text is published), got %r' % (v,))
+    return '%s %d, %d' % (MONTHS[m - 1], d, y)
+
+
+def mark_failed(out, train, err, exit_code, keep_partial=False):
+    """A failed build must not leave a deployable-looking release/<train>/dist.  exit 2 (nothing is shipped): remove dist, manifest.json, gate.json and
+    the kill-switch copy of any earlier build, write BUILD-FAILED.json.  exit 3 (gate failed): keep dist and gate.json for inspection, add the marker."""
+    os.makedirs(out, exist_ok=True)
+    dist = os.path.join(out, 'dist')
+    what = 'kept for inspection (the gate failed: see gate.json); NOT deployable'
+    if exit_code == 2:
+        if os.path.isdir(dist):
+            if keep_partial:
+                kept = os.path.join(out, 'dist.failed')
+                rmtree_safe(kept)
+                os.replace(dist, kept)
+                what = 'partial tree kept as dist.failed (NOT deployable)'
+            else:
+                rmtree_safe(dist)
+                what = 'removed'
+        else:
+            what = 'none was written'
+        for f in ('manifest.json', 'gate.json'):
+            if os.path.isfile(os.path.join(out, f)):
+                os.remove(os.path.join(out, f))
+        rmtree_safe(os.path.join(out, '_ops'))
+    dump_json(os.path.join(out, 'BUILD-FAILED.json'), {'train': train, 'exit': exit_code, 'error': str(err)[:4000], 'dist': what, 'deployable': False})
+    print('output marked failed: dist %s; marker %s/BUILD-FAILED.json' % (what, rel_to_repo(out)))
 
 
 def check_input(base_dir, cfg, strict_tree, lock_path=None):
@@ -148,7 +208,22 @@ def finalize(dist, cfg, rel, train, groups, input_md5, ledger_path, legacy_names
 
 
 def build_train(train, args, cfg):
+    """One train.  Failures before anything is written leave the previous output alone; once the build has started writing into the output
+    directory a failure removes (exit 2) or marks (exit 3) it, so release/<train>/dist is never a half-built tree that looks deployable."""
     out = os.path.abspath(os.path.join(REPO, args.out)) if args.out else os.path.join(REPO, 'release', train)
+    state = {'touched': False}
+    try:
+        return _build_train(train, args, cfg, out, state)
+    except GateFailed as e:
+        mark_failed(out, train, e, 3)
+        raise
+    except BuildError as e:
+        if state['touched']:
+            mark_failed(out, train, e, 2, args.keep_failed)
+        raise
+
+
+def _build_train(train, args, cfg, out, state):
     dist = os.path.join(out, 'dist')
     legacy_dir = os.path.abspath(os.path.join(REPO, args.legacy or args.base_dir or cfg['base']['dir']))
     lock_path = os.path.abspath(os.path.join(REPO, args.base_lock)) if args.base_lock else os.path.join(REPO, cfg['base']['lock'])
@@ -159,6 +234,7 @@ def build_train(train, args, cfg):
     tcfg = cfg['trains'][train]
     print('== build %s -> %s' % (train, rel_to_repo(out)))
 
+    check_ledger_format(ledger_path)
     strict = not args.legacy
     input_md5 = check_input(legacy_dir, cfg, strict_tree=strict, lock_path=lock_path)
     print('input ok: entry md5 %s, %s' % (input_md5, 'baseline %s pinned by %s, legacy/ unmodified' % (cfg['base']['dir'], cfg['base']['lock'])
@@ -170,6 +246,12 @@ def build_train(train, args, cfg):
         order_cfg['group_order'] = cfg['runbook_order']
     bundle_groups, page_groups = patches.select_groups(found, order_cfg, train, tuple(args.with_groups))
     print('bundle groups: %s   page groups: %s' % (' '.join(bundle_groups), ' '.join(page_groups) or '(none)'))
+    for g in args.with_groups:
+        if g not in bundle_groups and g not in page_groups:
+            print('note: --with %s is not part of train %s (it starts at a later train); nothing was added' % (g, train))
+    skipped_optional = sorted(g for g, v in found.items() if v['pg'] and v.get('optional') and g not in page_groups)
+    if skipped_optional and tcfg.get('page_groups'):
+        print('optional page group(s) NOT included (opt-in with --with): %s' % ' '.join(skipped_optional))
 
     texts = {k: read_text(os.path.join(legacy_dir, L[k])) for k in ('entry', 'help', 'book', 'css')}
     texts['js'] = texts.pop('entry')
@@ -181,6 +263,7 @@ def build_train(train, args, cfg):
             write_text(os.path.join(args.dump_stage, k + '.txt'), v)
 
     def write_anchors(status):
+        state['touched'] = True
         dump_json(os.path.join(out, 'anchors.json'), {
             'train': train, 'status': status, 'groups': bundle_groups + page_groups,
             'summary': {'patches': len(records), 'failed': sum(1 for r in records if not r['ok'] or r['found'] != r['expect'])},
@@ -192,18 +275,23 @@ def build_train(train, args, cfg):
         for b in bad_list:
             print('  ANCHOR FAIL  [%s] %s: expected %d, found %d%s' % (b['group'], b['id'], b['expect'], b['found'],
                                                                    ' (%s)' % b['error'] if b.get('error') else ''))
-        raise BuildError('%d patch anchor(s) failed; nothing was written except %s' % (len(bad_list), os.path.join(out, 'anchors.json').replace(os.sep, '/')))
+        raise BuildError('%d patch anchor(s) failed; nothing is deployable: the output holds only %s and BUILD-FAILED.json' % (len(bad_list), os.path.join(out, 'anchors.json').replace(os.sep, '/')))
 
     if bad:
         fail_anchors(bad)
     print('bundle phase: %d patches applied' % len(records))
 
+    state['touched'] = True
     rmtree_safe(out)
     copy_tree(legacy_dir, dist)
     rel = mechanism.run(dist, texts, cfg, train, records)
     print('release id %s: %s %s %s %s' % (rel['rid'], rel['entry'], rel['help'], rel['bookmark'], rel['css']))
 
-    bad, deleted = patches.apply_page_phase(dist, bundle_groups + page_groups, found, rel, records)
+    prel = dict(rel)
+    if 'PG-legal' in page_groups:
+        prel['legal_date'] = legal_date_text(cfg)       # pinned in trains.json (legal.effective_date); {{LEGAL_DATE}} in the legal patches
+        print('legal text dated %s (trains.json legal.effective_date)' % prel['legal_date'])
+    bad, deleted = patches.apply_page_phase(dist, bundle_groups + page_groups, found, prel, records)
     if bad:
         fail_anchors(bad)
     if deleted:
@@ -222,6 +310,11 @@ def build_train(train, args, cfg):
     problems = ledger.check(dist, ledger.load(ledger_path), legacy_names)
     if problems:
         raise BuildError('used-names ledger check failed:\n  ' + '\n  '.join(problems))
+    # the kill switch is NOT part of the public dist: the build keeps an identical copy beside it (release/<train>/_ops/sw-kill.js)
+    kill_src = os.path.join(REPO, 'ops', 'sw-kill.js')
+    if not os.path.isfile(kill_src):
+        raise BuildError('ops/sw-kill.js (the level-2 kill switch) is missing')
+    write_bytes(os.path.join(out, '_ops', 'sw-kill.js'), read_bytes(kill_src))
     write_anchors('ok')
     if args.record:
         added = ledger.record(dist, train, rel['rid'], ledger_path, legacy_names)
@@ -231,6 +324,8 @@ def build_train(train, args, cfg):
     if not args.no_gate:
         gate = ['node', os.path.join(T0, 'gate.mjs'), '--train', train, '--dist', dist, '--anchors', os.path.join(out, 'anchors.json'),
                 '--out', os.path.join(out, 'gate.json'), '--legacy', legacy_dir, '--ledger', ledger_path]
+        if not args.out:
+            gate += ['--cache', os.path.join(REPO, 'release', '.cache')]     # default layout shares one cache; with --out the gate writes beside it
         gate_rc = subprocess.run(gate, cwd=REPO).returncode
     tree, nfiles, files = tree_digest(dist)
     base_tree, base_n, _ = tree_digest(legacy_dir)
@@ -239,6 +334,7 @@ def build_train(train, args, cfg):
         'baseline': {'dir': rel_to_repo(legacy_dir), 'tree_sha256': base_tree, 'file_count': base_n, 'locked': strict},
         'total_bytes': sum(v[0] for v in files.values()), 'source_entry_md5': input_md5, 'overlay': overlay,
         'deleted': deleted, 'config_hook': hook,
+        'kill_switch': {'path': '_ops/sw-kill.js', 'public': False, 'sha256': sha256_bytes(read_bytes(kill_src))},
         'files': {k: {'bytes': v[0], 'sha256': v[1]} for k, v in sorted(files.items())}})
     print('tree sha256 %s (%d files, %d bytes)' % (tree, nfiles, sum(v[0] for v in files.values())))
     if gate_rc:
@@ -257,10 +353,12 @@ def main(argv=None):
     ap.add_argument('--all', action='store_true', help='build every train (R0, R1a, R1b, R1c) into release/<train>')
     ap.add_argument('--out', help='output directory (default release/<train>); must be under release/ or tmp/')
     ap.add_argument('--with', dest='with_groups', action='append', default=[], metavar='GROUP',
-                    help='include an optional group of trains.json (optional_groups is empty since the AMD-T0-1 error boundary moved into group A)')
+                    help='include an optional group: a bundle group named in trains.json optional_groups (empty today) or an optional page group such as PG-legal '
+                         '(the interim privacy/terms text is OPT-IN since 2026-09-30: python tools/t0/build.py --train R1c --with PG-legal)')
     ap.add_argument('--record', action='store_true', help='append this train\'s new asset names to ops/used-names.txt (owner step at deploy time)')
     ap.add_argument('--no-gate', action='store_true', help='skip gate.mjs (development only)')
-    ap.add_argument('--order', choices=['fixed', 'runbook'], default='fixed', help='group order (runbook = the chapter-02 order; must give identical bytes)')
+    ap.add_argument('--keep-failed', action='store_true', help='after an exit-2 failure keep the partial tree as <out>/dist.failed (default: remove it, so nothing deployable-looking is left)')
+    ap.add_argument('--order', choices=['fixed', 'runbook'], default='fixed', help='group order (runbook = the chapter-02 order; gives identical shipped files, only version.json and _ops/asset-manifest.json, which record the order, differ)')
     ap.add_argument('--dump-stage', help='write the bundle texts after the bundle phase to this directory (diagnostics)')
     g = ap.add_argument_group('test overrides (used by tests/t0/build_selftest.py)')
     g.add_argument('--legacy', dest='legacy', help='alternative input tree (skips the baseline lock; the entry md5 pin still applies)')

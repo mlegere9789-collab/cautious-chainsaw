@@ -196,12 +196,28 @@ const EXTRAS = [
     const r = await head('/icons/icon-192.png'); const cc = r.headers['cache-control'] || ''; const age = Number((/max-age=(\d+)/.exec(cc) || [])[1] || 0);
     return (r.status === 200 && !/immutable/i.test(cc) && age > 0 && age <= 86400 ? ok : bad)([`/icons/icon-192.png: ${r.status} cache-control: ${cc || 'none'}`]);
   } },
-  { id: 'E-03', audit: 'infra-04', title: 'Permissions-Policy: camera/geolocation/sensors off on / and /embed, on for self only on /ar', async run() {
+  { id: 'E-03', audit: 'infra-04', title: 'Permissions-Policy: camera/geolocation/sensors off on /embed and /dashboard, on for self only on /ar; on / either everything off or ONLY the Street View frame may use accelerometer + gyroscope (and then privacy.html says so)', async run() {
     const ev = []; let good = true;
     const pp = (r) => r.headers['permissions-policy'] || '';
     const feat = (v, n) => { const m = new RegExp(`(?:^|,\\s*)${n}=(\\([^)]*\\)|\\*)`).exec(v); return m ? m[1] : '(unset)'; };
-    for (const p of ['/', '/embed', '/dashboard']) {
-      const r = p === '/' ? ROOT : await head(p); const v = pp(r);
+    // / (and /index.html) hosts the Virtual Walkthrough's Google Street View iframe.  Two valid states (ops/header-decisions.md section 2):
+    //   off        every sensor/camera/location feature () - the build without the opt-in legal text, and trains R0-R1b are not judged here (baseline profile)
+    //   delegated  accelerometer and gyroscope = (self "https://www.google.com"), the rest off, AND privacy.html discloses it ("This site allows that frame ... motion sensors")
+    {
+      const v = pp(ROOT); const G = '(self "https://www.google.com")';
+      const rest = ['camera', 'geolocation', 'magnetometer', 'microphone', 'payment'].every((n) => feat(v, n) === '()');
+      const allOff = rest && feat(v, 'accelerometer') === '()' && feat(v, 'gyroscope') === '()';
+      const deleg = rest && feat(v, 'accelerometer') === G && feat(v, 'gyroscope') === G;
+      let state = allOff ? 'all off' : deleg ? 'Street View frame only' : 'NOT AS DESIGNED';
+      if (deleg) {
+        const pv = await gett('/privacy'); const text = (pv.body || '').replace(/<!--[\s\S]*?-->/g, '').replace(/<(script|style)[\s\S]*?<\/\1>/gi, '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+        if (!/allows that frame[^.]*motion sensors/i.test(text)) { state = 'delegated but /privacy does not disclose it'; good = false; }
+      }
+      if (!(allOff || deleg)) good = false;
+      ev.push(`/: accelerometer${feat(v, 'accelerometer')} gyroscope${feat(v, 'gyroscope')} camera${feat(v, 'camera')} geolocation${feat(v, 'geolocation')} ${state}`);
+    }
+    for (const p of ['/embed', '/dashboard']) {
+      const r = await head(p); const v = pp(r);
       const off = ['camera', 'geolocation', 'accelerometer', 'gyroscope', 'magnetometer', 'microphone'].every((n) => feat(v, n) === '()');
       if (!off) good = false; ev.push(`${p}: camera${feat(v, 'camera')} geolocation${feat(v, 'geolocation')} ${off ? 'off' : 'NOT OFF'}`);
     }

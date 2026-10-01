@@ -13,8 +13,9 @@
 //   --train T           which expectations apply: legacy | R0 | R1a | R1b | R1c | R1d | S1 | auto (default auto = the last row of ops/RELEASE-LOG.md,
 //                       `legacy` when the log is empty). A probe that is red but not yet due for that train prints KNOWN, not FAIL.
 //   --expect-release R  /version.json "release" must equal R (default: the release id of the last RELEASE-LOG row, when there is one)
-//   --dist DIR          a release dist (release/<train>/dist): the served entry, chunks, css, sw.js, version.json and _ops/sw-kill.js must be
-//                       byte-identical to the files in DIR (T0-BYTES; downloads about 2.3 MB once)
+//   --dist DIR          a release dist (release/<train>/dist): the served entry, chunks, css, sw.js and version.json must be byte-identical to the
+//                       files in DIR (T0-BYTES; downloads about 2.3 MB once), and the served index.html / privacy.html must equal DIR's page after
+//                       Netlify's post-processing model (T0-HTML: any other difference is content drift and FAILS; there is no warning level)
 //   --staging           the site is gbg-staging: X-Robots-Tag noindex MUST be present (production: it must be absent - T0-06)
 //   --kill              level-2 kill switch is deployed: /sw.js must be ops/sw-kill.js, T0-03 is inverted
 //   --parity URL        also compare the security/caching headers of representative URLs between --base and URL (proves netlify.toml/_headers
@@ -30,7 +31,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { spawnSync } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const UA = 'gbg-prod-probe/1 (release monitoring; HEAD-mostly; contact: site owner)';
@@ -169,9 +170,10 @@ probe('T0-03', 'sw.js is the no-skipWaiting worker (R0 mechanism) - or the kill 
   const noSkip = !/skipWaiting\s*\(/.test(t); const cache = /'gbg-r0-[0-9a-f]{8}'|"gbg-r0-[0-9a-f]{8}"/.test(t);
   return [noSkip && cache, `skipWaiting( absent=${noSkip}, cache name gbg-r0-<rid> present=${cache}`];
 });
-probe('T0-04', '/_ops/sw-kill.js is deployed and identical to ops/sw-kill.js', 'R0', async () => {
-  const r = await get(BASE, '/_ops/sw-kill.js'); const local = fs.readFileSync(path.join(REPO, 'ops', 'sw-kill.js'));
-  return [r.status === 200 && r.body && sha(r.body) === sha(local), `HTTP ${r.status}${r.body ? ', identical=' + (sha(r.body) === sha(local)) : ''}`];
+probe('T0-04', 'the kill switch is NOT publicly served (/_ops/sw-kill.js, /sw-kill.js answer 404) and ops/sw-kill.js exists to be deployed as /sw.js on demand (L2)', 'R0', async () => {
+  const bad = []; for (const p of ['/_ops/sw-kill.js', '/sw-kill.js']) { const r = await head(BASE, p); if (r.status === 200) bad.push(`${p} answers 200`); }
+  if (!fs.existsSync(path.join(REPO, 'ops', 'sw-kill.js'))) bad.push('ops/sw-kill.js is missing from the repository');
+  return [bad.length === 0, bad.join('; ') || 'not served; ops/sw-kill.js present'];
 });
 probe('T0-05', 'index.html loads the entry named by /version.json and has no modulepreload', 'R0', async () => {
   const v = await version(); if (!v.ok) return [false, 'no /version.json to compare with'];
@@ -183,12 +185,38 @@ probe('T0-06', 'staging is noindex, production is not (a staging copy must never
   return opt.staging ? [noindex, `x-robots-tag: ${xr || '(absent)'}`] : [!noindex, noindex ? `PRODUCTION SENDS x-robots-tag: ${xr} - the staging copy is live` : 'x-robots-tag absent'];
 });
 probe('T0-07', '/data/chronology_day1.json exists with max-age=3600 (data names never change in T0)', 'legacy', async () => { const r = await head(BASE, '/data/chronology_day1.json'); return [r.status === 200 && /max-age=3600/.test(h(r, 'cache-control')), `HTTP ${r.status} cache-control: ${h(r, 'cache-control') || '-'}`]; });
-probe('T0-BYTES', 'served entry/chunks/css/sw.js/version.json/_ops/sw-kill.js are byte-identical to --dist', 'R0', async () => {
+probe('T0-BYTES', 'served entry/chunks/css/sw.js/version.json are byte-identical to --dist', 'R0', async () => {
   const dist = path.resolve(REPO, opt.dist); const v = await version(); if (!v.ok) return [false, 'no /version.json'];
-  const files = [...names(v).map((n) => `assets/${n}`), 'sw.js', 'version.json', '_ops/sw-kill.js']; const bad = [];
+  const files = [...names(v).map((n) => `assets/${n}`), 'sw.js', 'version.json']; const bad = [];
   for (const f of files) { const local = path.join(dist, f); if (!fs.existsSync(local)) { bad.push(`${f} missing in --dist`); continue; } const r = await get(BASE, '/' + f); if (r.status !== 200) bad.push(`${f} HTTP ${r.status}`); else if (sha(r.body) !== sha(fs.readFileSync(local))) bad.push(`${f} differs`); }
   return [bad.length === 0, bad.join('; ') || `${files.length} files identical`];
 }, { onlyIf: () => !!opt.dist, skipWhy: 'no --dist given' });
+probe('T0-HTML', 'served index.html and privacy.html equal --dist after Netlify post-processing (RUM snippet, pretty-URL link rewrite): any other difference is content drift', 'R0', async () => {
+  const dist = path.resolve(REPO, opt.dist);
+  const { forwardModel } = await import(pathToFileURL(path.join(REPO, 'ops', 'sha-list.mjs')).href);
+  const bad = [];
+  for (const [url, file] of [['/', 'index.html'], ['/privacy', 'privacy.html']]) {
+    const local = path.join(dist, file); if (!fs.existsSync(local)) { bad.push(`${file} missing in --dist`); continue; }
+    const r = await get(BASE, url); if (r.status !== 200) { bad.push(`${url} HTTP ${r.status}`); continue; }
+    const served = r.body.toString('utf8'); const rum = (/\n(<script async id="netlify-rum-container"[^>]*><\/script>)\n/.exec(served) || [])[1] || null;
+    const src = fs.readFileSync(local, 'utf8');
+    let want; try { want = forwardModel(src, rum); } catch (e) { bad.push(`${file}: model refused (${e.message.slice(0, 80)})`); continue; }
+    // as uploaded (a site with all post-processing off, or a local emulator) OR exactly what the model says Netlify serves; nothing in between
+    if (served !== src && served !== want) bad.push(`${url} differs from ${file} beyond post-processing (served ${Buffer.byteLength(served)} B, source ${Buffer.byteLength(src)} B, model ${Buffer.byteLength(want)} B)`);
+  }
+  return [bad.length === 0, bad.join('; ') || 'both pages equal the built files (as uploaded, or after the post-processing model)'];
+}, { onlyIf: () => !!opt.dist, skipWhy: 'no --dist given', content: true });
+probe('T0-08', 'fixed-name images (manifest screenshots, og card) revalidate and nothing outside /assets/ and /icons/ is immutable (manifest.json, favicon.ico included)', 'R1a', async () => {
+  const bad = []; const seen = [];
+  for (const [p, maxAge] of [['/screenshots/day1.png', 86400], ['/screenshots/day3.png', 86400], ['/og/card-r1.png', 86400], ['/manifest.json', 604800], ['/favicon.ico', 604800]]) {
+    const r = await head(BASE, p);
+    if (r.status !== 200) { bad.push(`${p} HTTP ${r.status}`); continue; }
+    const cc = h(r, 'cache-control'); seen.push(`${p.split('/').pop()}=${cc || '(none)'}`);
+    if (/immutable/.test(cc)) bad.push(`${p} is immutable (${cc})`);
+    else if (Number((cc.match(/max-age=(\d+)/) || [])[1] || 0) > maxAge) bad.push(`${p} cache-control ${cc} (max ${maxAge} s)`);
+  }
+  return [bad.length === 0, bad.join('; ') || seen.join(' ')];
+});
 
 // ------------------------------------------------------------------ parity (staging vs production headers)
 const PARITY_HEADERS = ['cache-control', 'content-type', 'content-disposition', 'x-frame-options', 'content-security-policy', 'content-security-policy-report-only', 'strict-transport-security', 'referrer-policy', 'permissions-policy', 'x-content-type-options', 'x-permitted-cross-domain-policies', 'x-robots-tag'];

@@ -1,9 +1,9 @@
 # Release runbook: build a train, prove it on staging, deploy it, watch it, roll it back
 
 For the site owner. Plain language, copy-paste commands. Written 2026-09-30 for Tranche 0 (chapter 02 of the plan: `docs/plan/FINAL/02-tranche0-hotfix-runbook.md`, work packages WP-T0-02 and WP-T0-19).
-Companion files: `ops/STAGING-SETUP.md` (the second Netlify site), `ops/owner-console-actions.md` (account and console chores), `ops/RUM-hygiene.md` (keeping your own testing out of the real-user numbers), `ops/RELEASE-LOG.md` (the one-row-per-deploy record), `tests/README.md` (what every test is), `tests/t0/journeys-manual.md` (the by-hand checks).
+Companion files: `ops/STAGING-SETUP.md` (the second Netlify site), `ops/staging-verify.mjs` (the staging checklist as a script, section 6), `ops/owner-console-actions.md` (account and console chores), `ops/RUM-hygiene.md` (keeping your own testing out of the real-user numbers), `ops/RELEASE-LOG.md` (the one-row-per-deploy record), `ops/header-decisions.md` and `ops/T0-DEVIATIONS.md` (what differs from chapter 02, and why), `tests/README.md` (what every test is), `tests/t0/journeys-manual.md` (the by-hand checks).
 
-Where this text says **measured**, a command was run on 2026-09-30 and its output is in the report that came with this file. Where it says **unverified**, nothing has proved it yet and the step that would prove it is named. Nothing in this runbook has been run against a real deploy: no train has ever been deployed by this tooling.
+Where this text says **measured**, a command was run on 2026-09-30 and its output is in the report that came with this file. Where it says **unverified**, nothing has proved it yet and the step that would prove it is named. Nothing in this runbook has been run against a real deploy: no train has ever been deployed by this tooling. It was re-read by following it literally on 2026-09-30 (second pass): every command that can run without deploying or changing your machine was run, and what it printed replaced the old "measured" lines; the steps that need a real Netlify site, the CLI, a scheduled task or `git tag` are marked unverified where they appear.
 
 ---
 
@@ -30,7 +30,7 @@ Where this text says **measured**, a command was run on 2026-09-30 and its outpu
 | **Train** | one cumulative release: `R0` (mechanism), `R1a` (crash and input fixes, page fixes), `R1b` (mobile shell, accessibility), `R1c` (clock and data, deep links, copy, headers). Each contains everything before it. |
 | **rid** | release id, 8 hex characters (example `fb14ab00`), a hash of the patched bytes. It is in every hashed file name and in `version.json`. |
 | **dist** | the folder that is the website: `release/<train>/dist`. |
-| **gate** | the build's own automatic checks (`gate.json`). A build with a red gate leaves no deployable claim; do not deploy it. |
+| **gate** | the build's own automatic checks (`gate.json`). A red gate (build exit 3) keeps the dist for inspection next to a `BUILD-FAILED.json` marker: never deploy it (`ops/sha-list.mjs stage` and `ops/staging-verify.mjs` refuse it). |
 | **staging** | the second Netlify site `gbg-staging` (`ops/STAGING-SETUP.md`). Its copy of a train is a byte-identical dist plus one extra file, `_headers`, that makes it `noindex`. |
 | **probe** | `node tests/t0/prod-probe.mjs`: HEAD and small GET requests that check headers, redirects, `version.json`, the service worker file and asset caching. |
 | **L1 / L2 / L3** | rollback levels (section 11): publish the previous deploy / deploy the kill switch / fix forward. |
@@ -43,7 +43,7 @@ Chapter 02 sections 4 and 8; register section 4.3. Dates are **targets that assu
 
 | Train | Target (Tuesday) | Latest | What must be true first | Rollback |
 |---|---|---|---|---|
-| R0 | 2026-10-13 | 2026-10-21 | archive done; plan and credits known; 48 h staging soak (start by Sun 2026-10-11); X1-X3 probes and R0 suite green; Lighthouse mobile >= 85 and desktop >= 95 measured with production-Referer tiles (there is no Lighthouse runner in the repo yet, so this gate is open until one exists: chapter 05 WP-PERF-01); sign-off O-T0-3 on file | Publish previous deploy (this restores the old reload band-aid; acceptable) |
+| R0 | 2026-10-13 | 2026-10-21 | archive done; plan and credits known; 48 h staging soak (start by Sun 2026-10-11); X1-X3 probes and R0 suite green; Lighthouse mobile >= 85 and desktop >= 95 measured with production-Referer tiles (there is no Lighthouse runner in the repo yet, so this gate is open until one exists: chapter 05 WP-PERF-01; the independent verifier measured R0 at **84** mobile, median of 5 with real tiles, 100 desktop: `docs/verification/t0-verifier-findings.json`, verifier 2, so R0 alone misses its own mobile floor by one point and the owner has to choose, `ops/T0-DEVIATIONS.md` row 22); sign-off O-T0-3 on file | Publish previous deploy (this restores the old reload band-aid; acceptable) |
 | R1a | 2026-10-20 | (with R1) | R0 stable 3 days; headed real-mouse drag and wheel check done on the R0 site; journeys J1-J8 green (automated against the built dist, then by hand on staging: `tests/t0/journeys-manual.md` part A) | Publish previous |
 | R1b | 2026-10-27 | (with R1) | iPhone SE, one mid-range Android and Samsung Internet pass (`tests/t0/journeys-manual.md` part C); landscape matrix; screenshots of dense panels | Publish previous |
 | R1c | 2026-11-03 | 2026-11-05 | O-T0-3 signed; header check on staging; deep-link matrix; probe HP-06/07/13/15 | Publish previous |
@@ -64,7 +64,7 @@ Chapter 02 sections 4 and 8; register section 4.3. Dates are **targets that assu
 | Node 20+ (this machine: 24) | `node --version` | the probe and `ops/sha-list.mjs` need Node 18+ |
 | Python 3.11 | `python --version` | the build |
 | Repo dependencies | `npm ci` (only on a fresh checkout) | `node_modules/` already exists here |
-| Chrome (for the browser tests) | `"C:/Program Files/Google/Chrome/Application/chrome.exe" --version` | tests use system Chrome |
+| Chrome (for the browser tests) | `powershell -NoProfile -Command "(Get-Item 'C:\Program Files\Google\Chrome\Application\chrome.exe').VersionInfo.ProductVersion"` | tests use system Chrome; expect 153 or newer (measured 2026-09-30: `153.0.8010.54`). **Do not run `chrome.exe --version`**: on Windows it hands the command line to the browser that is already running, prints `Opening in existing browser session.` and no version (and may open a window in your own Chrome). Registry alternative: `reg query "HKCU\Software\Google\Chrome\BLBeacon" /v version` (in Git Bash write `MSYS_NO_PATHCONV=1 reg query ...`) |
 | Netlify CLI (only for Route A) | `netlify --version` | section 7.1 installs it |
 | Two Netlify sites | production, and `gbg-staging` | staging is created in `ops/STAGING-SETUP.md` |
 
@@ -80,13 +80,13 @@ python tools/t0/build.py --all               # R0, R1a, R1b, R1c
 node tools/t0/gate.mjs --train R1a           # re-run the gates on an existing build
 ```
 
-* **Exit codes of `build.py`:** `0` fine; `2` a precondition, anchor, overlay or ledger check failed (nothing shipped: read the message, it names the patch id); `3` a gate failed (the dist is kept so you can look; **do not deploy it**).
-* **Measured 2026-09-30:** an R0 build takes about 5 seconds and ends `OK: R0=fb14ab00`, tree sha256 `12b1e64c...9fe9c4c`, 122 files, 3.56 MB. Building it twice into two different folders and comparing with `ops/sha-list.mjs compare` printed `IDENTICAL: 122 files` (the build is deterministic: same input, same bytes, no timestamps).
-* **What is in a build:** `release/<train>/dist/` (deploy this), `anchors.json` (every patch and how many times it matched), `gate.json` (the gate results: `"ok": true` is what you want), `manifest.json` (every file with size and sha256, and the tree digest).
+* **Exit codes of `build.py`:** `0` fine; `2` a precondition, anchor, overlay or ledger check failed (read the message, it names the patch id or the ledger line); `3` a gate failed. **A failed build never leaves something deployable behind:** after exit `2` that happened while the build was already writing, `release/<train>/dist`, `manifest.json` and `gate.json` (also those of an earlier good build in the same folder) are removed and only `anchors.json` (anchor failures) and `BUILD-FAILED.json` remain (`--keep-failed` keeps the partial tree as `dist.failed`, never as `dist`); after exit `3` the dist is kept so you can look, next to `BUILD-FAILED.json` (`"deployable": false`). A failure before anything was written (bad input, malformed ledger) leaves the previous output untouched. A malformed `ops/used-names.txt` line is reported with its line number, not as a Python traceback.
+* **Measured 2026-09-30 (second pass):** an R0 build takes about 6 seconds and ends `OK: R0=fb14ab00`, 121 files, 3,566,836 bytes, tree sha256 `e101acab...dd2f742` (R0 only: the other trains' file counts, sizes and release ids change whenever a patch group changes, so they are not quoted here; read them from `manifest.json` and `version.json`). R1c takes about 13 seconds. The deterministic-build property is proven on every run of `python tests/t0/build_selftest.py` (case 1: two R1c builds, identical bytes).
+* **What is in a build:** `release/<train>/dist/` (deploy this), `anchors.json` (every patch and how many times it matched), `gate.json` (the gate results: `"ok": true` is what you want), `manifest.json` (every file with size and sha256, the tree digest and `kill_switch`), `_ops/sw-kill.js` (the level-2 kill switch, an identical copy of `ops/sw-kill.js`, deliberately OUTSIDE `dist`: it is never deployed with a train and never served), `.cache/` (the gate's analysis cache, beside the output; a build without `--out` shares `release/.cache`). The legal text is **opt-in**: `python tools/t0/build.py --train R1c --with PG-legal` (section 13); without the flag no train contains it.
 * **Identity of a build:** `release/<train>/dist/version.json` = `{release, train, entry, help, bookmark, css, groups, source_entry_md5}`. The `release` value is the rid you write in the log.
 * **Reproducibility check (run it once per train before staging):**
   ```
-  python tools/t0/build.py --train R1a --out release/check/R1a
+  python tools/t0/build.py --train R1a --out release/check/R1a          # (the build also accepts tmp/... here)
   node ops/sha-list.mjs list release/R1a/dist --out release/check/R1a-a.tsv
   node ops/sha-list.mjs list release/check/R1a/dist --out release/check/R1a-b.tsv
   node ops/sha-list.mjs compare release/check/R1a-a.tsv release/check/R1a-b.tsv     # must print IDENTICAL
@@ -117,7 +117,8 @@ node tests/t0/r0.mjs --dist release/R1a/dist                    # R0 mechanism: 
 node tests/t0/journeys-desktop.spec.mjs --dist release/R1a/dist # J1-J8 journeys, input, keys, sound, monuments, storage; clock/data tests (R1c)
 node tests/t0/pages-maps.spec.mjs --dist release/R1a/dist       # sub-pages, map pages, OG card, manifest (R1a)
 node tests/t0/mobile-matrix.spec.mjs --dist release/R1b/dist    # mobile shell over the viewport matrix (R1b)
-node tests/t0/headers.spec.mjs --dist release/R1c/dist          # generated headers/redirects, framing in a real browser (R1c)
+node tests/t0/headers.spec.mjs --dist release/R1c/dist          # generated headers/redirects, framing in a real browser (R1c); add --online for the real Street View frame (HDR-23)
+python ops/release-fixes.selftest.py                            # the build-robustness fixes: failed builds leave nothing deployable, ledger errors, gate cache, kill switch, opt-in legal group
 npm run t0:test                                                 # build self-test + browser harness self-test + R0 suite
 ```
 
@@ -126,6 +127,14 @@ They open system Chrome on `127.0.0.1` and use Mapbox tiles only through the har
 ---
 
 ## 6. Stage it and prove it (details in `ops/STAGING-SETUP.md`)
+
+**The whole checklist below is one command once the staging copy is deployed:**
+
+```
+node ops/staging-verify.mjs --train R1a --staging-url https://gbg-staging.netlify.app     # exit 0 = every automatic step passed; --checklist prints the steps and the expected output
+```
+
+It runs S0-S10 (the build is deployable, the baseline lock holds, no kill switch in the dist, the staging copy differs only in `_headers`, the generated rules, production still equals the baseline, noindex and no config files on staging, the byte proof with HTML included, the probe, header parity for R0-R1b, the legal text against the headers) and prints the manual list S11. A rehearsal without a network, against local emulators, is `--local` (it proves the tree and the script, not Netlify). The five steps below are what the script does for S3, S7, S8 and S9, written out:
 
 ```
 # 1. staging copy = the train's dist + a _headers file that adds "X-Robots-Tag: noindex"
@@ -140,7 +149,7 @@ node ops/sha-list.mjs list release/R1a/dist --out release/staging/R1a.tsv
 node ops/sha-list.mjs verify-url release/staging/R1a.tsv https://gbg-staging.netlify.app --tree release/R1a/dist
 ```
 
-**Ship-blockers on staging:** any `FAIL` line in step 3; any `FAIL PARITY` line in step 4 (for R0, R1a, R1b; for R1c read `ops/STAGING-SETUP.md` section 7); any `DIFF` or `MISS` in step 5 (for HTML files too: `--tree` lets the post-processing model explain Netlify's RUM snippet and link rewriting, so every other HTML difference is real; the old `--html-warn` demotion to a warning is gone). Soak: **48 h for R0, 24 h for the others.** During the soak open the staging URL yourself (a clean Chrome profile) and do the smoke list in `tests/t0/journeys-manual.md` part A. **On a `netlify.app` address the map tiles answer 403 (the Mapbox token only allows your real domain, and you must never add `netlify.app` to it), so the map area is blank on staging: that is expected.** The automated suites get real tiles through the Referer-injecting harness; for a human look at maps see `ops/STAGING-SETUP.md` section 9.
+**Ship-blockers on staging:** any `FAIL` line in step 3; any `FAIL PARITY` line in step 4 (for R0, R1a, R1b; for R1c read `ops/STAGING-SETUP.md` section 7); any `DIFF`, `MISS` or `PUB` in step 5. **There is no warning level for HTML.** `--tree` lets the post-processing model explain Netlify's RUM snippet and link rewriting, so every other HTML difference is content drift and a `DIFF` (exit 1); the old `--html-warn` demotion is gone (the flag is still accepted, ignored and says so); `--kinds nonhtml` is a quick look that says it did not check HTML, never a deploy gate; the probe's `T0-HTML` check compares the served `/` and `/privacy` with the built files and FAILs on any other difference. Soak: **48 h for R0, 24 h for the others.** During the soak open the staging URL yourself (a clean Chrome profile) and do the smoke list in `tests/t0/journeys-manual.md` part A. **On a `netlify.app` address the map tiles answer 403 (the Mapbox token only allows your real domain, and you must never add `netlify.app` to it), so the map area is blank on staging: that is expected.** The automated suites get real tiles through the Referer-injecting harness; for a human look at maps see `ops/STAGING-SETUP.md` section 9.
 
 ---
 
@@ -232,7 +241,7 @@ Do these in order; total about 20 minutes plus watching.
    python tools/t0/ledger.py record --dist release/R1a/dist --train R1a --rid <rid>     # adds the new asset names to ops/used-names.txt
    tools/commit.sh "release: R1a <rid> deployed" ops/RELEASE-LOG.md ops/used-names.txt
    ```
-   (The ledger step is what stops a future build from reusing a name; `tools/t0/README.md` "The used-names ledger".)
+   (The ledger step is what stops a future build from reusing a name; `tools/t0/README.md` "The used-names ledger". Second pass: `ledger.py record` was run through its Python function against a scratch copy of the ledger (4 names added, second run adds none, `ledger.py check` ok); `git tag` was not run in the repository so as not to leave a ref behind; `tools/commit.sh` is the helper every commit of this work used.)
 6. **Watch for 60 minutes:** re-run step 1 at +15, +30 and +60 minutes; keep the Netlify **Deploys** page open (a failed publish shows there). Do not start anything else that changes the site.
 
 ### 8.1 Scheduled probe for the next 14 days (every 6 hours)
@@ -320,7 +329,7 @@ Then deploy `release/kill` exactly like a train (Route A from inside `release/ki
 node tests/t0/prod-probe.mjs --base https://gettysburginteractivemap.com --train R1a --kill
 ```
 
-Do **not** build the kill copy with `ops/sha-list.mjs stage`: that command adds a `noindex` header that must never reach production. Write a `kill` row in the log. Afterwards fix forward under a new rid (L3): the next train carries the normal `sw.js` again. The kill file was tested by `tests/t0/r0.mjs` test `T0-R0-06`, including "no reload loop when the page re-registers it". `release/<train>/dist/_ops/sw-kill.js` is the same file (probe T0-04 checks that it is identical to `ops/sw-kill.js`).
+Do **not** build the kill copy with `ops/sha-list.mjs stage`: that command adds a `noindex` header that must never reach production. Write a `kill` row in the log. Afterwards fix forward under a new rid (L3): the next train carries the normal `sw.js` again. The kill file was tested by `tests/t0/r0.mjs` test `T0-R0-06`, including "no reload loop when the page re-registers it". It is **not part of any dist** and is never served (the first build served it at `/_ops/sw-kill.js`; the release verifier objected): the only copies are `ops/sw-kill.js` and the identical `release/<train>/_ops/sw-kill.js` the build keeps beside the dist. Probe `T0-04` checks that `/_ops/sw-kill.js` answers 404 on a normal train; with `--kill` probe `T0-03` checks that `/sw.js` IS `ops/sw-kill.js`. Rehearsed locally in the second pass (copy of a built dist + `ops/sw-kill.js` as `sw.js`, served by the emulator, `prod-probe --kill` green).
 
 ### L3: fix forward
 
@@ -352,11 +361,11 @@ curl -sI https://gettysburginteractivemap.com/diagnostics            # from R1a:
 curl -sI https://friendly-lolly-da85c0.netlify.app/                  # from R1c: 301 to the real domain (today 200)
 ```
 
-Probe exit codes: `0` nothing unexpected failed; `1` at least one `FAIL`; `2` the probe could not run. `KNOWN` means "red on purpose until a later train" and never fails a run; the table is `--list`. **Measured 2026-09-30 against production with `--train legacy`:** 9 pass (including the `HEADERS` line), 0 FAIL, 15 known-red, one skipped (`T0-BYTES`, which needs `--dist`). The known-red set contains exactly the audit's "10 of 15 header probes fail today" (HP-01, 02, 03, 06, 07, 10, 11, 12, 13 (developer pages) and 15) plus the Tranche-0 probes that only later trains satisfy.
+Probe exit codes: `0` nothing unexpected failed; `1` at least one `FAIL`; `2` the probe could not run. `KNOWN` means "red on purpose until a later train" and never fails a run; the table is `--list`. **Measured again 2026-09-30 (second pass) against production with `--train legacy`:** 10 pass (including the `HEADERS` line and `T0-04`, which only says the kill switch is not served), 0 FAIL, 15 known-red, 2 skipped (`T0-BYTES` and `T0-HTML`, which need `--dist`). The known-red set contains exactly the audit's "10 of 15 header probes fail today" (HP-01, 02, 03, 06, 07, 10, 11, 12, 13 (developer pages) and 15) plus the Tranche-0 probes that only later trains satisfy (T0-01, 02, 03, 05, 08). Production still equalled the baseline in the same pass: `python tools/t0/baseline.py verify-live` printed `IDENTICAL: live == baseline/dist (119 files checked, 27 pages in both URL forms, 148 requests; live deploy 6abd6d62...)`.
 
 Two deviations from the plan's wording, both deliberate: (1) the plan's R1c gate says "15/15 probes minus the CSP rows", but HP-10, HP-11 and HP-12 (the `/index.html` and `/x.html` 301s, privacy and terms in the sitemap) belong to the later identity train S1 (chapter 01 section 4.2, chapter 02 rule 5: Tranche 0 changes no URL form), so they stay `KNOWN` until S1; (2) HP-13 is split into a scanner-path part (green today) and a developer-pages part (green from R1a, both spellings).
 
-`ops/headers-probe.mjs` (the infra work's own HP-01..15 + E-01..E-04 probe, about 45 requests) runs automatically as the last `HEADERS` line unless you pass `--no-content` or `--headers-probe off`; the profile is chosen from the train (R0, R1a, R1b: `baseline`, meaning a probe that passed on 2026-09-29 must not regress; R1c: `t0`; S1: `s1`). Measured 2026-09-30 on production with `--train legacy`: `19/19 as expected, 0 unexpected FAIL`. It can also check a built tree locally without any deploy: `node ops/headers-probe.mjs --dist release/R1c/dist --profile t0` (it starts `tools/t0/config/emulate.mjs`; that proves the generated rules, not Netlify's own matching, which only a deploy to staging proves).
+`ops/headers-probe.mjs` (the infra work's own HP-01..15 + E-01..E-04 probe, about 45 requests) runs automatically as the last `HEADERS` line unless you pass `--no-content` or `--headers-probe off`; the profile is chosen from the train (R0, R1a, R1b: `baseline`, meaning a probe that passed on 2026-09-29 must not regress; R1c: `t0`; S1: `s1`). Measured 2026-09-30 on production with `--train legacy`: `19/19 as expected, 0 unexpected FAIL`. It can also check a built tree locally without any deploy: `node ops/headers-probe.mjs --dist release/R1c/dist --profile t0` (it starts `tools/t0/config/emulate.mjs`; that proves the generated rules, not Netlify's own matching, which only a deploy to staging proves; which Netlify rules the emulator does and does not model is the table "Emulated rules" in `tools/t0/config/README.md`). Its probe `E-03` accepts two states for `/`: every sensor off, or accelerometer and gyroscope delegated to `https://www.google.com` only AND `/privacy` saying so (`ops/header-decisions.md` section 2).
 
 ---
 
@@ -367,9 +376,9 @@ Two deviations from the plan's wording, both deliberate: (1) the plan's R1c gate
 | R0 | T0-R0-01..12 (Chrome); loader with the bundle blocked; `version.json`; probe; Lighthouse x5 median, production-Referer tiles. **Not yet done anywhere:** Firefox and WebKit runs | iPhone SE and an Android phone: first visit loads once, no white flash | export RUM before and after; sign O-T0-3; approve the deploy day |
 | R1a | input, crash, sound, keys, monuments, storage suites; page suites; duplicate-id sweeps; before/after screenshots of the pages | - | the headed real-mouse drag and wheel check on the live R0 site **before** shipping; D-SOUND decided |
 | R1b | mobile shell, viewport matrix, accessibility (axe); dense-panel screenshots at 4 widths | iPhone SE, mid-range Android, Samsung Internet, landscape, back-swipe (photos or video) | who runs the devices and when (O-T0-9) |
-| R1c | clock, data, minimap, deep links, copy suites; moments lint; header matrix; cross-origin framing page; probe HP-06/07/13/15 | - | sign O-T0-3 (if not yet); reviewer glance at the provisional Turning Points anchors |
+| R1c | clock, data, minimap, deep links, copy suites; moments lint; header matrix; cross-origin framing page; probe HP-06/07/13/15; `node ops/legal-drafts/verify-facts.mjs --dist release/R1c/dist` | - | sign O-T0-3 (if not yet); reviewer glance at the provisional Turning Points anchors; **decide the legal text** (opt-in: read `ops/legal-drafts/preview/*.html` and `OWNER-SIGNOFF.md`, set `legal.effective_date` in `tools/t0/trains.json` to the deploy day, build with `--with PG-legal`); decide the header items of `ops/header-decisions.md` section 6 |
 
-The owner defaults the plan lists as "in force unless you object in writing" (chapter 02 section 13): sound removed, dead heatmap deleted, gold trail deleted with a truthful caption, error boundary not built (proposal only), AR hidden, Watch Together security fix only, Immersive pause fix only, the "played-through state" clock rule accepted, capacity 24 hours a week with slippage allowed. To change one, tell the AI before that train is built.
+The owner defaults the plan lists as "in force unless you object in writing" (chapter 02 section 13): sound removed, dead heatmap deleted, gold trail deleted with a truthful caption, the error boundary around the app built and shipped (AMD-T0-1, accepted by default: it is patch `A-error-boundary` in group A and ships from R1a; O-T0-6), AR hidden, Watch Together security fix only, Immersive pause fix only, the "played-through state" clock rule accepted, capacity 24 hours a week with slippage allowed. To change one, tell the AI before that train is built.
 
 ---
 
@@ -378,7 +387,10 @@ The owner defaults the plan lists as "in force unless you object in writing" (ch
 * Any real deploy: nothing here has been run against a real Netlify deploy by this tooling. Section 6 step 4 (header parity) and the byte proof (`verify-url`) exist to close that gap on staging.
 * The Netlify CLI's handling of `netlify.toml` and `_headers` (7.1), drag-and-drop handling of the same (7.2), whether a CLI draft costs credits, your plan and balance (7.3).
 * The exact Netlify menu labels (the web app changes them); the documentation pages consulted on 2026-09-30 are named in `ops/owner-console-actions.md`.
-* Windows Task Scheduler behaviour (8.1).
+* Windows Task Scheduler behaviour (8.1): the `schtasks` lines change your machine's scheduled tasks, so they were not run (only their syntax was read against `schtasks /Create /?`).
+* `git tag <train>-<rid>` of step 8.5 (not run in the repository; it only adds a ref).
+* Everything the local emulators cannot reproduce (`tools/t0/config/README.md`, "Emulated rules"): Netlify's header matching and merging, post-processing of HTML, edge behaviour. `ops/staging-verify.mjs --local` is a rehearsal, not a proof.
+* That the Walkthrough's Street View frame behaves with motion sensors on a real phone (`ops/header-decisions.md` section 2).
 * The Lighthouse gates (mobile >= 85, desktop >= 95 with production-Referer tiles): the repo has no Lighthouse runner yet, so nothing here measures them.
 * Everything that needs hardware or other browsers: iOS and WebKit, Firefox, Samsung Internet, real touch, real tiles at scale, screen readers, 30 days of RUM.
 * That "Publish deploy" takes 2 minutes or less: the rehearsal has not been done.
@@ -408,3 +420,16 @@ It means production serves something the baseline does not contain: somebody dep
 5. **Re-lock and re-anchor:** `python tools/t0/baseline.py lock`, then `python tools/t0/build.py --all`. A patch anchor that no longer matches fails with its id; re-derive it against `baseline/dist`, never loosen `expect`. Overlay files may not replace a file production changed (the build says so): merge it with a patch.
 6. **Re-run everything:** `node tools/t0/run_suites.mjs` (45-60 minutes) until every suite is green, regenerate the notes (`python tools/t0/release_notes.py`), commit (`tools/commit.sh`), then `python tools/t0/baseline.py verify-live` again: it must print `IDENTICAL` before any deploy.
 7. **Record it** in `ops/RELEASE-LOG.md` (a `drift` row: the old and the new live deploy id, what changed, who decided what).
+
+---
+
+## 16. Which file says what (so nothing is quoted from memory)
+
+| Question | Answer lives in |
+|---|---|
+| What exactly differs from chapter 02, and who must say yes | `ops/T0-DEVIATIONS.md` |
+| Why the headers are what they are (framing, Permissions-Policy, Street View sensors, caching of fixed names, what is public) | `ops/header-decisions.md` |
+| What the local servers do and do not model | `tools/t0/config/README.md`, "Emulated rules" |
+| The staging checklist, one command | `node ops/staging-verify.mjs --train <train> --staging-url <url>` (`--checklist` prints it) |
+| The legal text, its opt-in, its date and the owner's sign-off list | `ops/legal-drafts/README.md`, `ops/legal-drafts/OWNER-SIGNOFF.md` |
+| The change log of the tooling | `tools/t0/CHANGELOG.md` |

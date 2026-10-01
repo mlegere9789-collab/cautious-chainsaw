@@ -2,7 +2,7 @@
  * No install-time precache, no skipWaiting, never reloads a page, never handles navigations.  It caches only same-origin,
  * ok, basic responses of hashed /assets/* files (cache-first), purges only gbg-* caches on activate and leaves /data/, /hx/,
  * /api/, /.netlify/ and everything else (including Mapbox's own `mapbox-tiles` cache) alone.
- * Emergency removal: deploy _ops/sw-kill.js as /sw.js. */
+ * Emergency removal: deploy the repository file ops/sw-kill.js as /sw.js (it is not part of this site). */
 const CACHE = 'gbg-r0-{{RID}}';
 self.addEventListener('install', function () {});
 self.addEventListener('activate', function (e) { e.waitUntil((async function () {

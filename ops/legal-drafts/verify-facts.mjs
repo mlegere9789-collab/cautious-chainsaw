@@ -9,8 +9,15 @@
 //   3. the tree writes cookies (document.cookie) anywhere in first-party or bundled code,
 //   4. camera / location / orientation APIs are used outside ar.html (library code for an unused Mapbox control is reported, not failed),
 //   5. the tree's privacy.html does not mention every inventory host, storage key and permission it must disclose,
-//   6. privacy.html / terms.html still show an unresolved "[OWNER TO CONFIRM" marker in VISIBLE text (markers inside HTML comments are listed).
-// It also reports (WARN) whether the Terms embed sentence is backed by the generated headers (WP-T0-15), when a _headers file exists.
+//   6. privacy.html / terms.html (or any shipped text file) contain an owner-review marker ("OWNER TO CONFIRM", "OWNER-REVIEW") anywhere, comments included, or a
+//      hard-coded "September 30, 2026"; in a tree that includes the legal group the dates must equal the pinned trains.json legal.effective_date,
+//   7. the Terms embed sentence is not backed by the generated headers (WP-T0-15; /embed and /embed.html freed),
+//   8. a third-party frame is allowed to use a device feature (iframe allow attribute / Permissions-Policy naming another origin) that privacy.html does not disclose,
+//      or privacy.html discloses a delegation the bundle and the headers do not back,
+//   9. privacy.html says the referrer is only this site's address while _headers sets a different Referrer-Policy.
+// The legal group is OPT-IN (python tools/t0/build.py --train R1c --with PG-legal).  A tree built by the build system (it has version.json) without it keeps the
+// baseline privacy/terms pages: the policy-coverage checks (5, 5b, the dates of 6) are then reported as not applicable (INFO), every other check still runs.
+// A tree without version.json (legacy/dist, baseline/dist) runs ALL checks: the live pages fail them (the red-first proof).
 // It never touches the network and never writes inside the tree it reads.  Exit code 1 when any FAIL.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -42,6 +49,12 @@ const devPages = new Set(inv.dev_pages.files);
 const scanFiles = files.filter((f) => !devPages.has(f) && !f.startsWith('data/') && !f.startsWith('_ops/') && !f.startsWith('screenshots/') && TEXT_EXT.has(path.extname(f).toLowerCase()) && f !== 'version.json');
 for (const f of files) if (devPages.has(f)) add('WARN', 'dev-pages', `${f} is still in this tree (WP-T0-12 deletes it); excluded from the scan`);
 const read = (f) => fs.readFileSync(path.join(dist, f), 'utf8');
+let version = null;
+try { version = JSON.parse(read('version.json')); } catch { /* legacy/baseline trees have none */ }
+const legalIncluded = !version || (Array.isArray(version.groups) && version.groups.includes('PG-legal'));
+const trainsCfg = JSON.parse(fs.readFileSync(path.join(REPO, 'tools/t0/trains.json'), 'utf8'));
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const pinnedDate = (() => { const [y, m, d] = String(trainsCfg.legal && trainsCfg.legal.effective_date).split('-').map(Number); return `${MONTHS[m - 1]} ${d}, ${y}`; })();
 const stripCommentsJs = (t) => t.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:\\])\/\/.*$/gm, '$1');
 
 const inventoryHosts = new Set([...inv.origins.flatMap((o) => o.hosts), ...Object.keys(inv.ignored_hosts), ...inv.own_hosts]);
@@ -139,7 +152,10 @@ for (const f of inv.local_only_pages || []) {
 const stripComments = (h) => h.replace(/<!--[\s\S]*?-->/g, '');
 const visible = (h) => stripComments(h).replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<style[\s\S]*?<\/style>/gi, '').replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ');
 let privacyVisible = '';
-if (files.includes('privacy.html')) {
+if (!legalIncluded) {
+  add('INFO', 'legal-opt-in', `the legal group PG-legal is not part of this tree (version.json groups: ${(version.groups || []).join(' ')}): privacy.html and terms.html are the baseline pages, the policy-coverage checks do not apply. Build with --with PG-legal to verify the interim text`);
+  if (files.includes('privacy.html')) privacyVisible = visible(read('privacy.html')).toLowerCase();
+} else if (files.includes('privacy.html')) {
   privacyVisible = visible(read('privacy.html')).toLowerCase();
   let miss = 0;
   const need = (label, s) => { if (!privacyVisible.includes(String(s).toLowerCase())) { miss++; add('FAIL', 'policy', `privacy.html does not mention ${label}: "${s}"`); } };
@@ -151,7 +167,7 @@ if (files.includes('privacy.html')) {
 } else add('FAIL', 'policy', 'privacy.html is missing from the tree');
 
 // ---- 5b. coupling: what privacy.html says about WHEN jsDelivr/PeerJS is contacted must match watch-together.html
-if (files.includes('watch-together.html') && privacyVisible) {
+if (legalIncluded && files.includes('watch-together.html') && privacyVisible) {
   const wt = read('watch-together.html');
   const staticTag = /<script[^>]+src=["']https:\/\/cdn\.jsdelivr\.net[^"']*peerjs/i.test(stripComments(wt));
   const saysOnPress = /only when you press host or join:\s*the page downloads the peerjs code from jsdelivr/.test(privacyVisible);
@@ -160,14 +176,22 @@ if (files.includes('watch-together.html') && privacyVisible) {
   else add('PASS', 'peerjs-timing', `privacy.html and watch-together.html agree on when PeerJS is fetched (${staticTag ? 'page load' : 'on Host/Join'})`);
 }
 
-// ---- 6. unresolved markers --------------------------------------------------------------------------------------------------
+// ---- 6. owner-review notes and stale dates -------------------------------------------------------------------------------------
+// (release verifier 2026-09-30: the first R1c shipped "[OWNER TO CONFIRM]" HTML comments and a hard-coded "September 30, 2026")
+const MARKER_RE = /OWNER[ _-]TO[ _-]CONFIRM|OWNER[ -]REVIEW[ -]REQUIRED|\[\[WHEN SHIPPED\]\]/i;
+const shippedText = files.filter((f) => !f.startsWith('data/') && TEXT_EXT.has(path.extname(f).toLowerCase()));
+const withMarker = shippedText.filter((f) => MARKER_RE.test(read(f)));
+if (withMarker.length) add('FAIL', 'markers', `owner-review marker in the shipped bytes (visible or in a comment): ${withMarker.join(', ')}`);
+else add('PASS', 'markers', `no owner-review marker in any of ${shippedText.length} shipped text files`);
 for (const f of ['privacy.html', 'terms.html']) {
   if (!files.includes(f)) continue;
   const raw = read(f);
-  const vis = (raw.match(/\[OWNER TO CONFIRM/gi) || []).length - (stripComments(raw).match(/\[OWNER TO CONFIRM/gi) || []).length;
-  const visibleMarkers = (visible(raw).match(/\[OWNER TO CONFIRM/gi) || []).length;
-  if (visibleMarkers) add('FAIL', 'markers', `${f}: ${visibleMarkers} [OWNER TO CONFIRM] marker(s) are visible in the page text`);
-  if (vis) add('INFO', 'markers', `${f}: ${vis} [OWNER TO CONFIRM] marker(s) sit in HTML comments (invisible; the owner resolves them at sign-off)`);
+  if (/September 30, 2026/.test(raw)) add('FAIL', 'dates', `${f}: hard-coded "September 30, 2026" (the date must come from trains.json legal.effective_date via {{LEGAL_DATE}})`);
+  if (legalIncluded && version) {
+    const want = f === 'privacy.html' ? `Last updated: ${pinnedDate}` : `Effective date: ${pinnedDate}`;
+    if (!raw.includes(want)) add('FAIL', 'dates', `${f} does not say "${want}" (trains.json legal.effective_date is ${trainsCfg.legal && trainsCfg.legal.effective_date}); rebuild with --with PG-legal after changing it`);
+    else add('PASS', 'dates', `${f}: "${want}" (pinned in trains.json)`);
+  }
 }
 
 // ---- 7. Terms embed sentence vs generated headers ---------------------------------------------------------------------------
@@ -180,6 +204,39 @@ if (files.includes('terms.html') && /embedding its widget/i.test(read('terms.htm
   } else {
     add('WARN', 'terms-embed', 'Terms invite embedding "its widget" but this tree has no _headers (WP-T0-15 config not generated): in a legacy tree /embed.html is served with X-Frame-Options DENY, so the sentence is only true once train R1c config ships');
   }
+}
+
+// ---- 8. frame permission delegations: bundle attribute, headers and privacy text must agree --------------------------------------
+{
+  const ATTR = 'allow:"accelerometer; gyroscope"';
+  const bundles = files.filter((f) => /^assets\/index-[^/]+\.js$/.test(f));
+  const hasAttr = bundles.some((f) => read(f).includes(ATTR));
+  const allowAttrs = [];
+  for (const f of scanFiles) for (const m of read(f).matchAll(/\ballow\s*[:=]\s*["']([^"']*(?:accelerometer|gyroscope|magnetometer|camera|geolocation|microphone)[^"']*)["']/gi)) allowAttrs.push(`${f}: ${m[1]}`);
+  let headerDelegates = null;
+  if (files.includes('_headers')) {
+    const block = read('_headers').split(/\n(?=\S)/).find((b) => /^\/\s*\n/.test(b));
+    const line = block && (block.match(/^\s*Permissions-Policy:\s*(.*)$/m) || [])[1];
+    headerDelegates = !!line && /https:\/\/www\.google\.com/.test(line);
+  }
+  const disclosed = /allows that frame[^.]*motion sensors/i.test(privacyVisible);
+  const declared = (inv.frame_permissions || []).length > 0;
+  if (hasAttr && !declared) add('FAIL', 'frame-permission', 'the bundle delegates device features to a frame but the inventory has no frame_permissions row for it');
+  if (headerDelegates === true && !hasAttr) add('WARN', 'frame-permission', '_headers names https://www.google.com in Permissions-Policy but the bundle has no allow attribute: nothing is delegated (inert)');
+  if (headerDelegates === true && !disclosed) add('FAIL', 'frame-permission', `_headers delegates accelerometer/gyroscope to a third-party frame but privacy.html${legalIncluded ? '' : ' (the baseline page: the legal group is not included)'} does not disclose it ("This site allows that frame ... motion sensors")`);
+  if (disclosed && headerDelegates === false) add('FAIL', 'frame-permission', 'privacy.html says the site lets the Street View frame read the motion sensors but _headers does not delegate them');
+  if (disclosed && headerDelegates === null) add('WARN', 'frame-permission', 'privacy.html discloses a Street View motion-sensor delegation; this tree has no _headers to back it (train R1c config)');
+  if (headerDelegates === true && hasAttr && disclosed) add('PASS', 'frame-permission', 'Street View frame: allow attribute, Permissions-Policy (self + https://www.google.com, accelerometer + gyroscope only) and the privacy text agree');
+  else if (!hasAttr && !headerDelegates && !disclosed) add('PASS', 'frame-permission', 'no frame is allowed to use a device feature, and the privacy text claims none');
+  const odd = allowAttrs.filter((a) => !/accelerometer; gyroscope$/.test(a));
+  if (odd.length) add('FAIL', 'frame-permission', `unexpected iframe allow attribute(s): ${odd.join(' | ')}`);
+}
+
+// ---- 9. referrer wording vs the Referrer-Policy header --------------------------------------------------------------------------
+if (files.includes('_headers') && /this site's address \(as the referrer\)/.test(privacyVisible)) {
+  const policies = [...read('_headers').matchAll(/^\s*Referrer-Policy:\s*(.+)$/gim)].map((m) => m[1].trim());
+  const ok = policies.length > 0 && policies.every((p) => p === 'strict-origin-when-cross-origin');
+  add(ok ? 'PASS' : 'FAIL', 'referrer', ok ? 'privacy.html says third parties receive this site\'s address as the referrer and _headers sends Referrer-Policy strict-origin-when-cross-origin everywhere (origin only on cross-origin requests)' : `privacy.html says "this site's address (as the referrer)" but _headers has Referrer-Policy ${JSON.stringify(policies)}`);
 }
 
 // ---- report -----------------------------------------------------------------------------------------------------------------

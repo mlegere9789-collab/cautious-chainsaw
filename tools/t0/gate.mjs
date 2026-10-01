@@ -2,7 +2,9 @@
 // Release gates for a built train (chapter 02 WP-T0-03, section 7).  Machine-readable result: <out>/gate.json, exit code 1 on failure.
 //
 //   node tools/t0/gate.mjs --train R1a [--dist release/R1a/dist] [--anchors release/R1a/anchors.json] [--out release/R1a/gate.json]
-//                          [--legacy baseline/dist] [--ledger ops/used-names.txt]     (--legacy = the BASELINE the build started from)
+//                          [--legacy baseline/dist] [--ledger ops/used-names.txt] [--cache <dir>]
+//   (--legacy = the BASELINE the build started from.  The eslint-scope cache lives in --cache, or next to --out when --out is given, or in
+//    release/.cache when neither is given: a run with --out never writes outside the directory it was told to write to.)
 //
 // Checks: parse (acorn) of every JS asset, sw.js, root scripts and inline HTML scripts (new failures only); unresolved-global delta of
 // entry/Help/Bookmark chunks against the legacy bundle (eslint-scope), the four known undefined names must disappear exactly when
@@ -110,7 +112,8 @@ function parseTargets(root, list) {
 }
 
 // ------------------------------------------------------------------ unresolved-global delta (eslint-scope)
-const cacheDir = rp('release/.cache');
+// the cache lives where the run was told to write: --cache, else beside --out, else (no --out: the default release/<train>/ layout) the shared release/.cache
+const cacheDir = args.cache ? rp(String(args.cache)) : (args.out ? path.join(path.dirname(outFile), '.cache') : rp('release/.cache'));
 function analyzeThrough(src) {
   const ast = acorn.parse(src, { ecmaVersion: 'latest', sourceType: 'module', ranges: true });
   const sm = escope.analyze(ast, { ecmaVersion: 2022, sourceType: 'module' });
@@ -281,15 +284,32 @@ function refsOf(root, list) {
       if (JSON.stringify(onDisk) !== JSON.stringify(listed)) problems.push('_ops/asset-manifest.json does not list exactly the files in assets/');
       for (const f of onDisk) if (am.assets[f] && am.assets[f].sha256 !== sha256(fs.readFileSync(path.join(distDir, f)))) problems.push(`asset-manifest sha mismatch: ${f}`);
     }
-    if (!files.includes('_ops/sw-kill.js')) problems.push('_ops/sw-kill.js missing');
-    else if (read(distDir, '_ops/sw-kill.js') !== fs.readFileSync(path.join(REPO, 'ops/sw-kill.js'), 'utf8')) problems.push('_ops/sw-kill.js differs from ops/sw-kill.js');
+    // the kill switch is NOT part of the public dist (2026-09-30 release verifier: it was served at /_ops/sw-kill.js).  The build keeps its copy
+    // next to the dist, in release/<train>/_ops/sw-kill.js; the canonical source is ops/sw-kill.js (runbook level L2).
+    if (files.some((f) => /(^|\/)sw-kill\.js$/.test(f))) problems.push('a sw-kill.js file is inside the public dist (it belongs in <out>/_ops/, outside dist)');
+    const killSrc = path.join(REPO, 'ops/sw-kill.js');
+    const killCopy = path.join(path.dirname(distDir), '_ops', 'sw-kill.js');
+    if (!fs.existsSync(killSrc)) problems.push('ops/sw-kill.js (the kill switch) is missing');
+    else if (fs.existsSync(killCopy) && fs.readFileSync(killCopy, 'utf8') !== fs.readFileSync(killSrc, 'utf8')) problems.push('<out>/_ops/sw-kill.js differs from ops/sw-kill.js');
+    info.killSwitch = fs.existsSync(killCopy) ? 'copy beside the dist (not public)' : 'no copy beside the dist (canonical: ops/sw-kill.js)';
   }
-  for (const f of ['sw.js', '_ops/sw-kill.js']) {
-    if (!files.includes(f)) continue;
-    const r = spawnSync(process.execPath, ['--check', path.join(distDir, f)], { encoding: 'utf8' });
-    if (r.status !== 0) problems.push(`node --check ${f}: ${(r.stderr || '').split('\n')[0]}`);
+  for (const f of [path.join(distDir, 'sw.js'), path.join(REPO, 'ops/sw-kill.js')]) {
+    if (!fs.existsSync(f)) continue;
+    const r = spawnSync(process.execPath, ['--check', f], { encoding: 'utf8' });
+    if (r.status !== 0) problems.push(`node --check ${path.basename(f)}: ${(r.stderr || '').split('\n')[0]}`);
   }
   check('r0-mechanism', problems.length === 0, { problems, ...info });
+}
+
+// ------------------------------------------------------------------ no owner-review notes in shipped bytes
+// Drafting notes for the owner ("[OWNER TO CONFIRM ...]" in HTML comments) belong in ops/legal-drafts, never in a published page (release verifier 2026-09-30).
+{
+  const hits = [];
+  for (const rel of files) {
+    if (!isText(rel)) continue;
+    if (/(OWNER[ _-]TO[ _-]CONFIRM|OWNER[ -]REVIEW[ -]REQUIRED|\[\[WHEN SHIPPED\]\])/i.test(read(distDir, rel))) hits.push(rel);
+  }
+  check('no-owner-notes', hits.length === 0, { problems: hits.map((f) => `${f} carries an owner-review marker`) });
 }
 
 // ------------------------------------------------------------------ baseline pin and T0 rule 5 (no /data/* edits)

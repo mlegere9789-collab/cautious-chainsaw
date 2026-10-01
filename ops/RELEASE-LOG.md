@@ -18,7 +18,7 @@ How to fill a row (details: `ops/RELEASE-RUNBOOK.md` section 9):
 | Netlify deploy ID | from the Deploys list: click the deploy, the last part of its address, or the CLI output |
 | Rollback target | the Netlify deploy ID that was live BEFORE this change (what "Publish deploy" would restore). Before R0 that is **`6abd6d62...`** (the deploy production serves since the drift found on 2026-09-30, `docs/baseline-drift.md`), not the downloaded `6aa16d61` |
 | Soak (h) | hours the same tree sat on gbg-staging first |
-| Notes | credits used, probe verdict, the last line of `python tools/t0/baseline.py verify-live` run right before the deploy (`IDENTICAL ... live deploy <id>`), anything odd |
+| Notes | credits used, probe verdict, the last line of `python tools/t0/baseline.py verify-live` run right before the deploy (`IDENTICAL ... live deploy <id>`), the verdict line of `node ops/staging-verify.mjs` (GREEN, with the staging URL), whether the build used `--with PG-legal` and, if so, the `legal.effective_date` it was built with, anything odd |
 
 A row whose rid is not exactly 8 lowercase hex characters (like the empty example below) is ignored by the probe.
 

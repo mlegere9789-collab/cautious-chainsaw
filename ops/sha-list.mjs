@@ -14,15 +14,17 @@
 //          --tree <dir>               the SOURCE tree the list was made from (release/<train>/dist, baseline/dist): a served .html file that equals the model of
 //                                     Netlify's post-processing (RUM snippet + pretty-URL link rewriting, see below) applied to its source counts as OK (shown
 //                                     OK*); any other html difference is a DIFF, never a warning.  Without --tree only the RUM-only case is explained.
-//          --html-warn                DEPRECATED, accepted and ignored: it used to demote any html difference that carried a post-processing signature to a
-//                                     WARNING, which hid real content drift (release verifier, 2026-09-30).  Use --tree instead.
+//          --html-warn                REMOVED (accepted, ignored, and said so): it used to demote any html difference that carried a post-processing signature to a
+//                                     WARNING, which hid real content drift (release verifier, 2026-09-30).  There is NO warning level: an html difference
+//                                     is DIFF and the exit code is 1.  Use --tree instead.  --kinds nonhtml is a quick look, never a deploy gate (it says so).
 //          --expect-missing a,b,c     paths that must NOT be served (default: netlify.toml,_headers,_redirects - config files are processed, not served)
 //          --concurrency N (default 4)  --delay MS between starts (default 0)  --retries N (default 2)  --timeout MS (default 20000)
 //          --out report.json  --verbose
 //        exit 0 = every fetched file identical (or expected-missing / warned), 1 = at least one difference or unexpected 404, 2 = could not run
 //   node ops/sha-list.mjs stage <dist> <outDir> [--force]
 //        copy a built dist to <outDir> (must be under release/ or tmp/) and add `X-Robots-Tag: noindex` to its `_headers` (created if absent).
-//        Prints the staging copy's list and states that only `_headers` differs from <dist>.
+//        Prints the staging copy's list and states that only `_headers` differs from <dist>.  Refuses a dist of a FAILED build (a BUILD-FAILED.json
+//        marker or a gate.json with "ok": false next to it), so a half-built tree can never be staged by mistake.
 //
 // Post-processing warning (measured 2026-09-30 on the production site): Netlify rewrites the HTML it serves (pretty-URL href rewriting,
 // attribute re-quoting, and an injected <script id="netlify-rum-container"> before </body>), so served .html bytes differ from the
@@ -115,8 +117,10 @@ function parseArgs(argv) {
     const a = argv[i];
     if (a.startsWith('--')) {
       const k = a.slice(2);
-      if (['json', 'html-warn', 'verbose', 'force'].includes(k)) opt[k] = true;
-      else { opt[k] = argv[++i]; if (opt[k] === undefined) { console.error(`option --${k} needs a value`); process.exit(2); } }
+      if (['json', 'html-warn', 'verbose', 'force'].includes(k)) {
+        opt[k] = true;
+        if (k === 'html-warn') console.error('note: --html-warn is removed and ignored: an html difference is a DIFF (exit 1), never a warning; pass --tree <source dir> so the post-processing model can explain Netlify\'s RUM snippet and link rewriting');
+      } else { opt[k] = argv[++i]; if (opt[k] === undefined) { console.error(`option --${k} needs a value`); process.exit(2); } }
     } else pos.push(a);
   }
   return { pos, opt };
@@ -287,8 +291,8 @@ async function cmdVerifyUrl({ pos, opt }) {
       }
       res.push(out);
       if (opt.verbose || !['ok', 'ok-not-served', 'ok-rum-only'].includes(out.result)) {
-        const tag = { ok: 'OK  ', 'ok-rum-only': 'OK* ', 'ok-not-served': 'OK  ', 'warn-html': 'WARN', differs: 'DIFF', missing: 'MISS', error: 'ERR ', 'served-unexpectedly': 'PUB ' }[out.result];
-        const extra = out.result === 'differs' || out.result === 'warn-html' ? ` served ${out.bytes} B ${out.sha256.slice(0, 12)} expected ${out.expectedBytes} B ${out.expectedSha256.slice(0, 12)}${out.hints.length ? ' [' + out.hints.join('; ') + ']' : ''}` : (out.note ? ` ${out.note}` : (out.status ? ` HTTP ${out.status}` : ''));
+        const tag = { ok: 'OK  ', 'ok-rum-only': 'OK* ', 'ok-not-served': 'OK  ', differs: 'DIFF', missing: 'MISS', error: 'ERR ', 'served-unexpectedly': 'PUB ' }[out.result];
+        const extra = out.result === 'differs' ? ` served ${out.bytes} B ${out.sha256.slice(0, 12)} expected ${out.expectedBytes} B ${out.expectedSha256.slice(0, 12)}${out.hints.length ? ' [' + out.hints.join('; ') + ']' : ''}` : (out.note ? ` ${out.note}` : (out.status ? ` HTTP ${out.status}` : ''));
         console.log(`${tag} ${out.path}${extra}`);
       }
     }
@@ -297,8 +301,9 @@ async function cmdVerifyUrl({ pos, opt }) {
   res.sort((a, b) => (a.path < b.path ? -1 : 1));
   const count = (k) => res.filter((r) => r.result === k).length;
   const fail = count('differs') + count('missing') + count('error') + count('served-unexpectedly');
-  const summary = { base: base.origin, list: pos[0], listTree: L.tree, requested: todo.length, kinds, ok: count('ok'), okRumOnly: count('ok-rum-only'), okNotServed: count('ok-not-served'), warnHtml: count('warn-html'), differs: count('differs'), missing: count('missing'), servedUnexpectedly: count('served-unexpectedly'), errors: count('error') };
-  console.log(`\n${base.origin}: ${summary.requested} files checked (${kinds}): ${summary.ok} identical, ${summary.okRumOnly} identical apart from the injected RUM snippet, ${summary.okNotServed} config file(s) correctly not served, ${summary.warnHtml} html warnings, ${summary.differs} differ, ${summary.missing} missing, ${summary.servedUnexpectedly} config file(s) publicly served, ${summary.errors} errors`);
+  const summary = { base: base.origin, list: pos[0], listTree: L.tree, requested: todo.length, kinds, ok: count('ok'), okRumOnly: count('ok-rum-only'), okNotServed: count('ok-not-served'), differs: count('differs'), missing: count('missing'), servedUnexpectedly: count('served-unexpectedly'), errors: count('error') };
+  console.log(`\n${base.origin}: ${summary.requested} files checked (${kinds}): ${summary.ok} identical, ${summary.okRumOnly} identical apart from the injected RUM snippet, ${summary.okNotServed} config file(s) correctly not served, ${summary.differs} differ, ${summary.missing} missing, ${summary.servedUnexpectedly} config file(s) publicly served, ${summary.errors} errors`);
+  if (kinds === 'nonhtml') console.log('NOTE: --kinds nonhtml did not check any html file: this is a quick look, not a deploy gate (html content drift is only caught by --kinds all/html)');
   if (opt.out) { fs.mkdirSync(path.dirname(path.resolve(opt.out)), { recursive: true }); fs.writeFileSync(opt.out, JSON.stringify({ summary, results: res }, null, 2) + '\n'); console.log(`report: ${opt.out}`); }
   if (netErrors && netErrors === todo.length) process.exit(2);
   process.exit(fail === 0 ? 0 : 1);
@@ -311,6 +316,9 @@ function cmdStage({ pos, opt }) {
   if (!okRoots.some((r) => (out + path.sep).startsWith(r))) { console.error(`refusing: <outDir> must be inside ${okRoots.join(' or ')}`); process.exit(2); }
   if (out === src || (out + path.sep).startsWith(src + path.sep) || (src + path.sep).startsWith(out + path.sep)) { console.error('refusing: <outDir> and <dist> must be separate directories'); process.exit(2); }
   if (!fs.existsSync(src)) { console.error(`not found: ${src}`); process.exit(2); }
+  const side = path.dirname(src);                               // release/<train>/ next to release/<train>/dist (absent for legacy/dist and baseline/dist)
+  if (fs.existsSync(path.join(side, 'BUILD-FAILED.json'))) { console.error(`refusing: ${path.join(side, 'BUILD-FAILED.json')} exists: the build of this dist failed, it is not deployable`); process.exit(2); }
+  try { const g = JSON.parse(fs.readFileSync(path.join(side, 'gate.json'), 'utf8')); if (g.ok === false) { console.error(`refusing: ${path.join(side, 'gate.json')} says the gate FAILED for this dist`); process.exit(2); } } catch { /* no gate.json next to it: a hand-made or baseline tree */ }
   if (fs.existsSync(out)) { if (!opt.force) { console.error(`refusing: ${out} exists (use --force to replace it)`); process.exit(2); } fs.rmSync(out, { recursive: true, force: true }); }
   fs.cpSync(src, out, { recursive: true });
   const hp = path.join(out, '_headers');

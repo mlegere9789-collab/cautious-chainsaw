@@ -139,7 +139,7 @@ def run(dist, texts, cfg, train, records):
               'site-nav.css body entrance animation removed', records, 'site-nav.css')
     write_text(nav, c)
 
-    # ---- sw.js (new) and the kill switch (kept in ops/sw-kill.js, copied to _ops/ for convenience)
+    # ---- sw.js (new).  The kill switch (ops/sw-kill.js) is NOT copied into dist: it must not be publicly served (release verifier 2026-09-30);
+    # build.py keeps a copy beside the dist (<out>/_ops/sw-kill.js) and the L2 runbook step deploys ops/sw-kill.js AS /sw.js.
     write_text(os.path.join(dist, 'sw.js'), _tmpl('sw.js.tmpl').replace('{{RID}}', rid))
-    write_bytes(os.path.join(dist, '_ops', 'sw-kill.js'), read_bytes(os.path.join(REPO, 'ops', 'sw-kill.js')))
     return rel

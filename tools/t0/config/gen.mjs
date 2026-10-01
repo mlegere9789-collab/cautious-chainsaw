@@ -13,7 +13,8 @@
 //                                         (nosniff, Referrer-Policy, HSTS, X-Permitted-Cross-Domain-Policies; X-Robots-Tag in staging)
 //                   one block per document path, BOTH spellings (/x and /x.html; / and /index.html)
 //                                         Cache-Control, X-Frame-Options DENY, enforced CSP frame-ancestors 'none', Content-Security-Policy-
-//                                         Report-Only (per-page origin list), Permissions-Policy (camera/geolocation/sensors only for /ar)
+//                                         Report-Only (per-page origin list), Permissions-Policy (camera/geolocation/sensors only for /ar;
+//                                         accelerometer + gyroscope also on / for the Street View frame only: ops/header-decisions.md)
 //                   /embed and /embed.html  Cache-Control, CSP frame-ancestors *, Permissions-Policy; NO X-Frame-Options, NO Report-Only
 //                   one block per remaining top-level directory (/assets/* ...) and per remaining root file: their cache class + X-Frame-Options
 //                 Netlify cannot unset an inherited header, so X-Frame-Options can NOT sit in /* (the embed paths could never drop it);
@@ -53,7 +54,16 @@ const CACHE_DIRS = {
   assets: 'public, max-age=31536000, immutable',                         // hashed names only (the runner never reuses a name)
   data: 'public, max-age=3600',                                          // fixed names: T0 does not touch /data/*
   icons: 'public, max-age=86400',                                        // was immutable for a year on un-fingerprinted names (infra-netlify-13/24)
+  screenshots: 'public, max-age=0, must-revalidate',                     // R1a replaces day1.png / day3.png UNDER THE SAME NAMES: revalidate every time (Netlify's default, now explicit)
+  og: 'public, max-age=0, must-revalidate',                              // social cards under fixed names (/og/card-r1.png): crawlers and browsers revalidate
 };
+// directories whose files can be replaced under the SAME NAME (manifest screenshots, og/twitter images, icons): never immutable (release verifier 2026-09-30)
+const FIXED_NAME_DIRS = ['screenshots', 'og', 'icons'];
+for (const d of FIXED_NAME_DIRS) {
+  const v = CACHE_DIRS[d] || '';
+  const age = Number((/max-age=(\d+)/.exec(v) || [])[1] || 0);
+  if (!v || /immutable/.test(v) || age > 86400) throw new Error(`fixed-name directory /${d}/ must have an explicit non-immutable cache class of at most one day, got ${v || '(none)'}`);
+}
 // written by build.py AFTER this hook (finalize): their rules are emitted whether or not the file exists yet
 const BUILD_FILES = ['version.json'];
 const BUILD_DIRS = ['_ops'];
@@ -61,6 +71,19 @@ const GUIDE = { 'user-guide.pdf': ['public, max-age=86400', 'attachment; filenam
 
 const PP_OFF = 'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=()';
 const PP_SENSORS = 'accelerometer=(self), camera=(self), geolocation=(self), gyroscope=(self), magnetometer=(self), microphone=(), payment=()';
+// The app page (/ and /index.html) hosts the Virtual Walkthrough's Google Street View iframe.  Chrome logs "Permissions policy violation: accelerometer is
+// not allowed in this document" (+ a deviceorientation warning) from inside that frame unless BOTH the iframe has allow="accelerometer; gyroscope" (bundle patch
+// tools/t0/patches/CP+walkthrough-sensors.json) AND this header names the frame's origin.  `self` must stay in the list (Chrome 153 refused the delegation with
+// the Google origin alone).  magnetometer stays off: it was not needed (measured, ops/header-decisions.md section 2).  Only these two features, only this origin.
+//
+// The delegation is emitted ONLY when both halves exist AND the privacy page discloses it: the entry bundle carries the allow attribute (so the header has
+// something to back) and privacy.html says the site lets the Street View frame read the device's motion sensors (the opt-in PG-legal text does).  A build
+// without that text keeps `/` fully off (the Walkthrough then logs Google's own pre-existing accelerometer error): the headers can never grant a
+// third party more than the published privacy text admits.
+const STREETVIEW_ORIGIN = 'https://www.google.com';
+const SENSOR_ALLOW_ATTR = 'allow:"accelerometer; gyroscope"';             // what bundle patch cp:walkthrough-streetview-allow writes
+const PP_APP = `accelerometer=(self "${STREETVIEW_ORIGIN}"), camera=(), geolocation=(), gyroscope=(self "${STREETVIEW_ORIGIN}"), magnetometer=(), microphone=(), payment=()`;
+const APP_ROUTES = ['index'];                                            // documents that host the Walkthrough frame
 
 // scanner-path 404 rules: the legacy toml's, minus /*.sql and /*.bak (a `*` is only valid at the END of a redirect path; they never matched)
 const SCANNER = ['/wp-admin/*', '/wp-login.php', '/wp-content/*', '/xmlrpc.php', '/.env', '/.env.local', '/.env.production', '/.git/*', '/.htaccess',
@@ -152,6 +175,18 @@ export function generate(dist, rel, { context = 'production' } = {}) {
   }
   docRoutes.sort((a, b) => (a.file === 'index.html' ? -1 : b.file === 'index.html' ? 1 : a.file < b.file ? -1 : 1));
 
+  // ---- is the Street View sensor delegation backed by the bundle AND disclosed in the privacy page?
+  let appPP = PP_OFF; let appPerm = 'off';
+  {
+    const readIf = (f) => { try { return fs.readFileSync(path.join(dist, f), 'utf8'); } catch { return ''; } };
+    const hasAttr = !!rel.entry && readIf(`assets/${rel.entry}`).includes(SENSOR_ALLOW_ATTR);
+    const privacyText = readIf('privacy.html').replace(/<!--[\s\S]*?-->/g, '').replace(/<(script|style)[\s\S]*?<\/\1>/gi, '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+    const discloses = /allows that frame[^.]*motion sensors/i.test(privacyText);
+    if (hasAttr && discloses) { appPP = PP_APP; appPerm = 'streetview-frame'; }
+    else if (hasAttr) warnings.push('the Street View iframe carries allow="accelerometer; gyroscope" but privacy.html does not disclose it (build with --with PG-legal): the header keeps accelerometer/gyroscope OFF on /, so the attribute is inert and Google logs its own accelerometer error as it always did');
+    else if (discloses) warnings.push('privacy.html discloses a Street View motion-sensor delegation but the entry bundle has no allow attribute (CP+walkthrough-sensors.json): nothing is delegated');
+  }
+
   const sections = [];
   const contextLine = context === 'production' ? '' : ['X-Robots-Tag', 'noindex, nofollow'];
   sections.push(
@@ -174,14 +209,14 @@ export function generate(dist, rel, { context = 'production' } = {}) {
     const html = fs.readFileSync(path.join(dist, d.file), 'utf8');
     const embed = EMBED_ROUTES.includes(d.name);
     const f = features(d.routes[0], html);
-    const pp = SENSOR_PAGES.includes(d.name) ? PP_SENSORS : PP_OFF;
+    const pp = SENSOR_PAGES.includes(d.name) ? PP_SENSORS : APP_ROUTES.includes(d.name) ? appPP : PP_OFF;
     for (const route of d.routes) {
       sections.push(block(route, embed
         ? [['Cache-Control', HTML_CACHE], ['Content-Security-Policy', 'frame-ancestors *'], ['Permissions-Policy', pp]]
         : [['Cache-Control', HTML_CACHE], ['X-Frame-Options', 'DENY'], ['Content-Security-Policy', "frame-ancestors 'none'"],
           ['Content-Security-Policy-Report-Only', cspReportOnly(f)], ['Permissions-Policy', pp]]));
     }
-    manifest.documents.push({ file: d.file, routes: d.routes, class: embed ? 'embed' : f.klass, permissions: SENSOR_PAGES.includes(d.name) ? 'sensors' : 'off' });
+    manifest.documents.push({ file: d.file, routes: d.routes, class: embed ? 'embed' : f.klass, permissions: SENSOR_PAGES.includes(d.name) ? 'sensors' : APP_ROUTES.includes(d.name) ? appPerm : 'off' });
   }
 
   // ---- resource groups

@@ -91,7 +91,7 @@ def copy_tree(src, dst):
         write_bytes(os.path.join(dst, rel), read_bytes(os.path.join(src, rel)))
 
 
-_PLACEHOLDER = re.compile(r'\{\{(RID|ENTRY|HELP|BOOK|CSS|TRAIN)\}\}')
+_PLACEHOLDER = re.compile(r'\{\{(RID|ENTRY|HELP|BOOK|CSS|TRAIN|LEGAL_DATE)\}\}')
 
 
 def has_placeholder(s):
@@ -101,7 +101,9 @@ def has_placeholder(s):
 def expand_placeholders(s, rel):
     """Expand the release placeholders in a page-phase replacement string."""
     table = {'RID': rel['rid'], 'ENTRY': rel['entry'], 'HELP': rel['help'], 'BOOK': rel['bookmark'],
-             'CSS': rel['css'], 'TRAIN': rel['train']}
+             'CSS': rel['css'], 'TRAIN': rel['train'], 'LEGAL_DATE': rel.get('legal_date')}
+    if 'LEGAL_DATE' in _PLACEHOLDER.findall(s) and not table['LEGAL_DATE']:
+        raise BuildError('{{LEGAL_DATE}} used but the build has no legal date (trains.json legal.effective_date; only the PG-legal group may use it)')
     return _PLACEHOLDER.sub(lambda m: table[m.group(1)], s)
 
 

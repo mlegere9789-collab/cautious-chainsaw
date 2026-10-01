@@ -3,6 +3,7 @@
 //   node tests/t0/headers.spec.mjs                       builds R1c into tmp/infra-config/R1c (python tools/t0/build.py) and tests it
 //   node tests/t0/headers.spec.mjs --dist <dist>         any built tree that ran the config hook (e.g. release/R1c/dist)
 //   node tests/t0/headers.spec.mjs --no-browser          rule/probe tests only (no Chrome, no Mapbox requests)
+//   node tests/t0/headers.spec.mjs --online              also HDR-23: the Virtual Walkthrough's REAL Google Street View frame (loads www.google.com; skipped otherwise)
 //   node tests/t0/headers.spec.mjs --filter 'HDR-0[1-5]' subset by id regex
 // Ports: T0_PORT_BASE (default 8420 here) = the emulated site, +1 = Chrome CDP, +2 = the cross-origin "framer" page.
 // Mapbox: only through the harness (production Referer injected, capped: T0_TILE_CAP, default 150 here); pages that need no tiles run with tiles blocked.
@@ -26,27 +27,36 @@ const { createEmulator } = await import(pathToFileURL(path.join(REPO, 'tools/t0/
 
 const argv = process.argv.slice(2);
 const opt = (name, dflt) => { const i = argv.indexOf(`--${name}`); return i >= 0 ? (argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : true) : dflt; };
-const OUT = path.join(REPO, 'tmp', 'infra-config');
+const OUT = path.join(REPO, 'tmp', process.env.T0_AGENT);          // default tmp/infra-config; set T0_AGENT to run in your own scratch folder
 let DIST = opt('dist', null);
 const FILTER = opt('filter', null);
 const NO_BROWSER = !!opt('no-browser', false);
+const ONLINE = !!opt('online', false);
 const LEGACY = path.join(REPO, 'legacy', 'dist');
 
 if (!DIST) {
   DIST = path.join(OUT, 'R1c', 'dist');
-  console.log('building R1c into tmp/infra-config/R1c ...');
-  const b = spawnSync('python', ['tools/t0/build.py', '--train', 'R1c', '--out', 'tmp/infra-config/R1c'], { cwd: REPO, encoding: 'utf8' });
+  console.log(`building R1c into ${path.relative(REPO, OUT).split(path.sep).join('/')}/R1c ...`);
+  const b = spawnSync('python', ['tools/t0/build.py', '--train', 'R1c', '--with', 'PG-legal', '--out', `${path.relative(REPO, OUT).split(path.sep).join('/')}/R1c`], { cwd: REPO, encoding: 'utf8' });
   if (b.status !== 0) { console.error(b.stdout.slice(-3000), b.stderr.slice(-2000)); console.error('build failed'); process.exit(2); }
   console.log(b.stdout.split('\n').filter((l) => /^(OK|config hook|deleted|tree sha256)/.test(l)).join('\n'));
 } else DIST = path.resolve(REPO, String(DIST));
+const read = (p) => fs.readFileSync(p, 'utf8');
 if (!fs.existsSync(path.join(DIST, '_headers'))) { console.error(`${DIST} has no _headers: it was not built with the R1c config hook`); process.exit(2); }
 
-const read = (p) => fs.readFileSync(p, 'utf8');
 const VERSION = JSON.parse(read(path.join(DIST, 'version.json')));
 const MANIFEST = JSON.parse(read(path.join(DIST, '_ops', 'config-manifest.json')));
 const CFG = loadDistConfig(DIST);
 const LEG = loadDistConfig(LEGACY);
 const embedPaths = ['/embed', '/embed.html'];
+// The Street View sensor delegation exists only when the bundle carries the allow attribute AND privacy.html discloses it (gen.mjs); the tests below
+// recompute that rule independently.  The default spec build includes the opt-in legal text (--with PG-legal) so the delegation is exercised.
+const APP_DOC = MANIFEST.documents.find((d) => d.file === 'index.html');
+const DELEGATED = APP_DOC.permissions === 'streetview-frame';
+const ENTRY_TEXT = read(path.join(DIST, 'assets', VERSION.entry));
+const PRIVACY_TEXT = fs.existsSync(path.join(DIST, 'privacy.html')) ? read(path.join(DIST, 'privacy.html')).replace(/<!--[\s\S]*?-->/g, '').replace(/<(script|style)[\s\S]*?<\/\1>/gi, '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ') : '';
+const HAS_ATTR = ENTRY_TEXT.includes('allow:"accelerometer; gyroscope"');
+const DISCLOSED = /allows that frame[^.]*motion sensors/i.test(PRIVACY_TEXT);
 const docRoutes = MANIFEST.documents.flatMap((d) => d.routes);
 const walk = (dir, base = dir, out = []) => { for (const e of fs.readdirSync(dir, { withFileTypes: true })) { const p = path.join(dir, e.name); if (e.isDirectory()) walk(p, base, out); else out.push(path.relative(base, p).split(path.sep).join('/')); } return out; };
 const ALL_FILES = walk(DIST).filter((f) => !['_headers', '_redirects', 'netlify.toml'].includes(f));
@@ -74,7 +84,7 @@ suite.test('HDR-01', 'config files present; netlify.toml carries no [[headers]]/
   assertEq(added, ['_headers', '_ops/config-manifest.json', '_redirects', 'netlify.toml'], 'files written by the hook');
   for (const f of ['_headers', '_redirects', 'netlify.toml', '_ops/config-manifest.json']) assertEq(read(path.join(tmp, f)) === read(path.join(DIST, f)), true, `${f} differs from the built tree (non-deterministic or stale build)`);
   // second run over its own output: identical bytes (deterministic, idempotent)
-  const r2 = spawnSync('node', [path.join(REPO, 'tools/t0/config/gen.mjs'), tmp, JSON.stringify({ rid: VERSION.release })], { encoding: 'utf8' });
+  const r2 = spawnSync('node', [path.join(REPO, 'tools/t0/config/gen.mjs'), tmp, JSON.stringify({ rid: VERSION.release, entry: VERSION.entry, help: VERSION.help, bookmark: VERSION.bookmark, css: VERSION.css })], { encoding: 'utf8' });
   assertEq(r2.status, 0, 'hook re-run');
   for (const f of ['_headers', '_redirects', 'netlify.toml']) assertEq(read(path.join(tmp, f)) === read(path.join(DIST, f)), true, `${f} not idempotent`);
   t.note('files', added.join(' '));
@@ -200,15 +210,22 @@ suite.test('HDR-06', 'CSP Report-Only: full origin list, still report-only, no r
   t.note('documents checked', seen.size);
 });
 
-suite.test('HDR-07', 'Permissions-Policy: camera/geolocation/sensors only on /ar; microphone and payment stay off; HSTS unchanged', async (t) => {
+suite.test('HDR-07', 'Permissions-Policy: camera/geolocation only on /ar; sensors on /ar (self) and, for the Street View frame only, accelerometer + gyroscope on / ; microphone and payment stay off; HSTS unchanged', async (t) => {
   const OFF = 'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=()';
   const SELF = 'accelerometer=(self), camera=(self), geolocation=(self), gyroscope=(self), magnetometer=(self), microphone=(), payment=()';
+  const APP = 'accelerometer=(self "https://www.google.com"), camera=(), geolocation=(), gyroscope=(self "https://www.google.com"), magnetometer=(), microphone=(), payment=()';
   const bad = [];
   for (const d of MANIFEST.documents) for (const r of d.routes) {
-    const pp = hdr(r)['permissions-policy']; const want = /^\/ar(\.html)?$/.test(r) ? SELF : OFF;
+    const pp = hdr(r)['permissions-policy']; const want = /^\/ar(\.html)?$/.test(r) ? SELF : (r === '/' || r === '/index.html') ? (DELEGATED ? APP : OFF) : OFF;
     if (pp !== want) bad.push(`${r}: ${pp}`);
   }
   assertEq(bad, [], 'permissions-policy');
+  // the delegation exists iff the bundle carries the allow attribute AND privacy.html discloses it (recomputed here, independently of gen.mjs)
+  assertEq(DELEGATED, HAS_ATTR && DISCLOSED, `delegation ${DELEGATED} but allow attribute ${HAS_ATTR} / privacy disclosure ${DISCLOSED}`);
+  t.note('Street View delegation', DELEGATED ? 'on (attribute + disclosure present)' : `OFF (attribute ${HAS_ATTR}, disclosed ${DISCLOSED})`);
+  // the only origin ever named in a Permissions-Policy is the Street View embed origin, and only for accelerometer + gyroscope
+  const named = [...new Set(CFG.headerRules.flatMap((r) => r.headers).filter(([k]) => k.toLowerCase() === 'permissions-policy').flatMap(([, v]) => [...v.matchAll(/([a-z-]+)=\(([^)]*)\)/g)].filter((m) => /"https?:/.test(m[2])).map((m) => `${m[1]}:${m[2].match(/"https?:[^"]+"/g).join(',')}`)))].sort();
+  assertEq(named, DELEGATED ? ['accelerometer:"https://www.google.com"', 'gyroscope:"https://www.google.com"'] : [], 'origins named in Permissions-Policy');
   assertEq(hdr('/')['strict-transport-security'], 'max-age=31536000; includeSubDomains; preload', 'HSTS');
   // never a feature the legacy header did not already name (no new "unrecognized feature" console warnings)
   const legacyNames = new Set(H(LEG.headerRules, '/')['permissions-policy'].split(',').map((s) => s.trim().split('=')[0]));
@@ -271,6 +288,85 @@ suite.test('HDR-10', 'emulator applies rules exactly like the resolver (spot che
     assertEq(em.conflicts, [], 'the emulator saw a same-name header overlap');
     t.note('requests', em.requests.length);
   } finally { await em.close(); }
+});
+
+suite.test('HDR-11', 'fixed-name files (manifest screenshots, og/twitter cards, icons, manifest.json, favicon) are never cached immutably; the only immutable class is /assets/* (hashed names)', async (t) => {
+  const cc = (p) => H(CFG.headerRules, p)['cache-control'] || 'DEFAULT';
+  const age = (v) => Number((/max-age=(\d+)/.exec(v) || [])[1] || 0);
+  const imm = ALL_FILES.filter((f) => /immutable/.test(cc(`/${f}`)));
+  assertEq(imm.filter((f) => !f.startsWith('assets/')), [], 'immutable outside /assets/');
+  // every file the manifest and the pages name as an image, wherever it lives
+  const refs = new Set();
+  const mj = JSON.parse(read(path.join(DIST, 'manifest.json')));
+  for (const it of [...(mj.icons || []), ...(mj.screenshots || [])]) refs.add(it.src.replace(/^\//, ''));
+  for (const f of ALL_FILES.filter((x) => x.endsWith('.html'))) {
+    for (const m of read(path.join(DIST, f)).matchAll(/<meta[^>]+(?:property|name)=["'](?:og|twitter):image["'][^>]*content=["']([^"']+)["']/gi)) {
+      const u = m[1]; const mm = /^https:\/\/gettysburginteractivemap\.com(\/[^?#]*)/.exec(u) || /^(\/[^?#]*)$/.exec(u); if (mm) refs.add(mm[1].replace(/^\//, ''));
+    }
+  }
+  const missing = [...refs].filter((f) => !ALL_FILES.includes(f));
+  assertEq(missing, [], 'images named by the manifest/og tags that are not in the dist');
+  const long = [...refs].filter((f) => /immutable/.test(cc(`/${f}`)) || age(cc(`/${f}`)) > 86400);
+  assertEq(long, [], 'fixed-name image with a long or immutable cache class');
+  // files that exist in the baseline under the SAME name with DIFFERENT bytes (day1/day3.png, manifest.json, html, data...): never immutable either
+  const BASE = path.join(REPO, 'baseline', 'dist');
+  const crypto = await import('node:crypto');
+  const sha = (f) => crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex');
+  const replaced = ALL_FILES.filter((f) => fs.existsSync(path.join(BASE, f)) && sha(path.join(BASE, f)) !== sha(path.join(DIST, f)) && !f.startsWith('assets/'));
+  assertEq(replaced.filter((f) => /immutable/.test(cc(`/${f}`))), [], 'replaced-under-the-same-name file cached immutably');
+  for (const f of ['screenshots/day1.png', 'screenshots/day3.png']) assert(replaced.includes(f), `${f} is expected to be replaced under the same name (control)`);
+  for (const f of ['screenshots/day1.png', 'screenshots/day3.png', 'og/card-r1.png']) assertEq(cc(`/${f}`), 'public, max-age=0, must-revalidate', `${f} cache-control`);
+  t.note('images named by manifest/og', refs.size); t.note('replaced under the same name', replaced.length);
+});
+
+suite.test('HDR-12', 'the kill switch is not in the public dist (or served); the build keeps its copy beside the dist; _ops holds only bookkeeping', async (t) => {
+  assertEq(ALL_FILES.filter((f) => /sw-kill/.test(f)), [], 'sw-kill.js inside the dist');
+  const killCopy = path.join(path.dirname(DIST), '_ops', 'sw-kill.js');
+  if (fs.existsSync(killCopy)) assertEq(read(killCopy) === read(path.join(REPO, 'ops', 'sw-kill.js')), true, 'the build copy is not ops/sw-kill.js');
+  else t.note('build copy', 'none beside this dist (built by hand?): canonical file is ops/sw-kill.js');
+  assertEq(ALL_FILES.filter((f) => f.startsWith('_ops/')).sort(), ['_ops/asset-manifest.json', '_ops/config-manifest.json', '_ops/used-names.txt'], 'files under _ops/');
+  const em = await createEmulator({ dist: DIST });
+  try {
+    const st = (p) => new Promise((res, rej) => { const r = http.request(em.url + p, { method: 'HEAD' }, (x) => { x.resume(); x.on('end', () => res(x.statusCode)); }); r.on('error', rej); r.end(); });
+    assertEq([await st('/_ops/sw-kill.js'), await st('/netlify.toml'), await st('/_headers'), await st('/_redirects')], [404, 404, 404, 404], 'kill switch and config files must not be served');
+  } finally { await em.close(); }
+});
+
+suite.test('HDR-13', 'iframe allow attributes: the Street View frame carries exactly accelerometer + gyroscope, the NPS frame none, and the Permissions-Policy of / names the same two features for the same origin', async (t) => {
+  const entry = read(path.join(DIST, 'assets', VERSION.entry));
+  const allows = [...entry.matchAll(/\ballow:"([^"]*)"/g)].map((m) => m[1]);
+  assertEq(allows, ['accelerometer; gyroscope'], 'allow props in the entry bundle');   // the attribute ships with the R1c bundle whether or not the header delegates (inert without it)
+  const svAt = entry.indexOf('"iframe",{src:`https://www.google.com/maps/embed/v1/streetview');       // the template literal nests backticks: look at the props that follow it
+  assert(svAt > 0, 'the Street View iframe was not found in the entry bundle');
+  assert(/allowFullScreen:!0,allow:"accelerometer; gyroscope",title:/.test(entry.slice(svAt, svAt + 600)), 'the allow attribute is not on the Street View iframe');
+  const nps = /"iframe",\{src:[\w$.]+\.videoUrl,style:[\w$.]+,title:[\w$.]+,allowFullScreen:!0\}/.test(entry);
+  assert(nps, 'the NPS video iframe changed (it must stay without an allow attribute)');
+  for (const f of ALL_FILES.filter((x) => x.endsWith('.html'))) assertEq(/<iframe\b[^>]*\ballow\s*=/i.test(read(path.join(DIST, f))), false, `${f} has an iframe with an allow attribute`);
+  const pp = hdr('/')['permissions-policy'];
+  for (const feat of allows[0].split(/;\s*/)) {
+    if (DELEGATED) assert(pp.split(', ').includes(`${feat}=(self "https://www.google.com")`), `/ does not delegate ${feat} to https://www.google.com: ${pp}`);
+    else assert(pp.split(', ').includes(`${feat}=()`), `/ must keep ${feat} off while privacy.html does not disclose the delegation: ${pp}`);
+  }
+  // nothing outside the app page may name the Google origin
+  const others = MANIFEST.documents.filter((d) => !d.routes.includes('/')).flatMap((d) => d.routes).filter((r) => /google\.com/.test(hdr(r)['permissions-policy'] || ''));
+  assertEq(others, [], 'pages that delegate to google.com besides /');
+});
+
+suite.test('HDR-24', 'the DEFAULT R1c build (the opt-in legal group is NOT included): privacy/terms carry no draft text, and the Street View sensor delegation stays OFF because the privacy page does not disclose it', async (t) => {
+  const out = path.join(OUT, 'R1c-default'); const rel = path.relative(REPO, out).split(path.sep).join('/');
+  const b = spawnSync('python', ['tools/t0/build.py', '--train', 'R1c', '--out', rel], { cwd: REPO, encoding: 'utf8' });
+  assertEq(b.status, 0, `default build failed\n${b.stdout.slice(-1500)}${b.stderr.slice(-800)}`);
+  assert(/optional page group\(s\) NOT included[^\n]*PG-legal/.test(b.stdout), 'the build did not report PG-legal as an opt-in group that is not included');
+  const d = path.join(out, 'dist');
+  const v = JSON.parse(read(path.join(d, 'version.json'))); assert(!v.groups.includes('PG-legal'), 'PG-legal is in the default build');
+  const man = JSON.parse(read(path.join(d, '_ops', 'config-manifest.json')));
+  assertEq(man.documents.find((x) => x.file === 'index.html').permissions, 'off', 'default build delegation');
+  assert(man.warnings.some((w) => /does not disclose it/.test(w)), `expected the generator warning, got ${JSON.stringify(man.warnings)}`);
+  const pp = H(loadDistConfig(d).headerRules, '/')['permissions-policy'];
+  assertEq(pp, 'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=()', '/ Permissions-Policy in the default build');
+  for (const f of ['privacy.html', 'terms.html']) { const x = read(path.join(d, f)); assert(!/OWNER|September 30, 2026|November 3, 2026|motion sensors/.test(x), `${f} carries legal-draft text in the default build`); }
+  t.note('warnings', man.warnings.length);
+  fs.rmSync(out, { recursive: true, force: true });
 });
 
 // ==================================================================================================================== real Chrome
@@ -356,7 +452,8 @@ suite.test('HDR-21', 'real Chrome: every page loads under its Report-Only CSP + 
     const pp = {};
     for (const r of ['/', '/ar', '/embed']) { await S.page.goto(`http://127.0.0.1:${PORT_BASE}${r}`, { waitUntil: 'domcontentloaded' }); pp[r] = await S.page.evaluate(() => { const p = document.permissionsPolicy || document.featurePolicy; return p ? ['camera', 'geolocation', 'accelerometer', 'gyroscope', 'magnetometer', 'microphone', 'payment'].map((f) => `${f}:${p.allowsFeature(f) ? 1 : 0}`).join(' ') : 'n/a'; }); }
     t.note('allowsFeature', pp);
-    assert(/camera:0 geolocation:0 accelerometer:0 gyroscope:0 magnetometer:0 microphone:0 payment:0/.test(pp['/']), `/ still allows a feature: ${pp['/']}`);
+    // the app page allows accelerometer + gyroscope for itself AND the Street View frame (the origin list is HDR-07); the rest stays off
+    assert((DELEGATED ? /camera:0 geolocation:0 accelerometer:1 gyroscope:1 magnetometer:0 microphone:0 payment:0/ : /camera:0 geolocation:0 accelerometer:0 gyroscope:0 magnetometer:0 microphone:0 payment:0/).test(pp['/']), `/ allows an unexpected feature: ${pp['/']}`);
     assert(/camera:1 geolocation:1 accelerometer:1 gyroscope:1 magnetometer:1 microphone:0 payment:0/.test(pp['/ar']), `/ar: ${pp['/ar']}`);
     assert(/camera:0/.test(pp['/embed']), `/embed: ${pp['/embed']}`);
     // dev pages and unknown paths really 404 in the browser, both spellings
@@ -387,6 +484,41 @@ suite.test('HDR-22', 'negative control: the same crawl DOES report a violation w
     t.note('violations', v.slice(0, 2).map((x) => `${x.dir} <- ${x.blocked.slice(0, 40)} (${x.disp})`));
     assert(v.some((x) => x.dir.startsWith('connect-src') && /api\.mapbox\.com/.test(x.blocked) && x.disp === 'report'), JSON.stringify(v.slice(0, 3)));
   } finally { await S.close(); sessions.splice(sessions.indexOf(S), 1); await em.close(); fs.rmSync(tmp, { recursive: true, force: true }); }
+});
+
+suite.test('HDR-23', 'ONLINE (--online): the Virtual Walkthrough opens the REAL Google Street View frame and logs no permissions-policy error; the same page without the allow attribute logs it (control)', async (t) => {
+  if (NO_BROWSER) throw new Skip('--no-browser');
+  if (!ONLINE) throw new Skip('--online not given (this test loads https://www.google.com/maps/embed from the Walkthrough, about two page loads of the embed)');
+  const entryRel = path.join('assets', VERSION.entry);
+  const run = async (name, mutate) => {
+    const dir = path.join(OUT, 'wt-' + name); fs.rmSync(dir, { recursive: true, force: true }); fs.cpSync(DIST, dir, { recursive: true });
+    mutate(dir);
+    const em = await createEmulator({ dist: dir, port: PORT_BASE });
+    const S = await openSession({ profile: 'hdr-wt-' + name, cdpPort: PORT_BASE + 1, tiles: 'block' }); sessions.push(S);
+    const msgs = [];
+    S.page.on('console', (m) => msgs.push({ type: m.type(), text: m.text().replace(/(key|access_token)=[^&\s"]+/g, '$1=<redacted>').slice(0, 200) }));
+    try {
+      await S.page.goto(`http://127.0.0.1:${PORT_BASE}/`, { waitUntil: 'load' });
+      await chooseLayout(S.page, 'desktop').catch(() => {});
+      await waitForApp(S.page, 40000);
+      await sleep(1000);
+      const from = msgs.length;
+      await S.page.getByText('Virtual Walkthrough').first().click();
+      await waitFor(async () => S.page.frames().some((f) => f.url().startsWith('https://www.google.com/maps/embed/v1/streetview')), { timeout: 20000, label: 'the Street View frame' });
+      await sleep(8000);
+      const frame = S.page.frames().find((f) => f.url().startsWith('https://www.google.com/maps/embed/v1/streetview'));
+      const allowAttr = await S.page.evaluate(() => (document.querySelector('iframe[src*="streetview"]') || {}).getAttribute?.('allow') ?? null);
+      return { policy: msgs.slice(from).filter((m) => /ermissions[- ]policy|deviceorientation|accelerometer|gyroscope/i.test(m.text)), framed: !!frame, allowAttr, conflicts: em.conflicts.length };
+    } finally { await S.close(); sessions.splice(sessions.indexOf(S), 1); await em.close(); fs.rmSync(dir, { recursive: true, force: true }); }
+  };
+  const good = await run('as-built', () => {});
+  const ctl = await run('no-allow', (dir) => { const f = path.join(dir, entryRel); const a = read(f); const b = a.replace(',allow:"accelerometer; gyroscope"', ''); assert(a !== b, 'could not remove the allow attribute for the control'); fs.writeFileSync(f, b); });
+  t.note('as built', { framed: good.framed, allow: good.allowAttr, policyMessages: good.policy.length });
+  t.note('control (no allow attribute)', { framed: ctl.framed, allow: ctl.allowAttr, policyMessages: ctl.policy.map((m) => m.text.slice(0, 70)) });
+  assert(good.framed && ctl.framed, 'the Street View frame did not load (offline or Google changed the embed URL)');
+  assertEq(good.conflicts + ctl.conflicts, 0, 'emulator header conflicts');
+  assertEq(good.policy, [], 'as built: policy/sensor console messages from the Walkthrough');
+  assert(ctl.policy.some((m) => /accelerometer is not allowed/i.test(m.text)), `the control did not reproduce Google's accelerometer error, so the clean run proves nothing: ${JSON.stringify(ctl.policy)}`);
 });
 
 // ==================================================================================================================== run

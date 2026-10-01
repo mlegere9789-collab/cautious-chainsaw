@@ -27,7 +27,7 @@ const TYPES = {
   '.ico': 'image/x-icon', '.pdf': 'application/pdf', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml', '.toml': 'text/plain; charset=utf-8',
   '.woff2': 'font/woff2', '.woff': 'font/woff', '.mp3': 'audio/mpeg', '.wasm': 'application/wasm',
 };
-const NOT_SERVED = new Set(['_headers', '_redirects']);                   // Netlify consumes these at deploy time
+const NOT_SERVED = new Set(['_headers', '_redirects', 'netlify.toml']);   // Netlify consumes these at deploy time; none of the three is ever served (verified on production: HP-13a, verify-url)
 
 export function createEmulator({ dist, port = 0, host = '127.0.0.1', merge = 'last' } = {}) {
   const root = path.resolve(dist);

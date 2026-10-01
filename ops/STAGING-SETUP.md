@@ -1,6 +1,6 @@
 # Staging: the second Netlify site (`gbg-staging`)
 
-For the site owner. WP-T0-02 (staging site, byte-identity proof, rollback rehearsal) and the staging half of WP-T0-19. Read `ops/RELEASE-RUNBOOK.md` first for the overall flow; this file is the detail behind its section 6.
+For the site owner. WP-T0-02 (staging site, byte-identity proof, rollback rehearsal) and the staging half of WP-T0-19. Read `ops/RELEASE-RUNBOOK.md` first for the overall flow; this file is the detail behind its section 6. **The per-train verification (section 7) is a script: `node ops/staging-verify.mjs --train <train> --staging-url <url>`.**
 
 "Measured" = a command was run on 2026-09-30 and its output is in the report. "Unverified" = nothing has proved it; the step that would is named. **No `gbg-staging` site exists yet and none of the staging steps below has been run against a real Netlify site.** What was run: the tools against production (read-only requests) and against a local copy.
 
@@ -51,6 +51,7 @@ node ops/sha-list.mjs stage release/R0/dist release/staging/R0 --force
 * It copies the dist to `release/staging/R0` (only folders under `release/` or `tmp/` are accepted; it never writes inside `legacy/` or inside the dist you give it).
 * It creates `_headers` with `/*` and `  X-Robots-Tag: noindex` (or inserts that line into the `/*` block of an existing `_headers`; it refuses if the file already sets `X-Robots-Tag`).
 * It prints both tree digests and the line **`differs from the source ONLY in: _headers (X-Robots-Tag: noindex)`**. If it prints `UNEXPECTED differences`, do not deploy.
+* It **refuses the dist of a failed build** (a `BUILD-FAILED.json` marker or a `gate.json` with `"ok": false` next to the dist; exit 2), so a half-built tree is never staged by mistake. The legacy and baseline trees have no such files and stage as before.
 * Measured: `stage legacy/dist release/staging/legacy-test` printed exactly that line (120 files against the source's 119).
 
 **Deliberate deviation from the plan's wording:** the plan says the identity proof deploys "untouched `legacy/dist`". The folder deployed here is `legacy/dist` plus the one config file `_headers`, so that the staging site is never indexable even for an hour. The 119 served files are compared exactly as planned; `_headers` is a configuration file, not one of the 119.
@@ -81,7 +82,7 @@ Also confirm `https://gbg-staging.netlify.app/_headers` answers 404 (probe `HP-1
 
 So a new site's HTML will differ from production's unless the same post-processing is on. In the Netlify web app, on **both** sites: **Site configuration > Build & deploy > Post processing** (and the Real User Monitoring page under **Analytics & metrics**): screenshot production's settings (Pretty URLs, asset optimization/bundling/minification/image compression, snippet injection, RUM) into the baseline folder, then set staging the same. (Menu labels move; unverified.) Two phases: for the **byte-identity proof** (section 6) put staging with **all post-processing off and RUM off**, so HTML arrives exactly as uploaded; for the **parity check and every soak** switch staging to production's settings (Pretty URLs on, so that both `/dashboard` and `/dashboard.html` answer 200 as they do on production; RUM off), because that is what will actually be served to visitors. Note the settings used in the log row.
 
-How to read the `verify-url` output on staging:
+How to read the `verify-url` output on staging (**there is no warning level for HTML**: the old `--html-warn` demotion is gone; an html difference the model cannot explain is a `DIFF` and exit 1; `--kinds nonhtml` says it did not look at HTML and is never a deploy gate):
 
 | Output | Meaning | Action |
 |---|---|---|
@@ -138,12 +139,33 @@ For each train (R0: soak 48 h, start by the Sunday before the Tuesday; others 24
 1. Build and gate green (`ops/RELEASE-RUNBOOK.md` section 4) and run the local suites (section 5 there).
 2. `node ops/sha-list.mjs stage release/<train>/dist release/staging/<train> --force`
 3. Deploy that folder to `gbg-staging` (section 5).
-4. `node tests/t0/prod-probe.mjs --base <staging url> --train <train> --staging --dist release/<train>/dist` (all `PASS`/`KNOWN`).
+4. **Run the checklist script:** `node ops/staging-verify.mjs --train <train> --staging-url <staging url>` (exit 0 = every automatic step passed; the table below says what each step runs and what it must print; `--checklist` prints the same table from the script). Steps 5 and 6 below are what its S9, S4/S8 and S7 do, written out for reading and for debugging a failure. The probe by itself: `node tests/t0/prod-probe.mjs --base <staging url> --train <train> --staging --dist release/<train>/dist` (all `PASS`/`KNOWN`).
 5. Parity (section 6). For **R0, R1a, R1b** it must be clean (no header changes are part of those trains). **R1c changes headers on purpose** (the generated `_headers`, `tools/t0/config/gen.mjs`: frame policy per page, an enforced `frame-ancestors`, per-page Report-Only host lists, Permissions-Policy per page, a shorter cache for `/icons/*`, `/embed` frameable): the parity command will show many differences by design, so for R1c read them against `release/R1c/dist/_ops/config-manifest.json` and the header comment of `gen.mjs`, and use these as the gate instead: `node ops/headers-probe.mjs <staging url> --profile t0` (exit 0), `node tests/t0/headers.spec.mjs --dist release/R1c/dist` (the rule and real-browser framing tests) and the probe's own `HP-06/07/13`.
-6. `node ops/sha-list.mjs list release/<train>/dist --out release/staging/<train>.tsv` then `verify-url release/staging/<train>.tsv <staging url> --tree release/<train>/dist`: no `DIFF`/`MISS` on any file (HTML included).
+6. `node ops/sha-list.mjs list release/<train>/dist --out release/staging/<train>.tsv` then `verify-url release/staging/<train>.tsv <staging url> --tree release/<train>/dist --expect-missing netlify.toml,_headers,_redirects`: no `DIFF`/`MISS`/`PUB` on any file (HTML included; there is no warning level).
 7. Do the by-hand smoke list `tests/t0/journeys-manual.md` part A on the staging URL (blank map expected).
 8. Soak, then re-run steps 4 and 6 once more at the end of the soak (a deploy that decays is a finding).
 9. Only then production (`ops/RELEASE-RUNBOOK.md` section 7).
+
+### 7a. The checklist, step by step: what runs and what it must print
+
+`node ops/staging-verify.mjs --train <train> --checklist` prints this table from the script. A step is `PASS`, `FAIL`, `SKIP` (with a reason) or `MANUAL`; **any FAIL is a ship blocker** (exit 1); exit 2 means a request could not be made (not a verdict on the site).
+
+| Step | Kind | What it runs | Expected | A failure means |
+|---|---|---|---|---|
+| S0 | local | reads `release/<train>/{manifest.json,gate.json,BUILD-FAILED.json}` and `dist/version.json`, recomputes the dist's tree digest | `release <rid> train <T>, <N> files, tree <sha>, gate ok`; no failure marker | the build failed or the dist was edited by hand: rebuild |
+| S1 | local | `python tools/t0/baseline.py verify` | exit 0, `baseline/dist matches tools/t0/baseline.lock.json` | the locked baseline changed |
+| S2 | local | lists the dist; compares `release/<train>/_ops/sw-kill.js` with `ops/sw-kill.js` | no `sw-kill` file in the dist; copy identical; `_ops/` = `asset-manifest.json`, `used-names.txt` (+ `config-manifest.json` on R1c) | the kill switch would be served publicly |
+| S3 | local | compares `release/staging/<train>` with the dist | only `_headers` differs and it contains `X-Robots-Tag: noindex` | the staging copy is not what was built |
+| S4 | local | `node ops/headers-probe.mjs --dist <dist> --profile <baseline for R0-R1b, t0 for R1c>` | exit 0, `N/N as expected, 0 unexpected FAIL` | the generated (or legacy) rules do not say what the plan says |
+| S5 | net | `python tools/t0/baseline.py verify-live` (production, read-only) | exit 0 and `IDENTICAL: live == baseline/dist ...` | production moved since the baseline: runbook section 15, deploy nothing |
+| S6 | net | HEAD on staging: `/`, `/privacy`, `/assets/<entry>`, `/version.json` (X-Robots-Tag) and `/_headers`, `/_redirects`, `/netlify.toml`, `/_ops/sw-kill.js`, `/sw-kill.js` | noindex on the first four; the five others answer 404 | noindex missing (keep the URL private) or a config/kill file is public |
+| S7 | net | `node ops/sha-list.mjs list <dist> --out tmp/staging-verify-<train>.tsv` then `verify-url ... --tree <dist> --expect-missing netlify.toml,_headers,_redirects` (plus `diagnostics.html` on R0, whose legacy toml answers it with a forced 404) | exit 0; `... 0 differ, 0 missing, 0 config file(s) publicly served, 0 errors`; no `DIFF`/`MISS`/`PUB`/`ERR` line | a file arrived changed (post-processing or optimisation on staging) or is missing |
+| S8 | net | `node tests/t0/prod-probe.mjs --base <staging> --train <train> --staging --dist <dist> --expect-release <rid>` | exit 0; `summary: ... 0 FAIL ... -> GREEN` (`KNOWN` = red on purpose until a later train) | headers/redirects/version/sw.js/HTML on staging differ from the build |
+| S9 | net | R0-R1b: `prod-probe ... --parity <production> --staging-vs --headers-probe off`; R1c: not applicable (headers change on purpose) | `PASS  PARITY  16 representative URLs carry identical security/caching headers on both sites` | staging lost or changed a header the train must not change |
+| S10 | local | `node ops/legal-drafts/verify-facts.mjs --dist <dist>` | exit 0, `no FAIL`; the INFO line says whether the opt-in legal group is in this build | privacy/terms contradict what the tree does or the headers allow |
+| S11 | manual | (printed) | soak hours, `tests/t0/journeys-manual.md` part A, owner sign-offs, a fresh `verify-live` right before the production deploy | not automatable |
+
+**`--local` is a rehearsal, not a proof.** It serves the staging copy and the dist through `tools/t0/config/emulate.mjs` on two local ports (default 8750 and 8751) and runs S0-S4 and S6-S10 against them (S5 is skipped: it needs production). It proves the tree, the tools and the checklist; Netlify's own handling of an upload is what S6-S9 prove on the real staging site (see section 11). Second-pass rehearsal results (2026-09-30, trains built that day): R1c `9 pass, 0 FAIL, 2 skipped, 1 manual`, R1a `10 pass, 0 FAIL, 1 skipped, 1 manual`; a staging copy with one byte changed in `privacy.html` and a `sw-kill.js` left in it gave `4 FAIL` (S3 the copy differs, S6 the kill file is public, S7 `DIFF privacy.html`, S8 probe `T0-04` and `T0-HTML`), so the checks do bite.
 
 ---
 
@@ -184,3 +206,14 @@ The Mapbox token in the site is restricted to your real domain (register action 
 * Do not add the staging address to any Mapbox or Google key allow-list.
 * Delete nothing on the production site's Deploys page until the archive exists and the plan says so (register: do not delete stale Netlify deploys first).
 * A staging deploy is not a release: it gets no row in `ops/RELEASE-LOG.md` except the rehearsal note.
+
+---
+
+## 11. Local emulators against Netlify: what is and is not reproduced
+
+The scripts that run without a deploy use `tools/t0/config/emulate.mjs` (header, redirect and 404 rules of the dist's own `_headers` / `_redirects` / `netlify.toml`) or `tools/t0/serve.mjs` (plain static files for the browser suites). The full table of which Netlify rules each one models is "Emulated rules" in `tools/t0/config/README.md`; the short version:
+
+* **Reproduced by `emulate.mjs`:** `_headers` matching on the path as requested, `*` and `:name`, empty values not unsetting, same-name overlaps REPORTED (never silently merged), `_redirects` order and force (`!`), host-based redirects, status-404 rules, pretty URLs, the 404 page, Netlify's default `Cache-Control`, and (since 2026-09-30) not serving `netlify.toml`, `_headers` or `_redirects`.
+* **Not reproduced by any local server:** Netlify's HTML post-processing (RUM snippet, link rewriting), asset optimisation, compression, HTTP/2, the edge cache, header application to redirect responses, and Netlify's own merge of two rules that set the same header name (undocumented).
+* **`serve.mjs` applies no `_headers`/`_redirects`/`netlify.toml` rules at all**, serves those files as ordinary files, and uses its own caching table. A probe against it can never be fully green; do not use it for header checks.
+* A local run therefore proves the generated RULES and that Chrome honours the resulting headers (`HDR-20`, `HDR-21`, `HDR-23`). Only `node ops/staging-verify.mjs ... --staging-url https://gbg-staging.netlify.app` proves what Netlify did with the upload.

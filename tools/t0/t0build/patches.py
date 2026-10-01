@@ -10,7 +10,7 @@ import re
 from .util import BuildError, eol_adapt, expand_placeholders, has_placeholder, load_json, read_text, write_text
 
 BUNDLE_TARGETS = ('js', 'help', 'book', 'css')
-GROUP_KEYS = {'group', 'patches', 'delete', 'train', 'description'}
+GROUP_KEYS = {'group', 'patches', 'delete', 'train', 'description', 'optional'}
 PATCH_KEYS = {'id', 'target', 'find', 'repl', 'expect', 'regex', 'note'}
 REQUIRED_PATCH_KEYS = {'id', 'target', 'find', 'repl', 'expect'}
 # files produced by the build itself: page/overlay data must not touch them (change the mechanism templates instead)
@@ -111,11 +111,14 @@ def load_groups(patches_dir, cfg):
         train = data.get('train')
         if train is not None and (pg is False or train not in cfg['train_order']):
             raise BuildError('%s: "train" is only valid in PG-* files and must be one of %s' % (path, cfg['train_order']))
+        optional = data.get('optional', False)
+        if 'optional' in data and (pg is False or not isinstance(optional, bool)):
+            raise BuildError('%s: "optional" is only valid in PG-* files and must be true or false' % path)
         for p in data['patches']:
             validate_patch(p, path, pg)
             p['_group'] = group
             p['_file'] = fn
-        entry = found.setdefault(group, {'patches': [], 'delete': [], 'files': [], 'train': train, 'pg': pg, 'parts': []})
+        entry = found.setdefault(group, {'patches': [], 'delete': [], 'files': [], 'train': train, 'pg': pg, 'parts': [], 'optional': optional})
         if part is None:
             entry['patches'] = data['patches'] + entry['patches']     # main file first
             entry['delete'] = data.get('delete', []) + entry['delete']
@@ -150,12 +153,18 @@ def select_groups(found, cfg, train, with_groups=()):
             if g not in found:
                 raise BuildError('optional group %s requested but tools/t0/patches/%s.json is missing' % (g, g))
             bundle.append(g)
-    unknown = [g for g in with_groups if g not in cfg.get('optional_groups', [])]
+    # optional PAGE groups ("optional": true in a PG-*.json) are excluded from every train unless named with --with (PG-legal: the AI-drafted
+    # interim privacy/terms text is opt-in since 2026-09-30)
+    optional_pg = sorted(k for k, v in found.items() if v['pg'] and v.get('optional'))
+    known = list(cfg.get('optional_groups', [])) + optional_pg
+    unknown = [g for g in with_groups if g not in known]
     if unknown:
-        raise BuildError('--with: unknown optional group(s) %s (known: %s)' % (unknown, cfg.get('optional_groups', [])))
+        raise BuildError('--with: unknown optional group(s) %s (known: %s)' % (unknown, known))
     pages = []
     if tcfg.get('page_groups'):
         for g in sorted(k for k, v in found.items() if v['pg']):
+            if found[g].get('optional') and g not in with_groups:
+                continue
             first = found[g]['train'] or cfg.get('pg_default_first', 'R1a')
             if cfg['train_order'].index(first) <= tidx:
                 pages.append(g)

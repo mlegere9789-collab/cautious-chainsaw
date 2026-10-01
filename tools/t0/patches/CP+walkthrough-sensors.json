@@ -1,0 +1,14 @@
+{
+  "group": "CP",
+  "description": "R1c only (CP starts at R1c): lets the Virtual Walkthrough's Google Street View frame use the accelerometer and gyroscope, so the frame stops logging Google's own 'Permissions policy violation: accelerometer is not allowed in this document' console error and its 'deviceorientation events are blocked by permissions policy' warning (both are logged on legacy too: the iframe has no allow attribute). The delegation needs BOTH halves: this attribute AND the Permissions-Policy of / and /index.html naming https://www.google.com for accelerometer and gyroscope (tools/t0/config/gen.mjs, PP_APP). Evidence and the owner decision: ops/header-decisions.md section 2. Without the header (trains R0-R1b, which ship the legacy netlify.toml) the attribute is inert.",
+  "patches": [
+    {
+      "id": "cp:walkthrough-streetview-allow",
+      "target": "js",
+      "find": "allowFullScreen:!0,title:c.name})",
+      "repl": "allowFullScreen:!0,allow:\"accelerometer; gyroscope\",title:c.name})",
+      "expect": 1,
+      "note": "The Street View iframe (https://www.google.com/maps/embed/v1/streetview) is the only iframe that gets an allow attribute; the NPS video frame stays without. magnetometer is NOT delegated: Chrome 153 logged nothing with accelerometer + gyroscope alone (2026-09-30 run against the real embed)."
+    }
+  ]
+}

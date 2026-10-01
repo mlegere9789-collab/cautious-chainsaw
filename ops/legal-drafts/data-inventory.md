@@ -6,7 +6,7 @@ DRAFT fact base for the interim privacy correction (WP-DEC-07 / WP-INFRA-26). Fa
 
 Verified 2026-09-30 against: legacy/dist (deploy 6aa16d61, entry index-Cg8FAMXN.js md5 7ef75b95f4c02700430b8aa91e3a7459); scratch builds of train R1c (tmp/legal/build-R1c, rid 59731f73, no page groups; tmp/legal/build-R1c-pg, rid a7cbfebd, with the PG-core, PG-maps and PG-legal groups present on 2026-09-30); and the live site (curl, read-only).
 
-Re-check any built tree with `node ops/legal-drafts/verify-facts.mjs --dist release/R1c/dist` (fails on an undisclosed host, storage key, cookie write, permission use, missing policy mention, or a visible [OWNER TO CONFIRM]).
+Re-check any built tree with `node ops/legal-drafts/verify-facts.mjs --dist release/R1c/dist` (fails on an undisclosed host, storage key, cookie write, permission use, missing policy mention, an unbacked frame permission, or an owner marker in the page source).
 
 ## Origins
 
@@ -71,7 +71,11 @@ Re-check any built tree with `node ops/legal-drafts/verify-facts.mjs --dist rele
 
 ## Device permissions
 
-- **ar** (ar.html): camera (getUserMedia facingMode environment, audio false); location (geolocation.watchPosition, high accuracy); device orientation/compass (deviceorientation, iOS requestPermission). When: only after 'Start Battlefield AR' is pressed. Leaves the device: no: the page's only fetch is GET /data/terrain.json; no MediaRecorder, canvas capture, sendBeacon or XHR. Evidence: ar.html:114, 160, 172, 184-193; Permissions-Policy in netlify.toml grants camera, geolocation, accelerometer, gyroscope, magnetometer to self only
+- **ar** (ar.html): camera (getUserMedia facingMode environment, audio false); location (geolocation.watchPosition, high accuracy); device orientation/compass (deviceorientation, iOS requestPermission). When: only after 'Start Battlefield AR' is pressed. Leaves the device: no: the page's only fetch is GET /data/terrain.json; no MediaRecorder, canvas capture, sendBeacon or XHR. Evidence: ar.html:114, 160, 172, 184-193; the generated _headers (tools/t0/config/gen.mjs) grants camera, geolocation, accelerometer, gyroscope and magnetometer to self on /ar and /ar.html only (every other page: off; the legacy netlify.toml granted them to self site-wide)
+
+## Frame permission delegations (a third-party frame allowed to use a device feature)
+
+- **streetview-motion** (index.html (the app; the Virtual Walkthrough, also reachable from the mobile Tools sheet)): frame https://www.google.com/maps/embed/v1/streetview may use accelerometer, gyroscope. How: the iframe carries allow="accelerometer; gyroscope" (bundle patch CP+walkthrough-sensors, train R1c) and the Permissions-Policy of / and /index.html names https://www.google.com for accelerometer and gyroscope (tools/t0/config/gen.mjs PP_APP); no other page and no other frame is given them (the NPS video frame has no allow attribute). When: only after the Virtual Walkthrough is opened (the frame is created then). Leaves the device: unknown: the frame is Google's code and the site cannot see what it sends. Evidence: ops/header-decisions.md section 2 (Chrome 153 run on 2026-09-30: without the attribute and the header the frame logs 'Permissions policy violation: accelerometer is not allowed in this document' and 'deviceorientation events are blocked by permissions policy'; with both it logs nothing)
 
 ## Work that stays on the device
 
