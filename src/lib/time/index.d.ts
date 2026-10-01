@@ -120,13 +120,17 @@ export interface Clock {
   gap: 'fast_forward' | 'time_lapse' | null;
 }
 
+/** Options are checked like arguments: a wrong kind is a TypeError and a wrong value a RangeError that names the option; null and undefined mean "the default". */
 export interface LabelOptions {
+  /** one of the ten words (default 'long'); any other word is a RangeError, a non-string a TypeError */
   style?: LabelStyle;
-  /** default 5 */
+  /** a whole number of minutes, 0 (to the minute) .. 1440; default 5 (format() and parts(): 0) */
   roundMin?: number;
   /** false | true | 'auto' (default): "about " prefix when the clock is approximate */
   approx?: boolean | 'auto';
 }
+/** every label style, in the order of the LabelStyle type (the one list the model, the bridge and the inline build share) */
+export const STYLES: readonly LabelStyle[];
 
 export interface LabelParts {
   tick: number;
@@ -189,6 +193,7 @@ export interface TimeModel {
   uncertaintyMin(tick: number): number;
   tabDay(tick: number): number;
   tabStart(day: number): number;
+  /** roundMin: a whole number of minutes 0..1440 (RangeError / TypeError otherwise) */
   parts(tick: number, roundMin?: number): {
     year: number; monthNum: number; month: string; date: number; weekday: string; hour24: number; minute: number;
     dayIdx: number; minutes: number; mod: number; nightOf: string | null; phase: Phase;
@@ -208,7 +213,12 @@ export interface TimeModel {
   goldenCsv(): string;
 }
 
-/** Throws Error for an invalid anchor set: first tick 1, last = tick_max, strictly increasing in tick AND minutes, slope inside doc.slope (default 0.75..60 min/tick). effective_status (t5: D) sets the evidence class. */
+/**
+ * Throws Error for an invalid anchor set: first tick 1, last = tick_max, strictly increasing in tick AND minutes, slope inside doc.slope (default 0.75..60 min/tick).
+ * effective_status (t5: D) sets the evidence class. A configuration value that is PRESENT is used exactly as written or refused (approx_sigma_min: 0 is 0, not the
+ * default 10; a wrong status / state / review_flag / range / solar / tab_days / gaps is an Error); only an absent (undefined or null) value takes its default.
+ * validateAnchors accepts and rejects the same values (tests/time/agreement.test.mjs).
+ */
 export function makeTimeModel(doc: TimeAnchorsDoc | { anchors: Array<Pick<AnchorDoc, 'tick' | 't' | 'sigma_min' | 'status'> & Partial<AnchorDoc>>; [k: string]: any }): TimeModel;
 /** lean core (no tickToClock, tables or URL parsing); what the legacy bridge inlines */
 export function makeCore(doc: object): Omit<TimeModel, 'tickToClock' | 'clockToTick' | 'clockToTickInfo' | 'tickToLabelParts' | 'ticksJson' | 'goldenCsv' | 'isGap' | 'anchors' | 'resolveTickParam'> & { _: unknown };
@@ -256,8 +266,9 @@ export interface Bridge {
   version: string;
   dv: number;
   tickMax: number;
-  f(tick: number, style?: LabelStyle): string;
-  x(tick: number, style?: LabelStyle): string;
+  /** a style that is not one of the ten words (undefined, a number, a Symbol, an object, an unknown string) is 'compat': the bridge never throws */
+  f(tick: number, style?: LabelStyle | unknown): string;
+  x(tick: number, style?: LabelStyle | unknown): string;
   after(tick: number, dm: number): number;
   hour(tick: number): number;
   phase(tick: number): Phase;

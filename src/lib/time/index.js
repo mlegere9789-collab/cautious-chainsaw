@@ -9,7 +9,7 @@ import { makeTimeModel } from './model.js';
 import RUNTIME from './anchors.runtime.generated.js';
 
 export { makeTimeModel } from './model.js';
-export { makeCore, parseLocal } from './core.js';
+export { makeCore, parseLocal, STYLES } from './core.js';
 export { validateAnchors, loadAnchors, AnchorError, deriveSigma, mechanicalFlags } from './anchors.js';
 export { createPlayback, storyPace } from './playback.js';
 export { makeBridge } from './bridge.js';
