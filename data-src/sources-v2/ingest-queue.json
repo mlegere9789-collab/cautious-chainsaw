@@ -1,0 +1,745 @@
+{
+ "meta": {
+  "schema": "sources-v2-ingest-queue/1",
+  "rule": "Only entries with final_status APPROVED may be ingested; tier A1 and extractable text means ready. Tier A2 holds for a rights review. Image-only items wait for a human transcription and a second person's check. Nothing in candidates_pending_verification may be ingested: it is a to-do list for reviewers.",
+  "ordering": "contemporaneous before retrospective, then campaign-and-battle before campaign-only, then Union and Confederate alternating, then entry number",
+  "adapters": [
+   "html",
+   "gutenberg",
+   "archive-fulltext",
+   "perseus",
+   "pdf-text",
+   "manual-transcription"
+  ],
+  "note_perseus": "The perseus adapter is NOT usable: www.perseus.tufts.edu/robots.txt says \"Disallow: /\" and the 12 SHSP links in this list point there. Use the Internet Archive SHSP scans (hist-sources-1 SRC-08) instead.",
+  "ready_count": 4,
+  "blocked_count": 3,
+  "pending_decision_count": 3,
+  "candidates_count": 16
+ },
+ "ready": [
+  {
+   "rank": 1,
+   "n": 597,
+   "id": "sv2-0597",
+   "title": "George W. Beale (Lt., 9th Virginia Cavalry), letter to his mother, 13 July 1863, SHSP 11 (1883): 320-327",
+   "listed_title": "George W. Beale letter (9th Virginia Cavalry), SHSP",
+   "tier": "A1",
+   "status": "APPROVED",
+   "ingest_state": "ready",
+   "adapter": "archive-fulltext",
+   "primary_url": "https://archive.org/details/sim_southern-historical-society-papers_1883-07_11_7",
+   "cross_check_urls": [
+    "https://archive.org/details/southernhistoricv11sout"
+   ],
+   "listed_url": "http://www.gdg.org/research/SHSP/shbeale.html",
+   "segmentation": "metadata block (dateline, salutation, signature) then paragraphs, each cited SHSP 11 (1883), p. N; strip running heads and the neighbouring items on p. 320 and p. 327; re-join hyphenations; keep the print's blanks ('June - -') and typos; several clock times for the time-claims reader (3 A.M. Salem, about 12 M., 'about dark', half-past 10, about 12 on the cavalry fight)",
+   "citation": "G. W. Beale, SHSP 11 (1883), p. N, via Internet Archive",
+   "before_shipping": "pass 1 named the Internet Archive item southernhistoricv11sout and pass 2 southernhistoric0011sout; the metadata API (this builder fetch, link-probe.json api.archive_org_metadata) shows both exist as separate scans of the Society Papers (596 and 594 images), which explains the two-leaf difference between the reviewers leaf-to-page maps. The preferred text is the original July 1883 issue scan; proof every passage against the page images because both OCR layers have errors",
+   "expected_passages": {
+    "min": 15,
+    "max": 23,
+    "basis": "pass 1 'about 15 paragraphs'; pass 2 'about 23 paragraphs'"
+   },
+   "perspective": {
+    "side": "confederate",
+    "genre": "letter",
+    "written": {
+     "from": "1863-07-13",
+     "to": "1863-07-13",
+     "text": "13 July 1863; printed 1883",
+     "relative_to_battle": "after",
+     "lag_days": 10,
+     "basis": "review-norm.json from the reviewers' dates"
+    },
+    "retrospective": false,
+    "relative_to_battle": "after",
+    "tags": [
+     "confederate",
+     "lieutenant",
+     "9th-virginia-cavalry",
+     "stuart-ride",
+     "east-cavalry-field",
+     "campaign-and-battle",
+     "participant"
+    ],
+    "flags": [
+     "gdg-org-transcription-not-verbatim-do-not-quote",
+     "rumor-and-hearsay-figures",
+     "sensitive-language-period-racial-terms",
+     "gdg-org-http-only-revoked-certificate",
+     "ia-date-metadata-1876-is-series-start"
+    ],
+    "gettysburg_relevance": "campaign-and-battle"
+   },
+   "rights_basis": {
+    "pass1": "Text is a private letter of 1863 printed in SHSP vol. 11 whose own contents page reads 'January to December, 1883'; public domain by date. The IA metadata date field says 1876 (series start for every volume) and was not used. The linked gdg.org (Gettysburg Discussion Group) page is an unlicensed third-party transcription (last modified 2010) with a few textual differences, so the A1 tier applies to the SHSP text as read from the archive.org scan, not to the gdg copy.",
+    "pass2": "Public domain by publication date, confirmed from the scans. The IA scan of vol. 11 has the title page 'JANUARY TO DECEMBER, 1883. RICHMOND, VA.: Rev. J. William Jones, D. D., Secretary Southern Historical Society'. A second scan, the original July issue, has the header 'Richmond, Va., July, 1883. No. 7.' Matter first published in 1883 is U.S. public domain. The IA vol. 11 item is a 1977 Kraus facsimile reprint (title page 'KRAUS REPRINT CO. Millwood, New York 1977'). A photographic reprint adds no new text rights, but the original-issue scan is the cleaner citation base. The gdg.org page carries no license or copyright notice: the host root, the /research/SHSP/ index and the page itself were checked, and the only 'permission' text is a photo credit on the home page. Its text is not a faithful copy of the print, so it should not be the quote source. The author's death date was not checked, so U.S. public-domain-by-date is the basis used and non-U.S. life-plus-years terms were not examined."
+   },
+   "evidence": [
+    "data-src/sources-v2/qc/review-pass1.json#n=597",
+    "data-src/sources-v2/qc/review-pass2.json#n=597",
+    "data-src/sources-v2/qc/link-probe.json#api.archive_org_metadata.sim_southern-historical-society-papers_1883-07_11_7",
+    "data-src/sources-v2/qc/link-probe.json#api.archive_org_metadata.southernhistoricv11sout"
+   ]
+  },
+  {
+   "rank": 2,
+   "n": 596,
+   "id": "sv2-0596",
+   "title": "R. L. T. Beale, History of the Ninth Virginia Cavalry (Johnson, 1899), Carlisle and Gettysburg, pp. 76-100",
+   "listed_title": "Richard L. T. Beale, history of the 9th Virginia Cavalry — shelling of Carlisle",
+   "tier": "A1",
+   "status": "APPROVED",
+   "ingest_state": "ready",
+   "adapter": "archive-fulltext",
+   "primary_url": "https://archive.org/details/historyofninthvi00beal",
+   "cross_check_urls": [],
+   "listed_url": "https://archive.org/stream/historyofninthvi00beal#page/84/mode/2up",
+   "segmentation": "chapter and paragraph; printed page from _page_numbers.json (leaf 96 = p. 84; plates at leaves 92-95 shift numbering) because the OCR running heads are unreliable; chapter VIII pp. 76-89, chapter IX pp. 90-97",
+   "citation": "Beale, History of the Ninth Virginia Cavalry (Richmond, 1899), p. N, via Internet Archive",
+   "before_shipping": "the narrator calls himself 'the author' and 'the Colonel'; attribution to Beale rests on the title page, the introductory note and internal evidence; chapter headings are the editor's",
+   "expected_passages": {
+    "min": null,
+    "max": null,
+    "basis": "no reviewer counted paragraphs; Gettysburg material spans the second half of chapter VIII and chapter IX (about pp. 76-100)"
+   },
+   "perspective": {
+    "side": "confederate",
+    "genre": "regimental-history",
+    "written": {
+     "from": "1865",
+     "to": "1899",
+     "text": "written 1865 from notes; published 1899",
+     "relative_to_battle": "composed-decades-after",
+     "lag_days": null,
+     "basis": "review-norm.json from the reviewers' dates"
+    },
+    "retrospective": true,
+    "relative_to_battle": "composed-decades-after",
+    "tags": [
+     "confederate",
+     "colonel",
+     "9th-virginia-cavalry",
+     "stuart-ride",
+     "carlisle",
+     "campaign-and-battle",
+     "narrator-in-third-person"
+    ],
+    "flags": [
+     "editor-added-chapter-headings-and-roster",
+     "carlisle-shelling-date-inferred-not-stated",
+     "ocr-page-numbers-unreliable-use-page-numbers-json"
+    ],
+    "gettysburg_relevance": "campaign-and-battle"
+   },
+   "rights_basis": {
+    "pass1": "Title page (OCR): 'Richmond, Va.: B. F. Johnson Publishing Company. 1899'. archive.org metadata (item historyofninthvi00beal): date 1899, 'possible-copyright-status: NOT_IN_COPYRIGHT', copyright-evidence 'no visible notice of copyright; stated date is 1899' (rebecca.m, 16 June 2008). Published before 1931, so US public domain. Chapter headings and the roster were added by the editor.",
+    "pass2": "Title page: History of the Ninth Virginia Cavalry in the War between the States, by the late Brig. General R. L. T. Beale, B. F. Johnson Publishing Company, Richmond, 1899. Internet Archive metadata (NYPL scan, fetched): date 1899, possible-copyright-status NOT_IN_COPYRIGHT. US imprint before 1931."
+   },
+   "evidence": [
+    "data-src/sources-v2/qc/review-pass1.json#n=596",
+    "data-src/sources-v2/qc/review-pass2.json#n=596",
+    "data-src/sources-v2/qc/link-probe.json#api.archive_org_metadata.historyofninthvi00beal"
+   ]
+  },
+  {
+   "rank": 3,
+   "n": 594,
+   "id": "sv2-0594",
+   "title": "George W. Wingate, History of the Twenty-second Regiment of the National Guard of the State of New York (Dayton, 1896), Sporting Hill, pp. 192-199",
+   "listed_title": "George Wingate, history of the 22nd New York State National Guard — Battle of Sporting Hill, June 30",
+   "tier": "A1",
+   "status": "APPROVED",
+   "ingest_state": "ready",
+   "adapter": "archive-fulltext",
+   "primary_url": "https://archive.org/details/cu31924030725166",
+   "cross_check_urls": [
+    "https://archive.org/details/historyoftwenty00wing",
+    "https://www.gutenberg.org/ebooks/32013"
+   ],
+   "listed_url": "https://books.google.com/books?id=CJQQAAAAYAAJ&dq=history%20of%20the%20Twenty-Second%20Regiment%20of%20the%20National%20Guard%20of%20the%20State%20of%20New%20York&pg=PA193#v=onepage&q&f=false",
+   "segmentation": "by chapter and paragraph with the printed page from _page_numbers.json (leaf 232 = p. 193); chapter XVIII pp. 192-199; tag quoted participant accounts inside the narrative (Pearce's Tribune letter at p. 195, Rand, Patterson) as other people's words; the first-person 1864 pamphlet (Gutenberg #32013) is the better first-hand wording",
+   "citation": "Wingate, History of the Twenty-second Regiment (Dayton, 1896), p. N, via Internet Archive",
+   "before_shipping": "pass 2's Cornell item has the page-number map; pass 1 found the page_numbers.json of its item empty",
+   "expected_passages": {
+    "min": null,
+    "max": null,
+    "basis": "no reviewer counted paragraphs; chapter XVIII is printed pp. 192-199 (pass 1 also proposes chapters XIX-XX, pp. 200-229)"
+   },
+   "perspective": {
+    "side": "union",
+    "genre": "regimental-history",
+    "written": {
+     "from": "1896",
+     "to": "1896",
+     "text": "published 1896; events 30 June 1863",
+     "relative_to_battle": "composed-decades-after",
+     "lag_days": null,
+     "basis": "review-norm.json from the reviewers' dates"
+    },
+    "retrospective": true,
+    "relative_to_battle": "composed-decades-after",
+    "tags": [
+     "union",
+     "new-york-militia",
+     "22nd-nysng",
+     "sporting-hill",
+     "campaign-only",
+     "participant-author"
+    ],
+    "flags": [
+     "hybrid-recollection-and-compilation-from-or-and-others",
+     "chapter-called-oyster-point-search-both-names",
+     "google-books-page-anchor-is-the-march-before-contact",
+     "later-2015-2018-reprints-excluded"
+    ],
+    "gettysburg_relevance": "campaign-only"
+   },
+   "rights_basis": {
+    "pass1": "Imprint year 1896 (E. W. Dayton, New York) confirmed by archive.org metadata (date and year 1896, IA items historyoftwenty00wing and historyoftwentys00wing) and by Google Books ('E. W. Dayton, 1896'); the OCR of the title page itself shows no year. Published before 1931, so US public domain. The 1864 pamphlet says 'Entered according to the act of Congress, in the year 1864, by George W. Wingate' and is on Project Gutenberg #32013 (public domain).",
+    "pass2": "Title page: History of the Twenty-second Regiment of the National Guard of the State of New York from its Organization to 1895, by General George W. Wingate, Edwin W. Dayton, New York, 'Copyright, 1896'. Cornell/Internet Archive scan cu31924030725166: 'There are no known copyright restrictions in the United States on the use of the text.' US imprint before 1931. Google Books lists later 2015 and 2018 reprints with no preview, which must not be used."
+   },
+   "evidence": [
+    "data-src/sources-v2/qc/review-pass1.json#n=594",
+    "data-src/sources-v2/qc/review-pass2.json#n=594",
+    "data-src/sources-v2/qc/link-probe.json#api.archive_org_metadata.cu31924030725166",
+    "data-src/sources-v2/qc/link-probe.json#api.archive_org_metadata.historyoftwenty00wing"
+   ]
+  },
+  {
+   "rank": 4,
+   "n": 592,
+   "id": "sv2-0592",
+   "title": "Jubal A. Early, Autobiographical Sketch and Narrative of the War Between the States (Lippincott, 1912), York and Wrightsville, pp. 258-262",
+   "listed_title": "Jubal A. Early, memoir pages on York and Wrightsville",
+   "tier": "A1",
+   "status": "APPROVED",
+   "ingest_state": "ready",
+   "adapter": "archive-fulltext",
+   "primary_url": "https://archive.org/details/cu31924030913630",
+   "cross_check_urls": [
+    "https://docsouth.unc.edu/fpn/early/early.html",
+    "https://archive.org/details/lieutenantgeneraearl"
+   ],
+   "listed_url": "https://books.google.com/books?id=0xtCAAAAIAAJ&dq=jubal%20early%20reminiscences&pg=PA257#v=onepage&q&f=false",
+   "segmentation": "paragraphs with printed page from _page_numbers.json (leaf 298 = p. 257); section 'At York and Wrightsville' starts p. 253, York and Wrightsville text pp. 258-262; footnote on p. 262 reproduces 'To the Citizens of York' (separate primary text); DocSouth TEI <pb> markers are the human-corrected cross-check",
+   "citation": "Early, Autobiographical Sketch and Narrative (Lippincott, 1912), p. N, via Internet Archive",
+   "before_shipping": "original 1912 imprint only; verbatim check against DocSouth TEI; tag retrospective, self-justifying, Lost Cause",
+   "expected_passages": {
+    "min": null,
+    "max": null,
+    "basis": "no reviewer counted paragraphs; the York and Wrightsville passage is printed pp. 258-262 (leaves 299-303 of the Cornell scan)"
+   },
+   "perspective": {
+    "side": "confederate",
+    "genre": "memoir",
+    "written": {
+     "from": "1866",
+     "to": "1894",
+     "text": "composed 1866 to 1894; published 1912",
+     "relative_to_battle": "composed-decades-after",
+     "lag_days": null,
+     "basis": "review-norm.json from the reviewers' dates"
+    },
+    "retrospective": true,
+    "relative_to_battle": "composed-decades-after",
+    "tags": [
+     "confederate",
+     "general",
+     "division-commander",
+     "york-wrightsville",
+     "campaign-only"
+    ],
+    "flags": [
+     "self-justifying",
+     "lost-cause",
+     "expands-his-1863-official-report-or27-part2-no-470-not-independent",
+     "exclude-later-reprints-1960-1989",
+     "google-books-page-anchor-off-by-two-pages"
+    ],
+    "gettysburg_relevance": "campaign-only"
+   },
+   "rights_basis": {
+    "pass1": "Imprint year confirmed from the scanned title page ('Philadelphia & London, J. B. Lippincott Company, 1912'; 'Published November, 1912'; 'Copyright, 1913'); IA metadata date 1912; Google Books shows 'Full view'. US public domain by date (published before 1931). Editor's notes by R. H. Early (1912) are PD by the same date. DocSouth (UNC) TEI header carries rightsstatements.org 'No Copyright - United States 1.0' (the item is believed PD in the US; other countries not determined). DocSouth electronic edition 1999; its page header says site archived 3/30/26.",
+    "pass2": "Title page: Lieutenant General Jubal Anderson Early, C.S.A.: Autobiographical Sketch and Narrative of the War Between the States, with notes by R. H. Early, J. B. Lippincott Company, Philadelphia and London, 1912; copyright notice 1912 Lippincott. US imprint before 1931. Internet Archive/Cornell scan (cu31924030913630): 'There are no known copyright restrictions in the United States on the use of the text.' Use only the 1912 imprint: the IA search also lists copyrighted reprints (Indiana University Press 1960, Broadfoot 1989, Nautical & Aviation 1989), which must be excluded from the allow-list."
+   },
+   "evidence": [
+    "data-src/sources-v2/qc/review-pass1.json#n=592",
+    "data-src/sources-v2/qc/review-pass2.json#n=592",
+    "data-src/sources-v2/qc/link-probe.json#api.archive_org_metadata.cu31924030913630",
+    "data-src/sources-v2/qc/link-probe.json#api.archive_org_metadata.lieutenantgeneraearl"
+   ]
+  }
+ ],
+ "blocked": [
+  {
+   "rank": 5,
+   "n": 586,
+   "id": "sv2-0586",
+   "title": "Leonidas L. Polk (2nd Lt., 43rd N.C.), letter to his wife, Carlisle, 28 June 1863",
+   "listed_title": "Leonidas Polk letter, June 28, 1863 (43rd North Carolina)",
+   "tier": "A2",
+   "status": "APPROVED",
+   "ingest_state": "hold:rights-review",
+   "adapter": "html",
+   "primary_url": "https://web.lib.unc.edu/civilwar/index.php/2013/06/28/28-june-1863/",
+   "cross_check_urls": [],
+   "listed_url": "https://blogs.lib.unc.edu/civilwar/index.php/2013/06/28/28-june-1863/",
+   "segmentation": "one WordPress post = one letter; split the 'Item Transcription' block by paragraph (dateline, route, Carlisle conditions, closing, two postscripts); keep the Item Description and Item Citation lines as the provenance record",
+   "citation": "L. L. Polk to his wife, 28 June 1863, L.L. Polk Papers #3708, Southern Historical Collection, UNC, via UNC Libraries",
+   "before_shipping": "re-check every quote against the three manuscript scans: pass 2 read 'write home' on sheet 2 where the UNC transcription reads 'write to me'",
+   "expected_passages": {
+    "min": 5,
+    "max": 6,
+    "basis": "pass 1 extraction_notes 'about 6 passages'; pass 2 'about 5 passages'"
+   },
+   "perspective": {
+    "side": "confederate",
+    "genre": "letter",
+    "written": {
+     "from": "1863-06-28",
+     "to": "1863-06-28",
+     "text": "28 June 1863",
+     "relative_to_battle": "before",
+     "lag_days": -5,
+     "basis": "review-norm.json from the reviewers' dates"
+    },
+    "retrospective": false,
+    "relative_to_battle": "before",
+    "tags": [
+     "confederate",
+     "officer",
+     "43rd-north-carolina",
+     "carlisle",
+     "campaign-only"
+    ],
+    "flags": [
+     "title-collides-with-lt-gen-leonidas-polk",
+     "transcription-differs-from-manuscript-possible"
+    ],
+    "gettysburg_relevance": "campaign-only"
+   },
+   "rights_basis": {
+    "pass1": "Letter dated 28 June 1863 (manuscript image header 'Carlisle Pa. June 28th 1863'; UNC item description), author Leonidas L. Polk d. 1892 (UNC page and Wikipedia infobox) -> public domain by date. The UNC blog supplies a transcription and page images with no license statement (About page has no rights text; footer is a theme line '(c) 2019 - Civil War Day by Day'; response header X-Robots-Tag: noarchive). Manuscript held by UNC Southern Historical Collection, L.L. Polk Papers #3708. Tier A2 because the host's terms for its transcription are not stated; the letter text itself is PD.",
+    "pass2": "Unpublished 1863 manuscript by L. L. Polk (1837-1892 per UNC finding aid), so the author's life+70 term ended before 1963 and the letter is public domain in the US on the author-death basis, not an imprint-year basis. UNC finding aid for L.L. Polk Papers #3708 (fetched via the 301 chain to finding-aids.lib.unc.edu/catalog/03708): 'No usage restrictions', copyright 'retained by the authors ... or their descendants'. The blog page itself carries no license; it sends X-Robots-Tag: noarchive (an indexing hint, not a license). UNC owns the transcription/blog layer, so counsel should confirm before bulk reuse."
+   },
+   "evidence": [
+    "data-src/sources-v2/qc/review-pass1.json#n=586",
+    "data-src/sources-v2/qc/review-pass2.json#n=586"
+   ],
+   "blocked_by": "hold:rights-review"
+  },
+  {
+   "rank": 6,
+   "n": 590,
+   "id": "sv2-0590",
+   "title": "Wesley Watson (6th Alabama), letter to his brother, Staunton, Va., 10 July 1863",
+   "listed_title": "Elihu Wesley Watson letter (6th Alabama)",
+   "tier": "A1",
+   "status": "APPROVED",
+   "ingest_state": "blocked:manual-transcription",
+   "adapter": "manual-transcription",
+   "primary_url": "https://digital.tcl.sc.edu/digital/collection/civilwar/id/2007",
+   "cross_check_urls": [],
+   "listed_url": "http://digital.tcl.sc.edu/cdm/ref/collection/civilwar/id/2007",
+   "segmentation": "after a human transcription and a second person's check against the three IIIF page images (ptr 2004, 2005, 2006): (1) opening battle summary and casualty estimates, (2) travel to Staunton with the wounded Col. Lightfoot and Maj. Culver, first-day action, Ewell's march via Carlisle, (3) Carlisle and the conversation with 'Dr. Johnson', (4) leaving Gettysburg with the wagon train and the South Mountain night attack",
+   "citation": "Wesley Watson to his brother, 10 July 1863, Watson Family Papers, South Caroliniana Library, via USC Digital Collections",
+   "before_shipping": "flag the writer's rumour figures (60,000 enemy dead, 40,000 prisoners) in any card",
+   "expected_passages": {
+    "min": 4,
+    "max": 4,
+    "basis": "pass 1 extraction_notes lists four natural segments (1)-(4)"
+   },
+   "perspective": {
+    "side": "confederate",
+    "genre": "letter",
+    "written": {
+     "from": "1863-07-10",
+     "to": "1863-07-10",
+     "text": "10 July 1863",
+     "relative_to_battle": "after",
+     "lag_days": 7,
+     "basis": "review-norm.json from the reviewers' dates"
+    },
+    "retrospective": false,
+    "relative_to_battle": "after",
+    "tags": [
+     "confederate",
+     "6th-alabama",
+     "company-g",
+     "participant",
+     "campaign-and-battle",
+     "first-day"
+    ],
+    "flags": [
+     "image-only-needs-human-transcription",
+     "rumor-figures-60000-enemy-loss-40000-prisoners",
+     "name-elihu-and-rank-private-unverified",
+     "description-omits-date-and-battle-content"
+    ],
+    "gettysburg_relevance": "campaign-and-battle"
+   },
+   "rights_basis": {
+    "pass1": "Host metadata (CONTENTdm record 2007, field Rights): 'Public Domain. For further information please contact University of South Carolina, Irvin Department of Rare Books and Special Collections and/or South Caroliniana Library, Columbia, SC 29208.' Date confirmed by both the record (date 1863-07-10) and the manuscript image header. Source: Watson Family Papers, Accession no. 13960. Note: the text itself exists only as page images (see extraction_notes), so a human transcription would be needed before verbatim quotation.",
+    "pass2": "CONTENTdm item record (dmGetItemInfo civilwar/2007, fetched) states: 'Public Domain. For further information please contact University of South Carolina, Irvin Department of Rare Books and Special Collections and/or South Caroliniana Library'. Unpublished 1863 manuscript; no adult of 1863 can plausibly have lived past 1955, so the life+70 term has expired. Repository metadata plus the date on the manuscript support A1 for the content; our own transcription would be needed to quote it."
+   },
+   "evidence": [
+    "data-src/sources-v2/qc/review-pass1.json#n=590",
+    "data-src/sources-v2/qc/review-pass2.json#n=590"
+   ],
+   "blocked_by": "blocked:manual-transcription"
+  },
+  {
+   "rank": 7,
+   "n": 591,
+   "id": "sv2-0591",
+   "title": "Anonymous Carlisle diarist, pocket diary, 24 June to 8 July 1863",
+   "listed_title": "Young girl's pocket diary, June-July 1863 (Cumberland County Historical Society, transcribed by Frank Kline)",
+   "tier": "A2",
+   "status": "APPROVED",
+   "ingest_state": "hold:rights-review",
+   "adapter": "pdf-text",
+   "primary_url": "https://housedivided.dickinson.edu/sites/blogdivided/files/2018/06/1863-Young-Girls-Pocket-Diary-CCHS.pdf",
+   "cross_check_urls": [],
+   "listed_url": "http://housedivided.dickinson.edu/sites/blogdivided/files/2018/06/1863-Young-Girls-Pocket-Diary-CCHS.pdf",
+   "segmentation": "one passage per dated entry (15), keep the transcriber's spelling ('Getesburg', 'bruned') and brackets such as '[4]'",
+   "citation": "Anonymous Carlisle diarist, pocket diary 1863, Cumberland County Historical Society, transcribed by Frank Kline, via Dickinson College House Divided Project",
+   "before_shipping": "attribute as 'anonymous young Carlisle resident'; the diarist's age and sex are the blog's inference",
+   "expected_passages": {
+    "min": 15,
+    "max": 15,
+    "basis": "pass 1 and pass 2 extraction_notes: one passage per dated entry, 15 entries"
+   },
+   "perspective": {
+    "side": "civilian",
+    "genre": "diary",
+    "written": {
+     "from": "1863-06-24",
+     "to": "1863-07-08",
+     "text": "daily entries 24 June to 8 July 1863",
+     "relative_to_battle": "during",
+     "lag_days": 0,
+     "basis": "review-norm.json from the reviewers' dates"
+    },
+    "retrospective": false,
+    "relative_to_battle": "during",
+    "tags": [
+     "civilian",
+     "carlisle",
+     "occupation-and-shelling",
+     "campaign-only",
+     "anonymous"
+    ],
+    "flags": [
+     "author-repository-transcriber-only-in-house-divided-post",
+     "transcription-not-checked-against-manuscript",
+     "rumor-figures-in-july-5-entry",
+     "troop-figure-10000-conflicts-with-or-3000"
+    ],
+    "gettysburg_relevance": "campaign-only"
+   },
+   "rights_basis": {
+    "pass1": "Underlying diary is an 1863 manuscript by an anonymous writer (unpublished diary; anonymous works are public domain 120 years after creation, so well past). The transcription was made by Frank Kline per the House Divided post (not stated in the PDF), and the diary is held by the Cumberland County Historical Society (CCHS) per the post and the file name; any copyright in the transcription is unstated. House Divided pages show '(c) Content 2007-2010 by Dickinson College' with no license for the PDF. Tier A2 pending review of the transcription terms.",
+    "pass2": "Anonymous, unpublished 1863 diary; under 17 U.S.C. 302(c) a work made for no named author lasts 120 years from creation, which ended in 1983, so the diary is public domain. The PDF is a Word-made transcription by Frank Kline (per the House Divided post) of a manuscript held by the Cumberland County Historical Society (per the same post); neither the PDF nor the post gives a rights statement, and the Dickinson host asserts site copyright. Needs review of transcriber/CCHS terms."
+   },
+   "evidence": [
+    "data-src/sources-v2/qc/review-pass1.json#n=591",
+    "data-src/sources-v2/qc/review-pass2.json#n=591"
+   ],
+   "blocked_by": "hold:rights-review"
+  }
+ ],
+ "pending_decision": [
+  {
+   "n": 587,
+   "id": "sv2-0587",
+   "title": "Maj. John A. Harman, requisition on the authorities of Carlisle, 27 June 1863",
+   "status": "NEEDS-HUMAN-REVIEW",
+   "why": "pass 1 asked for human review; the stricter verdict holds.",
+   "pass1_verdict": "NEEDS-HUMAN-REVIEW",
+   "pass2_verdict": "APPROVE-LINKOUT-ONLY",
+   "recommendation": "approve as link-out via the Wayback capture (pass 2 downloaded the complete 6-page PDF, 2,685,477 bytes, sha256 recorded); never quote the dealer essay or the host description",
+   "duplicate_members": [],
+   "ingest_if_approved": null
+  },
+  {
+   "n": 588,
+   "id": "sv2-0588",
+   "title": "General Orders No. 72, Army of Northern Virginia, 21 June 1863 (Carlisle broadside copy)",
+   "status": "NEEDS-HUMAN-REVIEW",
+   "why": "pass 1 asked for human review; the stricter verdict holds.",
+   "pass1_verdict": "NEEDS-HUMAN-REVIEW",
+   "pass2_verdict": "APPROVE-LINKOUT-ONLY",
+   "recommendation": "approve as a provenance link-out only; the quotable text is OR vol. 27 pt. 3 p. 912, already ingested",
+   "duplicate_members": [],
+   "ingest_if_approved": null
+  },
+  {
+   "n": 595,
+   "id": "sv2-0595",
+   "title": "Capt. Henry D. Landis, report of the 1st Philadelphia Battery, 24 June to 30 July 1863 (Appendix C of Pleasonton's Third Annual Report, 1864), p. 82-85",
+   "status": "NEEDS-HUMAN-REVIEW",
+   "why": "pass 1 rejected the entry and the other verifier did not: the verifiers disagree, both rationales are kept.",
+   "pass1_verdict": "REJECT",
+   "pass2_verdict": "APPROVE",
+   "recommendation": "approve as A1 after a human confirms pass 2: the document is Landis's report printed as Appendix C of Pleasonton's Third Annual Report (1864); pass 1 could not find it because the Cornell page is gone, not because it does not exist; the first-pass reject premise (\"no such report exists\") was refuted by pass 2's fetch of the Library of Congress scan",
+   "duplicate_members": [
+    599
+   ],
+   "ingest_if_approved": {
+    "adapter": "archive-fulltext",
+    "primary_url": "https://archive.org/details/reportofbrigadie00phil",
+    "segmentation": "_djvu.txt has no form feeds: segment with _djvu.xml (leaf index = printed page + 3 for pp. 22-86; p. 82 = n85); report is printed pp. 82-85; pp. 86-92 (Dwight extract) are a second passage worth adding",
+    "citation": "Third Annual Report of Brig. Gen. A. J. Pleasonton ... Home Guard of the City of Philadelphia (Philadelphia: King & Baird, 1864), App. C, p. 82, via archive.org",
+    "before_shipping": "keep the printed 'W. T. Smith' in quotes and link it to W. F. Smith"
+   }
+  }
+ ],
+ "or27_crosswalk": {
+  "approved": 541,
+  "flagged": [
+   10,
+   134
+  ],
+  "note": "Not text to ingest: the OR27 corpus text comes from the Internet Archive OCR. These entries are an independent index (report number, author, first page) and scan link-outs; registry.json holds the OCR id and the corrected first page for each."
+ },
+ "candidates_pending_verification": [
+  {
+   "n": 553,
+   "id": "sv2-0553",
+   "title": "Frank Aretas Haskell, \"The Battle of Gettysburg\" (Project Gutenberg)",
+   "rights_hint": {
+    "class": "A-candidate",
+    "basis": "Project Gutenberg e-text (the project treats it as public domain in the US); the original imprint year must be confirmed"
+   },
+   "listed_url": "https://www.gutenberg.org/files/33121/33121-h/33121-h.htm",
+   "in_historian_catalogue": [
+    "H1:SRC-31"
+   ],
+   "ingest_allowed": false,
+   "needs": "two independent reviews"
+  },
+  {
+   "n": 554,
+   "id": "sv2-0554",
+   "title": "Frank Aretas Haskell, \"The Battle of Gettysburg\" (1908 Wisconsin edition, Internet Archive scan)",
+   "rights_hint": {
+    "class": "A-candidate",
+    "basis": "Internet Archive item exists; its own date field must be confirmed on the title page before any tier (the date field is sometimes the series start)"
+   },
+   "listed_url": "https://archive.org/details/battleofgettysbu00haskuoft",
+   "in_historian_catalogue": [
+    "H1:SRC-31"
+   ],
+   "ingest_allowed": false,
+   "needs": "two independent reviews"
+  },
+  {
+   "n": 557,
+   "id": "sv2-0557",
+   "title": "Tillie Pierce Alleman, \"At Gettysburg, or What a Girl Saw and Heard of the Battle: A True Narrative\" (1889)",
+   "rights_hint": {
+    "class": "A-candidate",
+    "basis": "Internet Archive item exists; its own date field must be confirmed on the title page before any tier (the date field is sometimes the series start)"
+   },
+   "listed_url": "https://archive.org/details/atgettysburgorwh00alle",
+   "in_historian_catalogue": [
+    "H2:SRC-23"
+   ],
+   "ingest_allowed": false,
+   "needs": "two independent reviews"
+  },
+  {
+   "n": 558,
+   "id": "sv2-0558",
+   "title": "W. C. Storrick, \"The Battle of Gettysburg: The Country, the Contestants, the Results\" (Project Gutenberg)",
+   "rights_hint": {
+    "class": "A-candidate",
+    "basis": "Project Gutenberg e-text (the project treats it as public domain in the US); the original imprint year must be confirmed"
+   },
+   "listed_url": "https://www.gutenberg.org/files/50504/50504-h/50504-h.htm",
+   "in_historian_catalogue": [
+    "H1:SRC-31"
+   ],
+   "ingest_allowed": false,
+   "needs": "two independent reviews"
+  },
+  {
+   "n": 576,
+   "id": "sv2-0576",
+   "title": "The War of the Rebellion: Official Records (Internet Archive set)",
+   "rights_hint": {
+    "class": "A-candidate",
+    "basis": "Internet Archive item exists; its own date field must be confirmed on the title page before any tier (the date field is sometimes the series start)"
+   },
+   "listed_url": "https://archive.org/details/warofrebellion012602rootrich",
+   "in_historian_catalogue": [
+    "H1:SRC-01"
+   ],
+   "ingest_allowed": false,
+   "needs": "two independent reviews"
+  },
+  {
+   "n": 598,
+   "id": "sv2-0598",
+   "title": "Theodore S. Garnett account (Stuart's staff), in Wingate's 22nd NYSNG history",
+   "rights_hint": {
+    "class": "A-candidate",
+    "edition": "George Wood Wingate E. W. Dayton , 1896 - New York (State) - 762 pages",
+    "basis": "Google Books edition on the linked page: \"George Wood Wingate E. W. Dayton , 1896 - New York (State) - 762 pages\" (1896, full_view); confirm the title page, then take the text from the Internet Archive copy"
+   },
+   "listed_url": "https://books.google.com/books?id=CJQQAAAAYAAJ&dq=history%20of%20the%20Twenty-Second%20Regiment%20of%20the%20National%20Guard%20of%20the%20State%20of%20New%20York&pg=PA221#v=onepage&q&f=false",
+   "in_historian_catalogue": [],
+   "ingest_allowed": false,
+   "needs": "two independent reviews"
+  },
+  {
+   "n": 602,
+   "id": "sv2-0602",
+   "title": "Charles Godfrey Leland, memoir pages (Union militia)",
+   "rights_hint": {
+    "class": "A-candidate",
+    "edition": "Charles Godfrey Leland D. Appleton , 1893 - Authors, American - 439 pa",
+    "basis": "Google Books edition on the linked page: \"Charles Godfrey Leland D. Appleton , 1893 - Authors, American - 439 pages\" (1893, full_view); confirm the title page, then take the text from the Internet Archive copy"
+   },
+   "listed_url": "https://books.google.com/books?id=O7Ud9eFYGWcC&dq=charles%20leland%20memoirs&pg=PA254#v=onepage&q&f=false",
+   "in_historian_catalogue": [],
+   "ingest_allowed": false,
+   "needs": "two independent reviews"
+  },
+  {
+   "n": 604,
+   "id": "sv2-0604",
+   "title": "C. Stuart Patterson account (Union militia), in Wingate's 22nd NYSNG history",
+   "rights_hint": {
+    "class": "A-candidate",
+    "edition": "George Wood Wingate E. W. Dayton , 1896 - New York (State) - 762 pages",
+    "basis": "Google Books edition on the linked page: \"George Wood Wingate E. W. Dayton , 1896 - New York (State) - 762 pages\" (1896, full_view); confirm the title page, then take the text from the Internet Archive copy"
+   },
+   "listed_url": "https://books.google.com/books?id=CJQQAAAAYAAJ&dq=history%20of%20the%20Twenty-Second%20Regiment%20of%20the%20National%20Guard%20of%20the%20State%20of%20New%20York&pg=PA214#v=onepage&q&f=false",
+   "in_historian_catalogue": [],
+   "ingest_allowed": false,
+   "needs": "two independent reviews"
+  },
+  {
+   "n": 609,
+   "id": "sv2-0609",
+   "title": "John Lockwood, \"Our Campaign Around Gettysburg\" (23rd NYSNG)",
+   "rights_hint": {
+    "class": "A-candidate",
+    "edition": "John Lockwood A. H. Rome , 1864 - Gettysburg Campaign, 1863 - 168 page",
+    "basis": "Google Books edition on the linked page: \"John Lockwood A. H. Rome , 1864 - Gettysburg Campaign, 1863 - 168 pages\" (1864, full_view); confirm the title page, then take the text from the Internet Archive copy"
+   },
+   "listed_url": "https://books.google.com/books?id=TdA_AAAAYAAJ&dq=john%20lockwood%20our%20campaign%20around%20gettysburg&pg=PA1#v=onepage&q&f=false",
+   "in_historian_catalogue": [],
+   "ingest_allowed": false,
+   "needs": "two independent reviews"
+  },
+  {
+   "n": 622,
+   "id": "sv2-0622",
+   "title": "Jacob Hoke, \"The Great Invasion of 1863; or, General Lee in Pennsylvania\" (1887)",
+   "rights_hint": {
+    "class": "A-candidate",
+    "edition": "Jacob Hoke W. J. Shuey , 1887 - Gettysburg Campaign, 1863 - 613 pages",
+    "basis": "Google Books edition on the linked page: \"Jacob Hoke W. J. Shuey , 1887 - Gettysburg Campaign, 1863 - 613 pages\" (1887, full_view); confirm the title page, then take the text from the Internet Archive copy"
+   },
+   "listed_url": "https://books.google.com/books?id=JbMTAAAAYAAJ&dq=jacob%20hoke%20the%20great%20invasion&pg=PA97#v=onepage&q&f=false",
+   "in_historian_catalogue": [
+    "H2:SRC-23"
+   ],
+   "ingest_allowed": false,
+   "needs": "two independent reviews"
+  },
+  {
+   "n": 627,
+   "id": "sv2-0627",
+   "title": "Jemima K. Cree, \"Jenkins Raid,\" Kittochtinny Historical Society Papers (1908)",
+   "rights_hint": {
+    "class": "A-candidate",
+    "basis": "Internet Archive item exists; its own date field must be confirmed on the title page before any tier (the date field is sometimes the series start)"
+   },
+   "listed_url": "https://archive.org/details/papersreadbefore04kitt",
+   "in_historian_catalogue": [],
+   "ingest_allowed": false,
+   "needs": "two independent reviews"
+  },
+  {
+   "n": 628,
+   "id": "sv2-0628",
+   "title": "Jacob Hoke, \"Historical Reminiscences of the War\" (1884)",
+   "rights_hint": {
+    "class": "A-candidate",
+    "edition": "Jacob Hoke M.A. Foltz, printer and publisher , 1884 - Chambersburg (Pa",
+    "basis": "Google Books edition on the linked page: \"Jacob Hoke M.A. Foltz, printer and publisher , 1884 - Chambersburg (Pa.) - 211 pages\" (1884, unknown); confirm the title page, then take the text from the Internet Archive copy"
+   },
+   "listed_url": "https://books.google.com/books?id=8F_WAAAAMAAJ&dq=historical%20reminiscences%20of%20chambersburg&pg=PA38#v=onepage&q&f=false",
+   "in_historian_catalogue": [
+    "H2:SRC-23"
+   ],
+   "ingest_allowed": false,
+   "needs": "two independent reviews"
+  },
+  {
+   "n": 653,
+   "id": "sv2-0653",
+   "title": "New York at Gettysburg, Vols. I & II (1900) — Internet Archive",
+   "rights_hint": {
+    "class": "A-candidate",
+    "basis": "Internet Archive item exists; its own date field must be confirmed on the title page before any tier (the date field is sometimes the series start)"
+   },
+   "listed_url": "https://archive.org/details/newyorkatgettysb0001unse",
+   "in_historian_catalogue": [
+    "H1:SRC-03"
+   ],
+   "ingest_allowed": false,
+   "needs": "two independent reviews"
+  },
+  {
+   "n": 654,
+   "id": "sv2-0654",
+   "title": "Final Report on the Battlefield of Gettysburg (New York Monuments Commission, 1900) — Google scan",
+   "rights_hint": {
+    "class": "A-candidate",
+    "basis": "Internet Archive item exists; its own date field must be confirmed on the title page before any tier (the date field is sometimes the series start)"
+   },
+   "listed_url": "https://archive.org/details/finalreportonba01chatgoog/page/n10",
+   "in_historian_catalogue": [
+    "H1:SRC-03"
+   ],
+   "ingest_allowed": false,
+   "needs": "two independent reviews"
+  },
+  {
+   "n": 655,
+   "id": "sv2-0655",
+   "title": "Final Report on the Battlefield of Gettysburg (Cornell scan)",
+   "rights_hint": {
+    "class": "A-candidate",
+    "basis": "Internet Archive item exists; its own date field must be confirmed on the title page before any tier (the date field is sometimes the series start)"
+   },
+   "listed_url": "https://archive.org/details/cu31924071238673",
+   "in_historian_catalogue": [
+    "H1:SRC-03"
+   ],
+   "ingest_allowed": false,
+   "needs": "two independent reviews"
+  },
+  {
+   "n": 656,
+   "id": "sv2-0656",
+   "title": "Pennsylvania at Gettysburg, Vol. 2 (1893)",
+   "rights_hint": {
+    "class": "A-candidate",
+    "basis": "Internet Archive item exists; its own date field must be confirmed on the title page before any tier (the date field is sometimes the series start)"
+   },
+   "listed_url": "https://archive.org/details/pennsylvaniaatge02penn/page/538/mode/2up",
+   "in_historian_catalogue": [
+    "H1:SRC-04"
+   ],
+   "ingest_allowed": false,
+   "needs": "two independent reviews"
+  }
+ ]
+}

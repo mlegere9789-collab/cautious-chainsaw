@@ -1,0 +1,763 @@
+{
+  "meta": {
+    "schema": "sources-v2-review-norm/1",
+    "purpose": "Machine-readable normalisation of the two reviewer passes in review-pass1.json and review-pass2.json, so that the three agreement criteria (identity, rights tier, extraction path) can be computed instead of eyeballed. Written by the registry builder by reading the reviewers' own text. Every entry in 'basis' is a phrase that must occur verbatim in the reviewer's output for that entry (checked by tests/sources-qc/registry.test.mjs); nothing here is a new finding.",
+    "vocab": {
+      "adapters": [
+        "html",
+        "gutenberg",
+        "archive-fulltext",
+        "perseus",
+        "pdf-text",
+        "manual-transcription",
+        "or27-ocr",
+        "none"
+      ],
+      "text_state": [
+        "machine-text",
+        "ocr-text",
+        "image-only",
+        "none"
+      ],
+      "genre": [
+        "letter",
+        "diary",
+        "memoir",
+        "regimental-history",
+        "official-report",
+        "order",
+        "newspaper",
+        "broadside",
+        "requisition"
+      ],
+      "relative_to_battle": [
+        "before",
+        "during",
+        "after",
+        "composed-decades-after"
+      ]
+    },
+    "adapter_rule": "Extraction paths agree when the sets of adapters each reviewer verified by reading ('adapters_read') intersect AND both name the same edition of the same work. The agreed adapter is the intersection (first element is the preferred one).",
+    "battle_last_day": "1863-07-03"
+  },
+  "ia_ids_to_verify": [
+    "southernhistoricv11sout",
+    "southernhistoric0011sout",
+    "sim_southern-historical-society-papers_1883-07_11_7",
+    "lieutenantgeneraearl",
+    "cu31924030913630",
+    "historyoftwenty00wing",
+    "cu31924030725166",
+    "historyofninthvi00beal",
+    "reportofbrigadie00phil"
+  ],
+  "items": {
+    "586": {
+      "work_key": "polk-leonidas-l-letter-1863-06-28",
+      "retitle": "Leonidas L. Polk (2nd Lt., 43rd N.C.), letter to his wife, Carlisle, 28 June 1863",
+      "genre": "letter",
+      "written": {
+        "from": "1863-06-28",
+        "to": "1863-06-28",
+        "text": "28 June 1863",
+        "relative_to_battle": "before",
+        "lag_days": -5
+      },
+      "retrospective": false,
+      "persp_tags": [
+        "confederate",
+        "officer",
+        "43rd-north-carolina",
+        "carlisle",
+        "campaign-only"
+      ],
+      "flags": [
+        "title-collides-with-lt-gen-leonidas-polk",
+        "transcription-differs-from-manuscript-possible"
+      ],
+      "expected_passages": {
+        "min": 5,
+        "max": 6,
+        "basis": "pass 1 extraction_notes 'about 6 passages'; pass 2 'about 5 passages'"
+      },
+      "passes": {
+        "1": {
+          "adapters_read": [
+            "html"
+          ],
+          "text_state": "machine-text",
+          "source_key": "web.lib.unc.edu/civilwar/2013/06/28-june-1863",
+          "basis": [
+            "HTML blog post (WordPress)"
+          ]
+        },
+        "2": {
+          "adapters_read": [
+            "html"
+          ],
+          "text_state": "machine-text",
+          "source_key": "web.lib.unc.edu/civilwar/2013/06/28-june-1863",
+          "basis": [
+            "One WordPress post = one letter"
+          ]
+        }
+      },
+      "ingest": {
+        "adapter": "html",
+        "primary_url": "https://web.lib.unc.edu/civilwar/index.php/2013/06/28/28-june-1863/",
+        "segmentation": "one WordPress post = one letter; split the 'Item Transcription' block by paragraph (dateline, route, Carlisle conditions, closing, two postscripts); keep the Item Description and Item Citation lines as the provenance record",
+        "citation": "L. L. Polk to his wife, 28 June 1863, L.L. Polk Papers #3708, Southern Historical Collection, UNC, via UNC Libraries",
+        "before_shipping": "re-check every quote against the three manuscript scans: pass 2 read 'write home' on sheet 2 where the UNC transcription reads 'write to me'"
+      }
+    },
+    "587": {
+      "work_key": "harman-requisition-carlisle-1863-06-27",
+      "retitle": "Maj. John A. Harman, requisition on the authorities of Carlisle, 27 June 1863",
+      "genre": "requisition",
+      "written": {
+        "from": "1863-06-27",
+        "to": "1863-06-27",
+        "text": "27 June 1863",
+        "relative_to_battle": "before",
+        "lag_days": -6
+      },
+      "retrospective": false,
+      "persp_tags": [
+        "confederate",
+        "second-corps",
+        "carlisle",
+        "campaign-only",
+        "document-not-eyewitness"
+      ],
+      "flags": [
+        "description-says-provisions-but-demand-is-mostly-clothing-and-leather",
+        "dealer-essay-is-third-party-text"
+      ],
+      "expected_passages": {
+        "min": 1,
+        "max": 1,
+        "basis": "pass 2 extraction_notes 'treat the document as ONE passage (~75 words)'"
+      },
+      "passes": {
+        "1": {
+          "adapters_read": [
+            "pdf-text"
+          ],
+          "text_state": "image-only",
+          "source_key": "web.archive.org/20240523115128/archives.dickinson.edu/civil-war-resources/confederate-supply-requisition-authorities-carlisle",
+          "basis": [
+            "Wayback PDF for this item downloaded complete"
+          ]
+        },
+        "2": {
+          "adapters_read": [
+            "pdf-text"
+          ],
+          "text_state": "image-only",
+          "source_key": "web.archive.org/20240523115128/archives.dickinson.edu/civil-war-resources/confederate-supply-requisition-authorities-carlisle",
+          "basis": [
+            "Use the Wayback PDF"
+          ]
+        }
+      }
+    },
+    "588": {
+      "work_key": "go-72-army-of-northern-virginia-1863-06-21",
+      "retitle": "General Orders No. 72, Army of Northern Virginia, 21 June 1863 (Carlisle broadside copy)",
+      "genre": "broadside",
+      "written": {
+        "from": "1863-06-21",
+        "to": "1863-06-30",
+        "text": "order 21 June 1863; broadside posted in Carlisle about 27-30 June 1863",
+        "relative_to_battle": "before",
+        "lag_days": -12
+      },
+      "retrospective": false,
+      "persp_tags": [
+        "confederate",
+        "army-order",
+        "carlisle",
+        "campaign-only",
+        "document-not-eyewitness"
+      ],
+      "flags": [
+        "title-date-range-is-posting-period-not-order-date",
+        "text-already-in-or27-part3-p912",
+        "wayback-pdf-truncated-at-1-mib"
+      ],
+      "expected_passages": {
+        "min": 0,
+        "max": 0,
+        "basis": "pass 1 and pass 2 extraction_notes: do not ingest from Dickinson; the order text comes from OR vol. 27 pt 3 p. 912, already ingested"
+      },
+      "passes": {
+        "1": {
+          "adapters_read": [
+            "or27-ocr"
+          ],
+          "text_state": "ocr-text",
+          "source_key": "or27-3/p912/general-orders-72",
+          "basis": [
+            "Do not ingest from Dickinson"
+          ]
+        },
+        "2": {
+          "adapters_read": [
+            "or27-ocr"
+          ],
+          "text_state": "ocr-text",
+          "source_key": "or27-3/p912/general-orders-72",
+          "basis": [
+            "Do not extract text from this host"
+          ]
+        }
+      }
+    },
+    "589": {
+      "work_key": "underwood-wj-letter-1863-06-28",
+      "retitle": "William J. Underwood (4th Georgia), letter to his brothers, Carlisle, 28 June 1863",
+      "genre": "letter",
+      "written": {
+        "from": "1863-06-28",
+        "to": "1863-06-28",
+        "text": "28 June 1863",
+        "relative_to_battle": "before",
+        "lag_days": -5
+      },
+      "retrospective": false,
+      "persp_tags": [
+        "confederate",
+        "enlisted-or-unknown",
+        "4th-georgia",
+        "carlisle",
+        "campaign-only"
+      ],
+      "flags": [
+        "image-only-pdf",
+        "repository-restricts-quotation-atlanta-history-center"
+      ],
+      "expected_passages": {
+        "min": 0,
+        "max": 0,
+        "basis": "link-out only; image-only handwriting"
+      },
+      "passes": {
+        "1": {
+          "adapters_read": [
+            "manual-transcription"
+          ],
+          "text_state": "image-only",
+          "source_key": "housedivided.dickinson.edu/2018/06/Underwood-June-28-1-3.pdf",
+          "basis": [
+            "Image-only PDF, handwritten manuscript"
+          ]
+        },
+        "2": {
+          "adapters_read": [
+            "manual-transcription"
+          ],
+          "text_state": "image-only",
+          "source_key": "housedivided.dickinson.edu/2018/06/Underwood-June-28-1-3.pdf",
+          "basis": [
+            "Image-only PDF, handwritten manuscript"
+          ]
+        }
+      }
+    },
+    "590": {
+      "work_key": "watson-wesley-letter-1863-07-10",
+      "retitle": "Wesley Watson (6th Alabama), letter to his brother, Staunton, Va., 10 July 1863",
+      "genre": "letter",
+      "written": {
+        "from": "1863-07-10",
+        "to": "1863-07-10",
+        "text": "10 July 1863",
+        "relative_to_battle": "after",
+        "lag_days": 7
+      },
+      "retrospective": false,
+      "persp_tags": [
+        "confederate",
+        "6th-alabama",
+        "company-g",
+        "participant",
+        "campaign-and-battle",
+        "first-day"
+      ],
+      "flags": [
+        "image-only-needs-human-transcription",
+        "rumor-figures-60000-enemy-loss-40000-prisoners",
+        "name-elihu-and-rank-private-unverified",
+        "description-omits-date-and-battle-content"
+      ],
+      "expected_passages": {
+        "min": 4,
+        "max": 4,
+        "basis": "pass 1 extraction_notes lists four natural segments (1)-(4)"
+      },
+      "passes": {
+        "1": {
+          "adapters_read": [
+            "manual-transcription"
+          ],
+          "text_state": "image-only",
+          "source_key": "digital.tcl.sc.edu/civilwar/2007",
+          "basis": [
+            "it needs a human transcription before any verbatim use"
+          ]
+        },
+        "2": {
+          "adapters_read": [
+            "manual-transcription"
+          ],
+          "text_state": "image-only",
+          "source_key": "digital.tcl.sc.edu/civilwar/2007",
+          "basis": [
+            "A human must transcribe it"
+          ]
+        }
+      },
+      "ingest": {
+        "adapter": "manual-transcription",
+        "primary_url": "https://digital.tcl.sc.edu/digital/collection/civilwar/id/2007",
+        "segmentation": "after a human transcription and a second person's check against the three IIIF page images (ptr 2004, 2005, 2006): (1) opening battle summary and casualty estimates, (2) travel to Staunton with the wounded Col. Lightfoot and Maj. Culver, first-day action, Ewell's march via Carlisle, (3) Carlisle and the conversation with 'Dr. Johnson', (4) leaving Gettysburg with the wagon train and the South Mountain night attack",
+        "citation": "Wesley Watson to his brother, 10 July 1863, Watson Family Papers, South Caroliniana Library, via USC Digital Collections",
+        "before_shipping": "flag the writer's rumour figures (60,000 enemy dead, 40,000 prisoners) in any card"
+      }
+    },
+    "591": {
+      "work_key": "carlisle-young-girl-pocket-diary-1863",
+      "retitle": "Anonymous Carlisle diarist, pocket diary, 24 June to 8 July 1863",
+      "genre": "diary",
+      "written": {
+        "from": "1863-06-24",
+        "to": "1863-07-08",
+        "text": "daily entries 24 June to 8 July 1863",
+        "relative_to_battle": "during",
+        "lag_days": 0
+      },
+      "retrospective": false,
+      "persp_tags": [
+        "civilian",
+        "carlisle",
+        "occupation-and-shelling",
+        "campaign-only",
+        "anonymous"
+      ],
+      "flags": [
+        "author-repository-transcriber-only-in-house-divided-post",
+        "transcription-not-checked-against-manuscript",
+        "rumor-figures-in-july-5-entry",
+        "troop-figure-10000-conflicts-with-or-3000"
+      ],
+      "expected_passages": {
+        "min": 15,
+        "max": 15,
+        "basis": "pass 1 and pass 2 extraction_notes: one passage per dated entry, 15 entries"
+      },
+      "passes": {
+        "1": {
+          "adapters_read": [
+            "pdf-text"
+          ],
+          "text_state": "machine-text",
+          "source_key": "housedivided.dickinson.edu/2018/06/1863-Young-Girls-Pocket-Diary-CCHS.pdf",
+          "basis": [
+            "Born-digital Word-to-PDF with a clean text layer"
+          ]
+        },
+        "2": {
+          "adapters_read": [
+            "pdf-text"
+          ],
+          "text_state": "machine-text",
+          "source_key": "housedivided.dickinson.edu/2018/06/1863-Young-Girls-Pocket-Diary-CCHS.pdf",
+          "basis": [
+            "Clean text PDF, 2 pages"
+          ]
+        }
+      },
+      "ingest": {
+        "adapter": "pdf-text",
+        "primary_url": "https://housedivided.dickinson.edu/sites/blogdivided/files/2018/06/1863-Young-Girls-Pocket-Diary-CCHS.pdf",
+        "segmentation": "one passage per dated entry (15), keep the transcriber's spelling ('Getesburg', 'bruned') and brackets such as '[4]'",
+        "citation": "Anonymous Carlisle diarist, pocket diary 1863, Cumberland County Historical Society, transcribed by Frank Kline, via Dickinson College House Divided Project",
+        "before_shipping": "attribute as 'anonymous young Carlisle resident'; the diarist's age and sex are the blog's inference"
+      }
+    },
+    "592": {
+      "work_key": "early-autobiographical-sketch-1912",
+      "retitle": "Jubal A. Early, Autobiographical Sketch and Narrative of the War Between the States (Lippincott, 1912), York and Wrightsville, pp. 258-262",
+      "genre": "memoir",
+      "written": {
+        "from": "1866",
+        "to": "1894",
+        "text": "composed 1866 to 1894; published 1912",
+        "relative_to_battle": "composed-decades-after",
+        "lag_days": null
+      },
+      "retrospective": true,
+      "persp_tags": [
+        "confederate",
+        "general",
+        "division-commander",
+        "york-wrightsville",
+        "campaign-only"
+      ],
+      "flags": [
+        "self-justifying",
+        "lost-cause",
+        "expands-his-1863-official-report-or27-part2-no-470-not-independent",
+        "exclude-later-reprints-1960-1989",
+        "google-books-page-anchor-off-by-two-pages"
+      ],
+      "expected_passages": {
+        "min": null,
+        "max": null,
+        "basis": "no reviewer counted paragraphs; the York and Wrightsville passage is printed pp. 258-262 (leaves 299-303 of the Cornell scan)"
+      },
+      "passes": {
+        "1": {
+          "adapters_read": [
+            "html",
+            "archive-fulltext"
+          ],
+          "text_state": "ocr-text",
+          "source_key": "lippincott-1912/early-autobiographical-sketch",
+          "basis": [
+            "Best source is the DocSouth TEI XML or HTML",
+            "The IA ABBYY OCR (lieutenantgeneraearl_djvu.txt) is a clean fallback"
+          ]
+        },
+        "2": {
+          "adapters_read": [
+            "archive-fulltext"
+          ],
+          "text_state": "ocr-text",
+          "source_key": "lippincott-1912/early-autobiographical-sketch",
+          "basis": [
+            "Use the IA OCR text (cu31924030913630_djvu.txt"
+          ]
+        }
+      },
+      "ingest": {
+        "adapter": "archive-fulltext",
+        "primary_url": "https://archive.org/details/cu31924030913630",
+        "cross_check": [
+          "https://docsouth.unc.edu/fpn/early/early.html",
+          "https://archive.org/details/lieutenantgeneraearl"
+        ],
+        "segmentation": "paragraphs with printed page from _page_numbers.json (leaf 298 = p. 257); section 'At York and Wrightsville' starts p. 253, York and Wrightsville text pp. 258-262; footnote on p. 262 reproduces 'To the Citizens of York' (separate primary text); DocSouth TEI <pb> markers are the human-corrected cross-check",
+        "citation": "Early, Autobiographical Sketch and Narrative (Lippincott, 1912), p. N, via Internet Archive",
+        "before_shipping": "original 1912 imprint only; verbatim check against DocSouth TEI; tag retrospective, self-justifying, Lost Cause"
+      }
+    },
+    "593": {
+      "work_key": "york-eyewitness-baltimore-gazette-reprint-1863",
+      "retitle": "Unnamed York eyewitness, Baltimore Gazette (summer 1863), as reprinted by the Raleigh Daily Progress, 14 Aug 1863, and transcribed on the Cannonball blog",
+      "genre": "newspaper",
+      "written": {
+        "from": "1863-07",
+        "to": "1863-08-14",
+        "text": "summer 1863; Raleigh Daily Progress 14 Aug 1863 per the blog (unverified)",
+        "relative_to_battle": "after",
+        "lag_days": null
+      },
+      "retrospective": false,
+      "persp_tags": [
+        "civilian",
+        "york",
+        "occupation",
+        "campaign-only",
+        "unnamed-author"
+      ],
+      "flags": [
+        "host-copyright-york-daily-record",
+        "reprint-of-reprint",
+        "blogger-editorial-brackets-inside-text",
+        "transcription-slip-100-00"
+      ],
+      "expected_passages": {
+        "min": 0,
+        "max": 0,
+        "basis": "link-out only; the quotable 1863 text must be re-sourced from a newspaper page image"
+      },
+      "passes": {
+        "1": {
+          "adapters_read": [
+            "html"
+          ],
+          "text_state": "machine-text",
+          "source_key": "yorkblog.com/cannonball/eyewitness-account-of-the-confederate-occupation-of-york-pa",
+          "basis": [
+            "WordPress HTML article, not a page image"
+          ]
+        },
+        "2": {
+          "adapters_read": [
+            "html"
+          ],
+          "text_state": "machine-text",
+          "source_key": "yorkblog.com/cannonball/eyewitness-account-of-the-confederate-occupation-of-york-pa",
+          "basis": [
+            "HTML page: blogger introduction"
+          ]
+        }
+      }
+    },
+    "594": {
+      "work_key": "wingate-22nd-nysng-history-1896",
+      "retitle": "George W. Wingate, History of the Twenty-second Regiment of the National Guard of the State of New York (Dayton, 1896), Sporting Hill, pp. 192-199",
+      "genre": "regimental-history",
+      "written": {
+        "from": "1896",
+        "to": "1896",
+        "text": "published 1896; events 30 June 1863",
+        "relative_to_battle": "composed-decades-after",
+        "lag_days": null
+      },
+      "retrospective": true,
+      "persp_tags": [
+        "union",
+        "new-york-militia",
+        "22nd-nysng",
+        "sporting-hill",
+        "campaign-only",
+        "participant-author"
+      ],
+      "flags": [
+        "hybrid-recollection-and-compilation-from-or-and-others",
+        "chapter-called-oyster-point-search-both-names",
+        "google-books-page-anchor-is-the-march-before-contact",
+        "later-2015-2018-reprints-excluded"
+      ],
+      "expected_passages": {
+        "min": null,
+        "max": null,
+        "basis": "no reviewer counted paragraphs; chapter XVIII is printed pp. 192-199 (pass 1 also proposes chapters XIX-XX, pp. 200-229)"
+      },
+      "passes": {
+        "1": {
+          "adapters_read": [
+            "archive-fulltext"
+          ],
+          "text_state": "ocr-text",
+          "source_key": "dayton-1896/wingate-22nd-regiment",
+          "basis": [
+            "Use IA OCR text with page-number mapping"
+          ]
+        },
+        "2": {
+          "adapters_read": [
+            "archive-fulltext"
+          ],
+          "text_state": "ocr-text",
+          "source_key": "dayton-1896/wingate-22nd-regiment",
+          "basis": [
+            "Use IA OCR (cu31924030725166_djvu.txt"
+          ]
+        }
+      },
+      "ingest": {
+        "adapter": "archive-fulltext",
+        "primary_url": "https://archive.org/details/cu31924030725166",
+        "cross_check": [
+          "https://archive.org/details/historyoftwenty00wing",
+          "https://www.gutenberg.org/ebooks/32013"
+        ],
+        "segmentation": "by chapter and paragraph with the printed page from _page_numbers.json (leaf 232 = p. 193); chapter XVIII pp. 192-199; tag quoted participant accounts inside the narrative (Pearce's Tribune letter at p. 195, Rand, Patterson) as other people's words; the first-person 1864 pamphlet (Gutenberg #32013) is the better first-hand wording",
+        "citation": "Wingate, History of the Twenty-second Regiment (Dayton, 1896), p. N, via Internet Archive",
+        "before_shipping": "pass 2's Cornell item has the page-number map; pass 1 found the page_numbers.json of its item empty"
+      }
+    },
+    "595": {
+      "work_key": "landis-battery-report-1863-in-pleasonton-third-annual-report-1864",
+      "retitle": "Capt. Henry D. Landis, report of the 1st Philadelphia Battery, 24 June to 30 July 1863 (Appendix C of Pleasonton's Third Annual Report, 1864), p. 82-85",
+      "genre": "official-report",
+      "written": {
+        "from": "1863-07",
+        "to": "1863-12-29",
+        "text": "narrative to 30 July 1863; transmitted 29 Dec 1863; printed 1864",
+        "relative_to_battle": "after",
+        "lag_days": null
+      },
+      "retrospective": false,
+      "persp_tags": [
+        "union",
+        "philadelphia-home-guard",
+        "landis-battery",
+        "sporting-hill",
+        "carlisle",
+        "campaign-only"
+      ],
+      "flags": [
+        "first-pass-could-not-identify-the-document",
+        "dead-cornell-dlxs-link",
+        "hearsay-enemy-casualty-claim",
+        "printed-w-t-smith-error",
+        "entries-595-and-599-are-the-same-document"
+      ],
+      "expected_passages": {
+        "min": null,
+        "max": null,
+        "basis": "pass 2: about four printed pages (82-85); pp. 86-92 hold a second eyewitness narrative (Capt. Thomas B. Dwight)"
+      },
+      "passes": {
+        "1": {
+          "adapters_read": [
+            "none"
+          ],
+          "text_state": "none",
+          "source_key": null,
+          "basis": [
+            "Nothing to extract: the target page is gone"
+          ]
+        },
+        "2": {
+          "adapters_read": [
+            "archive-fulltext"
+          ],
+          "text_state": "ocr-text",
+          "source_key": "king-baird-1864/pleasonton-third-annual-report",
+          "basis": [
+            "Source for ingestion: IA reportofbrigadie00phil"
+          ]
+        }
+      },
+      "ingest": {
+        "adapter": "archive-fulltext",
+        "primary_url": "https://archive.org/details/reportofbrigadie00phil",
+        "segmentation": "_djvu.txt has no form feeds: segment with _djvu.xml (leaf index = printed page + 3 for pp. 22-86; p. 82 = n85); report is printed pp. 82-85; pp. 86-92 (Dwight extract) are a second passage worth adding",
+        "citation": "Third Annual Report of Brig. Gen. A. J. Pleasonton ... Home Guard of the City of Philadelphia (Philadelphia: King & Baird, 1864), App. C, p. 82, via archive.org",
+        "before_shipping": "keep the printed 'W. T. Smith' in quotes and link it to W. F. Smith"
+      }
+    },
+    "596": {
+      "work_key": "beale-9th-virginia-cavalry-history-1899",
+      "retitle": "R. L. T. Beale, History of the Ninth Virginia Cavalry (Johnson, 1899), Carlisle and Gettysburg, pp. 76-100",
+      "genre": "regimental-history",
+      "written": {
+        "from": "1865",
+        "to": "1899",
+        "text": "written 1865 from notes; published 1899",
+        "relative_to_battle": "composed-decades-after",
+        "lag_days": null
+      },
+      "retrospective": true,
+      "persp_tags": [
+        "confederate",
+        "colonel",
+        "9th-virginia-cavalry",
+        "stuart-ride",
+        "carlisle",
+        "campaign-and-battle",
+        "narrator-in-third-person"
+      ],
+      "flags": [
+        "editor-added-chapter-headings-and-roster",
+        "carlisle-shelling-date-inferred-not-stated",
+        "ocr-page-numbers-unreliable-use-page-numbers-json"
+      ],
+      "expected_passages": {
+        "min": null,
+        "max": null,
+        "basis": "no reviewer counted paragraphs; Gettysburg material spans the second half of chapter VIII and chapter IX (about pp. 76-100)"
+      },
+      "passes": {
+        "1": {
+          "adapters_read": [
+            "archive-fulltext"
+          ],
+          "text_state": "ocr-text",
+          "source_key": "johnson-1899/beale-9th-virginia-cavalry",
+          "basis": [
+            "ABBYY OCR (historyofninthvi00beal_djvu.txt"
+          ]
+        },
+        "2": {
+          "adapters_read": [
+            "archive-fulltext"
+          ],
+          "text_state": "ocr-text",
+          "source_key": "johnson-1899/beale-9th-virginia-cavalry",
+          "basis": [
+            "Internet Archive scan (NYPL): _djvu.txt 412 KB"
+          ]
+        }
+      },
+      "ingest": {
+        "adapter": "archive-fulltext",
+        "primary_url": "https://archive.org/details/historyofninthvi00beal",
+        "segmentation": "chapter and paragraph; printed page from _page_numbers.json (leaf 96 = p. 84; plates at leaves 92-95 shift numbering) because the OCR running heads are unreliable; chapter VIII pp. 76-89, chapter IX pp. 90-97",
+        "citation": "Beale, History of the Ninth Virginia Cavalry (Richmond, 1899), p. N, via Internet Archive",
+        "before_shipping": "the narrator calls himself 'the author' and 'the Colonel'; attribution to Beale rests on the title page, the introductory note and internal evidence; chapter headings are the editor's"
+      }
+    },
+    "597": {
+      "work_key": "beale-gw-letter-1863-07-13-shsp-11",
+      "retitle": "George W. Beale (Lt., 9th Virginia Cavalry), letter to his mother, 13 July 1863, SHSP 11 (1883): 320-327",
+      "genre": "letter",
+      "written": {
+        "from": "1863-07-13",
+        "to": "1863-07-13",
+        "text": "13 July 1863; printed 1883",
+        "relative_to_battle": "after",
+        "lag_days": 10
+      },
+      "retrospective": false,
+      "persp_tags": [
+        "confederate",
+        "lieutenant",
+        "9th-virginia-cavalry",
+        "stuart-ride",
+        "east-cavalry-field",
+        "campaign-and-battle",
+        "participant"
+      ],
+      "flags": [
+        "gdg-org-transcription-not-verbatim-do-not-quote",
+        "rumor-and-hearsay-figures",
+        "sensitive-language-period-racial-terms",
+        "gdg-org-http-only-revoked-certificate",
+        "ia-date-metadata-1876-is-series-start"
+      ],
+      "expected_passages": {
+        "min": 15,
+        "max": 23,
+        "basis": "pass 1 'about 15 paragraphs'; pass 2 'about 23 paragraphs'"
+      },
+      "passes": {
+        "1": {
+          "adapters_read": [
+            "archive-fulltext"
+          ],
+          "text_state": "ocr-text",
+          "source_key": "shsp-v11-1883/beale-soldiers-letter",
+          "basis": [
+            "Use the SHSP vol. 11 scan on archive.org (southernhistoricv11sout"
+          ]
+        },
+        "2": {
+          "adapters_read": [
+            "archive-fulltext"
+          ],
+          "text_state": "ocr-text",
+          "source_key": "shsp-v11-1883/beale-soldiers-letter",
+          "basis": [
+            "Take the text from the scan, not from gdg.org"
+          ]
+        }
+      },
+      "ingest": {
+        "adapter": "archive-fulltext",
+        "primary_url": "https://archive.org/details/sim_southern-historical-society-papers_1883-07_11_7",
+        "cross_check": [
+          "https://archive.org/details/southernhistoricv11sout"
+        ],
+        "segmentation": "metadata block (dateline, salutation, signature) then paragraphs, each cited SHSP 11 (1883), p. N; strip running heads and the neighbouring items on p. 320 and p. 327; re-join hyphenations; keep the print's blanks ('June - -') and typos; several clock times for the time-claims reader (3 A.M. Salem, about 12 M., 'about dark', half-past 10, about 12 on the cavalry fight)",
+        "citation": "G. W. Beale, SHSP 11 (1883), p. N, via Internet Archive",
+        "before_shipping": "pass 1 named the Internet Archive item southernhistoricv11sout and pass 2 southernhistoric0011sout; the metadata API (this builder fetch, link-probe.json api.archive_org_metadata) shows both exist as separate scans of the Society Papers (596 and 594 images), which explains the two-leaf difference between the reviewers leaf-to-page maps. The preferred text is the original July 1883 issue scan; proof every passage against the page images because both OCR layers have errors"
+      }
+    }
+  }
+}

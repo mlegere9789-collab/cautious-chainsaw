@@ -1,0 +1,362 @@
+{
+ "counts": {
+  "total_entries": 1714,
+  "by_status": {
+   "APPROVED-CROSSWALK": 541,
+   "NEEDS-HUMAN-REVIEW": 5,
+   "NOT-VERIFIED": 98,
+   "DUPLICATE": 4,
+   "APPROVED": 7,
+   "APPROVED-LINKOUT-ONLY": 2,
+   "APPROVED-POINTER": 1057
+  },
+  "by_part_and_status": {
+   "I": {
+    "APPROVED-CROSSWALK": 330,
+    "NEEDS-HUMAN-REVIEW": 2
+   },
+   "II": {
+    "APPROVED-CROSSWALK": 45
+   },
+   "III": {
+    "APPROVED-CROSSWALK": 166
+   },
+   "IV": {
+    "NOT-VERIFIED": 9
+   },
+   "V": {
+    "NOT-VERIFIED": 4
+   },
+   "VI": {
+    "NOT-VERIFIED": 3
+   },
+   "VII": {
+    "NOT-VERIFIED": 12
+   },
+   "VIII": {
+    "DUPLICATE": 2,
+    "NOT-VERIFIED": 5
+   },
+   "IX": {
+    "NOT-VERIFIED": 34,
+    "APPROVED": 7,
+    "NEEDS-HUMAN-REVIEW": 3,
+    "APPROVED-LINKOUT-ONLY": 2,
+    "DUPLICATE": 1
+   },
+   "X": {
+    "NOT-VERIFIED": 14
+   },
+   "XI": {
+    "NOT-VERIFIED": 12
+   },
+   "XII": {
+    "NOT-VERIFIED": 5,
+    "DUPLICATE": 1
+   },
+   "XIII": {
+    "APPROVED-POINTER": 1057
+   }
+  },
+  "by_entry_kind": {
+   "or_report": 543,
+   "non_or": 114,
+   "or_page": 1057
+  },
+  "by_tier_and_kind": {
+   "or_report:A1": 543,
+   "non_or:not-assessed": 99,
+   "non_or:A1": 8,
+   "non_or:A2": 5,
+   "non_or:C": 1,
+   "non_or:unknown": 1,
+   "or_page:A1": 1057
+  },
+  "non_or_reviewed_twice": 12,
+  "non_or_never_reviewed": 98,
+  "non_or_total": 114,
+  "approved_for_quote_corpus": 7,
+  "approved_for_quote_corpus_by_tier": {
+   "A2": 2,
+   "A1": 5
+  },
+  "ready_to_ingest_now": [
+   592,
+   594,
+   596,
+   597
+  ],
+  "blocked_ingest": [
+   {
+    "n": 586,
+    "state": "hold:rights-review"
+   },
+   {
+    "n": 590,
+    "state": "blocked:manual-transcription"
+   },
+   {
+    "n": 591,
+    "state": "hold:rights-review"
+   }
+  ],
+  "pointers_not_counted_as_writings": 1069,
+  "distinct_writings_or_works_in_list": 645,
+  "distinct_non_or_works": 102,
+  "non_or_by_resource_class": {
+   "writing": 77,
+   "volume": 16,
+   "guide": 2,
+   "scholarship": 13,
+   "index": 6
+  },
+  "non_or_by_scope_hint": {
+   "campaign": 69,
+   "battle": 25,
+   "post-battle": 7,
+   "resource": 13
+  },
+  "non_or_overlap_with_historian_catalogue": 29,
+  "reviewed_gettysburg_relevance": {
+   "campaign-only": 9,
+   "campaign-and-battle": 3
+  },
+  "description_accuracy_by_pass": {
+   "pass1": {
+    "accurate": 11,
+    "unverifiable": 1
+   },
+   "pass2": {
+    "accurate": 9,
+    "partly-inaccurate": 3
+   }
+  }
+ },
+ "evidence": {
+  "links_total": 2046,
+  "links_by_host": [
+   [
+    "ehistory.osu.edu",
+    1390
+   ],
+   [
+    "babel.hathitrust.org",
+    549
+   ],
+   [
+    "archives.dickinson.edu",
+    13
+   ],
+   [
+    "perseus.tufts.edu",
+    12
+   ],
+   [
+    "valley.newamericanhistory.org",
+    12
+   ],
+   [
+    "books.google.com",
+    11
+   ],
+   [
+    "archive.org",
+    9
+   ],
+   [
+    "housedivided.dickinson.edu",
+    8
+   ],
+   [
+    "journals.psu.edu",
+    6
+   ],
+   [
+    "cupola.gettysburg.edu",
+    6
+   ],
+   [
+    "gutenberg.org",
+    2
+   ],
+   [
+    "civilwarcycling.com",
+    2
+   ],
+   [
+    "valley.lib.virginia.edu",
+    2
+   ],
+   [
+    "ebooks.library.cornell.edu",
+    2
+   ],
+   [
+    "gdg.org",
+    2
+   ],
+   [
+    "hd.housedivided.dickinson.edu",
+    2
+   ],
+   [
+    "chroniclingamerica.loc.gov",
+    2
+   ],
+   [
+    "bartleby.com",
+    1
+   ],
+   [
+    "studylib.net",
+    1
+   ],
+   [
+    "home.nps.gov",
+    1
+   ],
+   [
+    "texashistory.unt.edu",
+    1
+   ],
+   [
+    "blogs.lib.unc.edu",
+    1
+   ],
+   [
+    "digital.tcl.sc.edu",
+    1
+   ],
+   [
+    "yorkblog.com",
+    1
+   ],
+   [
+    "gardnerlibrary.org",
+    1
+   ],
+   [
+    "openn.library.upenn.edu",
+    1
+   ],
+   [
+    "rarebooks.nd.edu",
+    1
+   ],
+   [
+    "credo.library.umass.edu",
+    1
+   ],
+   [
+    "blog.lib.uiowa.edu",
+    1
+   ],
+   [
+    "marydillonscarlisle.weebly.com",
+    1
+   ],
+   [
+    "scholarworks.uvm.edu",
+    1
+   ],
+   [
+    "web.archive.org",
+    1
+   ],
+   [
+    "hdl.handle.net",
+    1
+   ]
+  ],
+  "blocked_to_bots_links": 1940,
+  "blocked_share": 0.9481915933528837,
+  "probe_link_class_tally": {
+   "robots_disallowed": 13,
+   "live": 47,
+   "blocked_to_bots": 12,
+   "not_fetched_robots_unreadable": 6,
+   "dead": 11,
+   "redirected_to_generic_page": 4,
+   "redirected": 9
+  },
+  "probe_entries": 102,
+  "dickinson_archives_entries": 13,
+  "dickinson_archives_dead": 13,
+  "robots_disallowed_perseus": 12,
+  "structural_or": {
+   "pass": 504,
+   "flag": 2,
+   "pass_notes": 37
+  },
+  "structural_pointers": {
+   "pass": 997,
+   "pass_notes": 60
+  },
+  "structural_or_pages": {
+   "exact": 504,
+   "start_differs": 2,
+   "boundary": 32,
+   "end_differs": 4,
+   "fallback": 1
+  },
+  "or_written_lag_days": {
+   "n": 412,
+   "median": 22,
+   "p10": 1,
+   "p90": 49,
+   "max": 408,
+   "min": -27
+  },
+  "or_scope_other": 75,
+  "or_composite": 10,
+  "or_non_report_documents": 16,
+  "or_generic_template_entries": 527,
+  "or_entries_total": 543,
+  "or_in_ocr_index": 542,
+  "historian_index_reports": 588,
+  "part_xiii": {
+   "pages_listed": 1057,
+   "first_page": 3,
+   "last_page": 1059,
+   "contiguous": true,
+   "volume_last_folio": 1241,
+   "first_confederate_dispatch_page": 858,
+   "last_union_dispatch_before_it": 857,
+   "dispatches_on_pages_not_listed": 61,
+   "pages_not_listed_with_dispatches": 24
+  },
+  "hathi_seq_offsets": {
+   "1": 20,
+   "2": 2
+  },
+  "pointers_no_dispatch": 119,
+  "pointers_hedged_label": 60,
+  "pointers_hedged_corrected": {
+   "union": 44,
+   "confederate": 16
+  },
+  "part_i_entries": 332,
+  "part_ii_iii_entries": 211,
+  "host_links": {
+   "ehistory": 1390,
+   "hathitrust": 550
+  },
+  "scholarship_by_part": {
+   "VII": 11,
+   "X": 2
+  },
+  "duplicate_url_groups": {
+   "total": 49,
+   "among_or_entries_same_first_page": 48,
+   "involving_non_or": [
+    {
+     "key": "url:cupola.gettysburg.edu/gcjcwe/vol6/iss1",
+     "entries": [
+      566,
+      567
+     ]
+    }
+   ]
+  }
+ }
+}
