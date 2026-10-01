@@ -122,9 +122,9 @@ test('V-10 engine.ask does not throw on a malformed conversation context', async
 });
 
 // V-11  the report "running heads left: 0" uses a narrow line detector; 82 of 1,513 sample passages still carry running-head / signature-mark remnants
-test('V-11 no OR27 passage carries a running head or signature mark ("[Chap. XXXIX.", "2 R R - VOL XXVII, PT I")', async () => {
-  const cache = path.join(ROOT, 'tmp/historian-cache/f11f20ae12aa762c081bfa37941181caf600c8a5.body');
-  if (!fs.existsSync(cache)) return;                                    // the cached 2 MB sample is git-ignored; skip when absent (same rule as the builder's own ingest test)
+const V11_CACHE = path.join(ROOT, 'tmp/historian-cache/f11f20ae12aa762c081bfa37941181caf600c8a5.body');
+test('V-11 no OR27 passage carries a running head or signature mark ("[Chap. XXXIX.", "2 R R - VOL XXVII, PT I")', { skip: fs.existsSync(V11_CACHE) ? false : 'the cached OR27 sample is absent (tmp/historian-cache; fetch it with: node tools/historian/ingest/cli.mjs segment or27-1 --sample): this test did NOT run' }, async () => {
+  const cache = V11_CACHE;
   const { ingestOr27 } = await import('../../tools/historian/ingest/or27.mjs');
   const r = ingestOr27(fs.readFileSync(cache, 'utf8'), { repair: true });
   const re = /Chap\W{1,3}\s*X{1,3}[IlL]?X?[\]jf1)|.,]|THE GETTYSBURG CAMPAIGN|VOL\.? XXVII, PT/i;

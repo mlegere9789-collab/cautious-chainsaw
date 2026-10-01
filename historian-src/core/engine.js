@@ -88,6 +88,8 @@ export function createEngine(kb, opts = {}) {
     for (let i = 0; i < out.length; i++) {
       if (!/^#\d+$/.test(out[i]) || +out[i].slice(1) > 200) continue;
       let j = i + 1; while (j < out.length && STATE_FILLER.has(out[j])) j++;
+      // "the 104th regiment FROM New Yrk", "the 19th infantry OUT OF Indina": a connector after a regiment word, then the state
+      if (j > i + 1) { const CONN = new Set(['from', 'in', 'out', 'of', 'for', 'the', 'state', 'representing']); let g = 0; while (j < out.length && g < 4 && CONN.has(out[j])) { j++; g++; } }
       if (j >= out.length || stateAt(out, j, { noAmbig: true })) continue;
       let best = null;
       for (const len of [2, 1]) {

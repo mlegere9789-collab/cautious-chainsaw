@@ -72,7 +72,23 @@ export function stripRunningHeads(t) {
   const lines = t.split('\n');
   const drop = new Set();
   const marks = []; // {line, page}
+  // what a head SAYS is read first (heads.mjs: CHAP + XXXIX, GETTYSBURG CAMPAIGN in capitals, "R R - VOL XXVII, PT I", in any OCR spelling within a few edits); the older exact-spelling detectors below see what is left.
+  // Reading it first matters: an exact-spelling pass that cuts only part of a corrupted head ("Chap. XX!" out of "Chap. XX!XIX.]") leaves a fragment that nothing recognises afterwards.
+  const takeHeads = (i) => {
+    const fz = stripHeads(lines[i], 1);
+    if (!fz.found.length) return false;
+    const kinds = new Set(fz.found.map((x) => x.kind));
+    lines[i] = fz.text;
+    if (fz.page) marks.push({ line: i, page: fz.page });
+    if (!/[A-Za-z0-9]{2}/.test(fz.text)) {
+      drop.add(i);
+      if (fz.page === null && (kinds.has('chap') || kinds.has('title'))) { const n = nearNumber(lines, i, 4); if (n && !drop.has(n.line)) { drop.add(n.line); marks.push({ line: Math.min(i, n.line), page: n.page }); } }
+      return true;
+    }
+    return false;
+  };
   for (let i = 0; i < lines.length; i++) {
+    if (takeHeads(i)) continue;
     const l = lines[i];
     const one = l.match(/^\W{0,3}(?:Chap|CHAP|Ohap|Cnap)\.?\s+[XLIVC]{1,8}\.?\]?\s+(?:THE\s+)?GETTYSBURG\s+CAMPAIGN\.?\s*(\d{1,4})?\s*$/i);
     if (one) { drop.add(i); if (one[1]) marks.push({ line: i, page: +one[1] }); else { const n = nearNumber(lines, i, 4); if (n) { drop.add(n.line); marks.push({ line: i, page: n.page }); } } continue; }
@@ -92,17 +108,7 @@ export function stripRunningHeads(t) {
     // a head or signature mark run into a body line: cut it out of the line (and keep the printed page it carried)
     const inl = stripInline(l);
     if (inl.changed) { lines[i] = inl.text; if (inl.page) marks.push({ line: i, page: inl.page }); if (!inl.text.trim()) drop.add(i); }
-    // whatever the detectors above did not recognise is read by what it says (heads.mjs: CHAP + XXXIX, GETTYSBURG CAMPAIGN in capitals, "R R - VOL XXVII, PT I"), in any OCR spelling within a few edits
-    const fz = stripHeads(lines[i], 1);
-    if (fz.found.length) {
-      const kinds = new Set(fz.found.map((x) => x.kind));
-      lines[i] = fz.text;
-      if (fz.page) marks.push({ line: i, page: fz.page });
-      if (!/[A-Za-z0-9]{2}/.test(fz.text)) {
-        drop.add(i);
-        if (fz.page === null && (kinds.has('chap') || kinds.has('title'))) { const n = nearNumber(lines, i, 4); if (n && !drop.has(n.line)) { drop.add(n.line); marks.push({ line: Math.min(i, n.line), page: n.page }); } }
-      }
-    }
+    takeHeads(i);                                                                                 // what the exact-spelling passes left or changed
   }
   const out = []; const pages = []; let off = 0;
   // printed pages count up by one to four. A mark that continues the run is kept; one that restarts the numbering (front matter, then page 1) is kept when its successor
@@ -444,7 +450,7 @@ export function stripTableCells(text) {
  * A chunk is table debris when it holds a table and what is left once the table is taken out is not worth keeping: fewer than `minText` words of text, or fewer than `minText` words of report prose
  * together with less than `listText` words of text (a table title, a row of unit names). A chunk with a paragraph of report prose, or with a real list of names (officers killed, with their units), is cleaned, never dropped.
  */
-export function isTableDebris(text, { minText = 15, listText = 40 } = {}) {
+export function isTableDebris(text, { minText = 15, listText = 25 } = {}) {
   const r = stripTableCells(text);
   return r.regions > 0 && (r.text_words < minText || (r.narrative < minText && r.text_words < listText));
 }

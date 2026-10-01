@@ -28,11 +28,11 @@ function word(tokens, i, canon, tol, maxSpan = 1) {
   return best;
 }
 // a roman numeral in the OCR's hands: the canonical numeral's first letter, at least three letters, within `tol` edits
-const roman = (c, canon, tol) => c.length >= 3 && c[0] === canon[0] && dl(c, canon, tol) <= tol;
+const roman = (c, canon, tol) => c.length >= 3 && (c[0] === canon[0] || (canon[0] === 'X' && c[0] === 'K') || /XX/.test(c)) && dl(c, canon, tol) <= tol;
 // a numeral that ends the way a chapter head ends: a bracket-like character after it ("XXXIX.]", "XXXlX.j", "XXXIX]", "XXXIX.f")
 const BRACKETED = /X{2,3}[IlLxX1]{0,2}[.,]?[\]\)jJfF|!1]/;
 const SIGPRE = /^(?:[RUBK]|UR|RR)$/;                            // the printer's "R R", and what the OCR made of it ("R U", "Ur R", "r r", "R r")
-const SIGTAIL = /^(?:PT|FT|PI|RX|RT|P|T|I{1,3}|J|L|IL|LI)$/;   // "PT I", "FT I", "RX I", "PT II"
+const SIGTAIL = /^(?:[PFR][TIXJL]|P|T|[IJL1]{1,3})$/;   // "PT I", "FT I", "RX I", "PT II"
 
 /** spans [s, e) of the heads in `line`; kind 'chap' | 'title' | 'sig'; `page` when a page number was adjacent. tol 1 = the stripper, 1.6 = the counter */
 export function headSpans(line, tol = 1) {
@@ -42,27 +42,43 @@ export function headSpans(line, tol = 1) {
   const tc = Math.max(1, Math.round(1 * tol)), tt = Math.round(3 * tol), ts = Math.max(1, Math.round(2 * tol / 1.0));
   // ---- signature: VOL, a roman numeral near XXVII, then the short tokens around it
   for (let i = 0; i < T.length; i++) {
-    if (used[i] || T[i].c.length > 4 || T[i].c.length < 2) continue;
-    if (!word(T, i, 'VOL', tc, 1)) continue;
-    let r = null; for (const span of [1, 2]) { const w = word(T, i + 1, 'XXVII', tc, span); if (w && roman(T.slice(i + 1, w.end).map((x) => x.c).join(''), 'XXVII', tc)) { r = w; break; } }
+    if (used[i] || T[i].c.length > 4 || T[i].c.length < 1) continue;
+    const vw = word(T, i, 'VOL', tc, 2); if (!vw) continue;                                               // "VOL", "VO L", "V0L"
+    let r = null; for (const span of [1, 2]) { const w = word(T, vw.end, 'XXVII', tc, span); if (w && roman(T.slice(vw.end, w.end).map((x) => x.c).join(''), 'XXVII', tc)) { r = w; break; } }
     if (!r) continue;
-    let b = r.end; for (let g = 0; g < 3 && b < T.length && !used[b] && SIGTAIL.test(T[b].c); g++) b++;
-    let a = i, marks = 0; for (let g = 0; g < 4 && a > 0 && !used[a - 1] && (SIGPRE.test(T[a - 1].c) || digitsOnly(T[a - 1].t) || /^[-—–_.]+$/.test(T[a - 1].t)); g++) { if (SIGPRE.test(T[a - 1].c)) marks++; a--; }
+    let b = r.end; for (let g = 0; g < 4 && b < T.length && !used[b] && (SIGTAIL.test(T[b].c) || (T[b].c === '' && /^[,.;:\-—–]+$/.test(T[b].t))); g++) b++;      // "PT I", "XXVI , PT II": a stray comma is part of it
+    let a = i, marks = 0; for (let g = 0; g < 4 && a > 0 && !used[a - 1] && (T[a - 1].c.length === 1 || SIGPRE.test(T[a - 1].c) || digitsOnly(T[a - 1].t) || /^[-—–_.]+$/.test(T[a - 1].t)); g++) { if (SIGPRE.test(T[a - 1].c)) marks++; a--; }
     if (!marks && b === r.end) continue;                                                              // neither "R R" before it nor "PT I" after it: a reference to a volume, not the sheet signature
     take('sig', a, b);
   }
-  // ---- chapter head: CHAP-ish then a numeral near XXXIX within three tokens; or a bracketed numeral with a short junk word before it
+  // ---- chapter head: CHAP-ish (one token, or two: "Ch ap.") then a numeral near XXXIX within three tokens (in one to three pieces: "XXX IX.]"); or a bracketed numeral with a short junk word before it
+  // the numeral starts with an X, or carries the head's closing bracket ("KXXIX.]"); "than six" is not "Chap. XXXIX"
+  const numeral = (j) => {
+    const lim = Math.max(2, Math.round(2 * tol)); let best = null;
+    for (const span of [1, 2, 3]) {
+      if (T.length < j + span) break;
+      const c = T.slice(j, j + span).map((x) => x.c).join('');
+      if (c.length < 3 || c.length > 8 || !/X/.test(c) || !(c[0] === 'X' || /XX/.test(c) || BRACKETED.test(T[j].t) || BRACKETED.test(T[j + span - 1].t)) || !T.slice(j, j + span).every((x) => !used[j] && x.c.length > 0 && x.t.length <= 9)) continue;
+      const d = dl(c, 'XXXIX', lim); if (d <= lim && (!best || d < best.d || (d === best.d && span > best.span))) best = { d, span };     // the best reading, the longer on a tie: "XXX IX.]" is one numeral
+    }
+    return best ? j + best.span : -1;
+  };
   for (let i = 0; i < T.length; i++) {
     if (used[i]) continue;
+    // a CHAP word two edits away must still hold "AP" ("CriAP", "IfiAP", "Cnap", "Ceap"): "than", "chip", "chat" are words
+    const capish = (w) => (w && (w.d <= 1 || /AP/.test(T.slice(i, w.end).map((x) => x.c).join(''))) ? w : null);
+    const cw = T[i].c.length >= 2 && T[i].c.length <= 5 ? capish(word(T, i, 'CHAP', Math.max(1, Math.round(1 * tol)), 2)) : null;
     const nextStrong = i + 1 < T.length && !used[i + 1] && roman(T[i + 1].c, 'XXXIX', 1);
-    const isChap = T[i].c.length >= 3 && T[i].c.length <= 5 && (word(T, i, 'CHAP', Math.max(1, Math.round(1 * tol)), 1) || (nextStrong && word(T, i, 'CHAP', 2, 1)));
-    const junk = !isChap && T[i].c.length >= 2 && T[i].c.length <= 6 && i + 1 < T.length && !used[i + 1] && BRACKETED.test(T[i + 1].t) && roman(T[i + 1].c, 'XXXIX', Math.max(2, Math.round(2 * tol)));
-    if (!isChap && !junk) continue;
-    for (let j = i + 1; j < Math.min(T.length, i + 4); j++) {
+    const cw2 = !cw && T[i].c.length >= 3 && T[i].c.length <= 5 && nextStrong ? capish(word(T, i, 'CHAP', 2, 1)) : null;
+    const chapEnd = (cw || cw2) ? (cw || cw2).end : -1;
+    const junk = chapEnd < 0 && T[i].c.length >= 2 && T[i].c.length <= 6 && i + 1 < T.length && !used[i + 1] && BRACKETED.test(T[i + 1].t) && roman(T[i + 1].c, 'XXXIX', Math.max(2, Math.round(2 * tol)));
+    if (chapEnd < 0 && !junk) continue;
+    for (let j = chapEnd >= 0 ? chapEnd : i + 1; j < Math.min(T.length, (chapEnd >= 0 ? chapEnd : i + 1) + 3); j++) {
       if (used[j]) break;
-      if (roman(T[j].c, 'XXXIX', Math.max(2, Math.round(2 * tol))) && (isChap || BRACKETED.test(T[j].t))) {
-        const b = j + 1, pg = page(b);
-        take('chap', i > 0 && !used[i - 1] && /^[\[\]/#•'"~-]+$/.test(T[i - 1].t) ? i - 1 : i, pg !== undefined ? b + 1 : b, pg !== undefined ? { page: pg } : {});
+      const e = numeral(j);
+      if (e > 0 && (chapEnd >= 0 || BRACKETED.test(T[j].t))) {
+        const pg = page(e);
+        take('chap', i > 0 && !used[i - 1] && /^[\[\]/#•'"~-]+$/.test(T[i - 1].t) ? i - 1 : i, pg !== undefined ? e + 1 : e, pg !== undefined ? { page: pg } : {});
         break;
       }
       if (T[j].c.length > 8) break;
@@ -90,8 +106,30 @@ export function stripHeads(line, tol = 1) {
   let t = '', at = 0, page = null;
   for (const x of sp) { t += line.slice(at, x.s) + ' '; at = x.e; if (x.page && x.page <= 1400 && page === null) page = x.page; }
   t += line.slice(at);
-  return { text: t.replace(/\s{2,}/g, ' ').trim(), found: sp, page };
+  t = t.replace(/\s{2,}/g, ' ').trim();
+  // what a head leaves of a line that held nothing else is a fragment of the head ("IJ", ", PT II", "Cba"), not text: a remainder with no word of four letters and fewer than twelve letters goes with it
+  if (t && t.replace(/[^A-Za-z]/g, '').length < 12 && !/[A-Za-z]{4,}/.test(t) && !/\d{2,}/.test(t)) t = '';
+  return { text: t, found: sp, page };
 }
 
-/** how many heads a line still carries, by the looser counter */
-export const countHeads = (line) => headSpans(line, 1.6).length;
+// ---- the counter ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// The counter reports anything that still LOOKS like a head or the remnant of one. It is deliberately generous (it only has to be right when it says "none left") and it is a different detector from the
+// stripper: the head detectors at their loose tolerance, plus these structural remnants, which need no CHAP / VOL word at all:
+//   a roman-looking token of the chapter head's kind that ends in the head's closing bracket ("XIX.]", "KXIX.]", "XXIX]", "XKXIX.]")
+//   VOL (within two edits, possibly split) next to a roman-looking token of three letters or more and a short token of the signature ("VOL XVII, PT IJ", "VO L XXVI , PT II", "R R - VOL KXVII")
+const ROMANISH = /^[XKIL1JVTF]{3,8}$/;
+const CLOSER = /[\]\)jJfF|!]$/;
+export function countHeads(line) {
+  let n = headSpans(line, 1.6).length;
+  const T = tokensOf(line);
+  for (let i = 0; i < T.length; i++) {
+    const c = T[i].c;
+    if (c.length >= 2 && /X|K/.test(c) && ROMANISH.test(c) && CLOSER.test(T[i].t.replace(/[.,;:]+$/, '')) && (c.replace(/[^XK]/g, '').length >= 2 || /^X?[IL1J]{1,3}[.,]?[\]\)jJfF|!]/.test(T[i].t))) n++;   // "XXIX.]", "KXIX.]", "IX.]"
+  }
+  for (let i = 0; i < T.length; i++) {
+    if (!word(T, i, 'VOL', 2, 2)) continue;
+    const w = word(T, i, 'VOL', 2, 2); const nx = T.slice(w.end, w.end + 2);
+    if (nx.some((x) => ROMANISH.test(x.c) && /X|V/.test(x.c) && dl(x.c, 'XXVII', 3) <= 3) && (T.slice(Math.max(0, i - 4), i).some((x) => /^[RUBKH]$/.test(x.c)) || T.slice(w.end, w.end + 5).some((x) => /^(?:[PFR][TIXJL]|IL|LI)$/.test(x.c)))) n++;
+  }
+  return n;
+}

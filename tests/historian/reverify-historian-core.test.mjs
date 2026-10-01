@@ -15,6 +15,8 @@ import { createFetcher, RightsRefusal } from '../../tools/historian/ingest/fetch
 const { engine } = await openEngine();
 const ask = (q, ctx) => engine.ask(q, ctx);
 const OR27_CACHE = path.join(ROOT, 'tmp/historian-cache/f11f20ae12aa762c081bfa37941181caf600c8a5.body');
+// the cached 2 MB OR27 sample is git-ignored: without it a test that needs it is SKIPPED LOUDLY (node:test prints it as skipped, with this reason), never passed vacuously
+const NO_CACHE = fs.existsSync(OR27_CACHE) ? false : 'the cached OR27 sample is absent (tmp/historian-cache; fetch it with: node tools/historian/ingest/cli.mjs segment or27-1 --sample): this test did NOT run';
 
 // ---- R-01 rights gate: the redirect hop check is weaker than the gate on the first request ---------------------------------------------------------------------
 // gate() refuses an archive.org identifier that is not registered in docs/historian/sources.yaml; the hop check only runs fetchAllowed (ban list, refused identifiers).
@@ -35,8 +37,7 @@ test('R-01 a redirect from a registered archive.org identifier to an UNREGISTERE
 });
 
 // ---- R-02 / R-03 OR27: the head counter and the table-debris drop -----------------------------------------------------------------------------------------------
-test('R-02 no kept OR27 passage carries a running head or signature mark once OCR variants are allowed for (report: "0 of 1,465"; found: 11)', async () => {
-  if (!fs.existsSync(OR27_CACHE)) return;
+test('R-02 no kept OR27 passage carries a running head or signature mark once OCR variants are allowed for (report: "0 of 1,465"; found: 11)', { skip: NO_CACHE }, async () => {
   const { ingestOr27 } = await import('../../tools/historian/ingest/or27.mjs');
   const r = ingestOr27(fs.readFileSync(OR27_CACHE, 'utf8'), { repair: true });
   // the same three kinds of head as the verifier's V-11 (chapter head, running title, volume signature) with the OCR spellings actually present in the text:
@@ -47,8 +48,7 @@ test('R-02 no kept OR27 passage carries a running head or signature mark once OC
   assert.equal(dirty.length, 0, `${dirty.length} of ${r.passages.length} kept passages still carry a head or signature mark: ${dirty.slice(0, 4).map((p) => p.id).join(', ')}`);
 });
 
-test('R-03 the table-debris drop does not discard report narrative (27 of the 48 dropped chunks hold whole paragraphs of prose, about 2,500 words, e.g. the 143rd Pennsylvania "went into action July 1 with 465 men")', async () => {
-  if (!fs.existsSync(OR27_CACHE)) return;
+test('R-03 the table-debris drop does not discard report narrative (27 of the 48 dropped chunks hold whole paragraphs of prose, about 2,500 words, e.g. the 143rd Pennsylvania "went into action July 1 with 465 men")', { skip: NO_CACHE }, async () => {
   const m = await import('../../tools/historian/ingest/or27.mjs');
   const norm = m.normalizeOcr(fs.readFileSync(OR27_CACHE, 'utf8'), { repair: true });
   const seg = m.segmentReports(norm, m.parseToc(norm.text));
