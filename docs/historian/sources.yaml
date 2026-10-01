@@ -94,9 +94,33 @@ sources:
     ocr: {engine: null, proxy: null, gate: accept}
     archive_url: https://archive.org/details/warofrebellion271unit
     hosts: [archive.org, catalog.hathitrust.org, collections.library.cornell.edu]
-    status: planned
+    status: ingested
     wave: W1
-    notes: "expected records: [object Object]; Reports were written days to months after the fight (Chamberlain July 6; some 1864); times are approximate ('somewhere near 4 p. m.').,Self-serving/defensive bias; commanders sometimes contradict each other by 1-2 h; treat as testimony, no…"
+    notes: "Ingested: 377 of the 378 numbered reports (No. 161 is a damaged scan: its text is not in the OCR). Reports are testimony written days to months after the fight, labelled so; times are approximate (\"somewhere near 4 p. m.\")."
+    ingest:
+      corpus: or27
+      corpus_version: 1.0.0
+      manifest: historian-src/corpus/or27/manifest.json
+      fetched_at: 2026-10-01T01:06:22.644Z
+      ocr_text_sha256: 4a388b6291bb972d2c8c0086d3d29973b288e0008408f6ef869a75ac6f25ff63
+      ocr_text_bytes: 3970479
+      files:
+        - role: ocr-text
+          url: https://archive.org/download/warofrebellion271unit/warofrebellion271unit_djvu.txt
+          sha256: 4a388b6291bb972d2c8c0086d3d29973b288e0008408f6ef869a75ac6f25ff63
+          bytes: 3970479
+        - role: page-numbers
+          url: https://archive.org/download/warofrebellion271unit/warofrebellion271unit_page_numbers.json
+          sha256: 1c466ef45dc5a26870d10110c6ca86ce59ba7bfaa515d05d77bdc1cddf1ee6f1
+          bytes: 200256
+        - role: scandata
+          url: https://archive.org/download/warofrebellion271unit/warofrebellion271unit_scandata.xml
+          sha256: 1f1f193e3b45b19ca5d751c0f92e7c9bd5a8b6c22442f704b32c282dedb5c5b3
+          bytes: 1563011
+      documents: 377
+      passages: 2680
+      missing_numbers: [161]
+      rights_checked: "HathiTrust catalog record (https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077699761.json): rightsCode pd; public domain, US Government publication"
   - id: or27-2
     xref: {hs1: SRC-02, hs2: null}
     title: "Official Records, Series I, Vol. 27, Part 2 - Reports: Middle Dept./Dept. of the Susquehanna/W.Va. (Union) and ARMY OF NORTHERN VIRGINIA (Confederate)"
@@ -114,9 +138,33 @@ sources:
     ocr: {engine: null, proxy: null, gate: accept}
     archive_url: https://archive.org/details/warofrebellion272unit
     hosts: [archive.org, catalog.hathitrust.org]
-    status: planned
+    status: ingested
     wave: W1
-    notes: "expected records: [object Object]; Confederate coverage is uneven: the parsed ToC shows no report by Pickett himself (Garnett's brigade appears via Maj. Peyton, No. 441); extract each report's date line to measure the lag between battle and writing rather than assuming it.,…"
+    notes: "Ingested: 211 of 211 numbered reports (Nos. 379-589). Confederate coverage is uneven: no report by Pickett, Hood or McLaws is in the volume; the Guild casualty return is a table and its figures are not read."
+    ingest:
+      corpus: or27
+      corpus_version: 1.0.0
+      manifest: historian-src/corpus/or27/manifest.json
+      fetched_at: 2026-10-01T01:06:24.713Z
+      ocr_text_sha256: 144f88d2399c99feecccba69b42128f9ae1c3b5ab1eef965904f2e1ba04a1e02
+      ocr_text_bytes: 3880513
+      files:
+        - role: ocr-text
+          url: https://archive.org/download/warofrebellion272unit/warofrebellion272unit_djvu.txt
+          sha256: 144f88d2399c99feecccba69b42128f9ae1c3b5ab1eef965904f2e1ba04a1e02
+          bytes: 3880513
+        - role: page-numbers
+          url: https://archive.org/download/warofrebellion272unit/warofrebellion272unit_page_numbers.json
+          sha256: 26a63d95bb3efbbe27d39511695de1205c659bf73d92f6afc976101cab1d23a4
+          bytes: 190222
+        - role: scandata
+          url: https://archive.org/download/warofrebellion272unit/warofrebellion272unit_scandata.xml
+          sha256: f930f670f3b40af3ee3167824f48f2fd66abfbc183081daf489504e8251ccb85
+          bytes: 1479014
+      documents: 211
+      passages: 2083
+      missing_numbers: []
+      rights_checked: "HathiTrust catalog record (https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077728255.json): rightsCode pd; public domain, US Government publication"
   - id: nyfr
     xref: {hs1: SRC-03, hs2: null}
     title: "New York Monuments Commission - Final Report on the Battlefield of Gettysburg (3 vols., incl. Fox, 'New York at Gettysburg')"
@@ -194,9 +242,33 @@ sources:
     ocr: {engine: null, proxy: null, gate: accept}
     archive_url: https://archive.org/details/warofrebellion273unit
     hosts: [archive.org, catalog.hathitrust.org]
-    status: planned
+    status: ingested
     wave: W1
-    notes: "expected records: [object Object]; Telegraph times are the most reliable clock evidence in the corpus but different HQs used local sun-time; document the +/- 5-10 min uncertainty.,Correspondence continues through Aug 3 - crop by date for the 'battle window' (June 28-July 4)…"
+    notes: "Ingested: 2,945 dispatches, orders and itineraries cut at their datelines (June 3 - August 3, 1863); the header clock is the sender's own and the best clock evidence in the corpus; local times differed by several minutes."
+    ingest:
+      corpus: or27
+      corpus_version: 1.0.0
+      manifest: historian-src/corpus/or27/manifest.json
+      fetched_at: 2026-10-01T01:06:26.615Z
+      ocr_text_sha256: 5bd2aed13a5ef69c353bc8b5a488276aaf0e606ee247d2068a45fbc807959d31
+      ocr_text_bytes: 3406041
+      files:
+        - role: ocr-text
+          url: https://archive.org/download/warofrebellion273unit/warofrebellion273unit_djvu.txt
+          sha256: 5bd2aed13a5ef69c353bc8b5a488276aaf0e606ee247d2068a45fbc807959d31
+          bytes: 3406041
+        - role: page-numbers
+          url: https://archive.org/download/warofrebellion273unit/warofrebellion273unit_page_numbers.json
+          sha256: 80f8088eb68c7eee3121e9db963d7f03fa651b6f4d02ec375cba8fee304db75e
+          bytes: 211296
+        - role: scandata
+          url: https://archive.org/download/warofrebellion273unit/warofrebellion273unit_scandata.xml
+          sha256: 544fa8a9a7b5814db023b3c375d2bceec0fc4b2d9c15482608e55f9601b43f7b
+          bytes: 1642470
+      documents: 2945
+      passages: 3469
+      missing_numbers: []
+      rights_checked: "HathiTrust catalog record (https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077700262.json): rightsCode pd; public domain, US Government publication"
   - id: battles-leaders-3
     xref: {hs1: SRC-07, hs2: null}
     title: "Battles and Leaders of the Civil War, Vol. 3 (Gettysburg section pp. ~244-440 + Doubleday maps)"

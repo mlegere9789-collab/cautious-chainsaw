@@ -75,11 +75,10 @@ export function build({ dataDir = path.join(root, 'legacy/dist/data'), distDir =
   let orPart = null;
   if (corpora.includes('or27')) {
     const data = loadOrRows({ rawDir, corpusDir });
-    const { P: Por, linkStats } = finalizeOr(data.rows, data.reports, { idx, link });
+    const { P: Por, linkStats } = finalizeOr(data.rows, data.reports, { idx, link, signers: data.signers, route: data.route });
     const em2 = emitOr(Por, em, { weight: corpusWeight, base: P.length, sources: [...new Set(Por.map((p) => p.source_id))].sort(), built_from: { passages_sha256: data.sha, corpus_version: data.man.corpus_version, totals: data.man.totals } });
     const v = validateOr(Por, { sources: srcReg.sources, rawDir, docs: data.docs, reports: data.reports });
-    const entries = [...em2.desc.index.files, ...em2.desc.entpost.files, ...em2.desc.text.files];
-    orPart = { desc: em2.desc, sizes: { ...em2.sizes, brotli: brotliTotals(em, entries) }, validation: v, linkStats, P: Por, data };
+    orPart = { desc: em2.desc, sizes: { ...em2.sizes, brotli: brotliTotals(em, em2.entries) }, validation: v, linkStats, P: Por, data };
   }
 
   const t1Bytes = ['entity', 'entix', 'facts', 'lexicon'].map((k) => em.files.get(tiers[k].path));

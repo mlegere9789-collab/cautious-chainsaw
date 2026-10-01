@@ -66,6 +66,7 @@ Build (`tools/historian/`):
 | `data/aliases.v1.json`, `data/scope.v1.json` | curated aliases (47), scope table, known unknowns (with their `semantic` tags), concept lexicons (`lexicons`: weather words, ranks, rosters, thought verbs, ...), routes, glossary |
 | `ask.mjs` | terminal client: `node tools/historian/ask.mjs "who commanded the Iron Brigade?" [--trace] [--json]` |
 | `gen-sources.mjs` | generates `docs/historian/sources.yaml` from its head and the two catalogues (`--check` verifies) |
+| `ingest/corpus.mjs`, `or27-dispatch.mjs`, `meta.mjs`, `link.mjs`, `times.mjs`, `anchors.mjs`, `time-evidence.mjs`, `pagemap.mjs`, `lib/corpus-or.mjs`, `golden-or27.mjs`, `measure-corpus.mjs` | the full Official Records volume 27 build (CORPUS.md): segmentation of Part 3 into dispatches, report and dispatch metadata, the linker for authors, senders and mentions, clock claims, time proposals, the printed page to scan leaf map, the corpus tiers, the OR golden run and the size and latency measurement |
 | `ingest/fetch.mjs`, `or27.mjs`, `heads.mjs`, `cli.mjs` | polite rights-gated fetcher (every redirect hop gated); Official Records volume 27 normaliser and segmenter; `heads.mjs` reads running heads and signature marks by what they say (token by token, within a few OCR edits) and counts them independently of the stripper; command line |
 
 Runtime (`historian-src/core/`, browser and Node, ES modules, no dependencies):
@@ -80,7 +81,8 @@ Runtime (`historian-src/core/`, browser and Node, ES modules, no dependencies):
 | `unknowns.js` | `createUnknowns(kb)`: the known unknowns read by concept, not by phrasing: weather (a strong or weak weather word in a frame, with a metaphor guard and a present-time test), an individual soldier (an enlisted rank with a name, a capitalised name with a unit, "someone named X"), a roster ("every man in", "list the names of"), what a person thought or felt |
 | `clock.js`, `atime.js` | the day reader (`readDays`: "July 1 to 3", "the first two days", "day 2", "7/2/1863", dates outside the battle) and the clock reader (`parseClock`: every clock form, ranges, before and after, impossible times); the clock answers (section 4a) |
 | `kb.js`, `codec.js` | opening the KB through an injected fetcher; LRU caches; retryable `ShardError`; wire formats |
-| `select.js` | extractive quote selection |
+| `select.js` | extractive quote selection (`pageSpan`: printed page, scan leaf and reader link of a span) |
+| `corpus.js`, `reports.js` | the Official Records corpus tier (CORPUS.md): `corpus.js` opens a corpus's postings and text shards on demand, `reports.js` answers "what did X report / write / telegraph", "what time did X say" and "what did the reports say about Y" from it. Both are imported dynamically by the first request that needs them, so they are outside the page's static module graph; the site-only KB (no `manifest.corpora`) never loads them and answers as before |
 | `compose.js`, `format.js`, `chips.js` | the composers, number and name formatting, follow-up chips |
 | `engine.js` | the pipeline (`createEngine(kb).ask(question, ctx)`) |
 | `lint.js` | render lint for invariants I1 to I8 that can be checked from an answer object |
@@ -100,6 +102,10 @@ Candidate page (`historian-src/page/`): `historian.html`, `historian.css`, `hist
 9. **Compose.** Per-intent composers. Answers lead with what was asked: the time before the description, the route before the regiment, the brigades before their division commander, the battle totals when only "casualties" is linked. Multi-hop parent chains (regiment to brigade to division to corps) are resolved from the `par` field. Extractive quotes are added under a length budget: the first quote always, further quotes only while the first answer stays within `QUOTE_BUDGET` (780) characters. A quote shown under an answer about a unit or a person must be **about** that subject (its passage is linked to it, or it names it); a quote about a neighbouring unit is dropped rather than shown as if it were this one's (verifier V-09). A question about what someone said prefers the sentence in which that person is the speaker; a question about how long something lasted quotes the sentence that states the length. A request that names a young reader ("to a 5th grader") about an event, story or unit gets a **plain card** (short template sentences from the record's own fields, no quotes) and a chip, "The site's own words", that asks the same question without the young-reader wording.
 10. **Lint.** `lintAnswer` rejects raw ids, `undefined`, `null`, `NaN`, developer notes, "tick", "site clock", missing offsets and missing attribution. The page never shows an answer that fails lint.
 11. **Chips.** Follow-ups derived from the answer's entity kinds; the test suite asks every chip and requires an answer.
+
+### 4b. Report questions (the Official Records corpus)
+
+When the KB carries a corpus (`manifest.corpora.or27`) and the question asks for what an officer **reported, wrote, telegraphed or said** (or at what time a report says something happened, or what "the reports" say), `engine.js` hands it to `reports.js` before the ordinary flow. The author is the registry person (or unit) named next to the cue; candidates are cut **before** they are ranked by pseudo-entity postings (`K:report`, `K:dispatch`, `D:<date>`, `A:<addressee stem>`, `F:<sender stem>`) and by the author links (role 2), then ranked by BM25 over the topic words, and quoted verbatim through `select.js` with author, rank, unit, date written, lag behind the battle, volume, printed page and scan link. A report is labelled written after the fact, a dispatch written at the time. When the volume holds no report by the person, the answer says so rather than quoting someone else. Corpus retrieval is opt-in per call, so every other question fetches exactly the files it fetched without the corpus (tested). Authors the registry does not know cannot be asked for by name yet (CORPUS.md section 9).
 
 ### 4a. Clock-of-day questions (the time model)
 
@@ -159,12 +165,13 @@ Tests run the real `historian.html` and `historian.js` in a small fake DOM (`tes
 | build | none set | about 4 s |
 | answer latency in Node (p95 over the golden run) | interactive | about 3 ms |
 | mean initial characters | 600 (H2 gate) | 547 over all three batteries (579 on the golden set) |
-| page script graph | small | 18 files, about 244 KB unminified, no dependencies |
+| page script graph | under 300 KiB | 20 files, 307,088 of 307,200 characters unminified, no dependencies (the corpus modules are outside it) |
+| Official Records corpus (not shipped) | lazy | 1,189 files, 15.4 MB raw, 4.8 MB brotli; a question that reaches into it: 12 files and 54 KB brotli at the median; first paint +1,043 B in the manifest, T1 identical (CORPUS.md section 8) |
 
 ## 9. Deliberately not in H0 to H2
 
 - No embeddings, no semantic tier, no model stage (`manifest.semantic.enabled` and `manifest.ai.enabled` are `false`).
-- No external text in the shipped artifacts: Official Records, Fox, Busey and the rest are catalogued and gated, but only the ingestion scaffold exists. Passage anchors (folio-level citations) begin at H3.
+- No external text in the shipped artifacts: the Official Records volume 27 corpus (8,232 passages, page and scan citations) is built, tested and measured (CORPUS.md) but not part of `historian-src/dist/hx`; Fox, Busey and the rest are catalogued and gated, nothing more. Shipping the corpus is the owner's decision.
 - No Worker wrapper for the engine yet (it is main-thread safe: the p95 answer is milliseconds; a Worker is a later hardening).
 - No release wiring, service worker precache, analytics or feedback capture.
 

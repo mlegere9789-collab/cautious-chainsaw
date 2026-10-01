@@ -119,6 +119,29 @@ for (const e of c2.sources) {
     notes: `${cap(e.risks, 260)}`, urls: e.urls,
   }));
 }
+// Official Records volume 27: what the ingestion read, from the corpus manifest the build wrote (historian-src/corpus/or27/manifest.json): URL, fetch date, hash and size of every file, the rights statement,
+// the counts. The register says what was ingested and from where; docs/historian/CORPUS.md says how and what it is worth.
+{
+  const mf = path.join(root, 'historian-src/corpus/or27/manifest.json');
+  if (fs.existsSync(mf)) {
+    const man = JSON.parse(fs.readFileSync(mf, 'utf8'));
+    for (const x of out) {
+      const m = /^or27-([123])$/.exec(x.id); if (!m) continue;
+      const files = man.sources.filter((p) => p.source === x.id && p.url);
+      const run = man.sources.find((p) => p.source === x.id && p.role === 'run-report');
+      const text = files.find((p) => p.role === 'ocr-text');
+      x.status = 'ingested';
+      x.ingest = {
+        corpus: 'or27', corpus_version: man.corpus_version, manifest: 'historian-src/corpus/or27/manifest.json', fetched_at: text.fetched_at, ocr_text_sha256: text.sha256, ocr_text_bytes: text.bytes,
+        files: files.map((p) => ({ role: p.role, url: p.url, sha256: p.sha256, bytes: p.bytes })), documents: run.docs, passages: run.passages, missing_numbers: run.missing_numbers || [],
+        rights_checked: 'HathiTrust catalog record (' + text.rights_statement_url + '): rightsCode pd; public domain, US Government publication',
+      };
+      x.notes = m[1] === '1' ? 'Ingested: 377 of the 378 numbered reports (No. 161 is a damaged scan: its text is not in the OCR). Reports are testimony written days to months after the fight, labelled so; times are approximate ("somewhere near 4 p. m.").'
+        : m[1] === '2' ? 'Ingested: 211 of 211 numbered reports (Nos. 379-589). Confederate coverage is uneven: no report by Pickett, Hood or McLaws is in the volume; the Guild casualty return is a table and its figures are not read.'
+        : 'Ingested: 2,945 dispatches, orders and itineraries cut at their datelines (June 3 - August 3, 1863); the header clock is the sender\'s own and the best clock evidence in the corpus; local times differed by several minutes.';
+    }
+  }
+}
 // the fetcher's host ban list must cover every Tier C host
 const banned = new Set(parse(head).banned_hosts || []);
 for (const x of out) if (x.tier === 'C') for (const h of x.hosts) if (!banned.has(h) && !/^(archive\.org|loc\.gov)$/.test(h)) banned.add(h);

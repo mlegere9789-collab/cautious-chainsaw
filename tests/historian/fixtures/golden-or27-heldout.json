@@ -1,0 +1,891 @@
+{
+ "_comment": "OR-GOLD-H (held out): written after the engine of OR-GOLD-A was final; run once, no code changed for it. OR-GOLD-A: questions about the Official Records (Ser. I, vol. 27, parts 1-3) written for the Ask the Historian corpus tier. Every evidence sentence was found in the normalised text of its document, read, and its printed page checked against the nearest running head of the RAW OCR (raw_head_page; null where the OCR damaged the head). The expectations say what an answer must do; they were written before the engine was run on them (see docs/historian/CORPUS.md for the first-run result and the fixes that followed).",
+ "corpus": {
+  "totals": {
+   "documents": 3533,
+   "passages": 8232,
+   "words": 1330088,
+   "reports_found": 588,
+   "dispatches": 2945
+  }
+ },
+ "version": 1,
+ "built": "2026-10-01",
+ "items": [
+  {
+   "id": "OR-HT01",
+   "type": "time",
+   "q": "what time did Buford say reports came in that the enemy was coming toward Gettysburg on July 1",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-1:0337",
+    "clock": [
+     "between 8 and 9 a. m."
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-1:0337",
+     "passage": "or27-1:0337#4a039143",
+     "s": 0,
+     "e": 341,
+     "text": "f°By°day1igS oTjufy 1, ¥ had gained positive information of the enemy’s position and movements, and my arrangements were made for entertaining him until General Reynolds couid rea^he scene On July 1, between 8 and 9 a. m., reports came m f rom the Fust Brigade (Colonel Gamble’s) that the enemy was coming down from toward Cashtown in force.",
+     "page": 927,
+     "pages_ok": [
+      927
+     ],
+     "leaf": 949,
+     "reader": 944,
+     "raw_head_page": 927,
+     "raw_head": "out 4-J miles from Gettysburg. THE GETTYSBURG CAMPAIGN. 927 Chap. XXXIX.] The night of the 30th was a busy night for the division. No reli- able information of value coul",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HT02",
+   "type": "time",
+   "q": "what time did Smyth say artillery firing began on the morning of July 3",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-1:0123",
+    "clock": [
+     "4 a. m."
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-1:0123",
+     "passage": "or27-1:0123#10fe42df",
+     "s": 0,
+     "e": 115,
+     "text": "Artillery firing from both sides began at 4 a. m. on the morning of the 3d, the heaviest firing being on our right.",
+     "page": 465,
+     "pages_ok": [
+      465
+     ],
+     "leaf": 485,
+     "reader": 482,
+     "raw_head_page": 465,
+     "raw_head": "eplaced, and the enemy’s But see revised statement, p. 176. Chap. XXXIX.] THE GETTYSBURG CAMPAIGN. 465 skirmishers retired to their original position, excepting that a fo",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HT03",
+   "type": "time",
+   "q": "what time did Ruger say fire was opened on the enemy’s position on the morning of July 3",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-1:0273",
+    "clock": [
+     "4.30 o’clock"
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-1:0273",
+     "passage": "or27-1:0273#1e0279c0",
+     "s": 0,
+     "e": 272,
+     "text": "At 4.30 o’clock on the morning of July 3, fire was opened on the J position held by the enemy from a battery placed in position during the night in rear of the left of the then position of the division; also from a battery still farther to the right, on a commanding hill.",
+     "page": 779,
+     "pages_ok": [
+      779
+     ],
+     "leaf": 799,
+     "reader": 796,
+     "raw_head_page": 779,
+     "raw_head": "ision back to the position recently left as quickly as pos- Chap. XXXIX.] THE GETTYSBURG CAMPAIGN. 779 780 N. C., VA.j W. VA., MD., PA., ETC. tCHAP. XXXIX. sible, and reo",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HT04",
+   "type": "time",
+   "q": "what time did Carr say his brigade reached Emmitsburg",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-1:0160",
+    "clock": [
+     "1.15 p. m."
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-1:0160",
+     "passage": "or27-1:0160#55fb1e3c",
+     "s": 725,
+     "e": 835,
+     "text": "At 8 a. m. on Wednesday, July 1, left Bridgeport, and marched to Emmitsburg, reaching that place at 1.15 p. m.",
+     "page": 542,
+     "pages_ok": [
+      542
+     ],
+     "leaf": 562,
+     "reader": 559,
+     "raw_head_page": null,
+     "raw_head": "s did not arrive 542 1ST. 0., VA.y W. VA., MDV PA.? ETC. . [Chap. XXXIX. until 2 a. m. on Sunday, June 14, work was not commenced until that hour. At 9 p. m. moved from B",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HT05",
+   "type": "time",
+   "q": "what time did Tilton say his brigade advanced to the front on July 2",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-1:0192",
+    "clock": [
+     "4.30 p. m."
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-1:0192",
+     "passage": "or27-1:0192#7e60db97",
+     "s": 304,
+     "e": 498,
+     "text": "At 4.30 p. m. on July 2, the brigade, under my command, advanced to the front, and was placed, by order of General Barnes, m order of battle in a piece of woods at the south of Mr. Rose s house.",
+     "page": 607,
+     "pages_ok": [
+      607
+     ],
+     "leaf": 627,
+     "reader": 624,
+     "raw_head_page": 607,
+     "raw_head": "rps, 82 wounded. There might also be added to this the num- Chap. XXXIX.] THE GETTYSBURG CAMPAIGN. 607 ber of 430 wounded men transported from one hospital to the other w",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HT06",
+   "type": "time",
+   "q": "what time did Martin say Battery D was moved to the left of the First Division",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-1:0221",
+    "clock": [
+     "4.30 p. m."
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-1:0221",
+     "passage": "or27-1:0221#27afb0f6",
+     "s": 913,
+     "e": 1184,
+     "text": "On the 2d instant, about 4.30 p. m., Battery D, Fifth U. S. Artillery, was moved to the left of the First Division about three-quarters of a mile, and posted on an eminence known as Rock Hill [Round Top], forming a line nearly perpendicular to that of the First Division.",
+     "page": 659,
+     "pages_ok": [
+      659
+     ],
+     "leaf": 679,
+     "reader": 676,
+     "raw_head_page": 659,
+     "raw_head": ", of the Twelfth Regiment, who, still suffering from wounds Chap. XXXIX.] THE GETTYSBURG CAMPAIGN. 659 received at Bull Run, went gallantly up the mountain, leading his r",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HT07",
+   "type": "time",
+   "q": "what time did Harry Hays say he moved his troops into an open field on July 2",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-2:0472",
+    "clock": [
+     "2 o’clock"
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-2:0472",
+     "passage": "or27-2:0472#24cbaddb",
+     "s": 531,
+     "e": 783,
+     "text": "After a careful examination of the locality indicated, about 2 o’clock in the morning (July 2) I moved my troops into an open field between the city and the base of a hill intervening between us and Cemetery Hill, throwing out skirmishers to the front.",
+     "page": 480,
+     "pages_ok": [
+      480
+     ],
+     "leaf": 486,
+     "reader": 485,
+     "raw_head_page": 480,
+     "raw_head": "rigade exceeded in numbers the force under my command. 480 [Chap. XXXIX. N. 0., VA., W. VA., MD.j PA., ETC. My loss this day was small— 1 officer and 6 men killed, 4 offi",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HT08",
+   "type": "time",
+   "q": "what time did Benning say General Hood told him his division was about to attack",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-2:0458",
+    "clock": [
+     "2 or 3 p. m."
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-2:0458",
+     "passage": "or27-2:0458#d97124b4",
+     "s": 0,
+     "e": 295,
+     "text": "About 2 or 3 p. m. on July 2, ultimo, ! was informed by Major-General Hood that his division, as the right of Lieutenant-General Longstreet’s corps, was about to attack the left of the enemy s line, and that in the attack my brigade would follow Law s brigade at the distance of about 400 yards.",
+     "page": 414,
+     "pages_ok": [
+      414
+     ],
+     "leaf": 420,
+     "reader": 419,
+     "raw_head_page": null,
+     "raw_head": "ag, and remained firmly at his post. He was al- 414 N. 0., [Chap. XXXIX. most instantly killed. The colors were then taken by Sergt. W S. Evans, of Company F, who planted",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HT09",
+   "type": "time",
+   "q": "what time did Schurz say the Third Division left its camp near Saint Joseph’s College on July 1",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-1:0253",
+    "clock": [
+     "7 a. m."
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-1:0253",
+     "passage": "or27-1:0253#eab9d023",
+     "s": 151,
+     "e": 423,
+     "text": "General: On the part taken by my command in the battle of Gettysburg, I have the honor to report as follows :\n\nOn July 1, at 7 a. m., the Third Division left its camp, near Saint Joseph’s College, at Emmitsburg, with orders to march to Gettysburg by way of Horner’s Mills.",
+     "page": 727,
+     "pages_ok": [
+      727
+     ],
+     "leaf": 747,
+     "reader": 744,
+     "raw_head_page": 727,
+     "raw_head": "Adjutant- General. * Embodied in revised statement, p. 183. Chap. XXXIX.] THE GETTYSBURG CAMPAIGN. 727 No. 253. Reports of Maj. Gen . Carl Schurz, U. S. Army , commanding",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HT10",
+   "type": "time",
+   "q": "what time did Norton say Battery H was put in position on Cemetery Hill",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-1:0327",
+    "clock": [
+     "4p. m."
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-1:0327",
+     "passage": "or27-1:0327#743c1498",
+     "s": 115,
+     "e": 575,
+     "text": "Captain : I have the honor to submit the following report of the part taken by Battery H, First Ohio Artillery attached to Third Volunteer Brigade, in the late battle near Gettysburg :\n\nThe battery was put in position on Cemetery Hill on the 2d instant , about 4p. m., under direction of Major Osborn, chief of artillery, Eleventh Corps, and opened fire on a rebel battery situated on the right of the town, and continued firing at intervals all the afternoon.",
+     "page": 893,
+     "pages_ok": [
+      893
+     ],
+     "leaf": 915,
+     "reader": 910,
+     "raw_head_page": 893,
+     "raw_head": "nd left. Their batteries, in a semicircle about this point, Chap. XXXIX.] THE GETTYSBURG CAMPAIGN. 893 swept the hill with a terrible cross-fire. The battery was now much",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HT11",
+   "type": "time",
+   "q": "what time did Dobke say the enemy’s batteries opened on July 2",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-1:0256",
+    "clock": [
+     "4 p. m."
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-1:0256",
+     "passage": "or27-1:0256#936c7a6d",
+     "s": 225,
+     "e": 463,
+     "text": "All remained quiet until 4 p. m. of July 2, when the enemy’s batteries opened in a wide circle, concentrating their fire on Cemetery Hill, which place was under the most hellish cross-fire during this and all other subsequent engagements.",
+     "page": 735,
+     "pages_ok": [
+      735
+     ],
+     "leaf": 755,
+     "reader": 752,
+     "raw_head_page": 735,
+     "raw_head": "ing fire and the most horrible scenes, when 8 comrades, one Chap. XXXIX.] THE GETTYSBURG CAMPAIGN. 735 after another, were killed, and some shattered to pieces, not a sin",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HA01",
+   "type": "author",
+   "q": "what did Schurz report about Cemetery Hill",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-1:0253",
+    "terms_any": [
+     "cemetery hill"
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-1:0253",
+     "passage": "or27-1:0253#74630359",
+     "s": 1100,
+     "e": 1260,
+     "text": "At the same time your order reached me to withdraw to the south side of the town, and to occupy the position on and near Cemetery Hill previously chosen by you.",
+     "page": 729,
+     "pages_ok": [
+      729
+     ],
+     "leaf": 749,
+     "reader": 746,
+     "raw_head_page": 729,
+     "raw_head": "le, had a whole corps of the rebel army to contend against. Chap. XXXIX.] THE GETTYSBURG CAMPAIGN. 729 The simultaneous appearance of the enemy’s battalions on so long a ",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HA02",
+   "type": "author",
+   "q": "what did Wadsworth report about Marsh Creek",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-1:0032",
+    "terms_any": [
+     "marsh creek"
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-1:0032",
+     "passage": "or27-1:0032#44c1b6c6",
+     "s": 319,
+     "e": 495,
+     "text": "On the morning of July 1, at 8 a. m., the division moved from Marsh Creek on Gettysburg, under the immediate direction of our deeply lamented commander, Major-General Reynolds.",
+     "page": 265,
+     "pages_ok": [
+      265
+     ],
+     "leaf": 283,
+     "reader": 282,
+     "raw_head_page": 265,
+     "raw_head": "bore Various 174 2.402 64 26 212 80 Total 2, 958 * Omitted. Chap. XXXIX.] THE GETTYSBURG CAMPAIGN. 265 Of these, a large part were turned in by the division ordnance offi",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HA03",
+   "type": "author",
+   "q": "what did Stannard report about the artillery attack on the morning of the 3d",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-1:0069",
+    "terms_any": [
+     "artillery attack",
+     "artillery"
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-1:0069",
+     "passage": "or27-1:0069#4cc10b81",
+     "s": 960,
+     "e": 1104,
+     "text": "At about 4 o’clock on the morning of the 3d, the enemy commenced a vigorous artillery attack, which continued for a short time upon my position.",
+     "page": 349,
+     "pages_ok": [
+      349
+     ],
+     "leaf": 367,
+     "reader": 366,
+     "raw_head_page": null,
+     "raw_head": null,
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HA04",
+   "type": "author",
+   "q": "what did Carr report about the enemy’s artillery on July 3",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-1:0160",
+    "terms_any": [
+     "artillery"
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-1:0160",
+     "passage": "or27-1:0160#36208f37",
+     "s": 299,
+     "e": 475,
+     "text": "At daybreak on the morning of Friday, July 3, the enemy opened j with his artillery, and kept up a continuous fire for an hour or more, ji with but little injury to my command.",
+     "page": 544,
+     "pages_ok": [
+      544
+     ],
+     "leaf": 564,
+     "reader": 561,
+     "raw_head_page": 544,
+     "raw_head": "f the wounded as the time and facilities would admit . 544 [Chap. XXXIX. N. C., VA., W. YA.j AID., PA., ETC. I may be pardoned, perhaps, for referring in my report to the",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HA05",
+   "type": "author",
+   "q": "what did Osborn report about Cemetery Hill",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-1:0264",
+    "terms_any": [
+     "cemetery hill"
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-1:0264",
+     "passage": "or27-1:0264#522266b8",
+     "s": 961,
+     "e": 1090,
+     "text": "They did not leave their immediate locality until the corps was ordered by the commanding general to fall back tcj Cemetery Hill.",
+     "page": 748,
+     "pages_ok": [
+      748
+     ],
+     "leaf": 768,
+     "reader": 765,
+     "raw_head_page": null,
+     "raw_head": "orses and materiel. 748 N. 0., VA., W. VA., MB., PA., ETC. [Chap. XXXIxj During the short struggle both batteries changed position several times, and did so with excellen",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HA06",
+   "type": "author",
+   "q": "what did Ewell report about Rodes’ division",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-2:0467",
+    "terms_any": [
+     "rodes"
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-2:0467",
+     "passage": "or27-2:0467#736fcc37",
+     "s": 643,
+     "e": 1169,
+     "text": "The want ot co-operation on the right made it more difficult for Rodes’ division to attack though, had it been otherwise, 1 have every reason tobelieve, from the eminent success attending the assault of Hays and Avery, that the enemy’s lines would have been carried\n\nI was ordered to renew my attack at daylight Friday morning, and as Johnson s position was the only one affording hopes of doing this-, to advantage, he was re-enforced by Smith’s brigade, of Early’s di-ITi ^nd s an^ ^odes’ (old) brigades, 0f Rodes’ division,",
+     "page": 447,
+     "pages_ok": [
+      447
+     ],
+     "leaf": 453,
+     "reader": 452,
+     "raw_head_page": null,
+     "raw_head": ", self-possession, and bravery under a very heavy artillery Chap. XXXIX.] THE GETTYSBURG CAMPAIGN. 44? fire, showing when most needed the full possession 'f all his facul",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HA07",
+   "type": "author",
+   "q": "what did Early report about Hays and Avery",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-2:0470",
+    "terms_any": [
+     "avery",
+     "hays"
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-2:0470",
+     "passage": "or27-2:0470#4b9f31b3",
+     "s": 756,
+     "e": 978,
+     "text": "Hays’ brigade entered the town, fighting its way, and Avery moved to the left of it across the railroad, and took his position in the fields on the left, and facing Cemetery Hill, which here presented a very rugged ascent.",
+     "page": 469,
+     "pages_ok": [
+      469
+     ],
+     "leaf": 475,
+     "reader": 474,
+     "raw_head_page": 469,
+     "raw_head": "sed to him, consisting of a division of the Eleventh Corps. Chap. XXXIX.] THE GETTYSBURG CAMPAIGN. 469 commanded by Brigadier-General Barlow, of the Federal Army, and dro",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HA08",
+   "type": "author",
+   "q": "what did Wadswurth report about Marsh Creek",
+   "expect": {
+    "mode": "answer",
+    "doc": "or27-1:0032",
+    "terms_any": [
+     "marsh creek"
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "or27-1:0032",
+     "passage": "or27-1:0032#44c1b6c6",
+     "s": 319,
+     "e": 495,
+     "text": "On the morning of July 1, at 8 a. m., the division moved from Marsh Creek on Gettysburg, under the immediate direction of our deeply lamented commander, Major-General Reynolds.",
+     "page": 265,
+     "pages_ok": [
+      265
+     ],
+     "leaf": 283,
+     "reader": 282,
+     "raw_head_page": 265,
+     "raw_head": "bore Various 174 2.402 64 26 212 80 Total 2, 958 * Omitted. Chap. XXXIX.] THE GETTYSBURG CAMPAIGN. 265 Of these, a large part were turned in by the division ordnance offi",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HD01",
+   "type": "dispatch",
+   "q": "what did Reynolds telegraph to Howard on June 30",
+   "expect": {
+    "mode": "answer",
+    "docs": [
+     "or27-3:p0417.2",
+     "or27-3:p0422.1"
+    ],
+    "terms_any": [
+     "buford",
+     "gettysburg"
+    ],
+    "docs_rule": "every dispatch of dispatches.json whose signer matches /REYNOLDS/ and whose addressee matches /Howard/ written 1863-06-30 (2)"
+   },
+   "evidence": [
+    {
+     "doc": "or27-3:p0417.2",
+     "passage": "or27-3:p0417.2#6da6a279",
+     "s": 41,
+     "e": 312,
+     "text": "Major-General Howard,\n\nCommanding Eleventh Corps :\n\nBuford is in Gettysburg, and found a regiment of rebel infantry advancing on the town, which retired as he advanced, and he reports Anderson’s division marching on Mummasburg, and passing off in the direction of Berlin.",
+     "page": 417,
+     "pages_ok": [
+      417
+     ],
+     "leaf": 423,
+     "reader": 422,
+     "raw_head_page": 417,
+     "raw_head": "ngaged with the cavalry of thejenemy near Hanover Junction. Chap. XXXIX.] CORRESPONDENCE, ETC. UNION. 417 Corps commanders will hold their commands in readiness at a mome",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HD02",
+   "type": "dispatch",
+   "q": "what did Sickles telegraph to Butterfield on July 1",
+   "expect": {
+    "mode": "answer",
+    "docs": [
+     "or27-3:p0468.2"
+    ],
+    "terms_any": [
+     "four brigades",
+     "dispatch"
+    ],
+    "docs_rule": "every dispatch of dispatches.json whose signer matches /SICKLES/ and whose addressee matches /Butterfield/ written 1863-07-01 (1)"
+   },
+   "evidence": [
+    {
+     "doc": "or27-3:p0468.2",
+     "passage": "or27-3:p0468.2#fb00e6f0",
+     "s": 58,
+     "e": 284,
+     "text": "Major-General Butterfield, Chief of Staff :\n\nGeneral: Before the receipt of your dispatch (dated 4.45 p. m.), four brigades and three batteries of my corps had advanced to the support of General Howard, and reached Gettysburg.",
+     "page": 468,
+     "pages_ok": [
+      468
+     ],
+     "leaf": 474,
+     "reader": 473,
+     "raw_head_page": 468,
+     "raw_head": "hout your presence. 468 N. C., VA., W. YA.j MD., PA., ETC. [Chap. XXXIX. If any shorter road presents itself, without difficulty in getting up, you will use your discreti",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HD03",
+   "type": "dispatch",
+   "q": "what did Slocum telegraph to Hancock on July 1",
+   "expect": {
+    "mode": "answer",
+    "docs": [
+     "or27-3:p0465.2"
+    ],
+    "terms_any": [
+     "twelfth corps"
+    ],
+    "docs_rule": "every dispatch of dispatches.json whose signer matches /SLOCUM/ and whose addressee matches /Hancock/ written 1863-07-01 (1)"
+   },
+   "evidence": [
+    {
+     "doc": "or27-3:p0465.2",
+     "passage": "or27-3:p0465.2#20a2d65c",
+     "s": 24,
+     "e": 149,
+     "text": "General Hancock, or General Howard :\n\nI am moving the Twelfth Corps so as to come in about 1 mile to the right of Gettysburg.",
+     "page": 465,
+     "pages_ok": [
+      465
+     ],
+     "leaf": 471,
+     "reader": 470,
+     "raw_head_page": 465,
+     "raw_head": "y respectfully, D. E. SICKLES, Major- General. * Not found. Chap. XXXIX.] CORRESPONDENCE, ETC. UNION. 465 Headquarters Third Army Corps, Emmitsburg, July 1, 1863 — 3.30 p",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HD04",
+   "type": "dispatch",
+   "q": "what did Pleasonton telegraph to Gregg on June 30",
+   "expect": {
+    "mode": "answer",
+    "docs": [
+     "or27-3:p0425.3"
+    ],
+    "terms_any": [
+     "york"
+    ],
+    "docs_rule": "every dispatch of dispatches.json whose signer matches /PLEASONTON/ and whose addressee matches /Gregg/ written 1863-06-30 (1)"
+   },
+   "evidence": [
+    {
+     "doc": "or27-3:p0425.3",
+     "passage": "or27-3:p0425.3#0306a9c2",
+     "s": 58,
+     "e": 349,
+     "text": "Brigadier-General Gregg,\n\nCommanding Second Cavalry Division :\n\nGeneral : After arriving at Hanover Junction and findings no enemy, push a force to York, and, in case that place has been evacuated, let it proceed toward Columbia, on the Susquehanna River, and communicate with General Couch.",
+     "page": 425,
+     "pages_ok": [
+      425
+     ],
+     "leaf": 431,
+     "reader": 430,
+     "raw_head_page": 424,
+     "raw_head": " Adjutant- General. 424 N. C., VA., W. VA., MD., PA., ETC. [Chap, XXXIX, Headquarters Fifth Corps, Union Mills, June 30, 1863 — 6.30 p. m. General S. Williams : Barnes an",
+     "matches_in_doc": 1,
+     "hand_checked": "the head of 425 is damaged (\"CORRESPONDENCE, ETC.— UNION, 425\", no \"Chap\") and stands 1,669 characters before the dispatch; read by hand"
+    }
+   ]
+  },
+  {
+   "id": "OR-HD05",
+   "type": "dispatch",
+   "q": "what time did Sickles write to Butterfield on July 1",
+   "expect": {
+    "mode": "answer",
+    "docs": [
+     "or27-3:p0468.2"
+    ],
+    "terms_any": [
+     "9.30 p. m."
+    ],
+    "docs_rule": "every dispatch of dispatches.json whose signer matches /SICKLES/ and whose addressee matches /Butterfield/ written 1863-07-01 (1)"
+   },
+   "evidence": [
+    {
+     "doc": "or27-3:p0468.2",
+     "passage": "or27-3:p0468.2#fb00e6f0",
+     "s": 0,
+     "e": 57,
+     "text": "Headquarters Third Army Corps,\n\nJuly 1, 1863 — 9.30 p. m.",
+     "page": 468,
+     "pages_ok": [
+      468
+     ],
+     "leaf": 474,
+     "reader": 473,
+     "raw_head_page": 468,
+     "raw_head": "hout your presence. 468 N. C., VA., W. YA.j MD., PA., ETC. [Chap. XXXIX. If any shorter road presents itself, without difficulty in getting up, you will use your discreti",
+     "matches_in_doc": 1
+    }
+   ]
+  },
+  {
+   "id": "OR-HG01",
+   "type": "generic",
+   "q": "what did the reports say about the Emmitsburg road",
+   "expect": {
+    "mode": "answer",
+    "terms_any": [
+     "emmitsburg"
+    ],
+    "min_docs": 2
+   },
+   "evidence": []
+  },
+  {
+   "id": "OR-HG02",
+   "type": "generic",
+   "q": "what did Confederate reports say about Cashtown",
+   "expect": {
+    "mode": "answer",
+    "terms_any": [
+     "cashtown"
+    ],
+    "min_docs": 2,
+    "side": "confederate"
+   },
+   "evidence": []
+  },
+  {
+   "id": "OR-HG03",
+   "type": "generic",
+   "q": "what did the reports say about the stone wall",
+   "expect": {
+    "mode": "answer",
+    "terms_any": [
+     "stone wall"
+    ],
+    "min_docs": 2
+   },
+   "evidence": []
+  },
+  {
+   "id": "OR-HG04",
+   "type": "generic",
+   "q": "what did Union reports say about Seminary Ridge",
+   "expect": {
+    "mode": "answer",
+    "terms_any": [
+     "seminary"
+    ],
+    "min_docs": 2,
+    "side": "union"
+   },
+   "evidence": []
+  },
+  {
+   "id": "OR-HN01",
+   "type": "absent",
+   "q": "what did Pettigrew report",
+   "expect": {
+    "mode": "partial",
+    "person_id": "P:james-pettigrew",
+    "surname": "Pettigrew"
+   },
+   "evidence": [],
+   "verified": {
+    "check": "no report of the 573 report records has an author whose surname is Pettigrew",
+    "authors_with_that_surname": 0,
+    "reports_in_corpus": 588
+   }
+  },
+  {
+   "id": "OR-HN02",
+   "type": "absent",
+   "q": "what did Sickles report about the Peach Orchard",
+   "expect": {
+    "mode": "partial",
+    "person_id": "P:daniel-sickles",
+    "surname": "Sickles"
+   },
+   "evidence": [],
+   "verified": {
+    "check": "no report of the 573 report records has an author whose surname is Sickles",
+    "authors_with_that_surname": 0,
+    "reports_in_corpus": 588
+   }
+  },
+  {
+   "id": "OR-HN03",
+   "type": "absent",
+   "q": "what did Wofford report",
+   "expect": {
+    "mode": "partial",
+    "person_id": "P:william-wofford",
+    "surname": "Wofford"
+   },
+   "evidence": [],
+   "verified": {
+    "check": "no report of the 573 report records has an author whose surname is Wofford",
+    "authors_with_that_surname": 0,
+    "reports_in_corpus": 588
+   }
+  },
+  {
+   "id": "OR-HN04",
+   "type": "absent",
+   "q": "what did Trimble report",
+   "expect": {
+    "mode": "partial",
+    "person_id": "P:isaac-trimble",
+    "surname": "Trimble"
+   },
+   "evidence": [],
+   "verified": {
+    "check": "no report of the 573 report records has an author whose surname is Trimble",
+    "authors_with_that_surname": 0,
+    "reports_in_corpus": 588
+   }
+  },
+  {
+   "id": "OR-HN05",
+   "type": "absent",
+   "q": "what did Barlow report about Blocher’s Knoll",
+   "expect": {
+    "mode": "partial",
+    "person_id": "P:francis-barlow",
+    "surname": "Barlow"
+   },
+   "evidence": [],
+   "verified": {
+    "check": "no report of the 573 report records has an author whose surname is Barlow",
+    "authors_with_that_surname": 0,
+    "reports_in_corpus": 588
+   }
+  }
+ ]
+}

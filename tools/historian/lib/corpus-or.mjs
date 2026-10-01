@@ -11,7 +11,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import { splitSentences, normalizeWs } from '../../../historian-src/core/text.js';
+import { splitSentences, normalizeWs, tokenize, stem } from '../../../historian-src/core/text.js';
 import { TX_FIELDS_CORPUS, PER_SHARD_CORPUS, encodeCorpusPassage } from '../../../historian-src/core/corpus.js';
 import { buildPostings, buildEntityPostings, IX_BUCKETS, EN_BUCKETS } from './postings.mjs';
 import { createOrLinker } from '../ingest/link.mjs';
@@ -23,6 +23,16 @@ export const OR_PRIOR = { report: 1.0, dispatch: 0.95, order: 0.85, itinerary: 0
 const sha8 = (s) => crypto.createHash('sha1').update(s).digest('hex').slice(0, 8);
 const sha256 = (b) => crypto.createHash('sha256').update(b).digest('hex');
 
+// the words of a dispatch's addressee ("Brig. Gen. J. D. Imboden, Commanding, &c.") and sender ("H. W. HALLECK") that are names, as the stems the question side uses: pseudo-entities A:<stem> (addressed to) and F:<stem> (sent by)
+const NOT_NAME = new Set('general major brigadier lieutenant colonel captain commanding commander chief staff assistant adjutant army corps division brigade department headquarters secretary war hon president governor cavalry artillery infantry first second third fourth fifth sixth seventh eighth ninth tenth eleventh twelfth the of and to at in by for sir mr dr surgeon quartermaster provost marshal inspector engineer signal ordnance department potomac virginia pennsylvania maryland washington richmond'.split(' '));
+export function nameStems(text, { upper = false } = {}) {
+  const out = new Set();
+  for (const w of String(text || '').split(/[\s,.;:()\[\]]+/)) {
+    if (!(upper ? /^[A-Z][A-Z'’-]{2,}$/ : /^[A-Z][a-z'’-]{2,}$/).test(w) || NOT_NAME.has(w.toLowerCase())) continue;
+    for (const t of tokenize(w)) if (t.length >= 3) out.add(stem(t));                          // the question side looks up stem(token): "Williams" is william there, so it must be here
+  }
+  return [...out];
+}
 export function loadOrRows({ rawDir, corpusDir }) {
   const pf = path.join(rawDir, 'passages.jsonl');
   if (!fs.existsSync(pf)) throw new Error(`the Official Records corpus is not built: ${path.relative(process.cwd(), pf)} is missing (run: node tools/historian/ingest/corpus.mjs build)`);
@@ -31,21 +41,29 @@ export function loadOrRows({ rawDir, corpusDir }) {
   const reports = JSON.parse(fs.readFileSync(path.join(corpusDir, 'reports.json'), 'utf8')).reports;
   const docs = new Map(fs.readFileSync(path.join(rawDir, 'docs.jsonl'), 'utf8').trim().split('\n').map((l) => { const d = JSON.parse(l); return [d.id, d]; }));
   const man = JSON.parse(fs.readFileSync(path.join(corpusDir, 'manifest.json'), 'utf8'));
-  return { rows, reports, docs, man, sha: sha256(buf).slice(0, 16) };
+  // the sender of each dispatch (the link the corpus build made from its signature, title line and side: ingest/link.mjs resolveSigner)
+  const dt = JSON.parse(fs.readFileSync(path.join(corpusDir, 'dispatches.json'), 'utf8')); const ci = (k) => dt.fields.indexOf(k);
+  const signers = new Map(dt.rows.filter((r) => r[ci('signer_link')]).map((r) => [r[ci('id')], { id: r[ci('signer_link')], tier: r[ci('signer_tier')] }]));
+  const route = new Map(dt.rows.map((r) => [r[ci('id')], { addressed: nameStems(r[ci('addressee')]), from: nameStems(String(r[ci('signer')] || '').split(/\s+/).slice(-1)[0], { upper: true }) }]));
+  return { rows, reports, docs, man, signers, route, sha: sha256(buf).slice(0, 16) };
 }
 
 /** local numbers, links from this build's registry, priors; the rows' own fields are kept */
-export function finalizeOr(rows, reports, { idx, link }) {
+export function finalizeOr(rows, reports, { idx, link, signers = new Map(), route = new Map() }) {
   const L = createOrLinker({ idx, link });
   const meta = new Map(reports.map((r) => [r.id, r]));
   const byDoc = new Map(); rows.forEach((r) => { if (!byDoc.has(r.doc)) byDoc.set(r.doc, []); byDoc.get(r.doc).push(r); });
-  const ents = new Map(); const stats = { A: 0, B: 0, C: 0, authors: { reports: 0, person: 0, unit: 0 } };
+  const ents = new Map(); const stats = { A: 0, B: 0, C: 0, authors: { reports: 0, person: 0, unit: 0 }, signers: { dispatches: 0, person: 0 } };
   for (const [doc, ps] of byDoc) {
     const m = meta.get(doc); let subjects = [];
     if (m && m.kind === 'report' && m.part !== 3) {
       const au = L.resolveAuthor(m, { side: m.side });
       stats.authors.reports++; if (au.person) stats.authors.person++; if (au.units.length) stats.authors.unit++;
       subjects = [...au.units.map((u) => ({ id: u.id, tier: u.tier })), ...(au.person ? [{ id: au.person.id, tier: au.person.tier }] : [])];
+    } else if (ps[0].part === 3 && ps[0].kind !== 'itinerary') {
+      // a dispatch: its sender (one signature, a registry man of that name and initials on that side), the same rule the corpus build applied
+      const sg = signers.get(doc);
+      stats.signers.dispatches++; if (sg) { stats.signers.person++; subjects = [{ id: sg.id, tier: sg.tier }]; }
     }
     const res = L.linkDocument(ps, { side: m ? m.side : ps[0].side, subjects });
     ps.forEach((p, k) => { ents.set(p.id, res.passages[k].ents); for (const x of res.passages[k].mentions) stats[x.tier]++; });
@@ -54,6 +72,7 @@ export function finalizeOr(rows, reports, { idx, link }) {
     num: i, id: r.id, doc: r.doc, rec: r.rec, kind: r.kind, day: r.day, text: r.text, sb: r.sb, ents: ents.get(r.id) || [], clk: r.clk, source_id: r.source_id,
     prior: +((OR_PRIOR[r.kind] ?? 0.5) * (r.scope === 'campaign' ? 0.7 : 1)).toFixed(3), sens: [], pg: r.pg, scope: r.scope, part: r.part,
     cite: { short: r.cite.short, author_line: r.cite.author_line }, persp: r.persp, ia: r.cite.ia, words: r.words,
+    tags: (() => { const q = route.get(r.doc); return q ? [...q.addressed.map((x) => 'A:' + x), ...q.from.map((x) => 'F:' + x)] : []; })(),
   }));
   return { P, linkStats: stats };
 }
@@ -61,7 +80,9 @@ export function finalizeOr(rows, reports, { idx, link }) {
 /** emit the corpus tiers; returns { desc (the manifest section), files (all entries), bytes } */
 export function emitOr(P, em, { name = 'or27', base, sources = [], built_from = null, weight = 0.6 } = {}) {
   const { buckets, lexicon } = buildPostings(P);
-  const en = buildEntityPostings(P);
+  // the postings also carry two pseudo-entities that are not links of any passage (they are not in p.ents and never shown): K:report / K:dispatch (what the document is: a report written after the fact, or a
+  // dispatch, order or itinerary written at the time) and D:<date> (the day a dispatch is dated), so that "what did Meade telegraph on July 3" can restrict its candidates to those before ranking them
+  const en = buildEntityPostings(P.map((p) => ({ ...p, ents: [...p.ents, [p.persp && p.persp.contemporaneous ? 'K:dispatch' : p.kind === 'report' ? 'K:report' : 'K:other', 1, 1], ...(p.persp && p.persp.contemporaneous && p.persp.written ? [['D:' + p.persp.written, 1, 1]] : []), ...(p.tags || []).map((t) => [t, 1, 1])] })));
   const ix = buckets.map((b) => em.put(`${name}/ix/${String(b.b).padStart(3, '0')}`, b));
   const enf = en.map((b) => em.put(`${name}/en/${String(b.b).padStart(2, '0')}`, b));
   const tx = [];
@@ -71,16 +92,19 @@ export function emitOr(P, em, { name = 'or27', base, sources = [], built_from = 
     const d = {}; for (const p of slice) if (!d[p.doc]) d[p.doc] = { cite: p.cite, persp: p.persp, ia: p.ia };
     tx.push(em.put(`${name}/tx/${String(s).padStart(4, '0')}`, { h: TX_FIELDS_CORPUS, p: slice.map(encodeCorpusPassage), d }));
   }
+  // the paths and sizes of the corpus's ~1,200 files are a content-hashed file of their own, fetched by the first request that reaches into the corpus; the manifest (read at open) keeps a descriptor of a few hundred bytes
+  const lazy = em.put(`${name}/files`, { index: { files: ix }, entpost: { files: enf }, text: { files: tx } });
   const desc = {
     base, count: P.length, words: P.reduce((a, p) => a + p.words, 0), weight, sources, built_from,
     lexicon: { N: lexicon.N, avgLen: lexicon.avgLen, scale: lexicon.scale, k1: lexicon.k1, b: lexicon.b, terms: lexicon.terms.length },
-    index: { buckets: IX_BUCKETS, hash: 'fnv1a32(stem) % 128', codec: 'json-delta-impact8', local_numbers: true, files: ix },
-    entpost: { buckets: EN_BUCKETS, hash: 'fnv1a32(entity id) % 32', files: enf },
-    text: { per_shard: PER_SHARD_CORPUS, fields: TX_FIELDS_CORPUS, doc_table: true, files: tx },
+    index: { buckets: IX_BUCKETS, hash: 'fnv1a32(stem) % 128', codec: 'json-delta-impact8', local_numbers: true },
+    entpost: { buckets: EN_BUCKETS, hash: 'fnv1a32(entity id) % 32' },
+    text: { per_shard: PER_SHARD_CORPUS, fields: TX_FIELDS_CORPUS, doc_table: true },
+    files: lazy,
   };
   const sum = (a) => a.reduce((x, f) => x + f.bytes, 0);
   const sizes = { ixTotal: sum(ix), enTotal: sum(enf), textTotal: sum(tx), files: ix.length + enf.length + tx.length, maxShard: Math.max(...tx.map((f) => f.bytes)), maxIx: Math.max(...ix.map((f) => f.bytes)), terms: lexicon.terms.length };
-  return { desc, sizes };
+  return { desc, sizes: { ...sizes, filesList: lazy.bytes }, entries: [...ix, ...enf, ...tx, lazy] };
 }
 
 /** brotli sizes of the corpus files (sampled by size class, summed exactly: the corpus is a few thousand small files) */

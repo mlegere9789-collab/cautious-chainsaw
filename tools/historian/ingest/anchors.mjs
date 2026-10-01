@@ -11,6 +11,8 @@ import { splitSentences } from '../../../historian-src/core/text.js';
 import { parseClock, dayTracker, isoDay } from './times.mjs';
 
 const letters = (s) => (s.match(/[A-Za-z]/g) || []).length;
+/** the printed page a passage offset lies on, from the passage's page list [[offset, page], ...] */
+const pageAt = (pg, off) => { let r = null; for (const e of pg || []) { if (e[0] <= off) { if (e[1] !== null && e[1] !== undefined) r = e[1]; } else break; } return r; };
 const prose = (s) => { const w = s.match(/[A-Za-z]{3,}/g) || []; return w.length >= 4 && letters(s) / Math.max(1, s.length) >= 0.55; };
 
 /**
@@ -30,21 +32,26 @@ export function claimsOfDoc(meta, passages, { units = null, subjectUnits = [] } 
     const sents = splitSentences(p.text);
     sents.forEach((x, k) => {
       const text = p.text.slice(x.s, x.e);
-      const day = tracker(text);
+      // a report's own heading and dateline ("No. 196. Report of Col. ... Field near Emmitsburg, July 6, 1863.") date its WRITING, not the events: they set no day and make no claim
+      if (!dispatch && pi === 0 && x.s < 450 && /\b186[34]\b/.test(text)) return;
       const cl = parseClock(text, { ctx: text });
+      const days = tracker.at(text, cl.length ? cl : [text.length]);          // every sentence moves the day register; each clock reads the day as it stood at its own position
       if (!cl.length) return;
       if (!prose(text) && !/^\s*[A-Z][a-z]+[^.]{0,40}\d{4}/.test(text)) return;
-      for (const c of cl) {
+      for (const [ci, c] of cl.entries()) {
+        const day = days[ci];
         // the dateline's own clock: the first clock of the first passage when it is the one the segmenter read from the header line
         const inHeader = !!(dispatch && pi === 0 && meta.clock && c.text.replace(/\s+/g, '') === String(meta.clock.text || '').replace(/\s+/g, '') && c.s < 260 && !out.some((o) => o.passage === p.id && o.evidence === 'dispatch-header'));
         const evidence = dispatch ? (inHeader ? 'dispatch-header' : 'dispatch-body') : 'report';
-        const dayIso = inHeader && written ? isoDay(written) : isoDay(day.day);
+        // a report about operations elsewhere (the contents list says "of operations June 13-15") has no battle day unless its sentence names one
+        const off = meta.scope && meta.scope !== 'gettysburg' && !(dispatch || day.basis === 'same' || day.basis === 'later');
+        const dayIso = inHeader && written ? isoDay(written) : off ? null : isoDay(day.day);
         out.push({
           id: `${p.id}~${n++}`, passage: p.id, doc: meta.id, sentence: k, ss: x.s, se: x.e, s: x.s + c.s, e: x.s + c.e, text: c.text, kind: c.kind, min: c.min, ampm: c.ampm || null, cand: c.cand || null, tol: c.tol, mod: c.mod,
           from: c.from === undefined ? null : c.from, to: c.to === undefined ? null : c.to, word: c.word || null,
-          day: dayIso, day_basis: inHeader ? 'dateline' : day.basis, evidence,
+          day: dayIso, day_basis: inHeader ? 'dateline' : off ? 'scope-other' : day.basis, day_age: inHeader ? 0 : day.age, scope: meta.scope, evidence,
           author: meta.author ? [meta.author.rank, meta.author.name].filter(Boolean).join(' ') : null, rank_class: meta.author ? meta.author.rank_class : null, unit: meta.unit || null, side: meta.side,
-          written: meta.written ? meta.written.iso : null, lag_days: meta.persp ? meta.persp.lag_days : null, page: meta.pages ? meta.pages.start : null,
+          written: meta.written ? meta.written.iso : null, lag_days: meta.persp ? meta.persp.lag_days : null, page: pageAt(p.pg, x.s + c.s) ?? (meta.pages ? meta.pages.start : null),
           units: [...new Set([...(subjectUnits || []), ...(units ? units(text) : [])])],
         });
       }

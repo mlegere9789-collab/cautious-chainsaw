@@ -1,7 +1,6 @@
-// kb.js - opens a knowledge base (the hx/ artifacts) through an injected fetchJSON(path) so the same code runs in the browser (fetch), in a Worker and in Node (fs).
-//   T1  (entity, entix, facts, lexicon)  loaded together at open() and prepared once
-//   T2  (ix buckets, en buckets, tx shards) loaded lazily per query and cached with a small LRU; a failed shard rejects with a retryable error
-//   manifest.corpora (optional): further passage collections (the Official Records) with their own lazy tiers, opened by corpus.js (imported only then); a KB without it behaves exactly as before
+// kb.js - opens a knowledge base (hx/) through an injected fetchJSON(path): browser (fetch), Worker or Node (fs).
+//   T1 (entity, entix, facts, lexicon) at open(); T2 (ix, en, tx) lazily per query with a small LRU, a failed shard rejects with a retryable error
+//   manifest.corpora (optional): further passage collections (the Official Records), read by corpus.js on request only
 import { prepareT1 } from './entities.js';
 import { createLinker } from './linker.js';
 import { bucketOf } from './text.js';
@@ -17,7 +16,7 @@ export class ShardError extends Error {
   constructor(path, cause) { super(`could not load ${path}`); this.name = 'ShardError'; this.path = path; this.retryable = true; this.cause = cause; }
 }
 
-/** open a KB. fetchJSON(relPath) must resolve parsed JSON; base-relative paths as written in the manifest ("f/entity.<hash>.json"). */
+/** open a KB; fetchJSON(relPath) resolves parsed JSON for a manifest path */
 export async function openKB(fetchJSON, { manifest = null, cache = 64 } = {}) {
   const man = manifest || await fetchJSON('manifest.json');
   const get = async (rel) => { try { return await fetchJSON(rel); } catch (e) { throw new ShardError(rel, e); } };
@@ -30,7 +29,7 @@ export async function openKB(fetchJSON, { manifest = null, cache = 64 } = {}) {
   const ixFiles = man.tiers.index.files, enFiles = man.tiers.entpost.files, txFiles = man.tiers.text.files;
   const nIx = man.tiers.index.buckets, nEn = man.tiers.entpost.buckets;
   const inflight = new Map();
-  const siteCount = man.counts && Number.isFinite(man.counts.passages) ? man.counts.passages : Infinity;     // numbers from here on belong to a corpus
+  const siteCount = man.counts && Number.isFinite(man.counts.passages) ? man.counts.passages : Infinity;     // numbers from here on are a corpus's
   const cached = (cacheObj, key, loader) => {
     const v = cacheObj.get(key); if (v) return Promise.resolve(v);
     const k = cacheObj === ixCache ? 'ix' + key : cacheObj === enCache ? 'en' + key : 'tx' + key;
@@ -39,14 +38,21 @@ export async function openKB(fetchJSON, { manifest = null, cache = 64 } = {}) {
     inflight.set(k, p); return p;
   };
   const stats = { fetched: 0 };
-  const corp = man.corpora ? (await import('./corpus.js')).openCorpora(man, get, { cache, stats }) : null;
+  // a corpus is a descriptor in the manifest; corpus.js and its file list load with the first request that needs them
+  const cl = Object.entries(man.corpora || {}).map(([name, c]) => ({ name, base: c.base, count: c.count }));
+  let cf = null, co = null;
+  const full = () => cf || (cf = import('./corpus.js').then((m) => (co = m.openCorpora(man, get, { cache, stats })), (e) => { cf = null; throw e; }));
+  const corpusOf = (n) => cl.find((c) => n >= c.base && n < c.base + c.count) || null;
+  const corp = cl.length ? { list: cl, has: (n) => cl.some((c) => c.name === n), corpusOf, df: (t) => (co ? co.df(t) : null),
+    score: async (s, t) => (await full()).score(s, t), entities: async (o, i) => (await full()).entities(o, i), passages: async (nums, o) => { if (nums.some(corpusOf)) await (await full()).passages(nums, o); },
+    siteFirst: (sel, k, pool, ctx, opts, allow, keep = null) => (co ? co.siteFirst(sel, k, pool, ctx, opts, allow, keep) : (keep ? sel(k, pool, ctx, opts).filter(keep) : sel(k, pool, ctx, opts))) } : null;   // module not loaded: no corpus passage in the pool
 
   const kb = {
     manifest: man, t1, entix, facts, lexicon, idx, link, lex, lexDf, stats,
     version: man.kb_version, counts: man.counts,
-    corpora: corp ? corp.list : [], corp, hasCorpus: (name) => !!corp && corp.has(name), corpusOf: (n) => (corp ? corp.corpusOf(n) : null), corpusDf: (t) => (corp ? corp.df(t) : null),
-    /** BM25 over passages: Map(num -> score) for stemmed query terms. */
-    async scorePassages(terms) {
+    corpora: cl, corp, hasCorpus: (n) => !!corp && corp.has(n), corpusOf: (n) => (corp ? corp.corpusOf(n) : null),
+    /** BM25: Map(num -> score); the corpus only when asked */
+    async scorePassages(terms, withCorpus = false) {
       const scores = new Map();
       const need = new Map();
       for (const t of new Set(terms)) { if (!lex.has(t)) continue; const b = bucketOf(t, nIx); (need.get(b) || need.set(b, []).get(b)).push(t); }
@@ -58,11 +64,11 @@ export async function openKB(fetchJSON, { manifest = null, cache = 64 } = {}) {
           for (const [n, q] of decodeDeltaPairs(flat)) scores.set(n, (scores.get(n) || 0) + (q / 255) * lexicon.scale);
         }
       }
-      if (corp) await corp.score(scores, terms);
+      if (corp && withCorpus) await corp.score(scores, terms);
       return scores;
     },
-    /** entity-conditioned candidates: Map(num -> {role, hits}) for entity ids. */
-    async entityPassages(ids) {
+    /** Map(num -> {role, ids}) for entity ids */
+    async entityPassages(ids, withCorpus = false) {
       const out = new Map();
       const need = new Map();
       for (const id of new Set(ids)) { const b = bucketOf(id, nEn); (need.get(b) || need.set(b, []).get(b)).push(id); }
@@ -74,14 +80,14 @@ export async function openKB(fetchJSON, { manifest = null, cache = 64 } = {}) {
           for (const [n, role] of decodeDeltaPairs(flat)) { const cur = out.get(n) || { role: 0, ids: [] }; cur.role = Math.max(cur.role, role); cur.ids.push([id, role]); out.set(n, cur); }
         }
       }
-      if (corp) await corp.entities(out, ids);
+      if (corp && withCorpus) await corp.entities(out, ids);
       return out;
     },
-    /** load passages by number: Map(num -> passage). */
+    /** Map(num -> passage) */
     async passages(nums) {
       const siteNums = nums.filter((n) => n < siteCount);
       const shards = [...new Set(siteNums.map(shardOf))].filter((x) => txFiles[x]);          // a number past the last shard is simply absent
-      // read from what each load returned, never back out of the LRU afterwards: a request that spans more shards than the cache holds (96 shards, default cache 64) would otherwise lose the shards it had just loaded
+      // read from what each load returned, not back out of the LRU (a request spanning more shards than the cache holds would lose some)
       const loaded = new Map(await Promise.all(shards.map(async (s) => [s, await cached(txCache, s, async () => { stats.fetched++; const j = await get(txFiles[s].path); return new Map(j.p.map((row) => { const p = decodePassage(row, j.h); return [p.num, p]; })); })])));
       const out = new Map();
       for (const n of siteNums) { const sh = loaded.get(shardOf(n)); if (sh && sh.has(n)) out.set(n, sh.get(n)); }
@@ -104,7 +110,7 @@ export async function nodeFetcher(dir) {
     return j;
   };
 }
-/** Browser helper: fetch relative to a base URL, with an in-memory promise cache. */
+/** Browser helper: fetch relative to a base URL, promise-cached. */
 export function browserFetcher(base) {
   const memo = new Map();
   return (rel) => {

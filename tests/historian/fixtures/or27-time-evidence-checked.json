@@ -1,0 +1,583 @@
+{
+ "_comment": "Hand check of the time-evidence proposals (tools/historian/ingest/time-evidence.mjs): 36 attached claims drawn with a seeded generator (6 of tiers A and B, 30 of tier F), each read in its sentence against the event it is attached to and labelled by one reader, the builder: is the claim a statement of about the time of THE EVENT (same day, same phase of the fighting)? Earlier versions of the matcher were measured the same way before they were replaced: unit-family + place + words, 6 of 40 about the event; unit-family + action, 6 of 35. The labels are judgements, and the model minute of the event is the site's own proposal, not a fact.",
+ "labeled_on": "2026-10-01",
+ "matcher": "time-evidence.mjs tiers A, B (the unit itself or a sentence naming it) and F (a part of the unit, the same kind of thing, within 60 minutes of the site's own minute)",
+ "items": [
+  {
+   "n": 1,
+   "event": "D3T542",
+   "tier": "A",
+   "label": "not about the event",
+   "claim": {
+    "text": "2 p. m.",
+    "min": 840,
+    "author": "Lieut. Col. Franklin Sawyer",
+    "unit": "Eighth Ohio Infantry",
+    "page": 461,
+    "sentence": "Soon after 2 p. m. the enemy opened a terrific fire from sixty-tour pieces of artillery, in a semicircle which inclosed my position, i ms was replied to by our batteries, and we suffered severely undei the fire for nearly two hours. . . , » , This artillery du"
+   },
+   "event_title": "BROCKENBROUGH COLLAPSES",
+   "day": 3
+  },
+  {
+   "n": 2,
+   "event": "D2T326",
+   "tier": "B",
+   "label": "about the event",
+   "claim": {
+    "text": "8 o’clock",
+    "min": 1200,
+    "author": "Lieut. Col. Jonathan H. Lockwood",
+    "unit": "Seventh West Virginia Infantry",
+    "page": 463,
+    "sentence": "About 4 p. m. the Seventh West Virginia and Fourteenth Indiana changed position on the left of the enemy’s right center, where we remained but a short time, when the Seventh West Virginia was ordered back, and placed to protect the Fourth U. -S. Artillery, whe"
+   },
+   "event_title": "CEMETERY HILL ASSAULT",
+   "day": 2
+  },
+  {
+   "n": 3,
+   "event": "D2T330",
+   "tier": "B",
+   "label": "about the event",
+   "claim": {
+    "text": "8 o’clock",
+    "min": 1200,
+    "author": "Lieut. Col. Jonathan H. Lockwood",
+    "unit": "Seventh West Virginia Infantry",
+    "page": 463,
+    "sentence": "About 4 p. m. the Seventh West Virginia and Fourteenth Indiana changed position on the left of the enemy’s right center, where we remained but a short time, when the Seventh West Virginia was ordered back, and placed to protect the Fourth U. -S. Artillery, whe"
+   },
+   "event_title": "Carroll's Union brigade counterattacks Cemetery Hill -- drives Louisiana Tigers and Avery's brigade back down the slope",
+   "day": 2
+  },
+  {
+   "n": 4,
+   "event": "D1T31",
+   "tier": "B",
+   "label": "not about the event",
+   "claim": {
+    "text": "9 a. m.",
+    "min": 540,
+    "author": "Capt. James A. Hall",
+    "unit": "Second Maine Battery",
+    "page": 359,
+    "sentence": "At 9 a. m. marched, following the advance brigade of the First Division, First Army Corps, to the battle-field, about a half mile south and west of town, where we were ordered into position by General Reynolds on the right of the Cashtown road, some 400 yards "
+   },
+   "event_title": "North of the pike, Davis's Confederate brigade advances in three regiments",
+   "day": 1
+  },
+  {
+   "n": 5,
+   "event": "D2T267",
+   "tier": "B",
+   "label": "not about the event",
+   "claim": {
+    "text": "4 p. m.",
+    "min": 960,
+    "author": "Maj. William H. Lamont",
+    "unit": "Eighty-third Pennsylvania Infantry",
+    "page": 633,
+    "sentence": "July 1. — Broke camp at 6 a. m., arriving at Hanover at about 3 p. m. ; left again at 5 o’clock, and arrived within 3 miles of Gettysburg at 1 a. m., where we bivouacked. | July 2. — Started at 4 a. m.; went about 2 miles, when we got into position; remained s"
+   },
+   "event_title": "Vincent's brigade arrives on Little Round Top just ahead of Law's Confederates",
+   "day": 2
+  },
+  {
+   "n": 6,
+   "event": "D2T267",
+   "tier": "B",
+   "label": "about the event",
+   "claim": {
+    "text": "4 p. m.",
+    "min": 960,
+    "author": "Col. James C. Rice",
+    "unit": "Forty-fourth New York Infantry, commanding regiment and Third Brigade",
+    "page": 621,
+    "sentence": "July 2.— Started at 4 a. m.; went about 2 miles, when we got into position; remained some 2 hours; then crossed the creek, and lay in position awaiting orders until about 4 p. m., when we were ordered dered to the front; immediately on arriving there became en"
+   },
+   "event_title": "Vincent's brigade arrives on Little Round Top just ahead of Law's Confederates",
+   "day": 2
+  },
+  {
+   "n": 7,
+   "event": "D3T452",
+   "tier": "F",
+   "label": "about the event",
+   "claim": {
+    "text": "4 a. m.",
+    "min": 240,
+    "author": "Col. Henry A. Barnum",
+    "unit": "One hundred and forty-ninth New York Infantry",
+    "page": 868,
+    "sentence": "At about 4 a. m. of the 3d, the regiment was again put into the trenches, and had barely settled into position when the enemy again furiously attacked us."
+   },
+   "event_title": "Johnson's Confederate division counterattacks to retain the breastworks",
+   "day": 3
+  },
+  {
+   "n": 8,
+   "event": "D1T75",
+   "tier": "F",
+   "label": "not about the event",
+   "claim": {
+    "text": "4 o clock",
+    "min": 960,
+    "author": "Col. E. C. Brabble",
+    "unit": "Thirty-second North Carolina Infantry",
+    "page": 571,
+    "sentence": "On the first day, about 2.30 p. m., the regiment was drawn up on the right of the brigade, and, advancing, met, the enemy about 4 o clock."
+   },
+   "event_title": "LEE'S DISCRETIONARY ORDER TO EWELL: 'take Cemetery Hill if practicable.' Ewell looks at the hill, considers Johnson's di",
+   "day": 1
+  },
+  {
+   "n": 9,
+   "event": "D2T260",
+   "tier": "F",
+   "label": "about the event",
+   "claim": {
+    "text": "4.30 p. m.",
+    "min": 990,
+    "author": "Maj. John P. Bane",
+    "unit": "Fourth Texas Infantry",
+    "page": 410,
+    "sentence": "Sir : I have the honor to submit the following report of the part taken by my regiment in the action near Gettysburg, Pa., July 2 and 3 : About 4.30 p. m. the 2d instant, we were ordered to advance on the enemy, who occupied the heights about G miles distant, "
+   },
+   "event_title": "Law's brigade (formerly Hood's) reaches Big Round Top",
+   "day": 2
+  },
+  {
+   "n": 10,
+   "event": "D2T258",
+   "tier": "F",
+   "label": "about the event",
+   "claim": {
+    "text": "4 p. m.",
+    "min": 960,
+    "author": "Lieut. Col. P. A. Work",
+    "unit": "First Texas Infantry",
+    "page": 408,
+    "sentence": "Sir : The following is submitted as a report of the part sustained by the First Texas Regiment in the engagement of Thursday, July 2, near Gettysburg, Pa. , to wit : The regiment, together with the brigade, having been ordered forward to the attack about 4 p. "
+   },
+   "event_title": "Hood severely wounded -- arm permanently paralyzed by artillery fragment",
+   "day": 2
+  },
+  {
+   "n": 11,
+   "event": "D2T314",
+   "tier": "F",
+   "label": "not about the event",
+   "claim": {
+    "text": "8 o’clock",
+    "min": 1200,
+    "author": "Capt. W. P. Moseley",
+    "unit": "Twenty-first Virginia Infantry",
+    "page": 535,
+    "sentence": "The advance did not prove successful, and the regiment fell back about 8 o’clock to the branch at the foot of the mountain, where it reformed, and advanced a short distance, and there remained until 8 p. m. of the 3d, when it relinquished its position, being o"
+   },
+   "event_title": "Johnson's Confederate division advances on Culp's Hill at dusk",
+   "day": 2
+  },
+  {
+   "n": 12,
+   "event": "D2T256",
+   "tier": "F",
+   "label": "about the event",
+   "claim": {
+    "text": "4 p. m.",
+    "min": 960,
+    "author": "Maj. John A. Danks",
+    "unit": "Sixty-third Pennsylvania Infantry",
+    "page": 498,
+    "sentence": "Firing was kept up until the general engagement was brought on, between the hours of 3 and 4 p. m."
+   },
+   "event_title": "LONGSTREET'S ASSAULT BEGINS",
+   "day": 2
+  },
+  {
+   "n": 13,
+   "event": "D3T515",
+   "tier": "F",
+   "label": "not about the event",
+   "claim": {
+    "text": "12 m.",
+    "min": 720,
+    "author": "Col. Warren W. Packer",
+    "unit": "Fifth Connecticut Infantry",
+    "page": 789,
+    "sentence": "Upon attempting to return to the breastworks, we found them occupied by the enemy, in consequence of which, after detailing Company E as skirmishers, they losing 5 men taken prisoners, we remained in the field until the morning of the 3d, occupying the same po"
+   },
+   "event_title": "Culp's Hill fighting finally ends at approximately 11:00am",
+   "day": 3
+  },
+  {
+   "n": 14,
+   "event": "D1T95",
+   "tier": "F",
+   "label": "not about the event",
+   "claim": {
+    "text": "7 p. m.",
+    "min": 1140,
+    "author": "Capt. Edward R. Bowen",
+    "unit": "One hundred and fourteenth Pennsylvania Infantry",
+    "page": 502,
+    "sentence": "Sir: I have the honor to submit the following report of the part taken by the One hundred and fourteenth Regiment Pennsylvania Volunteers in the recent operations against the enemy, near Gettysburg, Pa.: On July 1, the regiment left Emmitsburg, Md., at about 2"
+   },
+   "event_title": "Meade replaces Doubleday with Newton to command I Corps",
+   "day": 1
+  },
+  {
+   "n": 15,
+   "event": "D2T252",
+   "tier": "F",
+   "label": "not about the event",
+   "claim": {
+    "text": "4 p. m.",
+    "min": 960,
+    "author": "Lieut. Col. John Fraser",
+    "unit": "One hundred and fortieth Pennsylvania Infantry , commanding regiment and Third Brigade",
+    "page": 394,
+    "sentence": "About 4 p. m. the brigade was marched rapidly to the left, to assist the Third Corps, which was then sustaining a fierce attack."
+   },
+   "event_title": "Meade discovers Sickles's unauthorized advance",
+   "day": 2
+  },
+  {
+   "n": 16,
+   "event": "D3T451",
+   "tier": "F",
+   "label": "about the event",
+   "claim": {
+    "text": "4 o’clock",
+    "min": 240,
+    "author": "Col. E. Livingston Price",
+    "unit": "One hundred and forty-fifth New York Infantry",
+    "page": 800,
+    "sentence": "About 4 o’clock on the morning of the 3d, some twelve guns be- | longing to artillery, posted some 500 paces in rear of my regiment, j opened upon the woods in front of my command, and the skirmish- -j ers became briskly engaged."
+   },
+   "event_title": "Day 3 opens with Union XII Corps artillery firing on Johnson's Confederates dug into the lower Culp's Hill breastworks",
+   "day": 3
+  },
+  {
+   "n": 17,
+   "event": "D2T252",
+   "tier": "F",
+   "label": "not about the event",
+   "claim": {
+    "text": "3 p. m.",
+    "min": 900,
+    "author": "Lieut. Col. Richards McMichael",
+    "unit": "Fifty-third Pennsylvania Infantry",
+    "page": 410,
+    "sentence": "Remaining here about an hour, I marched with the remainder of the brigade to a position on the front, where I remained until 3 p. m., when the engagement opened."
+   },
+   "event_title": "Meade discovers Sickles's unauthorized advance",
+   "day": 2
+  },
+  {
+   "n": 18,
+   "event": "D1T64",
+   "tier": "F",
+   "label": "not about the event",
+   "claim": {
+    "text": "5 p. m.",
+    "min": 1020,
+    "author": "Col. Francis V. Randall",
+    "unit": "Thirteenth Vermont Infantry",
+    "page": 351,
+    "sentence": "The brigade then marched to Gettysburg, arriving there on July 1, at about 5 p. m."
+   },
+   "event_title": "Seminary Ridge fighting begins",
+   "day": 1
+  },
+  {
+   "n": 19,
+   "event": "D2T252",
+   "tier": "F",
+   "label": "not about the event",
+   "claim": {
+    "text": "4 p. m.",
+    "min": 960,
+    "author": "Capt. Thomas Touhy",
+    "unit": "Sixty-third New York Infantry",
+    "page": 388,
+    "sentence": "The three battalions, composed of two companies each, were commanded by Lieut. Col. R C. Bentley, of the Sixty-third, forming a part of the Second Brigade, First Division, Second Corps, and were with the division when it advanced to the front line on the morni"
+   },
+   "event_title": "Meade discovers Sickles's unauthorized advance",
+   "day": 2
+  },
+  {
+   "n": 20,
+   "event": "D2T256",
+   "tier": "F",
+   "label": "about the event",
+   "claim": {
+    "text": "4 o’clock",
+    "min": 960,
+    "author": "Lieut. Col. Francis M. Cummins",
+    "unit": "One hundred and twenty-fourth New York Infantry",
+    "page": 512,
+    "sentence": "Sir : I have the honor to report that this regiment, being in position on a rocky bluff, near the extreme left of the line, occupied by the Third Corps at Gettysburg on the afternoon of July 2, was attacked between the hours of 3 and 4 o’clock by a heavy force"
+   },
+   "event_title": "LONGSTREET'S ASSAULT BEGINS",
+   "day": 2
+  },
+  {
+   "n": 21,
+   "event": "D2T260",
+   "tier": "F",
+   "label": "about the event",
+   "claim": {
+    "text": "3.30 p. m.",
+    "min": 930,
+    "author": "Lieut. Col. L. H. Scruggs",
+    "unit": "Fourth Alabama Infantry",
+    "page": 391,
+    "sentence": "After a rapid and fatiguing march of about 24 miles, arrived at the scene of action at 3.30 p. m., immediately taking our assigned position on the left of the brigade."
+   },
+   "event_title": "Law's brigade (formerly Hood's) reaches Big Round Top",
+   "day": 2
+  },
+  {
+   "n": 22,
+   "event": "D2T324",
+   "tier": "F",
+   "label": "not about the event",
+   "claim": {
+    "text": "7 p. m.",
+    "min": 1140,
+    "author": "Col. J. M. Williams",
+    "unit": "Second Louisiana Infantry, commanding Nicholls brigade",
+    "page": 513,
+    "sentence": "I have the honor to submit the following report of the derations of Nicholls’ brigade at the battle of Gettysburg, Pa., on 0a at a^°ut 7 o'clock, while marching on the Cashtown oad and toward Gettysburg, the brigade, being in front, was orlered by the major-ge"
+   },
+   "event_title": "XII Corps returns to Culp's Hill and finds Confederate troops in their works",
+   "day": 2
+  },
+  {
+   "n": 23,
+   "event": "D3T451",
+   "tier": "F",
+   "label": "about the event",
+   "claim": {
+    "text": "At daylight",
+    "min": 265,
+    "author": "Lieut. Col. Charles F. Morse",
+    "unit": "Second Massachusetts Infantry",
+    "page": 817,
+    "sentence": "At daylight, July 3, our skirmishers, Company E, Captain Robeson, became engaged."
+   },
+   "event_title": "Day 3 opens with Union XII Corps artillery firing on Johnson's Confederates dug into the lower Culp's Hill breastworks",
+   "day": 3
+  },
+  {
+   "n": 24,
+   "event": "D3T451",
+   "tier": "F",
+   "label": "about the event",
+   "claim": {
+    "text": "4 a. m.",
+    "min": 240,
+    "author": "Col. Abel Godard",
+    "unit": "Sixtieth New York Infantry",
+    "page": 861,
+    "sentence": "The light firing above mentioned continued until a repeated advance of the enemy’s infantry at about 4 a. m."
+   },
+   "event_title": "Day 3 opens with Union XII Corps artillery firing on Johnson's Confederates dug into the lower Culp's Hill breastworks",
+   "day": 3
+  },
+  {
+   "n": 25,
+   "event": "D2T324",
+   "tier": "F",
+   "label": "not about the event",
+   "claim": {
+    "text": "8 o’clock",
+    "min": 1200,
+    "author": "Capt. W. P. Moseley",
+    "unit": "Twenty-first Virginia Infantry",
+    "page": 535,
+    "sentence": "The advance did not prove successful, and the regiment fell back about 8 o’clock to the branch at the foot of the mountain, where it reformed, and advanced a short distance, and there remained until 8 p. m. of the 3d, when it relinquished its position, being o"
+   },
+   "event_title": "XII Corps returns to Culp's Hill and finds Confederate troops in their works",
+   "day": 2
+  },
+  {
+   "n": 26,
+   "event": "D1T25",
+   "tier": "F",
+   "label": "about the event",
+   "claim": {
+    "text": "10.30 a. m.",
+    "min": 630,
+    "author": "Capt. John E. Cook",
+    "unit": "Seventy-sixth New York Infantry",
+    "page": 285,
+    "sentence": "Captain: I have the honor to report that on July 1, at about 10.30 a. m., being the extreme advance regiment of the First Corps, we reached the battle-field near the seminary at Gettysburg, and while marching by the flank were opened upon by the enemy, station"
+   },
+   "event_title": "Reynolds arrives at Seminary Ridge, confers with Buford in the Seminary cupola",
+   "day": 1
+  },
+  {
+   "n": 27,
+   "event": "D1T31",
+   "tier": "F",
+   "label": "about the event",
+   "claim": {
+    "text": "10.30 a. m.",
+    "min": 630,
+    "author": "Capt. John E. Cook",
+    "unit": "Seventy-sixth New York Infantry",
+    "page": 285,
+    "sentence": "Captain: I have the honor to report that on July 1, at about 10.30 a. m., being the extreme advance regiment of the First Corps, we reached the battle-field near the seminary at Gettysburg, and while marching by the flank were opened upon by the enemy, station"
+   },
+   "event_title": "North of the pike, Davis's Confederate brigade advances in three regiments",
+   "day": 1
+  },
+  {
+   "n": 28,
+   "event": "D1T14",
+   "tier": "F",
+   "label": "about the event",
+   "claim": {
+    "text": "8 o’clock",
+    "min": 480,
+    "author": "Col. William Gamble",
+    "unit": "Eighth Illinois Cavalry, commanding First Brigade",
+    "page": 934,
+    "sentence": "About 8 o’clock on the morning of the 1st instant, while in camp at the seminary building, the officer commanding the squadron on picket in front gave me notice that the enemy, consisting of infantry and artillery, in column, were approaching his pickets from "
+   },
+   "event_title": "Heth's skirmishers engage Buford's dismounted cavalry",
+   "day": 1
+  },
+  {
+   "n": 29,
+   "event": "D1T42",
+   "tier": "F",
+   "label": "not about the event",
+   "claim": {
+    "text": "1 p. m.",
+    "min": 780,
+    "author": "Col. Charles Wheelock",
+    "unit": "Ninety-seventh New York Infantry",
+    "page": 309,
+    "sentence": "Captain: In accordance with orders from brigade headquarters, I would respectfully report the part taken by the Ninety-seventh Regiment New York Volunteers in the battle of July 1, 2, and 3, at Gettysburg, Pa., to wit: On the morning of July 1, at 7 a.m., we l"
+   },
+   "event_title": "I Corps completing deployment on McPherson's Ridge and Seminary Ridge",
+   "day": 1
+  },
+  {
+   "n": 30,
+   "event": "D3T452",
+   "tier": "F",
+   "label": "about the event",
+   "claim": {
+    "text": "4 a. m.",
+    "min": 240,
+    "author": "Col. Abel Godard",
+    "unit": "Sixtieth New York Infantry",
+    "page": 861,
+    "sentence": "The light firing above mentioned continued until a repeated advance of the enemy’s infantry at about 4 a. m."
+   },
+   "event_title": "Johnson's Confederate division counterattacks to retain the breastworks",
+   "day": 3
+  },
+  {
+   "n": 31,
+   "event": "D2T252",
+   "tier": "F",
+   "label": "not about the event",
+   "claim": {
+    "text": "4 o’clock in the afternoon",
+    "min": 960,
+    "author": "Lieut. Col. George C. Joslin",
+    "unit": "Fifteenth Massachusetts Infantry",
+    "page": 423,
+    "sentence": "Sir* I have the honor to make the following report of the part taken by the Fifteenth Regiment Massachusetts Volunteers in the action of July 2 and 3, at Gettysburg, Pa. : Early on the morning of the 2d, we moved from our place of bivouac, immediately in the r"
+   },
+   "event_title": "Meade discovers Sickles's unauthorized advance",
+   "day": 2
+  },
+  {
+   "n": 32,
+   "event": "D1T50",
+   "tier": "F",
+   "label": "about the event",
+   "claim": {
+    "text": "1 p. m.",
+    "min": 780,
+    "author": "Capt. John M. Lutz",
+    "unit": "One hundred and seventh Ohio Infantry",
+    "page": 720,
+    "sentence": "Sir: The following is the report of the part this regiment has taken in the action of July 1, 2, and 3 : The regiment arrived at Gettysburg, Pa., at about 1 p. m."
+   },
+   "event_title": "XI Corps (Howard) begins arriving north of Gettysburg",
+   "day": 1
+  },
+  {
+   "n": 33,
+   "event": "D1T50",
+   "tier": "F",
+   "label": "about the event",
+   "claim": {
+    "text": "between 1 and 2 p. m.",
+    "min": 810,
+    "author": "Maj. Allen G. Brady",
+    "unit": "Seventeenth Connecticut Infantry",
+    "page": 716,
+    "sentence": "General: In compliance with instructions from headquarters, I have the honor to make the following report of the part taken by the Seventeenth Begiment Connecticut Volunteers in the engagementof the 1st, 2d, and 3d instant : The regiment arrived in Gettysburg "
+   },
+   "event_title": "XI Corps (Howard) begins arriving north of Gettysburg",
+   "day": 1
+  },
+  {
+   "n": 34,
+   "event": "D2T252",
+   "tier": "F",
+   "label": "not about the event",
+   "claim": {
+    "text": "4 o’clock",
+    "min": 960,
+    "author": "Lieut. Col. Francis M. Cummins",
+    "unit": "One hundred and twenty-fourth New York Infantry",
+    "page": 512,
+    "sentence": "Sir : I have the honor to report that this regiment, being in position on a rocky bluff, near the extreme left of the line, occupied by the Third Corps at Gettysburg on the afternoon of July 2, was attacked between the hours of 3 and 4 o’clock by a heavy force"
+   },
+   "event_title": "Meade discovers Sickles's unauthorized advance",
+   "day": 2
+  },
+  {
+   "n": 35,
+   "event": "D3T452",
+   "tier": "F",
+   "label": "about the event",
+   "claim": {
+    "text": "dawn",
+    "min": 265,
+    "author": "Col. John C. Higginbotham",
+    "unit": "Twenty-fifth Virginia Infantry",
+    "page": 536,
+    "sentence": "The regiment remained in line of battle that night, with picks thrown forward, and at dawn, July 3, advanced throwing 50 men forward as sharpshooters, under the command of Lieutenants [J . G. J McCray and [J. H.]"
+   },
+   "event_title": "Johnson's Confederate division counterattacks to retain the breastworks",
+   "day": 3
+  },
+  {
+   "n": 36,
+   "event": "D1T25",
+   "tier": "F",
+   "label": "about the event",
+   "claim": {
+    "text": "10 a. m.",
+    "min": 600,
+    "author": "Col. William W. Robinson",
+    "unit": "Seventh Wisconsin Infantry",
+    "page": 278,
+    "sentence": "Arrived in the vicinity of Gettysburg about 10 a. m., when we heard firing to the left of the town, and were informed that our cavalry were engaged with the enemy’s advance."
+   },
+   "event_title": "Reynolds arrives at Seminary Ridge, confers with Buford in the Seminary cupola",
+   "day": 1
+  }
+ ]
+}

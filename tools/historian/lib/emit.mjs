@@ -38,10 +38,12 @@ export class Emitter {
   }
 }
 
-const refsOf = (manifest) => {
+const refsOf = (manifest, outDir = null) => {
   const out = new Set();
   const walk = (v) => { if (!v) return; if (typeof v === 'string' && /^f\//.test(v)) out.add(v); else if (Array.isArray(v)) v.forEach(walk); else if (typeof v === 'object') Object.values(v).forEach(walk); };
   walk(manifest.tiers); walk(manifest.corpora);
+  // a corpus keeps the list of its files in a content-hashed file of its own (c.files.path): what that file lists is referenced too
+  if (outDir) for (const c of Object.values(manifest.corpora || {})) if (c && c.files && c.files.path) { const p = path.join(outDir, c.files.path); if (fs.existsSync(p)) walk(JSON.parse(fs.readFileSync(p, 'utf8'))); }
   return out;
 };
 
@@ -61,7 +63,7 @@ export function writeManifest(outDir, manifest) {
   }
   if (changed) fs.writeFileSync(cur, next);
   const keep = new Set();
-  for (const f of [cur, p1, p2]) if (fs.existsSync(f)) for (const r of refsOf(JSON.parse(fs.readFileSync(f, 'utf8')))) keep.add(r);
+  for (const f of [cur, p1, p2]) if (fs.existsSync(f)) for (const r of refsOf(JSON.parse(fs.readFileSync(f, 'utf8')), outDir)) keep.add(r);
   let removed = 0;
   const walk = (d) => fs.existsSync(d) ? fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)])) : [];
   for (const f of walk(path.join(outDir, 'f'))) {

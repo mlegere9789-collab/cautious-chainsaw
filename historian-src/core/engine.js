@@ -37,10 +37,9 @@ export function createEngine(kb, opts = {}) {
   const { idx, facts, entix } = kb;
   const R = idx.R;
   const DOMAIN = new Set(facts.domain || []);
-  const unknownRules = createUnknowns(kb);
-  // reports.js (what an author REPORTED, at what time a report SAYS something happened) is loaded on first use, and only when the KB holds the Official Records corpus: a KB without it never fetches the module
-  let reportsP = null;
-  const getReports = () => { if (!kb.hasCorpus || !kb.hasCorpus('or27')) return Promise.resolve(null); if (!reportsP) reportsP = import('./reports.js').then((m) => m.createReports(kb)); return reportsP; };                                    // known unknowns read by concept: weather, an individual soldier, a roster, what someone thought
+  const unknownRules = createUnknowns(kb);                                    // known unknowns read by concept: weather, an individual soldier, a roster, what someone thought
+  let reportsP = null;                                                        // reports.js (what X reported; at what time a report says) loads on first use, and only when the KB holds the Official Records
+  const getReports = () => { if (!kb.hasCorpus || !kb.hasCorpus('or27')) return Promise.resolve(null); if (!reportsP) reportsP = import('./reports.js').then((m) => m.createReports(kb)); return reportsP; };
   const english = createEnglish(facts.english || '');                    // ordinary English words: never "corrected" into a name
   const STRONG_DOMAIN = new Set(['gettysburg', 'battle', 'battlefield', 'regiment', 'regiments', 'brigade', 'brigades', 'division', 'divisions', 'corps', 'army', 'cavalry', 'artillery', 'battery', 'infantry',
     'commander', 'commanded', 'general', 'colonel', 'confederate', 'confederates', 'union', 'federal', 'cannonade', 'vignette', 'regimental', 'soldier', 'soldiers', 'casualties', 'ridge', 'hill', 'pickett', 'lee', 'meade', 'longstreet']);
@@ -395,7 +394,7 @@ export function createEngine(kb, opts = {}) {
     return linked.has(p.num) || p.rec === sub.id || (() => { const t = tk(p.text); return forms.some((f) => t.includes(f)); })();
   }
 
-  // the site's own records speak first; the Official Records (a corpus) only fill a quote slot the site leaves empty: corpus.js siteFirst
+  // the site's own records speak first; a corpus only fills a quote slot the site leaves empty
   const quotesSiteFirst = (pool, ctx, opts, allow, keep = null) => (kb.corp ? kb.corp.siteFirst(selectQuotes, kb, pool, ctx, opts, allow, keep) : (keep ? selectQuotes(kb, pool, ctx, opts).filter(keep) : selectQuotes(kb, pool, ctx, opts)));
 
   async function addQuotes(S, res, { max = 2, timeQ = false, requireClock = false, leadHasText = false, onlyRecs = null } = {}) {
@@ -456,7 +455,7 @@ export function createEngine(kb, opts = {}) {
     };
     for (const b of res.blocks) {
       if (b.t === 'lead') for (const r of b.runs) if (r.ent) addRec(r.ent);
-      if (b.t === 'quote' && !seen.has(b.passage)) { seen.add(b.passage); out.push({ id: b.passage, label: b.attrib, kind: 'passage', href: null, ...(b.scan ? { scan: b.scan } : {}) }); }
+      if (b.t === 'quote' && !seen.has(b.passage)) { seen.add(b.passage); out.push({ id: b.passage, label: b.leaf ? `${b.attrib} (scan leaf ${b.leaf})` : b.attrib, kind: 'passage', href: null, ...(b.scan ? { scan: b.scan } : {}) }); }
       if (b.t === 'list' || b.t === 'table') for (const id of b.src || []) addRec(id);
     }
     return out;

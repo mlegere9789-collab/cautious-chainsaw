@@ -96,15 +96,23 @@ export function reportMeta(doc, { part = 1 } = {}) {
   const title = doc.toc_title || hdr || '';
   const isPerson = !!doc.toc_title ? splitRank(splitTocTitle(doc.toc_title).author).rank !== null : /^Reports? of\s+(?:Lieut|Col|Maj|Capt|Brig|Gen|Surg|Hon|Rev|Dr|Commodore|Sergt|Medical)/i.test(hdr || '');
   const sp = doc.toc_title ? splitTocTitle(doc.toc_title) : splitTocTitle(String(hdr || '').replace(/^[A-Za-z]*(?:port|ports)[s,.]?\s+(?:of|o\/|ot)\s+/i, ''));
+  // a contents entry that runs the author into the service ("John Gibbon; U. S. Army, commanding ...") names the man before the semicolon
+  if (isPerson) sp.author = sp.author.replace(/\s*;.*$/, '').trim();
   const rk = isPerson ? splitRank(sp.author) : { rank: null, rank_class: 'none', name: null };
   const unitText = isPerson ? sp.unit : '';
   const kind = isPerson ? 'report' : /^(?:General )?Return|^Abstract|^Recapitulation/i.test(title) ? 'return' : /^Organization/i.test(title) ? 'organization' : /^Itinerary/i.test(title) ? 'itinerary' : /Court of Inquiry|Proceedings/i.test(title) ? 'proceedings' : /^Medals/i.test(title) ? 'honors' : /^(?:Congratulatory|Address|Circular|Orders)/i.test(title) ? 'order' : /^Roll/i.test(title) ? 'roll' : 'other';
   const side = part === 1 ? 'union' : (doc.no >= 424 ? 'confederate' : 'union');
   const sideCheck = /C\.\s?S\.\s?(?:Army|A\b)|Confederate/.test(title) ? 'confederate' : (/U\.\s?S\.\s?(?:Army|Vol)|Union/.test(title) ? 'union' : null);
   const wr = writtenDate(doc.text);
-  const sc = scopeOf(doc.toc_title || hdr, part, doc.no);
-  // a heading under which the volume prints several documents (the army commander's report with his correspondence, a general's report with its inclosures): its first dateline is not the date of the report
-  const composite = isPerson && (/correspondence|including/i.test(title) || (doc.pages && doc.pages.start !== null && doc.pages.end !== null && doc.pages.end - doc.pages.start > 30));
+  let sc = scopeOf(doc.toc_title || hdr, part, doc.no);
+  // a heading under which the volume prints several documents (the army commander's report with his correspondence, a general's report with its inclosures): its first dateline is not the date of the report.
+  // "Reports of" (plural) says so itself, and so does a first dateline that carries a clock time ("5.25 [p. m., July 1, 1863.]", "July 1, 1863 - 5 p. m."): that is a dispatch printed first, the report follows it
+  const rawHead = String(doc.title || doc.header || '').replace(/^[^A-Za-z]+/, '');
+  const pluralHead = /^[A-Za-z]{0,4}ports\b/.test(rawHead) || /^[A-Za-z]{1,3}\s?ports\b/.test(rawHead);
+  const timedHead = !!(wr && dayNumber(wr) >= dayNumber({ y: 1863, m: 6, d: 28 }) && dayNumber(wr) <= dayNumber({ y: 1863, m: 7, d: 5 }) && /\b\d{1,2}\s*[.:]\s*\d{2}\b|\b\d{1,2}\s*[ap]\.?\s?m\b/i.test(wr.text));
+  const composite = isPerson && (/correspondence|including/i.test(title) || pluralHead || timedHead || (doc.pages && doc.pages.start !== null && doc.pages.end !== null && doc.pages.end - doc.pages.start > 30));
+  // a report written before the battle (the June actions at Aldie, Brandy Station, Winchester) is not about the Gettysburg fighting, whatever the contents list says
+  if (sc.scope === 'gettysburg' && wr && !composite && dayNumber(wr) < dayNumber({ y: 1863, m: 6, d: 28 })) sc = { scope: 'other', note: sc.note || 'written before the battle: an earlier action of the campaign' };
   const lag = wr && sc.scope === 'gettysburg' && !composite ? dayNumber(wr) - dayNumber(BATTLE_END) : null;
   const p0 = doc.pages && doc.pages.start, p1 = doc.pages && doc.pages.end;
   const cite = p0 === null || p0 === undefined ? `OR Ser. I, vol. 27, pt. ${part}` : `OR Ser. I, vol. 27, pt. ${part}, p${p1 && p1 !== p0 ? 'p' : ''}. ${p0}${p1 && p1 !== p0 ? '–' + p1 : ''}`;

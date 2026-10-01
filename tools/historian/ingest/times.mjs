@@ -65,6 +65,8 @@ export function parseClock(text, { ctx = null } = {}) {
         const h = +m[1], mi = m[2] === undefined ? 0 : +m[2]; if (h < 1 || h > 12 || mi > 59) continue;
         const ap = /^p/i.test(m[3].replace(/^[^ap]*/i, '')) ? 'pm' : 'am';
         row = { kind, h, m: mi, ampm: ap, min: minOf(h, mi, ap), tol: m[2] !== undefined ? 5 : 10, explicitMinutes: m[2] !== undefined };
+        // "12 p. m." and "12 a. m." are noon or midnight depending on the writer ("bivouacked at 12 p. m."): the hour is kept, the reading is not guessed
+        if (h === 12 && mi === 0 && m[2] === undefined) { row.cand = [0, 720]; row.min = null; row.ampm = null; row.twelve = true; }
       } else if (kind === 'noon12') {
         row = { kind: 'noon', h: 12, m: 0, ampm: 'pm', min: 720, tol: 10, word: '12 m.' };
       } else if (kind === 'oclock') {
@@ -119,7 +121,8 @@ export function parseClock(text, { ctx = null } = {}) {
 
 // ---- days -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const MONTHS = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12 };
-const MON_RE = '(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)';
+// the OCR sets the first letter of a month apart ("J uly 22", "J une 3"): allowed
+const MON_RE = '(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|J\\s?une?|J\\s?uly?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)';
 const ORD = String.raw`(\d{1,2})\s?(?:st|d|nd|rd|th|\^|d)?`;
 const WEEKDAY = { sunday: [[6, 28], [7, 5]], monday: [[6, 29]], tuesday: [[6, 30]], wednesday: [[7, 1]], thursday: [[7, 2]], friday: [[7, 3]], saturday: [[7, 4]] };
 // words that follow an ordinal when it is part of a unit's name ("the 2d Brigade", "the 3d New York"): then it is not a day
@@ -130,7 +133,7 @@ const PRE_DAY = /(?:on|of|until|till|by|since|from|to|during|upon|and|or|for|abo
 export function dayRefs(sentence, { month = 7 } = {}) {
   const s = String(sentence); const out = [];
   for (const m of s.matchAll(new RegExp(String.raw`\b(${MON_RE})\.?\s*${ORD}(?![\d:.]\s?\d{2}\s?[ap])(?!\s?(?:[ap]\.?\s?m\b|o.?clock))`, 'gi'))) {
-    const mo = MONTHS[m[1].slice(0, 3).toLowerCase()], d = +m[2]; if (d >= 1 && d <= 31) out.push({ m: mo, d, kind: 'date', at: m.index });
+    const mo = MONTHS[m[1].replace(/\s/g, '').slice(0, 3).toLowerCase()], d = +m[2]; if (d >= 1 && d <= 31) out.push({ m: mo, d, kind: 'date', at: m.index });
   }
   for (const m of s.matchAll(new RegExp(String.raw`\b${ORD}\s+(instant|inst\b\.?|ultimo|ult\b\.?|proximo|prox\b\.?)`, 'gi'))) {
     const d = +m[1]; if (d < 1 || d > 31) continue; const w = m[2].toLowerCase();
@@ -170,18 +173,61 @@ export const isoDay = (st, y = 1863) => (st ? `${y}-${String(st.m).padStart(2, '
  */
 export function dayTracker({ month = 7, start = null } = {}) {
   let cur = start ? { m: start.m, d: start.d } : null;
-  return (sentence) => {
-    const refs = dayRefs(sentence, { month });
-    let named = null;
-    for (const r of refs) {
-      if (r.kind === 'date' || r.kind === 'weekday') named = { m: r.m, d: r.d };
-      else if (r.kind === 'ord') named = { m: r.m || (cur ? cur.m : month), d: r.d };
-      else if (r.kind === 'weekday-amb') { const near = cur ? r.cands.find(([m, d]) => Math.abs((m * 31 + d) - (cur.m * 31 + cur.d)) <= 3) : null; if (near) named = { m: near[0], d: near[1] }; }
-    }
-    if (named) { cur = named; return { day: { ...cur }, basis: 'same' }; }
-    const rel = refs.find((r) => r.kind === 'rel');
-    // "to-morrow" and "yesterday" name a day for this sentence only; "the next morning" moves the narrative on
-    if (rel && cur) { if (rel.w === 'tomorrow' || rel.w === 'prev') return { day: { ...addDay(cur, rel.delta) }, basis: 'rel' }; if (rel.delta !== 0) cur = addDay(cur, rel.delta); return { day: { ...cur }, basis: 'rel' }; }
-    return cur ? { day: { ...cur }, basis: 'carried' } : { day: null, basis: 'none' };
+  let age = 0, touched = false;                                   // sentences since the register was set; whether this sentence set it
+  const inWindow = (m, d) => m === 6 ? d >= 28 : m === 7 ? d <= 5 : false;
+  const apply = (r) => {
+    if (r.kind === 'date') { cur = { m: r.m, d: r.d }; age = 0; touched = true; return 'same'; }
+    // a weekday names a day of the battle week only where the report is about that week (the register is in it, or nothing is known): "Thursday" in a report of June 25 is not July 2
+    if (r.kind === 'weekday') { if (cur && !inWindow(cur.m, cur.d)) return null; cur = { m: r.m, d: r.d }; age = 0; touched = true; return 'same'; }
+    if (r.kind === 'ord') { cur = { m: r.m || (cur ? cur.m : month), d: r.d }; age = 0; touched = true; return 'same'; }
+    if (r.kind === 'weekday-amb') { const near = cur ? r.cands.find(([m, d]) => Math.abs((m * 31 + d) - (cur.m * 31 + cur.d)) <= 3) : null; if (near) { cur = { m: near[0], d: near[1] }; age = 0; touched = true; return 'same'; } return null; }
+    if (r.kind === 'rel' && cur) { if (r.w === 'tomorrow' || r.w === 'prev') return 'rel-once'; if (r.delta !== 0) { cur = addDay(cur, r.delta); age = 0; touched = true; } return 'rel'; }
+    return null;
   };
+  const dayOfRef = (r) => (r.kind === 'date' || r.kind === 'weekday') ? { m: r.m, d: r.d } : r.kind === 'ord' ? { m: r.m || (cur ? cur.m : month), d: r.d } : null;
+  // a date written right after the clock reads as the clock's day: "arriving at 7 a. m. on the 2d", "until about 10 a. m. July 5", "at daylight on July 4", "3.30 a. m. on Tuesday, July 7", "4 o'clock on the morning of the 3d"
+  const AFTER = /^[\s,;.()\-—]*(?:(?:on|of|in|the|morning|afternoon|evening|night|day|and|following)[\s,]+){0,4}$/i;
+  const after = (sentence, e, refs) => {
+    for (let k = 0; k < refs.length; k++) {
+      const r = refs[k]; if (r.at < e) continue; if (r.at - e > 36) break; if (!(r.kind === 'date' || r.kind === 'weekday' || r.kind === 'ord')) continue;
+      if (!AFTER.test(sentence.slice(e, r.at))) continue;
+      const nx = refs[k + 1];                                                      // "Tuesday, July 7": the date that follows the weekday is the day
+      if (r.kind === 'weekday' && nx && nx.kind === 'date' && nx.at - r.at <= 22) return nx;
+      return r;
+    }
+    return null;
+  };
+  /**
+   * The day each clock of a sentence is said about, reading left to right. `spans` are [{ s, e }] (or bare start offsets). Order of evidence for a clock:
+   *   a date written right AFTER it ("at 7 a. m. on the 2d")                                      'same'
+   *   a day named BEFORE it in the sentence (a date, "the 2d", a weekday, "the next day")          'same' / 'rel'
+   *   the register as the sentence found it, from an earlier sentence                              'carried' (age = sentences since it was set)
+   *   a day named only AFTER it at a distance, when nothing else is known                          'later'
+   */
+  const at = (sentence, spans) => {
+    const refs = dayRefs(sentence, { month }).sort((a, b) => a.at - b.at);
+    const startAge = age; touched = false;
+    const out = [];
+    let ri = 0, basis = null, once = null;
+    for (const sp of spans) {
+      const pos = typeof sp === 'number' ? sp : sp.s, end = typeof sp === 'number' ? sp : sp.e;
+      while (ri < refs.length && refs[ri].at < pos) { const b = apply(refs[ri]); if (b === 'rel-once') once = refs[ri]; else { once = null; if (b) basis = b; } ri++; }
+      const aft = typeof sp === 'number' ? null : after(sentence, end, refs);
+      const ad = aft ? dayOfRef(aft) : null;
+      if (ad) out.push({ day: ad, basis: 'same', age: 0 });
+      else if (once && cur) out.push({ day: { ...addDay(cur, once.delta) }, basis: 'rel', age: 0 });
+      else if (basis && cur) out.push({ day: { ...cur }, basis, age: 0 });
+      else if (cur) out.push({ day: { ...cur }, basis: 'carried', age: startAge + 1 });
+      else {
+        const later = refs.slice(ri).find((r) => r.kind === 'date' || r.kind === 'weekday' || r.kind === 'ord');
+        out.push(later ? { day: { m: later.m || month, d: later.d }, basis: 'later', age: 0 } : { day: null, basis: 'none', age: 0 });
+      }
+    }
+    while (ri < refs.length) { const b = apply(refs[ri]); ri++; if (b && b !== 'rel-once') basis = b; }
+    if (!touched) age++;
+    return out;
+  };
+  const tracker = (sentence) => at(sentence, [String(sentence).length])[0];
+  tracker.at = at;
+  return tracker;
 }

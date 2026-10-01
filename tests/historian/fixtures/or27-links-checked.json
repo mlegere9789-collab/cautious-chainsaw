@@ -1,0 +1,4262 @@
+{
+ "_comment": "Entity links of the Official Records corpus read by hand: each link below was read in its sentence (mentions), against the contents-list title (report authors) or the signature and its title line (dispatch senders), and labelled correct / wrong / uncertain. ONE reader, the builder; the sample was drawn with a seeded generator (mulberry32) from the links the build emits. Uncertain links count as wrong in the precision figures. The text excerpts are public-domain 1889 print (OR Ser. I, vol. 27) as read by OCR. Tier C links are not emitted (never a passage entity); they are labelled for information.",
+ "corpus": "or27 (Official Records Ser. I vol. 27 parts 1-3)",
+ "labeled_on": "2026-10-01",
+ "labeler": "builder (single reader)",
+ "samples": {
+  "S1": {
+   "seed": 27,
+   "drawn_from": "build with the linker before the fixes of this pass",
+   "mention_A": 35,
+   "mention_B": 45,
+   "mention_C": 15,
+   "author_person": 25,
+   "author_unit": 15,
+   "signer": 15,
+   "note": "pairs (passage, entity) drawn uniformly within the tier"
+  },
+  "S2": {
+   "seed": 28,
+   "drawn_from": "build after the first fixes (militia, battery, Lt. Gen. ranks, author names, signers)",
+   "mention_A": 20,
+   "mention_B": 20,
+   "mention_C": 0,
+   "author_person": 10,
+   "author_unit": 5,
+   "signer": 10
+  },
+  "S3": {
+   "drawn_from": "not drawn: EVERY sender link added when the sender was read from the document's own lines instead of the passages' (a passage joins the lines of a paragraph, so \"A. PLEASONTON,\" and its title line \"Brigadier-General, Commanding.\" had become one line and no sender was read), read exhaustively",
+   "signer_doc": 105,
+   "note": "the 5 wrong links were found by this reading and fixed (middle name and given-name check, a staff title below the rank of general, the title's rank must be the registry's rank); they are labelled wrong with fixed_after_label"
+  }
+ },
+ "items": [
+  {
+   "id": "S1-001",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-61NY",
+   "side": "union",
+   "doc": "or27-1:0080",
+   "sentence": "Beport of Lieut. Col. K. Oscar Broady, Sixty-first New York Infantry.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-002",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "C-3AL",
+   "side": "confederate",
+   "doc": "or27-2:0511",
+   "sentence": "I again moved by the flank, ana brought them into line on the left of the Third Alabama, which was on General Iverson’s right.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-003",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "C-48MS",
+   "side": "confederate",
+   "doc": "or27-2:0424",
+   "sentence": "48th Mississippi, Col. Joseph M. Jayne.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-004",
+   "family": "mention",
+   "tier": "A",
+   "via": "surname",
+   "entity": "P:john-hazard",
+   "side": "union",
+   "doc": "or27-3:p0794.2",
+   "sentence": "Capt. John G. Hazard.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-005",
+   "family": "mention",
+   "tier": "A",
+   "via": "surname",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0014.3",
+   "sentence": "A. PLEASONTON, Brigadier- General, Commanding .",
+   "label": "correct"
+  },
+  {
+   "id": "S1-006",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-11NJ",
+   "side": "union",
+   "doc": "or27-1:0165",
+   "sentence": "I am, sir, very respectfully, you ^ SCHOONoVeE, Adjutant Eleventh New Jersey Volunteers.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-007",
+   "family": "mention",
+   "tier": "A",
+   "via": "surname",
+   "entity": "P:henry-benning",
+   "side": "confederate",
+   "doc": "or27-2:0458",
+   "sentence": "I am, major, very respectfullv, your obedient servant, HENRY L. BENNING, Maj. W. H. Sellers, Assistant Adjutant- General.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-008",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "C-6NC",
+   "side": "confederate",
+   "doc": "or27-2:0474",
+   "sentence": "TATE, Major, Commanding Sixth North Carolina.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-009",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-90PA",
+   "side": "union",
+   "doc": "or27-3:p0794.2",
+   "sentence": "90th Pennsylvania, Lieut. Col. William A. Leech. *See the Artillery Reserve, and artillery attached to the several corps. f Brigaded under command of Brig. Gen. Henry W. Benliam, and at Washington, D. C. \\ Detached from Benham’s brigade, July 7. §This division gained during the month the 8th, 39th, 46th, and 51st Massachusetts Regiments (Briggs’ brigade), and the 12th, 13th, 14th, 15tli, and 16th Vermont Regiments (Stannard’s brigade).",
+   "label": "correct"
+  },
+  {
+   "id": "S1-010",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-62PA",
+   "side": "union",
+   "doc": "or27-1:0193",
+   "sentence": "About this time, too, word was brought me from the Fourth Michigan and Sixty-second Pennsylvania that the enemy were getting into our rear in the woods on the right.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-011",
+   "family": "mention",
+   "tier": "A",
+   "via": "surname",
+   "entity": "P:john-connally",
+   "side": "confederate",
+   "doc": "or27-3:p1058.1",
+   "sentence": "55th North Carolina, Col. John K. Connally.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-012",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-1PA-R",
+   "side": "union",
+   "doc": "or27-1:0029",
+   "sentence": "On the 30th, we made a short march of 3 or 4 miles to Marsh Qreek? where we again took up a defensive position* Wadsworth’s division, with Hall’s (Second Maine) battery, covering the Gettysburg road; my own division, with Cooper’s (First Pennsylvania Reserve Volunteer) battery, covering the Fairfield road, and Robinson’s division, with the remaining three batteries, some miles in rear as a reserve.",
+   "label": "wrong",
+   "reason": "a battery that carries its parent regiment's name, \"Cooper's (First Pennsylvania Reserve Volunteer) battery\", is not the 1st Pennsylvania Reserves",
+   "fixed_after_label": true
+  },
+  {
+   "id": "S1-013",
+   "family": "mention",
+   "tier": "A",
+   "via": "surname",
+   "entity": "P:john-mercer",
+   "side": "confederate",
+   "doc": "or27-3:p0918.3",
+   "sentence": "21st Georgia, Col. J. T. Mercer.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-014",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-148PA",
+   "side": "union",
+   "doc": "or27-1:0080",
+   "sentence": "The brigade was formed in close column by battalion, the Sixty-first New York Volunteers being the second in column, with the Fifth New Hampshire Volunteers in front and the One hundred and forty-eighth Pennsylvania Volunteers in the rear.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-015",
+   "family": "mention",
+   "tier": "A",
+   "via": "surname",
+   "entity": "P:thomas-osborn",
+   "side": "union",
+   "doc": "or27-1:0028",
+   "sentence": "manding the reserve, and but four field officers (Brig. Gen. R. O. Tyler, U. S. Volunteers, commanding Artillery Reserve; Lieut. Col. F. McGilvery, First Maine Artillery, commanding brigade Artillery Reserve ; Col. C. H. Tompkins, First Rhode Island Artillery, Sixth Corps ; Col. C. S. Wain wright, First New York Artillery, First Corps ; Maj. T. W. Osborn, First New York Artillery, Eleventh Corps ; Capt. J. M. Robertson, Second U. S. Artillery, commanding First Brigade Horse Artillery ; Capt. J. C. Tidball, Second U. S. Artillery, commanding Second Brigade Horse Artillery).",
+   "label": "correct"
+  },
+  {
+   "id": "S1-016",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "C-13SC",
+   "side": "confederate",
+   "doc": "or27-2:0424",
+   "sentence": "13th South Carolina, Lieut. Col. B. T. Brockman.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-017",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-11NJ",
+   "side": "union",
+   "doc": "or27-1:0160",
+   "sentence": "In closing, I desire to call the attention of the general commanding the division to the gallant and meritorious conduct of Col. Robert McAllister, commanding Eleventh New Jersey Volunteers, twice wounded; Lieut. Col. Porter D. Tripp, commanding Eleventh Massachusetts Volunteers; Lieut. Col. Waldo Merriam, commanding Sixteenth Massachusetts Volunteers, wounded; Maj. Robert L. Bodine, commanding Twenty-sixth Pennsylvania Volunteers; Maj. Philip J. Kearny, Eleventh New Jersey Volunteers, seriously wounded (since dead); Major McDonald, Eleventh Massachusetts Volunteers, wounded; Captain Tomlinson, Twenty-sixth Pennsylvania Volunteers, acting lieutenant-colonel; Captain Goodfellow, Twentysixth P",
+   "label": "correct"
+  },
+  {
+   "id": "S1-018",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "C-2VA-CAV",
+   "side": "confederate",
+   "doc": "or27-2:0565",
+   "sentence": "Capt. W. B. Wooldridge, Fourth Virginia Cavalry, Lieut. J. L. Jones, Second Virginia Cavalry, and Lieut. R. B. Kennon, Provisional Army, Confederate States, members of general court-martial, Fitz.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-019",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "C-48GA",
+   "side": "union",
+   "doc": "or27-1:0115",
+   "sentence": "The Second Brigade, Col. Thomas A. Smyth, First Delaware Vol- * A medal of honor awarded to Sergt. James Wiley for the capture of the flag of the Forty-eighth Georgia Infantry.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-020",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "C-6LA",
+   "side": "confederate",
+   "doc": "or27-2:0470",
+   "sentence": "Though I do not wish to make invidious distinctions by calling attention to individual acts of daring and gallantry, of which there were so many instances, I must refer to the case of Lieut. John Orr, adjutant of the Sixth Louisiana Regiment (mentioned by General Hays), who mounted the enemy’s breastworks at Winchester, and received a bayonet wound on the top of the parapet, and I respectfully recommend this officer for promotion to the position of captain of cavalry, he being desirous of entering that branch of the service, for which he is eminently qualified.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-021",
+   "family": "mention",
+   "tier": "A",
+   "via": "surname",
+   "entity": "P:william-barbour",
+   "side": "confederate",
+   "doc": "or27-2:0424",
+   "sentence": "37th North Carolina, Col. W. M. Barbour.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-022",
+   "family": "mention",
+   "tier": "A",
+   "via": "person-name",
+   "entity": "P:john-coons",
+   "side": "union",
+   "doc": "or27-1:0117",
+   "sentence": "Report of Col. John Coons, Fourteenth Indiana Infantry.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-023",
+   "family": "mention",
+   "tier": "A",
+   "via": "surname",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0766.1",
+   "sentence": "Very respectfully, &c., A. A. HUMPHREYS, Major-General, and Chief of Staff.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-024",
+   "family": "mention",
+   "tier": "A",
+   "via": "surname",
+   "entity": "P:edward-muhlenberg",
+   "side": "union",
+   "doc": "or27-1:0009",
+   "sentence": "Lieut. Edward D. Muhlenberg.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-025",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "C-14NC",
+   "side": "confederate",
+   "doc": "or27-2:0506",
+   "sentence": "Ramseur’s (North Carolina) brigade, commanded by Brig. Gen. S. D. Ramseur, composed of the Second North Carolina, commanded by Maj. D. W. Hurtt; Fourth North Carolina, commanded by Col. Bryan Grimes* Fourteenth North Carolina, commanded by Col. R. T. Bennett, and lhirtieth North Carolina, commanded by Col. F. M. Parker.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-026",
+   "family": "mention",
+   "tier": "A",
+   "via": "surname",
+   "entity": "P:charles-morse",
+   "side": "union",
+   "doc": "or27-1:0288",
+   "sentence": "I am, very truly, your obedient servant, C. F. MORSE, Lieutenant- Colonel Second Massachusetts Regiment.",
+   "label": "correct",
+   "note": "Lieut. Col. when he wrote; the registry has him as the major he was at Gettysburg: same man"
+  },
+  {
+   "id": "S1-027",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-126NY",
+   "side": "union",
+   "doc": "or27-1:0128",
+   "sentence": "Sir : Replying to the circular dated Philadelphia, Pa. , July 7, 1863, I beg leave to represent that I have made diligent inquiry as to the subject-matter of said circular. * Medals of honor awarded to Capt. Morris Brown, jr., Sergt. George H. Dore, and Private Jerry Wall, all of the One hundred and twenty-sixth New York, for the capture of Confederate colors. fSee revised statement, p. 177.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-028",
+   "family": "mention",
+   "tier": "A",
+   "via": "person-name",
+   "entity": "P:fitzhugh-lee",
+   "side": "union",
+   "doc": "or27-1:0378",
+   "sentence": "Soon after leaving Hopewell a scout of the enemy was captured, from whom we learned that General Stuart was passing through Middleburg with a large force of cavalry, afterward discovered to be Fitzhugh Lee’s brigade going toward Aldie.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-029",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "C-48GA",
+   "side": "confederate",
+   "doc": "or27-2:0424",
+   "sentence": "48th Georgia: Col. William Gibson.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-030",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "C-2MS",
+   "side": "union",
+   "doc": "or27-1:0035",
+   "sentence": "Sir: I have the honor to report that the accompanying battle-flag of the Second Mississippi Volunteers was captured by the regiment under my command under the following circumstances :",
+   "label": "correct"
+  },
+  {
+   "id": "S1-031",
+   "family": "mention",
+   "tier": "A",
+   "via": "surname",
+   "entity": "P:john-mercer",
+   "side": "confederate",
+   "doc": "or27-2:0514",
+   "sentence": "Lumpkin fell, severely wounded (leg since amputated), while gallantly leading their respective regiments in a charge against the enemy. . , Twolfti, To Col. Edward Willis and Map Isaac Hardeman, of the Twelfth Georgia Regiment ; Col. J. T. Mercer, Lieut. Col. T. W. Hcopm. and Maj. T. C. Glover, of the Twenty-first Georgia Regiment ,Maj. W H Willis, of the Fourth Georgia Regiment and Map W, tt-Peebles, Forty-fourth Georgia Regiment I attribute the ' success of this command.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-032",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "C-6NC",
+   "side": "confederate",
+   "doc": "or27-2:0424",
+   "sentence": "6th North Carolina, Maj. S. McD.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-033",
+   "family": "mention",
+   "tier": "A",
+   "via": "person-name",
+   "entity": "P:fitzhugh-lee",
+   "side": "union",
+   "doc": "or27-3:p0380.2",
+   "sentence": "Fitzhugh Lee, with his brigade of cavalry, was yesterday at 3 p. m. at Annandale, and is now in the vicinity of Fairfax Court-House.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-034",
+   "family": "mention",
+   "tier": "A",
+   "via": "surname",
+   "entity": "P:oliver-howard",
+   "side": "union",
+   "doc": "or27-3:p0614.4",
+   "sentence": "O. O. HOWARD, Major- General .",
+   "label": "correct"
+  },
+  {
+   "id": "S1-035",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "C-4GA",
+   "side": "confederate",
+   "doc": "or27-2:0516",
+   "sentence": "Captain: On the evening of July 1, at about 4 o brigade was drawn up in line of battle on the north side 7. burg Pa., in the following order, viz : Twenty -first Georgia, 1 or y fourth Georgia.",
+   "label": "uncertain",
+   "reason": "OCR-damaged list (\"1 or y fourth Georgia\"): may be the Forty-fourth Georgia",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S1-036",
+   "family": "mention",
+   "tier": "B",
+   "via": "alias",
+   "entity": "ARMY:U",
+   "side": "union",
+   "doc": "or27-3:p0287.1",
+   "sentence": "Major-General Hooker, Commanding Army of the Potomac: Which side of Goose Creek do you wish the second bridge — north or south ?",
+   "label": "correct"
+  },
+  {
+   "id": "S1-037",
+   "family": "mention",
+   "tier": "B",
+   "via": "alias",
+   "entity": "U-1US-SS",
+   "side": "union",
+   "doc": "or27-1:0148",
+   "sentence": "During the afternoon my regiment, with the Twentieth Indiana, was ordered forward through the woods to support Berdan’s Sharpshooters.",
+   "label": "correct",
+   "note": "Berdan's Sharpshooters were two regiments; the link is to the first"
+  },
+  {
+   "id": "S1-038",
+   "family": "mention",
+   "tier": "B",
+   "via": "alias",
+   "entity": "ARMY:U",
+   "side": "union",
+   "doc": "or27-1:0008",
+   "sentence": "Engineer Brigade (Benham) . Engineer Battalion (Mendell) Guards and orderlies (Ingalls) Signal Corps (Norton) First Army Corps (Newton) Second Army Corps (Hays) Third Army Corps (French) Fifth Army Corps (Sykes) . Sixth Army Corps (Sedgwick) Eleventh Army Corps (Howard) Twelfth Army Corps (Slocum) Cavalry Corps (Pleasonton) . . . Artillery Reserve (Tyler) Consolidated field return of the Army of the Potomac.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-039",
+   "family": "mention",
+   "tier": "B",
+   "via": "unit-grammar",
+   "entity": "ART:U-ART-13NY",
+   "side": "union",
+   "doc": "or27-1:0266",
+   "sentence": "Report of Lieut. William Wheeler, Thirteenth New York Battery.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-040",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:john-caldwell",
+   "side": "union",
+   "doc": "or27-1:0030",
+   "sentence": "General Sedgwick could only spare me the First New Jersey brigade (General Torbert), which was placed m position on the left of General Caldwell.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-041",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-1:0005",
+   "sentence": "The President : ' ^ , , , , Mr. President : My latest advices from General Pleasonton dated 4.30 p. m„ the 21st.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-042",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:winfield-hancock",
+   "side": "union",
+   "doc": "or27-3:p0309.2",
+   "sentence": "Commanding Officer Cavalry Corps: General Hancock reports that the enemy have appeared in the direction of New Baltimore, with a force estimated as from four regiments to 6,000 men, with one battery of artillery.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-043",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:evander-law",
+   "side": "confederate",
+   "doc": "or27-2:0432",
+   "sentence": "Hood’s division, then commanded by General Law, was engaged with the enemy’s cavalry in his front, his line being formed across our right flank.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-044",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:henry-heth",
+   "side": "confederate",
+   "doc": "or27-2:0535",
+   "sentence": "Report of Col. R. Lindsay Walker, C. S. Army, Chief of Artillery Hdqrs. Artillery Third Corps, Army Northern Va., ’ C1863-] Major : I have the honor to submit the following report of the operations of the artillery of the Third Army Corps, from their * For casualties July 1-3, . including artillery, see p. 345. leaving the camps near Fredericksburg on June 15, to their return to Culpeper on J uly 27 : _ , , The battalion of Lieutenant-Colonel Garnett was ordered to report to Major-General Heth; and Major Poague to Major-General Pender and the battalion of Lieutenant-Colonel Cutts, under command of - Major Lane, to Major-General Anderson, for duty with their divisions.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-045",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:jh-ward",
+   "side": "union",
+   "doc": "or27-1:0143",
+   "sentence": "Soon after, by order of General Ward, I moved my regiment as a support for a body of sharpshooters, under command of Colonel Berdan, to whom I was ordered to report, by Captain Briscoe, ot General Birney’s staff.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-046",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:jeb-stuart",
+   "side": "confederate",
+   "doc": "or27-2:0569",
+   "sentence": "From this position I was ordered to rejoin General Hampton south of the railroad, and, by order, changed position several times, the fourth change of position brought my regiment into line m the ravine between General Stuart’s headquarters and Brandy, on the east side of the run, my right resting on the road.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-047",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:james-barnes",
+   "side": "union",
+   "doc": "or27-1:0336",
+   "sentence": "General: I moved with my command this morning to Middleburg, and had the assistance of General Barnes’ division in the operations of this day.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-048",
+   "family": "mention",
+   "tier": "B",
+   "via": "alias",
+   "entity": "ARMY:U",
+   "side": "union",
+   "doc": "or27-3:p0006.1",
+   "sentence": "Headquarters Army of the Potomac, June 4, 1863.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-049",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:john-reynolds",
+   "side": "union",
+   "doc": "or27-1:0337",
+   "sentence": "General Reynolds.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-050",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:richard-ewell",
+   "side": "confederate",
+   "doc": "or27-2:0426",
+   "sentence": "General Ewell was, therefore, instructed to carry the hill occupied by the enemy, if he found it practicable, but to avoid a general engagement until the arrival of the other divisions of the army, which were ordered to hasten forward.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-051",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:george-meade",
+   "side": "union",
+   "doc": "or27-3:p0542.2",
+   "sentence": "By command of Major-General Meade : S. WILLIAMS, Assistant Adjutant- General.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-052",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:david-gregg",
+   "side": "union",
+   "doc": "or27-3:p0602.1",
+   "sentence": "Brigadier-General Gregg, Commanding Second Division : General : The major-general commanding directs that you collect all the detachments of your command which are in the vicinity of this place ; march with them to the vicinity of Boonsborough, where you will take command of the brigade of y'our division now serving with General Kilpatrick.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-053",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:richard-roberts",
+   "side": "union",
+   "doc": "or27-1:0088",
+   "sentence": "Colonel Roberts was killed while bravely leading on his men at the commencement of . the action on J uly 2. , The conduct of officers and men in these engagements at Gettysburg deserves the highest praise. . J _ , , . A list of the heavy casualties of the regiment has been already forwarded.* I have the honor to be, captain, yours, respectfully, JOHN FRASER, Lieutenant-Colonel 140 th Pennsylvania Volunteers.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-054",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:john-wheeler",
+   "side": "union",
+   "doc": "or27-1:0133",
+   "sentence": "The First U. S. Sharpshooters, Colonel Berdan, and Second U. S. Sharpshooters, Major Stoughton; Third Maine, Colonel Lakeman; Fourth Maine, Colonel Walker; Twentieth Indiana, Colonel Wheeler; Ninety-ninth Pennsylvania, Major Moore; One hundred and twentyfourth New York, Colonel Ellis, and Eighty-sixth New York, Lieutenant-Colonel Higgins, composed this brigade.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-055",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:ambrose-hill",
+   "side": "confederate",
+   "doc": "or27-3:p0887.1",
+   "sentence": "Major-General Hill, Comdg. Dept, of N. C. and 8.",
+   "label": "wrong",
+   "reason": "\"Major-General Hill, Comdg. Dept. of N. C.\" is D. H. Hill, not A. P. Hill (a lieutenant general in the registry)",
+   "fixed_after_label": true
+  },
+  {
+   "id": "S1-056",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:james-wadsworth",
+   "side": "union",
+   "doc": "or27-1:0072",
+   "sentence": "As the last piece of the battery was coming away, all its horses were shot, and I was about to return for it myself, when General Wadsworth gave me a peremptory order to lose no time, but get my battery in position near the town, on the heights, to cover the retiring of the troops.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-057",
+   "family": "mention",
+   "tier": "B",
+   "via": "alias",
+   "entity": "ARMY:U",
+   "side": "union",
+   "doc": "or27-3:p0635.4",
+   "sentence": "The other regiments of the brigade under Lieutenant-Colonel McKelvy’s command, f The 34th and 39th Massachusetts sent, July 10, to the Army of the Potomac. %En route from Defenses South of the Potomac. g The First Brigade at Forts Bunker Hill and Slocum ; the Second Brigade at Advance Battery and Forts Reno, Simmons, and Sumner; the Third Brigade at Fort Baker.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-058",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:henry-slocum",
+   "side": "union",
+   "doc": "or27-3:p0618.1",
+   "sentence": "I have communicated with General Slocum, who reached the former village about 11 a. m.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-059",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0702.1",
+   "sentence": "General Humphreys: Sir : The head of my column will reach here in two hours.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-060",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-1:0194",
+   "sentence": "Captain : I have the honor to report that, in obedience to orders from the general commanding the division, I moved to Middleburg * Embodied in revised statement, p. 179. during the morning of Sunday, and at 7 a. m. , under tlie direction of General Pleasonton, commanding the expedition, took the position on the left of the cavalry of General Gregg’s column, on the Ashby Gap road.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-061",
+   "family": "mention",
+   "tier": "B",
+   "via": "alias",
+   "entity": "ARMY:U",
+   "side": "union",
+   "doc": "or27-1:0187",
+   "sentence": "General: In obedience to Paragraph III, Special Orders, No. 227, headquarters Army of the Potomac, I have the honor to report that j no guns were captured from this command by the enemy during the I recent operations in Pennsylvania and Maryland.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-062",
+   "family": "mention",
+   "tier": "B",
+   "via": "alias",
+   "entity": "ARMY:U",
+   "side": "union",
+   "doc": "or27-3:p0689.4",
+   "sentence": "Headquarters Army of the Potomac, July 14, 1863 — 12 m.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-063",
+   "family": "mention",
+   "tier": "B",
+   "via": "alias",
+   "entity": "ARMY:U",
+   "side": "union",
+   "doc": "or27-2:0400",
+   "sentence": "Major-General Schenck then proposed to the court that Major-General Hooker, being in the city, should be summoned as a witness, stating that he was informed that there could be proven, and he proposed to have proven, among other facts, by General Hooker this: That he, then being in command of the Army of the Potomac, did receive a telegram from General Pleasonton, informing him that it was reported that two corps of Lee’s army — Longstreet’s and Ewell’s — had marched through Culpeper, by way of Sperry ville, to the Shenandoah Valley, and that this telegram, like others, was received by military telegraph in the usual way through the War Department, where such telegraphic information was accu",
+   "label": "correct"
+  },
+  {
+   "id": "S1-064",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:oliver-howard",
+   "side": "union",
+   "doc": "or27-3:p0291.1",
+   "sentence": "Major-General Howard, Commanding Eleventh Corps: I understand that your corps is ordered to Harper’s Ferry.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-065",
+   "family": "mention",
+   "tier": "B",
+   "via": "alias",
+   "entity": "ARMY:U",
+   "side": "union",
+   "doc": "or27-3:p0693.2",
+   "sentence": "Major-General Humphreys, Chief of Staff, Army of the Potomac : Your telegram, directing all re-enforcements to he retained here until further orders, is received.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-066",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:george-meade",
+   "side": "union",
+   "doc": "or27-3:p0548.3",
+   "sentence": "General Meade : Dispatch from Loudon, 12 miles from Chambersburg, says Potomac rising rapidly; 6 feet of water at Williamsport; 6 miles of wagons seen at Fayetteville this morning, and says retreat cut off at that point by heavy force.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-067",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:joseph-carpenter",
+   "side": "confederate",
+   "doc": "or27-2:0504",
+   "sentence": "Captain Carpenter’s battery, under command of Lieutenant Lambie, was served in the most efficient manner, both on the day on which we arrived in front of Winchester and on the 15th instant.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-068",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:winfield-hancock",
+   "side": "union",
+   "doc": "or27-1:0006",
+   "sentence": "It was during this conflict that General Hancock, commander of the Second Corps, a gallant soldier and accomplished officer, was wounded by a musket-ball and obliged to retire.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-069",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:william-forney",
+   "side": "confederate",
+   "doc": "or27-2:0537",
+   "sentence": "Among the seriously wounded, and known to be in the hands of the enemy, I may mention Colonel Forney, Tenth Alabama Regiment, This officer, not yet well of a wound received at Williamsburg, received a flesh wound in the arm and chest while charging a line of the enemy on the turnpike ; but he still pressed onward, and soon his right arm was shattered.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-070",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:alexander-webb",
+   "side": "union",
+   "doc": "or27-1:0330",
+   "sentence": "The two batteries left with me— A, First New Jersey Artillery First Lieut. A. N. Parsons commanding, and K, First New York Artillery— remained unengaged until 1 p. in. of Friday, July 3, when, by order of General Hunt, I put them in position near the stone fence m front of General Webb’s division of the Second Corps Battery A, First New Jersey Artillery, on the left of K, First New York Artillery.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-071",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:winfield-hancock",
+   "side": "union",
+   "doc": "or27-1:0319",
+   "sentence": "Having received orders from General Hunt and from you not to reply to their batteries I remained silent for the first half hour, when General Hancock ordered us to open.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-072",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:jubal-early",
+   "side": "confederate",
+   "doc": "or27-2:0478",
+   "sentence": "Sir : I have the honor to make the following report of the operaons of this battalion from the time it was attached to General arly’s division until its return into Virginia : I reported with my battalion of artillery, consisting of four bat-Ties, with an aggregate of thirteen guns, to Major-General Early, >mmanding division, near Spotsylvania Court-House, on June 5. f e marched thence, halting three days at Culpeper Court-House, to /inchester, in front of which we arrived about noon of June 13.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-073",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:oliver-howard",
+   "side": "union",
+   "doc": "or27-3:p0460.2",
+   "sentence": "(Copy to Major-General Howard.)",
+   "label": "correct"
+  },
+  {
+   "id": "S1-074",
+   "family": "mention",
+   "tier": "B",
+   "via": "alias",
+   "entity": "ARMY:U",
+   "side": "union",
+   "doc": "or27-3:p0013.1",
+   "sentence": "Headquarters Army of the Potomac, June 6, 1863 — 11.15 a. m.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-075",
+   "family": "mention",
+   "tier": "B",
+   "via": "unit-grammar",
+   "entity": "ART:U-ART-3NY",
+   "side": "union",
+   "doc": "or27-1:0240",
+   "sentence": "Report of Capt. William A. Ham , Third New York Battery. , , 1863.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-076",
+   "family": "mention",
+   "tier": "B",
+   "via": "alias",
+   "entity": "ART:C-ART-Watson",
+   "side": "confederate",
+   "doc": "or27-2:0427",
+   "sentence": "Hupp's (Virginia) battery (Salem Artillery) . . Watson’s battery (2d Richmond Howitzers) 3 i 22 * According to regimental reports, the total loss was : Fifth Alabama, *09 ; Twelft Alabama, 83 : Twenty-sixth Alabama, 130. f Not reported in detail.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-077",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:george-pickett",
+   "side": "confederate",
+   "doc": "or27-2:0442",
+   "sentence": "At one time, just before General Pickett’s division advanced, the batteries of the enemy in our front had nearly all ceased firing; only a few scattering batteries here and there could be seen to fire.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-078",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:john-buford",
+   "side": "union",
+   "doc": "or27-3:p0827.2",
+   "sentence": "Brigadier-General Gregg, Waterloo: General: General Buford drove Hampton’s and Jones’ brigades back to within 1^ miles of Culpeper yesterday, where he found infantry.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-079",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:james-wadsworth",
+   "side": "union",
+   "doc": "or27-1:0243",
+   "sentence": "Another brigade of General Schurz pushed to the support of General Wadsworth, upon his right.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-080",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:john-buford",
+   "side": "union",
+   "doc": "or27-3:p0019.1",
+   "sentence": "I inclose the telegram from General Stahel about General Buford’s movement.",
+   "label": "correct"
+  },
+  {
+   "id": "S1-081",
+   "family": "mention",
+   "tier": "C",
+   "via": "surname",
+   "entity": "P:james-reilly",
+   "side": "confederate",
+   "doc": "or27-2:0428",
+   "sentence": "Men enough in Reilly’s and Latham’s companies ; greatly deficient in Bachman’s and Garden’s.",
+   "label": "correct",
+   "reason": "tier C, not emitted",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S1-082",
+   "family": "mention",
+   "tier": "C",
+   "via": "surname",
+   "entity": "P:richard-ewell",
+   "side": "union",
+   "doc": "or27-3:p0115.2",
+   "sentence": "Hon. E. M. Stanton, Secretary of War: Prisoners who came in last night state that Lee’s army has been re-enforced from South Carolina, Georgia, and North Carolina; that it now consists of three corps, under Longstreet, Ewell, and A. P. Hill.",
+   "label": "correct",
+   "reason": "tier C, not emitted",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S1-083",
+   "family": "mention",
+   "tier": "C",
+   "via": "surname",
+   "entity": "P:george-west",
+   "side": "union",
+   "doc": "or27-1:0007",
+   "sentence": "Kelley’s command, Department of West Virginia, fell back from Hedgesville to the Maryland side of the Potomac at Cherry Run.",
+   "label": "wrong",
+   "reason": "tier C: \"West Virginia\" read as Col. George West",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S1-084",
+   "family": "mention",
+   "tier": "C",
+   "via": "person-name",
+   "entity": "P:william-pegram",
+   "side": "confederate",
+   "doc": "or27-2:0546",
+   "sentence": "Major : On the morning of July 2, my brigade was placed in position before Gettysburg, in the rear of Major Pegram’s battery of artillery, in an open field, with a woods on my right and left flanks.",
+   "label": "correct",
+   "reason": "tier C, not emitted",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S1-085",
+   "family": "mention",
+   "tier": "C",
+   "via": "surname",
+   "entity": "P:samuel-baker",
+   "side": "confederate",
+   "doc": "or27-3:p1044.2",
+   "sentence": "Baker’s cavalry ordered to the Blackwater line, to check the advance on thi^ place or Weldon, N. C. Permit me to suggest that my brigade be sent to Weldon, and Jenkins’ here for the present.",
+   "label": "wrong",
+   "reason": "tier C: \"Baker's cavalry\" is not Col. Samuel Baker",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S1-086",
+   "family": "mention",
+   "tier": "C",
+   "via": "surname",
+   "entity": "P:james-longstreet",
+   "side": "confederate",
+   "doc": "or27-2:0426",
+   "sentence": "Early’s division, which had occupied Boonsborough, moved by a parallel road to Greenwood, and, in pursuance of instructions previously given to General Ewell, marched toward Y\" ork On the 24th, Longstreet and Hill were put in motion to follow Ewell, and, on the 27th, encamped near Chambersburg.",
+   "label": "correct",
+   "reason": "tier C, not emitted",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S1-087",
+   "family": "mention",
+   "tier": "C",
+   "via": "surname",
+   "entity": "P:edward-johnson",
+   "side": "confederate",
+   "doc": "or27-2:0428",
+   "sentence": "The Second Corps, in its subsequent advance across the Potomac into Maryland and Pennsylvania, was attended by its five battalions, Lieutenant-Colonel Carter’s, Lieutenant-Colonel Andrews’, Lieutenant-Colonel Jones’, Colonel Brown’s, and Lieutenant- Colonel [William] Nelson’s, the three former marching with Rodes’, Johnson’s, and Early’s divisions, the tvro latter constituting a corps reserve.",
+   "label": "correct",
+   "reason": "tier C, not emitted",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S1-088",
+   "family": "mention",
+   "tier": "C",
+   "via": "surname",
+   "entity": "P:francis-little",
+   "side": "union",
+   "doc": "or27-3:p0493.1",
+   "sentence": "He reports two corps between Emmitsburg and Gettysburg, one at Little’s tavern, one at Manchester, one at Union Mills, one between Taneytown and Emmitsburg, and one at Frizellburg.",
+   "label": "wrong",
+   "reason": "tier C: \"Little's tavern\" is not Col. Francis Little",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S1-089",
+   "family": "mention",
+   "tier": "C",
+   "via": "person-name",
+   "entity": "P:william-nichols",
+   "side": "union",
+   "doc": "or27-1:0029",
+   "sentence": "The rebel forces, already decimated by the fire of the Fourteenth Regiment, Colonel Nichols commanding, were scooped almost en masse into our lines.",
+   "label": "correct",
+   "reason": "tier C, not emitted",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S1-090",
+   "family": "mention",
+   "tier": "C",
+   "via": "surname",
+   "entity": "P:oliver-howard",
+   "side": "union",
+   "doc": "or27-3:p0208.2",
+   "sentence": "I have communicated with Reynolds and Howard.",
+   "label": "correct",
+   "reason": "tier C, not emitted",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S1-091",
+   "family": "mention",
+   "tier": "C",
+   "via": "surname",
+   "entity": "P:jubal-early",
+   "side": "confederate",
+   "doc": "or27-2:0426",
+   "sentence": "Finding that the Federal force greatly exceeded his own, General Ewell marched through Thornton’s Gap, and ordered Early to move up the Valley by Strasburg and Hew Market.",
+   "label": "correct",
+   "reason": "tier C, not emitted",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S1-092",
+   "family": "mention",
+   "tier": "C",
+   "via": "surname",
+   "entity": "P:henry-benning",
+   "side": "union",
+   "doc": "or27-3:p0405.1",
+   "sentence": "In case of any demonstration of the enemy making a dash along the road from Bladensburg toward Benning’s Bridge, probable or possible, the trees on the road at the foot of the hill ought to be felled across it, and the line of cedars running along the farm road toward the Eastern Branch be felled longitudinally, so as to form an obstruction ; also the trees and bushes along the creek ; the orchards, &c., on the hill cut down.",
+   "label": "wrong",
+   "reason": "tier C: \"Benning's Bridge\" is not Gen. Benning",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S1-093",
+   "family": "mention",
+   "tier": "C",
+   "via": "person-name",
+   "entity": "P:thomas-osborn",
+   "side": "union",
+   "doc": "or27-1:0327",
+   "sentence": "Captain : I have the honor to submit the following report of the part taken by Battery H, First Ohio Artillery attached to Third Volunteer Brigade, in the late battle near Gettysburg : The battery was put in position on Cemetery Hill on the 2d instant , about 4p. m., under direction of Major Osborn, chief of artillery, Eleventh Corps, and opened fire on a rebel battery situated on the right of the town, and continued firing at intervals all the afternoon.",
+   "label": "correct",
+   "reason": "tier C, not emitted",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S1-094",
+   "family": "mention",
+   "tier": "C",
+   "via": "surname",
+   "entity": "P:regis-trobriand",
+   "side": "union",
+   "doc": "or27-1:0156",
+   "sentence": "Moving across a road leading from the Emmitsburg road to the Baltimore pike, we again formed line of battle, when I was moved, by order of Colonel de Trobriand, with the rest of the brigade, marching in line of battle, about 100 yards to the left and front, to the support of a battery which was stationed near a peach orchard.",
+   "label": "correct",
+   "reason": "tier C, not emitted",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S1-095",
+   "family": "mention",
+   "tier": "C",
+   "via": "surname",
+   "entity": "P:james-coleman",
+   "side": "confederate",
+   "doc": "or27-2:0488",
+   "sentence": "Coleman, medical director for the division, came np, and informed me that the rest of the division was moving on the Berry ville turnpike, and that it was intended my command should follow.",
+   "label": "wrong",
+   "reason": "tier C: a medical director Coleman is not Col. James Coleman",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S1-096",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:samuel-pickens",
+   "side": "confederate",
+   "doc": "or27-2:0529",
+   "toc_title": "Report of Col. S. B. Pickens , Twelfth Alabama Infantry.",
+   "unit": "Twelfth Alabama Infantry",
+   "part": 2,
+   "no": 529,
+   "label": "correct"
+  },
+  {
+   "id": "S1-097",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:john-mcintosh",
+   "side": "union",
+   "doc": "or27-1:0348",
+   "toc_title": "Col. John B. McIntosh, Third Pennsylvania Cavalry, commanding First Brigade, Second Division. Maj. Hugh H. Janeway, First New Jersey Cavalry. —Col. John P. Taylor, First Pennsylvania Cavalry. —Maj. Oliver O. G. Robinson, Third Pennsylvania Cavalry. .— Col. Pennock Huey, Eighth Pennsylvania Cavalry, commanding Second Brigade. . — Lieut. Col. William Stedman, Sixth Ohio Cavalry.",
+   "unit": "Third Pennsylvania Cavalry, commanding First Brigade, Second Division. Maj. Hugh H. Janeway, First New Jersey Cavalry. —Col. John P. Taylor, First Pennsylvania Cavalry. —Maj. Oliver O. G. Robinson, Third Pennsylvania Cavalry. .— Col. Pennock Huey, Eighth Pennsylvania Cavalry, commanding Second Brigade. . — Lieut. Col. William Stedman, Sixth Ohio Cavalry",
+   "part": 1,
+   "no": 348,
+   "label": "correct"
+  },
+  {
+   "id": "S1-098",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:john-garnett",
+   "side": "confederate",
+   "doc": "or27-2:0554",
+   "toc_title": "Lieut. Col. John J. Garnett, C. S. Army, commanding Artillery Battalion.",
+   "unit": "C. S. Army, commanding Artillery Battalion",
+   "part": 2,
+   "no": 554,
+   "label": "correct"
+  },
+  {
+   "id": "S1-099",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:ambrose-wright",
+   "side": "confederate",
+   "doc": "or27-2:0539",
+   "toc_title": "Brig. Gen. A. R. Wright, C. S. Army, commanding brigade.",
+   "unit": "C. S. Army, commanding brigade",
+   "part": 2,
+   "no": 539,
+   "label": "correct"
+  },
+  {
+   "id": "S1-100",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:hubert-dilger",
+   "side": "union",
+   "doc": "or27-1:0267",
+   "toc_title": "Capt. Hubert Dilger, Battery I, First Ohio Light Artillery.",
+   "unit": "Battery I, First Ohio Light Artillery",
+   "part": 1,
+   "no": 267,
+   "label": "correct"
+  },
+  {
+   "id": "S1-101",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:francis-randall",
+   "side": "union",
+   "doc": "or27-1:0070",
+   "toc_title": "Col Francis V. Randall, Thirteenth Vermont Infantry.",
+   "unit": "Thirteenth Vermont Infantry",
+   "part": 1,
+   "no": 70,
+   "label": "correct"
+  },
+  {
+   "id": "S1-102",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:george-cobham",
+   "side": "union",
+   "doc": "or27-1:0303",
+   "toc_title": "Col. George A. Cobham, jr., One hundred and eleventh Pennsylvania Infantry, commanding Second Brigade.",
+   "unit": "jr., One hundred and eleventh Pennsylvania Infantry, commanding Second Brigade",
+   "part": 1,
+   "no": 303,
+   "label": "correct"
+  },
+  {
+   "id": "S1-103",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:levi-bootes",
+   "side": "union",
+   "doc": "or27-1:0207",
+   "toc_title": "Capt. Levi C. Bootes, Sixth U. S. Infantry.",
+   "unit": "Sixth U. S. Infantry",
+   "part": 1,
+   "no": 207,
+   "label": "correct"
+  },
+  {
+   "id": "S1-104",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:nelson-ames",
+   "side": "union",
+   "doc": "or27-1:0334",
+   "toc_title": "Capt. Nelson Ames, Battery G, First New York Light Artillery.",
+   "unit": "Battery G, First New York Light Artillery",
+   "part": 1,
+   "no": 334,
+   "label": "correct"
+  },
+  {
+   "id": "S1-105",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:jh-ward",
+   "side": "union",
+   "doc": "or27-1:0135",
+   "toc_title": "Brig. Gen. J. H. Hobart Ward, U. S. Army, commanding Second Brigade and First Division.",
+   "unit": "U. S. Army, commanding Second Brigade and First Division",
+   "part": 1,
+   "no": 135,
+   "label": "correct"
+  },
+  {
+   "id": "S1-106",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:lysander-cutler",
+   "side": "union",
+   "doc": "or27-1:0037",
+   "toc_title": "Brig. Gen. Lysander Cutler, U. S. Army, commanding Second Brigade.",
+   "unit": "U. S. Army, commanding Second Brigade",
+   "part": 1,
+   "no": 37,
+   "label": "correct"
+  },
+  {
+   "id": "S1-107",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:william-oates",
+   "side": "confederate",
+   "doc": "or27-2:0444",
+   "toc_title": "Col. William C. Oates, Fifteenth Alabama Infantry.",
+   "unit": "Fifteenth Alabama Infantry",
+   "part": 2,
+   "no": 444,
+   "label": "correct"
+  },
+  {
+   "id": "S1-108",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:charles-phillips",
+   "side": "union",
+   "doc": "or27-1:0319",
+   "toc_title": "Capt. Charles A. Phillips, Battery E, Massachusetts Light Artillery.",
+   "unit": "Battery E, Massachusetts Light Artillery",
+   "part": 1,
+   "no": 319,
+   "label": "correct"
+  },
+  {
+   "id": "S1-109",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:andrew-cowan",
+   "side": "union",
+   "doc": "or27-1:0239",
+   "toc_title": "Capt. Andrew Cowan, First New York Battery.",
+   "unit": "First New York Battery",
+   "part": 1,
+   "no": 239,
+   "label": "correct"
+  },
+  {
+   "id": "S1-110",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:arthur-lee",
+   "side": "union",
+   "doc": "or27-1:0212",
+   "toc_title": "Maj. Arthur T. Lee, Second U. S. Infantry.",
+   "unit": "Second U. S. Infantry",
+   "part": 1,
+   "no": 212,
+   "label": "correct"
+  },
+  {
+   "id": "S1-111",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:robert-lee",
+   "side": "confederate",
+   "doc": "or27-2:0426",
+   "toc_title": "General Robert E. Lee, C. S. Army, commanding Army of Northern Virginia.",
+   "unit": "C. S. Army, commanding Army of Northern Virginia",
+   "part": 2,
+   "no": 426,
+   "label": "correct"
+  },
+  {
+   "id": "S1-112",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:leonard-carpenter",
+   "side": "union",
+   "doc": "or27-1:0119",
+   "toc_title": "Lieut. Col. Leonard W. Carpenter, Fourth Ohio Infantry.",
+   "unit": "Fourth Ohio Infantry",
+   "part": 1,
+   "no": 119,
+   "label": "correct"
+  },
+  {
+   "id": "S1-113",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:richards-mcmichael",
+   "side": "union",
+   "doc": "or27-1:0095",
+   "toc_title": "Lieut. Col. Richards McMichael, Fifty-third Pennsylvania Infantry.",
+   "unit": "Fifty-third Pennsylvania Infantry",
+   "part": 1,
+   "no": 95,
+   "label": "correct"
+  },
+  {
+   "id": "S1-114",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:george-winslow",
+   "side": "union",
+   "doc": "or27-1:0183",
+   "toc_title": "Capt. George B. Winslow, Battery D, First New York Light Artillery.",
+   "unit": "Battery D, First New York Light Artillery",
+   "part": 1,
+   "no": 183,
+   "label": "correct"
+  },
+  {
+   "id": "S1-115",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:abner-doubleday",
+   "side": "union",
+   "doc": "or27-1:0029",
+   "toc_title": "Maj. Gen. Abner Doubleday, U. S. Army, commanding Third Division of, and First Army Corps.",
+   "unit": "U. S. Army, commanding Third Division of, and First Army Corps",
+   "part": 1,
+   "no": 29,
+   "label": "correct"
+  },
+  {
+   "id": "S1-116",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:frederick-edgell",
+   "side": "union",
+   "doc": "or27-1:0326",
+   "toc_title": "Capt. Frederick M. Edgell, First New Hampshire Battery, Third Volunteer Brigade.",
+   "unit": "First New Hampshire Battery, Third Volunteer Brigade",
+   "part": 1,
+   "no": 326,
+   "label": "correct"
+  },
+  {
+   "id": "S1-117",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:robert-maffett",
+   "side": "confederate",
+   "doc": "or27-2:0433",
+   "toc_title": "Maj. R. C. Maffett, Third South Carolina Infantry.",
+   "unit": "Third South Carolina Infantry",
+   "part": 2,
+   "no": 433,
+   "label": "correct"
+  },
+  {
+   "id": "S1-118",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:augustus-martin",
+   "side": "union",
+   "doc": "or27-1:0221",
+   "toc_title": "Capt. Augustus P. Martin, Third Massachusetts Battery, commanding Artillery Brigade, Fifth Army Corps.",
+   "unit": "Third Massachusetts Battery, commanding Artillery Brigade, Fifth Army Corps",
+   "part": 1,
+   "no": 221,
+   "label": "correct"
+  },
+  {
+   "id": "S1-119",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:sidney-burbank",
+   "side": "union",
+   "doc": "or27-1:0211",
+   "toc_title": "Col. Sidney Burbank, Second U. S, Infantry, commanding Second Brigade.",
+   "unit": "Second U. S, Infantry, commanding Second Brigade",
+   "part": 1,
+   "no": 211,
+   "label": "correct"
+  },
+  {
+   "id": "S1-120",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:william-creighton",
+   "side": "union",
+   "doc": "or27-1:0296",
+   "toc_title": "Col. William R. Creighton, Seventh Ohio Infantry.",
+   "unit": "Seventh Ohio Infantry",
+   "part": 1,
+   "no": 296,
+   "label": "correct"
+  },
+  {
+   "id": "S1-121",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "C-2VA-CAV",
+   "side": "confederate",
+   "doc": "or27-2:0574",
+   "toc_title": "Col. Thomas T. Munford, Second Virginia Cavalry, commanding Fitz.",
+   "unit": "Second Virginia Cavalry, commanding Fitz",
+   "part": 2,
+   "no": 574,
+   "label": "correct"
+  },
+  {
+   "id": "S1-122",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "U-68PA",
+   "side": "union",
+   "doc": "or27-1:0138",
+   "toc_title": "Col. Andrew H. Tippin, Sixty-eighth Pennsylvania Infantry.",
+   "unit": "Sixty-eighth Pennsylvania Infantry",
+   "part": 1,
+   "no": 138,
+   "label": "correct"
+  },
+  {
+   "id": "S1-123",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "U-151PA",
+   "side": "union",
+   "doc": "or27-1:0060",
+   "toc_title": "Lieut. Col. George F. McFarland, One hundred and fifty-first Pennsylvania Infantry.",
+   "unit": "One hundred and fifty-first Pennsylvania Infantry",
+   "part": 1,
+   "no": 60,
+   "label": "correct"
+  },
+  {
+   "id": "S1-124",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "U-105PA",
+   "side": "union",
+   "doc": "or27-1:0139",
+   "toc_title": "Col. Calvin A. Craig, One hundred and fifth Pennsylvania Infantry.",
+   "unit": "One hundred and fifth Pennsylvania Infantry",
+   "part": 1,
+   "no": 139,
+   "label": "correct"
+  },
+  {
+   "id": "S1-125",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "U-27PA",
+   "side": "union",
+   "doc": "or27-2:0419",
+   "toc_title": "Col. Jacob G. Frick, Twenty-seventh Pennsylvania Militia, of operations June 24-30.",
+   "unit": "Twenty-seventh Pennsylvania Militia, of operations June 24-30",
+   "part": 2,
+   "no": 419,
+   "label": "wrong",
+   "reason": "the Twenty-seventh Pennsylvania MILITIA is not the 27th Pennsylvania Volunteers",
+   "fixed_after_label": true
+  },
+  {
+   "id": "S1-126",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "U-143PA",
+   "side": "union",
+   "doc": "or27-1:0063",
+   "toc_title": "Col. Edmund L. Dana, One hundred and forty-third Pennsylvania Infantry, commanding Second Brigade.",
+   "unit": "One hundred and forty-third Pennsylvania Infantry, commanding Second Brigade",
+   "part": 1,
+   "no": 63,
+   "label": "correct"
+  },
+  {
+   "id": "S1-127",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "C-14SC",
+   "side": "confederate",
+   "doc": "or27-2:0557",
+   "toc_title": "Col. Abner Perrin, Fourteenth South Carolina Infantry, commanding McGowan’s brigade.",
+   "unit": "Fourteenth South Carolina Infantry, commanding McGowan’s brigade",
+   "part": 2,
+   "no": 557,
+   "label": "correct"
+  },
+  {
+   "id": "S1-128",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "C-27VA",
+   "side": "confederate",
+   "doc": "or27-2:0493",
+   "toc_title": "Lieut. Col. Daniel M. Shriver, Twenty-seventh Virginia Infantry.",
+   "unit": "Twenty-seventh Virginia Infantry",
+   "part": 2,
+   "no": 493,
+   "label": "correct"
+  },
+  {
+   "id": "S1-129",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "U-83PA",
+   "side": "union",
+   "doc": "or27-1:0201",
+   "toc_title": "Capt. Orpheus S. Woodward, Eighty-third Pennsylvania Infantry.",
+   "unit": "Eighty-third Pennsylvania Infantry",
+   "part": 1,
+   "no": 201,
+   "label": "correct"
+  },
+  {
+   "id": "S1-130",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "U-78NY",
+   "side": "union",
+   "doc": "or27-1:0310",
+   "toc_title": "Lieut. Col. Herbert von Hammerstein, Seventy-eighth New York Infantry.",
+   "unit": "Seventy-eighth New York Infantry",
+   "part": 1,
+   "no": 310,
+   "label": "correct"
+  },
+  {
+   "id": "S1-131",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "C-15AL",
+   "side": "confederate",
+   "doc": "or27-2:0444",
+   "toc_title": "Col. William C. Oates, Fifteenth Alabama Infantry.",
+   "unit": "Fifteenth Alabama Infantry",
+   "part": 2,
+   "no": 444,
+   "label": "correct"
+  },
+  {
+   "id": "S1-132",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "U-52NY",
+   "side": "union",
+   "doc": "or27-1:0089",
+   "toc_title": "Capt. William Scherrer, Fifty-second New York Infantry.",
+   "unit": "Fifty-second New York Infantry",
+   "part": 1,
+   "no": 89,
+   "label": "correct"
+  },
+  {
+   "id": "S1-133",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "C-17GA",
+   "side": "confederate",
+   "doc": "or27-2:0461",
+   "toc_title": "Col. Wesley C. Hodges, Seventeenth Georgia Infantry.",
+   "unit": "Seventeenth Georgia Infantry",
+   "part": 2,
+   "no": 461,
+   "label": "correct"
+  },
+  {
+   "id": "S1-134",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "C-4AL",
+   "side": "confederate",
+   "doc": "or27-2:0443",
+   "toc_title": "Lieut. Col. L. H. Scruggs, Fourth Alabama Infantry.",
+   "unit": "Fourth Alabama Infantry",
+   "part": 2,
+   "no": 443,
+   "label": "correct"
+  },
+  {
+   "id": "S1-135",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "U-63PA",
+   "side": "union",
+   "doc": "or27-1:0137",
+   "toc_title": "Maj. John A. Danks, Sixty-third Pennsylvania Infantry.",
+   "unit": "Sixty-third Pennsylvania Infantry",
+   "part": 1,
+   "no": 137,
+   "label": "correct"
+  },
+  {
+   "id": "S1-136",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:john-newton",
+   "side": "union",
+   "doc": "or27-3:p0825.3",
+   "signature": "JOHN NEWTON,",
+   "title_lines": [
+    "Major- General."
+   ],
+   "addressee": "Major-General Humphreys",
+   "written": "1863-08-01",
+   "label": "correct"
+  },
+  {
+   "id": "S1-137",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:robert-lee",
+   "side": "confederate",
+   "doc": "or27-3:p0900.1",
+   "signature": "R. E. LEE,",
+   "title_lines": [
+    "General."
+   ],
+   "addressee": "Lieut. Gen. James Longstreet",
+   "written": "1863-06-17",
+   "label": "correct"
+  },
+  {
+   "id": "S1-138",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:robert-lee",
+   "side": "confederate",
+   "doc": "or27-3:p0914.2",
+   "signature": "R. E. LEE,",
+   "title_lines": [
+    "General."
+   ],
+   "addressee": "Lieut. Gen. R. S. Ewell",
+   "written": "1863-06-22",
+   "label": "correct"
+  },
+  {
+   "id": "S1-139",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:winfield-hancock",
+   "side": "union",
+   "doc": "or27-3:p0284.4",
+   "signature": "WINF’D S. HANCOCK,",
+   "title_lines": [
+    "Major-General ."
+   ],
+   "addressee": "Major-General Stahel",
+   "written": "1863-06-24",
+   "label": "correct"
+  },
+  {
+   "id": "S1-140",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0761.1",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, Chief of Staff."
+   ],
+   "addressee": "Major-General Slocum",
+   "written": "1863-07-24",
+   "label": "correct"
+  },
+  {
+   "id": "S1-141",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:george-custer",
+   "side": "union",
+   "doc": "or27-3:p0775.3",
+   "signature": "G. A. CUSTER,",
+   "title_lines": [
+    "Brigadier- General."
+   ],
+   "addressee": "Major-General Pleasonton",
+   "written": "1863-07-28",
+   "label": "correct"
+  },
+  {
+   "id": "S1-142",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:john-reynolds",
+   "side": "union",
+   "doc": "or27-3:p0146.2",
+   "signature": "JOHN F. REYNOLDS,",
+   "title_lines": [
+    "Major- General ."
+   ],
+   "addressee": "Brigadier-General Pleasonton",
+   "written": "1863-06-16",
+   "label": "correct"
+  },
+  {
+   "id": "S1-143",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:john-buford",
+   "side": "union",
+   "doc": "or27-3:p0008.3",
+   "signature": "JNO. BUFORD,",
+   "title_lines": [
+    "Brigadier-General of Volunteers, Commanding."
+   ],
+   "addressee": "Col. A. J. Alexander",
+   "written": "1863-06-05",
+   "label": "correct"
+  },
+  {
+   "id": "S1-144",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:robert-lee",
+   "side": "confederate",
+   "doc": "or27-3:p0868.1",
+   "signature": "R. E. LEE,",
+   "title_lines": [
+    "General."
+   ],
+   "addressee": "Hon. James A. Seddon",
+   "written": "1863-06-08",
+   "label": "correct"
+  },
+  {
+   "id": "S1-145",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:henry-slocum",
+   "side": "union",
+   "doc": "or27-3:p0223.2",
+   "signature": "H. W. SLOCUM,",
+   "title_lines": [
+    "Major- General."
+   ],
+   "addressee": "Maj. Gen. D. Butterfield",
+   "written": "1863-06-20",
+   "label": "correct"
+  },
+  {
+   "id": "S1-146",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0659.2",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff."
+   ],
+   "addressee": "Commanding Officer Twelfth Corps",
+   "written": "1863-07-12",
+   "label": "correct"
+  },
+  {
+   "id": "S1-147",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:winfield-hancock",
+   "side": "union",
+   "doc": "or27-3:p0395.3",
+   "signature": "WINF’D S. HANCOCK,",
+   "title_lines": [
+    "Major-General, Commanding."
+   ],
+   "addressee": "General : I regret to say that my command is only now leaving.",
+   "written": "1863-06-29",
+   "label": "correct"
+  },
+  {
+   "id": "S1-148",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0083.1",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Brigadier - General, Commanding."
+   ],
+   "addressee": "Major-General Butterfield",
+   "written": "1863-06-13",
+   "label": "correct"
+  },
+  {
+   "id": "S1-149",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:john-reynolds",
+   "side": "union",
+   "doc": "or27-3:p0317.5",
+   "signature": "JOHN F. REYNOLDS",
+   "title_lines": [],
+   "addressee": "Brig. Gen. S. Williams",
+   "written": "1863-06-25",
+   "label": "correct",
+   "lost_after_fix": true,
+   "lost_reason": "the signature carries no title line; the sender fix (resolveSigner) asks the title line to agree with the registry rank, so this link is no longer made (precision bought with recall). The doc id is also stale: the page-map fix renumbered the dispatches of page 317."
+  },
+  {
+   "id": "S1-150",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:john-reynolds",
+   "side": "union",
+   "doc": "or27-3:p0116.2",
+   "signature": "JOHN F. REYNOLDS,",
+   "title_lines": [
+    "Major- General."
+   ],
+   "addressee": "Major-General Butterfield",
+   "written": "1863-06-15",
+   "label": "correct"
+  },
+  {
+   "id": "S2-001",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "C-19MS",
+   "side": "confederate",
+   "doc": "or27-2:0547",
+   "sentence": "Report of Col. N. H. Harris, Nineteenth Mississippi Infantry.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-002",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-37MA",
+   "side": "union",
+   "doc": "or27-1:0006",
+   "sentence": "H. W. Halleck, General-in-Chief: In compliance with your instructions of yesterday, the following regiments have been ordered to New York Harbor to report to Bngadier-General Canby: First and Thirty-seventh Massachusetts, Fifth Wisconsin, and Twentieth Indiana; aggregate present for duty, _ The regiments left here early this morning for WarrentonJm^i^ ,01.0 fsVp railroad transportation to Washington.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-003",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-14VT",
+   "side": "union",
+   "doc": "or27-1:0378",
+   "sentence": "The Fourteenth Vermont was moved down to the right of my reserves, which consisted of six companies.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-004",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "C-4VA",
+   "side": "confederate",
+   "doc": "or27-2:0492",
+   "sentence": "Remained here an hour or more ; then ordered by General Walker to the right, to relieve the Fourth Virginia, which had exhausted their ammunition.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-005",
+   "family": "mention",
+   "tier": "A",
+   "via": "surname",
+   "entity": "P:david-aiken",
+   "side": "confederate",
+   "doc": "or27-2:0424",
+   "sentence": "7th South Carolina, Col. D. Wyatt Aiken.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-006",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-7MI-CAV",
+   "side": "union",
+   "doc": "or27-1:0336",
+   "sentence": "G. A. Crocker, Sixth New York Cavalry, acting aide-de-camp; First Lieut. C. B. McClellan, Sixth U. S. Cavalry, acting aide-de-camp; First Lieut. James F. Wade, Sixth U.S. Cavalry, acting aide-de-camp; First Lieut. G.H. Thompson, First Rhode Island Cavalry, acting aidede-camp; Second Lieut. E. B. Parsons, Eighth New York Cavalry, acting aide-de-camp; First Lieut. J. G. Birney, Seventh Michigan Cavalry, acting aide-de-camp; First Lieut. D.W. Littlefield, Seventh Michigan Cavalry, acting aide-de-camp. n . A report of casualties of the Cavalry Corps during the campaign in Pennsylvania, Maryland, and Virginia, from June 28 to July 31, is inclosed.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-007",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-5CT",
+   "side": "union",
+   "doc": "or27-1:0274",
+   "sentence": "I cannot omit to acknowledge the cordial co-operation of Colonel Sudsburg, of the Third Maryland Volunteers; Colonel Packer, of the Fifth Connecticut Volunteers, and Colonel Self ridge, of the Fortysixth Pennsylvania Volunteers (though my juniors in rank, yet my seniors in military experience), in all the arduous duties to which this brigade was subjected, not only during the battle at Gettysburg, but both before and during the march afterward and the operations near Williamsport.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-008",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-4OH",
+   "side": "union",
+   "doc": "or27-1:0119",
+   "sentence": "S. J. Shoub and AH Edgar, both young and promising officers, were killed early m the Lieut. Col., Comdg. Fourth Regt. Ohio Vol. Infantry.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-009",
+   "family": "mention",
+   "tier": "A",
+   "via": "surname",
+   "entity": "P:robert-rodes",
+   "side": "confederate",
+   "doc": "or27-2:0506",
+   "sentence": "I have the honor to be, colonel, yours, very respectfully, R. E. RODES, Major-General.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-010",
+   "family": "mention",
+   "tier": "A",
+   "via": "alias",
+   "entity": "LOC-001",
+   "side": "confederate",
+   "doc": "or27-2:0440",
+   "sentence": "Early the morning of the 3d, following, Captain Carlton was ordered to a position on the left of the road, in advance of Pickett’s division, and in front of the enemy’s strong position on Cemetery Hill.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-011",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "C-1LA-T",
+   "side": "confederate",
+   "doc": "or27-3:p0918.3",
+   "sentence": "(a) 1st Louisiana : Col. W. R. Shivers.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-012",
+   "family": "mention",
+   "tier": "A",
+   "via": "person-name",
+   "entity": "P:eliakim-sherrill",
+   "side": "union",
+   "doc": "or27-1:0013",
+   "sentence": "Col. Eliakim Sherrill.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-013",
+   "family": "mention",
+   "tier": "A",
+   "via": "alias",
+   "entity": "LOC-001",
+   "side": "union",
+   "doc": "or27-1:0327",
+   "sentence": "Captain : I have the honor to submit the following report of the part taken by Battery H, First Ohio Artillery attached to Third Volunteer Brigade, in the late battle near Gettysburg : The battery was put in position on Cemetery Hill on the 2d instant , about 4p. m., under direction of Major Osborn, chief of artillery, Eleventh Corps, and opened fire on a rebel battery situated on the right of the town, and continued firing at intervals all the afternoon.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-014",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-13NJ",
+   "side": "union",
+   "doc": "or27-1:0289",
+   "sentence": "Colonel Carman at present being absent, sick, and as I was at that time absent from my regiment, occasioned by a wound received at Chancellorsville, from which I had not recovered, I am unable to give a more correct and* minute report.* I have the honor to be, very respectfully, your obedient servant, JOHN GRIMES, Lieut. Col., Comdg. Thirteenth New Jersey Volunteers.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-015",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-5VT",
+   "side": "union",
+   "doc": "or27-1:0230",
+   "sentence": "The position of the brigade was once or twice changed, and soon after dark it moved still farther to the left, and took position on the j extreme left of the army, and one regiment, the Fifth Vermont, was thrown out as pickets or skirmishers.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-016",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-82OH",
+   "side": "union",
+   "doc": "or27-1:0262",
+   "sentence": "The Eighty-second Ohio, on my left, was flanked, and gave way.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-017",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "C-51GA",
+   "side": "confederate",
+   "doc": "or27-2:0427",
+   "sentence": "Staff 10th Georgia 50th Georgia . 51st Georgia.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-018",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-1MI",
+   "side": "union",
+   "doc": "or27-3:p0269.1",
+   "sentence": "The 300 men of the First Michigan Regiment will join you here.",
+   "label": "uncertain",
+   "reason": "\"The 300 men of the First Michigan Regiment\": infantry or cavalry is not told by the sentence",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S2-019",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "U-102PA",
+   "side": "union",
+   "doc": "or27-1:0234",
+   "sentence": "Sir : I have the honor to make the following report of the operations of this brigade at the battle of Gettysburg, Pa. : On the evening of July 1, 1 was placed temporarily in command of the four regiments present comprising it, viz: Sixty-second New York Volunteers, commanded by Lieut. Col. T. B. Hamilton ; Ninety-third Pennsylvania, Maj. John I. Nevin ; Ninety-eighth Pennsylvania, Maj. J. B. Kohler, and One hundred and thirty-ninth Pennsylvania Volunteers, Col. F. H. Collier (the fifth regiment, One hundred and second Pennsylvania Volunteers, Col. J. W. Patterson, having been detailed to guard wagon train at Westminster, Md.).",
+   "label": "correct"
+  },
+  {
+   "id": "S2-020",
+   "family": "mention",
+   "tier": "A",
+   "via": "unit-grammar",
+   "entity": "C-13NC",
+   "side": "confederate",
+   "doc": "or27-2:0427",
+   "sentence": "Staff 13th North Carolina 16th North Carolina 22d North Carolina 34th North Carolina 38th North Carolina Fourth (Scales'1) Brigade.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-021",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:david-gregg",
+   "side": "union",
+   "doc": "or27-1:0378",
+   "sentence": "Governor: I have the honor to report that, in obedience to orders, we broke camp at this place on the afternoon of the 8th instant, and inarched with our division, under General Gregg, to near Kelly’s Ford, where we bivouacked.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-022",
+   "family": "mention",
+   "tier": "B",
+   "via": "alias",
+   "entity": "ARMY:U",
+   "side": "union",
+   "doc": "or27-1:0217",
+   "sentence": "At this point the leading regiment, under the direction of General Warren, chief engineer Army of the Potomac, was led to the left, up on what is known as Round Top ridge.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-023",
+   "family": "mention",
+   "tier": "B",
+   "via": "alias",
+   "entity": "BDE:U-I-3-3",
+   "side": "union",
+   "doc": "or27-1:0076",
+   "sentence": "While the enemy was still in front of Gibbon s division, I directed Colonel [General] ‘Stannard to send two regiments of his Vermont Brigade, First Corps, to a point which would strike the enemy on the right flank.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-024",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:ambrose-hill",
+   "side": "confederate",
+   "doc": "or27-3:p0961.3",
+   "sentence": "General Hill has the three brigades with him ; probably he might spare some.",
+   "label": "uncertain",
+   "reason": "\"General Hill has the three brigades with him\" (Confederate correspondence, July): A. P. Hill or D. H. Hill is not told by the sentence",
+   "fixed_after_label": false
+  },
+  {
+   "id": "S2-025",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:william-wofford",
+   "side": "confederate",
+   "doc": "or27-2:0435",
+   "sentence": "Lieutenant Motes, commanding Carlton’s battery, reported to Brigadier-General Wofford on the morning of the 10th, and was placed in position on the left of the Williamsport and Sharpsburg pike, near Saint James’ Church, where he remained till the next evening, when, under orders, he retired to a position on the right of the road.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-026",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:jh-ward",
+   "side": "union",
+   "doc": "or27-1:0134",
+   "sentence": "The First Division, under Brigadier-General Ward, arrived at Linden Station, in the Gap, at 11 p. m., and, in conjunction with the cavalry, took possession of the Gap.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-027",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:oliver-howard",
+   "side": "union",
+   "doc": "or27-1:0315",
+   "sentence": "Ohio Artillery; F and G, First Pennsylvania Artillery ; A, First New Hampshire Artillery; C, First West Virginia) and Captain Tafts battery (Fifth New York) of 20-pounders were ordered to report to Major-General Howard, commanding the Eleventh Corps, and by him placed in position in the vicinity of the cemetery, where they engaged the enemy’s batteries opposite, firing upon bodies of troops as they appeared in force until daylight was ended by the darkness.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-028",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:romeyn-ayres",
+   "side": "union",
+   "doc": "or27-1:0077",
+   "sentence": "I then galloped to the left to make a connection with General Ayres, and found that I had advanced some distance beyond him.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-029",
+   "family": "mention",
+   "tier": "B",
+   "via": "alias",
+   "entity": "ART:U-ART-EPA",
+   "side": "union",
+   "doc": "or27-3:p0624.2",
+   "sentence": "V. Capt. J. M. Knap, Battery A, Pennsylvania militia, will report at Beverly, Va.",
+   "label": "wrong",
+   "reason": "\"Capt. J. M. Knap, Battery A, Pennsylvania militia\" is not Knap's Independent Battery E",
+   "fixed_after_label": true
+  },
+  {
+   "id": "S2-030",
+   "family": "mention",
+   "tier": "B",
+   "via": "alias",
+   "entity": "ARMY:U",
+   "side": "union",
+   "doc": "or27-3:p0647.2",
+   "sentence": "Headquarters Army of the Potomac, July 11, 1863 — 1.30 p. m.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-031",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:george-sykes",
+   "side": "union",
+   "doc": "or27-3:p0530.1",
+   "sentence": "Major-General Sykes, Commanding Fifth Corps: General : If your troops are all in hand, none out with Sedgwick or in his support, and none to be required, you can move out on the road to Emmitsburg, the left-hand road, going a short distance on the' Taneytown road, and leaving it before it crosses Rock Creek.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-032",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:winfield-hancock",
+   "side": "union",
+   "doc": "or27-1:0158",
+   "sentence": "Upon arriving at the crest of the ridge mentioned, the remnants }f my division formed on the left of General Hancock’s troops, whose artillery opened upon the enemy, about 100 yards distant.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-033",
+   "family": "mention",
+   "tier": "B",
+   "via": "alias",
+   "entity": "ARMY:U",
+   "side": "union",
+   "doc": "or27-3:p0708.4",
+   "sentence": "Major-General Humphreys, Chief of Staff, Army of the Potomac: General : My column is going into camp in rear of the Second Corps, about a mile on the road debouching at Sandy Hook.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-034",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:alpheus-williams",
+   "side": "union",
+   "doc": "or27-2:0400",
+   "sentence": "General Williams, Assistant Adjutant-General : A colored boy captured on the 9th states that Ewell’s corps passed through Cul peper on Monday last, on their way to the Valley, and that part of Longstreet’s hac gone also.",
+   "label": "wrong",
+   "reason": "\"General Williams, Assistant Adjutant-General\" is Seth Williams, the army's staff officer, not Alpheus Williams",
+   "fixed_after_label": true
+  },
+  {
+   "id": "S2-035",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:john-buford",
+   "side": "union",
+   "doc": "or27-1:0378",
+   "sentence": "I rapidly re-enforced this point, and General Buford withdrew his command in beautiful style to this side, the enemy not daring to follow, but showing his chagrin and mortification by an angry and sharp cannonading.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-036",
+   "family": "mention",
+   "tier": "B",
+   "via": "alias",
+   "entity": "ARMY:C",
+   "side": "confederate",
+   "doc": "or27-3:p0987.1",
+   "sentence": "Headquarters Army of Northern Virginia, July 9, 1863.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-037",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:william-barksdale",
+   "side": "union",
+   "doc": "or27-1:0006",
+   "sentence": "General Barksdale’s (Mississippi) dead body is within our lines.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-038",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:john-reynolds",
+   "side": "union",
+   "doc": "or27-3:p0419.1",
+   "sentence": "Major-General Reynolds: General : I have received both your notes.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-039",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:george-pickett",
+   "side": "confederate",
+   "doc": "or27-2:0426",
+   "sentence": "McLaws’ left also fell back, and, it being now nearly dark, General Longstreet determined to await the arrival of General Pickett.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-040",
+   "family": "mention",
+   "tier": "B",
+   "via": "person-name",
+   "entity": "P:george-meade",
+   "side": "union",
+   "doc": "or27-1:0326",
+   "sentence": "The firing of the enemy s arm lery was now very inaccurate, most of the shots being too high, an WthTdirection of General Meade the firing was discontinued by the batteries on the hill, and the men ordered to lie down.",
+   "label": "correct"
+  },
+  {
+   "id": "S2-041",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:allen-brady",
+   "side": "union",
+   "doc": "or27-1:0247",
+   "toc_title": "Maj. Allen G. Brady, Seventeenth Connecticut Infantry.",
+   "unit": "Seventeenth Connecticut Infantry",
+   "part": 1,
+   "no": 247,
+   "label": "correct"
+  },
+  {
+   "id": "S2-042",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:ambrose-hill",
+   "side": "confederate",
+   "doc": "or27-2:0534",
+   "toc_title": "Lieut. Gen. Ambrose P. Hill, C. S. Army, commanding Third Army Corps.",
+   "unit": "C. S. Army, commanding Third Army Corps",
+   "part": 2,
+   "no": 534,
+   "label": "correct"
+  },
+  {
+   "id": "S2-043",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:james-dearing",
+   "side": "confederate",
+   "doc": "or27-2:0442",
+   "toc_title": "Maj. James Dearing, C. S. Army, commanding Artillery Battalion.",
+   "unit": "C. S. Army, commanding Artillery Battalion",
+   "part": 2,
+   "no": 442,
+   "label": "correct"
+  },
+  {
+   "id": "S2-044",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:joseph-davis",
+   "side": "confederate",
+   "doc": "or27-2:0553",
+   "toc_title": "Brig. Gen. Joseph R. Davis, C. S. Army, commanding brigade and Heth’s division.",
+   "unit": "C. S. Army, commanding brigade and Heth’s division",
+   "part": 2,
+   "no": 553,
+   "label": "correct"
+  },
+  {
+   "id": "S2-045",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:james-rice",
+   "side": "union",
+   "doc": "or27-1:0195",
+   "toc_title": "Col. James C. Rice, Forty-fourth New York Infantry, commanding regiment and Third Brigade.",
+   "unit": "Forty-fourth New York Infantry, commanding regiment and Third Brigade",
+   "part": 1,
+   "no": 195,
+   "label": "correct"
+  },
+  {
+   "id": "S2-046",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:judson-kilpatrick",
+   "side": "union",
+   "doc": "or27-1:0359",
+   "toc_title": "Brig. Gen. Judson Kilpatrick, U. S. Army, commanding First Brigade of, and Third Division.",
+   "unit": "U. S. Army, commanding First Brigade of, and Third Division",
+   "part": 1,
+   "no": 359,
+   "label": "correct"
+  },
+  {
+   "id": "S2-047",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:thomas-devin",
+   "side": "union",
+   "doc": "or27-1:0339",
+   "toc_title": "Col. Thomas C. Devin, Sixth New York Cavalry, commanding Second Brigade.",
+   "unit": "Sixth New York Cavalry, commanding Second Brigade",
+   "part": 1,
+   "no": 339,
+   "label": "correct"
+  },
+  {
+   "id": "S2-048",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:david-zable",
+   "side": "confederate",
+   "doc": "or27-2:0486",
+   "toc_title": "Lieut. Col. D. Zable, Fourteenth Louisiana Infantry, of engagement at Winchester.",
+   "unit": "Fourteenth Louisiana Infantry, of engagement at Winchester",
+   "part": 2,
+   "no": 486,
+   "label": "correct"
+  },
+  {
+   "id": "S2-049",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:george-burling",
+   "side": "union",
+   "doc": "or27-1:0174",
+   "toc_title": "Col. George C. Burling, Sixth New Jersey Infantry, commanding Third Brigade.",
+   "unit": "Sixth New Jersey Infantry, commanding Third Brigade",
+   "part": 1,
+   "no": 174,
+   "label": "correct"
+  },
+  {
+   "id": "S2-050",
+   "family": "author-person",
+   "tier": "A",
+   "entity": "P:leonard-carpenter",
+   "side": "union",
+   "doc": "or27-1:0119",
+   "toc_title": "Lieut. Col. Leonard W. Carpenter, Fourth Ohio Infantry.",
+   "unit": "Fourth Ohio Infantry",
+   "part": 1,
+   "no": 119,
+   "label": "correct"
+  },
+  {
+   "id": "S2-051",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "U-6NJ",
+   "side": "union",
+   "doc": "or27-1:0174",
+   "toc_title": "Col. George C. Burling, Sixth New Jersey Infantry, commanding Third Brigade.",
+   "unit": "Sixth New Jersey Infantry, commanding Third Brigade",
+   "part": 1,
+   "no": 174,
+   "label": "correct"
+  },
+  {
+   "id": "S2-052",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "U-86NY",
+   "side": "union",
+   "doc": "or27-1:0146",
+   "toc_title": "Lieut. 'Col. Benjamin L. Higgins, Eighty-sixth New York Infantry.",
+   "unit": "Eighty-sixth New York Infantry",
+   "part": 1,
+   "no": 146,
+   "label": "correct"
+  },
+  {
+   "id": "S2-053",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "U-7MI",
+   "side": "union",
+   "doc": "or27-1:0112",
+   "toc_title": "Maj. Sylvanus W. Curtis, Seventh Michigan Infantry.",
+   "unit": "Seventh Michigan Infantry",
+   "part": 1,
+   "no": 112,
+   "label": "correct"
+  },
+  {
+   "id": "S2-054",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "U-121PA",
+   "side": "union",
+   "doc": "or27-1:0031",
+   "toc_title": "Lieut. Joseph G. Rosengarten, One hundred and twenty-first Pennsylvania Infantry, Ordnance Officer.",
+   "unit": "One hundred and twenty-first Pennsylvania Infantry, Ordnance Officer",
+   "part": 1,
+   "no": 31,
+   "label": "correct"
+  },
+  {
+   "id": "S2-055",
+   "family": "author-unit",
+   "tier": "A",
+   "entity": "U-4ME",
+   "side": "union",
+   "doc": "or27-1:0145",
+   "toc_title": "Capt. Edwin Libby, Fourth Maine Infantry.",
+   "unit": "Fourth Maine Infantry",
+   "part": 1,
+   "no": 145,
+   "label": "correct"
+  },
+  {
+   "id": "S2-056",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:henry-slocum",
+   "side": "union",
+   "doc": "or27-3:p0223.2",
+   "signature": "H. W. SLOCUM,",
+   "title_lines": [
+    "Major- General."
+   ],
+   "addressee": "Maj. Gen. D. Butterfield",
+   "written": "1863-06-20",
+   "label": "correct"
+  },
+  {
+   "id": "S2-057",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:henry-lockwood",
+   "side": "union",
+   "doc": "or27-3:p0749.1",
+   "signature": "HENRY H. LOCKWOOD,",
+   "title_lines": [
+    "Brigadier- General."
+   ],
+   "addressee": "General-in- Chief",
+   "written": "1863-07-22",
+   "label": "correct"
+  },
+  {
+   "id": "S2-058",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:george-meade",
+   "side": "union",
+   "doc": "or27-3:p0084.1",
+   "signature": "GEO. G. MEADE,",
+   "title_lines": [
+    "Major- General."
+   ],
+   "addressee": "Lieutenant-Colonel Locke",
+   "written": "1863-06-13",
+   "label": "correct"
+  },
+  {
+   "id": "S2-059",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:robert-lee",
+   "side": "confederate",
+   "doc": "or27-3:p0866.2",
+   "signature": "R. E. LEE,",
+   "title_lines": [
+    "General."
+   ],
+   "addressee": "Maj. Gen. Isaac R. Trimble",
+   "written": "1863-06-07",
+   "label": "correct"
+  },
+  {
+   "id": "S2-060",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:george-custer",
+   "side": "union",
+   "doc": "or27-3:p0741.1",
+   "signature": "G. A. CUSTER,",
+   "title_lines": [
+    "Brigadier-General, Commanding Division ."
+   ],
+   "addressee": "Major-General Pleasonton",
+   "written": "1863-07-22",
+   "label": "correct"
+  },
+  {
+   "id": "S2-061",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:john-reynolds",
+   "side": "union",
+   "doc": "or27-3:p0306.2",
+   "signature": "JOHN F. REYNOLDS,",
+   "title_lines": [
+    "Major-General of Volunteers , Commanding."
+   ],
+   "addressee": "Major-General Howard",
+   "written": "1863-06-25",
+   "label": "correct"
+  },
+  {
+   "id": "S2-062",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0662.4",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff."
+   ],
+   "addressee": "Commanding Officer Sixth Corps",
+   "written": "1863-07-12",
+   "label": "correct"
+  },
+  {
+   "id": "S2-063",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:john-newton",
+   "side": "union",
+   "doc": "or27-3:p0555.3",
+   "signature": "JOHN NEWTON,",
+   "title_lines": [
+    "Major- General."
+   ],
+   "addressee": null,
+   "written": "1863-07-06",
+   "label": "correct"
+  },
+  {
+   "id": "S2-064",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0672.1",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff,"
+   ],
+   "addressee": null,
+   "written": "1863-07-13",
+   "label": "correct"
+  },
+  {
+   "id": "S2-065",
+   "family": "signer",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0728.2",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General , and Chief of Staff."
+   ],
+   "addressee": "Commanding Officer Cavalry Corps",
+   "written": "1863-07-20",
+   "label": "correct"
+  },
+  {
+   "id": "S3-001",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0003.1",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Brigadier- General, Commanding.",
+    "[Inclosure.]"
+   ],
+   "addressee": "Brig. Gen. S. Williams",
+   "written": "1863-06-03",
+   "label": "correct"
+  },
+  {
+   "id": "S3-002",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0009.3",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Brigadier- General, Commanding."
+   ],
+   "addressee": "Brig. Gen. S. Williams",
+   "written": "1863-06-05",
+   "label": "correct"
+  },
+  {
+   "id": "S3-003",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0010.1",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Brigadier -General, Commanding."
+   ],
+   "addressee": "Brigadier-General Buford",
+   "written": "1863-06-05",
+   "label": "correct"
+  },
+  {
+   "id": "S3-004",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:john-sedgwick",
+   "side": "union",
+   "doc": "or27-3:p0012.3",
+   "signature": "JOHN SEDGWICK,",
+   "title_lines": [
+    "Major-General, Commanding."
+   ],
+   "addressee": "General Butterfield",
+   "written": "1863-06-06",
+   "label": "correct"
+  },
+  {
+   "id": "S3-005",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0013.3",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Brigadier -General, Commanding ."
+   ],
+   "addressee": "Commanding at Warrenton Junction",
+   "written": "1863-06-06",
+   "label": "correct"
+  },
+  {
+   "id": "S3-006",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:john-buford",
+   "side": "union",
+   "doc": "or27-3:p0014.1",
+   "signature": "JNO. BUFORD,",
+   "title_lines": [
+    "Brigadier -General of Volunteers ."
+   ],
+   "addressee": "General A. Pleasonton",
+   "written": "1863-06-06",
+   "label": "correct"
+  },
+  {
+   "id": "S3-007",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:john-buford",
+   "side": "union",
+   "doc": "or27-3:p0014.2",
+   "signature": "JNO. BUFORD,",
+   "title_lines": [
+    "Brigadier- General of Volunteers ."
+   ],
+   "addressee": "Colonel Alexander",
+   "written": "1863-06-06",
+   "label": "correct"
+  },
+  {
+   "id": "S3-008",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:john-buford",
+   "side": "union",
+   "doc": "or27-3:p0024.3",
+   "signature": "JNO. BUFORD,",
+   "title_lines": [
+    "Brigadier-General of Volunteers ."
+   ],
+   "addressee": "General Butterfield",
+   "written": "1863-06-07",
+   "label": "correct"
+  },
+  {
+   "id": "S3-009",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:james-hall",
+   "side": "union",
+   "doc": "or27-3:p0024.4",
+   "signature": "JAS. S. HALL,",
+   "title_lines": [
+    "Captain, Signal Officer ."
+   ],
+   "addressee": "General Couch",
+   "written": "1863-06-07",
+   "label": "wrong",
+   "reason": "Capt. James S. Hall, signal officer, is not Capt. James Hall of the 2nd Maine Battery (the title line says Signal Officer)",
+   "fixed_after_label": true
+  },
+  {
+   "id": "S3-010",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0025.2",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Brigadier- General, Commanding.",
+    "Washington, D. C.,"
+   ],
+   "addressee": "General S. Williams",
+   "written": "1863-06-07",
+   "label": "correct"
+  },
+  {
+   "id": "S3-011",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:james-hall",
+   "side": "union",
+   "doc": "or27-3:p0026.4",
+   "signature": "JAS. S. HALL,",
+   "title_lines": [
+    "Captain, and Signal Officer."
+   ],
+   "addressee": "General Couch",
+   "written": "1863-06-07",
+   "label": "wrong",
+   "reason": "Capt. James S. Hall, signal officer, is not Capt. James Hall of the 2nd Maine Battery (the title line says Signal Officer)",
+   "fixed_after_label": true
+  },
+  {
+   "id": "S3-012",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0046.2",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Brigadier-General , Commanding."
+   ],
+   "addressee": "Major-General Stuart",
+   "written": "1863-06-10",
+   "label": "correct"
+  },
+  {
+   "id": "S3-013",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0046.3",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Brigadier- General, Commanding."
+   ],
+   "addressee": "Maj. Gen. Joseph Hooker",
+   "written": "1863-06-10",
+   "label": "correct"
+  },
+  {
+   "id": "S3-014",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0047.2",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Brigadier-General, Commanding."
+   ],
+   "addressee": "Major ‘General Butterfield",
+   "written": "1863-06-10",
+   "label": "correct"
+  },
+  {
+   "id": "S3-015",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0049.2",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Brigadier-General, Commanding."
+   ],
+   "addressee": "Major-General Butterfield",
+   "written": "1863-06-10",
+   "label": "correct"
+  },
+  {
+   "id": "S3-016",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:john-reynolds",
+   "side": "union",
+   "doc": "or27-3:p0082.2",
+   "signature": "JOHN F. REYNOLDS,",
+   "title_lines": [
+    "Major-General of Volunteers, Commanding ."
+   ],
+   "addressee": "General Pleasonton",
+   "written": "1863-06-13",
+   "label": "correct"
+  },
+  {
+   "id": "S3-017",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:john-reynolds",
+   "side": "union",
+   "doc": "or27-3:p0083.4",
+   "signature": "JOHN F. REYNOLDS,",
+   "title_lines": [
+    "Major-General of Volunteers, Commanding.",
+    "[Chap, yyyty."
+   ],
+   "addressee": "Brigadier-General Pleasonton",
+   "written": "1863-06-13",
+   "label": "correct"
+  },
+  {
+   "id": "S3-018",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0091.1",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Brigadier- General , Commanding.",
+    "night."
+   ],
+   "addressee": "Major-General Reynolds, Commanding at Bealeton",
+   "written": "1863-06-13",
+   "label": "correct"
+  },
+  {
+   "id": "S3-019",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0092.1",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Brigadier-General, Commanding .",
+    "General Reynolds,"
+   ],
+   "addressee": "General R. Ingalls",
+   "written": "1863-06-13",
+   "label": "correct"
+  },
+  {
+   "id": "S3-020",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0115.3",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Brigadier- General, Commanding.",
+    "Pleasonton’s Headquarters,"
+   ],
+   "addressee": "Major-General Hooker",
+   "written": "1863-06-15",
+   "label": "correct"
+  },
+  {
+   "id": "S3-021",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0258.2",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Brigadier- General , Commanding ."
+   ],
+   "addressee": "Brig. Gen. S. Williams",
+   "written": "1863-06-22",
+   "label": "correct"
+  },
+  {
+   "id": "S3-022",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:winfield-hancock",
+   "side": "union",
+   "doc": "or27-3:p0270.3",
+   "signature": "WINF’D S. HANCOCK,",
+   "title_lines": [
+    "Major-General , Commanding Corps ,"
+   ],
+   "addressee": "Major-General French",
+   "written": "1863-06-23",
+   "label": "correct"
+  },
+  {
+   "id": "S3-023",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:winfield-hancock",
+   "side": "union",
+   "doc": "or27-3:p0274.1",
+   "signature": "WINF’D S. HANCOCK,",
+   "title_lines": [
+    "Major-General, Commanding Corps ."
+   ],
+   "addressee": "Brig. Gen. S. Williams",
+   "written": "1863-06-23",
+   "label": "correct"
+  },
+  {
+   "id": "S3-024",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:winfield-hancock",
+   "side": "union",
+   "doc": "or27-3:p0285.1",
+   "signature": "WINF’D S. HANCOCK,",
+   "title_lines": [
+    "Major-General, Commanding Corps.",
+    "(Copy for General Zook, at Gainesville. )"
+   ],
+   "addressee": null,
+   "written": "1863-06-24",
+   "label": "correct"
+  },
+  {
+   "id": "S3-025",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:john-reynolds",
+   "side": "union",
+   "doc": "or27-3:p0306.2",
+   "signature": "JOHN F. REYNOLDS,",
+   "title_lines": [
+    "Major-General of Volunteers, Commanding."
+   ],
+   "addressee": "Major-General Howard",
+   "written": "1863-06-25",
+   "label": "correct"
+  },
+  {
+   "id": "S3-026",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0320.5",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Major-General, Commanding."
+   ],
+   "addressee": "Brigadier-General Williams",
+   "written": "1863-06-25",
+   "label": "correct"
+  },
+  {
+   "id": "S3-027",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0321.3",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Major- General, Commanding."
+   ],
+   "addressee": "Brigadier-General Williams",
+   "written": "1863-06-25",
+   "label": "correct"
+  },
+  {
+   "id": "S3-028",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:john-robinson",
+   "side": "union",
+   "doc": "or27-3:p0352.2",
+   "signature": "J. S. ROBINSON,",
+   "title_lines": [
+    "Colonel, Commanding Post.",
+    "[Indorsement.]"
+   ],
+   "addressee": "Colonel Asmussen, Chief of Staff, Eleventh Corps",
+   "written": "1863-06-27",
+   "label": "wrong",
+   "reason": "Col. J. S. Robinson, commanding a post, is not Brig. Gen. John Robinson (a colonel signing as colonel is not a registry general)",
+   "fixed_after_label": true
+  },
+  {
+   "id": "S3-029",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:oliver-howard",
+   "side": "union",
+   "doc": "or27-3:p0423.1",
+   "signature": "O. O. HOWARD,",
+   "title_lines": [
+    "Major-General, Commanding.",
+    "P. S.— If the detachment could reach me to-day, it would be of"
+   ],
+   "addressee": "Brigadier-General Williams",
+   "written": "1863-06-30",
+   "label": "correct"
+  },
+  {
+   "id": "S3-030",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:george-sykes",
+   "side": "union",
+   "doc": "or27-3:p0424.1",
+   "signature": "GEO. SYKES,",
+   "title_lines": [
+    "Major-General, Commanding."
+   ],
+   "addressee": "General S. Williams",
+   "written": "1863-06-30",
+   "label": "correct"
+  },
+  {
+   "id": "S3-031",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:daniel-sickles",
+   "side": "union",
+   "doc": "or27-3:p0424.2",
+   "signature": "D. E. SICKLES,",
+   "title_lines": [
+    "Major-General, Commanding."
+   ],
+   "addressee": "Brig. Gen. S. Williams",
+   "written": "1863-06-30",
+   "label": "correct"
+  },
+  {
+   "id": "S3-032",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:winfield-hancock",
+   "side": "union",
+   "doc": "or27-3:p0425.2",
+   "signature": "WINF’D S. HANCOCK,",
+   "title_lines": [
+    "Major-General, Commanding Corps."
+   ],
+   "addressee": "Brig. Gen. S. Williams",
+   "written": "1863-06-30",
+   "label": "correct"
+  },
+  {
+   "id": "S3-033",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:daniel-sickles",
+   "side": "union",
+   "doc": "or27-3:p0463.3",
+   "signature": "D. E. SICKLES,",
+   "title_lines": [
+    "Major-General , Commanding ."
+   ],
+   "addressee": "Major-General Howard",
+   "written": "1863-07-01",
+   "label": "correct"
+  },
+  {
+   "id": "S3-034",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:henry-slocum",
+   "side": "union",
+   "doc": "or27-3:p0468.1",
+   "signature": "H. W. SLOCUM,",
+   "title_lines": [
+    "^Major-General, Commanding ."
+   ],
+   "addressee": "Major-General Meade",
+   "written": "1863-07-01",
+   "label": "correct"
+  },
+  {
+   "id": "S3-035",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:james-hall",
+   "side": "union",
+   "doc": "or27-3:p0486.4",
+   "signature": "JAS. S. HALL,",
+   "title_lines": [
+    "Captain, and Signal Officer.",
+    "General Butterfield :"
+   ],
+   "addressee": "General Meade",
+   "written": "1863-07-02",
+   "label": "wrong",
+   "reason": "Capt. James S. Hall, signal officer, is not Capt. James Hall of the 2nd Maine Battery (the title line says Signal Officer)",
+   "fixed_after_label": true
+  },
+  {
+   "id": "S3-036",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:william-hays",
+   "side": "union",
+   "doc": "or27-3:p0515.2",
+   "signature": "WILLIAM HAYS,",
+   "title_lines": [
+    "Brigadier- General , Commanding."
+   ],
+   "addressee": "General S. Williams",
+   "written": "1863-07-04",
+   "label": "correct"
+  },
+  {
+   "id": "S3-037",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:wallace-hill",
+   "side": "union",
+   "doc": "or27-3:p0537.2",
+   "signature": "WILLIAM H. HILL,",
+   "title_lines": [
+    "Captain , and Signal Officer."
+   ],
+   "addressee": "Major-General Sykes",
+   "written": "1863-07-05",
+   "label": "wrong",
+   "reason": "Capt. William H. Hill, signal officer, is not Capt. Wallace Hill of Battery C, West Virginia Artillery (William is not Wallace; Signal Officer)",
+   "fixed_after_label": true
+  },
+  {
+   "id": "S3-038",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:george-sykes",
+   "side": "union",
+   "doc": "or27-3:p0540.2",
+   "signature": "GEO. SYKES,",
+   "title_lines": [
+    "Major-General, Commanding."
+   ],
+   "addressee": "Major-General Butterfield",
+   "written": "1863-07-05",
+   "label": "correct"
+  },
+  {
+   "id": "S3-039",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:george-meade",
+   "side": "union",
+   "doc": "or27-3:p0559.1",
+   "signature": "GEO. G. MEADE,",
+   "title_lines": [
+    "Major-General, Commanding .",
+    "(Duplicated 2 p. m.)"
+   ],
+   "addressee": null,
+   "written": "1863-07-06",
+   "label": "correct"
+  },
+  {
+   "id": "S3-040",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:george-sykes",
+   "side": "union",
+   "doc": "or27-3:p0560.3",
+   "signature": "GEO. SYKES,",
+   "title_lines": [
+    "Major-General, Commanding .",
+    "[P. S.] — My headquarters are in the woods, just behind the junction of the roads."
+   ],
+   "addressee": null,
+   "written": "1863-07-06",
+   "label": "correct"
+  },
+  {
+   "id": "S3-041",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:john-newton",
+   "side": "union",
+   "doc": "or27-3:p0561.1",
+   "signature": "JOHN NEWTON,",
+   "title_lines": [
+    "Major-General, Commanding."
+   ],
+   "addressee": "General : The order directing the First and Third Corps to halt",
+   "written": "1863-07-06",
+   "label": "correct"
+  },
+  {
+   "id": "S3-042",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:george-sykes",
+   "side": "union",
+   "doc": "or27-3:p0562.3",
+   "signature": "GEO. SYKES,",
+   "title_lines": [
+    "Major- General, Commanding,"
+   ],
+   "addressee": "General [Howard :]",
+   "written": "1863-07-06",
+   "label": "correct"
+  },
+  {
+   "id": "S3-043",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0585.1",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Major-General , Acting Chief of Staff."
+   ],
+   "addressee": "Brig. Gen. William F. Smith",
+   "written": "1863-07-07",
+   "label": "correct"
+  },
+  {
+   "id": "S3-044",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0627.2",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff."
+   ],
+   "addressee": "Major Kerwin",
+   "written": "1863-07-10",
+   "label": "correct"
+  },
+  {
+   "id": "S3-045",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0628.1",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff."
+   ],
+   "addressee": "Brigadier-General Naglee",
+   "written": "1863-07-10",
+   "label": "correct"
+  },
+  {
+   "id": "S3-046",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0629.4",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff \\"
+   ],
+   "addressee": "Commanding Officer Second Corps",
+   "written": "1863-07-10",
+   "label": "correct"
+  },
+  {
+   "id": "S3-047",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0648.2",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff."
+   ],
+   "addressee": "Commanding Officer Second Corps",
+   "written": "1863-07-11",
+   "label": "correct"
+  },
+  {
+   "id": "S3-048",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0649.4",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff."
+   ],
+   "addressee": "Commanding Officer Sixth Corps",
+   "written": "1863-07-11",
+   "label": "correct"
+  },
+  {
+   "id": "S3-049",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0652.2",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General , and Chief of Staff."
+   ],
+   "addressee": "General Naglee",
+   "written": "1863-07-11",
+   "label": "correct"
+  },
+  {
+   "id": "S3-050",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0657.3",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff."
+   ],
+   "addressee": "Major-General Couch",
+   "written": "1863-07-12",
+   "label": "correct"
+  },
+  {
+   "id": "S3-051",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0659.1",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff ."
+   ],
+   "addressee": "Commanding Officer Second Corps",
+   "written": "1863-07-12",
+   "label": "correct"
+  },
+  {
+   "id": "S3-052",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0662.1",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff."
+   ],
+   "addressee": "Col. E. Schriver",
+   "written": "1863-07-12",
+   "label": "correct"
+  },
+  {
+   "id": "S3-053",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0663.2",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief off Staff ."
+   ],
+   "addressee": "General Hays has been directed to occupy the crest instead of the",
+   "written": "1863-07-12",
+   "label": "correct"
+  },
+  {
+   "id": "S3-054",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:oliver-howard",
+   "side": "union",
+   "doc": "or27-3:p0664.1",
+   "signature": "O. O. HOWARD,",
+   "title_lines": [
+    "Major-General , Commanding."
+   ],
+   "addressee": "Major-General Humphreys",
+   "written": "1863-07-12",
+   "label": "correct"
+  },
+  {
+   "id": "S3-055",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0664.2",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, Chief of Staff.",
+    "Near Saint James’ College,"
+   ],
+   "addressee": "Major-General Howard",
+   "written": "1863-07-12",
+   "label": "correct"
+  },
+  {
+   "id": "S3-056",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0667.1",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General , and Chief of Staff,"
+   ],
+   "addressee": "Commanding Officer Third Corps",
+   "written": "1863-07-12",
+   "label": "correct"
+  },
+  {
+   "id": "S3-057",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0669.2",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff."
+   ],
+   "addressee": null,
+   "written": "1863-07-12",
+   "label": "correct"
+  },
+  {
+   "id": "S3-058",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0686.2",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff."
+   ],
+   "addressee": "Commanding Officer Sixth Corps",
+   "written": "1863-07-14",
+   "label": "correct"
+  },
+  {
+   "id": "S3-059",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0687.1",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff."
+   ],
+   "addressee": "Commanding Officer Second Corps",
+   "written": "1863-07-14",
+   "label": "correct"
+  },
+  {
+   "id": "S3-060",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0687.2",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff.",
+    "(Same to General Sedgwick.)"
+   ],
+   "addressee": null,
+   "written": "1863-07-14",
+   "label": "correct"
+  },
+  {
+   "id": "S3-061",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0688.1",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General , and Chief of Staff."
+   ],
+   "addressee": "Major-General Howard",
+   "written": "1863-07-14",
+   "label": "correct"
+  },
+  {
+   "id": "S3-062",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0688.4",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff."
+   ],
+   "addressee": "Major-General Howard",
+   "written": "1863-07-14",
+   "label": "correct"
+  },
+  {
+   "id": "S3-063",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:george-sykes",
+   "side": "union",
+   "doc": "or27-3:p0689.2",
+   "signature": "GEO. SYKES,",
+   "title_lines": [
+    "Major-General , Commanding ."
+   ],
+   "addressee": null,
+   "written": "1863-07-14",
+   "label": "correct"
+  },
+  {
+   "id": "S3-064",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0691.4",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Major-General , Commanding ."
+   ],
+   "addressee": "Brigadier-General Gregg",
+   "written": "1863-07-14",
+   "label": "correct"
+  },
+  {
+   "id": "S3-065",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:oliver-howard",
+   "side": "union",
+   "doc": "or27-3:p0693.3",
+   "signature": "O. O. HOWARD,",
+   "title_lines": [
+    "Major-General , Commanding ."
+   ],
+   "addressee": "General A. A. Humphreys, Chief of Staff",
+   "written": "1863-07-14",
+   "label": "correct"
+  },
+  {
+   "id": "S3-066",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:oliver-howard",
+   "side": "union",
+   "doc": "or27-3:p0693.4",
+   "signature": "O. O. HOWARD,",
+   "title_lines": [
+    "Major-General , Commanding. „"
+   ],
+   "addressee": "General A. A. Humphreys, Chief of Staff",
+   "written": "1863-07-14",
+   "label": "correct"
+  },
+  {
+   "id": "S3-067",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0701.1",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff."
+   ],
+   "addressee": "Major-General Newton",
+   "written": "1863-07-15",
+   "label": "correct"
+  },
+  {
+   "id": "S3-068",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:oliver-howard",
+   "side": "union",
+   "doc": "or27-3:p0702.2",
+   "signature": "O. O. HOWARD,",
+   "title_lines": [
+    "Major-General , Commanding."
+   ],
+   "addressee": "General A. A. Humphreys, Chief of Staff",
+   "written": "1863-07-15",
+   "label": "correct"
+  },
+  {
+   "id": "S3-069",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:john-newton",
+   "side": "union",
+   "doc": "or27-3:p0702.3",
+   "signature": "JOHN NEWTON,",
+   "title_lines": [
+    "Major-General , Commanding."
+   ],
+   "addressee": "Brig. Gen. S. Williams",
+   "written": "1863-07-15",
+   "label": "correct"
+  },
+  {
+   "id": "S3-070",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:oliver-howard",
+   "side": "union",
+   "doc": "or27-3:p0708.3",
+   "signature": "O. O. HOWARD,",
+   "title_lines": [
+    "Major-General, Commanding."
+   ],
+   "addressee": "General A. A. Humphreys, Chief of Staff",
+   "written": "1863-07-16",
+   "label": "correct"
+  },
+  {
+   "id": "S3-071",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:henry-slocum",
+   "side": "union",
+   "doc": "or27-3:p0709.3",
+   "signature": "H. W. SLOCUM,",
+   "title_lines": [
+    "Major-General , Commanding ."
+   ],
+   "addressee": "Brig. Gen. S. Williams",
+   "written": "1863-07-16",
+   "label": "correct"
+  },
+  {
+   "id": "S3-072",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:henry-slocum",
+   "side": "union",
+   "doc": "or27-3:p0710.4",
+   "signature": "H. W. SLOCUM,",
+   "title_lines": [
+    "Major-General of Volunteers."
+   ],
+   "addressee": "Maj. Gen. A. A. Humphreys",
+   "written": "1863-07-16",
+   "label": "correct"
+  },
+  {
+   "id": "S3-073",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0714.2",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Brigadier-General, and Chief of Staff."
+   ],
+   "addressee": "Major-General French",
+   "written": "1863-07-17",
+   "label": "correct"
+  },
+  {
+   "id": "S3-074",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:george-meade",
+   "side": "union",
+   "doc": "or27-3:p0714.4",
+   "signature": "GEO. G. MEADE,",
+   "title_lines": [
+    "Major-General , Commanding."
+   ],
+   "addressee": "Maj. Gen. D. N. Couch, Charhbersburg",
+   "written": "1863-07-17",
+   "label": "correct"
+  },
+  {
+   "id": "S3-075",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0720.1",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General , Chief of Staff."
+   ],
+   "addressee": "Major-General French",
+   "written": "1863-07-18",
+   "label": "correct"
+  },
+  {
+   "id": "S3-076",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0721.1",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff."
+   ],
+   "addressee": "Commanding Officer Eleventh Corps",
+   "written": "1863-07-18",
+   "label": "correct"
+  },
+  {
+   "id": "S3-077",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:henry-slocum",
+   "side": "union",
+   "doc": "or27-3:p0724.3",
+   "signature": "H. W. SLOCUM,",
+   "title_lines": [
+    "Major-General of Volunteers."
+   ],
+   "addressee": "Maj. Gen. A. A. Humphreys",
+   "written": "1863-07-19",
+   "label": "correct"
+  },
+  {
+   "id": "S3-078",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:george-meade",
+   "side": "union",
+   "doc": "or27-3:p0725.2",
+   "signature": "GEO. G. MEADE,",
+   "title_lines": [
+    "Major-General , Commanding."
+   ],
+   "addressee": "Maj. Gen. D. 1ST. Couch, Chambersburg",
+   "written": "1863-07-19",
+   "label": "correct"
+  },
+  {
+   "id": "S3-079",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:henry-lockwood",
+   "side": "union",
+   "doc": "or27-3:p0737.4",
+   "signature": "HENRY H. LOCKWOOD,",
+   "title_lines": [
+    "Brigadier -General, Commanding."
+   ],
+   "addressee": "Major-General Schenck",
+   "written": "1863-07-21",
+   "label": "correct"
+  },
+  {
+   "id": "S3-080",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:henry-lockwood",
+   "side": "union",
+   "doc": "or27-3:p0738.2",
+   "signature": "HENRY H. LOCKWOOD,",
+   "title_lines": [
+    "Brigadier- General, Commanding Maryland Heights."
+   ],
+   "addressee": "Major-General Schenck",
+   "written": "1863-07-21",
+   "label": "correct"
+  },
+  {
+   "id": "S3-081",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0752.2",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, Chief of Staff."
+   ],
+   "addressee": "Major-General Sedgwick",
+   "written": "1863-07-23",
+   "label": "correct"
+  },
+  {
+   "id": "S3-082",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0752.4",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff.",
+    "✓"
+   ],
+   "addressee": "Commanding Officer Third Corps",
+   "written": "1863-07-23",
+   "label": "correct"
+  },
+  {
+   "id": "S3-083",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0763.3",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff."
+   ],
+   "addressee": "Brigadier-General Lockwood",
+   "written": "1863-07-24",
+   "label": "correct"
+  },
+  {
+   "id": "S3-084",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0767.2",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, Chief of Staff."
+   ],
+   "addressee": "Major-General Sedgwick",
+   "written": "1863-07-25",
+   "label": "correct"
+  },
+  {
+   "id": "S3-085",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:henry-slocum",
+   "side": "union",
+   "doc": "or27-3:p0770.1",
+   "signature": "H. W. SLOCUM,",
+   "title_lines": [
+    "Major-General , Commanding."
+   ],
+   "addressee": "Brig. Gen. S. Williams",
+   "written": "1863-07-26",
+   "label": "correct"
+  },
+  {
+   "id": "S3-086",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:oliver-howard",
+   "side": "union",
+   "doc": "or27-3:p0778.1",
+   "signature": "O. O. HOWARD,",
+   "title_lines": [
+    "Major-General , U. S. Volunteers ."
+   ],
+   "addressee": "General-in- Chief",
+   "written": "1863-07-29",
+   "label": "correct"
+  },
+  {
+   "id": "S3-087",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:thomas-devin",
+   "side": "union",
+   "doc": "or27-3:p0781.3",
+   "signature": "THOS. C. DEVIN,",
+   "title_lines": [
+    "Colonel, Commanding Second Brigade."
+   ],
+   "addressee": "Capt. C. W. Wadsworth",
+   "written": "1863-07-29",
+   "label": "correct"
+  },
+  {
+   "id": "S3-088",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0783.1",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General , and Chief of Staff."
+   ],
+   "addressee": "Commanding Officer Twelfth Corps",
+   "written": "1863-07-30",
+   "label": "correct"
+  },
+  {
+   "id": "S3-089",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0783.2",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff."
+   ],
+   "addressee": "Brigadier-General Hays",
+   "written": "1863-07-30",
+   "label": "correct"
+  },
+  {
+   "id": "S3-090",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0783.3",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General , and Chief of Staff ."
+   ],
+   "addressee": "Commanding Officer Tivelfth Corps",
+   "written": "1863-07-30",
+   "label": "correct"
+  },
+  {
+   "id": "S3-091",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0784.2",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff."
+   ],
+   "addressee": "Commanding Officer Second Corps",
+   "written": "1863-07-30",
+   "label": "correct"
+  },
+  {
+   "id": "S3-092",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0790.1",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General , Chief of Staff."
+   ],
+   "addressee": "Major-General Slocum",
+   "written": "1863-07-31",
+   "label": "correct"
+  },
+  {
+   "id": "S3-093",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0792.1",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Major-General , Commanding ."
+   ],
+   "addressee": "Major-General Humphreys",
+   "written": "1863-07-31",
+   "label": "correct"
+  },
+  {
+   "id": "S3-094",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0820.3",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Major-General, Commanding."
+   ],
+   "addressee": "Brigadier-General Buford",
+   "written": "1863-08-01",
+   "label": "correct"
+  },
+  {
+   "id": "S3-095",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0823.2",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General , Chief of Staff."
+   ],
+   "addressee": "Major-General Howard, Commanding Eleventh Corps",
+   "written": "1863-08-01",
+   "label": "correct"
+  },
+  {
+   "id": "S3-096",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0823.4",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General , Chief of Staff '."
+   ],
+   "addressee": "Major-General Slocum, Commanding Twelfth Corps",
+   "written": "1863-08-01",
+   "label": "correct"
+  },
+  {
+   "id": "S3-097",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:andrew-humphreys",
+   "side": "union",
+   "doc": "or27-3:p0824.3",
+   "signature": "A. A. HUMPHREYS,",
+   "title_lines": [
+    "Major-General, and Chief of Staff.",
+    "Rappahannock Station,"
+   ],
+   "addressee": "Commanding Officer Cavalry Corps",
+   "written": "1863-08-01",
+   "label": "correct"
+  },
+  {
+   "id": "S3-098",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0832.1",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Major-General , Commanding."
+   ],
+   "addressee": "Brigadier-General Buford",
+   "written": "1863-08-03",
+   "label": "correct"
+  },
+  {
+   "id": "S3-099",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0833.2",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Major-General, Commanding."
+   ],
+   "addressee": "Brigadier-General Gregg",
+   "written": "1863-08-03",
+   "label": "correct"
+  },
+  {
+   "id": "S3-100",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:john-geary",
+   "side": "union",
+   "doc": "or27-3:p0833.3",
+   "signature": "JNO. W. GEARY,",
+   "title_lines": [
+    "Brigadier-General, Commanding."
+   ],
+   "addressee": "Lieut. Col. H. C. Rodgers",
+   "written": "1863-08-03",
+   "label": "correct"
+  },
+  {
+   "id": "S3-101",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:john-newton",
+   "side": "union",
+   "doc": "or27-3:p0834.4",
+   "signature": "JOHN NEWTON,",
+   "title_lines": [
+    "Major-General , Commanding."
+   ],
+   "addressee": "Major-General Humphreys",
+   "written": "1863-08-03",
+   "label": "correct"
+  },
+  {
+   "id": "S3-102",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:alfred-pleasonton",
+   "side": "union",
+   "doc": "or27-3:p0840.2",
+   "signature": "A. PLEASONTON,",
+   "title_lines": [
+    "Major-General, Commanding."
+   ],
+   "addressee": "Maj. Gen. George Stoneman",
+   "written": "1863-08-04",
+   "label": "correct"
+  },
+  {
+   "id": "S3-103",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:james-longstreet",
+   "side": "confederate",
+   "doc": "or27-3:p0915.1",
+   "signature": "JAMES LONGSTREET,",
+   "title_lines": [
+    "Lieutenant-General , Commanding."
+   ],
+   "addressee": "General : Yours of 4 o’clock this afternoon is received. I have",
+   "written": "1863-06-22",
+   "label": "correct"
+  },
+  {
+   "id": "S3-104",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:jeb-stuart",
+   "side": "confederate",
+   "doc": "or27-3:p0927.2",
+   "signature": "J. E. B. STUART,",
+   "title_lines": [
+    "Major-General, Commanding .",
+    "[P. S.] — Do not change your present line of pickets until daylight"
+   ],
+   "addressee": "Brig. Gen. B. H. Robertson",
+   "written": "1863-06-24",
+   "label": "correct"
+  },
+  {
+   "id": "S3-105",
+   "family": "signer-doc",
+   "tier": "A",
+   "entity": "P:robert-lee",
+   "side": "confederate",
+   "doc": "or27-3:p1017.1",
+   "signature": "R. E. LEE,",
+   "title_lines": [
+    "General.",
+    "*See Special Orders, No. i76, p. 1020."
+   ],
+   "addressee": "Hon. James A. Seddon, Secretary of War, Richmond, Va.",
+   "written": "1863-07-17",
+   "label": "correct"
+  }
+ ]
+}

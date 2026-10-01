@@ -1,0 +1,196 @@
+{
+ "measured_at": "2026-10-01",
+ "node": "v24.19.0",
+ "hx": "historian-src\\dist\\hx-or27",
+ "build": {
+  "passages": 8232,
+  "words": 1330088,
+  "files": 1189,
+  "vocabulary_terms": 20919,
+  "postings": {
+   "files": 128,
+   "raw": 3625147,
+   "brotli": 1216015,
+   "largest_file": 79139
+  },
+  "entity_postings": {
+   "files": 32,
+   "raw": 191270,
+   "brotli": 46783
+  },
+  "text": {
+   "files": 1029,
+   "raw": 11489810,
+   "brotli": 3483705,
+   "largest_file": 19032,
+   "passages_per_file": 8
+  },
+  "file_list": {
+   "path": "f/or27/files.c0458313.json",
+   "raw": 84067,
+   "brotli": 12268
+  },
+  "total": {
+   "raw": 15390294,
+   "brotli": 4758771
+  }
+ },
+ "first_paint": {
+  "without_corpus": {
+   "manifest": {
+    "raw": 17757,
+    "brotli": 3360
+   },
+   "t1": [
+    {
+     "file": "f/entity.adaa5e2c.json",
+     "raw": 901952,
+     "brotli": 111140
+    },
+    {
+     "file": "f/entix.2e7ce799.json",
+     "raw": 446877,
+     "brotli": 54929
+    },
+    {
+     "file": "f/facts.e9dfe2cf.json",
+     "raw": 148560,
+     "brotli": 28206
+    },
+    {
+     "file": "f/lexicon.f3f965e0.json",
+     "raw": 25317,
+     "brotli": 7695
+    }
+   ],
+   "total": {
+    "raw": 1540463,
+    "brotli": 205330
+   }
+  },
+  "with_corpus": {
+   "manifest": {
+    "raw": 18800,
+    "brotli": 3627
+   },
+   "t1": [
+    {
+     "file": "f/entity.adaa5e2c.json",
+     "raw": 901952,
+     "brotli": 111140
+    },
+    {
+     "file": "f/entix.2e7ce799.json",
+     "raw": 446877,
+     "brotli": 54929
+    },
+    {
+     "file": "f/facts.e9dfe2cf.json",
+     "raw": 148560,
+     "brotli": 28206
+    },
+    {
+     "file": "f/lexicon.f3f965e0.json",
+     "raw": 25317,
+     "brotli": 7695
+    }
+   ],
+   "total": {
+    "raw": 1541506,
+    "brotli": 205597
+   }
+  },
+  "t1_files_identical": true,
+  "delta": {
+   "raw": 1043,
+   "brotli": 267
+  }
+ },
+ "per_question": {
+  "corpus_questions": {
+   "n": 106,
+   "files": {
+    "p50": 12,
+    "p95": 31,
+    "max": 39
+   },
+   "raw_bytes": {
+    "p50": 224820,
+    "p95": 366113,
+    "max": 529837
+   },
+   "brotli_bytes": {
+    "p50": 53665,
+    "p95": 96051,
+    "max": 151890
+   },
+   "node_ms": {
+    "p50": 211.5,
+    "p95": 379.3,
+    "max": 467
+   },
+   "modelled_phone_ms": {
+    "p50": 1713,
+    "p95": 2597,
+    "max": 3227
+   }
+  },
+  "site_questions": {
+   "n": 7,
+   "files": {
+    "p50": 21,
+    "p95": 30,
+    "max": 30
+   },
+   "raw_bytes": {
+    "p50": 146479,
+    "p95": 202224,
+    "max": 202224
+   },
+   "brotli_bytes": {
+    "p50": 31495,
+    "p95": 40243,
+    "max": 40243
+   },
+   "node_ms": {
+    "p50": 148.7,
+    "p95": 209.7,
+    "max": 209.7
+   },
+   "modelled_phone_ms": {
+    "p50": 1185,
+    "p95": 1476,
+    "max": 1476
+   }
+  },
+  "all": {
+   "n": 113,
+   "files": {
+    "p50": 13,
+    "p95": 31,
+    "max": 39
+   },
+   "raw_bytes": {
+    "p50": 222271,
+    "p95": 366113,
+    "max": 529837
+   },
+   "brotli_bytes": {
+    "p50": 52539,
+    "p95": 96051,
+    "max": 151890
+   },
+   "node_ms": {
+    "p50": 209.7,
+    "p95": 379.3,
+    "max": 467
+   },
+   "modelled_phone_ms": {
+    "p50": 1674,
+    "p95": 2597,
+    "max": 3227
+   }
+  }
+ },
+ "model": "four dependent waves x 150 ms + brotli bytes at 1.6 Mbit/s + 4 x Node ms; arithmetic over measured bytes, not a phone measurement"
+}

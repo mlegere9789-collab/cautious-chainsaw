@@ -64,7 +64,8 @@ export async function build({ parts = [1, 2, 3], rawDir = path.join(root, 'histo
   const T = link ? loadLinker() : null;
   const L = T ? createOrLinker({ idx: T.idx, link: T.link }) : null;
   const unitReg = loadUnitRegistry();
-  const linkStats = { A: 0, B: 0, C: 0, passages_with_ents: 0, ents: 0, registry_side_disagree: 0, registry_missing: 0, authors: { reports: 0, person: 0, unit: 0, none: 0 } };
+  const mentionLog = [];
+  const linkStats = { A: 0, B: 0, C: 0, passages_with_ents: 0, ents: 0, registry_side_disagree: 0, registry_missing: 0, authors: { reports: 0, person: 0, unit: 0, none: 0 }, signers: { dispatches: 0, one_signature: 0, person: 0 } };
   fs.mkdirSync(rawDir, { recursive: true }); fs.mkdirSync(outDir, { recursive: true });
   for (const P of PARTS.filter((x) => parts.includes(x.part))) {
     const src = registry.sources.get(P.source);
@@ -95,16 +96,22 @@ export async function build({ parts = [1, 2, 3], rawDir = path.join(root, 'histo
           au = L.resolveAuthor(meta, { side: meta.side });
           linkStats.authors.reports++; if (au.person) linkStats.authors.person++; if (au.units.length) linkStats.authors.unit++; if (!au.person && !au.units.length) linkStats.authors.none++;
           subjects = [...au.units.map((u) => ({ id: u.id, tier: u.tier })), ...(au.person ? [{ id: au.person.id, tier: au.person.tier }] : [])];
+        } else if (P.part === 3 && meta.kind !== 'itinerary') {
+          // a dispatch: its sender, when the text carries exactly one signature and the registry holds a man of that name and initials on that side
+          const sg = L.resolveSigner([d.text], { side: meta.side, signer: (meta.author && meta.author.name) || '' });          // the document's own lines: a passage joins the lines of a paragraph, and "A. PLEASONTON," + "Brigadier-General, Commanding." became one line there
+          linkStats.signers.dispatches++; if (sg.signer) linkStats.signers.one_signature++; if (sg.person) { linkStats.signers.person++; au = { person: sg.person, units: [] }; subjects = [{ id: sg.person.id, tier: sg.person.tier }]; }
         }
         per = L.linkDocument(ps, { side: meta.side, subjects });
       }
       const docClaims = claimsOfDoc(meta, ps, { subjectUnits: subjects.filter((s) => !/^P:/.test(s.id)).map((s) => s.id), units: null });
       // a claim carries the units its own sentence names (A/B links of the passage's sentence)
       if (per) for (const c of docClaims) { const pi = ps.findIndex((p) => p.id === c.passage); const ids = new Set(c.units); for (const m of per.passages[pi].mentions) if (m.sentence === c.sentence && m.tier !== 'C' && /^(?:regiment|brigade|division|corps|army|artillery|artillery-unit)$/.test(m.kind)) ids.add(T.idx.R[m.i].id); c.units = [...ids].sort(); }
+      // the scan leaf of the printed page each claim lies on (the page the claim is on, not the page the report starts on)
+      for (const c of docClaims) { const sc = pm && c.page !== null && c.page !== undefined ? pm.scan(c.page) : null; c.leaf = sc ? sc.leaf : null; }
       claims.push(...docClaims);
       ps.forEach((p, k) => {
         const ents = per ? per.passages[k].ents : [];
-        if (per) { for (const m of per.passages[k].mentions) { linkStats[m.tier]++; if (unitReg && m.kind === 'regiment') { const u = unitReg.get(T.idx.R[m.i].id); if (!u) linkStats.registry_missing++; else if (u.side !== (T.idx.R[m.i].side === 'U' ? 'union' : 'confederate')) linkStats.registry_side_disagree++; } } if (ents.length) { linkStats.passages_with_ents++; linkStats.ents += ents.length; } }
+        if (per) { for (const m of per.passages[k].mentions) { mentionLog.push({ pid: p.id, doc: d.doc_id, side: meta.side, id: T.idx.R[m.i].id, label: T.idx.R[m.i].label, kind: m.kind, tier: m.tier, via: m.via, phrase: m.phrase, support: !!m.support, s: m.s, e: m.e }); linkStats[m.tier]++; if (unitReg && m.kind === 'regiment') { const u = unitReg.get(T.idx.R[m.i].id); if (!u) linkStats.registry_missing++; else if (u.side !== (T.idx.R[m.i].side === 'U' ? 'union' : 'confederate')) linkStats.registry_side_disagree++; } } if (ents.length) { linkStats.passages_with_ents++; linkStats.ents += ents.length; } }
         const clk = []; const sents = splitSentences(p.text); sents.forEach((x, si) => { if (docClaims.some((c) => c.passage === p.id && c.sentence === si)) clk.push(x.s); });
         // the scan of every page break inside the passage: [offset, printed page, leaf, reader index]
         const pg = (p.pg && p.pg.length ? p.pg : [[0, p.pages.start]]).filter((x) => x[1] !== null).map(([off, page]) => { const sc = pm ? pm.scan(page) : null; return sc ? [off, page, sc.leaf, sc.reader] : [off, page]; });
@@ -127,13 +134,14 @@ export async function build({ parts = [1, 2, 3], rawDir = path.join(root, 'histo
   // stable numbering: part, then document order
   passagesOut.forEach((p, i) => { p.n = i; });
   fs.writeFileSync(path.join(rawDir, 'passages.jsonl'), passagesOut.map((p) => JSON.stringify(p)).join('\n') + '\n');
+  if (mentionLog.length) fs.writeFileSync(path.join(rawDir, 'mentions.jsonl'), mentionLog.map((m) => JSON.stringify(m)).join('\n') + '\n');
   fs.writeFileSync(path.join(rawDir, 'docs.jsonl'), docsOut.map((d) => JSON.stringify(d)).join('\n') + '\n');
   // reports.json: the numbered reports (parts 1 and 2), one rich row each; dispatches.json: the dispatches of part 3 as a table (fields + rows); time_claims.json: every clock-time claim as a table
   const table = (objs, fields) => ({ fields, rows: objs.map((o) => fields.map((f) => (o[f] === undefined ? null : o[f]))) });
   fs.writeFileSync(path.join(outDir, 'reports.json'), JSON.stringify({ corpus_version: CORPUS_VERSION, reports: reports.filter((r) => r.part !== 3) }));
-  const dispatchRows = reports.filter((r) => r.part === 3).map((r) => ({ id: r.id, kind: r.kind, side: r.side, signer: r.author && r.author.name, addressee: r.addressee || null, written: r.written && r.written.iso, place: r.written && r.written.place, clock: r.clock ? r.clock.text : null, clock_min: r.clock ? r.clock.min : null, page: r.pages.start, leaf: r.scan ? r.scan.leaf : null, scope: r.scope, passages: r.passages, words: r.words, claims: r.claims }));
+  const dispatchRows = reports.filter((r) => r.part === 3).map((r) => ({ id: r.id, kind: r.kind, side: r.side, signer: r.author && r.author.name, addressee: r.addressee || null, written: r.written && r.written.iso, place: r.written && r.written.place, clock: r.clock ? r.clock.text : null, clock_min: r.clock ? r.clock.min : null, page: r.pages.start, leaf: r.scan ? r.scan.leaf : null, scope: r.scope, passages: r.passages, words: r.words, claims: r.claims, signer_link: r.author_links && r.author_links.person ? r.author_links.person.id : null, signer_tier: r.author_links && r.author_links.person ? r.author_links.person.tier : null }));
   fs.writeFileSync(path.join(outDir, 'dispatches.json'), JSON.stringify({ corpus_version: CORPUS_VERSION, ...table(dispatchRows, Object.keys(dispatchRows[0] || {})) }));
-  const claimFields = ['passage', 'doc', 'sentence', 'ss', 'se', 's', 'e', 'text', 'kind', 'min', 'ampm', 'cand', 'tol', 'mod', 'from', 'to', 'word', 'day', 'day_basis', 'evidence', 'author', 'rank_class', 'unit', 'side', 'written', 'lag_days', 'page', 'units'];
+  const claimFields = ['passage', 'doc', 'sentence', 'ss', 'se', 's', 'e', 'text', 'kind', 'min', 'ampm', 'cand', 'tol', 'mod', 'from', 'to', 'word', 'day', 'day_basis', 'day_age', 'scope', 'evidence', 'author', 'rank_class', 'unit', 'side', 'written', 'lag_days', 'page', 'leaf', 'units'];
   fs.writeFileSync(path.join(outDir, 'time_claims.json'), JSON.stringify({ corpus_version: CORPUS_VERSION, ...table(claims, claimFields) }));
   const totals = { documents: reports.length, passages: passagesOut.length, words: passagesOut.reduce((a, p) => a + p.words, 0), reports_found: reports.filter((r) => r.part !== 3).length, dispatches: reports.filter((r) => r.part === 3).length };
   const man = { corpus_version: CORPUS_VERSION, built_with: { node: process.version, ingest_sha: sha256(Buffer.from(fs.readdirSync(here).filter((x) => x.endsWith('.mjs')).sort().map((x) => fs.readFileSync(path.join(here, x), 'utf8')).join('\n'))).slice(0, 16) }, linker_registry_sha: T ? T.sha : null,

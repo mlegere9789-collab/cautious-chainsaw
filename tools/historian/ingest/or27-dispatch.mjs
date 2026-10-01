@@ -40,6 +40,19 @@ export function readDateline(line) {
 const SIGNER = /^[A-Z][A-Z .'’\-]{3,42},?$/;
 const RECIPIENT_CUE = /^(?:(?:Maj(?:or)?|Brig(?:adier)?|Lieut(?:enant)?|Col(?:onel)?|Capt(?:ain)?|Gen(?:eral)?|Hon|His Excellency|The President|The Secretary|Commanding|Chief|Adjutant|Assistant|Mr|Governor|Dr|Surg)\b)/i;
 
+/**
+ * The signature lines of a dispatch text (ALL-CAPS name lines near the foot: "GEO. G. MEADE,"), as printed. A dispatch with exactly one is signed by that name; a text with two or more (an inclosure,
+ * a forwarded dispatch, two dispatches run together by a missed dateline) has no single sender, and a link made from it would be a guess.
+ */
+export function signatureLines(text) {
+  const out = [];
+  for (const raw of String(text).split('\n')) {
+    const t = raw.trim().replace(/^0\./, 'O.');                                                                 // the OCR reads the capital O of "O. O. HOWARD" as a zero
+    if (SIGNER.test(t) && /[A-Z]{3,}/.test(t) && !/^(?:GENERAL|SPECIAL|CIRCULAR|ORDERS|NO\b|HEADQUARTERS|DEPARTMENT|WAR DEPARTMENT|COPY|CIPHER|TELEGRAM|OFFICIAL|ADJUTANT|ASSISTANT|CHIEF|INCLOSURE)/.test(t)) out.push(t.replace(/[,\s]+$/, ''));
+  }
+  return out;
+}
+
 /** header block, addressee, signer of one dispatch text */
 export function dispatchFields(text) {
   const lines = text.split('\n');

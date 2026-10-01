@@ -2,7 +2,7 @@
  "corpus_version": "1.0.0",
  "built_with": {
   "node": "v24.19.0",
-  "ingest_sha": "befbf288417db1cb"
+  "ingest_sha": "32e62c902c3391db"
  },
  "linker_registry_sha": "0a02e6c75fe4",
  "sources": [
@@ -56,7 +56,7 @@
     "addenda_at": null,
     "addenda_chars": 0
    },
-   "page_marks": 1039,
+   "page_marks": 1040,
    "page_marks_inferred": 30,
    "running_heads_left": 1,
    "dispatch": null
@@ -109,7 +109,7 @@
     "addenda_at": 2405450,
     "addenda_chars": 611112
    },
-   "page_marks": 909,
+   "page_marks": 910,
    "page_marks_inferred": 20,
    "running_heads_left": 4,
    "dispatch": null
@@ -157,8 +157,8 @@
    "passages": 3469,
    "missing_numbers": [],
    "tail": null,
-   "page_marks": 1094,
-   "page_marks_inferred": 22,
+   "page_marks": 1099,
+   "page_marks_inferred": 23,
    "running_heads_left": 7,
    "dispatch": {
     "dispatches": 2945,
@@ -178,7 +178,7 @@
     "in_battle_window": 586,
     "july_1_3": 208,
     "july_1_3_with_clock": 89,
-    "pages_missing": 3
+    "pages_missing": 0
    }
   }
  ],
@@ -190,50 +190,57 @@
   "dispatches": 2945
  },
  "link_stats": {
-  "A": 7109,
-  "B": 6928,
-  "C": 6307,
-  "passages_with_ents": 5524,
-  "ents": 15257,
+  "A": 7078,
+  "B": 6903,
+  "C": 6260,
+  "passages_with_ents": 5574,
+  "ents": 15420,
   "registry_side_disagree": 0,
   "registry_missing": 0,
   "authors": {
    "reports": 573,
-   "person": 271,
-   "unit": 301,
+   "person": 270,
+   "unit": 300,
    "none": 157
+  },
+  "signers": {
+   "dispatches": 2938,
+   "one_signature": 2425,
+   "person": 463
   }
  },
  "time": {
-  "claims": 5408,
-  "with_minute": 5157,
-  "ambiguous_meridiem": 251,
-  "with_day": 5404,
+  "claims": 5382,
+  "with_minute": 5117,
+  "ambiguous_meridiem": 265,
+  "with_day": 4977,
   "by_kind": {
-   "clock": 3951,
+   "clock": 3930,
    "sun": 459,
    "midnight": 78,
-   "oclock": 600,
-   "noon": 273,
+   "oclock": 596,
+   "noon": 272,
    "range": 44,
    "spelled": 3
   },
   "by_evidence": {
-   "report": 3544,
+   "report": 3518,
    "dispatch-header": 1130,
    "dispatch-body": 734
   },
   "by_day_basis": {
-   "carried": 2029,
-   "same": 1896,
-   "rel": 349,
-   "none": 4,
+   "carried": 2026,
+   "same": 1702,
+   "scope-other": 358,
+   "rel": 112,
+   "none": 47,
+   "later": 7,
    "dateline": 1130
   },
   "by_side": {
-   "union": 4779,
-   "confederate": 629
+   "union": 4754,
+   "confederate": 628
   },
-  "battle_days": 1504
+  "battle_days": 1498
  }
 }

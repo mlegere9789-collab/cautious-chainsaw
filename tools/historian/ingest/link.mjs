@@ -11,7 +11,8 @@
 //   * the side of the report breaks a tie between the Union and the Confederate "1st Maryland"; an unresolved tie is not guessed
 //   * the AUTHOR of a report is its subject: the unit named in the contents list, and the person the contents list names, link to every passage of it with role 2
 // Tiers: A (the grammar names the unit exactly), B (a multi-word name or rank + surname, capitalised), C (one word; never a subject, never an entity posting). Only A and B links are emitted as passage entities.
-import { tokenize, stem, splitSentences } from '../../../historian-src/core/text.js';
+import { tokenize, stem, splitSentences, dl } from '../../../historian-src/core/text.js';
+import { signatureLines } from './or27-dispatch.mjs';
 
 export const UNIT_KINDS = new Set(['regiment', 'brigade', 'division', 'corps', 'army', 'artillery', 'artillery-unit']);
 export const PLACE_KINDS = new Set(['terrain', 'road', 'structure', 'feature']);
@@ -57,8 +58,11 @@ export function personEvidence(sentence, rec) {
     if (!/^[A-Z]/.test(m[3])) continue;
     const after = sentence.slice(m.index + m[0].length);
     if (/^\s+[A-Z]\.(?![A-Za-z])/.test(after)) continue;                                    // "Thomas A. Rowley": the surname-looking word is a given name
+    if (/^[,\s]+(?:Assistant\s+Adjutant|A\.?\s?A\.?\s?G\b)/i.test(after)) continue;         // "General Williams, Assistant Adjutant-General" is the staff officer of the army (Seth Williams), not the site's division commander
     const tc = m[1] ? rankClassOfText(m[1]) : null;
     if (tc && !(RANK_OK[tc] || []).includes(pc)) continue;
+    // a general or lieutenant general of the registry held that rank throughout the summer of 1863: a "Major-General Hill" or "Brigadier-General Lee" of that summer is another man (D. H. Hill, Fitzhugh Lee)
+    if (m[1] && /^(?:Lieutenant General|General)$/.test(String((rec.attrs && rec.attrs.rank) || '')) && /^(?:Maj|Brig)/i.test(m[1])) continue;
     const toks = m[2].split(/\s+/).map((x) => x.replace(/[.,]/g, '')).filter(Boolean);
     let given = false;
     if (toks.length) {
@@ -107,7 +111,9 @@ export function createOrLinker({ idx, link }) {
         }
         const span = toks.slice(m.start, m.end);
         // the militia and the National Guard of 1863 ("the 68th Regt. New York State N. G.", "the Twenty-sixth Pennsylvania Militia") are not the Volunteer regiments of the same number
-        { const after = toks.slice(m.end, m.end + 4); if (after.includes('militia') || (after.includes('national') && after.includes('guard')) || (after.includes('n') && after.includes('g') && after.indexOf('n') + 1 === after.indexOf('g'))) continue; }
+        { const after = toks.slice(m.end, m.end + 4); if (span.includes('militia') || after.includes('militia') || (after.includes('national') && after.includes('guard')) || (after.includes('n') && after.includes('g') && after.indexOf('n') + 1 === after.indexOf('g'))) continue; }
+        // "Cooper's (First Pennsylvania Reserve Volunteer) battery": the name of a battery written with its parent's regiment is not the regiment
+        if (!isBattery(best) && /^(?:battery|batteries)$/.test(toks[m.end] || '')) continue;
         // a Union report's "Twelfth Virginia" is a West Virginia regiment, and Maryland, Kentucky, Missouri and Tennessee sent units to both sides: across the line, not guessed
         if (side && sideOf(best) && sideOf(best) !== side && /^(?:virginia|maryland|kentucky|missouri|tennessee)$/.test(stateWord)) continue;
         const spanArms = new Set(span.map((t) => (/^cavalry$/.test(t) ? 'cav' : /^(?:battery|batteries|artillery)$/.test(t) ? 'art' : t === 'infantry' ? 'inf' : /^sharpshooters?$/.test(t) ? 'ss' : /^reserves?$/.test(t) ? 'res' : null)).filter(Boolean));
@@ -116,6 +122,7 @@ export function createOrLinker({ idx, link }) {
           if (!span.some((t) => /^(?:battery|batteries)$/.test(t))) continue; tier = 'B';
         } else {
           const arm = R[best].arm || 'inf', need = ARM_WORD[arm];
+          if (spanArms.has('art') && arm !== 'art') continue;                           // "Cooper's (First Pennsylvania Reserve Volunteer) battery" is a battery that carries its parent regiment's name
           if (spanArms.size && !spanArms.has(arm === 'bn' ? 'inf' : arm)) continue;   // the text names another arm ("Fourth United States Artillery" is not the 4th U.S. Infantry; "2d United States Sharpshooters" is not the 2nd U.S. Infantry)
           if (need && !span.some((t) => need.test(t))) tier = 'C';                                                      // a cavalry or reserve record without its arm word is not an exact link
         }
@@ -151,6 +158,7 @@ export function createOrLinker({ idx, link }) {
       }
       const i = keep.includes(m.best) ? m.best : keep[0];
       if (isBattery(i) && !nearBattery(m)) continue;
+      if (isBattery(i) && toks.slice(Math.max(0, m.start - 4), Math.min(toks.length, m.end + 5)).includes('militia')) continue;   // "Capt. J. M. Knap, Battery A, Pennsylvania militia" is not Knap's Independent Battery E
       const n = m.n || words.length;
       if (n === 1) { if (!allCap || words[0].length < 5 || GENERIC.has(words[0])) continue; out.push({ i, kind: kindOf(i), tier: 'C', via: 'alias-1', phrase: m.phrase }); continue; }
       if (!allCap) continue;
@@ -187,20 +195,37 @@ export function createOrLinker({ idx, link }) {
   // ---- the author of a report ---------------------------------------------------------------------------------------------------------------------------------------
   const surnameKey = (name) => { const parts = String(name || '').replace(/[.,]/g, ' ').trim().split(/\s+/).filter(Boolean); return parts.length ? stem(parts[parts.length - 1].toLowerCase().replace(/[^a-z]/g, '')) : null; };
   const initials = (name) => String(name || '').replace(/[.,]/g, ' ').trim().split(/\s+/).slice(0, -1).map((x) => x[0].toLowerCase());
+  // the given names as written ("Jas. S.", "Winf’d S.", "William H.") against the record's own ("James", "Winfield Scott", "Wallace"): an initial is the record's initial, a word is the record's word, its abbreviation
+  // (Jas. James, Winf'd Winfield: the letters in order from the same first letter) or one OCR slip away; only as many names as both give are compared (the registry often holds no middle name)
+  const letters = (s) => String(s).toLowerCase().replace(/[^a-z]/g, '');
+  const subseq = (a, b) => { let k = 0; for (const c of b) if (k < a.length && c === a[k]) k++; return k === a.length; };
+  const givenOk = (name, given) => {
+    const w = String(name || '').replace(/[.,]/g, ' ').trim().split(/\s+/).slice(0, -1).map(letters).filter(Boolean);
+    const g = String(given || '').split(/\s+/).map(letters).filter(Boolean);
+    if (!w.length || !g.length) return true;
+    for (let k = 0; k < Math.min(w.length, g.length); k++) {
+      const x = w[k];
+      if (x.length === 1 || g[k].length === 1) { if (x[0] !== g[k][0]) return false; continue; }
+      const full = ABBR[x] || x, tol = Math.min(full.length, g[k].length) >= 5 ? 2 : 1;                    // "Alford" for "Alfred" (the contents list and the registry disagree) is two slips of five letters or more
+      if (!(full === g[k] || g[k].startsWith(full) || (x[0] === g[k][0] && subseq(x, g[k])) || dl(full, g[k], tol) <= tol)) return false;
+    }
+    return true;
+  };
   /**
    * the subject links of a report from its metadata: the unit named in the contents list (tier A when the grammar names a regiment, B for a formation or battery alias) and the person
    * ({ units: [{id, tier}], person: {id, tier} | null }). A person is matched by surname AND first initial (or given name) AND rank class among the site's people; a surname alone is not enough.
    */
-  function resolveAuthor(meta, { side = null } = {}) {
+  function resolveAuthor(meta, { side = null, exact = false } = {}) {
     const res = { units: [], person: null };
     if (meta.author && meta.author.name) {
       const key = surnameKey(meta.author.name); const ini = initials(meta.author.name);
       const rc = meta.author.rank ? rankClassOfText(meta.author.rank) : null;
-      const cands = (idx.surnames.get(key) || []).filter((i) => {
-        const g = R[i].attrs.given || ''; if (!ini.length) return true;
-        const gi = g.toLowerCase().split(/\s+/).filter(Boolean).map((x) => x[0]);
-        return gi.length ? ini[0] === gi[0] : true;
-      }).filter((i) => !side || !sideOf(i) || sideOf(i) === side).filter((i) => !rc || (RANK_OK[rc] || []).includes(rankClassOfPerson(R[i].attrs.rank)));
+      // the surname index is keyed by stem ("Whiting" and "White" share one): the written surname must also be within one edit of the person's own
+      const written = String(meta.author.name).replace(/[.,]/g, ' ').trim().split(/\s+/).pop().toLowerCase().replace(/[^a-z]/g, '');
+      const cands = (idx.surnames.get(key) || []).filter((i) => dl(written, String(R[i].attrs.surname || '').toLowerCase().replace(/[^a-z]/g, ''), 2) <= 1).filter((i) => {
+        if (!ini.length) return true;
+        return givenOk(meta.author.name, R[i].attrs.given);
+      }).filter((i) => !side || !sideOf(i) || sideOf(i) === side).filter((i) => !rc || (exact ? [rc] : RANK_OK[rc] || []).includes(rankClassOfPerson(R[i].attrs.rank)));
       if (cands.length === 1) res.person = { id: R[cands[0]].id, tier: ini.length ? 'A' : 'B' };
       else if (cands.length > 1) {
         // several people share the name and first initial: the one whose command matches the unit the title names, else none
@@ -217,6 +242,43 @@ export function createOrLinker({ idx, link }) {
     return res;
   }
 
+  // ---- the sender of a dispatch -----------------------------------------------------------------------------------------------------------------------------------
+  const titleName = (s) => String(s).toLowerCase().replace(/(^|[\s.\-])([a-z])/g, (m, a, b) => a + b.toUpperCase());
+  /** the rank class a signature's title line names ("Major-General, Commanding." general; "Assistant Adjutant-General." staff; none: null) */
+  const titleClassOf = (line) => {
+    const t = String(line || '').replace(/Adjutant[\s-]*General/gi, 'Adjutant').replace(/Inspector[\s-]*General/gi, 'Inspector').replace(/Judge[\s-]*Advocate[\s-]*General/gi, 'Judge').replace(/-\s+/g, '-');
+    if (/\b(?:Lieut(?:enant)?\.?[\s-]*Gen(?:eral)?|Major[\s-]*Gen(?:eral)?|Maj\.?[\s-]*Gen(?:eral)?|Brigadier[\s-]*Gen(?:eral)?|Brig\.?[\s-]*Gen(?:eral)?|General|Gen\.)\b/i.test(t)) return 'general';
+    // below a general, a staff function in the title ("Captain, Signal Officer."; "Colonel and Assistant Adjutant-General.") is a staff officer: the site's people are the officers who commanded units, and a staff man of the same surname is not one of them
+    if (/\b(?:Lieut(?:enant)?\.?[\s-]*Col(?:onel)?|Col(?:onel|\.)?|Major|Maj\.|Capt(?:ain|\.)?|Lieut(?:enant|\.)?)\b/i.test(t) && /Adjutant|Aide|Assistant|Secretary|Clerk|Surgeon|Inspector|Quartermaster|Ordnance|Signal|Provost|Engineer|Commissary|Judge/i.test(t)) return 'staff';
+    if (/\bLieut(?:enant)?\.?[\s-]*Col(?:onel)?\b/i.test(t)) return 'ltcol';
+    if (/\bCol(?:onel|\.)\b|\bColonel\b/i.test(t)) return 'colonel';
+    if (/\bMajor\b|\bMaj\.(?!\s*Gen)/i.test(t)) return 'major';
+    if (/\bCapt(?:ain|\.)?\b/i.test(t)) return 'captain';
+    if (/\bLieut(?:enant|\.)?\b/i.test(t)) return 'lieutenant';
+    return /Adjutant|Aide|Chief of|Assistant|Secretary|Clerk|Surgeon|Inspector|Quartermaster|Ordnance|Signal|Provost|Engineer|President|Commissary|Judge/i.test(t) ? 'staff' : null;
+  };
+  /**
+   * The sender of a dispatch from its signature line ("GEO. G. MEADE,"): a person of the registry when the name, its initials, the side AND the rank the signature's title line names ("Major-General.")
+   * agree, and only when the text carries ONE signature that is also the one the segmenter read (an inclosure, a forwarded dispatch or two dispatches run together have no single sender; "S. WILLIAMS,
+   * Assistant Adjutant-General" is not the site's Col. Samuel Williams). { signer: "GEO. G. MEADE" | null, person: { id, tier } | null, title: 'general' | ... | null }
+   */
+  function resolveSigner(texts, { side = null, signer = null } = {}) {
+    const all = Array.isArray(texts) ? texts.join('\n') : String(texts);
+    const norm = (s) => String(s || '').toUpperCase().replace(/[^A-Z]/g, '');
+    const sig = [...new Map(signatureLines(all).map((s) => [norm(s), s])).values()];                       // one man twice ("WINF’D S. HANCOCK" and "WINFD S.. HANCOCK": the same letters) is one signature
+    if (sig.length !== 1) return { signer: null, person: null, signatures: sig.length, title: null };
+    if (signer !== null && norm(signer) !== norm(sig[0])) return { signer: sig[0], person: null, signatures: 1, title: null, mismatch: true };
+    // the title is on the line(s) right after the signature
+    const lines = all.split('\n').map((x) => x.trim().replace(/^0\./, 'O.').replace(/[,\s]+$/, ''));
+    let at = -1; for (let i = lines.length - 1; i >= 0; i--) if (lines[i] === sig[0]) { at = i; break; }
+    const next = []; for (let i = at + 1; i < lines.length && next.length < 2; i++) if (lines[i]) next.push(lines[i]);
+    const title = at >= 0 ? titleClassOf(next[0]) || (next[1] ? titleClassOf(next[1]) : null) : null;
+    if (!title || title === 'staff') return { signer: sig[0], person: null, signatures: 1, title };
+    // the signature's own title gives the rank he held when he signed: a "Colonel" is not a registry general, whatever his later rank
+    const au = resolveAuthor({ author: { name: titleName(sig[0]), rank: ({ general: 'General', ltcol: 'Lieut. Col.', colonel: 'Col.', major: 'Maj.', captain: 'Capt.', lieutenant: 'Lieut.' })[title] }, unit: null }, { side, exact: true });
+    return { signer: sig[0], person: au.person, signatures: 1, title };
+  }
+
   /**
    * The links of one document (a report or a dispatch) in two passes: every passage's mentions first, then the entities of each passage once the units named anywhere in the document are known
    * (a lower-rank person is B only when his own unit is named in the document). Returns [{ mentions, ents }] in passage order and the set of unit ids the document names.
@@ -228,5 +290,5 @@ export function createOrLinker({ idx, link }) {
     return { docUnits, passages: per.map((ms) => ({ mentions: ms.map((m) => ({ ...m, tier: tierOf(m, docUnits) })), ents: entitiesOf(ms, subjects, { docUnits }) })) };
   }
 
-  return { mentionsOf, mentionsOfText, entitiesOf, resolveAuthor, linkDocument, tierOf, idx };
+  return { mentionsOf, mentionsOfText, entitiesOf, resolveAuthor, resolveSigner, linkDocument, tierOf, idx };
 }

@@ -29,6 +29,6 @@ export async function knownIds({ hx = HX } = {}) {
   const man = await rd('manifest.json');
   const ids = new Set((await rd(man.tiers.entity.path)).records.map((r) => r.id));
   for (const f of man.tiers.text.files) { const j = await rd(f.path); const ri = j.h.indexOf('rec'); for (const row of j.p) ids.add(row[ri]); }
-  for (const c of Object.values(man.corpora || {})) for (const f of c.text.files) { const j = await rd(f.path); const ri = j.h.indexOf('rec'); for (const row of j.p) ids.add(row[ri]); }   // the records of a corpus (its reports and dispatches)
+  for (const c of Object.values(man.corpora || {})) { const lst = c.files ? await rd(c.files.path) : c; for (const f of lst.text.files) { const j = await rd(f.path); const ri = j.h.indexOf('rec'); for (const row of j.p) ids.add(row[ri]); } }   // the records of a corpus (its reports and dispatches; the file list is a lazy file of its own)
   return ids;
 }

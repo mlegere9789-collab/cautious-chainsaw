@@ -1,13 +1,12 @@
-// select.js - extractive quote selection. Nothing is generated: every quote is a verbatim slice of a stored passage, sentence aligned (invariant I3).
-//   sentence score = sum idf(query stem in sentence) + 4[names a linked entity] + 3[has a clock time when the question is about time]
-//                    - 1.5[clock time when it is not] - 0.02 * max(0, words - 45)
-//   window = best run of 1-3 contiguous sentences up to 90 words; at most one quote per record; contemporaneous/dispatch kinds first when equal.
+// select.js - extractive quote selection: every quote is a verbatim slice of a stored passage, sentence aligned (I3).
+//   sentence score = sum idf(query stem) + 4[names a linked entity] + 3[clock time when asked about time] - 1.5[clock time when not] - 0.02 * max(0, words - 45)
+//   window = best run of 1-3 sentences up to 90 words; at most one quote per record; contemporaneous kinds first when equal.
 import { tokenize, stem, STOP, CLOCK_RE, normalizeWs, fkGrade, fnv1a32 } from './text.js';
 
 const idfOf = (kb, t) => {
-  const df = kb.lexDf.get(t) || 0;
-  const N = kb.lexicon.N || 1;
-  return df ? Math.log(1 + (N - df + 0.5) / (df + 0.5)) : 0.5;
+  const df = kb.lexDf.get(t) || 0, c = df ? null : kb.corp && kb.corp.df(t);   // a word only the Official Records hold has that corpus's own df
+  const N = c ? c.N : kb.lexicon.N || 1, d = c ? c.df : df;
+  return d ? Math.log(1 + (N - d + 0.5) / (d + 0.5)) : 0.5;
 };
 const stemsOf = (s) => tokenize(s, { keepStop: false }).map(stem);
 // verbs of utterance, every form: "Longstreet argues against it: '...'", "Lee told him", "Hancock replied", "he protested that ..." (a verb of command or movement is not one)
@@ -38,7 +37,7 @@ export function speakerSatisfied(text, ctx) {
   return true;
 }
 
-/** the printed page(s) a span [s, e) of a corpus passage lies on, from its page list [[offset, page, leaf, reader], ...]: { pages, label ("p. 622"), url } or null */
+/** the printed page(s) of a span [s, e) of a corpus passage, from its page list [[offset, page, leaf, reader], ...]: { pages, label, url, leaf } or null */
 export function pageSpan(pg, s, e, ia) {
   if (!pg || !pg.length || !Array.isArray(pg[0])) return null;
   const at = (x) => { let k = 0; for (let i = 0; i < pg.length; i++) { if (pg[i][0] <= x) k = i; else break; } return pg[k]; };
@@ -46,7 +45,7 @@ export function pageSpan(pg, s, e, ia) {
   const same = a[1] === b[1];
   return { pages: same ? String(a[1]) : `${a[1]}–${b[1]}`, label: same ? `p. ${a[1]}` : `pp. ${a[1]}–${b[1]}`, url: a[3] !== undefined && ia ? `https://archive.org/details/${ia}/page/n${a[3]}/mode/1up` : null, leaf: a[2] === undefined ? null : a[2] };
 }
-/** the hash of a quoted span (its whitespace-normalised text): the page and the tests check that what is shown is what the passage holds */
+/** the hash of a quoted span (whitespace-normalised): what is shown is checked against what the passage holds */
 export const quoteHash = (text) => fnv1a32(normalizeWs(text)).toString(16);
 
 export function sentencesOfPassage(p) {
@@ -133,7 +132,7 @@ export function selectQuotes(kb, ranked, ctx, { max = 2, skip = new Set(), minSc
     const pgi = pageSpan(p.pg, w.s, w.e, p.ia);
     out.push({
       t: 'quote', passage: p.id, rec: p.rec, s: w.s, e: w.e, text: w.text, kind: p.kind, clk: w.clk,
-      attrib: pgi ? `${p.cite.short}, ${pgi.label}` : p.cite.short, cite: p.cite, source: p.source, h: quoteHash(w.text), ...(pgi ? { page: pgi.pages, scan: pgi.url } : {}),
+      attrib: pgi ? `${p.cite.short}, ${pgi.label}` : p.cite.short, cite: p.cite, source: p.source, h: quoteHash(w.text), ...(pgi ? { page: pgi.pages, scan: pgi.url, leaf: pgi.leaf } : {}),
       // the exact slice is kept for the invariant check (I3): normalise_ws(passage.text.slice(s, e)) === text
     });
   }

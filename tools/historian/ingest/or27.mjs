@@ -71,11 +71,12 @@ export function cleanWhitespace(raw) {
 
 /** join "Confed-\nerate" -> "Confederate"; keep "Brigadier-\nGeneral" as "Brigadier-General" */
 export function dehyphenate(t, edits = []) {
-  return t.replace(/([A-Za-z]{2,})-\n(?!\n)([A-Za-z])([A-Za-z]*)/g, (m, a, b, c) => {
+  // a page mark (MARK, see normalizeOcr) standing at the start of the continuation is carried to the end of the joined word
+  return t.replace(/([A-Za-z]{2,})-\n(?!\n)(*)([A-Za-z])([A-Za-z]*)/g, (m, a, b0, b, c) => {
     const lowerNext = b === b.toLowerCase();
     const out = lowerNext ? a + b + c : `${a}-${b}${c}`;
-    edits.push({ why: lowerNext ? 'dehyphenate' : 'hyphen-kept', from: m.replace('\n', '\\n'), to: out });
-    return out;
+    edits.push({ why: lowerNext ? 'dehyphenate' : 'hyphen-kept', from: m.replace('\n', '\\n').replace(//g, ''), to: out });
+    return out + b0;
   });
 }
 
@@ -230,14 +231,20 @@ export function normalizeOcr(raw, { repair = true } = {}) {
   const a = cleanWhitespace(raw);
   const edits = [...a.edits];
   const h = stripRunningHeads(a.text);
-  const d = dehyphenate(h.text, edits);
-  // page offsets shift when text is joined: recompute from markers by re-running head removal on the joined text is not possible; keep page marks as approximate line anchors
+  // the page marks travel through the joining of hyphenated words, the squeeze of blanks and the dictionary repair as one private-use character each (MARK) at their offset, so that every mark keeps its exact place:
+  // the earlier way (find the first four words after the mark again in the changed text) put two pages whose first lines read alike ("Headquarters Army of the Potomac,") on one offset or on the wrong one
+  let hs = h.text;
+  for (const p of h.pages.map((q, i) => ({ ...q, i })).sort((x, y) => y.offset - x.offset || y.i - x.i)) hs = hs.slice(0, p.offset) + MARK + hs.slice(p.offset);
+  const d = dehyphenate(hs, edits);
   let text = d.replace(/[ \t]+/g, ' ');
-  let pages = h.pages;
   if (repair) { const r = dictionaryRepair(text); text = r.text; edits.push(...r.edits); }
-  // the join / repair steps change offsets slightly: rebuild page offsets by locating the first words after each mark
-  return { text, pages: remapPages(h.text, h.pages, text), edits, pages_inferred: h.inferred || 0 };
+  const parts = text.split(MARK);
+  if (parts.length - 1 !== h.pages.length) return { text: text.replace(//g, ''), pages: remapPages(h.text, h.pages, text.replace(//g, '')), edits, pages_inferred: h.inferred || 0 };       // a mark was lost: the anchor search
+  const clean = parts.join(''); const pages = []; let off = 0;
+  parts.forEach((s, k) => { off += s.length; if (k < h.pages.length) { let o = off; while (o < clean.length && /\s/.test(clean[o])) o++; pages.push({ offset: o, page: h.pages[k].page }); } });   // a page begins at its first printed character, not at the blank lines before it
+  return { text: clean, pages, edits, pages_inferred: h.inferred || 0 };
 }
+const MARK = '';
 /** page marks were recorded against the head-stripped text; after de-hyphenation and repair, locate each mark again by a short anchor of the text that follows it */
 function remapPages(before, pages, after) {
   const out = []; let from = 0;
@@ -245,7 +252,7 @@ function remapPages(before, pages, after) {
     const anchor = before.slice(p.offset, p.offset + 60).replace(/\s+/g, ' ').trim().split(' ').slice(0, 4).join(' ');
     let idx = -1;
     if (anchor) { const re = new RegExp(anchor.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/ /g, '\\s+'), 'g'); re.lastIndex = from; const m = re.exec(after.replace(/\n/g, '\n')); if (m) idx = m.index; }
-    if (idx >= 0) { out.push({ offset: idx, page: p.page }); from = idx; }
+    if (idx >= 0) { out.push({ offset: idx, page: p.page }); from = idx + 1; }                  // strictly after: two pages whose first lines read alike ("Headquarters Third Army Corps,") must not land on one offset
   }
   return out;
 }
@@ -568,6 +575,13 @@ export function ingestOr27(raw, { repair = true, part = 1 } = {}) {
   const norm = normalizeOcr(raw, { repair });
   // Part 3 holds dispatches, not numbered reports: its documents are cut at datelines (or27-dispatch.mjs)
   const dispatchMode = part === 3;
+  // The first page of Part 3's text (the "CORRESPONDENCE, ETC." heading and the first dispatches) prints no running head, so no page mark stands in front of it: the text up to the first folio read (page 4) is one
+  // page, and it is the page before that folio (page 3). Taken only when the stretch is as short as one page (it is 1,500 characters; the first folio is at p. 4 and the leaf before its leaf holds no folio of its own).
+  let leadingPage = null;
+  if (dispatchMode && norm.pages.length && norm.pages[0].page > 1) {
+    const h = /\nCORRESPONDENCE, ETC\.?\s*\n/.exec(norm.text);
+    if (h && h.index < norm.pages[0].offset && norm.pages[0].offset - h.index < 4000) { leadingPage = { offset: h.index + 1, page: norm.pages[0].page - 1, inferred: true }; norm.pages.unshift(leadingPage); norm.pages_inferred = (norm.pages_inferred || 0) + 1; }
+  }
   const toc = dispatchMode ? [] : parseToc(norm.text);
   const seg = dispatchMode ? segmentDispatches(norm, { part }) : segmentReports(norm, toc, { part });
   const pageAt = (off) => { let p = null; for (const m of norm.pages) { if (m.offset <= off) p = m.page; else break; } return p; };
