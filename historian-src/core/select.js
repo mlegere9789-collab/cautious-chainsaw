@@ -2,7 +2,7 @@
 //   sentence score = sum idf(query stem in sentence) + 4[names a linked entity] + 3[has a clock time when the question is about time]
 //                    - 1.5[clock time when it is not] - 0.02 * max(0, words - 45)
 //   window = best run of 1-3 contiguous sentences up to 90 words; at most one quote per record; contemporaneous/dispatch kinds first when equal.
-import { tokenize, stem, STOP, CLOCK_RE, normalizeWs, fkGrade } from './text.js';
+import { tokenize, stem, STOP, CLOCK_RE, normalizeWs, fkGrade, fnv1a32 } from './text.js';
 
 const idfOf = (kb, t) => {
   const df = kb.lexDf.get(t) || 0;
@@ -37,6 +37,17 @@ export function speakerSatisfied(text, ctx) {
   if (ctx.speakerStems && ctx.speakerStems.size) { const toks = tokenize(text, { keepStop: false }).map(stem); const k = toks.findIndex((x) => ctx.speakerStems.has(x)); return k >= 0 && toks.slice(Math.max(0, k - 3), k + 9).some((x) => SPEECH.has(x)); }
   return true;
 }
+
+/** the printed page(s) a span [s, e) of a corpus passage lies on, from its page list [[offset, page, leaf, reader], ...]: { pages, label ("p. 622"), url } or null */
+export function pageSpan(pg, s, e, ia) {
+  if (!pg || !pg.length || !Array.isArray(pg[0])) return null;
+  const at = (x) => { let k = 0; for (let i = 0; i < pg.length; i++) { if (pg[i][0] <= x) k = i; else break; } return pg[k]; };
+  const a = at(s), b = at(Math.max(s, e - 1));
+  const same = a[1] === b[1];
+  return { pages: same ? String(a[1]) : `${a[1]}–${b[1]}`, label: same ? `p. ${a[1]}` : `pp. ${a[1]}–${b[1]}`, url: a[3] !== undefined && ia ? `https://archive.org/details/${ia}/page/n${a[3]}/mode/1up` : null, leaf: a[2] === undefined ? null : a[2] };
+}
+/** the hash of a quoted span (its whitespace-normalised text): the page and the tests check that what is shown is what the passage holds */
+export const quoteHash = (text) => fnv1a32(normalizeWs(text)).toString(16);
 
 export function sentencesOfPassage(p) {
   const b = p.sb && p.sb.length ? p.sb : [0];
@@ -73,7 +84,7 @@ export function bestWindow(kb, p, ctx, { maxWords = 90, maxSents = 3, plain = fa
     const words = (text.match(/\S+/g) || []).length;
     // "plain" (young readers): the shorter and simpler of two comparable sentences wins; the penalty is the sentence's own Flesch-Kincaid grade above 6 (the golden student items allow 7 to 10)
     if (plain) sc -= 0.08 * Math.max(0, words - 18) + 0.9 * Math.max(0, fkGrade(text) - 6);
-    return { s, e, text, sc, words, clk, spk, caps: text.length > 2 && text === text.toUpperCase() && /[A-Z]/.test(text) };
+    return { s, e, text, sc, words, clk, spk, hit: seen.size > 0, caps: text.length > 2 && text === text.toUpperCase() && /[A-Z]/.test(text) };
   });
   let best = null;
   // a question about what a named person SAID: when a sentence of this passage has that person as the speaker, only windows that start on such a sentence compete (context after it is fine,
@@ -82,11 +93,13 @@ export function bestWindow(kb, p, ctx, { maxWords = 90, maxSents = 3, plain = fa
   for (let i = 0; i < info.length; i++) {
     // a speaker's window starts on his sentence, or on the sentence of speech right before a bare attribution ("... ?" Bigelow asked.), which is the words themselves
     if (speakerMode && !info[i].spk && !(info[i + 1] && info[i + 1].spk && info[i + 1].words < 5)) continue;
-    let words = 0, sc = 0, clk = false, caps = true;
+    let words = 0, sc = 0, clk = false, caps = true, hit = false;
     for (let j = i; j < Math.min(info.length, i + maxSents); j++) {
       words += info[j].words; if (words > maxWords && j > i) break;
-      sc += info[j].sc; clk = clk || info[j].clk; caps = caps && info[j].caps;
+      sc += info[j].sc; clk = clk || info[j].clk; caps = caps && info[j].caps; hit = hit || info[j].hit;
       if (caps) continue;                                  // a window that is only an ALL-CAPS heading ("PICKETT'S CHARGE BEGINS.") is a label, never a quote
+      if (ctx.requireClockWindow && !clk) continue;
+      if (ctx.requireTopic && !hit) continue;               // the window must hold at least one word of the topic asked about        // a question about a reported time: the window must hold the clock time it is asked about
       // longer, complete windows beat one-line headings; very short windows are penalised, very long ones too
       const total = sc + 0.04 * Math.min(words, 40) - 0.02 * Math.max(0, words - 45) - (words < 10 ? 2 : 0);
       if (!best || total > best.score + 1e-9) best = { s: info[i].s, e: info[j].e, score: total, clk, words };
@@ -117,9 +130,10 @@ export function selectQuotes(kb, ranked, ctx, { max = 2, skip = new Set(), minSc
     if (first !== null && w.score < 0.35 * first) continue;
     if (first === null) first = w.score;
     seenRec.add(p.rec);
+    const pgi = pageSpan(p.pg, w.s, w.e, p.ia);
     out.push({
       t: 'quote', passage: p.id, rec: p.rec, s: w.s, e: w.e, text: w.text, kind: p.kind, clk: w.clk,
-      attrib: p.cite.short, cite: p.cite, source: p.source,
+      attrib: pgi ? `${p.cite.short}, ${pgi.label}` : p.cite.short, cite: p.cite, source: p.source, h: quoteHash(w.text), ...(pgi ? { page: pgi.pages, scan: pgi.url } : {}),
       // the exact slice is kept for the invariant check (I3): normalise_ws(passage.text.slice(s, e)) === text
     });
   }

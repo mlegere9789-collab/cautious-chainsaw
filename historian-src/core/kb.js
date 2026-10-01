@@ -1,6 +1,7 @@
 // kb.js - opens a knowledge base (the hx/ artifacts) through an injected fetchJSON(path) so the same code runs in the browser (fetch), in a Worker and in Node (fs).
 //   T1  (entity, entix, facts, lexicon)  loaded together at open() and prepared once
 //   T2  (ix buckets, en buckets, tx shards) loaded lazily per query and cached with a small LRU; a failed shard rejects with a retryable error
+//   manifest.corpora (optional): further passage collections (the Official Records) with their own lazy tiers, opened by corpus.js (imported only then); a KB without it behaves exactly as before
 import { prepareT1 } from './entities.js';
 import { createLinker } from './linker.js';
 import { bucketOf } from './text.js';
@@ -29,6 +30,7 @@ export async function openKB(fetchJSON, { manifest = null, cache = 64 } = {}) {
   const ixFiles = man.tiers.index.files, enFiles = man.tiers.entpost.files, txFiles = man.tiers.text.files;
   const nIx = man.tiers.index.buckets, nEn = man.tiers.entpost.buckets;
   const inflight = new Map();
+  const siteCount = man.counts && Number.isFinite(man.counts.passages) ? man.counts.passages : Infinity;     // numbers from here on belong to a corpus
   const cached = (cacheObj, key, loader) => {
     const v = cacheObj.get(key); if (v) return Promise.resolve(v);
     const k = cacheObj === ixCache ? 'ix' + key : cacheObj === enCache ? 'en' + key : 'tx' + key;
@@ -37,10 +39,12 @@ export async function openKB(fetchJSON, { manifest = null, cache = 64 } = {}) {
     inflight.set(k, p); return p;
   };
   const stats = { fetched: 0 };
+  const corp = man.corpora ? (await import('./corpus.js')).openCorpora(man, get, { cache, stats }) : null;
 
   const kb = {
     manifest: man, t1, entix, facts, lexicon, idx, link, lex, lexDf, stats,
     version: man.kb_version, counts: man.counts,
+    corpora: corp ? corp.list : [], corp, hasCorpus: (name) => !!corp && corp.has(name), corpusOf: (n) => (corp ? corp.corpusOf(n) : null), corpusDf: (t) => (corp ? corp.df(t) : null),
     /** BM25 over passages: Map(num -> score) for stemmed query terms. */
     async scorePassages(terms) {
       const scores = new Map();
@@ -54,6 +58,7 @@ export async function openKB(fetchJSON, { manifest = null, cache = 64 } = {}) {
           for (const [n, q] of decodeDeltaPairs(flat)) scores.set(n, (scores.get(n) || 0) + (q / 255) * lexicon.scale);
         }
       }
+      if (corp) await corp.score(scores, terms);
       return scores;
     },
     /** entity-conditioned candidates: Map(num -> {role, hits}) for entity ids. */
@@ -69,15 +74,18 @@ export async function openKB(fetchJSON, { manifest = null, cache = 64 } = {}) {
           for (const [n, role] of decodeDeltaPairs(flat)) { const cur = out.get(n) || { role: 0, ids: [] }; cur.role = Math.max(cur.role, role); cur.ids.push([id, role]); out.set(n, cur); }
         }
       }
+      if (corp) await corp.entities(out, ids);
       return out;
     },
     /** load passages by number: Map(num -> passage). */
     async passages(nums) {
-      const shards = [...new Set(nums.map(shardOf))].filter((x) => txFiles[x]);          // a number past the last shard is simply absent
+      const siteNums = nums.filter((n) => n < siteCount);
+      const shards = [...new Set(siteNums.map(shardOf))].filter((x) => txFiles[x]);          // a number past the last shard is simply absent
       // read from what each load returned, never back out of the LRU afterwards: a request that spans more shards than the cache holds (96 shards, default cache 64) would otherwise lose the shards it had just loaded
       const loaded = new Map(await Promise.all(shards.map(async (s) => [s, await cached(txCache, s, async () => { stats.fetched++; const j = await get(txFiles[s].path); return new Map(j.p.map((row) => { const p = decodePassage(row, j.h); return [p.num, p]; })); })])));
       const out = new Map();
-      for (const n of nums) { const sh = loaded.get(shardOf(n)); if (sh && sh.has(n)) out.set(n, sh.get(n)); }
+      for (const n of siteNums) { const sh = loaded.get(shardOf(n)); if (sh && sh.has(n)) out.set(n, sh.get(n)); }
+      if (corp) await corp.passages(nums, out);
       return out;
     },
   };

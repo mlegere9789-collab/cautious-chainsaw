@@ -41,7 +41,7 @@ export class Emitter {
 const refsOf = (manifest) => {
   const out = new Set();
   const walk = (v) => { if (!v) return; if (typeof v === 'string' && /^f\//.test(v)) out.add(v); else if (Array.isArray(v)) v.forEach(walk); else if (typeof v === 'object') Object.values(v).forEach(walk); };
-  walk(manifest.tiers);
+  walk(manifest.tiers); walk(manifest.corpora);
   return out;
 };
 

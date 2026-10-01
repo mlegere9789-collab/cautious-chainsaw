@@ -1,0 +1,239 @@
+{
+ "corpus_version": "1.0.0",
+ "built_with": {
+  "node": "v24.19.0",
+  "ingest_sha": "befbf288417db1cb"
+ },
+ "linker_registry_sha": "0a02e6c75fe4",
+ "sources": [
+  {
+   "source": "or27-1",
+   "role": "ocr-text",
+   "url": "https://archive.org/download/warofrebellion271unit/warofrebellion271unit_djvu.txt",
+   "fetched_at": "2026-10-01T01:06:22.644Z",
+   "sha256": "4a388b6291bb972d2c8c0086d3d29973b288e0008408f6ef869a75ac6f25ff63",
+   "bytes": 3970479,
+   "content_type": "text/plain; charset=utf-8",
+   "rights_statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077699761.json",
+   "rights_tier": "A",
+   "license_id": "PD-US-Gov"
+  },
+  {
+   "source": "or27-1",
+   "role": "page-numbers",
+   "url": "https://archive.org/download/warofrebellion271unit/warofrebellion271unit_page_numbers.json",
+   "fetched_at": "2026-10-01T01:10:53.231Z",
+   "sha256": "1c466ef45dc5a26870d10110c6ca86ce59ba7bfaa515d05d77bdc1cddf1ee6f1",
+   "bytes": 200256,
+   "content_type": "application/json",
+   "rights_statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077699761.json",
+   "rights_tier": "A",
+   "license_id": "PD-US-Gov"
+  },
+  {
+   "source": "or27-1",
+   "role": "scandata",
+   "url": "https://archive.org/download/warofrebellion271unit/warofrebellion271unit_scandata.xml",
+   "fetched_at": "2026-10-01T01:11:13.841Z",
+   "sha256": "1f1f193e3b45b19ca5d751c0f92e7c9bd5a8b6c22442f704b32c282dedb5c5b3",
+   "bytes": 1563011,
+   "content_type": "text/xml; charset=utf-8",
+   "rights_statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077699761.json",
+   "rights_tier": "A",
+   "license_id": "PD-US-Gov"
+  },
+  {
+   "source": "or27-1",
+   "role": "run-report",
+   "docs": 377,
+   "passages": 2680,
+   "missing_numbers": [
+    161
+   ],
+   "tail": {
+    "back_matter_at": 3106295,
+    "back_matter_chars": 240540,
+    "addenda_at": null,
+    "addenda_chars": 0
+   },
+   "page_marks": 1039,
+   "page_marks_inferred": 30,
+   "running_heads_left": 1,
+   "dispatch": null
+  },
+  {
+   "source": "or27-2",
+   "role": "ocr-text",
+   "url": "https://archive.org/download/warofrebellion272unit/warofrebellion272unit_djvu.txt",
+   "fetched_at": "2026-10-01T01:06:24.713Z",
+   "sha256": "144f88d2399c99feecccba69b42128f9ae1c3b5ab1eef965904f2e1ba04a1e02",
+   "bytes": 3880513,
+   "content_type": "text/plain; charset=utf-8",
+   "rights_statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077728255.json",
+   "rights_tier": "A",
+   "license_id": "PD-US-Gov"
+  },
+  {
+   "source": "or27-2",
+   "role": "page-numbers",
+   "url": "https://archive.org/download/warofrebellion272unit/warofrebellion272unit_page_numbers.json",
+   "fetched_at": "2026-10-01T01:10:54.829Z",
+   "sha256": "26a63d95bb3efbbe27d39511695de1205c659bf73d92f6afc976101cab1d23a4",
+   "bytes": 190222,
+   "content_type": "application/json",
+   "rights_statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077728255.json",
+   "rights_tier": "A",
+   "license_id": "PD-US-Gov"
+  },
+  {
+   "source": "or27-2",
+   "role": "scandata",
+   "url": "https://archive.org/download/warofrebellion272unit/warofrebellion272unit_scandata.xml",
+   "fetched_at": "2026-10-01T01:53:55.331Z",
+   "sha256": "f930f670f3b40af3ee3167824f48f2fd66abfbc183081daf489504e8251ccb85",
+   "bytes": 1479014,
+   "content_type": "text/xml; charset=utf-8",
+   "rights_statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077728255.json",
+   "rights_tier": "A",
+   "license_id": "PD-US-Gov"
+  },
+  {
+   "source": "or27-2",
+   "role": "run-report",
+   "docs": 211,
+   "passages": 2083,
+   "missing_numbers": [],
+   "tail": {
+    "back_matter_at": 3016562,
+    "back_matter_chars": 257030,
+    "addenda_at": 2405450,
+    "addenda_chars": 611112
+   },
+   "page_marks": 909,
+   "page_marks_inferred": 20,
+   "running_heads_left": 4,
+   "dispatch": null
+  },
+  {
+   "source": "or27-3",
+   "role": "ocr-text",
+   "url": "https://archive.org/download/warofrebellion273unit/warofrebellion273unit_djvu.txt",
+   "fetched_at": "2026-10-01T01:06:26.615Z",
+   "sha256": "5bd2aed13a5ef69c353bc8b5a488276aaf0e606ee247d2068a45fbc807959d31",
+   "bytes": 3406041,
+   "content_type": "text/plain; charset=utf-8",
+   "rights_statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077700262.json",
+   "rights_tier": "A",
+   "license_id": "PD-US-Gov"
+  },
+  {
+   "source": "or27-3",
+   "role": "page-numbers",
+   "url": "https://archive.org/download/warofrebellion273unit/warofrebellion273unit_page_numbers.json",
+   "fetched_at": "2026-10-01T01:10:55.571Z",
+   "sha256": "80f8088eb68c7eee3121e9db963d7f03fa651b6f4d02ec375cba8fee304db75e",
+   "bytes": 211296,
+   "content_type": "application/json",
+   "rights_statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077700262.json",
+   "rights_tier": "A",
+   "license_id": "PD-US-Gov"
+  },
+  {
+   "source": "or27-3",
+   "role": "scandata",
+   "url": "https://archive.org/download/warofrebellion273unit/warofrebellion273unit_scandata.xml",
+   "fetched_at": "2026-10-01T01:54:07.444Z",
+   "sha256": "544fa8a9a7b5814db023b3c375d2bceec0fc4b2d9c15482608e55f9601b43f7b",
+   "bytes": 1642470,
+   "content_type": "text/xml; charset=utf-8",
+   "rights_statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077700262.json",
+   "rights_tier": "A",
+   "license_id": "PD-US-Gov"
+  },
+  {
+   "source": "or27-3",
+   "role": "run-report",
+   "docs": 2945,
+   "passages": 3469,
+   "missing_numbers": [],
+   "tail": null,
+   "page_marks": 1094,
+   "page_marks_inferred": 22,
+   "running_heads_left": 7,
+   "dispatch": {
+    "dispatches": 2945,
+    "index_starts_at": 2519891,
+    "confederate_section_starts_at": 1938945,
+    "by_side": {
+     "union": 2429,
+     "confederate": 516
+    },
+    "by_kind": {
+     "dispatch": 2764,
+     "order": 180,
+     "itinerary": 1
+    },
+    "dated_1863": 2938,
+    "with_clock": 1263,
+    "in_battle_window": 586,
+    "july_1_3": 208,
+    "july_1_3_with_clock": 89,
+    "pages_missing": 3
+   }
+  }
+ ],
+ "totals": {
+  "documents": 3533,
+  "passages": 8232,
+  "words": 1330088,
+  "reports_found": 588,
+  "dispatches": 2945
+ },
+ "link_stats": {
+  "A": 7109,
+  "B": 6928,
+  "C": 6307,
+  "passages_with_ents": 5524,
+  "ents": 15257,
+  "registry_side_disagree": 0,
+  "registry_missing": 0,
+  "authors": {
+   "reports": 573,
+   "person": 271,
+   "unit": 301,
+   "none": 157
+  }
+ },
+ "time": {
+  "claims": 5408,
+  "with_minute": 5157,
+  "ambiguous_meridiem": 251,
+  "with_day": 5404,
+  "by_kind": {
+   "clock": 3951,
+   "sun": 459,
+   "midnight": 78,
+   "oclock": 600,
+   "noon": 273,
+   "range": 44,
+   "spelled": 3
+  },
+  "by_evidence": {
+   "report": 3544,
+   "dispatch-header": 1130,
+   "dispatch-body": 734
+  },
+  "by_day_basis": {
+   "carried": 2029,
+   "same": 1896,
+   "rel": 349,
+   "none": 4,
+   "dateline": 1130
+  },
+  "by_side": {
+   "union": 4779,
+   "confederate": 629
+  },
+  "battle_days": 1504
+ }
+}

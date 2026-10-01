@@ -11,6 +11,8 @@
 import crypto from 'node:crypto';
 import { splitSentences, dl } from '../../../historian-src/core/text.js';
 import { stripHeads, countHeads } from './heads.mjs';
+import { findHeader, titleOverlap } from './or27-headers.mjs';
+import { segmentDispatches } from './or27-dispatch.mjs';
 
 const sha8 = (s) => crypto.createHash('sha1').update(s).digest('hex').slice(0, 8);
 const words = (s) => (s.match(/\S+/g) || []).length;
@@ -26,11 +28,21 @@ const LONE_NUM = /^\s*(\d{1,4})\s*$/;
 const EVEN_TITLE = 'NCVAWVAMDPAETC';
 export function evenHead(l) {
   if (l.length > 100) return null;
-  const mm = l.match(/^\W{0,4}(\d{1,4})?\W{0,3}(.*)$/); if (!mm) return null;
+  const mm = l.match(/^\W{0,4}(?:(\d{1,4})(?![A-Za-z0-9]))?\W{0,3}(.*)$/); if (!mm) return null;
   let body = mm[2]; const cut = body.search(/[\[lt]?\s*C[a-zA-Z]{2,3}\.?\s+[XLIVCD]{2,}/); if (cut >= 0) body = body.slice(0, cut);
   const core = body.replace(/[^A-Za-z]/g, '').toUpperCase();
   if (core.length < 4 || !(core.length >= 10 ? dl(core, EVEN_TITLE, 5) <= 5 : core.startsWith('NCVA'))) return null;
   return { page: mm[1] ? +mm[1] : null };
+}
+// Part 3 prints "CORRESPONDENCE, ETC. UNION." (or "CONFEDERATE.") on every right-hand page, with the page number before or after it and often the chapter bracket run into the same line
+const CORR_CORES = ['CORRESPONDENCEETCUNION', 'CORRESPONDENCEETCCONFEDERATE'];
+export function corrHead(l) {
+  if (l.length > 80) return null;
+  const mm = l.match(/^\W{0,4}(\d{1,4})?\W{0,3}([^\d]*?)\W{0,3}(\d{1,4})?\W{0,3}$/); if (!mm) return null;
+  const core = mm[2].replace(/[^A-Za-z]/g, '').toUpperCase();
+  if (core.length < 14 || core.length > 30 || !CORR_CORES.some((c) => dl(core, c, 4) <= 4)) return null;
+  const pg = mm[1] || mm[3] || null;
+  return { page: pg ? +pg : null };
 }
 const HEAD_TITLE_UP = /^\W{0,3}\w{0,5}\s*GETTYSBURG\s+CAMPAIGN\.?\W{0,3}$/;                // all capitals, OCR-tolerant: never a body line
 
@@ -72,6 +84,7 @@ export function stripRunningHeads(t) {
   const lines = t.split('\n');
   const drop = new Set();
   const marks = []; // {line, page}
+  const headLine = new Set();   // every line dropped as a page head (not signature marks): one cluster of them is one page boundary
   // what a head SAYS is read first (heads.mjs: CHAP + XXXIX, GETTYSBURG CAMPAIGN in capitals, "R R - VOL XXVII, PT I", in any OCR spelling within a few edits); the older exact-spelling detectors below see what is left.
   // Reading it first matters: an exact-spelling pass that cuts only part of a corrupted head ("Chap. XX!" out of "Chap. XX!XIX.]") leaves a fragment that nothing recognises afterwards.
   const takeHeads = (i) => {
@@ -81,7 +94,7 @@ export function stripRunningHeads(t) {
     lines[i] = fz.text;
     if (fz.page) marks.push({ line: i, page: fz.page });
     if (!/[A-Za-z0-9]{2}/.test(fz.text)) {
-      drop.add(i);
+      drop.add(i); if (kinds.has('chap') || kinds.has('title')) headLine.add(i);
       if (fz.page === null && (kinds.has('chap') || kinds.has('title'))) { const n = nearNumber(lines, i, 4); if (n && !drop.has(n.line)) { drop.add(n.line); marks.push({ line: Math.min(i, n.line), page: n.page }); } }
       return true;
     }
@@ -89,17 +102,27 @@ export function stripRunningHeads(t) {
   };
   for (let i = 0; i < lines.length; i++) {
     if (takeHeads(i)) continue;
+    {                                                                                              // a page number alone in the middle of a sentence ("... I communicated my views to him," / 470 / "and was informed ..."): the page break's own number
+      const num = lines[i].match(/^\s*(\d{3,4})\s*$/);
+      if (num && +num[1] <= 1400) {
+        const blanks = (from, step) => { let n = 0; for (let k = from; k >= 0 && k < lines.length && !lines[k].trim(); k += step) n++; return n; };
+        const prevI = (() => { let k = i - 1; while (k >= 0 && !lines[k].trim()) k--; return k; })(), nextI = (() => { let k = i + 1; while (k < lines.length && !lines[k].trim()) k++; return k; })();
+        if (prevI >= 0 && nextI < lines.length && lines[prevI].trim().length >= 30 && !/[.!?:;"\u201d)\]]\s*$/.test(lines[prevI]) && /^[a-z]/.test(lines[nextI].trim()) && blanks(i - 1, -1) >= 2 && blanks(i + 1, 1) >= 2) { drop.add(i); marks.push({ line: i, page: +num[1] }); continue; }
+      }
+    }
     const l = lines[i];
     const one = l.match(/^\W{0,3}(?:Chap|CHAP|Ohap|Cnap)\.?\s+[XLIVC]{1,8}\.?\]?\s+(?:THE\s+)?GETTYSBURG\s+CAMPAIGN\.?\s*(\d{1,4})?\s*$/i);
-    if (one) { drop.add(i); if (one[1]) marks.push({ line: i, page: +one[1] }); else { const n = nearNumber(lines, i, 4); if (n) { drop.add(n.line); marks.push({ line: i, page: n.page }); } } continue; }
+    const corr = corrHead(l);
+    if (corr) { drop.add(i); headLine.add(i); if (corr.page) marks.push({ line: i, page: corr.page }); else { const n = nearNumber(lines, i, 4); if (n && !drop.has(n.line)) { drop.add(n.line); marks.push({ line: Math.min(i, n.line), page: n.page }); } } continue; }
+    if (one) { drop.add(i); headLine.add(i); if (one[1]) marks.push({ line: i, page: +one[1] }); else { const n = nearNumber(lines, i, 4); if (n) { drop.add(n.line); marks.push({ line: i, page: n.page }); } } continue; }
     const even = evenHead(l);
-    if (even) { drop.add(i); if (even.page) marks.push({ line: i, page: even.page }); else { const n = nearNumber(lines, i, 2); if (n && !drop.has(n.line)) { drop.add(n.line); marks.push({ line: Math.min(i, n.line), page: n.page }); } } continue; }
-    if (HEAD_TITLE_UP.test(l)) { drop.add(i); const n = nearNumber(lines, i, 2); if (n && !drop.has(n.line)) { drop.add(n.line); marks.push({ line: Math.min(i, n.line), page: n.page }); } continue; }
+    if (even) { drop.add(i); headLine.add(i); if (even.page) marks.push({ line: i, page: even.page }); else { const n = nearNumber(lines, i, 4); if (n && !drop.has(n.line)) { drop.add(n.line); marks.push({ line: Math.min(i, n.line), page: n.page }); } } continue; }
+    if (HEAD_TITLE_UP.test(l)) { drop.add(i); headLine.add(i); const n = nearNumber(lines, i, 2); if (n && !drop.has(n.line)) { drop.add(n.line); marks.push({ line: Math.min(i, n.line), page: n.page }); } continue; }
     const two = HEAD_CHAP.test(l) && l.replace(HEAD_CHAP, '').trim() === '';
     const three = HEAD_TITLE.test(l) && (lines.slice(Math.max(0, i - 5), i).some((x) => HEAD_CHAP.test(x)) || /\[?\s*Chap/i.test(l) || !!nearNumber(lines, i, 4));
     if (two || three) {
       // the head lines and the lone page number around them
-      drop.add(i);
+      drop.add(i); headLine.add(i);
       if (two) for (let k = i + 1; k <= Math.min(lines.length - 1, i + 6); k++) { if (HEAD_TITLE.test(lines[k])) drop.add(k); }
       const n = nearNumber(lines, i, 6);
       if (n && !drop.has(n.line)) { drop.add(n.line); marks.push({ line: Math.min(i, n.line), page: n.page }); }
@@ -110,19 +133,45 @@ export function stripRunningHeads(t) {
     if (inl.changed) { lines[i] = inl.text; if (inl.page) marks.push({ line: i, page: inl.page }); if (!inl.text.trim()) drop.add(i); }
     takeHeads(i);                                                                                 // what the exact-spelling passes left or changed
   }
-  const out = []; const pages = []; let off = 0;
-  // printed pages count up by one to four. A mark that continues the run is kept; one that restarts the numbering (front matter, then page 1) is kept when its successor
-  // confirms it; anything else is an OCR digit slip and is replaced by the previous page + 1 (counted in `inferred`)
+  // ---- page numbers ---------------------------------------------------------------------------------------------------------------------------------------
+  // Every printed page has one head cluster (the head lines dropped above) and most carry a page number somewhere around it. The marks are candidates; a chain is chosen:
+  //   events   one per head cluster (with the numbers found within 6 lines of it), plus every stand-alone mark (a number read inline in a body line); two events that share a number are one
+  //   chain    the longest consistent run of numbered events: each page 1 to 4 above the one before it, a restart (front matter, then page 1) costing two marks; found by dynamic programming
+  //   fill     an event that is not on the chain (an OCR digit slip: 894 for 394; or a head whose number was not read) takes the page counted off between its chain neighbours, when exactly as many
+  //            events lie between them as pages are missing there; when the counts disagree it is left unmarked rather than guessed
   marks.sort((a, b) => a.line - b.line);
-  let lastPage = null; let inferred = 0;
-  const fits = (from, to) => to > from && to - from <= 4;
-  for (let k = 0; k < marks.length; k++) {
-    const m = marks[k], nx = marks[k + 1];
-    if (lastPage === null || fits(lastPage, m.page)) { lastPage = m.page; continue; }
-    if (m.page === lastPage) { m.page = null; continue; }
-    if (nx && fits(m.page, nx.page)) { lastPage = m.page; continue; }
-    m.page = lastPage + 1; lastPage = m.page; inferred++;
+  const gap = (k) => !lines[k].trim() || drop.has(k);
+  const events = [];
+  for (const i of [...headLine].sort((x, y) => x - y)) { const c = events[events.length - 1]; if (c && c.cluster) { let ok = true; for (let k = c.last + 1; k < i && ok; k++) if (!gap(k)) ok = false; if (ok) { c.last = i; continue; } } events.push({ cluster: true, first: i, last: i, cand: [] }); }
+  for (const m of marks) {
+    let e = null, dmin = 7;                                                           // the nearest head cluster within six lines (the head the number belongs to)
+    for (const x of events) if (x.cluster) { const d = m.line < x.first ? x.first - m.line : m.line > x.last ? m.line - x.last : 0; if (d < dmin) { dmin = d; e = x; } }
+    if (e) e.cand.push(m.page); else events.push({ cluster: false, first: m.line, last: m.line, cand: [m.page] });
   }
+  events.sort((x, y) => x.first - y.first);
+  const merged = [];
+  for (const e of events) { const q = merged[merged.length - 1]; if (q && e.cand.length && q.cand.length && q.cand[0] === e.cand[0] && e.first - q.last <= 15) { q.last = Math.max(q.last, e.last); continue; } merged.push(e); }
+  const num = merged.map((e, i) => ({ i, p: e.cand.length ? e.cand[0] : null })).filter((x) => x.p !== null);
+  const best = new Array(num.length).fill(0), from = new Array(num.length).fill(-1); let prefix = -Infinity, prefixAt = -1;
+  for (let k = 0; k < num.length; k++) {
+    let sc = 1, fr = -1;                                                             // a chain that starts here
+    if (prefixAt >= 0 && prefix - 2 + 1 > sc) { sc = prefix - 2 + 1; fr = prefixAt; }  // a restart: the best chain so far, two marks lost
+    for (let j = Math.max(0, k - 8); j < k; j++) { const d = num[k].p - num[j].p; if (d >= 1 && d <= 4) { const v = best[j] + 1 - 0.2 * (d - 1); if (v > sc) { sc = v; fr = j; } } }
+    best[k] = sc; from[k] = fr;
+    if (sc > prefix) { prefix = sc; prefixAt = k; }
+  }
+  const onChain = new Set(); for (let k = prefixAt; k >= 0; k = from[k]) onChain.add(num[k].i);
+  let inferred = 0;
+  const chainIdx = [...onChain].sort((x, y) => x - y);
+  const finalPage = new Map(); for (const i of chainIdx) finalPage.set(i, merged[i].cand[0]);
+  for (let q = 0; q + 1 < chainIdx.length; q++) {
+    const lo = chainIdx[q], hi = chainIdx[q + 1], n = hi - lo - 1;
+    if (n > 0 && finalPage.get(hi) - finalPage.get(lo) - 1 === n) for (let t = 1; t <= n; t++) { finalPage.set(lo + t, finalPage.get(lo) + t); if (merged[lo + t].cand.length) inferred++; }
+  }
+  marks.length = 0;
+  for (const [i, pg] of finalPage) marks.push({ line: merged[i].cluster ? merged[i].first : merged[i].first, page: pg });
+  marks.sort((x, y) => x.line - y.line);
+  const out = []; const pages = []; let off = 0;
   const markAt = new Map(); for (const m of marks) if (m.page !== null) markAt.set(m.line, m.page);
   // page marks refer to the first kept line after them
   let pending = null;
@@ -205,6 +254,9 @@ function remapPages(before, pages, after) {
 // table of contents
 // ---------------------------------------------------------------------------------------------------------------------------------------
 const TOC_ENTRY = /^\s*No\.?\s*(\d{1,3})\s*\.?\s*[\u2014\u2013\-]{1,3}\s*(.+)$/;
+// the contents list in worse OCR: "N0. 64.— Lieut.", "No‘ 69!— Brig.", "No 70 —Col", "No; 71 1 — Col.", "No’ 74 -Lieut.", "No*. 80.— Lieut.", "No 75. Capt." (no dash at all): read only when the title that follows starts like a person's rank or a known item
+const TOC_FUZZY = /^\s*[NH][o0O°*'‘’!;pP]{0,2}[.,:;!'*‘’]?\s*(\d{1,3})\s*[.,:;!'*‘’]{0,2}\s*\d?\s*[—–\-]{0,3}\s*(\S.*)$/;
+const TOC_TITLE_OK = /^-?\s*(?:Lieut|Col|Maj|Capt|Brig|Gen|Surg|Rev|Hon|Dr|Sergt|Prof|Mr|Medical|Assist|Return|Abstract|Itinerary|Organization|Congratulatory|Medals|Record|Extract|General|Report|Statement|Roll|Lieutenant|Colonel|Captain|Major|Commodore|Acting|First|Second|Corporal)\b/;
 const TOC_NUM_ONLY = /^\s*No\.?\s*(\d{1,3})\s*[.,\-—–]{0,3}\s*$/;
 const RANK_START = /^-?\s*(?:Lieut\.?|Col\.?|Maj\.?|Capt\.?|Brig\.?|Gen\.?|Surg\.?|Rev\.?|Hon\.?|Dr\.?|Sergt\.?|Prof\.?|Mr\.?|Maj\.\s*Gen)/;
 export function parseToc(text) {
@@ -213,7 +265,8 @@ export function parseToc(text) {
   const pendingNums = []; // the ABBYY column layout prints a run of "No. 314.-" lines first and the titles as a separate column afterwards
   for (let i = 0; i < lines.length; i++) {
     const l = lines[i];
-    const m = l.match(TOC_ENTRY);
+    let m = l.match(TOC_ENTRY);
+    if (!m) { const f = l.match(TOC_FUZZY); if (f && f[1].length <= 3 && TOC_TITLE_OK.test(f[2])) m = f; }
     if (m) { if (cur) out.push(cur); cur = { no: +m[1], title: m[2].trim() }; continue; }
     const only = l.match(TOC_NUM_ONLY);
     if (only) { if (cur) { out.push(cur); cur = null; } pendingNums.push(+only[1]); continue; }
@@ -259,7 +312,7 @@ export function splitTocTitle(title) {
   return m ? { author: m[1].trim(), unit: m[2].replace(/\.$/, '').trim() } : { author: title.replace(/\.$/, '').trim(), unit: '' };
 }
 
-export function segmentReports(norm, toc = []) {
+export function segmentReports(norm, toc = [], { part = 1 } = {}) {
   const text = norm.text;
   const tocByNo = new Map(toc.map((e) => [e.no, e]));
   const found = [];
@@ -278,7 +331,10 @@ export function segmentReports(norm, toc = []) {
       const want = prevNo + 1, w = tocByNo.get(want);
       const author = w ? splitTocTitle(w.title).author.replace(/[^A-Za-z ]/g, '').split(/\s+/).pop() : null;
       const isNear = String(want).length === String(no).length && dl(String(no), String(want), 1) === 1;
-      if (w && isNear && author && new RegExp(author, 'i').test(f.header)) { fixes.push({ from: no, to: want, why: 'toc-sequence' }); no = want; }
+      // the number as read is itself a contents entry whose title this header carries better than it carries the wanted entry's: it is not a misread (No. 424 "Organization of the Army of Northern Virginia at the battle of Gettysburg" is not No. 423 "Medals of Honor for battle of Gettysburg")
+      const own = tocByNo.get(no);
+      const ownBetter = own && titleOverlap(f.header, own.title) >= Math.max(0.5, w ? titleOverlap(f.header, w.title) : 0);
+      if (w && isNear && author && !ownBetter && new RegExp(author, 'i').test(f.header)) { fixes.push({ from: no, to: want, why: 'toc-sequence' }); no = want; }
     }
     if (prevNo !== null && no <= prevNo) continue; // a cross reference, not a new report
     prevNo = no;
@@ -299,26 +355,77 @@ export function segmentReports(norm, toc = []) {
     }
   }
   if (recovered.length) { docs.push(...recovered); docs.sort((a, b) => a.start - b.start); }
+  // header gap filling (or27-headers.mjs): a number the contents list (or the run) expects whose header is damaged in a way the strict detector does not read: words lost from "Report of", columns scrambled, "Record of ...", "Organization of ..."
+  const expected = [...new Set([...toc.map((e) => e.no), ...(docs.length ? Array.from({ length: docs[docs.length - 1].no - docs[0].no + 1 }, (_, i) => docs[0].no + i) : [])])].filter((n) => !docs.length || (n >= docs[0].no)).sort((a, b) => a - b);
+  const have = new Set(docs.map((d) => d.no));
+  for (const n of expected) {
+    if (have.has(n) || n > (docs.length ? docs[docs.length - 1].no + 40 : 0)) continue;
+    const prev = [...docs].reverse().find((d) => d.no < n), next = docs.find((d) => d.no > n);
+    const lo = prev ? prev.headerEnd : 0, hi = next ? next.start : text.length;
+    if (hi <= lo) continue;
+    const h = findHeader(text, lo, hi, n, tocByNo.get(n) || null);
+    if (!h) continue;
+    docs.push({ no: n, header: h.header, start: h.start, headerEnd: h.headerEnd, recovered: h.rule }); have.add(n);
+    docs.sort((a, b) => a.start - b.start);
+  }
   docs.forEach((d, i) => { d.end = i + 1 < docs.length ? docs[i + 1].start : text.length; });
+  // the end of the volume is not the end of its last report: the finding aids (ALTERNATE DESIGNATIONS OF ORGANIZATIONS, the INDEX) follow it, and in Part 2 the numbered reports are followed by
+  // unnumbered sections about operations elsewhere (a skirmish at Seneca Mills, expeditions to the South Anna and Wytheville, the New York draft riots). Neither is a source about Gettysburg:
+  // the finding aids are cut from the last document, and the unnumbered operations are cut at their first heading and counted, not ingested.
+  const tail = { back_matter_at: null, back_matter_chars: 0, addenda_at: null, addenda_chars: 0 };
+  if (docs.length) {
+    const last = docs[docs.length - 1];
+    const bm = /\n[ \t]*ALTERNATE DESIGNATIONS[ \t]*\n/.exec(text.slice(last.start, last.end));
+    if (bm) { tail.back_matter_at = last.start + bm.index; tail.back_matter_chars = last.end - tail.back_matter_at; last.end = tail.back_matter_at; }
+    if (last.end - last.start > 100000) {
+      const ad = /\n[ \t]*(?:SKIRMISH|EXPEDITIONS?|SCOUT|DESCENT|RAID|RECORDS AND EVENTS|DRAFT RIOTS|CONFEDERATE EXPEDITION|ENGAGEMENT|AFFAIR)\b[A-Z0-9 ,.\-:'’&]{6,70}\.?[ \t]*\n/.exec(text.slice(last.start + 3000, last.end));
+      if (ad) { tail.addenda_at = last.start + 3000 + ad.index; tail.addenda_chars = last.end - tail.addenda_at; last.end = tail.addenda_at; }
+    }
+  }
   const pageAt = (off) => { let p = null; for (const m of norm.pages) { if (m.offset <= off) p = m.page; else break; } return p; };
   const segs = docs.map((d) => {
     const toc = tocByNo.get(d.no) || null;
     const sp = toc ? splitTocTitle(toc.title) : splitTocTitle(d.header.replace(/^Reports? of /i, ''));
     const body = text.slice(d.start, d.end).replace(/\s+$/, '');
     return {
-      doc_id: `or27-1:${String(d.no).padStart(4, '0')}`, no: d.no, title: d.header, toc_title: toc ? toc.title : null, author: sp.author, unit: sp.unit,
+      doc_id: `or27-${part}:${String(d.no).padStart(4, '0')}`, no: d.no, title: d.header, toc_title: toc ? toc.title : null, author: sp.author, unit: sp.unit,
       start: d.start, end: d.end, text: body, pages: { start: pageAt(d.start), end: pageAt(Math.max(d.start, d.end - 1)) },
       confidence: d.recovered ? 'B' : toc && dl(d.header.toLowerCase().slice(0, 40), ('report of ' + toc.title).toLowerCase().slice(0, 40), 40) < 28 ? 'A' : toc ? 'B' : 'C', recovered: d.recovered || null,
     };
   });
-  return { docs: segs, fixes };
+  return { docs: segs, fixes, tail };
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------
 // chunking
 // ---------------------------------------------------------------------------------------------------------------------------------------
+/** printed-page breaks inside one flattened paragraph: absolute page marks that fall inside raw (the paragraph's slice of the normalised text, at absolute offset absStart) mapped to offsets in flatten(raw) */
+export function pageBreaks(raw, absStart, pageMarks) {
+  if (!pageMarks || !pageMarks.length) return [];
+  const marks = pageMarks.filter((m) => m.offset > absStart && m.offset < absStart + raw.length && m.page !== null);
+  if (!marks.length) return [];
+  const out = []; let flat = 0, pend = false, mi = 0;
+  for (let i = 0; i < raw.length && mi < marks.length; i++) {
+    if (/\s/.test(raw[i])) { if (flat > 0) pend = true; continue; }
+    if (pend) { flat++; pend = false; }
+    while (mi < marks.length && absStart + i >= marks[mi].offset) { out.push({ at: flat, page: marks[mi].page }); mi++; }
+    flat++;
+  }
+  return out;
+}
+/** pg of a passage: [[offset in the passage text, printed page], ...], the first entry at 0; a new entry wherever the printed page changes (at a paragraph start or inside a paragraph) */
+export function pageList(paras) {
+  const pg = []; let at = 0, last = null;
+  paras.forEach((p, k) => {
+    if (p.startPage !== null && p.startPage !== undefined && p.startPage !== last) { pg.push([k === 0 ? 0 : at, p.startPage]); last = p.startPage; }
+    for (const b of p.breaks || []) if (b.page !== last) { pg.push([at + b.at, b.page]); last = b.page; }
+    at += p.text.length + 2;
+  });
+  return pg;
+}
+
 /** passages of ~150-250 words, paragraph aligned, never across documents; sb = sentence starts inside the passage. A short tail (< min words) is merged into the previous passage, so a passage never exceeds max + min - 1 words. */
-export function chunkDocument(doc, { target = 200, max = 250, min = 60, pageAt = null } = {}) {
+export function chunkDocument(doc, { target = 200, max = 250, min = 60, pageAt = null, pageMarks = null } = {}) {
   const paras = []; let off = 0;
   const flatten = (x) => x.replace(/\s+/g, ' ').trim();
   for (const part of doc.text.split(/\n{2,}/)) {
@@ -344,13 +451,15 @@ export function chunkDocument(doc, { target = 200, max = 250, min = 60, pageAt =
     }
     emit();
   }
+  // where each paragraph starts and which printed pages begin inside it (for the citation of a quoted span)
+  if (pageAt) for (const p of paras) { p.startPage = pageAt(doc.start + p.s); p.breaks = pageBreaks(doc.text.slice(p.s, p.e), doc.start + p.s, pageMarks); }
   const passages = []; let cur = [];
   const flush = () => {
     if (!cur.length) return;
     const text = cur.map((p) => p.text).join('\n\n');
     const seq = passages.length;
     const sb = splitSentences(text).map((x) => x.s);
-    passages.push({ id: `${doc.doc_id}#${sha8(text)}`, doc_id: doc.doc_id, seq, text, sb: sb.length ? sb : [0], words: words(text), s: cur[0].s, e: cur[cur.length - 1].e, pages: pageAt ? { start: pageAt(doc.start + cur[0].s), end: pageAt(doc.start + cur[cur.length - 1].e) } : doc.pages });
+    passages.push({ id: `${doc.doc_id}#${sha8(text)}`, doc_id: doc.doc_id, seq, text, sb: sb.length ? sb : [0], words: words(text), s: cur[0].s, e: cur[cur.length - 1].e, pages: pageAt ? { start: pageAt(doc.start + cur[0].s), end: pageAt(doc.start + cur[cur.length - 1].e) } : doc.pages, pg: pageAt ? pageList(cur) : undefined, _paras: pageAt ? cur : undefined });
     cur = [];
   };
   for (const p of paras) {
@@ -360,7 +469,7 @@ export function chunkDocument(doc, { target = 200, max = 250, min = 60, pageAt =
     cur.push(p);
     if (words(cur.map((x) => x.text).join(' ')) >= target) flush();
   }
-  if (cur.length) { if (passages.length && cur.reduce((a, x) => a + words(x.text), 0) < min) { const last = passages.pop(); cur.unshift({ text: last.text, s: last.s, e: last.e }); } flush(); }
+  if (cur.length) { if (passages.length && cur.reduce((a, x) => a + words(x.text), 0) < min) { const last = passages.pop(); if (last._paras) cur.unshift(...last._paras); else cur.unshift({ text: last.text, s: last.s, e: last.e }); } flush(); }
   // a passage that starts with a lone header line is fine; passages never cross documents by construction
   return passages;
 }
@@ -441,10 +550,10 @@ export const narrativeWords = (paras) => paraWords(paras, (t) => LOWER_WORD.test
 export function stripTableCells(text) {
   const paras = String(text).split(/\n{2,}/).map((x) => x.trim()).filter(Boolean);
   const regions = tableRegions(paras);
-  if (!regions.length) return { text: paras.join('\n\n'), removed: 0, regions: 0, narrative: narrativeWords(paras), text_words: textWords(paras) };
+  if (!regions.length) return { text: paras.join('\n\n'), removed: 0, regions: 0, narrative: narrativeWords(paras), text_words: textWords(paras), keptIdx: paras.map((_, k) => k) };
   const gone = new Set(); for (const [a, b] of regions) for (let k = a; k < b; k++) gone.add(k);
   const kept = paras.filter((_, k) => !gone.has(k));
-  return { text: kept.join('\n\n'), removed: gone.size, regions: regions.length, narrative: narrativeWords(kept), text_words: textWords(kept) };
+  return { text: kept.join('\n\n'), removed: gone.size, regions: regions.length, narrative: narrativeWords(kept), text_words: textWords(kept), keptIdx: paras.map((_, k) => k).filter((k) => !gone.has(k)) };
 }
 /**
  * A chunk is table debris when it holds a table and what is left once the table is taken out is not worth keeping: fewer than `minText` words of text, or fewer than `minText` words of report prose
@@ -455,12 +564,14 @@ export function isTableDebris(text, { minText = 15, listText = 25 } = {}) {
   return r.regions > 0 && (r.text_words < minText || (r.narrative < minText && r.text_words < listText));
 }
 
-export function ingestOr27(raw, { repair = true } = {}) {
+export function ingestOr27(raw, { repair = true, part = 1 } = {}) {
   const norm = normalizeOcr(raw, { repair });
-  const toc = parseToc(norm.text);
-  const seg = segmentReports(norm, toc);
+  // Part 3 holds dispatches, not numbered reports: its documents are cut at datelines (or27-dispatch.mjs)
+  const dispatchMode = part === 3;
+  const toc = dispatchMode ? [] : parseToc(norm.text);
+  const seg = dispatchMode ? segmentDispatches(norm, { part }) : segmentReports(norm, toc, { part });
   const pageAt = (off) => { let p = null; for (const m of norm.pages) { if (m.offset <= off) p = m.page; else break; } return p; };
-  const chunked = seg.docs.flatMap((d) => chunkDocument(d, { pageAt }));
+  const chunked = seg.docs.flatMap((d) => chunkDocument(d, { pageAt, pageMarks: norm.pages }));
   // an OCR'd table comes out as hundreds of one-cell paragraphs ("B", "0)", "a", "57", ...): worthless as a quotable passage, so it is dropped and counted (never silently)
   const debris = chunked.filter((p) => isTableDebris(p.text));
   // a chunk that holds a table AND prose keeps the prose: the cells are taken out, the sentence offsets and the id (a hash of the text) are recomputed
@@ -470,18 +581,20 @@ export function ingestOr27(raw, { repair = true } = {}) {
     if (!r.regions) return p;
     cleanedChunks++; cellParas += r.removed;
     const sb = splitSentences(r.text).map((x) => x.s);
-    return { ...p, id: `${p.doc_id}#${sha8(r.text)}`, text: r.text, sb: sb.length ? sb : [0], words: words(r.text) };
+    const keptParas = p._paras ? r.keptIdx.map((k) => p._paras[k]) : null;
+    return { ...p, id: `${p.doc_id}#${sha8(r.text)}`, text: r.text, sb: sb.length ? sb : [0], words: words(r.text), pg: keptParas ? pageList(keptParas) : p.pg, _paras: keptParas || undefined };
   });
+  for (const p of cleaned) delete p._paras;
   const seqOf = new Map(); const passages = cleaned.map((p) => { const k = seqOf.get(p.doc_id) || 0; seqOf.set(p.doc_id, k + 1); return { ...p, seq: k }; });
   const bad = (x) => !Number.isFinite(x);
   const report = {
     chars_in: raw.length, chars_out: norm.text.length, edits: norm.edits.length, edit_kinds: norm.edits.reduce((m, e) => { m[e.why] = (m[e.why] || 0) + 1; return m; }, {}),
     page_marks: norm.pages.length, page_marks_inferred: norm.pages_inferred, running_heads_left: countRunningHeads(norm.text), running_heads_left_passages: passages.filter((p) => countRunningHeads(p.text) > 0).length, toc_entries: toc.length, toc_range: toc.length ? [toc[0].no, toc[toc.length - 1].no] : null, docs: seg.docs.length,
-    doc_range: seg.docs.length ? [seg.docs[0].no, seg.docs[seg.docs.length - 1].no] : null, number_fixes: seg.fixes, recovered_from_toc: seg.docs.filter((d) => d.recovered).map((d) => d.no),
+    tail: seg.tail || null, doc_range: !dispatchMode && seg.docs.length ? [seg.docs[0].no, seg.docs[seg.docs.length - 1].no] : null, dispatch: dispatchMode ? seg.report : null, number_fixes: seg.fixes, recovered_from_toc: seg.docs.filter((d) => d.recovered && d.no !== null).map((d) => d.no),
     docs_with_pages: seg.docs.filter((d) => d.pages.start !== null).length, passages: passages.length, table_debris_dropped: debris.map((p) => p.id), table_debris_text_words: debris.reduce((a, p) => a + stripTableCells(p.text).text_words, 0), low_value_kept: passages.filter((p) => narrativeWords(p.text.split(/\n{2,}/)) < 15).length, table_chunks_cleaned: cleanedChunks, table_paragraphs_removed: cellParas, passage_words: { mean: passages.length ? Math.round(passages.reduce((a, p) => a + p.words, 0) / passages.length) : 0 },
     confidence: seg.docs.reduce((m, d) => { m[d.confidence] = (m[d.confidence] || 0) + 1; return m; }, {}),
-    missing_detail: missingDetail(seg.docs, toc),
-    docs_missing_from_run: (() => { if (!seg.docs.length) return []; const have = new Set(seg.docs.map((d) => d.no)); const miss = []; for (let n = seg.docs[0].no; n <= seg.docs[seg.docs.length - 1].no; n++) if (!have.has(n)) miss.push(n); return miss; })(),
+    missing_detail: dispatchMode ? [] : missingDetail(seg.docs, toc),
+    docs_missing_from_run: (() => { if (dispatchMode || !seg.docs.length) return []; const have = new Set(seg.docs.map((d) => d.no)); const miss = []; for (let n = seg.docs[0].no; n <= seg.docs[seg.docs.length - 1].no; n++) if (!have.has(n)) miss.push(n); return miss; })(),
   };
   return { norm, toc, docs: seg.docs, passages, report };
 }

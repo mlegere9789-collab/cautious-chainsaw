@@ -27,7 +27,7 @@ const PRIOR = {
   succession: { succession: 1.6 }, where: { terrain: 1.3, road: 1.2, structure: 1.2, feature: 1.2 },
 };
 export const QUOTE_BUDGET = 780;
-const PASSAGE_PRIOR = { chronicle: 1.0, narrative: 0.9, commentary: 0.85, succession_note: 1.0, walkthrough: 0.75, tour: 0.75, position_note: 0.3 };
+const PASSAGE_PRIOR = { chronicle: 1.0, narrative: 0.9, commentary: 0.85, succession_note: 1.0, walkthrough: 0.75, tour: 0.75, position_note: 0.3, report: 1.0, dispatch: 0.9, order: 0.8, itinerary: 0.5, return: 0.25, record: 0.4 };   // the last six are the Official Records corpus
 const UNIT_KINDS = new Set(['regiment', 'brigade', 'division', 'corps', 'army', 'artillery', 'artillery-unit']);
 const PLACE_KINDS = new Set(['terrain', 'road', 'structure', 'feature']);
 const STRUCTURED = new Set(['outcome', 'echelons', 'superlative', 'count', 'day-summary', 'day-range', 'day-outside', 'sequence', 'overview', 'quote', 'at-time']);
@@ -37,7 +37,10 @@ export function createEngine(kb, opts = {}) {
   const { idx, facts, entix } = kb;
   const R = idx.R;
   const DOMAIN = new Set(facts.domain || []);
-  const unknownRules = createUnknowns(kb);                                    // known unknowns read by concept: weather, an individual soldier, a roster, what someone thought
+  const unknownRules = createUnknowns(kb);
+  // reports.js (what an author REPORTED, at what time a report SAYS something happened) is loaded on first use, and only when the KB holds the Official Records corpus: a KB without it never fetches the module
+  let reportsP = null;
+  const getReports = () => { if (!kb.hasCorpus || !kb.hasCorpus('or27')) return Promise.resolve(null); if (!reportsP) reportsP = import('./reports.js').then((m) => m.createReports(kb)); return reportsP; };                                    // known unknowns read by concept: weather, an individual soldier, a roster, what someone thought
   const english = createEnglish(facts.english || '');                    // ordinary English words: never "corrected" into a name
   const STRONG_DOMAIN = new Set(['gettysburg', 'battle', 'battlefield', 'regiment', 'regiments', 'brigade', 'brigades', 'division', 'divisions', 'corps', 'army', 'cavalry', 'artillery', 'battery', 'infantry',
     'commander', 'commanded', 'general', 'colonel', 'confederate', 'confederates', 'union', 'federal', 'cannonade', 'vignette', 'regimental', 'soldier', 'soldiers', 'casualties', 'ridge', 'hill', 'pickett', 'lee', 'meade', 'longstreet']);
@@ -352,7 +355,11 @@ export function createEngine(kb, opts = {}) {
     const nums = new Map();
     for (const [n, s] of [...bm.entries()].sort((a, b) => b[1] - a[1]).slice(0, 40)) nums.set(n, s);
     for (const [n] of ep) if (!nums.has(n)) nums.set(n, bm.get(n) || 0);
-    const cand = [...nums.keys()];
+    // a corpus passage costs a shard (8 passages): of the corpus candidates only the best by what is known before loading (its BM25 and its entity links) are fetched
+    const pre = (n) => (nums.get(n) || 0) + ((ep.get(n) && ep.get(n).ids) || []).reduce((a, [id, role]) => a + (linkW.get(id) || 0) * (role === 2 ? 1 : 0.5), 0);
+    const inCorp = (n) => !!(kb.corpusOf && kb.corpusOf(n));
+    const keepCorp = new Set([...nums.keys()].filter(inCorp).sort((a, b) => pre(b) - pre(a) || a - b).slice(0, 36));
+    const cand = [...nums.keys()].filter((n) => !inCorp(n) || keepCorp.has(n));
     const P = await kb.passages(cand.slice(0, 120));
     const out = [];
     for (const n of cand) {
@@ -360,7 +367,7 @@ export function createEngine(kb, opts = {}) {
       let s = nums.get(n) || 0;
       const e = ep.get(n);
       if (e) for (const [id, role] of e.ids) s += (linkW.get(id) || 0) * (role === 2 ? 1 : 0.5);
-      s *= (PASSAGE_PRIOR[p.kind] ?? 0.7);
+      s *= (PASSAGE_PRIOR[p.kind] ?? 0.7) * (p.scope === 'campaign' ? 0.7 : 1);
       if (S.day && p.day === S.day) s *= 1.25; else if (S.day && p.day && p.day !== S.day) s *= 0.8;
       out.push({ p, score: s });
     }
@@ -388,6 +395,9 @@ export function createEngine(kb, opts = {}) {
     return linked.has(p.num) || p.rec === sub.id || (() => { const t = tk(p.text); return forms.some((f) => t.includes(f)); })();
   }
 
+  // the site's own records speak first; the Official Records (a corpus) only fill a quote slot the site leaves empty: corpus.js siteFirst
+  const quotesSiteFirst = (pool, ctx, opts, allow, keep = null) => (kb.corp ? kb.corp.siteFirst(selectQuotes, kb, pool, ctx, opts, allow, keep) : (keep ? selectQuotes(kb, pool, ctx, opts).filter(keep) : selectQuotes(kb, pool, ctx, opts)));
+
   async function addQuotes(S, res, { max = 2, timeQ = false, requireClock = false, leadHasText = false, onlyRecs = null } = {}) {
     let ranked = await getPassages(S, { limit: requireClock ? 30 : 12 });
     if (requireClock) ranked = ranked.filter((x) => x.p.clk && x.p.clk.length);
@@ -402,7 +412,8 @@ export function createEngine(kb, opts = {}) {
     // avoid quoting a record whose card already led the answer with the same text
     const leadSrc = new Set(res.src || []);
     const pool = ranked.filter((x) => !(leadSrc.has(x.p.rec) && (!['narrative', 'commentary', 'chronicle', 'walkthrough', 'tour'].includes(x.p.kind) || (leadHasText && x.p.kind === 'chronicle'))));
-    const quotes = selectQuotes(kb, pool, ctx, S.simple ? { max: Math.max(max, 3), skip, maxWords: 24, maxSents: 1, plain: true } : { max, skip });
+    const qopts = S.simple ? { max: Math.max(max, 3), skip, maxWords: 24, maxSents: 1, plain: true } : { max, skip };
+    const quotes = quotesSiteFirst(pool, ctx, qopts, !S.simple);
     // length budget: the first quote is always kept, further quotes only while the whole first answer stays within QUOTE_BUDGET characters (a phone screen, not a page)
     let total = renderText(res.blocks).length; const kept = [];
     for (const q of quotes) { const add = q.text.length + String(q.attrib || '').length + 6; if (kept.length && total + add > QUOTE_BUDGET) continue; kept.push(q); total += add; }
@@ -445,7 +456,7 @@ export function createEngine(kb, opts = {}) {
     };
     for (const b of res.blocks) {
       if (b.t === 'lead') for (const r of b.runs) if (r.ent) addRec(r.ent);
-      if (b.t === 'quote' && !seen.has(b.passage)) { seen.add(b.passage); out.push({ id: b.passage, label: b.attrib, kind: 'passage', href: null }); }
+      if (b.t === 'quote' && !seen.has(b.passage)) { seen.add(b.passage); out.push({ id: b.passage, label: b.attrib, kind: 'passage', href: null, ...(b.scan ? { scan: b.scan } : {}) }); }
       if (b.t === 'list' || b.t === 'table') for (const id of b.src || []) addRec(id);
     }
     return out;
@@ -661,6 +672,8 @@ export function createEngine(kb, opts = {}) {
     if (S.clock && S.clock.kind === 'window' && S.clock.phase && S.clock.date === null && !S.day) S.clock = null;   // "the evening attack at Culp's Hill": a part of the day alone is not a clock question
     if (S.clock) { S.clock.day = S.clock.date !== null ? S.clock.date : S.day || (S.ctx.onsite && S.ctx.onsite.day) || null; if (['lookup', 'what-happened', 'where', 'day-summary', 'list', 'who'].includes(S.intent)) S.intent = 'at-time'; else S.clock = null; }
     // a known unknown read by concept (weather, an individual soldier, a roster, what someone thought): the limitation, what the records do say, and what would answer it
+    // the Official Records, when this KB holds them: what someone REPORTED, and at what time a report SAYS something happened, are answered from the reports (reports.js)
+    if (S.intent !== 'ancestor') { try { const rm = await getReports(); const ra = rm ? await rm.answer(S, text, collect(S)) : null; if (ra) return finalize(S, ra, t0); } catch (e) { if (e && e.retryable) throw e; if (opts.debug) throw e; } }
     const ku = S.intent !== 'ancestor' ? unknownRules.classify(S) : null;
     if (ku) { S.intent = 'unknown'; S.unknownId = ku.id; S.qStems = []; S.passageTerms = []; S.cardTerms = []; return finalize(S, await knownUnknownAnswer(S, ku), t0); }
     const C0 = collect(S);
@@ -987,7 +1000,7 @@ export function createEngine(kb, opts = {}) {
     const speakerWords = [], speakerSoft = new Set(); { const who = S.norm.match(/\b(?:what|who)\s+(?:did|does|was)\s+(\S+(?:\s+\S+)?)\s+(say|said|tell|told|write|wrote|shout|shouted|reply|replied|argue|protest|warn|urge|insist|respond|advise|suggest|demand|remark|announce|plead|exclaim|yell|answer)\b/); if (who) for (const t of who[1].split(' ')) if (!STOP.has(t) && t.length > 2) { speakerSoft.add(stem(t)); if (!/^(?:write|wrote|shout|shouted|reply|replied)$/.test(who[2])) speakerWords.push(t); } }
     const ctx = { qStems: new Set(S.passageTerms), entStems, timeQ: false, quoteQ: true, speakerRes: speakerPatterns(speakerWords), speakerStems: speakerSoft };
     // a question about what a NAMED person said is answered only with words that have him as the speaker; a passage that merely mentions him is not "what he said" (the caller then says the records hold none)
-    const quotes = selectQuotes(kb, pool, ctx, { max: 4, skip: new Set(S.ctx && S.ctx.shownPassages || []), rerank: true }).filter((q) => speakerSatisfied(q.text, ctx)).slice(0, 2);
+    const quotes = quotesSiteFirst(pool, ctx, { max: 4, skip: new Set(S.ctx && S.ctx.shownPassages || []), rerank: true }, true, (q) => speakerSatisfied(q.text, ctx)).slice(0, 2);
     if (!quotes.length) return null;
     S.quotes = quotes;
     return { mode: 'answer', blocks: [C.lead(['According to the site\u2019s records, this is what was said, word for word.'], []), ...quotes], src: quotes.map((q) => q.rec) };
@@ -1144,6 +1157,7 @@ export function createEngine(kb, opts = {}) {
       res = await quoteAnswer(S); if (res) return res;
       // the records hold no words of his on this: said so, never a profile presented as if it answered "what did he say"
       const who = person || (units.length === 1 ? units[0] : null); const rw = (facts.unknowns || []).find((u) => u.id === 'recorded-words');
+      if (who) { const rm = await getReports(); const ra = rm ? await rm.answerSaid(S, who) : null; if (ra) return ra; }      // the Official Records, when the KB holds them: his own report is what he said, in writing
       if (who && rw) return subjectUnknown(S, rw, who);
     }
     if (intent === 'where' && !S.places.length && units.length && /\b(?:fight|fought|position|posted|located|was|were|stand|stood|deployed)\b/.test(S.norm)) { const r0 = C.unitWhere(kb, S, soleUnitMention || units[0]); if (r0) { res = r0; await addQuotes(S, res, { max: 1 }); return res; } }

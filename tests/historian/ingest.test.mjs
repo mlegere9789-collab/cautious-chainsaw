@@ -352,7 +352,10 @@ test('the cached 2 MB sample (V-11): no passage carries a head or signature mark
   const r = ingestOr27((await f.text(OR27, { range: SAMPLE_RANGE })).text).report ? ingestOr27((await f.text(OR27, { range: SAMPLE_RANGE })).text) : null;
   const dirty = r.passages.filter((p) => /Chap\W{1,3}\s*X{1,3}[IlL]?X?[\]jf1)|.,]|THE GETTYSBURG CAMPAIGN|VOL\.? XXVII, PT/.test(p.text));
   assert.equal(dirty.length, 0, dirty.map((p) => p.text.slice(0, 60)).join(' | '));
-  assert.deepEqual(r.report.missing_detail.map((m) => [m.no, m.reason, m.text_in_previous_document]), [[30, 'header-not-found', true], [81, 'no-contents-entry', false], [161, 'header-not-found', true]]);
+  // Nos. 30 ("Reports of Mctj. Gen. / Ho. 30. / John Newton": columns scrambled) and 81 ("Np. 81.": the number's OCR spelling) were unrecoverable in the first slice; the header gap filler (or27-headers.mjs) reads them now.
+  // No. 161 stays damaged (a garbled scan page: the report's header is not in the text), explained per number, not hidden.
+  assert.deepEqual(r.report.missing_detail.map((m) => [m.no, m.reason, m.text_in_previous_document]), [[161, 'header-not-found', true]]);
+  assert.deepEqual(r.docs.filter((d) => [30, 81].includes(d.no)).map((d) => [d.no, d.recovered]), [[30, 'number-line'], [81, 'number-line']]);
   assert.ok(r.report.table_debris_dropped.length >= 1 && r.report.table_debris_dropped.length < 0.05 * (r.passages.length + r.report.table_debris_dropped.length), `${r.report.table_debris_dropped.length} dropped`);
   assert.equal(r.report.passages, r.passages.length); assert.ok(r.passages.every((p, i, a) => i === 0 || a[i - 1].doc_id !== p.doc_id || p.seq === a[i - 1].seq + 1), 'seq is contiguous per document after the drop');
 });

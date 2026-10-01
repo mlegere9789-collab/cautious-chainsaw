@@ -12,7 +12,10 @@ const FORBIDDEN = [
 
 export function lintAnswer(kb, a) {
   const out = [];
-  const texts = [a.text || ''];
+  // a verbatim quotation of a primary source (the Official Records, 1863-1889 print) is data, not the site's copy: the copy rules (no "null", no id-like tokens) are applied to everything around it
+  let main = a.text || '';
+  for (const b of a.blocks || []) if (b.t === 'quote' && /^or27-/.test(String(b.source || '')) && b.text) main = main.split(b.text).join(' ');
+  const texts = [main];
   for (const b of a.blocks || []) {
     if (b.t === 'quote') {
       if (!(b.s >= 0 && b.e > b.s && b.text)) out.push({ rule: 'I3', msg: 'quote without valid offsets' });

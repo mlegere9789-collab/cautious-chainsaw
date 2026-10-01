@@ -4,7 +4,8 @@ import { ROOT } from './data.mjs';
 import { openKB, nodeFetcher } from '../../../historian-src/core/kb.js';
 import { createEngine } from '../../../historian-src/core/engine.js';
 
-export const HX = path.join(ROOT, 'historian-src/dist/hx');
+// HISTORIAN_HX points the whole evaluation at another build (the corpus KB: historian-src/dist/hx-or27); the default is the site-records KB
+export const HX = process.env.HISTORIAN_HX ? path.resolve(ROOT, process.env.HISTORIAN_HX) : path.join(ROOT, 'historian-src/dist/hx');
 
 export async function openEngine({ hx = HX, debug = false } = {}) {
   const kb = await openKB(await nodeFetcher(hx));
@@ -28,5 +29,6 @@ export async function knownIds({ hx = HX } = {}) {
   const man = await rd('manifest.json');
   const ids = new Set((await rd(man.tiers.entity.path)).records.map((r) => r.id));
   for (const f of man.tiers.text.files) { const j = await rd(f.path); const ri = j.h.indexOf('rec'); for (const row of j.p) ids.add(row[ri]); }
+  for (const c of Object.values(man.corpora || {})) for (const f of c.text.files) { const j = await rd(f.path); const ri = j.h.indexOf('rec'); for (const row of j.p) ids.add(row[ri]); }   // the records of a corpus (its reports and dispatches)
   return ids;
 }
