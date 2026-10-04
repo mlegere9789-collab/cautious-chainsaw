@@ -22,7 +22,15 @@
     "baseline/dist/terms.html": "c9c1fbf76396b391",
     "baseline/dist/find-ancestor.html": "3a788df5d27ee769",
     "docs/historian/CORPUS.md": "b4b17742057c8be8",
-    "docs/baseline-drift.md": "53439c687fc5177b"
+    "docs/baseline-drift.md": "53439c687fc5177b",
+    "docs/decisions/OWNER-DECISIONS-2026-10-04.md": "aeb283fdd138355b",
+    "docs/content/APPROVED-BIO.md": "c0c252c15dc3355c",
+    "docs/content/STYLEGUIDE.md": "dfc772a3229452e4",
+    "docs/plan/FINAL/00-README.md": "833a20f0d9089ee2",
+    "docs/plan/FINAL/11-copy-docs-content.md": "48ab03d8033f07e7",
+    "tools/copy/trust-config.json": "90cfb18defa83bd0",
+    "tools/t0/README.md": "6e01ab38ed7cdead",
+    "tools/t0/patches/CP.json": "278454acaab5f0c5"
   },
   "claims": [
     {
@@ -128,6 +136,24 @@
       "evidence": "tools/t0/patches/CP.json; baseline/dist/assets/index-Cg8FAMXN.js"
     },
     {
+      "id": "owner-decision-5",
+      "text": "the owner approved the creator bio (Option 2, first person) and named the project address as the only public contact",
+      "ok": true,
+      "evidence": "docs/decisions/OWNER-DECISIONS-2026-10-04.md"
+    },
+    {
+      "id": "approved-bio-present",
+      "text": "docs/content/APPROVED-BIO.md holds one approved paragraph that names the author and the project address",
+      "ok": true,
+      "evidence": "docs/content/APPROVED-BIO.md"
+    },
+    {
+      "id": "contact-config-is-the-approved-address",
+      "text": "every contact key of tools/copy/trust-config.json is the approved public address (or empty)",
+      "ok": true,
+      "evidence": "tools/copy/trust-config.json"
+    },
+    {
       "id": "git-838b311-axe-and-targets",
       "text": "commit 838b311 records: sub-pages pass axe with 0 serious or critical violations on 25 pages at 1440, 375, 320, 412 and 768 px; 44 px (touch) and 24 px (mouse) targets; no text under 12 px",
       "ok": true,
@@ -174,38 +200,8 @@
       "kind": "confirm"
     },
     {
-      "key": "contact.accessibility",
-      "label": "accessibility address",
-      "kind": "provide"
-    },
-    {
-      "key": "contact.corrections",
-      "label": "corrections address",
-      "kind": "provide"
-    },
-    {
-      "key": "contact.general",
-      "label": "general address",
-      "kind": "provide"
-    },
-    {
-      "key": "contact.security",
-      "label": "security address",
-      "kind": "provide"
-    },
-    {
-      "key": "creator.bio",
-      "label": "about you, 80 to 120 words, in your own words; nothing here is written for you",
-      "kind": "provide"
-    },
-    {
       "key": "creator.reviewer",
       "label": "the name and credit of the historian reviewer, or “none yet”",
-      "kind": "provide"
-    },
-    {
-      "key": "creator.why",
-      "label": "why you made the map, 3 to 5 sentences in your own words",
       "kind": "provide"
     }
   ],
@@ -213,8 +209,8 @@
     {
       "slug": "about",
       "file": "about.html",
-      "bytes": 7894,
-      "sha256": "a67948ca29263ea86be0a8ee29a0f817637a55a39cf0202f231bdfbee022de83",
+      "bytes": 8400,
+      "sha256": "d3575ce1c539c7e3541432563757efe734789d695441011ec540c28467b89903",
       "title": "About",
       "sources": [
         "data-src/build/facts.json#content.chronology_events",
@@ -228,6 +224,8 @@
         "data-src/build/facts.json#units.regiments",
         "data-src/build/facts.json#units.regiments_with_own_track",
         "data-src/time/time_anchors.json#anchors",
+        "docs/content/APPROVED-BIO.md",
+        "docs/decisions/OWNER-DECISIONS-2026-10-04.md#creator-bio-approved",
         "tools/copy/trust-config.json#asOf",
         "tools/t0/patches/CP.json#cp:mobile-tools-footer"
       ]
@@ -307,8 +305,8 @@
     {
       "slug": "corrections",
       "file": "corrections.html",
-      "bytes": 8921,
-      "sha256": "0f05e3dae8061745ca6bb0357c32d15a89b935b5a2c1804620e8a8996bbdc2d5",
+      "bytes": 9279,
+      "sha256": "3a5365a72f014714f851b73ff9164dba3fed70378559d70f66a112da6d171f9a",
       "title": "Corrections",
       "sources": [
         "data-src/version.json#history",
@@ -319,8 +317,8 @@
     {
       "slug": "faq",
       "file": "faq.html",
-      "bytes": 13199,
-      "sha256": "106d5a651df33459911f7453692560f79154064b2e06c04f9b6406e0f753e369",
+      "bytes": 13706,
+      "sha256": "7c9cb4e6167fab1e2de46d4264eed31dfa78940ddf27c2d525607d1598f828a3",
       "title": "FAQ",
       "sources": [
         "baseline/dist/find-ancestor.html",
@@ -335,6 +333,7 @@
         "data-src/build/facts.json#units.regiments_with_own_track",
         "data-src/build/facts.json#units.total",
         "data-src/time/time_anchors.json#anchors",
+        "docs/content/APPROVED-BIO.md",
         "docs/pitch/PITCH.md#six-evidence-badges",
         "ops/release-notes/R1c.md",
         "tools/copy/trust-config.json#asOf",
@@ -344,8 +343,8 @@
     {
       "slug": "accessibility",
       "file": "accessibility.html",
-      "bytes": 21233,
-      "sha256": "d3116add91e8e8c3e71578e7f2e058c12b5401c5f9021c46925b9da79199b6f1",
+      "bytes": 21509,
+      "sha256": "f12a5ae2a8e05f99b2d22e22d0f5f6cb8afb22a09245fe5670c7c153375df690",
       "title": "Accessibility Statement",
       "sources": [
         "docs/plan/FINAL/00-README.md",
@@ -419,8 +418,8 @@
     {
       "slug": "contact",
       "file": "contact.html",
-      "bytes": 6042,
-      "sha256": "e292123ec4c92391c5b45e892634ab451855c14c51212d811258c47df49b101d",
+      "bytes": 7212,
+      "sha256": "4f9f7e8faa65b60c25a02406652ae2d6dbac66044cf61e531763445b55753f6c",
       "title": "Contact and Report a Problem",
       "sources": [
         "tools/copy/trust-config.json#asOf",

@@ -12,7 +12,7 @@ const bump = (m, k, n = 1) => m.set(k, (m.get(k) || 0) + n);
 /** the multiset of (rule, matched text) that the HTML itself exempts */
 export function exemptMultiset(html, env) {
   const items = extractHtml(html, { keepSkipped: true });
-  const ctxBase = { names: env.names, counts: env.counts, facts: env.facts, proseKeys: env.scan.proseKeys };
+  const ctxBase = { names: env.names, counts: env.counts, facts: env.facts, proseKeys: env.scan.proseKeys, allowedEmails: env.scan.allowedEmails || [] };
   const out = new Map();
   for (const it of items) {
     const exempt = it.skipped ? null : (it.ignore && it.ignore.size ? it.ignore : undefined);

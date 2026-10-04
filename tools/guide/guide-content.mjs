@@ -139,7 +139,8 @@ ${T({ caption: 'Controls on a phone', headers: ['Control', 'What it does', 'Sinc
 
   // ---------------------------------------------------------------------------------------------------------------- 11
   add('help', 'Get help or report a mistake', `
-<p>The Corrections page explains how to report a mistake in the history or the data. The Contact page has the addresses for questions, accessibility barriers and security reports. Both are written as candidate pages and are not published yet.</p>
+<p>The Corrections page explains how to report a mistake in the history or the data. The Contact page covers questions, accessibility barriers and security reports. Both are written as candidate pages and are not published yet.</p>
+${cfg.contact && cfg.contact.general ? `<p data-source="tools/copy/trust-config.json#contact">Until they are published, write to the project address, <a href="mailto:${esc(cfg.contact.general)}">${esc(cfg.contact.general)}</a>. It is the only public contact.</p>` : ''}
 <p>The site itself is at <a href="https://gettysburginteractivemap.com/">gettysburginteractivemap.com</a>. Its <a href="https://gettysburginteractivemap.com/privacy.html">Privacy</a> and <a href="https://gettysburginteractivemap.com/terms.html">Terms</a> pages describe what the site collects and how it may be used.</p>`);
 
   // ---------------------------------------------------------------------------------------------------------------- 12
@@ -155,6 +156,19 @@ ${T({ caption: 'Terms this guide uses', headers: ['Term', 'Meaning'], rows: [
   ['reconstruction', 'a position or time worked out from sources, not recorded directly'],
   ['time-lapse', 'the playback: faster through quiet hours, slower during the fighting'],
 ].map(([a, b]) => [`<strong>${esc(a)}</strong>`, esc(b)]), stack: false })}`);
+
+  // ---------------------------------------------------------------------------------------------------------------- 13
+  add('sources', 'Where the facts of this guide come from', `
+<p>Each statement about the map in this guide comes from one of these files of the project, and a script compares the keys, gestures, pages and share-link parameters with the first four every time the guide is built.</p>
+<ul>
+<li data-source="tools/t0/patches/CP.json">The Help dialog of release R1c: the Help patches in <code>tools/t0/patches</code>, applied to the Help chunk of the site as it was served on September 30, 2026.</li>
+<li data-source="tools/t0/trains.json">The key handler of the app, the site menu and the heading of each page, after the same patches.</li>
+<li data-source="tools/t0/patches/DL.json">The reader of share-link parameters (<code>tools/t0/patches/DL.json</code>) and the layout choice (<code>tools/t0/patches/C.json</code>).</li>
+<li data-source="${FEAT}">The manifest <code>tools/guide/features.json</code>, which holds the wording, the release in which each item arrived and a pointer to its evidence.</li>
+<li data-source="${NOTES}">The release notes <code>ops/release-notes/R1c.md</code> and the tests under <code>tests/t0</code>, for what changed and how it was checked.</li>
+<li data-source="docs/decisions/OWNER-DECISIONS-2026-10-04.md">The owner’s decisions of October 4, 2026 on the keyboard model (a press on the map hands the keys back to the page) and on the Monuments feature.</li>
+</ul>
+<p data-source="${F}">Counts come from <code>data-src/build/facts.json</code>, not from typed numbers.</p>`);
 
   return { sections, title: 'Gettysburg Interactive Map: User Guide', subtitle: `User guide for release ${rel.train}`, asOf: cfg.asOf };
 }

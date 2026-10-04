@@ -25,7 +25,9 @@ const sha = (s) => crypto.createHash('sha256').update(s).digest('hex');
 export function build({ config = DEFAULT_CONFIG, publish = false } = {}) {
   const cfg = JSON.parse(fs.readFileSync(config, 'utf8'));
   const I = loadInputs({ asOf: cfg.asOf });
-  const { pages, unresolved } = buildPages({ I, cfg, publish });
+  const { pages, unresolved, provenancePaths } = buildPages({ I, cfg, publish });
+  // every file whose hash is printed on a page is an input: a change to any of them makes the committed pages stale
+  const inputs = { ...I.hashes, ...Object.fromEntries(provenancePaths.map((p) => [p, I.sha(p)]).filter(([, h]) => h)) };
   const files = new Map();
   const manifestPages = [];
   for (const slug of PAGES.map((p) => p.slug)) {
@@ -47,7 +49,7 @@ export function build({ config = DEFAULT_CONFIG, publish = false } = {}) {
     status: publish ? 'PUBLISH BUILD' : 'CANDIDATE: inert, not wired into any release; owner inputs open',
     as_of: cfg.asOf,
     generator: 'node tools/copy/build-trust-pages.mjs',
-    inputs: I.hashes,
+    inputs,
     claims: I.claims,
     owner_inputs_open: owners,
     pages: manifestPages,

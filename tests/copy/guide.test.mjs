@@ -116,7 +116,7 @@ test('guide HTML: the print page has no menu script and no external request; the
   assert.equal(p.scripts.length, 0); assert.ok(!G.print.includes('site-nav'));
   assert.deepEqual(p.links.map((l) => l.attrs.rel), []);
   assert.ok(w.scripts.some((s) => s.attrs?.src === '/site-nav.js') && w.links.some((l) => l.attrs.href === '/site-nav.css'));
-  for (const doc of [p, w]) for (const a of doc.anchors) assert.ok(a.attrs.href.startsWith('#') || /^https:\/\/gettysburginteractivemap\.com\/(?:privacy\.html|terms\.html)?$/.test(a.attrs.href), a.attrs.href);
+  for (const doc of [p, w]) for (const a of doc.anchors) assert.ok(a.attrs.href.startsWith('#') || a.attrs.href === 'mailto:gettysburginteractivemap@gmail.com' || /^https:\/\/gettysburginteractivemap\.com\/(?:privacy\.html|terms\.html)?$/.test(a.attrs.href), a.attrs.href);
   assert.ok(!/url\(\s*['"]?https?:|@import/.test(G.print));
 });
 test('guide HTML: copy_lint finds nothing in either page, with every rule and warnings included', () => {
@@ -194,7 +194,7 @@ test('PDF: the committed guide passes every gate', { skip: !pyOk || !fs.existsSy
   assert.ok(j.fill_min_pct >= 55 && j.fill_last_pct >= 15 && j.page_fill_failures.length === 0);
   assert.ok(j.chars_ge_10pt_pct >= 90, String(j.chars_ge_10pt_pct)); assert.equal(j.low_contrast_spans.length, 0); assert.equal(j.orphan_headings.length, 0);
   assert.ok(j.bytes < 500_000); assert.equal(j.links.internal_unresolved, 0);
-  assert.deepEqual(j.links.external_uris, ['https://gettysburginteractivemap.com/', 'https://gettysburginteractivemap.com/privacy.html', 'https://gettysburginteractivemap.com/terms.html']);
+  assert.deepEqual(j.links.external_uris, ['https://gettysburginteractivemap.com/', 'https://gettysburginteractivemap.com/privacy.html', 'https://gettysburginteractivemap.com/terms.html', 'mailto:gettysburginteractivemap@gmail.com']);
 });
 test('PDF: the committed A4 guide passes every gate too, from its own print page', { skip: !pyOk || !fs.existsSync(path.join(DEFAULT_OUT, PDF_NAME.a4)) }, () => {
   const g4 = buildHtml({ paper: 'a4' });

@@ -1,7 +1,7 @@
 <!-- copy-lint-disable : this file quotes the patterns it bans; the linter must not judge its own rulebook -->
 # Content style guide
 
-Status: committed 2026-10-04 as the rulebook for everything a visitor reads on the Gettysburg Interactive Map: the map, the pages, Help, the guide, meta tags, errors and alt text. It implements `docs/plan/FINAL/11-copy-docs-content.md` (WP-CONTENT-06) from the specialist plan `docs/plan/specialists/docs-copy.md` section 6, with the amendments of the final chapter (title separator, High Ground, role addresses, who may say "I"). Where the owner has not decided yet, the rule is marked **[OWNER]** and the default stays in force until the owner answers.
+Status: committed 2026-10-04 as the rulebook for everything a visitor reads on the Gettysburg Interactive Map: the map, the pages, Help, the guide, meta tags, errors and alt text. It implements `docs/plan/FINAL/11-copy-docs-content.md` (WP-CONTENT-06) from the specialist plan `docs/plan/specialists/docs-copy.md` section 6, with the amendments of the final chapter (title separator, High Ground, who may say "I") and the owner's decisions of 2026-10-04 (`docs/decisions/OWNER-DECISIONS-2026-10-04.md`), which override the plan's role addresses: the public contact is the project address only. Where the owner has not decided yet, the rule is marked **[OWNER]** and the default stays in force until the owner answers.
 
 The mechanical rules are enforced by `node tools/copy/copy_lint.mjs` (rule ids in section 16). A rule that cannot be checked by a machine is a review item for whoever approves the text.
 
@@ -225,7 +225,7 @@ These phrases tell a visitor how the site was built or what it could not do. Eac
 | "alias for", "Commander unrecorded" | ALIAS, ABSENCE | fold the alias into its unit; omit the label or use a missing-data phrase (section 7) |
 | "an AI-style historian", "chatbot", "I'm ready" | AIPERSONA | "Ask the Historian"; `dis.historian` |
 | "TODO", "TBD", "FIXME" | TODO | finish the text; an owner input is a visible `[OWNER TO PROVIDE: ...]` marker and blocks publishing |
-| the owner's personal mailbox in shipped text | PERSONAL_EMAIL | the role address in `tools/copy/trust-config.json` |
+| an email address other than the project's public contact, `gettysburginteractivemap@gmail.com` (owner decision 5; the allowed address is `allowedEmails` in `tools/copy/scan-config.json`) | PERSONAL_EMAIL | the public contact address in `tools/copy/trust-config.json` |
 | "genuine", "real, working" | HEDGE | delete the adjective |
 
 ## 15. Where project history does belong
@@ -261,7 +261,7 @@ These phrases tell a visitor how the site was built or what it could not do. Eac
 | RANGE | W | 2 | `July 1-3` |
 | CAPS | W | 5 | ALL CAPS phrases |
 | ABSENCE | W | 7 | "unrecorded", "N/A" |
-| PERSONAL_EMAIL | E | 14 | a Gmail address in shipped text |
+| PERSONAL_EMAIL | E | 14 | a Gmail address other than the project's public contact |
 | CLAIM | E | 9 | "accurate to the minute", "fully conforms", "reviewed by a historian" |
 
 Commands (Node 18 or later, no installs):
@@ -285,7 +285,8 @@ node --test "tests/copy/*.test.mjs"                 # the rules prove themselves
 | Decision | Default in force | Needed by |
 |---|---|---|
 | D-NAME: approve "Gettysburg Interactive Map" | the name is used in all candidate text | identity train |
-| D-CONTACT: role addresses for contact, corrections and security | placeholders; the personal mailbox is not used in new pages | before the trust pages publish |
+| D-CONTACT: decided by owner decision 5 (2026-10-04): the public contact is `gettysburginteractivemap@gmail.com` only; role addresses are not used | every contact on the trust pages and in the guide is that address | done |
+| Creator text on About | decided by owner decision 5: `docs/content/APPROVED-BIO.md`, used verbatim (first person, "for the love of history") | done |
 | D-AFFIL: the non-affiliation sentence is true | marked **[OWNER]** | before About or the footer publishes it |
 | D-LICENSE: licence wording | `dis.license_interim`, counsel first | before Terms or Press publish it |
 | Q-DATA-2: headline casualty wording | no single headline number is printed | before a headline figure is printed anywhere |

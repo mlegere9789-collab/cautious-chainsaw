@@ -37,7 +37,7 @@ export function lintSource(rel, src, env) {
   const config = { jsSkipRegions: env.scan.jsSkipRegions, proseKeys: env.scan.proseKeys };
   const { items, directives, notes } = extractFile(rel, src, config);
   const findings = [];
-  const ctxBase = { names: env.names, counts: env.counts, facts: env.facts, proseKeys: env.scan.proseKeys || DEFAULT_PROSE_KEYS };
+  const ctxBase = { names: env.names, counts: env.counts, facts: env.facts, proseKeys: env.scan.proseKeys || DEFAULT_PROSE_KEYS, allowedEmails: env.scan.allowedEmails || [] };
   let suppressed = 0;
   for (const item of items) {
     for (const m of matchRules(item, ctxBase, env.only)) {

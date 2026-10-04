@@ -134,6 +134,11 @@
    "action": "init-baseline",
    "forced": true,
    "findings": 4764
+  },
+  {
+   "date": "2026-10-04",
+   "action": "tighten",
+   "removed": 4
   }
  ],
  "rules": {
@@ -5792,21 +5797,6 @@
     ],
     "site-nav.js": [
      "8166e7fe"
-    ]
-   }
-  },
-  "PERSONAL_EMAIL": {
-   "sev": "E",
-   "expires": "2026-12-31",
-   "count": 4,
-   "files": {
-    "privacy.html": [
-     "385b02e4",
-     "69547f2d"
-    ],
-    "terms.html": [
-     "385b02e4",
-     "69547f2d"
     ]
    }
   }

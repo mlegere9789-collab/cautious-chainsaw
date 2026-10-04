@@ -253,7 +253,8 @@ test('Accessibility: no conformance claim, evidence for each result, a keyboard 
 const ownerKeys = () => R.owners.map((o) => o.key);
 test('owner inputs: each open key is a visible marker on a page, and OWNER-INPUTS.md names every key', () => {
   const doc = read('docs/content/OWNER-INPUTS.md');
-  assert.ok(ownerKeys().length >= 10);
+  assert.ok(ownerKeys().length >= 5 && ownerKeys().includes('creator.reviewer'));
+  assert.ok(!ownerKeys().some((k) => k.startsWith('contact.') || k === 'creator.bio' || k === 'creator.why'), 'owner decision 5 supplied the contact address and the bio');
   for (const k of ownerKeys()) { assert.ok(doc.includes('`' + k + '`'), `OWNER-INPUTS.md lacks ${k}`); assert.ok(SLUGS.some((s) => html(s).includes(`data-owner-input="${k}"`)), `no page shows ${k}`); }
   for (const s of SLUGS) for (const m of html(s).matchAll(/data-owner-input="([^"]+)"/g)) assert.ok(ownerKeys().includes(m[1]), m[1]);
   assert.deepEqual(R.manifest.owner_inputs_open.map((o) => o.key), [...ownerKeys()].sort());
@@ -269,7 +270,7 @@ test('publish gate: refuses while an owner input is open, writes nothing, lists 
 test('publish build with every input supplied: no candidate banner, no marker, mailto links prefilled, still zero lint findings', () => {
   const cfg = JSON.parse(JSON.stringify(cfgDefault));
   cfg.contact = { general: 'contact@example.org', corrections: 'corrections@example.org', accessibility: 'access@example.org', security: 'security@example.org' };
-  cfg.creator = { why: 'Placeholder text supplied by the test.', bio: 'Another test paragraph.', reviewer: 'none yet' };
+  cfg.creator = { reviewer: 'none yet' };
   for (const k of Object.keys(cfg.confirmations)) cfg.confirmations[k] = true;
   const tmp = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'trust-cfg-')), 'cfg.json');
   fs.writeFileSync(tmp, JSON.stringify(cfg));
@@ -288,9 +289,32 @@ test('publish build with every input supplied: no candidate banner, no marker, m
   const q = new URLSearchParams(m[1].replace(/&amp;/g, '&'));
   assert.equal(q.get('subject'), 'Correction request');
   assert.match(q.get('body'), /Page address:\nWhat I saw:/);
-  assert.ok(!/gmail\.com/.test([...P.files.values()].join('')));
+  const all = [...P.files.values()].join('');
+  assert.deepEqual([...new Set(all.match(/[A-Za-z0-9._%+-]+@gmail\.com/gi) || [])], ['gettysburginteractivemap@gmail.com'], 'the only Gmail address is the approved public contact (inside the approved bio)');
 });
 test('typo(): data strings are made typographic before they are printed', () => {
   assert.equal(typo("OR Ser. I vol. 27, row 'Gettysburg, Pa., July 1-4' -- note"), 'OR Ser. I vol. 27, row ‘Gettysburg, Pa., July 1–4’ — note');
   assert.equal(typo("Meade's report"), 'Meade’s report');
+});
+
+test('About: the approved creator text is used as written (apostrophes are curled when it is rendered, nothing else changes)', () => {
+  const bioMd = read('docs/content/APPROVED-BIO.md');
+  const bio = bioMd.split('## Text')[1].split('\n').slice(2).find((l) => l.trim()).trim();
+  const h = html('about');
+  const m = h.match(/<p class="bio"[^>]*>([\s\S]*?)<\/p>/);
+  assert.ok(m, 'the bio paragraph');
+  const shown = m[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/’/g, "'");
+  assert.equal(shown, bio);
+  assert.ok(m[1].includes('<a href="mailto:gettysburginteractivemap@gmail.com">'), 'the address is a link');
+  assert.match(read('docs/decisions/OWNER-DECISIONS-2026-10-04.md'), /Creator bio approved/);
+  assert.ok(!h.includes('data-owner-input="creator.bio"') && !h.includes('data-owner-input="creator.why"'));
+});
+test('Contact: one public address for every purpose (owner decision 5), a mailto button for each purpose, no form', () => {
+  const h = html('contact');
+  const addrs = new Set([...h.matchAll(/mailto:([^?"]+)/g)].map((x) => x[1]));
+  assert.deepEqual([...addrs], ['gettysburginteractivemap@gmail.com']);
+  const subjects = [...h.matchAll(/mailto:[^?"]+\?([^"]+)"/g)].map((x) => new URLSearchParams(x[1].replace(/&amp;/g, '&')).get('subject'));
+  assert.deepEqual(subjects.sort(), ['Accessibility barrier', 'Correction request', 'Question about the Gettysburg Interactive Map', 'Security report']);
+  assert.ok(!h.includes('<form'));
+  assert.deepEqual(JSON.parse(fs.readFileSync(DEFAULT_CONFIG, 'utf8')).contact, { general: addrs.values().next().value, corrections: addrs.values().next().value, accessibility: addrs.values().next().value, security: addrs.values().next().value });
 });

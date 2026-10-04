@@ -34,6 +34,8 @@ export const INPUT_FILES = {
   findAncestor: 'baseline/dist/find-ancestor.html',
   corpusDoc: 'docs/historian/CORPUS.md',
   driftDoc: 'docs/baseline-drift.md',
+  decisions: 'docs/decisions/OWNER-DECISIONS-2026-10-04.md',
+  bio: 'docs/content/APPROVED-BIO.md',
 };
 
 /** parse "NAME   1234" lines of the QC report's closing count block */
@@ -128,6 +130,15 @@ export function loadInputs({ asOf }) {
   const credit = read('tools/t0/patches/CP.json').includes('Created by Mike Legere');
   claim('site-credits-creator', 'the site credit line reads "Created by Mike Legere" (patch cp:mobile-tools-footer) and the baseline bundle names him', credit && fs.readFileSync(path.join(REPO, 'baseline/dist/assets/index-Cg8FAMXN.js'), 'utf8').includes('Mike Legere'), 'tools/t0/patches/CP.json; baseline/dist/assets/index-Cg8FAMXN.js');
 
+  // ---- owner decision 5 (2026-10-04): the approved creator bio, used verbatim, and the one public contact address
+  const decisions = read(INPUT_FILES.decisions);
+  const bioMd = read(INPUT_FILES.bio);
+  const ADDRESS = 'gettysburginteractivemap@gmail.com';
+  claim('owner-decision-5', 'the owner approved the creator bio (Option 2, first person) and named the project address as the only public contact', decisions.includes('Creator bio approved:') && decisions.includes(`Public contact is ${ADDRESS} only`), INPUT_FILES.decisions);
+  const bioMatch = bioMd.match(/## Text[^\n]*\n\n([^\n]+)\n/);
+  claim('approved-bio-present', 'docs/content/APPROVED-BIO.md holds one approved paragraph that names the author and the project address', Boolean(bioMatch) && bioMatch[1].includes('Mike Legere') && bioMatch[1].includes(ADDRESS), INPUT_FILES.bio);
+  const bio = bioMatch[1].trim();
+  claim('contact-config-is-the-approved-address', 'every contact key of tools/copy/trust-config.json is the approved public address (or empty)', Object.values(JSON.parse(read('tools/copy/trust-config.json')).contact).every((v) => !v || v === ADDRESS), 'tools/copy/trust-config.json');
   const gitMsg = (rev) => { try { return execFileSync('git', ['show', '-s', '--format=%B', rev], { cwd: REPO, encoding: 'utf8' }); } catch { return ''; } };
   const g1 = gitMsg('838b311'); const g2 = gitMsg('f348b34');
   claim('git-838b311-axe-and-targets', 'commit 838b311 records: sub-pages pass axe with 0 serious or critical violations on 25 pages at 1440, 375, 320, 412 and 768 px; 44 px (touch) and 24 px (mouse) targets; no text under 12 px', g1.includes('0 serious/critical, 25 pages, 1440/375/320/412/768') && g1.includes('44 px (touch) / 24 px (mouse) targets') && g1.includes('no text under 12 px'), 'git show 838b311');
@@ -136,5 +147,5 @@ export function loadInputs({ asOf }) {
   claim('corpus-numbers', 'CORPUS.md says 588 of the 589 reports are found and 8,232 passages', /588 of the 589 numbered reports are found/.test(corpus) && /8,232 citable passages/.test(corpus), INPUT_FILES.corpusDoc);
   const hashes = Object.fromEntries(Object.entries(INPUT_FILES).map(([k, rel]) => [rel, sha256(rel).slice(0, 16)]));
   const sha = (rel) => (fs.existsSync(path.join(REPO, rel)) && fs.statSync(path.join(REPO, rel)).isFile() ? sha256(rel).slice(0, 16) : null);
-  return { asOf, sha, facts, reg, qcCounts: qc, timeInfo, cas, help, features, parity, dataVersion, quality, hashes, claims, getFact: (p) => getPath(facts, p) };
+  return { asOf, sha, bio, publicContact: ADDRESS, facts, reg, qcCounts: qc, timeInfo, cas, help, features, parity, dataVersion, quality, hashes, claims, getFact: (p) => getPath(facts, p) };
 }

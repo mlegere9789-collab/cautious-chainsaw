@@ -290,10 +290,12 @@
   "PERSONAL_EMAIL": {
     "kind": "html",
     "bad": [
-      "<p>Write to gettysburginteractivemap@gmail.com</p>",
-      "<a href=\"mailto:someone@gmail.com\">Contact</a>"
+      "<p>Write to someone@gmail.com</p>",
+      "<a href=\"mailto:other.person@gmail.com\">Contact</a>"
     ],
     "good": [
+      "<p>Write to gettysburginteractivemap@gmail.com</p>",
+      "<a href=\"mailto:gettysburginteractivemap@gmail.com?subject=Hello\">Contact</a>",
       "<p>Write to corrections@example.org</p>",
       "<a href=\"mailto:contact@example.org\">Contact</a>"
     ]

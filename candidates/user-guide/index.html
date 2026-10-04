@@ -14,7 +14,7 @@ body{margin:0;background:var(--bg);color:var(--text);font:17px/1.65 Georgia,'Tim
 .skip-link{position:absolute;left:8px;top:-60px;z-index:1000;background:var(--gold);color:var(--bg);padding:12px 16px;min-height:44px;border-radius:6px;font:600 16px/1.4 system-ui,sans-serif}
 .skip-link:focus{top:8px}
 :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-main{display:block;max-width:820px;margin:0 auto;padding:28px 16px 56px}
+main{display:block;max-width:820px;margin:0 auto;padding:28px 16px 56px;overflow-wrap:anywhere}
 .cover{border-bottom:2px solid var(--line);margin:0 0 18px;padding:0 0 14px}
 .eyebrow{font:600 14px/1.4 system-ui,sans-serif;color:var(--muted);margin:0}
 h1{color:var(--gold);font-size:2rem;line-height:1.2;margin:.15em 0 .3em}
@@ -84,7 +84,7 @@ html.print-theme .tp-footer{display:none}
 <p class="candidate-banner" role="note" data-candidate="true"><strong>Candidate draft.</strong> This guide is generated from the project’s files and is not published.</p>
 <nav class="contents" aria-label="Contents">
 <h2 id="contents-h">Contents</h2>
-<ol><li><a href="#about-guide">1. About this guide</a></li><li><a href="#start">2. Start here</a></li><li><a href="#time">3. Move through time</a></li><li><a href="#explore">4. Explore the map</a></li><li><a href="#more">5. More to Explore</a></li><li><a href="#share">6. Share a place and time</a></li><li><a href="#clock">7. About the clock</a></li><li><a href="#reference">8. Keyboard reference</a></li><li><a href="#limits">9. Known differences and limits</a></li><li><a href="#access">10. Using the map with a keyboard or a screen reader</a></li><li><a href="#help">11. Get help or report a mistake</a></li><li><a href="#glossary">12. Glossary</a></li></ol>
+<ol><li><a href="#about-guide">1. About this guide</a></li><li><a href="#start">2. Start here</a></li><li><a href="#time">3. Move through time</a></li><li><a href="#explore">4. Explore the map</a></li><li><a href="#more">5. More to Explore</a></li><li><a href="#share">6. Share a place and time</a></li><li><a href="#clock">7. About the clock</a></li><li><a href="#reference">8. Keyboard reference</a></li><li><a href="#limits">9. Known differences and limits</a></li><li><a href="#access">10. Using the map with a keyboard or a screen reader</a></li><li><a href="#help">11. Get help or report a mistake</a></li><li><a href="#glossary">12. Glossary</a></li><li><a href="#sources">13. Where the facts of this guide come from</a></li></ol>
 </nav>
 <section id="about-guide" aria-labelledby="about-guide-h">
 <h2 id="about-guide-h">1. About this guide</h2>
@@ -188,12 +188,26 @@ html.print-theme .tp-footer{display:none}
 </section>
 <section id="help" aria-labelledby="help-h">
 <h2 id="help-h">11. Get help or report a mistake</h2>
-<p>The Corrections page explains how to report a mistake in the history or the data. The Contact page has the addresses for questions, accessibility barriers and security reports. Both are written as candidate pages and are not published yet.</p>
+<p>The Corrections page explains how to report a mistake in the history or the data. The Contact page covers questions, accessibility barriers and security reports. Both are written as candidate pages and are not published yet.</p>
+<p data-source="tools/copy/trust-config.json#contact">Until they are published, write to the project address, <a href="mailto:gettysburginteractivemap@gmail.com">gettysburginteractivemap@gmail.com</a>. It is the only public contact.</p>
 <p>The site itself is at <a href="https://gettysburginteractivemap.com/">gettysburginteractivemap.com</a>. Its <a href="https://gettysburginteractivemap.com/privacy.html">Privacy</a> and <a href="https://gettysburginteractivemap.com/terms.html">Terms</a> pages describe what the site collects and how it may be used.</p>
 </section>
 <section id="glossary" aria-labelledby="glossary-h">
 <h2 id="glossary-h">12. Glossary</h2>
 <table class="tp-table"><caption>Terms this guide uses</caption><thead><tr><th scope="col">Term</th><th scope="col">Meaning</th></tr></thead><tbody><tr><td data-label="Term"><strong>moment</strong></td><td data-label="Meaning">a point in the battle you can view on the map</td></tr><tr><td data-label="Term"><strong>story</strong></td><td data-label="Meaning">one of the written accounts of a key event</td></tr><tr><td data-label="Term"><strong>event</strong></td><td data-label="Meaning">one entry of the chronology shown on event cards</td></tr><tr><td data-label="Term"><strong>turning point</strong></td><td data-label="Meaning">a decision historians still debate</td></tr><tr><td data-label="Term"><strong>regiment, battery</strong></td><td data-label="Meaning">an infantry or cavalry regiment; an artillery battery</td></tr><tr><td data-label="Term"><strong>order of battle</strong></td><td data-label="Meaning">the list of every unit on the field and how it is organised</td></tr><tr><td data-label="Term"><strong>casualties</strong></td><td data-label="Meaning">men killed, wounded, and captured or missing, added together</td></tr><tr><td data-label="Term"><strong>reconstruction</strong></td><td data-label="Meaning">a position or time worked out from sources, not recorded directly</td></tr><tr><td data-label="Term"><strong>time-lapse</strong></td><td data-label="Meaning">the playback: faster through quiet hours, slower during the fighting</td></tr></tbody></table>
+</section>
+<section id="sources" aria-labelledby="sources-h">
+<h2 id="sources-h">13. Where the facts of this guide come from</h2>
+<p>Each statement about the map in this guide comes from one of these files of the project, and a script compares the keys, gestures, pages and share-link parameters with the first four every time the guide is built.</p>
+<ul>
+<li data-source="tools/t0/patches/CP.json">The Help dialog of release R1c: the Help patches in <code>tools/t0/patches</code>, applied to the Help chunk of the site as it was served on September 30, 2026.</li>
+<li data-source="tools/t0/trains.json">The key handler of the app, the site menu and the heading of each page, after the same patches.</li>
+<li data-source="tools/t0/patches/DL.json">The reader of share-link parameters (<code>tools/t0/patches/DL.json</code>) and the layout choice (<code>tools/t0/patches/C.json</code>).</li>
+<li data-source="tools/guide/features.json">The manifest <code>tools/guide/features.json</code>, which holds the wording, the release in which each item arrived and a pointer to its evidence.</li>
+<li data-source="ops/release-notes/R1c.md">The release notes <code>ops/release-notes/R1c.md</code> and the tests under <code>tests/t0</code>, for what changed and how it was checked.</li>
+<li data-source="docs/decisions/OWNER-DECISIONS-2026-10-04.md">The owner’s decisions of October 4, 2026 on the keyboard model (a press on the map hands the keys back to the page) and on the Monuments feature.</li>
+</ul>
+<p data-source="data-src/build/facts.json">Counts come from <code>data-src/build/facts.json</code>, not from typed numbers.</p>
 </section>
 </main>
 <footer class="tp-footer">

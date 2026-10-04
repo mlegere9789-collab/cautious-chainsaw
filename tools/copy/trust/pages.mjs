@@ -53,7 +53,8 @@ export function buildPages({ I, cfg, publish }) {
   const intent = (html) => confirm('responseTargets', 'the response targets (acknowledge in 3 days, fix or explain in 30 days) are the ones you will keep', `<span${src('tools/copy/trust-config.json#targets')}>${html}</span>`);
 
   const n = (path) => num(I.getFact(path));
-  const prov = (...rows) => rows.map(([path, note]) => ({ path, note, sha: I.sha(path) }));
+  const usedProv = new Set();
+  const prov = (...rows) => rows.map(([path, note]) => { usedProv.add(path); return { path, note, sha: I.sha(path) }; });
   const J = (o) => o;
   const pages = {};
 
@@ -67,7 +68,7 @@ export function buildPages({ I, cfg, publish }) {
     slug: 'about', title: 'About', h1: 'About',
     description: `An interactive map of the Battle of Gettysburg, July 1–3, 1863: ${n('units.regiments')} regiments and ${n('units.batteries')} batteries, ${n('content.vignettes')} stories, and the sources behind them.`,
     jsonld: J({ '@context': 'https://schema.org', '@type': 'AboutPage', name: 'About the Gettysburg Interactive Map', inLanguage: 'en-US', about: { '@type': 'Event', name: 'Battle of Gettysburg', startDate: '1863-07-01', endDate: '1863-07-03' }, creator: { '@type': 'Person', name: 'Mike Legere' } }),
-    provenance: prov([F, 'unit, moment, story and event counts'], ['data-src/time/time_anchors.json', 'state of the time anchors'], ['tools/t0/patches/CP.json', 'the credit line “Created by Mike Legere”'], ['docs/content/STYLEGUIDE.md', 'the disclaimers used on this page']),
+    provenance: prov([F, 'unit, moment, story and event counts'], ['data-src/time/time_anchors.json', 'state of the time anchors'], ['tools/t0/patches/CP.json', 'the credit line “Created by Mike Legere”'], ['docs/content/APPROVED-BIO.md', 'the creator text, owner-approved on 2026-10-04 and used as written'], ['docs/decisions/OWNER-DECISIONS-2026-10-04.md', 'owner decision 5: the creator text and the public contact address'], ['docs/content/STYLEGUIDE.md', 'the disclaimers used on this page']),
     body: `
 <p class="lede"${src(F + '#units.regiments', F + '#units.batteries', F + '#ticks.total')}>The Gettysburg Interactive Map follows the Battle of Gettysburg, July 1–3, 1863, on a map. It places ${n('units.regiments')} regiments and ${n('units.batteries')} batteries (${n('units.total')} units) on the field and moves them through ${n('ticks.total')} moments across the three days.</p>
 <ul class="toc"><li><a href="#what" class="tap">What it holds</a></li><li><a href="#not" class="tap">What it is not</a></li><li><a href="#who" class="tap">Who made it</a></li><li><a href="#check" class="tap">How to check it</a></li></ul>
@@ -80,8 +81,7 @@ export function buildPages({ I, cfg, publish }) {
 <p>It lists regiments, not individual soldiers. To find a soldier by name, search the National Park Service’s Soldiers and Sailors System.</p>
 <h2 id="who">Who made it</h2>
 <p${src('tools/t0/patches/CP.json#cp:mobile-tools-footer')}>The site’s credit line reads “Created by Mike Legere.”</p>
-<p>Why this map exists: ${owner('creator.why', 'why you made the map, 3 to 5 sentences in your own words')}</p>
-<p>About the creator: ${owner('creator.bio', 'about you, 80 to 120 words, in your own words; nothing here is written for you')}</p>
+<p class="bio"${src('docs/content/APPROVED-BIO.md', 'docs/decisions/OWNER-DECISIONS-2026-10-04.md#creator-bio-approved')}>${esc(typo(I.bio)).replace(I.publicContact, `<a href="mailto:${I.publicContact}">${I.publicContact}</a>`)}</p>
 <p>Historian reviewer: ${owner('creator.reviewer', 'the name and credit of the historian who reviews the reconstruction, or the words “none yet”')}</p>
 <h2 id="check">How to check it</h2>
 <p>Nothing on this site asks to be taken on trust. These pages show what the map rests on and how to challenge it.</p>
@@ -255,7 +255,7 @@ ${table({ caption: 'The Gettysburg Sources v2 register', captionSrc: [REG + '#me
 <p class="lede">The map reconstructs three days of 1863 from published sources, so it will contain mistakes. When one is found, it is corrected in the open: the date, what the page said, what it says now, and the source.</p>
 <ul class="toc"><li><a href="#report" class="tap">Report a mistake</a></li><li><a href="#next" class="tap">What happens next</a></li><li><a href="#count" class="tap">What counts</a></li><li><a href="#log" class="tap">The log</a></li></ul>
 <h2 id="report">Report a mistake</h2>
-<p>Write to the corrections address. You do not need to give your name. Say where you saw it, what you think is wrong, and your source (author, title, page) if you have one.</p>
+<p>Write to the project address. You do not need to give your name. Say where you saw it, what you think is wrong, and your source (author, title, page) if you have one.</p>
 <p>${mail('corrections', 'Correction request', template, 'Write a correction request')}</p>
 <p>If your email program does not open, copy this template into a message:</p>
 <pre class="template">${template.map(esc).join('\n')}</pre>
@@ -302,7 +302,8 @@ ${table({ caption: 'Corrections log', headers: ['Date', 'Where', 'Was', 'Now', '
     ['Can I use the content in class, on my own site or in print?', `<p${src('baseline/dist/terms.html')}>The site’s Terms welcome personal, educational and classroom use, including linking to the site, embedding its widget and citing it in student work, and they ask that the data files not be republished as someone else’s dataset. No open licence for the text, code or data has been published. ${confirm('licenseWording', 'the licence wording you want shown here, if any')}</p>`, 'The Terms welcome personal, educational and classroom use and ask that the data files not be republished as someone else’s dataset. No open licence has been published.'],
     ['What do “Documented”, “Computed” and the other labels mean?', `<p${src(PITCH + '#six-evidence-badges')}>They are the six evidence labels used on the <a href="sources.html#labels">Sources and Methods</a> page: documented, measured, computed, modelled, contested and unknown. The map itself does not show them yet.</p>`, 'They are the six evidence labels used on the Sources and Methods page. The map itself does not show them yet.'],
     ['Who checked the history?', `<p${src('data-src/time/time_anchors.json#anchors')}>No historian has reviewed the reconstruction yet. See the <a href="about.html#who">About</a> page for the reviewer’s credit once there is one.</p>`, 'No historian has reviewed the reconstruction yet.'],
-    ['How do I report a mistake?', `<p>Use the <a href="corrections.html">Corrections</a> page. The <a href="contact.html">Contact</a> page has the addresses.</p>`, 'Use the Corrections page, which explains how to report a mistake.'],
+    ['Who made the map?', `<p${src('docs/content/APPROVED-BIO.md')}>Mike Legere built the map for the love of history, in his own words, and maintains it on his own. The <a href="about.html#who">About</a> page has his own text.</p>`, 'Mike Legere built the map for the love of history, in his own words, and maintains it on his own. The About page has his own text.'],
+    ['How do I report a mistake?', `<p>Use the <a href="corrections.html">Corrections</a> page. The <a href="contact.html">Contact</a> page has the address.</p>`, 'Use the Corrections page, which explains how to report a mistake.'],
     ['Is this affiliated with the National Park Service?', `<p>${confirm('nonAffiliation', 'the sentence that this is an independent project is true', 'This is an independent project. It is not affiliated with or endorsed by the National Park Service, the Gettysburg Foundation, the American Battlefield Trust, Mapbox or Google.')}</p>`, (confirmedFlag('nonAffiliation') ? '' : '[OWNER TO CONFIRM: the sentence that this is an independent project is true] ') + 'This is an independent project. It is not affiliated with or endorsed by the National Park Service, the Gettysburg Foundation, the American Battlefield Trust, Mapbox or Google.'],
   ];
   pages.faq = {
@@ -395,18 +396,18 @@ ${cl.groups.map((g) => `<h3>${esc(g.title)}</h3><ul>${g.items.map((it) => `<li${
     jsonld: J({ '@context': 'https://schema.org', '@type': 'WebPage', name: 'Contact and report a problem', inLanguage: 'en-US' }),
     provenance: prov(['tools/copy/trust-config.json', 'the contact addresses and the response targets'], ['docs/plan/FINAL/11-copy-docs-content.md', 'the contact plan (role addresses, no form, no tracking)']),
     body: `
-<p class="lede">Contact and report a problem. Contact is by email only. This page has no form, and it loads nothing from other sites.</p>
+<p class="lede">Contact and report a problem. Contact is by email only, to one address (${typeof ownerValue('contact.general') === 'string' && ownerValue('contact.general') ? `<a href="mailto:${esc(ownerValue('contact.general'))}">${esc(ownerValue('contact.general'))}</a>` : owner('contact.general', 'the project email address')}). This page has no form, and it loads nothing from other sites.</p>
 <ul class="toc"><li><a href="#general" class="tap">General</a></li><li><a href="#mistake" class="tap">A mistake</a></li><li><a href="#barrier" class="tap">A barrier</a></li><li><a href="#security" class="tap">Security</a></li></ul>
 <h2 id="general">General questions</h2>
 <p>${mail('general', 'Question about the Gettysburg Interactive Map', ['Page address (if it is about a page):', 'My question:'], 'Write a general message')}</p>
 <h2 id="mistake">A mistake in the history or the data</h2>
-<p>Use the corrections address, and read <a href="corrections.html">how corrections work</a> first. Include the page address, what you think is wrong and your source.</p>
+<p>Use the project address, and read <a href="corrections.html">how corrections work</a> first. Include the page address, what you think is wrong and your source.</p>
 <p>${mail('corrections', 'Correction request', template, 'Write a correction request')}</p>
 <h2 id="barrier">An accessibility barrier</h2>
 <p>Say what you were trying to do, which page and what got in the way. See the <a href="accessibility.html">Accessibility Statement</a>.</p>
 <p>${mail('accessibility', 'Accessibility barrier', ['Page address:', 'What I was trying to do:', 'What got in the way:', 'Browser and assistive technology, if known:'], 'Report an accessibility barrier')}</p>
 <h2 id="security">A security problem</h2>
-<p>If you believe you have found a way to harm visitors or the site, write to the security address and do not publish the details first.</p>
+<p>If you believe you have found a way to harm visitors or the site, write to the project address and do not publish the details first.</p>
 <p>${mail('security', 'Security report', ['What I found:', 'How to reproduce it:', 'Page address:'], 'Write a security report')}</p>
 <h2 id="expect">What to expect</h2>
 <p>${intent(`The targets are to acknowledge a message about a mistake or an accessibility barrier within ${ack} days, and to fix the problem, or explain why it stands, within ${fixDays} days. These are targets, not promises.`)}</p>
@@ -415,7 +416,7 @@ ${cl.groups.map((g) => `<h3>${esc(g.title)}</h3><ul>${g.items.map((it) => `<li${
 <p>This page has no form, no tracking and no script of its own. The shared site menu is the only script it loads. See the site’s <a href="/privacy.html">Privacy</a> page for the rest of the site.</p>`,
   };
 
-  return { pages, unresolved, template };
+  return { pages, unresolved, template, provenancePaths: [...usedProv].sort() };
 }
 
 // ---------------------------------------------------------------------------------------------------------------------

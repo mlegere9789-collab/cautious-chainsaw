@@ -49,62 +49,63 @@
   "limits",
   "access",
   "help",
-  "glossary"
+  "glossary",
+  "sources"
  ],
  "files": {
   "index.html": {
-   "bytes": 58863,
-   "sha256": "658d926cd9f4f9febc8241e50ee50323504b598565f790b09edc30dc1a423328"
+   "bytes": 60809,
+   "sha256": "3afb1222d185c29740e7ca0f41c605758039f1ec88ce7c079f6db97af1b05903"
   },
   "print.html": {
-   "bytes": 58748,
-   "sha256": "3cc70f41780fb495736f65f1bea3f1fb38385a5185aab6ca178b135ee1d2b4ab"
+   "bytes": 60694,
+   "sha256": "14388c3c4ec49465a6ed38495a42b1b0df88023e8b62b750708bf2936d409978"
   },
   "gettysburg-user-guide.pdf": {
-   "bytes": 400510,
-   "sha256": "aef76f219b1575bdd5844491611b8350a527a7319dd5b8b3265e176120ab873a"
+   "bytes": 421003,
+   "sha256": "2c618518e1faef92db04fda040b21497d35e738cb47888dacc6305a7bf6911c7"
   },
   "print-a4.html": {
-   "bytes": 58744,
-   "sha256": "a572878363dbae12fa63435560aae586931ac381bb94ac26e8e9dd03d76d015c"
+   "bytes": 60690,
+   "sha256": "947cd5cdc1d7626e1ea4f421c70dbcc095b77f64c92e890402b8df11debeb50b"
   },
   "gettysburg-user-guide-a4.pdf": {
-   "bytes": 399525,
-   "sha256": "05aa78d251a6e39adea9e1043d12854891d3040dbc8f417bc968632ca25b3a7c"
+   "bytes": 418333,
+   "sha256": "29d91329a6dc5e82eaf7db7c557ddee694698cab9551c638f27ec76ad70da3f4"
   }
  },
  "pdfs": {
   "letter": {
    "print_page": "print.html",
-   "headings_in_html": 25,
+   "headings_in_html": 26,
    "metrics": {
-    "pages": 13,
-    "kilobytes": 400.5,
+    "pages": 14,
+    "kilobytes": 421,
     "tagged": true,
-    "structure_elements": 1293,
+    "structure_elements": 1349,
     "structure_by_type": {
      "Document": 1,
-     "NonStruct": 564,
-     "P": 26,
+     "NonStruct": 593,
+     "P": 29,
      "H1": 1,
      "Strong": 38,
-     "H2": 13,
-     "L": 6,
-     "LI": 34,
-     "Link": 15,
+     "H2": 14,
+     "L": 7,
+     "LI": 41,
+     "Link": 17,
      "H3": 12,
      "Table": 18,
      "Caption": 18,
      "TR": 139,
      "TH": 45,
      "TD": 314,
-     "Lbl": 22,
-     "Code": 27
+     "Lbl": 28,
+     "Code": 34
     },
     "language": "en-US",
     "title": "Gettysburg Interactive Map: User Guide",
     "author": "Mike Legere",
-    "bookmarks": 26,
+    "bookmarks": 27,
     "fonts": [
      "AAAAAA+Georgia (embedded)",
      "BAAAAA+SegoeUI-Semibold (embedded)",
@@ -113,16 +114,16 @@
      "EAAAAA+SegoeUI-Bold (embedded)",
      "FAAAAA+Consolas (embedded)"
     ],
-    "fill_min_pct": 87.8,
-    "fill_median_pct": 97.9,
-    "fill_last_pct": 31,
-    "chars_ge_10pt_pct": 95.7,
+    "fill_min_pct": 84.8,
+    "fill_median_pct": 95.3,
+    "fill_last_pct": 60.6,
+    "chars_ge_10pt_pct": 95.6,
     "min_font_pt": 9,
     "low_contrast_spans": 0,
     "orphan_headings": 0,
-    "links": 16,
-    "links_external": 3,
-    "links_internal": 13
+    "links": 18,
+    "links_external": 4,
+    "links_internal": 14
    },
    "gates": [
     {
@@ -161,8 +162,8 @@
     {
      "id": "bookmarks",
      "ok": true,
-     "value": 26,
-     "need": ">= 13 with valid pages"
+     "value": 27,
+     "need": ">= 14 with valid pages"
     },
     {
      "id": "fonts_embedded",
@@ -173,7 +174,7 @@
     {
      "id": "page_fill",
      "ok": true,
-     "value": "min 87.8% (last 31.0%)",
+     "value": "min 84.8% (last 60.6%)",
      "need": ">= 55% except the last page (>= 15%)"
     },
     {
@@ -191,31 +192,31 @@
     {
      "id": "font_size",
      "ok": true,
-     "value": "95.7% at 10 pt or more (smallest 9.0 pt)",
+     "value": "95.6% at 10 pt or more (smallest 9.0 pt)",
      "need": ">= 90% of characters at 10 pt or more"
     },
     {
      "id": "links_resolve",
      "ok": true,
-     "value": "13 internal, 3 external",
+     "value": "14 internal, 4 external",
      "need": "every internal link has a target page"
     },
     {
      "id": "internal_links",
      "ok": true,
-     "value": 13,
-     "need": ">= 12"
+     "value": 14,
+     "need": ">= 13"
     },
     {
      "id": "external_links",
      "ok": true,
-     "value": 3,
+     "value": 4,
      "need": ">= 3"
     },
     {
      "id": "size",
      "ok": true,
-     "value": "401 KB",
+     "value": "421 KB",
      "need": "<= 500 KB"
     },
     {
@@ -230,35 +231,35 @@
   },
   "a4": {
    "print_page": "print-a4.html",
-   "headings_in_html": 25,
+   "headings_in_html": 26,
    "metrics": {
-    "pages": 12,
-    "kilobytes": 399.5,
+    "pages": 13,
+    "kilobytes": 418.3,
     "tagged": true,
-    "structure_elements": 1293,
+    "structure_elements": 1348,
     "structure_by_type": {
      "Document": 1,
-     "NonStruct": 564,
-     "P": 26,
+     "NonStruct": 592,
+     "P": 29,
      "H1": 1,
      "Strong": 38,
-     "H2": 13,
-     "L": 6,
-     "LI": 34,
-     "Link": 15,
+     "H2": 14,
+     "L": 7,
+     "LI": 41,
+     "Link": 17,
      "H3": 12,
      "Table": 18,
      "Caption": 18,
      "TR": 139,
      "TH": 45,
      "TD": 314,
-     "Lbl": 22,
-     "Code": 27
+     "Lbl": 28,
+     "Code": 34
     },
     "language": "en-US",
     "title": "Gettysburg Interactive Map: User Guide",
     "author": "Mike Legere",
-    "bookmarks": 26,
+    "bookmarks": 27,
     "fonts": [
      "AAAAAA+Georgia (embedded)",
      "BAAAAA+SegoeUI-Semibold (embedded)",
@@ -267,16 +268,16 @@
      "EAAAAA+SegoeUI-Bold (embedded)",
      "FAAAAA+Consolas (embedded)"
     ],
-    "fill_min_pct": 81.7,
-    "fill_median_pct": 95.9,
-    "fill_last_pct": 74.4,
-    "chars_ge_10pt_pct": 96,
+    "fill_min_pct": 80.9,
+    "fill_median_pct": 91,
+    "fill_last_pct": 87.3,
+    "chars_ge_10pt_pct": 95.9,
     "min_font_pt": 9,
     "low_contrast_spans": 0,
     "orphan_headings": 0,
-    "links": 16,
-    "links_external": 3,
-    "links_internal": 13
+    "links": 18,
+    "links_external": 4,
+    "links_internal": 14
    },
    "gates": [
     {
@@ -315,8 +316,8 @@
     {
      "id": "bookmarks",
      "ok": true,
-     "value": 26,
-     "need": ">= 13 with valid pages"
+     "value": 27,
+     "need": ">= 14 with valid pages"
     },
     {
      "id": "fonts_embedded",
@@ -327,7 +328,7 @@
     {
      "id": "page_fill",
      "ok": true,
-     "value": "min 81.7% (last 74.4%)",
+     "value": "min 80.9% (last 87.3%)",
      "need": ">= 55% except the last page (>= 15%)"
     },
     {
@@ -345,31 +346,31 @@
     {
      "id": "font_size",
      "ok": true,
-     "value": "96.0% at 10 pt or more (smallest 9.0 pt)",
+     "value": "95.9% at 10 pt or more (smallest 9.0 pt)",
      "need": ">= 90% of characters at 10 pt or more"
     },
     {
      "id": "links_resolve",
      "ok": true,
-     "value": "13 internal, 3 external",
+     "value": "14 internal, 4 external",
      "need": "every internal link has a target page"
     },
     {
      "id": "internal_links",
      "ok": true,
-     "value": 13,
-     "need": ">= 12"
+     "value": 14,
+     "need": ">= 13"
     },
     {
      "id": "external_links",
      "ok": true,
-     "value": 3,
+     "value": 4,
      "need": ">= 3"
     },
     {
      "id": "size",
      "ok": true,
-     "value": "400 KB",
+     "value": "418 KB",
      "need": "<= 500 KB"
     },
     {
@@ -380,7 +381,7 @@
     }
    ],
    "copy_lint_text_layer_findings": 0,
-   "copy_lint_text_layer_exempted_by_html": 15
+   "copy_lint_text_layer_exempted_by_html": 16
   }
  }
 }

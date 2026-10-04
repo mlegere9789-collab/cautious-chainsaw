@@ -1,19 +1,17 @@
 {
   "schema": "gtbg/trust-config/1",
-  "_doc": "Values only the owner can supply (docs/content/OWNER-INPUTS.md lists each one and the pages that need it). A null or empty value renders as a visible [OWNER TO PROVIDE: ...] marker and blocks `build-trust-pages.mjs --publish`. A confirmation stays false until the owner has checked that the statement is true.",
+  "_doc": "Values only the owner can supply (docs/content/OWNER-INPUTS.md lists each one and the pages that need it). A null or empty value renders as a visible [OWNER TO PROVIDE: ...] marker and blocks `build-trust-pages.mjs --publish`. A confirmation stays false until the owner has checked that the statement is true. Owner decision 5 of 2026-10-04 (docs/decisions/OWNER-DECISIONS-2026-10-04.md): the public contact is gettysburginteractivemap@gmail.com only, so every contact key holds that address; the creator text is read verbatim from docs/content/APPROVED-BIO.md.",
   "asOf": "2026-10-04",
   "siteUrl": "https://gettysburginteractivemap.com",
   "canonicalStyle": "clean",
   "linkStyle": "clean",
   "contact": {
-    "general": null,
-    "corrections": null,
-    "accessibility": null,
-    "security": null
+    "general": "gettysburginteractivemap@gmail.com",
+    "corrections": "gettysburginteractivemap@gmail.com",
+    "accessibility": "gettysburginteractivemap@gmail.com",
+    "security": "gettysburginteractivemap@gmail.com"
   },
   "creator": {
-    "why": null,
-    "bio": null,
     "reviewer": null
   },
   "confirmations": {

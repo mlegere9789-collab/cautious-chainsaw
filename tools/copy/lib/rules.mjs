@@ -236,10 +236,10 @@ export const RULES = [
   },
   {
     id: 'PERSONAL_EMAIL', sev: 'E', guide: '6.16', kinds: ALL,
-    title: 'Personal Gmail address in shipped text',
-    why: 'The contact plan (D-CONTACT) uses role addresses; the personal mailbox stays private.',
-    fix: 'Use the role address from tools/copy/trust-config.json.',
-    find: (t) => rx(/[A-Za-z0-9._%+-]+@gmail\.com/gi, t),
+    title: 'Gmail address other than the public contact of the project',
+    why: 'Owner decision 5 (2026-10-04): the public contact is the project address only (allowedEmails in tools/copy/scan-config.json); any other personal mailbox stays private.',
+    fix: 'Use the public contact address from tools/copy/trust-config.json.',
+    find: (t, ctx) => rx(/[A-Za-z0-9._%+-]+@gmail\.com/gi, t, (m) => ((ctx.allowedEmails || []).some((a) => a.toLowerCase() === m[0].toLowerCase()) ? null : { index: m.index, length: m[0].length })),
   },
   {
     id: 'CLAIM', sev: 'E', guide: '6.13', kinds: READ,

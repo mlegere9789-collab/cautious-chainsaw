@@ -21,7 +21,7 @@ body{margin:0;background:var(--bg);color:var(--text);font:17px/1.65 Georgia,'Tim
 .skip-link{position:absolute;left:8px;top:-60px;z-index:1000;background:var(--gold);color:var(--bg);padding:12px 16px;min-height:44px;border-radius:6px;font:600 16px/1.4 system-ui,sans-serif}
 .skip-link:focus{top:8px}
 :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-main{display:block;max-width:820px;margin:0 auto;padding:28px 16px 56px}
+main{display:block;max-width:820px;margin:0 auto;padding:28px 16px 56px;overflow-wrap:anywhere}
 .cover{border-bottom:2px solid var(--line);margin:0 0 18px;padding:0 0 14px}
 .eyebrow{font:600 14px/1.4 system-ui,sans-serif;color:var(--muted);margin:0}
 h1{color:var(--gold);font-size:2rem;line-height:1.2;margin:.15em 0 .3em}

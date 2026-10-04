@@ -27,11 +27,11 @@ Generated 2026-10-04 by `node tools/copy/copy_lint.mjs baseline/dist --report`. 
 | RANGE | W | 26 | 10 | Date range with a hyphen |
 | CAPS | W | 92 | 31 | ALL CAPS phrase typed in source |
 | ABSENCE | W | 2 | 2 | A data gap phrased as a fact about the past |
-| PERSONAL_EMAIL | E | 4 | 2 | Personal Gmail address in shipped text |
+| PERSONAL_EMAIL | E | 0 | 0 | Gmail address other than the public contact of the project |
 | CLAIM | E | 0 | 0 | Claim of accuracy, review or conformance without evidence |
-| **Total** | | **4,764** | |  |
+| **Total** | | **4,760** | |  |
 
-By string kind: html-attr 75, html-link 2, html-text 183, html-title 29, js-string 548, json 3,920, json-ld 7
+By string kind: html-attr 75, html-text 181, html-title 29, js-string 548, json 3,920, json-ld 7
 
 ## Examples
 
@@ -131,19 +131,13 @@ By string kind: html-attr 75, html-link 2, html-text 183, html-title 29, js-stri
 - `find-ancestor.html:121`: `unrecorded`
 - `search.html:112`: `unrecorded`
 
-### PERSONAL_EMAIL: Personal Gmail address in shipped text
-- `privacy.html:47`: `gettysburginteractivemap@gmail.com`
-- `privacy.html:47`: `gettysburginteractivemap@gmail.com`
-- `terms.html:42`: `gettysburginteractivemap@gmail.com`
-
-
 ## Scope of this scan
 
 - Tree: `baseline/dist` (the site as served on 2026-09-30, locked by `tools/t0/baseline.lock.json`; read-only). 103 of its files are text files the linter reads: 27 HTML pages, `site-nav.js`, `manifest.json`, the four JavaScript assets and the data files under `data/`. Not read: `sw.js`, `robots.txt`, `data/placement_schema.json` (schema documentation, 7 of the raw ` -- ` occurrences), images.
 - The entry bundle `assets/index-Cg8FAMXN.js` is read only outside two library regions (React and zustand up to the app's first store function; the Mapbox GL 3.24.1 wrapper), so library messages are not counted as site copy. The regions are markers in `tools/copy/scan-config.json`; if a marker is missing the linter says so and scans the whole file.
 - Data JSON: every string value except identifier, URL, coordinate and `metadata` fields; straight quotes are judged only in prose fields (identity fields such as designations stay ASCII on purpose).
 - Counts follow the rules in `docs/content/STYLEGUIDE.md` section 16. They are not the counts of the planning inventory (`inventory.py` of the plan is not in the repository, and its scope differed). One cross-check holds: the plan counts 1,799 raw ` -- ` outside metadata, and this scan counts 1,792 plus the 7 in the excluded schema file.
-- Ratchet: `tools/copy/baseline.json` records these findings as known (4,764 fingerprints, 21 rules with entries) with expiry dates between 2026-12-31 and 2027-03-31; a new finding, a stale entry or an expired rule fails `node tools/copy/copy_lint.mjs`.
+- Ratchet: `tools/copy/baseline.json` records these findings as known (4,760 fingerprints, 20 rules with entries) with expiry dates between 2026-12-31 and 2027-03-31; a new finding, a stale entry or an expired rule fails `node tools/copy/copy_lint.mjs`.
 
 ## Companion measurements (2026-10-04)
 
@@ -153,24 +147,24 @@ The candidate pages are held to a stricter standard than the production tree: ev
 |---|---|---:|
 | Eight trust pages, `changelog.json`, `corrections.json` | `node tools/copy/copy_lint.mjs candidates/trust-pages/*.html candidates/trust-pages/*.json --root candidates/trust-pages --no-baseline --strict` (the manifest file is machine data, not visitor text) | 0 |
 | Guide `index.html` and `print.html` (Letter and A4) | run by `tools/guide/build-guide.mjs` before anything is written | 0 |
-| Text layer of both guide PDFs | `tools/guide/lib/textlayer.mjs`: occurrences beyond what the HTML exempts (code, key names, former names inside `data-lint-allow`) | 0 (15 exempt occurrences counted in each) |
+| Text layer of both guide PDFs | `tools/guide/lib/textlayer.mjs`: occurrences beyond what the HTML exempts (code, key names, former names inside `data-lint-allow`) | 0 (15 and 16 exempt occurrences counted) |
 
 The deployed `user-guide.pdf` and the candidate guide, measured by the same tool (`python tools/guide/pdf_tools.py lint FILE`):
 
 | Measure | Deployed `baseline/dist/user-guide.pdf` | Candidate Letter | Candidate A4 |
 |---|---:|---:|---:|
-| Pages | 6 | 13 | 12 |
-| Size | 14.3 KB | 400.5 KB | 399.5 KB |
-| Tagged (structure tree) | no | yes, 1,293 elements | yes, 1,293 elements |
+| Pages | 6 | 14 | 13 |
+| Size | 14.3 KB | 421.0 KB | 418.3 KB |
+| Tagged (structure tree) | no | yes, 1,349 elements | yes, 1,348 elements |
 | Language | none | en-US | en-US |
 | Title / author | "(anonymous)" / "(anonymous)" | real title / Mike Legere | same |
-| Bookmarks | 0 | 26 | 26 |
+| Bookmarks | 0 | 27 | 27 |
 | Fonts embedded | 0 of 4 | 6 of 6 | 6 of 6 |
-| Page fill, lowest page (last page) | 2.8% (40.1%) | 87.8% (31.0%) | 81.7% (74.4%) |
-| Characters at 10 pt or more | 5.3% | 95.7% | 96.0% |
+| Page fill, lowest page (last page) | 2.8% (40.1%) | 84.8% (60.6%) | 80.9% (87.3%) |
+| Characters at 10 pt or more | 5.3% | 95.6% | 95.9% |
 | Text below 4.5:1 contrast | 6 spans | 0 | 0 |
 | Orphan headings | 1 | 0 | 0 |
-| Links | 0 | 13 internal, 3 external | 13 internal, 3 external |
+| Links | 0 | 14 internal, 4 external | 14 internal, 4 external |
 
 These are the tool's own measurements, not a PDF/UA validation: veraPDF and a screen-reader read have not been run (see `docs/content/OWNER-INPUTS.md`, section 7).
 
