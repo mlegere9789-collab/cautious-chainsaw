@@ -128,6 +128,12 @@
    "action": "init-baseline",
    "forced": true,
    "findings": 4765
+  },
+  {
+   "date": "2026-10-04",
+   "action": "init-baseline",
+   "forced": true,
+   "findings": 4764
   }
  ],
  "rules": {
@@ -5775,12 +5781,11 @@
   "AIPERSONA": {
    "sev": "E",
    "expires": "2026-12-31",
-   "count": 5,
+   "count": 4,
    "files": {
     "historian.html": [
      "3f4d1a64",
-     "a665c0b5",
-     "f2301410"
+     "a665c0b5"
     ],
     "index.html": [
      "b20955a0"

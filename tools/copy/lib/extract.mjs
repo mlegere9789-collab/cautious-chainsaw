@@ -110,11 +110,15 @@ export function extractHtml(src, config = {}) {
     if (!run) return;
     const text = normalizeWs(decodeEntities(run.parts.join('')));
     if (text && !run.skip) items.push({ kind: 'html-text', text, offset: run.offset, line: lineOf(run.offset), where: '', quoted: run.quoted, ignore: run.ignore });
+    else if (text && config.keepSkipped) items.push({ kind: 'html-text', text, offset: run.offset, line: lineOf(run.offset), where: '', quoted: run.quoted, ignore: run.ignore, skipped: true });
     run = null;
   };
   const addText = (raw, offset) => {
     if (!raw) return;
-    if (!run) { const f = curFlags(); run = { parts: [], offset, quoted: f.quoted, ignore: f.ignore, skip: f.skip }; }
+    const f = curFlags();
+    if (!run) run = { parts: [], offset, quoted: f.quoted, ignore: f.ignore, skip: f.skip };
+    // a data-lint-allow on any inline element inside a paragraph exempts that paragraph's text from the named rules
+    else for (const k of f.ignore) run.ignore.add(k);
     run.parts.push(raw);
   };
   const pushAttr = (kind, name, value, offset) => {

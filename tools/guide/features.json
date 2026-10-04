@@ -1,0 +1,964 @@
+{
+  "schema": "gtbg/guide-features/1",
+  "_doc": "The manifest that drives the user guide (tools/guide/build-guide.mjs) and the keyboard reference of the Accessibility page (tools/copy/build-trust-pages.mjs). It describes the CURRENT behaviour of the Tranche 0 build named in `release`, as established by the Help dialog text that the patches of tools/t0/patches put into that build, the app's own key handler after the same patches, the release notes and the committed tests. It never describes planned behaviour: anything that is not in the live baseline (the site as served on 2026-09-30) carries a `since` train and is printed as a since-version note. `tools/guide/check-parity.mjs` compares this file with the patched Help text, the patched key handler and the patched site menu and reports every mismatch. Wording (`label`, `text`) follows docs/content/STYLEGUIDE.md; `help` holds the exact row the Help dialog shows in this release (it may break the style guide: that is reported, not hidden).",
+  "release": {
+    "train": "R1c",
+    "notes": "ops/release-notes/R1c.md",
+    "release_id_in_notes": "9feb2ee6",
+    "status": "built and tested locally, not deployed (ops/release-notes/R1c.md)",
+    "baseline": "baseline/dist: the site as served on 2026-09-30 (live deploy 6abd6d62)",
+    "tested_in": "headless Chrome 153 on Windows against localhost; touch is emulated (ops/release-notes/R1c.md, Not verified)"
+  },
+  "since": {
+    "baseline": "in the site as it was served on 2026-09-30",
+    "R1a": "added in release R1a (keyboard, crash and layout fixes on the existing page)",
+    "R1b": "added in release R1b (phone layout, keyboard and screen reader support)",
+    "R1c": "added in release R1c (dates, day jumps, share links, corrected Help wording)"
+  },
+  "hotkeys": [
+    {
+      "id": "play-pause",
+      "section": "Time",
+      "keys": "Space",
+      "event_keys": [
+        " "
+      ],
+      "label": "Play or pause",
+      "text": "Starts or stops the playback. With a button focused, Space presses that button instead.",
+      "since": "baseline",
+      "help": {
+        "key": "Space",
+        "desc": "Play / Pause"
+      },
+      "evidence": [
+        "tests/t0/journeys-desktop.spec.mjs T0-KEY-04",
+        "tools/t0/patches/A.json A-keys-guard"
+      ]
+    },
+    {
+      "id": "step-forward",
+      "section": "Time",
+      "keys": "Right arrow",
+      "event_keys": [
+        "ArrowRight"
+      ],
+      "label": "Next moment",
+      "text": "Moves forward by one moment.",
+      "since": "baseline",
+      "help": {
+        "key": "→",
+        "desc": "Advance one tick (5 minutes)"
+      },
+      "evidence": [
+        "tests/t0/journeys-desktop.spec.mjs T0-KEY-08",
+        "tests/t0/journeys-desktop.spec.mjs T0-KEY-07"
+      ]
+    },
+    {
+      "id": "step-back",
+      "section": "Time",
+      "keys": "Left arrow",
+      "event_keys": [
+        "ArrowLeft"
+      ],
+      "label": "Previous moment",
+      "text": "Moves back by one moment.",
+      "since": "baseline",
+      "help": {
+        "key": "←",
+        "desc": "Go back one tick"
+      },
+      "evidence": [
+        "tests/t0/journeys-desktop.spec.mjs T0-KEY-08"
+      ]
+    },
+    {
+      "id": "hour-forward",
+      "section": "Time",
+      "keys": "Shift + Right arrow",
+      "event_keys": [
+        "ArrowRight"
+      ],
+      "label": "Forward 12 moments",
+      "text": "Moves forward by 12 moments. The Help panel calls this one hour; the time between moments varies, so it is not one hour of battle time everywhere (see About the clock).",
+      "since": "baseline",
+      "help": {
+        "key": "Shift + →",
+        "desc": "Advance one hour (12 ticks)"
+      },
+      "evidence": [
+        "tests/t0/journeys-desktop.spec.mjs T0-KEY-08 (ArrowRight +1, Shift+ArrowRight +12)",
+        "docs/editorial/corrections-page-draft.md item 3"
+      ]
+    },
+    {
+      "id": "hour-back",
+      "section": "Time",
+      "keys": "Shift + Left arrow",
+      "event_keys": [
+        "ArrowLeft"
+      ],
+      "label": "Back 12 moments",
+      "text": "Moves back by 12 moments (the Help panel calls this one hour).",
+      "since": "baseline",
+      "help": {
+        "key": "Shift + ←",
+        "desc": "Go back one hour"
+      },
+      "evidence": [
+        "tests/t0/journeys-desktop.spec.mjs T0-KEY-08"
+      ]
+    },
+    {
+      "id": "day-1",
+      "section": "Time",
+      "keys": "1",
+      "event_keys": [
+        "1"
+      ],
+      "label": "Jump to July 1",
+      "text": "Jumps to the first moment of July 1 (dawn) and pauses.",
+      "since": "baseline",
+      "help": {
+        "key": "1",
+        "desc": "Jump to July 1, dawn (tick 1)"
+      },
+      "evidence": [
+        "tools/t0/patches/A.json (key handler)"
+      ]
+    },
+    {
+      "id": "day-2",
+      "section": "Time",
+      "keys": "2",
+      "event_keys": [
+        "2"
+      ],
+      "label": "Jump to July 2",
+      "text": "Jumps to the first moment of July 2 and loads that day's positions.",
+      "since": "baseline",
+      "since_note": {
+        "R1c": "The day's positions are loaded before the jump lands. On earlier builds the map can show empty or stale positions after a day jump."
+      },
+      "help": {
+        "key": "2",
+        "desc": "Jump to July 2, dawn (tick 226)"
+      },
+      "evidence": [
+        "tests/t0/journeys-desktop.spec.mjs T0-KEY-05",
+        "ops/release-notes/R1c.md group B"
+      ]
+    },
+    {
+      "id": "day-3",
+      "section": "Time",
+      "keys": "3",
+      "event_keys": [
+        "3"
+      ],
+      "label": "Jump to July 3",
+      "text": "Jumps to the first moment of July 3 and loads that day's positions.",
+      "since": "baseline",
+      "since_note": {
+        "R1c": "The day's positions are loaded before the jump lands."
+      },
+      "help": {
+        "key": "3",
+        "desc": "Jump to July 3, dawn (tick 451)"
+      },
+      "evidence": [
+        "tests/t0/journeys-desktop.spec.mjs T0-KEY-05"
+      ]
+    },
+    {
+      "id": "speed-down",
+      "section": "Speed",
+      "keys": "Minus",
+      "event_keys": [
+        "-"
+      ],
+      "label": "Slower",
+      "text": "Halves the playback speed, down to 0.25 times.",
+      "since": "baseline",
+      "help": {
+        "key": "-",
+        "desc": "Decrease speed"
+      },
+      "evidence": [
+        "tools/guide/lib/t0src.mjs extractKeyHandler (speed floor read from the handler)"
+      ]
+    },
+    {
+      "id": "speed-up",
+      "section": "Speed",
+      "keys": "Plus or Equals",
+      "event_keys": [
+        "+",
+        "="
+      ],
+      "label": "Faster",
+      "text": "Doubles the playback speed, up to 16 times.",
+      "since": "baseline",
+      "help": {
+        "key": "+  /  =",
+        "desc": "Increase speed"
+      },
+      "evidence": [
+        "tools/guide/lib/t0src.mjs extractKeyHandler (speed ceiling read from the handler)"
+      ]
+    },
+    {
+      "id": "speed-reset",
+      "section": "Speed",
+      "keys": "0",
+      "event_keys": [
+        "0"
+      ],
+      "label": "Normal speed",
+      "text": "Returns the playback speed to 1 times. The speed label reads 1x (base speed).",
+      "since": "baseline",
+      "since_note": {
+        "R1c": "The label no longer describes a clock rate: the playback is a time-lapse."
+      },
+      "help": {
+        "key": "0",
+        "desc": "Reset to 1x speed"
+      },
+      "evidence": [
+        "tools/t0/patches/CP.json cp:b10"
+      ]
+    },
+    {
+      "id": "map-zoom",
+      "section": "Map",
+      "keys": "Scroll",
+      "event_keys": [],
+      "label": "Zoom",
+      "text": "Scroll the wheel over the map to zoom in or out.",
+      "since": "baseline",
+      "help": {
+        "key": "Scroll",
+        "desc": "Zoom in / out"
+      },
+      "evidence": [
+        "Help dialog row"
+      ]
+    },
+    {
+      "id": "map-pan",
+      "section": "Map",
+      "keys": "Drag",
+      "event_keys": [],
+      "label": "Pan",
+      "text": "Press and drag on the map to move it. A press on the map hands keyboard focus back to the page, so the time keys keep working afterwards.",
+      "since": "baseline",
+      "since_note": {
+        "R1a": "A click, a drag or a unit selection no longer leaves keyboard focus on the map, so the arrow keys step through time as this guide says."
+      },
+      "help": {
+        "key": "Drag",
+        "desc": "Pan the map"
+      },
+      "evidence": [
+        "tests/t0/desktop-fixes.spec.mjs T0-DF-01",
+        "tests/t0/journeys-desktop.spec.mjs T0-KEY-08",
+        "docs/decisions/OWNER-DECISIONS-2026-10-04.md item 2"
+      ]
+    },
+    {
+      "id": "map-keyboard",
+      "section": "Map",
+      "keys": "Tab to the map",
+      "event_keys": [],
+      "label": "Move the map from the keyboard",
+      "text": "Press Tab until the map has focus. The arrow keys then pan the map instead of stepping through time, plus and minus zoom it, and Shift with the arrow keys rotates and tilts it. Esc hands the keys back to the page.",
+      "since": "R1a",
+      "help_since": "R1c",
+      "help": {
+        "key": "Tab to the map",
+        "desc": "Arrow keys then pan it instead of stepping the clock, + / - zoom it, Shift + arrows rotate and tilt it; Esc gives the keys back"
+      },
+      "evidence": [
+        "tests/t0/desktop-fixes.spec.mjs T0-DF-02",
+        "tools/t0/patches/CP.json cp:h-map-keys",
+        "docs/decisions/OWNER-DECISIONS-2026-10-04.md item 2"
+      ]
+    },
+    {
+      "id": "select-unit",
+      "section": "Map",
+      "keys": "Click a unit",
+      "event_keys": [],
+      "label": "Select a unit",
+      "text": "Click a unit to select it and pin its details. From Search, a unit can also be chosen with the keyboard.",
+      "since": "baseline",
+      "since_note": {
+        "R1b": "A unit can be selected from Search by keyboard: type in the field, press Down arrow to move into the list and Enter to choose a unit; focus then moves to the unit's details."
+      },
+      "help": {
+        "key": "Click unit",
+        "desc": "Select and pin unit details"
+      },
+      "evidence": [
+        "tests/t0/a11y.spec.mjs T0-A11Y-17..24",
+        "commit 7082c27"
+      ]
+    },
+    {
+      "id": "escape",
+      "section": "Map",
+      "keys": "Esc",
+      "event_keys": [
+        "Escape"
+      ],
+      "label": "Close or deselect",
+      "text": "Closes the open panel or card and clears the selected unit. With several things open, Esc closes the topmost one first: the event card, then the story card, then the guided tour.",
+      "since": "baseline",
+      "since_note": {
+        "R1a": "Esc also clears the pinned unit and closes Map Layers and the Distance tool; it closes the story card, event card and tour one at a time."
+      },
+      "help": {
+        "key": "Esc",
+        "desc": "Dismiss panel / deselect unit"
+      },
+      "evidence": [
+        "tests/t0/journeys-desktop.spec.mjs T0-KEY-02, T0-KEY-06",
+        "tools/t0/patches/A2.json A2-story-card-esc, A2-event-card-esc, A2-tour-panel-esc"
+      ]
+    },
+    {
+      "id": "panel-filter",
+      "section": "Panels",
+      "keys": "F",
+      "event_keys": [
+        "f",
+        "F"
+      ],
+      "label": "Filter panel",
+      "text": "Opens or closes the filter panel.",
+      "since": "baseline",
+      "help": {
+        "key": "F",
+        "desc": "Toggle filter panel"
+      },
+      "evidence": [
+        "Help dialog row",
+        "key handler"
+      ]
+    },
+    {
+      "id": "panel-search",
+      "section": "Panels",
+      "keys": "S",
+      "event_keys": [
+        "s",
+        "S"
+      ],
+      "label": "Unit search",
+      "text": "Opens or closes the unit search panel.",
+      "since": "baseline",
+      "help": {
+        "key": "S",
+        "desc": "Open unit search"
+      },
+      "evidence": [
+        "Help dialog row",
+        "key handler"
+      ]
+    },
+    {
+      "id": "panel-bookmarks",
+      "section": "Panels",
+      "keys": "B",
+      "event_keys": [
+        "b",
+        "B"
+      ],
+      "label": "Bookmarks",
+      "text": "Opens or closes the bookmarks panel.",
+      "since": "baseline",
+      "help": {
+        "key": "B",
+        "desc": "Open bookmarks"
+      },
+      "evidence": [
+        "Help dialog row",
+        "key handler"
+      ]
+    },
+    {
+      "id": "panel-legend",
+      "section": "Panels",
+      "keys": "L",
+      "event_keys": [
+        "l",
+        "L"
+      ],
+      "label": "Legend",
+      "text": "Shows or hides the legend.",
+      "since": "baseline",
+      "help": {
+        "key": "L",
+        "desc": "Toggle legend"
+      },
+      "evidence": [
+        "Help dialog row",
+        "key handler"
+      ]
+    },
+    {
+      "id": "panel-minimap",
+      "section": "Panels",
+      "keys": "M",
+      "event_keys": [
+        "m",
+        "M"
+      ],
+      "label": "Minimap",
+      "text": "Shows or hides the minimap.",
+      "since": "baseline",
+      "help": {
+        "key": "M",
+        "desc": "Toggle minimap"
+      },
+      "evidence": [
+        "Help dialog row",
+        "key handler"
+      ]
+    },
+    {
+      "id": "help-toggle",
+      "section": "Panels",
+      "keys": "?",
+      "event_keys": [
+        "?"
+      ],
+      "label": "Help",
+      "text": "Shows or hides the Help panel. It lists these keys.",
+      "since": "baseline",
+      "help": {
+        "key": "?",
+        "desc": "Show / hide this help panel"
+      },
+      "evidence": [
+        "Help dialog row",
+        "tools/t0/patches/AX.json AX-help-dialog"
+      ]
+    },
+    {
+      "id": "heatmap-key",
+      "section": "Panels",
+      "keys": "H",
+      "event_keys": [
+        "h",
+        "H"
+      ],
+      "label": "Heatmap",
+      "text": "The heatmap key was removed in release R1a. Nothing in the map read it.",
+      "since": "baseline",
+      "removed_in": "R1a",
+      "help": null,
+      "evidence": [
+        "tools/t0/patches/A.json A-heatmap-key-remove, A-heatmap-help-row-remove",
+        "tests/t0/journeys-desktop.spec.mjs T0-KEY-05"
+      ]
+    }
+  ],
+  "gestures": [
+    {
+      "id": "g-drag",
+      "section": "Move around",
+      "keys": "Drag",
+      "label": "Pan",
+      "text": "Drag one finger on the map to move it.",
+      "since": "R1b",
+      "help": {
+        "key": "Drag",
+        "desc": "Pan the map"
+      },
+      "evidence": [
+        "tools/t0/patches/AX.json AX-help-phone-list"
+      ]
+    },
+    {
+      "id": "g-pinch",
+      "section": "Move around",
+      "keys": "Pinch",
+      "label": "Zoom",
+      "text": "Pinch with two fingers to zoom in or out.",
+      "since": "R1b",
+      "help": {
+        "key": "Pinch",
+        "desc": "Zoom in or out"
+      },
+      "evidence": [
+        "Help dialog row (phone)"
+      ]
+    },
+    {
+      "id": "g-tap-unit",
+      "section": "Move around",
+      "keys": "Tap a unit",
+      "label": "Select a unit",
+      "text": "Tap a unit to see its details.",
+      "since": "R1b",
+      "help": {
+        "key": "Tap a unit",
+        "desc": "Show its details"
+      },
+      "evidence": [
+        "Help dialog row (phone)"
+      ]
+    },
+    {
+      "id": "g-play",
+      "section": "Time",
+      "keys": "Play button",
+      "label": "Play or pause",
+      "text": "The play button starts or stops the playback.",
+      "since": "R1b",
+      "help": {
+        "key": "▶",
+        "desc": "Play or pause the battle"
+      },
+      "evidence": [
+        "Help dialog row (phone)"
+      ]
+    },
+    {
+      "id": "g-step",
+      "section": "Time",
+      "keys": "Step buttons",
+      "label": "Step",
+      "text": "The two arrow buttons step back or forward by one moment.",
+      "since": "R1b",
+      "help": {
+        "key": "‹  ›",
+        "desc": "Step back or forward"
+      },
+      "evidence": [
+        "Help dialog row (phone)"
+      ]
+    },
+    {
+      "id": "g-timeline",
+      "section": "Time",
+      "keys": "Timeline",
+      "label": "Timeline",
+      "text": "Drag the bar to move through July 1 to 3.",
+      "since": "R1b",
+      "help": {
+        "key": "Timeline",
+        "desc": "Drag the bar to move through July 1–3"
+      },
+      "evidence": [
+        "Help dialog row (phone)"
+      ]
+    },
+    {
+      "id": "g-speed",
+      "section": "Time",
+      "keys": "Speed button",
+      "label": "Speed",
+      "text": "The speed button changes the playback speed.",
+      "since": "R1b",
+      "help": {
+        "key": "1×",
+        "desc": "Change the playback speed"
+      },
+      "evidence": [
+        "Help dialog row (phone)",
+        "tests/t0/a11y.spec.mjs T0-A11Y-22"
+      ]
+    },
+    {
+      "id": "g-days",
+      "section": "Time",
+      "keys": "July 1, 2, 3",
+      "label": "Jump to a day",
+      "text": "The three day buttons jump to the start of July 1, 2 or 3.",
+      "since": "R1b",
+      "help": {
+        "key": "July 1 2 3",
+        "desc": "Jump to the start of a day"
+      },
+      "evidence": [
+        "Help dialog row (phone)"
+      ]
+    },
+    {
+      "id": "g-tools",
+      "section": "More",
+      "keys": "Tools",
+      "label": "Tools",
+      "text": "The Tools button opens a sheet with search, filter, roster, legend, bookmarks and the extra pages.",
+      "since": "R1b",
+      "help": {
+        "key": "Tools",
+        "desc": "Search, filter, roster, legend, bookmarks and more"
+      },
+      "evidence": [
+        "Help dialog row (phone)",
+        "tests/t0/a11y.spec.mjs T0-A11Y-26"
+      ]
+    },
+    {
+      "id": "g-desktop",
+      "section": "More",
+      "keys": "Desktop View",
+      "label": "Desktop layout",
+      "text": "Switches to the desktop layout.",
+      "since": "R1b",
+      "help": {
+        "key": "Desktop View",
+        "desc": "Switch to the desktop layout"
+      },
+      "evidence": [
+        "Help dialog row (phone)"
+      ]
+    }
+  ],
+  "toolbar": {
+    "note": "Tooltips of the desktop toolbar buttons in the baseline bundle, in order. This guide documents the ones whose behaviour the Help text, the release notes or a committed test establish; the others are named and not described.",
+    "buttons": [
+      "Search",
+      "Filter",
+      "Unit Roster",
+      "Legend",
+      "Monuments",
+      "Soldier's Eye View (Street View)",
+      "Follow Your Ancestor",
+      "Distance Tool",
+      "Map Layers",
+      "Locations",
+      "Find Unit / Location",
+      "Bookmarks",
+      "Help"
+    ],
+    "documented": {
+      "Search": "Opens unit search (key S).",
+      "Filter": "Opens the filter panel (key F).",
+      "Legend": "Shows the legend (key L).",
+      "Bookmarks": "Opens bookmarks (key B).",
+      "Help": "Opens the Help panel (key ?). Since R1b it is a dialog that keeps Tab inside it and closes with Esc.",
+      "Soldier's Eye View (Street View)": "Opens a list of eight viewpoints. Each opens in Google Street View in Google Maps (since R1c the label says so).",
+      "Follow Your Ancestor": "Opens a panel for following one regiment through the battle. Since R1c it loads all three days before it draws."
+    }
+  },
+  "tools": [
+    {
+      "id": "search",
+      "canonical": "Search Everything",
+      "group": "Explore",
+      "h1": "Search Everything",
+      "text": "Find a regiment, battery, story or battlefield location by name."
+    },
+    {
+      "id": "compare",
+      "canonical": "Compare Moments",
+      "group": "Explore",
+      "h1": "Compare Two Moments",
+      "text": "Show the unit positions at two different moments, side by side."
+    },
+    {
+      "id": "camera",
+      "canonical": "Camera Modes",
+      "group": "Explore",
+      "h1": "Camera Modes",
+      "text": "Director Mode moves the camera to where the most units are engaged. Follow Cam stays with one regiment."
+    },
+    {
+      "id": "viewshed",
+      "canonical": "High Ground",
+      "group": "Explore",
+      "h1": "What They Could See",
+      "text": "Pick a vantage point and see how high it stands. The page ranks the height of 30 places on the field. It is not a line-of-sight map: trees, buildings, fences and gun smoke often decided what a soldier could see."
+    },
+    {
+      "id": "sandbox",
+      "canonical": "What-If Sandbox",
+      "group": "Explore",
+      "h1": "What-If Sandbox",
+      "text": "Move units and change their status at a chosen moment to explore a hypothetical. It is not history. Nothing is saved, and reloading the page resets it."
+    },
+    {
+      "id": "historian",
+      "canonical": "Ask the Historian",
+      "group": "Learn",
+      "h1": "Ask the Historian",
+      "text": "Ask about a regiment, a commander, a place or a moment. Answers come only from this site's own records. It is a search of those records, not an AI."
+    },
+    {
+      "id": "documentary",
+      "canonical": "Documentary Mode",
+      "group": "Learn",
+      "h1": "Documentary Mode",
+      "text": "Read all 24 stories in order, each with its full text and a link to its place on the map."
+    },
+    {
+      "id": "turning-points",
+      "canonical": "Turning Points",
+      "group": "Learn",
+      "h1": "Turning Points",
+      "text": "Nine decisions where the battle might have gone differently, as historians have argued them."
+    },
+    {
+      "id": "education",
+      "canonical": "For Students",
+      "group": "Learn",
+      "h1": "Gettysburg for Students",
+      "text": "A short guide to the battle for students and classrooms, by day."
+    },
+    {
+      "id": "aftermath",
+      "canonical": "Aftermath",
+      "group": "Learn",
+      "h1": "Aftermath: July 4 – November 1863",
+      "text": "What happened to the two armies, the town and the ground after July 3. It is an overview drawn from published histories, not built from unit-by-unit records."
+    },
+    {
+      "id": "regiment",
+      "canonical": "Regimental Biography",
+      "group": "Data & Records",
+      "h1": "Regimental Biography",
+      "text": "Pick a regiment or battery and follow its three days as one story: commander, casualties and recorded positions."
+    },
+    {
+      "id": "find-ancestor",
+      "canonical": "Find Your Ancestor",
+      "group": "Data & Records",
+      "h1": "Find Your Ancestor's Regiment",
+      "text": "Search regiments by state or by a commander's surname. The site lists regiments, not individual soldiers; to find a soldier by name use the National Park Service's Soldiers and Sailors System."
+    },
+    {
+      "id": "dashboard",
+      "canonical": "Casualty Dashboard",
+      "group": "Data & Records",
+      "h1": "Casualty & Strength Dashboard",
+      "text": "Corps-by-corps strength across the three days. The curves are modelled from each corps' recorded engagement periods: they show when losses concentrated, not observed strength at each moment."
+    },
+    {
+      "id": "report",
+      "canonical": "Regiment Fact Sheets",
+      "group": "Data & Records",
+      "h1": "Battle Reports",
+      "text": "Make a one-page reference sheet for a regiment, to print or save as a PDF from the browser's print dialog."
+    },
+    {
+      "id": "immersive",
+      "canonical": "Immersive Mode",
+      "group": "Experience It",
+      "h1": "Immersive Mode",
+      "text": "Plays a sound made in your browser that follows how many units are engaged at each moment. You turn the sound on yourself."
+    },
+    {
+      "id": "living-ledger",
+      "canonical": "The Living Ledger",
+      "group": "Experience It",
+      "h1": "The Living Ledger",
+      "text": "A running total of casualties across the three days, built from the same data as the Casualty Dashboard."
+    },
+    {
+      "id": "ground-remembers",
+      "canonical": "The Ground Remembers",
+      "group": "Experience It",
+      "h1": "The Ground Remembers",
+      "text": "Accumulates the recorded unit positions into one map, so places where units were positioned often stand out."
+    },
+    {
+      "id": "watch-together",
+      "canonical": "Watch Together",
+      "group": "Share",
+      "h1": "Watch Together",
+      "text": "Build a guided tour with your own stops and notes and share it as a file. Live Sync connects two browsers through a public connection service and can be unavailable; exporting and importing a tour always works."
+    },
+    {
+      "id": "cinematic-export",
+      "canonical": "Export a Video",
+      "group": "Share",
+      "h1": "Cinematic Export",
+      "text": "Record a video of the camera flying across a stretch of the battle. It is made in your browser and nothing is uploaded."
+    }
+  ],
+  "tools_hidden": [
+    {
+      "id": "ar",
+      "canonical": "Battlefield AR",
+      "h1": "Battlefield AR",
+      "text": "Needs a phone with a camera, GPS and compass. It is in beta and is not listed in the menu in this release; the page is still reachable by its address.",
+      "since_note": "Removed from the menu in R1a (tools/t0/patches/PG-core.json PGC-nav-hide-ar)."
+    }
+  ],
+  "deeplinks": {
+    "note": "Read by the app when it loads. The parameters {tick}, {day}, {unit}, {vignette}, {ancestor}, {z} and {ll} arrived in release R1c; {layout} arrived in release R1b. Every value is validated; anything invalid is ignored and the map opens at its defaults.",
+    "params": [
+      {
+        "name": "tick",
+        "alias": "t",
+        "text": "A moment number from 1 to 675. Wins over {day}.",
+        "evidence": [
+          "tests/t0/deeplinks.spec.mjs T0-DL-01"
+        ],
+        "since": "R1c",
+        "where": "deeplink-reader"
+      },
+      {
+        "name": "day",
+        "alias": null,
+        "text": "1, 2 or 3: the first moment of that day (moments 1, 226 and 451). Used only when no valid {tick} is given.",
+        "evidence": [
+          "tests/t0/deeplinks.spec.mjs T0-DL-01"
+        ],
+        "since": "R1c",
+        "where": "deeplink-reader"
+      },
+      {
+        "name": "unit",
+        "alias": "u",
+        "text": "A unit id. The unit is selected and its details pinned.",
+        "evidence": [
+          "tests/t0/deeplinks.spec.mjs T0-DL-02"
+        ],
+        "since": "R1c",
+        "where": "deeplink-reader"
+      },
+      {
+        "name": "vignette",
+        "alias": "v",
+        "text": "A story id. The map moves to that story's moment. Used only when no valid {tick} or {day} is given.",
+        "evidence": [
+          "tests/t0/deeplinks.spec.mjs T0-DL-07"
+        ],
+        "since": "R1c",
+        "where": "deeplink-reader"
+      },
+      {
+        "name": "ancestor",
+        "alias": null,
+        "text": "A regiment id. Opens the panel for following one regiment.",
+        "evidence": [
+          "tests/t0/deeplinks.spec.mjs T0-DL-03"
+        ],
+        "since": "R1c",
+        "where": "deeplink-reader"
+      },
+      {
+        "name": "z",
+        "alias": null,
+        "text": "Map zoom. Values are kept between 11 and 18.",
+        "evidence": [
+          "tests/t0/deeplinks.spec.mjs T0-DL-02"
+        ],
+        "since": "R1c",
+        "where": "deeplink-reader"
+      },
+      {
+        "name": "ll",
+        "alias": null,
+        "text": "Map centre as latitude,longitude, or the two parameters lat and lng. Accepted only inside the battlefield (latitude 39.7 to 39.93, longitude -77.38 to -77.1).",
+        "evidence": [
+          "tests/t0/deeplinks.spec.mjs T0-DL-02, T0-DL-04"
+        ],
+        "since": "R1c",
+        "where": "deeplink-reader"
+      },
+      {
+        "name": "layout",
+        "alias": null,
+        "where": "layout-init",
+        "since": "R1b",
+        "text": "mobile or desktop: forces that layout instead of the automatic choice (phones and touch tablets up to 834 px wide, and landscape phones, get the phone layout).",
+        "evidence": [
+          "tools/t0/patches/C.json mob:HF-5a layout init",
+          "ops/release-notes/R1b.md"
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "query": "?day=2",
+        "text": "Opens at the start of July 2."
+      },
+      {
+        "query": "?tick=538",
+        "text": "Opens at moment 538."
+      },
+      {
+        "query": "?unit=U-1MN&tick=538",
+        "text": "Opens at moment 538 with the 1st Minnesota Volunteer Infantry selected."
+      },
+      {
+        "query": "?vignette=V-017",
+        "text": "Opens at the moment of the story The Cannonade."
+      }
+    ]
+  },
+  "known_differences": [
+    {
+      "id": "kd-help-wording",
+      "since": "R1c",
+      "text": "The Help panel and some pages still say tick and five minutes, and call 12 moments one hour. Moments are not five minutes apart everywhere; read the moment as a place in the story, not a fixed length of time.",
+      "evidence": [
+        "tools/guide/check-parity.mjs (Help text against the style guide)",
+        "docs/editorial/corrections-page-draft.md items 2 and 3"
+      ],
+      "allow": [
+        "TICK"
+      ]
+    },
+    {
+      "id": "kd-clock",
+      "since": "R1c",
+      "text": "Clock labels can be hours off in places. Release R1c changes only the date (July 1, 2 and 3 instead of dates up to July 9); the clock itself is waiting on a decision about the time model.",
+      "evidence": [
+        "ops/release-notes/R1c.md (Not verified / what remains)",
+        "docs/editorial/time-audit.md"
+      ]
+    },
+    {
+      "id": "kd-monuments",
+      "since": "R1c",
+      "text": "The Monuments button is in the toolbar, but it shows nothing in this release. The star layer that appeared when it was pressed was removed from the site in production, and restoring it properly is on the owner's list.",
+      "evidence": [
+        "docs/baseline-drift.md",
+        "docs/decisions/OWNER-DECISIONS-2026-10-04.md item 1"
+      ]
+    },
+    {
+      "id": "kd-removed",
+      "since": "R1a",
+      "text": "The heatmap key and the in-map sound switch were removed in release R1a. Immersive Mode is the page that plays sound.",
+      "evidence": [
+        "tools/t0/patches/A.json A-heatmap-key-remove, A-sound-remove-button"
+      ]
+    },
+    {
+      "id": "kd-names",
+      "since": "R1c",
+      "text": "Some labels on screen use older names, for example the menu is called Extra Features and one page is called Battle Reports. This guide uses the names the style guide settles on and gives the on-screen label beside the first mention.",
+      "evidence": [
+        "docs/content/STYLEGUIDE.md section 3"
+      ],
+      "allow": [
+        "NAME"
+      ]
+    },
+    {
+      "id": "kd-historian",
+      "since": "R1c",
+      "text": "Ask the Historian searches this site's records. The count shown on its page is computed from the loaded files.",
+      "evidence": [
+        "tools/t0/patches/PG-core.json PGC-hist-how, PGC-hist-counts"
+      ]
+    },
+    {
+      "id": "kd-testing",
+      "since": "R1c",
+      "text": "Everything in this guide was checked against the release's text, key handler and tests. Release R1c has been run only in Chrome on a desktop computer (touch was emulated). Safari, Firefox, Samsung Internet and real phones have not been tested.",
+      "evidence": [
+        "ops/release-notes/R1c.md"
+      ]
+    }
+  ],
+  "faq_seed": []
+}

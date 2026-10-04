@@ -172,7 +172,7 @@ ${p.body}
 }
 
 /** responsive table: headers[], rows[][] (cells are HTML strings); `n` marks numeric columns */
-export function table({ caption, captionSrc = null, headers, rows, numeric = [], stack = true, rowSources = [] }) {
+export function table({ caption, captionSrc = null, headers, rows, numeric = [], stack = true, rowSources = [], keep = false }) {
   const th = headers.map((h, i) => `<th scope="col"${numeric.includes(i) ? ' class="n"' : ''}>${h}</th>`).join('');
   const body = rows.map((r, ri) => {
     const cells = r.map((c, i) => `<td data-label="${esc(headers[i].replace(/<[^>]+>/g, ''))}"${numeric.includes(i) ? ' class="n"' : ''}>${c}</td>`).join('');
@@ -182,5 +182,5 @@ export function table({ caption, captionSrc = null, headers, rows, numeric = [],
     return `<tr${all.length ? src(...all) : ''}>${cells}</tr>`;
   }).join('');
   const cap = captionSrc ? `<span${src(...captionSrc)}>${caption}</span>` : caption;
-  return `<table class="tp-table${stack ? ' stack' : ''}"><caption>${cap}</caption><thead><tr>${th}</tr></thead><tbody>${body}</tbody></table>`;
+  return `<table class="tp-table${stack ? ' stack' : ''}${keep ? ' keep' : ''}"><caption>${cap}</caption><thead><tr>${th}</tr></thead><tbody>${body}</tbody></table>`;
 }

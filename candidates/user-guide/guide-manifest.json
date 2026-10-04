@@ -1,0 +1,386 @@
+{
+ "schema": "gtbg/user-guide-manifest/1",
+ "status": "CANDIDATE: inert, not wired into any release",
+ "as_of": "2026-10-04",
+ "generator": "node tools/guide/build-guide.mjs",
+ "release": {
+  "train": "R1c",
+  "notes": "ops/release-notes/R1c.md",
+  "release_id_in_notes": "9feb2ee6",
+  "status": "built and tested locally, not deployed (ops/release-notes/R1c.md)",
+  "baseline": "baseline/dist: the site as served on 2026-09-30 (live deploy 6abd6d62)",
+  "tested_in": "headless Chrome 153 on Windows against localhost; touch is emulated (ops/release-notes/R1c.md, Not verified)"
+ },
+ "parity": {
+  "mismatches": 0,
+  "counts": {
+   "hotkeys": 23,
+   "gestures": 10,
+   "tools": 19,
+   "helpDesktopRows": 22,
+   "helpPhoneRows": 10,
+   "menuItems": 19,
+   "helpPatchesApplied": 10,
+   "jsPatchesApplied": 225
+  },
+  "help_wording_findings": {
+   "TICK": [
+    "tick",
+    "tick",
+    "ticks",
+    "tick",
+    "tick",
+    "tick"
+   ],
+   "EMOJI": [
+    "▶"
+   ]
+  }
+ },
+ "sections": [
+  "about-guide",
+  "start",
+  "time",
+  "explore",
+  "more",
+  "share",
+  "clock",
+  "reference",
+  "limits",
+  "access",
+  "help",
+  "glossary"
+ ],
+ "files": {
+  "index.html": {
+   "bytes": 58863,
+   "sha256": "658d926cd9f4f9febc8241e50ee50323504b598565f790b09edc30dc1a423328"
+  },
+  "print.html": {
+   "bytes": 58748,
+   "sha256": "3cc70f41780fb495736f65f1bea3f1fb38385a5185aab6ca178b135ee1d2b4ab"
+  },
+  "gettysburg-user-guide.pdf": {
+   "bytes": 400510,
+   "sha256": "aef76f219b1575bdd5844491611b8350a527a7319dd5b8b3265e176120ab873a"
+  },
+  "print-a4.html": {
+   "bytes": 58744,
+   "sha256": "a572878363dbae12fa63435560aae586931ac381bb94ac26e8e9dd03d76d015c"
+  },
+  "gettysburg-user-guide-a4.pdf": {
+   "bytes": 399525,
+   "sha256": "05aa78d251a6e39adea9e1043d12854891d3040dbc8f417bc968632ca25b3a7c"
+  }
+ },
+ "pdfs": {
+  "letter": {
+   "print_page": "print.html",
+   "headings_in_html": 25,
+   "metrics": {
+    "pages": 13,
+    "kilobytes": 400.5,
+    "tagged": true,
+    "structure_elements": 1293,
+    "structure_by_type": {
+     "Document": 1,
+     "NonStruct": 564,
+     "P": 26,
+     "H1": 1,
+     "Strong": 38,
+     "H2": 13,
+     "L": 6,
+     "LI": 34,
+     "Link": 15,
+     "H3": 12,
+     "Table": 18,
+     "Caption": 18,
+     "TR": 139,
+     "TH": 45,
+     "TD": 314,
+     "Lbl": 22,
+     "Code": 27
+    },
+    "language": "en-US",
+    "title": "Gettysburg Interactive Map: User Guide",
+    "author": "Mike Legere",
+    "bookmarks": 26,
+    "fonts": [
+     "AAAAAA+Georgia (embedded)",
+     "BAAAAA+SegoeUI-Semibold (embedded)",
+     "CAAAAA+Georgia-Bold (embedded)",
+     "DAAAAA+SegoeUI (embedded)",
+     "EAAAAA+SegoeUI-Bold (embedded)",
+     "FAAAAA+Consolas (embedded)"
+    ],
+    "fill_min_pct": 87.8,
+    "fill_median_pct": 97.9,
+    "fill_last_pct": 31,
+    "chars_ge_10pt_pct": 95.7,
+    "min_font_pt": 9,
+    "low_contrast_spans": 0,
+    "orphan_headings": 0,
+    "links": 16,
+    "links_external": 3,
+    "links_internal": 13
+   },
+   "gates": [
+    {
+     "id": "tagged",
+     "ok": true,
+     "value": "yes",
+     "need": "yes: MarkInfo Marked and a structure tree"
+    },
+    {
+     "id": "language",
+     "ok": true,
+     "value": "en-US",
+     "need": "en-US"
+    },
+    {
+     "id": "title",
+     "ok": true,
+     "value": "Gettysburg Interactive Map: User Guide",
+     "need": "a real title"
+    },
+    {
+     "id": "display_doc_title",
+     "ok": true,
+     "value": true,
+     "need": "true"
+    },
+    {
+     "id": "author_subject",
+     "ok": true,
+     "value": [
+      "Mike Legere",
+      "User guide for release R1c of the Gettysburg Interactive Map"
+     ],
+     "need": "author and subject set"
+    },
+    {
+     "id": "bookmarks",
+     "ok": true,
+     "value": 26,
+     "need": ">= 13 with valid pages"
+    },
+    {
+     "id": "fonts_embedded",
+     "ok": true,
+     "value": "6/6",
+     "need": "all embedded"
+    },
+    {
+     "id": "page_fill",
+     "ok": true,
+     "value": "min 87.8% (last 31.0%)",
+     "need": ">= 55% except the last page (>= 15%)"
+    },
+    {
+     "id": "orphan_headings",
+     "ok": true,
+     "value": 0,
+     "need": "0"
+    },
+    {
+     "id": "contrast",
+     "ok": true,
+     "value": 0,
+     "need": "0 spans below 4.5:1"
+    },
+    {
+     "id": "font_size",
+     "ok": true,
+     "value": "95.7% at 10 pt or more (smallest 9.0 pt)",
+     "need": ">= 90% of characters at 10 pt or more"
+    },
+    {
+     "id": "links_resolve",
+     "ok": true,
+     "value": "13 internal, 3 external",
+     "need": "every internal link has a target page"
+    },
+    {
+     "id": "internal_links",
+     "ok": true,
+     "value": 13,
+     "need": ">= 12"
+    },
+    {
+     "id": "external_links",
+     "ok": true,
+     "value": 3,
+     "need": ">= 3"
+    },
+    {
+     "id": "size",
+     "ok": true,
+     "value": "401 KB",
+     "need": "<= 500 KB"
+    },
+    {
+     "id": "no_javascript",
+     "ok": true,
+     "value": false,
+     "need": "none"
+    }
+   ],
+   "copy_lint_text_layer_findings": 0,
+   "copy_lint_text_layer_exempted_by_html": 15
+  },
+  "a4": {
+   "print_page": "print-a4.html",
+   "headings_in_html": 25,
+   "metrics": {
+    "pages": 12,
+    "kilobytes": 399.5,
+    "tagged": true,
+    "structure_elements": 1293,
+    "structure_by_type": {
+     "Document": 1,
+     "NonStruct": 564,
+     "P": 26,
+     "H1": 1,
+     "Strong": 38,
+     "H2": 13,
+     "L": 6,
+     "LI": 34,
+     "Link": 15,
+     "H3": 12,
+     "Table": 18,
+     "Caption": 18,
+     "TR": 139,
+     "TH": 45,
+     "TD": 314,
+     "Lbl": 22,
+     "Code": 27
+    },
+    "language": "en-US",
+    "title": "Gettysburg Interactive Map: User Guide",
+    "author": "Mike Legere",
+    "bookmarks": 26,
+    "fonts": [
+     "AAAAAA+Georgia (embedded)",
+     "BAAAAA+SegoeUI-Semibold (embedded)",
+     "CAAAAA+Georgia-Bold (embedded)",
+     "DAAAAA+SegoeUI (embedded)",
+     "EAAAAA+SegoeUI-Bold (embedded)",
+     "FAAAAA+Consolas (embedded)"
+    ],
+    "fill_min_pct": 81.7,
+    "fill_median_pct": 95.9,
+    "fill_last_pct": 74.4,
+    "chars_ge_10pt_pct": 96,
+    "min_font_pt": 9,
+    "low_contrast_spans": 0,
+    "orphan_headings": 0,
+    "links": 16,
+    "links_external": 3,
+    "links_internal": 13
+   },
+   "gates": [
+    {
+     "id": "tagged",
+     "ok": true,
+     "value": "yes",
+     "need": "yes: MarkInfo Marked and a structure tree"
+    },
+    {
+     "id": "language",
+     "ok": true,
+     "value": "en-US",
+     "need": "en-US"
+    },
+    {
+     "id": "title",
+     "ok": true,
+     "value": "Gettysburg Interactive Map: User Guide",
+     "need": "a real title"
+    },
+    {
+     "id": "display_doc_title",
+     "ok": true,
+     "value": true,
+     "need": "true"
+    },
+    {
+     "id": "author_subject",
+     "ok": true,
+     "value": [
+      "Mike Legere",
+      "User guide for release R1c of the Gettysburg Interactive Map"
+     ],
+     "need": "author and subject set"
+    },
+    {
+     "id": "bookmarks",
+     "ok": true,
+     "value": 26,
+     "need": ">= 13 with valid pages"
+    },
+    {
+     "id": "fonts_embedded",
+     "ok": true,
+     "value": "6/6",
+     "need": "all embedded"
+    },
+    {
+     "id": "page_fill",
+     "ok": true,
+     "value": "min 81.7% (last 74.4%)",
+     "need": ">= 55% except the last page (>= 15%)"
+    },
+    {
+     "id": "orphan_headings",
+     "ok": true,
+     "value": 0,
+     "need": "0"
+    },
+    {
+     "id": "contrast",
+     "ok": true,
+     "value": 0,
+     "need": "0 spans below 4.5:1"
+    },
+    {
+     "id": "font_size",
+     "ok": true,
+     "value": "96.0% at 10 pt or more (smallest 9.0 pt)",
+     "need": ">= 90% of characters at 10 pt or more"
+    },
+    {
+     "id": "links_resolve",
+     "ok": true,
+     "value": "13 internal, 3 external",
+     "need": "every internal link has a target page"
+    },
+    {
+     "id": "internal_links",
+     "ok": true,
+     "value": 13,
+     "need": ">= 12"
+    },
+    {
+     "id": "external_links",
+     "ok": true,
+     "value": 3,
+     "need": ">= 3"
+    },
+    {
+     "id": "size",
+     "ok": true,
+     "value": "400 KB",
+     "need": "<= 500 KB"
+    },
+    {
+     "id": "no_javascript",
+     "ok": true,
+     "value": false,
+     "need": "none"
+    }
+   ],
+   "copy_lint_text_layer_findings": 0,
+   "copy_lint_text_layer_exempted_by_html": 15
+  }
+ }
+}

@@ -51,7 +51,7 @@ How to supply a value: edit `tools/copy/trust-config.json` (never the generated 
 | Whether Busey and Martin figures may be shown as facts with attribution | Casualty figures on the map and on Sources and Methods | The authorities file marks them `secondary_unverified`; the tables are never reproduced (`data-src/authorities/authorities.json`) |
 | Whether any position or text came from a paid app or a YouTube channel (four data notes cite one) | Sources and Methods | Open (register action 10a); the page does not mention it |
 | Written confirmation from the National Park Service before any NPS roster data is used | Find Your Ancestor, the Historian | Not requested here |
-| Permission to quote, or link out, the entries of the Sources v2 register that are marked `hold:rights-review` | The register summary | `docs/historian/sources-v2/QC-REPORT.md` section 7 lists the three entries |
+| Permission to quote, or link out, the three Sources v2 register entries that need a rights review (entries 586, 589 and 591) | The register summary | `docs/historian/sources-v2/QC-REPORT.md` section 7 lists them |
 
 ## 6. What each page needs
 
