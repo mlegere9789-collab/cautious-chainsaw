@@ -1,0 +1,63 @@
+{
+  "schema": "gtbg/copy-scan-config/1",
+  "note": "What copy_lint scans and what it leaves out, with the reason for each exclusion.",
+  "include": [
+    "**/*.html",
+    "**/*.js",
+    "**/*.json",
+    "**/*.md",
+    "**/*.txt"
+  ],
+  "exclude": [
+    {
+      "glob": "sw.js",
+      "why": "service worker: cache names and fetch logic, no visitor text"
+    },
+    {
+      "glob": "robots.txt",
+      "why": "crawler directives"
+    },
+    {
+      "glob": "**/node_modules/**",
+      "why": "dependencies"
+    },
+    {
+      "glob": "data/placement_schema.json",
+      "why": "schema documentation, not rendered"
+    }
+  ],
+  "jsSkipRegions": [
+    {
+      "glob": "assets/index-*.js",
+      "from": null,
+      "to": "function v4(){try{const c=localStorage.getItem(\"gtbg_prefs\")",
+      "note": "React and zustand: library error and deprecation strings are not site copy"
+    },
+    {
+      "glob": "assets/index-*.js",
+      "from": "var Ok={exports:{}};(function(c,f){",
+      "to": ")(Ok);var R4=Ok.exports;",
+      "note": "Mapbox GL JS 3.24.1: library messages are not site copy"
+    }
+  ],
+  "proseKeys": [
+    "event",
+    "significance",
+    "panel_summary",
+    "full_script",
+    "narrative",
+    "description",
+    "text",
+    "summary",
+    "note",
+    "notes",
+    "quote",
+    "caption",
+    "message",
+    "headline",
+    "body",
+    "outcome",
+    "result",
+    "action"
+  ]
+}

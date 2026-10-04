@@ -1,0 +1,29 @@
+{
+  "schema": "gtbg/trust-config/1",
+  "_doc": "Values only the owner can supply (docs/content/OWNER-INPUTS.md lists each one and the pages that need it). A null or empty value renders as a visible [OWNER TO PROVIDE: ...] marker and blocks `build-trust-pages.mjs --publish`. A confirmation stays false until the owner has checked that the statement is true.",
+  "asOf": "2026-10-04",
+  "siteUrl": "https://gettysburginteractivemap.com",
+  "canonicalStyle": "clean",
+  "linkStyle": "clean",
+  "contact": {
+    "general": null,
+    "corrections": null,
+    "accessibility": null,
+    "security": null
+  },
+  "creator": {
+    "why": null,
+    "bio": null,
+    "reviewer": null
+  },
+  "confirmations": {
+    "nonAffiliation": false,
+    "responseTargets": false,
+    "noScreenReaderTestOnRecord": false,
+    "licenseWording": false
+  },
+  "targets": {
+    "acknowledgeDays": 3,
+    "fixOrExplainDays": 30
+  }
+}

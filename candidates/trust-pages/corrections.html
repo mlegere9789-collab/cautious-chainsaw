@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0a14">
+<title>Corrections | Gettysburg Interactive Map</title>
+<meta name="description" content="How to report a mistake in the Gettysburg Interactive Map, what happens to a report, and the public log of corrections.">
+<link rel="canonical" href="https://gettysburginteractivemap.com/corrections">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Corrections | Gettysburg Interactive Map">
+<meta property="og:description" content="How to report a mistake in the Gettysburg Interactive Map, what happens to a report, and the public log of corrections.">
+<link rel="stylesheet" href="/site-nav.css">
+<link rel="stylesheet" href="trust.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Corrections","inLanguage":"en-US"}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div id="gtbg-nav-mount"></div>
+<noscript><nav class="tp-noscript" aria-label="Trust pages without script"><ul><li><a href="about.html">About</a></li><li><a href="sources.html">Sources and Methods</a></li><li><a href="standard-of-care.html">Standard of Care</a></li><li><a href="corrections.html" aria-current="page">Corrections</a></li><li><a href="faq.html">FAQ</a></li><li><a href="accessibility.html">Accessibility Statement</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="contact.html">Contact</a></li></ul></nav></noscript>
+<main id="main" tabindex="-1">
+<aside class="candidate-banner" role="note" data-candidate="true"><strong>Candidate draft.</strong> This page is not published and has not been reviewed by the owner. Text in a box such as <span class="owner-input">[OWNER TO PROVIDE: contact address]</span> or <span class="owner-input">[OWNER TO CONFIRM: a statement]</span> needs the owner before it can go live.</aside>
+<h1>Corrections</h1>
+<p class="tp-meta">Last reviewed: <time datetime="2026-10-04" data-source="tools/copy/trust-config.json#asOf">October 4, 2026</time>. Status: candidate.</p>
+
+<p class="lede">The map reconstructs three days of 1863 from published sources, so it will contain mistakes. When one is found, it is corrected in the open: the date, what the page said, what it says now, and the source.</p>
+<ul class="toc"><li><a href="#report" class="tap">Report a mistake</a></li><li><a href="#next" class="tap">What happens next</a></li><li><a href="#count" class="tap">What counts</a></li><li><a href="#log" class="tap">The log</a></li></ul>
+<h2 id="report">Report a mistake</h2>
+<p>Write to the corrections address. You do not need to give your name. Say where you saw it, what you think is wrong, and your source (author, title, page) if you have one.</p>
+<p><span class="owner-input" data-owner-input="contact.corrections">[OWNER TO PROVIDE: corrections email address]</span></p>
+<p>If your email program does not open, copy this template into a message:</p>
+<pre class="template">Page address:
+What I saw:
+What I think is wrong, and why:
+My source (author, title, page), if I have one:
+May I be credited in the corrections log? (yes or no)</pre>
+<h2 id="next">What happens next</h2>
+<ol>
+<li>The report is received at the corrections address.</li>
+<li><span data-source="tools/copy/trust-config.json#targets">The target is to acknowledge it within 3 days. This is a target, not a promise.</span> <span class="owner-input" data-owner-input="confirmations.responseTargets">[OWNER TO CONFIRM: the response targets (acknowledge in 3 days, fix or explain in 30 days) are the ones you will keep]</span></li>
+<li>The claim is checked against the sources. A historical correction is checked by a named historical reviewer once one is named; until then it is marked “Unreviewed reconstruction”.</li>
+<li><span data-source="tools/copy/trust-config.json#targets">The target is to fix the mistake, or explain why it stands, within 30 days.</span> <span class="owner-input" data-owner-input="confirmations.responseTargets">[OWNER TO CONFIRM: the response targets (acknowledge in 3 days, fix or explain in 30 days) are the ones you will keep]</span></li>
+<li>A fix that is live is entered in the log below.</li>
+</ol>
+<p>Where historians disagree, the page shows the range and the sources instead of picking a winner. The <a href="sources.html">Sources and Methods</a> page shows the disagreements that are known today.</p>
+<h2 id="count">What counts as a correction</h2>
+<ul>
+<li>A wrong fact: a unit, a place, a date, a time, a figure, a quotation or a name.</li>
+<li>A missing or wrong source.</li>
+<li>Text that says more than the evidence shows.</li>
+<li>A broken link or a page that prints a code word instead of text.</li>
+</ul>
+<p>An accessibility barrier is not a correction; report it through the <a href="accessibility.html">Accessibility Statement</a> page, which uses the same address and the same targets.</p>
+<h2 id="log">The public log</h2>
+<p>The log is newest first. Each entry has these fields, and the same fields are kept in a machine-readable file next to this page (<code>corrections.json</code>).</p>
+<table class="tp-table stack"><caption>Fields of a log entry</caption><thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead><tbody><tr><td data-label="Field">id</td><td data-label="Meaning">A stable number for the entry.</td></tr><tr><td data-label="Field">date</td><td data-label="Meaning">The day the correction went live: year first in the file, month name first on the page.</td></tr><tr><td data-label="Field">where</td><td data-label="Meaning">The page, moment or record that was wrong.</td></tr><tr><td data-label="Field">was</td><td data-label="Meaning">What it said, quoted.</td></tr><tr><td data-label="Field">now</td><td data-label="Meaning">What it says now, quoted.</td></tr><tr><td data-label="Field">source</td><td data-label="Meaning">Author, title, edition and page for the change.</td></tr><tr><td data-label="Field">reviewer</td><td data-label="Meaning">Who checked the historical part, or “unreviewed”.</td></tr><tr><td data-label="Field">credit_consent</td><td data-label="Meaning">Whether the person who reported it agreed to be credited.</td></tr></tbody></table>
+<table class="tp-table stack"><caption>Corrections log</caption><thead><tr><th scope="col">Date</th><th scope="col">Where</th><th scope="col">Was</th><th scope="col">Now</th><th scope="col">Source</th><th scope="col">Reviewed by</th></tr></thead><tbody><tr><td data-label="Date"><em>No entries yet.</em></td><td data-label="Where"></td><td data-label="Was"></td><td data-label="Now"></td><td data-label="Source"></td><td data-label="Reviewed by"></td></tr></tbody></table>
+<p>The log opens with the first correction that has been made live. Nothing has been entered in advance, and an entry is never written before its fix is live. A feed of the log is planned and does not exist yet.</p>
+<h2 id="versions">Data versions</h2>
+<p data-source="data-src/version.json#history">The data behind the map is at version 0.9.0, the baseline of record: legacy baseline of record (Netlify deploy 6aa16d61, 2026-09-09). Corrections to the data will be listed here with the version that carries them.</p>
+<section class="tp-provenance" aria-labelledby="prov-h">
+<h2 id="prov-h">How this page was made</h2>
+<p>Every figure and every statement about the site on this page is traced to a file of this project, listed here. Elements carry a <code>data-source</code> attribute naming the file (and the field) they came from.</p>
+<ul><li><code>tools/copy/trust-config.json</code> (sha256 9a746e4b0a4afeb0&hellip;): the response targets and the contact address</li><li><code>docs/plan/FINAL/11-copy-docs-content.md</code> (sha256 48ab03d8033f07e7&hellip;): the log format of WP-CONTENT-16</li><li><code>docs/pitch/PITCH.md</code> (sha256 2ae73d9d59dc90f6&hellip;): the commitment that every correction is logged</li><li><code>data-src/version.json</code> (sha256 2d413bc5debe3fd4&hellip;): the data version</li></ul>
+</section>
+</main>
+<footer class="tp-footer">
+<nav aria-label="Trust pages">
+<ul><li><a href="about.html">About</a></li><li><a href="sources.html">Sources and Methods</a></li><li><a href="standard-of-care.html">Standard of Care</a></li><li><a href="corrections.html" aria-current="page">Corrections</a></li><li><a href="faq.html">FAQ</a></li><li><a href="accessibility.html">Accessibility Statement</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="contact.html">Contact</a></li><li><a href="/privacy.html">Privacy</a></li><li><a href="/terms.html">Terms</a></li></ul>
+</nav>
+<p>Gettysburg Interactive Map. An interactive map of the Battle of Gettysburg, July 1&ndash;3, 1863.</p>
+</footer>
+<script src="/site-nav.js" data-current="trust"></script>
+</body>
+</html>

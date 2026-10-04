@@ -1,0 +1,143 @@
+{
+  "schema": "gtbg/copy-counts/1",
+  "note": "Rule COUNT: a number typed before one of these nouns must be one of the facts listed (paths into data-src/build/facts.json) once it reaches `minTotal` (smaller numbers are taken to describe a subset, for example 'the brigade's 3 regiments'). The facts file is read-only here. When it is absent the linter falls back to counts it can compute from legacy/dist/data (stories, events, places, moments) and says so.",
+  "nouns": [
+    {
+      "nouns": [
+        "regiments",
+        "regiment"
+      ],
+      "facts": [
+        "units.regiments"
+      ],
+      "minTotal": 100
+    },
+    {
+      "nouns": [
+        "batteries",
+        "battery"
+      ],
+      "facts": [
+        "units.batteries"
+      ],
+      "minTotal": 50
+    },
+    {
+      "nouns": [
+        "units",
+        "unit"
+      ],
+      "facts": [
+        "units.total"
+      ],
+      "minTotal": 100
+    },
+    {
+      "nouns": [
+        "unit records",
+        "records"
+      ],
+      "facts": [
+        "units.records",
+        "units.regiment_records",
+        "units.battery_records"
+      ],
+      "minTotal": 100
+    },
+    {
+      "nouns": [
+        "moments",
+        "ticks",
+        "tick",
+        "frames",
+        "snapshots"
+      ],
+      "facts": [
+        "ticks.total",
+        "placements.ticks_with_rows",
+        "placements.ticks_without_rows"
+      ],
+      "minTotal": 100
+    },
+    {
+      "nouns": [
+        "stories",
+        "vignettes",
+        "key moments",
+        "narrated moments"
+      ],
+      "facts": [
+        "content.vignettes"
+      ],
+      "minTotal": 10
+    },
+    {
+      "nouns": [
+        "events",
+        "chronology events"
+      ],
+      "facts": [
+        "content.chronology_events"
+      ],
+      "minTotal": 50
+    },
+    {
+      "nouns": [
+        "stops",
+        "tour stops"
+      ],
+      "facts": [
+        "content.tour_stops"
+      ],
+      "minTotal": 10
+    },
+    {
+      "nouns": [
+        "monuments"
+      ],
+      "facts": [
+        "content.monuments"
+      ],
+      "minTotal": 100
+    },
+    {
+      "nouns": [
+        "tools",
+        "extra features"
+      ],
+      "facts": [
+        "content.features_site_nav"
+      ],
+      "minTotal": 10
+    },
+    {
+      "nouns": [
+        "places",
+        "key locations",
+        "terrain features"
+      ],
+      "facts": [
+        "content.terrain_key_locations"
+      ],
+      "minTotal": 20
+    },
+    {
+      "nouns": [
+        "brigades"
+      ],
+      "facts": [
+        "units.brigades"
+      ],
+      "minTotal": 50
+    },
+    {
+      "nouns": [
+        "divisions"
+      ],
+      "facts": [
+        "units.divisions"
+      ],
+      "minTotal": 20
+    }
+  ]
+}

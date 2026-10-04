@@ -1,0 +1,24 @@
+{
+  "schema": "gtbg/copy-names/1",
+  "note": "Retired and inconsistent names (rule NAME). `re` is a JavaScript regular expression source, `good` is the canonical form from docs/content/STYLEGUIDE.md section 3. Product and feature names follow the owner's decision D-NAME / D-VIEWSHED (docs/plan/FINAL/01-decision-register.md); place names follow the National Park Service spelling. A retired name may appear only where a since-version note has to name what the screen says today: wrap it in an element with data-lint-allow=\"NAME\".",
+  "names": [
+    { "re": "Gettysburg Animated Battlefield Map|Animated Battlefield Map", "good": "Gettysburg Interactive Map", "kind": "product" },
+    { "re": "\\bAnimated Map\\b", "good": "Gettysburg Interactive Map (the map)", "kind": "product" },
+    { "re": "\\bExtra Features\\b", "good": "More to Explore", "kind": "menu" },
+    { "re": "\\bFind an Ancestor\\b", "good": "Find Your Ancestor", "kind": "page" },
+    { "re": "\\bFollow Your Ancestor\\b", "good": "Follow a Regiment", "kind": "feature" },
+    { "re": "\\bWhat They Could See\\b|\\bVantage Points\\b", "good": "High Ground", "kind": "page" },
+    { "re": "\\bBattle Reports\\b", "good": "Regiment Fact Sheets", "kind": "page" },
+    { "re": "\\bCinematic Export\\b", "good": "Export a Video", "kind": "page" },
+    { "re": "\\bNPS Auto Tour\\b", "good": "Guided Battle Tour", "kind": "feature" },
+    { "re": "\\bCulps Hill\\b", "good": "Culp’s Hill", "kind": "place" },
+    { "re": "\\bDevils Den\\b", "good": "Devil’s Den", "kind": "place" },
+    { "re": "\\bBarlows Knoll\\b", "good": "Barlow’s Knoll", "kind": "place" },
+    { "re": "\\bPicketts Charge\\b", "good": "Pickett’s Charge", "kind": "place" },
+    { "re": "McPherson['’]s Ridge", "good": "McPherson Ridge", "kind": "place" },
+    { "re": "McPherson['’]s Woods", "good": "Herbst Woods", "kind": "place" },
+    { "re": "\\bHigh-Water Mark\\b", "good": "High Water Mark", "kind": "place" },
+    { "re": "\\bvignettes?\\b", "flags": "i", "good": "story / stories", "kind": "term" },
+    { "re": "\\bsnapshots?\\b", "flags": "i", "good": "moment(s)", "kind": "term" }
+  ]
+}

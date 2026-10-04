@@ -1,0 +1,314 @@
+{
+  "_doc": "One entry per copy_lint rule: `bad` sources must each raise the rule at least once, `good` sources must raise it zero times. `kind` picks the file the source is written to (html, js, json, md). A rule with no entry fails tests/copy/copy_lint.test.mjs.",
+  "DASH": {
+    "kind": "html",
+    "bad": [
+      "<p>The map -- a reconstruction.</p>",
+      "<p>July 2--3 in the field</p>",
+      "<p title=\"Day 1 -- dawn\">x</p>"
+    ],
+    "good": [
+      "<p>The map — a reconstruction.</p>",
+      "<p>July 2–3</p>",
+      "<style>:root{--gold:#c9a24b}</style><p>Text</p>",
+      "<p>A well-known place</p>"
+    ]
+  },
+  "HYPHEN": {
+    "kind": "html",
+    "bad": [
+      "<p>Culp’s Hill - Day 2</p>"
+    ],
+    "good": [
+      "<p>A long-range gun</p>",
+      "<p>Culp’s Hill — Day 2</p>"
+    ]
+  },
+  "TICK": {
+    "kind": "html",
+    "bad": [
+      "<p>Tick 538 of 675</p>",
+      "<p>Each tick is five minutes.</p>",
+      "<button aria-label=\"Next tick\">Next</button>"
+    ],
+    "good": [
+      "<p>Moment 538 of 675</p>",
+      "<p>The ticket office and the ticker</p>",
+      "<p>Quick check</p>"
+    ]
+  },
+  "UNDEFINED": {
+    "kind": "html",
+    "bad": [
+      "<p>Rate: undefined</p>",
+      "<p>Casualties: NaN men</p>",
+      "<p>[object Object]</p>"
+    ],
+    "good": [
+      "<p>A defined rate of 12.5%</p>",
+      "<script>if (typeof x === 'undefined') { go(); }</script><p>Hello there</p>"
+    ]
+  },
+  "TODO": {
+    "kind": "html",
+    "bad": [
+      "<p>TODO write this</p>",
+      "<p>Date: TBD</p>",
+      "<p>FIXME later</p>"
+    ],
+    "good": [
+      "<p>[OWNER TO PROVIDE: bio]</p>",
+      "<p>To do list for the visit</p>"
+    ]
+  },
+  "ALIAS": {
+    "kind": "html",
+    "bad": [
+      "<p>14th Brooklyn (alias for U-84NY)</p>"
+    ],
+    "good": [
+      "<p>84th New York Infantry (14th Brooklyn)</p>"
+    ]
+  },
+  "IDLEAK": {
+    "kind": "html",
+    "bad": [
+      "<p>Commander succession US-017 activates</p>",
+      "<p>Shows highest_single_regiment_rate here</p>",
+      "<p>Unit U-84NY moved</p>"
+    ],
+    "good": [
+      "<p>The 20th Maine held the left.</p>",
+      "<p>Route U.S. 15 and Highway 30</p>"
+    ]
+  },
+  "DEVLOG": {
+    "kind": "html",
+    "bad": [
+      "<p>Earlier drafts of this tool tried a formula.</p>",
+      "<p>Hosted on this deployment.</p>",
+      "<p>which we haven’t been able to do from here</p>",
+      "<p>This is a workaround.</p>",
+      "<p>The live deployment of the site changed.</p>"
+    ],
+    "good": [
+      "<p>This page ranks the height of 30 places.</p>",
+      "<p>Troops moved to the deployment area of the corps.</p>"
+    ]
+  },
+  "AIPERSONA": {
+    "kind": "html",
+    "bad": [
+      "<p>an AI-style historian</p>",
+      "<p>Chat with our chatbot</p>",
+      "<p>I’m ready. Ask me anything.</p>"
+    ],
+    "good": [
+      "<p>Answers come only from this site’s records, not from an AI.</p>",
+      "<p>The Assistant Adjutant General signed it.</p>",
+      "<p>It does not call an AI model; it is a search of the records.</p>"
+    ]
+  },
+  "COUNT": {
+    "kind": "html",
+    "bad": [
+      "<p>Follow 467 regiments across three days.</p>",
+      "<p>Tracking 445+ Union and Confederate units</p>",
+      "<p>Across 676 five-minute ticks</p>",
+      "<p>All 25 narrative vignettes</p>"
+    ],
+    "good": [
+      "<p>Follow 465 regiments across three days.</p>",
+      "<p>569 units and 104 batteries</p>",
+      "<p>The brigade had 3 regiments.</p>",
+      "<p>In 1861 and 1862 regiments formed.</p>",
+      "<p>A 675 moment timeline</p>"
+    ]
+  },
+  "QUOTES": {
+    "kind": "html",
+    "bad": [
+      "<p>Culp's Hill at dusk</p>",
+      "<p>He called it \"the high water mark\".</p>"
+    ],
+    "good": [
+      "<p>Culp’s Hill at dusk</p>",
+      "<p>He called it “the high water mark”.</p>",
+      "<p>Culp&rsquo;s Hill</p>",
+      "<p><code>it's code</code> and text</p>"
+    ]
+  },
+  "NAME": {
+    "kind": "html",
+    "bad": [
+      "<title>Map | Gettysburg Animated Battlefield Map</title>",
+      "<p>Open Extra Features at the top.</p>",
+      "<p>Fight at Culps Hill</p>",
+      "<p>See What They Could See</p>"
+    ],
+    "good": [
+      "<p>Gettysburg Interactive Map</p>",
+      "<p>Open More to Explore.</p>",
+      "<p>Culp’s Hill</p>",
+      "<p data-lint-allow=\"NAME\">This release calls the menu Extra Features.</p>"
+    ]
+  },
+  "TIMEFMT": {
+    "kind": "html",
+    "bad": [
+      "<p>At 7:30am the line formed.</p>",
+      "<p>At 4:30 pm they fired.</p>",
+      "<p>At 6:30 p.m. it ended</p>",
+      "<p>about 4pm</p>",
+      "<p>4:30PM</p>"
+    ],
+    "good": [
+      "<p>At 7:30 AM the line formed.</p>",
+      "<p>About 4:30 PM</p>",
+      "<p>At about 4 PM on July 2</p>",
+      "<p>I am 1 of many</p>"
+    ]
+  },
+  "REALTIME": {
+    "kind": "html",
+    "bad": [
+      "<p>Watch the battle in real time.</p>",
+      "<p>Minute by minute</p>",
+      "<p>Five-minute snapshots</p>",
+      "<p>1x (real-time)</p>"
+    ],
+    "good": [
+      "<p>Watch three days of battle, moment by moment.</p>",
+      "<p>Playback is a time-lapse.</p>"
+    ]
+  },
+  "CASUALTY": {
+    "kind": "html",
+    "bad": [
+      "<p>210 KIA and 88 WIA</p>",
+      "<p>3 MIA</p>"
+    ],
+    "good": [
+      "<p>210 killed and 88 wounded</p>",
+      "<p>The Skia library</p>"
+    ]
+  },
+  "ABBREV": {
+    "kind": "html",
+    "bad": [
+      "<p>Union vs Confed</p>",
+      "<p>Fwd 1hr</p>",
+      "<p>Lt Col Smith</p>",
+      "<p>Gen Meade arrived</p>"
+    ],
+    "good": [
+      "<p>Union and Confederate</p>",
+      "<p>Lt. Col. Smith</p>",
+      "<p>Gen. Meade arrived</p>"
+    ]
+  },
+  "EMOJI": {
+    "kind": "html",
+    "bad": [
+      "<button>🔗 Copy link</button>",
+      "<p>⚠ Hypothetical</p>"
+    ],
+    "good": [
+      "<p>© 2026 Gettysburg Interactive Map</p>",
+      "<button>Copy link</button>"
+    ]
+  },
+  "WE": {
+    "kind": "html",
+    "bad": [
+      "<p>We don’t see anything from that embed.</p>",
+      "<p>Our records say so.</p>",
+      "<p>Let us know.</p>"
+    ],
+    "good": [
+      "<p>This site does not see anything from that embed.</p>",
+      "<blockquote>We are ready, sir, he wrote.</blockquote>",
+      "<p>He wrote “we held the line” in his report.</p>",
+      "<p>The US Army and the US Navy</p>"
+    ]
+  },
+  "HEDGE": {
+    "kind": "html",
+    "bad": [
+      "<p>A genuine reconstruction.</p>",
+      "<p>A real, working implementation</p>"
+    ],
+    "good": [
+      "<p>A reconstruction from published sources.</p>"
+    ]
+  },
+  "ELLIPSIS": {
+    "kind": "html",
+    "bad": [
+      "<p>Loading battle data...</p>"
+    ],
+    "good": [
+      "<p>Loading the battlefield…</p>",
+      "<p>Etc.</p>"
+    ]
+  },
+  "RANGE": {
+    "kind": "html",
+    "bad": [
+      "<p>July 1-3, 1863</p>",
+      "<p>Days 1-3</p>"
+    ],
+    "good": [
+      "<p>July 1–3, 1863</p>",
+      "<p>Route 15-30 miles away</p>"
+    ]
+  },
+  "CAPS": {
+    "kind": "html",
+    "bad": [
+      "<p>REYNOLDS KILLED. Shot through the head.</p>",
+      "<p>THE CLIMACTIC SEQUENCE: Pickett steps off.</p>"
+    ],
+    "good": [
+      "<p>Reynolds is killed.</p>",
+      "<p>The NPS and the USCT</p>",
+      "<p>XI Corps and XII CORPS</p>",
+      "<p>[OWNER TO PROVIDE: contact address]</p>"
+    ]
+  },
+  "ABSENCE": {
+    "kind": "html",
+    "bad": [
+      "<p>Commander unrecorded</p>",
+      "<p>Strength: N/A</p>"
+    ],
+    "good": [
+      "<p>Commander not named in the order of battle.</p>",
+      "<p>The sources give no figure for this.</p>"
+    ]
+  },
+  "PERSONAL_EMAIL": {
+    "kind": "html",
+    "bad": [
+      "<p>Write to gettysburginteractivemap@gmail.com</p>",
+      "<a href=\"mailto:someone@gmail.com\">Contact</a>"
+    ],
+    "good": [
+      "<p>Write to corrections@example.org</p>",
+      "<a href=\"mailto:contact@example.org\">Contact</a>"
+    ]
+  },
+  "CLAIM": {
+    "kind": "html",
+    "bad": [
+      "<p>Times are accurate to the minute.</p>",
+      "<p>This site fully conforms to WCAG 2.2.</p>",
+      "<p>Every account is reviewed by a historian.</p>"
+    ],
+    "good": [
+      "<p>Times are approximate.</p>",
+      "<p>This site has not been evaluated for WCAG conformance.</p>",
+      "<p>Unreviewed reconstruction.</p>"
+    ]
+  }
+}

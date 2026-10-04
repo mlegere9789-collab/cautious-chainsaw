@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0a14">
+<title>Standard of Care | Gettysburg Interactive Map</title>
+<meta name="description" content="Eight commitments the Gettysburg Interactive Map is working toward, and for each one what holds today and what does not yet.">
+<link rel="canonical" href="https://gettysburginteractivemap.com/standard-of-care">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Standard of Care | Gettysburg Interactive Map">
+<meta property="og:description" content="Eight commitments the Gettysburg Interactive Map is working toward, and for each one what holds today and what does not yet.">
+<link rel="stylesheet" href="/site-nav.css">
+<link rel="stylesheet" href="trust.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"The Standard of Care","inLanguage":"en-US"}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div id="gtbg-nav-mount"></div>
+<noscript><nav class="tp-noscript" aria-label="Trust pages without script"><ul><li><a href="about.html">About</a></li><li><a href="sources.html">Sources and Methods</a></li><li><a href="standard-of-care.html" aria-current="page">Standard of Care</a></li><li><a href="corrections.html">Corrections</a></li><li><a href="faq.html">FAQ</a></li><li><a href="accessibility.html">Accessibility Statement</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="contact.html">Contact</a></li></ul></nav></noscript>
+<main id="main" tabindex="-1">
+<aside class="candidate-banner" role="note" data-candidate="true"><strong>Candidate draft.</strong> This page is not published and has not been reviewed by the owner. Text in a box such as <span class="owner-input">[OWNER TO PROVIDE: contact address]</span> or <span class="owner-input">[OWNER TO CONFIRM: a statement]</span> needs the owner before it can go live.</aside>
+<h1>Standard of Care</h1>
+<p class="tp-meta">Last reviewed: <time datetime="2026-10-04" data-source="tools/copy/trust-config.json#asOf">October 4, 2026</time>. Status: candidate.</p>
+
+<p class="lede">These are eight commitments the project proposes to make to every visitor. They are a goal, not a description of the site today. Under each one, this page says what holds now and what does not.</p>
+<p data-source="docs/pitch/PITCH.md#the-standard-of-care">The wording follows the proposal in <code>docs/pitch/PITCH.md</code> (“The Standard of Care”, marked there as design intent), with the first person plural changed to the neutral voice.</p>
+<p data-source="docs/pitch/PITCH.md#the-standard-of-care">Today, 0 of the 8 hold fully, 2 hold in part and 6 do not yet hold.</p>
+<ol class="cards"><li class="card s-no" data-source="data-src/build/facts.json#casualties.site_figures_measured">
+<h2>1. Every number is a ladder. <span class="chip no">Not yet in place</span></h2>
+<p>The page shows who said what, and when, and why one value is shown first.</p>
+<p><strong>Today.</strong> The Casualty Dashboard shows one total, 46,163, while the site’s own data holds three bases (45,928, 46,163 and 51,049). The ladder exists on the Sources and Methods page, not on the map.</p>
+<p><strong>What would make it true.</strong> The same ladder behind every figure on the map, with the evidence labels visible.</p>
+</li><li class="card s-no" data-source="docs/plan/FINAL/00-README.md docs/historian/CORPUS.md">
+<h2>2. Every quotation has a receipt. <span class="chip no">Not yet in place</span></h2>
+<p>The page, the scan, the highlight.</p>
+<p><strong>Today.</strong> The live stories carry no page citations. The plan records zero citations in the Historian today. A text index of the Official Records, with page and scan citations on every passage, is built and tested and not live.</p>
+<p><strong>What would make it true.</strong> The index live, its citations checked against the scans, and every quotation in a story linked to its page.</p>
+</li><li class="card s-part" data-source="tools/t0/patches/PG-core.json docs/pitch/PITCH.md#six-evidence-badges">
+<h2>3. Every model is labelled. <span class="chip part">Partly in place</span></h2>
+<p>Documented, measured, computed, modelled, contested or unknown.</p>
+<p><strong>Today.</strong> Several pages carry a plain-language note: the Casualty Dashboard says its curves are modelled, the What-If Sandbox says it is not history, and Aftermath says it is an overview. The six labels themselves are not shown anywhere on the map.</p>
+<p><strong>What would make it true.</strong> The six labels on every card, number and answer.</p>
+</li><li class="card s-no" data-source="baseline/dist/terms.html data-src/build/facts.json#casualties.site_figures_measured">
+<h2>4. Every disagreement is shown. <span class="chip no">Not yet in place</span></h2>
+<p>Nothing is quietly averaged or hidden.</p>
+<p><strong>Today.</strong> The Terms say discrepancies are noted rather than silently resolved, yet the Casualty Dashboard shows one casualty total although the data holds three. The Sources and Methods page shows the disagreements it can compute: casualty figures and the time anchors.</p>
+<p><strong>What would make it true.</strong> A register of disagreements with every value, its source and the reason one is shown first.</p>
+</li><li class="card s-no" data-source="data-src/build/data-quality-report.json#provenance">
+<h2>5. Every person named is sourced, and every unknown is honoured. <span class="chip no">Not yet in place</span></h2>
+<p>The dead are named, and the page says how many cannot be.</p>
+<p><strong>Today.</strong> The site lists regiments, not individual soldiers. Of 3,283 data records, 60 carry a source string.</p>
+<p><strong>What would make it true.</strong> A source on every named person and a count of the unknown.</p>
+</li><li class="card s-no" data-source="data-src/time/time_anchors.json#anchors ops/release-notes/R1c.md">
+<h2>6. Every date is a range when it is one. <span class="chip no">Not yet in place</span></h2>
+<p>Photographs, reports and newspapers are never made more precise than their evidence.</p>
+<p><strong>Today.</strong> Moments print as clock times. All 33 proposed time anchors are unreviewed, and release R1c notes record that clock labels are hours off in places.</p>
+<p><strong>What would make it true.</strong> Times shown as “about”, ranges where sources disagree, and a historian’s signed decision behind any exact time.</p>
+</li><li class="card s-no" data-source="tools/copy/trust-config.json">
+<h2>7. Every correction is logged, <span class="chip no">Not yet in place</span></h2>
+<p>publicly, with a date and a reason.</p>
+<p><strong>Today.</strong> The Corrections page and its log format are drafted. The log has no entries: an entry is written only after a correction is live.</p>
+<p><strong>What would make it true.</strong> The Corrections page published, with a working address and a first logged entry.</p>
+</li><li class="card s-part" data-source="baseline/dist/historian.html">
+<h2>8. Nothing the Historian says is generated. <span class="chip part">Partly in place</span></h2>
+<p>Every sentence is a quotation, a template over a sourced row, or a stated limitation.</p>
+<p><strong>Today.</strong> The first half holds: Ask the Historian runs in the browser and reads only this site’s own data files; it calls no model. The second half does not yet hold: answers are not all quotations with sources, templates over sourced rows, or stated limitations.</p>
+<p><strong>What would make it true.</strong> Every answer type built from a cited quotation, a sourced template or a stated limit, checked on every build.</p>
+</li></ol>
+<h2 id="how">How this page is kept honest</h2>
+<p>A commitment moves to “In place” only when the evidence for it exists in the project and a test or a file shows it. It moves back if the evidence is withdrawn. The proposal does not ask visitors to trust the site; it gives them what they need to check it.</p>
+<section class="tp-provenance" aria-labelledby="prov-h">
+<h2 id="prov-h">How this page was made</h2>
+<p>Every figure and every statement about the site on this page is traced to a file of this project, listed here. Elements carry a <code>data-source</code> attribute naming the file (and the field) they came from.</p>
+<ul><li><code>docs/pitch/PITCH.md</code> (sha256 2ae73d9d59dc90f6&hellip;): the eight commitments, as proposed in the pitch</li><li><code>data-src/build/facts.json</code> (sha256 2fb176a6e06e453c&hellip;): casualty bases</li><li><code>data-src/time/time_anchors.json</code> (sha256 3734afc62ef22986&hellip;): state of the time anchors</li><li><code>data-src/build/data-quality-report.json</code> (sha256 c8582a63b23916e8&hellip;): records with a source string</li><li><code>ops/release-notes/R1c.md</code> (sha256 8f33d97145a76fd4&hellip;): release R1c notes</li><li><code>baseline/dist/historian.html</code> (sha256 4387ec15adee4f29&hellip;): what the Historian page reads</li><li><code>docs/historian/CORPUS.md</code> (sha256 b4b17742057c8be8&hellip;): state of the Official Records text index</li></ul>
+</section>
+</main>
+<footer class="tp-footer">
+<nav aria-label="Trust pages">
+<ul><li><a href="about.html">About</a></li><li><a href="sources.html">Sources and Methods</a></li><li><a href="standard-of-care.html" aria-current="page">Standard of Care</a></li><li><a href="corrections.html">Corrections</a></li><li><a href="faq.html">FAQ</a></li><li><a href="accessibility.html">Accessibility Statement</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="contact.html">Contact</a></li><li><a href="/privacy.html">Privacy</a></li><li><a href="/terms.html">Terms</a></li></ul>
+</nav>
+<p>Gettysburg Interactive Map. An interactive map of the Battle of Gettysburg, July 1&ndash;3, 1863.</p>
+</footer>
+<script src="/site-nav.js" data-current="trust"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+{
+  "schema": "gtbg/changelog/1",
+  "status": "unreleased: release trains R0 to R1c are built and tested, not deployed",
+  "entries": [
+    {
+      "type": "Added",
+      "release": "R1b",
+      "text": "A phone layout, chosen automatically on phones and touch tablets up to 834 px wide and on phones held sideways. The address ending ?layout=mobile or ?layout=desktop forces one.",
+      "source": "ops/release-notes/R1b.md"
+    },
+    {
+      "type": "Added",
+      "release": "R1b",
+      "text": "Accessibility changes to the map page: a skip link, one main heading, landmarks, labelled controls, a timeline that works as a slider with its value in words, and dialogs that keep keyboard focus. These are a bridge, not a claim of conformance.",
+      "source": "ops/release-notes/R1b.md"
+    },
+    {
+      "type": "Added",
+      "release": "R1c",
+      "text": "Share links: the map reads moment, day, unit, story, regiment, zoom and centre from the address and opens there.",
+      "source": "ops/release-notes/R1c.md"
+    },
+    {
+      "type": "Added",
+      "release": "R1c",
+      "text": "A Help row for moving the map from the keyboard (release R1c), and Help text for the phone layout (release R1b).",
+      "source": "ops/release-notes/R1c.md ops/release-notes/R1b.md"
+    },
+    {
+      "type": "Changed",
+      "release": "R0",
+      "text": "The 3.5-second introduction is gone: the map appears at once.",
+      "source": "ops/release-notes/R0.md"
+    },
+    {
+      "type": "Changed",
+      "release": "R1c",
+      "text": "Dates read July 1, 2 and 3 instead of dates up to July 9.",
+      "source": "ops/release-notes/R1c.md"
+    },
+    {
+      "type": "Changed",
+      "release": "R1a",
+      "text": "A press on the map no longer leaves keyboard focus on it, so the arrow keys step through time after a click or a drag. Space no longer starts the playback while a toolbar button has focus, and S no longer types an “s”.",
+      "source": "ops/release-notes/R1a.md ops/release-notes/R1b.md"
+    },
+    {
+      "type": "Changed",
+      "release": "R1c",
+      "text": "Help wording: the speed label reads 1x (base speed) and no longer implies that the map plays at the pace of the battle, the Help panel says hundreds of regiments and batteries instead of 445+, and its list of works is headed Sources.",
+      "source": "ops/release-notes/R1c.md tools/t0/patches/CP.json"
+    },
+    {
+      "type": "Changed",
+      "release": "R1c",
+      "text": "Turning Points links now land on the moment each decision belongs to.",
+      "source": "ops/release-notes/R1c.md"
+    },
+    {
+      "type": "Fixed",
+      "release": "R1a",
+      "text": "The map can be dragged and zoomed with a mouse again.",
+      "source": "ops/release-notes/R1a.md"
+    },
+    {
+      "type": "Fixed",
+      "release": "R1c",
+      "text": "Jumping to a day loads that day’s positions, and the map shows each unit at its latest recorded position at any moment.",
+      "source": "ops/release-notes/R1c.md"
+    },
+    {
+      "type": "Fixed",
+      "release": "R1a",
+      "text": "Several pages no longer print a code word where text belongs: the dashboard, the unit reports and Ask the Historian.",
+      "source": "ops/release-notes/R1a.md"
+    },
+    {
+      "type": "Fixed",
+      "release": "R1a",
+      "text": "Watch Together no longer shows imported tour text as page markup.",
+      "source": "ops/release-notes/R1a.md"
+    },
+    {
+      "type": "Fixed",
+      "release": "R1a",
+      "text": "The Casualty Dashboard no longer shows a note meant for the developer.",
+      "source": "ops/release-notes/R1a.md"
+    },
+    {
+      "type": "Fixed",
+      "release": "R1a",
+      "text": "Map attribution is no longer hidden under the playback bar on desktop.",
+      "source": "ops/release-notes/R1a.md tools/t0/patches/A2.json"
+    },
+    {
+      "type": "Removed",
+      "release": "R1a",
+      "text": "The heatmap key and its Help row, and the sound button inside the map. Immersive Mode is the page that plays sound.",
+      "source": "ops/release-notes/R1a.md"
+    },
+    {
+      "type": "Removed",
+      "release": "R1a",
+      "text": "Battlefield AR is no longer listed in the menus or the sitemap and is hidden from search engines while it is tested.",
+      "source": "ops/release-notes/R1a.md"
+    },
+    {
+      "type": "Removed",
+      "release": "R1a",
+      "text": "Two developer pages are deleted from the site.",
+      "source": "ops/release-notes/R1a.md"
+    }
+  ]
+}

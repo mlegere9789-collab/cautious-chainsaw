@@ -1,0 +1,431 @@
+{
+  "schema": "gtbg/trust-pages-manifest/1",
+  "status": "CANDIDATE: inert, not wired into any release; owner inputs open",
+  "as_of": "2026-10-04",
+  "generator": "node tools/copy/build-trust-pages.mjs",
+  "inputs": {
+    "data-src/build/facts.json": "2fb176a6e06e453c",
+    "data-src/sources-v2/registry.json": "661b7489525d0cf8",
+    "docs/historian/sources-v2/QC-REPORT.md": "f22dee9d4ecda47a",
+    "data-src/build/data-quality-report.json": "c8582a63b23916e8",
+    "data-src/time/time_anchors.json": "3734afc62ef22986",
+    "data-src/authorities/authorities.json": "9b1ebf7f667c0217",
+    "data-src/version.json": "2d413bc5debe3fd4",
+    "ops/release-notes/R1c.md": "8f33d97145a76fd4",
+    "ops/release-notes/R1b.md": "459afb046d03b381",
+    "ops/release-notes/R1a.md": "7f1694c438d2b2f0",
+    "ops/release-notes/R0.md": "7bbaf266243ae1d5",
+    "tools/guide/features.json": "837efd977554eef9",
+    "docs/pitch/PITCH.md": "2ae73d9d59dc90f6",
+    "baseline/dist/historian.html": "4387ec15adee4f29",
+    "baseline/dist/privacy.html": "7c98f6c16f367005",
+    "baseline/dist/terms.html": "c9c1fbf76396b391",
+    "baseline/dist/find-ancestor.html": "3a788df5d27ee769",
+    "docs/historian/CORPUS.md": "b4b17742057c8be8",
+    "docs/baseline-drift.md": "da78797140dc0612"
+  },
+  "claims": [
+    {
+      "id": "registry-matches-qc-report",
+      "text": "the registry status counts equal the counts printed in QC-REPORT.md",
+      "ok": true,
+      "evidence": "data-src/sources-v2/registry.json vs docs/historian/sources-v2/QC-REPORT.md"
+    },
+    {
+      "id": "no-anchor-is-reviewed",
+      "text": "every one of the time anchors is in state proposed (none reviewed, confirmed or signed)",
+      "ok": true,
+      "evidence": "data-src/time/time_anchors.json"
+    },
+    {
+      "id": "casualty-bases-add-up",
+      "text": "the three bases equal the sums of their parts and the dashboard figure",
+      "ok": true,
+      "evidence": "data-src/build/facts.json"
+    },
+    {
+      "id": "help-lists-nine-works",
+      "text": "the Help dialog of release R1c lists nine works under the heading \"Sources\"",
+      "ok": true,
+      "evidence": "tools/t0/patches CP.json cp:h03 applied to the baseline Help chunk"
+    },
+    {
+      "id": "keyboard-reference-matches-help",
+      "text": "the keyboard reference is generated from tools/guide/features.json, which matches the R1c Help dialog, key handler and menu without mismatch",
+      "ok": true,
+      "evidence": "node tools/guide/check-parity.mjs"
+    },
+    {
+      "id": "historian-reads-only-data-files",
+      "text": "every fetch() call in historian.html reads a /data/ file of this site (no model or API call)",
+      "ok": true,
+      "evidence": "baseline/dist/historian.html: 4 fetch calls"
+    },
+    {
+      "id": "historian-page-says-not-ai",
+      "text": "the Historian page of the live site says it is not a live AI model",
+      "ok": true,
+      "evidence": "baseline/dist/historian.html"
+    },
+    {
+      "id": "privacy-says-no-account",
+      "text": "the live Privacy page says there is no account system and no payment",
+      "ok": true,
+      "evidence": "baseline/dist/privacy.html"
+    },
+    {
+      "id": "privacy-says-no-own-cookies",
+      "text": "the live Privacy page says the site does not set its own cookies",
+      "ok": true,
+      "evidence": "baseline/dist/privacy.html"
+    },
+    {
+      "id": "terms-welcome-classroom-use",
+      "text": "the live Terms welcome personal, educational and classroom use, linking, embedding and citing",
+      "ok": true,
+      "evidence": "baseline/dist/terms.html"
+    },
+    {
+      "id": "terms-ask-no-scraping",
+      "text": "the live Terms ask that the data files not be republished as someone else's dataset",
+      "ok": true,
+      "evidence": "baseline/dist/terms.html"
+    },
+    {
+      "id": "find-ancestor-lists-regiments-not-soldiers",
+      "text": "the Find Your Ancestor page says individual soldiers are not part of the dataset and points to the National Park Service system",
+      "ok": true,
+      "evidence": "baseline/dist/find-ancestor.html"
+    },
+    {
+      "id": "r1c-not-deployed",
+      "text": "the R1c release notes say the release is built and tested locally and not deployed",
+      "ok": true,
+      "evidence": "ops/release-notes/R1c.md"
+    },
+    {
+      "id": "r1c-chrome-only",
+      "text": "the R1c release notes say every test ran in headless Chrome on Windows against localhost and that no iOS, Firefox or Samsung browser has run it",
+      "ok": true,
+      "evidence": "ops/release-notes/R1c.md"
+    },
+    {
+      "id": "r1c-lighthouse-a11y-100",
+      "text": "the R1c release notes record Lighthouse accessibility 100",
+      "ok": true,
+      "evidence": "ops/release-notes/R1c.md"
+    },
+    {
+      "id": "corpus-not-shipped",
+      "text": "CORPUS.md says the Official Records corpus is built and tested and not shipped",
+      "ok": true,
+      "evidence": "docs/historian/CORPUS.md"
+    },
+    {
+      "id": "site-credits-creator",
+      "text": "the site credit line reads \"Created by Mike Legere\" (patch cp:mobile-tools-footer) and the baseline bundle names him",
+      "ok": true,
+      "evidence": "tools/t0/patches/CP.json; baseline/dist/assets/index-Cg8FAMXN.js"
+    },
+    {
+      "id": "git-838b311-axe-and-targets",
+      "text": "commit 838b311 records: sub-pages pass axe with 0 serious or critical violations on 25 pages at 1440, 375, 320, 412 and 768 px; 44 px (touch) and 24 px (mouse) targets; no text under 12 px",
+      "ok": true,
+      "evidence": "git show 838b311"
+    },
+    {
+      "id": "git-f348b34-lighthouse",
+      "text": "commit f348b34 records: Lighthouse 13.5 accessibility 100 on / for R1b and R1c, mobile and desktop, with and without tiles; R0 and R1a stay 90",
+      "ok": true,
+      "evidence": "git show f348b34"
+    },
+    {
+      "id": "qc-link-claims",
+      "text": "QC-REPORT.md says 1,940 of 2,046 links (94.8%) go to hosts that refuse automated clients",
+      "ok": true,
+      "evidence": "docs/historian/sources-v2/QC-REPORT.md"
+    },
+    {
+      "id": "corpus-numbers",
+      "text": "CORPUS.md says 588 of the 589 reports are found and 8,232 passages",
+      "ok": true,
+      "evidence": "docs/historian/CORPUS.md"
+    }
+  ],
+  "owner_inputs_open": [
+    {
+      "key": "confirmations.licenseWording",
+      "label": "the licence wording you want shown here, if any",
+      "kind": "confirm"
+    },
+    {
+      "key": "confirmations.noScreenReaderTestOnRecord",
+      "label": "whether any manual test with a screen reader was done, and by whom",
+      "kind": "confirm"
+    },
+    {
+      "key": "confirmations.nonAffiliation",
+      "label": "the sentence that this is an independent project is true",
+      "kind": "confirm"
+    },
+    {
+      "key": "confirmations.responseTargets",
+      "label": "the response targets (acknowledge in 3 days, fix or explain in 30 days) are the ones you will keep",
+      "kind": "confirm"
+    },
+    {
+      "key": "contact.accessibility",
+      "label": "accessibility address",
+      "kind": "provide"
+    },
+    {
+      "key": "contact.corrections",
+      "label": "corrections address",
+      "kind": "provide"
+    },
+    {
+      "key": "contact.general",
+      "label": "general address",
+      "kind": "provide"
+    },
+    {
+      "key": "contact.security",
+      "label": "security address",
+      "kind": "provide"
+    },
+    {
+      "key": "creator.bio",
+      "label": "about you, 80 to 120 words, in your own words; nothing here is written for you",
+      "kind": "provide"
+    },
+    {
+      "key": "creator.reviewer",
+      "label": "the name and credit of the historian reviewer, or “none yet”",
+      "kind": "provide"
+    },
+    {
+      "key": "creator.why",
+      "label": "why you made the map, 3 to 5 sentences in your own words",
+      "kind": "provide"
+    }
+  ],
+  "pages": [
+    {
+      "slug": "about",
+      "file": "about.html",
+      "bytes": 7894,
+      "sha256": "a67948ca29263ea86be0a8ee29a0f817637a55a39cf0202f231bdfbee022de83",
+      "title": "About",
+      "sources": [
+        "data-src/build/facts.json#content.chronology_events",
+        "data-src/build/facts.json#content.terrain_key_locations",
+        "data-src/build/facts.json#content.tour_stops",
+        "data-src/build/facts.json#content.vignettes",
+        "data-src/build/facts.json#placements.rows",
+        "data-src/build/facts.json#placements.ticks_with_rows",
+        "data-src/build/facts.json#ticks.total",
+        "data-src/build/facts.json#units.batteries",
+        "data-src/build/facts.json#units.regiments",
+        "data-src/build/facts.json#units.regiments_with_own_track",
+        "data-src/time/time_anchors.json#anchors",
+        "tools/copy/trust-config.json#asOf",
+        "tools/t0/patches/CP.json#cp:mobile-tools-footer"
+      ]
+    },
+    {
+      "slug": "sources",
+      "file": "sources.html",
+      "bytes": 26993,
+      "sha256": "1195d7d3ec0670a0409c3d0ad469c3da023067e91bfbfeb9f4820bad952c2f29",
+      "title": "Sources and Methods",
+      "sources": [
+        "baseline/dist/assets/HelpModal-CFV9T0zH.js",
+        "data-src/authorities/authorities.json#as_of",
+        "data-src/authorities/authorities.json#casualties.confederate",
+        "data-src/authorities/authorities.json#casualties.confederate.values.BM-CONFED",
+        "data-src/authorities/authorities.json#casualties.confederate.values.OR27-2-GUILD",
+        "data-src/authorities/authorities.json#casualties.confederate.values.UPPER-ESTIMATE",
+        "data-src/authorities/authorities.json#casualties.union",
+        "data-src/authorities/authorities.json#casualties.union.values.ADJGEN-1888",
+        "data-src/authorities/authorities.json#casualties.union.values.BM-UNION",
+        "data-src/authorities/authorities.json#casualties.union.values.MEADE-CAMPAIGN",
+        "data-src/authorities/authorities.json#casualties.union.values.OR27-1-NO15",
+        "data-src/authorities/authorities.json#status",
+        "data-src/build/data-quality-report.json#provenance",
+        "data-src/build/facts.json#casualties.site_figures_measured",
+        "data-src/build/facts.json#content.chronology_events",
+        "data-src/build/facts.json#content.monuments",
+        "data-src/build/facts.json#content.monuments_without_source",
+        "data-src/build/facts.json#content.terrain_key_locations",
+        "data-src/build/facts.json#content.vignettes",
+        "data-src/build/facts.json#placements.rows",
+        "data-src/build/facts.json#placements.ticks_with_rows",
+        "data-src/build/facts.json#ticks.time_model",
+        "data-src/build/facts.json#ticks.total",
+        "data-src/build/facts.json#units.batteries",
+        "data-src/build/facts.json#units.regiments",
+        "data-src/build/facts.json#units.regiments_with_own_track",
+        "data-src/build/facts.json#units.total",
+        "data-src/sources-v2/registry.json#entries",
+        "data-src/sources-v2/registry.json#meta",
+        "data-src/sources-v2/registry.json#meta.counts",
+        "data-src/time/time_anchors.json#anchors",
+        "data-src/version.json#data_version",
+        "docs/content/STYLEGUIDE.md#6",
+        "docs/editorial/sign-off-states.md",
+        "docs/historian/CORPUS.md",
+        "docs/historian/sources-v2/QC-REPORT.md",
+        "docs/pitch/PITCH.md#six-evidence-badges",
+        "ops/release-notes/R1c.md",
+        "tools/copy/trust-config.json#asOf",
+        "tools/t0/patches/CP.json#cp:b44",
+        "tools/t0/patches/CP.json#cp:h03"
+      ]
+    },
+    {
+      "slug": "standard-of-care",
+      "file": "standard-of-care.html",
+      "bytes": 10004,
+      "sha256": "1fed07a85af7ac96074460d80becd0e793e7865f96c13cac606d285fef01ced2",
+      "title": "Standard of Care",
+      "sources": [
+        "baseline/dist/historian.html",
+        "baseline/dist/terms.html",
+        "data-src/build/data-quality-report.json#provenance",
+        "data-src/build/facts.json#casualties.site_figures_measured",
+        "data-src/time/time_anchors.json#anchors",
+        "docs/historian/CORPUS.md",
+        "docs/pitch/PITCH.md#six-evidence-badges",
+        "docs/pitch/PITCH.md#the-standard-of-care",
+        "docs/plan/FINAL/00-README.md",
+        "ops/release-notes/R1c.md",
+        "tools/copy/trust-config.json",
+        "tools/copy/trust-config.json#asOf",
+        "tools/t0/patches/PG-core.json"
+      ]
+    },
+    {
+      "slug": "corrections",
+      "file": "corrections.html",
+      "bytes": 8921,
+      "sha256": "0f05e3dae8061745ca6bb0357c32d15a89b935b5a2c1804620e8a8996bbdc2d5",
+      "title": "Corrections",
+      "sources": [
+        "data-src/version.json#history",
+        "tools/copy/trust-config.json#asOf",
+        "tools/copy/trust-config.json#targets"
+      ]
+    },
+    {
+      "slug": "faq",
+      "file": "faq.html",
+      "bytes": 13199,
+      "sha256": "106d5a651df33459911f7453692560f79154064b2e06c04f9b6406e0f753e369",
+      "title": "FAQ",
+      "sources": [
+        "baseline/dist/find-ancestor.html",
+        "baseline/dist/historian.html",
+        "baseline/dist/privacy.html",
+        "baseline/dist/terms.html",
+        "data-src/build/facts.json#casualties.site_figures_measured",
+        "data-src/build/facts.json#placements.rows",
+        "data-src/build/facts.json#placements.ticks_with_rows",
+        "data-src/build/facts.json#ticks.time_model",
+        "data-src/build/facts.json#ticks.total",
+        "data-src/build/facts.json#units.regiments_with_own_track",
+        "data-src/build/facts.json#units.total",
+        "data-src/time/time_anchors.json#anchors",
+        "docs/pitch/PITCH.md#six-evidence-badges",
+        "ops/release-notes/R1c.md",
+        "tools/copy/trust-config.json#asOf",
+        "tools/guide/features.json"
+      ]
+    },
+    {
+      "slug": "accessibility",
+      "file": "accessibility.html",
+      "bytes": 21233,
+      "sha256": "891ec19e2e6ff7e0d0d0061cd85113628f0073cb0b7a741edc1d5356c53195a2",
+      "title": "Accessibility Statement",
+      "sources": [
+        "docs/plan/FINAL/00-README.md",
+        "git:838b311",
+        "git:f348b34",
+        "ops/release-notes/R1c.md",
+        "tools/copy/trust-config.json#asOf",
+        "tools/copy/trust-config.json#targets",
+        "tools/guide/features.json#gestures.g-days",
+        "tools/guide/features.json#gestures.g-desktop",
+        "tools/guide/features.json#gestures.g-drag",
+        "tools/guide/features.json#gestures.g-pinch",
+        "tools/guide/features.json#gestures.g-play",
+        "tools/guide/features.json#gestures.g-speed",
+        "tools/guide/features.json#gestures.g-step",
+        "tools/guide/features.json#gestures.g-tap-unit",
+        "tools/guide/features.json#gestures.g-timeline",
+        "tools/guide/features.json#gestures.g-tools",
+        "tools/guide/features.json#hotkeys",
+        "tools/guide/features.json#hotkeys.day-1",
+        "tools/guide/features.json#hotkeys.day-2",
+        "tools/guide/features.json#hotkeys.day-3",
+        "tools/guide/features.json#hotkeys.escape",
+        "tools/guide/features.json#hotkeys.help-toggle",
+        "tools/guide/features.json#hotkeys.hour-back",
+        "tools/guide/features.json#hotkeys.hour-forward",
+        "tools/guide/features.json#hotkeys.map-keyboard",
+        "tools/guide/features.json#hotkeys.map-pan",
+        "tools/guide/features.json#hotkeys.map-zoom",
+        "tools/guide/features.json#hotkeys.panel-bookmarks",
+        "tools/guide/features.json#hotkeys.panel-filter",
+        "tools/guide/features.json#hotkeys.panel-legend",
+        "tools/guide/features.json#hotkeys.panel-minimap",
+        "tools/guide/features.json#hotkeys.panel-search",
+        "tools/guide/features.json#hotkeys.play-pause",
+        "tools/guide/features.json#hotkeys.select-unit",
+        "tools/guide/features.json#hotkeys.speed-down",
+        "tools/guide/features.json#hotkeys.speed-reset",
+        "tools/guide/features.json#hotkeys.speed-up",
+        "tools/guide/features.json#hotkeys.step-back",
+        "tools/guide/features.json#hotkeys.step-forward",
+        "tools/guide/features.json#known_differences",
+        "tools/t0/README.md"
+      ]
+    },
+    {
+      "slug": "changelog",
+      "file": "changelog.html",
+      "bytes": 10147,
+      "sha256": "c7f3a620eb1acea5dad21447e36d33afdc92ade1400b661c6bff0a720af5c8fc",
+      "title": "Changelog",
+      "sources": [
+        "data-src/version.json#history",
+        "docs/baseline-drift.md",
+        "ops/release-notes/R0.md",
+        "ops/release-notes/R1a.md",
+        "ops/release-notes/R1b.md",
+        "ops/release-notes/R1c.md",
+        "tools/copy/trust-config.json#asOf",
+        "tools/guide/features.json#known_differences.kd-clock",
+        "tools/guide/features.json#known_differences.kd-help-wording",
+        "tools/guide/features.json#known_differences.kd-historian",
+        "tools/guide/features.json#known_differences.kd-monuments",
+        "tools/guide/features.json#known_differences.kd-names",
+        "tools/guide/features.json#known_differences.kd-removed",
+        "tools/guide/features.json#known_differences.kd-testing",
+        "tools/t0/patches/A2.json",
+        "tools/t0/patches/CP.json"
+      ]
+    },
+    {
+      "slug": "contact",
+      "file": "contact.html",
+      "bytes": 6042,
+      "sha256": "e292123ec4c92391c5b45e892634ab451855c14c51212d811258c47df49b101d",
+      "title": "Contact and Report a Problem",
+      "sources": [
+        "tools/copy/trust-config.json#asOf",
+        "tools/copy/trust-config.json#targets"
+      ]
+    }
+  ]
+}
