@@ -1,0 +1,2985 @@
+{
+  "schema_version": 1,
+  "dataset": "weather_by_day",
+  "title": "Weather at Gettysburg, June 25 to July 8, 1863, from Michael Jacobs's record and his own narrative",
+  "status": "Verified as far as the sources allow; see verification_summary and warnings. The numbers are second-hand: the original observation forms were not seen.",
+  "badge_legend": {
+    "Measured": "an instrument reading (thermometer, rain gauge) by the observer; here relayed second-hand",
+    "Observed": "a trained observer's eye estimate recorded in his log (cloud cover and type, wind direction and force, thunder)",
+    "Reported": "a narrative statement by a witness, not a log entry",
+    "Computed": "derived from an ephemeris (none in this file; see astro_by_day.json)",
+    "Modelled": "an estimate from a model (none in this file; a heat index would be Modelled and is not included)",
+    "Contested": "two or more sources disagree and none is chosen"
+  },
+  "site": {
+    "name": "Gettysburg, Pennsylvania (Pennsylvania College, the observer's station)",
+    "note": "The readings were taken in the town by Michael Jacobs; the thermometer exposure is not recorded in these sources (the pitch's remark that it was in shade is an inference)."
+  },
+  "sources": [
+    {
+      "id": "jacobs-notes-1864",
+      "kind": "book",
+      "tier": "A1",
+      "title": "Notes on the Rebel Invasion of Maryland and Pennsylvania, and the Battle of Gettysburg, July 1st, 2d and 3d, 1863. By M. Jacobs",
+      "author": "Michael Jacobs",
+      "imprint": "Philadelphia: J. B. Lippincott & Co., 1864",
+      "imprint_year": 1864,
+      "copyright_entry": "Entered, according to Act of Congress, in the year 1863, by J. B. Lippincott & Co. (printed on the verso of the title page)",
+      "rights": "public domain in the United States by date (published 1864)",
+      "first_edition_only": true,
+      "copies": [
+        {
+          "id": "A",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "holder": "Lincoln Financial Foundation Collection (scanned for the Indiana State Library, IMLS LSTA grant)",
+          "pages_in_scan": "front matter + pp. 1-47",
+          "url": "https://archive.org/details/notesonrebelinva00jaco"
+        },
+        {
+          "id": "B",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "holder": "Musselman Library, Special Collections, Gettysburg College (Lyrasis/Sloan)",
+          "pages_in_scan": "front matter + pp. 1-47",
+          "url": "https://archive.org/details/notesonrebelinva00gett"
+        },
+        {
+          "id": "C",
+          "ia": "notesonrebelinv00jacogoog",
+          "kind": "abbyy",
+          "holder": "University of Michigan, digitised by Google",
+          "pages_in_scan": "front matter + pp. 1-43 only (45 leaves: pp. 44-47 are missing from this copy)",
+          "url": "https://archive.org/details/notesonrebelinv00jacogoog"
+        }
+      ],
+      "not_used": [
+        {
+          "ia": "notesonrebelinva00jaco_0",
+          "reason": "FIFTH EDITION, REVISED, \"Copyrighted 1888 by G. E. Jacobs\" (IA publisher G.E. Jacobs, date 1888): a later revised edition with its own pagination; the plan says to use original editions. It is also public domain by date but was not used."
+        }
+      ],
+      "imprint_evidence": ["the title page of copy A (leaf 11): \"PHILADELPHIA: J. B. LIPPINCOTT & CO. 1864.\"", "the entry notice of copy A (leaf 12): \"Entered, according to Act of Congress, in the year 1863, by J. B. LIPPINCOTT & CO., ...\""],
+      "contains_weather_table": false,
+      "contains_weather_table_basis": "searched all three scans for \"Thermometer\" and \"barometer\" and \"seemed tame\": seemed tame: A=absent B=absent C=absent; Thermometer: A=absent B=absent C=absent; thermometer: A=absent B=absent C=absent; barometer: A=absent B=absent C=absent; miles per hour: A=absent B=absent C=absent"
+    },
+    {
+      "id": "jacobs-meteorology-1885",
+      "kind": "newspaper article",
+      "tier": "A1",
+      "title": "Meteorology of the Battle. Notes by Rev. Dr. Jacobs.",
+      "author": "Henry Eyster Jacobs (signed \"H. E. J.\"), reporting the readings of his father Michael Jacobs",
+      "imprint": "The Star and Sentinel (Gettysburg, Pa.), \"For the Star and Sentinel\", letter signed Gettysburg, July 30, 1885",
+      "imprint_year": 1885,
+      "issue_date_reported": "1885-08-11",
+      "issue_date_basis": "Emerging Civil War (2023) captions its image of the clipping \"Star and Sentinel (Gettysburg, PA), August 11, 1885\"; not verified against an issue (the Library of Congress lists the title as not digitised, and no scan was located); page and column UNKNOWN.",
+      "rights": "public domain in the United States by date (published 1885)",
+      "page": "UNKNOWN [OWNER TO PROVIDE: issue, page and column from the printed newspaper]",
+      "witnesses": [
+        {
+          "id": "rx",
+          "name": "Civil War Rx, \"Gettysburg: Meteorology of the Battle\", posted 2013-07-24 (Carole Adrienne)",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "kind": "typed transcription of the full article",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        },
+        {
+          "id": "ecw",
+          "name": "Emerging Civil War, \"The thunder seemed tame: Weather at the Battle of Gettysburg\", Jon Tracey, 2023-02-22",
+          "url": "https://emergingcivilwar.com/2023/02/22/the-thunder-seemed-tame-weather-at-the-battle-of-gettysburg/",
+          "kind": "typed summary with the readings for July 1-3 (blog text; only the thunder sentence is quoted)",
+          "sha256": "bdc59caba041e2916f2325dc71d5bb0ced3c5e054b578bca1b78f9c726b2bb8b",
+          "retrieved": "2026-10-04"
+        },
+        {
+          "id": "ecw-image",
+          "name": "ECW's image of the 1885 clipping (July 1-8 passage), 291 x 725 px",
+          "url": "https://emergingcivilwar.com/wp-content/uploads/2023/02/weather-clipping.png",
+          "kind": "image of the printed clipping, read by the Claude model (data-src/environment/visual_readings.json)",
+          "sha256": "31e599c86e9fa66d82a15257b58ff8ce4853129963cd6b4b00f68ea75b85a830",
+          "retrieved": "2026-10-04"
+        }
+      ],
+      "scan_search": "The Library of Congress item record for The Star and Sentinel (Gettysburg, Pa.) 1867-1961, LCCN sn83032076, says digitized: false. No other scan was located.",
+      "note": "This, and not the 1864 Notes, is the printed source of the thermometer table, the cloud record, the rain totals and the thunder note. It reports the observations of Michael Jacobs (1808-1871), made for the Smithsonian Institution, as examined by his son on July 29-30, 1885."
+    },
+    {
+      "id": "haskell-1908",
+      "kind": "book",
+      "tier": "A1",
+      "title": "The Battle of Gettysburg, by Frank Aretas Haskell, Wisconsin History Commission Reprints, No. 1",
+      "imprint": "Wisconsin History Commission, November 1908 (Democrat Printing Co., State Printer)",
+      "imprint_year": 1908,
+      "rights": "public domain in the United States by date",
+      "ia": "battleofgettysbu00haskuoft",
+      "note": "Haskell wrote it as a letter in July 1863; first printed 1898 (MOLLUS Massachusetts Commandery); this is the 1908 reprint, whose pages carry the numbers in square brackets."
+    },
+    {
+      "id": "ncei-c01085",
+      "kind": "catalogue record",
+      "tier": "B",
+      "title": "NOAA NCEI, Pre-Weather Bureau Observation Networks (gov.noaa.ncdc:C01085)",
+      "url": "https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C01085",
+      "rights": "US Government work; the record itself is quoted. Its images are \"Controlled user access to the NERMS system\": they were NOT fetched, scraped or viewed. The pitch asks to write ncei.info@noaa.gov before republishing any image."
+    },
+    {
+      "id": "mrcc-forts",
+      "kind": "catalogue record",
+      "tier": "B",
+      "title": "Midwestern Regional Climate Center, FORTS keyed stations list",
+      "url": "https://mrcc.purdue.edu/FORTS/stations",
+      "rights": "only the station list was read; the data-download pages ask for a contact form and were not used."
+    }
+  ],
+  "where_the_readings_are": {
+    "statement": "Michael Jacobs observed three times a day for the Smithsonian Institution. Copies of his forms are said to be at the American Philosophical Society (Franklin Institute series, per the Gettysburg Experience article), and as microfilm at NARA and NCEI. This project saw none of them. What it holds is the 1885 article by his son.",
+    "evidence": ["Gettysburg Experience, \"Dr. Michael Jacobs: Gettysburg's Weatherman\" (https://www.thegettysburgexperience.com/dr-michael-jacobs-gettysburgs-weatherman), read 2026-10-04: the oft-quoted source is the article \"Meteorology of the Battle\" that comes through the professor's son 22 years after the battle.", "HistoryNet interview with Jeffrey J. Harding (https://historynet.com/gettysburg-heat/), read 2026-10-04: his original records were more detailed than the version published by his son in 1885."]
+  },
+  "external_statements": [
+    {
+      "id": "X-ncei-use",
+      "cache": "ncei-C01085-iso.xml",
+      "url": "https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C01085",
+      "sha256": "6d1b30ec4208098d7b46a0342a1e386a0d5bb5935daf159d5bd44c56426540d1",
+      "retrieved": "2026-10-04",
+      "text": "Controlled user access to the NERMS system"
+    },
+    {
+      "id": "X-ncei-schedule",
+      "cache": "ncei-C01085-iso.xml",
+      "url": "https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C01085",
+      "sha256": "6d1b30ec4208098d7b46a0342a1e386a0d5bb5935daf159d5bd44c56426540d1",
+      "retrieved": "2026-10-04",
+      "text": "Observations were generally conducted three times daily, around 7am, 2pm and 9pm."
+    },
+    {
+      "id": "X-ncei-film",
+      "cache": "ncei-C01085-iso.xml",
+      "url": "https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C01085",
+      "sha256": "6d1b30ec4208098d7b46a0342a1e386a0d5bb5935daf159d5bd44c56426540d1",
+      "retrieved": "2026-10-04",
+      "text": "The original forms were deteriorating in the National Archives and were converted to microfilm in the late 1930s as part of a Works Projects Administration program."
+    },
+    {
+      "id": "X-mrcc-keyed",
+      "cache": "mrcc-forts-stations.html",
+      "url": "https://mrcc.purdue.edu/FORTS/stations",
+      "sha256": "601b5710c2bc43e8c6b3bdf77cb0bd386783476fabb6e1bf7bd0ce22643c4318",
+      "retrieved": "2026-10-04",
+      "text": "Harrisburg",
+      "note": "The MRCC list of keyed (digitised) FORTS stations names these Pennsylvania stations: Blooming Grove, Canonsburg, Carlisle, Erie, Franklin, Germantown, Harrisburg, Morrisville, Philadelphia, Pittsburgh. Gettysburg is not among them, so there is no keyed copy of Jacobs's readings to cross-check against; the NCEI images are controlled-access and were never fetched.",
+      "absent_text": "Gettysburg"
+    }
+  ],
+  "quotes": [
+    {
+      "id": "Q-N-hdr-jun26",
+      "source": "jacobs-notes-1864",
+      "text": "Friday, June 26.",
+      "printed_page": 14,
+      "date": "1863-06-26",
+      "element": null,
+      "role": "dating heading",
+      "note": "The paragraph about the heavy rain of the night (Q-N-rain-jun25) is the last before this heading, so it is Thursday June 25.",
+      "witnesses": [
+        {
+          "witness": "A",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "leaf": 26,
+          "printed_page": 14,
+          "reader_n": 23
+        },
+        {
+          "witness": "B",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "leaf": 22,
+          "printed_page": 14,
+          "reader_n": 21
+        }
+      ],
+      "ocr_misses": ["copy C: the OCR text of that page does not match the quote exactly (a character-recognition slip)"]
+    },
+    {
+      "id": "Q-N-rain-jun25",
+      "source": "jacobs-notes-1864",
+      "text": "But the heavy rain of that night caused them to be detained until the balance of the regiment arrived",
+      "printed_page": 14,
+      "date": "1863-06-25",
+      "element": "precipitation",
+      "role": "weather remark",
+      "witnesses": [
+        {
+          "witness": "A",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "leaf": 26,
+          "printed_page": 14,
+          "reader_n": 23
+        },
+        {
+          "witness": "B",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "leaf": 22,
+          "printed_page": 14,
+          "reader_n": 21
+        },
+        {
+          "witness": "C",
+          "ia": "notesonrebelinv00jacogoog",
+          "kind": "abbyy",
+          "leaf": 14,
+          "printed_page": 14,
+          "reader_n": 14
+        }
+      ]
+    },
+    {
+      "id": "Q-N-wet-jun26",
+      "source": "jacobs-notes-1864",
+      "text": "Being wet from the rain which had fallen during the most of the day, and considerably heated by a long march, there was found, by a person near them as they passed, to have been more truth than fiction in the remark of a friend, that \"the air was filled with the filthy exhalations from their bodies.\"",
+      "printed_page": 16,
+      "date": "1863-06-26",
+      "element": "precipitation",
+      "role": "weather and smell remark about a marching Confederate brigade, NOT about the battlefield",
+      "witnesses": [
+        {
+          "witness": "A",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "leaf": 28,
+          "printed_page": 16,
+          "reader_n": 25
+        },
+        {
+          "witness": "B",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "leaf": 24,
+          "printed_page": 16,
+          "reader_n": 23
+        },
+        {
+          "witness": "C",
+          "ia": "notesonrebelinv00jacogoog",
+          "kind": "abbyy",
+          "leaf": 16,
+          "printed_page": 16,
+          "reader_n": 16
+        }
+      ]
+    },
+    {
+      "id": "Q-N-early-fri",
+      "source": "jacobs-notes-1864",
+      "text": "General Early, who accompanied this brigade, and remained in town over Friday night",
+      "printed_page": 16,
+      "date": "1863-06-26",
+      "element": null,
+      "role": "dating evidence for Q-N-wet-jun26",
+      "note": "Friday night is the night of June 26; the \"wet from the rain\" passage is on the page before it and describes the same brigade.",
+      "witnesses": [
+        {
+          "witness": "A",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "leaf": 28,
+          "printed_page": 16,
+          "reader_n": 25
+        },
+        {
+          "witness": "B",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "leaf": 24,
+          "printed_page": 16,
+          "reader_n": 23
+        },
+        {
+          "witness": "C",
+          "ia": "notesonrebelinv00jacogoog",
+          "kind": "abbyy",
+          "leaf": 16,
+          "printed_page": 16,
+          "reader_n": 16
+        }
+      ]
+    },
+    {
+      "id": "Q-N-hdr-jul2",
+      "source": "jacobs-notes-1864",
+      "text": "Thursday, July 2.",
+      "printed_page": 30,
+      "date": "1863-07-02",
+      "element": null,
+      "role": "dating heading",
+      "witnesses": [
+        {
+          "witness": "A",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "leaf": 42,
+          "printed_page": 30,
+          "reader_n": 39
+        },
+        {
+          "witness": "B",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "leaf": 38,
+          "printed_page": 30,
+          "reader_n": 37
+        },
+        {
+          "witness": "C",
+          "ia": "notesonrebelinv00jacogoog",
+          "kind": "abbyy",
+          "leaf": 30,
+          "printed_page": 30,
+          "reader_n": 30
+        }
+      ]
+    },
+    {
+      "id": "Q-N-sunset-jul2",
+      "source": "jacobs-notes-1864",
+      "text": "at about sunset came the Sixth corps",
+      "printed_page": 31,
+      "date": "1863-07-02",
+      "element": "sun_reference",
+      "role": "time-of-day reference (sun)",
+      "witnesses": [
+        {
+          "witness": "A",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "leaf": 43,
+          "printed_page": 31,
+          "reader_n": 40
+        },
+        {
+          "witness": "B",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "leaf": 39,
+          "printed_page": 31,
+          "reader_n": 38
+        },
+        {
+          "witness": "C",
+          "ia": "notesonrebelinv00jacogoog",
+          "kind": "abbyy",
+          "leaf": 31,
+          "printed_page": 31,
+          "reader_n": 31
+        }
+      ]
+    },
+    {
+      "id": "Q-N-morning-jul2",
+      "source": "jacobs-notes-1864",
+      "text": "The morning was pleasant, the air was calm, the sun shone mildly through a smoky atmosphere, and the whole outer world was quiet and peaceful",
+      "printed_page": 32,
+      "date": "1863-07-02",
+      "element": "sky",
+      "role": "weather remark (morning of July 2)",
+      "witnesses": [
+        {
+          "witness": "A",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "leaf": 44,
+          "printed_page": 32,
+          "reader_n": 41
+        },
+        {
+          "witness": "B",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "leaf": 40,
+          "printed_page": 32,
+          "reader_n": 39
+        },
+        {
+          "witness": "C",
+          "ia": "notesonrebelinv00jacogoog",
+          "kind": "abbyy",
+          "leaf": 32,
+          "printed_page": 32,
+          "reader_n": 32
+        }
+      ]
+    },
+    {
+      "id": "Q-N-dark-jul2",
+      "source": "jacobs-notes-1864",
+      "text": "The enemy came up under cover of the forest and approaching darkness",
+      "printed_page": 36,
+      "date": "1863-07-02",
+      "element": "sun_reference",
+      "role": "time-of-day reference (dusk)",
+      "witnesses": [
+        {
+          "witness": "A",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "leaf": 48,
+          "printed_page": 36,
+          "reader_n": 45
+        },
+        {
+          "witness": "B",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "leaf": 44,
+          "printed_page": 36,
+          "reader_n": 43
+        },
+        {
+          "witness": "C",
+          "ia": "notesonrebelinv00jacogoog",
+          "kind": "abbyy",
+          "leaf": 36,
+          "printed_page": 36,
+          "reader_n": 36
+        }
+      ]
+    },
+    {
+      "id": "Q-N-dawn-jul3",
+      "source": "jacobs-notes-1864",
+      "text": "At the dawn of day our artillery opened upon the Rebels",
+      "printed_page": 40,
+      "date": "1863-07-03",
+      "element": "sun_reference",
+      "role": "time-of-day reference (dawn)",
+      "witnesses": [
+        {
+          "witness": "A",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "leaf": 52,
+          "printed_page": 40,
+          "reader_n": 49
+        },
+        {
+          "witness": "B",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "leaf": 48,
+          "printed_page": 40,
+          "reader_n": 47
+        },
+        {
+          "witness": "C",
+          "ia": "notesonrebelinv00jacogoog",
+          "kind": "abbyy",
+          "leaf": 40,
+          "printed_page": 40,
+          "reader_n": 40
+        }
+      ]
+    },
+    {
+      "id": "Q-N-sunrise-jul3",
+      "source": "jacobs-notes-1864",
+      "text": "At sunrise this was followed by a general infantry attack",
+      "printed_page": 40,
+      "date": "1863-07-03",
+      "element": "sun_reference",
+      "role": "time-of-day reference (sunrise)",
+      "witnesses": [
+        {
+          "witness": "A",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "leaf": 52,
+          "printed_page": 40,
+          "reader_n": 49
+        },
+        {
+          "witness": "B",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "leaf": 48,
+          "printed_page": 40,
+          "reader_n": 47
+        },
+        {
+          "witness": "C",
+          "ia": "notesonrebelinv00jacogoog",
+          "kind": "abbyy",
+          "leaf": 40,
+          "printed_page": 40,
+          "reader_n": 40
+        }
+      ]
+    },
+    {
+      "id": "Q-N-cannonade-jul3",
+      "source": "jacobs-notes-1864",
+      "text": "At seven minutes past 1 p. m., the awful and portentous silence was broken.",
+      "printed_page": 41,
+      "date": "1863-07-03",
+      "element": "clock_reference",
+      "role": "clock time of the opening of the cannonade (not weather)",
+      "witnesses": [
+        {
+          "witness": "A",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "leaf": 53,
+          "printed_page": 41,
+          "reader_n": 50
+        },
+        {
+          "witness": "B",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "leaf": 49,
+          "printed_page": 41,
+          "reader_n": 48
+        },
+        {
+          "witness": "C",
+          "ia": "notesonrebelinv00jacogoog",
+          "kind": "abbyy",
+          "leaf": 41,
+          "printed_page": 41,
+          "reader_n": 41
+        }
+      ]
+    },
+    {
+      "id": "Q-N-thunder-simile",
+      "source": "jacobs-notes-1864",
+      "text": "such as were never equalled by the most terrific thunder-storm ever witnessed by mortal man",
+      "printed_page": 41,
+      "date": "1863-07-03",
+      "element": "simile",
+      "role": "SIMILE for the noise of the guns, not a weather observation",
+      "witnesses": [
+        {
+          "witness": "A",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "leaf": 53,
+          "printed_page": 41,
+          "reader_n": 50
+        },
+        {
+          "witness": "B",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "leaf": 49,
+          "printed_page": 41,
+          "reader_n": 48
+        },
+        {
+          "witness": "C",
+          "ia": "notesonrebelinv00jacogoog",
+          "kind": "abbyy",
+          "leaf": 41,
+          "printed_page": 41,
+          "reader_n": 41
+        }
+      ]
+    },
+    {
+      "id": "Q-H-clear",
+      "source": "jacobs-meteorology-1885",
+      "text": "From June 15th until July 22nd, 1863, there was not an entirely clear day.",
+      "date": null,
+      "element": "sky",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-rain-start",
+      "source": "jacobs-meteorology-1885",
+      "text": "June 25th, at 8 p. m., a rain began",
+      "date": "1863-06-25",
+      "element": "precipitation",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-rain-total",
+      "source": "jacobs-meteorology-1885",
+      "text": "This rain continued at intervals until Saturday, June 27th, at 7 a. m., the precipitation being in inches 1, - 280.",
+      "date": "1863-06-26",
+      "element": "precipitation",
+      "note": "The figure is garbled in the transcription (\"1, - 280\"); read as 1.280 inches by analogy with the later figures \"1.390\" and \"1.300\"; the clipping image does not cover this paragraph.",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-sky-jun27-29",
+      "source": "jacobs-meteorology-1885",
+      "text": "At all the observations made on Saturday and Sunday, and until the nine o'clock observation of Monday night, the entire sky was covered with clouds.",
+      "date": "1863-06-27",
+      "element": "sky",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-sky-jun30",
+      "source": "jacobs-meteorology-1885",
+      "text": "On the day before the battle, both at 7 a. m., and 2 p. m., the obscuration was again complete, with cumulo-stratus clouds moving from S.S.E. At 9 p. m., only four-tenths of the heavens were covered.",
+      "date": "1863-06-30",
+      "element": "sky",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-wind-calm",
+      "source": "jacobs-meteorology-1885",
+      "text": "During these days of sombre suspense, the records of the wind are those of almost an entire calm.",
+      "date": "1863-06-30",
+      "element": "wind",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-t-jun25",
+      "source": "jacobs-meteorology-1885",
+      "text": "June 25th, 59 51 63",
+      "date": "1863-06-25",
+      "element": "temperature",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-t-jun26",
+      "source": "jacobs-meteorology-1885",
+      "text": "26th, 60 63 62",
+      "date": "1863-06-26",
+      "element": "temperature",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-t-jun27",
+      "source": "jacobs-meteorology-1885",
+      "text": "27th 61 63 67",
+      "date": "1863-06-27",
+      "element": "temperature",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-t-jun28",
+      "source": "jacobs-meteorology-1885",
+      "text": "28th 63 67 68",
+      "date": "1863-06-28",
+      "element": "temperature",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-t-jun29",
+      "source": "jacobs-meteorology-1885",
+      "text": "29th 66 72 69",
+      "date": "1863-06-29",
+      "element": "temperature",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-t-jun30",
+      "source": "jacobs-meteorology-1885",
+      "text": "30 68 79 71",
+      "date": "1863-06-30",
+      "element": "temperature",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-d1-text",
+      "source": "jacobs-meteorology-1885",
+      "text": "FIRST DAY.-All through the first day, the entire sky was covered with clouds, viz: cumulo-stratus at 7 a. m. and 2 p. m.; and cirro-stratus at 9 p. m. A very gentle southern breeze, (2 miles per hour).",
+      "date": "1863-07-01",
+      "element": "sky+wind",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-t-jul1",
+      "source": "jacobs-meteorology-1885",
+      "text": "Thermometer: 7 A.M. 2 P.M. 9 P.M. 72 76 74",
+      "date": "1863-07-01",
+      "element": "temperature",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-d2-text",
+      "source": "jacobs-meteorology-1885",
+      "text": "SECOND DAY.-At 8 a. m., sky still covered, (cumulo-stratus). At 2 p. m., three-tenths are clear. At 9 p. m., there are cirrus clouds; wind as on preceding day.",
+      "date": "1863-07-02",
+      "element": "sky+wind",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-t-jul2",
+      "source": "jacobs-meteorology-1885",
+      "text": "Thermometer: 7 A.M. 2 P.M. 9 P.M. 74 81 76",
+      "date": "1863-07-02",
+      "element": "temperature",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-d3-text",
+      "source": "jacobs-meteorology-1885",
+      "text": "THIRD DAY.-At 8 a. m., sky again completely covered with cumulo-stratus clouds; at 2 p. m., only four-tenths of the heavens are covered, but with cumulus or the massive thunder-cloud of summer; at 9 p. m., seven-tenths cumulus. Wind S. S. W., very gentle.",
+      "date": "1863-07-03",
+      "element": "sky+wind",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-thunder",
+      "source": "jacobs-meteorology-1885",
+      "text": "Thunder storm in neighborhood at 6 p. m. The thunder seemed tame, after the artillery firing of the afternoon.",
+      "date": "1863-07-03",
+      "element": "thunder",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-t-jul3",
+      "source": "jacobs-meteorology-1885",
+      "text": "Thermometer: 7 A.M. 2 P.M. 9 P.M. 73 87 76",
+      "date": "1863-07-03",
+      "element": "temperature",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-d4-text",
+      "source": "jacobs-meteorology-1885",
+      "text": "SATURDAY, THE FOURTH.-Rain in showers at 6 a. m., from 2:15 to 4 p. m., and at 4 a. m. of the 5th, aggregating 1.390.",
+      "date": "1863-07-04",
+      "element": "precipitation",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-t-jul4",
+      "source": "jacobs-meteorology-1885",
+      "text": "Thermometer: 7 A.M. 2 P.M. 9 P.M. 69 72 70",
+      "date": "1863-07-04",
+      "element": "temperature",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-after",
+      "source": "jacobs-meteorology-1885",
+      "text": "There were slight showers on the 5th and 7th; and on the 8th, a rain from 3 a. m. to 11:30 a. m., which measured 1.300.",
+      "date": "1863-07-05",
+      "element": "precipitation",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-H-max",
+      "source": "jacobs-meteorology-1885",
+      "text": "The maximum temperature for the month of July 1863, was 87(, at the time of Pickett's charge. Eleven days of the month, the maximum was in the seventies, and on one day (17th) it was but sixty-two.",
+      "date": "1863-07-03",
+      "element": "temperature",
+      "note": "The degree sign is printed as a small raised circle (the transcription renders it \"(\").",
+      "witnesses": [
+        {
+          "witness": "rx",
+          "url": "http://civilwarrx.blogspot.com/2013/07/gettysburg-meteorology-of-battle.html",
+          "sha256": "079b912ca4703038b5ee2ffb871859592c3f0bb31afb462e3af78f25c44dd944",
+          "retrieved": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "Q-haskell-morning",
+      "source": "haskell-1908",
+      "text": "The morning was thick and sultry, the sky overcast with low, vapory clouds",
+      "printed_page": 20,
+      "date": "1863-07-02",
+      "element": "sky",
+      "role": "weather remark (morning of July 2, before six)",
+      "witnesses": [
+        {
+          "witness": "toronto-1908",
+          "ia": "battleofgettysbu00haskuoft",
+          "kind": "djvu",
+          "leaf": 49,
+          "printed_page": 20,
+          "note": "the page number is printed in square brackets at the foot of the page: [20]"
+        }
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "id": "W-1863-06-25-temp-7am",
+      "date": "1863-06-25",
+      "element": "temperature",
+      "slot": "7am",
+      "time_label_as_printed": "7 A.M.",
+      "value": 59,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun25",
+      "extract": {
+        "type": "triple",
+        "index": 0
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 59,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-25-temp-2pm",
+      "date": "1863-06-25",
+      "element": "temperature",
+      "slot": "2pm",
+      "time_label_as_printed": "2 P.M.",
+      "value": 51,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun25",
+      "extract": {
+        "type": "triple",
+        "index": 1
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 51,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-25-temp-9pm",
+      "date": "1863-06-25",
+      "element": "temperature",
+      "slot": "9pm",
+      "time_label_as_printed": "9 P.M.",
+      "value": 63,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun25",
+      "extract": {
+        "type": "triple",
+        "index": 2
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 63,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-26-temp-7am",
+      "date": "1863-06-26",
+      "element": "temperature",
+      "slot": "7am",
+      "time_label_as_printed": "7 A.M.",
+      "value": 60,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun26",
+      "extract": {
+        "type": "triple",
+        "index": 0
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 60,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-26-temp-2pm",
+      "date": "1863-06-26",
+      "element": "temperature",
+      "slot": "2pm",
+      "time_label_as_printed": "2 P.M.",
+      "value": 63,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun26",
+      "extract": {
+        "type": "triple",
+        "index": 1
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 63,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-26-temp-9pm",
+      "date": "1863-06-26",
+      "element": "temperature",
+      "slot": "9pm",
+      "time_label_as_printed": "9 P.M.",
+      "value": 62,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun26",
+      "extract": {
+        "type": "triple",
+        "index": 2
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 62,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-27-temp-7am",
+      "date": "1863-06-27",
+      "element": "temperature",
+      "slot": "7am",
+      "time_label_as_printed": "7 A.M.",
+      "value": 61,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun27",
+      "extract": {
+        "type": "triple",
+        "index": 0
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 61,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-27-temp-2pm",
+      "date": "1863-06-27",
+      "element": "temperature",
+      "slot": "2pm",
+      "time_label_as_printed": "2 P.M.",
+      "value": 63,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun27",
+      "extract": {
+        "type": "triple",
+        "index": 1
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 63,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-27-temp-9pm",
+      "date": "1863-06-27",
+      "element": "temperature",
+      "slot": "9pm",
+      "time_label_as_printed": "9 P.M.",
+      "value": 67,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun27",
+      "extract": {
+        "type": "triple",
+        "index": 2
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 67,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-28-temp-7am",
+      "date": "1863-06-28",
+      "element": "temperature",
+      "slot": "7am",
+      "time_label_as_printed": "7 A.M.",
+      "value": 63,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun28",
+      "extract": {
+        "type": "triple",
+        "index": 0
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 63,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-28-temp-2pm",
+      "date": "1863-06-28",
+      "element": "temperature",
+      "slot": "2pm",
+      "time_label_as_printed": "2 P.M.",
+      "value": 67,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun28",
+      "extract": {
+        "type": "triple",
+        "index": 1
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 67,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-28-temp-9pm",
+      "date": "1863-06-28",
+      "element": "temperature",
+      "slot": "9pm",
+      "time_label_as_printed": "9 P.M.",
+      "value": 68,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun28",
+      "extract": {
+        "type": "triple",
+        "index": 2
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 68,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-29-temp-7am",
+      "date": "1863-06-29",
+      "element": "temperature",
+      "slot": "7am",
+      "time_label_as_printed": "7 A.M.",
+      "value": 66,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun29",
+      "extract": {
+        "type": "triple",
+        "index": 0
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 66,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-29-temp-2pm",
+      "date": "1863-06-29",
+      "element": "temperature",
+      "slot": "2pm",
+      "time_label_as_printed": "2 P.M.",
+      "value": 72,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun29",
+      "extract": {
+        "type": "triple",
+        "index": 1
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 72,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-29-temp-9pm",
+      "date": "1863-06-29",
+      "element": "temperature",
+      "slot": "9pm",
+      "time_label_as_printed": "9 P.M.",
+      "value": 69,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun29",
+      "extract": {
+        "type": "triple",
+        "index": 2
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 69,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-30-temp-7am",
+      "date": "1863-06-30",
+      "element": "temperature",
+      "slot": "7am",
+      "time_label_as_printed": "7 A.M.",
+      "value": 68,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun30",
+      "extract": {
+        "type": "triple",
+        "index": 0
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 68,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-30-temp-2pm",
+      "date": "1863-06-30",
+      "element": "temperature",
+      "slot": "2pm",
+      "time_label_as_printed": "2 P.M.",
+      "value": 79,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun30",
+      "extract": {
+        "type": "triple",
+        "index": 1
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 79,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-30-temp-9pm",
+      "date": "1863-06-30",
+      "element": "temperature",
+      "slot": "9pm",
+      "time_label_as_printed": "9 P.M.",
+      "value": 71,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jun30",
+      "extract": {
+        "type": "triple",
+        "index": 2
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 71,
+          "agrees": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-07-01-temp-7am",
+      "date": "1863-07-01",
+      "element": "temperature",
+      "slot": "7am",
+      "time_label_as_printed": "7 A.M.",
+      "value": 72,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jul1",
+      "extract": {
+        "type": "triple",
+        "index": 0
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 72,
+          "agrees": true
+        },
+        {
+          "id": "ecw",
+          "value": 72,
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "72",
+          "legibility": "clear",
+          "agrees": true,
+          "exact": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 2,
+        "level": "two_independent_paths"
+      }
+    },
+    {
+      "id": "W-1863-07-01-temp-2pm",
+      "date": "1863-07-01",
+      "element": "temperature",
+      "slot": "2pm",
+      "time_label_as_printed": "2 P.M.",
+      "value": 76,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jul1",
+      "extract": {
+        "type": "triple",
+        "index": 1
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 76,
+          "agrees": true
+        },
+        {
+          "id": "ecw",
+          "value": 76,
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "76",
+          "legibility": "clear",
+          "agrees": true,
+          "exact": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 2,
+        "level": "two_independent_paths"
+      }
+    },
+    {
+      "id": "W-1863-07-01-temp-9pm",
+      "date": "1863-07-01",
+      "element": "temperature",
+      "slot": "9pm",
+      "time_label_as_printed": "9 P.M.",
+      "value": 74,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jul1",
+      "extract": {
+        "type": "triple",
+        "index": 2
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 74,
+          "agrees": true
+        },
+        {
+          "id": "ecw",
+          "value": 74,
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "7?",
+          "legibility": "degraded",
+          "agrees": true,
+          "exact": false
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 2,
+        "level": "two_independent_paths"
+      }
+    },
+    {
+      "id": "W-1863-07-02-temp-7am",
+      "date": "1863-07-02",
+      "element": "temperature",
+      "slot": "7am",
+      "time_label_as_printed": "7 A.M.",
+      "value": 74,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jul2",
+      "extract": {
+        "type": "triple",
+        "index": 0
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 74,
+          "agrees": true
+        },
+        {
+          "id": "ecw",
+          "value": 74,
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "74",
+          "legibility": "clear",
+          "agrees": true,
+          "exact": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 2,
+        "level": "two_independent_paths"
+      }
+    },
+    {
+      "id": "W-1863-07-02-temp-2pm",
+      "date": "1863-07-02",
+      "element": "temperature",
+      "slot": "2pm",
+      "time_label_as_printed": "2 P.M.",
+      "value": 81,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jul2",
+      "extract": {
+        "type": "triple",
+        "index": 1
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 81,
+          "agrees": true
+        },
+        {
+          "id": "ecw",
+          "value": 81,
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "8?",
+          "legibility": "degraded",
+          "agrees": true,
+          "exact": false
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 2,
+        "level": "two_independent_paths"
+      }
+    },
+    {
+      "id": "W-1863-07-02-temp-9pm",
+      "date": "1863-07-02",
+      "element": "temperature",
+      "slot": "9pm",
+      "time_label_as_printed": "9 P.M.",
+      "value": 76,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jul2",
+      "extract": {
+        "type": "triple",
+        "index": 2
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 76,
+          "agrees": true
+        },
+        {
+          "id": "ecw",
+          "value": 76,
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "76",
+          "legibility": "clear",
+          "agrees": true,
+          "exact": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 2,
+        "level": "two_independent_paths"
+      }
+    },
+    {
+      "id": "W-1863-07-03-temp-7am",
+      "date": "1863-07-03",
+      "element": "temperature",
+      "slot": "7am",
+      "time_label_as_printed": "7 A.M.",
+      "value": 73,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jul3",
+      "extract": {
+        "type": "triple",
+        "index": 0
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 73,
+          "agrees": true
+        },
+        {
+          "id": "ecw",
+          "value": 73,
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "73",
+          "legibility": "clear",
+          "agrees": true,
+          "exact": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 2,
+        "level": "two_independent_paths"
+      }
+    },
+    {
+      "id": "W-1863-07-03-temp-2pm",
+      "date": "1863-07-03",
+      "element": "temperature",
+      "slot": "2pm",
+      "time_label_as_printed": "2 P.M.",
+      "value": 87,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jul3",
+      "extract": {
+        "type": "triple",
+        "index": 1
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 87,
+          "agrees": true
+        },
+        {
+          "id": "ecw",
+          "value": 87,
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "?7",
+          "legibility": "degraded",
+          "agrees": true,
+          "exact": false
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 2,
+        "level": "two_independent_paths"
+      }
+    },
+    {
+      "id": "W-1863-07-03-temp-9pm",
+      "date": "1863-07-03",
+      "element": "temperature",
+      "slot": "9pm",
+      "time_label_as_printed": "9 P.M.",
+      "value": 76,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jul3",
+      "extract": {
+        "type": "triple",
+        "index": 2
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 76,
+          "agrees": true
+        },
+        {
+          "id": "ecw",
+          "value": 76,
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "76",
+          "legibility": "clear",
+          "agrees": true,
+          "exact": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 2,
+        "level": "two_independent_paths"
+      }
+    },
+    {
+      "id": "W-1863-07-04-temp-7am",
+      "date": "1863-07-04",
+      "element": "temperature",
+      "slot": "7am",
+      "time_label_as_printed": "7 A.M.",
+      "value": 69,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jul4",
+      "extract": {
+        "type": "triple",
+        "index": 0
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 69,
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "6?",
+          "legibility": "degraded",
+          "agrees": true,
+          "exact": false
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "rx_plus_compatible_damaged_image"
+      }
+    },
+    {
+      "id": "W-1863-07-04-temp-2pm",
+      "date": "1863-07-04",
+      "element": "temperature",
+      "slot": "2pm",
+      "time_label_as_printed": "2 P.M.",
+      "value": 72,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jul4",
+      "extract": {
+        "type": "triple",
+        "index": 1
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 72,
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "72",
+          "legibility": "clear",
+          "agrees": true,
+          "exact": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 2,
+        "level": "two_independent_paths"
+      }
+    },
+    {
+      "id": "W-1863-07-04-temp-9pm",
+      "date": "1863-07-04",
+      "element": "temperature",
+      "slot": "9pm",
+      "time_label_as_printed": "9 P.M.",
+      "value": 70,
+      "unit_as_printed": null,
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "No unit is printed in the table. Fahrenheit is inferred: the readings (51 to 87) are only plausible for a Pennsylvania June-July in Fahrenheit, and the author notes 87 as the July maximum \"at the time of Pickett's charge\".",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading by Michael Jacobs (Smithsonian observer), relayed second-hand by his son in 1885; the original observation form was not seen",
+      "quote": "Q-H-t-jul4",
+      "extract": {
+        "type": "triple",
+        "index": 2
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 70,
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "7?",
+          "legibility": "degraded",
+          "agrees": true,
+          "exact": false
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "rx_plus_compatible_damaged_image"
+      }
+    },
+    {
+      "id": "W-1863-06-25-precip-total",
+      "date": "1863-06-25",
+      "date_end": "1863-06-27",
+      "element": "precipitation",
+      "slot": "June 25 8 p.m. to June 27 7 a.m.",
+      "value": 1.28,
+      "unit_as_printed": "inches",
+      "unit_inferred": "inches",
+      "unit_basis": "The paragraph says \"the precipitation being in inches\"; the figure itself is garbled in the transcription.",
+      "badge": "Measured",
+      "badge_basis": "rain-gauge total by Michael Jacobs, relayed by his son in 1885",
+      "quote": "Q-H-rain-total",
+      "extract": {
+        "type": "regex-decimal",
+        "pattern": "in inches (\\d), - (\\d{3})"
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": null,
+          "read_as_printed_in_transcription": "1, - 280",
+          "agrees": null
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 0,
+        "level": "garbled_single_transcription"
+      },
+      "note": "UNVERIFIED: the transcription prints \"1, - 280\". 1.280 inches is a reading by analogy with the two later figures (1.390 and 1.300), not a verified value; the clipping image does not cover this paragraph."
+    },
+    {
+      "id": "W-1863-07-04-precip-total",
+      "date": "1863-07-04",
+      "date_end": "1863-07-05",
+      "element": "precipitation",
+      "slot": "July 4 6 a.m. to July 5 4 a.m.",
+      "value": 1.39,
+      "unit_as_printed": null,
+      "unit_inferred": "inches",
+      "unit_basis": "No unit is printed beside this figure; inches is inferred from the \"in inches\" of the first rainfall paragraph and the magnitude.",
+      "badge": "Measured",
+      "badge_basis": "rain-gauge total by Michael Jacobs, relayed by his son in 1885",
+      "quote": "Q-H-d4-text",
+      "extract": {
+        "type": "regex",
+        "pattern": "aggregating (\\d\\.\\d{3})",
+        "group": 1
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 1.39,
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "1.?90",
+          "legibility": "degraded",
+          "agrees": true,
+          "exact": false
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "rx_plus_compatible_damaged_image"
+      }
+    },
+    {
+      "id": "W-1863-07-08-precip-total",
+      "date": "1863-07-08",
+      "element": "precipitation",
+      "slot": "July 8 3 a.m. to 11:30 a.m.",
+      "value": 1.3,
+      "unit_as_printed": null,
+      "unit_inferred": "inches",
+      "unit_basis": "No unit is printed beside this figure; inches inferred as above.",
+      "badge": "Measured",
+      "badge_basis": "rain-gauge total by Michael Jacobs, relayed by his son in 1885",
+      "quote": "Q-H-after",
+      "extract": {
+        "type": "regex",
+        "pattern": "which measured (\\d\\.\\d{3})",
+        "group": 1
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 1.3,
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "1.3??",
+          "legibility": "degraded",
+          "agrees": true,
+          "exact": false
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "rx_plus_compatible_damaged_image"
+      }
+    },
+    {
+      "id": "W-1863-07-03-temp-july-max",
+      "date": "1863-07-03",
+      "element": "temperature_month_max",
+      "slot": "July 1863 maximum, \"at the time of Pickett's charge\"",
+      "value": 87,
+      "unit_as_printed": "raised circle (degree sign)",
+      "unit_inferred": "degrees Fahrenheit",
+      "unit_basis": "a raised circle follows the figure in the clipping image; the scale is inferred as for the table",
+      "badge": "Measured",
+      "badge_basis": "a thermometer reading, relayed second-hand",
+      "quote": "Q-H-max",
+      "extract": {
+        "type": "regex",
+        "pattern": "was (\\d{2})\\(, at the time of Pickett",
+        "group": 1
+      },
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 87,
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "?7",
+          "legibility": "degraded",
+          "agrees": true,
+          "exact": false
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "rx_plus_compatible_damaged_image"
+      },
+      "note": "It equals the 2 p.m. reading of July 3 in the table; the article does not time it more closely than \"at the time of Pickett's charge\"."
+    },
+    {
+      "id": "W-1863-07-01-wind-speed",
+      "date": "1863-07-01",
+      "element": "wind_speed",
+      "slot": "whole day (\"A very gentle southern breeze\")",
+      "value": null,
+      "values": [
+        {
+          "value": 2,
+          "unit_as_printed": "miles per hour",
+          "source_witness": "rx",
+          "quote": "Q-H-d1-text",
+          "note": "typed transcription (Civil War Rx, 2013); its other slips (\"1, - 280\", \"87(\") look like character-recognition errors, so a dropped digit is plausible"
+        },
+        {
+          "value": 12,
+          "unit_as_printed": "miles per hour",
+          "source_witness": "ecw",
+          "note": "typed by Emerging Civil War (2023) from the clipping image; the same wording \"of 12 miles per hour\""
+        },
+        {
+          "value": 12,
+          "unit_as_printed": "miles per hour",
+          "source_witness": "ecw-image",
+          "note": "read from the clipping image at 291 px wide: \"(12 miles per hour)\"; the reader cannot rule out a stray mark before the 2"
+        }
+      ],
+      "unit_as_printed": "miles per hour",
+      "badge": "Contested",
+      "badge_basis": "two readings of the same printed sentence disagree (2 against 12); neither can be checked against the printed page or the observation form (not located / not accessible)",
+      "status": "open",
+      "quote": "Q-H-d1-text",
+      "extract": {
+        "type": "regex",
+        "pattern": "\\((\\d+) miles per hour\\)",
+        "group": 1
+      },
+      "assessment": "The image reading and the Emerging Civil War transcription both give 12; the Civil War Rx transcription gives 2. The image is low resolution and ECW most probably typed from it, so this is one reading, not two. Nothing here chooses a value.",
+      "would_settle": "the printed Star and Sentinel page (Gettysburg, August 1885: issue, page and column unknown; the Library of Congress lists the title as not digitised), or the original form (American Philosophical Society \"Meteorological Observations Made for the Franklin Institute 1839-1865\" and the NARA/NCEI microfilm).",
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": 2
+        },
+        {
+          "id": "ecw",
+          "value": 12
+        },
+        {
+          "id": "ecw-image",
+          "read": "12",
+          "legibility": "clear"
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 0,
+        "level": "conflict"
+      }
+    },
+    {
+      "id": "W-1863-07-02-wind-speed",
+      "date": "1863-07-02",
+      "element": "wind_speed",
+      "slot": "whole day (\"wind as on preceding day\")",
+      "value": null,
+      "values": null,
+      "unit_as_printed": null,
+      "badge": "Contested",
+      "badge_basis": "the article gives no figure of its own for July 2: it says \"wind as on preceding day\", so it inherits the July 1 conflict",
+      "status": "open",
+      "quote": "Q-H-d2-text",
+      "inherits": "W-1863-07-01-wind-speed",
+      "witnesses": [
+        {
+          "id": "ecw-image",
+          "read": "wind as on preceding day",
+          "legibility": "clear"
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 0,
+        "level": "conflict"
+      }
+    },
+    {
+      "id": "W-1863-07-03-wind-direction",
+      "date": "1863-07-03",
+      "element": "wind_direction",
+      "slot": "whole day",
+      "value": "S.S.W.",
+      "value_text": "Wind S. S. W., very gentle.",
+      "unit_as_printed": null,
+      "badge": "Observed",
+      "badge_basis": "an observer's estimate of direction and force; no speed is given for July 3",
+      "quote": "Q-H-d3-text",
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": "S.S.W.",
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "Wind S. S. W., very gentle.",
+          "legibility": "clear",
+          "agrees": true,
+          "exact": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 2,
+        "level": "two_independent_paths"
+      },
+      "note": "There is NO miles-per-hour figure for July 3 in the article. The pitch (row 14 of the conflict ledger) places the 12 against 2 conflict on July 3; it belongs to the first day (July 1) and is inherited by July 2."
+    },
+    {
+      "id": "W-1863-07-01-wind-direction",
+      "date": "1863-07-01",
+      "element": "wind_direction",
+      "slot": "whole day",
+      "value": "S",
+      "value_text": "A very gentle southern breeze",
+      "unit_as_printed": null,
+      "badge": "Observed",
+      "badge_basis": "an observer's estimate",
+      "quote": "Q-H-d1-text",
+      "witnesses": [
+        {
+          "id": "rx",
+          "value": "S",
+          "agrees": true
+        },
+        {
+          "id": "ecw",
+          "value": "S",
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "southern breeze",
+          "legibility": "clear",
+          "agrees": true,
+          "exact": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 2,
+        "level": "two_independent_paths"
+      }
+    },
+    {
+      "id": "W-1863-06-15-sky-clear-statement",
+      "date": "1863-06-15",
+      "element": "sky",
+      "slot": "June 15 to July 22, 1863",
+      "value": null,
+      "value_text": "not an entirely clear day",
+      "unit_as_printed": null,
+      "badge": "Observed",
+      "badge_basis": "a summary statement of the observer's records",
+      "quote": "Q-H-clear",
+      "date_end": "1863-07-22",
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-27-sky",
+      "date": "1863-06-27",
+      "element": "sky",
+      "slot": "June 27-28 all observations, June 29 until the 9 p.m. observation",
+      "value": null,
+      "value_text": "entire sky covered with clouds",
+      "unit_as_printed": null,
+      "badge": "Observed",
+      "badge_basis": "observer's record of cloud cover",
+      "quote": "Q-H-sky-jun27-29",
+      "date_end": "1863-06-29",
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-30-sky",
+      "date": "1863-06-30",
+      "element": "sky",
+      "slot": "7 a.m. and 2 p.m. complete, 9 p.m. four-tenths",
+      "value": null,
+      "value_text": "obscuration complete at 7 a.m. and 2 p.m. (cumulo-stratus from S.S.E.); four-tenths covered at 9 p.m.",
+      "unit_as_printed": null,
+      "badge": "Observed",
+      "badge_basis": "observer's record of cloud cover and type",
+      "quote": "Q-H-sky-jun30",
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-30-wind",
+      "date": "1863-06-30",
+      "element": "wind",
+      "slot": "the days before the battle",
+      "value": null,
+      "value_text": "records of the wind are those of almost an entire calm",
+      "unit_as_printed": null,
+      "badge": "Observed",
+      "badge_basis": "observer's estimate of force",
+      "quote": "Q-H-wind-calm",
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-07-01-sky",
+      "date": "1863-07-01",
+      "element": "sky",
+      "slot": "all day: cumulo-stratus at 7 a.m. and 2 p.m., cirro-stratus at 9 p.m.",
+      "value": null,
+      "value_text": "entire sky covered with clouds",
+      "unit_as_printed": null,
+      "badge": "Observed",
+      "badge_basis": "observer's record of cloud cover and type",
+      "quote": "Q-H-d1-text",
+      "witnesses": [
+        {
+          "id": "rx",
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "the entire sky was covered with clouds, viz: cumulo-stratus at 7 a. m. and 2 p. m.; and cirro-stratus at 9 p. m.",
+          "legibility": "clear",
+          "agrees": true,
+          "exact": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 2,
+        "level": "two_independent_paths"
+      }
+    },
+    {
+      "id": "W-1863-07-02-sky",
+      "date": "1863-07-02",
+      "element": "sky",
+      "slot": "8 a.m. covered; 2 p.m. three-tenths clear; 9 p.m. cirrus",
+      "value": null,
+      "value_text": "sky still covered (cumulo-stratus) at 8 a.m.; three-tenths clear at 2 p.m.; cirrus clouds at 9 p.m.",
+      "unit_as_printed": null,
+      "badge": "Observed",
+      "badge_basis": "observer's record of cloud cover and type",
+      "quote": "Q-H-d2-text",
+      "witnesses": [
+        {
+          "id": "rx",
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "At 8 a. m., sky still covered, (cumulo-stratus). At 2 p. m., three-tenths are clear. At 9 p. m., there are cirrus clouds",
+          "legibility": "clear",
+          "agrees": true,
+          "exact": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 2,
+        "level": "two_independent_paths"
+      },
+      "note": "The 8 a.m. observation is printed as 8 a.m. (the table heading for the day says 7 A.M.)."
+    },
+    {
+      "id": "W-1863-07-03-sky",
+      "date": "1863-07-03",
+      "element": "sky",
+      "slot": "8 a.m. complete cumulo-stratus; 2 p.m. four-tenths covered (cumulus); 9 p.m. seven-tenths cumulus",
+      "value": null,
+      "value_text": "completely covered at 8 a.m.; four-tenths covered at 2 p.m. with cumulus or the massive thunder-cloud of summer; seven-tenths cumulus at 9 p.m.",
+      "unit_as_printed": null,
+      "badge": "Observed",
+      "badge_basis": "observer's record of cloud cover and type",
+      "quote": "Q-H-d3-text",
+      "witnesses": [
+        {
+          "id": "rx",
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "At 8 a. m., sky again completely covered with cumulo-stratus clouds; at 2 p. m., only four-tenths of the heavens are covered, but with cumulus or the massive thunder-cloud of summer; at 9 p. m., seven-tenths cumulus.",
+          "legibility": "clear",
+          "agrees": true,
+          "exact": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 2,
+        "level": "two_independent_paths"
+      }
+    },
+    {
+      "id": "W-1863-07-03-thunder",
+      "date": "1863-07-03",
+      "element": "thunder",
+      "slot": "6 p.m.",
+      "value": null,
+      "value_text": "Thunder storm in neighborhood at 6 p. m. The thunder seemed tame, after the artillery firing of the afternoon.",
+      "unit_as_printed": null,
+      "badge": "Observed",
+      "badge_basis": "observer's note; a thunderstorm \"in neighborhood\", not necessarily over the field",
+      "quote": "Q-H-thunder",
+      "witnesses": [
+        {
+          "id": "rx",
+          "agrees": true
+        },
+        {
+          "id": "ecw",
+          "agrees": true
+        },
+        {
+          "id": "ecw-image",
+          "read": "Thunder storm in neighborhood at 6 p. m. The thunder seemed tame, after the artillery firing of the afternoon.",
+          "legibility": "clear",
+          "agrees": true,
+          "exact": true
+        }
+      ],
+      "verification": {
+        "independent_paths_agreeing": 2,
+        "level": "two_independent_paths"
+      },
+      "note": "These words are in the 1885 article by H. E. Jacobs, NOT in the 1864 Notes (searched in all three scans: absent). The pitch attributes them to the Notes."
+    },
+    {
+      "id": "W-1863-07-05-showers",
+      "date": "1863-07-05",
+      "element": "precipitation",
+      "slot": "slight showers on the 5th and the 7th",
+      "value": null,
+      "value_text": "slight showers on the 5th and 7th",
+      "unit_as_printed": null,
+      "badge": "Observed",
+      "badge_basis": "observer's record",
+      "quote": "Q-H-after",
+      "date_end": "1863-07-07",
+      "verification": {
+        "independent_paths_agreeing": 1,
+        "level": "single_transcription"
+      }
+    },
+    {
+      "id": "W-1863-06-25-rain-night",
+      "date": "1863-06-25",
+      "element": "precipitation",
+      "slot": "night of Thursday June 25",
+      "value": null,
+      "value_text": "heavy rain that night",
+      "unit_as_printed": null,
+      "badge": "Reported",
+      "badge_basis": "a narrative statement by Michael Jacobs in a book published in 1864; not a recorded observation",
+      "quote": "Q-N-rain-jun25",
+      "verification": {
+        "independent_paths_agreeing": 3,
+        "level": "two_independent_scans"
+      },
+      "note": "Agrees in kind with the 1885 article (\"June 25th, at 8 p. m., a rain began\")."
+    },
+    {
+      "id": "W-1863-06-26-wet-brigade",
+      "date": "1863-06-26",
+      "element": "precipitation",
+      "slot": "Friday June 26, a Confederate brigade passing through the town",
+      "value": null,
+      "value_text": "rain \"during the most of the day\"; a marching brigade wet and heated; smell remark",
+      "unit_as_printed": null,
+      "badge": "Reported",
+      "badge_basis": "a narrative statement by Michael Jacobs in a book published in 1864; not a recorded observation",
+      "quote": "Q-N-wet-jun26",
+      "verification": {
+        "independent_paths_agreeing": 3,
+        "level": "two_independent_scans"
+      },
+      "note": "The line the pitch calls \"wet from the rain\" is dated Friday June 26 and is about a marching Confederate brigade and the smell of its men; it is not a description of July 1 or of the battlefield."
+    },
+    {
+      "id": "W-1863-07-02-morning",
+      "date": "1863-07-02",
+      "element": "sky",
+      "slot": "morning of Thursday July 2",
+      "value": null,
+      "value_text": "pleasant morning, calm air, sun shining mildly through a smoky atmosphere",
+      "unit_as_printed": null,
+      "badge": "Reported",
+      "badge_basis": "a narrative statement by Michael Jacobs in a book published in 1864; not a recorded observation",
+      "quote": "Q-N-morning-jul2",
+      "verification": {
+        "independent_paths_agreeing": 3,
+        "level": "two_independent_scans"
+      },
+      "note": "Contrast: Haskell, a staff officer riding up the Taneytown road, wrote \"thick and sultry, the sky overcast with low, vapory clouds\" (see contested.C-morning-jul2)."
+    },
+    {
+      "id": "W-1863-07-02-sunset-ref",
+      "date": "1863-07-02",
+      "element": "sun_reference",
+      "slot": "July 2 evening",
+      "value": null,
+      "value_text": "the Sixth corps arrived \"at about sunset\"",
+      "unit_as_printed": null,
+      "badge": "Reported",
+      "badge_basis": "a narrative statement by Michael Jacobs in a book published in 1864; not a recorded observation",
+      "quote": "Q-N-sunset-jul2",
+      "verification": {
+        "independent_paths_agreeing": 3,
+        "level": "two_independent_scans"
+      },
+      "note": "Computed sunset July 2 at Gettysburg: 19:32 local mean time (astro_by_day.json)."
+    },
+    {
+      "id": "W-1863-07-02-dusk-ref",
+      "date": "1863-07-02",
+      "element": "sun_reference",
+      "slot": "July 2 evening",
+      "value": null,
+      "value_text": "the enemy advanced \"under cover of the forest and approaching darkness\"",
+      "unit_as_printed": null,
+      "badge": "Reported",
+      "badge_basis": "a narrative statement by Michael Jacobs in a book published in 1864; not a recorded observation",
+      "quote": "Q-N-dark-jul2",
+      "verification": {
+        "independent_paths_agreeing": 3,
+        "level": "two_independent_scans"
+      }
+    },
+    {
+      "id": "W-1863-07-03-dawn-ref",
+      "date": "1863-07-03",
+      "element": "sun_reference",
+      "slot": "July 3 dawn",
+      "value": null,
+      "value_text": "artillery opened \"at the dawn of day\"",
+      "unit_as_printed": null,
+      "badge": "Reported",
+      "badge_basis": "a narrative statement by Michael Jacobs in a book published in 1864; not a recorded observation",
+      "quote": "Q-N-dawn-jul3",
+      "verification": {
+        "independent_paths_agreeing": 3,
+        "level": "two_independent_scans"
+      },
+      "note": "Computed civil dawn July 3: 04:03 local mean time."
+    },
+    {
+      "id": "W-1863-07-03-sunrise-ref",
+      "date": "1863-07-03",
+      "element": "sun_reference",
+      "slot": "July 3 sunrise",
+      "value": null,
+      "value_text": "infantry attack \"at sunrise\"",
+      "unit_as_printed": null,
+      "badge": "Reported",
+      "badge_basis": "a narrative statement by Michael Jacobs in a book published in 1864; not a recorded observation",
+      "quote": "Q-N-sunrise-jul3",
+      "verification": {
+        "independent_paths_agreeing": 3,
+        "level": "two_independent_scans"
+      },
+      "note": "Computed sunrise July 3: 04:36 local mean time."
+    },
+    {
+      "id": "W-1863-07-03-cannonade-clock",
+      "date": "1863-07-03",
+      "element": "clock_reference",
+      "slot": "July 3 afternoon",
+      "value": null,
+      "value_text": "\"At seven minutes past 1 p. m.\" the cannonade began (clock reference, not weather)",
+      "unit_as_printed": null,
+      "badge": "Reported",
+      "badge_basis": "a narrative statement by Michael Jacobs in a book published in 1864; not a recorded observation",
+      "quote": "Q-N-cannonade-jul3",
+      "verification": {
+        "independent_paths_agreeing": 3,
+        "level": "two_independent_scans"
+      },
+      "note": "Jacobs gives a clock time to the minute; other witnesses say \"about 1\" or \"1.30\" (see the conflict ledger)."
+    },
+    {
+      "id": "W-1863-07-03-thunder-simile",
+      "date": "1863-07-03",
+      "element": "simile",
+      "slot": "July 3 afternoon",
+      "value": null,
+      "value_text": "the noise of the guns compared to \"the most terrific thunder-storm ever witnessed\"",
+      "unit_as_printed": null,
+      "badge": "Reported",
+      "badge_basis": "a narrative statement by Michael Jacobs in a book published in 1864; not a recorded observation",
+      "quote": "Q-N-thunder-simile",
+      "verification": {
+        "independent_paths_agreeing": 3,
+        "level": "two_independent_scans"
+      },
+      "note": "A SIMILE for the guns. It is not evidence of a thunderstorm; the observer's own 6 p.m. thunderstorm note is the 1885 entry."
+    }
+  ],
+  "days": [
+    {
+      "date": "1863-06-25",
+      "weekday": "Thursday",
+      "temperature_F": {
+        "7am": {
+          "value": 59,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        },
+        "2pm": {
+          "value": 51,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        },
+        "9pm": {
+          "value": 63,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        }
+      },
+      "observation_ids": ["W-1863-06-25-temp-7am", "W-1863-06-25-temp-2pm", "W-1863-06-25-temp-9pm", "W-1863-06-25-precip-total", "W-1863-06-15-sky-clear-statement", "W-1863-06-25-rain-night"]
+    },
+    {
+      "date": "1863-06-26",
+      "weekday": "Friday",
+      "temperature_F": {
+        "7am": {
+          "value": 60,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        },
+        "2pm": {
+          "value": 63,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        },
+        "9pm": {
+          "value": 62,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        }
+      },
+      "observation_ids": ["W-1863-06-26-temp-7am", "W-1863-06-26-temp-2pm", "W-1863-06-26-temp-9pm", "W-1863-06-25-precip-total", "W-1863-06-15-sky-clear-statement", "W-1863-06-26-wet-brigade"]
+    },
+    {
+      "date": "1863-06-27",
+      "weekday": "Saturday",
+      "temperature_F": {
+        "7am": {
+          "value": 61,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        },
+        "2pm": {
+          "value": 63,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        },
+        "9pm": {
+          "value": 67,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        }
+      },
+      "observation_ids": ["W-1863-06-27-temp-7am", "W-1863-06-27-temp-2pm", "W-1863-06-27-temp-9pm", "W-1863-06-25-precip-total", "W-1863-06-15-sky-clear-statement", "W-1863-06-27-sky"]
+    },
+    {
+      "date": "1863-06-28",
+      "weekday": "Sunday",
+      "temperature_F": {
+        "7am": {
+          "value": 63,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        },
+        "2pm": {
+          "value": 67,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        },
+        "9pm": {
+          "value": 68,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        }
+      },
+      "observation_ids": ["W-1863-06-28-temp-7am", "W-1863-06-28-temp-2pm", "W-1863-06-28-temp-9pm", "W-1863-06-15-sky-clear-statement", "W-1863-06-27-sky"]
+    },
+    {
+      "date": "1863-06-29",
+      "weekday": "Monday",
+      "temperature_F": {
+        "7am": {
+          "value": 66,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        },
+        "2pm": {
+          "value": 72,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        },
+        "9pm": {
+          "value": 69,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        }
+      },
+      "observation_ids": ["W-1863-06-29-temp-7am", "W-1863-06-29-temp-2pm", "W-1863-06-29-temp-9pm", "W-1863-06-15-sky-clear-statement", "W-1863-06-27-sky"]
+    },
+    {
+      "date": "1863-06-30",
+      "weekday": "Tuesday",
+      "temperature_F": {
+        "7am": {
+          "value": 68,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        },
+        "2pm": {
+          "value": 79,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        },
+        "9pm": {
+          "value": 71,
+          "badge": "Measured",
+          "verification": "single_transcription"
+        }
+      },
+      "observation_ids": ["W-1863-06-30-temp-7am", "W-1863-06-30-temp-2pm", "W-1863-06-30-temp-9pm", "W-1863-06-15-sky-clear-statement", "W-1863-06-30-sky", "W-1863-06-30-wind"]
+    },
+    {
+      "date": "1863-07-01",
+      "weekday": "Wednesday",
+      "temperature_F": {
+        "7am": {
+          "value": 72,
+          "badge": "Measured",
+          "verification": "two_independent_paths"
+        },
+        "2pm": {
+          "value": 76,
+          "badge": "Measured",
+          "verification": "two_independent_paths"
+        },
+        "9pm": {
+          "value": 74,
+          "badge": "Measured",
+          "verification": "two_independent_paths"
+        }
+      },
+      "observation_ids": ["W-1863-07-01-temp-7am", "W-1863-07-01-temp-2pm", "W-1863-07-01-temp-9pm", "W-1863-07-01-wind-speed", "W-1863-07-01-wind-direction", "W-1863-06-15-sky-clear-statement", "W-1863-07-01-sky"]
+    },
+    {
+      "date": "1863-07-02",
+      "weekday": "Thursday",
+      "temperature_F": {
+        "7am": {
+          "value": 74,
+          "badge": "Measured",
+          "verification": "two_independent_paths"
+        },
+        "2pm": {
+          "value": 81,
+          "badge": "Measured",
+          "verification": "two_independent_paths"
+        },
+        "9pm": {
+          "value": 76,
+          "badge": "Measured",
+          "verification": "two_independent_paths"
+        }
+      },
+      "observation_ids": ["W-1863-07-02-temp-7am", "W-1863-07-02-temp-2pm", "W-1863-07-02-temp-9pm", "W-1863-07-02-wind-speed", "W-1863-06-15-sky-clear-statement", "W-1863-07-02-sky", "W-1863-07-02-morning", "W-1863-07-02-sunset-ref", "W-1863-07-02-dusk-ref"]
+    },
+    {
+      "date": "1863-07-03",
+      "weekday": "Friday",
+      "temperature_F": {
+        "7am": {
+          "value": 73,
+          "badge": "Measured",
+          "verification": "two_independent_paths"
+        },
+        "2pm": {
+          "value": 87,
+          "badge": "Measured",
+          "verification": "two_independent_paths"
+        },
+        "9pm": {
+          "value": 76,
+          "badge": "Measured",
+          "verification": "two_independent_paths"
+        }
+      },
+      "observation_ids": ["W-1863-07-03-temp-7am", "W-1863-07-03-temp-2pm", "W-1863-07-03-temp-9pm", "W-1863-07-03-temp-july-max", "W-1863-07-03-wind-direction", "W-1863-06-15-sky-clear-statement", "W-1863-07-03-sky", "W-1863-07-03-thunder", "W-1863-07-03-dawn-ref", "W-1863-07-03-sunrise-ref", "W-1863-07-03-cannonade-clock", "W-1863-07-03-thunder-simile"]
+    },
+    {
+      "date": "1863-07-04",
+      "weekday": "Saturday",
+      "temperature_F": {
+        "7am": {
+          "value": 69,
+          "badge": "Measured",
+          "verification": "rx_plus_compatible_damaged_image"
+        },
+        "2pm": {
+          "value": 72,
+          "badge": "Measured",
+          "verification": "two_independent_paths"
+        },
+        "9pm": {
+          "value": 70,
+          "badge": "Measured",
+          "verification": "rx_plus_compatible_damaged_image"
+        }
+      },
+      "observation_ids": ["W-1863-07-04-temp-7am", "W-1863-07-04-temp-2pm", "W-1863-07-04-temp-9pm", "W-1863-07-04-precip-total", "W-1863-06-15-sky-clear-statement"]
+    },
+    {
+      "date": "1863-07-05",
+      "weekday": "Sunday",
+      "temperature_F": null,
+      "observation_ids": ["W-1863-07-04-precip-total", "W-1863-06-15-sky-clear-statement", "W-1863-07-05-showers"]
+    },
+    {
+      "date": "1863-07-06",
+      "weekday": "Monday",
+      "temperature_F": null,
+      "observation_ids": ["W-1863-06-15-sky-clear-statement", "W-1863-07-05-showers"]
+    },
+    {
+      "date": "1863-07-07",
+      "weekday": "Tuesday",
+      "temperature_F": null,
+      "observation_ids": ["W-1863-06-15-sky-clear-statement", "W-1863-07-05-showers"]
+    },
+    {
+      "date": "1863-07-08",
+      "weekday": "Wednesday",
+      "temperature_F": null,
+      "observation_ids": ["W-1863-07-08-precip-total", "W-1863-06-15-sky-clear-statement"]
+    }
+  ],
+  "contested": [
+    {
+      "id": "C-wind-jul1",
+      "observation": "W-1863-07-01-wind-speed",
+      "question": "How fast was the wind on July 1 (and, by inheritance, July 2)?",
+      "values": [
+        {
+          "value": 2,
+          "unit": "miles per hour",
+          "sources": ["rx"]
+        },
+        {
+          "value": 12,
+          "unit": "miles per hour",
+          "sources": ["ecw", "ecw-image"]
+        }
+      ],
+      "status": "open",
+      "shown_first": null,
+      "shown_first_rule": "No value is shown first: both are shown with their sources until the printed page or the form is read. A page may state \"Contested: 2 or 12 miles per hour\"."
+    },
+    {
+      "id": "C-morning-jul2",
+      "question": "What was the morning of July 2 like?",
+      "values": [
+        {
+          "summary": "pleasant, calm, sun shining mildly through a smoky atmosphere",
+          "witness": "Michael Jacobs, Notes (1864), p. 32",
+          "quote": "Q-N-morning-jul2",
+          "badge": "Reported"
+        },
+        {
+          "summary": "thick and sultry, sky overcast with low, vapory clouds",
+          "witness": "Frank A. Haskell, The Battle of Gettysburg (Wisconsin History Commission reprint, 1908), p. 20",
+          "quote": "Q-haskell-morning",
+          "badge": "Reported"
+        }
+      ],
+      "status": "open",
+      "note": "Different places and hours: Jacobs was in the town; Haskell rode with the Second Corps up the Taneytown road before six. Written down at different times (Jacobs 1863-64; Haskell a letter of July 1863 first printed in 1898). Both are shown."
+    }
+  ],
+  "pitch_checks": [
+    {
+      "id": "PC1",
+      "claim": "July 2: readings of 74, 81 and 76 degrees",
+      "where": "PITCH.md idea 1",
+      "computed": "74, 81, 76",
+      "agrees": true
+    },
+    {
+      "id": "PC2",
+      "claim": "July 3, 2 p.m., 87 degrees is the highest of the readings in the transcribed June 25 to July 8 record",
+      "where": "PITCH.md idea 1",
+      "computed": "maximum of the 30 tabulated readings (June 25 to July 4) = 87 (1863-07-03 2pm); no tabulated readings exist for July 5-8",
+      "agrees": true
+    },
+    {
+      "id": "PC3",
+      "claim": "Thunder storm in the neighborhood at 6 p.m. on July 3; the thunder \"seemed tame, after the artillery firing\"",
+      "where": "PITCH.md idea 1",
+      "computed": "present in the 1885 article (two typed witnesses and the image); ABSENT from all three 1864 scans of the Notes",
+      "agrees": true,
+      "correction": "The pitch cites the Notes (ENV-F11); the sentence is in H. E. Jacobs's 1885 article."
+    },
+    {
+      "id": "PC4",
+      "claim": "Rainfall 1.39 inches over July 4-5",
+      "where": "PITCH.md idea 1",
+      "computed": "1.390 aggregating July 4 6 a.m. to July 5 4 a.m. (typed witness; the image digit is damaged and compatible)",
+      "agrees": true,
+      "note": "unit \"inches\" is inferred, not printed beside this figure"
+    },
+    {
+      "id": "PC5",
+      "claim": "Jacobs: \"pleasant, the air was calm, the sun shone mildly through a smoky atmosphere\" on the morning of July 2",
+      "where": "PITCH.md idea 1",
+      "computed": "Notes (1864) p. 32, found in three scans",
+      "agrees": true
+    },
+    {
+      "id": "PC6",
+      "claim": "Jacobs's \"wet from the rain\" line is dated June 26, not July 1",
+      "where": "PITCH.md credibility notes",
+      "computed": "Notes (1864) p. 16, three scans; the same page continues \"General Early ... remained in town over Friday night\", and the heading \"Friday, June 26.\" is on p. 14",
+      "agrees": true
+    },
+    {
+      "id": "PC7",
+      "claim": "Wind on July 3: about 12 mph in one transcription, about 2 mph in another",
+      "where": "PITCH.md conflict ledger row 14 and idea 1",
+      "computed": "The conflict (2 against 12 miles per hour) is in the paragraph for the FIRST DAY (July 1); July 2 says \"wind as on preceding day\"; July 3 gives \"Wind S. S. W., very gentle\" with no speed",
+      "agrees": false,
+      "correction": "Misdated in the pitch: the conflict is about July 1 (inherited by July 2), not July 3."
+    },
+    {
+      "id": "PC8",
+      "claim": "Jacobs timed the July 3 cannonade at seven minutes past 1 p.m.",
+      "where": "PITCH.md idea 1",
+      "computed": "Notes (1864) p. 41, found in three scans: \"At seven minutes past 1 p. m., the awful and portentous silence was broken.\"",
+      "agrees": true
+    },
+    {
+      "id": "PC9",
+      "claim": "Weather figures come from Jacobs's Notes on the Rebel Invasion (the task brief and ENV-F10/F11)",
+      "where": "task brief",
+      "computed": "The Notes contain no thermometer table and no wind speed; the figures are in the 1885 newspaper article by his son",
+      "agrees": false,
+      "correction": "Source of the numbers is jacobs-meteorology-1885, not jacobs-notes-1864."
+    }
+  ],
+  "warnings": ["The 1885 article is known to this project only through two typed web transcriptions and one low-resolution image. No scan of the Star and Sentinel page was located (LoC: not digitised), and the original observation forms (APS, NARA, NCEI microfilm) were not seen. [OWNER TO PROVIDE or commission a read of the printed page or the form.]", "The Civil War Rx transcription contains character-recognition style slips (\"1, - 280\", \"87(\", \"1.300.The maximum\"); a dropped digit in \"(2 miles per hour)\" is therefore plausible, but nothing here decides it.", "The IA item notesonrebelinva00jaco_0 is the 1888 fifth, revised edition; it was not used. Use the 1864 scans (three used here).", "Measured means an instrument reading; the cloud, wind-direction and thunder entries are Observed; Michael Jacobs's narrative lines are Reported.", "No per-tick temperature may be drawn from these three daily readings; the pitch already says bands, not points.", "Rights: the Notes (1864) and the article (1885) are public domain by date. NCEI images were never fetched (controlled access). Nese and Harding (2025) is copyrighted and was not used."],
+  "verification_summary": {
+    "observations": 56,
+    "by_level": {
+      "single_transcription": 23,
+      "two_independent_paths": 16,
+      "rx_plus_compatible_damaged_image": 5,
+      "garbled_single_transcription": 1,
+      "conflict": 2,
+      "two_independent_scans": 9
+    },
+    "temperature_readings": 30,
+    "temperature_by_level": {
+      "single_transcription": 18,
+      "two_independent_paths": 10,
+      "rx_plus_compatible_damaged_image": 2
+    },
+    "values_confirmed_by_two_independent_paths": 10,
+    "two_paths_definition": "path 1 = the Civil War Rx typed text; path 2 = the clipping (Emerging Civil War typed it, and the Claude model read the image). A damaged image cell that is merely compatible does not count as a second path.",
+    "numbers_contested": 2
+  }
+}

@@ -1,0 +1,2683 @@
+{
+  "schema_version": 1,
+  "dataset": "astro_by_day",
+  "title": "Sun and moon at Gettysburg, June 25 to July 7, 1863",
+  "status": "Computed (not measured). The clock this is tied to (local mean time) is a convention of this project, not a record of any 1863 clock.",
+  "site": {
+    "name": "Gettysburg, Pennsylvania (nominal point)",
+    "lat_north": 39.8309,
+    "lon_east": -77.2311,
+    "elevation_m_assumed": 0,
+    "note": "Sea-level observer, the USNO default. The town is about 150 m above sea level; a real horizon (the ridges, Seminary Ridge and the Round Tops) would change rise and set times by minutes and is not modelled."
+  },
+  "time_conventions": {
+    "primary": "LMT",
+    "lmt_definition": "Local mean time at the site longitude: LMT = UT + longitude_east / 15 h. At 77.2311 W that is UT - 5 h 8.92 min.",
+    "lmt_offset_hours": -5.14874,
+    "est_equivalent_offset_hours": -5,
+    "est_minus_lmt_min": 8.92,
+    "no_standard_time_1863": "There was no standard time in 1863. Towns set clocks to local mean solar time or to a railway's own time; US standard time zones came with the railroads on 18 November 1883 (source wikipedia-time-us). LMT is therefore a convention, and the EST-equivalent column is offered because modern almanacs (USNO tz=-5) and the pitch quote it.",
+    "day_boundaries": "A day is a local-mean-time calendar day [00:00, 24:00) LMT. An event can fall on a different EST-equivalent date (field est_date).",
+    "rounding": "hh:mm values are rounded to the nearest minute (half up); lmt_hms shows seconds as computed. Real accuracy is about +-1 minute (ephemeris and refraction model), so no claim finer than one minute is made.",
+    "tick_clock": "The 675-tick clock is a CANDIDATE (data-src/time/time_anchors.json, version 2026-09-30.1, release \"candidate\"; five anchors await a historian). astro_by_day.json does not depend on it. astro_by_tick.json depends on it only through tools/environment/tickclock.mjs tickToLmtMinutes() and embeds the anchors it used."
+  },
+  "definitions": {
+    "sunrise_sunset": "Upper limb of the sun on the horizon, with 34 arcmin of standard atmospheric refraction, observer at sea level.",
+    "civil_twilight": "Centre of the sun 6 degrees below the horizon (civil_dawn, civil_dusk). Nautical: 12 degrees. (USNO's one-day API lists civil twilight only, so nautical times are cross-checked by methods A and B only.)",
+    "moonrise_moonset": "Upper limb of the moon on the horizon, topocentric, 34 arcmin standard refraction.",
+    "transit": "Upper transit: the body crosses the local meridian.",
+    "illumination": "Illuminated fraction of the lunar disc, in percent, at 12:00 LMT (illumination_noon_lmt_pct) and at 12:00 EST-equivalent (illumination_noon_est_pct, the instant at which USNO's integer percentage was found to agree).",
+    "phase_name": "Name of the principal phase (New Moon, First Quarter, Full Moon, Last Quarter) if that phase falls inside the local-mean-time calendar day; otherwise the octant of the moon's ecliptic elongation at 12:00 LMT (0-90 Waxing Crescent, 90-180 Waxing Gibbous, 180-270 Waning Gibbous, 270-360 Waning Crescent). USNO instead names the state at noon, so labels can differ on a quarter-phase day (the numbers do not)."
+  },
+  "sources": [
+    {
+      "id": "astronomy-engine",
+      "kind": "software",
+      "tier": "computed",
+      "title": "Astronomy Engine 2.1.19 (Don Cross), MIT licence",
+      "url": "https://github.com/cosinekitty/astronomy",
+      "note": "Sun/Moon positions, SearchRiseSet (upper limb, standard refraction), SearchAltitude, SearchHourAngle, SearchMoonQuarter, Illumination, MoonPhase. Used as the primary generator."
+    },
+    {
+      "id": "own-meeus",
+      "kind": "software",
+      "tier": "computed",
+      "title": "tools/environment/solar.mjs: dependency-free implementation of J. Meeus, Astronomical Algorithms (2nd ed., 1998) ch. 10, 12, 22, 25, 40, 47 (truncated), 48",
+      "url": null,
+      "note": "Independent second implementation; shares no code or tables with astronomy-engine. Moon series truncated to the largest terms (about 0.02 degree)."
+    },
+    {
+      "id": "usno-api",
+      "kind": "authority",
+      "tier": "A-authority",
+      "title": "U.S. Naval Observatory, Astronomical Applications Department, Complete Sun and Moon Data for One Day (API v4.0.1, endpoint rstt/oneday)",
+      "url": "https://aa.usno.navy.mil/data/api",
+      "note": "US Government work (public domain). Returns whole minutes only; tz must be a multiple of 0.25 h, so tz=-5 (EST-equivalent) was requested and local mean time derived. One request per day, cached; never called from visitors' browsers."
+    },
+    {
+      "id": "nasa-espenak",
+      "kind": "authority",
+      "tier": "A-authority",
+      "title": "Fred Espenak, NASA/GSFC, Phases of the Moon: 1801 to 1900 (Universal Time)",
+      "url": "https://eclipse.gsfc.nasa.gov/phase/phases1801.html",
+      "note": "Principal phases to the minute in UT. NASA credit line: Fred Espenak, NASA/GSFC (eclipse.gsfc.nasa.gov)."
+    },
+    {
+      "id": "wikipedia-time-us",
+      "kind": "background",
+      "tier": "B-background",
+      "title": "Wikipedia, \"Time in the United States\" (CC BY-SA 4.0)",
+      "url": "https://en.wikipedia.org/wiki/Time_in_the_United_States",
+      "note": "Background only: before November 18, 1883 many towns set clocks to local mean solar time; four standard time zones were introduced by the railroads on that date."
+    }
+  ],
+  "methods": [
+    {
+      "id": "A",
+      "name": "astronomy-engine",
+      "version": "2.1.19",
+      "role": "primary generator",
+      "licence": "MIT",
+      "note": "Sun and Moon topocentric positions with aberration and nutation, observer at sea level (0 m), rise/set of the upper limb with 34 arcmin standard refraction."
+    },
+    {
+      "id": "B",
+      "name": "tools/environment/solar.mjs",
+      "version": "in-repo",
+      "role": "independent deterministic re-computation (Meeus), compared on every value",
+      "licence": "project"
+    },
+    {
+      "id": "C",
+      "name": "USNO AA API rstt/oneday v4.0.1, tz=-5",
+      "role": "authority cross-check (whole minutes)",
+      "retrieval": "one request per day, 2026-10-04",
+      "hashes": {
+        "1863-06-25": "4f2d7d5f865bb6243f9de8a9cd2a026b7e1a38da6908dcaa193a3b90adf237ef",
+        "1863-06-26": "6edace1475569cb859d09fc92e9d03a8db8c6d1363e060265859ffaa67767a8e",
+        "1863-06-27": "860307c6b250b75b24ccf2b6f0106ebec8dda4c9385ba24926d037cae1b25da7",
+        "1863-06-28": "5b30c9d5dfd7e23594a2a95793bbe697c19cd996bcb3de503581c95e48e7dec0",
+        "1863-06-29": "bb5ed3ea70dbb35748769b8dd2367d093bd3bef236b69f2c718af80d3aa99bf1",
+        "1863-06-30": "4d0a0e86ab0251e88934685d8857b0f4bfb774592e3d5dadac57c3674411f3f9",
+        "1863-07-01": "649ab53cc0530495f752de4c4dc39e3e1ec2bdb7c2e17709bd9bb3288625b346",
+        "1863-07-02": "9b8f5c126f5e069ce661fb3123a5327901751599365f64a028fae1d5e3bd6657",
+        "1863-07-03": "5a9c5676c7bc3d741a444fa0fe7315fd4763cb3eeefa995a0dc3ad0bc09fd023",
+        "1863-07-04": "2254518984406117d3482f97e48953b22a818898fc31cc96c4c29d8ea2b8109d",
+        "1863-07-05": "5251f1f57f26a3968e6f9164f754f73425df05453f8288091d7cab788bb82a54",
+        "1863-07-06": "06fdf93e6fb3c2547a5ad01eab2d8551d7cce18710c17472de4580389e3fba7d",
+        "1863-07-07": "095bb9f93c44320a4345413838d73189da4dfba57d4c371757ae829619fc7fb7"
+      }
+    },
+    {
+      "id": "D",
+      "name": "NASA/GSFC Espenak phases1801.html",
+      "role": "authority cross-check of principal phases (UT, whole minutes)",
+      "sha256": "f2bc7758faf1ab693991001f3e68b91a3005dbcacc53d322a43571833dbc8cac",
+      "retrieved": "2026-10-04"
+    }
+  ],
+  "badge_legend": {
+    "Computed": "derived from an ephemeris, not observed",
+    "Measured": "an instrument reading (none in this file)",
+    "Modelled": "an estimate from a model (none in this file)"
+  },
+  "cross_check_summary": {
+    "usno": {
+      "events_compared": 102,
+      "events_matched_but_outside_the_13_lmt_days": 1,
+      "events_unmatched": [],
+      "computed_events_missing_from_usno_list": [],
+      "max_abs_diff_min": 0.5,
+      "mean_abs_diff_min": 0.24,
+      "within_0_5_min": 102,
+      "within_1_min": 102,
+      "max_abs_diff_min_by_event": {
+        "civil_dawn": 0.42,
+        "sunrise": 0.42,
+        "solar_transit": 0.45,
+        "sunset": 0.41,
+        "civil_dusk": 0.45,
+        "moonrise": 0.5,
+        "moon_transit": 0.48,
+        "moonset": 0.5
+      },
+      "note": "diff = astronomy-engine minus USNO, in minutes, where USNO lists whole minutes (so a diff up to +-0.5 is rounding).",
+      "illumination_integer_agrees_at_est_noon": "13 of 13",
+      "illumination_note": "USNO lists an integer percentage; ours at 12:00 EST-equivalent (2 decimals) is compared after rounding to an integer, and the largest unrounded difference is given in max_abs_illumination_diff_pct.",
+      "max_abs_illumination_diff_pct": 0.48,
+      "phase_label_disagreements": ["1863-07-07: ours Last Quarter, USNO Waning Gibbous"]
+    },
+    "own_implementation": {
+      "events_compared": 128,
+      "max_abs_diff_seconds": 4.3,
+      "worst": {
+        "date": "1863-07-04",
+        "key": "moonset",
+        "s": -4.3
+      },
+      "max_abs_illumination_diff_pct": 0.008,
+      "events_found_by_one_method_only": []
+    },
+    "nasa": {
+      "principal_phases_compared": 5,
+      "max_abs_diff_min": 0.93,
+      "note": "NASA lists UT to the minute and appears to truncate seconds (every astronomy-engine minus NASA difference falls in [0, 1) minute), so a difference under one minute is rounding, not disagreement.",
+      "own_vs_a_max_abs_min": 0.96
+    }
+  },
+  "principal_phases": [
+    {
+      "phase": "New Moon",
+      "utc": "1863-06-16T07:36:56Z",
+      "lmt_date": "1863-06-16",
+      "lmt": "02:28",
+      "est_date": "1863-06-16",
+      "est": "02:37",
+      "badge": "Computed",
+      "method": "astronomy-engine",
+      "cites": ["astronomy-engine", "nasa-espenak"],
+      "cross_check": {
+        "nasa_ut": "1863-06-16 07:36",
+        "nasa_text": "Jun 16 07:36",
+        "a_minus_nasa_min": 0.93,
+        "own_minus_a_min": -0.94
+      }
+    },
+    {
+      "phase": "First Quarter",
+      "utc": "1863-06-24T10:32:03Z",
+      "lmt_date": "1863-06-24",
+      "lmt": "05:23",
+      "est_date": "1863-06-24",
+      "est": "05:32",
+      "badge": "Computed",
+      "method": "astronomy-engine",
+      "cites": ["astronomy-engine", "nasa-espenak"],
+      "cross_check": {
+        "nasa_ut": "1863-06-24 10:32",
+        "nasa_text": "Jun 24 10:32",
+        "a_minus_nasa_min": 0.05,
+        "own_minus_a_min": -0.96
+      }
+    },
+    {
+      "phase": "Full Moon",
+      "utc": "1863-07-01T06:46:29Z",
+      "lmt_date": "1863-07-01",
+      "lmt": "01:38",
+      "est_date": "1863-07-01",
+      "est": "01:46",
+      "badge": "Computed",
+      "method": "astronomy-engine",
+      "cites": ["astronomy-engine", "nasa-espenak"],
+      "cross_check": {
+        "nasa_ut": "1863-07-01 06:46",
+        "nasa_text": "Jul 1 06:46",
+        "a_minus_nasa_min": 0.49,
+        "own_minus_a_min": -0.58
+      }
+    },
+    {
+      "phase": "Last Quarter",
+      "utc": "1863-07-07T22:29:13Z",
+      "lmt_date": "1863-07-07",
+      "lmt": "17:20",
+      "est_date": "1863-07-07",
+      "est": "17:29",
+      "badge": "Computed",
+      "method": "astronomy-engine",
+      "cites": ["astronomy-engine", "nasa-espenak"],
+      "cross_check": {
+        "nasa_ut": "1863-07-07 22:29",
+        "nasa_text": "Jul 7 22:29",
+        "a_minus_nasa_min": 0.22,
+        "own_minus_a_min": 0.11
+      }
+    },
+    {
+      "phase": "New Moon",
+      "utc": "1863-07-15T22:54:12Z",
+      "lmt_date": "1863-07-15",
+      "lmt": "17:45",
+      "est_date": "1863-07-15",
+      "est": "17:54",
+      "badge": "Computed",
+      "method": "astronomy-engine",
+      "cites": ["astronomy-engine", "nasa-espenak"],
+      "cross_check": {
+        "nasa_ut": "1863-07-15 22:54",
+        "nasa_text": "Jul 15 22:54",
+        "a_minus_nasa_min": 0.2,
+        "own_minus_a_min": -0.82
+      }
+    }
+  ],
+  "nasa_parsed_window": [
+    {
+      "phase": "New Moon",
+      "text": "Jun 16 07:36"
+    },
+    {
+      "phase": "First Quarter",
+      "text": "Jun 24 10:32"
+    },
+    {
+      "phase": "Full Moon",
+      "text": "Jul 1 06:46"
+    },
+    {
+      "phase": "Last Quarter",
+      "text": "Jul 7 22:29"
+    },
+    {
+      "phase": "New Moon",
+      "text": "Jul 15 22:54"
+    }
+  ],
+  "pitch_checks": [
+    {
+      "id": "P1",
+      "claim": "July 2, 1863: sunrise 04:35 and sunset 19:32 local mean time (04:44 and 19:41 EST), civil dusk 20:04 LMT",
+      "where": "PITCH.md idea 1 (USNO)",
+      "computed": "sunrise 04:35 LMT / 04:44 EST; sunset 19:32 LMT / 19:41 EST; civil dusk 20:04 LMT",
+      "agrees": true
+    },
+    {
+      "id": "P2",
+      "claim": "Moonrise on July 2, 1863 about 20:38 local mean time (20:47 EST), 97% lit",
+      "where": "PITCH.md idea 1 (NASA/USNO)",
+      "computed": "moonrise 20:38 LMT / 20:47 EST; illumination at noon 96.7%",
+      "agrees": true
+    },
+    {
+      "id": "P3",
+      "claim": "Moon rises about 66 minutes after sunset on July 2",
+      "where": "PITCH.md idea 1",
+      "computed": "66 min (rounded clock times)",
+      "agrees": true
+    },
+    {
+      "id": "P4",
+      "claim": "91% lit on July 3",
+      "where": "PITCH.md idea 1",
+      "computed": "91.1% at noon LMT",
+      "agrees": true
+    },
+    {
+      "id": "P5",
+      "claim": "Full moon July 1 at 06:46 UT (01:46 EST)",
+      "where": "PITCH.md idea 1 (NASA)",
+      "computed": "1863-07-01T06:46:29Z (01:46 EST, 01:38 LMT)",
+      "agrees": true
+    },
+    {
+      "id": "P6",
+      "claim": "The EST-to-local-mean-time shift is 8.9 minutes",
+      "where": "PITCH.md idea 1",
+      "computed": "8.92 min (77.2311 W / 15 = 5.14874 h; 5.14874 h - 5 h = 8.92 min)",
+      "agrees": true
+    }
+  ],
+  "days": [
+    {
+      "date": "1863-06-25",
+      "weekday": "Thursday",
+      "sun": {
+        "civil_dawn": {
+          "lmt": "04:00",
+          "lmt_hms": "03:59:39",
+          "est": "04:09",
+          "est_date": "1863-06-25",
+          "utc": "1863-06-25T09:08:35Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0,
+            "usno_est": "04:09",
+            "usno_est_date": "1863-06-25",
+            "a_minus_usno_min": -0.42
+          }
+        },
+        "sunrise": {
+          "lmt": "04:32",
+          "lmt_hms": "04:32:26",
+          "est": "04:41",
+          "est_date": "1863-06-25",
+          "utc": "1863-06-25T09:41:21Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.1,
+            "usno_est": "04:41",
+            "usno_est_date": "1863-06-25",
+            "a_minus_usno_min": 0.35
+          }
+        },
+        "solar_transit": {
+          "lmt": "12:02",
+          "lmt_hms": "12:02:15",
+          "est": "12:11",
+          "est_date": "1863-06-25",
+          "utc": "1863-06-25T17:11:10Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.2,
+            "usno_est": "12:11",
+            "usno_est_date": "1863-06-25",
+            "a_minus_usno_min": 0.17
+          }
+        },
+        "sunset": {
+          "lmt": "19:32",
+          "lmt_hms": "19:31:59",
+          "est": "19:41",
+          "est_date": "1863-06-25",
+          "utc": "1863-06-26T00:40:55Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.3,
+            "usno_est": "19:41",
+            "usno_est_date": "1863-06-25",
+            "a_minus_usno_min": -0.09
+          }
+        },
+        "civil_dusk": {
+          "lmt": "20:05",
+          "lmt_hms": "20:04:45",
+          "est": "20:14",
+          "est_date": "1863-06-25",
+          "utc": "1863-06-26T01:13:40Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.4,
+            "usno_est": "20:14",
+            "usno_est_date": "1863-06-25",
+            "a_minus_usno_min": -0.33
+          }
+        },
+        "nautical_dawn": {
+          "lmt": "03:18",
+          "lmt_hms": "03:18:07",
+          "est": "03:27",
+          "est_date": "1863-06-25",
+          "utc": "1863-06-25T08:27:03Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0,
+            "usno_est": null
+          }
+        },
+        "nautical_dusk": {
+          "lmt": "20:46",
+          "lmt_hms": "20:46:15",
+          "est": "20:55",
+          "est_date": "1863-06-25",
+          "utc": "1863-06-26T01:55:10Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": -0.4,
+            "usno_est": null
+          }
+        }
+      },
+      "moon": {
+        "moonrise": {
+          "lmt": "13:32",
+          "lmt_hms": "13:32:24",
+          "est": "13:41",
+          "est_date": "1863-06-25",
+          "utc": "1863-06-25T18:41:20Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 1.1,
+            "usno_est": "13:41",
+            "usno_est_date": "1863-06-25",
+            "a_minus_usno_min": 0.33
+          }
+        },
+        "moon_transit": {
+          "lmt": "19:04",
+          "lmt_hms": "19:04:23",
+          "est": "19:13",
+          "est_date": "1863-06-25",
+          "utc": "1863-06-26T00:13:18Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.7,
+            "usno_est": "19:13",
+            "usno_est_date": "1863-06-25",
+            "a_minus_usno_min": 0.3
+          }
+        },
+        "moonset": {
+          "absent": true,
+          "reason": "The moon has no such event inside this local-mean-time calendar day (it rises and sets about 50 minutes later each day).",
+          "cross_check": {
+            "own_found_event": false
+          }
+        },
+        "illumination_noon_lmt_pct": 63.3,
+        "illumination_noon_est_pct": 63.24,
+        "ecliptic_elongation_noon_lmt_deg": 105.32,
+        "phase_name": "Waxing Gibbous",
+        "principal_phase_today": null,
+        "badge": "Computed",
+        "method": "astronomy-engine",
+        "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+        "cross_check": {
+          "own_minus_a_noon_lmt_pct": 0.008,
+          "own_minus_a_noon_est_pct": 0.008,
+          "usno_fracillum_pct": 63,
+          "a_noon_est_minus_usno_pct": 0.24,
+          "usno_curphase": "Waxing Gibbous",
+          "usno_closest_phase": "First Quarter 1863-06-24 05:32 EST",
+          "label_agrees_with_usno": true
+        }
+      },
+      "day_length_min": 899.6
+    },
+    {
+      "date": "1863-06-26",
+      "weekday": "Friday",
+      "sun": {
+        "civil_dawn": {
+          "lmt": "04:00",
+          "lmt_hms": "04:00:00",
+          "est": "04:09",
+          "est_date": "1863-06-26",
+          "utc": "1863-06-26T09:08:55Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0,
+            "usno_est": "04:09",
+            "usno_est_date": "1863-06-26",
+            "a_minus_usno_min": -0.08
+          }
+        },
+        "sunrise": {
+          "lmt": "04:33",
+          "lmt_hms": "04:32:46",
+          "est": "04:42",
+          "est_date": "1863-06-26",
+          "utc": "1863-06-26T09:41:41Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.1,
+            "usno_est": "04:42",
+            "usno_est_date": "1863-06-26",
+            "a_minus_usno_min": -0.32
+          }
+        },
+        "solar_transit": {
+          "lmt": "12:02",
+          "lmt_hms": "12:02:27",
+          "est": "12:11",
+          "est_date": "1863-06-26",
+          "utc": "1863-06-26T17:11:23Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.2,
+            "usno_est": "12:11",
+            "usno_est_date": "1863-06-26",
+            "a_minus_usno_min": 0.38
+          }
+        },
+        "sunset": {
+          "lmt": "19:32",
+          "lmt_hms": "19:32:03",
+          "est": "19:41",
+          "est_date": "1863-06-26",
+          "utc": "1863-06-27T00:40:59Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.3,
+            "usno_est": "19:41",
+            "usno_est_date": "1863-06-26",
+            "a_minus_usno_min": -0.02
+          }
+        },
+        "civil_dusk": {
+          "lmt": "20:05",
+          "lmt_hms": "20:04:48",
+          "est": "20:14",
+          "est_date": "1863-06-26",
+          "utc": "1863-06-27T01:13:43Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.3,
+            "usno_est": "20:14",
+            "usno_est_date": "1863-06-26",
+            "a_minus_usno_min": -0.28
+          }
+        },
+        "nautical_dawn": {
+          "lmt": "03:18",
+          "lmt_hms": "03:18:30",
+          "est": "03:27",
+          "est_date": "1863-06-26",
+          "utc": "1863-06-26T08:27:25Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0.1,
+            "usno_est": null
+          }
+        },
+        "nautical_dusk": {
+          "lmt": "20:46",
+          "lmt_hms": "20:46:16",
+          "est": "20:55",
+          "est_date": "1863-06-26",
+          "utc": "1863-06-27T01:55:12Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": -0.4,
+            "usno_est": null
+          }
+        }
+      },
+      "moon": {
+        "moonrise": {
+          "lmt": "14:39",
+          "lmt_hms": "14:38:50",
+          "est": "14:48",
+          "est_date": "1863-06-26",
+          "utc": "1863-06-26T19:47:46Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.4,
+            "usno_est": "14:48",
+            "usno_est_date": "1863-06-26",
+            "a_minus_usno_min": -0.24
+          }
+        },
+        "moon_transit": {
+          "lmt": "19:56",
+          "lmt_hms": "19:55:56",
+          "est": "20:05",
+          "est_date": "1863-06-26",
+          "utc": "1863-06-27T01:04:51Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.6,
+            "usno_est": "20:05",
+            "usno_est_date": "1863-06-26",
+            "a_minus_usno_min": -0.15
+          }
+        },
+        "moonset": {
+          "lmt": "00:29",
+          "lmt_hms": "00:29:29",
+          "est": "00:38",
+          "est_date": "1863-06-26",
+          "utc": "1863-06-26T05:38:25Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.3,
+            "usno_est": "00:38",
+            "usno_est_date": "1863-06-26",
+            "a_minus_usno_min": 0.41
+          }
+        },
+        "illumination_noon_lmt_pct": 73.4,
+        "illumination_noon_est_pct": 73.32,
+        "ecliptic_elongation_noon_lmt_deg": 117.79,
+        "phase_name": "Waxing Gibbous",
+        "principal_phase_today": null,
+        "badge": "Computed",
+        "method": "astronomy-engine",
+        "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+        "cross_check": {
+          "own_minus_a_noon_lmt_pct": 0.006,
+          "own_minus_a_noon_est_pct": 0.006,
+          "usno_fracillum_pct": 73,
+          "a_noon_est_minus_usno_pct": 0.32,
+          "usno_curphase": "Waxing Gibbous",
+          "usno_closest_phase": "First Quarter 1863-06-24 05:32 EST",
+          "label_agrees_with_usno": true
+        }
+      },
+      "day_length_min": 899.3
+    },
+    {
+      "date": "1863-06-27",
+      "weekday": "Saturday",
+      "sun": {
+        "civil_dawn": {
+          "lmt": "04:00",
+          "lmt_hms": "04:00:22",
+          "est": "04:09",
+          "est_date": "1863-06-27",
+          "utc": "1863-06-27T09:09:18Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.1,
+            "usno_est": "04:09",
+            "usno_est_date": "1863-06-27",
+            "a_minus_usno_min": 0.3
+          }
+        },
+        "sunrise": {
+          "lmt": "04:33",
+          "lmt_hms": "04:33:07",
+          "est": "04:42",
+          "est_date": "1863-06-27",
+          "utc": "1863-06-27T09:42:02Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0,
+            "usno_est": "04:42",
+            "usno_est_date": "1863-06-27",
+            "a_minus_usno_min": 0.04
+          }
+        },
+        "solar_transit": {
+          "lmt": "12:03",
+          "lmt_hms": "12:02:40",
+          "est": "12:12",
+          "est_date": "1863-06-27",
+          "utc": "1863-06-27T17:11:35Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.1,
+            "usno_est": "12:12",
+            "usno_est_date": "1863-06-27",
+            "a_minus_usno_min": -0.42
+          }
+        },
+        "sunset": {
+          "lmt": "19:32",
+          "lmt_hms": "19:32:06",
+          "est": "19:41",
+          "est_date": "1863-06-27",
+          "utc": "1863-06-28T00:41:01Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.2,
+            "usno_est": "19:41",
+            "usno_est_date": "1863-06-27",
+            "a_minus_usno_min": 0.02
+          }
+        },
+        "civil_dusk": {
+          "lmt": "20:05",
+          "lmt_hms": "20:04:49",
+          "est": "20:14",
+          "est_date": "1863-06-27",
+          "utc": "1863-06-28T01:13:44Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.3,
+            "usno_est": "20:14",
+            "usno_est_date": "1863-06-27",
+            "a_minus_usno_min": -0.26
+          }
+        },
+        "nautical_dawn": {
+          "lmt": "03:19",
+          "lmt_hms": "03:18:54",
+          "est": "03:28",
+          "est_date": "1863-06-27",
+          "utc": "1863-06-27T08:27:50Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0.1,
+            "usno_est": null
+          }
+        },
+        "nautical_dusk": {
+          "lmt": "20:46",
+          "lmt_hms": "20:46:15",
+          "est": "20:55",
+          "est_date": "1863-06-27",
+          "utc": "1863-06-28T01:55:10Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": -0.3,
+            "usno_est": null
+          }
+        }
+      },
+      "moon": {
+        "moonrise": {
+          "lmt": "15:47",
+          "lmt_hms": "15:47:21",
+          "est": "15:56",
+          "est_date": "1863-06-27",
+          "utc": "1863-06-27T20:56:16Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.7,
+            "usno_est": "15:56",
+            "usno_est_date": "1863-06-27",
+            "a_minus_usno_min": 0.27
+          }
+        },
+        "moon_transit": {
+          "lmt": "20:52",
+          "lmt_hms": "20:51:48",
+          "est": "21:01",
+          "est_date": "1863-06-27",
+          "utc": "1863-06-28T02:00:43Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.6,
+            "usno_est": "21:01",
+            "usno_est_date": "1863-06-27",
+            "a_minus_usno_min": -0.28
+          }
+        },
+        "moonset": {
+          "lmt": "01:07",
+          "lmt_hms": "01:07:12",
+          "est": "01:16",
+          "est_date": "1863-06-27",
+          "utc": "1863-06-27T06:16:07Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 1.1,
+            "usno_est": "01:16",
+            "usno_est_date": "1863-06-27",
+            "a_minus_usno_min": 0.12
+          }
+        },
+        "illumination_noon_lmt_pct": 82.7,
+        "illumination_noon_est_pct": 82.61,
+        "ecliptic_elongation_noon_lmt_deg": 130.71,
+        "phase_name": "Waxing Gibbous",
+        "principal_phase_today": null,
+        "badge": "Computed",
+        "method": "astronomy-engine",
+        "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+        "cross_check": {
+          "own_minus_a_noon_lmt_pct": 0.004,
+          "own_minus_a_noon_est_pct": 0.004,
+          "usno_fracillum_pct": 83,
+          "a_noon_est_minus_usno_pct": -0.39,
+          "usno_curphase": "Waxing Gibbous",
+          "usno_closest_phase": "First Quarter 1863-06-24 05:32 EST",
+          "label_agrees_with_usno": true
+        }
+      },
+      "day_length_min": 899
+    },
+    {
+      "date": "1863-06-28",
+      "weekday": "Sunday",
+      "sun": {
+        "civil_dawn": {
+          "lmt": "04:01",
+          "lmt_hms": "04:00:47",
+          "est": "04:10",
+          "est_date": "1863-06-28",
+          "utc": "1863-06-28T09:09:42Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.2,
+            "usno_est": "04:10",
+            "usno_est_date": "1863-06-28",
+            "a_minus_usno_min": -0.3
+          }
+        },
+        "sunrise": {
+          "lmt": "04:33",
+          "lmt_hms": "04:33:30",
+          "est": "04:42",
+          "est_date": "1863-06-28",
+          "utc": "1863-06-28T09:42:25Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.1,
+            "usno_est": "04:42",
+            "usno_est_date": "1863-06-28",
+            "a_minus_usno_min": 0.42
+          }
+        },
+        "solar_transit": {
+          "lmt": "12:03",
+          "lmt_hms": "12:02:52",
+          "est": "12:12",
+          "est_date": "1863-06-28",
+          "utc": "1863-06-28T17:11:47Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0,
+            "usno_est": "12:12",
+            "usno_est_date": "1863-06-28",
+            "a_minus_usno_min": -0.21
+          }
+        },
+        "sunset": {
+          "lmt": "19:32",
+          "lmt_hms": "19:32:07",
+          "est": "19:41",
+          "est_date": "1863-06-28",
+          "utc": "1863-06-29T00:41:02Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.2,
+            "usno_est": "19:41",
+            "usno_est_date": "1863-06-28",
+            "a_minus_usno_min": 0.03
+          }
+        },
+        "civil_dusk": {
+          "lmt": "20:05",
+          "lmt_hms": "20:04:48",
+          "est": "20:14",
+          "est_date": "1863-06-28",
+          "utc": "1863-06-29T01:13:43Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.2,
+            "usno_est": "20:14",
+            "usno_est_date": "1863-06-28",
+            "a_minus_usno_min": -0.28
+          }
+        },
+        "nautical_dawn": {
+          "lmt": "03:19",
+          "lmt_hms": "03:19:21",
+          "est": "03:28",
+          "est_date": "1863-06-28",
+          "utc": "1863-06-28T08:28:16Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0.2,
+            "usno_est": null
+          }
+        },
+        "nautical_dusk": {
+          "lmt": "20:46",
+          "lmt_hms": "20:46:11",
+          "est": "20:55",
+          "est_date": "1863-06-28",
+          "utc": "1863-06-29T01:55:07Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": -0.3,
+            "usno_est": null
+          }
+        }
+      },
+      "moon": {
+        "moonrise": {
+          "lmt": "16:56",
+          "lmt_hms": "16:55:59",
+          "est": "17:05",
+          "est_date": "1863-06-28",
+          "utc": "1863-06-28T22:04:55Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -1.5,
+            "usno_est": "17:05",
+            "usno_est_date": "1863-06-28",
+            "a_minus_usno_min": -0.08
+          }
+        },
+        "moon_transit": {
+          "lmt": "21:52",
+          "lmt_hms": "21:51:49",
+          "est": "22:01",
+          "est_date": "1863-06-28",
+          "utc": "1863-06-29T03:00:44Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.8,
+            "usno_est": "22:01",
+            "usno_est_date": "1863-06-28",
+            "a_minus_usno_min": -0.26
+          }
+        },
+        "moonset": {
+          "lmt": "01:52",
+          "lmt_hms": "01:52:02",
+          "est": "02:01",
+          "est_date": "1863-06-28",
+          "utc": "1863-06-28T07:00:57Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 2.2,
+            "usno_est": "02:01",
+            "usno_est_date": "1863-06-28",
+            "a_minus_usno_min": -0.05
+          }
+        },
+        "illumination_noon_lmt_pct": 90.5,
+        "illumination_noon_est_pct": 90.48,
+        "ecliptic_elongation_noon_lmt_deg": 144.07,
+        "phase_name": "Waxing Gibbous",
+        "principal_phase_today": null,
+        "badge": "Computed",
+        "method": "astronomy-engine",
+        "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+        "cross_check": {
+          "own_minus_a_noon_lmt_pct": 0.003,
+          "own_minus_a_noon_est_pct": 0.003,
+          "usno_fracillum_pct": 90,
+          "a_noon_est_minus_usno_pct": 0.48,
+          "usno_curphase": "Waxing Gibbous",
+          "usno_closest_phase": "Full Moon 1863-07-01 01:46 EST",
+          "label_agrees_with_usno": true
+        }
+      },
+      "day_length_min": 898.6
+    },
+    {
+      "date": "1863-06-29",
+      "weekday": "Monday",
+      "sun": {
+        "civil_dawn": {
+          "lmt": "04:01",
+          "lmt_hms": "04:01:13",
+          "est": "04:10",
+          "est_date": "1863-06-29",
+          "utc": "1863-06-29T09:10:08Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.2,
+            "usno_est": "04:10",
+            "usno_est_date": "1863-06-29",
+            "a_minus_usno_min": 0.14
+          }
+        },
+        "sunrise": {
+          "lmt": "04:34",
+          "lmt_hms": "04:33:54",
+          "est": "04:43",
+          "est_date": "1863-06-29",
+          "utc": "1863-06-29T09:42:50Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.1,
+            "usno_est": "04:43",
+            "usno_est_date": "1863-06-29",
+            "a_minus_usno_min": -0.17
+          }
+        },
+        "solar_transit": {
+          "lmt": "12:03",
+          "lmt_hms": "12:03:04",
+          "est": "12:12",
+          "est_date": "1863-06-29",
+          "utc": "1863-06-29T17:11:59Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0,
+            "usno_est": "12:12",
+            "usno_est_date": "1863-06-29",
+            "a_minus_usno_min": -0.01
+          }
+        },
+        "sunset": {
+          "lmt": "19:32",
+          "lmt_hms": "19:32:05",
+          "est": "19:41",
+          "est_date": "1863-06-29",
+          "utc": "1863-06-30T00:41:01Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.1,
+            "usno_est": "19:41",
+            "usno_est_date": "1863-06-29",
+            "a_minus_usno_min": 0.01
+          }
+        },
+        "civil_dusk": {
+          "lmt": "20:05",
+          "lmt_hms": "20:04:45",
+          "est": "20:14",
+          "est_date": "1863-06-29",
+          "utc": "1863-06-30T01:13:40Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.1,
+            "usno_est": "20:14",
+            "usno_est_date": "1863-06-29",
+            "a_minus_usno_min": -0.33
+          }
+        },
+        "nautical_dawn": {
+          "lmt": "03:20",
+          "lmt_hms": "03:19:50",
+          "est": "03:29",
+          "est_date": "1863-06-29",
+          "utc": "1863-06-29T08:28:45Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0.3,
+            "usno_est": null
+          }
+        },
+        "nautical_dusk": {
+          "lmt": "20:46",
+          "lmt_hms": "20:46:05",
+          "est": "20:55",
+          "est_date": "1863-06-29",
+          "utc": "1863-06-30T01:55:00Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": -0.2,
+            "usno_est": null
+          }
+        }
+      },
+      "moon": {
+        "moonrise": {
+          "lmt": "18:02",
+          "lmt_hms": "18:01:41",
+          "est": "18:11",
+          "est_date": "1863-06-29",
+          "utc": "1863-06-29T23:10:37Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -1.5,
+            "usno_est": "18:11",
+            "usno_est_date": "1863-06-29",
+            "a_minus_usno_min": -0.39
+          }
+        },
+        "moon_transit": {
+          "lmt": "22:55",
+          "lmt_hms": "22:54:45",
+          "est": "23:04",
+          "est_date": "1863-06-29",
+          "utc": "1863-06-30T04:03:40Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.7,
+            "usno_est": "23:04",
+            "usno_est_date": "1863-06-29",
+            "a_minus_usno_min": -0.33
+          }
+        },
+        "moonset": {
+          "lmt": "02:46",
+          "lmt_hms": "02:45:40",
+          "est": "02:55",
+          "est_date": "1863-06-29",
+          "utc": "1863-06-29T07:54:36Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 3.1,
+            "usno_est": "02:55",
+            "usno_est_date": "1863-06-29",
+            "a_minus_usno_min": -0.4
+          }
+        },
+        "illumination_noon_lmt_pct": 96.3,
+        "illumination_noon_est_pct": 96.29,
+        "ecliptic_elongation_noon_lmt_deg": 157.83,
+        "phase_name": "Waxing Gibbous",
+        "principal_phase_today": null,
+        "badge": "Computed",
+        "method": "astronomy-engine",
+        "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+        "cross_check": {
+          "own_minus_a_noon_lmt_pct": 0.002,
+          "own_minus_a_noon_est_pct": 0.002,
+          "usno_fracillum_pct": 96,
+          "a_noon_est_minus_usno_pct": 0.29,
+          "usno_curphase": "Waxing Gibbous",
+          "usno_closest_phase": "Full Moon 1863-07-01 01:46 EST",
+          "label_agrees_with_usno": true
+        }
+      },
+      "day_length_min": 898.2
+    },
+    {
+      "date": "1863-06-30",
+      "weekday": "Tuesday",
+      "sun": {
+        "civil_dawn": {
+          "lmt": "04:02",
+          "lmt_hms": "04:01:41",
+          "est": "04:11",
+          "est_date": "1863-06-30",
+          "utc": "1863-06-30T09:10:36Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.3,
+            "usno_est": "04:11",
+            "usno_est_date": "1863-06-30",
+            "a_minus_usno_min": -0.4
+          }
+        },
+        "sunrise": {
+          "lmt": "04:34",
+          "lmt_hms": "04:34:20",
+          "est": "04:43",
+          "est_date": "1863-06-30",
+          "utc": "1863-06-30T09:43:16Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.2,
+            "usno_est": "04:43",
+            "usno_est_date": "1863-06-30",
+            "a_minus_usno_min": 0.26
+          }
+        },
+        "solar_transit": {
+          "lmt": "12:03",
+          "lmt_hms": "12:03:16",
+          "est": "12:12",
+          "est_date": "1863-06-30",
+          "utc": "1863-06-30T17:12:11Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.1,
+            "usno_est": "12:12",
+            "usno_est_date": "1863-06-30",
+            "a_minus_usno_min": 0.19
+          }
+        },
+        "sunset": {
+          "lmt": "19:32",
+          "lmt_hms": "19:32:02",
+          "est": "19:41",
+          "est_date": "1863-06-30",
+          "utc": "1863-07-01T00:40:57Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0,
+            "usno_est": "19:41",
+            "usno_est_date": "1863-06-30",
+            "a_minus_usno_min": -0.05
+          }
+        },
+        "civil_dusk": {
+          "lmt": "20:05",
+          "lmt_hms": "20:04:39",
+          "est": "20:14",
+          "est_date": "1863-06-30",
+          "utc": "1863-07-01T01:13:35Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.1,
+            "usno_est": "20:14",
+            "usno_est_date": "1863-06-30",
+            "a_minus_usno_min": -0.42
+          }
+        },
+        "nautical_dawn": {
+          "lmt": "03:20",
+          "lmt_hms": "03:20:21",
+          "est": "03:29",
+          "est_date": "1863-06-30",
+          "utc": "1863-06-30T08:29:16Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0.4,
+            "usno_est": null
+          }
+        },
+        "nautical_dusk": {
+          "lmt": "20:46",
+          "lmt_hms": "20:45:56",
+          "est": "20:55",
+          "est_date": "1863-06-30",
+          "utc": "1863-07-01T01:54:51Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": -0.1,
+            "usno_est": null
+          }
+        }
+      },
+      "moon": {
+        "moonrise": {
+          "lmt": "19:01",
+          "lmt_hms": "19:01:18",
+          "est": "19:10",
+          "est_date": "1863-06-30",
+          "utc": "1863-07-01T00:10:14Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.9,
+            "usno_est": "19:10",
+            "usno_est_date": "1863-06-30",
+            "a_minus_usno_min": 0.23
+          }
+        },
+        "moon_transit": {
+          "lmt": "23:58",
+          "lmt_hms": "23:58:26",
+          "est": "00:07",
+          "est_date": "1863-07-01",
+          "utc": "1863-07-01T05:07:22Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.2,
+            "usno_est": "00:07",
+            "usno_est_date": "1863-07-01",
+            "a_minus_usno_min": 0.36
+          }
+        },
+        "moonset": {
+          "lmt": "03:49",
+          "lmt_hms": "03:48:35",
+          "est": "03:58",
+          "est_date": "1863-06-30",
+          "utc": "1863-06-30T08:57:30Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 2.6,
+            "usno_est": "03:57",
+            "usno_est_date": "1863-06-30",
+            "a_minus_usno_min": 0.5
+          }
+        },
+        "illumination_noon_lmt_pct": 99.5,
+        "illumination_noon_est_pct": 99.46,
+        "ecliptic_elongation_noon_lmt_deg": 171.92,
+        "phase_name": "Waxing Gibbous",
+        "principal_phase_today": null,
+        "badge": "Computed",
+        "method": "astronomy-engine",
+        "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+        "cross_check": {
+          "own_minus_a_noon_lmt_pct": 0.001,
+          "own_minus_a_noon_est_pct": 0.001,
+          "usno_fracillum_pct": 99,
+          "a_noon_est_minus_usno_pct": 0.46,
+          "usno_curphase": "Waxing Gibbous",
+          "usno_closest_phase": "Full Moon 1863-07-01 01:46 EST",
+          "label_agrees_with_usno": true
+        }
+      },
+      "day_length_min": 897.7
+    },
+    {
+      "date": "1863-07-01",
+      "weekday": "Wednesday",
+      "sun": {
+        "civil_dawn": {
+          "lmt": "04:02",
+          "lmt_hms": "04:02:10",
+          "est": "04:11",
+          "est_date": "1863-07-01",
+          "utc": "1863-07-01T09:11:06Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.4,
+            "usno_est": "04:11",
+            "usno_est_date": "1863-07-01",
+            "a_minus_usno_min": 0.09
+          }
+        },
+        "sunrise": {
+          "lmt": "04:35",
+          "lmt_hms": "04:34:48",
+          "est": "04:44",
+          "est_date": "1863-07-01",
+          "utc": "1863-07-01T09:43:43Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.3,
+            "usno_est": "04:44",
+            "usno_est_date": "1863-07-01",
+            "a_minus_usno_min": -0.28
+          }
+        },
+        "solar_transit": {
+          "lmt": "12:03",
+          "lmt_hms": "12:03:28",
+          "est": "12:12",
+          "est_date": "1863-07-01",
+          "utc": "1863-07-01T17:12:23Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.2,
+            "usno_est": "12:12",
+            "usno_est_date": "1863-07-01",
+            "a_minus_usno_min": 0.38
+          }
+        },
+        "sunset": {
+          "lmt": "19:32",
+          "lmt_hms": "19:31:57",
+          "est": "19:41",
+          "est_date": "1863-07-01",
+          "utc": "1863-07-02T00:40:52Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.1,
+            "usno_est": "19:41",
+            "usno_est_date": "1863-07-01",
+            "a_minus_usno_min": -0.13
+          }
+        },
+        "civil_dusk": {
+          "lmt": "20:05",
+          "lmt_hms": "20:04:32",
+          "est": "20:13",
+          "est_date": "1863-07-01",
+          "utc": "1863-07-02T01:13:27Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0,
+            "usno_est": "20:13",
+            "usno_est_date": "1863-07-01",
+            "a_minus_usno_min": 0.45
+          }
+        },
+        "nautical_dawn": {
+          "lmt": "03:21",
+          "lmt_hms": "03:20:54",
+          "est": "03:30",
+          "est_date": "1863-07-01",
+          "utc": "1863-07-01T08:29:49Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0.4,
+            "usno_est": null
+          }
+        },
+        "nautical_dusk": {
+          "lmt": "20:46",
+          "lmt_hms": "20:45:44",
+          "est": "20:55",
+          "est_date": "1863-07-01",
+          "utc": "1863-07-02T01:54:40Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0,
+            "usno_est": null
+          }
+        }
+      },
+      "moon": {
+        "moonrise": {
+          "lmt": "19:53",
+          "lmt_hms": "19:53:12",
+          "est": "20:02",
+          "est_date": "1863-07-01",
+          "utc": "1863-07-02T01:02:07Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.3,
+            "usno_est": "20:02",
+            "usno_est_date": "1863-07-01",
+            "a_minus_usno_min": 0.12
+          }
+        },
+        "moon_transit": {
+          "absent": true,
+          "reason": "The moon has no such event inside this local-mean-time calendar day (it rises and sets about 50 minutes later each day).",
+          "cross_check": {
+            "own_found_event": false
+          }
+        },
+        "moonset": {
+          "lmt": "04:59",
+          "lmt_hms": "04:59:05",
+          "est": "05:08",
+          "est_date": "1863-07-01",
+          "utc": "1863-07-01T10:08:01Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.7,
+            "usno_est": "05:08",
+            "usno_est_date": "1863-07-01",
+            "a_minus_usno_min": 0.01
+          }
+        },
+        "illumination_noon_lmt_pct": 99.6,
+        "illumination_noon_est_pct": 99.64,
+        "ecliptic_elongation_noon_lmt_deg": 186.18,
+        "phase_name": "Full Moon",
+        "principal_phase_today": {
+          "phase": "Full Moon",
+          "lmt": "01:38",
+          "est": "01:46",
+          "est_date": "1863-07-01",
+          "utc": "1863-07-01T06:46:29Z"
+        },
+        "badge": "Computed",
+        "method": "astronomy-engine",
+        "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+        "cross_check": {
+          "own_minus_a_noon_lmt_pct": 0,
+          "own_minus_a_noon_est_pct": 0,
+          "usno_fracillum_pct": 100,
+          "a_noon_est_minus_usno_pct": -0.36,
+          "usno_curphase": "Full Moon",
+          "usno_closest_phase": "Full Moon 1863-07-01 01:46 EST",
+          "label_agrees_with_usno": true
+        }
+      },
+      "day_length_min": 897.1
+    },
+    {
+      "date": "1863-07-02",
+      "weekday": "Thursday",
+      "sun": {
+        "civil_dawn": {
+          "lmt": "04:03",
+          "lmt_hms": "04:02:41",
+          "est": "04:12",
+          "est_date": "1863-07-02",
+          "utc": "1863-07-02T09:11:37Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.5,
+            "usno_est": "04:12",
+            "usno_est_date": "1863-07-02",
+            "a_minus_usno_min": -0.39
+          }
+        },
+        "sunrise": {
+          "lmt": "04:35",
+          "lmt_hms": "04:35:17",
+          "est": "04:44",
+          "est_date": "1863-07-02",
+          "utc": "1863-07-02T09:44:12Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.4,
+            "usno_est": "04:44",
+            "usno_est_date": "1863-07-02",
+            "a_minus_usno_min": 0.2
+          }
+        },
+        "solar_transit": {
+          "lmt": "12:04",
+          "lmt_hms": "12:03:39",
+          "est": "12:13",
+          "est_date": "1863-07-02",
+          "utc": "1863-07-02T17:12:34Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.3,
+            "usno_est": "12:13",
+            "usno_est_date": "1863-07-02",
+            "a_minus_usno_min": -0.43
+          }
+        },
+        "sunset": {
+          "lmt": "19:32",
+          "lmt_hms": "19:31:49",
+          "est": "19:41",
+          "est_date": "1863-07-02",
+          "utc": "1863-07-03T00:40:45Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.1,
+            "usno_est": "19:41",
+            "usno_est_date": "1863-07-02",
+            "a_minus_usno_min": -0.25
+          }
+        },
+        "civil_dusk": {
+          "lmt": "20:04",
+          "lmt_hms": "20:04:22",
+          "est": "20:13",
+          "est_date": "1863-07-02",
+          "utc": "1863-07-03T01:13:18Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.1,
+            "usno_est": "20:13",
+            "usno_est_date": "1863-07-02",
+            "a_minus_usno_min": 0.29
+          }
+        },
+        "nautical_dawn": {
+          "lmt": "03:21",
+          "lmt_hms": "03:21:29",
+          "est": "03:30",
+          "est_date": "1863-07-02",
+          "utc": "1863-07-02T08:30:25Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0.5,
+            "usno_est": null
+          }
+        },
+        "nautical_dusk": {
+          "lmt": "20:45",
+          "lmt_hms": "20:45:30",
+          "est": "20:54",
+          "est_date": "1863-07-02",
+          "utc": "1863-07-03T01:54:25Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0,
+            "usno_est": null
+          }
+        }
+      },
+      "moon": {
+        "moonrise": {
+          "lmt": "20:38",
+          "lmt_hms": "20:37:35",
+          "est": "20:47",
+          "est_date": "1863-07-02",
+          "utc": "1863-07-03T01:46:30Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.3,
+            "usno_est": "20:47",
+            "usno_est_date": "1863-07-02",
+            "a_minus_usno_min": -0.5
+          }
+        },
+        "moon_transit": {
+          "lmt": "01:01",
+          "lmt_hms": "01:00:34",
+          "est": "01:09",
+          "est_date": "1863-07-02",
+          "utc": "1863-07-02T06:09:29Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.6,
+            "usno_est": "01:09",
+            "usno_est_date": "1863-07-02",
+            "a_minus_usno_min": 0.48
+          }
+        },
+        "moonset": {
+          "lmt": "06:14",
+          "lmt_hms": "06:13:46",
+          "est": "06:23",
+          "est_date": "1863-07-02",
+          "utc": "1863-07-02T11:22:41Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -1.7,
+            "usno_est": "06:23",
+            "usno_est_date": "1863-07-02",
+            "a_minus_usno_min": -0.31
+          }
+        },
+        "illumination_noon_lmt_pct": 96.7,
+        "illumination_noon_est_pct": 96.76,
+        "ecliptic_elongation_noon_lmt_deg": 200.45,
+        "phase_name": "Waning Gibbous",
+        "principal_phase_today": null,
+        "badge": "Computed",
+        "method": "astronomy-engine",
+        "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+        "cross_check": {
+          "own_minus_a_noon_lmt_pct": 0.001,
+          "own_minus_a_noon_est_pct": 0.001,
+          "usno_fracillum_pct": 97,
+          "a_noon_est_minus_usno_pct": -0.24,
+          "usno_curphase": "Waning Gibbous",
+          "usno_closest_phase": "Full Moon 1863-07-01 01:46 EST",
+          "label_agrees_with_usno": true
+        }
+      },
+      "day_length_min": 896.5
+    },
+    {
+      "date": "1863-07-03",
+      "weekday": "Friday",
+      "sun": {
+        "civil_dawn": {
+          "lmt": "04:03",
+          "lmt_hms": "04:03:14",
+          "est": "04:12",
+          "est_date": "1863-07-03",
+          "utc": "1863-07-03T09:12:10Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.6,
+            "usno_est": "04:12",
+            "usno_est_date": "1863-07-03",
+            "a_minus_usno_min": 0.16
+          }
+        },
+        "sunrise": {
+          "lmt": "04:36",
+          "lmt_hms": "04:35:47",
+          "est": "04:45",
+          "est_date": "1863-07-03",
+          "utc": "1863-07-03T09:44:43Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.5,
+            "usno_est": "04:45",
+            "usno_est_date": "1863-07-03",
+            "a_minus_usno_min": -0.29
+          }
+        },
+        "solar_transit": {
+          "lmt": "12:04",
+          "lmt_hms": "12:03:50",
+          "est": "12:13",
+          "est_date": "1863-07-03",
+          "utc": "1863-07-03T17:12:46Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.4,
+            "usno_est": "12:13",
+            "usno_est_date": "1863-07-03",
+            "a_minus_usno_min": -0.24
+          }
+        },
+        "sunset": {
+          "lmt": "19:32",
+          "lmt_hms": "19:31:40",
+          "est": "19:41",
+          "est_date": "1863-07-03",
+          "utc": "1863-07-04T00:40:36Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.2,
+            "usno_est": "19:41",
+            "usno_est_date": "1863-07-03",
+            "a_minus_usno_min": -0.41
+          }
+        },
+        "civil_dusk": {
+          "lmt": "20:04",
+          "lmt_hms": "20:04:10",
+          "est": "20:13",
+          "est_date": "1863-07-03",
+          "utc": "1863-07-04T01:13:06Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.1,
+            "usno_est": "20:13",
+            "usno_est_date": "1863-07-03",
+            "a_minus_usno_min": 0.09
+          }
+        },
+        "nautical_dawn": {
+          "lmt": "03:22",
+          "lmt_hms": "03:22:06",
+          "est": "03:31",
+          "est_date": "1863-07-03",
+          "utc": "1863-07-03T08:31:02Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0.6,
+            "usno_est": null
+          }
+        },
+        "nautical_dusk": {
+          "lmt": "20:45",
+          "lmt_hms": "20:45:13",
+          "est": "20:54",
+          "est_date": "1863-07-03",
+          "utc": "1863-07-04T01:54:09Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0.1,
+            "usno_est": null
+          }
+        }
+      },
+      "moon": {
+        "moonrise": {
+          "lmt": "21:16",
+          "lmt_hms": "21:15:55",
+          "est": "21:25",
+          "est_date": "1863-07-03",
+          "utc": "1863-07-04T02:24:51Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -0.8,
+            "usno_est": "21:25",
+            "usno_est_date": "1863-07-03",
+            "a_minus_usno_min": -0.16
+          }
+        },
+        "moon_transit": {
+          "lmt": "02:00",
+          "lmt_hms": "01:59:33",
+          "est": "02:08",
+          "est_date": "1863-07-03",
+          "utc": "1863-07-03T07:08:28Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -1.8,
+            "usno_est": "02:08",
+            "usno_est_date": "1863-07-03",
+            "a_minus_usno_min": 0.47
+          }
+        },
+        "moonset": {
+          "lmt": "07:29",
+          "lmt_hms": "07:29:00",
+          "est": "07:38",
+          "est_date": "1863-07-03",
+          "utc": "1863-07-03T12:37:56Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -3.6,
+            "usno_est": "07:38",
+            "usno_est_date": "1863-07-03",
+            "a_minus_usno_min": -0.07
+          }
+        },
+        "illumination_noon_lmt_pct": 91.1,
+        "illumination_noon_est_pct": 91.1,
+        "ecliptic_elongation_noon_lmt_deg": 214.57,
+        "phase_name": "Waning Gibbous",
+        "principal_phase_today": null,
+        "badge": "Computed",
+        "method": "astronomy-engine",
+        "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+        "cross_check": {
+          "own_minus_a_noon_lmt_pct": 0.003,
+          "own_minus_a_noon_est_pct": 0.003,
+          "usno_fracillum_pct": 91,
+          "a_noon_est_minus_usno_pct": 0.1,
+          "usno_curphase": "Waning Gibbous",
+          "usno_closest_phase": "Full Moon 1863-07-01 01:46 EST",
+          "label_agrees_with_usno": true
+        }
+      },
+      "day_length_min": 895.9
+    },
+    {
+      "date": "1863-07-04",
+      "weekday": "Saturday",
+      "sun": {
+        "civil_dawn": {
+          "lmt": "04:04",
+          "lmt_hms": "04:03:49",
+          "est": "04:13",
+          "est_date": "1863-07-04",
+          "utc": "1863-07-04T09:12:44Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.7,
+            "usno_est": "04:13",
+            "usno_est_date": "1863-07-04",
+            "a_minus_usno_min": -0.26
+          }
+        },
+        "sunrise": {
+          "lmt": "04:36",
+          "lmt_hms": "04:36:19",
+          "est": "04:45",
+          "est_date": "1863-07-04",
+          "utc": "1863-07-04T09:45:15Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.6,
+            "usno_est": "04:45",
+            "usno_est_date": "1863-07-04",
+            "a_minus_usno_min": 0.24
+          }
+        },
+        "solar_transit": {
+          "lmt": "12:04",
+          "lmt_hms": "12:04:01",
+          "est": "12:13",
+          "est_date": "1863-07-04",
+          "utc": "1863-07-04T17:12:56Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.4,
+            "usno_est": "12:13",
+            "usno_est_date": "1863-07-04",
+            "a_minus_usno_min": -0.06
+          }
+        },
+        "sunset": {
+          "lmt": "19:31",
+          "lmt_hms": "19:31:29",
+          "est": "19:40",
+          "est_date": "1863-07-04",
+          "utc": "1863-07-05T00:40:24Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.3,
+            "usno_est": "19:40",
+            "usno_est_date": "1863-07-04",
+            "a_minus_usno_min": 0.41
+          }
+        },
+        "civil_dusk": {
+          "lmt": "20:04",
+          "lmt_hms": "20:03:56",
+          "est": "20:13",
+          "est_date": "1863-07-04",
+          "utc": "1863-07-05T01:12:52Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.2,
+            "usno_est": "20:13",
+            "usno_est_date": "1863-07-04",
+            "a_minus_usno_min": -0.14
+          }
+        },
+        "nautical_dawn": {
+          "lmt": "03:23",
+          "lmt_hms": "03:22:46",
+          "est": "03:32",
+          "est_date": "1863-07-04",
+          "utc": "1863-07-04T08:31:41Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0.7,
+            "usno_est": null
+          }
+        },
+        "nautical_dusk": {
+          "lmt": "20:45",
+          "lmt_hms": "20:44:54",
+          "est": "20:54",
+          "est_date": "1863-07-04",
+          "utc": "1863-07-05T01:53:50Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0.2,
+            "usno_est": null
+          }
+        }
+      },
+      "moon": {
+        "moonrise": {
+          "lmt": "21:50",
+          "lmt_hms": "21:50:04",
+          "est": "21:59",
+          "est_date": "1863-07-04",
+          "utc": "1863-07-05T02:58:59Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -1.5,
+            "usno_est": "21:59",
+            "usno_est_date": "1863-07-04",
+            "a_minus_usno_min": -0.02
+          }
+        },
+        "moon_transit": {
+          "lmt": "02:55",
+          "lmt_hms": "02:54:56",
+          "est": "03:04",
+          "est_date": "1863-07-04",
+          "utc": "1863-07-04T08:03:51Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -2.6,
+            "usno_est": "03:04",
+            "usno_est_date": "1863-07-04",
+            "a_minus_usno_min": -0.15
+          }
+        },
+        "moonset": {
+          "lmt": "08:42",
+          "lmt_hms": "08:42:26",
+          "est": "08:51",
+          "est_date": "1863-07-04",
+          "utc": "1863-07-04T13:51:22Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -4.3,
+            "usno_est": "08:51",
+            "usno_est_date": "1863-07-04",
+            "a_minus_usno_min": 0.36
+          }
+        },
+        "illumination_noon_lmt_pct": 83.1,
+        "illumination_noon_est_pct": 83.19,
+        "ecliptic_elongation_noon_lmt_deg": 228.39,
+        "phase_name": "Waning Gibbous",
+        "principal_phase_today": null,
+        "badge": "Computed",
+        "method": "astronomy-engine",
+        "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+        "cross_check": {
+          "own_minus_a_noon_lmt_pct": 0.006,
+          "own_minus_a_noon_est_pct": 0.006,
+          "usno_fracillum_pct": 83,
+          "a_noon_est_minus_usno_pct": 0.19,
+          "usno_curphase": "Waning Gibbous",
+          "usno_closest_phase": "Last Quarter 1863-07-07 17:29 EST",
+          "label_agrees_with_usno": true
+        }
+      },
+      "day_length_min": 895.2
+    },
+    {
+      "date": "1863-07-05",
+      "weekday": "Sunday",
+      "sun": {
+        "civil_dawn": {
+          "lmt": "04:04",
+          "lmt_hms": "04:04:25",
+          "est": "04:13",
+          "est_date": "1863-07-05",
+          "utc": "1863-07-05T09:13:20Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.7,
+            "usno_est": "04:13",
+            "usno_est_date": "1863-07-05",
+            "a_minus_usno_min": 0.34
+          }
+        },
+        "sunrise": {
+          "lmt": "04:37",
+          "lmt_hms": "04:36:52",
+          "est": "04:46",
+          "est_date": "1863-07-05",
+          "utc": "1863-07-05T09:45:48Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.7,
+            "usno_est": "04:46",
+            "usno_est_date": "1863-07-05",
+            "a_minus_usno_min": -0.2
+          }
+        },
+        "solar_transit": {
+          "lmt": "12:04",
+          "lmt_hms": "12:04:11",
+          "est": "12:13",
+          "est_date": "1863-07-05",
+          "utc": "1863-07-05T17:13:07Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.5,
+            "usno_est": "12:13",
+            "usno_est_date": "1863-07-05",
+            "a_minus_usno_min": 0.12
+          }
+        },
+        "sunset": {
+          "lmt": "19:31",
+          "lmt_hms": "19:31:16",
+          "est": "19:40",
+          "est_date": "1863-07-05",
+          "utc": "1863-07-06T00:40:11Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.3,
+            "usno_est": "19:40",
+            "usno_est_date": "1863-07-05",
+            "a_minus_usno_min": 0.19
+          }
+        },
+        "civil_dusk": {
+          "lmt": "20:04",
+          "lmt_hms": "20:03:40",
+          "est": "20:13",
+          "est_date": "1863-07-05",
+          "utc": "1863-07-06T01:12:35Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.3,
+            "usno_est": "20:13",
+            "usno_est_date": "1863-07-05",
+            "a_minus_usno_min": -0.41
+          }
+        },
+        "nautical_dawn": {
+          "lmt": "03:23",
+          "lmt_hms": "03:23:27",
+          "est": "03:32",
+          "est_date": "1863-07-05",
+          "utc": "1863-07-05T08:32:22Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0.8,
+            "usno_est": null
+          }
+        },
+        "nautical_dusk": {
+          "lmt": "20:45",
+          "lmt_hms": "20:44:33",
+          "est": "20:53",
+          "est_date": "1863-07-05",
+          "utc": "1863-07-06T01:53:28Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0.2,
+            "usno_est": null
+          }
+        }
+      },
+      "moon": {
+        "moonrise": {
+          "lmt": "22:22",
+          "lmt_hms": "22:21:45",
+          "est": "22:31",
+          "est_date": "1863-07-05",
+          "utc": "1863-07-06T03:30:41Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -1.7,
+            "usno_est": "22:31",
+            "usno_est_date": "1863-07-05",
+            "a_minus_usno_min": -0.32
+          }
+        },
+        "moon_transit": {
+          "lmt": "03:47",
+          "lmt_hms": "03:47:05",
+          "est": "03:56",
+          "est_date": "1863-07-05",
+          "utc": "1863-07-05T08:56:01Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -2.8,
+            "usno_est": "03:56",
+            "usno_est_date": "1863-07-05",
+            "a_minus_usno_min": 0.01
+          }
+        },
+        "moonset": {
+          "lmt": "09:53",
+          "lmt_hms": "09:53:10",
+          "est": "10:02",
+          "est_date": "1863-07-05",
+          "utc": "1863-07-05T15:02:05Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -3.9,
+            "usno_est": "10:02",
+            "usno_est_date": "1863-07-05",
+            "a_minus_usno_min": 0.08
+          }
+        },
+        "illumination_noon_lmt_pct": 73.6,
+        "illumination_noon_est_pct": 73.68,
+        "ecliptic_elongation_noon_lmt_deg": 241.81,
+        "phase_name": "Waning Gibbous",
+        "principal_phase_today": null,
+        "badge": "Computed",
+        "method": "astronomy-engine",
+        "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+        "cross_check": {
+          "own_minus_a_noon_lmt_pct": 0.007,
+          "own_minus_a_noon_est_pct": 0.007,
+          "usno_fracillum_pct": 74,
+          "a_noon_est_minus_usno_pct": -0.32,
+          "usno_curphase": "Waning Gibbous",
+          "usno_closest_phase": "Last Quarter 1863-07-07 17:29 EST",
+          "label_agrees_with_usno": true
+        }
+      },
+      "day_length_min": 894.4
+    },
+    {
+      "date": "1863-07-06",
+      "weekday": "Monday",
+      "sun": {
+        "civil_dawn": {
+          "lmt": "04:05",
+          "lmt_hms": "04:05:03",
+          "est": "04:14",
+          "est_date": "1863-07-06",
+          "utc": "1863-07-06T09:13:58Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.8,
+            "usno_est": "04:14",
+            "usno_est_date": "1863-07-06",
+            "a_minus_usno_min": -0.03
+          }
+        },
+        "sunrise": {
+          "lmt": "04:37",
+          "lmt_hms": "04:37:27",
+          "est": "04:46",
+          "est_date": "1863-07-06",
+          "utc": "1863-07-06T09:46:22Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.7,
+            "usno_est": "04:46",
+            "usno_est_date": "1863-07-06",
+            "a_minus_usno_min": 0.37
+          }
+        },
+        "solar_transit": {
+          "lmt": "12:04",
+          "lmt_hms": "12:04:22",
+          "est": "12:13",
+          "est_date": "1863-07-06",
+          "utc": "1863-07-06T17:13:17Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.5,
+            "usno_est": "12:13",
+            "usno_est_date": "1863-07-06",
+            "a_minus_usno_min": 0.29
+          }
+        },
+        "sunset": {
+          "lmt": "19:31",
+          "lmt_hms": "19:31:01",
+          "est": "19:40",
+          "est_date": "1863-07-06",
+          "utc": "1863-07-07T00:39:56Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.4,
+            "usno_est": "19:40",
+            "usno_est_date": "1863-07-06",
+            "a_minus_usno_min": -0.06
+          }
+        },
+        "civil_dusk": {
+          "lmt": "20:03",
+          "lmt_hms": "20:03:22",
+          "est": "20:12",
+          "est_date": "1863-07-06",
+          "utc": "1863-07-07T01:12:17Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.3,
+            "usno_est": "20:12",
+            "usno_est_date": "1863-07-06",
+            "a_minus_usno_min": 0.28
+          }
+        },
+        "nautical_dawn": {
+          "lmt": "03:24",
+          "lmt_hms": "03:24:10",
+          "est": "03:33",
+          "est_date": "1863-07-06",
+          "utc": "1863-07-06T08:33:05Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0.9,
+            "usno_est": null
+          }
+        },
+        "nautical_dusk": {
+          "lmt": "20:44",
+          "lmt_hms": "20:44:08",
+          "est": "20:53",
+          "est_date": "1863-07-06",
+          "utc": "1863-07-07T01:53:04Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0.2,
+            "usno_est": null
+          }
+        }
+      },
+      "moon": {
+        "moonrise": {
+          "lmt": "22:53",
+          "lmt_hms": "22:52:33",
+          "est": "23:01",
+          "est_date": "1863-07-06",
+          "utc": "1863-07-07T04:01:29Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -1.7,
+            "usno_est": "23:01",
+            "usno_est_date": "1863-07-06",
+            "a_minus_usno_min": 0.48
+          }
+        },
+        "moon_transit": {
+          "lmt": "04:37",
+          "lmt_hms": "04:36:52",
+          "est": "04:46",
+          "est_date": "1863-07-06",
+          "utc": "1863-07-06T09:45:47Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -2.4,
+            "usno_est": "04:46",
+            "usno_est_date": "1863-07-06",
+            "a_minus_usno_min": -0.21
+          }
+        },
+        "moonset": {
+          "lmt": "11:01",
+          "lmt_hms": "11:01:13",
+          "est": "11:10",
+          "est_date": "1863-07-06",
+          "utc": "1863-07-06T16:10:09Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -2.8,
+            "usno_est": "11:10",
+            "usno_est_date": "1863-07-06",
+            "a_minus_usno_min": 0.14
+          }
+        },
+        "illumination_noon_lmt_pct": 63.2,
+        "illumination_noon_est_pct": 63.27,
+        "ecliptic_elongation_noon_lmt_deg": 254.77,
+        "phase_name": "Waning Gibbous",
+        "principal_phase_today": null,
+        "badge": "Computed",
+        "method": "astronomy-engine",
+        "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+        "cross_check": {
+          "own_minus_a_noon_lmt_pct": 0.005,
+          "own_minus_a_noon_est_pct": 0.005,
+          "usno_fracillum_pct": 63,
+          "a_noon_est_minus_usno_pct": 0.27,
+          "usno_curphase": "Waning Gibbous",
+          "usno_closest_phase": "Last Quarter 1863-07-07 17:29 EST",
+          "label_agrees_with_usno": true
+        }
+      },
+      "day_length_min": 893.6
+    },
+    {
+      "date": "1863-07-07",
+      "weekday": "Tuesday",
+      "sun": {
+        "civil_dawn": {
+          "lmt": "04:06",
+          "lmt_hms": "04:05:42",
+          "est": "04:15",
+          "est_date": "1863-07-07",
+          "utc": "1863-07-07T09:14:37Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.8,
+            "usno_est": "04:15",
+            "usno_est_date": "1863-07-07",
+            "a_minus_usno_min": -0.38
+          }
+        },
+        "sunrise": {
+          "lmt": "04:38",
+          "lmt_hms": "04:38:03",
+          "est": "04:47",
+          "est_date": "1863-07-07",
+          "utc": "1863-07-07T09:46:58Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.8,
+            "usno_est": "04:47",
+            "usno_est_date": "1863-07-07",
+            "a_minus_usno_min": -0.03
+          }
+        },
+        "solar_transit": {
+          "lmt": "12:05",
+          "lmt_hms": "12:04:32",
+          "est": "12:13",
+          "est_date": "1863-07-07",
+          "utc": "1863-07-07T17:13:27Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.6,
+            "usno_est": "12:13",
+            "usno_est_date": "1863-07-07",
+            "a_minus_usno_min": 0.45
+          }
+        },
+        "sunset": {
+          "lmt": "19:31",
+          "lmt_hms": "19:30:44",
+          "est": "19:40",
+          "est_date": "1863-07-07",
+          "utc": "1863-07-08T00:39:39Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.4,
+            "usno_est": "19:40",
+            "usno_est_date": "1863-07-07",
+            "a_minus_usno_min": -0.35
+          }
+        },
+        "civil_dusk": {
+          "lmt": "20:03",
+          "lmt_hms": "20:03:01",
+          "est": "20:12",
+          "est_date": "1863-07-07",
+          "utc": "1863-07-08T01:11:57Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": 0.3,
+            "usno_est": "20:12",
+            "usno_est_date": "1863-07-07",
+            "a_minus_usno_min": -0.06
+          }
+        },
+        "nautical_dawn": {
+          "lmt": "03:25",
+          "lmt_hms": "03:24:55",
+          "est": "03:34",
+          "est_date": "1863-07-07",
+          "utc": "1863-07-07T08:33:50Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0.9,
+            "usno_est": null
+          }
+        },
+        "nautical_dusk": {
+          "lmt": "20:44",
+          "lmt_hms": "20:43:42",
+          "est": "20:53",
+          "est_date": "1863-07-07",
+          "utc": "1863-07-08T01:52:37Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus"],
+          "cross_check": {
+            "own_minus_a_s": 0.3,
+            "usno_est": null
+          }
+        }
+      },
+      "moon": {
+        "moonrise": {
+          "lmt": "23:24",
+          "lmt_hms": "23:23:50",
+          "est": "23:33",
+          "est_date": "1863-07-07",
+          "utc": "1863-07-08T04:32:45Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -1.6,
+            "usno_est": "23:33",
+            "usno_est_date": "1863-07-07",
+            "a_minus_usno_min": -0.25
+          }
+        },
+        "moon_transit": {
+          "lmt": "05:25",
+          "lmt_hms": "05:25:13",
+          "est": "05:34",
+          "est_date": "1863-07-07",
+          "utc": "1863-07-07T10:34:09Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -1.7,
+            "usno_est": "05:34",
+            "usno_est_date": "1863-07-07",
+            "a_minus_usno_min": 0.15
+          }
+        },
+        "moonset": {
+          "lmt": "12:07",
+          "lmt_hms": "12:07:00",
+          "est": "12:16",
+          "est_date": "1863-07-07",
+          "utc": "1863-07-07T17:15:56Z",
+          "badge": "Computed",
+          "method": "astronomy-engine",
+          "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+          "cross_check": {
+            "own_minus_a_s": -1.3,
+            "usno_est": "12:16",
+            "usno_est_date": "1863-07-07",
+            "a_minus_usno_min": -0.07
+          }
+        },
+        "illumination_noon_lmt_pct": 52.5,
+        "illumination_noon_est_pct": 52.56,
+        "ecliptic_elongation_noon_lmt_deg": 267.28,
+        "phase_name": "Last Quarter",
+        "principal_phase_today": {
+          "phase": "Last Quarter",
+          "lmt": "17:20",
+          "est": "17:29",
+          "est_date": "1863-07-07",
+          "utc": "1863-07-07T22:29:13Z"
+        },
+        "badge": "Computed",
+        "method": "astronomy-engine",
+        "cites": ["astronomy-engine", "own-meeus", "usno-api"],
+        "cross_check": {
+          "own_minus_a_noon_lmt_pct": 0.002,
+          "own_minus_a_noon_est_pct": 0.002,
+          "usno_fracillum_pct": 53,
+          "a_noon_est_minus_usno_pct": -0.44,
+          "usno_curphase": "Waning Gibbous",
+          "usno_closest_phase": "Last Quarter 1863-07-07 17:29 EST",
+          "label_agrees_with_usno": false
+        }
+      },
+      "day_length_min": 892.7
+    }
+  ]
+}

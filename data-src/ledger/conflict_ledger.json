@@ -1,0 +1,4687 @@
+{
+  "schema_version": 1,
+  "dataset": "conflict_ledger",
+  "title": "Where the Sources Disagree: the first twenty rows",
+  "status": "Verified rows only. Every quote was found on its page of the cited scan (or the cited web page), every printed page was checked against the leaf's own running head, every table was read from the page image and added up, and every number was matched to its quote. What could not be verified is in held_back and the review queue (docs/facts/README.md). No averaging, no silent choice.",
+  "rules": {
+    "no_averaging": "Values are never averaged, merged or reconciled. Every printed value stays visible with its source, edition and page.",
+    "shown_first": "Each row names which value is displayed first and writes the rule. The rule decides the order of display, never which value is true (pitch 2.5b).",
+    "status_ladder": {
+      "adopted with reason": "one value is shown first for a written reason, all others stay visible",
+      "open": "no value is settled; the sources and what would settle it are shown",
+      "unresolvable": "the sources cannot be reconciled because they describe different things or different moments"
+    },
+    "tiers": {
+      "A1": "public domain by date (published before 1931) or a US Government publication; quoted verbatim",
+      "B": "facts only, attributed; a secondary compilation (here only US Government web pages of the National Park Service)",
+      "S": "this project's own data, shown only to show where its numbers come from"
+    },
+    "verification": "figure-level methods: ocr_or_text (the number is in the text of the scan or page), image (read from the page image), second_scan (same book, another scan), ocr_corroborates_image (the OCR text of the page also holds the number); checksum = the figure sits inside a passing addition. See docs/facts/README.md.",
+    "link_out_only": ["American Battlefield Trust", "Stone Sentinels", "David Rumsey", "Ancestry/Fold3", "Find a Grave", "HMDB"]
+  },
+  "sources": [
+    {
+      "id": "or27-1",
+      "tier": "A1",
+      "title": "The War of the Rebellion: A Compilation of the Official Records of the Union and Confederate Armies, Series I, Volume XXVII (in three parts), Part I (Reports)",
+      "imprint": "Washington: Government Printing Office, 1889",
+      "imprint_year": 1889,
+      "imprint_evidence": "title page (image read): \"WASHINGTON: GOVERNMENT PRINTING OFFICE, 1889.\"",
+      "rights": "US Government publication, public domain",
+      "ia": ["warofrebellion271unit"],
+      "holder": "University of Illinois Urbana-Champaign (IA metadata dates the volume 1880, the year the series began)",
+      "short": "OR vol. 27 pt. 1"
+    },
+    {
+      "id": "or27-2",
+      "tier": "A1",
+      "title": "The War of the Rebellion ... Series I, Volume XXVII, Part II (Reports)",
+      "imprint": "Washington: Government Printing Office, 1889",
+      "imprint_year": 1889,
+      "imprint_evidence": "title page (OCR): \"PART II- REPORTS. WASHINGTON: GOVERNMENT PRINTING OFFICE. 1889.\"",
+      "rights": "US Government publication, public domain",
+      "ia": ["warofrebellion272unit"],
+      "holder": "University of Illinois Urbana-Champaign",
+      "short": "OR vol. 27 pt. 2"
+    },
+    {
+      "id": "fox-1889",
+      "tier": "A1",
+      "title": "Regimental Losses in the American Civil War, 1861-1865, by William F. Fox",
+      "imprint": "Albany: Albany Publishing Company, 1889 (\"COPYRIGHT BY WILLIAM F. FOX 1889 ... BRANDOW PRINTING COMPANY, ALBANY, N. Y.\")",
+      "imprint_year": 1889,
+      "imprint_evidence": "copyright page (OCR, leaf 7): \"COPYRIGHT BY WILLIAM F. FOX 1889\"",
+      "rights": "public domain in the United States by date (1889)",
+      "ia": ["reglossescivilwar00foxwrich"],
+      "holder": "University of California Libraries",
+      "short": "Fox, Regimental Losses (1889)"
+    },
+    {
+      "id": "livermore-1900",
+      "tier": "A1",
+      "title": "Numbers and Losses in the Civil War in America, 1861-65, by Thomas L. Livermore",
+      "imprint": "Boston and New York: Houghton, Mifflin and Company, 1900 (title page); IA metadata says 1901",
+      "imprint_year": 1900,
+      "imprint_evidence": "title page (OCR, leaf 6): \"BOSTON AND NEW YORK HOUGHTON, MIFFLIN AND COMPANY ... 1900\"",
+      "rights": "public domain in the United States by date (1900)",
+      "ia": ["numberslosses00liverich"],
+      "holder": "University of California Libraries",
+      "short": "Livermore, Numbers and Losses (1900)"
+    },
+    {
+      "id": "jacobs-notes-1864",
+      "tier": "A1",
+      "title": "Notes on the Rebel Invasion of Maryland and Pennsylvania, and the Battle of Gettysburg, July 1st, 2d and 3d, 1863, by M. Jacobs",
+      "imprint": "Philadelphia: J. B. Lippincott & Co., 1864",
+      "imprint_year": 1864,
+      "imprint_evidence": "see data-src/environment/weather_by_day.json sources.jacobs-notes-1864 (three scans; the 1888 fifth edition is not used)",
+      "rights": "public domain in the United States by date (1864)",
+      "ia": ["notesonrebelinva00jaco", "notesonrebelinva00gett", "notesonrebelinv00jacogoog"],
+      "holder": "Lincoln Financial Foundation / Gettysburg College / University of Michigan",
+      "short": "Jacobs, Notes (1864)"
+    },
+    {
+      "id": "haskell-1908",
+      "tier": "A1",
+      "title": "The Battle of Gettysburg, by Frank Aretas Haskell (Wisconsin History Commission Reprints, No. 1)",
+      "imprint": "Wisconsin History Commission, November 1908",
+      "imprint_year": 1908,
+      "imprint_evidence": "title page (OCR, leaf 8): \"WISCONSIN HISTORY COMMISSION NOVEMBER, 1908\"",
+      "rights": "public domain in the United States by date (1908)",
+      "ia": ["battleofgettysbu00haskuoft"],
+      "holder": "Robarts Library, University of Toronto",
+      "short": "Haskell (1908 reprint)"
+    },
+    {
+      "id": "pa-cemetery-1864",
+      "tier": "A1",
+      "title": "Report of the Select Committee relative to the Soldiers' National Cemetery, together with the accompanying documents, as reported to the House of Representatives of the Commonwealth of Pennsylvania, March 31, 1864",
+      "imprint": "Harrisburg: Singerly & Myers, State Printers, 1864",
+      "imprint_year": 1864,
+      "imprint_evidence": "title page (OCR, leaf 10): \"MARCH 31, 1864. HARRISBURG: SINGERLY & MYERS, STATE PRINTERS. 1864.\"",
+      "rights": "state government publication of 1864, public domain",
+      "ia": ["reportofselectcopenn"],
+      "holder": "Lincoln Financial Foundation Collection",
+      "short": "Pennsylvania cemetery report (1864)"
+    },
+    {
+      "id": "pa-cemetery-1865",
+      "tier": "A1",
+      "title": "Revised Report of the Select Committee relative to the Soldiers' National Cemetery, together with the accompanying documents",
+      "imprint": "Harrisburg: Singerly & Myers, State Printers, 1865",
+      "imprint_year": 1865,
+      "imprint_evidence": "title page (image read, leaf 8): \"SINGERLY & MYERS, STATE PRINTERS. 1865.\" (the OCR text misreads it as 1866)",
+      "rights": "state government publication of 1865, public domain",
+      "ia": ["revisedreportofs01penn"],
+      "holder": "Library of Congress",
+      "short": "Pennsylvania cemetery revised report (1865)"
+    },
+    {
+      "id": "pa-cemetery-1867",
+      "tier": "A1",
+      "title": "Revised Report made to the Legislature of Pennsylvania relative to the Soldiers' National Cemetery at Gettysburg",
+      "imprint": "Harrisburg: Singerly & Myers, State Printers, 1867",
+      "imprint_year": 1867,
+      "imprint_evidence": "title page (OCR, leaf 6): \"HARRISBURG: SINGERLY & MYERS, STATE PRINTERS, 1867.\"",
+      "rights": "state government publication of 1867, public domain",
+      "ia": ["revisedreportmad00penn"],
+      "holder": "Lincoln Financial Foundation Collection",
+      "short": "Pennsylvania cemetery revised report (1867)"
+    },
+    {
+      "id": "nps-battle-detail",
+      "tier": "B",
+      "title": "National Park Service, The Civil War: Battle Detail, Gettysburg (battleCode pa002)",
+      "url": "https://www.nps.gov/civilwar/search-battles-detail.htm?battleCode=pa002",
+      "cache": "nps-civilwar_search-battles-detail.htm_battleCode_pa002",
+      "rights": "US Government web page (public domain); a secondary compilation, so facts only, attributed",
+      "short": "NPS battle detail (web)"
+    },
+    {
+      "id": "nps-overview",
+      "tier": "B",
+      "title": "National Park Service, Gettysburg Overview",
+      "url": "https://www.nps.gov/gett/learn/historyculture/gettysburg-overview.htm",
+      "cache": "nps-gett_learn_historyculture_gettysburg-overview.htm",
+      "rights": "US Government web page (public domain); secondary, facts only",
+      "short": "NPS Gettysburg overview (web)"
+    },
+    {
+      "id": "nps-cemetery",
+      "tier": "B",
+      "title": "National Park Service, Soldiers' National Cemetery (places)",
+      "url": "https://www.nps.gov/places/soldiers-national-cemetery.htm",
+      "cache": "nps-places-soldiers-national-cemetery.html",
+      "rights": "US Government web page (public domain); secondary, facts only",
+      "short": "NPS Soldiers' National Cemetery (web)"
+    },
+    {
+      "id": "site-data",
+      "tier": "S",
+      "title": "This project's own data (data-src/build/facts.json, data-src/build/unit_registry.json): CANDIDATE data generated from the legacy site data, not a source",
+      "rights": "the project's own",
+      "short": "the site's own data"
+    },
+    {
+      "id": "weather-by-day",
+      "tier": "A1",
+      "title": "data-src/environment/weather_by_day.json (this project's verified weather dataset, built from Jacobs 1864 and 1885)",
+      "rights": "see that file",
+      "short": "weather_by_day.json"
+    }
+  ],
+  "quotes": [
+    {
+      "id": "Q-or1-p17",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": "Our own loss in this short campaign had been very severe, viz: Killed, 2,834; wounded, 13,709; missing, 6,643; total, 23,186.",
+      "printed_page": 17,
+      "who": "Maj. Gen. Henry W. Halleck, General-in-Chief (report)",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 34,
+          "printed_page": 17,
+          "reader_n": 33
+        }
+      ],
+      "image_confirm": "VR-or1-p17-halleck"
+    },
+    {
+      "id": "Q-or1-p17-fn",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": "But see revised statement, p. 187.",
+      "printed_page": 17,
+      "who": "editors' footnote to the figures on the same page",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 34,
+          "printed_page": 17,
+          "reader_n": 33
+        }
+      ]
+    },
+    {
+      "id": "Q-or1-p17-prisoners",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": "We captured 3 guns, 41 standards, 13,621 prisoners, and 28,178 small-arms.",
+      "printed_page": 17,
+      "who": "Maj. Gen. Henry W. Halleck, General-in-Chief (report)",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 34,
+          "printed_page": 17,
+          "reader_n": 33
+        }
+      ],
+      "image_confirm": "VR-or1-p17-halleck"
+    },
+    {
+      "id": "Q-or1-p113-recap",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": ["RECAPITULATION", "243 2,591 1,076 12,637 215 6,428", "Total 2,834 13,713 6,643 Aggregate* 23,190"],
+      "printed_page": 113,
+      "who": "recapitulation of the \"List of killed, wounded, and missing in the Army of the Potomac at the battle of Gettysburg, Pa., July 1, 2, and 3, 1863\" printed with General Meade's report",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 130,
+          "printed_page": 113,
+          "reader_n": 129
+        }
+      ],
+      "image_confirm": "VR-or1-p113-recap",
+      "numbers_note": "killed 243 officers + 2,591 men; wounded 1,076 + 12,637; missing 215 + 6,428; the OCR text prints the aggregate with a stray space, \"23, 190\""
+    },
+    {
+      "id": "Q-or1-p118",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": "Our own losses were very severe, amounting, as will be seen by the accompanying return, to 2,834 killed, 13,709 [13,713] wounded, and 6,643 missing; in all, 23,186 [23,190].",
+      "printed_page": 118,
+      "who": "Maj. Gen. George G. Meade (report)",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 135,
+          "printed_page": 118,
+          "reader_n": 134
+        }
+      ],
+      "image_confirm": "VR-or1-p118-meade"
+    },
+    {
+      "id": "Q-or1-p118-fn",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": "Reference is to table on p. 112; but see revised statement, p. 187.",
+      "printed_page": 118,
+      "who": "editors' footnote to Meade's figures",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 135,
+          "printed_page": 118,
+          "reader_n": 134
+        }
+      ]
+    },
+    {
+      "id": "Q-or1-p118-prisoners",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": "the capture of 3 guns, 41 standards, and 13,621 prisoners",
+      "printed_page": 118,
+      "who": "Maj. Gen. George G. Meade (report)",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 135,
+          "printed_page": 118,
+          "reader_n": 134
+        }
+      ],
+      "image_confirm": "VR-or1-p118-meade"
+    },
+    {
+      "id": "Q-or1-p187",
+      "type": "image",
+      "source": "or27-1",
+      "ia": "warofrebellion271unit",
+      "kind": "djvu",
+      "text": "Total Army of the Potomac 246 2,909 1,145 13,384 183 5,182 23,049",
+      "printed_page": 187,
+      "reading": "VR-or1-p187-recap",
+      "ocr_check": {
+        "expect_found": ["Total Army of the Potomac", "246 2,909 1,145 13,384 183 5,182"],
+        "known_ocr_variants": [
+          {
+            "printed": "23,049",
+            "ocr": "23,019"
+          }
+        ]
+      },
+      "who": "RECAPITULATION at the foot of the \"Return of Casualties in the Union forces\" (the \"revised statement\" the footnotes point to)"
+    },
+    {
+      "id": "Q-or1-p198-wounded",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": "The number of our wounded, from the most reliable information at my command, amounted to 14,193.",
+      "printed_page": 198,
+      "who": "Jonathan Letterman, Medical Director, Army of the Potomac (report)",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 215,
+          "printed_page": 198,
+          "reader_n": 214
+        }
+      ],
+      "image_confirm": "VR-or1-p198-letterman"
+    },
+    {
+      "id": "Q-or1-p198-fn",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": "But see revised statement, p. 187.",
+      "printed_page": 198,
+      "who": "editors' footnote on the page",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 215,
+          "printed_page": 198,
+          "reader_n": 214
+        }
+      ]
+    },
+    {
+      "id": "Q-or1-p198-total",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": "The number of Confederate wounded who fell into our hands was 6,802, making the total number of wounded thrown by that battle upon this department 20,995.",
+      "printed_page": 198,
+      "who": "Jonathan Letterman, Medical Director, Army of the Potomac (report)",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 215,
+          "printed_page": 198,
+          "reader_n": 214
+        }
+      ],
+      "image_confirm": "VR-or1-p198-letterman"
+    },
+    {
+      "id": "Q-or2-p338-note",
+      "type": "ocr",
+      "source": "or27-2",
+      "text": ["Return of Casualties in the Army of Northern Virginia", "July 1-3", "the compilation can only be regarded as approximative", "Several of the reports indicate that many of the \"missing\" were killed or wounded", "Especially is this the case with Pickett"],
+      "printed_page": 338,
+      "who": "editors' note heading the \"Return of Casualties in the Army of Northern Virginia, at the battle of Gettysburg, July 1-3\" (Addenda)",
+      "witnesses": [
+        {
+          "witness": "or2",
+          "ia": "warofrebellion272unit",
+          "kind": "djvu",
+          "leaf": 343,
+          "printed_page": 338,
+          "reader_n": 342
+        }
+      ]
+    },
+    {
+      "id": "Q-or2-p346",
+      "type": "image",
+      "source": "or27-2",
+      "ia": "warofrebellion272unit",
+      "kind": "djvu",
+      "text": "Grand total 2,592 12,709 5,150 20,451",
+      "printed_page": 346,
+      "reading": "VR-or2-p346-recap",
+      "ocr_check": {
+        "expect_found": ["20,451", "12,709"],
+        "known_ocr_variants": []
+      },
+      "who": "RECAPITULATION at the foot of the Return of Casualties in the Army of Northern Virginia (corps rows: 7,539; 5,937; 6,735; 240)",
+      "ocr_note": "the OCR text scrambles the columns; only some totals survive"
+    },
+    {
+      "id": "Q-or2-p346-note",
+      "type": "image",
+      "source": "or27-2",
+      "ia": "warofrebellion272unit",
+      "kind": "djvu",
+      "text": "The records of prisoners of war on file in the office of the Adjutant-General, U. S. Army, bear the names of 12,227 wounded and unwounded Confederates captured by the Union forces at and about Gettysburg, from July 1 to 5, inclusive. The number of wounded is reported by the medical director of the Army of the Potomac as 6,802.",
+      "printed_page": 346,
+      "reading": "VR-or2-p346-recap",
+      "ocr_check": {
+        "expect_found": ["director of the Army of the Potomac as 6,802"],
+        "known_ocr_variants": []
+      },
+      "who": "editors' NOTE under the recapitulation",
+      "ocr_note": "the OCR lost the line with 12,227; the image shows it"
+    },
+    {
+      "id": "Q-fox-p25-prose",
+      "type": "image",
+      "source": "fox-1889",
+      "ia": "reglossescivilwar00foxwrich",
+      "kind": "djvu",
+      "text": "This final statement shows that the Union Army lost at Gettysburg 3,063 killed, 14,492 wounded, and 5,435 missing.",
+      "printed_page": 25,
+      "reading": "VR-fox-p25",
+      "ocr_check": {
+        "expect_found": ["The official figures for the Union loss at Gettysburg have lately been revised and corrected at the War Department"],
+        "known_ocr_variants": [
+          {
+            "printed": "Union Army lost at Gettysburg 3,063 killed, 14,492 wounded, and 5,435 missing",
+            "ocr": "Union Army lost at Gettysburg 3,003 killed, 14,402 wounded, and 5,435 missing"
+          }
+        ]
+      },
+      "who": "William F. Fox"
+    },
+    {
+      "id": "Q-fox-p25-table",
+      "type": "image",
+      "source": "fox-1889",
+      "ia": "reglossescivilwar00foxwrich",
+      "kind": "djvu",
+      "text": "Total 3,063 14,492 5,435 22,990 5,291",
+      "printed_page": 25,
+      "reading": "VR-fox-p25",
+      "ocr_check": {
+        "expect_found": ["Reserve Artillery"],
+        "known_ocr_variants": [
+          {
+            "printed": "Total 3,063 14,492 5,435 22,990 5,291",
+            "ocr": "Total 3,063 14,402 5,435 22,000 5,201"
+          }
+        ]
+      },
+      "who": "William F. Fox, table \"GETTYSBURG, JULY 1-3, 1863\"",
+      "table": true
+    },
+    {
+      "id": "Q-fox-p25-lives",
+      "type": "image",
+      "source": "fox-1889",
+      "ia": "reglossescivilwar00foxwrich",
+      "kind": "djvu",
+      "text": "it appears that 5,291 men lost their lives, fighting for the Union on that field",
+      "printed_page": 25,
+      "reading": "VR-fox-p25",
+      "ocr_check": {
+        "expect_found": ["men lost their lives, fighting for the Union on that field"],
+        "known_ocr_variants": [
+          {
+            "printed": "it appears that 5,291 men",
+            "ocr": "it api>ears that 5,291 men"
+          }
+        ]
+      },
+      "who": "William F. Fox"
+    },
+    {
+      "id": "Q-fox-p25-kirkley",
+      "type": "ocr",
+      "source": "fox-1889",
+      "text": "To the recapitulation of losses, as published by Mr. Kirkley in 1886",
+      "printed_page": 25,
+      "who": "William F. Fox (the source he names for his figures)",
+      "witnesses": [
+        {
+          "witness": "fox",
+          "ia": "reglossescivilwar00foxwrich",
+          "kind": "djvu",
+          "leaf": 36,
+          "printed_page": 25,
+          "reader_n": null
+        }
+      ]
+    },
+    {
+      "id": "Q-fox-p26-split",
+      "type": "ocr",
+      "source": "fox-1889",
+      "text": ["It lost 50 killed and 174 wounded, total, 224 casualties, nearly all of which occurred in this fight", "A remarkable feature of this loss is that none were missing"],
+      "printed_page": 26,
+      "who": "William F. Fox, on the First Minnesota",
+      "witnesses": [
+        {
+          "witness": "fox",
+          "ia": "reglossescivilwar00foxwrich",
+          "kind": "djvu",
+          "leaf": 37,
+          "printed_page": 26,
+          "reader_n": null
+        }
+      ]
+    },
+    {
+      "id": "Q-fox-p26-262",
+      "type": "image",
+      "source": "fox-1889",
+      "ia": "reglossescivilwar00foxwrich",
+      "kind": "djvu",
+      "text": "The regiment took 262 officers and men into this affair",
+      "printed_page": 26,
+      "reading": "VR-fox-p26",
+      "ocr_check": {
+        "expect_found": ["officers and men into this affair"],
+        "known_ocr_variants": [
+          {
+            "printed": "The regiment took 262 officers and men",
+            "ocr": "The regiment took 202 officers and men"
+          }
+        ]
+      },
+      "who": "William F. Fox"
+    },
+    {
+      "id": "Q-fox-p26-215",
+      "type": "image",
+      "source": "fox-1889",
+      "ia": "reglossescivilwar00foxwrich",
+      "kind": "djvu",
+      "text": "the loss on the 2d was 215 killed and wounded, out of 262",
+      "printed_page": 26,
+      "reading": "VR-fox-p26",
+      "ocr_check": {
+        "expect_found": ["the. loss on the 2d was 215 killed and wounded"],
+        "known_ocr_variants": [
+          {
+            "printed": "out of 262",
+            "ocr": "out of 2(52"
+          }
+        ]
+      },
+      "who": "Fox, quoting Colonel Colvill's letter to Major H. D. O'Brien"
+    },
+    {
+      "id": "Q-fox-p26-224",
+      "type": "image",
+      "source": "fox-1889",
+      "ia": "reglossescivilwar00foxwrich",
+      "kind": "djvu",
+      "text": "The casualties on the 3d increased the loss to 224",
+      "printed_page": 26,
+      "reading": "VR-fox-p26",
+      "ocr_check": {
+        "expect_found": ["increased the loss to 224"],
+        "known_ocr_variants": [
+          {
+            "printed": "The casualties on the 3d",
+            "ocr": "The casualties on the 8d"
+          }
+        ]
+      },
+      "who": "William F. Fox"
+    },
+    {
+      "id": "Q-fox-p402",
+      "type": "image",
+      "source": "fox-1889",
+      "ia": "reglossescivilwar00foxwrich",
+      "kind": "djvu",
+      "text": "of the eight companies engaged - 262 all told - 215 were killed and wounded. It is the largest percentage of loss recorded in the annals of modern warfare. It was in action again on the following day, its casualties at Gettysburg aggregating 51 killed, and 173 wounded; total, 224.",
+      "printed_page": 402,
+      "reading": "VR-fox-p402",
+      "ocr_check": {
+        "expect_found": ["of the eight companies engaged", "262 all told", "215 were killed and wounded"],
+        "known_ocr_variants": [
+          {
+            "printed": "aggregating 51 killed, and 173 wounded",
+            "ocr": "aggregating 5 i killed, and 173 wounded"
+          }
+        ]
+      },
+      "who": "William F. Fox, notes to the First Minnesota Infantry"
+    },
+    {
+      "id": "Q-fox-p555",
+      "type": "image",
+      "source": "fox-1889",
+      "ia": "reglossescivilwar00foxwrich",
+      "kind": "djvu",
+      "text": "went into action with an effective strength which is stated in the regimental official report as \"over 800 men.\" They sustained a loss, according to Surgeon-General Guild's report, of 86 killed and 502 wounded; total, 588. In addition there were about 120 missing",
+      "printed_page": 555,
+      "reading": "VR-fox-p555",
+      "ocr_check": {
+        "expect_found": ["over 800 men", "86 killed and 502 wounded", "total, 588", "about 120 missing"],
+        "known_ocr_variants": []
+      },
+      "who": "William F. Fox, on the 26th North Carolina"
+    },
+    {
+      "id": "Q-fox-p556",
+      "type": "image",
+      "source": "fox-1889",
+      "ia": "reglossescivilwar00foxwrich",
+      "kind": "djvu",
+      "text": "26th North Carolina Gettysburg Heth's 820 86 502 71.7",
+      "printed_page": 556,
+      "reading": "VR-fox-p556",
+      "ocr_check": {
+        "expect_found": ["26th North Carolina"],
+        "known_ocr_variants": []
+      },
+      "who": "William F. Fox, table of remarkable percentages of loss in Confederate regiments",
+      "table": true
+    },
+    {
+      "id": "Q-liv-p102-union",
+      "type": "image",
+      "source": "livermore-1900",
+      "ia": "numberslosses00liverich",
+      "kind": "djvu",
+      "text": "Killed, 3155. Wounded, 14,529. Total, 17,684. Missing, 5365.",
+      "printed_page": 102,
+      "reading": "VR-liv-p102",
+      "ocr_check": {
+        "expect_found": ["Killed, 3155. Wounded, 14,529", "Missing, 5365"],
+        "known_ocr_variants": []
+      },
+      "who": "Thomas L. Livermore (footnote d cites \"43 W. R., 187\")"
+    },
+    {
+      "id": "Q-liv-p102-strength",
+      "type": "image",
+      "source": "livermore-1900",
+      "ia": "numberslosses00liverich",
+      "kind": "djvu",
+      "text": "Effectives estimated at 93 per cent. of infantry and artillery and 85 per cent. of cavalry 83,289",
+      "printed_page": 102,
+      "reading": "VR-liv-p102",
+      "ocr_check": {
+        "expect_found": ["of cavalry 83,289"],
+        "known_ocr_variants": []
+      },
+      "who": "Thomas L. Livermore"
+    },
+    {
+      "id": "Q-liv-p103-conf",
+      "type": "image",
+      "source": "livermore-1900",
+      "ia": "numberslosses00liverich",
+      "kind": "djvu",
+      "text": "Killed 2,592 Wounded 12,709 Missing 5,150 as per returns. 6,026 275 captured in excess of 770 reported. 1,311 to equal the average proportion of killed to 4.8 wounded. 3,903 18,735 Total, 22,638 5,425",
+      "printed_page": 103,
+      "reading": "VR-liv-p103",
+      "ocr_check": {
+        "expect_found": ["3,903 18,735 Total, 22,638 5,425", "captured in excess of 770 reported"],
+        "known_ocr_variants": []
+      },
+      "who": "Thomas L. Livermore (the additions to the returns are his own)"
+    },
+    {
+      "id": "Q-liv-p103-strength",
+      "type": "image",
+      "source": "livermore-1900",
+      "ia": "numberslosses00liverich",
+      "kind": "djvu",
+      "text": "Deduct losses prior to Gettysburg 938. Total engaged 75,054",
+      "printed_page": 103,
+      "reading": "VR-liv-p103",
+      "ocr_check": {
+        "expect_found": ["Deduct losses prior to Gettysburg"],
+        "known_ocr_variants": []
+      },
+      "who": "Thomas L. Livermore",
+      "ocr_note": "the OCR text lost the 75,054 figure; the image shows it"
+    },
+    {
+      "id": "Q-jacobs-p46-losses",
+      "type": "ocr",
+      "source": "jacobs-notes-1864",
+      "text": "the Federals lost about 4,000 killed, 12,000 wounded, and 4,000 prisoners, or, in all, about 20,000; whilst the Rebels lost 5,500 killed, 21,000 wounded, 9,000 prisoners, and 4,000 stragglers and deserters, or a total of about 40,000",
+      "printed_page": 46,
+      "who": "Michael Jacobs",
+      "witnesses": [
+        {
+          "witness": "jacobsA",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "leaf": 58,
+          "printed_page": 46,
+          "reader_n": 55
+        },
+        {
+          "witness": "jacobsB",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "leaf": 54,
+          "printed_page": 46,
+          "reader_n": 53
+        }
+      ],
+      "reading": "VR-jacobs-A-p46",
+      "note": "Jacobs's preface-writer dates his endorsement September 23, 1863; the book was printed in 1864. The estimate predates the official returns."
+    },
+    {
+      "id": "Q-jacobs-p46-strength",
+      "type": "ocr",
+      "source": "jacobs-notes-1864",
+      "text": "had 90,000, the Federals about 60,000 men",
+      "printed_page": 46,
+      "who": "Michael Jacobs",
+      "witnesses": [
+        {
+          "witness": "jacobsA",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "leaf": 58,
+          "printed_page": 46,
+          "reader_n": 55
+        },
+        {
+          "witness": "jacobsB",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "leaf": 54,
+          "printed_page": 46,
+          "reader_n": 53
+        }
+      ],
+      "reading": "VR-jacobs-A-p46"
+    },
+    {
+      "id": "Q-jacobs-p41-guns",
+      "type": "ocr",
+      "source": "jacobs-notes-1864",
+      "text": "Probably not less than 150 guns on each side belched forth the missiles of death",
+      "printed_page": 41,
+      "who": "Michael Jacobs",
+      "witnesses": [
+        {
+          "witness": "jacobsA",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "leaf": 53,
+          "printed_page": 41,
+          "reader_n": 50
+        },
+        {
+          "witness": "jacobsB",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "leaf": 49,
+          "printed_page": 41,
+          "reader_n": 48
+        },
+        {
+          "witness": "jacobsC",
+          "ia": "notesonrebelinv00jacogoog",
+          "kind": "abbyy",
+          "leaf": 41,
+          "printed_page": 41,
+          "reader_n": 41
+        }
+      ],
+      "image_confirm": "VR-jacobs-A-p41"
+    },
+    {
+      "id": "Q-jacobs-p41-time",
+      "type": "ocr",
+      "source": "jacobs-notes-1864",
+      "text": "At seven minutes past 1 p. m., the awful and portentous silence was broken.",
+      "printed_page": 41,
+      "who": "Michael Jacobs",
+      "witnesses": [
+        {
+          "witness": "jacobsA",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "leaf": 53,
+          "printed_page": 41,
+          "reader_n": 50
+        },
+        {
+          "witness": "jacobsB",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "leaf": 49,
+          "printed_page": 41,
+          "reader_n": 48
+        },
+        {
+          "witness": "jacobsC",
+          "ia": "notesonrebelinv00jacogoog",
+          "kind": "abbyy",
+          "leaf": 41,
+          "printed_page": 41,
+          "reader_n": 41
+        }
+      ],
+      "image_confirm": "VR-jacobs-A-p41"
+    },
+    {
+      "id": "Q-jacobs-p32-morning",
+      "type": "ocr",
+      "source": "jacobs-notes-1864",
+      "text": "The morning was pleasant, the air was calm, the sun shone mildly through a smoky atmosphere",
+      "printed_page": 32,
+      "who": "Michael Jacobs",
+      "witnesses": [
+        {
+          "witness": "jacobsA",
+          "ia": "notesonrebelinva00jaco",
+          "kind": "abbyy",
+          "leaf": 44,
+          "printed_page": 32,
+          "reader_n": 41
+        },
+        {
+          "witness": "jacobsB",
+          "ia": "notesonrebelinva00gett",
+          "kind": "abbyy",
+          "leaf": 40,
+          "printed_page": 32,
+          "reader_n": 39
+        },
+        {
+          "witness": "jacobsC",
+          "ia": "notesonrebelinv00jacogoog",
+          "kind": "abbyy",
+          "leaf": 32,
+          "printed_page": 32,
+          "reader_n": 32
+        }
+      ]
+    },
+    {
+      "id": "Q-haskell-p19",
+      "type": "ocr",
+      "source": "haskell-1908",
+      "text": "At three o'clock, A. M., of the second of July, the sleepy soldiers of the Corps were aroused",
+      "printed_page": 19,
+      "who": "Frank A. Haskell",
+      "witnesses": [
+        {
+          "witness": "haskell",
+          "ia": "battleofgettysbu00haskuoft",
+          "kind": "djvu",
+          "leaf": 48,
+          "printed_page": 19,
+          "reader_n": null
+        }
+      ]
+    },
+    {
+      "id": "Q-haskell-p20",
+      "type": "ocr",
+      "source": "haskell-1908",
+      "text": "The morning was thick and sultry, the sky overcast with low, vapory clouds",
+      "printed_page": 20,
+      "who": "Frank A. Haskell (Second Corps, Gibbon's staff), July 2 before six o'clock",
+      "witnesses": [
+        {
+          "witness": "haskell",
+          "ia": "battleofgettysbu00haskuoft",
+          "kind": "djvu",
+          "leaf": 49,
+          "printed_page": 20,
+          "reader_n": null
+        }
+      ]
+    },
+    {
+      "id": "Q-ref-wind-rx",
+      "type": "ref",
+      "source": "weather-by-day",
+      "observation": "W-1863-07-01-wind-speed",
+      "witness": "rx",
+      "value": 2,
+      "text": "(2 miles per hour)",
+      "who": "H. E. Jacobs 1885, Civil War Rx transcription"
+    },
+    {
+      "id": "Q-ref-wind-ecw",
+      "type": "ref",
+      "source": "weather-by-day",
+      "observation": "W-1863-07-01-wind-speed",
+      "witness": "ecw",
+      "value": 12,
+      "text": "(12 miles per hour)",
+      "who": "H. E. Jacobs 1885, Emerging Civil War transcription and the clipping image"
+    },
+    {
+      "id": "Q-doubleday-1015",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": "This melancholy event occurred in the beginning of the attack referred to, about 10.15 a. m.",
+      "printed_page": 245,
+      "who": "Maj. Gen. Abner Doubleday (report), on Reynolds's death",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 262,
+          "printed_page": 245,
+          "reader_n": 261
+        }
+      ],
+      "image_confirm": "VR-or1-p245-doubleday"
+    },
+    {
+      "id": "Q-howard-1115",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": "General Reynolds was killed at 11.15 a. m.",
+      "printed_page": 696,
+      "who": "Maj. Gen. Oliver O. Howard (despatch of July 1, 5 p. m.)",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 713,
+          "printed_page": 696,
+          "reader_n": 710
+        }
+      ],
+      "image_confirm": "VR-or1-p696-howard"
+    },
+    {
+      "id": "Q-howard-1130",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": ["Major [William] Riddle, brought the sad tidings of his death", "about 11.30 a. m. Prior to this the general had sent me orders to move up at double-quick"],
+      "printed_page": 702,
+      "who": "Maj. Gen. Oliver O. Howard (report): the time he was told that Reynolds was dead",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 719,
+          "printed_page": 702,
+          "reader_n": 716
+        }
+      ],
+      "image_confirm": "VR-or1-p702-howard"
+    },
+    {
+      "id": "Q-schurz-1130",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": ["about 11.30 o'clock, finding you upon an eminence east of the cemetery of Gettysburg", "You informed me that General Reynolds had just been killed"],
+      "printed_page": 727,
+      "who": "Maj. Gen. Carl Schurz (report), addressing Howard: arrived about 11.30 o'clock and was told Reynolds had just been killed",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 744,
+          "printed_page": 727,
+          "reader_n": 741
+        }
+      ],
+      "image_confirm": "VR-or1-p727-schurz"
+    },
+    {
+      "id": "Q-hunt-cannonade",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": ["when the enemy opened, at about 1 p. m., along his whole right, a furious cannonade on the left of our line", "I estimated the number of his guns bearing on our west front at from one hundred to one hundred and twenty", "making one hundred, and fifteen in all"],
+      "printed_page": 239,
+      "who": "Brig. Gen. Henry J. Hunt, Chief of Artillery (report)",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 256,
+          "printed_page": 239,
+          "reader_n": 255
+        }
+      ],
+      "image_confirm": "VR-or1-p239-hunt"
+    },
+    {
+      "id": "Q-newton-cannonade",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": "Near 1 p. m. the enemy opened with about one hundred and twenty guns upon the position of the army",
+      "printed_page": 262,
+      "who": "Maj. Gen. John Newton, commanding First Army Corps (report)",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 279,
+          "printed_page": 262,
+          "reader_n": 278
+        }
+      ],
+      "image_confirm": "VR-or1-p262-newton"
+    },
+    {
+      "id": "Q-harrow-cannonade",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": "At 1 p. m. the enemy opened a fierce cannonade upon the line from a hundred or more guns",
+      "printed_page": 420,
+      "who": "Brig. Gen. William Harrow, commanding Second Division, Second Corps (report)",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 437,
+          "printed_page": 420,
+          "reader_n": 436
+        }
+      ],
+      "image_confirm": "VR-or1-p420-harrow"
+    },
+    {
+      "id": "Q-hancock-cannonade",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": "About 1 o'clock, apparently by a given signal, the enemy opened upon our front with the heaviest artillery fire I have ever known",
+      "printed_page": 372,
+      "who": "Maj. Gen. Winfield S. Hancock (report)",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 389,
+          "printed_page": 372,
+          "reader_n": 388
+        }
+      ],
+      "image_confirm": "VR-or1-p372-hancock"
+    },
+    {
+      "id": "Q-taft-cannonade",
+      "type": "ocr",
+      "source": "or27-1",
+      "text": "The enemy opened fire again about 1.30 p. m., which was returned by my battery",
+      "printed_page": 891,
+      "who": "Capt. Elijah D. Taft, Fifth New York Battery (report)",
+      "witnesses": [
+        {
+          "witness": "or1",
+          "ia": "warofrebellion271unit",
+          "kind": "djvu",
+          "leaf": 908,
+          "printed_page": 891,
+          "reader_n": 903
+        }
+      ],
+      "image_confirm": "VR-or1-p891-taft"
+    },
+    {
+      "id": "Q-lee-cannonade",
+      "type": "ocr",
+      "source": "or27-2",
+      "text": "About 1 p. m., at a given signal, a heavy cannonade was opened, and continued for about two hours with marked effect upon the enemy",
+      "printed_page": 320,
+      "who": "General Robert E. Lee (report)",
+      "witnesses": [
+        {
+          "witness": "or2",
+          "ia": "warofrebellion272unit",
+          "kind": "djvu",
+          "leaf": 325,
+          "printed_page": 320,
+          "reader_n": 324
+        }
+      ],
+      "image_confirm": "VR-or2-p320-lee"
+    },
+    {
+      "id": "Q-pendleton-cannonade",
+      "type": "ocr",
+      "source": "or27-2",
+      "text": "At length, about 1 p. m. , on the concerted signal, our guns in position, nearly one hundred and fifty, opened fire along the entire line",
+      "printed_page": 352,
+      "who": "Brig. Gen. William N. Pendleton, Chief of Artillery (report)",
+      "witnesses": [
+        {
+          "witness": "or2",
+          "ia": "warofrebellion272unit",
+          "kind": "djvu",
+          "leaf": 357,
+          "printed_page": 352,
+          "reader_n": 356
+        }
+      ],
+      "image_confirm": "VR-or2-p352-pendleton"
+    },
+    {
+      "id": "Q-cabell-cannonade",
+      "type": "ocr",
+      "source": "or27-2",
+      "text": "The fire of the artillery was opened about 1 p. m. For over two hours the cannonading on both sides was almost continuous and incessant",
+      "printed_page": 376,
+      "who": "Col. H. C. Cabell, commanding artillery battalion (report)",
+      "witnesses": [
+        {
+          "witness": "or2",
+          "ia": "warofrebellion272unit",
+          "kind": "djvu",
+          "leaf": 381,
+          "printed_page": 376,
+          "reader_n": 380
+        }
+      ],
+      "image_confirm": "VR-or2-p376-cabell"
+    },
+    {
+      "id": "Q-peyton-cannonade",
+      "type": "ocr",
+      "source": "or27-2",
+      "text": "which opened at 1.30 p. m., and was kept up without intermission for one hour",
+      "printed_page": 385,
+      "who": "Maj. Charles S. Peyton, 19th Virginia, commanding Garnett's brigade (report)",
+      "witnesses": [
+        {
+          "witness": "or2",
+          "ia": "warofrebellion272unit",
+          "kind": "djvu",
+          "leaf": 390,
+          "printed_page": 385,
+          "reader_n": 389
+        }
+      ],
+      "image_confirm": "VR-or2-p385-peyton"
+    },
+    {
+      "id": "Q-cem64-text",
+      "type": "ocr",
+      "source": "pa-cemetery-1864",
+      "text": "The total number buried in the cemetery, is thirty-five hundred and twelve (3,512.)",
+      "printed_page": 9,
+      "who": "the Superintendent's statement printed in the report (words and digits agree)",
+      "witnesses": [
+        {
+          "witness": "cem64",
+          "ia": "reportofselectcopenn",
+          "kind": "djvu",
+          "leaf": 18,
+          "printed_page": 9,
+          "reader_n": null
+        }
+      ]
+    },
+    {
+      "id": "Q-cem64-pa",
+      "type": "ocr",
+      "source": "pa-cemetery-1864",
+      "text": "The whole number is five hundred and one (501.)",
+      "printed_page": 9,
+      "who": "the Pennsylvania lot, in the same statement",
+      "witnesses": [
+        {
+          "witness": "cem64",
+          "ia": "reportofselectcopenn",
+          "kind": "djvu",
+          "leaf": 18,
+          "printed_page": 9,
+          "reader_n": null
+        }
+      ]
+    },
+    {
+      "id": "Q-cem65-text",
+      "type": "ocr",
+      "source": "pa-cemetery-1865",
+      "text": "The total number buried in the cemetery, is thirty-five hundred and twelve (3,512.)",
+      "printed_page": 10,
+      "who": "the same statement as printed in the revised report of 1865",
+      "witnesses": [
+        {
+          "witness": "cem65",
+          "ia": "revisedreportofs01penn",
+          "kind": "djvu",
+          "leaf": 15,
+          "printed_page": 10,
+          "reader_n": null
+        }
+      ]
+    },
+    {
+      "id": "Q-cem65-table",
+      "type": "ocr",
+      "source": "pa-cemetery-1865",
+      "text": ["Maine 104", "Pennsylvania 526", "Total buried in the Soldiers' National Cemetery 3,555"],
+      "printed_page": 133,
+      "who": "SYNOPSIS table of the revised report of 1865",
+      "witnesses": [
+        {
+          "witness": "cem65",
+          "ia": "revisedreportofs01penn",
+          "kind": "djvu",
+          "leaf": 138,
+          "printed_page": 133,
+          "reader_n": null
+        }
+      ],
+      "sum_check": {
+        "numbers": [104, 49, 61, 159, 12, 22, 866, 78, 526, 15, 22, 11, 131, 80, 6, 171, 73, 52, 138, 411, 425, 143],
+        "total": 3555
+      }
+    },
+    {
+      "id": "Q-cem67-pa",
+      "type": "ocr",
+      "source": "pa-cemetery-1867",
+      "text": "The whole number is five hundred and thirty-four (534.)",
+      "printed_page": 8,
+      "who": "the Pennsylvania lot, in the same statement",
+      "witnesses": [
+        {
+          "witness": "cem67",
+          "ia": "revisedreportmad00penn",
+          "kind": "djvu",
+          "leaf": 13,
+          "printed_page": 8,
+          "reader_n": null
+        }
+      ]
+    },
+    {
+      "id": "Q-cem67-text",
+      "type": "ocr",
+      "source": "pa-cemetery-1867",
+      "text": "The total number buried in the Cemetery, is thirty-five hundred and sixty-four (3,564.)",
+      "printed_page": 8,
+      "who": "the statement as printed in the revised report of 1867 (words and digits agree)",
+      "witnesses": [
+        {
+          "witness": "cem67",
+          "ia": "revisedreportmad00penn",
+          "kind": "djvu",
+          "leaf": 13,
+          "printed_page": 8,
+          "reader_n": null
+        }
+      ]
+    },
+    {
+      "id": "Q-cem67-table",
+      "type": "ocr",
+      "source": "pa-cemetery-1867",
+      "text": "Total buried in the Soldiers' National Cemetery, 3,564",
+      "printed_page": 143,
+      "who": "SYNOPSIS table of the revised report of 1867",
+      "witnesses": [
+        {
+          "witness": "cem67",
+          "ia": "revisedreportmad00penn",
+          "kind": "djvu",
+          "leaf": 148,
+          "printed_page": 143,
+          "reader_n": null
+        }
+      ]
+    },
+    {
+      "id": "Q-nps-casualties",
+      "type": "web",
+      "source": "nps-battle-detail",
+      "text": "Estimated Casualties:51000 total (US 23000; CS 28000;)",
+      "who": "NPS, The Civil War: Battle Detail",
+      "sha256": "385a2914b2435929abdba35df5774a983203cb7c27f573d6860422e6d6ac0440",
+      "retrieved": "2026-10-04"
+    },
+    {
+      "id": "Q-nps-forces",
+      "type": "web",
+      "source": "nps-battle-detail",
+      "text": "Forces Engaged:158343 total (US 83289; CS 75054;)",
+      "who": "NPS, The Civil War: Battle Detail",
+      "sha256": "385a2914b2435929abdba35df5774a983203cb7c27f573d6860422e6d6ac0440",
+      "retrieved": "2026-10-04"
+    },
+    {
+      "id": "Q-nps-letterman",
+      "type": "web",
+      "source": "nps-overview",
+      "text": "over 20,000 injured Union and Confederate soldiers that passed through the hospital's wards",
+      "who": "NPS, Gettysburg Overview, on Camp Letterman General Hospital",
+      "sha256": "d275c963781db2f14ff50bcc089c57e5fc65b69258539575a8e392e93f1a74fa",
+      "retrieved": "2026-10-04"
+    },
+    {
+      "id": "Q-nps-cemetery",
+      "type": "web",
+      "source": "nps-cemetery",
+      "text": "This is the final resting place for more than 3,500 United States soldiers killed at Gettysburg.",
+      "who": "NPS, Soldiers' National Cemetery",
+      "sha256": "78d295d661146bb22cf74e15e65cb89887ae5c6133e3ce09b90c74ab6943a5d9",
+      "retrieved": "2026-10-04"
+    },
+    {
+      "id": "S-union-corps-sum",
+      "type": "site",
+      "source": "site-data",
+      "file": "data-src/build/facts.json",
+      "path": "casualties.site_figures_measured.union.oob_corps_casualty_sum",
+      "value": 22803,
+      "text": "22803",
+      "who": "this project's own data (CANDIDATE)"
+    },
+    {
+      "id": "S-union-period-sum",
+      "type": "site",
+      "source": "site-data",
+      "file": "data-src/build/facts.json",
+      "path": "casualties.site_figures_measured.union.apportionment_period_sum",
+      "value": 23138,
+      "text": "23138",
+      "who": "this project's own data (CANDIDATE)"
+    },
+    {
+      "id": "S-union-strength",
+      "type": "site",
+      "source": "site-data",
+      "file": "data-src/build/facts.json",
+      "path": "casualties.authorities.engaged_strength.union.value",
+      "value": 93921,
+      "text": "93921",
+      "who": "this project's own data (CANDIDATE)"
+    },
+    {
+      "id": "S-conf-strength",
+      "type": "site",
+      "source": "site-data",
+      "file": "data-src/build/facts.json",
+      "path": "casualties.authorities.engaged_strength.confederate.value",
+      "value": 71699,
+      "text": "71699",
+      "who": "this project's own data (CANDIDATE)"
+    },
+    {
+      "id": "S-1mn-strength",
+      "type": "site",
+      "source": "site-data",
+      "file": "data-src/build/unit_registry.json",
+      "path": "units[id=U-1MN].strength",
+      "value": 262,
+      "text": "262",
+      "who": "this project's own data (CANDIDATE)"
+    },
+    {
+      "id": "S-1mn-casualties",
+      "type": "site",
+      "source": "site-data",
+      "file": "data-src/build/unit_registry.json",
+      "path": "units[id=U-1MN].casualties",
+      "value": 224,
+      "text": "224",
+      "who": "this project's own data (CANDIDATE)"
+    }
+  ],
+  "rows": [
+    {
+      "id": "WSD-01",
+      "pitch_row": 2,
+      "kind": "casualties",
+      "title": "Union casualties at Gettysburg (killed, wounded, missing, total)",
+      "question": "How many Union soldiers were killed, wounded or missing at Gettysburg?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Official Records, list printed with Meade's report (August 1863)",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 113,
+          "tier": "A1",
+          "quote": ["Q-or1-p113-recap"],
+          "figures": {
+            "killed": 2834,
+            "wounded": 13713,
+            "missing": 6643,
+            "total": 23190
+          },
+          "what_is_counted": "officers and enlisted men of the Army of the Potomac at the battle of Gettysburg, July 1-3, 1863 (killed 243 + 2,591; wounded 1,076 + 12,637; missing 215 + 6,428)",
+          "printed": {
+            "total": "23, 190"
+          },
+          "checks": [
+            {
+              "type": "sum",
+              "parts": [243, 2591],
+              "total": 2834
+            },
+            {
+              "type": "sum",
+              "parts": [1076, 12637],
+              "total": 13713
+            },
+            {
+              "type": "sum",
+              "parts": [215, 6428],
+              "total": 6643
+            },
+            {
+              "type": "sum",
+              "parts": [2834, 13713, 6643],
+              "total": 23190
+            }
+          ],
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              },
+              "wounded": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              },
+              "missing": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              },
+              "total": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "General Meade's report, in the Official Records",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 118,
+          "tier": "A1",
+          "quote": ["Q-or1-p118", "Q-or1-p118-fn"],
+          "figures": {
+            "killed": 2834,
+            "wounded": 13709,
+            "missing": 6643,
+            "total": 23186
+          },
+          "what_is_counted": "the losses of the campaign in Meade's words, \"as will be seen by the accompanying return\"; the editors print the table's own figures in brackets after his (wounded [13,713], total [23,190]) and a footnote: \"but see revised statement, p. 187\"",
+          "printed": {
+            "wounded": "13,709 [13,713]",
+            "total": "23,186 [23,190]"
+          },
+          "bracketed": {
+            "wounded": 13713,
+            "total": 23190
+          },
+          "checks": [
+            {
+              "type": "sum",
+              "parts": [2834, 13709, 6643],
+              "total": 23186
+            },
+            {
+              "type": "sum",
+              "parts": [2834, 13713, 6643],
+              "total": 23190
+            }
+          ],
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              },
+              "wounded": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              },
+              "missing": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              },
+              "total": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v3",
+          "authority": "Report of the General-in-Chief (Halleck), in the Official Records",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 17,
+          "tier": "A1",
+          "quote": ["Q-or1-p17", "Q-or1-p17-fn"],
+          "figures": {
+            "killed": 2834,
+            "wounded": 13709,
+            "missing": 6643,
+            "total": 23186
+          },
+          "what_is_counted": "Halleck describes the figure as the loss \"in this short campaign\"; it repeats Meade's; the editors add \"But see revised statement, p. 187.\"",
+          "checks": [
+            {
+              "type": "sum",
+              "parts": [2834, 13709, 6643],
+              "total": 23186
+            }
+          ],
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              },
+              "wounded": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              },
+              "missing": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              },
+              "total": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v4",
+          "authority": "Official Records, \"Return of Casualties in the Union forces\" revised statement (recapitulation)",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 187,
+          "tier": "A1",
+          "quote": ["Q-or1-p187"],
+          "figures": {
+            "killed": 3155,
+            "wounded": 14529,
+            "missing": 5365,
+            "total": 23049
+          },
+          "what_is_counted": "officers and enlisted men, ten rows (headquarters, eight corps, artillery reserve); killed 246 + 2,909; wounded 1,145 + 13,384; captured or missing 183 + 5,182",
+          "printed": {
+            "total": "23,049"
+          },
+          "checks": [
+            {
+              "type": "table",
+              "reading": "VR-or1-p187-recap"
+            }
+          ],
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["image"],
+                "checksum": true
+              },
+              "wounded": {
+                "methods": ["image"],
+                "checksum": true
+              },
+              "missing": {
+                "methods": ["image"],
+                "checksum": true
+              },
+              "total": {
+                "methods": ["image"],
+                "checksum": true
+              }
+            },
+            "level": "one_extraction_method_plus_checksum"
+          }
+        },
+        {
+          "id": "v5",
+          "authority": "Fox, Regimental Losses (1889)",
+          "source": "fox-1889",
+          "edition": "Albany 1889",
+          "page": 25,
+          "tier": "A1",
+          "quote": ["Q-fox-p25-prose", "Q-fox-p25-table", "Q-fox-p25-kirkley"],
+          "figures": {
+            "killed": 3063,
+            "wounded": 14492,
+            "missing": 5435,
+            "total": 22990
+          },
+          "what_is_counted": "Fox's \"final statement\" of the Union loss, which he says has \"lately been revised and corrected at the War Department\"; he builds his table on \"the recapitulation of losses, as published by Mr. Kirkley in 1886\" and adds a column of killed or died of wounds; the wounded include the mortally wounded; his own name-by-name count of killed or died of wounds is a separate figure (5,291)",
+          "checks": [
+            {
+              "type": "table",
+              "reading": "VR-fox-p25"
+            }
+          ],
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              },
+              "wounded": {
+                "methods": ["image"],
+                "checksum": true
+              },
+              "missing": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              },
+              "total": {
+                "methods": ["image"],
+                "checksum": true
+              }
+            },
+            "level": "one_extraction_method_plus_checksum"
+          }
+        },
+        {
+          "id": "v6",
+          "authority": "Livermore, Numbers and Losses (1900)",
+          "source": "livermore-1900",
+          "edition": "Boston 1900",
+          "page": 102,
+          "tier": "A1",
+          "quote": ["Q-liv-p102-union"],
+          "figures": {
+            "killed": 3155,
+            "wounded": 14529,
+            "missing": 5365,
+            "killed_wounded": 17684
+          },
+          "what_is_counted": "the p. 187 figures (his footnote d cites \"43 W. R., 187\"); he prints killed plus wounded (17,684) and missing separately and no grand total (23,049 is the sum)",
+          "derived": {
+            "total": 23049
+          },
+          "derivation": "killed + wounded + missing",
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              },
+              "wounded": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              },
+              "missing": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              },
+              "killed_wounded": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v7",
+          "authority": "Jacobs, Notes on the Rebel Invasion (1864)",
+          "source": "jacobs-notes-1864",
+          "edition": "Philadelphia 1864",
+          "page": 46,
+          "tier": "A1",
+          "quote": ["Q-jacobs-p46-losses"],
+          "figures": {
+            "killed": 4000,
+            "wounded": 12000,
+            "missing": 4000,
+            "total": 20000
+          },
+          "what_is_counted": "a round estimate by a witness in Gettysburg, written before any return was compiled: \"about\" 4,000 killed, 12,000 wounded and 4,000 \"prisoners\", \"in all, about 20,000\"",
+          "approximate": true,
+          "printed": {
+            "killed": "about 4,000",
+            "total": "about 20,000"
+          },
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["ocr_or_text", "second_scan"],
+                "checksum": false
+              },
+              "wounded": {
+                "methods": ["ocr_or_text", "second_scan"],
+                "checksum": false
+              },
+              "missing": {
+                "methods": ["ocr_or_text", "second_scan"],
+                "checksum": false
+              },
+              "total": {
+                "methods": ["ocr_or_text", "second_scan"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v8",
+          "authority": "National Park Service, Battle Detail",
+          "source": "nps-battle-detail",
+          "edition": "web page read 2026-10-04",
+          "page": null,
+          "tier": "B",
+          "quote": ["Q-nps-casualties"],
+          "figures": {
+            "total": 23000
+          },
+          "what_is_counted": "a rounded estimate for the Union (\"Estimated Casualties 51000 total (US 23000; CS 28000)\")",
+          "approximate": true,
+          "verification": {
+            "figures": {
+              "total": {
+                "methods": ["ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        },
+        {
+          "id": "v9",
+          "authority": "The site's own data: sum of the eight corps casualty fields",
+          "source": "site-data",
+          "edition": "data-src/build/facts.json",
+          "page": null,
+          "tier": "S",
+          "quote": ["S-union-corps-sum"],
+          "figures": {
+            "total": 22803
+          },
+          "what_is_counted": "the eight corps rows of the site (First, Second, Third, Fifth, Sixth, Eleventh, Twelfth, Cavalry), which leaves out the headquarters row (4) and the Artillery Reserve (242) of the p. 187 recapitulation",
+          "derived": {
+            "total": 22803
+          },
+          "derivation": "p. 187 total 23,049 - Artillery Reserve 242 - General headquarters 4",
+          "checks": [
+            {
+              "type": "diff",
+              "from": 23049,
+              "minus": [242, 4],
+              "total": 22803
+            }
+          ],
+          "verification": {
+            "figures": {},
+            "level": "one_extraction_method"
+          }
+        },
+        {
+          "id": "v10",
+          "authority": "The site's own data: sum of the per-period apportionment",
+          "source": "site-data",
+          "edition": "data-src/build/facts.json",
+          "page": null,
+          "tier": "S",
+          "quote": ["S-union-period-sum"],
+          "figures": {
+            "total": 23138
+          },
+          "what_is_counted": "the site's \"by engagement period\" apportionment; this ledger could not trace the 89 men by which it exceeds 23,049",
+          "verification": {
+            "figures": {
+              "total": {
+                "methods": ["ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v4",
+        "rule": "Official Records returns first (pitch 2.5b authority ranking for casualties); within the Official Records the revised statement the footnotes themselves point to (p. 187). A display order, not a claim that it is true."
+      },
+      "status": "adopted with reason",
+      "reason_for_difference": "The Official Records print the Union total three times as 23,190 / 23,186 (the August 1863 list, Meade's report, Halleck's report) and once as 23,049 (the revised statement p. 187); each of the earlier places carries a note \"But see revised statement, p. 187\". Fox (1889) prints a third set, 22,990, which he calls the War Department's final revised statement and builds on Kirkley's 1886 recapitulation; he does not say how it differs from the p. 187 statement. Livermore (1900) uses the p. 187 figures. Jacobs (1864) rounds an estimate made in 1863. The site's 22,803 is the p. 187 total less headquarters (4) and the Artillery Reserve (242) (arithmetic). Missing includes captured men, so it is the least settled of the three counts.",
+      "what_would_settle": "The War Department compilation Fox cites (Kirkley, 1886) set beside the p. 187 statement, and a name-by-name roll count (Fox did one for the dead only).",
+      "review": [
+        {
+          "needs": "historian",
+          "what": "Say whether Fox's 1886 \"Kirkley\" statement and the Official Records p. 187 statement are two compilations of the same nominal lists, and which the Park uses."
+        }
+      ],
+      "held_back": [
+        {
+          "claim": "Busey and Martin (2005): 23,055 (3,155 killed, 14,531 wounded, 5,369 captured or missing)",
+          "reason": "facts-only tier B; the figure reaches this project only through Wikipedia and the site's facts.json (\"p.125 as cited by Wikipedia; not opened\"); the book was not opened and no accessible page was verified, so it is left out."
+        },
+        {
+          "claim": "22,822 (listed in the pitch)",
+          "reason": "no source for this number was found; the only 22,8xx figures met were 22,803 (the site's corps sum) and 22,822 as an unrelated column total in Fox's table of battles."
+        }
+      ]
+    },
+    {
+      "id": "WSD-02",
+      "pitch_row": 1,
+      "kind": "casualties",
+      "title": "Confederate casualties at Gettysburg (killed, wounded, missing, total)",
+      "question": "How many Confederate soldiers were killed, wounded or missing at Gettysburg?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Official Records, Return of Casualties in the Army of Northern Virginia (recapitulation, with Surg. Guild's statement)",
+          "source": "or27-2",
+          "edition": "GPO 1889",
+          "page": 346,
+          "tier": "A1",
+          "quote": ["Q-or2-p346", "Q-or2-p338-note"],
+          "figures": {
+            "killed": 2592,
+            "wounded": 12709,
+            "missing": 5150,
+            "total": 20451
+          },
+          "what_is_counted": "the compilation \"at the battle of Gettysburg, July 1-3\", which the editors call \"approximative\" and say is based on the figures of brigade, division and corps commanders where they differ from Surgeon Guild's detail",
+          "printed": {
+            "total": "20,451"
+          },
+          "checks": [
+            {
+              "type": "table",
+              "reading": "VR-or2-p346-recap"
+            }
+          ],
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              },
+              "wounded": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              },
+              "missing": {
+                "methods": ["image"],
+                "checksum": true
+              },
+              "total": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              }
+            },
+            "level": "one_extraction_method_plus_checksum"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "Livermore, Numbers and Losses (1900)",
+          "source": "livermore-1900",
+          "edition": "Boston 1900",
+          "page": 103,
+          "tier": "A1",
+          "quote": ["Q-liv-p103-conf"],
+          "figures": {
+            "killed": 3903,
+            "wounded": 18735,
+            "missing": 5425,
+            "killed_wounded": 22638
+          },
+          "what_is_counted": "the returns (2,592 / 12,709 / 5,150) plus his own additions: 6,026 wounded and 275 missing \"captured in excess of 770 reported\", and 1,311 killed \"to equal the average proportion of killed to 4.8 wounded\"; no grand total is printed (28,063 is the sum)",
+          "derived": {
+            "total": 28063
+          },
+          "derivation": "killed + wounded + missing",
+          "estimate": true,
+          "checks": [
+            {
+              "type": "sum",
+              "parts": [2592, 1311],
+              "total": 3903
+            },
+            {
+              "type": "sum",
+              "parts": [12709, 6026],
+              "total": 18735
+            },
+            {
+              "type": "sum",
+              "parts": [5150, 275],
+              "total": 5425
+            }
+          ],
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              },
+              "wounded": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              },
+              "missing": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              },
+              "killed_wounded": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v3",
+          "authority": "Jacobs, Notes on the Rebel Invasion (1864)",
+          "source": "jacobs-notes-1864",
+          "edition": "Philadelphia 1864",
+          "page": 46,
+          "tier": "A1",
+          "quote": ["Q-jacobs-p46-losses"],
+          "figures": {
+            "killed": 5500,
+            "wounded": 21000,
+            "prisoners": 9000,
+            "stragglers_and_deserters": 4000,
+            "total": 40000
+          },
+          "what_is_counted": "a round estimate by a witness: \"5,500 killed, 21,000 wounded, 9,000 prisoners, and 4,000 stragglers and deserters, or a total of about 40,000\"; it counts stragglers and deserters, which the returns do not",
+          "approximate": true,
+          "printed": {
+            "total": "about 40,000"
+          },
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["ocr_or_text", "second_scan"],
+                "checksum": false
+              },
+              "wounded": {
+                "methods": ["ocr_or_text", "second_scan"],
+                "checksum": false
+              },
+              "prisoners": {
+                "methods": ["ocr_or_text", "second_scan"],
+                "checksum": false
+              },
+              "stragglers_and_deserters": {
+                "methods": ["ocr_or_text", "second_scan"],
+                "checksum": false
+              },
+              "total": {
+                "methods": ["ocr_or_text", "second_scan"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v4",
+          "authority": "National Park Service, Battle Detail",
+          "source": "nps-battle-detail",
+          "edition": "web page read 2026-10-04",
+          "page": null,
+          "tier": "B",
+          "quote": ["Q-nps-casualties"],
+          "figures": {
+            "total": 28000
+          },
+          "what_is_counted": "a rounded estimate for the Confederates (\"US 23000; CS 28000\")",
+          "approximate": true,
+          "verification": {
+            "figures": {
+              "total": {
+                "methods": ["ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v1",
+        "rule": "Official Records returns first (pitch 2.5b authority ranking for casualties), shown with the editors' own warning that it is approximative. A display order, not a claim that it is true."
+      },
+      "status": "open",
+      "reason_for_difference": "No Confederate total is settled. The Official Records return counts what commanders reported (and says many \"missing\" were killed or wounded, especially Pickett's division). Livermore adds to it: wounded and missing captured beyond the reported numbers (6,026 and 275) and 1,311 killed to match the average proportion of killed to wounded; his sum 28,063 equals the figure the pitch lists for the American Battlefield Trust (the Trust page was not fetched: link-out only). Jacobs counts stragglers and deserters too. The NPS figure is a round estimate.",
+      "what_would_settle": "Name-by-name Confederate rolls (Krick, 2004, graded the brigade returns; not verified here), and the Union prisoner-of-war records the Official Records mention (see WSD-08).",
+      "review": [
+        {
+          "needs": "historian",
+          "what": "Decide whether to show Livermore's printed components with his additions labelled as estimates, and whether to cite Krick and Busey and Martin once their pages are checked."
+        },
+        {
+          "needs": "counsel",
+          "what": "Facts-only attribution of Busey and Martin and Krick figures (pitch part 5)."
+        }
+      ],
+      "held_back": [
+        {
+          "claim": "Krick (2004): 22,587; Stone Sentinels: 22,709; Busey and Martin (2005): 23,231 (4,708 / 12,693 / 5,830); American Battlefield Trust: 28,063; Livermore \"27,823\" as listed in the pitch",
+          "reason": "none could be verified from an accessible source: Krick and Busey and Martin were not opened (Busey and Martin only as cited by Wikipedia), Stone Sentinels is a link-out source, the Trust bans scraping and was not fetched, and Livermore's printed figures give 28,063 (K+W 22,638 plus missing 5,425), not 27,823."
+        }
+      ]
+    },
+    {
+      "id": "WSD-03",
+      "pitch_row": 2,
+      "kind": "casualties",
+      "title": "Union killed at Gettysburg",
+      "question": "How many Union soldiers were killed at Gettysburg?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Official Records, list printed with Meade's report (August 1863); Meade's and Halleck's reports",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 113,
+          "tier": "A1",
+          "quote": ["Q-or1-p113-recap", "Q-or1-p118"],
+          "figures": {
+            "killed": 2834
+          },
+          "what_is_counted": "killed in action, officers 243 + enlisted men 2,591 (also pp. 118 and 17)",
+          "checks": [
+            {
+              "type": "sum",
+              "parts": [243, 2591],
+              "total": 2834
+            }
+          ],
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "Official Records, revised statement",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 187,
+          "tier": "A1",
+          "quote": ["Q-or1-p187"],
+          "figures": {
+            "killed": 3155
+          },
+          "what_is_counted": "killed in action, officers 246 + enlisted men 2,909",
+          "checks": [
+            {
+              "type": "table",
+              "reading": "VR-or1-p187-recap"
+            }
+          ],
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["image"],
+                "checksum": true
+              }
+            },
+            "level": "one_extraction_method_plus_checksum"
+          }
+        },
+        {
+          "id": "v3",
+          "authority": "Fox, \"Killed\" in his table of the War Department's statement",
+          "source": "fox-1889",
+          "edition": "Albany 1889",
+          "page": 25,
+          "tier": "A1",
+          "quote": ["Q-fox-p25-table"],
+          "figures": {
+            "killed": 3063
+          },
+          "what_is_counted": "killed, with the mortally wounded counted among the wounded",
+          "checks": [
+            {
+              "type": "table",
+              "reading": "VR-fox-p25"
+            }
+          ],
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v4",
+          "authority": "Fox, his own count from the regimental rolls: killed or died of wounds",
+          "source": "fox-1889",
+          "edition": "Albany 1889",
+          "page": 25,
+          "tier": "A1",
+          "quote": ["Q-fox-p25-lives"],
+          "figures": {
+            "killed_or_died_of_wounds": 5291
+          },
+          "what_is_counted": "a DIFFERENT measure: every man who was killed or died of wounds, picked off name by name from the rolls of each regiment, \"three-fourths of whom died within a week\"",
+          "verification": {
+            "figures": {
+              "killed_or_died_of_wounds": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v5",
+          "authority": "Livermore (1900)",
+          "source": "livermore-1900",
+          "edition": "Boston 1900",
+          "page": 102,
+          "tier": "A1",
+          "quote": ["Q-liv-p102-union"],
+          "figures": {
+            "killed": 3155
+          },
+          "what_is_counted": "the p. 187 figure",
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v6",
+          "authority": "Jacobs (1864)",
+          "source": "jacobs-notes-1864",
+          "edition": "Philadelphia 1864",
+          "page": 46,
+          "tier": "A1",
+          "quote": ["Q-jacobs-p46-losses"],
+          "figures": {
+            "killed": 4000
+          },
+          "what_is_counted": "a round estimate: \"about 4,000 killed\"",
+          "approximate": true,
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["ocr_or_text", "second_scan"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v2",
+        "rule": "Official Records returns first; the revised statement (p. 187). A display order, not a claim."
+      },
+      "status": "adopted with reason",
+      "reason_for_difference": "The returns count men killed in action; the wounded include those who died later. Fox's 5,291 adds the men who died of wounds and is the only name-by-name count, so it is a different quantity, not a competing killed figure. Between the returns themselves, the August 1863 list (2,834) was later revised (3,155, p. 187); Fox's 3,063 comes from the revised War Department statement he describes (built on Kirkley's 1886 recapitulation).",
+      "what_would_settle": "A single definition (killed in action, or killed or mortally wounded) applied to one roll.",
+      "review": []
+    },
+    {
+      "id": "WSD-04",
+      "pitch_row": 2,
+      "kind": "casualties",
+      "title": "Union wounded at Gettysburg",
+      "question": "How many Union soldiers were wounded at Gettysburg?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Official Records, list printed with Meade's report",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 113,
+          "tier": "A1",
+          "quote": ["Q-or1-p113-recap"],
+          "figures": {
+            "wounded": 13713
+          },
+          "what_is_counted": "officers 1,076 + enlisted men 12,637",
+          "checks": [
+            {
+              "type": "sum",
+              "parts": [1076, 12637],
+              "total": 13713
+            }
+          ],
+          "verification": {
+            "figures": {
+              "wounded": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "General Meade's report (and Halleck's)",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 118,
+          "tier": "A1",
+          "quote": ["Q-or1-p118", "Q-or1-p17"],
+          "figures": {
+            "wounded": 13709
+          },
+          "what_is_counted": "printed 13,709 in the text, with 13,713 in brackets (the table's figure) on p. 118; 13,709 on p. 17",
+          "printed": {
+            "wounded": "13,709 [13,713]"
+          },
+          "bracketed": {
+            "wounded": 13713
+          },
+          "verification": {
+            "figures": {
+              "wounded": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v3",
+          "authority": "Letterman, Medical Director, Army of the Potomac",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 198,
+          "tier": "A1",
+          "quote": ["Q-or1-p198-wounded", "Q-or1-p198-fn"],
+          "figures": {
+            "wounded": 14193
+          },
+          "what_is_counted": "\"The number of our wounded, from the most reliable information at my command\"; the editors add \"But see revised statement, p. 187.\"",
+          "checks": [
+            {
+              "type": "sum",
+              "parts": [14193, 6802],
+              "total": 20995
+            }
+          ],
+          "verification": {
+            "figures": {
+              "wounded": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v4",
+          "authority": "Official Records, revised statement",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 187,
+          "tier": "A1",
+          "quote": ["Q-or1-p187"],
+          "figures": {
+            "wounded": 14529
+          },
+          "what_is_counted": "officers 1,145 + enlisted men 13,384",
+          "checks": [
+            {
+              "type": "table",
+              "reading": "VR-or1-p187-recap"
+            }
+          ],
+          "verification": {
+            "figures": {
+              "wounded": {
+                "methods": ["image"],
+                "checksum": true
+              }
+            },
+            "level": "one_extraction_method_plus_checksum"
+          }
+        },
+        {
+          "id": "v5",
+          "authority": "Fox (1889)",
+          "source": "fox-1889",
+          "edition": "Albany 1889",
+          "page": 25,
+          "tier": "A1",
+          "quote": ["Q-fox-p25-prose", "Q-fox-p25-table"],
+          "figures": {
+            "wounded": 14492
+          },
+          "what_is_counted": "\"the mortally wounded are included in the 14,492 wounded\"",
+          "checks": [
+            {
+              "type": "table",
+              "reading": "VR-fox-p25"
+            }
+          ],
+          "verification": {
+            "figures": {
+              "wounded": {
+                "methods": ["image"],
+                "checksum": true
+              }
+            },
+            "level": "one_extraction_method_plus_checksum"
+          }
+        },
+        {
+          "id": "v6",
+          "authority": "Livermore (1900)",
+          "source": "livermore-1900",
+          "edition": "Boston 1900",
+          "page": 102,
+          "tier": "A1",
+          "quote": ["Q-liv-p102-union"],
+          "figures": {
+            "wounded": 14529
+          },
+          "what_is_counted": "the p. 187 figure",
+          "verification": {
+            "figures": {
+              "wounded": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v7",
+          "authority": "Jacobs (1864)",
+          "source": "jacobs-notes-1864",
+          "edition": "Philadelphia 1864",
+          "page": 46,
+          "tier": "A1",
+          "quote": ["Q-jacobs-p46-losses"],
+          "figures": {
+            "wounded": 12000
+          },
+          "what_is_counted": "a round estimate: \"12,000 wounded\"",
+          "approximate": true,
+          "verification": {
+            "figures": {
+              "wounded": {
+                "methods": ["ocr_or_text", "second_scan"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v4",
+        "rule": "Official Records returns first; the revised statement (p. 187). A display order, not a claim."
+      },
+      "status": "adopted with reason",
+      "reason_for_difference": "Six printed figures between 13,709 and 14,529 come from successive compilations of the same nominal lists: the August 1863 list, Meade's text, Letterman's medical-director estimate (14,193, footnoted \"see revised statement\"), the p. 187 statement, and Fox's 1889 \"final statement\". Jacobs's 12,000 is an early round estimate.",
+      "what_would_settle": "Reading the compilation steps between the 1863 list and the revised statement.",
+      "review": []
+    },
+    {
+      "id": "WSD-05",
+      "pitch_row": 2,
+      "kind": "casualties",
+      "title": "Union missing or captured at Gettysburg",
+      "question": "How many Union soldiers were missing or captured at Gettysburg?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Official Records, list printed with Meade's report; Meade's and Halleck's reports",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 113,
+          "tier": "A1",
+          "quote": ["Q-or1-p113-recap", "Q-or1-p118"],
+          "figures": {
+            "missing": 6643
+          },
+          "what_is_counted": "missing, officers 215 + enlisted men 6,428 (also pp. 118 and 17)",
+          "checks": [
+            {
+              "type": "sum",
+              "parts": [215, 6428],
+              "total": 6643
+            }
+          ],
+          "verification": {
+            "figures": {
+              "missing": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "Official Records, revised statement",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 187,
+          "tier": "A1",
+          "quote": ["Q-or1-p187"],
+          "figures": {
+            "missing": 5365
+          },
+          "what_is_counted": "captured or missing, officers 183 + enlisted men 5,182",
+          "checks": [
+            {
+              "type": "table",
+              "reading": "VR-or1-p187-recap"
+            }
+          ],
+          "verification": {
+            "figures": {
+              "missing": {
+                "methods": ["image"],
+                "checksum": true
+              }
+            },
+            "level": "one_extraction_method_plus_checksum"
+          }
+        },
+        {
+          "id": "v3",
+          "authority": "Fox (1889)",
+          "source": "fox-1889",
+          "edition": "Albany 1889",
+          "page": 25,
+          "tier": "A1",
+          "quote": ["Q-fox-p25-prose", "Q-fox-p25-table"],
+          "figures": {
+            "missing": 5435
+          },
+          "what_is_counted": "captured or missing",
+          "checks": [
+            {
+              "type": "table",
+              "reading": "VR-fox-p25"
+            }
+          ],
+          "verification": {
+            "figures": {
+              "missing": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v4",
+          "authority": "Livermore (1900)",
+          "source": "livermore-1900",
+          "edition": "Boston 1900",
+          "page": 102,
+          "tier": "A1",
+          "quote": ["Q-liv-p102-union"],
+          "figures": {
+            "missing": 5365
+          },
+          "what_is_counted": "the p. 187 figure",
+          "verification": {
+            "figures": {
+              "missing": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v5",
+          "authority": "Jacobs (1864)",
+          "source": "jacobs-notes-1864",
+          "edition": "Philadelphia 1864",
+          "page": 46,
+          "tier": "A1",
+          "quote": ["Q-jacobs-p46-losses"],
+          "figures": {
+            "prisoners": 4000
+          },
+          "what_is_counted": "a round estimate: \"4,000 prisoners\"",
+          "approximate": true,
+          "verification": {
+            "figures": {
+              "prisoners": {
+                "methods": ["ocr_or_text", "second_scan"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v2",
+        "rule": "Official Records returns first; the revised statement (p. 187). A display order, not a claim."
+      },
+      "status": "open",
+      "reason_for_difference": "The \"missing\" column fell by 1,278 between the August 1863 list (6,643) and the revised statement (5,365) while the wounded and killed columns rose, which is what one would expect if men first listed as missing were later found among the wounded and the dead (an inference; the Official Records give no breakdown). Fox's 5,435 differs from p. 187 by 70. \"Missing\" mixes prisoners, the killed not found, and stragglers.",
+      "what_would_settle": "Prisoner-of-war and parole records matched to the nominal lists.",
+      "review": []
+    },
+    {
+      "id": "WSD-06",
+      "pitch_row": 1,
+      "kind": "casualties",
+      "title": "Confederate killed at Gettysburg",
+      "question": "How many Confederate soldiers were killed at Gettysburg?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Official Records, Return of Casualties in the Army of Northern Virginia",
+          "source": "or27-2",
+          "edition": "GPO 1889",
+          "page": 346,
+          "tier": "A1",
+          "quote": ["Q-or2-p346"],
+          "figures": {
+            "killed": 2592
+          },
+          "what_is_counted": "killed, brigade/division/corps commanders' figures; \"approximative\" per the editors",
+          "checks": [
+            {
+              "type": "table",
+              "reading": "VR-or2-p346-recap"
+            }
+          ],
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "Livermore (1900)",
+          "source": "livermore-1900",
+          "edition": "Boston 1900",
+          "page": 103,
+          "tier": "A1",
+          "quote": ["Q-liv-p103-conf"],
+          "figures": {
+            "killed": 3903
+          },
+          "what_is_counted": "2,592 as returned plus 1,311 added \"to equal the average proportion of killed to 4.8 wounded\"",
+          "estimate": true,
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v3",
+          "authority": "Jacobs (1864)",
+          "source": "jacobs-notes-1864",
+          "edition": "Philadelphia 1864",
+          "page": 46,
+          "tier": "A1",
+          "quote": ["Q-jacobs-p46-losses"],
+          "figures": {
+            "killed": 5500
+          },
+          "what_is_counted": "a round estimate: \"5,500 killed\"",
+          "approximate": true,
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["ocr_or_text", "second_scan"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v1",
+        "rule": "Official Records returns first. A display order, not a claim."
+      },
+      "status": "open",
+      "reason_for_difference": "The return counts killed as reported; Livermore adds 1,311 killed by assuming the Union ratio of 4.8 wounded to one killed applied to the Confederate wounded he also raised; Jacobs's figure is an early estimate that counts differently (he lists stragglers and deserters separately).",
+      "what_would_settle": "Rolls of Confederate dead by name; none is held here.",
+      "review": []
+    },
+    {
+      "id": "WSD-07",
+      "pitch_row": 1,
+      "kind": "casualties",
+      "title": "Confederate wounded at Gettysburg",
+      "question": "How many Confederate soldiers were wounded at Gettysburg?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Official Records, Return of Casualties in the Army of Northern Virginia",
+          "source": "or27-2",
+          "edition": "GPO 1889",
+          "page": 346,
+          "tier": "A1",
+          "quote": ["Q-or2-p346"],
+          "figures": {
+            "wounded": 12709
+          },
+          "what_is_counted": "wounded as reported by commanders; the editors note many \"missing\" were killed or wounded",
+          "checks": [
+            {
+              "type": "table",
+              "reading": "VR-or2-p346-recap"
+            }
+          ],
+          "verification": {
+            "figures": {
+              "wounded": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "Livermore (1900)",
+          "source": "livermore-1900",
+          "edition": "Boston 1900",
+          "page": 103,
+          "tier": "A1",
+          "quote": ["Q-liv-p103-conf"],
+          "figures": {
+            "wounded": 18735
+          },
+          "what_is_counted": "12,709 as returned plus 6,026 wounded \"captured in excess of 770 reported\"",
+          "estimate": true,
+          "verification": {
+            "figures": {
+              "wounded": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v3",
+          "authority": "Jacobs (1864)",
+          "source": "jacobs-notes-1864",
+          "edition": "Philadelphia 1864",
+          "page": 46,
+          "tier": "A1",
+          "quote": ["Q-jacobs-p46-losses"],
+          "figures": {
+            "wounded": 21000
+          },
+          "what_is_counted": "a round estimate: \"21,000 wounded\"",
+          "approximate": true,
+          "verification": {
+            "figures": {
+              "wounded": {
+                "methods": ["ocr_or_text", "second_scan"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v4",
+          "authority": "Letterman, Medical Director, Army of the Potomac: Confederate wounded in Union hands",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 198,
+          "tier": "A1",
+          "quote": ["Q-or1-p198-total"],
+          "figures": {
+            "wounded_captured": 6802
+          },
+          "what_is_counted": "only the Confederate wounded who \"fell into our hands\", a part of the whole; the Official Records Confederate return note repeats 6,802 (p. 346)",
+          "verification": {
+            "figures": {
+              "wounded_captured": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v1",
+        "rule": "Official Records returns first. A display order, not a claim."
+      },
+      "status": "open",
+      "reason_for_difference": "The Confederate return lists 12,709 wounded, while the Union Medical Director alone counted 6,802 Confederate wounded captured, and Livermore reasons that of those, 6,026 are not in the Confederate returns (the returns reported only 770 left behind). Jacobs is an early round estimate.",
+      "what_would_settle": "Hospital registers of the Confederate wounded on both sides.",
+      "review": []
+    },
+    {
+      "id": "WSD-08",
+      "pitch_row": 1,
+      "kind": "casualties",
+      "title": "Confederates captured at Gettysburg",
+      "question": "How many Confederate soldiers were captured at Gettysburg?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Official Records, Confederate return: \"captured or missing\"",
+          "source": "or27-2",
+          "edition": "GPO 1889",
+          "page": 346,
+          "tier": "A1",
+          "quote": ["Q-or2-p346"],
+          "figures": {
+            "captured_or_missing": 5150
+          },
+          "what_is_counted": "the Confederate commanders' own figure for men captured or missing (the editors say many \"missing\" were killed or wounded)",
+          "checks": [
+            {
+              "type": "table",
+              "reading": "VR-or2-p346-recap"
+            }
+          ],
+          "verification": {
+            "figures": {
+              "captured_or_missing": {
+                "methods": ["image"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "Official Records, Union Medical Director: Confederate wounded captured",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 198,
+          "tier": "A1",
+          "quote": ["Q-or1-p198-total"],
+          "figures": {
+            "wounded_captured": 6802
+          },
+          "what_is_counted": "only the wounded among the captured",
+          "verification": {
+            "figures": {
+              "wounded_captured": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v3",
+          "authority": "Official Records, Adjutant-General's prisoner-of-war records",
+          "source": "or27-2",
+          "edition": "GPO 1889",
+          "page": 346,
+          "tier": "A1",
+          "quote": ["Q-or2-p346-note"],
+          "figures": {
+            "captured": 12227,
+            "of_which_wounded": 6802
+          },
+          "what_is_counted": "\"wounded and unwounded Confederates captured by the Union forces at and about Gettysburg, from July 1 to 5, inclusive\"",
+          "verification": {
+            "figures": {
+              "captured": {
+                "methods": ["image"],
+                "checksum": false
+              },
+              "of_which_wounded": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method_plus_checksum"
+          }
+        },
+        {
+          "id": "v4",
+          "authority": "General Meade's report and Halleck's report",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 118,
+          "tier": "A1",
+          "quote": ["Q-or1-p118-prisoners", "Q-or1-p17-prisoners"],
+          "figures": {
+            "prisoners": 13621
+          },
+          "what_is_counted": "prisoners taken in the whole campaign (the pursuit and Falling Waters are included in \"the result of the campaign\")",
+          "verification": {
+            "figures": {
+              "prisoners": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v5",
+          "authority": "Livermore (1900)",
+          "source": "livermore-1900",
+          "edition": "Boston 1900",
+          "page": 103,
+          "tier": "A1",
+          "quote": ["Q-liv-p103-conf"],
+          "figures": {
+            "missing": 5425
+          },
+          "what_is_counted": "5,150 as returned plus 275 captured in excess of the 770 reported",
+          "verification": {
+            "figures": {
+              "missing": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v6",
+          "authority": "Jacobs (1864)",
+          "source": "jacobs-notes-1864",
+          "edition": "Philadelphia 1864",
+          "page": 46,
+          "tier": "A1",
+          "quote": ["Q-jacobs-p46-losses"],
+          "figures": {
+            "prisoners": 9000
+          },
+          "what_is_counted": "a round estimate: \"9,000 prisoners\"",
+          "approximate": true,
+          "verification": {
+            "figures": {
+              "prisoners": {
+                "methods": ["ocr_or_text", "second_scan"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v3",
+        "rule": "For prisoners, the Adjutant-General's records of men actually captured (a count by name) are shown first, with the Confederate \"missing\" column beside them. A display order, not a claim."
+      },
+      "status": "adopted with reason",
+      "reason_for_difference": "Different things are counted. 5,150 is what Confederate commanders returned as captured or missing (the editors say many were killed or wounded); 12,227 is the number of names the Adjutant-General's prisoner records hold for men captured July 1-5, of whom the Medical Director counted 6,802 wounded; 13,621 is Meade's prisoner total for the whole campaign.",
+      "what_would_settle": "Matching the 12,227 prisoner names to the Confederate rolls.",
+      "review": []
+    },
+    {
+      "id": "WSD-09",
+      "pitch_row": 3,
+      "kind": "strength",
+      "title": "Union strength at Gettysburg",
+      "question": "How many Union soldiers were engaged at Gettysburg?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Livermore (1900): effectives estimated",
+          "source": "livermore-1900",
+          "edition": "Boston 1900",
+          "page": 102,
+          "tier": "A1",
+          "quote": ["Q-liv-p102-strength"],
+          "figures": {
+            "engaged": 83289
+          },
+          "what_is_counted": "\"Effectives estimated at 93 per cent. of infantry and artillery and 85 per cent. of cavalry\", from 87,312 infantry and artillery present for duty less 9,058 for 17 regiments, plus 12,369 cavalry, then 93% and 85%; his own estimate",
+          "estimate": true,
+          "checks": [
+            {
+              "type": "approx",
+              "expr": [
+                [0.93, 78254],
+                [0.85, 12369]
+              ],
+              "total": 83289,
+              "tolerance": 2
+            }
+          ],
+          "verification": {
+            "figures": {
+              "engaged": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "Jacobs (1864)",
+          "source": "jacobs-notes-1864",
+          "edition": "Philadelphia 1864",
+          "page": 46,
+          "tier": "A1",
+          "quote": ["Q-jacobs-p46-strength"],
+          "figures": {
+            "engaged": 60000
+          },
+          "what_is_counted": "a round figure for the Federals: \"about 60,000 men\"",
+          "approximate": true,
+          "verification": {
+            "figures": {
+              "engaged": {
+                "methods": ["ocr_or_text", "second_scan"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v3",
+          "authority": "National Park Service, Battle Detail",
+          "source": "nps-battle-detail",
+          "edition": "web page read 2026-10-04",
+          "page": null,
+          "tier": "B",
+          "quote": ["Q-nps-forces"],
+          "figures": {
+            "engaged": 83289
+          },
+          "what_is_counted": "the same number as Livermore's printed estimate: the NPS figure is Livermore's, not an independent count",
+          "copies": "v1",
+          "verification": {
+            "figures": {
+              "engaged": {
+                "methods": ["ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        },
+        {
+          "id": "v4",
+          "authority": "The site's own data (oob_army_strength)",
+          "source": "site-data",
+          "edition": "data-src/build/facts.json",
+          "page": null,
+          "tier": "S",
+          "quote": ["S-union-strength"],
+          "figures": {
+            "engaged": 93921
+          },
+          "what_is_counted": "the site's order-of-battle strength; its file attributes it to Busey and Martin p. 125 as cited by Wikipedia, which this project did not verify",
+          "unverified_origin": true,
+          "verification": {
+            "figures": {
+              "engaged": {
+                "methods": ["ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v1",
+        "rule": "The one A1 source that prints a strength with its method; shown with its estimate label. A display order, not a claim."
+      },
+      "status": "open",
+      "reason_for_difference": "Livermore counts effectives (93% of present-for-duty infantry and artillery, 85% of cavalry); the NPS figure repeats it; the site's 93,921 is larger (the site's file says it is Busey and Martin's, not verified); Jacobs's 60,000 is a round estimate by a civilian.",
+      "what_would_settle": "The June 30 returns (Official Records vol. 27 pt. 1 p. 151) read against Busey and Martin's definitions.",
+      "review": [
+        {
+          "needs": "historian",
+          "what": "Check the site's 93,921 against Busey and Martin p. 125 before it is shown anywhere."
+        }
+      ],
+      "held_back": [
+        {
+          "claim": "the pitch's 160,311 (Stone Sentinels \"present for duty equipped\", added by the pitch author) and \"more than 165,000\" (NPS press kit)",
+          "reason": "not verified from an accessible source in this task."
+        }
+      ]
+    },
+    {
+      "id": "WSD-10",
+      "pitch_row": 3,
+      "kind": "strength",
+      "title": "Confederate strength at Gettysburg",
+      "question": "How many Confederate soldiers were engaged at Gettysburg?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Livermore (1900): total engaged",
+          "source": "livermore-1900",
+          "edition": "Boston 1900",
+          "page": 103,
+          "tier": "A1",
+          "quote": ["Q-liv-p103-strength"],
+          "figures": {
+            "engaged": 75054
+          },
+          "what_is_counted": "effectives estimated at 93% of infantry and artillery and 85% of cavalry (75,992), less 938 losses prior to Gettysburg; his own estimate",
+          "estimate": true,
+          "checks": [
+            {
+              "type": "diff",
+              "from": 75992,
+              "minus": [938],
+              "total": 75054
+            },
+            {
+              "type": "approx",
+              "expr": [
+                [0.93, 70429],
+                [0.85, 12346]
+              ],
+              "total": 75992,
+              "tolerance": 2
+            }
+          ],
+          "verification": {
+            "figures": {
+              "engaged": {
+                "methods": ["image"],
+                "checksum": true
+              }
+            },
+            "level": "one_extraction_method_plus_checksum"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "Jacobs (1864)",
+          "source": "jacobs-notes-1864",
+          "edition": "Philadelphia 1864",
+          "page": 46,
+          "tier": "A1",
+          "quote": ["Q-jacobs-p46-strength"],
+          "figures": {
+            "engaged": 90000
+          },
+          "what_is_counted": "a round figure for the Rebels: \"90,000\"",
+          "approximate": true,
+          "verification": {
+            "figures": {
+              "engaged": {
+                "methods": ["ocr_or_text", "second_scan"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v3",
+          "authority": "National Park Service, Battle Detail",
+          "source": "nps-battle-detail",
+          "edition": "web page read 2026-10-04",
+          "page": null,
+          "tier": "B",
+          "quote": ["Q-nps-forces"],
+          "figures": {
+            "engaged": 75054
+          },
+          "what_is_counted": "the same number as Livermore's printed total engaged: the NPS figure is Livermore's, not an independent count",
+          "copies": "v1",
+          "verification": {
+            "figures": {
+              "engaged": {
+                "methods": ["ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        },
+        {
+          "id": "v4",
+          "authority": "The site's own data",
+          "source": "site-data",
+          "edition": "data-src/build/facts.json",
+          "page": null,
+          "tier": "S",
+          "quote": ["S-conf-strength"],
+          "figures": {
+            "engaged": 71699
+          },
+          "what_is_counted": "the site's file attributes it to Busey and Martin p. 260 as cited by Wikipedia, which this project did not verify",
+          "unverified_origin": true,
+          "verification": {
+            "figures": {
+              "engaged": {
+                "methods": ["ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v1",
+        "rule": "The one A1 source that prints a strength with its method. A display order, not a claim."
+      },
+      "status": "open",
+      "reason_for_difference": "Livermore estimates effectives from the May 31 returns (adding two brigades and the cavalry); NPS repeats his number; the site's 71,699 is a different, unverified figure; Jacobs's 90,000 is a civilian's round number.",
+      "what_would_settle": "Lee's returns of May 31 and July 31 (Official Records vol. 25 pt. 2 and vol. 27 pt. 3) and a stated definition of \"engaged\".",
+      "review": []
+    },
+    {
+      "id": "WSD-11",
+      "pitch_row": 4,
+      "kind": "burials",
+      "title": "Burials in the Soldiers' National Cemetery",
+      "question": "How many soldiers were buried in the Soldiers' National Cemetery at Gettysburg?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Report of the Select Committee (March 31, 1864)",
+          "source": "pa-cemetery-1864",
+          "edition": "Harrisburg 1864",
+          "page": 9,
+          "tier": "A1",
+          "quote": ["Q-cem64-text"],
+          "figures": {
+            "burials": 3512
+          },
+          "what_is_counted": "the total buried when the report was made, \"thirty-five hundred and twelve (3,512.)\"",
+          "verification": {
+            "figures": {
+              "burials": {
+                "methods": ["ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "Revised Report (1865): the covering statement",
+          "source": "pa-cemetery-1865",
+          "edition": "Harrisburg 1865",
+          "page": 10,
+          "tier": "A1",
+          "quote": ["Q-cem65-text"],
+          "figures": {
+            "burials": 3512
+          },
+          "what_is_counted": "the same sentence reprinted",
+          "verification": {
+            "figures": {
+              "burials": {
+                "methods": ["ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        },
+        {
+          "id": "v3",
+          "authority": "Revised Report (1865): the synopsis table",
+          "source": "pa-cemetery-1865",
+          "edition": "Harrisburg 1865",
+          "page": 133,
+          "tier": "A1",
+          "quote": ["Q-cem65-table"],
+          "figures": {
+            "burials": 3555
+          },
+          "what_is_counted": "the table by state lot; its 22 lines add up to 3,555 (the OCR figures sum to the printed total)",
+          "checks": [
+            {
+              "type": "sum_quote",
+              "quote": "Q-cem65-table"
+            }
+          ],
+          "verification": {
+            "figures": {
+              "burials": {
+                "methods": ["ocr_or_text"],
+                "checksum": true
+              }
+            },
+            "level": "one_extraction_method_plus_checksum"
+          }
+        },
+        {
+          "id": "v4",
+          "authority": "Revised Report (1867)",
+          "source": "pa-cemetery-1867",
+          "edition": "Harrisburg 1867",
+          "page": 8,
+          "tier": "A1",
+          "quote": ["Q-cem67-text", "Q-cem67-table"],
+          "figures": {
+            "burials": 3564
+          },
+          "what_is_counted": "the statement \"thirty-five hundred and sixty-four (3,564.)\" and the synopsis total on p. 143; the Pennsylvania lot is larger than in 1865",
+          "verification": {
+            "figures": {
+              "burials": {
+                "methods": ["ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        },
+        {
+          "id": "v5",
+          "authority": "National Park Service, Soldiers' National Cemetery",
+          "source": "nps-cemetery",
+          "edition": "web page read 2026-10-04",
+          "page": null,
+          "tier": "B",
+          "quote": ["Q-nps-cemetery"],
+          "figures": {
+            "burials_at_least": 3500
+          },
+          "what_is_counted": "a rounded \"more than 3,500 United States soldiers killed at Gettysburg\"",
+          "approximate": true,
+          "verification": {
+            "figures": {
+              "burials_at_least": {
+                "methods": ["ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v4",
+        "rule": "The latest of the Commonwealth's own reports (1867). A display order, not a claim."
+      },
+      "status": "adopted with reason",
+      "reason_for_difference": "The same state committee prints 3,512 in 1864, 3,512 again in the text of the 1865 revised report but 3,555 in that report's own synopsis table, and 3,564 in 1867. The reports print successive counts, and the Pennsylvania lot grows from 501 in 1864 to 526 in 1865 (table) and 534 in 1867; the reports do not say why the totals differ, and the 1865 volume contradicts itself between its text and its table.",
+      "reason_quotes": ["Q-cem64-pa", "Q-cem67-pa"],
+      "what_would_settle": "The grave register of the cemetery as completed, and the superintendent's final count.",
+      "review": [
+        {
+          "needs": "historian",
+          "what": "Check the pitch's 3,354 (an NPS seminar essay): not found on the NPS cemetery page read here, so it is left out."
+        }
+      ],
+      "held_back": [
+        {
+          "claim": "3,354 (NPS seminar essay, which also gives 979 unknown)",
+          "reason": "no accessible NPS text containing this number was found; not verified."
+        }
+      ]
+    },
+    {
+      "id": "WSD-12",
+      "pitch_row": 12,
+      "kind": "unit-loss",
+      "title": "The First Minnesota's losses at Gettysburg",
+      "question": "How many men did the 1st Minnesota lose, out of how many?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Fox (1889), p. 26: the regiment's loss on July 2 (Colvill's letter)",
+          "source": "fox-1889",
+          "edition": "Albany 1889",
+          "page": 26,
+          "tier": "A1",
+          "quote": ["Q-fox-p26-215", "Q-fox-p26-262"],
+          "figures": {
+            "engaged": 262,
+            "killed_and_wounded": 215
+          },
+          "what_is_counted": "July 2 only: \"the loss on the 2d was 215 killed and wounded, out of 262\", the eight companies in the fight",
+          "checks": [],
+          "verification": {
+            "figures": {
+              "engaged": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              },
+              "killed_and_wounded": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "Fox (1889), p. 26: the whole battle, killed and wounded split",
+          "source": "fox-1889",
+          "edition": "Albany 1889",
+          "page": 26,
+          "tier": "A1",
+          "quote": ["Q-fox-p26-split", "Q-fox-p26-224"],
+          "figures": {
+            "killed": 50,
+            "wounded": 174,
+            "total": 224
+          },
+          "what_is_counted": "July 2 and 3: \"The casualties on the 3d increased the loss to 224\"; none missing",
+          "checks": [
+            {
+              "type": "sum",
+              "parts": [50, 174],
+              "total": 224
+            }
+          ],
+          "verification": {
+            "figures": {
+              "killed": {
+                "methods": ["image", "ocr_corroborates_image", "ocr_or_text"],
+                "checksum": true
+              },
+              "wounded": {
+                "methods": ["image", "ocr_corroborates_image", "ocr_or_text"],
+                "checksum": true
+              },
+              "total": {
+                "methods": ["image", "ocr_corroborates_image", "ocr_or_text"],
+                "checksum": true
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v3",
+          "authority": "Fox (1889), p. 402: the regiment's page",
+          "source": "fox-1889",
+          "edition": "Albany 1889",
+          "page": 402,
+          "tier": "A1",
+          "quote": ["Q-fox-p402"],
+          "figures": {
+            "engaged": 262,
+            "killed_and_wounded": 215,
+            "killed": 51,
+            "wounded": 173,
+            "total": 224
+          },
+          "what_is_counted": "the same two figures (215 of 262 on July 2; 224 for the battle) with the split printed 51 and 173 instead of 50 and 174",
+          "checks": [
+            {
+              "type": "sum",
+              "parts": [51, 173],
+              "total": 224
+            }
+          ],
+          "verification": {
+            "figures": {
+              "engaged": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              },
+              "killed_and_wounded": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              },
+              "killed": {
+                "methods": ["image"],
+                "checksum": true
+              },
+              "wounded": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              },
+              "total": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              }
+            },
+            "level": "one_extraction_method_plus_checksum"
+          }
+        },
+        {
+          "id": "v4",
+          "authority": "The site's own data (strength)",
+          "source": "site-data",
+          "edition": "data-src/build/unit_registry.json",
+          "page": null,
+          "tier": "S",
+          "quote": ["S-1mn-strength", "S-1mn-casualties"],
+          "figures": {
+            "engaged": 262,
+            "total": 224
+          },
+          "what_is_counted": "strength 262 and casualties 224, the same numbers as Fox's",
+          "verification": {
+            "figures": {
+              "engaged": {
+                "methods": ["ocr_or_text"],
+                "checksum": false
+              },
+              "total": {
+                "methods": ["ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v3",
+        "rule": "The regiment's own page in Fox shows both the July 2 loss (215 of 262) and the battle total (224). A display order, not a claim."
+      },
+      "status": "adopted with reason",
+      "reason_for_difference": "Most of the apparent conflict is scope: 215 of 262 is the loss on July 2 alone; 224 includes July 3. Fox's two pages differ only in how the 224 splits (50 killed and 174 wounded on p. 26; 51 and 173 on p. 402). The site's 224 and 262 equal Fox's. A name-by-name count of 179 (Meinhard) listed in the pitch was not verified and is not used.",
+      "what_would_settle": "The regiment's muster roll for July 2-3.",
+      "review": [
+        {
+          "needs": "historian",
+          "what": "Say which split (50/174 or 51/173) is right; both are in Fox. The Lochren account (Minnesota in the Civil and Indian Wars) was not opened here."
+        }
+      ],
+      "held_back": [
+        {
+          "claim": "179 by name (Meinhard); 215 of 262 \"per Lochren\"",
+          "reason": "Meinhard is a modern work not opened; Lochren was not opened (the 215 of 262 figure is verified here from Fox quoting Colvill)."
+        }
+      ]
+    },
+    {
+      "id": "WSD-13",
+      "pitch_row": 13,
+      "kind": "unit-loss",
+      "title": "The 26th North Carolina's losses at Gettysburg",
+      "question": "How many men did the 26th North Carolina lose, out of how many?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Fox (1889), p. 555 (text)",
+          "source": "fox-1889",
+          "edition": "Albany 1889",
+          "page": 555,
+          "tier": "A1",
+          "quote": ["Q-fox-p555"],
+          "figures": {
+            "engaged_over": 800,
+            "killed": 86,
+            "wounded": 502,
+            "killed_and_wounded": 588,
+            "missing_about": 120
+          },
+          "what_is_counted": "\"over 800 men\" per the regimental official report; losses \"according to Surgeon-General Guild's report\"; about 120 more missing, not in the hospital report",
+          "checks": [
+            {
+              "type": "sum",
+              "parts": [86, 502],
+              "total": 588
+            }
+          ],
+          "verification": {
+            "figures": {
+              "engaged_over": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              },
+              "killed": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              },
+              "wounded": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              },
+              "killed_and_wounded": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              },
+              "missing_about": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "Fox (1889), p. 556 (table)",
+          "source": "fox-1889",
+          "edition": "Albany 1889",
+          "page": 556,
+          "tier": "A1",
+          "quote": ["Q-fox-p556"],
+          "figures": {
+            "present": 820,
+            "killed": 86,
+            "wounded": 502,
+            "per_cent": 71.7
+          },
+          "what_is_counted": "present 820; killed and wounded 588 = 71.7% of 820 (the missing column holds a footnote mark, not a figure)",
+          "checks": [
+            {
+              "type": "percent",
+              "part": 588,
+              "whole": 820,
+              "per_cent": 71.7
+            },
+            {
+              "type": "table",
+              "reading": "VR-fox-p556"
+            }
+          ],
+          "verification": {
+            "figures": {
+              "present": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              },
+              "killed": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              },
+              "wounded": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
+              },
+              "per_cent": {
+                "methods": ["image"],
+                "checksum": true
+              }
+            },
+            "level": "one_extraction_method_plus_checksum"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v2",
+        "rule": "The table row gives the exact strength Fox used. A display order, not a claim."
+      },
+      "status": "open",
+      "reason_for_difference": "Within Fox the strength is \"over 800\" in the text and 820 in the table; both give 86 killed and 502 wounded (588). About 120 missing are extra. Other figures in circulation (588 of 843; \"714 of 800\") were not found in any source read here.",
+      "what_would_settle": "The regiment's own report and the Confederate return (Official Records vol. 27 pt. 2 p. 346 and the brigade pages).",
+      "review": [
+        {
+          "needs": "historian",
+          "what": "Trace the pitch's 843 and \"714 of 800\" (Clark, North Carolina Regiments, is the likely source; not opened)."
+        }
+      ],
+      "held_back": [
+        {
+          "claim": "588 of 843; 714 of 800; the 8th Virginia 92.2% against 76.7%",
+          "reason": "no source found for these figures; not verified."
+        }
+      ]
+    },
+    {
+      "id": "WSD-14",
+      "pitch_row": 18,
+      "kind": "clock-time",
+      "title": "The time General Reynolds was killed (July 1)",
+      "question": "At what time was Maj. Gen. John F. Reynolds killed on July 1, 1863?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Doubleday's report",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 245,
+          "tier": "A1",
+          "quote": ["Q-doubleday-1015"],
+          "figures": {
+            "time": "10:15 a.m."
+          },
+          "what_is_counted": "\"in the beginning of the attack referred to, about 10.15 a. m.\"",
+          "clock": true,
+          "verification": {
+            "figures": {
+              "time": {
+                "methods": ["image", "text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "Howard's despatch of July 1, 5 p.m.",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 696,
+          "tier": "A1",
+          "quote": ["Q-howard-1115"],
+          "figures": {
+            "time": "11:15 a.m."
+          },
+          "what_is_counted": "\"General Reynolds was killed at 11.15 a. m.\"; written the same afternoon",
+          "clock": true,
+          "verification": {
+            "figures": {
+              "time": {
+                "methods": ["image", "text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v3",
+          "authority": "Howard's report",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 702,
+          "tier": "A1",
+          "quote": ["Q-howard-1130"],
+          "figures": {
+            "time": "11:30 a.m."
+          },
+          "what_is_counted": "the time Howard was told that Reynolds was dead, not the time of death",
+          "clock": true,
+          "scope": "news of the death",
+          "verification": {
+            "figures": {
+              "time": {
+                "methods": ["image", "text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v4",
+          "authority": "Schurz's report",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 727,
+          "tier": "A1",
+          "quote": ["Q-schurz-1130"],
+          "figures": {
+            "time": "11:30 a.m."
+          },
+          "what_is_counted": "Schurz arrived \"about 11.30 o'clock\" and Howard told him that Reynolds \"had just been killed\"",
+          "clock": true,
+          "scope": "news of the death",
+          "verification": {
+            "figures": {
+              "time": {
+                "methods": ["image", "text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v1",
+        "rule": "A dated, headed report of the commander who took over (Doubleday) outranks later memoirs (pitch 2.5b clock-time rule); every time is shown with the lag between event and writing. A display order, not a claim."
+      },
+      "status": "open",
+      "reason_for_difference": "The three officers give times 60 to 75 minutes apart. Doubleday places the death in the beginning of the attack at about 10.15; Howard's same-day despatch says 11.15; Howard's later report and Schurz give 11.30 for when they learned of it. No watch was compared. The candidate time anchor for this event (tick 28, 10:15) is flagged evidence-weak and still proposed, not signed.",
+      "what_would_settle": "A timed dispatch from the field (Buford, Wadsworth, Meade) or a staff log; none is quoted here.",
+      "review": [
+        {
+          "needs": "historian",
+          "what": "Tie to the time-anchor decision for tick 28 (Reynolds killed)."
+        }
+      ]
+    },
+    {
+      "id": "WSD-15",
+      "pitch_row": 18,
+      "kind": "clock-time",
+      "title": "The opening of the July 3 cannonade",
+      "question": "At what time did the bombardment before Pickett's Charge begin?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Lee's report",
+          "source": "or27-2",
+          "edition": "GPO 1889",
+          "page": 320,
+          "tier": "A1",
+          "quote": ["Q-lee-cannonade"],
+          "figures": {
+            "time": "1:00 p.m."
+          },
+          "what_is_counted": "\"About 1 p. m., at a given signal\"",
+          "clock": true,
+          "verification": {
+            "figures": {
+              "time": {
+                "methods": ["image", "text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "Pendleton's report (Confederate artillery chief)",
+          "source": "or27-2",
+          "edition": "GPO 1889",
+          "page": 352,
+          "tier": "A1",
+          "quote": ["Q-pendleton-cannonade"],
+          "figures": {
+            "time": "1:00 p.m."
+          },
+          "what_is_counted": "\"about 1 p. m. , on the concerted signal\"",
+          "clock": true,
+          "verification": {
+            "figures": {
+              "time": {
+                "methods": ["image", "text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v3",
+          "authority": "Cabell's report (Confederate artillery battalion)",
+          "source": "or27-2",
+          "edition": "GPO 1889",
+          "page": 376,
+          "tier": "A1",
+          "quote": ["Q-cabell-cannonade"],
+          "figures": {
+            "time": "1:00 p.m."
+          },
+          "what_is_counted": "\"opened about 1 p. m.\"",
+          "clock": true,
+          "verification": {
+            "figures": {
+              "time": {
+                "methods": ["image", "text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v4",
+          "authority": "Peyton's report (19th Virginia, Garnett's brigade)",
+          "source": "or27-2",
+          "edition": "GPO 1889",
+          "page": null,
+          "tier": "A1",
+          "quote": ["Q-peyton-cannonade"],
+          "figures": {
+            "time": "1:30 p.m."
+          },
+          "what_is_counted": "\"which opened at 1.30 p. m.\"",
+          "clock": true,
+          "verification": {
+            "figures": {
+              "time": {
+                "methods": ["image", "text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v5",
+          "authority": "Hunt's report (Union artillery chief)",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 239,
+          "tier": "A1",
+          "quote": ["Q-hunt-cannonade"],
+          "figures": {
+            "time": "1:00 p.m."
+          },
+          "what_is_counted": "\"at about 1 p. m.\"",
+          "clock": true,
+          "verification": {
+            "figures": {
+              "time": {
+                "methods": ["image", "text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v6",
+          "authority": "Newton's report",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 262,
+          "tier": "A1",
+          "quote": ["Q-newton-cannonade"],
+          "figures": {
+            "time": "1:00 p.m."
+          },
+          "what_is_counted": "the words \"Near 1 p. m.\" before the enemy \"opened with about one hundred and twenty guns\"",
+          "clock": true,
+          "verification": {
+            "figures": {
+              "time": {
+                "methods": ["image", "text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v7",
+          "authority": "Hancock's report",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 372,
+          "tier": "A1",
+          "quote": ["Q-hancock-cannonade"],
+          "figures": {
+            "time": "1:00 p.m."
+          },
+          "what_is_counted": "\"About 1 o'clock, apparently by a given signal\"",
+          "clock": true,
+          "verification": {
+            "figures": {
+              "time": {
+                "methods": ["image", "text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v8",
+          "authority": "Harrow's report",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 420,
+          "tier": "A1",
+          "quote": ["Q-harrow-cannonade"],
+          "figures": {
+            "time": "1:00 p.m."
+          },
+          "what_is_counted": "the words \"At 1 p. m.\" before \"a fierce cannonade ... from a hundred or more guns\"",
+          "clock": true,
+          "verification": {
+            "figures": {
+              "time": {
+                "methods": ["image", "text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v9",
+          "authority": "Jacobs, Notes (1864)",
+          "source": "jacobs-notes-1864",
+          "edition": "Philadelphia 1864",
+          "page": 41,
+          "tier": "A1",
+          "quote": ["Q-jacobs-p41-time"],
+          "figures": {
+            "time": "1:07 p.m."
+          },
+          "what_is_counted": "\"At seven minutes past 1 p. m.\"; the only witness who gives the minute",
+          "clock": true,
+          "verification": {
+            "figures": {
+              "time": {
+                "methods": ["image", "text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v10",
+          "authority": "Taft's report (Fifth New York Battery)",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 891,
+          "tier": "A1",
+          "quote": ["Q-taft-cannonade"],
+          "figures": {
+            "time": "1:30 p.m."
+          },
+          "what_is_counted": "\"opened fire again about 1.30 p. m.\"",
+          "clock": true,
+          "verification": {
+            "figures": {
+              "time": {
+                "methods": ["image", "text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v1",
+        "rule": "The commanding general's dated report first (pitch 2.5b clock-time rule). A display order, not a claim."
+      },
+      "status": "open",
+      "reason_for_difference": "Seven of ten witnesses say about 1 p.m., one says 1.07 to the minute, and two say about 1.30. None says how the time was kept; the site's clock for this event is a candidate (tick 518 maps to 1:07 p.m. in the candidate anchors, which is Jacobs's minute).",
+      "what_would_settle": "A timed signal-gun record (Alexander's account is not in the Official Records volumes read here).",
+      "review": [
+        {
+          "needs": "historian",
+          "what": "Confirm the 1:07 anchor for the opening of the cannonade rests on Jacobs alone."
+        }
+      ]
+    },
+    {
+      "id": "WSD-16",
+      "pitch_row": null,
+      "kind": "count",
+      "title": "The number of Confederate guns in the July 3 cannonade",
+      "question": "How many guns opened the Confederate cannonade on July 3?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Hunt's report",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 239,
+          "tier": "A1",
+          "quote": ["Q-hunt-cannonade"],
+          "figures": {
+            "guns_low": 100,
+            "guns_high": 120
+          },
+          "what_is_counted": "his own estimate of \"his guns bearing on our west front\"",
+          "range": true,
+          "verification": {
+            "figures": {
+              "guns_low": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": false
+              },
+              "guns_high": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "Newton's report",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 262,
+          "tier": "A1",
+          "quote": ["Q-newton-cannonade"],
+          "figures": {
+            "guns": 120
+          },
+          "what_is_counted": "\"about one hundred and twenty guns\"",
+          "approximate": true,
+          "verification": {
+            "figures": {
+              "guns": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v3",
+          "authority": "Harrow's report",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 420,
+          "tier": "A1",
+          "quote": ["Q-harrow-cannonade"],
+          "figures": {
+            "guns_at_least": 100
+          },
+          "what_is_counted": "\"from a hundred or more guns\"",
+          "approximate": true,
+          "verification": {
+            "figures": {
+              "guns_at_least": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v4",
+          "authority": "Pendleton's report (Confederate chief of artillery)",
+          "source": "or27-2",
+          "edition": "GPO 1889",
+          "page": 352,
+          "tier": "A1",
+          "quote": ["Q-pendleton-cannonade"],
+          "figures": {
+            "guns": 150
+          },
+          "what_is_counted": "\"our guns in position, nearly one hundred and fifty\"",
+          "approximate": true,
+          "verification": {
+            "figures": {
+              "guns": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v5",
+          "authority": "Jacobs, Notes (1864)",
+          "source": "jacobs-notes-1864",
+          "edition": "Philadelphia 1864",
+          "page": 41,
+          "tier": "A1",
+          "quote": ["Q-jacobs-p41-guns"],
+          "figures": {
+            "guns_each_side": 150
+          },
+          "what_is_counted": "\"Probably not less than 150 guns on each side\"",
+          "approximate": true,
+          "verification": {
+            "figures": {
+              "guns_each_side": {
+                "methods": ["image", "ocr_or_text", "second_scan"],
+                "checksum": false
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v4",
+        "rule": "The Confederate artillery chief's own count of his guns. A display order, not a claim."
+      },
+      "status": "open",
+      "reason_for_difference": "Union officers estimated the Confederate guns by sight (100-120); Pendleton counted his own (nearly 150). Hunt quotes the enemy's correspondents at 115. Jacobs says 150 on each side, a civilian's estimate.",
+      "what_would_settle": "The Confederate artillery battalion returns for July 3.",
+      "review": []
+    },
+    {
+      "id": "WSD-17",
+      "pitch_row": 14,
+      "kind": "weather",
+      "title": "Wind speed on July 1 and July 2 (the pitch lists July 3)",
+      "question": "How fast was the wind?",
+      "ref": {
+        "file": "weather_by_day.json",
+        "observation": "W-1863-07-01-wind-speed"
+      },
+      "values": [
+        {
+          "id": "v1",
+          "authority": "H. E. Jacobs, \"Meteorology of the Battle\" (Star and Sentinel, 1885), as typed in the Civil War Rx transcription",
+          "source": "weather-by-day",
+          "edition": "Star and Sentinel, Gettysburg, 1885 (page unknown)",
+          "page": null,
+          "tier": "A1",
+          "quote": ["Q-ref-wind-rx"],
+          "figures": {
+            "wind_mph": 2
+          },
+          "what_is_counted": "\"A very gentle southern breeze, (2 miles per hour)\" in the paragraph for the FIRST DAY (July 1); July 2 says \"wind as on preceding day\"; July 3 gives no speed",
+          "contested": true,
+          "verification": {
+            "figures": {
+              "wind_mph": {
+                "methods": ["ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "The same sentence as typed by Emerging Civil War (2023) and read in the clipping image",
+          "source": "weather-by-day",
+          "edition": "Star and Sentinel, Gettysburg, 1885 (page unknown)",
+          "page": null,
+          "tier": "A1",
+          "quote": ["Q-ref-wind-ecw"],
+          "figures": {
+            "wind_mph": 12
+          },
+          "what_is_counted": "\"(12 miles per hour)\"; the image resolution is low and ECW most probably typed from it",
+          "contested": true,
+          "verification": {
+            "figures": {
+              "wind_mph": {
+                "methods": ["ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": null,
+        "rule": "No value is shown first. A page may say \"Contested: 2 or 12 miles per hour\"."
+      },
+      "status": "open",
+      "reason_for_difference": "Two readings of one printed sentence disagree by a digit. The Civil War Rx text shows other character-recognition style slips (\"1, - 280\", \"87(\"), which makes a dropped \"1\" plausible; the image supports 12. Neither can be checked against the page or the observation form here. The pitch dates the conflict to July 3; it belongs to July 1 (inherited by July 2).",
+      "what_would_settle": "The printed Star and Sentinel page (August 1885) or the original form (American Philosophical Society, NARA/NCEI microfilm).",
+      "review": [
+        {
+          "needs": "owner",
+          "what": "Obtain or commission a read of the printed page or the form; until then show \"Contested\"."
+        }
+      ]
+    },
+    {
+      "id": "WSD-18",
+      "pitch_row": 15,
+      "kind": "description",
+      "title": "The morning of July 2",
+      "question": "What was the morning of July 2, 1863 like?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Jacobs, Notes (1864)",
+          "source": "jacobs-notes-1864",
+          "edition": "Philadelphia 1864",
+          "page": 32,
+          "tier": "A1",
+          "quote": ["Q-jacobs-p32-morning"],
+          "figures": {
+            "text": "pleasant, calm, sun shining mildly through a smoky atmosphere"
+          },
+          "what_is_counted": "in the town of Gettysburg; the paragraph follows the heading \"Thursday, July 2.\"",
+          "verification": {
+            "figures": {
+              "text": {
+                "methods": ["text"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "Haskell, The Battle of Gettysburg (1908 reprint)",
+          "source": "haskell-1908",
+          "edition": "Wisconsin History Commission 1908",
+          "page": 20,
+          "tier": "A1",
+          "quote": ["Q-haskell-p20"],
+          "figures": {
+            "text": "thick and sultry, sky overcast with low, vapory clouds"
+          },
+          "what_is_counted": "on the Taneytown road with the Second Corps, \"before six\", having been roused at three",
+          "verification": {
+            "figures": {
+              "text": {
+                "methods": ["text"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": null,
+        "rule": "No value is shown first: two witnesses at different places and hours; both are shown."
+      },
+      "status": "unresolvable",
+      "reason_for_difference": "Jacobs was in the town and wrote in 1863-64; Haskell rode up the Taneytown road before six and wrote a letter in July 1863 (printed 1898, here the 1908 reprint). They describe different hours and places; \"pleasant\" and \"thick and sultry\" are not measurements.",
+      "reason_quotes": ["Q-haskell-p19"],
+      "what_would_settle": "Nothing in the sources; the 1863 record has no instrument reading for the morning of July 2 in what was read here (Jacobs's 7 a.m. reading was 74).",
+      "review": []
+    },
+    {
+      "id": "WSD-19",
+      "pitch_row": 2,
+      "kind": "casualties",
+      "title": "Union casualties by corps: Official Records (p. 187) against Fox (1889)",
+      "question": "How many men did each Union corps lose?",
+      "by_unit": {
+        "readings": ["VR-or1-p187-recap", "VR-fox-p25"],
+        "units": [
+          {
+            "unit": "General Headquarters",
+            "v1": {
+              "killed": 0,
+              "wounded": 4,
+              "missing": 0,
+              "total": 4
+            },
+            "v2": {
+              "killed": 0,
+              "wounded": 4,
+              "missing": 0,
+              "total": 4
+            },
+            "difference_v2_minus_v1": {
+              "killed": 0,
+              "wounded": 0,
+              "missing": 0,
+              "total": 0
+            }
+          },
+          {
+            "unit": "First Corps",
+            "v1": {
+              "killed": 666,
+              "wounded": 3231,
+              "missing": 2162,
+              "total": 6059
+            },
+            "v2": {
+              "killed": 593,
+              "wounded": 3209,
+              "missing": 2222,
+              "total": 6024
+            },
+            "difference_v2_minus_v1": {
+              "killed": -73,
+              "wounded": -22,
+              "missing": 60,
+              "total": -35
+            }
+          },
+          {
+            "unit": "Second Corps",
+            "v1": {
+              "killed": 797,
+              "wounded": 3194,
+              "missing": 378,
+              "total": 4369
+            },
+            "v2": {
+              "killed": 796,
+              "wounded": 3186,
+              "missing": 368,
+              "total": 4350
+            },
+            "difference_v2_minus_v1": {
+              "killed": -1,
+              "wounded": -8,
+              "missing": -10,
+              "total": -19
+            }
+          },
+          {
+            "unit": "Third Corps",
+            "v1": {
+              "killed": 593,
+              "wounded": 3029,
+              "missing": 589,
+              "total": 4211
+            },
+            "v2": {
+              "killed": 578,
+              "wounded": 3026,
+              "missing": 606,
+              "total": 4210
+            },
+            "difference_v2_minus_v1": {
+              "killed": -15,
+              "wounded": -3,
+              "missing": 17,
+              "total": -1
+            }
+          },
+          {
+            "unit": "Fifth Corps",
+            "v1": {
+              "killed": 365,
+              "wounded": 1611,
+              "missing": 211,
+              "total": 2187
+            },
+            "v2": {
+              "killed": 365,
+              "wounded": 1611,
+              "missing": 211,
+              "total": 2187
+            },
+            "difference_v2_minus_v1": {
+              "killed": 0,
+              "wounded": 0,
+              "missing": 0,
+              "total": 0
+            }
+          },
+          {
+            "unit": "Sixth Corps",
+            "v1": {
+              "killed": 27,
+              "wounded": 185,
+              "missing": 30,
+              "total": 242
+            },
+            "v2": {
+              "killed": 27,
+              "wounded": 185,
+              "missing": 30,
+              "total": 242
+            },
+            "difference_v2_minus_v1": {
+              "killed": 0,
+              "wounded": 0,
+              "missing": 0,
+              "total": 0
+            }
+          },
+          {
+            "unit": "Eleventh Corps",
+            "v1": {
+              "killed": 369,
+              "wounded": 1922,
+              "missing": 1510,
+              "total": 3801
+            },
+            "v2": {
+              "killed": 368,
+              "wounded": 1922,
+              "missing": 1511,
+              "total": 3801
+            },
+            "difference_v2_minus_v1": {
+              "killed": -1,
+              "wounded": 0,
+              "missing": 1,
+              "total": 0
+            }
+          },
+          {
+            "unit": "Twelfth Corps",
+            "v1": {
+              "killed": 204,
+              "wounded": 812,
+              "missing": 66,
+              "total": 1082
+            },
+            "v2": {
+              "killed": 204,
+              "wounded": 810,
+              "missing": 67,
+              "total": 1081
+            },
+            "difference_v2_minus_v1": {
+              "killed": 0,
+              "wounded": -2,
+              "missing": 1,
+              "total": -1
+            }
+          },
+          {
+            "unit": "Cavalry Corps",
+            "v1": {
+              "killed": 91,
+              "wounded": 354,
+              "missing": 407,
+              "total": 852
+            },
+            "v2": {
+              "killed": 90,
+              "wounded": 352,
+              "missing": 407,
+              "total": 849
+            },
+            "difference_v2_minus_v1": {
+              "killed": -1,
+              "wounded": -2,
+              "missing": 0,
+              "total": -3
+            }
+          },
+          {
+            "unit": "Artillery Reserve",
+            "v1": {
+              "killed": 43,
+              "wounded": 187,
+              "missing": 12,
+              "total": 242
+            },
+            "v2": {
+              "killed": 42,
+              "wounded": 187,
+              "missing": 13,
+              "total": 242
+            },
+            "difference_v2_minus_v1": {
+              "killed": -1,
+              "wounded": 0,
+              "missing": 1,
+              "total": 0
+            }
+          }
+        ],
+        "totals": {
+          "v1": {
+            "killed": 3155,
+            "wounded": 14529,
+            "missing": 5365,
+            "total": 23049
+          },
+          "v2": {
+            "killed": 3063,
+            "wounded": 14492,
+            "missing": 5435,
+            "total": 22990
+          }
+        },
+        "differing_corps_totals": ["First Corps", "Second Corps", "Third Corps", "Twelfth Corps", "Cavalry Corps"],
+        "differing_in_any_column": ["First Corps", "Second Corps", "Third Corps", "Eleventh Corps", "Twelfth Corps", "Cavalry Corps", "Artillery Reserve"],
+        "note": "v1 = Official Records p. 187 (officers and men added), v2 = Fox p. 25; every figure comes from the two page-image readings, which are checked for row and column sums."
+      },
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Official Records, revised statement (recapitulation by corps)",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 187,
+          "tier": "A1",
+          "quote": ["Q-or1-p187"],
+          "figures": {
+            "total": 23049
+          },
+          "what_is_counted": "officers and enlisted men, killed + wounded + captured or missing, by corps",
+          "by_unit_reading": "VR-or1-p187-recap",
+          "checks": [
+            {
+              "type": "table",
+              "reading": "VR-or1-p187-recap"
+            }
+          ],
+          "verification": {
+            "figures": {
+              "total": {
+                "methods": ["image"],
+                "checksum": true
+              }
+            },
+            "level": "one_extraction_method_plus_checksum"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "Fox, table \"GETTYSBURG, JULY 1-3, 1863\"",
+          "source": "fox-1889",
+          "edition": "Albany 1889",
+          "page": 25,
+          "tier": "A1",
+          "quote": ["Q-fox-p25-table"],
+          "figures": {
+            "total": 22990
+          },
+          "what_is_counted": "killed, wounded, captured or missing by corps, plus a column of killed or died of wounds",
+          "by_unit_reading": "VR-fox-p25",
+          "checks": [
+            {
+              "type": "table",
+              "reading": "VR-fox-p25"
+            }
+          ],
+          "verification": {
+            "figures": {
+              "total": {
+                "methods": ["image"],
+                "checksum": true
+              }
+            },
+            "level": "one_extraction_method_plus_checksum"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v1",
+        "rule": "Official Records returns first. A display order, not a claim."
+      },
+      "status": "open",
+      "reason_for_difference": "Fox's corps rows differ from the p. 187 rows in at least one column in seven of the nine corps rows (the Fifth and Sixth agree exactly). Five corps totals differ (First by 35, Second by 19, Cavalry by 3, Third and Twelfth by 1); the Eleventh and the Artillery Reserve agree in total although their columns differ by one man each way. The largest gap is the First Corps: killed 666 against 593 and missing 2,162 against 2,222. Fox says the official figures were revised at the War Department and builds his table on Kirkley's 1886 recapitulation; he does not explain the differences (see by_unit for every row).",
+      "what_would_settle": "Kirkley's 1886 statement and the nominal lists.",
+      "review": []
+    },
+    {
+      "id": "WSD-20",
+      "pitch_row": 6,
+      "kind": "casualties",
+      "title": "Wounded thrown on the Union medical department (Union and Confederate together)",
+      "question": "How many wounded did the Union medical department have to care for after Gettysburg?",
+      "values": [
+        {
+          "id": "v1",
+          "authority": "Letterman, Medical Director, Army of the Potomac",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 198,
+          "tier": "A1",
+          "quote": ["Q-or1-p198-wounded", "Q-or1-p198-total"],
+          "figures": {
+            "wounded_total": 20995,
+            "union": 14193,
+            "confederate": 6802
+          },
+          "what_is_counted": "\"the total number of wounded thrown by that battle upon this department\", Union and Confederate",
+          "checks": [
+            {
+              "type": "sum",
+              "parts": [14193, 6802],
+              "total": 20995
+            }
+          ],
+          "verification": {
+            "figures": {
+              "wounded_total": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              },
+              "union": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              },
+              "confederate": {
+                "methods": ["image", "ocr_or_text"],
+                "checksum": true
+              }
+            },
+            "level": "two_extraction_methods"
+          }
+        },
+        {
+          "id": "v2",
+          "authority": "National Park Service, Gettysburg Overview",
+          "source": "nps-overview",
+          "edition": "web page read 2026-10-04",
+          "page": null,
+          "tier": "B",
+          "quote": ["Q-nps-letterman"],
+          "figures": {
+            "passed_through_camp_letterman_at_least": 20000
+          },
+          "what_is_counted": "a different measure: the \"over 20,000 injured Union and Confederate soldiers that passed through the hospital's wards\" at Camp Letterman",
+          "approximate": true,
+          "scope": "Camp Letterman patients",
+          "verification": {
+            "figures": {
+              "passed_through_camp_letterman_at_least": {
+                "methods": ["ocr_or_text"],
+                "checksum": false
+              }
+            },
+            "level": "one_extraction_method"
+          }
+        },
+        {
+          "id": "v3",
+          "authority": "Arithmetic on two Official Records figures: p. 187 wounded plus the Confederate wounded captured",
+          "source": "or27-1",
+          "edition": "GPO 1889",
+          "page": 187,
+          "tier": "A1",
+          "quote": ["Q-or1-p187", "Q-or1-p198-total"],
+          "figures": {
+            "wounded_total": 21331
+          },
+          "what_is_counted": "p. 187 wounded 14,529 + Letterman's 6,802 Confederate wounded; a derived figure, not printed anywhere",
+          "derived": {
+            "wounded_total": 21331
+          },
+          "derivation": "wounded 14,529 (p. 187) + 6,802 (Letterman)",
+          "checks": [
+            {
+              "type": "sum",
+              "parts": [14529, 6802],
+              "total": 21331
+            }
+          ],
+          "verification": {
+            "figures": {},
+            "level": "one_extraction_method"
+          }
+        }
+      ],
+      "shown_first": {
+        "value": "v1",
+        "rule": "The Medical Director's own count. A display order, not a claim."
+      },
+      "status": "open",
+      "reason_for_difference": "Letterman's 20,995 uses his own Union figure (14,193) and adds the 6,802 Confederate wounded; the revised statement raised the Union wounded to 14,529, so adding it gives 21,331. The NPS \"over 20,000\" counts Camp Letterman patients, which is a different thing from the wounded of the battle. The pitch merges them.",
+      "what_would_settle": "Camp Letterman admission registers.",
+      "review": []
+    }
+  ],
+  "summary": {
+    "rows": 20,
+    "values": 92,
+    "quotes": 68,
+    "figures": 140,
+    "figures_two_extraction_methods": 103,
+    "figures_ocr_plus_checksum": 17,
+    "figures_single_method": 20
+  }
+}

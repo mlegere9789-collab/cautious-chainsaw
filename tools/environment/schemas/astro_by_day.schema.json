@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gettysburg.local/schemas/astro_by_day.schema.json",
+  "title": "Sun and moon at Gettysburg by day, June 25 to July 7, 1863",
+  "description": "Every value is Computed (never Measured) and carries its method and citations; each carries the cross-check numbers against the independent implementation and the USNO values, in minutes. The clock is local mean time (LMT) with an EST-equivalent column; neither is a record of an 1863 clock.",
+  "type": "object",
+  "required": ["schema_version", "dataset", "title", "status", "site", "time_conventions", "definitions", "sources", "methods", "badge_legend", "cross_check_summary", "principal_phases", "pitch_checks", "days"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "dataset": { "const": "astro_by_day" },
+    "title": { "type": "string" },
+    "status": { "type": "string", "minLength": 20 },
+    "site": { "type": "object", "required": ["name", "lat_north", "lon_east", "elevation_m_assumed", "note"], "properties": { "lat_north": { "type": "number", "minimum": 39.8, "maximum": 39.9 }, "lon_east": { "type": "number", "minimum": -77.3, "maximum": -77.2 }, "elevation_m_assumed": { "const": 0 } } },
+    "time_conventions": { "type": "object", "required": ["primary", "lmt_definition", "lmt_offset_hours", "est_equivalent_offset_hours", "est_minus_lmt_min", "no_standard_time_1863", "day_boundaries", "rounding", "tick_clock"], "properties": { "primary": { "const": "LMT" }, "est_minus_lmt_min": { "type": "number", "minimum": 8.8, "maximum": 9.0 }, "no_standard_time_1863": { "type": "string", "minLength": 40 }, "tick_clock": { "type": "string", "minLength": 40 } } },
+    "definitions": { "type": "object", "required": ["sunrise_sunset", "civil_twilight", "moonrise_moonset", "transit", "illumination", "phase_name"] },
+    "sources": { "type": "array", "minItems": 4, "items": { "type": "object", "required": ["id", "kind", "tier", "title", "note"] } },
+    "methods": { "type": "array", "minItems": 4, "items": { "type": "object", "required": ["id", "name", "role"] } },
+    "badge_legend": { "type": "object" },
+    "cross_check_summary": { "type": "object", "required": ["usno", "own_implementation", "nasa"] },
+    "principal_phases": { "type": "array", "minItems": 4, "items": { "$ref": "#/$defs/phase" } },
+    "nasa_parsed_window": { "type": "array" },
+    "pitch_checks": { "type": "array", "minItems": 6, "items": { "type": "object", "required": ["id", "claim", "computed", "agrees"], "properties": { "agrees": { "type": "boolean" } } } },
+    "days": { "type": "array", "minItems": 13, "maxItems": 13, "items": { "$ref": "#/$defs/day" } }
+  },
+  "$defs": {
+    "hhmm": { "type": "string", "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$" },
+    "hhmmss": { "type": "string", "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$" },
+    "date": { "type": "string", "pattern": "^1863-0[67]-[0-3][0-9]$" },
+    "utc": { "type": "string", "pattern": "^1863-0[67]-[0-3][0-9]T[0-2][0-9]:[0-5][0-9]:[0-5][0-9]Z$" },
+    "value": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["lmt", "lmt_hms", "est", "est_date", "utc", "badge", "method", "cites", "cross_check"],
+          "properties": {
+            "lmt": { "$ref": "#/$defs/hhmm" }, "lmt_hms": { "$ref": "#/$defs/hhmmss" }, "est": { "$ref": "#/$defs/hhmm" }, "est_date": { "$ref": "#/$defs/date" }, "utc": { "$ref": "#/$defs/utc" },
+            "badge": { "const": "Computed" },
+            "method": { "const": "astronomy-engine" },
+            "cites": { "type": "array", "minItems": 2, "items": { "type": "string" } },
+            "cross_check": { "type": "object", "required": ["own_minus_a_s"], "properties": { "own_minus_a_s": { "type": ["number", "null"] }, "usno_est": { "type": ["string", "null"] }, "usno_est_date": { "type": "string" }, "a_minus_usno_min": { "type": "number" } } }
+          }
+        },
+        { "type": "object", "required": ["absent", "reason", "cross_check"], "properties": { "absent": { "const": true }, "reason": { "type": "string", "minLength": 20 } } }
+      ]
+    },
+    "phase": {
+      "type": "object",
+      "required": ["phase", "utc", "lmt_date", "lmt", "est_date", "est", "badge", "method", "cites", "cross_check"],
+      "properties": { "phase": { "enum": ["New Moon", "First Quarter", "Full Moon", "Last Quarter"] }, "badge": { "const": "Computed" }, "cross_check": { "type": "object", "required": ["nasa_ut", "a_minus_nasa_min", "own_minus_a_min"] } }
+    },
+    "day": {
+      "type": "object",
+      "required": ["date", "weekday", "sun", "moon", "day_length_min"],
+      "properties": {
+        "date": { "$ref": "#/$defs/date" },
+        "weekday": { "enum": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"] },
+        "sun": { "type": "object", "required": ["civil_dawn", "sunrise", "solar_transit", "sunset", "civil_dusk", "nautical_dawn", "nautical_dusk"], "additionalProperties": { "$ref": "#/$defs/value" } },
+        "moon": {
+          "type": "object",
+          "required": ["moonrise", "moon_transit", "moonset", "illumination_noon_lmt_pct", "illumination_noon_est_pct", "ecliptic_elongation_noon_lmt_deg", "phase_name", "badge", "method", "cites", "cross_check"],
+          "properties": {
+            "moonrise": { "$ref": "#/$defs/value" }, "moon_transit": { "$ref": "#/$defs/value" }, "moonset": { "$ref": "#/$defs/value" },
+            "illumination_noon_lmt_pct": { "type": "number", "minimum": 0, "maximum": 100 }, "illumination_noon_est_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+            "ecliptic_elongation_noon_lmt_deg": { "type": "number", "minimum": 0, "maximum": 360 },
+            "phase_name": { "enum": ["New Moon", "First Quarter", "Full Moon", "Last Quarter", "Waxing Crescent", "Waxing Gibbous", "Waning Gibbous", "Waning Crescent"] },
+            "badge": { "const": "Computed" },
+            "cross_check": { "type": "object", "required": ["own_minus_a_noon_lmt_pct", "usno_fracillum_pct", "a_noon_est_minus_usno_pct", "usno_curphase"] }
+          }
+        },
+        "day_length_min": { "type": "number", "minimum": 850, "maximum": 950 }
+      }
+    }
+  }
+}

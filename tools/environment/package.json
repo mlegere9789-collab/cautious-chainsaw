@@ -1,0 +1,10 @@
+{
+  "name": "gettysburg-environment-tools",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Tooling for data-src/environment (sun, moon, weather). astronomy-engine (MIT, Don Cross) is the primary ephemeris used to GENERATE astro_by_day.json; the validators and tests do not need it (they use tools/environment/solar.mjs, an independent implementation, plus the cross-check numbers committed with the data).",
+  "devDependencies": {
+    "astronomy-engine": "2.1.19"
+  }
+}

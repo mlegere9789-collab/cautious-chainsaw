@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gettysburg.local/schemas/weather_by_day.schema.json",
+  "title": "Weather at Gettysburg, June 25 to July 8, 1863 (Michael Jacobs)",
+  "description": "Daily observations with verbatim quotes, printed pages and IA leaves, units as printed, a badge per value (Measured only for instrument readings), and the verification level of each number. Contested values keep both readings and choose none.",
+  "type": "object",
+  "required": ["schema_version", "dataset", "title", "status", "badge_legend", "site", "sources", "where_the_readings_are", "external_statements", "quotes", "observations", "days", "contested", "pitch_checks", "warnings", "verification_summary"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "dataset": { "const": "weather_by_day" },
+    "status": { "type": "string", "minLength": 20 },
+    "badge_legend": { "type": "object", "required": ["Measured", "Observed", "Reported", "Computed", "Modelled", "Contested"] },
+    "sources": { "type": "array", "minItems": 4, "items": { "type": "object", "required": ["id", "kind", "tier", "title"] } },
+    "external_statements": { "type": "array", "minItems": 3, "items": { "type": "object", "required": ["id", "cache", "url", "sha256", "retrieved", "text"] } },
+    "quotes": { "type": "array", "minItems": 20, "items": { "$ref": "#/$defs/quote" } },
+    "observations": { "type": "array", "minItems": 40, "items": { "$ref": "#/$defs/observation" } },
+    "days": { "type": "array", "minItems": 14, "maxItems": 14, "items": { "type": "object", "required": ["date", "weekday", "temperature_F", "observation_ids"] } },
+    "contested": { "type": "array", "minItems": 2, "items": { "type": "object", "required": ["id", "question", "values", "status"], "properties": { "values": { "type": "array", "minItems": 2 }, "status": { "enum": ["open"] } } } },
+    "pitch_checks": { "type": "array", "minItems": 8, "items": { "type": "object", "required": ["id", "claim", "computed", "agrees"], "properties": { "agrees": { "type": "boolean" } } } },
+    "warnings": { "type": "array", "minItems": 4, "items": { "type": "string", "minLength": 20 } },
+    "verification_summary": { "type": "object", "required": ["observations", "by_level", "temperature_readings", "values_confirmed_by_two_independent_paths", "two_paths_definition", "numbers_contested"] }
+  },
+  "$defs": {
+    "witness": {
+      "type": "object",
+      "required": ["witness"],
+      "properties": { "witness": { "type": "string" }, "ia": { "type": "string" }, "kind": { "enum": ["djvu", "abbyy"] }, "leaf": { "type": "integer", "minimum": 0 }, "printed_page": { "type": "integer", "minimum": 1 }, "reader_n": { "type": ["integer", "null"] }, "url": { "type": "string" }, "sha256": { "type": "string" } }
+    },
+    "quote": {
+      "type": "object",
+      "required": ["id", "source", "text", "witnesses"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^Q-[A-Za-z0-9-]+$" },
+        "source": { "enum": ["jacobs-notes-1864", "jacobs-meteorology-1885", "haskell-1908"] },
+        "text": { "type": "string", "minLength": 5 },
+        "printed_page": { "type": "integer", "minimum": 1, "maximum": 47 },
+        "date": { "type": ["string", "null"] },
+        "witnesses": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/witness" } },
+        "ocr_misses": { "type": "array", "items": { "type": "string" } }
+      },
+      "allOf": [
+        { "if": { "properties": { "source": { "const": "jacobs-notes-1864" } } }, "then": { "required": ["printed_page"], "properties": { "witnesses": { "minItems": 2, "items": { "required": ["ia", "leaf", "printed_page"] } } } } },
+        { "if": { "properties": { "source": { "const": "haskell-1908" } } }, "then": { "properties": { "printed_page": { "const": 20 } } } },
+        { "if": { "properties": { "source": { "const": "jacobs-meteorology-1885" } } }, "then": { "properties": { "witnesses": { "items": { "required": ["url", "sha256"] } } } } }
+      ]
+    },
+    "observation": {
+      "type": "object",
+      "required": ["id", "date", "element", "badge", "quote", "verification"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^W-1863-(0[67])-[0-9]{2}-" },
+        "date": { "type": "string", "pattern": "^1863-0[67]-[0-3][0-9]$" },
+        "date_end": { "type": "string" },
+        "element": { "enum": ["temperature", "temperature_month_max", "precipitation", "sky", "wind", "wind_speed", "wind_direction", "thunder", "sun_reference", "clock_reference", "simile"] },
+        "badge": { "enum": ["Measured", "Observed", "Reported", "Contested"] },
+        "badge_basis": { "type": "string", "minLength": 15 },
+        "value": { "type": ["number", "string", "null"] },
+        "unit_as_printed": { "type": ["string", "null"] },
+        "unit_inferred": { "type": "string" },
+        "quote": { "type": "string" },
+        "verification": { "type": "object", "required": ["level"], "properties": { "level": { "enum": ["two_independent_paths", "rx_plus_compatible_damaged_image", "single_transcription", "garbled_single_transcription", "conflict", "two_independent_scans", "single_scan"] } } }
+      },
+      "allOf": [
+        { "if": { "properties": { "badge": { "const": "Measured" } } }, "then": { "required": ["badge_basis", "unit_inferred"], "properties": { "element": { "enum": ["temperature", "temperature_month_max", "precipitation"] }, "value": { "type": "number" } } } },
+        { "if": { "properties": { "badge": { "const": "Contested" } } }, "then": { "properties": { "status": { "const": "open" }, "value": { "type": "null" } }, "required": ["status", "badge_basis"] } }
+      ]
+    }
+  }
+}
