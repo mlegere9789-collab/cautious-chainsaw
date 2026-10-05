@@ -1,0 +1,29 @@
+{
+ "group": "A",
+ "patches": [
+  {
+   "id": "A+chooser-dialog",
+   "target": "js",
+   "find": "V.jsx(\"div\",{style:ko.overlay,children:V.jsxs(\"div\",{style:ko.content,children:[V.jsx(\"div\",{style:ko.title,children:\"Choose Your Experience\"})",
+   "repl": "V.jsx(\"div\",{style:ko.overlay,children:V.jsxs(\"div\",{style:ko.content,role:\"dialog\",\"aria-modal\":\"true\",\"aria-label\":\"Choose your experience\",tabIndex:-1,ref:el=>{el&&!el.contains(document.activeElement)&&el.focus({preventScroll:!0})},onKeyDown:ev=>{if(ev.key!==\"Tab\")return;const b=Array.from(ev.currentTarget.querySelectorAll('[role=\"button\"]')),i=b.indexOf(document.activeElement);if(ev.shiftKey?i<=0:i===b.length-1){ev.preventDefault();b[ev.shiftKey?b.length-1:0].focus()}},children:[V.jsx(\"div\",{style:ko.title,children:\"Choose Your Experience\"})",
+   "expect": 1,
+   "note": "a11y verifier (layout chooser cannot be passed by keyboard on legacy, R0 and R1a): the \"Choose Your Experience\" screen is a named modal dialog that takes focus on load and keeps Tab/Shift+Tab inside. It is the legacy chooser that group C replaces with the layout auto-detect from R1b, so from R1b on the chooser is never shown and these three rows are inert there. R0 is mechanism-only and does not contain them (its chooser stays keyboard-inoperable for the week it ships alone). Extension part of group A (filed by the 2026-10-01 integration from the a11y fixer's verified proposal; tests/t0/a11y.spec.mjs T0-A11Y-28)."
+  },
+  {
+   "id": "A+chooser-card-desktop",
+   "target": "js",
+   "find": "{style:{...ko.card,...f===\"desktop\"?ko.cardHover:{}},onClick:()=>c(\"desktop\"),",
+   "repl": "{style:{...ko.card,...f===\"desktop\"?ko.cardHover:{}},role:\"button\",tabIndex:0,onKeyDown:ev=>{(ev.key===\"Enter\"||ev.key===\" \")&&(ev.preventDefault(),c(\"desktop\"))},onClick:()=>c(\"desktop\"),",
+   "expect": 1,
+   "note": "the Desktop card is role=button, tabIndex 0, Enter/Space choose it (same handler as the click)."
+  },
+  {
+   "id": "A+chooser-card-mobile",
+   "target": "js",
+   "find": "{style:{...ko.card,...f===\"mobile\"?ko.cardHover:{}},onClick:()=>c(\"mobile\"),",
+   "repl": "{style:{...ko.card,...f===\"mobile\"?ko.cardHover:{}},role:\"button\",tabIndex:0,onKeyDown:ev=>{(ev.key===\"Enter\"||ev.key===\" \")&&(ev.preventDefault(),c(\"mobile\"))},onClick:()=>c(\"mobile\"),",
+   "expect": 1,
+   "note": "the Mobile card is role=button, tabIndex 0, Enter/Space choose it (same handler as the click)."
+  }
+ ]
+}
