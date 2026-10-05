@@ -418,6 +418,59 @@ def _():
     return '27 pages identical in both implementations; verify-url --tree: explained -> OK*, content drift -> DIFF (exit 1)'
 
 
+@case('17 compare-zip: a downloaded deploy zip against the locked baseline (identical, folder-prefixed zip, one changed file with a diff, a missing file, an extra _headers, a case-only name, CLI exit codes, the archived 6aa16d61 zip differs in exactly the two live files)')
+def _():
+    import zipfile
+    d = fresh('zip')
+    tree = baseline_tree()
+
+    def make(name, files, prefix=''):
+        p = os.path.join(d, name)
+        with zipfile.ZipFile(p, 'w', zipfile.ZIP_DEFLATED) as z:
+            if prefix:
+                z.writestr(prefix, b'')
+            for k, v in sorted(files.items()):
+                z.writestr(prefix + k, v)
+        return p
+    ident = make('ident.zip', tree)
+    st, rep = B.compare_zip(ident)
+    assert st == 'IDENTICAL' and rep['files_in_zip'] == rep['files_in_baseline'] == 119, rep
+    rc, out = run([sys.executable, CLI, 'compare-zip', ident], 0)
+    assert 'IDENTICAL' in out and 'netlify.toml included' in out, out[-400:]
+    st, rep = B.compare_zip(make('prefixed.zip', tree, 'dist/'))
+    assert st == 'IDENTICAL', rep['differing'][:3]
+    changed = dict(tree)
+    changed['privacy.html'] = tree['privacy.html'].replace(b'Privacy', b'Privacy Notice', 1)
+    changed['netlify.toml'] = tree['netlify.toml'] + b'\n# edited\n'
+    del changed['robots.txt']
+    changed['_headers'] = b'/*\n  X-Test: 1\n'
+    changed['Sitemap.XML'] = changed.pop('sitemap.xml')
+    z = make('changed.zip', changed)
+    st, rep = B.compare_zip(z)
+    states = {f['path']: f['state'] for f in rep['findings']}
+    assert st == 'DIFFERENT' and states == {'privacy.html': 'differs', 'netlify.toml': 'differs', 'robots.txt': 'missing', '_headers': 'extra',
+                                            'Sitemap.XML': 'extra', 'sitemap.xml': 'missing'}, states
+    assert any('differ only by case' in x for f in rep['findings'] if f['path'] == 'sitemap.xml' for x in f['detail'])
+    assert any('Privacy Notice' in x for f in rep['findings'] if f['path'] == 'privacy.html' for x in f['detail'])
+    rc, out = run([sys.executable, CLI, 'compare-zip', z, '--out', 'tmp/baseline-agent/selftest/zip/report.json'], 1)
+    assert 'DIFFERENT: 6 file(s)' in out and os.path.isfile(os.path.join(d, 'report.json')), out[-500:]
+    rc, out = run([sys.executable, CLI, 'compare-zip', os.path.join(d, 'nope.zip')], 2)
+    assert 'cannot read' in out, out[-300:]
+    bad = os.path.join(d, 'bad.zip')
+    write_bytes(bad, b'not a zip')
+    run([sys.executable, CLI, 'compare-zip', bad], 2)
+    run([sys.executable, CLI, 'compare-zip'], 2)
+    note = 'identical/prefixed ok; 6 findings classified; exit codes 0/1/2'
+    arch = 'C:/Users/mlege/gettysburg-archive/zips/6aa16d6080cc621d7501ebde-d9edb0ae93d265ba.zip'
+    if os.path.isfile(arch):
+        st, rep = B.compare_zip(arch)
+        assert sorted(rep['differing']) == ['data/terrain.json', 'index.html'], rep['differing']
+        note += '; archived 6aa16d61 zip differs in %s' % rep['differing']
+    else:
+        note += '; archived 6aa16d61 zip not on this machine (skipped that check)'
+    return note
+
+
 def main():
     only =sys.argv[sys.argv.index('--only') + 1] if '--only' in sys.argv else None
     os.makedirs(ST, exist_ok=True)

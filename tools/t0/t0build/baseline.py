@@ -683,3 +683,53 @@ def verify_live(tree_dir, origin=DEFAULT_ORIGIN, concurrency=4, headers_ref=None
               'html_pages': sum(1 for p in tree if is_html(p)), 'drifted': [f['path'] for f in drifted],
               'headers_changed': hdr_findings, 'findings': [f for f in findings if f['state'] != 'ok'], 'dangling_refs_on_live': dangling}
     return ('DRIFTED' if drifted else 'IDENTICAL'), report
+
+
+# ------------------------------------------------------------------------------------------------------------------ a downloaded deploy zip
+def zip_files(zip_path):
+    """{relpath: bytes} of the FILES of a Netlify "Download deploy" zip.  Directory entries are skipped; when every entry sits under one
+    folder (a zip made of a folder) that folder is stripped.  Raises BuildError for anything that is not a readable zip."""
+    import zipfile
+    try:
+        zf = zipfile.ZipFile(zip_path)
+    except (OSError, zipfile.BadZipFile) as e:
+        raise BuildError('cannot read %s as a zip: %s' % (zip_path, e))
+    out = {}
+    with zf:
+        for info in zf.infolist():
+            name = info.filename.replace('\\', '/')
+            if name.endswith('/') or name.startswith('__MACOSX/'):
+                continue
+            if name.startswith('/') or '..' in name.split('/'):
+                raise BuildError('unsafe path in the zip: %s' % name)
+            out[name] = zf.read(info)
+    firsts = {n.split('/', 1)[0] for n in out if '/' in n}
+    if out and len(firsts) == 1 and all('/' in n for n in out):
+        pre = next(iter(firsts)) + '/'
+        out = {n[len(pre):]: b for n, b in out.items()}
+    return out
+
+
+def compare_zip(zip_path, lock_path=LOCK_PATH):
+    """Compare a downloaded deploy zip with the LOCKED baseline (per-file sha256 of baseline/dist).  This is the only byte comparison of
+    netlify.toml that exists (Netlify does not serve it).  Returns (state, report): IDENTICAL or DIFFERENT."""
+    lock = load_json(lock_path)
+    want = lock['files']
+    got = zip_files(zip_path)
+    lower = {p.lower(): p for p in got}
+    findings = []
+    for p in sorted(set(want) | set(got)):
+        if p not in got:
+            hint = ' (the zip has %s: names differ only by case)' % lower[p.lower()] if p.lower() in lower else ''
+            findings.append({'path': p, 'state': 'missing', 'detail': ['in the baseline, not in the zip' + hint]})
+        elif p not in want:
+            findings.append({'path': p, 'state': 'extra', 'detail': ['in the zip (%d B), not in the baseline: a deploy that carries it behaves differently from one built on the baseline (_headers, _redirects and netlify.toml change what Netlify serves)' % len(got[p])]})
+        elif sha256_bytes(got[p]) != want[p]['sha256']:
+            detail = ['sha256 %s, baseline %s, %d B vs %d B' % (sha256_bytes(got[p])[:12], want[p]['sha256'][:12], len(got[p]), want[p]['bytes'])]
+            bp = os.path.join(base_dir(), p)
+            if os.path.isfile(bp):
+                detail += text_diff(read_bytes(bp), got[p], 30, 'baseline', 'zip')
+            findings.append({'path': p, 'state': 'differs', 'detail': detail})
+    report = {'zip': os.path.basename(zip_path), 'zip_sha256': sha256_bytes(read_bytes(zip_path)), 'files_in_zip': len(got), 'files_in_baseline': len(want),
+              'differing': [f['path'] for f in findings], 'findings': findings}
+    return ('DIFFERENT' if findings else 'IDENTICAL'), report

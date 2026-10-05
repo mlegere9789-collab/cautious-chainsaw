@@ -8,6 +8,7 @@
     python tools/t0/baseline.py prove                  # post-processing model applied to baseline/dist == every served response
     python tools/t0/baseline.py lock                   # write tools/t0/baseline.lock.json from baseline/dist
     python tools/t0/baseline.py compare-legacy         # every difference between legacy/dist and baseline/dist (source level)
+    python tools/t0/baseline.py compare-zip <deploy.zip>   # a Netlify "Download deploy" zip against the locked baseline (also compares netlify.toml, which is never served)
 
 Exit codes: 0 ok / IDENTICAL, 1 DRIFTED or a failed proof, 2 could not run (network, missing tree, altered baseline).  legacy/ is only read.
 See tools/t0/README.md ("The baseline") and docs/baseline-drift.md.
@@ -146,6 +147,32 @@ def cmd_verify_live(a, P):
     return 1
 
 
+def cmd_compare_zip(a, P):
+    if not a.zip:
+        print('ERROR: usage: python tools/t0/baseline.py compare-zip <deploy.zip> [--out report.json]')
+        return 2
+    problems = B.check_lock(P['dist'], P['lock'])
+    if problems:
+        print('BASELINE ALTERED (not a zip result): %s no longer matches %s' % (B.rel_to_repo(P['dist']), B.rel_to_repo(P['lock'])))
+        for p in problems[:20]:
+            print('  ' + p)
+        return 2
+    state, rep = B.compare_zip(a.zip, P['lock'])
+    if a.out:
+        dump_json(os.path.join(REPO, a.out), rep)
+    print('compare-zip: %s (sha256 %s, %d files) vs the locked baseline (%d files, tree %s)' % (rep['zip'], rep['zip_sha256'][:16], rep['files_in_zip'], rep['files_in_baseline'], load_json(P['lock'])['tree_sha256'][:16]))
+    for f in rep['findings']:
+        print('  %-8s %s' % (f['state'].upper(), f['path']))
+        for d in f['detail'][:40]:
+            print('      ' + d)
+    if state == 'IDENTICAL':
+        print('IDENTICAL: the zip holds exactly the %d files of baseline/dist, byte for byte (netlify.toml included). The baseline is confirmed against this deploy.' % rep['files_in_baseline'])
+        return 0
+    print('DIFFERENT: %d file(s) differ from the baseline: %s' % (len(rep['differing']), ', '.join(rep['differing'][:12]) + (' ...' if len(rep['differing']) > 12 else '')))
+    print('Do not deploy. If the zip is the live deploy, follow "Live drifted" in ops/RELEASE-RUNBOOK.md (section 15).')
+    return 1
+
+
 def cmd_compare_legacy(a, P):
     leg = B.read_tree(P['legacy'])
     bas = B.read_tree(P['dist'])
@@ -173,9 +200,12 @@ def main(argv=None):
     for name, fn, help_ in [('mirror', cmd_mirror, 'fetch the live site'), ('reconstruct', cmd_reconstruct, 'raw -> baseline/dist'),
                             ('prove', cmd_prove, 'model(baseline/dist) == live'), ('lock', cmd_lock, 'write baseline.lock.json'),
                             ('verify', cmd_verify, 'baseline/dist vs lock'), ('verify-live', cmd_verify_live, 'baseline/dist vs the live site (pre-deploy gate)'),
-                            ('compare-legacy', cmd_compare_legacy, 'legacy/dist vs baseline/dist')]:
+                            ('compare-legacy', cmd_compare_legacy, 'legacy/dist vs baseline/dist'),
+                            ('compare-zip', cmd_compare_zip, 'a downloaded Netlify deploy zip vs the locked baseline')]:
         p = sub.add_parser(name, help=help_)
         p.set_defaults(fn=fn)
+        if name == 'compare-zip':
+            p.add_argument('zip', nargs='?', help='the zip written by Netlify > Deploys > the deploy > Download deploy')
         p.add_argument('--out', help='mirror directory (default baseline/live-2026-09-30) or, for verify-live, a JSON report path')
         p.add_argument('--origin', help='site origin (default %s)' % B.DEFAULT_ORIGIN)
         p.add_argument('--concurrency', type=int, default=4)
