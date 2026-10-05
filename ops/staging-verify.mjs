@@ -16,10 +16,12 @@
 //   --stage-dir DIR      the staging copy that was deployed (default release/staging/<train>, made by `node ops/sha-list.mjs stage <dist> <dir> --force`)
 //   --staging-url URL    the deployed staging site (required unless --local or --checklist)
 //   --prod-url URL       production (default https://gettysburginteractivemap.com): header parity (R0-R1b) and the baseline-drift gate
-//   --skip-live-drift    skip `python tools/t0/baseline.py verify-live` (S5); it is the only step that needs the PRODUCTION site
+//   --skip-live-drift    skip S5 (R0: `python tools/t0/baseline.py verify-live`; R1a-R1c: the byte proof of the previous train's dist against production); it is the only step that needs the PRODUCTION site
+//   --prev-dist DIR      R1a-R1c, S5: the dist that was deployed as the previous train (default release/<previous train>/dist)
 //   --no-rebuild         S0 normally rebuilds the train into tmp/ and requires the same tree digest (a stale dist is a FAIL); skip that (about 6-15 s), never for a deploy
 //   --expect-release R   the release id staging must report (default: version.json of the dist)
 //   --port N             --local: first port of the two emulators (default 8748 and 8749)
+//   --stage              --local: make the staging copy first (node ops/sha-list.mjs stage <dist> <stage-dir> --force) so a rehearsal never meets a stale copy
 //   --only S0,S2         run only these steps (a partial run never proves a deploy; for debugging and the self-tests)
 //   --json FILE          write the result as JSON
 //   --verbose            print the tail of every step's tool output
@@ -36,7 +38,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const argv = process.argv.slice(2);
-const FLAGS = new Set(['local', 'checklist', 'skip-live-drift', 'no-rebuild', 'verbose', 'help']);
+const FLAGS = new Set(['local', 'stage', 'checklist', 'skip-live-drift', 'no-rebuild', 'verbose', 'help']);
 const opt = {};
 for (let i = 0; i < argv.length; i++) {
   const a = argv[i];
@@ -152,11 +154,26 @@ step('S4', 'local', 'the generated header/redirect rules of the built tree behav
     const r = await node(['ops/headers-probe.mjs', '--dist', DIST, '--profile', PROFILE]); return { ok: r.status === 0, detail: tail(r, 1) };
   });
 
-step('S5', 'net', 'production still serves the baseline the train was built from (a deploy would otherwise revert someone else\'s change)',
-  'python tools/t0/baseline.py verify-live', 'exit 0 and a line starting "IDENTICAL: live == baseline/dist"', async () => {
+// S5 asks, for every train, "is production still exactly what we last put there?".  Before R0 ships that is the baseline (verify-live); from R1a on production IS the previous
+// train, so verify-live (which compares with the pre-R0 baseline) says DRIFTED by design and the question is asked of the previous train's own files (ops/T0-DEVIATIONS.md row 25).
+const PREV = { R1a: 'R0', R1b: 'R1a', R1c: 'R1b' }[TRAIN] || null;
+const PREV_DIST = PREV ? rp(opt['prev-dist'] || `release/${PREV}/dist`) : null;
+step('S5', 'net', PREV ? `production still serves exactly what ${PREV} deployed (a deploy would otherwise revert someone else's change; verify-live is the R0 gate and says DRIFTED once R0 is live)` : 'production still serves the baseline the train was built from (a deploy would otherwise revert someone else\'s change)',
+  PREV ? `node ops/sha-list.mjs list ${rel(PREV_DIST)} --out <tmp>.tsv && node ops/sha-list.mjs verify-url <tmp>.tsv ${'<production>'} --tree ${rel(PREV_DIST)} --expect-missing netlify.toml,_headers,_redirects,diagnostics.html` : 'python tools/t0/baseline.py verify-live',
+  PREV ? 'exit 0; "0 differ, 0 missing, 0 config file(s) publicly served, 0 errors"' : 'exit 0 and a line starting "IDENTICAL: live == baseline/dist"', async () => {
     if (opt['skip-live-drift'] || LOCAL) return { ok: true, skipped: true, detail: LOCAL ? 'skipped in --local (needs the production site)' : 'skipped by --skip-live-drift (run it again right before the production deploy: ops/RELEASE-RUNBOOK.md 7.0)' };
-    const r = await py(['tools/t0/baseline.py', 'verify-live']); const ident = /^IDENTICAL:/m.test(r.stdout || '');
-    return { ok: r.status === 0 && ident, detail: r.status === 0 ? tail(r, 1) : `exit ${r.status}: ${tail(r, 4)}` };
+    if (!PREV) {
+      const r = await py(['tools/t0/baseline.py', 'verify-live']); const ident = /^IDENTICAL:/m.test(r.stdout || '');
+      return { ok: r.status === 0 && ident, detail: r.status === 0 ? tail(r, 1) : `exit ${r.status}: ${tail(r, 4)}` };
+    }
+    if (!fs.existsSync(path.join(PREV_DIST, 'version.json'))) return { ok: false, detail: `${rel(PREV_DIST)} does not exist: it must be the dist that was deployed as ${PREV} (rebuild it from the commit tagged ${PREV}-<rid>, or pass --prev-dist)` };
+    const tmp = path.join(REPO, 'tmp', `staging-verify-prev-${PREV}.tsv`); fs.mkdirSync(path.dirname(tmp), { recursive: true });
+    const l = await node(['ops/sha-list.mjs', 'list', PREV_DIST, '--out', tmp]); if (l.status !== 0) return { ok: false, detail: `list failed: ${tail(l, 2)}` };
+    const r = await node(['ops/sha-list.mjs', 'verify-url', tmp, PRODUCTION, '--tree', PREV_DIST, '--expect-missing', 'netlify.toml,_headers,_redirects,diagnostics.html', '--concurrency', '4']);
+    const out = `${r.stdout}${r.stderr}`; const bad = out.split('\n').filter((x) => /^(DIFF|MISS|PUB |ERR )/.test(x));
+    const m = /(\d+) differ, (\d+) missing, (\d+) config file\(s\) publicly served, (\d+) errors/.exec(out);
+    const clean = m && m.slice(1).every((x) => x === '0') && bad.length === 0;
+    return { ok: r.status === 0 && !!clean, detail: r.status === 0 && clean ? `${PREV} (${rel(PREV_DIST)}): ${tail(r, 3).split('\n').find((x) => /files checked/.test(x)) || 'identical'}` : `exit ${r.status}: ${bad.slice(0, 6).join(' | ') || tail(r, 3)}` };
   });
 
 step('S6', 'net', 'staging is noindex on every kind of path and serves no config or kill-switch file',
@@ -212,7 +229,7 @@ step('S11', 'manual', 'what no script can check', '(by hand)', 'every item ticke
     'tests/t0/journeys-manual.md part A on the staging URL (the map is blank there: tiles answer 403 on netlify.app)',
     'owner sign-offs of the train (ops/RELEASE-RUNBOOK.md section 13); credits known (section 7.3)',
     ...(TRAIN === 'R1c' ? ['if the build was made with --with PG-legal: the owner read ops/legal-drafts/preview/*.html and OWNER-SIGNOFF.md, and trains.json legal.effective_date is the production deploy day (verify-facts S10 prints the date it checked)'] : []),
-    'python tools/t0/baseline.py verify-live again RIGHT BEFORE the production deploy (S5 is only as fresh as this run)',
+    `${PREV ? 'S5 (the byte proof of ' + PREV + ' against production)' : 'python tools/t0/baseline.py verify-live'} again RIGHT BEFORE the production deploy (S5 is only as fresh as this run)`,
   ].join(' | ') }));
 
 // ------------------------------------------------------------------------------------------------------------------ run
@@ -225,6 +242,7 @@ if (opt.checklist) {
 const servers = [];
 async function main() {
   if (LOCAL) {
+    if (opt.stage) { const r = await node(['ops/sha-list.mjs', 'stage', rel(DIST), rel(STAGE), '--force']); if (r.status !== 0) { console.error(`--stage: making ${rel(STAGE)} failed (exit ${r.status}): ${tail(r, 4)}`); return 2; } console.log(`--stage: ${tail(r, 1)}`); }
     if (!fs.existsSync(STAGE)) { console.error(`--local needs the staging copy ${rel(STAGE)} (node ops/sha-list.mjs stage ${rel(DIST)} ${rel(STAGE)} --force)`); return 2; }
     const { createEmulator } = await import(pathToFileURL(path.join(REPO, 'tools', 't0', 'config', 'emulate.mjs')).href);
     const p0 = Number(opt.port || 8748);

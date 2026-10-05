@@ -1,7 +1,7 @@
 # Release runbook: build a train, prove it on staging, deploy it, watch it, roll it back
 
 For the site owner. Plain language, copy-paste commands. Written 2026-09-30 for Tranche 0 (chapter 02 of the plan: `docs/plan/FINAL/02-tranche0-hotfix-runbook.md`, work packages WP-T0-02 and WP-T0-19).
-Companion files: `ops/STAGING-SETUP.md` (the second Netlify site), `ops/staging-verify.mjs` (the staging checklist as a script, section 6), `ops/owner-console-actions.md` (account and console chores), `ops/RUM-hygiene.md` (keeping your own testing out of the real-user numbers), `ops/RELEASE-LOG.md` (the one-row-per-deploy record), `ops/header-decisions.md` and `ops/T0-DEVIATIONS.md` (what differs from chapter 02, and why), `tests/README.md` (what every test is), `tests/t0/journeys-manual.md` (the by-hand checks).
+**The one-page version to follow on deploy day is `ops/DEPLOY-CHECKLIST.md`**; this file is the long form with the reasons. Companion files: `ops/STAGING-SETUP.md` (the second Netlify site), `ops/staging-verify.mjs` (the staging checklist as a script, section 6), `ops/owner-console-actions.md` (account and console chores), `ops/RUM-hygiene.md` (keeping your own testing out of the real-user numbers), `ops/RELEASE-LOG.md` (the one-row-per-deploy record), `ops/header-decisions.md` and `ops/T0-DEVIATIONS.md` (what differs from chapter 02, and why), `tests/README.md` (what every test is), `tests/t0/journeys-manual.md` (the by-hand checks).
 
 Where this text says **measured**, a command was run (the date is given where it matters) and its output is in the report that came with this file. Where it says **unverified**, nothing has proved it yet and the step that would prove it is named. Nothing in this runbook has been run against a real deploy: no train has ever been deployed by this tooling. It was re-read by following it literally three times (2026-09-30 twice, 2026-10-01 once more): every command that can run without deploying or changing your machine was run (into scratch copies under `tmp/`, never into `release/`, so other work is not disturbed) and what it printed replaced the old "measured" lines; the steps that need a real Netlify site, the CLI, a scheduled task or `git tag` are marked unverified where they appear. **Third-pass findings, all fixed:** (1) `release/` is git-ignored output and goes stale: the one in the working tree still held the pre-fix R1c build (owner-note comments in `privacy.html`, a public `_ops/sw-kill.js`), internally consistent and therefore invisible to the old checks; `ops/staging-verify.mjs` S0 now rebuilds the train and refuses a dist that is not what the tree builds today. (2) `ops/sha-list.mjs verify-url --kinds html` aborted Node on Windows with `Assertion failed ... UV_HANDLE_CLOSING` and exit 127 instead of printing its verdict (even when everything matched). (3) The local emulator answered content types that production does not; a parity run of an emulated R0 against production failed on 5 of 16 URLs, and is now green for R0, R1a and R1b (section 6). (4) Numbers that move with every patch (file counts, byte sizes, tree digests, release ids) are quoted only as dated examples, never as values to expect: read them from `manifest.json` and `version.json`.
 
@@ -19,7 +19,7 @@ Where this text says **measured**, a command was run (the date is given where it
 8. **Secrets stay out of files, chat and commits:** the Netlify login token, any Mapbox or Google key you create. `netlify login` keeps its own token; do not copy it anywhere.
 9. **Do not run `netlify link` or `netlify init` inside this repo.** They write a `.netlify/` folder that `.gitignore` does not cover. Always pass `--site <id>` instead.
 10. **No ad-hoc redeploys of the live site until R0 ships** (register action 5). Each production deploy costs credits and the old deploys are the only rollback material. (Rule 10 was already broken or never held once: production had moved on by 2026-09-30, rule 11 exists so that can never hurt a release again.)
-11. **Run `python tools/t0/baseline.py verify-live` immediately before every production deploy and every promotion from staging** (section 7.0). It must print `IDENTICAL` and exit 0. On `DRIFTED` (exit 1) nothing is deployed until the "live drifted" procedure (section 15) is done; exit 2 means it could not run and is not a pass.
+11. **Check, immediately before every production deploy and every promotion from staging, that production is still what you last put there** (section 7.0). Before R0 ships that is `python tools/t0/baseline.py verify-live`: it must print `IDENTICAL` and exit 0. From R1a on production is the previous train, and `verify-live` (which compares with the pre-R0 baseline) says `DRIFTED` by design: use the byte proof of the previous train instead (7.0). On `DRIFTED` / `DIFF` (exit 1) nothing is deployed until the "live drifted" procedure (section 15) is done; exit 2 means it could not run and is not a pass.
 
 ---
 
@@ -103,6 +103,8 @@ python tools/t0/baseline.py verify          # baseline/dist against baseline.loc
 python tools/t0/baseline.py verify-live     # production against baseline/dist: IDENTICAL (exit 0) / DRIFTED (exit 1, per-file diff) / could not run (exit 2)
 ```
 
+**`netlify.toml` cannot be compared through the served site, so compare the deploy itself:** download the live deploy (Netlify > Deploys > the Published deploy > Download deploy) and run `python tools/t0/baseline.py compare-zip <zip>`; it compares the zip with the locked baseline file by file (the zip may be a folder-prefixed zip) and must print `IDENTICAL: the zip holds exactly the 119 files of baseline/dist, byte for byte (netlify.toml included)`. It classifies every finding (`DIFFERS` with a diff, `MISSING`, `EXTRA` such as a `_headers` file that changes what Netlify serves) and exits 0 / 1 / 2. Self-tested (`tools/t0/tests/baseline_selftest.py` case 17); run against the downloaded deploy `6aa16d61` (`C:/Users/mlege/gettysburg-archive/zips/6aa16d6080cc621d7501ebde-d9edb0ae93d265ba.zip`) it reports exactly the two files production changed later, `data/terrain.json` and `index.html`. Not yet run against the zip of the live deploy `6abd6d62`: that zip has not been downloaded (owner action, step 2 of `ops/DEPLOY-CHECKLIST.md`).
+
 `verify-live` makes about 150 read-only `curl` requests (identity encoding, cache-busting query), compares non-HTML files byte for byte and HTML pages through the post-processing model (Netlify's injected RUM snippet and pretty-URL link rewriting are explained, everything else is drift), expects `/diagnostics.html` to answer 404 (forced redirect) and the config files not to be served, looks for files that production serves and references but the baseline lacks, and prints `HEADERS:` lines if the response headers differ from the 2026-09-30 snapshot (`baseline/live-2026-09-30/headers.key.json`; informational, not counted as file drift). It takes 10 to 15 seconds (13.5 s measured 2026-10-01). **Measured 2026-09-30 after the re-baseline and again on 2026-10-01: `IDENTICAL: live == baseline/dist (119 files checked, 27 pages in both URL forms, 147-148 requests; live deploy 6abd6d62...)`** (the request count moves by one with a retry; the 2026-10-01 run printed 148).
 
 ---
@@ -118,7 +120,14 @@ node tests/t0/journeys-desktop.spec.mjs --dist release/R1a/dist # J1-J8 journeys
 node tests/t0/pages-maps.spec.mjs --dist release/R1a/dist       # sub-pages, map pages, OG card, manifest (R1a)
 node tests/t0/mobile-matrix.spec.mjs --dist release/R1b/dist    # mobile shell over the viewport matrix (R1b)
 node tests/t0/headers.spec.mjs --dist release/R1c/dist          # generated headers/redirects, framing in a real browser (R1c); add --online for the real Street View frame (HDR-23)
-python ops/release-fixes.selftest.py                            # the build-robustness fixes: failed builds leave nothing deployable, ledger errors, gate cache, kill switch, opt-in legal group, verify-url exit codes, a stale dist is refused (10 cases)
+python ops/release-fixes.selftest.py                            # the build-robustness fixes: failed builds leave nothing deployable, ledger errors, gate cache, kill switch, opt-in legal group, verify-url exit codes, a stale dist is refused, S5 asks the previous train (11 cases)
+node tests/t0/desktop-fixes.spec.mjs --dist release/R1a/dist    # desktop fixes (group A2): keyboard focus, attribution, cards, repaint, NPS tour (R1a, R1b, R1c)
+node tests/t0/pages-fixes.spec.mjs --dist release/R1a/dist      # sub-page fixes: axe 0 serious/critical on 25 pages, targets, overflow, focus rings
+node tests/t0/perf-fixes.spec.mjs --dist release/R1c/dist       # PERF stylesheets and the Mapbox shader precompile
+node tests/t0/a11y.spec.mjs --dist release/R1c/dist             # a11y bridge (R1b, R1c)
+node tests/t0/mobile-fixes.spec.mjs --dist release/R1c/dist --vp 375x812 --filter 'MFIX-0[1-6]'   # mobile + shell fixes: ONE VIEWPORT SLICE; the whole matrix in one process exhausts the 300-request Mapbox cap, run_suites.mjs runs it as four slices
+python tools/t0/determinism.py                                  # every train rebuilt elsewhere and compared byte for byte (about 40 s)
+node tools/t0/run_suites.mjs --port-base 8760                   # EVERYTHING, red-first proofs included (about 3 hours; a host that stops a command after 2 hours: see tools/t0/README.md, --import-log)
 npm run t0:test                                                 # build self-test + browser harness self-test + R0 suite
 ```
 
@@ -134,7 +143,7 @@ They open system Chrome on `127.0.0.1` and use Mapbox tiles only through the har
 node ops/staging-verify.mjs --train R1a --staging-url https://gbg-staging.netlify.app     # exit 0 = every automatic step passed; --checklist prints the steps and the expected output
 ```
 
-It runs S0-S10 (the build is deployable **and not stale**: S0 rebuilds the train into `tmp/` and requires the same tree digest, because `release/` is ignored output that outlives the patches it was built from; the baseline lock holds; no kill switch in the dist; the staging copy differs only in `_headers`; the generated rules; production still equals the baseline; noindex and no config files on staging; the byte proof with HTML included; the probe; header parity for R0-R1b; the legal text against the headers, with the owner-visible gaps printed) and prints the manual list S11. A rehearsal without a network, against local emulators, is `--local` (it proves the tree and the script, not Netlify). `--only S0,S2` runs chosen steps and says it is a partial run; `--no-rebuild` skips the freshness rebuild (never for a deploy). The five steps below are what the script does for S3, S7, S8 and S9, written out:
+It runs S0-S10 (the build is deployable **and not stale**: S0 rebuilds the train into `tmp/` and requires the same tree digest, because `release/` is ignored output that outlives the patches it was built from; the baseline lock holds; no kill switch in the dist; the staging copy differs only in `_headers`; the generated rules; production is still what you last put there (R0: equals the baseline; R1a-R1c: serves exactly the previous train's files); noindex and no config files on staging; the byte proof with HTML included; the probe; header parity for R0-R1b; the legal text against the headers, with the owner-visible gaps printed) and prints the manual list S11. A rehearsal without a network, against local emulators, is `--local` (it proves the tree and the script, not Netlify). `--only S0,S2` runs chosen steps and says it is a partial run; `--no-rebuild` skips the freshness rebuild (never for a deploy). The five steps below are what the script does for S3, S7, S8 and S9, written out:
 
 ```
 # 1. staging copy = the train's dist + a _headers file that adds "X-Robots-Tag: noindex"
@@ -163,7 +172,15 @@ Do this only when: the calendar allows it (section 2), the train's "what must be
 python tools/t0/baseline.py verify-live
 ```
 
-**Only `IDENTICAL` (exit 0) allows a deploy.** The release you are about to publish was built from `baseline/dist`; if production has changed since, publishing the release would silently revert whatever changed (this is exactly what happened to the first four trains: production had moved on from the deploy they were built from, `docs/baseline-drift.md`). `DRIFTED` (exit 1) prints the files and the diff: stop and follow section 15. Exit 2 (network problem, or `BASELINE ALTERED`) is not a pass: fix the cause and run it again. Run it again right before pressing the button, not only when the train was built, and write its last line (with the live deploy id) in the `ops/RELEASE-LOG.md` row.
+**For R0 only `IDENTICAL` (exit 0) allows a deploy.** The release you are about to publish was built from `baseline/dist`; if production has changed since, publishing the release would silently revert whatever changed (this is exactly what happened to the first four trains: production had moved on from the deploy they were built from, `docs/baseline-drift.md`). `DRIFTED` (exit 1) prints the files and the diff: stop and follow section 15. Exit 2 (network problem, or `BASELINE ALTERED`) is not a pass: fix the cause and run it again. Run it again right before pressing the button, not only when the train was built, and write its last line (with the live deploy id) in the `ops/RELEASE-LOG.md` row.
+
+**For R1a, R1b and R1c `verify-live` cannot print `IDENTICAL` any more** (production is then the previous train, the baseline is the pre-R0 site), so the same question is asked of the previous train's own files: production must serve exactly what you deployed last.
+
+```
+node ops/sha-list.mjs verify-url release/<PREV>/served-list.tsv https://gettysburginteractivemap.com --tree release/<PREV>/dist --expect-missing netlify.toml,_headers,_redirects,diagnostics.html
+```
+
+(`<PREV>` is the train deployed before; `served-list.tsv` is the list written in step 2 of section 8 right after that deploy; `release/<PREV>/dist/version.json` must still show the release id in your log row, otherwise `release/` was rebuilt from other patches: rebuild from the tagged commit `git tag <PREV>-<rid>` first.) Expect `0 differ, 0 missing, 0 config file(s) publicly served, 0 errors`; any `DIFF` or `MISS` is a change nobody told you about: stop and follow section 15 (adapted: the reference is the previous train, not the baseline). It checks the files of that train only; it does not look for files production has gained. The Search Console file `google0dca4879c9657741.html` has no `</body>`: whether Netlify serves it untouched (the model assumes so) is **unverified**; a `DIFF` on it after a deploy means Netlify changed it and Google's verification may fail.
 
 ### 7.1 Route A: Netlify CLI (the default, owner decision O-T0-4)
 
@@ -207,6 +224,8 @@ netlify deploy --dir . --prod --site <PRODUCTION_SITE_ID> --message "R1a <rid>"
 3. In File Explorer open `release/R1a/` and drag the **`dist`** folder (or, for staging, `release/staging/R1a`) onto the box. Wait for "Published".
 4. Click the new deploy in the list; the id is the last part of its address bar URL. Copy it into `ops/RELEASE-LOG.md`.
 
+A **zip** of the same files can be dropped instead of the folder (Netlify's documentation allows it; not tried by this tooling): `python tools/ship/pack_zip.py --train R1a --out deliver/R1a-<rid>.zip` writes one with the site files at the root of the zip (no wrapper folder, `_headers`, `_redirects` and `netlify.toml` included), refuses a dist that disagrees with its `manifest.json`, prints the sha256 and writes `<zip>.sha256` and `<zip>.files.tsv`; `--staging` makes the noindex variant for `gbg-staging`. Never drop a zip of a `dist` that was not built by `tools/t0/build.py`. After the deploy run the byte proof of section 8 step 2 (`verify-url`) exactly as for a folder, and the staging parity check below applies unchanged.
+
 **Drag-and-drop caveat (unverified for this site):** Netlify's documentation says a manually created deploy runs no build and treats `netlify.toml`, `_headers` and `_redirects` as plain files, and does not say clearly whether a dropped folder's `netlify.toml` rules or its `_headers` file take effect (the `_headers` documentation only says it belongs in the publish directory). This site's live headers and its redirect rule for `/diagnostics.html` DO work today (measured 2026-09-30: `X-Frame-Options: DENY` and the Report-Only CSP come back on `/`; `/diagnostics.html` answers 404), but how the current deploy was made is not recorded, so it proves nothing about a new drop. **Therefore: a train may go to production by drag and drop only after the same folder, dropped on staging, passed the header parity check (section 6 step 4).** The plan retires drag and drop when the Git deploy pipeline exists (register D-CI-HOST); record which route each deploy used.
 
 ### 7.3 Credits and plan (unknown for this account)
@@ -230,8 +249,9 @@ Do these in order; total about 20 minutes plus watching.
 2. **Byte proof of the files that matter** (non-HTML must be identical; production rewrites the HTML it serves, see `ops/STAGING-SETUP.md` section 4):
    ```
    node ops/sha-list.mjs list release/R1a/dist --out release/R1a/served-list.tsv
-   node ops/sha-list.mjs verify-url release/R1a/served-list.tsv https://gettysburginteractivemap.com --tree release/R1a/dist
+   node ops/sha-list.mjs verify-url release/R1a/served-list.tsv https://gettysburginteractivemap.com --tree release/R1a/dist --expect-missing netlify.toml,_headers,_redirects,diagnostics.html
    ```
+   Keep `served-list.tsv` and the dist it describes (tag the commit, step 5): they are the reference of the pre-deploy check of the next train (7.0).
    (`--tree` lets the model of Netlify's post-processing explain the RUM snippet and the rewritten links of the HTML files; add `--kinds nonhtml` for the quick version. Any `DIFF` is a real difference. Files that a release deliberately does not serve, such as the deleted dev pages, need `--expect-missing`.)
 3. **First visit as a stranger:** a fresh Chrome profile (or an Incognito window) with the RUM block on (`ops/RUM-hygiene.md` section 3): open the live site; it must load once (no second page load), no "Try again" box, no console errors. Then `tests/t0/journeys-manual.md` part A, items A1 to A6.
 4. **One real phone** on mobile data (not Wi-Fi if you can): open the site, note the time to first paint and whether the page reloaded itself.
@@ -384,14 +404,14 @@ The owner defaults the plan lists as "in force unless you object in writing" (ch
 
 ## 14. Things this runbook could not verify
 
-* Any real deploy: nothing here has been run against a real Netlify deploy by this tooling. Section 6 step 4 (header parity) and the byte proof (`verify-url`) exist to close that gap on staging.
+* Any real deploy: nothing here has been run against a real Netlify deploy by this tooling. In particular `compare-zip` has not seen the zip of the live deploy `6abd6d62`, and the second-train pre-deploy check of 7.0 has never run against a live R0. Section 6 step 4 (header parity) and the byte proof (`verify-url`) exist to close that gap on staging.
 * The Netlify CLI's handling of `netlify.toml` and `_headers` (7.1), drag-and-drop handling of the same (7.2), whether a CLI draft costs credits, your plan and balance (7.3).
 * The exact Netlify menu labels (the web app changes them); the documentation pages consulted on 2026-09-30 are named in `ops/owner-console-actions.md`.
 * Windows Task Scheduler behaviour (8.1): the `schtasks` lines change your machine's scheduled tasks, so they were not run (only their syntax was read against `schtasks /Create /?`).
 * `git tag <train>-<rid>` of step 8.5 (not run in the repository; it only adds a ref).
 * Everything the local emulators cannot reproduce (`tools/t0/config/README.md`, "Emulated rules"): Netlify's header matching and merging, post-processing of HTML, edge behaviour. `ops/staging-verify.mjs --local` is a rehearsal, not a proof.
 * That the Walkthrough's Street View frame behaves with motion sensors on a real phone (`ops/header-decisions.md` section 2).
-* The Lighthouse gates (mobile >= 85, desktop >= 95 with production-Referer tiles): the repo has no Lighthouse runner yet, so nothing here measures them.
+* The Lighthouse gates (mobile >= 85, desktop >= 95 with production-Referer tiles): the repo has no Lighthouse runner (the perf harness that produced `ops/release-notes/perf-results.json` lives under the git-ignored `tmp/`, Lighthouse 13.5 installed there). Its numbers (R0 94, R1a 92, R1b 98, R1c 98 mobile, 100 desktop) were taken on trees built from the same patches before the `A+chooser.json` extension part moved the release ids of R1a-R1c, and not re-measured on the final ids.
 * Everything that needs hardware or other browsers: iOS and WebKit, Firefox, Samsung Internet, real touch, real tiles at scale, screen readers, 30 days of RUM.
 * That "Publish deploy" takes 2 minutes or less: the rehearsal has not been done.
 * `netlify.toml` (and any `_headers`/`_redirects`) of the live deploy: Netlify does not serve them, so `verify-live` cannot compare them by bytes; it reports a header snapshot difference instead. Download the live deploy once and compare (`docs/baseline-drift.md` section 9).
@@ -418,7 +438,7 @@ It means production serves something the baseline does not contain: somebody dep
    (If `trains.json` `base.mirror` points at the old mirror folder, change it to the new one in the same commit.)
 4. **Write the drift down and decide each hunk**, in `docs/baseline-drift.md` (or a new `docs/baseline-drift-<date>.md`): what it does, and for each change whether the trains keep it (the default: production's behaviour must not be reverted by a release), supersede it with a patch (say why, with a measurement) or ask the owner.
 5. **Re-lock and re-anchor:** `python tools/t0/baseline.py lock`, then `python tools/t0/build.py --all`. A patch anchor that no longer matches fails with its id; re-derive it against `baseline/dist`, never loosen `expect`. Overlay files may not replace a file production changed (the build says so): merge it with a patch.
-6. **Re-run everything:** `node tools/t0/run_suites.mjs` (45-60 minutes) until every suite is green, regenerate the notes (`python tools/t0/release_notes.py`), commit (`tools/commit.sh`), then `python tools/t0/baseline.py verify-live` again: it must print `IDENTICAL` before any deploy.
+6. **Re-run everything:** `node tools/t0/run_suites.mjs --port-base 8760` (about 3 hours) until every suite is green, regenerate the notes (`python tools/t0/release_notes.py`), commit (`tools/commit.sh`), then `python tools/t0/baseline.py verify-live` again: it must print `IDENTICAL` before any deploy.
 7. **Record it** in `ops/RELEASE-LOG.md` (a `drift` row: the old and the new live deploy id, what changed, who decided what).
 
 ---

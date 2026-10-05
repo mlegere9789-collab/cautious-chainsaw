@@ -305,6 +305,46 @@ def _():
     return 'a dist built without PG-maps: S0 FAIL "STALE dist", exit 1; a current dist: S0 PASS "identical to a fresh rebuild"'
 
 
+@case('11 staging-verify S5 asks the previous train (verify-live is the R0 gate and says DRIFTED once R0 is live)')
+def _():
+    import time
+    import urllib.request
+    prev = out_dir('s5-prev')
+    os.makedirs(prev)
+    open(os.path.join(prev, 'version.json'), 'w').write('{"release":"0badc0de","train":"R0"}\n')
+    open(os.path.join(prev, 'index.html'), 'w').write('<html><body>previous train <a href="/x.html">x</a></body></html>\n')
+    open(os.path.join(prev, 'robots.txt'), 'w').write('User-agent: *\nAllow: /\n')
+    changed = out_dir('s5-changed')
+    shutil.copytree(prev, changed)
+    open(os.path.join(changed, 'robots.txt'), 'a').write('# changed by somebody else\n')
+    base = int(os.environ.get('T0_PORT_BASE', '8480'))
+
+    def s5(serve_dir, port, *extra):
+        p = subprocess.Popen(['node', os.path.join('tools', 't0', 'config', 'emulate.mjs'), rel(serve_dir), str(port)], cwd=REPO, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        try:
+            for _ in range(50):
+                try:
+                    urllib.request.urlopen('http://127.0.0.1:%d/robots.txt' % port, timeout=1).read()
+                    break
+                except Exception:  # noqa: BLE001
+                    time.sleep(0.1)
+            return subprocess.run(['node', os.path.join('ops', 'staging-verify.mjs'), '--train', 'R1a', '--only', 'S5', '--prev-dist', rel(prev), '--prod-url', 'http://127.0.0.1:%d' % port, '--staging-url', 'http://127.0.0.1:9'] + list(extra),
+                                  cwd=REPO, capture_output=True, text=True, encoding='utf-8', errors='replace')
+        finally:
+            p.kill()
+            p.wait()
+    r = s5(prev, base + 5)
+    assert r.returncode == 0 and 'PASS   S5' in r.stdout and '0 differ, 0 missing' in r.stdout, (r.returncode, r.stdout[-600:])
+    r = s5(changed, base + 6)
+    assert r.returncode == 1 and 'FAIL   S5' in r.stdout and 'DIFF robots.txt' in r.stdout, (r.returncode, r.stdout[-600:])
+    r = subprocess.run(['node', os.path.join('ops', 'staging-verify.mjs'), '--train', 'R1a', '--only', 'S5', '--prev-dist', rel(os.path.join(ROOT, 'no-such-dist')), '--prod-url', 'http://127.0.0.1:9', '--staging-url', 'http://127.0.0.1:9'],
+                       cwd=REPO, capture_output=True, text=True, encoding='utf-8', errors='replace')
+    assert r.returncode == 1 and 'does not exist' in r.stdout, (r.returncode, r.stdout[-400:])
+    c = subprocess.run(['node', os.path.join('ops', 'staging-verify.mjs'), '--train', 'R1b', '--checklist'], cwd=REPO, capture_output=True, text=True, encoding='utf-8', errors='replace').stdout
+    assert 'serves exactly what R1a deployed' in c and 'verify-live' in c, c[:600]
+    return 'R1a S5: production = the previous dist PASS (exit 0); one changed file DIFF (exit 1); missing previous dist FAIL; the R1b checklist names R1a'
+
+
 def main():
     os.makedirs(ROOT, exist_ok=True)
     failed = 0
