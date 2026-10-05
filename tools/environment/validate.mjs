@@ -253,6 +253,11 @@ export async function validateWeather(data, opts = {}) {
       }
     }
   }
+  const xids = new Set((data.external_statements || []).map((x) => x.id));
+  for (const h of (data.where_the_readings_are && data.where_the_readings_are.holdings) || []) {
+    for (const id of h.evidence || []) if (!xids.has(id)) err(`where_the_readings_are.holdings (${h.holder}): evidence ${id} is not an external statement`);
+    if (h.seen_by_this_project !== false) err(`where_the_readings_are.holdings (${h.holder}): this project saw none of the forms, seen_by_this_project must be false`);
+  }
 
   // ---- observations
   const obsById = Object.fromEntries((data.observations || []).map((o) => [o.id, o]));

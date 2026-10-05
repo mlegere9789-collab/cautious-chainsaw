@@ -91,6 +91,10 @@ test('SEEDED: warnings removed is a schema error', async () => { const w = weath
 test('SEEDED: an unknown badge is a schema error', async () => { const w = weather(); obs(w, 'W-1863-07-03-thunder').badge = 'Verified'; await fails(w, /schema/, 'badge'); });
 test('SEEDED: a Measured value without its basis is a schema error', async () => { const w = weather(); delete obs(w, 'W-1863-07-03-temp-2pm').badge_basis; await fails(w, /schema/, 'basis'); });
 test('SEEDED: the external statement about NCEI altered is caught', async () => { const w = weather(); w.external_statements[0].text = 'Open access to the NERMS system'; await fails(w, /external statement/, 'ncei'); });
+test('SEEDED: the statement that NCEI and NARA lack August 1863 to June 1864 altered (July 1863 said to be missing) is caught', async () => { const w = weather(); w.external_statements.find((x) => x.id === 'X-tge-gap').text = 'All of the records for these months, including July 1863, are missing from the APS collection.'; await fails(w, /external statement X-tge-gap/, 'tge gap'); });
+test('SEEDED: a holding that cites an external statement that does not exist is caught', async () => { const w = weather(); w.where_the_readings_are.holdings[0].evidence = ['X-nope']; await fails(w, /X-nope/, 'holding evidence'); });
+test('SEEDED: a holding marked as seen by this project is caught', async () => { const w = weather(); w.where_the_readings_are.holdings[1].seen_by_this_project = true; await fails(w, /seen_by_this_project/, 'seen'); });
+test('SEEDED: the HistoryNet statement altered (the 1885 version said to be more detailed) is caught', async () => { const w = weather(); const x = w.external_statements.find((e) => e.id === 'X-hn-1885'); x.text = x.text.replace('more detailed', 'less detailed'); await fails(w, /external statement X-hn-1885/, 'hn'); });
 
 test('offline: with an EMPTY cache the committed windows still catch an altered quote (and the data validates)', () => {
   const tmp = fs.mkdtempSync(path.join(ROOT, 'tmp', 'empty-cache-'));

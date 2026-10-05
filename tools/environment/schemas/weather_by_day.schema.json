@@ -11,6 +11,7 @@
     "status": { "type": "string", "minLength": 20 },
     "badge_legend": { "type": "object", "required": ["Measured", "Observed", "Reported", "Computed", "Modelled", "Contested"] },
     "sources": { "type": "array", "minItems": 4, "items": { "type": "object", "required": ["id", "kind", "tier", "title"] } },
+    "where_the_readings_are": { "type": "object", "required": ["holdings", "july_1863_form", "statement", "evidence"], "properties": { "holdings": { "type": "array", "minItems": 4, "items": { "type": "object", "required": ["holder", "what", "evidence", "seen_by_this_project"], "properties": { "evidence": { "type": "array", "minItems": 1, "items": { "type": "string" } }, "seen_by_this_project": { "type": "boolean" } } } } } },
     "external_statements": { "type": "array", "minItems": 3, "items": { "type": "object", "required": ["id", "cache", "url", "sha256", "retrieved", "text"] } },
     "quotes": { "type": "array", "minItems": 20, "items": { "$ref": "#/$defs/quote" } },
     "observations": { "type": "array", "minItems": 40, "items": { "$ref": "#/$defs/observation" } },
