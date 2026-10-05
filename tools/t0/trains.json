@@ -33,8 +33,8 @@
   "optional_groups": [],
   "pg_default_first": "R1a",
   "groups": {
-    "R0": {"first": "R0", "what": "R0-intro-delete (perf-cwv-04); the rename/loader/SW mechanism itself is code, not a group"},
-    "A":  {"first": "R1a", "what": "crash and input: C5 calls, sound, pointer capture, monuments loop, keys, storage, attribution, D-HEATMAP removals"},
+    "R0": {"first": "R0", "what": "R0-intro-delete (perf-cwv-04) and, as the extension part R0+mapbox-precompile.json, R0-mapbox-precompile (the Mapbox shader programs of the app's own layers are requested before the first frame that draws them: chapter 02 section 14.21, owner decision in ops/T0-DEVIATIONS.md row 22); the rename/loader/SW mechanism itself is code, not a group"},
+    "A":  {"first": "R1a", "what": "crash and input: C5 calls, sound, pointer capture, monuments loop, keys, storage, attribution, D-HEATMAP removals, the error boundary; extension part A+chooser.json: the legacy layout chooser is a keyboard-operable dialog"},
     "B":  {"first": "R1c", "what": "clock and data: date +2, day loading on jump, merge fix, stateless i2, minimap"},
     "DL": {"first": "R1c", "what": "deep-link reader"},
     "C":  {"first": "R1b", "what": "mobile shell (bundle patches + index.html rows; the counts are in release/<train>/anchors.json and tools/t0/README.md); must precede AX"},
