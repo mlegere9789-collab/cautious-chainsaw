@@ -41,7 +41,7 @@ export function sourceForUrl(registry, url) {
   return null;
 }
 
-export function createFetcher({ cacheDir = DEFAULT_CACHE, registry = loadSources(), lockFile = null, fetchImpl = globalThis.fetch, now = () => Date.now(), sleepImpl = sleep, log = () => {}, timeoutMs = 60000, maxRetries = 3 } = {}) {
+export function createFetcher({ userAgent = USER_AGENT, cacheDir = DEFAULT_CACHE, registry = loadSources(), lockFile = null, fetchImpl = globalThis.fetch, now = () => Date.now(), sleepImpl = sleep, log = () => {}, timeoutMs = 60000, maxRetries = 3 } = {}) {
   fs.mkdirSync(cacheDir, { recursive: true });
   const lockPath = lockFile || path.join(cacheDir, 'sources.lock.json');
   const lock = fs.existsSync(lockPath) ? JSON.parse(fs.readFileSync(lockPath, 'utf8')) : {};
@@ -110,7 +110,7 @@ export function createFetcher({ cacheDir = DEFAULT_CACHE, registry = loadSources
         res = await polite(curHost, async () => {
           stats.requests++;
           const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), timeoutMs);
-          try { return await fetchImpl(cur, { headers: { 'User-Agent': USER_AGENT, ...(range ? { Range: `bytes=${range}` } : {}) }, redirect: 'manual', signal: ctl.signal }); }
+          try { return await fetchImpl(cur, { headers: { 'User-Agent': userAgent, ...(range ? { Range: `bytes=${range}` } : {}) }, redirect: 'manual', signal: ctl.signal }); }
           finally { clearTimeout(timer); }
         });
         if (![301, 302, 303, 307, 308].includes(res.status)) break;

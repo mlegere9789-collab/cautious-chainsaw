@@ -1,4 +1,5 @@
 // verify-ingest-pages.test.mjs - adversarial check of the Official Records page citations (verifier workstream; fails today, by design).
+// STATUS after the second build (2026-10-04, tests/historian/or27-rebuild.test.mjs and docs/historian/CORPUS.md section 3b): these tests are green. Where a test was refined rather than met as written (a premise of the verifier's that the rebuild showed to be wrong, a fixture keyed by an id the rebuild changed, a regex that read a signature as a place line), the refinement is stated in the test beside the assertion.
 //
 // The claim under test (docs/historian/CORPUS.md section 4): every quote carries the printed page of the words quoted. The builder's own checks (Q2, Q3) compare a quote's page with the
 // passage's own page list, which cannot find a wrong page list. This file compares with the INTERNET ARCHIVE'S OWN PER-LEAF OCR instead (the item's hocr_searchtext + hocr_pageindex files,
@@ -49,16 +50,24 @@ const CASES = [
 ];
 
 test('VI-PG-1 each hand-checked sentence start is cited on the printed page the Archive scan shows it on', { skip: SKIP }, () => {
-  const P = new Map();
-  for (const line of fs.readFileSync(PASSAGES, 'utf8').split('\n')) { if (!line) continue; const p = JSON.parse(line); P.set(p.id, p); }
-  const wrong = [];
+  // The cases are found in the rebuilt corpus by their words (letters and digits only, the first 36 of them) and not by passage id and offset: the rebuild changed the chunking and the text (heads and
+  // footnotes taken out), so the ids and offsets of 2026-10-01 are gone. A report case is looked for in its own report (the report numbers are the same), a Part 3 case in Part 3 (its words are unique there).
+  const P = [...fs.readFileSync(PASSAGES, 'utf8').split('\n')].filter(Boolean).map((l) => JSON.parse(l));
+  const alnumMap = (s) => { const idx = []; let out = ''; for (let i = 0; i < s.length; i++) { const ch = s[i].toLowerCase(); if (/[a-z0-9]/.test(ch)) { out += ch; idx.push(i); } } return { out, idx }; };
+  const A = P.map((p) => ({ p, a: alnumMap(p.text) }));
+  const wrong = [], lost = [];
   for (const c of CASES) {
-    const p = P.get(c.id); assert.ok(p, `${c.id} is not a passage of this build (rebuilt with other chunking? regenerate the fixture)`);
-    assert.equal(p.text.slice(c.off, c.off + c.start.length), c.start, `${c.id}: the words at offset ${c.off} changed`);
-    const sp = pageSpan(p.pg, c.off, c.off + 1, 'warofrebellion27' + c.part + 'unit');
-    const got = +String(sp.pages).split(/[–-]/)[0];
-    if (got !== c.page) wrong.push(`${c.id} @${c.off} cites p. ${got}, the scan shows it on p. ${c.page} (leaf ${c.leaf}: ${c.head}) `);
+    const k = alnumMap(c.start).out.slice(0, 36);
+    const hits = A.filter((x) => x.a.out.includes(k) && (c.part === 3 ? String(x.p.id).startsWith('or27-3:') : x.p.doc === c.id.split('#')[0]));
+    if (!hits.length) { lost.push(`${c.id}: the words "${c.start.slice(0, 40)}" are in no passage of this build`); continue; }
+    for (const h of hits) {
+      const off = h.a.idx[h.a.out.indexOf(k)];
+      const sp = pageSpan(h.p.pg, off, off + 1, 'warofrebellion27' + c.part + 'unit');
+      const got = +String(sp.pages).split(/[–-]/)[0];
+      if (got !== c.page) wrong.push(`${h.p.id} @${off} cites p. ${got}, the scan shows it on p. ${c.page} (leaf ${c.leaf}: ${c.head}) `);
+    }
   }
+  assert.deepEqual(lost, [], 'a hand-checked sentence start is no longer in the corpus');
   if (wrong.length) assert.fail(`${wrong.length} of ${CASES.length} sentence starts are cited on the wrong page:\n  ${wrong.join('\n  ')}`);
 });
 

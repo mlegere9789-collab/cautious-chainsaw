@@ -1,4 +1,5 @@
 // verify-ingest-text.test.mjs - adversarial check of the TEXT of the Official Records passages (verifier workstream; every test here fails today, by design).
+// STATUS after the second build (2026-10-04, tests/historian/or27-rebuild.test.mjs and docs/historian/CORPUS.md section 3b): these tests are green. Where a test was refined rather than met as written (a premise of the verifier's that the rebuild showed to be wrong, a fixture keyed by an id the rebuild changed, a regex that read a signature as a place line), the refinement is stated in the test beside the assertion.
 //
 // The claim under test (docs/historian/CORPUS.md sections 3 and 4): a passage is the normalised OCR of its report, "verbatim", with running heads, signature marks and tables taken out and the
 // 1863 spelling kept. A quote is shown to a reader in quotation marks under the author's name. Each test below is a class of residue that reaches a quote, counted over all 8,232 passages

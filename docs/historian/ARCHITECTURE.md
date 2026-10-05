@@ -165,13 +165,13 @@ Tests run the real `historian.html` and `historian.js` in a small fake DOM (`tes
 | build | none set | about 4 s |
 | answer latency in Node (p95 over the golden run) | interactive | about 3 ms |
 | mean initial characters | 600 (H2 gate) | 547 over all three batteries (579 on the golden set) |
-| page script graph | under 300 KiB | 20 files, 307,088 of 307,200 characters unminified, no dependencies (the corpus modules are outside it) |
-| Official Records corpus (not shipped) | lazy | 1,189 files, 15.4 MB raw, 4.8 MB brotli; a question that reaches into it: 12 files and 54 KB brotli at the median; first paint +1,043 B in the manifest, T1 identical (CORPUS.md section 8) |
+| page script graph | under 300 KiB | 20 files, 307,116 of 307,200 characters unminified (84 spare), no dependencies (the corpus modules are outside it) |
+| Official Records corpus (not shipped) | lazy | 1,212 files, 15.7 MB raw, 4.8 MB brotli; a question that reaches into it: 13 files and 57 KB brotli at the median; first paint +1,068 B in the manifest, T1 identical (CORPUS.md section 8) |
 
 ## 9. Deliberately not in H0 to H2
 
 - No embeddings, no semantic tier, no model stage (`manifest.semantic.enabled` and `manifest.ai.enabled` are `false`).
-- No external text in the shipped artifacts: the Official Records volume 27 corpus (8,232 passages, page and scan citations) is built, tested and measured (CORPUS.md) but not part of `historian-src/dist/hx`; Fox, Busey and the rest are catalogued and gated, nothing more. Shipping the corpus is the owner's decision.
+- No external text in the shipped artifacts: the Official Records volume 27 corpus (8,405 passages, page and scan citations) is built, tested and measured (CORPUS.md) but not part of `historian-src/dist/hx`; Fox, Busey and the rest are catalogued and gated, nothing more. Shipping the corpus is the owner's decision.
 - No Worker wrapper for the engine yet (it is main-thread safe: the p95 answer is milliseconds; a Worker is a later hardening).
 - No release wiring, service worker precache, analytics or feedback capture.
 

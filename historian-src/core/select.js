@@ -67,7 +67,7 @@ export function bestWindow(kb, p, ctx, { maxWords = 90, maxSents = 3, plain = fa
     const toks = tokenize(text, { keepStop: false }).map(stem);
     let sc = 0;
     const seen = new Set();
-    for (const t of toks) { if (ctx.qStems.has(t) && !seen.has(t)) { seen.add(t); sc += idfOf(kb, t); } }
+    for (const t of toks) { if (ctx.qStems.has(t) && !seen.has(t)) { seen.add(t); sc += idfOf(kb, t) + (ctx.litStems && ctx.litStems.has(t) ? 1.5 : 0); } }
     let ent = false;
     for (const t of toks) if (ctx.entStems.has(t)) { ent = true; break; }
     if (ent) sc += 4;
@@ -98,7 +98,8 @@ export function bestWindow(kb, p, ctx, { maxWords = 90, maxSents = 3, plain = fa
       sc += info[j].sc; clk = clk || info[j].clk; caps = caps && info[j].caps; hit = hit || info[j].hit;
       if (caps) continue;                                  // a window that is only an ALL-CAPS heading ("PICKETT'S CHARGE BEGINS.") is a label, never a quote
       if (ctx.requireClockWindow && !clk) continue;
-      if (ctx.requireTopic && !hit) continue;               // the window must hold at least one word of the topic asked about        // a question about a reported time: the window must hold the clock time it is asked about
+      if (ctx.windowOk && !ctx.windowOk(p, info[i].s, info[j].e)) continue;
+      if (ctx.requireTopic && !hit) continue;               // the window must hold at least one word of the topic asked about
       // longer, complete windows beat one-line headings; very short windows are penalised, very long ones too
       const total = sc + 0.04 * Math.min(words, 40) - 0.02 * Math.max(0, words - 45) - (words < 10 ? 2 : 0);
       if (!best || total > best.score + 1e-9) best = { s: info[i].s, e: info[j].e, score: total, clk, words };

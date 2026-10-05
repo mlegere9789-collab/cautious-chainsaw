@@ -1,5 +1,5 @@
 {
- "_comment": "Entity links of the Official Records corpus read by hand: each link below was read in its sentence (mentions), against the contents-list title (report authors) or the signature and its title line (dispatch senders), and labelled correct / wrong / uncertain. ONE reader, the builder; the sample was drawn with a seeded generator (mulberry32) from the links the build emits. Uncertain links count as wrong in the precision figures. The text excerpts are public-domain 1889 print (OR Ser. I, vol. 27) as read by OCR. Tier C links are not emitted (never a passage entity); they are labelled for information.",
+ "_comment": "Entity links of the Official Records corpus read by hand: each link below was read in its sentence (mentions), against the contents-list title (report authors) or the signature and its title line (dispatch senders), and labelled correct / wrong / uncertain. ONE reader, the builder; the sample was drawn with a seeded generator (mulberry32) from the links the build emits. Uncertain links count as wrong in the precision figures. The text excerpts are public-domain 1889 print (OR Ser. I, vol. 27) as read by OCR. Tier C links are not emitted (never a passage entity); they are labelled for information. REMAP after the Part 3 re-segmentation (2026-10): the 105 dispatch-sender items (family signer-doc) point at documents by id; the rebuild cut Part 3 again (3,176 dispatches, 2,945 before), so the ids of 18 of them changed. Each was moved to the document of the rebuilt table with the same written date, the same signature surname and an addressee that shares a word with the labelled one (the item keeps its first doc id in doc_before_resegmentation). The labels (correct / wrong) are the original readings of the signature and its title line; none was changed.",
  "corpus": "or27 (Official Records Ser. I vol. 27 parts 1-3)",
  "labeled_on": "2026-10-01",
  "labeler": "builder (single reader)",
@@ -2707,14 +2707,16 @@
    "tier": "A",
    "entity": "P:john-sedgwick",
    "side": "union",
-   "doc": "or27-3:p0012.3",
+   "doc": "or27-3:p0012.4",
    "signature": "JOHN SEDGWICK,",
    "title_lines": [
     "Major-General, Commanding."
    ],
-   "addressee": "General Butterfield",
+   "addressee": "General Butterfield, Chief of Staff",
    "written": "1863-06-06",
-   "label": "correct"
+   "label": "correct",
+   "doc_before_resegmentation": "or27-3:p0012.3",
+   "addressee_before_resegmentation": "General Butterfield"
   },
   {
    "id": "S3-005",
@@ -2892,14 +2894,16 @@
    "tier": "A",
    "entity": "P:john-reynolds",
    "side": "union",
-   "doc": "or27-3:p0082.2",
+   "doc": "or27-3:p0082.3",
    "signature": "JOHN F. REYNOLDS,",
    "title_lines": [
     "Major-General of Volunteers, Commanding ."
    ],
-   "addressee": "General Pleasonton",
+   "addressee": "General Pleasonton, Commanding Cavalry Division",
    "written": "1863-06-13",
-   "label": "correct"
+   "label": "correct",
+   "doc_before_resegmentation": "or27-3:p0082.2",
+   "addressee_before_resegmentation": "General Pleasonton"
   },
   {
    "id": "S3-017",
@@ -2923,7 +2927,7 @@
    "tier": "A",
    "entity": "P:alfred-pleasonton",
    "side": "union",
-   "doc": "or27-3:p0091.1",
+   "doc": "or27-3:p0085.1",
    "signature": "A. PLEASONTON,",
    "title_lines": [
     "Brigadier- General , Commanding.",
@@ -2931,7 +2935,9 @@
    ],
    "addressee": "Major-General Reynolds, Commanding at Bealeton",
    "written": "1863-06-13",
-   "label": "correct"
+   "label": "correct",
+   "doc_before_resegmentation": "or27-3:p0091.1",
+   "addressee_before_resegmentation": "Major-General Reynolds, Commanding at Bealeton"
   },
   {
    "id": "S3-019",
@@ -3186,7 +3192,7 @@
    "tier": "A",
    "entity": "P:james-hall",
    "side": "union",
-   "doc": "or27-3:p0486.4",
+   "doc": "or27-3:p0486.5",
    "signature": "JAS. S. HALL,",
    "title_lines": [
     "Captain, and Signal Officer.",
@@ -3196,7 +3202,9 @@
    "written": "1863-07-02",
    "label": "wrong",
    "reason": "Capt. James S. Hall, signal officer, is not Capt. James Hall of the 2nd Maine Battery (the title line says Signal Officer)",
-   "fixed_after_label": true
+   "fixed_after_label": true,
+   "doc_before_resegmentation": "or27-3:p0486.4",
+   "addressee_before_resegmentation": "General Meade"
   },
   {
    "id": "S3-036",
@@ -3204,14 +3212,16 @@
    "tier": "A",
    "entity": "P:william-hays",
    "side": "union",
-   "doc": "or27-3:p0515.2",
+   "doc": "or27-3:p0515.1",
    "signature": "WILLIAM HAYS,",
    "title_lines": [
     "Brigadier- General , Commanding."
    ],
-   "addressee": "General S. Williams",
+   "addressee": "General S. Williams, Assistant Adjutant- General",
    "written": "1863-07-04",
-   "label": "correct"
+   "label": "correct",
+   "doc_before_resegmentation": "or27-3:p0515.2",
+   "addressee_before_resegmentation": "General S. Williams"
   },
   {
    "id": "S3-037",
@@ -3251,15 +3261,17 @@
    "tier": "A",
    "entity": "P:george-meade",
    "side": "union",
-   "doc": "or27-3:p0559.1",
+   "doc": "or27-3:p0554.3",
    "signature": "GEO. G. MEADE,",
    "title_lines": [
     "Major-General, Commanding .",
     "(Duplicated 2 p. m.)"
    ],
-   "addressee": null,
+   "addressee": "Major-General Sedgwick, Commanding Sixth Corps",
    "written": "1863-07-06",
-   "label": "correct"
+   "label": "correct",
+   "doc_before_resegmentation": "or27-3:p0559.1",
+   "addressee_before_resegmentation": null
   },
   {
    "id": "S3-040",
@@ -3283,14 +3295,16 @@
    "tier": "A",
    "entity": "P:john-newton",
    "side": "union",
-   "doc": "or27-3:p0561.1",
+   "doc": "or27-3:p0555.3",
    "signature": "JOHN NEWTON,",
    "title_lines": [
     "Major-General, Commanding."
    ],
-   "addressee": "General : The order directing the First and Third Corps to halt",
+   "addressee": "General Williams",
    "written": "1863-07-06",
-   "label": "correct"
+   "label": "correct",
+   "doc_before_resegmentation": "or27-3:p0561.1",
+   "addressee_before_resegmentation": "General : The order directing the First and Third Corps to halt"
   },
   {
    "id": "S3-042",
@@ -3328,14 +3342,16 @@
    "tier": "A",
    "entity": "P:andrew-humphreys",
    "side": "union",
-   "doc": "or27-3:p0627.2",
+   "doc": "or27-3:p0628.1",
    "signature": "A. A. HUMPHREYS,",
    "title_lines": [
     "Major-General, and Chief of Staff."
    ],
-   "addressee": "Major Kerwin",
+   "addressee": "Commanding Officer First Corps",
    "written": "1863-07-10",
-   "label": "correct"
+   "label": "correct",
+   "doc_before_resegmentation": "or27-3:p0627.2",
+   "addressee_before_resegmentation": "Major Kerwin"
   },
   {
    "id": "S3-045",
@@ -3343,14 +3359,16 @@
    "tier": "A",
    "entity": "P:andrew-humphreys",
    "side": "union",
-   "doc": "or27-3:p0628.1",
+   "doc": "or27-3:p0628.2",
    "signature": "A. A. HUMPHREYS,",
    "title_lines": [
     "Major-General, and Chief of Staff."
    ],
-   "addressee": "Brigadier-General Naglee",
+   "addressee": "Brigadier-General Naglee, Commanding Harper’s Ferry",
    "written": "1863-07-10",
-   "label": "correct"
+   "label": "correct",
+   "doc_before_resegmentation": "or27-3:p0628.1",
+   "addressee_before_resegmentation": "Brigadier-General Naglee"
   },
   {
    "id": "S3-046",
@@ -3373,14 +3391,16 @@
    "tier": "A",
    "entity": "P:andrew-humphreys",
    "side": "union",
-   "doc": "or27-3:p0648.2",
+   "doc": "or27-3:p0648.3",
    "signature": "A. A. HUMPHREYS,",
    "title_lines": [
     "Major-General, and Chief of Staff."
    ],
    "addressee": "Commanding Officer Second Corps",
    "written": "1863-07-11",
-   "label": "correct"
+   "label": "correct",
+   "doc_before_resegmentation": "or27-3:p0648.2",
+   "addressee_before_resegmentation": "Commanding Officer Second Corps"
   },
   {
    "id": "S3-048",
@@ -3463,14 +3483,16 @@
    "tier": "A",
    "entity": "P:andrew-humphreys",
    "side": "union",
-   "doc": "or27-3:p0663.2",
+   "doc": "or27-3:p0657.3",
    "signature": "A. A. HUMPHREYS,",
    "title_lines": [
     "Major-General, and Chief off Staff ."
    ],
-   "addressee": "General Hays has been directed to occupy the crest instead of the",
+   "addressee": "Major-General Couch",
    "written": "1863-07-12",
-   "label": "correct"
+   "label": "correct",
+   "doc_before_resegmentation": "or27-3:p0663.2",
+   "addressee_before_resegmentation": "General Hays has been directed to occupy the crest instead of the"
   },
   {
    "id": "S3-054",
@@ -3524,14 +3546,16 @@
    "tier": "A",
    "entity": "P:andrew-humphreys",
    "side": "union",
-   "doc": "or27-3:p0669.2",
+   "doc": "or27-3:p0657.3",
    "signature": "A. A. HUMPHREYS,",
    "title_lines": [
     "Major-General, and Chief of Staff."
    ],
-   "addressee": null,
+   "addressee": "Major-General Couch",
    "written": "1863-07-12",
-   "label": "correct"
+   "label": "correct",
+   "doc_before_resegmentation": "or27-3:p0669.2",
+   "addressee_before_resegmentation": null
   },
   {
    "id": "S3-058",
@@ -3539,14 +3563,16 @@
    "tier": "A",
    "entity": "P:andrew-humphreys",
    "side": "union",
-   "doc": "or27-3:p0686.2",
+   "doc": "or27-3:p0686.3",
    "signature": "A. A. HUMPHREYS,",
    "title_lines": [
     "Major-General, and Chief of Staff."
    ],
    "addressee": "Commanding Officer Sixth Corps",
    "written": "1863-07-14",
-   "label": "correct"
+   "label": "correct",
+   "doc_before_resegmentation": "or27-3:p0686.2",
+   "addressee_before_resegmentation": "Commanding Officer Sixth Corps"
   },
   {
    "id": "S3-059",
@@ -3735,14 +3761,16 @@
    "tier": "A",
    "entity": "P:henry-slocum",
    "side": "union",
-   "doc": "or27-3:p0709.3",
+   "doc": "or27-3:p0709.4",
    "signature": "H. W. SLOCUM,",
    "title_lines": [
     "Major-General , Commanding ."
    ],
-   "addressee": "Brig. Gen. S. Williams",
+   "addressee": "Brig. Gen. S. Williams, Assistant Adjutant- General, Army of the Potomac",
    "written": "1863-07-16",
-   "label": "correct"
+   "label": "correct",
+   "doc_before_resegmentation": "or27-3:p0709.3",
+   "addressee_before_resegmentation": "Brig. Gen. S. Williams"
   },
   {
    "id": "S3-072",
@@ -4051,14 +4079,16 @@
    "tier": "A",
    "entity": "P:andrew-humphreys",
    "side": "union",
-   "doc": "or27-3:p0790.1",
+   "doc": "or27-3:p0790.2",
    "signature": "A. A. HUMPHREYS,",
    "title_lines": [
     "Major-General , Chief of Staff."
    ],
-   "addressee": "Major-General Slocum",
+   "addressee": "Major-General Slocum, Commanding Twelfth Corps",
    "written": "1863-07-31",
-   "label": "correct"
+   "label": "correct",
+   "doc_before_resegmentation": "or27-3:p0790.1",
+   "addressee_before_resegmentation": "Major-General Slocum"
   },
   {
    "id": "S3-093",
@@ -4142,14 +4172,16 @@
    "tier": "A",
    "entity": "P:alfred-pleasonton",
    "side": "union",
-   "doc": "or27-3:p0832.1",
+   "doc": "or27-3:p0832.2",
    "signature": "A. PLEASONTON,",
    "title_lines": [
     "Major-General , Commanding."
    ],
-   "addressee": "Brigadier-General Buford",
+   "addressee": "Brigadier-General Buford, Comdg. First Cavalry Division, Rappahannock Station",
    "written": "1863-08-03",
-   "label": "correct"
+   "label": "correct",
+   "doc_before_resegmentation": "or27-3:p0832.1",
+   "addressee_before_resegmentation": "Brigadier-General Buford"
   },
   {
    "id": "S3-099",
@@ -4222,9 +4254,11 @@
    "title_lines": [
     "Lieutenant-General , Commanding."
    ],
-   "addressee": "General : Yours of 4 o’clock this afternoon is received. I have",
+   "addressee": "General R. E. Lee, Commanding, &c",
    "written": "1863-06-22",
-   "label": "correct"
+   "label": "correct",
+   "doc_before_resegmentation": "or27-3:p0915.1",
+   "addressee_before_resegmentation": "General : Yours of 4 o’clock this afternoon is received. I have"
   },
   {
    "id": "S3-104",
@@ -4248,15 +4282,17 @@
    "tier": "A",
    "entity": "P:robert-lee",
    "side": "confederate",
-   "doc": "or27-3:p1017.1",
+   "doc": "or27-3:p1016.2",
    "signature": "R. E. LEE,",
    "title_lines": [
     "General.",
     "*See Special Orders, No. i76, p. 1020."
    ],
-   "addressee": "Hon. James A. Seddon, Secretary of War, Richmond, Va.",
+   "addressee": "Hon. James A. Seddon, Secretary of War",
    "written": "1863-07-17",
-   "label": "correct"
+   "label": "correct",
+   "doc_before_resegmentation": "or27-3:p1017.1",
+   "addressee_before_resegmentation": "Hon. James A. Seddon, Secretary of War, Richmond, Va."
   }
  ]
 }

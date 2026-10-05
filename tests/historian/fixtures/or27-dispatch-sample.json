@@ -1,0 +1,1532 @@
+{
+ "_comment": "The 100-document hand-checked sample of the Part 3 dispatch segmentation (verifier finding HIGH 2). 100 documents were drawn with a seeded generator (mulberry32, seed 1863) from the 2,939 dispatch documents with text of the FIRST build (commit 88410ae), and every one was read in full by hand against its text: how many dispatches it holds (112 in all; 10 documents merge two or three), and for each dispatch its own first words of body, date, clock, place, addressee, signer, and the header lines of the NEXT dispatch that the first build left at its end (\"dangling\", 15). The labels are judgments of the text as printed in the normalised OCR (the 1863 letters are read; where the OCR damaged a name or date the intended reading is given). A dispatch is a message with its own dateline, addressee and signature; a message forwarded inside another (an inclosure) is a dispatch of its own, and so is an indorsement that has its own dateline; an indorsement printed under the dispatch it is on stays with it. Fields: body (first words of the dispatch body, whitespace and punctuation ignored when matched), date (ISO), clock (as printed or null), place (a word of the place line as printed or null: not checked when null), to (a word of the addressee or null: not checked), signer (surname of the signature as printed, uppercase; null = no signature on the message), dangling (header lines of the next dispatch that must not end this one), tail (last words the dispatch must end with). before_id is the id the first build gave the document; the ids of a rebuild differ.",
+ "seed": 1863,
+ "drawn_from": "historian-src/corpus/or27/dispatches.json at 88410ae (2,945 rows, 2,939 with text)",
+ "items": [
+  {
+   "n": 0,
+   "before_id": "or27-3:p0003.3",
+   "dispatches": [
+    {
+     "body": "General: The major-general commanding directs that you march",
+     "date": "1863-06-03",
+     "clock": "10 p. m.",
+     "place": null,
+     "to": "Meade",
+     "signer": "BUTTERFIELD"
+    }
+   ]
+  },
+  {
+   "n": 1,
+   "before_id": "or27-3:p0004.3",
+   "dispatches": [
+    {
+     "body": "Third Corps have been ordered to relieve your pickets",
+     "date": "1863-06-04",
+     "clock": "9.20 a. m.",
+     "place": null,
+     "to": "Meade",
+     "signer": "BUTTERFIELD"
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "before_id": "or27-3:p0038.1",
+   "dispatches": [
+    {
+     "body": "The following important dispatches have just been received",
+     "date": "1863-06-09",
+     "clock": "9.15 a. m.",
+     "place": "Kettle Run",
+     "to": "Taylor",
+     "signer": "STAHEL",
+     "note": "cover: signed by the closing Respectfully, JUL. STAHEL after the two forwarded dispatches"
+    },
+    {
+     "body": "The enemy has his whole cavalry force here",
+     "date": "1863-06-09",
+     "clock": null,
+     "place": "Beverly Ford",
+     "to": "Stahel",
+     "signer": "PLEASONTON"
+    },
+    {
+     "body": "Please send some cars down this side of Bealeton",
+     "date": "1863-06-09",
+     "clock": null,
+     "place": "Beverly Ford",
+     "to": "Stahel",
+     "signer": "PLEASONTON"
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "before_id": "or27-3:p0041.4",
+   "dispatches": [
+    {
+     "body": "Colonel : After crossing your division at Kelly",
+     "date": "1863-06-09",
+     "clock": null,
+     "place": null,
+     "to": "Duffie",
+     "signer": "WEIR"
+    },
+    {
+     "body": "What number of troops can your road pass over to Bealeton",
+     "date": "1863-06-09",
+     "clock": null,
+     "place": null,
+     "to": "Devereux",
+     "signer": "INGALLS",
+     "dangling": "Alexandria Depot,"
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "before_id": "or27-3:p0044.1",
+   "dispatches": [
+    {
+     "body": "I shall move np the Peninsula from Williamsburg",
+     "date": "1863-06-09",
+     "clock": null,
+     "place": null,
+     "to": "Hooker",
+     "signer": "DIX",
+     "dangling": "Order.] War Department,"
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "before_id": "or27-3:p0055.3",
+   "dispatches": [
+    {
+     "body": "The enemy are picketing the Rappahannock strongly",
+     "date": "1863-06-11",
+     "clock": "7 a. m.",
+     "place": null,
+     "to": "Hooker",
+     "signer": "PLEASONTON"
+    }
+   ]
+  },
+  {
+   "n": 6,
+   "before_id": "or27-3:p0062.4",
+   "dispatches": [
+    {
+     "body": "Sir : I have to state that, shortly after my joining this army",
+     "date": "1863-06-11",
+     "clock": null,
+     "place": "Falmouth",
+     "to": "Williams",
+     "signer": "BENHAM"
+    }
+   ]
+  },
+  {
+   "n": 7,
+   "before_id": "or27-3:p0101.2",
+   "dispatches": [
+    {
+     "body": "General Hooker directs me to say that he has been informed",
+     "date": "1863-06-14",
+     "clock": "4 p. m.",
+     "place": null,
+     "to": "Twelfth",
+     "signer": "BUTTERFIELD"
+    }
+   ]
+  },
+  {
+   "n": 8,
+   "before_id": "or27-3:p0116.3",
+   "dispatches": [
+    {
+     "body": "The commanding general directs that, if you require any ordnance",
+     "date": "1863-06-15",
+     "clock": "8 a. m.",
+     "place": null,
+     "to": "Pleasonton",
+     "signer": "WILLIAMS"
+    }
+   ]
+  },
+  {
+   "n": 9,
+   "before_id": "or27-3:p0123.5",
+   "dispatches": [
+    {
+     "body": "You will assume command at Harper",
+     "date": "1863-06-15",
+     "clock": null,
+     "place": "Baltimore",
+     "to": "Tyler",
+     "signer": "PIATT"
+    },
+    {
+     "body": "At least two of the guns from the naval battery",
+     "date": "1863-06-15",
+     "clock": "12 m.",
+     "place": "Baltimore",
+     "to": "Tyler",
+     "signer": "PIATT"
+    }
+   ]
+  },
+  {
+   "n": 10,
+   "before_id": "or27-3:p0139.1",
+   "dispatches": [
+    {
+     "body": "The Government will be glad to have your city regiments",
+     "date": "1863-06-15",
+     "clock": "8.43 a. m.",
+     "place": null,
+     "to": "Sandford",
+     "signer": "STANTON"
+    }
+   ]
+  },
+  {
+   "n": 11,
+   "before_id": "or27-3:p0153.3",
+   "dispatches": [
+    {
+     "body": "Push on the two regiments to Harpers",
+     "date": "1863-06-16",
+     "clock": null,
+     "place": "Baltimore",
+     "to": "Briggs",
+     "signer": "PIATT"
+    }
+   ]
+  },
+  {
+   "n": 12,
+   "before_id": "or27-3:p0160.3",
+   "dispatches": [
+    {
+     "body": "III. Col. Emlen Franklin is placed in charge of the defense",
+     "date": "1863-06-16",
+     "clock": null,
+     "place": null,
+     "to": null,
+     "signer": "SCHULTZE",
+     "note": "special orders no. 4"
+    }
+   ]
+  },
+  {
+   "n": 13,
+   "before_id": "or27-3:p0167.1",
+   "dispatches": [
+    {
+     "body": "The Governor of New York promises to send us troops",
+     "date": "1863-06-16",
+     "clock": "5.25 p. m.",
+     "place": null,
+     "to": "Kapp",
+     "signer": "LINCOLN",
+     "dangling": "Secretary of War :"
+    }
+   ]
+  },
+  {
+   "n": 14,
+   "before_id": "or27-3:p0203.3",
+   "dispatches": [
+    {
+     "body": "You are authorized to receive into the service any volunteer troops",
+     "date": "1863-06-18",
+     "clock": "11.20 a. m.",
+     "place": null,
+     "to": "Couch",
+     "signer": "STANTON"
+    }
+   ]
+  },
+  {
+   "n": 15,
+   "before_id": "or27-3:p0203.4",
+   "dispatches": [
+    {
+     "body": "This morning I saw the dispatch referred to in your telegram",
+     "date": "1863-06-18",
+     "clock": "12.45 p. m.",
+     "place": null,
+     "to": "Stearns",
+     "signer": "STANTON"
+    }
+   ]
+  },
+  {
+   "n": 16,
+   "before_id": "or27-3:p0209.2",
+   "dispatches": [
+    {
+     "body": "Dispatch just received. Bridge will be at Edwards Ferry",
+     "date": "1863-06-19",
+     "clock": "9.30 p. m.",
+     "place": null,
+     "to": "Slocum",
+     "signer": "BUTTERFIELD"
+    }
+   ]
+  },
+  {
+   "n": 17,
+   "before_id": "or27-3:p0210.1",
+   "dispatches": [
+    {
+     "body": "General : I am desired b^ General Buford to inform you",
+     "date": "1863-06-19",
+     "clock": null,
+     "place": "Aldie",
+     "to": "Gregg",
+     "signer": "KEOGH"
+    },
+    {
+     "body": "General : Your dispatch of 10 a. m. received.",
+     "date": "1863-06-19",
+     "clock": "3.15 p. m.",
+     "place": null,
+     "to": "Butterfield",
+     "signer": "PLEASONTON"
+    }
+   ]
+  },
+  {
+   "n": 18,
+   "before_id": "or27-3:p0214.2",
+   "dispatches": [
+    {
+     "body": "Your dispatch received. Abercrombie, with division of 7,262",
+     "date": "1863-06-19",
+     "clock": "12.30 p. m.",
+     "place": null,
+     "to": "Butterfield",
+     "signer": "HEINTZELMAN",
+     "dangling": "Fairfax Court-House,"
+    }
+   ]
+  },
+  {
+   "n": 19,
+   "before_id": "or27-3:p0215.3",
+   "dispatches": [
+    {
+     "body": "There are two strong regiments of infantry (800 each)",
+     "date": "1863-06-19",
+     "clock": "7.15 p. m.",
+     "place": null,
+     "to": "Butterfield",
+     "signer": "HEINTZELMAN"
+    }
+   ]
+  },
+  {
+   "n": 20,
+   "before_id": "or27-3:p0218.3",
+   "dispatches": [
+    {
+     "body": "General Hooker desires to knowhow long you can hold",
+     "date": "1863-06-19",
+     "clock": "8 p. m.",
+     "place": null,
+     "to": "Tyler",
+     "signer": "BUTTERFIELD"
+    },
+    {
+     "body": "I have reported everything ascertained as to the rebel troops",
+     "date": "1863-06-19",
+     "clock": null,
+     "place": "Maryland Heights",
+     "to": "Butterfield",
+     "signer": "TYLER"
+    }
+   ]
+  },
+  {
+   "n": 21,
+   "before_id": "or27-3:p0235.1",
+   "dispatches": [
+    {
+     "body": "Sir : I am prepared, among other preparations for the defense",
+     "date": "1863-06-20",
+     "clock": null,
+     "place": "Baltimore",
+     "to": "Chapman",
+     "signer": "SCHENCK"
+    }
+   ]
+  },
+  {
+   "n": 22,
+   "before_id": "or27-3:p0247.2",
+   "dispatches": [
+    {
+     "body": "I am well established here in a strong position.",
+     "date": "1863-06-21",
+     "clock": "1.45 p. m.",
+     "place": null,
+     "to": "Butterfield",
+     "signer": "HANCOCK"
+    },
+    {
+     "body": "The detachment of cavalry of the Eighth Pennsylvania were ambushed",
+     "date": "1863-06-21",
+     "clock": "3.30 p. m.",
+     "place": "Gainesville",
+     "to": "Butterfield",
+     "signer": "FRENCH"
+    }
+   ]
+  },
+  {
+   "n": 23,
+   "before_id": "or27-3:p0248.2",
+   "dispatches": [
+    {
+     "body": "General Pleasonton, with all the cavalry and his batteries",
+     "date": "1863-06-21",
+     "clock": "8 p. m.",
+     "place": null,
+     "to": "Howard",
+     "signer": "MEADE"
+    }
+   ]
+  },
+  {
+   "n": 24,
+   "before_id": "or27-3:p0249.3",
+   "dispatches": [
+    {
+     "body": "The following just received from signal officer",
+     "date": "1863-06-21",
+     "clock": "8 p. m.",
+     "place": "Sandy Hook",
+     "to": "Hooker",
+     "signer": "TYLER"
+    }
+   ]
+  },
+  {
+   "n": 25,
+   "before_id": "or27-3:p0262.1",
+   "dispatches": [
+    {
+     "body": "Your orders as to the Northern Central Railroad are being carried out",
+     "date": "1863-06-22",
+     "clock": "9 a. m.",
+     "place": null,
+     "to": "Halleck",
+     "signer": "SCHENCK",
+     "dangling": "Baltimore, Md.,"
+    }
+   ]
+  },
+  {
+   "n": 26,
+   "before_id": "or27-3:p0264.2",
+   "dispatches": [
+    {
+     "body": "Do you need any more staff officers ?",
+     "date": "1863-06-22",
+     "clock": "11 a. m.",
+     "place": null,
+     "to": "Couch",
+     "signer": "STANTON"
+    }
+   ]
+  },
+  {
+   "n": 27,
+   "before_id": "or27-3:p0273.2",
+   "dispatches": [
+    {
+     "body": "Send all information you have with regard to fords and bridges",
+     "date": "1863-06-23",
+     "clock": "midnight",
+     "place": null,
+     "to": "Slocum",
+     "signer": "BUTTERFIELD"
+    }
+   ]
+  },
+  {
+   "n": 28,
+   "before_id": "or27-3:p0274.1",
+   "dispatches": [
+    {
+     "body": "General : I transmit yon by telegraph my indorsement",
+     "date": "1863-06-23",
+     "clock": null,
+     "place": "Thoroughfare Gap",
+     "to": "Williams",
+     "signer": "HANCOCK"
+    }
+   ]
+  },
+  {
+   "n": 29,
+   "before_id": "or27-3:p0278.3",
+   "dispatches": [
+    {
+     "body": "Send a gunboat after the scow",
+     "date": "1863-06-23",
+     "clock": null,
+     "place": null,
+     "to": "King",
+     "signer": "DIX"
+    }
+   ]
+  },
+  {
+   "n": 30,
+   "before_id": "or27-3:p0286.1",
+   "dispatches": [
+    {
+     "body": "I have had all the fords within 10 miles of Edwards Ferry",
+     "date": "1863-06-24",
+     "clock": null,
+     "place": "Leesburg",
+     "to": "Hooker",
+     "signer": "SLOCUM"
+    }
+   ]
+  },
+  {
+   "n": 31,
+   "before_id": "or27-3:p0287.2",
+   "dispatches": [
+    {
+     "body": "Two stray rebels captured to-day a wagon loaded with telegraph wire",
+     "date": "1863-06-24",
+     "clock": null,
+     "place": null,
+     "to": "French",
+     "signer": "MORGAN"
+    }
+   ]
+  },
+  {
+   "n": 32,
+   "before_id": "or27-3:p0304.1",
+   "dispatches": [
+    {
+     "body": "General: I received last night the complaint of Captain",
+     "date": "1863-06-24",
+     "clock": null,
+     "place": "Newport News",
+     "to": "Dix",
+     "signer": "LEE",
+     "dangling": "General Hooker: Baltimore, Md.,"
+    }
+   ]
+  },
+  {
+   "n": 33,
+   "before_id": "or27-3:p0319.4",
+   "dispatches": [
+    {
+     "body": "That portion of the rebel troops passing by Boonsborough",
+     "date": "1863-06-25",
+     "clock": "6 p. m.",
+     "place": null,
+     "to": null,
+     "signer": "TYLER"
+    }
+   ]
+  },
+  {
+   "n": 34,
+   "before_id": "or27-3:p0325.2",
+   "dispatches": [
+    {
+     "body": "Major-General Milroy has orders to report with all his command",
+     "date": "1863-06-25",
+     "clock": null,
+     "place": "Baltimore",
+     "to": "Committee of Safety",
+     "signer": "CHESEBROUGH"
+    }
+   ]
+  },
+  {
+   "n": 35,
+   "before_id": "or27-3:p0326.3",
+   "dispatches": [
+    {
+     "body": "My troops at McConnellsburg are driven back",
+     "date": "1863-06-25",
+     "clock": "1 p. m.",
+     "place": "Harrisburg",
+     "to": "Brooks",
+     "signer": "COUCH"
+    }
+   ]
+  },
+  {
+   "n": 36,
+   "before_id": "or27-3:p0334.3",
+   "dispatches": [
+    {
+     "body": "I arrived at this place this afternoon, and have made the following",
+     "date": "1863-06-26",
+     "clock": "3.10 p. m.",
+     "place": "Frederick City",
+     "to": "Reynolds",
+     "signer": "STAHEL"
+    }
+   ]
+  },
+  {
+   "n": 37,
+   "before_id": "or27-3:p0341.4",
+   "dispatches": [
+    {
+     "body": "The railroad from Baltimore to Harper",
+     "date": "1863-06-26",
+     "clock": "9.30 p. m.",
+     "place": "Baltimore",
+     "to": "Butterfield",
+     "signer": "SCHENCK"
+    }
+   ]
+  },
+  {
+   "n": 38,
+   "before_id": "or27-3:p0344.5",
+   "dispatches": [
+    {
+     "body": "Certainly. Use seventy-five of the wagons and teams",
+     "date": "1863-06-26",
+     "clock": "3.15 p. m.",
+     "place": "Baltimore",
+     "to": "Couch",
+     "signer": "SCHENCK"
+    }
+   ]
+  },
+  {
+   "n": 39,
+   "before_id": "or27-3:p0349.2",
+   "dispatches": [
+    {
+     "body": "Dispatch received. As soon as you can move your command",
+     "date": "1863-06-27",
+     "clock": null,
+     "place": null,
+     "to": "Gregg",
+     "signer": "PLEASONTON"
+    }
+   ]
+  },
+  {
+   "n": 40,
+   "before_id": "or27-3:p0366.3",
+   "dispatches": [
+    {
+     "body": "Twelve regiments of my division are now at Harrisburg and Baltimore",
+     "date": "1863-06-27",
+     "clock": null,
+     "place": null,
+     "to": "Stanton",
+     "signer": "SANDFORD"
+    }
+   ]
+  },
+  {
+   "n": 41,
+   "before_id": "or27-3:p0434.4",
+   "dispatches": [
+    {
+     "body": "My dear General : We need some experienced artillerists",
+     "date": "1863-06-30",
+     "clock": "7 p. m.",
+     "place": "Harrisburg",
+     "to": "Thomas",
+     "signer": "SCOTT",
+     "dangling": "Harrisburg, Pa.,"
+    }
+   ]
+  },
+  {
+   "n": 42,
+   "before_id": "or27-3:p0461.1",
+   "dispatches": [
+    {
+     "body": "The major-general commanding directs that, in view of the advance of Generals A. P. Hill",
+     "date": "1863-07-01",
+     "clock": "12.30 p. m.",
+     "place": null,
+     "to": "Second Corps",
+     "signer": "BUTTERFIELD"
+    }
+   ]
+  },
+  {
+   "n": 43,
+   "before_id": "or27-3:p0462.1",
+   "dispatches": [
+    {
+     "body": "I am directed by the commanding general to state that it would appear",
+     "date": "1863-07-01",
+     "clock": null,
+     "place": null,
+     "to": "Sixth Corps",
+     "signer": "WILLIAMS"
+    }
+   ]
+  },
+  {
+   "n": 44,
+   "before_id": "or27-3:p0466.2",
+   "dispatches": [
+    {
+     "body": "A portion of our troops have fallen back from Gettysburg.",
+     "date": "1863-07-01",
+     "clock": "5 p. m.",
+     "place": null,
+     "to": "Meade",
+     "signer": "SLOCUM"
+    }
+   ]
+  },
+  {
+   "n": 45,
+   "before_id": "or27-3:p0475.3",
+   "dispatches": [
+    {
+     "body": "I 'think there is no rebel force whatever now between General Meade",
+     "date": "1863-07-01",
+     "clock": "1.30 p. m.",
+     "place": "Baltimore",
+     "to": "Halleck",
+     "signer": "SCHENCK"
+    }
+   ]
+  },
+  {
+   "n": 46,
+   "before_id": "or27-3:p0497.1",
+   "dispatches": [
+    {
+     "body": "Admiral : The Roanoke has left for Hampton Roads.",
+     "date": "1863-07-02",
+     "clock": null,
+     "place": "New York",
+     "to": "Paulding",
+     "signer": "WOOL"
+    }
+   ]
+  },
+  {
+   "n": 47,
+   "before_id": "or27-3:p0506.4",
+   "dispatches": [
+    {
+     "body": "Move on with your whole force to the passes near McConnellsburg",
+     "date": "1863-07-03",
+     "clock": null,
+     "place": "Harrisburg",
+     "to": "Pierce",
+     "signer": "COUCH"
+    }
+   ]
+  },
+  {
+   "n": 48,
+   "before_id": "or27-3:p0520.2",
+   "dispatches": [
+    {
+     "body": "II. Brigadier-General Copeland, recently serving in General",
+     "date": "1863-07-04",
+     "clock": null,
+     "place": null,
+     "to": null,
+     "signer": "WILLIAMS",
+     "note": "special orders no. 180"
+    }
+   ]
+  },
+  {
+   "n": 49,
+   "before_id": "or27-3:p0532.2",
+   "dispatches": [
+    {
+     "body": "Though the atmosphere is smoky, yet many of the points",
+     "date": "1863-07-05",
+     "clock": null,
+     "place": null,
+     "to": "Sykes",
+     "signer": "HILL"
+    }
+   ]
+  },
+  {
+   "n": 50,
+   "before_id": "or27-3:p0537.1",
+   "dispatches": [
+    {
+     "body": "All the enemy's infantry that were visible from this point",
+     "date": "1863-07-05",
+     "clock": "2 p. m.",
+     "place": "Signal Station",
+     "to": "Norton",
+     "signer": "P. AND C."
+    }
+   ]
+  },
+  {
+   "n": 51,
+   "before_id": "or27-3:p0545.3",
+   "dispatches": [
+    {
+     "body": "Re-enforcements from Baltimore and Washington are ordered to report",
+     "date": "1863-07-05",
+     "clock": "7.31 p. m.",
+     "place": "Washington",
+     "to": "French",
+     "signer": "HALLECK"
+    }
+   ]
+  },
+  {
+   "n": 52,
+   "before_id": "or27-3:p0547.4",
+   "dispatches": [
+    {
+     "body": "Colonel Pierce pushed the whole of his forces",
+     "date": "1863-07-05",
+     "clock": null,
+     "place": "Loudon",
+     "to": "Couch",
+     "signer": "OPERATOR",
+     "dangling": "Harrisburg, Pa.,"
+    }
+   ]
+  },
+  {
+   "n": 53,
+   "before_id": "or27-3:p0551.4",
+   "dispatches": [
+    {
+     "body": "The engineers are mounting large and long-range guns",
+     "date": "1863-07-05",
+     "clock": null,
+     "place": "New York",
+     "to": "Stanton",
+     "signer": "WOOL"
+    }
+   ]
+  },
+  {
+   "n": 54,
+   "before_id": "or27-3:p0574.1",
+   "dispatches": [
+    {
+     "body": "Sir : I have the honor to report that the order for General Elliott",
+     "date": "1863-07-06",
+     "clock": null,
+     "place": "Washington",
+     "to": "Kelton",
+     "signer": "HEINTZELMAN"
+    },
+    {
+     "body": "General Meade has ordered General Benham to take pontoons",
+     "date": "1863-07-06",
+     "clock": "8 p. m.",
+     "place": null,
+     "to": "Meigs",
+     "signer": "INGALLS"
+    },
+    {
+     "body": "I received your telegram of 11 last p. m.",
+     "date": "1863-07-06",
+     "clock": "2.55 a. m.",
+     "place": "Baltimore",
+     "to": "Stanton",
+     "signer": "GARRETT"
+    }
+   ]
+  },
+  {
+   "n": 55,
+   "before_id": "or27-3:p0586.3",
+   "dispatches": [
+    {
+     "body": "My head of column has just arrived at this point.",
+     "date": "1863-07-07",
+     "clock": "6.20 p. m.",
+     "place": "Middletown",
+     "to": "Meade",
+     "signer": "HOWARD"
+    }
+   ]
+  },
+  {
+   "n": 56,
+   "before_id": "or27-3:p0602.3",
+   "dispatches": [
+    {
+     "body": "Sir : The commanding general directs that you forthwith move your corps",
+     "date": "1863-07-08",
+     "clock": "2 p. m.",
+     "place": null,
+     "to": "Howard",
+     "signer": "WILLIAMS",
+     "dangling": "Sandy Hook,",
+     "note": "printed footnote *See Kilpatrick to Pleasonton follows the signature"
+    }
+   ]
+  },
+  {
+   "n": 57,
+   "before_id": "or27-3:p0604.2",
+   "dispatches": [
+    {
+     "body": "General : My column left camp at 3.30 p. m., and arrived at the top",
+     "date": "1863-07-08",
+     "clock": null,
+     "place": null,
+     "to": "Williams",
+     "signer": "HOWARD"
+    }
+   ]
+  },
+  {
+   "n": 58,
+   "before_id": "or27-3:p0610.3",
+   "dispatches": [
+    {
+     "body": "Scouts sent yesterday by Colonel Pierce to Clear Spring",
+     "date": "1863-07-08",
+     "clock": "10 a. m.",
+     "place": "Harrisburg",
+     "to": "Stanton",
+     "signer": "THOMAS"
+    }
+   ]
+  },
+  {
+   "n": 59,
+   "before_id": "or27-3:p0625.1",
+   "dispatches": [
+    {
+     "body": "If Lee gives battle, do not he absent",
+     "date": "1863-07-09",
+     "clock": "3.20 p. m.",
+     "place": "Washington",
+     "to": "Kelley",
+     "signer": "HALLECK"
+    }
+   ]
+  },
+  {
+   "n": 60,
+   "before_id": "or27-3:p0627.1",
+   "dispatches": [
+    {
+     "body": "Colonel : After having uncovered the bridge on the Williamsport",
+     "date": "1863-07-10",
+     "clock": null,
+     "place": null,
+     "to": "Huey",
+     "signer": "GREGG"
+    }
+   ]
+  },
+  {
+   "n": 61,
+   "before_id": "or27-3:p0629.3",
+   "dispatches": [
+    {
+     "body": "The major-general commanding directs that you move your corps up immediately",
+     "date": "1863-07-10",
+     "clock": null,
+     "place": null,
+     "to": "Howard",
+     "signer": "HUMPHREYS",
+     "tail": "received from General Sedgwick."
+    }
+   ]
+  },
+  {
+   "n": 62,
+   "before_id": "or27-3:p0640.1",
+   "dispatches": [
+    {
+     "body": "BAINBRLDGE, PA.",
+     "date": "1863-07-10",
+     "clock": null,
+     "place": null,
+     "to": null,
+     "signer": null,
+     "kind": "return",
+     "note": "table: troops in the Department of the Susquehanna, July 10, 1863, no sender"
+    }
+   ]
+  },
+  {
+   "n": 63,
+   "before_id": "or27-3:p0648.3",
+   "dispatches": [
+    {
+     "body": "I am directed by the major-general commanding to inform you",
+     "date": "1863-07-11",
+     "clock": "3 p. m.",
+     "place": null,
+     "to": "Schriver",
+     "signer": "HUMPHREYS"
+    }
+   ]
+  },
+  {
+   "n": 64,
+   "before_id": "or27-3:p0654.2",
+   "dispatches": [
+    {
+     "body": "The Northern Central Railroad through to Harrisburg will not be opened",
+     "date": "1863-07-11",
+     "clock": null,
+     "place": "Washington",
+     "to": "Ingalls",
+     "signer": "HAUPT"
+    }
+   ]
+  },
+  {
+   "n": 65,
+   "before_id": "or27-3:p0657.1",
+   "dispatches": [
+    {
+     "body": "General: The enemy is intrenching himself on the crest of a hill",
+     "date": "1863-07-12",
+     "clock": "7 a. m.",
+     "place": null,
+     "to": "Meade",
+     "signer": "DANIELS"
+    }
+   ]
+  },
+  {
+   "n": 66,
+   "before_id": "or27-3:p0684.2",
+   "dispatches": [
+    {
+     "body": "Colonel : Move your brigade without delay up the Williamsport pike",
+     "date": "1863-07-14",
+     "clock": "8.20 a. m.",
+     "place": null,
+     "to": "Huey",
+     "signer": "PLEASONTON"
+    }
+   ]
+  },
+  {
+   "n": 67,
+   "before_id": "or27-3:p0694.2",
+   "dispatches": [
+    {
+     "body": "General : I have the honor to report that, in obedience to orders",
+     "date": "1863-07-14",
+     "clock": null,
+     "place": "Hagerstown",
+     "to": "Williams",
+     "signer": "McREYNOLDS"
+    }
+   ]
+  },
+  {
+   "n": 68,
+   "before_id": "or27-3:p0701.2",
+   "dispatches": [
+    {
+     "body": "General Benham was ordered by General Humphreys",
+     "date": "1863-07-15",
+     "clock": "1 p. m.",
+     "place": "Sandy Hook",
+     "to": "Clapp",
+     "signer": "WARREN"
+    }
+   ]
+  },
+  {
+   "n": 69,
+   "before_id": "or27-3:p0702.5",
+   "dispatches": [
+    {
+     "body": "General : The major-general commanding directs that the brigade of your command",
+     "date": "1863-07-15",
+     "clock": null,
+     "place": null,
+     "to": "Custer",
+     "signer": "COHEN"
+    }
+   ]
+  },
+  {
+   "n": 70,
+   "before_id": "or27-3:p0703.2",
+   "dispatches": [
+    {
+     "body": "Your dispatch of yesterday received. Lee was already across the river",
+     "date": "1863-07-15",
+     "clock": "9 a. m.",
+     "place": "Washington",
+     "to": "Cameron",
+     "signer": "LINCOLN"
+    }
+   ]
+  },
+  {
+   "n": 71,
+   "before_id": "or27-3:p0706.1",
+   "dispatches": [
+    {
+     "body": "I. Brig. Gen. Rufus King, U. S. Volunteers, will assume command",
+     "date": "1863-07-15",
+     "clock": null,
+     "place": null,
+     "to": null,
+     "signer": "POTTER",
+     "note": "special orders no. 135"
+    }
+   ]
+  },
+  {
+   "n": 72,
+   "before_id": "or27-3:p0716.2",
+   "dispatches": [
+    {
+     "body": "The stores sent by canal have not yet arrived.",
+     "date": "1863-07-17",
+     "clock": null,
+     "place": "Berlin",
+     "to": "Ingalls",
+     "signer": "SAWTELLE"
+    }
+   ]
+  },
+  {
+   "n": 73,
+   "before_id": "or27-3:p0726.2",
+   "dispatches": [
+    {
+     "body": "1. The Third Corps will move promptly at 4 a. m., pass through",
+     "date": "1863-07-19",
+     "clock": null,
+     "place": null,
+     "to": null,
+     "signer": "WILLIAMS",
+     "dangling": "Harper’s Ferry, Va.,",
+     "note": "movement circular"
+    }
+   ]
+  },
+  {
+   "n": 74,
+   "before_id": "or27-3:p0727.2",
+   "dispatches": [
+    {
+     "body": "No definite intelligence of Lee",
+     "date": "1863-07-19",
+     "clock": null,
+     "place": "Washington",
+     "to": "Kelley",
+     "signer": "CULLUM"
+    }
+   ]
+  },
+  {
+   "n": 75,
+   "before_id": "or27-3:p0744.1",
+   "dispatches": [
+    {
+     "body": "I have placed one brigade at Gainesville, to protect the Manassas Railroad.",
+     "date": "1863-07-22",
+     "clock": null,
+     "place": "Manassas Junction",
+     "to": "Cohen",
+     "signer": "GREGG",
+     "dangling": "Signal Department, Hdqrs. Army of the Potomac,"
+    }
+   ]
+  },
+  {
+   "n": 76,
+   "before_id": "or27-3:p0745.4",
+   "dispatches": [
+    {
+     "body": "1. The First Corps will move at 4 a. m. to Warrenton",
+     "date": "1863-07-22",
+     "clock": null,
+     "place": null,
+     "to": null,
+     "signer": "WILLIAMS",
+     "note": "movement circular"
+    },
+    {
+     "body": "General Lockwood reports the whole body of the rebel army",
+     "date": "1863-07-22",
+     "clock": "4.30 a. m.",
+     "place": "Baltimore",
+     "to": "Halleck",
+     "signer": "SCHENCK"
+    }
+   ]
+  },
+  {
+   "n": 77,
+   "before_id": "or27-3:p0749.1",
+   "dispatches": [
+    {
+     "body": "When General Meade left Berlin, he directed me to report to General Couch",
+     "date": "1863-07-22",
+     "clock": null,
+     "place": "Harper",
+     "to": "Halleck",
+     "signer": "LOCKWOOD"
+    }
+   ]
+  },
+  {
+   "n": 78,
+   "before_id": "or27-3:p0764.1",
+   "dispatches": [
+    {
+     "body": "McReynolds says that Lee yesterday was near Millwood",
+     "date": "1863-07-24",
+     "clock": null,
+     "place": "Chambersburg",
+     "to": "Meade",
+     "signer": "COUCH"
+    }
+   ]
+  },
+  {
+   "n": 79,
+   "before_id": "or27-3:p0819.3",
+   "dispatches": [
+    {
+     "body": "I sent a brigade to cross this morning at Beverly Ford.",
+     "date": "1863-08-01",
+     "clock": null,
+     "place": null,
+     "to": "Meade",
+     "signer": "BUFORD",
+     "tail": "Brigadier-General of Volunteers."
+    }
+   ]
+  },
+  {
+   "n": 80,
+   "before_id": "or27-3:p0825.1",
+   "dispatches": [
+    {
+     "body": "I have seen General Warren’s telegram in relation to another bridge",
+     "date": "1863-08-01",
+     "clock": "10.15 p. m.",
+     "place": null,
+     "to": "Humphreys",
+     "signer": "NEWTON"
+    }
+   ]
+  },
+  {
+   "n": 81,
+   "before_id": "or27-3:p0828.1",
+   "dispatches": [
+    {
+     "body": "General : Agreeably to your instructions last night, General Buford",
+     "date": "1863-08-02",
+     "clock": "9 a. m.",
+     "place": null,
+     "to": "Humphreys",
+     "signer": "PLEASONTON"
+    }
+   ]
+  },
+  {
+   "n": 82,
+   "before_id": "or27-3:p0831.1",
+   "dispatches": [
+    {
+     "body": "I do not know fully, perhaps, the protection to onr road",
+     "date": "1863-08-02",
+     "clock": null,
+     "place": "Alexandria Depot",
+     "to": "Haupt",
+     "signer": "DEVEREUX"
+    },
+    {
+     "body": "This morning at 7 o’clock positive reports were received",
+     "date": "1863-08-03",
+     "clock": null,
+     "place": null,
+     "to": "Alexander",
+     "signer": "BUFORD"
+    }
+   ]
+  },
+  {
+   "n": 83,
+   "before_id": "or27-3:p0831.2",
+   "dispatches": [
+    {
+     "body": "I am instructed by the major-general commanding to say that the information",
+     "date": "1863-08-03",
+     "clock": "10.30 a. m.",
+     "place": null,
+     "to": "Slocum",
+     "signer": "HUMPHREYS"
+    },
+    {
+     "body": "General : The signal officer at Watery Mountain reports",
+     "date": "1863-08-03",
+     "clock": null,
+     "place": null,
+     "to": "Humphreys",
+     "signer": "NORTON",
+     "note": "followed by Humphreys's indorsement to the telegraph operator"
+    }
+   ]
+  },
+  {
+   "n": 84,
+   "before_id": "or27-3:p0833.1",
+   "dispatches": [
+    {
+     "body": "The cavalry is still very busy watching me.",
+     "date": "1863-08-03",
+     "clock": null,
+     "place": null,
+     "to": "Pleasonton",
+     "signer": "BUFORD"
+    }
+   ]
+  },
+  {
+   "n": 85,
+   "before_id": "or27-3:p0835.1",
+   "dispatches": [
+    {
+     "body": "All is quiet now along my picket line.",
+     "date": "1863-08-03",
+     "clock": "7.10 p. m.",
+     "place": null,
+     "to": "Alexander",
+     "signer": "BUFORD"
+    }
+   ]
+  },
+  {
+   "n": 86,
+   "before_id": "or27-3:p0856.1",
+   "dispatches": [
+    {
+     "body": "III. The army gunboat General Jesup will proceed at once to Fort Monroe",
+     "date": "1863-08-26",
+     "clock": null,
+     "place": "New Berne",
+     "to": null,
+     "signer": "FOSTER",
+     "note": "special orders no. 12"
+    }
+   ]
+  },
+  {
+   "n": 87,
+   "before_id": "or27-3:p0941.2",
+   "dispatches": [
+    {
+     "body": "General : In reply to your letter of the 26th instant.",
+     "date": "1863-06-27",
+     "clock": null,
+     "place": "Engineer Bureau",
+     "to": "Hill",
+     "signer": "GILMER",
+     "dangling": "Salt Sulphur Springs,"
+    }
+   ]
+  },
+  {
+   "n": 88,
+   "before_id": "or27-3:p0947.1",
+   "dispatches": [
+    {
+     "body": "General : I have received your letter of 7 a. m. yesterday",
+     "date": "1863-07-01",
+     "clock": null,
+     "place": "Greenwood",
+     "to": "Imboden",
+     "signer": "LEE",
+     "note": "table footnotes of an adjacent return are spliced into the letter"
+    }
+   ]
+  },
+  {
+   "n": 89,
+   "before_id": "or27-3:p0965.1",
+   "dispatches": [
+    {
+     "body": "My dear General : I return your letter to General Johnston",
+     "date": "1863-07-03",
+     "clock": null,
+     "place": "Wilmington",
+     "to": "Beauregard",
+     "signer": "WHITING"
+    }
+   ]
+  },
+  {
+   "n": 90,
+   "before_id": "or27-3:p0967.1",
+   "dispatches": [
+    {
+     "body": "Sir : I wish you to convey to the commanding officers of the regiments",
+     "date": "1863-07-04",
+     "clock": null,
+     "place": null,
+     "to": "Winchester",
+     "signer": "LEE",
+     "dangling": "Hon. James A. Seddon, Secretary of War:"
+    }
+   ]
+  },
+  {
+   "n": 91,
+   "before_id": "or27-3:p0986.2",
+   "dispatches": [
+    {
+     "body": "Intelligence of the presence of the enemy near Williamsport",
+     "date": "1863-07-09",
+     "clock": null,
+     "place": "Richmond",
+     "to": "Lee",
+     "signer": "DAVIS"
+    }
+   ]
+  },
+  {
+   "n": 92,
+   "before_id": "or27-3:p0988.1",
+   "dispatches": [
+    {
+     "body": "General Lee’s headquarters are at Hagerstown.",
+     "date": "1863-07-09",
+     "clock": null,
+     "place": "Martinsburg",
+     "to": null,
+     "signer": "ROBERTS"
+    }
+   ]
+  },
+  {
+   "n": 93,
+   "before_id": "or27-3:p1003.3",
+   "dispatches": [
+    {
+     "body": "The whole fleet moving slowly up the river.",
+     "date": "1863-07-13",
+     "clock": null,
+     "place": "Fort Powhatan",
+     "to": "Lee",
+     "signer": "BROWN"
+    }
+   ]
+  },
+  {
+   "n": 94,
+   "before_id": "or27-3:p1019.2",
+   "dispatches": [
+    {
+     "body": "Colonel : There is a very large quantity of salt at the salt-works",
+     "date": "1863-07-17",
+     "clock": null,
+     "place": "Dublin",
+     "to": "Northrop",
+     "signer": "JONES"
+    }
+   ]
+  },
+  {
+   "n": 95,
+   "before_id": "or27-3:p1046.2",
+   "dispatches": [
+    {
+     "body": "Respectfully referred to Colonel Gilmer, chief of Engineer Bureau",
+     "date": "1863-07-24",
+     "clock": null,
+     "place": null,
+     "to": null,
+     "signer": "CHESTNEY",
+     "dangling": "Engineer Bureau,"
+    }
+   ]
+  },
+  {
+   "n": 96,
+   "before_id": "or27-3:p1048.3",
+   "dispatches": [
+    {
+     "body": "Mr. President : Your letter of the 21st instant has been received",
+     "date": "1863-07-29",
+     "clock": null,
+     "place": null,
+     "to": "Davis",
+     "signer": "LEE"
+    }
+   ]
+  },
+  {
+   "n": 97,
+   "before_id": "or27-3:p1070.2",
+   "dispatches": [
+    {
+     "body": "Dear Sir : Understanding that the defenses of Weldon",
+     "date": "1863-08-01",
+     "clock": null,
+     "place": null,
+     "to": "Whiting",
+     "signer": "BURGWYN",
+     "dangling": "[Indorsement.]"
+    }
+   ]
+  },
+  {
+   "n": 98,
+   "before_id": "or27-3:p1082.4",
+   "dispatches": [
+    {
+     "body": "Sir : In obedience to Special Orders, No. 16",
+     "date": "1863-06-28",
+     "clock": null,
+     "place": null,
+     "to": "Parker",
+     "signer": "MURPHY"
+    }
+   ]
+  },
+  {
+   "n": 99,
+   "before_id": "or27-3:p1083.2",
+   "dispatches": [
+    {
+     "body": "Dispatch to General Lockwood received.",
+     "date": "1863-06-29",
+     "clock": "7.35 a. m.",
+     "place": "Frederick",
+     "to": "Wallace",
+     "signer": "WILLIAMS"
+    }
+   ]
+  }
+ ]
+}

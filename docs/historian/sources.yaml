@@ -81,7 +81,7 @@ sources:
     xref: {hs1: SRC-01, hs2: null}
     title: "Official Records (War of the Rebellion), Series I, Vol. 27, Part 1 - Reports (Union) and Gettysburg Campaign summary, orders of battle, casualty returns"
     tier: A
-    tier_detail: public domain | US Government publication (17 U.S.C. 105) published 1889; HathiTrust rightsCode 'pd' (Full view); UC copy IA possible-copyright-status NOT_IN_COPYRIGHT
+    tier_detail: "public domain | US Government publication (17 U.S.C. 105) published 1889; HathiTrust rightsCode 'pd' (Full view); the Archive item carries no possible-copyright-status, rights or licenseurl field (metadata read 2026-10-01), so the basis is the nature of the publication and the HathiTrust record"
     license: {id: PD-US-Gov, statement_text: "rightsCode: pd; usRightsString: Full view (HathiTrust API, fetched 2026-09-30). IA terms: https://archive.org/about/terms", statement_url: https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077699761.json, verified_at: null, reviewer: null}
     imprint: {year: 1889, publisher: "U.S. War Department / GPO, 1889 (Chap. XXXIX 'The Gettysburg Campaign')", reprint: false, ia_id: warofrebellion271unit}
     author_affiliation: null
@@ -117,8 +117,16 @@ sources:
           url: https://archive.org/download/warofrebellion271unit/warofrebellion271unit_scandata.xml
           sha256: 1f1f193e3b45b19ca5d751c0f92e7c9bd5a8b6c22442f704b32c282dedb5c5b3
           bytes: 1563011
+        - role: leaf-index
+          url: https://archive.org/download/warofrebellion271unit/warofrebellion271unit_hocr_pageindex.json.gz
+          sha256: db69be11143219905897bddf3945cb4404ab8b308747fa4dd1723df41b6a52ee
+          bytes: 14981
+        - role: leaf-text
+          url: https://archive.org/download/warofrebellion271unit/warofrebellion271unit_hocr_searchtext.txt.gz
+          sha256: bedb0635ebb64d224229db86a16d9e972b6f07f069509e0963f78af682edb572
+          bytes: 1122832
       documents: 377
-      passages: 2680
+      passages: 2670
       missing_numbers: [161]
       rights_checked: "HathiTrust catalog record (https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077699761.json): rightsCode pd; public domain, US Government publication"
   - id: or27-2
@@ -161,8 +169,16 @@ sources:
           url: https://archive.org/download/warofrebellion272unit/warofrebellion272unit_scandata.xml
           sha256: f930f670f3b40af3ee3167824f48f2fd66abfbc183081daf489504e8251ccb85
           bytes: 1479014
+        - role: leaf-index
+          url: https://archive.org/download/warofrebellion272unit/warofrebellion272unit_hocr_pageindex.json.gz
+          sha256: 94681afd6b823a6c006e76e667794d18d55026952a8d417e04391198834c1e57
+          bytes: 14254
+        - role: leaf-text
+          url: https://archive.org/download/warofrebellion272unit/warofrebellion272unit_hocr_searchtext.txt.gz
+          sha256: c4d375a6b764e1639aac3dcd18c71ca3651f125fb9832db1ff04ac7420a17e23
+          bytes: 1151283
       documents: 211
-      passages: 2083
+      passages: 2074
       missing_numbers: []
       rights_checked: "HathiTrust catalog record (https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077728255.json): rightsCode pd; public domain, US Government publication"
   - id: nyfr
@@ -244,7 +260,7 @@ sources:
     hosts: [archive.org, catalog.hathitrust.org]
     status: ingested
     wave: W1
-    notes: "Ingested: 2,945 dispatches, orders and itineraries cut at their datelines (June 3 - August 3, 1863); the header clock is the sender's own and the best clock evidence in the corpus; local times differed by several minutes."
+    notes: "Ingested: 3,178 dispatches, orders and itineraries cut at their datelines (June 3 - August 3, 1863, and the volume's addenda, pp. 839-857, which run to later dates, one of 1878); the header clock is the sender's own and the best clock evidence in the corpus; local times differed by several minutes."
     ingest:
       corpus: or27
       corpus_version: 1.0.0
@@ -265,8 +281,16 @@ sources:
           url: https://archive.org/download/warofrebellion273unit/warofrebellion273unit_scandata.xml
           sha256: 544fa8a9a7b5814db023b3c375d2bceec0fc4b2d9c15482608e55f9601b43f7b
           bytes: 1642470
-      documents: 2945
-      passages: 3469
+        - role: leaf-index
+          url: https://archive.org/download/warofrebellion273unit/warofrebellion273unit_hocr_pageindex.json.gz
+          sha256: 436e8c1ad90be8ec8c0dff22b028fc9833a3ad60d98b53b99261b2318a649e33
+          bytes: 15622
+        - role: leaf-text
+          url: https://archive.org/download/warofrebellion273unit/warofrebellion273unit_hocr_searchtext.txt.gz
+          sha256: 61f63f4e66f853e8be71a89605dd57a01e11438e5f935b5dbae018e5d03e5089
+          bytes: 983526
+      documents: 3179
+      passages: 3661
       missing_numbers: []
       rights_checked: "HathiTrust catalog record (https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077700262.json): rightsCode pd; public domain, US Government publication"
   - id: battles-leaders-3

@@ -14,7 +14,8 @@
 const NUMW = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12 };
 const NUMW_RE = '(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)';
 // the meridiem as the OCR prints it: "a. m.", "a.m.", "p. m", "A. M.", "P. M."; a bare "am" or "pm" is not read (it is "I am")
-const MER = String.raw`(?:[ap]\s?[.,]\s?m|[AP]\.?\s?M)\b\.?`;
+// "a. m." / "a.m." / "A. M." / "AM": a lower-case "am" or "pm" with no stop in it is not read ("1 am informed" is the OCR's "I am informed": the printer's letter I read as the digit 1)
+const MER = String.raw`(?:[ap]\s?[.,]\s?m|(?-i:[AP]\.?\s?M))\b\.?`;
 const OCL = String.raw`o.{0,2}cl[oec]ck`;
 const HM = String.raw`(\d{1,2})(?:\s?[.:]\s?(\d{2}))?`;
 
@@ -145,7 +146,10 @@ export function dayRefs(sentence, { month = 7 } = {}) {
     const next = after.match(/^[A-Za-z.]+/); const nx = next ? next[0] : '';
     const before = s.slice(Math.max(0, m.index - 30), m.index + 3);
     if (/^(?:instant|inst|ultimo|ult)/i.test(nx)) continue;                                  // read by the instant/ultimo rule above
-    if (UNITISH.test(nx) || /^[A-Z]/.test(nx) && !/^(?:I|We|The|At|About|In|My|Our|He|It|On|After|Before|Early|A|An|When|While|Then|During|Colonel|General|Major|Captain|Lieutenant)\b/.test(nx)) continue;
+    // "on the morning of the 3d, in compliance with your order": a comma right after the ordinal parts it from what follows, and a unit's name never has one ("the 3d Indiana"); a list of units ("the 2d, 3d and 5th Corps") has an ordinal after the comma
+    const comma = /^\s*,/.test(s.slice(m.index + m[0].length));
+    if (comma && /^\d/.test(nx)) continue;
+    if (!comma && UNITISH.test(nx) && !(/^(?:in|me)$/i.test(nx) && !/^\s*(?:In|Me)\./.test(after)) || !comma && /^[A-Z]/.test(nx) && !/^(?:I|We|The|At|About|In|My|Our|He|It|On|After|Before|Early|A|An|When|While|Then|During|Colonel|General|Major|Captain|Lieutenant|This|That|There|These|Those|They|Their|But|And|So|For|As|Soon|Immediately|Shortly|Until|From|With|Having|Upon|Not|All)\b/.test(nx)) continue;
     if (!PRE_DAY.test(before) && !/^[,;.]/.test(s.slice(m.index + m[0].length))) continue;
     out.push({ m: null, d, kind: 'ord', at: m.index });
   }
@@ -179,17 +183,25 @@ export function dayTracker({ month = 7, start = null } = {}) {
     if (r.kind === 'date') { cur = { m: r.m, d: r.d }; age = 0; touched = true; return 'same'; }
     // a weekday names a day of the battle week only where the report is about that week (the register is in it, or nothing is known): "Thursday" in a report of June 25 is not July 2
     if (r.kind === 'weekday') { if (cur && !inWindow(cur.m, cur.d)) return null; cur = { m: r.m, d: r.d }; age = 0; touched = true; return 'same'; }
-    if (r.kind === 'ord') { cur = { m: r.m || (cur ? cur.m : month), d: r.d }; age = 0; touched = true; return 'same'; }
+    if (r.kind === 'ord') { cur = { m: ordMonth(r), d: r.d }; age = 0; touched = true; return 'same'; }
     if (r.kind === 'weekday-amb') { const near = cur ? r.cands.find(([m, d]) => Math.abs((m * 31 + d) - (cur.m * 31 + cur.d)) <= 3) : null; if (near) { cur = { m: near[0], d: near[1] }; age = 0; touched = true; return 'same'; } return null; }
     if (r.kind === 'rel' && cur) { if (r.w === 'tomorrow' || r.w === 'prev') return 'rel-once'; if (r.delta !== 0) { cur = addDay(cur, r.delta); age = 0; touched = true; } return 'rel'; }
     return null;
   };
-  const dayOfRef = (r) => (r.kind === 'date' || r.kind === 'weekday') ? { m: r.m, d: r.d } : r.kind === 'ord' ? { m: r.m || (cur ? cur.m : month), d: r.d } : null;
+  // the month of a bare ordinal ("the 1st"): the register's month, but at the turn of the campaign the days run across it: "On the night of June 30 ... on the morning of the 1st" is July 1 and, in a narrative at the start of July, "On the 28th" is June 28
+  const ordMonth = (r) => { if (r.m && !(cur && /^inst/.test(r.rel || ''))) return r.m; if (!cur) return month; if (cur.m === 6 && r.d <= 5 && cur.d >= 25) return 7; if (cur.m === 7 && r.d >= 26 && cur.d <= 12) return 6; return cur.m; };       // "the 1st instant" is of the month the narrative is in (a document that holds two reports, the second written a month after the first), else the document's own
+  const dayOfRef = (r) => (r.kind === 'date' || r.kind === 'weekday') ? { m: r.m, d: r.d } : r.kind === 'ord' ? { m: ordMonth(r), d: r.d } : null;
   // a date written right after the clock reads as the clock's day: "arriving at 7 a. m. on the 2d", "until about 10 a. m. July 5", "at daylight on July 4", "3.30 a. m. on Tuesday, July 7", "4 o'clock on the morning of the 3d"
-  const AFTER = /^[\s,;.()\-—]*(?:(?:on|of|in|the|morning|afternoon|evening|night|day|and|following)[\s,]+){0,4}$/i;
+  const AFTER = /^[\s,;.()\-—]*(?:(?:on|of|in|the|morning|afternoon|evening|night|day|and|following)[\s,]+){0,6}$/i;
   const after = (sentence, e, refs) => {
+    // "Your telegram of 10 p. m., 23d," "(10 a. m. 15th)": the day written bare right behind the clock (not "10 p. m. 14th Pennsylvania": a unit's number)
+    { const mb = /^[\s,;]*\(?(\d{1,2})(?:st|d|nd|rd|th)\b(?!\s*(?:ultimo|ult))/i.exec(sentence.slice(e));
+      if (mb) { const nx2 = (sentence.slice(e + mb[0].length).replace(/^[\s,]*/, '').match(/^[A-Za-z.]+/) || [''])[0]; const d = +mb[1];
+        if (d >= 1 && d <= 31 && !(UNITISH.test(nx2) && !/^(?:in|me)$/i.test(nx2)) && !/^[A-Z]/.test(nx2) || d >= 1 && d <= 31 && /^[,;.)]/.test(sentence.slice(e + mb[0].length).trim())) return { kind: 'ord', d, m: null, at: e }; } }
     for (let k = 0; k < refs.length; k++) {
-      const r = refs[k]; if (r.at < e) continue; if (r.at - e > 36) break; if (!(r.kind === 'date' || r.kind === 'weekday' || r.kind === 'ord')) continue;
+      const r = refs[k]; if (r.at < e) continue; if (r.at - e > 36) break;
+      if (r.kind === 'rel' && r.w === 'next' && /^[\s,;]*(?:on\s+|of\s+|in\s+)?$/i.test(sentence.slice(e, r.at))) return r;                  // "at 4 a. m. on the following morning": the register's next day
+      if (!(r.kind === 'date' || r.kind === 'weekday' || r.kind === 'ord')) continue;
       if (!AFTER.test(sentence.slice(e, r.at))) continue;
       const nx = refs[k + 1];                                                      // "Tuesday, July 7": the date that follows the weekday is the day
       if (r.kind === 'weekday' && nx && nx.kind === 'date' && nx.at - r.at <= 22) return nx;
@@ -204,7 +216,7 @@ export function dayTracker({ month = 7, start = null } = {}) {
    *   the register as the sentence found it, from an earlier sentence                              'carried' (age = sentences since it was set)
    *   a day named only AFTER it at a distance, when nothing else is known                          'later'
    */
-  const at = (sentence, spans) => {
+  const at = (sentence, spans, ahead = '') => {
     const refs = dayRefs(sentence, { month }).sort((a, b) => a.at - b.at);
     const startAge = age; touched = false;
     const out = [];
@@ -212,9 +224,9 @@ export function dayTracker({ month = 7, start = null } = {}) {
     for (const sp of spans) {
       const pos = typeof sp === 'number' ? sp : sp.s, end = typeof sp === 'number' ? sp : sp.e;
       while (ri < refs.length && refs[ri].at < pos) { const b = apply(refs[ri]); if (b === 'rel-once') once = refs[ri]; else { once = null; if (b) basis = b; } ri++; }
-      const aft = typeof sp === 'number' ? null : after(sentence, end, refs);
-      const ad = aft ? dayOfRef(aft) : null;
-      if (ad) out.push({ day: ad, basis: 'same', age: 0 });
+      const aft = typeof sp === 'number' ? null : after(sentence + ahead, end, refs);
+      const ad = aft ? (aft.kind === 'rel' ? (cur ? addDay(cur, aft.delta) : null) : dayOfRef(aft)) : null;
+      if (ad) out.push({ day: ad, basis: aft.kind === 'rel' ? 'rel' : 'same', age: 0 });
       else if (once && cur) out.push({ day: { ...addDay(cur, once.delta) }, basis: 'rel', age: 0 });
       else if (basis && cur) out.push({ day: { ...cur }, basis, age: 0 });
       else if (cur) out.push({ day: { ...cur }, basis: 'carried', age: startAge + 1 });
@@ -229,5 +241,6 @@ export function dayTracker({ month = 7, start = null } = {}) {
   };
   const tracker = (sentence) => at(sentence, [String(sentence).length])[0];
   tracker.at = at;
+  tracker.state = () => (cur ? { m: cur.m, d: cur.d } : null);                      // the day register as it stands (a passage reads the day it opens on)
   return tracker;
 }

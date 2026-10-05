@@ -13,6 +13,7 @@ import { selectQuotes } from './select.js';
 const REPORT_NOUN = /\b(?:official records?|reports?|reported|reporting|dispatch(?:es)?|despatch(?:es)?|telegrams?|telegraph(?:ed|s)?|wired)\b/;
 const DISPATCH_WORD = /\b(?:dispatch(?:es)?|despatch(?:es)?|telegrams?|telegraph(?:ed|s)?|wired)\b/;                // the question asks for what was SENT at the time, not for a report written afterwards
 const REPORT_WORD = /\b(?:reports?|reported|reporting)\b/;
+const WRITE_DATED = /\bwr(?:ite|ote|ites|itten)\b[^?]{0,40}\b(?:on|of|dated)\s+(?:jun|jul|aug)[a-z]*\.?\s*\d/;                // "what did Pleasonton write on June 20": what he sent that day
 const WRITE_TO = /\bwr(?:ite|ote|ites|itten)\b[^?]{0,60}\bto\b/;                                  // "what did Lee write to Imboden": a letter or dispatch
 // a question that names another kind of source is not about a report of the volume ("what did Meade tell the Joint Committee", "how did the newspapers report"); and "reports" asked of the corpus as a whole is the noun
 const OTHER_SOURCE = /\b(?:joint committee|committee on the conduct|testimony|testified|newspapers?|diary|diaries|letters? to (?:his|her) |memoirs?|reminiscences?|after the war|in later years|speech|oration|monument|veterans?)\b/;
@@ -36,7 +37,7 @@ const dateText = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || ''
 // words that say the same thing in a report of 1863 ("the assault began" / "the attack was commenced" / "the movement was begun"): used to find the sentence, never shown
 const SYN = [['assault', 'attack', 'charge', 'advance', 'onset', 'engage'], ['began', 'begin', 'begun', 'start', 'commence', 'opened', 'open', 'initiate']].map((g) => g.map(stem));
 const expand = (topic) => { const out = new Set(topic); for (const g of SYN) if (g.some((w) => out.has(w))) for (const w of g) out.add(w); return out; };
-const lead = (runs, src = []) => ({ t: 'lead', runs: runs.map((r) => (typeof r === 'string' ? { txt: r } : r)), src });
+const lead = (runs, src = []) => ({ t: 'lead', runs: runs.map((r) => (typeof r === 'string' ? { txt: r } : r.ent === null || r.ent === undefined ? { txt: r.txt } : r)), src: src.filter(Boolean) });
 const note = (code, txt) => ({ t: 'note', code, txt });
 
 export function createReports(kb, { corpus = 'or27' } = {}) {
@@ -76,10 +77,19 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
       const d = near(m); if (d > 4) continue;
       if (!best || d < best.d) best = { d, cands, m };
     }
+    // an author the site's registry does not hold ("what did Ruger report"): the capitalised words of the question that name no site entity are candidates; run() asks the corpus (F:<stem>) whether one of them wrote anything
+    if (!best && (cue || (timeQ && QWORD.test(norm.trim()))) && !REPORTS_NOUN.test(norm)) {
+      const covered = new Set(); for (const m of S.mentions || []) for (let k = m.start; k < m.end; k++) if (toks[k]) covered.add(stem(toks[k]));
+      const names = [...new Set((String(S.text || '').match(/\b[A-Z][a-z’']{3,}\b/g) || []).filter((w) => !(S.text.startsWith(w)) && !STOP.has(w.toLowerCase()) && !FRAME.has(stem(w.toLowerCase())) && !covered.has(stem(w.toLowerCase())) && !/^(?:June|July|August|Union|Confederate|Federal|Rebel|Army|Corps|Division|Brigade|Gettysburg)$/.test(w)))];
+      if (names.length) return { kind: 'unregistered', timeQ: timeQ && (cue || say), names, authorIdx: null, cands: [], prefer: null, mention: null };
+    }
     if (!best && !persons.length && !units.length && !cue) return null;
     if (!cue && !(best && best.cands.some((i) => R[i].k === 'person'))) return null;
     if (!best && !REPORTS_NOUN.test(norm)) return null;                                           // no author and no "the reports say": a verb ("newspapers report the outcome") is not a question of the volume
-    return { kind: best ? 'author' : 'generic', timeQ: timeQ && (cue || say), authorIdx: best ? best.cands[0] : null, cands: best ? best.cands : [], prefer: best && !best.m.amb && best.m.kind !== 'unit' && best.cands.includes(best.m.best) ? best.m.best : null, mention: best ? best.m : null };
+    const out = { kind: best ? 'author' : 'generic', timeQ: timeQ && (cue || say), authorIdx: best ? best.cands[0] : null, cands: best ? best.cands : [], prefer: best && !best.m.amb && best.m.kind !== 'unit' && best.cands.includes(best.m.best) ? best.m.best : null, mention: best ? best.m : null };
+    // a name the engine's typo repair changed into a registry name ("Kelley" read as "Kelly"): the corpus is asked about the name as written first, the registry's reading stays as the fallback
+    if (best) { const words = (S.notes || []).filter((n) => n.kind === 'fuzzy' && n.from && toks.slice(best.m.start, best.m.end).some((t) => stem(t) === stem(String(n.to).toLowerCase()))).map((n) => String(n.from)); if (words.length) return { kind: 'unregistered', timeQ: out.timeQ, names: words.map((w) => w[0].toUpperCase() + w.slice(1)), authorIdx: null, cands: [], prefer: null, mention: null, fallback: out }; }
+    return out;
   }
 
   // the question's content words (the engine has not computed its own passage terms yet when this runs): not stop words, not the frame of the question, not the words that name the author
@@ -94,7 +104,7 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
   async function pick(nums, topic, { timeQ, max = 3, perDocFirst = false, wide = false }) {
     const sc = topic.length ? await kb.scorePassages(topic, true) : new Map();
     const ranked = nums.map((n) => ({ n, s: sc.get(n) || 0 })).sort((a, b) => b.s - a.s || a.n - b.n);
-    const take = ranked.slice(0, wide ? 40 : 14).map((x) => x.n);                 // wide: a day or a kind (reports / dispatches) is asked for, so the filter below must have candidates to keep
+    const take = ranked.slice(0, wide || timeQ ? 40 : 14).map((x) => x.n);       // wide: a day, a kind or a clock is asked for: the filters below must have candidates to keep
     const P = await kb.passages(take);
     let list = take.map((n) => ({ p: P.get(n), score: sc.get(n) || 0 })).filter((x) => x.p);
     if (timeQ) list = list.filter((x) => x.p.clk && x.p.clk.length);
@@ -113,16 +123,51 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
     return run(S, { kind: 'author', timeQ: false, authorIdx: i, mention: m }, { said: true });
   }
   async function run(S, q, { said = false }) {
-    const topic = topicTerms(S, q);
-    const ctx = { qStems: expand(topic), entStems: new Set(), timeQ: q.timeQ, requireClockWindow: q.timeQ, requireTopic: topic.length > 0 };
-    let nums = [], authorRec = null, quotes = [], mode = 'answer', kindLabel = null, docMeta = null;
+    let topic = topicTerms(S, q);
+    // a word the print spells with a hyphen ("wheat-field") is asked for as one ("Wheatfield"): a topic word the corpus does not hold, whose two halves it does, is read as the two
+    if (topic.length && kb.corp) {
+      const dfC = (t) => { const c = kb.corp.df(t); return c ? c.df : 0; };
+      await kb.scorePassages(topic, true);                                                          // the corpus knows the document frequency of the terms it has scored
+      const unk = topic.filter((w) => w.length >= 7 && !dfC(w)); const parts = (w) => { const o = []; for (let i = 3; i <= w.length - 3; i++) o.push([stem(w.slice(0, i)), stem(w.slice(i))]); return o; };
+      if (unk.length) { await kb.scorePassages([...new Set(unk.flatMap((w) => parts(w).flat()))], true); topic = topic.flatMap((w) => (unk.includes(w) ? (parts(w).find(([x, y]) => dfC(x) && dfC(y)) || [w]) : [w])); }
+    }
+    const surface = (st) => { const w = (String(S.text || '').match(/[A-Za-z’']+/g) || []).find((x) => stem(x.toLowerCase()) === st); return w || st; };       // the word as the question wrote it ("Williams", "fighting"), not its stem ("william", "fight")
+    const tw = topic.map(surface).join(' ');
+    const ctx = { qStems: expand(topic), litStems: new Set(topic), entStems: new Set(), timeQ: q.timeQ, requireClockWindow: q.timeQ, requireTopic: topic.length > 0 };
+    // a topic of three words or more ("the cannonade and Cemetery Hill"): a window holds at least two of them; chosen among the windows that do, not cut down afterwards from the best-scored two
+    if (q.kind === 'author' && !q.timeQ && topic.length >= 3) ctx.windowOk = (p, s, e) => { const st = new Set(tokenize(p.text.slice(s, e)).map(stem)); return [...ctx.qStems].filter((t) => st.has(t)).length >= 2; };
+    let nums = [], authorRec = null, quotes = [], mode = 'answer', kindLabel = null, docMeta = null, relaxedNote = '', yesSet = null;
     const norm = S.norm || '';
-    const askD = DISPATCH_WORD.test(norm) || WRITE_TO.test(norm), askR = REPORT_WORD.test(norm) && !askD;
+    const askD = DISPATCH_WORD.test(norm) || WRITE_TO.test(norm) || WRITE_DATED.test(norm), askR = REPORT_WORD.test(norm) && !askD;
     const dateIso = dateOf(norm); const dateWords = dateIso ? `${MONTHS[+dateIso.slice(5, 7)]} ${+dateIso.slice(8)}, 1863` : null;
+    const dayCode = dateIso ? +dateIso.slice(5, 7) * 100 + +dateIso.slice(8) : null;
     const sideM = SIDE_ONLY.exec(norm); const sideOnly = sideM ? (/^(?:confederate|rebel)$/.test(sideM[1]) ? 'confederate' : 'union') : null;
-    /** numbers of the corpus passages carrying a pseudo-entity (K:dispatch, K:report, D:1863-07-03), or null when the KB has none */
+    /** numbers of the corpus passages carrying a pseudo-entity (K:dispatch, K:report, D:1863-07-03, C:0703 (a clock said about that day), F:<stem> (signed by), A:<stem> (addressed to)), or null when the KB has none */
     const withTag = async (...tags) => { const e = await kb.entityPassages(tags, true); const out = new Set(); for (const [n, v] of e) if (inCorpus(n)) out.add(n); return out.size ? out : null; };
-    if (q.kind === 'author') {
+    const dayName = (code) => `${MONTHS[Math.floor(code / 100)]} ${code % 100}`;
+    // A question about the clock of a day: a quoted window holds clocks of that day and of no other ("a day asked is not answered with another day's times": 'what time did Longstreet report the assault began on July 3'
+    // was answered with the July 2 times of his report). The claim of every clock sentence carries the day it is said about (the build's day register: a date in the sentence, a day carried).
+    if (q.timeQ && dayCode) ctx.windowOk = (p, s, e) => { const w = (p.clk || []).filter((c) => Array.isArray(c) && c[0] >= s && c[0] < e); return w.length > 0 && w.every((c) => c[1] === dayCode); };
+    // A question that names a day and asks for a report (not a time): the passages that speak of that day (Y:<month*100+day>, the build's own reading of the dates written in the passage: "July 3", "the 3d instant", "on the 3d"),
+    // never "the closest passages" of another day.
+    const ySet = async () => (dayCode ? withTag('Y:' + String(dayCode).padStart(4, '0')) : null);
+    const toWho = askD && /\sto\s/.test(norm) && topic.length > 0;
+    const addrOf = (p) => { const m = /\bto (.+)$/.exec((p.cite && p.cite.author_line) || ''); return m ? m[1] : null; };
+    // An author the site's registry does not hold ("what did Ruger report": the registry has the 706 officers of the battle, not every colonel who reported): the capitalised words of the question that name no site
+    // entity are candidates, and the first that the corpus itself marks as a sender (F:<surname stem>: the signature of a dispatch, the author of a report) is the author. Nothing about him is invented: his label is
+    // the corpus's own author line, and when several men of that surname wrote in the volume only the surname is used.
+    if (q.kind === 'unregistered') {
+      let hit = null;
+      for (const nm of q.names) {
+        const st = stem(nm.toLowerCase()); const t = await withTag('F:' + st); if (!t) continue;
+        const P0 = await kb.passages([...t].slice(0, 400)); const byDoc = new Map(); for (const p of P0.values()) if (!byDoc.has(p.doc)) byDoc.set(p.doc, p);
+        const labels = [...new Set([...byDoc.values()].map((p) => String((p.cite && p.cite.author_line) || '').replace(/ to .*$/, '').replace(/,\s.*$/, '').trim()).filter(Boolean))];
+        hit = { nm, st, nums: [...t].sort((a, b) => a - b), label: labels.length === 1 ? labels[0] : nm }; break;
+      }
+      if (!hit) { if (!q.fallback) return null; q = q.fallback; }
+      else { q = { ...q, kind: 'author', unreg: hit }; authorRec = { id: null, k: 'person', label: hit.label, attrs: { surname: hit.nm } }; nums = hit.nums; }
+    }
+    if (q.kind === 'author' && !q.unreg) {
       // the words that name the author may name several records; the one that WROTE something in the corpus (role 2) is the author: a man over his division ("Buford"), the only one of two with a report
       const cands = (q.cands && q.cands.length ? q.cands : [q.authorIdx]).filter((i) => R[i]);
       const candIds = cands.map((i) => R[i].id);
@@ -140,46 +185,103 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
       }
       else { const ps = candIds.filter(isPerson); pickId = ps.length === 1 ? ps[0] : candIds.length === 1 ? candIds[0] : null; if (!pickId) return null; }
       authorRec = R[cands[candIds.indexOf(pickId)]];
+      const name = authorRec.label;
       nums = [...ep.entries()].filter(([n, v]) => inCorpus(n) && v.ids.some(([id, role]) => id === pickId && role >= 2)).map(([n]) => n).sort((a, b) => a - b);
-      if (nums.length) {
-        // "what did Meade telegraph on July 3": the dispatches only, and the ones dated that day; "what did Lee report": his report, not his telegrams (candidates are cut before they are ranked)
-        if (askD) {
-          const t = await withTag('K:dispatch'); const r = t ? nums.filter((n) => t.has(n)) : [];
-          if (r.length) nums = r;
-          else if (authorRec.k === 'person') {
-            const name = authorRec.label; S.intent = 'report-of'; S.quotes = [];
-            return { mode: 'partial', blocks: [lead([`The Official Records (series I, volume 27) as held here print no dispatch or letter sent by `, { ent: authorRec.id, txt: name }, '.', nums.length ? ` They do print ${nums.length === 1 ? 'a passage' : nums.length + ' passages'} of his report; ask what he reported.` : ''], [authorRec.id]), note('no-dispatch', 'Only the reports and dispatches of the Gettysburg campaign printed in that volume are searched.')], src: [authorRec.id], limited: true };
-          }
+      if (askD && authorRec.k === 'person') {
+        // "what did Slocum telegraph on July 2": the dispatches tied to him by the build (his signature read as his), AND every dispatch whose printed signature carries his surname (the build ties only a signature it can read
+        // to the register's man: 3 of 4 dispatches carry no link). Nothing is called absent that was not searched for by its signature, and what was searched is said.
+        const dTag = await withTag('K:dispatch'); const isDisp = (n) => !!dTag && dTag.has(n);
+        const sn = authorRec.attrs && authorRec.attrs.surname; const stemKey = sn ? (tokenize(String(sn))[0] ? stem(tokenize(String(sn))[0]) : null) : null;
+        const sigTag = stemKey ? await withTag('F:' + stemKey) : null;
+        const byLink = nums.filter(isDisp); const bySig = sigTag ? [...sigTag].filter(isDisp) : [];
+        let pool = [...new Set([...byLink, ...bySig])].sort((a, b) => a - b);
+        const searched = pool.length;
+        const surname = String(sn || name.split(' ').pop());
+        const noneFound = async (why) => {
+          // what exists: the dates of the dispatches that were searched, and how many of that day carry no signature the scan let me read
+          const P = await kb.passages(pool.slice(0, 400)); const days = [...new Set([...P.values()].map((p) => p.persp && p.persp.written).filter(Boolean))].sort();
+          const dayTxt = days.length ? ` Dispatches signed ${surname} are dated ${days.slice(0, 8).map((d) => dateText(d).replace(', 1863', '')).join(', ')}${days.length > 8 ? ` and ${days.length - 8} more days` : ''}.` : '';
+          let unsigned = '';
+          if (dateIso) { const dd = await withTag('D:' + dateIso); const none = await withTag('F:none'); if (dd) { const nu = none ? [...dd].filter((n) => none.has(n) && isDisp(n)).length : 0; unsigned = ` The volume prints ${dd.size} passage${dd.size === 1 ? '' : 's'} of dispatches dated ${dateText(dateIso).replace(', 1863', '')}${nu ? `, ${nu} of them with no signature I could read` : ''}.`; } }
+          S.intent = 'report-of'; S.quotes = [];
+          const lead_ = (dateIso && !(dateIso >= '1863-06-01' && dateIso <= '1863-08-03'))
+            ? `The dispatches of the Official Records (series I, volume 27) as held here are dated from early June to early August 1863 (a few later ones stand in its addenda); none is dated ${dateWords}.`
+            : `I did not find a dispatch or letter ${why} in the Official Records (series I, volume 27) as held here.`;
+          return { mode: 'partial', blocks: [lead([lead_], [authorRec.id]), note('no-dispatch', `What I searched: the ${searched} passage${searched === 1 ? '' : 's'} of dispatches, letters and orders in Part 3 whose printed signature reads “${surname}”${byLink.length ? ` (${byLink.length} of them tied to ${name} himself)` : ''}.${dayTxt}${unsigned} A signature the scan garbled is not among those, so this does not show that none was written.`)], src: authorRec.id ? [authorRec.id] : [], limited: true };
+        };
+        if (!pool.length) return noneFound(`sent by ${name}`);
+        if (dateIso) { const d = await withTag('D:' + dateIso); const r = d ? pool.filter((n) => d.has(n)) : []; if (!r.length) return noneFound(`from ${name}${toWho ? ' to ' + tw : ''} dated ${dateWords}`); pool = r; }
+        if (toWho) {
+          // "what did Pleasonton write to Williams on June 9": the dispatches addressed to him; if there is none, the other dispatches he wrote that day, and it is said that none was to him
+          const t = await withTag(...topic.map((x) => 'A:' + x)); const r = t ? pool.filter((n) => t.has(n)) : [];
+          if (r.length) pool = r;
+          else { const P = await kb.passages(pool.slice(0, 40)); const tos = [...new Set([...P.values()].map(addrOf).filter(Boolean).map((a) => a.replace(/,.*$/, '')))].slice(0, 4);
+            topic = []; ctx.requireTopic = false; ctx.qStems = new Set();                                  // the addressee was only a filter: with none addressed, the dispatches of the day are shown, not searched for his name
+            relaxedNote = `None of ${name}’s dispatches${dateWords ? ' of ' + dateWords.replace(', 1863', '') : ''} is addressed to “${tw}”; ${pool.length === 1 ? 'the one' : 'the ' + pool.length}${dateWords ? ' he wrote that day' : ' I found'} went to ${tos.join(' and ') || 'others'}. `; }
         }
-        // "what did Lee write to Imboden": the dispatches addressed to him (A:<stem> marks the names of the addressee line), before any word count ranks them
-        if (askD && /\sto\s/.test(norm) && topic.length) { const t = await withTag(...topic.map((x) => 'A:' + x)); if (t) { const r = nums.filter((n) => t.has(n)); if (r.length) nums = r; } }
-        // a date in the question ("on July 4") restricts the dispatches to that day; none that day is said, not answered with another day's
-        if (dateIso && askD) {
-          const d = await withTag('D:' + dateIso); const r = d ? nums.filter((n) => d.has(n)) : [];
-          if (r.length) nums = r;
-          else if (askD) {
-            const name = authorRec.label; S.intent = 'report-of'; S.quotes = [];
-            return { mode: 'partial', blocks: [lead([`The Official Records (series I, volume 27) as held here print no dispatch from `, { ent: authorRec.id, txt: name }, ` dated ${dateWords} that I could find.`], [authorRec.id]), note('no-dispatch-day', `${name} wrote ${nums.length} passages in the volume; ask without the day to see his dispatches of other days.`)], src: [authorRec.id], limited: true };
-          }
-        }
+        nums = pool;
+      } else if (nums.length) {
+        // "what did Lee report": his report, not his telegrams (candidates are cut before they are ranked)
+        if (askD) { const t = await withTag('K:dispatch'); const r = t ? nums.filter((n) => t.has(n)) : []; if (r.length) nums = r; }
         if (askR) {
           const t = await withTag('K:report'); const r = t ? nums.filter((n) => t.has(n)) : [];
           if (r.length) nums = r;
           else if (authorRec.k === 'person') {
             // "what did Pickett report": he wrote no report in the volume (his letters, if any, are dispatches: said, not quoted as a report)
-            const name = authorRec.label; S.intent = 'report-of'; S.quotes = [];
-            return { mode: 'partial', blocks: [lead([`The Official Records (series I, volume 27) as held here include no report written by ${name}.`, ` They print ${nums.length === 1 ? 'one dispatch' : `${nums.length} dispatches`} he sent; ask for his dispatches.`], [authorRec.id]), note('no-report', 'Only the reports and dispatches of the Gettysburg campaign printed in that volume are searched.')], src: [authorRec.id], limited: true };
+            S.intent = 'report-of'; S.quotes = [];
+            return { mode: 'partial', blocks: [lead([`The Official Records (series I, volume 27) as held here include no report written by ${name}.`, ` They print ${nums.length === 1 ? 'one dispatch' : `${nums.length} dispatches`} he sent; ask for his dispatches.`], [authorRec.id]), note('no-report', 'Only the reports and dispatches of the Gettysburg campaign printed in that volume are searched.')], src: authorRec.id ? [authorRec.id] : [], limited: true };
           }
+        }
+        // a day in the question ("about the cavalry fight on July 3"): the passages that speak of that day; none is said, not answered with the closest passage of another day
+        if (dateIso && !q.timeQ) {
+          const y = await ySet(); const yes = y ? nums.filter((n) => y.has(n)) : [];
+          // a passage that names no day and stands on none (the narrative has named no day yet) is not another day's: kept, after those that speak of the day asked
+          const rest = nums.filter((n) => !yes.includes(n)); const P0 = rest.length ? await kb.passages(rest.slice(0, 600)) : new Map();
+          const r = yes.concat(topic.length ? [...P0].filter(([, p]) => !(p.ds && p.ds.length)).map(([n]) => n) : []); yesSet = new Set(yes);
+          if (!r.length) {
+            S.intent = 'report-of'; S.quotes = [];
+            return { mode: 'partial', blocks: [lead([`${name} wrote ${askR ? 'a report' : 'in the volume'}, but none of its ${nums.length} passages speaks of ${dateWords} that I could find.`], [authorRec.id]), note('no-day', 'I looked for the date written in the passage (“July 3”, “the 3d instant”) or the day the passage is about; I did not answer with the closest passage of another day.')], src: authorRec.id ? [authorRec.id] : [], limited: true };
+          }
+          nums = r;
+        }
+        // a question about the clock of a day: the passages that hold a clock said about that day
+        if (q.timeQ && dayCode) {
+          const c = await withTag('C:' + String(dayCode).padStart(4, '0')); const r = c ? nums.filter((n) => c.has(n)) : [];
+          if (!r.length) {
+            const P = await kb.passages(nums.slice(0, 400)); const days = new Set(); for (const p of P.values()) for (const e of p.clk || []) if (Array.isArray(e) && e[1]) days.add(e[1]);
+            S.intent = 'reported-time'; S.quotes = [];
+            const other = [...days].sort((a, b) => a - b).slice(0, 6).map(dayName);
+            return { mode: 'partial', blocks: [lead([`${name} gives no clock time for ${dateWords.replace(', 1863', '')} in the volume that I could find.`, other.length ? ` The times he does give are for ${other.join(', ')}.` : ''], [authorRec.id]), note('no-time-day', 'Only the clock times a passage says about that day are offered for it; times of other days are not given in their place.')], src: authorRec.id ? [authorRec.id] : [], limited: true };
+          }
+          nums = r;
         }
       }
       if (!nums.length) {
         if (authorRec.k !== 'person' || said) return null;                          // a unit with no report of its own, or a speech question: the ordinary flow answers (its card, the quotes about it)
         const any = [...ep.entries()].filter(([n, v]) => inCorpus(n) && v.ids.some(([id]) => id === pickId)).length;
-        const name = authorRec.label;
         const blocks = [lead([`The Official Records (series I, volume 27) as held here include no report written by ${name}.`, any ? ` They do name him in ${any} passages; ask what the reports say about him.` : ''], [authorRec.id]), note('no-report', 'Only the reports and dispatches of the Gettysburg campaign printed in that volume are searched.')];
         S.intent = 'report-of'; S.quotes = [];
-        return { mode: 'partial', blocks, src: [authorRec.id], limited: true };
+        return { mode: 'partial', blocks, src: authorRec.id ? [authorRec.id] : [], limited: true };
       }
+    } else if (q.unreg) {
+      // the author is a sender of the corpus the registry does not hold: the same restrictions as for a registered one (a kind, a day, a clock of a day), each said when it leaves nothing
+      const sur = q.unreg.nm; const decline = (code, text, why) => { S.intent = q.timeQ ? 'reported-time' : 'report-of'; S.quotes = []; return { mode: 'partial', blocks: [lead([text]), note(code, why)], src: [], limited: true }; };
+      const isD = await withTag('K:dispatch'), isR = await withTag('K:report'); const nD = isD ? nums.filter((n) => isD.has(n)).length : 0, nR = isR ? nums.filter((n) => isR.has(n)).length : 0;
+      const held = `What I searched: the ${nums.length} passage${nums.length === 1 ? '' : 's'} of the volume whose printed signature or report author reads “${sur}” (${nD} of dispatches, letters and orders, ${nR} of reports). A signature the scan garbled is not among them.`;
+      if (askD && isD) { const r = nums.filter((n) => isD.has(n)); if (!r.length) return decline('no-dispatch', `I did not find a dispatch or letter signed ${sur} in the Official Records (series I, volume 27) as held here.`, held); nums = r; }
+      if (askR && isR) { const r = nums.filter((n) => isR.has(n)); if (!r.length) return decline('no-report', `The Official Records (series I, volume 27) as held here include no report written by ${sur}.`, held); nums = r; }
+      if (askD && dateIso) { const d = await withTag('D:' + dateIso); const r = d ? nums.filter((n) => d.has(n)) : []; if (!r.length) return decline('no-dispatch', `I did not find a dispatch or letter signed ${sur} dated ${dateWords} in the Official Records (series I, volume 27) as held here.`, held); nums = r; }
+      else if (dateIso && !q.timeQ) {
+        const y = await ySet(); const yes = y ? nums.filter((n) => y.has(n)) : []; const rest = nums.filter((n) => !yes.includes(n)); const P0 = rest.length ? await kb.passages(rest.slice(0, 600)) : new Map();
+        const r = yes.concat(topic.length ? [...P0].filter(([, p]) => !(p.ds && p.ds.length)).map(([n]) => n) : []); yesSet = new Set(yes);
+        if (!r.length) return decline('no-day', `${authorRec.label} wrote in the volume, but none of its ${nums.length} passages speaks of ${dateWords} that I could find.`, 'I looked for the date written in the passage (“July 3”, “the 3d instant”) or the day the passage is about; I did not answer with the closest passage of another day.');
+        nums = r;
+      }
+      if (toWho) {                                                                                       // "what did Kelley write to Averell": the dispatches addressed to him; when none is, the others, and it is said
+        const t = await withTag(...topic.map((x) => 'A:' + x)); const r = t ? nums.filter((n) => t.has(n)) : [];
+        if (r.length) nums = r; else { topic = []; ctx.requireTopic = false; ctx.qStems = new Set(); relaxedNote = `None of ${authorRec.label}’s dispatches${dateWords ? ' of ' + dateWords.replace(', 1863', '') : ''} is addressed to “${tw}”. `; }
+      }
+      if (q.timeQ && dayCode) { const c = await withTag('C:' + String(dayCode).padStart(4, '0')); const r = c ? nums.filter((n) => c.has(n)) : []; if (!r.length) return decline('no-time-day', `${authorRec.label} gives no clock time for ${dateWords.replace(', 1863', '')} in the volume that I could find.`, 'Only the clock times a passage says about that day are offered for it; times of other days are not given in their place.'); nums = r; }
     } else {
       // every report and dispatch passage of the corpus is a candidate; the topic decides
       if (!topic.length) return null;
@@ -191,12 +293,14 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
       // a sender or addressee named in the question ("what did Halleck telegraph to Meade"): F:<stem> (sent by) and A:<stem> (addressed to) mark the names of a dispatch's signature and addressee line
       if (askD) { const t = await withTag(...topic.flatMap((x) => ['F:' + x, 'A:' + x])); if (t) { const r = all.filter(([n]) => t.has(n)); if (r.length) all = r; } }
       if (askD && dateIso) { const d = await withTag('D:' + dateIso); if (d) { const r = all.filter(([n]) => d.has(n)); if (r.length) all = r; } }
+      // a time of a named day: only passages that hold a clock said about that day
+      if (q.timeQ && dayCode) { const c = await withTag('C:' + String(dayCode).padStart(4, '0')); if (c) { const r = all.filter(([n]) => c.has(n)); if (!r.length) return null; all = r; } }
       nums = all.sort((a, b) => b[1] - a[1]).slice(0, 60).map(([n]) => n);
       if (!nums.length) return null;
     }
     S.intent = q.timeQ ? 'reported-time' : 'report-of';
-    const toWho = askD && /\sto\s/.test(norm);
-    let list = await pick(nums, topic, { timeQ: q.timeQ, wide: !!sideOnly || toWho });
+    let list = await pick(nums, topic, { timeQ: q.timeQ, wide: !!sideOnly || toWho || !!dateIso });
+    if (yesSet && yesSet.size) list = list.map((x) => ({ ...x, score: x.score + (yesSet.has(x.p.num) ? 1.2 : 0) })).sort((a, b) => b.score - a.score);
     if (toWho && topic.length) { const inHead = (x) => { const hs = new Set(tokenize(x.p.text.slice(0, 220)).map(stem)); return topic.some((t) => hs.has(t)); }; list = list.map((x) => ({ ...x, score: x.score + (inHead(x) ? 1000 : 0) })).sort((a, b) => b.score - a.score); }
     if (!list.length) {
       if (q.kind === 'generic') return null;
@@ -205,7 +309,7 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
       const blocks = [lead([`${name} wrote a report, but I did not find ${q.timeQ ? 'a clock time in it about that' : 'a passage in it about that'}.`], [authorRec.id])];
       if (p0) blocks.push(note('source', `The report is cited as ${p0.cite.short}.`));
       S.quotes = []; S.intent = 'report-of';
-      return { mode: 'partial', blocks, src: [authorRec.id], limited: true };
+      return { mode: 'partial', blocks, src: authorRec.id ? [authorRec.id] : [], limited: true };
     }
     if (q.kind === 'generic') {
       // one passage per report, the best first, Union and Confederate both when both have one
@@ -229,9 +333,26 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
       const idf = (t) => { const d = kb.lexDf.get(t) || 0, c = d ? null : kb.corp && kb.corp.df(t); const N = c ? c.N : kb.lexicon.N || 1, k = c ? c.df : d; return k ? Math.log(1 + (N - k + 0.5) / (k + 0.5)) : 0.5; };
       const ok = expand([[...topic].sort((x, y) => idf(y) - idf(x))[0]]);
       keepIf((x) => stems(x).some((t) => ok.has(t)));
+      // a window about the author's report that holds only a word or two of a topic of three or more words is the nearest passage, not an answer: declined (the quotes below say what a window does hold)
+      if (q.kind === 'author' && !q.timeQ && topic.length >= 3) { const need = 2; const hits = (x) => { const st = new Set(stems(x)); return [...ctx.qStems].filter((t) => st.has(t)).length; }; const k = quotes.filter((x) => hits(x) >= need); if (k.length < quotes.length) { quotes = k; } }
     }
     if (q.kind === 'author') quotes.sort((a, b) => (a.passage === b.passage ? a.s - b.s : (list.findIndex((x) => x.p.id === a.passage) >= 0 ? list.find((x) => x.p.id === a.passage).p.num : 0) - (list.find((x) => x.p.id === b.passage) ? list.find((x) => x.p.id === b.passage).p.num : 0)));   // in the order of the report
-    if (!quotes.length) return null;
+    if (!quotes.length && q.timeQ && dayCode && q.kind === 'author') {
+      // the clocks of that day exist but none sits with the event asked about: they are given as what they are (the day's times, none tied to the topic), never the times of another day
+      const ctx2 = { ...ctx, requireTopic: false };
+      const q2 = selectQuotes(kb, list, ctx2, { max: 3, minScore: 0.3, sameRec: true, maxWords: 90, maxSents: 4, rerank: true }).filter((x) => x.clk);
+      if (q2.length) { quotes = q2; relaxedNote = `No passage ties a clock time on ${dateWords.replace(', 1863', '')} to “${tw}”; these are the times ${authorRec.label} gives for that day, as he wrote them. `; }
+    }
+    if (!quotes.length) {
+      // a time asked of a day, a topic the passages do not touch: said, not hidden behind the nearest sentence
+      if (q.kind === 'author' && (q.timeQ && dayCode || dateIso && !q.timeQ)) {
+        S.intent = q.timeQ ? 'reported-time' : 'report-of'; S.quotes = [];
+        const about = topic.length ? `“${tw}”` : 'that';
+        const msg = q.timeQ ? `${authorRec.label} gives clock times for ${dateWords.replace(', 1863', '')}, but none of them sits with ${about}.` : `${authorRec.label} wrote ${nums.length === 1 ? 'a passage' : nums.length + ' passages'} in the volume that speak${nums.length === 1 ? 's' : ''} of ${dateWords.replace(', 1863', '')}, but none speaks of ${about}.`;
+        return { mode: 'partial', blocks: [lead([msg], [authorRec.id]), note('no-match', 'I did not offer the closest passage of another day, or of another subject, in its place.')], src: authorRec.id ? [authorRec.id] : [], limited: true };
+      }
+      return null;
+    }
     // a topic the best passages do not touch is said, not hidden behind the nearest sentence
     const first = list.find((x) => x.p.id === quotes[0].passage).p;
     docMeta = first.persp || {};
@@ -243,13 +364,13 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
     if (q.kind === 'author' && srcDocs.size > 1) {
       const what = allDispatch ? 'dispatches' : mixed ? 'writings, reports and dispatches' : 'reports';
       const asked = q.timeQ ? 'Times they give, as he wrote them:' : 'The closest passages, each with its own date and kind:';
-      blocks.push(lead([said ? 'The site’s own records quote no words of his on this. ' : '', { ent: authorRec.id, txt: authorRec.label }, ` wrote several ${what} that bear on this. ${asked}`], [authorRec.id]));
+      blocks.push(lead([said ? 'The site’s own records quote no words of his on this. ' : '', relaxedNote, { ent: authorRec.id, txt: authorRec.label }, ` wrote several ${what} that bear on this. ${asked}`], [authorRec.id]));
     } else if (q.kind === 'author') {
       const when = dateText(docMeta.written);
       const writ = docMeta.contemporaneous ? (when ? `wrote a dispatch dated ${when}` : 'wrote a dispatch') : docMeta.composite ? 'wrote an official report (the volume prints several documents under that heading)' : when ? `wrote an official report dated ${when}` : 'wrote an official report (the volume prints no date for it)';
       const lag = Number.isFinite(docMeta.lag_days) && docMeta.lag_days >= 0 && !docMeta.contemporaneous ? `, ${docMeta.lag_days === 0 ? 'on the day the fighting ended' : docMeta.lag_days === 1 ? 'one day after the fighting ended' : `${docMeta.lag_days} days after the fighting ended`}` : '';
       const asked = q.timeQ ? 'Times it gives, as he wrote them:' : 'The closest passages:';
-      blocks.push(lead([said ? 'The site’s own records quote no words of his on this. ' : '', { ent: authorRec.id, txt: authorRec.label }, ` ${writ}${lag}. ${asked}`], [authorRec.id]));
+      blocks.push(lead([said ? 'The site’s own records quote no words of his on this. ' : '', relaxedNote, { ent: authorRec.id, txt: authorRec.label }, ` ${writ}${lag}. ${asked}`], [authorRec.id]));
     } else {
       const who = sideOnly === 'confederate' ? 'Confederate ' : sideOnly === 'union' ? 'Union ' : '';
       blocks.push(lead([q.timeQ ? `Times the ${who}reports give, each in its author’s words:` : `What the ${who}reports say, each in its author’s words:`]));
@@ -262,7 +383,7 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
       ? note('contemporary', 'A dispatch is written at the time it is dated; the clock is the sender’s own, and local times differed by several minutes.' + OCR_CAUTION)
       : note('retrospect', (q.timeQ ? 'These are the times the authors wrote, from memory and notes after the fact: reports of the same event often differ by an hour or more, and the site’s own timeline is a separate, proposed reconstruction.' : 'An official report is written after the fact, from the author’s memory and notes; reports of the same event often differ.') + ' The words are machine-read from the 1889 print and may carry scanning errors.'));
     S.quotes = quotes;
-    return { mode, blocks, src: authorRec ? [authorRec.id] : [] };
+    return { mode, blocks, src: authorRec && authorRec.id ? [authorRec.id] : [] };
   }
 
   return { detect, answer, answerSaid, topicTerms };

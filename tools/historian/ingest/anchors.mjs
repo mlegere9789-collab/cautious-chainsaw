@@ -21,7 +21,7 @@ const prose = (s) => { const w = s.match(/[A-Za-z]{3,}/g) || []; return w.length
  * @param opts.units  optional: (sentenceText) => unit ids named in that sentence (A/B links), for the claim's subject units
  * @returns claims[]
  */
-export function claimsOfDoc(meta, passages, { units = null, subjectUnits = [] } = {}) {
+export function claimsOfDoc(meta, passages, { units = null, subjectUnits = [], regOut = null } = {}) {
   if (!['report', 'correspondence', 'order'].includes(meta.kind)) return [];
   const written = meta.written && meta.written.iso ? { y: +meta.written.iso.slice(0, 4), m: +meta.written.iso.slice(5, 7), d: +meta.written.iso.slice(8, 10) } : null;
   const dispatch = meta.persp && meta.persp.contemporaneous;
@@ -29,13 +29,14 @@ export function claimsOfDoc(meta, passages, { units = null, subjectUnits = [] } 
   const out = [];
   let n = 0;
   passages.forEach((p, pi) => {
+    if (regOut) regOut.set(p.id, tracker.state());                                                      // the day the narrative stands on when the passage opens
     const sents = splitSentences(p.text);
     sents.forEach((x, k) => {
       const text = p.text.slice(x.s, x.e);
       // a report's own heading and dateline ("No. 196. Report of Col. ... Field near Emmitsburg, July 6, 1863.") date its WRITING, not the events: they set no day and make no claim
       if (!dispatch && pi === 0 && x.s < 450 && /\b186[34]\b/.test(text)) return;
       const cl = parseClock(text, { ctx: text });
-      const days = tracker.at(text, cl.length ? cl : [text.length]);          // every sentence moves the day register; each clock reads the day as it stood at its own position
+      const days = tracker.at(text, cl.length ? cl : [text.length], p.text.slice(x.e, x.e + 40));          // every sentence moves the day register; each clock reads the day as it stood at its own position
       if (!cl.length) return;
       if (!prose(text) && !/^\s*[A-Z][a-z]+[^.]{0,40}\d{4}/.test(text)) return;
       for (const [ci, c] of cl.entries()) {

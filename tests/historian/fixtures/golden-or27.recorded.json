@@ -1,5 +1,5 @@
 {
- "_comment": "The result of the Official Records golden sets against the corpus KB when the corpus was finished (node tools/historian/golden-or27.mjs --set A|H): per question, pass or fail. A: 73 questions written from the text before the engine ran on them (first run 65/73; the 8 failures were engine defects, fixed, and are now 71/73 - in-sample, so a measure of the fixes, not of generalisation). H: 33 questions written after the engine was final and run once, nothing changed for them (31/33). The two failures of each set are recorded here as failures: a question that passes here must not fail later; a recorded failure that starts to pass is not an error.",
+ "_comment": "The result of the Official Records golden sets against the corpus KB when the corpus was finished (node tools/historian/golden-or27.mjs --set A|H): per question, pass or fail. A: 73 questions written from the text before the engine ran on them (first run 65/73; the 8 failures were engine defects, fixed, and are now 71/73 - in-sample, so a measure of the fixes, not of generalisation). H: 33 questions written after the engine was final and run once, nothing changed for them (31/33). The two failures of each set are recorded here as failures: a question that passes here must not fail later; a recorded failure that starts to pass is not an error. RE-RECORDED after the Part 3 re-segmentation, the footnote and head stripping, the page rebuild and the engine fixes (2026-10): A 71 of 73 (the same two failures, OR-T09 and OR-D08: the right document, a sentence other than the one the question expected), H 33 of 33 (OR-HT03 and OR-HT11, whose authors are outside the registry, now pass: the corpus is asked for the sender by surname). The figures above are the history: A 65/73 at the first run and 71/73 at the first final, H 31/33.",
  "A": {
   "OR-T01": "pass",
   "OR-T02": "pass",
@@ -78,7 +78,7 @@
  "H": {
   "OR-HT01": "pass",
   "OR-HT02": "pass",
-  "OR-HT03": "fail",
+  "OR-HT03": "pass",
   "OR-HT04": "pass",
   "OR-HT05": "pass",
   "OR-HT06": "pass",
@@ -86,7 +86,7 @@
   "OR-HT08": "pass",
   "OR-HT09": "pass",
   "OR-HT10": "pass",
-  "OR-HT11": "fail",
+  "OR-HT11": "pass",
   "OR-HA01": "pass",
   "OR-HA02": "pass",
   "OR-HA03": "pass",

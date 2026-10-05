@@ -131,6 +131,9 @@ for (const e of c2.sources) {
       const run = man.sources.find((p) => p.source === x.id && p.role === 'run-report');
       const text = files.find((p) => p.role === 'ocr-text');
       x.status = 'ingested';
+      // the catalogue's wording is checked against the Archive item itself: the University of Illinois copies ingested carry no possible-copyright-status, rights or licenseurl field (metadata read 2026-10-01), so the register
+      // does not quote one; the basis is the nature of the publication (17 U.S.C. 105; 1889) and the HathiTrust record
+      x.tier_detail = x.tier_detail.replace(/;?\s*UC copy IA possible-copyright-status NOT_IN_COPYRIGHT/, '; the Archive item carries no possible-copyright-status, rights or licenseurl field (metadata read 2026-10-01), so the basis is the nature of the publication and the HathiTrust record');
       x.ingest = {
         corpus: 'or27', corpus_version: man.corpus_version, manifest: 'historian-src/corpus/or27/manifest.json', fetched_at: text.fetched_at, ocr_text_sha256: text.sha256, ocr_text_bytes: text.bytes,
         files: files.map((p) => ({ role: p.role, url: p.url, sha256: p.sha256, bytes: p.bytes })), documents: run.docs, passages: run.passages, missing_numbers: run.missing_numbers || [],
@@ -138,7 +141,7 @@ for (const e of c2.sources) {
       };
       x.notes = m[1] === '1' ? 'Ingested: 377 of the 378 numbered reports (No. 161 is a damaged scan: its text is not in the OCR). Reports are testimony written days to months after the fight, labelled so; times are approximate ("somewhere near 4 p. m.").'
         : m[1] === '2' ? 'Ingested: 211 of 211 numbered reports (Nos. 379-589). Confederate coverage is uneven: no report by Pickett, Hood or McLaws is in the volume; the Guild casualty return is a table and its figures are not read.'
-        : 'Ingested: 2,945 dispatches, orders and itineraries cut at their datelines (June 3 - August 3, 1863); the header clock is the sender\'s own and the best clock evidence in the corpus; local times differed by several minutes.';
+        : `Ingested: ${man.totals.dispatches.toLocaleString('en-US')} dispatches, orders and itineraries cut at their datelines (June 3 - August 3, 1863, and the volume's addenda, pp. 839-857, which run to later dates, one of 1878); the header clock is the sender's own and the best clock evidence in the corpus; local times differed by several minutes.`;
     }
   }
 }

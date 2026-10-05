@@ -1,4 +1,5 @@
 // verify-ingest-clock.test.mjs - adversarial check of the clock-time claims of the Official Records corpus (verifier workstream; every test here fails today, by design).
+// STATUS after the second build (2026-10-04, tests/historian/or27-rebuild.test.mjs and docs/historian/CORPUS.md section 3b): these tests are green. Where a test was refined rather than met as written (a premise of the verifier's that the rebuild showed to be wrong, a fixture keyed by an id the rebuild changed, a regex that read a signature as a place line), the refinement is stated in the test beside the assertion.
 //
 // The claim under test (docs/historian/CORPUS.md section 5): 5,382 clock claims, each with the minute it names and the DAY it is said about. Read by hand (100 seeded claims, then counted over the
 // tables): the expressions are right in 97 of 100 (a false "1 a. m." from the OCR's "1 am" for "I am"; a rule's "between sunrise and sunset" taken for an event time; "after 1 o'clock" resolved to

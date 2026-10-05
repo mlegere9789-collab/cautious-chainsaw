@@ -30,7 +30,8 @@ if (need) console.log(`# SKIPPED, not passed: ${SKIP}`);
 test('OR-1 provenance: every file fetched has its URL, fetch time, sha256, size, content type and the rights statement of its volume; all three volumes are Tier A, public domain, registered', () => {
   const REG = loadSources();
   const files = MAN.sources.filter((p) => p.url);
-  assert.equal(files.length, 9, '3 volumes x (OCR text, page numbers, scandata)');
+  assert.equal(files.length, 15, '3 volumes x (OCR text, page numbers, scandata, and the per-leaf text and per-leaf index of the Archive that the page of every sentence is read from)');
+  assert.deepEqual([...new Set(files.map((p) => p.role))].sort(), ['leaf-index', 'leaf-text', 'ocr-text', 'page-numbers', 'scandata']);
   for (const p of files) {
     assert.match(p.url, /^https:\/\/archive\.org\/download\/warofrebellion27[123]unit\//); assert.match(p.sha256, /^[0-9a-f]{64}$/); assert.ok(p.bytes > 1000 && p.fetched_at && p.content_type, p.url);
     assert.equal(p.rights_tier, 'A'); assert.equal(p.license_id, 'PD-US-Gov'); assert.match(p.rights_statement_url, /^https:\/\/catalog\.hathitrust\.org\/api\/volumes\/brief\/htid\//);
@@ -41,13 +42,14 @@ test('OR-1 provenance: every file fetched has its URL, fetch time, sha256, size,
   assert.deepEqual(MAN.sources.find((p) => p.source === 'or27-1' && p.role === 'run-report').missing_numbers, [161], 'the one report not found is named, not hidden');
 });
 
-test('OR-2 counts: 588 of the 589 numbered reports, 2,945 dispatches, 8,232 passages; a document\'s passages are its words; every report has its page and its scan', () => {
-  assert.deepEqual(MAN.totals, { documents: 3533, passages: 8232, words: 1330088, reports_found: 588, dispatches: 2945 });
+test('OR-2 counts: 588 of the 589 numbered reports, 3,178 dispatches, 8,405 passages; a document\'s passages are its words; every report has its page and its scan', () => {
+  // the first build held 3,533 documents, 8,232 passages and 2,945 dispatches (2,939 with text); the rebuild cuts Part 3 at 3,178 dispatches and counts the one table with no text apart
+  assert.deepEqual(MAN.totals, {"documents":3766,"passages":8405,"words":1323095,"reports_found":588,"dispatches":3178,"tables_without_text":1});
   const reports = J('historian-src/corpus/or27/reports.json').reports; assert.equal(reports.length, 588);
   assert.equal(reports.filter((r) => r.kind === 'report').length, 573);
   for (const r of reports) { assert.ok(r.pages && Number.isFinite(r.pages.start) || r.confidence !== 'A', r.id); if (r.scan) assert.match(r.scan.url, /^https:\/\/archive\.org\/details\/warofrebellion27[12]unit\/page\/n\d+\/mode\/1up$/); }
   assert.ok(reports.filter((r) => r.scan).length >= 560, 'a scan link for nearly every report');
-  const d = J('historian-src/corpus/or27/dispatches.json'); assert.equal(d.rows.length, 2945); assert.ok(d.fields.includes('signer_link') && d.fields.includes('signer_tier'));
+  const d = J('historian-src/corpus/or27/dispatches.json'); assert.equal(d.rows.length, 3178); assert.ok(d.rows.every((r) => r[d.fields.indexOf('passages')] > 0), 'every row of the dispatch table has text'); assert.ok(d.fields.includes('signer_link') && d.fields.includes('signer_tier'));
   const t = J('historian-src/corpus/or27/time_claims.json'); assert.equal(t.rows.length, MAN.time.claims); assert.ok(t.fields.includes('leaf') && t.fields.includes('page'), 'a claim carries the printed page and the scan leaf of ITS page, not of the report\'s first page');
 });
 
@@ -181,21 +183,22 @@ test('OR-8 time proposals: 36 attached claims read against their events; tier F 
   assert.match(TE.status, /^PROPOSALS: nothing here is shown to a reader/); assert.equal(Object.keys(TE.events).length, 137);
   const tiers = { A: 0, B: 0, F: 0, C: 0 }; let n = 0;
   for (const e of Object.values(TE.events)) for (const k of 'ABFC') tiers[k] += e.tiers[k];
-  assert.deepEqual(tiers, { A: 1, B: 5, F: 68, C: 434 }, 'the tier counts are the ones the hand check was drawn from');
+  // the hand check was drawn from a table of A 1, B 5, F 68, C 434 (494 claims); the day register has been corrected since (a bare ordinal that turns over the end of June, "the 1st instant" in a document of two reports, a clock followed by "on the following morning"), which moved 4 claims into tier F and 19 into C; every one of the 36 checked claims is still proposed, in its tier (above)
+  assert.deepEqual(tiers, { A: 1, B: 5, F: 72, C: 453 }, 'the tier counts of the rebuilt table');
   for (const e of Object.values(TE.events)) for (const c of e.claims) {
     n++; assert.ok(Number.isInteger(c.min) && c.min >= 0 && c.min < 1440, 'a minute of the day'); assert.ok(Number.isInteger(c.page) && Number.isInteger(c.leaf), `${c.passage}: printed page and scan leaf`);
     assert.ok(['A', 'B', 'F', 'C'].includes(c.tier)); assert.ok(['report', 'dispatch-header', 'dispatch-body'].includes(c.evidence)); assert.ok(/^or27-[123]:/.test(c.passage));
   }
-  assert.equal(n, 494);
+  assert.equal(n, 516);
 });
 
 // ---- the corpus KB: verbatim quotes, citations, golden sets, first paint, additivity ---------------------------------------------------------------------------------------------------------------
-test('OR-9 the corpus tiers: every one of the 8,232 passages is a verbatim slice of the normalised OCR of its report (validator V03: 8,232 checked, 0 failed), the KB opens with no corpus request, and the first request that reaches into the corpus loads the file list once', { skip: need, timeout: 600000 }, async () => {
+test('OR-9 the corpus tiers: every passage is a verbatim slice of the normalised OCR of its report (validator V03: all checked, 0 failed), the KB opens with no corpus request, and the first request that reaches into the corpus loads the file list once', { skip: need, timeout: 600000 }, async () => {
   const k = await or27(); const c = k.man.corpora.or27;
-  assert.ok(c.count === 8232 && c.files && /^f\/or27\/files\.[0-9a-f]+\.json$/.test(c.files.path), 'a descriptor and a lazy file list, not 1,189 inline paths');
-  if (k.report) { const v = k.report.corpora.or27.validation; assert.deepEqual([v.passages, v.v03_verbatim_checked, v.v03_verbatim_failed, v.no_scan], [8232, 8232, 0, 0]); assert.equal(k.report.ok, true); assert.deepEqual(k.report.findings.filter((x) => x.level === 'error'), []); }
+  assert.ok(c.count === MAN.totals.passages && c.files && /^f\/or27\/files\.[0-9a-f]+\.json$/.test(c.files.path), 'a descriptor and a lazy file list, not 1,189 inline paths');
+  if (k.report) { const v = k.report.corpora.or27.validation; assert.deepEqual([v.passages, v.v03_verbatim_checked, v.v03_verbatim_failed, v.no_scan], [MAN.totals.passages, MAN.totals.passages, 0, 0]); assert.equal(k.report.ok, true); assert.deepEqual(k.report.findings.filter((x) => x.level === 'error'), []); }
   let n = 0; for (const p of k.C.passages.values()) { n++; assert.match(p.id, /^or27-[123]:[^#]+#[0-9a-f]{8}/); assert.ok(p.text.length > 0 && p.sb[0] === 0 && p.pg.length > 0 && p.pg.every((e) => Number.isInteger(e[1]) && Number.isInteger(e[2]) && Number.isInteger(e[3])), `${p.id}: a printed page, a scan leaf and a reader index`); }
-  assert.equal(n, 8232);
+  assert.equal(n, MAN.totals.passages);
   const fetched = []; const fn = async (rel) => { fetched.push(rel); return JSON.parse(fs.readFileSync(path.join(k.hx, rel), 'utf8')); };
   const kb = await openKB(fn, {});
   assert.deepEqual(fetched.filter((r) => /\/or27\//.test(r)), [], 'opening the KB reads no corpus file');
@@ -259,7 +262,10 @@ test('OR-13 whom a dispatch is from and to: a surname that ends in s is found (t
   r = await ask('what did Humphreys write to Howard on July 12');
   assert.ok(r.qs.length >= 1 && r.qs.every((b) => b.passage.startsWith('or27-3:p0664.2#')), r.qs.map((b) => b.passage).join());
   r = await ask('what did Sykes write to Meade on July 6');
-  assert.ok(r.qs.length >= 1 && r.qs.every((b) => b.passage.startsWith('or27-3:p0560.3#')), r.qs.map((b) => b.passage).join());
+  // refinement with the engine fix (c): none of his dispatches of July 6 is addressed to Meade (all three went to Howard), which the answer now says, and it shows them, the one that names Meade first
+  assert.ok(r.qs.length >= 1 && r.qs[0].passage.startsWith('or27-3:p0560.3#') && r.qs.every((b) => /^or27-3:p05[56]\d\.\d#/.test(b.passage)), r.qs.map((b) => b.passage).join());
+  assert.match(r.a.text, /None of .*Sykes.* dispatches of July 6 is addressed to “Meade”; the 3 he wrote that day went to General Howard/);
   r = await ask('what did Pleasonton write to Williams on June 4');
-  assert.equal(r.qs.length, 0); assert.match(r.a.text, /print no dispatch from .*Pleasonton dated June 4, 1863/, 'a day he wrote none to him is said, not answered with another day');
+  // the wording changed with the engine fix (c): the answer says what was searched, not only that nothing was found
+  assert.equal(r.qs.length, 0); assert.match(r.a.text, /did not find a dispatch or letter from .*Pleasonton to Williams dated June 4, 1863/, 'a day he wrote none to him is said, not answered with another day'); assert.match(r.a.text, /What I searched: the \d+ passages? of dispatches/);
 });

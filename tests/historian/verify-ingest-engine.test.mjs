@@ -1,4 +1,5 @@
 // verify-ingest-engine.test.mjs - adversarial check of what the engine SAYS from the Official Records corpus (verifier workstream; every test here fails today, by design).
+// STATUS after the second build (2026-10-04, tests/historian/or27-rebuild.test.mjs and docs/historian/CORPUS.md section 3b): these tests are green. Where a test was refined rather than met as written (a premise of the verifier's that the rebuild showed to be wrong, a fixture keyed by an id the rebuild changed, a regex that read a signature as a place line), the refinement is stated in the test beside the assertion.
 //
 // The claims under test (docs/historian/CORPUS.md sections 6 and 7, golden sets A 71/73 and H 31/33): an answer quotes the report or dispatch asked for, "a day with no dispatch is said, not answered
 // with another day's", and times are "as he wrote them". The verifier put 30 hand-written questions to the engine (not the golden set's phrasings): 14 answered well or declined honestly, 6 fell back
@@ -26,20 +27,32 @@ test('VI-EN-1 "what did Slocum telegraph on July 2" does not deny a July 2 dispa
   assert.ok(!/print no dispatch/.test(a.text), `the answer says: ${a.text.replace(/\n/g, ' ')}`);
 });
 
-test('VI-EN-2 "what did Pleasonton write to Williams on June 9": the answer keeps the addressee (he wrote three dispatches that day, to Hooker twice and to Stahel, none to Williams)', { skip: need, timeout: 600000 }, async () => {
+test('VI-EN-2 "what did Pleasonton write to Williams on June 9": the answer keeps the addressee (the verifier read three dispatches that day, none to Williams; the rebuild shows a fourth, to Williams at 12 m., p. 38, that the first build had hidden inside another document)', { skip: need, timeout: 600000 }, async () => {
   const k = await or27(); const a = await k.fresh().ask('what did Pleasonton write to Williams on June 9');
   assert.ok(/Williams/.test(a.text) || !/print no dispatch from .*dated June 9/.test(a.text), `the answer drops "to Williams" and says there is no dispatch dated June 9: ${a.text.replace(/\n/g, ' ')}`);
+  // refinement: the dispatch to Williams exists now, and the answer quotes it
+  const qs = quotes(a); assert.ok(qs.length >= 1 && qs.every((b) => /order 1,000 of the Fifth Corps to Brandy Station/.test(b.text)), `the quotes: ${qs.map((b) => b.text.slice(0, 60)).join(' | ')}`);
 });
 
-for (const [q, day] of [['what time did Longstreet report the assault began on July 3', '1863-07-03'], ['what time did Buford say the fighting began on July 1', '1863-07-01']]) {
-  test(`VI-EN-3 "${q}": the times quoted are times of ${day}, the day asked about`, { skip: need, timeout: 600000 }, async () => {
+// Refinement after the rebuild. The verifier asked "what time did Longstreet report the assault began on July 3" and found the July 2 times of his report quoted. The premise that he gives a July 3 clock is itself
+// wrong: no report of Longstreet's in the volume holds a clock said about July 3 (his report of the 3d gives none). The right answer is therefore a decline that says which days he does give; the test asserts
+// that, after checking the premise against the claim table, and keeps the original assertion for Buford (July 1), whose report does give July 1 clocks.
+for (const [q, day, who] of [['what time did Longstreet report the assault began on July 3', '1863-07-03', /Longstreet/], ['what time did Buford say the fighting began on July 1', '1863-07-01', /Buford/]]) {
+  test(`VI-EN-3 "${q}": the times quoted are times of ${day}, the day asked about (or the answer says the author gives none for it)`, { skip: need, timeout: 600000 }, async () => {
     const k = await or27(); const a = await k.fresh().ask(q);
-    const qs = quotes(a); assert.ok(qs.length, 'a quote');
+    const qs = quotes(a);
     const days = new Map();
     for (const b of qs) for (const c of claimsOf(b)) days.set(c.day, (days.get(c.day) || []).concat(c.text));
     const other = [...days].filter(([d]) => d !== day);
-    assert.ok(days.has(day), `no quoted clock is of ${day}; the quotes carry ${JSON.stringify([...days])}`);
     assert.deepEqual(other.map(([d, t]) => `${d}: ${t.join(', ')}`), [], 'clocks of other days are quoted as the answer');
+    if (qs.length) assert.ok(days.has(day), `no quoted clock is of ${day}; the quotes carry ${JSON.stringify([...days])}`);
+    else {
+      claimsOf({ passage: null, s: 0, e: 0 });                                          // loads the table
+      const own = claims.filter((c) => who.test(c.author || '') && c.day === day);
+      assert.equal(own.length, 0, `the answer declines, but the table holds ${own.length} clocks of ${day} by that author`);
+      assert.match(a.text, /gives no clock time for .* in the volume that I could find/, 'the decline says what it is');
+      assert.match(a.text, /The times (?:he|she|they) does? give are for/, 'and which days the author does give');
+    }
   });
 }
 

@@ -2,7 +2,7 @@
  "corpus_version": "1.0.0",
  "built_with": {
   "node": "v24.19.0",
-  "ingest_sha": "32e62c902c3391db"
+  "ingest_sha": "6bf0e6ac30b968e9"
  },
  "linker_registry_sha": "0a02e6c75fe4",
  "sources": [
@@ -44,22 +44,138 @@
   },
   {
    "source": "or27-1",
+   "role": "leaf-index",
+   "url": "https://archive.org/download/warofrebellion271unit/warofrebellion271unit_hocr_pageindex.json.gz",
+   "fetched_at": "2026-10-01T09:30:15.849Z",
+   "sha256": "db69be11143219905897bddf3945cb4404ab8b308747fa4dd1723df41b6a52ee",
+   "bytes": 14981,
+   "content_type": "application/octet-stream",
+   "rights_statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077699761.json",
+   "rights_tier": "A",
+   "license_id": "PD-US-Gov"
+  },
+  {
+   "source": "or27-1",
+   "role": "leaf-text",
+   "url": "https://archive.org/download/warofrebellion271unit/warofrebellion271unit_hocr_searchtext.txt.gz",
+   "fetched_at": "2026-10-01T09:30:17.919Z",
+   "sha256": "bedb0635ebb64d224229db86a16d9e972b6f07f069509e0963f78af682edb572",
+   "bytes": 1122832,
+   "content_type": "application/octet-stream",
+   "rights_statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077699761.json",
+   "rights_tier": "A",
+   "license_id": "PD-US-Gov"
+  },
+  {
+   "source": "or27-1",
    "role": "run-report",
+   "leaves": {
+    "leaves": 1194,
+    "leaves_with_text": 1176,
+    "folios_read": 1163,
+    "folios_inferred": [
+     {
+      "leaf": 19,
+      "page": 1
+     }
+    ],
+    "folio_chain_breaks": [
+     {
+      "from": 469,
+      "to": 472,
+      "folio_from": 451,
+      "folio_to": 452
+     },
+     {
+      "from": 885,
+      "to": 888,
+      "folio_from": 865,
+      "folio_to": 866
+     }
+    ],
+    "unread_with_text": [
+     {
+      "leaf": 3,
+      "chars": 348
+     },
+     {
+      "leaf": 4,
+      "chars": 135
+     },
+     {
+      "leaf": 7,
+      "chars": 287
+     },
+     {
+      "leaf": 9,
+      "chars": 2594
+     },
+     {
+      "leaf": 10,
+      "chars": 1634
+     },
+     {
+      "leaf": 11,
+      "chars": 148
+     },
+     {
+      "leaf": 13,
+      "chars": 1570
+     },
+     {
+      "leaf": 14,
+      "chars": 1508
+     },
+     {
+      "leaf": 15,
+      "chars": 1265
+     },
+     {
+      "leaf": 16,
+      "chars": 976
+     },
+     {
+      "leaf": 17,
+      "chars": 815
+     }
+    ],
+    "mid_line_starts": 0
+   },
+   "tables_without_text": [],
    "docs": 377,
-   "passages": 2680,
+   "passages": 2670,
    "missing_numbers": [
     161
    ],
    "tail": {
-    "back_matter_at": 3106295,
-    "back_matter_chars": 240540,
+    "back_matter_at": 3090957,
+    "back_matter_chars": 239641,
     "addenda_at": null,
     "addenda_chars": 0
    },
-   "page_marks": 1040,
-   "page_marks_inferred": 30,
+   "page_marks": 1176,
+   "page_marks_inferred": 0,
    "running_heads_left": 1,
-   "dispatch": null
+   "dispatch": null,
+   "edits": 8156,
+   "edit_kinds": {
+    "footnote": 252,
+    "compiler-note": 1,
+    "head-line": 1253,
+    "inline-head": 54,
+    "dehyphenate": 6207,
+    "hyphen-kept": 247,
+    "ocr-dict": 142
+   },
+   "table_chunks_cleaned": 100,
+   "table_paragraphs_removed": 3955,
+   "table_chunks_dropped": 25,
+   "notes_removed": {
+    "footnote": 252,
+    "compiler-note": 1,
+    "head-line": 1253,
+    "inline-head": 54
+   }
   },
   {
    "source": "or27-2",
@@ -99,20 +215,91 @@
   },
   {
    "source": "or27-2",
+   "role": "leaf-index",
+   "url": "https://archive.org/download/warofrebellion272unit/warofrebellion272unit_hocr_pageindex.json.gz",
+   "fetched_at": "2026-10-01T09:30:19.486Z",
+   "sha256": "94681afd6b823a6c006e76e667794d18d55026952a8d417e04391198834c1e57",
+   "bytes": 14254,
+   "content_type": "application/octet-stream",
+   "rights_statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077728255.json",
+   "rights_tier": "A",
+   "license_id": "PD-US-Gov"
+  },
+  {
+   "source": "or27-2",
+   "role": "leaf-text",
+   "url": "https://archive.org/download/warofrebellion272unit/warofrebellion272unit_hocr_searchtext.txt.gz",
+   "fetched_at": "2026-10-01T09:30:21.772Z",
+   "sha256": "c4d375a6b764e1639aac3dcd18c71ca3651f125fb9832db1ff04ac7420a17e23",
+   "bytes": 1151283,
+   "content_type": "application/octet-stream",
+   "rights_statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077728255.json",
+   "rights_tier": "A",
+   "license_id": "PD-US-Gov"
+  },
+  {
+   "source": "or27-2",
    "role": "run-report",
+   "leaves": {
+    "leaves": 1132,
+    "leaves_with_text": 1121,
+    "folios_read": 1115,
+    "folios_inferred": [
+     {
+      "leaf": 9,
+      "page": 3
+     }
+    ],
+    "folio_chain_breaks": [],
+    "unread_with_text": [
+     {
+      "leaf": 3,
+      "chars": 294
+     },
+     {
+      "leaf": 4,
+      "chars": 135
+     },
+     {
+      "leaf": 7,
+      "chars": 299
+     }
+    ],
+    "mid_line_starts": 0
+   },
+   "tables_without_text": [],
    "docs": 211,
-   "passages": 2083,
+   "passages": 2074,
    "missing_numbers": [],
    "tail": {
-    "back_matter_at": 3016562,
-    "back_matter_chars": 257030,
-    "addenda_at": 2405450,
-    "addenda_chars": 611112
+    "back_matter_at": 3009303,
+    "back_matter_chars": 255908,
+    "addenda_at": 2400447,
+    "addenda_chars": 608856
    },
-   "page_marks": 910,
-   "page_marks_inferred": 20,
+   "page_marks": 1121,
+   "page_marks_inferred": 0,
    "running_heads_left": 4,
-   "dispatch": null
+   "dispatch": null,
+   "edits": 6454,
+   "edit_kinds": {
+    "footnote": 142,
+    "cross-reference": 1,
+    "head-line": 1001,
+    "inline-head": 87,
+    "dehyphenate": 4730,
+    "hyphen-kept": 225,
+    "ocr-dict": 268
+   },
+   "table_chunks_cleaned": 41,
+   "table_paragraphs_removed": 2283,
+   "table_chunks_dropped": 24,
+   "notes_removed": {
+    "footnote": 142,
+    "cross-reference": 1,
+    "head-line": 1001,
+    "inline-head": 87
+   }
   },
   {
    "source": "or27-3",
@@ -152,49 +339,129 @@
   },
   {
    "source": "or27-3",
+   "role": "leaf-index",
+   "url": "https://archive.org/download/warofrebellion273unit/warofrebellion273unit_hocr_pageindex.json.gz",
+   "fetched_at": "2026-10-01T09:30:23.445Z",
+   "sha256": "436e8c1ad90be8ec8c0dff22b028fc9833a3ad60d98b53b99261b2318a649e33",
+   "bytes": 15622,
+   "content_type": "application/octet-stream",
+   "rights_statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077700262.json",
+   "rights_tier": "A",
+   "license_id": "PD-US-Gov"
+  },
+  {
+   "source": "or27-3",
+   "role": "leaf-text",
+   "url": "https://archive.org/download/warofrebellion273unit/warofrebellion273unit_hocr_searchtext.txt.gz",
+   "fetched_at": "2026-10-01T09:30:24.505Z",
+   "sha256": "61f63f4e66f853e8be71a89605dd57a01e11438e5f935b5dbae018e5d03e5089",
+   "bytes": 983526,
+   "content_type": "application/octet-stream",
+   "rights_statement_url": "https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077700262.json",
+   "rights_tier": "A",
+   "license_id": "PD-US-Gov"
+  },
+  {
+   "source": "or27-3",
    "role": "run-report",
-   "docs": 2945,
-   "passages": 3469,
+   "leaves": {
+    "leaves": 1256,
+    "leaves_with_text": 1244,
+    "folios_read": 1238,
+    "folios_inferred": [
+     {
+      "leaf": 9,
+      "page": 3
+     }
+    ],
+    "folio_chain_breaks": [],
+    "unread_with_text": [
+     {
+      "leaf": 2,
+      "chars": 152
+     },
+     {
+      "leaf": 7,
+      "chars": 307
+     },
+     {
+      "leaf": 1248,
+      "chars": 210
+     }
+    ],
+    "mid_line_starts": 0
+   },
+   "tables_without_text": [
+    "or27-3:p0642.1"
+   ],
+   "docs": 3179,
+   "passages": 3661,
    "missing_numbers": [],
    "tail": null,
-   "page_marks": 1099,
-   "page_marks_inferred": 23,
-   "running_heads_left": 7,
+   "page_marks": 1244,
+   "page_marks_inferred": 0,
+   "running_heads_left": 5,
    "dispatch": {
-    "dispatches": 2945,
-    "index_starts_at": 2519891,
-    "confederate_section_starts_at": 1938945,
+    "dispatches": 3179,
+    "index_starts_at": 2504378,
+    "confederate_section_starts_at": 1926060,
     "by_side": {
-     "union": 2429,
-     "confederate": 516
+     "union": 2690,
+     "confederate": 489
     },
     "by_kind": {
-     "dispatch": 2764,
-     "order": 180,
+     "dispatch": 2978,
+     "order": 188,
+     "return": 12,
      "itinerary": 1
     },
-    "dated_1863": 2938,
-    "with_clock": 1263,
-    "in_battle_window": 586,
-    "july_1_3": 208,
-    "july_1_3_with_clock": 89,
-    "pages_missing": 0
+    "dated_1863": 3118,
+    "with_clock": 1382,
+    "in_battle_window": 624,
+    "july_1_3": 233,
+    "july_1_3_with_clock": 103,
+    "pages_missing": 0,
+    "with_signer": 3105,
+    "with_addressee": 2824,
+    "quotations_kept_in_their_cover": 10,
+    "covers_moved_closing": 2,
+    "years_repaired": 9
+   },
+   "edits": 6363,
+   "edit_kinds": {
+    "footnote": 143,
+    "cross-reference": 2,
+    "inline-head": 93,
+    "head-line": 1429,
+    "hyphen-kept": 224,
+    "dehyphenate": 4404,
+    "ocr-dict": 68
+   },
+   "table_chunks_cleaned": 34,
+   "table_paragraphs_removed": 1892,
+   "table_chunks_dropped": 16,
+   "notes_removed": {
+    "footnote": 143,
+    "cross-reference": 2,
+    "inline-head": 93,
+    "head-line": 1429
    }
   }
  ],
  "totals": {
-  "documents": 3533,
-  "passages": 8232,
-  "words": 1330088,
+  "documents": 3766,
+  "passages": 8405,
+  "words": 1323095,
   "reports_found": 588,
-  "dispatches": 2945
+  "dispatches": 3178,
+  "tables_without_text": 1
  },
  "link_stats": {
-  "A": 7078,
-  "B": 6903,
-  "C": 6260,
-  "passages_with_ents": 5574,
-  "ents": 15420,
+  "A": 6992,
+  "B": 6884,
+  "C": 6183,
+  "passages_with_ents": 5675,
+  "ents": 15434,
   "registry_side_disagree": 0,
   "registry_missing": 0,
   "authors": {
@@ -204,43 +471,43 @@
    "none": 157
   },
   "signers": {
-   "dispatches": 2938,
-   "one_signature": 2425,
-   "person": 463
+   "dispatches": 3177,
+   "one_signature": 3034,
+   "person": 579
   }
  },
  "time": {
-  "claims": 5382,
-  "with_minute": 5117,
+  "claims": 5268,
+  "with_minute": 5003,
   "ambiguous_meridiem": 265,
-  "with_day": 4977,
+  "with_day": 4867,
   "by_kind": {
-   "clock": 3930,
+   "clock": 3819,
    "sun": 459,
    "midnight": 78,
    "oclock": 596,
-   "noon": 272,
+   "noon": 269,
    "range": 44,
    "spelled": 3
   },
   "by_evidence": {
-   "report": 3518,
-   "dispatch-header": 1130,
-   "dispatch-body": 734
+   "report": 3489,
+   "dispatch-header": 1131,
+   "dispatch-body": 648
   },
   "by_day_basis": {
-   "carried": 2026,
-   "same": 1702,
-   "scope-other": 358,
-   "rel": 112,
-   "none": 47,
-   "later": 7,
-   "dateline": 1130
+   "carried": 1939,
+   "same": 1634,
+   "scope-other": 351,
+   "rel": 160,
+   "none": 50,
+   "later": 3,
+   "dateline": 1131
   },
   "by_side": {
-   "union": 4754,
-   "confederate": 628
+   "union": 4666,
+   "confederate": 602
   },
-  "battle_days": 1498
+  "battle_days": 1514
  }
 }

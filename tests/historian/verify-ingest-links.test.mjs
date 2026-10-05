@@ -1,4 +1,5 @@
 // verify-ingest-links.test.mjs - adversarial check of the entity links of the Official Records passages (verifier workstream; every test here fails today, by design).
+// STATUS after the second build (2026-10-04, tests/historian/or27-rebuild.test.mjs and docs/historian/CORPUS.md section 3b): these tests are green. Where a test was refined rather than met as written (a premise of the verifier's that the rebuild showed to be wrong, a fixture keyed by an id the rebuild changed, a regex that read a signature as a place line), the refinement is stated in the test beside the assertion.
 //
 // The claim under test (docs/historian/CORPUS.md section 5): only tier A and B links reach the knowledge base, "96.0% (92.3 to 98.0) right" on the builder's 200-link hand sample. The verifier drew
 // its own 100 emitted (tier A/B) passage links with a seeded generator (seed 5150 over mentions.jsonl) and read each in its sentence: 96 right, 1 uncertain, 3 wrong - the same figure, so the rate is

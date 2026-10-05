@@ -45,6 +45,9 @@ export function loadOrRows({ rawDir, corpusDir }) {
   const dt = JSON.parse(fs.readFileSync(path.join(corpusDir, 'dispatches.json'), 'utf8')); const ci = (k) => dt.fields.indexOf(k);
   const signers = new Map(dt.rows.filter((r) => r[ci('signer_link')]).map((r) => [r[ci('id')], { id: r[ci('signer_link')], tier: r[ci('signer_tier')] }]));
   const route = new Map(dt.rows.map((r) => [r[ci('id')], { addressed: nameStems(r[ci('addressee')]), from: nameStems(String(r[ci('signer')] || '').split(/\s+/).slice(-1)[0], { upper: true }) }]));
+  // the author of a report is a sender too: F:<surname stem> marks the passages of the reports a man wrote, as it marks his dispatches, so that a question that names an author the site's registry does not hold
+  // ("what did Ruger report": 706 officers, not every colonel who reported) can still reach his report
+  for (const r of reports) { if (r.kind !== 'report' || !r.author || !r.author.name) continue; const sn = String(r.author.name).replace(/[,.]+$/, '').split(/s+/).filter(Boolean).pop(); if (sn) route.set(r.id, { addressed: [], from: nameStems(sn) }); }
   return { rows, reports, docs, man, signers, route, sha: sha256(buf).slice(0, 16) };
 }
 
@@ -72,7 +75,7 @@ export function finalizeOr(rows, reports, { idx, link, signers = new Map(), rout
     num: i, id: r.id, doc: r.doc, rec: r.rec, kind: r.kind, day: r.day, text: r.text, sb: r.sb, ents: ents.get(r.id) || [], clk: r.clk, source_id: r.source_id,
     prior: +((OR_PRIOR[r.kind] ?? 0.5) * (r.scope === 'campaign' ? 0.7 : 1)).toFixed(3), sens: [], pg: r.pg, scope: r.scope, part: r.part,
     cite: { short: r.cite.short, author_line: r.cite.author_line }, persp: r.persp, ia: r.cite.ia, words: r.words,
-    tags: (() => { const q = route.get(r.doc); return q ? [...q.addressed.map((x) => 'A:' + x), ...q.from.map((x) => 'F:' + x)] : []; })(),
+    tags: (() => { const q = route.get(r.doc); const days = [...new Set((r.clk || []).map((e) => (Array.isArray(e) ? e[1] : 0)).filter(Boolean))].map((d) => 'C:' + String(d).padStart(4, '0')); return [...(q ? [...q.addressed.map((x) => 'A:' + x), ...q.from.map((x) => 'F:' + x), ...(q.from.length ? [] : ['F:none'])] : []), ...days, ...(r.ds || []).map((d) => 'Y:' + String(d).padStart(4, '0'))]; })(),
   }));
   return { P, linkStats: stats };
 }

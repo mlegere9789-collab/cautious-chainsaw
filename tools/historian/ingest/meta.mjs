@@ -60,14 +60,14 @@ const MON = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, se
 export function writtenDate(text) {
   const lines = text.split('\n').map((x) => x.trim()).filter(Boolean);
   const head = lines.slice(0, 16);
-  for (let i = 0; i < head.length; i++) { const d = readDateline(head[i]); if (d && d.month && d.year >= 1863 && d.year <= 1864) return { y: d.year, m: d.month, d: d.day, text: head[i], place: d.place || null, basis: 'head' }; }
+  for (let i = 0; i < head.length; i++) { const d = readDateline(head[i]); if (d && !d.tail && d.month && d.year >= 1863 && d.year <= 1864) return { y: d.year, m: d.month, d: d.day, text: head[i], place: d.place || null, basis: 'head' }; }
   // a dateline run into the heading lines: "Hdqrs. 122d Ohio Yol. Infantry, June 18, 1863."
   for (let i = 0; i < head.length; i++) {
     const m = head[i].match(/\b(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\.?\s*(\d{1,2})\s*,?\s*1\s?8\s?6\s?([34])\b/);
     if (m && head[i].length < 130 && i > 0) return { y: 1860 + +m[3], m: MON[m[1].slice(0, 3).toLowerCase()], d: +m[2], text: head[i], place: head[i].slice(0, m.index).replace(/[,\s]+$/, '') || null, basis: 'head' };
   }
   const foot = lines.slice(-16);
-  for (let i = foot.length - 1; i >= 0; i--) { const d = readDateline(foot[i]); if (d && d.month && d.year >= 1863 && d.year <= 1864) return { y: d.year, m: d.month, d: d.day, text: foot[i], place: d.place || null, basis: 'foot' }; }
+  for (let i = foot.length - 1; i >= 0; i--) { const d = readDateline(foot[i]); if (d && !d.tail && d.month && d.year >= 1863 && d.year <= 1864) return { y: d.year, m: d.month, d: d.day, text: foot[i], place: d.place || null, basis: 'foot' }; }
   return null;
 }
 const iso = (d) => (d ? `${d.y}-${String(d.m).padStart(2, '0')}-${String(d.d).padStart(2, '0')}` : null);
@@ -135,13 +135,13 @@ export function dispatchMeta(doc, { part = 3 } = {}) {
   const d = doc.date; const wr = d ? { iso: iso(d), text: doc.date_text, place: doc.place, basis: 'dateline' } : null;
   const p0 = doc.pages.start, p1 = doc.pages.end;
   const cite = p0 === null ? `OR Ser. I, vol. 27, pt. ${part}` : `OR Ser. I, vol. 27, pt. ${part}, p${p1 && p1 !== p0 ? 'p' : ''}. ${p0}${p1 && p1 !== p0 ? '–' + p1 : ''}`;
-  const kind = doc.kind === 'order' ? 'order' : doc.kind === 'itinerary' ? 'itinerary' : 'correspondence';
-  const label = d ? (kind === 'order' ? `order dated ${monthName(d.m)} ${d.d}, ${d.y}` : `dispatch dated ${monthName(d.m)} ${d.d}, ${d.y}${doc.clock ? ', ' + doc.clock.text : ''}, written at the time`) : 'dispatch';
+  const kind = doc.kind === 'order' ? 'order' : doc.kind === 'itinerary' ? 'itinerary' : doc.kind === 'return' ? 'return' : 'correspondence';
+  const label = d ? (kind === 'return' ? `return dated ${monthName(d.m)} ${d.d}, ${d.y}` : kind === 'order' ? `order dated ${monthName(d.m)} ${d.d}, ${d.y}` : `dispatch dated ${monthName(d.m)} ${d.d}, ${d.y}${doc.clock ? ', ' + doc.clock.text : ''}, written at the time`) : 'dispatch';
   return {
     id: doc.doc_id, part, no: null, title: doc.header || null, toc_title: null, kind, side: doc.side, side_check: null, side_agrees: null,
     author: doc.signer ? { raw: doc.signer, rank: null, rank_class: 'none', name: doc.signer } : null, unit: null, level: 'other', scope: d && d.y === 1863 && ((d.m === 6 && d.d >= 28) || (d.m === 7 && d.d <= 5)) ? 'gettysburg' : 'campaign', scope_note: null,
     addressee: doc.addressee || null, written: wr, pages: { start: p0, end: p1 },
-    persp: { side: doc.side, genre: kind === 'order' ? 'order' : 'dispatch', contemporaneous: true, retrospective: false, lag_days: null, label },
-    cite, confidence: doc.confidence, recovered: null, clock: doc.clock ? { text: doc.clock.text, min: doc.clock.min } : null,
+    persp: { side: doc.side, genre: kind === 'order' ? 'order' : kind === 'return' ? 'return' : 'dispatch', contemporaneous: true, retrospective: false, lag_days: null, label },
+    cite, confidence: doc.confidence, recovered: null, clock: doc.clock ? { text: doc.clock.text, min: doc.clock.min } : null, received: doc.received || null, signer_title: doc.signer_title || null,
   };
 }

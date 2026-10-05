@@ -13,6 +13,8 @@ import { splitSentences, dl } from '../../../historian-src/core/text.js';
 import { stripHeads, countHeads } from './heads.mjs';
 import { findHeader, titleOverlap } from './or27-headers.mjs';
 import { segmentDispatches } from './or27-dispatch.mjs';
+import { leafChar, leafOfLine } from './leaves.mjs';
+import { stripNotes, isHeadFragment } from './notes.mjs';
 
 const sha8 = (s) => crypto.createHash('sha1').update(s).digest('hex').slice(0, 8);
 const words = (s) => (s.match(/\S+/g) || []).length;
@@ -70,19 +72,41 @@ export function cleanWhitespace(raw) {
 }
 
 /** join "Confed-\nerate" -> "Confederate"; keep "Brigadier-\nGeneral" as "Brigadier-General" */
-export function dehyphenate(t, edits = []) {
+const TENS = new Set(['twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']);
+const UNITS = new Set(['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth']);
+/**
+ * How the volume itself spells the words that a line break splits at a hyphen: for every "xx-yy" the number of times "xx-yy" stands whole inside a line and the number of times "xxyy" does. A line-end
+ * hyphen keeps its place when the hyphenated word is the volume's own spelling ("to-day", "Court-House", "re-enforcements": whole inside a line more often than the joined word is) and, whatever the counts,
+ * in the compound numbers that are always hyphenated ("thirty-seventh": tens and a unit). Without this the join read "thirtyseventh" (a regiment "Twentyseventh Indiana") and "to-day" as "today".
+ */
+export function compoundVotes(text) {
+  const hy = new Map(), joined = new Map();
+  for (const m of text.matchAll(/(?<![A-Za-z-])([A-Za-z]{2,})-([A-Za-z]{2,})(?![A-Za-z-])/g)) { const k = (m[1] + '-' + m[2]).toLowerCase(); hy.set(k, (hy.get(k) || 0) + 1); }
+  for (const m of text.matchAll(/(?<![A-Za-z-])([a-z]{4,})(?![A-Za-z-])/g)) joined.set(m[1], (joined.get(m[1]) || 0) + 1);
+  return { hy, joined };
+}
+const keepsHyphen = (a, rest, votes) => {
+  const al = a.toLowerCase(), rl = rest.toLowerCase();
+  if (TENS.has(al) && UNITS.has(rl)) return true;
+  return !!votes && (votes.hy.get(al + '-' + rl) || 0) > (votes.joined.get(al + rl) || 0);
+};
+export function dehyphenate(t, edits = [], votes = null) {
   // a page mark (MARK, see normalizeOcr) standing at the start of the continuation is carried to the end of the joined word
   return t.replace(/([A-Za-z]{2,})-\n(?!\n)(*)([A-Za-z])([A-Za-z]*)/g, (m, a, b0, b, c) => {
     const lowerNext = b === b.toLowerCase();
-    const out = lowerNext ? a + b + c : `${a}-${b}${c}`;
-    edits.push({ why: lowerNext ? 'dehyphenate' : 'hyphen-kept', from: m.replace('\n', '\\n').replace(//g, ''), to: out });
+    const keep = lowerNext && keepsHyphen(a, b + c, votes);
+    const out = lowerNext && !keep ? a + b + c : `${a}-${b}${c}`;
+    edits.push({ why: lowerNext && !keep ? 'dehyphenate' : 'hyphen-kept', from: m.replace('\n', '\\n').replace(//g, ''), to: out });
     return out + b0;
   });
 }
 
 /** remove running heads / page numbers; returns {text, pages:[{offset, page}]} where offset is the position in the returned text where that printed page begins */
-export function stripRunningHeads(t) {
+export function stripRunningHeads(t, { folio = null } = {}) {
   const lines = t.split('\n');
+  // leaf mode (leaves.mjs): a line that is one private-use character is the start of a scan leaf; the page of every stretch of text is the folio of the leaf it stands on, read from the Archive's own per-leaf
+  // text and page numbers, never from the heads (which are still taken out of the text, by what they say)
+  const leafAt = folio ? lines.map(leafOfLine) : null;
   const drop = new Set();
   const marks = []; // {line, page}
   const headLine = new Set();   // every line dropped as a page head (not signature marks): one cluster of them is one page boundary
@@ -102,6 +126,7 @@ export function stripRunningHeads(t) {
     return false;
   };
   for (let i = 0; i < lines.length; i++) {
+    if (leafAt && leafAt[i] >= 0) continue;
     if (takeHeads(i)) continue;
     {                                                                                              // a page number alone in the middle of a sentence ("... I communicated my views to him," / 470 / "and was informed ..."): the page break's own number
       const num = lines[i].match(/^\s*(\d{3,4})\s*$/);
@@ -133,6 +158,27 @@ export function stripRunningHeads(t) {
     const inl = stripInline(l);
     if (inl.changed) { lines[i] = inl.text; if (inl.page) marks.push({ line: i, page: inl.page }); if (!inl.text.trim()) drop.add(i); }
     takeHeads(i);                                                                                 // what the exact-spelling passes left or changed
+  }
+  if (leafAt) {
+    // the pieces of a running head the OCR broke across lines and the head strippers did not take ("N. C.," and the page number on lines of their own at the top of the leaf): dropped, the leaf's folio being known
+    { let cur = -1, seen = 0;
+      for (let i = 0; i < lines.length; i++) {
+        if (leafAt[i] >= 0) { cur = leafAt[i]; seen = 0; continue; }
+        // the first page of a part prints no running head, only its folio in parentheses at the foot ("(3)"): the page number, not text
+        { const pf = /^\(\s*(\d{1,4})\s*\)$/.exec(lines[i].trim()); if (pf && cur >= 0 && folio(cur) !== null && Math.abs(+pf[1] - folio(cur)) <= 1) { drop.add(i); continue; } }
+        if (drop.has(i) || !lines[i].trim() || seen >= 4) continue;
+        seen++;
+        if (isHeadFragment(lines[i], folio(cur))) { let more = false; for (let k = i + 1; k < lines.length && leafAt[k] < 0 && !more; k++) if (!drop.has(k) && lines[k].trim() && !isHeadFragment(lines[k], folio(cur))) more = true; if (more) drop.add(i); }
+        else if (!/^\d{1,4}$/.test(lines[i].trim())) seen = 99;
+      } }
+    const out = []; const pages = []; let off = 0, pending = null;
+    for (let i = 0; i < lines.length; i++) {
+      if (leafAt[i] >= 0) { pending = leafAt[i]; continue; }
+      if (drop.has(i)) continue;
+      if (pending !== null) { pages.push({ offset: off, page: folio(pending), leaf: pending }); pending = null; }
+      out.push(lines[i]); off += lines[i].length + 1;
+    }
+    return { text: out.join('\n'), pages, inferred: 0 };
   }
   // ---- page numbers ---------------------------------------------------------------------------------------------------------------------------------------
   // Every printed page has one head cluster (the head lines dropped above) and most carry a page number somewhere around it. The marks are candidates; a chain is chosen:
@@ -227,22 +273,32 @@ export function dictionaryRepair(text, { minDf = 200, maxRareDf = 1, minLen = 4 
   return { text: out, edits };
 }
 
-export function normalizeOcr(raw, { repair = true } = {}) {
-  const a = cleanWhitespace(raw);
+export function insertLeafMarks(raw, marks) {
+  let out = '', at = 0;
+  for (const m of marks) { out += raw.slice(at, m.off) + leafChar(m.leaf) + '\n'; at = m.off; }
+  return out + raw.slice(at);
+}
+export function normalizeOcr(raw, { repair = true, leaves = null } = {}) {
+  // leaves: { marks: [{ leaf, off }] (raw offsets of the leaf starts), folio(leaf) } from leaves.mjs; without it the page of a stretch is read from the running heads (the old way, kept for text with no leaf data)
+  const leafMode = !!(leaves && leaves.marks && leaves.marks.length);
+  const a = cleanWhitespace(leafMode ? insertLeafMarks(raw, leaves.marks) : raw);
   const edits = [...a.edits];
-  const h = stripRunningHeads(a.text);
+  // leaf mode: the notes the compilers printed (foot-of-page notes, '- Compiler.', cross references) and the pieces of a head the OCR left in the text are taken out and counted (notes.mjs)
+  let notes = [];
+  if (leafMode) { const nz = stripNotes(a.text); a.text = nz.text; notes = nz.removed; for (const n of notes) edits.push({ why: n.kind, leaf: n.leaf, from: n.text.slice(0, 200), to: '' }); }
+  const h = stripRunningHeads(a.text, leaves && leaves.marks && leaves.marks.length ? { folio: leaves.folio } : {});
   // the page marks travel through the joining of hyphenated words, the squeeze of blanks and the dictionary repair as one private-use character each (MARK) at their offset, so that every mark keeps its exact place:
   // the earlier way (find the first four words after the mark again in the changed text) put two pages whose first lines read alike ("Headquarters Army of the Potomac,") on one offset or on the wrong one
   let hs = h.text;
   for (const p of h.pages.map((q, i) => ({ ...q, i })).sort((x, y) => y.offset - x.offset || y.i - x.i)) hs = hs.slice(0, p.offset) + MARK + hs.slice(p.offset);
-  const d = dehyphenate(hs, edits);
+  const d = dehyphenate(hs, edits, compoundVotes(hs));
   let text = d.replace(/[ \t]+/g, ' ');
   if (repair) { const r = dictionaryRepair(text); text = r.text; edits.push(...r.edits); }
   const parts = text.split(MARK);
-  if (parts.length - 1 !== h.pages.length) return { text: text.replace(//g, ''), pages: remapPages(h.text, h.pages, text.replace(//g, '')), edits, pages_inferred: h.inferred || 0 };       // a mark was lost: the anchor search
+  if (parts.length - 1 !== h.pages.length) return { text: text.replace(//g, ''), pages: remapPages(h.text, h.pages, text.replace(//g, '')), edits, notes, pages_inferred: h.inferred || 0 };       // a mark was lost: the anchor search
   const clean = parts.join(''); const pages = []; let off = 0;
-  parts.forEach((s, k) => { off += s.length; if (k < h.pages.length) { let o = off; while (o < clean.length && /\s/.test(clean[o])) o++; pages.push({ offset: o, page: h.pages[k].page }); } });   // a page begins at its first printed character, not at the blank lines before it
-  return { text: clean, pages, edits, pages_inferred: h.inferred || 0 };
+  parts.forEach((s, k) => { off += s.length; if (k < h.pages.length) { let o = off; while (o < clean.length && /\s/.test(clean[o])) o++; pages.push({ offset: o, page: h.pages[k].page, ...(h.pages[k].leaf !== undefined ? { leaf: h.pages[k].leaf } : {}) }); } });   // a page begins at its first printed character, not at the blank lines before it
+  return { text: clean, pages, edits, notes, pages_inferred: h.inferred || 0 };
 }
 const MARK = '';
 /** page marks were recorded against the head-stripped text; after de-hyphenation and repair, locate each mark again by a short anchor of the text that follows it */
@@ -252,7 +308,7 @@ function remapPages(before, pages, after) {
     const anchor = before.slice(p.offset, p.offset + 60).replace(/\s+/g, ' ').trim().split(' ').slice(0, 4).join(' ');
     let idx = -1;
     if (anchor) { const re = new RegExp(anchor.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/ /g, '\\s+'), 'g'); re.lastIndex = from; const m = re.exec(after.replace(/\n/g, '\n')); if (m) idx = m.index; }
-    if (idx >= 0) { out.push({ offset: idx, page: p.page }); from = idx + 1; }                  // strictly after: two pages whose first lines read alike ("Headquarters Third Army Corps,") must not land on one offset
+    if (idx >= 0) { out.push({ offset: idx, page: p.page, ...(p.leaf !== undefined ? { leaf: p.leaf } : {}) }); from = idx + 1; }                  // strictly after: two pages whose first lines read alike ("Headquarters Third Army Corps,") must not land on one offset
   }
   return out;
 }
@@ -415,7 +471,7 @@ export function pageBreaks(raw, absStart, pageMarks) {
   for (let i = 0; i < raw.length && mi < marks.length; i++) {
     if (/\s/.test(raw[i])) { if (flat > 0) pend = true; continue; }
     if (pend) { flat++; pend = false; }
-    while (mi < marks.length && absStart + i >= marks[mi].offset) { out.push({ at: flat, page: marks[mi].page }); mi++; }
+    while (mi < marks.length && absStart + i >= marks[mi].offset) { out.push({ at: flat, page: marks[mi].page, ...(marks[mi].leaf !== undefined ? { leaf: marks[mi].leaf } : {}) }); mi++; }
     flat++;
   }
   return out;
@@ -424,15 +480,15 @@ export function pageBreaks(raw, absStart, pageMarks) {
 export function pageList(paras) {
   const pg = []; let at = 0, last = null;
   paras.forEach((p, k) => {
-    if (p.startPage !== null && p.startPage !== undefined && p.startPage !== last) { pg.push([k === 0 ? 0 : at, p.startPage]); last = p.startPage; }
-    for (const b of p.breaks || []) if (b.page !== last) { pg.push([at + b.at, b.page]); last = b.page; }
+    if (p.startPage !== null && p.startPage !== undefined && p.startPage !== last) { pg.push(p.startLeaf !== undefined && p.startLeaf !== null ? [k === 0 ? 0 : at, p.startPage, p.startLeaf] : [k === 0 ? 0 : at, p.startPage]); last = p.startPage; }
+    for (const b of p.breaks || []) if (b.page !== last) { pg.push(b.leaf !== undefined ? [at + b.at, b.page, b.leaf] : [at + b.at, b.page]); last = b.page; }
     at += p.text.length + 2;
   });
   return pg;
 }
 
 /** passages of ~150-250 words, paragraph aligned, never across documents; sb = sentence starts inside the passage. A short tail (< min words) is merged into the previous passage, so a passage never exceeds max + min - 1 words. */
-export function chunkDocument(doc, { target = 200, max = 250, min = 60, pageAt = null, pageMarks = null } = {}) {
+export function chunkDocument(doc, { target = 200, max = 250, min = 60, pageAt = null, pageMarks = null, leafAt = null } = {}) {
   const paras = []; let off = 0;
   const flatten = (x) => x.replace(/\s+/g, ' ').trim();
   for (const part of doc.text.split(/\n{2,}/)) {
@@ -459,7 +515,7 @@ export function chunkDocument(doc, { target = 200, max = 250, min = 60, pageAt =
     emit();
   }
   // where each paragraph starts and which printed pages begin inside it (for the citation of a quoted span)
-  if (pageAt) for (const p of paras) { p.startPage = pageAt(doc.start + p.s); p.breaks = pageBreaks(doc.text.slice(p.s, p.e), doc.start + p.s, pageMarks); }
+  if (pageAt) for (const p of paras) { p.startPage = pageAt(doc.start + p.s); if (leafAt) p.startLeaf = leafAt(doc.start + p.s); p.breaks = pageBreaks(doc.text.slice(p.s, p.e), doc.start + p.s, pageMarks); }
   const passages = []; let cur = [];
   const flush = () => {
     if (!cur.length) return;
@@ -557,8 +613,13 @@ export const narrativeWords = (paras) => paraWords(paras, (t) => LOWER_WORD.test
 export function stripTableCells(text) {
   const paras = String(text).split(/\n{2,}/).map((x) => x.trim()).filter(Boolean);
   const regions = tableRegions(paras);
-  if (!regions.length) return { text: paras.join('\n\n'), removed: 0, regions: 0, narrative: narrativeWords(paras), text_words: textWords(paras), keptIdx: paras.map((_, k) => k) };
-  const gone = new Set(); for (const [a, b] of regions) for (let k = a; k < b; k++) gone.add(k);
+  // a passage never opens with a bare number: the cell of a table or the page number a head left behind ("510 / [Inclosure No. 2.] Return of Casualties ...") is cut off the front. These cells are taken out but are no table
+  // region of their own (a short list that opens with numbers is not a table and is never dropped as one)
+  let lead = 0; while (lead < paras.length - 1 && CELL_PUNCT.test(paras[lead]) && paras[lead].length <= 12) lead++;
+  if (regions.length && regions[0][0] === 0) lead = 0;
+  if (!regions.length && !lead) return { text: paras.join('\n\n'), removed: 0, regions: 0, narrative: narrativeWords(paras), text_words: textWords(paras), keptIdx: paras.map((_, k) => k) };
+  const gone = new Set(); for (let k = 0; k < lead; k++) gone.add(k);
+  for (const [a, b] of regions) for (let k = a; k < b; k++) gone.add(k);
   const kept = paras.filter((_, k) => !gone.has(k));
   return { text: kept.join('\n\n'), removed: gone.size, regions: regions.length, narrative: narrativeWords(kept), text_words: textWords(kept), keptIdx: paras.map((_, k) => k).filter((k) => !gone.has(k)) };
 }
@@ -571,29 +632,30 @@ export function isTableDebris(text, { minText = 15, listText = 25 } = {}) {
   return r.regions > 0 && (r.text_words < minText || (r.narrative < minText && r.text_words < listText));
 }
 
-export function ingestOr27(raw, { repair = true, part = 1 } = {}) {
-  const norm = normalizeOcr(raw, { repair });
+export function ingestOr27(raw, { repair = true, part = 1, leaves = null } = {}) {
+  const norm = normalizeOcr(raw, { repair, leaves });
   // Part 3 holds dispatches, not numbered reports: its documents are cut at datelines (or27-dispatch.mjs)
   const dispatchMode = part === 3;
   // The first page of Part 3's text (the "CORRESPONDENCE, ETC." heading and the first dispatches) prints no running head, so no page mark stands in front of it: the text up to the first folio read (page 4) is one
   // page, and it is the page before that folio (page 3). Taken only when the stretch is as short as one page (it is 1,500 characters; the first folio is at p. 4 and the leaf before its leaf holds no folio of its own).
   let leadingPage = null;
-  if (dispatchMode && norm.pages.length && norm.pages[0].page > 1) {
+  if (!leaves && dispatchMode && norm.pages.length && norm.pages[0].page > 1) {
     const h = /\nCORRESPONDENCE, ETC\.?\s*\n/.exec(norm.text);
     if (h && h.index < norm.pages[0].offset && norm.pages[0].offset - h.index < 4000) { leadingPage = { offset: h.index + 1, page: norm.pages[0].page - 1, inferred: true }; norm.pages.unshift(leadingPage); norm.pages_inferred = (norm.pages_inferred || 0) + 1; }
   }
   const toc = dispatchMode ? [] : parseToc(norm.text);
   const seg = dispatchMode ? segmentDispatches(norm, { part }) : segmentReports(norm, toc, { part });
   const pageAt = (off) => { let p = null; for (const m of norm.pages) { if (m.offset <= off) p = m.page; else break; } return p; };
-  const chunked = seg.docs.flatMap((d) => chunkDocument(d, { pageAt, pageMarks: norm.pages }));
+  const leafAt = (off) => { let p = null; for (const m of norm.pages) { if (m.offset <= off) p = m.leaf === undefined ? null : m.leaf; else break; } return p; };
+  const chunked = seg.docs.flatMap((d) => chunkDocument(d, { pageAt, pageMarks: norm.pages, leafAt: leaves ? leafAt : null }));
   // an OCR'd table comes out as hundreds of one-cell paragraphs ("B", "0)", "a", "57", ...): worthless as a quotable passage, so it is dropped and counted (never silently)
   const debris = chunked.filter((p) => isTableDebris(p.text));
   // a chunk that holds a table AND prose keeps the prose: the cells are taken out, the sentence offsets and the id (a hash of the text) are recomputed
   let cleanedChunks = 0, cellParas = 0;
   const cleaned = chunked.filter((p) => !debris.includes(p)).map((p) => {
     const r = stripTableCells(p.text);
-    if (!r.regions) return p;
-    cleanedChunks++; cellParas += r.removed;
+    if (!r.removed) return p;
+    if (r.regions) cleanedChunks++; cellParas += r.removed;
     const sb = splitSentences(r.text).map((x) => x.s);
     const keptParas = p._paras ? r.keptIdx.map((k) => p._paras[k]) : null;
     return { ...p, id: `${p.doc_id}#${sha8(r.text)}`, text: r.text, sb: sb.length ? sb : [0], words: words(r.text), pg: keptParas ? pageList(keptParas) : p.pg, _paras: keptParas || undefined };

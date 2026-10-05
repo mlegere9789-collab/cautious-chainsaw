@@ -1,38 +1,38 @@
 {
- "measured_at": "2026-10-01",
+ "measured_at": "2026-10-05",
  "node": "v24.19.0",
  "hx": "historian-src\\dist\\hx-or27",
  "build": {
-  "passages": 8232,
-  "words": 1330088,
-  "files": 1189,
-  "vocabulary_terms": 20919,
+  "passages": 8405,
+  "words": 1323095,
+  "files": 1211,
+  "vocabulary_terms": 20732,
   "postings": {
    "files": 128,
-   "raw": 3625147,
-   "brotli": 1216015,
-   "largest_file": 79139
+   "raw": 3622777,
+   "brotli": 1218211,
+   "largest_file": 79917
   },
   "entity_postings": {
    "files": 32,
-   "raw": 191270,
-   "brotli": 46783
+   "raw": 315427,
+   "brotli": 72563
   },
   "text": {
-   "files": 1029,
-   "raw": 11489810,
-   "brotli": 3483705,
-   "largest_file": 19032,
+   "files": 1051,
+   "raw": 11654463,
+   "brotli": 3500332,
+   "largest_file": 20558,
    "passages_per_file": 8
   },
   "file_list": {
-   "path": "f/or27/files.c0458313.json",
-   "raw": 84067,
-   "brotli": 12268
+   "path": "f/or27/files.8b8dc430.json",
+   "raw": 85600,
+   "brotli": 12511
   },
   "total": {
-   "raw": 15390294,
-   "brotli": 4758771
+   "raw": 15678267,
+   "brotli": 4803617
   }
  },
  "first_paint": {
@@ -70,8 +70,8 @@
   },
   "with_corpus": {
    "manifest": {
-    "raw": 18800,
-    "brotli": 3627
+    "raw": 18825,
+    "brotli": 3644
    },
    "t1": [
     {
@@ -96,43 +96,43 @@
     }
    ],
    "total": {
-    "raw": 1541506,
-    "brotli": 205597
+    "raw": 1541531,
+    "brotli": 205614
    }
   },
   "t1_files_identical": true,
   "delta": {
-   "raw": 1043,
-   "brotli": 267
+   "raw": 1068,
+   "brotli": 284
   }
  },
  "per_question": {
   "corpus_questions": {
    "n": 106,
    "files": {
-    "p50": 12,
-    "p95": 31,
-    "max": 39
+    "p50": 13,
+    "p95": 29,
+    "max": 37
    },
    "raw_bytes": {
-    "p50": 224820,
-    "p95": 366113,
-    "max": 529837
+    "p50": 236899,
+    "p95": 459798,
+    "max": 565392
    },
    "brotli_bytes": {
-    "p50": 53665,
-    "p95": 96051,
-    "max": 151890
+    "p50": 57207,
+    "p95": 126057,
+    "max": 163784
    },
    "node_ms": {
-    "p50": 211.5,
-    "p95": 379.3,
-    "max": 467
+    "p50": 265.6,
+    "p95": 526.3,
+    "max": 660.5
    },
    "modelled_phone_ms": {
-    "p50": 1713,
-    "p95": 2597,
-    "max": 3227
+    "p50": 1932,
+    "p95": 3305,
+    "max": 4061
    }
   },
   "site_questions": {
@@ -153,42 +153,42 @@
     "max": 40243
    },
    "node_ms": {
-    "p50": 148.7,
-    "p95": 209.7,
-    "max": 209.7
+    "p50": 176.3,
+    "p95": 248.5,
+    "max": 248.5
    },
    "modelled_phone_ms": {
-    "p50": 1185,
-    "p95": 1476,
-    "max": 1476
+    "p50": 1302,
+    "p95": 1631,
+    "max": 1631
    }
   },
   "all": {
    "n": 113,
    "files": {
     "p50": 13,
-    "p95": 31,
-    "max": 39
+    "p95": 30,
+    "max": 37
    },
    "raw_bytes": {
-    "p50": 222271,
-    "p95": 366113,
-    "max": 529837
+    "p50": 233572,
+    "p95": 459798,
+    "max": 565392
    },
    "brotli_bytes": {
-    "p50": 52539,
-    "p95": 96051,
-    "max": 151890
+    "p50": 56102,
+    "p95": 126057,
+    "max": 163784
    },
    "node_ms": {
-    "p50": 209.7,
-    "p95": 379.3,
-    "max": 467
+    "p50": 253.6,
+    "p95": 526.3,
+    "max": 660.5
    },
    "modelled_phone_ms": {
-    "p50": 1674,
-    "p95": 2597,
-    "max": 3227
+    "p50": 1895,
+    "p95": 3305,
+    "max": 4061
    }
   }
  },
