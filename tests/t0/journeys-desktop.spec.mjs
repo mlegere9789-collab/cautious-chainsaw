@@ -700,7 +700,7 @@ suite.test('T0-CLK-02', 'phone shell: ticks 1 / 226 / 451 / 675 read JULY 1 / 2 
       const m = /JULY\s+(\d)\s+\d{1,2}:\d{2}\s*[AP]M/i.exec(txt);
       seen[tick] = m && +m[1];
       assertEq(seen[tick], day, `phone clock day at tick ${tick}`);
-      assert(!/July\s+[4-9],\s*1863|July\s+[4-9]\s+\d{1,2}:\d{2}|\d{1,2}:\d{2}\s*[AP]M\s+July\s+[4-9]/i.test(txt), `a July 4-9 date is rendered at tick ${tick}`);
+      assert(!/July\s+[4-9],\s*1863|July\s+[4-9]\s+\d{1,2}:\d{2}|\d{1,2}:\d{2}\s*[AP]M\s+July\s+[4-9]\b/i.test(txt), `a July 4-9 date is rendered at tick ${tick}`);
     }
     t.note('clock day by tick', seen);
     assertEq(S.collector.firstParty, [], 'errors');

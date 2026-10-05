@@ -248,10 +248,10 @@ for (const t of TRAINS) {
     const id = (txt) => {
       const o = {};
       o.title = ((/<title>([\s\S]*?)<\/title>/i.exec(txt) || [])[1] ?? null);
-      o.canonical = ((/<link[^>]*rel\s*=\s*["']canonical["'][^>]*href\s*=\s*["']([^"']*)["']/i.exec(txt) || [])[1] ?? null);
-      for (const m of txt.matchAll(/<meta[^>]*>/gi)) {
-        const k = (/(?:name|property)\s*=\s*["']([^"']+)["']/i.exec(m[0]) || [])[1];
-        if (k && /^(description|og:title|og:description|og:url|og:type|og:site_name|twitter:title|twitter:description|twitter:card)$/i.test(k)) o[k.toLowerCase()] = (/content\s*=\s*"([^"]*)"|content\s*=\s*'([^']*)'/i.exec(m[0]) || []).slice(1).find((x) => x !== undefined) ?? null;
+      o.canonical = ((/<link\b[^>]*rel\s*=\s*["']canonical["'][^>]*href\s*=\s*["']([^"']*)["']/i.exec(txt) || [])[1] ?? null);
+      for (const m of txt.matchAll(/<meta\b[^>]*>/gi)) {
+        const k = (/\b(?:name|property)\s*=\s*["']([^"']+)["']/i.exec(m[0]) || [])[1];
+        if (k && /^(description|og:title|og:description|og:url|og:type|og:site_name|twitter:title|twitter:description|twitter:card)$/i.test(k)) o[k.toLowerCase()] = (/\bcontent\s*=\s*"([^"]*)"|\bcontent\s*=\s*'([^']*)'/i.exec(m[0]) || []).slice(1).find((x) => x !== undefined) ?? null;
       }
       return o;
     };
