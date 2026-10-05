@@ -5,7 +5,7 @@
 //
 //   node tests/t0/walkthrough-guard.mutants.mjs                       all mutants (about 8 minutes, up to 75 Mapbox requests each, 1 to 3 Mapbox loads per mutant)
 //   node tests/t0/walkthrough-guard.mutants.mjs --only M04,M06        some of them
-//   node tests/t0/walkthrough-guard.mutants.mjs --r1c <dist>          the R1c snapshot to mutate for R01/R02 (default tmp/walkthrough-guard/trains/R1c/dist)
+//   node tests/t0/walkthrough-guard.mutants.mjs --r1c <dist>          the R1c tree to mutate for R01/R02 (default: the snapshot tmp/walkthrough-guard/trains/R1c/dist when it exists, else release/R1c/dist; only read)
 //   node tests/t0/walkthrough-guard.mutants.mjs --list
 process.env.T0_AGENT ??= 'walkthrough-guard';
 process.env.T0_PORT_BASE ??= '8920';
@@ -18,7 +18,7 @@ const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '.
 const argv = process.argv.slice(2);
 const opt = (name, dflt) => { const i = argv.indexOf(`--${name}`); return i >= 0 ? (argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : true) : dflt; };
 const BASE = path.join(REPO, 'baseline', 'dist');
-const R1C = path.resolve(REPO, String(opt('r1c', 'tmp/walkthrough-guard/trains/R1c/dist')));
+const R1C = path.resolve(REPO, String(opt('r1c', fs.existsSync(path.join(REPO, 'tmp/walkthrough-guard/trains/R1c/dist')) ? 'tmp/walkthrough-guard/trains/R1c/dist' : 'release/R1c/dist')));
 const OUT = path.join(REPO, 'tmp', process.env.T0_AGENT, 'mutants');
 const ONLY = opt('only', null) ? String(opt('only')).split(',') : null;
 const ENTRY = 'assets/index-Cg8FAMXN.js';
