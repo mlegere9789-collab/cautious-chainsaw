@@ -139,6 +139,12 @@ export function loadInputs({ asOf }) {
   claim('approved-bio-present', 'docs/content/APPROVED-BIO.md holds one approved paragraph that names the author and the project address', Boolean(bioMatch) && bioMatch[1].includes('Mike Legere') && bioMatch[1].includes(ADDRESS), INPUT_FILES.bio);
   const bio = bioMatch[1].trim();
   claim('contact-config-is-the-approved-address', 'every contact key of tools/copy/trust-config.json is the approved public address (or empty)', Object.values(JSON.parse(read('tools/copy/trust-config.json')).contact).every((v) => !v || v === ADDRESS), 'tools/copy/trust-config.json');
+  const plan11 = read('docs/plan/FINAL/11-copy-docs-content.md');
+  claim('plan-two-primary-works', 'the plan records that the Help list of nine works holds two primary sources', plan11.includes('9 works (2 primary)'), 'docs/plan/FINAL/11-copy-docs-content.md (F3)');
+  const storyKeys = new Set();
+  let storyCount = 0;
+  for (const n of [1, 2, 3]) for (const v of readJson(`baseline/dist/data/vignettes_part${n}.json`).vignettes) { storyCount++; Object.keys(v).forEach((k) => storyKeys.add(k)); }
+  claim('stories-carry-no-citation-field', 'no story record has a citation, source or page field (the live story files list their works once, at file level)', storyCount === facts.content.vignettes && ![...storyKeys].some((k) => /cite|citation|source|page/i.test(k)), 'baseline/dist/data/vignettes_part1..3.json');
   const gitMsg = (rev) => { try { return execFileSync('git', ['show', '-s', '--format=%B', rev], { cwd: REPO, encoding: 'utf8' }); } catch { return ''; } };
   const g1 = gitMsg('838b311'); const g2 = gitMsg('f348b34');
   claim('git-838b311-axe-and-targets', 'commit 838b311 records: sub-pages pass axe with 0 serious or critical violations on 25 pages at 1440, 375, 320, 412 and 768 px; 44 px (touch) and 24 px (mouse) targets; no text under 12 px', g1.includes('0 serious/critical, 25 pages, 1440/375/320/412/768') && g1.includes('44 px (touch) / 24 px (mouse) targets') && g1.includes('no text under 12 px'), 'git show 838b311');

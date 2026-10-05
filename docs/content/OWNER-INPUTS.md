@@ -65,7 +65,7 @@ Still optional on About: a photo with alt text, or links ("none requested yet" i
 | Sources and Methods | `creator.reviewer` | counts, the nine works the Help dialog lists, the casualty authorities, the register counts (computed from `data-src/sources-v2/registry.json`) |
 | Standard of Care | none open; a status moves only when evidence exists | the eight commitments (`docs/pitch/PITCH.md`), the evidence for each status |
 | Corrections | `confirmations.responseTargets` | the log format; the log is empty on purpose |
-| FAQ | `confirmations.nonAffiliation`, `confirmations.licenseWording` | every answer cites a file; 24 claims are re-checked at every build |
+| FAQ | `confirmations.nonAffiliation`, `confirmations.licenseWording` | every answer cites a file; 26 claims are re-checked at every build |
 | Accessibility Statement | `confirmations.responseTargets`, `confirmations.noScreenReaderTestOnRecord` | test results from the release notes and two commits; the keyboard reference generated from `tools/guide/features.json` |
 | Changelog | the release date or version (section 4) | entries from `ops/release-notes/R0.md` to `R1c.md` |
 | Contact | `confirmations.responseTargets` | the one public address |
