@@ -6,6 +6,9 @@
 //   python tools/t0/mon/mon_build.py --train R1c --out tmp/verify-monuments/mon-R1c                  build the tree under test (never into release/)
 //   python tools/t0/mon/mon_build.py --train R1c --out tmp/verify-monuments/ctl-R1c --without-mon    the same train without MON (control: VMON-13, -14 and -16 are red on it too, they are not MON's)
 //   node tests/t0/verify-monuments.spec.mjs                                   all tests against tmp/verify-monuments/mon-R1c/dist (about 250 tile requests; the tiles are cut off at 235)
+//                                                                             [2026-10-05, MON verifier fixes: the one numeric change of this file is the tile block of the desktop session, `used > 110` -> `used > 40`:
+//                                                                             with defect 01 fixed the list pick really flies to zoom 16 and loads new tiles, so the old threshold used up the 300-request cap before the
+//                                                                             phone tests (09, 10, 15) could boot a map; geometry, hit tests and keys need no tiles. No assertion changed; one process: 193 requests, 16 of 16]
 //   node tests/t0/verify-monuments.spec.mjs --dist <tree> --filter 'VMON-0[1-4]'     subset by id regex (each invocation has its own tile budget of 300)
 //   node tests/t0/verify-monuments.spec.mjs --expect-red                      exit 0 only while every selected test is still red (use it to notice a defect that was fixed)
 //
@@ -112,7 +115,7 @@ const F = {};
 const desk = async () => {
   if (!F.desk) { F.desk = await session({ width: 1440, height: 900, dpr: 1, mobile: false }, 'desktop'); await monOn(F.desk.page); }
   const S = F.desk;
-  if (tileBudget.used > 110 && !S.__blocked) { S.setTiles('block'); S.__blocked = true; }          // geometry, hit tests and keys need no tiles; the budget is kept for the phone sessions
+  if (tileBudget.used > 40 && !S.__blocked) { S.setTiles('block'); S.__blocked = true; }          // geometry, hit tests and keys need no tiles; the budget is kept for the phone sessions
   await tidy(S.page);
   return S;
 };
