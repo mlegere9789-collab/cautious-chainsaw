@@ -176,6 +176,7 @@ export async function validateLedger(data, opts = {}) {
       if (fs.existsSync(metaFile)) { const m = JSON.parse(fs.readFileSync(metaFile, 'utf8')); if (m.sha256 !== r.image.sha256) err(`reading ${r.id}: the cached image has a different hash than the one read`); }
       // OCR check
       const oc = q.ocr_check;
+      for (const v of (oc && oc.known_ocr_variants) || []) if (keyOf(v.printed) === keyOf(v.ocr)) err(`quote ${q.id}: an OCR variant must differ from the printed reading`);
       if (oc) {
         try {
           const leaves = await leavesOf(q, offline);
@@ -185,7 +186,6 @@ export async function validateLedger(data, opts = {}) {
             const hits = locateQuote(leaves, v.ocr).map((h) => h.leaf);
             if (!hits.includes(leaf)) warn(`quote ${q.id}: the recorded OCR variant "${v.ocr}" is no longer on leaf ${leaf} (OCR text changed?)`);
             if (locateQuote(leaves, v.printed).some((h) => h.leaf === leaf)) warn(`quote ${q.id}: the printed reading "${v.printed}" now appears in the OCR text: the OCR may have been corrected`);
-            if (keyOf(v.printed) === keyOf(v.ocr)) err(`quote ${q.id}: an OCR variant must differ from the printed reading`);
           }
           const p = pageOfLeaf(leaves, leaf);
           if (p.page !== q.printed_page) err(`quote ${q.id}: printed page ${q.printed_page} but the running head of leaf ${leaf} gives ${p.page}`);
@@ -327,6 +327,13 @@ export async function validateLedger(data, opts = {}) {
     }
   }
   metrics.figures_single_method = Math.max(0, metrics.figures_single_method);
+  if (metrics.quotes_checked_against_windows === 0 && !opts.skipVerificationCompare) {
+    for (const row of data.rows || []) for (const val of row.values) {
+      const stored = val.verification && val.verification.figures, got = details[`${row.id}.${val.id}`] || {};
+      if (!stored) continue;
+      for (const [name, g] of Object.entries(got)) { const st = stored[name]; if (!st || JSON.stringify(st.methods) !== JSON.stringify(g.methods) || st.checksum !== g.checksum) err(`${row.id}.${val.id}: the recorded verification of ${name} (${st ? st.methods.join('+') : 'none'}) differs from the recomputation (${g.methods.join('+')})`); }
+    }
+  }
   return { errors, warnings, metrics, details };
 }
 

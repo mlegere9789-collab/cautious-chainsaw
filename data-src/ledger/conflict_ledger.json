@@ -683,6 +683,21 @@
       "who": "Thomas L. Livermore (the additions to the returns are his own)"
     },
     {
+      "id": "Q-liv-p103-fn",
+      "type": "image",
+      "source": "livermore-1900",
+      "ia": "numberslosses00liverich",
+      "kind": "djvu",
+      "text": "Add losses at Gettysburg as above 28,070",
+      "printed_page": 103,
+      "reading": "VR-liv-p103",
+      "ocr_check": {
+        "expect_found": ["Add losses at Gettysburg as above 28,070"],
+        "known_ocr_variants": []
+      },
+      "who": "Thomas L. Livermore, footnote 1 to the Confederate computation"
+    },
+    {
       "id": "Q-liv-p103-strength",
       "type": "image",
       "source": "livermore-1900",
@@ -1889,14 +1904,15 @@
           "edition": "Boston 1900",
           "page": 103,
           "tier": "A1",
-          "quote": ["Q-liv-p103-conf"],
+          "quote": ["Q-liv-p103-conf", "Q-liv-p103-fn"],
           "figures": {
             "killed": 3903,
             "wounded": 18735,
             "missing": 5425,
-            "killed_wounded": 22638
+            "killed_wounded": 22638,
+            "footnote_total": 28070
           },
-          "what_is_counted": "the returns (2,592 / 12,709 / 5,150) plus his own additions: 6,026 wounded and 275 missing \"captured in excess of 770 reported\", and 1,311 killed \"to equal the average proportion of killed to 4.8 wounded\"; no grand total is printed (28,063 is the sum)",
+          "what_is_counted": "the returns (2,592 / 12,709 / 5,150) plus his own additions: 6,026 wounded and 275 missing \"captured in excess of 770 reported\", and 1,311 killed \"to equal the average proportion of killed to 4.8 wounded\"; no grand total is printed in the table (28,063 is the sum); his footnote 1, computing the number engaged on the returns of July 31, prints \"losses at Gettysburg as above 28,070\", 7 more than the sum, and does not explain the difference",
           "derived": {
             "total": 28063
           },
@@ -1917,6 +1933,17 @@
               "type": "sum",
               "parts": [5150, 275],
               "total": 5425
+            },
+            {
+              "type": "sum",
+              "parts": [49637, 28070],
+              "total": 77707
+            },
+            {
+              "type": "diff",
+              "from": 50306,
+              "minus": [669],
+              "total": 49637
             }
           ],
           "verification": {
@@ -1936,6 +1963,10 @@
               "killed_wounded": {
                 "methods": ["image", "ocr_corroborates_image"],
                 "checksum": false
+              },
+              "footnote_total": {
+                "methods": ["image", "ocr_corroborates_image"],
+                "checksum": true
               }
             },
             "level": "two_extraction_methods"
@@ -2016,7 +2047,7 @@
         "rule": "Official Records returns first (pitch 2.5b authority ranking for casualties), shown with the editors' own warning that it is approximative. A display order, not a claim that it is true."
       },
       "status": "open",
-      "reason_for_difference": "No Confederate total is settled. The Official Records return counts what commanders reported (and says many \"missing\" were killed or wounded, especially Pickett's division). Livermore adds to it: wounded and missing captured beyond the reported numbers (6,026 and 275) and 1,311 killed to match the average proportion of killed to wounded; his sum 28,063 equals the figure the pitch lists for the American Battlefield Trust (the Trust page was not fetched: link-out only). Jacobs counts stragglers and deserters too. The NPS figure is a round estimate.",
+      "reason_for_difference": "No Confederate total is settled. The Official Records return counts what commanders reported (and says many \"missing\" were killed or wounded, especially Pickett's division). Livermore adds to it: wounded and missing captured beyond the reported numbers (6,026 and 275) and 1,311 killed to match the average proportion of killed to wounded; the sum of his printed components, 28,063, equals the figure the pitch lists for the American Battlefield Trust (the Trust page was not fetched: link-out only), while his own footnote prints 28,070. Jacobs counts stragglers and deserters too. The NPS figure is a round estimate.",
       "what_would_settle": "Name-by-name Confederate rolls (Krick, 2004, graded the brigade returns; not verified here), and the Union prisoner-of-war records the Official Records mention (see WSD-08).",
       "review": [
         {
@@ -2031,7 +2062,7 @@
       "held_back": [
         {
           "claim": "Krick (2004): 22,587; Stone Sentinels: 22,709; Busey and Martin (2005): 23,231 (4,708 / 12,693 / 5,830); American Battlefield Trust: 28,063; Livermore \"27,823\" as listed in the pitch",
-          "reason": "none could be verified from an accessible source: Krick and Busey and Martin were not opened (Busey and Martin only as cited by Wikipedia), Stone Sentinels is a link-out source, the Trust bans scraping and was not fetched, and Livermore's printed figures give 28,063 (K+W 22,638 plus missing 5,425), not 27,823."
+          "reason": "none could be verified from an accessible source: Krick and Busey and Martin were not opened (Busey and Martin only as cited by Wikipedia), Stone Sentinels is a link-out source, the Trust bans scraping and was not fetched, and Livermore's printed figures give 28,063 (K+W 22,638 plus missing 5,425; his footnote prints 28,070), not 27,823."
         }
       ]
     },
@@ -4678,9 +4709,9 @@
   "summary": {
     "rows": 20,
     "values": 92,
-    "quotes": 68,
-    "figures": 140,
-    "figures_two_extraction_methods": 103,
+    "quotes": 69,
+    "figures": 141,
+    "figures_two_extraction_methods": 104,
     "figures_ocr_plus_checksum": 17,
     "figures_single_method": 20
   }

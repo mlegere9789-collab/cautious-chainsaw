@@ -103,7 +103,7 @@ export async function build() {
 async function main() {
   const { data, windows, problems } = await build();
   // validate first (offline: the sources were just cached by the build), attach the verification block, validate again
-  const v1 = await validateLedger(data, { offline: true, windows });
+  const v1 = await validateLedger(data, { offline: true, windows, skipVerificationCompare: true });
   for (const row of data.rows) for (const val of row.values) {
     const d = v1.details[`${row.id}.${val.id}`] || {};
     val.verification = { figures: Object.fromEntries(Object.entries(d).map(([k, x]) => [k, { methods: x.methods, checksum: x.checksum }])) };

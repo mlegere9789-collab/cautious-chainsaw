@@ -14,7 +14,7 @@ import path from 'node:path';
 import { loadJson, schemaErrors, isMain, ROOT } from './schema-util.mjs';
 import * as K from './clock.mjs';
 import * as C from './astro-core.mjs';
-import { loadAnchors, tickToLmtMinutes, lmtMinutesToUtMs } from './tickclock.mjs';
+import { loadAnchors, tickToLmtMinutes, lmtMinutesToUtMs, lmtMinutesToTick, parseLmt } from './tickclock.mjs';
 import { fetchCached, readCached, CACHE_DIR } from './fetch.mjs';
 import { htmlToText } from './htmltext.mjs';
 import { alnumKey, loadIaLeaves } from './ia-pages.mjs';
@@ -151,6 +151,19 @@ export async function validateAstroByTick(data, opts = {}) {
     if (up !== (moonAlt >= -0.8333 ? 1 : 0)) err(`tick ${tick}: moon_up ${up} but moon altitude ${moonAlt}`);
   });
   if ((data.rows || []).length !== 675) err(`expected 675 rows, found ${(data.rows || []).length}`);
+  // events placed on the tick clock: recomputed from astro_by_day (the clock times) and the embedded anchors (the inverse map)
+  const byDay = opts.astroByDay || loadJson('data-src/environment/astro_by_day.json');
+  for (const e of data.events || []) {
+    const d = byDay.days.find((x) => x.date === e.date);
+    const v = d && (e.event.startsWith('moon') ? d.moon : d.sun)[e.event];
+    if (!v || v.absent) { err(`event ${e.date} ${e.event}: no such value in astro_by_day.json`); continue; }
+    if (v.lmt !== e.lmt || v.lmt_hms !== e.lmt_hms) err(`event ${e.date} ${e.event}: lmt ${e.lmt} ${e.lmt_hms} differs from astro_by_day.json (${v.lmt} ${v.lmt_hms})`);
+    const min = parseLmt(`${e.date}T${v.lmt_hms.slice(0, 5)}`) + Number(v.lmt_hms.slice(6, 8)) / 60;
+    if (Math.abs(min - e.lmt_min) > 0.011) err(`event ${e.date} ${e.event}: lmt_min ${e.lmt_min} but the clock time gives ${min.toFixed(2)}`);
+    const tk = lmtMinutesToTick(min, anchors);
+    if ((tk == null) !== (e.tick == null) || (tk != null && Math.abs(tk - e.tick) > 0.011)) err(`event ${e.date} ${e.event}: tick ${e.tick} but the embedded anchors give ${tk == null ? 'null' : tk.toFixed(2)}`);
+    if (e.tick != null) { const back = tickToLmtMinutes(e.tick, anchors); if (Math.abs(back - e.lmt_min) > 0.2) err(`event ${e.date} ${e.event}: tick ${e.tick} maps back to ${back.toFixed(2)} min, not ${e.lmt_min}`); }
+  }
   // staleness against the live anchors
   try {
     const live = loadAnchors();
@@ -229,7 +242,16 @@ export async function validateWeather(data, opts = {}) {
       if (!keyOf(text).includes(keyOf(x.text))) err(`external statement ${x.id}: "${x.text.slice(0, 50)}" not found in the cached page`);
       if (x.absent_text && keyOf(text).includes(keyOf(x.absent_text)) && x.absent_text === 'Gettysburg') err(`external statement ${x.id}: the cached MRCC station list now contains "Gettysburg": the claim that no Gettysburg station was keyed is out of date`);
       if (r.meta.sha256 !== x.sha256) warnings.push(`external statement ${x.id}: the cached page differs from the one the data was built on`);
-    } catch (e) { if (e.name !== 'NotCachedError') throw e; if (opts.requireCache) err(`${x.cache} not cached and --require-cache is set`); }
+    } catch (e) {
+      if (e.name !== 'NotCachedError') throw e;
+      if (opts.requireCache) err(`${x.cache} not cached and --require-cache is set`);
+      else {
+        const win = windows[x.id];
+        if (!win) warnings.push(`external statement ${x.id}: page not cached and no committed window`);
+        else if (!keyOf(win.text).includes(keyOf(x.text))) err(`external statement ${x.id}: the text is not in the committed window (offline check)`);
+        else if (x.absent_text === 'Gettysburg' && keyOf((windows[x.id + '|absent'] || { text: '' }).text).includes('Gettysburg')) err(`external statement ${x.id}: the committed MRCC window contains Gettysburg`);
+      }
+    }
   }
 
   // ---- observations

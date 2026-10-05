@@ -4,7 +4,7 @@
   "title": "Sun and moon at each of the 675 ticks (candidate clock)",
   "description": "Computed. Depends on the UNSIGNED time model only through tools/environment/tickclock.mjs; the anchors used are embedded with a SHA-256 of the source document so staleness is detected.",
   "type": "object",
-  "required": ["schema_version", "dataset", "title", "status", "badge", "method", "cites", "time_model", "conventions", "cross_check_summary", "columns", "rows"],
+  "required": ["schema_version", "dataset", "title", "status", "badge", "method", "cites", "time_model", "conventions", "cross_check_summary", "events", "columns", "rows"],
   "properties": {
     "schema_version": { "const": 1 },
     "dataset": { "const": "astro_by_tick" },
@@ -14,7 +14,7 @@
     "cites": { "type": "array", "minItems": 2 },
     "time_model": {
       "type": "object",
-      "required": ["source", "version", "release", "sha256", "tick_max", "function", "anchors", "anchors_awaiting_historian", "note"],
+      "required": ["source", "version", "release", "sha256", "tick_max", "function", "anchors", "anchors_needing_historian", "note"],
       "properties": {
         "release": { "const": "candidate" },
         "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
@@ -25,6 +25,7 @@
     },
     "conventions": { "type": "object", "required": ["clock", "altitude", "light", "moon_up", "moon_illum_pct", "precision"] },
     "cross_check_summary": { "type": "object", "required": ["ticks", "method_b_vs_a_max_abs_sun_alt_deg", "method_b_vs_a_max_abs_moon_alt_deg", "method_b_vs_a_max_abs_az_deg", "method_b_vs_a_max_abs_illum_pct"] },
+    "events": { "type": "array", "minItems": 20, "items": { "type": "object", "required": ["date", "event", "lmt", "lmt_hms", "lmt_min", "tick"], "properties": { "date": { "enum": ["1863-07-01", "1863-07-02", "1863-07-03"] }, "event": { "enum": ["civil_dawn", "sunrise", "solar_transit", "sunset", "civil_dusk", "nautical_dawn", "nautical_dusk", "moonrise", "moon_transit", "moonset"] }, "lmt_min": { "type": "number" }, "tick": { "type": ["number", "null"], "minimum": 1, "maximum": 675 } } } },
     "columns": { "const": ["tick", "lmt_min", "lmt", "sun_alt_deg", "sun_az_deg", "moon_alt_deg", "moon_az_deg", "moon_illum_pct", "light", "moon_up"] },
     "rows": {
       "type": "array", "minItems": 675, "maxItems": 675,

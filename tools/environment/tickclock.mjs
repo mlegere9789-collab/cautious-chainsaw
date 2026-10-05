@@ -41,5 +41,14 @@ export function tickToLmtMinutes(tick, anchors) {
   const a = anchors[lo], b = anchors[hi];
   return tick >= b.tick ? b.min : a.min + ((tick - a.tick) * (b.min - a.min)) / (b.tick - a.tick);
 }
+/** the inverse: minutes since 1863-07-01T00:00 LMT -> a fractional tick (null outside the first and last anchor). Same dependency on the anchors, nothing else. */
+export function lmtMinutesToTick(min, anchors) {
+  const first = anchors[0], last = anchors[anchors.length - 1];
+  if (!Number.isFinite(min) || min < first.min || min > last.min) return null;
+  let lo = 0, hi = anchors.length - 1;
+  while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (anchors[mid].min <= min) lo = mid; else hi = mid; }
+  const a = anchors[lo], b = anchors[hi];
+  return min >= b.min ? b.tick : a.tick + ((min - a.min) * (b.tick - a.tick)) / (b.min - a.min);
+}
 /** minutes since 1863-07-01T00:00 LMT -> UT milliseconds (LMT = UT + lon/15 h) */
 export const lmtMinutesToUtMs = (min, lmtOffsetMs) => Date.UTC(1863, 6, 1) + min * 60000 - lmtOffsetMs;

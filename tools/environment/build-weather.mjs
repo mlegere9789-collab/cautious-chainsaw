@@ -227,6 +227,12 @@ export async function build() {
     { id: 'X-mrcc-keyed', cache: 'mrcc-forts-stations.html', url: 'https://mrcc.purdue.edu/FORTS/stations', sha256: mrcc.meta.sha256, retrieved: mrcc.meta.retrieved.slice(0, 10), text: 'Harrisburg', note: 'The MRCC list of keyed (digitised) FORTS stations names these Pennsylvania stations: Blooming Grove, Canonsburg, Carlisle, Erie, Franklin, Germantown, Harrisburg, Morrisville, Philadelphia, Pittsburgh. Gettysburg is not among them, so there is no keyed copy of Jacobs\'s readings to cross-check against; the NCEI images are controlled-access and were never fetched.', absent_text: 'Gettysburg' },
   ];
 
+  for (const x of external_statements) {
+    const text = htmlToText(readCached((await fetchCached(x.url, { name: x.cache })).file)).replace(/\s+/g, ' ');
+    const i = text.indexOf(x.text);
+    windows[x.id] = { text: i >= 0 ? text.slice(Math.max(0, i - 60), i + x.text.length + 60) : text.slice(0, 300) };
+    if (x.absent_text) windows[x.id + '|absent'] = { text: 'the list of Pennsylvania stations: ' + text.slice(text.indexOf('Blooming_Grove') - 20, text.indexOf('Pittsburgh') + 40) };
+  }
   const contested = [
     { id: 'C-wind-jul1', observation: 'W-1863-07-01-wind-speed', question: 'How fast was the wind on July 1 (and, by inheritance, July 2)?', values: [{ value: 2, unit: 'miles per hour', sources: ['rx'] }, { value: 12, unit: 'miles per hour', sources: ['ecw', 'ecw-image'] }], status: 'open', shown_first: null, shown_first_rule: 'No value is shown first: both are shown with their sources until the printed page or the form is read. A page may state "Contested: 2 or 12 miles per hour".' },
     { id: 'C-morning-jul2', question: 'What was the morning of July 2 like?', values: [{ summary: 'pleasant, calm, sun shining mildly through a smoky atmosphere', witness: 'Michael Jacobs, Notes (1864), p. 32', quote: 'Q-N-morning-jul2', badge: 'Reported' }, { summary: 'thick and sultry, sky overcast with low, vapory clouds', witness: 'Frank A. Haskell, The Battle of Gettysburg (Wisconsin History Commission reprint, 1908), p. 20', quote: 'Q-haskell-morning', badge: 'Reported' }], status: 'open', note: 'Different places and hours: Jacobs was in the town; Haskell rode with the Second Corps up the Taneytown road before six. Written down at different times (Jacobs 1863-64; Haskell a letter of July 1863 first printed in 1898). Both are shown.' },

@@ -246,8 +246,15 @@
         "review_flag": "owner-sign"
       }
     ],
-    "anchors_awaiting_historian": [1, 5, 28, 36, 53, 75, 90, 100, 226, 248, 275, 302, 326, 500, 515, 538, 556, 675],
-    "note": "CANDIDATE. Nothing here approves it. The five anchors the plan lists as needing a historian are ticks 75, 90, 248, 275 and 538 (docs/plan/FINAL/00-README.md section 6)."
+    "anchors_needing_historian": [75, 90, 248, 275, 538],
+    "anchors_by_review_flag": {
+      "evidence-weak": [1, 28, 36, 53, 302, 326, 500, 515, 556],
+      "owner-decision": [5],
+      "owner-sign": [100, 226, 675],
+      "needs-historian": [75, 90, 248, 275, 538],
+      "none": [12, 57, 64, 72, 240, 256, 267, 280, 295, 314, 340, 451, 518, 551, 568]
+    },
+    "note": "CANDIDATE. Nothing here approves it. The anchors flagged needs-historian in the document are ticks 75, 90, 248, 275 and 538, the five the plan lists (docs/plan/FINAL/00-README.md section 6)."
   },
   "conventions": {
     "clock": "LMT, minutes since 1863-07-01T00:00 local mean time (lmt_min) and a label \"MM-DD HH:MM\" (July).",
@@ -264,6 +271,248 @@
     "method_b_vs_a_max_abs_az_deg": 0.021,
     "method_b_vs_a_max_abs_illum_pct": 0.004
   },
+  "events_note": "Each event of astro_by_day (July 1-3) placed on the candidate tick clock: tick is fractional (2 decimals) and null when the event is before tick 1 or after tick 675. These numbers move with the anchors; rebuild after any anchor change.",
+  "events": [
+    {
+      "date": "1863-07-01",
+      "event": "civil_dawn",
+      "lmt": "04:02",
+      "lmt_hms": "04:02:10",
+      "lmt_min": 242.17,
+      "tick": null,
+      "outside_tick_range": "before tick 1 (July 1 05:00 LMT)"
+    },
+    {
+      "date": "1863-07-01",
+      "event": "sunrise",
+      "lmt": "04:35",
+      "lmt_hms": "04:34:48",
+      "lmt_min": 274.8,
+      "tick": null,
+      "outside_tick_range": "before tick 1 (July 1 05:00 LMT)"
+    },
+    {
+      "date": "1863-07-01",
+      "event": "solar_transit",
+      "lmt": "12:03",
+      "lmt_hms": "12:03:28",
+      "lmt_min": 723.47,
+      "tick": 41.14
+    },
+    {
+      "date": "1863-07-01",
+      "event": "sunset",
+      "lmt": "19:32",
+      "lmt_hms": "19:31:57",
+      "lmt_min": 1171.95,
+      "tick": 97.66
+    },
+    {
+      "date": "1863-07-01",
+      "event": "civil_dusk",
+      "lmt": "20:05",
+      "lmt_hms": "20:04:32",
+      "lmt_min": 1204.53,
+      "tick": 101.12
+    },
+    {
+      "date": "1863-07-01",
+      "event": "nautical_dawn",
+      "lmt": "03:21",
+      "lmt_hms": "03:20:54",
+      "lmt_min": 200.9,
+      "tick": null,
+      "outside_tick_range": "before tick 1 (July 1 05:00 LMT)"
+    },
+    {
+      "date": "1863-07-01",
+      "event": "nautical_dusk",
+      "lmt": "20:46",
+      "lmt_hms": "20:45:44",
+      "lmt_min": 1245.73,
+      "tick": 111.3
+    },
+    {
+      "date": "1863-07-01",
+      "event": "moonrise",
+      "lmt": "19:53",
+      "lmt_hms": "19:53:12",
+      "lmt_min": 1193.2,
+      "tick": 99.43
+    },
+    {
+      "date": "1863-07-01",
+      "event": "moonset",
+      "lmt": "04:59",
+      "lmt_hms": "04:59:05",
+      "lmt_min": 299.08,
+      "tick": null,
+      "outside_tick_range": "before tick 1 (July 1 05:00 LMT)"
+    },
+    {
+      "date": "1863-07-02",
+      "event": "civil_dawn",
+      "lmt": "04:03",
+      "lmt_hms": "04:02:41",
+      "lmt_min": 1682.68,
+      "tick": 219.25
+    },
+    {
+      "date": "1863-07-02",
+      "event": "sunrise",
+      "lmt": "04:35",
+      "lmt_hms": "04:35:17",
+      "lmt_min": 1715.28,
+      "tick": 226.16
+    },
+    {
+      "date": "1863-07-02",
+      "event": "solar_transit",
+      "lmt": "12:04",
+      "lmt_hms": "12:03:39",
+      "lmt_min": 2163.65,
+      "tick": 240.19
+    },
+    {
+      "date": "1863-07-02",
+      "event": "sunset",
+      "lmt": "19:32",
+      "lmt_hms": "19:31:49",
+      "lmt_min": 2611.82,
+      "tick": 317.54
+    },
+    {
+      "date": "1863-07-02",
+      "event": "civil_dusk",
+      "lmt": "20:04",
+      "lmt_hms": "20:04:22",
+      "lmt_min": 2644.37,
+      "tick": 326.41
+    },
+    {
+      "date": "1863-07-02",
+      "event": "nautical_dawn",
+      "lmt": "03:21",
+      "lmt_hms": "03:21:29",
+      "lmt_min": 1641.48,
+      "tick": 209.07
+    },
+    {
+      "date": "1863-07-02",
+      "event": "nautical_dusk",
+      "lmt": "20:45",
+      "lmt_hms": "20:45:30",
+      "lmt_min": 2685.5,
+      "tick": 330.25
+    },
+    {
+      "date": "1863-07-02",
+      "event": "moonrise",
+      "lmt": "20:38",
+      "lmt_hms": "20:37:35",
+      "lmt_min": 2677.58,
+      "tick": 329.51
+    },
+    {
+      "date": "1863-07-02",
+      "event": "moon_transit",
+      "lmt": "01:01",
+      "lmt_hms": "01:00:34",
+      "lmt_min": 1500.57,
+      "tick": 174.26
+    },
+    {
+      "date": "1863-07-02",
+      "event": "moonset",
+      "lmt": "06:14",
+      "lmt_hms": "06:13:46",
+      "lmt_min": 1813.77,
+      "tick": 229.23
+    },
+    {
+      "date": "1863-07-03",
+      "event": "civil_dawn",
+      "lmt": "04:03",
+      "lmt_hms": "04:03:14",
+      "lmt_min": 3123.23,
+      "tick": 442.75
+    },
+    {
+      "date": "1863-07-03",
+      "event": "sunrise",
+      "lmt": "04:36",
+      "lmt_hms": "04:35:47",
+      "lmt_min": 3155.78,
+      "tick": 452.05
+    },
+    {
+      "date": "1863-07-03",
+      "event": "solar_transit",
+      "lmt": "12:04",
+      "lmt_hms": "12:03:50",
+      "lmt_min": 3603.83,
+      "tick": 516.51
+    },
+    {
+      "date": "1863-07-03",
+      "event": "sunset",
+      "lmt": "19:32",
+      "lmt_hms": "19:31:40",
+      "lmt_min": 4051.67,
+      "tick": 656.63
+    },
+    {
+      "date": "1863-07-03",
+      "event": "civil_dusk",
+      "lmt": "20:04",
+      "lmt_hms": "20:04:10",
+      "lmt_min": 4084.17,
+      "tick": null,
+      "outside_tick_range": "after tick 675 (July 3 20:00 LMT)"
+    },
+    {
+      "date": "1863-07-03",
+      "event": "nautical_dawn",
+      "lmt": "03:22",
+      "lmt_hms": "03:22:06",
+      "lmt_min": 3082.1,
+      "tick": 430.06
+    },
+    {
+      "date": "1863-07-03",
+      "event": "nautical_dusk",
+      "lmt": "20:45",
+      "lmt_hms": "20:45:13",
+      "lmt_min": 4125.22,
+      "tick": null,
+      "outside_tick_range": "after tick 675 (July 3 20:00 LMT)"
+    },
+    {
+      "date": "1863-07-03",
+      "event": "moonrise",
+      "lmt": "21:16",
+      "lmt_hms": "21:15:55",
+      "lmt_min": 4155.92,
+      "tick": null,
+      "outside_tick_range": "after tick 675 (July 3 20:00 LMT)"
+    },
+    {
+      "date": "1863-07-03",
+      "event": "moon_transit",
+      "lmt": "02:00",
+      "lmt_hms": "01:59:33",
+      "lmt_min": 2999.55,
+      "tick": 404.61
+    },
+    {
+      "date": "1863-07-03",
+      "event": "moonset",
+      "lmt": "07:29",
+      "lmt_hms": "07:29:00",
+      "lmt_min": 3329,
+      "tick": 483.49
+    }
+  ],
   "columns": ["tick", "lmt_min", "lmt", "sun_alt_deg", "sun_az_deg", "moon_alt_deg", "moon_az_deg", "moon_illum_pct", "light", "moon_up"],
   "rows": [
     [1, 300, "07-01 05:00", 3.38, 62.4, -0.99, 243.4, 99.9, "day", 0],

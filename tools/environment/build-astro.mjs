@@ -11,7 +11,7 @@ import { htmlToText } from './htmltext.mjs';
 import { pretty } from './json-out.mjs';
 import * as K from './clock.mjs';
 import * as C from './astro-core.mjs';
-import { loadAnchors, tickToLmtMinutes, lmtMinutesToUtMs } from './tickclock.mjs';
+import { loadAnchors, tickToLmtMinutes, lmtMinutesToUtMs, lmtMinutesToTick, parseLmt } from './tickclock.mjs';
 import { usnoUrl, usnoName, NASA_URL, NASA_NAME } from './fetch-astro-sources.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -277,6 +277,17 @@ export async function buildFiles() {
     const lmtLabel = `07-${String(day).padStart(2, '0')} ${K.hhmm(m)}`;
     rows.push([tick, round(min, 2), lmtLabel, round(sa.sun.alt, 2), round(sa.sun.az, 1), round(sa.moon.alt, 2), round(sa.moon.az, 1), round(sa.moon.illum * 100, 1), light(sa.sun.alt), sa.moon.alt >= -0.8333 ? 1 : 0]);
   }
+  // the sun and moon events of July 1-3 placed on the candidate tick clock (the inverse of tickToLmtMinutes; null where the event is outside ticks 1..675)
+  const events = [];
+  for (const d of byDay.days.filter((x) => ['1863-07-01', '1863-07-02', '1863-07-03'].includes(x.date))) {
+    for (const key of [...C.SUN_EVENTS, ...C.MOON_EVENTS]) {
+      const v = (key.startsWith('moon') ? d.moon : d.sun)[key];
+      if (v.absent) continue;
+      const min = parseLmt(`${d.date}T${v.lmt_hms.slice(0, 5)}`) + Number(v.lmt_hms.slice(6, 8)) / 60;
+      const tk = lmtMinutesToTick(min, anchors);
+      events.push({ date: d.date, event: key, lmt: v.lmt, lmt_hms: v.lmt_hms, lmt_min: round(min, 2), tick: tk == null ? null : round(tk, 2), ...(tk == null ? { outside_tick_range: min < anchors[0].min ? 'before tick 1 (July 1 05:00 LMT)' : 'after tick 675 (July 3 20:00 LMT)' } : {}) });
+    }
+  }
   const byTick = {
     schema_version: 1, dataset: 'astro_by_tick',
     title: 'Sun and moon at each of the 675 ticks (candidate clock)',
@@ -286,8 +297,9 @@ export async function buildFiles() {
       source: 'data-src/time/time_anchors.json', version: anchorsDoc.version, release: anchorsDoc.release, sha256: anchorsDoc.sha256, tick_max: anchorsDoc.tick_max,
       function: 'tools/environment/tickclock.mjs tickToLmtMinutes(tick, anchors): piecewise-linear in the anchors, minutes since 1863-07-01T00:00 LMT',
       anchors: anchors.map((a) => ({ tick: a.tick, t: a.t, min: a.min, status: a.status, review_flag: a.review_flag })),
-      anchors_awaiting_historian: anchors.filter((a) => a.review_flag && a.review_flag !== 'none').map((a) => a.tick),
-      note: 'CANDIDATE. Nothing here approves it. The five anchors the plan lists as needing a historian are ticks 75, 90, 248, 275 and 538 (docs/plan/FINAL/00-README.md section 6).',
+      anchors_needing_historian: anchors.filter((a) => a.review_flag === 'needs-historian').map((a) => a.tick),
+      anchors_by_review_flag: Object.fromEntries(['evidence-weak', 'owner-decision', 'owner-sign', 'needs-historian', 'none'].map((f) => [f, anchors.filter((a) => (a.review_flag || 'none') === f).map((a) => a.tick)])),
+      note: 'CANDIDATE. Nothing here approves it. The anchors flagged needs-historian in the document are ticks 75, 90, 248, 275 and 538, the five the plan lists (docs/plan/FINAL/00-README.md section 6).',
     },
     conventions: {
       clock: 'LMT, minutes since 1863-07-01T00:00 local mean time (lmt_min) and a label "MM-DD HH:MM" (July).',
@@ -298,6 +310,8 @@ export async function buildFiles() {
       precision: 'altitudes 0.01 degree, azimuths 0.1 degree, illumination 0.1 percent; the values are only as good as +-1 minute of clock.',
     },
     cross_check_summary: { ticks: rows.length, method_b_vs_a_max_abs_sun_alt_deg: round(maxSun, 3), method_b_vs_a_max_abs_moon_alt_deg: round(maxMoon, 3), method_b_vs_a_max_abs_az_deg: round(maxAz, 3), method_b_vs_a_max_abs_illum_pct: round(maxIllum, 3) },
+    events_note: 'Each event of astro_by_day (July 1-3) placed on the candidate tick clock: tick is fractional (2 decimals) and null when the event is before tick 1 or after tick 675. These numbers move with the anchors; rebuild after any anchor change.',
+    events,
     columns, rows,
   };
   return { byDay, byTick };

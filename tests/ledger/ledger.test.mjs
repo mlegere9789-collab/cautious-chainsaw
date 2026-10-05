@@ -7,6 +7,7 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { validateAll } from '../../tools/ledger/validate.mjs';
+import { CACHE_DIR } from '../../tools/environment/fetch.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const load = (f) => JSON.parse(fs.readFileSync(path.join(ROOT, 'data-src', 'ledger', f), 'utf8'));
@@ -24,12 +25,14 @@ test('the ledger validates: schema, quotes in their scans, readings, arithmetic,
 test('real numbers: rows, values, quotes and how the figures were verified', async () => {
   const d = ledger(); const r = await validateAll({});
   assert.ok(d.rows.length >= 18 && d.rows.length <= 20, 'the first 18-20 rows');
-  assert.equal(r.metrics.values, 92);
-  assert.equal(r.metrics.quotes, 68);
-  assert.equal(r.metrics.figures, 140);
-  assert.equal(r.metrics.figures_two_extraction_methods + r.metrics.figures_ocr_plus_checksum + r.metrics.figures_single_method, 140);
-  assert.ok(r.metrics.figures_two_extraction_methods >= 100, 'at least 100 figures read by two independent extraction methods');
-  assert.equal(d.summary.figures_two_extraction_methods, r.metrics.figures_two_extraction_methods, 'the summary is the validator\'s count');
+  assert.equal(r.metrics.values, 92); assert.equal(r.metrics.quotes, 69); assert.equal(r.metrics.figures, 141);
+  // the recorded verification of every figure (computed at build time with the cache present)
+  let two = 0, checksum = 0, single = 0;
+  for (const row of d.rows) for (const v of row.values) for (const f of Object.values(v.verification.figures)) { const m = f.methods; const t = (m.includes('image') && (m.includes('ocr_corroborates_image') || m.includes('ocr_or_text') || m.includes('text'))) || (m.includes('ocr_or_text') && m.includes('second_scan')); if (t) two++; else if (f.checksum) checksum++; else single++; }
+  assert.equal(two + checksum + single, 141);
+  assert.equal(d.summary.figures_two_extraction_methods, two); assert.equal(d.summary.figures_ocr_plus_checksum, checksum); assert.equal(d.summary.figures_single_method, single);
+  assert.ok(two >= 100, 'at least 100 figures read by two independent extraction methods');
+  if (r.metrics.quotes_checked_against_windows === 0) assert.equal(r.metrics.figures_two_extraction_methods, two, 'with the cache present the validator reproduces the recorded counts');
 });
 
 test('the casualty ladders are there, with edition and page, and the OCR-vs-image differences are recorded', () => {
@@ -79,14 +82,14 @@ test('prose facts the explanations lean on: the candidate time anchors and the s
 // ---------------------------------------------------------------- seeded errors
 test('SEEDED: a figure changed (killed 3,155 -> 3,156)', async () => { const d = ledger(); val(d, 'WSD-01', 'v4').figures.killed = 3156; await fails({ ledger: d }, /3156|killed=3156|the table in VR/, 'killed'); });
 test('SEEDED: a total changed (23,049 -> 23,040)', async () => { const d = ledger(); val(d, 'WSD-01', 'v4').figures.total = 23040; await fails({ ledger: d }, /23040/, 'total'); });
-test('SEEDED: an OCR quote altered (2,834 -> 2,843)', async () => { const d = ledger(); quote(d, 'Q-or1-p17').text = quote(d, 'Q-or1-p17').text.replace('2,834', '2,843'); await fails({ ledger: d }, /quote Q-or1-p17: fragment .* not found/, 'quote text'); });
-test('SEEDED: a wrong printed page for a text quote', async () => { const d = ledger(); const q = quote(d, 'Q-doubleday-1015'); q.printed_page = 246; q.witnesses[0].printed_page = 246; val(d, 'WSD-14', 'v1').page = 246; await fails({ ledger: d }, /printed page 246 recorded|running head/, 'page 246'); });
+test('SEEDED: an OCR quote altered (2,834 -> 2,843)', async () => { const d = ledger(); quote(d, 'Q-or1-p17').text = quote(d, 'Q-or1-p17').text.replace('2,834', '2,843'); await fails({ ledger: d }, /quote Q-or1-p17: fragment .* (not found|not in the committed window)/, 'quote text'); });
+test('SEEDED: a wrong printed page for a text quote', async () => { const d = ledger(); const q = quote(d, 'Q-doubleday-1015'); q.printed_page = 246; q.witnesses[0].printed_page = 246; val(d, 'WSD-14', 'v1').page = 246; await fails({ ledger: d }, /printed page 246 recorded|running head|committed window/, 'page 246'); });
 test('SEEDED: a wrong printed page for an image quote', async () => { const d = ledger(); const q = quote(d, 'Q-or1-p187'); q.printed_page = 188; await fails({ ledger: d }, /printed page 188|differs from the reading/, 'page 188'); });
-test('SEEDED: a wrong leaf for a witness', async () => { const d = ledger(); quote(d, 'Q-lee-cannonade').witnesses[0].leaf = 330; await fails({ ledger: d }, /not found on leaf 330/, 'leaf'); });
+test('SEEDED: a wrong leaf for a witness', async () => { const d = ledger(); quote(d, 'Q-lee-cannonade').witnesses[0].leaf = 330; await fails({ ledger: d }, /not found on leaf 330|committed window/, 'leaf'); });
 test('SEEDED: a table cell in a reading changed (First Corps killed officers 42 -> 43)', async () => { const r = readings(); r.readings.find((x) => x.id === 'VR-or1-p187-recap').table.rows[1][1] = 43; await fails({ readings: r }, /column "killed_officers"|row "First Army Corps"/, 'cell'); });
 test('SEEDED: a reading\'s total row changed', async () => { const r = readings(); r.readings.find((x) => x.id === 'VR-fox-p25').table.total_row[4] = 22900; await fails({ readings: r }, /column "total"|row "Total"/, 'total row'); });
 test('SEEDED: a number in an image quote that is not in the reading', async () => { const d = ledger(); quote(d, 'Q-or2-p346').text = 'Grand total 2,592 12,709 5,150 20,461'; await fails({ ledger: d }, /20461|not among the numbers read/, 'image number'); });
-test('SEEDED: the image hash recorded differs from the cached image', async () => { const r = readings(); r.readings.find((x) => x.id === 'VR-or1-p187-recap').image.sha256 = 'a'.repeat(64); await fails({ readings: r }, /different hash/, 'hash'); });
+test('SEEDED: the image hash recorded differs from the cached image', { skip: !fs.existsSync(path.join(CACHE_DIR, 'or27-1-n204.jpg.meta.json')) && 'the page images are not cached' }, async () => { const r = readings(); r.readings.find((x) => x.id === 'VR-or1-p187-recap').image.sha256 = 'a'.repeat(64); await fails({ readings: r }, /different hash/, 'hash'); });
 test('SEEDED: an averaging key in a row', async () => { const d = ledger(); row(d, 'WSD-02').average = 24000; await fails({ ledger: d }, /forbidden key "average"|schema/, 'average'); });
 test('SEEDED: an averaging key in a value', async () => { const d = ledger(); val(d, 'WSD-02', 'v1').midpoint = 24000; await fails({ ledger: d }, /forbidden key midpoint/, 'midpoint'); });
 test('SEEDED: a row with a single value', async () => { const d = ledger(); row(d, 'WSD-03').values = row(d, 'WSD-03').values.slice(0, 1); await fails({ ledger: d }, /schema|at least two values/, 'single value'); });

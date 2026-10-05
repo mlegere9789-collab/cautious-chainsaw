@@ -7,6 +7,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateAstroByDay, validateAstroByTick } from '../../tools/environment/validate.mjs';
 import { loadAnchors, tickToLmtMinutes } from '../../tools/environment/tickclock.mjs';
+import { CACHE_DIR } from '../../tools/environment/fetch.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const load = (f) => JSON.parse(fs.readFileSync(path.join(ROOT, 'data-src', 'environment', f), 'utf8'));
@@ -87,7 +88,7 @@ test('SEEDED: a principal phase 10 minutes off is caught', async () => { const d
 test('SEEDED: NASA cross-check recorded as agreeing when it does not is caught', async () => { const d = byDay(); const p = d.principal_phases.find((x) => x.phase === 'First Quarter'); p.cross_check.nasa_ut = '1863-06-24 11:10'; await fails(validateAstroByDay, d, /NASA|nasa/, 'NASA'); });
 test('SEEDED: a pitch claim that no longer agrees is reported', async () => { const d = byDay(); d.pitch_checks[1].agrees = false; await fails(validateAstroByDay, d, /pitch check P2/, 'pitch check'); });
 test('SEEDED: wrong day length is caught', async () => { const d = byDay(); day(d, '1863-07-02').day_length_min = 900; await fails(validateAstroByDay, d, /day_length_min|schema/, 'day length'); });
-test('SEEDED: the USNO illumination recorded for a day must match the cached response', async () => { const d = byDay(); day(d, '1863-07-02').moon.cross_check.usno_fracillum_pct = 87; await fails(validateAstroByDay, d, /illumination/, 'usno illumination'); });
+test('SEEDED: the USNO illumination recorded for a day must match the cached response', { skip: !fs.existsSync(path.join(CACHE_DIR, 'usno-oneday-1863-07-02-tz-5.json')) && 'the USNO responses are not cached' }, async () => { const d = byDay(); day(d, '1863-07-02').moon.cross_check.usno_fracillum_pct = 87; await fails(validateAstroByDay, d, /illumination/, 'usno illumination'); });
 
 test('SEEDED (ticks): lmt_min off by 5 minutes is caught', async () => { const t = byTick(); t.rows[299][1] += 5; await fails(validateAstroByTick, t, /tick 300: lmt_min/, 'tick lmt'); });
 test('SEEDED (ticks): sun altitude off by a degree is caught', async () => { const t = byTick(); t.rows[100][3] += 1; await fails(validateAstroByTick, t, /tick 101: sun altitude/, 'sun alt'); });
@@ -101,3 +102,14 @@ test('SEEDED (ticks): a stale time model (anchor file hash differs) is a warning
   assert.equal(r.errors.length, 0);
   assert.ok(r.warnings.some((w) => /STALE/.test(w)), 'staleness must be reported');
 });
+test('the events are placed on the tick clock by the inverse map and round-trip', () => {
+  const t = byTick();
+  assert.equal(t.events.length, 29);
+  const sunset = t.events.find((e) => e.date === '1863-07-02' && e.event === 'sunset');
+  assert.equal(sunset.lmt, '19:32'); assert.ok(Math.abs(sunset.tick - 317.54) < 0.01);
+  const moonrise = t.events.find((e) => e.date === '1863-07-02' && e.event === 'moonrise'); assert.ok(moonrise.tick > sunset.tick && moonrise.tick - sunset.tick < 15);
+  for (const e of t.events.filter((x) => x.tick != null)) assert.ok(Math.abs(tickToLmtMinutes(e.tick, t.time_model.anchors) - e.lmt_min) < 0.2, `${e.date} ${e.event}`);
+  assert.equal(t.events.find((e) => e.date === '1863-07-01' && e.event === 'sunrise').tick, null);
+});
+test('SEEDED (ticks): an event placed on the wrong tick is caught', async () => { const t = byTick(); t.events.find((e) => e.event === 'sunset' && e.date === '1863-07-02').tick = 320; await fails(validateAstroByTick, t, /event 1863-07-02 sunset: tick 320/, 'event tick'); });
+test('SEEDED (ticks): an event whose clock time disagrees with astro_by_day is caught', async () => { const t = byTick(); t.events.find((e) => e.event === 'moonrise' && e.date === '1863-07-02').lmt = '20:50'; await fails(validateAstroByTick, t, /event 1863-07-02 moonrise: lmt/, 'event lmt'); });
