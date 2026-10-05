@@ -68,7 +68,7 @@ test('RV-DS-1b the fifteen documents the re-verifier read are each one dispatch 
   // p0462.1 holds "Commanding Officer Sixth Corps" and then "Commanding Officer Twelfth Corps": both addressees in one row
   assert.deepEqual(still, [], `still one document with a second header: ${still.join(' ')}`);
 });
-test('RV-DS-2 no dispatch row without a signer is longer than 1,000 words (six rows are 1,664 to 4,892 words: orders of battle and several messages filed under one date: or27-3:p0799.1 p0439.1 p1058.1 p0635.3 p0918.3 p0794.1)', { skip: need }, () => {
+test('RV-DS-2 no dispatch row without a signer is longer than 1,000 words (seven rows are 1,091 to 4,892 words: orders of battle and several messages filed under one date: or27-3:p0799.1 p0439.1 p1058.1 p0635.3 p0918.3 p0794.1 p0843.2)', { skip: need }, () => {
   const { rows } = load();
   const long = rows.filter((r) => !r.signer && r.words > 1000).map((r) => `${r.id}:${r.words}`);
   assert.deepEqual(long, [], `rows with no signer and over 1,000 words: ${long.join(' ')}`);
