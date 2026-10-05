@@ -1,0 +1,817 @@
+{
+  "what": "Walkthrough guard (tests/t0/walkthrough-guard.spec.mjs): results matrix and red-first proof",
+  "taken": "2026-10-04T20:56:38-04:00",
+  "head": "bbf8303",
+  "chrome": "155.0.8059.27 (headless, Windows 11)",
+  "trees": {
+    "legacy": {
+      "dist": "legacy\\dist",
+      "release": null,
+      "groups": [],
+      "capabilities": {
+        "A": false,
+        "C": false,
+        "AX": false,
+        "CP": false,
+        "SHELL": false
+      },
+      "server": "static",
+      "passed": 13,
+      "skipped": 5,
+      "failed": 0,
+      "mapboxRequests": 148,
+      "tests": {
+        "T0-WG-01": {
+          "status": "pass"
+        },
+        "T0-WG-02": {
+          "status": "pass"
+        },
+        "T0-WG-03": {
+          "status": "pass"
+        },
+        "T0-WG-04": {
+          "status": "pass"
+        },
+        "T0-WG-05": {
+          "status": "pass"
+        },
+        "T0-WG-06": {
+          "status": "pass"
+        },
+        "T0-WG-07": {
+          "status": "pass"
+        },
+        "T0-WG-17": {
+          "status": "skip",
+          "reason": "the Walkthrough map is dead after the window crossed 860 px while it was open (the component swaps its two layouts but creates the map only once, so the map stays on the container that was removed; widening again does not bring it back). Same on legacy, baseline and every train: a defect of production, not a regression. Close and reopen the Walkthrough to get the map back."
+        },
+        "T0-WG-08": {
+          "status": "pass"
+        },
+        "T0-WG-16": {
+          "status": "pass"
+        },
+        "T0-WG-09": {
+          "status": "skip",
+          "reason": "INTENDED difference: the phone shell has no Virtual Walkthrough tile before group C (R1b); tiles: 🔍 Search | F Filter | ⚔ Order of Battle | ☰ Unit Roster | 🗿 Monuments | 🔭 Soldier's View | ⭐ Follow Ancestor | 🗺 Map Layers | 🎖 NPS Auto Tour | ⊞ Legend | B Bookmarks | ? Help | 🗺️ Mini Map | 🖥 Desktop View"
+        },
+        "T0-WG-10": {
+          "status": "skip",
+          "reason": "INTENDED difference: the phone shell has no Virtual Walkthrough tile before group C (R1b); tiles: 🔍 Search | F Filter | ⚔ Order of Battle | ☰ Unit Roster | 🗿 Monuments | 🔭 Soldier's View | ⭐ Follow Ancestor | 🗺 Map Layers | 🎖 NPS Auto Tour | ⊞ Legend | B Bookmarks | ? Help | 🗺️ Mini Map | 🖥 Desktop View"
+        },
+        "T0-WG-11": {
+          "status": "pass"
+        },
+        "T0-WG-12": {
+          "status": "pass"
+        },
+        "T0-WG-13": {
+          "status": "pass"
+        },
+        "T0-WG-14": {
+          "status": "skip",
+          "reason": "legacy/dist: the overlay is projected from the default view only (documented limitation, docs/baseline-drift.md 3.1 C)"
+        },
+        "T0-WG-15": {
+          "status": "skip",
+          "reason": "legacy/dist: after a resize with the Walkthrough open the stars are displaced (Pennsylvania State Memorial (Union) at 715.4,564.5; New York State Monument (Union) at 793.2,284.5): renderMarkers() measures the first .mapboxgl-map, which is the Walkthrough map while it is open"
+        },
+        "T0-WG-X": {
+          "status": "pass"
+        }
+      }
+    },
+    "baseline": {
+      "dist": "baseline\\dist",
+      "release": null,
+      "groups": [],
+      "capabilities": {
+        "A": false,
+        "C": false,
+        "AX": false,
+        "CP": false,
+        "SHELL": false
+      },
+      "server": "static",
+      "passed": 12,
+      "skipped": 6,
+      "failed": 0,
+      "mapboxRequests": 148,
+      "tests": {
+        "T0-WG-01": {
+          "status": "pass"
+        },
+        "T0-WG-02": {
+          "status": "pass"
+        },
+        "T0-WG-03": {
+          "status": "pass"
+        },
+        "T0-WG-04": {
+          "status": "pass"
+        },
+        "T0-WG-05": {
+          "status": "pass"
+        },
+        "T0-WG-06": {
+          "status": "pass"
+        },
+        "T0-WG-07": {
+          "status": "pass"
+        },
+        "T0-WG-17": {
+          "status": "skip",
+          "reason": "the Walkthrough map is dead after the window crossed 860 px while it was open (the component swaps its two layouts but creates the map only once, so the map stays on the container that was removed; widening again does not bring it back). Same on legacy, baseline and every train: a defect of production, not a regression. Close and reopen the Walkthrough to get the map back."
+        },
+        "T0-WG-08": {
+          "status": "pass"
+        },
+        "T0-WG-16": {
+          "status": "pass"
+        },
+        "T0-WG-09": {
+          "status": "skip",
+          "reason": "INTENDED difference: the phone shell has no Virtual Walkthrough tile before group C (R1b); tiles: 🔍 Search | F Filter | ⚔ Order of Battle | ☰ Unit Roster | 🗿 Monuments | 🔭 Soldier's View | ⭐ Follow Ancestor | 🗺 Map Layers | 🎖 NPS Auto Tour | ⊞ Legend | B Bookmarks | ? Help | 🗺️ Mini Map | 🖥 Desktop View"
+        },
+        "T0-WG-10": {
+          "status": "skip",
+          "reason": "INTENDED difference: the phone shell has no Virtual Walkthrough tile before group C (R1b); tiles: 🔍 Search | F Filter | ⚔ Order of Battle | ☰ Unit Roster | 🗿 Monuments | 🔭 Soldier's View | ⭐ Follow Ancestor | 🗺 Map Layers | 🎖 NPS Auto Tour | ⊞ Legend | B Bookmarks | ? Help | 🗺️ Mini Map | 🖥 Desktop View"
+        },
+        "T0-WG-11": {
+          "status": "pass"
+        },
+        "T0-WG-12": {
+          "status": "pass"
+        },
+        "T0-WG-13": {
+          "status": "skip",
+          "reason": "no monument markers after clicking Monuments: production removed the inline script (docs/baseline-drift.md section 5); owner decision 2026-10-04: UNINTENTIONAL, must be restored (group MON). KNOWN REGRESSION against legacy."
+        },
+        "T0-WG-14": {
+          "status": "skip",
+          "reason": "no monument markers in this tree (see T0-WG-13)"
+        },
+        "T0-WG-15": {
+          "status": "skip",
+          "reason": "no monument markers in this tree (see T0-WG-13)"
+        },
+        "T0-WG-X": {
+          "status": "pass"
+        }
+      }
+    },
+    "R0": {
+      "dist": "tmp\\walkthrough-guard\\trains\\R0\\dist",
+      "release": "54e21b2e",
+      "groups": [
+        "R0"
+      ],
+      "capabilities": {
+        "A": false,
+        "C": false,
+        "AX": false,
+        "CP": false,
+        "SHELL": false
+      },
+      "server": "static",
+      "passed": 12,
+      "skipped": 6,
+      "failed": 0,
+      "mapboxRequests": 147,
+      "tests": {
+        "T0-WG-01": {
+          "status": "pass"
+        },
+        "T0-WG-02": {
+          "status": "pass"
+        },
+        "T0-WG-03": {
+          "status": "pass"
+        },
+        "T0-WG-04": {
+          "status": "pass"
+        },
+        "T0-WG-05": {
+          "status": "pass"
+        },
+        "T0-WG-06": {
+          "status": "pass"
+        },
+        "T0-WG-07": {
+          "status": "pass"
+        },
+        "T0-WG-17": {
+          "status": "skip",
+          "reason": "the Walkthrough map is dead after the window crossed 860 px while it was open (the component swaps its two layouts but creates the map only once, so the map stays on the container that was removed; widening again does not bring it back). Same on legacy, baseline and every train: a defect of production, not a regression. Close and reopen the Walkthrough to get the map back."
+        },
+        "T0-WG-08": {
+          "status": "pass"
+        },
+        "T0-WG-16": {
+          "status": "pass"
+        },
+        "T0-WG-09": {
+          "status": "skip",
+          "reason": "INTENDED difference: the phone shell has no Virtual Walkthrough tile before group C (R1b); tiles: 🔍 Search | F Filter | ⚔ Order of Battle | ☰ Unit Roster | 🗿 Monuments | 🔭 Soldier's View | ⭐ Follow Ancestor | 🗺 Map Layers | 🎖 NPS Auto Tour | ⊞ Legend | B Bookmarks | ? Help | 🗺️ Mini Map | 🖥 Desktop View"
+        },
+        "T0-WG-10": {
+          "status": "skip",
+          "reason": "INTENDED difference: the phone shell has no Virtual Walkthrough tile before group C (R1b); tiles: 🔍 Search | F Filter | ⚔ Order of Battle | ☰ Unit Roster | 🗿 Monuments | 🔭 Soldier's View | ⭐ Follow Ancestor | 🗺 Map Layers | 🎖 NPS Auto Tour | ⊞ Legend | B Bookmarks | ? Help | 🗺️ Mini Map | 🖥 Desktop View"
+        },
+        "T0-WG-11": {
+          "status": "pass"
+        },
+        "T0-WG-12": {
+          "status": "pass"
+        },
+        "T0-WG-13": {
+          "status": "skip",
+          "reason": "no monument markers after clicking Monuments: production removed the inline script (docs/baseline-drift.md section 5); owner decision 2026-10-04: UNINTENTIONAL, must be restored (group MON). KNOWN REGRESSION against legacy."
+        },
+        "T0-WG-14": {
+          "status": "skip",
+          "reason": "no monument markers in this tree (see T0-WG-13)"
+        },
+        "T0-WG-15": {
+          "status": "skip",
+          "reason": "no monument markers in this tree (see T0-WG-13)"
+        },
+        "T0-WG-X": {
+          "status": "pass"
+        }
+      }
+    },
+    "R1a": {
+      "dist": "tmp\\walkthrough-guard\\trains\\R1a\\dist",
+      "release": "a267d0ed",
+      "groups": [
+        "R0",
+        "A",
+        "A2",
+        "PERF",
+        "PG-core",
+        "PG-maps"
+      ],
+      "capabilities": {
+        "A": true,
+        "C": false,
+        "AX": false,
+        "CP": false,
+        "SHELL": false
+      },
+      "server": "static",
+      "passed": 12,
+      "skipped": 6,
+      "failed": 0,
+      "mapboxRequests": 150,
+      "tests": {
+        "T0-WG-01": {
+          "status": "pass"
+        },
+        "T0-WG-02": {
+          "status": "pass"
+        },
+        "T0-WG-03": {
+          "status": "pass"
+        },
+        "T0-WG-04": {
+          "status": "pass"
+        },
+        "T0-WG-05": {
+          "status": "pass"
+        },
+        "T0-WG-06": {
+          "status": "pass"
+        },
+        "T0-WG-07": {
+          "status": "pass"
+        },
+        "T0-WG-17": {
+          "status": "skip",
+          "reason": "the Walkthrough map is dead after the window crossed 860 px while it was open (the component swaps its two layouts but creates the map only once, so the map stays on the container that was removed; widening again does not bring it back). Same on legacy, baseline and every train: a defect of production, not a regression. Close and reopen the Walkthrough to get the map back."
+        },
+        "T0-WG-08": {
+          "status": "pass"
+        },
+        "T0-WG-16": {
+          "status": "pass"
+        },
+        "T0-WG-09": {
+          "status": "skip",
+          "reason": "INTENDED difference: the phone shell has no Virtual Walkthrough tile before group C (R1b); tiles: 🔍 Search | F Filter | ⚔ Order of Battle | ☰ Unit Roster | 🗿 Monuments | 🔭 Soldier's View | ⭐ Follow Ancestor | 🗺 Map Layers | 🎖 NPS Auto Tour | ⊞ Legend | B Bookmarks | ? Help | 🗺️ Mini Map | 🖥 Desktop View"
+        },
+        "T0-WG-10": {
+          "status": "skip",
+          "reason": "INTENDED difference: the phone shell has no Virtual Walkthrough tile before group C (R1b); tiles: 🔍 Search | F Filter | ⚔ Order of Battle | ☰ Unit Roster | 🗿 Monuments | 🔭 Soldier's View | ⭐ Follow Ancestor | 🗺 Map Layers | 🎖 NPS Auto Tour | ⊞ Legend | B Bookmarks | ? Help | 🗺️ Mini Map | 🖥 Desktop View"
+        },
+        "T0-WG-11": {
+          "status": "pass"
+        },
+        "T0-WG-12": {
+          "status": "pass"
+        },
+        "T0-WG-13": {
+          "status": "skip",
+          "reason": "no monument markers after clicking Monuments: production removed the inline script (docs/baseline-drift.md section 5); owner decision 2026-10-04: UNINTENTIONAL, must be restored (group MON). KNOWN REGRESSION against legacy."
+        },
+        "T0-WG-14": {
+          "status": "skip",
+          "reason": "no monument markers in this tree (see T0-WG-13)"
+        },
+        "T0-WG-15": {
+          "status": "skip",
+          "reason": "no monument markers in this tree (see T0-WG-13)"
+        },
+        "T0-WG-X": {
+          "status": "pass"
+        }
+      }
+    },
+    "R1b": {
+      "dist": "tmp\\walkthrough-guard\\trains\\R1b\\dist",
+      "release": "3a00b7d6",
+      "groups": [
+        "R0",
+        "A",
+        "C",
+        "AX",
+        "A2",
+        "SHELL",
+        "PERF",
+        "PG-core",
+        "PG-maps"
+      ],
+      "capabilities": {
+        "A": true,
+        "C": true,
+        "AX": true,
+        "CP": false,
+        "SHELL": true
+      },
+      "server": "static",
+      "passed": 14,
+      "skipped": 4,
+      "failed": 0,
+      "mapboxRequests": 171,
+      "tests": {
+        "T0-WG-01": {
+          "status": "pass"
+        },
+        "T0-WG-02": {
+          "status": "pass"
+        },
+        "T0-WG-03": {
+          "status": "pass"
+        },
+        "T0-WG-04": {
+          "status": "pass"
+        },
+        "T0-WG-05": {
+          "status": "pass"
+        },
+        "T0-WG-06": {
+          "status": "pass"
+        },
+        "T0-WG-07": {
+          "status": "pass"
+        },
+        "T0-WG-17": {
+          "status": "skip",
+          "reason": "the Walkthrough map is dead after the window crossed 860 px while it was open (the component swaps its two layouts but creates the map only once, so the map stays on the container that was removed; widening again does not bring it back). Same on legacy, baseline and every train: a defect of production, not a regression. Close and reopen the Walkthrough to get the map back."
+        },
+        "T0-WG-08": {
+          "status": "pass"
+        },
+        "T0-WG-16": {
+          "status": "pass"
+        },
+        "T0-WG-09": {
+          "status": "pass"
+        },
+        "T0-WG-10": {
+          "status": "pass"
+        },
+        "T0-WG-11": {
+          "status": "pass"
+        },
+        "T0-WG-12": {
+          "status": "pass"
+        },
+        "T0-WG-13": {
+          "status": "skip",
+          "reason": "no monument markers after clicking Monuments: production removed the inline script (docs/baseline-drift.md section 5); owner decision 2026-10-04: UNINTENTIONAL, must be restored (group MON). KNOWN REGRESSION against legacy."
+        },
+        "T0-WG-14": {
+          "status": "skip",
+          "reason": "no monument markers in this tree (see T0-WG-13)"
+        },
+        "T0-WG-15": {
+          "status": "skip",
+          "reason": "no monument markers in this tree (see T0-WG-13)"
+        },
+        "T0-WG-X": {
+          "status": "pass"
+        }
+      }
+    },
+    "R1c": {
+      "dist": "tmp\\walkthrough-guard\\trains\\R1c\\dist",
+      "release": "2531699e",
+      "groups": [
+        "R0",
+        "A",
+        "B",
+        "DL",
+        "C",
+        "AX",
+        "CP",
+        "A2",
+        "SHELL",
+        "PERF",
+        "PG-core",
+        "PG-maps"
+      ],
+      "capabilities": {
+        "A": true,
+        "C": true,
+        "AX": true,
+        "CP": true,
+        "SHELL": true
+      },
+      "server": "emulator (_headers applied)",
+      "passed": 14,
+      "skipped": 4,
+      "failed": 0,
+      "mapboxRequests": 173,
+      "tests": {
+        "T0-WG-01": {
+          "status": "pass"
+        },
+        "T0-WG-02": {
+          "status": "pass"
+        },
+        "T0-WG-03": {
+          "status": "pass"
+        },
+        "T0-WG-04": {
+          "status": "pass"
+        },
+        "T0-WG-05": {
+          "status": "pass"
+        },
+        "T0-WG-06": {
+          "status": "pass"
+        },
+        "T0-WG-07": {
+          "status": "pass"
+        },
+        "T0-WG-17": {
+          "status": "skip",
+          "reason": "the Walkthrough map is dead after the window crossed 860 px while it was open (the component swaps its two layouts but creates the map only once, so the map stays on the container that was removed; widening again does not bring it back). Same on legacy, baseline and every train: a defect of production, not a regression. Close and reopen the Walkthrough to get the map back."
+        },
+        "T0-WG-08": {
+          "status": "pass"
+        },
+        "T0-WG-16": {
+          "status": "pass"
+        },
+        "T0-WG-09": {
+          "status": "pass"
+        },
+        "T0-WG-10": {
+          "status": "pass"
+        },
+        "T0-WG-11": {
+          "status": "pass"
+        },
+        "T0-WG-12": {
+          "status": "pass"
+        },
+        "T0-WG-13": {
+          "status": "skip",
+          "reason": "no monument markers after clicking Monuments: production removed the inline script (docs/baseline-drift.md section 5); owner decision 2026-10-04: UNINTENTIONAL, must be restored (group MON). KNOWN REGRESSION against legacy."
+        },
+        "T0-WG-14": {
+          "status": "skip",
+          "reason": "no monument markers in this tree (see T0-WG-13)"
+        },
+        "T0-WG-15": {
+          "status": "skip",
+          "reason": "no monument markers in this tree (see T0-WG-13)"
+        },
+        "T0-WG-X": {
+          "status": "pass"
+        }
+      }
+    }
+  },
+  "monScratchBuild": {
+    "note": "copy of the monuments agent scratch build tmp/monuments-restore/mon-R1c (R1c + group MON), not registered in trains.json, not part of the matrix",
+    "release": "2d5e740d",
+    "groups": [
+      "R0",
+      "A",
+      "B",
+      "DL",
+      "C",
+      "AX",
+      "CP",
+      "A2",
+      "SHELL",
+      "PERF",
+      "MON",
+      "PG-core",
+      "PG-maps"
+    ],
+    "passed": 17,
+    "skipped": 1,
+    "failed": 0,
+    "mapboxRequests": 172,
+    "tests": {
+      "T0-WG-01": {
+        "status": "pass"
+      },
+      "T0-WG-02": {
+        "status": "pass"
+      },
+      "T0-WG-03": {
+        "status": "pass"
+      },
+      "T0-WG-04": {
+        "status": "pass"
+      },
+      "T0-WG-05": {
+        "status": "pass"
+      },
+      "T0-WG-06": {
+        "status": "pass"
+      },
+      "T0-WG-07": {
+        "status": "pass"
+      },
+      "T0-WG-17": {
+        "status": "skip",
+        "reason": "the Walkthrough map is dead after the window crossed 860 px while it was open (the component swaps its two layouts but creates the map only once, so the map stays on the container that was removed; widening again does not bring it back). Same on legacy, baseline and every train: a defect of producti"
+      },
+      "T0-WG-08": {
+        "status": "pass"
+      },
+      "T0-WG-16": {
+        "status": "pass"
+      },
+      "T0-WG-09": {
+        "status": "pass"
+      },
+      "T0-WG-10": {
+        "status": "pass"
+      },
+      "T0-WG-11": {
+        "status": "pass"
+      },
+      "T0-WG-12": {
+        "status": "pass"
+      },
+      "T0-WG-13": {
+        "status": "pass"
+      },
+      "T0-WG-14": {
+        "status": "pass"
+      },
+      "T0-WG-15": {
+        "status": "pass"
+      },
+      "T0-WG-X": {
+        "status": "pass"
+      }
+    }
+  },
+  "mutants": {
+    "when": "2026-10-05T00:52:37.054Z",
+    "allRed": true,
+    "rows": [
+      {
+        "id": "M01",
+        "what": "stop 8 (Little Round Top) moved 55 m",
+        "mustFail": [
+          "T0-WG-01",
+          "T0-WG-04",
+          "T0-WG-05"
+        ],
+        "mustPass": [],
+        "failed": [
+          "T0-WG-01",
+          "T0-WG-04",
+          "T0-WG-05"
+        ],
+        "ok": true
+      },
+      {
+        "id": "M02",
+        "what": "stop 3 renamed \"Oak Hill\"",
+        "mustFail": [
+          "T0-WG-01",
+          "T0-WG-03"
+        ],
+        "mustPass": [],
+        "failed": [
+          "T0-WG-01",
+          "T0-WG-03"
+        ],
+        "ok": true
+      },
+      {
+        "id": "M03",
+        "what": "the stop list shows 15 stops instead of 16 (desktop and phone branch)",
+        "mustFail": [
+          "T0-WG-03"
+        ],
+        "mustPass": [],
+        "failed": [
+          "T0-WG-03"
+        ],
+        "ok": true
+      },
+      {
+        "id": "M04",
+        "what": "the Monuments list is capped at 50 instead of 100 (desktop)",
+        "mustFail": [
+          "T0-WG-06"
+        ],
+        "mustPass": [],
+        "failed": [
+          "T0-WG-06"
+        ],
+        "ok": true
+      },
+      {
+        "id": "M05",
+        "what": "the monument search looks at names only (not \"honors\")",
+        "mustFail": [
+          "T0-WG-06"
+        ],
+        "mustPass": [],
+        "failed": [
+          "T0-WG-06"
+        ],
+        "ok": true
+      },
+      {
+        "id": "M06",
+        "what": "the Walkthrough map is not removed when it closes (leaked WebGL context)",
+        "mustFail": [
+          "T0-WG-07"
+        ],
+        "mustPass": [],
+        "failed": [
+          "T0-WG-07"
+        ],
+        "ok": true
+      },
+      {
+        "id": "M07",
+        "what": "the Back button does nothing",
+        "mustFail": [
+          "T0-WG-07"
+        ],
+        "mustPass": [],
+        "failed": [
+          "T0-WG-07"
+        ],
+        "ok": true
+      },
+      {
+        "id": "M08",
+        "what": "selecting a stop no longer flies the map",
+        "mustFail": [
+          "T0-WG-05"
+        ],
+        "mustPass": [],
+        "failed": [
+          "T0-WG-05"
+        ],
+        "ok": true
+      },
+      {
+        "id": "M09",
+        "what": "the Street View iframe points to /maps/embed/v1/place",
+        "mustFail": [
+          "T0-WG-02",
+          "T0-WG-03"
+        ],
+        "mustPass": [],
+        "failed": [
+          "T0-WG-02",
+          "T0-WG-03"
+        ],
+        "ok": true
+      },
+      {
+        "id": "M10",
+        "what": "a fixed layer covers the Back button (like a pill that floats over the page)",
+        "mustFail": [
+          "T0-WG-03"
+        ],
+        "mustPass": [],
+        "failed": [
+          "T0-WG-03"
+        ],
+        "ok": true
+      },
+      {
+        "id": "M11",
+        "what": "data/monuments.json (the star data) loses a coordinate digit",
+        "mustFail": [
+          "T0-WG-02"
+        ],
+        "mustPass": [],
+        "failed": [
+          "T0-WG-02"
+        ],
+        "ok": true
+      },
+      {
+        "id": "M12",
+        "what": "monument 1 renamed \"Alabama State Memorial\"",
+        "mustFail": [
+          "T0-WG-01",
+          "T0-WG-06"
+        ],
+        "mustPass": [],
+        "failed": [
+          "T0-WG-01",
+          "T0-WG-06"
+        ],
+        "ok": true
+      },
+      {
+        "id": "M13",
+        "what": "a console.error is logged whenever the Walkthrough opens",
+        "mustFail": [
+          "T0-WG-03"
+        ],
+        "mustPass": [],
+        "failed": [
+          "T0-WG-03"
+        ],
+        "ok": true
+      },
+      {
+        "id": "M14",
+        "what": "the visible narration of stop 1 loses a word",
+        "mustFail": [
+          "T0-WG-01",
+          "T0-WG-03",
+          "T0-WG-16"
+        ],
+        "mustPass": [],
+        "failed": [
+          "T0-WG-01",
+          "T0-WG-03",
+          "T0-WG-16"
+        ],
+        "ok": true
+      },
+      {
+        "id": "S1",
+        "what": "legacy's screen-fixed star script put back on the baseline (the stars appear, but they do not follow the map and a resize with the Walkthrough open displaces them)",
+        "mustFail": [
+          "T0-WG-14",
+          "T0-WG-15"
+        ],
+        "mustPass": [
+          "T0-WG-13"
+        ],
+        "failed": [
+          "T0-WG-14",
+          "T0-WG-15"
+        ],
+        "ok": true
+      },
+      {
+        "id": "R01",
+        "what": "R1c: the phone Tools tile \"Virtual Walkthrough\" is gone",
+        "mustFail": [
+          "T0-WG-09"
+        ],
+        "mustPass": [],
+        "failed": [
+          "T0-WG-09"
+        ],
+        "ok": true
+      },
+      {
+        "id": "R02",
+        "what": "R1c: the Street View iframe lost its allow attribute",
+        "mustFail": [
+          "T0-WG-03"
+        ],
+        "mustPass": [],
+        "failed": [
+          "T0-WG-03"
+        ],
+        "ok": true
+      }
+    ]
+  }
+}
