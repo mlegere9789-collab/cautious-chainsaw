@@ -8,8 +8,8 @@
 //   node tests/t0/monuments.spec.mjs --dist <tree> --control <dist of the same train without MON>      (MONL-12 builds one into tmp/ when none is given)
 //
 // Mapbox budget: a whole run needs more than the 300 requests each invocation may use, so run it in slices (requests measured on R1c; boot of a desktop session = 52):
-//   --filter 'MONL-0[123]' 146   --filter 'MONL-04' 237   --filter 'MONL-05' 162   --filter 'MONL-06' 87   --filter 'MONL-0[78]' 80   --filter 'MONL-09' 117
-//   --filter 'MONL-1[01]' 106    --filter 'MONL-12|MONL-13|MONL-X' 137            --filter 'MONL-14' 72
+//   --filter 'MONL-0[123]' 146   --filter 'MONL-04' 237   --filter 'MONL-05' 168   --filter 'MONL-06' 87   --filter 'MONL-0[78]' 109   --filter 'MONL-09' 113
+//   --filter 'MONL-1[01]' 106    --filter 'MONL-12|MONL-13|MONL-X' 137            --filter 'MONL-14' 72   --filter 'MONL-1[56]' 0
 //
 // Ids (F = feature test, red on a tree without the group; G = guard of what must not break: exempt from the red-first accounting, needs the group for its "layer on" half):
 //   T0-MONL-01 F  toggle: off at load with nothing in the map (no source, layer, style tag, listener, store subscription: zero cost while off); the toolbar button's aria-pressed follows the
