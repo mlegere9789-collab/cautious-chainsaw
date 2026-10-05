@@ -76,7 +76,7 @@ def _():
             cfg2['optional_groups'] = list(cfg.get('optional_groups', [])) + ['MON']
             cfg = cfg2
         found = patches.load_groups(d, cfg)
-        assert 'MON' in found and len(found['MON']['patches']) == 9, 'MON patches: %s' % (len(found.get('MON', {}).get('patches', [])),)
+        assert 'MON' in found and len(found['MON']['patches']) == 18, 'MON patches: %s' % (len(found.get('MON', {}).get('patches', [])),)
         tg = sorted(set(p['target'] for p in found['MON']['patches']))
         assert tg == ['css', 'js'], 'MON patches target the entry bundle (js) and the app stylesheet (css, the toolbar rule) only: %s' % (tg,)
         assert [p['id'] for p in found['MON']['patches'] if p['target'] == 'css'] == ['MON:toolbar-narrow'], 'the one css patch is the toolbar rule (nothing in the Walkthrough chunk files or pages)'
@@ -94,7 +94,7 @@ def _():
         assert r.returncode == 0, '%s: %s' % (train, (r.stdout + r.stderr)[-600:])
         a = load_json(os.path.join(out, 'anchors.json'))
         mon = [p for p in a['patches'] if p['group'] == 'MON']
-        assert len(mon) == 9 and all(p['ok'] and p['found'] == p['expect'] for p in mon), '%s: %s' % (train, [(p['id'], p['found'], p['expect']) for p in mon])
+        assert len(mon) == 18 and all(p['ok'] and p['found'] == p['expect'] for p in mon), '%s: %s' % (train, [(p['id'], p['found'], p['expect']) for p in mon])
         assert 'MON' in a['groups'], train
         v = load_json(os.path.join(out, 'dist', 'version.json'))
         entry = open(os.path.join(out, 'dist', 'assets', v['entry']), encoding='utf-8').read()

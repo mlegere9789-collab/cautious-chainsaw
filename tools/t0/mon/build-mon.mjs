@@ -26,7 +26,7 @@ const min = await minify(fs.readFileSync(SRC, 'utf8'), { compress: false, mangle
 if (min.error) throw min.error;
 const ENGINE = min.code.replace(/;$/, '') + ';';
 
-// The 20 story markers (the legacy array `mA` of the entry bundle) carried 12 wrong values that a verifier found; they are corrected IN the array, not in the runtime (the Walkthrough has
+// The 20 story markers (the legacy array `mA` of the entry bundle) carried 12 wrong values (9 unit ids, 3 coordinate pairs) that a verifier found; they are corrected IN the array, not in the runtime (the Walkthrough has
 // its own data and is not in this span of the bundle).  [id, legacy unit id, order-of-battle id of the same regiment, and for three stars: legacy lat, lng, then the lat, lng of the
 // monument record the star belongs on (records 220, 85 and 37 of the 512-monument array)].  The legacy ids U-I-1-2W, U-I-1-19IN, C-20NC-IV and U-I-1-6W are not in the order of battle
 // (the same regiments are U-2WI, U-19IN, C-20NC, U-6WI); the five regiments named by their star but linked to another brigade's id get their own id; the three stars lay 1.4-2.1 km from
@@ -131,16 +131,17 @@ const patches = [
     target: 'css',
     // group AX's rule for widths under 1000 px: the middle group (Toggle Units, User Guide, Virtual Walkthrough) is taken out of the flow and centred, so at 960 px it lies on top of the
     // right-hand button row (Search, Filter, Unit Roster, Legend, Monuments ...: the Walkthrough button covers the centre of the Monuments button).  Instead the group stays in the flow, gets
-    // tighter padding and gives way step by step: the PDF link under 920 px, Toggle Units under 820 px, the Walkthrough label is clipped under 740 px.  Nothing overlaps from 640 px up.
+    // tighter padding and gives way step by step: the PDF link (clipped to 148 px: R1c's text 'User Guide (PDF)' is 135 px, the legacy 'Download Website Tutorial' of R1a and R1b is 232) under 990 px,
+    // Toggle Units under 850 px, the Walkthrough label is clipped under 750 px.  Nothing overlaps and nothing leaves the window from 640 px up (the three groups need 977, 836 and 739 px).
     // R1a has no group AX (so no such rule and no gtbg-tb-center class in its markup): there the pattern's second alternative, the stylesheet anchor group AX itself uses, matches instead
     // (only when no gtbg-tb-center text follows it) and the rules are inserted as harmless dead CSS, so the pattern matches exactly once on R1a, R1b and R1c.
     find: String.raw`(@media \(max-width:999px\)\{\.gtbg-tb-center\{position:absolute!important;left:50%!important;transform:translateX\(-50%\)!important\}\})|(\.mapboxgl-ctrl button\.mapboxgl-ctrl-level-button-selected:hover\{background-color:#ccc\})(?![\s\S]*gtbg-tb-center)`,
     regex: true,
     repl: [
-      '@media (max-width:999px){.gtbg-tb-center{position:static!important;left:auto!important;transform:none!important;min-width:0}.gtbg-tb-center>div{gap:6px!important}.gtbg-tb-center button,.gtbg-tb-center a{padding-left:8px!important;padding-right:8px!important}}',
-      '@media (max-width:919px){.gtbg-tb-center a[download]{display:none!important}}',
-      '@media (max-width:819px){.gtbg-tb-center>div>button:first-child{display:none!important}}',
-      '@media (max-width:739px){.gtbg-tb-center{max-width:calc(100vw - 575px);overflow:hidden}.gtbg-tb-center>div>button:last-child{max-width:100%;overflow:hidden;text-overflow:ellipsis}}',
+      '@media (max-width:999px){.gtbg-tb-center{position:static!important;left:auto!important;transform:none!important;min-width:0}.gtbg-tb-center>div{gap:6px!important}.gtbg-tb-center button,.gtbg-tb-center a{padding-left:8px!important;padding-right:8px!important}.gtbg-tb-center a[download]{box-sizing:border-box;max-width:148px;overflow:hidden;text-overflow:ellipsis}}',
+      '@media (max-width:989px){.gtbg-tb-center a[download]{display:none!important}}',
+      '@media (max-width:849px){.gtbg-tb-center>div>button:first-child{display:none!important}}',
+      '@media (max-width:749px){.gtbg-tb-center{max-width:calc(100vw - 590px);overflow:hidden}.gtbg-tb-center>div>button:last-child{max-width:100%;overflow:hidden;text-overflow:ellipsis}}',
     ].join('\n') + String.raw`\2`,
     expect: 1,
     note: "toolbar of a desktop window narrower than 1000 px: the Virtual Walkthrough button no longer lies on top of the Monuments button (pre-existing in every train: the rule it replaces is group AX's).",

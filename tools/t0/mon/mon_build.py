@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build one train WITH the optional group MON (the Monuments layer) into a private directory.
 
-    python tools/t0/mon/mon_build.py --train R1c --out tmp/monuments-restore/R1c-mon [--no-gate]
+    python tools/t0/mon/mon_build.py --train R1c --out tmp/mon-fix/mon-R1c [--no-gate]
 
 Why a wrapper: tools/t0/build.py only loads groups that trains.json names, and the owner of trains.json (the Tranche 0 integrator) has not registered MON yet, so
 MON.json lives in tools/t0/patches-next/ (inert, like CLOCK.json) and this script feeds it to the unmodified builder:
