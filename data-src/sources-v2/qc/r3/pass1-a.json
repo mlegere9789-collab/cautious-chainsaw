@@ -1,0 +1,182 @@
+{
+  "file": "data-src/sources-v2/qc/r3/pass1-a.json",
+  "batch": "r3 pass1-a: entries 555, 556, 575, 584, 585, 610, 619",
+  "date": "2026-10-04",
+  "summary": "Seven entries reviewed. 3 APPROVE (584 Clark/London 32nd NC, 585 SHSP 33/Park, 610 Richmond Enquirer letter, all A1 with an Internet Archive or LoC-image text path), 2 APPROVE-LINKOUT-ONLY (555 Haskell at Bartleby, 575 eHistory Serial 43 index), 1 NEEDS-HUMAN-REVIEW (556 Burrill letter on Studylib, unreadable behind a Cloudflare challenge, rights unknown), 1 REJECT (619, the linked weebly page is a student biography of Mary Dillon on a robots-disallowed host, not a recollection). None of the seven listed links could be opened by an automated client: Bartleby, Studylib, Chronicling America/loc.gov and HathiTrust/eHistory answered 403 or challenge or were policy-blocked; the weebly host forbids robots. Nothing was circumvented. Identity, text and rights were therefore established from Internet Archive scans, the HathiTrust catalog API (builder's earlier fetch), Wayback captures (web.archive.org robots.txt is 404) and the 2018 Blog Divided post that the list was copied from.",
+  "systemic_findings": [
+    "Entries 584, 585, 610 and 619 reproduce, word for word, the link labels of one blog post: 'Beyond Gettysburg: Primary Sources for the Gettysburg Campaign', Blog Divided (Dickinson College House Divided Project), Cooper Wingert, 11 June 2018 (fetched 2026-10-04, host has no robots.txt). The labels are not bibliographic: 'Henry London recollection' is a chapter of a regimental history (Clark 1901) and 'Robert Park recollection' is a compiled regimental sketch with diary extracts (SHSP 33, 1905). The same post links to the 2018 House Divided screenshot of the Richmond Enquirer article (entry 610) and to the weebly Mary Dillon page (619).",
+    "HathiTrust seq anchors (584 seq=613, 585 seq=253) cannot be opened by a program. Using the Internet Archive page-number files of Cornell and Allen County scans, the anchors land on or next to the passages the entries are about (584: p. 525-526 of Clark v.2, the Carlisle passage; 585: p. 242-243 of SHSP 33, the 27-28 June diary entries). Same-volume mapping between a Hathi scan and an IA scan is an assumption, not a check.",
+    "Wayback captures were used as the only way to read three pages that the hosts do not serve to automated clients: eHistory (captures 2024-06-19 index, 2020-09-24 p. 0871), Chronicling America (capture 2025-04-18), and the weebly host (capture 2026-09-17). The hosts themselves were not requested. For the weebly host, whose robots.txt says Disallow: /, reading the Wayback copy is a judgment call that the owner may want to veto; the verdict on 619 would be the same on the Dickinson Archives and 1951 book evidence alone.",
+    "eHistory index gap (found while checking 575): the Wayback capture of 2024-06-19 of https://ehistory.osu.edu/books/official-records/043 lists 1,012 page links and omits printed pages 153, 169 and 201-249; the Wayback availability API has no capture of /043/0207, /043/0243 or /043/0153. Twelve Part I entries (Nos. 18-29, links 0207-0243) link into the gap. This is circumstantial (no capture is not a 404) but those 12 links (no entry links 0153 or 0169) are the first ones a human should open.",
+    "Half of the seven links point at a host that adds nothing to the work: a document-sharing site (556), a student site (619), a reader site that blocks bots (555). In every case a better text or a better catalogue record exists elsewhere (Gutenberg 33121 and IA 1908 scan for Haskell; USAHEC Burrill Papers and two scholarly citations for Burrill; the 1951 book scan or the 1908 Dickinsonian for Dillon).",
+    "Fetches of 2026-10-01 (earlier run of this same task, cached under tmp/sources-v2/r3-a) were reused where the cache holds the real response; fetches of 2026-10-04 are the NPS letters page, Dartmouth agent page, Blog Divided 2018 post, House Divided Carlisle page, the House Divided PDF of the Enquirer, two Dickinson Archives pages, the three Wayback captures and seven Wayback availability-API calls. Rate limit: at most one request per 1.5 s per host and one per 12 s to archive.org hosts; robots.txt read first for every new host; honest User-Agent Gettysburg-sources-QC with contact address; no browser launched."
+  ],
+  "items": [
+    {
+      "n": 555,
+      "link_status": "blocked-to-bots",
+      "bibliographic_match": "confirmed",
+      "kind": "eyewitness-contemporary",
+      "side": "union",
+      "written": "July 1863 (undated private letter to his brother H. M. Haskell, written 'in the intervals of the march' in the same month as the battle, per A. J. Turner's note quoted in the 1908 Wisconsin preface); first printed c. 1878 (72-page pamphlet), reprinted 1898, 1908; this entry's text is the 1910 Harvard Classics reprint",
+      "gettysburg_relevance": "battle-july-1-3",
+      "description_accuracy": "accurate",
+      "rights_tier": "A1-public-domain-quotable",
+      "rights_basis": "The text, as scanned at the Internet Archive: Harvard Classics vol. 43 title page (OCR) reads 'P F Collier & Son Company, New York, Copyright, 1910'; the Wisconsin History Commission reprint is dated November 1908 (IA battleofgettysbu00haskuoft, metadata possible-copyright-status NOT_IN_COPYRIGHT) and the MOLLUS Massachusetts edition of March 1908 is a Library of Congress item with 'unaware of any copyright restrictions'; the author died 3 June 1864. A1 applies to that text, not to the Bartleby page: the Bartleby page could not be read, so Bartleby's own terms or any claim over its digitisation are unknown. Link-out only for that host; quote from the IA scan, Gutenberg 33121 (landing page: 'Public domain in the USA') or the 1908 reprint.",
+      "usable_for": ["link-out-citation", "cross-check-only"],
+      "evidence": "LINK: not opened. My earlier fetch (2026-10-01, cached bart.html) got HTTP 403 with a CloudFront 'Request blocked' page; Bartleby's robots.txt (200, 711 bytes) does not disallow /lit-hub/, so this is a bot block, not a robots rule; no workaround tried. A web search summary says Bartleby carries the document but returned no Bartleby URL, so the page's existence and content are unconfirmed. WORK: read the OCR (djvu.txt) of the Harvard Classics vol. 43 scan (IA harvardclassicsa0043char, 510 images; metadata API 200). The contents list has 'HASKELL'S ACCOUNT OF THE BATTLE OF GETTYSBURG', exactly the entry's title; the text runs from p. 347 ('The Battle of Gettysburg by Frank Aretas Haskell', editor's headnote) to p. 440 (signature 'FRANK A. HASKELL, To H. M. Haskell.'), then Lincoln's Gettysburg Address. CLAIM 1 (reprinted in the Harvard Classics American Historical Documents volume): true. CLAIM 2 (it is Haskell's narrative, complete): the HC headnote says the text follows the unabridged Wisconsin reprint; I compared the HC OCR with the 1908 Wisconsin History Commission reprint (IA battleofgettysbu00haskuoft, 228 images): 39,000 vs 38,742 words and about 90 percent of 6-word sequences identical (the rest is OCR noise, running heads and HC footnotes). The 1908 preface states the Wisconsin edition is 'unexpurgated' and that the 1898 Dartmouth and March 1908 MOLLUS versions had omissions about General Sickles. Provenance of the writing: Turner's note says it was written to his brother at Portage, undated, in July 1863, as a private letter. Gutenberg ebook 33121 (landing page fetched 200) is the same work, produced from IA scans.",
+      "extraction_notes": "Do not extract from Bartleby (blocked, host terms unknown). The work is already in the historian catalogue (H1:SRC-31, Gutenberg 33121 and the IA 1908 scan) and the list repeats it for three hosts (Gutenberg, IA 1908, Bartleby): treat 555 as a duplicate host of one work. Prefer Gutenberg 33121 or the 1908 Wisconsin scan: the HC text adds a 1910 headnote and editorial footnotes signed T. L. L. (Thomas L. Livermore, numbers and losses) that are not Haskell's words, and its OCR has page-header noise. A quote must be checked against the printed page; cite the edition used.",
+      "issues": [
+        "Bartleby page is bot-blocked (403): link and content unverified; entry cannot be quoted from this host.",
+        "Same work listed under other hosts (Gutenberg, IA 1908): duplicate of the work, not a new source.",
+        "'Written' date is not on the document: July 1863 rests on A. J. Turner's note in the 1908 preface; the first print is 15 years later.",
+        "The HC reprint includes Livermore's footnotes and a headnote: quote the 1908 text, not the HC apparatus.",
+        "Entry gives no author name or date; Haskell (aide to Gen. Gibbon, 2nd Corps) must be added from the work."
+      ],
+      "verdict": "APPROVE-LINKOUT-ONLY",
+      "replacement_url": "https://archive.org/details/harvardclassicsa0043char"
+    },
+    {
+      "n": 556,
+      "link_status": "blocked-to-bots",
+      "bibliographic_match": "partial",
+      "kind": "eyewitness-contemporary",
+      "side": "union",
+      "written": "1863-07-06 (as listed; two scholarly sources date Burrill's letters to his fiancee and to his parents to 6 and 13 July 1863; the Studylib transcription itself was not read)",
+      "gettysburg_relevance": "battle-july-1-3",
+      "description_accuracy": "unverifiable",
+      "rights_tier": "unknown-needs-counsel",
+      "rights_basis": "Two separate unknowns. (1) The letter is an unpublished 1863 manuscript held at the U.S. Army Heritage and Education Center (John Henry Burrill Papers, as cited by two scholars). Burrill was born 1842 (web search summary, not verified), so he almost certainly died before 1956 and the text would be public domain if never published before 2003; if a transcription was published between 1978 and 2002, 17 USC 303(a) keeps copyright to the end of 2047. Publication history was not found. (2) The Studylib copy is an uploader's transcription of unknown origin on a document-sharing site; the page could not be read, so no licence or source line was seen. Studylib's robots.txt allows /doc/ but Cloudflare serves a challenge to scripted clients.",
+      "usable_for": ["do-not-use"],
+      "evidence": "LINK: my earlier fetch (2026-10-01, cached sl556.html and its .meta) returned HTTP 403 with header cf-mitigated: challenge and the 'Just a moment...' interstitial; the link probe recorded the same. Not circumvented. The page text was therefore NOT read. WHAT IS CONFIRMED ELSEWHERE: (a) NPS Gettysburg Seminar Papers vol. 9, essay 5 by Karlton D. Smith on Col. Bailey and the 2nd New Hampshire (npshistory.com PDF, fetched, text read): cites Pvt. John Burrill, Co. A, letters to his parents dated 1 and 13 July 1863 from the John Henry Burrill Papers, U.S. Army Military History Institute, Carlisle Barracks (footnotes 37, 38, 73). (b) Tim Orr, Osprey blog post for 'The Battle of Gettysburg 1863: The Second Day' (ospreypublishing.com, fetched, text read): says Pvt. John H. Burrill, Co. A, wrote his fiancee Ella Forristall a few days after the battle, quotes the letter on the fighting at the Peach Orchard (the passage says the battle was awful and that language would not convey an idea) and cites 'John Henry Burrill, July 6 and 13, 1863, John Henry Burrill Papers, U.S. Army Heritage and Education Center, Carlisle'. So the letter, its writer, rank, regiment, addressee and date are real and the original holding archive is USAHEC, which the entry says is not identified. (c) A web search summary of the Studylib page (not my fetch) describes a 6 July 1863 letter from Gettysburg: not under fire until 2 or 3 pm, fierce artillery fire, a move near the peach orchard. CLAIM CHECK: 'Pvt. John H. Burrill, 2nd New Hampshire, letter to his fiancee, 6 July 1863' is corroborated by (b); 'short letter describing the regiment's ordeal under artillery fire near the Peach Orchard' is plausible from (b) and (c) but I could not confirm length or the artillery wording from the page itself. A USAHEC finding aid for the Burrill Papers was not found (the one armyheritage.org URL tried returned 404).",
+      "extraction_notes": "Cannot be extracted from Studylib by a program (challenge) and should not be: unknown uploader and rights. If the letter is wanted, go to the original: request the John Henry Burrill Papers at USAHEC (950 Soldiers Drive, Carlisle Barracks) for a transcription and a rights statement, or cite the two scholarly works that quote it. Do not assume that the Studylib text equals the manuscript.",
+      "issues": [
+        "Page unreadable by an automated client (Cloudflare challenge): title, text and transcription unverified.",
+        "Document-sharing host with no provenance; the entry itself notes the holding archive is not identified there, but USAHEC is identified by two scholarly citations.",
+        "Rights unknown: unpublished manuscript (life + 70 years logic) versus a possible publication between 1978 and 2002 (17 USC 303(a)); counsel or the archive must answer.",
+        "Doubt whether July 6 is the fiancee letter or the parents letter: Orr cites both dates together, Smith cites July 1 and July 13 for the parents.",
+        "Could not confirm the 'short' length or artillery wording of the description."
+      ],
+      "verdict": "NEEDS-HUMAN-REVIEW",
+      "replacement_url": null
+    },
+    {
+      "n": 575,
+      "link_status": "blocked-to-bots",
+      "bibliographic_match": "confirmed",
+      "kind": "compiled-volume-or-finding-aid",
+      "side": "union",
+      "written": "Volume printed by the Government Printing Office, 1889 (per the repository's own QC report; the OCR of the title page has no year and the HathiTrust/IA records carry the series start date 1880). The 377 reports of Part I are written 1863-06-04 to 1864-03-15 (OCR index, 340 dated).",
+      "gettysburg_relevance": "campaign-and-battle",
+      "description_accuracy": "accurate",
+      "rights_tier": "A1-public-domain-quotable",
+      "rights_basis": "US Government work (War Department, Government Printing Office; 17 USC 105). The Internet Archive scan warofrebellion271unit (University of Illinois copy, 1,190 images) carries the title page 'Series I, Volume XXVII, in three parts, Part I, Reports, Washington, Government Printing Office'; HathiTrust catalog API (builder's earlier fetch): coo.31924077699761, enumcron ser.1:v.27:pt.1:Reports, Full view. The eHistory page adds only a transcription whose terms were not stated on either captured page (site footer: 2024 The Ohio State University): link-out only for that host.",
+      "usable_for": ["link-out-citation", "cross-check-only"],
+      "evidence": "LINK: eHistory was not requested at all (policy: known HTTP 403 to automated clients). I read two Wayback captures instead (web.archive.org robots.txt 404; fetched 2026-10-04 after the availability API found them). (1) Capture of 2024-06-19 of https://ehistory.osu.edu/books/official-records/043: page title 'War of the Rebellion: Serial 043 Introduction | OSU eHistory'; an intro block headed 'Vol. 27 Introduction - Serial 43' and 'Gettysburg Campaign Intro' that says Series I vol. XXVII has three parts on the Gettysburg Campaign (3 June to 3 August 1863) and that Part One holds the Union reports (the blurb is cut off mid-sentence); a 'Search this book' box; and a list of 1,012 distinct page links between 'Serial 043 Page 0000' and 'Page 1062', one web page per printed page. Fifty-one numbers in that range are NOT in the list: 153, 169 and 201 to 249. The Wayback availability API has no capture for /043/0207, /043/0243 or /043/0153 but has one for /043/0200 (2017) that is in the list; absence of a capture proves nothing by itself, but it fits a gap in the site's transcription. Twelve list entries link into the gap (Reports 18 to 29, pages 0207 to 0243). (2) Capture of 2020-09-24 of .../043/0871: page text is the end of Lt. E. D. Muhlenberg's report, then 'Numbers 315. Reports of Brigadier General Robert O. Tyler, U. S. Army, commanding artillery Reserve' with the first paragraph, and a footnote. CROSS-CHECK against our own derivation: the OCR report index of the Internet Archive scan (historian-src/corpus/or27/reports.json) has report 314 (Muhlenberg) ending on p. 871 and report 315 (Tyler) beginning on p. 871; the IA OCR line 'notice Lieut. D. H. Kinzie, commanding Battery K' (Muhlenberg) is in the scan's text and the same sentence is on the eHistory capture. CLAIMS: 'Serial 43 introduction, Gettysburg Campaign, transcribed text' true; 'one web page per printed page, pattern /043/0871 = Part 1 page 871' true (page numbers 0000-1062 match Part I's pagination, 377 reports to p. 1059 plus the alternate-designations list). 'Searchable': a search box is present on the capture; not exercised. Not checked: whether the live site still looks like the captures.",
+      "extraction_notes": "No extraction from eHistory: it is bot-blocked and the same text is already ingested from the IA scan (warofrebellion271unit, OCR plus folio map). Use the eHistory URL pattern https://ehistory.osu.edu/books/official-records/043/<4-digit printed page> only as a human-facing link; page 0000 is the cover or untitled leaf. 'Serial 43' is Part I only: Parts II and III are other serial numbers and other pages.",
+      "issues": [
+        "Link itself not opened by any automated client (eHistory policy block); evidence is two Wayback captures from 2024 and 2020.",
+        "The 2024 index capture lists no link for printed pages 153, 169 and 201-249 (51 pages); 12 list entries (OR Reports 18-29, links /043/0207 ... /043/0243) point into that gap and may 404 or lead nowhere: a human should open them.",
+        "The 'Introduction' is eHistory's own label for the volume landing page; the intro blurb is truncated mid-sentence on the site.",
+        "Title says 'Serial 43' but the resource is Part I only (Union reports), although the blurb speaks of three parts.",
+        "Duplicate in function of the 543 OR-report and 1,057 pointer entries that already link into eHistory: it adds no text."
+      ],
+      "verdict": "APPROVE-LINKOUT-ONLY",
+      "replacement_url": "https://archive.org/details/warofrebellion271unit"
+    },
+    {
+      "n": 584,
+      "link_status": "blocked-to-bots",
+      "bibliographic_match": "partial",
+      "kind": "eyewitness-retrospective-memoir",
+      "side": "confederate",
+      "written": "1901 (Clark's Histories vol. 2); events 27 June to 1 July 1863",
+      "gettysburg_relevance": "campaign-and-battle",
+      "description_accuracy": "partly-inaccurate",
+      "rights_tier": "A1-public-domain-quotable",
+      "rights_basis": "Original 1901 imprint, a North Carolina state publication ('Published by the State', Goldsboro: Nash Brothers; Raleigh: E. M. Uzzell). Imprint year read from IA item metadata (date 1901, items cu31924092908544 Cornell and 01300611.3315.emory.edu Emory, volume V.2) and from the HathiTrust catalog API (publish date 1901; htid coo1.ark:/13960/t1jh44t23 = Cornell, v.2, rights pd, Full view; builder's earlier fetch). Not a reprint. Title page of the Emory scan shows 'Vol. II, Published by the State'.",
+      "usable_for": ["verbatim-quote-corpus", "link-out-citation"],
+      "evidence": "LINK: HathiTrust was not fetched (blocked to bots by policy). IDENTITY via the HathiTrust catalog API record (v.2, Cornell, Full view) and the Internet Archive scans. I read the OCR text of the Emory scan of vol. 2 (IA 01300611.3315.emory.edu, 934 images, djvu.txt 200). The contents list gives 'Thirty-Second Regiment, by Private Henry A. London, 521' (next chapter at 537). The chapter is headed 'By HENRY A. LONDON, Private Company I'. Pp. 525-527 cover the campaign: Rodes' division reached Carlisle on 27 June and occupied the United States barracks, the regiment received the first flag made to the new Confederate design there (p. 525-526), left on the 30th, reached Gettysburg on 1 July (p. 527); p. 527-529 quote Col. Brabble's official report (OR vol. 27 pt. 2) and a passage of Rodes' report. CLAIM 1 (postwar Confederate recollection): true, 1901. CLAIM 2 (march into Cumberland County): true, Carlisle is the county seat; but the chapter is a whole regimental history (pp. 521-536) and most of it concerns other years. PAGE ANCHOR: the IA page-number files put printed p. 526 at leaf 613 (Cornell scan) and p. 525 at leaf 613 (Emory scan); HathiTrust seq=613 on the Cornell copy is therefore p. 525 or 526 depending on indexing, i.e. the Carlisle passage; this mapping from IA to Hathi was not checked on Hathi. The entry text is copied from the link label of the 2018 Blog Divided post (Cooper Wingert).",
+      "extraction_notes": "Extract from the Internet Archive full text (adapter archive-fulltext), not from HathiTrust: Emory scan https://archive.org/details/01300611.3315.emory.edu (djvu.txt read) or the Cornell scan cu31924092908544 (its djvu.txt returned HTTP 500 in my earlier fetch; the page-number JSON is fine). OCR damages digits and some letters ('IK 62' for 1862, '1*61', 'Xorth'): verify every date and name against the page image. Passage for the entry is pp. 524-527 (about 6 paragraphs); the flag-presentation anecdote and General Ramseur's remark are told in the author's voice at one remove and in pp. 521-529 (the pages I read) the author, a Private of Co. I, makes no first-person claim: mark them as regimental tradition, not eyewitness testimony, unless a human reading of pp. 529-536 shows otherwise. Do not attribute the quoted official reports (Brabble, Rodes) to London.",
+      "issues": [
+        "Link is a HathiTrust page, blocked to bots: not opened; seq=613 only inferred to be p. 525-526.",
+        "Label is not bibliographic: 'Henry London recollection' omits the middle initial (Henry A. London, Private, Co. I, 32nd N.C.), the work (Clark, Histories of the Several Regiments and Battalions from North Carolina, vol. 2, 1901) and the pages (521-536).",
+        "Description 'march into Cumberland County' covers about 3 of 16 pages; the chapter also covers the regiment's whole war and quotes official reports.",
+        "Mixed status: part retrospective narrative by a private, part compilation of OR text; passages about Carlisle carry no first-person claim."
+      ],
+      "verdict": "APPROVE",
+      "replacement_url": "https://archive.org/details/01300611.3315.emory.edu"
+    },
+    {
+      "n": 585,
+      "link_status": "blocked-to-bots",
+      "bibliographic_match": "partial",
+      "kind": "eyewitness-contemporary",
+      "side": "confederate",
+      "written": "Diary entries of 27-29 June 1863 and 1 July 1863 onward (the 1863-64 part of Park's war diary); first published in SHSP vol. 26 (1898) per the editor's note; this entry's text is the extract printed in SHSP vol. 33 (1905)",
+      "gettysburg_relevance": "campaign-and-battle",
+      "description_accuracy": "partly-inaccurate",
+      "rights_tier": "A1-public-domain-quotable",
+      "rights_basis": "Original 1905 imprint: SHSP vol. XXXIII 'Richmond, Va., Published by the Society, 1905' (title page OCR of IA southernhistoricv33sout, 396 images). The University of Florida scan of the same volume (IA southernhistoric3319sout) carries 'Copyright status reviewed by UF staff - Out of copyright'; HathiTrust catalog API (builder's earlier fetch): hvd.32044090078528 = Harvard, v.33 (1905), rights pd, Full view.",
+      "usable_for": ["verbatim-quote-corpus", "link-out-citation"],
+      "evidence": "LINK: HathiTrust not fetched (blocked by policy); identity from the catalog API (Harvard, SHSP v.33, 1905) and from the Internet Archive scan southernhistoricv33sout (metadata API 200; djvu.txt 200, read). In the volume's contents item XVIII is 'The 12th Alabama Infantry, C. S. A.; Its Organization, Associations, Engagements, Casualties, etc. By Robert E. Park, late Capt. Co. E., 12th Alabama, 193' (next item at 297). The editor's headnote (p. 193) says the piece 'consists of extracts from the War Diary of Robert Emory Park' with materials he collected; that the part of the diary for 1864-65 appeared in SHSP 1-3 (1876-77); and that the earlier part (January 1863 to January 1864, Chancellorsville, Gettysburg, the march into Pennsylvania) appeared in vol. XXVI and had been lost on the field and returned in 1888. The diary entries are on pp. 242-243: 'June 27. Marched ... two miles beyond Carlisle, on the Baltimore turnpike'; 'June 28' (breakfast, attended an Episcopal church in Carlisle, dinner at the National Hotel, paid in Confederate money); 29 June crossed the mountain toward Heidlersburg; 'Battle of Gettysburg. July 1' follows on pp. 243-244. CLAIM 1 (Confederate officer's diary): true, entries are dated diary entries by an officer of Rodes' division (he commands a company). CLAIM 2 (occupation of Carlisle): thin, the regiment camped outside the town; two diary days mention Carlisle. PAGE ANCHOR: IA page-number file puts printed p. 243 at leaf 253 and p. 242 at leaf 252 of the Allen County scan; Hathi seq=253 on the Harvard copy is therefore p. 242 or 243 if the sequences agree (not checked on Hathi). The entry text is copied from the link label of the 2018 Blog Divided post.",
+      "extraction_notes": "Use the IA text (adapter archive-fulltext) of southernhistoricv33sout or the UF scan southernhistoric3319sout; do not use HathiTrust. Piece spans pp. 193-296; the June 1863 diary is pp. 241-244 and the Gettysburg days follow. OCR is acceptable but check dates against the page image. Attribute as 'Capt. Robert E. Park, 12th Alabama (diary, as printed in SHSP 33, 1905, extracts)'; the 1898 vol. 26 printing (not fetched) is the first publication and may hold more complete text. The diary was lost and recovered in 1888: possible editing before 1898 cannot be excluded, so do not call every sentence same-day writing.",
+      "issues": [
+        "Link is a HathiTrust page, blocked: not opened.",
+        "Label 'Robert Park recollection' hides that the work is a compiled history of the 12th Alabama with diary extracts; the author's rank in 1863 is not stated in the entry (the volume calls him late Captain, Co. E; the headnote also says Co. F).",
+        "Carlisle content is two short diary days; the piece is mainly about the regiment and the battle (June 27-July 1 and later).",
+        "First publication is SHSP vol. 26 (1898); this 1905 printing is a compilation of extracts, not checked against vol. 26."
+      ],
+      "verdict": "APPROVE",
+      "replacement_url": "https://archive.org/details/southernhistoricv33sout"
+    },
+    {
+      "n": 610,
+      "link_status": "blocked-to-bots",
+      "bibliographic_match": "confirmed",
+      "kind": "newspaper",
+      "side": "confederate",
+      "written": "1863-07-04 (dateline 'Gettysburg, Pa., July 4, 1863'); printed in the Richmond Enquirer semi-weekly edition of 17 July 1863 (masthead date of the text 16 July)",
+      "gettysburg_relevance": "campaign-and-battle",
+      "description_accuracy": "accurate",
+      "rights_tier": "A1-public-domain-quotable",
+      "rights_basis": "Original newspaper issue of 17 July 1863 (publication date read from the Library of Congress page title 'Richmond enquirer. [volume] (Richmond, Va.) 1815-1867, July 17, 1863, SEMI-WEEKLY EDITION, Image 1'; image provided by the Library of Virginia). Published in the United States before 1931, so public domain by date; no rights statement appears on the captured LoC page. The correspondent signs 'W. K.' (author unidentified). Low-resolution modern screenshot at House Divided adds no right.",
+      "usable_for": ["verbatim-quote-corpus", "link-out-citation"],
+      "evidence": "LINK: chroniclingamerica.loc.gov answers HTTP 403 with a 'Just a moment...' challenge (the registry's link probe: redirected to the loc.gov resource viewer, then the challenge page; my earlier fetch of chroniclingamerica.loc.gov/robots.txt was redirected to www.loc.gov/collections/chronicling-america/ and also answered 403): not circumvented, host not requested again. I read (a) the Wayback capture of 2025-04-18 of the Chronicling America page (cached, 99 KB): title 'Richmond enquirer. [volume] (Richmond, Va.) 1815-1867, July 17, 1863, SEMI-WEEKLY EDITION, Image 1', 'Image 1 of 4', image provided by Library of Virginia, with the page OCR text embedded; (b) the House Divided PDF (fetched 2026-10-04 from housedivided.dickinson.edu/sites/blogdivided/files/2018/06/Richmond-Enquirer-July-17.pdf; no robots.txt there): a one-page 'Screen Shot 2018-06-12' PDF holding a 260 x 692 px picture of the article, which I viewed. The article: headline 'GEN. JENKINS' BRIGADE.', '[Correspondence of Richmond Enquirer.]', 'Gettysburg, Pa., July 4, 1863', addressed to 'Messrs. Editors'. It says the command of about 500 effective men went to Harrisburg, shelled the outposts and reviewed the fortifications for three days with no infantry nearer than Carlisle, marched back to Carlisle on the evening of the 30th, rejoined the 14th cavalry (Va.), heard the Gettysburg battle open next day at 2 pm, that Gen. Jenkins was wounded by a shell on the morning of the second day, and that Lee withdrew before daylight on the 4th. CLAIM 1 (Richmond Enquirer, 17 July 1863, LoC scan): true. CLAIM 2 (Confederate newspaper account of Jenkins's cavalry in Pennsylvania): true. Cross-check: OR vol. 27 (OCR) records Jenkins wounded and Colonel Ferguson commanding Jenkins's brigade; the article says 'Col. Tennyson' (printed in the screenshot, so a newspaper error, not OCR).",
+      "extraction_notes": "OCR of the Chronicling America page is too noisy to quote (the OCR text I read has 'Me srs', 'denkins', dropped words and column interleaving); the article is short (about 10 paragraphs) and legible on the page image. Path: manual transcription from the LoC page image (jp2 or pdf at /lccn/sn84024735/1863-07-17/ed-1/seq-1) by a person at a normal browser, checked by a second person; the House Divided screenshot is only 260 px wide and is a fallback. The letter is the work of an unnamed correspondent with Jenkins's brigade (signed W. K.), not of the editors. The semi-weekly edition reprints the daily; whether the daily of 16 July ran the letter first was not checked.",
+      "issues": [
+        "Link blocked to bots (Cloudflare challenge on chroniclingamerica.loc.gov / loc.gov): not opened by me; read through Wayback and a 2018 screenshot.",
+        "OCR unusable for quotation: manual transcription needed.",
+        "Correspondent is unidentified (signature W. K.); the entry has no author.",
+        "Newspaper prints 'Col. Tennyson' for the officer who took Jenkins's brigade (OR names Colonel Ferguson).",
+        "Entry title omits the dateline and the correspondent form; the page also carries unrelated editorials and a long Pennsylvania geography piece."
+      ],
+      "verdict": "APPROVE",
+      "replacement_url": null
+    },
+    {
+      "n": 619,
+      "link_status": "robots-disallowed",
+      "bibliographic_match": "mismatch",
+      "kind": "secondary-other",
+      "side": "civilian",
+      "written": "Linked page: modern student biography (Dickinson College project site, undated, capture of 2026-09-17). The recollection it points to: 'In Old Carlisle', The Dickinsonian, 22 April 1908, recalling 1850-1868",
+      "gettysburg_relevance": "campaign-only",
+      "description_accuracy": "inaccurate",
+      "rights_tier": "C-link-out-only",
+      "rights_basis": "The linked page is modern student-written text on a Weebly site whose robots.txt says Disallow: / (fetched 2026-10-01); no licence line on the captured page; so its text cannot be reused and the host cannot be fetched by a program. The underlying 1908 Dickinsonian article is public domain by date (published 1908) but is a different item, held as a Flipsnack embed on archives.dickinson.edu (footer 'All rights reserved') and reprinted in a 1951 book of unverified rights.",
+      "usable_for": ["do-not-use"],
+      "evidence": "LINK: marydillonscarlisle.weebly.com/robots.txt (200) is 'User-agent: * Disallow: /': the host was NOT requested. Wayback availability API gave a capture of 2026-09-17; I read that capture (web.archive.org robots.txt is 404). Judgment call, flagged in systemic_findings. The page is titled 'Mary Johnson Dillon - Mary Dillon's Carlisle' ('The Life of Mary Johnson Dillon', 'Biography', 'The Novelist's Story'): a footnoted student biography of Mary Johnson Dillon (born 21 August 1850, died 2 February 1922; first novel 1904; 'In Old Bellaire', 1906). It describes the occupation and the shelling of 1 July 1863 in the third person, quotes her 1908 Dickinsonian piece in a few lines, and quotes a scene from her novel. It is not a recollection by her. THE ACTUAL RECOLLECTION: Dickinson Archives page for the issue (archives.dickinson.edu/dickinsonian-people/dillon-mary-c and /dickinsonian/dickinsonian-april-22-1908, fetched 2026-10-04) says that Mary C. Dillon wrote a recollection of her time in Carlisle in the Dickinsonian of 22 April 1908 (embedded as a Flipsnack viewer, so no text for a program). The same text is reprinted in 'Two Hundred Years in Cumberland County' (1951; IA twohundredyearsi00unse, metadata 200, djvu.txt 200, read) pp. 224-231 under the headings 'Through a Golden Mist 1850-1868' and 'Mary Dillon's Memories of Old Bellaire', ending 'From Mary C. Dillon, In Old Carlisle, The Dickinsonian, April 22, 1908'. In it the invasion is one paragraph on p. 230: the 'rebels' came, the family watched a great army pour silently through the streets, days of excitement, a long night of bombardment; everything else is Dickinson College faculty, childhood and the town. 'In Old Bellaire' is a novel (fiction), per the weebly page. CLAIM 1 ('civilian recollection of the invasion from the college president's household'): the page linked is not that; the recollection exists but is about eight lines on the invasion. CLAIM 2 ('daughter of Dickinson College President'): true (Herman Merrills Johnson, president 1860-1868), per the weebly page and the blog post. Origin of the entry: the link label in the 2018 Blog Divided post, under 'Primary Sources - Civilian'.",
+      "extraction_notes": "Reject the weebly link: robots-disallowed, student text, not a primary source. If the owner wants Dillon, add a new entry for the 1908 article and take the text from the 1951 book (IA twohundredyearsi00unse, pp. 224-231, OCR read, but that book is a 1951 compilation with rights not assessed) or from a person reading the Dickinsonian issue at archives.dickinson.edu. Value for Ask the Historian is low: about eight lines on the occupation, written 45 years later by a woman who was 12 in 1863. Do not mix her up with the Dickinson 'In Old Bellaire' novel.",
+      "issues": [
+        "Host forbids automated access (robots.txt Disallow: /): not fetched; only the Wayback capture was read.",
+        "Entry calls the page a 'recollection'; it is a modern student biography, partly quoting a novel and a 1908 article.",
+        "The real recollection (Dickinsonian, 22 April 1908) is not what the link opens and contains only a short invasion paragraph.",
+        "Risk of confusing the 1906 novel In Old Bellaire (fiction) with eyewitness testimony.",
+        "Rights: student site content, no licence; 1951 reprint rights unknown."
+      ],
+      "verdict": "REJECT",
+      "replacement_url": "https://archive.org/details/twohundredyearsi00unse"
+    }
+  ]
+}

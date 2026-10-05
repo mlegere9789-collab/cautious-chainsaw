@@ -1,0 +1,45 @@
+{
+  "schema": "sources-v2-reviewer-attested/1",
+  "purpose": "Facts that reviewers stated in prose and that the registry needs as structured data (an entry that duplicates Official Records text, two entries that are one work, a first page the list gets wrong). Each fact is anchored by a phrase copied verbatim from the reviewer's own output; tests/sources-qc checks that every phrase occurs in the cited review or batch text, so nothing here is a new finding. A fact with no phrase that can be found is a test failure.",
+  "or_overlap": [
+    { "n": 544, "scope": "full", "or_ref": "OR 27/2, report of Stuart (composite record or27-2:0565, pp. 679-720)", "reviewer": "r2/p2/A-nonOR-16", "phrase": "the Historian already ingests this report from the OR" },
+    { "n": 546, "scope": "full", "or_ref": "OR 27/2 Nos. 481 (Johnson) and 549 (Heth)", "reviewer": "r2/p1/R1n-0", "phrase": "duplicates OR 27/2 nos. 481 and 549, already ingested" },
+    { "n": 547, "scope": "full", "or_ref": "OR 27/2 No. 527 (Blackford)", "reviewer": "r2/p1/R1n-0", "phrase": "duplicates OR 27/2 No. 527, already ingested" },
+    { "n": 551, "scope": "partial", "or_ref": "OR 27/2 (Doles = No. 514 and the other brigade reports in SHSP vol. 8); the new text is Lane's history and Palfrey's paper", "reviewer": "r2/p1/R1n-0", "phrase": "The OR reports in it duplicate OR 27/2 (Doles = No. 514)" },
+    { "n": 584, "scope": "partial", "or_ref": "OR vol. 27 (one official report quoted in full inside the chapter)", "reviewer": "r3/p2/r3-pass2-a", "phrase": "printed in OR vol. 27), quoted in full" },
+    { "n": 588, "scope": "full", "or_ref": "OR 27/3 p. 912 (General Orders No. 72)", "reviewer": "r1/p1/r1-pass1", "phrase": "Duplicates the content of OR vol. 27 pt 3 p. 912 already in the Official Records list" },
+    { "n": 649, "scope": "partial", "or_ref": "OR 27/3 p. 912 (General Orders No. 72 pasted into the issue)", "reviewer": "r2/p1/R1n-4", "phrase": "The pasted General Orders No. 72 duplicates OR vol. 27 pt. 3 p. 912, already ingested" },
+    { "n": 652, "scope": "full", "or_ref": "OR vol. 25 pt. 2 and vol. 27 pt. 3", "reviewer": "r2/p1/R1n-5", "phrase": "Almost all of the content duplicates OR vol. 25 pt. 2 and vol. 27 pt. 3, which we already ingest" }
+  ],
+  "same_text": [
+    { "n": 553, "same_as": 554, "relation": "same-printing-two-routes", "ingest": "once", "reviewer": "r2/p1/R1n-0", "phrase": "Same printing as entry 554: ingest once" },
+    { "n": 554, "same_as": 553, "relation": "same-printing-two-routes", "ingest": "once", "reviewer": "r2/p2/A-nonOR-8", "phrase": "same edition: do not ingest the work twice" },
+    { "n": 653, "same_as": 654, "relation": "duplicate-scan-same-volume", "ingest": "once", "reviewer": "r2/p2/A-nonOR-8", "phrase": "Duplicate scan of the same Vol. I as entry 654" },
+    { "n": 654, "same_as": 653, "relation": "duplicate-scan-same-volume", "ingest": "once", "reviewer": "r2/p1/R1n-1", "phrase": "treat 653 and 654 as one edition and ingest one scan" },
+    { "n": 654, "same_as": 653, "relation": "duplicate-scan-same-volume", "ingest": "once", "reviewer": "r2/p2/A-nonOR-8", "phrase": "This is a duplicate of entry 653" },
+    { "n": 599, "same_as": 595, "review_n": 595, "relation": "two-pages-same-document", "ingest": "once", "reviewer": "r1/p2/r1-pass2", "phrase": "Entries 595 and 599 are two pages of the same report and should be merged." },
+    { "n": 636, "same_as": 648, "relation": "same-issue-two-layers", "ingest": "once", "reviewer": "r3/p2/r3-pass2-b", "phrase": "entry 648's page, read only as a cross-check" }
+  ],
+  "not_same_text": [
+    { "n": 655, "not_same_as": 653, "why": "Vol. III (pp. 935-1461, 1902 imprint), not Vol. I; the work group that put 653, 654 and 655 together was wrong for 655", "reviewer": "r2/p2/A-nonOR-8", "phrase": "Not a duplicate of Vol. I" }
+  ],
+  "or_locator_corrections": [
+    { "n": 10, "kind": "wrong-first-page", "listed_first_page": 155, "first_page": 168, "batch": "r2/p1/R2-audit-A", "field": "summary", "phrase": "Entry 10 should start on p. 168 (the list's p. 155 is the first page of No. 9)" },
+    { "n": 298, "kind": "wrong-first-page", "listed_first_page": 842, "first_page": 843, "batch": "r2/p1/R2-audit-A", "field": "summary", "phrase": "Entry 298 should start on p. 843 (p. 842 is the last page of No. 297)" }
+  ],
+  "or_locator_doubts": [
+    { "n": 251, "kind": "first-page-off-by-one-from-ocr-scan", "listed_first_page": 722, "first_page": 723, "image_viewed": false, "batch": "r2/p1/R2-audit-A", "field": "systemic_findings", "phrase": "entry 251 (list 722, heading on p. 723, p. 722 is the end of No. 250)" },
+    { "n": 509, "kind": "end-page-from-ocr-scan", "listed_end_page": 654, "end_page": 656, "image_viewed": false, "batch": "r2/p1/R2-audit-A", "field": "systemic_findings", "phrase": "one end-page error, entry 509 (list 654-654, report runs to p. 656)" }
+  ],
+  "or_ocr_notes": [
+    { "n": 208, "note": "the OCR reads the printed year as 1868; the page image reads 1863 (so the OCR index has no date for this report)", "batch": "r2/p1/R2-audit-A", "field": "systemic_findings", "phrase": "entry 208 ('1868', really 1863)" },
+    { "n": 325, "note": "the OCR reads the printed year as I860; the page image reads 1863", "batch": "r2/p1/R2-audit-A", "field": "systemic_findings", "phrase": "entry 325 ('I860', really 1863)" },
+    { "n": 397, "note": "one OCR number line is lost (No. 443), which hides the heading from automated scans", "batch": "r2/p1/R2-audit-A", "field": "systemic_findings", "phrase": "One OCR number line is lost (397, 'No. 443')" }
+  ],
+  "known_defects_of_inputs": [
+    { "id": "ia-folio-map-part1-second-half", "what": "the Internet Archive's own page_numbers.json for Part 1 (warofrebellion271unit) runs two leaves too high from about p. 452 and four at p. 878, so a scan leaf taken from the folio map is wrong for the second half of the volume while the registry's 'reader' index is right; use scan.reader, not scan.leaf", "batch": "r2/p2/A-OR-0", "field": "systemic_findings", "phrase": "IA's own folio file warofrebellion271unit_page_numbers.json is wrong for the second half of the volume" },
+    { "id": "hathitrust-seq-copied-from-index", "what": "the HathiTrust seq values in the list are copied from the Civil War Cycling index, not computed (the earlier suspicion that they were computed has a benign explanation); whether they open the right page is still unconfirmed", "batch": "r2/p2/A-OR-0", "field": "systemic_findings", "phrase": "The list copied them from that index rather than computing them" },
+    { "id": "ehistory-transcription-not-verbatim", "what": "the eHistory transcription layer is not verbatim (a footnote date, an omitted line, a typo and a one-word placeholder where the scan has a plate), so it is a link-out, never a quote source", "batch": "r2/p2/A-OR-20", "field": "systemic_findings", "phrase": "The eHistory transcription is not verbatim" },
+    { "id": "historian-dispatch-side-appendix", "what": "the historian's dispatches.json labelled the Union Appendix (pp. 1076-1090) 'confederate' when the audit read it; this is a finding against the historian ingestion, reported to the owner, not changed here", "batch": "r2/p1/R3-audit-A", "field": "systemic_findings", "phrase": "42 Union Appendix dispatches on pp. 1076-1090" }
+  ]
+}

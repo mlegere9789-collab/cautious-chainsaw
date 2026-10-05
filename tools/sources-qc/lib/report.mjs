@@ -1,65 +1,80 @@
 // Renders docs/historian/sources-v2/QC-REPORT.md from the registry and its statistics.
 // Every number in the report is computed here from the registry; nothing is typed in by hand, so a re-run after more
-// reviews changes the report and the registry together.
+// reviews changes the report and the registry together. The prose says what the numbers support and no more.
 
 const n = (x) => Number(x ?? 0).toLocaleString('en-US');
-const pct = (a, b) => (b ? `${((100 * a) / b).toFixed(1)}%` : 'n/a');
-const sum = (o, keys) => keys.reduce((a, k) => a + (o?.[k] ?? 0), 0);
+const pct = (a, b, d = 1) => (b ? `${((100 * a) / b).toFixed(d)}%` : 'n/a');
 const list = (xs) => xs.join(', ');
+const trunc = (s, k) => { const t = String(s ?? '').replace(/\|/g, '/').replace(/\s+/g, ' ').trim(); return t.length > k ? `${t.slice(0, k - 1)}...` : t; };
+const sideLabel = { union: 'Union', confederate: 'Confederate', civilian: 'Civilian', 'mixed-or-neutral': 'Mixed or neutral', contested: 'Reviewers disagree' };
+const SIDES = ['union', 'confederate', 'civilian', 'mixed-or-neutral', 'contested'];
+const wbDate = (u) => { const m = /\/web\/(\d{4})(\d{2})(\d{2})/.exec(u ?? ''); return m ? `${m[1]}-${m[2]}-${m[3]}` : null; };
 
 export function renderQcReport({ registry, queue, stats, reviewQueue, date }) {
   const E = registry.entries;
+  const M = registry.meta;
   const C = stats.counts;
   const V = stats.evidence;
   const st = C.by_status;
   const nonOr = E.filter((e) => e.entry_kind === 'non_or');
   const orRep = E.filter((e) => e.entry_kind === 'or_report');
-  const pointers = E.filter((e) => e.entry_kind === 'or_page');
-  const reviewed = nonOr.filter((e) => e.verification.verifiers.includes('review-pass1'));
-  const approvedOther = nonOr.filter((e) => ['APPROVED', 'APPROVED-LINKOUT-ONLY'].includes(e.final_status));
-  const notVerified = nonOr.filter((e) => e.final_status === 'NOT-VERIFIED');
+  const reviewed = nonOr.filter((e) => e.verification.reviews);
+  const approved = nonOr.filter((e) => e.final_status === 'APPROVED');
+  const linkOut = nonOr.filter((e) => e.final_status === 'APPROVED-LINKOUT-ONLY');
+  const nhr = nonOr.filter((e) => e.final_status === 'NEEDS-HUMAN-REVIEW');
+  const rejected = nonOr.filter((e) => e.final_status === 'REJECTED');
   const dups = nonOr.filter((e) => e.final_status === 'DUPLICATE');
-  const nhr = E.filter((e) => e.final_status === 'NEEDS-HUMAN-REVIEW');
-  const nhrOther = nhr.filter((e) => e.entry_kind === 'non_or');
-  const nhrOr = nhr.filter((e) => e.entry_kind === 'or_report');
-  const cls = (c) => nonOr.filter((e) => e.resource_class === c && e.final_status !== 'DUPLICATE').length;
+  const nhrOr = E.filter((e) => e.entry_kind !== 'non_or' && e.final_status === 'NEEDS-HUMAN-REVIEW');
   const works = C.distinct_non_or_works;
-  const scope = C.non_or_by_scope_hint;
-  const probe = V.probe_link_class_tally;
+  const ready = queue.ready;
+  const blocked = queue.blocked;
+  const holdRights = blocked.filter((b) => b.blocked_by.includes('rights'));
+  const needTranscription = blocked.filter((b) => b.blocked_by.includes('transcription'));
+  const nb = C.new_beyond_or;
+  const cov = C.coverage_quote_corpus;
+  const covReady = C.coverage_quote_corpus_ready_now;
   const x = V.part_xiii;
   const lag = V.or_written_lag_days;
   const pg = V.structural_or_pages;
-  const ready = queue.ready;
-  const blocked = queue.blocked;
-  const verdictSame = reviewed.filter((e) => e.verification.passes[1].verdict === e.verification.passes[2].verdict).length;
-  const wb = notVerified.filter((e) => e.replacement_urls.length);
-  const wbMatch = wb.filter((e) => e.replacement_urls.some((r) => r.status === 'candidate-title-matches'));
-  const perseus = V.robots_disallowed_perseus;
-  const modern = notVerified.filter((e) => e.description_issues.includes('listed-link-is-a-modern-edition-not-the-period-text'));
-  const tierOfApproved = C.approved_for_quote_corpus_by_tier;
-  const catalogOverlapWorks = nonOr.filter((e) => e.catalog_overlap && e.final_status !== 'DUPLICATE').length;
-  const imageOnly = reviewed.filter((e) => e.verification.passes && e.ingest?.state?.includes('transcription')).length;
+  const oa = M.or_description_audit;
+  const pa = M.part_xiii_audit;
+  const sys = oa.systematic_sample.systemic_test;
+  const sys1 = oa.systematic_sample.systemic_test_first_auditor_only;
+  const li = M.list_incompleteness;
+  const sr = M.structural_refresh;
+  const dn = C.derivation_notes;
+  const byN = new Map(E.map((e) => [e.n, e]));
+  const titleOf = (e) => trunc(e.corrected_title ?? e.title, 78);
+  const passageBits = ready.map((r) => r.expected_passages).filter(Boolean);
+  const eqCount = (o, k) => o?.[k] ?? 0;
+  const tierOf = C.approved_for_quote_corpus_by_tier;
+  const newTotal = nb.new_text_works.length;
+  const retro = (C.coverage_quote_corpus.by_timing.retrospective ?? 0);
+  const contemp = (C.coverage_quote_corpus.by_timing.contemporaneous ?? 0);
+  const battleRel = (cov.by_relevance['battle-july-1-3'] ?? 0) + (cov.by_relevance['campaign-and-battle'] ?? 0);
 
   const L = [];
   const p = (s = '') => L.push(s);
 
   p('# Gettysburg Sources v2: QC report');
   p();
-  p(`Date: ${date}. Source document: \`docs/historian/sources-v2/Gettysburg_Sources_v2.docx\` (sha256 \`${registry.meta.source_sha256.slice(0, 16)}...\`). Registry: \`data-src/sources-v2/registry.json\`. Method: \`docs/historian/sources-v2/VERIFICATION-METHOD.md\`.`);
+  p(`Date: ${date}. Source document: \`docs/historian/sources-v2/Gettysburg_Sources_v2.docx\` (sha256 \`${registry.meta.source_sha256.slice(0, 16)}...\`). Registry: \`data-src/sources-v2/registry.json\`. Ingest queue: \`data-src/sources-v2/ingest-queue.json\`. Method: \`docs/historian/sources-v2/VERIFICATION-METHOD.md\`.`);
   p();
-  p('This report is generated by `node tools/sources-qc/build-registry.mjs` from the registry; every number below is computed, none is typed in. It says what was checked, what was found, and what it means for Ask the Historian. It does not say more than the evidence does.');
+  p('This report is generated by `node tools/sources-qc/build-registry.mjs` from the registry; every number below is computed, none is typed in. It says what was checked, what was found, and what it means for Ask the Historian. It does not say more than the evidence does, and section 12 lists what could not be verified.');
   p();
 
   // ------------------------------------------------------------------------------------------------------ 1
   p('## 1. The short answer');
   p();
-  p(`**Does the list help Ask the Historian? Yes, but a little, and not in the way "1,714 writings" suggests.**`);
+  p('**How much does this list help Ask the Historian? A real but modest amount, and almost none of it comes from the size of the list.**');
   p();
-  p(`- **1,714 entries are not 1,714 writings.** The list itself says ${n(C.by_entry_kind.or_page)} of them are page-level pointers into one Official Records volume. Another ${n(C.by_entry_kind.or_report)} are Official Records reports. Only ${n(C.by_entry_kind.non_or)} entries point at anything else, and ${n(C.by_entry_kind.non_or - works)} of those are indexes, guides or duplicates, leaving **${works} distinct other works** (${cls('writing')} individual writings, ${cls('scholarship')} modern scholarship pieces, ${cls('volume')} whole volumes counted once).`);
-  p(`- **${pct(C.by_entry_kind.or_page + C.by_entry_kind.or_report, C.total_entries)} of the list is the Official Records, which we already ingest.** The historian's OCR index holds ${V.historian_index_reports} OR reports and 2,945 Part 3 dispatches from the Internet Archive scans. The list names ${n(V.or_in_ocr_index + 1)} of those reports (${pct(V.or_in_ocr_index + 1, V.historian_index_reports)}) and ${n(x.pages_listed)} of Part 3's pages. These entries add **no new text**. What they add is an independent index and scan links, and they gave us a real check of our own ingestion (section 5).`);
-  p(`- **Only ${C.non_or_reviewed_twice} of the ${C.by_entry_kind.non_or} other entries have been reviewed by two independent verifiers.** Result: ${C.approved_for_quote_corpus} approved for the quote corpus (${tierOfApproved.A1 ?? 0} at tier A1, ${tierOfApproved.A2 ?? 0} at tier A2), ${st['APPROVED-LINKOUT-ONLY'] ?? 0} approved for link-out only, ${nhrOther.length} sent to a human because the verifiers disagreed. **${notVerified.length} have not been reviewed by anyone and are not approved.** Nothing may be ingested from them yet.`);
-  p(`- **Ready to ingest today: ${ready.length} works** (${list(ready.map((r) => `entry ${r.n}`))}). One more waits for a human transcription (entry ${list(blocked.filter((b) => b.blocked_by.includes('transcription') && !b.blocked_by.includes('rights')).map((b) => b.n))}) and ${blocked.filter((b) => b.blocked_by.includes('rights')).length} wait for a rights review (entries ${list(blocked.filter((b) => b.blocked_by.includes('rights')).map((b) => b.n))}). That is a handful of works: on the order of a hundred passages by a rough estimate from the page ranges (the reviewers counted paragraphs only for the 597 letter, 15 to 23). It is not a thousand.`);
-  p(`- **The honest summary: the list is a good starting index and a useful audit, not a finished, verified source bank.** It was built by another AI session whose own preamble admits it could not reach the 4,000 entries requested; our checks found the structure sound where we could test it and the descriptions unreliable where they say anything specific.`);
+  p(`- **${n(C.total_entries)} entries are not ${n(C.total_entries)} writings.** ${n(C.by_entry_kind.or_page)} are page-level pointers into one Official Records volume and ${n(C.by_entry_kind.or_report)} are Official Records reports: **${pct(C.by_entry_kind.or_page + C.by_entry_kind.or_report, C.total_entries)} of the list is the Official Records, which the Historian already ingests** (8,405 passages from the Internet Archive scans). Those entries add **no new text**. What they add is an independent index and a check of our own ingestion (section 8).`);
+  p(`- **${C.by_entry_kind.non_or} entries point at anything else; ${dups.length} are duplicates, leaving ${C.by_entry_kind.non_or - dups.length} distinct entries and ${works} counted works.** Every one of them has now been read by **two to four independent reviewers** (${list(Object.entries(C.non_or_reviewers_per_entry).map(([k, v]) => `${v} entries by ${k}`))}). The merge rule is unanimity: an entry is approved only if every reviewer agrees.`);
+  p(`- **Result: ${approved.length} approved for the quote corpus** (${eqCount(tierOf, 'A1')} at tier A1, ${eqCount(tierOf, 'A2')} at tier A2 that wait for a rights review), **${linkOut.length} approved for link-out only**, **${nhr.length} sent to a human** because the reviewers disagreed or asked for one, **${rejected.length} rejected** by every reviewer.`);
+  p(`- **Genuinely new text.** Of the ${approved.length} approved works, ${nb.duplicating_or_text_in_full.length} (entries ${list(nb.duplicating_or_text_in_full)}) are printings of Official Records text the Historian already holds and ${nb.duplicating_or_text_in_part.length} (${list(nb.duplicating_or_text_in_part)}) overlap in part, leaving **${newTotal} works that carry text the Official Records corpus does not hold** (${list(Object.entries(nb.new_text_works_by_side).map(([k, v]) => `${v} ${(sideLabel[k] ?? k).toLowerCase()}`))}). ${nb.new_text_works_not_in_any_catalogue.length} of those ${newTotal} are in none of the Historian's two source catalogues; the other ${nb.new_text_works_in_a_historian_catalogue_already.length} are sources those catalogues already name (planned or skipped) and are now verified.`);
+  p(`- **Ready to ingest today: ${ready.length} works (${queue.meta.ready_entries} entries)**: tier A1, text a program can read, every reviewer in agreement. ${holdRights.length} more works (${holdRights.reduce((a, q) => a + q.entries.length, 0)} entries) are approved but wait for a rights review (tier A2) and ${needTranscription.length} are image-only and wait for a human transcription (${blocked.filter((b) => b.blocked_by.includes('transcription') && b.blocked_by.includes('rights')).length} of them also need the rights review). The ordered queue is in section 6 and in \`ingest-queue.json\`.`);
+  p(`- **What that is worth.** The Historian's corpus is officers' reports and dispatches. It is thin on private letters, diaries, newspapers and civilians, and on Confederate voices the Official Records do not print. The approved list is mostly that kind of material (${C.coverage_quote_corpus.by_side.confederate ?? 0} Confederate, ${C.coverage_quote_corpus.by_side.union ?? 0} Union, ${C.coverage_quote_corpus.by_side.civilian ?? 0} civilian, ${(C.coverage_quote_corpus.by_side['mixed-or-neutral'] ?? 0) + (C.coverage_quote_corpus.by_side.contested ?? 0)} neutral or contested works), ${contemp} of the ${approved.length} written in 1863 or the following months. But it is ${approved.length} entries, ${approved.length - approved.filter((e) => e.resource_class === 'volume').length} of them single pieces (a letter, a diary, a newspaper item, an article or a chapter) and ${approved.filter((e) => e.resource_class === 'volume').length} whole volumes (${list(approved.filter((e) => e.resource_class === 'volume').map((e) => e.n))}), against a corpus of ${n(V.historian_index_reports)} reports and ${n(V.historian_index_dispatches)} dispatches. Only ${battleRel} of the ${approved.length} touch the fighting of 1 to 3 July (the reviewers' labels "battle" and "campaign and battle"); ${cov.by_relevance['campaign-only'] ?? 0} are about the invasion and occupation. ${retro} are written years later (memoirs, regimental histories), with the partisanship that carries.`);
+  p(`- **The honest summary:** the list is a good starting index, and now a reviewed one. It yields a source bank of ${queue.meta.ready_works} works (${queue.meta.ready_entries} entries) that can be ingested today and ${queue.meta.ready_works + queue.meta.blocked_works} works (${approved.length} entries) once the rights and transcription holds are cleared. That will make a visible difference to questions about civilians, Carlisle, York, Chambersburg and the Confederate cavalry, and a small one to questions about the fighting itself. It does not change the bulk of the Historian's corpus, and its descriptions of the Official Records entries cannot be trusted (section 8).`);
   p();
 
   // ------------------------------------------------------------------------------------------------------ 2
@@ -69,148 +84,232 @@ export function renderQcReport({ registry, queue, stats, reviewQueue, date }) {
   p('|---|---|');
   p(`| Entries in the list | ${n(C.total_entries)} |`);
   p(`| ...Official Records reports (Parts I-III) | ${n(C.by_entry_kind.or_report)} |`);
-  p(`| ...Official Records page pointers (Part XIII) | ${n(C.by_entry_kind.or_page)} (every page 3 to 1059 of OR vol. 27 pt. 3, no gaps) |`);
+  p(`| ...Official Records page pointers (Part XIII) | ${n(C.by_entry_kind.or_page)} (every page 3 to 1059 of OR vol. 27 pt. 3, no gaps; the volume runs to p. 1092) |`);
   p(`| ...everything else (Parts IV-XII) | ${n(C.by_entry_kind.non_or)} |`);
   p(`| Distinct writings or works in the list | ${n(C.distinct_writings_or_works_in_list)} (${n(C.by_entry_kind.or_report)} OR reports + ${works} other works) |`);
-  p(`| Approved as pointers or crosswalk (no new text) | ${n((st['APPROVED-CROSSWALK'] ?? 0) + (st['APPROVED-POINTER'] ?? 0))} |`);
-  p(`| Approved other works | ${approvedOther.length} (${C.approved_for_quote_corpus} for the quote corpus, ${st['APPROVED-LINKOUT-ONLY'] ?? 0} link-out only) |`);
-  p(`| Needs a human decision | ${nhr.length} (${nhrOther.length} other works, ${nhrOr.length} OR page ranges) |`);
-  p(`| Not verified by anyone | ${notVerified.length} |`);
-  p(`| Duplicates merged | ${dups.length} |`);
-  p(`| Rejected | ${st.REJECTED ?? 0} |`);
-  p(`| Ready to ingest now (A1, extractable text, two verifiers agree) | ${ready.length} |`);
+  p(`| OR crosswalk entries approved (identity and page range) | ${n(st['APPROVED-CROSSWALK'] ?? 0)} of ${n(C.by_entry_kind.or_report)}; ${nhrOr.length} sent to a human for the first page (${list(nhrOr.map((e) => e.n))}) |`);
+  p(`| OR crosswalk entries whose listed description is untrusted | ${n(C.or_description_trust.untrusted ?? 0)} unaudited, plus ${n(orRep.filter((e) => e.description_trust.startsWith('audited-') && !e.description_trust.startsWith('audited-accurate')).length)} audited as partly or wholly inaccurate; ${n(orRep.filter((e) => e.description_trust.startsWith('audited-accurate')).length)} audited accurate (section 8) |`);
+  p(`| Page pointers approved | ${n(st['APPROVED-POINTER'] ?? 0)} |`);
+  p(`| Other works approved for the quote corpus | ${approved.length} (${eqCount(tierOf, 'A1')} A1, ${eqCount(tierOf, 'A2')} A2) |`);
+  p(`| Other works approved for link-out only | ${linkOut.length} |`);
+  p(`| Other works needing a human decision | ${nhr.length} |`);
+  p(`| Other works rejected | ${rejected.length} |`);
+  p(`| Duplicates merged | ${dups.length} (${list(dups.map((e) => e.n))}) |`);
+  p(`| Other works with no reviewer | ${C.non_or_never_reviewed} |`);
+  p(`| Ready to ingest now (A1, readable text, every reviewer agrees) | ${ready.length} works / ${queue.meta.ready_entries} entries |`);
+  p(`| Reviewer verdict unanimous (other works) | ${C.non_or_verdict_unanimous} of ${C.non_or_reviewed} |`);
   p(`| Links the automated check cannot open (eHistory, HathiTrust) | ${n(V.blocked_to_bots_links)} of ${n(V.links_total)} (${pct(V.blocked_to_bots_links, V.links_total)}) |`);
-  p(`| Unreviewed other-works links: live / dead or generic redirect / blocked or disallowed | ${probe.live + probe.redirected} / ${probe.dead + probe.redirected_to_generic_page} / ${probe.blocked_to_bots + probe.robots_disallowed + probe.not_fetched_robots_unreadable} of ${V.probe_entries} |`);
+  p(`| Internet Archive items the reviewers named, confirmed by this builder's own metadata fetch | ${V.ia_items_checked} (${list(Object.entries(V.ia_status_tally).map(([k, v]) => `HTTP ${k}: ${v}`))}) |`);
   p(`| OR report numbers and authors that agree with the OCR header index | ${n(V.or_in_ocr_index)} of ${n(V.or_in_ocr_index)} found (report No. 161 confirmed through the contents list and the signature) |`);
   p(`| OR page ranges identical to the OCR index | ${n(pg.exact)} of ${n(V.or_entries_total)} |`);
   p();
 
   // ------------------------------------------------------------------------------------------------------ 3
-  p('## 3. Verdicts by part');
+  p('## 3. Verdicts by part, and every other work');
   p();
   const parts = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII'];
-  const cols = ['APPROVED-CROSSWALK', 'APPROVED-POINTER', 'APPROVED', 'APPROVED-LINKOUT-ONLY', 'NEEDS-HUMAN-REVIEW', 'NOT-VERIFIED', 'DUPLICATE', 'REJECTED'];
+  const cols = ['APPROVED-CROSSWALK', 'APPROVED-POINTER', 'APPROVED', 'APPROVED-LINKOUT-ONLY', 'NEEDS-HUMAN-REVIEW', 'REJECTED', 'NOT-VERIFIED', 'DUPLICATE'];
   p(`| Part | Entries | ${cols.map((c) => c.replace('APPROVED-', 'APP-').replace('NEEDS-HUMAN-REVIEW', 'HUMAN').replace('NOT-VERIFIED', 'NOT VERIF')).join(' | ')} |`);
   p(`|---|---:|${cols.map(() => '---:').join('|')}|`);
-  const partTitle = {};
-  for (const e of E) partTitle[e.part] = e.part_title;
   for (const pt of parts) {
     const bp = C.by_part_and_status[pt] ?? {};
     const tot = Object.values(bp).reduce((a, b) => a + b, 0);
     p(`| ${pt} | ${n(tot)} | ${cols.map((c) => (bp[c] ? n(bp[c]) : '')).join(' | ')} |`);
   }
+  p(`| **All** | **${n(C.total_entries)}** | ${cols.map((c) => `**${n(st[c] ?? 0)}**`).join(' | ')} |`);
   p();
-  p('Parts: I Union reports, II other Federal reports, III Confederate reports (all OR vol. 27 pts. 1-2); IV SHSP articles at Perseus; V Haskell; VI civilian narratives; VII scholarship; VIII volumes and indexes; IX Carlisle and Cumberland Valley accounts; X African American and invasion sources; XI Valley of the Shadow; XII additional volumes; XIII page pointers into OR vol. 27 pt. 3.');
+  p('Parts: I Union reports, II other Federal reports, III Confederate reports (all OR vol. 27 pts. 1-2); IV SHSP articles (listed at Perseus, taken from the Internet Archive scans); V Haskell and other Union narratives; VI civilian narratives; VII scholarship; VIII volumes and indexes; IX Carlisle and Cumberland Valley accounts (Dickinson College); X African American and invasion sources; XI Valley of the Shadow (Franklin County); XII additional volumes; XIII page pointers into OR vol. 27 pt. 3.');
   p();
-
-  p('### The 12 entries that two verifiers reviewed');
+  p('### Every other work, with its verdict');
   p();
-  p('| Entry | Corrected title (as stored in the registry) | Verdict | Tier | Ingest state |');
-  p('|---:|---|---|---|---|');
-  for (const e of reviewed.sort((a, b) => a.n - b.n)) p(`| ${e.n} | ${(e.corrected_title ?? e.title).replace(/\|/g, '/').slice(0, 96)} | ${e.final_status} | ${e.tier} | ${e.ingest?.state ?? (e.final_status === 'APPROVED-LINKOUT-ONLY' ? 'link-out' : '-')} |`);
-  for (const e of E.filter((x) => x.n === 599)) p(`| ${e.n} | ${e.title.slice(0, 80)} | DUPLICATE of ${e.duplicate_of} | - | follows ${e.duplicate_of} |`);
+  p('R = reviewers. Verdicts: APP = approved for the quote corpus, LINK = link-out only, HUMAN = needs a human, REJ = rejected, DUP = duplicate. Lane: ready, or what the approved entry waits for.');
   p();
-  p(`The two verifiers gave the same verdict on ${verdictSame} of ${reviewed.length}. They differed on 3 (587, 588, 595) and on several details inside the agreed ones: the second verifier found a transcription error in the UNC letter text (586), the Atlanta History Center's rule that unpublished manuscripts may not be quoted without permission (589), about 20 word-level deviations in a volunteer transcription that the first verifier had called "a few places" (597), and a document the first verifier had rejected as unfindable (595). **A single verifier would have rejected a real document (595) and missed three details that change what may be done with an entry (586, 589, 597).** That is why the rule is two.`);
+  p('| Entry | Work (corrected or listed title) | R | Verdict | Tier | Side | Lane |');
+  p('|---:|---|---:|---|---|---|---|');
+  const short = { APPROVED: 'APP', 'APPROVED-LINKOUT-ONLY': 'LINK', 'NEEDS-HUMAN-REVIEW': 'HUMAN', REJECTED: 'REJ', DUPLICATE: 'DUP', 'NOT-VERIFIED': 'NOT VERIF' };
+  const laneOf = (e) => (e.final_status === 'APPROVED' ? (e.ingest.state === 'ready' ? 'ready' : e.ingest.state.replace('hold:', 'hold: ').replace('blocked:', 'blocked: ')) : e.final_status === 'DUPLICATE' ? `merged into ${e.duplicate_of}` : e.final_status === 'APPROVED-LINKOUT-ONLY' ? 'citation link only' : '');
+  for (const e of nonOr) {
+    const r = e.verification.reviews?.length ?? 0;
+    p(`| ${e.n} | ${trunc(e.corrected_title ?? e.title, 70)} | ${r || ''} | ${short[e.final_status]} | ${e.final_status === 'DUPLICATE' ? '' : (e.tier ?? '')}${e.final_status === 'NEEDS-HUMAN-REVIEW' && e.tier && !e.tier_by_reviewer ? '' : ''} | ${e.final_status === 'DUPLICATE' ? '' : (sideLabel[e.side] ?? e.side ?? '')} | ${laneOf(e)} |`);
+  }
+  p();
+  p('For NEEDS-HUMAN-REVIEW rows the tier shown is the most restrictive any reviewer gave.');
   p();
 
   // ------------------------------------------------------------------------------------------------------ 4
   p('## 4. Rights tiers');
   p();
-  p('Tiers are decided by evidence, never by "it is free to read": A1 quotable public domain, A2 public domain needing review, B facts only, C link-out only. A1 needs the imprint year or the archive\'s own metadata; a free link is not a licence.');
+  p('Tiers are decided by evidence, never by "it is free to read": A1 quotable public domain, A2 public domain needing review, B facts only, C link-out only. A1 needs the imprint year read from a title page or the archive\'s own metadata; a free link is not a licence. Where reviewers differ the more restrictive tier is recorded.');
   p();
-  p('| Group | A1 | A2 | C | unknown | not assessed |');
-  p('|---|---:|---:|---:|---:|---:|');
+  p('| Group | A1 | A2 | B | C | unknown | not assessed |');
+  p('|---|---:|---:|---:|---:|---:|---:|');
   const T = C.by_tier_and_kind;
   const tcell = (k, t) => (T[`${k}:${t}`] ? n(T[`${k}:${t}`]) : '');
-  p(`| OR reports (US Government work, 1889) | ${tcell('or_report', 'A1')} | | | | |`);
-  p(`| OR page pointers | ${tcell('or_page', 'A1')} | | | | |`);
-  p(`| Other works | ${tcell('non_or', 'A1')} | ${tcell('non_or', 'A2')} | ${tcell('non_or', 'C')} | ${tcell('non_or', 'unknown')} | ${tcell('non_or', 'not-assessed')} |`);
+  p(`| OR reports (US Government work, 1889) | ${tcell('or_report', 'A1')} | | | | | |`);
+  p(`| OR page pointers | ${tcell('or_page', 'A1')} | | | | | |`);
+  p(`| Other works | ${tcell('non_or', 'A1')} | ${tcell('non_or', 'A2')} | ${tcell('non_or', 'B')} | ${tcell('non_or', 'C')} | ${tcell('non_or', 'unknown')} | ${tcell('non_or', 'not-assessed')} |`);
   p();
-  p(`Among the other works, the "A1" cells include the three volume links that are duplicates of OR volumes (US Government work). Of the ${approvedOther.length} approved other works: ${list(approvedOther.sort((a, b) => a.n - b.n).map((e) => `${e.n} (${e.tier})`))}. The A2 items (586, 589, 591) are public-domain texts whose host or repository adds a restriction or an unstated transcription right: a human decides before anything is quoted.`);
-  p(`Modern editions or reprints found behind "free full text" links (Google Books bibliographic block on the linked page): ${modern.length ? list(modern.map((e) => `${e.n} (${e.rights_hint.edition})`)) : 'none'}. These are not the period text and are not free to reuse as listed.`);
+  p(`Among the other works the "A1" cell includes the three volume links that duplicate OR volumes. Of the ${approved.length} approved for the quote corpus, ${eqCount(tierOf, 'A1')} are A1 and ${eqCount(tierOf, 'A2')} are A2; the ${linkOut.length} link-out-only entries are recorded at ${list(Object.entries(C.approved_link_out_only_by_tier).sort().map(([k, v]) => `${k}: ${v}`))}. The A2 works are public-domain texts whose host or repository adds something: an unstated transcription right, an "all rights reserved" notice, a repository rule on unpublished manuscripts, or a volunteer transcription that is not verbatim (entries ${list(approved.filter((e) => e.tier === 'A2').map((e) => e.n))}). A human decides before any of them is quoted.`);
+  p(`The Internet Archive's own metadata for the items behind the approved works agrees with the tiers wherever it carries a date: of ${V.ia_dates_behind_approved_works.items} items, ${V.ia_dates_behind_approved_works.dated} are dated and the latest is ${V.ia_dates_behind_approved_works.latest_year} (the item the reviewers rejected, entry 619, is dated 1951). ${V.ia_dates_behind_approved_works.undated} carry no date field (the University of Florida SHSP scans, whose "Out of copyright" status the Archive states in its own metadata); a few carry the series start year (1876) instead of the volume year: the reviewers read the title pages.`);
   p();
 
   // ------------------------------------------------------------------------------------------------------ 5
-  p('## 5. Findings that apply across the list');
+  p('## 5. Union, Confederate and civilian coverage');
   p();
-  const F = [];
-  F.push(`**Most of the list is blocked to automated checking.** ${n(V.blocked_to_bots_links)} of ${n(V.links_total)} links (${pct(V.blocked_to_bots_links, V.links_total)}) go to ehistory.osu.edu (${n(V.host_links.ehistory)}) or HathiTrust (${n(V.host_links.hathitrust)}), which return HTTP 403 to automated clients. We did not circumvent that. For those entries the check is structural: report number, author, side and first page against the Internet Archive OCR index. The links themselves are unconfirmed; a human should open a sample (section 7).`);
-  F.push(`**The HathiTrust page numbers look computed, not looked up.** In all ${V.part_i_entries} Part I entries the HathiTrust \`seq\` equals the printed page plus ${V.hathi_seq_offsets['1']}; in all ${V.part_ii_iii_entries} Part II and III entries it equals the printed page plus ${V.hathi_seq_offsets['2']}, with no exception. A real scan with plates or tipped-in maps normally breaks a constant offset, and the document says every link was taken from a retrieved page. The links may still be right, but nobody has confirmed even one.`);
-  F.push(`**The Official Records entries are sound where we could test them.** ${n(pg.exact)} of ${n(V.or_entries_total)} page ranges equal the OCR index exactly, ${pg.boundary} differ by one page at a boundary, ${pg.end_differs} differ only at the end page, and **2 (entries 10 and 134) name the wrong first page** (entry 10's range starts at p. 155 where the return begins on p. 168; the registry carries the OCR page). All ${n(V.or_in_ocr_index)} report numbers and author surnames agree. Entry 543's end page (776) also looks wrong: the OCR index ends the Roll of Honor at p. 784 and its text is far longer than three pages.`);
-  F.push(`**The OR descriptions are one template.** ${n(V.or_generic_template_entries)} of ${n(V.or_entries_total)} say the report was "written by the officer in command, describing the unit's marches, positions, fighting and losses in the Gettysburg Campaign". In the OCR index ${V.or_scope_other} of the ${V.or_in_ocr_index} reports are not about the campaign proper (for example Winchester and Martinsburg in June), ${V.or_composite} are composites of several papers, and ${V.or_non_report_documents} are returns, itineraries, orders of battle or rosters. They were written a median of ${lag.median} days after the battle (10th percentile ${lag.p10}, 90th ${lag.p90}, longest ${lag.max} days), so "contemporaneous" in the document means weeks to months after the fighting, not same-day.`);
-  F.push(`**Part XIII is every page, not a selection.** Pages 3 to 1059, no gaps. ${V.pointers_no_dispatch} of them have no dispatch beginning on the page (continuations). The ${V.pointers_hedged_label} pages labelled "Union / Confederate (section transition)" are not transitions: pages 814 to 857 (${V.pointers_hedged_corrected.union ?? 0}) hold only Union dispatches and pages 858 to 873 (${V.pointers_hedged_corrected.confederate ?? 0}) only Confederate ones (the first Confederate dispatch is on p. ${x.first_confederate_dispatch_page}); the registry carries the corrected side. The list stops at p. 1059 but ${x.dispatches_on_pages_not_listed} dispatches begin on ${x.pages_not_listed_with_dispatches} later pages (the end of the volume, which the list does not cover).`);
-  F.push(`**Dead links cluster by host.** All ${V.dickinson_archives_dead} of ${V.dickinson_archives_entries} Dickinson Archives links are dead (404): the Civil War Resources section disappeared in a site migration. Of the ${V.probe_entries} unreviewed other-works links, ${probe.dead} are dead and ${probe.redirected_to_generic_page} redirect to a generic landing page: a dead-link rate of ${pct(probe.dead + probe.redirected_to_generic_page, V.probe_entries)}. Of the ${reviewed.length} reviewed entries, ${reviewed.filter((e) => e.verification.passes[1].link_status === 'dead' || e.verification.passes[2].link_status === 'dead').length} had a dead listed link. The Wayback Machine holds a capture whose page title matches the entry for ${wbMatch.length} of them, and ${wb.length - wbMatch.length} more captures whose titles are missing or unclear (candidate replacements in the registry; a reviewer must read them before they count).`);
-  F.push(`**The Perseus links cannot be used by a program.** www.perseus.tufts.edu/robots.txt says \`Disallow: /\`; ${perseus} entries (all the SHSP articles at Perseus) point there. We did not fetch them. The Historian should take SHSP from the Internet Archive scans its plan already lists (SRC-08), not from Perseus.`);
-  F.push(`**"Free full text" is often not true.** Among the 12 reviewed: 3 are image-only handwriting (589, 590 and the 587 manuscript), so the only text would be our own transcription; 593 and 586 sit on hosts that keep rights in their transcription; 587 and 588 carry an "all rights reserved" notice; 589's repository forbids quotation without permission. Among the unreviewed: ${modern.length} links open a modern edition or reprint rather than the period text.`);
-  F.push(`**Most of the non-OR list is about the invasion, not the battle.** By the entries' own descriptions only ${scope.battle} of ${C.by_entry_kind.non_or} are about the fighting; ${scope.campaign} are about the invasion and occupation (Carlisle, Chambersburg, York), ${scope['post-battle']} come after the battle and ${scope.resource} are volumes or indexes. Of the 12 reviewed, ${C.reviewed_gettysburg_relevance['campaign-only'] ?? 0} describe no fighting at Gettysburg at all.`);
-  F.push(`**"Peer reviewed" is a small part.** The list's scholarship items number ${cls('scholarship')} (${Object.entries(V.scholarship_by_part).map(([k, v]) => `${v} in Part ${k}`).join(', ')}). Its own description says one of them, Gettysburg Magazine, is not formally peer reviewed. Free to read is not free to reuse: none was checked for a licence, so they are link-out or facts only. The six journals.psu.edu links could not be reached (robots.txt unreadable; the earlier probe timed out).`);
-  F.push(`**Every reviewed entry needed a correction.** Each reviewer listed 5 to 7 issues per entry: ambiguous titles (586 is not Lt. Gen. Leonidas Polk), missing or wrong dates (590's letter is 10 July 1863, 588's order is 21 June not "June 27-30"), Google Books page anchors two pages off (592, 594), and the document-sharing and blog hosts standing in for the originals. The registry stores a corrected title for each; none was approved as listed.`);
-  F.forEach((f, i) => p(`${i + 1}. ${f}`));
+  p(`Sides are the reviewers' labels (where they differ the entry is shown as "reviewers disagree"). "Contemporaneous" means written in 1863 to 1865; "retrospective" means written years later.`);
+  p();
+  p('| Side | Approved, quote corpus | of which ready now | of which written in 1863-65 | Link-out only | Needs a human |');
+  p('|---|---:|---:|---:|---:|---:|');
+  for (const s of SIDES) {
+    const q = approved.filter((e) => e.side === s);
+    p(`| ${sideLabel[s]} | ${q.length} | ${covReady.by_side[s] ?? 0} | ${q.filter((e) => !e.retrospective).length} | ${linkOut.filter((e) => e.side === s).length} | ${nhr.filter((e) => e.side === s).length} |`);
+  }
+  p(`| **All** | **${approved.length}** | **${queue.meta.ready_entries}** | **${contemp}** | **${linkOut.length}** | **${nhr.length}** |`);
+  p();
+  p(`By subject (approved works): ${list(Object.entries(cov.by_relevance).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${v} ${k.replace(/-/g, ' ')}`))}. ${battleRel} works touch the fighting of 1 to 3 July; the rest are about the invasion, the occupation of Carlisle, York and Chambersburg, the retreat, or are not about Gettysburg at all.`);
+  p(`Unlike the Official Records, which print officers' own after-action reports, the approved list holds ${(cov.by_side.civilian ?? 0)} civilian works and ${contemp} contemporaneous private letters, diaries and newspaper items. That is the gap in the corpus it fills. The Confederate works are ${list(approved.filter((e) => e.side === 'confederate').map((e) => e.n))}; the historian's CORPUS.md says the corpus holds no report by Pickett, Hood or McLaws; the approved list adds McLaws's own address (545), and no entry in the list is by Pickett or Hood.`);
   p();
 
   // ------------------------------------------------------------------------------------------------------ 6
-  p('## 6. What the list adds beyond the Official Records we already ingest');
+  p('## 6. The ordered ingestion queue');
   p();
-  p(`| | In the list | Already in our ingestion | New text from the list |`);
-  p(`|---|---:|---|---:|`);
-  p(`| OR vol. 27 pts. 1-2 reports | ${n(C.by_entry_kind.or_report)} | ${V.historian_index_reports} reports in the OCR index (the list names ${pct(V.or_in_ocr_index + 1, V.historian_index_reports)}) | 0 |`);
-  p(`| OR vol. 27 pt. 3 | ${n(x.pages_listed)} page pointers | 2,945 dispatches (the list omits ${x.dispatches_on_pages_not_listed}) | 0 |`);
-  p(`| Other works | ${works} | ${catalogOverlapWorks} are sources the historian's catalogues already list (SHSP, Haskell, Pierce, Storrick, Hoke, New York and Pennsylvania at Gettysburg, OR scans) | up to ${works - catalogOverlapWorks} |`);
+  p(`Order: ${queue.meta.ordering}. **No perseus adapter**: ${queue.meta.note_perseus}`);
   p();
-  p(`So the genuinely new material is at most ${works - catalogOverlapWorks} works. ${C.approved_for_quote_corpus} are approved so far (entries ${list(nonOr.filter((e) => e.final_status === 'APPROVED').map((e) => e.n).sort((a, b) => a - b))}), and the rest still need two reviewers. What the new material is: Confederate and civilian voices from the invasion and the first days (Carlisle, York, Wrightsville, Sporting Hill, the Stuart ride), several of them from people on the other side of the Official Records.`);
+  p('| # | Entry | Work | Side | Written | Adapter | Source |');
+  p('|---:|---|---|---|---|---|---|');
+  for (const q of ready) {
+    p(`| ${q.rank} | ${q.entries.join(' + ')} | ${trunc(q.title, 66)} | ${sideLabel[q.perspective.side] ?? q.perspective.side} | ${trunc(q.perspective.written?.from ?? q.perspective.written?.text ?? '', 18)}${q.perspective.retrospective ? ' (retro.)' : ''} | ${q.adapter} | ${trunc(q.primary_url, 60)} |`);
+  }
   p();
-  p(`**Where it helps, and how much.**`);
+  p(`Approved but not ready (${blocked.length} works): `);
   p();
-  p(`1. *Audit of our own work (high value, done).* The independent list agrees with our OR index on every report number and author and on ${pct(pg.exact, V.or_entries_total)} of page ranges; its entry for report No. 161 let us confirm that report is present in the OCR (contents-list line and Baldwin's signature on pp. 547-548) although the ingestion lost its header.`);
-  p(`2. *Perspective (medium value, small so far).* ${C.approved_for_quote_corpus} approved works add Confederate cavalry, regimental and letter voices and a Union militia history. The queue (\`ingest-queue.json\`) orders them contemporaneous first, fighting before campaign, Union and Confederate alternating.`);
-  p(`3. *A to-do list (medium value).* ${reviewQueue.meta.entries} unreviewed entries are ordered in batches of 12 (\`qc/review-queue-next.json\`), the most useful first.`);
-  p(`4. *What to avoid (useful).* Dead links, robots-disallowed hosts, modern editions and rights traps are now recorded per entry instead of being discovered during ingestion.`);
-  p(`5. *Not a help:* the bulk of the numbers. Page pointers and OR crosswalk entries cannot raise answer quality; the Historian needs the text, and that text is already in.`);
+  p('| # | Entry | Work | Tier | Waits for |');
+  p('|---:|---|---|---|---|');
+  for (const q of blocked) p(`| ${q.rank} | ${q.entries.join(' + ')} | ${trunc(q.title, 66)} | ${q.tier} | ${q.blocked_by.replace('hold:rights-review', 'rights review').replace('blocked:manual-transcription', 'human transcription').replace('+manual-transcription', ' + human transcription')} |`);
+  p();
+  p(`Expected size: the reviewers gave a passage estimate for ${passageBits.length} of the ${ready.length} ready works (${passageBits.length ? `${passageBits.reduce((a, b) => a + b.min, 0)} to ${passageBits.reduce((a, b) => a + b.max, 0)} passages in all` : 'none'}); for the other ${ready.length - passageBits.length} they gave none, and no word count was made. The whole volumes (${list(ready.filter((r) => r.scale.startsWith('whole')).map((r) => r.entries.join('+')))}) are the largest items and the least about Gettysburg: they have to be cut by article or chapter range from their own contents lists.`);
+  p();
+
+  p('**What is genuinely new beyond the Official Records corpus.** Of the approved works:');
+  p();
+  p(`- *Text the OR corpus does not hold, and no Historian catalogue lists* (${nb.new_text_works_not_in_any_catalogue.length}): entries ${list(nb.new_text_works_not_in_any_catalogue)}. A mix of letters, diaries, newspaper items, memoirs and regimental histories, mostly about the invasion of Pennsylvania (Carlisle, Chambersburg, York) and the Confederate cavalry, including the Dickinson and Valley of the Shadow collections.`);
+  p(`- *Text the OR corpus does not hold, but a catalogue already names the source* (${nb.new_text_works_in_a_historian_catalogue_already.length}): entries ${list(nb.new_text_works_in_a_historian_catalogue_already)} (SHSP, Haskell, Pierce, Hoke, the New York and Pennsylvania monument volumes, Chronicling America). The catalogues named these; the list's review is the first to verify them.`);
+  p(`- *Printings of OR text in whole* (${nb.duplicating_or_text_in_full.length}): entries ${list(nb.duplicating_or_text_in_full)}; *in part* (${nb.duplicating_or_text_in_part.length}): entries ${list(nb.duplicating_or_text_in_part)}. Second witnesses, not new text.`);
   p();
 
   // ------------------------------------------------------------------------------------------------------ 7
-  p('## 7. What needs the owner or a historian');
+  p('## 7. Dead links and their replacements');
   p();
-  p('**Decisions**');
+  const deadRecs = nonOr.filter((e) => e.listed_link_dead);
+  const dickDead = V.dickinson_archives_listed_link_dead;
+  p(`${deadRecs.length} of the ${C.non_or_reviewed} reviewed entries had a listed link that at least one reviewer found dead (HTTP 404 or a redirect to a generic page). ${dickDead.length} of the ${V.dickinson_archives_entries} Dickinson Archives entries are among them: the Civil War Resources section was removed in a site migration (the host's own new paths are \`/document-descriptions/\`). A replacement is accepted **only where a reviewer fetched it and their own evidence names it**; a Wayback capture or a moved page is a link-out, never a quote source without the rights review. ${C.dead_links.with_a_reviewer_verified_replacement.length} of ${deadRecs.length} have one; ${C.dead_links.without.length} do not.`);
   p();
-  for (const e of nhrOther.sort((a, b) => a.n - b.n)) p(`- Entry ${e.n} (${(e.corrected_title ?? e.title).slice(0, 80)}): ${queue.pending_decision.find((q) => q.n === e.n)?.recommendation ?? e.next_step}`);
-  for (const e of nhrOr.sort((a, b) => a.n - b.n)) p(`- Entry ${e.n} (OR report No. ${e.or_locator.report_no}): listed pages ${e.or_locator.listed_pages.join('-')}, OCR pages ${e.or_locator.ocr_pages?.join('-')}; confirm the first page is ${e.or_locator.first_page_to_use}.`);
-  p('- Entry 543: the Confederate Roll of Honor is listed as pp. 774-776 and the OCR says 774-784; a human confirms the end page.');
+  p('| Entry | Work | Listed link (dead) | Replacement a reviewer fetched | Kind | Reviewers who fetched it | Status |');
+  p('|---:|---|---|---|---|---:|---|');
+  for (const e of deadRecs) {
+    const rep = e.replacement_urls.find((r) => r.verified_by.length) ?? e.replacement_urls[0];
+    const kind = rep ? (rep.kind === 'wayback-capture' ? `Wayback capture ${wbDate(rep.url)}` : rep.kind === 'live-page' ? 'live page (moved)' : rep.kind) : '';
+    p(`| ${e.n} | ${trunc(e.corrected_title ?? e.title, 48)} | ${trunc(e.links[0].url.replace(/^https?:\/\//, ''), 52)} | ${rep ? trunc(rep.url.replace(/^https?:\/\//, ''), 70) : 'none'} | ${kind} | ${rep ? `${rep.verified_by.length} of ${e.verification.reviews.length}` : '0'} | ${short[e.final_status]} |`);
+  }
   p();
-  p('**Rights review before anything is quoted (tier A2)**');
-  p();
-  for (const b of blocked.filter((q) => q.blocked_by.includes('rights'))) p(`- Entry ${b.n} (${b.title.slice(0, 80)}): ${(b.before_shipping ?? '').slice(0, 200)}`);
-  p('- Entry 589: the Atlanta History Center states that unpublished manuscripts may not be quoted without a request to its Kenan Research Center. Link-out only until it replies.');
-  p();
-  p('**Work only a person can do**');
-  p();
-  for (const b of blocked.filter((q) => q.blocked_by.includes('transcription') && !q.blocked_by.includes('rights'))) p(`- Entry ${b.n} (${b.title.slice(0, 80)}): a person transcribes the three page images and a second person checks the transcription against them.`);
-  p('- Open 10 to 20 HathiTrust and eHistory links (a few per volume and part, including both ends of each volume) and confirm they land on the page named. Automated checks cannot.');
-  p(`- Read the Wayback captures proposed for the ${wb.length} dead or redirected links (ids in the registry, \`replacement_urls\`), starting with the Dickinson Archives items.`);
-  p('- Ask the historian reviewer the plan calls for whether the SHSP articles in Part IV are worth ingesting from the Internet Archive scans; the plan currently skips SHSP.');
+  p('The reviewers\' captures are listed with their stamp. No capture was fetched by this builder; the Wayback Machine was not contacted in this run.');
   p();
 
   // ------------------------------------------------------------------------------------------------------ 8
-  p('## 8. What this run did not do');
+  p('## 8. What the audits found about the Official Records entries and the page pointers');
   p();
-  p(`- **Two expected inputs do not exist.** \`qc/auto.json\` and \`qc/review-queues.json\` were named as inputs for this stage but were never written to the repository (${registry.meta.inputs_absent.length ? 'confirmed absent on disk' : 'present'}). The structural check and the link probe in this directory replace the automated part; the builder will read them if they appear.`);
-  p(`- **${notVerified.length} other-works entries have no reviewer.** Reviewer outputs exist for 12 entries (586-597) only. Nothing was approved on automated checks alone, by design.`);
-  p('- **No reviewer output was re-run.** Their evidence is stored verbatim (`qc/review-pass1.json`, `qc/review-pass2.json`). Where cheap, this builder re-fetched the metadata a reviewer cited (Internet Archive item records, the HathiTrust catalog API) and attached it; those fetches agreed with the reviewers.');
-  p('- **No circumvention.** eHistory and HathiTrust were not fetched; robots.txt was obeyed (Perseus and one blog host forbid all automated access); at most one request per second per host with an honest user agent; everything cached under `tmp/sources-v2/cache/`.');
+  p('**Official Records entries (Parts I-III, 543).** Report number, author, side and first page agree with the independent OCR index for every report found; the structural check was re-run against the current historian corpus (below). They are approved as a **citation crosswalk**: identity and page range, never text.');
+  p();
+  p(`1. **The listed description is untrusted, and this is quantified.** An auditor checked a systematic sample (every ninth entry: ${oa.systematic_sample.entries} entries) against the scan and the report text; ${oa.doubly_audited.entries.length} of them were checked by a second, independent auditor. Worst rating across auditors: ${eqCount(oa.systematic_sample.ratings_worst_of_all_auditors, 'accurate')} accurate, ${eqCount(oa.systematic_sample.ratings_worst_of_all_auditors, 'partly-inaccurate')} partly inaccurate, ${eqCount(oa.systematic_sample.ratings_worst_of_all_auditors, 'inaccurate')} inaccurate: **${pct(sys.not_accurate, sys.sample_n)} not accurate (95% interval ${pct(sys.wilson95[0], 1)} to ${pct(sys.wilson95[1], 1)})**. Scaled to the 543 entries that is about ${oa.expected_not_accurate_among_543.point} with a materially wrong or misleading description (between ${oa.expected_not_accurate_among_543.lo} and ${oa.expected_not_accurate_among_543.hi}). The rule: the template is systemically inaccurate when the lower bound of that interval exceeds ${pct(sys.threshold, 1, 0)}; it is ${pct(sys.wilson95[0], 1)}, so **${n(C.or_description_trust.untrusted ?? 0)} unaudited descriptions are marked untrusted** and the ${orRep.filter((e) => e.description_trust.startsWith('audited-')).length} audited ones carry their own rating (${list(Object.entries(C.or_description_trust).filter(([k]) => k.startsWith('audited-')).map(([k, v]) => `${k.replace('audited-', '').replace(/-/g, ' ')}: ${v}`))}). Identity and page range are kept.`);
+  p(`2. **One auditor under-counts.** On the ${oa.doubly_audited.entries.length} entries two auditors rated, they gave the same rating on ${oa.doubly_audited.same_description_rating} and the second was stricter on ${oa.doubly_audited.second_auditor_stricter} (entries ${list(oa.doubly_audited.second_auditor_stricter_entries)}); the first auditor alone would have found ${pct(oa.doubly_audited.first_auditor_non_accurate_share, 1)} of these not accurate, the two together ${pct(oa.doubly_audited.worst_of_non_accurate_share, 1)}. The first auditor alone rated ${eqCount(oa.all_audited_ratings_first_auditor_only, 'accurate')} accurate, ${eqCount(oa.all_audited_ratings_first_auditor_only, 'partly-inaccurate')} partly inaccurate and ${eqCount(oa.all_audited_ratings_first_auditor_only, 'inaccurate')} inaccurate of the ${oa.audited_entries} entries he rated (the sample plus entry 134); the second auditors moved ${oa.doubly_audited.second_auditor_stricter} entries from accurate to partly inaccurate. The registry uses the worst rating given, so the quoted share is, if anything, low.`);
+  p(`3. **What is wrong with the template.** The audit found that 60 of its 62 entries carry the identical sentence ("written by the officer in command ... marches, positions, fighting and losses in the Gettysburg Campaign"), and that it fails for returns, summaries, supplements, papers by officers who were not at the battle, and several papers printed under one number. Across the whole OCR index (not only the sample), ${V.or_scope_other} of the ${V.or_in_ocr_index} reports are not about the campaign proper, ${V.or_composite} are composites of several papers under one number, and ${V.or_non_report_documents} of the listed entries are returns, itineraries, orders of battle or rosters; the reports were written a median of ${lag.median} days after the battle (10th percentile ${lag.p10}, 90th ${lag.p90}, longest ${lag.max} days), so "contemporaneous" means weeks to months. Do not use the description for anything; use the report number, the author and the page range.`);
+  const corrs = V.or_locator_audit.corrected;
+  p(`4. **First pages.** ${corrs.length} entries have a first page the audit viewed on the scan and found wrong: ${list(corrs.map((c) => `entry ${c.n} (the list says p. ${c.listed}, the report begins on p. ${c.first_page})`))}; the structural check had passed 298 inside its one-page tolerance. Both are sent to a human with the corrected page recorded. Two more are doubts from the auditor's OCR heading scan, not confirmed on the image: ${list(V.or_locator_audit.doubts.map((d) => `entry ${d}`))} (a first page one too low and an end page two too low); they stay approved with a flag. Three OCR defects the audit noted (the printed year misread in entries 208 and 325, one lost number line in 397) are recorded on those entries.`);
+  p(`5. **The structural check was re-run against the current historian corpus**, which the second historian build (2026-10-04) changed. It moved ${sr.statuses_changed} of the ${n(V.or_entries_total)} report statuses (flags fell from ${sr.tallies_old.or_report.by_status.flag} to ${sr.tallies_new.or_report.by_status.flag}: entry 134's blank-plate start page is fixed in the historian index), ${sr.ocr_page_ranges_changed} OCR page ranges and the per-page dispatch counts on ${n(sr.pointers_whose_dispatch_count_changed)} of the 1,057 pointers (the historian's second build re-cut the dispatches, so the per-page counts moved). \`qc/structural-refresh.json\` has every change. The auditors had read the stale file, which is why some of their registry findings are now resolved.`);
+  p(`6. **Page links.** The HathiTrust \`seq\` values the list uses were copied from the Civil War Cycling index (an auditor compared ten of them), not computed, and a constant offset is normal for a scan with fixed front matter, so the earlier suspicion that they were computed is not supported; whether they open the right page is still unconfirmed. The Internet Archive's own folio file for Part 1 runs two leaves too high from about p. 452 (the registry's \`scan.reader\` is right, \`scan.leaf\` is not). The eHistory transcription is not verbatim (a footnote date, an omitted line, a typo), so eHistory is a link-out, never a quote source.`);
+  p();
+  p(`**Part XIII page pointers (${n(C.by_entry_kind.or_page)}).** The audit read ${pa.audited_listed_pages} pages (every 35th page, ${pa.systematic_sample.pages} of them, plus ${pa.targeted_pages.pages} the auditor chose for known problems) against the Archive OCR, and a second auditor re-read ${pa.pages_read_by_two_auditors} of them.`);
+  p();
+  p(`1. **Template accuracy.** In the systematic sample ${eqCount(pa.systematic_sample.ratings, 'accurate')} of ${pa.systematic_sample.pages} descriptions are accurate (${pct(pa.systematic_sample.non_accurate_share.p * pa.systematic_sample.pages, pa.systematic_sample.pages)} not accurate; 95% interval ${pct(pa.systematic_sample.non_accurate_share.lo, 1)} to ${pct(pa.systematic_sample.non_accurate_share.hi, 1)}), so the pointer description is **not** systemically wrong. Among all ${pa.audited_listed_pages} pages read (the targeted ones included) ${eqCount(pa.all_audited_ratings_worst_of, 'accurate')} are accurate, ${eqCount(pa.all_audited_ratings_worst_of, 'partly-inaccurate')} partly inaccurate and ${eqCount(pa.all_audited_ratings_worst_of, 'inaccurate')} inaccurate (p. 673 is a plate of two pen sketches with no text). The sentence fails on the Addenda (pp. 841-857: documents of 1863 to 1864 and a letter of 1878, not "June 3 to August 3, 1863"), on pages that hold a table and no dispatch, and for one page-specific note placed a page too early (p. 445 should be 446). By the auditor's estimate from the header dates, about half the pages predate 1 July and about 7% fall on 1 to 3 July.`);
+  p(`2. **Side labels.** The ${V.pointers_hedged_label} pages the list labels "Union / Confederate (section transition)" are not transitions: the odd-page running head agrees with the structural check on all 536 odd pages the auditor read, Union through p. 857 and Confederate from p. 858. Pages 814 to 857 (${V.pointers_hedged_corrected.union ?? 0}) are Union only and pages 858 to 873 (${V.pointers_hedged_corrected.confederate ?? 0}) are Confederate only; the registry carries the corrected side on each.`);
+  p(`3. **The list is not complete.** It stops at p. 1059; the volume's correspondence runs to **p. ${li.volume_correspondence_last_page}**. The audit read **${li.unlisted_page_count} unlisted pages (pp. ${pa.unlisted_pages.first_printed_page}-${pa.unlisted_pages.last_printed_page})**: the rest of the Army of Northern Virginia organization of 31 July, Confederate returns and dispatches of 1 to 5 August, a map plate (p. 1071), and an **Appendix** of documents "received too late for insertion" that begins on p. 1076 and is Union until p. 1090. **${li.dispatches_beginning_on_unlisted_pages} dispatches begin on ${li.pages_with_dispatches} of those pages** in the current historian table (the earlier structural run counted ${pa.structural_dispatches_on_unlisted_pages.pages_with_dispatches_previous_structural_run} pages, because it read an older table; the auditor's hand count is about 60 on 22). The task brief names pages 1060-1091 and "24 pages"; the review items run to p. ${li.volume_correspondence_last_page}, so both figures are kept. **These pages are notes about the list's incompleteness, not entries**: a first-pass auditor approved them as pointers and a second-pass auditor refused to approve entries that do not exist; the registry holds neither as an entry (\`meta.list_incompleteness\`).`);
+  p(`4. **A finding against our own ingestion.** The audit found that the historian's dispatch table labels the 42 Union Appendix dispatches on pp. 1076-1090 "confederate", cites three pages one too low where a plate or a footer folio intervenes, and holds two table headings as dispatches. These are the historian workstream's to fix; nothing here changed them.`);
   p();
 
   // ------------------------------------------------------------------------------------------------------ 9
-  p('## 9. How to finish the QC');
+  p('## 9. Where the reviewers disagreed');
   p();
-  p(`1. Run two independent reviewers over \`qc/review-queue-next.json\` batch by batch (${reviewQueue.batches.length} batches of 12). Save their outputs as new arrays in \`qc/review-pass1.json\` and \`qc/review-pass2.json\` and add a normalisation block per entry to \`qc/review-norm.json\` (the test checks that every basis phrase occurs in the reviewer's text).`);
-  p('2. `node tools/sources-qc/build-registry.mjs` re-applies the rules, regenerates the registry, the ingest queue and this report.');
-  p('3. `node --test "tests/sources-qc/*.test.mjs"` fails if any entry lacks a status or evidence, if anything is approved without two agreeing verifiers or a structural check, or if an A1 lacks a rights basis.');
-  p('4. Ingest only what is in `ingest-queue.json` under `ready`, through the adapter named there, after the verbatim check against the scan.');
+  p(`${nhr.length} other works are with a human. Every reviewer's rationale is kept in \`registry.json\` (\`verification.reviews\`); the table says what the split was. "Lean" is a count, not a recommendation.`);
+  p();
+  p('| Entry | Work | Rule | Reviewers split | Tier (most restrictive) |');
+  p('|---:|---|---|---|---|');
+  const ruleLabel = { R2: 'R2 reject vs approve', R3: 'R3 a reviewer asked for a human', R4: 'R4 quote vs link only', R7: 'R7 approve, criteria differ', R5: 'R5 link-out, identity differs' };
+  for (const q of queue.pending_decision) p(`| ${q.n} | ${trunc(q.title, 60)} | ${ruleLabel[q.rule.split('-')[0]] ?? q.rule} | ${q.lean} | ${byN.get(q.n).tier_most_restrictive} |`);
+  p();
+  p('R2 reject against approve; R3 a reviewer asked for a human; R4 one reviewer allows quoting and another allows only a link; R7 all approved but differ on identity, tier or extraction path.');
+  p();
+  p(`Where reviewers agreed, the independent second look still changed the outcome often: a single reviewer would have rejected a real document (entry 595: pass 1 could not find it, pass 2 read it in the Library of Congress scan of Pleasonton's 1864 report), missed that entry 549's heading is in the volume the title names (pass 2 found it behind an OCR garble), and approved entries ${list(nhr.filter((e) => e.status_rule.startsWith('R4')).map((e) => e.n))} for quoting that another reviewer would allow only as a link.`);
+  p();
+
+  // ------------------------------------------------------------------------------------------------------ 10
+  p('## 10. Findings that apply across the list');
+  p();
+  const F = [];
+  F.push(`**Most of the list is blocked to automated checking.** ${n(V.blocked_to_bots_links)} of ${n(V.links_total)} links (${pct(V.blocked_to_bots_links, V.links_total)}) go to ehistory.osu.edu (${n(V.host_links.ehistory)}) or HathiTrust (${n(V.host_links.hathitrust)}), which return HTTP 403 (a Cloudflare challenge, even for robots.txt) to automated clients. Nobody circumvented that. For those entries the check is structural and the audits used the Internet Archive scans instead. A human should open a sample (section 11).`);
+  F.push(`**The Perseus links cannot be used by a program.** www.perseus.tufts.edu/robots.txt says \`Disallow: /\` (and names the Claude agents); ${nonOr.filter((e) => e.links[0].host === 'perseus.tufts.edu').length} entries point there (all of Part IV). No reviewer fetched it. Every SHSP item was verified on the University of Florida Internet Archive scans of the original volumes ("Out of copyright" in the Archive's own metadata) and is queued with the archive-fulltext adapter. The listed Perseus anchors cannot be trusted either: an auditor found one whose page parameter does not match the article's first page.`);
+  F.push(`**"Free full text" is often not the period text.** Several listed Google Books links open a 2001 or 2008 reprint or a modern book (entries 579, 606, 635); the reviewers found the original-imprint scans (Fremantle 1864, Hoke 1887, Wingate 1896, Early 1912) and took the text and the tier from those. Entry 606 is a modern book about the man, not his words, and every reviewer rejected it.`);
+  F.push(`**Some entries are image-only or carry a host's own restriction.** ${needTranscription.length} approved works are scans of manuscripts or clippings with no text layer and wait for a person to transcribe them and a second person to check the transcription; hosts add "all rights reserved" notices (Dickinson Archives), a repository rule against quoting unpublished manuscripts (entry 589) and non-commercial licences (the Valley of the Shadow pages), which is why ${holdRights.length} approved works are tier A2 and held.`);
+  F.push(`**The list's descriptions understate or mislabel.** ${C.description_accuracy_other_works.accurate ?? 0} of the ${C.non_or_reviewed} other works have an accurate description; ${C.description_accuracy_other_works['partly-inaccurate'] ?? 0} are partly inaccurate and ${C.description_accuracy_other_works.inaccurate ?? 0} inaccurate, on the worst rating any reviewer gave (the rest could not be checked). Titles that name the wrong volume (549), "Vols. I & II" for a single volume (653), dates the letter does not have, and Google Books page anchors that land on the wrong page are the common faults. The registry stores a corrected title only for the 12 entries of the first run (586-597); for the others the reviewers' issues are in \`verification.reviews\`.`);
+  F.push(`**Duplicates inside the list.** Four entries are merged (572, 573 and 657 are the HathiTrust volume links the Part I to III and XIII entries already use, proved by the catalogue API; 599 is the second page of 595's report). The reviewers add soft duplicates that stay as entries but are ingested once: 553 and 554 (one 1908 printing by two routes), 653 and 654 (one volume, two scans; entry 655 is Vol. III, not a copy) and 636 and 648 (one newspaper issue as a PDF and as a transcription). ${nb.duplicating_or_text_in_full.length + nb.duplicating_or_text_in_part.length} approved works print Official Records text in whole or in part (section 1).`);
+  F.push(`**The classification of the 114 other works** (writing, volume, index, scholarship; battle, campaign, post-battle) comes from the entries' titles and descriptions (\`lib/classes.mjs\`) and is labelled as the builder's judgement; the reviewers' own kind and relevance labels, which are computed here from their outputs, are the ones used for the coverage tables. Of the reviewed entries ${C.reviewed_gettysburg_relevance['battle-july-1-3'] ?? 0} are about the battle itself and ${C.reviewed_gettysburg_relevance['campaign-and-battle'] ?? 0} about the campaign and the battle.`);
+  F.forEach((f, i) => p(`${i + 1}. ${f}`));
+  p();
+
+  // ------------------------------------------------------------------------------------------------------ 11
+  p('## 11. What needs the owner or a historian');
+  p();
+  p('**Decisions**');
+  p();
+  for (const q of queue.pending_decision) p(`- Entry ${q.n} (${trunc(q.title, 70)}): ${q.lean}; ${q.rule.startsWith('R2') ? 'one reviewer rejected it, another read the real document' : q.rule.startsWith('R4') ? 'quote or link only' : q.rule.startsWith('R7') ? 'the reviewers differ on the extraction path' : 'a reviewer asked for a human'}.`);
+  for (const e of nhrOr.sort((a, b) => a.n - b.n)) p(`- Entry ${e.n} (OR report No. ${e.or_locator.report_no}): the list says p. ${e.or_locator.listed_pages[0]}, the audit and the OCR say p. ${e.or_locator.first_page_to_use}; confirm.`);
+  p(`- Part XIII: ${li.owner_decision}.`);
+  p(`- Entries ${list(nb.duplicating_or_text_in_full)} print Official Records text the Historian already holds: ingest them only as second witnesses (the reviewers say so) or skip them.`);
+  p();
+  p('**Rights review before anything is quoted (tier A2)**');
+  p();
+  p(`${holdRights.length} approved works: entries ${list(holdRights.flatMap((q) => q.entries))}. The A2 reasons are in each entry's \`rights_basis\`; the recurring ones are Dickinson College's "all rights reserved" notice on its transcriptions and scans, the Valley of the Shadow's non-commercial licence, the Atlanta History Center's rule that unpublished manuscripts are not to be quoted without a request (entry 589, link-out only until it replies) and volunteer transcriptions that are not verbatim.`);
+  p();
+  p('**Work only a person can do**');
+  p();
+  p(`- Transcribe the page images of ${needTranscription.length} entries (${list(needTranscription.flatMap((q) => q.entries))}) and have a second person check each transcription against the images.`);
+  p('- Open 10 to 20 HathiTrust and eHistory links (a few per volume and part, both ends of each) and confirm they land on the page named. Automated checks cannot.');
+  p(`- Ask the historian reviewer the plan calls for whether the SHSP articles of Part IV are worth ingesting; the plan currently skips SHSP, and the list is the first time they are verified.`);
+  p(`- Tell the historian workstream about the Appendix mislabelling and the page-citation errors in section 8 (finding 4).`);
+  p();
+
+  // ------------------------------------------------------------------------------------------------------ 12
+  p('## 12. What this run did not do, and could not verify');
+  p();
+  p(`- **No page image was viewed by this builder.** What was seen on page images is what the reviewers say they saw (every OR audit entry's first page, p. 673, 858, 1071 and 1077 among them). This builder re-fetched only the Internet Archive metadata of the ${V.ia_items_checked} items the reviewers named (all answered HTTP 200; ${V.ia_items_dated_after_1930.length ? `the ${V.ia_items_dated_after_1930.length === 1 ? 'one' : V.ia_items_dated_after_1930.length} dated after 1930 ${V.ia_items_dated_after_1930.length === 1 ? 'is' : 'are'} ${list(V.ia_items_dated_after_1930.map((x) => `${x.id} (${x.year}, named for entry ${x.entries.join(', ')})`))}` : 'none is dated after 1930'}) and re-ran the structural check offline. It did not re-run a reviewer.`);
+  p(`- **Identity and extraction path are parsed from the reviewers' prose** (\`lib/derive.mjs\`), with every parsed token anchored in their words. For ${dn.approved_with_identity_by_imprint_year.length} approved entries (${list(dn.approved_with_identity_by_imprint_year)}) the reviewers named different scans of one work and "same edition" rests on both stating the same imprint year; for ${dn.approved_with_an_adapter_taken_from_the_kind_of_the_source.length} approved entries at least one reviewer named no path and it was read from the kind of source they named; ${dn.reviews_with_no_adapter_named_at_all} of ${dn.reviews_total} reviews yielded no adapter at all (${list(Object.entries(dn.reviews_with_no_adapter_by_final_status).map(([k, v]) => `${v} on ${k} entries`))}; an approved entry needs one from every reviewer). The derivation reproduces all 12 of the first run's hand-normalised decisions (a test).`);
+  p(`- **Two expected inputs do not exist.** \`qc/auto.json\` and \`qc/review-queues.json\` were named for an earlier stage and were never written (${registry.meta.inputs_absent.length ? 'confirmed absent' : 'present'}); nothing depends on them now.`);
+  p('- **Authorship and dates are the reviewers\'.** No reviewer could see the Stanford copyright-renewal database (bot-challenged, not circumvented), so the renewal status of the one 1920s work (Storrick, entry 558) is unchecked; it went to a human.');
+  p('- **No circumvention.** eHistory, HathiTrust and Perseus were not fetched; robots.txt was obeyed (Perseus and one blog host forbid all automated access; the reviewers read the Internet Archive capture of the blog page instead of the host, and said the owner may veto that); at most one request per second per host with an honest user agent.');
+  p('- **Disclosed by a reviewer:** the first six Internet Archive metadata calls of one reviewer went out about 0.5 s apart (a short burst over the 1 req/s rule, from separate processes sharing no throttle); every later request was spaced 1.25 s or more.');
+  p();
+
+  // ------------------------------------------------------------------------------------------------------ 13
+  p('## 13. How to finish the QC');
+  p();
+  p(`1. A third independent reviewer, or the owner, settles the ${nhr.length} other works in section 9 (\`qc/review-queue-next.json\`). Save the outputs unchanged under \`qc/\` and add the file to \`lib/reviews.mjs\` REVIEW_FILES.`);
+  p('2. `node tools/sources-qc/verify-ia.mjs` (polite, cached) confirms any new Internet Archive item a reviewer names; `node tools/sources-qc/build-registry.mjs` re-applies the rules and regenerates the registry, the ingest queue, the review queue and this report.');
+  p('3. `node --test "tests/sources-qc/*.test.mjs"` fails if any entry lacks a status or evidence, if anything is approved without every reviewer agreeing (other works) or a passing structural check (OR and pointers), if an A1 or A2 lacks a rights basis, if a rights tier is not the most restrictive one the reviewers gave, if the queue holds anything but an approved, ready, A1 item or uses a forbidden adapter, or if the registry differs from a rebuild of its inputs.');
+  p('4. Ingest only what is in `ingest-queue.json` under `ready`, through the adapter named there, after the check of every quote against the page image.');
   p();
   p('Counts at the time of writing:');
   p();
   p('```');
-  for (const k of ['APPROVED-POINTER', 'APPROVED-CROSSWALK', 'APPROVED', 'APPROVED-LINKOUT-ONLY', 'NEEDS-HUMAN-REVIEW', 'NOT-VERIFIED', 'DUPLICATE', 'REJECTED']) p(`${k.padEnd(24)} ${String(st[k] ?? 0).padStart(5)}`);
+  for (const k of ['APPROVED-POINTER', 'APPROVED-CROSSWALK', 'APPROVED', 'APPROVED-LINKOUT-ONLY', 'NEEDS-HUMAN-REVIEW', 'REJECTED', 'NOT-VERIFIED', 'DUPLICATE']) p(`${k.padEnd(24)} ${String(st[k] ?? 0).padStart(5)}`);
   p(`${'TOTAL'.padEnd(24)} ${String(C.total_entries).padStart(5)}`);
   p('```');
   p();

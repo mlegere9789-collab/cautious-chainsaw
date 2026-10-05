@@ -1,0 +1,2342 @@
+{
+ "schema": "sources-v2-ia-verify/1",
+ "generator": "tools/sources-qc/verify-ia.mjs",
+ "user_agent": "Gettysburg-sources-QC/1.0 (contact mlegere9789@gmail.com; read-only link verification, 1 req/s/host)",
+ "run_seconds": 17,
+ "politeness": "honest User-Agent, one request per second per host (1.2 s gap), robots.txt read first, responses cached under tmp/sources-v2/cache; only the documented metadata API of archive.org was requested, nothing else",
+ "items_checked": 54,
+ "status_tally": {
+  "200": 54
+ },
+ "note": "Each record is what archive.org says about an identifier a reviewer named. It confirms the item exists and carries OCR text; it does not verify the document, and a date field is sometimes the start year of a series (the reviewers noticed this and read the title page instead).",
+ "items": {
+  "01300611.3315.emory.edu": {
+   "url": "https://archive.org/metadata/01300611.3315.emory.edu",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "f58d11f034aeb418cab567a4eb12e946ac8e29d939a245a28a86f39625b1fbac",
+   "fetched_at": "2026-10-05T04:23:06.327Z",
+   "named_by_entries": [
+    584
+   ],
+   "named_by_reviewers": [
+    "r3/p1/r3-pass1-a#584",
+    "r3/p2/r3-pass2-a#584"
+   ],
+   "metadata": {
+    "title": "Histories of the several regiments and battalions from North Carolina, in the great war 1861-'65",
+    "creator": "Clark, Walter, 1846-1924, ed",
+    "date": "1901",
+    "year": null,
+    "publisher": "Raleigh : E.M. Uzzell, printer",
+    "volume": "V.2",
+    "mediatype": "texts",
+    "collection": [
+     "emory",
+     "regimentalhistories",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "934",
+    "scanner": null,
+    "sponsor": "Emory University, Robert W. Woodruff Library",
+    "contributor": "Emory University, Robert W. Woodruff Library",
+    "is_dark": null,
+    "item_last_updated": 1721864552,
+    "files_count": 23,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "americanhistoric00newyuoft": {
+   "url": "https://archive.org/metadata/americanhistoric00newyuoft",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "f2066b1f9764e254985a8ca215bb6faf8f719f6f24fc2439f3a37c2ee216aa79",
+   "fetched_at": "2026-10-05T04:23:07.156Z",
+   "named_by_entries": [
+    555
+   ],
+   "named_by_reviewers": [
+    "r3/p2/r3-pass2-a#555"
+   ],
+   "metadata": {
+    "title": "American historical documents 1000-1904, with introd., notes and illus",
+    "creator": null,
+    "date": "[c1910]",
+    "year": null,
+    "publisher": "New York P.F. Collier",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "robarts",
+     "harvardclassicssingles",
+     "toronto",
+     "university_of_toronto"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": "Evidence reported by scanner-liz-ridolfo for item americanhistoric00newyuoft on May 16, 2007: visible notice of copyright; stated date is 1910.",
+    "imagecount": "512",
+    "scanner": "ias8",
+    "sponsor": "MSN",
+    "contributor": "Robarts - University of Toronto",
+    "is_dark": null,
+    "item_last_updated": 1728082077,
+    "files_count": 25,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "atgettysburgorwh00alle": {
+   "url": "https://archive.org/metadata/atgettysburgorwh00alle",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "f295e7bc559053132ed0799ff2e144f647eaaf495a3b9e419b3df8f0679a17e5",
+   "fetched_at": "2026-10-01T03:14:42.307Z",
+   "named_by_entries": [
+    557,
+    559
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-0#557",
+    "r2/p1/R1n-7#559",
+    "r2/p2/A-nonOR-8#557"
+   ],
+   "metadata": {
+    "title": "At gettysburg : or what a girl saw and heard of the battle; a true narrative",
+    "creator": "Alleman, Tillie Pierce",
+    "date": "1889",
+    "year": "1889",
+    "publisher": "New York : W. L. Borland",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "brigham_young_university",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "148",
+    "scanner": "scribe3.provo.archive.org",
+    "sponsor": "Brigham Young University",
+    "contributor": "Harold B. Lee Library",
+    "is_dark": null,
+    "item_last_updated": 1754758257,
+    "files_count": 27,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "battleofgettysbu00haskuoft": {
+   "url": "https://archive.org/metadata/battleofgettysbu00haskuoft",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "d2c44b38e6ac163cedb7739ce971c24e08d51d897d3b0fc78bfd7dc49185810d",
+   "fetched_at": "2026-10-01T03:14:44.007Z",
+   "named_by_entries": [
+    554
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-0#554",
+    "r2/p2/A-nonOR-8#554"
+   ],
+   "metadata": {
+    "title": "The Battle of Gettysburg",
+    "creator": "Haskell, Frank Aretas",
+    "date": "1908",
+    "year": null,
+    "publisher": "Wisconsin",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "robarts",
+     "toronto",
+     "university_of_toronto"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": "Evidence reported by scanner-liz-ridolfo for item battleofgettysbu00haskuoft on June 12, 2007: no visible notice of copyright; stated date is 1908.",
+    "imagecount": "228",
+    "scanner": "ias9",
+    "sponsor": "MSN",
+    "contributor": "Robarts - University of Toronto",
+    "is_dark": null,
+    "item_last_updated": 1790703666,
+    "files_count": 24,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "cu31924030725166": {
+   "url": "https://archive.org/metadata/cu31924030725166",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "661e1058fa9f459dd1c0084e6cf339885cdd3c3e5dcea250f3450354036469c6",
+   "fetched_at": "2026-10-01T03:19:12.865Z",
+   "named_by_entries": [
+    594,
+    598,
+    604
+   ],
+   "named_by_reviewers": [
+    "r1/p2/r1-pass2#594",
+    "r2/p2/A-nonOR-16#598",
+    "r2/p2/A-nonOR-16#604"
+   ],
+   "metadata": {
+    "title": "History of the Twenty-second regiment of the National guard of the state of New York; from its organization to 1895;",
+    "creator": "Wingate, George Wood, 1840-1928",
+    "date": "1896",
+    "year": null,
+    "publisher": "New York : E. W. Dayton",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "cornell",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "830",
+    "scanner": "Kirtas APT 2400",
+    "sponsor": "MSN",
+    "contributor": "Cornell University Library",
+    "is_dark": null,
+    "item_last_updated": 1782090747,
+    "files_count": 21,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "cu31924030913630": {
+   "url": "https://archive.org/metadata/cu31924030913630",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "b75790c74644e1543bf530c484cbe88b5d5289ce9c263f055ceb693e6250814f",
+   "fetched_at": "2026-10-01T03:19:13.781Z",
+   "named_by_entries": [
+    592
+   ],
+   "named_by_reviewers": [
+    "r1/p2/r1-pass2#592"
+   ],
+   "metadata": {
+    "title": "Lieutenant General Jubal Anderson Early, C.S.A. Autobiographical sketch and narrative of the war between the states",
+    "creator": "Early, Jubal Anderson, 1816-1894",
+    "date": "1912",
+    "year": null,
+    "publisher": "Philadelphia, London, J.B. Lippincott Company",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "cornell",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "556",
+    "scanner": "Kirtas APT 2400",
+    "sponsor": "MSN",
+    "contributor": "Cornell University Library",
+    "is_dark": null,
+    "item_last_updated": 1782123043,
+    "files_count": 21,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "cu31924071238673": {
+   "url": "https://archive.org/metadata/cu31924071238673",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "4f4b63a56c6844191ea6b18b6677fd73d9b244d86e188bda677e46b969fef1fb",
+   "fetched_at": "2026-10-01T03:14:47.699Z",
+   "named_by_entries": [
+    655
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-1#655",
+    "r2/p2/A-nonOR-8#655"
+   ],
+   "metadata": {
+    "title": "Final report of the battlefield of Gettysburg ..",
+    "creator": "New York (State). Monuments Commission for the Battlefields of Gettysburg and Chattanooga",
+    "date": "1902",
+    "year": null,
+    "publisher": "Albany, J.B. Lyon company, printers",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "cornell",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "636",
+    "scanner": "Kirtas APT 2400",
+    "sponsor": "MSN",
+    "contributor": "Cornell University Library",
+    "is_dark": null,
+    "item_last_updated": 1787314691,
+    "files_count": 22,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "finalreportonba01chatgoog": {
+   "url": "https://archive.org/metadata/finalreportonba01chatgoog",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "b89298d1228255475e0b10c3ef63f324d48f02737862502d824cf2297a40fa8a",
+   "fetched_at": "2026-10-01T03:14:47.850Z",
+   "named_by_entries": [
+    654
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-1#654",
+    "r2/p2/A-nonOR-8#654"
+   ],
+   "metadata": {
+    "title": "Final report on the battlefield of Gettysburg ..",
+    "creator": [
+     "New York (State). Monuments Commission for the Battlefields of Gettysburg and Chattanooga",
+     "Fox, William F. (William Freeman), 1840-1909",
+     "Sickles, Daniel Edgar, 1819-1914"
+    ],
+    "date": "1900",
+    "year": "1900",
+    "publisher": "Albany, J.B. Lyon Company, Printers",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": "americana",
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": null,
+    "imagecount": "545",
+    "scanner": "google",
+    "sponsor": "Google",
+    "contributor": "unknown library",
+    "is_dark": null,
+    "item_last_updated": 1719799453,
+    "files_count": 20,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "finalreportongettys01burgrich": {
+   "url": "https://archive.org/metadata/finalreportongettys01burgrich",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": false,
+   "sha256": "e1fb291ac30c9e5de40eb67490ec14f47edfb15502b711008125b2e36de8da41",
+   "fetched_at": "2026-10-05T04:39:58.876Z",
+   "named_by_entries": [
+    653
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-1#653"
+   ],
+   "metadata": {
+    "title": "Final report on the battlefield of Gettysburg",
+    "creator": [
+     "New York (State). Monuments Commission for the Battlefields of Gettysburg and Chattanooga",
+     "Fox, William F. (William Freeman), 1840-1909",
+     "Sickles, Daniel Edgar, 1825-1914"
+    ],
+    "date": "1900",
+    "year": null,
+    "publisher": "Albany : J.B. Lyon Company, Printers",
+    "volume": "1",
+    "mediatype": "texts",
+    "collection": [
+     "cdl",
+     "civilwardocuments",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": "Evidence reported by j.mauthe for item finalreportongettys01burgrich on Sep 5, 2006; no visible notice of copyright and date found; stated date is 1902; not published by the US government; Have not checked for notice of renewal in the Copyright renewal records.",
+    "imagecount": "548",
+    "scanner": "rich9",
+    "sponsor": "MSN",
+    "contributor": "University of California Libraries",
+    "is_dark": null,
+    "item_last_updated": 1722723168,
+    "files_count": 25,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "greatinvasionof100hoke": {
+   "url": "https://archive.org/metadata/greatinvasionof100hoke",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "785fe743d68f071e42abd7aefc2d0cb7c747ab569e06ab65ffffab812b773b8f",
+   "fetched_at": "2026-10-01T07:37:21.873Z",
+   "named_by_entries": [
+    622
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-2#622",
+    "r2/p2/A-nonOR-32#622"
+   ],
+   "metadata": {
+    "title": "The great invasion of 1863; or, General Lee in Pennsylvania. Embracing an account of the strength and organization of the armies of the Potomac and northern Virginia; their daily marches with the routes of travel, and general orders issued; the three days of battle; the retreat of the Confederate and pursuit by the Federals; analytical index ... with an appendix containing an account of the burning of Chamberburg, Pennsylvania, a statement of the General Sickles controversy, and other valuable historic papers",
+    "creator": "Hoke, Jacob, 1825-1893",
+    "date": "1887",
+    "year": null,
+    "publisher": "Dayton, O., W. J. Shuey",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "newyorkpubliclibrary",
+     "civilwardocuments",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": "Evidence reported by nicole.deyo for item greatinvasionof100hoke on June 11, 2008: visible notice of copyright; stated date is 1887.",
+    "imagecount": "644",
+    "scanner": "nycs1.nyc.archive.org",
+    "sponsor": "MSN",
+    "contributor": "New York Public Library",
+    "is_dark": null,
+    "item_last_updated": 1723856178,
+    "files_count": 22,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "harvardclassicsa0043char": {
+   "url": "https://archive.org/metadata/harvardclassicsa0043char",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "53ade171af50ba7d44caadc6863682e2107ab2f20f25fabafe3cbdb7f79db4d5",
+   "fetched_at": "2026-10-05T04:23:08.056Z",
+   "named_by_entries": [
+    555
+   ],
+   "named_by_reviewers": [
+    "r3/p1/r3-pass1-a#555"
+   ],
+   "metadata": {
+    "title": "The Harvard Classics: American Historical Documents",
+    "creator": "Charles W. Eliot",
+    "date": "1910",
+    "year": null,
+    "publisher": null,
+    "volume": "43",
+    "mediatype": "texts",
+    "collection": "internetarchivebooks",
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "510",
+    "scanner": "station23.cebu.archive.org",
+    "sponsor": null,
+    "contributor": "Internet Archive",
+    "is_dark": null,
+    "item_last_updated": 1773112471,
+    "files_count": 26,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "historyofninthvi00beal": {
+   "url": "https://archive.org/metadata/historyofninthvi00beal",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "5ccb4474bf36f3833cf466df4047815eb64d2e7de43574d687377ecaa8954dac",
+   "fetched_at": "2026-10-01T03:19:15.640Z",
+   "named_by_entries": [
+    596
+   ],
+   "named_by_reviewers": [
+    "r1/p1/r1-pass1#596",
+    "r1/p2/r1-pass2#596"
+   ],
+   "metadata": {
+    "title": "History of the Ninth Virginia cavalry, in the war between the states",
+    "creator": "Beale, R. L. T. (Richard Lee Tuberville), 1819-1893",
+    "date": "1899",
+    "year": null,
+    "publisher": "Richmond, Va., B. F. Johnson publishing company",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "newyorkpubliclibrary",
+     "civilwardocuments",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": "Evidence reported by rebecca.m for item historyofninthvi00beal on June 16, 2008: no visible notice of copyright; stated date is 1899.",
+    "imagecount": "208",
+    "scanner": "nycs9.nyc.archive.org",
+    "sponsor": "MSN",
+    "contributor": "New York Public Library",
+    "is_dark": null,
+    "item_last_updated": 1724606175,
+    "files_count": 25,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "historyoftwenty00wing": {
+   "url": "https://archive.org/metadata/historyoftwenty00wing",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "4f1afb34be987357bd4f8b55750efb07ddda075bbe77ad745ffa7716f947ea12",
+   "fetched_at": "2026-10-01T03:19:16.264Z",
+   "named_by_entries": [
+    594,
+    598,
+    604
+   ],
+   "named_by_reviewers": [
+    "r1/p1/r1-pass1#594",
+    "r2/p1/R1n-1#598",
+    "r2/p1/R1n-1#604"
+   ],
+   "metadata": {
+    "title": "History of the Twenty-second regiment of the National guard of the state of New York; from its organization to 1895;",
+    "creator": "Wingate, George Wood, 1840-1928",
+    "date": "1896",
+    "year": "1896",
+    "publisher": "New York, E. W. Dayton",
+    "volume": "Pt. 1 History of the Twenty-second regiment of the National guard of the state of New York; from its organization to 1895;",
+    "mediatype": "texts",
+    "collection": [
+     "allen_county",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "812",
+    "scanner": "scribe1.indiana.archive.org",
+    "sponsor": "Internet Archive",
+    "contributor": "Allen County Public Library Genealogy Center",
+    "is_dark": null,
+    "item_last_updated": 1724617286,
+    "files_count": 23,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "memoirs00lela": {
+   "url": "https://archive.org/metadata/memoirs00lela",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "20db07071cbce1e2a0f1fccbafa3d94ecb213562eab3a2ccdca0264523db5276",
+   "fetched_at": "2026-10-05T04:23:11.954Z",
+   "named_by_entries": [
+    602
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-1#602",
+    "r2/p2/A-nonOR-16#602"
+   ],
+   "metadata": {
+    "title": "Memoirs",
+    "creator": "Leland, Charles Godfrey, 1824-1903",
+    "date": "1893",
+    "year": null,
+    "publisher": "New York, D. Appleton",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "library_of_congress",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "The Library of Congress is unaware of any copyright restrictions for this item.",
+    "copyright_evidence": null,
+    "imagecount": "472",
+    "scanner": "scribe11.capitolhill.archive.org",
+    "sponsor": "Sloan Foundation",
+    "contributor": "The Library of Congress",
+    "is_dark": null,
+    "item_last_updated": 1715646215,
+    "files_count": 24,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "memoirs00lelagoog": {
+   "url": "https://archive.org/metadata/memoirs00lelagoog",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": false,
+   "sha256": "e2342c7580497e492bd1b42605edfb573965a78fdb39b4a026c0ae4b4c16e203",
+   "fetched_at": "2026-10-05T04:40:02.316Z",
+   "named_by_entries": [
+    602
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-1#602"
+   ],
+   "metadata": {
+    "title": "Memoirs",
+    "creator": "Leland, Charles Godfrey, 1824-1903",
+    "date": "1893",
+    "year": "1893",
+    "publisher": "New York, D. Appleton",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": "americana",
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": null,
+    "imagecount": "469",
+    "scanner": "google",
+    "sponsor": "Google",
+    "contributor": "unknown library",
+    "is_dark": null,
+    "item_last_updated": 1680440654,
+    "files_count": 16,
+    "has_djvu_txt": true,
+    "has_page_numbers": false
+   }
+  },
+  "memoirs01lelagoog": {
+   "url": "https://archive.org/metadata/memoirs01lelagoog",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": false,
+   "sha256": "ce19e305ff685cdeb3c13968e22b958aeb80aaf4187974e8301bfaf9f90426e3",
+   "fetched_at": "2026-10-05T04:40:03.178Z",
+   "named_by_entries": [
+    602
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-1#602"
+   ],
+   "metadata": {
+    "title": "Memoirs",
+    "creator": "Leland, Charles Godfrey, 1824-1903",
+    "date": "1893",
+    "year": "1894",
+    "publisher": "New York, D. Appleton",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": "americana",
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": null,
+    "imagecount": "486",
+    "scanner": "google",
+    "sponsor": "Google",
+    "contributor": "University of Michigan",
+    "is_dark": null,
+    "item_last_updated": 1737302742,
+    "files_count": 16,
+    "has_djvu_txt": true,
+    "has_page_numbers": false
+   }
+  },
+  "memoirs02lelagoog": {
+   "url": "https://archive.org/metadata/memoirs02lelagoog",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": false,
+   "sha256": "e5d5df05e1da841760e7cbccd9f3c56c91d4314793ae05e8c51f2c934358face",
+   "fetched_at": "2026-10-05T04:40:03.651Z",
+   "named_by_entries": [
+    602
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-1#602"
+   ],
+   "metadata": {
+    "title": "Memoirs",
+    "creator": "Leland, Charles Godfrey, 1824-1903",
+    "date": "1893",
+    "year": "1893",
+    "publisher": "New York, D. Appleton",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": "americana",
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": null,
+    "imagecount": "466",
+    "scanner": "google",
+    "sponsor": "Google",
+    "contributor": "Harvard University",
+    "is_dark": null,
+    "item_last_updated": 1706820970,
+    "files_count": 16,
+    "has_djvu_txt": true,
+    "has_page_numbers": false
+   }
+  },
+  "memoirsx00lelaiala": {
+   "url": "https://archive.org/metadata/memoirsx00lelaiala",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": false,
+   "sha256": "6ee67c7102a2a181a7aba5a80272b38a94e525db6af8789254caab2c71e8422b",
+   "fetched_at": "2026-10-05T04:40:08.153Z",
+   "named_by_entries": [
+    602
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-1#602"
+   ],
+   "metadata": {
+    "title": "Memoirs",
+    "creator": "Leland, Charles Godfrey, 1824-1903",
+    "date": "1893",
+    "year": null,
+    "publisher": "New York : D. Appleton and company",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "cdl",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": "Evidence reported by alyson-wieczorek for item memoirsx00lelaiala on September 14, 2006: visible notice of copyright; stated date is 1893.",
+    "imagecount": "476",
+    "scanner": "iala8",
+    "sponsor": "MSN",
+    "contributor": "University of California Libraries",
+    "is_dark": null,
+    "item_last_updated": 1700912877,
+    "files_count": 26,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "newyorkatgettysb0001unse": {
+   "url": "https://archive.org/metadata/newyorkatgettysb0001unse",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "993620b31e5079671507bdc8027cdad325a7cb47057060cc9739bfa5e9babc0b",
+   "fetched_at": "2026-10-01T03:14:49.404Z",
+   "named_by_entries": [
+    653
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-1#653",
+    "r2/p2/A-nonOR-8#653"
+   ],
+   "metadata": {
+    "title": "NEW YORK AT GETTYSBURG Vol I & II",
+    "creator": "Various",
+    "date": "1900",
+    "year": null,
+    "publisher": "J. B. Lyon Company",
+    "volume": "1",
+    "mediatype": "texts",
+    "collection": "internetarchivebooks",
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "540",
+    "scanner": "station03.cebu.archive.org",
+    "sponsor": null,
+    "contributor": "Internet Archive",
+    "is_dark": null,
+    "item_last_updated": 1715386035,
+    "files_count": 25,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "oldmercersburg00woma": {
+   "url": "https://archive.org/metadata/oldmercersburg00woma",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "217aefc2c9cb48db0b3528430b11c3e46191bd3aee290284cd24aac29e4dd572",
+   "fetched_at": "2026-10-01T07:35:17.107Z",
+   "named_by_entries": [
+    626
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-6#626",
+    "r2/p2/A-nonOR-72#626"
+   ],
+   "metadata": {
+    "title": "Old Mercersburg",
+    "creator": "Woman's Club of Mercersburg (Mercersburg, Pa.)",
+    "date": "1912",
+    "year": null,
+    "publisher": "New York : Published under the auspices of the Journal of American history by Frank Allaben Genealogical Co.",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "library_of_congress",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": null,
+    "imagecount": "350",
+    "scanner": "scribe10.capitolhill.archive.org",
+    "sponsor": "Sloan Foundation",
+    "contributor": "The Library of Congress",
+    "is_dark": null,
+    "item_last_updated": 1718214658,
+    "files_count": 25,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "ourcampaignaroun00lock": {
+   "url": "https://archive.org/metadata/ourcampaignaroun00lock",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "846e1e6426b68425e6e873fd8270fe0e6bedbac825201fcbf2118021843a1bf9",
+   "fetched_at": "2026-10-01T07:36:22.975Z",
+   "named_by_entries": [
+    609
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-2#609",
+    "r2/p2/A-nonOR-24#609"
+   ],
+   "metadata": {
+    "title": "Our campaign around Gettysburg : being a memorial of what was endured, suffered, and accomplished by the Twenty-third regiment (N.Y.S.N.G.) and other regiments associated with them, in their Pennsylvania and Maryland campaign, during the rebel invasion of the loyal states in June-July, 1863",
+    "creator": "Lockwood, John, 1825 or 6-1901",
+    "date": "1864",
+    "year": null,
+    "publisher": "Brooklyn : A. H. Rome",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "newyorkpubliclibrary",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": "Evidence reported by nicole.deyo for item ourcampaignaroun00lock on June 11, 2008: no visible notice of copyright; stated date is 1864.",
+    "imagecount": "186",
+    "scanner": "nycs9.nyc.archive.org",
+    "sponsor": "MSN",
+    "contributor": "New York Public Library",
+    "is_dark": null,
+    "item_last_updated": 1718482102,
+    "files_count": 26,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "papersreadbefore04kitt": {
+   "url": "https://archive.org/metadata/papersreadbefore04kitt",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "29354a2b8e8b95e368b0c59cfaf6625db928dc9dea2fb11f5f9f565e265c8564",
+   "fetched_at": "2026-10-01T03:14:50.945Z",
+   "named_by_entries": [
+    627
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-2#627",
+    "r2/p2/A-nonOR-32#627"
+   ],
+   "metadata": {
+    "title": "Papers read before the Kittochtinny Historical Society..",
+    "creator": "Kittochtinny Historical Society",
+    "date": "1899",
+    "year": null,
+    "publisher": "Chambersburg, Pa. : Kittochtinny Historical Society",
+    "volume": "4",
+    "mediatype": "texts",
+    "collection": [
+     "allen_county",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "728",
+    "scanner": "scribe5.indiana.archive.org",
+    "sponsor": "Allen County Public Library Genealogy Center",
+    "contributor": "Allen County Public Library Genealogy Center",
+    "is_dark": null,
+    "item_last_updated": 1720436568,
+    "files_count": 23,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "pennsylvaniaatge02penn": {
+   "url": "https://archive.org/metadata/pennsylvaniaatge02penn",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "6e28b1d1d95a22360a3e2f4b26060e042b97cc9858d40249ede918af4c834091",
+   "fetched_at": "2026-10-01T03:14:51.464Z",
+   "named_by_entries": [
+    656
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-1#656",
+    "r2/p2/A-nonOR-8#656"
+   ],
+   "metadata": {
+    "title": "Pennsylvania at Gettysburg. Ceremonies at the dedication of the monuments erected by the commonwealth of Pennsylvania to mark the positions of the Pennsylvania commands engaged in the battle",
+    "creator": [
+     "Pennsylvania. Gettysburg Battle-field Commission",
+     "Nicholson, John P. (John Page), b. 1842"
+    ],
+    "date": "1893",
+    "year": null,
+    "publisher": "Harrisburg, E. K. Meyers, state printer",
+    "volume": "2",
+    "mediatype": "texts",
+    "collection": [
+     "newyorkpubliclibrary",
+     "civilwardocuments",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": "Evidence reported by nicole.deyo for item pennsylvaniaatge02penn on June 13, 2008: no visible notice of copyright; stated date is 1893.",
+    "imagecount": "664",
+    "scanner": "nycs8.nyc.archive.org",
+    "sponsor": "MSN",
+    "contributor": "New York Public Library",
+    "is_dark": null,
+    "item_last_updated": 1720506461,
+    "files_count": 23,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "pennsylvaniaatge03penn": {
+   "url": "https://archive.org/metadata/pennsylvaniaatge03penn",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": false,
+   "sha256": "a40eb3bdc15b41b6ba09b0779e75aa387b7b9d73a1c4de308ca14b2ce9cf6d20",
+   "fetched_at": "2026-10-05T04:40:09.579Z",
+   "named_by_entries": [
+    656
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-1#656",
+    "r2/p2/A-nonOR-8#656"
+   ],
+   "metadata": {
+    "title": "Pennsylvania at Gettysburg. Ceremonies at the dedication of the monuments erected by the commonwealth of Pennsylvania to mark the positions of the Pennsylvania commands engaged in the battle",
+    "creator": [
+     "Pennsylvania. Gettysburg Battle-field Commission",
+     "Nicholson, John P. (John Page), b. 1842, comp. and ed"
+    ],
+    "date": "1893",
+    "year": "1893",
+    "publisher": "Harrisburg, E. K. Meyers, state printer",
+    "volume": "2",
+    "mediatype": "texts",
+    "collection": [
+     "library_of_congress",
+     "civilwardocuments",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": null,
+    "imagecount": "666",
+    "scanner": "scribe1.capitolhill.archive.org",
+    "sponsor": "Sloan Foundation",
+    "contributor": "The Library of Congress",
+    "is_dark": null,
+    "item_last_updated": 1719868893,
+    "files_count": 25,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "pennsylvaniamaga33hist": {
+   "url": "https://archive.org/metadata/pennsylvaniamaga33hist",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "750ad39bf518dfb33bf53eb5c593ac6c44c6b6bb743b42110b817d5eddc1a572",
+   "fetched_at": "2026-10-01T07:41:14.874Z",
+   "named_by_entries": [
+    565
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-6#565",
+    "r2/p2/A-nonOR-80#565"
+   ],
+   "metadata": {
+    "title": "The Pennsylvania magazine of history and biography",
+    "creator": "Historical Society of Pennsylvania",
+    "date": "1909",
+    "year": null,
+    "publisher": "[Philadelphia] Historical Society of Pennsylvania",
+    "volume": "33",
+    "mediatype": "texts",
+    "collection": [
+     "allen_county",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "1210",
+    "scanner": "scribe4.indiana.archive.org",
+    "sponsor": "Internet Archive",
+    "contributor": "Allen County Public Library Genealogy Center",
+    "is_dark": null,
+    "item_last_updated": 1718688750,
+    "files_count": 23,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "pennsylvaniamaga33histuoft": {
+   "url": "https://archive.org/metadata/pennsylvaniamaga33histuoft",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": false,
+   "sha256": "89a2a2398f1c3adeb7345760cd023e054402aa90aefd8e34358529889c6067ce",
+   "fetched_at": "2026-10-05T04:40:10.442Z",
+   "named_by_entries": [
+    565
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-6#565"
+   ],
+   "metadata": {
+    "title": "The Pennsylvania magazine of history and biography",
+    "creator": "Historical Society of Pennsylvania",
+    "date": "1877",
+    "year": null,
+    "publisher": "[Philadelphia] Historical Society of Pennsylvania",
+    "volume": "33",
+    "mediatype": "texts",
+    "collection": [
+     "robarts",
+     "toronto",
+     "university_of_toronto"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": "Evidence reported by scanner-liz-ridolfo for item pennsylvaniamaga33histuoft on April 12, 2007: no visible notice of copyright; stated date is 1909.",
+    "imagecount": "666",
+    "scanner": "ias7",
+    "sponsor": "MSN",
+    "contributor": "Robarts - University of Toronto",
+    "is_dark": null,
+    "item_last_updated": 1728172519,
+    "files_count": 24,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "pub_official-records-of-union-and-confederate-armies": {
+   "url": "https://archive.org/metadata/pub_official-records-of-union-and-confederate-armies",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "cc96fbfb22dde4cbfd802f65207a50e237ed1337befd0f7921fc124517e78b78",
+   "fetched_at": "2026-10-05T04:23:12.108Z",
+   "named_by_entries": [
+    576
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-7#576",
+    "r2/p1/R1n-8#576",
+    "r2/p2/A-nonOR-80#576",
+    "r2/p2/A-nonOR-96#576"
+   ],
+   "metadata": {
+    "title": "War of the Rebellion : a Compilation of the Official Records of the Union and Confederate Armies",
+    "creator": null,
+    "date": null,
+    "year": null,
+    "publisher": "Govt. Print Office",
+    "volume": null,
+    "mediatype": "collection",
+    "collection": [
+     "periodicals",
+     "uic"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": null,
+    "scanner": null,
+    "sponsor": null,
+    "contributor": "Internet Archive",
+    "is_dark": null,
+    "item_last_updated": 1790916762,
+    "files_count": 15,
+    "has_djvu_txt": false,
+    "has_page_numbers": false
+   }
+  },
+  "rebellionrecordd07moor": {
+   "url": "https://archive.org/metadata/rebellionrecordd07moor",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "c20844307e50d69c0ca7016ccbf3f8b56c7fc9319bd8a2a5edf4d5c4f203ebf0",
+   "fetched_at": "2026-10-05T04:23:14.098Z",
+   "named_by_entries": [
+    633
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-3#633",
+    "r2/p2/A-nonOR-40#633"
+   ],
+   "metadata": {
+    "title": "The Rebellion record; a diary of American events",
+    "creator": "Moore, Frank, 1828-1904",
+    "date": [
+     "1861-1863;",
+     "1864-68"
+    ],
+    "year": null,
+    "publisher": "New York, G. P. Putnam, D. Van Nostrand",
+    "volume": "7",
+    "mediatype": "texts",
+    "collection": [
+     "newyorkpubliclibrary",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": "Evidence reported by rebecca.m for item rebellionrecordd07moor on June 9, 2008: no visible notice of copyright; stated date is 1864.",
+    "imagecount": "868",
+    "scanner": "nycs3.nyc.archive.org",
+    "sponsor": "MSN",
+    "contributor": "New York Public Library",
+    "is_dark": null,
+    "item_last_updated": 1724867422,
+    "files_count": 24,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "reminiscences00hoke": {
+   "url": "https://archive.org/metadata/reminiscences00hoke",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": false,
+   "sha256": "295719fdd4b325a176f34b3cf59dbfccb87f8221e436b97fdf38fd2a84c3fb01",
+   "fetched_at": "2026-10-05T04:40:11.631Z",
+   "named_by_entries": [
+    628
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-3#628",
+    "r2/p2/A-nonOR-32#628"
+   ],
+   "metadata": {
+    "title": "Reminiscences of the war, or, Incidents which transpired in and about Chambersburg, during the War of the Rebellion",
+    "creator": "Hoke, Jacob, 1825-1893",
+    "date": null,
+    "year": null,
+    "publisher": "M.A. Foltz",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "gettysburgcollege",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "228",
+    "scanner": "scribe8.nyc.archive.org",
+    "sponsor": "Lyrasis Members and Sloan Foundation",
+    "contributor": "Gettysburg College, Musselman Library, Special Collections",
+    "is_dark": null,
+    "item_last_updated": 1721895157,
+    "files_count": 21,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "reminiscencesofw00hoke": {
+   "url": "https://archive.org/metadata/reminiscencesofw00hoke",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "f486f195e031bec37854b3628f1949b75651cdf14dac28cb39be9b8712bb94db",
+   "fetched_at": "2026-10-05T04:23:15.889Z",
+   "named_by_entries": [
+    628
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-3#628",
+    "r2/p2/A-nonOR-32#628"
+   ],
+   "metadata": {
+    "title": "Reminiscences of the war; or, Incidents which transpired in and about Chambersburg, during the war of the rebellion",
+    "creator": "Hoke, Jacob, 1825-1893",
+    "date": "1884",
+    "year": null,
+    "publisher": "Chambersburg, Pa., M.A. Foltz",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "library_of_congress",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": null,
+    "imagecount": "228",
+    "scanner": "scribe1.capitolhill.archive.org",
+    "sponsor": "Sloan Foundation",
+    "contributor": "The Library of Congress",
+    "is_dark": null,
+    "item_last_updated": 1721897750,
+    "files_count": 25,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "reportofbrigadie00phil": {
+   "url": "https://archive.org/metadata/reportofbrigadie00phil",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "b23388ffb8bd79b1db4849a014c476021f70d276aa19bee395faed30e952b022",
+   "fetched_at": "2026-10-01T02:53:37.280Z",
+   "named_by_entries": [
+    595
+   ],
+   "named_by_reviewers": [
+    "r1/p2/r1-pass2#595"
+   ],
+   "metadata": {
+    "title": "Report of Brigadier Gen'l A. J. Pleasonton, commanding the Home guard of the city of Philadelphia, to the Hon. Alexander Henry, mayor ... for ..",
+    "creator": [
+     "Philadelphia (Pa.). Home Guard",
+     "Miscellaneous Pamphlet Collection (Library of Congress) DLC"
+    ],
+    "date": "1862",
+    "year": "1862",
+    "publisher": "Philadelphia",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "library_of_congress",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "The Library of Congress is unaware of any copyright restrictions for this item.",
+    "copyright_evidence": null,
+    "imagecount": "122",
+    "scanner": "scribe2.capitolhill.archive.org",
+    "sponsor": "The Library of Congress",
+    "contributor": "The Library of Congress",
+    "is_dark": null,
+    "item_last_updated": 1721931041,
+    "files_count": 25,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "sim_southern-historical-society-papers_1883-07_11_7": {
+   "url": "https://archive.org/metadata/sim_southern-historical-society-papers_1883-07_11_7",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "027f276194a3fbbd773d41300fa0a2962c636d346be3b1f49644974f03622eb3",
+   "fetched_at": "2026-10-01T03:19:18.613Z",
+   "named_by_entries": [
+    597
+   ],
+   "named_by_reviewers": [
+    "r1/p2/r1-pass2#597"
+   ],
+   "metadata": {
+    "title": "Southern Historical Society Papers  1883-07: Vol 11 Iss 7",
+    "creator": null,
+    "date": "1883-07",
+    "year": null,
+    "publisher": "Open Court Publishing Co",
+    "volume": "11",
+    "mediatype": "texts",
+    "collection": [
+     "pub_southern-historical-society-papers",
+     "sim_microfilm",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "50",
+    "scanner": "microfilm03.cebu.archive.org",
+    "sponsor": null,
+    "contributor": "Internet Archive",
+    "is_dark": null,
+    "item_last_updated": 1772618192,
+    "files_count": 19,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "southernhistoric0007sout": {
+   "url": "https://archive.org/metadata/southernhistoric0007sout",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": false,
+   "sha256": "b08d44945e2c9d60995b17982a18afbbbe5fc4954581db424310d6068f66eac1",
+   "fetched_at": "2026-10-05T04:40:12.842Z",
+   "named_by_entries": [
+    544
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-1#544"
+   ],
+   "metadata": {
+    "title": "Southern Historical Society papers",
+    "creator": "Southern Historical Society",
+    "date": "1876",
+    "year": null,
+    "publisher": "Richmond, Virginia Historical Society [etc.]",
+    "volume": "7",
+    "mediatype": "texts",
+    "collection": [
+     "pub_southern-historical-society-papers",
+     "trent_university",
+     "internetarchivebooks",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "618",
+    "scanner": "station14.cebu.archive.org",
+    "sponsor": null,
+    "contributor": "Internet Archive",
+    "is_dark": null,
+    "item_last_updated": 1778142301,
+    "files_count": 29,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "southernhistoric0011sout": {
+   "url": "https://archive.org/metadata/southernhistoric0011sout",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "00ac5c8498ea799d7e01f547d92f9980322511941ab32314dc71f6b67fea5822",
+   "fetched_at": "2026-10-01T03:19:23.036Z",
+   "named_by_entries": [
+    597
+   ],
+   "named_by_reviewers": [
+    "r1/p2/r1-pass2#597"
+   ],
+   "metadata": {
+    "title": "Southern Historical Society papers",
+    "creator": "Southern Historical Society",
+    "date": "1876",
+    "year": null,
+    "publisher": "Richmond, Virginia Historical Society [etc.]",
+    "volume": "11",
+    "mediatype": "texts",
+    "collection": [
+     "pub_southern-historical-society-papers",
+     "trent_university",
+     "internetarchivebooks",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "594",
+    "scanner": "station01.cebu.archive.org",
+    "sponsor": null,
+    "contributor": "Internet Archive",
+    "is_dark": null,
+    "item_last_updated": 1778142366,
+    "files_count": 29,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "southernhistoric1318sout": {
+   "url": "https://archive.org/metadata/southernhistoric1318sout",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "84029d91526819fa083a40b0ac584f8d9207ab88f1e7ee91f0d9e821e6409b52",
+   "fetched_at": "2026-10-01T07:30:59.386Z",
+   "named_by_entries": [
+    547
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-0#547",
+    "r2/p2/A-nonOR-0#547"
+   ],
+   "metadata": {
+    "title": "Southern Historical Society papers",
+    "creator": "Southern Historical Society",
+    "date": null,
+    "year": null,
+    "publisher": "Richmond, Virginia Historical Society [etc.] 1876-1959.",
+    "volume": "v.13(1885)",
+    "mediatype": "texts",
+    "collection": [
+     "pub_southern-historical-society-papers",
+     "uffamilysearch",
+     "univ_florida_smathers",
+     "americana",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "Copyright status reviewed by UF staff - Out of copyright",
+    "copyright_evidence": null,
+    "imagecount": "584",
+    "scanner": null,
+    "sponsor": "University of Florida, George A. Smathers Libraries",
+    "contributor": "University of Florida, George A. Smathers Libraries",
+    "is_dark": null,
+    "item_last_updated": 1778142287,
+    "files_count": 25,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "southernhistoric24sout": {
+   "url": "https://archive.org/metadata/southernhistoric24sout",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "1e97f2783524b31d2944e9bcee9527101c70f7c271f04d7177530069d78fdeb6",
+   "fetched_at": "2026-10-01T07:38:43.264Z",
+   "named_by_entries": [
+    611
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-2#611",
+    "r2/p2/A-nonOR-24#611"
+   ],
+   "metadata": {
+    "title": "Southern Historical Society papers",
+    "creator": [
+     "Southern Historical Society. cn",
+     "Brock, R. A. (Robert Alonzo), 1839-1914",
+     "Virginia Historical Society. cn",
+     "Southern Historical Society. Papers. cn"
+    ],
+    "date": "1876",
+    "year": null,
+    "publisher": "Richmond, Virginia Historical Society [etc.]",
+    "volume": "24",
+    "mediatype": "texts",
+    "collection": [
+     "pub_southern-historical-society-papers",
+     "allen_county",
+     "americana",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "408",
+    "scanner": "scribe4.indiana.archive.org",
+    "sponsor": "Allen County Public Library Genealogy Center",
+    "contributor": "Allen County Public Library Genealogy Center",
+    "is_dark": null,
+    "item_last_updated": 1778142299,
+    "files_count": 26,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "southernhistoric2819sout": {
+   "url": "https://archive.org/metadata/southernhistoric2819sout",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "1d84356e317ca2e1732561287f14972e20b8f93973f0b43daa4b41965c015253",
+   "fetched_at": "2026-10-01T07:32:44.860Z",
+   "named_by_entries": [
+    652
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-4#652",
+    "r2/p1/R1n-5#652",
+    "r2/p2/A-nonOR-48#652",
+    "r2/p2/A-nonOR-56#652"
+   ],
+   "metadata": {
+    "title": "Southern Historical Society papers",
+    "creator": "Southern Historical Society",
+    "date": null,
+    "year": null,
+    "publisher": "Richmond, Virginia Historical Society [etc.] 1876-1959.",
+    "volume": "v.28(1900)",
+    "mediatype": "texts",
+    "collection": [
+     "pub_southern-historical-society-papers",
+     "uffamilysearch",
+     "univ_florida_smathers",
+     "americana",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "Copyright status reviewed by UF staff - Out of copyright",
+    "copyright_evidence": null,
+    "imagecount": "408",
+    "scanner": null,
+    "sponsor": "University of Florida, George A. Smathers Libraries",
+    "contributor": "University of Florida, George A. Smathers Libraries",
+    "is_dark": null,
+    "item_last_updated": 1778142287,
+    "files_count": 25,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "southernhistoric3119sout": {
+   "url": "https://archive.org/metadata/southernhistoric3119sout",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "384881fe70bf41c524d6f3376d6667c3fd49cc23ad9e518e78bbebc1de2ba330",
+   "fetched_at": "2026-10-01T07:31:00.645Z",
+   "named_by_entries": [
+    548
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-0#548",
+    "r2/p2/A-nonOR-0#548"
+   ],
+   "metadata": {
+    "title": "Southern Historical Society papers",
+    "creator": "Southern Historical Society",
+    "date": null,
+    "year": null,
+    "publisher": "Richmond, Virginia Historical Society [etc.] 1876-1959.",
+    "volume": "v.31(1903)",
+    "mediatype": "texts",
+    "collection": [
+     "pub_southern-historical-society-papers",
+     "uffamilysearch",
+     "univ_florida_smathers",
+     "americana",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "Copyright status reviewed by UF staff - Out of copyright",
+    "copyright_evidence": null,
+    "imagecount": "396",
+    "scanner": null,
+    "sponsor": "University of Florida, George A. Smathers Libraries",
+    "contributor": "University of Florida, George A. Smathers Libraries",
+    "is_dark": null,
+    "item_last_updated": 1778142282,
+    "files_count": 25,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "southernhistoric3319sout": {
+   "url": "https://archive.org/metadata/southernhistoric3319sout",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "2b0693f2626ecc0156d669addf256c5206509baa0ad6dbeb5fc32f98e2a451d4",
+   "fetched_at": "2026-10-05T04:23:17.409Z",
+   "named_by_entries": [
+    585
+   ],
+   "named_by_reviewers": [
+    "r3/p1/r3-pass1-a#585",
+    "r3/p2/r3-pass2-a#585"
+   ],
+   "metadata": {
+    "title": "Southern Historical Society papers",
+    "creator": "Southern Historical Society",
+    "date": null,
+    "year": null,
+    "publisher": "Richmond, Virginia Historical Society [etc.] 1876-1959.",
+    "volume": "v.33(1905)",
+    "mediatype": "texts",
+    "collection": [
+     "pub_southern-historical-society-papers",
+     "uffamilysearch",
+     "univ_florida_smathers",
+     "americana",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "Copyright status reviewed by UF staff - Out of copyright",
+    "copyright_evidence": null,
+    "imagecount": "392",
+    "scanner": null,
+    "sponsor": "University of Florida, George A. Smathers Libraries",
+    "contributor": "University of Florida, George A. Smathers Libraries",
+    "is_dark": null,
+    "item_last_updated": 1778142285,
+    "files_count": 25,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "southernhistoric3719sout": {
+   "url": "https://archive.org/metadata/southernhistoric3719sout",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "ebf046c39978c2cd50f653696e2f7d1fefa9ee58c4ab504860dc44be2c92471c",
+   "fetched_at": "2026-10-01T07:38:12.295Z",
+   "named_by_entries": [
+    552
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-1#552",
+    "r2/p2/A-nonOR-16#552"
+   ],
+   "metadata": {
+    "title": "Southern Historical Society papers",
+    "creator": "Southern Historical Society",
+    "date": null,
+    "year": null,
+    "publisher": "Richmond, Virginia Historical Society [etc.] 1876-1959.",
+    "volume": "v.37(1909)",
+    "mediatype": "texts",
+    "collection": [
+     "pub_southern-historical-society-papers",
+     "uffamilysearch",
+     "univ_florida_smathers",
+     "americana",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "Copyright status reviewed by UF staff - Out of copyright",
+    "copyright_evidence": null,
+    "imagecount": "398",
+    "scanner": null,
+    "sponsor": "University of Florida, George A. Smathers Libraries",
+    "contributor": "University of Florida, George A. Smathers Libraries",
+    "is_dark": null,
+    "item_last_updated": 1778142284,
+    "files_count": 25,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "southernhistoric4187sout": {
+   "url": "https://archive.org/metadata/southernhistoric4187sout",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": false,
+   "sha256": "eb4b3cdd401b5c859e81b6bcf06171e1b1caa4ed11a09f076082d6b602d649fb",
+   "fetched_at": "2026-10-05T04:40:14.309Z",
+   "named_by_entries": [
+    549
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-0#549"
+   ],
+   "metadata": {
+    "title": "Southern Historical Society papers",
+    "creator": "Southern Historical Society",
+    "date": null,
+    "year": null,
+    "publisher": "Richmond, Virginia Historical Society [etc.] 1876-1959.",
+    "volume": "v.4(1877)",
+    "mediatype": "texts",
+    "collection": [
+     "pub_southern-historical-society-papers",
+     "uffamilysearch",
+     "univ_florida_smathers",
+     "americana",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "Copyright status reviewed by UF staff - Out of copyright",
+    "copyright_evidence": null,
+    "imagecount": "340",
+    "scanner": null,
+    "sponsor": "University of Florida, George A. Smathers Libraries",
+    "contributor": "University of Florida, George A. Smathers Libraries",
+    "is_dark": null,
+    "item_last_updated": 1778142288,
+    "files_count": 25,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "southernhistoric5187sout": {
+   "url": "https://archive.org/metadata/southernhistoric5187sout",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "77ad2afd4cd6fa43feb4f704feb141809ebdd8e29e80131bd0a0e315aec5f185",
+   "fetched_at": "2026-10-01T07:31:01.781Z",
+   "named_by_entries": [
+    549,
+    550
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-0#549",
+    "r2/p1/R1n-0#550",
+    "r2/p2/A-nonOR-0#549",
+    "r2/p2/A-nonOR-0#550"
+   ],
+   "metadata": {
+    "title": "Southern Historical Society papers",
+    "creator": "Southern Historical Society",
+    "date": null,
+    "year": null,
+    "publisher": "Richmond, Virginia Historical Society [etc.] 1876-1959.",
+    "volume": "v.5(1878)",
+    "mediatype": "texts",
+    "collection": [
+     "pub_southern-historical-society-papers",
+     "uffamilysearch",
+     "univ_florida_smathers",
+     "americana",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "Copyright status reviewed by UF staff - Out of copyright",
+    "copyright_evidence": null,
+    "imagecount": "322",
+    "scanner": null,
+    "sponsor": "University of Florida, George A. Smathers Libraries",
+    "contributor": "University of Florida, George A. Smathers Libraries",
+    "is_dark": null,
+    "item_last_updated": 1778142282,
+    "files_count": 25,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "southernhistoric6187sout": {
+   "url": "https://archive.org/metadata/southernhistoric6187sout",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "eeec1552aade7eeebc16a052aedf5e3b2e225f354e3ea77be83fbc53be4e4329",
+   "fetched_at": "2026-10-01T07:30:58.002Z",
+   "named_by_entries": [
+    546
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-0#546",
+    "r2/p2/A-nonOR-0#546"
+   ],
+   "metadata": {
+    "title": "Southern Historical Society papers",
+    "creator": "Southern Historical Society",
+    "date": null,
+    "year": null,
+    "publisher": "Richmond, Virginia Historical Society [etc.] 1876-1959.",
+    "volume": "v.6(1878)",
+    "mediatype": "texts",
+    "collection": [
+     "pub_southern-historical-society-papers",
+     "uffamilysearch",
+     "univ_florida_smathers",
+     "americana",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "Copyright status reviewed by UF staff - Out of copyright",
+    "copyright_evidence": null,
+    "imagecount": "310",
+    "scanner": null,
+    "sponsor": "University of Florida, George A. Smathers Libraries",
+    "contributor": "University of Florida, George A. Smathers Libraries",
+    "is_dark": null,
+    "item_last_updated": 1778142288,
+    "files_count": 25,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "southernhistoric7187sout": {
+   "url": "https://archive.org/metadata/southernhistoric7187sout",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "e05f7f4643f567643c5cf13d904d8250625c258bc55e17a08539c6c746ebff26",
+   "fetched_at": "2026-10-01T07:30:54.283Z",
+   "named_by_entries": [
+    544,
+    545
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-0#545",
+    "r2/p1/R1n-1#544",
+    "r2/p2/A-nonOR-0#545",
+    "r2/p2/A-nonOR-16#544"
+   ],
+   "metadata": {
+    "title": "Southern Historical Society papers",
+    "creator": "Southern Historical Society",
+    "date": null,
+    "year": null,
+    "publisher": "Richmond, Virginia Historical Society [etc.] 1876-1959.",
+    "volume": "v.7(1879)",
+    "mediatype": "texts",
+    "collection": [
+     "pub_southern-historical-society-papers",
+     "uffamilysearch",
+     "univ_florida_smathers",
+     "americana",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "Copyright status reviewed by UF staff - Out of copyright",
+    "copyright_evidence": null,
+    "imagecount": "610",
+    "scanner": null,
+    "sponsor": "University of Florida, George A. Smathers Libraries",
+    "contributor": "University of Florida, George A. Smathers Libraries",
+    "is_dark": null,
+    "item_last_updated": 1778142286,
+    "files_count": 24,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "southernhistoric8188sout": {
+   "url": "https://archive.org/metadata/southernhistoric8188sout",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "5048e5bb5612b4b46d573931dd9cf904530660770ea2de012b8e9e48e16970c9",
+   "fetched_at": "2026-10-01T07:31:03.005Z",
+   "named_by_entries": [
+    551
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-0#551",
+    "r2/p2/A-nonOR-0#551"
+   ],
+   "metadata": {
+    "title": "Southern Historical Society papers",
+    "creator": "Southern Historical Society",
+    "date": null,
+    "year": null,
+    "publisher": "Richmond, Virginia Historical Society [etc.] 1876-1959.",
+    "volume": "v.8(1880)",
+    "mediatype": "texts",
+    "collection": [
+     "pub_southern-historical-society-papers",
+     "uffamilysearch",
+     "univ_florida_smathers",
+     "americana",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "Copyright status reviewed by UF staff - Out of copyright",
+    "copyright_evidence": null,
+    "imagecount": "594",
+    "scanner": null,
+    "sponsor": "University of Florida, George A. Smathers Libraries",
+    "contributor": "University of Florida, George A. Smathers Libraries",
+    "is_dark": null,
+    "item_last_updated": 1778142283,
+    "files_count": 24,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "southernhistoricv11sout": {
+   "url": "https://archive.org/metadata/southernhistoricv11sout",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "cf2260744f57e902c2664cca4e4884edd81ed235234bf9343d5bd328bdb20494",
+   "fetched_at": "2026-10-01T03:19:23.191Z",
+   "named_by_entries": [
+    597
+   ],
+   "named_by_reviewers": [
+    "r1/p1/r1-pass1#597"
+   ],
+   "metadata": {
+    "title": "Southern Historical Society papers",
+    "creator": [
+     "Southern Historical Society. cn",
+     "Brock, R. A. (Robert Alonzo), 1839-1914",
+     "Virginia Historical Society. cn",
+     "Southern Historical Society. Papers. cn"
+    ],
+    "date": "1876",
+    "year": "1876",
+    "publisher": "Richmond, Virginia Historical Society [etc.]",
+    "volume": "11",
+    "mediatype": "texts",
+    "collection": [
+     "pub_southern-historical-society-papers",
+     "allen_county",
+     "americana",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "596",
+    "scanner": "scribe1.indiana.archive.org",
+    "sponsor": "Internet Archive",
+    "contributor": "Allen County Public Library Genealogy Center",
+    "is_dark": null,
+    "item_last_updated": 1778142285,
+    "files_count": 23,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "southernhistoricv33sout": {
+   "url": "https://archive.org/metadata/southernhistoricv33sout",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "2678eb076b8ef69873cf49510fa790d7ebce91c6fdd3778521a34ea7856dfaa6",
+   "fetched_at": "2026-10-05T04:23:19.430Z",
+   "named_by_entries": [
+    585
+   ],
+   "named_by_reviewers": [
+    "r3/p1/r3-pass1-a#585",
+    "r3/p2/r3-pass2-a#585"
+   ],
+   "metadata": {
+    "title": "Southern Historical Society papers",
+    "creator": [
+     "Southern Historical Society. cn",
+     "Brock, R. A. (Robert Alonzo), 1839-1914",
+     "Virginia Historical Society. cn",
+     "Southern Historical Society. Papers. cn"
+    ],
+    "date": "1876",
+    "year": "1876",
+    "publisher": "Richmond, Virginia Historical Society [etc.]",
+    "volume": "33",
+    "mediatype": "texts",
+    "collection": [
+     "pub_southern-historical-society-papers",
+     "allen_county",
+     "americana",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "396",
+    "scanner": "scribe1.indiana.archive.org",
+    "sponsor": "Internet Archive",
+    "contributor": "Allen County Public Library Genealogy Center",
+    "is_dark": null,
+    "item_last_updated": 1778142290,
+    "files_count": 25,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "threemonthsinsou00frem": {
+   "url": "https://archive.org/metadata/threemonthsinsou00frem",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "da00cccfe3819ced549555796e04da6feffd8cbe0502cc449470273f4f0d9fa1",
+   "fetched_at": "2026-10-01T07:37:15.705Z",
+   "named_by_entries": [
+    635
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-0#635",
+    "r2/p2/A-nonOR-0#635"
+   ],
+   "metadata": {
+    "title": "Three months in the southern states: April-June, 1863",
+    "creator": "Fremantle, Arthur James Lyon, Sir, 1835-1901",
+    "date": "1864",
+    "year": null,
+    "publisher": "New York, J. Bradburn (successor to M. Doolady)",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "newyorkpubliclibrary",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": "Evidence reported by nicole.deyo for item threemonthsinsou00frem on February 20, 2008: no visible notice of copyright; stated date is 1864.",
+    "imagecount": "328",
+    "scanner": "nycs9",
+    "sponsor": "MSN",
+    "contributor": "New York Public Library",
+    "is_dark": null,
+    "item_last_updated": 1725665894,
+    "files_count": 26,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "threemonthsinsou4989frem": {
+   "url": "https://archive.org/metadata/threemonthsinsou4989frem",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "f36ce56f2f53f6c2536b169a3e4b3bf7cde9ce908e2b24fca77061493755152d",
+   "fetched_at": "2026-10-01T07:37:18.757Z",
+   "named_by_entries": [
+    635
+   ],
+   "named_by_reviewers": [
+    "r2/p2/A-nonOR-0#635"
+   ],
+   "metadata": {
+    "title": "Three months in the southern states : April-June, 1863",
+    "creator": "Fremantle, Arthur James Lyon, Sir, 1835-1901",
+    "date": "1863",
+    "year": null,
+    "publisher": "Edinburgh ; London : William Blackwood and Sons",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "lincolncollection",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "368",
+    "scanner": "scribe1.indiana.archive.org",
+    "sponsor": "The Institute of Museum and Library Services through an Indiana State Library LSTA Grant",
+    "contributor": "Lincoln Financial Foundation Collection",
+    "is_dark": null,
+    "item_last_updated": 1782499627,
+    "files_count": 26,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "twohundredyearsi00unse": {
+   "url": "https://archive.org/metadata/twohundredyearsi00unse",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "3560741e12ce37de66df5c6039924e7ed9f8dd29666ecf9b6ac311131a76cf23",
+   "fetched_at": "2026-10-05T04:23:20.252Z",
+   "named_by_entries": [
+    619
+   ],
+   "named_by_reviewers": [
+    "r3/p1/r3-pass1-a#619",
+    "r3/p2/r3-pass2-a#619"
+   ],
+   "metadata": {
+    "title": "Two hundred years in Cumberland County : a collection of documents and pictures illustrating two centuries of life in Pennsylvania.",
+    "creator": "Hamilton Library and Historical Association of Cumberland County (Carlisle, Pa.), corporate author",
+    "date": "1951",
+    "year": null,
+    "publisher": "Carlisle, [Pa.] : [Hamilton Library and Historical Association of Cumberland County]",
+    "volume": null,
+    "mediatype": "texts",
+    "collection": [
+     "allen_county",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "404",
+    "scanner": "scribe4.indiana.archive.org",
+    "sponsor": "Internet Archive",
+    "contributor": "Allen County Public Library",
+    "is_dark": null,
+    "item_last_updated": 1747209955,
+    "files_count": 26,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "warofrebellion012602rootrich": {
+   "url": "https://archive.org/metadata/warofrebellion012602rootrich",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "e1645f664ce4ddee6906811da11806a1d3f81146d7b2cf0a0f7982fe308496a0",
+   "fetched_at": "2026-10-01T03:14:53.828Z",
+   "named_by_entries": [
+    576
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-7#576",
+    "r2/p1/R1n-8#576",
+    "r2/p2/A-nonOR-80#576",
+    "r2/p2/A-nonOR-96#576"
+   ],
+   "metadata": {
+    "title": "The War of the Rebellion : a compilation of the official records of the Union and Confederate armies",
+    "creator": [
+     "United States. War Dept",
+     "United States. War Dept. War Records Office",
+     "United States. Record and Pension Office",
+     "United States. Congress. House",
+     "Making of America Project",
+     "Scott, Robert N. (Robert Nicholson), 1838-1887",
+     "Lazelle, H. M. (Henry Martyn), 1832-1917",
+     "Davis, George B. (George Breckenridge), 1847-1914",
+     "Perry, Leslie J",
+     "Kirkley, Joseph W. (Joseph William), 1841-1912",
+     "Ainsworth, Fred C. (Fred Crayton), 1852-1934",
+     "Moodey, John S. (John Sheldon), b. 1842",
+     "Cowles, Calvin D. (Calvin Duvall), 1849-"
+    ],
+    "date": "1880-1901",
+    "year": null,
+    "publisher": "Washington : G.P.O",
+    "volume": "Ser. 1 vol. 26:2",
+    "mediatype": "texts",
+    "collection": [
+     "pub_official-records-of-union-and-confederate-armies",
+     "cdl",
+     "civilwardocuments",
+     "americana",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": "Evidence reported by j.mauthe for item warofrebellion012602rootrich on Sep 1, 2006; no visible notice of copyright and date found; stated date is 1889; published by the US government; Have not checked for notice of renewal in the Copyright renewal records.",
+    "imagecount": "648",
+    "scanner": "rich5",
+    "sponsor": "MSN",
+    "contributor": "University of California Libraries",
+    "is_dark": null,
+    "item_last_updated": 1785622013,
+    "files_count": 26,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "warofrebellion0206rootrich": {
+   "url": "https://archive.org/metadata/warofrebellion0206rootrich",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "d01166351355d65594789a2885eb6199915ae2c0bb0faaefedb78ec13d963bfa",
+   "fetched_at": "2026-10-01T07:37:22.440Z",
+   "named_by_entries": [
+    629
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-6#629",
+    "r2/p2/A-nonOR-72#629"
+   ],
+   "metadata": {
+    "title": "The War of the Rebellion : a compilation of the official records of the Union and Confederate armies",
+    "creator": [
+     "United States. War Dept",
+     "United States. War Dept. War Records Office",
+     "United States. Record and Pension Office",
+     "United States. Congress. House",
+     "Making of America Project",
+     "Scott, Robert N. (Robert Nicholson), 1838-1887",
+     "Lazelle, H. M. (Henry Martyn), 1832-1917",
+     "Davis, George B. (George Breckenridge), 1847-1914",
+     "Perry, Leslie J",
+     "Kirkley, Joseph W. (Joseph William), 1841-1912",
+     "Ainsworth, Fred C. (Fred Crayton), 1852-1934",
+     "Moodey, John S. (John Sheldon), b. 1842",
+     "Cowles, Calvin D. (Calvin Duvall), 1849-"
+    ],
+    "date": "1880-1901",
+    "year": null,
+    "publisher": "Washington : G.P.O",
+    "volume": "Ser. 2 vol. 6",
+    "mediatype": "texts",
+    "collection": [
+     "pub_official-records-of-union-and-confederate-armies",
+     "cdl",
+     "civilwardocuments",
+     "americana",
+     "periodicals"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": "NOT_IN_COPYRIGHT",
+    "copyright_evidence": "Evidence reported by scanner-ian-white for item warofrebellion0206rootrich on Sep 1, 2006; no visible notice of copyright and date found; stated date is 1902; published by the US government; Have not checked for notice of renewal in the Copyright renewal records.",
+    "imagecount": "1206",
+    "scanner": "rich6",
+    "sponsor": "MSN",
+    "contributor": "University of California Libraries",
+    "is_dark": null,
+    "item_last_updated": 1778082286,
+    "files_count": 24,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "warofrebellion271unit": {
+   "url": "https://archive.org/metadata/warofrebellion271unit",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "846c3c898d042144f520c529da28738bf508c6990169b6294ee5e58dd038d9d3",
+   "fetched_at": "2026-10-01T02:26:52.856Z",
+   "named_by_entries": [
+    575,
+    576
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-8#576",
+    "r2/p2/A-nonOR-80#576",
+    "r2/p2/A-nonOR-96#576",
+    "r3/p1/r3-pass1-a#575",
+    "r3/p2/r3-pass2-a#575"
+   ],
+   "metadata": {
+    "title": "The War of the rebellion",
+    "creator": "United States. War Record Office",
+    "date": "1880",
+    "year": null,
+    "publisher": "Washington : Govt. Print Office",
+    "volume": "v.27:1",
+    "mediatype": "texts",
+    "collection": [
+     "university_of_illinois_urbana-champaign",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "1190",
+    "scanner": "scribe4.il.archive.org",
+    "sponsor": "University of Illinois Urbana-Champaign",
+    "contributor": "University of Illinois Urbana-Champaign",
+    "is_dark": null,
+    "item_last_updated": 1726560432,
+    "files_count": 22,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  },
+  "warofrebellion272unit": {
+   "url": "https://archive.org/metadata/warofrebellion272unit",
+   "status": 200,
+   "skipped": null,
+   "error": null,
+   "cached": true,
+   "sha256": "3aee7a4e8e022ad3a70b6f9decb75e0f88e6792334eb8237cf7c32e93520f456",
+   "fetched_at": "2026-10-01T02:26:54.568Z",
+   "named_by_entries": [
+    574,
+    576
+   ],
+   "named_by_reviewers": [
+    "r2/p1/R1n-7#574",
+    "r2/p1/R1n-8#574",
+    "r2/p2/A-nonOR-80#574",
+    "r2/p2/A-nonOR-96#574",
+    "r2/p2/A-nonOR-96#576"
+   ],
+   "metadata": {
+    "title": "The War of the rebellion",
+    "creator": "United States. War Record Office",
+    "date": "1880",
+    "year": null,
+    "publisher": "Washington : Govt. Print Office",
+    "volume": "v.27:2",
+    "mediatype": "texts",
+    "collection": [
+     "university_of_illinois_urbana-champaign",
+     "americana"
+    ],
+    "licenseurl": null,
+    "possible_copyright_status": null,
+    "copyright_evidence": null,
+    "imagecount": "1132",
+    "scanner": "scribe3.il.archive.org",
+    "sponsor": "University of Illinois Urbana-Champaign",
+    "contributor": "University of Illinois Urbana-Champaign",
+    "is_dark": null,
+    "item_last_updated": 1726560891,
+    "files_count": 21,
+    "has_djvu_txt": true,
+    "has_page_numbers": true
+   }
+  }
+ }
+}

@@ -1,0 +1,211 @@
+{
+ "file": "data-src/sources-v2/qc/r3/pass2-b.json",
+ "batch": "r3 pass2-b (entries 620, 621, 624, 625, 636, 643, 651)",
+ "date": "2026-10-04",
+ "summary": "Independent second verification of entries 620, 621, 624, 625, 636, 643 and 651. I fetched, read and formed provisional verdicts for all seven before opening pass1-b.json; two provisional calls then changed on evidence I found afterwards (see the comparison paragraph). All fetches by curl with the honest User-Agent Gettysburg-sources-QC, robots.txt read for each host (archives.dickinson.edu allows the item paths; valley.newamericanhistory.org has none; the api host allows all), at most one request per second per host, no browser, nothing under legacy/ or the other workflow's paths; working files under tmp/sources-v2/r3-pass2-b/ (git-ignored). Verdicts: 5 APPROVE (620, 621, 624, 625, 636; all tier A2, so a rights review precedes any quoting) and 2 APPROVE-LINKOUT-ONLY (643, 651; tier C), 0 NEEDS-HUMAN-REVIEW, 0 REJECT. Listed links: 5 dead (620, 621, 624, 625 are 404 after the Dickinson Archives migration; 636 now redirects to the Valley of the Shadow home page), 2 live (643, 651). Replacements fetched and matched: 620 and 624 live on the new Dickinson site (the 624 PDF is byte-identical to the Wayback copy); 621 and 625 only as Wayback captures; 636 at api.valley.newamericanhistory.org (byte-identical to the Wayback capture of the old URL). Comparison with pass 1, made after my own decisions: all final verdicts, all final tiers and almost all field values agree. My provisional calls before reading pass 1 differed on two points: 621 as NEEDS-HUMAN-REVIEW (I had found no death date for Hillman and would not rely on an inference), and 643 and 651 as tier B (facts only) because I had not yet seen the CC BY-NC link in the Valley footers (pass 1's mention prompted me to grep for it; it is present in every page I fetched). The first changed after I found Hillman's life dates (see (a)); the second after I confirmed the licence link. I reached the same findings on my own: Dickinson's typed transcripts misread the manuscripts (624: 'Thursday' for 'Tuesday'; 620: four misreads in the closing paragraph); 620 is second-hand; 621 is a retrospective, mostly second-hand account contradicted by 625 about Conway Hillman's whereabouts; 625 is an unsigned Sentinel reporter's piece, not Johnson's own writing; 651 is only the War Years slice; 643 has an eleventh letter under Aftermath. Where I add to or correct pass 1: (a) Hillman was born in 1856 and died in 1942 (Dickinson House Divided record, exact dates; pass 1 inferred a birth about 1850-53 and found no death date), so he was six or seven in June 1863, and the 1930 letter is public domain by the author's death (term ended 2012). (b) Griffith's Dickinson collection register (MC 2005.4) says the papers were donated 'without restrictions on usage'; pass 1 found no reuse terms. This does not remove the site footer's 'All rights reserved' but should make the human rights check for 624 quick. (c) The text layer of the 621 PDF is OCR of a scanned typed transcript, not a typed text layer, and the hand reads 'Sodus' where the transcript has '[Soders?]'. (d) For 620 I confirmed on the scan three of pass 1's five transcript misreads clearly (Our Army / News has just arrived / Our prospects were never so bright) and the other two less clearly at the resolution I used ('in Sept.' and 'a part of the exercises'). Not reproduced: pass 1's identification of the 620 writer as George Davenport Chenoweth and a Dickinson trustee (I could only show from the letter that the writer is an older man with a family, not the freshman son 'Durbin'); its Wayback-truncation finding (I used the complete captures and did not test the earlier ones). Could not verify: Chenoweth's death date; the 1924 issue of the Carlisle Sentinel itself (the clipping has no masthead); whether Dickinson has live pages for 621 and 625 at some other slug (none found at /document-descriptions/ or in the people indexes I read); anything on ehistory, HathiTrust or Perseus (not fetched).",
+ "systemic_findings": [
+  "Dickinson Archives migration: archives.dickinson.edu/civil-war-resources/<slug> is 404 for all four items. The new Drupal site keeps 620 and 624 at /document-descriptions/<same slug> with PDFs under /sites/default/files/files_document/, but 621 and 625 do not resolve at that slug or at the PDF names I tried. Test /document-descriptions/<slug> for the remaining dead Dickinson entries before falling back to Wayback.",
+  "Provenance of Part IX: the descriptions of 620, 621, 624 and 625 are the link captions of Cooper Wingert's House Divided blog post 'Beyond Gettysburg: Primary Sources for the Gettysburg Campaign' (11 June 2018; entry 639), whose links are exactly these four dead URLs. The descriptions are one-line captions, not summaries of the items; the part header's 'compiled by Dickinson College House Divided Project' is loose (the items are hosted by Dickinson Archives & Special Collections).",
+  "Dickinson's typed transcripts cannot be quoted without the scan: 624 turns Tuesday into Thursday; 620 misreads the closing paragraph; the 621 text layer is OCR of a scanned transcript. Treat the PDFs' text layers as finding aids and transcribe from the page images.",
+  "Valley of the Shadow moved: valley.lib.virginia.edu now 301-redirects every path to the home page of valley.newamericanhistory.org (a dead link in disguise). The newspaper PDFs live at api.valley.newamericanhistory.org/storage/data/newspapers_pdfs/<paper+year>/<file>.pdf (verified byte-identical on one issue), item pages at valley.newamericanhistory.org/newspapers/<paper>/<yyyy>/<mm>/<dd>. The site's terms are non-commercial (Copyright and Fair Use Statement; CC BY-NC 4.0 link in every footer), so its transcriptions, TEI files and summaries are not reusable commercially; the underlying 1860s sources are.",
+  "Part IX conflict worth flagging for the Historian: entries 621 and 625 disagree on whether Conway Hillman was in Carlisle at the first shell on 1 July 1863 (Hillman's own 1930 letter says he was in New York; he was six or seven)."
+ ],
+ "items": [
+  {
+   "n": 620,
+   "link_status": "dead",
+   "bibliographic_match": "confirmed",
+   "kind": "civilian-account",
+   "side": "civilian",
+   "written": "1863-07-15 (dateline Lewistown, Pa.; contemporaneous, two weeks after the shelling of Carlisle on 1 July; second-hand, because the writer left Carlisle before the Confederates arrived)",
+   "gettysburg_relevance": "campaign-only",
+   "description_accuracy": "accurate",
+   "rights_tier": "A2-public-domain-needs-review",
+   "rights_basis": "Unpublished 1863 manuscript letter by an adult with four children, so the author was born well before 1850 and died more than 70 years ago whatever his exact dates (his death date was not looked up). The text is public domain by date. Host: the item page footer reads 'Copyright (c) 2020 Archives & Special Collections at Dickinson College. All rights reserved.' (live page: 2025); the PDF cover sheet carries contact details only, no reuse terms; the typed transcript is the Archives' own work. Tier A2 because the host's notice and transcription rights are unresolved, not because the text is in doubt. Quote from the manuscript scan, not from the host's transcript.",
+   "usable_for": [
+    "verbatim-quote-corpus",
+    "link-out-citation",
+    "cross-check-only"
+   ],
+   "evidence": "FETCHED 2026-10-04 (curl, honest UA, 1 req/s/host; archives.dickinson.edu robots.txt does not disallow /civil-war-resources/ or /document-descriptions/). (1) Listed URL http://archives.dickinson.edu/civil-war-resources/letter-george-d-chenoweth-james-w-marshall -> one redirect to https -> HTTP 404 'Page not found | Archives & Special Collections'; the section index /civil-war-resources is also 404. (2) Live replacement https://archives.dickinson.edu/document-descriptions/letter-george-d-chenoweth-james-w-marshall (HTTP 200, canonical, title 'Letter from George D. Chenoweth to James W. Marshall', 5 pages, date July 15, 1863, location I-Original-1863-4). Live PDF /sites/default/files/files_document/I-Original-1863-4_0.pdf = 5,137,337 bytes, text layer identical to the Wayback capture of the old PDF (web.archive.org/web/20240620192449id_/..., 5,137,633 bytes, sha256 fc1b4cb3bc3f02827da0...) except the cover-sheet series name ('Civil War Resources' became 'Documents Online'). (3) PDF structure: p.1 cover sheet; pp.2-3 manuscript scans (two sheets); pp.4-5 typed transcript with a text layer. I read the transcript and read the manuscript scan. Dateline 'Lewistown, Pa / July 15th, 1863', salutation 'Prof. Marshal', signed 'G. D. Chenoweth'. (4) Description check, claim 1 ('account of the Confederate occupation'): the letter says the rebels entered Carlisle in strong force, 'twelve thousand', on Saturday evening, pitched tents by Dr. Johnson's door and on the campus, and plundered flour, groceries, dry goods and shoes. Claim 2 (the invasion): the rebels left on news of an attack 'near Gettysburg'; militia from Harrisburg came in; the rebel cavalry then shelled the town until three in the morning after a flag of truce to General Smith was refused. The description is accurate as far as it goes. (5) Scan vs transcript: I compared the closing paragraph on scan p.3 (faint at 110 dpi) and the first lines on p.2. The hand clearly reads 'Our Army gained a complete victory over Lee at Gettysburg', 'News has just arrived that the rebel Army have escaped across the Potomac' and 'Our prospects were never so bright'; less clearly 'college will open as usual in Sept.' and 'dispensing with a part of the exercises'. The host transcript prints 'And Army', 'now has just announced', 'Our force feels we're never so bright', 'in July' and 'a form of the exams'. On p.2 the hotel name looks like 'Pleas't hotel' where the transcript has 'Pealy Hotel' (less certain). (6) Provenance of the entry: the one-line description is the caption in Cooper Wingert's House Divided blog post of 11 June 2018 (entry 639): 'George Chenoweth Letter - Carlisle civilian's account'. The part header's 'compiled by Dickinson College House Divided Project' is loose: the item is hosted by Dickinson Archives & Special Collections.",
+   "extraction_notes": "Text source: scan pp.2-3 of the PDF (about 750 words of 1863 prose; roughly 600 words concern the occupation and shelling, the rest family news and war news). The PDF text layer on pp.4-5 is the Archives' typed transcript and has misreads, so use it to locate passages only and transcribe quotes by hand from the scan (adapter: manual-transcription; pdf-text read but not trusted). The scan is clear enough to read at 110 dpi. Cite the live page, not the dead URL. The writer's weekdays are unreliable (see issues); do not derive dates from them.",
+   "issues": [
+    "Second-hand: he says he left Carlisle on the last train 'Thursday night' before the rebels entered and returned afterwards; the occupation and shelling are reported from others. Attribute accordingly; the entry's 'Carlisle civilian's account of the Confederate occupation' is true of the town, not of what he saw.",
+    "Dickinson's typed transcript misreads the manuscript in the closing paragraph (checked against the scan): 'And Army' for 'Our Army', 'now has just announced' for 'News has just arrived', 'Our force feels we're never so bright' for 'Our prospects were never so bright' (these three clear); probably also 'in July' for 'in Sept.' and 'a form of the exams' for 'a part of the exercises' (less clear at the resolution I used). Quote from the scan.",
+    "Weekday slip: he puts both the militia's arrival and the shelling on 'Tuesday evening'; entry 624 and the Dickinson catalogue place the shelling on the evening of 1 July 1863 (a Wednesday). Do not treat his weekdays as dates.",
+    "Writer identity: the live catalogue tags 'Chenoweth, George Durbin' (Dickinson class of 1868, per the live person page), but the letter names 'Durbin & Alexander' in the third person as freshmen and speaks of four children, a wife and boarding in Lewistown, so the writer is an older man, probably the father. I could not verify the father's full name or office; do not attribute the letter to the son.",
+    "The twelve-thousand figure is hearsay; do not use it as a strength figure.",
+    "Listed URL is dead since the Dickinson Archives site migration; the title's '(civilian)' is the list's own gloss, not part of the title.",
+    "The footer notice 'All rights reserved' is site-wide boilerplate and no per-item licence was found, so a human rights decision precedes any quoting."
+   ],
+   "verdict": "APPROVE",
+   "replacement_url": "https://archives.dickinson.edu/document-descriptions/letter-george-d-chenoweth-james-w-marshall"
+  },
+  {
+   "n": 621,
+   "link_status": "dead",
+   "bibliographic_match": "confirmed",
+   "kind": "eyewitness-retrospective-memoir",
+   "side": "civilian",
+   "written": "1930-09-09 (dateline Ft. Worth, Texas, 'Sept 9/30'; retrospective, 67 years after the events; not an eyewitness account: the writer was six or seven and, by his own statement, was in New York State, so most of it is his father's stories)",
+   "gettysburg_relevance": "campaign-only",
+   "description_accuracy": "accurate",
+   "rights_tier": "A2-public-domain-needs-review",
+   "rights_basis": "Unpublished 1930 letter to James H. Morgan (Morgan Papers, Box 3). Public domain by the author's death: Dickinson's House Divided record 'Hillman, Conway Wing' (hd.housedivided.dickinson.edu/node/33395, fetched) gives his life span 1856 to 1942 with 'Death Date Certainty: Exact', so the life+70 term for an unpublished work ended with 2012. Host: item page footer 'Copyright (c) 2020 Archives & Special Collections at Dickinson College. All rights reserved.'; the typed transcript is the Archives' work; Morgan Papers donor terms were not found. Tier A2 (host notice and donor terms unresolved), not A1 (an unpublished manuscript is not a pre-1931 imprint).",
+   "usable_for": [
+    "verbatim-quote-corpus",
+    "link-out-citation",
+    "cross-check-only"
+   ],
+   "evidence": "FETCHED 2026-10-04. (1) Listed http URL -> https -> HTTP 404 'Page not found'. Not found on the new site at /document-descriptions/<same slug> (404), nor as /sites/default/files/files_document/MorganPapers-1930-09-30(_0).pdf (404). Wayback availability API had a capture of the item page; I fetched web.archive.org/web/20240223202356/https://archives.dickinson.edu/civil-war-resources/letter-conway-w-hillman-james-h-morgan (HTTP 200, title 'Letter from Conway W. Hillman to James H. Morgan', 14 pages, date September 9, 1930, location Morgan Papers - Box 3, Folder Hil-Hitchk) and the complete PDF capture web.archive.org/web/20240519184827id_/https://archives.dickinson.edu/sites/all/files/files_war/MorganPapers-1930-09-30.pdf (6,058,284 bytes, sha256 67acb79a631cb8e5ebab..., 14 pages, opens normally). (2) PDF structure: p.1 cover sheet (title, date 'September 9, 1930', location); pp.2-11 scans of a handwritten letter on Pan American Petroleum & Transport Company / Southern Crude Oil Purchasing Company letterhead, 'Ft Worth, Sept 9/30, Dear Morgan', with pencil marks by a later reader; the first sheet appears twice; pp.12-14 a scan of the Archives' typed transcript carrying an OCR layer (producer 'Paper Capture Plug-in'). (3) Description check ('Recollection by Prof. Samuel Hillman's son of the summer of 1863'): the signer 'C.W. Hillman' writes that his father was in the Carlisle Home Guard; that the rebels used East College as a hospital and put Old West under guard; that 'about 300 shells' were fired; that a shell hit South College just below the telescope and did not explode; that the Home Guard later policed the Gettysburg field. Substantively accurate. House Divided gives Hillman (b. Carlisle 1856, d. 1942, class of 1873, businessman, Fort Worth letterhead fits) and Dickinson's encyclopedia entry for his father Samuel Dickinson Hillman (married July 1855; eldest child Conway Wing) confirms the family. (4) Scan vs typed transcript: scan p.3 reads 'Sodus N.Y.' where the transcript has '[Soders?] N.Y.'; the transcript's OCR layer turns the fraternity symbols into '<Df10s' and 'Louther' into 'Lout her'. Hillman writes that he and his mother left Carlisle early in June for New York and were there when the shelling happened. (5) Provenance: the description is the caption in Wingert's 11 June 2018 blog post (entry 639): 'Conway Hillman letter - son of Prof. Samuel D. Hillman, recalls the summer of 1863'.",
+   "extraction_notes": "About one third of the 14 pages (typed transcript pp.12-14, roughly 1,100 words) concerns 1863; the rest is Dickinson alumni business and the 1870 student rebellion. The text layer on pp.12-14 is OCR of the typed transcript and is unreliable (garbled symbols, 'Weill am the man', '[Soders?]', 'Gen'I'); the underlying hand is legible on the scans. Adapter: manual-transcription from the scan (pdf-text only to locate passages). Pick the complete capture 20240519184827 with the id_ form of the URL; I did not test the earlier captures. Attribute as 'Hillman, 1930, recalling what he heard'.",
+   "issues": [
+    "Not an eyewitness: by his own letter he and his mother were in Sodus, N.Y. during the occupation and shelling; House Divided gives his birth year as 1856, so he was six or seven in June 1863. The account is his father's stories and hearsay (a telegram from Gov. Curtin, the Home Guard policing the Gettysburg field).",
+    "Contradicted by entry 625: Johnson (Carlisle Sentinel, 1924) says he sat on the East College steps with 'my chum Conway Wing Hillman' when the first shell went over, while Hillman's own letter puts him away. Do not use either to place Hillman in Carlisle on 1 July.",
+    "Details to check before any use: 'Stuart's cavalry' as the shelling force, 'about 300 shells', 'a regiment or so of infantry' under Gen. Smith, '3 or 4 marked places' where shells hit. None verified here.",
+    "Date: the PDF file name says 1930-09-30 but the dateline and cover sheet say 9 September 1930.",
+    "Listed link is dead; only Wayback copies were found. The entry's wording is accurate but silent that the writer was a child and was elsewhere.",
+    "Lead, not read: the Dickinson people page for Hillman says the Dickinson Alumnus of November 1923 carries his recollections of the bombardment; a 1923 magazine imprint would be a pre-1931 published text (candidate for A1) and a better quote source than this manuscript. I saw only the summary on the people page."
+   ],
+   "verdict": "APPROVE",
+   "replacement_url": "https://web.archive.org/web/20240223202356/https://archives.dickinson.edu/civil-war-resources/letter-conway-w-hillman-james-h-morgan"
+  },
+  {
+   "n": 624,
+   "link_status": "dead",
+   "bibliographic_match": "confirmed",
+   "kind": "eyewitness-contemporary",
+   "side": "civilian",
+   "written": "1863-07-03 (dateline Carlisle; contemporaneous eyewitness letter, two days after the shelling; written before the battle ended)",
+   "gettysburg_relevance": "campaign-only",
+   "description_accuracy": "accurate",
+   "rights_tier": "A2-public-domain-needs-review",
+   "rights_basis": "Unpublished 1863 letter by Thomas Miller Griffith, born 23 March 1834, died 8 April 1898 (Dickinson Archives collection register MC 2005.4, https://archives.dickinson.edu/sites/default/files/files_collection/mc2005.04_0.pdf, fetched 2026-10-04), so the life+70 term ended in 1968: the text is public domain. The same register's 'Usage' line says the materials were 'donated without restrictions on usage'. Against that, the item page footer reads 'Copyright (c) 2025 Archives & Special Collections at Dickinson College. All rights reserved.' and the typed transcript is the Archives' work. Tier A2 pending a human look at the host's terms; the register's statement should make that quick. Quote from the manuscript scan.",
+   "usable_for": [
+    "verbatim-quote-corpus",
+    "link-out-citation",
+    "cross-check-only"
+   ],
+   "evidence": "FETCHED 2026-10-04. (1) Listed http URL -> https -> HTTP 404. Live replacement https://archives.dickinson.edu/document-descriptions/letter-thomas-m-griffith-his-siblings (HTTP 200, title 'Letter from Thomas M. Griffith to His Siblings', 9 pages, July 3, 1863, location MC 2005.4, B1, F2); its PDF /sites/default/files/files_document/mc20005-04_b01f02.pdf is byte-identical (4,617,670 bytes, sha256 057af021fa8f88b6ed0e...) to the Wayback capture web.archive.org/web/20240329002718id_/https://archives.dickinson.edu/sites/all/files/files_war/mc20005-04_b01_f02.pdf. Wayback availability found no capture of the exact page URL for 624 but the registry's 20230925005405 capture of the item page opened with the same title. (2) PDF: p.1 cover sheet; pp.2-7 six manuscript pages (clear ink hand on ruled paper); pp.8-9 typed transcript with text layer. Header 'Carlisle, July 3, 1863 / Dear Bro. & Sister', signed 'TMG'. (3) Description check ('Carlisle civilian's letter on the invasion'): the letter says the rebel advance guard under Gen. Jenkins entered Carlisle on Saturday about 10 o'clock, that Gen. Ewell commanded the whole with headquarters at the garrison, 'about 7000, I think, though perhaps you heard there were 30000 or more'; that Fitz Hugh Lee's cavalry (about 2,000) attacked the Union militia of Gen. Smith in the evening, shells hit the college, West College became a hospital and the shelling went on to about 3 o'clock. Accurate. (4) Scan vs transcript: I read scan pp.3-5 against the transcript: they agree word for word except one error. Transcript: 'They staid till Thursday morning at 5'. Scan p.5 reads 'They staid till Tuesday morning at 5' (compared with 'Thursday' on p.4, whose letter forms differ). The correct word fits the letter's own sequence (prisoners brought in 'Tuesday forenoon', rebels gone next morning). (5) Griffith: Methodist Episcopal minister (Philadelphia Conference 1859-1898) and Dickinson class of 1858 per the collection register; he writes 'my church' and 'my sermons'. Provenance: the description is the caption in Wingert's blog post (entry 639): 'Thomas Griffith Letter - Carlisle civilian'.",
+   "extraction_notes": "About 1,300 words, almost all on the occupation (24-30 June), the Union militia's arrival and the shelling night. The scan is a clear hand: transcribe from scan pp.2-7 (adapter: manual-transcription; the pdf-text transcript is a fast way to find passages but contains at least one date-changing error). The letter gives weekdays, not dates; the date of the shelling (1 July) comes from the catalogue and the letter's own sequence; cross-check against OR vol. 27 pt. 2 (Smith's and Fitz Lee's reports) before using a day. The scan shows struck-through words and interlined corrections (for example on pp.3 and 5) that the typed transcript merges without marking them.",
+   "issues": [
+    "Host transcript misreads the manuscript at a date-critical word: 'Thursday morning at 5' for 'Tuesday morning at 5' (scan p.5). Quote from the scan or correct it.",
+    "Weekday-based chronology: the letter gives 'Tuesday', 'Thursday', 'Saturday' and no dates; do not turn them into dates without the OR reports.",
+    "Troop estimates ('about 7000', 'Fitz Hugh Lee ... about 2000') are the writer's guesses; not strength figures.",
+    "The writer is a Union-loyalist clergyman who says he kept his church closed to avoid greeting the rebels: a civilian witness, not a neutral one. His remark that he gave 'one of my mattresses' to the wounded in West College is first-hand.",
+    "Listed URL is dead since the Dickinson Archives migration; cite the live replacement.",
+    "Rights: the collection register says 'donated without restrictions on usage' but the site footer says 'All rights reserved'; a human reconciles these."
+   ],
+   "verdict": "APPROVE",
+   "replacement_url": "https://archives.dickinson.edu/document-descriptions/letter-thomas-m-griffith-his-siblings"
+  },
+  {
+   "n": 625,
+   "link_status": "dead",
+   "bibliographic_match": "partial",
+   "kind": "newspaper",
+   "side": "civilian",
+   "written": "1924-06 per the archive metadata and a handwritten note on the clipping ('From Sentinel, June 1924'); retrospective, about 61 years after the events; reported by an unnamed Sentinel reporter, not written by Johnson",
+   "gettysburg_relevance": "campaign-only",
+   "description_accuracy": "accurate",
+   "rights_tier": "A2-public-domain-needs-review",
+   "rights_basis": "A US newspaper article published in June 1924 (archive metadata 'June 1924' plus the pencil note): a pre-1931 imprint, so public domain. Tier A2 rather than A1 because the only copy is Dickinson's scan of an undated, unpaged clipping with no masthead, the issue date was not confirmed from the Sentinel itself, and the page footer carries 'Copyright (c) 2020 Archives & Special Collections at Dickinson College. All rights reserved.'. The scan adds nothing copyrightable; a human clears the host notice.",
+   "usable_for": [
+    "verbatim-quote-corpus",
+    "link-out-citation",
+    "cross-check-only"
+   ],
+   "evidence": "FETCHED 2026-10-04. (1) Listed URL (percent-encoded curly quotes in the slug) -> https -> HTTP 404. Not found on the new site at /document-descriptions/<same slug> (404) nor as I-Original-1924-2(_0).pdf under /sites/default/files/files_document/ (404). Wayback: I fetched web.archive.org/web/20231207200308/https://archives.dickinson.edu/civil-war-resources/carlisle-sentinel-%E2%80%9Ctheodore-m-johnson-tells-civil-war-days-carlisle%E2%80%9D (HTTP 200, title 'Carlisle Sentinel, \"Theodore M. Johnson Tells of Civil War Days in Carlisle\"', 2 pages, date June 1924, location I-Original-1924-2) and the PDF capture web.archive.org/web/20240616012421id_/https://archives.dickinson.edu/sites/all/files/files_war/I-Original-1924-2.pdf (725,723 bytes, sha256 22c26181c788..., 2 pages). (2) PDF: p.1 cover sheet; p.2 one JPEG (781 x 4316 px) of a newspaper clipping, no text layer. I extracted the image and read the whole clipping. Headline: 'Member of Class of '73 Here on a Visit' over 'Theodore M. Johnson Tells of Civil War Days in Carlisle'. Body: 'Speaking to a Sentinel reporter, Mr. Johnson told of some of his recollections of Civil War days'; he was 'a boy of about nine years' when the Confederates 'visited Carlisle and shelled the town'. Pencil note at the foot: 'From Sentinel, June 1924'. (3) Description check ('Recollection by the son of the Dickinson College president'): the article says he is the son of Dr. Herman M. Johnson, president of the college 1860 to 1868, and lived in the fourth section of East College. Two concrete claims verified: a shell struck the second-floor casement, 'the sixth from the East side', of East College, and another split a cherry tree in the back garden without exploding. Accurate. (4) Title/authorship: the list's 'Theodore M. Johnson, \"Tells of Civil War Days in Carlisle,\" Carlisle Sentinel' turns the headline into an author and a title; the text is a reporter's piece quoting Johnson. Provenance: the description is the caption in Wingert's blog post (entry 639): 'Theodore M. Johnson account - (son of Dickinson College President Herman Johnson)'.",
+   "extraction_notes": "Image-only: no usable text layer. Transcribe the clipping by hand (roughly 900 words, part of it about the 1863 events and part about the president's term and Johnson's visit; adapter: manual-transcription) and have a second person check it. Cite as Carlisle Sentinel, June 1924 (undated clipping), interview with Theodore M. Johnson. The 1863 passages: the first shell passing over, the shell striking East College, the dud in the garden, the Confederate cavalry colonel posting a guard and taking meals with the Johnsons after the president gave the Masonic sign, and the Southern troops who had been students.",
+   "issues": [
+    "Authorship: an unsigned Sentinel reporter's article quoting Johnson, not an article by Johnson; cite accordingly.",
+    "Date and page unconfirmed: the clipping has no masthead, date line or page; 'June 1924' is the archive's metadata and a pencil note. Find the issue before citing a day.",
+    "Retrospective: Johnson says he was about nine in 1863 and speaks 61 years later.",
+    "The Dickinson catalogue blurb says Johnson saw Rodes's division of Ewell's corps and Stuart's cavalry corps; the article names no unit or general (only 'the Confederate cavalry' and 'the colonel'). Do not import the blurb's identifications.",
+    "Conflicts with entry 621: Johnson puts Conway Wing Hillman beside him at the first shell; Hillman's 1930 letter (born 1856, by his own account in New York in June 1863) says he was away.",
+    "Listed link is dead; no live replacement found, only the Wayback capture."
+   ],
+   "verdict": "APPROVE",
+   "replacement_url": "https://web.archive.org/web/20231207200308/https://archives.dickinson.edu/civil-war-resources/carlisle-sentinel-%E2%80%9Ctheodore-m-johnson-tells-civil-war-days-carlisle%E2%80%9D"
+  },
+  {
+   "n": 636,
+   "link_status": "dead",
+   "bibliographic_match": "confirmed",
+   "kind": "newspaper",
+   "side": "union",
+   "written": "1863-07-08 (issue date read from the masthead on the scan: Vol. 70, No. 24, Wednesday; contemporaneous, five days after the battle; contains Chambersburg's own reports and reprinted correspondents' accounts of Gettysburg)",
+   "gettysburg_relevance": "campaign-and-battle",
+   "description_accuracy": "accurate",
+   "rights_tier": "A2-public-domain-needs-review",
+   "rights_basis": "A newspaper issue of 8 July 1863 (masthead read on the scan): public domain. The PDF is a facsimile hosted by the Valley of the Shadow. The site's Copyright and Fair Use Statement (valley.newamericanhistory.org/about/copyright, fetched) says much source material is public domain but some may still be under copyright, and makes the site free for non-commercial research, teaching, scholarship and private study; every page footer links to https://creativecommons.org/licenses/by-nc/4.0/. The TEI transcription (tagged 1998) and the page summaries are the project's work. Tier A2: transcribe from the page images ourselves; do not reuse the host's transcription or summaries commercially.",
+   "usable_for": [
+    "verbatim-quote-corpus",
+    "link-out-citation",
+    "cross-check-only"
+   ],
+   "evidence": "FETCHED 2026-10-04. (1) Listed http://valley.lib.virginia.edu/newspapers_pdfs/fr1863/pa.fr.fr.1863.07.08.pdf -> 301 to https on the same host -> 301 to https://valley.newamericanhistory.org:443/ -> HTTP 200, title 'The Valley of the Shadow' (the home page, a dead link in disguise; the same host's /robots.txt also redirects there). (2) The live issue page https://valley.newamericanhistory.org/newspapers/franklin-repository/1863/07/08 (HTTP 200, title 'Franklin Repository: July 8, 1863') links the PDF at https://api.valley.newamericanhistory.org/storage/data/newspapers_pdfs/fr1863/pa.fr.fr.1863.07.08.pdf (api robots.txt: 'Disallow:' empty). I fetched it: 4,125,848 bytes, sha256 1d64c1a5a039127d5fd2..., byte-identical to the Wayback capture web.archive.org/web/20240917134311id_/https://valley.lib.virginia.edu:443/newspapers_pdfs/fr1863/pa.fr.fr.1863.07.08.pdf. (3) PDF: 8 pages, one 3744 x 5184 px 1-bit image per page, no text layer. Masthead read on the scan: 'The Franklin Repository', 'VOL. 70. CHAMBERSBURG, PA., WEDNESDAY, JULY 8, 1863. NO. 24.' Page 1 column 1 carries the heads 'Invasion of Pennsylvania! / Jenkins' Rebel Guerillas on a Raid! / A Full Week in Franklin Co.!'. (4) Description check ('reporting eleven days of Confederate occupation'): page 5 column 1 of the scan carries the head stack 'The Invasion! The Whole Rebel Army in Franklin County! / 47,000 Pass Through Chambersburg! / Longstreet's Corps Passes by Waynesboro'! / They March Upon Harrisburg! / They March Back Again! / Eleven Days of Rebel Occupation in Force!', beside requisition lists (bread, salt, molasses, flour) addressed to the citizens of Chambersburg. The live transcription (entry 648's page, read only as a cross-check) has the same head and says the account of Jenkins's earlier raid is 'in another part of to-day's paper'. Accurate. (5) Provenance: the Part X header ('sources cited by the House Divided Project') is loose; the PDF is hosted by the Valley of the Shadow.",
+   "extraction_notes": "Image-only 1-bit scans with creases, ink show-through and some columns unreadable (the host's own transcription marks them [illegible] and notes a crease). Transcribe selected articles by hand and have a second reader check them against the scan (adapter: manual-transcription). Worth taking: page 1 column 1 (Jenkins's June raid, 'a full week'), page 5 column 1 (the main army's occupation, the requisitions), and the reprinted battle correspondence (from other papers). The host's TEI file (api.valley.newamericanhistory.org/storage/data/newspapers/fr1863/pa.fr.fr.1863.07.08.xml, header tagged 1998) and its page summaries are a finding aid only. Cite the live issue page or the api PDF, not the dead valley.lib.virginia.edu link.",
+   "issues": [
+    "The listed URL now redirects to the site's home page; the PDF survives at the api host and in the Wayback capture.",
+    "Two different occupation accounts in one issue: page 1 is Jenkins's first raid ('a full week'); page 5 is the main army ('eleven days'). Do not merge them.",
+    "The Gettysburg battle text is largely reprinted from other papers' correspondents, so it is a compilation, not Chambersburg's own reporting.",
+    "Partisan Republican paper; 'side' is Union for the paper, not for each reprinted item.",
+    "Poor image quality: any quotation needs a second reader against the scan.",
+    "Host terms are non-commercial (CC BY-NC 4.0 link on every page); the 1863 issue itself is public domain, the host's transcription and summaries are not."
+   ],
+   "verdict": "APPROVE",
+   "replacement_url": "https://api.valley.newamericanhistory.org/storage/data/newspapers_pdfs/fr1863/pa.fr.fr.1863.07.08.pdf"
+  },
+  {
+   "n": 643,
+   "link_status": "live",
+   "bibliographic_match": "confirmed",
+   "kind": "compiled-volume-or-finding-aid",
+   "side": "civilian",
+   "written": "collection page; wartime letters dated 1861-12-20 to 1864-08-17, one more letter (April 1865) under the Aftermath tab, and two 1863 diaries",
+   "gettysburg_relevance": "campaign-and-battle",
+   "description_accuracy": "accurate",
+   "rights_tier": "C-link-out-only",
+   "rights_basis": "The page's text is the Valley of the Shadow's own summary. The site's Copyright and Fair Use Statement (valley.newamericanhistory.org/about/copyright, fetched) allows free non-commercial use only and warns that some material may be under copyright; every page footer links to the Creative Commons BY-NC 4.0 licence. The letters and diaries underneath are 1860s manuscripts (public domain by date, authors' death dates not checked), but the 'Original' and 'Modern Spelling' texts are the project's editions. Link out; the member items need their own review.",
+   "usable_for": [
+    "link-out-citation",
+    "facts-and-dates-only"
+   ],
+   "evidence": "FETCHED 2026-10-04: https://valley.newamericanhistory.org/war/letters-and-diaries/franklin/stouffer -> HTTP 200 without redirect, title 'Letters of the Stouffer Family - The War Years - The Valley of the Shadow' (valley.newamericanhistory.org has no robots.txt: 404). The page's embedded data lists ten letters F6500 to F6509 and two diaries FD7001 and FD5500. I fetched all twelve item pages. Letters: F6500 Eliza R. Stouffer to Anna Hoover, 20 Dec 1861; F6501 2 Nov 1862; F6502 26 Nov 1862; F6503 13 Jan 1863; F6504 20 Feb 1863; F6505 9 Mar 1863; F6506 Jacob Stouffer to Mary R. Stouffer, Chambersburg, 5 July 1863; F6507 10 Jul 1864; F6508 1 Aug 1864; F6509 17 Aug 1864. Diaries: FD7001 'Diary of Eliza R. Stouffer (1863)' (about 30 dated entries from 12 June 1863, a visit in Lancaster County) and FD5500 'Diary of Amos Stouffer (1863)' (98 entries, 6 Jan to 13 Dec 1863). Description check ('Ten family letters plus the 1863 diaries of Amos and Eliza Stouffer'): accurate. Two concrete claims verified: ten wartime letters, and both diaries are 1863. Nuance: the page's nav shows 'Aftermath 1': F6510, Benjamin Stouffer to Emma V. Stouffer, 16 April [1865], is an eleventh letter in the collection, and the '(1861-1865)' span is the host's. Gettysburg content: F6506 (5 July 1863) describes the rebels under Lee camping around Chambersburg and says Lee's headquarters were in A. Shetter's woods; FD5500 records rumours of 'a great battle going on about Gettysburg', Pleasonton's cavalry encamped in the family's field, rebel wounded in Chambersburg hospitals, and a trip to Gettysburg for the cemetery dedication; FD7001 has only a few lines of rumour about the rebels in its June entries.",
+   "extraction_notes": "A collection page, not a writing: do not ingest it. Use it to enumerate member items: letters at valley.newamericanhistory.org/letters/F6500 to F6510, diaries at /diaries/FD7001 and /diaries/FD5500 (entry 642 already points at FD5500), TEI at api.valley.newamericanhistory.org/storage/data/papers/<id>.xml. Each member needs its own review and rights decision (A2 candidates; transcribe from the original-spelling edition or the images, not the host's summaries). The campaign-relevant members are F6506 and FD5500.",
+   "issues": [
+    "A collection page, not a writing: nothing here is quotable; the items are separate documents.",
+    "'Ten family letters' is the count of wartime letters; there is an eleventh (F6510, April 1865) under the Aftermath tab. The '(1861-1865)' in the title is the host's span; the wartime letters run Dec 1861 to Aug 1864.",
+    "Only F6506 and FD5500 touch the campaign or battle directly; FD7001 is a Lancaster County visit diary with rumour.",
+    "Host terms are non-commercial only (CC BY-NC 4.0 link); no per-item rights statement was found."
+   ],
+   "verdict": "APPROVE-LINKOUT-ONLY"
+  },
+  {
+   "n": 651,
+   "link_status": "live",
+   "bibliographic_match": "partial",
+   "kind": "compiled-volume-or-finding-aid",
+   "side": "mixed-or-neutral",
+   "written": "index page; collections dated 1861-1865 (the War Years slice of the Valley of the Shadow)",
+   "gettysburg_relevance": "campaign-and-battle",
+   "description_accuracy": "partly-inaccurate",
+   "rights_tier": "C-link-out-only",
+   "rights_basis": "The page is the Valley of the Shadow's own index and summaries, under the site's non-commercial terms (Copyright and Fair Use Statement, fetched; CC BY-NC 4.0 link in every footer). Collection names, counts and dates are facts and may be cited; the summaries should not be reused.",
+   "usable_for": [
+    "link-out-citation",
+    "facts-and-dates-only"
+   ],
+   "evidence": "FETCHED 2026-10-04: https://valley.newamericanhistory.org/war/letters-and-diaries/franklin -> HTTP 200 without redirect, title 'Letters & Diaries: Franklin County, PA - The War Years - The Valley of the Shadow'. Counted the collection cards in the page source: 28 (Henry Bitner, George W. Brewer, Simon Cameron, James Carman, Jeremiah T. Cooper, Samuel and Rachel Cormany, Milton Crawford, Demus and Christy Families, William Heyser, Hiester Family, Samuel Z. Maxwell, Thomas F. McCoy, the McElheneys, Anna Mellinger, Alexander K. McClure, Samuel W. North, Thomas Gordon Pollock, Franklin R. Rankin, Rosenbery Family, Lauramann Russell, Benjamin S. Schneck, Charles Smith, John Smith, Thaddeus Stevens, Stouffer Family, William E. Tolbert, George C. Traxler, 'Additional Personal Papers Collections'). Description check ('Index to all Franklin County personal papers in the project'): partly inaccurate. This URL is the War Years phase only. The sibling indexes for Franklin County (/eve/letters-and-diaries/franklin, 6 cards; /aftermath/letters-and-diaries/franklin, 9 cards; fetched) list collections that are not among the 28: Abraham Essick (1849-1861), Edward McPherson (1852-1860), Wills and Estates Collection (1858-1859), Jubal Early (1872) and David Hafer (1865). The page is live and is what it says it is (an index), so identity is partial rather than mismatched.",
+   "extraction_notes": "A navigation page with no quotable text; do not ingest it. Use it to list member collections (each card links to /war/letters-and-diaries/franklin/<slug>), and note that the Eve of War and Aftermath indexes must be read for the rest. Relevance to Gettysburg comes only through member collections (for example Cormany, Hiester, Heyser, Pollock, Stouffer, which entries 640-647 already list); I read none of them for this entry.",
+   "issues": [
+    "'All Franklin County personal papers' is wrong: this is the War Years slice; at least five collections appear only on the Eve of War or Aftermath indexes.",
+    "The listed title omits the 'War Years' qualifier the host uses in the page title.",
+    "Not a writing; a finding aid whose text is the host's own and non-commercially licensed.",
+    "By their dates, most of the 28 collections (1862, 1864, 1865) fall outside the campaign; I did not read them."
+   ],
+   "verdict": "APPROVE-LINKOUT-ONLY"
+  }
+ ]
+}

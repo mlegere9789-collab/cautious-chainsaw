@@ -3,11 +3,11 @@
   "total_entries": 1714,
   "by_status": {
    "APPROVED-CROSSWALK": 541,
-   "NEEDS-HUMAN-REVIEW": 5,
-   "NOT-VERIFIED": 98,
+   "NEEDS-HUMAN-REVIEW": 18,
+   "APPROVED": 56,
+   "APPROVED-LINKOUT-ONLY": 33,
    "DUPLICATE": 4,
-   "APPROVED": 7,
-   "APPROVED-LINKOUT-ONLY": 2,
+   "REJECTED": 5,
    "APPROVED-POINTER": 1057
   },
   "by_part_and_status": {
@@ -22,36 +22,47 @@
     "APPROVED-CROSSWALK": 166
    },
    "IV": {
-    "NOT-VERIFIED": 9
+    "APPROVED": 8,
+    "NEEDS-HUMAN-REVIEW": 1
    },
    "V": {
-    "NOT-VERIFIED": 4
+    "APPROVED": 2,
+    "APPROVED-LINKOUT-ONLY": 1,
+    "NEEDS-HUMAN-REVIEW": 1
    },
    "VI": {
-    "NOT-VERIFIED": 3
+    "APPROVED": 1,
+    "NEEDS-HUMAN-REVIEW": 1,
+    "APPROVED-LINKOUT-ONLY": 1
    },
    "VII": {
-    "NOT-VERIFIED": 12
+    "APPROVED-LINKOUT-ONLY": 10,
+    "NEEDS-HUMAN-REVIEW": 1,
+    "APPROVED": 1
    },
    "VIII": {
     "DUPLICATE": 2,
-    "NOT-VERIFIED": 5
+    "APPROVED-LINKOUT-ONLY": 4,
+    "REJECTED": 1
    },
    "IX": {
-    "NOT-VERIFIED": 34,
-    "APPROVED": 7,
-    "NEEDS-HUMAN-REVIEW": 3,
-    "APPROVED-LINKOUT-ONLY": 2,
-    "DUPLICATE": 1
+    "NEEDS-HUMAN-REVIEW": 12,
+    "APPROVED": 26,
+    "APPROVED-LINKOUT-ONLY": 5,
+    "DUPLICATE": 1,
+    "REJECTED": 3
    },
    "X": {
-    "NOT-VERIFIED": 14
+    "APPROVED": 8,
+    "APPROVED-LINKOUT-ONLY": 6
    },
    "XI": {
-    "NOT-VERIFIED": 12
+    "APPROVED-LINKOUT-ONLY": 6,
+    "APPROVED": 5,
+    "REJECTED": 1
    },
    "XII": {
-    "NOT-VERIFIED": 5,
+    "APPROVED": 5,
     "DUPLICATE": 1
    },
    "XIII": {
@@ -65,28 +76,81 @@
   },
   "by_tier_and_kind": {
    "or_report:A1": 543,
-   "non_or:not-assessed": 99,
-   "non_or:A1": 8,
-   "non_or:A2": 5,
-   "non_or:C": 1,
-   "non_or:unknown": 1,
+   "non_or:A1": 46,
+   "non_or:A2": 32,
+   "non_or:unknown": 9,
+   "non_or:C": 26,
+   "non_or:not-assessed": 1,
    "or_page:A1": 1057
   },
-  "non_or_reviewed_twice": 12,
-  "non_or_never_reviewed": 98,
+  "non_or_reviewed": 110,
+  "non_or_reviewers_per_entry": {
+   "2": 86,
+   "4": 24
+  },
+  "non_or_never_reviewed": 0,
   "non_or_total": 114,
-  "approved_for_quote_corpus": 7,
+  "non_or_verdict_unanimous": 100,
+  "approved_for_quote_corpus": 56,
   "approved_for_quote_corpus_by_tier": {
-   "A2": 2,
-   "A1": 5
+   "A1": 40,
+   "A2": 16
+  },
+  "approved_link_out_only": 33,
+  "approved_link_out_only_by_tier": {
+   "A2": 5,
+   "C": 23,
+   "unknown": 4,
+   "A1": 1
   },
   "ready_to_ingest_now": [
+   544,
+   545,
+   546,
+   547,
+   548,
+   550,
+   551,
+   552,
+   553,
+   554,
+   557,
+   565,
+   584,
+   585,
    592,
    594,
    596,
-   597
+   597,
+   598,
+   602,
+   604,
+   605,
+   609,
+   611,
+   622,
+   626,
+   627,
+   628,
+   629,
+   633,
+   634,
+   635,
+   652,
+   653,
+   654,
+   655,
+   656
   ],
   "blocked_ingest": [
+   {
+    "n": 580,
+    "state": "hold:rights-review+manual-transcription"
+   },
+   {
+    "n": 583,
+    "state": "hold:rights-review"
+   },
    {
     "n": 586,
     "state": "hold:rights-review"
@@ -97,6 +161,62 @@
    },
    {
     "n": 591,
+    "state": "hold:rights-review"
+   },
+   {
+    "n": 608,
+    "state": "blocked:manual-transcription"
+   },
+   {
+    "n": 610,
+    "state": "blocked:manual-transcription"
+   },
+   {
+    "n": 616,
+    "state": "hold:rights-review+manual-transcription"
+   },
+   {
+    "n": 617,
+    "state": "hold:rights-review"
+   },
+   {
+    "n": 620,
+    "state": "hold:rights-review"
+   },
+   {
+    "n": 621,
+    "state": "hold:rights-review"
+   },
+   {
+    "n": 624,
+    "state": "hold:rights-review"
+   },
+   {
+    "n": 625,
+    "state": "hold:rights-review+manual-transcription"
+   },
+   {
+    "n": 636,
+    "state": "hold:rights-review"
+   },
+   {
+    "n": 645,
+    "state": "hold:rights-review"
+   },
+   {
+    "n": 646,
+    "state": "hold:rights-review"
+   },
+   {
+    "n": 648,
+    "state": "hold:rights-review"
+   },
+   {
+    "n": 649,
+    "state": "hold:rights-review"
+   },
+   {
+    "n": 650,
     "state": "hold:rights-review"
    }
   ],
@@ -118,18 +238,367 @@
   },
   "non_or_overlap_with_historian_catalogue": 29,
   "reviewed_gettysburg_relevance": {
-   "campaign-only": 9,
-   "campaign-and-battle": 3
+   "campaign-and-battle": 33,
+   "battle-july-1-3": 18,
+   "campaign-only": 45,
+   "aftermath": 7,
+   "tangential": 7
   },
-  "description_accuracy_by_pass": {
-   "pass1": {
-    "accurate": 11,
-    "unverifiable": 1
+  "coverage_quote_corpus": {
+   "by_side": {
+    "confederate": 23,
+    "union": 17,
+    "civilian": 12,
+    "mixed-or-neutral": 2,
+    "contested": 2
    },
-   "pass2": {
-    "accurate": 9,
-    "partly-inaccurate": 3
+   "by_relevance": {
+    "campaign-and-battle": 18,
+    "battle-july-1-3": 12,
+    "aftermath": 2,
+    "campaign-only": 23,
+    "tangential": 1
+   },
+   "by_timing": {
+    "contemporaneous": 32,
+    "retrospective": 24
+   },
+   "by_side_and_timing": {
+    "confederate:contemporaneous": 13,
+    "confederate:retrospective": 10,
+    "union:contemporaneous": 9,
+    "civilian:retrospective": 4,
+    "mixed-or-neutral:retrospective": 1,
+    "civilian:contemporaneous": 8,
+    "union:retrospective": 8,
+    "contested:retrospective": 1,
+    "mixed-or-neutral:contemporaneous": 1,
+    "contested:contemporaneous": 1
+   },
+   "by_tier": {
+    "A1": 40,
+    "A2": 16
    }
+  },
+  "coverage_quote_corpus_ready_now": {
+   "by_side": {
+    "confederate": 18,
+    "union": 12,
+    "civilian": 4,
+    "mixed-or-neutral": 2,
+    "contested": 1
+   },
+   "by_relevance": {
+    "campaign-and-battle": 12,
+    "battle-july-1-3": 12,
+    "aftermath": 1,
+    "campaign-only": 11,
+    "tangential": 1
+   },
+   "by_timing": {
+    "contemporaneous": 15,
+    "retrospective": 22
+   },
+   "by_side_and_timing": {
+    "confederate:contemporaneous": 8,
+    "confederate:retrospective": 10,
+    "union:contemporaneous": 4,
+    "civilian:retrospective": 2,
+    "mixed-or-neutral:retrospective": 1,
+    "union:retrospective": 8,
+    "contested:retrospective": 1,
+    "civilian:contemporaneous": 2,
+    "mixed-or-neutral:contemporaneous": 1
+   },
+   "by_tier": {
+    "A1": 37
+   }
+  },
+  "coverage_link_out_only": {
+   "by_side": {
+    "union": 7,
+    "contested": 4,
+    "mixed-or-neutral": 13,
+    "civilian": 8,
+    "confederate": 1
+   },
+   "by_relevance": {
+    "battle-july-1-3": 4,
+    "campaign-and-battle": 11,
+    "campaign-only": 10,
+    "aftermath": 4,
+    "tangential": 4
+   },
+   "by_timing": {
+    "contemporaneous": 15,
+    "retrospective": 18
+   },
+   "by_side_and_timing": {
+    "union:contemporaneous": 5,
+    "contested:retrospective": 4,
+    "mixed-or-neutral:retrospective": 9,
+    "civilian:retrospective": 3,
+    "union:retrospective": 2,
+    "mixed-or-neutral:contemporaneous": 4,
+    "confederate:contemporaneous": 1,
+    "civilian:contemporaneous": 5
+   },
+   "by_tier": {
+    "A2": 5,
+    "C": 23,
+    "unknown": 4,
+    "A1": 1
+   }
+  },
+  "coverage_all_reviewed_non_rejected": {
+   "by_side": {
+    "confederate": 29,
+    "union": 26,
+    "civilian": 26,
+    "mixed-or-neutral": 17,
+    "contested": 7
+   },
+   "by_relevance": {
+    "campaign-and-battle": 33,
+    "battle-july-1-3": 18,
+    "campaign-only": 42,
+    "aftermath": 7,
+    "tangential": 5
+   },
+   "by_timing": {
+    "contemporaneous": 59,
+    "retrospective": 46
+   },
+   "by_side_and_timing": {
+    "confederate:contemporaneous": 18,
+    "confederate:retrospective": 11,
+    "union:contemporaneous": 16,
+    "civilian:retrospective": 8,
+    "mixed-or-neutral:retrospective": 12,
+    "contested:retrospective": 5,
+    "union:retrospective": 10,
+    "mixed-or-neutral:contemporaneous": 5,
+    "civilian:contemporaneous": 18,
+    "contested:contemporaneous": 2
+   },
+   "by_tier": {
+    "A1": 42,
+    "A2": 31,
+    "unknown": 8,
+    "C": 24
+   }
+  },
+  "new_beyond_or": {
+   "approved_quote_corpus": 56,
+   "duplicating_or_text_in_full": [
+    544,
+    546,
+    547,
+    652
+   ],
+   "duplicating_or_text_in_part": [
+    551,
+    584,
+    649
+   ],
+   "new_text_works": [
+    545,
+    548,
+    550,
+    551,
+    552,
+    553,
+    554,
+    557,
+    565,
+    580,
+    583,
+    584,
+    585,
+    586,
+    590,
+    591,
+    592,
+    594,
+    596,
+    597,
+    598,
+    602,
+    604,
+    605,
+    608,
+    609,
+    610,
+    611,
+    616,
+    617,
+    620,
+    621,
+    622,
+    624,
+    625,
+    626,
+    627,
+    628,
+    629,
+    633,
+    634,
+    635,
+    636,
+    645,
+    646,
+    648,
+    649,
+    650,
+    653,
+    654,
+    655,
+    656
+   ],
+   "new_text_works_by_side": {
+    "confederate": 19,
+    "union": 17,
+    "civilian": 12,
+    "mixed-or-neutral": 2,
+    "contested": 2
+   },
+   "new_text_works_in_a_historian_catalogue_already": [
+    545,
+    548,
+    550,
+    551,
+    552,
+    553,
+    554,
+    557,
+    584,
+    585,
+    610,
+    622,
+    628,
+    634,
+    653,
+    654,
+    655,
+    656
+   ],
+   "new_text_works_not_in_any_catalogue": [
+    565,
+    580,
+    583,
+    586,
+    590,
+    591,
+    592,
+    594,
+    596,
+    597,
+    598,
+    602,
+    604,
+    605,
+    608,
+    609,
+    611,
+    616,
+    617,
+    620,
+    621,
+    624,
+    625,
+    626,
+    627,
+    629,
+    633,
+    635,
+    636,
+    645,
+    646,
+    648,
+    649,
+    650
+   ]
+  },
+  "derivation_notes": {
+   "approved_with_identity_by_imprint_year": [
+    592,
+    594,
+    598,
+    604
+   ],
+   "approved_with_an_adapter_taken_from_the_kind_of_the_source": [
+    551,
+    565,
+    597,
+    650
+   ],
+   "reviews_with_no_adapter_named_at_all": 53,
+   "reviews_with_no_adapter_by_final_status": {
+    "NEEDS-HUMAN-REVIEW": 11,
+    "APPROVED-LINKOUT-ONLY": 40,
+    "REJECTED": 2
+   },
+   "reviews_total": 268
+  },
+  "dead_links": {
+   "entries_with_a_dead_listed_link": [
+    580,
+    581,
+    582,
+    587,
+    588,
+    595,
+    600,
+    603,
+    607,
+    615,
+    616,
+    620,
+    621,
+    624,
+    625,
+    631,
+    636
+   ],
+   "with_a_reviewer_verified_replacement": [
+    580,
+    581,
+    582,
+    587,
+    588,
+    595,
+    600,
+    603,
+    607,
+    615,
+    616,
+    620,
+    621,
+    624,
+    625,
+    631,
+    636
+   ],
+   "without": []
+  },
+  "description_accuracy_other_works": {
+   "partly-inaccurate": 33,
+   "accurate": 65,
+   "unverifiable": 6,
+   "inaccurate": 6
+  },
+  "or_description_trust": {
+   "audited-partly-inaccurate": 24,
+   "untrusted": 481,
+   "audited-accurate-by-one-reviewer": 28,
+   "audited-accurate-by-two-reviewers": 9,
+   "audited-inaccurate": 1
+  },
+  "pointer_description_trust": {
+   "audited-accurate": 37,
+   "unaudited-template-held-in-the-systematic-sample": 1010,
+   "audited-partly-inaccurate": 9,
+   "audited-inaccurate": 1
   }
  },
  "evidence": {
@@ -281,39 +750,54 @@
   },
   "probe_entries": 102,
   "dickinson_archives_entries": 13,
-  "dickinson_archives_dead": 13,
-  "robots_disallowed_perseus": 12,
+  "dickinson_archives_listed_link_dead": [
+   580,
+   581,
+   582,
+   587,
+   588,
+   603,
+   607,
+   615,
+   616,
+   620,
+   621,
+   624,
+   625
+  ],
+  "dickinson_archives_reviewed": 13,
   "structural_or": {
-   "pass": 504,
-   "flag": 2,
-   "pass_notes": 37
+   "pass": 525,
+   "flag": 1,
+   "pass_notes": 17
   },
   "structural_pointers": {
    "pass": 997,
    "pass_notes": 60
   },
   "structural_or_pages": {
-   "exact": 504,
-   "start_differs": 2,
-   "boundary": 32,
-   "end_differs": 4,
+   "exact": 525,
+   "start_differs": 1,
+   "boundary": 13,
+   "end_differs": 3,
    "fallback": 1
   },
   "or_written_lag_days": {
-   "n": 412,
-   "median": 22,
-   "p10": 1,
+   "n": 333,
+   "median": 24,
+   "p10": 3,
    "p90": 49,
    "max": 408,
-   "min": -27
+   "min": -5
   },
-  "or_scope_other": 75,
-  "or_composite": 10,
+  "or_scope_other": 83,
+  "or_composite": 101,
   "or_non_report_documents": 16,
   "or_generic_template_entries": 527,
   "or_entries_total": 543,
   "or_in_ocr_index": 542,
   "historian_index_reports": 588,
+  "historian_index_dispatches": 3178,
   "part_xiii": {
    "pages_listed": 1057,
    "first_page": 3,
@@ -323,13 +807,13 @@
    "first_confederate_dispatch_page": 858,
    "last_union_dispatch_before_it": 857,
    "dispatches_on_pages_not_listed": 61,
-   "pages_not_listed_with_dispatches": 24
+   "pages_not_listed_with_dispatches": 22
   },
   "hathi_seq_offsets": {
    "1": 20,
    "2": 2
   },
-  "pointers_no_dispatch": 119,
+  "pointers_no_dispatch": 78,
   "pointers_hedged_label": 60,
   "pointers_hedged_corrected": {
    "union": 44,
@@ -356,6 +840,48 @@
       567
      ]
     }
+   ]
+  },
+  "ia_items_checked": 54,
+  "ia_dates_behind_approved_works": {
+   "items": 45,
+   "dated": 35,
+   "undated": 10,
+   "latest_year": 1912,
+   "latest_items": [
+    "cu31924030913630",
+    "oldmercersburg00woma"
+   ],
+   "with_a_copyright_status_field": 28
+  },
+  "ia_items_dated_after_1930": [
+   {
+    "id": "twohundredyearsi00unse",
+    "year": 1951,
+    "entries": [
+     619
+    ]
+   }
+  ],
+  "ia_status_tally": {
+   "200": 54
+  },
+  "or_locator_audit": {
+   "corrected": [
+    {
+     "n": 10,
+     "listed": 155,
+     "first_page": 168
+    },
+    {
+     "n": 298,
+     "listed": 842,
+     "first_page": 843
+    }
+   ],
+   "doubts": [
+    251,
+    509
    ]
   }
  }
