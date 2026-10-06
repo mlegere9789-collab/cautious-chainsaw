@@ -1,0 +1,589 @@
+{
+ "generated": "2026-10-06T14:11:52.475Z",
+ "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+ "runs": [
+  {
+   "sets": "{\"motion.mode\":\"strict\",\"interp.model\":\"chord-smooth\",\"layout.dMaxPx\":0}",
+   "scene": "the-angle",
+   "mode": "after",
+   "speed": 4,
+   "secs": 20,
+   "viewport": [
+    1440,
+    900
+   ],
+   "dpr": 1,
+   "cpu": 1,
+   "style": "field-manual",
+   "variant": "standard",
+   "popups": true,
+   "wallMs": 20000,
+   "tick0": 550,
+   "tick1": 675,
+   "frames": 1188,
+   "pageFrames": 1188,
+   "fps": 59.4,
+   "frameP50": 16.600000008940697,
+   "frameP95": 19,
+   "frameMax": 23.299999997019768,
+   "tilesMean": 225.4,
+   "chipsMean": 40.2,
+   "chipsMax": 46,
+   "framesSolidOverlap": 0,
+   "framesSolidDimOverlap": 0,
+   "framesDimDimOverlap": 0,
+   "overlapClassSums": {
+    "ss": {
+     "cc": 0,
+     "lc": 0,
+     "lp": 0,
+     "cp": 0,
+     "ll": 0
+    },
+    "sd": {
+     "cc": 0,
+     "lc": 0,
+     "lp": 0,
+     "cp": 0,
+     "ll": 0
+    }
+   },
+   "maxDepthPx": 0,
+   "maxDepthSolidSolidPx": 0,
+   "maxOverlapAreaPx2": 0,
+   "minGapCC": 2.974,
+   "framesWithNoInkSolidTile": 0,
+   "maxNoInkSolid": 0,
+   "framesWithNoInkFaintTile": 0,
+   "framesInkOutside": 0,
+   "maxInkExcessPx": 0.15,
+   "framesStray": 0,
+   "framesMissingUnits": 0,
+   "maxMissing": 0,
+   "framesEarlyUnits": 0,
+   "maxEarlyTicks": 0,
+   "framesPhantom": 0,
+   "framesChipUnderDom": 1188,
+   "chipsUnderDomSum": 5920,
+   "chipsHalfHiddenSum": 4618,
+   "domBy": {
+    "#topbar > *": 3571,
+    "#dock": 2349
+   },
+   "engineOverlapFrames": 0,
+   "recorderErrors": [],
+   "sdBy": {},
+   "missingExamples": [],
+   "sdEpisodes": {
+    "n": 0,
+    "medianFrames": null,
+    "maxFrames": 0
+   },
+   "worstFrames": [],
+   "violations": [],
+   "solidSolidExamples": [],
+   "solidDimExamples": [],
+   "framesUnitDimOnly": 0,
+   "maxUnitsDimOnly": 0,
+   "framesUnitInvisible": 0,
+   "maxUnitsInvisible": 0,
+   "unitsInViewMean": 131.2,
+   "unitDimOnlyRuns": {
+    "n": 0,
+    "medianFrames": null,
+    "p95Frames": null,
+    "maxFrames": 0,
+    "over30Frames": 0
+   },
+   "snapFiles": []
+  },
+  {
+   "sets": "{\"motion.mode\":\"strict\",\"interp.model\":\"chord-smooth\",\"layout.dMaxPx\":0}",
+   "scene": "rose-woods",
+   "mode": "after",
+   "speed": 4,
+   "secs": 20,
+   "viewport": [
+    1440,
+    900
+   ],
+   "dpr": 1,
+   "cpu": 1,
+   "style": "field-manual",
+   "variant": "standard",
+   "popups": true,
+   "wallMs": 20002,
+   "tick0": 287,
+   "tick1": 445.2,
+   "frames": 1200,
+   "pageFrames": 1200,
+   "fps": 60,
+   "frameP50": 16.700000002980232,
+   "frameP95": 18.399999991059303,
+   "frameMax": 21,
+   "tilesMean": 79.3,
+   "chipsMean": 31.8,
+   "chipsMax": 42,
+   "framesSolidOverlap": 0,
+   "framesSolidDimOverlap": 3,
+   "framesDimDimOverlap": 0,
+   "overlapClassSums": {
+    "ss": {
+     "cc": 0,
+     "lc": 0,
+     "lp": 0,
+     "cp": 0,
+     "ll": 0
+    },
+    "sd": {
+     "cc": 0,
+     "lc": 3,
+     "lp": 0,
+     "cp": 0,
+     "ll": 0
+    }
+   },
+   "maxDepthPx": 1.05,
+   "maxDepthSolidSolidPx": 0,
+   "maxOverlapAreaPx2": 3.7,
+   "minGapCC": 3.205,
+   "framesWithNoInkSolidTile": 0,
+   "maxNoInkSolid": 0,
+   "framesWithNoInkFaintTile": 0,
+   "framesInkOutside": 4,
+   "maxInkExcessPx": 3.597,
+   "framesStray": 0,
+   "framesMissingUnits": 0,
+   "maxMissing": 0,
+   "framesEarlyUnits": 0,
+   "maxEarlyTicks": 0,
+   "framesPhantom": 0,
+   "framesChipUnderDom": 1200,
+   "chipsUnderDomSum": 2019,
+   "chipsHalfHiddenSum": 928,
+   "domBy": {
+    "#topbar > *": 1953,
+    "#dock": 66
+   },
+   "engineOverlapFrames": 0,
+   "recorderErrors": [],
+   "sdBy": {
+    "label/chip": 3
+   },
+   "missingExamples": [],
+   "sdEpisodes": {
+    "n": 1,
+    "medianFrames": 3,
+    "maxFrames": 3
+   },
+   "worstFrames": [
+    {
+     "i": 73,
+     "ss": 0,
+     "sd": 1,
+     "tau": 295.07
+    },
+    {
+     "i": 74,
+     "ss": 0,
+     "sd": 1,
+     "tau": 295.21
+    },
+    {
+     "i": 75,
+     "ss": 0,
+     "sd": 1,
+     "tau": 295.34
+    }
+   ],
+   "violations": [
+    {
+     "frame": 58,
+     "tau": 293.0746461132605,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:A-U:U-2US-SHRP",
+       3.6
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 59,
+     "tau": 293.2080777667899,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:A-U:U-2US-SHRP",
+       1.44
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 73,
+     "tau": 295.07277070969565,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "agg:A-U:U-2PA-RES",
+       "U-V-2-2",
+       1,
+       3.5,
+       1,
+       0.37,
+       [
+        720.6496725237546,
+        592.0003994381987,
+        968.6023288886063,
+        629.4910883096213
+       ]
+      ]
+     ],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 1,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 74,
+     "tau": 295.2071707096957,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "agg:A-U:U-2PA-RES",
+       "U-V-2-2",
+       1,
+       3.5,
+       1,
+       0.25,
+       [
+        720.6496725237546,
+        592.0003994381987,
+        968.6023288886063,
+        629.4910883096213
+       ]
+      ]
+     ],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 1,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 75,
+     "tau": 295.33997070969565,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "agg:A-U:U-2PA-RES",
+       "U-V-2-2",
+       1,
+       3.5,
+       1,
+       0.13,
+       [
+        720.639409470361,
+        592.0003994381987,
+        968.6023288886063,
+        629.4916994049702
+       ]
+      ]
+     ],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 1,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 140,
+     "tau": 304.00637070969606,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:A-U:U-CAV-1-R",
+       3.45
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    }
+   ],
+   "solidSolidExamples": [],
+   "solidDimExamples": [
+    {
+     "tau": 295.07277070969565,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "agg:A-U:U-2PA-RES",
+       "U-V-2-2",
+       1,
+       3.5,
+       1,
+       0.37,
+       [
+        720.6496725237546,
+        592.0003994381987,
+        968.6023288886063,
+        629.4910883096213
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 1,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "label/chip": 1
+     }
+    },
+    {
+     "tau": 295.2071707096957,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "agg:A-U:U-2PA-RES",
+       "U-V-2-2",
+       1,
+       3.5,
+       1,
+       0.25,
+       [
+        720.6496725237546,
+        592.0003994381987,
+        968.6023288886063,
+        629.4910883096213
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 1,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "label/chip": 1
+     }
+    },
+    {
+     "tau": 295.33997070969565,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "agg:A-U:U-2PA-RES",
+       "U-V-2-2",
+       1,
+       3.5,
+       1,
+       0.13,
+       [
+        720.639409470361,
+        592.0003994381987,
+        968.6023288886063,
+        629.4916994049702
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 1,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "label/chip": 1
+     }
+    }
+   ],
+   "framesUnitDimOnly": 0,
+   "maxUnitsDimOnly": 0,
+   "framesUnitInvisible": 0,
+   "maxUnitsInvisible": 0,
+   "unitsInViewMean": 143.9,
+   "unitDimOnlyRuns": {
+    "n": 0,
+    "medianFrames": null,
+    "p95Frames": null,
+    "maxFrames": 0,
+    "over30Frames": 0
+   },
+   "snapFiles": []
+  }
+ ],
+ "consoleErrors": [
+  "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "requests": []
+}

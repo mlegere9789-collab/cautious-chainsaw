@@ -1,0 +1,1211 @@
+{
+ "generated": "2026-10-06T14:15:17.114Z",
+ "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+ "runs": [
+  {
+   "sets": "{\"interp.model\":\"chord-smooth\",\"layout.dMaxPx\":0,\"time.speedRampMs\":120,\"time.glideMs\":350,\"camera.zoomGlideMs\":120,\"camera.panGlideMs\":80,\"motion.smoothMs\":80,\"motion.fadeMs\":120,\"popup.motion.enterMs\":140,\"popup.motion.risePx\":3,\"popup.motion.leaderMs\":140}",
+   "scene": "the-angle",
+   "mode": "after",
+   "speed": 4,
+   "secs": 20,
+   "viewport": [
+    1440,
+    900
+   ],
+   "dpr": 1,
+   "cpu": 1,
+   "style": "field-manual",
+   "variant": "standard",
+   "popups": true,
+   "wallMs": 20015,
+   "tick0": 550,
+   "tick1": 675,
+   "frames": 1191,
+   "pageFrames": 1191,
+   "fps": 59.5,
+   "frameP50": 16.69999998807907,
+   "frameP95": 18.899999991059303,
+   "frameMax": 26,
+   "tilesMean": 226.6,
+   "chipsMean": 40.2,
+   "chipsMax": 46,
+   "framesSolidOverlap": 0,
+   "framesSolidDimOverlap": 23,
+   "framesDimDimOverlap": 6,
+   "overlapClassSums": {
+    "ss": {
+     "cc": 0,
+     "lc": 0,
+     "lp": 0,
+     "cp": 0,
+     "ll": 0
+    },
+    "sd": {
+     "cc": 14,
+     "lc": 9,
+     "lp": 0,
+     "cp": 3,
+     "ll": 0
+    }
+   },
+   "maxDepthPx": 18.76,
+   "maxDepthSolidSolidPx": 0,
+   "maxOverlapAreaPx2": 1616,
+   "minGapCC": -21.435,
+   "framesWithNoInkSolidTile": 0,
+   "maxNoInkSolid": 0,
+   "framesWithNoInkFaintTile": 33,
+   "framesInkOutside": 0,
+   "maxInkExcessPx": 0.15,
+   "framesStray": 0,
+   "framesMissingUnits": 134,
+   "maxMissing": 11,
+   "framesEarlyUnits": 0,
+   "maxEarlyTicks": 0,
+   "framesPhantom": 0,
+   "framesChipUnderDom": 1191,
+   "chipsUnderDomSum": 5881,
+   "chipsHalfHiddenSum": 4589,
+   "domBy": {
+    "#topbar > *": 3524,
+    "#dock": 2357
+   },
+   "engineOverlapFrames": 0,
+   "recorderErrors": [],
+   "sdBy": {
+    "chip/chip": 14,
+    "pin/chip": 3,
+    "chip/label": 9
+   },
+   "missingExamples": [
+    {
+     "tau": 550.01,
+     "ex": [
+      [
+       "U-HAB-E4US",
+       549.014
+      ],
+      [
+       "C-II-3-5",
+       549.014
+      ],
+      [
+       "C-5NC",
+       503.014
+      ]
+     ]
+    },
+    {
+     "tau": 550.04,
+     "ex": [
+      [
+       "U-HAB-E4US",
+       549.038
+      ],
+      [
+       "C-II-3-5",
+       549.038
+      ],
+      [
+       "C-5NC",
+       503.038
+      ]
+     ]
+    },
+    {
+     "tau": 550.08,
+     "ex": [
+      [
+       "U-HAB-E4US",
+       549.075
+      ],
+      [
+       "C-II-3-5",
+       549.075
+      ],
+      [
+       "C-5NC",
+       503.075
+      ]
+     ]
+    },
+    {
+     "tau": 550.13,
+     "ex": [
+      [
+       "U-HAB-E4US",
+       549.126
+      ],
+      [
+       "C-II-3-5",
+       549.126
+      ],
+      [
+       "C-5NC",
+       503.126
+      ]
+     ]
+    },
+    {
+     "tau": 550.19,
+     "ex": [
+      [
+       "C-CAV-2-3",
+       45.189
+      ],
+      [
+       "C-CAV-2-4",
+       45.189
+      ]
+     ]
+    }
+   ],
+   "sdEpisodes": {
+    "n": 7,
+    "medianFrames": 3,
+    "maxFrames": 9
+   },
+   "worstFrames": [
+    {
+     "i": 13,
+     "ss": 0,
+     "sd": 3,
+     "tau": 550.99
+    },
+    {
+     "i": 12,
+     "ss": 0,
+     "sd": 2,
+     "tau": 550.87
+    },
+    {
+     "i": 10,
+     "ss": 0,
+     "sd": 1,
+     "tau": 550.65
+    },
+    {
+     "i": 14,
+     "ss": 0,
+     "sd": 1,
+     "tau": 551.12
+    },
+    {
+     "i": 25,
+     "ss": 0,
+     "sd": 1,
+     "tau": 552.54
+    }
+   ],
+   "violations": [
+    {
+     "frame": 1,
+     "tau": 550.0143522899662,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 2,
+     "tau": 550.0380674791335,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 3,
+     "tau": 550.0751556909731,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 4,
+     "tau": 550.1258372289243,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 5,
+     "tau": 550.1887141525519,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 7,
+     "tau": 550.3478715621485,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    }
+   ],
+   "solidSolidExamples": [],
+   "solidDimExamples": [
+    {
+     "tau": 550.6476586827754,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "C-I-3-3~225",
+       "U-I-3-3",
+       19.4,
+       2.9,
+       0.42,
+       1,
+       [
+        671.5000047329813,
+        214.49999573919922,
+        740.5000047329813,
+        255.72456185949127
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 1,
+      "lc": 0,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/chip": 1
+     }
+    },
+    {
+     "tau": 550.8747302496822,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "C-I-3-3~225",
+       "agg:A-U:U-15MA",
+       3.1,
+       5.4,
+       0.07,
+       1,
+       [
+        640.5000123554729,
+        352.4999888097915,
+        734.7524160234258,
+        377.4999888097915
+       ]
+      ],
+      [
+       "sd",
+       "cp",
+       "agg:ROOT:C-I-3-3",
+       "U-I-3-3~230",
+       4.7,
+       5.4,
+       0.1,
+       0.95,
+       [
+        671.5092874235104,
+        214.95293007604096,
+        739.7915679506029,
+        239.42581506446686
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 0,
+      "lp": 0,
+      "cp": 2,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "pin/chip": 2
+     }
+    },
+    {
+     "tau": 550.9941674272435,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "agg:ROOT:C-I-3-3",
+       "U-I-3-3~230",
+       9.2,
+       3.8,
+       0.18,
+       0.81,
+       [
+        650.9026068543595,
+        200.19552731474255,
+        733.7936202413988,
+        238.7429541906243
+       ]
+      ],
+      [
+       "sd",
+       "cc",
+       "agg:ROOT:C-I-3-3",
+       "U-II-3~230",
+       0.7,
+       3.8,
+       0.18,
+       0.81,
+       [
+        598.6025052910614,
+        200.19552731474255,
+        683.3404308785338,
+        238.7429541906243
+       ]
+      ],
+      [
+       "sd",
+       "cp",
+       "agg:ROOT:C-I-3-3",
+       "U-I-3-3~230",
+       3.1,
+       5.4,
+       0.1,
+       0.81,
+       [
+        671.8177200184056,
+        215.63579094988353,
+        733.7936202413988,
+        238.7429541906243
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 2,
+      "lc": 0,
+      "lp": 0,
+      "cp": 1,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/chip": 2,
+      "pin/chip": 1
+     }
+    },
+    {
+     "tau": 551.1164257714945,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "agg:ROOT:C-I-3-3",
+       "U-I-3-3~230",
+       29.7,
+       6.5,
+       0.27,
+       0.62,
+       [
+        641.1006367725936,
+        201.66962055232446,
+        717.3442062923771,
+        237.80250741400388
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 1,
+      "lc": 0,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/chip": 1
+     }
+    }
+   ],
+   "framesUnitDimOnly": 143,
+   "maxUnitsDimOnly": 54,
+   "framesUnitInvisible": 12,
+   "maxUnitsInvisible": 16,
+   "unitsInViewMean": 131.2,
+   "unitDimOnlyRuns": {
+    "n": 310,
+    "medianFrames": 4,
+    "p95Frames": 13,
+    "maxFrames": 23,
+    "over30Frames": 0
+   },
+   "snapFiles": [
+    {
+     "file": "v3-the-angle-after-4x-0.png",
+     "tau": 553.21,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "agg:C-III-1-1:C-8AL",
+       "U-16VT",
+       87.9,
+       12,
+       0.42,
+       1
+      ]
+     ]
+    },
+    {
+     "file": "v3-the-angle-after-4x-1.png",
+     "tau": 596.8,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "agg:ROOT:C-33VA",
+       "agg:ROOT:C-1MD-CSA",
+       26.5,
+       18.8,
+       0.38,
+       0.52
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "sets": "{\"interp.model\":\"chord-smooth\",\"layout.dMaxPx\":0,\"time.speedRampMs\":120,\"time.glideMs\":350,\"camera.zoomGlideMs\":120,\"camera.panGlideMs\":80,\"motion.smoothMs\":80,\"motion.fadeMs\":120,\"popup.motion.enterMs\":140,\"popup.motion.risePx\":3,\"popup.motion.leaderMs\":140}",
+   "scene": "rose-woods",
+   "mode": "after",
+   "speed": 4,
+   "secs": 20,
+   "viewport": [
+    1440,
+    900
+   ],
+   "dpr": 1,
+   "cpu": 1,
+   "style": "field-manual",
+   "variant": "standard",
+   "popups": true,
+   "wallMs": 20002,
+   "tick0": 287,
+   "tick1": 446.1,
+   "frames": 1200,
+   "pageFrames": 1200,
+   "fps": 60,
+   "frameP50": 16.69999998807907,
+   "frameP95": 18.5,
+   "frameMax": 21,
+   "tilesMean": 82.6,
+   "chipsMean": 32.6,
+   "chipsMax": 41,
+   "framesSolidOverlap": 0,
+   "framesSolidDimOverlap": 19,
+   "framesDimDimOverlap": 6,
+   "overlapClassSums": {
+    "ss": {
+     "cc": 0,
+     "lc": 0,
+     "lp": 0,
+     "cp": 0,
+     "ll": 0
+    },
+    "sd": {
+     "cc": 12,
+     "lc": 5,
+     "lp": 0,
+     "cp": 3,
+     "ll": 0
+    }
+   },
+   "maxDepthPx": 22.55,
+   "maxDepthSolidSolidPx": 0,
+   "maxOverlapAreaPx2": 1939.2,
+   "minGapCC": -22.549,
+   "framesWithNoInkSolidTile": 0,
+   "maxNoInkSolid": 0,
+   "framesWithNoInkFaintTile": 40,
+   "framesInkOutside": 10,
+   "maxInkExcessPx": 6.27,
+   "framesStray": 0,
+   "framesMissingUnits": 98,
+   "maxMissing": 4,
+   "framesEarlyUnits": 0,
+   "maxEarlyTicks": 0,
+   "framesPhantom": 0,
+   "framesChipUnderDom": 1196,
+   "chipsUnderDomSum": 2207,
+   "chipsHalfHiddenSum": 1369,
+   "domBy": {
+    "#topbar > *": 2152,
+    "#dock": 55
+   },
+   "engineOverlapFrames": 0,
+   "recorderErrors": [],
+   "sdBy": {
+    "chip/label": 2,
+    "label/chip": 3,
+    "chip/chip": 12,
+    "pin/chip": 3,
+    "pin/pin": 3
+   },
+   "missingExamples": [
+    {
+     "tau": 287.99,
+     "ex": [
+      [
+       "U-17PA-CAV",
+       284.994
+      ],
+      [
+       "U-I-3",
+       172.994
+      ]
+     ]
+    },
+    {
+     "tau": 288.12,
+     "ex": [
+      [
+       "U-17PA-CAV",
+       285.116
+      ],
+      [
+       "U-I-3",
+       173.116
+      ]
+     ]
+    },
+    {
+     "tau": 288.24,
+     "ex": [
+      [
+       "U-17PA-CAV",
+       285.241
+      ],
+      [
+       "U-I-3",
+       173.241
+      ]
+     ]
+    },
+    {
+     "tau": 288.37,
+     "ex": [
+      [
+       "U-II-3-1",
+       287.366
+      ],
+      [
+       "U-17PA-CAV",
+       285.366
+      ],
+      [
+       "U-I-3",
+       173.366
+      ]
+     ]
+    },
+    {
+     "tau": 288.49,
+     "ex": [
+      [
+       "U-II-3-1",
+       287.494
+      ],
+      [
+       "U-17PA-CAV",
+       285.494
+      ],
+      [
+       "U-I-3",
+       173.494
+      ]
+     ]
+    }
+   ],
+   "sdEpisodes": {
+    "n": 10,
+    "medianFrames": 1,
+    "maxFrames": 4
+   },
+   "worstFrames": [
+    {
+     "i": 138,
+     "ss": 0,
+     "sd": 2,
+     "tau": 304.6
+    },
+    {
+     "i": 71,
+     "ss": 0,
+     "sd": 1,
+     "tau": 295.67
+    },
+    {
+     "i": 72,
+     "ss": 0,
+     "sd": 1,
+     "tau": 295.81
+    },
+    {
+     "i": 73,
+     "ss": 0,
+     "sd": 1,
+     "tau": 295.94
+    },
+    {
+     "i": 74,
+     "ss": 0,
+     "sd": 1,
+     "tau": 296.07
+    }
+   ],
+   "violations": [
+    {
+     "frame": 13,
+     "tau": 287.9938650536298,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 14,
+     "tau": 288.1161166898023,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 15,
+     "tau": 288.2406559659219,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 16,
+     "tau": 288.36628191381817,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 17,
+     "tau": 288.4941425874854,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 18,
+     "tau": 288.62241927632283,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    }
+   ],
+   "solidSolidExamples": [],
+   "solidDimExamples": [
+    {
+     "tau": 295.67289169144124,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "agg:A-U:U-140NY",
+       "U-V-2-2",
+       98,
+       14.7,
+       0.42,
+       1,
+       [
+        693.1023288886063,
+        557.6646736911324,
+        850.1023288886063,
+        584.0003994381987
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 1,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/label": 1
+     }
+    },
+    {
+     "tau": 295.8056916914412,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "U-V-2-2",
+       "agg:A-U:U-140NY",
+       98,
+       15.6,
+       0.37,
+       0.54,
+       [
+        693.1023288886063,
+        558.6426491578687,
+        850.1023288886063,
+        584.0003994381987
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 1,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "label/chip": 1
+     }
+    },
+    {
+     "tau": 295.93849169144124,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "U-V-2-2",
+       "agg:A-U:U-140NY",
+       98,
+       15.7,
+       0.25,
+       0.66,
+       [
+        693.1023288886063,
+        558.6631101411294,
+        850.1023288886063,
+        584.0003994381987
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 1,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "label/chip": 1
+     }
+    },
+    {
+     "tau": 296.0728916914412,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "U-V-2-2",
+       "agg:A-U:U-140NY",
+       98,
+       15.7,
+       0.13,
+       0.78,
+       [
+        693.1023288886063,
+        558.6597181730807,
+        850.1023288886063,
+        584.0003994381987
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 1,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "label/chip": 1
+     }
+    }
+   ],
+   "framesUnitDimOnly": 229,
+   "maxUnitsDimOnly": 105,
+   "framesUnitInvisible": 18,
+   "maxUnitsInvisible": 5,
+   "unitsInViewMean": 157.5,
+   "unitDimOnlyRuns": {
+    "n": 870,
+    "medianFrames": 6,
+    "p95Frames": 13,
+    "maxFrames": 15,
+    "over30Frames": 0
+   },
+   "snapFiles": [
+    {
+     "file": "v3-rose-woods-after-4x-0.png",
+     "tau": 295.67,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "agg:A-U:U-140NY",
+       "U-V-2-2",
+       98,
+       14.7,
+       0.42,
+       1
+      ]
+     ]
+    },
+    {
+     "file": "v3-rose-woods-after-4x-1.png",
+     "tau": 310.07,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "agg:U-II-3-3:U-111NY",
+       "agg:A-U:U-CAV-1-R",
+       86,
+       12.3,
+       0.42,
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "consoleErrors": [
+  "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "requests": []
+}

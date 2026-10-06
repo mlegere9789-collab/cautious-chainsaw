@@ -1,0 +1,10 @@
+--- docs/pitch/anim/prototype/src/styles/index.mjs	2026-10-06 03:14:24.783331000 -0400
++++ tmp/pitch-anim/revise/scratch/docs/pitch/anim/prototype/src/styles/index.mjs	2026-10-06 09:46:50.220238800 -0400
+@@ -6,6 +6,7 @@
+ export const STYLES = [
+   { id: 'war-room', family: 'war-room', label: 'War Room', blurb: 'Cinematic dark glass. Light means a fresh report, an unlit dashed plate means a carried-forward fix; depth means echelon.', backdrop: 'ink', theme: 'dark' },
+   { id: 'field-manual', family: 'field-manual', label: 'Field Manual', blurb: 'A modern cartographic symbol in the NATO / APP-6 grammar: frame = side, glyph = arm, marks = echelon, dashed = not a fresh report.', backdrop: 'paper', theme: 'light' },
++  { id: 'mark-sketch', family: 'mark-sketch', label: 'Mark sketch (experiment)', blurb: 'Revision experiment.', backdrop: 'ink', theme: 'dark' },
+   { id: 'map-1863', family: 'map-1863', label: '1863 Map', blurb: 'A lithographed field map: the seven Union corps badges and division colours of the 21 March 1863 circular, ink for firm, pencil for provisional.', backdrop: 'paper', theme: 'light' },
+ ];
+ 

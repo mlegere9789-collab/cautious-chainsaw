@@ -1,0 +1,11 @@
+share of units on the field that sit inside a counted tile (mean over 12 ticks; max in brackets)
+setting                                      z13         z13.5           z14           z15         z15.5           z16           z17
+war-room {}                            90% (96%)     82% (90%)     67% (76%)     31% (45%)     17% (25%)      7% (11%)       2% (5%)
+war-room {"layout.dMaxPx":0}           98% (99%)     94% (97%)     86% (91%)     57% (66%)     49% (60%)     36% (46%)     20% (26%)
+field-manual {}                        85% (93%)     77% (84%)     59% (70%)     27% (39%)     13% (21%)       5% (9%)       0% (0%)
+field-manual {"layout.dMaxPx":0,"interp.model":"chord-smooth"}     98% (99%)     94% (97%)     85% (91%)     55% (63%)     47% (58%)     35% (46%)     19% (26%)
+
+zoom 13.5 ('war-room', '{}') tiles/tick 98 units/tick 341 merged unit-observations 3491 | by name kind: {'lead': '59%', 'division': '19%', 'brigade': '9%', 'contact': '7%', 'corps': '4%', 'battalion': '2%'} | mixed-side units 12%
+zoom 13.5 ('war-room', '{"layout.dMaxPx":0}') tiles/tick 50 units/tick 341 merged unit-observations 3900 | by name kind: {'contact': '46%', 'lead': '44%', 'division': '5%', 'corps': '4%', 'brigade': '1%', 'battalion': '0%'} | mixed-side units 49%
+zoom 13.5 ('field-manual', '{}') tiles/tick 122 units/tick 341 merged unit-observations 3308 | by name kind: {'lead': '60%', 'division': '20%', 'brigade': '15%', 'battalion': '3%', 'corps': '2%'} | mixed-side units 4%
+zoom 13.5 ('field-manual', '{"layout.dMaxPx":0,"interp.model":"chord-smooth"}') tiles/tick 51 units/tick 341 merged unit-observations 3910 | by name kind: {'contact': '49%', 'lead': '39%', 'division': '7%', 'corps': '4%', 'brigade': '1%', 'battalion': '1%'} | mixed-side units 51%

@@ -1,0 +1,19 @@
+--- docs/pitch/anim/prototype/src/layout/spec.mjs	2026-10-05 23:34:16.399137600 -0400
++++ tmp/pitch-anim/revise/scratch/docs/pitch/anim/prototype/src/layout/spec.mjs	2026-10-06 09:46:50.219239400 -0400
+@@ -10,6 +10,7 @@
+   chipH: 20, chipPadX: 5, glyphW: 14, glyphGap: 3, chipMinW: 36, ring: 2, badgeGap: 3,   // chip: 13 px body + 3 px strength bar + 2 x 2 px selection ring
+   labelH: 14, labelPadX: 4, labelGap: 2,                                                   // name label (secondary)
+   pinHalf: 2,                                                                              // true-position pin box: 4 px
++  noText: 0,                                                                               // REVISION EXPERIMENT: 1 = the chip carries no code text (a small mark)
+ };
+ 
+ /** @param {object} footprint  skin footprint   @param {(id:string)=>any} tok  token reader   @param {{width:(font:string,s:string)=>number}} text */
+@@ -26,7 +27,7 @@
+ 
+ /** chip box of a leaf or aggregate: width = padding + glyph + gap + the measured text (+ badge) + selection ring */
+ export function chipSize(spec, codeText, badgeText = null) {
+-  const codeW = spec.text.width('code', codeText);
++  const codeW = spec.noText ? 0 : spec.text.width('code', codeText);
+   let w = spec.chipPadX * 2 + spec.glyphW + spec.glyphGap + codeW + 2 * spec.ring;
+   if (badgeText) w += spec.badgeGap + spec.text.width('badge', badgeText) + 6;
+   return { w: Math.max(spec.chipMinW, Math.ceil(w)), h: spec.chipH, codeW };

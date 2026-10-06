@@ -1,0 +1,10 @@
+--- docs/pitch/anim/prototype/src/skins/index.mjs	2026-10-06 01:11:35.912370700 -0400
++++ tmp/pitch-anim/revise/scratch/docs/pitch/anim/prototype/src/skins/index.mjs	2026-10-06 09:46:50.220238800 -0400
+@@ -6,5 +6,6 @@
+ import { WAR_ROOM } from './war-room.mjs';
+ import { MAP_1863 } from './map-1863.mjs';
+ import { MINIMAL } from './minimal.mjs';
++import { markSketch } from './mark-sketch.mjs';
+ 
+-export const SKINS = [referenceSkin, ...FIELD_MANUAL, ...WAR_ROOM, ...MAP_1863, MINIMAL];
++export const SKINS = [referenceSkin, ...FIELD_MANUAL, ...WAR_ROOM, ...MAP_1863, MINIMAL, markSketch(12), markSketch(10), markSketch(14)];

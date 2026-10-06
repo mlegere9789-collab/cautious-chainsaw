@@ -1,0 +1,90 @@
+{
+ "generated": "2026-10-06T14:16:04.141Z",
+ "runs": [
+  {
+   "sets": "{\"interp.model\":\"chord-smooth\",\"layout.dMaxPx\":0,\"time.speedRampMs\":120,\"time.glideMs\":350,\"camera.zoomGlideMs\":120,\"camera.panGlideMs\":80,\"motion.smoothMs\":80,\"motion.fadeMs\":120,\"popup.motion.enterMs\":140,\"popup.motion.risePx\":3,\"popup.motion.leaderMs\":140}",
+   "style": "field-manual",
+   "scene": "the-angle",
+   "speed": 4,
+   "frames": 1200,
+   "seconds": 20,
+   "unitFramesWithNoTile": 45,
+   "framesWithAGap": 27,
+   "shareFramesWithGap": 2.3,
+   "episodes": 19,
+   "episodesPerSec": 0.95,
+   "medianFrames": 2,
+   "p95Frames": 4,
+   "maxFrames": 4,
+   "maxUnitsAtOnce": 6,
+   "visibleAtDisagreesWithMyRule": 0,
+   "examples": [
+    {
+     "frame": 42,
+     "tau": 560.08,
+     "id": "U-HAB-M2US"
+    },
+    {
+     "frame": 42,
+     "tau": 560.08,
+     "id": "U-1MI-CAV"
+    },
+    {
+     "frame": 42,
+     "tau": 560.08,
+     "id": "U-5MI-CAV"
+    },
+    {
+     "frame": 42,
+     "tau": 560.08,
+     "id": "C-1SC-CAV"
+    }
+   ],
+   "unitsOnField": 478
+  },
+  {
+   "sets": "{\"interp.model\":\"chord-smooth\",\"layout.dMaxPx\":0,\"time.speedRampMs\":120,\"time.glideMs\":350,\"camera.zoomGlideMs\":120,\"camera.panGlideMs\":80,\"motion.smoothMs\":80,\"motion.fadeMs\":120,\"popup.motion.enterMs\":140,\"popup.motion.risePx\":3,\"popup.motion.leaderMs\":140}",
+   "style": "field-manual",
+   "scene": "rose-woods",
+   "speed": 4,
+   "frames": 1200,
+   "seconds": 20,
+   "unitFramesWithNoTile": 26,
+   "framesWithAGap": 24,
+   "shareFramesWithGap": 2,
+   "episodes": 10,
+   "episodesPerSec": 0.5,
+   "medianFrames": 3,
+   "p95Frames": 4,
+   "maxFrames": 4,
+   "maxUnitsAtOnce": 2,
+   "visibleAtDisagreesWithMyRule": 0,
+   "examples": [
+    {
+     "frame": 0,
+     "tau": 291.48,
+     "id": "U-VI-2"
+    },
+    {
+     "frame": 103,
+     "tau": 305.21,
+     "id": "U-VI-3"
+    },
+    {
+     "frame": 124,
+     "tau": 308.01,
+     "id": "C-III-4-2"
+    },
+    {
+     "frame": 212,
+     "tau": 319.74,
+     "id": "U-CAV-1-1"
+    }
+   ],
+   "unitsOnField": 423
+  }
+ ],
+ "errors": [
+  "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ]
+}

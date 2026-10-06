@@ -1,0 +1,22 @@
+dmax - dMax 48 zoom 13.5 share in counted tiles 83.1% (max 89.8%) tiles 106 units 368 displaced leaves 28 mixed-side share of merged 11%
+dmax - dMax 0 zoom 13.5 share in counted tiles 94.4% (max 96.5%) tiles 54 units 368 displaced leaves 0 mixed-side share of merged 48%
+dmax - dMax 12 zoom 13.5 share in counted tiles 91.5% (max 93.3%) tiles 74 units 368 displaced leaves 6 mixed-side share of merged 32%
+dmax - dMax 24 zoom 13.5 share in counted tiles 89.3% (max 91.8%) tiles 89 units 368 displaced leaves 11 mixed-side share of merged 18%
+dmax - dMax 96 zoom 13.5 share in counted tiles 67.9% (max 79.1%) tiles 168 units 368 displaced leaves 75 mixed-side share of merged 3%
+dmax - dMax 120 zoom 13.5 share in counted tiles 64.4% (max 76.9%) tiles 184 units 368 displaced leaves 86 mixed-side share of merged 2%
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.evaluate: Error: skins/mark8: footprint.chipPadX must be a positive number
+    at bad (http://127.0.0.1:9765/battle-studio.html?fresh=1&welcome=0&manual=1:466:30)
+    at Registry.validateSkin [as validate] (http://127.0.0.1:9765/battle-studio.html?fresh=1&welcome=0&manual=1:469:186)
+    at Registry.register (http://127.0.0.1:9765/battle-studio.html?fresh=1&welcome=0&manual=1:551:29)
+    at eval (eval at evaluate (:311:30), <anonymous>:10:53)
+    at UtilityScript.evaluate (<anonymous>:313:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at C:\Users\mlege\gettysburg-map\tmp\pitch-anim\revise\scratch\docs\pitch\anim\07-verify\rev-agg2.mjs:15:28 {
+  log: []
+}
+
+Node.js v24.19.0

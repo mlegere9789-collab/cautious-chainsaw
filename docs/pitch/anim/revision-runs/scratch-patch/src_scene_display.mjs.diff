@@ -1,0 +1,86 @@
+--- docs/pitch/anim/prototype/src/scene/display.mjs	2026-10-06 04:40:50.948086400 -0400
++++ tmp/pitch-anim/revise/scratch/docs/pitch/anim/prototype/src/scene/display.mjs	2026-10-06 09:36:50.329779600 -0400
+@@ -43,15 +43,16 @@
+   step(L, inp) {
+     const tok = this.tok; const spec = inp.spec; const z = inp.z; const [ox, oy] = inp.origin;
+     this._diag = !!L.diagnostic;                                   // a diagnostic layout (raw) is shown as it is: no glide, no pushing, no repair, so its overlaps are visible and counted
++    const strict = !!this.flags.strict;                              // REVISION EXPERIMENT (scratch copy only): glide what persists, swap what appears, disappears or cannot glide clear
+     const snapMode = !this.flags.glide || this._diag;
+     const reduced = !!inp.reduced;
+     const dtMs = Math.min(Math.max(inp.dtMs, 0), 50); const dt = dtMs / 1000; this.nowMs += dtMs; this.frameNo++;
+-    const fadeMs = snapMode ? 0 : reduced ? Math.min(60, tok('motion.fadeMs')) : tok('motion.fadeMs');
+-    const stats = { births: 0, deaths: 0, handoffs: 0, cut: false, netDims: 0, netRounds: 0, travels: 0, pushed: 0, labelToggles: 0 };
++    const fadeMs = (snapMode || strict) ? 0 : reduced ? Math.min(60, tok('motion.fadeMs')) : tok('motion.fadeMs');
++    const stats = { births: 0, deaths: 0, handoffs: 0, cut: false, netDims: 0, netRounds: 0, travels: 0, pushed: 0, labelToggles: 0, hops: 0, netHops: 0 };
+ 
+     // 0. a cut: every live tile starts a fast fade; whatever the layout shows now is born after they are below 0.5
+     let cutDelay = 0;
+-    if (inp.cut && !snapMode) { stats.cut = true; const f = reduced ? 0 : tok('motion.cutFadeMs'); for (const d of [...this.tiles.values()]) if (d.life === 'live') this._die(d, f, true, inp.z); cutDelay = SEQ * f; }
++    if (inp.cut && !snapMode && !strict) { stats.cut = true; const f = reduced ? 0 : tok('motion.cutFadeMs'); for (const d of [...this.tiles.values()]) if (d.life === 'live') this._die(d, f, true, inp.z); cutDelay = SEQ * f; }
+     else if (inp.cut) { this.tiles.clear(); }
+ 
+     // 1. index the layout
+@@ -83,7 +84,7 @@
+     const born = [];
+     for (const p of L.placed) {
+       if (matchedL.has(p.t.key)) continue;
+-      born.push(this._spawn(p, dying, prevTile, cutDelay, fadeMs)); stats.births++;
++      born.push(this._spawn(p, dying, prevTile, cutDelay, fadeMs, strict)); stats.births++;
+     }
+     for (const dd of dying) {                                          // handoff wiring: a dying tile flows toward the tile that now holds its units
+       const idset = new Set(dd.ids); let target = null;
+@@ -110,7 +111,7 @@
+         for (const l of flattenLeaves(t)) { const o = old.get(l.ids[0]); if (!o) continue; const w = Math.max(1, l.strength || 1); ex += (l.ax - o.ax) * w; ey += (l.ay - o.ay) * w; sw += w; }
+         if (sw > 0) { ex /= sw; ey /= sw; }
+         const jx = (t.ax - d.ax) - ex; const jy = (t.ay - d.ay) - ey;
+-        if (jx * jx + jy * jy > 0.5625) { d.ox -= jx; d.oy -= jy; d.ajx = jx; d.ajy = jy; stats.anchorFixes = (stats.anchorFixes || 0) + 1; if (!d.dim && Math.hypot(d.ox, d.oy) > this.tok('layout.dMaxPx') + 0.5) { d.dim = true; stats.travels++; } }
++        if (jx * jx + jy * jy > 0.5625) { d.ox -= jx; d.oy -= jy; d.ajx = jx; d.ajy = jy; stats.anchorFixes = (stats.anchorFixes || 0) + 1; if (!strict && !d.dim && Math.hypot(d.ox, d.oy) > this.tok('layout.dMaxPx') + 0.5) { d.dim = true; stats.travels++; } }
+       }
+       d.ax = t.ax; d.ay = t.ay; d.tx = p.cx - t.ax; d.ty = p.cy - t.ay; d.tw = t.chipW; d.th = t.chipH; d.prio = t.prio;
+       this._content(d, t, dt, inp);
+@@ -138,7 +139,8 @@
+       let moving = true;
+       if (d.life === 'live' && !still) {
+         const dist = Math.hypot(d.tx - d.ox, d.ty - d.oy);
+-        if (!d.dim && dist > travelPx) { d.dim = true; stats.travels++; }
++        if (strict) { if (dist > travelPx && !d.born) { d.ox = d.tx; d.oy = d.ty; d.vx = 0; d.vy = 0; stats.hops++; } }
++        else if (!d.dim && dist > travelPx) { d.dim = true; stats.travels++; }
+         if (d.dim && dist < 1.2 && d.mv <= dimOp + 1e-6) {                                       // arrived: solidify as soon as nothing solid is in the way
+           if (!this._blocked(d, spec)) d.dim = false; else { d.waitMs = (d.waitMs || 0) + dtMs; if (d.waitMs > 400) d.dim = false; }   // a blocker that never leaves is pushed or repaired, not waited for
+         } else d.waitMs = 0;
+@@ -195,14 +197,14 @@
+     if (d.kind === 'agg' && this.lastOrigin) { const ll = unproject(d.ax + this.lastOrigin[0], d.ay + this.lastOrigin[1], this.lastZ ?? z); d.lng = ll[0]; d.lat = ll[1]; }
+   }
+ 
+-  _spawn(p, dying, prevTile, cutDelay, fadeMs) {
++  _spawn(p, dying, prevTile, cutDelay, fadeMs, strict) {
+     const t = p.t; const key = t.key;
+     // starting point: where the tiles it replaces were drawn (a merge, a split, an emergence from a persisting aggregate), else its own target
+     const idset = new Set(t.ids); let w = 0; let cx = 0; let cy = 0; let srcFade = 0;
+     for (const dd of dying) if (!dd.ghost && dd.ids.some((id) => idset.has(id))) { const wt = Math.max(1, dd.n); cx += (dd.ax + dd.ox) * wt; cy += (dd.ay + dd.oy) * wt; w += wt; srcFade = Math.max(srcFade, dd.fade); }
+     if (w === 0) for (const id of t.ids) { const k = prevTile.get(id); const pd = k && k !== key ? this.tiles.get(k) : null; if (pd && pd.life === 'live') { cx += pd.ax + pd.ox; cy += pd.ay + pd.oy; w += 1; } }
+     const tx = p.cx - t.ax; const ty = p.cy - t.ay;
+-    const sx = w > 0 ? cx / w - t.ax : tx; const sy = w > 0 ? cy / w - t.ay : ty;
++    const sx = w > 0 && !strict ? cx / w - t.ax : tx; const sy = w > 0 && !strict ? cy / w - t.ay : ty;
+     // the DISPLAY key must be unique: an aggregate that was matched to a layout tile of another key keeps its first key, and a layout tile with that key may be born later
+     let dk = key; while (this.tiles.has(dk)) dk = key + '#' + (++this._uid);
+     const d = {
+@@ -365,6 +367,18 @@
+   _verifyAndRepair(spec, stats) {
+     const net = this.tok('motion.safetyNet') && !this._diag; const dimOp = this.tok('motion.dimOpacity'); const dimmed = new Set();
+     let items = this._items(spec); let v = verifyFrame(items, spec.gap - 0.05, true);
++    if (net && this.flags.strict) {                                    // REVISION EXPERIMENT: the net swaps a tile into its certified place instead of dimming it (all certified places are clear of each other)
++      for (let round = 0; v.overlaps > 0 && round < 60; round++) {
++        stats.netRounds++; let changed = 0;
++        for (const [i, j] of v.pairs) {
++          const A = items[i]; const B = items[j]; const a = this.tiles.get(A.owner); const b = this.tiles.get(B.owner); if (!a || !b || a === b) continue;
++          if (A.kind === 'label' || B.kind === 'label') { const o = A.kind === 'label' ? a : b; if (o.label.opacity >= SOLID) { o.label.opacity = SOLID - 0.01; o.label.vis = false; changed++; } continue; }
++          for (const d of [a, b]) if (d.life === 'live' && (Math.abs(d.ox - d.tx) > 1e-6 || Math.abs(d.oy - d.ty) > 1e-6 || Math.abs(d.w - d.tw) > 1e-6 || Math.abs(d.h - d.th) > 1e-6)) { d.ox = d.tx; d.oy = d.ty; d.vx = 0; d.vy = 0; d.w = d.tw; d.h = d.th; stats.netHops++; changed++; }
++        }
++        if (!changed) break;
++        items = this._items(spec); v = verifyFrame(items, spec.gap - 0.05, true);
++      }
++    }
+     if (net) {
+       for (let round = 0; v.overlaps > 0 && round < 400; round++) {
+         stats.netRounds++;

@@ -1,0 +1,10 @@
+--- docs/pitch/anim/prototype/src/scene/modes.mjs	2026-10-05 22:56:37.540749000 -0400
++++ tmp/pitch-anim/revise/scratch/docs/pitch/anim/prototype/src/scene/modes.mjs	2026-10-06 10:28:34.893688300 -0400
+@@ -9,5 +9,7 @@
+ export const MOTION_MODES = [
+   { id: 'dynamics', label: 'Glide + pushing', doc: 'Offsets glide (critically damped) toward the certified layout; overlapping tiles push each other apart along the least penetration; hand-overs fade in sequence.', ...make({ glide: true, collide: true }) },
+   { id: 'spring', label: 'Glide only', doc: 'Offsets glide toward the certified layout; no pushing (the safety net repairs any overlap).', ...make({ glide: true, collide: false }) },
++  { id: 'strict', label: 'Strict glide (revision experiment)', doc: 'Tiles that persist glide up to travelPx; births and deaths swap in one frame; a tile that would have to travel farther, or that touches another solid tile, swaps into its certified place. No fades, no dimmed tiles.', ...make({ glide: true, collide: false, strict: true }) },
++  { id: 'strict-push', label: 'Strict glide with pushing (revision experiment)', doc: 'As strict, with the collision-aware pushing of the default mode.', ...make({ glide: true, collide: true, strict: true }) },
+   { id: 'snap', label: 'Snap (as solved)', doc: 'The layout exactly as solved each frame: no glide, no fades. The lab behaviour, for comparison.', ...make({ glide: false, collide: false }) },
+ ];

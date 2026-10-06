@@ -1,0 +1,90 @@
+{
+ "generated": "2026-10-06T14:14:28.422Z",
+ "runs": [
+  {
+   "sets": "{\"time.speedRampMs\":400,\"time.glideMs\":800,\"camera.zoomGlideMs\":320,\"camera.panGlideMs\":220,\"motion.smoothMs\":140,\"motion.fadeMs\":300,\"layout.splitDwellMs\":700,\"popup.motion.enterMs\":280,\"popup.motion.risePx\":10,\"popup.motion.leaderMs\":320}",
+   "style": "war-room",
+   "scene": "the-angle",
+   "speed": 4,
+   "frames": 1200,
+   "seconds": 20,
+   "unitFramesWithNoTile": 113,
+   "framesWithAGap": 66,
+   "shareFramesWithGap": 5.5,
+   "episodes": 34,
+   "episodesPerSec": 1.7,
+   "medianFrames": 1,
+   "p95Frames": 10,
+   "maxFrames": 10,
+   "maxUnitsAtOnce": 11,
+   "visibleAtDisagreesWithMyRule": 0,
+   "examples": [
+    {
+     "frame": 13,
+     "tau": 554.09,
+     "id": "U-V"
+    },
+    {
+     "frame": 26,
+     "tau": 555.75,
+     "id": "U-5MI"
+    },
+    {
+     "frame": 29,
+     "tau": 556.14,
+     "id": "U-143PA"
+    },
+    {
+     "frame": 29,
+     "tau": 556.14,
+     "id": "U-149PA"
+    }
+   ],
+   "unitsOnField": 478
+  },
+  {
+   "sets": "{\"time.speedRampMs\":400,\"time.glideMs\":800,\"camera.zoomGlideMs\":320,\"camera.panGlideMs\":220,\"motion.smoothMs\":140,\"motion.fadeMs\":300,\"layout.splitDwellMs\":700,\"popup.motion.enterMs\":280,\"popup.motion.risePx\":10,\"popup.motion.leaderMs\":320}",
+   "style": "war-room",
+   "scene": "rose-woods",
+   "speed": 4,
+   "frames": 1200,
+   "seconds": 20,
+   "unitFramesWithNoTile": 193,
+   "framesWithAGap": 77,
+   "shareFramesWithGap": 6.4,
+   "episodes": 76,
+   "episodesPerSec": 3.8,
+   "medianFrames": 1,
+   "p95Frames": 10,
+   "maxFrames": 10,
+   "maxUnitsAtOnce": 26,
+   "visibleAtDisagreesWithMyRule": 0,
+   "examples": [
+    {
+     "frame": 5,
+     "tau": 290.11,
+     "id": "U-52NY"
+    },
+    {
+     "frame": 5,
+     "tau": 290.11,
+     "id": "U-57NY"
+    },
+    {
+     "frame": 5,
+     "tau": 290.11,
+     "id": "U-66NY"
+    },
+    {
+     "frame": 5,
+     "tau": 290.11,
+     "id": "U-140PA"
+    }
+   ],
+   "unitsOnField": 421
+  }
+ ],
+ "errors": [
+  "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ]
+}
