@@ -1,0 +1,1394 @@
+{
+ "generated": "2026-10-06T12:35:21.108Z",
+ "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+ "runs": [
+  {
+   "sets": "{\"layout.dMaxPx\":12}",
+   "scene": "the-angle",
+   "mode": "after",
+   "speed": 4,
+   "secs": 20,
+   "viewport": [
+    1440,
+    900
+   ],
+   "dpr": 1,
+   "cpu": 1,
+   "style": "war-room",
+   "variant": "standard",
+   "popups": true,
+   "wallMs": 20007,
+   "tick0": 550,
+   "tick1": 675,
+   "frames": 1153,
+   "pageFrames": 1153,
+   "fps": 57.6,
+   "frameP50": 16.600000008940697,
+   "frameP95": 19.200000002980232,
+   "frameMax": 27.299999997019768,
+   "tilesMean": 221.4,
+   "chipsMean": 41.3,
+   "chipsMax": 54,
+   "framesSolidOverlap": 1,
+   "framesSolidDimOverlap": 39,
+   "framesDimDimOverlap": 25,
+   "overlapClassSums": {
+    "ss": {
+     "cc": 1,
+     "lc": 0,
+     "lp": 0,
+     "cp": 0,
+     "ll": 0
+    },
+    "sd": {
+     "cc": 33,
+     "lc": 10,
+     "lp": 0,
+     "cp": 1,
+     "ll": 0
+    }
+   },
+   "maxDepthPx": 24.29,
+   "maxDepthSolidSolidPx": 0.1,
+   "maxOverlapAreaPx2": 1246.6,
+   "minGapCC": -24.289,
+   "framesWithNoInkSolidTile": 0,
+   "maxNoInkSolid": 0,
+   "framesWithNoInkFaintTile": 71,
+   "framesInkOutside": 159,
+   "maxInkExcessPx": 4.035,
+   "framesStray": 0,
+   "framesMissingUnits": 227,
+   "maxMissing": 14,
+   "framesEarlyUnits": 0,
+   "maxEarlyTicks": 0,
+   "framesPhantom": 0,
+   "framesChipUnderDom": 1153,
+   "chipsUnderDomSum": 6523,
+   "chipsHalfHiddenSum": 2312,
+   "domBy": {
+    "#topbar > *": 4422,
+    "#dock": 2101
+   },
+   "engineOverlapFrames": 0,
+   "recorderErrors": [],
+   "sdBy": {
+    "chip/chip": 33,
+    "chip/label": 10,
+    "pin/chip": 1
+   },
+   "missingExamples": [
+    {
+     "tau": 550.24,
+     "ex": [
+      [
+       "C-19VA",
+       150.239
+      ]
+     ]
+    },
+    {
+     "tau": 550.3,
+     "ex": [
+      [
+       "C-19VA",
+       150.3
+      ]
+     ]
+    },
+    {
+     "tau": 550.37,
+     "ex": [
+      [
+       "U-HAB-A2US",
+       549.367
+      ],
+      [
+       "U-8NY-CAV",
+       547.367
+      ],
+      [
+       "C-19VA",
+       150.367
+      ]
+     ]
+    },
+    {
+     "tau": 550.44,
+     "ex": [
+      [
+       "U-HAB-A2US",
+       549.441
+      ],
+      [
+       "U-8NY-CAV",
+       547.441
+      ],
+      [
+       "U-13VT",
+       150.441
+      ]
+     ]
+    },
+    {
+     "tau": 550.52,
+     "ex": [
+      [
+       "U-HAB-A2US",
+       549.521
+      ],
+      [
+       "U-8NY-CAV",
+       547.521
+      ],
+      [
+       "U-13VT",
+       150.521
+      ]
+     ]
+    }
+   ],
+   "sdEpisodes": {
+    "n": 9,
+    "medianFrames": 6,
+    "maxFrames": 9
+   },
+   "worstFrames": [
+    {
+     "i": 14,
+     "ss": 0,
+     "sd": 2,
+     "tau": 550.61
+    },
+    {
+     "i": 15,
+     "ss": 0,
+     "sd": 2,
+     "tau": 550.7
+    },
+    {
+     "i": 17,
+     "ss": 0,
+     "sd": 2,
+     "tau": 550.89
+    },
+    {
+     "i": 44,
+     "ss": 0,
+     "sd": 2,
+     "tau": 554.22
+    },
+    {
+     "i": 53,
+     "ss": 0,
+     "sd": 2,
+     "tau": 555.41
+    }
+   ],
+   "violations": [
+    {
+     "frame": 9,
+     "tau": 550.2387878815567,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 10,
+     "tau": 550.299856118221,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 11,
+     "tau": 550.3673282132936,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 12,
+     "tau": 550.4412773604859,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "C-I-3-3",
+       "U-II-1-1",
+       45.5,
+       12.6,
+       0.42,
+       1,
+       [
+        641.9724032149409,
+        70.61779472091771,
+        738.4806586923078,
+        112.32816374644383
+       ]
+      ]
+     ],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "U-13VT~228",
+       3.97
+      ],
+      [
+       "U-16VT~228",
+       3.97
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 1,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 13,
+     "tau": 550.5209058041168,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "U-13VT~228",
+       3.9
+      ],
+      [
+       "U-16VT~228",
+       3.9
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 14,
+     "tau": 550.6052667316433,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "C-I-3-3",
+       "U-I-3-3",
+       58.8,
+       19.8,
+       0.42,
+       1,
+       [
+        671.979407967306,
+        206.24425336633234,
+        751.1803954048082,
+        240.7730775476097
+       ]
+      ],
+      [
+       "sd",
+       "lc",
+       "C-I-3-3",
+       "U-I-3-3",
+       5.7,
+       14.9,
+       0.42,
+       1,
+       [
+        682.1803954048082,
+        206.24425336633234,
+        895.5189866665751,
+        236.53910168718983
+       ]
+      ]
+     ],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "U-13VT~228",
+       3.41
+      ],
+      [
+       "U-16VT~228",
+       3.41
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 1,
+       "lc": 1,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    }
+   ],
+   "solidSolidExamples": [
+    {
+     "tau": 553.5571627238446,
+     "t": 4490.5,
+     "ex": [
+      [
+       "ss",
+       "cc",
+       "agg:C-III-1-1:C-10AL",
+       "agg:C-I-5:C-I-5-1",
+       0.1,
+       11.3,
+       1,
+       1,
+       [
+        395.15908967693616,
+        680.3492362887488,
+        585.5313918132903,
+        720.5888621176474
+       ]
+      ]
+     ],
+     "ss": {
+      "cc": 1,
+      "lc": 0,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     }
+    }
+   ],
+   "solidDimExamples": [
+    {
+     "tau": 550.4412773604859,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "C-I-3-3",
+       "U-II-1-1",
+       45.5,
+       12.6,
+       0.42,
+       1,
+       [
+        641.9724032149409,
+        70.61779472091771,
+        738.4806586923078,
+        112.32816374644383
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 1,
+      "lc": 0,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/chip": 1
+     }
+    },
+    {
+     "tau": 550.6052667316433,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "C-I-3-3",
+       "U-I-3-3",
+       58.8,
+       19.8,
+       0.42,
+       1,
+       [
+        671.979407967306,
+        206.24425336633234,
+        751.1803954048082,
+        240.7730775476097
+       ]
+      ],
+      [
+       "sd",
+       "lc",
+       "C-I-3-3",
+       "U-I-3-3",
+       5.7,
+       14.9,
+       0.42,
+       1,
+       [
+        682.1803954048082,
+        206.24425336633234,
+        895.5189866665751,
+        236.53910168718983
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 1,
+      "lc": 1,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/chip": 1,
+      "chip/label": 1
+     }
+    },
+    {
+     "tau": 550.695532727945,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "C-I-3-3",
+       "U-14VT",
+       1.6,
+       11.5,
+       0.42,
+       1,
+       [
+        618.0000220881775,
+        266.3289876141956,
+        758.3878905148895,
+        307.3999864064157
+       ]
+      ],
+      [
+       "sd",
+       "lc",
+       "C-I-3-3",
+       "U-14VT",
+       62.1,
+       8.6,
+       0.42,
+       1,
+       [
+        689.3878905148895,
+        266.3289876141956,
+        836.255271111615,
+        302.9278123341501
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 1,
+      "lc": 1,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/chip": 1,
+      "chip/label": 1
+     }
+    },
+    {
+     "tau": 550.887369320792,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "C-I-3-3~233",
+       "U-II-1",
+       19.9,
+       6,
+       0.41,
+       1,
+       [
+        690.6240099731008,
+        366.6401170489151,
+        807.6240099731008,
+        400.08389591053526
+       ]
+      ],
+      [
+       "sd",
+       "cc",
+       "C-I-3-3~233",
+       "agg:U-II-2-2:U-69PA",
+       19.9,
+       0.6,
+       0.41,
+       1,
+       [
+        643.034313101629,
+        343.7567229257931,
+        757.5343130902253,
+        388.0660137131014
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 1,
+      "lc": 1,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/label": 1,
+      "chip/chip": 1
+     }
+    }
+   ],
+   "framesUnitDimOnly": 1153,
+   "maxUnitsDimOnly": 57,
+   "framesUnitInvisible": 1153,
+   "maxUnitsInvisible": 23,
+   "unitsInViewMean": 133.5,
+   "unitDimOnlyRuns": {
+    "n": 145,
+    "medianFrames": 34,
+    "p95Frames": 81,
+    "maxFrames": 111,
+    "over30Frames": 92
+   },
+   "snapFiles": [
+    {
+     "file": "v3-the-angle-after-4x-0.png",
+     "tau": 550.44,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "C-I-3-3",
+       "U-II-1-1",
+       45.5,
+       12.6,
+       0.42,
+       1
+      ]
+     ]
+    },
+    {
+     "file": "v3-the-angle-after-4x-1.png",
+     "tau": 553.56,
+     "ex": [
+      [
+       "ss",
+       "cc",
+       "agg:C-III-1-1:C-10AL",
+       "agg:C-I-5:C-I-5-1",
+       0.1,
+       11.3,
+       1,
+       1
+      ]
+     ]
+    },
+    {
+     "file": "v3-the-angle-after-4x-2.png",
+     "tau": 556.74,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "agg:A-U:U-2OH",
+       "agg:A-U:U-2MD-EH~277",
+       26.8,
+       10.8,
+       0.42,
+       0.87
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "sets": "{\"layout.dMaxPx\":12}",
+   "scene": "rose-woods",
+   "mode": "after",
+   "speed": 4,
+   "secs": 20,
+   "viewport": [
+    1440,
+    900
+   ],
+   "dpr": 1,
+   "cpu": 1,
+   "style": "war-room",
+   "variant": "standard",
+   "popups": true,
+   "wallMs": 20003,
+   "tick0": 287,
+   "tick1": 445.3,
+   "frames": 1200,
+   "pageFrames": 1200,
+   "fps": 60,
+   "frameP50": 16.600000008940697,
+   "frameP95": 18.599999994039536,
+   "frameMax": 21.799999997019768,
+   "tilesMean": 91.7,
+   "chipsMean": 34.6,
+   "chipsMax": 48,
+   "framesSolidOverlap": 0,
+   "framesSolidDimOverlap": 38,
+   "framesDimDimOverlap": 49,
+   "overlapClassSums": {
+    "ss": {
+     "cc": 0,
+     "lc": 0,
+     "lp": 0,
+     "cp": 0,
+     "ll": 0
+    },
+    "sd": {
+     "cc": 20,
+     "lc": 3,
+     "lp": 0,
+     "cp": 20,
+     "ll": 0
+    }
+   },
+   "maxDepthPx": 20.05,
+   "maxDepthSolidSolidPx": 0,
+   "maxOverlapAreaPx2": 563.7,
+   "minGapCC": -20.05,
+   "framesWithNoInkSolidTile": 0,
+   "maxNoInkSolid": 0,
+   "framesWithNoInkFaintTile": 70,
+   "framesInkOutside": 166,
+   "maxInkExcessPx": 4.027,
+   "framesStray": 0,
+   "framesMissingUnits": 111,
+   "maxMissing": 9,
+   "framesEarlyUnits": 0,
+   "maxEarlyTicks": 0,
+   "framesPhantom": 0,
+   "framesChipUnderDom": 1015,
+   "chipsUnderDomSum": 1991,
+   "chipsHalfHiddenSum": 183,
+   "domBy": {
+    "#topbar > *": 1991
+   },
+   "engineOverlapFrames": 0,
+   "recorderErrors": [],
+   "sdBy": {
+    "pin/chip": 18,
+    "chip/pin": 2,
+    "chip/chip": 20,
+    "chip/label": 3
+   },
+   "missingExamples": [
+    {
+     "tau": 291.15,
+     "ex": [
+      [
+       "U-II-3-3",
+       290.149
+      ],
+      [
+       "U-II-3",
+       11.149
+      ]
+     ]
+    },
+    {
+     "tau": 291.81,
+     "ex": [
+      [
+       "U-VI-1",
+       65.811
+      ],
+      [
+       "U-VI-2",
+       21.811
+      ]
+     ]
+    },
+    {
+     "tau": 291.94,
+     "ex": [
+      [
+       "U-VI-1",
+       65.943
+      ],
+      [
+       "U-VI-2",
+       21.943
+      ]
+     ]
+    },
+    {
+     "tau": 292.08,
+     "ex": [
+      [
+       "U-VI-1",
+       66.077
+      ],
+      [
+       "U-VI-2",
+       22.077
+      ]
+     ]
+    },
+    {
+     "tau": 292.21,
+     "ex": [
+      [
+       "U-VI-1",
+       66.209
+      ],
+      [
+       "U-VI-2",
+       22.209
+      ]
+     ]
+    }
+   ],
+   "sdEpisodes": {
+    "n": 10,
+    "medianFrames": 3,
+    "maxFrames": 7
+   },
+   "worstFrames": [
+    {
+     "i": 129,
+     "ss": 0,
+     "sd": 3,
+     "tau": 302.61
+    },
+    {
+     "i": 130,
+     "ss": 0,
+     "sd": 3,
+     "tau": 302.74
+    },
+    {
+     "i": 13,
+     "ss": 0,
+     "sd": 2,
+     "tau": 287.56
+    },
+    {
+     "i": 11,
+     "ss": 0,
+     "sd": 1,
+     "tau": 287.4
+    },
+    {
+     "i": 12,
+     "ss": 0,
+     "sd": 1,
+     "tau": 287.48
+    }
+   ],
+   "violations": [
+    {
+     "frame": 1,
+     "tau": 287.0048435728157,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:U-III-1-1:U-124NY~1470",
+       3.97
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 2,
+     "tau": 287.01369035218244,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:U-III-1-1:U-124NY~1470",
+       3.9
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 3,
+     "tau": 287.02850738278397,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:U-III-1-1:U-124NY~1470",
+       2.11
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 9,
+     "tau": 287.26786386169397,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:U-III-1-1:U-124NY~1470",
+       2.78
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 10,
+     "tau": 287.3325213058392,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:U-III-1-1:U-124NY~1470",
+       2.64
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 11,
+     "tau": 287.4030320634529,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:ROOT:C-15AL",
+       "agg:A-U:U-16MI~1477",
+       5.8,
+       5.8,
+       0.42,
+       0.78,
+       [
+        704.7205675396395,
+        562.9904901853787,
+        794.3007568497197,
+        588.5327034001044
+       ]
+      ]
+     ],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 1,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    }
+   ],
+   "solidSolidExamples": [],
+   "solidDimExamples": [
+    {
+     "tau": 287.4030320634529,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:ROOT:C-15AL",
+       "agg:A-U:U-16MI~1477",
+       5.8,
+       5.8,
+       0.42,
+       0.78,
+       [
+        704.7205675396395,
+        562.9904901853787,
+        794.3007568497197,
+        588.5327034001044
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 0,
+      "lp": 0,
+      "cp": 1,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "pin/chip": 1
+     }
+    },
+    {
+     "tau": 287.4802965341692,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:ROOT:C-15AL",
+       "agg:A-U:U-16MI~1477",
+       5.8,
+       5.8,
+       0.42,
+       0.68,
+       [
+        706.7750926786329,
+        563.5657572242968,
+        779.6535074144953,
+        587.9574363611863
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 0,
+      "lp": 0,
+      "cp": 1,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "pin/chip": 1
+     }
+    },
+    {
+     "tau": 287.56209267287676,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:ROOT:C-15AL",
+       "agg:A-U:U-16MI~1477",
+       5.8,
+       5.8,
+       0.38,
+       0.57,
+       [
+        708.9717827763036,
+        564.1808304516446,
+        762.8748521629407,
+        587.3423631338385
+       ]
+      ],
+      [
+       "sd",
+       "cp",
+       "agg:A-U:U-17ME",
+       "agg:A-C:C-13MS-B",
+       5.8,
+       2.5,
+       0.42,
+       0.84,
+       [
+        621.9099440791905,
+        400.5273372322463,
+        712.4864849847646,
+        427.3559682281518
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 0,
+      "lp": 0,
+      "cp": 2,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "pin/chip": 1,
+      "chip/pin": 1
+     }
+    },
+    {
+     "tau": 287.6488864012021,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:A-U:U-17ME",
+       "agg:A-C:C-13MS-B",
+       5.8,
+       0.9,
+       0.42,
+       0.68,
+       [
+        621.9302993917277,
+        400.5291508901503,
+        712.7122406706212,
+        428.94939292601606
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 0,
+      "lp": 0,
+      "cp": 1,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/pin": 1
+     }
+    }
+   ],
+   "framesUnitDimOnly": 454,
+   "maxUnitsDimOnly": 92,
+   "framesUnitInvisible": 53,
+   "maxUnitsInvisible": 24,
+   "unitsInViewMean": 153.1,
+   "unitDimOnlyRuns": {
+    "n": 367,
+    "medianFrames": 33,
+    "p95Frames": 52,
+    "maxFrames": 71,
+    "over30Frames": 220
+   },
+   "snapFiles": [
+    {
+     "file": "v3-rose-woods-after-4x-0.png",
+     "tau": 302.61,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "agg:C-III-1-1:C-11AL",
+       "U-II-1",
+       16.6,
+       13.1,
+       0.32,
+       1
+      ],
+      [
+       "sd",
+       "cc",
+       "agg:C-III-1-1:C-10AL",
+       "C-III-1-1~1594",
+       57.8,
+       1,
+       0.42,
+       0.68
+      ],
+      [
+       "sd",
+       "cp",
+       "agg:C-III-1-1:C-10AL",
+       "C-III-1-1~1594",
+       5.8,
+       5.8,
+       0.42,
+       0.68
+      ]
+     ]
+    },
+    {
+     "file": "v3-rose-woods-after-4x-1.png",
+     "tau": 307.41,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "agg:C-III-1-1:C-10AL",
+       "U-II-1~1633",
+       16.5,
+       18.1,
+       0.42,
+       0.94
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "consoleErrors": [
+  "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "requests": []
+}

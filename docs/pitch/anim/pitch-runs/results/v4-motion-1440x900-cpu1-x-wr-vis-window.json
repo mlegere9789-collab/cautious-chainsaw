@@ -1,0 +1,292 @@
+{
+ "generated": "2026-10-06T12:39:20.353Z",
+ "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+ "runs": [
+  {
+   "sets": "{\"layout.visibility\":\"window\"}",
+   "style": "war-room",
+   "scene": "the-angle",
+   "mode": "after",
+   "speed": 4,
+   "secs": 15,
+   "cpu": 1,
+   "reduced": false,
+   "viewport": [
+    1440,
+    900
+   ],
+   "popups": true,
+   "tick0": 550,
+   "tick1": 668.4,
+   "raf": {
+    "frames": 901,
+    "fps": 60.1,
+    "p50": 16.69999999999891,
+    "p95": 16.799999999999272,
+    "p99": 16.80000000000109,
+    "max": 16.899999999997817,
+    "over20": 0,
+    "over33": 0,
+    "over50": 0
+   },
+   "draws": {
+    "frames": 901,
+    "p50": 16.600000008940697,
+    "p95": 18.799999997019768,
+    "max": 22.799999997019768
+   },
+   "motion": {
+    "tileFrames": 40411,
+    "tilesPerFrame": 44.9,
+    "stepsOver3PerSec": 115.26,
+    "stepsOver8PerSec": 19.47,
+    "stepsOver20PerSec": 4.27,
+    "suddenPerSec": 0.47,
+    "suddenSolidPerSec": 0.07,
+    "jerk4PerSec": 6.67,
+    "flashesPerSec": 0.73,
+    "sizeJumpsPerSec": 2.73,
+    "labelTogglesPerSec": 7.8,
+    "appearPerSec": 24.2,
+    "vanishPerSec": 22.6,
+    "blinksPerSec": 0.07,
+    "maxStepPx": 67.61,
+    "p99StepPx": 43.12,
+    "framesWithSudden": 6,
+    "stillShare": 53.3
+   },
+   "bigSteps": [
+    [
+     22,
+     "agg:U-II-2-2:U-69PA",
+     8.2,
+     0.4,
+     0.42,
+     0.42,
+     1,
+     0
+    ],
+    [
+     37,
+     "C-I-5-2~137",
+     8.2,
+     0,
+     0.71,
+     0.75,
+     0,
+     1
+    ],
+    [
+     38,
+     "agg:C-I-3-3:C-14VA",
+     19.3,
+     3.8,
+     0.42,
+     0.42,
+     1,
+     0
+    ],
+    [
+     40,
+     "C-I-3-2",
+     48,
+     0,
+     0.07,
+     0.04,
+     0,
+     0
+    ],
+    [
+     109,
+     "C-9VA",
+     67.6,
+     0,
+     0.07,
+     0.04,
+     0,
+     0
+    ],
+    [
+     109,
+     "C-14VA",
+     60.5,
+     0,
+     0.07,
+     0.04,
+     0,
+     0
+    ],
+    [
+     418,
+     "agg:C-III-3:C-III-3-2",
+     8.4,
+     0.1,
+     0.42,
+     0.42,
+     1,
+     0
+    ]
+   ]
+  },
+  {
+   "sets": "{\"layout.visibility\":\"window\"}",
+   "style": "war-room",
+   "scene": "rose-woods",
+   "mode": "after",
+   "speed": 4,
+   "secs": 15,
+   "cpu": 1,
+   "reduced": false,
+   "viewport": [
+    1440,
+    900
+   ],
+   "popups": true,
+   "tick0": 288.6,
+   "tick1": 406.9,
+   "raf": {
+    "frames": 900,
+    "fps": 60,
+    "p50": 16.69999999999709,
+    "p95": 16.799999999995634,
+    "p99": 16.80000000000291,
+    "max": 16.80000000000291,
+    "over20": 0,
+    "over33": 0,
+    "over50": 0
+   },
+   "draws": {
+    "frames": 900,
+    "p50": 16.600000008940697,
+    "p95": 18.799999997019768,
+    "max": 22.599999994039536
+   },
+   "motion": {
+    "tileFrames": 32665,
+    "tilesPerFrame": 36.3,
+    "stepsOver3PerSec": 55,
+    "stepsOver8PerSec": 7.4,
+    "stepsOver20PerSec": 0,
+    "suddenPerSec": 0.67,
+    "suddenSolidPerSec": 0.27,
+    "jerk4PerSec": 6.27,
+    "flashesPerSec": 1.53,
+    "sizeJumpsPerSec": 10.87,
+    "labelTogglesPerSec": 8.27,
+    "appearPerSec": 21.8,
+    "vanishPerSec": 19.2,
+    "blinksPerSec": 0.33,
+    "maxStepPx": 17.53,
+    "p99StepPx": 15.05,
+    "framesWithSudden": 9,
+    "stillShare": 25.1
+   },
+   "bigSteps": [
+    [
+     34,
+     "C-II-2-2~1237",
+     11.3,
+     1.9,
+     0.45,
+     0.51,
+     0,
+     0
+    ],
+    [
+     103,
+     "agg:C-I-2:C-4TX",
+     9.5,
+     0,
+     0.42,
+     0.52,
+     1,
+     0
+    ],
+    [
+     163,
+     "U-1MN",
+     8.1,
+     1.4,
+     0.42,
+     0.52,
+     0,
+     0
+    ],
+    [
+     165,
+     "agg:C-I-2:C-4TX",
+     8.5,
+     0,
+     0.42,
+     0.52,
+     1,
+     0
+    ],
+    [
+     295,
+     "C-II-1-2~1500",
+     11.2,
+     0,
+     0.87,
+     0.94,
+     0,
+     1
+    ],
+    [
+     619,
+     "agg:A-U:U-ART-RES",
+     9.1,
+     0.3,
+     0.42,
+     0.52,
+     1,
+     0
+    ],
+    [
+     672,
+     "C-III-2-1",
+     8.2,
+     2.3,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     702,
+     "agg:ROOT:C-4VA-SW",
+     8.2,
+     1.6,
+     1,
+     1,
+     1,
+     1
+    ],
+    [
+     702,
+     "C-II-4",
+     8.1,
+     1.5,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     892,
+     "agg:C-I-3-1:C-18VA",
+     8.5,
+     0,
+     0.42,
+     0.52,
+     1,
+     0
+    ]
+   ]
+  }
+ ],
+ "consoleErrors": [
+  "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "requests": []
+}

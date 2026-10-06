@@ -1,0 +1,1202 @@
+{
+ "generated": "2026-10-06T12:30:50.778Z",
+ "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+ "runs": [
+  {
+   "sets": "{\"layout.dMaxPx\":0}",
+   "scene": "the-angle",
+   "mode": "after",
+   "speed": 4,
+   "secs": 20,
+   "viewport": [
+    1440,
+    900
+   ],
+   "dpr": 1,
+   "cpu": 1,
+   "style": "war-room",
+   "variant": "standard",
+   "popups": true,
+   "wallMs": 20008,
+   "tick0": 550,
+   "tick1": 675,
+   "frames": 1157,
+   "pageFrames": 1157,
+   "fps": 57.8,
+   "frameP50": 16.600000008940697,
+   "frameP95": 19,
+   "frameMax": 25,
+   "tilesMean": 225.3,
+   "chipsMean": 42.8,
+   "chipsMax": 46,
+   "framesSolidOverlap": 0,
+   "framesSolidDimOverlap": 33,
+   "framesDimDimOverlap": 18,
+   "overlapClassSums": {
+    "ss": {
+     "cc": 0,
+     "lc": 0,
+     "lp": 0,
+     "cp": 0,
+     "ll": 0
+    },
+    "sd": {
+     "cc": 17,
+     "lc": 8,
+     "lp": 8,
+     "cp": 3,
+     "ll": 0
+    }
+   },
+   "maxDepthPx": 20.06,
+   "maxDepthSolidSolidPx": 0,
+   "maxOverlapAreaPx2": 724.2,
+   "minGapCC": -20.06,
+   "framesWithNoInkSolidTile": 0,
+   "maxNoInkSolid": 0,
+   "framesWithNoInkFaintTile": 76,
+   "framesInkOutside": 161,
+   "maxInkExcessPx": 5.005,
+   "framesStray": 0,
+   "framesMissingUnits": 243,
+   "maxMissing": 12,
+   "framesEarlyUnits": 0,
+   "maxEarlyTicks": 0,
+   "framesPhantom": 0,
+   "framesChipUnderDom": 1157,
+   "chipsUnderDomSum": 7596,
+   "chipsHalfHiddenSum": 4060,
+   "domBy": {
+    "#topbar > *": 5316,
+    "#dock": 2280
+   },
+   "engineOverlapFrames": 0,
+   "recorderErrors": [],
+   "sdBy": {
+    "chip/chip": 17,
+    "pin/chip": 3,
+    "chip/label": 8,
+    "pin/label": 8
+   },
+   "missingExamples": [
+    {
+     "tau": 550.01,
+     "ex": [
+      [
+       "C-III-3-4",
+       549.014
+      ],
+      [
+       "C-38NC-S",
+       486.014
+      ]
+     ]
+    },
+    {
+     "tau": 550.03,
+     "ex": [
+      [
+       "C-III-3-4",
+       549.029
+      ],
+      [
+       "C-38NC-S",
+       486.029
+      ]
+     ]
+    },
+    {
+     "tau": 550.05,
+     "ex": [
+      [
+       "C-III-3-4",
+       549.05
+      ],
+      [
+       "C-38NC-S",
+       486.05
+      ]
+     ]
+    },
+    {
+     "tau": 550.08,
+     "ex": [
+      [
+       "C-III-3-4",
+       549.079
+      ],
+      [
+       "C-38NC-S",
+       486.079
+      ],
+      [
+       "U-5OH",
+       70.079
+      ]
+     ]
+    },
+    {
+     "tau": 550.12,
+     "ex": [
+      [
+       "C-III-3-4",
+       549.115
+      ],
+      [
+       "C-38NC-S",
+       486.115
+      ],
+      [
+       "U-5OH",
+       70.115
+      ]
+     ]
+    }
+   ],
+   "sdEpisodes": {
+    "n": 8,
+    "medianFrames": 3,
+    "maxFrames": 8
+   },
+   "worstFrames": [
+    {
+     "i": 21,
+     "ss": 0,
+     "sd": 2,
+     "tau": 551.37
+    },
+    {
+     "i": 68,
+     "ss": 0,
+     "sd": 2,
+     "tau": 557.47
+    },
+    {
+     "i": 785,
+     "ss": 0,
+     "sd": 2,
+     "tau": 653.07
+    },
+    {
+     "i": 20,
+     "ss": 0,
+     "sd": 1,
+     "tau": 551.26
+    },
+    {
+     "i": 49,
+     "ss": 0,
+     "sd": 1,
+     "tau": 554.94
+    }
+   ],
+   "violations": [
+    {
+     "frame": 2,
+     "tau": 550.0137167319958,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 3,
+     "tau": 550.0286551568853,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 4,
+     "tau": 550.0502730621943,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 5,
+     "tau": 550.0792648493348,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:U-XII-2-1:U-28PA~223",
+       3.97
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 6,
+     "tau": 550.1154588554348,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:U-XII-2-1:U-28PA~223",
+       3.9
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 7,
+     "tau": 550.1592579592703,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:U-XII-2-1:U-28PA~223",
+       1.93
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    }
+   ],
+   "solidSolidExamples": [],
+   "solidDimExamples": [
+    {
+     "tau": 551.2569416411303,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "agg:ROOT:C-I-3-3",
+       "U-II-3~234",
+       4,
+       6.3,
+       0.06,
+       0.68,
+       [
+        600.2237368135105,
+        202.86430266908363,
+        647.434842830346,
+        239.38521213869868
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 1,
+      "lc": 0,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/chip": 1
+     }
+    },
+    {
+     "tau": 551.3685952350163,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "agg:A-C:C-1MD-CSA",
+       "C-II-4",
+       1.8,
+       2.3,
+       0.42,
+       0.55,
+       [
+        1200.8453959063288,
+        144.15945678169123,
+        1325.521116989468,
+        188.28024203562006
+       ]
+      ],
+      [
+       "sd",
+       "cc",
+       "agg:ROOT:C-I-3-3",
+       "U-II-3~234",
+       1.7,
+       6.4,
+       0.1,
+       0.57,
+       [
+        601.5637177730897,
+        202.594822512145,
+        645.954736279439,
+        238.77013891135084
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 2,
+      "lc": 0,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/chip": 2
+     }
+    },
+    {
+     "tau": 554.9439724821145,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "agg:C-ART-II-4:C-ART-Garber",
+       "U-XII-1-3~264",
+       31.8,
+       10.2,
+       0.42,
+       0.78,
+       [
+        1265.6065652612688,
+        0,
+        1416.2977050257628,
+        33.66805080236708
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 1,
+      "lc": 0,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/chip": 1
+     }
+    },
+    {
+     "tau": 555.0762438810644,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "agg:C-ART-II-4:C-ART-Garber",
+       "U-XII-1-3~264",
+       28.6,
+       15.2,
+       0.42,
+       0.68,
+       [
+        1267.2510034846348,
+        0.3768734428369669,
+        1407.665233877919,
+        33.09960302145046
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 1,
+      "lc": 0,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/chip": 1
+     }
+    }
+   ],
+   "framesUnitDimOnly": 202,
+   "maxUnitsDimOnly": 59,
+   "framesUnitInvisible": 39,
+   "maxUnitsInvisible": 4,
+   "unitsInViewMean": 130.1,
+   "unitDimOnlyRuns": {
+    "n": 354,
+    "medianFrames": 7,
+    "p95Frames": 11,
+    "maxFrames": 18,
+    "over30Frames": 0
+   },
+   "snapFiles": [
+    {
+     "file": "v3-the-angle-after-4x-0.png",
+     "tau": 554.94,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "agg:C-ART-II-4:C-ART-Garber",
+       "U-XII-1-3~264",
+       31.8,
+       10.2,
+       0.42,
+       0.78
+      ]
+     ]
+    },
+    {
+     "file": "v3-the-angle-after-4x-1.png",
+     "tau": 588.8,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "U-II-3-1",
+       "U-I-3-3",
+       24.5,
+       12.3,
+       0.32,
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "sets": "{\"layout.dMaxPx\":0}",
+   "scene": "rose-woods",
+   "mode": "after",
+   "speed": 4,
+   "secs": 20,
+   "viewport": [
+    1440,
+    900
+   ],
+   "dpr": 1,
+   "cpu": 1,
+   "style": "war-room",
+   "variant": "standard",
+   "popups": true,
+   "wallMs": 20002,
+   "tick0": 287,
+   "tick1": 445.2,
+   "frames": 1200,
+   "pageFrames": 1200,
+   "fps": 60,
+   "frameP50": 16.600000008940697,
+   "frameP95": 18.400000005960464,
+   "frameMax": 20.900000005960464,
+   "tilesMean": 79,
+   "chipsMean": 33.1,
+   "chipsMax": 40,
+   "framesSolidOverlap": 0,
+   "framesSolidDimOverlap": 30,
+   "framesDimDimOverlap": 22,
+   "overlapClassSums": {
+    "ss": {
+     "cc": 0,
+     "lc": 0,
+     "lp": 0,
+     "cp": 0,
+     "ll": 0
+    },
+    "sd": {
+     "cc": 16,
+     "lc": 12,
+     "lp": 0,
+     "cp": 5,
+     "ll": 0
+    }
+   },
+   "maxDepthPx": 21.63,
+   "maxDepthSolidSolidPx": 0,
+   "maxOverlapAreaPx2": 1777.7,
+   "minGapCC": -21.931,
+   "framesWithNoInkSolidTile": 0,
+   "maxNoInkSolid": 0,
+   "framesWithNoInkFaintTile": 70,
+   "framesInkOutside": 177,
+   "maxInkExcessPx": 7.558,
+   "framesStray": 0,
+   "framesMissingUnits": 174,
+   "maxMissing": 13,
+   "framesEarlyUnits": 0,
+   "maxEarlyTicks": 0,
+   "framesPhantom": 0,
+   "framesChipUnderDom": 1170,
+   "chipsUnderDomSum": 1953,
+   "chipsHalfHiddenSum": 1061,
+   "domBy": {
+    "#topbar > *": 1953
+   },
+   "engineOverlapFrames": 0,
+   "recorderErrors": [],
+   "sdBy": {
+    "chip/label": 12,
+    "chip/chip": 16,
+    "pin/chip": 5
+   },
+   "missingExamples": [
+    {
+     "tau": 287,
+     "ex": [
+      [
+       "C-48AL",
+       31.002
+      ]
+     ]
+    },
+    {
+     "tau": 287.01,
+     "ex": [
+      [
+       "C-48AL",
+       31.009
+      ]
+     ]
+    },
+    {
+     "tau": 287.02,
+     "ex": [
+      [
+       "C-48AL",
+       31.02
+      ]
+     ]
+    },
+    {
+     "tau": 287.04,
+     "ex": [
+      [
+       "C-48AL",
+       31.039
+      ]
+     ]
+    },
+    {
+     "tau": 287.06,
+     "ex": [
+      [
+       "C-48AL",
+       31.064
+      ]
+     ]
+    }
+   ],
+   "sdEpisodes": {
+    "n": 6,
+    "medianFrames": 5,
+    "maxFrames": 7
+   },
+   "worstFrames": [
+    {
+     "i": 67,
+     "ss": 0,
+     "sd": 2,
+     "tau": 294.27
+    },
+    {
+     "i": 68,
+     "ss": 0,
+     "sd": 2,
+     "tau": 294.41
+    },
+    {
+     "i": 262,
+     "ss": 0,
+     "sd": 2,
+     "tau": 320.27
+    },
+    {
+     "i": 11,
+     "ss": 0,
+     "sd": 1,
+     "tau": 287.37
+    },
+    {
+     "i": 12,
+     "ss": 0,
+     "sd": 1,
+     "tau": 287.44
+    }
+   ],
+   "violations": [
+    {
+     "frame": 1,
+     "tau": 287.00236646422985,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:U-III-1-1:U-124NY~1476",
+       3.97
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 2,
+     "tau": 287.00857942746626,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:U-III-1-1:U-124NY~1476",
+       3.9
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 3,
+     "tau": 287.02034729096493,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:U-III-1-1:U-124NY~1476",
+       2.11
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 4,
+     "tau": 287.03862236059325,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 5,
+     "tau": 287.06380628316737,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 6,
+     "tau": 287.0964966087048,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    }
+   ],
+   "solidSolidExamples": [],
+   "solidDimExamples": [
+    {
+     "tau": 287.36773292142215,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "C-48AL",
+       "C-I-2-4",
+       8.2,
+       6.1,
+       0.1,
+       1,
+       [
+        526.4831111109816,
+        567.0003994381987,
+        622.4831111109816,
+        598.2665628340415
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 1,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/label": 1
+     }
+    },
+    {
+     "tau": 287.4412492464906,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "C-48AL",
+       "C-I-2-4",
+       14.7,
+       5.7,
+       0.14,
+       1,
+       [
+        526.4831111109816,
+        567.0003994381987,
+        622.4831111109816,
+        599.8333548980323
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 1,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/label": 1
+     }
+    },
+    {
+     "tau": 287.5203839399852,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "C-48AL",
+       "C-I-2-4",
+       21.7,
+       5.7,
+       0.19,
+       1,
+       [
+        526.4831111109816,
+        567.0003994381987,
+        625.7777926610019,
+        601.0712819854512
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 1,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/label": 1
+     }
+    },
+    {
+     "tau": 287.6052357875244,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "C-48AL",
+       "C-I-2-4",
+       23.4,
+       6,
+       0.3,
+       1,
+       [
+        526.4831111109816,
+        567.0003994381987,
+        638.5625755689189,
+        602.1043525668528
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 1,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/label": 1
+     }
+    }
+   ],
+   "framesUnitDimOnly": 280,
+   "maxUnitsDimOnly": 74,
+   "framesUnitInvisible": 40,
+   "maxUnitsInvisible": 14,
+   "unitsInViewMean": 156.3,
+   "unitDimOnlyRuns": {
+    "n": 837,
+    "medianFrames": 6,
+    "p95Frames": 10,
+    "maxFrames": 18,
+    "over30Frames": 0
+   },
+   "snapFiles": [
+    {
+     "file": "v3-rose-woods-after-4x-0.png",
+     "tau": 294.54,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "agg:C-III-1-1:C-10AL",
+       "C-III-1-1~1539",
+       13.7,
+       10.4,
+       0.42,
+       0.57
+      ]
+     ]
+    },
+    {
+     "file": "v3-rose-woods-after-4x-1.png",
+     "tau": 300.41,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "agg:ROOT:C-13MS-B",
+       "U-1US-SS",
+       12,
+       11,
+       0.42,
+       1
+      ]
+     ]
+    },
+    {
+     "file": "v3-rose-woods-after-4x-2.png",
+     "tau": 303.87,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "agg:C-III-1-1:C-10AL",
+       "U-II-1~1611",
+       33.5,
+       11,
+       0.42,
+       0.78
+      ]
+     ]
+    },
+    {
+     "file": "v3-rose-woods-after-4x-3.png",
+     "tau": 320.4,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "agg:ROOT:C-13MS-B",
+       "agg:A-U:U-114PA",
+       89.6,
+       19.8,
+       0.42,
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "consoleErrors": [
+  "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "requests": []
+}

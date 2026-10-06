@@ -1,0 +1,90 @@
+{
+ "generated": "2026-10-06T12:36:10.349Z",
+ "runs": [
+  {
+   "sets": "{\"layout.dMaxPx\":12}",
+   "style": "war-room",
+   "scene": "the-angle",
+   "speed": 4,
+   "frames": 1200,
+   "seconds": 20,
+   "unitFramesWithNoTile": 144,
+   "framesWithAGap": 86,
+   "shareFramesWithGap": 7.2,
+   "episodes": 54,
+   "episodesPerSec": 2.7,
+   "medianFrames": 1,
+   "p95Frames": 7,
+   "maxFrames": 8,
+   "maxUnitsAtOnce": 9,
+   "visibleAtDisagreesWithMyRule": 0,
+   "examples": [
+    {
+     "frame": 3,
+     "tau": 554.09,
+     "id": "U-V"
+    },
+    {
+     "frame": 30,
+     "tau": 557.68,
+     "id": "C-I-3-1"
+    },
+    {
+     "frame": 30,
+     "tau": 557.68,
+     "id": "C-8VA"
+    },
+    {
+     "frame": 30,
+     "tau": 557.68,
+     "id": "C-18VA"
+    }
+   ],
+   "unitsOnField": 478
+  },
+  {
+   "sets": "{\"layout.dMaxPx\":12}",
+   "style": "war-room",
+   "scene": "rose-woods",
+   "speed": 4,
+   "frames": 1200,
+   "seconds": 20,
+   "unitFramesWithNoTile": 200,
+   "framesWithAGap": 69,
+   "shareFramesWithGap": 5.8,
+   "episodes": 83,
+   "episodesPerSec": 4.15,
+   "medianFrames": 1,
+   "p95Frames": 8,
+   "maxFrames": 8,
+   "maxUnitsAtOnce": 28,
+   "visibleAtDisagreesWithMyRule": 0,
+   "examples": [
+    {
+     "frame": 9,
+     "tau": 291.88,
+     "id": "U-VI-2"
+    },
+    {
+     "frame": 37,
+     "tau": 295.61,
+     "id": "U-I-1-2"
+    },
+    {
+     "frame": 40,
+     "tau": 296.01,
+     "id": "U-ART-9MA"
+    },
+    {
+     "frame": 40,
+     "tau": 296.01,
+     "id": "U-ART-5MA"
+    }
+   ],
+   "unitsOnField": 421
+  }
+ ],
+ "errors": [
+  "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ]
+}

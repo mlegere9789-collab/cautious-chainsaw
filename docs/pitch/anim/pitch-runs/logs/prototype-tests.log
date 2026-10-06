@@ -1,0 +1,205 @@
+# showcase: 3600 frames, 3053 Studio frames, 718 frames with cards, 20.1 s
+# cemetery-hill: jumps 22.5 -> 0.4 /s, largest step 496 -> 16 px, overlapping pairs per frame 1251 -> 0
+# rose-woods: jumps 112.8 -> 1.3 /s, largest step 624 -> 25 px, overlapping pairs per frame 770 -> 0
+# the-angle: jumps 8.9 -> 0.6 /s, largest step 630 -> 63 px, overlapping pairs per frame 296 -> 0
+✔ every style and variant maps to a registered skin; the mapping round-trips; a typo throws (859.2711ms)
+✔ metrics: a hold-then-jump is a hop AND a jump; a fast smooth glide is a hop but not a jump; a one-frame blink is counted; a zoom change is not a step (0.7235ms)
+✔ tours are well-formed data: unique ids, positive durations, known actions, captions with a kicker, a title, words and a valid evidence label; the Showcase lasts 60 s (277.2895ms)
+✔ the director runs steps on engine time: actions on entry, one caption per step, pause freezes it, skip jumps, the end is reported once (1.2668ms)
+✔ the 60-second Showcase runs end to end: every step shows its words, both renderers run, the report is measured, every Studio frame is certified, no card lies on a tile (20083.7107ms)
+✔ hotspot cemetery-hill (tick 346): the same ticks twice, measured; the Studio frames are certified and its jumps fall (8482.005ms)
+✔ hotspot rose-woods (tick 293): the same ticks twice, measured; the Studio frames are certified and its jumps fall (7462.3393ms)
+✔ hotspot the-angle (tick 556): the same ticks twice, measured; the Studio frames are certified and its jumps fall (7379.7192ms)
+✔ report numbers come from the recorders: reset a lane and its row empties; the report refuses to compare two short runs (725.1895ms)
+✔ the viewer's own view replay starts where the camera is and keeps the same ticks for both renderers (0.4352ms)
+✔ fresh2 z15 tick 551: paused with the camera still, the picture comes to rest in under 3 s and then never changes (no aggregate flips, no creeping tile, the engine goes idle) (9342.618ms)
+✔ fresh2 z14 tick 556: paused with the camera still, the picture comes to rest in under 3 s and then never changes (no aggregate flips, no creeping tile, the engine goes idle) (8366.5836ms)
+✔ field z13.5 tick 620: paused with the camera still, the picture comes to rest in under 3 s and then never changes (no aggregate flips, no creeping tile, the engine goes idle) (6741.6155ms)
+✔ carry1 z14 tick 295: paused with the camera still, the picture comes to rest in under 3 s and then never changes (no aggregate flips, no creeping tile, the engine goes idle) (6469.5393ms)
+✔ evening1 z14 tick 120: paused with the camera still, the picture comes to rest in under 3 s and then never changes (no aggregate flips, no creeping tile, the engine goes idle) (4658.0737ms)
+✔ fresh1 z16 tick 451: paused with the camera still, the picture comes to rest in under 3 s and then never changes (no aggregate flips, no creeping tile, the engine goes idle) (7282.912ms)
+✔ pausing a running battle brings the picture to rest within a few seconds, certified all the way (4069.8673ms)
+✔ battle-studio.html is current: build.mjs --check finds it (and tokens.schema.json) identical to a fresh build (433.3495ms)
+✔ self-contained: no external URL in code or markup, no network API, no external resource reference, no import() (133.8907ms)
+✔ the bundled script parses as a classic script, defines every module once and starts the app (72.8711ms)
+✔ no personal data, and the data labels are present: no e-mail address; the evidence vocabulary is in the page (22.0867ms)
+✔ size budget: under 1.6 MB readable (the real data is 450 KB of it, the real popup text 307 KB) (0.2663ms)
+✔ counts match the research reports: 478 placed units, 1,804 rows (1,687 distinct unit-tick keys) on 188 of 675 ticks (1.0907ms)
+✔ the dataset is current: a fresh build from the repo data files is byte-identical (data/build-dataset.mjs --check) (1705.293ms)
+✔ every source file the dataset names exists and still has the recorded SHA-256 (nothing drifted under it) (6.9752ms)
+✔ keyframes are strictly increasing in tick, inside the battle, and inside the battlefield; strengths and dispositions are present (2.1141ms)
+✔ the hierarchy resolves: every chain reaches ROOT without a cycle, every parent exists, echelons are consistent (5.1365ms)
+✔ the 10 units whose id prefix contradicts their state code are UNKNOWN-sided, flagged, never silently guessed (0.9236ms)
+✔ terrain: 8 places differ between the legacy frame and production terrain.json by 166 to 733 m (computed, flagged), the rest agree (0.1742ms)
+✔ the clock stays a CANDIDATE: 33 anchors, none approved, notice carried (0.1825ms)
+✔ scenes are computed, in range, and say how they were found (0.1913ms)
+✔ the text table covers every character a tile can show, for the three tile fonts (0.8646ms)
+✔ privacy: no e-mail address and no URL anywhere in the dataset (5.5269ms)
+# [{"mode":"snap","tilesMean":402.4,"popsPerSec":57.625,"teleportsPerSec":18.375,"maxExcessPx":86.55,"jerkP99":0.3124,"travelsPerSec":0,"netDimsPerSec":0,"birthsPerSec":5.38,"labelTogglesPerSec":57.75,"overlapFrames":0},{"mode":"spring","tilesMean":403.5,"popsPerSec":0,"teleportsPerSec":0,"maxExcessPx":2.77,"jerkP99":0.0858,"travelsPerSec":7,"netDimsPerSec":19.875,"birthsPerSec":6.38,"labelTogglesPerSec":68.88,"overlapFrames":0},{"mode":"dynamics","tilesMean":400.5,"popsPerSec":13.125,"teleportsPerSec":0,"maxExcessPx":7.06,"jerkP99":0.1437,"travelsPerSec":8.75,"netDimsPerSec":4.875,"birthsPerSec":6.38,"labelTogglesPerSec":63,"overlapFrames":0}]
+✔ playback fresh2 z15 x4: every displayed frame overlap-free, every unit represented, no solid teleport (300 frames) (4375.0985ms)
+✔ playback carry1 z14 x1: every displayed frame overlap-free, every unit represented, no solid teleport (300 frames) (3354.5857ms)
+✔ playback field z13.5 x4: every displayed frame overlap-free, every unit represented, no solid teleport (240 frames) (2386.6031ms)
+✔ playback evening1 z14 x16: every displayed frame overlap-free, every unit represented, no solid teleport (240 frames) (1587.0102ms)
+✔ playback fresh1 z16 x8: every displayed frame overlap-free, every unit represented, no solid teleport (240 frames) (2307.1198ms)
+✔ playback carry2 z13 x2: every displayed frame overlap-free, every unit represented, no solid teleport (240 frames) (1605.831ms)
+✔ irregular frame times (5 to 45 ms) cannot produce an overlap or a hole (3911.5588ms)
+✔ deterministic: the same frame-time sequence gives bit-identical frames (2927.3542ms)
+✔ a seek with no glide is a CUT: the old tiles fade out, the new ones fade in after them, and no frame has an overlap (263.1488ms)
+✔ a glided seek flies through the paths (no cut), tiles come and go by fades, and every frame is clean (2332.5916ms)
+✔ a zoom animation (13 -> 16 by wheel glide) never overlaps and never cuts (1315.0056ms)
+✔ switching motion mode, layout rule or motion model while running keeps every frame clean (1316.9821ms)
+✔ reduced motion shows the layout as solved (no glide, short fades) and is still overlap-free (1212.6723ms)
+✔ the safety net is what keeps the guarantee when the glide alone is not enough (negative control: net off, pushing off -> overlaps appear) (5045.0989ms)
+✔ snap mode equals the layout: its frames are the certified frames (the lab behaviour, for comparison) (1161.1457ms)
+✔ the motion comparison on the real hardest scene: glide + pushing removes the teleports the layout alone makes (numbers printed for the record) (13425.9933ms)
+✔ solving every second frame (slow devices) keeps every displayed frame overlap-free and complete, at 4x and 16x (2703.8319ms)
+✔ solving every third frame (slow devices) keeps every displayed frame overlap-free and complete, at 4x and 16x (2378.4201ms)
+✔ the automatic solve cadence is opt-in (the app turns it on) and its governor is pure: slow frames raise it at once, only a sustained calm lowers it (1742.7179ms)
+✔ identity churn never loses a unit: every motion mode at 16x on the busiest scene keeps one live tile for every unit on the field, with unique display keys (14660.7509ms)
+# 300 cards placed in free space, 0 found no room (the popup track decides what to do then: a chip, a queue); 300 within 500 px of their anchor
+✔ the reference skin conforms to the skin contract: ink inside the footprint for every side, arm, badge, selection and strength state of real tiles (529.7842ms)
+✔ the conformance check is a real check: a skin that paints outside its box, and one that paints nothing, are reported (343.5209ms)
+✔ a registered skin is picked up by name: the engine draws with it, its footprint drives the layout, and the registry validates it (293.421ms)
+✔ the legend of the reference skin labels every claim with the site's evidence vocabulary (0.2341ms)
+✔ the popup registry starts EMPTY (the shell fills it), and the free-space search places a card: over no solid chip, label or pin, inside the screen, near its anchor (300 placements on real frames) (1031.2713ms)
+✔ the host: a registered popup gets its card placed, keeps the place while it stays free, glides to a new place when a tile blocks it, and gets a leader line to its anchor (313.5967ms)
+✔ fx, layout strategies, motion modes and motion models register by name and take effect (the registries are the extension mechanism) (438.0537ms)
+✔ the shell lists the reference skin first (the design pitches follow it: skins.test.mjs) and the twelve popups of the Overlay Director in a fixed order, no effects; the copy-me template skin conforms to the contract and is a drop-in (293.5952ms)
+✔ the copy-me template popup: a card for a chronology event is raised when the clock reaches it, is placed on free ground, points at its units, and stays for READING time in wall-clock seconds however fast the clock runs (6007.7173ms)
+✔ fuzz seed 1: 220 random actions, invariants on every frame (13157.8595ms)
+✔ fuzz seed 2: 220 random actions, invariants on every frame (11290.4302ms)
+✔ fuzz seed 3: 220 random actions, invariants on every frame (13576.468ms)
+# pchip distance from the straight chord over 939 moving segments: median 0.0 m, p90 48.7 m, max 390.7 m
+✔ every model is EXACT at every keyframe of every one of the 478 real units (13.6099ms)
+✔ pchip never overshoots: every sample stays inside the bounding box of its two keyframes, and each axis is monotone inside a segment (33.8184ms)
+✔ chord-smooth stays ON the straight chord (geography untouched) and linear is a straight chord at constant speed (1.75ms)
+✔ pchip is C1: the velocity is continuous through every interior keyframe (no stop-and-go), unlike linear (1.1411ms)
+✔ pchip slopes: zero at a local extremum, harmonic inside monotone runs, rest ends are zero, edge ends obey the shape-preserving rule (0.2304ms)
+✔ rejects non-increasing keyframe ticks; single-keyframe units are a point (0.3544ms)
+✔ deterministic: two builds of the same data give identical samples (0.9812ms)
+✔ how far does pchip leave the straight chord on the REAL data (reported, bounded by the keyframe box) (4.9118ms)
+✔ critical damping: converges, never overshoots, and is frame-rate independent (closed form) (0.4268ms)
+✔ damping with a speed cap never exceeds it; a moving start toward the target still never passes it (0.7313ms)
+✔ 2-D damping equals the scalar damping per axis and obeys the vector speed cap (1.0228ms)
+# 242 cold solves verified: 76175 unit-placements represented, 46207 tiles, slowest solve 168 ms
+✔ certified layout: 0 overlaps, 0 clearance violations, 0 unrepresented units, budget kept: 22 ticks x 11 zooms (cold solves) (12266.1744ms)
+✔ the three visibility rules (carry, window, snapshot) are also certified, with a selected unit (547.1648ms)
+✔ warm playback frames are certified too (consecutive solves with inertia, sticky aggregates and seniority) (7068.9414ms)
+✔ deterministic: the same inputs give the same layout, bit for bit (395.9658ms)
+✔ a cold solve is a fixed point: solving the same frame again moves nothing (the lab's nested-aggregate defect made it move tiles by up to 67 px) (283.3539ms)
+✔ an aggregate is the same tile however it was assembled (flat, nested, any order): key, anchor, priority, strength state, name (1.6213ms)
+✔ a skin with a different footprint changes the aggregation, never the guarantee (49.458ms)
+✔ the raw strategy (no layout) overlaps massively: the problem the certified layout solves, and a negative control for the verifier (2.3192ms)
+✔ the independent verifier equals a brute force on 3000 random rectangle sets, and it catches injected overlaps (60.8142ms)
+✔ nearestFree returns a feasible point and the exact optimum (equal to a fine brute-force scan) on 150 random scenes (245.9436ms)
+✔ refresh (between solves) moves every solved tile with its units: leaf and aggregate anchors equal a fresh computation, offsets stay the solver's own (23.3639ms)
+# ids named by events or stories that have no unit or node (the card then falls back to the place, or to the chip): 3 310:C-CAV 560:C-CAV 565:C-CAV
+# zoom 12.5: 690 frames checked, forms {"peek":34,"compact":31,"chip":57,"mini":41,"full":3,"tag":85,"hint":6,"toast":2,"ribbon":1}, relocations 13, cuts 67, max placement 3.9 ms
+# zoom 13.5: 690 frames checked, forms {"peek":26,"compact":13,"chip":68,"mini":44,"full":2,"tag":72,"toast":13,"hint":6,"hidden":13}, relocations 4, cuts 61, max placement 5.3 ms
+# zoom 15: 690 frames checked, forms {"peek":19,"compact":26,"chip":73,"full":13,"tag":76,"toast":19,"hint":6,"mini":13,"ribbon":2,"hidden":9}, relocations 7, cuts 39, max placement 4.5 ms
+# zoom 13.5 follow: 690 frames checked, forms {"peek":31,"compact":25,"chip":62,"tag":77,"mini":37,"hint":4,"toast":1,"hidden":8,"full":3}, relocations 35, cuts 131, max placement 3.9 ms
+# zoom 15 follow: 690 frames checked, forms {"peek":30,"compact":30,"chip":62,"tag":78,"mini":31,"toast":4,"hint":4,"ribbon":1,"full":2,"hidden":7}, relocations 30, cuts 126, max placement 2.7 ms
+# 1x, ticks 280-330: 1514 frames, 7476 card-frames, relocations 23, cuts 14, cutFrames 0, chips raised 35
+# 4x, ticks 280-420: 1063 frames, 4708 card-frames, relocations 9, cuts 20, cutFrames 1, chips raised 37
+# 16x, ticks 520-600: 163 frames, 250 card-frames, relocations 0, cuts 0, cutFrames 0, chips raised 20
+# 11 skins, 880 frames, 0 violations
+# zoom 14.5, camera on the subject: critical events 34 of 45 are cards {"mini":13,"peek":10,"compact":5,"full":6,"chip":11}; high events 52 of 73 {"chip":21,"compact":27,"peek":11,"mini":14}; stories 13 of 24 {"compact":5,"mini":6,"chip":11,"peek":2}
+# seek 20 -> 520: 3 cards by the time it settled, 0 alive for the landed moment
+# monkey: 2 seeds x 70 actions, 2672 frames
+✔ data: every event, story, command change and tour stop is the repo's own text, verbatim; what must not reach a visitor is not in the data at all (464.0633ms)
+✔ data: the typed kind of each of the 42 command changes agrees with its own sentence (the product guessed it and was wrong for 5 wounds) (0.6363ms)
+✔ data: the internal sentence "Commander succession XX-nnn activates." is the only thing removed from an event, it is removed from exactly 6 rows, and it becomes a link to that command change (0.6739ms)
+✔ data: stories name units that exist; events name units the order of battle knows (the ones it does not are listed, never invented) (2.0714ms)
+✔ kit: reading time is base + words at the wpm, clamped; the tick index is half-open; chips cut at a word; names are de-duplicated (0.9711ms)
+✔ kit: the height estimate is conservative against a straightforward line count and grows with text and shrinks with width never (0.3875ms)
+✔ geometry: the occupancy grid is conservative (free means exactly free) and findSpot returns only free, in-bounds spots (400 random scenes) (78.6876ms)
+✔ geometry: with room around the anchor the spot is near it; the leader prefers the side that crosses fewer tiles (0.3611ms)
+✔ motion: the easings are monotone from 0 to 1; reduced motion has no rise and a shorter fade; leader draw is instant when reduced (0.8644ms)
+✔ honesty: every card the data can raise says only true things: the clock text is the clock module's, every evidence label is one of the six, no internal id, no production note, units are named not numbered (354.7543ms)
+✔ honesty: the card of a unit labels each fact (identity Documented, positions and strength Modelled, a contested side Contested) and never calls a placement strength a casualty count (192.3281ms)
+✔ honesty: the evidence-chip and tone colours meet 4.5:1 for text and 3:1 for shapes on the card backgrounds in both themes, every palette (1.1854ms)
+✔ guarantee: at zoom 12.5 (the scene camera) no visible card lies on a tile, a label, a pin, an aggregate dot, the interface, off the map, or on another card on any popup tick (11006.3197ms)
+✔ guarantee: at zoom 13.5 (the scene camera) no visible card lies on a tile, a label, a pin, an aggregate dot, the interface, off the map, or on another card on any popup tick (13017.6993ms)
+✔ guarantee: at zoom 15 (the scene camera) no visible card lies on a tile, a label, a pin, an aggregate dot, the interface, off the map, or on another card on any popup tick (10360.8383ms)
+✔ guarantee: at zoom 13.5 (camera following the subject) no visible card lies on a tile, a label, a pin, an aggregate dot, the interface, off the map, or on another card on any popup tick (13217.9373ms)
+✔ guarantee: at zoom 15 (camera following the subject) no visible card lies on a tile, a label, a pin, an aggregate dot, the interface, off the map, or on another card on any popup tick (11506.9773ms)
+✔ guarantee: during real playback at 1x, 4x and 16x (the card is moving with the tiles) no frame shows a card on a tile (19809.7229ms)
+✔ guarantee: with the reading rail open the map viewport is smaller and no card lies on a tile, under the rail, or off the smaller map (1550.2878ms)
+✔ guarantee: with every skin (their own footprints, labels and legends) no visible card lies on a tile, and the legend card is the legend of that skin (19648.9018ms)
+✔ coverage: with the camera on the subject, most critical events and stories are cards on the map, not chips (the counts per zoom are printed; the rest are chips in the strip, never lost) (20179.2381ms)
+✔ lifetime: a fired card lives for its reading time in wall-clock ms at every playback speed, not for its tick; the reading clock stops while the clock is paused, the card hovered or focused, and a pinned card never expires (15533.9883ms)
+✔ reading budget: every event, story and command-change card is held for the reading time of the text it shows (base + words at the wpm, clamped by its tier), and a longer text is held longer (147.4389ms)
+✔ tiers by speed: critical events are full at 1x, smaller at 4x, chips at 16x; high events one step lower; the chip cap and the critical cap hold (nothing is evicted, extras become chips) (14814.7185ms)
+✔ bursts: the command changes of tick 550 are merged into cards of at most the dial's size; each change is in exactly one card; nothing raised by a seek (13757.7066ms)
+✔ jump hygiene: a seek clears the cards of the old place, raises none for the ticks it skipped, and the landing raises the cards of the moment it stopped on, once the clock is still (4792.2862ms)
+✔ landing: stepping onto a tick that has a popup raises its card (the product shows it while paused on the tick); stepping away removes it (106.6568ms)
+✔ announcements: at most one message per 2 s in the polite live region, and a burst is one message that counts the rest (21059.4666ms)
+✔ rail: opening makes the map narrower with the ground staying put on screen; closing gives it back; the camera ends settled (1053.8431ms)
+✔ rail: a camera glide in flight is not cancelled by the viewport changing (the tour flies while its rail opens) (1780.2806ms)
+✔ keyboard: Esc closes one layer per press (tooltip, rail, newest card), N and P step between moments, C toggles the Chronicle, U selects tiles (1158.9368ms)
+✔ reduced motion: cards fade in 120 ms with no rise, the leader is instant, the rail makes room at once (50.2029ms)
+✔ determinism: the same inputs give the same cards, rectangles and effects, frame for frame (5545.0128ms)
+✔ styles: the look dials reach the CSS variables, and every popup module is registered with a label, a doc and an enabling dial that exists (180.2555ms)
+✔ monkey: random play, pause, speed, seeks, zoom, pan, selection, hover, rail, pin, dismiss, resize, reduced motion; every frame: no exception, no card on a tile, finite numbers, bounded cards (12488.3794ms)
+✔ narrated mode (owner decision D-1, off by default): while a critical card is read the clock eases to the dial factor, the speed the viewer chose is untouched, and it is released the moment nothing is being read (742.4667ms)
+# 1x: 20220 frames, hops 833 in 159 frames (median 77.8 px, max 1096.3), snap-backs 66, units that vanish for one frame 407 of 407 reappearances; report 01: 833 / 159 / 66 / 407
+# 4x: 5055 frames, hops 833 in 159 frames (median 77.8 px, max 1096.3), snap-backs 66, units that vanish for one frame 407 of 407 reappearances; report 01: 833 / 159 / 66 / 407
+# before vs after, 8 s at 60 fps: [{"id":"carry1","tick":290,"zoom":14,"speed":4,"before":{"jumps":73,"hops":144.5,"max":624.53,"over":480,"blinks":2.5},"after":{"jumps":1,"jumpsSolid":0,"hops":17.875,"solid":1.5,"max":23.37,"over":0}},{"id":"fresh2","tick":551,"zoom":15,"speed":4,"before":{"jumps":5.375,"hops":5.375,"max":503.66,"over":480,"blinks":0},"after":{"jumps":0.625,"jumpsSolid":0,"hops":22.125,"solid":10.375,"max":90.19,"over":0}},{"id":"evening1","tick":340,"zoom":14,"speed":4,"before":{"jumps":28.5,"hops":32.875,"max":1550.41,"over":480,"blinks":3.75},"after":{"jumps":0.25,"jumpsSolid":0,"hops":5.375,"solid":0,"max":16.05,"over":0}}]
+✔ the production clock and motion model reproduce report 01's whole-battle replay at 1x (hops, snap-backs, one-frame absences) (1306.8372ms)
+✔ the production clock and motion model reproduce report 01's whole-battle replay at 4x (hops, snap-backs, one-frame absences) (307.5179ms)
+✔ the production clock steps the way the shipped loop does: the draw reads the OLD tick with the NEW fraction on the frame the tick advances (0.8033ms)
+✔ the smooth clock is unchanged by the production model existing: switching back resumes from the same tick (859.8882ms)
+✔ the before mode is the production picture: bars on every unit, hold-then-jump, and thousands of overlaps; the after mode is certified again right after the switch (2857.2949ms)
+✔ same ticks, both modes, one scale: the Studio has no hop where the production reproduction hops (hotspot windows, 60 fps) (20545.1919ms)
+# 10 skins x about 494 states: ink inside the footprint everywhere
+# mean live tiles per frame: reference@fresh2:396  reference@field:200  reference@carry1:229  field-manual@fresh2:339  field-manual@field:140  field-manual@carry1:179  war-room@fresh2:317  war-room@field:120  war-room@carry1:154  map-1863@fresh2:321  map-1863@field:142  map-1863@carry1:159  minimal@fresh2:395  minimal@field:214  minimal@carry1:237
+# field-manual: 12 channels | field-manual/cvd: 12 channels | field-manual/contrast: 12 channels | war-room: 12 channels | war-room/cvd: 12 channels | war-room/contrast: 12 channels | map-1863: 15 channels | map-1863/cvd: 15 channels | map-1863/contrast: 15 channels | minimal: 5 channels
+# corps badges on 174 of 255 placed Union units (by corps {"XII":25,"I":34,"III":21,"II":47,"XI":26,"V":18,"VI":3}, by kind {"regiment":109,"corps":4,"brigade":43,"division":18}); Confederate corps numerals on 156
+# 152 formation records drawn without an arm, 326 regiments/batteries/battalions with theirs
+# contrast ratios: field-manual text/color.plate 17.2, field-manual union frame/color.plate 8.4, field-manual confederate frame/color.plate 4.7, field-manual unknown frame/color.plate 5.2, field-manual text/color.plateOld 14.4, field-manual union frame/color.plateOld 7.0 ... (91 checked)
+# lightness difference (L*) between the side colours: field-manual 15, field-manual/cvd 16, field-manual/contrast 20, war-room 17, war-room/cvd 17, war-room/contrast 15, map-1863 19, map-1863/cvd 21, map-1863/contrast 21, minimal 15
+# smallest pairwise colour difference (CIE76) over normal vision and three simulations: field-manual: default 27, cvd 26, contrast 22 | war-room: default 23, cvd 29, contrast 27 | map-1863: default 25, cvd 28, contrast 26
+# minimal.mjs: 35 lines, 10 legend rows, 393 tiles in the default scene
+✔ the shell lists the reference skin, three families each with a colour-blind-safe and a high-contrast variant, and the minimal skin (15.769ms)
+✔ conformance: for every skin and variant the ink of tile, label and pin stays inside the footprint on every state (all dispositions, sides, arms, echelons, ages, strengths, selection, arrival, departure, real tiles) (2583.899ms)
+✔ the layout guarantee holds with every skin's own footprint: 0 overlapping pairs, 0 unrepresented units, on the hardest scenes at 1x and 8x with irregular frame times (22717.7334ms)
+✔ a side is never drawn in another side's colour; the contested side is never drawn as a side (Union, Confederate, unknown, in every variant) (1758.3594ms)
+✔ the legend is the drawing: a skin changes its ink for every value of every channel its legend lists, and does NOT change it for a channel its legend does not list (1901.3794ms)
+✔ every legend row names a channel of the registry, repeats its sentence and evidence label, and the evidence labels are the site's vocabulary (1.6285ms)
+✔ vital information is never dimmed: the short code is painted in the same ink and opacity for a fresh and a carried-forward tile, an empty and a full gauge, selected, hovered or not, in every skin (1886.3481ms)
+✔ corps badges: drawn only for Union infantry (and formation records) of the seven documented corps whose order-of-battle chain is documented; recomputed independently from the registry DESIGNATIONS (2.7443ms)
+✔ formations (brigade, division, corps) make no arm claim; regiments, batteries and battalions keep theirs; echelon levels follow the registry kind (2.0065ms)
+✔ the view model: posture classes, arm states, fix-age blend and the ten contested ids (1.4517ms)
+✔ tokens: every token of every skin is read by the drawing code (a dial that does nothing fails), none is read undefined, and every variant is a valid token set (2249.0515ms)
+✔ token tables: unique names, documented, within their own ranges; every variant overrides only existing tokens with valid values; live tweaking validates (205.4958ms)
+✔ contrast: text on its plate and the side frame on the plate, per skin and variant (WCAG ratios); the high-contrast variants reach 7:1 for text (0.7017ms)
+✔ greyscale: the Union and Confederate colours also differ in LIGHTNESS (CIE L*), so side survives a black-and-white print as well as the silhouette; the contested grey sits apart from both (0.5113ms)
+✔ colour-vision deficiency: under protan, deutan and tritan simulation the Union, Confederate and contested colours stay apart in every variant; the colour-blind-safe variants keep a larger margin than the defaults (0.6451ms)
+✔ selection and hover ease: a critically damped, monotone approach in wall-clock time (never a step), reduced motion steps; nothing is requested once everything has settled (201.7239ms)
+✔ a keyframe that changes posture, arm state or transit cross-fades over the cross-fade time instead of popping: the old and the new mark are both drawn, weights sum to 1 (190.4827ms)
+✔ the minimal skin is under 50 lines, conforms, registers by name and drives the engine like any other (405.559ms)
+✔ three distinct families: footprints differ, and the three skins paint different ink for the same tile (1371.6814ms)
+✔ the simulation depends on elapsed time, not on how it was cut into frames (integer-microsecond accumulation) (4.3375ms)
+✔ the rendered tick is the simulation interpolated by the unconsumed step: continuous, monotone while playing, and exact at step boundaries (0.8296ms)
+✔ speed and pause are eased, not instant; with ramp 0 they are instant (0.678ms)
+✔ a seek is a GLIDE: monotone, no overshoot, never faster than the cap, and it lands exactly on the target (3.1862ms)
+✔ seek with glide:false lands at once; reduced motion turns every glide into an instant landing (0.4871ms)
+✔ playing while gliding keeps the target moving with the clock; the end stops (or loops) and a long stall cannot fast-forward (2.0363ms)
+✔ the clock: exact at every anchor, strictly monotone over all 675 ticks, always labelled Modelled and candidate (1.7898ms)
+✔ tokens.json is structurally valid: unique ids, defaults inside their ranges, every token documented with an evidence label (3.1252ms)
+✔ the committed tokens.schema.json is exactly the schema generated from tokens.json, uses only keywords the validator implements, and accepts the defaults (1.8613ms)
+✔ tuning: get throws on a typo, set validates type, range and options, subscribers fire (exact, prefix, all), reset restores (0.8218ms)
+✔ export / import round-trips; import reports applied, rejected and unknown ids and never throws on bad data (0.8022ms)
+✔ persistence is optional and failure-proof: a throwing storage never breaks a set (0.8405ms)
+✔ every token read in src/ is defined in tokens.json, and every defined token is read somewhere (no dead dials, no typos) (10.3842ms)
+✔ registry tokens name registries that exist; select tokens' options are unique (2.0987ms)
+✔ registries: ids are validated, members are required, duplicates need replace, events fire; skins, popups and fx start EMPTY, builtins fill interp, layout, motion (1.0077ms)
+ℹ tests 163
+ℹ suites 0
+ℹ pass 163
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 214844.4558
+exit 0

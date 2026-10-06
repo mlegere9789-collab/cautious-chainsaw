@@ -1,0 +1,322 @@
+{
+ "generated": "2026-10-06T12:33:09.779Z",
+ "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+ "runs": [
+  {
+   "sets": "{\"motion.travelPx\":120}",
+   "style": "war-room",
+   "scene": "the-angle",
+   "mode": "after",
+   "speed": 4,
+   "secs": 15,
+   "cpu": 1,
+   "reduced": false,
+   "viewport": [
+    1440,
+    900
+   ],
+   "popups": true,
+   "tick0": 550,
+   "tick1": 668.2,
+   "raf": {
+    "frames": 900,
+    "fps": 60,
+    "p50": 16.69999999999891,
+    "p95": 16.799999999999272,
+    "p99": 16.80000000000109,
+    "max": 16.899999999999636,
+    "over20": 0,
+    "over33": 0,
+    "over50": 0
+   },
+   "draws": {
+    "frames": 900,
+    "p50": 16.600000008940697,
+    "p95": 19.200000002980232,
+    "max": 23.899999991059303
+   },
+   "motion": {
+    "tileFrames": 264786,
+    "tilesPerFrame": 294.2,
+    "stepsOver3PerSec": 104.29,
+    "stepsOver8PerSec": 18.79,
+    "stepsOver20PerSec": 3.53,
+    "suddenPerSec": 0.87,
+    "suddenSolidPerSec": 0.07,
+    "jerk4PerSec": 7.2,
+    "flashesPerSec": 1.87,
+    "sizeJumpsPerSec": 5.66,
+    "labelTogglesPerSec": 8.8,
+    "appearPerSec": 31.12,
+    "vanishPerSec": 11.93,
+    "blinksPerSec": 0.33,
+    "maxStepPx": 120.4,
+    "p99StepPx": 57.83,
+    "framesWithSudden": 12,
+    "stillShare": 85
+   },
+   "bigSteps": [
+    [
+     18,
+     "C-I-3-3~233",
+     18.7,
+     0,
+     0.39,
+     0.41,
+     0,
+     0
+    ],
+    [
+     37,
+     "U-16VT",
+     8.4,
+     0,
+     0.07,
+     0.02,
+     0,
+     0
+    ],
+    [
+     39,
+     "C-I-5-1~254",
+     8.6,
+     0,
+     0.36,
+     0.38,
+     0,
+     0
+    ],
+    [
+     62,
+     "agg:C-I-3-3:C-14VA",
+     8.6,
+     2.7,
+     0.42,
+     0.42,
+     1,
+     0
+    ],
+    [
+     106,
+     "C-CAV-1",
+     8.9,
+     1.4,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     168,
+     "agg:C-I-3-3:C-38VA",
+     120.4,
+     0,
+     0.07,
+     0.04,
+     1,
+     0
+    ],
+    [
+     168,
+     "agg:C-CAV-1:C-1SC-CAV",
+     8.3,
+     0.2,
+     0.42,
+     0.42,
+     1,
+     0
+    ],
+    [
+     177,
+     "agg:U-ART-II-CORPS:U-ART-A1RI",
+     11.1,
+     0.5,
+     0.28,
+     0.23,
+     1,
+     0
+    ],
+    [
+     218,
+     "agg:C-I-3-2:C-24VA",
+     11.5,
+     1.6,
+     0.42,
+     0.42,
+     1,
+     0
+    ],
+    [
+     296,
+     "agg:U-ART-II-CORPS:U-ART-A1RI",
+     12.3,
+     2,
+     0.42,
+     0.42,
+     1,
+     0
+    ],
+    [
+     357,
+     "agg:A-C:C-10VA-J",
+     17.6,
+     0,
+     0.42,
+     0.52,
+     1,
+     0
+    ],
+    [
+     417,
+     "agg:C-III-3-4:C-13NC",
+     12,
+     0.2,
+     0.42,
+     0.42,
+     1,
+     0
+    ]
+   ]
+  },
+  {
+   "sets": "{\"motion.travelPx\":120}",
+   "style": "war-room",
+   "scene": "rose-woods",
+   "mode": "after",
+   "speed": 4,
+   "secs": 15,
+   "cpu": 1,
+   "reduced": false,
+   "viewport": [
+    1440,
+    900
+   ],
+   "popups": true,
+   "tick0": 288.6,
+   "tick1": 407,
+   "raf": {
+    "frames": 901,
+    "fps": 60,
+    "p50": 16.69999999999709,
+    "p95": 16.799999999999272,
+    "p99": 16.80000000000291,
+    "max": 16.900000000001455,
+    "over20": 0,
+    "over33": 0,
+    "over50": 0
+   },
+   "draws": {
+    "frames": 901,
+    "p50": 16.700000002980232,
+    "p95": 19.099999994039536,
+    "max": 23.799999997019768
+   },
+   "motion": {
+    "tileFrames": 129010,
+    "tilesPerFrame": 143.2,
+    "stepsOver3PerSec": 37.89,
+    "stepsOver8PerSec": 5.66,
+    "stepsOver20PerSec": 0.4,
+    "suddenPerSec": 0.53,
+    "suddenSolidPerSec": 0.2,
+    "jerk4PerSec": 4.13,
+    "flashesPerSec": 1.33,
+    "sizeJumpsPerSec": 9.92,
+    "labelTogglesPerSec": 5.33,
+    "appearPerSec": 22.04,
+    "vanishPerSec": 12.45,
+    "blinksPerSec": 0.2,
+    "maxStepPx": 57.26,
+    "p99StepPx": 13.88,
+    "framesWithSudden": 8,
+    "stillShare": 66.9
+   },
+   "bigSteps": [
+    [
+     192,
+     "agg:U-II-2:U-106PA",
+     11.3,
+     1.6,
+     0.42,
+     0.42,
+     1,
+     0
+    ],
+    [
+     207,
+     "agg:U-XI-3-2:U-157NY",
+     9,
+     1.1,
+     1,
+     1,
+     1,
+     1
+    ],
+    [
+     295,
+     "C-II-1-1~1620",
+     9,
+     2.4,
+     0.87,
+     0.94,
+     0,
+     1
+    ],
+    [
+     301,
+     "C-II-1-2~1618",
+     8.9,
+     2.4,
+     0.03,
+     0.06,
+     0,
+     0
+    ],
+    [
+     469,
+     "U-CAV-2-3",
+     57.3,
+     0,
+     0.07,
+     0.04,
+     0,
+     0
+    ],
+    [
+     470,
+     "agg:U-I-2:U-I-2-2",
+     11.8,
+     0,
+     0.42,
+     0.52,
+     1,
+     0
+    ],
+    [
+     852,
+     "agg:U-II-2:U-106PA",
+     8.5,
+     2.6,
+     1,
+     1,
+     1,
+     1
+    ],
+    [
+     878,
+     "agg:C-I-3-1:C-18VA",
+     8.3,
+     0.2,
+     0.42,
+     0.52,
+     1,
+     0
+    ]
+   ]
+  }
+ ],
+ "consoleErrors": [
+  "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "requests": []
+}

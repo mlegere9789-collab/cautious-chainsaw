@@ -1,0 +1,279 @@
+{
+ "generated": "2026-10-06T12:46:54.625Z",
+ "note": "minified builds (node build.mjs --min) of the prototype with different skin sets; script = the main <script> block; page = whole file",
+ "variants": {
+  "base": {
+   "description": "reference + minimal only",
+   "pageBytes": 1175908,
+   "scriptRaw": 288736,
+   "scriptBrotli": 88378,
+   "scriptGzip9": 104462,
+   "blocks": {
+    "style": {
+     "raw": 52306,
+     "brotli": 9792,
+     "gzip9": 11311
+    },
+    "studio-dataset": {
+     "raw": 460042,
+     "brotli": 60710,
+     "gzip9": 78725
+    },
+    "studio-tokens": {
+     "raw": 53489,
+     "brotli": 11293,
+     "gzip9": 13316
+    },
+    "studio-text": {
+     "raw": 5687,
+     "brotli": 1656,
+     "gzip9": 1941
+    },
+    "studio-popups": {
+     "raw": 314164,
+     "brotli": 58684,
+     "gzip9": 75359
+    },
+    "script": {
+     "raw": 288736,
+     "brotli": 88378,
+     "gzip9": 104462
+    }
+   }
+  },
+  "warroom": {
+   "description": "+ War Room",
+   "pageBytes": 1189537,
+   "scriptRaw": 302365,
+   "scriptBrotli": 92176,
+   "scriptGzip9": 108971,
+   "blocks": {
+    "style": {
+     "raw": 52306,
+     "brotli": 9792,
+     "gzip9": 11311
+    },
+    "studio-dataset": {
+     "raw": 460042,
+     "brotli": 60710,
+     "gzip9": 78725
+    },
+    "studio-tokens": {
+     "raw": 53489,
+     "brotli": 11293,
+     "gzip9": 13316
+    },
+    "studio-text": {
+     "raw": 5687,
+     "brotli": 1656,
+     "gzip9": 1941
+    },
+    "studio-popups": {
+     "raw": 314164,
+     "brotli": 58684,
+     "gzip9": 75359
+    },
+    "script": {
+     "raw": 302365,
+     "brotli": 92176,
+     "gzip9": 108971
+    }
+   }
+  },
+  "fieldmanual": {
+   "description": "+ Field Manual",
+   "pageBytes": 1187853,
+   "scriptRaw": 300681,
+   "scriptBrotli": 91400,
+   "scriptGzip9": 108189,
+   "blocks": {
+    "style": {
+     "raw": 52306,
+     "brotli": 9792,
+     "gzip9": 11311
+    },
+    "studio-dataset": {
+     "raw": 460042,
+     "brotli": 60710,
+     "gzip9": 78725
+    },
+    "studio-tokens": {
+     "raw": 53489,
+     "brotli": 11293,
+     "gzip9": 13316
+    },
+    "studio-text": {
+     "raw": 5687,
+     "brotli": 1656,
+     "gzip9": 1941
+    },
+    "studio-popups": {
+     "raw": 314164,
+     "brotli": 58684,
+     "gzip9": 75359
+    },
+    "script": {
+     "raw": 300681,
+     "brotli": 91400,
+     "gzip9": 108189
+    }
+   }
+  },
+  "map1863": {
+   "description": "+ 1863 Map",
+   "pageBytes": 1189465,
+   "scriptRaw": 302293,
+   "scriptBrotli": 92066,
+   "scriptGzip9": 108831,
+   "blocks": {
+    "style": {
+     "raw": 52306,
+     "brotli": 9792,
+     "gzip9": 11311
+    },
+    "studio-dataset": {
+     "raw": 460042,
+     "brotli": 60710,
+     "gzip9": 78725
+    },
+    "studio-tokens": {
+     "raw": 53489,
+     "brotli": 11293,
+     "gzip9": 13316
+    },
+    "studio-text": {
+     "raw": 5687,
+     "brotli": 1656,
+     "gzip9": 1941
+    },
+    "studio-popups": {
+     "raw": 314164,
+     "brotli": 58684,
+     "gzip9": 75359
+    },
+    "script": {
+     "raw": 302293,
+     "brotli": 92066,
+     "gzip9": 108831
+    }
+   }
+  },
+  "wr_fm": {
+   "description": "+ War Room + Field Manual",
+   "pageBytes": 1201482,
+   "scriptRaw": 314310,
+   "scriptBrotli": 94195,
+   "scriptGzip9": 111580,
+   "blocks": {
+    "style": {
+     "raw": 52306,
+     "brotli": 9792,
+     "gzip9": 11311
+    },
+    "studio-dataset": {
+     "raw": 460042,
+     "brotli": 60710,
+     "gzip9": 78725
+    },
+    "studio-tokens": {
+     "raw": 53489,
+     "brotli": 11293,
+     "gzip9": 13316
+    },
+    "studio-text": {
+     "raw": 5687,
+     "brotli": 1656,
+     "gzip9": 1941
+    },
+    "studio-popups": {
+     "raw": 314164,
+     "brotli": 58684,
+     "gzip9": 75359
+    },
+    "script": {
+     "raw": 314310,
+     "brotli": 94195,
+     "gzip9": 111580
+    }
+   }
+  },
+  "wr_m63": {
+   "description": "+ War Room + 1863 Map",
+   "pageBytes": 1203094,
+   "scriptRaw": 315922,
+   "scriptBrotli": 94909,
+   "scriptGzip9": 112394,
+   "blocks": {
+    "style": {
+     "raw": 52306,
+     "brotli": 9792,
+     "gzip9": 11311
+    },
+    "studio-dataset": {
+     "raw": 460042,
+     "brotli": 60710,
+     "gzip9": 78725
+    },
+    "studio-tokens": {
+     "raw": 53489,
+     "brotli": 11293,
+     "gzip9": 13316
+    },
+    "studio-text": {
+     "raw": 5687,
+     "brotli": 1656,
+     "gzip9": 1941
+    },
+    "studio-popups": {
+     "raw": 314164,
+     "brotli": 58684,
+     "gzip9": 75359
+    },
+    "script": {
+     "raw": 315922,
+     "brotli": 94909,
+     "gzip9": 112394
+    }
+   }
+  },
+  "all": {
+   "description": "all three families (as the repo ships them)",
+   "pageBytes": 1215039,
+   "scriptRaw": 327867,
+   "scriptBrotli": 96906,
+   "scriptGzip9": 114770,
+   "blocks": {
+    "style": {
+     "raw": 52306,
+     "brotli": 9792,
+     "gzip9": 11311
+    },
+    "studio-dataset": {
+     "raw": 460042,
+     "brotli": 60710,
+     "gzip9": 78725
+    },
+    "studio-tokens": {
+     "raw": 53489,
+     "brotli": 11293,
+     "gzip9": 13316
+    },
+    "studio-text": {
+     "raw": 5687,
+     "brotli": 1656,
+     "gzip9": 1941
+    },
+    "studio-popups": {
+     "raw": 314164,
+     "brotli": 58684,
+     "gzip9": 75359
+    },
+    "script": {
+     "raw": 327867,
+     "brotli": 96906,
+     "gzip9": 114770
+    }
+   }
+  }
+ }
+}

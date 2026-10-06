@@ -1,0 +1,1498 @@
+{
+ "generated": "2026-10-06T12:36:59.067Z",
+ "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+ "runs": [
+  {
+   "sets": "{\"layout.dMaxPx\":24}",
+   "scene": "the-angle",
+   "mode": "after",
+   "speed": 4,
+   "secs": 20,
+   "viewport": [
+    1440,
+    900
+   ],
+   "dpr": 1,
+   "cpu": 1,
+   "style": "war-room",
+   "variant": "standard",
+   "popups": true,
+   "wallMs": 20006,
+   "tick0": 550,
+   "tick1": 675,
+   "frames": 1200,
+   "pageFrames": 1200,
+   "fps": 60,
+   "frameP50": 16.600000008940697,
+   "frameP95": 19.200000002980232,
+   "frameMax": 27.299999997019768,
+   "tilesMean": 242.3,
+   "chipsMean": 44.5,
+   "chipsMax": 57,
+   "framesSolidOverlap": 1,
+   "framesSolidDimOverlap": 194,
+   "framesDimDimOverlap": 58,
+   "overlapClassSums": {
+    "ss": {
+     "cc": 1,
+     "lc": 0,
+     "lp": 0,
+     "cp": 0,
+     "ll": 0
+    },
+    "sd": {
+     "cc": 90,
+     "lc": 108,
+     "lp": 5,
+     "cp": 35,
+     "ll": 0
+    }
+   },
+   "maxDepthPx": 24.7,
+   "maxDepthSolidSolidPx": 0.1,
+   "maxOverlapAreaPx2": 1692.8,
+   "minGapCC": -24.697,
+   "framesWithNoInkSolidTile": 0,
+   "maxNoInkSolid": 0,
+   "framesWithNoInkFaintTile": 74,
+   "framesInkOutside": 175,
+   "maxInkExcessPx": 4.053,
+   "framesStray": 0,
+   "framesMissingUnits": 291,
+   "maxMissing": 11,
+   "framesEarlyUnits": 0,
+   "maxEarlyTicks": 0,
+   "framesPhantom": 0,
+   "framesChipUnderDom": 1200,
+   "chipsUnderDomSum": 9043,
+   "chipsHalfHiddenSum": 3875,
+   "domBy": {
+    "#topbar > *": 6643,
+    "#dock": 2400
+   },
+   "engineOverlapFrames": 0,
+   "recorderErrors": [],
+   "sdBy": {
+    "pin/chip": 32,
+    "chip/chip": 90,
+    "chip/label": 108,
+    "pin/label": 5,
+    "chip/pin": 3
+   },
+   "missingExamples": [
+    {
+     "tau": 550.08,
+     "ex": [
+      [
+       "U-III-1-2",
+       400.079
+      ],
+      [
+       "U-17ME",
+       267.079
+      ]
+     ]
+    },
+    {
+     "tau": 550.12,
+     "ex": [
+      [
+       "U-III-1-2",
+       400.115
+      ],
+      [
+       "U-17ME",
+       267.115
+      ]
+     ]
+    },
+    {
+     "tau": 550.16,
+     "ex": [
+      [
+       "U-HAB-A2US",
+       549.159
+      ],
+      [
+       "U-III-1-2",
+       400.159
+      ],
+      [
+       "U-8NY-CAV",
+       547.159
+      ]
+     ]
+    },
+    {
+     "tau": 550.21,
+     "ex": [
+      [
+       "U-HAB-A2US",
+       549.21
+      ],
+      [
+       "U-III-1-2",
+       400.21
+      ],
+      [
+       "U-8NY-CAV",
+       547.21
+      ]
+     ]
+    },
+    {
+     "tau": 550.27,
+     "ex": [
+      [
+       "U-HAB-A2US",
+       549.268
+      ],
+      [
+       "U-III-1-2",
+       400.268
+      ],
+      [
+       "U-8NY-CAV",
+       547.268
+      ]
+     ]
+    }
+   ],
+   "sdEpisodes": {
+    "n": 18,
+    "medianFrames": 6,
+    "maxFrames": 30
+   },
+   "worstFrames": [
+    {
+     "i": 137,
+     "ss": 0,
+     "sd": 4,
+     "tau": 566.67
+    },
+    {
+     "i": 40,
+     "ss": 0,
+     "sd": 3,
+     "tau": 553.75
+    },
+    {
+     "i": 41,
+     "ss": 0,
+     "sd": 3,
+     "tau": 553.88
+    },
+    {
+     "i": 57,
+     "ss": 0,
+     "sd": 3,
+     "tau": 556.01
+    },
+    {
+     "i": 67,
+     "ss": 0,
+     "sd": 3,
+     "tau": 557.34
+    }
+   ],
+   "violations": [
+    {
+     "frame": 1,
+     "tau": 550.0048556078385,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:U-II-2:U-106PA",
+       "agg:C-I-3-3:C-14VA",
+       5.8,
+       5.8,
+       0.42,
+       0.84,
+       [
+        671.0058070770217,
+        378.99475636980765,
+        765.5058070770217,
+        402.49475636980765
+       ]
+      ]
+     ],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:U-ART-II-CORPS:U-ART-A4US~218",
+       3.97
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 1,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 2,
+     "tau": 550.0136535161274,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:U-II-2:U-106PA",
+       "agg:C-I-3-3:C-14VA",
+       5.8,
+       5.8,
+       0.42,
+       0.68,
+       [
+        671.0415516140746,
+        379.02337064486295,
+        765.5415516140746,
+        402.52337064486295
+       ]
+      ]
+     ],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:U-ART-II-CORPS:U-ART-A4US~218",
+       3.9
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 1,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 3,
+     "tau": 550.0285470285598,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "agg:U-II-2:U-106PA",
+       "agg:C-I-3-3:C-14VA",
+       53.4,
+       5.2,
+       0.42,
+       0.52,
+       [
+        632.0195286480813,
+        360.90267532189307,
+        765.6260001460939,
+        402.6678991534455
+       ]
+      ]
+     ],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:U-ART-II-CORPS:U-ART-A4US~218",
+       2.78
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 1,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 5,
+     "tau": 550.0790775126238,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 1,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 6,
+     "tau": 550.1154588554348,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:A-U:U-CAV-2-2~223",
+       3.97
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 1,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 7,
+     "tau": 550.1589845738653,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:A-U:U-CAV-2-2~223",
+       3.9
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 1,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    }
+   ],
+   "solidSolidExamples": [
+    {
+     "tau": 560.9384267096925,
+     "t": 5433.5999999940395,
+     "ex": [
+      [
+       "ss",
+       "cc",
+       "U-II-3-2~311",
+       "U-II-3-3",
+       0.1,
+       21.3,
+       0.98,
+       1,
+       [
+        1005.6091667758334,
+        207.07196498696808,
+        1156.9999863887206,
+        240.74999574013054
+       ]
+      ]
+     ],
+     "ss": {
+      "cc": 1,
+      "lc": 0,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     }
+    }
+   ],
+   "solidDimExamples": [
+    {
+     "tau": 550.0048556078385,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:U-II-2:U-106PA",
+       "agg:C-I-3-3:C-14VA",
+       5.8,
+       5.8,
+       0.42,
+       0.84,
+       [
+        671.0058070770217,
+        378.99475636980765,
+        765.5058070770217,
+        402.49475636980765
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 0,
+      "lp": 0,
+      "cp": 1,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "pin/chip": 1
+     }
+    },
+    {
+     "tau": 550.0136535161274,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:U-II-2:U-106PA",
+       "agg:C-I-3-3:C-14VA",
+       5.8,
+       5.8,
+       0.42,
+       0.68,
+       [
+        671.0415516140746,
+        379.02337064486295,
+        765.5415516140746,
+        402.52337064486295
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 0,
+      "lp": 0,
+      "cp": 1,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "pin/chip": 1
+     }
+    },
+    {
+     "tau": 550.0285470285598,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "agg:U-II-2:U-106PA",
+       "agg:C-I-3-3:C-14VA",
+       53.4,
+       5.2,
+       0.42,
+       0.52,
+       [
+        632.0195286480813,
+        360.90267532189307,
+        765.6260001460939,
+        402.6678991534455
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 1,
+      "lc": 0,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/chip": 1
+     }
+    },
+    {
+     "tau": 550.403205672906,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "C-I-3-3",
+       "U-II-1-1",
+       48.4,
+       0.1,
+       0.42,
+       1,
+       [
+        641.9513540801214,
+        50.47464472425458,
+        735.5419682982588,
+        104.70180212068038
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 1,
+      "lc": 0,
+      "lp": 0,
+      "cp": 0,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/chip": 1
+     }
+    }
+   ],
+   "framesUnitDimOnly": 559,
+   "maxUnitsDimOnly": 37,
+   "framesUnitInvisible": 29,
+   "maxUnitsInvisible": 3,
+   "unitsInViewMean": 116.4,
+   "unitDimOnlyRuns": {
+    "n": 155,
+    "medianFrames": 11,
+    "p95Frames": 64,
+    "maxFrames": 120,
+    "over30Frames": 25
+   },
+   "snapFiles": [
+    {
+     "file": "v3-the-angle-after-4x-0.png",
+     "tau": 550.84,
+     "ex": [
+      [
+       "sd",
+       "cc",
+       "C-I-3-3",
+       "agg:U-II-2:U-106PA",
+       38.1,
+       14.1,
+       0.42,
+       1
+      ]
+     ]
+    },
+    {
+     "file": "v3-the-angle-after-4x-1.png",
+     "tau": 553.88,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "C-I-5-1~250",
+       "C-III-1-1~254",
+       5.8,
+       5.8,
+       0.1,
+       0.68
+      ],
+      [
+       "sd",
+       "cc",
+       "agg:C-I-3-1:C-18VA",
+       "C-I-3-2",
+       8.8,
+       23.5,
+       0.42,
+       1
+      ],
+      [
+       "sd",
+       "lc",
+       "agg:C-I-3-1:C-18VA",
+       "C-I-3-2",
+       80.7,
+       18,
+       0.42,
+       1
+      ]
+     ]
+    },
+    {
+     "file": "v3-the-angle-after-4x-2.png",
+     "tau": 560.94,
+     "ex": [
+      [
+       "ss",
+       "cc",
+       "U-II-3-2~311",
+       "U-II-3-3",
+       0.1,
+       21.3,
+       0.98,
+       1
+      ]
+     ]
+    },
+    {
+     "file": "v3-the-angle-after-4x-3.png",
+     "tau": 565.6,
+     "ex": [
+      [
+       "sd",
+       "lc",
+       "C-I-3-2",
+       "C-III-4-3",
+       14.7,
+       14.1,
+       0.14,
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "sets": "{\"layout.dMaxPx\":24}",
+   "scene": "rose-woods",
+   "mode": "after",
+   "speed": 4,
+   "secs": 20,
+   "viewport": [
+    1440,
+    900
+   ],
+   "dpr": 1,
+   "cpu": 1,
+   "style": "war-room",
+   "variant": "standard",
+   "popups": true,
+   "wallMs": 20005,
+   "tick0": 287,
+   "tick1": 445.3,
+   "frames": 1200,
+   "pageFrames": 1200,
+   "fps": 60,
+   "frameP50": 16.600000008940697,
+   "frameP95": 18.5,
+   "frameMax": 26.599999994039536,
+   "tilesMean": 111.4,
+   "chipsMean": 41,
+   "chipsMax": 55,
+   "framesSolidOverlap": 1,
+   "framesSolidDimOverlap": 47,
+   "framesDimDimOverlap": 43,
+   "overlapClassSums": {
+    "ss": {
+     "cc": 0,
+     "lc": 0,
+     "lp": 0,
+     "cp": 1,
+     "ll": 0
+    },
+    "sd": {
+     "cc": 41,
+     "lc": 1,
+     "lp": 0,
+     "cp": 35,
+     "ll": 0
+    }
+   },
+   "maxDepthPx": 17.82,
+   "maxDepthSolidSolidPx": 0.33,
+   "maxOverlapAreaPx2": 1103.8,
+   "minGapCC": -23.605,
+   "framesWithNoInkSolidTile": 0,
+   "maxNoInkSolid": 0,
+   "framesWithNoInkFaintTile": 68,
+   "framesInkOutside": 186,
+   "maxInkExcessPx": 4.005,
+   "framesStray": 0,
+   "framesMissingUnits": 147,
+   "maxMissing": 11,
+   "framesEarlyUnits": 0,
+   "maxEarlyTicks": 0,
+   "framesPhantom": 0,
+   "framesChipUnderDom": 1161,
+   "chipsUnderDomSum": 2298,
+   "chipsHalfHiddenSum": 1159,
+   "domBy": {
+    "#topbar > *": 2298
+   },
+   "engineOverlapFrames": 0,
+   "recorderErrors": [],
+   "sdBy": {
+    "pin/chip": 24,
+    "chip/pin": 11,
+    "chip/chip": 41,
+    "label/chip": 1,
+    "pin/pin": 1
+   },
+   "missingExamples": [
+    {
+     "tau": 287.08,
+     "ex": [
+      [
+       "U-ART-1PA-L",
+       172.079
+      ],
+      [
+       "C-III-3",
+       61.079
+      ]
+     ]
+    },
+    {
+     "tau": 287.12,
+     "ex": [
+      [
+       "U-ART-1PA-L",
+       172.115
+      ],
+      [
+       "C-III-3",
+       61.115
+      ]
+     ]
+    },
+    {
+     "tau": 287.16,
+     "ex": [
+      [
+       "U-ART-1PA-L",
+       172.159
+      ],
+      [
+       "C-III-3",
+       61.159
+      ]
+     ]
+    },
+    {
+     "tau": 287.21,
+     "ex": [
+      [
+       "U-ART-1PA-L",
+       172.21
+      ],
+      [
+       "C-III-3",
+       61.21
+      ]
+     ]
+    },
+    {
+     "tau": 287.27,
+     "ex": [
+      [
+       "U-ART-1PA-L",
+       172.268
+      ],
+      [
+       "C-III-3",
+       61.268
+      ]
+     ]
+    }
+   ],
+   "sdEpisodes": {
+    "n": 11,
+    "medianFrames": 3,
+    "maxFrames": 12
+   },
+   "worstFrames": [
+    {
+     "i": 130,
+     "ss": 0,
+     "sd": 4,
+     "tau": 302.74
+    },
+    {
+     "i": 150,
+     "ss": 0,
+     "sd": 4,
+     "tau": 305.41
+    },
+    {
+     "i": 152,
+     "ss": 0,
+     "sd": 4,
+     "tau": 305.67
+    },
+    {
+     "i": 99,
+     "ss": 0,
+     "sd": 3,
+     "tau": 298.61
+    },
+    {
+     "i": 100,
+     "ss": 0,
+     "sd": 3,
+     "tau": 298.74
+    }
+   ],
+   "violations": [
+    {
+     "frame": 4,
+     "tau": 287.0502153227085,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:U-III-1-1:U-124NY~1538",
+       3.97
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 5,
+     "tau": 287.07918646553134,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:ROOT:C-15SC",
+       "agg:A-U:U-17ME",
+       5.8,
+       4.8,
+       0.42,
+       0.68,
+       [
+        611.9999941368193,
+        407.0022964368485,
+        698.4999941368193,
+        431.49999876736615
+       ]
+      ]
+     ],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:U-III-1-1:U-124NY~1538",
+       3.9
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 1,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 6,
+     "tau": 287.1153648808045,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:ROOT:C-15SC",
+       "agg:A-U:U-17ME",
+       5.8,
+       4.9,
+       0.42,
+       0.52,
+       [
+        611.9999941368193,
+        407.0632510595483,
+        698.4999941368193,
+        431.49999876736615
+       ]
+      ],
+      [
+       "ss",
+       "cp",
+       "agg:A-C:C-4AL-Law~1538",
+       "agg:C-I-2-2:C-1TX~1539",
+       0.3,
+       5.8,
+       0.87,
+       0.79,
+       [
+        565.8902772809239,
+        436.8385843409352,
+        665.6868497828021,
+        463.36600733116813
+       ]
+      ]
+     ],
+     "noInkEx": [],
+     "outEx": [
+      [
+       "agg:A-C:C-4AL-Law~1538",
+       2.42
+      ],
+      [
+       "agg:U-III-1-1:U-124NY~1538",
+       2.11
+      ]
+     ],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 1,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 1,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 7,
+     "tau": 287.15914587125417,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 1,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 8,
+     "tau": 287.21018439156757,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 1,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    },
+    {
+     "frame": 9,
+     "tau": 287.26786028399243,
+     "ex": [],
+     "noInkEx": [],
+     "outEx": [],
+     "strayEx": [],
+     "res": {
+      "ss": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "sd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 0,
+       "ll": 0,
+       "pp": 0
+      },
+      "dd": {
+       "cc": 0,
+       "lc": 0,
+       "lp": 0,
+       "cp": 1,
+       "ll": 0,
+       "pp": 0
+      }
+     }
+    }
+   ],
+   "solidSolidExamples": [
+    {
+     "tau": 287.1153648808045,
+     "t": 27864.29999999702,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:ROOT:C-15SC",
+       "agg:A-U:U-17ME",
+       5.8,
+       4.9,
+       0.42,
+       0.52,
+       [
+        611.9999941368193,
+        407.0632510595483,
+        698.4999941368193,
+        431.49999876736615
+       ]
+      ],
+      [
+       "ss",
+       "cp",
+       "agg:A-C:C-4AL-Law~1538",
+       "agg:C-I-2-2:C-1TX~1539",
+       0.3,
+       5.8,
+       0.87,
+       0.79,
+       [
+        565.8902772809239,
+        436.8385843409352,
+        665.6868497828021,
+        463.36600733116813
+       ]
+      ]
+     ],
+     "ss": {
+      "cc": 0,
+      "lc": 0,
+      "lp": 0,
+      "cp": 1,
+      "ll": 0,
+      "pp": 0
+     }
+    }
+   ],
+   "solidDimExamples": [
+    {
+     "tau": 287.07918646553134,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:ROOT:C-15SC",
+       "agg:A-U:U-17ME",
+       5.8,
+       4.8,
+       0.42,
+       0.68,
+       [
+        611.9999941368193,
+        407.0022964368485,
+        698.4999941368193,
+        431.49999876736615
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 0,
+      "lp": 0,
+      "cp": 1,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "pin/chip": 1
+     }
+    },
+    {
+     "tau": 287.1153648808045,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:ROOT:C-15SC",
+       "agg:A-U:U-17ME",
+       5.8,
+       4.9,
+       0.42,
+       0.52,
+       [
+        611.9999941368193,
+        407.0632510595483,
+        698.4999941368193,
+        431.49999876736615
+       ]
+      ],
+      [
+       "ss",
+       "cp",
+       "agg:A-C:C-4AL-Law~1538",
+       "agg:C-I-2-2:C-1TX~1539",
+       0.3,
+       5.8,
+       0.87,
+       0.79,
+       [
+        565.8902772809239,
+        436.8385843409352,
+        665.6868497828021,
+        463.36600733116813
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 0,
+      "lp": 0,
+      "cp": 1,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "pin/chip": 1
+     }
+    },
+    {
+     "tau": 293.00726829272156,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:ROOT:C-15SC",
+       "agg:A-U:U-116PA",
+       5.8,
+       3.1,
+       0.42,
+       0.84,
+       [
+        619.6503010467228,
+        397.83505156595197,
+        734.1503010467228,
+        424.0793073925579
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 0,
+      "lp": 0,
+      "cp": 1,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/pin": 1
+     }
+    },
+    {
+     "tau": 293.14068790368606,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:ROOT:C-15SC",
+       "agg:A-U:U-116PA",
+       5.8,
+       1.4,
+       0.42,
+       0.68,
+       [
+        620.2270079352907,
+        396.0551527721459,
+        734.7270079352907,
+        423.9795183974169
+       ]
+      ]
+     ],
+     "sd": {
+      "cc": 0,
+      "lc": 0,
+      "lp": 0,
+      "cp": 1,
+      "ll": 0,
+      "pp": 0
+     },
+     "sdBy": {
+      "chip/pin": 1
+     }
+    }
+   ],
+   "framesUnitDimOnly": 513,
+   "maxUnitsDimOnly": 86,
+   "framesUnitInvisible": 38,
+   "maxUnitsInvisible": 11,
+   "unitsInViewMean": 144.7,
+   "unitDimOnlyRuns": {
+    "n": 273,
+    "medianFrames": 36,
+    "p95Frames": 76,
+    "maxFrames": 91,
+    "over30Frames": 142
+   },
+   "snapFiles": [
+    {
+     "file": "v3-rose-woods-after-4x-0.png",
+     "tau": 287.12,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:ROOT:C-15SC",
+       "agg:A-U:U-17ME",
+       5.8,
+       4.9,
+       0.42,
+       0.52
+      ],
+      [
+       "ss",
+       "cp",
+       "agg:A-C:C-4AL-Law~1538",
+       "agg:C-I-2-2:C-1TX~1539",
+       0.3,
+       5.8,
+       0.87,
+       0.79
+      ]
+     ]
+    },
+    {
+     "file": "v3-rose-woods-after-4x-1.png",
+     "tau": 298.87,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:A-U:U-116PA",
+       "agg:ROOT:C-15SC",
+       5.8,
+       1.4,
+       0.42,
+       1
+      ],
+      [
+       "sd",
+       "cc",
+       "agg:C-I-1-2:C-17MS",
+       "U-II-1",
+       61,
+       11.4,
+       0.42,
+       0.52
+      ],
+      [
+       "sd",
+       "cp",
+       "agg:C-I-1-2:C-17MS",
+       "U-II-1",
+       5.8,
+       5.8,
+       0.42,
+       0.52
+      ]
+     ]
+    },
+    {
+     "file": "v3-rose-woods-after-4x-2.png",
+     "tau": 302.47,
+     "ex": [
+      [
+       "sd",
+       "cp",
+       "agg:C-III-1-1:C-11AL",
+       "U-II-3-3",
+       5.8,
+       1.4,
+       0.07,
+       1
+      ],
+      [
+       "sd",
+       "cc",
+       "agg:U-II-2:U-106PA",
+       "agg:A-U:U-ART-A4US",
+       61.5,
+       14.5,
+       0.42,
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "consoleErrors": [
+  "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "requests": []
+}
