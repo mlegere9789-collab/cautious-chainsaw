@@ -2908,12 +2908,1317 @@ const referenceSkin = {
 
 __exports.referenceSkin = referenceSkin;
 };
+__defs["src/skins/semantics.mjs"] = function (__exports, __r) {
+// skins/semantics.mjs - THE HONEST CHANNEL LAYER shared by every skin.  A skin decides HOW a fact is drawn; this module decides WHICH facts exist, what each is called, and how
+// well it is known (the site's evidence vocabulary: Documented / Measured / Computed / Modelled / Contested / Unknown).  Because the three pitched skins and the legend all read
+// this one file, a skin cannot draw a channel the data does not support, and the legend cannot disagree with the drawing (04-benchmarks.md P10 and P12).
+//
+// Source of every rule below: docs/pitch/anim/03-data-fuel.md (the encodings table E01-E24 and section 5) and 06-layout.md (what is "vital").  In short:
+//   side        Documented (order of battle / id prefix); the 10 ids whose state code contradicts the prefix are 'unknown' = Contested, never drawn as a side        (E01)
+//   arm         Documented for regiments, batteries and battalions.  Brigades, divisions and corps have NO arm in the data (the loader defaults them to infantry unless the id
+//               says ART/CAV), so they are drawn as FORMATIONS and make no arm claim                                                                                        (E02)
+//   echelon     Documented (registry kind): regiment/battery 0, battalion 1, brigade 2, division 3, corps 4                                                                    (E03)
+//   identity    the short code is derived from the id; a unit with no order-of-battle RECORD (u.inOob false) is flagged "id only" (Unknown)                                          (E06)
+//   strength    Modelled: the CURRENT KEYFRAME's strength over the unit's reference strength.  A placement strength is not a casualty record (fact 5), so it is a state, not a number
+//   fix age     Computed: ticks since the unit's latest keyframe.  Carried-forward tiles are not fresh reports; this is the single most important honesty channel               (E14)
+//   in transit  Modelled: the tile is between two keyframes, so its position is an interpolation                                                                              (E13)
+//   posture     Modelled (authored per keyframe, 28 duplicate keys disagree on it); drawn by mark, not by hue                                                                 (E11)
+//   corps badge Documented for Union INFANTRY of the seven corps of the 21 March 1863 circular (and only where the order-of-battle chain documents the corps); division colour
+//               red / white / blue for divisions 1 / 2 / 3.  NOT drawn for cavalry, artillery, any Confederate unit, or any unit whose parent chain is not documented        (E04)
+//   corps name  Documented for Confederate units of the three corps (as TEXT, never an emblem: no source assigns Confederate badges)                                         (E05)
+// NOT available to a skin, so never drawn: facing (the tile does not carry bearing, and bearing agrees with the real move 47 % of the time), speed, casualties, engaged glow
+// (the shipped one is a 40-pixel screen heuristic), gun counts, weather, terrain shadows.
+const { FONT_SPECS } = __r("src/layout/text.mjs");
+
+const EVIDENCE = ['Documented', 'Measured', 'Computed', 'Modelled', 'Contested', 'Unknown'];
+const FONTS = FONT_SPECS;                     // every skin measures its text with the engine's own font table, so the zero-overlap guarantee holds (see kit.fitText)
+
+/** registry kind -> echelon level drawn: 0 base (regiment, battery) .. 4 corps */
+const ECH_LEVEL = { regiment: 0, battery: 0, battalion: 1, brigade: 2, division: 3, corps: 4, army: 4 };
+const FORMATION_KINDS = new Set(['brigade', 'division', 'corps', 'army']);
+
+const POSTURE_OF = { 'Line of Battle': 'line', 'Charging Line': 'charge', 'Chaotic Retreat': 'retreat', 'Line of March': 'march', 'Skirmish Line': 'skirmish', Reserve: 'reserve', Bivouac: 'bivouac' };
+const ARMSTATE_OF = { 'Mounted Cavalry': 'mounted', 'Dismounted Cavalry': 'dismounted', 'Deployed Artillery': 'deployed', 'Limbered Artillery': 'limbered' };
+
+/** Union corps badges documented by the circular of Headquarters, Army of the Potomac, 21 March 1863 (03-data-fuel.md section 5; read via civilwarnews.com, the OR scan itself was not opened) */
+const UNION_BADGE_OF = { I: 'sphere', II: 'trefoil', III: 'lozenge', V: 'maltese', VI: 'cross', XI: 'crescent', XII: 'star' };
+const BADGE_NAMES = { sphere: 'sphere', trefoil: 'trefoil', lozenge: 'lozenge', maltese: 'Maltese cross', cross: 'cross', crescent: 'crescent', star: 'star' };
+const DIV_COLOUR_OF = { 1: 'red', 2: 'white', 3: 'blue' };
+const CSA_CORPS = new Set(['I', 'II', 'III']);
+
+const corpsCache = new WeakMap();
+const RE_BDE = /^[UC]-(XII|XI|X|IX|VIII|VII|VI|IV|V|III|II|I)-(\d)-\d+$/; const RE_DIV = /^[UC]-(XII|XI|X|IX|VIII|VII|VI|IV|V|III|II|I)-(\d)$/; const RE_CORPS = /^[UC]-(XII|XI|X|IX|VIII|VII|VI|IV|V|III|II|I)$/;
+/** corps / division facts of a leaf unit, from its order-of-battle chain.  The registry's Union divisions hang directly under the army, so the corps (and the division number) are read from the
+ *  brigade, division or corps ID of the chain: `U-II-2-1` is "First Brigade, Second Division, Second Corps" (03-data-fuel.md section 5; test/skins.test.mjs re-derives it from the designations).
+ *  Pure and cached per unit. */
+function corpsFacts(u) {
+  let r = corpsCache.get(u); if (r) return r;
+  let roman = null; let div = null;
+  for (const id of u.chain || []) {
+    let m;
+    if ((m = RE_BDE.exec(id)) || (m = RE_DIV.exec(id))) { if (!roman) roman = m[1]; if (div === null) div = +m[2]; }
+    else if ((m = RE_CORPS.exec(id))) { if (!roman) roman = m[1]; }
+  }
+  const documented = !!(u.inOob && u.parentSource === 'oob');                 // the chain is the order of battle's, not an id-pattern guess
+  const infantryLike = u.arm === 'infantry' || FORMATION_KINDS.has(u.kind);
+  let badge = null; let csa = null;
+  if (documented && roman) {
+    if (u.side === 'union' && u.arm !== 'artillery' && u.arm !== 'cavalry' && infantryLike && UNION_BADGE_OF[roman]) badge = UNION_BADGE_OF[roman];
+    if (u.side === 'confederate' && CSA_CORPS.has(roman)) csa = roman;
+  }
+  r = { roman, div, documented, badge, csa, divColour: badge && DIV_COLOUR_OF[div] ? DIV_COLOUR_OF[div] : null };
+  corpsCache.set(u, r); return r;
+}
+
+const ss = (a, b, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+
+/** Fix-age anchors (ticks since the unit's latest keyframe): below half a battle day (CARRIED_TICKS / 2 = 112.5) the look is the settled, inked one; between half a day and a whole day (225 ticks = 675 / 3) it blends, so nothing pops;
+ *  from a whole day on it is the carried-forward look.  The 225 is the reference skin's own threshold; the blend start is this layer's choice (a design token, not a finding). */
+const CARRIED_TICKS = 225;
+
+/** The view model of a display tile: every value a skin may draw, each a pure function of the tile.  `t` is a display tile (skins/contract.mjs). */
+function describe(t) {
+  const agg = t.kind === 'agg'; const u = agg ? null : t.unit;
+  const kind = agg ? t.nameKind : (u ? u.kind : 'regiment');
+  const formation = !agg && FORMATION_KINDS.has(kind);
+  const posture = !agg && t.disposition ? (POSTURE_OF[t.disposition] || null) : null;
+  const armState = !agg && t.disposition ? (ARMSTATE_OF[t.disposition] || null) : null;
+  const age = Math.max(0, t.ageMax ?? t.ageTicks ?? 0);
+  const cf = !agg && u ? corpsFacts(u) : null;
+  return {
+    agg, n: t.n || 1, count: agg ? (t.badge || '×' + t.n) : null, scope: agg ? t.nameKind : null,
+    side: t.side, sideEv: t.side === 'unknown' ? 'Contested' : t.side === 'mixed' ? 'Computed' : 'Documented',
+    arm: formation ? 'formation' : t.arm, armState, armEv: agg ? 'Computed' : 'Documented',
+    ech: agg ? 0 : (ECH_LEVEL[kind] ?? 0), kind,
+    code: t.short, idOnly: !agg && !!u && !u.inOob,
+    ratio: Math.max(0, Math.min(1, t.ratio ?? 1)),
+    posture, postureEv: 'Modelled',
+    age, carried: ss(CARRIED_TICKS * 0.5, CARRIED_TICKS, age),
+    moving: !!t.moving,
+    badge: cf ? cf.badge : null, divColour: cf ? cf.divColour : null, csa: cf ? cf.csa : null,
+    contested: t.side === 'unknown',
+  };
+}
+
+// ---- the channel registry: what the LEGEND says -------------------------------------------------------------------------------------------------------------
+// Each channel lists its values with the sentence the legend prints and the evidence label.  A skin declares which channels it draws (`channels: [...]`) and provides
+// sample(channel, value, ...) that draws each value with its OWN drawing code; kit.legendOf() joins the two, so the legend cannot drift from the picture.
+const CHANNELS = {
+  side: { title: 'Side', values: [
+    { id: 'union', text: 'Union: the order of battle, or the id prefix U- for ids it does not list', evidence: 'Documented' },
+    { id: 'confederate', text: 'Confederate: the order of battle, or the id prefix C- for ids it does not list', evidence: 'Documented' },
+    { id: 'unknown', text: 'Side UNKNOWN: the id prefix and the state code in the id disagree (10 ids). Never drawn as a side', evidence: 'Contested' },
+    { id: 'mixed', text: 'Aggregate of more than one side, or of a contested one (Contact)', evidence: 'Computed' } ] },
+  arm: { title: 'Arm', values: [
+    { id: 'infantry', text: 'Infantry regiment', evidence: 'Documented' }, { id: 'cavalry', text: 'Cavalry regiment', evidence: 'Documented' },
+    { id: 'artillery', text: 'Artillery battery or battalion', evidence: 'Documented' },
+    { id: 'mixed', text: 'Aggregate of more than one arm', evidence: 'Computed' },
+    { id: 'formation', text: 'Brigade, division or corps record: the data gives a formation no arm, so none is claimed', evidence: 'Documented' } ] },
+  armState: { title: 'Arm state', values: [
+    { id: 'mounted', text: 'Mounted cavalry (keyframe posture): the plain slash', evidence: 'Modelled' }, { id: 'dismounted', text: 'Dismounted cavalry (keyframe posture): the slash stands on a ground line', evidence: 'Modelled' },
+    { id: 'deployed', text: 'Deployed artillery (keyframe posture)', evidence: 'Modelled' }, { id: 'limbered', text: 'Limbered artillery (keyframe posture)', evidence: 'Modelled' } ] },
+  echelon: { title: 'Echelon', values: [
+    { id: 1, text: 'Battalion (registry kind)', evidence: 'Documented' }, { id: 2, text: 'Brigade record (registry kind)', evidence: 'Documented' },
+    { id: 3, text: 'Division record (registry kind)', evidence: 'Documented' }, { id: 4, text: 'Corps record (registry kind)', evidence: 'Documented' } ] },
+  posture: { title: 'Posture', values: [
+    { id: 'line', text: 'Line of Battle', evidence: 'Modelled' }, { id: 'charge', text: 'Charging Line', evidence: 'Modelled' }, { id: 'retreat', text: 'Chaotic Retreat', evidence: 'Modelled' },
+    { id: 'march', text: 'Line of March', evidence: 'Modelled' }, { id: 'skirmish', text: 'Skirmish Line', evidence: 'Modelled' }, { id: 'reserve', text: 'Reserve', evidence: 'Modelled' },
+    { id: 'bivouac', text: 'Bivouac', evidence: 'Modelled' } ] },
+  strength: { title: 'Strength state', values: [
+    { id: 1, text: 'Gauge: this keyframe\'s strength over the unit\'s reference strength (the larger of its registry strength and its largest keyframe strength), full = 100 %. A placement value, not a casualty record', evidence: 'Modelled' },
+    { id: 0.4, text: 'A partly filled gauge (shown at 40 %)', evidence: 'Modelled' } ] },
+  fix: { title: 'Fix age', values: [
+    { id: 'fresh', text: `Solid, firm plate: the unit's latest keyframe is less than ${CARRIED_TICKS / 2} ticks old`, evidence: 'Computed' },
+    { id: 'carried', text: `Dotted, dulled plate: the latest keyframe is ${CARRIED_TICKS} ticks (a whole battle day) or more old, so the position is carried forward, not a fresh report; it blends in between`, evidence: 'Computed' } ] },
+  transit: { title: 'In transit', values: [ { id: 'moving', text: 'Between two keyframes at different places: the position is an interpolation', evidence: 'Modelled' } ] },
+  idOnly: { title: 'Identity', values: [ { id: 'idOnly', text: 'No order-of-battle record for this id: the name comes from the id alone', evidence: 'Unknown' } ] },
+  aggregate: { title: 'Aggregate', values: [ { id: 'agg', text: 'xN stands for N placement records that cannot all stand on their true positions (records, never men)', evidence: 'Computed' } ] },
+  corpsBadge: { title: 'Corps badge', values: Object.entries(UNION_BADGE_OF).map(([r, b]) => ({ id: b, text: `${r} Corps: ${BADGE_NAMES[b]} (Union infantry only, where the order-of-battle chain documents the corps; circular of 21 March 1863)`, evidence: 'Documented' })) },
+  divColour: { title: 'Division colour', values: [
+    { id: 'red', text: 'Badge colour of a first division: red (circular of 21 March 1863)', evidence: 'Documented' }, { id: 'white', text: 'Badge colour of a second division: white', evidence: 'Documented' }, { id: 'blue', text: 'Badge colour of a third division: blue', evidence: 'Documented' } ] },
+  corpsText: { title: 'Confederate corps', values: [ { id: 'csa', text: 'Roman numeral: the corps named in the order of battle (text only: no source assigns Confederate badges)', evidence: 'Documented' } ] },
+  selection: { title: 'Selection', values: [ { id: 'selected', text: 'Selected unit: its tile keeps the highest placement priority and the ring eases in (interface state, not a claim about the battle)', evidence: 'Design' } ] },
+  pin: { title: 'True position', values: [ { id: 'pin', text: 'Pin and line: the true (hand-authored) position of a displaced tile', evidence: 'Modelled' } ] },
+};
+const CHANNEL_IDS = Object.keys(CHANNELS);
+
+__exports.EVIDENCE = EVIDENCE;
+__exports.FONTS = FONTS;
+__exports.ECH_LEVEL = ECH_LEVEL;
+__exports.FORMATION_KINDS = FORMATION_KINDS;
+__exports.POSTURE_OF = POSTURE_OF;
+__exports.ARMSTATE_OF = ARMSTATE_OF;
+__exports.UNION_BADGE_OF = UNION_BADGE_OF;
+__exports.BADGE_NAMES = BADGE_NAMES;
+__exports.DIV_COLOUR_OF = DIV_COLOUR_OF;
+__exports.corpsFacts = corpsFacts;
+__exports.CARRIED_TICKS = CARRIED_TICKS;
+__exports.describe = describe;
+__exports.CHANNELS = CHANNELS;
+__exports.CHANNEL_IDS = CHANNEL_IDS;
+};
+__defs["src/skins/kit.mjs"] = function (__exports, __r) {
+// skins/kit.mjs - the SKIN KIT: everything a skin needs that is not its design.  A skin supplies a token table, a footprint and a few drawing functions; the kit supplies the honest view
+// model (semantics.mjs), the eased interaction state, the per-tile choreography progress, level-of-detail fades, pixel snapping for crisp edges, safe text fitting, the legend generator
+// and the live tweak API.  The aim: a designer changes TOKENS (spec files) without touching code, and a new skin is mostly drawing.
+//
+//   defineSkin({ id, label, version, family?, variant?, footprint, fonts?, tokens, channels, draw: { tile(c, t, g), label?(c, t, g), pin?, leader?(c, t, g, a, b), hull?(c, t, g, pts) }, sample(c, channel, value, g, w, h) })
+//       -> a skin definition that kernel.skins.register() accepts (draw.tile ... plus legend() and the token table as skin.tokenDocs)
+//   defineFamily(base, variants) -> [skin, skin/cvd, skin/contrast ...]   the same drawing code under different token sets (colour-blind safe, high contrast)
+//
+// WHAT g (the second argument of every drawing function) CARRIES, per tile and frame:
+//   g.P            tokens (plain object, g.P['color.union']);  g.col(name, alpha) -> css colour of a colour token;  g.mix(a, b, k)
+//   g.vm           the view model (semantics.mjs describe): side, arm, ech, ratio, posture, fresh/carried, badge ...
+//   g.w g.h        footprint box size;  g.body = { x, y, w, h } the box inset by spec.ring (draw your body there; the margin is the selection ring's)
+//   g.sel g.hov    0..1 EASED selection and hover (critically damped, wall-clock, reduced-motion aware)
+//   g.enter        0..1 arrival / departure progress taken from the tile's own scale (the display layer ramps it): 0 = just born or nearly gone, 1 = settled.  Continuous: no pop
+//   g.rest         0..1: 1 once the tile has stopped moving, so hairlines can settle onto the device-pixel grid (applied by the kit as a translation before tile() is called)
+//   g.at(z0, span) 0..1 level-of-detail fade by zoom (secondary detail collapses by zoom; the vital channels never do)
+//   g.cat(chan, v) cross-fade of a categorical channel when its value changes: { from, to, m } (draw `from` at 1-m and `to` at m): a keyframe that changes posture does not pop
+//   g.lw(v)        a line width rounded DOWN-ish to whole device pixels (1.5 px is 1 px at DPR 1 and 1.5 px at DPR 2: always crisp)
+//   g.cr(v, lw)    snap a coordinate to the device-pixel grid for a stroke of width lw: crisp 1 px lines at DPR 1, 2 and 3
+//   g.text(c, s, x, y, maxW, align)  draws text and condenses it (never overflows) when it is wider than maxW: a font that renders wider than measured cannot push ink out of the box
+// The ink of tile() must stay inside the footprint box (skins/contract.mjs checkSkin); the honesty rules of contract.mjs apply (every mark backed by a field; Modelled must not look
+// Documented; side 'unknown' must not look like a side).
+const { dampStep } = __r("src/interp/damp.mjs");
+const { describe, CHANNELS } = __r("src/skins/semantics.mjs");
+
+const clamp01 = (x) => (x < 0 ? 0 : x > 1 ? 1 : x);
+const lerp = (a, b, k) => a + (b - a) * k;
+const ss = (a, b, x) => { const t = clamp01((x - a) / (b - a)); return t * t * (3 - 2 * t); };
+
+// ---- colour helpers ---------------------------------------------------------------------------------------------------------------------------------------------
+const HEX = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
+const rgbCache = new Map(); const rgbaCache = new Map();
+function hexToRgb(hex) {
+  let v = rgbCache.get(hex); if (v) return v;
+  if (!HEX.test(hex)) throw new Error(`not a colour: ${hex}`);
+  let h = hex.slice(1); if (h.length === 3) h = h.split('').map((x) => x + x).join('');
+  v = [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]; rgbCache.set(hex, v); return v;
+}
+function rgba(hex, a = 1) {
+  const q = Math.round(clamp01(a) * 100) / 100; const k = hex + '|' + q; let s = rgbaCache.get(k);
+  if (!s) { const [r, g, b] = hexToRgb(hex); s = `rgba(${r},${g},${b},${q})`; if (rgbaCache.size > 6000) rgbaCache.clear(); rgbaCache.set(k, s); }
+  return s;
+}
+function mixHex(a, b, k) { const A = hexToRgb(a); const B = hexToRgb(b); return '#' + [0, 1, 2].map((i) => Math.round(lerp(A[i], B[i], clamp01(k))).toString(16).padStart(2, '0')).join(''); }
+/** relative luminance (WCAG) and contrast ratio: used by the skins' own tests, exported so a designer can check a palette */
+function luminance(hex) { const f = (x) => { x /= 255; return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; }; const [r, g, b] = hexToRgb(hex); return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); }
+function contrast(a, b) { const la = luminance(a); const lb = luminance(b); return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05); }
+
+// ---- token tables ---------------------------------------------------------------------------------------------------------------------------------------------------
+/** rows: [name, value, doc, opts?]  opts = { min, max, unit }.  A colour is a '#rrggbb' string, a number may carry min/max, a boolean is a boolean.  Returns the table. */
+function compileTokens(rows, owner = 'skin') {
+  const byName = new Map(); const P = {};
+  for (const r of rows) {
+    const [name, value, doc, opts = {}] = r;
+    if (typeof name !== 'string' || !/^[a-z][a-zA-Z0-9]*(\.[a-zA-Z0-9]+)+$/.test(name)) throw new Error(`${owner}: bad token name ${JSON.stringify(name)}`);
+    if (byName.has(name)) throw new Error(`${owner}: duplicate token ${name}`);
+    if (typeof doc !== 'string' || doc.length < 6) throw new Error(`${owner}: token ${name} needs a doc string`);
+    const type = typeof value === 'number' ? 'number' : typeof value === 'boolean' ? 'boolean' : typeof value === 'string' && HEX.test(value) ? 'color' : 'string';
+    if (type === 'number' && !Number.isFinite(value)) throw new Error(`${owner}: token ${name} is not finite`);
+    const def = { name, type, value, doc, min: opts.min, max: opts.max, unit: opts.unit || '' };
+    const bad = checkToken(def, value); if (bad) throw new Error(`${owner}: token ${name}: ${bad}`);
+    byName.set(name, def); P[name] = value;
+  }
+  return { byName, P, rows };
+}
+function checkToken(def, v) {
+  if (def.type === 'number') { if (typeof v !== 'number' || !Number.isFinite(v)) return 'expected a finite number'; if (def.min !== undefined && v < def.min) return `${v} is below ${def.min}`; if (def.max !== undefined && v > def.max) return `${v} is above ${def.max}`; return null; }
+  if (def.type === 'color') return typeof v === 'string' && HEX.test(v) ? null : 'expected #rrggbb';
+  if (def.type === 'boolean') return typeof v === 'boolean' ? null : 'expected true or false';
+  return typeof v === 'string' ? null : 'expected a string';
+}
+
+// ---- clock, frames, eased state ------------------------------------------------------------------------------------------------------------------------------
+let clock = { now: () => (typeof performance !== 'undefined' ? performance.now() : Date.now()) };
+/** tests and screenshots replace the wall clock; the picture is then a pure function of the injected time */
+function setClock(c) { clock = c; }
+
+const FRAME = { env: null, now: 0, dt: 16.7, n: 0, birth: 0.6, reduced: false, active: false, pumping: false };
+const STORE = new Map();                                    // tile key -> state (eased channels, categorical cross-fades, position history)
+let hoverKey = null; let hoverAttached = false; let snapOn = true;
+const registry = new Map();                                 // skin id -> skin (for the tweak API)
+
+function newFrame(env) {
+  const now = clock.now(); const gap = FRAME.n ? now - FRAME.now : 16.7;
+  FRAME.dt = Math.min(100, Math.max(0, gap)); FRAME.now = now; FRAME.env = env; FRAME.n++; FRAME.active = false;
+  const tok = env.tok; let birth = 0.6; let red = false;
+  try { const b = tok('motion.birthScale'); if (typeof b === 'number' && b >= 0 && b < 1) birth = b; const m = tok('motion.reduced'); red = m === 'on' || (m === 'auto' && typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches); } catch { /* a standalone caller without the engine's tokens */ }
+  FRAME.birth = birth; FRAME.reduced = red;
+  if ((FRAME.n & 63) === 0) for (const [k, s] of STORE) if (FRAME.n - s.seen > 120) STORE.delete(k);          // forget tiles that have not been drawn for a while
+  attachHover();
+}
+
+function stateOf(key) { let s = STORE.get(key); if (!s) { s = { seen: 0, ch: {}, cat: {}, px: NaN, py: NaN, still: 0 }; STORE.set(key, s); } s.seen = FRAME.n; return s; }
+function ease(s, name, target, smoothMs, first) {
+  let c = s.ch[name]; if (!c) c = s.ch[name] = { x: first === undefined ? target : first, v: 0 };
+  if (FRAME.reduced || smoothMs <= 0) { c.x = target; c.v = 0; return target; }
+  if (c.x === target) return target;
+  const r = dampStep(c.x, c.v, target, smoothMs / 1000, FRAME.dt / 1000);
+  c.x = r[0]; c.v = r[1];
+  if (Math.abs(c.x - target) < 0.004 && Math.abs(c.v) < 0.02) { c.x = target; c.v = 0; return target; }
+  FRAME.active = true; return c.x;
+}
+function cat(s, name, value, ms) {
+  let c = s.cat[name];
+  if (!c) { c = s.cat[name] = { to: value, from: null, m: 1 }; return c; }
+  if (c.to !== value) { c.from = c.to; c.to = value; c.m = FRAME.reduced ? 1 : 0; }
+  if (c.m < 1) { c.m = Math.min(1, c.m + FRAME.dt / ms); if (c.m < 1) FRAME.active = true; else c.from = null; }
+  return c;
+}
+
+/** ask the host to draw another frame while something is still easing.  The skin contract has no redraw request, so this goes through the Studio's test hook (window.__studio) when it
+ *  exists and does nothing otherwise (the picture then simply eases on the next frame the host draws anyway).  Engine request: an env.invalidate() would make this a clean call. */
+function invalidate() { const s = typeof globalThis !== 'undefined' ? globalThis.__studio : null; if (s && s.engine) s.engine.dirty = true; }
+function pump() {
+  if (!FRAME.active || FRAME.pumping || typeof requestAnimationFrame !== 'function') return;
+  FRAME.pumping = true; requestAnimationFrame(() => { FRAME.pumping = false; invalidate(); });
+}
+function attachHover() {
+  if (hoverAttached || typeof document === 'undefined') return;
+  const cv = document.getElementById('map'); if (!cv) return; hoverAttached = true;
+  const at = (e) => { const r = cv.getBoundingClientRect(); const s = globalThis.__studio; if ((e.buttons & 1) || !s || !s.engine) return null; const t = s.engine.hit(e.clientX - r.left, e.clientY - r.top); return t ? t.key : null; };
+  cv.addEventListener('pointermove', (e) => { const k = at(e); if (k !== hoverKey) { hoverKey = k; invalidate(); } });
+  cv.addEventListener('pointerleave', () => { if (hoverKey !== null) { hoverKey = null; invalidate(); } });
+}
+
+// ---- text -------------------------------------------------------------------------------------------------------------------------------------------------------------
+const TW = new Map();
+function textWidth(c, s) { const k = c.font + '|' + s; let w = TW.get(k); if (w === undefined) { w = c.measureText(s).width; if (TW.size > 6000) TW.clear(); TW.set(k, w); } return w; }
+/** fill text anchored at (x, y) with the context's textAlign / textBaseline; wider than maxW -> condensed horizontally about the anchor so the ink stays inside */
+function fitText(c, s, x, y, maxW, align) {
+  if (align) c.textAlign = align;
+  const w = textWidth(c, s);
+  if (!(maxW > 0) || w <= maxW) { c.fillText(s, x, y); return Math.min(w, maxW || w); }
+  c.save(); c.translate(x, y); c.scale(maxW / w, 1); c.fillText(s, 0, 0); c.restore(); return maxW;
+}
+
+
+/** how visible a displaced tile's pin should be: 0 while the true position lies under the tile's own chip (the pin would sit on its own text), rising to 1 three pixels outside it */
+function pinFade(t) {
+  const hw = (t.w * t.scale) / 2; const hh = (t.h * t.scale) / 2; const dx = Math.max(Math.abs(t.x - t.ax) - hw, 0); const dy = Math.max(Math.abs(t.y - t.ay) - hh, 0);
+  const d = Math.hypot(dx, dy); return Number.isFinite(d) ? ss(0, 3.5, d) : 1;
+}
+
+/** a segmented gauge in TWO paint calls (all empty segments, all lit segments) instead of two per segment: x, y, w, h, n segments, gap px, ratio 0..1; styles are css colours or gradients */
+function meter(c, x, y, w, h, n, gap, ratio, trackStyle, litStyle) {
+  const sw = (w - (n - 1) * gap) / n; c.beginPath();
+  for (let i = 0; i < n; i++) c.rect(x + i * (sw + gap), y, sw, h);
+  c.fillStyle = trackStyle; c.fill(); c.beginPath(); let any = false;
+  for (let i = 0; i < n; i++) { const f = clamp01(ratio * n - i); if (f > 0.004) { c.rect(x + i * (sw + gap), y, sw * f, h); any = true; } }
+  if (any) { c.fillStyle = litStyle; c.fill(); }
+}
+
+// ---- gradients are cached (a CanvasGradient is defined in the local coordinate space, so it can be reused by every tile of the same geometry) -------------------------------------
+const GRADS = new Map();
+/** linear gradient from (x0,y0) to (x1,y1) with stops [[offset, css], ...]; cached by its own description */
+function lin(c, x0, y0, x1, y1, stops) {
+  const k = x0 + ',' + y0 + ',' + x1 + ',' + y1 + '|' + stops.map((s) => s[0] + s[1]).join('|'); let g = GRADS.get(k);
+  if (!g) { g = c.createLinearGradient(x0, y0, x1, y1); for (const s of stops) g.addColorStop(s[0], s[1]); if (GRADS.size > 800) GRADS.clear(); GRADS.set(k, g); }
+  return g;
+}
+
+// ---- the per-tile context g ---------------------------------------------------------------------------------------------------------------------------------
+function makeG(skin) {
+  const g = {
+    skin, P: skin.P, t: null, env: null, vm: null, dpr: 1, zoom: 15, w: 0, h: 0, hw: 0, hh: 0, ring: 2, body: { x: 0, y: 0, w: 0, h: 0 }, sel: 0, hov: 0, enter: 1, rest: 0, now: 0, st: null, cell: null,
+    col(name, a = 1) { return rgba(this.P[name], a); },
+    mix(a, b, k) { return mixHex(this.P[a], this.P[b], k); },
+    at(z0, span = 0.6) { return ss(z0, z0 + span, this.zoom); },
+    cat(name, v, ms = 200) { return this.st ? cat(this.st, name, v, ms) : { from: null, to: v, m: 1 }; },
+    ease(name, target, ms = 120) { return this.st ? ease(this.st, name, target, ms) : target; },
+    lw(v) { return Math.max(1, Math.floor(v * this.dpr + 0.49)) / this.dpr; },
+    cr(v, lw = 1) { const d = this.dpr; return Math.round((v - lw / 2) * d) / d + lw / 2; },
+    text(c, s, x, y, maxW, align) { return fitText(c, s, x, y, maxW, align); },
+  };
+  return g;
+}
+
+function prepare(skin, g, c, t, env) {
+  if (FRAME.env !== env) newFrame(env);
+  const spec = env.spec; const st = stateOf(t.key);
+  g.t = t; g.env = env; g.vm = describe(t); g.dpr = env.dpr || 1; g.zoom = env.zoom; g.now = FRAME.now; g.st = st; g.P = skin.P;
+  g.w = t.w; g.h = t.h; g.hw = t.w / 2; g.hh = t.h / 2; g.ring = spec.ring;
+  g.body.x = -g.hw + g.ring; g.body.y = -g.hh + g.ring; g.body.w = t.w - 2 * g.ring; g.body.h = t.h - 2 * g.ring;
+  g.sel = ease(st, 'sel', t.selected ? 1 : 0, skin.P['motion.selectMs']);
+  g.hov = ease(st, 'hov', hoverKey === t.key && t.solid ? 1 : 0, skin.P['motion.hoverMs']);
+  const p = FRAME.birth < 1 ? clamp01((t.scale - FRAME.birth) / (1 - FRAME.birth)) : 1;
+  g.enter = t.entering || t.life === 'dying' ? p : 1;
+  // rest: has this tile stopped moving on the device-pixel grid?
+  const m = typeof c.getTransform === 'function' ? c.getTransform() : null; let shx = 0; let shy = 0; let restTarget = 0;
+  if (m) {
+    const dxm = m.e - st.px; const dym = m.f - st.py; st.px = m.e; st.py = m.f;
+    st.still = Math.abs(dxm) < 0.04 && Math.abs(dym) < 0.04 ? Math.min(st.still + 1, 99) : 0;
+    restTarget = snapOn && st.still >= 2 && Math.abs(m.a - g.dpr) < 1e-3 ? 1 : 0;
+    g.rest = ease(st, 'rest', restTarget, 70);
+    if (restTarget === 0 && g.rest === 0) { st.snapX = undefined; st.snapY = undefined; }
+    if (g.rest > 0) {                                     // latch the pixel the plate settles on; a tile that creeps by a fraction of a pixel keeps it (hysteresis) instead of hopping at every rounding boundary
+      const left = m.e - g.hw * m.a; const top = m.f - g.hh * m.d;
+      if (st.snapX === undefined || Math.abs(left - st.snapX) > 0.65) st.snapX = Math.round(left); if (st.snapY === undefined || Math.abs(top - st.snapY) > 0.65) st.snapY = Math.round(top);
+      shx = (st.snapX - left) * g.rest / m.a; shy = (st.snapY - top) * g.rest / m.d;
+    }
+  } else g.rest = 0;
+  g.shx = shx; g.shy = shy;
+  return g;
+}
+const light = (skin, g, t, env) => { if (FRAME.env !== env) newFrame(env); g.t = t; g.env = env; g.dpr = env.dpr || 1; g.zoom = env.zoom; g.P = skin.P; g.vm = describe(t); g.st = null; g.sel = 0; g.hov = 0; g.enter = 1; g.w = t.w; g.h = t.h; g.ring = env.spec.ring; return g; };
+
+// ---- legend ---------------------------------------------------------------------------------------------------------------------------------------------------------
+const swatchCache = new Map();
+/** draw one sample into an 18 x 12 CSS-px canvas (at 3x) and return { css, drawn }: css is a `background` value; where no canvas exists (node) css is the fallback colour and drawn is true */
+function swatchOf(skin, key, fallback, fn) {
+  if (typeof document === 'undefined') return { css: fallback, drawn: true };
+  const k = skin.id + '|' + key + '|' + skin.rev; let v = swatchCache.get(k); if (v) return v;
+  try {
+    const W = 18; const H = 12; const D = 3; const cv = document.createElement('canvas'); cv.width = W * D; cv.height = H * D; const c = cv.getContext('2d');
+    c.setTransform(D, 0, 0, D, W * D / 2, H * D / 2); c.lineCap = 'round'; c.lineJoin = 'round';
+    const drawn = fn(c, W, H) !== false;
+    v = { css: drawn ? `url("${cv.toDataURL('image/png')}") center / 100% 100% no-repeat` : fallback, drawn };
+  } catch { v = { css: fallback, drawn: false }; }
+  swatchCache.set(k, v); return v;
+}
+
+function legendOf(skin, impl) {
+  const rows = []; const sg = makeG(skin); sg.dpr = 3; sg.zoom = 17; sg.enter = 1; sg.rest = 0; sg.ring = impl.footprint && impl.footprint.ring !== undefined ? impl.footprint.ring : 2;
+  for (const [ch, want] of Object.entries(impl.channels)) {
+    const def = CHANNELS[ch]; if (!def) throw new Error(`skin ${skin.id}: unknown channel "${ch}"`);
+    const vals = want === true ? def.values : def.values.filter((v) => want.includes(v.id));
+    for (const v of vals) {
+      const sw = swatchOf(skin, ch + ':' + v.id, impl.fallbackSwatch || '#888', (c, w, h) => impl.sample(c, ch, v.id, sg, w, h));
+      if (!sw.drawn) continue;                                                       // a value the skin cannot draw is not in its legend
+      rows.push({ swatch: sw.css, text: `${def.title}: ${v.text}`, evidence: v.evidence, channel: ch, value: v.id });
+    }
+  }
+  return rows;
+}
+
+// ---- defineSkin ----------------------------------------------------------------------------------------------------------------------------------------------------
+const EVID_OK = new Set(['Documented', 'Measured', 'Computed', 'Modelled', 'Contested', 'Unknown', 'Design']);
+
+/** @param {object} def see the header of this file */
+function defineSkin(def) {
+  for (const k of ['id', 'label', 'version', 'tokens', 'footprint', 'channels', 'draw', 'sample']) if (def[k] === undefined) throw new Error(`defineSkin(${def.id || '?'}): missing "${k}"`);
+  const table = def.tokens.byName ? def.tokens : compileTokens(def.tokens, def.id);
+  for (const n of ['motion.selectMs', 'motion.hoverMs']) if (!table.byName.has(n)) throw new Error(`defineSkin(${def.id}): token ${n} is required (the eased selection and hover)`);
+  const skin = { id: def.id, label: def.label, version: def.version, family: def.family || def.id, variant: def.variant || null, P: { ...table.P }, tokenDocs: table, rev: 0, footprint: def.footprint, fonts: def.fonts, channels: def.channels, reads: null };
+  const g = makeG(skin); const gl = makeG(skin);
+  const wrap = (fn) => fn && ((c, t, env, a, b) => { fn(c, t, light(skin, gl, t, env), a, b); });
+  if (typeof def.draw.tile !== 'function') throw new Error(`defineSkin(${def.id}): draw.tile(c, t, g) is required`);
+  const D = def.draw;
+  const draw = {
+    tile(c, t, env) {
+      prepare(skin, g, c, t, env);
+      c.save(); if (g.shx || g.shy) c.translate(g.shx, g.shy);
+      try { D.tile(c, t, g); } finally { c.restore(); }
+      pump();
+    },
+  };
+  if (D.label) draw.label = (c, t, env) => { D.label(c, t, light(skin, gl, t, env)); };
+  if (D.pin) draw.pin = wrap(D.pin);
+  if (D.leader) draw.leader = (c, t, env, a, b) => { D.leader(c, t, light(skin, gl, t, env), a, b); };
+  if (D.hull) draw.hull = (c, t, env, pts) => { D.hull(c, t, light(skin, gl, t, env), pts); };
+  const out = { id: def.id, label: def.label, version: def.version, family: skin.family, variant: skin.variant, footprint: def.footprint, fonts: def.fonts, draw, channels: def.channels, tokenDocs: table, skin };
+  out.legend = () => legendOf(skin, def);
+  if (def.fonts) { for (const k of ['code', 'label', 'badge']) if (typeof def.fonts[k] !== 'string') throw new Error(`defineSkin(${def.id}): fonts.${k}`); }
+  for (const [ch] of Object.entries(def.channels)) if (!CHANNELS[ch]) throw new Error(`defineSkin(${def.id}): unknown channel ${ch}`);
+  skin.def = def; skin.out = out; registry.set(def.id, skin);
+  applyUrlSettings(skin);
+  return out;
+}
+
+/** one drawing, several token sets.  variants = { cvd: { label, set: { 'color.union': '#0072b2', ... } }, ... } -> [base, base/cvd, ...] */
+function defineFamily(base, variants = {}) {
+  const table = compileTokens(base.tokens, base.id); const out = [defineSkin({ ...base, tokens: table })];
+  for (const [vid, v] of Object.entries(variants)) {
+    const rows = table.rows.map((r) => (v.set[r[0]] !== undefined ? [r[0], v.set[r[0]], r[2], r[3]] : r));
+    for (const k of Object.keys(v.set)) if (!table.byName.has(k)) throw new Error(`${base.id}/${vid}: unknown token ${k}`);
+    out.push(defineSkin({ ...base, id: `${base.id}/${vid}`, label: `${base.label}: ${v.label}`, variant: vid, family: base.id, tokens: compileTokens(rows, `${base.id}/${vid}`) }));
+  }
+  return out;
+}
+
+// ---- live tweaking --------------------------------------------------------------------------------------------------------------------------------------------------
+/** set one token of a registered skin right now (the next frame uses it).  Validates against the token's own range.  Returns the old value. */
+function setToken(skinId, name, value) {
+  const s = registry.get(skinId); if (!s) throw new Error(`no skin ${skinId}`);
+  const def = s.out.tokenDocs.byName.get(name); if (!def) throw new Error(`skin ${skinId}: no token ${name}`);
+  const bad = checkToken(def, value); if (bad) throw new Error(`skin ${skinId}: token ${name}: ${bad}`);
+  const old = s.P[name]; s.P[name] = value; s.rev++; invalidate(); return old;
+}
+function applyUrlSettings(skin) {
+  if (typeof location === 'undefined' || !location.search) return;
+  let raw = null; try { raw = new URLSearchParams(location.search).get('skinset'); } catch { return; } if (!raw) return;
+  try {
+    const o = JSON.parse(raw); const mine = o[skin.id] || {}; const fam = skin.variant ? {} : o['*'] || {};
+    for (const [n, v] of Object.entries({ ...fam, ...mine })) { const def = skin.out.tokenDocs.byName.get(n); if (!def) { console.warn(`skinset: ${skin.id} has no token ${n}`); continue; } const bad = checkToken(def, v); if (bad) console.warn(`skinset: ${n}: ${bad}`); else skin.P[n] = v; }
+  } catch (e) { console.warn('bad ?skinset', e.message); }
+}
+/** every token of a skin as a settings object (what a designer pastes into the spec file or ?skinset=) */
+function exportTokens(skinId) { const s = registry.get(skinId); if (!s) throw new Error(`no skin ${skinId}`); return { [skinId]: { ...s.P } }; }
+
+const skinKit = { setToken, exportTokens, setClock, setSnap(v) { snapOn = !!v; }, ids: () => [...registry.keys()], hover: () => hoverKey, setHover(k) { hoverKey = k; }, frame: FRAME, states: STORE, reset() { STORE.clear(); TW.clear(); GRADS.clear(); hoverKey = null; FRAME.env = null; FRAME.n = 0; } };
+if (typeof window !== 'undefined') window.__skinKit = skinKit;
+
+
+__exports.clamp01 = clamp01;
+__exports.lerp = lerp;
+__exports.ss = ss;
+__exports.hexToRgb = hexToRgb;
+__exports.rgba = rgba;
+__exports.mixHex = mixHex;
+__exports.luminance = luminance;
+__exports.contrast = contrast;
+__exports.compileTokens = compileTokens;
+__exports.checkToken = checkToken;
+__exports.setClock = setClock;
+__exports.fitText = fitText;
+__exports.textWidth = textWidth;
+__exports.pinFade = pinFade;
+__exports.meter = meter;
+__exports.lin = lin;
+__exports.defineSkin = defineSkin;
+__exports.defineFamily = defineFamily;
+__exports.setToken = setToken;
+__exports.exportTokens = exportTokens;
+__exports.skinKit = skinKit;
+__exports.EVID_OK = EVID_OK;
+};
+__defs["src/skins/glyphs.mjs"] = function (__exports, __r) {
+// skins/glyphs.mjs - the shared GEOMETRY of the symbol vocabulary: arm glyphs, posture marks, corps badges, echelon marks.  Pure path-drawing functions, no state, no colours of their own:
+// every function takes the context, a centre, a half-size and a style {ink, fill, lw}.  A skin chooses the style (hairline or heavy, filled or outlined, glowing or inked); the SHAPES
+// are shared so that "infantry", "retreat" or "the Maltese cross" mean the same thing in every skin and in every legend.
+//
+// Only context calls that skins/contract.mjs's recordingContext implements are used (no ellipse, no radial gradient, no strokeText), so the shipped conformance check can run on any skin.
+//
+// What each shape stands for is defined in semantics.mjs (CHANNELS); the arm glyphs follow the APP-6 grammar (04-benchmarks.md R01: infantry = crossed lines, cavalry = one diagonal,
+// artillery = filled circle); the corps badges are the seven shapes of the circular of 21 March 1863 (03-data-fuel.md section 5).  Posture marks are this project's own pictograms.
+
+const TAU = Math.PI * 2;
+const poly = (c, pts, cx, cy, s) => { c.beginPath(); pts.forEach((p, i) => (i ? c.lineTo(cx + p[0] * s, cy + p[1] * s) : c.moveTo(cx + p[0] * s, cy + p[1] * s))); c.closePath(); };
+const dot = (c, x, y, r) => { c.beginPath(); c.arc(x, y, r, 0, TAU); c.fill(); };
+
+/** arm glyphs.  (cx, cy) centre, s half-size (a 6 px half-size fills a 12 px cell).  st = { ink, lw }.  state = 'mounted'|'dismounted'|'deployed'|'limbered'|null */
+function armGlyph(c, arm, cx, cy, s, st, state = null) {
+  c.strokeStyle = st.ink; c.fillStyle = st.ink; c.lineWidth = st.lw; c.lineCap = 'round'; c.lineJoin = 'round';
+  if (arm === 'infantry') {
+    c.beginPath(); c.moveTo(cx - s, cy - s * 0.78); c.lineTo(cx + s, cy + s * 0.78); c.moveTo(cx + s, cy - s * 0.78); c.lineTo(cx - s, cy + s * 0.78); c.stroke();
+  } else if (arm === 'cavalry') {
+    c.beginPath(); c.moveTo(cx - s, cy + s * 0.8); c.lineTo(cx + s, cy - s * 0.8); c.stroke();
+    if (state === 'dismounted') { c.beginPath(); c.moveTo(cx - s * 0.9, cy + s * 1.0); c.lineTo(cx + s * 0.9, cy + s * 1.0); c.stroke(); }   // standing on the ground; mounted cavalry is the plain slash
+  } else if (arm === 'artillery') {
+    const r = s * (state === 'limbered' ? 0.52 : 0.72);
+    if (state === 'limbered') { dot(c, cx - s * 0.5, cy, r); c.beginPath(); c.arc(cx + s * 0.62, cy, r * 0.78, 0, TAU); c.stroke(); }   // gun hitched to its limber
+    else { dot(c, cx, cy - (state === 'deployed' ? s * 0.12 : 0), r); if (state === 'deployed') { c.beginPath(); c.moveTo(cx, cy + r * 0.6); c.lineTo(cx, cy + s * 0.98); c.stroke(); } }   // trail on the ground
+  } else if (arm === 'mixed') {
+    for (let i = -1; i <= 1; i++) dot(c, cx + i * s * 0.78, cy, s * 0.24);
+  }
+}
+
+/** echelon marks, APP-6 style: battalion II (two ticks), brigade X, division XX, corps XXX.  Centred on (cx, cy); half-height s. */
+function echelonMarks(c, level, cx, cy, s, st, maxW = Infinity) {
+  c.strokeStyle = st.ink; c.lineWidth = st.lw; c.lineCap = 'round';
+  c.beginPath();
+  if (level === 1) { c.moveTo(cx - s * 0.45, cy - s * 0.8); c.lineTo(cx - s * 0.45, cy + s * 0.8); c.moveTo(cx + s * 0.45, cy - s * 0.8); c.lineTo(cx + s * 0.45, cy + s * 0.8); }
+  else if (level >= 2) {
+    const n = level - 1; const pitch = Math.min(s * 1.0, maxW / n); const x0 = cx - (n - 1) * pitch / 2; const a = Math.min(s * 0.55, pitch * 0.4);
+    for (let i = 0; i < n; i++) { const x = x0 + i * pitch; c.moveTo(x - a, cy - a); c.lineTo(x + a, cy + a); c.moveTo(x + a, cy - a); c.lineTo(x - a, cy + a); }
+  }
+  c.stroke();
+}
+
+/** posture marks (Modelled).  s = half-size, about 3.5 for a 7 px mark.  st = { ink, lw } */
+function postureMark(c, posture, cx, cy, s, st) {
+  c.strokeStyle = st.ink; c.fillStyle = st.ink; c.lineWidth = st.lw; c.lineCap = 'round'; c.lineJoin = 'round';
+  switch (posture) {
+    case 'line': c.fillRect(cx - s, cy - st.lw * 0.7, s * 2, st.lw * 1.4); break;                                                        // a formed line
+    case 'charge': poly(c, [[0.5, -1], [-0.62, 0.12], [0.02, 0.12], [-0.5, 1], [0.7, -0.18], [0.04, -0.18]], cx, cy, s); c.fill(); break; // a burst
+    case 'retreat': c.beginPath(); c.moveTo(cx - s * 0.7, cy - s); c.lineTo(cx - s * 0.7, cy + s); c.stroke(); poly(c, [[-0.7, -1], [1, -0.3], [-0.7, 0.4]], cx, cy, s); c.fill(); break;   // a flag
+    case 'march': for (let i = -1; i <= 1; i++) dot(c, cx + i * s * 0.95, cy, s * 0.26); break;                                           // a column of dots
+    case 'skirmish': for (const p of [[-0.8, -0.5], [0.1, -0.9], [0.9, -0.1], [-0.2, 0.55], [0.7, 0.9]]) dot(c, cx + p[0] * s, cy + p[1] * s, s * 0.24); break;   // scattered
+    case 'reserve': c.beginPath(); c.arc(cx, cy, s * 0.78, 0, TAU); c.stroke(); break;                                                    // held back
+    case 'bivouac': poly(c, [[-1, 0.8], [0, -0.95], [1, 0.8]], cx, cy, s); c.fill(); break;                                               // a tent
+    default: break;
+  }
+}
+
+/** Union corps badges (Documented, circular of 21 March 1863).  r = radius of the circumscribed circle; st = { fill, edge, lw } (edge may be null). */
+function corpsBadge(c, shape, cx, cy, r, st) {
+  const paint = () => { if (st.fill) { c.fillStyle = st.fill; c.fill(); } if (st.edge) { c.strokeStyle = st.edge; c.lineWidth = st.lw; c.lineJoin = 'round'; c.stroke(); } };
+  switch (shape) {
+    case 'sphere': c.beginPath(); c.arc(cx, cy, r * 0.92, 0, TAU); paint(); break;
+    case 'trefoil': {
+      c.beginPath(); const R = r * 0.5; const d = r * 0.5;
+      for (let i = 0; i < 3; i++) { const a = -Math.PI / 2 + i * TAU / 3; const x = cx + Math.cos(a) * d; const y = cy + Math.sin(a) * d + r * 0.06; c.moveTo(x + R, y); c.arc(x, y, R, 0, TAU); }
+      paint(); break;
+    }
+    case 'lozenge': poly(c, [[0, -1.12], [0.82, 0], [0, 1.12], [-0.82, 0]], cx, cy, r); paint(); break;
+    case 'maltese': poly(c, [[-0.2, -1], [0, -0.78], [0.2, -1], [0.34, -0.34], [1, -0.2], [0.78, 0], [1, 0.2], [0.34, 0.34], [0.2, 1], [0, 0.78], [-0.2, 1], [-0.34, 0.34], [-1, 0.2], [-0.78, 0], [-1, -0.2], [-0.34, -0.34]], cx, cy, r); paint(); break;
+    case 'cross': poly(c, [[-0.27, -1], [0.27, -1], [0.27, -0.27], [1, -0.27], [1, 0.27], [0.27, 0.27], [0.27, 1], [-0.27, 1], [-0.27, 0.27], [-1, 0.27], [-1, -0.27], [-0.27, -0.27]], cx, cy, r); paint(); break;
+    case 'crescent': {
+      c.beginPath(); c.arc(cx, cy, r * 0.95, 0, TAU); c.moveTo(cx + r * 0.3 + r * 0.7, cy); c.arc(cx + r * 0.3, cy, r * 0.7, 0, TAU);
+      if (st.fill) { c.fillStyle = st.fill; c.fill('evenodd'); } if (st.edge) { c.strokeStyle = st.edge; c.lineWidth = st.lw; c.stroke(); } break;
+    }
+    case 'star': { c.beginPath(); for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5; const rr = i % 2 ? r * 0.42 : r * 1.06; const x = cx + Math.cos(a) * rr; const y = cy + Math.sin(a) * rr; if (i) c.lineTo(x, y); else c.moveTo(x, y); } c.closePath(); paint(); break; }
+    default: break;
+  }
+}
+
+/** Rounded rectangle path (no paint). */
+function rr(c, x, y, w, h, r) {
+  r = Math.max(0, Math.min(r, w / 2, h / 2));
+  c.beginPath(); c.moveTo(x + r, y); c.lineTo(x + w - r, y); c.arcTo(x + w, y, x + w, y + r, r); c.lineTo(x + w, y + h - r); c.arcTo(x + w, y + h, x + w - r, y + h, r);
+  c.lineTo(x + r, y + h); c.arcTo(x, y + h, x, y + h - r, r); c.lineTo(x, y + r); c.arcTo(x, y, x + r, y, r); c.closePath();
+}
+
+/** Rectangle with two opposite corners cut (top-left and bottom-right by k): the Confederate silhouette of the Field Manual skin.  Redundant with colour: silhouette first, colour second. */
+function chamfer(c, x, y, w, h, k) {
+  c.beginPath(); c.moveTo(x + k, y); c.lineTo(x + w, y); c.lineTo(x + w, y + h - k); c.lineTo(x + w - k, y + h); c.lineTo(x, y + h); c.lineTo(x, y + k); c.closePath();
+}
+
+/** a swallow-tailed pennant (the 1863 skin's flag): hoist at x, fly end at x + w, notch depth n */
+function pennant(c, x, y, w, h, n) {
+  c.beginPath(); c.moveTo(x, y); c.lineTo(x + w, y); c.lineTo(x + w - n, y + h / 2); c.lineTo(x + w, y + h); c.lineTo(x, y + h); c.closePath();
+}
+
+/** Rectangle with all four corners cut by k (an octagonal silhouette): the War Room's Confederate plate */
+function bevel(c, x, y, w, h, k) {
+  c.beginPath(); c.moveTo(x + k, y); c.lineTo(x + w - k, y); c.lineTo(x + w, y + k); c.lineTo(x + w, y + h - k); c.lineTo(x + w - k, y + h); c.lineTo(x + k, y + h); c.lineTo(x, y + h - k); c.lineTo(x, y + k); c.closePath();
+}
+
+/** chevron marks (rank-insignia style echelon): n nested V shapes, centred on (cx, cy), half-width a */
+function chevrons(c, n, cx, cy, a, st, maxH = Infinity) {
+  c.strokeStyle = st.ink; c.lineWidth = st.lw; c.lineCap = 'round'; c.lineJoin = 'round';
+  const pitch = Math.min(a * 0.62, maxH / Math.max(1, n)); const h = a * 0.7; const y0 = cy - ((n - 1) * pitch) / 2 - h / 2;
+  c.beginPath();
+  for (let i = 0; i < n; i++) { const y = y0 + i * pitch; c.moveTo(cx - a, y + h); c.lineTo(cx, y); c.lineTo(cx + a, y + h); }
+  c.stroke();
+}
+
+__exports.armGlyph = armGlyph;
+__exports.echelonMarks = echelonMarks;
+__exports.postureMark = postureMark;
+__exports.corpsBadge = corpsBadge;
+__exports.rr = rr;
+__exports.chamfer = chamfer;
+__exports.pennant = pennant;
+__exports.bevel = bevel;
+__exports.chevrons = chevrons;
+};
+__defs["src/skins/field-manual.spec.mjs"] = function (__exports, __r) {
+// skins/field-manual.spec.mjs - THE TOKENS OF THE FIELD MANUAL SKIN.  Edit a value, run `node docs/pitch/anim/prototype/build.mjs`, reload.  Or try it live without a build:
+//   open battle-studio.html?skin=field-manual&skinset={"field-manual":{"frame.width":2,"color.union":"#0b4f9e"}}      (console: __skinKit.setToken('field-manual', 'frame.width', 2))
+// Row = [name, value, what it does, { min, max, unit }].  Every row is read by the drawing code and checked by test/skins.test.mjs (a token nobody reads, or read but not listed, fails).
+const FM_TOKENS = [
+  // palette (Documented side colours are the only colours that mean a side; unknown is neutral grey with hatching and never a side colour)
+  ['color.union', '#17489a', 'Union frame, arm glyph, gauge and aggregate pill'],
+  ['color.confederate', '#c8441f', 'Confederate frame, arm glyph, gauge and aggregate pill'],
+  ['color.unknown', '#6d6a63', 'Contested side (id prefix and state code disagree): neutral grey with hatching, never a side colour'],
+  ['color.accent', '#f59e0b', 'Selection ring'],
+  ['color.plate', '#fdfbf6', 'Plate of a tile whose latest keyframe is fresh'],
+  ['color.plateOld', '#ebe7dc', 'Plate of a tile that is carried forward (older than a day)'],
+  ['color.ink', '#111827', 'Text ink on the plate'],
+  ['color.keyline', '#ffffff', 'One-pixel halo outside the frame: keeps the frame readable on any imagery'],
+  ['color.track', '#c4bfb0', 'Empty part of the strength gauge'],
+  // construction
+  ['plate.alpha', 0.97, 'Opacity of the plate', { min: 0.6, max: 1 }],
+  ['frame.width', 1.5, 'Frame line width', { min: 1, max: 3, unit: 'px' }],
+  ['frame.dash', 5, 'Dash length of a carried-forward frame', { min: 2, max: 10, unit: 'px' }],
+  ['frame.gap', 2.6, 'Gap of a carried-forward frame (blends in from 0 as the keyframe ages)', { min: 0.5, max: 6, unit: 'px' }],
+  ['frame.chamfer', 4, 'Corner cut of the Confederate silhouette', { min: 0, max: 7, unit: 'px' }],
+  ['band.width', 3, 'Solid side-colour band on the left edge of the plate: the side at a glance, at any zoom', { min: 0, max: 6, unit: 'px' }],
+  ['cell.tint', 0.14, 'Side tint behind the arm glyph', { min: 0, max: 0.4 }],
+  ['glyph.weight', 1.5, 'Stroke weight of the arm glyph and echelon marks', { min: 1, max: 2.5, unit: 'px' }],
+  ['gauge.height', 3, 'Strength gauge thickness', { min: 2, max: 5, unit: 'px' }],
+  ['gauge.segments', 5, 'Segments of the strength gauge (a gauge, not a measurement)', { min: 3, max: 10 }],
+  ['ink.modelled', 0.78, 'Opacity of Modelled marks (posture, gauge): they must not look as firm as Documented ones', { min: 0.4, max: 1 }],
+  ['hatch.pitch', 5, 'Spacing of the hatching on a contested tile', { min: 3, max: 9, unit: 'px' }],
+  // detail by zoom
+  ['lod.posture', 13.6, 'Zoom at which the posture mark starts to appear (secondary detail)', { min: 11, max: 18 }],
+  ['lod.span', 0.7, 'Zoom range over which secondary detail fades in', { min: 0.2, max: 2 }],
+  // motion (wall-clock; the display layer owns arrival and departure timing)
+  ['motion.selectMs', 120, 'Ease of the selection ring', { min: 0, max: 600, unit: 'ms' }],
+  ['motion.hoverMs', 80, 'Ease of the hover response', { min: 0, max: 600, unit: 'ms' }],
+  ['motion.crossMs', 220, 'Cross-fade when a keyframe changes a unit\'s posture or transit state', { min: 0, max: 800, unit: 'ms' }],
+];
+
+// Variants: the same drawing under another token set.
+const FM_VARIANTS = {
+  cvd: { label: 'colour-blind safe', set: {
+    'color.union': '#00609b', 'color.confederate': '#d26400', 'color.unknown': '#666666', 'color.accent': '#e8c600', 'color.track': '#b7b2a3',
+    'frame.width': 1.8, 'hatch.pitch': 4 } },
+  contrast: { label: 'high contrast', set: {
+    'color.union': '#00307a', 'color.confederate': '#b83400', 'color.unknown': '#555555', 'color.accent': '#ffd400', 'color.plate': '#ffffff', 'color.plateOld': '#e6e6e6',
+    'color.ink': '#000000', 'color.keyline': '#ffffff', 'color.track': '#8a8a8a', 'plate.alpha': 1, 'frame.width': 2.4, 'ink.modelled': 1, 'cell.tint': 0.0, 'glyph.weight': 2 } },
+};
+
+__exports.FM_TOKENS = FM_TOKENS;
+__exports.FM_VARIANTS = FM_VARIANTS;
+};
+__defs["src/skins/field-manual.mjs"] = function (__exports, __r) {
+// skins/field-manual.mjs - SKIN 1 of 3: FIELD MANUAL.  A modern cartographic symbol: a pale plate, a side-coloured frame, an arm glyph in a tinted cell, a segmented strength gauge.
+//
+// Why this direction (04-benchmarks.md, 03-data-fuel.md):
+//   * It is the NATO / APP-6 grammar the research recommends (R01, R02): frame = side, inner glyph = arm, echelon marks = size (X, XX, XXX), a dashed frame = not a fresh report,
+//     a question mark and hatching = unconfirmed.  Each channel carries ONE variable (P5) and colour is never alone: the Confederate silhouette is chamfered, the contested side is
+//     hatched, the Union frame is square-cornered (silhouette first, colour second: R22, R44).
+//   * It holds against imagery without relying on it: [white keyline][coloured frame][white plate] keeps 3:1 on any base map (WCAG 1.4.11, R42).
+//   * It is the calm reference for evidence: Documented marks are drawn in full ink, Modelled marks (gauge, posture) in lighter ink (P10), fix age blends the frame to dashed.
+//   * Choreography: a left-to-right wipe on arrival and departure (the display layer ramps scale and opacity; the wipe makes it a deliberate unfolding), selection ring and hover tint ease.
+//
+// Footprint: 26 px tall (2 px keyline margin, 22 px body: a text row and a gauge row), the same 14 px glyph cell as the reference skin plus 10 px side padding: a solid side band on the left, the posture mark on the right.
+const { defineFamily, clamp01, ss, mixHex, rgba, textWidth, pinFade, meter } = __r("src/skins/kit.mjs");
+const { FONTS } = __r("src/skins/semantics.mjs");
+const { armGlyph, echelonMarks, postureMark, rr, chamfer } = __r("src/skins/glyphs.mjs");
+const { FM_TOKENS, FM_VARIANTS } = __r("src/skins/field-manual.spec.mjs");
+
+const FOOT = { chipH: 26, chipPadX: 10, glyphW: 14, glyphGap: 4, chipMinW: 44, ring: 2, badgeGap: 4, labelH: 16, labelPadX: 6, labelGap: 3, pinHalf: 3 };
+const STACK = 3;                                              // an aggregate's front plate is this much smaller; the "cards" behind it show as an L
+
+const sideHex = (g, side) => (side === 'union' ? g.P['color.union'] : side === 'confederate' ? g.P['color.confederate'] : g.P['color.unknown']);
+const catAlpha = (ct, v) => (ct.to === v ? ct.m : 0) + (ct.from === v ? 1 - ct.m : 0);
+const withAlpha = (c, base, k, fn) => { if (k <= 0.004) return; c.globalAlpha = base * k; fn(); c.globalAlpha = base; };
+
+/** the plate outline path of a tile, inset by `i` px from the rectangle r */
+function platePath(c, side, r, i, g) {
+  const x = r.x + i; const y = r.y + i; const w = r.w - 2 * i; const h = r.h - 2 * i;
+  if (side === 'confederate') chamfer(c, x, y, w, h, Math.max(0, g.P['frame.chamfer'] - i * 0.4)); else rr(c, x, y, w, h, 1.6);
+}
+
+function hatch(c, r, hex, pitch) {
+  c.strokeStyle = hex; c.lineWidth = 1; c.beginPath();
+  for (let k = -r.h; k < r.w; k += pitch) { c.moveTo(r.x + k, r.y + r.h); c.lineTo(r.x + k + r.h, r.y); }
+  c.stroke();
+}
+
+function tile(c, t, g) {
+  const P = g.P; const vm = g.vm; const spec = g.env.spec; const side = vm.side; const hw = g.hw; const hh = g.hh; const base = c.globalAlpha;
+  const b = g.body; const r = vm.agg ? { x: b.x, y: b.y, w: b.w - STACK, h: b.h - STACK } : b;          // r = the front plate
+  const fw = g.lw(P['frame.width']) + 0.5 * g.sel + 0.4 * g.hov; const sc = side === 'mixed' ? P['color.union'] : sideHex(g, side);
+  const ink = P['color.ink']; const old = vm.carried;
+
+  // arrival / departure: a wipe from the left edge (the display layer is also fading and scaling the tile)
+  if (g.enter < 1) { c.beginPath(); c.rect(-hw - 2, -hh - 2, (g.w + 4) * ss(0, 1, g.enter), g.h + 4); c.clip(); }
+
+  // keyline halo (in the 2 px margin), replaced by the selection ring as it eases in
+  if (g.sel < 0.999) { rr(c, -hw + 1, -hh + 1, g.w - 2, g.h - 2, 3.4); c.strokeStyle = g.col('color.keyline', 0.9 * (1 - g.sel)); c.lineWidth = 1; c.stroke(); }
+
+  // stacked cards behind an aggregate
+  if (vm.agg) {
+    c.strokeStyle = rgba(side === 'mixed' ? P['color.confederate'] : sc, 0.7); c.lineWidth = 1; c.beginPath();
+    c.moveTo(r.x + STACK + 0.5, r.y + r.h + STACK - 0.5); c.lineTo(r.x + r.w + STACK - 0.5, r.y + r.h + STACK - 0.5); c.lineTo(r.x + r.w + STACK - 0.5, r.y + STACK + 0.5); c.stroke();
+  }
+
+  // plate
+  const plateHex = mixHex(mixHex(P['color.plate'], P['color.plateOld'], old * 0.9), sc, g.hov * 0.16);
+  platePath(c, side, r, 0, g); c.fillStyle = rgba(plateHex, P['plate.alpha']); c.fill();
+  const cellW = spec.chipPadX + spec.glyphW + spec.glyphGap / 2;
+  c.save(); c.clip();
+  if (side === 'unknown') { c.fillStyle = g.col('color.unknown', 0.1); c.fillRect(r.x, r.y, r.w, r.h); hatch(c, r, g.col('color.unknown', 0.3), P['hatch.pitch']); }
+  else if (side === 'mixed') { c.fillStyle = g.col('color.union', 0.13); c.fillRect(r.x, r.y, r.w / 2, r.h); c.fillStyle = g.col('color.confederate', 0.13); c.fillRect(r.x + r.w / 2, r.y, r.w / 2, r.h); }
+  else { c.fillStyle = rgba(sc, P['cell.tint']); c.fillRect(r.x, r.y, cellW, r.h); c.fillStyle = rgba(sc, 1); c.fillRect(r.x, r.y, P['band.width'], r.h); }
+  if (g.sel > 0.01) { c.fillStyle = g.col('color.accent', 0.13 * g.sel); c.fillRect(r.x, r.y, r.w, r.h); }
+  c.restore();
+  c.fillStyle = rgba(sc, 0.38); if (side !== 'mixed') c.fillRect(r.x + cellW, r.y + fw, 1, r.h - 2 * fw);                       // the divider of the glyph cell
+
+  // frame: solid while the keyframe is fresh, blending to dashes as it ages (Computed from the age in ticks)
+  const dash = old > 0.08;
+  if (dash) c.setLineDash([P['frame.dash'], P['frame.gap'] * old]);
+  c.lineWidth = fw; c.lineJoin = 'miter';
+  if (side === 'mixed') {
+    for (const [hex, x0, x1] of [[P['color.union'], r.x - 4, r.x + r.w / 2], [P['color.confederate'], r.x + r.w / 2, r.x + r.w + 4]]) {
+      c.save(); c.beginPath(); c.rect(x0, r.y - 4, x1 - x0, r.h + 8); c.clip(); platePath(c, 'union', r, fw / 2, g); c.strokeStyle = hex; c.stroke(); c.restore();
+    }
+  } else { platePath(c, side, r, fw / 2, g); c.strokeStyle = sc; c.stroke(); }
+  if (dash) c.setLineDash([]);
+
+  // the arm glyph (or the echelon marks of a formation) in its cell
+  const ty = g.cr(r.y + 8.4, 0); const gx = r.x + spec.chipPadX + spec.glyphW / 2; const gw = P['glyph.weight'];
+  const as = g.cat('armState', vm.armState, P['motion.crossMs']);
+  const glyph = (state, k) => withAlpha(c, base, k, () => { if (vm.arm === 'formation') echelonMarks(c, vm.ech, gx, ty, 5.8, { ink: sc, lw: gw }, spec.glyphW - 1); else armGlyph(c, vm.arm, gx, ty, 5, { ink: sc, lw: gw }, state); });
+  if (as.from !== null) { glyph(as.from, 1 - as.m); glyph(as.to, as.m); } else glyph(vm.armState, 1);
+  if (vm.ech === 1) echelonMarks(c, 1, r.x + r.w - 6.4, ty, 3.4, { ink: sc, lw: 1.3 });                                          // battalion: II (its glyph cell carries the arm)
+  if (vm.agg && side === 'mixed') { c.strokeStyle = ink; c.lineWidth = 1.5; c.lineCap = 'round'; c.beginPath(); c.moveTo(gx - 3, ty - 3); c.lineTo(gx + 3, ty + 3); c.moveTo(gx + 3, ty - 3); c.lineTo(gx - 3, ty + 3); c.stroke(); }   // contact: crossed
+
+  const tx = r.x + spec.chipPadX + spec.glyphW + spec.glyphGap;
+
+  // identity: the short code (vital), and its evidence mark
+  c.font = FONTS.code; c.textBaseline = 'middle'; c.fillStyle = ink; c.textAlign = 'left';
+  const maxCode = spec.text.width('code', vm.code);
+  const tw = g.text(c, vm.code, tx, ty + 0.5, maxCode, 'left');
+  if (vm.idOnly) { c.fillStyle = g.col('color.ink', 0.55); for (let x = tx; x < tx + tw - 1; x += 3) c.fillRect(Math.round(x), g.cr(ty + 5.4, 1) - 0.5, 1.4, 1); }   // dotted underline: no complete order-of-battle parent
+  if (vm.count) {
+    c.font = FONTS.badge; const bw = Math.min(spec.text.width('badge', vm.count), textWidth(c, vm.count)) + 6; const px = tx + Math.min(tw + spec.badgeGap, maxCode + spec.badgeGap);
+    rr(c, px, ty - 5.5, bw, 11, 5.5); c.fillStyle = side === 'mixed' || side === 'unknown' ? ink : sc; c.fill(); c.fillStyle = '#ffffff'; c.textAlign = 'left'; c.fillText(vm.count, px + 3, ty + 0.5);
+  }
+
+  // transit mark (Modelled): three dots under the glyph while the tile is between two keyframes
+  const tr = g.cat('moving', vm.moving, P['motion.crossMs']); const ta = catAlpha(tr, true);
+  withAlpha(c, base, ta, () => { c.fillStyle = rgba(sc, P['ink.modelled']); for (let i = -1; i <= 1; i++) { c.beginPath(); c.arc(gx + i * 3, g.cr(r.y + r.h - 5.2, 0), 0.8, 0, 6.283); c.fill(); } });
+
+  // posture mark (Modelled), a secondary detail that collapses by zoom
+  const lod = g.at(P['lod.posture'], P['lod.span']);
+  if (lod > 0.01) {
+    const pc = g.cat('posture', vm.posture, P['motion.crossMs']);
+    const mark = (p, k) => withAlpha(c, base, k * lod, () => postureMark(c, p, r.x + r.w - 6.4, ty, 3.2, { ink: rgba(sc, P['ink.modelled']), lw: 1.3 }));
+    if (pc.from !== null) { mark(pc.from, 1 - pc.m); mark(pc.to, pc.m); } else mark(vm.posture, 1);
+  }
+
+  // strength gauge (Modelled): a segmented bar; the empty part is a dotted line, the filled part solid
+  const gh = P['gauge.height']; const gy = g.cr(r.y + r.h - fw - 1.5 - gh, 0); const gx0 = Math.round(tx); const gx1 = Math.round(r.x + r.w - fw - 4); const gl = gx1 - gx0;
+  if (gl > 8) {
+    meter(c, gx0, gy, gl, gh, P['gauge.segments'], 1, vm.ratio, g.col('color.track', 0.85), rgba(sc, P['ink.modelled'] + 0.2));
+  }
+
+  // hover / selection: the ring sits in the 2 px margin
+  if (g.sel > 0.003) {
+    rr(c, -hw + 0.5, -hh + 0.5, g.w - 1, g.h - 1, 3.8); c.strokeStyle = g.col('color.ink', 0.85 * g.sel); c.lineWidth = 1; c.stroke();
+    rr(c, -hw + 1.5, -hh + 1.5, g.w - 3, g.h - 3, 3.2); c.strokeStyle = g.col('color.accent', g.sel); c.lineWidth = 1; c.stroke();
+  }
+}
+
+function label(c, t, g) {
+  const L = t.label; const lw = L.x1 - L.x0; const lh = L.y1 - L.y0; const sc = sideHex(g, t.side === 'mixed' ? 'union' : t.side);
+  rr(c, 0.5, 0.5, lw - 1, lh - 1, 3); c.fillStyle = g.col('color.plate', 0.94); c.fill(); c.strokeStyle = rgba(sc, 0.55); c.lineWidth = 1; c.stroke();
+  c.fillStyle = rgba(sc, 1); c.fillRect(1, 3, 2, lh - 6);
+  c.font = FONTS.label; c.textBaseline = 'middle'; c.fillStyle = g.P['color.ink'];
+  g.text(c, L.text, g.env.spec.labelPadX + 1, lh / 2 + 0.5, lw - g.env.spec.labelPadX * 2 - 1, 'left');
+}
+function pin(c, t, g) { const a = pinFade(t); if (a < 0.02) return; const sc = sideHex(g, t.side === 'mixed' ? 'union' : t.side); const b0 = c.globalAlpha; c.globalAlpha = b0 * a; c.beginPath(); c.arc(0, 0, 2.1, 0, 6.283); c.fillStyle = g.col('color.plate', 1); c.fill(); c.strokeStyle = sc; c.lineWidth = 1.2; c.stroke(); c.beginPath(); c.arc(0, 0, 0.7, 0, 6.283); c.fillStyle = sc; c.fill(); c.globalAlpha = b0; }
+function leader(c, t, g, a, b) { c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.strokeStyle = rgba(sideHex(g, t.side === 'mixed' ? 'union' : t.side), 0.85); c.lineWidth = 1; c.stroke(); }
+function hull(c, t, g, pts) { const sc = sideHex(g, t.side === 'mixed' ? 'union' : t.side); c.fillStyle = rgba(sc, 1); c.strokeStyle = g.col('color.keyline', 0.9); c.lineWidth = 0.8; for (const p of pts) { c.beginPath(); c.arc(p[0], p[1], 1.7, 0, 6.283); c.fill(); c.stroke(); } }
+
+/** the legend swatches are drawn by the same helpers, in an 18 x 12 cell centred on (0, 0) */
+function sample(c, ch, v, g, w, h) {
+  const P = g.P; const x = -w / 2 + 0.5; const y = -h / 2 + 0.5; const W = w - 1; const H = h - 1; const ink = P['color.ink'];
+  const sc0 = v === 'confederate' ? P['color.confederate'] : v === 'unknown' ? P['color.unknown'] : P['color.union'];
+  const plate = (side, hex, dashed) => {
+    const r = { x, y, w: W, h: H }; platePath(c, side, r, 0, g); c.fillStyle = g.col('color.plate', 1); c.fill();
+    if (side === 'unknown') { c.save(); c.clip(); hatch(c, r, g.col('color.unknown', 0.35), 4); c.restore(); }
+    if (dashed) c.setLineDash([3.4, 1.8]); platePath(c, side, r, 0.8, g); c.strokeStyle = hex; c.lineWidth = 1.5; c.stroke(); c.setLineDash([]);
+  };
+  const sc = sc0; const st = { ink: sc, lw: 1.4 };
+  switch (ch) {
+    case 'side': if (v === 'mixed') { plate('union', P['color.union']); c.save(); c.beginPath(); c.rect(0, -h, w, 2 * h); c.clip(); platePath(c, 'union', { x, y, w: W, h: H }, 0.8, g); c.strokeStyle = P['color.confederate']; c.lineWidth = 1.5; c.stroke(); c.restore(); } else plate(v, sc); break;
+    case 'arm': plate('union', P['color.union']); if (v === 'formation') echelonMarks(c, 2, 0, 0, 4.4, st); else armGlyph(c, v, 0, 0, 4.2, { ink: P['color.union'], lw: 1.4 }); break;
+    case 'armState': plate('union', P['color.union']); armGlyph(c, v === 'mounted' || v === 'dismounted' ? 'cavalry' : 'artillery', 0, 0, 4, { ink: P['color.union'], lw: 1.3 }, v); break;
+    case 'echelon': plate('union', P['color.union']); echelonMarks(c, v, 0, 0, 4.6, { ink: P['color.union'], lw: 1.4 }); break;
+    case 'posture': plate('union', P['color.union']); postureMark(c, v, 0, 0, 3.4, { ink: rgba(P['color.union'], P['ink.modelled']), lw: 1.4 }); break;
+    case 'strength': { plate('union', P['color.union']); const n = P['gauge.segments']; const gl = 12; const x0 = -gl / 2; c.fillStyle = g.col('color.track', 0.9); c.fillRect(x0, -1.5, gl, 3); c.fillStyle = rgba(P['color.union'], 0.98); c.fillRect(x0, -1.5, gl * v, 3); c.fillStyle = g.col('color.plate', 1); for (let i = 1; i < n; i++) c.fillRect(x0 + gl * i / n - 0.5, -1.5, 1, 3); break; }
+    case 'fix': { c.fillStyle = g.col(v === 'carried' ? 'color.plateOld' : 'color.plate', 1); c.fillRect(x, y, W, H); c.strokeStyle = P['color.union']; c.lineWidth = 1.6; if (v === 'carried') c.setLineDash([3.4, 2.2]); c.beginPath(); c.moveTo(x + 1, 0); c.lineTo(x + W - 1, 0); c.stroke(); c.setLineDash([]); break; }
+    case 'transit': plate('union', P['color.union']); c.fillStyle = rgba(P['color.union'], P['ink.modelled']); for (let i = -1; i <= 1; i++) { c.beginPath(); c.arc(i * 3, 0, 0.9, 0, 6.283); c.fill(); } break;
+    case 'idOnly': plate('union', P['color.union']); c.fillStyle = g.col('color.ink', 0.9); c.font = '700 8px sans-serif'; c.textBaseline = 'middle'; c.textAlign = 'center'; c.fillText('10 AL', 0, -1); c.fillStyle = g.col('color.ink', 0.6); for (let xx = -6; xx < 6; xx += 3) c.fillRect(xx, 3.2, 1.4, 1); break;
+    case 'aggregate': { plate('union', P['color.union']); rr(c, -5, -3.2, 10, 6.4, 3.2); c.fillStyle = P['color.union']; c.fill(); c.fillStyle = '#fff'; c.font = '700 6.5px sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('×4', 0, 0.3); break; }
+    case 'selection': plate('union', P['color.union']); rr(c, x - 0.5, y - 0.5, W + 1, H + 1, 3); c.strokeStyle = P['color.accent']; c.lineWidth = 1.6; c.stroke(); break;
+    case 'pin': c.beginPath(); c.moveTo(-6, 3); c.lineTo(2, -1); c.strokeStyle = rgba(P['color.union'], 0.85); c.lineWidth = 1; c.stroke(); c.beginPath(); c.arc(-6, 3, 2.1, 0, 6.283); c.fillStyle = g.col('color.plate', 1); c.fill(); c.strokeStyle = P['color.union']; c.lineWidth = 1.2; c.stroke(); break;
+    default: return false;
+  }
+  return true;
+}
+
+const FIELD_MANUAL = defineFamily({
+  id: 'field-manual', label: 'Field Manual', version: '1.0', footprint: FOOT, fonts: FONTS, tokens: FM_TOKENS,
+  channels: { side: true, arm: true, armState: true, echelon: true, posture: true, strength: true, fix: true, transit: true, idOnly: true, aggregate: true, selection: true, pin: true },
+  fallbackSwatch: '#1f5aa6', draw: { tile, label, pin, leader, hull }, sample,
+}, FM_VARIANTS);
+
+__exports.FIELD_MANUAL = FIELD_MANUAL;
+};
+__defs["src/skins/war-room.spec.mjs"] = function (__exports, __r) {
+// skins/war-room.spec.mjs - THE TOKENS OF THE WAR ROOM SKIN.  Edit a value, run `node docs/pitch/anim/prototype/build.mjs`, reload; or try it live:
+//   open battle-studio.html?skin=war-room&skinset={"war-room":{"rim.glow":0.6,"color.union":"#3fa0ff"}}      (console: __skinKit.setToken('war-room', 'rim.glow', 0.6))
+// Row = [name, value, what it does, { min, max, unit }].  Every row is read by the drawing code and checked by test/skins.test.mjs.
+const WR_TOKENS = [
+  // palette: light on dark.  Side colours are the only colours that mean a side; grey with hatching is the contested side and never a side colour
+  ['color.union', '#8fd0ff', 'Union rim light, glyph, meter and pill'],
+  ['color.confederate', '#ff6b35', 'Confederate rim light, glyph, meter and pill'],
+  ['color.unknown', '#a9b2bb', 'Contested side: neutral grey with hatching, never a side colour'],
+  ['color.accent', '#ffe066', 'Selection brackets'],
+  ['color.plateTop', '#212d3c', 'Top of the glass plate (a tile whose latest keyframe is fresh)'],
+  ['color.plateBottom', '#0e151d', 'Bottom of the glass plate'],
+  ['color.plateOld', '#1b222b', 'Plate of a tile carried forward for a day or more: flat, unlit'],
+  ['color.ink', '#eef3f9', 'Text and aggregate pill ink'],
+  ['color.dim', '#93a5b9', 'Secondary ink (posture marks, modelled marks)'],
+  ['color.off', '#2c394a', 'Unlit meter segments'],
+  ['color.edge', '#000000', 'Outer contour that separates the plate from any imagery'],
+  // construction
+  ['plate.alpha', 0.95, 'Opacity of the glass plate', { min: 0.6, max: 1 }],
+  ['plate.radius', 5, 'Corner radius of the Union plate', { min: 0, max: 8, unit: 'px' }],
+  ['plate.cut', 4, 'Corner cut of the Confederate plate (all four corners)', { min: 1, max: 8, unit: 'px' }],
+  ['rim.width', 1.5, 'Rim light thickness (top and left edge)', { min: 1, max: 3, unit: 'px' }],
+  ['rim.glow', 0.4, 'Strength of the side-colour glow in the glyph cell when the keyframe is fresh', { min: 0, max: 1 }],
+  ['lift.perEchelon', 0.7, 'Pixels a plate floats up per echelon level (depth encodes echelon; the shadow grows with it)', { min: 0, max: 1 }],
+  ['shadow.alpha', 0.36, 'Contact shadow darkness', { min: 0, max: 0.8 }],
+  ['glyph.weight', 1.6, 'Stroke weight of glyphs', { min: 1, max: 2.6, unit: 'px' }],
+  ['glyph.glow', 0.3, 'Glow under glyphs', { min: 0, max: 0.8 }],
+  ['meter.segments', 8, 'Segments of the strength meter (a gauge, not a measurement)', { min: 4, max: 12 }],
+  ['meter.height', 4, 'Strength meter thickness', { min: 2, max: 6, unit: 'px' }],
+  ['ink.modelled', 0.8, 'Opacity of Modelled marks (posture, meter): they must not look as firm as Documented ones', { min: 0.4, max: 1 }],
+  ['hatch.pitch', 5, 'Spacing of the hatching on a contested tile', { min: 3, max: 9, unit: 'px' }],
+  ['sweep.width', 16, 'Width of the light sweep that reveals a tile on arrival', { min: 6, max: 40, unit: 'px' }],
+  // detail by zoom
+  ['lod.posture', 13.6, 'Zoom at which the posture mark starts to appear (secondary detail)', { min: 11, max: 18 }],
+  ['lod.span', 0.7, 'Zoom range over which secondary detail fades in', { min: 0.2, max: 2 }],
+  // motion (wall-clock; the display layer owns arrival and departure timing)
+  ['motion.selectMs', 150, 'Ease of the selection brackets', { min: 0, max: 600, unit: 'ms' }],
+  ['motion.hoverMs', 90, 'Ease of the hover lift', { min: 0, max: 600, unit: 'ms' }],
+  ['motion.crossMs', 240, 'Cross-fade when a keyframe changes a unit\'s posture or transit state', { min: 0, max: 800, unit: 'ms' }],
+];
+
+const WR_VARIANTS = {
+  cvd: { label: 'colour-blind safe', set: {
+    'color.union': '#7fcbff', 'color.confederate': '#e07b00', 'color.unknown': '#bdbdbd', 'color.accent': '#ffffff', 'rim.width': 1.8, 'hatch.pitch': 4 } },
+  contrast: { label: 'high contrast', set: {
+    'color.union': '#6fd4ff', 'color.confederate': '#ff7a1a', 'color.unknown': '#f0f0f0', 'color.accent': '#ffffff', 'color.plateTop': '#000000', 'color.plateBottom': '#000000', 'color.plateOld': '#000000',
+    'color.ink': '#ffffff', 'color.dim': '#ffffff', 'color.off': '#555b63', 'color.edge': '#ffffff', 'plate.alpha': 1, 'rim.width': 2.4, 'rim.glow': 0, 'ink.modelled': 1, 'glyph.weight': 2, 'shadow.alpha': 0, 'glyph.glow': 0 } },
+};
+
+__exports.WR_TOKENS = WR_TOKENS;
+__exports.WR_VARIANTS = WR_VARIANTS;
+};
+__defs["src/skins/war-room.mjs"] = function (__exports, __r) {
+// skins/war-room.mjs - SKIN 2 of 3: WAR ROOM.  Cinematic: a dark glass plate that floats over the map, lit from the top-left, with the side colour as its rim light.
+//
+// Why this direction (04-benchmarks.md, 03-data-fuel.md):
+//   * The owner wants the battle animation to feel like a production, and the strongest honest cinematic device the data allows is LIGHT.  Evidence maps onto it directly: a unit whose
+//     latest keyframe is fresh is lit (bright rim, glow in the glyph cell); a unit that has been carried forward for a day or more is unlit and its rim is dashed.  The viewer reads
+//     "how stale is this" before reading anything else, and it needs no legend to feel right.  The vital channels (text, glyph, gauge) are never dimmed: only the glow is.
+//   * DEPTH encodes echelon: a regiment lies flat, a brigade floats 1.4 px, a division and a corps 2 px (capped by the 3 px margin; the contact shadow grows with it).  A hierarchy you can feel, not just read
+//     (03 E03; 04 R22: silhouette first, colour second): the Confederate plate has four cut corners, the Union plate is rounded, the contested side is hatched grey.
+//   * It never shows what the record lacks: no trail (the tile skin has no honest path to draw), no weather, no casualty glow, no speed.  The only motion cues are arrival (a light sweep that
+//     reveals the plate), selection (corner brackets that lock in), hover (the plate lifts) and a cross-fade when a keyframe changes a posture.
+//   * Rim, glow and shadow are drawn with translucent layers and linear gradients (no shadowBlur: 04 P4), gradients are cached, so the cost stays near the flat skin's.
+const { defineFamily, clamp01, ss, mixHex, rgba, lin, textWidth, pinFade, meter } = __r("src/skins/kit.mjs");
+const { FONTS } = __r("src/skins/semantics.mjs");
+const { armGlyph, postureMark, echelonMarks, chevrons, rr, bevel } = __r("src/skins/glyphs.mjs");
+const { WR_TOKENS, WR_VARIANTS } = __r("src/skins/war-room.spec.mjs");
+
+const FOOT = { chipH: 28, chipPadX: 10, glyphW: 14, glyphGap: 5, chipMinW: 48, ring: 3, badgeGap: 5, labelH: 18, labelPadX: 7, labelGap: 3, pinHalf: 3 };
+const STACK = 3;
+const sideHex = (g, side) => (side === 'union' ? g.P['color.union'] : side === 'confederate' ? g.P['color.confederate'] : g.P['color.unknown']);
+const catAlpha = (ct, v) => (ct.to === v ? ct.m : 0) + (ct.from === v ? 1 - ct.m : 0);
+const withAlpha = (c, base, k, fn) => { if (k <= 0.004) return; c.globalAlpha = base * k; fn(); c.globalAlpha = base; };
+const light = (hex, k) => mixHex(hex, '#ffffff', k);
+
+function plate(c, side, x, y, w, h, g) { if (side === 'confederate') bevel(c, x, y, w, h, g.P['plate.cut']); else rr(c, x, y, w, h, g.P['plate.radius']); }
+
+function tile(c, t, g) {
+  const P = g.P; const vm = g.vm; const spec = g.env.spec; const side = vm.side; const base = c.globalAlpha; const hw = g.hw; const hh = g.hh;
+  const sc = side === 'mixed' ? P['color.union'] : sideHex(g, side); const old = vm.carried; const fresh = 1 - old;
+  const lift = Math.min(2, Math.min(3, vm.ech) * P['lift.perEchelon'] + g.hov * 0.9);
+  const b = g.body; const bw = vm.agg ? b.w - STACK : b.w; const bh = vm.agg ? b.h - STACK : b.h;
+  const x = b.x; const y = b.y - lift; const w = bw; const h = bh;                       // the plate floats up by `lift`
+  const k = side === 'confederate' ? P['plate.cut'] : P['plate.radius'];
+
+  // arrival / departure: the plate is revealed behind a bright vertical band sweeping left to right
+  const pe = ss(0, 1, g.enter); const sweepX = -hw - 8 + (g.w + 16) * pe;
+  if (g.enter < 1) { c.beginPath(); c.rect(-hw - 4, -hh - 4, sweepX + hw + 4 + 3, g.h + 8); c.clip(); }
+
+  // contact shadow: three translucent layers in the margin, offset down; grows with the lift
+  const sa = P['shadow.alpha'] * (1 - 0.35 * old);
+  const so = 0.8 + 0.25 * lift;
+  if (sa > 0.01) for (let i = 0; i < 3; i++) { rr(c, b.x - 0.4 * i + 0.2, b.y + so, bw + 0.8 * i - 0.4, bh + 0.8 * i, k + 1); c.fillStyle = rgba('#000000', sa * (0.55 - 0.17 * i)); c.fill(); }
+  if (vm.agg) {                                                                          // glass layers behind an aggregate
+    for (let i = 2; i >= 1; i--) { plate(c, side === 'mixed' ? 'union' : side, x + i * STACK / 2, y + i * STACK / 2, w, h, g); c.fillStyle = rgba(P['color.plateBottom'], 0.55); c.fill(); c.strokeStyle = rgba(sc, 0.4); c.lineWidth = 1; c.stroke(); }
+  }
+  // the plate: glass gradient, flat and unlit when old
+  const top = mixHex(P['color.plateTop'], P['color.plateOld'], old * 0.9); const bot = mixHex(P['color.plateBottom'], P['color.plateOld'], old * 0.55);
+  plate(c, side === 'mixed' ? 'union' : side, x - 0.5, y - 0.5, w + 1, h + 1, g); c.strokeStyle = rgba(P['color.edge'], 0.7); c.lineWidth = 1; c.stroke();                // contour on any imagery
+  plate(c, side === 'mixed' ? 'union' : side, x, y, w, h, g);
+  c.fillStyle = lin(c, 0, y, 0, y + h, [[0, rgba(top, P['plate.alpha'])], [1, rgba(bot, P['plate.alpha'])]]); c.fill();
+  c.save(); c.clip();
+  const glowK = P['rim.glow'] * (1 - 0.85 * old);
+  if (side === 'unknown') { c.strokeStyle = rgba(sc, 0.3); c.lineWidth = 1; c.beginPath(); for (let q = -h; q < w; q += P['hatch.pitch']) { c.moveTo(x + q, y + h); c.lineTo(x + q + h, y); } c.stroke(); }
+  else if (side === 'mixed') { c.fillStyle = lin(c, x, 0, x + 22, 0, [[0, rgba(P['color.union'], glowK)], [1, rgba(P['color.union'], 0)]]); c.fillRect(x, y, 22, h); c.fillStyle = lin(c, x + w - 22, 0, x + w, 0, [[0, rgba(P['color.confederate'], 0)], [1, rgba(P['color.confederate'], glowK)]]); c.fillRect(x + w - 22, y, 22, h); }
+  else { c.fillStyle = lin(c, x, 0, x + 24, 0, [[0, rgba(sc, glowK)], [1, rgba(sc, 0)]]); c.fillRect(x, y, 24, h); c.fillStyle = rgba(sc, 1 - 0.45 * old); c.fillRect(x, y, 3, h); }
+  c.fillStyle = lin(c, 0, y, 0, y + 9, [[0, 'rgba(255,255,255,0.16)'], [1, 'rgba(255,255,255,0)']]); c.fillRect(x, y, w, 9);        // top gloss
+  if (g.hov > 0.01 || g.sel > 0.01) { c.fillStyle = rgba('#ffffff', 0.07 * g.hov + 0.07 * g.sel); c.fillRect(x, y, w, h); }
+  c.restore();
+
+  // rim light: the whole edge faintly, the top and left edges strongly; dashed when the keyframe is old
+  const rw = g.lw(P['rim.width']); const dash = old > 0.08;
+  plate(c, side === 'mixed' ? 'union' : side, x + 0.5, y + 0.5, w - 1, h - 1, g);
+  if (dash) c.setLineDash([4, 2.4 * old]);
+  c.strokeStyle = rgba(sc, 0.38 + 0.2 * fresh + 0.25 * g.hov); c.lineWidth = 1; c.stroke();
+  c.strokeStyle = rgba(light(sc, 0.25), 0.55 + 0.4 * fresh + 0.2 * g.hov); c.lineWidth = rw; c.lineCap = 'butt'; c.beginPath();
+  const kx = side === 'confederate' ? k : k * 0.6; c.moveTo(x + w - kx - 1, y + rw / 2); c.lineTo(x + kx, y + rw / 2); c.lineTo(x + rw / 2, y + kx); c.lineTo(x + rw / 2, y + h - kx); c.stroke();
+  if (dash) c.setLineDash([]);
+  if (side === 'mixed') { c.strokeStyle = rgba(P['color.confederate'], 0.7); c.lineWidth = rw; c.beginPath(); c.moveTo(x + w - rw / 2, y + k); c.lineTo(x + w - rw / 2, y + h - k); c.stroke(); }
+
+  // the arm glyph (luminous), or the echelon chevrons of a formation
+  const ty = g.cr(y + 9.4, 0); const gx = x + spec.chipPadX + spec.glyphW / 2; const gw = P['glyph.weight']; const core = light(sc, 0.32);
+  const as = g.cat('armState', vm.armState, P['motion.crossMs']);
+  const glyph = (state, kk) => withAlpha(c, base, kk, () => {
+    const draw = (ink, lw) => { if (vm.arm === 'formation') chevrons(c, vm.ech - 1, gx, ty, 5.6, { ink, lw }, 11); else armGlyph(c, vm.arm, gx, ty, 5.2, { ink, lw }, state); };
+    if (P['glyph.glow'] > 0.01) { c.globalAlpha = base * kk * P['glyph.glow']; draw(sc, gw + 2.4); c.globalAlpha = base * kk; }
+    draw(core, gw);
+  });
+  if (as.from !== null) { glyph(as.from, 1 - as.m); glyph(as.to, as.m); } else glyph(vm.armState, 1);
+  if (vm.agg && side === 'mixed') { c.strokeStyle = P['color.ink']; c.lineWidth = 1.5; c.lineCap = 'round'; c.beginPath(); c.moveTo(gx - 3, ty - 3); c.lineTo(gx + 3, ty + 3); c.moveTo(gx + 3, ty - 3); c.lineTo(gx - 3, ty + 3); c.stroke(); }
+  if (vm.ech === 1) echelonMarks(c, 1, x + w - 6.8, ty, 3.4, { ink: rgba(P['color.dim'], 1), lw: 1.3 });
+
+  // in transit (Modelled): a small comet under the glyph
+  const tr = g.cat('moving', vm.moving, P['motion.crossMs']);
+  withAlpha(c, base, catAlpha(tr, true), () => { for (let i = 0; i < 3; i++) { c.fillStyle = rgba(core, 0.95 - 0.3 * i); c.beginPath(); c.arc(gx - 3 + i * 3, g.cr(y + h - 5.6, 0), 1 - 0.18 * i, 0, 6.283); c.fill(); } });
+
+  // identity: the short code (vital) and its evidence mark
+  const tx = x + spec.chipPadX + spec.glyphW + spec.glyphGap; c.font = FONTS.code; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillStyle = P['color.ink'];
+  const maxCode = spec.text.width('code', vm.code); const tw = g.text(c, vm.code, tx, ty + 0.5, maxCode, 'left');
+  if (vm.idOnly) { c.fillStyle = rgba(P['color.dim'], 0.9); for (let q = tx; q < tx + tw - 1; q += 3) c.fillRect(Math.round(q), g.cr(ty + 6.2, 1) - 0.5, 1.4, 1); }
+  if (vm.count) {
+    c.font = FONTS.badge; const bw2 = Math.min(spec.text.width('badge', vm.count), textWidth(c, vm.count)) + 6; const px = tx + tw + spec.badgeGap;
+    rr(c, px, ty - 5.5, bw2, 11, 5.5); c.fillStyle = side === 'mixed' || side === 'unknown' ? P['color.ink'] : sc; c.fill(); c.fillStyle = '#06101a'; c.textAlign = 'left'; c.fillText(vm.count, px + 3, ty + 0.5);
+  }
+
+  // posture (Modelled), secondary: collapses by zoom
+  const lod = g.at(P['lod.posture'], P['lod.span']);
+  if (lod > 0.01) {
+    const pc = g.cat('posture', vm.posture, P['motion.crossMs']);
+    const mark = (p, kk) => withAlpha(c, base, kk * lod, () => postureMark(c, p, x + w - 6.8, ty, 3.3, { ink: rgba(P['color.dim'], P['ink.modelled']), lw: 1.3 }));
+    if (pc.from !== null) { mark(pc.from, 1 - pc.m); mark(pc.to, pc.m); } else mark(vm.posture, 1);
+  }
+
+  // strength meter (Modelled): segments lit in the side colour
+  const mh = P['meter.height']; const my = g.cr(y + h - 1.8 - mh, 0); const mx0 = Math.round(tx); const mx1 = Math.round(x + w - 5); const ml = mx1 - mx0; const n = P['meter.segments'];
+  if (ml > 10) {
+    meter(c, mx0, my, ml, mh, n, 1, vm.ratio, rgba(P['color.off'], 1), rgba(light(sc, 0.12), P['ink.modelled'] + 0.2));
+  }
+
+  // selection: four corner brackets lock in (inside the 3 px margin); hover is the lift above
+  if (g.sel > 0.003) {
+    const L = 3 + 5 * g.sel; c.strokeStyle = rgba(P['color.accent'], g.sel); c.lineWidth = 1.6; c.lineCap = 'butt'; c.beginPath();
+    const x0 = -hw + 0.9; const x1 = hw - 0.9; const y0 = -hh + 0.9; const y1 = hh - 0.9;
+    const corner = (cx, cy, sx, sy) => { c.moveTo(cx, cy + sy * L); c.lineTo(cx, cy); c.lineTo(cx + sx * L, cy); };
+    corner(x0, y0, 1, 1); corner(x1, y0, -1, 1); corner(x0, y1, 1, -1); corner(x1, y1, -1, -1);
+    c.stroke();
+    rr(c, -hw + 1.2, -hh + 1.2, g.w - 2.4, g.h - 2.4, k + 1); c.strokeStyle = rgba(P['color.accent'], 0.28 * g.sel); c.lineWidth = 1; c.stroke();
+  }
+
+  // the sweep band of an arriving or departing tile
+  if (g.enter < 1) {
+    const a = 4 * g.enter * (1 - g.enter); const W = P['sweep.width'];
+    c.beginPath(); c.rect(-hw - 4, -hh - 4, g.w + 8, g.h + 8); c.clip();
+    c.fillStyle = lin(c, -1, 0, -1 + W, 0, [[0, 'rgba(255,255,255,0)'], [1, 'rgba(255,255,255,0.9)']]);
+    c.save(); c.translate(sweepX - W, 0); c.globalAlpha = base * a * 0.7; c.fillRect(-1, -hh, W + 1, g.h); c.restore(); c.globalAlpha = base;
+  }
+}
+
+function label(c, t, g) {
+  const L = t.label; const lw = L.x1 - L.x0; const lh = L.y1 - L.y0; const sc = sideHex(g, t.side === 'mixed' ? 'union' : t.side);
+  rr(c, 0.5, 0.5, lw - 1, lh - 1, 4); c.fillStyle = rgba(g.P['color.plateBottom'], 0.94); c.fill(); c.strokeStyle = rgba(g.P['color.edge'], 0.7); c.lineWidth = 1; c.stroke();
+  rr(c, 1.5, 1.5, lw - 3, lh - 3, 3); c.strokeStyle = rgba(sc, 0.45); c.stroke(); c.fillStyle = rgba(sc, 1); c.fillRect(2, 4, 2, lh - 8);
+  c.font = FONTS.label; c.textBaseline = 'middle'; c.fillStyle = g.P['color.ink'];
+  g.text(c, L.text, g.env.spec.labelPadX + 1, lh / 2 + 0.5, lw - g.env.spec.labelPadX * 2 - 1, 'left');
+}
+function pin(c, t, g) { const a = pinFade(t); if (a < 0.02) return; const b0 = c.globalAlpha; c.globalAlpha = b0 * a; const sc = sideHex(g, t.side === 'mixed' ? 'union' : t.side); c.beginPath(); c.arc(0, 0, 2.9, 0, 6.283); c.fillStyle = rgba(sc, 0.3); c.fill(); c.beginPath(); c.arc(0, 0, 1.7, 0, 6.283); c.fillStyle = light(sc, 0.35); c.fill(); c.strokeStyle = rgba(g.P['color.edge'], 0.8); c.lineWidth = 0.8; c.stroke(); c.globalAlpha = b0; }
+function leader(c, t, g, a, b) { const sc = sideHex(g, t.side === 'mixed' ? 'union' : t.side); c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.strokeStyle = rgba(sc, 0.22); c.lineWidth = 3; c.stroke(); c.strokeStyle = rgba(light(sc, 0.3), 0.9); c.lineWidth = 1; c.stroke(); }
+function hull(c, t, g, pts) { const sc = sideHex(g, t.side === 'mixed' ? 'union' : t.side); for (const p of pts) { c.fillStyle = rgba(sc, 0.3); c.beginPath(); c.arc(p[0], p[1], 3, 0, 6.283); c.fill(); c.fillStyle = light(sc, 0.4); c.beginPath(); c.arc(p[0], p[1], 1.5, 0, 6.283); c.fill(); } }
+
+function sample(c, ch, v, g, w, h) {
+  const P = g.P; const x = -w / 2 + 0.5; const y = -h / 2 + 0.5; const W = w - 1; const H = h - 1;
+  const hex = v === 'confederate' ? P['color.confederate'] : v === 'unknown' ? P['color.unknown'] : P['color.union'];
+  const slab = (side, sc, dashed, lit = true) => {
+    plate(c, side, x, y, W, H, g); c.fillStyle = lin(c, 0, y, 0, y + H, [[0, rgba(P['color.plateTop'], 1)], [1, rgba(P['color.plateBottom'], 1)]]); c.fill();
+    if (side === 'unknown') { c.save(); c.clip(); c.strokeStyle = rgba(sc, 0.4); c.lineWidth = 1; c.beginPath(); for (let q = -H; q < W; q += 4) { c.moveTo(x + q, y + H); c.lineTo(x + q + H, y); } c.stroke(); c.restore(); }
+    plate(c, side, x + 0.5, y + 0.5, W - 1, H - 1, g); if (dashed) c.setLineDash([3, 2]); c.strokeStyle = rgba(sc, lit ? 0.95 : 0.4); c.lineWidth = 1.4; c.stroke(); c.setLineDash([]);
+  };
+  const core = light(P['color.union'], 0.32); const U = P['color.union'];
+  switch (ch) {
+    case 'side': if (v === 'mixed') { slab('union', U); c.save(); c.beginPath(); c.rect(0, -h, w, 2 * h); c.clip(); plate(c, 'union', x + 0.5, y + 0.5, W - 1, H - 1, g); c.strokeStyle = P['color.confederate']; c.lineWidth = 1.4; c.stroke(); c.restore(); } else slab(v, hex); break;
+    case 'arm': slab('union', U); if (v === 'formation') chevrons(c, 2, 0, 0, 4.2, { ink: core, lw: 1.4 }, 8); else armGlyph(c, v, 0, 0, 4, { ink: core, lw: 1.4 }); break;
+    case 'armState': slab('union', U); armGlyph(c, v === 'mounted' || v === 'dismounted' ? 'cavalry' : 'artillery', 0, 0, 3.8, { ink: core, lw: 1.3 }, v); break;
+    case 'echelon': slab('union', U); if (v === 1) echelonMarks(c, 1, 0, 0, 4, { ink: P['color.dim'], lw: 1.3 }); else chevrons(c, v - 1, 0, 0, 4.2, { ink: core, lw: 1.3 }, 8); break;
+    case 'posture': slab('union', U); postureMark(c, v, 0, 0, 3.4, { ink: rgba(P['color.dim'], 1), lw: 1.3 }); break;
+    case 'strength': { slab('union', U); const n = 6; const sw = 1.6; const gl = n * (sw + 1) - 1; for (let i = 0; i < n; i++) { const f = clamp01(v * n - i); c.fillStyle = P['color.off']; c.fillRect(-gl / 2 + i * (sw + 1), -2, sw, 4); if (f > 0) { c.fillStyle = core; c.fillRect(-gl / 2 + i * (sw + 1), -2, sw * f, 4); } } break; }
+    case 'fix': { c.fillStyle = lin(c, 0, y, 0, y + H, [[0, rgba(v === 'carried' ? P['color.plateOld'] : P['color.plateTop'], 1)], [1, rgba(v === 'carried' ? P['color.plateOld'] : P['color.plateBottom'], 1)]]); c.fillRect(x, y, W, H); c.strokeStyle = rgba(light(U, 0.25), v === 'carried' ? 0.5 : 1); c.lineWidth = 1.8; if (v === 'carried') c.setLineDash([3, 2.2]); c.beginPath(); c.moveTo(x + 1, 0); c.lineTo(x + W - 1, 0); c.stroke(); c.setLineDash([]); break; }
+    case 'transit': slab('union', U); for (let i = 0; i < 3; i++) { c.fillStyle = rgba(core, 0.95 - 0.3 * i); c.beginPath(); c.arc(-3 + i * 3, 0, 1 - 0.18 * i, 0, 6.283); c.fill(); } break;
+    case 'idOnly': slab('union', U); c.fillStyle = P['color.ink']; c.font = '700 8px sans-serif'; c.textBaseline = 'middle'; c.textAlign = 'center'; c.fillText('10 AL', 0, -1); c.fillStyle = rgba(P['color.dim'], 0.9); for (let xx = -6; xx < 6; xx += 3) c.fillRect(xx, 3.2, 1.4, 1); break;
+    case 'aggregate': slab('union', U); rr(c, -5, -3.2, 10, 6.4, 3.2); c.fillStyle = U; c.fill(); c.fillStyle = '#06101a'; c.font = '700 6.5px sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('×4', 0, 0.3); break;
+    case 'selection': slab('union', U); c.strokeStyle = P['color.accent']; c.lineWidth = 1.6; c.beginPath(); for (const [sx, sy] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) { c.moveTo(sx * 8.4, sy * 4.2 - sy * 3.4); c.lineTo(sx * 8.4, sy * 4.2); c.lineTo(sx * 8.4 - sx * 4, sy * 4.2); } c.stroke(); break;
+    case 'pin': c.beginPath(); c.moveTo(-6, 3); c.lineTo(3, -1); c.strokeStyle = rgba(U, 0.3); c.lineWidth = 3; c.stroke(); c.strokeStyle = rgba(core, 0.9); c.lineWidth = 1; c.stroke(); c.beginPath(); c.arc(-6, 3, 2.9, 0, 6.283); c.fillStyle = rgba(U, 0.3); c.fill(); c.beginPath(); c.arc(-6, 3, 1.7, 0, 6.283); c.fillStyle = core; c.fill(); break;
+    default: return false;
+  }
+  return true;
+}
+
+const WAR_ROOM = defineFamily({
+  id: 'war-room', label: 'War Room', version: '1.0', footprint: FOOT, fonts: FONTS, tokens: WR_TOKENS,
+  channels: { side: true, arm: true, armState: true, echelon: true, posture: true, strength: true, fix: true, transit: true, idOnly: true, aggregate: true, selection: true, pin: true },
+  fallbackSwatch: '#4aa8ff', draw: { tile, label, pin, leader, hull }, sample,
+}, WR_VARIANTS);
+
+__exports.WAR_ROOM = WAR_ROOM;
+};
+__defs["src/skins/map-1863.spec.mjs"] = function (__exports, __r) {
+// skins/map-1863.spec.mjs - THE TOKENS OF THE 1863 MAP SKIN.  Edit a value, run `node docs/pitch/anim/prototype/build.mjs`, reload; or try it live:
+//   open battle-studio.html?skin=map-1863&skinset={"map-1863":{"color.parchment":"#f1e8d2","frame.width":1.6}}      (console: __skinKit.setToken('map-1863', 'frame.width', 1.6))
+// Row = [name, value, what it does, { min, max, unit }].  Every row is read by the drawing code and checked by test/skins.test.mjs.
+const M63_TOKENS = [
+  // palette: ink on parchment, blue and red washes (the blue and red bars of period maps, 04-benchmarks.md R08)
+  ['color.union', '#1f3d7a', 'Union flag, wash and gauge (blue)'],
+  ['color.confederate', '#c0402a', 'Confederate flag, wash and gauge (red)'],
+  ['color.unknown', '#7a7568', 'Contested side: grey-brown with hatching, never a side colour'],
+  ['color.accent', '#d49a14', 'Selection: a gilt ring'],
+  ['color.parchment', '#f0e7d0', 'Tablet of a tile whose latest keyframe is fresh (drawn in ink)'],
+  ['color.parchmentOld', '#ddd5bf', 'Tablet of a tile carried forward for a day or more (drawn in pencil)'],
+  ['color.ink', '#2a2017', 'Ink: frame, text, glyphs'],
+  ['color.divRed', '#c0392b', 'First-division badge colour (circular of 21 March 1863)'],
+  ['color.divWhite', '#fbf8ef', 'Second-division badge colour'],
+  ['color.divBlue', '#2f66bf', 'Third-division badge colour'],
+  ['color.keyline', '#fffdf6', 'Pale halo outside the frame: keeps the tablet readable on any imagery'],
+  // construction
+  ['frame.width', 1.4, 'Ink rule around the tablet', { min: 1, max: 3, unit: 'px' }],
+  ['frame.radius', 2, 'Corner radius of the tablet', { min: 0, max: 6, unit: 'px' }],
+  ['rule.inner', 0.45, 'Opacity of the inner hairline rule (the cartouche)', { min: 0, max: 1 }],
+  ['flag.tail', 4.5, 'Depth of the Union swallow-tail and the Confederate point', { min: 2, max: 8, unit: 'px' }],
+  ['glyph.weight', 1.5, 'Stroke weight of the arm pictograms', { min: 1, max: 2.5, unit: 'px' }],
+  ['gauge.height', 4, 'Pencilled strength band thickness', { min: 3, max: 6, unit: 'px' }],
+  ['pencil.dash', 1.8, 'Dash of a pencilled (Modelled or carried-forward) line', { min: 1, max: 4, unit: 'px' }],
+  ['ink.modelled', 0.72, 'Opacity of pencilled (Modelled) marks', { min: 0.4, max: 1 }],
+  ['hatch.pitch', 4.5, 'Spacing of the hatching on a contested tile', { min: 3, max: 9, unit: 'px' }],
+  ['badge.size', 4.4, 'Radius of the corps badge medallion', { min: 3.5, max: 6, unit: 'px' }],
+  // detail by zoom
+  ['lod.posture', 13.6, 'Zoom at which the posture mark starts to appear (secondary detail)', { min: 11, max: 18 }],
+  ['lod.badge', 13.0, 'Zoom at which the corps badge starts to appear (secondary detail)', { min: 11, max: 18 }],
+  ['lod.span', 0.7, 'Zoom range over which secondary detail fades in', { min: 0.2, max: 2 }],
+  // motion (wall-clock; the display layer owns arrival and departure timing)
+  ['motion.selectMs', 140, 'Ease of the gilt selection ring', { min: 0, max: 600, unit: 'ms' }],
+  ['motion.hoverMs', 90, 'Ease of the hover warmth', { min: 0, max: 600, unit: 'ms' }],
+  ['motion.crossMs', 240, 'Cross-fade when a keyframe changes a unit\'s posture or transit state', { min: 0, max: 800, unit: 'ms' }],
+];
+
+const M63_VARIANTS = {
+  cvd: { label: 'colour-blind safe', set: {
+    'color.union': '#183f87', 'color.confederate': '#c25400', 'color.unknown': '#767676', 'color.accent': '#e8c600', 'frame.width': 1.7 } },
+  contrast: { label: 'high contrast', set: {
+    'color.union': '#06308f', 'color.confederate': '#c43a00', 'color.unknown': '#6a6a6a', 'color.accent': '#ffd400', 'color.parchment': '#ffffff', 'color.parchmentOld': '#e8e8e8', 'color.ink': '#000000',
+    'color.divRed': '#b00020', 'color.divWhite': '#ffffff', 'color.divBlue': '#0044cc', 'color.keyline': '#ffffff', 'frame.width': 2.4, 'ink.modelled': 1, 'glyph.weight': 2, 'rule.inner': 0 } },
+};
+
+__exports.M63_TOKENS = M63_TOKENS;
+__exports.M63_VARIANTS = M63_VARIANTS;
+};
+__defs["src/skins/map-1863.mjs"] = function (__exports, __r) {
+// skins/map-1863.mjs - SKIN 3 of 3: 1863 MAP.  A lithographed field-map tablet: parchment, ink rule, a blue or red flag carrying the arm, and, for Union infantry, the corps badge of the
+// circular of 21 March 1863 as a medallion.
+//
+// Why this direction (03-data-fuel.md section 5, 04-benchmarks.md R06 R08 R22):
+//   * It is the one direction where a Documented period convention is the CENTRE of the design: the seven Union corps badges (sphere, trefoil, lozenge, Maltese cross, cross, crescent,
+//     star) in the division colours (red, white, blue) are the army's own 1863 symbology, and the research found them Documented for 78 % of Union rows.  Where the circular is silent
+//     (cavalry, artillery, every Confederate unit, any unit whose order-of-battle parent chain is not documented) NO badge is drawn: absence is the honest mark.  Confederates carry the
+//     corps NAME as a roman numeral (text only: no source assigns Confederate badges).
+//   * Blue and red are the heritage colours of period maps (R08, an 1862 Shiloh map and, as a snippet only, the Official Records atlas), and the evidence grammar is the cartographer's own:
+//     INK is firm, PENCIL is provisional.  A fresh keyframe is inked; a position carried forward for a day or more is pencilled (dotted rule, greyer parchment); the strength band is a
+//     pencilled wash (Modelled) with an inked end mark.  The base-versus-overlay lesson of Warren and Bachelder (R06) in one mark: nothing Modelled is drawn as firmly as the order of battle.
+//   * Silhouette first: the Union flag has a swallow tail, the Confederate flag a point, the contested side a hatched grey square.  These flag shapes and the echelon X marks are THIS
+//     SKIN'S convention, not claimed to be period insignia; only the corps badges and the division colours are.
+//   * Choreography: an arriving tablet is first a pencil outline, then parchment, then wash, then ink (it is "drawn in"); a departing one is rubbed out in the reverse order.
+//   Honest limit: the serif is Times New Roman (or the system's equivalent), chosen for lining figures (Georgia's old-style numerals make codes such as "1 SC" ambiguous); the layout
+//   measures the engine's own font table, so text is condensed (kit.fitText) rather than allowed to overflow.
+const { defineFamily, clamp01, ss, mixHex, rgba, luminance, textWidth, pinFade } = __r("src/skins/kit.mjs");
+const { FONTS } = __r("src/skins/semantics.mjs");
+const { armGlyph, echelonMarks, postureMark, corpsBadge, rr } = __r("src/skins/glyphs.mjs");
+const { M63_TOKENS, M63_VARIANTS } = __r("src/skins/map-1863.spec.mjs");
+
+const FOOT = { chipH: 26, chipPadX: 13, glyphW: 15, glyphGap: 4, chipMinW: 52, ring: 2, badgeGap: 5, labelH: 17, labelPadX: 7, labelGap: 3, pinHalf: 3 };
+const STACK = 3;
+const SERIF_M = new Map();
+const SERIF = (px, weight = 700, italic = false) => { const k = px + '|' + weight + '|' + italic; let f = SERIF_M.get(k); if (!f) SERIF_M.set(k, f = `${italic ? 'italic ' : ''}${weight} ${px}px "Times New Roman", "Liberation Serif", Georgia, serif`); return f; };
+const LUM = new Map();
+const lumOf = (hex) => { let v = LUM.get(hex); if (v === undefined) LUM.set(hex, v = luminance(hex)); return v; };
+const sideHex = (g, side) => (side === 'union' ? g.P['color.union'] : side === 'confederate' ? g.P['color.confederate'] : g.P['color.unknown']);
+const catAlpha = (ct, v) => (ct.to === v ? ct.m : 0) + (ct.from === v ? 1 - ct.m : 0);
+const withAlpha = (c, base, k, fn) => { if (k <= 0.004) return; c.globalAlpha = base * k; fn(); c.globalAlpha = base; };
+const onColor = (g, hex) => (lumOf(hex) > 0.42 ? g.P['color.ink'] : '#f7f0dd');
+const DIV = { red: 'color.divRed', white: 'color.divWhite', blue: 'color.divBlue' };
+
+/** the flag outline: Union swallow-tail, Confederate point, contested square */
+function flag(c, side, x, y, w, h, tail) {
+  c.beginPath();
+  if (side === 'confederate') { c.moveTo(x, y); c.lineTo(x + w - tail, y); c.lineTo(x + w, y + h / 2); c.lineTo(x + w - tail, y + h); c.lineTo(x, y + h); }
+  else if (side === 'unknown') { c.rect(x, y, w - tail * 0.5, h); }
+  else { c.moveTo(x, y); c.lineTo(x + w, y); c.lineTo(x + w - tail, y + h / 2); c.lineTo(x + w, y + h); c.lineTo(x, y + h); }
+  c.closePath();
+}
+
+function tile(c, t, g) {
+  const P = g.P; const vm = g.vm; const spec = g.env.spec; const side = vm.side; const base = c.globalAlpha; const hw = g.hw; const hh = g.hh;
+  const b = g.body; const r = vm.agg ? { x: b.x, y: b.y, w: b.w - STACK, h: b.h - STACK } : b; const old = vm.carried; const ink = P['color.ink'];
+  const sc = side === 'mixed' ? P['color.union'] : sideHex(g, side); const fw = g.lw(P['frame.width']) + 0.35 * g.hov + 0.3 * g.sel;
+  // "drawn in": outline first, then parchment, then wash, then ink
+  const pe = g.enter; const oA = clamp01(pe * 3); const pA = clamp01(pe * 1.8); const wA = clamp01((pe - 0.45) / 0.55); const iA = clamp01((pe - 0.3) / 0.7);
+
+  // pale halo in the margin
+  if (g.sel < 0.999) { rr(c, -hw + 1, -hh + 1, g.w - 2, g.h - 2, 3.2); c.strokeStyle = g.col('color.keyline', 0.85 * (1 - g.sel) * oA); c.lineWidth = 1; c.stroke(); }
+  if (vm.agg) {                                                                       // a second tablet peeks out behind an aggregate
+    rr(c, r.x + STACK, r.y + STACK, r.w, r.h, P['frame.radius']); c.fillStyle = rgba(P['color.parchmentOld'], pA); c.fill(); c.strokeStyle = rgba(ink, 0.75 * oA); c.lineWidth = 1; c.stroke();
+  }
+  // tablet
+  const parch = mixHex(mixHex(P['color.parchment'], P['color.parchmentOld'], old * 0.95), P['color.accent'], g.hov * 0.14 + g.sel * 0.1);
+  rr(c, r.x, r.y, r.w, r.h, P['frame.radius']); c.fillStyle = rgba(parch, pA); c.fill();
+  const innerA = P['rule.inner'] * (1 - 0.6 * old) * oA;
+  if (innerA > 0.01) { rr(c, r.x + fw + 1.6, r.y + fw + 1.6, r.w - 2 * (fw + 1.6), r.h - 2 * (fw + 1.6), 1); c.strokeStyle = rgba(ink, innerA); c.lineWidth = 0.7; c.stroke(); }
+  if (side === 'unknown') { c.save(); rr(c, r.x, r.y, r.w, r.h, P['frame.radius']); c.clip(); c.strokeStyle = rgba(P['color.unknown'], 0.28 * pA); c.lineWidth = 1; c.beginPath(); for (let k = -r.h; k < r.w; k += P['hatch.pitch']) { c.moveTo(r.x + k, r.y + r.h); c.lineTo(r.x + k + r.h, r.y); } c.stroke(); c.restore(); }
+  // the outer rule: ink while the keyframe is fresh, pencil (dotted, a little lighter) once it has been carried forward
+  rr(c, r.x + fw / 2, r.y + fw / 2, r.w - fw, r.h - fw, P['frame.radius']);
+  if (old > 0.08) c.setLineDash([P['pencil.dash'], P['pencil.dash'] * (0.4 + 1.3 * old)]);
+  c.strokeStyle = rgba(ink, (0.95 - 0.12 * old) * oA); c.lineWidth = fw; c.stroke(); c.setLineDash([]);
+
+  // the flag with the arm pictogram (or the echelon X marks of a formation), cream or ink by the flag's own luminance
+  const fx = r.x + fw + 1.4; const fy = r.y + fw + 1.6; const fwid = spec.chipPadX + spec.glyphW - fw - 1.4; const fh = 13; const tail = P['flag.tail'];
+  const gx = fx + (fwid - tail * (side === 'union' || side === 'mixed' ? 1 : 0.6)) / 2 + 0.4; const ty = g.cr(fy + fh / 2 + 0.2, 0);
+  const wash = (hex, a) => { c.fillStyle = rgba(hex, a * wA * (1 - 0.18 * old)); c.fill(); };
+  if (side === 'mixed') {
+    c.save(); c.beginPath(); c.rect(fx - 1, fy - 1, fwid / 2 + 1, fh + 2); c.clip(); flag(c, 'union', fx, fy, fwid, fh, tail); wash(P['color.union'], 1); c.restore();
+    c.save(); c.beginPath(); c.rect(fx + fwid / 2, fy - 1, fwid, fh + 2); c.clip(); flag(c, 'union', fx, fy, fwid, fh, tail); wash(P['color.confederate'], 1); c.restore();
+  } else { flag(c, side, fx, fy, fwid, fh, tail); wash(sc, 1); }
+  flag(c, side === 'mixed' ? 'union' : side, fx, fy, fwid, fh, tail); c.strokeStyle = rgba(ink, 0.85 * oA); c.lineWidth = 0.9; c.stroke();
+  const fg = side === 'mixed' ? '#f7f0dd' : onColor(g, sc); const gw = P['glyph.weight']; const as = g.cat('armState', vm.armState, P['motion.crossMs']);
+  const glyph = (state, k) => withAlpha(c, base, k * iA, () => { if (vm.arm === 'formation') echelonMarks(c, vm.ech, gx, ty, 5.4, { ink: fg, lw: gw }, 12); else armGlyph(c, vm.arm, gx, ty, 4.6, { ink: fg, lw: gw }, state); });
+  if (as.from !== null) { glyph(as.from, 1 - as.m); glyph(as.to, as.m); } else glyph(vm.armState, 1);
+  if (vm.agg && side === 'mixed') withAlpha(c, base, iA, () => { c.strokeStyle = '#f7f0dd'; c.lineWidth = 1.6; c.lineCap = 'round'; c.beginPath(); c.moveTo(gx - 3, ty - 3); c.lineTo(gx + 3, ty + 3); c.moveTo(gx + 3, ty - 3); c.lineTo(gx - 3, ty + 3); c.stroke(); });
+  const tr = g.cat('moving', vm.moving, P['motion.crossMs']);
+  withAlpha(c, base, catAlpha(tr, true) * iA, () => { c.fillStyle = rgba(ink, P['ink.modelled']); for (let i = -1; i <= 1; i++) { c.beginPath(); c.arc(gx + i * 3, fy + fh + 2.4, 0.8, 0, 6.283); c.fill(); } });
+
+  // identity: the short code in ink (vital), its evidence mark, the aggregate seal
+  const tx = r.x + spec.chipPadX + spec.glyphW + spec.glyphGap; c.font = SERIF(12.5, 700); c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillStyle = rgba(ink, iA);
+  const maxCode = spec.text.width('code', vm.code); const tw = g.text(c, vm.code, tx, ty + 0.5, maxCode, 'left');
+  if (vm.idOnly) { c.fillStyle = rgba(ink, 0.6 * iA); for (let q = tx; q < tx + tw - 1; q += 3) c.fillRect(Math.round(q), g.cr(ty + 6, 1) - 0.5, 1.4, 1); }
+  if (vm.count) {
+    c.font = SERIF(11, 700); const bw = Math.min(spec.text.width('badge', vm.count), textWidth(c, vm.count)) + 7; const px = tx + tw + spec.badgeGap;
+    rr(c, px, ty - 6, bw, 12, 6); c.fillStyle = rgba(side === 'mixed' ? ink : sc, wA); c.fill(); c.strokeStyle = rgba(ink, 0.85 * oA); c.lineWidth = 0.9; c.stroke();
+    c.fillStyle = rgba(side === 'mixed' ? '#f7f0dd' : onColor(g, sc), iA); c.textAlign = 'left'; c.fillText(vm.count, px + 3.5, ty + 0.7);
+  }
+
+  // right column: the corps medallion (Union badge, Confederate numeral) and, below it, the posture mark
+  const rcx = r.x + r.w - 7.5; const lodB = g.at(P['lod.badge'], P['lod.span']);
+  if (lodB > 0.01 && (vm.badge || vm.csa)) {
+    const rad = P['badge.size']; const my = r.y + fw + 1.6 + rad;
+    withAlpha(c, base, lodB * iA, () => {
+      if (vm.badge) corpsBadge(c, vm.badge, rcx, my, rad, { fill: P[DIV[vm.divColour] || 'color.parchmentOld'], edge: ink, lw: 0.9 });
+      else { c.beginPath(); c.arc(rcx, my, rad, 0, 6.283); c.fillStyle = P['color.parchment']; c.fill(); c.strokeStyle = ink; c.lineWidth = 0.9; c.stroke(); c.fillStyle = ink; c.font = SERIF(vm.csa.length > 2 ? 6.2 : 8, 700); c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(vm.csa, rcx, my + 0.6); c.textAlign = 'left'; }
+    });
+  }
+  const gh = P['gauge.height']; const gy = g.cr(r.y + r.h - fw - 1.5 - gh, 0); const py = gy + gh / 2;
+  const lod = g.at(P['lod.posture'], P['lod.span']);
+  if (vm.ech === 1) echelonMarks(c, 1, rcx, py - 0.6, 3.1, { ink: rgba(ink, 0.9), lw: 1.3 });
+  if (lod > 0.01) {
+    const pc = g.cat('posture', vm.posture, P['motion.crossMs']);
+    const mark = (p, k) => withAlpha(c, base, k * lod * iA, () => postureMark(c, p, rcx, py - 0.6, 2.7, { ink: rgba(ink, P['ink.modelled']), lw: 1.2 }));
+    if (pc.from !== null) { mark(pc.from, 1 - pc.m); mark(pc.to, pc.m); } else mark(vm.posture, 1);
+  }
+
+  // strength: a pencilled band (dotted outline, wash fill) with an inked end mark: Modelled, so never as firm as the order of battle
+  const gx0 = Math.round(tx); const gx1 = Math.round(r.x + r.w - 13); const gl = gx1 - gx0;
+  if (gl > 8) {
+    c.setLineDash([P['pencil.dash'] * 0.7, P['pencil.dash'] * 0.9]); c.strokeStyle = rgba(ink, 0.6 * oA); c.lineWidth = 1; c.strokeRect(gx0 + 0.5, gy + 0.5, gl - 1, gh - 1); c.setLineDash([]);
+    c.fillStyle = rgba(sc, Math.min(1, 0.55 + 0.45 * P['ink.modelled']) * wA); c.fillRect(gx0, gy, gl * vm.ratio, gh);
+    if (vm.ratio > 0.02 && vm.ratio < 0.995) { c.fillStyle = rgba(ink, 0.9 * iA); c.fillRect(Math.round(gx0 + gl * vm.ratio) - 0.5, gy - 1, 1, gh + 2); }
+  }
+
+  // selection: a gilt ring in the margin, ink outside it
+  if (g.sel > 0.003) {
+    rr(c, -hw + 0.5, -hh + 0.5, g.w - 1, g.h - 1, 3.4); c.strokeStyle = rgba(ink, 0.8 * g.sel); c.lineWidth = 1; c.stroke();
+    rr(c, -hw + 1.5, -hh + 1.5, g.w - 3, g.h - 3, 2.8); c.strokeStyle = g.col('color.accent', g.sel); c.lineWidth = 1; c.stroke();
+  }
+}
+
+function label(c, t, g) {
+  const L = t.label; const lw = L.x1 - L.x0; const lh = L.y1 - L.y0; const sc = sideHex(g, t.side === 'mixed' ? 'union' : t.side); const ink = g.P['color.ink'];
+  rr(c, 0.5, 0.5, lw - 1, lh - 1, 2); c.fillStyle = g.col('color.parchment', 0.95); c.fill(); c.strokeStyle = rgba(ink, 0.85); c.lineWidth = 1; c.stroke();
+  c.fillStyle = rgba(sc, 1); c.fillRect(1, 1, 3, lh - 2);
+  c.font = SERIF(13, 600, true); c.textBaseline = 'middle'; c.fillStyle = ink;
+  g.text(c, L.text, g.env.spec.labelPadX + 1, lh / 2 + 0.7, lw - g.env.spec.labelPadX * 2 - 1, 'left');
+}
+function pin(c, t, g) { const a = pinFade(t); if (a < 0.02) return; const b0 = c.globalAlpha; c.globalAlpha = b0 * a; const sc = sideHex(g, t.side === 'mixed' ? 'union' : t.side); const ink = g.P['color.ink']; c.beginPath(); c.arc(0, 0, 2.2, 0, 6.283); c.fillStyle = rgba(sc, 1); c.fill(); c.strokeStyle = ink; c.lineWidth = 1; c.stroke(); c.globalAlpha = b0; }
+function leader(c, t, g, a, b) { c.setLineDash([1.6, 1.8]); c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.strokeStyle = rgba(g.P['color.ink'], 0.85); c.lineWidth = 1; c.stroke(); c.setLineDash([]); }
+function hull(c, t, g, pts) { const sc = sideHex(g, t.side === 'mixed' ? 'union' : t.side); c.strokeStyle = rgba(sc, 1); c.lineWidth = 1.1; c.lineCap = 'round'; for (const p of pts) { c.beginPath(); c.moveTo(p[0] - 1.8, p[1] - 1.8); c.lineTo(p[0] + 1.8, p[1] + 1.8); c.moveTo(p[0] + 1.8, p[1] - 1.8); c.lineTo(p[0] - 1.8, p[1] + 1.8); c.stroke(); } }
+
+function sample(c, ch, v, g, w, h) {
+  const P = g.P; const ink = P['color.ink']; const x = -w / 2 + 0.5; const y = -h / 2 + 0.5; const W = w - 1; const H = h - 1;
+  const sideOf = (s) => (s === 'confederate' ? P['color.confederate'] : s === 'unknown' ? P['color.unknown'] : P['color.union']);
+  const tablet = (dashed) => { rr(c, x, y, W, H, 1.6); c.fillStyle = P['color.parchment']; c.fill(); if (dashed) c.setLineDash([2, 1.6]); rr(c, x + 0.7, y + 0.7, W - 1.4, H - 1.4, 1.4); c.strokeStyle = ink; c.lineWidth = 1.3; c.stroke(); c.setLineDash([]); };
+  const fl = (side, hex, fx = -6.5, fy = -3.6, fwid = 13, fh = 7.2) => { flag(c, side, fx, fy, fwid, fh, 3); c.fillStyle = hex; c.fill(); c.strokeStyle = ink; c.lineWidth = 0.8; c.stroke(); };
+  const U = P['color.union']; const fgU = onColor(g, U);
+  switch (ch) {
+    case 'side': tablet(); if (v === 'mixed') { c.save(); c.beginPath(); c.rect(-7, -5, 7, 10); c.clip(); fl('union', U); c.restore(); c.save(); c.beginPath(); c.rect(0, -5, 8, 10); c.clip(); fl('union', P['color.confederate']); c.restore(); } else { fl(v, sideOf(v)); if (v === 'unknown') { c.save(); c.beginPath(); c.rect(x, y, W, H); c.clip(); c.strokeStyle = rgba(P['color.unknown'], 0.5); c.lineWidth = 1; c.beginPath(); for (let k = -H; k < W; k += 3.5) { c.moveTo(x + k, y + H); c.lineTo(x + k + H, y); } c.stroke(); c.restore(); } } break;
+    case 'arm': tablet(); fl('union', U); if (v === 'formation') echelonMarks(c, 2, -2.4, 0, 4.4, { ink: fgU, lw: 1.3 }); else armGlyph(c, v, -2.4, 0, 3.4, { ink: fgU, lw: 1.3 }); break;
+    case 'armState': tablet(); fl('union', U); armGlyph(c, v === 'mounted' || v === 'dismounted' ? 'cavalry' : 'artillery', -2.4, 0, 3.2, { ink: fgU, lw: 1.2 }, v); break;
+    case 'echelon': tablet(); fl('union', U); if (v === 1) echelonMarks(c, 1, -2.4, 0, 3.4, { ink: fgU, lw: 1.2 }); else echelonMarks(c, v, -2.4, 0, 4.2, { ink: fgU, lw: 1.3 }, 9); break;
+    case 'posture': tablet(); postureMark(c, v, 0, 0, 3.4, { ink: rgba(ink, P['ink.modelled']), lw: 1.3 }); break;
+    case 'strength': { tablet(); c.setLineDash([1.4, 1.4]); c.strokeStyle = rgba(ink, 0.6); c.lineWidth = 1; c.strokeRect(-6.5, -2, 13, 4); c.setLineDash([]); c.fillStyle = rgba(U, 0.85); c.fillRect(-6, -1.5, 12 * v, 3); c.fillStyle = ink; c.fillRect(-6 + 12 * v - 0.5, -2.5, 1, 5); break; }
+    case 'fix': { c.fillStyle = v === 'carried' ? P['color.parchmentOld'] : P['color.parchment']; c.fillRect(x, y, W, H); c.strokeStyle = ink; c.lineWidth = 1.5; if (v === 'carried') c.setLineDash([1.8, 2.3]); c.beginPath(); c.moveTo(x + 1, 0); c.lineTo(x + W - 1, 0); c.stroke(); c.setLineDash([]); break; }
+    case 'transit': tablet(); fl('union', U); c.fillStyle = rgba(ink, 0.8); for (let i = -1; i <= 1; i++) { c.beginPath(); c.arc(-2.4 + i * 3, 4.6, 0.7, 0, 6.283); c.fill(); } break;
+    case 'idOnly': tablet(); c.fillStyle = ink; c.font = SERIF(8.5, 700); c.textBaseline = 'middle'; c.textAlign = 'center'; c.fillText('10 AL', 0, -1); c.fillStyle = rgba(ink, 0.65); for (let xx = -6; xx < 6; xx += 3) c.fillRect(xx, 3.2, 1.4, 1); break;
+    case 'aggregate': tablet(); rr(c, -5.5, -3.4, 11, 6.8, 3.4); c.fillStyle = U; c.fill(); c.strokeStyle = ink; c.lineWidth = 0.8; c.stroke(); c.fillStyle = fgU; c.font = SERIF(7.5, 700); c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('×4', 0, 0.4); break;
+    case 'corpsBadge': tablet(); corpsBadge(c, v, 0, 0, 4.4, { fill: P['color.parchmentOld'], edge: ink, lw: 1 }); break;
+    case 'divColour': tablet(); corpsBadge(c, 'sphere', 0, 0, 4.4, { fill: P[DIV[v]], edge: ink, lw: 0.9 }); break;
+    case 'corpsText': tablet(); c.beginPath(); c.arc(0, 0, 4.6, 0, 6.283); c.fillStyle = P['color.parchment']; c.fill(); c.strokeStyle = ink; c.lineWidth = 0.9; c.stroke(); c.fillStyle = ink; c.font = SERIF(7.5, 700); c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('II', 0, 0.5); break;
+    case 'selection': tablet(); rr(c, x - 0.5, y - 0.5, W + 1, H + 1, 2.4); c.strokeStyle = P['color.accent']; c.lineWidth = 1.6; c.stroke(); break;
+    case 'pin': c.setLineDash([1.6, 1.8]); c.beginPath(); c.moveTo(-6, 3); c.lineTo(4, -2); c.strokeStyle = ink; c.lineWidth = 1; c.stroke(); c.setLineDash([]); c.beginPath(); c.arc(-6, 3, 2.2, 0, 6.283); c.fillStyle = U; c.fill(); c.strokeStyle = ink; c.stroke(); break;
+    default: return false;
+  }
+  return true;
+}
+
+const MAP_1863 = defineFamily({
+  id: 'map-1863', label: '1863 Map', version: '1.0', footprint: FOOT, fonts: FONTS, tokens: M63_TOKENS,
+  channels: { side: true, arm: true, armState: true, echelon: true, posture: true, strength: true, fix: true, transit: true, idOnly: true, aggregate: true, corpsBadge: true, divColour: true, corpsText: true, selection: true, pin: true },
+  fallbackSwatch: '#2a4b8f', draw: { tile, label, pin, leader, hull }, sample,
+}, M63_VARIANTS);
+
+__exports.MAP_1863 = MAP_1863;
+};
+__defs["src/skins/minimal.mjs"] = function (__exports, __r) {
+// skins/minimal.mjs - THE 50-LINE SKIN: a complete, conforming skin in under 50 lines.  Side = fill colour, arm = glyph, code = text, strength = bar, selection = eased ring.
+// The kit supplies everything else: the honest view model (g.vm), the eased selection (g.sel), the arrival progress (g.enter), the legend (from `channels` + sample) and the token table.
+const { defineSkin } = __r("src/skins/kit.mjs");
+const { FONTS } = __r("src/skins/semantics.mjs");
+const { armGlyph, rr } = __r("src/skins/glyphs.mjs");
+
+const TOKENS = [
+  ['color.union', '#17489a', 'Union fill'], ['color.confederate', '#c8441f', 'Confederate fill'], ['color.unknown', '#8a5a00', 'Contested side: amber, never a side colour'],
+  ['color.mixed', '#4a5058', 'Aggregate of more than one side: neutral grey'], ['color.ink', '#ffffff', 'Text and glyph ink'], ['color.accent', '#f59e0b', 'Selection ring'],
+  ['motion.selectMs', 120, 'Ease of the selection ring', { min: 0, max: 600, unit: 'ms' }], ['motion.hoverMs', 80, 'Ease of the hover tint', { min: 0, max: 600, unit: 'ms' }],
+];
+const fill = (g, side) => g.P['color.' + side];
+
+const MINIMAL = defineSkin({
+  id: 'minimal', label: 'Minimal (the 50-line skin)', version: '1.0', tokens: TOKENS, fonts: FONTS, footprint: { chipH: 20, chipPadX: 5, glyphW: 12, glyphGap: 3 },
+  channels: { side: true, arm: ['infantry', 'cavalry', 'artillery'], strength: [1], aggregate: true, selection: true },
+  draw: {
+    tile(c, t, g) {
+      const b = g.body; const vm = g.vm; c.globalAlpha *= 0.5 + 0.5 * g.enter;                                   // arrival: the display layer scales it, this fades it
+      rr(c, b.x, b.y, b.w, b.h, 3); c.fillStyle = g.mix('color.' + vm.side, 'color.ink', 0.18 * g.hov); c.fill(); // body in the side colour, a touch lighter on hover
+      if (vm.arm !== 'formation') armGlyph(c, vm.arm, b.x + 11, -1, 4.5, { ink: g.P['color.ink'], lw: 1.4 });   // a formation has no arm in the data: no glyph
+      c.font = FONTS.code; c.textBaseline = 'middle'; c.fillStyle = g.P['color.ink'];
+      g.text(c, vm.code + (vm.count ? ' ' + vm.count : ''), b.x + 20, -1, b.w - 24, 'left');                      // the short code (vital), condensed if a font renders wide
+      c.fillStyle = 'rgba(0,0,0,0.35)'; c.fillRect(b.x, b.y + b.h - 3, b.w, 3); c.fillStyle = 'rgba(255,255,255,0.95)'; c.fillRect(b.x, b.y + b.h - 3, b.w * vm.ratio, 3);   // strength (Modelled)
+      if (g.sel > 0.003) { rr(c, -g.hw + 1, -g.hh + 1, g.w - 2, g.h - 2, 4); c.strokeStyle = g.col('color.accent', g.sel); c.lineWidth = 2; c.stroke(); }          // the ring eases in
+    },
+  },
+  sample(c, ch, v, g, w, h) {                                                                                   // the legend's swatches: the same colours and glyphs, 18 x 12
+    if (ch === 'side') { rr(c, -w / 2 + 1, -h / 2 + 1, w - 2, h - 2, 3); c.fillStyle = fill(g, v); c.fill(); }
+    else if (ch === 'arm') armGlyph(c, v, 0, 0, 4.5, { ink: g.P['color.union'], lw: 1.4 });
+    else if (ch === 'strength') { c.fillStyle = 'rgba(0,0,0,.25)'; c.fillRect(-7, -1.5, 14, 3); c.fillStyle = g.P['color.union']; c.fillRect(-7, -1.5, 14 * v, 3); }
+    else if (ch === 'aggregate') { rr(c, -6, -3.5, 12, 7, 3.5); c.fillStyle = g.P['color.union']; c.fill(); c.fillStyle = g.P['color.ink']; c.font = '700 6.5px sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('×4', 0, 0.3); }
+    else if (ch === 'selection') { rr(c, -8, -5, 16, 10, 3); c.strokeStyle = g.P['color.accent']; c.lineWidth = 2; c.stroke(); } else return false;
+  },
+});
+
+__exports.MINIMAL = MINIMAL;
+};
 __defs["src/skins/index.mjs"] = function (__exports, __r) {
 // skins/index.mjs - THE list of skins the Studio registers at start-up.  A design pitch adds its skin here (one import, one array entry) and runs `node build.mjs`.
-// The registry itself ships empty (kernel/registry.mjs); this list is the shell's choice.  The reference skin is an engine test skin, not a design.
+// The reference skin is an engine test skin, not a design.  The three pitched families come with a colour-blind-safe and a high-contrast variant each (registered as <id>/cvd and <id>/contrast);
+// `minimal` is the 50-line skin that shows how little a new skin needs.
 const { referenceSkin } = __r("src/skins/reference.mjs");
+const { FIELD_MANUAL } = __r("src/skins/field-manual.mjs");
+const { WAR_ROOM } = __r("src/skins/war-room.mjs");
+const { MAP_1863 } = __r("src/skins/map-1863.mjs");
+const { MINIMAL } = __r("src/skins/minimal.mjs");
 
-const SKINS = [referenceSkin];
+const SKINS = [referenceSkin, ...FIELD_MANUAL, ...WAR_ROOM, ...MAP_1863, MINIMAL];
 
 __exports.SKINS = SKINS;
 };

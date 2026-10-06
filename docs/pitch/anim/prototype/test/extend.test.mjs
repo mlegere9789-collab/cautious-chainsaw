@@ -96,8 +96,8 @@ test('fx, layout strategies, motion modes and motion models register by name and
   assert.equal(verifyFrame([], 2).overlaps, 0);
 });
 
-test('the shell lists: one reference skin, no popups, no effects; the copy-me template skin conforms to the contract and is a drop-in', () => {
-  assert.deepEqual(SKINS.map((k) => k.id), ['reference']); assert.deepEqual(POPUPS, []); assert.deepEqual(FX, []);
+test('the shell lists the reference skin first (the design pitches follow it: skins.test.mjs), no popups, no effects; the copy-me template skin conforms to the contract and is a drop-in', () => {
+  assert.equal(SKINS[0].id, 'reference'); assert.ok(SKINS.every((k) => /^[a-z][a-z0-9]*(?:[-/.][a-z0-9]+)*$/.test(k.id))); assert.deepEqual(POPUPS, []); assert.deepEqual(FX, []);
   const e = mk(); const spec = e.spec(); const tiles = e.frame.tiles.filter((t) => t.solid); const bad = checkSkin(templateSkin, spec, [...tiles, ...tiles.map((t) => ({ ...t, selected: true }))], text); assert.deepEqual(bad.slice(0, 3), []);
   const e2 = makeEngine({ skin: templateSkin, settings: { 'skin.id': 'template' } }); e2.setViewport(1440, 900); for (let i = 0; i < 20; i++) e2.step(1000 / 60); assert.equal(e2.frame.overlaps, 0);
   for (const row of templateSkin.legend()) assert.ok(['Documented', 'Contested'].includes(row.evidence));
