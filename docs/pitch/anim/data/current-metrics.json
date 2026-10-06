@@ -1,0 +1,8836 @@
+{
+ "schema": "current-metrics/1",
+ "note": "Every number below was produced by a script in docs/pitch/anim/harness-current/ (copy of tmp/pitch-anim/a1). Evidence labels: Measured = read from the running page; Computed = derived from the shipped code and data by script; Documented = text in a file or page; Modelled = interpolated or inferred; Unknown = not established.",
+ "meta": {
+  "generated": "2026-10-06T01:18:14.399Z",
+  "subject": "Unit tiles and the movement animation of the Gettysburg map as shipped: production (baseline/dist, identical to the live site on 2026-10-05 per tools/t0/baseline.py verify-live: 119 files, 148 requests) and the fixed build release/R1c/dist",
+  "author": "agent a1-current (pitch-anim)"
+ },
+ "builds": {
+  "baseline": {
+   "dist": "baseline/dist",
+   "entry": "baseline/dist/assets/index-Cg8FAMXN.js",
+   "md5": "7ef75b95f4c02700430b8aa91e3a7459",
+   "role": "what production serves (verified identical to live, 2026-10-05)"
+  },
+  "r1c": {
+   "dist": "release/R1c/dist",
+   "entry": "release/R1c/dist/assets/index-2531699e.js",
+   "md5": "ae22c4cd7dc3d100bc6a84df776499a9",
+   "role": "the fixed release train (not deployed)"
+  },
+  "functionLocations_line_col_in_minified_entry": {
+   "baseline": {
+    "function F4(": "3350:53793",
+    "function y1(": "3350:54291",
+    "function lS(": "3350:58119",
+    "function Ed(": "3355:4734",
+    "function Gk(": "3355:4591",
+    "function e1(": "3355:5852",
+    "function dA(": "3355:5522",
+    "function cA(": "3355:378",
+    "function uF(": "3355:5677",
+    "function lA(": "3350:56944",
+    "function Y4(": "3350:57526",
+    "function X4(": "3350:57746",
+    "function cx(": "3350:57350",
+    "function aT(": "3350:56272",
+    "function Xx(": "3350:56445",
+    "function gF(": "3355:8979",
+    "function CF(": "3355:26835",
+    "function LF(": "3355:32299",
+    "function qF(": "3355:52814",
+    "function nO(": "3421:21227",
+    "function MF(": "3355:21046",
+    "function VF(": "3355:45897",
+    "function tO(": "3421:18006",
+    "function J4(": "3350:61785",
+    "function K4(": "3355:49",
+    "cF=500": "3355:4528",
+    "eO=3500": "3421:17998",
+    "function _F(": "3355:12391",
+    "function I4(": "56:9999",
+    "function A4(": "56:10758",
+    "function fF(": "3355:6144"
+   },
+   "r1c": {
+    "function F4(": "3350:53793",
+    "function y1(": "3350:54310",
+    "function lS(": "3350:58279",
+    "function Ed(": "3355:4976",
+    "function Gk(": "3355:4833",
+    "function e1(": "3355:6164",
+    "function dA(": "3355:5834",
+    "function cA(": "3355:408",
+    "function uF(": "3355:5989",
+    "function lA(": "3350:57104",
+    "function Y4(": "3350:57686",
+    "function X4(": "3350:57906",
+    "function cx(": "3350:57510",
+    "function aT(": "3350:56432",
+    "function Xx(": "3350:56605",
+    "function gF(": "3355:11314",
+    "function CF(": "3355:29697",
+    "function LF(": "3355:35258",
+    "function qF(": "3355:57223",
+    "function nO(": "3421:22333",
+    "function MF(": "3355:23814",
+    "function VF(": "3355:50247",
+    "function tO(": "3421:19144",
+    "function J4(": "3350:61940",
+    "function K4(": "3355:49",
+    "function GtbgRepaint(": "3355:9291",
+    "cF=500": "3355:4770",
+    "eO=3500": "3421:19136",
+    "function _F(": "3355:15160",
+    "function I4(": "56:11103",
+    "function A4(": "56:11862",
+    "function fF(": "3355:6456"
+   }
+  }
+ },
+ "environment": {
+  "chrome": "Chrome/155.0.8059.27",
+  "gl": {
+   "renderer": "ANGLE (Intel, Intel(R) Arc(TM) Pro 140T GPU (16GB) (0x00007D51) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "vendor": "Google Inc. (Intel)"
+  },
+  "os": "Windows_NT 10.0.26200 x64",
+  "cpus": 16,
+  "cpuModel": "Intel(R) Core(TM) Ultra 7 265H",
+  "node": "v24.19.0",
+  "date": "2026-10-06T01:05:25.050Z",
+  "tileRequests": "every browser process stayed at or under 300 Mapbox requests (harness cap); see per-script logs"
+ },
+ "data": {
+  "generated_by": "tmp/pitch-anim/a1/data-analysis.mjs (copied to docs/pitch/anim/harness-current/)",
+  "source": "baseline/dist/data (identical to release/R1c/dist/data except the extra moments.json)",
+  "rows_total": 1804,
+  "ticks_with_rows": 188,
+  "distinct_units": 478,
+  "max_tick_gap_without_rows": 30,
+  "rows_per_keyframe_tick": {
+   "median": 7,
+   "max_top8": [
+    {
+     "tick": 120,
+     "n": 87
+    },
+    {
+     "tick": 1,
+     "n": 73
+    },
+    {
+     "tick": 620,
+     "n": 61
+    },
+    {
+     "tick": 400,
+     "n": 51
+    },
+    {
+     "tick": 14,
+     "n": 36
+    },
+    {
+     "tick": 538,
+     "n": 35
+    },
+    {
+     "tick": 451,
+     "n": 30
+    },
+    {
+     "tick": 226,
+     "n": 29
+    }
+   ]
+  },
+  "stray_rows": {
+   "count": 58,
+   "by_file_day": {
+    "file of day 1 holds a row of tick-day 2": 19,
+    "file of day 1 holds a row of tick-day 3": 34,
+    "file of day 2 holds a row of tick-day 3": 4,
+    "file of day 2 holds a row of tick-day 1": 1
+   },
+   "examples": [
+    "density_artillery_positions.json tick 280 C-ART-Doll",
+    "density_artillery_positions.json tick 280 C-ART-Garber",
+    "density_artillery_positions.json tick 280 C-ART-Tanner",
+    "density_artillery_positions.json tick 290 C-ART-Doll",
+    "density_artillery_positions.json tick 299 U-ART-9MA",
+    "density_artillery_positions.json tick 302 U-ART-5MA",
+    "density_artillery_positions.json tick 302 U-ART-15NY",
+    "density_artillery_positions.json tick 302 U-ART-C4US"
+   ]
+  },
+  "duplicate_unit_in_tick": {
+   "pairs": 103,
+   "examples": [
+    "U-HAB-A2US@1 in density_artillery_positions.json + placements_day1_ticks1_50.json",
+    "U-HAB-E4US@1 in density_artillery_positions.json + placements_day1_ticks1_50.json",
+    "U-HAB-A2US@17 in density_artillery_positions.json + placements_day1_ticks1_50.json",
+    "C-ART-Marye@14 in density_artillery_positions.json + density_day1_ticks1_50.json + placements_day1_ticks1_50.json",
+    "C-ART-Crenshaw@14 in density_artillery_positions.json + density_day1_ticks1_50.json + placements_day1_ticks1_50.json"
+   ],
+   "identical_positions": 38
+  },
+  "rows_visible_after_all_days_loaded": {
+   "baseline_replace_by_tick": 1583,
+   "r1c_merge_by_unit": 1687,
+   "raw_unique_unit_tick_pairs": 1687
+  },
+  "ticks_whose_rows_differ_baseline_vs_r1c": 15,
+  "baseline_tick1_rows_by_loaded_days": {
+   "day1_only": 72,
+   "after_day2": 1,
+   "after_day3": 1
+  },
+  "unit_kinds": {
+   "infantry": 388,
+   "cavalry": 33,
+   "artillery": 57
+  },
+  "keyframe_pairs": {
+   "total": 1209,
+   "adjacent_gap1": 93,
+   "gap2_3": 141,
+   "gap4plus": 975,
+   "gap_median": 17,
+   "gap_p90": 138,
+   "gap_max": 658,
+   "stationary_lt5m": 270
+  },
+  "keyframe_pair_displacement_m": {
+   "median": 239,
+   "p90": 1603,
+   "p99": 4765,
+   "max": 5690
+  },
+  "keyframe_pair_implied_speed_kmh": {
+   "median": 0.17,
+   "p90": 2.11,
+   "p99": 7.5,
+   "max": 28.5,
+   "pairs_above_threshold": {
+    "infantry": 20,
+    "cavalry": 1,
+    "artillery": 0
+   },
+   "thresholds_kmh": {
+    "infantry": 6,
+    "cavalry": 16,
+    "artillery": 8
+   },
+   "note": "thresholds are modelling choices made here (6 foot, 16 cavalry, 8 guns), not sourced facts"
+  },
+  "f4_snap_rule": {
+   "rule": "F4 snaps without interpolation when |dlat|+|dlng| > 0.05 deg",
+   "pairs_triggering": 23
+  },
+  "first_appearances": {
+   "units": 478,
+   "at_tick1": 71,
+   "top_ticks": [
+    "tick 1: 71",
+    "tick 400: 29",
+    "tick 150: 24",
+    "tick 120: 20",
+    "tick 180: 19",
+    "tick 505: 14",
+    "tick 90: 12",
+    "tick 56: 11"
+   ]
+  },
+  "units_whose_last_keyframe_is_before_tick675": 457,
+  "stale_units_by_tick": [
+   {
+    "tick": 100,
+    "units_shown": 187,
+    "no_keyframe_for_over_24_ticks_2h": 140,
+    "over_72_ticks_6h": 32
+   },
+   {
+    "tick": 225,
+    "units_shown": 261,
+    "no_keyframe_for_over_24_ticks_2h": 250,
+    "over_72_ticks_6h": 220
+   },
+   {
+    "tick": 300,
+    "units_shown": 349,
+    "no_keyframe_for_over_24_ticks_2h": 278,
+    "over_72_ticks_6h": 235
+   },
+   {
+    "tick": 450,
+    "units_shown": 421,
+    "no_keyframe_for_over_24_ticks_2h": 397,
+    "over_72_ticks_6h": 343
+   },
+   {
+    "tick": 540,
+    "units_shown": 451,
+    "no_keyframe_for_over_24_ticks_2h": 386,
+    "over_72_ticks_6h": 358
+   },
+   {
+    "tick": 600,
+    "units_shown": 476,
+    "no_keyframe_for_over_24_ticks_2h": 462,
+    "over_72_ticks_6h": 369
+   },
+   {
+    "tick": 675,
+    "units_shown": 478,
+    "no_keyframe_for_over_24_ticks_2h": 454,
+    "over_72_ticks_6h": 409
+   }
+  ],
+  "units_with_single_keyframe": 173,
+  "hops": {
+   "ticks_with_a_hop": 161,
+   "max_simultaneous_hops": 47,
+   "top": [
+    "tick 120: 47 units hop",
+    "tick 620: 42 units hop",
+    "tick 538: 31 units hop",
+    "tick 14: 29 units hop",
+    "tick 542: 18 units hop",
+    "tick 535: 16 units hop"
+   ]
+  },
+  "dispositions": {
+   "Limbered Artillery": 21,
+   "Deployed Artillery": 150,
+   "Skirmish Line": 69,
+   "Dismounted Cavalry": 13,
+   "Mounted Cavalry": 29,
+   "Charging Line": 266,
+   "Chaotic Retreat": 174,
+   "Line of Battle": 759,
+   "Bivouac": 132,
+   "Line of March": 133,
+   "Reserve": 58
+  },
+  "strength": {
+   "max": 15000,
+   "min": 10,
+   "rows_without_strength": 0
+  },
+  "tile_width_px_desktop": {
+   "rows_at_cap_120": 901,
+   "share_of_rows_at_cap": 0.499,
+   "rows_at_min_10": 19,
+   "median": 119
+  },
+  "tile_width_px_phone": {
+   "rows_at_cap_60": 1110,
+   "share_of_rows_at_cap": 0.615
+  },
+  "bounds": {
+   "lat": [
+    39.77,
+    39.8594
+   ],
+   "lng": [
+    -77.3178,
+    -77.18
+   ],
+   "schema_lat": [
+    39.77,
+    39.85
+   ],
+   "schema_lng": [
+    -77.29,
+    -77.18
+   ],
+   "rows_outside_schema_bounds": 49
+  },
+  "schema_claims": {
+   "expected_units_per_tick": "600-700",
+   "actual_max_rows_in_a_keyframe_tick": 87,
+   "claimed_total_records": "~430000",
+   "actual_rows": 1804
+  },
+  "oob_join": {
+   "oob_entries": 705,
+   "placement_units": 478,
+   "resolved_in_oob": 378,
+   "unresolved": 100,
+   "unresolved_examples": [
+    "C-ART-I-4 -> label \"ART/I/4\"",
+    "C-ART-I-2 -> label \"ART/I/2\"",
+    "C-ART-I-1 -> label \"ART/I/1\"",
+    "C-ART-III-3 -> label \"ART/III/3\"",
+    "C-ART-III-2 -> label \"ART/III/2\"",
+    "U-8IL -> label \"8 IL\"",
+    "U-12IL -> label \"12 IL\"",
+    "U-15AL -> label \"15 AL\"",
+    "U-44AL -> label \"44 AL\"",
+    "U-48AL -> label \"48 AL\"",
+    "U-4TX -> label \"4 TX\"",
+    "U-5TX -> label \"5 TX\""
+   ],
+   "resolved_examples": [
+    "U-HAB-A2US -> label \"HAB/A2US\" ; OOB designation \"Battery A, 2nd US Artillery (Calef's Battery)\"",
+    "U-HAB-E4US -> label \"HAB/E4US\" ; OOB designation \"Battery E, 4th US Artillery\"",
+    "C-ART-Marye -> label \"ART/Marye\" ; OOB designation \"Marye's Battery (Fredericksburg Artillery VA)\"",
+    "C-ART-Crenshaw -> label \"ART/Crensh\" ; OOB designation \"Crenshaw's Battery (Crenshaw Battery VA)\"",
+    "C-ART-Zimmerman -> label \"ART/Zimmer\" ; OOB designation \"Zimmerman's Battery (Pee Dee Artillery SC)\"",
+    "C-ART-McGraw -> label \"ART/McGraw\" ; OOB designation \"McGraw's Battery (Purcell Artillery VA)\"",
+    "C-ART-Carrington -> label \"ART/Carrin\" ; OOB designation \"Carrington's Battery (Charlottesville Artillery VA)\"",
+    "C-ART-Carter -> label \"ART/Carter\" ; OOB designation \"Carter's Battery (King William Artillery VA)\""
+   ],
+   "label_forms": {
+    "regimentLike": 212,
+    "slashForms": 260,
+    "other": 6
+   },
+   "designation_ever_shown_by_label_routine": false,
+   "note": "lS passes an empty object as the OOB table to Y4, so designation/name are never used: every label is derived from the unit_id"
+  },
+  "label_uniqueness": {
+   "z12-13.99 (6 chars)": {
+    "units": 478,
+    "distinctIdLabels": 400,
+    "unitsSharingALabelWithAnotherUnit": 131,
+    "examples": [
+     "\"ART/Mc\" x3",
+     "\"ART/Ca\" x3",
+     "\"ART/I1\" x2",
+     "\"ART/B1\" x2",
+     "\"ART/I/\" x3",
+     "\"ART/II\" x2",
+     "\"CAV/2/\" x9",
+     "\"CAV/1\" x2"
+    ]
+   },
+   "z14-16.49 (full id label)": {
+    "units": 478,
+    "distinctIdLabels": 430,
+    "unitsSharingALabelWithAnotherUnit": 96,
+    "examples": [
+     "\"CAV/2/3\" x2",
+     "\"CAV/1\" x2",
+     "\"26 NC\" x2",
+     "\"11 NC\" x2",
+     "\"47 NC\" x2",
+     "\"52 NC\" x2",
+     "\"15 AL\" x2",
+     "\"44 AL\" x2"
+    ]
+   },
+   "z16.5+ (id label + strength)": {
+    "units": 478,
+    "distinctIdLabels": 430,
+    "unitsSharingALabelWithAnotherUnit": 96,
+    "examples": [
+     "\"CAV/2/3\" x2",
+     "\"CAV/1\" x2",
+     "\"26 NC\" x2",
+     "\"11 NC\" x2",
+     "\"47 NC\" x2",
+     "\"52 NC\" x2",
+     "\"15 AL\" x2",
+     "\"44 AL\" x2"
+    ]
+   },
+   "note": "label text always derives from unit_id (cx); OOB designation/name is never used because lS passes an empty object to Y4"
+  },
+  "side_prefix_suspects": {
+   "rule": "unit_id starts with U- (drawn Union blue) but ends in a Confederate state code (AL, TX, NC, ...)",
+   "ids": 10,
+   "detail": {
+    "U-15AL": [
+     "tick 150 Bivouac (density_day1_afternoon.json)"
+    ],
+    "U-44AL": [
+     "tick 150 Bivouac (density_day1_afternoon.json)"
+    ],
+    "U-48AL": [
+     "tick 150 Bivouac (density_day1_afternoon.json)"
+    ],
+    "U-4TX": [
+     "tick 150 Bivouac (density_day1_afternoon.json)"
+    ],
+    "U-5TX": [
+     "tick 150 Bivouac (density_day1_afternoon.json)"
+    ],
+    "U-1TX": [
+     "tick 150 Bivouac (density_day1_afternoon.json)"
+    ],
+    "U-26NC": [
+     "tick 95 Bivouac (density_day1_ticks51_100.json)"
+    ],
+    "U-11NC": [
+     "tick 95 Bivouac (density_day1_ticks51_100.json)"
+    ],
+    "U-47NC": [
+     "tick 95 Bivouac (density_day1_ticks51_100.json)"
+    ],
+    "U-52NC": [
+     "tick 95 Bivouac (density_day1_ticks51_100.json)"
+    ]
+   },
+   "evidence": "Computed from ids; whether these are authoring errors is Unknown until a historian checks them"
+  },
+  "hit_flash_and_engaged": {
+   "hitFlash": {
+    "rule": "uF flags a unit when its row at the new tick has lower strength than its row at the previous tick (Qx = now + 1000 ms); both rows must exist",
+    "adjacentTickPairs": 93,
+    "adjacentPairsWithStrengthDrop": 45,
+    "allKeyframePairs": 1209,
+    "allKeyframePairsWithStrengthDrop": 478,
+    "note": "with a 1-tick step only the adjacent pairs can flash; at 2x and faster the app jumps several ticks per frame and compares rows at those two ticks only"
+   },
+   "engagedByZoom": {
+    "z11": {
+     "keyTicksEvaluated": 188,
+     "ticksWithEngagedTiles": 188,
+     "maxEngagedTilesInDefaultView": 477,
+     "meanEngagedTiles": 299.03,
+     "metersFor40px": 1174
+    },
+    "z12": {
+     "keyTicksEvaluated": 188,
+     "ticksWithEngagedTiles": 188,
+     "maxEngagedTilesInDefaultView": 443,
+     "meanEngagedTiles": 269.98,
+     "metersFor40px": 587
+    },
+    "z13": {
+     "keyTicksEvaluated": 188,
+     "ticksWithEngagedTiles": 188,
+     "maxEngagedTilesInDefaultView": 372,
+     "meanEngagedTiles": 219.98,
+     "metersFor40px": 294
+    },
+    "z14": {
+     "keyTicksEvaluated": 188,
+     "ticksWithEngagedTiles": 162,
+     "maxEngagedTilesInDefaultView": 193,
+     "meanEngagedTiles": 92.65,
+     "metersFor40px": 147
+    },
+    "z15": {
+     "keyTicksEvaluated": 188,
+     "ticksWithEngagedTiles": 145,
+     "maxEngagedTilesInDefaultView": 52,
+     "meanEngagedTiles": 15.68,
+     "metersFor40px": 73
+    },
+    "z16": {
+     "keyTicksEvaluated": 188,
+     "ticksWithEngagedTiles": 47,
+     "maxEngagedTilesInDefaultView": 18,
+     "meanEngagedTiles": 1.86,
+     "metersFor40px": 37
+    },
+    "z17": {
+     "keyTicksEvaluated": 188,
+     "ticksWithEngagedTiles": 28,
+     "maxEngagedTilesInDefaultView": 15,
+     "meanEngagedTiles": 1.45,
+     "metersFor40px": 18
+    },
+    "z18": {
+     "keyTicksEvaluated": 188,
+     "ticksWithEngagedTiles": 28,
+     "maxEngagedTilesInDefaultView": 13,
+     "meanEngagedTiles": 1.2,
+     "metersFor40px": 9
+    }
+   }
+  },
+  "orientation": {
+   "checkedTiles": 451,
+   "tileAngleEqualsBearingMinus90": 451,
+   "consequence": "long axis of every filled tile is parallel to the facing direction; placement_schema.json says Line of Battle extends perpendicular to bearing",
+   "schemaText": "Line of Battle extends perpendicular to bearing."
+  }
+ },
+ "tile_spec": {
+  "evidence": "Computed from the shipped draw routine lS (extracted from the bundle and run), Measured on the page by the canvas probe; specimen sheet = the same routine run on synthetic placements",
+  "canvas": {
+   "element": "one full-size 2D canvas, z-index 10, above the Mapbox canvas; backing store = CSS pixels (no devicePixelRatio scaling)",
+   "baselinePointerEvents": "auto (swallows mouse pan and wheel, measured)",
+   "r1cPointerEvents": "none (map receives input, clicks come from the map click event)",
+   "redrawsOnMapMove": {
+    "baseline": false,
+    "r1c": "yes, via GtbgRepaint on move and resize"
+   }
+  },
+  "width_px": {
+   "desktop": "clamp(round(strength / 4), 10, 120)",
+   "phone": "clamp(round(strength / 6), 10, 60) (canvas width < 500)",
+   "share_of_keyframe_rows_at_cap": {
+    "desktop": 0.499,
+    "phone": 0.615
+   }
+  },
+  "height_px": {
+   "infantry_and_other": 8,
+   "cavalry": 4,
+   "artillery_outline": 10,
+   "skirmish_line": "dashed 2 px line, 4-3 pattern"
+  },
+  "shapes": {
+   "Deployed/Limbered Artillery or id contains ART": "outline rectangle 2 px in side colour plus a centre line half the width",
+   "Skirmish Line": "dashed line (4 px dash, 3 px gap), 2 px, side colour",
+   "all other dispositions": "filled rectangle in side colour, 1 px border, opacity 0.88 (1.0 when selected)"
+  },
+  "colours": {
+   "union_fill": "#3a6bc4",
+   "union_border": "#1a3a7a",
+   "confederate_fill": "#c43a3a",
+   "confederate_border": "#7a1a1a",
+   "hit_flash_union": "#88ccff",
+   "hit_flash_confederate": "#ff9944",
+   "selected_glow": "#e8d5a3 shadowBlur 14",
+   "engaged_glow": "white shadowBlur 8, alpha 0.4 + 0.6 * |sin(t/300)| (about 1.06 Hz), reduced to a constant under reduced motion in R1c only"
+  },
+  "rotation": "rotate((bearing - 90) deg): the long axis is parallel to the facing direction for every tile (451 of 451 checked); placement_schema.json says Line of Battle extends perpendicular to bearing",
+  "disposition_badge": "a 7 px circle (radius 3.5, 1 px black ring) drawn 7 px above the tile centre in screen space, never rotated; it is the only difference between Line of Battle, Charging Line, Chaotic Retreat, Line of March, Reserve and Bivouac tiles, and between mounted and dismounted cavalry and deployed and limbered artillery",
+  "label": {
+   "box": "rgba(0,0,0,0.72), padding 3 x 2 px, centred 13 px above the tile centre, text #aaccff (Union) or #ffbbaa (Confederate)",
+   "rules": "none below zoom 12 (14 on the phone) unless selected; zoom 12-13.99: first 6 characters of the id label; 14-16.49: full id label; 16.5+: id label + strength; font bold 8 px (<14), 9 px (14-16), 10 px (>=16 or selected)",
+   "source_of_text": "always derived from unit_id; OOB designation is never used (an empty object is passed to the label function)",
+   "no_collision_handling": true
+  },
+  "relaxation": "8 passes of pairwise pushing on unrotated boxes (width/2+2 by a 12 px band), displaced tiles get a 0.5 px leader line when moved more than 3 px; runs every redraw from scratch",
+  "leader_lines_in_frame_at_tick546_z13_5": "about 320 (Measured, 409 tiles drawn)",
+  "trails": {
+   "canvas": "z-index 8, intrinsic size 300 x 150 in both builds (never resized): trail segments only exist inside the top-left 300 x 150 px, 3.7 percent of a 1440 x 852 map",
+   "measured": [
+    {
+     "width": 300,
+     "height": 150,
+     "cssW": 300,
+     "cssH": 150
+    }
+   ]
+  },
+  "minimum_zoom_reality": {
+   "desktop_1440_wide": 12.04,
+   "phone_390_wide": 11,
+   "note": "jumpTo zoom 11 on the 1440 px desktop was measured to land at 12.04; minZoom 11 is only reachable on narrow screens"
+  },
+  "per_zoom": [
+   {
+    "zoom": 11,
+    "metres_per_px": 29.36,
+    "tile_120px_is_metres": 3523,
+    "tile_8px_height_is_metres": 234.9,
+    "engaged_radius_40px_is_metres": 1174,
+    "label": "none"
+   },
+   {
+    "zoom": 12,
+    "metres_per_px": 14.68,
+    "tile_120px_is_metres": 1761,
+    "tile_8px_height_is_metres": 117.4,
+    "engaged_radius_40px_is_metres": 587,
+    "label": "id label cut to 6 chars, 8 px"
+   },
+   {
+    "zoom": 13,
+    "metres_per_px": 7.34,
+    "tile_120px_is_metres": 881,
+    "tile_8px_height_is_metres": 58.7,
+    "engaged_radius_40px_is_metres": 294,
+    "label": "id label cut to 6 chars, 8 px"
+   },
+   {
+    "zoom": 13.5,
+    "metres_per_px": 5.19,
+    "tile_120px_is_metres": 623,
+    "tile_8px_height_is_metres": 41.5,
+    "engaged_radius_40px_is_metres": 208,
+    "label": "id label cut to 6 chars, 8 px"
+   },
+   {
+    "zoom": 14,
+    "metres_per_px": 3.67,
+    "tile_120px_is_metres": 440,
+    "tile_8px_height_is_metres": 29.4,
+    "engaged_radius_40px_is_metres": 147,
+    "label": "id label, 9 px"
+   },
+   {
+    "zoom": 15,
+    "metres_per_px": 1.83,
+    "tile_120px_is_metres": 220,
+    "tile_8px_height_is_metres": 14.7,
+    "engaged_radius_40px_is_metres": 73,
+    "label": "id label, 9 px"
+   },
+   {
+    "zoom": 16,
+    "metres_per_px": 0.92,
+    "tile_120px_is_metres": 110,
+    "tile_8px_height_is_metres": 7.3,
+    "engaged_radius_40px_is_metres": 37,
+    "label": "id label, 10 px"
+   },
+   {
+    "zoom": 17,
+    "metres_per_px": 0.46,
+    "tile_120px_is_metres": 55,
+    "tile_8px_height_is_metres": 3.7,
+    "engaged_radius_40px_is_metres": 18,
+    "label": "id label + strength, 10 px"
+   },
+   {
+    "zoom": 18,
+    "metres_per_px": 0.23,
+    "tile_120px_is_metres": 28,
+    "tile_8px_height_is_metres": 1.8,
+    "engaged_radius_40px_is_metres": 9,
+    "label": "id label + strength, 10 px"
+   }
+  ]
+ },
+ "legend_vs_drawn": {
+  "evidence": "Documented (legend tables NF, UF, jF and the notes in VF, identical in both builds) versus Computed (colours the shipped routine paints, 9 sample ticks, all dispositions)",
+  "legendVsDrawn": [
+   {
+    "disposition": "Line of Battle",
+    "legendColor": "#4488ff",
+    "drawnDotColors": [
+     "#c43a3a",
+     "#3a6bc4"
+    ],
+    "legendMatchesDrawn": false
+   },
+   {
+    "disposition": "Charging Line",
+    "legendColor": "#ff4422",
+    "drawnDotColors": [
+     "#ff4422"
+    ],
+    "legendMatchesDrawn": true
+   },
+   {
+    "disposition": "Skirmish Line",
+    "legendColor": "#44aaff",
+    "drawnDotColors": [
+     "#66aaff"
+    ],
+    "legendMatchesDrawn": false
+   },
+   {
+    "disposition": "Chaotic Retreat",
+    "legendColor": "#ff8800",
+    "drawnDotColors": [
+     "#ff8800"
+    ],
+    "legendMatchesDrawn": true
+   },
+   {
+    "disposition": "Line of March",
+    "legendColor": "#aaaaaa",
+    "drawnDotColors": [
+     "#aaaaaa"
+    ],
+    "legendMatchesDrawn": true
+   },
+   {
+    "disposition": "Reserve",
+    "legendColor": "#668844",
+    "drawnDotColors": [
+     "#226622"
+    ],
+    "legendMatchesDrawn": false
+   },
+   {
+    "disposition": "Bivouac",
+    "legendColor": "#888866",
+    "drawnDotColors": [
+     "#555555"
+    ],
+    "legendMatchesDrawn": false
+   },
+   {
+    "disposition": "Deployed Artillery",
+    "legendColor": "#ffdd00",
+    "drawnDotColors": [
+     "#f5c518"
+    ],
+    "legendMatchesDrawn": false
+   },
+   {
+    "disposition": "Limbered Artillery",
+    "legendColor": "#ccaa00",
+    "drawnDotColors": [
+     "#c8a84a"
+    ],
+    "legendMatchesDrawn": false
+   },
+   {
+    "disposition": "Mounted Cavalry",
+    "legendColor": "#44cc88",
+    "drawnDotColors": [
+     "#44aa44"
+    ],
+    "legendMatchesDrawn": false
+   },
+   {
+    "disposition": "Dismounted Cavalry",
+    "legendColor": "#228855",
+    "drawnDotColors": [
+     "#88cc88"
+    ],
+    "legendMatchesDrawn": false
+   }
+  ],
+  "drawnShapes": [
+   {
+    "disposition": "Bivouac",
+    "side": "Confederate",
+    "drawnDot": [
+     "#555555"
+    ],
+    "tileKind": [
+     "rect"
+    ],
+    "tileFill": [
+     "#c43a3a"
+    ],
+    "heights": [
+     8,
+     4
+    ]
+   },
+   {
+    "disposition": "Bivouac",
+    "side": "Union",
+    "drawnDot": [
+     "#555555"
+    ],
+    "tileKind": [
+     "rect"
+    ],
+    "tileFill": [
+     "#3a6bc4"
+    ],
+    "heights": [
+     8,
+     4
+    ]
+   },
+   {
+    "disposition": "Chaotic Retreat",
+    "side": "Confederate",
+    "drawnDot": [
+     "#ff8800"
+    ],
+    "tileKind": [
+     "rect"
+    ],
+    "tileFill": [
+     "#c43a3a"
+    ],
+    "heights": [
+     8,
+     4
+    ]
+   },
+   {
+    "disposition": "Chaotic Retreat",
+    "side": "Union",
+    "drawnDot": [
+     "#ff8800"
+    ],
+    "tileKind": [
+     "rect"
+    ],
+    "tileFill": [
+     "#3a6bc4"
+    ],
+    "heights": [
+     8,
+     4
+    ]
+   },
+   {
+    "disposition": "Charging Line",
+    "side": "Confederate",
+    "drawnDot": [
+     "#ff4422"
+    ],
+    "tileKind": [
+     "rect"
+    ],
+    "tileFill": [
+     "#c43a3a"
+    ],
+    "heights": [
+     8,
+     4
+    ]
+   },
+   {
+    "disposition": "Charging Line",
+    "side": "Union",
+    "drawnDot": [
+     "#ff4422"
+    ],
+    "tileKind": [
+     "rect"
+    ],
+    "tileFill": [
+     "#3a6bc4"
+    ],
+    "heights": [
+     8,
+     4
+    ]
+   },
+   {
+    "disposition": "Deployed Artillery",
+    "side": "Confederate",
+    "drawnDot": [
+     "#f5c518"
+    ],
+    "tileKind": [
+     "art"
+    ],
+    "tileFill": [],
+    "heights": [
+     10
+    ]
+   },
+   {
+    "disposition": "Deployed Artillery",
+    "side": "Union",
+    "drawnDot": [
+     "#f5c518"
+    ],
+    "tileKind": [
+     "art"
+    ],
+    "tileFill": [],
+    "heights": [
+     10
+    ]
+   },
+   {
+    "disposition": "Dismounted Cavalry",
+    "side": "Union",
+    "drawnDot": [
+     "#88cc88"
+    ],
+    "tileKind": [
+     "rect"
+    ],
+    "tileFill": [
+     "#3a6bc4"
+    ],
+    "heights": [
+     4
+    ]
+   },
+   {
+    "disposition": "Limbered Artillery",
+    "side": "Confederate",
+    "drawnDot": [
+     "#c8a84a"
+    ],
+    "tileKind": [
+     "art"
+    ],
+    "tileFill": [],
+    "heights": [
+     10
+    ]
+   },
+   {
+    "disposition": "Limbered Artillery",
+    "side": "Union",
+    "drawnDot": [
+     "#c8a84a"
+    ],
+    "tileKind": [
+     "art"
+    ],
+    "tileFill": [],
+    "heights": [
+     10
+    ]
+   },
+   {
+    "disposition": "Line of Battle",
+    "side": "Confederate",
+    "drawnDot": [
+     "#c43a3a"
+    ],
+    "tileKind": [
+     "rect"
+    ],
+    "tileFill": [
+     "#c43a3a"
+    ],
+    "heights": [
+     8,
+     4
+    ]
+   },
+   {
+    "disposition": "Line of Battle",
+    "side": "Union",
+    "drawnDot": [
+     "#3a6bc4"
+    ],
+    "tileKind": [
+     "rect"
+    ],
+    "tileFill": [
+     "#3a6bc4"
+    ],
+    "heights": [
+     8,
+     4
+    ]
+   },
+   {
+    "disposition": "Line of March",
+    "side": "Confederate",
+    "drawnDot": [
+     "#aaaaaa"
+    ],
+    "tileKind": [
+     "rect"
+    ],
+    "tileFill": [
+     "#c43a3a"
+    ],
+    "heights": [
+     8,
+     4
+    ]
+   },
+   {
+    "disposition": "Line of March",
+    "side": "Union",
+    "drawnDot": [
+     "#aaaaaa"
+    ],
+    "tileKind": [
+     "rect"
+    ],
+    "tileFill": [
+     "#3a6bc4"
+    ],
+    "heights": [
+     4,
+     8
+    ]
+   },
+   {
+    "disposition": "Mounted Cavalry",
+    "side": "Confederate",
+    "drawnDot": [
+     "#44aa44"
+    ],
+    "tileKind": [
+     "rect"
+    ],
+    "tileFill": [
+     "#c43a3a"
+    ],
+    "heights": [
+     4
+    ]
+   },
+   {
+    "disposition": "Mounted Cavalry",
+    "side": "Union",
+    "drawnDot": [
+     "#44aa44"
+    ],
+    "tileKind": [
+     "rect"
+    ],
+    "tileFill": [
+     "#3a6bc4"
+    ],
+    "heights": [
+     4
+    ]
+   },
+   {
+    "disposition": "Reserve",
+    "side": "Confederate",
+    "drawnDot": [
+     "#226622"
+    ],
+    "tileKind": [
+     "rect"
+    ],
+    "tileFill": [
+     "#c43a3a"
+    ],
+    "heights": [
+     8
+    ]
+   },
+   {
+    "disposition": "Reserve",
+    "side": "Union",
+    "drawnDot": [
+     "#226622"
+    ],
+    "tileKind": [
+     "rect",
+     "art"
+    ],
+    "tileFill": [
+     "#3a6bc4"
+    ],
+    "heights": [
+     4,
+     8,
+     10
+    ]
+   },
+   {
+    "disposition": "Skirmish Line",
+    "side": "Confederate",
+    "drawnDot": [
+     "#66aaff"
+    ],
+    "tileKind": [
+     "skirm"
+    ],
+    "tileFill": [],
+    "heights": [
+     2
+    ]
+   },
+   {
+    "disposition": "Skirmish Line",
+    "side": "Union",
+    "drawnDot": [
+     "#66aaff"
+    ],
+    "tileKind": [
+     "skirm"
+    ],
+    "tileFill": [],
+    "heights": [
+     2
+    ]
+   }
+  ],
+  "sidesLegend": {
+   "legend": {
+    "Union": "#3355cc",
+    "Confederate": "#cc4433"
+   },
+   "drawnTileFill": {
+    "Union": "#3a6bc4",
+    "Confederate": "#c43a3a"
+   },
+   "drawnTileBorder": {
+    "Union": "#1a3a7a",
+    "Confederate": "#7a1a1a"
+   }
+  },
+  "sizeLegend": {
+   "legend": "Dot radius scales with unit strength: Regiment (~400) r5, Brigade (~2000) r7, Division (~6000) r9",
+   "drawn": "dot radius is a constant 3.5 px; tile width = clamp(round(strength/4), 10, 120) px (desktop), /6 and cap 60 (phone)",
+   "widthForStrength": {
+    "400": 100,
+    "2000": 120,
+    "6000": 120
+   }
+  },
+  "sidesNote": {
+   "legend": "Dot outline = side color; Dot fill = disposition color",
+   "drawn": "dot outline is rgba(0,0,0,0.8) for every unit; side is carried by the tile fill, not the dot"
+  }
+ },
+ "popups": {
+  "evidence": "Documented from the bundle code (positions in style objects) and Measured (DOM rectangles at 1440x900 and 390x844)",
+  "catalogue": [
+   {
+    "name": "Vignette card (CF)",
+    "trigger": "currentTick within trigger_tick .. trigger_tick+2",
+    "count": 24,
+    "trigger_ticks": [
+     12,
+     28,
+     29,
+     36,
+     52,
+     57,
+     248,
+     240,
+     267,
+     275,
+     300,
+     302,
+     315,
+     326,
+     525,
+     551,
+     518,
+     553,
+     556,
+     563,
+     568,
+     460,
+     556,
+     675
+    ],
+    "position_code": "absolute top 60 right 16, 340 x up to (100vh-200), z 92",
+    "visible_seconds": {
+     "1x": 1.5,
+     "2x": 0.75,
+     "4x": 0.375,
+     "8x": 0.1875
+    },
+    "note": "visibility is tied to ticks, not seconds; dismissed ids stay dismissed until a jump larger than 1 tick"
+   },
+   {
+    "name": "Event card (LF)",
+    "trigger": "chronology event at exactly the current tick, significance not low",
+    "events": 134,
+    "distinct_ticks": 134,
+    "ticks_with_two_or_more": 0,
+    "max_events_in_one_tick": 1,
+    "position_code": "absolute bottom 120, centred, 460 wide, z 85",
+    "visible_seconds": {
+     "1x": 0.5,
+     "2x": 0.25,
+     "4x": 0.125,
+     "8x": 0.0625
+    },
+    "note": "the data has one non-low event per tick (134 events on 134 ticks), so the +N more line never appears; a jump of more than 1 tick clears the dismissed set"
+   },
+   {
+    "name": "Commander toasts (qF)",
+    "trigger": "playing, a succession approx_tick crossed",
+    "events": 42,
+    "ticks_with_two_or_more": 11,
+    "max_in_one_tick": 4,
+    "position_code": "absolute top 60 right 16, 300 wide, stack of up to 4, 4.5 s each, z 200",
+    "note": "sits at the same corner as the vignette card and above it (z 200 over z 92)"
+   },
+   {
+    "name": "Succession cards (nO)",
+    "trigger": "commanderSuccessions in the store",
+    "status": "never populated: the store initialises the array to [] and no code writes it (grep of both bundles), so this popup cannot appear",
+    "evidence_label": "Computed from source"
+   },
+   {
+    "name": "Unit info panel (MF)",
+    "trigger": "selected or pinned unit that resolves in the OOB table",
+    "position_code": "fixed top 60 left 16, 280 wide, up to (100vh-200), z 92 (desktop); full-width sheet above the timeline on the phone",
+    "note": "renders nothing when the unit id is not in the OOB table; shows disposition and strength only when the unit has a row at exactly the current tick"
+   },
+   {
+    "name": "Legend (VF)",
+    "trigger": "open by default (persisted in localStorage)",
+    "position_code": "fixed bottom 160 left 16, 240 x 359, z 88"
+   },
+   {
+    "name": "Overview minimap (WF)",
+    "position_code": "absolute bottom right, 162 x 176, z 88"
+   },
+   {
+    "name": "HUD clock and speed (_F)",
+    "position_code": "absolute top 56 left 16, 160 x 43, z 88"
+   },
+   {
+    "name": "Timeline dock",
+    "position_code": "absolute bottom 0, 127 px tall, z 100: the unit canvas extends underneath it (canvas 852 px tall, 127 px of it covered)"
+   },
+   {
+    "name": "Hover tooltip (fF)",
+    "status": "mounted without its props (hoveredUnit, mousePos), so it always returns null: there is no hover reaction (Measured: no DOM or pixel change on hover)"
+   },
+   {
+    "name": "NPS Auto Tour (XF)",
+    "position_code": "button absolute bottom right z 200; flyTo then plays 2x for tickWindow*250 ms"
+   }
+  ],
+  "measured_rectangles_desktop_1440x900": {
+   "baseline": {
+    "idle-tick1": [
+     "403x39@1023,431 z999999 Ask the Historian Extra Fe",
+     "1440x48@0,0 z100 GETTYSBURG July 1 July 1, ",
+     "93x25@1291,58 z20 〰 Trails ON",
+     "240x357@16,383 z88 Disposition Sides Size ✕ L",
+     "162x163@1262,607 z88 OVERVIEW ✕ 72 units · tick",
+     "147x42@16,56 z88 July 3, 1863 1x (real time",
+     "1440x127@0,773 z100 July 1, 6:00 AM July 1 Jul",
+     "129x34@1295,776 z200 🎖 NPS Auto Tour",
+     "42x33@1382,809 z200 🔇"
+    ],
+    "paused-tick556-vignette-and-event": [
+     "403x39@1023,431 z999999 Ask the Historian Extra Fe",
+     "1440x48@0,0 z100 GETTYSBURG July 3 July 3, ",
+     "93x25@1291,58 z20 〰 Trails ON",
+     "240x357@16,383 z88 Disposition Sides Size ✕ L",
+     "162x163@1262,607 z88 OVERVIEW ✕ 1 units · tick ",
+     "340x700@1084,60 z92 ~2 min read C-I-3 ⏩ 556 ✕ ",
+     "460x209@490,571 z85 ★ CRITICAL 12:35pm ✕ Along",
+     "147x42@16,56 z88 July 5, 1863 1x (real time",
+     "1440x127@0,773 z100 July 3, 12:45 PM July 1 Ju",
+     "129x34@1295,776 z200 🎖 NPS Auto Tour",
+     "42x33@1382,809 z200 🔇",
+     "300x386@1124,60 z200 ⚕ Brigadier General Alfred"
+    ],
+    "playing-1x-tick548-556-max-toasts": [
+     "403x39@1023,431 z999999 Ask the Historian Extra Fe",
+     "1440x48@0,0 z100 GETTYSBURG July 3 July 3, ",
+     "93x25@1291,58 z20 〰 Trails ON",
+     "240x357@16,383 z88 Disposition Sides Size ✕ L",
+     "162x163@1262,607 z88 OVERVIEW ✕ 1 units · tick ",
+     "460x123@490,658 z85 ★ CRITICAL 12:05pm ✕ GARNE",
+     "147x42@16,56 z88 July 5, 1863 1x (real time",
+     "1440x127@0,773 z100 July 3, 12:15 PM July 1 Ju",
+     "129x34@1295,776 z200 🎖 NPS Auto Tour",
+     "42x33@1382,809 z200 🔇",
+     "300x382@1124,60 z200 ⚕ Major General Winfield S"
+    ],
+    "unit-selected-tick150-z15": [
+     "403x39@1023,431 z999999 Ask the Historian Extra Fe",
+     "1440x48@0,0 z100 GETTYSBURG July 1 July 1, ",
+     "93x25@1291,58 z20 〰 Trails ON",
+     "240x357@16,383 z88 Disposition Sides Size ✕ L",
+     "162x163@1262,607 z88 OVERVIEW ✕ 1 units · tick ",
+     "147x42@16,56 z88 July 3, 1863 1x (real time",
+     "1440x127@0,773 z100 July 1, 6:25 PM July 1 Jul",
+     "129x34@1295,776 z200 🎖 NPS Auto Tour",
+     "42x33@1382,809 z200 🔇",
+     "263x82@1161,60 z200 ⇒ Command change ✕ Hampton",
+     "280x232@16,60 z92 C 11th North Carolina Infa"
+    ]
+   },
+   "r1c": {
+    "idle-tick1": [
+     "403x39@1023,156 z450 Ask the Historian Extra Fe",
+     "1440x48@0,0 z100 GETTYSBURG July 1 July 1, ",
+     "100x26@1284,58 z20 〰 Trails ON",
+     "240x359@16,381 z88 Disposition Sides Size ✕ L",
+     "162x176@1262,572 z88 OVERVIEW ✕ 70 units · tick",
+     "160x43@16,56 z88 July 1, 1863 1x (base spee",
+     "1440x127@0,773 z100 July 1, 6:00 AM July 1 Jul",
+     "129x34@1295,776 z200 🎖 NPS Auto Tour"
+    ],
+    "paused-tick556-vignette-and-event": [
+     "403x39@14,124 z450 Ask the Historian Extra Fe",
+     "1440x48@0,0 z100 GETTYSBURG July 3 July 3, ",
+     "100x26@1284,58 z20 〰 Trails ON",
+     "240x359@16,381 z88 Disposition Sides Size ✕ L",
+     "162x176@1262,572 z88 OVERVIEW ✕ 456 units · tic",
+     "340x500@900,60 z92 ~2 min read C-I-3 ⏩ 556 ✕ ",
+     "460x214@490,550 z85 ★ CRITICAL 12:35pm ✕ Along",
+     "160x43@16,56 z88 July 3, 1863 1x (base spee",
+     "1440x127@0,773 z100 July 3, 12:45 PM July 1 Ju",
+     "129x34@1295,776 z200 🎖 NPS Auto Tour",
+     "300x402@1124,60 z200 ⚕ Brigadier General Alfred"
+    ],
+    "playing-1x-tick548-556-max-toasts": [
+     "403x39@14,124 z450 Ask the Historian Extra Fe",
+     "1440x48@0,0 z100 GETTYSBURG July 3 July 3, ",
+     "100x26@1284,58 z20 〰 Trails ON",
+     "240x359@16,381 z88 Disposition Sides Size ✕ L",
+     "162x176@1262,572 z88 OVERVIEW ✕ 451 units · tic",
+     "460x128@490,637 z85 ★ CRITICAL 12:05pm ✕ GARNE",
+     "160x43@16,56 z88 July 3, 1863 1x (base spee",
+     "1440x127@0,773 z100 July 3, 12:15 PM July 1 Ju",
+     "129x34@1295,776 z200 🎖 NPS Auto Tour",
+     "300x406@1124,60 z200 ⚕ Major General Winfield S"
+    ],
+    "unit-selected-tick150-z15": [
+     "403x39@14,332 z450 Ask the Historian Extra Fe",
+     "1440x48@0,0 z100 GETTYSBURG July 1 July 1, ",
+     "100x26@1284,58 z20 〰 Trails ON",
+     "240x359@16,381 z88 Disposition Sides Size ✕ L",
+     "162x176@1262,572 z88 OVERVIEW ✕ 234 units · tic",
+     "160x43@16,56 z88 July 1, 1863 1x (base spee",
+     "1440x127@0,773 z100 July 1, 6:25 PM July 1 Jul",
+     "129x34@1295,776 z200 🎖 NPS Auto Tour",
+     "36x36@502,162 z30 ",
+     "263x88@1161,60 z200 ⇒ Command change ✕ Hampton",
+     "280x261@16,60 z92 C 11th North Carolina Infa"
+    ]
+   }
+  },
+  "covered_by_overlays": [
+   {
+    "build": "baseline",
+    "vp": "desktop",
+    "state": "idle-tick1",
+    "tick": 1,
+    "tilesDrawn": 21,
+    "tileCentreUnderAnOverlay": 13,
+    "tilesHalfOrMoreUnderOverlays": 13,
+    "canvasShareCovered": 0.259,
+    "centreUnderBy": {
+     "legend": 12,
+     "HUD clock": 1
+    }
+   },
+   {
+    "build": "baseline",
+    "vp": "desktop",
+    "state": "paused-tick556-vignette-and-event",
+    "tick": 556,
+    "tilesDrawn": 414,
+    "tileCentreUnderAnOverlay": 118,
+    "tilesHalfOrMoreUnderOverlays": 119,
+    "canvasShareCovered": 0.499,
+    "centreUnderBy": {
+     "event card": 68,
+     "vignette card": 5,
+     "timeline dock": 44,
+     "trails button": 1
+    }
+   },
+   {
+    "build": "baseline",
+    "vp": "desktop",
+    "state": "playing-1x-tick548-556-max-toasts",
+    "tick": 552,
+    "tilesDrawn": 412,
+    "tileCentreUnderAnOverlay": 103,
+    "tilesHalfOrMoreUnderOverlays": 103,
+    "canvasShareCovered": 0.393,
+    "centreUnderBy": {
+     "event card": 58,
+     "commander toasts": 2,
+     "timeline dock": 42,
+     "trails button": 1
+    }
+   },
+   {
+    "build": "baseline",
+    "vp": "desktop",
+    "state": "unit-selected-tick150-z15",
+    "tick": 150,
+    "tilesDrawn": 79,
+    "tileCentreUnderAnOverlay": 5,
+    "tilesHalfOrMoreUnderOverlays": 6,
+    "canvasShareCovered": 0.325,
+    "centreUnderBy": {
+     "unit panel": 5
+    }
+   },
+   {
+    "build": "baseline",
+    "vp": "phone",
+    "state": "idle-tick1",
+    "tick": 1,
+    "tilesDrawn": 4,
+    "tileCentreUnderAnOverlay": 2,
+    "tilesHalfOrMoreUnderOverlays": 2,
+    "canvasShareCovered": 0.511,
+    "centreUnderBy": {
+     "legend": 1,
+     "other overlay": 1
+    }
+   },
+   {
+    "build": "baseline",
+    "vp": "phone",
+    "state": "paused-tick556-event",
+    "tick": 556,
+    "tilesDrawn": 389,
+    "tileCentreUnderAnOverlay": 228,
+    "tilesHalfOrMoreUnderOverlays": 229,
+    "canvasShareCovered": 0.822,
+    "centreUnderBy": {
+     "legend": 59,
+     "other overlay": 78,
+     "vignette card": 90,
+     "overview": 1
+    }
+   },
+   {
+    "build": "baseline",
+    "vp": "phone",
+    "state": "paused-tick551-event",
+    "tick": 551,
+    "tilesDrawn": 384,
+    "tileCentreUnderAnOverlay": 224,
+    "tilesHalfOrMoreUnderOverlays": 224,
+    "canvasShareCovered": 0.822,
+    "centreUnderBy": {
+     "legend": 56,
+     "other overlay": 78,
+     "vignette card": 89,
+     "overview": 1
+    }
+   },
+   {
+    "build": "r1c",
+    "vp": "desktop",
+    "state": "idle-tick1",
+    "tick": 1,
+    "tilesDrawn": 21,
+    "tileCentreUnderAnOverlay": 13,
+    "tilesHalfOrMoreUnderOverlays": 13,
+    "canvasShareCovered": 0.263,
+    "centreUnderBy": {
+     "legend": 12,
+     "HUD clock": 1
+    }
+   },
+   {
+    "build": "r1c",
+    "vp": "desktop",
+    "state": "paused-tick556-vignette-and-event",
+    "tick": 556,
+    "tilesDrawn": 414,
+    "tileCentreUnderAnOverlay": 177,
+    "tilesHalfOrMoreUnderOverlays": 178,
+    "canvasShareCovered": 0.543,
+    "centreUnderBy": {
+     "vignette card": 53,
+     "event card": 63,
+     "Ask the Historian / Extra Features": 6,
+     "commander toasts": 2,
+     "timeline dock": 52,
+     "trails button": 1
+    }
+   },
+   {
+    "build": "r1c",
+    "vp": "desktop",
+    "state": "playing-1x-tick548-556-max-toasts",
+    "tick": 552,
+    "tilesDrawn": 412,
+    "tileCentreUnderAnOverlay": 109,
+    "tilesHalfOrMoreUnderOverlays": 110,
+    "canvasShareCovered": 0.409,
+    "centreUnderBy": {
+     "event card": 48,
+     "Ask the Historian / Extra Features": 6,
+     "commander toasts": 2,
+     "timeline dock": 52,
+     "trails button": 1
+    }
+   },
+   {
+    "build": "r1c",
+    "vp": "desktop",
+    "state": "unit-selected-tick150-z15",
+    "tick": 150,
+    "tilesDrawn": 79,
+    "tileCentreUnderAnOverlay": 5,
+    "tilesHalfOrMoreUnderOverlays": 6,
+    "canvasShareCovered": 0.337,
+    "centreUnderBy": {
+     "unit panel": 5
+    }
+   },
+   {
+    "build": "r1c",
+    "vp": "phone",
+    "state": "idle-tick1",
+    "tick": 1,
+    "tilesDrawn": 1,
+    "tileCentreUnderAnOverlay": 0,
+    "tilesHalfOrMoreUnderOverlays": 0,
+    "canvasShareCovered": 0.079,
+    "centreUnderBy": {}
+   },
+   {
+    "build": "r1c",
+    "vp": "phone",
+    "state": "paused-tick556-event",
+    "tick": 556,
+    "tilesDrawn": 315,
+    "tileCentreUnderAnOverlay": 123,
+    "tilesHalfOrMoreUnderOverlays": 125,
+    "canvasShareCovered": 0.549,
+    "centreUnderBy": {
+     "vignette card": 76,
+     "legend": 15,
+     "other overlay": 30,
+     "overview": 2
+    }
+   },
+   {
+    "build": "r1c",
+    "vp": "phone",
+    "state": "paused-tick551-event",
+    "tick": 551,
+    "tilesDrawn": 310,
+    "tileCentreUnderAnOverlay": 120,
+    "tilesHalfOrMoreUnderOverlays": 123,
+    "canvasShareCovered": 0.549,
+    "centreUnderBy": {
+     "vignette card": 73,
+     "legend": 15,
+     "other overlay": 30,
+     "overview": 2
+    }
+   }
+  ],
+  "covered_by_overlays_note": "the tile set is the intended carry-forward picture (what R1c draws); for the baseline it measures what its layout WOULD cover, because the production tile set is wrong (see input_and_state)"
+ },
+ "input_and_state": {
+  "mouse": {
+   "baseline": {
+    "dragMovedCamera": false,
+    "centerBefore": [
+     -77.23499999999994,
+     39.81199999999998
+    ],
+    "centerAfterDrag": [
+     -77.23499999999994,
+     39.81199999999998
+    ],
+    "wheelChangedZoom": false,
+    "zoomBeforeWheel": 13.5,
+    "zoomAfterWheel": 13.5,
+    "unitRedrawsDuringDrag": 0,
+    "unitRedrawsDuringWheel": 0
+   },
+   "r1c": {
+    "dragMovedCamera": true,
+    "centerBefore": [
+     -77.23499999999994,
+     39.81199999999998
+    ],
+    "centerAfterDrag": [
+     -77.21913574383191,
+     39.805906671447985
+    ],
+    "wheelChangedZoom": true,
+    "zoomBeforeWheel": 13.5,
+    "zoomAfterWheel": 13.902190330605787,
+    "unitRedrawsDuringDrag": 40,
+    "unitRedrawsDuringWheel": 10
+   }
+  },
+  "canvas": {
+   "baseline": [
+    {
+     "width": 1440,
+     "height": 852,
+     "cssW": 1440,
+     "cssH": 852,
+     "dpr": 1,
+     "pointerEvents": "auto"
+    }
+   ],
+   "r1c": [
+    {
+     "width": 1440,
+     "height": 852,
+     "cssW": 1440,
+     "cssH": 852,
+     "dpr": 1,
+     "pointerEvents": "none"
+    }
+   ]
+  },
+  "hover": {
+   "baseline": {
+    "fixedOverlaysBefore": 2,
+    "fixedOverlaysAfterHover": 2,
+    "elementUnderPointer": {
+     "tag": "CANVAS",
+     "cursor": "crosshair"
+    },
+    "tileGlowOnHover": 0
+   },
+   "r1c": {
+    "fixedOverlaysBefore": 2,
+    "fixedOverlaysAfterHover": 2,
+    "elementUnderPointer": {
+     "tag": "CANVAS",
+     "cursor": "grab"
+    },
+    "tileGlowOnHover": 0
+   }
+  },
+  "intro": {
+   "baseline": {
+    "loadingData": {
+     "first": 339,
+     "last": 1338
+    },
+    "toolbar": {
+     "first": 339,
+     "last": 18039
+    },
+    "skipIntro": {
+     "first": 339,
+     "last": 5374
+    },
+    "fastForward": {
+     "first": 1442,
+     "last": 5374
+    },
+    "chooser": {
+     "first": 5490,
+     "last": 18039
+    }
+   },
+   "r1c": {
+    "toolbar": {
+     "first": 428,
+     "last": 17514
+    },
+    "skipIntro": {
+     "first": 428,
+     "last": 428
+    }
+   },
+   "note": "times in ms from navigation; baseline shows Loading, then a 3.5 s fast-forward of all 675 ticks (the unit layer redraws about 213 times), then the layout chooser; R1c shows none of it"
+  },
+  "state_after_actions": {
+   "baseline": [
+    {
+     "name": "after load and splash, tick 1",
+     "appTick": 1,
+     "tilesDrawnInView": 100,
+     "tilesExpectedInView": 21,
+     "extra": 79,
+     "missing": 0,
+     "extraLabels": [
+      [
+       "I/1/1",
+       1
+      ],
+      [
+       "I/1/2",
+       1
+      ],
+      [
+       "I/2/1",
+       1
+      ],
+      [
+       "I/2/2",
+       1
+      ],
+      [
+       "I/3/3",
+       1
+      ],
+      [
+       "8NY/CA",
+       1
+      ],
+      [
+       "ART/Pe",
+       1
+      ],
+      [
+       "I/1/2W",
+       1
+      ]
+     ],
+     "missingLabels": []
+    },
+    {
+     "name": "click July 2 (jumpToDay), no playback",
+     "appTick": 226,
+     "tilesDrawnInView": 100,
+     "tilesExpectedInView": 229,
+     "extra": 9,
+     "missing": 138,
+     "extraLabels": [
+      [
+       "6 WI",
+       1
+      ],
+      [
+       "76 NY",
+       1
+      ],
+      [
+       "84 NY",
+       1
+      ],
+      [
+       "95 NY",
+       1
+      ],
+      [
+       "ART/5M",
+       1
+      ],
+      [
+       "ART/15",
+       1
+      ],
+      [
+       "ART/C4",
+       1
+      ],
+      [
+       "ART/B1",
+       1
+      ]
+     ],
+     "missingLabels": [
+      [
+       "CAV/1/",
+       1
+      ],
+      [
+       "I/3/1",
+       1
+      ],
+      [
+       "I/3/2",
+       1
+      ],
+      [
+       "XI/1/1",
+       1
+      ],
+      [
+       "XI/1/2",
+       1
+      ],
+      [
+       "XI/2/1",
+       1
+      ],
+      [
+       "XI/2/2",
+       1
+      ],
+      [
+       "XI/3/1",
+       1
+      ]
+     ]
+    },
+    {
+     "name": "click July 3 (jumpToDay), no playback",
+     "appTick": 451,
+     "tilesDrawnInView": 100,
+     "tilesExpectedInView": 382,
+     "extra": 5,
+     "missing": 287,
+     "extraLabels": [
+      [
+       "6 WI",
+       1
+      ],
+      [
+       "76 NY",
+       1
+      ],
+      [
+       "84 NY",
+       1
+      ],
+      [
+       "95 NY",
+       1
+      ],
+      [
+       "CAV/1",
+       1
+      ]
+     ],
+     "missingLabels": [
+      [
+       "CAV/1/",
+       1
+      ],
+      [
+       "I/3/1",
+       1
+      ],
+      [
+       "I/3/2",
+       1
+      ],
+      [
+       "XI/1/1",
+       1
+      ],
+      [
+       "XI/1/2",
+       1
+      ],
+      [
+       "XI/2/1",
+       1
+      ],
+      [
+       "XI/2/2",
+       1
+      ],
+      [
+       "XI/3/1",
+       1
+      ]
+     ]
+    },
+    {
+     "name": "scrub to tick 540",
+     "appTick": 540,
+     "tilesDrawnInView": 100,
+     "tilesExpectedInView": 409,
+     "extra": 4,
+     "missing": 313,
+     "extraLabels": [
+      [
+       "6 WI",
+       1
+      ],
+      [
+       "76 NY",
+       1
+      ],
+      [
+       "84 NY",
+       1
+      ],
+      [
+       "95 NY",
+       1
+      ]
+     ],
+     "missingLabels": [
+      [
+       "CAV/1/",
+       1
+      ],
+      [
+       "I/3/1",
+       1
+      ],
+      [
+       "I/3/2",
+       1
+      ],
+      [
+       "XI/1/1",
+       1
+      ],
+      [
+       "XI/1/2",
+       1
+      ],
+      [
+       "XI/2/1",
+       1
+      ],
+      [
+       "XI/2/2",
+       1
+      ],
+      [
+       "XI/3/1",
+       1
+      ]
+     ]
+    },
+    {
+     "name": "scrub back to tick 100",
+     "appTick": 100,
+     "tilesDrawnInView": 106,
+     "tilesExpectedInView": 136,
+     "extra": 30,
+     "missing": 60,
+     "extraLabels": [
+      [
+       "I/1/1",
+       1
+      ],
+      [
+       "I/1/2",
+       1
+      ],
+      [
+       "I/2/1",
+       1
+      ],
+      [
+       "I/2/2",
+       1
+      ],
+      [
+       "I/3/3",
+       1
+      ],
+      [
+       "6 WI",
+       1
+      ],
+      [
+       "76 NY",
+       1
+      ],
+      [
+       "84 NY",
+       1
+      ]
+     ],
+     "missingLabels": [
+      [
+       "XI/1/1",
+       1
+      ],
+      [
+       "XI/1/2",
+       1
+      ],
+      [
+       "XI/2/2",
+       1
+      ],
+      [
+       "XI/3/1",
+       1
+      ],
+      [
+       "XI/3/2",
+       1
+      ],
+      [
+       "III/2/",
+       3
+      ],
+      [
+       "ART/Ma",
+       1
+      ],
+      [
+       "ART/Cr",
+       1
+      ]
+     ]
+    },
+    {
+     "name": "scrub to tick 1",
+     "appTick": 1,
+     "tilesDrawnInView": 102,
+     "tilesExpectedInView": 21,
+     "extra": 81,
+     "missing": 0,
+     "extraLabels": [
+      [
+       "I/1/1",
+       1
+      ],
+      [
+       "I/1/2",
+       1
+      ],
+      [
+       "I/2/1",
+       1
+      ],
+      [
+       "I/2/2",
+       1
+      ],
+      [
+       "I/3/3",
+       1
+      ],
+      [
+       "8NY/CA",
+       1
+      ],
+      [
+       "ART/Pe",
+       1
+      ],
+      [
+       "I/1/2W",
+       1
+      ]
+     ],
+     "missingLabels": []
+    },
+    {
+     "name": "after one playback pass (all days loaded): tick 540",
+     "appTick": 540,
+     "tilesDrawnInView": 129,
+     "tilesExpectedInView": 409,
+     "extra": 4,
+     "missing": 284,
+     "extraLabels": [
+      [
+       "6 WI",
+       1
+      ],
+      [
+       "76 NY",
+       1
+      ],
+      [
+       "84 NY",
+       1
+      ],
+      [
+       "95 NY",
+       1
+      ]
+     ],
+     "missingLabels": [
+      [
+       "CAV/1/",
+       1
+      ],
+      [
+       "XI/1/1",
+       1
+      ],
+      [
+       "XI/1/2",
+       1
+      ],
+      [
+       "XI/2/1",
+       1
+      ],
+      [
+       "XI/2/2",
+       1
+      ],
+      [
+       "XI/3/1",
+       1
+      ],
+      [
+       "XI/3/2",
+       1
+      ],
+      [
+       "II/1/1",
+       2
+      ]
+     ]
+    },
+    {
+     "name": "after one playback pass: tick 100",
+     "appTick": 100,
+     "tilesDrawnInView": 132,
+     "tilesExpectedInView": 136,
+     "extra": 51,
+     "missing": 55,
+     "extraLabels": [
+      [
+       "I/1/1",
+       1
+      ],
+      [
+       "I/1/2",
+       1
+      ],
+      [
+       "I/2/1",
+       1
+      ],
+      [
+       "I/2/2",
+       1
+      ],
+      [
+       "I/3/1",
+       1
+      ],
+      [
+       "I/3/2",
+       1
+      ],
+      [
+       "I/3/3",
+       1
+      ],
+      [
+       "III/2/",
+       1
+      ]
+     ],
+     "missingLabels": [
+      [
+       "XI/1/1",
+       1
+      ],
+      [
+       "XI/1/2",
+       1
+      ],
+      [
+       "XI/2/2",
+       1
+      ],
+      [
+       "XI/3/1",
+       1
+      ],
+      [
+       "XI/3/2",
+       1
+      ],
+      [
+       "ART/Ma",
+       1
+      ],
+      [
+       "ART/Cr",
+       1
+      ],
+      [
+       "ART/Br",
+       1
+      ]
+     ]
+    },
+    {
+     "name": "after one playback pass: tick 1",
+     "appTick": 1,
+     "tilesDrawnInView": 132,
+     "tilesExpectedInView": 21,
+     "extra": 111,
+     "missing": 0,
+     "extraLabels": [
+      [
+       "I/1/1",
+       1
+      ],
+      [
+       "I/1/2",
+       1
+      ],
+      [
+       "I/2/1",
+       1
+      ],
+      [
+       "I/2/2",
+       1
+      ],
+      [
+       "I/3/1",
+       1
+      ],
+      [
+       "I/3/2",
+       1
+      ],
+      [
+       "I/3/3",
+       1
+      ],
+      [
+       "II/2/1",
+       2
+      ]
+     ],
+     "missingLabels": []
+    },
+    {
+     "name": "after one playback pass: tick 226",
+     "appTick": 226,
+     "tilesDrawnInView": 146,
+     "tilesExpectedInView": 229,
+     "extra": 25,
+     "missing": 108,
+     "extraLabels": [
+      [
+       "6 WI",
+       1
+      ],
+      [
+       "76 NY",
+       1
+      ],
+      [
+       "84 NY",
+       1
+      ],
+      [
+       "95 NY",
+       1
+      ],
+      [
+       "ART/5M",
+       1
+      ],
+      [
+       "ART/15",
+       1
+      ],
+      [
+       "ART/C4",
+       1
+      ],
+      [
+       "ART/B1",
+       1
+      ]
+     ],
+     "missingLabels": [
+      [
+       "CAV/1/",
+       1
+      ],
+      [
+       "XI/1/1",
+       1
+      ],
+      [
+       "XI/1/2",
+       1
+      ],
+      [
+       "XI/2/1",
+       1
+      ],
+      [
+       "XI/2/2",
+       1
+      ],
+      [
+       "XI/3/1",
+       1
+      ],
+      [
+       "XI/3/2",
+       1
+      ],
+      [
+       "II/1/1",
+       2
+      ]
+     ]
+    }
+   ],
+   "r1c": [
+    {
+     "name": "after load and splash, tick 1",
+     "appTick": 1,
+     "tilesDrawnInView": 21,
+     "tilesExpectedInView": 21,
+     "extra": 0,
+     "missing": 0,
+     "extraLabels": [],
+     "missingLabels": []
+    },
+    {
+     "name": "click July 2 (jumpToDay), no playback",
+     "appTick": 226,
+     "tilesDrawnInView": 229,
+     "tilesExpectedInView": 229,
+     "extra": 0,
+     "missing": 0,
+     "extraLabels": [],
+     "missingLabels": []
+    },
+    {
+     "name": "click July 3 (jumpToDay), no playback",
+     "appTick": 451,
+     "tilesDrawnInView": 382,
+     "tilesExpectedInView": 382,
+     "extra": 0,
+     "missing": 0,
+     "extraLabels": [],
+     "missingLabels": []
+    },
+    {
+     "name": "scrub to tick 540",
+     "appTick": 540,
+     "tilesDrawnInView": 409,
+     "tilesExpectedInView": 409,
+     "extra": 0,
+     "missing": 0,
+     "extraLabels": [],
+     "missingLabels": []
+    },
+    {
+     "name": "scrub back to tick 100",
+     "appTick": 100,
+     "tilesDrawnInView": 136,
+     "tilesExpectedInView": 136,
+     "extra": 0,
+     "missing": 0,
+     "extraLabels": [],
+     "missingLabels": []
+    },
+    {
+     "name": "scrub to tick 1",
+     "appTick": 1,
+     "tilesDrawnInView": 21,
+     "tilesExpectedInView": 21,
+     "extra": 0,
+     "missing": 0,
+     "extraLabels": [],
+     "missingLabels": []
+    },
+    {
+     "name": "after one playback pass (all days loaded): tick 540",
+     "appTick": 540,
+     "tilesDrawnInView": 409,
+     "tilesExpectedInView": 409,
+     "extra": 0,
+     "missing": 0,
+     "extraLabels": [],
+     "missingLabels": []
+    },
+    {
+     "name": "after one playback pass: tick 100",
+     "appTick": 100,
+     "tilesDrawnInView": 136,
+     "tilesExpectedInView": 136,
+     "extra": 0,
+     "missing": 0,
+     "extraLabels": [],
+     "missingLabels": []
+    },
+    {
+     "name": "after one playback pass: tick 1",
+     "appTick": 1,
+     "tilesDrawnInView": 21,
+     "tilesExpectedInView": 21,
+     "extra": 0,
+     "missing": 0,
+     "extraLabels": [],
+     "missingLabels": []
+    },
+    {
+     "name": "after one playback pass: tick 226",
+     "appTick": 226,
+     "tilesDrawnInView": 229,
+     "tilesExpectedInView": 229,
+     "extra": 0,
+     "missing": 0,
+     "extraLabels": [],
+     "missingLabels": []
+    }
+   ],
+   "note": "tilesDrawnInView versus the carry-forward expectation at the same tick and the default camera; extra = tiles that should not be there (ghosts), missing = tiles that should be there"
+  },
+  "sound_guard_freeze": {
+   "baseline": {
+    "build": "baseline",
+    "beforeSoundErrors": 0,
+    "sound": {
+     "tickBefore": 546,
+     "tickAfter4s": 546,
+     "tickAfter6s": 546,
+     "playButtonShows": "⏸",
+     "expectedTickAfter4sAt1x": 554
+    },
+    "errors": [
+     "pageerror: CanvasRenderer is not defined"
+    ]
+   },
+   "r1c": {
+    "build": "r1c",
+    "beforeSoundErrors": 0,
+    "sound": {
+     "tickBefore": 546,
+     "tickAfter4s": 553,
+     "tickAfter6s": 557,
+     "playButtonShows": "⏸",
+     "expectedTickAfter4sAt1x": 554
+    },
+    "errors": []
+   }
+  },
+  "hit_test_real_clicks_vs_model_r1c": [
+   {
+    "zoom_requested": 11,
+    "camera": {
+     "center": [
+      -77.24,
+      39.821999999999974
+     ],
+     "zoom": 12.042599881712956,
+     "bearing": 0,
+     "pitch": 0
+    },
+    "tile_width_px": 120,
+    "clicks": [
+     "0px from centre: C-I-3",
+     "57px from centre: nothing",
+     "8px from centre: C-I-3",
+     "20px from centre: nothing",
+     "50px from centre: nothing",
+     "150px from centre: nothing",
+     "400px from centre: (unmatched glow) (model differs)"
+    ]
+   },
+   {
+    "zoom_requested": 14,
+    "camera": {
+     "center": [
+      -77.2455,
+      39.822
+     ],
+     "zoom": 14,
+     "bearing": 0,
+     "pitch": 0
+    },
+    "tile_width_px": 37,
+    "clicks": [
+     "0px from centre: C-1TN-P",
+     "16px from centre: C-1TN-P",
+     "8px from centre: C-1TN-P",
+     "20px from centre: C-1TN-P",
+     "50px from centre: U-24MI",
+     "150px from centre: C-11NC",
+     "400px from centre: U-143PA"
+    ]
+   },
+   {
+    "zoom_requested": 17,
+    "camera": {
+     "center": [
+      -77.2455,
+      39.822
+     ],
+     "zoom": 17,
+     "bearing": 0,
+     "pitch": 0
+    },
+    "tile_width_px": 120,
+    "clicks": [
+     "0px from centre: C-III-3-1",
+     "57px from centre: C-III-3-1",
+     "8px from centre: C-III-3-1",
+     "20px from centre: C-III-3-1",
+     "50px from centre: C-III-3-1",
+     "150px from centre: C-22NC",
+     "400px from centre: C-34NC"
+    ]
+   }
+  ],
+  "hit_target_model": [
+   {
+    "tick": 556,
+    "zoom": 11,
+    "tiles": 456,
+    "samples": 35513,
+    "ownShare": 0.008,
+    "otherUnitShare": 0.651,
+    "selectsNothingShare": 0.341,
+    "tilesWithOwnShareBelow50": 456,
+    "tilesWithOwnShareBelow10": 445,
+    "emptyGroundPoints": 666,
+    "emptyGroundSelectsAUnit": 0,
+    "emptyGroundSelectShare": 0,
+    "center": [
+     -77.2364,
+     39.81343
+    ]
+   },
+   {
+    "tick": 556,
+    "zoom": 12,
+    "tiles": 456,
+    "samples": 35513,
+    "ownShare": 0.041,
+    "otherUnitShare": 0.817,
+    "selectsNothingShare": 0.141,
+    "tilesWithOwnShareBelow50": 442,
+    "tilesWithOwnShareBelow10": 381,
+    "emptyGroundPoints": 589,
+    "emptyGroundSelectsAUnit": 0,
+    "emptyGroundSelectShare": 0,
+    "center": [
+     -77.2364,
+     39.81343
+    ]
+   },
+   {
+    "tick": 556,
+    "zoom": 13,
+    "tiles": 456,
+    "samples": 35446,
+    "ownShare": 0.187,
+    "otherUnitShare": 0.787,
+    "selectsNothingShare": 0.026,
+    "tilesWithOwnShareBelow50": 374,
+    "tilesWithOwnShareBelow10": 242,
+    "emptyGroundPoints": 406,
+    "emptyGroundSelectsAUnit": 1,
+    "emptyGroundSelectShare": 0.002,
+    "center": [
+     -77.2364,
+     39.81343
+    ]
+   },
+   {
+    "tick": 556,
+    "zoom": 14,
+    "tiles": 315,
+    "samples": 21531,
+    "ownShare": 0.368,
+    "otherUnitShare": 0.632,
+    "selectsNothingShare": 0,
+    "tilesWithOwnShareBelow50": 177,
+    "tilesWithOwnShareBelow10": 90,
+    "emptyGroundPoints": 349,
+    "emptyGroundSelectsAUnit": 120,
+    "emptyGroundSelectShare": 0.344,
+    "center": [
+     -77.2364,
+     39.81343
+    ]
+   },
+   {
+    "tick": 556,
+    "zoom": 15,
+    "tiles": 162,
+    "samples": 9101,
+    "ownShare": 0.562,
+    "otherUnitShare": 0.438,
+    "selectsNothingShare": 0,
+    "tilesWithOwnShareBelow50": 52,
+    "tilesWithOwnShareBelow10": 29,
+    "emptyGroundPoints": 440,
+    "emptyGroundSelectsAUnit": 426,
+    "emptyGroundSelectShare": 0.968,
+    "center": [
+     -77.2364,
+     39.81343
+    ]
+   },
+   {
+    "tick": 556,
+    "zoom": 16,
+    "tiles": 43,
+    "samples": 2697,
+    "ownShare": 0.662,
+    "otherUnitShare": 0.338,
+    "selectsNothingShare": 0,
+    "tilesWithOwnShareBelow50": 12,
+    "tilesWithOwnShareBelow10": 9,
+    "emptyGroundPoints": 632,
+    "emptyGroundSelectsAUnit": 632,
+    "emptyGroundSelectShare": 1,
+    "center": [
+     -77.2364,
+     39.81343
+    ]
+   },
+   {
+    "tick": 556,
+    "zoom": 17,
+    "tiles": 20,
+    "samples": 1423,
+    "ownShare": 0.72,
+    "otherUnitShare": 0.28,
+    "selectsNothingShare": 0,
+    "tilesWithOwnShareBelow50": 6,
+    "tilesWithOwnShareBelow10": 6,
+    "emptyGroundPoints": 685,
+    "emptyGroundSelectsAUnit": 685,
+    "emptyGroundSelectShare": 1,
+    "center": [
+     -77.2364,
+     39.81343
+    ]
+   },
+   {
+    "tick": 556,
+    "zoom": 18,
+    "tiles": 2,
+    "samples": 201,
+    "ownShare": 1,
+    "otherUnitShare": 0,
+    "selectsNothingShare": 0,
+    "tilesWithOwnShareBelow50": 0,
+    "tilesWithOwnShareBelow10": 0,
+    "emptyGroundPoints": 741,
+    "emptyGroundSelectsAUnit": 741,
+    "emptyGroundSelectShare": 1,
+    "center": [
+     -77.2364,
+     39.81343
+    ]
+   },
+   {
+    "tick": 150,
+    "zoom": 11,
+    "tiles": 234,
+    "samples": 19577,
+    "ownShare": 0.013,
+    "otherUnitShare": 0.426,
+    "selectsNothingShare": 0.561,
+    "tilesWithOwnShareBelow50": 233,
+    "tilesWithOwnShareBelow10": 223,
+    "emptyGroundPoints": 682,
+    "emptyGroundSelectsAUnit": 0,
+    "emptyGroundSelectShare": 0,
+    "center": [
+     -77.2455,
+     39.822
+    ]
+   },
+   {
+    "tick": 150,
+    "zoom": 12,
+    "tiles": 234,
+    "samples": 19577,
+    "ownShare": 0.051,
+    "otherUnitShare": 0.667,
+    "selectsNothingShare": 0.281,
+    "tilesWithOwnShareBelow50": 227,
+    "tilesWithOwnShareBelow10": 185,
+    "emptyGroundPoints": 629,
+    "emptyGroundSelectsAUnit": 0,
+    "emptyGroundSelectShare": 0,
+    "center": [
+     -77.2455,
+     39.822
+    ]
+   },
+   {
+    "tick": 150,
+    "zoom": 13,
+    "tiles": 231,
+    "samples": 18544,
+    "ownShare": 0.203,
+    "otherUnitShare": 0.747,
+    "selectsNothingShare": 0.05,
+    "tilesWithOwnShareBelow50": 185,
+    "tilesWithOwnShareBelow10": 94,
+    "emptyGroundPoints": 539,
+    "emptyGroundSelectsAUnit": 0,
+    "emptyGroundSelectShare": 0,
+    "center": [
+     -77.2455,
+     39.822
+    ]
+   },
+   {
+    "tick": 150,
+    "zoom": 14,
+    "tiles": 204,
+    "samples": 15321,
+    "ownShare": 0.409,
+    "otherUnitShare": 0.591,
+    "selectsNothingShare": 0,
+    "tilesWithOwnShareBelow50": 108,
+    "tilesWithOwnShareBelow10": 30,
+    "emptyGroundPoints": 436,
+    "emptyGroundSelectsAUnit": 109,
+    "emptyGroundSelectShare": 0.25,
+    "center": [
+     -77.2455,
+     39.822
+    ]
+   },
+   {
+    "tick": 150,
+    "zoom": 15,
+    "tiles": 79,
+    "samples": 3050,
+    "ownShare": 0.632,
+    "otherUnitShare": 0.368,
+    "selectsNothingShare": 0,
+    "tilesWithOwnShareBelow50": 10,
+    "tilesWithOwnShareBelow10": 5,
+    "emptyGroundPoints": 626,
+    "emptyGroundSelectsAUnit": 296,
+    "emptyGroundSelectShare": 0.473,
+    "center": [
+     -77.2455,
+     39.822
+    ]
+   },
+   {
+    "tick": 150,
+    "zoom": 16,
+    "tiles": 18,
+    "samples": 727,
+    "ownShare": 0.761,
+    "otherUnitShare": 0.239,
+    "selectsNothingShare": 0,
+    "tilesWithOwnShareBelow50": 2,
+    "tilesWithOwnShareBelow10": 1,
+    "emptyGroundPoints": 698,
+    "emptyGroundSelectsAUnit": 343,
+    "emptyGroundSelectShare": 0.491,
+    "center": [
+     -77.2455,
+     39.822
+    ]
+   },
+   {
+    "tick": 150,
+    "zoom": 17,
+    "tiles": 6,
+    "samples": 186,
+    "ownShare": 1,
+    "otherUnitShare": 0,
+    "selectsNothingShare": 0,
+    "tilesWithOwnShareBelow50": 0,
+    "tilesWithOwnShareBelow10": 0,
+    "emptyGroundPoints": 726,
+    "emptyGroundSelectsAUnit": 684,
+    "emptyGroundSelectShare": 0.942,
+    "center": [
+     -77.2455,
+     39.822
+    ]
+   },
+   {
+    "tick": 150,
+    "zoom": 18,
+    "tiles": 2,
+    "samples": 45,
+    "ownShare": 1,
+    "otherUnitShare": 0,
+    "selectsNothingShare": 0,
+    "tilesWithOwnShareBelow50": 0,
+    "tilesWithOwnShareBelow10": 0,
+    "emptyGroundPoints": 742,
+    "emptyGroundSelectsAUnit": 742,
+    "emptyGroundSelectShare": 1,
+    "center": [
+     -77.2455,
+     39.822
+    ]
+   },
+   {
+    "tick": 546,
+    "zoom": 11,
+    "tiles": 451,
+    "samples": 35407,
+    "ownShare": 0.009,
+    "otherUnitShare": 0.646,
+    "selectsNothingShare": 0.346,
+    "tilesWithOwnShareBelow50": 451,
+    "tilesWithOwnShareBelow10": 437,
+    "emptyGroundPoints": 668,
+    "emptyGroundSelectsAUnit": 0,
+    "emptyGroundSelectShare": 0,
+    "center": [
+     -77.235,
+     39.812
+    ]
+   },
+   {
+    "tick": 546,
+    "zoom": 12,
+    "tiles": 451,
+    "samples": 35407,
+    "ownShare": 0.038,
+    "otherUnitShare": 0.801,
+    "selectsNothingShare": 0.161,
+    "tilesWithOwnShareBelow50": 438,
+    "tilesWithOwnShareBelow10": 383,
+    "emptyGroundPoints": 595,
+    "emptyGroundSelectsAUnit": 0,
+    "emptyGroundSelectShare": 0,
+    "center": [
+     -77.235,
+     39.812
+    ]
+   },
+   {
+    "tick": 546,
+    "zoom": 13,
+    "tiles": 451,
+    "samples": 35196,
+    "ownShare": 0.181,
+    "otherUnitShare": 0.789,
+    "selectsNothingShare": 0.03,
+    "tilesWithOwnShareBelow50": 373,
+    "tilesWithOwnShareBelow10": 227,
+    "emptyGroundPoints": 423,
+    "emptyGroundSelectsAUnit": 0,
+    "emptyGroundSelectShare": 0,
+    "center": [
+     -77.235,
+     39.812
+    ]
+   },
+   {
+    "tick": 546,
+    "zoom": 14,
+    "tiles": 308,
+    "samples": 21947,
+    "ownShare": 0.338,
+    "otherUnitShare": 0.662,
+    "selectsNothingShare": 0,
+    "tilesWithOwnShareBelow50": 188,
+    "tilesWithOwnShareBelow10": 106,
+    "emptyGroundPoints": 372,
+    "emptyGroundSelectsAUnit": 129,
+    "emptyGroundSelectShare": 0.347,
+    "center": [
+     -77.235,
+     39.812
+    ]
+   },
+   {
+    "tick": 546,
+    "zoom": 15,
+    "tiles": 139,
+    "samples": 8646,
+    "ownShare": 0.586,
+    "otherUnitShare": 0.414,
+    "selectsNothingShare": 0,
+    "tilesWithOwnShareBelow50": 46,
+    "tilesWithOwnShareBelow10": 24,
+    "emptyGroundPoints": 477,
+    "emptyGroundSelectsAUnit": 401,
+    "emptyGroundSelectShare": 0.841,
+    "center": [
+     -77.235,
+     39.812
+    ]
+   },
+   {
+    "tick": 546,
+    "zoom": 16,
+    "tiles": 41,
+    "samples": 2694,
+    "ownShare": 0.775,
+    "otherUnitShare": 0.225,
+    "selectsNothingShare": 0,
+    "tilesWithOwnShareBelow50": 5,
+    "tilesWithOwnShareBelow10": 5,
+    "emptyGroundPoints": 598,
+    "emptyGroundSelectsAUnit": 590,
+    "emptyGroundSelectShare": 0.987,
+    "center": [
+     -77.235,
+     39.812
+    ]
+   },
+   {
+    "tick": 546,
+    "zoom": 17,
+    "tiles": 18,
+    "samples": 1411,
+    "ownShare": 0.733,
+    "otherUnitShare": 0.267,
+    "selectsNothingShare": 0,
+    "tilesWithOwnShareBelow50": 4,
+    "tilesWithOwnShareBelow10": 4,
+    "emptyGroundPoints": 658,
+    "emptyGroundSelectsAUnit": 658,
+    "emptyGroundSelectShare": 1,
+    "center": [
+     -77.235,
+     39.812
+    ]
+   },
+   {
+    "tick": 546,
+    "zoom": 18,
+    "tiles": 14,
+    "samples": 895,
+    "ownShare": 0.612,
+    "otherUnitShare": 0.388,
+    "selectsNothingShare": 0,
+    "tilesWithOwnShareBelow50": 4,
+    "tilesWithOwnShareBelow10": 4,
+    "emptyGroundPoints": 701,
+    "emptyGroundSelectsAUnit": 701,
+    "emptyGroundSelectShare": 1,
+    "center": [
+     -77.235,
+     39.812
+    ]
+   }
+  ],
+  "hit_rule": "click -> unproject -> nearest unit by degrees among the cells within 0.002 deg of the click (about 220 m north-south, 170 m east-west) of the TRUE positions of the current tick; no pixel radius, no use of the drawn (displaced) tile; a click with no candidate deselects",
+  "baseline_hit_note": "in production the same click code runs (identical text in both bundles); real clicks at the tile centre selected it in 4 of 4 zooms (first input run); off-centre clicks follow the same rule"
+ },
+ "timing": {
+  "evidence": "Measured: real Chrome 155 (headless=new, real GPU), rAF cadence of the page, one entry per unit-canvas redraw, duration of the rAF callback that drew, PerformanceObserver long tasks (>50 ms). Absolute fps and ms depend on this machine; the pattern (cadence bimodal at 16.7 and 33.4 ms in dense scenes) is what matters.",
+  "desktop": {
+   "baseline": [
+    {
+     "run": "timing-1/4x-dense-z13.5",
+     "speed": "1/4x",
+     "ticks": "520 to 530",
+     "cpuThrottle": 1,
+     "seconds": 20.1,
+     "pageFps": 60.1,
+     "frameIntervalMs": {
+      "mean": 16.67,
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 16.8
+     },
+     "framesOver20msPct": 0,
+     "framesOver34msPct": 0,
+     "framesOver50msPct": 0,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 60,
+     "unitRedrawIntervalMs": {
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 16.8
+     },
+     "drawCallbackMs": {
+      "p50": 2.1,
+      "p95": 3.4,
+      "p99": 4.5,
+      "max": 6.1,
+      "mean": 2.3
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    },
+    {
+     "run": "timing-1/2x-dense-z13.5",
+     "speed": "1/2x",
+     "ticks": "520 to 540",
+     "cpuThrottle": 1,
+     "seconds": 20.1,
+     "pageFps": 60.1,
+     "frameIntervalMs": {
+      "mean": 16.67,
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 16.8
+     },
+     "framesOver20msPct": 0,
+     "framesOver34msPct": 0,
+     "framesOver50msPct": 0,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 59.9,
+     "unitRedrawIntervalMs": {
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 16.8
+     },
+     "drawCallbackMs": {
+      "p50": 2.2,
+      "p95": 3.4,
+      "p99": 4.3,
+      "max": 6,
+      "mean": 2.35
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    },
+    {
+     "run": "timing-1x-dense-z13.5",
+     "speed": "1x",
+     "ticks": "520 to 560",
+     "cpuThrottle": 1,
+     "seconds": 20.1,
+     "pageFps": 60.1,
+     "frameIntervalMs": {
+      "mean": 16.67,
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 17.1
+     },
+     "framesOver20msPct": 0,
+     "framesOver34msPct": 0,
+     "framesOver50msPct": 0,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 59.9,
+     "unitRedrawIntervalMs": {
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 17.1
+     },
+     "drawCallbackMs": {
+      "p50": 2.8,
+      "p95": 4.2,
+      "p99": 5.3,
+      "max": 8.5,
+      "mean": 2.95
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    },
+    {
+     "run": "timing-2x-dense-z13.5",
+     "speed": "2x",
+     "ticks": "520 to 600",
+     "cpuThrottle": 1,
+     "seconds": 20.1,
+     "pageFps": 60.1,
+     "frameIntervalMs": {
+      "mean": 16.67,
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 16.9
+     },
+     "framesOver20msPct": 0,
+     "framesOver34msPct": 0,
+     "framesOver50msPct": 0,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 59.9,
+     "unitRedrawIntervalMs": {
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 16.9
+     },
+     "drawCallbackMs": {
+      "p50": 3.3,
+      "p95": 4.6,
+      "p99": 5.7,
+      "max": 7.9,
+      "mean": 3.43
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    },
+    {
+     "run": "timing-4x-dense-z13.5",
+     "speed": "4x",
+     "ticks": "500 to 660",
+     "cpuThrottle": 1,
+     "seconds": 20.1,
+     "pageFps": 60.1,
+     "frameIntervalMs": {
+      "mean": 16.67,
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 16.9
+     },
+     "framesOver20msPct": 0,
+     "framesOver34msPct": 0,
+     "framesOver50msPct": 0,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 59.9,
+     "unitRedrawIntervalMs": {
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 16.9
+     },
+     "drawCallbackMs": {
+      "p50": 3.6,
+      "p95": 5.4,
+      "p99": 7.7,
+      "max": 9.9,
+      "mean": 3.83
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    },
+    {
+     "run": "timing-8x-dense-z13.5",
+     "speed": "8x",
+     "ticks": "440 to 675",
+     "cpuThrottle": 1,
+     "seconds": 20.1,
+     "pageFps": 60,
+     "frameIntervalMs": {
+      "mean": 16.69,
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 33.4
+     },
+     "framesOver20msPct": 0.2,
+     "framesOver34msPct": 0,
+     "framesOver50msPct": 0,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 43.9,
+     "unitRedrawIntervalMs": {
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 33.4
+     },
+     "drawCallbackMs": {
+      "p50": 3.9,
+      "p95": 6.5,
+      "p99": 9,
+      "max": 11.4,
+      "mean": 4.22
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    },
+    {
+     "run": "timing-1x-sparse-z13.5",
+     "speed": "1x",
+     "ticks": "60 to 100",
+     "cpuThrottle": 1,
+     "seconds": 20.1,
+     "pageFps": 60.1,
+     "frameIntervalMs": {
+      "mean": 16.67,
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 17.2
+     },
+     "framesOver20msPct": 0,
+     "framesOver34msPct": 0,
+     "framesOver50msPct": 0,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 59.9,
+     "unitRedrawIntervalMs": {
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 17.2
+     },
+     "drawCallbackMs": {
+      "p50": 4.4,
+      "p95": 6.5,
+      "p99": 8.7,
+      "max": 10.6,
+      "mean": 4.66
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    },
+    {
+     "run": "timing-4x-cpu4-dense-z13.5",
+     "speed": "4x",
+     "ticks": "500 to 624",
+     "cpuThrottle": 4,
+     "seconds": 15.8,
+     "pageFps": 22.8,
+     "frameIntervalMs": {
+      "mean": 43.92,
+      "p50": 49.9,
+      "p95": 66.6,
+      "p99": 83.2,
+      "max": 116.6
+     },
+     "framesOver20msPct": 98.9,
+     "framesOver34msPct": 56.8,
+     "framesOver50msPct": 13.4,
+     "framesOver100ms": 1,
+     "unitRedrawsPerSecond": 22.5,
+     "unitRedrawIntervalMs": {
+      "p50": 49.9,
+      "p95": 66.6,
+      "p99": 83.2,
+      "max": 83.4
+     },
+     "drawCallbackMs": {
+      "p50": 28.9,
+      "p95": 38,
+      "p99": 47.1,
+      "max": 67.3,
+      "mean": 29.85
+     },
+     "longTasks": {
+      "count": 36,
+      "totalMs": 2068,
+      "maxMs": 83
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    },
+    {
+     "run": "timing-1x-cpu4-dense-z13.5",
+     "speed": "1x",
+     "ticks": "520 to 550",
+     "cpuThrottle": 4,
+     "seconds": 15.6,
+     "pageFps": 24.7,
+     "frameIntervalMs": {
+      "mean": 40.67,
+      "p50": 33.4,
+      "p95": 50.1,
+      "p99": 66.7,
+      "max": 116.7
+     },
+     "framesOver20msPct": 97.9,
+     "framesOver34msPct": 41.1,
+     "framesOver50msPct": 9.1,
+     "framesOver100ms": 1,
+     "unitRedrawsPerSecond": 24.3,
+     "unitRedrawIntervalMs": {
+      "p50": 33.4,
+      "p95": 50.1,
+      "p99": 66.7,
+      "max": 116.7
+     },
+     "drawCallbackMs": {
+      "p50": 29,
+      "p95": 37.2,
+      "p99": 44.6,
+      "max": 66.9,
+      "mean": 29.42
+     },
+     "longTasks": {
+      "count": 18,
+      "totalMs": 1008,
+      "maxMs": 73
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    }
+   ],
+   "r1c": [
+    {
+     "run": "timing-1/4x-dense-z13.5",
+     "speed": "1/4x",
+     "ticks": "520 to 530",
+     "cpuThrottle": 1,
+     "seconds": 20.1,
+     "pageFps": 50.8,
+     "frameIntervalMs": {
+      "mean": 19.69,
+      "p50": 16.7,
+      "p95": 33.4,
+      "p99": 33.4,
+      "max": 33.5
+     },
+     "framesOver20msPct": 18.1,
+     "framesOver34msPct": 0,
+     "framesOver50msPct": 0,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 50.6,
+     "unitRedrawIntervalMs": {
+      "p50": 16.7,
+      "p95": 33.4,
+      "p99": 33.4,
+      "max": 33.5
+     },
+     "drawCallbackMs": {
+      "p50": 9.2,
+      "p95": 13.1,
+      "p99": 16.2,
+      "max": 25.3,
+      "mean": 9.73
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    },
+    {
+     "run": "timing-1/2x-dense-z13.5",
+     "speed": "1/2x",
+     "ticks": "520 to 540",
+     "cpuThrottle": 1,
+     "seconds": 20.1,
+     "pageFps": 50,
+     "frameIntervalMs": {
+      "mean": 20.04,
+      "p50": 16.7,
+      "p95": 33.4,
+      "p99": 33.4,
+      "max": 33.6
+     },
+     "framesOver20msPct": 20.2,
+     "framesOver34msPct": 0,
+     "framesOver50msPct": 0,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 49.8,
+     "unitRedrawIntervalMs": {
+      "p50": 16.7,
+      "p95": 33.4,
+      "p99": 33.4,
+      "max": 33.6
+     },
+     "drawCallbackMs": {
+      "p50": 9.5,
+      "p95": 12.3,
+      "p99": 14.8,
+      "max": 17.3,
+      "mean": 9.75
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    },
+    {
+     "run": "timing-1x-dense-z13.5",
+     "speed": "1x",
+     "ticks": "520 to 560",
+     "cpuThrottle": 1,
+     "seconds": 20.2,
+     "pageFps": 48.1,
+     "frameIntervalMs": {
+      "mean": 20.81,
+      "p50": 16.7,
+      "p95": 33.4,
+      "p99": 33.4,
+      "max": 34.1
+     },
+     "framesOver20msPct": 24.8,
+     "framesOver34msPct": 0.1,
+     "framesOver50msPct": 0,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 47.9,
+     "unitRedrawIntervalMs": {
+      "p50": 16.7,
+      "p95": 33.4,
+      "p99": 33.4,
+      "max": 33.6
+     },
+     "drawCallbackMs": {
+      "p50": 9.6,
+      "p95": 12.3,
+      "p99": 15.2,
+      "max": 17.5,
+      "mean": 9.82
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    },
+    {
+     "run": "timing-2x-dense-z13.5",
+     "speed": "2x",
+     "ticks": "520 to 600",
+     "cpuThrottle": 1,
+     "seconds": 20.1,
+     "pageFps": 44.9,
+     "frameIntervalMs": {
+      "mean": 22.31,
+      "p50": 16.7,
+      "p95": 33.4,
+      "p99": 33.5,
+      "max": 50
+     },
+     "framesOver20msPct": 33.4,
+     "framesOver34msPct": 0.6,
+     "framesOver50msPct": 0,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 44.7,
+     "unitRedrawIntervalMs": {
+      "p50": 16.7,
+      "p95": 33.4,
+      "p99": 33.5,
+      "max": 50
+     },
+     "drawCallbackMs": {
+      "p50": 10.6,
+      "p95": 15.8,
+      "p99": 23.7,
+      "max": 28.4,
+      "mean": 11.24
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    },
+    {
+     "run": "timing-4x-dense-z13.5",
+     "speed": "4x",
+     "ticks": "500 to 660",
+     "cpuThrottle": 1,
+     "seconds": 20.1,
+     "pageFps": 43.6,
+     "frameIntervalMs": {
+      "mean": 22.96,
+      "p50": 16.7,
+      "p95": 33.4,
+      "p99": 33.4,
+      "max": 50.1
+     },
+     "framesOver20msPct": 37.3,
+     "framesOver34msPct": 0.5,
+     "framesOver50msPct": 0.1,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 43.4,
+     "unitRedrawIntervalMs": {
+      "p50": 16.7,
+      "p95": 33.4,
+      "p99": 33.4,
+      "max": 50.1
+     },
+     "drawCallbackMs": {
+      "p50": 10.9,
+      "p95": 14.7,
+      "p99": 18,
+      "max": 22.8,
+      "mean": 11.19
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    },
+    {
+     "run": "timing-8x-dense-z13.5",
+     "speed": "8x",
+     "ticks": "440 to 675",
+     "cpuThrottle": 1,
+     "seconds": 20.1,
+     "pageFps": 51.1,
+     "frameIntervalMs": {
+      "mean": 19.59,
+      "p50": 16.7,
+      "p95": 33.4,
+      "p99": 33.4,
+      "max": 33.5
+     },
+     "framesOver20msPct": 17.6,
+     "framesOver34msPct": 0,
+     "framesOver50msPct": 0,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 35,
+     "unitRedrawIntervalMs": {
+      "p50": 16.7,
+      "p95": 33.4,
+      "p99": 33.4,
+      "max": 33.5
+     },
+     "drawCallbackMs": {
+      "p50": 9.9,
+      "p95": 13.4,
+      "p99": 16.6,
+      "max": 19.1,
+      "mean": 10.19
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    },
+    {
+     "run": "timing-1x-sparse-z13.5",
+     "speed": "1x",
+     "ticks": "60 to 100",
+     "cpuThrottle": 1,
+     "seconds": 20.1,
+     "pageFps": 60,
+     "frameIntervalMs": {
+      "mean": 16.69,
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 50
+     },
+     "framesOver20msPct": 0.1,
+     "framesOver34msPct": 0.1,
+     "framesOver50msPct": 0,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 59.8,
+     "unitRedrawIntervalMs": {
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 50
+     },
+     "drawCallbackMs": {
+      "p50": 1.8,
+      "p95": 2.6,
+      "p99": 3.3,
+      "max": 5.5,
+      "mean": 1.81
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    },
+    {
+     "run": "timing-4x-cpu4-dense-z13.5",
+     "speed": "4x",
+     "ticks": "500 to 623",
+     "cpuThrottle": 4,
+     "seconds": 15.8,
+     "pageFps": 13,
+     "frameIntervalMs": {
+      "mean": 77.07,
+      "p50": 83.2,
+      "p95": 116.6,
+      "p99": 116.8,
+      "max": 133.4
+     },
+     "framesOver20msPct": 98.5,
+     "framesOver34msPct": 98.5,
+     "framesOver50msPct": 91.7,
+     "framesOver100ms": 18,
+     "unitRedrawsPerSecond": 12.8,
+     "unitRedrawIntervalMs": {
+      "p50": 83.2,
+      "p95": 116.6,
+      "p99": 116.8,
+      "max": 133.4
+     },
+     "drawCallbackMs": {
+      "p50": 57.8,
+      "p95": 73.9,
+      "p99": 83.5,
+      "max": 112,
+      "mean": 58.99
+     },
+     "longTasks": {
+      "count": 201,
+      "totalMs": 14929,
+      "maxMs": 128
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    },
+    {
+     "run": "timing-1x-cpu4-dense-z13.5",
+     "speed": "1x",
+     "ticks": "520 to 551",
+     "cpuThrottle": 4,
+     "seconds": 16.1,
+     "pageFps": 15,
+     "frameIntervalMs": {
+      "mean": 66.94,
+      "p50": 66.7,
+      "p95": 83.4,
+      "p99": 116.7,
+      "max": 150
+     },
+     "framesOver20msPct": 98.3,
+     "framesOver34msPct": 98.3,
+     "framesOver50msPct": 80.9,
+     "framesOver100ms": 6,
+     "unitRedrawsPerSecond": 14.6,
+     "unitRedrawIntervalMs": {
+      "p50": 66.7,
+      "p95": 83.4,
+      "p99": 116.7,
+      "max": 150
+     },
+     "drawCallbackMs": {
+      "p50": 55.7,
+      "p95": 68.6,
+      "p99": 77.8,
+      "max": 89.8,
+      "mean": 56.27
+     },
+     "longTasks": {
+      "count": 235,
+      "totalMs": 15103,
+      "maxMs": 132
+     },
+     "canvas": {
+      "cw": 1440,
+      "ch": 852,
+      "dpr": 1,
+      "vw": 1440
+     }
+    }
+   ]
+  },
+  "phone_390x844_dpr3": {
+   "baseline": [
+    {
+     "run": "phone-timing-1×-dense-z13.5",
+     "speed": "1×",
+     "ticks": "520 to 550",
+     "seconds": 15.1,
+     "pageFps": 60.1,
+     "frameIntervalMs": {
+      "mean": 16.67,
+      "p50": 16.7,
+      "p95": 16.7,
+      "p99": 16.8,
+      "max": 16.9
+     },
+     "framesOver20msPct": 0,
+     "framesOver34msPct": 0,
+     "framesOver50msPct": 0,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 30,
+     "unitRedrawIntervalMs": {
+      "p50": 33.3,
+      "p95": 33.4,
+      "p99": 33.4,
+      "max": 33.5
+     },
+     "drawCallbackMs": {
+      "p50": 1.3,
+      "p95": 2.1,
+      "p99": 3.2,
+      "max": 3.5,
+      "mean": 1.38
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 390,
+      "ch": 844,
+      "dpr": 3,
+      "vw": 390
+     }
+    },
+    {
+     "run": "phone-timing-4×-dense-z13.5",
+     "speed": "4×",
+     "ticks": "520 to 640",
+     "seconds": 15.1,
+     "pageFps": 60.1,
+     "frameIntervalMs": {
+      "mean": 16.67,
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 16.8
+     },
+     "framesOver20msPct": 0,
+     "framesOver34msPct": 0,
+     "framesOver50msPct": 0,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 30,
+     "unitRedrawIntervalMs": {
+      "p50": 33.3,
+      "p95": 33.4,
+      "p99": 33.5,
+      "max": 33.5
+     },
+     "drawCallbackMs": {
+      "p50": 2.2,
+      "p95": 3.9,
+      "p99": 5.6,
+      "max": 7.7,
+      "mean": 2.37
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 390,
+      "ch": 844,
+      "dpr": 3,
+      "vw": 390
+     }
+    }
+   ],
+   "r1c": [
+    {
+     "run": "phone-timing-1×-dense-z13.5",
+     "speed": "1×",
+     "ticks": "520 to 550",
+     "seconds": 15.2,
+     "pageFps": 60.1,
+     "frameIntervalMs": {
+      "mean": 16.67,
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 16.9
+     },
+     "framesOver20msPct": 0,
+     "framesOver34msPct": 0,
+     "framesOver50msPct": 0,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 29.9,
+     "unitRedrawIntervalMs": {
+      "p50": 33.3,
+      "p95": 33.4,
+      "p99": 33.5,
+      "max": 33.6
+     },
+     "drawCallbackMs": {
+      "p50": 7.7,
+      "p95": 9.3,
+      "p99": 12.2,
+      "max": 13,
+      "mean": 7.88
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 390,
+      "ch": 607,
+      "dpr": 3,
+      "vw": 390
+     }
+    },
+    {
+     "run": "phone-timing-4×-dense-z13.5",
+     "speed": "4×",
+     "ticks": "520 to 640",
+     "seconds": 15.1,
+     "pageFps": 59.9,
+     "frameIntervalMs": {
+      "mean": 16.72,
+      "p50": 16.7,
+      "p95": 16.8,
+      "p99": 16.8,
+      "max": 33.4
+     },
+     "framesOver20msPct": 0.3,
+     "framesOver34msPct": 0,
+     "framesOver50msPct": 0,
+     "framesOver100ms": 0,
+     "unitRedrawsPerSecond": 29.8,
+     "unitRedrawIntervalMs": {
+      "p50": 33.3,
+      "p95": 33.4,
+      "p99": 33.5,
+      "max": 50
+     },
+     "drawCallbackMs": {
+      "p50": 9.9,
+      "p95": 14,
+      "p99": 20.4,
+      "max": 21.8,
+      "mean": 10.2
+     },
+     "longTasks": {
+      "count": 0,
+      "totalMs": 0,
+      "maxMs": 0
+     },
+     "canvas": {
+      "cw": 390,
+      "ch": 607,
+      "dpr": 3,
+      "vw": 390
+     }
+    }
+   ]
+  }
+ },
+ "motion": {
+  "evidence": "Computed by replaying the shipped Ed/y1/F4/lS code (extracted from the bundle) with the REAL rAF timestamps of each browser run. Validation: for 3 real R1c runs (487, 365 and 485 frames) the replay reproduced every frame (tile count, sum of x, y, angle, width, label count) with zero difference.",
+  "replay_validation": {
+   "run": "trace-1x-dense, trace-8x-dense, trace-1x-sparse (R1c)",
+   "frames": [
+    487,
+    365,
+    485
+   ],
+   "framesMatching": [
+    487,
+    365,
+    485
+   ],
+   "worstAbsDiff": 0
+  },
+  "baseline_note": "the interpolation, easing, hop and snap-back code is byte-identical in the baseline bundle (F4, z4, y1 apart from the carry-forward cache); only the unit SET differs (stale cache), so the motion numbers apply to the units the baseline draws; the baseline cannot be replayed exactly because its cache depends on which ticks were visited",
+  "whole_battle_60hz_position_only": [
+   {
+    "speed": "1/4x",
+    "ticks": "1 to 675",
+    "seconds": 1348,
+    "frames": 80881,
+    "unitFrames": 26999366,
+    "staticShareOfUnitFrames": 1,
+    "hops": {
+     "count": 833,
+     "framesWithAHop": 159,
+     "perSecond": 0.62,
+     "stepPx": {
+      "n": 833,
+      "mean": 156.24,
+      "p50": 77.81,
+      "p95": 667.4,
+      "p99": 999.16,
+      "max": 1096.3
+     },
+     "meters": {
+      "n": 833,
+      "mean": 811,
+      "p50": 404,
+      "p95": 3463,
+      "p99": 5184,
+      "max": 5688
+     },
+     "maxSimultaneousInOneFrame": 47
+    },
+    "snapBacks": {
+     "note": "a unit that is interpolating between keyframes of ticks f and f+1 is drawn LATER on its path than in the previous frame (same f, smaller fraction): the stale tick snapshot in Ed",
+     "count": 66,
+     "atTickBoundaryFrame": 66,
+     "stepPx": {
+      "n": 66,
+      "mean": 59.44,
+      "p50": 40.72,
+      "p95": 167.31,
+      "p99": 458,
+      "max": 458
+     },
+     "perSecond": 0.05
+    },
+    "easing": {
+     "pairs": 66,
+     "peakOverMeanStep_median": 1.94,
+     "peakOverMeanStep_p90": 1.96,
+     "shareOfFramesBelow10pcOfMeanSpeed_median": 0.026
+    },
+    "smoothFrames": {
+     "accel_px_per_s2": {
+      "n": 7515,
+      "mean": 45,
+      "p50": 26,
+      "p95": 142,
+      "p99": 458,
+      "max": 458
+     },
+     "jerk_px_per_s3": {
+      "n": 7515,
+      "mean": 34,
+      "p50": 0,
+      "p95": 0,
+      "p99": 12,
+      "max": 31529
+     },
+     "note": "px/s^2 and px/s^3 of the true (projected) position on runs of 3+ consecutive frames inside one interpolated tick (same keyframe pair, fraction increasing, not the boundary frame); constant-speed motion would give 0"
+    },
+    "interpolatedStepsWithinATick": {
+     "n": 7647,
+     "mean": 0.51,
+     "p50": 0.25,
+     "p95": 1.58,
+     "p99": 3.99,
+     "max": 7.58
+    },
+    "afterSnapBackFrame": {
+     "note": "the frame after a snap-back: the unit jumps forward again",
+     "stepPx": {
+      "n": 66,
+      "mean": 59.4,
+      "p50": 40.35,
+      "p95": 167.31,
+      "p99": 458,
+      "max": 458
+     }
+    },
+    "pairHandoverSteps": {
+     "n": 40,
+     "mean": 113.46,
+     "p50": 82.37,
+     "p95": 283,
+     "p99": 677.44,
+     "max": 677.44
+    },
+    "firstAppearances": 407,
+    "reappearances": 407,
+    "reappearedAfterExactlyOneFrameAbsent": 407
+   },
+   {
+    "speed": "1/2x",
+    "ticks": "1 to 675",
+    "seconds": 674,
+    "frames": 40441,
+    "unitFrames": 13499276,
+    "staticShareOfUnitFrames": 1,
+    "hops": {
+     "count": 833,
+     "framesWithAHop": 159,
+     "perSecond": 1.24,
+     "stepPx": {
+      "n": 833,
+      "mean": 156.24,
+      "p50": 77.81,
+      "p95": 667.4,
+      "p99": 999.16,
+      "max": 1096.3
+     },
+     "meters": {
+      "n": 833,
+      "mean": 811,
+      "p50": 404,
+      "p95": 3463,
+      "p99": 5184,
+      "max": 5688
+     },
+     "maxSimultaneousInOneFrame": 47
+    },
+    "snapBacks": {
+     "note": "a unit that is interpolating between keyframes of ticks f and f+1 is drawn LATER on its path than in the previous frame (same f, smaller fraction): the stale tick snapshot in Ed",
+     "count": 66,
+     "atTickBoundaryFrame": 66,
+     "stepPx": {
+      "n": 66,
+      "mean": 59.28,
+      "p50": 40.71,
+      "p95": 167.25,
+      "p99": 457.84,
+      "max": 457.84
+     },
+     "perSecond": 0.1
+    },
+    "easing": {
+     "pairs": 66,
+     "peakOverMeanStep_median": 1.91,
+     "peakOverMeanStep_p90": 1.95,
+     "shareOfFramesBelow10pcOfMeanSpeed_median": 0.017
+    },
+    "smoothFrames": {
+     "accel_px_per_s2": {
+      "n": 3671,
+      "mean": 177,
+      "p50": 101,
+      "p95": 566,
+      "p99": 1832,
+      "max": 1832
+     },
+     "jerk_px_per_s3": {
+      "n": 3671,
+      "mean": 275,
+      "p50": 0,
+      "p95": 0,
+      "p99": 8475,
+      "max": 126115
+     },
+     "note": "px/s^2 and px/s^3 of the true (projected) position on runs of 3+ consecutive frames inside one interpolated tick (same keyframe pair, fraction increasing, not the boundary frame); constant-speed motion would give 0"
+    },
+    "interpolatedStepsWithinATick": {
+     "n": 3803,
+     "mean": 1.02,
+     "p50": 0.5,
+     "p95": 3.18,
+     "p99": 7.93,
+     "max": 15.05
+    },
+    "afterSnapBackFrame": {
+     "note": "the frame after a snap-back: the unit jumps forward again",
+     "stepPx": {
+      "n": 66,
+      "mean": 59.21,
+      "p50": 39.98,
+      "p95": 167.25,
+      "p99": 457.84,
+      "max": 457.84
+     }
+    },
+    "pairHandoverSteps": {
+     "n": 40,
+     "mean": 113.48,
+     "p50": 83.28,
+     "p95": 282.79,
+     "p99": 677.46,
+     "max": 677.46
+    },
+    "firstAppearances": 407,
+    "reappearances": 407,
+    "reappearedAfterExactlyOneFrameAbsent": 407
+   },
+   {
+    "speed": "1x",
+    "ticks": "1 to 675",
+    "seconds": 337,
+    "frames": 20221,
+    "unitFrames": 6749231,
+    "staticShareOfUnitFrames": 1,
+    "hops": {
+     "count": 833,
+     "framesWithAHop": 159,
+     "perSecond": 2.47,
+     "stepPx": {
+      "n": 833,
+      "mean": 156.24,
+      "p50": 77.81,
+      "p95": 667.4,
+      "p99": 999.16,
+      "max": 1096.3
+     },
+     "meters": {
+      "n": 833,
+      "mean": 811,
+      "p50": 404,
+      "p95": 3463,
+      "p99": 5184,
+      "max": 5688
+     },
+     "maxSimultaneousInOneFrame": 47
+    },
+    "snapBacks": {
+     "note": "a unit that is interpolating between keyframes of ticks f and f+1 is drawn LATER on its path than in the previous frame (same f, smaller fraction): the stale tick snapshot in Ed",
+     "count": 66,
+     "atTickBoundaryFrame": 66,
+     "stepPx": {
+      "n": 66,
+      "mean": 58.95,
+      "p50": 40.65,
+      "p95": 167.01,
+      "p99": 457.19,
+      "max": 457.19
+     },
+     "perSecond": 0.2
+    },
+    "easing": {
+     "pairs": 66,
+     "peakOverMeanStep_median": 1.85,
+     "peakOverMeanStep_p90": 1.96,
+     "shareOfFramesBelow10pcOfMeanSpeed_median": 0.036
+    },
+    "smoothFrames": {
+     "accel_px_per_s2": {
+      "n": 1716,
+      "mean": 696,
+      "p50": 403,
+      "p95": 2265,
+      "p99": 7329,
+      "max": 7329
+     },
+     "jerk_px_per_s3": {
+      "n": 1716,
+      "mean": 2357,
+      "p50": 0,
+      "p95": 3,
+      "p99": 74604,
+      "max": 504461
+     },
+     "note": "px/s^2 and px/s^3 of the true (projected) position on runs of 3+ consecutive frames inside one interpolated tick (same keyframe pair, fraction increasing, not the boundary frame); constant-speed motion would give 0"
+    },
+    "interpolatedStepsWithinATick": {
+     "n": 1848,
+     "mean": 2.08,
+     "p50": 1.04,
+     "p95": 6.46,
+     "p99": 15.99,
+     "max": 29.67
+    },
+    "afterSnapBackFrame": {
+     "note": "the frame after a snap-back: the unit jumps forward again",
+     "stepPx": {
+      "n": 66,
+      "mean": 58.8,
+      "p50": 39.23,
+      "p95": 167.01,
+      "p99": 457.19,
+      "max": 457.19
+     }
+    },
+    "pairHandoverSteps": {
+     "n": 40,
+     "mean": 113.5,
+     "p50": 85.06,
+     "p95": 281.92,
+     "p99": 677.58,
+     "max": 677.58
+    },
+    "firstAppearances": 407,
+    "reappearances": 407,
+    "reappearedAfterExactlyOneFrameAbsent": 407
+   },
+   {
+    "speed": "2x",
+    "ticks": "1 to 675",
+    "seconds": 168.5,
+    "frames": 10111,
+    "unitFrames": 3374412,
+    "staticShareOfUnitFrames": 0.999,
+    "hops": {
+     "count": 833,
+     "framesWithAHop": 159,
+     "perSecond": 4.94,
+     "stepPx": {
+      "n": 833,
+      "mean": 156.24,
+      "p50": 77.81,
+      "p95": 667.4,
+      "p99": 999.16,
+      "max": 1096.3
+     },
+     "meters": {
+      "n": 833,
+      "mean": 811,
+      "p50": 404,
+      "p95": 3463,
+      "p99": 5184,
+      "max": 5688
+     },
+     "maxSimultaneousInOneFrame": 47
+    },
+    "snapBacks": {
+     "note": "a unit that is interpolating between keyframes of ticks f and f+1 is drawn LATER on its path than in the previous frame (same f, smaller fraction): the stale tick snapshot in Ed",
+     "count": 66,
+     "atTickBoundaryFrame": 66,
+     "stepPx": {
+      "n": 66,
+      "mean": 58.17,
+      "p50": 40.42,
+      "p95": 166.06,
+      "p99": 454.58,
+      "max": 454.58
+     },
+     "perSecond": 0.39
+    },
+    "easing": {
+     "pairs": 66,
+     "peakOverMeanStep_median": 1.73,
+     "peakOverMeanStep_p90": 1.91,
+     "shareOfFramesBelow10pcOfMeanSpeed_median": 0
+    },
+    "smoothFrames": {
+     "accel_px_per_s2": {
+      "n": 726,
+      "mean": 2756,
+      "p50": 1611,
+      "p95": 9058,
+      "p99": 29315,
+      "max": 29315
+     },
+     "jerk_px_per_s3": {
+      "n": 726,
+      "mean": 22279,
+      "p50": 0,
+      "p95": 94803,
+      "p99": 524351,
+      "max": 2615880
+     },
+     "note": "px/s^2 and px/s^3 of the true (projected) position on runs of 3+ consecutive frames inside one interpolated tick (same keyframe pair, fraction increasing, not the boundary frame); constant-speed motion would give 0"
+    },
+    "interpolatedStepsWithinATick": {
+     "n": 858,
+     "mean": 4.32,
+     "p50": 2.28,
+     "p95": 13.36,
+     "p99": 33.77,
+     "max": 58.99
+    },
+    "afterSnapBackFrame": {
+     "note": "the frame after a snap-back: the unit jumps forward again",
+     "stepPx": {
+      "n": 66,
+      "mean": 57.88,
+      "p50": 34.63,
+      "p95": 166.07,
+      "p99": 454.61,
+      "max": 454.61
+     }
+    },
+    "pairHandoverSteps": {
+     "n": 40,
+     "mean": 113.57,
+     "p50": 88.45,
+     "p95": 279.2,
+     "p99": 678.04,
+     "max": 678.04
+    },
+    "firstAppearances": 407,
+    "reappearances": 407,
+    "reappearedAfterExactlyOneFrameAbsent": 407
+   },
+   {
+    "speed": "4x",
+    "ticks": "1 to 675",
+    "seconds": 84.3,
+    "frames": 5056,
+    "unitFrames": 1686959,
+    "staticShareOfUnitFrames": 0.999,
+    "hops": {
+     "count": 833,
+     "framesWithAHop": 159,
+     "perSecond": 9.89,
+     "stepPx": {
+      "n": 833,
+      "mean": 156.24,
+      "p50": 77.81,
+      "p95": 667.4,
+      "p99": 999.16,
+      "max": 1096.3
+     },
+     "meters": {
+      "n": 833,
+      "mean": 811,
+      "p50": 404,
+      "p95": 3463,
+      "p99": 5184,
+      "max": 5688
+     },
+     "maxSimultaneousInOneFrame": 47
+    },
+    "snapBacks": {
+     "note": "a unit that is interpolating between keyframes of ticks f and f+1 is drawn LATER on its path than in the previous frame (same f, smaller fraction): the stale tick snapshot in Ed",
+     "count": 66,
+     "atTickBoundaryFrame": 66,
+     "stepPx": {
+      "n": 66,
+      "mean": 56.02,
+      "p50": 38.41,
+      "p95": 162.25,
+      "p99": 449.7,
+      "max": 449.7
+     },
+     "perSecond": 0.78
+    },
+    "easing": {
+     "pairs": 66,
+     "peakOverMeanStep_median": 1.57,
+     "peakOverMeanStep_p90": 1.81,
+     "shareOfFramesBelow10pcOfMeanSpeed_median": 0
+    },
+    "smoothFrames": {
+     "accel_px_per_s2": {
+      "n": 236,
+      "mean": 9494,
+      "p50": 5745,
+      "p95": 36233,
+      "p99": 42837,
+      "max": 117262
+     },
+     "jerk_px_per_s3": {
+      "n": 236,
+      "mean": 271475,
+      "p50": 3,
+      "p95": 1526885,
+      "p99": 3706666,
+      "max": 9021197
+     },
+     "note": "px/s^2 and px/s^3 of the true (projected) position on runs of 3+ consecutive frames inside one interpolated tick (same keyframe pair, fraction increasing, not the boundary frame); constant-speed motion would give 0"
+    },
+    "interpolatedStepsWithinATick": {
+     "n": 368,
+     "mean": 9.15,
+     "p50": 5.07,
+     "p95": 28.24,
+     "p99": 69.65,
+     "max": 110.46
+    },
+    "afterSnapBackFrame": {
+     "note": "the frame after a snap-back: the unit jumps forward again",
+     "stepPx": {
+      "n": 66,
+      "mean": 56.6,
+      "p50": 34.54,
+      "p95": 162.29,
+      "p99": 455.18,
+      "max": 455.18
+     }
+    },
+    "pairHandoverSteps": {
+     "n": 40,
+     "mean": 113.97,
+     "p50": 85.23,
+     "p95": 280.01,
+     "p99": 678.78,
+     "max": 678.78
+    },
+    "firstAppearances": 407,
+    "reappearances": 407,
+    "reappearedAfterExactlyOneFrameAbsent": 407
+   },
+   {
+    "speed": "8x",
+    "ticks": "1 to 675",
+    "seconds": 42.1,
+    "frames": 2528,
+    "unitFrames": 842909,
+    "staticShareOfUnitFrames": 0.999,
+    "hops": {
+     "count": 833,
+     "framesWithAHop": 159,
+     "perSecond": 19.77,
+     "stepPx": {
+      "n": 833,
+      "mean": 156.24,
+      "p50": 77.81,
+      "p95": 667.4,
+      "p99": 999.16,
+      "max": 1096.3
+     },
+     "meters": {
+      "n": 833,
+      "mean": 811,
+      "p50": 404,
+      "p95": 3463,
+      "p99": 5184,
+      "max": 5688
+     },
+     "maxSimultaneousInOneFrame": 47
+    },
+    "snapBacks": {
+     "note": "a unit that is interpolating between keyframes of ticks f and f+1 is drawn LATER on its path than in the previous frame (same f, smaller fraction): the stale tick snapshot in Ed",
+     "count": 66,
+     "atTickBoundaryFrame": 66,
+     "stepPx": {
+      "n": 66,
+      "mean": 50.57,
+      "p50": 36.26,
+      "p95": 129.56,
+      "p99": 421.72,
+      "max": 421.72
+     },
+     "perSecond": 1.57
+    },
+    "easing": {
+     "pairs": 0,
+     "peakOverMeanStep_median": null,
+     "peakOverMeanStep_p90": null,
+     "shareOfFramesBelow10pcOfMeanSpeed_median": null
+    },
+    "smoothFrames": {
+     "accel_px_per_s2": {
+      "n": 0
+     },
+     "jerk_px_per_s3": {
+      "n": 0
+     },
+     "note": "px/s^2 and px/s^3 of the true (projected) position on runs of 3+ consecutive frames inside one interpolated tick (same keyframe pair, fraction increasing, not the boundary frame); constant-speed motion would give 0"
+    },
+    "interpolatedStepsWithinATick": {
+     "n": 126,
+     "mean": 19.86,
+     "p50": 12.51,
+     "p95": 54.59,
+     "p99": 127.62,
+     "max": 211.46
+    },
+    "afterSnapBackFrame": {
+     "note": "the frame after a snap-back: the unit jumps forward again",
+     "stepPx": {
+      "n": 66,
+      "mean": 54.12,
+      "p50": 33.75,
+      "p95": 147.19,
+      "p99": 428.81,
+      "max": 428.81
+     }
+    },
+    "pairHandoverSteps": {
+     "n": 40,
+     "mean": 116.29,
+     "p50": 75.56,
+     "p95": 282.61,
+     "p99": 681.14,
+     "max": 681.14
+    },
+    "firstAppearances": 407,
+    "reappearances": 407,
+    "reappearedAfterExactlyOneFrameAbsent": 407
+   }
+  ],
+  "windows_with_drawing_and_real_timestamps": [
+   {
+    "run": "timing-1/2x-dense-z13.5",
+    "frames": 1001,
+    "seconds": 20.03,
+    "ticksAdvanced": 20,
+    "tilesInView": {
+     "n": 1001,
+     "mean": 405,
+     "p50": 404,
+     "p95": 409,
+     "p99": 409,
+     "max": 409
+    },
+    "staticShareOfUnitFrames": 1,
+    "hops": {
+     "count": 55,
+     "perSecond": 2.75,
+     "stepPx": {
+      "n": 55,
+      "mean": 64,
+      "p50": 44.46,
+      "p95": 130.67,
+      "p99": 212.22,
+      "max": 212.22
+     },
+     "stepMeters": {
+      "n": 55,
+      "mean": 332,
+      "p50": 231,
+      "p95": 678,
+      "p99": 1101,
+      "max": 1101
+     },
+     "simultaneousMax": 31,
+     "framesWithHop": 5
+    },
+    "relaxation_offset_jumps_static_camera": {
+     "redrawsWithOffsetChange": 577,
+     "jumpPx": {
+      "n": 577,
+      "mean": 14.57,
+      "p50": 7.29,
+      "p95": 53.11,
+      "p99": 79.93,
+      "max": 97.27
+     },
+     "over3px": 367,
+     "over3pxPerSecond": 18.32
+    },
+    "appear": {
+     "total": 9,
+     "interior": 8
+    }
+   },
+   {
+    "run": "timing-1/4x-dense-z13.5",
+    "frames": 1018,
+    "seconds": 20.03,
+    "ticksAdvanced": 10,
+    "tilesInView": {
+     "n": 1018,
+     "mean": 404,
+     "p50": 404,
+     "p95": 404,
+     "p99": 404,
+     "max": 404
+    },
+    "staticShareOfUnitFrames": 1,
+    "hops": {
+     "count": 10,
+     "perSecond": 0.5,
+     "stepPx": {
+      "n": 10,
+      "mean": 47.91,
+      "p50": 28.01,
+      "p95": 212.22,
+      "p99": 212.22,
+      "max": 212.22
+     },
+     "stepMeters": {
+      "n": 10,
+      "mean": 249,
+      "p50": 145,
+      "p95": 1101,
+      "p99": 1101,
+      "max": 1101
+     },
+     "simultaneousMax": 9,
+     "framesWithHop": 2
+    },
+    "relaxation_offset_jumps_static_camera": {
+     "redrawsWithOffsetChange": 203,
+     "jumpPx": {
+      "n": 203,
+      "mean": 12.38,
+      "p50": 5.31,
+      "p95": 46.01,
+      "p99": 55.1,
+      "max": 73.84
+     },
+     "over3px": 114,
+     "over3pxPerSecond": 5.69
+    },
+    "appear": {
+     "total": 2,
+     "interior": 2
+    }
+   },
+   {
+    "run": "timing-1x-cpu4-dense-z13.5",
+    "frames": 236,
+    "seconds": 15.85,
+    "ticksAdvanced": 31,
+    "tilesInView": {
+     "n": 236,
+     "mean": 407,
+     "p50": 409,
+     "p95": 409,
+     "p99": 409,
+     "max": 412
+    },
+    "staticShareOfUnitFrames": 0.999,
+    "hops": {
+     "count": 111,
+     "perSecond": 7,
+     "stepPx": {
+      "n": 111,
+      "mean": 81.17,
+      "p50": 74.15,
+      "p95": 195.96,
+      "p99": 225.84,
+      "max": 250.98
+     },
+     "stepMeters": {
+      "n": 111,
+      "mean": 421,
+      "p50": 385,
+      "p95": 1017,
+      "p99": 1172,
+      "max": 1303
+     },
+     "simultaneousMax": 31,
+     "framesWithHop": 12
+    },
+    "relaxation_offset_jumps_static_camera": {
+     "redrawsWithOffsetChange": 2550,
+     "jumpPx": {
+      "n": 2550,
+      "mean": 13.32,
+      "p50": 4.6,
+      "p95": 52.39,
+      "p99": 75.83,
+      "max": 115.11
+     },
+     "over3px": 1442,
+     "over3pxPerSecond": 90.98
+    },
+    "appear": {
+     "total": 12,
+     "interior": 11
+    }
+   },
+   {
+    "run": "timing-1x-dense-z13.5",
+    "frames": 966,
+    "seconds": 20.07,
+    "ticksAdvanced": 40,
+    "tilesInView": {
+     "n": 966,
+     "mean": 408,
+     "p50": 409,
+     "p95": 416,
+     "p99": 426,
+     "max": 428
+    },
+    "staticShareOfUnitFrames": 0.999,
+    "hops": {
+     "count": 136,
+     "perSecond": 6.78,
+     "stepPx": {
+      "n": 136,
+      "mean": 73.74,
+      "p50": 64.26,
+      "p95": 186.65,
+      "p99": 225.84,
+      "max": 250.98
+     },
+     "stepMeters": {
+      "n": 136,
+      "mean": 383,
+      "p50": 333,
+      "p95": 969,
+      "p99": 1172,
+      "max": 1303
+     },
+     "simultaneousMax": 31,
+     "framesWithHop": 16
+    },
+    "relaxation_offset_jumps_static_camera": {
+     "redrawsWithOffsetChange": 4691,
+     "jumpPx": {
+      "n": 4691,
+      "mean": 11.3,
+      "p50": 2.91,
+      "p95": 49.12,
+      "p99": 75.02,
+      "max": 115.11
+     },
+     "over3px": 2327,
+     "over3pxPerSecond": 115.97
+    },
+    "appear": {
+     "total": 45,
+     "interior": 24
+    }
+   },
+   {
+    "run": "timing-1x-sparse-z13.5",
+    "frames": 1201,
+    "seconds": 20.03,
+    "ticksAdvanced": 40,
+    "tilesInView": {
+     "n": 1201,
+     "mean": 107,
+     "p50": 113,
+     "p95": 133,
+     "p99": 134,
+     "max": 136
+    },
+    "staticShareOfUnitFrames": 1,
+    "hops": {
+     "count": 39,
+     "perSecond": 1.95,
+     "stepPx": {
+      "n": 39,
+      "mean": 195.64,
+      "p50": 123.34,
+      "p95": 778.31,
+      "p99": 875.47,
+      "max": 875.47
+     },
+     "stepMeters": {
+      "n": 39,
+      "mean": 1015,
+      "p50": 640,
+      "p95": 4039,
+      "p99": 4543,
+      "max": 4543
+     },
+     "simultaneousMax": 8,
+     "framesWithHop": 12
+    },
+    "relaxation_offset_jumps_static_camera": {
+     "redrawsWithOffsetChange": 887,
+     "jumpPx": {
+      "n": 887,
+      "mean": 8.01,
+      "p50": 3.54,
+      "p95": 32.55,
+      "p99": 49.41,
+      "max": 74.16
+     },
+     "over3px": 474,
+     "over3pxPerSecond": 23.66
+    },
+    "appear": {
+     "total": 135,
+     "interior": 117
+    }
+   },
+   {
+    "run": "timing-2x-dense-z13.5",
+    "frames": 898,
+    "seconds": 20.03,
+    "ticksAdvanced": 80,
+    "tilesInView": {
+     "n": 898,
+     "mean": 419,
+     "p50": 416,
+     "p95": 432,
+     "p99": 432,
+     "max": 432
+    },
+    "staticShareOfUnitFrames": 0.999,
+    "hops": {
+     "count": 162,
+     "perSecond": 8.09,
+     "stepPx": {
+      "n": 162,
+      "mean": 79.14,
+      "p50": 59.27,
+      "p95": 212.22,
+      "p99": 339.67,
+      "max": 507.02
+     },
+     "stepMeters": {
+      "n": 162,
+      "mean": 411,
+      "p50": 308,
+      "p95": 1101,
+      "p99": 1762,
+      "max": 2631
+     },
+     "simultaneousMax": 31,
+     "framesWithHop": 24
+    },
+    "relaxation_offset_jumps_static_camera": {
+     "redrawsWithOffsetChange": 4907,
+     "jumpPx": {
+      "n": 4907,
+      "mean": 12.11,
+      "p50": 3.62,
+      "p95": 51.28,
+      "p99": 75.51,
+      "max": 115.79
+     },
+     "over3px": 2571,
+     "over3pxPerSecond": 128.34
+    },
+    "appear": {
+     "total": 55,
+     "interior": 31
+    }
+   },
+   {
+    "run": "timing-4x-cpu4-dense-z13.5",
+    "frames": 202,
+    "seconds": 15.63,
+    "ticksAdvanced": 123,
+    "tilesInView": {
+     "n": 202,
+     "mean": 418,
+     "p50": 416,
+     "p95": 433,
+     "p99": 433,
+     "max": 434
+    },
+    "staticShareOfUnitFrames": 0.997,
+    "hops": {
+     "count": 224,
+     "perSecond": 14.33,
+     "stepPx": {
+      "n": 224,
+      "mean": 80.23,
+      "p50": 51.82,
+      "p95": 212.22,
+      "p99": 339.67,
+      "max": 507.02
+     },
+     "stepMeters": {
+      "n": 224,
+      "mean": 416,
+      "p50": 269,
+      "p95": 1101,
+      "p99": 1762,
+      "max": 2631
+     },
+     "simultaneousMax": 41,
+     "framesWithHop": 30
+    },
+    "relaxation_offset_jumps_static_camera": {
+     "redrawsWithOffsetChange": 4345,
+     "jumpPx": {
+      "n": 4345,
+      "mean": 15.36,
+      "p50": 6.76,
+      "p95": 55.22,
+      "p99": 80.72,
+      "max": 140.56
+     },
+     "over3px": 2753,
+     "over3pxPerSecond": 176.11
+    },
+    "appear": {
+     "total": 52,
+     "interior": 37
+    }
+   },
+   {
+    "run": "timing-4x-dense-z13.5",
+    "frames": 873,
+    "seconds": 20.03,
+    "ticksAdvanced": 160,
+    "tilesInView": {
+     "n": 873,
+     "mean": 422,
+     "p50": 430,
+     "p95": 433,
+     "p99": 433,
+     "max": 434
+    },
+    "staticShareOfUnitFrames": 0.999,
+    "hops": {
+     "count": 229,
+     "perSecond": 11.43,
+     "stepPx": {
+      "n": 229,
+      "mean": 83.11,
+      "p50": 59.27,
+      "p95": 235.76,
+      "p99": 374.57,
+      "max": 507.02
+     },
+     "stepMeters": {
+      "n": 229,
+      "mean": 431,
+      "p50": 308,
+      "p95": 1224,
+      "p99": 1943,
+      "max": 2631
+     },
+     "simultaneousMax": 41,
+     "framesWithHop": 34
+    },
+    "relaxation_offset_jumps_static_camera": {
+     "redrawsWithOffsetChange": 5972,
+     "jumpPx": {
+      "n": 5972,
+      "mean": 14.13,
+      "p50": 5.38,
+      "p95": 54.16,
+      "p99": 79.87,
+      "max": 140.56
+     },
+     "over3px": 3541,
+     "over3pxPerSecond": 176.76
+    },
+    "appear": {
+     "total": 81,
+     "interior": 55
+    }
+   },
+   {
+    "run": "timing-8x-dense-z13.5",
+    "frames": 703,
+    "seconds": 14.68,
+    "ticksAdvanced": 235,
+    "tilesInView": {
+     "n": 703,
+     "mean": 412,
+     "p50": 412,
+     "p95": 433,
+     "p99": 433,
+     "max": 434
+    },
+    "staticShareOfUnitFrames": 0.999,
+    "hops": {
+     "count": 266,
+     "perSecond": 18.12,
+     "stepPx": {
+      "n": 266,
+      "mean": 79.3,
+      "p50": 44.64,
+      "p95": 250.98,
+      "p99": 394.72,
+      "max": 510.26
+     },
+     "stepMeters": {
+      "n": 266,
+      "mean": 412,
+      "p50": 232,
+      "p95": 1303,
+      "p99": 2048,
+      "max": 2648
+     },
+     "simultaneousMax": 41,
+     "framesWithHop": 44
+    },
+    "relaxation_offset_jumps_static_camera": {
+     "redrawsWithOffsetChange": 7966,
+     "jumpPx": {
+      "n": 7966,
+      "mean": 16.95,
+      "p50": 7.04,
+      "p95": 57.49,
+      "p99": 86.01,
+      "max": 838.13
+     },
+     "over3px": 5063,
+     "over3pxPerSecond": 344.83
+    },
+    "appear": {
+     "total": 90,
+     "interior": 72
+    }
+   }
+  ],
+  "pop_in_flicker_in_real_browser_traces": [
+   {
+    "run": "trace-1x-dense",
+    "tilesInViewPerFrame_changes_first12": [
+     "403>404 (tick 520)",
+     "404>403 (tick 520)",
+     "403>404 (tick 521)",
+     "404>406 (tick 534)",
+     "406>404 (tick 534)",
+     "404>409 (tick 535)"
+    ],
+    "reading": "a count that rises, falls back at the tick boundary, then rises again is a unit that pops in half a tick early, vanishes for one frame and pops in again"
+   },
+   {
+    "run": "trace-8x-dense",
+    "tilesInViewPerFrame_changes_first12": [
+     "403>404 (tick 520)",
+     "404>403 (tick 520)",
+     "403>404 (tick 521)",
+     "404>406 (tick 534)",
+     "406>404 (tick 534)",
+     "404>409 (tick 535)",
+     "409>412 (tick 551)",
+     "412>409 (tick 551)",
+     "409>412 (tick 552)",
+     "412>414 (tick 553)",
+     "414>412 (tick 553)",
+     "412>414 (tick 554)"
+    ],
+    "reading": "a count that rises, falls back at the tick boundary, then rises again is a unit that pops in half a tick early, vanishes for one frame and pops in again"
+   },
+   {
+    "run": "trace-1x-sparse",
+    "tilesInViewPerFrame_changes_first12": [
+     "61>65 (tick 61)",
+     "65>61 (tick 61)",
+     "61>67 (tick 62)",
+     "67>71 (tick 62)",
+     "71>67 (tick 62)",
+     "67>71 (tick 63)",
+     "71>81 (tick 63)",
+     "81>71 (tick 63)",
+     "71>82 (tick 64)",
+     "82>85 (tick 64)",
+     "85>82 (tick 64)",
+     "82>85 (tick 65)"
+    ],
+    "reading": "a count that rises, falls back at the tick boundary, then rises again is a unit that pops in half a tick early, vanishes for one frame and pops in again"
+   }
+  ],
+  "exemplar_unit_trace": {
+   "unit": "C-I-3-3",
+   "pair": [
+    550,
+    551
+   ],
+   "disposition": "Charging Line",
+   "easing": "Charging Line uses ease-in x^2 (B4)",
+   "zoom": 15,
+   "speed": "1x",
+   "fps": 60,
+   "series": [
+    {
+     "frame": 0,
+     "tMs": 16.7,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.032,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 1,
+     "tMs": 33.3,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.064,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 2,
+     "tMs": 50,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.097,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 3,
+     "tMs": 66.7,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.131,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 4,
+     "tMs": 83.3,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.164,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 5,
+     "tMs": 100,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.197,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 6,
+     "tMs": 116.7,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.231,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 7,
+     "tMs": 133.3,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.264,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 8,
+     "tMs": 150,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.297,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 9,
+     "tMs": 166.7,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.331,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 10,
+     "tMs": 183.3,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.364,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 11,
+     "tMs": 200,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.397,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 12,
+     "tMs": 216.7,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.431,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 13,
+     "tMs": 233.3,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.464,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 14,
+     "tMs": 250,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.497,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 15,
+     "tMs": 266.7,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.531,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 16,
+     "tMs": 283.3,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.564,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 17,
+     "tMs": 300,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.597,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 18,
+     "tMs": 316.7,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.631,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 19,
+     "tMs": 333.3,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.664,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 20,
+     "tMs": 350,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.697,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 21,
+     "tMs": 366.7,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.731,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 22,
+     "tMs": 383.3,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.764,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 23,
+     "tMs": 400,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.797,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 24,
+     "tMs": 416.7,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.831,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 25,
+     "tMs": 433.3,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.864,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 26,
+     "tMs": 450,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.897,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 27,
+     "tMs": 466.7,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.931,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 28,
+     "tMs": 483.3,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.964,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 29,
+     "tMs": 500,
+     "appTick": 549,
+     "y1Tick": 549,
+     "fraction": 0.997,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 30,
+     "tMs": 516.7,
+     "appTick": 550,
+     "y1Tick": 549,
+     "fraction": 0.031,
+     "x": 668.7,
+     "y": 611
+    },
+    {
+     "frame": 31,
+     "tMs": 533.3,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.064,
+     "x": 692.3,
+     "y": 176.3
+    },
+    {
+     "frame": 32,
+     "tMs": 550,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.097,
+     "x": 692.6,
+     "y": 179
+    },
+    {
+     "frame": 33,
+     "tMs": 566.7,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.131,
+     "x": 693,
+     "y": 182.8
+    },
+    {
+     "frame": 34,
+     "tMs": 583.3,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.164,
+     "x": 693.5,
+     "y": 187.7
+    },
+    {
+     "frame": 35,
+     "tMs": 600,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.197,
+     "x": 694.2,
+     "y": 193.8
+    },
+    {
+     "frame": 36,
+     "tMs": 616.7,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.231,
+     "x": 695,
+     "y": 201
+    },
+    {
+     "frame": 37,
+     "tMs": 633.3,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.264,
+     "x": 695.9,
+     "y": 209.3
+    },
+    {
+     "frame": 38,
+     "tMs": 650,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.297,
+     "x": 697,
+     "y": 218.7
+    },
+    {
+     "frame": 39,
+     "tMs": 666.7,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.331,
+     "x": 698.2,
+     "y": 229.3
+    },
+    {
+     "frame": 40,
+     "tMs": 683.3,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.364,
+     "x": 699.4,
+     "y": 240.9
+    },
+    {
+     "frame": 41,
+     "tMs": 700,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.397,
+     "x": 700.9,
+     "y": 253.7
+    },
+    {
+     "frame": 42,
+     "tMs": 716.7,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.431,
+     "x": 702.4,
+     "y": 267.6
+    },
+    {
+     "frame": 43,
+     "tMs": 733.3,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.464,
+     "x": 704.1,
+     "y": 282.6
+    },
+    {
+     "frame": 44,
+     "tMs": 750,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.497,
+     "x": 705.9,
+     "y": 298.8
+    },
+    {
+     "frame": 45,
+     "tMs": 766.7,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.531,
+     "x": 707.8,
+     "y": 316
+    },
+    {
+     "frame": 46,
+     "tMs": 783.3,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.564,
+     "x": 709.8,
+     "y": 334.4
+    },
+    {
+     "frame": 47,
+     "tMs": 800,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.597,
+     "x": 712,
+     "y": 353.9
+    },
+    {
+     "frame": 48,
+     "tMs": 816.7,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.631,
+     "x": 714.3,
+     "y": 374.5
+    },
+    {
+     "frame": 49,
+     "tMs": 833.4,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.664,
+     "x": 716.7,
+     "y": 396.3
+    },
+    {
+     "frame": 50,
+     "tMs": 850,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.697,
+     "x": 719.2,
+     "y": 419.1
+    },
+    {
+     "frame": 51,
+     "tMs": 866.7,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.731,
+     "x": 721.9,
+     "y": 443.1
+    },
+    {
+     "frame": 52,
+     "tMs": 883.4,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.764,
+     "x": 724.7,
+     "y": 468.2
+    },
+    {
+     "frame": 53,
+     "tMs": 900,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.797,
+     "x": 727.6,
+     "y": 494.4
+    },
+    {
+     "frame": 54,
+     "tMs": 916.7,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.831,
+     "x": 730.6,
+     "y": 521.7
+    },
+    {
+     "frame": 55,
+     "tMs": 933.4,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.864,
+     "x": 733.8,
+     "y": 550.2
+    },
+    {
+     "frame": 56,
+     "tMs": 950,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.897,
+     "x": 737.1,
+     "y": 579.7
+    },
+    {
+     "frame": 57,
+     "tMs": 966.7,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.931,
+     "x": 740.5,
+     "y": 610.4
+    },
+    {
+     "frame": 58,
+     "tMs": 983.4,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.964,
+     "x": 744,
+     "y": 642.2
+    },
+    {
+     "frame": 59,
+     "tMs": 1000,
+     "appTick": 550,
+     "y1Tick": 550,
+     "fraction": 0.997,
+     "x": 747.7,
+     "y": 675.1
+    },
+    {
+     "frame": 60,
+     "tMs": 1016.7,
+     "appTick": 551,
+     "y1Tick": 550,
+     "fraction": 0.031,
+     "x": 692.1,
+     "y": 174.7
+    },
+    {
+     "frame": 61,
+     "tMs": 1033.4,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.064,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 62,
+     "tMs": 1050,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.097,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 63,
+     "tMs": 1066.7,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.131,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 64,
+     "tMs": 1083.4,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.164,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 65,
+     "tMs": 1100,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.197,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 66,
+     "tMs": 1116.7,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.231,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 67,
+     "tMs": 1133.4,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.264,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 68,
+     "tMs": 1150,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.297,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 69,
+     "tMs": 1166.7,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.331,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 70,
+     "tMs": 1183.4,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.364,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 71,
+     "tMs": 1200,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.397,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 72,
+     "tMs": 1216.7,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.431,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 73,
+     "tMs": 1233.4,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.464,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 74,
+     "tMs": 1250,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.497,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 75,
+     "tMs": 1266.7,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.531,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 76,
+     "tMs": 1283.4,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.564,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 77,
+     "tMs": 1300,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.597,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 78,
+     "tMs": 1316.7,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.631,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 79,
+     "tMs": 1333.4,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.664,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 80,
+     "tMs": 1350,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.697,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 81,
+     "tMs": 1366.7,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.731,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 82,
+     "tMs": 1383.4,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.764,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 83,
+     "tMs": 1400,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.797,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 84,
+     "tMs": 1416.7,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.831,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 85,
+     "tMs": 1433.4,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.864,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 86,
+     "tMs": 1450,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.897,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 87,
+     "tMs": 1466.7,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.931,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 88,
+     "tMs": 1483.4,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.964,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 89,
+     "tMs": 1500,
+     "appTick": 551,
+     "y1Tick": 551,
+     "fraction": 0.997,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 90,
+     "tMs": 1516.7,
+     "appTick": 552,
+     "y1Tick": 551,
+     "fraction": 0.031,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 91,
+     "tMs": 1533.4,
+     "appTick": 552,
+     "y1Tick": 552,
+     "fraction": 0.064,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 92,
+     "tMs": 1550,
+     "appTick": 552,
+     "y1Tick": 552,
+     "fraction": 0.097,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 93,
+     "tMs": 1566.7,
+     "appTick": 552,
+     "y1Tick": 552,
+     "fraction": 0.131,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 94,
+     "tMs": 1583.4,
+     "appTick": 552,
+     "y1Tick": 552,
+     "fraction": 0.164,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 95,
+     "tMs": 1600,
+     "appTick": 552,
+     "y1Tick": 552,
+     "fraction": 0.197,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 96,
+     "tMs": 1616.7,
+     "appTick": 552,
+     "y1Tick": 552,
+     "fraction": 0.231,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 97,
+     "tMs": 1633.4,
+     "appTick": 552,
+     "y1Tick": 552,
+     "fraction": 0.264,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 98,
+     "tMs": 1650,
+     "appTick": 552,
+     "y1Tick": 552,
+     "fraction": 0.297,
+     "x": 748,
+     "y": 677.8
+    },
+    {
+     "frame": 99,
+     "tMs": 1666.7,
+     "appTick": 552,
+     "y1Tick": 552,
+     "fraction": 0.331,
+     "x": 748,
+     "y": 677.8
+    }
+   ],
+   "stepsPx": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    435.3,
+    2.7,
+    3.8,
+    4.9,
+    6.1,
+    7.2,
+    8.3,
+    9.5,
+    10.7,
+    11.7,
+    12.9,
+    14,
+    15.1,
+    16.3,
+    17.3,
+    18.5,
+    19.6,
+    20.7,
+    21.9,
+    22.9,
+    24.2,
+    25.3,
+    26.4,
+    27.5,
+    28.7,
+    29.7,
+    30.9,
+    32,
+    33.1,
+    503.5,
+    506.2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "step_and_scrub": {
+   "one tick forward (play, Next)": {
+    "transitions": 674,
+    "unitsThatJump": {
+     "mean": 1.4,
+     "p95": 8,
+     "max": 47
+    },
+    "unitsPoppingIn": {
+     "mean": 0.6,
+     "max": 29
+    },
+    "unitsVanishing": {
+     "mean": 0,
+     "max": 0
+    },
+    "jumpDistancePx_at_z13_5": {
+     "median": 74,
+     "p95": 613,
+     "max": 1096
+    },
+    "jumpDistanceMetres": {
+     "median": 385,
+     "p95": 3180,
+     "max": 5690
+    }
+   },
+   "one tick back (Prev)": {
+    "transitions": 674,
+    "unitsThatJump": {
+     "mean": 1.4,
+     "p95": 8,
+     "max": 47
+    },
+    "unitsPoppingIn": {
+     "mean": 0,
+     "max": 0
+    },
+    "unitsVanishing": {
+     "mean": 0.6,
+     "max": 29
+    },
+    "jumpDistancePx_at_z13_5": {
+     "median": 74,
+     "p95": 613,
+     "max": 1096
+    },
+    "jumpDistanceMetres": {
+     "median": 385,
+     "p95": 3180,
+     "max": 5688
+    }
+   },
+   "12 ticks forward (Shift+Right, Fwd 1hr)": {
+    "transitions": 663,
+    "unitsThatJump": {
+     "mean": 12,
+     "p95": 41,
+     "max": 48
+    },
+    "unitsPoppingIn": {
+     "mean": 7.3,
+     "max": 46
+    },
+    "unitsVanishing": {
+     "mean": 0,
+     "max": 0
+    },
+    "jumpDistancePx_at_z13_5": {
+     "median": 100,
+     "p95": 732,
+     "max": 1096
+    },
+    "jumpDistanceMetres": {
+     "median": 521,
+     "p95": 3797,
+     "max": 5690
+    }
+   },
+   "12 ticks back (Shift+Left, Back 1hr)": {
+    "transitions": 663,
+    "unitsThatJump": {
+     "mean": 12,
+     "p95": 41,
+     "max": 48
+    },
+    "unitsPoppingIn": {
+     "mean": 0,
+     "max": 0
+    },
+    "unitsVanishing": {
+     "mean": 7.3,
+     "max": 46
+    },
+    "jumpDistancePx_at_z13_5": {
+     "median": 100,
+     "p95": 732,
+     "max": 1096
+    },
+    "jumpDistanceMetres": {
+     "median": 521,
+     "p95": 3798,
+     "max": 5688
+    }
+   },
+   "60 ticks (5 h) forward": {
+    "transitions": 615,
+    "unitsThatJump": {
+     "mean": 38.4,
+     "p95": 64,
+     "max": 72
+    },
+    "unitsPoppingIn": {
+     "mean": 37.9,
+     "max": 99
+    },
+    "unitsVanishing": {
+     "mean": 0,
+     "max": 0
+    },
+    "jumpDistancePx_at_z13_5": {
+     "median": 108,
+     "p95": 793,
+     "max": 1096
+    },
+    "jumpDistanceMetres": {
+     "median": 558,
+     "p95": 4115,
+     "max": 5690
+    }
+   },
+   "225 ticks (one day) forward": {
+    "transitions": 450,
+    "unitsThatJump": {
+     "mean": 65.4,
+     "p95": 86,
+     "max": 94
+    },
+    "unitsPoppingIn": {
+     "mean": 138.6,
+     "max": 216
+    },
+    "unitsVanishing": {
+     "mean": 0,
+     "max": 0
+    },
+    "jumpDistancePx_at_z13_5": {
+     "median": 119,
+     "p95": 810,
+     "max": 1205
+    },
+    "jumpDistanceMetres": {
+     "median": 618,
+     "p95": 4206,
+     "max": 6256
+    }
+   },
+   "225 ticks (one day) back": {
+    "transitions": 450,
+    "unitsThatJump": {
+     "mean": 65.4,
+     "p95": 86,
+     "max": 94
+    },
+    "unitsPoppingIn": {
+     "mean": 0,
+     "max": 0
+    },
+    "unitsVanishing": {
+     "mean": 138.6,
+     "max": 216
+    },
+    "jumpDistancePx_at_z13_5": {
+     "median": 119,
+     "p95": 810,
+     "max": 1206
+    },
+    "jumpDistanceMetres": {
+     "median": 618,
+     "p95": 4205,
+     "max": 6257
+    }
+   }
+  },
+  "camera_motion_layout_stability": [
+   {
+    "name": "smooth zoom 13.5 -> 15.0 in 1 s (60 frames) at The Angle",
+    "frames": 60,
+    "tileFrames": 15561,
+    "offsetChangePerFramePx": {
+     "mean": 7.75,
+     "p50": 0.6,
+     "p95": 40.94,
+     "p99": 69.1,
+     "max": 138.3
+    },
+    "tileFramesWithOffsetJumpOver3px": 5495,
+    "shareOver3px": 0.3531,
+    "shareOver10px": 0.2247
+   },
+   {
+    "name": "smooth zoom 15.0 -> 13.0 in 1 s (60 frames)",
+    "frames": 60,
+    "tileFrames": 18287,
+    "offsetChangePerFramePx": {
+     "mean": 12.98,
+     "p50": 2.85,
+     "p95": 56.53,
+     "p99": 91.49,
+     "max": 156
+    },
+    "tileFramesWithOffsetJumpOver3px": 9050,
+    "shareOver3px": 0.4949,
+    "shareOver10px": 0.3387
+   },
+   {
+    "name": "pan 300 px in 0.5 s at z14 (30 frames)",
+    "frames": 30,
+    "tileFrames": 9220,
+    "offsetChangePerFramePx": {
+     "mean": 0.01,
+     "p50": 0,
+     "p95": 0.01,
+     "p99": 0.01,
+     "max": 5.1
+    },
+    "tileFramesWithOffsetJumpOver3px": 1,
+    "shareOver3px": 0.0001,
+    "shareOver10px": 0
+   }
+  ],
+  "label_flicker": [
+   {
+    "zoom": "z17",
+    "windowTicks": "548 to 571",
+    "seconds": 11.9,
+    "labelTextChanges": 111,
+    "unitsWhoseLabelTextChanged": 10,
+    "maxChangesForOneUnit": 64,
+    "example": "U-ART-A4US",
+    "labelAppearEvents": 10,
+    "labelVanishEvents": 7,
+    "changesPerSecond": 9.3
+   },
+   {
+    "zoom": "z16.5",
+    "windowTicks": "548 to 571",
+    "seconds": 11.9,
+    "labelTextChanges": 117,
+    "unitsWhoseLabelTextChanged": 11,
+    "maxChangesForOneUnit": 64,
+    "example": "U-ART-A4US",
+    "labelAppearEvents": 12,
+    "labelVanishEvents": 7,
+    "changesPerSecond": 9.8
+   },
+   {
+    "zoom": "z15",
+    "windowTicks": "548 to 571",
+    "seconds": 11.9,
+    "labelTextChanges": 0,
+    "unitsWhoseLabelTextChanged": 0,
+    "maxChangesForOneUnit": 0,
+    "example": null,
+    "labelAppearEvents": 18,
+    "labelVanishEvents": 9,
+    "changesPerSecond": 0
+   }
+  ]
+ },
+ "overlap": {
+  "evidence": "Computed: the shipped lS drawn for every displayed state (carry-forward, one per keyframe tick, 188 states standing for all 675 ticks) into a recording context with real Chrome text widths; geometry census of the recorded tiles, dots and labels",
+  "method": "pairs = tile bodies (rotated rectangles) that overlap by more than 0.5 px; hidden share = share of a tile body covered by LATER tiles or by OTHER units labels (labels are painted after all tiles); dot hidden = at least half of the badge disc covered by others; label illegible = more than 30 percent covered by a later label",
+  "caution_zoom_11_12": "the desktop camera cannot go below zoom 12.04 on 1440 px (maxBounds), so z11 and z12 columns on desktop are virtual",
+  "desktop_1440x852_default_centre": [
+   {
+    "zoom": 11,
+    "tilesDrawn": {
+     "mean": 333.7,
+     "max": {
+      "tick": 620,
+      "value": 478
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 675,
+    "overlapPairs": {
+     "mean": 7240,
+     "p95": 12032,
+     "max": {
+      "tick": 560,
+      "value": 12454
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 329,
+     "share_of_tiles_mean": 0.986,
+     "max": {
+      "tick": 650,
+      "value": 472
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 263.7,
+     "max": {
+      "tick": 620,
+      "value": 395
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 138.7,
+     "max": {
+      "tick": 568,
+      "value": 235
+     }
+    },
+    "meanHiddenShareOfATile": 0.71,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 231.4,
+     "max": {
+      "tick": 650,
+      "value": 367
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 0,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 0,
+     "max": {
+      "tick": 1,
+      "value": 0
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 0,
+     "max": {
+      "tick": 1,
+      "value": 0
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 620,
+     "value": 470
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 620,
+      "tiles": 470,
+      "name": "The Angle (High Water Mark)",
+      "meters": 268,
+      "lat": 39.81575,
+      "lng": -77.23723
+     },
+     {
+      "tick": 360,
+      "tiles": 384,
+      "name": "Codori Farm",
+      "meters": 258,
+      "lat": 39.81494,
+      "lng": -77.23895
+     },
+     {
+      "tick": 285,
+      "tiles": 326,
+      "name": "Bliss Farm",
+      "meters": 397,
+      "lat": 39.81606,
+      "lng": -77.24035
+     },
+     {
+      "tick": 150,
+      "tiles": 222,
+      "name": "Cemetery Hill",
+      "meters": 730,
+      "lat": 39.82285,
+      "lng": -77.2373
+     },
+     {
+      "tick": 130,
+      "tiles": 210,
+      "name": "Oak Ridge",
+      "meters": 580,
+      "lat": 39.82511,
+      "lng": -77.23824
+     },
+     {
+      "tick": 95,
+      "tiles": 186,
+      "name": "Lutheran Theological Seminary",
+      "meters": 561,
+      "lat": 39.82473,
+      "lng": -77.23929
+     },
+     {
+      "tick": 57,
+      "tiles": 109,
+      "name": "Railroad Cut (western)",
+      "meters": 444,
+      "lat": 39.83136,
+      "lng": -77.24787
+     },
+     {
+      "tick": 49,
+      "tiles": 98,
+      "name": "Seminary Ridge (central)",
+      "meters": 253,
+      "lat": 39.82214,
+      "lng": -77.24989
+     }
+    ]
+   },
+   {
+    "zoom": 12,
+    "tilesDrawn": {
+     "mean": 333.7,
+     "max": {
+      "tick": 620,
+      "value": 478
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 675,
+    "overlapPairs": {
+     "mean": 2953.8,
+     "p95": 5035,
+     "max": {
+      "tick": 570,
+      "value": 5080
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 314.7,
+     "share_of_tiles_mean": 0.943,
+     "max": {
+      "tick": 625,
+      "value": 452
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 269.6,
+     "max": {
+      "tick": 600,
+      "value": 404
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 118,
+     "max": {
+      "tick": 610,
+      "value": 219
+     }
+    },
+    "meanHiddenShareOfATile": 0.726,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 270.8,
+     "max": {
+      "tick": 600,
+      "value": 410
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 53.3,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 184.8,
+     "max": {
+      "tick": 620,
+      "value": 301
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 1059,
+     "max": {
+      "tick": 670,
+      "value": 1896
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 620,
+     "value": 442
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 620,
+      "tiles": 442,
+      "name": "The Angle (High Water Mark)",
+      "meters": 227,
+      "lat": 39.8152,
+      "lng": -77.23772
+     },
+     {
+      "tick": 314,
+      "tiles": 351,
+      "name": "Codori Farm",
+      "meters": 274,
+      "lat": 39.81514,
+      "lng": -77.23881
+     },
+     {
+      "tick": 287,
+      "tiles": 310,
+      "name": "Bliss Farm",
+      "meters": 420,
+      "lat": 39.8167,
+      "lng": -77.2397
+     },
+     {
+      "tick": 255,
+      "tiles": 235,
+      "name": "Lutheran Theological Seminary",
+      "meters": 731,
+      "lat": 39.82276,
+      "lng": -77.23824
+     },
+     {
+      "tick": 200,
+      "tiles": 222,
+      "name": "Cemetery Hill",
+      "meters": 754,
+      "lat": 39.82305,
+      "lng": -77.23753
+     },
+     {
+      "tick": 180,
+      "tiles": 210,
+      "name": "Oak Ridge",
+      "meters": 711,
+      "lat": 39.82424,
+      "lng": -77.237
+     },
+     {
+      "tick": 50,
+      "tiles": 78,
+      "name": "Railroad Cut (western)",
+      "meters": 333,
+      "lat": 39.83253,
+      "lng": -77.24781
+     },
+     {
+      "tick": 42,
+      "tiles": 44,
+      "name": "Herbst Woods (McPherson's Woods)",
+      "meters": 459,
+      "lat": 39.83144,
+      "lng": -77.25357
+     }
+    ]
+   },
+   {
+    "zoom": 13,
+    "tilesDrawn": {
+     "mean": 331.3,
+     "max": {
+      "tick": 620,
+      "value": 478
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 675,
+    "overlapPairs": {
+     "mean": 1044.4,
+     "p95": 1728,
+     "max": {
+      "tick": 610,
+      "value": 1778
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 270.1,
+     "share_of_tiles_mean": 0.815,
+     "max": {
+      "tick": 625,
+      "value": 400
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 187.8,
+     "max": {
+      "tick": 620,
+      "value": 300
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 38.2,
+     "max": {
+      "tick": 620,
+      "value": 80
+     }
+    },
+    "meanHiddenShareOfATile": 0.523,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 203.4,
+     "max": {
+      "tick": 650,
+      "value": 316
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 117.3,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 95.2,
+     "max": {
+      "tick": 660,
+      "value": 165
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 406.6,
+     "max": {
+      "tick": 670,
+      "value": 763
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 553,
+     "value": 364
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 553,
+      "tiles": 364,
+      "name": "The Angle (High Water Mark)",
+      "meters": 182,
+      "lat": 39.81484,
+      "lng": -77.23533
+     },
+     {
+      "tick": 310,
+      "tiles": 266,
+      "name": "Codori Farm",
+      "meters": 72,
+      "lat": 39.81293,
+      "lng": -77.23698
+     },
+     {
+      "tick": 451,
+      "tiles": 173,
+      "name": "Cemetery Hill",
+      "meters": 331,
+      "lat": 39.82399,
+      "lng": -77.23144
+     },
+     {
+      "tick": 122,
+      "tiles": 161,
+      "name": "Oak Ridge",
+      "meters": 605,
+      "lat": 39.82611,
+      "lng": -77.23567
+     },
+     {
+      "tick": 308,
+      "tiles": 140,
+      "name": "Rose Woods",
+      "meters": 297,
+      "lat": 39.80124,
+      "lng": -77.24112
+     },
+     {
+      "tick": 68,
+      "tiles": 66,
+      "name": "Lutheran Theological Seminary",
+      "meters": 358,
+      "lat": 39.82903,
+      "lng": -77.24734
+     },
+     {
+      "tick": 63,
+      "tiles": 48,
+      "name": "Railroad Cut (western)",
+      "meters": 488,
+      "lat": 39.83066,
+      "lng": -77.24923
+     },
+     {
+      "tick": 50,
+      "tiles": 31,
+      "name": "Herbst Woods (McPherson's Woods)",
+      "meters": 349,
+      "lat": 39.83112,
+      "lng": -77.25492
+     }
+    ]
+   },
+   {
+    "zoom": 14,
+    "tilesDrawn": {
+     "mean": 204.5,
+     "max": {
+      "tick": 610,
+      "value": 321
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 625,
+    "overlapPairs": {
+     "mean": 310.9,
+     "p95": 531,
+     "max": {
+      "tick": 562,
+      "value": 563
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 136.1,
+     "share_of_tiles_mean": 0.666,
+     "max": {
+      "tick": 554,
+      "value": 235
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 85.8,
+     "max": {
+      "tick": 568,
+      "value": 160
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 11.4,
+     "max": {
+      "tick": 554,
+      "value": 27
+     }
+    },
+    "meanHiddenShareOfATile": 0.382,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 102.6,
+     "max": {
+      "tick": 620,
+      "value": 174
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 96.6,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 36.6,
+     "max": {
+      "tick": 650,
+      "value": 71
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 173.2,
+     "max": {
+      "tick": 620,
+      "value": 317
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 510,
+     "value": 84
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 510,
+      "tiles": 84,
+      "name": "Evergreen Cemetery gatehouse",
+      "meters": 147,
+      "lat": 39.81831,
+      "lng": -77.22438
+     },
+     {
+      "tick": 296,
+      "tiles": 68,
+      "name": "Trostle Farm",
+      "meters": 111,
+      "lat": 39.79986,
+      "lng": -77.24406
+     },
+     {
+      "tick": 460,
+      "tiles": 58,
+      "name": "Rose Woods",
+      "meters": 51,
+      "lat": 39.79916,
+      "lng": -77.24329
+     },
+     {
+      "tick": 64,
+      "tiles": 11,
+      "name": "Lutheran Theological Seminary",
+      "meters": 128,
+      "lat": 39.82501,
+      "lng": -77.24608
+     },
+     {
+      "tick": 50,
+      "tiles": 4,
+      "name": "Herbst Woods (McPherson's Woods)",
+      "meters": 269,
+      "lat": 39.82655,
+      "lng": -77.25708
+     }
+    ]
+   },
+   {
+    "zoom": 15,
+    "tilesDrawn": {
+     "mean": 89.4,
+     "max": {
+      "tick": 565,
+      "value": 147
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 608,
+    "overlapPairs": {
+     "mean": 41.6,
+     "p95": 71,
+     "max": {
+      "tick": 555,
+      "value": 78
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 31.4,
+     "share_of_tiles_mean": 0.351,
+     "max": {
+      "tick": 558,
+      "value": 67
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 10.2,
+     "max": {
+      "tick": 558,
+      "value": 28
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 0.7,
+     "max": {
+      "tick": 554,
+      "value": 2
+     }
+    },
+    "meanHiddenShareOfATile": 0.153,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 15.6,
+     "max": {
+      "tick": 551,
+      "value": 36
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 63.8,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 2.5,
+     "max": {
+      "tick": 555,
+      "value": 8
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 28.1,
+     "max": {
+      "tick": 554,
+      "value": 56
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 345,
+     "value": 21
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 345,
+      "tiles": 21,
+      "name": "Evergreen Cemetery gatehouse",
+      "meters": 46,
+      "lat": 39.81871,
+      "lng": -77.22618
+     }
+    ]
+   },
+   {
+    "zoom": 16,
+    "tilesDrawn": {
+     "mean": 27.9,
+     "max": {
+      "tick": 562,
+      "value": 49
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 476,
+    "overlapPairs": {
+     "mean": 1.1,
+     "p95": 3,
+     "max": {
+      "tick": 304,
+      "value": 4
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 1.9,
+     "share_of_tiles_mean": 0.069,
+     "max": {
+      "tick": 304,
+      "value": 6
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 1.8,
+     "max": {
+      "tick": 555,
+      "value": 8
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 0.2,
+     "max": {
+      "tick": 554,
+      "value": 3
+     }
+    },
+    "meanHiddenShareOfATile": 0.057,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 3.1,
+     "max": {
+      "tick": 555,
+      "value": 12
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 22,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 0,
+     "max": {
+      "tick": 1,
+      "value": 0
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 4.7,
+     "max": {
+      "tick": 554,
+      "value": 16
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 304,
+     "value": 4
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 304,
+      "tiles": 4,
+      "name": "Cemetery Ridge (central)",
+      "meters": 296,
+      "lat": 39.80875,
+      "lng": -77.2353
+     },
+     {
+      "tick": 200,
+      "tiles": 2,
+      "name": "The Angle (High Water Mark)",
+      "meters": 250,
+      "lat": 39.81135,
+      "lng": -77.2353
+     }
+    ]
+   },
+   {
+    "zoom": 17,
+    "tilesDrawn": {
+     "mean": 14.7,
+     "max": {
+      "tick": 554,
+      "value": 26
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 13,
+    "overlapPairs": {
+     "mean": 0,
+     "p95": 0,
+     "max": {
+      "tick": 302,
+      "value": 1
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 0,
+     "share_of_tiles_mean": 0.003,
+     "max": {
+      "tick": 302,
+      "value": 2
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 1.4,
+     "max": {
+      "tick": 555,
+      "value": 7
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 0.3,
+     "max": {
+      "tick": 555,
+      "value": 3
+     }
+    },
+    "meanHiddenShareOfATile": 0.084,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 1.7,
+     "max": {
+      "tick": 554,
+      "value": 8
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 11.7,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 0.1,
+     "max": {
+      "tick": 555,
+      "value": 2
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 3.5,
+     "max": {
+      "tick": 555,
+      "value": 15
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 302,
+     "value": 2
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 302,
+      "tiles": 2,
+      "name": "Codori Farm",
+      "meters": 267,
+      "lat": 39.8111,
+      "lng": -77.2356
+     }
+    ]
+   }
+  ],
+  "desktop_every_unit_any_pan": [
+   {
+    "zoom": 11,
+    "tilesDrawn": {
+     "mean": 333.7,
+     "max": {
+      "tick": 620,
+      "value": 478
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 675,
+    "overlapPairs": {
+     "mean": 7239.4,
+     "p95": 12030,
+     "max": {
+      "tick": 560,
+      "value": 12452
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 329,
+     "share_of_tiles_mean": 0.986,
+     "max": {
+      "tick": 650,
+      "value": 472
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 263.7,
+     "max": {
+      "tick": 620,
+      "value": 395
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 138.7,
+     "max": {
+      "tick": 568,
+      "value": 235
+     }
+    },
+    "meanHiddenShareOfATile": 0.71,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 231.4,
+     "max": {
+      "tick": 650,
+      "value": 367
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 0,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 0,
+     "max": {
+      "tick": 1,
+      "value": 0
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 0,
+     "max": {
+      "tick": 1,
+      "value": 0
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 620,
+     "value": 470
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 620,
+      "tiles": 470,
+      "name": "The Angle (High Water Mark)",
+      "meters": 268,
+      "lat": 39.81575,
+      "lng": -77.23723
+     },
+     {
+      "tick": 360,
+      "tiles": 384,
+      "name": "Codori Farm",
+      "meters": 258,
+      "lat": 39.81494,
+      "lng": -77.23895
+     },
+     {
+      "tick": 285,
+      "tiles": 326,
+      "name": "Bliss Farm",
+      "meters": 397,
+      "lat": 39.81606,
+      "lng": -77.24035
+     },
+     {
+      "tick": 150,
+      "tiles": 222,
+      "name": "Cemetery Hill",
+      "meters": 730,
+      "lat": 39.82285,
+      "lng": -77.2373
+     },
+     {
+      "tick": 130,
+      "tiles": 210,
+      "name": "Oak Ridge",
+      "meters": 580,
+      "lat": 39.82511,
+      "lng": -77.23824
+     },
+     {
+      "tick": 95,
+      "tiles": 186,
+      "name": "Lutheran Theological Seminary",
+      "meters": 561,
+      "lat": 39.82473,
+      "lng": -77.23929
+     },
+     {
+      "tick": 57,
+      "tiles": 109,
+      "name": "Railroad Cut (western)",
+      "meters": 444,
+      "lat": 39.83136,
+      "lng": -77.24787
+     },
+     {
+      "tick": 49,
+      "tiles": 98,
+      "name": "Seminary Ridge (central)",
+      "meters": 253,
+      "lat": 39.82214,
+      "lng": -77.24989
+     }
+    ]
+   },
+   {
+    "zoom": 12,
+    "tilesDrawn": {
+     "mean": 333.7,
+     "max": {
+      "tick": 620,
+      "value": 478
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 675,
+    "overlapPairs": {
+     "mean": 2953.8,
+     "p95": 5035,
+     "max": {
+      "tick": 570,
+      "value": 5080
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 314.7,
+     "share_of_tiles_mean": 0.943,
+     "max": {
+      "tick": 625,
+      "value": 452
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 269.6,
+     "max": {
+      "tick": 600,
+      "value": 404
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 118.1,
+     "max": {
+      "tick": 610,
+      "value": 219
+     }
+    },
+    "meanHiddenShareOfATile": 0.726,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 270.8,
+     "max": {
+      "tick": 600,
+      "value": 410
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 53.8,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 184.8,
+     "max": {
+      "tick": 620,
+      "value": 301
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 1059,
+     "max": {
+      "tick": 670,
+      "value": 1896
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 620,
+     "value": 442
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 620,
+      "tiles": 442,
+      "name": "The Angle (High Water Mark)",
+      "meters": 227,
+      "lat": 39.8152,
+      "lng": -77.23772
+     },
+     {
+      "tick": 314,
+      "tiles": 351,
+      "name": "Codori Farm",
+      "meters": 274,
+      "lat": 39.81514,
+      "lng": -77.23881
+     },
+     {
+      "tick": 287,
+      "tiles": 310,
+      "name": "Bliss Farm",
+      "meters": 420,
+      "lat": 39.8167,
+      "lng": -77.2397
+     },
+     {
+      "tick": 255,
+      "tiles": 235,
+      "name": "Lutheran Theological Seminary",
+      "meters": 731,
+      "lat": 39.82276,
+      "lng": -77.23824
+     },
+     {
+      "tick": 200,
+      "tiles": 222,
+      "name": "Cemetery Hill",
+      "meters": 754,
+      "lat": 39.82305,
+      "lng": -77.23753
+     },
+     {
+      "tick": 180,
+      "tiles": 210,
+      "name": "Oak Ridge",
+      "meters": 711,
+      "lat": 39.82424,
+      "lng": -77.237
+     },
+     {
+      "tick": 50,
+      "tiles": 78,
+      "name": "Railroad Cut (western)",
+      "meters": 333,
+      "lat": 39.83253,
+      "lng": -77.24781
+     },
+     {
+      "tick": 42,
+      "tiles": 44,
+      "name": "Herbst Woods (McPherson's Woods)",
+      "meters": 459,
+      "lat": 39.83144,
+      "lng": -77.25357
+     }
+    ]
+   },
+   {
+    "zoom": 13,
+    "tilesDrawn": {
+     "mean": 333.7,
+     "max": {
+      "tick": 620,
+      "value": 478
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 675,
+    "overlapPairs": {
+     "mean": 1053,
+     "p95": 1728,
+     "max": {
+      "tick": 610,
+      "value": 1778
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 272,
+     "share_of_tiles_mean": 0.815,
+     "max": {
+      "tick": 625,
+      "value": 400
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 189.6,
+     "max": {
+      "tick": 620,
+      "value": 300
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 38.8,
+     "max": {
+      "tick": 620,
+      "value": 80
+     }
+    },
+    "meanHiddenShareOfATile": 0.528,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 205.1,
+     "max": {
+      "tick": 650,
+      "value": 316
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 119.7,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 95.2,
+     "max": {
+      "tick": 675,
+      "value": 166
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 406.3,
+     "max": {
+      "tick": 670,
+      "value": 763
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 553,
+     "value": 364
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 553,
+      "tiles": 364,
+      "name": "The Angle (High Water Mark)",
+      "meters": 182,
+      "lat": 39.81484,
+      "lng": -77.23533
+     },
+     {
+      "tick": 310,
+      "tiles": 266,
+      "name": "Codori Farm",
+      "meters": 72,
+      "lat": 39.81293,
+      "lng": -77.23698
+     },
+     {
+      "tick": 451,
+      "tiles": 173,
+      "name": "Cemetery Hill",
+      "meters": 331,
+      "lat": 39.82399,
+      "lng": -77.23144
+     },
+     {
+      "tick": 122,
+      "tiles": 161,
+      "name": "Oak Ridge",
+      "meters": 605,
+      "lat": 39.82611,
+      "lng": -77.23567
+     },
+     {
+      "tick": 308,
+      "tiles": 140,
+      "name": "Rose Woods",
+      "meters": 297,
+      "lat": 39.80124,
+      "lng": -77.24112
+     },
+     {
+      "tick": 68,
+      "tiles": 66,
+      "name": "Lutheran Theological Seminary",
+      "meters": 358,
+      "lat": 39.82903,
+      "lng": -77.24734
+     },
+     {
+      "tick": 63,
+      "tiles": 48,
+      "name": "Railroad Cut (western)",
+      "meters": 488,
+      "lat": 39.83066,
+      "lng": -77.24923
+     },
+     {
+      "tick": 70,
+      "tiles": 46,
+      "name": "Barlow's Knoll",
+      "meters": 458,
+      "lat": 39.83149,
+      "lng": -77.22828
+     }
+    ]
+   },
+   {
+    "zoom": 14,
+    "tilesDrawn": {
+     "mean": 333.7,
+     "max": {
+      "tick": 620,
+      "value": 478
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 675,
+    "overlapPairs": {
+     "mean": 378.4,
+     "p95": 628,
+     "max": {
+      "tick": 562,
+      "value": 645
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 190.8,
+     "share_of_tiles_mean": 0.572,
+     "max": {
+      "tick": 650,
+      "value": 296
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 114.7,
+     "max": {
+      "tick": 625,
+      "value": 198
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 14.4,
+     "max": {
+      "tick": 560,
+      "value": 32
+     }
+    },
+    "meanHiddenShareOfATile": 0.356,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 140,
+     "max": {
+      "tick": 625,
+      "value": 219
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 182.8,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 40.3,
+     "max": {
+      "tick": 650,
+      "value": 80
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 226.7,
+     "max": {
+      "tick": 569,
+      "value": 379
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 510,
+     "value": 84
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 510,
+      "tiles": 84,
+      "name": "Evergreen Cemetery gatehouse",
+      "meters": 147,
+      "lat": 39.81831,
+      "lng": -77.22438
+     },
+     {
+      "tick": 293,
+      "tiles": 75,
+      "name": "Trostle Farm",
+      "meters": 63,
+      "lat": 39.79923,
+      "lng": -77.24381
+     },
+     {
+      "tick": 330,
+      "tiles": 74,
+      "name": "Rose Woods",
+      "meters": 53,
+      "lat": 39.79844,
+      "lng": -77.24299
+     },
+     {
+      "tick": 58,
+      "tiles": 18,
+      "name": "Barlow's Knoll",
+      "meters": 174,
+      "lat": 39.83562,
+      "lng": -77.22627
+     },
+     {
+      "tick": 1,
+      "tiles": 16,
+      "name": "Big Round Top",
+      "meters": 1157,
+      "lat": 39.77854,
+      "lng": -77.2356
+     },
+     {
+      "tick": 62,
+      "tiles": 15,
+      "name": "Oak Ridge",
+      "meters": 58,
+      "lat": 39.83039,
+      "lng": -77.24104
+     },
+     {
+      "tick": 65,
+      "tiles": 11,
+      "name": "Lutheran Theological Seminary",
+      "meters": 128,
+      "lat": 39.82501,
+      "lng": -77.24608
+     }
+    ]
+   },
+   {
+    "zoom": 15,
+    "tilesDrawn": {
+     "mean": 333.7,
+     "max": {
+      "tick": 620,
+      "value": 478
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 675,
+    "overlapPairs": {
+     "mean": 122.7,
+     "p95": 195,
+     "max": {
+      "tick": 558,
+      "value": 211
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 102.7,
+     "share_of_tiles_mean": 0.308,
+     "max": {
+      "tick": 558,
+      "value": 169
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 28.8,
+     "max": {
+      "tick": 560,
+      "value": 60
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 1.5,
+     "max": {
+      "tick": 620,
+      "value": 6
+     }
+    },
+    "meanHiddenShareOfATile": 0.131,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 48.2,
+     "max": {
+      "tick": 590,
+      "value": 87
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 264.7,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 6.2,
+     "max": {
+      "tick": 555,
+      "value": 15
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 73.3,
+     "max": {
+      "tick": 625,
+      "value": 134
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 328,
+     "value": 41
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 328,
+      "tiles": 41,
+      "name": "Evergreen Cemetery gatehouse",
+      "meters": 173,
+      "lat": 39.81985,
+      "lng": -77.22633
+     },
+     {
+      "tick": 293,
+      "tiles": 31,
+      "name": "Rose Woods",
+      "meters": 63,
+      "lat": 39.79902,
+      "lng": -77.24207
+     },
+     {
+      "tick": 1,
+      "tiles": 16,
+      "name": "Big Round Top",
+      "meters": 1157,
+      "lat": 39.77854,
+      "lng": -77.2356
+     },
+     {
+      "tick": 57,
+      "tiles": 11,
+      "name": "Barlow's Knoll",
+      "meters": 247,
+      "lat": 39.836,
+      "lng": -77.22546
+     }
+    ]
+   },
+   {
+    "zoom": 16,
+    "tilesDrawn": {
+     "mean": 333.7,
+     "max": {
+      "tick": 620,
+      "value": 478
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 641,
+    "overlapPairs": {
+     "mean": 35.4,
+     "p95": 65,
+     "max": {
+      "tick": 558,
+      "value": 67
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 47.7,
+     "share_of_tiles_mean": 0.143,
+     "max": {
+      "tick": 548,
+      "value": 88
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 16.2,
+     "max": {
+      "tick": 563,
+      "value": 35
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 3,
+     "max": {
+      "tick": 555,
+      "value": 10
+     }
+    },
+    "meanHiddenShareOfATile": 0.06,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 37.8,
+     "max": {
+      "tick": 563,
+      "value": 71
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 278.2,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 0,
+     "max": {
+      "tick": 1,
+      "value": 0
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 35.3,
+     "max": {
+      "tick": 565,
+      "value": 67
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 328,
+     "value": 14
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 328,
+      "tiles": 14,
+      "name": "Evergreen Cemetery gatehouse",
+      "meters": 100,
+      "lat": 39.81916,
+      "lng": -77.22578
+     },
+     {
+      "tick": 376,
+      "tiles": 11,
+      "name": "Cemetery Hill",
+      "meters": 228,
+      "lat": 39.82035,
+      "lng": -77.22694
+     },
+     {
+      "tick": 1,
+      "tiles": 8,
+      "name": "Herr Ridge",
+      "meters": 2124,
+      "lat": 39.81444,
+      "lng": -77.2756
+     },
+     {
+      "tick": 68,
+      "tiles": 3,
+      "name": "Barlow's Knoll",
+      "meters": 487,
+      "lat": 39.8313,
+      "lng": -77.22938
+     },
+     {
+      "tick": 48,
+      "tiles": 2,
+      "name": "Oak Ridge",
+      "meters": 261,
+      "lat": 39.8311,
+      "lng": -77.2433
+     },
+     {
+      "tick": 50,
+      "tiles": 2,
+      "name": "Herbst Woods (McPherson's Woods)",
+      "meters": 191,
+      "lat": 39.8272,
+      "lng": -77.2575
+     }
+    ]
+   },
+   {
+    "zoom": 17,
+    "tilesDrawn": {
+     "mean": 333.7,
+     "max": {
+      "tick": 620,
+      "value": 478
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 638,
+    "overlapPairs": {
+     "mean": 17.8,
+     "p95": 35,
+     "max": {
+      "tick": 558,
+      "value": 36
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 32.3,
+     "share_of_tiles_mean": 0.097,
+     "max": {
+      "tick": 558,
+      "value": 65
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 24.8,
+     "max": {
+      "tick": 565,
+      "value": 47
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 10.5,
+     "max": {
+      "tick": 620,
+      "value": 25
+     }
+    },
+    "meanHiddenShareOfATile": 0.074,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 44.4,
+     "max": {
+      "tick": 563,
+      "value": 82
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 270.3,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 0.1,
+     "max": {
+      "tick": 555,
+      "value": 2
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 37.4,
+     "max": {
+      "tick": 565,
+      "value": 70
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 558,
+     "value": 4
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 558,
+      "tiles": 4,
+      "name": "Evergreen Cemetery gatehouse",
+      "meters": 199,
+      "lat": 39.82002,
+      "lng": -77.2267
+     },
+     {
+      "tick": 318,
+      "tiles": 3,
+      "name": "Cemetery Ridge (central)",
+      "meters": 396,
+      "lat": 39.8072,
+      "lng": -77.2394
+     },
+     {
+      "tick": 322,
+      "tiles": 3,
+      "name": "Cemetery Hill",
+      "meters": 66,
+      "lat": 39.8222,
+      "lng": -77.2294
+     },
+     {
+      "tick": 1,
+      "tiles": 2,
+      "name": "Herr Ridge",
+      "meters": 2028,
+      "lat": 39.8156,
+      "lng": -77.2756
+     },
+     {
+      "tick": 48,
+      "tiles": 2,
+      "name": "Oak Ridge",
+      "meters": 261,
+      "lat": 39.8311,
+      "lng": -77.2433
+     }
+    ]
+   }
+  ],
+  "phone_390x607_default_centre": [
+   {
+    "zoom": 11,
+    "tilesDrawn": {
+     "mean": 333.7,
+     "max": {
+      "tick": 620,
+      "value": 478
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 675,
+    "overlapPairs": {
+     "mean": 3719,
+     "p95": 6294,
+     "max": {
+      "tick": 563,
+      "value": 6390
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 322,
+     "share_of_tiles_mean": 0.965,
+     "max": {
+      "tick": 620,
+      "value": 463
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 238.2,
+     "max": {
+      "tick": 650,
+      "value": 359
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 114.8,
+     "max": {
+      "tick": 568,
+      "value": 200
+     }
+    },
+    "meanHiddenShareOfATile": 0.636,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 202.1,
+     "max": {
+      "tick": 563,
+      "value": 317
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 0,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 0,
+     "max": {
+      "tick": 1,
+      "value": 0
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 0,
+     "max": {
+      "tick": 1,
+      "value": 0
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 625,
+     "value": 455
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 625,
+      "tiles": 455,
+      "name": "The Angle (High Water Mark)",
+      "meters": 264,
+      "lat": 39.8156,
+      "lng": -77.23765
+     },
+     {
+      "tick": 521,
+      "tiles": 432,
+      "name": "Codori Farm",
+      "meters": 284,
+      "lat": 39.81523,
+      "lng": -77.23877
+     },
+     {
+      "tick": 278,
+      "tiles": 303,
+      "name": "Bliss Farm",
+      "meters": 378,
+      "lat": 39.81663,
+      "lng": -77.24025
+     },
+     {
+      "tick": 255,
+      "tiles": 226,
+      "name": "Lutheran Theological Seminary",
+      "meters": 559,
+      "lat": 39.82436,
+      "lng": -77.23946
+     },
+     {
+      "tick": 180,
+      "tiles": 222,
+      "name": "Cemetery Hill",
+      "meters": 662,
+      "lat": 39.82281,
+      "lng": -77.2365
+     },
+     {
+      "tick": 140,
+      "tiles": 202,
+      "name": "Oak Ridge",
+      "meters": 652,
+      "lat": 39.82486,
+      "lng": -77.23695
+     },
+     {
+      "tick": 52,
+      "tiles": 80,
+      "name": "Railroad Cut (western)",
+      "meters": 320,
+      "lat": 39.83231,
+      "lng": -77.24868
+     },
+     {
+      "tick": 22,
+      "tiles": 50,
+      "name": "Herr Ridge",
+      "meters": 710,
+      "lat": 39.83039,
+      "lng": -77.26748
+     }
+    ]
+   },
+   {
+    "zoom": 12,
+    "tilesDrawn": {
+     "mean": 332.8,
+     "max": {
+      "tick": 620,
+      "value": 478
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 675,
+    "overlapPairs": {
+     "mean": 1468.3,
+     "p95": 2478,
+     "max": {
+      "tick": 572,
+      "value": 2545
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 301.6,
+     "share_of_tiles_mean": 0.906,
+     "max": {
+      "tick": 675,
+      "value": 438
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 164.4,
+     "max": {
+      "tick": 580,
+      "value": 263
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 51.7,
+     "max": {
+      "tick": 568,
+      "value": 108
+     }
+    },
+    "meanHiddenShareOfATile": 0.44,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 150.5,
+     "max": {
+      "tick": 580,
+      "value": 254
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 0,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 0,
+     "max": {
+      "tick": 1,
+      "value": 0
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 0,
+     "max": {
+      "tick": 1,
+      "value": 0
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 610,
+     "value": 428
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 610,
+      "tiles": 428,
+      "name": "The Angle (High Water Mark)",
+      "meters": 185,
+      "lat": 39.81507,
+      "lng": -77.23672
+     },
+     {
+      "tick": 312,
+      "tiles": 328,
+      "name": "Codori Farm",
+      "meters": 241,
+      "lat": 39.81485,
+      "lng": -77.23871
+     },
+     {
+      "tick": 264,
+      "tiles": 243,
+      "name": "Bliss Farm",
+      "meters": 636,
+      "lat": 39.81921,
+      "lng": -77.23719
+     },
+     {
+      "tick": 240,
+      "tiles": 202,
+      "name": "Cemetery Hill",
+      "meters": 692,
+      "lat": 39.824,
+      "lng": -77.23642
+     },
+     {
+      "tick": 130,
+      "tiles": 189,
+      "name": "Oak Ridge",
+      "meters": 676,
+      "lat": 39.82498,
+      "lng": -77.23615
+     },
+     {
+      "tick": 200,
+      "tiles": 116,
+      "name": "Evergreen Cemetery gatehouse",
+      "meters": 230,
+      "lat": 39.81873,
+      "lng": -77.22873
+     },
+     {
+      "tick": 65,
+      "tiles": 78,
+      "name": "Lutheran Theological Seminary",
+      "meters": 357,
+      "lat": 39.82899,
+      "lng": -77.24742
+     },
+     {
+      "tick": 75,
+      "tiles": 71,
+      "name": "Railroad Cut (western)",
+      "meters": 524,
+      "lat": 39.83034,
+      "lng": -77.24916
+     }
+    ]
+   },
+   {
+    "zoom": 13,
+    "tilesDrawn": {
+     "mean": 286.5,
+     "max": {
+      "tick": 620,
+      "value": 424
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 662,
+    "overlapPairs": {
+     "mean": 550.9,
+     "p95": 951,
+     "max": {
+      "tick": 610,
+      "value": 983
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 219.2,
+     "share_of_tiles_mean": 0.765,
+     "max": {
+      "tick": 625,
+      "value": 341
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 71.9,
+     "max": {
+      "tick": 625,
+      "value": 125
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 11.4,
+     "max": {
+      "tick": 610,
+      "value": 29
+     }
+    },
+    "meanHiddenShareOfATile": 0.227,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 79.9,
+     "max": {
+      "tick": 555,
+      "value": 132
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 0,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 0,
+     "max": {
+      "tick": 1,
+      "value": 0
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 0,
+     "max": {
+      "tick": 1,
+      "value": 0
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 495,
+     "value": 205
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 495,
+      "tiles": 205,
+      "name": "Cemetery Ridge (central)",
+      "meters": 480,
+      "lat": 39.8099,
+      "lng": -77.23234
+     },
+     {
+      "tick": 554,
+      "tiles": 121,
+      "name": "Evergreen Cemetery gatehouse",
+      "meters": 124,
+      "lat": 39.81719,
+      "lng": -77.22602
+     },
+     {
+      "tick": 562,
+      "tiles": 121,
+      "name": "Plum Run (valley)",
+      "meters": 479,
+      "lat": 39.80345,
+      "lng": -77.24005
+     },
+     {
+      "tick": 316,
+      "tiles": 117,
+      "name": "Rose Woods",
+      "meters": 299,
+      "lat": 39.80131,
+      "lng": -77.24126
+     },
+     {
+      "tick": 295,
+      "tiles": 82,
+      "name": "Trostle Farm",
+      "meters": 79,
+      "lat": 39.7995,
+      "lng": -77.24392
+     },
+     {
+      "tick": 300,
+      "tiles": 82,
+      "name": "The Wheatfield",
+      "meters": 57,
+      "lat": 39.79774,
+      "lng": -77.24267
+     },
+     {
+      "tick": 130,
+      "tiles": 35,
+      "name": "Lutheran Theological Seminary",
+      "meters": 346,
+      "lat": 39.82661,
+      "lng": -77.2496
+     },
+     {
+      "tick": 68,
+      "tiles": 29,
+      "name": "Oak Ridge",
+      "meters": 260,
+      "lat": 39.82819,
+      "lng": -77.24253
+     }
+    ]
+   },
+   {
+    "zoom": 14,
+    "tilesDrawn": {
+     "mean": 117,
+     "max": {
+      "tick": 565,
+      "value": 194
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 608,
+    "overlapPairs": {
+     "mean": 102.9,
+     "p95": 191,
+     "max": {
+      "tick": 558,
+      "value": 199
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 62.8,
+     "share_of_tiles_mean": 0.536,
+     "max": {
+      "tick": 572,
+      "value": 117
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 56.8,
+     "max": {
+      "tick": 620,
+      "value": 108
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 9.2,
+     "max": {
+      "tick": 562,
+      "value": 26
+     }
+    },
+    "meanHiddenShareOfATile": 0.384,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 56.7,
+     "max": {
+      "tick": 620,
+      "value": 109
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 55,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 19.8,
+     "max": {
+      "tick": 554,
+      "value": 43
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 104.3,
+     "max": {
+      "tick": 620,
+      "value": 203
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 328,
+     "value": 45
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 328,
+      "tiles": 45,
+      "name": "Evergreen Cemetery gatehouse",
+      "meters": 193,
+      "lat": 39.82001,
+      "lng": -77.22648
+     }
+    ]
+   },
+   {
+    "zoom": 15,
+    "tilesDrawn": {
+     "mean": 32.7,
+     "max": {
+      "tick": 554,
+      "value": 55
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 476,
+    "overlapPairs": {
+     "mean": 3,
+     "p95": 10,
+     "max": {
+      "tick": 558,
+      "value": 13
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 5.1,
+     "share_of_tiles_mean": 0.156,
+     "max": {
+      "tick": 558,
+      "value": 21
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 3.6,
+     "max": {
+      "tick": 558,
+      "value": 16
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 0.2,
+     "max": {
+      "tick": 554,
+      "value": 3
+     }
+    },
+    "meanHiddenShareOfATile": 0.126,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 4.6,
+     "max": {
+      "tick": 554,
+      "value": 15
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 24.5,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 0.4,
+     "max": {
+      "tick": 555,
+      "value": 4
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 9.8,
+     "max": {
+      "tick": 554,
+      "value": 23
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 304,
+     "value": 4
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 304,
+      "tiles": 4,
+      "name": "Cemetery Ridge (central)",
+      "meters": 296,
+      "lat": 39.80875,
+      "lng": -77.2353
+     },
+     {
+      "tick": 554,
+      "tiles": 4,
+      "name": "The Angle (High Water Mark)",
+      "meters": 256,
+      "lat": 39.8114,
+      "lng": -77.23498
+     }
+    ]
+   },
+   {
+    "zoom": 16,
+    "tilesDrawn": {
+     "mean": 19.6,
+     "max": {
+      "tick": 554,
+      "value": 36
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 13,
+    "overlapPairs": {
+     "mean": 0,
+     "p95": 0,
+     "max": {
+      "tick": 302,
+      "value": 1
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 0,
+     "share_of_tiles_mean": 0.002,
+     "max": {
+      "tick": 302,
+      "value": 2
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 2.9,
+     "max": {
+      "tick": 555,
+      "value": 10
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 0.8,
+     "max": {
+      "tick": 555,
+      "value": 4
+     }
+    },
+    "meanHiddenShareOfATile": 0.079,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 2.2,
+     "max": {
+      "tick": 555,
+      "value": 10
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 15.9,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 0,
+     "max": {
+      "tick": 1,
+      "value": 0
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 3.9,
+     "max": {
+      "tick": 554,
+      "value": 15
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 302,
+     "value": 2
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 302,
+      "tiles": 2,
+      "name": "Codori Farm",
+      "meters": 267,
+      "lat": 39.8111,
+      "lng": -77.2356
+     }
+    ]
+   },
+   {
+    "zoom": 17,
+    "tilesDrawn": {
+     "mean": 12.8,
+     "max": {
+      "tick": 554,
+      "value": 24
+     }
+    },
+    "ticksWithAnyTileOverlap_of_675": 13,
+    "overlapPairs": {
+     "mean": 0,
+     "p95": 0,
+     "max": {
+      "tick": 302,
+      "value": 1
+     }
+    },
+    "tilesTouchingAnotherTile": {
+     "mean": 0,
+     "share_of_tiles_mean": 0.003,
+     "max": {
+      "tick": 302,
+      "value": 2
+     }
+    },
+    "tilesHalfOrMoreHidden": {
+     "mean": 2.3,
+     "max": {
+      "tick": 554,
+      "value": 8
+     }
+    },
+    "tilesAlmostFullyHidden": {
+     "mean": 1.3,
+     "max": {
+      "tick": 555,
+      "value": 6
+     }
+    },
+    "meanHiddenShareOfATile": 0.129,
+    "dotsHalfOrMoreHiddenByOthers": {
+     "mean": 1.7,
+     "max": {
+      "tick": 554,
+      "value": 8
+     }
+    },
+    "dotsHalfCoveredByOwnLabel_mean": 9.8,
+    "labelsMostlyCoveredByLaterLabels": {
+     "mean": 0.1,
+     "max": {
+      "tick": 555,
+      "value": 2
+     }
+    },
+    "labelBoxPairsOverlapping": {
+     "mean": 3.5,
+     "max": {
+      "tick": 555,
+      "value": 15
+     }
+    },
+    "largestOverlapCluster": {
+     "tick": 302,
+     "value": 2
+    },
+    "topClustersByPlace": [
+     {
+      "tick": 302,
+      "tiles": 2,
+      "name": "Codori Farm",
+      "meters": 267,
+      "lat": 39.8111,
+      "lng": -77.2356
+     }
+    ]
+   }
+  ],
+  "hotspots": {
+   "overlap_clusters": "see topClustersByPlace per zoom (place = nearest key location of data/terrain.json); clusters include stale carry-forward units",
+   "geographic_density_150m": [
+    {
+     "tick": 328,
+     "unitsWithin150m": 27,
+     "place": "Evergreen Cemetery gatehouse",
+     "metresFromPlace": 67,
+     "unitsShown": 383
+    },
+    {
+     "tick": 301,
+     "unitsWithin150m": 25,
+     "place": "Rose Woods",
+     "metresFromPlace": 145,
+     "unitsShown": 349
+    },
+    {
+     "tick": 64,
+     "unitsWithin150m": 11,
+     "place": "Lutheran Theological Seminary",
+     "metresFromPlace": 189,
+     "unitsShown": 143
+    },
+    {
+     "tick": 58,
+     "unitsWithin150m": 10,
+     "place": "Barlow's Knoll",
+     "metresFromPlace": 231,
+     "unitsShown": 122
+    },
+    {
+     "tick": 1,
+     "unitsWithin150m": 8,
+     "place": "Herr Ridge",
+     "metresFromPlace": 2127,
+     "unitsShown": 71
+    },
+    {
+     "tick": 27,
+     "unitsWithin150m": 7,
+     "place": "Railroad Cut (western)",
+     "metresFromPlace": 438,
+     "unitsShown": 88
+    },
+    {
+     "tick": 62,
+     "unitsWithin150m": 7,
+     "place": "Oak Ridge",
+     "metresFromPlace": 154,
+     "unitsShown": 129
+    }
+   ],
+   "geographic_density_fresh_units_150m": [
+    {
+     "tick": 295,
+     "freshUnitsWithin150m": 22,
+     "place": "Rose Woods",
+     "meters": 156,
+     "unitsFreshShown": 41
+    },
+    {
+     "tick": 296,
+     "freshUnitsWithin150m": 20,
+     "place": "Rose Woods",
+     "meters": 156,
+     "unitsFreshShown": 37
+    },
+    {
+     "tick": 293,
+     "freshUnitsWithin150m": 20,
+     "place": "Rose Woods",
+     "meters": 156,
+     "unitsFreshShown": 35
+    },
+    {
+     "tick": 558,
+     "freshUnitsWithin150m": 17,
+     "place": "The Angle (High Water Mark)",
+     "meters": 241,
+     "unitsFreshShown": 50
+    },
+    {
+     "tick": 560,
+     "freshUnitsWithin150m": 17,
+     "place": "The Angle (High Water Mark)",
+     "meters": 241,
+     "unitsFreshShown": 60
+    },
+    {
+     "tick": 555,
+     "freshUnitsWithin150m": 17,
+     "place": "The Angle (High Water Mark)",
+     "meters": 241,
+     "unitsFreshShown": 46
+    },
+    {
+     "tick": 298,
+     "freshUnitsWithin150m": 17,
+     "place": "Rose Woods",
+     "meters": 156,
+     "unitsFreshShown": 32
+    },
+    {
+     "tick": 299,
+     "freshUnitsWithin150m": 17,
+     "place": "Rose Woods",
+     "meters": 156,
+     "unitsFreshShown": 32
+    },
+    {
+     "tick": 290,
+     "freshUnitsWithin150m": 17,
+     "place": "Rose Woods",
+     "meters": 145,
+     "unitsFreshShown": 50
+    },
+    {
+     "tick": 554,
+     "freshUnitsWithin150m": 16,
+     "place": "The Angle (High Water Mark)",
+     "meters": 258,
+     "unitsFreshShown": 46
+    }
+   ],
+   "freshDefinition": "units whose latest keyframe is at most 12 ticks (1 h) old"
+  }
+ },
+ "unverified": [
+  "Absolute frame times and fps were measured on one machine (Intel Core Ultra 7 265H, Arc Pro 140T, Chrome 155, headless=new): a low-end phone will be slower, and no real phone was tested; the 4x CPU throttle runs are an emulation",
+  "The phone numbers use Chrome device emulation (390x844, DPR 3, touch) on the desktop, not a real handset; the canvas size check (390 px backing store at DPR 3) is exact, the speed is not",
+  "The baseline (production) motion cannot be replayed exactly because its carry-forward cache depends on every tick it has ever drawn; baseline statements about the unit set come from real runs (state_after_actions), baseline motion statements rest on the byte-identical interpolation code",
+  "The side-prefix suspects (U- ids with Confederate state codes) are inferred from the id text; a historian has not checked them",
+  "Whether hop distances such as 5.7 km in 5 minutes are authoring choices or errors in the placements is Unknown; they are reported as data, not corrected",
+  "Hit-test model versus real clicks: 20 of 21 real clicks (R1c, zoom 12.04, 14 and 17) selected exactly what the model predicted; the one difference is a click 400 px from a tile at zoom 12.04. The baseline click code is identical but its tile set is wrong, so only the centre click was tried there",
+  "No hover reaction was found in the code and none was observed; touch interaction (tap select, 300 ms tap rule) was read from code only",
+  "Mapbox basemap tiles were not part of the measurement subject; their GPU cost is included in the page frame times but not separated"
+ ]
+}
