@@ -62,6 +62,7 @@ T.hybridFull = (rule = 'A') => md(['', ...Z.map((z) => `${zhead(z)}<br>${mpp(z).
   ['name labels shown, share of leaf tiles', ...Z.map((z) => (z < 12 ? 'off (<z12)' : fmt(E1(rule, z, 'hybrid', 'labelFrac').mean, 'p0')))],
   ['aggregate spread, typical tick: p95 / worst, px', ...Z.map((z) => (E1(rule, z, 'hybrid', 'aggTiles').max ? `${fmt(E1(rule, z, 'hybrid', 'aggSpreadP95Px').p50, 'i')} / ${fmt(E1(rule, z, 'hybrid', 'maxAggSpreadPx').max, 'i')}` : '-'))],
   ['leader crossings, worst tick', ...Z.map((z) => fmt(E1(rule, z, 'hybrid', 'leaderCrossings').max, 'i'))],
+  ['placement passes per solve (one per group and merge round), typical / worst', ...Z.map((z) => q(E1(rule, z, 'hybrid', 'rounds')))],
 ], ['l']);
 
 T.rules = () => md(['rule', 'measure', ...[11, 12, 13, 14, 15, 17].map(zhead)], ['A', 'B', 'C'].flatMap((rule) => [
@@ -85,23 +86,23 @@ T.warm = () => {
 
 T.playback = () => {
   if (!R.e2) return '_(playback not yet run)_';
-  const variants = [['legacy-shipped', 'shipped renderer, shipped data path (hold + stateless relaxation)'], ['legacy-smooth-data', 'shipped relaxation on smoothly interpolated positions'], ['hybrid-no-hysteresis', 'hybrid without inertia, sticky aggregates or seniority'], ['hybrid', '**certified hybrid**'], ['displace', '(b) displacement only'], ['aggregate', '(a) aggregation only']];
+  const variants = [['legacy-shipped', 'shipped renderer, shipped data path (hold + stateless relaxation)'], ['legacy-smooth-data', 'shipped relaxation on smoothly interpolated positions'], ['hybrid-no-hysteresis', 'hybrid without inertia, sticky aggregates or seniority'], ['hybrid', '**certified hybrid**'], ['displace', '(b) displacement only'], ['aggregate', '(a) aggregation only'], ['aggregateTier', '(a) aggregation, semantic-zoom tiers']];
   const rows = [];
   for (const sp of ['1x', '4x', '16x']) for (const [v, name] of variants) {
     const rs = R.e2.runs.filter((r) => r.variant === v && r.speed === sp); if (!rs.length) continue;
     const mean = (k) => rs.reduce((a, r) => a + (r.acc[k] ?? 0), 0) / rs.length; const mx = (k) => Math.max(...rs.map((r) => r.acc[k] ?? 0)); const sum = (k) => rs.reduce((a, r) => a + (r.acc[k] ?? 0), 0);
     const isLegacy = v.startsWith('legacy');
     rows.push([sp, name, fmt(rs.length, 'i'), fmt(sum('overlapPairsTotal') / sum('frames'), 'd1'), fmt(sum('framesWithOverlap'), 'i') + ' of ' + fmt(sum('frames'), 'i'),
-      isLegacy ? 'n/a' : fmt(mean('tileChurnPerSec'), 'd1'), fmt(mean('popsPerSec'), 'd1'), fmt(mean('jerkP99'), 'd3'), fmt(mx('jerkMax'), 'i'), fmt(mean('jerkShareOver1px'), 'p2' in {} ? 'raw' : 'p1'), fmt(mean('msMean'), 'd1')]);
+      isLegacy ? 'n/a' : fmt(mean('tileChurnPerSec'), 'd1'), isLegacy ? 'n/a' : `${fmt(mean('labelTogglesPerSec'), 'd1')} / ${fmt(mean('slotChangesPerSec'), 'd1')}`, fmt(mean('popsPerSec'), 'd1'), fmt(mean('jerkP99'), 'd3'), fmt(mx('jerkMax'), 'i'), fmt(mean('jerkShareOver1px'), 'p1'), fmt(mean('msMean'), 'd1')]);
   }
-  return md(['speed', 'variant', 'runs', 'overlap pairs per frame', 'frames with any overlap', 'tile churn /s', 'pops /s', 'jerk p99 (px/frame^2)', 'jerk max', 'tile-frames with jerk > 1 px', 'solve ms/frame'], rows, ['l', 'l']);
+  return md(['speed', 'variant', 'runs', 'overlap pairs per frame', 'frames with any overlap', 'tile churn /s', 'label show-hide / slot changes per s', 'pops /s', 'jerk p99 (px/frame^2)', 'jerk max', 'tile-frames with jerk > 1 px', 'solve ms/frame'], rows, ['l', 'l']);
 };
 
 T.sens = (dial) => {
   if (!R.e4) return '_(sensitivity not yet run)_';
   const runs = R.e4.runs.filter((r) => r.dial === dial); const vals = [...new Set(runs.map((r) => String(r.value)))]; const zs = [...new Set(runs.map((r) => r.z))].sort((a, b) => a - b);
-  const rows = vals.map((v) => [v, ...zs.map((z) => { const r = runs.find((x) => String(x.value) === v && x.z === z); const s = r.summary; return `${fmt(s.tiles.p50, 'i')} t / ${fmt(s.unitsInAggs.p50 / Math.max(1, s.visible.p50), 'p0')} agg / ${fmt(s.maxDispPx.max, 'i')} px / formation ${fmt(s.aggFormationShare.mean, 'p0')}${s.overlaps.max ? ' / **' + fmt(s.overlaps.max, 'i') + ' overlap pairs**' : ''}`; })]);
-  return md([dial, ...zs.map((z) => `z${z}: tiles (median tick) / units inside aggregates / largest displacement / share of aggregate units with a formation name`)], rows, ['l']);
+  const rows = vals.map((v) => [v, ...zs.map((z) => { const r = runs.find((x) => String(x.value) === v && x.z === z); const s = r.summary; return `${fmt(s.tiles.p50, 'i')} t / ${fmt(s.unitsInAggs.p50 / Math.max(1, s.visible.p50), 'p0')} agg / ${fmt(s.maxDispPx.max, 'i')} px / ${fmt(s.aggFormationShare.mean, 'p0')} named${s.overlaps.max ? ' / **' + fmt(s.overlaps.max, 'i') + ' overlap pairs**' : ''}`; })]);
+  return md([dial, ...zs.map((z) => `z${z}`)], rows, ['l']);
 };
 
 T.e7 = () => {
@@ -127,11 +128,16 @@ T.hotspots = () => {
   return md(['hotspot', 'zoom', 'units on field', 'shipped: overlap pairs', 'raw: chip pairs overlapping', '(b): overlaps / hidden', '(a): overlaps / tiles', '(c): overlaps / hidden', '**hybrid: overlaps** / hidden / tiles / max displacement px'], rows, ['l', 'l']);
 };
 
+T.hotspotComp = () => {
+  if (!R.e3) return '_(hotspots not yet run)_';
+  return md(['hotspot', 'tick', 'nearest key location (m)', 'units within 150 m', 'Union / Confederate', 'median age (ticks since a unit last keyframe)', 'on a shared coordinate', 'corps present'], R.e3.hotspots.map((h) => { const c = h.composition; return [`**${h.id}**`, h.tick, `${h.nearestKeyLocation.name} (${h.nearestKeyLocation.d})`, c.units, `${c.union} / ${c.confederate}`, `${c.medianAgeTicks} (max ${c.maxAgeTicks})`, c.onSharedCoordinate, Object.entries(c.byCorps).sort((a, b) => b[1] - a[1]).slice(0, 4).map(([k, v]) => k.replace(/^[UC]-/, '') + ' ' + v).join(', ')]; }), ['l', 'l']);
+};
+
 T.hotspotRules = () => {
   if (!R.e3) return '_(hotspots not yet run)_';
   const rows = [];
-  for (const h of R.e3.hotspots) for (const rule of ['A', 'B', 'C']) { const c = h.rules[rule][14]; const hy = c.strategies.hybrid; rows.push([`**${h.id}**`, rule, fmt(c.visible, 'i'), fmt(c.strategies.legacy.overlapPairs, 'i'), fmt(c.strategies.raw.overlapsChipChip, 'i'), fmt(hy.overlaps, 'i'), `${fmt(hy.tiles, 'i')} (${fmt(hy.aggTiles, 'i')} agg / ${fmt(hy.unitsInAggs, 'i')} units)`, `${fmt(hy.displacedTiles, 'i')} / ${fmt(hy.maxDispPx, 'i')}`]); }
-  return md(['hotspot', 'rule', 'units', 'shipped overlap pairs', 'raw chip pairs', 'hybrid overlaps', 'hybrid tiles', 'displaced tiles / max px'], rows, ['l', 'l']);
+  for (const h of R.e3.hotspots) for (const rule of ['A', 'B', 'C']) { const c = h.rules[rule][14]; const hy = c.strategies.hybrid; rows.push([`**${h.id}**`, rule, fmt(c.visible, 'i'), fmt(c.strategies.legacy.overlapPairs, 'i'), fmt(c.strategies.raw.overlapsChipChip, 'i'), fmt(hy.overlaps, 'i'), `${fmt(hy.tiles, 'i')} (${fmt(hy.aggTiles, 'i')} agg / ${fmt(hy.unitsInAggs, 'i')} units)`, `${fmt(hy.displacedTiles, 'i')} / ${fmt(hy.maxDispPx, 'i')}`, fmt(hy.aggUnitsContact, 'i')]); }
+  return md(['hotspot', 'rule', 'units', 'shipped overlap pairs', 'raw chip pairs', 'hybrid overlaps', 'hybrid tiles', 'displaced tiles / max px', 'units in Contact tiles'], rows, ['l', 'l']);
 };
 
 T.browser = () => {

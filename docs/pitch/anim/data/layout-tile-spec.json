@@ -1,0 +1,82 @@
+{
+ "specs": {
+  "standard": {
+   "name": "standard",
+   "chipH": 20,
+   "chipPadX": 5,
+   "glyphW": 14,
+   "glyphGap": 3,
+   "chipMinW": 36,
+   "ring": 2,
+   "badgeGap": 3,
+   "labelH": 14,
+   "labelPadX": 4,
+   "labelGap": 2,
+   "labelMinZoom": 12,
+   "gap": 2,
+   "pinHalf": 2,
+   "dMax": 48,
+   "band": 12,
+   "relax": 2,
+   "splitDwell": 30,
+   "labelShowDelay": 12
+  },
+  "compact": {
+   "name": "compact",
+   "chipH": 16,
+   "chipPadX": 4,
+   "glyphW": 11,
+   "glyphGap": 2,
+   "chipMinW": 30,
+   "ring": 1.5,
+   "badgeGap": 2,
+   "labelH": 12,
+   "labelPadX": 3,
+   "labelGap": 2,
+   "labelMinZoom": 12,
+   "gap": 2,
+   "pinHalf": 2,
+   "dMax": 40,
+   "band": 10,
+   "relax": 2,
+   "splitDwell": 30,
+   "labelShowDelay": 12
+  }
+ },
+ "policy": {
+  "dMax": "spec.dMax",
+  "note": "defaults of the recommended pipeline; every dial can be overridden per strategy instance (see lib/strategies.mjs)",
+  "cfg": {
+   "pinProtect": true,
+   "inertia": true,
+   "sticky": true,
+   "labels": true,
+   "seniority": 10000000,
+   "kCap": 60,
+   "maxSplitTries": 2,
+   "aggregate": true,
+   "dMax2": null,
+   "tier": null,
+   "grow": 0
+  }
+ },
+ "vitalCore": [
+  "side (hue + frame)",
+  "arm glyph",
+  "short name (inside the chip)",
+  "echelon / aggregate badge",
+  "strength-state bar",
+  "selection ring (footprint reserved)",
+  "true position (the chip itself, or a pin when displaced)"
+ ],
+ "secondary": [
+  "name label",
+  "posture mark",
+  "facing",
+  "engaged ring",
+  "numeric strength",
+  "corps badge",
+  "leader line",
+  "member hull"
+ ]
+}

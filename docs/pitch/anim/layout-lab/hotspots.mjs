@@ -46,6 +46,12 @@ const e3 = { generated: new Date().toISOString(), hotspots: [] }; const jobs = [
 for (const h of HOTSPOTS) {
   const near = nearest(h.lat, h.lng);
   const rec = { ...h, nearestKeyLocation: near, rules: {} };
+  { // composition of the pile: the units within 150 m of the hotspot centre at the tick, rule A
+    const mp17 = metresPerPx(39.82, 17); const [hx, hy] = project(h.lng, h.lat, 17); const near150 = visibleAt(all, h.tick).filter(({ st }) => { const [x, y] = project(st.lng, st.lat, 17); return Math.hypot((x - hx) * mp17, (y - hy) * mp17) <= 150; });
+    const ages = near150.map(({ u, st }) => h.tick - u.kfs[st.segment].tick).sort((a, b) => a - b); const keys = new Map(); for (const { st } of near150) { const k = st.lat.toFixed(5) + ',' + st.lng.toFixed(5); keys.set(k, (keys.get(k) || 0) + 1); }
+    const corps = {}; for (const { u } of near150) { const c = u.chain.length >= 3 ? u.chain[u.chain.length - 3] : u.chain[0]; corps[c] = (corps[c] || 0) + 1; }
+    rec.composition = { radiusM: 150, units: near150.length, union: near150.filter(({ u }) => u.side === 'union').length, confederate: near150.filter(({ u }) => u.side === 'confederate').length, medianAgeTicks: ages[ages.length >> 1], maxAgeTicks: ages[ages.length - 1], onSharedCoordinate: [...keys.values()].filter((c) => c > 1).reduce((a, b) => a + b, 0), byCorps: corps, unitsUnder24TicksOld: ages.filter((a) => a <= 24).length };
+  }
   for (const rule of ['A', 'B', 'C']) {
     const tickR = h.tick; rec.rules[rule] = {};
     for (const z of [12, 13, 14, 15, 16]) {

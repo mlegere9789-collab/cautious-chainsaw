@@ -69,7 +69,7 @@ export function renderSvg(res, view, opts = {}) {
     const v = verifyFrame(res.items, (spec?.gap ?? 2) - 1e-6, true);
     for (const [i, j] of v.pairs) for (const k of [i, j]) { const it = res.items[k]; if (inView(it)) out.push(`<rect x="${f1(it.x0)}" y="${f1(it.y0)}" width="${f1(it.x1 - it.x0)}" height="${f1(it.y1 - it.y0)}" fill="rgba(255,0,200,.18)" stroke="#ff2bd6" stroke-width="1"/>`); }
   }
-  if (opts.title) out.push(`<text x="${view.x0 + 8}" y="${view.y0 + 18}" font-size="13" font-weight="700" fill="#e8d5a3">${esc(opts.title)}</text>`);
+  if (opts.title) out.push(`<rect x="${view.x0}" y="${view.y0}" width="${Math.min(view.w, 12 + 7.4 * opts.title.length)}" height="26" fill="rgba(8,11,16,.92)"/><text x="${view.x0 + 8}" y="${view.y0 + 18}" font-size="13" font-weight="700" fill="#e8d5a3">${esc(opts.title)}</text>`);
   out.push('</svg>');
   return out.join('\n');
 }
@@ -86,6 +86,6 @@ export function renderLegacySvg(L, view, opts = {}) {
     out.push(`<polygon points="${g.poly.map((q) => f1(q[0]) + ',' + f1(q[1])).join(' ')}" fill="${col}" fill-opacity=".88" stroke="${p.u.side === 'union' ? '#1a3a7a' : '#7a1a1a'}" stroke-width="1"/>`);
     out.push(`<circle cx="${f1(g.cx)}" cy="${f1(g.cy - 7)}" r="3.5" fill="#aaa" stroke="rgba(0,0,0,.8)" stroke-width="1"/>`); });
   L.labels.forEach((l) => { if (!inV((l.x0 + l.x1) / 2, (l.y0 + l.y1) / 2)) return; out.push(`<rect x="${f1(l.x0)}" y="${f1(l.y0)}" width="${f1(l.x1 - l.x0)}" height="${f1(l.y1 - l.y0)}" fill="rgba(0,0,0,.72)"/>`); });
-  if (opts.title) out.push(`<text x="${view.x0 + 8}" y="${view.y0 + 18}" font-size="13" font-weight="700" fill="#e8d5a3">${esc(opts.title)}</text>`);
+  if (opts.title) out.push(`<rect x="${view.x0}" y="${view.y0}" width="${Math.min(view.w, 12 + 7.4 * opts.title.length)}" height="26" fill="rgba(8,11,16,.92)"/><text x="${view.x0 + 8}" y="${view.y0 + 18}" font-size="13" font-weight="700" fill="#e8d5a3">${esc(opts.title)}</text>`);
   out.push('</svg>'); return out.join('\n');
 }

@@ -29,7 +29,7 @@ export function expandAggregate(res, aggKey, spec, { budget = 200, maxCols = 4, 
   for (const t of shown) occ.add({ x0: t.ax - spec.pinHalf, y0: t.ay - spec.pinHalf, x1: t.ax + spec.pinHalf, y1: t.ay + spec.pinHalf, owner: t.key, kind: 'pin' });
   const A = { x: agg.t.ax, y: agg.t.ay }; const P0 = { x: agg.cx, y: agg.cy };
   const c = nearestFree(parts, A, P0, budget, occ, '<roster>', gap, { nf: 0, cand: 0 }, 400);
-  if (!c) return { ok: false, members: members.length, shown: shown.length };
+  if (!c) return { ok: false, reason: 'no free place within ' + budget + ' px', members: members.length, shown: shown.length };
   // build the new frame: every other tile unchanged, the aggregate replaced by the roster
   const placed = res.placed.filter((p) => p !== agg); const items = res.items.filter((i) => i.owner !== agg.t.key);
   const header = { x0: c.x + parts[0].x0, y0: c.y + parts[0].y0, x1: c.x + parts[0].x1, y1: c.y + parts[0].y1, owner: aggKey + ':header', kind: 'chip' };
@@ -42,6 +42,9 @@ export function expandAggregate(res, aggKey, spec, { budget = 200, maxCols = 4, 
     items.push({ owner: s.t.key, kind: 'pin', x0: s.t.ax - spec.pinHalf, y0: s.t.ay - spec.pinHalf, x1: s.t.ax + spec.pinHalf, y1: s.t.ay + spec.pinHalf });
   });
   const v = verifyFrame(items, gap - 1e-6);
+  // certified: an expansion is applied only if the exact check of the whole frame passes (a member's true position can lie under ANOTHER tile's chip, because
+  // inside an aggregate the members' positions were not reserved); otherwise the list opens in the dock and the map is left exactly as it was
+  if (v.overlaps > 0) return { ok: false, reason: 'a member true position lies under another tile', blockedBy: v.overlaps, members: members.length, shown: shown.length };
   return { ok: true, members: members.length, shown: shown.length, more, overlaps: v.overlaps, clearanceViolations: v.clearanceViolations, header, cols, rows, displacementPx: Math.hypot(c.x - A.x, c.y - A.y),
     res: { ...res, placed: [...placed, ...rosterPlaced], items, overlays: [{ rect: { x0: header.x0, y0: header.y0, x1: header.x1, y1: header.y0 + gridH + headerH }, title: `${agg.t.short} ${agg.t.badge}  (${members.length} units)` }] } };
 }

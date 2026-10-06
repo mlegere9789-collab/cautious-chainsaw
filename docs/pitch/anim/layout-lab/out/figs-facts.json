@@ -1,0 +1,569 @@
+{
+ "H1-legacy": {
+  "z": 14,
+  "tick": 346,
+  "overlapPairs": 1896
+ },
+ "H1-raw": {
+  "z": 14,
+  "tick": 346,
+  "tiles": 385,
+  "overlaps": 2522,
+  "hidden": 0,
+  "agg": 0,
+  "unitsInAggs": 0,
+  "maxDispPx": 0
+ },
+ "H1-disclose": {
+  "z": 14,
+  "tick": 346,
+  "tiles": 385,
+  "overlaps": 1051,
+  "hidden": 0,
+  "agg": 0,
+  "unitsInAggs": 0,
+  "maxDispPx": 0
+ },
+ "H1-displace": {
+  "z": 14,
+  "tick": 346,
+  "tiles": 269,
+  "overlaps": 0,
+  "hidden": 116,
+  "agg": 0,
+  "unitsInAggs": 0,
+  "maxDispPx": 47.65727241287997
+ },
+ "H1-aggregate": {
+  "z": 14,
+  "tick": 346,
+  "tiles": 106,
+  "overlaps": 0,
+  "hidden": 0,
+  "agg": 51,
+  "unitsInAggs": 330,
+  "maxDispPx": 0
+ },
+ "H1-fanout": {
+  "z": 14,
+  "tick": 346,
+  "tiles": 144,
+  "overlaps": 0,
+  "hidden": 241,
+  "agg": 0,
+  "unitsInAggs": 0,
+  "maxDispPx": 185.51120753978122
+ },
+ "H1-hybrid": {
+  "z": 14,
+  "tick": 346,
+  "tiles": 242,
+  "overlaps": 0,
+  "hidden": 0,
+  "agg": 59,
+  "unitsInAggs": 202,
+  "maxDispPx": 47.65727241287997
+ },
+ "H3-legacy": {
+  "z": 15,
+  "tick": 556,
+  "overlapPairs": 723
+ },
+ "H3-raw": {
+  "z": 15,
+  "tick": 556,
+  "tiles": 456,
+  "overlaps": 1245,
+  "hidden": 0,
+  "agg": 0,
+  "unitsInAggs": 0,
+  "maxDispPx": 0
+ },
+ "H3-disclose": {
+  "z": 15,
+  "tick": 556,
+  "tiles": 456,
+  "overlaps": 329,
+  "hidden": 0,
+  "agg": 0,
+  "unitsInAggs": 0,
+  "maxDispPx": 0
+ },
+ "H3-displace": {
+  "z": 15,
+  "tick": 556,
+  "tiles": 407,
+  "overlaps": 0,
+  "hidden": 49,
+  "agg": 0,
+  "unitsInAggs": 0,
+  "maxDispPx": 47.72929253698489
+ },
+ "H3-aggregate": {
+  "z": 15,
+  "tick": 556,
+  "tiles": 255,
+  "overlaps": 0,
+  "hidden": 0,
+  "agg": 63,
+  "unitsInAggs": 264,
+  "maxDispPx": 0
+ },
+ "H3-fanout": {
+  "z": 15,
+  "tick": 556,
+  "tiles": 403,
+  "overlaps": 0,
+  "hidden": 53,
+  "agg": 0,
+  "unitsInAggs": 0,
+  "maxDispPx": 196.29780947060672
+ },
+ "H3-hybrid": {
+  "z": 15,
+  "tick": 556,
+  "tiles": 394,
+  "overlaps": 0,
+  "hidden": 0,
+  "agg": 37,
+  "unitsInAggs": 99,
+  "maxDispPx": 47.220577738492295
+ },
+ "H1-expand": {
+  "z": 14,
+  "tick": 346,
+  "opened": [
+   {
+    "key": "agg:A-U:U-107OH",
+    "members": 12,
+    "ok": false,
+    "reason": "no free place within 200 px",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 12,
+    "more": null
+   },
+   {
+    "key": "agg:A-U:U-1-I-3",
+    "members": 5,
+    "ok": false,
+    "reason": "no free place within 200 px",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 5,
+    "more": null
+   },
+   {
+    "key": "agg:A-C:C-21NC-A",
+    "members": 5,
+    "ok": false,
+    "reason": "no free place within 200 px",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 5,
+    "more": null
+   },
+   {
+    "key": "agg:U-XI-2:U-XI-2",
+    "members": 4,
+    "ok": false,
+    "reason": "no free place within 200 px",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 4,
+    "more": null
+   },
+   {
+    "key": "agg:C-II-1-1:C-5LA",
+    "members": 4,
+    "ok": false,
+    "reason": "no free place within 200 px",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 4,
+    "more": null
+   },
+   {
+    "key": "agg:U-XII-2-3:U-102NY",
+    "members": 4,
+    "ok": false,
+    "reason": "a member true position lies under another tile",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 4,
+    "more": null
+   },
+   {
+    "key": "agg:U-II-2-1:U-15MA",
+    "members": 4,
+    "ok": false,
+    "reason": "a member true position lies under another tile",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 4,
+    "more": null
+   },
+   {
+    "key": "agg:U-XII-2:U-29PA",
+    "members": 3,
+    "ok": true,
+    "reason": null,
+    "overlaps": 0,
+    "displacementPx": 88.40418238933508,
+    "shown": 3,
+    "more": 0
+   }
+  ]
+ },
+ "H3-expand": {
+  "z": 15,
+  "tick": 556,
+  "opened": [
+   {
+    "key": "agg:C-I-3-3:C-14VA",
+    "members": 4,
+    "ok": false,
+    "reason": "a member true position lies under another tile",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 4,
+    "more": null
+   },
+   {
+    "key": "agg:U-II-2-2:U-69PA",
+    "members": 4,
+    "ok": false,
+    "reason": "a member true position lies under another tile",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 4,
+    "more": null
+   },
+   {
+    "key": "agg:A-U:U-1MN",
+    "members": 3,
+    "ok": false,
+    "reason": "a member true position lies under another tile",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 3,
+    "more": null
+   },
+   {
+    "key": "agg:U-ART-II-CORPS:U-ART-A4US",
+    "members": 3,
+    "ok": false,
+    "reason": "a member true position lies under another tile",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 3,
+    "more": null
+   },
+   {
+    "key": "agg:C-I-3-3:C-53VA",
+    "members": 2,
+    "ok": false,
+    "reason": "a member true position lies under another tile",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 2,
+    "more": null
+   },
+   {
+    "key": "agg:U-II-2:U-106PA",
+    "members": 2,
+    "ok": false,
+    "reason": "a member true position lies under another tile",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 2,
+    "more": null
+   }
+  ]
+ },
+ "H2-expand": {
+  "z": 13,
+  "tick": 293,
+  "opened": [
+   {
+    "key": "agg:A-U:U-140PA",
+    "members": 16,
+    "ok": false,
+    "reason": "no free place within 200 px",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 16,
+    "more": null
+   },
+   {
+    "key": "agg:A-C:C-15SC",
+    "members": 14,
+    "ok": false,
+    "reason": "no free place within 200 px",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 14,
+    "more": null
+   },
+   {
+    "key": "agg:U-III-1:U-105PA",
+    "members": 13,
+    "ok": false,
+    "reason": "no free place within 200 px",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 13,
+    "more": null
+   },
+   {
+    "key": "agg:A-C:C-15AL",
+    "members": 13,
+    "ok": false,
+    "reason": "no free place within 200 px",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 13,
+    "more": null
+   },
+   {
+    "key": "agg:A-U:U-69PA",
+    "members": 6,
+    "ok": false,
+    "reason": "no free place within 200 px",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 6,
+    "more": null
+   },
+   {
+    "key": "agg:A-U:U-16MI",
+    "members": 6,
+    "ok": false,
+    "reason": "no free place within 200 px",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 6,
+    "more": null
+   },
+   {
+    "key": "agg:U-II-2:U-106PA",
+    "members": 5,
+    "ok": false,
+    "reason": "no free place within 200 px",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 5,
+    "more": null
+   },
+   {
+    "key": "agg:U-XII-1:U-XII-1",
+    "members": 4,
+    "ok": false,
+    "reason": "no free place within 200 px",
+    "overlaps": null,
+    "displacementPx": null,
+    "shown": 4,
+    "more": null
+   }
+  ]
+ },
+ "expansion": {
+  "viewport": "1440x900",
+  "rows": [
+   {
+    "id": "H1",
+    "tick": 346,
+    "z": 14,
+    "rule": "A",
+    "aggregatesInView": 41,
+    "expandedInPlace": 10,
+    "reasons": {
+     "no free place within 200 px": 11,
+     "a member true position lies under another tile": 20
+    }
+   },
+   {
+    "id": "H1",
+    "tick": 346,
+    "z": 14,
+    "rule": "C",
+    "aggregatesInView": 7,
+    "expandedInPlace": 2,
+    "reasons": {
+     "a member true position lies under another tile": 5
+    }
+   },
+   {
+    "id": "H1",
+    "tick": 346,
+    "z": 15,
+    "rule": "A",
+    "aggregatesInView": 11,
+    "expandedInPlace": 8,
+    "reasons": {
+     "no free place within 200 px": 2,
+     "a member true position lies under another tile": 1
+    }
+   },
+   {
+    "id": "H1",
+    "tick": 346,
+    "z": 15,
+    "rule": "C",
+    "aggregatesInView": 0,
+    "expandedInPlace": 0,
+    "reasons": {}
+   },
+   {
+    "id": "H1",
+    "tick": 346,
+    "z": 16,
+    "rule": "A",
+    "aggregatesInView": 0,
+    "expandedInPlace": 0,
+    "reasons": {}
+   },
+   {
+    "id": "H1",
+    "tick": 346,
+    "z": 16,
+    "rule": "C",
+    "aggregatesInView": 0,
+    "expandedInPlace": 0,
+    "reasons": {}
+   },
+   {
+    "id": "H2",
+    "tick": 293,
+    "z": 14,
+    "rule": "A",
+    "aggregatesInView": 25,
+    "expandedInPlace": 5,
+    "reasons": {
+     "no free place within 200 px": 10,
+     "a member true position lies under another tile": 10
+    }
+   },
+   {
+    "id": "H2",
+    "tick": 293,
+    "z": 14,
+    "rule": "C",
+    "aggregatesInView": 10,
+    "expandedInPlace": 2,
+    "reasons": {
+     "no free place within 200 px": 4,
+     "a member true position lies under another tile": 4
+    }
+   },
+   {
+    "id": "H2",
+    "tick": 293,
+    "z": 15,
+    "rule": "A",
+    "aggregatesInView": 13,
+    "expandedInPlace": 6,
+    "reasons": {
+     "a member true position lies under another tile": 4,
+     "no free place within 200 px": 3
+    }
+   },
+   {
+    "id": "H2",
+    "tick": 293,
+    "z": 15,
+    "rule": "C",
+    "aggregatesInView": 9,
+    "expandedInPlace": 3,
+    "reasons": {
+     "a member true position lies under another tile": 6
+    }
+   },
+   {
+    "id": "H2",
+    "tick": 293,
+    "z": 16,
+    "rule": "A",
+    "aggregatesInView": 0,
+    "expandedInPlace": 0,
+    "reasons": {}
+   },
+   {
+    "id": "H2",
+    "tick": 293,
+    "z": 16,
+    "rule": "C",
+    "aggregatesInView": 0,
+    "expandedInPlace": 0,
+    "reasons": {}
+   },
+   {
+    "id": "H3",
+    "tick": 556,
+    "z": 14,
+    "rule": "A",
+    "aggregatesInView": 57,
+    "expandedInPlace": 12,
+    "reasons": {
+     "no free place within 200 px": 29,
+     "a member true position lies under another tile": 16
+    }
+   },
+   {
+    "id": "H3",
+    "tick": 556,
+    "z": 14,
+    "rule": "C",
+    "aggregatesInView": 3,
+    "expandedInPlace": 1,
+    "reasons": {
+     "a member true position lies under another tile": 1,
+     "no free place within 200 px": 1
+    }
+   },
+   {
+    "id": "H3",
+    "tick": 556,
+    "z": 15,
+    "rule": "A",
+    "aggregatesInView": 17,
+    "expandedInPlace": 4,
+    "reasons": {
+     "a member true position lies under another tile": 10,
+     "no free place within 200 px": 3
+    }
+   },
+   {
+    "id": "H3",
+    "tick": 556,
+    "z": 15,
+    "rule": "C",
+    "aggregatesInView": 6,
+    "expandedInPlace": 2,
+    "reasons": {
+     "a member true position lies under another tile": 4
+    }
+   },
+   {
+    "id": "H3",
+    "tick": 556,
+    "z": 16,
+    "rule": "A",
+    "aggregatesInView": 2,
+    "expandedInPlace": 2,
+    "reasons": {}
+   },
+   {
+    "id": "H3",
+    "tick": 556,
+    "z": 16,
+    "rule": "C",
+    "aggregatesInView": 1,
+    "expandedInPlace": 1,
+    "reasons": {}
+   }
+  ],
+  "total": 202,
+  "ok": 58
+ }
+}

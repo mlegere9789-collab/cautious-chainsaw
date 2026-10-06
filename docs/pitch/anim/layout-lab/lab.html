@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Layout lab</title>
+<link rel="icon" href="data:,">
 <style>
   :root { color-scheme: dark; --bg:#0c1117; --panel:#121923; --line:#243142; --ink:#e6edf6; --mute:#8fa1b6; --gold:#e8d5a3; --ok:#4ad28a; --bad:#ff5a7a; }
   * { box-sizing: border-box; }
@@ -14,9 +15,10 @@
   select, input[type=range], button { accent-color:#e8d5a3; }
   select, button { background:#182231; color:var(--ink); border:1px solid var(--line); border-radius:6px; padding:4px 8px; font:inherit; }
   button { cursor:pointer; } button:hover { border-color:#3b5169; }
-  #stage { position:relative; margin:10px 14px; border:1px solid var(--line); border-radius:8px; overflow:hidden; background:#10151c; touch-action:none; cursor:grab; }
+  #stage { display:flex; margin:10px 14px; border:1px solid var(--line); border-radius:8px; overflow:hidden; background:#10151c; touch-action:none; cursor:grab; }
+  #view { flex:1; min-width:0; overflow:hidden; }
   #stage svg { display:block; }
-  #hud { position:absolute; right:10px; top:10px; background:rgba(12,17,23,.86); border:1px solid var(--line); border-radius:8px; padding:8px 10px; min-width:236px; pointer-events:none; }
+  #hud { flex:0 0 250px; background:#0c1117; border-left:1px solid var(--line); padding:10px 12px; pointer-events:none; }
   #hud b { color:var(--gold); } #hud .row { display:flex; justify-content:space-between; gap:14px; } .ok { color:var(--ok); font-weight:700; } .bad { color:var(--bad); font-weight:700; }
   #log { margin:0 14px 14px; color:var(--mute); white-space:pre-wrap; font:12px/1.4 ui-monospace,Consolas,monospace; }
 </style>

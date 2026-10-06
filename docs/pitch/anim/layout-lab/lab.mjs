@@ -20,7 +20,7 @@ $('log').textContent = `data loaded: ${all.rows} rows, ${all.kept} unique (unit,
 
 const S = { tick: 346, z: 14, strategy: 'hybrid', rule: 'A', spec: 'standard', dMax: 48, cx: 0, cy: 0, playing: false, strat: null, key: '', frames: 0, ovFrames: 0, last: null, lastT: 0 };
 const stage = $('stage'); const view = $('view');
-function size() { return { w: Math.max(480, Math.floor(stage.clientWidth)), h: Math.max(320, Math.floor(window.innerHeight - 190)) }; }
+function size() { return { w: Math.max(480, Math.floor(view.clientWidth || stage.clientWidth - 250)), h: Math.max(320, Math.floor(window.innerHeight - 190)) }; }
 function centreOn(lat, lng, z) { const [ox, oy] = worldOrigin(z); const [x, y] = project(lng, lat, z); S.cx = x - ox; S.cy = y - oy; }
 centreOn(39.8189, -77.2262, S.z);
 

@@ -8,13 +8,13 @@ The task: *the tiles must never obscure each other and never hide vital informat
 
 ## 0. Verdict (answer first)
 
-1. **It can be guaranteed, and the guarantee holds on every frame measured.** The proposed *certified layout* never emits a frame it has not checked: every tile is placed by an exact minimum-displacement search, a tile that cannot be placed within its displacement budget is **merged into an aggregate tile** (nothing is dropped), and an exact all-pairs check across the whole field decides when the solve is finished. On all 675 ticks at zoom 11 to 17 ({{v e1meta.hybridSolvesRuleA|i}} cold solves under visibility rule A, the worst case; {{v e1meta.hybridSolves|i}} over all three rules) the independent verifier counted **{{v e1agg.A.hybridOverlapsMax|i}} overlapping pairs, {{v e1agg.A.hybridClearanceMax|i}} clearance violations and {{v e1agg.A.hybridDroppedMax|i}} hidden units** (the shipped canvas draws a median of **{{v e1.rules.A.14.legacy.overlapsTotal.p50|i}}** overlapping pairs per tick at zoom 14, {{v e1.rules.A.14.legacy.overlapsTotal.max|i}} at worst). In the {{v e2meta.hybridRuns|i}} hybrid playback runs at 60 fps ({{v e2meta.hybridFrames|i}} frames, three hotspots, zoom 13-15, 1x to 16x) the overlap count was {{v e2meta.hybridOverlapPairs|i}} on {{v e2meta.hybridFramesWithOverlap|i}} frames.
+1. **It can be guaranteed, and the guarantee holds on every frame measured.** The proposed *certified layout* never emits a frame it has not checked: every tile is placed by an exact minimum-displacement search, a tile that cannot be placed within its displacement budget is **merged into an aggregate tile** (nothing is dropped), and an exact all-pairs check across the whole field decides when the solve is finished. On all 675 ticks at zoom 11 to 17 ({{v e1meta.hybridSolvesRuleA|i}} cold solves under visibility rule A, the worst case; {{v e1meta.hybridSolves|i}} over all three rules) the independent verifier counted **{{v e1agg.A.hybridOverlapsMax|i}} overlapping pairs, {{v e1agg.A.hybridClearanceMax|i}} clearance violations and {{v e1agg.A.hybridDroppedMax|i}} hidden units** (the shipped canvas draws a median of **{{v e1.rules.A.14.legacy.overlapsTotal.p50|i}}** overlapping pairs per tick at zoom 14, {{v e1.rules.A.14.legacy.overlapsTotal.max|i}} at worst). In the {{v e2meta.hybridRuns|i}} hybrid playback runs at 60 fps ({{v e2meta.hybridFrames|i}} frames, three hotspots, zoom 13-15, 1x to 16x) the verifier found {{v e2meta.hybridOverlapPairs|i}} overlapping pairs and {{v e2meta.hybridUnrepresented|i}} unrepresented units across all of those frames ({{v e2meta.hybridFramesWithOverlap|i}} frames with an overlap).
 2. **The four strategies are not alternatives, they are stages, and each alone fails** (section 3). Disclosure alone leaves up to {{v e1.rules.A.11.strategies.disclose.overlaps.max|i}} overlapping pairs; displacement alone leaves a typical {{v e1.rules.A.13.strategies.displace.dropped.p50|i}} of {{v e1.rules.A.13.strategies.displace.visible.p50|i}} units without a tile at zoom 13; fan-out alone fails the same way; aggregation alone is safe but throws away detail and distorts position. The hybrid uses disclosure for labels, displacement for positions, fan-out for the expanded list and aggregation as the guaranteed fallback.
-3. **The visibility rule matters more than any layout.** The shipped carry-forward rule (A) puts a typical {{v data.visibleUnits.A.median|i}} and at most {{v data.visibleUnits.A.max|i}} tiles on the map; at zoom 13 the certified layout must put {{v e1.rules.A.13.strategies.hybrid.unitsInAggs.p50|i}} of {{v e1.rules.A.13.strategies.hybrid.visible.p50|i}} units inside aggregates. Under the latest-snapshot rule (B) a typical tick has {{v data.visibleUnits.B.median|i}} tiles (at most {{v data.visibleUnits.B.max|i}}) and almost nothing needs to be aggregated. The layout algorithm is correct under either; the owner's choice of rule decides how much of the picture is individual tiles.
+3. **The visibility rule matters more than any layout.** The shipped carry-forward rule (A) puts a typical {{v data.visibleUnits.A.median|i}} and at most {{v data.visibleUnits.A.max|i}} tiles on the map; at zoom 13 the certified layout puts {{v e1.rules.A.13.strategies.hybrid.unitsInAggs.p50|i}} of {{v e1.rules.A.13.strategies.hybrid.visible.p50|i}} units inside aggregates on a typical tick. Under the latest-snapshot rule (B) a typical tick has {{v data.visibleUnits.B.median|i}} tiles (at most {{v data.visibleUnits.B.max|i}}) and almost nothing needs to be aggregated. The layout algorithm is correct under either; the owner's choice of rule decides how much of the picture is individual tiles.
 4. **Displacement is bounded and honest, or it can be switched off.** Default budget 48 px: a displaced tile keeps a pin on its true position and a leader line, never covers any tile's true position, and moves at most {{v e1.rules.A.14.strategies.hybrid.maxDispPx.max|i}} px (= {{v e1.rules.A.14.strategies.hybrid.maxDispPx.max * 3.669|i}} m at zoom 14, {{v e1.rules.A.17.strategies.hybrid.maxDispPx.max * 0.459|i}} m at zoom 17). With the budget at 0 the same algorithm is pure aggregation and fan-out (section 10), the stance of the sibling data page (`03-data-fuel.md` section 9.6).
-5. **Jitter.** The shipped renderer shows {{v e2agg.legacyShipped.popsPerSec|d1}} position pops per second and a p99 jerk of {{v e2agg.legacyShipped.jerkP99|d1}} px/frame^2 in the hotspot windows; the certified layout shows {{v e2agg.hybrid.popsPerSec|d1}} pops per second and p99 jerk {{v e2agg.hybrid.jerkP99|d3}} (section 6). What remains are structural pushes (a tile appears and pushes a lower-priority neighbour); three smoothing ideas were tried and **did not help** (section 6.3), so that part is an open item, not a claim.
-6. **Cost.** Time per solve on the densest tick (478 units): cold (a seek or a zoom jump) {{v e5.cold.13.hybrid.p50|d1}} ms median at zoom 13 and {{v e5.cold.12.hybrid.p95|d1}} ms p95 at zoom 12; warm (per frame during playback) {{v e5.warm.13.1x.ms.mean|d1}} ms mean and {{v e5.warm.13.1x.ms.p99|d1}} ms p99 at zoom 13 (node, quiet machine; section 5.3). Cold solves must go to a worker or be hidden behind a transition.
-7. **Two real bugs were found by the independent verifier while building this** (a spatial-hash stamp collision and a missing cross-group check, appendix B). Both produced overlaps on a handful of frames and both are now covered by tests. That is the argument for shipping the verifier with the layout: the guarantee is worth exactly as much as the check that certifies it.
+5. **Jitter.** Averaged over nine hotspot-and-zoom windows at 4x speed the shipped renderer makes {{v e2by.4x.legacyShipped.popsPerSec|i}} position pops per second (a glyph moving more than 3 px beyond its true position's motion in one frame), a p99 jerk of {{v e2by.4x.legacyShipped.jerkP99|d1}} px/frame^2, and every one of its frames overlaps (about {{v e2by.4x.legacyShipped.overlapPairsPerFrame|i}} pairs). The certified layout makes {{v e2by.4x.hybrid.popsPerSec|i}} pops per second with p99 jerk {{v e2by.4x.hybrid.jerkP99|d2}} (at 1x: {{v e2by.1x.hybrid.popsPerSec|d1}} pops/s against {{v e2by.1x.legacyShipped.popsPerSec|i}}, p99 jerk {{v e2by.1x.hybrid.jerkP99|d3}} against {{v e2by.1x.legacyShipped.jerkP99|d1}}). That is a large reduction, **not a fix**: at 16x (32 ticks per second) {{v e2by.16x.hybrid.popsPerSec|i}} pops per second remain. What remains are structural pushes (a tile appears and pushes a lower-priority neighbour); five smoothing and stability ideas were tried and **none removed them** (section 6.3), so that part is an open item, not a claim.
+6. **Cost.** Time per solve on the densest tick (478 units): cold (a seek or a zoom jump) {{v e5.cold.13.hybrid.p50|d1}} ms median at zoom 13 and {{v e5.cold.12.hybrid.p95|d1}} ms p95 at zoom 12; warm (per frame during playback) {{v e5.warm.13.1x.ms.mean|d1}} ms mean and {{v e5.warm.13.1x.ms.p99|d1}} ms p99 at zoom 13, {{v e5.warm.14.1x.ms.mean|d1}} ms mean and {{v e5.warm.14.1x.ms.p99|d1}} ms p99 at zoom 14 (node, one thread, on a machine shared with other jobs; section 5.3). A cold solve is about six frames long at zoom 12-13 and the warm p99 at zoom 14 leaves little of a 16.7 ms frame for drawing: run the solver in a worker and hide a cold solve behind a transition.
+7. **Two real bugs were found by the independent verifier while building this** (a spatial-hash stamp collision and a missing cross-group check, appendix B). Each produced one to two overlapping pairs in the frames where it struck, and both are now covered by tests. That is the argument for shipping the verifier with the layout: the guarantee is worth exactly as much as the check that certifies it.
 
 ---
 
@@ -42,7 +42,7 @@ Two items **obscure** each other at a frame when they belong to **different tile
 
 In addition a **true position must not be covered**: no chip or label may cover the pin box of another tile (a displaced tile whose pin sits under somebody's chip would lie about where the unit is). The solver reserves every tile's true position for everybody else.
 
-**"At every frame, including during motion"** means every rendered frame of a 60 fps playback and every cold solve after a seek or zoom jump, not only the frames at integer ticks. The measurements below verify every frame of {{v e2meta.frames|i}} playback frames and {{v e1meta.solves|i}} static solves.
+**"At every frame, including during motion"** means every rendered frame of a 60 fps playback and every cold solve after a seek or zoom jump, not only the frames at integer ticks. The measurements below verify every one of {{v e2meta.hybridFrames|i}} hybrid playback frames ({{v e2meta.frames|i}} across all variants) and {{v e1meta.hybridSolves|i}} hybrid cold solves ({{v e1meta.solves|i}} across the seven strategies).
 
 **Where "solid" matters.** A tile that is fading in or out (opacity below 0.5) is not an obstacle and not obscured. The lab renders no fades, so everything it measures is steady geometry; the transition rule it implies for the motion layer is in section 6.4.
 
@@ -79,7 +79,7 @@ The lab loads the 47 placement and density files in the app's own load order (1,
 
 {{table validate}}
 
-The port reproduces the app's glyph positions to a fraction of a pixel for almost every glyph (the few outliers sit in tied relaxation orders). The overlap counts below use the port's geometry (glyph polygons by separating-axis test, label pills from measured text widths scaled to the canvas font size; the pill width model is **not** validated against the app's `measureText`).
+The port reproduces the app's glyph positions to a fraction of a pixel for almost every glyph (the outliers, one glyph of 223 and twelve of 405, are not diagnosed; the relaxation depends on the order of the units, which the port reproduces from the load order). The overlap counts below use the port's geometry (glyph polygons by separating-axis test, label pills from measured text widths scaled to the canvas font size; the pill width model is **not** validated against the app's `measureText`).
 
 ### 2.3 How big the problem is: shipped renderer and the new tiles at true positions (rule A)
 
@@ -114,7 +114,7 @@ All strategies sit behind one interface (`lib/strategies.mjs`), draw the **same 
 
 **Algorithm.** Start from one tile per unit. A tile that overlaps another (chip against chip, or a chip covering a foreign true position) is merged with the best partner within reach: the partner with the **deepest common ancestor** in the order of battle, then the nearest; the result is an aggregate tile at the strength-weighted centroid (at the formation's own record when that record is one of the members) named after the common ancestor, with a count badge and an expandable list. Repeat to a fixed point. Two flavours: *data-driven* (merge exactly when tiles would overlap) and *semantic-zoom tiers* (also merge by zoom: corps below z11.6, divisions to z12.6, brigades to z14, regiments above).
 
-**Result.** Zero overlaps and zero hidden units by construction at every zoom, and the cheapest solve. The price is detail and position: at zoom 13, {{v e1.rules.A.13.strategies.aggregate.unitsInAggs.p50|i}} of {{v e1.rules.A.13.strategies.aggregate.visible.p50|i}} units sit inside aggregates (typical tick) and a single aggregate tile can stand for units up to {{v e1.rules.A.13.strategies.aggregate.maxAggSpreadPx.max|i}} px ({{v e1.rules.A.13.strategies.aggregate.maxAggSpreadPx.max * 7.339|i}} m) apart. The tier flavour is calmer in time (a tile changes only when the zoom crosses a threshold) but gains nothing in detail: both flavours end within a few tiles of each other because the forced merges dominate.
+**Result.** Zero overlaps and zero hidden units by construction at every zoom, and the cheapest solve. The price is detail and position: at zoom 13, {{v e1.rules.A.13.strategies.aggregate.unitsInAggs.p50|i}} of {{v e1.rules.A.13.strategies.aggregate.visible.p50|i}} units sit inside aggregates (typical tick) and a single aggregate tile can stand for units up to {{v e1.rules.A.13.strategies.aggregate.maxAggSpreadPx.max|i}} px ({{v e1.rules.A.13.strategies.aggregate.maxAggSpreadPx.max * 7.339|i}} m) apart. The tier flavour was meant to be calmer in time (a tile should change only when the zoom crosses a threshold) but, as implemented, it is not: {{v e2by.4x.aggregateTier.tileChurnPerSec|i}} churn events per second against {{v e2by.4x.aggregate.tileChurnPerSec|i}} for the data-driven flavour at 4x, and it gains nothing in detail: both flavours end within a few tiles of each other ({{v e1.rules.A.13.strategies.aggregate.tiles.p50|i}} and {{v e1.rules.A.13.strategies.aggregateTier.tiles.p50|i}} tiles at zoom 13) because the forced merges dominate.
 
 **Failure cases.** Units from several corps piled on one hill (Cemetery Hill) merge across corps: the common ancestor is the army, so the name falls back to `Lead +k` (section 4.6) and the count is the only honest statement; two opposing units on one coordinate become a `Contact` tile. Unassigned ids (66) can only merge with whatever is nearest.
 
@@ -161,7 +161,7 @@ One solver, one verifier, one tile spec; the four strategies are **stages of the
 
 ### 4.2 The core primitive: exact nearest-free placement
 
-For a tile with one rectangle part p and an obstacle rectangle o, the tile centres that violate the clearance g form the **open rectangle** (o.x0 - g - p.x1, o.x1 + g - p.x0) x (o.y0 - g - p.y1, o.y1 + g - p.y0). The feasible region is the plane minus the union of these open rectangles. The point of that region nearest to a desired centre P0 is either P0 or lies on an edge of one of the rectangles, so its x is one of {P0.x} U {x0, x1 of every rectangle} and its y one of {P0.y} U {y0, y1}. The search enumerates those candidates in order of increasing distance (branch and bound) and returns the first feasible one inside the budget disk. **Verified:** on 300 random scenes the result is feasible and equal to a 0.5 px brute-force scan of the disk (worst excess {{v selftest.optimalityExcess|d2}} px). A neighbourhood with more than 60 relevant obstacles is declared saturated and fails at once (a conservative failure: it can cause an unnecessary merge, never an overlap; section 10 measures the effect).
+For a tile with one rectangle part p and an obstacle rectangle o, the tile centres that violate the clearance g form the **open rectangle** (o.x0 - g - p.x1, o.x1 + g - p.x0) x (o.y0 - g - p.y1, o.y1 + g - p.y0). The feasible region is the plane minus the union of these open rectangles. The point of that region nearest to a desired centre P0 is either P0 or lies on an edge of one of the rectangles, so its x is one of {P0.x} U {x0, x1 of every rectangle} and its y one of {P0.y} U {y0, y1}. The search enumerates those candidates in order of increasing distance (branch and bound) and returns the first feasible one inside the budget disk. **Verified:** on {{v selftest.metrics.optimalityScenes|i}} random scenes the result is feasible and equal to a 0.5 px brute-force scan of the disk (worst excess {{v selftest.metrics.optimalityExcess|d2}} px). A neighbourhood with more than 60 relevant obstacles is declared saturated and fails at once (a conservative failure: it can cause an unnecessary merge, never an overlap; section 10 measures the effect).
 
 ### 4.3 The guarantee
 
@@ -177,7 +177,7 @@ For a tile with one rectangle part p and an obstacle rectangle o, the tile centr
 
 **What the proof does not cover:** (1) *rectangles, not pixels* (the boxes are the guarantee; glyph pixels inside a box are the visual designer's job); (2) *the text width* (the chip is as wide as the measured text; wider fonts need run-time measurement); (3) *quality* (the algorithm is greedy, not optimal; section 10 quantifies the dials); (4) *time* (worst-case cost grows with the crowd; measured, not bounded, section 5.3); (5) *continuity* (hysteresis is measured, not proven; section 6); (6) *transitions* (fading tiles are exempt by the opacity rule, which is a design contract, section 6.4).
 
-**What backs the proof.** `selftest.mjs`: the verifier equals a brute force on 4,000 random rectangle sets; the nearest-free search equals a brute force on 300 scenes; the guarantee holds on 480 adversarial scenes and on 720 solves with random dial settings (budget 0-96, tiers, seniority, escalation, inertia and stickiness on and off); a negative control (displacement only, 60 identical anchors) fails as it should; three mutation tests show the verifier catches a chip dragged onto a chip, a label onto a chip and a pin under a chip:
+**What backs the proof.** `selftest.mjs`: the verifier equals a brute force on {{v selftest.metrics.randomRectSets|i}} random rectangle sets; the nearest-free search equals a brute force on {{v selftest.metrics.optimalityScenes|i}} scenes; the guarantee holds on {{v selftest.metrics.adversarialScenes|i}} adversarial scenes and on {{v selftest.metrics.dialSolves|i}} solves with random dial settings (budget 0-96, tiers, seniority, escalation, inertia and stickiness on and off); a negative control (displacement only, 60 identical anchors) fails as it should; three mutation tests show the verifier catches a chip dragged onto a chip, a label onto a chip and a pin under a chip:
 
 {{table selftest}}
 
@@ -193,8 +193,8 @@ For a tile with one rectangle part p and an obstacle rectangle o, the tile centr
 | `labelShowDelay` | 12 frames | label flicker | 6 |
 | `kCap` | 60 | solve time against unnecessary merges | 10 |
 | `pinProtect` | on | cost of keeping every true position uncovered | 10 |
-| `tier` | off | calm in time against detail (semantic zoom by echelon) | 10 |
-| `dMax2` escalation | off (measured unstable) | fewer cross-corps merges against longer leaders | 6.3 |
+| `tier` | off (unstable in time as built) | semantic zoom by echelon | 6.3, 10 |
+| `dMax2` escalation | off (raises pops and jerk) | fewer cross-corps merges against longer leaders | 6.3, 10 |
 | visibility rule | A (shipped) | the number of tiles at all | 5.2 |
 | footprint | standard | the number of aggregates | 10 |
 
@@ -210,13 +210,15 @@ If its members share a formation (brigade, battalion, division, corps) the chip 
 
 ### 4.7 The expandable list
 
-Opening an aggregate replaces it with a fixed-slot roster (the members in order-of-battle order, one slot each, a header, at most 24 slots then "+k more"), placed by the same exact search among every other chip, label and true position; each member keeps a pin and leader. If nothing fits within 200 px the expansion falls back to a docked panel (reported, never an overlap).
+Opening an aggregate replaces it with a fixed-slot roster (the members in order-of-battle order, one slot each, a header, at most 24 slots then "+k more"), placed by the same exact search among every other chip, label and true position; each member keeps a pin and leader. The expansion is **certified like everything else**: it is applied only if the exact check of the whole frame passes, otherwise the list opens in a dock and the map is left exactly as it was.
+
+**Measured.** At the three hotspots, zoom 14, 15 and 16, visibility rules A and C, a 1440 x 900 viewport, every aggregate in view was opened one at a time: of {{v figures.expansion.total|i}} aggregates, **{{v figures.expansion.ok|i}} ({{v figures.expansion.share|p0}}) opened in place** and the rest fell back to the dock, either because no free place exists within 200 px or because a member's true position lies under another tile (inside an aggregate the members' positions are not reserved, so another chip may cover one). So the **dock is the default presentation of the expandable list**, and the in-place roster an opportunistic, certified mode that works mostly from zoom 15. An engine-level "open" state that re-solves the neighbours (they would aggregate to make room) would raise the in-place share; it is not built.
 
 ![an aggregate opened into its roster, H1](layout-lab/out/figs/expand-H1-z14.png)
 
 ### 4.8 Complexity
 
-Per frame: grouping O(n); placement O(sum over groups of g x K^2) with K bounded by `kCap` (60) and g the group size; aggregation rounds at most g - 1 per group but 3-15 in practice (table in section 5.1); certification O(n x neighbours). The lab's measured costs are in 5.3.
+Per frame: grouping O(n); placement O(sum over groups of g x K^2) with K bounded by `kCap` (60) and g the group size; aggregation rounds at most g - 1 per group; the placement passes actually run are in the last row of the table in section 5.1; certification O(n x neighbours). The lab's measured costs are in 5.3.
 
 ---
 
@@ -234,7 +236,9 @@ Per frame: grouping O(n); placement O(sum over groups of g x K^2) with K bounded
 
 {{table rules}}
 
-### 5.3 Time per solve (node 24, one thread, quiet machine; `timing.mjs`)
+### 5.3 Time per solve (node 24, one thread; `timing.mjs`)
+
+*Measurement conditions: a 16-thread laptop CPU shared with other jobs (other agents' browsers and test runs were active; Windows reported about 50 % total CPU load at a sample taken while the first run of the script was in progress; the figures below come from the rerun that followed, load not sampled), the rest of the lab idle, one solver thread. Treat the figures as conservative: an idle machine is faster. Cold = a freshly created solver; the first of 31 repetitions (JIT warm-up) is dropped.*
 
 **Cold** (a fresh solver: a seek, a zoom jump or the first frame), densest tick (tick {{v e5.densestTick.tick|i}}, {{v e5.densestTick.units|i}} units), median / p95 ms:
 
@@ -244,35 +248,39 @@ Per frame: grouping O(n); placement O(sum over groups of g x K^2) with K bounded
 
 {{table warm}}
 
-Every tick of the battle, cold, at zoom 13: median {{v e5.allTicksCold.13.p50|d1}} ms, p95 {{v e5.allTicksCold.13.p95|d1}} ms, worst {{v e5.allTicksCold.13.max|d1}} ms. So a seek costs one or two dropped frames at zoom 12-13 in the worst case; playback costs a few milliseconds per frame, within a 16.7 ms budget with room for drawing. The same code in Chrome (V8) is reported in section 8.
+Every tick of the battle, cold, at zoom 13: median {{v e5.allTicksCold.13.p50|d1}} ms, p95 {{v e5.allTicksCold.13.p95|d1}} ms, worst {{v e5.allTicksCold.13.max|d1}} ms. So a seek at zoom 12-13 costs about a tenth of a second (six frames at 60 fps) and at zoom 15 and above under two frames; playback costs a few milliseconds per frame at zoom 12-13, but at zoom 14-15 the p99 reaches {{v e5.warm.14.1x.ms.p99|d1}} ms of a 16.7 ms frame before any drawing, so the solver belongs in a worker. The same code in Chrome (V8) is reported in section 8.
 
 ---
 
 ## 6. Time: flicker, jitter, popping
 
-Frame-by-frame playback at **60 fps for 10 s** around each hotspot, zoom 13, 14 and 15, at 1x (2 ticks/s), 4x and 16x (the app's top speed): 162 runs. Definitions: **tile churn** = tile keys appearing or disappearing while carrying a unit that was on the field in both frames (data-driven entries and exits are not layout flicker; the first second is excluded as warm-up); **pop** = a leaf tile whose centre moves more than 3 px beyond its true position's own motion in one frame; **jerk** = |c(f+1) - 2c(f) + c(f-1)| of the rendered centre, which is 0 for a perfectly smooth glide. Mean over the nine hotspot-zoom combinations:
+Frame-by-frame playback at **60 fps for 10 s** around each hotspot, zoom 13, 14 and 15, at 1x (2 ticks/s), 4x and 16x (the app's top speed), seven variants: {{v e2meta.runs|i}} runs. Definitions: **tile churn** = tile keys appearing or disappearing while carrying a unit that was on the field in both frames (data-driven entries and exits are not layout flicker; the first second is excluded as warm-up); **pop** = a leaf tile whose centre moves more than 3 px beyond its true position's own motion in one frame; **jerk** = |c(f+1) - 2c(f) + c(f-1)| of the rendered centre, which is 0 for a perfectly smooth glide. Mean over the nine hotspot-zoom combinations:
 
 {{table playback}}
 
 ### 6.1 What the numbers say
 
-- **The shipped renderer is the jitter.** Its data path holds a unit's last keyframe and jumps at the next one (`03-data-fuel.md` fact 8), and its stateless relaxation re-sorts overlapping glyphs every frame. Pops are of the order of hundreds per second and the p99 jerk tens of pixels per frame squared; interpolating the data alone (row 2) does not cure it, the relaxation does it.
-- **Hysteresis is what makes the new layout calm.** Switching off inertia, sticky aggregates and seniority (row 3) multiplies tile churn by two orders of magnitude; with them the churn is a few tiles per second out of 100-250 and the jerk is practically zero.
-- **Zero overlap holds on every frame of every run** for the hybrid, displacement-only and aggregation-only variants (column "frames with any overlap").
+- **The shipped renderer is the jitter.** Its data path holds a unit's last keyframe and jumps at the next one (`03-data-fuel.md` fact 8), and its stateless relaxation re-sorts overlapping glyphs every frame: {{v e2by.1x.legacyShipped.popsPerSec|i}} pops per second at 1x, {{v e2by.4x.legacyShipped.popsPerSec|i}} at 4x, {{v e2by.16x.legacyShipped.popsPerSec|i}} at 16x. Interpolating the data alone (row 2 of each block) does **not** cure it, it makes it worse ({{v e2by.4x.legacySmooth.popsPerSec|i}} pops per second at 4x): the relaxation, not the data, is the shuffle.
+- **Hysteresis is what makes the new layout calm.** Without inertia, sticky aggregates and seniority the hybrid makes {{v e2by.4x.hybridStateless.tileChurnPerSec|i}} tile churn events per second at 4x (with them: {{v e2by.4x.hybrid.tileChurnPerSec|i}}), {{v e2by.4x.hybridStateless.popsPerSec|i}} pops per second (with: {{v e2by.4x.hybrid.popsPerSec|i}}) and a p99 jerk of {{v e2by.4x.hybridStateless.jerkP99|d1}} (with: {{v e2by.4x.hybrid.jerkP99|d2}}); it also costs {{v e2by.4x.hybridStateless.msMean|d1}} ms per frame because every frame is a cold solve (with: {{v e2by.4x.hybrid.msMean|d1}} ms).
+- **Zero overlap on every frame**: the hybrid, displacement-only, aggregation-only and tier variants have {{v e2meta.hybridFramesWithOverlap|i}} frames with an overlap (hybrid, {{v e2meta.hybridFrames|i}} frames); the shipped renderer overlaps on {{v e2by.4x.legacyShipped.framesWithOverlap|i}} of {{v e2by.4x.legacyShipped.frames|i}} frames at 4x.
+- **Labels** show and hide {{v e2by.4x.hybrid.labelTogglesPerSec|d1}} times per second and change side {{v e2by.4x.hybrid.slotChangesPerSec|d1}} times per second at 4x across about {{v e2by.4x.hybrid.avgTiles|i}} tiles (11-12 frames of delay before a label may appear; immediate removal when it stops fitting).
+- **Aggregation-only** never moves a tile (no pops) and is the calmest in jerk, but it has the fewest tiles ({{v e2by.4x.aggregate.avgTiles|i}} against {{v e2by.4x.hybrid.avgTiles|i}}) and its aggregates still churn ({{v e2by.4x.aggregate.tileChurnPerSec|i}} per second): the cost of calm is detail. **Displacement-only** is nearly as smooth as the hybrid but leaves on average {{v e2by.4x.displace.droppedUnitsPerFrame|i}} of {{v e2by.4x.displace.avgVisible|i}} units without any tile on every frame.
 
 ### 6.2 What remains
 
-A handful of pushes per second: a tile appears (a unit enters, an aggregate forms) where an existing tile sits and the lower-priority one is moved 5-48 px **in one frame**. Seniority (older tiles first) cut these roughly in half; it did not remove them.
+A handful of pushes per second: a tile appears (a unit enters, an aggregate forms) where an existing tile sits and the lower-priority one is moved 5-48 px **in one frame**. Seniority (older tiles are placed first, so a newcomer yields) already cuts them (table below, first two rows); it does not remove them.
 
-### 6.3 Tried and rejected (measured, kept in `lib/` for the record)
+### 6.3 Ideas tried for the residual pushes and for purity (measured, kept in `lib/` for the record)
 
-| idea | result |
-|---|---|
-| **Easing the displacement** (exponential filter on each tile's offset, snapped back whenever the eased position would overlap) | pops 1.4/s to 2.4/s (worse): 20-27 % of the eased positions had to snap back; a pushed tile has nowhere safe to glide |
-| **Ghost newcomers** (new tiles exempt until solid, the pushed tile glides) | no improvement for the same reason |
-| **Lookahead** (solver 4-12 frames ahead, displayed offset = triangular average over frames f-W..f+W) | pops and jerk worse at every W; about 20 snap-backs per frame |
-| **Growth ramp** (newborn tiles enter at 50 % size and grow over 6-16 frames so pushes become continuous) | tile churn 5.8 to 240 per second: the growth feeds back into the fail-and-merge rule |
-| **Escalated budget** (accept a 72 px leader before merging across formations) | semantic purity up (formation share 47-60 % to 55-71 %), but tile churn 5.8 to 72 per second: the escalation flips on and off as partners move; unstable |
+Same three 10 s windows at 4x (8 ticks per second) for every variant; mean over the windows (`experiments.mjs`):
+
+{{table e7}}
+
+- **Seniority** (older tiles first) is kept: without it churn rises by about half and the p99 jerk quadruples.
+- **Easing the displacement** (an exponential filter on each tile's offset with newcomers as ghosts, snapped back whenever the eased position would overlap) and **lookahead** (the solver 8 frames ahead, displayed offset = triangular average over 17 frames, same snap-back rule) change nothing measurable (pops {{v e7s.base.pops|d1}} per second without, {{v e7s.easing.pops|d1}} with easing, {{v e7s.lookahead.pops|d1}} with lookahead): a pushed tile has no safe intermediate position, so the filter snaps back (easing: {{v e7s.easing.snapBackShare|p0}} of the eased tile-frames were snapped back; lookahead: {{v e7s.lookahead.snappedBackPerFrame|d1}} tiles per frame had to snap back). Both are rejected.
+- **Growth ramp** (newborn tiles enter at 50 % size and grow over 10 frames so a push becomes continuous) feeds back into the fail-and-merge rule: churn rises from {{v e7s.base.churn|d1}} to {{v e7s.growth.churn|d1}} per second. Rejected.
+- **Escalated budget** (accept a 72 px leader before merging across formations) raises the share of aggregate units that carry a formation name (section 10) but makes the pushes worse in time (pops {{v e7s.base.pops|d1}} to {{v e7s.escalated.pops|d1}} per second, p99 jerk {{v e7s.base.jerkP99|d2}} to {{v e7s.escalated.jerkP99|d2}}): a plausible cause (not isolated) is that whether the escalation applies depends on a same-formation partner being in reach, which changes as units move. Left as an off-by-default dial.
+- **Zoom tiers** (corps, division, brigade pre-merging by zoom) look better in the static tables of section 10 (a higher share of aggregate units with a formation name at zoom 12-13) but are **unstable in time as implemented**: the tier aggregates are rebuilt every frame and bypass the sticky-aggregate memory, so churn rises from {{v e7s.base.churn|d1}} to {{v e7s.tiers.churn|d1}} per second. A sticky tier (tier membership remembered like any other aggregate) is the obvious next experiment; it is not claimed here.
 
 ### 6.4 The contract this places on the motion layer
 
@@ -282,24 +290,31 @@ Layout guarantees steady geometry. For births, deaths, merges and splits the mot
 
 ## 7. The three densest hotspots
 
-Ranking: for each tick, the most units within 120 m of one unit (rule A, zoom independent; `hotspots.mjs --find`). The three distinct places on top: **H1** tick 346, Cemetery Hill / Evergreen Cemetery (Day 2 evening; 21 units within 120 m), **H2** tick 293, Rose Woods / Plum Run (Day 2 afternoon; 20 units), **H3** tick 556, Copse of Trees / the Angle (Day 3; 20 units). Place names are the nearest `terrain.json` key location and are labels, not claims (placements sit in a different frame, `03-data-fuel.md` fact 11). Zoom 13, 14, 15, rule A:
+Ranking: for each tick, the most units within 120 m of one unit (rule A, zoom independent; `hotspots.mjs --find`). The three distinct places on top: **H1** tick 346 (Day 2 evening), **H2** tick 293 (Day 2 afternoon), **H3** tick 556 (Day 3). Place names are the nearest `terrain.json` key location and are labels, not claims (placements sit in a different frame, `03-data-fuel.md` fact 11).
+
+{{table hotspotComp}}
+
+**What the three piles are.** H1 is a *stale* pile: units placed on the evening of Day 1 and carried forward for hundreds of ticks (median age in the table); it disappears under rules B and C (second table below). H2 and H3 are live contact scenes (median age a handful of ticks) with both sides inside 150 m, and they survive every visibility rule: there the layout does real work whatever the owner decides.
+
+**Zoom 13, 14, 15, rule A, every strategy** (per strategy: overlap pairs / units hidden; hybrid: **overlaps** / hidden / tiles with the aggregates in brackets / largest displacement px):
 
 {{table hotspots}}
 
-*(per strategy: overlap pairs / units hidden; "hybrid" shows overlaps / hidden / tiles with the aggregates in brackets / largest displacement)*
-
-The same places under the three visibility rules at zoom 14:
+**The same places under the three visibility rules at zoom 14:**
 
 {{table hotspotRules}}
+
+Legend of the figures: blue = Union, red = Confederate; X = infantry, slash = cavalry, dot = artillery; the white bar under the code is the strength state; `x n` / `+k` = an aggregate (a count of placement records); small white dots = true positions of displaced tiles and of aggregate members; thin lines = leaders; magenta = overlapping items.
 
 ![H1 certified hybrid, zoom 14](layout-lab/out/figs/H1-hybrid-z14.png)
 ![H2 certified hybrid, zoom 13](layout-lab/out/figs/H2-hybrid-z13.png)
 ![H3 certified hybrid, zoom 15](layout-lab/out/figs/H3-hybrid-z15.png)
 ![H3 as shipped, zoom 14: the canvas port](layout-lab/out/figs/H3-legacy-z14.png)
+![H3, the strategies side by side, zoom 15](layout-lab/out/figs/compare-H3-z15.png)
 
 Real browser screenshots of the shipped app at tick 120 (zoom 14), tick 538 (13.5) and tick 551 (16) were taken by the sibling data page: `data/shots/*.jpg`.
 
-**How the algorithm behaves.** H1 (Cemetery Hill) is a pile of three corps and several batteries: most tiles are displaced by 20-45 px with pins, the rest merge into formation aggregates (I, XI, XII corps tiles) or `Lead +k` tiles where corps interleave. H2 (Rose Woods) is a Day 2 melee with both sides inside 120 m: it produces `Contact` aggregates at zoom 13 and resolves into displaced individual tiles from zoom 15. H3 (the Angle) shows the stacks that no zoom resolves: artillery batteries and a brigade on identical coordinates become roster-able aggregates at every zoom. At zoom 16-17 all three hotspots are individual tiles with a few pins.
+**How the algorithm behaves.** Where chips cannot sit on their true positions they move at most 48 px and keep a pin and a leader; where even that is not enough the units of one formation merge into an aggregate (`I/1 +13`, `II/2/2 x4`); two opposing sides stay in separate aggregates unless a Union and a Confederate tile cannot be separated inside the budget, in which case they merge into a `Contact` tile (units in `Contact` tiles at zoom 14 in the table above). From zoom 16 the three hotspots are individual tiles with a few pins; the stacks on identical coordinates (a brigade and its regiments, batteries) never separate and are the reason displacement and aggregation exist at every zoom.
 
 ---
 
@@ -309,7 +324,7 @@ Real browser screenshots of the shipped app at tick 120 (zoom 14), tick 538 (13.
 
 {{table browser}}
 
-Ten seconds-equivalents of playback with the stateful solver, verified frame by frame in the page:
+300 frames (5 s at 60 fps) of playback at 4x with the stateful solver, verified frame by frame in the page:
 
 {{table browserPlayback}}
 
@@ -326,9 +341,9 @@ The live page, hybrid and shipped canvas port at H1 zoom 14 (screenshots of the 
 
 {{table e6}}
 
-- **Identical anchors:** 478 tiles on one point collapse to a handful of aggregates in a few rounds; displacement alone hides 96 % of them.
-- **A long line** of tiles at 1 px spacing makes every displacement candidate collide: displacement alone drops **all** of them (the saturation cap fails every tile), the hybrid merges them into 16 aggregates.
-- **Cold-solve latency.** The worst cold solves (zoom 11-13 on the densest ticks) take 100-300 ms on a busy machine. Run them in a worker, keep showing the previous layout, or hide them behind a transition.
+- **Identical anchors:** 478 tiles on one point collapse to 4 aggregates (nine rounds); displacement alone hides 472 of them.
+- **A long line** of 478 tiles at under 1 px spacing makes every displacement candidate collide: displacement alone drops **all** of them (every neighbourhood exceeds the saturation cap, a conservative failure), the hybrid merges them into 16 aggregates.
+- **Cold-solve latency.** A cold solve at zoom 11-13 takes {{v e5.cold.13.hybrid.p50|d1}}-{{v e5.cold.11.hybrid.p50|d1}} ms median on the densest tick (p95 up to {{v e5.cold.11.hybrid.p95|d1}} ms; the shared machine inflates it). Run it in a worker, keep showing the previous layout, or hide it behind a transition.
 - **Aggregate spread.** At low zoom a single aggregate can stand for units kilometres apart (largest {{v e1.rules.A.12.strategies.hybrid.maxAggSpreadPx.max|i}} px at zoom 12). The hull dots and the spread number make this visible; a spread cap would trade against the guarantee and is left as a dial.
 - **First-frame transient.** The first frame after a cold start differs from the second (inertia and sticky aggregates are not yet warm); the playback metrics exclude the first second for this reason, and a real seek is a scene change anyway.
 - **Mutated inputs:** a unit with a wrong side counts into the wrong aggregate (section 2.4).
@@ -337,7 +352,7 @@ The live page, hybrid and shipped canvas port at H1 zoom 14 (screenshots of the 
 
 ## 10. Sensitivity of the dials (hybrid, every fifth tick, rule A unless stated)
 
-Cells: tiles drawn at the median tick / share of units inside aggregates at the median tick / largest displacement.
+Cells: tiles drawn at the median tick (`t`) / share of units inside aggregates at the median tick (`agg`) / largest displacement over the sampled ticks / share of the aggregate units whose aggregate carries a formation name (`named`; the rest are `Lead +k` or `Contact`). Zoom 12 to 15; every fifth tick (135 ticks) of rule A unless the row says otherwise; footnote: solve times in this experiment were measured with 6 workers and are not quoted.
 
 **Displacement budget**
 
@@ -384,6 +399,7 @@ Then:
 - The 1x / 4x / 16x speeds are taken from the shipped timing constants (500 ms per tick at 1x); real frame pacing on devices is not measured.
 - Mobile layout (a second map and canvas in the shipped app) is not covered; the footprint and viewport would need their own run.
 - "Aggregates carry formation names for N % of their units" depends on the parent chains (80 % resolved through the order of battle).
+- **Interface chrome and popups** (event card, vignette panel, toolbar, monument stars) are outside this layout: the sibling page measured 5-38 % of tile centres in view under another element (`03-data-fuel.md` section 9.7). A tile whose true position lies under a card cannot be rescued by layout, so the remedy is to place the card in the free quadrant of the map and to keep the card's tiles visible; as a solver input, fixed obstacles (exclusion zones) are a small extension of the same engine but cannot be certified for tiles whose true position lies inside them. Not built, not measured.
 - No Mapbox GL symbol-layer variant was built (the specialist reports propose one); everything is Canvas / SVG geometry.
 
 ---
@@ -394,7 +410,7 @@ See `layout-lab/README.md` for every command. Results: `data/layout-results.json
 
 ## Appendix B. Bugs the independent verifier found while this was being built
 
-1. **Spatial-hash stamp collision.** The hash marked a rectangle as "already seen" with a per-instance counter; chips live in two hashes (placement and labels), so a counter collision silently skipped an obstacle and a label landed on a chip (one pair on a handful of frames in a growth-ramp experiment). Fixed with one global counter; the selftest now exercises label placement and many rounds.
+1. **Spatial-hash stamp collision.** The hash marked a rectangle as "already seen" with a per-instance counter; chips live in two hashes (placement and labels), so a counter collision silently skipped an obstacle and a label landed on a chip (1 or 2 overlapping pairs in two runs of the growth-ramp experiment). Fixed with one global counter; the selftest now exercises label placement and many rounds.
 2. **Missing cross-group check.** Groups were computed once; an aggregate's centroid can move into another group's reach, and aggregation-only at zoom 15 produced two overlapping chips. Fixed by the certification loop of step 6, which is now part of the guarantee and of the proof.
 3. **No merge partner / an inherited offset beyond the budget.** A tile whose inherited offset exceeded a smaller budget had no feasible candidate and no obstacle to merge with; the offset is now clamped to the budget and the partner search is total.
 

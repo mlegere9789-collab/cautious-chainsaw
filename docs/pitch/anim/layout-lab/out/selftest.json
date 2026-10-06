@@ -1,0 +1,25 @@
+{
+ "generated": "2026-10-06T01:16:37.975Z",
+ "failures": 0,
+ "metrics": {
+  "randomRectSets": 4000,
+  "optimalityScenes": 300,
+  "optimalityExcess": 0,
+  "adversarialScenes": 480,
+  "slowestSolveMs": 249.45760000000155,
+  "maxRounds": 40,
+  "dialSettings": 240,
+  "dialSolves": 720
+ },
+ "checks": [
+  "verifier == brute force on 4000 random rect sets",
+  "nearestFree is feasible and optimal on 300 random scenes (worst excess over the 0.5 px brute force: 0.00 px)",
+  "guarantee holds on 480 adversarial scenes (max rounds 40, slowest solve 249 ms)",
+  "guarantee holds across the policy-dial space (240 random dial settings x 3 consecutive frames = 720 solves)",
+  "negative control: 60 identical anchors, displacement only -> 54 tiles cannot be placed (the guarantee needs aggregation)",
+  "mutation baseline: the clean layout has 0 overlaps",
+  "mutation A (a chip dragged onto another chip) is detected",
+  "mutation B (a label dragged onto a foreign chip) is detected",
+  "mutation C (a true-position pin hidden under a foreign chip) is detected"
+ ]
+}
