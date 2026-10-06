@@ -1,0 +1,1009 @@
+{
+ "units": {
+  "registry_units": 569,
+  "registry_by_kind": {
+   "battery": 104,
+   "regiment": 465
+  },
+  "registry_by_arm": {
+   "artillery": 95,
+   "infantry": 406,
+   "cavalry": 58,
+   "sharpshooter": 1,
+   "horse_artillery": 9
+  },
+  "registry_by_side": {
+   "union": 328,
+   "confederate": 241
+  },
+  "registry_with_commander": 543,
+  "registry_with_days_engaged": 430,
+  "registry_guns_recorded": 103,
+  "registry_strength_min_median_max": [
+   55,
+   280,
+   843
+  ],
+  "registry_casualties_zero": 46,
+  "registry_casualties_median": 54,
+  "registry_with_own_track": 255,
+  "registry_positioned_via_parent_or_ancestor": 250,
+  "registry_never_positioned": 51,
+  "placed_ids": 478,
+  "placed_ids_resolving_to_registry_or_formation": 383,
+  "placed_ids_by_level": {
+   "regiment": 217,
+   "unresolved": 95,
+   "battery": 38,
+   "battalion": 5,
+   "brigade": 89,
+   "corps": 6,
+   "division": 28
+  },
+  "placed_ids_with_corps": 348,
+  "rows_with_corps": 1473,
+  "rows_resolving": 1588,
+  "rows_total": 1804,
+  "placed_ids_arm_known_from_registry": 255,
+  "placed_ids_formations_no_arm": 128,
+  "placed_ids_unresolved": 95
+ },
+ "corps_badges": {
+  "union_rows": 900,
+  "union_rows_by_corps": {
+   "U-CAV": 63,
+   "None": 135,
+   "U-I": 151,
+   "U-XI": 80,
+   "U-II": 202,
+   "U-XII": 127,
+   "U-III": 49,
+   "U-V": 81,
+   "U-VI": 12
+  },
+  "documented_badge_rows": 702,
+  "cavalry_corps_rows": 63,
+  "unknown_corps_rows": 135,
+  "division_colour_derivable_rows": 637,
+  "confederate_rows": 904,
+  "confederate_rows_with_corps": 708,
+  "confederate_documented_badge_rows": 0
+ },
+ "side_colour_defect": {
+  "note": "the shipped renderer takes the side from the id prefix (startsWith(\"U-\"), pretty:96525, 96597); the crosswalk lists ids whose prefix contradicts the regiment state code",
+  "ids": 10,
+  "rows": 10,
+  "ticks": [
+   95,
+   150
+  ],
+  "examples": [
+   [
+    "U-11NC",
+    "C-11NC"
+   ],
+   [
+    "U-15AL",
+    "C-15AL"
+   ],
+   [
+    "U-1TX",
+    "C-1TX"
+   ],
+   [
+    "U-26NC",
+    "C-26NC"
+   ],
+   [
+    "U-44AL",
+    "C-44AL"
+   ],
+   [
+    "U-47NC",
+    "C-47NC"
+   ],
+   [
+    "U-48AL",
+    "C-48AL"
+   ],
+   [
+    "U-4TX",
+    "C-4TX"
+   ],
+   [
+    "U-52NC",
+    "C-52NC"
+   ],
+   [
+    "U-5TX",
+    "C-5TX"
+   ]
+  ]
+ },
+ "rows": {
+  "total": 1804,
+  "unique_unit_tick": 1687,
+  "keyframe_ticks": 188,
+  "ticks_total": 675,
+  "with_notes": 1245,
+  "with_vignette_trigger": 7,
+  "with_source_or_basis_field": 0,
+  "disposition_counts": {
+   "Line of Battle": 759,
+   "Charging Line": 266,
+   "Chaotic Retreat": 174,
+   "Deployed Artillery": 150,
+   "Line of March": 133,
+   "Bivouac": 132,
+   "Skirmish Line": 69,
+   "Reserve": 58,
+   "Mounted Cavalry": 29,
+   "Limbered Artillery": 21,
+   "Dismounted Cavalry": 13
+  },
+  "bearing_distinct": 9,
+  "bearing_counts": {
+   "0": 126,
+   "45": 113,
+   "90": 566,
+   "135": 14,
+   "180": 137,
+   "215": 1,
+   "225": 43,
+   "270": 742,
+   "315": 62
+  },
+  "bearing_share_multiple_of_45": 0.9994456762749445,
+  "strength_min_median_max": [
+   10,
+   477.0,
+   15000
+  ],
+  "rows_with_strength_ge_480": 899,
+  "coordinate_decimals_under_4": 379,
+  "shipped_tile_width_px": {
+   "min": 10,
+   "median": 119.0,
+   "share_at_cap_120": 0.49944567627494457,
+   "share_at_floor_10": 0.010532150776053215
+  }
+ },
+ "duplicates": {
+  "unit_tick_keys_with_more_than_one_row": 103,
+  "redundant_rows": 117,
+  "differing_position_over_20m": 65,
+  "differing_position_over_100m": 54,
+  "max_position_difference_m": 2569.0968817925827,
+  "differing_disposition": 28,
+  "differing_strength": 38,
+  "note": "the shipped renderer keeps the LAST row of a unit at a tick (y1: H[unit_id] = R in row order), and row order follows the load order of the 47 files"
+ },
+ "strength_semantics": {
+  "consecutive_keyframe_pairs_on_merged_tracks": 1209,
+  "strength_up": 117,
+  "strength_down": 478,
+  "strength_equal": 614,
+  "registry_regiments_batteries_placed": 255,
+  "first_keyframe_equals_registry_strength": 141,
+  "last_keyframe_within_5pct_of_registry_strength_minus_casualties": 53,
+  "units_with_a_keyframe_over_102pct_of_registry_strength": 42,
+  "note": "placement strength is an authored per-row number; it is not a record of casualties by tick"
+ },
+ "movement": {
+  "transitions": 1209,
+  "gap_ticks": {
+   "p50": 17.0,
+   "p90": 137.20000000000005,
+   "max": 658,
+   "share_gap_1": 0.07692307692307693,
+   "share_gap_le_5": 0.3068651778329198,
+   "share_gap_gt_12": 0.5665839536807279
+  },
+  "displacement_m": {
+   "p50": 239.13242007841194,
+   "p90": 1585.7858282538677,
+   "max": 5682.483073529196,
+   "share_zero": 0.22332506203473945
+  },
+  "shipped_renderer_interpolates": {
+   "rule": "F4/y1 blend only between tick f and tick f+1 (pretty:96266-96268); any gap > 1 tick is a hold followed by a jump at the next keyframe tick",
+   "transitions_interpolated_gap_1": 93,
+   "transitions_that_jump": 1116,
+   "share_that_jump": 0.9230769230769231
+  },
+  "jump_size_px_at_z13.5": {
+   "n": 873,
+   "p50": 79.4450286713284,
+   "p90": 375.1344391198431,
+   "max": 1095.0757778181953,
+   "share_over_40px": 0.6872852233676976,
+   "share_over_200px": 0.23367697594501718
+  },
+  "jump_size_px_at_z14": {
+   "n": 873,
+   "p50": 112.35223701011199,
+   "p90": 530.5202115165063,
+   "max": 1548.6710168167579,
+   "share_over_40px": 0.7812142038946163,
+   "share_over_200px": 0.3230240549828179
+  },
+  "jump_size_px_at_z15": {
+   "n": 873,
+   "p50": 224.70447402022398,
+   "p90": 1061.0404230330125,
+   "max": 3097.3420336335157,
+   "share_over_40px": 0.9198167239404352,
+   "share_over_200px": 0.54524627720504
+  },
+  "implied_speed_m_per_model_minute_candidate_clock": {
+   "n": 645,
+   "p50": 12.268067353679983,
+   "p90": 49.21016756028857,
+   "share_over_150": 0.02945736434108527,
+   "share_over_400": 0.0015503875968992248,
+   "fastest": [
+    {
+     "unit": "U-8NY-CAV",
+     "t0": 3,
+     "t1": 4,
+     "metres": 2374,
+     "minutes": 5,
+     "m_per_min": 475,
+     "disp": [
+      "Skirmish Line",
+      "Skirmish Line"
+     ]
+    },
+    {
+     "unit": "C-I-3-3",
+     "t0": 550,
+     "t1": 551,
+     "metres": 929,
+     "minutes": 2.7,
+     "m_per_min": 345,
+     "disp": [
+      "Charging Line",
+      "Charging Line"
+     ]
+    },
+    {
+     "unit": "U-ART-9MA",
+     "t0": 302,
+     "t1": 305,
+     "metres": 825,
+     "minutes": 2.5,
+     "m_per_min": 330,
+     "disp": [
+      "Deployed Artillery",
+      "Deployed Artillery"
+     ]
+    },
+    {
+     "unit": "C-I-3-1",
+     "t0": 548,
+     "t1": 549,
+     "metres": 867,
+     "minutes": 2.7,
+     "m_per_min": 321,
+     "disp": [
+      "Charging Line",
+      "Line of Battle"
+     ]
+    },
+    {
+     "unit": "U-20ME",
+     "t0": 264,
+     "t1": 265,
+     "metres": 814,
+     "minutes": 2.7,
+     "m_per_min": 298,
+     "disp": [
+      "Skirmish Line",
+      "Line of March"
+     ]
+    },
+    {
+     "unit": "C-I-3-2",
+     "t0": 544,
+     "t1": 546,
+     "metres": 1301,
+     "minutes": 5.4,
+     "m_per_min": 241,
+     "disp": [
+      "Line of Battle",
+      "Charging Line"
+     ]
+    }
+   ],
+   "caveat": "clock = data-src/time/time_anchors.json candidate (33 anchors, all \"proposed\", not reviewed); speeds move when the anchors move"
+  },
+  "jumps_beyond_shipped_snap_guard_0p05deg": 23
+ },
+ "bearing_vs_motion": {
+  "note": "angle between the keyframe bearing and the true compass direction of the next displacement (>= 50 m), per disposition of the starting keyframe",
+  "by_disposition": {
+   "Skirmish Line": {
+    "n": 48,
+    "median_deg": 126.91579729918374,
+    "share_within_45": 0.22916666666666666,
+    "share_within_90": 0.4375
+   },
+   "ALL": {
+    "n": 918,
+    "median_deg": 52.47357379352991,
+    "share_within_45": 0.47167755991285404,
+    "share_within_90": 0.7135076252723311
+   },
+   "Line of March": {
+    "n": 111,
+    "median_deg": 29.422650954836,
+    "share_within_45": 0.6126126126126126,
+    "share_within_90": 0.8378378378378378
+   },
+   "Line of Battle": {
+    "n": 356,
+    "median_deg": 54.664415116068014,
+    "share_within_45": 0.449438202247191,
+    "share_within_90": 0.6853932584269663
+   },
+   "Reserve": {
+    "n": 34,
+    "median_deg": 33.06375624056665,
+    "share_within_45": 0.6764705882352942,
+    "share_within_90": 0.8529411764705882
+   },
+   "Bivouac": {
+    "n": 87,
+    "median_deg": 26.02362362596142,
+    "share_within_45": 0.6551724137931034,
+    "share_within_90": 0.8735632183908046
+   },
+   "Chaotic Retreat": {
+    "n": 86,
+    "median_deg": 60.46294238282624,
+    "share_within_45": 0.4069767441860465,
+    "share_within_90": 0.7325581395348837
+   },
+   "Charging Line": {
+    "n": 140,
+    "median_deg": 52.47762408205564,
+    "share_within_45": 0.4357142857142857,
+    "share_within_90": 0.7071428571428572
+   },
+   "Mounted Cavalry": {
+    "n": 16,
+    "median_deg": 150.76402242845592,
+    "share_within_45": 0.3125,
+    "share_within_90": 0.375
+   },
+   "Limbered Artillery": {
+    "n": 13,
+    "median_deg": 1.9210094349850806,
+    "share_within_45": 0.8461538461538461,
+    "share_within_90": 1.0
+   },
+   "Deployed Artillery": {
+    "n": 20,
+    "median_deg": 90.0,
+    "share_within_45": 0.1,
+    "share_within_90": 0.55
+   },
+   "Dismounted Cavalry": {
+    "n": 7,
+    "median_deg": 166.44427211746017,
+    "share_within_45": 0.0,
+    "share_within_90": 0.0
+   }
+  }
+ },
+ "sky": {
+  "ticks": 675,
+  "light_class_counts": {
+   "day": 392,
+   "civil_twilight": 49,
+   "nautical_twilight": 36,
+   "astronomical_twilight": 43,
+   "night": 155
+  },
+  "light_class_by_day": {
+   "1": {
+    "day": 97,
+    "civil_twilight": 10,
+    "nautical_twilight": 20,
+    "astronomical_twilight": 24,
+    "night": 74
+   },
+   "2": {
+    "civil_twilight": 18,
+    "day": 91,
+    "nautical_twilight": 16,
+    "astronomical_twilight": 19,
+    "night": 81
+   },
+   "3": {
+    "civil_twilight": 21,
+    "day": 204
+   }
+  },
+  "moon_up_ticks": 284,
+  "moon_up_by_day": {
+   "1": 126,
+   "2": 125,
+   "3": 33
+  },
+  "moon_illum_pct_range": [
+   88.6,
+   99.9
+  ],
+  "sun_altitude_deg_range": [
+   -27.15,
+   73.29
+  ],
+  "events_on_candidate_clock": {
+   "1863-07-01|civil_dawn": null,
+   "1863-07-01|sunrise": null,
+   "1863-07-01|solar_transit": 41.14,
+   "1863-07-01|sunset": 97.66,
+   "1863-07-01|civil_dusk": 101.12,
+   "1863-07-01|nautical_dawn": null,
+   "1863-07-01|nautical_dusk": 111.3,
+   "1863-07-01|moonrise": 99.43,
+   "1863-07-01|moonset": null,
+   "1863-07-02|civil_dawn": 219.25,
+   "1863-07-02|sunrise": 226.16,
+   "1863-07-02|solar_transit": 240.19,
+   "1863-07-02|sunset": 317.54,
+   "1863-07-02|civil_dusk": 326.41,
+   "1863-07-02|nautical_dawn": 209.07,
+   "1863-07-02|nautical_dusk": 330.25,
+   "1863-07-02|moonrise": 329.51,
+   "1863-07-02|moon_transit": 174.26,
+   "1863-07-02|moonset": 229.23,
+   "1863-07-03|civil_dawn": 442.75,
+   "1863-07-03|sunrise": 452.05,
+   "1863-07-03|solar_transit": 516.51,
+   "1863-07-03|sunset": 656.63,
+   "1863-07-03|civil_dusk": null,
+   "1863-07-03|nautical_dawn": 430.06,
+   "1863-07-03|nautical_dusk": null,
+   "1863-07-03|moonrise": null,
+   "1863-07-03|moon_transit": 404.61,
+   "1863-07-03|moonset": 483.49
+  },
+  "clock_status": "CANDIDATE. All 33 anchors are state \"proposed\": not reviewed by a historian, not approved by the owner (D-TIME, sign-off DG-3). Nothing derived from this file may ship or be described as reviewed or accurate to the minute.",
+  "anchors": {
+   "S": 12,
+   "M": 13,
+   "R": 5,
+   "D": 3
+  },
+  "clock_minutes_per_tick": {
+   "min": 0.8299999999999272,
+   "max": 42.340000000000146,
+   "p50": 4.040000000000191,
+   "night_gap_ticks": []
+  },
+  "weather_slot_ticks_candidate_clock": {
+   "July 1 7am": [
+    10,
+    -7.1
+   ],
+   "July 1 8am": [
+    15,
+    0.9
+   ],
+   "July 1 2pm": [
+    51,
+    5.3
+   ],
+   "July 1 6pm": [
+    90,
+    0
+   ],
+   "July 1 9pm": [
+    115,
+    0.7
+   ],
+   "July 2 7am": [
+    231,
+    10.7
+   ],
+   "July 2 8am": [
+    233,
+    15
+   ],
+   "July 2 2pm": [
+    246,
+    -7.5
+   ],
+   "July 2 6pm": [
+    275,
+    0
+   ],
+   "July 2 9pm": [
+    332,
+    4.3
+   ],
+   "July 3 7am": [
+    478,
+    -1.2
+   ],
+   "July 3 8am": [
+    489,
+    -0.6
+   ],
+   "July 3 2pm": [
+    527,
+    -2.2
+   ],
+   "July 3 6pm": [
+    597,
+    -0.3
+   ],
+   "July 3 9pm": [
+    675,
+    -60
+   ]
+  }
+ },
+ "events": {
+  "chronology_events": 137,
+  "distinct_ticks": 137,
+  "by_significance": {
+   "low": 3,
+   "medium": 16,
+   "high": 73,
+   "critical": 45
+  },
+  "with_units_involved": 124,
+  "unit_refs": 299,
+  "unit_refs_resolving": 294,
+  "unit_refs_placed_at_or_before_event_tick": 245,
+  "unit_refs_with_own_keyframe_exactly_at_event_tick": 140,
+  "events_with_a_keyframe_row_at_the_same_tick": 127,
+  "events_with_coordinates": 0,
+  "events_with_location_text": 137
+ },
+ "successions": {
+  "records": 42,
+  "union": 25,
+  "confederate": 17,
+  "unit_resolves": 41,
+  "unit_placed_at_or_before_tick": 35,
+  "unit_has_keyframe_within_12_ticks": 24,
+  "causes": {
+   "KIA": 2,
+   "Meade's order -- loss of confidence in Doubleday": 1,
+   "Wounded -- concussion from horse falling on him under fire": 1,
+   "Wounded -- shot through both eyes, blinded permanently": 1,
+   "Wounded": 5,
+   "Severely wounded -- nail and saddle pommel fragments drove into thigh": 1,
+   "Wounded during Pickett's Charge": 1,
+   "KIA -- shot through abdomen in the Wheatfield": 1,
+   "KIA -- mortally wounded in the Wheatfield": 1,
+   "Multiple wounds during the charge": 1,
+   "KIA -- killed by artillery shell": 1,
+   "Mortally wounded during Pickett's Charge": 1,
+   "Right leg amputated -- artillery shell": 1,
+   "KIA -- shot through head on horseback leading countercharge": 1,
+   "Wounded and captured in Peach Orchard collapse": 1,
+   "Mortally wounded on Little Round Top -- died July 7": 1,
+   "KIA on Little Round Top summit": 1,
+   "Severely wounded at Barlow's Knoll -- left for dead": 1,
+   "KIA -- shot through mouth while serving last gun at The Angle": 1,
+   "KIA on Little Round Top summit -- killed beside the dying Weed": 1,
+   "KIA leading Colgrove's controversial charge": 1,
+   "Left arm shattered by artillery fragment": 1,
+   "Law promoted to division command": 1,
+   "Mortally wounded leading the Peach Orchard charge -- died July 3": 1,
+   "Mortally wounded -- died July 10": 1,
+   "KIA on horseback at The Angle": 1,
+   "Shot through groin -- briefly captured, survived": 1,
+   "Shot moments after breaching The Angle -- died July 5": 1,
+   "Head wound -- folded paper in hat cushioned the blow": 1,
+   "Pettigrew commanding division": 1,
+   "KIA leading brigade in the charge": 1,
+   "Captured -- first Confederate general taken since Lee assumed command": 1,
+   "Mortal leg wound -- died July 18": 1,
+   "Wounded on Seminary Ridge": 1,
+   "Shot through neck on Cemetery Hill slope -- wrote blood message dying": 1,
+   "Stuart rejoins army after controversial absence": 1,
+   "Sabre cut to head in East Cavalry Field melee": 1
+  },
+  "with_source_field": 42,
+  "note": "approx_tick is stored per record; the tick duration is declared as 5 minutes in the file but the candidate clock is variable (sky.clock_minutes_per_tick)"
+ },
+ "vignettes": {
+  "records": 24,
+  "with_trigger_coordinates": 24,
+  "distinct_trigger_ticks": 23
+ },
+ "popups": {
+  "note": "the chronology card matches the EXACT current tick (pretty:98607); the loop advances floor(accumulated ms / (500/speed)) ticks per frame, so a faster loop can step over an event tick. Simulated with a constant frame time.",
+  "event_tick_hit_rate": {
+   "desktop_60fps|1x": {
+    "event_ticks": 137,
+    "event_ticks_landed_on_by_the_loop": 137,
+    "share": 1.0
+   },
+   "desktop_60fps|2x": {
+    "event_ticks": 137,
+    "event_ticks_landed_on_by_the_loop": 137,
+    "share": 1.0
+   },
+   "desktop_60fps|4x": {
+    "event_ticks": 137,
+    "event_ticks_landed_on_by_the_loop": 137,
+    "share": 1.0
+   },
+   "desktop_60fps|8x": {
+    "event_ticks": 137,
+    "event_ticks_landed_on_by_the_loop": 137,
+    "share": 1.0
+   },
+   "desktop_60fps|16x": {
+    "event_ticks": 137,
+    "event_ticks_landed_on_by_the_loop": 137,
+    "share": 1.0
+   },
+   "mobile_33ms_throttle|1x": {
+    "event_ticks": 137,
+    "event_ticks_landed_on_by_the_loop": 137,
+    "share": 1.0
+   },
+   "mobile_33ms_throttle|2x": {
+    "event_ticks": 137,
+    "event_ticks_landed_on_by_the_loop": 137,
+    "share": 1.0
+   },
+   "mobile_33ms_throttle|4x": {
+    "event_ticks": 137,
+    "event_ticks_landed_on_by_the_loop": 137,
+    "share": 1.0
+   },
+   "mobile_33ms_throttle|8x": {
+    "event_ticks": 137,
+    "event_ticks_landed_on_by_the_loop": 137,
+    "share": 1.0
+   },
+   "mobile_33ms_throttle|16x": {
+    "event_ticks": 137,
+    "event_ticks_landed_on_by_the_loop": 129,
+    "share": 0.9416058394160584
+   },
+   "desktop_30fps|1x": {
+    "event_ticks": 137,
+    "event_ticks_landed_on_by_the_loop": 137,
+    "share": 1.0
+   },
+   "desktop_30fps|2x": {
+    "event_ticks": 137,
+    "event_ticks_landed_on_by_the_loop": 137,
+    "share": 1.0
+   },
+   "desktop_30fps|4x": {
+    "event_ticks": 137,
+    "event_ticks_landed_on_by_the_loop": 137,
+    "share": 1.0
+   },
+   "desktop_30fps|8x": {
+    "event_ticks": 137,
+    "event_ticks_landed_on_by_the_loop": 137,
+    "share": 1.0
+   },
+   "desktop_30fps|16x": {
+    "event_ticks": 137,
+    "event_ticks_landed_on_by_the_loop": 125,
+    "share": 0.9124087591240876
+   }
+  },
+  "arrival": {
+   "card_ticks_non_low": 134,
+   "succession_ticks": 42,
+   "vignette_trigger_ticks": 24,
+   "distinct_popup_ticks": 138,
+   "gap_ticks_median": 2.0,
+   "share_gap_le_2": 0.5693430656934306,
+   "share_gap_le_6": 0.8905109489051095,
+   "ticks_with_2_or_more_popups": 38,
+   "most_popups_at_one_tick": [
+    550,
+    5
+   ],
+   "event_card_on_screen_ms_at_speed": {
+    "0.25": 2000.0,
+    "0.5": 1000.0,
+    "1": 500.0,
+    "2": 250.0,
+    "4": 125.0,
+    "8": 62.5,
+    "16": 31.25
+   },
+   "note": "the chronology card renders only while currentTick equals the event tick (pretty:98607-98612); the playback loop holds each tick 500/speed ms (pretty:96948, 96982)"
+  }
+ },
+ "casualty_model": {
+  "corps_records": 12,
+  "engagement_periods": 23,
+  "periods_cover_ticks": 327,
+  "model_statement": "Provides per-tick casualty scaling for the animation engine. Unit visual length = base_length * (1 - cumulative_casualty_rate_to_this_tick). Casualties distributed across ticks within each engagement period using a bell-curve intensity model weighted toward peak action ticks.",
+  "sigma_infantry_ticks": "8 ticks",
+  "corps_strength_initial_in_apportionment": {
+   "U-I": 12222,
+   "U-II": 11347,
+   "U-III": 10675,
+   "U-V": 10907,
+   "U-VI": 13596,
+   "U-XI": 9188,
+   "U-XII": 9788,
+   "U-CAV": 12441,
+   "C-I": 20706,
+   "C-II": 20568,
+   "C-III": 22000,
+   "C-CAV": 9536
+  },
+  "corps_strength_in_oob_header": {
+   "U-I": 12222,
+   "U-II": 11347,
+   "U-III": 10675,
+   "U-V": 10907,
+   "U-VI": 13596,
+   "U-XI": 9188,
+   "U-XII": 9788,
+   "U-CAV": 12441,
+   "C-I": 22000,
+   "C-II": 21000,
+   "C-III": 22000
+  }
+ },
+ "ledger": {
+  "rows": 20,
+  "ids": [
+   "WSD-01",
+   "WSD-02",
+   "WSD-03",
+   "WSD-04",
+   "WSD-05",
+   "WSD-06",
+   "WSD-07",
+   "WSD-08",
+   "WSD-09",
+   "WSD-10",
+   "WSD-11",
+   "WSD-12",
+   "WSD-13",
+   "WSD-14",
+   "WSD-15",
+   "WSD-16",
+   "WSD-17",
+   "WSD-18",
+   "WSD-19",
+   "WSD-20"
+  ],
+  "per_corps_rows": [
+   "WSD-19"
+  ],
+  "unit_loss_rows": [
+   "WSD-12",
+   "WSD-13"
+  ],
+  "status_counts": {
+   "adopted with reason": 6,
+   "open": 13,
+   "unresolvable": 1
+  }
+ },
+ "identity_facts": {
+  "commander_entries": 563,
+  "commander_fate_classes": {
+   "survived": 441,
+   "wounded": 69,
+   "killed": 21,
+   "none": 15,
+   "mortally wounded": 10,
+   "captured": 6,
+   "other": 1
+  },
+  "batteries_with_guns": 103,
+  "guns_total": 500,
+  "guns_per_battery": {
+   "4": 59,
+   "6": 44
+  },
+  "gun_types": {
+   "Napoleon 12-pdr": 52,
+   "3-inch ordnance rifle": 40,
+   "Napoleon 12-pdr / 3-inch rifle": 3,
+   "4.5-inch siege rifle": 2,
+   "10-pdr Parrott": 2,
+   "20-pdr Parrott": 1,
+   "Blakely rifle": 1,
+   "3-inch ordnance rifle / Whitworth rifle": 1,
+   "3-inch ordnance rifle / 10-pdr Parrott": 1
+  },
+  "batteries_with_guns_and_own_keyframes": 38,
+  "states_recorded": 31,
+  "units_with_state": 466
+ },
+ "keyframe_density": {
+  "populated_ticks_by_day": {
+   "1": 59,
+   "2": 72,
+   "3": 57
+  },
+  "gap_between_populated_ticks": {
+   "median": 2.0,
+   "max": 30,
+   "share_gap_1": 0.40106951871657753,
+   "share_gap_ge_10": 0.10695187165775401
+  },
+  "longest_empty_stretch": [
+   150,
+   180
+  ],
+  "max_rows_at_one_tick": [
+   [
+    120,
+    87
+   ],
+   [
+    1,
+    73
+   ],
+   [
+    620,
+    61
+   ],
+   [
+    400,
+    51
+   ]
+  ],
+  "units_first_keyframe_by_day": {
+   "1": 261,
+   "2": 160,
+   "3": 57
+  },
+  "units_last_keyframe_by_day": {
+   "1": 153,
+   "2": 143,
+   "3": 182
+  },
+  "units_whose_last_keyframe_is_before_tick_627": 452,
+  "placed_ids_with_ge2_keyframes": 305,
+  "placed_ids_with_exactly_1_keyframe": 173,
+  "max_keyframes_one_unit": 27
+ },
+ "terrain": {
+  "key_locations": 30,
+  "with_elevation": 30,
+  "elevation_ft_range": [
+   490,
+   785
+  ],
+  "roads": 8,
+  "roads_with_polyline": 0,
+  "roads_single_point": 8,
+  "structures": 8,
+  "features": 4,
+  "features_with_point": 3,
+  "dem_in_repo": false,
+  "moved_between_legacy_and_production": [
+   [
+    "Culp's Hill",
+    733
+   ],
+   [
+    "McPherson's Ridge",
+    722
+   ],
+   [
+    "Little Round Top",
+    509
+   ],
+   [
+    "Cemetery Hill",
+    466
+   ],
+   [
+    "Devil's Den",
+    457
+   ],
+   [
+    "The Wheatfield",
+    235
+   ],
+   [
+    "The Angle (High Water Mark)",
+    226
+   ],
+   [
+    "Peach Orchard",
+    166
+   ]
+  ],
+  "placements_vs_key_locations": {
+   "note": "rows whose own note names a place, distance to that place as served by production vs as in legacy/dist; the note text is a loose proxy for \"at the place\"",
+   "by_place": {
+    "Culp's Hill": {
+     "rows_naming_it": 60,
+     "median_m_to_production_location": 696,
+     "median_m_to_legacy_location": 238,
+     "share_closer_to_production": 0.17
+    },
+    "Devil's Den": {
+     "rows_naming_it": 14,
+     "median_m_to_production_location": 806,
+     "median_m_to_legacy_location": 454,
+     "share_closer_to_production": 0.0
+    },
+    "Little Round Top": {
+     "rows_naming_it": 37,
+     "median_m_to_production_location": 601,
+     "median_m_to_legacy_location": 381,
+     "share_closer_to_production": 0.05
+    },
+    "Cemetery Hill": {
+     "rows_naming_it": 56,
+     "median_m_to_production_location": 452,
+     "median_m_to_legacy_location": 209,
+     "share_closer_to_production": 0.45
+    },
+    "The Wheatfield": {
+     "rows_naming_it": 20,
+     "median_m_to_production_location": 382,
+     "median_m_to_legacy_location": 358,
+     "share_closer_to_production": 0.4
+    },
+    "Peach Orchard": {
+     "rows_naming_it": 12,
+     "median_m_to_production_location": 319,
+     "median_m_to_legacy_location": 246,
+     "share_closer_to_production": 0.5
+    }
+   },
+   "external_check": {
+    "culps_hill_production_vs_wikipedia_m": 21,
+    "devils_den_production_vs_wikipedia_m": 0,
+    "culps_hill_legacy_vs_wikipedia_m": 725,
+    "devils_den_legacy_vs_wikipedia_m": 457,
+    "wikipedia_coordinates": {
+     "culps_hill": [
+      39.8201,
+      -77.2203
+     ],
+     "devils_den": [
+      39.7915,
+      -77.24238
+     ]
+    },
+    "source": "https://en.wikipedia.org/wiki/Culp%27s_Hill and https://en.wikipedia.org/wiki/Devil%27s_Den (coordinate templates in the wikitext, read 2026-10-05)"
+   }
+  }
+ },
+ "enemy_tiles_on_identical_coordinate": {
+  "note": "Union and Confederate tiles on one exact lat/lng, counted per keyframe state (A = carry-forward, B = latest keyframe snapshot); \"last keyframe different tick\" = the two tiles come from different ticks (a stale tile meeting a later one)",
+  "A": {
+   "pair_states": 2740,
+   "last_keyframe_same_tick": 146,
+   "last_keyframe_different_tick": 2594,
+   "states_with_such_a_pair": 167,
+   "ticks_of_those_states": null
+  },
+  "B": {
+   "pair_states": 7,
+   "last_keyframe_same_tick": 7,
+   "last_keyframe_different_tick": 0,
+   "states_with_such_a_pair": 7,
+   "ticks_of_those_states": [
+    37,
+    53,
+    64,
+    120,
+    270,
+    278,
+    551
+   ]
+  }
+ }
+}
