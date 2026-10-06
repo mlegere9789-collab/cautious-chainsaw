@@ -1,0 +1,20 @@
+// Real touch: does a pinch / drag on the phone map move the unit tiles with the map while paused?
+import { boot, sleep, TREES, L, SHOTS } from './h.mjs';
+import { install, setTick, snap } from './m.mjs';
+const b = await boot('R1c', { cdpPort: 9548, profile: 'pinch', viewport: { width: 390, height: 844, dpr: 2, mobile: true }, waitMs: 5000 });
+const { page } = b;
+await install(page, TREES.R1c.entry);
+await setTick(page, 28); await sleep(800);
+const a = await snap(page, null);
+await L.touchPinch(page, [195, 400], 80, 220, { steps: 14, stepMs: 20 }); await sleep(800);
+const z1 = await page.evaluate(() => window.__t0map.getZoom());
+const c = await snap(page, null);
+await L.touchSwipe(page, [120, 300], [250, 380], { steps: 12, stepMs: 20 }); await sleep(800);
+const d = await snap(page, null);
+await page.screenshot({ path: SHOTS + '/p09-phone-after-pinch-and-drag-paused.png' });
+const key = (s) => JSON.stringify(s.tiles.slice(0, 3).map((t) => [Math.round(t.x0), Math.round(t.y0)]));
+console.log(JSON.stringify({ zoomBefore: a.zoom, zoomAfterPinch: z1, tilesBefore: a.tiles.length, tilesAfterPinch: c.tiles.length, samePositionsAfterPinch: key(a) === key(c), samePositionsAfterDrag: key(c) === key(d), firstTiles: [key(a), key(c), key(d)] }));
+await setTick(page, 29); await sleep(500);
+const e = await snap(page, null);
+console.log('after the next tick: tiles', e.tiles.length, 'positions changed', key(e) !== key(d));
+await b.close();

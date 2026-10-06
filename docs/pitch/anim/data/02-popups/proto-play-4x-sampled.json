@@ -1,0 +1,83 @@
+{
+ "speed": 4,
+ "window": [
+  254,
+  420
+ ],
+ "framesWithout": {
+  "n": 1209,
+  "p50": 16.7,
+  "p95": 22.5,
+  "max": 43.3,
+  "over25": 38
+ },
+ "framesWith": {
+  "n": 1152,
+  "p50": 16.6,
+  "p95": 36.4,
+  "max": 62.4,
+  "over25": 133
+ },
+ "samples": 105,
+ "samplesWithCards": 103,
+ "samplesWithAnyTileUnderACard": 13,
+ "maxTilesUnder": 11,
+ "layoutMs": {
+  "n": 240,
+  "p50": 4.3,
+  "p95": 9.7,
+  "max": 14.7
+ },
+ "solveMs": {
+  "n": 1462,
+  "p50": 0,
+  "p95": 0.1,
+  "max": 0.4
+ },
+ "cardMoves": 63,
+ "placements": 1002,
+ "noRoom": 42,
+ "forms": {
+  "event:340": 147,
+  "story:340": 220,
+  "chip:chip": 546,
+  "event:chip": 90
+ },
+ "life": {
+  "event:B": {
+   "n": 1,
+   "minMs": 542,
+   "medianMs": 542,
+   "maxMs": 542
+  },
+  "event:A": {
+   "n": 17,
+   "minMs": 128,
+   "medianMs": 284,
+   "maxMs": 4276
+  },
+  "story:A": {
+   "n": 5,
+   "minMs": 281,
+   "medianMs": 1421,
+   "maxMs": 3171
+  },
+  "chip": {
+   "n": 19,
+   "minMs": 921,
+   "medianMs": 3527,
+   "maxMs": 3564
+  }
+ },
+ "drawMs": {
+  "n": 1089,
+  "p50": 0.3,
+  "p95": 0.8,
+  "max": 2.7
+ },
+ "phases": {
+  "grid": 3.3,
+  "sat": 0,
+  "rest": 0.7
+ }
+}

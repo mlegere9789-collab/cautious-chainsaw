@@ -1,0 +1,364 @@
+{
+ "B1": {
+  "storyShownAt28": true,
+  "afterDismiss": false,
+  "reappearsAfterScrubAway": false,
+  "v003At29": true
+ },
+ "B2": {
+  "eventShownAt28": true,
+  "afterDismiss": false,
+  "reappearsAfterStepAwayAndBack": false,
+  "reappearsAfterJumpAwayAndBack": true
+ },
+ "B6": {
+  "event": {
+   "animationName": "none",
+   "animationDuration": "0s",
+   "transition": "all 0s",
+   "opacity": "1",
+   "transform": "matrix(1, 0, 0, 1, -230, 0)",
+   "backdrop": "blur(8px)"
+  },
+  "story": null
+ },
+ "keyframesDefined": [
+  "mapboxgl-spin",
+  "mapboxgl-user-location-dot-pulse",
+  "boot-slide",
+  "boot-fade-in",
+  "gtbg-force-reveal",
+  "gtbg-banner-in",
+  "gtbg-pin-glow"
+ ],
+ "B3": {
+  "afterDayTab": {
+   "tick": 451,
+   "playing": false,
+   "speed": 1,
+   "sel": null
+  },
+  "toastsAt700ms": [
+   "⚕ Brigadier General Alfred Scales wounded ✕ Scales wounded -- Lowrance assumes b",
+   "⇒ Command change ✕ Avery mortally wounded -- Godwin assumes brigade Tick 328",
+   "⚕ Brigadier General John Jones wounded ✕ Jones wounded -- Dungan assumes brigade",
+   "⇒ Command change ✕ Stuart arrives at Gettysburg Tick 310"
+  ],
+  "toastCountSeries": [
+   [
+    123,
+    4
+   ],
+   [
+    243,
+    4
+   ],
+   [
+    352,
+    4
+   ],
+   [
+    477,
+    4
+   ],
+   [
+    589,
+    4
+   ],
+   [
+    705,
+    4
+   ],
+   [
+    819,
+    4
+   ],
+   [
+    937,
+    4
+   ],
+   [
+    1055,
+    4
+   ],
+   [
+    1171,
+    4
+   ],
+   [
+    1285,
+    4
+   ],
+   [
+    1407,
+    4
+   ],
+   [
+    1531,
+    4
+   ],
+   [
+    1656,
+    4
+   ],
+   [
+    1777,
+    4
+   ],
+   [
+    1899,
+    4
+   ],
+   [
+    2014,
+    4
+   ],
+   [
+    2136,
+    4
+   ],
+   [
+    2254,
+    4
+   ],
+   [
+    2370,
+    4
+   ],
+   [
+    2494,
+    4
+   ],
+   [
+    2622,
+    4
+   ],
+   [
+    2731,
+    4
+   ],
+   [
+    2846,
+    4
+   ]
+  ],
+  "state": {
+   "tick": 456,
+   "playing": true,
+   "speed": 1,
+   "sel": null
+  }
+ },
+ "B4": [
+  {
+   "before": [
+    "2",
+    "1"
+   ]
+  },
+  [
+   "2",
+   "1"
+  ],
+  [
+   "1"
+  ],
+  []
+ ],
+ "B8": {
+  "stop1": {
+   "tick": 13,
+   "playing": true,
+   "speed": 2,
+   "sel": null
+  },
+  "playingSeriesEvery150msAfterNext": "111111000000000000",
+  "expectedPlayingMs": "stop 2 tickWindow 6 at 2x = 750 ms"
+ },
+ "a11y": {
+  "logContainer": {
+   "role": "log",
+   "aria": "Battle events",
+   "live": "off",
+   "tabindex": null
+  },
+  "eventCard": {
+   "role": null,
+   "aria": null,
+   "live": null,
+   "tabindex": null
+  },
+  "storyCard": null,
+  "activeElement": "BODY"
+ },
+ "a11y2": {
+  "event": {
+   "tag": "DIV",
+   "role": null,
+   "aria": null,
+   "live": null,
+   "tabindex": null,
+   "focusable": 1
+  },
+  "story": null,
+  "storyBody": null
+ },
+ "stack": [
+  {
+   "z": 1000001,
+   "tag": "A",
+   "id": null,
+   "card": null,
+   "role": null,
+   "aria": null,
+   "x": 8,
+   "y": -120,
+   "w": 137,
+   "h": 41,
+   "txt": "Skip to the map"
+  },
+  {
+   "z": 1000001,
+   "tag": "A",
+   "id": null,
+   "card": null,
+   "role": null,
+   "aria": null,
+   "x": 8,
+   "y": -120,
+   "w": 215,
+   "h": 41,
+   "txt": "Skip to the timeline controls"
+  },
+  {
+   "z": 450,
+   "tag": "NAV",
+   "id": "extra-features",
+   "card": null,
+   "role": null,
+   "aria": "Extra features",
+   "x": 14,
+   "y": 124,
+   "w": 403,
+   "h": 39,
+   "txt": "Ask the Historian Extra Features ▾"
+  },
+  {
+   "z": 200,
+   "tag": "BUTTON",
+   "id": null,
+   "card": null,
+   "role": null,
+   "aria": null,
+   "x": 1295,
+   "y": 776,
+   "w": 129,
+   "h": 34,
+   "txt": "🎖 NPS Auto Tour"
+  },
+  {
+   "z": 100,
+   "tag": "DIV",
+   "id": null,
+   "card": null,
+   "role": null,
+   "aria": null,
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 48,
+   "txt": "GETTYSBURG July 3 July 3, 12:30 PM Toggl"
+  },
+  {
+   "z": 100,
+   "tag": "DIV",
+   "id": "gt-timeline",
+   "card": null,
+   "role": "group",
+   "aria": "Battle timeline controls",
+   "x": 0,
+   "y": 773,
+   "w": 1440,
+   "h": 127,
+   "txt": "July 3, 12:30 PM July 1 July 2 July 3 ⏮ "
+  },
+  {
+   "z": 92,
+   "tag": "DIV",
+   "id": "gt-unit-panel",
+   "card": null,
+   "role": "region",
+   "aria": "Unit details",
+   "x": 16,
+   "y": 60,
+   "w": 280,
+   "h": 507,
+   "txt": "C Armistead's Brigade C-I-3-3 ⎘ 📌 ✕ COM"
+  },
+  {
+   "z": 88,
+   "tag": "DIV",
+   "id": null,
+   "card": null,
+   "role": "group",
+   "aria": "Legend",
+   "x": 16,
+   "y": 381,
+   "w": 240,
+   "h": 359,
+   "txt": "Disposition Sides Size ✕ Line of Battle "
+  },
+  {
+   "z": 88,
+   "tag": "DIV",
+   "id": null,
+   "card": null,
+   "role": null,
+   "aria": null,
+   "x": 1262,
+   "y": 572,
+   "w": 162,
+   "h": 176,
+   "txt": "OVERVIEW ✕ 454 units · tick 553"
+  },
+  {
+   "z": 88,
+   "tag": "DIV",
+   "id": null,
+   "card": null,
+   "role": null,
+   "aria": null,
+   "x": 16,
+   "y": 56,
+   "w": 160,
+   "h": 43,
+   "txt": "July 3, 1863 1x (base speed)"
+  },
+  {
+   "z": 85,
+   "tag": "DIV",
+   "id": null,
+   "card": "1",
+   "role": null,
+   "aria": null,
+   "x": 490,
+   "y": 617,
+   "w": 460,
+   "h": 147,
+   "txt": "★ CRITICAL 12:20pm ✕ CUSHING KIA. Lieute"
+  },
+  {
+   "z": 20,
+   "tag": "BUTTON",
+   "id": null,
+   "card": null,
+   "role": null,
+   "aria": null,
+   "x": 1284,
+   "y": 58,
+   "w": 100,
+   "h": 26,
+   "txt": "〰 Trails ON"
+  }
+ ]
+}

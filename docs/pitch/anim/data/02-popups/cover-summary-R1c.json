@@ -1,0 +1,244 @@
+{
+ "which": "R1c",
+ "event": {
+  "def@z12": {
+   "snapshots": 155,
+   "tilesVisibleMean": 345.05,
+   "tilesCoveredByCards": {
+    "mean": 36.48,
+    "median": 30,
+    "p95": 99,
+    "max": 176
+   },
+   "tilesHalfHiddenByCards": {
+    "mean": 25.15,
+    "max": 154
+   },
+   "labelsCovered": {
+    "mean": 22.46,
+    "max": 144
+   },
+   "snapshotsWithAnyTileCovered": 155,
+   "persistentTilesCovered": {
+    "mean": 3.43,
+    "max": 16
+   },
+   "withSubjectsOnScreen": 128,
+   "subjectTileUnderACard": 12,
+   "subjectTileUnderAnyOverlay": 12,
+   "subjectTilesTotal": 304,
+   "subjectTilesUnderCards": 28
+  },
+  "def@z13.5": {
+   "snapshots": 155,
+   "tilesVisibleMean": 281.21,
+   "tilesCoveredByCards": {
+    "mean": 54.79,
+    "median": 62,
+    "p95": 156,
+    "max": 170
+   },
+   "tilesHalfHiddenByCards": {
+    "mean": 41.48,
+    "max": 132
+   },
+   "labelsCovered": {
+    "mean": 43.93,
+    "max": 131
+   },
+   "snapshotsWithAnyTileCovered": 121,
+   "persistentTilesCovered": {
+    "mean": 42.08,
+    "max": 67
+   },
+   "withSubjectsOnScreen": 113,
+   "subjectTileUnderACard": 27,
+   "subjectTileUnderAnyOverlay": 42,
+   "subjectTilesTotal": 259,
+   "subjectTilesUnderCards": 43
+  },
+  "def@z15.5": {
+   "snapshots": 155,
+   "tilesVisibleMean": 32.86,
+   "tilesCoveredByCards": {
+    "mean": 7.81,
+    "median": 7,
+    "p95": 19,
+    "max": 25
+   },
+   "tilesHalfHiddenByCards": {
+    "mean": 6.94,
+    "max": 23
+   },
+   "labelsCovered": {
+    "mean": 6.02,
+    "max": 19
+   },
+   "snapshotsWithAnyTileCovered": 153,
+   "persistentTilesCovered": {
+    "mean": 4.97,
+    "max": 11
+   },
+   "withSubjectsOnScreen": 14,
+   "subjectTileUnderACard": 3,
+   "subjectTileUnderAnyOverlay": 6,
+   "subjectTilesTotal": 32,
+   "subjectTilesUnderCards": 3
+  },
+  "follow@z12": {
+   "snapshots": 128,
+   "tilesVisibleMean": 349.66,
+   "tilesCoveredByCards": {
+    "mean": 51.73,
+    "median": 17,
+    "p95": 179,
+    "max": 252
+   },
+   "tilesHalfHiddenByCards": {
+    "mean": 41.26,
+    "max": 224
+   },
+   "labelsCovered": {
+    "mean": 37.9,
+    "max": 205
+   },
+   "snapshotsWithAnyTileCovered": 115,
+   "persistentTilesCovered": {
+    "mean": 6.35,
+    "max": 38
+   },
+   "withSubjectsOnScreen": 128,
+   "subjectTileUnderACard": 4,
+   "subjectTileUnderAnyOverlay": 4,
+   "subjectTilesTotal": 304,
+   "subjectTilesUnderCards": 11
+  },
+  "follow@z13.5": {
+   "snapshots": 128,
+   "tilesVisibleMean": 238.59,
+   "tilesCoveredByCards": {
+    "mean": 40.66,
+    "median": 17,
+    "p95": 154,
+    "max": 191
+   },
+   "tilesHalfHiddenByCards": {
+    "mean": 32,
+    "max": 166
+   },
+   "labelsCovered": {
+    "mean": 31.22,
+    "max": 161
+   },
+   "snapshotsWithAnyTileCovered": 116,
+   "persistentTilesCovered": {
+    "mean": 39.99,
+    "max": 181
+   },
+   "withSubjectsOnScreen": 127,
+   "subjectTileUnderACard": 8,
+   "subjectTileUnderAnyOverlay": 8,
+   "subjectTilesTotal": 302,
+   "subjectTilesUnderCards": 10
+  },
+  "follow@z15.5": {
+   "snapshots": 128,
+   "tilesVisibleMean": 46.1,
+   "tilesCoveredByCards": {
+    "mean": 7.46,
+    "median": 4,
+    "p95": 25,
+    "max": 30
+   },
+   "tilesHalfHiddenByCards": {
+    "mean": 6.07,
+    "max": 27
+   },
+   "labelsCovered": {
+    "mean": 5.8,
+    "max": 29
+   },
+   "snapshotsWithAnyTileCovered": 104,
+   "persistentTilesCovered": {
+    "mean": 10.07,
+    "max": 49
+   },
+   "withSubjectsOnScreen": 114,
+   "subjectTileUnderACard": 21,
+   "subjectTileUnderAnyOverlay": 29,
+   "subjectTilesTotal": 255,
+   "subjectTilesUnderCards": 25
+  }
+ },
+ "sample5": {
+  "z12": {
+   "samples": 135,
+   "tilesVisibleMean": 366.31,
+   "persistentTilesCoveredMean": 2.09,
+   "persistentTilesCoveredMax": 17,
+   "persistentHalfHiddenMean": 0.7,
+   "persistentHalfHiddenMax": 6,
+   "samplesWithAHalfHiddenTile": 24,
+   "samplesWithAnyTileCovered": 24,
+   "labelsCoveredMean": 0.54,
+   "byOverlayMeanTiles": {
+    "legend": 0.44,
+    "minimap": 0,
+    "hud": 0,
+    "trailsbtn": 0,
+    "tourbtn": 0,
+    "navctrl": 0,
+    "attrib": 0,
+    "timeline": 1.65
+   },
+   "tilesUnderUnitPanelRectMean": 0.05,
+   "shareTilesUnderUnitPanelRect": 0
+  },
+  "z13.5": {
+   "samples": 135,
+   "tilesVisibleMean": 301.81,
+   "persistentTilesCoveredMean": 42.07,
+   "persistentTilesCoveredMax": 65,
+   "persistentHalfHiddenMean": 36.28,
+   "persistentHalfHiddenMax": 56,
+   "samplesWithAHalfHiddenTile": 123,
+   "samplesWithAnyTileCovered": 123,
+   "labelsCoveredMean": 37.12,
+   "byOverlayMeanTiles": {
+    "legend": 2.7,
+    "minimap": 0.04,
+    "hud": 0.13,
+    "trailsbtn": 0,
+    "tourbtn": 0,
+    "navctrl": 0.24,
+    "attrib": 0,
+    "timeline": 38.99
+   },
+   "tilesUnderUnitPanelRectMean": 12,
+   "shareTilesUnderUnitPanelRect": 0.04
+  },
+  "z15.5": {
+   "samples": 135,
+   "tilesVisibleMean": 36.34,
+   "persistentTilesCoveredMean": 5.4,
+   "persistentTilesCoveredMax": 11,
+   "persistentHalfHiddenMean": 4.15,
+   "persistentHalfHiddenMax": 8,
+   "samplesWithAHalfHiddenTile": 117,
+   "samplesWithAnyTileCovered": 135,
+   "labelsCoveredMean": 3.8,
+   "byOverlayMeanTiles": {
+    "legend": 0.26,
+    "minimap": 0,
+    "hud": 0.53,
+    "trailsbtn": 0,
+    "tourbtn": 0,
+    "navctrl": 0.35,
+    "attrib": 0,
+    "timeline": 4.27
+   },
+   "tilesUnderUnitPanelRectMean": 1.32,
+   "shareTilesUnderUnitPanelRect": 0.036
+  }
+ }
+}

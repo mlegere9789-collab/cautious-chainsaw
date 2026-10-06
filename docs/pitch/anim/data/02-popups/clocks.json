@@ -1,0 +1,218 @@
+{
+ "sample": [
+  {
+   "tick": 28,
+   "eventCard": "7:20am",
+   "toolbar": "8:15 AM",
+   "candidateClock": "July 1, about 10:15 AM"
+  },
+  {
+   "tick": 267,
+   "eventCard": "8:25am",
+   "toolbar": "7:25 AM",
+   "candidateClock": "July 2, about 4:30 PM"
+  },
+  {
+   "tick": 275,
+   "eventCard": "9:05am",
+   "toolbar": "8:05 AM",
+   "candidateClock": "July 2, about 6:00 PM"
+  },
+  {
+   "tick": 548,
+   "eventCard": "11:55am",
+   "toolbar": "12:05 PM",
+   "candidateClock": "July 3, about 3:25 PM"
+  },
+  {
+   "tick": 551,
+   "eventCard": "12:10pm",
+   "toolbar": "12:20 PM",
+   "candidateClock": "July 3, about 3:35 PM"
+  }
+ ],
+ "stats": {
+  "eventCardVsToolbar": {
+   "n": 134,
+   "min": -170,
+   "max": 60,
+   "medianAbsMin": 55,
+   "agreeWithin5": 11,
+   "agreeWithin30": 38,
+   "over60": 6,
+   "over180": 0
+  },
+  "eventCardVsCandidate": {
+   "n": 134,
+   "min": -540,
+   "max": 940,
+   "medianAbsMin": 235,
+   "agreeWithin5": 3,
+   "agreeWithin30": 10,
+   "over60": 121,
+   "over180": 100
+  }
+ },
+ "tour": [
+  {
+   "n": 1,
+   "name": "McPherson Ridge",
+   "subtitle": "July 1, 7:30 AM",
+   "tick": 12,
+   "toolbarAtTick": "July 1, 6:55 AM",
+   "candidate": "July 1, about 7:30 AM",
+   "deltaToolbarMin": 35,
+   "deltaCandidateMin": 0
+  },
+  {
+   "n": 2,
+   "name": "Oak Ridge",
+   "subtitle": "July 1, 10:00 AM",
+   "tick": 22,
+   "toolbarAtTick": "July 1, 7:45 AM",
+   "candidate": "July 1, about 9:15 AM",
+   "deltaToolbarMin": 135,
+   "deltaCandidateMin": 45
+  },
+  {
+   "n": 3,
+   "name": "Barlow's Knoll",
+   "subtitle": "July 1, 2:30 PM",
+   "tick": 62,
+   "toolbarAtTick": "July 1, 11:05 AM",
+   "candidate": "July 1, about 3:45 PM",
+   "deltaToolbarMin": 205,
+   "deltaCandidateMin": -75
+  },
+  {
+   "n": 4,
+   "name": "Seminary Ridge",
+   "subtitle": "July 1, 4:00 PM",
+   "tick": 75,
+   "toolbarAtTick": "July 1, 12:10 PM",
+   "candidate": "July 1, about 5:00 PM",
+   "deltaToolbarMin": 230,
+   "deltaCandidateMin": -60
+  },
+  {
+   "n": 5,
+   "name": "Little Round Top",
+   "subtitle": "July 2, 4:00 PM",
+   "tick": 264,
+   "toolbarAtTick": "July 2, 7:10 AM",
+   "candidate": "July 2, about 4:20 PM",
+   "deltaToolbarMin": 530,
+   "deltaCandidateMin": -20
+  },
+  {
+   "n": 6,
+   "name": "Devil's Den",
+   "subtitle": "July 2, 4:30 PM",
+   "tick": 268,
+   "toolbarAtTick": "July 2, 7:30 AM",
+   "candidate": "July 2, about 4:40 PM",
+   "deltaToolbarMin": 540,
+   "deltaCandidateMin": -10
+  },
+  {
+   "n": 7,
+   "name": "The Wheatfield",
+   "subtitle": "July 2, 5:00 PM",
+   "tick": 275,
+   "toolbarAtTick": "July 2, 8:05 AM",
+   "candidate": "July 2, about 6:00 PM",
+   "deltaToolbarMin": 535,
+   "deltaCandidateMin": -60
+  },
+  {
+   "n": 8,
+   "name": "Peach Orchard",
+   "subtitle": "July 2, 6:00 PM",
+   "tick": 270,
+   "toolbarAtTick": "July 2, 7:40 AM",
+   "candidate": "July 2, about 5:05 PM",
+   "deltaToolbarMin": 620,
+   "deltaCandidateMin": 55
+  },
+  {
+   "n": 9,
+   "name": "Cemetery Hill",
+   "subtitle": "July 2, 8:00 PM",
+   "tick": 322,
+   "toolbarAtTick": "July 2, 12:00 PM",
+   "candidate": "July 2, about 7:45 PM",
+   "deltaToolbarMin": 480,
+   "deltaCandidateMin": 15
+  },
+  {
+   "n": 10,
+   "name": "Culp's Hill",
+   "subtitle": "July 2-3 (no clock)",
+   "tick": 380,
+   "toolbarAtTick": "July 2, 4:50 PM",
+   "candidate": "Night of July 2-3, about 12:40 AM",
+   "deltaToolbarMin": null,
+   "deltaCandidateMin": null
+  },
+  {
+   "n": 11,
+   "name": "Cemetery Ridge",
+   "subtitle": "July 2, 7:30 PM",
+   "tick": 315,
+   "toolbarAtTick": "July 2, 11:25 AM",
+   "candidate": "July 2, about 7:25 PM",
+   "deltaToolbarMin": 485,
+   "deltaCandidateMin": 5
+  },
+  {
+   "n": 12,
+   "name": "The Angle",
+   "subtitle": "July 3, 3:00 PM",
+   "tick": 548,
+   "toolbarAtTick": "July 3, 12:05 PM",
+   "candidate": "July 3, about 3:25 PM",
+   "deltaToolbarMin": 175,
+   "deltaCandidateMin": -25
+  },
+  {
+   "n": 13,
+   "name": "East Cavalry Field",
+   "subtitle": "July 3, 3:00 PM",
+   "tick": 522,
+   "toolbarAtTick": "July 3, 9:55 AM",
+   "candidate": "July 3, about 1:30 PM",
+   "deltaToolbarMin": 305,
+   "deltaCandidateMin": 90
+  },
+  {
+   "n": 14,
+   "name": "Pickett's Charge",
+   "subtitle": "July 3, 3:00 PM",
+   "tick": 540,
+   "toolbarAtTick": "July 3, 11:25 AM",
+   "candidate": "July 3, about 3:05 PM",
+   "deltaToolbarMin": 215,
+   "deltaCandidateMin": -5
+  },
+  {
+   "n": 15,
+   "name": "High Water Mark",
+   "subtitle": "July 3 (no clock)",
+   "tick": 555,
+   "toolbarAtTick": "July 3, 12:40 PM",
+   "candidate": "July 3, about 3:55 PM",
+   "deltaToolbarMin": null,
+   "deltaCandidateMin": null
+  },
+  {
+   "n": 16,
+   "name": "Confederate Avenue",
+   "subtitle": "July 4-5, 1863",
+   "tick": 610,
+   "toolbarAtTick": "July 3, 5:15 PM",
+   "candidate": "July 3, about 6:20 PM",
+   "deltaToolbarMin": null,
+   "deltaCandidateMin": null
+  }
+ ]
+}
