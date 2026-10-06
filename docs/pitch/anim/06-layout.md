@@ -179,6 +179,8 @@ One solver, one verifier, one tile spec; the four strategies are **stages of the
 
 ### 4.1 Pipeline (one frame)
 
+![the pipeline](layout-lab/out/figs/pipeline.png)
+
 1. **Footprints** from the tile spec and measured text.
 2. **Seed.** Last frame's aggregates are re-created (*sticky aggregates*); optionally a zoom-keyed tier pre-merges by echelon.
 3. **Groups.** Tiles that could interact (anchors closer than 2 x budget + chip sizes) are grouped; groups are solved independently.
