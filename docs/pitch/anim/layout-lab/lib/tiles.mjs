@@ -1,7 +1,7 @@
 // layout-lab/lib/tiles.mjs - turns the visible units of a frame into tile descriptors (leaf tiles, aggregate tiles).
 // A tile = { key, ids[] (every unit it represents), ax, ay (anchor, world px), chipW, chipH, labelW, labelH, labelText, short,
 //            side ('union'|'confederate'|'mixed'), arm, ratio (strength state), prio, kind:'leaf'|'agg', lca, n }
-import { project, metresPerPx } from './data.mjs';
+import { project, metresPerPx } from './data-core.mjs';
 import { chipSize, labelSize } from './spec.mjs';
 
 export const ORIGIN = { lng: -77.2377, lat: 39.8206 };      // arbitrary local origin: keeps coordinates small, layout is translation invariant

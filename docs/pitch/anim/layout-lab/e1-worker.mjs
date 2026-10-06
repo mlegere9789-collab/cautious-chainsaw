@@ -6,19 +6,19 @@ import { visibleAt } from './lib/data.mjs';
 import { SPECS } from './lib/spec.mjs';
 import { makeStrategy } from './lib/strategies.mjs';
 import { frameLeaves, measure, pct } from './lib/metrics.mjs';
-import { legacyLayout, legacyOverlaps } from './lib/legacy.mjs';
+import { legacyLayout, legacyOverlaps, legacyOrder } from './lib/legacy.mjs';
 import { mpp } from './lib/tiles.mjs';
 
-export function e1(z, { specName = 'standard', strategies = ['raw', 'disclose', 'displace', 'aggregate', 'fanout', 'hybrid'], ticks = null, opts = {}, window = null, legacy = true } = {}) {
+export function e1(z, { specName = 'standard', strategies = ['raw', 'disclose', 'displace', 'aggregate', 'aggregateTier', 'fanout', 'hybrid'], ticks = null, opts = {}, window = null, rule = 'A', legacy = true } = {}) {
   const all = loadAll(); const spec = SPECS[specName];
   const T = ticks || Array.from({ length: 675 }, (_, i) => i + 1);
   const series = {}; const worst = {};
-  const keys = ['visible', 'tiles', 'leafTiles', 'aggTiles', 'unitsInAggs', 'overlaps', 'clearanceViolations', 'dropped', 'unrepresented', 'displacedTiles', 'maxDispPx', 'p95DispPx', 'maxAggSpreadPx', 'labelFrac', 'leaderCrossings', 'rounds', 'ms'];
+  const keys = ['visible', 'tiles', 'leafTiles', 'aggTiles', 'unitsInAggs', 'overlaps', 'overlapsChipChip', 'tilesInOverlap', 'clearanceViolations', 'dropped', 'unrepresented', 'displacedTiles', 'maxDispPx', 'p95DispPx', 'maxAggSpreadPx', 'aggSpreadP50Px', 'aggSpreadP95Px', 'aggsSpreadOver2Chips', 'aggFormationShare', 'aggUnitsContact', 'aggUnitsLead', 'aggUnitsFormation', 'labelFrac', 'leaderCrossings', 'rounds', 'ms'];
   for (const s of strategies) { series[s] = {}; for (const k of keys) series[s][k] = new Float64Array(T.length); }
   const legacySeries = { glyphGlyph: new Float64Array(T.length), glyphLabel: new Float64Array(T.length), labelLabel: new Float64Array(T.length), maxDispPx: new Float64Array(T.length), pairsDisplaced: new Float64Array(T.length), ms: new Float64Array(T.length), visible: new Float64Array(T.length) };
-  const order = [...all.units.values()].sort((a, b) => a.kfs[0].tick - b.kfs[0].tick).map((u) => u.id); const rank = new Map(order.map((id, i) => [id, i]));
+  const rank = legacyOrder(all);
   T.forEach((tau, ti) => {
-    const { leaves } = frameLeaves(all, tau, z, spec, { window });
+    const { leaves } = frameLeaves(all, tau, z, spec, { rule, window });
     for (const s of strategies) {
       const strat = makeStrategy(s, all, spec, opts[s] || null);
       const res = strat.step(leaves, { z, dt: 1, static: true });
@@ -26,7 +26,7 @@ export function e1(z, { specName = 'standard', strategies = ['raw', 'disclose', 
       for (const k of keys) series[s][k][ti] = m[k];
     }
     if (legacy) {
-      const vis = visibleAt(all, tau, { mode: 'hold', window }); vis.sort((a, b) => rank.get(a.u.id) - rank.get(b.u.id));
+      const vis = visibleAt(all, tau, { mode: 'hold', rule, window }); vis.sort((a, b) => rank.get(a.u.id) - rank.get(b.u.id));
       const t0 = performance.now(); const L = legacyLayout(vis, z); const ms = performance.now() - t0; const ov = legacyOverlaps(L);
       legacySeries.glyphGlyph[ti] = ov['glyph+glyph']; legacySeries.glyphLabel[ti] = ov['glyph+label']; legacySeries.labelLabel[ti] = ov['label+label'];
       legacySeries.maxDispPx[ti] = Math.max(0, ...L.disp); legacySeries.pairsDisplaced[ti] = L.disp.filter((d) => d >= 3).length; legacySeries.ms[ti] = ms; legacySeries.visible[ti] = vis.length;
@@ -40,8 +40,8 @@ export function e1(z, { specName = 'standard', strategies = ['raw', 'disclose', 
 }
 
 if (!isMainThread && workerData && workerData.e1) {
-  const { z, specName, strategies, ticks, opts, window, legacy, keepSeries } = workerData;
-  const r = e1(z, { specName, strategies, ticks, opts, window, legacy });
+  const { z, specName, strategies, ticks, opts, window, rule, legacy, keepSeries } = workerData;
+  const r = e1(z, { specName, strategies, ticks, opts, window, rule, legacy });
   const pack = (o) => Object.fromEntries(Object.entries(o).map(([k, v]) => [k, Array.from(v)]));
   parentPort.postMessage({ out: r.out, series: keepSeries ? Object.fromEntries(Object.entries(r.series).map(([s, o]) => [s, pack(o)])) : null, legacySeries: keepSeries ? pack(r.legacySeries) : null });
 }

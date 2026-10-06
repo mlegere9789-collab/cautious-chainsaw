@@ -88,7 +88,8 @@ function engineStrategy(name, cfgBase) {
 }
 
 // ---- (c) fixed-slot roster fan-out --------------------------------------------------------------------------------------------
-function fanoutStrategy(all, spec, opts = {}) {
+function fanoutStrategy(all, spec, opts) {
+  opts = opts || {};
   const state = newState(); state.rost = new Map();
   const dRoster = opts.dRoster ?? 96; const maxRoster = opts.maxRoster ?? 999;
   return { name: 'fanout', state, step(leaves, ctx) {

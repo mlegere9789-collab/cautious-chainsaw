@@ -11,8 +11,8 @@
 //   overlaps           measure().overlaps of every frame (must be 0 for the proposed pipeline)
 import { makeStrategy } from './strategies.mjs';
 import { frameLeaves, measure, pct } from './metrics.mjs';
-import { legacyLayout, legacyOverlaps } from './legacy.mjs';
-import { visibleAt } from './data.mjs';
+import { legacyLayout, legacyOverlaps, legacyOrder } from './legacy.mjs';
+import { visibleAt } from './data-core.mjs';
 import { newSmoother, smoothFrame } from './smooth.mjs';
 import { verifyFrame } from './geom.mjs';
 
@@ -75,17 +75,16 @@ export function summarize(a, frames, fps, speed) {
     flickerPerSec: (a.births + a.deaths + a.labelToggles + a.slotChanges) / sec,
     flickerPer100TilesPerSec: (a.births + a.deaths + a.labelToggles + a.slotChanges) / sec / Math.max(1, avgTiles) * 100,
     popsPerTileSec: a.pops / sec / Math.max(1, avgTiles),
-    jerkP95: pct(a.jerk, 0.95), jerkP99: pct(a.jerk, 0.99), jerkMax: a.jerk.length ? Math.max(...a.jerk) : 0, jerkShareOver1px: a.jerkN ? a.jerkOver1 / a.jerkN : 0,
+    jerkP95: pct(a.jerk, 0.95), jerkP99: pct(a.jerk, 0.99), jerkMax: a.jerk.reduce((m, v) => (v > m ? v : m), 0), jerkShareOver1px: a.jerkN ? a.jerkOver1 / a.jerkN : 0,
     labelFracMean: mean(a.labelFrac),
     msMean: mean(a.ms), msP50: pct(a.ms, 0.5), msP95: pct(a.ms, 0.95), msP99: pct(a.ms, 0.99), msMax: a.ms.length ? Math.max(...a.ms) : 0, roundsMax: Math.max(...a.rounds),
   };
 }
 
 /** the SHIPPED renderer under the same playback: stateless relaxation every frame, rendered centre = glyph centre.  mode 'hold' = shipped data path. */
-export function runLegacyWindow(all, { z, tick0, speed, frames = 600, fps = 60, mode = 'hold' }) {
+export function runLegacyWindow(all, { z, tick0, speed, frames = 600, fps = 60, mode = 'hold', warmup = 60 }) {
   const acc = newAcc(); let prevC = new Map(); let prevPrevC = new Map(); let prevA = new Map();
-  const order = [...all.units.values()].sort((a, b) => a.kfs[0].tick - b.kfs[0].tick).map((u) => u.id);
-  const rank = new Map(order.map((id, i) => [id, i]));
+  const rank = legacyOrder(all);
   for (let f = 0; f < frames; f++) {
     const tau = Math.min(675, tick0 + speed * f / fps);
     const vis = visibleAt(all, tau, { mode });
@@ -95,7 +94,8 @@ export function runLegacyWindow(all, { z, tick0, speed, frames = 600, fps = 60, 
     acc.frames++; acc.ov += tot; if (tot) acc.ovFrames++; acc.ms.push(ms); acc.tiles.push(vis.length); acc.visible.push(vis.length);
     const cen = new Map(); const anc = new Map();
     L.pe.forEach((p, i) => { cen.set(p.u.id, [L.glyphs[i].cx, L.glyphs[i].cy]); anc.set(p.u.id, [p.x, p.y]); acc.maxDisp = Math.max(acc.maxDisp, L.disp[i]); });
-    if (f > 0) for (const [k, c] of cen) {
+    if (f >= warmup) acc.flickerFrames++;
+    if (f >= warmup) for (const [k, c] of cen) {
       const pc = prevC.get(k); if (!pc) continue; const a = anc.get(k); const pa = prevA.get(k);
       const ex = Math.hypot((c[0] - pc[0]) - (a[0] - pa[0]), (c[1] - pc[1]) - (a[1] - pa[1])); if (ex > POP_PX) acc.pops++;
       const ppc = prevPrevC.get(k); if (ppc) { const j = Math.hypot(c[0] - 2 * pc[0] + ppc[0], c[1] - 2 * pc[1] + ppc[1]); acc.jerk.push(j); acc.jerkN++; if (j > 1) acc.jerkOver1++; }

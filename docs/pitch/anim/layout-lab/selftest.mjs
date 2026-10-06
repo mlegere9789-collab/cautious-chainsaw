@@ -5,6 +5,7 @@
 //   4. the guarantee: solve() with aggregation returns 0 overlaps, 0 unrepresented, no duplicates, on adversarial scenes
 //      (identical coordinates, lines, grids, gaussian piles, up to 478 tiles, both spec presets) and terminates
 //   5. negative control: with aggregation switched off, a pile of identical anchors FAILS (tiles dropped) -> the guarantee comes from aggregation
+import fs from 'node:fs';
 import { loadAll } from './lib/data.mjs';
 import { SPECS } from './lib/spec.mjs';
 import { verifyFrame, verifyFrameBrute } from './lib/geom.mjs';
@@ -12,7 +13,7 @@ import { nearestFree, Occ, solve, newState } from './lib/engine.mjs';
 import { synthLeaves, mulberry32 } from './lib/synth.mjs';
 import { measure } from './lib/metrics.mjs';
 
-const all = loadAll(); let fails = 0; const log = [];
+const all = loadAll(); let fails = 0; const log = []; const M = {};
 const ok = (cond, msg) => { if (!cond) { fails++; console.log('FAIL', msg); } else log.push(msg); };
 
 // 1 -------------------------------------------------------------------------------------------------------------------------------
@@ -24,6 +25,7 @@ const ok = (cond, msg) => { if (!cond) { fails++; console.log('FAIL', msg); } el
     const a = verifyFrame(items, 2); const b = verifyFrameBrute(items, 2);
     if (a.overlaps !== b.overlaps || a.clearanceViolations !== b.clearanceViolations) bad++;
   }
+  M.randomRectSets = N;
   ok(bad === 0, `verifier == brute force on ${N} random rect sets`);
 }
 // 3 -------------------------------------------------------------------------------------------------------------------------------
@@ -44,6 +46,7 @@ const ok = (cond, msg) => { if (!cond) { fails++; console.log('FAIL', msg); } el
       if (best) { worstGap = Math.max(worstGap, gd - bd); if (gd > bd + 0.75) bad++; }   // and optimal up to the brute-force grid resolution
     }
   }
+  M.optimalityScenes = N; M.optimalityExcess = worstGap;
   ok(bad === 0, `nearestFree is feasible and optimal on ${N} random scenes (worst excess over the 0.5 px brute force: ${worstGap.toFixed(2)} px)`);
 }
 // 4 + 5 ---------------------------------------------------------------------------------------------------------------------------
@@ -59,6 +62,7 @@ const ok = (cond, msg) => { if (!cond) { fails++; console.log('FAIL', msg); } el
       if (m.overlaps !== 0 || m.unrepresented !== 0 || m.duplicated !== 0 || m.clearanceViolations !== 0) { allZero = false; console.log('  violation', specName, pattern, n, spread, seed, JSON.stringify({ ov: m.overlaps, unrep: m.unrepresented, dup: m.duplicated, clr: m.clearanceViolations })); }
     }
   }
+  M.adversarialScenes = scenes; M.slowestSolveMs = maxMs; M.maxRounds = maxRounds;
   ok(allZero, `guarantee holds on ${scenes} adversarial scenes (max rounds ${maxRounds}, slowest solve ${maxMs.toFixed(0)} ms)`);
   // the same guarantee across the whole policy-dial space (budget 0..96, tier, seniority, pin protection on/off is NOT varied: protection is part of the rules)
   { let bad = 0; let n2 = 0; const rnd = mulberry32(99);
@@ -71,6 +75,7 @@ const ok = (cond, msg) => { if (!cond) { fails++; console.log('FAIL', msg); } el
       const st = newState(); let r; let m;
       for (let rep = 0; rep < 3; rep++) { r = solve(all, leaves, cfg, st); m = measure(r, leaves, cfg.z, spec2); n2++; if (m.overlaps || m.unrepresented || m.duplicated || m.clearanceViolations) { bad++; console.log('  dial violation', JSON.stringify({ k, rep, pattern, n, spread, dMax: cfg.dMax, tier: !!cfg.tier, ov: m.overlaps, unrep: m.unrepresented, dup: m.duplicated, clr: m.clearanceViolations })); break; } }
     }
+    M.dialSettings = 240; M.dialSolves = n2;
     ok(bad === 0, `guarantee holds across the policy-dial space (240 random dial settings x 3 consecutive frames = ${n2} solves)`); }
   const spec = SPECS.standard; const leaves = synthLeaves(all, spec, { n: 60, pattern: 'point', seed: 3 });
   const r = solve(all, leaves, { spec, z: 14, dMax: spec.dMax, aggregate: false, pinProtect: true, inertia: false, sticky: false, labels: false, static: true }, newState());
@@ -88,6 +93,8 @@ const ok = (cond, msg) => { if (!cond) { fails++; console.log('FAIL', msg); } el
   { const lab = r.items.find((i) => i.kind === 'label'); if (lab) { const m = r.items.map((i) => ({ ...i })); const li = r.items.indexOf(lab); const tgt = chips.find((c) => c.owner !== lab.owner); move(m, li, tgt.x0 - m[li].x0 + 2, tgt.y0 - m[li].y0 + 2); ok(verifyFrame(m, spec.gap - 1e-6).overlaps > 0, 'mutation B (a label dragged onto a foreign chip) is detected'); } else ok(false, 'mutation B needs a label in the scene'); }
   { const pin = r.items.find((i) => i.kind === 'pin'); if (pin) { const m = r.items.map((i) => ({ ...i })); const pi = r.items.indexOf(pin); const tgt = chips.find((c) => c.owner !== pin.owner); move(m, pi, (tgt.x0 + tgt.x1) / 2 - (pin.x0 + pin.x1) / 2, (tgt.y0 + tgt.y1) / 2 - (pin.y0 + pin.y1) / 2); ok(verifyFrame(m, spec.gap - 1e-6).overlaps > 0, 'mutation C (a true-position pin hidden under a foreign chip) is detected'); } else ok(false, 'mutation C needs a displaced tile in the scene'); }
 }
+fs.mkdirSync(new URL('./out/', import.meta.url), { recursive: true });
+fs.writeFileSync(new URL('./out/selftest.json', import.meta.url), JSON.stringify({ generated: new Date().toISOString(), failures: fails, metrics: M, checks: log }, null, 1));
 console.log(log.map((l) => 'ok   ' + l).join('\n'));
 console.log(fails ? `\n${fails} CHECK(S) FAILED` : '\nALL SELFTESTS PASSED');
 process.exit(fails ? 1 : 0);

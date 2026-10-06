@@ -129,6 +129,7 @@ export function buildAll(readJson) {
       const dist = Math.hypot((prev.lat - r.lat) * 111195, (prev.lng - r.lng) * 111195 * Math.cos(r.lat * Math.PI / 180));
       if (dist > 0.5 || prev.strength !== r.strength || prev.disposition !== r.disposition) conflicts.push({ unit: r.unit_id, tick: r.tick, metres: +dist.toFixed(1), a: prev._file, b: r._file });
     }
+    r._order0 = prev ? prev._order0 : r._order;                 // first row of the (unit, tick) key in load order: the shipped cache inserts a unit when it first sees one of its rows
     byKey.set(k, r);
   }
   const kept = [...byKey.values()];
@@ -206,7 +207,11 @@ export function buildAll(readJson) {
   const chain = (id) => { const out = []; let c = id; const seen = new Set(); while (c && !seen.has(c)) { seen.add(c); out.push(c); if (c === 'ROOT') break; c = nodes.get(c).parent; } return out; };
   for (const u of units.values()) { u.chain = chain(u.id); u.depth = nodes.get(u.id).depth; }
 
-  return { units, nodes, reg, conflicts, rows: rows.length, kept: kept.length, chain, armyId };
+  // snapshot index for visibility rule B (latest keyframe snapshot): populated tick -> [{ u, idx }]
+  const snap = new Map();
+  for (const u of units.values()) u.kfs.forEach((r, idx) => { let a = snap.get(r.tick); if (!a) snap.set(r.tick, a = []); a.push({ u, idx }); });
+  const snapTicks = [...snap.keys()].sort((a, b) => a - b);
+  return { units, nodes, reg, conflicts, rows: rows.length, kept: kept.length, chain, armyId, snap, snapTicks };
 }
 
 // ---- time model --------------------------------------------------------------------------------------------------------
@@ -244,14 +249,26 @@ export function stateAt(u, tau, mode = 'smooth') {
   };
 }
 
-/** units on the field at tau. opts.window: if set, a unit disappears when tau - lastKeyframeTick > window (sensitivity run);
- *  default = the bundle's unbounded carry-forward. */
+/** The set of units on the field at (fractional) tick tau, with interpolated state.  Visibility rules (see docs/pitch/anim/03-data-fuel.md section 9.1):
+ *   rule 'A' (default)  carry-forward: every unit with a keyframe up to tau, at its (interpolated / last) position, forever  = what production draws
+ *   rule 'B'            latest keyframe snapshot: only the units recorded at the most recent populated tick <= tau, held until the next populated tick
+ *   rule 'C'            carry-forward with a staleness window: a unit disappears when tau - (its latest keyframe tick <= tau) > opts.window (default 24)
+ *   opts.mode 'smooth' | 'hold' selects the position model of A and C (rule B always holds). */
 export function visibleAt(all, tau, opts = {}) {
+  const rule = opts.rule || (opts.window != null ? 'C' : 'A'); const win = opts.window ?? 24;
   const out = [];
+  if (rule === 'B') {
+    const ticks = all.snapTicks; let lo = 0; let hi = ticks.length - 1; let t = -1;
+    while (lo <= hi) { const mid = (lo + hi) >> 1; if (ticks[mid] <= tau) { t = ticks[mid]; lo = mid + 1; } else hi = mid - 1; }
+    if (t < 0) return out;
+    for (const { u, idx } of all.snap.get(t)) { const r = u.kfs[idx]; out.push({ u, st: { lat: r.lat, lng: r.lng, strength: r.strength, bearing: r.bearing, disposition: r.disposition, moving: false, segment: idx } }); }
+    return out;
+  }
   for (const u of all.units.values()) {
-    if (opts.window != null) { const last = u.kfs[u.kfs.length - 1].tick; if (tau - last > opts.window) continue; }
     const st = stateAt(u, tau, opts.mode || 'smooth');
-    if (st) out.push({ u, st });
+    if (!st) continue;
+    if (rule === 'C' && tau - u.kfs[st.segment].tick > win) continue;
+    out.push({ u, st });
   }
   return out;
 }

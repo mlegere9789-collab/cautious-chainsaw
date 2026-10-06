@@ -38,6 +38,11 @@ export function renderSvg(res, view, opts = {}) {
   }
   // pins of displaced tiles
   for (const p of res.placed) if (p.displaced && inView({ x0: p.t.ax - 3, x1: p.t.ax + 3, y0: p.t.ay - 3, y1: p.t.ay + 3 })) out.push(`<circle cx="${f1(p.t.ax)}" cy="${f1(p.t.ay)}" r="${spec.pinHalf}" fill="#fff" stroke="#10151c" stroke-width=".8"/>`);
+  // roster frames (expanded aggregates)
+  for (const o of res.overlays || []) {
+    out.push(`<rect x="${f1(o.rect.x0 - 3)}" y="${f1(o.rect.y0 - 3)}" width="${f1(o.rect.x1 - o.rect.x0 + 6)}" height="${f1(o.rect.y1 - o.rect.y0 + 6)}" rx="6" fill="rgba(10,14,20,.55)" stroke="rgba(232,213,163,.8)" stroke-width="1"/>`);
+    out.push(`<text x="${f1(o.rect.x0 + 6)}" y="${f1(o.rect.y0 + 11)}" font-size="11" font-weight="700" fill="#e8d5a3">${esc(o.title)}</text>`);
+  }
   // chips
   for (const p of res.placed) {
     const c = p.chip; if (!inView(c)) continue; const t = p.t;

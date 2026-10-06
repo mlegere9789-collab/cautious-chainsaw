@@ -6,10 +6,16 @@
 //            pill = text width + 6 by font size + 4, centred at (x+dx, y+dy-13)
 //   layout : 8 passes of pairwise pushes (x if the x-overlap is the smaller one, else y), 12 px vertical threshold, only when zoom >= 11
 // What it measures: overlap pairs among glyph OBBs and label pills (SAT), displacement (px) and the positions' lies.
-import { project } from './data.mjs';
+import { project } from './data-core.mjs';
 import { textWidth } from './spec.mjs';
 import { worldOrigin } from './tiles.mjs';
 
+/** the order in which the shipped code iterates the units: its carry cache is an object filled while ticks are replayed, so units appear in order of
+ *  (tick of their first keyframe, position of that row in the load order) */
+export function legacyOrder(all) {
+  const ids = [...all.units.values()].sort((a, b) => a.kfs[0].tick - b.kfs[0].tick || a.kfs[0]._order0 - b.kfs[0]._order0).map((u) => u.id);
+  return new Map(ids.map((id, i) => [id, i]));
+}
 export const lA = (strength, mobile = false) => Math.max(10, Math.min(mobile ? 60 : 120, Math.round((strength || 200) / (mobile ? 6 : 4))));
 const isArt = (u, st) => st.disposition === 'Deployed Artillery' || st.disposition === 'Limbered Artillery' || u.id.includes('ART');
 const isCav = (u, st) => st.disposition === 'Mounted Cavalry' || st.disposition === 'Dismounted Cavalry' || u.id.includes('CAV');
