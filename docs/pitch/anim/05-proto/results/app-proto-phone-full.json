@@ -1,0 +1,185 @@
+{
+ "label": "proto",
+ "dist": "tmp\\pitch-anim\\arch\\anim-R1c\\dist",
+ "when": "2026-10-06T02:13:06.570Z",
+ "phone": true,
+ "steps": {
+  "boot": {
+   "ok": true,
+   "info": {
+    "engine": {
+     "version": "0.1.0-proto",
+     "on": true,
+     "skin": "classic",
+     "motion": "smooth",
+     "layout": "relax",
+     "frames": 1,
+     "tiles": 365,
+     "drops": 0,
+     "picks": 0
+    },
+    "canvases": [
+     [
+      1125,
+      1725,
+      "375px",
+      "",
+      "auto"
+     ],
+     [
+      750,
+      1150,
+      "375px",
+      "10",
+      "none"
+     ]
+    ]
+   },
+   "tileRequests": 13,
+   "ms": 8083
+  },
+  "play8x": {
+   "ok": true,
+   "label": "8x at 1x CPU",
+   "throttle": 1,
+   "interval": {
+    "n": 599,
+    "mean": 16.67,
+    "p50": 16.7,
+    "p95": 16.8,
+    "p99": 16.8,
+    "max": 16.8,
+    "over20": 0,
+    "over33": 0,
+    "over50": 0
+   },
+   "fps": 60,
+   "mainBusyPct": 24.8,
+   "scriptPct": 21.8,
+   "layoutMsPerSec": 3.9,
+   "heapMB": 33.4,
+   "engineStageMsMean": {
+    "sample": 0.02,
+    "project": 0.09,
+    "skin": 0.16,
+    "layout": 1.31,
+    "draw": 0.86,
+    "total": 2.49
+   },
+   "engine": {
+    "version": "0.1.0-proto",
+    "on": true,
+    "skin": "classic",
+    "motion": "smooth",
+    "layout": "relax",
+    "frames": 753,
+    "tiles": 378,
+    "drops": 1,
+    "picks": 0
+   },
+   "ms": 19419
+  },
+  "play8x_4xcpu": {
+   "ok": true,
+   "label": "8x at 4x CPU",
+   "throttle": 4,
+   "interval": {
+    "n": 562,
+    "mean": 17.76,
+    "p50": 16.7,
+    "p95": 33.3,
+    "p99": 33.4,
+    "max": 33.4,
+    "over20": 37,
+    "over33": 6,
+    "over50": 0
+   },
+   "fps": 56.3,
+   "mainBusyPct": 98.6,
+   "scriptPct": 86.1,
+   "layoutMsPerSec": 20.1,
+   "heapMB": 35,
+   "engineStageMsMean": {
+    "sample": 0.07,
+    "project": 0.28,
+    "skin": 0.57,
+    "layout": 4.97,
+    "draw": 4.82,
+    "total": 10.87
+   },
+   "engine": {
+    "version": "0.1.0-proto",
+    "on": true,
+    "skin": "classic",
+    "motion": "smooth",
+    "layout": "relax",
+    "frames": 704,
+    "tiles": 378,
+    "drops": 4,
+    "picks": 0
+   },
+   "ms": 19642
+  },
+  "positions": {
+   "ok": true,
+   "mode": "engine",
+   "frames": 540,
+   "tracked": 371,
+   "unitFrameSteps": 182660,
+   "spikesOver8pxAnd6xNeighbours": 1,
+   "spikesOver60px": 0,
+   "appearances": 78,
+   "ms": 18261
+  },
+  "pick": {
+   "ok": true,
+   "unit": "U-I-3-3",
+   "at": [
+    295,
+    239
+   ],
+   "enginePicksAfterClick": 1,
+   "panelBefore": 0,
+   "panelAfter": 1,
+   "panelText": "Cmd: Brigadier General George Stannard",
+   "panelAfterEmptyClick": 1,
+   "ms": 8888
+  },
+  "ancestor_deeplink": {
+   "ok": true,
+   "panel": 0,
+   "engine": {
+    "version": "0.1.0-proto",
+    "on": true,
+    "skin": "classic",
+    "motion": "smooth",
+    "layout": "relax",
+    "frames": 57,
+    "tiles": 0,
+    "drops": 1,
+    "picks": 0
+   },
+   "ms": 8012
+  },
+  "reduced_motion": {
+   "ok": true,
+   "reduceFlag": true,
+   "engine": {
+    "version": "0.1.0-proto",
+    "on": true,
+    "skin": "classic",
+    "motion": "smooth",
+    "layout": "relax",
+    "frames": 181,
+    "tiles": 305,
+    "drops": 1,
+    "picks": 0
+   },
+   "ms": 9845
+  }
+ },
+ "errors": [],
+ "errorCount": 0,
+ "collector": [],
+ "tileRequests": 91
+}

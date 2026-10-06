@@ -1,0 +1,149 @@
+{
+ "label": "proto",
+ "dist": "tmp\\pitch-anim\\arch\\anim-R1c\\dist",
+ "when": "2026-10-06T02:06:22.627Z",
+ "phone": false,
+ "steps": {
+  "boot": {
+   "ok": true,
+   "info": {
+    "engine": {
+     "version": "0.1.0-proto",
+     "on": true,
+     "skin": "classic",
+     "motion": "smooth",
+     "layout": "relax",
+     "frames": 2,
+     "tiles": 420,
+     "drops": 0,
+     "picks": 0
+    },
+    "canvases": [
+     [
+      1440,
+      852,
+      "1440px",
+      "",
+      "auto"
+     ],
+     [
+      1440,
+      852,
+      "",
+      "9",
+      "none"
+     ],
+     [
+      300,
+      150,
+      "",
+      "8",
+      "none"
+     ],
+     [
+      1440,
+      852,
+      "1440px",
+      "10",
+      "none"
+     ],
+     [
+      160,
+      120,
+      "",
+      "",
+      "auto"
+     ]
+    ]
+   },
+   "tileRequests": 76,
+   "ms": 8529
+  },
+  "play8x": {
+   "ok": true,
+   "label": "8x at 1x CPU",
+   "throttle": 1,
+   "interval": {
+    "n": 600,
+    "mean": 16.67,
+    "p50": 16.7,
+    "p95": 16.8,
+    "p99": 16.8,
+    "max": 16.8,
+    "over20": 0,
+    "over33": 0,
+    "over50": 0
+   },
+   "fps": 60,
+   "mainBusyPct": 43.1,
+   "scriptPct": 36.3,
+   "layoutMsPerSec": 4.3,
+   "heapMB": 34,
+   "engineStageMsMean": {
+    "sample": 0.03,
+    "project": 0.14,
+    "skin": 0.22,
+    "layout": 1.8,
+    "draw": 1.41,
+    "total": 3.82
+   },
+   "engine": {
+    "version": "0.1.0-proto",
+    "on": true,
+    "skin": "classic",
+    "motion": "smooth",
+    "layout": "relax",
+    "frames": 756,
+    "tiles": 431,
+    "drops": 1,
+    "picks": 0
+   },
+   "ms": 19481
+  },
+  "play8x_4xcpu": {
+   "ok": true,
+   "label": "8x at 4x CPU",
+   "throttle": 4,
+   "interval": {
+    "n": 270,
+    "mean": 37.04,
+    "p50": 33.3,
+    "p95": 50.1,
+    "p99": 83.3,
+    "max": 100,
+    "over20": 245,
+    "over33": 82,
+    "over50": 26
+   },
+   "fps": 27,
+   "mainBusyPct": 99.4,
+   "scriptPct": 82.6,
+   "layoutMsPerSec": 21.3,
+   "heapMB": 34.8,
+   "engineStageMsMean": {
+    "sample": 0.12,
+    "project": 0.55,
+    "skin": 1.38,
+    "layout": 7.58,
+    "draw": 7.43,
+    "total": 18.24
+   },
+   "engine": {
+    "version": "0.1.0-proto",
+    "on": true,
+    "skin": "classic",
+    "motion": "smooth",
+    "layout": "relax",
+    "frames": 329,
+    "tiles": 431,
+    "drops": 205,
+    "picks": 0
+   },
+   "ms": 19772
+  }
+ },
+ "errors": [],
+ "errorCount": 0,
+ "collector": [],
+ "tileRequests": 90
+}

@@ -1,0 +1,105 @@
+{
+ "label": "control",
+ "dist": "tmp\\pitch-anim\\arch\\anim-R1c-control\\dist",
+ "when": "2026-10-06T02:07:13.993Z",
+ "phone": false,
+ "steps": {
+  "boot": {
+   "ok": true,
+   "info": {
+    "engine": null,
+    "canvases": [
+     [
+      1440,
+      852,
+      "1440px",
+      "",
+      "auto"
+     ],
+     [
+      1440,
+      852,
+      "",
+      "9",
+      "none"
+     ],
+     [
+      300,
+      150,
+      "",
+      "8",
+      "none"
+     ],
+     [
+      1440,
+      852,
+      "",
+      "10",
+      "none"
+     ],
+     [
+      160,
+      120,
+      "",
+      "",
+      "auto"
+     ]
+    ]
+   },
+   "tileRequests": 76,
+   "ms": 8538
+  },
+  "play8x": {
+   "ok": true,
+   "label": "8x at 1x CPU",
+   "throttle": 1,
+   "interval": {
+    "n": 536,
+    "mean": 18.66,
+    "p50": 16.7,
+    "p95": 33.3,
+    "p99": 33.4,
+    "max": 50,
+    "over20": 60,
+    "over33": 7,
+    "over50": 0
+   },
+   "fps": 53.6,
+   "mainBusyPct": 63.1,
+   "scriptPct": 54.2,
+   "layoutMsPerSec": 3.5,
+   "heapMB": 26.9,
+   "engineStageMsMean": null,
+   "engine": null,
+   "ms": 19438
+  },
+  "play8x_4xcpu": {
+   "ok": true,
+   "label": "8x at 4x CPU",
+   "throttle": 4,
+   "interval": {
+    "n": 133,
+    "mean": 74.93,
+    "p50": 66.7,
+    "p95": 116.7,
+    "p99": 133.5,
+    "max": 199.9,
+    "over20": 133,
+    "over33": 132,
+    "over50": 120
+   },
+   "fps": 13.3,
+   "mainBusyPct": 99,
+   "scriptPct": 82.8,
+   "layoutMsPerSec": 19,
+   "heapMB": 37.1,
+   "engineStageMsMean": null,
+   "engine": null,
+   "ms": 19894
+  }
+ },
+ "errors": [],
+ "errorCount": 0,
+ "collector": [],
+ "tileRequests": 91
+}

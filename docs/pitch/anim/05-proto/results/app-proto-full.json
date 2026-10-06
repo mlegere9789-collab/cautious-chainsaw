@@ -1,0 +1,206 @@
+{
+ "label": "proto",
+ "dist": "tmp\\pitch-anim\\arch\\anim-R1c\\dist",
+ "when": "2026-10-06T02:11:30.251Z",
+ "phone": false,
+ "steps": {
+  "boot": {
+   "ok": true,
+   "info": {
+    "engine": {
+     "version": "0.1.0-proto",
+     "on": true,
+     "skin": "classic",
+     "motion": "smooth",
+     "layout": "relax",
+     "frames": 2,
+     "tiles": 420,
+     "drops": 0,
+     "picks": 0
+    },
+    "canvases": [
+     [
+      1440,
+      852,
+      "1440px",
+      "",
+      "auto"
+     ],
+     [
+      1440,
+      852,
+      "",
+      "9",
+      "none"
+     ],
+     [
+      300,
+      150,
+      "",
+      "8",
+      "none"
+     ],
+     [
+      1440,
+      852,
+      "1440px",
+      "10",
+      "none"
+     ],
+     [
+      160,
+      120,
+      "",
+      "",
+      "auto"
+     ]
+    ]
+   },
+   "tileRequests": 76,
+   "ms": 8300
+  },
+  "play8x": {
+   "ok": true,
+   "label": "8x at 1x CPU",
+   "throttle": 1,
+   "interval": {
+    "n": 600,
+    "mean": 16.67,
+    "p50": 16.7,
+    "p95": 16.8,
+    "p99": 16.8,
+    "max": 16.9,
+    "over20": 0,
+    "over33": 0,
+    "over50": 0
+   },
+   "fps": 60,
+   "mainBusyPct": 31,
+   "scriptPct": 25.4,
+   "layoutMsPerSec": 2.9,
+   "heapMB": 43,
+   "engineStageMsMean": {
+    "sample": 0.02,
+    "project": 0.08,
+    "skin": 0.19,
+    "layout": 1.13,
+    "draw": 0.86,
+    "total": 2.5
+   },
+   "engine": {
+    "version": "0.1.0-proto",
+    "on": true,
+    "skin": "classic",
+    "motion": "smooth",
+    "layout": "relax",
+    "frames": 756,
+    "tiles": 431,
+    "drops": 1,
+    "picks": 0
+   },
+   "ms": 19271
+  },
+  "play8x_4xcpu": {
+   "ok": true,
+   "label": "8x at 4x CPU",
+   "throttle": 4,
+   "interval": {
+    "n": 328,
+    "mean": 30.49,
+    "p50": 33.3,
+    "p95": 33.4,
+    "p99": 50,
+    "max": 66.8,
+    "over20": 256,
+    "over33": 46,
+    "over50": 4
+   },
+   "fps": 32.8,
+   "mainBusyPct": 99.4,
+   "scriptPct": 82.6,
+   "layoutMsPerSec": 17.6,
+   "heapMB": 50.7,
+   "engineStageMsMean": {
+    "sample": 0.08,
+    "project": 0.49,
+    "skin": 0.91,
+    "layout": 5.44,
+    "draw": 5.93,
+    "total": 13.88
+   },
+   "engine": {
+    "version": "0.1.0-proto",
+    "on": true,
+    "skin": "classic",
+    "motion": "smooth",
+    "layout": "relax",
+    "frames": 411,
+    "tiles": 431,
+    "drops": 131,
+    "picks": 0
+   },
+   "ms": 19560
+  },
+  "positions": {
+   "ok": true,
+   "mode": "engine",
+   "frames": 541,
+   "tracked": 420,
+   "unitFrameSteps": 210279,
+   "spikesOver8pxAnd6xNeighbours": 32,
+   "spikesOver60px": 0,
+   "appearances": 488,
+   "ms": 18623
+  },
+  "pick": {
+   "ok": true,
+   "unit": "U-II-1-1",
+   "at": [
+    799,
+    189
+   ],
+   "enginePicksAfterClick": 1,
+   "panelBefore": 0,
+   "panelAfter": 1,
+   "panelText": "U | First Brigade, First Division, Second Corps (Cross's Brigade) | U-II-1-1 | ⎘",
+   "panelAfterEmptyClick": 1,
+   "ms": 8936
+  },
+  "ancestor_deeplink": {
+   "ok": true,
+   "panel": 1,
+   "engine": {
+    "version": "0.1.0-proto",
+    "on": true,
+    "skin": "classic",
+    "motion": "smooth",
+    "layout": "relax",
+    "frames": 1,
+    "tiles": 22,
+    "drops": 0,
+    "picks": 0
+   },
+   "ms": 8105
+  },
+  "reduced_motion": {
+   "ok": true,
+   "reduceFlag": true,
+   "engine": {
+    "version": "0.1.0-proto",
+    "on": true,
+    "skin": "classic",
+    "motion": "smooth",
+    "layout": "relax",
+    "frames": 183,
+    "tiles": 358,
+    "drops": 1,
+    "picks": 0
+   },
+   "ms": 9904
+  }
+ },
+ "errors": [],
+ "errorCount": 0,
+ "collector": [],
+ "tileRequests": 146
+}

@@ -1,0 +1,119 @@
+{
+ "note": "terser compress(passes 2)+mangle, then gzip -9 / brotli q11; prototype code, not the shipped build",
+ "candidates": {
+  "c2d-atlas (atlas + tile sprites + draw loop; no scene/timeline)": {
+   "raw": 8106,
+   "gzip": 3463,
+   "brotli": 3115
+  },
+  "gl-overlay (instanced sprite renderer + atlas + draw loop)": {
+   "raw": 9865,
+   "gzip": 4323,
+   "brotli": 3878
+  },
+  "GLSprites alone (shader, buffers, atlas upload, draw call: the reusable WebGL part of B1/B2)": {
+   "raw": 3517,
+   "gzip": 1556,
+   "brotli": 1415
+  },
+  "mbx-custom (custom layer: sprite renderer + atlas + layer glue)": {
+   "raw": 17136,
+   "gzip": 6393,
+   "brotli": 5730
+  },
+  "mbx-symbol (symbol layers: images, sources, 3 layers, per-frame feature build)": {
+   "raw": 13556,
+   "gzip": 4484,
+   "brotli": 3991
+  }
+ },
+ "engine": {
+  "ALL modules (inserted into the entry bundle as one closure)": {
+   "raw": 33847,
+   "gzip": 13592,
+   "brotli": 12232
+  },
+  "00-core.js": {
+   "raw": 3417,
+   "gzip": 1611,
+   "brotli": 1452
+  },
+  "10-timeline.js": {
+   "raw": 3051,
+   "gzip": 1291,
+   "brotli": 1189
+  },
+  "20-motion.js": {
+   "raw": 855,
+   "gzip": 453,
+   "brotli": 412
+  },
+  "30-clock.js": {
+   "raw": 917,
+   "gzip": 533,
+   "brotli": 486
+  },
+  "40-layout.js": {
+   "raw": 1758,
+   "gzip": 963,
+   "brotli": 858
+  },
+  "50-fx.js": {
+   "raw": 1835,
+   "gzip": 954,
+   "brotli": 875
+  },
+  "60-atlas.js": {
+   "raw": 1420,
+   "gzip": 686,
+   "brotli": 606
+  },
+  "70-skins.js": {
+   "raw": 5844,
+   "gzip": 2462,
+   "brotli": 2235
+  },
+  "80-render.js": {
+   "raw": 10218,
+   "gzip": 4640,
+   "brotli": 4234
+  },
+  "85-studio.js": {
+   "raw": 4608,
+   "gzip": 1843,
+   "brotli": 1541
+  },
+  "90-glue.js": {
+   "raw": 1972,
+   "gzip": 915,
+   "brotli": 813
+  }
+ },
+ "engineByGroup": {
+  "DOM-free core (core, timeline, motion, clock)": {
+   "raw": 7783,
+   "gzip": 3369,
+   "brotli": 3091
+  },
+  "layout + fx": {
+   "raw": 3374,
+   "gzip": 1646,
+   "brotli": 1498
+  },
+  "atlas + skins": {
+   "raw": 7049,
+   "gzip": 2933,
+   "brotli": 2663
+  },
+  "renderer + glue": {
+   "raw": 11971,
+   "gzip": 5225,
+   "brotli": 4731
+  },
+  "tuning studio (lazy-loadable)": {
+   "raw": 4508,
+   "gzip": 1794,
+   "brotli": 1491
+  }
+ }
+}

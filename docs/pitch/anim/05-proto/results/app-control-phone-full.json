@@ -1,0 +1,121 @@
+{
+ "label": "control",
+ "dist": "tmp\\pitch-anim\\arch\\anim-R1c-control\\dist",
+ "when": "2026-10-06T02:16:18.341Z",
+ "phone": true,
+ "steps": {
+  "boot": {
+   "ok": true,
+   "info": {
+    "engine": null,
+    "canvases": [
+     [
+      1125,
+      1725,
+      "375px",
+      "",
+      "auto"
+     ],
+     [
+      375,
+      575,
+      "100%",
+      "10",
+      "none"
+     ]
+    ]
+   },
+   "tileRequests": 13,
+   "ms": 8200
+  },
+  "play8x": {
+   "ok": true,
+   "label": "8x at 1x CPU",
+   "throttle": 1,
+   "interval": {
+    "n": 600,
+    "mean": 16.67,
+    "p50": 16.7,
+    "p95": 16.8,
+    "p99": 16.8,
+    "max": 16.8,
+    "over20": 0,
+    "over33": 0,
+    "over50": 0
+   },
+   "fps": 60,
+   "mainBusyPct": 22.6,
+   "scriptPct": 19,
+   "layoutMsPerSec": 4.5,
+   "heapMB": 19.5,
+   "engineStageMsMean": null,
+   "engine": null,
+   "ms": 19449
+  },
+  "play8x_4xcpu": {
+   "ok": true,
+   "label": "8x at 4x CPU",
+   "throttle": 4,
+   "interval": {
+    "n": 369,
+    "mean": 27.05,
+    "p50": 33.3,
+    "p95": 50,
+    "p99": 50,
+    "max": 50.1,
+    "over20": 199,
+    "over33": 57,
+    "over50": 2
+   },
+   "fps": 37,
+   "mainBusyPct": 97.1,
+   "scriptPct": 83.7,
+   "layoutMsPerSec": 21,
+   "heapMB": 29.5,
+   "engineStageMsMean": null,
+   "engine": null,
+   "ms": 19673
+  },
+  "positions": {
+   "ok": true,
+   "mode": "legacy",
+   "frames": 271,
+   "tracked": 335,
+   "unitFrameSteps": 68828,
+   "spikesOver8pxAnd6xNeighbours": 898,
+   "spikesOver60px": 169,
+   "appearances": 4429,
+   "ms": 16731
+  },
+  "pick": {
+   "ok": true,
+   "unit": "U-I-3-3",
+   "at": [
+    295,
+    239
+   ],
+   "enginePicksAfterClick": null,
+   "panelBefore": 0,
+   "panelAfter": 1,
+   "panelText": "Cmd: Brigadier General George Stannard",
+   "panelAfterEmptyClick": 1,
+   "ms": 8875
+  },
+  "ancestor_deeplink": {
+   "ok": true,
+   "panel": 0,
+   "engine": null,
+   "ms": 7998
+  },
+  "reduced_motion": {
+   "ok": true,
+   "reduceFlag": true,
+   "engine": null,
+   "ms": 9994
+  }
+ },
+ "errors": [],
+ "errorCount": 0,
+ "collector": [],
+ "tileRequests": 92
+}

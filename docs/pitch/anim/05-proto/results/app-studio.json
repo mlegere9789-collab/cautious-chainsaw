@@ -1,0 +1,109 @@
+{
+ "when": "2026-10-06T02:17:52.846Z",
+ "steps": {
+  "default": {
+   "ok": true,
+   "info": {
+    "version": "0.1.0-proto",
+    "on": true,
+    "skin": "classic",
+    "motion": "smooth",
+    "layout": "relax",
+    "frames": 2,
+    "tiles": 202,
+    "drops": 0,
+    "picks": 0
+   },
+   "ink": 187648
+  },
+  "kill_switch_url": {
+   "ok": true,
+   "engineOn": false,
+   "ink": 150006,
+   "canvasWidth": 1440
+  },
+  "skin_rich_by_url": {
+   "ok": true,
+   "info": {
+    "version": "0.1.0-proto",
+    "on": true,
+    "skin": "rich",
+    "motion": "smooth",
+    "layout": "relax",
+    "frames": 2,
+    "tiles": 202,
+    "drops": 1,
+    "picks": 0
+   },
+   "ink": 229872
+  },
+  "skin_minimal_by_url": {
+   "ok": true,
+   "info": {
+    "version": "0.1.0-proto",
+    "on": true,
+    "skin": "minimal",
+    "motion": "smooth",
+    "layout": "none",
+    "frames": 2,
+    "tiles": 202,
+    "drops": 0,
+    "picks": 0
+   },
+   "ink": 123274
+  },
+  "studio_live_tuning": {
+   "ok": true,
+   "skinBefore": "classic",
+   "skinAfterSelect": "rich",
+   "inkChangedWithSkin": true,
+   "sliderGeneratedFromParams": true,
+   "exportedBytes": 872,
+   "exportedKeys": [
+    "enabled",
+    "skin",
+    "motion",
+    "layout",
+    "renderer",
+    "dprCap",
+    "jumpTicks",
+    "jumpMs",
+    "crossfadeTicks",
+    "pick",
+    "fx",
+    "params",
+    "$schema",
+    "engine"
+   ],
+   "exportedSkin": "minimal",
+   "studioListsSkins": [
+    "Classic (the shipped look) v1",
+    "Rich (shadow, badge, bar, chevron) v1",
+    "Minimal flat tile v1"
+   ],
+   "fxSwitches": [
+    "effect trails",
+    "effect contact",
+    "effect flash",
+    "effect selectGlow"
+   ]
+  },
+  "select_glow_effect": {
+   "ok": true,
+   "registered": true,
+   "switchOn": true,
+   "schema": true
+  },
+  "fault_fallback": {
+   "ok": true,
+   "engineOnBefore": true,
+   "engineOnAfter": false,
+   "legacyInkAfter": 151483,
+   "newPageErrors": 0
+  }
+ },
+ "errors": [],
+ "errorCount": 0,
+ "collector": [],
+ "tileRequests": 96
+}

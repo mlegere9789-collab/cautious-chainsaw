@@ -1,0 +1,757 @@
+const GTANIM = (function () {
+"use strict";
+// ==== 00-core.js
+// GTANIM prototype engine (docs/pitch/anim/05-architecture.md).  Plain script, no imports, concatenated by build-anim-proto.mjs into ONE closure that is inserted into the
+// entry bundle.  It touches the host only through G.bind({...}) (store, flash map, sound, mapbox) and the few functions the patch hooks call (on, paused, playing, units, pick).
+//   00-core      module registry, tuning, metrics, helpers
+//   10-timeline  placements -> per-unit keyframes (typed arrays), continuous-time sampling
+//   20-motion    motion models (plug-ins): linear, smooth
+//   30-clock     continuous clock, jump policy (glide / crossfade)
+//   40-layout    layout strategies (plug-ins): none, relax
+//   50-fx        effects (plug-ins): contact (engaged glow + sound), flash (casualty), select ring
+//   60-atlas     sprite atlas (device-pixel exact)
+//   70-skins     skin plug-ins: classic (the legacy look), rich (the benchmark tile)
+//   80-render    Canvas2D renderer, frame pipeline, hit grid
+//   85-studio    ?tune=1 Tuning Studio
+//   90-glue      host entry points
+var G = { version: "0.1.0-proto", mods: {}, host: null, T: null, m: { frames: 0, last: 0, ft: [], ms: {}, drops: 0 }, listeners: [] };
+var DEFAULTS = {
+  enabled: true, skin: "classic", motion: "smooth", layout: "relax", renderer: "canvas2d",
+  dprCap: 2, jumpTicks: 4, jumpMs: 650, crossfadeTicks: 40,
+  pick: { mouse: 16, touch: 44 },                                 // px reach around a tile centre when the pointer is not inside a tile (the shipped picker takes the nearest unit within ~0.003 deg)
+  fx: { trails: true },                                           // an effect module registers its own switch (default on); trails are built into the renderer
+  params: {}
+};
+function clone(o) { return JSON.parse(JSON.stringify(o)); }
+function merge(a, b) { for (var k in b) { if (b[k] && typeof b[k] === "object" && !Array.isArray(b[k])) { a[k] = merge(a[k] && typeof a[k] === "object" ? a[k] : {}, b[k]); } else a[k] = b[k]; } return a; }
+G.T = clone(DEFAULTS);
+
+// ---- module registry: G.register(kind, name, module); kinds: motion, layout, fx, skin, renderer
+G.register = function (kind, name, mod) {
+  mod.kind = kind; mod.name = name; mod.version = mod.version || "1";
+  (G.mods[kind] || (G.mods[kind] = {}))[name] = mod;
+  if (kind === "fx" && !(name in G.T.fx)) G.T.fx[name] = mod.enabledByDefault !== false;
+  var p = mod.params || {}, key = kind + "." + name;
+  for (var k in p) { G.T.params[key] = G.T.params[key] || {}; if (!(k in G.T.params[key])) G.T.params[key][k] = p[k].def; }
+  return mod;
+};
+G.get = function (kind, name) { var m = G.mods[kind] && G.mods[kind][name]; if (!m) throw new Error("GTANIM: no " + kind + " module \"" + name + "\""); return m; };
+G.cur = function (kind) { return G.get(kind, G.T[kind]); };
+// tuned value of a module parameter (falls back to the declared default)
+G.P = function (kind, name, k) { var o = G.T.params[kind + "." + name]; return o && k in o ? o[k] : G.mods[kind][name].params[k].def; };
+G.tune = function (path, v) {                                   // G.tune("motion", "linear") | G.tune("params.motion.smooth.tension", 0.4)
+  var a = path.split("."), o = G.T, i;
+  if (a[0] === "params" && a.length === 4) a = ["params", a[1] + "." + a[2], a[3]];     // params are keyed "<kind>.<name>"
+  for (i = 0; i < a.length - 1; i++) { if (!(a[i] in o)) o[a[i]] = {}; o = o[a[i]]; }
+  o[a[a.length - 1]] = v; G.dirty("tune"); G.listeners.forEach(function (f) { try { f(path, v); } catch (e) { } });
+};
+G.setTuning = function (obj) { merge(G.T, obj); G.dirty("tune"); };
+G.exportTuning = function () { var t = clone(G.T); t.$schema = "gtanim.tuning/1"; t.engine = G.version; return t; };
+// JSON-schema-like description generated from the registry: the Studio and the tuning-file test both read it
+G.schema = function () {
+  var s = { $id: "gtanim.tuning/1", engine: G.version, kinds: {} };
+  Object.keys(G.mods).forEach(function (kind) { s.kinds[kind] = {}; Object.keys(G.mods[kind]).forEach(function (n) { var m = G.mods[kind][n]; s.kinds[kind][n] = { version: m.version, params: m.params || {} }; }); });
+  return s;
+};
+G.validateTuning = function (t) {
+  var errs = [];
+  ["skin", "motion", "layout", "renderer"].forEach(function (k) { if (k === "renderer" && !G.mods.renderer) return; if (t[k] != null && !(G.mods[k] && G.mods[k][t[k]])) errs.push(k + ": unknown module " + t[k]); });   // the prototype has one built-in renderer (Canvas2D atlas); the kind exists in the design
+  var P = t.params || {};
+  Object.keys(P).forEach(function (key) {
+    var kn = key.split("."), m = G.mods[kn[0]] && G.mods[kn[0]][kn[1]];
+    if (!m) { errs.push("params." + key + ": unknown module"); return; }
+    Object.keys(P[key]).forEach(function (k) { var d = m.params && m.params[k]; if (!d) errs.push("params." + key + "." + k + ": unknown parameter"); else if (typeof P[key][k] === "number" && (P[key][k] < d.min || P[key][k] > d.max)) errs.push("params." + key + "." + k + ": " + P[key][k] + " outside " + d.min + ".." + d.max); });
+  });
+  return errs;
+};
+G.dirtyFlag = 1;
+G.dirty = function () { G.dirtyFlag = 1; if (G.repaint) G.repaint(); };            // a tuning change repaints even when the map is idle
+
+// ---- URL / storage switches: ?anim=legacy (kill switch), ?anim=skin:rich,motion:linear,layout:none  ?tune=1 (Studio)  window.__gtanimStrict (tests: rethrow instead of falling back)
+G.readSwitches = function () {
+  var q = "", out = { legacy: false, strict: !!window.__gtanimStrict, tune: false };
+  try { q = location.search; } catch (e) { }
+  var m = /[?&]anim=([^&]*)/.exec(q);
+  if (m) m[1].split(",").forEach(function (kv) { var p = kv.split(":"); if (p[0] === "legacy" || p[0] === "off") out.legacy = true; else if (p[0] === "strict") out.strict = true; else if (p[1] && /^(skin|motion|layout|renderer)$/.test(p[0])) G.T[p[0]] = decodeURIComponent(p[1]); });
+  out.tune = /[?&]tune=1\b/.test(q);
+  try { if (window.localStorage && window.localStorage.getItem("gtanim_off") === "1") out.legacy = true; } catch (e) { }
+  return out;
+};
+// ---- tiny helpers
+G.ease = { inOutCubic: function (u) { return u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2; }, smooth: function (u) { return u * u * (3 - 2 * u); } };
+G.now = function () { return window.__gtanimNow ? window.__gtanimNow() : performance.now(); };     // tests inject a fake clock
+function mercX(lng) { return (lng + 180) / 360; }
+function mercY(lat) { var s = Math.sin(lat * Math.PI / 180); return 0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI); }
+G.metersPerDegLat = 111320;
+
+// ==== 10-timeline.js
+// ---------------------------------------------------------------- 10-timeline: keyframes per unit (the unit's OWN consecutive keyframes), sampled at any continuous time
+// Semantics kept from the shipped game (group B): a unit exists from its first keyframe on and holds its last keyframe; the last record of a tick wins.
+// New: positions between two keyframes are interpolated by the motion model across the WHOLE gap (the shipped code interpolates only between consecutive ticks, i.e. teleports
+// across every longer gap).  Strength, disposition and notes always come from the governing (latest) keyframe, so no digit is invented; the visual strength bar may animate.
+function Timeline(pbt) {
+  var ticks = Object.keys(pbt).map(Number).sort(function (a, b) { return a - b; }), per = Object.create(null), ids = [], i, j, k, t, arr, r, id, l;
+  for (i = 0; i < ticks.length; i++) {
+    t = ticks[i]; arr = pbt[t]; if (!arr) continue;
+    for (j = 0; j < arr.length; j++) {
+      r = arr[j]; id = r && r.unit_id; if (!id) continue;
+      l = per[id]; if (!l) { l = per[id] = []; ids.push(id); }
+      if (l.length && l[l.length - 1].t === t) l[l.length - 1] = { t: t, r: r }; else l.push({ t: t, r: r });
+    }
+  }
+  ids.sort();
+  var n = ids.length, tot = 0; for (i = 0; i < n; i++) tot += per[ids[i]].length;
+  this.n = n; this.ids = ids; this.pbt = pbt; this.index = Object.create(null);
+  this.off = new Int32Array(n); this.cnt = new Int32Array(n); this.ptr = new Int32Array(n);
+  this.T = new Float64Array(tot); this.LNG = new Float64Array(tot); this.LAT = new Float64Array(tot); this.B = new Float32Array(tot); this.S = new Float32Array(tot); this.rec = new Array(tot);
+  this.side = new Uint8Array(n); this.maxS = new Float32Array(n);
+  var o = 0;
+  for (i = 0; i < n; i++) {
+    l = per[ids[i]]; this.index[ids[i]] = i; this.off[i] = o; this.cnt[i] = l.length; this.side[i] = ids[i].charAt(0) === "U" ? 0 : 1; var mx = 1;
+    for (k = 0; k < l.length; k++, o++) { r = l[k].r; this.T[o] = l[k].t; this.LNG[o] = r.lng; this.LAT[o] = r.lat; this.B[o] = r.bearing || 0; this.S[o] = r.strength || 0; this.rec[o] = r; if (this.S[o] > mx) mx = this.S[o]; }
+    this.maxS[i] = mx;
+  }
+  this.lng = new Float64Array(n); this.lat = new Float64Array(n); this.bear = new Float32Array(n); this.str = new Float32Array(n); this.alpha = new Float32Array(n);
+  this.gov = new Int32Array(n); this.modelled = new Uint8Array(n); this.alive = new Int32Array(n); this.nAlive = 0; this.at = NaN;
+  this._o = { lng: 0, lat: 0 };
+}
+// tangent (degrees per tick) of one axis at keyframe k of a unit: monotone harmonic mean (Fritsch-Butland), zero where the direction reverses
+Timeline.prototype.tan = function (P, o, c, k, axis) {
+  var T = this.T, d0 = NaN, d1 = NaN, h0 = 0, h1 = 0;
+  if (k > 0) { h0 = T[o + k] - T[o + k - 1]; d0 = (P[o + k] - P[o + k - 1]) / h0; }
+  if (k < c - 1) { h1 = T[o + k + 1] - T[o + k]; d1 = (P[o + k + 1] - P[o + k]) / h1; }
+  if (d0 !== d0) return d1; if (d1 !== d1) return d0;
+  if (d0 * d1 <= 0) return 0;
+  var w1 = 2 * h1 + h0, w2 = h1 + 2 * h0; return (w1 + w2) / (w1 / d0 + w2 / d1);
+};
+Timeline.prototype.stateAt = function (T, motion, entrance) {
+  var off = this.off, cnt = this.cnt, ptr = this.ptr, TT = this.T, na = 0, i, o, c, p, k, u, e, db, out = this._o;
+  for (i = 0; i < this.n; i++) {
+    o = off[i]; c = cnt[i]; p = ptr[i];
+    while (p + 1 < c && TT[o + p + 1] <= T) p++;
+    while (p > 0 && TT[o + p] > T) p--;
+    ptr[i] = p;
+    if (T < TT[o]) { this.alpha[i] = 0; continue; }
+    k = o + p; this.gov[i] = k;
+    if (p === c - 1) { this.lng[i] = this.LNG[k]; this.lat[i] = this.LAT[k]; this.bear[i] = this.B[k]; this.str[i] = this.S[k]; this.modelled[i] = 0; }
+    else {
+      u = (T - TT[k]) / (TT[k + 1] - TT[k]); e = u * u * (3 - 2 * u);
+      motion.sample(this, o, c, p, T, out); this.lng[i] = out.lng; this.lat[i] = out.lat;
+      db = this.B[k + 1] - this.B[k]; if (db > 180) db -= 360; else if (db < -180) db += 360;
+      this.bear[i] = (this.B[k] + db * e + 360) % 360; this.str[i] = this.S[k] + (this.S[k + 1] - this.S[k]) * u;
+      this.modelled[i] = (this.LNG[k + 1] !== this.LNG[k] || this.LAT[k + 1] !== this.LAT[k]) ? 1 : 0;
+    }
+    this.alpha[i] = entrance > 0 ? Math.min(1, (T - TT[o]) / entrance) : 1;
+    this.alive[na++] = i;
+  }
+  this.nAlive = na; this.at = T;
+};
+// the records the rest of the app consumes (minimap, picker index, fly-to): the governing keyframe's record with the sampled position and bearing
+Timeline.prototype.records = function () {
+  var out = [], j, i, r, k;
+  for (j = 0; j < this.nAlive; j++) { i = this.alive[j]; k = this.gov[i]; r = Object.assign({}, this.rec[k]); r.lng = this.lng[i]; r.lat = this.lat[i]; r.bearing = this.bear[i]; out.push(r); }
+  return out;
+};
+// position of ONE unit at any time (trails, tests): binary search over that unit's keyframes
+Timeline.prototype.posAt = function (i, T, motion, out) {
+  var o = this.off[i], c = this.cnt[i], lo = 0, hi = c - 1, mid, TT = this.T;
+  if (T <= TT[o]) { out.lng = this.LNG[o]; out.lat = this.LAT[o]; return; }
+  if (T >= TT[o + c - 1]) { out.lng = this.LNG[o + c - 1]; out.lat = this.LAT[o + c - 1]; return; }
+  while (hi - lo > 1) { mid = (lo + hi) >> 1; if (TT[o + mid] <= T) lo = mid; else hi = mid; }
+  motion.sample(this, o, c, lo, T, out);
+};
+
+// ==== 20-motion.js
+// ---------------------------------------------------------------- 20-motion: motion models (plug-ins).  sample(tl, o, c, p, T, out) writes out.lng / out.lat for the segment p..p+1 of the unit whose keyframes start at o.
+G.register("motion", "linear", {
+  version: "1", label: "Linear (piecewise)",
+  params: {},
+  sample: function (tl, o, c, p, T, out) {
+    var k = o + p, u = (T - tl.T[k]) / (tl.T[k + 1] - tl.T[k]);
+    out.lng = tl.LNG[k] + (tl.LNG[k + 1] - tl.LNG[k]) * u; out.lat = tl.LAT[k] + (tl.LAT[k + 1] - tl.LAT[k]) * u;
+  }
+});
+// monotone cubic Hermite per axis: velocity is continuous through every keyframe (no stop-and-go), and the path never overshoots a keyframe on either axis.
+// tension 0 = zero tangents at every keyframe (each gap eases in and out: the stop-and-go look), 1 = full continuous velocity.
+G.register("motion", "smooth", {
+  version: "1", label: "Smooth (monotone cubic, C1)",
+  params: { tension: { type: "range", min: 0, max: 1, step: 0.05, def: 1, label: "Velocity continuity" } },
+  sample: function (tl, o, c, p, T, out) {
+    var k = o + p, h = tl.T[k + 1] - tl.T[k], u = (T - tl.T[k]) / h, u2 = u * u, u3 = u2 * u, ten = G.P("motion", "smooth", "tension");
+    var h00 = 2 * u3 - 3 * u2 + 1, h10 = u3 - 2 * u2 + u, h01 = -2 * u3 + 3 * u2, h11 = u3 - u2;
+    var a0 = tl.tan(tl.LNG, o, c, p) * ten, a1 = tl.tan(tl.LNG, o, c, p + 1) * ten, b0 = tl.tan(tl.LAT, o, c, p) * ten, b1 = tl.tan(tl.LAT, o, c, p + 1) * ten;
+    out.lng = h00 * tl.LNG[k] + h10 * h * a0 + h01 * tl.LNG[k + 1] + h11 * h * a1;
+    out.lat = h00 * tl.LAT[k] + h10 * h * b0 + h01 * tl.LAT[k + 1] + h11 * h * b1;
+  }
+});
+
+// ==== 30-clock.js
+// ---------------------------------------------------------------- 30-clock: continuous displayed time Td chasing the game's target time T (the store's tick + the fraction of the running tick)
+//   playing, small step      Td = T exactly (the game's own accumulator is already smooth)
+//   scrub / day jump / seek  glide (ease) for <= crossfadeTicks, cross-fade beyond (tiles do not fly across the field for hours of battle time)
+//   pause                    keeps Td: the store's tick = floor(T) so nothing moves backwards; a later step glides
+//   reduced motion           Td = T, no glide, no fade
+var C = { T: NaN, Td: NaN, g: null, fade: 1, playing: false, lastPlay: 0 };
+G.clock = {
+  state: C,
+  set: function (T, playing, reduced, now) {
+    var tk = G.T, d;
+    C.T = T; C.playing = !!playing; if (playing) C.lastPlay = now;
+    if (C.Td !== C.Td || reduced) { C.Td = T; C.g = null; C.fade = 1; return; }
+    if (C.g) { C.g.to = T; return; }                                                    // a glide in progress follows the moving target
+    d = Math.abs(T - C.Td);
+    if (playing) { if (d <= tk.jumpTicks) { C.Td = (C.Td > T && C.Td - T < 1) ? C.Td : T; return; } }   // resuming after a pause at a sub-tick position: hold until the game's time catches up (never slide backwards)
+    else {
+      if (Math.floor(C.Td) === Math.floor(T) && d < 1) return;                           // pause or repaint at the same tick: keep the sub-tick position
+      if (d < 1e-6) return;
+    }
+    C.g = { kind: d > tk.crossfadeTicks ? "fade" : "glide", from: C.Td, to: T, t0: now, dur: d > tk.crossfadeTicks ? tk.jumpMs : Math.min(tk.jumpMs, 140 + d * 40) };
+  },
+  step: function (now) {
+    var g = C.g, u;
+    if (!g) { C.fade = 1; return false; }
+    u = Math.min(1, (now - g.t0) / g.dur);
+    if (g.kind === "glide") { C.Td = g.from + (g.to - g.from) * G.ease.inOutCubic(u); C.fade = 1; }
+    else { if (u < 0.4) C.fade = 1 - u / 0.4; else { C.Td = g.to; C.fade = (u - 0.4) / 0.6; } }
+    if (u >= 1) { C.Td = g.to; C.fade = 1; C.g = null; return false; }
+    return true;
+  },
+  reset: function () { C.T = C.Td = NaN; C.g = null; C.fade = 1; }
+};
+
+// ==== 40-layout.js
+// ---------------------------------------------------------------- 40-layout: layout strategies (plug-ins).  solve(L, dt) reads L.X / L.Y (footprint centres, px), L.W / L.H (footprint size, px) for the tiles in L.idx and writes L.DX / L.DY
+// (the offsets that are DRAWN).  Offsets persist between frames (warm start) and are smoothed in time, so a tile never snaps when the solver changes its mind.
+// This is the REFERENCE strategy of the prototype; the layout lab's strategy replaces it by registering under another name (the invariant it must meet is G.overlaps() === 0).
+G.register("layout", "none", { version: "1", label: "None (tiles on their anchors)", params: {}, solve: function (L) { var j, i; for (j = 0; j < L.idx.length; j++) { i = L.idx[j]; L.DX[i] = 0; L.DY[i] = 0; } } });
+G.register("layout", "relax", {
+  version: "1", label: "Relax (grid push-apart, warm start, smoothed)",
+  params: {
+    passes: { type: "range", min: 1, max: 12, step: 1, def: 6, label: "Passes per frame" },
+    gap: { type: "range", min: 0, max: 8, step: 0.5, def: 2, label: "Gap between tiles (px)" },
+    restore: { type: "range", min: 0, max: 0.5, step: 0.01, def: 0.12, label: "Pull back to anchor" },
+    tau: { type: "range", min: 20, max: 400, step: 10, def: 110, label: "Slide time constant (ms)" }
+  },
+  solve: function (L, dt) {
+    var P = function (k) { return G.P("layout", "relax", k); }, passes = P("passes"), gap = P("gap"), restore = P("restore"), tau = P("tau"), CELL = 96, idx = L.idx, n = idx.length;
+    var X = L.X, Y = L.Y, W = L.W, H = L.H, TX = L.TX, TY = L.TY, i, j, it, a, b, key, ox, oy, sg, cx, cy, moved, q, u, v, h;
+    if (!this.next || this.next.length < n) this.next = new Int32Array(Math.max(n, 1024));
+    var next = this.next, cells = this._cells || (this._cells = new Map());
+    for (j = 0; j < n; j++) { i = idx[j]; TX[i] *= (1 - restore); TY[i] *= (1 - restore); }
+    for (it = 0; it < passes; it++) {
+      cells.clear();
+      for (j = 0; j < n; j++) { i = idx[j]; key = (((X[i] + TX[i]) / CELL) | 0) * 100003 + (((Y[i] + TY[i]) / CELL) | 0); h = cells.get(key); next[j] = h === void 0 ? -1 : h; cells.set(key, j); }
+      moved = 0;
+      for (j = 0; j < n; j++) {
+        a = idx[j]; cx = ((X[a] + TX[a]) / CELL) | 0; cy = ((Y[a] + TY[a]) / CELL) | 0;
+        for (u = -1; u <= 1; u++) for (v = -1; v <= 1; v++) {
+          h = cells.get((cx + u) * 100003 + (cy + v)); if (h === void 0) continue;
+          for (q = h; q >= 0; q = next[q]) {
+            if (q <= j) continue; b = idx[q];
+            ox = (W[a] + W[b]) / 2 + gap - Math.abs(X[a] + TX[a] - X[b] - TX[b]); oy = (H[a] + H[b]) / 2 + gap - Math.abs(Y[a] + TY[a] - Y[b] - TY[b]);
+            if (ox > 0 && oy > 0) {
+              moved++;
+              if (oy <= ox) { sg = Y[a] + TY[a] < Y[b] + TY[b] ? -1 : 1; TY[a] += sg * oy / 2; TY[b] -= sg * oy / 2; }
+              else { sg = X[a] + TX[a] < X[b] + TX[b] ? -1 : 1; TX[a] += sg * ox / 2; TX[b] -= sg * ox / 2; }
+            }
+          }
+        }
+      }
+      if (!moved) break;
+    }
+    var f = 1 - Math.exp(-Math.min(dt, 100) / tau);
+    for (j = 0; j < n; j++) { i = idx[j]; L.DX[i] += (TX[i] - L.DX[i]) * f; L.DY[i] += (TY[i] - L.DY[i]) * f; }
+  }
+});
+
+// ==== 50-fx.js
+// ---------------------------------------------------------------- 50-fx: effects (plug-ins).  An effect may implement  prepare(S, now)  (once per frame, before drawing),  glow(i)  and  isOn(key, now)
+// contact   engaged units: opposing sides within `radius` metres of each other (WORLD distance, so it does not change with zoom) glow with a pulse; sound hook with the host's own throttle
+// flash     the host's casualty flash (a unit that lost strength shows the light variant for 1 s)
+function pulse(now) { return G.host && G.host.reduced() ? 0.7 : 0.35 + 0.65 * Math.abs(Math.sin(now / 300)); }
+G.register("fx", "contact", {
+  version: "1", label: "Contact glow + sound hook",
+  params: { radius: { type: "range", min: 20, max: 600, step: 10, def: 150, label: "Contact radius (m)" }, glow: { type: "range", min: 0, max: 1, step: 0.05, def: 0.7, label: "Glow strength" }, hz: { type: "range", min: 1, max: 30, step: 1, def: 10, label: "Recompute rate (Hz)" } },
+  prepare: function (S, now) {
+    var tl = S.tl, R = G.P("fx", "contact", "radius"), cell = Math.max(R, 50), dLat = G.metersPerDegLat, coslat = Math.cos(39.81 * Math.PI / 180), self = this, m, i, j, key, g, n = 0;
+    this.p = pulse(now);
+    if (now - (this.last || -1e9) < 1000 / G.P("fx", "contact", "hz") && this.eng && this.eng.length === tl.n) return;
+    this.last = now; if (!this.eng || this.eng.length !== tl.n) this.eng = new Uint8Array(tl.n); else this.eng.fill(0);
+    m = new Map();
+    for (j = 0; j < tl.nAlive; j++) {
+      i = tl.alive[j]; if (S.AV[i] < 1) continue;
+      var cx = Math.floor(tl.lng[i] * dLat * coslat / cell), cy = Math.floor(tl.lat[i] * dLat / cell);
+      key = (cx + 200000) * 400000 + (cy + 200000); g = m.get(key); if (!g) m.set(key, g = { cx: cx, cy: cy, a: [] }); g.a.push(i);
+    }
+    m.forEach(function (c) {
+      for (var u = -1; u <= 1; u++) for (var v = -1; v <= 1; v++) {
+        var h = m.get((c.cx + u + 200000) * 400000 + (c.cy + v + 200000)); if (!h) continue;
+        for (var p = 0; p < c.a.length; p++) for (var q = 0; q < h.a.length; q++) {
+          var A = c.a[p], B = h.a[q]; if (tl.side[A] === tl.side[B]) continue;
+          var dx = (tl.lng[A] - tl.lng[B]) * dLat * coslat, dy = (tl.lat[A] - tl.lat[B]) * dLat;
+          if (dx * dx + dy * dy <= R * R) { self.eng[A] = 1; self.eng[B] = 1; }
+        }
+      }
+    });
+    for (j = 0; j < tl.n; j++) n += this.eng[j];
+    this.n = n;
+    var h2 = G.host;
+    if (n > 0 && h2 && h2.sound && h2.sound.on() && now - (this.snd || -1e9) > 4000) { this.snd = now; try { h2.sound.play(); } catch (e) { } }
+  },
+  glow: function (i) { return this.eng && this.eng[i] ? this.p * G.P("fx", "contact", "glow") : 0; },
+  isOn: function (i) { return !!(this.eng && this.eng[i]); }
+});
+G.register("fx", "flash", {
+  version: "1", label: "Casualty flash",
+  params: {},
+  prepare: function () { },
+  isOn: function (id, now) { var f = G.host && G.host.flash; return !!(f && f[id] && f[id] > now); }
+});
+
+// ==== 60-atlas.js
+// ---------------------------------------------------------------- 60-atlas: device-pixel exact sprite atlas.  Cells are drawn once (the skin's draw function) and blitted with drawImage afterwards.
+// Keys are numbers (no string building per frame).  When the pages are full the atlas is flushed and rebuilt lazily (counted in G.m.flushes).
+function Atlas(k, size, maxPages) { this.k = k; this.size = size || 2048; this.maxPages = maxPages || 8; this.map = new Map(); this.pages = []; this.bytes = 0; this._new(); }
+Atlas.prototype._new = function () {
+  var c = document.createElement("canvas"); c.width = c.height = this.size;
+  this.pages.push({ c: c, g: c.getContext("2d") }); this.cur = this.pages[this.pages.length - 1]; this.cx = this.cy = this.rowH = 0; this.bytes += this.size * this.size * 4;
+};
+Atlas.prototype.clear = function () { this.map.clear(); this.pages.length = 0; this.bytes = 0; this._new(); G.m.flushes = (G.m.flushes || 0) + 1; };
+Atlas.prototype.get = function (key, wCss, hCss, draw) {
+  var e = this.map.get(key); if (e) return e;
+  var k = this.k, sw = Math.ceil(wCss * k), sh = Math.ceil(hCss * k);
+  if (this.cx + sw + 2 > this.size) { this.cx = 0; this.cy += this.rowH + 2; this.rowH = 0; }
+  if (this.cy + sh + 2 > this.size) { if (this.pages.length >= this.maxPages) { this.clear(); } else this._new(); }
+  var sx = this.cx + 1, sy = this.cy + 1; this.cx += sw + 2; this.rowH = Math.max(this.rowH, sh);
+  var g = this.cur.g; g.save(); g.translate(sx, sy); g.beginPath(); g.rect(0, 0, sw, sh); g.clip(); g.scale(k, k); draw(g, k); g.restore();
+  e = { c: this.cur.c, sx: sx, sy: sy, sw: sw, sh: sh, w: sw / k, h: sh / k };
+  this.map.set(key, e); return e;
+};
+var _mctx = null, _mcache = new Map();
+G.measure = function (font, text) {                                            // cached text width (CSS px)
+  var key = font + "|" + text, w = _mcache.get(key);
+  if (w === void 0) { if (!_mctx) _mctx = document.createElement("canvas").getContext("2d"); _mctx.font = font; w = _mctx.measureText(text).width; if (_mcache.size > 5000) _mcache.clear(); _mcache.set(key, w); }
+  return w;
+};
+
+// ==== 70-skins.js
+// ---------------------------------------------------------------- 70-skins: skin plug-ins.  A skin is  { pad, geom(t), key(t), draw(g, k, t, ax, ay, geo) }  and is drawn ONCE per visual state into the atlas.
+//   geom(t)   -> { w, h, cx, cy }  footprint of the whole tile (body + label) in CSS px; (cx, cy) = footprint centre relative to the tile's anchor (the true position)
+//   key(t)    -> a number that changes whenever the picture changes (cheap integer arithmetic, no strings)
+//   draw      draws the tile with its anchor at (ax, ay) inside a cell of size (w + 2 pad) x (h + 2 pad); g is scaled to CSS px, k is the device pixel ratio (for shadow sizes)
+// t (the tile accessor the renderer fills per tile): i id side type(0 inf,1 cav,2 art) disp str(visual) doc(documented strength) maxS bear zoom phone sel eng flash mod name oobName
+var PI = Math.PI, DARK = ["#1a3a7a", "#7a1a1a"], MAIN = ["#3a6bc4", "#c43a3a"], LIGHT = ["#8fb4f0", "#f0a39a"], FLASH = ["#88ccff", "#ff9944"], LBL = ["#aaccff", "#ffbbaa"];
+var POST = { "Charging Line": "#ff4422", "Skirmish Line": "#66aaff", "Chaotic Retreat": "#ff8800", "Line of March": "#aaaaaa", Reserve: "#226622", Bivouac: "#555555", "Deployed Artillery": "#f5c518", "Limbered Artillery": "#c8a84a", "Mounted Cavalry": "#44aa44", "Dismounted Cavalry": "#88cc88" };
+var POSTI = Object.keys(POST);
+function clampn(a, b, v) { return Math.max(a, Math.min(b, v)); }
+function cxName(id) { var x = String(id || "").replace(/^[UC]-/, ""), m = x.match(/^(\d+)([A-Z]{2,})$/); return m ? m[1] + " " + m[2] : x.indexOf("-") >= 0 ? x.replace(/-/g, "/").slice(0, 10) : x.slice(0, 8); }
+G.cxName = cxName;
+function zoomBucket(z) { return z >= 16.5 ? 4 : z >= 15 ? 3 : z >= 14 ? 2 : z >= 12 ? 1 : 0; }
+
+// ---- classic: the shipped look (strength-wide bar rotated by bearing, posture dot, label pill), same sizes and label rules as the legacy routine lS
+function classicLabel(t) {                                                                       // legacy Y4 with an empty order of battle: designation from the id, strength only at zoom >= 16.5
+  var z = t.zoom, base = cxName(t.id);
+  if (!t.sel && z < (t.phone ? 14 : 12)) return null;
+  return z >= 16.5 ? base + (t.doc ? " " + t.doc : "") : z >= 14 ? base : z >= 12 ? base.slice(0, 6) : null;
+}
+G.register("skin", "classic", {
+  version: "1", label: "Classic (the shipped look)", pad: 14,
+  params: { pill: { type: "range", min: 0, max: 1, step: 0.02, def: 0.72, label: "Label pill opacity" }, body: { type: "range", min: 0.3, max: 1, step: 0.02, def: 0.88, label: "Body opacity" } },
+  geomOf: function (t) {
+    var bw = clampn(10, t.phone ? 60 : 120, Math.round((t.doc || 200) / (t.phone ? 6 : 4))), bh = t.type === 1 ? 4 : 8, th = (t.bear - 90) * PI / 180, c = Math.abs(Math.cos(th)), s = Math.abs(Math.sin(th));
+    var rw = bw * c + bh * s + 4, rh = bw * s + bh * c + 6, txt = classicLabel(t), fs = t.sel || t.zoom >= 16 ? 10 : t.zoom >= 14 ? 9 : 8, font = "bold " + fs + "px sans-serif";
+    var l = -rw / 2, r = rw / 2, tp = -rh / 2, bt = rh / 2, pw = 0, ph = 0;
+    if (txt) { pw = G.measure(font, txt) + 6; ph = fs + 4; l = Math.min(l, -pw / 2); r = Math.max(r, pw / 2); tp = Math.min(tp, -13 - ph / 2); }
+    return { bw: bw, bh: bh, txt: txt, font: font, fs: fs, pw: pw, ph: ph, w: r - l, h: bt - tp, cx: (l + r) / 2, cy: (tp + bt) / 2 };
+  },
+  size: function (t) { var g = this.geomOf(t); return { w: g.w, h: g.h, cx: g.cx, cy: g.cy, geo: g }; },
+  glowBox: function (t, sz) { var bw = sz.geo.bw, bh = sz.geo.bh, th = (t.bear - 90) * PI / 180, c = Math.abs(Math.cos(th)), s = Math.abs(Math.sin(th)); return { w: bw * c + bh * s + 2, h: bw * s + bh * c + 2, cx: 0, cy: 0 }; },   // the glow follows the body, not the label
+  key: function (t) {
+    var pi = POSTI.indexOf(t.disp) + 1, b = Math.round(t.bear / 10) % 36;
+    return ((((((t.doc * 8 + zoomBucket(t.zoom)) * 36 + b) * 2 + (t.sel ? 1 : 0)) * 2 + (t.flash ? 1 : 0)) * 16 + pi) * 3 + t.type) * 2 + t.side + (t.phone ? 0.5 : 0);   // t.doc is always a number (the renderer fills 0 for a missing strength)
+  },
+  draw: function (g, k, t, ax, ay, geo) {
+    var side = t.side, art = t.type === 2 || t.disp === "Deployed Artillery" || t.disp === "Limbered Artillery", skm = t.disp === "Skirmish Line", col = t.flash ? FLASH[side] : MAIN[side];
+    g.translate(ax, ay);
+    g.save(); g.rotate(((Math.round(t.bear / 10) * 10) - 90) * PI / 180);
+    if (t.sel) { g.shadowColor = "#e8d5a3"; g.shadowBlur = 14 * k; }
+    if (art) { g.strokeStyle = col; g.lineWidth = 2; g.strokeRect(-geo.bw / 2, -geo.bh / 2 - 1, geo.bw, geo.bh + 2); g.beginPath(); g.moveTo(-geo.bw / 4, 0); g.lineTo(geo.bw / 4, 0); g.stroke(); }
+    else if (skm) { g.setLineDash([4, 3]); g.strokeStyle = col; g.lineWidth = 2; g.beginPath(); g.moveTo(-geo.bw / 2, 0); g.lineTo(geo.bw / 2, 0); g.stroke(); g.setLineDash([]); }
+    else { g.globalAlpha = t.sel ? 1 : G.P("skin", "classic", "body"); g.fillStyle = col; g.fillRect(-geo.bw / 2, -geo.bh / 2, geo.bw, geo.bh); g.strokeStyle = DARK[side]; g.lineWidth = 1; g.strokeRect(-geo.bw / 2, -geo.bh / 2, geo.bw, geo.bh); }
+    g.restore();
+    g.beginPath(); g.arc(0, -7, 3.5, 0, 2 * PI); g.fillStyle = POST[t.disp] || MAIN[side]; g.fill(); g.strokeStyle = "rgba(0,0,0,0.8)"; g.lineWidth = 1; g.stroke();
+    if (geo.txt) {
+      g.font = geo.font; g.textAlign = "center"; g.textBaseline = "middle";
+      g.fillStyle = "rgba(0,0,0," + G.P("skin", "classic", "pill") + ")"; g.fillRect(-geo.pw / 2, -13 - geo.ph / 2, geo.pw, geo.ph);
+      g.fillStyle = LBL[side]; g.fillText(geo.txt, 0, -13);
+    }
+  }
+});
+
+// ---- rich: the tile used in the renderer benchmark (shadow, badge glyph, designation from the order of battle, strength bar, posture dot, facing chevron)
+var RT = [{ w: 46, h: 20 }, { w: 62, h: 22 }, { w: 78, h: 24 }];
+function richText(t) { return t.oobName || cxName(t.id); }
+G.register("skin", "rich", {
+  version: "1", label: "Rich (shadow, badge, bar, chevron)", pad: 14,
+  params: { shadow: { type: "range", min: 0, max: 1, step: 0.05, def: 0.55, label: "Shadow strength" }, radius: { type: "range", min: 0, max: 10, step: 1, def: 4, label: "Corner radius (px)" } },
+  size: function (t) { var T = RT[t.doc < 600 ? 0 : t.doc < 1500 ? 1 : 2]; return { w: T.w, h: T.h + 6, cx: 0, cy: 3, geo: T }; },
+  key: function (t) {
+    var tier = t.doc < 600 ? 0 : t.doc < 1500 ? 1 : 2, fb = Math.min(20, Math.round(t.str / t.maxS * 20)), pi = POSTI.indexOf(t.disp) + 1;
+    return ((((((tier * 21 + fb) * 12 + pi) * 16 + (Math.round(t.bear / 22.5) & 15)) * 2 + (t.sel ? 1 : 0)) * 2 + (t.flash ? 1 : 0)) * 3 + t.type) * 2 + t.side;
+  },
+  draw: function (g, k, t, ax, ay, T) {
+    var side = t.side, w = T.w, h = T.h, x = ax - w / 2, y = ay - h / 2, r = G.P("skin", "rich", "radius"), sh = G.P("skin", "rich", "shadow"), txt = richText(t), fb = Math.min(20, Math.round(t.str / t.maxS * 20)) / 20;
+    g.save(); g.shadowColor = "rgba(0,0,0," + sh + ")"; g.shadowBlur = 5 * k; g.shadowOffsetY = 2 * k;
+    var gr = g.createLinearGradient(0, y, 0, y + h); gr.addColorStop(0, t.flash ? "#ffffff" : LIGHT[side]); gr.addColorStop(0.18, t.flash ? FLASH[side] : MAIN[side]); gr.addColorStop(1, DARK[side]);
+    g.fillStyle = gr; g.beginPath(); g.roundRect(x, y, w, h, r); g.fill(); g.shadowColor = "transparent"; g.shadowBlur = 0; g.shadowOffsetY = 0;
+    g.lineWidth = t.sel ? 2 : 1.25; g.strokeStyle = t.sel ? "#e8d5a3" : DARK[side]; g.stroke();
+    g.fillStyle = "rgba(0,0,0,.28)"; g.beginPath(); g.roundRect(x, y, 18, h, [r, 0, 0, r]); g.fill();
+    g.strokeStyle = "#fff"; g.lineWidth = 1.5; g.beginPath();
+    if (t.type === 0) { g.moveTo(x + 4, y + 5); g.lineTo(x + 14, y + h - 5); g.moveTo(x + 14, y + 5); g.lineTo(x + 4, y + h - 5); } else if (t.type === 1) { g.moveTo(x + 4, y + h - 5); g.lineTo(x + 14, y + 5); } else { g.arc(x + 9, y + h / 2, 3.2, 0, 2 * PI); g.fillStyle = "#fff"; g.fill(); }
+    g.stroke();
+    g.font = "bold 10px system-ui, \"Segoe UI\", Arial, sans-serif"; g.textBaseline = "middle"; g.textAlign = "left"; g.lineJoin = "round"; g.lineWidth = 2.5; g.strokeStyle = "rgba(0,0,0,.6)"; g.strokeText(txt, x + 22, y + h / 2 + 0.5, w - 26); g.fillStyle = "#fff"; g.fillText(txt, x + 22, y + h / 2 + 0.5, w - 26);
+    g.fillStyle = "rgba(0,0,0,.55)"; g.fillRect(x, y + h + 3, w, 3); g.fillStyle = LIGHT[side]; g.fillRect(x, y + h + 3, Math.max(1, w * fb), 3);
+    g.fillStyle = POST[t.disp] || "#9aa0aa"; g.beginPath(); g.arc(x + w - 5, y + 5, 2.6, 0, 2 * PI); g.fill(); g.strokeStyle = "rgba(0,0,0,.8)"; g.lineWidth = 1; g.stroke();
+    g.restore();
+    var a = Math.round(t.bear / 22.5) * 22.5 * PI / 180, dx = Math.sin(a), dy = -Math.cos(a), tt = Math.min((w / 2 + 4) / Math.max(Math.abs(dx), 1e-6), (h / 2 + 4) / Math.max(Math.abs(dy), 1e-6));
+    g.save(); g.translate(ax + dx * tt, ay + dy * tt); g.rotate(a); g.fillStyle = LIGHT[side]; g.strokeStyle = "rgba(0,0,0,.85)"; g.lineWidth = 1; g.beginPath(); g.moveTo(0, -5); g.lineTo(4.5, 3); g.lineTo(0, 1); g.lineTo(-4.5, 3); g.closePath(); g.fill(); g.stroke(); g.restore();
+  }
+});
+
+// ==== 80-render.js
+// ---------------------------------------------------------------- 80-render: the frame pipeline (clock -> sample -> filter/project -> layout -> draw -> hit grid) on a DPR-aware Canvas2D atlas renderer.
+// Drawing happens in the map's own 'render' event (same frame, same camera as the base map: no one-frame lag) and, while paused, synchronously from the host's repaint calls.
+var S = {
+  state: void 0, sw: null, tl: null, tlU: null, pbt: null, c: null, g: null, map: null, hooked: new WeakSet(), dirtyDraw: true, lastSig: "", atlas: null, atlasKey: "", oob: null,
+  sel: null, pin: null, filt: null, X: null, Y: null, DX: null, DY: null, TX: null, TY: null, LX: null, LY: null, W: null, H: null, CX: null, CY: null, TK: null, TE: null, TG: null,
+  idx: null, nIdx: 0, apMap: new Map(), first: true, hit: { n: 0, id: new Int32Array(0), x0: new Float32Array(0), y0: new Float32Array(0), x1: new Float32Array(0), y1: new Float32Array(0) }, own: true, lastDraw: 0, cssW: 0, cssH: 0, dpr: 1, glowCache: null
+};
+var TRAIL = { lng: 0, lat: 0 }, T_ACC = {};
+function mkArrays(n) {
+  S.X = new Float64Array(n); S.Y = new Float64Array(n); S.DX = new Float32Array(n); S.DY = new Float32Array(n); S.TX = new Float32Array(n); S.TY = new Float32Array(n);
+  S.LX = new Float64Array(n); S.LY = new Float64Array(n); S.W = new Float32Array(n); S.H = new Float32Array(n); S.CX = new Float32Array(n); S.CY = new Float32Array(n);
+  S.AV = new Float32Array(n); S.ap = new Float64Array(n).fill(NaN); S.TK = new Float64Array(n).fill(-1); S.TE = new Array(n).fill(null); S.TG = new Array(n).fill(null); S.GB = new Array(n).fill(null); S.idx = new Int32Array(n);
+  S.hit = { n: 0, id: new Int32Array(n), x0: new Float32Array(n), y0: new Float32Array(n), x1: new Float32Array(n), y1: new Float32Array(n), ax: new Float32Array(n), ay: new Float32Array(n), tx: new Float32Array(n), ty: new Float32Array(n) };
+}
+function ensureTimeline(pbt) {
+  if (S.pbt === pbt && S.tl) return S.tl;
+  S.pbt = pbt; S.tl = new Timeline(pbt); mkArrays(S.tl.n); S.tlU = null; S.dirtyDraw = true;
+  for (var q = 0; q < S.tl.n; q++) { var v = S.apMap.get(S.tl.ids[q]); if (v !== void 0) S.ap[q] = v; }          // appear times survive a rebuild (a day of data loading must not make every tile enter again)
+  return S.tl;
+}
+function mercProjectOk(map) {                                                       // self-check of the own Web-Mercator projection against the map's (3 points, 0.5 px)
+  try {
+    var ctr = map.getCenter(), z = map.getZoom(), W = map.getContainer().clientWidth, H = map.getContainer().clientHeight, ws = 512 * Math.pow(2, z), ok = true, pts = [[ctr.lng, ctr.lat], [ctr.lng + 0.01, ctr.lat + 0.004], [ctr.lng - 0.012, ctr.lat - 0.006]];
+    for (var i = 0; i < pts.length; i++) { var p = map.project(pts[i]), x = (mercX(pts[i][0]) - mercX(ctr.lng)) * ws + W / 2, y = (mercY(pts[i][1]) - mercY(ctr.lat)) * ws + H / 2; if (Math.abs(p.x - x) > 0.5 || Math.abs(p.y - y) > 0.5) ok = false; }
+    return ok;
+  } catch (e) { return false; }
+}
+function camSig(map) { var c = map.getCenter(); return c.lng + "," + c.lat + "," + map.getZoom() + "," + map.getBearing() + "," + map.getPitch() + "," + map.getContainer().clientWidth + "x" + map.getContainer().clientHeight + "," + (window.devicePixelRatio || 1); }
+
+function attach(c, map) {
+  S.c = c; if (S.map !== map) { S.map = map; S.own = mercProjectOk(map); S.g = null; S.lastSig = ""; }
+  if (!S.hooked.has(map)) { S.hooked.add(map); map.on("render", onRender); }
+}
+function onRender() {
+  if (S.state !== 1 || !S.map) return;
+  try {
+    var now = G.now(), cs = G.clock.state, need = S.dirtyDraw || (now - cs.lastPlay < 150) || !!cs.g || G.dirtyFlag;
+    if (!need && camSig(S.map) === S.lastSig) return;
+    draw("render");
+  } catch (e) { fail(e); }
+}
+function fail(e) { if (G.strict) throw e; S.state = 0; try { console.warn("GTANIM disabled after an error, the shipped renderer takes over:", e); } catch (x) { } }
+
+function ensureAtlas(dpr) {
+  var key = G.T.skin + "@" + G.cur("skin").version + "|" + dpr + "|" + (S.oob ? 1 : 0);
+  if (S.atlas && S.atlasKey === key && !G.dirtyFlag) return;
+  S.atlas = new Atlas(dpr, 2048, 8); S.atlasKey = key; S.glowCache = new Map(); if (S.TK) { S.TK.fill(-1); } G.dirtyFlag = 0;
+}
+function glowSprite(w, h, k) {
+  var key = Math.round(w) * 4096 + Math.round(h), e = S.glowCache.get(key);
+  if (!e) {
+    var pw = Math.round(w) + 24, ph = Math.round(h) + 24;
+    e = S.atlas.get(-key - 1, pw, ph, function (g, kk) { g.shadowColor = "#ffffff"; g.shadowBlur = 9 * kk; g.shadowOffsetX = 5000 * kk; g.fillStyle = "#ffffff"; g.beginPath(); g.roundRect(12 - 5000, 12, Math.round(w), Math.round(h), 4); g.fill(); });
+    e.pw = pw; e.ph = ph; S.glowCache.set(key, e);
+  }
+  return e;
+}
+
+var TA = { i: 0, id: "", side: 0, type: 0, disp: "", str: 0, doc: 0, maxS: 1, bear: 0, zoom: 0, phone: false, sel: false, eng: false, flash: false, mod: false, name: "", oobName: "" };
+
+function draw(reason) {
+  if (window.__gtanimFault) throw new Error("GTANIM injected fault");                  // test hook: proves the fallback to the shipped renderer
+  var t0 = performance.now(), now = G.now(), c = S.c, map = S.map, h = G.host, tl = S.tl, tk = G.T, ms = G.m.ms;
+  if (!c || !map || !tl || !tl.n) return false;
+  if (c.style.display === "none") return false;
+  var cont = map.getContainer(), W = cont.clientWidth, H = cont.clientHeight; if (!W || !H) return false;
+  var dpr = Math.min(window.devicePixelRatio || 1, tk.dprCap || 2), reduced = h.reduced();
+  if (c.width !== Math.round(W * dpr) || c.height !== Math.round(H * dpr)) { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); S.g = null; }
+  if (c.style.width !== W + "px" || c.style.height !== H + "px") { c.style.width = W + "px"; c.style.height = H + "px"; }
+  if (!S.g) S.g = c.getContext("2d");
+  var g = S.g, store = h.store.getState(), oob = store.oobData || null;
+  if (oob !== S.oob) { S.oob = oob; G.dirtyFlag = 1; }
+  var skin = G.cur("skin"), motion = G.cur("motion"), layout = G.cur("layout");
+  S.dpr = dpr; ensureAtlas(dpr); S.cssW = W; S.cssH = H;
+  var atlas = S.atlas, pad = skin.pad;
+
+  // 1 clock + 2 sample
+  var anim = G.clock.step(now), cs = G.clock.state, T = cs.Td; if (T !== T) return false; if (reduced) T = Math.floor(T);
+  var ta = performance.now(); tl.stateAt(T, motion, 0);
+  ms.sample = performance.now() - ta;
+  // lifecycle: a tile that becomes alive after the first frame enters with a short WALL-CLOCK fade (a unit paused on its first documented tick still ends fully visible); the very first frame, reduced motion and entranceMs 0 show it at once
+  var ent = tk.entranceMs == null ? 350 : tk.entranceMs, animEnt = false, ii, uu;
+  for (ii = 0; ii < tl.n; ii++) {
+    if (tl.alpha[ii] === 0) { if (S.ap[ii] === S.ap[ii]) { S.ap[ii] = NaN; S.apMap.delete(tl.ids[ii]); } S.AV[ii] = 0; continue; }
+    if (S.ap[ii] !== S.ap[ii]) { S.ap[ii] = (S.first || reduced || ent <= 0) ? -1e9 : now; S.apMap.set(tl.ids[ii], S.ap[ii]); }
+    uu = (now - S.ap[ii]) / ent; if (uu >= 1) S.AV[ii] = 1; else { S.AV[ii] = G.ease.smooth(uu < 0 ? 0 : uu); animEnt = true; }
+  }
+  if (tl.nAlive > 0) S.first = false;
+
+  // 3 filter + project
+  var tp = performance.now(), zoom = map.getZoom(), ctr = map.getCenter(), own = S.own && map.getBearing() === 0 && map.getPitch() === 0, ws = 512 * Math.pow(2, zoom), cmx = mercX(ctr.lng), cmy = mercY(ctr.lat), phone = W < 500;
+  var f = S.filt || {}, sides = f.sides || ["Union", "Confederate"], disps = f.dispositions, minS = f.minStrength || 0, n = 0, j, i, k, rec, x, y, side, X = S.X, Y = S.Y;
+  var fxc = tk.fx.contact !== false ? G.get("fx", "contact") : null, fxf = tk.fx.flash !== false ? G.get("fx", "flash") : null, fxs = [];
+  Object.keys(G.mods.fx).forEach(function (k) { var m = G.mods.fx[k]; if (tk.fx[k] !== false && m.prepare) { m.prepare(S, now); if (m.glow) fxs.push(m); } });   // every enabled effect, built in or added later
+  var selId = S.sel, pinId = S.pin;
+  for (j = 0; j < tl.nAlive; j++) {
+    i = tl.alive[j]; k = tl.gov[i]; rec = tl.rec[k]; side = tl.side[i];
+    if (sides.indexOf(side === 0 ? "Union" : "Confederate") < 0) continue;
+    if (disps && disps.indexOf(rec.disposition) < 0) continue;
+    if (rec.strength != null && rec.strength < minS) continue;
+    if (own) { x = (mercX(tl.lng[i]) - cmx) * ws + W / 2; y = (mercY(tl.lat[i]) - cmy) * ws + H / 2; } else { var p = map.project([tl.lng[i], tl.lat[i]]); x = p.x; y = p.y; }
+    if (x < -160 || x > W + 160 || y < -80 || y > H + 80) continue;
+    X[i] = x; Y[i] = y; S.idx[n++] = i;
+  }
+  ms.project = performance.now() - tp;
+
+  // 4 skin state -> sprite (only when the visual state changed) + footprint
+  var tz = performance.now(), t = TA, misses = 0, sz, id, a;
+  t.zoom = zoom; t.phone = phone;
+  for (j = 0; j < n; j++) {
+    i = S.idx[j]; k = tl.gov[i]; rec = tl.rec[k]; id = tl.ids[i];
+    t.i = i; t.id = id; t.side = tl.side[i]; t.disp = rec.disposition || ""; t.doc = rec.strength || 0; t.str = tl.str[i]; t.maxS = tl.maxS[i]; t.bear = tl.bear[i];
+    t.type = (t.disp === "Deployed Artillery" || t.disp === "Limbered Artillery" || id.indexOf("ART") >= 0) ? 2 : (t.disp === "Mounted Cavalry" || t.disp === "Dismounted Cavalry" || id.indexOf("CAV") >= 0) ? 1 : 0;
+    t.sel = id === selId || id === pinId; t.flash = !!(fxf && fxf.isOn(id, now)); t.mod = !!tl.modelled[i]; t.eng = !!(fxc && fxc.isOn(i));
+    a = oob && oob[id]; t.oobName = a ? (a.designation || a.name || "") : "";
+    var kk = skin.key(t);
+    if (S.TK[i] !== kk || !S.TE[i]) {
+      sz = skin.size(t); S.W[i] = sz.w; S.H[i] = sz.h; S.CX[i] = sz.cx; S.CY[i] = sz.cy; S.TG[i] = sz.geo; S.GB[i] = skin.glowBox ? skin.glowBox(t, sz) : sz; S.TK[i] = kk; misses++;
+      (function (tt, szz) { var ax = pad + szz.w / 2 - szz.cx, ay = pad + szz.h / 2 - szz.cy, snap = { i: tt.i, id: tt.id, side: tt.side, type: tt.type, disp: tt.disp, str: tt.str, doc: tt.doc, maxS: tt.maxS, bear: tt.bear, zoom: tt.zoom, phone: tt.phone, sel: tt.sel, eng: tt.eng, flash: tt.flash, mod: tt.mod, name: tt.name, oobName: tt.oobName };
+        S.TE[tt.i] = atlas.get(tt.i * 1099511627776 + kk, szz.w + 2 * pad, szz.h + 2 * pad, function (gg, kd) { skin.draw(gg, kd, snap, ax, ay, szz.geo); }); })(t, sz);
+    }
+    S.LX[i] = X[i] + S.CX[i]; S.LY[i] = Y[i] + S.CY[i];
+  }
+  G.m.misses = misses; ms.skin = performance.now() - tz;
+
+  // 5 layout
+  var tq = performance.now(), L = S.L || (S.L = {});
+  L.idx = S.idx.subarray(0, n); L.X = S.LX; L.Y = S.LY; L.W = S.W; L.H = S.H; L.DX = S.DX; L.DY = S.DY; L.TX = S.TX; L.TY = S.TY; L.zoom = zoom;
+  var dt = S.lastDraw ? now - S.lastDraw : 16; S.lastDraw = now; layout.solve(L, dt);
+  ms.layout = performance.now() - tq;
+
+  // 6 draw
+  var td = performance.now(); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+  var fade = cs.fade, hit = S.hit, nh = 0, dx, dy, e, w, hh;
+  if (tk.fx.trails && h.trails && h.trails() && !reduced) drawTrails(g, tl, motion, T, n);
+  g.lineWidth = 0.5;
+  for (j = 0; j < n; j++) {                                                         // leader lines of displaced tiles
+    i = S.idx[j]; dx = S.DX[i]; dy = S.DY[i];
+    if (Math.abs(dx) < 3 && Math.abs(dy) < 3) continue;
+    g.strokeStyle = tl.side[i] === 0 ? "rgba(80,120,200,0.45)" : "rgba(180,80,60,0.45)"; g.beginPath(); g.moveTo(X[i], Y[i]); g.lineTo(X[i] + dx, Y[i] + dy); g.stroke();
+  }
+  if (fxs.length) {                                                                 // under-glow of every tile an enabled effect asks for (max of their alphas)
+    for (j = 0; j < n; j++) {
+      i = S.idx[j]; a = 0; for (var q = 0; q < fxs.length; q++) a = Math.max(a, fxs[q].glow(i)); if (a <= 0) continue; var gb = S.GB[i]; if (!gb) continue; e = glowSprite(gb.w, gb.h, dpr);
+      g.globalAlpha = a * S.AV[i] * fade; g.drawImage(e.c, e.sx, e.sy, e.sw, e.sh, X[i] + S.DX[i] + (gb.cx || 0) - e.pw / 2, Y[i] + S.DY[i] + (gb.cy || 0) - e.ph / 2, e.pw, e.ph);
+    }
+    g.globalAlpha = 1;
+  }
+  for (var pass = 0; pass < 2; pass++) {                                            // selected / pinned tiles last
+    for (j = 0; j < n; j++) {
+      i = S.idx[j]; id = tl.ids[i]; var isSel = id === selId || id === pinId; if ((pass === 1) !== isSel) continue;
+      e = S.TE[i]; if (!e) continue; a = S.AV[i] * fade; if (a <= 0.01) continue;
+      var ax = pad + S.W[i] / 2 - S.CX[i], ay = pad + S.H[i] / 2 - S.CY[i], px = X[i] + S.DX[i] - ax, py = Y[i] + S.DY[i] - ay;
+      if (a < 1) g.globalAlpha = a;
+      g.drawImage(e.c, e.sx, e.sy, e.sw, e.sh, px, py, e.w, e.h);
+      if (a < 1) g.globalAlpha = 1;
+      hit.id[nh] = i; hit.ax[nh] = X[i] + S.DX[i]; hit.ay[nh] = Y[i] + S.DY[i]; hit.tx[nh] = X[i]; hit.ty[nh] = Y[i]; hit.x0[nh] = X[i] + S.DX[i] + S.CX[i] - S.W[i] / 2; hit.y0[nh] = Y[i] + S.DY[i] + S.CY[i] - S.H[i] / 2; hit.x1[nh] = hit.x0[nh] + S.W[i]; hit.y1[nh] = hit.y0[nh] + S.H[i]; nh++;
+    }
+  }
+  hit.n = nh; ms.draw = performance.now() - td;
+
+  S.dirtyDraw = false; S.lastSig = camSig(map);
+  var tot = performance.now() - t0; ms.total = tot; var m = G.m; m.frames++; m.nTiles = n;
+  if (m.last) { var iv = now - m.last; m.ft.push(iv); if (m.ft.length > 240) m.ft.shift(); if (iv > 33.4) m.drops++; } m.last = now;
+  if (anim || animEnt || (now - cs.lastPlay < 150)) map.triggerRepaint();                      // keep the map rendering while time moves; idle = no frames at all
+  return true;
+}
+function drawTrails(g, tl, motion, T, n) {
+  var j, i, kk, steps = 6, step = 1, px, py, ctr = S.map.getCenter(), ws = 512 * Math.pow(2, S.map.getZoom()), cmx = mercX(ctr.lng), cmy = mercY(ctr.lat), W = S.cssW, H = S.cssH, own = S.own && S.map.getBearing() === 0 && S.map.getPitch() === 0;
+  g.lineWidth = 2; g.lineCap = "round"; g.lineJoin = "round";
+  for (j = 0; j < n; j++) {
+    i = S.idx[j]; if (!tl.modelled[i] || S.AV[i] < 1) continue;
+    g.strokeStyle = tl.side[i] === 0 ? "rgba(58,107,196,0.4)" : "rgba(196,58,58,0.4)"; g.beginPath(); g.moveTo(S.X[i], S.Y[i]);
+    for (kk = 1; kk <= steps; kk++) {
+      tl.posAt(i, T - kk * step, motion, TRAIL);
+      if (own) { px = (mercX(TRAIL.lng) - cmx) * ws + W / 2; py = (mercY(TRAIL.lat) - cmy) * ws + H / 2; } else { var p = S.map.project([TRAIL.lng, TRAIL.lat]); px = p.x; py = p.y; }
+      g.lineTo(px, py);
+    }
+    g.stroke();
+  }
+}
+
+// ---- picking: the tile whose drawn rectangle contains the point (topmost first), else the nearest tile centre within reach; null id = empty ground (the host deselects)
+function pickAt(clientX, clientY) {
+  var c = S.c, hit = S.hit, tl = S.tl, i, best = -1, bd = 1e9, reach = G.T.pick.mouse;
+  if (!c || !tl || !hit.n || S.state !== 1) return false;
+  try { if (window.matchMedia("(pointer: coarse)").matches || S.cssW < 500) reach = G.T.pick.touch; } catch (e) { }
+  var r = c.getBoundingClientRect(), x = clientX - r.left, y = clientY - r.top;
+  for (i = 0; i < hit.n; i++) {                                                   // candidates: the pointer is inside the tile's rectangle or within reach of its drawn or true position; the nearest wins, a tie goes to the tile drawn on top
+    var inside = x >= hit.x0[i] && x <= hit.x1[i] && y >= hit.y0[i] && y <= hit.y1[i], d = Math.min(Math.hypot(hit.ax[i] - x, hit.ay[i] - y), Math.hypot(hit.tx[i] - x, hit.ty[i] - y));   // a click on the drawn tile OR on the unit's true position (the end of its leader line) selects it
+    if ((inside || d < reach) && d <= bd) { bd = d; best = i; }
+  }
+  if (best < 0) return { id: null, rec: null };
+  var u = hit.id[best], k = tl.gov[u], rec = Object.assign({}, tl.rec[k]); rec.lng = tl.lng[u]; rec.lat = tl.lat[u]; rec.bearing = tl.bear[u];
+  return { id: tl.ids[u], rec: rec };
+}
+// the drawn scene as data (tests, the Studio, evidence checks): one row per drawn tile
+G.describe = function () {
+  var tl = S.tl, hit = S.hit, out = [], i, u;
+  for (i = 0; i < hit.n; i++) { u = hit.id[i]; out.push({ id: tl.ids[u], x0: hit.x0[i], y0: hit.y0[i], x1: hit.x1[i], y1: hit.y1[i], modelled: !!tl.modelled[u], doc: tl.rec[tl.gov[u]].strength }); }
+  return out;
+};
+G.overlaps = function () {                                                          // count of overlapping tile pairs in the last frame (the invariant the owner asks for: 0)
+  var hit = S.hit, c = 0, a, b;
+  for (a = 0; a < hit.n; a++) for (b = a + 1; b < hit.n; b++) if (hit.x0[a] < hit.x1[b] - 0.5 && hit.x1[a] > hit.x0[b] + 0.5 && hit.y0[a] < hit.y1[b] - 0.5 && hit.y1[a] > hit.y0[b] + 0.5) c++;
+  return c;
+};
+
+// ==== 85-studio.js
+// ---------------------------------------------------------------- 85-studio: the hidden Tuning Studio, opened by ?tune=1.  Everything in it is generated from the module registry (G.mods + each module's params):
+// a module that declares `params` gets its sliders for free.  Live metrics, skin / motion / layout switches, effect toggles, JSON export of the tuning file, reset, legacy switch.
+function studioRow(parent, label) { var r = document.createElement("div"); r.style.cssText = "display:flex;align-items:center;gap:6px;margin:3px 0"; var l = document.createElement("label"); l.textContent = label; l.style.cssText = "flex:0 0 112px;color:#9a9"; r.appendChild(l); parent.appendChild(r); return r; }
+function openStudio() {
+  if (S.studio || !window.document) return;
+  var d = S.studio = document.createElement("div"); d.id = "gtanim-studio"; d.setAttribute("role", "dialog"); d.setAttribute("aria-label", "Animation tuning studio");
+  d.style.cssText = "position:fixed;right:12px;bottom:12px;width:300px;max-height:78vh;overflow:auto;z-index:99999;background:rgba(8,8,18,.95);color:#ddd;font:12px/1.4 system-ui,sans-serif;border:1px solid #445;border-radius:8px;padding:10px 12px;box-shadow:0 6px 24px rgba(0,0,0,.6)";
+  var head = document.createElement("div"); head.style.cssText = "display:flex;justify-content:space-between;font-weight:bold;color:#e8d5a3;margin-bottom:6px"; head.textContent = "Tuning Studio  engine " + G.version;
+  var x = document.createElement("button"); x.textContent = "x"; x.setAttribute("aria-label", "Close tuning studio"); x.style.cssText = "background:none;border:0;color:#ddd;cursor:pointer"; x.onclick = function () { d.remove(); S.studio = null; clearInterval(S.studioTimer); }; head.appendChild(x); d.appendChild(head);
+  var met = document.createElement("pre"); met.style.cssText = "margin:0 0 6px;color:#8c8;font:11px/1.35 ui-monospace,monospace;white-space:pre-wrap"; d.appendChild(met);
+  var body = document.createElement("div"); d.appendChild(body);
+  function build() {
+    body.textContent = "";
+    ["skin", "motion", "layout"].forEach(function (kind) {
+      var r = studioRow(body, kind), sel = document.createElement("select"); sel.style.cssText = "flex:1;background:#111;color:#ddd;border:1px solid #445"; sel.setAttribute("aria-label", kind);
+      Object.keys(G.mods[kind]).forEach(function (n) { var o = document.createElement("option"); o.value = n; o.textContent = (G.mods[kind][n].label || n) + " v" + G.mods[kind][n].version; if (G.T[kind] === n) o.selected = true; sel.appendChild(o); });
+      sel.onchange = function () { G.tune(kind, sel.value); build(); }; r.appendChild(sel);
+      var m = G.mods[kind][G.T[kind]], P = m.params || {};
+      Object.keys(P).forEach(function (k) {
+        var q = P[k], rr = studioRow(body, "  " + (q.label || k)), inp = document.createElement("input"), val = document.createElement("span"); inp.type = "range"; inp.min = q.min; inp.max = q.max; inp.step = q.step; inp.value = G.P(kind, m.name, k); inp.style.flex = "1"; inp.setAttribute("aria-label", q.label || k);
+        val.textContent = inp.value; val.style.cssText = "flex:0 0 36px;text-align:right"; inp.oninput = function () { val.textContent = inp.value; G.tune("params." + kind + "." + m.name + "." + k, +inp.value); }; rr.appendChild(inp); rr.appendChild(val);
+      });
+    });
+    Object.keys(G.T.fx).forEach(function (k) { var r = studioRow(body, "fx " + k), cb = document.createElement("input"); cb.type = "checkbox"; cb.checked = !!G.T.fx[k]; cb.setAttribute("aria-label", "effect " + k); cb.onchange = function () { G.tune("fx." + k, cb.checked); }; r.appendChild(cb); });
+    var bar = document.createElement("div"); bar.style.cssText = "display:flex;gap:6px;margin-top:8px";
+    function btn(t, f) { var b = document.createElement("button"); b.textContent = t; b.style.cssText = "flex:1;background:#223;color:#ddd;border:1px solid #445;border-radius:4px;padding:4px;cursor:pointer"; b.onclick = f; bar.appendChild(b); }
+    btn("Export JSON", function () { var j = JSON.stringify(G.exportTuning(), null, 2); try { navigator.clipboard.writeText(j); } catch (e) { } window.__gtanimExport = j; met.textContent = "exported " + j.length + " bytes (also in window.__gtanimExport)"; });
+    btn("Reset", function () { var o = clone(DEFAULTS); G.T.skin = o.skin; G.T.motion = o.motion; G.T.layout = o.layout; G.T.fx = o.fx; Object.keys(G.mods.fx).forEach(function (n) { G.T.fx[n] = G.mods.fx[n].enabledByDefault !== false; }); G.T.params = {}; Object.keys(G.mods).forEach(function (k) { Object.keys(G.mods[k]).forEach(function (n) { var p = G.mods[k][n].params || {}; Object.keys(p).forEach(function (q) { (G.T.params[k + "." + n] = G.T.params[k + "." + n] || {})[q] = p[q].def; }); }); }); G.dirty("reset"); build(); });
+    btn("Legacy", function () { try { localStorage.setItem("gtanim_off", "1"); } catch (e) { } location.reload(); });
+    body.appendChild(bar);
+  }
+  build(); document.body.appendChild(d);
+  S.studioTimer = setInterval(function () {
+    var a = G.m.ft.slice().sort(function (p, q) { return p - q; }), n = a.length, ms = G.m.ms;
+    met.textContent = "frames " + G.m.frames + "  tiles " + (G.m.nTiles || 0) + "  drops>33ms " + G.m.drops + "\nframe interval p50 " + (n ? a[n >> 1].toFixed(1) : "-") + "  p95 " + (n ? a[Math.floor(n * 0.95)].toFixed(1) : "-") + " ms\nsample " + (ms.sample || 0).toFixed(2) + "  project " + (ms.project || 0).toFixed(2) + "  skin " + (ms.skin || 0).toFixed(2) + "  layout " + (ms.layout || 0).toFixed(2) + "  draw " + (ms.draw || 0).toFixed(2) + "  total " + (ms.total || 0).toFixed(2) + " ms\natlas " + (S.atlas ? (S.atlas.bytes / 1048576).toFixed(1) : 0) + " MB  flushes " + (G.m.flushes || 0) + "  overlaps " + G.overlaps();
+  }, 500);
+}
+
+// ==== skins/fx-select-glow.js
+// A complete new EFFECT in under 50 lines: "selectGlow", a gold pulsing glow under the selected / pinned tile.
+// Registering it is all it takes: the frame pipeline calls prepare() once per frame and asks glow(i) for every tile; the Studio lists its switch (fx.selectGlow) and its slider.
+G.register("fx", "selectGlow", {
+  version: "1", label: "Selected-tile glow",
+  params: { hz: { type: "range", min: 0.2, max: 4, step: 0.1, def: 1.2, label: "Pulse rate (Hz)" } },
+  prepare: function (S, now) {                                    // S = the engine state: S.sel / S.pin (unit ids), S.tl (the sampled timeline)
+    this.i = -1;
+    var id = S.pin || S.sel;
+    if (id && S.tl) { var j = S.tl.index[id]; if (j !== void 0 && S.tl.alpha[j] > 0) this.i = j; }
+    var reduced = G.host && G.host.reduced();
+    this.a = reduced ? 0.7 : 0.55 + 0.45 * Math.sin(now / 1000 * 2 * Math.PI * G.P("fx", "selectGlow", "hz"));
+  },
+  glow: function (i) { return i === this.i ? this.a : 0; }        // alpha 0..1 of the glow under tile i
+});
+
+// ==== skins/skin-minimal.js
+// A complete new skin in under 50 lines: "minimal" (a flat rounded tile with a side stripe, the designation and a strength bar).
+// It is loaded after the engine; nothing else changes: it shows up in G.schema(), in the Tuning Studio (with its slider) and in ?anim=skin:minimal.
+G.register("skin", "minimal", {
+  version: "1", label: "Minimal flat tile", pad: 8,
+  params: { corner: { type: "range", min: 0, max: 12, step: 1, def: 3, label: "Corner radius (px)" } },
+  size: function (t) {                                            // footprint of the whole tile in CSS px, centred on the unit's true position
+    var w = t.doc < 600 ? 40 : t.doc < 1500 ? 54 : 68;
+    return { w: w, h: 18, cx: 0, cy: 0, geo: { w: w, h: 18 } };
+  },
+  key: function (t) {                                             // changes whenever the picture changes: tile size class, strength bucket, side, selection, flash
+    return (((t.doc < 600 ? 0 : t.doc < 1500 ? 1 : 2) * 21 + Math.round(t.str / t.maxS * 20)) * 2 + t.side) * 4 + (t.sel ? 2 : 0) + (t.flash ? 1 : 0);
+  },
+  draw: function (g, k, t, ax, ay, geo) {                         // g is scaled to CSS px; the tile's anchor is at (ax, ay)
+    var x = ax - geo.w / 2, y = ay - geo.h / 2, c = t.side ? "#c43a3a" : "#3a6bc4", r = G.P("skin", "minimal", "corner");
+    g.fillStyle = "rgba(10,12,20,.86)"; g.beginPath(); g.roundRect(x, y, geo.w, geo.h, r); g.fill();
+    g.fillStyle = t.flash ? "#ffffff" : c; g.fillRect(x, y, 4, geo.h);
+    g.strokeStyle = t.sel ? "#e8d5a3" : c; g.lineWidth = t.sel ? 2 : 1; g.beginPath(); g.roundRect(x, y, geo.w, geo.h, r); g.stroke();
+    g.font = "bold 10px sans-serif"; g.textBaseline = "middle"; g.fillStyle = "#fff"; g.fillText(G.cxName(t.id), x + 8, y + geo.h / 2 - 1, geo.w - 10);
+    g.fillStyle = c; g.fillRect(x + 4, y + geo.h - 3, (geo.w - 4) * Math.min(1, t.str / t.maxS), 2);
+  }
+});
+
+// ==== 90-glue.js
+// ---------------------------------------------------------------- 90-glue: the only functions the host patches call.  Every entry point is guarded: an exception switches the engine off for the session
+// (the shipped renderer takes over on the next call) unless strict mode is on (tests: ?anim=strict or window.__gtanimStrict) in which case it is rethrown.
+function supported() { try { var C2 = window.CanvasRenderingContext2D; return !!(C2 && C2.prototype.roundRect && window.Map && window.Float64Array); } catch (e) { return false; } }   // (the build gate rejects bare globals that are not on its standard list: names are read from window)
+function guard(fn, bad) { try { return fn(); } catch (e) { fail(e); return bad; } }
+G.bind = function (h) {
+  G.host = h; var sw = G.readSwitches(); G.strict = sw.strict;
+  S.state = (sw.legacy || !G.T.enabled || !supported()) ? 0 : 1;
+  window.__gtanim = { version: G.version, state: function () { return S.state; }, info: function () { return { version: G.version, on: S.state === 1, skin: G.T.skin, motion: G.T.motion, layout: G.T.layout, frames: G.m.frames, tiles: G.m.nTiles || 0, drops: G.m.drops, picks: G.m.picks || 0 }; }, G: sw.strict ? G : null };
+  if (S.state && sw.tune) setTimeout(openStudio, 800);
+};
+G.on = function () { return S.state === 1; };
+G.repaint = function () { S.dirtyDraw = true; try { if (S.map) S.map.triggerRepaint(); } catch (e) { } };
+G.paused = function (c, map, pbt, tick, sel, pin, filt) {
+  return guard(function () {
+    ensureTimeline(pbt); attach(c, map); S.sel = sel; S.pin = pin; S.filt = filt;
+    G.clock.set(tick, false, G.host.reduced(), G.now()); draw("paused");
+    if (G.clock.state.g) map.triggerRepaint();
+    return true;
+  }, false);
+};
+G.playing = function (c, map, pbt, st, ut, sel, pin, filt) {
+  return guard(function () {
+    ensureTimeline(pbt); attach(c, map); S.sel = sel; S.pin = pin; S.filt = filt;
+    // the shipped loop passes the tick it read at the START of the frame: on the frame that advances the tick it is one tick behind the fraction (it draws a one-tick step backwards for that frame), so the fresh tick is read from the store, which setState has already updated
+    G.clock.set(G.host.store.getState().currentTick + ut, true, G.host.reduced(), G.now()); S.dirtyDraw = true; map.triggerRepaint();
+    return true;
+  }, false);
+};
+G.units = function (pbt, f, x) {
+  return guard(function () {
+    if (!S.tlU || S.tlU.pbt !== pbt) S.tlU = new Timeline(pbt);
+    S.tlU.stateAt(f + (x || 0), G.cur("motion"), 0); return S.tlU.records();
+  }, null);
+};
+G.pick = function (clientX, clientY) { return guard(function () { var r = pickAt(clientX, clientY); if (r) G.m.picks = (G.m.picks || 0) + 1; return r; }, false); };
+// the units as the LAST FRAME drew them (true positions, sampled at the displayed time): what other layers (the Monuments click arbitration) must use instead of "latest keyframe"
+G.drawn = function () {
+  return guard(function () {
+    var tl = S.tl, hit = S.hit, i, out;
+    if (!tl || !hit.n) return null;
+    if (S.drawnFor === G.m.frames && S.drawnList) return S.drawnList;
+    out = []; for (i = 0; i < hit.n; i++) { var u = hit.id[i]; out.push({ unit_id: tl.ids[u], lng: tl.lng[u], lat: tl.lat[u] }); }
+    S.drawnFor = G.m.frames; S.drawnList = out; return out;
+  }, null);
+};
+G.internal = { Timeline: Timeline, S: S, Atlas: Atlas, draw: draw };
+
+return G;
+})();
