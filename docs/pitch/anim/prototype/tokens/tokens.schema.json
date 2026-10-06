@@ -1,0 +1,481 @@
+{
+ "$id": "battle-studio-settings/1",
+ "title": "Battle Studio settings",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "format",
+  "tokens"
+ ],
+ "properties": {
+  "format": {
+   "const": "battle-studio-settings/1"
+  },
+  "tokens": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+    "time.baseTps": {
+     "description": "How many ticks 1x plays per second. The site plays 500 ms per tick (2 ticks per second); the speed buttons multiply this.",
+     "x-token": "time",
+     "type": "number",
+     "minimum": 0.5,
+     "maximum": 8,
+     "default": 2
+    },
+    "time.fixedHz": {
+     "description": "The clock advances in exact steps of 1/rate seconds; the renderer interpolates between steps. Independent of the display refresh rate.",
+     "x-token": "time",
+     "type": "number",
+     "minimum": 30,
+     "maximum": 240,
+     "default": 120
+    },
+    "time.maxFrameMs": {
+     "description": "A frame longer than this (a stalled or hidden tab) advances the clock by this much only, so the battle cannot fast-forward after a stall.",
+     "x-token": "time",
+     "type": "number",
+     "minimum": 20,
+     "maximum": 500,
+     "default": 100
+    },
+    "time.speedRampMs": {
+     "description": "Play, pause and speed changes ease in and out over about this time (0 = instant).",
+     "x-token": "time",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1000,
+     "default": 220
+    },
+    "time.glideMs": {
+     "description": "A seek or a jump to a scene flies the clock to the target with a critically damped glide of this time constant instead of teleporting.",
+     "x-token": "time",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 2000,
+     "default": 450
+    },
+    "time.glideMaxTps": {
+     "description": "The glide never flies faster than this, so a long jump is a fly-through of the interpolated paths, not a blur.",
+     "x-token": "time",
+     "type": "number",
+     "minimum": 10,
+     "maximum": 600,
+     "default": 120
+    },
+    "time.endBehavior": {
+     "description": "What happens when playback reaches the last tick.",
+     "x-token": "time",
+     "type": "string",
+     "enum": [
+      "stop",
+      "loop"
+     ],
+     "default": "stop"
+    },
+    "interp.model": {
+     "description": "How a unit moves between its own keyframes. All models are exact at every keyframe; between keyframes the position is Modelled.",
+     "x-token": "interp",
+     "type": "string",
+     "default": "pchip"
+    },
+    "interp.endSlopes": {
+     "description": "Whether a unit's track starts and ends at rest (eased) or with the velocity of its first and last segment.",
+     "x-token": "interp",
+     "type": "string",
+     "enum": [
+      "rest",
+      "edge"
+     ],
+     "default": "rest"
+    },
+    "interp.strengthTweenMs": {
+     "description": "When a unit's current keyframe changes its strength, the bar eases to the new value over this time. The value itself is the keyframe's, never interpolated into numbers that are not in the data.",
+     "x-token": "interp",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1500,
+     "default": 350
+    },
+    "layout.strategy": {
+     "description": "Which layout module places the tiles. certified guarantees zero overlap; raw is a diagnostic that shows the unsolved problem.",
+     "x-token": "layout",
+     "type": "string",
+     "default": "certified"
+    },
+    "layout.visibility": {
+     "description": "The visibility rule decides how many tiles exist at all (typical 384 under carry-forward, 44 under a window, 7 under the snapshot; 03-data-fuel.md section 9.1).",
+     "x-token": "layout",
+     "type": "string",
+     "enum": [
+      "carry",
+      "window",
+      "snapshot"
+     ],
+     "default": "carry"
+    },
+    "layout.windowTicks": {
+     "description": "Under the window rule a unit is shown only within this many ticks before or after one of its own keyframes.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 1,
+     "maximum": 120,
+     "default": 24
+    },
+    "layout.dMaxPx": {
+     "description": "How far a tile may sit from its true position so it can be read (a pin and a leader line stay on the true position). 0 = pure aggregation. Beyond the budget the tile is merged into an aggregate.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 120,
+     "default": 48
+    },
+    "layout.gapPx": {
+     "description": "Minimum free space between any two tile boxes.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 6,
+     "default": 2
+    },
+    "layout.bandPx": {
+     "description": "An aggregate tries to split only when its members would fit within the budget minus this band, so it does not flicker.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 40,
+     "default": 12
+    },
+    "layout.relaxPxPerSec": {
+     "description": "How fast a displaced tile drifts back toward its true position when there is room.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 600,
+     "default": 120
+    },
+    "layout.splitDwellMs": {
+     "description": "An aggregate exists at least this long before a split is tried (merge now, split later).",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 3000,
+     "default": 500
+    },
+    "layout.labelShowDelayMs": {
+     "description": "A name label may appear only after it has fitted for this long (it disappears at once when it stops fitting).",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1500,
+     "default": 200
+    },
+    "layout.labelCooldownMs": {
+     "description": "After a name label is hidden (something took its place) it may not come back for this long, so a label does not blink while tiles jostle.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 5000,
+     "default": 1200
+    },
+    "layout.labelMinZoom": {
+     "description": "Below this zoom no name labels are drawn.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 8,
+     "maximum": 18,
+     "default": 12
+    },
+    "layout.kCap": {
+     "description": "A neighbourhood with more obstacles than this is declared saturated and the tile aggregates (a conservative failure: never an overlap).",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 10,
+     "maximum": 200,
+     "default": 60
+    },
+    "layout.pinProtect": {
+     "description": "No tile may cover another tile's true position.",
+     "x-token": "layout",
+     "type": "boolean",
+     "default": true
+    },
+    "layout.labels": {
+     "description": "Show the secondary name labels where they fit.",
+     "x-token": "layout",
+     "type": "boolean",
+     "default": true
+    },
+    "layout.continuityPx": {
+     "description": "EXPERIMENT. A tile that already has a place never jumps farther than this from it in one frame: when the only free place is farther it merges into an aggregate instead. Measured to multiply aggregate churn by ten at 14 px (see README), so it is off; the display layer travels instead. 0 = off.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 120,
+     "default": 0
+    },
+    "layout.maxSplitTries": {
+     "description": "At most this many aggregates try to split in one frame.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 1,
+     "maximum": 8,
+     "default": 2
+    },
+    "motion.mode": {
+     "description": "dynamics = smooth glide with collision-aware pushing; spring = smooth glide only; snap = show the layout as solved (the lab behaviour, for comparison).",
+     "x-token": "motion",
+     "type": "string",
+     "default": "dynamics"
+    },
+    "motion.smoothMs": {
+     "description": "Time constant of the glide that carries a tile to its newly solved position.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 500,
+     "default": 90
+    },
+    "motion.maxSpeedPxPerSec": {
+     "description": "A displaced tile never glides faster than this.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 100,
+     "maximum": 6000,
+     "default": 1600
+    },
+    "motion.travelPx": {
+     "description": "A tile whose solved place is farther than this from where it stands does not push its way there: it dims below 0.5 opacity, glides through, and solidifies on arrival, so it neither obscures nor is obscured on the way.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 4,
+     "maximum": 120,
+     "default": 24
+    },
+    "motion.travelMs": {
+     "description": "Glide time constant of a dimmed travelling tile.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 10,
+     "maximum": 300,
+     "default": 60
+    },
+    "motion.dimOpacity": {
+     "description": "Opacity of a travelling tile; must stay below 0.5, the opacity rule's threshold between solid and not solid.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0.1,
+     "maximum": 0.49,
+     "default": 0.42
+    },
+    "motion.maxPushPx": {
+     "description": "A contact moves a tile by at most this much per pass, so tiles are eased apart instead of shoved. What still overlaps is repaired by the safety net.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0.5,
+     "maximum": 40,
+     "default": 3
+    },
+    "motion.collisionIters": {
+     "description": "Passes of the pushing solver per frame.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 12,
+     "default": 4
+    },
+    "motion.fadeMs": {
+     "description": "Duration of a tile's fade in or out. Two tiles that hand over to each other never both have opacity of 0.5 or more at once.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1000,
+     "default": 220
+    },
+    "motion.birthScale": {
+     "description": "A new tile grows from this fraction of its size, pushing its neighbours gently aside.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0.2,
+     "maximum": 1,
+     "default": 0.6
+    },
+    "motion.labelFadeMs": {
+     "description": "Fade of a name label.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 600,
+     "default": 140
+    },
+    "motion.cutFadeMs": {
+     "description": "When the picture changes too much for a glide (a jump in time or zoom) the old tiles fade out and the new ones fade in, in sequence.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 600,
+     "default": 140
+    },
+    "motion.cutZoomJump": {
+     "description": "A zoom change larger than this in one frame is a cut (cross-fade) instead of a glide.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0.1,
+     "maximum": 3,
+     "default": 0.6
+    },
+    "motion.cutTickJump": {
+     "description": "A tick change larger than this in one frame is a cut (cross-fade) instead of a glide.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0.5,
+     "maximum": 50,
+     "default": 3
+    },
+    "motion.safetyNet": {
+     "description": "Every displayed frame is verified; of two solid tiles that would still overlap the lighter one is dimmed below 0.5 and travels to its certified place (counted). Turn off only to measure how often it fires.",
+     "x-token": "motion",
+     "type": "boolean",
+     "default": true
+    },
+    "motion.reduced": {
+     "description": "Reduced motion lands seeks at once and shows the layout as solved, with short fades.",
+     "x-token": "motion",
+     "type": "string",
+     "enum": [
+      "auto",
+      "on",
+      "off"
+     ],
+     "default": "auto"
+    },
+    "camera.zoom": {
+     "description": "Map zoom (Mapbox 512 px world). The site opens at 13.5; desktop views are clamped to 12.04 or more.",
+     "x-token": "camera",
+     "type": "number",
+     "minimum": 11,
+     "maximum": 18,
+     "default": 14
+    },
+    "camera.zoomGlideMs": {
+     "description": "Wheel zoom glides with this time constant.",
+     "x-token": "camera",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 800,
+     "default": 180
+    },
+    "camera.panGlideMs": {
+     "description": "Camera moves (scene jumps) glide with this time constant.",
+     "x-token": "camera",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 800,
+     "default": 120
+    },
+    "camera.minZoom": {
+     "description": "Lowest zoom the Studio allows.",
+     "x-token": "camera",
+     "type": "number",
+     "minimum": 8,
+     "maximum": 14,
+     "default": 11
+    },
+    "camera.maxZoom": {
+     "description": "Highest zoom the Studio allows (the site's maximum is 18).",
+     "x-token": "camera",
+     "type": "number",
+     "minimum": 14,
+     "maximum": 20,
+     "default": 18
+    },
+    "scene.leaders": {
+     "description": "Draw a thin line from a displaced tile to its pin on the true position.",
+     "x-token": "scene",
+     "type": "boolean",
+     "default": true
+    },
+    "scene.pins": {
+     "description": "Draw a pin on the true position of every displaced tile.",
+     "x-token": "scene",
+     "type": "boolean",
+     "default": true
+    },
+    "scene.hulls": {
+     "description": "Draw a dot on the true position of every record an aggregate stands for.",
+     "x-token": "scene",
+     "type": "boolean",
+     "default": true
+    },
+    "scene.hitSlopPx": {
+     "description": "Extra pixels around a tile that still count as a click on it.",
+     "x-token": "scene",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 16,
+     "default": 4
+    },
+    "skin.id": {
+     "description": "The skin that draws the tiles. The Studio ships one built-in REFERENCE skin that exercises every channel; design pitches register their own.",
+     "x-token": "skin",
+     "type": "string",
+     "default": "reference"
+    },
+    "skin.ageChannel": {
+     "description": "Reference skin: dim and dash the outline of a tile whose latest keyframe is old, so a carried-forward tile does not look like a fresh report (03-data-fuel.md).",
+     "x-token": "skin",
+     "type": "boolean",
+     "default": true
+    },
+    "backdrop.id": {
+     "description": "Schematic ground. Mapbox tiles are token-restricted, so the Studio draws a plain metric grid; it is not terrain.",
+     "x-token": "backdrop",
+     "type": "string",
+     "default": "paper"
+    },
+    "backdrop.gridM": {
+     "description": "Spacing of the metric grid.",
+     "x-token": "backdrop",
+     "type": "number",
+     "minimum": 100,
+     "maximum": 2000,
+     "default": 500
+    },
+    "backdrop.places": {
+     "description": "Show the 30 named places of terrain.json in the legacy frame the placements were authored in. 8 of them differ from production terrain.json by 166 to 733 m (Computed in the dataset); marks are orientation only.",
+     "x-token": "backdrop",
+     "type": "boolean",
+     "default": true
+    },
+    "metrics.overlay": {
+     "description": "Show frame times, motion, overlap and solve cost live.",
+     "x-token": "metrics",
+     "type": "boolean",
+     "default": false
+    },
+    "metrics.historyFrames": {
+     "description": "Frames kept for the graphs and the export.",
+     "x-token": "metrics",
+     "type": "number",
+     "minimum": 60,
+     "maximum": 1200,
+     "default": 240
+    },
+    "metrics.popPx": {
+     "description": "A tile that moves more than this beyond its true position's own motion in one frame counts as a pop (the lab definition).",
+     "x-token": "metrics",
+     "type": "number",
+     "minimum": 1,
+     "maximum": 20,
+     "default": 3
+    },
+    "metrics.verify": {
+     "description": "Run the independent overlap verifier on every displayed frame (about 0.2 ms).",
+     "x-token": "metrics",
+     "type": "boolean",
+     "default": true
+    }
+   }
+  }
+ }
+}
