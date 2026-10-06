@@ -18,7 +18,8 @@ html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
 button, select, input { font: inherit; color: inherit; }
 button { cursor: pointer; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
-#app { position: fixed; inset: 0; }
+#app { position: fixed; inset: 0; user-select: none; -webkit-user-select: none; }
+.pane, #metrics, .scrubtip { user-select: text; -webkit-user-select: text; }
 #map { position: absolute; inset: 0; display: block; touch-action: none; cursor: grab; outline: none; }
 #map.dragging { cursor: grabbing; } #map.over-tile { cursor: pointer; }
 #popups { position: absolute; inset: 0; pointer-events: none; }
@@ -97,6 +98,7 @@ select.btn { padding-right: 24px; max-width: 220px; }
   #topbar { flex-wrap: wrap; gap: 6px; padding: 8px var(--gutter); }
   .brand, .spacer, .dockstat { display: none; }
   .clockbox { flex: 1 1 100%; padding: 5px 10px; } .clockbox .tick { font-size: 14px; }
+  #topbar select.skin-sel { display: none; }
   #topbar select.btn { flex: 1 1 0; min-width: 0; padding: 6px 22px 6px 8px; font-size: 12px; max-width: none; }
   #topbar .btn:not(select) { padding: 6px 9px; font-size: 12px; }
   #dock { bottom: 8px; padding: 8px 10px 9px; width: calc(100% - 2 * var(--gutter)); }

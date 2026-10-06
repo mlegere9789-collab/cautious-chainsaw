@@ -160,7 +160,7 @@ export function createEngine(o) {
     camStep(dtSec);
     const zoom = camera.zoom;
     const first = E.frames === 0;
-    const cut = forceCut || (!first && (Math.abs(transport.simTau - prevTau) > tok('motion.cutTickJump') || Math.abs(zoom - prevZoom) > tok('motion.cutZoomJump')));
+    const cut = forceCut || (!first && ((Math.abs(transport.simTau - prevTau) > tok('motion.cutTickJump') && !transport.gliding) || Math.abs(zoom - prevZoom) > tok('motion.cutZoomJump')));
     forceCut = false; prevTau = transport.simTau; prevZoom = zoom;
     if (cut) { layoutMod.reset(); lastL = null; }
     const vis = battle.visibleAt(tau);

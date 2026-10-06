@@ -12,6 +12,9 @@ export function createStudioUI({ root, engine, data, onSafe }) {
   // ---- top bar -------------------------------------------------------------------------------------------------------------------------------
   const sceneSel = h('select', { class: 'btn', 'aria-label': 'Jump to a scene', onchange: () => { const s = data.scenes.find((x) => x.id === sceneSel.value); if (s) { onSafe && onSafe(); engine.sceneJump(s); engine.select(null); } sceneSel.value = ''; } },
     h('option', { value: '' }, 'Scenes (computed hotspots)'), ...data.scenes.map((s) => h('option', { value: s.id }, `${s.name} · tick ${s.tick}`)));
+  const skinSel = h('select', { class: 'btn skin-sel', 'aria-label': 'Skin', title: 'Skin: the registry of tile designs (Tune > Skin has the same switch)', onchange: () => { try { tuning.set('skin.id', skinSel.value); } catch (e) { ui.status = String(e.message); } } });
+  const syncSkins = () => { skinSel.replaceChildren(...kernel.skins.list().map((k) => h('option', { value: k.id, selected: k.id === tok('skin.id') }, 'Skin: ' + k.label))); if (!kernel.skins.size) skinSel.append(h('option', { value: '' }, 'Skin: none registered')); };
+  kernel.skins.subscribe(syncSkins); tuning.on('skin.id', syncSkins); syncSkins();
   el.tick = h('div', { class: 'tick' }, 'Tick 1 / 675'); el.clock = h('div', { class: 'clock' }, '');
   el.btnTune = h('button', { class: 'btn', 'aria-pressed': 'false', title: 'Tuning Studio (T)', onclick: () => togglePanel('tune') }, 'Tune');
   el.btnInspect = h('button', { class: 'btn', 'aria-pressed': 'false', title: 'Inspector (I)', onclick: () => togglePanel('inspect') }, 'Inspect');
@@ -19,7 +22,7 @@ export function createStudioUI({ root, engine, data, onSafe }) {
   el.btnAbout = h('button', { class: 'btn', 'aria-pressed': 'false', title: 'Legend and honesty (A)', onclick: () => togglePanel('about') }, 'About');
   const topbar = h('header', { id: 'topbar' },
     h('div', { class: 'brand' }, h('b', null, 'Battle Studio'), h('span', null, 'shared animation engine · prototype')),
-    h('div', { class: 'clockbox', 'aria-live': 'off' }, el.tick, el.clock), sceneSel, h('div', { class: 'spacer' }), el.btnInspect, el.btnTune, el.btnMetrics, el.btnAbout);
+    h('div', { class: 'clockbox', 'aria-live': 'off' }, el.tick, el.clock), sceneSel, skinSel, h('div', { class: 'spacer' }), el.btnInspect, el.btnTune, el.btnMetrics, el.btnAbout);
 
   // ---- dock ----------------------------------------------------------------------------------------------------------------------------------
   el.play = h('button', { class: 'tbtn play', 'aria-label': 'Play', title: 'Play / pause (Space)', onclick: () => transport.toggle() }, svgIcon(ICON.play));
@@ -184,7 +187,7 @@ export function createStudioUI({ root, engine, data, onSafe }) {
     el.play.setAttribute('aria-label', t.playing ? 'Pause' : 'Play'); const want = t.playing ? 'pause' : 'play'; if (el.play.dataset.state !== want) { el.play.dataset.state = want; el.play.replaceChildren(svgIcon(ICON[want])); }
     if (!ui.scrubbing) el.range.value = String(t.target ?? t.simTau);
     for (const b of speedBtns) b.setAttribute('aria-pressed', String(+b.dataset.speed === t.speed));
-    if (now - (ui._lastStat || 0) > 250) { ui._lastStat = now; el.dockstat.textContent = `${frame.tiles.filter((q) => q.life === 'live').length} tiles · ${frame.onField} units · zoom ${frame.zoom.toFixed(2)} · ${engine.kernel.layout.has(tok('layout.strategy')) ? tok('layout.strategy') : ''}`; const map = document.getElementById('map'); if (map) map.setAttribute('aria-label', `Schematic map of the Gettysburg battle: tick ${frame.tick} of 675, ${frame.clock.date}, about ${frame.clock.text} on a candidate clock; ${frame.onField} units shown as ${frame.tiles.filter((q) => q.life === 'live').length} tiles.`); }
+    if (now - (ui._lastStat || 0) > 250) { ui._lastStat = now; const zs = rowRefs.get('camera.zoom'); if (zs) zs(tok('camera.zoom')); el.dockstat.textContent = `${frame.tiles.filter((q) => q.life === 'live').length} tiles · ${frame.onField} units · zoom ${frame.zoom.toFixed(2)} · ${engine.kernel.layout.has(tok('layout.strategy')) ? tok('layout.strategy') : ''}`; const map = document.getElementById('map'); if (map) map.setAttribute('aria-label', `Schematic map of the Gettysburg battle: tick ${frame.tick} of 675, ${frame.clock.date}, about ${frame.clock.text} on a candidate clock; ${frame.onField} units shown as ${frame.tiles.filter((q) => q.life === 'live').length} tiles.`); }
     drawMetrics(now);
     if (ui.panelOpen && ui.tab === 'about') { const ab = el.pane.querySelector('#ab-ov'); if (ab) ab.textContent = String(engine.metrics.overlapPairs ?? 0); }
   };

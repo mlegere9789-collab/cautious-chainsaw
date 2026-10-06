@@ -8,6 +8,7 @@ import { referenceSkin } from '../src/skins/reference.mjs';
 import { templateSkin } from '../src/skins/_template.mjs';
 import { SKINS } from '../src/skins/index.mjs';
 import { POPUPS } from '../src/popups/index.mjs';
+import { templatePopup } from '../src/popups/_template.mjs';
 import { FX } from '../src/fx/index.mjs';
 import { chipSize } from '../src/layout/spec.mjs';
 import { placeCard, frameObstacles, createPopupHost } from '../src/popups/host.mjs';
@@ -100,4 +101,21 @@ test('the shell lists: one reference skin, no popups, no effects; the copy-me te
   const e = mk(); const spec = e.spec(); const tiles = e.frame.tiles.filter((t) => t.solid); const bad = checkSkin(templateSkin, spec, [...tiles, ...tiles.map((t) => ({ ...t, selected: true }))], text); assert.deepEqual(bad.slice(0, 3), []);
   const e2 = makeEngine({ skin: templateSkin, settings: { 'skin.id': 'template' } }); e2.setViewport(1440, 900); for (let i = 0; i < 20; i++) e2.step(1000 / 60); assert.equal(e2.frame.overlaps, 0);
   for (const row of templateSkin.legend()) assert.ok(['Documented', 'Contested'].includes(row.evidence));
+});
+
+test('the copy-me template popup: a card exists for a chronology event, is placed in free space, and stays for READING time in wall-clock seconds however fast the clock runs', () => {
+  globalThis.document = { createElement: () => ({ append() {}, set textContent(v) {} }) };
+  try {
+    const ev = dataset.events.find((x) => x.significance === 'critical'); assert.ok(ev);
+    const e = makeEngine({ start: { tick: ev.tick, lat: scene.lat, lng: scene.lng, zoom: 15 } }); e.setViewport(1440, 900); for (let i = 0; i < 30; i++) e.step(1000 / 60);
+    e.kernel.popups.register(templatePopup.id, templatePopup); const host = createPopupHost(e);
+    let t = 0; const at = (ms) => host.layout(e.frame, ms);
+    const a = at(t); assert.ok(a.some((c) => c.key === 'template-events:event-' + ev.tick), 'the card appears at its event tick');
+    const card = a.find((c) => c.key.endsWith('event-' + ev.tick)); const obs = frameObstacles(e.frame); const r = { x0: card.x, y0: card.y, x1: card.x + card.w, y1: card.y + card.h };
+    // let the clock run far past the event at 16x; the card must still be there after 2 s of wall clock, and gone once the reading time has passed
+    e.transport.seek(Math.min(675, ev.tick + 60), { glide: false }); e.transport.setSpeed(16); for (let i = 0; i < 30; i++) e.step(1000 / 60);
+    assert.ok(at(2000).some((c) => c.key.endsWith('event-' + ev.tick)), 'still shown 2 s later although the clock has moved 60 ticks on');
+    const words = ev.event.split(/\s+/).length; assert.ok(!at(2000 + 300 * words + 2500).some((c) => c.key.endsWith('event-' + ev.tick)), 'gone after the reading time');
+    assert.ok(!obs.some((o) => o.x0 < r.x1 && o.x1 > r.x0 && o.y0 < r.y1 && o.y1 > r.y0), 'the card was placed over no tile');
+  } finally { delete globalThis.document; }
 });

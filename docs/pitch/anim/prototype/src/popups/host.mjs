@@ -10,7 +10,7 @@
 //     update(frame, api) -> [card]        called every frame; returns the cards that should be visible NOW
 //   })
 //   card = { key, anchor?: { tileKey } | { unitId } | { x, y } (screen px), size: { w, h }, priority?: number, render?(el) | html?: string, ttlMs?: number }
-//   api  = { tok, nowMs, viewport: { w, h }, tileRect(keyOrUnitId) -> {x0,y0,x1,y1}|null, obstacles: [{x0,y0,x1,y1}] }
+//   api  = { tok, nowMs (wall clock, ms), data (the dataset: events, vignettes, clock ...; read-only), viewport: { w, h }, tileRect(keyOrUnitId) -> {x0,y0,x1,y1}|null, obstacles: [{x0,y0,x1,y1}] }
 import { Hash } from '../layout/geom.mjs';
 import { dampStep2 } from '../interp/damp.mjs';
 
@@ -56,7 +56,7 @@ export function placeCard({ w, h, anchor = null, obstacles, viewport, margin = 1
 export function createPopupHost(engine) {
   const placed = new Map();       // key -> { x, y, vx, vy, tx, ty, w, h, born }
   const api = (frame, nowMs) => ({
-    tok: engine.tok, nowMs, viewport: { w: frame.view.w, h: frame.view.h }, obstacles: frameObstacles(frame),
+    tok: engine.tok, nowMs, data: engine.battle.ds, viewport: { w: frame.view.w, h: frame.view.h }, obstacles: frameObstacles(frame),
     tileRect(k) {
       const t = frame.tiles.find((q) => q.key === k || q.ids.includes(k)); if (!t) return null;
       const hw = t.w * t.scale / 2; const hh = t.h * t.scale / 2; return { x0: t.x + frame.view.dx - hw, y0: t.y + frame.view.dy - hh, x1: t.x + frame.view.dx + hw, y1: t.y + frame.view.dy + hh };

@@ -44,7 +44,7 @@ try {
   await page.click('button.tbtn.play'); await page.waitForTimeout(300); ok(await st(() => window.__studio.engine.transport.playing), 'play button plays'); await page.click('button.tbtn.play');
   await page.evaluate(() => { const r = document.querySelector('.scrub input'); r.value = '120'; r.dispatchEvent(new Event('input', { bubbles: true })); }); await page.waitForTimeout(6000);
   ok(Math.abs(await st(() => window.__studio.engine.transport.simTau) - 120) < 0.5, 'the scrubber glides the clock to tick 120');
-  await page.selectOption('#topbar select', 'carry1'); await page.waitForTimeout(2500); ok(Math.abs(await st(() => window.__studio.engine.transport.simTau) - 295) < 1, 'a scene jump glides to its tick (295)');
+  await page.selectOption('select[aria-label="Jump to a scene"]', 'carry1'); await page.waitForTimeout(2500); ok(Math.abs(await st(() => window.__studio.engine.transport.simTau) - 295) < 1, 'a scene jump glides to its tick (295)');
   ok((await page.locator('.clockbox').innerText()).includes('candidate clock'), 'the clock is always shown as a candidate');
 
   // --- tuning studio ------------------------------------------------------------------------------------------------------------------------------------

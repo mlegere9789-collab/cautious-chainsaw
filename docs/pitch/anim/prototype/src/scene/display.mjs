@@ -125,10 +125,12 @@ export class Display {
       if (d.life === 'live' && !still) {
         const dist = Math.hypot(d.tx - d.ox, d.ty - d.oy);
         if (!d.dim && dist > travelPx) { d.dim = true; stats.travels++; }
-        if (d.dim && dist < 1.2 && d.mv <= dimOp + 1e-6 && !this._blocked(d, spec)) d.dim = false;
+        if (d.dim && dist < 1.2 && d.mv <= dimOp + 1e-6) {                                       // arrived: solidify as soon as nothing solid is in the way
+          if (!this._blocked(d, spec)) d.dim = false; else { d.waitMs = (d.waitMs || 0) + dtMs; if (d.waitMs > 400) d.dim = false; }   // a blocker that never leaves is pushed or repaired, not waited for
+        } else d.waitMs = 0;
         if (d.dim) d.mv = Math.max(dimOp, d.mv - dt * (1 - dimOp) / (DIM_MS / 1000));
         else d.mv = Math.min(1, d.mv + dt / (RAMP_MS / 1000));
-      } else d.mv = 1;
+      } else { d.mv = 1; d.dim = false; }
       d.opacity = base * d.mv;
       if (d.life === 'live' && d.dim && d.opacity >= SOLID) moving = false;          // a solid tile that decides to travel first dims below 0.5, then moves
       d.scale = (d.born || d.life === 'dying') ? birthScale + (1 - birthScale) * clamp01(base) : 1;

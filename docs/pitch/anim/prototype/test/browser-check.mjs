@@ -21,7 +21,7 @@ if (args.play !== '0') q.set('play', '1');
 const url = pathToFileURL(path.join(PROTO, 'battle-studio.html')).href + '?' + q.toString();
 
 const ctx = await chromium.launchPersistentContext(PROFILE, { executablePath: CHROME, headless: true, viewport: { width: VW, height: VH }, deviceScaleFactor: DPR, args: ['--no-first-run', '--disable-extensions', '--disable-sync', '--mute-audio', '--remote-debugging-port=' + (PORT + 1)] });
-const result = { url, viewport: [VW, VH], dpr: DPR, cpu: CPU, errors: [], requests: [] };
+const result = { url: 'battle-studio.html?' + q.toString(), viewport: [VW, VH], dpr: DPR, cpu: CPU, errors: [], requests: [] };
 try {
   const page = ctx.pages()[0] || await ctx.newPage();
   page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') result.errors.push(`${m.type()}: ${m.text()}`); });

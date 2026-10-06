@@ -26,7 +26,8 @@ html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
 button, select, input { font: inherit; color: inherit; }
 button { cursor: pointer; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
-#app { position: fixed; inset: 0; }
+#app { position: fixed; inset: 0; user-select: none; -webkit-user-select: none; }
+.pane, #metrics, .scrubtip { user-select: text; -webkit-user-select: text; }
 #map { position: absolute; inset: 0; display: block; touch-action: none; cursor: grab; outline: none; }
 #map.dragging { cursor: grabbing; } #map.over-tile { cursor: pointer; }
 #popups { position: absolute; inset: 0; pointer-events: none; }
@@ -105,6 +106,7 @@ select.btn { padding-right: 24px; max-width: 220px; }
   #topbar { flex-wrap: wrap; gap: 6px; padding: 8px var(--gutter); }
   .brand, .spacer, .dockstat { display: none; }
   .clockbox { flex: 1 1 100%; padding: 5px 10px; } .clockbox .tick { font-size: 14px; }
+  #topbar select.skin-sel { display: none; }
   #topbar select.btn { flex: 1 1 0; min-width: 0; padding: 6px 22px 6px 8px; font-size: 12px; max-width: none; }
   #topbar .btn:not(select) { padding: 6px 9px; font-size: 12px; }
   #dock { bottom: 8px; padding: 8px 10px 9px; width: calc(100% - 2 * var(--gutter)); }
@@ -1257,10 +1259,12 @@ class Display {
       if (d.life === 'live' && !still) {
         const dist = Math.hypot(d.tx - d.ox, d.ty - d.oy);
         if (!d.dim && dist > travelPx) { d.dim = true; stats.travels++; }
-        if (d.dim && dist < 1.2 && d.mv <= dimOp + 1e-6 && !this._blocked(d, spec)) d.dim = false;
+        if (d.dim && dist < 1.2 && d.mv <= dimOp + 1e-6) {                                       // arrived: solidify as soon as nothing solid is in the way
+          if (!this._blocked(d, spec)) d.dim = false; else { d.waitMs = (d.waitMs || 0) + dtMs; if (d.waitMs > 400) d.dim = false; }   // a blocker that never leaves is pushed or repaired, not waited for
+        } else d.waitMs = 0;
         if (d.dim) d.mv = Math.max(dimOp, d.mv - dt * (1 - dimOp) / (DIM_MS / 1000));
         else d.mv = Math.min(1, d.mv + dt / (RAMP_MS / 1000));
-      } else d.mv = 1;
+      } else { d.mv = 1; d.dim = false; }
       d.opacity = base * d.mv;
       if (d.life === 'live' && d.dim && d.opacity >= SOLID) moving = false;          // a solid tile that decides to travel first dims below 0.5, then moves
       d.scale = (d.born || d.life === 'dying') ? birthScale + (1 - birthScale) * clamp01(base) : 1;
@@ -2345,7 +2349,7 @@ function createEngine(o) {
     camStep(dtSec);
     const zoom = camera.zoom;
     const first = E.frames === 0;
-    const cut = forceCut || (!first && (Math.abs(transport.simTau - prevTau) > tok('motion.cutTickJump') || Math.abs(zoom - prevZoom) > tok('motion.cutZoomJump')));
+    const cut = forceCut || (!first && ((Math.abs(transport.simTau - prevTau) > tok('motion.cutTickJump') && !transport.gliding) || Math.abs(zoom - prevZoom) > tok('motion.cutZoomJump')));
     forceCut = false; prevTau = transport.simTau; prevZoom = zoom;
     if (cut) { layoutMod.reset(); lastL = null; }
     const vis = battle.visibleAt(tau);
@@ -2507,6 +2511,9 @@ function createStudioUI({ root, engine, data, onSafe }) {
   // ---- top bar -------------------------------------------------------------------------------------------------------------------------------
   const sceneSel = h('select', { class: 'btn', 'aria-label': 'Jump to a scene', onchange: () => { const s = data.scenes.find((x) => x.id === sceneSel.value); if (s) { onSafe && onSafe(); engine.sceneJump(s); engine.select(null); } sceneSel.value = ''; } },
     h('option', { value: '' }, 'Scenes (computed hotspots)'), ...data.scenes.map((s) => h('option', { value: s.id }, `${s.name} · tick ${s.tick}`)));
+  const skinSel = h('select', { class: 'btn skin-sel', 'aria-label': 'Skin', title: 'Skin: the registry of tile designs (Tune > Skin has the same switch)', onchange: () => { try { tuning.set('skin.id', skinSel.value); } catch (e) { ui.status = String(e.message); } } });
+  const syncSkins = () => { skinSel.replaceChildren(...kernel.skins.list().map((k) => h('option', { value: k.id, selected: k.id === tok('skin.id') }, 'Skin: ' + k.label))); if (!kernel.skins.size) skinSel.append(h('option', { value: '' }, 'Skin: none registered')); };
+  kernel.skins.subscribe(syncSkins); tuning.on('skin.id', syncSkins); syncSkins();
   el.tick = h('div', { class: 'tick' }, 'Tick 1 / 675'); el.clock = h('div', { class: 'clock' }, '');
   el.btnTune = h('button', { class: 'btn', 'aria-pressed': 'false', title: 'Tuning Studio (T)', onclick: () => togglePanel('tune') }, 'Tune');
   el.btnInspect = h('button', { class: 'btn', 'aria-pressed': 'false', title: 'Inspector (I)', onclick: () => togglePanel('inspect') }, 'Inspect');
@@ -2514,7 +2521,7 @@ function createStudioUI({ root, engine, data, onSafe }) {
   el.btnAbout = h('button', { class: 'btn', 'aria-pressed': 'false', title: 'Legend and honesty (A)', onclick: () => togglePanel('about') }, 'About');
   const topbar = h('header', { id: 'topbar' },
     h('div', { class: 'brand' }, h('b', null, 'Battle Studio'), h('span', null, 'shared animation engine · prototype')),
-    h('div', { class: 'clockbox', 'aria-live': 'off' }, el.tick, el.clock), sceneSel, h('div', { class: 'spacer' }), el.btnInspect, el.btnTune, el.btnMetrics, el.btnAbout);
+    h('div', { class: 'clockbox', 'aria-live': 'off' }, el.tick, el.clock), sceneSel, skinSel, h('div', { class: 'spacer' }), el.btnInspect, el.btnTune, el.btnMetrics, el.btnAbout);
 
   // ---- dock ----------------------------------------------------------------------------------------------------------------------------------
   el.play = h('button', { class: 'tbtn play', 'aria-label': 'Play', title: 'Play / pause (Space)', onclick: () => transport.toggle() }, svgIcon(ICON.play));
@@ -2679,7 +2686,7 @@ function createStudioUI({ root, engine, data, onSafe }) {
     el.play.setAttribute('aria-label', t.playing ? 'Pause' : 'Play'); const want = t.playing ? 'pause' : 'play'; if (el.play.dataset.state !== want) { el.play.dataset.state = want; el.play.replaceChildren(svgIcon(ICON[want])); }
     if (!ui.scrubbing) el.range.value = String(t.target ?? t.simTau);
     for (const b of speedBtns) b.setAttribute('aria-pressed', String(+b.dataset.speed === t.speed));
-    if (now - (ui._lastStat || 0) > 250) { ui._lastStat = now; el.dockstat.textContent = `${frame.tiles.filter((q) => q.life === 'live').length} tiles · ${frame.onField} units · zoom ${frame.zoom.toFixed(2)} · ${engine.kernel.layout.has(tok('layout.strategy')) ? tok('layout.strategy') : ''}`; const map = document.getElementById('map'); if (map) map.setAttribute('aria-label', `Schematic map of the Gettysburg battle: tick ${frame.tick} of 675, ${frame.clock.date}, about ${frame.clock.text} on a candidate clock; ${frame.onField} units shown as ${frame.tiles.filter((q) => q.life === 'live').length} tiles.`); }
+    if (now - (ui._lastStat || 0) > 250) { ui._lastStat = now; const zs = rowRefs.get('camera.zoom'); if (zs) zs(tok('camera.zoom')); el.dockstat.textContent = `${frame.tiles.filter((q) => q.life === 'live').length} tiles · ${frame.onField} units · zoom ${frame.zoom.toFixed(2)} · ${engine.kernel.layout.has(tok('layout.strategy')) ? tok('layout.strategy') : ''}`; const map = document.getElementById('map'); if (map) map.setAttribute('aria-label', `Schematic map of the Gettysburg battle: tick ${frame.tick} of 675, ${frame.clock.date}, about ${frame.clock.text} on a candidate clock; ${frame.onField} units shown as ${frame.tiles.filter((q) => q.life === 'live').length} tiles.`); }
     drawMetrics(now);
     if (ui.panelOpen && ui.tab === 'about') { const ab = el.pane.querySelector('#ab-ov'); if (ab) ab.textContent = String(engine.metrics.overlapPairs ?? 0); }
   };
@@ -2704,7 +2711,7 @@ __defs["src/popups/host.mjs"] = function (__exports, __r) {
 //     update(frame, api) -> [card]        called every frame; returns the cards that should be visible NOW
 //   })
 //   card = { key, anchor?: { tileKey } | { unitId } | { x, y } (screen px), size: { w, h }, priority?: number, render?(el) | html?: string, ttlMs?: number }
-//   api  = { tok, nowMs, viewport: { w, h }, tileRect(keyOrUnitId) -> {x0,y0,x1,y1}|null, obstacles: [{x0,y0,x1,y1}] }
+//   api  = { tok, nowMs (wall clock, ms), data (the dataset: events, vignettes, clock ...; read-only), viewport: { w, h }, tileRect(keyOrUnitId) -> {x0,y0,x1,y1}|null, obstacles: [{x0,y0,x1,y1}] }
 const { Hash } = __r("src/layout/geom.mjs");
 const { dampStep2 } = __r("src/interp/damp.mjs");
 
@@ -2750,7 +2757,7 @@ function placeCard({ w, h, anchor = null, obstacles, viewport, margin = 10, gap 
 function createPopupHost(engine) {
   const placed = new Map();       // key -> { x, y, vx, vy, tx, ty, w, h, born }
   const api = (frame, nowMs) => ({
-    tok: engine.tok, nowMs, viewport: { w: frame.view.w, h: frame.view.h }, obstacles: frameObstacles(frame),
+    tok: engine.tok, nowMs, data: engine.battle.ds, viewport: { w: frame.view.w, h: frame.view.h }, obstacles: frameObstacles(frame),
     tileRect(k) {
       const t = frame.tiles.find((q) => q.key === k || q.ids.includes(k)); if (!t) return null;
       const hw = t.w * t.scale / 2; const hh = t.h * t.scale / 2; return { x0: t.x + frame.view.dx - hw, y0: t.y + frame.view.dy - hh, x1: t.x + frame.view.dx + hw, y1: t.y + frame.view.dy + hh };
