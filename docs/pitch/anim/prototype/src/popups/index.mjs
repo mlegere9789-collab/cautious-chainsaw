@@ -1,3 +1,16 @@
-// popups/index.mjs - THE list of popups the Studio registers at start-up.  EMPTY on purpose: the popup track registers the site's existing popups here (every one is kept and improved,
-// none removed).  Each entry is { id, label, update(frame, api) -> cards[] }; see popups/host.mjs for the card contract and the free-space placement they get.
-export const POPUPS = [];
+// popups/index.mjs - THE list of popups the Studio registers at start-up (one module each; order = update order and z-order tie-break).  To add a popup: write src/popups/<name>.mjs
+// (copy popups/_template.mjs), import it here, add it to the array, run node build.mjs.  See popups/host.mjs for the card contract.
+import { eventCard } from './event-card.mjs';
+import { storyCard } from './story-card.mjs';
+import { commandToast } from './command-toast.mjs';
+import { commandCrossout } from './command-crossout.mjs';
+import { unitCard } from './unit-card.mjs';
+import { tour } from './tour.mjs';
+import { dayBanner } from './day-banner.mjs';
+import { clockHud } from './clock-hud.mjs';
+import { legend } from './legend.mjs';
+import { minimap } from './minimap.mjs';
+import { hints } from './hints.mjs';
+import { chronicle } from './chronicle.mjs';
+
+export const POPUPS = [clockHud, dayBanner, eventCard, storyCard, commandToast, commandCrossout, unitCard, tour, legend, minimap, hints, chronicle];

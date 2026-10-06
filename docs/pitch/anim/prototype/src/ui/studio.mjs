@@ -77,6 +77,11 @@ export function createStudioUI({ root, engine, data, onSafe }) {
     const sync = (x) => { if (def.type === 'number') { control.value = x; val.textContent = fmtVal(x); } else if (def.type === 'boolean') control.checked = x; else control.value = x; row.classList.toggle('changed', x !== def.default); };
     sync(v); rowRefs.set(def.id, sync); return row;
   }
+  /** a popup style's group opens with a button that shows that popup now (popups/host.mjs preview) */
+  function previewRow(g) {
+    const d = kernel.popups.list().find((x) => x.group === g.id && x.preview); if (!d) return null;
+    return h('div', { class: 'toolbar' }, h('button', { class: 'btn primary', type: 'button', title: d.doc, onclick: () => ui.onPreview(d.id) }, 'Show this popup now'), h('span', { class: 'note' }, d.doc));
+  }
   function buildTune() {
     rowRefs.clear(); const out = [];
     const search = h('input', { class: 'search', type: 'search', placeholder: 'Filter dials (name or text)', 'aria-label': 'Filter dials', oninput: () => { const q = search.value.toLowerCase(); for (const r of el.pane.querySelectorAll('.row')) { const d = tuning.defs.get(r.dataset.id); r.classList.toggle('hidden', !!q && !(d.label + ' ' + d.id + ' ' + d.doc).toLowerCase().includes(q)); } } });
@@ -86,7 +91,7 @@ export function createStudioUI({ root, engine, data, onSafe }) {
       h('button', { class: 'btn', onclick: () => download('battle-studio-settings.json', JSON.stringify(tuning.export(), null, 1)) }, 'Export'), h('button', { class: 'btn', onclick: () => file.click() }, 'Import'),
       h('button', { class: 'btn', onclick: () => { tuning.reset(); ui.status = 'all dials reset'; renderChrome(); } }, 'Reset all'), file), search, status);
     for (const g of tuning.groups()) {
-      const body = h('div', null, g.tokens.map(tokenRow)); let open = !['camera'].includes(g.id) || false; body.classList.toggle('hidden', !open);
+      const body = h('div', null, ui.onPreview ? previewRow(g) : null, g.tokens.map(tokenRow)); let open = !['camera'].includes(g.id) || false; body.classList.toggle('hidden', !open);
       out.push(h('h3', null, h('button', { 'aria-expanded': String(open), onclick: (e) => { open = !open; body.classList.toggle('hidden', !open); e.currentTarget.setAttribute('aria-expanded', String(open)); } }, g.label)), body);
     }
     return out;

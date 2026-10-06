@@ -3,6 +3,7 @@
 // Order (back to front):  backdrop -> fx (registry) -> leaders -> aggregate member dots -> chips (faint ones first) -> name labels -> pins -> popups layer (DOM, separate)
 //   A chip is drawn with ctx.setTransform = dpr * scale at its screen position and globalAlpha = its opacity, so a skin draws a plain box centred on (0,0).
 //   The pin of a displaced tile is drawn ON TOP of its chip so the true position stays visible even when the chip is only a few pixels away.
+import { drawBeneath, drawAbove } from '../popups/fxdraw.mjs';
 export function createRenderer({ canvas, engine, data }) {
   const ctx = canvas.getContext('2d', { alpha: false });
   let dpr = 1; let cssW = 0; let cssH = 0; let lastMs = 0;
@@ -15,12 +16,13 @@ export function createRenderer({ canvas, engine, data }) {
     canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr); canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
   }
 
-  function draw(frame, { hoverKey = null, popupLeaders = [] } = {}) {
+  function draw(frame, { hoverKey = null, popupLeaders = [], popupFx = null, mapRect = null, toneColors = null } = {}) {
     const t0 = performance.now(); const tok = engine.tok; const c = ctx;
     const skin = engine.kernel.skins.has(tok('skin.id')) ? engine.kernel.skins.get(tok('skin.id')) : fallbackSkin;
     const spec = frame.spec; const view = frame.view; const cam = engine.camera;
     const env = { dpr, zoom: frame.zoom, timeMs: frame.tau * 500, tok, spec };
     c.setTransform(dpr, 0, 0, dpr, 0, 0); c.globalAlpha = 1;
+    if (mapRect) { c.save(); c.beginPath(); c.rect(0, 0, mapRect.w, mapRect.h); c.clip(); }      // the map viewport (it shrinks when the reading rail is open)
     // 1. backdrop
     const bid = tok('backdrop.id'); const bd = engine.kernel.backdrops.has(bid) ? engine.kernel.backdrops.get(bid) : null;
     if (bd) bd.draw(c, { w: cssW, h: cssH, camera: cam, mpp: cam.mpp(), toScreen: (lng, lat) => cam.toScreen(lng, lat) }, data, tok); else { c.fillStyle = '#ddd'; c.fillRect(0, 0, cssW, cssH); }
@@ -28,6 +30,8 @@ export function createRenderer({ canvas, engine, data }) {
     for (const fx of engine.kernel.fx.list()) if (fx.draw) { c.save(); fx.draw(c, frame, env); c.restore(); }
     const on = (t) => { const x = t.x + view.dx; const y = t.y + view.dy; return x > -120 && x < cssW + 120 && y > -60 && y < cssH + 60; };
     const D = skin.draw; let drawn = 0;
+    // 2b. popup ink beneath the tiles: leader lines, place rings, arrows, pulses (a tile always paints over them)
+    if (popupFx) drawBeneath(c, popupFx, toneColors);
     // 3. leaders and aggregate member dots (beneath every chip)
     for (const t of frame.tiles) {
       if (!on(t) || t.opacity < 0.02) continue;
@@ -42,6 +46,7 @@ export function createRenderer({ canvas, engine, data }) {
       D.tile(c, t, env); drawn++;
       if (hoverKey === t.key && t.solid) { c.globalAlpha = 1; c.strokeStyle = 'rgba(255,255,255,0.95)'; c.lineWidth = 1; c.strokeRect(-t.w / 2 + 1.5, -t.h / 2 + 1.5, t.w - 3, t.h - 3); c.strokeStyle = 'rgba(0,0,0,0.55)'; c.strokeRect(-t.w / 2 + 0.5, -t.h / 2 + 0.5, t.w - 1, t.h - 1); }
     }
+    if (popupFx) { c.setTransform(dpr, 0, 0, dpr, 0, 0); drawAbove(c, popupFx, toneColors); }       // the subject ring, inside each chip's own reserved band
     // 5. labels, then pins on top
     c.setTransform(dpr, 0, 0, dpr, 0, 0);
     if (D.label) for (const t of frame.tiles) {
@@ -54,6 +59,7 @@ export function createRenderer({ canvas, engine, data }) {
     }
     c.setTransform(dpr, 0, 0, dpr, 0, 0); c.globalAlpha = 1;
     for (const l of popupLeaders) { c.strokeStyle = 'rgba(30,30,30,0.7)'; c.lineWidth = 1; c.beginPath(); c.moveTo(l[0], l[1]); c.lineTo(l[2], l[3]); c.stroke(); c.fillStyle = 'rgba(30,30,30,0.85)'; c.beginPath(); c.arc(l[0], l[1], 2.5, 0, Math.PI * 2); c.fill(); }
+    if (mapRect) c.restore();
     stats.drawMs = performance.now() - t0; stats.tilesDrawn = drawn; lastMs = stats.drawMs;
     return stats;
   }

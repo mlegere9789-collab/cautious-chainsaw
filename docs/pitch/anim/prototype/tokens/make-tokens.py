@@ -98,6 +98,13 @@ num("metrics.historyFrames", "metrics", "History length", 240, 60, 1200, 30, "fr
 num("metrics.popPx", "metrics", "Pop threshold", 3, 1, 20, 1, "px", "A tile that moves more than this beyond its true position's own motion in one frame counts as a pop (the lab definition).", "Computed", "docs/pitch/anim/layout-lab/lib/dynamic.mjs POP_PX")
 boo("metrics.verify", "metrics", "Verify every frame", True, "Run the independent overlap verifier on every displayed frame (about 0.2 ms).")
 
+# ---- popups (the Overlay Director and every popup style): tokens/make-popup-tokens.py ----
+import importlib.util
+_ps = importlib.util.spec_from_file_location("make_popup_tokens", os.path.join(os.path.dirname(os.path.abspath(__file__)), "make-popup-tokens.py"))
+_pm = importlib.util.module_from_spec(_ps)
+_ps.loader.exec_module(_pm)
+_pm.add(G, num, boo, sel, reg)
+
 doc = dict(format="battle-studio-tokens/1", version=1, groups=[dict(id=i, label=l) for i, l in G], tokens=T)
 here = os.path.dirname(os.path.abspath(__file__))
 with open(os.path.join(here, "tokens.json"), "w", encoding="utf8", newline="\n") as f:

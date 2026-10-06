@@ -102,6 +102,8 @@ export function createEngine(o) {
     const c = project(camera.lng, camera.lat, camera.zoom); const g = unproject(c[0] - dx, c[1] - dy, camera.zoom);
     camera.lng = g[0]; camera.lat = g[1]; camT.lng = g[0]; camT.lat = g[1]; camT.anchor = null; E.dirty = true;
   };
+  /** shift the view by screen pixels WITHOUT cancelling a glide in flight (the popup rail uses it to keep the ground still while the viewport narrows) */
+  E.shiftView = (dx, dy) => { const c = project(camera.lng, camera.lat, camera.zoom); const g = unproject(c[0] - dx, c[1] - dy, camera.zoom); const dlng = g[0] - camera.lng; const dlat = g[1] - camera.lat; camera.lng += dlng; camera.lat += dlat; camT.lng += dlng; camT.lat += dlat; E.dirty = true; };
   /** the part of the screen the interface covers (CSS px); scene jumps centre the scene in what is left, so it does not land under the dock or the panel */
   E.safe = { top: 0, right: 0, bottom: 0, left: 0 };
   /** go to a place: lat, lng, zoom; glides by default.  safe: true centres the place in the free part of the screen */

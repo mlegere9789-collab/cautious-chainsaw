@@ -19,7 +19,7 @@ import { measureTable, FONT_SPECS } from './layout/text.mjs';
 const readJson = (id) => JSON.parse(document.getElementById(id).textContent);
 
 export function boot() {
-  const dataset = readJson('studio-dataset'); const tokens = readJson('studio-tokens'); const textTable = readJson('studio-text');
+  const dataset = readJson('studio-dataset'); const tokens = readJson('studio-tokens'); const textTable = readJson('studio-text'); const popupData = readJson('studio-popups');
   const q = new URLSearchParams(location.search);
   let storage = null; try { if (!q.has('fresh')) { storage = window.localStorage; storage.getItem('probe'); } } catch { storage = null; }
 
@@ -47,15 +47,17 @@ export function boot() {
 
   const renderer = createRenderer({ canvas, engine, data: dataset });
   let updateSafeRef = () => {}; const ui = createStudioUI({ root: app, engine, data: dataset, onSafe: () => updateSafeRef() });
-  const host = createPopupHost(engine); const layer = createPopupLayer(popups, engine, host);
-  if (q.has('tune')) ui.togglePanel('tune');
+  let layer = null; const sysReduced = () => mql.matches;
+  const host = createPopupHost(engine, { popupData, size: { w: rect.width, h: rect.height }, systemReduced: sysReduced, chrome: () => (layer ? layer.chrome() : { rects: [], safe: { top: 0, right: 0, bottom: 0, left: 0 } }), measure: (c, f) => (layer ? layer.measure(c, f) : null), onSelect: (id) => { const t = id ? engine.frame && engine.frame.tiles.find((q) => q.ids[0] === id && q.kind === 'leaf') : null; ui.setSelection(t || null); } });
+  layer = createPopupLayer({ root: app, container: popups, engine, host, systemReduced: sysReduced });
+  ui.onPreview = (id) => { host.preview(id); engine.dirty = true; }; if (q.has('tune')) ui.togglePanel('tune');
   if (q.has('speed')) engine.transport.setSpeed(+q.get('speed'));
   if (q.get('play') === '1') engine.transport.play();
 
   const updateSafe = () => { const r = app.getBoundingClientRect(); const top = document.getElementById('topbar'); const dock = document.getElementById('dock'); const panel = document.getElementById('panel'); const narrow = r.width < 760;
     engine.safe = { top: top ? top.getBoundingClientRect().bottom : 0, bottom: dock ? r.height - dock.getBoundingClientRect().top : 0, left: 0, right: panel && !panel.classList.contains('hidden') && !narrow ? r.width - panel.getBoundingClientRect().left : 0 }; };
   updateSafeRef = updateSafe;
-  const resize = () => { const r = app.getBoundingClientRect(); const dpr = window.devicePixelRatio || 1; renderer.resize(r.width, r.height, dpr); engine.setViewport(r.width, r.height); ui.drawMarks(); };
+  const resize = () => { const r = app.getBoundingClientRect(); const dpr = window.devicePixelRatio || 1; renderer.resize(r.width, r.height, dpr); host.setSize(r.width, r.height); ui.drawMarks(); };
   new ResizeObserver(() => { resize(); updateSafe(); }).observe(app); resize(); updateSafe();
   if (!q.has('tick') || q.has('scene')) { engine.moveTo({ lat: scene.lat, lng: scene.lng, zoom: +(q.get('zoom') || scene.zoom) }, { glide: false, safe: true }); }
   mql.addEventListener?.('change', () => { engine.dirty = true; });
@@ -77,18 +79,18 @@ export function boot() {
       if (drag.moved > 4) { canvas.classList.add('dragging'); engine.panBy(dx, dy); }
       return;
     }
-    const t = engine.hit(p[0], p[1]); const k = t ? t.key : null; if (k !== hoverKey) { hoverKey = k; engine.dirty = true; canvas.classList.toggle('over-tile', !!k); }
+    const t = engine.hit(p[0], p[1]); const k = t ? t.key : null; if (k !== hoverKey) { hoverKey = k; engine.dirty = true; canvas.classList.toggle('over-tile', !!k); host.setHover(k ? { key: k, since: performance.now(), x: p[0], y: p[1] } : null); }
   });
   const end = (e) => {
     const was = drag; pointers.delete(e.pointerId); if (pointers.size < 2) pinch = null; canvas.classList.remove('dragging');
     if (was && e.pointerId === was.id && was.moved <= 4 && e.type === 'pointerup') {
       const p = pos(e); const t = engine.hit(p[0], p[1]);
-      if (t && t.kind === 'leaf') { engine.select(t.ids[0]); ui.setSelection(t); } else if (t) { engine.select(null); ui.setSelection(t); } else { engine.select(null); ui.setSelection(null); }
+      if (t && t.kind === 'leaf') { engine.select(t.ids[0]); host.setSelected(t.ids[0]); ui.setSelection(t); } else if (t) { engine.select(null); host.setSelected(null); ui.setSelection(t); } else { engine.select(null); host.setSelected(null); ui.setSelection(null); }
     }
     if (pointers.size === 0) drag = null;
   };
   canvas.addEventListener('pointerup', end); canvas.addEventListener('pointercancel', end);
-  canvas.addEventListener('pointerleave', () => { if (hoverKey) { hoverKey = null; engine.dirty = true; canvas.classList.remove('over-tile'); } });
+  canvas.addEventListener('pointerleave', () => { if (hoverKey) { hoverKey = null; engine.dirty = true; canvas.classList.remove('over-tile'); host.setHover(null); } });
   canvas.addEventListener('wheel', (e) => { e.preventDefault(); const p = pos(e); const k = e.ctrlKey ? 0.012 : (e.deltaMode === 1 ? 0.05 : 0.0016); const base = engine.tuning.get('camera.zoom'); engine.zoomTo(base - e.deltaY * k, { at: p }); }, { passive: false });
   canvas.tabIndex = 0;
   window.addEventListener('keydown', (e) => {
@@ -99,27 +101,28 @@ export function boot() {
     else if (k === ']' || k === '[') { const sp = [0.25, 0.5, 1, 2, 4, 8, 16]; const i = Math.max(0, Math.min(sp.length - 1, sp.indexOf(tr.speed) + (k === ']' ? 1 : -1))); tr.setSpeed(sp[i]); }
     else if (k === '+' || k === '=') engine.zoomTo(T.get('camera.zoom') + 0.5); else if (k === '-') engine.zoomTo(T.get('camera.zoom') - 0.5);
     else if (k === 't' || k === 'T') ui.togglePanel('tune'); else if (k === 'i' || k === 'I') ui.togglePanel('inspect'); else if (k === 'a' || k === 'A') ui.togglePanel('about'); else if (k === 'm' || k === 'M') T.set('metrics.overlay', !T.get('metrics.overlay'));
-    else if (k === 'Escape') { engine.select(null); ui.setSelection(null); }
+    else if (k === 'Escape') { engine.select(null); host.setSelected(null); ui.setSelection(null); }
   });
 
   // ---- loop ----------------------------------------------------------------------------------------------------------------------------------
   let last = 0; let idle = false; let frames = 0;
   function tick(now) {
     const raw = last ? now - last : 16.667; last = now;
-    if (engine.busy() || ui.scrubbing) {
+    if (engine.busy() || host.busy() || ui.scrubbing) {
       const dt = idle ? 16.667 : raw; idle = false;                                 // time spent at rest is not a slow frame
       const f = engine.step(Math.min(dt, 100), { rawDtMs: dt });
-      const leaders = layer.update(f, now, dt);
-      renderer.draw(f, { hoverKey, popupLeaders: leaders }); ui.update(f, now); frames++;
+      virtualNow += Math.min(dt, 100); const out = host.frame(f, virtualNow, Math.min(dt, 100)); layer.update(out, virtualNow); studio.lastOut = out;
+      renderer.draw(f, { hoverKey, popupFx: out.fx, mapRect: out.mapRect, toneColors: layer.toneColors() }); ui.update(f, now); frames++;
     } else idle = true;
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
 
+  let virtualNow = 1e6;
   const studio = {
-    updateSafe, engine, ui, renderer, tuning: T, kernel, ready: true, get frames() { return frames; },
+    updateSafe, engine, ui, renderer, host, layer, popupData, tuning: T, kernel, ready: true, lastOut: null, get frames() { return frames; },
     /** drive n frames synchronously (tests and screenshots): deterministic, no rAF */
-    step(n = 1, dtMs = 1000 / 60) { let f = null; for (let i = 0; i < n; i++) { f = engine.step(dtMs, { rawDtMs: dtMs }); } if (f) { renderer.draw(f, { hoverKey }); ui.update(f, performance.now()); } return f; },
+    step(n = 1, dtMs = 1000 / 60) { let f = null; let out = null; for (let i = 0; i < n; i++) { f = engine.step(dtMs, { rawDtMs: dtMs }); virtualNow += dtMs; out = host.frame(f, virtualNow, dtMs); } if (f) { layer.update(out, virtualNow); renderer.draw(f, { hoverKey, popupFx: out.fx, mapRect: out.mapRect, toneColors: layer.toneColors() }); ui.update(f, performance.now()); } studio.lastOut = out; return f; },
   };
   window.__studio = studio;
   return studio;

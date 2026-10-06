@@ -9,7 +9,7 @@ export const PROTO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), 
 export const REPO = path.resolve(PROTO, '..', '..', '..', '..');
 const read = (p) => JSON.parse(fs.readFileSync(path.join(PROTO, p), 'utf8'));
 let cache = null;
-export function loadDocs() { if (!cache) cache = { dataset: read('data/dataset.json'), tokens: read('tokens/tokens.json'), textTable: read('data/text-widths.json') }; return cache; }
+export function loadDocs() { if (!cache) cache = { dataset: read('data/dataset.json'), tokens: read('tokens/tokens.json'), textTable: read('data/text-widths.json'), popupData: read('data/popup-data.json') }; return cache; }
 
 /** a fresh engine on the real data.  settings = { 'layout.dMaxPx': 40, ... } applied before the first frame */
 export function makeEngine({ settings = {}, start, viewport, kernel, skin } = {}) {

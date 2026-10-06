@@ -62,10 +62,11 @@ const BS = String.fromCharCode(92);   // a backslash. JSON placed inside a scrip
 const jsonInline = (obj) => JSON.stringify(obj).split('<').join(BS + 'u003c').split(String.fromCharCode(0x2028)).join(BS + 'u2028').split(String.fromCharCode(0x2029)).join(BS + 'u2029');
 
 async function main() {
-  if (args.has('--data')) execFileSync(process.execPath, [path.join(HERE, 'data', 'build-dataset.mjs')], { stdio: 'inherit' });
+  if (args.has('--data')) { execFileSync(process.execPath, [path.join(HERE, 'data', 'build-dataset.mjs')], { stdio: 'inherit' }); execFileSync(process.execPath, [path.join(HERE, 'data', 'build-popup-data.mjs')], { stdio: 'inherit' }); }
   const dataset = JSON.parse(read(path.join(HERE, 'data', 'dataset.json')));
   const tokens = JSON.parse(read(path.join(HERE, 'tokens', 'tokens.json')));
   const text = JSON.parse(read(path.join(HERE, 'data', 'text-widths.json')));
+  const popupData = JSON.parse(read(path.join(HERE, 'data', 'popup-data.json')));
   // the settings schema is generated from the tokens: keep the committed file in step
   const schemaArgs = args.has('--check') ? ['--check'] : [];
   execFileSync(process.execPath, [path.join(HERE, 'tokens', 'make-schema.mjs'), ...schemaArgs], { stdio: 'inherit' });
@@ -73,9 +74,9 @@ async function main() {
   let js = bundle(path.join(SRC, 'app.mjs'));
   if (args.has('--min')) { const { minify } = await import('terser'); js = (await minify(js, { compress: { passes: 2 }, mangle: true, format: { comments: false } })).code; }
   js = js.replace(/<\/script/gi, '<\\/script');
-  const css = read(path.join(SRC, 'ui', 'studio.css'));
+  const css = read(path.join(SRC, 'ui', 'studio.css')) + String.fromCharCode(10) + read(path.join(SRC, 'ui', 'popups.css'));
   let html = read(path.join(SRC, 'ui', 'shell.html'));
-  html = html.replace('<!--@STYLE-->', () => css).replace('<!--@DATASET-->', () => jsonInline(dataset)).replace('<!--@TOKENS-->', () => jsonInline(tokens)).replace('<!--@TEXT-->', () => jsonInline(text)).replace('<!--@BUNDLE-->', () => js);
+  html = html.replace('<!--@STYLE-->', () => css).replace('<!--@DATASET-->', () => jsonInline(dataset)).replace('<!--@TOKENS-->', () => jsonInline(tokens)).replace('<!--@TEXT-->', () => jsonInline(text)).replace('<!--@POPUPS-->', () => jsonInline(popupData)).replace('<!--@BUNDLE-->', () => js);
 
   // the file must not be able to make a network request: no URL scheme other than the SVG namespace identifier
   const urls = [...html.matchAll(/https?:\/\/[^\s"'`)<>\\]+/g)].map((m) => m[0]).filter((u) => u !== 'http://www.w3.org/2000/svg');

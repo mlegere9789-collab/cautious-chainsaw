@@ -12,7 +12,7 @@
 import { dampStep } from '../interp/damp.mjs';
 
 export function createTransport(tok, { tickMax = 675, tick0 = 1, reduced = () => false } = {}) {
-  const S = { tau: tick0, prev: tick0, vel: 0, target: null, playing: false, speed: 1, speedEff: 0, sv: 0, acc: 0 /* microseconds */, steps: 0, glideMs: 0, ended: false };
+  const S = { tau: tick0, prev: tick0, vel: 0, target: null, playing: false, speed: 1, slow: 1, speedEff: 0, sv: 0, acc: 0 /* microseconds */, steps: 0, glideMs: 0, ended: false };
   const listeners = [];
   const emit = (type) => { for (const f of listeners.slice()) f(type, api); };
   const clamp = (t) => (t < 1 ? 1 : t > tickMax ? tickMax : t);
@@ -20,7 +20,7 @@ export function createTransport(tok, { tickMax = 675, tick0 = 1, reduced = () =>
 
   function simStep(h) {                                        // h in seconds
     const rm = reduced();
-    const base = tok('time.baseTps'); const want = S.playing ? S.speed : 0;
+    const base = tok('time.baseTps'); const want = S.playing ? S.speed * S.slow : 0;
     if (rm || tok('time.speedRampMs') <= 0) { S.speedEff = want; S.sv = 0; }
     else { const r = dampStep(S.speedEff, S.sv, want, tok('time.speedRampMs') / 1000, h); S.speedEff = r[0]; S.sv = r[1]; if (Math.abs(S.speedEff - want) < 1e-3 && Math.abs(S.sv) < 1e-2) { S.speedEff = want; S.sv = 0; } }
     const adv = S.speedEff * base * h;
@@ -58,7 +58,9 @@ export function createTransport(tok, { tickMax = 675, tick0 = 1, reduced = () =>
     get steps() { return S.steps; },
     get playing() { return S.playing; },
     get speed() { return S.speed; },
-    get speedEff() { return S.speedEff; },
+    get speedEff() { return S.speedEff; }, get slow() { return S.slow; },
+    /** a multiplier on the speed that does not change the speed the viewer chose (the popups' Narrated mode eases the clock down while a card is read); eased like any speed change */
+    setSlow(f) { S.slow = Math.max(0.05, Math.min(1, f)); },
     get gliding() { return S.target !== null; },
     get target() { return S.target; },
     get ended() { return S.ended; },

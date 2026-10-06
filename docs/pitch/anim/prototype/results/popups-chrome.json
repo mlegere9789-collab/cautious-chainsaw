@@ -1,0 +1,87 @@
+{
+ "when": "2026-10-06T06:33:41.748Z",
+ "stride": 1,
+ "chrome": "155.0.8059.27",
+ "checks": [
+  "real DOM: no card touches a tile, the interface or another card (zoom 13.5)",
+  "real DOM: the height each card was placed with is its real height (zoom 13.5)",
+  "no console error and no network request (zoom 13.5)",
+  "real DOM: no card touches a tile, the interface or another card (zoom 15)",
+  "real DOM: the height each card was placed with is its real height (zoom 15)",
+  "no console error and no network request (zoom 15)",
+  "playback at 4x: 60 fps class (under 5 % of frames over 20 ms)",
+  "playback at 4x: the director costs under 3 ms at p95",
+  "playback at 4x: no overlap frame, no error",
+  "no leak: the DOM stays bounded over a long run at 8x",
+  "cards are labelled for a screen reader",
+  "C opens the Chronicle in the rail and the map makes room",
+  "the first Esc closes the rail (one layer per press) and the map returns",
+  "the second Esc dismisses the newest card",
+  "the live region is polite",
+  "keyboard run: no console error",
+  "card buttons have accessible names",
+  "phone: no free-standing cards, the newest chip in the lane with a counter",
+  "phone: the sheet stands above the dock and the map ends where the sheet begins",
+  "phone run: no console error, no network",
+  "reduced motion: the rail makes room at once"
+ ],
+ "failures": [],
+ "details": {
+  "zoom13.5": {
+   "ticks": 138,
+   "frames": 690,
+   "cardFrames": 4173
+  },
+  "zoom15": {
+   "ticks": 138,
+   "frames": 690,
+   "cardFrames": 4013
+  },
+  "playback4x": {
+   "fps": 60.003000150007516,
+   "over20": 0,
+   "over33": 0,
+   "hostP50": 0.6000000089406967,
+   "hostP95": 1.300000011920929,
+   "hostMax": 5.300000011920929,
+   "n": 541,
+   "relocations": 9,
+   "cutFrames": 1,
+   "overlap": 0,
+   "fired": 51,
+   "tick": 356
+  },
+  "domOver25sAt8x": [
+   {
+    "all": 134,
+    "cards": 1,
+    "chips": 1,
+    "tick": 435
+   },
+   {
+    "all": 134,
+    "cards": 0,
+    "chips": 2,
+    "tick": 515
+   },
+   {
+    "all": 146,
+    "cards": 1,
+    "chips": 3,
+    "tick": 595
+   },
+   {
+    "all": 165,
+    "cards": 2,
+    "chips": 2,
+    "tick": 675
+   },
+   {
+    "all": 196,
+    "cards": 3,
+    "chips": 3,
+    "tick": 675
+   }
+  ]
+ }
+}

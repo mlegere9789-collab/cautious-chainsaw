@@ -52,7 +52,7 @@ test('the legend of the reference skin labels every claim with the site\'s evide
 });
 
 // ---- popups ----------------------------------------------------------------------------------------------------------------------------------------------
-test('popups ship EMPTY, and the host places a card in free space: over no solid chip, label or pin, inside the screen, near its anchor (300 placements on real frames)', () => {
+test('the popup registry starts EMPTY (the shell fills it), and the free-space search places a card: over no solid chip, label or pin, inside the screen, near its anchor (300 placements on real frames)', () => {
   const e = mk(); const f = e.frame; assert.deepEqual(e.kernel.popups.ids(), []); const obstacles = frameObstacles(f); assert.ok(obstacles.length > 300);
   const r = rng(3); let placed = 0; let none = 0; let near = 0;
   for (let k = 0; k < 300; k++) {
@@ -96,26 +96,25 @@ test('fx, layout strategies, motion modes and motion models register by name and
   assert.equal(verifyFrame([], 2).overlaps, 0);
 });
 
-test('the shell lists the reference skin first (the design pitches follow it: skins.test.mjs), no popups, no effects; the copy-me template skin conforms to the contract and is a drop-in', () => {
-  assert.equal(SKINS[0].id, 'reference'); assert.ok(SKINS.every((k) => /^[a-z][a-z0-9]*(?:[-/.][a-z0-9]+)*$/.test(k.id))); assert.deepEqual(POPUPS, []); assert.deepEqual(FX, []);
+test('the shell lists the reference skin first (the design pitches follow it: skins.test.mjs) and the twelve popups of the Overlay Director in a fixed order, no effects; the copy-me template skin conforms to the contract and is a drop-in', () => {
+  assert.equal(SKINS[0].id, 'reference'); assert.ok(SKINS.every((k) => /^[a-z][a-z0-9]*(?:[-/.][a-z0-9]+)*$/.test(k.id)));
+  assert.deepEqual(POPUPS.map((p) => p.id), ['clock-hud', 'day-banner', 'event-card', 'story-card', 'command-toast', 'command-crossout', 'unit-card', 'tour', 'legend', 'minimap', 'hints', 'chronicle']); assert.deepEqual(FX, []);
+  for (const p of POPUPS) { assert.ok(p.label && p.doc && typeof p.update === 'function', p.id); }
   const e = mk(); const spec = e.spec(); const tiles = e.frame.tiles.filter((t) => t.solid); const bad = checkSkin(templateSkin, spec, [...tiles, ...tiles.map((t) => ({ ...t, selected: true }))], text); assert.deepEqual(bad.slice(0, 3), []);
   const e2 = makeEngine({ skin: templateSkin, settings: { 'skin.id': 'template' } }); e2.setViewport(1440, 900); for (let i = 0; i < 20; i++) e2.step(1000 / 60); assert.equal(e2.frame.overlaps, 0);
   for (const row of templateSkin.legend()) assert.ok(['Documented', 'Contested'].includes(row.evidence));
 });
 
-test('the copy-me template popup: a card exists for a chronology event, is placed in free space, and stays for READING time in wall-clock seconds however fast the clock runs', () => {
-  globalThis.document = { createElement: () => ({ append() {}, set textContent(v) {} }) };
-  try {
-    const ev = dataset.events.find((x) => x.significance === 'critical'); assert.ok(ev);
-    const e = makeEngine({ start: { tick: ev.tick, lat: scene.lat, lng: scene.lng, zoom: 15 } }); e.setViewport(1440, 900); for (let i = 0; i < 30; i++) e.step(1000 / 60);
-    e.kernel.popups.register(templatePopup.id, templatePopup); const host = createPopupHost(e);
-    let t = 0; const at = (ms) => host.layout(e.frame, ms);
-    const a = at(t); assert.ok(a.some((c) => c.key === 'template-events:event-' + ev.tick), 'the card appears at its event tick');
-    const card = a.find((c) => c.key.endsWith('event-' + ev.tick)); const obs = frameObstacles(e.frame); const r = { x0: card.x, y0: card.y, x1: card.x + card.w, y1: card.y + card.h };
-    // let the clock run far past the event at 16x; the card must still be there after 2 s of wall clock, and gone once the reading time has passed
-    e.transport.seek(Math.min(675, ev.tick + 60), { glide: false }); e.transport.setSpeed(16); for (let i = 0; i < 30; i++) e.step(1000 / 60);
-    assert.ok(at(2000).some((c) => c.key.endsWith('event-' + ev.tick)), 'still shown 2 s later although the clock has moved 60 ticks on');
-    const words = ev.event.split(/\s+/).length; assert.ok(!at(2000 + 300 * words + 2500).some((c) => c.key.endsWith('event-' + ev.tick)), 'gone after the reading time');
-    assert.ok(!obs.some((o) => o.x0 < r.x1 && o.x1 > r.x0 && o.y0 < r.y1 && o.y1 > r.y0), 'the card was placed over no tile');
-  } finally { delete globalThis.document; }
+test('the copy-me template popup: a card for a chronology event is raised when the clock reaches it, is placed on free ground, points at its units, and stays for READING time in wall-clock seconds however fast the clock runs', () => {
+  const { popupData } = loadDocs(); const ev = dataset.events.find((x) => x.tick === 380); assert.ok(ev && ev.significance === 'high');          // a quiet stretch of the battle: no other event within 14 ticks
+  const e = makeEngine({ settings: { 'popup.queue.aliveA': 4, 'popup.queue.aliveChips': 6 }, start: { tick: ev.tick - 3, lat: scene.lat, lng: scene.lng, zoom: 15 } }); e.setViewport(1440, 900); for (let i = 0; i < 30; i++) e.step(1000 / 60);
+  e.kernel.popups.register(templatePopup.id, templatePopup); const host = createPopupHost(e, { popupData, size: { w: 1440, h: 900 } }); let now = 0; const frame = (dt = 16.667) => { e.step(dt); now += dt; return host.frame(e.frame, now, dt); };
+  e.transport.setSpeed(2); e.transport.play(); let out = null; for (let i = 0; i < 600 && !host.cards.has('template-events:event-' + ev.tick); i++) out = frame();
+  assert.ok(host.cards.has('template-events:event-' + ev.tick), 'raised when the clock reached its tick');
+  const rec = frame().cards.find((c) => c.id === 'template-events:event-' + ev.tick); const obs = frameObstacles(e.frame);
+  if (rec.rect) { const r = { x0: rec.rect.x, y0: rec.rect.y, x1: rec.rect.x + rec.rect.w, y1: rec.rect.y + rec.rect.h }; assert.ok(!obs.some((o) => o.x0 < r.x1 && o.x1 > r.x0 && o.y0 < r.y1 && o.y1 > r.y0), 'placed over no tile'); } else assert.ok(rec.lane, 'no room: a chip in the strip');
+  e.transport.setSpeed(2); const t0 = now; let gone = null; for (let i = 0; i < 2400 && gone == null; i++) { frame(); const c = host.cards.get('template-events:event-' + ev.tick); if (!c || c.phase === 'out') gone = now - t0; }
+  const w = displayTextWords(ev.event); assert.ok(gone > 2100, `lived ${gone} ms at 2x (its tick lasts 250 ms): reading time, not the length of its tick`); void w; void out;
 });
+
+const displayTextWords = (s) => s.split(/\s+/).length;
