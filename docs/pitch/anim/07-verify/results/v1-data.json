@@ -1,0 +1,306 @@
+{
+ "generated": "2026-10-06T09:30:28.689Z",
+ "checks": [
+  {
+   "name": "load order read from the bundle",
+   "ok": true,
+   "detail": {
+    "files": 47
+   }
+  },
+  {
+   "name": "every placements_/density_ file on disk is in the bundle list and vice versa",
+   "ok": true,
+   "detail": {
+    "onDisk": 47,
+    "listed": 47,
+    "missingFromList": [],
+    "missingOnDisk": []
+   }
+  },
+  {
+   "name": "rows read",
+   "ok": true,
+   "detail": {
+    "rows": 1804,
+    "uniqueKeys": 1687,
+    "repeatedKeys": 117,
+    "repeatedWithDifferentContent": 73,
+    "pageCounts": {
+     "units": 478,
+     "keyframes": 1687,
+     "rawRows": 1804,
+     "duplicateKeysKept": 117,
+     "populatedTicks": 188,
+     "nodes": 826,
+     "notes": 1134,
+     "conflicts": 73,
+     "events": 137,
+     "vignettes": 24,
+     "unknownSide": 10,
+     "noOobParent": 95
+    }
+   }
+  },
+  {
+   "name": "same set of unit ids",
+   "ok": true,
+   "detail": {
+    "mine": 478,
+    "page": 478
+   }
+  },
+  {
+   "name": "every keyframe (tick, lat, lng, strength, bearing, disposition, note) equals the source row",
+   "ok": true,
+   "detail": {
+    "compared": 1687,
+    "pageKeyframes": 1687,
+    "mismatches": 0,
+    "first": []
+   }
+  },
+  {
+   "name": "rows that repeat a (unit, tick) key and disagree are all reported by the page data",
+   "ok": true,
+   "detail": {
+    "mine": 73,
+    "page": 73
+   }
+  },
+  {
+   "name": "prefix side of every unit equals its id prefix",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "designation of every unit equals the order-of-battle designation (null when not in the OOB)",
+   "ok": true,
+   "detail": {
+    "mismatches": 0,
+    "first": []
+   }
+  },
+  {
+   "name": "strength reference = max(placement strengths, OOB strength) for every unit",
+   "ok": true,
+   "detail": {
+    "mismatches": 0,
+    "first": []
+   }
+  },
+  {
+   "name": "the units the page draws as Contested are exactly those whose OOB side contradicts the id prefix OR have a state code seen only on the other side (page: 10, OOB contradiction: 0)",
+   "ok": true,
+   "detail": {
+    "onlyPage": [
+     "U-11NC",
+     "U-15AL",
+     "U-1TX",
+     "U-26NC",
+     "U-44AL",
+     "U-47NC",
+     "U-48AL",
+     "U-4TX",
+     "U-52NC",
+     "U-5TX"
+    ],
+    "onlyOob": []
+   }
+  },
+  {
+   "name": "inOob flag equals presence in the order of battle",
+   "ok": true,
+   "detail": {
+    "page": 383,
+    "mine": 383,
+    "notInOob": 95
+   }
+  },
+  {
+   "name": "every battery and artillery battalion is drawn as artillery",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "every id with CAV in it is drawn as cavalry",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "the 33 clock anchors in the page equal data-src/time/time_anchors.json (tick, time, sigma, status)",
+   "ok": true,
+   "detail": {
+    "page": 33,
+    "src": 33,
+    "bad": []
+   }
+  },
+  {
+   "name": "all anchors are still \"proposed\" (the page may not call the clock reviewed)",
+   "ok": true,
+   "detail": {
+    "states": [
+     "proposed"
+    ]
+   }
+  },
+  {
+   "name": "event count equals the sources",
+   "ok": true,
+   "detail": {
+    "src": 137,
+    "page": 137
+   }
+  },
+  {
+   "name": "every chronology event (tick, text, place, significance, narrative, units) is verbatim in the page data",
+   "ok": true,
+   "detail": {
+    "mismatches": 0,
+    "first": [],
+    "significance": {
+     "low": 3,
+     "medium": 16,
+     "high": 73,
+     "critical": 45
+    }
+   }
+  },
+  {
+   "name": "story count equals the sources",
+   "ok": true,
+   "detail": {
+    "src": 24,
+    "page": 24
+   }
+  },
+  {
+   "name": "every story (title, summary, full script, tick, place) is verbatim in the page data",
+   "ok": true,
+   "detail": {
+    "mismatches": 0,
+    "first": []
+   }
+  },
+  {
+   "name": "succession count equals the sources",
+   "ok": true,
+   "detail": {
+    "src": 42,
+    "page": 42
+   }
+  },
+  {
+   "name": "every command change (event, from, to, cause, tick, unit, source) is verbatim in the page data",
+   "ok": true,
+   "detail": {
+    "mismatches": 0,
+    "first": []
+   }
+  },
+  {
+   "name": "tour stops in the page equal the 16 stops of the shipped bundle (text compared by the page builder; here: count and ids)",
+   "ok": true,
+   "detail": {
+    "page": 16,
+    "bundleObjects": 16
+   }
+  },
+  {
+   "name": "the SHA-256 of every source file the page lists equals the file on disk today",
+   "ok": true,
+   "detail": {
+    "listed": 97,
+    "bad": []
+   }
+  }
+ ],
+ "defects": [],
+ "keyframes": {
+  "compared": 1687,
+  "mismatches": 0,
+  "uniqueKeys": 1687,
+  "rows": 1804,
+  "repeatedKeys": 117,
+  "repeatedConflicting": 73
+ },
+ "duplicateRows": {
+  "sourceRepeatedKeys": 117,
+  "disagreeing": 73,
+  "pageReports": 73
+ },
+ "sides": {
+  "oobSideDisagreesWithPrefix": 0,
+  "pageContested": 10,
+  "pageContestedIds": [
+   "U-11NC",
+   "U-15AL",
+   "U-1TX",
+   "U-26NC",
+   "U-44AL",
+   "U-47NC",
+   "U-48AL",
+   "U-4TX",
+   "U-52NC",
+   "U-5TX"
+  ],
+  "mineFlaggedIds": []
+ },
+ "armInference": {
+  "artillery": 56,
+  "cavalry": 33,
+  "infantry": 389
+ },
+ "successionKinds": {
+  "killed|KIA": 2,
+  "captured|Captured -- first Confederate general taken since Lee assumed command": 1,
+  "wounded|Wounded -- concussion from horse falling on him under fire": 1,
+  "wounded|Wounded -- shot through both eyes, blinded permanently": 1,
+  "wounded|Wounded": 5,
+  "wounded|Head wound -- folded paper in hat cushioned the blow": 1,
+  "wounded|Severely wounded at Barlow's Knoll -- left for dead": 1,
+  "wounded|Wounded on Seminary Ridge": 1,
+  "relieved|Meade's order -- loss of confidence in Doubleday": 1,
+  "wounded|Left arm shattered by artillery fragment": 1,
+  "promoted|Law promoted to division command": 1,
+  "mortally-wounded|Mortally wounded on Little Round Top -- died July 7": 1,
+  "mortally-wounded|Mortally wounded -- died July 10": 1,
+  "killed|KIA -- mortally wounded in the Wheatfield": 1,
+  "killed|KIA on Little Round Top summit": 1,
+  "killed|KIA -- shot through abdomen in the Wheatfield": 1,
+  "killed|KIA -- shot through head on horseback leading countercharge": 1,
+  "killed|KIA on Little Round Top summit -- killed beside the dying Weed": 1,
+  "mortally-wounded|Mortally wounded leading the Peach Orchard charge -- died July 3": 1,
+  "wounded|Right leg amputated -- artillery shell": 1,
+  "killed|KIA -- killed by artillery shell": 1,
+  "wounded-captured|Wounded and captured in Peach Orchard collapse": 1,
+  "wounded|Multiple wounds during the charge": 1,
+  "mortally-wounded|Mortal leg wound -- died July 18": 1,
+  "arrives|Stuart rejoins army after controversial absence": 1,
+  "mortally-wounded|Shot through neck on Cemetery Hill slope -- wrote blood message dying": 1,
+  "killed|KIA leading Colgrove's controversial charge": 1,
+  "promoted|Pettigrew commanding division": 1,
+  "killed|KIA on horseback at The Angle": 1,
+  "killed|KIA leading brigade in the charge": 1,
+  "wounded|Severely wounded -- nail and saddle pommel fragments drove into thigh": 1,
+  "wounded|Wounded during Pickett's Charge": 1,
+  "wounded|Shot through groin -- briefly captured, survived": 1,
+  "mortally-wounded|Mortally wounded during Pickett's Charge": 1,
+  "mortally-wounded|Shot moments after breaching The Angle -- died July 5": 1,
+  "killed|KIA -- shot through mouth while serving last gun at The Angle": 1,
+  "wounded|Sabre cut to head in East Cavalry Field melee": 1
+ },
+ "dataset": {
+  "units": 478,
+  "keyframes": 1687,
+  "ticksPopulated": 188,
+  "events": 137,
+  "stories": 24,
+  "successions": 42
+ },
+ "summary": {
+  "pass": 23,
+  "fail": 0
+ }
+}

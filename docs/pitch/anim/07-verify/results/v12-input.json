@@ -1,0 +1,85 @@
+{
+ "generated": "2026-10-06T10:47:36.757Z",
+ "checks": [
+  {
+   "name": "real mouse clicks on the centre of 26 solid, undisplaced leaf tiles select exactly that unit (after the first click the Inspector panel stays open after Escape: true, 372 px wide; failures under it: 13 of 13)",
+   "ok": false,
+   "detail": {
+    "ok": 13,
+    "of": 26,
+    "bad": [
+     {
+      "want": "U-1DE",
+      "got": null,
+      "x": 1070,
+      "under": "inspector panel"
+     },
+     {
+      "want": "U-2MA",
+      "got": null,
+      "x": 1251,
+      "under": "inspector panel"
+     },
+     {
+      "want": "U-27IN",
+      "got": null,
+      "x": 1275,
+      "under": "inspector panel"
+     },
+     {
+      "want": "U-2US-SHRP",
+      "got": null,
+      "x": 1275,
+      "under": "inspector panel"
+     },
+     {
+      "want": "C-1MD-CSA",
+      "got": null,
+      "x": 1313,
+      "under": "inspector panel"
+     },
+     {
+      "want": "U-12NJ",
+      "got": null,
+      "x": 1069,
+      "under": "inspector panel"
+     }
+    ]
+   }
+  },
+  {
+   "name": "a click on empty ground clears the selection (U-8OH -> null)",
+   "ok": true,
+   "detail": {
+    "before": "U-8OH",
+    "after": null
+   }
+  },
+  {
+   "name": "the wheel zooms (15.00 -> 15.64) and the ground under the pointer stays within 1 px of the pointer (0.000 px)",
+   "ok": true,
+   "detail": {
+    "dpx": 0,
+    "zoomBefore": 15,
+    "zoomAfter": 15.64
+   }
+  },
+  {
+   "name": "a drag of (60, 30) px carries the ground point under the start to the end point within 1 px (0.000 px)",
+   "ok": true,
+   "detail": {
+    "err": 2.634178031930877e-9
+   }
+  }
+ ],
+ "panelStaysOpen": true,
+ "panelWidth": 372,
+ "consoleErrors": [
+  "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "requests": [],
+ "summary": {
+  "pass": 3,
+  "fail": 1
+ }
+}

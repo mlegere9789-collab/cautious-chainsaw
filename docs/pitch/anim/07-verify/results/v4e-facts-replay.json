@@ -1,0 +1,72 @@
+{
+ "generated": "2026-10-06T10:53:44.304Z",
+ "zoom": 13.5,
+ "replay": [
+  {
+   "speed": 1,
+   "frames": 20235,
+   "hops": 1061,
+   "hopFrames": 266,
+   "medianPx": 66,
+   "p95Px": 593.5,
+   "maxPx": 1096.3,
+   "maxSimultaneous": 47,
+   "unitsThatVanishForOneFrame": 0,
+   "blinkEvents": 0
+  },
+  {
+   "speed": 4,
+   "frames": 5059,
+   "hops": 1128,
+   "hopFrames": 299,
+   "medianPx": 60.7,
+   "p95Px": 522.5,
+   "maxPx": 1096.3,
+   "maxSimultaneous": 47,
+   "unitsThatVanishForOneFrame": 0,
+   "blinkEvents": 0
+  }
+ ],
+ "snap": [
+  {
+   "speed": 1,
+   "snapBacks": 77,
+   "medianPx": 30.8,
+   "maxPx": 457
+  },
+  {
+   "speed": 4,
+   "snapBacks": 77,
+   "medianPx": 30.2,
+   "maxPx": 449.9
+  }
+ ],
+ "classified": [
+  {
+   "speed": 1,
+   "frames": 20220,
+   "hops": 833,
+   "framesWithAHop": 159,
+   "medianPx": 77.8,
+   "p95Px": 667.4,
+   "maxPx": 1096.3,
+   "maxSimultaneous": 47,
+   "snapBacks": 66,
+   "reappearAfterExactlyOneFrameAbsent": 407,
+   "firstAppearances": 407
+  },
+  {
+   "speed": 4,
+   "frames": 5055,
+   "hops": 833,
+   "framesWithAHop": 159,
+   "medianPx": 77.8,
+   "p95Px": 667.4,
+   "maxPx": 1096.3,
+   "maxSimultaneous": 47,
+   "snapBacks": 66,
+   "reappearAfterExactlyOneFrameAbsent": 407,
+   "firstAppearances": 407
+  }
+ ]
+}

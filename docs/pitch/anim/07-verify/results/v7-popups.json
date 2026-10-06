@@ -1,0 +1,1902 @@
+{
+ "generated": "2026-10-06T09:46:19.074Z",
+ "checks": [
+  {
+   "name": "unit card facts (placement strength, strength reference, position at a keyframe tick, order-of-battle strength, casualties, commander) equal the source for 60 sampled units",
+   "ok": true,
+   "detail": {
+    "units": 60,
+    "factsChecked": 263,
+    "mismatches": 0,
+    "first": []
+   }
+  },
+  {
+   "name": "text leaves on screen that are neither verbatim source text nor an allow-listed interface phrase nor a number (residue): 175 distinct strings (reviewed below and in the report)",
+   "ok": true,
+   "detail": {
+    "total": 16547,
+    "verbatim": 5720,
+    "ui": 10515,
+    "residue": 312,
+    "empty": 0,
+    "distinctResidue": 175
+   }
+  }
+ ],
+ "defects": [],
+ "leafCounts": {
+  "verbatim": 5720,
+  "ui": 10515,
+  "residue": 312,
+  "empty": 0
+ },
+ "residue": [
+  {
+   "text": "The file lists these sources as a whole; it does not say which source supports which passage, so none is cited for this story alone. The place marker is the vignette’s own coordinate and can be hundreds",
+   "n": 24,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    12,
+    28,
+    29
+   ]
+  },
+  {
+   "text": "metres from the units.",
+   "n": 24,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    12,
+    28,
+    29
+   ]
+  },
+  {
+   "text": "Cards that find no free ground wait as chips below. Press C for everything so far",
+   "n": 17,
+   "where": [
+    "popups"
+   ],
+   "ticks": [
+    8,
+    12,
+    14
+   ]
+  },
+  {
+   "text": "N and P to step between moments.",
+   "n": 17,
+   "where": [
+    "popups"
+   ],
+   "ticks": [
+    8,
+    12,
+    14
+   ]
+  },
+  {
+   "text": "Press Space to play the battle. Arrow keys step one tick; Shift steps an hour.",
+   "n": 7,
+   "where": [
+    "popups"
+   ],
+   "ticks": [
+    551,
+    553,
+    556
+   ]
+  },
+  {
+   "text": "8:00 PM (±30 min)",
+   "n": 5,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    100,
+    326,
+    675
+   ]
+  },
+  {
+   "text": "2:30 PM (±30 min)",
+   "n": 4,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    53,
+    248,
+    248
+   ]
+  },
+  {
+   "text": "6:00 PM (±30 min)",
+   "n": 4,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    90,
+    275,
+    275
+   ]
+  },
+  {
+   "text": "4:00 PM (±25 min)",
+   "n": 4,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    256,
+    556,
+    556
+   ]
+  },
+  {
+   "text": "7:05 PM (±26 min)",
+   "n": 4,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    300,
+    300,
+    300
+   ]
+  },
+  {
+   "text": "7:10 PM (±25 min)",
+   "n": 4,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    302,
+    303,
+    302
+   ]
+  },
+  {
+   "text": "5:15 PM (±25 min)",
+   "n": 4,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    568,
+    569,
+    568
+   ]
+  },
+  {
+   "text": "Contested: the id prefix says union, the state code in the id matches confederate units in the order",
+   "n": 4,
+   "where": [
+    "popups",
+    "pop-rail"
+   ],
+   "ticks": [
+    150,
+    150,
+    150
+   ]
+  },
+  {
+   "text": "battle. Unknown until a historian decides (03-data-fuel.md",
+   "n": 4,
+   "where": [
+    "popups",
+    "pop-rail"
+   ],
+   "ticks": [
+    150,
+    150,
+    150
+   ]
+  },
+  {
+   "text": "T7).",
+   "n": 4,
+   "where": [
+    "popups",
+    "pop-rail"
+   ],
+   "ticks": [
+    150,
+    150,
+    150
+   ]
+  },
+  {
+   "text": "5:00 AM (±15 min)",
+   "n": 3,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "text": "2:55 PM (±26 min)",
+   "n": 3,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    56,
+    56,
+    56
+   ]
+  },
+  {
+   "text": "3:25 PM (±21 min)",
+   "n": 3,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    60,
+    60,
+    60
+   ]
+  },
+  {
+   "text": "4:30 AM (±30 min)",
+   "n": 3,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    226,
+    226,
+    226
+   ]
+  },
+  {
+   "text": "6:35 PM (±26 min)",
+   "n": 3,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    283,
+    283,
+    283
+   ]
+  },
+  {
+   "text": "7:25 PM (±30 min)",
+   "n": 3,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    315,
+    315,
+    315
+   ]
+  },
+  {
+   "text": "1:45 AM (±20 min)",
+   "n": 3,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    400,
+    400,
+    400
+   ]
+  },
+  {
+   "text": "3:00 PM (±30 min)",
+   "n": 3,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    538,
+    538,
+    538
+   ]
+  },
+  {
+   "text": "3:35 PM (±20 min)",
+   "n": 3,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    551,
+    551,
+    551
+   ]
+  },
+  {
+   "text": "3:50 PM (±23 min)",
+   "n": 3,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    554,
+    554,
+    554
+   ]
+  },
+  {
+   "text": "4:15 PM (±25 min)",
+   "n": 3,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    558,
+    558,
+    558
+   ]
+  },
+  {
+   "text": "4:25 PM (±25 min)",
+   "n": 3,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    560,
+    560,
+    560
+   ]
+  },
+  {
+   "text": "4:45 PM (±25 min)",
+   "n": 3,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    563,
+    563,
+    563
+   ]
+  },
+  {
+   "text": "6:35 PM (±27 min)",
+   "n": 3,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    620,
+    620,
+    620
+   ]
+  },
+  {
+   "text": "6:15 AM (±19 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    8,
+    8
+   ]
+  },
+  {
+   "text": "7:30 AM (±5 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    12,
+    12
+   ]
+  },
+  {
+   "text": "8:55 AM (±13 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    20,
+    20
+   ]
+  },
+  {
+   "text": "10:05 AM (±19 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    27,
+    27
+   ]
+  },
+  {
+   "text": "10:15 AM (±20 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    28,
+    28
+   ]
+  },
+  {
+   "text": "10:20 AM (±19 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    29,
+    29
+   ]
+  },
+  {
+   "text": "11:00 AM (±15 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    36,
+    36
+   ]
+  },
+  {
+   "text": "1:30 PM (±26 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    48,
+    48
+   ]
+  },
+  {
+   "text": "1:40 PM (±26 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    49,
+    49
+   ]
+  },
+  {
+   "text": "1:55 PM (±27 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    50,
+    50
+   ]
+  },
+  {
+   "text": "2:20 PM (±29 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    52,
+    52
+   ]
+  },
+  {
+   "text": "3:00 PM (±25 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    57,
+    57
+   ]
+  },
+  {
+   "text": "4:00 PM (±15 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    64,
+    64
+   ]
+  },
+  {
+   "text": "7:00 PM (±30 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    95,
+    295
+   ]
+  },
+  {
+   "text": "12:00 PM (±30 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    240,
+    240
+   ]
+  },
+  {
+   "text": "4:30 PM (±15 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    267,
+    267
+   ]
+  },
+  {
+   "text": "5:05 PM (±21 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    270,
+    270
+   ]
+  },
+  {
+   "text": "6:20 PM (±27 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    278,
+    278
+   ]
+  },
+  {
+   "text": "6:40 PM (±27 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    285,
+    285
+   ]
+  },
+  {
+   "text": "7:05 PM (±28 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    298,
+    640
+   ]
+  },
+  {
+   "text": "7:20 PM (±30 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    314,
+    314
+   ]
+  },
+  {
+   "text": "8:20 PM (±28 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    328,
+    328
+   ]
+  },
+  {
+   "text": "12:40 AM (±19 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    380,
+    380
+   ]
+  },
+  {
+   "text": "4:35 AM (±25 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    452,
+    452
+   ]
+  },
+  {
+   "text": "5:20 AM (±26 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    460,
+    460
+   ]
+  },
+  {
+   "text": "9:40 AM (±30 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    505,
+    505
+   ]
+  },
+  {
+   "text": "11:40 AM (±22 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    516,
+    516
+   ]
+  },
+  {
+   "text": "1:05 PM (±5 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    518,
+    518
+   ]
+  },
+  {
+   "text": "1:45 PM (±14 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    525,
+    525
+   ]
+  },
+  {
+   "text": "3:15 PM (±25 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    544,
+    544
+   ]
+  },
+  {
+   "text": "3:45 PM (±22 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    553,
+    553
+   ]
+  },
+  {
+   "text": "3:55 PM (±24 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    555,
+    555
+   ]
+  },
+  {
+   "text": "4:55 PM (±25 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    565,
+    565
+   ]
+  },
+  {
+   "text": "2:20 PM",
+   "n": 2,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    52,
+    516
+   ]
+  },
+  {
+   "text": "Pegram-b",
+   "n": 2,
+   "where": [
+    "popups",
+    "pop-rail"
+   ],
+   "ticks": [
+    4,
+    4
+   ]
+  },
+  {
+   "text": "5 TX",
+   "n": 2,
+   "where": [
+    "popups",
+    "pop-rail"
+   ],
+   "ticks": [
+    150,
+    150
+   ]
+  },
+  {
+   "text": "11:20 PM (±30 min)",
+   "n": 2,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    150,
+    150
+   ]
+  },
+  {
+   "text": "VI/1/1",
+   "n": 2,
+   "where": [
+    "popups",
+    "pop-rail"
+   ],
+   "ticks": [
+    180,
+    180
+   ]
+  },
+  {
+   "text": "8 OH",
+   "n": 2,
+   "where": [
+    "popups",
+    "pop-rail"
+   ],
+   "ticks": [
+    328,
+    328
+   ]
+  },
+  {
+   "text": "CAV/2/4",
+   "n": 2,
+   "where": [
+    "popups",
+    "pop-rail"
+   ],
+   "ticks": [
+    505,
+    505
+   ]
+  },
+  {
+   "text": "44 AL",
+   "n": 2,
+   "where": [
+    "popups",
+    "pop-rail"
+   ],
+   "ticks": [
+    150,
+    150
+   ]
+  },
+  {
+   "text": "6 NC",
+   "n": 2,
+   "where": [
+    "popups",
+    "pop-rail"
+   ],
+   "ticks": [
+    314,
+    314
+   ]
+  },
+  {
+   "text": "12 GA",
+   "n": 2,
+   "where": [
+    "popups",
+    "pop-rail"
+   ],
+   "ticks": [
+    56,
+    56
+   ]
+  },
+  {
+   "text": "5:10 AM (±23 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    3
+   ]
+  },
+  {
+   "text": "7:50 AM (±7 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    14
+   ]
+  },
+  {
+   "text": "8:20 AM (±10 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    17
+   ]
+  },
+  {
+   "text": "9:15 AM (±14 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    22
+   ]
+  },
+  {
+   "text": "9:35 AM (±16 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    24
+   ]
+  },
+  {
+   "text": "9:45 AM (±17 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    25
+   ]
+  },
+  {
+   "text": "9:55 AM (±18 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    26
+   ]
+  },
+  {
+   "text": "10:25 AM (±19 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    30
+   ]
+  },
+  {
+   "text": "10:30 AM (±18 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    31
+   ]
+  },
+  {
+   "text": "10:45 AM (±17 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    33
+   ]
+  },
+  {
+   "text": "10:55 AM (±16 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    35
+   ]
+  },
+  {
+   "text": "11:10 AM (±16 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    37
+   ]
+  },
+  {
+   "text": "11:25 AM (±17 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    38
+   ]
+  },
+  {
+   "text": "12:15 PM (±20 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    42
+   ]
+  },
+  {
+   "text": "1:05 PM (±24 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    46
+   ]
+  },
+  {
+   "text": "1:15 PM (±25 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    47
+   ]
+  },
+  {
+   "text": "2:40 PM (±29 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    54
+   ]
+  },
+  {
+   "text": "3:10 PM (±24 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    58
+   ]
+  },
+  {
+   "text": "3:45 PM (±18 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    62
+   ]
+  },
+  {
+   "text": "4:05 PM (±19 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    66
+   ]
+  },
+  {
+   "text": "4:10 PM (±23 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    68
+   ]
+  },
+  {
+   "text": "4:20 PM (±30 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    72
+   ]
+  },
+  {
+   "text": "5:00 PM (±30 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    75
+   ]
+  },
+  {
+   "text": "5:20 PM (±30 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    80
+   ]
+  },
+  {
+   "text": "6:40 AM (±30 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    230
+   ]
+  },
+  {
+   "text": "9:20 AM (±30 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    235
+   ]
+  },
+  {
+   "text": "12:55 PM (±30 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    243
+   ]
+  },
+  {
+   "text": "3:15 PM (±28 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    252
+   ]
+  },
+  {
+   "text": "4:05 PM (±23 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    258
+   ]
+  },
+  {
+   "text": "4:10 PM (±21 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    260
+   ]
+  },
+  {
+   "text": "4:20 PM (±19 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    263
+   ]
+  },
+  {
+   "text": "4:25 PM (±17 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    265
+   ]
+  },
+  {
+   "text": "4:40 PM (±17 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    268
+   ]
+  },
+  {
+   "text": "5:15 PM (±23 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    271
+   ]
+  },
+  {
+   "text": "5:25 PM (±24 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    272
+   ]
+  },
+  {
+   "text": "5:40 PM (±26 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    273
+   ]
+  },
+  {
+   "text": "6:30 PM (±25 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    280
+   ]
+  },
+  {
+   "text": "6:45 PM (±27 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    287
+   ]
+  },
+  {
+   "text": "6:50 PM (±28 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    290
+   ]
+  },
+  {
+   "text": "6:55 PM (±29 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    293
+   ]
+  },
+  {
+   "text": "7:05 PM (±27 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    299
+   ]
+  },
+  {
+   "text": "7:10 PM (±26 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    304
+   ]
+  },
+  {
+   "text": "7:15 PM (±28 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    310
+   ]
+  },
+  {
+   "text": "7:40 PM (±30 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    320
+   ]
+  },
+  {
+   "text": "7:55 PM (±30 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    324
+   ]
+  },
+  {
+   "text": "8:45 PM (±26 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    330
+   ]
+  },
+  {
+   "text": "9:35 PM (±20 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    335
+   ]
+  },
+  {
+   "text": "10:30 PM (±15 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    340
+   ]
+  },
+  {
+   "text": "11:35 PM (±17 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    360
+   ]
+  },
+  {
+   "text": "2:50 AM (±22 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    420
+   ]
+  },
+  {
+   "text": "3:55 AM (±24 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    440
+   ]
+  },
+  {
+   "text": "4:25 AM (±25 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    450
+   ]
+  },
+  {
+   "text": "4:30 AM (±25 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    451
+   ]
+  },
+  {
+   "text": "4:50 AM (±25 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    455
+   ]
+  },
+  {
+   "text": "5:25 AM (±26 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    461
+   ]
+  },
+  {
+   "text": "5:45 AM (±26 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    465
+   ]
+  },
+  {
+   "text": "7:10 AM (±28 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    480
+   ]
+  },
+  {
+   "text": "8:05 AM (±29 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    490
+   ]
+  },
+  {
+   "text": "9:00 AM (±30 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    500
+   ]
+  },
+  {
+   "text": "9:10 AM (±30 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    501
+   ]
+  },
+  {
+   "text": "10:20 AM (±30 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    510
+   ]
+  },
+  {
+   "text": "11:00 AM (±30 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    515
+   ]
+  },
+  {
+   "text": "1:20 PM (±8 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    520
+   ]
+  },
+  {
+   "text": "1:30 PM (±10 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    522
+   ]
+  },
+  {
+   "text": "2:15 PM (±20 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    530
+   ]
+  },
+  {
+   "text": "2:25 PM (±23 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    532
+   ]
+  },
+  {
+   "text": "2:45 PM (±26 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    535
+   ]
+  },
+  {
+   "text": "3:05 PM (±28 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    540
+   ]
+  },
+  {
+   "text": "3:10 PM (±27 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    542
+   ]
+  },
+  {
+   "text": "3:20 PM (±24 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    546
+   ]
+  },
+  {
+   "text": "3:25 PM (±23 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    547
+   ]
+  },
+  {
+   "text": "3:25 PM (±22 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    548
+   ]
+  },
+  {
+   "text": "3:30 PM (±22 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    549
+   ]
+  },
+  {
+   "text": "3:30 PM (±21 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    550
+   ]
+  },
+  {
+   "text": "3:40 PM (±21 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    552
+   ]
+  },
+  {
+   "text": "5:20 PM (±25 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    572
+   ]
+  },
+  {
+   "text": "5:35 PM (±26 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    580
+   ]
+  },
+  {
+   "text": "7:20 PM (±29 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    650
+   ]
+  },
+  {
+   "text": "10:15 AM",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    28
+   ]
+  },
+  {
+   "text": "10:20 AM",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    29
+   ]
+  },
+  {
+   "text": "11:00 AM",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    36
+   ]
+  },
+  {
+   "text": "12:00 PM",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    240
+   ]
+  },
+  {
+   "text": "7:05 PM",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    300
+   ]
+  },
+  {
+   "text": "7:10 PM",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    302
+   ]
+  },
+  {
+   "text": "7:25 PM",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    315
+   ]
+  },
+  {
+   "text": "5:20 AM",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    460
+   ]
+  },
+  {
+   "text": "1:05 PM",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    518
+   ]
+  },
+  {
+   "text": "1:45 PM",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    525
+   ]
+  },
+  {
+   "text": "3:35 PM",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    551
+   ]
+  },
+  {
+   "text": "3:45 PM",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    553
+   ]
+  },
+  {
+   "text": "4:45 PM",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    563
+   ]
+  },
+  {
+   "text": "5:15 PM",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    568
+   ]
+  },
+  {
+   "text": "12 IL",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    8
+   ]
+  },
+  {
+   "text": "I/2/4",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    20
+   ]
+  },
+  {
+   "text": "5:15 AM (±26 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    4
+   ]
+  },
+  {
+   "text": "11:00 PM (±16 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    350
+   ]
+  },
+  {
+   "text": "1:25 AM (±30 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    180
+   ]
+  },
+  {
+   "text": "9:00 PM (±30 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    115
+   ]
+  },
+  {
+   "text": "20 NC",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    50
+   ]
+  },
+  {
+   "text": "7:15 PM (±26 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    305
+   ]
+  },
+  {
+   "text": "9:20 PM (±30 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    120
+   ]
+  },
+  {
+   "text": "2:45 PM (±28 min)",
+   "n": 1,
+   "where": [
+    "topbar"
+   ],
+   "ticks": [
+    55
+   ]
+  },
+  {
+   "text": "I/5/1",
+   "n": 1,
+   "where": [
+    "pop-rail"
+   ],
+   "ticks": [
+    554
+   ]
+  }
+ ],
+ "summary": {
+  "pass": 2,
+  "fail": 0
+ }
+}

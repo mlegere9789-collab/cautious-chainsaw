@@ -1,0 +1,208 @@
+{
+ "generated": "2026-10-06T11:49:25.790Z",
+ "checks": [
+  {
+   "name": "page clock = my piecewise-linear interpolation of time_anchors.json for 1,998 ticks (minutes within 1e-6, label to 5 min)",
+   "ok": true,
+   "detail": {
+    "ticks": 2023,
+    "badLabel": 0,
+    "badMinutes": 0,
+    "maxMinutesDiff": 0,
+    "first": []
+   }
+  },
+  {
+   "name": "page clock label = the product time module (src/lib/time), minutes rounded to 5, calendar date, at all 675 integer ticks (2 ticks within 2.5 min before midnight are shown as 12:00 AM of the next date: the page rounds before it takes the date)",
+   "ok": true,
+   "detail": {
+    "bad": 0,
+    "boundary": [
+     {
+      "t": 159,
+      "page": "July 2 12:00 AM",
+      "productExact": "1863-07-01T23:59"
+     },
+     {
+      "t": 367,
+      "page": "July 3 12:00 AM",
+      "productExact": "1863-07-02T23:58"
+     }
+    ],
+    "first": []
+   }
+  },
+  {
+   "name": "uncertainty (rounded sigma, minutes) equals my interpolation of the anchors' sigma_min",
+   "ok": true,
+   "detail": {
+    "bad": 0,
+    "first": []
+   }
+  },
+  {
+   "name": "the clock passes exactly through all 33 anchors",
+   "ok": true,
+   "detail": {
+    "bad": 0
+   }
+  },
+  {
+   "name": "the clock is strictly increasing over 675 ticks",
+   "ok": true,
+   "detail": {
+    "nonMono": 0
+   }
+  },
+  {
+   "name": "dates roll at midnight (the small hours carry the next calendar date), same as the product module (135 small-hours ticks)",
+   "ok": true,
+   "detail": {
+    "bad": 0
+   }
+  },
+  {
+   "name": "every time of day drawn in the top bar, popup cards and dock at 15 sample ticks equals the clock label of that tick",
+   "ok": true,
+   "detail": {
+    "timeStringsSeen": 32,
+    "mismatches": 0,
+    "first": []
+   }
+  },
+  {
+   "name": "the top-bar clock line reads \"<date>, about <time> (±n min) · candidate clock\" with the model date and time",
+   "ok": true,
+   "detail": {
+    "bad": []
+   }
+  },
+  {
+   "name": "the top-bar clock says \"about\", shows ± minutes and \"candidate clock\"",
+   "ok": true,
+   "detail": {
+    "text": "July 3, about 8:00 PM (±30 min) · candidate clock",
+    "candidate": true,
+    "about": true,
+    "sigma": true
+   }
+  },
+  {
+   "name": "the scrubber tooltip at tick ~300 shows the model time",
+   "ok": true,
+   "detail": {
+    "tip": "Tick 300 · July 2, about 7:05 PM Modelled[critical] tick 300: BIGELOW'S TROSTLE FARM WITHDRAWAL. Bigelow's 9th Massachusetts battery ordered to hold as long as ",
+    "expect": {
+     "date": "July 2",
+     "text": "7:05 PM"
+    }
+   }
+  },
+  {
+   "name": "every \"about H:MM AM|PM\" a popup card prints for an event equals the model clock at THAT EVENT tick (79 distinct event cards, 166 clock strings; 180 cards with a clock not matched to an event)",
+   "ok": true,
+   "detail": {
+    "distinctCards": 79,
+    "clockStrings": 166,
+    "mismatches": 0,
+    "first": []
+   }
+  }
+ ],
+ "defects": [],
+ "sigmaRange": [
+  5,
+  30
+ ],
+ "timeStringsSeen": 32,
+ "timeStringMismatches": [],
+ "tooltip": "Tick 300 · July 2, about 7:05 PM Modelled[critical] tick 300: BIGELOW'S TROSTLE FARM WITHDRAWAL. Bigelow's 9th Massachusetts battery ordered to hold as long as possible to buy time for McGilvery. Bat...",
+ "eventCardClocks": {
+  "distinctCards": 79,
+  "clockStrings": 166,
+  "mismatches": []
+ },
+ "typedClocks": {
+  "typedStrings": 9,
+  "over30": 3,
+  "over60": 2,
+  "worst": [
+   {
+    "kind": "event",
+    "id": 100,
+    "tick": 100,
+    "typed": "11pm",
+    "modelClock": "8:00 PM",
+    "diffMin": 180,
+    "sigma": 30
+   },
+   {
+    "kind": "event",
+    "id": 38,
+    "tick": 38,
+    "typed": "1:00pm",
+    "modelClock": "11:25 AM",
+    "diffMin": 95,
+    "sigma": 17
+   },
+   {
+    "kind": "event",
+    "id": 38,
+    "tick": 38,
+    "typed": "10:30am",
+    "modelClock": "11:25 AM",
+    "diffMin": -55,
+    "sigma": 17
+   },
+   {
+    "kind": "event",
+    "id": 518,
+    "tick": 518,
+    "typed": "1:00pm",
+    "modelClock": "1:05 PM",
+    "diffMin": -7,
+    "sigma": 5
+   },
+   {
+    "kind": "story",
+    "id": "V-017",
+    "tick": 518,
+    "typed": "1:00pm",
+    "modelClock": "1:05 PM",
+    "diffMin": -7,
+    "sigma": 5
+   },
+   {
+    "kind": "event",
+    "id": 12,
+    "tick": 12,
+    "typed": "7:30am",
+    "modelClock": "7:30 AM",
+    "diffMin": 0,
+    "sigma": 5
+   },
+   {
+    "kind": "event",
+    "id": 515,
+    "tick": 515,
+    "typed": "11:00am",
+    "modelClock": "11:00 AM",
+    "diffMin": 0,
+    "sigma": 30
+   },
+   {
+    "kind": "story",
+    "id": "V-001",
+    "tick": 12,
+    "typed": "7:30am",
+    "modelClock": "7:30 AM",
+    "diffMin": 0,
+    "sigma": 5
+   }
+  ]
+ },
+ "summary": {
+  "pass": 11,
+  "fail": 0
+ }
+}

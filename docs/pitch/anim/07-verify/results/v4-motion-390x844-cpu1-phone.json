@@ -1,0 +1,606 @@
+{
+ "generated": "2026-10-06T10:58:34.307Z",
+ "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+ "runs": [
+  {
+   "scene": "the-angle",
+   "mode": "after",
+   "speed": 4,
+   "secs": 20,
+   "cpu": 1,
+   "reduced": false,
+   "viewport": [
+    390,
+    844
+   ],
+   "popups": true,
+   "tick0": 550,
+   "tick1": 675,
+   "raf": {
+    "frames": 1201,
+    "fps": 60,
+    "p50": 16.69999999999891,
+    "p95": 16.799999999999272,
+    "p99": 16.80000000000109,
+    "max": 16.899999999999636,
+    "over20": 0,
+    "over33": 0,
+    "over50": 0
+   },
+   "draws": {
+    "frames": 1201,
+    "p50": 16.69999998807907,
+    "p95": 19.100000008940697,
+    "max": 24.19999998807907
+   },
+   "motion": {
+    "tileFrames": 359559,
+    "tilesPerFrame": 299.4,
+    "stepsOver3PerSec": 78.88,
+    "stepsOver8PerSec": 14.69,
+    "stepsOver20PerSec": 2.65,
+    "suddenPerSec": 0.55,
+    "suddenSolidPerSec": 0.1,
+    "jerk4PerSec": 5.75,
+    "flashesPerSec": 1.15,
+    "sizeJumpsPerSec": 3.4,
+    "labelTogglesPerSec": 7.14,
+    "appearPerSec": 22.83,
+    "vanishPerSec": 7.89,
+    "blinksPerSec": 0.25,
+    "maxStepPx": 123.91,
+    "p99StepPx": 40.48,
+    "framesWithSudden": 10,
+    "stillShare": 89.4
+   },
+   "bigSteps": [
+    [
+     18,
+     "C-I-3-3~235",
+     17.7,
+     0,
+     0.39,
+     0.41,
+     0,
+     0
+    ],
+    [
+     18,
+     "agg:C-I-3-3:C-14VA",
+     8.8,
+     0.4,
+     0.68,
+     0.84,
+     1,
+     1
+    ],
+    [
+     65,
+     "agg:U-II-2-2:U-69PA",
+     8.4,
+     0,
+     0.42,
+     0.52,
+     1,
+     0
+    ],
+    [
+     106,
+     "C-CAV-1",
+     8.9,
+     1.5,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     146,
+     "agg:C-I-3-1:C-18VA",
+     8,
+     2.4,
+     0.42,
+     0.42,
+     1,
+     0
+    ],
+    [
+     148,
+     "agg:A-U:U-16MI",
+     8.6,
+     0.1,
+     0.42,
+     0.52,
+     1,
+     0
+    ],
+    [
+     168,
+     "agg:C-CAV-1:C-1SC-CAV",
+     8.3,
+     0.2,
+     0.42,
+     0.42,
+     1,
+     0
+    ],
+    [
+     403,
+     "agg:C-III-3-4:C-13NC",
+     8.9,
+     0,
+     0.42,
+     0.42,
+     1,
+     0
+    ],
+    [
+     667,
+     "C-57VA",
+     123.9,
+     0,
+     0.07,
+     0.04,
+     0,
+     0
+    ],
+    [
+     942,
+     "C-I-3-3",
+     69.9,
+     0,
+     0.07,
+     0.04,
+     0,
+     0
+    ],
+    [
+     943,
+     "agg:C-I-3-1:C-18VA",
+     8.2,
+     0,
+     0.42,
+     0.52,
+     1,
+     0
+    ]
+   ]
+  },
+  {
+   "scene": "the-angle",
+   "mode": "before",
+   "speed": 4,
+   "secs": 20,
+   "cpu": 1,
+   "reduced": false,
+   "viewport": [
+    390,
+    844
+   ],
+   "popups": true,
+   "tick0": 550,
+   "tick1": 675,
+   "raf": {
+    "frames": 1201,
+    "fps": 60,
+    "p50": 16.69999999999709,
+    "p95": 16.799999999999272,
+    "p99": 16.80000000000291,
+    "max": 17,
+    "over20": 0,
+    "over33": 0,
+    "over50": 0
+   },
+   "draws": {
+    "frames": 938,
+    "p50": 16.700000002980232,
+    "p95": 18.399999991059303,
+    "max": 22
+   },
+   "motion": {
+    "tileFrames": 55113,
+    "tilesPerFrame": 58.8,
+    "stepsOver3PerSec": 5.25,
+    "stepsOver8PerSec": 2.75,
+    "stepsOver20PerSec": 1.75,
+    "suddenPerSec": 2.55,
+    "suddenSolidPerSec": 2.55,
+    "jerk4PerSec": 8.49,
+    "flashesPerSec": 0,
+    "sizeJumpsPerSec": 1.3,
+    "labelTogglesPerSec": 0,
+    "appearPerSec": 3.45,
+    "vanishPerSec": 0.6,
+    "blinksPerSec": 0.25,
+    "maxStepPx": 533.64,
+    "p99StepPx": 19.95,
+    "framesWithSudden": 12,
+    "stillShare": 99.5
+   },
+   "bigSteps": [
+    [
+     4,
+     "C-I-3-3",
+     81.3,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     8,
+     "U-II-2-1",
+     97.7,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     8,
+     "U-II-3-1",
+     507.6,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     8,
+     "U-ART-A4US",
+     21.7,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     8,
+     "C-53VA",
+     528,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     8,
+     "C-57VA",
+     517.7,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     11,
+     "U-ART-A4US",
+     16.3,
+     1.1,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     15,
+     "U-ART-A4US",
+     20,
+     0.5,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     26,
+     "C-9VA",
+     15.6,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     29,
+     "C-9VA",
+     15.6,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     30,
+     "U-16VT",
+     220.1,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     30,
+     "C-I-5-1",
+     79.5,
+     0,
+     1,
+     1,
+     0,
+     1
+    ]
+   ]
+  },
+  {
+   "scene": "cemetery-hill",
+   "mode": "after",
+   "speed": 4,
+   "secs": 20,
+   "cpu": 1,
+   "reduced": false,
+   "viewport": [
+    390,
+    844
+   ],
+   "popups": true,
+   "tick0": 340,
+   "tick1": 498.3,
+   "raf": {
+    "frames": 1201,
+    "fps": 60,
+    "p50": 16.69999999999709,
+    "p95": 16.799999999995634,
+    "p99": 16.80000000000291,
+    "max": 18.900000000001455,
+    "over20": 0,
+    "over33": 0,
+    "over50": 0
+   },
+   "draws": {
+    "frames": 1201,
+    "p50": 16.600000008940697,
+    "p95": 18.600000008940697,
+    "max": 21.30000001192093
+   },
+   "motion": {
+    "tileFrames": 175416,
+    "tilesPerFrame": 146.1,
+    "stepsOver3PerSec": 10.5,
+    "stepsOver8PerSec": 2.8,
+    "stepsOver20PerSec": 0,
+    "suddenPerSec": 0.15,
+    "suddenSolidPerSec": 0,
+    "jerk4PerSec": 1.95,
+    "flashesPerSec": 0.2,
+    "sizeJumpsPerSec": 3.9,
+    "labelTogglesPerSec": 3.15,
+    "appearPerSec": 15.95,
+    "vanishPerSec": 8.8,
+    "blinksPerSec": 0,
+    "maxStepPx": 15.88,
+    "p99StepPx": 11.44,
+    "framesWithSudden": 3,
+    "stillShare": 73.4
+   },
+   "bigSteps": [
+    [
+     117,
+     "agg:U-XII-2-2:U-29PA",
+     9.4,
+     1.5,
+     0.42,
+     0.42,
+     1,
+     0
+    ],
+    [
+     493,
+     "agg:C-I-3-1:C-18VA",
+     8.4,
+     0.2,
+     0.42,
+     0.52,
+     1,
+     0
+    ],
+    [
+     664,
+     "agg:C-I-3-2:C-11VA",
+     8.4,
+     0.3,
+     0.42,
+     0.42,
+     1,
+     0
+    ]
+   ]
+  },
+  {
+   "scene": "cemetery-hill",
+   "mode": "before",
+   "speed": 4,
+   "secs": 20,
+   "cpu": 1,
+   "reduced": false,
+   "viewport": [
+    390,
+    844
+   ],
+   "popups": true,
+   "tick0": 340,
+   "tick1": 500,
+   "raf": {
+    "frames": 1200,
+    "fps": 60,
+    "p50": 16.69999999999709,
+    "p95": 16.80000000000291,
+    "p99": 16.80000000000291,
+    "max": 16.89999999999418,
+    "over20": 0,
+    "over33": 0,
+    "over50": 0
+   },
+   "draws": {
+    "frames": 1200,
+    "p50": 16.69999998807907,
+    "p95": 18,
+    "max": 20.099999994039536
+   },
+   "motion": {
+    "tileFrames": 197447,
+    "tilesPerFrame": 164.5,
+    "stepsOver3PerSec": 37.39,
+    "stepsOver8PerSec": 23.35,
+    "stepsOver20PerSec": 10.25,
+    "suddenPerSec": 16.55,
+    "suddenSolidPerSec": 16.55,
+    "jerk4PerSec": 50.64,
+    "flashesPerSec": 0,
+    "sizeJumpsPerSec": 2.4,
+    "labelTogglesPerSec": 0,
+    "appearPerSec": 9.95,
+    "vanishPerSec": 1.1,
+    "blinksPerSec": 1,
+    "maxStepPx": 519.96,
+    "p99StepPx": 119.24,
+    "framesWithSudden": 38,
+    "stillShare": 99.2
+   },
+   "bigSteps": [
+    [
+     38,
+     "C-II-1-1",
+     85.2,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     38,
+     "U-I-2-1",
+     29,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     38,
+     "U-I-2-2",
+     9.9,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     38,
+     "U-I-3-1",
+     46.4,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     38,
+     "U-II-3-1",
+     9.8,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     38,
+     "U-II-3-3",
+     16.6,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     38,
+     "U-XI-1-1",
+     36.6,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     38,
+     "U-XI-1-2",
+     10.1,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     38,
+     "U-XI-2-1",
+     41.6,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     38,
+     "U-XI-2-2",
+     78.4,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     38,
+     "U-XI-3-1",
+     31.7,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     38,
+     "U-XI-3-2",
+     28.5,
+     0,
+     1,
+     1,
+     0,
+     1
+    ]
+   ]
+  }
+ ],
+ "consoleErrors": [
+  "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "requests": []
+}

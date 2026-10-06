@@ -1,0 +1,2019 @@
+{
+ "generated": "2026-10-06T10:56:26.619Z",
+ "axeVersion": "4.13.0",
+ "checks": [
+  {
+   "name": "axe-core (WCAG 2.0/2.1/2.2 A and AA + best practice) finds no serious or critical violation in 11 states",
+   "ok": false,
+   "detail": [
+    {
+     "rule": "color-contrast",
+     "impact": "serious",
+     "nodes": 1,
+     "states": 9,
+     "sample": {
+      "target": ".primary",
+      "html": "<button type=\"button\" class=\"btn primary\">Watch the 60-second showcase</button>",
+      "why": "Element has insufficient color contrast of 1.11 (foreground color: #3c361f, background color: #433d25, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     }
+    },
+    {
+     "rule": "scrollable-region-focusable",
+     "impact": "serious",
+     "nodes": 1,
+     "states": 1,
+     "sample": {
+      "target": ".pane",
+      "html": "<div class=\"pane\" role=\"tabpanel\">",
+      "why": "Element should have focusable content"
+     }
+    },
+    {
+     "rule": "aria-required-children",
+     "impact": "critical",
+     "nodes": 1,
+     "states": 1,
+     "sample": {
+      "target": ".menu",
+      "html": "<div class=\"menu\" role=\"menu\" aria-label=\"Showcase\" style=\"left: 924.438px; top: 60px;\">",
+      "why": "Element has children which are not allowed: h4"
+     }
+    }
+   ]
+  },
+  {
+   "name": "text painted on tiles reaches WCAG AA contrast (4.5:1 at 10-12 px) in all 9 skins (settled, full opacity): tile strings below 4.5:1 per skin: war-room/standard=0/178 war-room/cvd=0/178 war-room/contrast=0/178 field-manual/standard=0/195 field-manual/cvd=2/195 field-manual/contrast=0/195 map-1863/standard=0/211 map-1863/cvd=2/211 map-1863/contrast=0/211",
+   "ok": false,
+   "detail": [
+    {
+     "skin": "field-manual/cvd",
+     "below45": 2,
+     "of": 195,
+     "min": 3.77,
+     "worst": [
+      {
+       "text": "×2",
+       "ratio": 3.77,
+       "px": 10,
+       "alpha": 1
+      },
+      {
+       "text": "×2",
+       "ratio": 3.77,
+       "px": 10,
+       "alpha": 1
+      },
+      {
+       "text": "+1",
+       "ratio": 6.67,
+       "px": 10,
+       "alpha": 1
+      }
+     ]
+    },
+    {
+     "skin": "map-1863/cvd",
+     "below45": 2,
+     "of": 211,
+     "min": 4.05,
+     "worst": [
+      {
+       "text": "×3",
+       "ratio": 4.05,
+       "px": 11,
+       "alpha": 1
+      },
+      {
+       "text": "×2",
+       "ratio": 4.05,
+       "px": 11,
+       "alpha": 1
+      },
+      {
+       "text": "+1",
+       "ratio": 8.79,
+       "px": 11,
+       "alpha": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "place-name labels on the backdrop reach 4.5:1 in all 9 skins: war-room/standard=0/13 war-room/cvd=0/13 war-room/contrast=0/13 field-manual/standard=2/13 field-manual/cvd=2/13 field-manual/contrast=2/13 map-1863/standard=2/13 map-1863/cvd=2/13 map-1863/contrast=2/13",
+   "ok": false,
+   "detail": [
+    {
+     "skin": "field-manual/standard",
+     "below45": 2,
+     "of": 13,
+     "min": 3.32
+    },
+    {
+     "skin": "field-manual/cvd",
+     "below45": 2,
+     "of": 13,
+     "min": 3.32
+    },
+    {
+     "skin": "field-manual/contrast",
+     "below45": 2,
+     "of": 13,
+     "min": 3.32
+    },
+    {
+     "skin": "map-1863/standard",
+     "below45": 2,
+     "of": 13,
+     "min": 3.32
+    },
+    {
+     "skin": "map-1863/cvd",
+     "below45": 2,
+     "of": 13,
+     "min": 3.32
+    },
+    {
+     "skin": "map-1863/contrast",
+     "below45": 2,
+     "of": 13,
+     "min": 3.32
+    }
+   ]
+  },
+  {
+   "name": "Tab reaches the interface in a sensible number of stops (38) and every stop has a visible focus indicator (outline or box-shadow); stops without one: 1",
+   "ok": false,
+   "detail": {
+    "stopsWithoutIndicator": [
+     "canvas:Schematic map of the Gettysburg battle: tick 551 of 675, July 3, about 3:35 PM on a candidate clock; 451 units shown as 381 tiles."
+    ],
+    "first": [
+     "canvas#map:Schematic map of the Gettysburg battle: tick 551 of 675, July 3, about 3:35 PM on a candidate clock; 451 units shown as 381 tiles.",
+     "button:Legend",
+     "button:Read the full story",
+     "button:Open in the reading panel",
+     "button:Keep this card on screen",
+     "button:Dismiss this card",
+     "button:Keep this card on screen",
+     "button:Dismiss this card",
+     "button:Open in the reading panel",
+     "button:Keep this card on screen",
+     "button:Dismiss this card",
+     "button:Cinematic dark glass. Light means a fresh report, an unlit dashed plate means a carried-forward fix; depth means echelon.",
+     "button:A modern cartographic symbol in the NATO / APP-6 grammar: frame = side, glyph = arm, marks = echelon, dashed = not a fresh report.",
+     "button:A lithographed field map: the seven Union corps badges and division colours of the 21 March 1863 circular, ink for firm, pencil for provisional.",
+     "select:Style variant",
+     "button:The production renderer, reproduced: stepping, hold-then-jump, overlapping bars (B)",
+     "button:The Studio: continuous motion, tiles that never obscure each other (B)",
+     "button:Guided tours, hotspots, before / after replay and scenes",
+     "button:A 16-stop tour of the battle: map flight, narration, a few ticks played at each stop",
+     "button:Keys and what the evidence labels mean (?)",
+     "button:Everything that has happened so far (C)",
+     "button:Inspect",
+     "button:Tune",
+     "button:Metrics",
+     "button:About",
+     "button:Open the Chronicle: 182 of 208 moments so far",
+     "button:Go to tick 1",
+     "button:Back one tick",
+     "button:Play",
+     "button:Forward one tick",
+     "button:0.25x speed",
+     "button:0.5x speed",
+     "button:1x speed",
+     "button:2x speed",
+     "button:4x speed",
+     "button:8x speed",
+     "button:16x speed",
+     "input:Tick"
+    ]
+   }
+  },
+  {
+   "name": "every Tab stop is on screen when focused",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "Space toggles play",
+   "ok": true,
+   "detail": {
+    "b": false,
+    "a": true
+   }
+  },
+  {
+   "name": "ArrowRight steps one tick",
+   "ok": true,
+   "detail": {
+    "b": 29,
+    "a": 30
+   }
+  },
+  {
+   "name": "Shift+ArrowRight steps 12 ticks (the UI says \"one hour\")",
+   "ok": true,
+   "detail": {
+    "b": 30,
+    "a": 42
+   }
+  },
+  {
+   "name": "] raises the speed",
+   "ok": true,
+   "detail": {
+    "b": 1,
+    "a": 2
+   }
+  },
+  {
+   "name": "T opens the Tuning Studio",
+   "ok": true,
+   "detail": "tune"
+  },
+  {
+   "name": "I opens the Inspector",
+   "ok": true,
+   "detail": "inspect"
+  },
+  {
+   "name": "A opens About",
+   "ok": true,
+   "detail": "about"
+  },
+  {
+   "name": "M toggles the metrics overlay",
+   "ok": true,
+   "detail": {
+    "b": false,
+    "a": true
+   }
+  },
+  {
+   "name": "B toggles before / after",
+   "ok": true,
+   "detail": {
+    "b": "after",
+    "a": "before"
+   }
+  },
+  {
+   "name": "U selects a tile and opens its unit card (hint text: \"press U\")",
+   "ok": true,
+   "detail": {
+    "sel": "U-XI-2-2",
+    "cards": 8
+   }
+  },
+  {
+   "name": "? opens the help in the reading rail (hint text: \"press ? for all keys\")",
+   "ok": true,
+   "detail": "hints:help"
+  },
+  {
+   "name": "C opens the Chronicle list (hint text: \"Press C\")",
+   "ok": true,
+   "detail": "chronicle:list"
+  },
+  {
+   "name": "N goes to the next moment of the Chronicle (hint text: \"N and P step between moments\")",
+   "ok": true,
+   "detail": {
+    "b": 20,
+    "a": 22
+   }
+  },
+  {
+   "name": "P goes to the previous moment",
+   "ok": true,
+   "detail": {
+    "b": 22,
+    "a": 20
+   }
+  },
+  {
+   "name": "W starts the showcase",
+   "ok": true,
+   "detail": true
+  },
+  {
+   "name": "every control of the top bar and the dock is a focusable element (Showcase, Before/After, the three styles, play/pause, speeds, scrubber, tool buttons)",
+   "ok": true,
+   "detail": {
+    "showcase": true,
+    "before": true,
+    "after": true,
+    "styles": true,
+    "playPause": true,
+    "tools": true,
+    "scrubber": true,
+    "speeds": true
+   }
+  },
+  {
+   "name": "the Showcase menu opens with Enter, takes focus, and Escape returns focus to its button",
+   "ok": true,
+   "detail": {
+    "menuFocus": {
+     "open": true,
+     "inMenu": true,
+     "expanded": "true"
+    },
+    "back": true
+   }
+  },
+  {
+   "name": "inside the role=menu, ArrowDown moves focus to the next item (ARIA menu pattern)",
+   "ok": false,
+   "detail": {
+    "before": "60-second showcaseTh",
+    "after": "60-second showcaseTh"
+   }
+  },
+  {
+   "name": "the timeline slider moves with the arrow keys",
+   "ok": true,
+   "detail": {
+    "before": 548,
+    "after": 548.01
+   }
+  },
+  {
+   "name": "with prefers-reduced-motion the chrome has no transition or animation longer than 50 ms (elements checked: 126)",
+   "ok": true,
+   "detail": {
+    "checked": 126,
+    "longTransitions": 0,
+    "animations": 0,
+    "sample": []
+   }
+  },
+  {
+   "name": "with reduced motion a seek lands at once instead of gliding",
+   "ok": true,
+   "detail": {
+    "tickAfter5Frames": 300,
+    "reducedSeekIsInstant": true
+   }
+  },
+  {
+   "name": "phone viewport 390x844: no horizontal page scroll",
+   "ok": true,
+   "detail": {
+    "scrollW": 390,
+    "vw": 390
+   }
+  },
+  {
+   "name": "phone: every on-screen control is at least 24x24 CSS px (WCAG 2.5.8 AA); at least 44x44 (2.5.5 AAA, informational): under 24 0 of 19, under 44 18",
+   "ok": true,
+   "detail": {
+    "sample24": [],
+    "sample44": [
+     "select:Style 190x36",
+     "button:The production ren 52x30",
+     "button:The Studio: contin 44x30",
+     "button:Guided tours, hots 40x40",
+     "button:Open the Chronicle 74x34",
+     "button:2 command changes: 155x34",
+     "button:Go to tick 1 32x32",
+     "button:Back one tick 32x32"
+    ]
+   }
+  }
+ ],
+ "axe": [
+  {
+   "label": "welcome card (first visit)",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 6,
+     "sample": [
+      {
+       "target": "article[data-form=\"pill\"]",
+       "html": "<article class=\"pc\" data-tone=\"info\" data-form=\"pill\" data-kind=\"hud\" data-popup=\"legend\" data-id=\"legend:legend\" data-bare=\"false\" role=\"gr",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-form=\"full\"]",
+       "html": "<article class=\"pc\" data-tone=\"info\" data-form=\"full\" data-kind=\"hud\" data-popup=\"minimap\" data-id=\"minimap:overview\" data-bare=\"false\" role",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-tone=\"day\"]",
+       "html": "<article class=\"pc\" data-tone=\"day\" data-form=\"mini\" data-kind=\"hud\" data-popup=\"clock-hud\" data-id=\"clock-hud:badge\" data-bare=\"false\" role",
+       "why": "ARIA role group is not allowed for given element"
+      }
+     ]
+    },
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "tags": [
+      "wcag2aa",
+      "wcag143"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": ".primary",
+       "html": "<button type=\"button\" class=\"btn primary\">Watch the 60-second showcase</button>",
+       "why": "Element has insufficient color contrast of 1.11 (foreground color: #3c361f, background color: #433d25, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+      }
+     ]
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "help": "All page content should be contained by landmarks",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "#map",
+       "html": "<canvas id=\"map\" role=\"img\" aria-label=\"Schematic map of the Gettysburg battle: tick 551 of 675, July 3, about 3:35 PM on a candidate clock;",
+       "why": "Some page content is not contained by landmarks"
+      }
+     ]
+    }
+   ],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "nodes": 19
+    }
+   ]
+  },
+  {
+   "label": "war room, tick 551, popups",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 8,
+     "sample": [
+      {
+       "target": "article[data-form=\"pill\"]",
+       "html": "<article class=\"pc\" data-tone=\"info\" data-form=\"pill\" data-kind=\"hud\" data-popup=\"legend\" data-id=\"legend:legend\" data-bare=\"false\" role=\"gr",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-form=\"full\"]",
+       "html": "<article class=\"pc\" data-tone=\"info\" data-form=\"full\" data-kind=\"hud\" data-popup=\"minimap\" data-id=\"minimap:overview\" data-bare=\"false\" role",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-tone=\"day\"]",
+       "html": "<article class=\"pc\" data-tone=\"day\" data-form=\"mini\" data-kind=\"hud\" data-popup=\"clock-hud\" data-id=\"clock-hud:badge\" data-bare=\"false\" role",
+       "why": "ARIA role group is not allowed for given element"
+      }
+     ]
+    },
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "tags": [
+      "wcag2aa",
+      "wcag143"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "button[aria-label=\"1x speed\"]",
+       "html": "<button class=\"tbtn\" aria-pressed=\"true\" aria-label=\"1x speed\" title=\"1× speed\" data-speed=\"1\">1×</button>",
+       "why": "Element has insufficient color contrast of 2.84 (foreground color: #ffffff, background color: #5b9bf0, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+      }
+     ]
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "help": "All page content should be contained by landmarks",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "#map",
+       "html": "<canvas id=\"map\" role=\"img\" aria-label=\"Schematic map of the Gettysburg battle: tick 551 of 675, July 3, about 3:35 PM on a candidate clock;",
+       "why": "Some page content is not contained by landmarks"
+      }
+     ]
+    }
+   ],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "nodes": 42
+    }
+   ]
+  },
+  {
+   "label": "Tune panel",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 7,
+     "sample": [
+      {
+       "target": "article[data-tone=\"info\"]",
+       "html": "<article class=\"pc\" data-tone=\"info\" data-form=\"pill\" data-kind=\"hud\" data-popup=\"legend\" data-id=\"legend:legend\" data-bare=\"false\" role=\"gr",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-tone=\"day\"]",
+       "html": "<article class=\"pc\" data-tone=\"day\" data-form=\"mini\" data-kind=\"hud\" data-popup=\"clock-hud\" data-id=\"clock-hud:badge\" data-bare=\"false\" role",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-tone=\"critical\"]",
+       "html": "<article class=\"pc paused\" data-tone=\"critical\" data-form=\"peek\" data-kind=\"card\" data-popup=\"event-card\" data-id=\"event-card:event-551\" dat",
+       "why": "ARIA role group is not allowed for given element"
+      }
+     ]
+    },
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "tags": [
+      "wcag2aa",
+      "wcag143"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "button[aria-label=\"1x speed\"]",
+       "html": "<button class=\"tbtn\" aria-pressed=\"true\" aria-label=\"1x speed\" title=\"1× speed\" data-speed=\"1\">1×</button>",
+       "why": "Element has insufficient color contrast of 2.84 (foreground color: #ffffff, background color: #5b9bf0, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+      }
+     ]
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "help": "All page content should be contained by landmarks",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "#map",
+       "html": "<canvas id=\"map\" role=\"img\" aria-label=\"Schematic map of the Gettysburg battle: tick 551 of 675, July 3, about 3:35 PM on a candidate clock;",
+       "why": "Some page content is not contained by landmarks"
+      }
+     ]
+    }
+   ],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "nodes": 38
+    }
+   ]
+  },
+  {
+   "label": "Inspect panel",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 7,
+     "sample": [
+      {
+       "target": "article[data-tone=\"info\"]",
+       "html": "<article class=\"pc\" data-tone=\"info\" data-form=\"pill\" data-kind=\"hud\" data-popup=\"legend\" data-id=\"legend:legend\" data-bare=\"false\" role=\"gr",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-tone=\"day\"]",
+       "html": "<article class=\"pc\" data-tone=\"day\" data-form=\"mini\" data-kind=\"hud\" data-popup=\"clock-hud\" data-id=\"clock-hud:badge\" data-bare=\"false\" role",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-tone=\"critical\"]",
+       "html": "<article class=\"pc paused\" data-tone=\"critical\" data-form=\"peek\" data-kind=\"card\" data-popup=\"event-card\" data-id=\"event-card:event-551\" dat",
+       "why": "ARIA role group is not allowed for given element"
+      }
+     ]
+    },
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "tags": [
+      "wcag2aa",
+      "wcag143"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "button[aria-label=\"1x speed\"]",
+       "html": "<button class=\"tbtn\" aria-pressed=\"true\" aria-label=\"1x speed\" title=\"1× speed\" data-speed=\"1\">1×</button>",
+       "why": "Element has insufficient color contrast of 2.84 (foreground color: #ffffff, background color: #5b9bf0, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+      }
+     ]
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "help": "All page content should be contained by landmarks",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "#map",
+       "html": "<canvas id=\"map\" role=\"img\" aria-label=\"Schematic map of the Gettysburg battle: tick 551 of 675, July 3, about 3:35 PM on a candidate clock;",
+       "why": "Some page content is not contained by landmarks"
+      }
+     ]
+    }
+   ],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "nodes": 41
+    }
+   ]
+  },
+  {
+   "label": "About panel",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 7,
+     "sample": [
+      {
+       "target": "article[data-tone=\"info\"]",
+       "html": "<article class=\"pc\" data-tone=\"info\" data-form=\"pill\" data-kind=\"hud\" data-popup=\"legend\" data-id=\"legend:legend\" data-bare=\"false\" role=\"gr",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-tone=\"day\"]",
+       "html": "<article class=\"pc\" data-tone=\"day\" data-form=\"mini\" data-kind=\"hud\" data-popup=\"clock-hud\" data-id=\"clock-hud:badge\" data-bare=\"false\" role",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-tone=\"critical\"]",
+       "html": "<article class=\"pc paused\" data-tone=\"critical\" data-form=\"peek\" data-kind=\"card\" data-popup=\"event-card\" data-id=\"event-card:event-551\" dat",
+       "why": "ARIA role group is not allowed for given element"
+      }
+     ]
+    },
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "tags": [
+      "wcag2aa",
+      "wcag143"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "button[aria-label=\"1x speed\"]",
+       "html": "<button class=\"tbtn\" aria-pressed=\"true\" aria-label=\"1x speed\" title=\"1× speed\" data-speed=\"1\">1×</button>",
+       "why": "Element has insufficient color contrast of 2.84 (foreground color: #ffffff, background color: #5b9bf0, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+      }
+     ]
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "help": "All page content should be contained by landmarks",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "#map",
+       "html": "<canvas id=\"map\" role=\"img\" aria-label=\"Schematic map of the Gettysburg battle: tick 551 of 675, July 3, about 3:35 PM on a candidate clock;",
+       "why": "Some page content is not contained by landmarks"
+      }
+     ]
+    },
+    {
+     "id": "scrollable-region-focusable",
+     "impact": "serious",
+     "help": "Scrollable region must have keyboard access",
+     "tags": [
+      "wcag2a",
+      "wcag211",
+      "wcag213"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": ".pane",
+       "html": "<div class=\"pane\" role=\"tabpanel\">",
+       "why": "Element should have focusable content"
+      }
+     ]
+    }
+   ],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "nodes": 77
+    }
+   ]
+  },
+  {
+   "label": "Showcase menu open",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 7,
+     "sample": [
+      {
+       "target": "article[data-tone=\"info\"]",
+       "html": "<article class=\"pc\" data-tone=\"info\" data-form=\"pill\" data-kind=\"hud\" data-popup=\"legend\" data-id=\"legend:legend\" data-bare=\"false\" role=\"gr",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-tone=\"day\"]",
+       "html": "<article class=\"pc\" data-tone=\"day\" data-form=\"mini\" data-kind=\"hud\" data-popup=\"clock-hud\" data-id=\"clock-hud:badge\" data-bare=\"false\" role",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-tone=\"critical\"]",
+       "html": "<article class=\"pc paused\" data-tone=\"critical\" data-form=\"peek\" data-kind=\"card\" data-popup=\"event-card\" data-id=\"event-card:event-551\" dat",
+       "why": "ARIA role group is not allowed for given element"
+      }
+     ]
+    },
+    {
+     "id": "aria-required-children",
+     "impact": "critical",
+     "help": "Certain ARIA roles must contain particular children",
+     "tags": [
+      "wcag2a",
+      "wcag131"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": ".menu",
+       "html": "<div class=\"menu\" role=\"menu\" aria-label=\"Showcase\" style=\"left: 924.438px; top: 60px;\">",
+       "why": "Element has children which are not allowed: h4"
+      }
+     ]
+    },
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "tags": [
+      "wcag2aa",
+      "wcag143"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "button[aria-label=\"1x speed\"]",
+       "html": "<button class=\"tbtn\" aria-pressed=\"true\" aria-label=\"1x speed\" title=\"1× speed\" data-speed=\"1\">1×</button>",
+       "why": "Element has insufficient color contrast of 2.84 (foreground color: #ffffff, background color: #5b9bf0, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+      }
+     ]
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "help": "All page content should be contained by landmarks",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 2,
+     "sample": [
+      {
+       "target": "#map",
+       "html": "<canvas id=\"map\" role=\"img\" aria-label=\"Schematic map of the Gettysburg battle: tick 551 of 675, July 3, about 3:35 PM on a candidate clock;",
+       "why": "Some page content is not contained by landmarks"
+      },
+      {
+       "target": ".menu",
+       "html": "<div class=\"menu\" role=\"menu\" aria-label=\"Showcase\" style=\"left: 924.438px; top: 60px;\">",
+       "why": "Some page content is not contained by landmarks"
+      }
+     ]
+    }
+   ],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "nodes": 41
+    }
+   ]
+  },
+  {
+   "label": "field-manual / standard",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 7,
+     "sample": [
+      {
+       "target": "article[data-tone=\"day\"]",
+       "html": "<article class=\"pc\" data-tone=\"day\" data-form=\"mini\" data-kind=\"hud\" data-popup=\"clock-hud\" data-id=\"clock-hud:badge\" data-bare=\"false\" role",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-tone=\"critical\"]",
+       "html": "<article class=\"pc paused\" data-tone=\"critical\" data-form=\"peek\" data-kind=\"card\" data-popup=\"event-card\" data-id=\"event-card:event-551\" dat",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-id=\"command-crossout:xo-US-016\"]",
+       "html": "<article class=\"pc\" data-tone=\"mortally-wounded\" data-form=\"tag\" data-kind=\"card\" data-popup=\"command-crossout\" data-id=\"command-crossout:xo",
+       "why": "ARIA role group is not allowed for given element"
+      }
+     ]
+    },
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "tags": [
+      "wcag2aa",
+      "wcag143"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "button[aria-label=\"1x speed\"]",
+       "html": "<button class=\"tbtn\" aria-pressed=\"true\" aria-label=\"1x speed\" title=\"1× speed\" data-speed=\"1\">1×</button>",
+       "why": "Element has insufficient color contrast of 2.84 (foreground color: #ffffff, background color: #5b9bf0, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+      }
+     ]
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "help": "All page content should be contained by landmarks",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "#map",
+       "html": "<canvas id=\"map\" role=\"img\" aria-label=\"Schematic map of the Gettysburg battle: tick 551 of 675, July 3, about 3:35 PM on a candidate clock;",
+       "why": "Some page content is not contained by landmarks"
+      }
+     ]
+    }
+   ],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "nodes": 38
+    }
+   ]
+  },
+  {
+   "label": "map-1863 / contrast",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 8,
+     "sample": [
+      {
+       "target": "article[data-tone=\"day\"]",
+       "html": "<article class=\"pc\" data-tone=\"day\" data-form=\"mini\" data-kind=\"hud\" data-popup=\"clock-hud\" data-id=\"clock-hud:badge\" data-bare=\"false\" role",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-id=\"command-crossout:xo-US-016\"]",
+       "html": "<article class=\"pc\" data-tone=\"mortally-wounded\" data-form=\"tag\" data-kind=\"card\" data-popup=\"command-crossout\" data-id=\"command-crossout:xo",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-tone=\"wounded\"]",
+       "html": "<article class=\"pc\" data-tone=\"wounded\" data-form=\"tag\" data-kind=\"card\" data-popup=\"command-crossout\" data-id=\"command-crossout:xo-...\" dat",
+       "why": "ARIA role group is not allowed for given element"
+      }
+     ]
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "help": "All page content should be contained by landmarks",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "#map",
+       "html": "<canvas id=\"map\" role=\"img\" aria-label=\"Schematic map of the Gettysburg battle: tick 551 of 675, July 3, about 3:35 PM on a candidate clock;",
+       "why": "Some page content is not contained by landmarks"
+      }
+     ]
+    }
+   ],
+   "incomplete": [
+    {
+     "id": "aria-required-children",
+     "nodes": 1
+    },
+    {
+     "id": "color-contrast",
+     "nodes": 51
+    }
+   ]
+  },
+  {
+   "label": "war-room / cvd",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 8,
+     "sample": [
+      {
+       "target": "article[data-tone=\"day\"]",
+       "html": "<article class=\"pc\" data-tone=\"day\" data-form=\"mini\" data-kind=\"hud\" data-popup=\"clock-hud\" data-id=\"clock-hud:badge\" data-bare=\"false\" role",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-id=\"command-crossout:xo-US-016\"]",
+       "html": "<article class=\"pc\" data-tone=\"mortally-wounded\" data-form=\"tag\" data-kind=\"card\" data-popup=\"command-crossout\" data-id=\"command-crossout:xo",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-tone=\"wounded\"]",
+       "html": "<article class=\"pc\" data-tone=\"wounded\" data-form=\"tag\" data-kind=\"card\" data-popup=\"command-crossout\" data-id=\"command-crossout:xo-...\" dat",
+       "why": "ARIA role group is not allowed for given element"
+      }
+     ]
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "help": "All page content should be contained by landmarks",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "#map",
+       "html": "<canvas id=\"map\" role=\"img\" aria-label=\"Schematic map of the Gettysburg battle: tick 551 of 675, July 3, about 3:35 PM on a candidate clock;",
+       "why": "Some page content is not contained by landmarks"
+      }
+     ]
+    }
+   ],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "nodes": 48
+    }
+   ]
+  },
+  {
+   "label": "tour caption open",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "tags": [
+      "wcag2aa",
+      "wcag143"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "button[aria-label=\"1x speed\"]",
+       "html": "<button class=\"tbtn\" aria-pressed=\"true\" aria-label=\"1x speed\" title=\"1× speed\" data-speed=\"1\">1×</button>",
+       "why": "Element has insufficient color contrast of 2.84 (foreground color: #ffffff, background color: #5b9bf0, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+      }
+     ]
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "help": "All page content should be contained by landmarks",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "#map",
+       "html": "<canvas id=\"map\" role=\"img\" aria-label=\"Schematic map of the Gettysburg battle: tick 548 of 675, July 3, about 3:25 PM on a candidate clock;",
+       "why": "Some page content is not contained by landmarks"
+      }
+     ]
+    }
+   ],
+   "incomplete": [
+    {
+     "id": "aria-required-children",
+     "nodes": 1
+    },
+    {
+     "id": "color-contrast",
+     "nodes": 25
+    }
+   ]
+  },
+  {
+   "label": "story rail open (tick 28)",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 8,
+     "sample": [
+      {
+       "target": "article[data-form=\"pill\"]",
+       "html": "<article class=\"pc\" data-tone=\"info\" data-form=\"pill\" data-kind=\"hud\" data-popup=\"legend\" data-id=\"legend:legend\" data-bare=\"false\" role=\"gr",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-form=\"full\"]",
+       "html": "<article class=\"pc\" data-tone=\"info\" data-form=\"full\" data-kind=\"hud\" data-popup=\"minimap\" data-id=\"minimap:overview\" data-bare=\"false\" role",
+       "why": "ARIA role group is not allowed for given element"
+      },
+      {
+       "target": "article[data-form=\"hint\"]",
+       "html": "<article class=\"pc paused\" data-tone=\"info\" data-form=\"hint\" data-kind=\"card\" data-popup=\"hints\" data-id=\"hints:hint-chronicle\" data-bare=\"f",
+       "why": "ARIA role group is not allowed for given element"
+      }
+     ]
+    },
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "tags": [
+      "wcag2aa",
+      "wcag143"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "button[aria-label=\"1x speed\"]",
+       "html": "<button class=\"tbtn\" aria-pressed=\"true\" aria-label=\"1x speed\" title=\"1× speed\" data-speed=\"1\">1×</button>",
+       "why": "Element has insufficient color contrast of 2.84 (foreground color: #ffffff, background color: #5b9bf0, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+      }
+     ]
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "help": "All page content should be contained by landmarks",
+     "tags": [
+      "best-practice"
+     ],
+     "nodes": 1,
+     "sample": [
+      {
+       "target": "#map",
+       "html": "<canvas id=\"map\" role=\"img\" aria-label=\"Schematic map of the Gettysburg battle: tick 28 of 675, July 1, about 10:15 AM on a candidate clock;",
+       "why": "Some page content is not contained by landmarks"
+      }
+     ]
+    }
+   ],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "nodes": 40
+    }
+   ]
+  }
+ ],
+ "contrast": [
+  {
+   "skin": "war-room/standard",
+   "theme": "dark",
+   "unparsedFill": 0,
+   "tileText": {
+    "n": 178,
+    "p5": 10.66,
+    "median": 14.87,
+    "min": 6.75,
+    "below45": 0,
+    "below3": 0
+   },
+   "backdropText": {
+    "n": 13,
+    "p5": 4.96,
+    "median": 7.84,
+    "min": 4.96,
+    "below45": 0,
+    "below3": 0
+   },
+   "sizesPx": [
+    10,
+    11,
+    12
+   ],
+   "worst": [
+    {
+     "text": "×3",
+     "ratio": 6.75,
+     "px": 10,
+     "alpha": 1
+    },
+    {
+     "text": "×2",
+     "ratio": 6.75,
+     "px": 10,
+     "alpha": 1
+    },
+    {
+     "text": "McGilver",
+     "ratio": 10.66,
+     "px": 11,
+     "alpha": 1
+    }
+   ],
+   "lowSamples": []
+  },
+  {
+   "skin": "war-room/cvd",
+   "theme": "dark",
+   "unparsedFill": 0,
+   "tileText": {
+    "n": 178,
+    "p5": 10.66,
+    "median": 14.87,
+    "min": 6.38,
+    "below45": 0,
+    "below3": 0
+   },
+   "backdropText": {
+    "n": 13,
+    "p5": 4.96,
+    "median": 7.84,
+    "min": 4.96,
+    "below45": 0,
+    "below3": 0
+   },
+   "sizesPx": [
+    10,
+    11,
+    12
+   ],
+   "worst": [
+    {
+     "text": "×3",
+     "ratio": 6.38,
+     "px": 10,
+     "alpha": 1
+    },
+    {
+     "text": "×2",
+     "ratio": 6.38,
+     "px": 10,
+     "alpha": 1
+    },
+    {
+     "text": "McGilver",
+     "ratio": 10.66,
+     "px": 11,
+     "alpha": 1
+    }
+   ],
+   "lowSamples": []
+  },
+  {
+   "skin": "war-room/contrast",
+   "theme": "dark",
+   "unparsedFill": 0,
+   "tileText": {
+    "n": 178,
+    "p5": 11.43,
+    "median": 20.87,
+    "min": 7.34,
+    "below45": 0,
+    "below3": 0
+   },
+   "backdropText": {
+    "n": 13,
+    "p5": 4.96,
+    "median": 7.84,
+    "min": 4.96,
+    "below45": 0,
+    "below3": 0
+   },
+   "sizesPx": [
+    10,
+    11,
+    12
+   ],
+   "worst": [
+    {
+     "text": "×3",
+     "ratio": 7.34,
+     "px": 10,
+     "alpha": 1
+    },
+    {
+     "text": "×2",
+     "ratio": 7.34,
+     "px": 10,
+     "alpha": 1
+    },
+    {
+     "text": "×2",
+     "ratio": 11.43,
+     "px": 10,
+     "alpha": 1
+    }
+   ],
+   "lowSamples": []
+  },
+  {
+   "skin": "field-manual/standard",
+   "theme": "light",
+   "unparsedFill": 0,
+   "tileText": {
+    "n": 195,
+    "p5": 8.64,
+    "median": 16.86,
+    "min": 4.88,
+    "below45": 0,
+    "below3": 0
+   },
+   "backdropText": {
+    "n": 13,
+    "p5": 3.32,
+    "median": 5.7,
+    "min": 3.32,
+    "below45": 2,
+    "below3": 0
+   },
+   "sizesPx": [
+    10,
+    11,
+    12
+   ],
+   "worst": [
+    {
+     "text": "×2",
+     "ratio": 4.88,
+     "px": 10,
+     "alpha": 1
+    },
+    {
+     "text": "×2",
+     "ratio": 4.88,
+     "px": 10,
+     "alpha": 1
+    },
+    {
+     "text": "+1",
+     "ratio": 8.64,
+     "px": 10,
+     "alpha": 1
+    }
+   ],
+   "lowSamples": []
+  },
+  {
+   "skin": "field-manual/cvd",
+   "theme": "light",
+   "unparsedFill": 0,
+   "tileText": {
+    "n": 195,
+    "p5": 6.67,
+    "median": 16.86,
+    "min": 3.77,
+    "below45": 2,
+    "below3": 0
+   },
+   "backdropText": {
+    "n": 13,
+    "p5": 3.32,
+    "median": 5.7,
+    "min": 3.32,
+    "below45": 2,
+    "below3": 0
+   },
+   "sizesPx": [
+    10,
+    11,
+    12
+   ],
+   "worst": [
+    {
+     "text": "×2",
+     "ratio": 3.77,
+     "px": 10,
+     "alpha": 1
+    },
+    {
+     "text": "×2",
+     "ratio": 3.77,
+     "px": 10,
+     "alpha": 1
+    },
+    {
+     "text": "+1",
+     "ratio": 6.67,
+     "px": 10,
+     "alpha": 1
+    }
+   ],
+   "lowSamples": []
+  },
+  {
+   "skin": "field-manual/contrast",
+   "theme": "light",
+   "unparsedFill": 0,
+   "tileText": {
+    "n": 195,
+    "p5": 12.33,
+    "median": 20.63,
+    "min": 5.95,
+    "below45": 0,
+    "below3": 0
+   },
+   "backdropText": {
+    "n": 13,
+    "p5": 3.32,
+    "median": 5.7,
+    "min": 3.32,
+    "below45": 2,
+    "below3": 0
+   },
+   "sizesPx": [
+    10,
+    11,
+    12
+   ],
+   "worst": [
+    {
+     "text": "×2",
+     "ratio": 5.95,
+     "px": 10,
+     "alpha": 1
+    },
+    {
+     "text": "×2",
+     "ratio": 5.95,
+     "px": 10,
+     "alpha": 1
+    },
+    {
+     "text": "+1",
+     "ratio": 12.33,
+     "px": 10,
+     "alpha": 1
+    }
+   ],
+   "lowSamples": []
+  },
+  {
+   "skin": "map-1863/standard",
+   "theme": "light",
+   "unparsedFill": 0,
+   "tileText": {
+    "n": 211,
+    "p5": 9.2,
+    "median": 12.82,
+    "min": 4.61,
+    "below45": 0,
+    "below3": 0
+   },
+   "backdropText": {
+    "n": 13,
+    "p5": 3.32,
+    "median": 5.7,
+    "min": 3.32,
+    "below45": 2,
+    "below3": 0
+   },
+   "sizesPx": [
+    10,
+    11,
+    12.5,
+    13,
+    6.2,
+    8
+   ],
+   "worst": [
+    {
+     "text": "×3",
+     "ratio": 4.61,
+     "px": 11,
+     "alpha": 1
+    },
+    {
+     "text": "×2",
+     "ratio": 4.61,
+     "px": 11,
+     "alpha": 1
+    },
+    {
+     "text": "+1",
+     "ratio": 9.2,
+     "px": 11,
+     "alpha": 1
+    }
+   ],
+   "lowSamples": []
+  },
+  {
+   "skin": "map-1863/cvd",
+   "theme": "light",
+   "unparsedFill": 0,
+   "tileText": {
+    "n": 211,
+    "p5": 8.79,
+    "median": 12.82,
+    "min": 4.05,
+    "below45": 2,
+    "below3": 0
+   },
+   "backdropText": {
+    "n": 13,
+    "p5": 3.32,
+    "median": 5.7,
+    "min": 3.32,
+    "below45": 2,
+    "below3": 0
+   },
+   "sizesPx": [
+    10,
+    11,
+    12.5,
+    13,
+    6.2,
+    8
+   ],
+   "worst": [
+    {
+     "text": "×3",
+     "ratio": 4.05,
+     "px": 11,
+     "alpha": 1
+    },
+    {
+     "text": "×2",
+     "ratio": 4.05,
+     "px": 11,
+     "alpha": 1
+    },
+    {
+     "text": "+1",
+     "ratio": 8.79,
+     "px": 11,
+     "alpha": 1
+    }
+   ],
+   "lowSamples": []
+  },
+  {
+   "skin": "map-1863/contrast",
+   "theme": "light",
+   "unparsedFill": 0,
+   "tileText": {
+    "n": 211,
+    "p5": 10.1,
+    "median": 20.63,
+    "min": 4.67,
+    "below45": 0,
+    "below3": 0
+   },
+   "backdropText": {
+    "n": 13,
+    "p5": 3.32,
+    "median": 5.7,
+    "min": 3.32,
+    "below45": 2,
+    "below3": 0
+   },
+   "sizesPx": [
+    10,
+    11,
+    12.5,
+    13,
+    6.2,
+    8
+   ],
+   "worst": [
+    {
+     "text": "×3",
+     "ratio": 4.67,
+     "px": 11,
+     "alpha": 1
+    },
+    {
+     "text": "×2",
+     "ratio": 4.67,
+     "px": 11,
+     "alpha": 1
+    },
+    {
+     "text": "+1",
+     "ratio": 10.1,
+     "px": 11,
+     "alpha": 1
+    }
+   ],
+   "lowSamples": []
+  }
+ ],
+ "keyboard": {
+  "tabStops": 38,
+  "stops": [
+   "canvas#map:Schematic map of the Gettysburg battle: tick 551 of 675, July 3, about 3:35 PM on a candidate clock; 451 units shown as 381 tiles.",
+   "button:Legend",
+   "button:Read the full story",
+   "button:Open in the reading panel",
+   "button:Keep this card on screen",
+   "button:Dismiss this card",
+   "button:Keep this card on screen",
+   "button:Dismiss this card",
+   "button:Open in the reading panel",
+   "button:Keep this card on screen",
+   "button:Dismiss this card",
+   "button:Cinematic dark glass. Light means a fresh report, an unlit dashed plate means a carried-forward fix; depth means echelon.",
+   "button:A modern cartographic symbol in the NATO / APP-6 grammar: frame = side, glyph = arm, marks = echelon, dashed = not a fresh report.",
+   "button:A lithographed field map: the seven Union corps badges and division colours of the 21 March 1863 circular, ink for firm, pencil for provisional.",
+   "select:Style variant",
+   "button:The production renderer, reproduced: stepping, hold-then-jump, overlapping bars (B)",
+   "button:The Studio: continuous motion, tiles that never obscure each other (B)",
+   "button:Guided tours, hotspots, before / after replay and scenes",
+   "button:A 16-stop tour of the battle: map flight, narration, a few ticks played at each stop",
+   "button:Keys and what the evidence labels mean (?)",
+   "button:Everything that has happened so far (C)",
+   "button:Inspect",
+   "button:Tune",
+   "button:Metrics",
+   "button:About",
+   "button:Open the Chronicle: 182 of 208 moments so far",
+   "button:Go to tick 1",
+   "button:Back one tick",
+   "button:Play",
+   "button:Forward one tick",
+   "button:0.25x speed",
+   "button:0.5x speed",
+   "button:1x speed",
+   "button:2x speed",
+   "button:4x speed",
+   "button:8x speed",
+   "button:16x speed",
+   "input:Tick"
+  ],
+  "canvas": {
+   "tabindex": "0",
+   "role": "img",
+   "aria": "Schematic map of the Gettysburg battle: tick 551 of 675, July 3, about 3:35 PM on a candidate clock; 451 units shown as 381 tiles."
+  },
+  "trace": [
+   {
+    "key": "Space",
+    "tick": [
+     28,
+     28
+    ],
+    "panel": null,
+    "playing": true
+   },
+   {
+    "key": "Space again",
+    "tick": [
+     29,
+     29
+    ],
+    "panel": null,
+    "playing": false
+   },
+   {
+    "key": "ArrowRight",
+    "tick": [
+     29,
+     30
+    ],
+    "panel": null,
+    "playing": false
+   },
+   {
+    "key": "Shift+ArrowRight",
+    "tick": [
+     30,
+     42
+    ],
+    "panel": null,
+    "playing": false
+   },
+   {
+    "key": "]",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": null,
+    "playing": false
+   },
+   {
+    "key": "[",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": null,
+    "playing": false
+   },
+   {
+    "key": "t",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": "tune",
+    "playing": false
+   },
+   {
+    "key": "t",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": null,
+    "playing": false
+   },
+   {
+    "key": "i",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": "inspect",
+    "playing": false
+   },
+   {
+    "key": "i",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": null,
+    "playing": false
+   },
+   {
+    "key": "a",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": "about",
+    "playing": false
+   },
+   {
+    "key": "a",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": null,
+    "playing": false
+   },
+   {
+    "key": "m",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": null,
+    "playing": false
+   },
+   {
+    "key": "m",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": null,
+    "playing": false
+   },
+   {
+    "key": "b",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": null,
+    "playing": false
+   },
+   {
+    "key": "b",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": null,
+    "playing": false
+   },
+   {
+    "key": "u",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": "inspect",
+    "playing": false
+   },
+   {
+    "key": "Esc",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": "inspect",
+    "playing": false
+   },
+   {
+    "key": "?",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": "inspect",
+    "playing": false
+   },
+   {
+    "key": "Esc",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": "inspect",
+    "playing": false
+   },
+   {
+    "key": "c",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": "inspect",
+    "playing": false
+   },
+   {
+    "key": "Esc",
+    "tick": [
+     42,
+     42
+    ],
+    "panel": "inspect",
+    "playing": false
+   },
+   {
+    "key": "n",
+    "tick": [
+     20,
+     22
+    ],
+    "panel": "inspect",
+    "playing": false
+   },
+   {
+    "key": "p",
+    "tick": [
+     22,
+     20
+    ],
+    "panel": "inspect",
+    "playing": false
+   },
+   {
+    "key": "w",
+    "tick": [
+     20,
+     548
+    ],
+    "panel": "inspect",
+    "playing": false
+   },
+   {
+    "key": "Esc",
+    "tick": [
+     548,
+     548
+    ],
+    "panel": "inspect",
+    "playing": false
+   }
+  ],
+  "reach": {
+   "showcase": true,
+   "before": true,
+   "after": true,
+   "styles": true,
+   "playPause": true,
+   "tools": true,
+   "scrubber": true,
+   "speeds": true
+  },
+  "menuArrowDown": {
+   "f0": "60-second showcaseTh",
+   "f1": "60-second showcaseTh"
+  },
+  "liveRegions": {
+   "polite": [
+    "popups:polite",
+    ":off",
+    "pop-live:polite",
+    "narration:polite"
+   ],
+   "roleStatus": 2,
+   "alert": 0
+  }
+ },
+ "reduced": {
+  "css": {
+   "checked": 126,
+   "longTransitions": 0,
+   "animations": 0,
+   "sample": []
+  },
+  "seek": {
+   "tickAfter5Frames": 300,
+   "reducedSeekIsInstant": true
+  }
+ },
+ "targets": {
+  "total": 19,
+  "under24": 0,
+  "under44": 18,
+  "sample24": [],
+  "sample44": [
+   "select:Style 190x36",
+   "button:The production ren 52x30",
+   "button:The Studio: contin 44x30",
+   "button:Guided tours, hots 40x40",
+   "button:Open the Chronicle 74x34",
+   "button:2 command changes: 155x34",
+   "button:Go to tick 1 32x32",
+   "button:Back one tick 32x32"
+  ],
+  "scrollW": 390,
+  "vw": 390
+ },
+ "axeTally": {
+  "aria-allowed-role": {
+   "impact": "minor",
+   "help": "ARIA role should be appropriate for the element",
+   "states": [
+    "welcome card (first visit)",
+    "war room, tick 551, popups",
+    "Tune panel",
+    "Inspect panel",
+    "About panel",
+    "Showcase menu open",
+    "field-manual / standard",
+    "map-1863 / contrast",
+    "war-room / cvd",
+    "story rail open (tick 28)"
+   ],
+   "nodes": 8,
+   "sample": {
+    "target": "article[data-form=\"pill\"]",
+    "html": "<article class=\"pc\" data-tone=\"info\" data-form=\"pill\" data-kind=\"hud\" data-popup=\"legend\" data-id=\"legend:legend\" data-bare=\"false\" role=\"gr",
+    "why": "ARIA role group is not allowed for given element"
+   }
+  },
+  "color-contrast": {
+   "impact": "serious",
+   "help": "Elements must meet minimum color contrast ratio thresholds",
+   "states": [
+    "welcome card (first visit)",
+    "war room, tick 551, popups",
+    "Tune panel",
+    "Inspect panel",
+    "About panel",
+    "Showcase menu open",
+    "field-manual / standard",
+    "tour caption open",
+    "story rail open (tick 28)"
+   ],
+   "nodes": 1,
+   "sample": {
+    "target": ".primary",
+    "html": "<button type=\"button\" class=\"btn primary\">Watch the 60-second showcase</button>",
+    "why": "Element has insufficient color contrast of 1.11 (foreground color: #3c361f, background color: #433d25, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+   }
+  },
+  "region": {
+   "impact": "moderate",
+   "help": "All page content should be contained by landmarks",
+   "states": [
+    "welcome card (first visit)",
+    "war room, tick 551, popups",
+    "Tune panel",
+    "Inspect panel",
+    "About panel",
+    "Showcase menu open",
+    "field-manual / standard",
+    "map-1863 / contrast",
+    "war-room / cvd",
+    "tour caption open",
+    "story rail open (tick 28)"
+   ],
+   "nodes": 2,
+   "sample": {
+    "target": "#map",
+    "html": "<canvas id=\"map\" role=\"img\" aria-label=\"Schematic map of the Gettysburg battle: tick 551 of 675, July 3, about 3:35 PM on a candidate clock;",
+    "why": "Some page content is not contained by landmarks"
+   }
+  },
+  "scrollable-region-focusable": {
+   "impact": "serious",
+   "help": "Scrollable region must have keyboard access",
+   "states": [
+    "About panel"
+   ],
+   "nodes": 1,
+   "sample": {
+    "target": ".pane",
+    "html": "<div class=\"pane\" role=\"tabpanel\">",
+    "why": "Element should have focusable content"
+   }
+  },
+  "aria-required-children": {
+   "impact": "critical",
+   "help": "Certain ARIA roles must contain particular children",
+   "states": [
+    "Showcase menu open"
+   ],
+   "nodes": 1,
+   "sample": {
+    "target": ".menu",
+    "html": "<div class=\"menu\" role=\"menu\" aria-label=\"Showcase\" style=\"left: 924.438px; top: 60px;\">",
+    "why": "Element has children which are not allowed: h4"
+   }
+  }
+ },
+ "contrastGrouping": {
+  "passesDroppedAsDecorative": 3
+ },
+ "summary": {
+  "pass": 23,
+  "fail": 5
+ }
+}

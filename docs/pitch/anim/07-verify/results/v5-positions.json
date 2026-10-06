@@ -1,0 +1,245 @@
+{
+ "generated": "2026-10-06T10:46:35.357Z",
+ "checks": [
+  {
+   "name": "place marks: every in-view legacy terrain.json location is painted within 0.6 px of my Web-Mercator projection at the page camera (11 of 30 in view, 11 marks painted)",
+   "ok": true,
+   "detail": {
+    "inView": 11,
+    "worst": "0.000",
+    "bad": []
+   }
+  },
+  {
+   "name": "keyframe ticks: the true anchor of every leaf tile equals my projection of the source lat/lng (max error px; 1040 tile positions compared in 72 frames)",
+   "ok": true,
+   "detail": {
+    "compared": 1040,
+    "maxErrPx": 3.725290298461914e-9,
+    "worst": [
+     [
+      "C-II-1-2",
+      1455.965729974676,
+      -408.251090134494,
+      1455.965729974676,
+      -408.25109013495967
+     ],
+     [
+      "C-II-1-3",
+      741.0305456109345,
+      520.794029659126,
+      741.0305456109345,
+      520.7940296595916
+     ]
+    ]
+   }
+  },
+  {
+   "name": "no chip stands farther than layout.dMaxPx (48 px) from its true position (leaves), max seen 47.94 px over 14097 leaf tiles",
+   "ok": true,
+   "detail": {
+    "budgetBad": 0,
+    "maxBudget": 47.943403360409754,
+    "displaced": 3848
+   }
+  },
+  {
+   "name": "every unit is inside exactly one live tile (settled frames)",
+   "ok": true,
+   "detail": {
+    "frames": 72,
+    "dupTotal": 0
+   }
+  },
+  {
+   "name": "no unit missing after its first keyframe, none shown before it, no phantom (settled frames)",
+   "ok": true,
+   "detail": {
+    "missing": 0,
+    "early": 0,
+    "phantom": 0
+   }
+  },
+  {
+   "name": "between keyframes (16 ticks, 2419 unit positions): every anchor lies inside the coordinate envelope of its two keyframes (a held unit sits exactly on its last keyframe)",
+   "ok": true,
+   "detail": {
+    "envBad": 0,
+    "positions": 2419
+   }
+  },
+  {
+   "name": "distance from the straight chord (claim: median 0 m, p90 49 m, max 391 m): measured median 2.6 m, p90 56.4 m, max 387.5 m over 660 moving positions",
+   "ok": true,
+   "detail": {
+    "median": 2.625512824074109,
+    "p90": 56.40036918056724,
+    "max": 387.4667520793616,
+    "n": 660
+   }
+  },
+  {
+   "name": "Contested units (10) are painted with at least one fill colour that no Union or Confederate tile uses, in all 9 skins",
+   "ok": true,
+   "detail": {
+    "skins": 9,
+    "bad": [],
+    "counts": [
+     3,
+     3,
+     3,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4
+    ]
+   }
+  }
+ ],
+ "defects": [],
+ "landmarks": {
+  "inView": 11,
+  "worstPx": 0
+ },
+ "keyframeTicks": {
+  "frames": 72,
+  "compared": 1040,
+  "maxErrPx": 3.725290298461914e-9,
+  "maxBudgetPx": 47.943403360409754,
+  "leafTiles": 14097,
+  "displaced": 3848,
+  "settledFrames": 72
+ },
+ "chord": {
+  "n": 660,
+  "medianM": 2.625512824074109,
+  "p90M": 56.40036918056724,
+  "maxM": 387.4667520793616,
+  "note": "perpendicular distance from the chord SEGMENT; the distance from the linear-in-time point of the chord is larger (the cubic speeds up and slows down along the chord): median 53.9 m, p90 260.4 m, max 579.5 m"
+ },
+ "sides": [
+  {
+   "skin": "war-room/standard",
+   "counts": {
+    "union": 4,
+    "confederate": 6,
+    "unknown": 3,
+    "mixed": 1
+   },
+   "ownColours": 1,
+   "union": 13,
+   "confederate": 10,
+   "unknown": 7
+  },
+  {
+   "skin": "war-room/cvd",
+   "counts": {
+    "union": 4,
+    "confederate": 6,
+    "unknown": 3,
+    "mixed": 1
+   },
+   "ownColours": 1,
+   "union": 13,
+   "confederate": 10,
+   "unknown": 7
+  },
+  {
+   "skin": "war-room/contrast",
+   "counts": {
+    "union": 4,
+    "confederate": 6,
+    "unknown": 3,
+    "mixed": 1
+   },
+   "ownColours": 1,
+   "union": 7,
+   "confederate": 7,
+   "unknown": 4
+  },
+  {
+   "skin": "field-manual/standard",
+   "counts": {
+    "union": 4,
+    "confederate": 7,
+    "unknown": 4,
+    "mixed": 0
+   },
+   "ownColours": 4,
+   "union": 9,
+   "confederate": 7,
+   "unknown": 7
+  },
+  {
+   "skin": "field-manual/cvd",
+   "counts": {
+    "union": 4,
+    "confederate": 7,
+    "unknown": 4,
+    "mixed": 0
+   },
+   "ownColours": 4,
+   "union": 9,
+   "confederate": 7,
+   "unknown": 7
+  },
+  {
+   "skin": "field-manual/contrast",
+   "counts": {
+    "union": 4,
+    "confederate": 7,
+    "unknown": 4,
+    "mixed": 0
+   },
+   "ownColours": 3,
+   "union": 7,
+   "confederate": 5,
+   "unknown": 6
+  },
+  {
+   "skin": "map-1863/standard",
+   "counts": {
+    "union": 4,
+    "confederate": 7,
+    "unknown": 4,
+    "mixed": 0
+   },
+   "ownColours": 2,
+   "union": 10,
+   "confederate": 5,
+   "unknown": 5
+  },
+  {
+   "skin": "map-1863/cvd",
+   "counts": {
+    "union": 4,
+    "confederate": 7,
+    "unknown": 4,
+    "mixed": 0
+   },
+   "ownColours": 2,
+   "union": 10,
+   "confederate": 5,
+   "unknown": 5
+  },
+  {
+   "skin": "map-1863/contrast",
+   "counts": {
+    "union": 4,
+    "confederate": 7,
+    "unknown": 4,
+    "mixed": 0
+   },
+   "ownColours": 1,
+   "union": 9,
+   "confederate": 4,
+   "unknown": 4
+  }
+ ],
+ "summary": {
+  "pass": 8,
+  "fail": 0
+ }
+}

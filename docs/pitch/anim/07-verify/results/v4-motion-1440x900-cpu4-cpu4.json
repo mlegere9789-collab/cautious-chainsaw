@@ -1,0 +1,1054 @@
+{
+ "generated": "2026-10-06T10:15:23.718Z",
+ "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+ "runs": [
+  {
+   "scene": "cemetery-hill",
+   "mode": "after",
+   "speed": 4,
+   "secs": 20,
+   "cpu": 4,
+   "reduced": false,
+   "viewport": [
+    1440,
+    900
+   ],
+   "popups": true,
+   "tick0": 340,
+   "tick1": 498.7,
+   "raf": {
+    "frames": 436,
+    "fps": 21.8,
+    "p50": 49.900000000001455,
+    "p95": 66.70000000000073,
+    "p99": 83.29999999999927,
+    "max": 83.40000000000146,
+    "over20": 99.54,
+    "over33": 66.44,
+    "over50": 105
+   },
+   "draws": {
+    "frames": 436,
+    "p50": 42.70000000298023,
+    "p95": 67,
+    "max": 92.30000001192093
+   },
+   "motion": {
+    "tileFrames": 65122,
+    "tilesPerFrame": 149.4,
+    "stepsOver3PerSec": 23.4,
+    "stepsOver8PerSec": 4.39,
+    "stepsOver20PerSec": 1.1,
+    "suddenPerSec": 2.2,
+    "suddenSolidPerSec": 0.3,
+    "jerk4PerSec": 7.83,
+    "flashesPerSec": 10.93,
+    "sizeJumpsPerSec": 2.25,
+    "labelTogglesPerSec": 4.04,
+    "appearPerSec": 14.52,
+    "vanishPerSec": 6.99,
+    "blinksPerSec": 0.2,
+    "maxStepPx": 57.62,
+    "p99StepPx": 27.29,
+    "framesWithSudden": 34,
+    "stillShare": 71.4
+   },
+   "bigSteps": [
+    [
+     23,
+     "agg:A-U:U-8NY-CAV",
+     23.8,
+     0,
+     0.42,
+     0.68,
+     1,
+     0
+    ],
+    [
+     26,
+     "agg:U-XII-2:U-102NY",
+     28.5,
+     0,
+     0.42,
+     0.68,
+     1,
+     0
+    ],
+    [
+     41,
+     "C-42MS",
+     27.3,
+     0.1,
+     0.42,
+     0.68,
+     0,
+     0
+    ],
+    [
+     56,
+     "agg:U-I-3-2:U-143PA",
+     13.9,
+     0,
+     0.42,
+     0.68,
+     1,
+     0
+    ],
+    [
+     89,
+     "U-III-2~165",
+     12.7,
+     0,
+     0.68,
+     0.94,
+     0,
+     1
+    ],
+    [
+     91,
+     "U-III-2-3~165",
+     17.9,
+     0,
+     0.15,
+     0.34,
+     0,
+     0
+    ],
+    [
+     95,
+     "C-1NC-EW~171",
+     27.3,
+     0,
+     0.57,
+     0.87,
+     0,
+     1
+    ],
+    [
+     95,
+     "C-II-1-4~171",
+     25.1,
+     0,
+     0.57,
+     0.87,
+     0,
+     1
+    ],
+    [
+     104,
+     "agg:C-ART-II-3:C-ART-Carrington",
+     14.7,
+     0,
+     0.42,
+     0.68,
+     1,
+     0
+    ],
+    [
+     137,
+     "U-I-1-2",
+     19.8,
+     0,
+     0.42,
+     0.68,
+     0,
+     0
+    ],
+    [
+     162,
+     "agg:A-U:U-ART-A4US",
+     26,
+     0,
+     0.42,
+     0.52,
+     1,
+     0
+    ],
+    [
+     162,
+     "agg:U-II-2:U-106PA",
+     19.1,
+     0,
+     0.42,
+     0.52,
+     1,
+     0
+    ]
+   ]
+  },
+  {
+   "scene": "cemetery-hill",
+   "mode": "before",
+   "speed": 4,
+   "secs": 20,
+   "cpu": 4,
+   "reduced": false,
+   "viewport": [
+    1440,
+    900
+   ],
+   "popups": true,
+   "tick0": 340,
+   "tick1": 500,
+   "raf": {
+    "frames": 695,
+    "fps": 34.7,
+    "p50": 33.29999999999927,
+    "p95": 33.400000000001455,
+    "p99": 49.900000000001455,
+    "max": 50,
+    "over20": 71.33,
+    "over33": 21.61,
+    "over50": 0
+   },
+   "draws": {
+    "frames": 695,
+    "p50": 28.299999997019768,
+    "p95": 35.20000000298023,
+    "max": 49.29999999701977
+   },
+   "motion": {
+    "tileFrames": 179673,
+    "tilesPerFrame": 258.5,
+    "stepsOver3PerSec": 89.32,
+    "stepsOver8PerSec": 67.76,
+    "stepsOver20PerSec": 38.82,
+    "suddenPerSec": 43.66,
+    "suddenSolidPerSec": 43.66,
+    "jerk4PerSec": 119.11,
+    "flashesPerSec": 0,
+    "sizeJumpsPerSec": 2.49,
+    "labelTogglesPerSec": 0,
+    "appearPerSec": 16.47,
+    "vanishPerSec": 2.35,
+    "blinksPerSec": 2.25,
+    "maxStepPx": 1550.41,
+    "p99StepPx": 151.53,
+    "framesWithSudden": 35,
+    "stillShare": 98.4
+   },
+   "bigSteps": [
+    [
+     23,
+     "C-II-1-1",
+     48.3,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     23,
+     "U-I-2-1",
+     35,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     23,
+     "U-I-3-1",
+     50,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     23,
+     "U-XI-1-1",
+     81.9,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     23,
+     "U-XI-2-2",
+     22.1,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     23,
+     "U-I-2",
+     389.9,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     23,
+     "C-31GA",
+     30.6,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     23,
+     "C-38GA",
+     24.6,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     23,
+     "U-ART-G4US",
+     49.1,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     23,
+     "U-107OH",
+     22.3,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     23,
+     "U-25OH",
+     50,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     23,
+     "U-XI-2",
+     74.3,
+     0,
+     1,
+     1,
+     0,
+     1
+    ]
+   ]
+  },
+  {
+   "scene": "rose-woods",
+   "mode": "after",
+   "speed": 4,
+   "secs": 20,
+   "cpu": 4,
+   "reduced": false,
+   "viewport": [
+    1440,
+    900
+   ],
+   "popups": true,
+   "tick0": 287,
+   "tick1": 445.4,
+   "raf": {
+    "frames": 553,
+    "fps": 27.6,
+    "p50": 33.30000000000291,
+    "p95": 66.59999999999854,
+    "p99": 83.29999999999563,
+    "max": 100,
+    "over20": 84.06,
+    "over33": 39.86,
+    "over50": 55
+   },
+   "draws": {
+    "frames": 553,
+    "p50": 33,
+    "p95": 57.79999999701977,
+    "max": 94.90000000596046
+   },
+   "motion": {
+    "tileFrames": 81851,
+    "tilesPerFrame": 148,
+    "stepsOver3PerSec": 62.27,
+    "stepsOver8PerSec": 16.8,
+    "stepsOver20PerSec": 3.64,
+    "suddenPerSec": 5.88,
+    "suddenSolidPerSec": 1,
+    "jerk4PerSec": 26.18,
+    "flashesPerSec": 9.97,
+    "sizeJumpsPerSec": 4.49,
+    "labelTogglesPerSec": 6.83,
+    "appearPerSec": 19.79,
+    "vanishPerSec": 12.27,
+    "blinksPerSec": 0.3,
+    "maxStepPx": 295.02,
+    "p99StepPx": 54.29,
+    "framesWithSudden": 75,
+    "stillShare": 66.6
+   },
+   "bigSteps": [
+    [
+     3,
+     "agg:U-XI-1:U-107OH",
+     20.3,
+     0,
+     0.42,
+     0.84,
+     1,
+     0
+    ],
+    [
+     27,
+     "agg:U-V-1-3:U-16MI",
+     54.3,
+     0.3,
+     0.42,
+     0.68,
+     1,
+     0
+    ],
+    [
+     35,
+     "agg:U-II-1-1:U-148PA",
+     11.7,
+     3.5,
+     1,
+     1,
+     1,
+     1
+    ],
+    [
+     35,
+     "agg:U-III-2:U-III-2",
+     11.7,
+     2.2,
+     1,
+     1,
+     1,
+     1
+    ],
+    [
+     38,
+     "U-ART-9MA",
+     24.7,
+     2.6,
+     0.41,
+     0.42,
+     0,
+     0
+    ],
+    [
+     41,
+     "C-14SC",
+     13.3,
+     0,
+     0.42,
+     0.68,
+     0,
+     0
+    ],
+    [
+     41,
+     "U-I-2-1",
+     22.2,
+     0,
+     0.42,
+     0.68,
+     0,
+     0
+    ],
+    [
+     41,
+     "agg:C-III-3:C-13NC",
+     25.2,
+     0,
+     0.42,
+     0.42,
+     1,
+     0
+    ],
+    [
+     41,
+     "C-III-4",
+     11.7,
+     3.2,
+     0.42,
+     0.42,
+     0,
+     0
+    ],
+    [
+     44,
+     "U-ART-9MA~144",
+     15.3,
+     0,
+     0.28,
+     0.39,
+     0,
+     0
+    ],
+    [
+     44,
+     "agg:A-U:U-ART-5MA",
+     14.9,
+     0.5,
+     0.42,
+     0.68,
+     1,
+     0
+    ],
+    [
+     44,
+     "agg:A-U:U-19IN",
+     8.2,
+     1.7,
+     1,
+     1,
+     1,
+     1
+    ]
+   ]
+  },
+  {
+   "scene": "rose-woods",
+   "mode": "before",
+   "speed": 4,
+   "secs": 20,
+   "cpu": 4,
+   "reduced": false,
+   "viewport": [
+    1440,
+    900
+   ],
+   "popups": true,
+   "tick0": 287,
+   "tick1": 447.1,
+   "raf": {
+    "frames": 917,
+    "fps": 45.7,
+    "p50": 16.69999999999709,
+    "p95": 33.40000000000873,
+    "p99": 33.5,
+    "max": 50.09999999999127,
+    "over20": 30.57,
+    "over33": 5.9,
+    "over50": 1
+   },
+   "draws": {
+    "frames": 917,
+    "p50": 21.099999994039536,
+    "p95": 28.5,
+    "max": 48.6000000089407
+   },
+   "motion": {
+    "tileFrames": 151281,
+    "tilesPerFrame": 165,
+    "stepsOver3PerSec": 85.21,
+    "stepsOver8PerSec": 61.36,
+    "stepsOver20PerSec": 36.32,
+    "suddenPerSec": 37.12,
+    "suddenSolidPerSec": 37.12,
+    "jerk4PerSec": 111.85,
+    "flashesPerSec": 0,
+    "sizeJumpsPerSec": 3.44,
+    "labelTogglesPerSec": 0,
+    "appearPerSec": 10.83,
+    "vanishPerSec": 2.44,
+    "blinksPerSec": 1.75,
+    "maxStepPx": 624.2,
+    "p99StepPx": 117.43,
+    "framesWithSudden": 61,
+    "stillShare": 98.2
+   },
+   "bigSteps": [
+    [
+     15,
+     "U-III-1-2",
+     35,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     15,
+     "U-V-3-1",
+     58.5,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     15,
+     "C-I-1-1",
+     25.9,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     15,
+     "C-I-2-1",
+     10.1,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     15,
+     "C-I-2-3",
+     36,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     15,
+     "C-18MS",
+     10.7,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     15,
+     "C-21MS",
+     11.7,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     15,
+     "U-1US-SHRP",
+     15.6,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     15,
+     "U-2US-SHRP",
+     23.9,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     15,
+     "U-V-3",
+     42.3,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     15,
+     "U-124NY",
+     29.5,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     15,
+     "U-99PA",
+     20,
+     0,
+     1,
+     1,
+     0,
+     1
+    ]
+   ]
+  },
+  {
+   "scene": "the-angle",
+   "mode": "after",
+   "speed": 4,
+   "secs": 20,
+   "cpu": 4,
+   "reduced": false,
+   "viewport": [
+    1440,
+    900
+   ],
+   "popups": true,
+   "tick0": 550,
+   "tick1": 675,
+   "raf": {
+    "frames": 527,
+    "fps": 26.3,
+    "p50": 33.39999999999418,
+    "p95": 66.59999999999127,
+    "p99": 66.80000000000291,
+    "max": 100,
+    "over20": 85.93,
+    "over33": 45.25,
+    "over50": 55
+   },
+   "draws": {
+    "frames": 490,
+    "p50": 36,
+    "p95": 60.5,
+    "max": 87.3999999910593
+   },
+   "motion": {
+    "tileFrames": 152334,
+    "tilesPerFrame": 310.9,
+    "stepsOver3PerSec": 99.28,
+    "stepsOver8PerSec": 25.4,
+    "stepsOver20PerSec": 5.7,
+    "suddenPerSec": 5.3,
+    "suddenSolidPerSec": 1.35,
+    "jerk4PerSec": 28.05,
+    "flashesPerSec": 13.8,
+    "sizeJumpsPerSec": 2.2,
+    "labelTogglesPerSec": 8.4,
+    "appearPerSec": 26.45,
+    "vanishPerSec": 10.85,
+    "blinksPerSec": 0.25,
+    "maxStepPx": 319.92,
+    "p99StepPx": 102.63,
+    "framesWithSudden": 65,
+    "stillShare": 91.6
+   },
+   "bigSteps": [
+    [
+     2,
+     "C-I-3-3",
+     20,
+     6.1,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     3,
+     "C-18NC",
+     28.9,
+     0,
+     0.42,
+     0.68,
+     0,
+     0
+    ],
+    [
+     3,
+     "U-150PA",
+     27.4,
+     0,
+     0.42,
+     0.68,
+     0,
+     0
+    ],
+    [
+     3,
+     "agg:A-C:C-10VA-J",
+     15.8,
+     0,
+     0.42,
+     0.68,
+     1,
+     0
+    ],
+    [
+     3,
+     "C-I-3-3",
+     83.8,
+     20,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     5,
+     "agg:A-C:C-13MS-B~94",
+     9.8,
+     3,
+     0.15,
+     0.46,
+     1,
+     0
+    ],
+    [
+     6,
+     "C-18NC~97",
+     17.6,
+     0,
+     0.24,
+     0.36,
+     0,
+     0
+    ],
+    [
+     8,
+     "C-18VA~97",
+     11.1,
+     2.1,
+     0.07,
+     0.34,
+     0,
+     0
+    ],
+    [
+     8,
+     "U-150PA",
+     8.3,
+     2,
+     0.42,
+     0.42,
+     0,
+     0
+    ],
+    [
+     8,
+     "C-I-3-1~97",
+     28.3,
+     0,
+     0.07,
+     0.34,
+     0,
+     0
+    ],
+    [
+     8,
+     "agg:C-I-3-1:C-18VA",
+     42.1,
+     0,
+     0.12,
+     0.02,
+     1,
+     0
+    ],
+    [
+     8,
+     "C-CAV-2",
+     11.6,
+     3.7,
+     1,
+     1,
+     0,
+     1
+    ]
+   ]
+  },
+  {
+   "scene": "the-angle",
+   "mode": "before",
+   "speed": 4,
+   "secs": 20,
+   "cpu": 4,
+   "reduced": false,
+   "viewport": [
+    1440,
+    900
+   ],
+   "popups": true,
+   "tick0": 550,
+   "tick1": 675,
+   "raf": {
+    "frames": 1165,
+    "fps": 58.2,
+    "p50": 16.699999999982538,
+    "p95": 16.80000000000291,
+    "p99": 33.39999999999418,
+    "max": 50,
+    "over20": 2.92,
+    "over33": 0.69,
+    "over50": 0
+   },
+   "draws": {
+    "frames": 903,
+    "p50": 16.799999997019768,
+    "p95": 22,
+    "max": 40.3999999910593
+   },
+   "motion": {
+    "tileFrames": 117430,
+    "tilesPerFrame": 130,
+    "stepsOver3PerSec": 7.05,
+    "stepsOver8PerSec": 4.9,
+    "stepsOver20PerSec": 2.9,
+    "suddenPerSec": 4.45,
+    "suddenSolidPerSec": 4.45,
+    "jerk4PerSec": 12.3,
+    "flashesPerSec": 0,
+    "sizeJumpsPerSec": 1.65,
+    "labelTogglesPerSec": 0,
+    "appearPerSec": 7.15,
+    "vanishPerSec": 0.8,
+    "blinksPerSec": 0.3,
+    "maxStepPx": 544.9,
+    "p99StepPx": 51.26,
+    "framesWithSudden": 14,
+    "stillShare": 99.8
+   },
+   "bigSteps": [
+    [
+     3,
+     "C-I-3-3",
+     64,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     7,
+     "U-II-2-1",
+     102.8,
+     2,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     7,
+     "U-II-3-1",
+     508.7,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     7,
+     "U-106PA",
+     9.1,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     7,
+     "U-71PA",
+     12.5,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     7,
+     "U-72PA",
+     11.4,
+     0.4,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     7,
+     "U-CAV-2-2",
+     9.8,
+     1,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     7,
+     "U-II-1",
+     35.2,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     7,
+     "U-II-2",
+     26.2,
+     1,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     7,
+     "C-53VA",
+     530.8,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     7,
+     "C-57VA",
+     518.8,
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     12,
+     "U-ART-A4US",
+     9.8,
+     0.1,
+     1,
+     1,
+     0,
+     1
+    ]
+   ]
+  }
+ ],
+ "consoleErrors": [
+  "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "requests": []
+}

@@ -1,0 +1,388 @@
+{
+ "generated": "2026-10-06T10:28:49.222Z",
+ "checks": [
+  {
+   "name": "177 dials, one per token in tokens.json; after clearing storage and booting, the dials that differ from their token default are exactly the start-up scene and style: camera.zoom: token default 14, value after boot 15.5; skin.id: token default \"reference\", value after boot \"war-room\"; backdrop.id: token default \"paper\", value after boot \"ink\"",
+   "ok": true,
+   "detail": {
+    "dials": 177,
+    "doc": 177,
+    "bootDiff": [
+     "camera.zoom: token default 14, value after boot 15.5",
+     "skin.id: token default \"reference\", value after boot \"war-room\"",
+     "backdrop.id: token default \"paper\", value after boot \"ink\""
+    ]
+   }
+  },
+  {
+   "name": "the Tune panel builds one row (label, control, doc, evidence badge) for every dial",
+   "ok": true,
+   "detail": {
+    "rows": 177,
+    "withEvidence": 177,
+    "withControl": 177,
+    "groups": 24,
+    "hidden": 5
+   }
+  },
+  {
+   "name": "dials move when their control is operated (8 dials of 5 kinds)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "Export downloads battle-studio-settings.json: format battle-studio-settings/1, all 177 dials, equal to the live values",
+   "ok": true,
+   "detail": {
+    "suggestedFilename": "battle-studio-settings.json",
+    "bytes": 5316,
+    "format": "battle-studio-settings/1",
+    "tokens": 177
+   }
+  },
+  {
+   "name": "the exported file validates against tokens/tokens.schema.json (ajv, battle-studio-settings/1)",
+   "ok": true,
+   "detail": "valid"
+  },
+  {
+   "name": "Reset all returns every dial to the default written in tokens.json",
+   "ok": true,
+   "detail": {
+    "differ": []
+   }
+  },
+  {
+   "name": "Import of the exported file restores all 177 dials exactly; the status line reports it (imported 9, rejected 0, unknown 0)",
+   "ok": true,
+   "detail": {
+    "differ": [],
+    "status": "imported 9, rejected 0, unknown 0"
+   }
+  },
+  {
+   "name": "after Import every control in the panel shows the imported value (a slider snaps to its step grid: exceptions listed)",
+   "ok": false,
+   "detail": [
+    [
+     "popup.dwell.bMinMs",
+     2250,
+     2200
+    ]
+   ]
+  },
+  {
+   "name": "settings persist across a reload (localStorage), apart from the ones the page resets on purpose: []",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "hostile imports (12 kinds) never throw and never pollute prototypes; each is reported as applied / rejected / unknown",
+   "ok": true,
+   "detail": [
+    "wrong format string: {\"a\":0,\"r\":1,\"u\":0}",
+    "unknown id: {\"a\":0,\"r\":0,\"u\":1}",
+    "out of range: {\"a\":0,\"r\":1,\"u\":0}",
+    "wrong type: {\"a\":0,\"r\":1,\"u\":0}",
+    "not an option: {\"a\":1,\"r\":0,\"u\":0} changed",
+    "NaN: {\"a\":0,\"r\":1,\"u\":0}",
+    "proto pollution: {\"a\":1,\"r\":0,\"u\":1} changed",
+    "array: {\"a\":0,\"r\":0,\"u\":0}",
+    "string: {\"a\":0,\"r\":1,\"u\":0}",
+    "null: {\"a\":0,\"r\":1,\"u\":0}",
+    "empty: {\"a\":0,\"r\":0,\"u\":0}",
+    "bare map: {\"a\":1,\"r\":0,\"u\":0} changed"
+   ]
+  },
+  {
+   "name": "a mixed file applies the valid dials and reports the rest (applied 1, rejected 1, unknown 1)",
+   "ok": true,
+   "detail": {
+    "applied": [
+     "layout.dMaxPx"
+    ],
+    "rejected": [
+     {
+      "id": "layout.gapPx",
+      "reason": "layout.gapPx: expected a finite number"
+     }
+    ],
+    "unknown": [
+     "nope.x"
+    ]
+   }
+  },
+  {
+   "name": "a file that is not JSON is refused with a message in the panel (no exception): \"import failed: Expected property name or '}' in JSON at position 2 (line 1 column 3)\"",
+   "ok": true,
+   "detail": "import failed: Expected property name or '}' in JSON at position 2 (line 1 column 3)"
+  },
+  {
+   "name": "the picture is reproduced from the exported file alone: canvas hash of a cold settled frame, settings applied through the API efade700, through the real Import button in another fresh session efade700 (defaults: 3691f096)",
+   "ok": true,
+   "detail": {
+    "hX": "efade700",
+    "hY": "efade700",
+    "hD": "3691f096"
+   }
+  },
+  {
+   "name": "a settings file naming a module that does not exist (skin, layout, motion, interpolation, backdrop) is rejected by Import instead of being applied (applied without any check: skin.id, backdrop.id; threw or broke the frame loop: layout.strategy, motion.mode, interp.model)",
+   "ok": false,
+   "detail": [
+    {
+     "id": "skin.id",
+     "applied": 1,
+     "thrown": null,
+     "frameErr": null,
+     "pageErrors": []
+    },
+    {
+     "id": "layout.strategy",
+     "applied": null,
+     "thrown": "layout: no module \"does-not-exist\" (registered: certified, raw, production)",
+     "frameErr": null,
+     "pageErrors": []
+    },
+    {
+     "id": "motion.mode",
+     "applied": null,
+     "thrown": "motion: no module \"does-not-exist\" (registered: production, dynamics, spring, snap)",
+     "frameErr": null,
+     "pageErrors": []
+    },
+    {
+     "id": "interp.model",
+     "applied": null,
+     "thrown": "interp: no module \"does-not-exist\" (registered: pchip, chord-smooth, linear, production-step)",
+     "frameErr": null,
+     "pageErrors": []
+    },
+    {
+     "id": "backdrop.id",
+     "applied": 1,
+     "thrown": null,
+     "frameErr": null,
+     "pageErrors": []
+    }
+   ]
+  }
+ ],
+ "defects": [],
+ "bootDiff": [
+  "camera.zoom: token default 14, value after boot 15.5",
+  "skin.id: token default \"reference\", value after boot \"war-room\"",
+  "backdrop.id: token default \"paper\", value after boot \"ink\""
+ ],
+ "panel": {
+  "rows": 177,
+  "withEvidence": 177,
+  "withControl": 177,
+  "groups": 24,
+  "hidden": 5
+ },
+ "export": {
+  "suggestedFilename": "battle-studio-settings.json",
+  "bytes": 5316,
+  "format": "battle-studio-settings/1",
+  "tokens": 177
+ },
+ "afterReset": {
+  "skin": "reference",
+  "backdrop": "paper",
+  "zoom": 14
+ },
+ "uiMismatch": [
+  [
+   "popup.dwell.bMinMs",
+   2250,
+   2200
+  ]
+ ],
+ "persistence": {
+  "notKept": []
+ },
+ "hostile": [
+  {
+   "name": "wrong format string",
+   "err": null,
+   "applied": 0,
+   "rejected": 1,
+   "unknown": 0,
+   "stateChanged": false
+  },
+  {
+   "name": "unknown id",
+   "err": null,
+   "applied": 0,
+   "rejected": 0,
+   "unknown": 1,
+   "stateChanged": false
+  },
+  {
+   "name": "out of range",
+   "err": null,
+   "applied": 0,
+   "rejected": 1,
+   "unknown": 0,
+   "stateChanged": false
+  },
+  {
+   "name": "wrong type",
+   "err": null,
+   "applied": 0,
+   "rejected": 1,
+   "unknown": 0,
+   "stateChanged": false
+  },
+  {
+   "name": "not an option",
+   "err": null,
+   "applied": 1,
+   "rejected": 0,
+   "unknown": 0,
+   "stateChanged": true
+  },
+  {
+   "name": "NaN",
+   "err": null,
+   "applied": 0,
+   "rejected": 1,
+   "unknown": 0,
+   "stateChanged": false
+  },
+  {
+   "name": "proto pollution",
+   "err": null,
+   "applied": 1,
+   "rejected": 0,
+   "unknown": 1,
+   "stateChanged": true
+  },
+  {
+   "name": "array",
+   "err": null,
+   "applied": 0,
+   "rejected": 0,
+   "unknown": 0,
+   "stateChanged": false
+  },
+  {
+   "name": "string",
+   "err": null,
+   "applied": 0,
+   "rejected": 1,
+   "unknown": 0,
+   "stateChanged": false
+  },
+  {
+   "name": "null",
+   "err": null,
+   "applied": 0,
+   "rejected": 1,
+   "unknown": 0,
+   "stateChanged": false
+  },
+  {
+   "name": "empty",
+   "err": null,
+   "applied": 0,
+   "rejected": 0,
+   "unknown": 0,
+   "stateChanged": false
+  },
+  {
+   "name": "bare map",
+   "err": null,
+   "applied": 1,
+   "rejected": 0,
+   "unknown": 0,
+   "stateChanged": true
+  }
+ ],
+ "coldImportStatus": "imported 8, rejected 0, unknown 0",
+ "registryImport": [
+  {
+   "id": "skin.id",
+   "applied": [
+    "skin.id"
+   ],
+   "rejected": 0,
+   "thrown": null,
+   "framesOk": 20,
+   "frameErr": null,
+   "tilesAfter": 426,
+   "value": "does-not-exist",
+   "pageErrors": []
+  },
+  {
+   "id": "layout.strategy",
+   "applied": null,
+   "rejected": null,
+   "thrown": "layout: no module \"does-not-exist\" (registered: certified, raw, production)",
+   "framesOk": 20,
+   "frameErr": null,
+   "tilesAfter": 385,
+   "value": "does-not-exist",
+   "pageErrors": []
+  },
+  {
+   "id": "motion.mode",
+   "applied": null,
+   "rejected": null,
+   "thrown": "motion: no module \"does-not-exist\" (registered: production, dynamics, spring, snap)",
+   "framesOk": 20,
+   "frameErr": null,
+   "tilesAfter": 385,
+   "value": "does-not-exist",
+   "pageErrors": []
+  },
+  {
+   "id": "interp.model",
+   "applied": null,
+   "rejected": null,
+   "thrown": "interp: no module \"does-not-exist\" (registered: pchip, chord-smooth, linear, production-step)",
+   "framesOk": 20,
+   "frameErr": null,
+   "tilesAfter": 385,
+   "value": "does-not-exist",
+   "pageErrors": []
+  },
+  {
+   "id": "backdrop.id",
+   "applied": [
+    "backdrop.id"
+   ],
+   "rejected": 0,
+   "thrown": null,
+   "framesOk": 20,
+   "frameErr": null,
+   "tilesAfter": 385,
+   "value": "does-not-exist",
+   "pageErrors": []
+  }
+ ],
+ "skinTokensInExport": {
+  "colourDials": [
+   "skin.id",
+   "skin.ageChannel"
+  ],
+  "n": 177
+ },
+ "evidence": {
+  "Documented": 8,
+  "Design": 155,
+  "Measured": 3,
+  "Modelled": 2,
+  "Computed": 9
+ },
+ "errors": [
+  "error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+  "warning: Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+ ],
+ "requests": [],
+ "summary": {
+  "pass": 12,
+  "fail": 2
+ }
+}

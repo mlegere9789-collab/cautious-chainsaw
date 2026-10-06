@@ -1,0 +1,296 @@
+{
+ "generated": "2026-10-06T12:00:42.387Z",
+ "checks": [
+  {
+   "name": "the skin I wrote has fewer than 50 lines as written (45 lines, longest 240 columns, 8 lines over 100 columns)",
+   "ok": true,
+   "detail": {
+    "file": "proto-copy\\src\\skins\\ribbon.mjs",
+    "lines": 45,
+    "codeLines": 42,
+    "chars": 2925,
+    "longest": 240,
+    "over100": 8,
+    "meanLen": 65,
+    "imports": [
+     "./kit.mjs",
+     "./semantics.mjs",
+     "./glyphs.mjs"
+    ],
+    "wrapped100": 54
+   }
+  },
+  {
+   "name": "the same skin hard-wrapped at 100 columns needs fewer than 50 lines (54)",
+   "ok": false,
+   "detail": {
+    "wrapped100": 54
+   }
+  },
+  {
+   "name": "the prototype's own \"50-line\" skin (minimal.mjs): 35 lines as written but 3566 characters, longest line 252, 18 lines over 100 columns; wrapped at 100 columns 54 lines",
+   "ok": false,
+   "detail": {
+    "wrapped100": 54
+   }
+  },
+  {
+   "name": "node build.mjs in the copy succeeds with the skin registered by one import and one array entry",
+   "ok": true,
+   "detail": "wrote battle-studio.html  1470 KB  (script 604 KB, dataset 449 KB)  sha256:a989f016b4e32f00"
+  },
+  {
+   "name": "registration costs exactly one import line and one array entry in skins/index.mjs",
+   "ok": true,
+   "detail": [
+    "import { RIBBON } from './ribbon.mjs';",
+    "export const SKINS = [referenceSkin, ...FIELD_MANUAL, ...WAR_ROOM, ...MAP_1863, MINIMAL, RIBBON];"
+   ]
+  },
+  {
+   "name": "the repo's own skin tests pass with the new skin present ()",
+   "ok": false,
+   "detail": {
+    "tail": [],
+    "ribbonMentions": [
+     "  +   'ribbon'",
+     "    actual: [ 'reference', 'field-manual', 'field-manual/cvd', 'field-manual/contrast', 'war-room', 'war-room/cvd', 'war-room/contrast', 'map-1863', 'map-1863/cvd', 'map-1863/contrast', 'minimal', 'ribbon' ],"
+    ],
+    "stderr": ""
+   }
+  },
+  {
+   "name": "checkSkin (ink inside the footprint box) reports no problem on 25 tiles (4 sides x 3 arms x selected + an aggregate)",
+   "ok": true,
+   "detail": {
+    "tiles": 25,
+    "problems": []
+   }
+  },
+  {
+   "name": "the page registers the new skin (ids: 13)",
+   "ok": true,
+   "detail": [
+    "reference",
+    "field-manual",
+    "field-manual/cvd",
+    "field-manual/contrast",
+    "war-room",
+    "war-room/cvd",
+    "war-room/contrast",
+    "map-1863",
+    "map-1863/cvd",
+    "map-1863/contrast",
+    "minimal",
+    "ribbon",
+    "production"
+   ]
+  },
+  {
+   "name": "the skin is listed in the Tuning Studio skin dropdown and its legend (generated from sample()) shows in About: 10 rows",
+   "ok": true,
+   "detail": {
+    "opts": [
+     "reference",
+     "field-manual",
+     "field-manual/cvd",
+     "field-manual/contrast",
+     "war-room",
+     "war-room/cvd",
+     "war-room/contrast",
+     "map-1863",
+     "map-1863/cvd",
+     "map-1863/contrast",
+     "minimal",
+     "ribbon"
+    ],
+    "legend": [
+     "Side: Union: the order of battle, or the id prefix U- for ids it does not list D",
+     "Side: Confederate: the order of battle, or the id prefix C- for ids it does not ",
+     "Side: Side UNKNOWN: the id prefix and the state code in the id disagree (10 ids)",
+     "Side: Aggregate of more than one side, or of a contested one (Contact) Computed",
+     "Arm: Infantry regiment Documented",
+     "Arm: Cavalry regiment Documented",
+     "Arm: Artillery battery or battalion Documented",
+     "Strength state: Gauge: this keyframe's strength over the unit's reference streng",
+     "Aggregate: xN stands for N placement records that cannot all stand on their true",
+     "Selection: Selected unit: its tile keeps the highest placement priority and the "
+    ],
+    "cur": "ribbon"
+   }
+  },
+  {
+   "name": "the new skin: zero solid overlaps, no ink outside the footprint box, no unexplained pixel on 49 settled frames (worst {\"ss\":0,\"sd\":0,\"noInk\":0,\"out\":0,\"mx\":0,\"unexplained\":0,\"minGap\":5,\"missing\":0})",
+   "ok": true,
+   "detail": {
+    "ss": 0,
+    "sd": 0,
+    "noInk": 0,
+    "out": 0,
+    "mx": 0,
+    "unexplained": 0,
+    "minGap": 5,
+    "missing": 0
+   }
+  },
+  {
+   "name": "zero-build route: an 11-line raw skin object registered at run time through __studio.kernel.skins.register draws, adapts the layout (chip height 18 px) and keeps zero overlaps",
+   "ok": true,
+   "detail": {
+    "ids": 13,
+    "listed": true,
+    "chips": 108,
+    "ss": {
+     "cc": 0,
+     "lc": 0,
+     "lp": 0,
+     "cp": 0,
+     "ll": 0,
+     "pp": 0
+    },
+    "noInk": 0,
+    "out": 0,
+    "skinNow": "rt-plain",
+    "tileBoxChip": 18
+   }
+  },
+  {
+   "name": "a skin whose token doc string is too short passes `node build.mjs` and then keeps the WHOLE page from starting (the error is thrown at load, not at build): studio ready = false, errors [\"pageerror: ribbon: token color.paper needs a doc string\"]",
+   "ok": false,
+   "detail": {
+    "ready": false,
+    "splashGone": false,
+    "canvasDrawn": true,
+    "errors": [
+     "pageerror: ribbon: token color.paper needs a doc string",
+     "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "buildPassed": true
+   }
+  }
+ ],
+ "defects": [],
+ "length": {
+  "ribbon": {
+   "file": "proto-copy\\src\\skins\\ribbon.mjs",
+   "lines": 45,
+   "codeLines": 42,
+   "chars": 2925,
+   "longest": 240,
+   "over100": 8,
+   "meanLen": 65,
+   "imports": [
+    "./kit.mjs",
+    "./semantics.mjs",
+    "./glyphs.mjs"
+   ],
+   "wrapped100": 54
+  },
+  "minimal": {
+   "file": "..\\..\\..\\docs\\pitch\\anim\\prototype\\src\\skins\\minimal.mjs",
+   "lines": 35,
+   "codeLines": 31,
+   "chars": 3566,
+   "longest": 252,
+   "over100": 18,
+   "meanLen": 101.9,
+   "imports": [
+    "./kit.mjs",
+    "./semantics.mjs",
+    "./glyphs.mjs"
+   ],
+   "wrapped100": 54
+  },
+  "kitLines": [
+   [
+    "kit.mjs",
+    302
+   ],
+   [
+    "semantics.mjs",
+    132
+   ],
+   [
+    "glyphs.mjs",
+    109
+   ]
+  ],
+  "kitTotal": 543
+ },
+ "registration": [
+  "import { RIBBON } from './ribbon.mjs';",
+  "export const SKINS = [referenceSkin, ...FIELD_MANUAL, ...WAR_ROOM, ...MAP_1863, MINIMAL, RIBBON];"
+ ],
+ "repoTests": {
+  "status": 1,
+  "tail": [],
+  "ribbonMentions": [
+   "  +   'ribbon'",
+   "    actual: [ 'reference', 'field-manual', 'field-manual/cvd', 'field-manual/contrast', 'war-room', 'war-room/cvd', 'war-room/contrast', 'map-1863', 'map-1863/cvd', 'map-1863/contrast', 'minimal', 'ribbon' ],"
+  ]
+ },
+ "registered": [
+  "reference",
+  "field-manual",
+  "field-manual/cvd",
+  "field-manual/contrast",
+  "war-room",
+  "war-room/cvd",
+  "war-room/contrast",
+  "map-1863",
+  "map-1863/cvd",
+  "map-1863/contrast",
+  "minimal",
+  "ribbon",
+  "production"
+ ],
+ "sweep": {
+  "samples": 49,
+  "worst": {
+   "ss": 0,
+   "sd": 0,
+   "noInk": 0,
+   "out": 0,
+   "mx": 0,
+   "unexplained": 0,
+   "minGap": 5,
+   "missing": 0
+  }
+ },
+ "skinErrors": [
+  "error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+  "warning: Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+ ],
+ "requests": [],
+ "runtimeRegistration": {
+  "ids": 13,
+  "listed": true,
+  "chips": 108,
+  "ss": {
+   "cc": 0,
+   "lc": 0,
+   "lp": 0,
+   "cp": 0,
+   "ll": 0,
+   "pp": 0
+  },
+  "noInk": 0,
+  "out": 0,
+  "skinNow": "rt-plain",
+  "tileBoxChip": 18
+ },
+ "badSkinBoot": {
+  "ready": false,
+  "splashGone": false,
+  "canvasDrawn": true,
+  "errors": [
+   "pageerror: ribbon: token color.paper needs a doc string",
+   "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "buildPassed": true
+ },
+ "summary": {
+  "pass": 8,
+  "fail": 4
+ }
+}

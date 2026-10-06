@@ -1,0 +1,57 @@
+{
+ "generated": "2026-10-06T10:29:13.335Z",
+ "note": "shipped lS executed in a vm (function lS and its helpers cut from baseline/dist/assets) vs the Studio Before view, same ticks, 1200 frames, 60 Hz virtual time; overlap census on bar rectangles (SAT) written here",
+ "sbs": {
+  "cemetery-hill 1x": {
+   "shippedLS": {
+    "hopsPerSec": 7.5,
+    "suddenPerSec": 7.5,
+    "maxStepPx": 510.4,
+    "overlapPairsPerFrame": 369.2,
+    "tilesPerFrame": 247.2
+   },
+   "beforeView": {
+    "hopsPerSec": 7.55,
+    "suddenPerSec": 7.55,
+    "maxStepPx": 496.3,
+    "overlapPairsPerFrame": 382.5,
+    "tilesPerFrame": 247.2
+   },
+   "pageEngineOverlapsMean": 1260.2
+  },
+  "rose-woods 4x": {
+   "shippedLS": {
+    "hopsPerSec": 73,
+    "suddenPerSec": 45.3,
+    "maxStepPx": 624.5,
+    "overlapPairsPerFrame": 255.7,
+    "tilesPerFrame": 178.6
+   },
+   "beforeView": {
+    "hopsPerSec": 71.55,
+    "suddenPerSec": 43.1,
+    "maxStepPx": 624.5,
+    "overlapPairsPerFrame": 246.9,
+    "tilesPerFrame": 178.6
+   },
+   "pageEngineOverlapsMean": 811.5
+  },
+  "the-angle 4x": {
+   "shippedLS": {
+    "hopsPerSec": 4.9,
+    "suddenPerSec": 4.45,
+    "maxStepPx": 630,
+    "overlapPairsPerFrame": 65,
+    "tilesPerFrame": 141.2
+   },
+   "beforeView": {
+    "hopsPerSec": 5.1,
+    "suddenPerSec": 4.55,
+    "maxStepPx": 629.9,
+    "overlapPairsPerFrame": 64.2,
+    "tilesPerFrame": 141.2
+   },
+   "pageEngineOverlapsMean": 275.2
+  }
+ }
+}

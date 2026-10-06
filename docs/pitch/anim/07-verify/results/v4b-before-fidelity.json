@@ -1,0 +1,116 @@
+{
+ "generated": "2026-10-06T10:19:43.831Z",
+ "checks": [
+  {
+   "name": "Before clock = the shipped playback loop Ed (accumulate frame time, advance floor(acc / (500 / speed)) ticks, draw the OLD tick plus the NEW fraction) on 1560 frames at 1x and 4x",
+   "ok": true,
+   "detail": {
+    "mismatches": 0,
+    "first": []
+   }
+  },
+  {
+   "name": "Before tile set = the set the shipped y1() returns for the same (tick, fraction) for every unit inside the window the shipped lS draws (x -200..width+200, y -40..height+40), and nothing the shipped code would not draw: 522 frames compared (shipped set all units: mean 333, Before draws mean 214 of the 214 near the screen)",
+   "ok": true,
+   "detail": {
+    "framesDifferent": 0,
+    "sampleSet": []
+   }
+  },
+  {
+   "name": "Before true positions = the shipped y1() / F4() positions (lat, lng) projected with my Mercator: 111564 positions, max difference 0.0000 px",
+   "ok": true,
+   "detail": {
+    "compared": 111564,
+    "over0_1px": 0,
+    "maxPx": 4.656612873077393e-10
+   }
+  }
+ ],
+ "shippedSlice": {
+  "chars": 1338,
+  "functions": [
+   "n2",
+   "D4",
+   "B4",
+   "L4",
+   "rA",
+   "z4",
+   "F4",
+   "O4",
+   "y1"
+  ]
+ },
+ "rows": [
+  {
+   "tick": 40,
+   "speed": 1,
+   "frames": 260,
+   "comparedFrames": 87,
+   "positionsCompared": 1178,
+   "positionsOver0_1px": 0,
+   "maxPx": 0,
+   "framesWithDifferentTileSet": 0,
+   "clockMismatches": 0
+  },
+  {
+   "tick": 120,
+   "speed": 1,
+   "frames": 260,
+   "comparedFrames": 87,
+   "positionsCompared": 9831,
+   "positionsOver0_1px": 0,
+   "maxPx": 4.656612873077393e-10,
+   "framesWithDifferentTileSet": 0,
+   "clockMismatches": 0
+  },
+  {
+   "tick": 293,
+   "speed": 4,
+   "frames": 260,
+   "comparedFrames": 87,
+   "positionsCompared": 20295,
+   "positionsOver0_1px": 0,
+   "maxPx": 4.656612873077393e-10,
+   "framesWithDifferentTileSet": 0,
+   "clockMismatches": 0
+  },
+  {
+   "tick": 346,
+   "speed": 1,
+   "frames": 260,
+   "comparedFrames": 87,
+   "positionsCompared": 22881,
+   "positionsOver0_1px": 0,
+   "maxPx": 4.656612873077393e-10,
+   "framesWithDifferentTileSet": 0,
+   "clockMismatches": 0
+  },
+  {
+   "tick": 556,
+   "speed": 4,
+   "frames": 260,
+   "comparedFrames": 87,
+   "positionsCompared": 28582,
+   "positionsOver0_1px": 0,
+   "maxPx": 4.656612873077393e-10,
+   "framesWithDifferentTileSet": 0,
+   "clockMismatches": 0
+  },
+  {
+   "tick": 620,
+   "speed": 4,
+   "frames": 260,
+   "comparedFrames": 87,
+   "positionsCompared": 28797,
+   "positionsOver0_1px": 0,
+   "maxPx": 4.656612873077393e-10,
+   "framesWithDifferentTileSet": 0,
+   "clockMismatches": 0
+  }
+ ],
+ "summary": {
+  "pass": 3,
+  "fail": 0
+ }
+}
