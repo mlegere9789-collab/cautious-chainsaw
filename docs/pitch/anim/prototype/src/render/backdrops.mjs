@@ -9,8 +9,8 @@
 import { project } from '../geo/project.mjs';
 
 const PALETTES = {
-  paper: { bg: '#ebe6da', minor: 'rgba(90,76,50,0.09)', major: 'rgba(90,76,50,0.17)', ink: '#5b5748', halo: 'rgba(235,230,218,0.92)', mark: '#6a6554', caption: 'rgba(60,54,40,0.62)' },
-  ink: { bg: '#14181d', minor: 'rgba(255,255,255,0.05)', major: 'rgba(255,255,255,0.10)', ink: '#a4adb7', halo: 'rgba(20,24,29,0.88)', mark: '#8e98a3', caption: 'rgba(200,208,216,0.6)' },
+  paper: { bg: '#ebe6da', minor: 'rgba(90,76,50,0.09)', major: 'rgba(90,76,50,0.17)', ink: '#5b5748', halo: 'rgba(235,230,218,0.92)', mark: '#6a6554', caption: 'rgba(60,54,40,0.62)', vignette: 'rgba(92,76,44,0.16)', glow: 'rgba(255,252,243,0.55)' },
+  ink: { bg: '#14181d', minor: 'rgba(255,255,255,0.05)', major: 'rgba(255,255,255,0.10)', ink: '#a4adb7', halo: 'rgba(20,24,29,0.88)', mark: '#8e98a3', caption: 'rgba(200,208,216,0.6)', vignette: 'rgba(0,0,0,0.42)', glow: 'rgba(70,96,128,0.10)' },
 };
 
 function niceScale(mpp, targetPx = 110) {                    // a round length (m) whose bar is near targetPx wide
@@ -21,6 +21,8 @@ function niceScale(mpp, targetPx = 110) {                    // a round length (
 function drawBackdrop(pal, c, view, data, tok) {
   const { w, h, camera } = view; const mpp = view.mpp;
   c.fillStyle = pal.bg; c.fillRect(0, 0, w, h);
+  // depth: a soft light in the middle of the map and a vignette at the edges, so the ground sits behind the tiles (drawn first, under the grid; two gradient fills per frame)
+  { const g = c.createRadialGradient(w * 0.5, h * 0.46, 0, w * 0.5, h * 0.46, Math.hypot(w, h) * 0.62); g.addColorStop(0, pal.glow); g.addColorStop(0.55, 'rgba(0,0,0,0)'); g.addColorStop(1, pal.vignette); c.fillStyle = g; c.fillRect(0, 0, w, h); }
   // metric grid, anchored on a fixed world point so it does not swim while the camera moves
   const gridM = tok('backdrop.gridM'); const step = gridM / mpp;
   if (step >= 14) {

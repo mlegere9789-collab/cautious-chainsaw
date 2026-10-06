@@ -79,7 +79,9 @@ test('registry tokens name registries that exist; select tokens\' options are un
 test('registries: ids are validated, members are required, duplicates need replace, events fire; skins, popups and fx start EMPTY, builtins fill interp, layout, motion', () => {
   const k = registerBuiltins(createKernel());
   assert.deepEqual(k.skins.ids(), []); assert.deepEqual(k.popups.ids(), []); assert.deepEqual(k.fx.ids(), []); assert.deepEqual(k.backdrops.ids().sort(), ['ink', 'paper']);
-  assert.deepEqual(k.interp.ids().sort(), ['chord-smooth', 'linear', 'pchip']); assert.deepEqual(k.layout.ids().sort(), ['certified', 'raw']); assert.deepEqual(k.motion.ids().sort(), ['dynamics', 'snap', 'spring']);
+  // the production reproduction (before/after) registers hidden modules next to the designs: they are listed here so nothing is added unnoticed
+  assert.deepEqual(k.interp.ids().sort(), ['chord-smooth', 'linear', 'pchip', 'production-step']); assert.deepEqual(k.layout.ids().sort(), ['certified', 'production', 'raw']); assert.deepEqual(k.motion.ids().sort(), ['dynamics', 'production', 'snap', 'spring']);
+  assert.deepEqual([...k.interp.list(), ...k.layout.list(), ...k.motion.list()].filter((m) => m.hidden).map((m) => m.id).sort(), ['production', 'production', 'production-step'], 'only the reproduction is hidden from the Tuning Studio');
   const ev = []; k.skins.subscribe((e) => ev.push(e.type + ':' + e.id));
   assert.throws(() => k.skins.register('Bad Id', { draw: {} }), /bad module id/); assert.throws(() => k.skins.register('x', {}), /missing required member "draw"/);
   k.skins.register('mine', { draw: { tile() {} }, label: 'Mine' }); assert.throws(() => k.skins.register('mine', { draw: {} }), /already registered/); k.skins.register('mine', { draw: { tile() {} } }, { replace: true });

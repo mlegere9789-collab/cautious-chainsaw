@@ -28,7 +28,8 @@ for (let seed = 1; seed <= SEEDS; seed++) {
       const seen = new Set();
       for (const t of f.tiles) if (t.life === 'live' && t.travelling) { seen.add(t.key); const v = (dimMs.get(t.key) || 0) + dtMs; dimMs.set(t.key, v); if (v > 3000 && !e.transport.gliding) fail(`tile ${t.key} has been dimmed for ${Math.round(v)} ms: a stuck travelling tile`); }
       for (const k of [...dimMs.keys()]) if (!seen.has(k)) dimMs.delete(k);
-      if (f.overlaps) fail(`${f.overlaps} overlapping pairs`); if (f.unrepresented) fail(`${f.unrepresented} unrepresented units`);
+      // the before mode (compare.mode, one of the random dials) IS the production renderer: it overlaps by design.  Every other invariant holds in both modes, and the Studio's guarantee holds on every frame of the after mode, including right after a switch back.
+      if (e.compare === 'after') { if (f.overlaps) fail(`${f.overlaps} overlapping pairs`); if (f.unrepresented) fail(`${f.unrepresented} unrepresented units`); }
       const keys = new Set(); for (const t of f.tiles) { if (keys.has(t.key)) fail('duplicate key ' + t.key); keys.add(t.key); if (![t.x, t.y, t.ax, t.ay, t.w, t.h, t.scale, t.opacity].every(Number.isFinite)) fail('non-finite tile ' + t.key); if (t.opacity < -1e-9 || t.opacity > 1 + 1e-9) fail('opacity ' + t.opacity); }
       if (!Number.isFinite(f.tau) || f.tau < 1 - 1e-9 || f.tau > 675 + 1e-9) fail('tau ' + f.tau); if (!Number.isFinite(f.zoom)) fail('zoom');
     };

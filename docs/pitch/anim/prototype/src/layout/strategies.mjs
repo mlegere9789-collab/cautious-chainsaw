@@ -34,6 +34,8 @@ const certified = {
       /** the display layer reports where tiles ACTUALLY are (offsets from their true positions) so the next solve starts from the picture the viewer sees */
       feedback(offsets) { for (const [key, o] of offsets) { const cur = state.off.get(key); if (cur) { cur.ox = o.ox; cur.oy = o.oy; } } },
       get state() { return state; },
+      /** counts every change of the set of aggregates: the engine keeps stepping for a moment after it moves, so that every aggregate gets its split trial before the picture comes to rest */
+      get stamp() { return state.stamp || 0; },
     };
   },
 };

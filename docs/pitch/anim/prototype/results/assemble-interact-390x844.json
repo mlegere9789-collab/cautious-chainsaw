@@ -1,0 +1,144 @@
+{
+ "generated": "2026-10-06T09:06:03.098Z",
+ "viewport": [
+  390,
+  844
+ ],
+ "dpr": 2,
+ "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+ "checks": [
+  {
+   "name": "boots with the welcome card, the Studio renderer and the default style",
+   "ok": true,
+   "detail": "{\"nar\":true,\"skin\":\"war-room\",\"theme\":\"dark\"}"
+  },
+  {
+   "name": "the splash is gone and the interface has arrived",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "first frame within 1 s of the script starting",
+   "ok": true,
+   "detail": "{\"phases\":{\"parse\":3.3,\"engine\":32.1,\"measure\":49.8,\"ui\":51.7,\"popups\":78.9},\"firstFrameMs\":186.8}"
+  },
+  {
+   "name": "the welcome button starts the showcase",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Escape ends the tour and leaves the Studio renderer on",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "the Showcase button opens the menu",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Escape closes the menu first",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "a hotspot item starts that tour",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "the before step switches the renderer",
+   "ok": true,
+   "detail": "step 1"
+  },
+  {
+   "name": "Next jumps a step",
+   "ok": true,
+   "detail": "1 -> 2"
+  },
+  {
+   "name": "Pause freezes the tour",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Close ends the tour and returns to the Studio renderer, paused",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "the Before button switches (phone)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "B toggles back",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "B twice is a round trip",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "the phone style select picks 1863 Map, high contrast",
+   "ok": true,
+   "detail": "map-1863/contrast"
+  },
+  {
+   "name": "Space plays",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "the tick advances",
+   "ok": true,
+   "detail": "309 -> 321"
+  },
+  {
+   "name": "Space pauses",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "]  raises the speed",
+   "ok": true,
+   "detail": "speed 8"
+  },
+  {
+   "name": "clicking the scrubber seeks (about the middle of the battle)",
+   "ok": true,
+   "detail": "tick 338"
+  },
+  {
+   "name": "Tune opens from the Showcase menu on a phone",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "a click on a tile selects its unit and opens the Inspector",
+   "ok": true,
+   "detail": "{\"sel\":\"U-ART-A4US\",\"tile\":\"U-ART-A4US\"}"
+  },
+  {
+   "name": "no overlap frame and no lost unit in the Studio over the whole session",
+   "ok": true,
+   "detail": "{\"frames\":663,\"overlapFrames\":0,\"unrepresented\":0}"
+  },
+  {
+   "name": "no console error or warning",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "no network request of any kind",
+   "ok": true,
+   "detail": ""
+  }
+ ],
+ "failed": 0,
+ "errors": [],
+ "requests": []
+}

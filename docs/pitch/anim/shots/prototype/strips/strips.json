@@ -1,0 +1,641 @@
+{
+ "generated": "2026-10-06T09:10:00.991Z",
+ "speedx": 16,
+ "frameMs": 16.666666666666668,
+ "crop": {
+  "w": 300,
+  "h": 180
+ },
+ "dpr": 2,
+ "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+ "strips": [
+  {
+   "tier": 2,
+   "afterTravelPx": 2.8,
+   "hotspot": "cemetery-hill",
+   "label": "Cemetery Hill",
+   "startTick": 340,
+   "hotTick": 346,
+   "zoom": 16,
+   "unit": "U-XI-1",
+   "hopFrame": 10,
+   "hopPx": 52.2,
+   "crop": {
+    "x": 532,
+    "y": 186
+   },
+   "modes": {
+    "before": [
+     {
+      "tau": 343.73333333333335,
+      "tick": 344,
+      "x": 673.3966222237796,
+      "y": 249.69984047859907,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 63,
+      "overlaps": 84,
+      "file": "tmp/pitch-anim/assemble/strips/cemetery-hill-before-0.png"
+     },
+     {
+      "tau": 343.26666666666665,
+      "tick": 343,
+      "x": 673.3966222237796,
+      "y": 249.69984047859907,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 63,
+      "overlaps": 84,
+      "file": "tmp/pitch-anim/assemble/strips/cemetery-hill-before-1.png"
+     },
+     {
+      "tau": 344.8,
+      "tick": 345,
+      "x": 673.3966222237796,
+      "y": 249.69984047859907,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 63,
+      "overlaps": 84,
+      "file": "tmp/pitch-anim/assemble/strips/cemetery-hill-before-2.png"
+     },
+     {
+      "tau": 344.3333333333333,
+      "tick": 344,
+      "x": 673.3966222237796,
+      "y": 249.69984047859907,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 63,
+      "overlaps": 84,
+      "file": "tmp/pitch-anim/assemble/strips/cemetery-hill-before-3.png"
+     },
+     {
+      "tau": 345.8666666666667,
+      "tick": 346,
+      "x": 673.3966222237796,
+      "y": 301.8794313389808,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 64,
+      "overlaps": 95,
+      "file": "tmp/pitch-anim/assemble/strips/cemetery-hill-before-4.png"
+     },
+     {
+      "tau": 345.4,
+      "tick": 345,
+      "x": 673.3966222237796,
+      "y": 301.8794313389808,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 64,
+      "overlaps": 95,
+      "file": "tmp/pitch-anim/assemble/strips/cemetery-hill-before-5.png"
+     },
+     {
+      "tau": 346.93333333333334,
+      "tick": 347,
+      "x": 673.3966222237796,
+      "y": 301.8794313389808,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 64,
+      "overlaps": 95,
+      "file": "tmp/pitch-anim/assemble/strips/cemetery-hill-before-6.png"
+     },
+     {
+      "tau": 346.46666666666664,
+      "tick": 346,
+      "x": 673.3966222237796,
+      "y": 301.8794313389808,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 64,
+      "overlaps": 95,
+      "file": "tmp/pitch-anim/assemble/strips/cemetery-hill-before-7.png"
+     }
+    ],
+    "after": [
+     {
+      "tau": 343.4689920000001,
+      "tick": 343,
+      "x": 691.0707069643772,
+      "y": 300.3590136918387,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 359,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/cemetery-hill-after-0.png"
+     },
+     {
+      "tau": 344.0023360000002,
+      "tick": 344,
+      "x": 691.0707069643772,
+      "y": 300.33000022215435,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 359,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/cemetery-hill-after-1.png"
+     },
+     {
+      "tau": 344.5356800000002,
+      "tick": 345,
+      "x": 691.0707069643772,
+      "y": 300.13013336673293,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 357,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/cemetery-hill-after-2.png"
+     },
+     {
+      "tau": 345.06902400000024,
+      "tick": 345,
+      "x": 691.0707069643772,
+      "y": 299.7798061878711,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 357,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/cemetery-hill-after-3.png"
+     },
+     {
+      "tau": 345.60236800000024,
+      "tick": 346,
+      "x": 691.0707069643772,
+      "y": 299.39889927679144,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 357,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/cemetery-hill-after-4.png"
+     },
+     {
+      "tau": 346.1357120000003,
+      "tick": 346,
+      "x": 691.0707069643772,
+      "y": 297.5142442338616,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 359,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/cemetery-hill-after-5.png"
+     },
+     {
+      "tau": 346.6690560000003,
+      "tick": 347,
+      "x": 691.0707069643772,
+      "y": 297.51224423386157,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 359,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/cemetery-hill-after-6.png"
+     },
+     {
+      "tau": 347.2024000000003,
+      "tick": 347,
+      "x": 691.0707069643772,
+      "y": 297.51224423386157,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 360,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/cemetery-hill-after-7.png"
+     }
+    ]
+   }
+  },
+  {
+   "tier": 1,
+   "afterTravelPx": 76.5,
+   "hotspot": "rose-woods",
+   "label": "Rose Woods",
+   "startTick": 287,
+   "hotTick": 293,
+   "zoom": 15,
+   "unit": "C-13MS-B",
+   "hopFrame": 17,
+   "hopPx": 77,
+   "crop": {
+    "x": 258,
+    "y": 224
+   },
+   "modes": {
+    "before": [
+     {
+      "tau": 293.46666666666664,
+      "tick": 293,
+      "x": 431.8322666664608,
+      "y": 346.87917570210993,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 106,
+      "overlaps": 217,
+      "file": "tmp/pitch-anim/assemble/strips/rose-woods-before-0.png"
+     },
+     {
+      "tau": 294,
+      "tick": 294,
+      "x": 431.8322666664608,
+      "y": 346.87917570210993,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 106,
+      "overlaps": 217,
+      "file": "tmp/pitch-anim/assemble/strips/rose-woods-before-1.png"
+     },
+     {
+      "tau": 295.53333333333336,
+      "tick": 296,
+      "x": 431.8322666664608,
+      "y": 346.87917570210993,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 111,
+      "overlaps": 205,
+      "file": "tmp/pitch-anim/assemble/strips/rose-woods-before-2.png"
+     },
+     {
+      "tau": 295.06666666666666,
+      "tick": 295,
+      "x": 431.8322666664608,
+      "y": 346.87917570210993,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 109,
+      "overlaps": 203,
+      "file": "tmp/pitch-anim/assemble/strips/rose-woods-before-3.png"
+     },
+     {
+      "tau": 296.6,
+      "tick": 297,
+      "x": 384.4556799996644,
+      "y": 286.1525779925287,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 111,
+      "overlaps": 212,
+      "file": "tmp/pitch-anim/assemble/strips/rose-woods-before-4.png"
+     },
+     {
+      "tau": 296.1333333333333,
+      "tick": 296,
+      "x": 384.4556799996644,
+      "y": 286.1525779925287,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 111,
+      "overlaps": 212,
+      "file": "tmp/pitch-anim/assemble/strips/rose-woods-before-5.png"
+     },
+     {
+      "tau": 297.6666666666667,
+      "tick": 298,
+      "x": 384.4556799996644,
+      "y": 286.1525779925287,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 111,
+      "overlaps": 212,
+      "file": "tmp/pitch-anim/assemble/strips/rose-woods-before-6.png"
+     },
+     {
+      "tau": 297.2,
+      "tick": 297,
+      "x": 384.4556799996644,
+      "y": 286.1525779925287,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 111,
+      "overlaps": 212,
+      "file": "tmp/pitch-anim/assemble/strips/rose-woods-before-7.png"
+     }
+    ],
+    "after": [
+     {
+      "tau": 294.2024000000003,
+      "tick": 294,
+      "x": 386.25151391513646,
+      "y": 282.4901146078482,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 261,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/rose-woods-after-0.png"
+     },
+     {
+      "tau": 294.73574400000035,
+      "tick": 295,
+      "x": 385.3652986269444,
+      "y": 281.33657787181437,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 261,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/rose-woods-after-1.png"
+     },
+     {
+      "tau": 295.26908800000035,
+      "tick": 295,
+      "x": 384.7668442344293,
+      "y": 280.5576031766832,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 263,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/rose-woods-after-2.png"
+     },
+     {
+      "tau": 295.8024320000004,
+      "tick": 296,
+      "x": 384.478935980238,
+      "y": 280.18284901138395,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 263,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/rose-woods-after-3.png"
+     },
+     {
+      "tau": 296.3357760000004,
+      "tick": 296,
+      "x": 387.0446027973667,
+      "y": 282.9964706869796,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 263,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/rose-woods-after-4.png"
+     },
+     {
+      "tau": 296.8691200000004,
+      "tick": 297,
+      "x": 399.3446104004979,
+      "y": 297.1381064625457,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 264,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/rose-woods-after-5.png"
+     },
+     {
+      "tau": 297.40246400000046,
+      "tick": 297,
+      "x": 416.82906248327345,
+      "y": 318.99651282839477,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 264,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/rose-woods-after-6.png"
+     },
+     {
+      "tau": 297.93580800000046,
+      "tick": 298,
+      "x": 431.799500368438,
+      "y": 343.8993223309517,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 263,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/rose-woods-after-7.png"
+     }
+    ]
+   }
+  },
+  {
+   "tier": 1,
+   "afterTravelPx": 48.1,
+   "hotspot": "the-angle",
+   "label": "The Angle",
+   "startTick": 550,
+   "hotTick": 556,
+   "zoom": 15,
+   "unit": "U-II",
+   "hopFrame": 23,
+   "hopPx": 51.3,
+   "crop": {
+    "x": 775,
+    "y": 360
+   },
+   "modes": {
+    "before": [
+     {
+      "tau": 560.6666666666666,
+      "tick": 561,
+      "x": 887.7721600001678,
+      "y": 450,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 145,
+      "overlaps": 313,
+      "file": "tmp/pitch-anim/assemble/strips/the-angle-before-0.png"
+     },
+     {
+      "tau": 560.2,
+      "tick": 560,
+      "x": 887.7721600001678,
+      "y": 450,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 145,
+      "overlaps": 313,
+      "file": "tmp/pitch-anim/assemble/strips/the-angle-before-1.png"
+     },
+     {
+      "tau": 561.7333333333333,
+      "tick": 562,
+      "x": 887.7721600001678,
+      "y": 450,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 145,
+      "overlaps": 313,
+      "file": "tmp/pitch-anim/assemble/strips/the-angle-before-2.png"
+     },
+     {
+      "tau": 561.2666666666667,
+      "tick": 561,
+      "x": 887.7721600001678,
+      "y": 450,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 145,
+      "overlaps": 313,
+      "file": "tmp/pitch-anim/assemble/strips/the-angle-before-3.png"
+     },
+     {
+      "tau": 562.8,
+      "tick": 563,
+      "x": 939.0358755560592,
+      "y": 450,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 146,
+      "overlaps": 314,
+      "file": "tmp/pitch-anim/assemble/strips/the-angle-before-4.png"
+     },
+     {
+      "tau": 562.3333333333334,
+      "tick": 562,
+      "x": 939.0358755560592,
+      "y": 450,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 146,
+      "overlaps": 314,
+      "file": "tmp/pitch-anim/assemble/strips/the-angle-before-5.png"
+     },
+     {
+      "tau": 563.8666666666667,
+      "tick": 564,
+      "x": 939.0358755560592,
+      "y": 450,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 146,
+      "overlaps": 314,
+      "file": "tmp/pitch-anim/assemble/strips/the-angle-before-6.png"
+     },
+     {
+      "tau": 563.4,
+      "tick": 563,
+      "x": 939.0358755560592,
+      "y": 450,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 146,
+      "overlaps": 314,
+      "file": "tmp/pitch-anim/assemble/strips/the-angle-before-7.png"
+     }
+    ],
+    "after": [
+     {
+      "tau": 560.4024640000005,
+      "tick": 560,
+      "x": 915.0480639133602,
+      "y": 450,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 319,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/the-angle-after-0.png"
+     },
+     {
+      "tau": 560.9358080000005,
+      "tick": 561,
+      "x": 924.1240617465228,
+      "y": 450,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 317,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/the-angle-after-1.png"
+     },
+     {
+      "tau": 561.4691520000005,
+      "tick": 561,
+      "x": 932.4176589334384,
+      "y": 450,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 316,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/the-angle-after-2.png"
+     },
+     {
+      "tau": 562.0024960000005,
+      "tick": 562,
+      "x": 939.0618172567338,
+      "y": 450,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 316,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/the-angle-after-3.png"
+     },
+     {
+      "tau": 562.5358400000006,
+      "tick": 563,
+      "x": 944.807384529151,
+      "y": 450,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 315,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/the-angle-after-4.png"
+     },
+     {
+      "tau": 563.0691840000006,
+      "tick": 563,
+      "x": 950.8426334792748,
+      "y": 450,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 317,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/the-angle-after-5.png"
+     },
+     {
+      "tau": 563.6025280000006,
+      "tick": 564,
+      "x": 956.9982371535152,
+      "y": 450,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 316,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/the-angle-after-6.png"
+     },
+     {
+      "tau": 564.1358720000006,
+      "tick": 564,
+      "x": 963.1048685992137,
+      "y": 450,
+      "solid": true,
+      "opacity": 1,
+      "tiles": 316,
+      "overlaps": 0,
+      "file": "tmp/pitch-anim/assemble/strips/the-angle-after-7.png"
+     }
+    ]
+   }
+  }
+ ],
+ "errors": [],
+ "requests": [],
+ "summary": [
+  {
+   "hotspot": "cemetery-hill",
+   "unit": "U-XI-1",
+   "largestStepBeforePx": 52.2,
+   "largestStepAfterPx": 1.9,
+   "tau": [
+    343.73333333333335,
+    346.46666666666664
+   ]
+  },
+  {
+   "hotspot": "rose-woods",
+   "unit": "C-13MS-B",
+   "largestStepBeforePx": 77.0,
+   "largestStepAfterPx": 29.1,
+   "tau": [
+    293.46666666666664,
+    297.2
+   ]
+  },
+  {
+   "hotspot": "the-angle",
+   "unit": "U-II",
+   "largestStepBeforePx": 51.3,
+   "largestStepAfterPx": 9.1,
+   "tau": [
+    560.6666666666666,
+    563.4
+   ]
+  }
+ ]
+}

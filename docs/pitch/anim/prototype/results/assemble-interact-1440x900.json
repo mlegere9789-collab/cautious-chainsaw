@@ -1,0 +1,179 @@
+{
+ "generated": "2026-10-06T09:05:43.813Z",
+ "viewport": [
+  1440,
+  900
+ ],
+ "dpr": 1,
+ "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+ "checks": [
+  {
+   "name": "boots with the welcome card, the Studio renderer and the default style",
+   "ok": true,
+   "detail": "{\"nar\":true,\"skin\":\"war-room\",\"theme\":\"dark\"}"
+  },
+  {
+   "name": "the splash is gone and the interface has arrived",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "first frame within 1 s of the script starting",
+   "ok": true,
+   "detail": "{\"phases\":{\"parse\":3.2,\"engine\":31.6,\"measure\":53.9,\"ui\":56,\"popups\":100.5},\"firstFrameMs\":213.4}"
+  },
+  {
+   "name": "the welcome button starts the showcase",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Escape ends the tour and leaves the Studio renderer on",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "the Showcase button opens the menu",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Escape closes the menu first",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "a hotspot item starts that tour",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "the before step switches the renderer",
+   "ok": true,
+   "detail": "step 1"
+  },
+  {
+   "name": "Next jumps a step",
+   "ok": true,
+   "detail": "1 -> 2"
+  },
+  {
+   "name": "Pause freezes the tour",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Close ends the tour and returns to the Studio renderer, paused",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "the Before button switches to the production reproduction",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "B toggles back",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "B twice is a round trip",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Field Manual: skin, paper ground and light theme follow",
+   "ok": true,
+   "detail": "{\"skin\":\"field-manual\",\"bd\":\"paper\",\"th\":\"light\"}"
+  },
+  {
+   "name": "the variant select picks the colour-blind-safe skin",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "1863 Map keeps the chosen variant",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "War Room returns to the dark theme",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Space plays",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "the tick advances",
+   "ok": true,
+   "detail": "309 -> 321"
+  },
+  {
+   "name": "Space pauses",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "]  raises the speed",
+   "ok": true,
+   "detail": "speed 8"
+  },
+  {
+   "name": "clicking the scrubber seeks (about the middle of the battle)",
+   "ok": true,
+   "detail": "tick 338"
+  },
+  {
+   "name": "Tune opens the Tuning Studio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "the Tuning Studio has the Before / After dial",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "the reproduction modules are hidden from the layout, motion, interpolation and skin lists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "M opens the metrics overlay with a column for each renderer",
+   "ok": true,
+   "detail": "rows 14"
+  },
+  {
+   "name": "the wheel zooms in",
+   "ok": true,
+   "detail": "15 -> 15.63"
+  },
+  {
+   "name": "a click on a tile selects its unit and opens the Inspector",
+   "ok": true,
+   "detail": "{\"sel\":\"U-15MA\",\"tile\":\"U-15MA\"}"
+  },
+  {
+   "name": "no overlap frame and no lost unit in the Studio over the whole session",
+   "ok": true,
+   "detail": "{\"frames\":775,\"overlapFrames\":0,\"unrepresented\":0}"
+  },
+  {
+   "name": "no console error or warning",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "no network request of any kind",
+   "ok": true,
+   "detail": ""
+  }
+ ],
+ "failed": 0,
+ "errors": [],
+ "requests": []
+}

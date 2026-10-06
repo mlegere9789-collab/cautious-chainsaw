@@ -73,6 +73,16 @@
      ],
      "default": "stop"
     },
+    "time.model": {
+     "description": "RESEARCH. The production loop adds the frame time to a per-tick accumulator and draws the tick read at the START of the frame with the fraction of the current one: on the frame in which the tick advances it draws the old tick with the new fraction, so interpolating units step back for one frame (report 01, 6.3). Pair it with a smooth motion model to see that bug alone.",
+     "x-token": "time",
+     "type": "string",
+     "enum": [
+      "smooth",
+      "production"
+     ],
+     "default": "smooth"
+    },
     "interp.model": {
      "description": "How a unit moves between its own keyframes. All models are exact at every keyframe; between keyframes the position is Modelled.",
      "x-token": "interp",
@@ -486,6 +496,16 @@
      "x-token": "metrics",
      "type": "boolean",
      "default": true
+    },
+    "compare.mode": {
+     "description": "Replays the same ticks through the shipped tile renderer, reproduced from report 01 (bars, per-tick stepping with the stale-tick bug, hold-then-jump keyframes, the from-scratch relaxation that leaves tiles overlapping), or through the Studio. Your own settings are kept while the production dials are laid over them. Positions and strengths stay Modelled in both.",
+     "x-token": "compare",
+     "type": "string",
+     "enum": [
+      "after",
+      "before"
+     ],
+     "default": "after"
     },
     "popup.enabled": {
      "description": "Master switch of every popup. Off hides all cards, chips, the rail and the Chronicle strip; the map is unchanged.",

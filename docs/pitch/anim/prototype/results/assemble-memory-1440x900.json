@@ -1,0 +1,141 @@
+{
+ "generated": "2026-10-06T09:00:12.142Z",
+ "viewport": [
+  1440,
+  900
+ ],
+ "dpr": 1,
+ "cpuThrottle": 1,
+ "checkpoints": [
+  {
+   "label": "after load",
+   "usedMB": 10.66,
+   "totalMB": 14.56,
+   "domNodes": 286
+  },
+  {
+   "label": "after showcase 1",
+   "usedMB": 11.32,
+   "totalMB": 13.57,
+   "domNodes": 263
+  },
+  {
+   "label": "after showcase 2",
+   "usedMB": 11.31,
+   "totalMB": 13.82,
+   "domNodes": 266
+  },
+  {
+   "label": "after showcase 3",
+   "usedMB": 11.2,
+   "totalMB": 11.82,
+   "domNodes": 293
+  },
+  {
+   "label": "after 80 before/after and 30 style switches",
+   "usedMB": 14.25,
+   "totalMB": 17.82,
+   "domNodes": 197
+  }
+ ],
+ "showcase": [
+  {
+   "run": 1,
+   "seconds": 60.1,
+   "stepsSeen": 10,
+   "rafFrames": 3551,
+   "rafFps": 59.1,
+   "rafP50": 16.7,
+   "rafP95": 16.8,
+   "rafP99": 33.2,
+   "rafMax": 66.6,
+   "over20Pct": 1.07,
+   "over33Pct": 0.59,
+   "afterLane": {
+    "frames": 2713,
+    "overlapFrames": 0,
+    "overlapPairs": 0,
+    "unrepresented": 0,
+    "engineMsMean": 3.74,
+    "engineMsP95": 6.7
+   },
+   "cardFrames": {
+    "frames": 3610,
+    "withCards": 783,
+    "over": 0
+   },
+   "endMode": "after",
+   "popupsRestored": true
+  },
+  {
+   "run": 2,
+   "seconds": 60.5,
+   "stepsSeen": 10,
+   "rafFrames": 3562,
+   "rafFps": 58.9,
+   "rafP50": 16.7,
+   "rafP95": 16.8,
+   "rafP99": 33.3,
+   "rafMax": 66.7,
+   "over20Pct": 1.4,
+   "over33Pct": 0.56,
+   "afterLane": {
+    "frames": 2721,
+    "overlapFrames": 0,
+    "overlapPairs": 0,
+    "unrepresented": 0,
+    "engineMsMean": 3.56,
+    "engineMsP95": 6.3
+   },
+   "cardFrames": {
+    "frames": 7177,
+    "withCards": 1538,
+    "over": 0
+   },
+   "endMode": "after",
+   "popupsRestored": true
+  },
+  {
+   "run": 3,
+   "seconds": 60.5,
+   "stepsSeen": 10,
+   "rafFrames": 3561,
+   "rafFps": 58.9,
+   "rafP50": 16.7,
+   "rafP95": 16.8,
+   "rafP99": 33.3,
+   "rafMax": 66.7,
+   "over20Pct": 1.4,
+   "over33Pct": 0.51,
+   "afterLane": {
+    "frames": 2721,
+    "overlapFrames": 0,
+    "overlapPairs": 0,
+    "unrepresented": 0,
+    "engineMsMean": 3.63,
+    "engineMsP95": 6.5
+   },
+   "cardFrames": {
+    "frames": 10743,
+    "withCards": 2290,
+    "over": 0
+   },
+   "endMode": "after",
+   "popupsRestored": true
+  }
+ ],
+ "summary": {
+  "heapAfterLoadMB": 10.66,
+  "heapAfterRunsMB": [
+   11.32,
+   11.31,
+   11.2
+  ],
+  "growthBetweenFirstAndLastRunMB": -0.11,
+  "heapAfterStressMB": 14.25,
+  "errors": 0,
+  "requests": 0
+ },
+ "errors": [],
+ "requests": []
+}

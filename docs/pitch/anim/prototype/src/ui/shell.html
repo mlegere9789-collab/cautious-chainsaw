@@ -4,14 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Battle Studio</title>
-<meta name="description" content="A shared animation engine for the Gettysburg battle map: real placements, a certified no-overlap layout, continuous time and a live Tuning Studio. Prototype, schematic backdrop.">
+<meta name="description" content="A shared animation engine for the Gettysburg battle map: real placements, a certified no-overlap layout, continuous time, a before/after replay of the production renderer and a live Tuning Studio. Prototype, schematic backdrop.">
+<meta name="color-scheme" content="dark light">
 <style>
 <!--@STYLE-->
 </style>
 </head>
-<body>
+<body class="booting">
+<div id="splash" aria-hidden="true"><div class="sp"><b>Battle Studio</b><span>Gettysburg · the real order of battle, drawn from the real placements</span><i></i></div></div>
 <div id="app">
   <canvas id="map" role="img" aria-label="Schematic map of the Gettysburg battle with unit tiles. Use the transport controls below to play, pause and scrub the three days."></canvas>
+  <canvas id="map-fade" aria-hidden="true"></canvas>
   <div id="popups" aria-live="polite"></div>
   <noscript><p style="position:absolute;inset:80px 20px auto;color:#e9edf2">The Battle Studio needs JavaScript. It makes no network requests: everything is in this one file.</p></noscript>
 </div>

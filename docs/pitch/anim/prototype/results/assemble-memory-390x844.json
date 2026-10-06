@@ -1,0 +1,106 @@
+{
+ "generated": "2026-10-06T09:03:18.315Z",
+ "viewport": [
+  390,
+  844
+ ],
+ "dpr": 2,
+ "cpuThrottle": 1,
+ "checkpoints": [
+  {
+   "label": "after load",
+   "usedMB": 9.84,
+   "totalMB": 13.81,
+   "domNodes": 190
+  },
+  {
+   "label": "after showcase 1",
+   "usedMB": 10.74,
+   "totalMB": 13.24,
+   "domNodes": 221
+  },
+  {
+   "label": "after showcase 2",
+   "usedMB": 10.75,
+   "totalMB": 13.49,
+   "domNodes": 221
+  },
+  {
+   "label": "after 80 before/after and 30 style switches",
+   "usedMB": 12.53,
+   "totalMB": 17.37,
+   "domNodes": 197
+  }
+ ],
+ "showcase": [
+  {
+   "run": 1,
+   "seconds": 60.2,
+   "stepsSeen": 10,
+   "rafFrames": 3579,
+   "rafFps": 59.4,
+   "rafP50": 16.7,
+   "rafP95": 16.8,
+   "rafP99": 16.8,
+   "rafMax": 66.7,
+   "over20Pct": 0.67,
+   "over33Pct": 0.36,
+   "afterLane": {
+    "frames": 2741,
+    "overlapFrames": 0,
+    "overlapPairs": 0,
+    "unrepresented": 0,
+    "engineMsMean": 3.9,
+    "engineMsP95": 6.6
+   },
+   "cardFrames": {
+    "frames": 3639,
+    "withCards": 449,
+    "over": 0
+   },
+   "endMode": "after",
+   "popupsRestored": true
+  },
+  {
+   "run": 2,
+   "seconds": 60.1,
+   "stepsSeen": 10,
+   "rafFrames": 3575,
+   "rafFps": 59.5,
+   "rafP50": 16.7,
+   "rafP95": 16.8,
+   "rafP99": 16.8,
+   "rafMax": 50.1,
+   "over20Pct": 0.56,
+   "over33Pct": 0.31,
+   "afterLane": {
+    "frames": 2734,
+    "overlapFrames": 0,
+    "overlapPairs": 0,
+    "unrepresented": 0,
+    "engineMsMean": 3.88,
+    "engineMsP95": 6.3
+   },
+   "cardFrames": {
+    "frames": 7218,
+    "withCards": 874,
+    "over": 0
+   },
+   "endMode": "after",
+   "popupsRestored": true
+  }
+ ],
+ "summary": {
+  "heapAfterLoadMB": 9.84,
+  "heapAfterRunsMB": [
+   10.74,
+   10.75
+  ],
+  "growthBetweenFirstAndLastRunMB": 0,
+  "heapAfterStressMB": 12.53,
+  "errors": 0,
+  "requests": 0
+ },
+ "errors": [],
+ "requests": []
+}

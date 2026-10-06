@@ -22,7 +22,7 @@ function run(e, frames, dtOf = () => 1000 / 60, onFrame = null) {
     // independent re-verification of the displayed frame from the frame object alone (not from the display layer's own bookkeeping)
     const items = []; for (const t of f.tiles) { if (!t.solid) continue; const hw = t.w * t.scale / 2; const hh = t.h * t.scale / 2; items.push({ owner: t.key, kind: 'chip', x0: t.x - hw, y0: t.y - hh, x1: t.x + hw, y1: t.y + hh }); if (t.label && t.label.opacity >= 0.5) items.push({ owner: t.key, kind: 'label', x0: t.label.x0, y0: t.label.y0, x1: t.label.x1, y1: t.label.y1 }); if (t.displaced) items.push({ owner: t.key, kind: 'pin', x0: t.ax - 2, y0: t.ay - 2, x1: t.ax + 2, y1: t.ay + 2 }); }
     const v = verifyFrame(items, 0); if (v.overlaps) bad.push(`frame ${i}: independent check found ${v.overlaps} overlaps`);
-    if (prev && !f.stats.cut) for (const t of f.tiles) { if (t.life !== 'live' || !t.solid) continue; const p = prev.get(t.key); if (p && Math.hypot((t.x - t.ax) - p[0], (t.y - t.ay) - p[1]) > 30) teleports++; }
+    if (prev && !f.stats.cut) for (const t of f.tiles) { if (t.life !== 'live' || !t.solid) continue; const p = prev.get(t.key); if (p && Math.hypot((t.x - t.ax) - p[0] + (t.ajx || 0), (t.y - t.ay) - p[1] + (t.ajy || 0)) > 30) teleports++; }
     prev = new Map(f.tiles.filter((t) => t.solid && t.life === 'live').map((t) => [t.key, [t.x - t.ax, t.y - t.ay]]));
     if (onFrame) onFrame(f, i);
   }

@@ -181,7 +181,11 @@ export function createPopupLayer({ root, container, engine, host, systemReduced 
     const mapW = ar.width - (parseFloat(root.style.getPropertyValue('--rail-w')) || 0);
     const pn = document.getElementById('panel'); if (pn && !pn.classList.contains('hidden') && ar.width >= 760) { const r = rel(pn.getBoundingClientRect()); right = Math.max(0, mapW - r.x0); }
     const mt = document.getElementById('metrics'); if (mt && !mt.classList.contains('hidden')) rects.push(rel(mt.getBoundingClientRect()));
-    L.chromeCache = { rects, dock: dockBand + 8, safe: { top: top > 0 ? top + 8 : 0, bottom: bottom > 0 ? bottom + 8 : 0, left: 0, right: right > 0 ? right + 8 : 0 } }; L.chromeAt = now; L.chromeDirty = false; return L.chromeCache;
+    // other interface that floats over the map and announces itself with data-chrome (the narration card, the before badge): a card must not land under it either; the narration column also
+    // narrows the free part of the map on a desktop (left inset), on a phone it is a strip above the dock and only a rectangle
+    let left = 0;
+    for (const n of root.querySelectorAll('[data-chrome]')) { if (n.classList.contains('hidden') || n.classList.contains('off')) continue; const r = n.getBoundingClientRect(); if (r.width <= 0 || r.height <= 0) continue; const q = rel(r); rects.push(q); if (n.id === 'narration' && ar.width >= 760) left = Math.max(left, q.x1); }
+    L.chromeCache = { rects, dock: dockBand + 8, safe: { top: top > 0 ? top + 8 : 0, bottom: bottom > 0 ? bottom + 8 : 0, left: left > 0 ? left + 8 : 0, right: right > 0 ? right + 8 : 0 } }; L.chromeAt = now; L.chromeDirty = false; return L.chromeCache;
   }
 
 
@@ -225,5 +229,5 @@ export function createPopupLayer({ root, container, engine, host, systemReduced 
     if (host.key(e.key, { shift: e.shiftKey, target: inCard || onButton ? tg : null })) { e.preventDefault(); e.stopPropagation(); }
   }, true);
 
-  return { update, measure, chrome, toneColors, laneRects: () => L.lanes, applyStyle, el: { rail, strip, live, btns }, get frames() { return L.frame; }, dispose() { rail.remove(); strip.remove(); live.remove(); btns.remove(); for (const e of els.values()) e.el.remove(); els.clear(); } };
+  return { update, measure, chrome, markChrome, toneColors, laneRects: () => L.lanes, applyStyle, el: { rail, strip, live, btns }, get frames() { return L.frame; }, dispose() { rail.remove(); strip.remove(); live.remove(); btns.remove(); for (const e of els.values()) e.el.remove(); els.clear(); } };
 }

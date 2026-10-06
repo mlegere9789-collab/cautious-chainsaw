@@ -42,4 +42,5 @@ test('no personal data, and the data labels are present: no e-mail address; the 
   assert.ok(/candidate clock/.test(html) && /Schematic backdrop/.test(html));
 });
 
-test('size budget: under 1.5 MB readable (the real data is 450 KB of it)', () => { assert.ok(html.length < 1_500_000, html.length + ' bytes'); });
+// 1.5 MB until the assembly (data 450 KB, popup text 307 KB); the assembled page adds the three skins' tokens, the tours, the production reproduction and the chrome's design system (about 0.1 MB more)
+test('size budget: under 1.6 MB readable (the real data is 450 KB of it, the real popup text 307 KB)', () => { assert.ok(html.length < 1_600_000, html.length + ' bytes'); });

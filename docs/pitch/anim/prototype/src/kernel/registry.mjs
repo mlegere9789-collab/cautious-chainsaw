@@ -48,5 +48,6 @@ export function createKernel() {
     popups: new Registry('popups', { required: ['update'] }),        // what pops up during the animation (see popups/host.mjs)
     fx: new Registry('fx', { required: ['update'] }),                // map effects drawn between the backdrop and the tiles
     backdrops: new Registry('backdrops', { required: ['draw'] }),    // schematic ground
+    tours: new Registry('tours', { required: ['steps'] }),           // scripted tours: data (tours/director.mjs documents the format)
   };
 }

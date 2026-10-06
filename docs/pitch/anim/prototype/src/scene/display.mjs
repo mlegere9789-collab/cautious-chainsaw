@@ -27,7 +27,9 @@ const smooth = (x) => { x = clamp01(x); return x * x * (3 - 2 * x); };
 export const SOLID = 0.5;                      // opacity at or above which a tile counts as solid (an obstacle that must not be overlapped)
 const SEQ = 0.52;                              // a newborn that takes over from fading tiles starts when they are below SOLID: 0.52 x their fade time
 const DIM_MS = 60;                             // a tile that decides to travel dims over this long before it moves
-const RAMP_MS = 140;                           // and solidifies over this long on arrival
+const RAMP_MS = 140;
+const SETTLE_PX = 0.25;                       // a tile this close to its target and slower than SETTLE_V (px/s) has arrived
+const SETTLE_V = 12;                           // and solidifies over this long on arrival
 
 function flattenLeaves(t, out = []) { if (t.kind === 'leaf') out.push(t); else for (const m of t.members) flattenLeaves(m, out); return out; }
 
@@ -97,7 +99,19 @@ export class Display {
     for (const d of this.tiles.values()) {
       if (d.life !== 'live') continue;
       const p = byLKey.get(d.lkey); if (!p) continue;
-      const t = p.t;
+      const t = p.t; d.ajx = 0; d.ajy = 0;
+      // ANCHOR CONTINUITY.  A leaf's anchor is the unit's true position, which moves continuously.  An aggregate's anchor is the centroid of its members, so when a member joins or leaves a tile that
+      // keeps its identity the centroid JUMPS (measured on the real data: up to 116 px in one frame at zoom 14), and since position = anchor + offset the tile would hop.  The part of the
+      // anchor's change that the members' own motion does not explain is absorbed into the offset, so the tile stays where it was drawn and glides (or travels, when the way is longer than the
+      // budget allows a solid tile to move) to its new certified place.
+      if (d.kind === 'agg' && d.members && !snapMode) {                    // (snap mode shows the layout as solved, anchor hops included: it is the baseline the other modes are compared with)
+        const old = this._mm || (this._mm = new Map()); old.clear(); for (const m of d.members) old.set(m.id, m);
+        let ex = 0; let ey = 0; let sw = 0;
+        for (const l of flattenLeaves(t)) { const o = old.get(l.ids[0]); if (!o) continue; const w = Math.max(1, l.strength || 1); ex += (l.ax - o.ax) * w; ey += (l.ay - o.ay) * w; sw += w; }
+        if (sw > 0) { ex /= sw; ey /= sw; }
+        const jx = (t.ax - d.ax) - ex; const jy = (t.ay - d.ay) - ey;
+        if (jx * jx + jy * jy > 0.5625) { d.ox -= jx; d.oy -= jy; d.ajx = jx; d.ajy = jy; stats.anchorFixes = (stats.anchorFixes || 0) + 1; if (!d.dim && Math.hypot(d.ox, d.oy) > this.tok('layout.dMaxPx') + 0.5) { d.dim = true; stats.travels++; } }
+      }
       d.ax = t.ax; d.ay = t.ay; d.tx = p.cx - t.ax; d.ty = p.cy - t.ay; d.tw = t.chipW; d.th = t.chipH; d.prio = t.prio;
       this._content(d, t, dt, inp);
     }
@@ -139,6 +153,8 @@ export class Display {
         const o = { x: d.ox, y: d.oy }; const v = { x: d.vx, y: d.vy };
         dampStep2(o, v, d.tx, d.ty, d.dim ? travelT : smoothT, dt, d.dim ? 1e9 : maxSpeed);
         d.ox = o.x; d.oy = o.y; d.vx = v.x; d.vy = v.y;
+        // arrival: within a quarter pixel of the target and nearly still, the tile IS at the target (a solver whose target creeps by thousandths of a pixel must not keep the picture awake)
+        if (!d.dim && d.vx * d.vx + d.vy * d.vy < SETTLE_V * SETTLE_V && (d.tx - d.ox) * (d.tx - d.ox) + (d.ty - d.oy) * (d.ty - d.oy) < SETTLE_PX * SETTLE_PX) { d.ox = d.tx; d.oy = d.ty; d.vx = 0; d.vy = 0; }
         d.w = dampStep(d.w, 0, d.tw, 0.06, dt)[0]; d.h = dampStep(d.h, 0, d.th, 0.06, dt)[0];
       } else { d.vx = 0; d.vy = 0; }
     }
@@ -164,7 +180,7 @@ export class Display {
   busy() {
     for (const d of this.tiles.values()) {
       if (d.life === 'dying' || d.born || d.dim || d.mv < 1) return true;
-      if (Math.hypot(d.vx, d.vy) > 0.05 || Math.hypot(d.tx - d.ox, d.ty - d.oy) > 0.02 || Math.abs(d.w - d.tw) > 0.02 || Math.abs(d.h - d.th) > 0.02) return true;
+      if (Math.hypot(d.vx, d.vy) > SETTLE_V || Math.hypot(d.tx - d.ox, d.ty - d.oy) > SETTLE_PX || Math.abs(d.w - d.tw) > 0.02 || Math.abs(d.h - d.th) > 0.02) return true;
       if (Math.abs((d.ratioShown ?? 1) - (d.ratioTarget ?? 1)) > 0.002) return true;
       const L = d.label; if ((L.opacity > 0 && L.opacity < 1) || (!L.vis && L.feas > 0)) return true;
     }
@@ -247,7 +263,8 @@ export class Display {
   }
 
   _collide(spec, iters, stats) {
-    const gap = spec.gap + 0.25; const dMax = this.tok('layout.dMaxPx'); const pinHalf = spec.pinHalf; const SLACK = 24; const maxPush = this.tok('motion.maxPushPx');
+    // the pushing gap is the solver's own clearance (minus a hair): pushing at gap + 0.25 pulled every pair of touching tiles apart against the glide that pulled them back, for ever (measured: 150 to 200 tiles never at rest)
+    const gap = spec.gap - 0.002; const dMax = this.tok('layout.dMaxPx'); const pinHalf = spec.pinHalf; const SLACK = 24; const maxPush = this.tok('motion.maxPushPx');
     const act = []; for (const d of this.tiles.values()) if (d.opacity > 0.3 && !d.ghost && !d.dim) act.push(d);
     if (act.length < 2) return;
     // entities = chips (index < n) and the pins of displaced tiles (index >= n); columns of numbers, no per-pair allocation
@@ -381,7 +398,7 @@ export class Display {
     this.prevAssign = assign;
     const tiles = list.map((d) => ({
       key: d.key, kind: d.kind, ids: d.ids, n: d.n, x: d.ax + d.ox, y: d.ay + d.oy, ax: d.ax, ay: d.ay, w: d.w, h: d.h, scale: d.scale, opacity: d.opacity, solid: d.opacity >= SOLID, life: d.life,
-      entering: d.born, travelling: d.dim, displaced: Math.hypot(d.ox, d.oy) > 1.5, side: d.side, arm: d.arm, short: d.short, badge: d.badge, nameKind: d.nameKind, ratio: d.ratioShown, strength: d.strength,
+      ajx: d.ajx || 0, ajy: d.ajy || 0, entering: d.born, travelling: d.dim, displaced: Math.hypot(d.ox, d.oy) > 1.5, side: d.side, arm: d.arm, short: d.short, badge: d.badge, nameKind: d.nameKind, ratio: d.ratioShown, strength: d.strength,
       disposition: d.disposition, selected: !!d.selected, unit: d.unit, ageTicks: d.ageTicks, ageMin: d.ageMin, ageMax: d.ageMax, moving: !!d.moving, members: d.members,
       label: d.label.opacity > 0.01 && d.label.rect && d.labelText ? { text: d.labelText, slot: d.label.slot, opacity: d.label.opacity, x0: d.label.rect.x0, y0: d.label.rect.y0, x1: d.label.rect.x1, y1: d.label.rect.y1 } : null,
     }));

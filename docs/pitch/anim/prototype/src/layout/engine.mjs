@@ -10,6 +10,7 @@ import { Hash, clearance } from './geom.mjs';
 import { makeAggregate } from './tiles.mjs';
 
 const EPS = 1e-7;
+const HOLD_PX = 0.75;
 
 export class Occ {
   constructor(cell = 64) { this.h = new Hash(cell); }
@@ -85,9 +86,38 @@ export const SLOTS = ['r', 'l', 'b', 't'];
 export const pinRect = (t, spec, kind = 'pin') => ({ x0: t.ax - spec.pinHalf, y0: t.ay - spec.pinHalf, x1: t.ax + spec.pinHalf, y1: t.ay + spec.pinHalf, owner: t.key, kind });
 export const plain = (r) => ({ x0: r.x0, y0: r.y0, x1: r.x1, y1: r.y1 });
 
+// ---- neighbourhood signatures (the REST LATCH) --------------------------------------------------------------------------------------------------------
+// Measured on the real data (tmp/pitch-anim/assemble, paused, camera still): the sticky split trials never settled.  The Angle at zoom 14 changed its aggregate set 347 times in 60 s
+// (a limit cycle: a split succeeds, the neighbours that were pushed away relax into the space it freed, the new tiles no longer fit, they merge again, and the dwell timer starts the
+// next trial), the whole field at zoom 13.5 needed about 40 s to quiet down.  A static picture must be static.  So a split is tried only when something in the neighbourhood of the
+// aggregate has CHANGED since the aggregate last formed (or last failed a trial): a unit moved, appeared or vanished, the zoom, the budget, a chip size or the selection changed.
+// While the picture is still the ratchet only ever merges (the tile count falls, so it terminates); the first change releases the trials again.  The signature is an order-independent
+// hash of the quantised anchors, chip widths and priorities of every leaf within the interaction radius of the aggregate's members.
+const FNV = new Map();
+const hstr = (s) => { let h = FNV.get(s); if (h === undefined) { h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } h >>>= 0; if (FNV.size < 20000) FNV.set(s, h); } return h; };
+const mix = (a, b) => { let x = Math.imul((a ^ b) >>> 0, 0x9E3779B1); x ^= x >>> 15; x = Math.imul(x, 0x85EBCA6B); return (x ^ (x >>> 13)) >>> 0; };
+function makeSigner(leaves, cfg, spec) {
+  let maxDiag = 0; for (const t of leaves) maxDiag = Math.max(maxDiag, Math.hypot(t.chipW, t.chipH));
+  const cell = 2 * cfg.dMax + maxDiag + spec.gap + 1; const grid = new Map(); const lh = new Map();
+  const base = mix(hstr(`${cfg.dMax}|${spec.gap}|${spec.band}|${spec.kCap}|${spec.chipH}|${spec.labels}|${cfg.z.toFixed(3)}|${cfg.pinProtect}`), 7);
+  for (const t of leaves) {
+    const h = mix(mix(mix(hstr(t.key), Math.round(t.ax * 4) | 0), mix(Math.round(t.ay * 4) | 0, Math.round(t.chipW * 2) | 0)), Math.round(t.prio) | 0);
+    lh.set(t.key, h); const k = Math.floor(t.ax / cell) + ',' + Math.floor(t.ay / cell); let a = grid.get(k); if (!a) grid.set(k, a = []); a.push(t);
+  }
+  const byId = new Map(leaves.map((t) => [t.ids[0], t]));
+  return (ids) => {
+    const seen = new Set(); let acc = base;
+    for (const id of ids) {
+      const m = byId.get(id); if (!m) continue; const cx = Math.floor(m.ax / cell); const cy = Math.floor(m.ay / cell);
+      for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) { const a = grid.get((cx + dx) + ',' + (cy + dy)); if (!a) continue; for (const t of a) if (!seen.has(t.key)) { seen.add(t.key); acc = (acc + lh.get(t.key)) >>> 0; } }
+    }
+    return mix(acc, seen.size);
+  };
+}
+
 const hashJitter = (str, mod) => { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0) % mod; };
 
-export function newState() { return { time: 0, solves: 0, age: new Map(), off: new Map(), aggs: new Map(), label: new Map(), assign: new Map() }; }
+export function newState() { return { time: 0, solves: 0, age: new Map(), off: new Map(), tgt: new Map(), splits: new Map(), aggs: new Map(), label: new Map(), assign: new Map() }; }
 
 /** connected components of tiles under the interaction radius: tiles in different components cannot influence each other's chip placement */
 function components(tiles, dMax, gap) {
@@ -142,8 +172,15 @@ function placePass(cur, cfg, state, tentative, dt, stats) {
     const budget = (tentative.has(t.ids[0]) && t.kind === 'leaf') ? Math.max(0, cfg.dMax - spec.band) : cfg.dMax;
     { const m2 = Math.hypot(P0.x - A.x, P0.y - A.y); if (m2 > budget) P0 = { x: A.x + (P0.x - A.x) * budget / m2, y: A.y + (P0.y - A.y) * budget / m2 }; }   // an inherited offset never exceeds the current budget
     const part = [{ x0: -t.chipW / 2, y0: -t.chipH / 2, x1: t.chipW / 2, y1: t.chipH / 2 }];
-    const c = nearestFree(part, A, P0, budget, occ, t.key, gap, stats, spec.kCap, po && spec.continuity > 0 ? spec.continuity * Math.max(1, dt) : Infinity);
+    let c = nearestFree(part, A, P0, budget, occ, t.key, gap, stats, spec.kCap, po && spec.continuity > 0 ? spec.continuity * Math.max(1, dt) : Infinity);
     if (!c) { failed.push(t); continue; }
+    // TARGET HOLD.  A tile that is settled must keep the SAME target: the relaxation (2 px per frame toward the true position, clipped by the neighbours) makes the nearest free point creep along an
+    // obstacle's edge by thousandths of a pixel, so a still picture never came to rest (measured: 150 to 200 tiles with a target 0.3 to 0.7 px off their offset, for ever).  When the new target is
+    // within HOLD_PX of the previous one, and the previous one is still free, the previous one stays.
+    if (!cfg.static && po) {
+      const pt = state.tgt && state.tgt.get(t.key);
+      if (pt) { const Q = { x: A.x + pt.ox, y: A.y + pt.oy }; const dq = Math.hypot(c.x - Q.x, c.y - Q.y); if (dq > 0 && dq < HOLD_PX && Math.hypot(pt.ox, pt.oy) <= budget + EPS) { const keep = nearestFree(part, A, Q, budget, occ, t.key, gap, null, spec.kCap); if (keep && keep.x === Q.x && keep.y === Q.y) c = Q; } }
+    }
     const rect = chipRect(t, c.x, c.y); rect.owner = t.key; rect.kind = 'chip'; occ.add(rect);
     placed.push({ t, cx: c.x, cy: c.y, off: { ox: c.x - t.ax, oy: c.y - t.ay }, chip: rect, label: null });
   }
@@ -205,18 +242,23 @@ export function solve(all, leaves, cfg, state) {
   if (cfg.aggregate && cfg.sticky) {
     const leafById = new Map(tiles.filter((t) => t.kind === 'leaf').map((t) => [t.ids[0], t])); const nonLeaf = tiles.filter((t) => t.kind !== 'leaf');
     const keep = []; const due = [];
+    let signer = null; const sigOf = (ids) => (signer || (signer = makeSigner(leaves, cfg, spec)))(ids);
     for (const [k, rec] of state.aggs) {
       const ids = rec.ids.filter((id) => leafById.has(id));
       if (ids.length < 2) continue;                                   // fewer than two members left: the aggregate dissolves
-      if (frame >= rec.next) due.push({ k, rec, ids }); else keep.push({ k, rec, ids });
+      if (frame >= rec.next) {
+        if (cfg.restLatch !== false && rec.sig !== undefined && ids.length === rec.ids.length && sigOf(ids) === rec.sig) { rec.next = frame + Math.max(1, spec.splitDwell); keep.push({ k, rec, ids }); stats.latched = (stats.latched || 0) + 1; }   // nothing around it changed: no trial
+        else due.push({ k, rec, ids });
+      } else keep.push({ k, rec, ids });
     }
+    stats.sigOf = sigOf;
     due.sort((x, y) => x.rec.next - y.rec.next || (x.k < y.k ? -1 : 1));       // split trials are staggered: at most maxSplitTries aggregates per frame
     const tries = spec.maxSplitTries ?? 2;
     due.forEach((d, i) => { if (i < tries) { for (const id of d.ids) tentative.set(id, { k: d.k, ids: d.ids }); } else keep.push(d); });
     const aggs = [];
     for (const d of keep) {
       const members = d.ids.map((id) => leafById.get(id));
-      const agg = makeAggregate(all, members, spec, d.rec.created); agg.next = d.rec.next;
+      const agg = makeAggregate(all, members, spec, d.rec.created); agg.next = d.rec.next; agg.sig = d.rec.sig;
       for (const id of d.ids) leafById.delete(id);
       aggs.push(agg);
     }
@@ -224,11 +266,26 @@ export function solve(all, leaves, cfg, state) {
   }
   // ---- B. per group of interacting tiles: place, on failure aggregate and place again; then CERTIFY across groups -------------------------------
   let rounds = 0; const placedAll = []; const droppedAll = [];
+  // a split that succeeded is only kept when it would also hold once the neighbours have settled: the neighbours of an aggregate were pushed away by its chip and relax back into the space a split
+  // frees, so a split that fits NOW can fail a few frames later (measured: 1 to 20 frames).  The look-ahead places the group once more from the true anchors (no inertia: everyone settled) and,
+  // if any tile fails, keeps the aggregates instead.  One extra pass, only in a frame that has a successful trial.
+  const remergeTentative = (cur) => {
+    const groups = new Map(); for (const t of cur) if (t.kind === 'leaf') { const tent = tentative.get(t.ids[0]); if (tent) { let g = groups.get(tent.k); if (!g) groups.set(tent.k, g = []); g.push(t); } }
+    if (!groups.size) return null; const gone = new Set(); const merged = [];
+    for (const group of groups.values()) { for (const g of group) tentative.delete(g.ids[0]); if (group.length >= 2) { for (const g of group) gone.add(g.key); merged.push(makeAggregate(all, group, spec, frame)); } }
+    return merged.length ? [...cur.filter((t) => !gone.has(t.key)), ...merged] : null;
+  };
   const solveGroup = (cur) => {
     for (let guard = 0; ; guard++) {
       rounds++;
       const { placed, failed } = placePass(cur, cfg, state, tentative, dt, stats);
-      if (failed.length === 0) return { tiles: cur, placed, dropped: [] };
+      if (failed.length === 0) {
+        if (cfg.splitLookahead !== false && cur.some((t) => t.kind === 'leaf' && tentative.has(t.ids[0]))) {
+          const cold = placePass(cur, { ...cfg, inertia: false }, state, tentative, dt, stats); stats.lookaheads = (stats.lookaheads || 0) + 1;
+          if (cold.failed.length > 0) { const keepAgg = remergeTentative(cur); if (keepAgg) { stats.splitsRefused = (stats.splitsRefused || 0) + 1; cur = keepAgg; continue; } }
+        }
+        return { tiles: cur, placed, dropped: [] };
+      }
       if (!cfg.aggregate) return { tiles: cur, placed, dropped: failed };
       const next = mergeFailures(all, cur, failed, cfg, tentative, frame);
       if (!next) {                                                         // only possible when the group is a single tile: no obstacle exists inside the group
@@ -257,11 +314,27 @@ export function solve(all, leaves, cfg, state) {
   stats.certRounds = certRounds;
   // ---- C. bookkeeping: aggregate records, offsets for inertia ------------------------------------------------------------------------------------
   if (cfg.aggregate) {
-    const next = new Map();
-    for (const p of placedAll) if (p.t.kind === 'agg') next.set(p.t.key, { ids: p.t.ids, created: p.t.createdFrame ?? frame, next: p.t.next ?? (frame + spec.splitDwell + hashJitter(p.t.key, Math.max(1, Math.round(spec.splitDwell)))) });
+    const next = new Map(); let sigFn = null; const BACKOFF_WINDOW = 1800; const BACKOFF_CAP = 1200;
+    // SPLIT BACKOFF.  A trial whose members stayed leaves is a split; an aggregate that forms again from members split less than 30 s ago is a failed split, and each repeat doubles the wait
+    // before the next trial (the dwell, then 2x, 4x ... at most 20 s), so a cluster that cannot hold its split stops flickering instead of trying every second.
+    if (!state.splits) state.splits = new Map();
+    for (const [id] of tentative) { const prev = state.splits.get(id); state.splits.set(id, { frame, k: prev && frame - prev.frame < BACKOFF_WINDOW ? prev.k : 0 }); }
+    for (const p of placedAll) if (p.t.kind === 'agg') {
+      let sig = p.t.sig; if (sig === undefined && cfg.restLatch !== false) { if (!sigFn) sigFn = stats.sigOf || makeSigner(leaves, cfg, spec); sig = sigFn(p.t.ids); }           // a newly formed aggregate: the neighbourhood as it is NOW
+      let nextAt = p.t.next;
+      if (nextAt === undefined) {
+        let k = -1; for (const id of p.t.ids) { const r = state.splits.get(id); if (r && frame - r.frame < BACKOFF_WINDOW) k = Math.max(k, r.k); }
+        const wait = k >= 0 && cfg.splitBackoff !== false ? Math.min(BACKOFF_CAP, spec.splitDwell * 2 ** (k + 1)) : spec.splitDwell;
+        if (k >= 0) for (const id of p.t.ids) { const r = state.splits.get(id); state.splits.set(id, { frame: r ? r.frame : frame, k: k + 1 }); }
+        nextAt = frame + wait + hashJitter(p.t.key, Math.max(1, Math.round(spec.splitDwell)));
+      }
+      next.set(p.t.key, { ids: p.t.ids, created: p.t.createdFrame ?? frame, next: nextAt, sig });
+    }
+    if (state.splits.size > 600) for (const [id, r] of state.splits) if (frame - r.frame >= BACKOFF_WINDOW) state.splits.delete(id);
+    { let sg = 0; for (const [k, r] of next) sg = (sg + mix(hstr(k), r.ids.length)) >>> 0; if (sg !== state.aggSig || next.size !== state.aggCount) { state.stamp = (state.stamp || 0) + 1; state.aggSig = sg; state.aggCount = next.size; } }   // the aggregate set changed: the engine keeps stepping until the next trials have had their chance
     state.aggs = next;
   }
-  const nextOff = new Map(); for (const p of placedAll) nextOff.set(p.t.key, { ox: p.off.ox, oy: p.off.oy }); state.off = nextOff;      // copies: the display layer writes the picture it shows into state.off, the result keeps the solver's own targets
+  const nextOff = new Map(); const nextTgt = new Map(); for (const p of placedAll) { nextOff.set(p.t.key, { ox: p.off.ox, oy: p.off.oy }); nextTgt.set(p.t.key, { ox: p.off.ox, oy: p.off.oy }); } state.off = nextOff; state.tgt = nextTgt;      // copies: the display layer writes the picture it shows into state.off, the result keeps the solver's own targets
   { const na = new Map(); for (const p of placedAll) na.set(p.t.key, (state.age.get(p.t.key) ?? -1) + dt); state.age = na; }
   // ---- D. labels (secondary): best effort in the free space left by every chip and pin -----------------------------------------------------------
   const occ2 = new Occ(64);

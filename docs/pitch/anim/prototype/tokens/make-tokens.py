@@ -4,7 +4,7 @@ tokens.json itself may also be edited by hand: nothing depends on this script.""
 import json, os
 
 G = [("time", "Time and transport"), ("interp", "Motion between keyframes"), ("layout", "Layout: tiles never obscure"), ("motion", "Display dynamics"),
-     ("camera", "Camera"), ("scene", "Scene"), ("skin", "Skin"), ("backdrop", "Backdrop"), ("metrics", "Metrics")]
+     ("camera", "Camera"), ("scene", "Scene"), ("skin", "Skin"), ("backdrop", "Backdrop"), ("metrics", "Metrics"), ("compare", "Before / after")]
 T = []
 
 
@@ -35,6 +35,7 @@ num("time.speedRampMs", "time", "Speed ease time", 220, 0, 1000, 10, "ms", "Play
 num("time.glideMs", "time", "Seek glide time", 450, 0, 2000, 25, "ms", "A seek or a jump to a scene flies the clock to the target with a critically damped glide of this time constant instead of teleporting.")
 num("time.glideMaxTps", "time", "Seek glide speed cap", 120, 10, 600, 10, "ticks/s", "The glide never flies faster than this, so a long jump is a fly-through of the interpolated paths, not a blur.")
 sel("time.endBehavior", "time", "At the end of the battle", "stop", [("stop", "Stop at tick 675"), ("loop", "Loop to tick 1")], "What happens when playback reaches the last tick.")
+sel("time.model", "time", "Clock model", "smooth", [("smooth", "Smooth fixed-step clock (the Studio)"), ("production", "Production loop (tick-stepped, stale tick)")], "RESEARCH. The production loop adds the frame time to a per-tick accumulator and draws the tick read at the START of the frame with the fraction of the current one: on the frame in which the tick advances it draws the old tick with the new fraction, so interpolating units step back for one frame (report 01, 6.3). Pair it with a smooth motion model to see that bug alone.", "Measured")
 # ---- interp ----
 reg("interp.model", "interp", "Motion model", "pchip", "interp", "How a unit moves between its own keyframes. All models are exact at every keyframe; between keyframes the position is Modelled.", "Modelled")
 sel("interp.endSlopes", "interp", "Start and stop", "rest", [("rest", "Start and stop at rest"), ("edge", "Keep the edge velocity")], "Whether a unit's track starts and ends at rest (eased) or with the velocity of its first and last segment.", "Modelled")
@@ -97,6 +98,9 @@ boo("metrics.overlay", "metrics", "Metrics overlay", False, "Show frame times, m
 num("metrics.historyFrames", "metrics", "History length", 240, 60, 1200, 30, "frames", "Frames kept for the graphs and the export.")
 num("metrics.popPx", "metrics", "Pop threshold", 3, 1, 20, 1, "px", "A tile that moves more than this beyond its true position's own motion in one frame counts as a pop (the lab definition).", "Computed", "docs/pitch/anim/layout-lab/lib/dynamic.mjs POP_PX")
 boo("metrics.verify", "metrics", "Verify every frame", True, "Run the independent overlap verifier on every displayed frame (about 0.2 ms).")
+
+# ---- compare ----
+sel("compare.mode", "compare", "Renderer", "after", [("after", "Battle Studio (after)"), ("before", "Production-style stepping (before)")], "Replays the same ticks through the shipped tile renderer, reproduced from report 01 (bars, per-tick stepping with the stale-tick bug, hold-then-jump keyframes, the from-scratch relaxation that leaves tiles overlapping), or through the Studio. Your own settings are kept while the production dials are laid over them. Positions and strengths stay Modelled in both.", "Computed")
 
 # ---- popups (the Overlay Director and every popup style): tokens/make-popup-tokens.py ----
 import importlib.util

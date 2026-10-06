@@ -21,6 +21,10 @@ import { makeSpec } from '../layout/spec.mjs';
 import { createTextModel } from '../layout/text.mjs';
 import { worldOrigin } from '../layout/tiles.mjs';
 import { createMetrics } from '../metrics/metrics.mjs';
+import { PRODUCTION_SKIN } from '../skins/production.mjs';
+
+/** compare.mode = 'before': the dials the shipped renderer is made of, laid OVER the viewer's own settings (the viewer's settings are never touched, switching back restores them at once) */
+export const PRODUCTION_DIALS = Object.freeze({ 'skin.id': 'production', 'layout.strategy': 'production', 'layout.visibility': 'carry', 'motion.mode': 'production', 'interp.model': 'production-step', 'time.model': 'production' });
 
 /** The solve-cadence governor: judge the last 45 frames; slow frames (mean interval over 21 ms) raise the cadence at once (1 -> 2 -> 3), and only a sustained calm (4.5 s of frames
  *  under 17.5 ms with the engine using less than 11 ms) lowers it again, so it does not flap.  Pure: the engine passes real timings, the tests pass synthetic ones. */
@@ -39,9 +43,11 @@ export function governorStep(g, every, rawDtMs, engineMs) {
  */
 export function createEngine(o) {
   const kernel = o.kernel || registerBuiltins(createKernel());
+  if (!kernel.skins.has('production')) kernel.skins.register('production', PRODUCTION_SKIN);
   const tuning = createTuning(o.tokens, { storage: o.storage || null });
   if (o.storage) tuning.load();
-  const tok = (id) => tuning.get(id);
+  let ovr = null;                                                        // the production dials while compare.mode is 'before'
+  const tok = (id) => (ovr !== null && id in ovr ? ovr[id] : tuning.get(id));
   const battle = createBattle(o.dataset, kernel, tok);
   const clock = createClock(o.dataset.clock);
   const systemReduced = o.systemReduced || (() => false);
@@ -51,18 +57,23 @@ export function createEngine(o) {
   const vp = o.viewport || { w: 1280, h: 800 };
   const camera = new Camera({ lng: start.lng ?? o.dataset.terrain.townCenter.lng, lat: start.lat ?? o.dataset.terrain.townCenter.lat, zoom: start.zoom ?? tok('camera.zoom'), w: vp.w, h: vp.h });
   if (start.zoom != null) tuning.set('camera.zoom', Math.max(tok('camera.minZoom'), Math.min(tok('camera.maxZoom'), start.zoom)), { silent: true });
-  const metrics = createMetrics(tok);
+  const lanes = { after: createMetrics(tok), before: createMetrics(tok) };    // one recorder per mode, so a before run and an after run can be compared side by side
   let textModel = createTextModel(o.textTable || { fonts: {} }, 1.04, o.textTable ? 'table' : 'none');
 
   const E = {
-    kernel, tuning, tok, battle, clock, transport, camera, metrics, frame: null, selectedId: null, frames: 0, dirty: true,
+    kernel, tuning, tok, battle, clock, transport, camera, frame: null,
+    get metrics() { return ovr !== null ? lanes.before : lanes.after; },
+    /** the recorder of a mode ('after' = the Studio, 'before' = the production reproduction) */
+    metricsOf(mode) { return lanes[mode]; },
+    /** 'after' (the Studio's own pipeline) or 'before' (the production reproduction); set by the compare.mode dial */
+    get compare() { return ovr !== null ? 'before' : 'after'; }, selectedId: null, frames: 0, dirty: true,
     get text() { return textModel; },
     setTextTable(table, source = 'measured') { textModel = createTextModel(table, 1.04, source); specCache = null; E.dirty = true; },
   };
   let layoutMod = null; let motionMod = null; let specCache = null; let skinCache = null;
   let lastL = null; let lastSelected = null; let sinceSolve = 0; let accDtMs = 0; let autoEvery = 1; const gov = { n: 0, sum: 0, eng: 0, calm: 0 };
   const camT = { zoom: camera.zoom, lng: camera.lng, lat: camera.lat, vz: 0, vx: 0, vy: 0, anchor: null };
-  let prevTau = transport.simTau; let prevZoom = camera.zoom; let forceCut = false;
+  let prevTau = transport.simTau; let prevZoom = camera.zoom; let forceCut = false; let lastStamp = -1; let stampFrame = 0;
 
   const buildLayout = () => { layoutMod = kernel.layout.get(tok('layout.strategy')).create({ all: battle, tok }); };
   const buildMotion = () => { motionMod = kernel.motion.get(tok('motion.mode')).create({ tok, kernel }); };
@@ -86,6 +97,13 @@ export function createEngine(o) {
   tuning.on('skin.id', () => { invalidateSpec(); layoutMod.reset(); forceCut = true; });
   tuning.on('camera.*', (v, id) => { if (id === 'camera.zoom' && Math.abs(v - camT.zoom) > 1e-9) { camT.zoom = v; E.dirty = true; } });
   kernel.skins.subscribe(() => { invalidateSpec(); });
+  /** the before/after switch: lay the production dials over the viewer's settings (or lift them), rebuild the modules that depend on them and start the new picture from a clean cut */
+  function applyCompare(mode) {
+    const want = mode === 'before' ? PRODUCTION_DIALS : null; if (want === ovr) return;
+    ovr = want; buildLayout(); buildMotion(); battle.buildTracks(); transport.sync(); invalidateSpec(); layoutMod.reset(); forceCut = true; E.dirty = true;
+  }
+  tuning.on('compare.mode', (v) => applyCompare(v));
+  applyCompare(tok('compare.mode'));
 
   // ---- camera -------------------------------------------------------------------------------------------------------------------------------------
   const clampZoom = (z) => Math.max(tok('camera.minZoom'), Math.min(tok('camera.maxZoom'), z));
@@ -166,24 +184,24 @@ export function createEngine(o) {
     forceCut = false; prevTau = transport.simTau; prevZoom = zoom;
     if (cut) { layoutMod.reset(); lastL = null; }
     const vis = battle.visibleAt(tau);
-    const spec = E.spec(); const origin = worldOrigin(zoom);
+    const spec = E.spec(); const origin = worldOrigin(zoom); const camO = camera.origin(); const view = { dx: origin[0] - camO[0], dy: origin[1] - camO[1], w: camera.w, h: camera.h };
     // solve cadence: every frame, or (slow devices) every 2nd / 3rd with the solved tiles carried along by their units in between; a zoom change, a new selection or a change of the
     // set of units always solves at once
     const setting = tok('layout.solveEvery'); const every = setting === 'auto' ? (o.autoQuality ? autoEvery : 1) : +setting;
     const frameDt = Math.min(dtMs || 16.667, 50); accDtMs += frameDt;
     let L = null; let solved = true;
     if (lastL && every > 1 && sinceSolve + 1 < every && zoom === lastL._z && E.selectedId === lastSelected && layoutMod.refresh) { if (layoutMod.refresh(lastL, { vis, z: zoom, spec, selectedId: E.selectedId })) { L = lastL; solved = false; sinceSolve++; } }
-    if (!L) { L = layoutMod.solve({ vis, z: zoom, dtMs: accDtMs, selectedId: E.selectedId, spec, cold: first || cut }); L._z = zoom; lastL = L; lastSelected = E.selectedId; sinceSolve = 0; accDtMs = 0; }
+    if (!L) { L = layoutMod.solve({ vis, z: zoom, tau, view, dtMs: accDtMs, selectedId: E.selectedId, spec, cold: first || cut }); L._z = zoom; lastL = L; lastSelected = E.selectedId; sinceSolve = 0; accDtMs = 0; }
     const t1 = performance.now();
     const F = motionMod.step(L, { dtMs: dtMs || 16.667, z: zoom, origin, spec, cut: cut && !first, selectedId: E.selectedId, reduced: reduced() });
     layoutMod.feedback(F.offsets);
     const t2 = performance.now();
-    const camO = camera.origin();
-    F.tau = tau; F.tick = Math.round(tau); F.zoom = zoom; F.spec = spec; F.clock = clock.describe(tau); F.view = { dx: origin[0] - camO[0], dy: origin[1] - camO[1], w: camera.w, h: camera.h };
-    F.solved = solved; F.solveEvery = every;
+    F.tau = tau; F.tick = Math.round(tau); F.zoom = zoom; F.spec = spec; F.clock = clock.describe(tau); F.view = view;
+    F.solved = solved; F.solveEvery = every; F.compare = ovr !== null ? 'before' : 'after';
     F.camera = { lng: camera.lng, lat: camera.lat, zoom }; F.visible = vis.length; F.playing = transport.playing; F.speed = transport.speed; F.rule = tok('layout.visibility');
+    if (layoutMod.stamp !== undefined && layoutMod.stamp !== lastStamp) { lastStamp = layoutMod.stamp; stampFrame = E.frames; }
     E.frame = F; E.frames++; E.dirty = false;
-    metrics.record(F, { rawDtMs, engineMs: t2 - t0, displayMs: t2 - t1 });
+    E.metrics.record(F, { rawDtMs, engineMs: t2 - t0, displayMs: t2 - t1 });
     if (o.autoQuality && tok('layout.solveEvery') === 'auto' && !first) autoEvery = governorStep(gov, autoEvery, rawDtMs, t2 - t0);
     return F;
   };
@@ -202,7 +220,8 @@ export function createEngine(o) {
   };
   E.autoEvery = () => autoEvery;
   /** does the picture need another frame?  false when paused, camera still, nothing fading or settling */
-  E.busy = () => E.dirty || transport.playing || transport.gliding || transport.speedEff !== 0 || camMoving || !!(motionMod.display && motionMod.display.busy());
+  const SETTLE_FRAMES = 100;                       // after the set of aggregates last changed: longer than the longest wait before a split trial (the dwell plus its jitter)
+  E.busy = () => E.dirty || transport.playing || transport.gliding || transport.speedEff !== 0 || camMoving || !!(motionMod.display && motionMod.display.busy()) || (layoutMod.stamp !== undefined && E.frames - stampFrame < SETTLE_FRAMES);
   /** the live layout and motion module instances (diagnostics and tests) */
   E.modules = () => ({ layout: layoutMod, motion: motionMod });
   E.sceneJump = (s, { glide = true } = {}) => {

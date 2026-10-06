@@ -39,7 +39,7 @@ export function createBattle(ds, kernel, tok) {
     const model = tok('interp.model'); const endSlopes = tok('interp.endSlopes');
     if (S.model === model && S.endSlopes === endSlopes) return false;
     const def = kernel.interp.get(model);
-    for (const u of units.values()) u.track = def.build(u.kf.map((k) => [k.tick, k.lat, k.lng]), { endSlopes });
+    for (const u of units.values()) u.track = def.build(u.kf.map((k) => [k.tick, k.lat, k.lng]), { endSlopes, kf: u.kf });
     S.model = model; S.endSlopes = endSlopes; return true;
   }
   buildTracks();
@@ -48,12 +48,13 @@ export function createBattle(ds, kernel, tok) {
 
   /** state of one unit at tau under the current model, or null before its first keyframe */
   function stateOf(u, tau) {
+    sample.ov = false;                                                    // a motion model may OVERRIDE strength / bearing / disposition (the production reproduction blends them between ticks)
     u.track.at(tau, sample);
     if (!sample.present) return null;
-    const k = u.kf[sample.seg]; const nextK = u.kf[sample.seg + 1];
+    const k = u.kf[sample.seg]; const nextK = u.kf[sample.seg + 1]; const ov = sample.ov; const strength = ov ? sample.strength : k.strength;
     return {
       lat: sample.lat, lng: sample.lng, vLat: sample.vLat, vLng: sample.vLng, moving: sample.moving, seg: sample.seg, s: sample.s,
-      strength: k.strength, ratio: Math.min(1, (k.strength || 0) / u.strengthRef), disposition: k.disposition, bearing: k.bearing, note: k.note,
+      strength, ratio: Math.min(1, (strength || 0) / u.strengthRef), disposition: ov ? sample.disposition : k.disposition, bearing: ov ? sample.bearing : k.bearing, note: k.note,
       kfTick: k.tick, ageTicks: Math.max(0, tau - k.tick), untilNext: nextK ? nextK.tick - tau : Infinity, nKf: u.kf.length,
     };
   }
@@ -71,7 +72,7 @@ export function createBattle(ds, kernel, tok) {
       return out;
     }
     for (const u of units.values()) {
-      if (tau < u.kf[0].tick) continue;
+      const appear = u.track.appearTau; if (tau < (appear === undefined ? u.kf[0].tick : appear)) continue;
       const st = stateOf(u, tau); if (!st) continue;
       if (rule === 'window' && !(st.ageTicks <= win || st.untilNext <= win)) continue;
       out.push({ u, st });
