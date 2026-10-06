@@ -126,3 +126,18 @@ test('nearestFree returns a feasible point and the exact optimum (equal to a fin
   }
   assert.ok(clearance({ x0: 0, y0: 0, x1: 10, y1: 10 }, { x0: 12, y0: 0, x1: 20, y1: 10 }) === 2);
 });
+
+test('refresh (between solves) moves every solved tile with its units: leaf and aggregate anchors equal a fresh computation, offsets stay the solver\'s own', () => {
+  const s = fresh(); const vis0 = e.battle.visibleAt(551); const L = s.solve({ vis: vis0, z: 15, dtMs: FRAME_MS, spec, cold: true });
+  const offs = new Map(L.placed.map((p) => [p.t.key, [p.off.ox, p.off.oy]]));
+  const vis1 = e.battle.visibleAt(551.9); assert.equal(vis1.length, vis0.length); assert.ok(s.refresh(L, { vis: vis1, z: 15, spec, selectedId: null }), 'same set of units: refresh succeeds');
+  const leaves = buildLeaves(vis1, 15, spec, null); const byId = new Map(leaves.map((l) => [l.ids[0], l]));
+  let aggs = 0;
+  for (const p of L.placed) {
+    if (p.t.kind === 'leaf') { const l = byId.get(p.t.ids[0]); assert.ok(Math.abs(p.t.ax - l.ax) < 1e-9 && Math.abs(p.t.ay - l.ay) < 1e-9); }
+    else { aggs++; const ref = makeAggregate(e.battle, p.t.ids.map((id) => byId.get(id)), spec, 0); assert.ok(Math.abs(p.t.ax - ref.ax) < 1e-9 && Math.abs(p.t.ay - ref.ay) < 1e-9 && Math.abs(p.t.ratio - ref.ratio) < 1e-12 && p.t.strength === ref.strength, 'aggregate ' + p.t.key); }
+    assert.ok(Math.abs(p.cx - (p.t.ax + offs.get(p.t.key)[0])) < 1e-9, 'target = new anchor + the solver offset');
+  }
+  assert.ok(aggs > 20, 'checked ' + aggs + ' aggregates');
+  const vis2 = e.battle.visibleAt(1); assert.equal(s.refresh(L, { vis: vis2, z: 15, spec, selectedId: null }), false, 'a different set of units cannot be refreshed: solve again');
+});

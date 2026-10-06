@@ -34,13 +34,14 @@ function flattenLeaves(t, out = []) { if (t.kind === 'leaf') out.push(t); else f
 export class Display {
   /** @param {{glide:boolean, collide:boolean}} flags  @param {(id:string)=>any} tok */
   constructor(flags, tok) { this.flags = flags; this.tok = tok; this.reset(); }
-  reset() { this.tiles = new Map(); this.nowMs = 0; this.lastZ = null; this.lastOrigin = null; this.frameNo = 0; this.prevAssign = new Map(); }
+  reset() { this._uid = 0; this.tiles = new Map(); this.nowMs = 0; this.lastZ = null; this.lastOrigin = null; this.frameNo = 0; this.prevAssign = new Map(); }
 
   // ------------------------------------------------------------------------------------------------------------------------------------------------
   /** @param {object} L layout result  @param {{dtMs:number, z:number, origin:number[], spec:object, cut:boolean, selectedId:string|null, reduced:boolean}} inp */
   step(L, inp) {
     const tok = this.tok; const spec = inp.spec; const z = inp.z; const [ox, oy] = inp.origin;
-    const snapMode = !this.flags.glide;
+    this._diag = !!L.diagnostic;                                   // a diagnostic layout (raw) is shown as it is: no glide, no pushing, no repair, so its overlaps are visible and counted
+    const snapMode = !this.flags.glide || this._diag;
     const reduced = !!inp.reduced;
     const dtMs = Math.min(Math.max(inp.dtMs, 0), 50); const dt = dtMs / 1000; this.nowMs += dtMs; this.frameNo++;
     const fadeMs = snapMode ? 0 : reduced ? Math.min(60, tok('motion.fadeMs')) : tok('motion.fadeMs');
@@ -184,15 +185,17 @@ export class Display {
     if (w === 0) for (const id of t.ids) { const k = prevTile.get(id); const pd = k && k !== key ? this.tiles.get(k) : null; if (pd && pd.life === 'live') { cx += pd.ax + pd.ox; cy += pd.ay + pd.oy; w += 1; } }
     const tx = p.cx - t.ax; const ty = p.cy - t.ay;
     const sx = w > 0 ? cx / w - t.ax : tx; const sy = w > 0 ? cy / w - t.ay : ty;
+    // the DISPLAY key must be unique: an aggregate that was matched to a layout tile of another key keeps its first key, and a layout tile with that key may be born later
+    let dk = key; while (this.tiles.has(dk)) dk = key + '#' + (++this._uid);
     const d = {
-      key, lkey: key, kind: t.kind, ids: t.ids.slice(), n: t.n, life: 'live', age: 0, deathAge: 0, op0: 1, fade: 0, born: true, ghost: false, dim: false, mv: 1,
+      key: dk, lkey: key, kind: t.kind, ids: t.ids.slice(), n: t.n, life: 'live', age: 0, deathAge: 0, op0: 1, fade: 0, born: true, ghost: false, dim: false, mv: 1,
       birthDelay: Math.max(cutDelay, SEQ * srcFade),
       ax: t.ax, ay: t.ay, ox: sx, oy: sy, vx: 0, vy: 0, tx, ty, w: t.chipW, h: t.chipH, tw: t.chipW, th: t.chipH, scale: this.tok('motion.birthScale'), opacity: 0,
       handoffTo: null, prio: t.prio, label: { slot: 'r', vis: false, opacity: 0, feas: 0, rect: null }, leafId: null, ratioShown: t.ratio ?? 1,
       lat: t.kind === 'leaf' ? t.st.lat : null, lng: t.kind === 'leaf' ? t.st.lng : null, selected: false, labelText: null, labelW: 0, labelH: 0,
     };
     if (fadeMs <= 0) d.birthDelay = 0;
-    this.tiles.set(key, d);
+    this.tiles.set(dk, d);
     return d;
   }
 
@@ -242,7 +245,7 @@ export class Display {
   }
 
   _collide(spec, iters, stats) {
-    const gap = spec.gap; const dMax = this.tok('layout.dMaxPx'); const pinHalf = spec.pinHalf; const SLACK = 24; const maxPush = this.tok('motion.maxPushPx');
+    const gap = spec.gap + 0.25; const dMax = this.tok('layout.dMaxPx'); const pinHalf = spec.pinHalf; const SLACK = 24; const maxPush = this.tok('motion.maxPushPx');
     const act = []; for (const d of this.tiles.values()) if (d.opacity > 0.3 && !d.ghost && !d.dim) act.push(d);
     if (act.length < 2) return;
     // entities = chips (index < n) and the pins of displaced tiles (index >= n); columns of numbers, no per-pair allocation
@@ -341,8 +344,8 @@ export class Display {
   }
 
   _verifyAndRepair(spec, stats) {
-    const net = this.tok('motion.safetyNet'); const dimOp = this.tok('motion.dimOpacity'); const dimmed = new Set();
-    let items = this._items(spec); let v = verifyFrame(items, spec.gap - 1e-6, true);
+    const net = this.tok('motion.safetyNet') && !this._diag; const dimOp = this.tok('motion.dimOpacity'); const dimmed = new Set();
+    let items = this._items(spec); let v = verifyFrame(items, spec.gap - 0.05, true);
     if (net) {
       for (let round = 0; v.overlaps > 0 && round < 400; round++) {
         stats.netRounds++;
@@ -360,7 +363,7 @@ export class Display {
           d.dim = true; d.mv = Math.min(d.mv, dimOp); d.opacity = Math.min(d.opacity, dimOp); d.label.opacity = Math.min(d.label.opacity, SOLID - 0.01); dimmed.add(d.key); changed++;
         }
         if (!changed) break;
-        items = this._items(spec); v = verifyFrame(items, spec.gap - 1e-6, true);
+        items = this._items(spec); v = verifyFrame(items, spec.gap - 0.05, true);
       }
       stats.netDims = dimmed.size;
     }

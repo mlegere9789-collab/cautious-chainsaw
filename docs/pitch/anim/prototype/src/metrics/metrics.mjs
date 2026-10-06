@@ -19,7 +19,7 @@ export const TELEPORT_PX = 12;
 export function createMetrics(tok) {
   const M = {
     reset() {
-      Object.assign(M, { frames: 0, seconds: 0, dt: [], solveMs: [], displayMs: [], engineMs: [], tiles: [], pops: 0, teleports: 0, jerk: [], jerkOver1: 0, jerkN: 0, popsSeries: [], jerkMax: 0, travels: 0, travelTileFrames: 0, overlapFrames: 0, overlapPairs: 0, clearance: 0, unrepresented: 0,
+      Object.assign(M, { frames: 0, seconds: 0, dt: [], solveMs: [], displayMs: [], engineMs: [], tiles: [], pops: 0, teleports: 0, jerk: [], jerkOver1: 0, jerkN: 0, popsSeries: [], jerkMax: 0, travels: 0, travelTileFrames: 0, solvedFrames: 0, overlapFrames: 0, overlapPairs: 0, clearance: 0, unrepresented: 0,
         netSnaps: 0, netFrames: 0, births: 0, deaths: 0, handoffs: 0, cuts: 0, labelToggles: 0, pushedSum: 0, maxExcess: 0, maxOffset: 0, dispViolations: 0, onField: [], series: [] });
       M._prev = null; M._prev2 = null; M._lcg = 12345;
     },
@@ -46,6 +46,7 @@ export function createMetrics(tok) {
       M.clearance += f.clearanceViolations || 0; M.unrepresented += f.unrepresented || 0;
       const s = f.stats || {};
       if (s.netDims) { M.netSnaps += s.netDims; M.netFrames++; }
+      if (f.solved !== false) M.solvedFrames++;
       M.travels += s.travels || 0; M.travelTileFrames += s.travelling || 0;
       M.births += s.births || 0; M.deaths += s.deaths || 0; M.handoffs += s.handoffs || 0; if (s.cut) M.cuts++; M.labelToggles += s.labelToggles || 0; M.pushedSum += s.pushed || 0;
       M.series.push({ dt: dtMs, solve: f.solverMs || 0, tiles: f.tiles.length, pops, teleports, overlaps: f.overlaps || 0, netDims: s.netDims || 0, maxExcess: maxEx });
@@ -63,7 +64,7 @@ export function createMetrics(tok) {
       return {
         frames: M.frames, seconds: +sec.toFixed(3), fpsMean: +(M.frames / sec).toFixed(2), dtMsP50: +pct(M.dt, 0.5).toFixed(2), dtMsP95: +pct(M.dt, 0.95).toFixed(2), dtMsP99: +pct(M.dt, 0.99).toFixed(2), dtMsMax: +maxOf(M.dt).toFixed(2),
         framesOver20msPct: +(100 * over20 / Math.max(1, M.dt.length)).toFixed(2), framesOver33msPct: +(100 * over33 / Math.max(1, M.dt.length)).toFixed(2),
-        solveMsMean: +mean(M.solveMs).toFixed(2), solveMsP95: +pct(M.solveMs, 0.95).toFixed(2), solveMsP99: +pct(M.solveMs, 0.99).toFixed(2), solveMsMax: +maxOf(M.solveMs).toFixed(2),
+        solvedFramesPct: +(100 * M.solvedFrames / Math.max(1, M.frames)).toFixed(1), solveMsMean: +mean(M.solveMs).toFixed(2), solveMsP95: +pct(M.solveMs, 0.95).toFixed(2), solveMsP99: +pct(M.solveMs, 0.99).toFixed(2), solveMsMax: +maxOf(M.solveMs).toFixed(2),
         displayMsMean: +mean(M.displayMs).toFixed(2), engineMsMean: +mean(M.engineMs).toFixed(2), engineMsP95: +pct(M.engineMs, 0.95).toFixed(2),
         tilesMean: +mean(M.tiles).toFixed(1), onFieldMean: +mean(M.onField).toFixed(1),
         popsPerSec: +(M.pops / sec).toFixed(3), teleportsPerSec: +(M.teleports / sec).toFixed(3), maxExcessPx: +M.maxExcess.toFixed(2), jerkP95: +pct(M.jerk, 0.95).toFixed(4), jerkP99: +pct(M.jerk, 0.99).toFixed(4), jerkMax: +M.jerkMax.toFixed(3), jerkShareOver1px: +(M.jerkN ? M.jerkOver1 / M.jerkN : 0).toFixed(5),

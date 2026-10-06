@@ -105,7 +105,7 @@ export function createStudioUI({ root, engine, data, onSafe }) {
         out.push(h('div', { class: 'card' }, h('b', null, 'Now (tick ' + fmt(engine.transport.simTau, 1) + ')'),
           kv([['Position', [d.now.lat.toFixed(5) + ', ' + d.now.lng.toFixed(5), ' ', evBadge('Modelled')]],
             ['Current keyframe', `tick ${d.now.kfTick} (${fmt(d.now.ageTicks, 0)} ticks ago${d.now.untilNext === Infinity ? ', the last one' : ', next in ' + fmt(d.now.untilNext, 0)})`],
-            ['Strength', [`${d.now.strength} of ${d.strengthRef} reference`, ' ', evBadge('Modelled')]], ['Disposition', d.now.disposition],
+            ['Strength', [`${d.now.strength} of ${d.now.strengthRef} reference`, ' ', evBadge('Modelled')]], ['Disposition', d.now.disposition],
             ['Between keyframes', d.now.moving ? ['interpolated (' + tok('interp.model') + ')', ' ', evBadge('Modelled')] : 'holding']]),
           d.now.note ? h('div', { class: 'note' }, h('b', null, 'Data note: '), d.now.note) : null));
       }
@@ -121,14 +121,14 @@ export function createStudioUI({ root, engine, data, onSafe }) {
 
   // ---- About tab -----------------------------------------------------------------------------------------------------------------------------
   function buildAbout() {
-    const cnt = data.provenance.counts; const skin = kernel.skins.has(tok('skin.id')) ? kernel.skins.get(tok('skin.id')) : null; const out = [];
+    const cnt = data.provenance.counts; const dsp = data.terrain.locations.filter((l) => data.terrain.disputed.includes(l.id)); const skin = kernel.skins.has(tok('skin.id')) ? kernel.skins.get(tok('skin.id')) : null; const out = [];
     out.push(h('p', { class: 'note' }, h('b', null, 'What you are looking at. '), `${cnt.units} real units and ${cnt.keyframes} real placement keyframes on ${cnt.populatedTicks} of 675 ticks, drawn on a schematic backdrop. Nothing is drawn that the data does not support; anything computed or modelled says so.`));
     out.push(h('h3', null, 'Evidence labels'));
-    for (const [k, v] of [['Documented', 'printed in a named source (order-of-battle identity, id prefix)'], ['Measured', 'read by an instrument or counted from a record'], ['Computed', 'derived from data by a stated rule (counts, aggregates, ages)'], ['Modelled', 'authored or interpolated, not recorded: every position, every strength value, every clock time'], ['Contested', 'the sources disagree (10 ids whose state code contradicts the prefix)'], ['Unknown', 'nobody has decided yet']]) out.push(h('div', { class: 'note', style: { margin: '3px 0' } }, evBadge(k), ' ', v));
+    for (const [k, v] of [['Documented', 'printed in a named source (order-of-battle identity, id prefix)'], ['Measured', 'read by an instrument or counted from a record'], ['Computed', 'derived from data by a stated rule (counts, aggregates, ages)'], ['Modelled', 'authored or interpolated, not recorded: every position, every strength value, every clock time'], ['Contested', `the sources disagree (${data.provenance.counts.unknownSide} ids whose state code contradicts the prefix)`], ['Unknown', 'nobody has decided yet']]) out.push(h('div', { class: 'note', style: { margin: '3px 0' } }, evBadge(k), ' ', v));
     if (skin && skin.legend) { out.push(h('h3', null, 'Legend: ' + skin.label)); for (const e of skin.legend()) out.push(h('div', { class: 'legend' }, h('i', { style: { background: e.swatch } }), h('div', null, e.text, ' ', evBadge(e.evidence)))); }
     out.push(h('h3', null, 'Honest limits'),
       h('div', { class: 'warnbox' }, 'The clock is a candidate: 33 anchors, all proposed, none reviewed by a historian. Clock times are shown as ', h('b', null, 'about'), ' and with their uncertainty.'),
-      h('div', { class: 'warnbox' }, `The backdrop is a grid, not terrain. Place marks follow the frame of the placements; ${data.terrain.disputed.length} of ${data.terrain.locations.length} places (dashed) sit 166 to 733 m from where production terrain.json puts them. Which frame is right is Unknown.`),
+      h('div', { class: 'warnbox' }, `The backdrop is a grid, not terrain. Place marks follow the frame of the placements; ${data.terrain.disputed.length} of ${data.terrain.locations.length} places (dashed) sit ${Math.min(...dsp.map((l) => l.diffM))} to ${Math.max(...dsp.map((l) => l.diffM))} m from where production terrain.json puts them. Which frame is right is Unknown.`),
       h('div', { class: 'warnbox' }, `Under carry-forward a unit stays at its last keyframe until the battle ends. Most tiles are old keyframes; the outline channel shows how old. Choose another visibility rule in Tune > Layout.`));
     out.push(h('h3', null, 'Scenes (computed from the data)'));
     for (const s of data.scenes) out.push(h('div', { class: 'note', style: { margin: '4px 0' } }, h('b', null, s.name), ` tick ${s.tick}: ${s.why}. Nearest place in the data: ${s.nearestPlace.name}, ${s.nearestPlace.d} m (a label, not a claim).`));
@@ -184,7 +184,7 @@ export function createStudioUI({ root, engine, data, onSafe }) {
     el.play.setAttribute('aria-label', t.playing ? 'Pause' : 'Play'); const want = t.playing ? 'pause' : 'play'; if (el.play.dataset.state !== want) { el.play.dataset.state = want; el.play.replaceChildren(svgIcon(ICON[want])); }
     if (!ui.scrubbing) el.range.value = String(t.target ?? t.simTau);
     for (const b of speedBtns) b.setAttribute('aria-pressed', String(+b.dataset.speed === t.speed));
-    el.dockstat.textContent = `${frame.tiles.filter((q) => q.life === 'live').length} tiles · ${frame.onField} units · zoom ${frame.zoom.toFixed(2)} · ${engine.kernel.layout.has(tok('layout.strategy')) ? tok('layout.strategy') : ''}`;
+    if (now - (ui._lastStat || 0) > 250) { ui._lastStat = now; el.dockstat.textContent = `${frame.tiles.filter((q) => q.life === 'live').length} tiles · ${frame.onField} units · zoom ${frame.zoom.toFixed(2)} · ${engine.kernel.layout.has(tok('layout.strategy')) ? tok('layout.strategy') : ''}`; const map = document.getElementById('map'); if (map) map.setAttribute('aria-label', `Schematic map of the Gettysburg battle: tick ${frame.tick} of 675, ${frame.clock.date}, about ${frame.clock.text} on a candidate clock; ${frame.onField} units shown as ${frame.tiles.filter((q) => q.life === 'live').length} tiles.`); }
     drawMetrics(now);
     if (ui.panelOpen && ui.tab === 'about') { const ab = el.pane.querySelector('#ab-ov'); if (ab) ab.textContent = String(engine.metrics.overlapPairs ?? 0); }
   };

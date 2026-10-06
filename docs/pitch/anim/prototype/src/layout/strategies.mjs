@@ -7,7 +7,7 @@
 //   input = { vis, z, dtMs, selectedId, spec, cold }
 //   LayoutResult = { placed:[{t, cx, cy, off:{ox,oy}, chip, label, displaced}], dropped:[], items:[...], labelsShown, ms, rounds, stats }   (layout px, origin = tiles.ORIGIN at zoom z)
 import { solve, newState, chipRect, pinRect, plain } from './engine.mjs';
-import { buildLeaves } from './tiles.mjs';
+import { buildLeaves, refreshTile } from './tiles.mjs';
 import { FRAME_MS } from './spec.mjs';
 
 const certified = {
@@ -22,6 +22,14 @@ const certified = {
         const cfg = { spec, z, dMax: spec.dMax, pinProtect: spec.pinProtect, inertia: true, sticky: true, seniority: 1e7, labels: spec.labels, aggregate: true, dt: Math.max(0.01, dtMs / FRAME_MS), static: cold };
         const r = solve(ctx.all, leaves, cfg, state);
         r.leaves = leaves; return r;
+      },
+      /** between two solves: move the solved tiles with their units (same offsets, new true positions).  false = the set of units changed, solve again. */
+      refresh(L, { vis, z, spec, selectedId }) {
+        if (!L || vis.length !== L.leaves.length) return false;
+        const leaves = buildLeaves(vis, z, spec, selectedId); const map = new Map(leaves.map((l) => [l.ids[0], l]));
+        for (const l of L.leaves) if (!map.has(l.ids[0])) return false;
+        for (const p of L.placed) { refreshTile(p.t, map); p.cx = p.t.ax + p.off.ox; p.cy = p.t.ay + p.off.oy; }
+        L.leaves = leaves; L.ms = 0; return true;
       },
       /** the display layer reports where tiles ACTUALLY are (offsets from their true positions) so the next solve starts from the picture the viewer sees */
       feedback(offsets) { for (const [key, o] of offsets) { const cur = state.off.get(key); if (cur) { cur.ox = o.ox; cur.oy = o.oy; } } },
@@ -41,7 +49,7 @@ const raw = {
         const t0 = performance.now(); const leaves = buildLeaves(vis, z, spec, null);
         const placed = leaves.map((t) => { const chip = chipRect(t, t.ax, t.ay); chip.owner = t.key; chip.kind = 'chip'; return { t, cx: t.ax, cy: t.ay, off: { ox: 0, oy: 0 }, chip, label: null, displaced: false }; });
         const items = placed.map((p) => ({ owner: p.t.key, kind: 'chip', ...plain(p.chip) }));
-        return { placed, dropped: [], items, labelsShown: 0, ms: performance.now() - t0, rounds: 0, stats: {}, leaves };
+        return { placed, dropped: [], items, labelsShown: 0, ms: performance.now() - t0, rounds: 0, stats: {}, leaves, diagnostic: true };
       },
       feedback() {},
       get state() { return state; },

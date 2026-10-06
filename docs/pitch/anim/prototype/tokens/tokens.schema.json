@@ -214,6 +214,18 @@
      "maximum": 120,
      "default": 0
     },
+    "layout.solveEvery": {
+     "description": "How often the certified layout is re-solved. In between, the solved tiles move with their units (same offsets, new true positions) and every displayed frame is still verified. Automatic raises it when frames run long on a slow device and lowers it again when there is room.",
+     "x-token": "layout",
+     "type": "string",
+     "enum": [
+      "auto",
+      "1",
+      "2",
+      "3"
+     ],
+     "default": "auto"
+    },
     "layout.maxSplitTries": {
      "description": "At most this many aggregates try to split in one frame.",
      "x-token": "layout",
@@ -234,7 +246,7 @@
      "type": "number",
      "minimum": 0,
      "maximum": 500,
-     "default": 90
+     "default": 110
     },
     "motion.maxSpeedPxPerSec": {
      "description": "A displaced tile never glides faster than this.",
@@ -274,7 +286,7 @@
      "type": "number",
      "minimum": 0.5,
      "maximum": 40,
-     "default": 3
+     "default": 1.5
     },
     "motion.collisionIters": {
      "description": "Passes of the pushing solver per frame.",

@@ -22,8 +22,20 @@ import { createTextModel } from '../layout/text.mjs';
 import { worldOrigin } from '../layout/tiles.mjs';
 import { createMetrics } from '../metrics/metrics.mjs';
 
+/** The solve-cadence governor: judge the last 45 frames; slow frames (mean interval over 21 ms) raise the cadence at once (1 -> 2 -> 3), and only a sustained calm (4.5 s of frames
+ *  under 17.5 ms with the engine using less than 11 ms) lowers it again, so it does not flap.  Pure: the engine passes real timings, the tests pass synthetic ones. */
+export function governorStep(g, every, rawDtMs, engineMs) {
+  g.n++; g.sum += rawDtMs; g.eng += engineMs;
+  if (g.n < 45) return every;
+  const avg = g.sum / g.n; const eng = g.eng / g.n; let next = every;
+  if (avg > 21 && every < 3) { next = every + 1; g.calm = 0; }
+  else if (avg < 17.5 && eng < 11 && every > 1) { g.calm += g.n; if (g.calm >= 270) { next = every - 1; g.calm = 0; } }
+  else g.calm = 0;
+  g.n = 0; g.sum = 0; g.eng = 0; return next;
+}
+
 /**
- * @param {{dataset:object, tokens:object, textTable?:object, storage?:Storage|null, kernel?:object, systemReduced?:()=>boolean, viewport?:{w:number,h:number}, start?:{tick?:number,lat?:number,lng?:number,zoom?:number}}} o
+ * @param {{autoQuality?:boolean, dataset:object, tokens:object, textTable?:object, storage?:Storage|null, kernel?:object, systemReduced?:()=>boolean, viewport?:{w:number,h:number}, start?:{tick?:number,lat?:number,lng?:number,zoom?:number}}} o
  */
 export function createEngine(o) {
   const kernel = o.kernel || registerBuiltins(createKernel());
@@ -48,6 +60,7 @@ export function createEngine(o) {
     setTextTable(table, source = 'measured') { textModel = createTextModel(table, 1.04, source); specCache = null; E.dirty = true; },
   };
   let layoutMod = null; let motionMod = null; let specCache = null; let skinCache = null;
+  let lastL = null; let lastSelected = null; let sinceSolve = 0; let accDtMs = 0; let autoEvery = 1; const gov = { n: 0, sum: 0, eng: 0, calm: 0 };
   const camT = { zoom: camera.zoom, lng: camera.lng, lat: camera.lat, vz: 0, vx: 0, vy: 0, anchor: null };
   let prevTau = transport.simTau; let prevZoom = camera.zoom; let forceCut = false;
 
@@ -62,7 +75,7 @@ export function createEngine(o) {
     if (!specCache || skinCache !== skin) { specCache = makeSpec(skin && skin.footprint ? skin.footprint : {}, tok, textModel); skinCache = skin; }
     return specCache;
   };
-  const invalidateSpec = () => { specCache = null; E.dirty = true; };
+  const invalidateSpec = () => { specCache = null; lastL = null; E.dirty = true; };
   tuning.on('layout.*', (v, id) => {
     if (id === 'layout.strategy') { buildLayout(); motionMod.reset(); forceCut = true; }
     if (id === 'layout.visibility' || id === 'layout.windowTicks') forceCut = true;
@@ -149,19 +162,27 @@ export function createEngine(o) {
     const first = E.frames === 0;
     const cut = forceCut || (!first && (Math.abs(transport.simTau - prevTau) > tok('motion.cutTickJump') || Math.abs(zoom - prevZoom) > tok('motion.cutZoomJump')));
     forceCut = false; prevTau = transport.simTau; prevZoom = zoom;
-    if (cut) layoutMod.reset();
+    if (cut) { layoutMod.reset(); lastL = null; }
     const vis = battle.visibleAt(tau);
     const spec = E.spec(); const origin = worldOrigin(zoom);
-    const L = layoutMod.solve({ vis, z: zoom, dtMs: Math.min(dtMs || 16.667, 50), selectedId: E.selectedId, spec, cold: first || cut });
+    // solve cadence: every frame, or (slow devices) every 2nd / 3rd with the solved tiles carried along by their units in between; a zoom change, a new selection or a change of the
+    // set of units always solves at once
+    const setting = tok('layout.solveEvery'); const every = setting === 'auto' ? (o.autoQuality ? autoEvery : 1) : +setting;
+    const frameDt = Math.min(dtMs || 16.667, 50); accDtMs += frameDt;
+    let L = null; let solved = true;
+    if (lastL && every > 1 && sinceSolve + 1 < every && zoom === lastL._z && E.selectedId === lastSelected && layoutMod.refresh) { if (layoutMod.refresh(lastL, { vis, z: zoom, spec, selectedId: E.selectedId })) { L = lastL; solved = false; sinceSolve++; } }
+    if (!L) { L = layoutMod.solve({ vis, z: zoom, dtMs: accDtMs, selectedId: E.selectedId, spec, cold: first || cut }); L._z = zoom; lastL = L; lastSelected = E.selectedId; sinceSolve = 0; accDtMs = 0; }
     const t1 = performance.now();
     const F = motionMod.step(L, { dtMs: dtMs || 16.667, z: zoom, origin, spec, cut: cut && !first, selectedId: E.selectedId, reduced: reduced() });
     layoutMod.feedback(F.offsets);
     const t2 = performance.now();
     const camO = camera.origin();
     F.tau = tau; F.tick = Math.round(tau); F.zoom = zoom; F.spec = spec; F.clock = clock.describe(tau); F.view = { dx: origin[0] - camO[0], dy: origin[1] - camO[1], w: camera.w, h: camera.h };
+    F.solved = solved; F.solveEvery = every;
     F.camera = { lng: camera.lng, lat: camera.lat, zoom }; F.visible = vis.length; F.playing = transport.playing; F.speed = transport.speed; F.rule = tok('layout.visibility');
     E.frame = F; E.frames++; E.dirty = false;
     metrics.record(F, { rawDtMs, engineMs: t2 - t0, displayMs: t2 - t1 });
+    if (o.autoQuality && tok('layout.solveEvery') === 'auto' && !first) autoEvery = governorStep(gov, autoEvery, rawDtMs, t2 - t0);
     return F;
   };
 
@@ -177,6 +198,7 @@ export function createEngine(o) {
       evidence: { position: 'Modelled (hand-authored keyframes, no basis field; between keyframes an interpolation)', strength: 'Modelled (a placement strength, not a casualty record)', side: u.sideFlag ? 'Contested' : 'Documented (order of battle / id prefix)', identity: u.inOob ? 'Documented (order of battle)' : 'Unknown (no complete order-of-battle parent)' },
     };
   };
+  E.autoEvery = () => autoEvery;
   /** does the picture need another frame?  false when paused, camera still, nothing fading or settling */
   E.busy = () => E.dirty || transport.playing || transport.gliding || transport.speedEff !== 0 || camMoving || !!(motionMod.display && motionMod.display.busy());
   /** the live layout and motion module instances (diagnostics and tests) */

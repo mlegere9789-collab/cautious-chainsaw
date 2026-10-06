@@ -261,7 +261,7 @@ export function solve(all, leaves, cfg, state) {
     for (const p of placedAll) if (p.t.kind === 'agg') next.set(p.t.key, { ids: p.t.ids, created: p.t.createdFrame ?? frame, next: p.t.next ?? (frame + spec.splitDwell + hashJitter(p.t.key, Math.max(1, Math.round(spec.splitDwell)))) });
     state.aggs = next;
   }
-  const nextOff = new Map(); for (const p of placedAll) nextOff.set(p.t.key, p.off); state.off = nextOff;
+  const nextOff = new Map(); for (const p of placedAll) nextOff.set(p.t.key, { ox: p.off.ox, oy: p.off.oy }); state.off = nextOff;      // copies: the display layer writes the picture it shows into state.off, the result keeps the solver's own targets
   { const na = new Map(); for (const p of placedAll) na.set(p.t.key, (state.age.get(p.t.key) ?? -1) + dt); state.age = na; }
   // ---- D. labels (secondary): best effort in the free space left by every chip and pin -----------------------------------------------------------
   const occ2 = new Occ(64);

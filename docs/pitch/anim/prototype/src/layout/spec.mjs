@@ -15,7 +15,7 @@ export const DEFAULT_FOOTPRINT = {
 /** @param {object} footprint  skin footprint   @param {(id:string)=>any} tok  token reader   @param {{width:(font:string,s:string)=>number}} text */
 export function makeSpec(footprint, tok, text) {
   return {
-    ...DEFAULT_FOOTPRINT, ...footprint, text,
+    ...DEFAULT_FOOTPRINT, ...footprint, text, _sz: new Map(),
     gap: tok('layout.gapPx'), dMax: tok('layout.dMaxPx'), band: tok('layout.bandPx'),
     relax: tok('layout.relaxPxPerSec') / 60,                       // px per frame-equivalent
     splitDwell: tok('layout.splitDwellMs') / FRAME_MS, labelShowDelay: tok('layout.labelShowDelayMs') / FRAME_MS, labelCooldown: tok('layout.labelCooldownMs') / FRAME_MS,

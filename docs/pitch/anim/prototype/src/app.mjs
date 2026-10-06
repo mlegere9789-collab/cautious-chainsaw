@@ -11,7 +11,9 @@ import { createRenderer } from './render/canvas.mjs';
 import { createStudioUI } from './ui/studio.mjs';
 import { createPopupHost } from './popups/host.mjs';
 import { createPopupLayer } from './ui/popup-layer.mjs';
-import { referenceSkin } from './skins/reference.mjs';
+import { SKINS } from './skins/index.mjs';
+import { POPUPS } from './popups/index.mjs';
+import { FX } from './fx/index.mjs';
 import { measureTable, FONT_SPECS } from './layout/text.mjs';
 
 const readJson = (id) => JSON.parse(document.getElementById(id).textContent);
@@ -22,14 +24,16 @@ export function boot() {
   let storage = null; try { if (!q.has('fresh')) { storage = window.localStorage; storage.getItem('probe'); } } catch { storage = null; }
 
   const kernel = registerBuiltins(createKernel());
-  kernel.skins.register(referenceSkin.id, referenceSkin);
+  for (const k of SKINS) kernel.skins.register(k.id, k);
+  for (const k of POPUPS) kernel.popups.register(k.id, k);
+  for (const k of FX) kernel.fx.register(k.id, k);
   const app = document.getElementById('app'); const canvas = document.getElementById('map'); const popups = document.getElementById('popups');
   const rect = app.getBoundingClientRect();
   const mql = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
 
   // start: a scene (default: the densest fresh-contact scene, paused) unless the URL says otherwise
   const scene = dataset.scenes.find((s) => s.id === q.get('scene')) || dataset.scenes.find((s) => s.id === 'fresh2') || dataset.scenes[0];
-  const engine = createEngine({ dataset, tokens, textTable, storage, kernel, systemReduced: () => mql.matches, viewport: { w: rect.width, h: rect.height }, start: { tick: +(q.get('tick') || scene.tick), lat: scene.lat, lng: scene.lng, zoom: +(q.get('zoom') || scene.zoom) } });
+  const engine = createEngine({ autoQuality: true, dataset, tokens, textTable, storage, kernel, systemReduced: () => mql.matches, viewport: { w: rect.width, h: rect.height }, start: { tick: +(q.get('tick') || scene.tick), lat: scene.lat, lng: scene.lng, zoom: +(q.get('zoom') || scene.zoom) } });
   const T = engine.tuning;
   const trySet = (id, v) => { try { T.set(id, v); } catch (e) { console.warn('ignored URL setting', id, e.message); } };
   for (const [p, id] of [['skin', 'skin.id'], ['mode', 'motion.mode'], ['layout', 'layout.strategy'], ['vis', 'layout.visibility'], ['backdrop', 'backdrop.id']]) if (q.has(p)) trySet(id, q.get(p));

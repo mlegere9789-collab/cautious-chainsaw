@@ -2,7 +2,7 @@
 // channel the data supports is exercised once (side, arm, identity, count, strength state, age of the last fix, selection, true position).  A real skin replaces all of it.
 //
 // What each mark claims (the skin's legend() repeats this on screen):
-//   fill colour        side: blue = Union, grey = Confederate, amber stripes = UNKNOWN / Contested (10 ids whose state code contradicts the prefix), blue|grey halves = both sides present
+//   fill colour        side: blue = Union, grey = Confederate, amber stripes = UNKNOWN / Contested (ids whose state code contradicts the prefix), blue|grey halves = both sides present
 //   glyph              arm: crossed box = infantry, slashed box = cavalry, dot = artillery, three dots = mixed
 //   code + "xN" pill   identity from the order-of-battle id; the pill is a COUNT OF PLACEMENT RECORDS an aggregate stands for (never of men)
 //   bar under the chip strength state: the unit's current keyframe strength over its reference strength (Modelled: a placement strength is not a casualty record)
@@ -74,7 +74,7 @@ export const referenceSkin = {
     return [
       { swatch: COL.union, text: 'Union (id prefix U-, order of battle)', evidence: 'Documented' },
       { swatch: COL.confederate, text: 'Confederate (id prefix C-, order of battle)', evidence: 'Documented' },
-      { swatch: COL.unknownA, text: 'Side UNKNOWN: id prefix and state code disagree (10 ids)', evidence: 'Contested' },
+      { swatch: COL.unknownA, text: 'Side UNKNOWN: the id prefix and the state code in the id disagree', evidence: 'Contested' },
       { swatch: 'linear-gradient(90deg,' + COL.union + ' 50%,' + COL.confederate + ' 50%)', text: 'Aggregate of both sides (Contact)', evidence: 'Computed' },
       { swatch: '#fff', text: 'Bar: current keyframe strength / reference strength (a placement value, not a casualty record)', evidence: 'Modelled' },
       { swatch: '#fff', text: 'xN: how many placement records an aggregate stands for (records, never men)', evidence: 'Computed' },

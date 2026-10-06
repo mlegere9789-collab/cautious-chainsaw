@@ -5,6 +5,10 @@ import assert from 'node:assert/strict';
 import { makeEngine, loadDocs } from '../src/headless.mjs';
 import { checkSkin, recordingContext, validateSkin } from '../src/skins/contract.mjs';
 import { referenceSkin } from '../src/skins/reference.mjs';
+import { templateSkin } from '../src/skins/_template.mjs';
+import { SKINS } from '../src/skins/index.mjs';
+import { POPUPS } from '../src/popups/index.mjs';
+import { FX } from '../src/fx/index.mjs';
 import { chipSize } from '../src/layout/spec.mjs';
 import { placeCard, frameObstacles, createPopupHost } from '../src/popups/host.mjs';
 import { createTextModel } from '../src/layout/text.mjs';
@@ -89,4 +93,11 @@ test('fx, layout strategies, motion modes and motion models register by name and
   // motion model: straight lines at constant speed with a one-tick pause at the end
   k.interp.register('lazy', { label: 'Lazy', build: (kfs) => new PchipTrack(kfs, 'rest') }); e.tuning.set('interp.model', 'lazy'); for (let i = 0; i < 5; i++) e.step(16.7); assert.equal(e.battle.units.get(e.frame.tiles.find((t) => t.kind === 'leaf').ids[0]).track.constructor.name, 'PchipTrack');
   assert.equal(verifyFrame([], 2).overlaps, 0);
+});
+
+test('the shell lists: one reference skin, no popups, no effects; the copy-me template skin conforms to the contract and is a drop-in', () => {
+  assert.deepEqual(SKINS.map((k) => k.id), ['reference']); assert.deepEqual(POPUPS, []); assert.deepEqual(FX, []);
+  const e = mk(); const spec = e.spec(); const tiles = e.frame.tiles.filter((t) => t.solid); const bad = checkSkin(templateSkin, spec, [...tiles, ...tiles.map((t) => ({ ...t, selected: true }))], text); assert.deepEqual(bad.slice(0, 3), []);
+  const e2 = makeEngine({ skin: templateSkin, settings: { 'skin.id': 'template' } }); e2.setViewport(1440, 900); for (let i = 0; i < 20; i++) e2.step(1000 / 60); assert.equal(e2.frame.overlaps, 0);
+  for (const row of templateSkin.legend()) assert.ok(['Documented', 'Contested'].includes(row.evidence));
 });

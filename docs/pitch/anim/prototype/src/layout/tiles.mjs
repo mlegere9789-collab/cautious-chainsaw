@@ -19,7 +19,8 @@ export function buildLeaves(vis, z, spec, selectedId = null) {
   const leaves = [];
   for (const { u, st } of vis) {
     const [x, y] = project(st.lng, st.lat, z);
-    const cs = chipSize(spec, u.short); const ls = labelSize(spec, u.label);
+    const memo = spec._sz || (spec._sz = new Map()); let sz = memo.get(u.id); if (!sz) memo.set(u.id, sz = { cs: chipSize(spec, u.short), ls: labelSize(spec, u.label) });      // text widths of a unit never change while the spec is the same
+    const cs = sz.cs; const ls = sz.ls;
     leaves.push({
       key: u.id, kind: 'leaf', ids: [u.id], u, st, ax: x - ox, ay: y - oy, chipW: cs.w, chipH: cs.h, labelW: ls.w, labelH: ls.h, labelText: u.label,
       short: u.short, side: u.side, arm: u.arm, strength: st.strength, ratio: st.ratio, lca: u.id, n: 1, echelon: u.echelon, prio: leafPriority(u, selectedId),
@@ -94,6 +95,17 @@ export function makeAggregate(all, tiles, spec, createdFrame = 0) {
     key: 'agg:' + lca + ':' + ids[0], kind: 'agg', ids, ax, ay, chipW: cs.w, chipH: cs.h, labelW: 0, labelH: 0, labelText: null, short: nm.short, badge: nm.badge, nameKind: nm.kind, side,
     nSides: sides, arm: arms.size === 1 ? [...arms][0] : 'mixed', strength: sStr, ratio: sr / sw, lca, n, echelon: 0, prio: prio + 5e5, depth: node ? node.depth : 0, chain: chains[0], createdFrame, members: tiles,
   };
+}
+
+/** Move a solved tile to the NEW true positions of its units without re-solving (the same formulas as makeAggregate).  leafMap: unit id -> a fresh leaf tile from buildLeaves. */
+export function refreshTile(t, leafMap) {
+  const fresh = (x) => { const l = leafMap.get(x.ids[0]); x.ax = l.ax; x.ay = l.ay; x.st = l.st; x.strength = l.strength; x.ratio = l.ratio; x.moving = l.moving; };
+  if (t.kind === 'leaf') { fresh(t); return t; }
+  const leaves = leavesOf(t); let sw = 0; let sx = 0; let sy = 0; let sr = 0; let sStr = 0;
+  for (const l of leaves) { fresh(l); const w = Math.max(1, l.strength || 1); sw += w; sx += l.ax * w; sy += l.ay * w; sr += (l.ratio ?? 1) * w; sStr += (l.strength || 0); }
+  const own = leaves.find((l) => l.lca === t.lca);
+  t.ax = own ? own.ax : sx / sw; t.ay = own ? own.ay : sy / sw; t.ratio = sr / sw; t.strength = sStr;
+  return t;
 }
 
 /** flatten an aggregate's members to leaf anchors: [{id, ax, ay}] (used to draw the true positions of the records an aggregate stands for) */
