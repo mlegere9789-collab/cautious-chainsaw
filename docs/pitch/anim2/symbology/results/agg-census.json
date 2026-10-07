@@ -1,0 +1,362 @@
+{
+  "generated": "2026-10-06T15:40:35.898Z",
+  "method": "prototype certified layout solver, cold solves, real data, visibility rule carry-forward (the shipped rule: the worst case)",
+  "ticks": 247,
+  "zooms": [
+    13.5,
+    14,
+    15,
+    16
+  ],
+  "solves": 988,
+  "seconds": 21,
+  "tilesTotal": 242140,
+  "aggregateTiles": 29150,
+  "membersHistogram": {
+    "2": 15715,
+    "3": 4355,
+    "4": 4257,
+    "5-9": 3893,
+    "10-19": 810,
+    "20+": 120
+  },
+  "combos": [
+    {
+      "side": "union",
+      "armset": "I",
+      "depth": 2,
+      "tiles": 4296,
+      "maxMembers": 2
+    },
+    {
+      "side": "union",
+      "armset": "IF",
+      "depth": 3,
+      "tiles": 3547,
+      "maxMembers": 16
+    },
+    {
+      "side": "confederate",
+      "armset": "I",
+      "depth": 2,
+      "tiles": 3450,
+      "maxMembers": 2
+    },
+    {
+      "side": "confederate",
+      "armset": "IF",
+      "depth": 3,
+      "tiles": 2973,
+      "maxMembers": 33
+    },
+    {
+      "side": "union",
+      "armset": "IF",
+      "depth": 2,
+      "tiles": 2105,
+      "maxMembers": 2
+    },
+    {
+      "side": "confederate",
+      "armset": "IF",
+      "depth": 2,
+      "tiles": 1682,
+      "maxMembers": 2
+    },
+    {
+      "side": "union",
+      "armset": "IAF",
+      "depth": 3,
+      "tiles": 1505,
+      "maxMembers": 25
+    },
+    {
+      "side": "union",
+      "armset": "I",
+      "depth": 3,
+      "tiles": 1219,
+      "maxMembers": 11
+    },
+    {
+      "side": "union",
+      "armset": "F",
+      "depth": 2,
+      "tiles": 1030,
+      "maxMembers": 2
+    },
+    {
+      "side": "confederate",
+      "armset": "I",
+      "depth": 3,
+      "tiles": 1029,
+      "maxMembers": 17
+    },
+    {
+      "side": "union",
+      "armset": "AF",
+      "depth": 3,
+      "tiles": 779,
+      "maxMembers": 6
+    },
+    {
+      "side": "union",
+      "armset": "IA",
+      "depth": 2,
+      "tiles": 755,
+      "maxMembers": 2
+    },
+    {
+      "side": "confederate",
+      "armset": "A",
+      "depth": 2,
+      "tiles": 691,
+      "maxMembers": 2
+    },
+    {
+      "side": "union",
+      "armset": "F",
+      "depth": 3,
+      "tiles": 649,
+      "maxMembers": 6
+    },
+    {
+      "side": "union",
+      "armset": "IA",
+      "depth": 3,
+      "tiles": 471,
+      "maxMembers": 13
+    },
+    {
+      "side": "union",
+      "armset": "AF",
+      "depth": 2,
+      "tiles": 458,
+      "maxMembers": 2
+    },
+    {
+      "side": "union",
+      "armset": "A",
+      "depth": 2,
+      "tiles": 330,
+      "maxMembers": 2
+    },
+    {
+      "side": "confederate",
+      "armset": "A",
+      "depth": 3,
+      "tiles": 243,
+      "maxMembers": 4
+    },
+    {
+      "side": "unknown",
+      "armset": "I",
+      "depth": 2,
+      "tiles": 224,
+      "maxMembers": 2
+    },
+    {
+      "side": "union",
+      "armset": "CA",
+      "depth": 3,
+      "tiles": 205,
+      "maxMembers": 5
+    },
+    {
+      "side": "mixed",
+      "armset": "IF",
+      "depth": 3,
+      "tiles": 196,
+      "maxMembers": 35
+    },
+    {
+      "side": "confederate",
+      "armset": "IAF",
+      "depth": 3,
+      "tiles": 142,
+      "maxMembers": 22
+    },
+    {
+      "side": "confederate",
+      "armset": "F",
+      "depth": 2,
+      "tiles": 137,
+      "maxMembers": 2
+    },
+    {
+      "side": "union",
+      "armset": "A",
+      "depth": 3,
+      "tiles": 134,
+      "maxMembers": 4
+    },
+    {
+      "side": "confederate",
+      "armset": "AF",
+      "depth": 2,
+      "tiles": 128,
+      "maxMembers": 2
+    },
+    {
+      "side": "confederate",
+      "armset": "F",
+      "depth": 3,
+      "tiles": 99,
+      "maxMembers": 4
+    },
+    {
+      "side": "union",
+      "armset": "CA",
+      "depth": 2,
+      "tiles": 79,
+      "maxMembers": 2
+    },
+    {
+      "side": "mixed",
+      "armset": "I",
+      "depth": 2,
+      "tiles": 78,
+      "maxMembers": 2
+    },
+    {
+      "side": "unknown",
+      "armset": "I",
+      "depth": 3,
+      "tiles": 76,
+      "maxMembers": 4
+    },
+    {
+      "side": "union",
+      "armset": "IC",
+      "depth": 2,
+      "tiles": 60,
+      "maxMembers": 2
+    },
+    {
+      "side": "union",
+      "armset": "C",
+      "depth": 2,
+      "tiles": 56,
+      "maxMembers": 2
+    },
+    {
+      "side": "union",
+      "armset": "CAF",
+      "depth": 3,
+      "tiles": 55,
+      "maxMembers": 7
+    },
+    {
+      "side": "mixed",
+      "armset": "IF",
+      "depth": 2,
+      "tiles": 52,
+      "maxMembers": 2
+    },
+    {
+      "side": "confederate",
+      "armset": "C",
+      "depth": 2,
+      "tiles": 49,
+      "maxMembers": 2
+    },
+    {
+      "side": "union",
+      "armset": "CF",
+      "depth": 3,
+      "tiles": 27,
+      "maxMembers": 5
+    },
+    {
+      "side": "confederate",
+      "armset": "IA",
+      "depth": 3,
+      "tiles": 27,
+      "maxMembers": 7
+    },
+    {
+      "side": "confederate",
+      "armset": "IA",
+      "depth": 2,
+      "tiles": 26,
+      "maxMembers": 2
+    },
+    {
+      "side": "mixed",
+      "armset": "I",
+      "depth": 3,
+      "tiles": 22,
+      "maxMembers": 6
+    },
+    {
+      "side": "union",
+      "armset": "CF",
+      "depth": 2,
+      "tiles": 16,
+      "maxMembers": 2
+    },
+    {
+      "side": "confederate",
+      "armset": "AF",
+      "depth": 3,
+      "tiles": 15,
+      "maxMembers": 5
+    },
+    {
+      "side": "mixed",
+      "armset": "AF",
+      "depth": 2,
+      "tiles": 7,
+      "maxMembers": 2
+    },
+    {
+      "side": "confederate",
+      "armset": "CF",
+      "depth": 2,
+      "tiles": 6,
+      "maxMembers": 2
+    },
+    {
+      "side": "union",
+      "armset": "IC",
+      "depth": 3,
+      "tiles": 5,
+      "maxMembers": 6
+    },
+    {
+      "side": "union",
+      "armset": "ICA",
+      "depth": 3,
+      "tiles": 4,
+      "maxMembers": 10
+    },
+    {
+      "side": "confederate",
+      "armset": "CF",
+      "depth": 3,
+      "tiles": 4,
+      "maxMembers": 3
+    },
+    {
+      "side": "union",
+      "armset": "C",
+      "depth": 3,
+      "tiles": 4,
+      "maxMembers": 3
+    },
+    {
+      "side": "confederate",
+      "armset": "CAF",
+      "depth": 3,
+      "tiles": 3,
+      "maxMembers": 4
+    },
+    {
+      "side": "mixed",
+      "armset": "IAF",
+      "depth": 3,
+      "tiles": 2,
+      "maxMembers": 11
+    }
+  ],
+  "vocabulary": 120
+}

@@ -1,0 +1,53 @@
+{
+  "generated": "2026-10-07T05:56:55.712Z",
+  "rule": "chip.maxCoverage and chip.clearance of tokens/symbology.tokens.json; measured on the 3x atlas pixels",
+  "maxCoverageToken": 0.1,
+  "clearanceToken": 1,
+  "coverageByShape": {
+    "minimal/circle": {
+      "n": 8,
+      "min": 0.084,
+      "max": 0.086
+    },
+    "minimal/diamond": {
+      "n": 4,
+      "min": 0.077,
+      "max": 0.077
+    },
+    "minimal/hex": {
+      "n": 12,
+      "min": 0.091,
+      "max": 0.099
+    },
+    "minimal/square": {
+      "n": 10,
+      "min": 0.081,
+      "max": 0.1
+    },
+    "minimal/triangle": {
+      "n": 4,
+      "min": 0.09,
+      "max": 0.092
+    },
+    "nato/diamond": {
+      "n": 18,
+      "min": 0.006,
+      "max": 0.088
+    },
+    "nato/quatrefoil": {
+      "n": 2,
+      "min": 0.029,
+      "max": 0.031
+    },
+    "nato/rect": {
+      "n": 18,
+      "min": 0.049,
+      "max": 0.091
+    },
+    "shield/shield": {
+      "n": 38,
+      "min": 0.05,
+      "max": 0.1
+    }
+  }
+}

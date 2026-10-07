@@ -1,0 +1,136 @@
+{
+ "generated": "2026-10-07",
+ "note": "Every external claim of the README comes from one of these pages. 'used' = something of it is in the pipeline; every glyph and frame is drawn from paths in src/, with no third-party artwork and no icon font.",
+ "sources": [
+  {
+   "name": "milsymbol",
+   "url": "https://github.com/spatialillusions/milsymbol",
+   "licence": "MIT (LICENSE: 'The MIT License (MIT)', Måns Beckman, 2017)",
+   "read": [
+    "README.md",
+    "LICENSE",
+    "package.json (v3.0.5; runtime dependency @rollup/plugin-replace)",
+    "docs/README.md (style options, modifiers, colour modes)"
+   ],
+   "readOn": "2026-10-07",
+   "facts": "Generates military unit symbols as SVG or canvas from a SIDC code; implements MIL-STD-2525C/D/E, FM 1-02.2 and STANAG APP-6 B/D/E; options include size, fill, frame, colorMode (Light/Medium/Dark), monoColor, outlineWidth, stack; modifiers include echelon, headquarters, task force, dummy/feint.",
+   "used": false,
+   "decision": "Not used and NOT executed or downloaded. Evaluated from its repository files only. It needs a SIDC per symbol, so the 1863 vocabulary (horse artillery, sharpshooters, formations with no arm) would have to be mapped onto standard codes; its symbol sets were not enumerated. Its options include a stack effect, but the pages read show no count slot, arm-set row, carried-forward state or atlas output. As a BUILD-TIME source it could back a strict APP-6 language through the language registry (src/languages.mjs); whether it would look better than the hand-drawn NATO language was not tested.",
+   "blocked": [
+    "npmjs.com/package/milsymbol returned HTTP 403 to the fetch tool: not worked around",
+    "www.milsymbol.com did not resolve; spatialillusions.com/milsymbol/documentation.html returned 404"
+   ]
+  },
+  {
+   "name": "NATO Joint Military Symbology (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/NATO_Joint_Military_Symbology",
+   "licence": "CC BY-SA (Wikipedia text); facts only, no text copied",
+   "readOn": "2026-10-07",
+   "facts": "APP-6A frame shapes: friendly blue rectangle, hostile red diamond, neutral green square, unknown yellow quatrefoil; shape and colour are redundant; infantry = saltire, cavalry/reconnaissance = single diagonal, field artillery = cannonball symbol; MIL-STD-2525A is the US equivalent."
+  },
+  {
+   "name": "NATO Unit Counter Guide (Military History Visualized)",
+   "url": "https://militaryhistoryvisualized.com/?p=397",
+   "licence": "web page; facts only",
+   "readOn": "2026-10-07",
+   "facts": "Echelon marks: single line company/battery, two lines battalion, three lines regiment, X brigade, XX division, XXX corps, XXXX army."
+  },
+  {
+   "name": "NATO Map Symbols (army.ca wiki)",
+   "url": "https://army.ca/wiki/index.php/NATO_Map_Symbols",
+   "licence": "web page; not used",
+   "readOn": "2026-10-07",
+   "facts": "Describes the enemy frame as an inverted pentagon, which conflicts with the APP-6A diamond on Wikipedia; unresolved, not relied on. The README says the diamond here means 'the other army', not 'hostile'."
+  },
+  {
+   "name": "Game-icons.net",
+   "url": "https://game-icons.net/about.html",
+   "licence": "CC BY 3.0, attribution required, commercial use and modification permitted (about page); the horse-head icon page (by Delapouite) states CC BY 3.0",
+   "readOn": "2026-10-07",
+   "used": false,
+   "decision": "Not used: attribution obligation per icon author, styles differ between authors."
+  },
+  {
+   "name": "Font Awesome Free",
+   "url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/LICENSE.txt",
+   "licence": "Icons CC BY 4.0; fonts SIL OFL 1.1; code MIT",
+   "readOn": "2026-10-07",
+   "used": false,
+   "decision": "Not used: attribution required for the icons; no Civil War arms vocabulary checked icon by icon."
+  },
+  {
+   "name": "Tabler Icons",
+   "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/LICENSE",
+   "licence": "MIT, Paweł Kuna 2020-2026",
+   "readOn": "2026-10-07",
+   "used": false,
+   "decision": "Not used."
+  },
+  {
+   "name": "Lucide",
+   "url": "https://raw.githubusercontent.com/lucide-icons/lucide/main/LICENSE",
+   "licence": "ISC for the project; MIT for the roughly 150 icons derived from Feather",
+   "readOn": "2026-10-07",
+   "used": false,
+   "decision": "Not used."
+  },
+  {
+   "name": "Material Design Icons (Google)",
+   "url": "https://raw.githubusercontent.com/google/material-design-icons/master/LICENSE",
+   "licence": "Apache License 2.0",
+   "readOn": "2026-10-07",
+   "used": false,
+   "decision": "Not used."
+  },
+  {
+   "name": "Maki (Mapbox)",
+   "url": "https://github.com/mapbox/maki",
+   "licence": "CC0 1.0 (repository page); the raw LICENSE.txt fetch did not answer the question",
+   "readOn": "2026-10-07",
+   "used": false,
+   "decision": "Not used: 15 px map-point icons, no military vocabulary."
+  },
+  {
+   "name": "OpenMoji",
+   "url": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/LICENSE.txt",
+   "licence": "CC BY-SA 4.0 (the LICENSE.txt at the repository root is the CC BY-SA 4.0 text; the file itself does not mention OpenMoji, so its application to the graphics is inferred, not read)",
+   "readOn": "2026-10-07",
+   "used": false,
+   "decision": "Not used: share-alike would reach every derived sprite."
+  },
+  {
+   "name": "USGS / USDA NAIP aerial imagery",
+   "url": "https://www.usgs.gov/centers/eros/science/usgs-eros-archive-aerial-photography-national-agriculture-imagery-program-naip",
+   "licence": "Public domain (stated in USGS EROS search-result summaries on 2026-10-07; a direct fetch of the page returned 504)",
+   "readOn": "2026-10-07",
+   "used": true,
+   "how": "Four dimmed preview renders made by the parallel basemap job are copied into assets/naip (hashes in assets/naip/provenance.json) and used only as a backdrop texture for legibility tests; not georeferenced to the unit positions."
+  },
+  {
+   "name": "WCAG 2.x relative luminance and contrast",
+   "url": "https://www.w3.org/WAI/GL/wiki/Relative_luminance",
+   "licence": "W3C",
+   "readOn": "2026-10-06 (previous session, cited in src/colour.mjs; not re-read on 2026-10-07)",
+   "used": true
+  },
+  {
+   "name": "Machado, Oliveira, Fernandes 2009 colour-vision-deficiency matrices",
+   "url": "https://www.inf.ufrgs.br/~oliveira/pubs_files/CVD_Simulation/CVD_Simulation.html",
+   "licence": "published matrices",
+   "readOn": "2026-10-06 (previous session, cited in src/colour.mjs; not re-read on 2026-10-07)",
+   "used": true
+  },
+  {
+   "name": "Union corps badges, circular of 21 March 1863",
+   "url": "https://civilwarnews.com (as cited in docs/pitch/anim/03-data-fuel.md section 5)",
+   "licence": "historical fact; shapes redrawn from plain geometry",
+   "readOn": "2026-10-06 (previous session; not re-read on 2026-10-07; the Official Records scan itself was not opened)",
+   "used": true
+  },
+  {
+   "name": "Fonts",
+   "licence": "none shipped",
+   "decision": "No font file ships. Label and count text is drawn at runtime in the system font stack declared in tokens tab.font and agg.count.font ('Segoe UI', system-ui, sans-serif)."
+  }
+ ]
+}

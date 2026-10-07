@@ -1,0 +1,588 @@
+{
+  "dataset": {
+    "file": "docs/pitch/anim/prototype/data/dataset.json",
+    "sha256": "41154f72cfc6c4e75d6ff67e882feb2d6bff72e6c2f3ceb6bd74b1e66e87586d",
+    "units": 478
+  },
+  "registry": "data-src/build/unit_registry.json",
+  "specs": [
+    {
+      "side": "confederate",
+      "arm": "artillery",
+      "ech": "battalion",
+      "units": 5,
+      "ids": [
+        "C-ART-I-1",
+        "C-ART-I-2",
+        "C-ART-I-4"
+      ]
+    },
+    {
+      "side": "confederate",
+      "arm": "artillery",
+      "ech": "battery",
+      "units": 12,
+      "ids": [
+        "C-ART-Brander",
+        "C-ART-Carrington",
+        "C-ART-Carter"
+      ]
+    },
+    {
+      "side": "confederate",
+      "arm": "artillery",
+      "ech": "regiment",
+      "units": 8,
+      "ids": [
+        "C-ART-Alexander",
+        "C-ART-Cabell",
+        "C-ART-Dearing"
+      ]
+    },
+    {
+      "side": "confederate",
+      "arm": "cavalry",
+      "ech": "regiment",
+      "units": 3,
+      "ids": [
+        "C-1SC-CAV",
+        "C-Cobb-CAV",
+        "C-Jeff-MS-CAV"
+      ]
+    },
+    {
+      "side": "confederate",
+      "arm": "formation",
+      "ech": "brigade",
+      "units": 54,
+      "ids": [
+        "C-CAV-1",
+        "C-CAV-2",
+        "C-CAV-2-1"
+      ]
+    },
+    {
+      "side": "confederate",
+      "arm": "formation",
+      "ech": "corps",
+      "units": 2,
+      "ids": [
+        "C-I",
+        "C-III"
+      ]
+    },
+    {
+      "side": "confederate",
+      "arm": "formation",
+      "ech": "division",
+      "units": 10,
+      "ids": [
+        "C-I-1",
+        "C-I-2",
+        "C-I-3"
+      ]
+    },
+    {
+      "side": "confederate",
+      "arm": "horse_artillery",
+      "ech": "battery",
+      "units": 2,
+      "ids": [
+        "C-HAB-Breathed",
+        "C-HAB-Hart"
+      ]
+    },
+    {
+      "side": "confederate",
+      "arm": "infantry",
+      "ech": "regiment",
+      "units": 117,
+      "ids": [
+        "C-10AL",
+        "C-10VA-J",
+        "C-11AL"
+      ]
+    },
+    {
+      "side": "union",
+      "arm": "artillery",
+      "ech": "battery",
+      "units": 21,
+      "ids": [
+        "U-ART-15NY",
+        "U-ART-1NYIND",
+        "U-ART-2ME"
+      ]
+    },
+    {
+      "side": "union",
+      "arm": "artillery",
+      "ech": "regiment",
+      "units": 5,
+      "ids": [
+        "U-ART-1PA-L",
+        "U-ART-K4US",
+        "U-ART-McGilvery"
+      ]
+    },
+    {
+      "side": "union",
+      "arm": "cavalry",
+      "ech": "regiment",
+      "units": 13,
+      "ids": [
+        "U-17PA-CAV",
+        "U-1MI-CAV",
+        "U-1VT-CAV"
+      ]
+    },
+    {
+      "side": "union",
+      "arm": "formation",
+      "ech": "brigade",
+      "units": 61,
+      "ids": [
+        "U-CAV-1-1",
+        "U-CAV-1-2",
+        "U-CAV-1-R"
+      ]
+    },
+    {
+      "side": "union",
+      "arm": "formation",
+      "ech": "corps",
+      "units": 4,
+      "ids": [
+        "U-I",
+        "U-II",
+        "U-V"
+      ]
+    },
+    {
+      "side": "union",
+      "arm": "formation",
+      "ech": "division",
+      "units": 21,
+      "ids": [
+        "U-2-I",
+        "U-CAV-1",
+        "U-CAV-2"
+      ]
+    },
+    {
+      "side": "union",
+      "arm": "horse_artillery",
+      "ech": "battery",
+      "units": 3,
+      "ids": [
+        "U-HAB-A2US",
+        "U-HAB-E4US",
+        "U-HAB-M2US"
+      ]
+    },
+    {
+      "side": "union",
+      "arm": "infantry",
+      "ech": "regiment",
+      "units": 126,
+      "ids": [
+        "U-1-I-3",
+        "U-102NY",
+        "U-104NY"
+      ]
+    },
+    {
+      "side": "union",
+      "arm": "sharpshooter",
+      "ech": "regiment",
+      "units": 1,
+      "ids": [
+        "U-1US-SS"
+      ]
+    },
+    {
+      "side": "unknown",
+      "arm": "infantry",
+      "ech": "regiment",
+      "units": 10,
+      "ids": [
+        "U-11NC",
+        "U-15AL",
+        "U-1TX"
+      ]
+    }
+  ],
+  "chips": {
+    "skirmish": {
+      "rows": 62,
+      "units": 35
+    },
+    "charge": {
+      "rows": 243,
+      "units": 175
+    },
+    "march": {
+      "rows": 132,
+      "units": 105
+    },
+    "reserve": {
+      "rows": 53,
+      "units": 36
+    },
+    "bivouac": {
+      "rows": 131,
+      "units": 88
+    },
+    "retreat": {
+      "rows": 161,
+      "units": 125
+    },
+    "limbered": {
+      "rows": 18,
+      "units": 17
+    },
+    "dismounted": {
+      "rows": 13,
+      "units": 8
+    }
+  },
+  "badges": {
+    "XII/white": 17,
+    "I/white": 11,
+    "III/red": 17,
+    "II/white": 12,
+    "XI/red": 11,
+    "II/blue": 16,
+    "II/red": 18,
+    "XI/white": 6,
+    "I/blue": 10,
+    "V/white": 6,
+    "I/red": 12,
+    "XI/blue": 8,
+    "V/red": 8,
+    "XII/red": 8,
+    "III/white": 4,
+    "V/blue": 3,
+    "VI/red": 1,
+    "VI/white": 1,
+    "VI/blue": 1
+  },
+  "idOnly": 95,
+  "sides": {
+    "confederate": 213,
+    "union": 255,
+    "unknown": 10
+  },
+  "armSource": {
+    "registry": 255,
+    "dataset": 71
+  },
+  "agg": {
+    "source": "results/agg-census.json",
+    "solves": 988,
+    "aggregateTiles": 29150,
+    "combos": [
+      {
+        "side": "union",
+        "armset": "I",
+        "depth": 2,
+        "tiles": 4296
+      },
+      {
+        "side": "union",
+        "armset": "IF",
+        "depth": 3,
+        "tiles": 3547
+      },
+      {
+        "side": "confederate",
+        "armset": "I",
+        "depth": 2,
+        "tiles": 3450
+      },
+      {
+        "side": "confederate",
+        "armset": "IF",
+        "depth": 3,
+        "tiles": 2973
+      },
+      {
+        "side": "union",
+        "armset": "IF",
+        "depth": 2,
+        "tiles": 2105
+      },
+      {
+        "side": "confederate",
+        "armset": "IF",
+        "depth": 2,
+        "tiles": 1682
+      },
+      {
+        "side": "union",
+        "armset": "IAF",
+        "depth": 3,
+        "tiles": 1505
+      },
+      {
+        "side": "union",
+        "armset": "I",
+        "depth": 3,
+        "tiles": 1219
+      },
+      {
+        "side": "union",
+        "armset": "F",
+        "depth": 2,
+        "tiles": 1030
+      },
+      {
+        "side": "confederate",
+        "armset": "I",
+        "depth": 3,
+        "tiles": 1029
+      },
+      {
+        "side": "union",
+        "armset": "AF",
+        "depth": 3,
+        "tiles": 779
+      },
+      {
+        "side": "union",
+        "armset": "IA",
+        "depth": 2,
+        "tiles": 755
+      },
+      {
+        "side": "confederate",
+        "armset": "A",
+        "depth": 2,
+        "tiles": 691
+      },
+      {
+        "side": "union",
+        "armset": "F",
+        "depth": 3,
+        "tiles": 649
+      },
+      {
+        "side": "union",
+        "armset": "IA",
+        "depth": 3,
+        "tiles": 471
+      },
+      {
+        "side": "union",
+        "armset": "AF",
+        "depth": 2,
+        "tiles": 458
+      },
+      {
+        "side": "union",
+        "armset": "A",
+        "depth": 2,
+        "tiles": 330
+      },
+      {
+        "side": "confederate",
+        "armset": "A",
+        "depth": 3,
+        "tiles": 243
+      },
+      {
+        "side": "unknown",
+        "armset": "I",
+        "depth": 2,
+        "tiles": 224
+      },
+      {
+        "side": "union",
+        "armset": "CA",
+        "depth": 3,
+        "tiles": 205
+      },
+      {
+        "side": "mixed",
+        "armset": "IF",
+        "depth": 3,
+        "tiles": 196
+      },
+      {
+        "side": "confederate",
+        "armset": "IAF",
+        "depth": 3,
+        "tiles": 142
+      },
+      {
+        "side": "confederate",
+        "armset": "F",
+        "depth": 2,
+        "tiles": 137
+      },
+      {
+        "side": "union",
+        "armset": "A",
+        "depth": 3,
+        "tiles": 134
+      },
+      {
+        "side": "confederate",
+        "armset": "AF",
+        "depth": 2,
+        "tiles": 128
+      },
+      {
+        "side": "confederate",
+        "armset": "F",
+        "depth": 3,
+        "tiles": 99
+      },
+      {
+        "side": "union",
+        "armset": "CA",
+        "depth": 2,
+        "tiles": 79
+      },
+      {
+        "side": "mixed",
+        "armset": "I",
+        "depth": 2,
+        "tiles": 78
+      },
+      {
+        "side": "unknown",
+        "armset": "I",
+        "depth": 3,
+        "tiles": 76
+      },
+      {
+        "side": "union",
+        "armset": "IC",
+        "depth": 2,
+        "tiles": 60
+      },
+      {
+        "side": "union",
+        "armset": "C",
+        "depth": 2,
+        "tiles": 56
+      },
+      {
+        "side": "union",
+        "armset": "CAF",
+        "depth": 3,
+        "tiles": 55
+      },
+      {
+        "side": "mixed",
+        "armset": "IF",
+        "depth": 2,
+        "tiles": 52
+      },
+      {
+        "side": "confederate",
+        "armset": "C",
+        "depth": 2,
+        "tiles": 49
+      },
+      {
+        "side": "union",
+        "armset": "CF",
+        "depth": 3,
+        "tiles": 27
+      },
+      {
+        "side": "confederate",
+        "armset": "IA",
+        "depth": 3,
+        "tiles": 27
+      },
+      {
+        "side": "confederate",
+        "armset": "IA",
+        "depth": 2,
+        "tiles": 26
+      },
+      {
+        "side": "mixed",
+        "armset": "I",
+        "depth": 3,
+        "tiles": 22
+      },
+      {
+        "side": "union",
+        "armset": "CF",
+        "depth": 2,
+        "tiles": 16
+      },
+      {
+        "side": "confederate",
+        "armset": "AF",
+        "depth": 3,
+        "tiles": 15
+      },
+      {
+        "side": "mixed",
+        "armset": "AF",
+        "depth": 2,
+        "tiles": 7
+      },
+      {
+        "side": "confederate",
+        "armset": "CF",
+        "depth": 2,
+        "tiles": 6
+      },
+      {
+        "side": "union",
+        "armset": "IC",
+        "depth": 3,
+        "tiles": 5
+      },
+      {
+        "side": "union",
+        "armset": "ICA",
+        "depth": 3,
+        "tiles": 4
+      },
+      {
+        "side": "confederate",
+        "armset": "CF",
+        "depth": 3,
+        "tiles": 4
+      },
+      {
+        "side": "union",
+        "armset": "C",
+        "depth": 3,
+        "tiles": 4
+      },
+      {
+        "side": "confederate",
+        "armset": "CAF",
+        "depth": 3,
+        "tiles": 3
+      },
+      {
+        "side": "mixed",
+        "armset": "IAF",
+        "depth": 3,
+        "tiles": 2
+      }
+    ]
+  },
+  "dispositions": [
+    "Skirmish Line",
+    "Charging Line",
+    "Line of March",
+    "Line of Battle",
+    "Reserve",
+    "Bivouac",
+    "Chaotic Retreat",
+    "Mounted Cavalry",
+    "Limbered Artillery",
+    "Deployed Artillery",
+    "Dismounted Cavalry"
+  ]
+}

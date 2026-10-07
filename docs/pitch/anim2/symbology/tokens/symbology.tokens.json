@@ -1,0 +1,851 @@
+{
+  "$format": "battle-symbology-tokens/1",
+  "$description": "Design tokens of the Battle Studio symbol pipeline. Leaves are { $value, $type, $description } (the shape of the W3C Design Tokens Community Group draft, not validated against its tooling). Lengths are CSS px at 1x (u): the pipeline renders every symbol at 1x, 2x and 3x from these numbers. Edit a value, run `node build.mjs`, look at sheets/. Override a few tokens without editing this file: `node build.mjs --tokens my-overrides.json` (same tree, only the leaves you change).",
+  "palettes": {
+    "standard": {
+      "$description": "The default palette: tested for WCAG 2.x contrast and for protanopia, deuteranopia, tritanopia and greyscale (results/colour-tests.json, sheets/cvd-*.png).",
+      "union": {
+        "$value": "#1B4B91",
+        "$type": "color",
+        "$description": "Union plate. Deep blue: white ink 8.6:1, luminance 1.8x lower than the Confederate plate so the two sides also differ in greyscale."
+      },
+      "confederate": {
+        "$value": "#C8491F",
+        "$type": "color",
+        "$description": "Confederate plate. Brick vermilion (Okabe-Ito family): white ink 4.7:1. Chosen against blue so every simulated deficiency keeps a CIEDE2000 distance above 40."
+      },
+      "unknown": {
+        "$value": "#EEC63F",
+        "$type": "color",
+        "$description": "Side unknown / contested (the 10 ids whose state code contradicts the prefix). Gold, NATO's colour for 'unknown'; never a side colour."
+      },
+      "inkOnUnknown": {
+        "$value": "#1A1408",
+        "$type": "color",
+        "$description": "Glyph ink on the contested gold plate (dark, 9:1)."
+      },
+      "ink": {
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "Glyph ink on the two army plates."
+      },
+      "bone": {
+        "$value": "#F7F3E8",
+        "$type": "color",
+        "$description": "The light ring around every plate (the inner ring of the dual ring). Reads on forest, shadow and mid-tone fields."
+      },
+      "keyline": {
+        "$value": "#0B1118",
+        "$type": "color",
+        "$description": "The dark ring around every plate (the outer ring) and the shadow colour. Reads on pale fields, bare soil and paper."
+      },
+      "chip": {
+        "$value": "#0E1620",
+        "$type": "color",
+        "$description": "Fill of the small status chips (posture, arm state, identity from the id alone)."
+      },
+      "carriedGrey": {
+        "$value": "#8A929C",
+        "$type": "color",
+        "$description": "The grey a carried-forward plate is mixed toward."
+      }
+    },
+    "highContrast": {
+      "$description": "Darker plates and a brighter ink for the high-contrast variant (build.mjs --palette highContrast).",
+      "union": {
+        "$value": "#0A3777",
+        "$type": "color",
+        "$description": "Union plate, high contrast."
+      },
+      "confederate": {
+        "$value": "#A93410",
+        "$type": "color",
+        "$description": "Confederate plate, high contrast."
+      },
+      "unknown": {
+        "$value": "#F2C230",
+        "$type": "color",
+        "$description": "Contested plate, high contrast."
+      },
+      "inkOnUnknown": {
+        "$value": "#120D04",
+        "$type": "color",
+        "$description": "Glyph ink on the contested plate."
+      },
+      "ink": {
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "Glyph ink on the army plates, high contrast."
+      },
+      "bone": {
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "Light ring (inner ring), high contrast."
+      },
+      "keyline": {
+        "$value": "#000000",
+        "$type": "color",
+        "$description": "Dark ring (outer ring and shadow), high contrast."
+      },
+      "chip": {
+        "$value": "#000000",
+        "$type": "color",
+        "$description": "Fill of the status chips, high contrast."
+      },
+      "carriedGrey": {
+        "$value": "#8A929C",
+        "$type": "color",
+        "$description": "Carried-forward grey."
+      }
+    }
+  },
+  "ring": {
+    "light": {
+      "$value": 1,
+      "$type": "number",
+      "$description": "Width (u) of the light ring outside the plate edge."
+    },
+    "dark": {
+      "$value": 1,
+      "$type": "number",
+      "$description": "Width (u) of the dark ring outside the light ring."
+    },
+    "darkAlpha": {
+      "$value": 0.88,
+      "$type": "number",
+      "$description": "Opacity of the dark ring."
+    }
+  },
+  "shadow": {
+    "dy": {
+      "$value": 1,
+      "$type": "number",
+      "$description": "Soft contact shadow: vertical offset (u). 0 blur or 0 alpha switches it off."
+    },
+    "blur": {
+      "$value": 1.4,
+      "$type": "number",
+      "$description": "Shadow standard deviation (u)."
+    },
+    "alpha": {
+      "$value": 0.38,
+      "$type": "number",
+      "$description": "Shadow opacity."
+    }
+  },
+  "fill": {
+    "lift": {
+      "$value": 0.1,
+      "$type": "number",
+      "$description": "How much lighter the top of a plate is than its bottom (0 = flat, 0.15 = strong). A hint of top light is the only depth a plate has."
+    }
+  },
+  "scale": {
+    "ech": {
+      "battery": {
+        "$value": 1,
+        "$type": "number",
+        "$description": "Plate size multiplier of a battery (company-sized). The base unit of the map."
+      },
+      "regiment": {
+        "$value": 1,
+        "$type": "number",
+        "$description": "Plate size multiplier of a regiment."
+      },
+      "battalion": {
+        "$value": 1.1,
+        "$type": "number",
+        "$description": "Artillery battalion."
+      },
+      "brigade": {
+        "$value": 1.2,
+        "$type": "number",
+        "$description": "Brigade plate size multiplier."
+      },
+      "division": {
+        "$value": 1.4,
+        "$type": "number",
+        "$description": "Division plate size multiplier."
+      },
+      "corps": {
+        "$value": 1.6,
+        "$type": "number",
+        "$description": "Corps plate size multiplier."
+      },
+      "army": {
+        "$value": 1.8,
+        "$type": "number",
+        "$description": "Army (never placed in the current data)."
+      }
+    }
+  },
+  "carried": {
+    "mix": {
+      "$value": 0.5,
+      "$type": "number",
+      "$description": "How far a carried-forward plate is mixed toward carriedGrey (0..1)."
+    },
+    "fillOpacity": {
+      "$value": 0.82,
+      "$type": "number",
+      "$description": "Opacity of the carried-forward fill."
+    },
+    "ringDash": {
+      "$value": "1.6 1.6",
+      "$type": "string",
+      "$description": "Dash pattern (u) of the light ring of a carried-forward plate. Dotted, not dashed: it recedes."
+    },
+    "glyphOpacity": {
+      "$value": 0.92,
+      "$type": "number",
+      "$description": "Opacity of the glyph on a carried-forward plate."
+    }
+  },
+  "chip": {
+    "size": {
+      "$value": 15,
+      "$type": "number",
+      "$description": "Diameter (u) of a status chip (posture, arm state, identity from the id alone)."
+    },
+    "stroke": {
+      "$value": 1.5,
+      "$type": "number",
+      "$description": "Stroke width (u) of the chip glyphs."
+    },
+    "alpha": {
+      "$value": 0.95,
+      "$type": "number",
+      "$description": "Opacity of the chip fill."
+    },
+    "clearance": {
+      "$value": 1,
+      "$type": "number",
+      "$description": "Gap (u) kept between the chip body and the arm glyph ink box and the echelon marks: the chip is a corner badge and never covers either."
+    },
+    "maxCoverage": {
+      "$value": 0.1,
+      "$type": "number",
+      "$description": "The largest share (0..1) of a symbol's silhouette the status chip may cover. The chip sits at the closest corner position that satisfies this and the clearance: a badge on the symbol, never a lid over it."
+    }
+  },
+  "gauge": {
+    "segW": {
+      "$value": 5,
+      "$type": "number",
+      "$description": "Width (u) of one of the four gauge segments."
+    },
+    "gap": {
+      "$value": 1,
+      "$type": "number",
+      "$description": "Gap (u) between segments."
+    },
+    "h": {
+      "$value": 3.5,
+      "$type": "number",
+      "$description": "Height (u) of the gauge."
+    },
+    "radius": {
+      "$value": 0.8,
+      "$type": "number",
+      "$description": "Segment corner radius (u)."
+    }
+  },
+  "selection": {
+    "select": {
+      "gap": {
+        "$value": 2,
+        "$type": "number",
+        "$description": "Gap (u) between the plate's own ring and the selection ring."
+      },
+      "stroke": {
+        "$value": 2,
+        "$type": "number",
+        "$description": "Width (u) of the selection ring (bone, between two dark keylines)."
+      },
+      "keyline": {
+        "$value": 1,
+        "$type": "number",
+        "$description": "Dark keyline (u) on both sides of the ring."
+      },
+      "glow": {
+        "$value": 0,
+        "$type": "number",
+        "$description": "Blur (u) of an optional soft glow behind the ring (0 = none)."
+      },
+      "glowAlpha": {
+        "$value": 0,
+        "$type": "number",
+        "$description": "Opacity of the glow."
+      }
+    },
+    "hover": {
+      "gap": {
+        "$value": 1.5,
+        "$type": "number",
+        "$description": "Gap (u) for the hover ring."
+      },
+      "stroke": {
+        "$value": 1.5,
+        "$type": "number",
+        "$description": "Width (u) of the hover ring."
+      },
+      "keyline": {
+        "$value": 0.75,
+        "$type": "number",
+        "$description": "Dark keyline (u) around the hover ring."
+      },
+      "glow": {
+        "$value": 2.5,
+        "$type": "number",
+        "$description": "Blur (u) of the soft glow behind the hover ring."
+      },
+      "glowAlpha": {
+        "$value": 0.5,
+        "$type": "number",
+        "$description": "Opacity of the glow."
+      }
+    }
+  },
+  "tab": {
+    "$description": "The label tab: a pill that tucks behind a symbol and carries its name as runtime text, so a tile is one object, not a plate plus a separate caption chip.",
+    "h": {
+      "$value": 17,
+      "$type": "number",
+      "$description": "Tab height (u). Room for 11.5 px text with 3 u above and below."
+    },
+    "radius": {
+      "$value": 8.5,
+      "$type": "number",
+      "$description": "Corner radius (u); half the height = a full pill."
+    },
+    "capExtra": {
+      "$value": 2,
+      "$type": "number",
+      "$description": "Straight run (u) added to each end cap so the end slices contain no part of the stretched middle."
+    },
+    "tuck": {
+      "$value": 5,
+      "$type": "number",
+      "$description": "How far (u) the tab's left end tucks behind the symbol's edge."
+    },
+    "padX": {
+      "$value": 6,
+      "$type": "number",
+      "$description": "Text padding (u) from the end of the cap to the first letter."
+    },
+    "alpha": {
+      "$value": 0.92,
+      "$type": "number",
+      "$description": "Fill opacity of the tab."
+    },
+    "font": {
+      "$value": "600 11.5px 'Segoe UI', system-ui, sans-serif",
+      "$type": "string",
+      "$description": "CSS font of the tab text. 11.5 px semibold: legible without being loud."
+    },
+    "tones": {
+      "dark": {
+        "fill": {
+          "$value": "#0E1620",
+          "$type": "color",
+          "$description": "Dark glass tab fill (for aerial and dark grounds)."
+        },
+        "text": {
+          "$value": "#F7F3E8",
+          "$type": "color",
+          "$description": "Text on the dark tab (16:1)."
+        }
+      },
+      "light": {
+        "fill": {
+          "$value": "#F7F3E8",
+          "$type": "color",
+          "$description": "Paper tab fill (for light grounds)."
+        },
+        "text": {
+          "$value": "#0E1620",
+          "$type": "color",
+          "$description": "Text on the light tab (16:1)."
+        }
+      }
+    }
+  },
+  "agg": {
+    "offset": {
+      "$value": 3.5,
+      "$type": "number",
+      "$description": "Offset (u) of each back plate of an aggregate mark (up and to the left)."
+    },
+    "backTint": {
+      "$value": 0.16,
+      "$type": "number",
+      "$description": "How much darker each back plate is than the one in front (0..1)."
+    },
+    "glyphGap": {
+      "$value": 2,
+      "$type": "number",
+      "$description": "Gap (u) between the arm glyphs in the row on an aggregate plate."
+    },
+    "glyphMax": {
+      "$value": 8.5,
+      "$type": "number",
+      "$description": "Largest size (u) of an arm glyph in that row."
+    },
+    "count": {
+      "font": {
+        "$value": "700 12px 'Segoe UI', system-ui, sans-serif",
+        "$type": "string",
+        "$description": "CSS font of the count text (×N) the skin draws into the count slot of an aggregate mark. 12px bold: the slot is sized for three characters."
+      }
+    },
+    "nato": {
+      "w": {
+        "$value": 38,
+        "$type": "number",
+        "$description": "Aggregate plate width (u), NATO-spirit. A rectangle for both sides: the row of arm glyphs needs the room."
+      },
+      "h": {
+        "$value": 30,
+        "$type": "number",
+        "$description": "Aggregate plate height (u)."
+      }
+    },
+    "shield": {
+      "w": {
+        "$value": 36,
+        "$type": "number",
+        "$description": "Aggregate shield width (u)."
+      },
+      "h": {
+        "$value": 42,
+        "$type": "number",
+        "$description": "Aggregate shield height (u)."
+      }
+    },
+    "minimal": {
+      "d": {
+        "$value": 36,
+        "$type": "number",
+        "$description": "Aggregate disc diameter (u)."
+      }
+    }
+  },
+  "badge": {
+    "size": {
+      "$value": 13,
+      "$type": "number",
+      "$description": "Reference size (u) of a Union corps badge."
+    },
+    "colours": {
+      "red": {
+        "$value": "#D8322B",
+        "$type": "color",
+        "$description": "First division: red (circular of 21 March 1863)."
+      },
+      "white": {
+        "$value": "#F7F3E8",
+        "$type": "color",
+        "$description": "Second division: white."
+      },
+      "blue": {
+        "$value": "#2E63B5",
+        "$type": "color",
+        "$description": "Third division: blue."
+      }
+    }
+  },
+  "nato": {
+    "$description": "Language (a): NATO-spirit frames. Conventions: APP-6 / MIL-STD-2525 frame shapes, saltire / slash / dot icons and echelon marks above the frame; adapted here to flat, modern plates.",
+    "frame": {
+      "w": {
+        "$value": 30,
+        "$type": "number",
+        "$description": "Frame width (u) of a base unit (regiment, battery). 3:2 like the land-unit frame."
+      },
+      "h": {
+        "$value": 20,
+        "$type": "number",
+        "$description": "Frame height (u) of a base unit."
+      },
+      "radius": {
+        "$value": 2,
+        "$type": "number",
+        "$description": "Corner radius (u). NATO frames are square; a small radius keeps the plate calm at 1x."
+      }
+    },
+    "shape": {
+      "union": {
+        "$value": "rect",
+        "$type": "string",
+        "$description": "Union frame shape: rect (NATO 'friend')."
+      },
+      "confederate": {
+        "$value": "diamond",
+        "$type": "string",
+        "$description": "Confederate frame shape: diamond (NATO 'hostile') or rect. Shape repeats the colour so the sides differ without colour. An adaptation: NATO means 'hostile to the observer'; here it only means 'the other army'."
+      },
+      "unknown": {
+        "$value": "quatrefoil",
+        "$type": "string",
+        "$description": "Contested side: quatrefoil (NATO 'unknown')."
+      },
+      "mixed": {
+        "$value": "rect",
+        "$type": "string",
+        "$description": "Aggregate of both sides: split rectangle (invented here)."
+      }
+    },
+    "diamond": {
+      "diag": {
+        "$value": 28,
+        "$type": "number",
+        "$description": "Full diagonal (u) of a base-unit diamond; scales with the echelon."
+      }
+    },
+    "glyph": {
+      "stroke": {
+        "$value": 2,
+        "$type": "number",
+        "$description": "Stroke width (u) of the arm glyph."
+      },
+      "inset": {
+        "$value": 4,
+        "$type": "number",
+        "$description": "Gap (u) between the glyph ends and the frame edge."
+      },
+      "dot": {
+        "$value": 3.4,
+        "$type": "number",
+        "$description": "Radius (u) of the artillery dot at base size."
+      }
+    },
+    "formation": {
+      "mode": {
+        "$value": "inner",
+        "$type": "string",
+        "$description": "How a formation (brigade, division, corps: no arm in the data) is drawn inside its frame: inner = a thin inset outline (a container), none = the empty NATO 'unspecified' frame."
+      },
+      "inset": {
+        "$value": 3,
+        "$type": "number",
+        "$description": "Gap (u) between the frame edge and the inner outline."
+      },
+      "stroke": {
+        "$value": 1.25,
+        "$type": "number",
+        "$description": "Stroke width (u) of the inner outline."
+      },
+      "alpha": {
+        "$value": 0.95,
+        "$type": "number",
+        "$description": "Opacity of the inner outline."
+      }
+    },
+    "echelon": {
+      "base": {
+        "$value": true,
+        "$type": "boolean",
+        "$description": "Draw the mark of the base echelons (battery I, regiment III) too, as NATO does. false = base units carry no mark."
+      },
+      "bar": {
+        "$value": 7,
+        "$type": "number",
+        "$description": "Height (u) of an echelon mark."
+      },
+      "stroke": {
+        "$value": 2,
+        "$type": "number",
+        "$description": "Stroke width (u) of an echelon mark."
+      },
+      "pitch": {
+        "$value": 4,
+        "$type": "number",
+        "$description": "Distance (u) between the bars of I, II, III."
+      },
+      "xSize": {
+        "$value": 6,
+        "$type": "number",
+        "$description": "Width (u) of one X of brigade / division / corps / army."
+      },
+      "gap": {
+        "$value": 2,
+        "$type": "number",
+        "$description": "Gap (u) between the ring of the frame and the echelon mark."
+      },
+      "keyline": {
+        "$value": 1.25,
+        "$type": "number",
+        "$description": "Light halo (u) around the dark echelon mark (the mark is dark, the halo light, like a map label)."
+      }
+    }
+  },
+  "shield": {
+    "$description": "Language (b): flat pictograms in a rounded shield. Pictograms are invented here (chevron, horse head, gun wheel, target, three dots); only the echelon marks are NATO.",
+    "w": {
+      "$value": 26,
+      "$type": "number",
+      "$description": "Shield width (u) of a base unit (regiment, battery)."
+    },
+    "h": {
+      "$value": 30,
+      "$type": "number",
+      "$description": "Shield height (u) of a base unit."
+    },
+    "cornerRadius": {
+      "$value": 4,
+      "$type": "number",
+      "$description": "Radius (u) of the two top corners."
+    },
+    "shoulder": {
+      "$value": 0.52,
+      "$type": "number",
+      "$description": "Fraction of the height at which the straight sides end and the taper to the point begins."
+    },
+    "taperA": {
+      "$value": 0.42,
+      "$type": "number",
+      "$description": "Shape of the taper: first control handle (fraction of the taper height)."
+    },
+    "taperB": {
+      "$value": 0.14,
+      "$type": "number",
+      "$description": "Shape of the taper: second control handle (fraction of the taper height)."
+    },
+    "tipRound": {
+      "$value": 2.4,
+      "$type": "number",
+      "$description": "Half width (u) of the soft tip."
+    },
+    "glyphStroke": {
+      "$value": 2.2,
+      "$type": "number",
+      "$description": "Stroke width (u) of the pictograms."
+    },
+    "glyphDy": {
+      "$value": -1,
+      "$type": "number",
+      "$description": "Vertical shift (u) of the pictogram (the body is wider above the middle than below)."
+    },
+    "scale": {
+      "battery": {
+        "$value": 1,
+        "$type": "number",
+        "$description": "Shield size multiplier of a battery."
+      },
+      "regiment": {
+        "$value": 1,
+        "$type": "number",
+        "$description": "Regiment shield size multiplier."
+      },
+      "battalion": {
+        "$value": 1.08,
+        "$type": "number",
+        "$description": "Artillery battalion."
+      },
+      "brigade": {
+        "$value": 1.18,
+        "$type": "number",
+        "$description": "Brigade shield size multiplier."
+      },
+      "division": {
+        "$value": 1.32,
+        "$type": "number",
+        "$description": "Division shield size multiplier."
+      },
+      "corps": {
+        "$value": 1.48,
+        "$type": "number",
+        "$description": "Corps shield size multiplier."
+      },
+      "army": {
+        "$value": 1.64,
+        "$type": "number",
+        "$description": "Army shield size multiplier."
+      }
+    },
+    "echelon": {
+      "base": {
+        "$value": false,
+        "$type": "boolean",
+        "$description": "Draw marks on the base echelons (battery, regiment) too. false = the base unit carries none: it is the unit of account and the most numerous tile."
+      },
+      "band": {
+        "$value": 7.5,
+        "$type": "number",
+        "$description": "Height (u) of the header band that carries the echelon marks, at base size."
+      },
+      "bandSink": {
+        "$value": 0.3,
+        "$type": "number",
+        "$description": "How much darker than the plate the band is (0..1)."
+      },
+      "bandUnknown": {
+        "$value": "#B07F0E",
+        "$type": "color",
+        "$description": "Header band colour of a contested (unknown side) shield: a deep amber, because darkening the gold toward black turns it olive."
+      },
+      "bandAlpha": {
+        "$value": 1,
+        "$type": "number",
+        "$description": "Opacity of the band."
+      },
+      "bar": {
+        "$value": 5.6,
+        "$type": "number",
+        "$description": "Height (u) of a bar mark."
+      },
+      "stroke": {
+        "$value": 1.8,
+        "$type": "number",
+        "$description": "Stroke width (u) of the marks."
+      },
+      "pitch": {
+        "$value": 3.6,
+        "$type": "number",
+        "$description": "Distance (u) between bars."
+      },
+      "xSize": {
+        "$value": 4.8,
+        "$type": "number",
+        "$description": "Width (u) of one X."
+      }
+    }
+  },
+  "minimal": {
+    "$description": "Language (c): minimal glyphs for editorial maps. circle = infantry, triangle = cavalry, square = artillery, rotated square = horse artillery, hexagon = formation. All invented here; nothing is NATO.",
+    "size": {
+      "$value": 16,
+      "$type": "number",
+      "$description": "Reference diameter (u) of a base unit marker (regiment, battery). 16 u: large enough that a 15 u status chip is a corner badge and not a lid, small enough to stay the quietest of the three languages."
+    },
+    "cornerRadius": {
+      "$value": 2,
+      "$type": "number",
+      "$description": "Corner radius (u) of triangle, square, diamond and hexagon."
+    },
+    "triangle": {
+      "$value": 1.2,
+      "$type": "number",
+      "$description": "Triangle side as a multiple of the reference diameter (area close to the circle's)."
+    },
+    "square": {
+      "$value": 0.86,
+      "$type": "number",
+      "$description": "Square side as a multiple of the reference diameter."
+    },
+    "diamond": {
+      "$value": 0.96,
+      "$type": "number",
+      "$description": "Diamond (horse artillery) diagonal as a multiple of the reference diameter."
+    },
+    "dot": {
+      "$value": 0.17,
+      "$type": "number",
+      "$description": "Sharpshooter centre dot radius as a multiple of the reference diameter."
+    },
+    "scale": {
+      "battery": {
+        "$value": 1,
+        "$type": "number",
+        "$description": "Marker size multiplier of a battery."
+      },
+      "regiment": {
+        "$value": 1,
+        "$type": "number",
+        "$description": "Regiment marker size multiplier."
+      },
+      "battalion": {
+        "$value": 1.1,
+        "$type": "number",
+        "$description": "Artillery battalion."
+      }
+    },
+    "formation": {
+      "size": {
+        "$value": 24,
+        "$type": "number",
+        "$description": "Hexagon diameter (u) of a brigade."
+      },
+      "scale": {
+        "brigade": {
+          "$value": 1,
+          "$type": "number",
+          "$description": "Brigade hexagon size multiplier."
+        },
+        "division": {
+          "$value": 1.25,
+          "$type": "number",
+          "$description": "Division hexagon size multiplier."
+        },
+        "corps": {
+          "$value": 1.5,
+          "$type": "number",
+          "$description": "Corps hexagon size multiplier."
+        },
+        "army": {
+          "$value": 1.75,
+          "$type": "number",
+          "$description": "Army hexagon size multiplier."
+        }
+      }
+    },
+    "inner": {
+      "first": {
+        "$value": 3.4,
+        "$type": "number",
+        "$description": "Gap (u) between the hexagon edge and the first nested outline."
+      },
+      "pitch": {
+        "$value": 3,
+        "$type": "number",
+        "$description": "Gap (u) between nested outlines. Their number is the echelon: brigade 1, division 2, corps 3, army 4."
+      },
+      "stroke": {
+        "$value": 1.3,
+        "$type": "number",
+        "$description": "Stroke width (u) of the nested outlines."
+      },
+      "alpha": {
+        "$value": 0.9,
+        "$type": "number",
+        "$description": "Opacity of the nested outlines."
+      }
+    }
+  },
+  "pin": {
+    "$description": "The pin: a small ground mark at a unit's true position when its tile has been moved off it to avoid overlap, joined to the tile by the leader line. Pre-rendered per side (it carries the side colour) so it can never look like a stray dot.",
+    "radius": {
+      "$value": 3.4,
+      "$type": "number",
+      "$description": "Radius (u) of the pin's coloured centre."
+    },
+    "ring": {
+      "$value": 1.5,
+      "$type": "number",
+      "$description": "Width (u) of the pin's bone ring around the centre (a dark keyline follows from ring.dark)."
+    }
+  },
+  "leader": {
+    "$description": "The leader line from a pin to its displaced tile. Drawn at runtime (a line has no fixed length) from these numbers by runtime/atlas.mjs drawLeader: a dark underlay, then a bone line, round caps, so it reads on every backdrop and matches the rings.",
+    "width": {
+      "$value": 1.25,
+      "$type": "number",
+      "$description": "Width (u) of the bone line."
+    },
+    "keyline": {
+      "$value": 1,
+      "$type": "number",
+      "$description": "Extra width (u) of the dark underlay on each side of the bone line."
+    },
+    "alpha": {
+      "$value": 0.8,
+      "$type": "number",
+      "$description": "Opacity of the whole leader (bone line and its underlay)."
+    },
+    "minLength": {
+      "$value": 8,
+      "$type": "number",
+      "$description": "A tile moved less than this many u gets no leader and no pin: it is still on its position for every practical purpose."
+    }
+  }
+}

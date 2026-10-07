@@ -1,0 +1,263 @@
+{
+  "generated": "2026-10-07T05:48:15.426Z",
+  "palette": "standard",
+  "vocabulary": "needed",
+  "tokenHash": "e1ae95e12e674336",
+  "scales": [
+    1,
+    2,
+    3
+  ],
+  "dataset": {
+    "file": "docs/pitch/anim/prototype/data/dataset.json",
+    "sha256": "41154f72cfc6c4e75d6ff67e882feb2d6bff72e6c2f3ceb6bd74b1e66e87586d",
+    "units": 478
+  },
+  "atlases": {
+    "nato": {
+      "sprites": 110,
+      "byGroup": {
+        "base": 38,
+        "ring": 24,
+        "agg": 48
+      },
+      "atlas": {
+        "w": 634,
+        "h": 538
+      },
+      "svg": {
+        "files": 110,
+        "bytes": 194683,
+        "gzipBytes": 52842
+      },
+      "png": {
+        "1x": {
+          "w": 634,
+          "h": 538,
+          "bytes": 156101
+        },
+        "2x": {
+          "w": 1268,
+          "h": 1076,
+          "bytes": 455078
+        },
+        "3x": {
+          "w": 1902,
+          "h": 1614,
+          "bytes": 894633
+        }
+      },
+      "pngEach": {
+        "1x": {
+          "files": 110,
+          "bytes": 260358
+        },
+        "2x": {
+          "files": 110,
+          "bytes": 662957
+        },
+        "3x": {
+          "files": 110,
+          "bytes": 1227975
+        }
+      },
+      "webpLossless": {
+        "1x": {
+          "bytes": 84330
+        },
+        "2x": {
+          "bytes": 265694
+        },
+        "3x": {
+          "bytes": 584612
+        }
+      }
+    },
+    "shield": {
+      "sprites": 98,
+      "byGroup": {
+        "base": 38,
+        "ring": 12,
+        "agg": 48
+      },
+      "atlas": {
+        "w": 630,
+        "h": 524
+      },
+      "svg": {
+        "files": 98,
+        "bytes": 231091,
+        "gzipBytes": 59818
+      },
+      "png": {
+        "1x": {
+          "w": 630,
+          "h": 524,
+          "bytes": 157967
+        },
+        "2x": {
+          "w": 1260,
+          "h": 1048,
+          "bytes": 450013
+        },
+        "3x": {
+          "w": 1890,
+          "h": 1572,
+          "bytes": 874005
+        }
+      },
+      "pngEach": {
+        "1x": {
+          "files": 98,
+          "bytes": 318264
+        },
+        "2x": {
+          "files": 98,
+          "bytes": 861236
+        },
+        "3x": {
+          "files": 98,
+          "bytes": 1514028
+        }
+      },
+      "webpLossless": {
+        "1x": {
+          "bytes": 104600
+        },
+        "2x": {
+          "bytes": 288540
+        },
+        "3x": {
+          "bytes": 599664
+        }
+      }
+    },
+    "minimal": {
+      "sprites": 104,
+      "byGroup": {
+        "base": 38,
+        "ring": 18,
+        "agg": 48
+      },
+      "atlas": {
+        "w": 636,
+        "h": 414
+      },
+      "svg": {
+        "files": 104,
+        "bytes": 174689,
+        "gzipBytes": 50340
+      },
+      "png": {
+        "1x": {
+          "w": 636,
+          "h": 414,
+          "bytes": 165012
+        },
+        "2x": {
+          "w": 1272,
+          "h": 828,
+          "bytes": 474231
+        },
+        "3x": {
+          "w": 1908,
+          "h": 1242,
+          "bytes": 909109
+        }
+      },
+      "pngEach": {
+        "1x": {
+          "files": 104,
+          "bytes": 318297
+        },
+        "2x": {
+          "files": 104,
+          "bytes": 886294
+        },
+        "3x": {
+          "files": 104,
+          "bytes": 1594777
+        }
+      },
+      "webpLossless": {
+        "1x": {
+          "bytes": 115364
+        },
+        "2x": {
+          "bytes": 328666
+        },
+        "3x": {
+          "bytes": 659040
+        }
+      }
+    },
+    "overlays": {
+      "sprites": 38,
+      "byGroup": {
+        "chip": 9,
+        "gauge": 5,
+        "pin": 3,
+        "tab": 2,
+        "badge": 19
+      },
+      "atlas": {
+        "w": 618,
+        "h": 66
+      },
+      "svg": {
+        "files": 38,
+        "bytes": 50187,
+        "gzipBytes": 16019
+      },
+      "png": {
+        "1x": {
+          "w": 618,
+          "h": 66,
+          "bytes": 26331
+        },
+        "2x": {
+          "w": 1236,
+          "h": 132,
+          "bytes": 70891
+        },
+        "3x": {
+          "w": 1854,
+          "h": 198,
+          "bytes": 127360
+        }
+      },
+      "pngEach": {
+        "1x": {
+          "files": 38,
+          "bytes": 47809
+        },
+        "2x": {
+          "files": 38,
+          "bytes": 124327
+        },
+        "3x": {
+          "files": 38,
+          "bytes": 218568
+        }
+      },
+      "webpLossless": {
+        "1x": {
+          "bytes": 22572
+        },
+        "2x": {
+          "bytes": 58928
+        },
+        "3x": {
+          "bytes": 109982
+        }
+      }
+    }
+  },
+  "totals": {
+    "sprites": 350,
+    "png1x": 505411,
+    "png2x": 1450213,
+    "png3x": 2805107,
+    "svgBytes": 650650
+  }
+}

@@ -1,0 +1,891 @@
+{
+ "format": "battle-symbology-legend/1",
+ "evidenceLabels": [
+  "Documented",
+  "Measured",
+  "Computed",
+  "Modelled",
+  "Contested",
+  "Unknown",
+  "Design"
+ ],
+ "palette": "standard",
+ "languages": {
+  "nato": {
+   "label": "NATO-spirit frames",
+   "rows": [
+    {
+     "channel": "side",
+     "value": "union",
+     "text": "Union: blue rectangle frame (NATO \"friend\" shape)",
+     "evidence": "Documented",
+     "sprite": "nato/base/union/infantry/regiment/fresh"
+    },
+    {
+     "channel": "side",
+     "value": "confederate",
+     "text": "Confederate: red-orange diamond frame (NATO \"hostile\" shape, used here only to say \"the other army\")",
+     "evidence": "Documented",
+     "sprite": "nato/base/confederate/infantry/regiment/fresh"
+    },
+    {
+     "channel": "side",
+     "value": "unknown",
+     "text": "Side unknown: yellow quatrefoil frame (NATO \"unknown\" shape): the id prefix and the state code disagree (10 ids)",
+     "evidence": "Contested",
+     "sprite": "nato/base/unknown/infantry/regiment/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "infantry",
+     "text": "Infantry: saltire X inside the frame (NATO)",
+     "evidence": "Documented",
+     "sprite": "nato/base/union/infantry/regiment/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "cavalry",
+     "text": "Cavalry: single diagonal (NATO reconnaissance / cavalry)",
+     "evidence": "Documented",
+     "sprite": "nato/base/union/cavalry/regiment/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "artillery",
+     "text": "Artillery: filled circle (NATO field artillery)",
+     "evidence": "Documented",
+     "sprite": "nato/base/union/artillery/battery/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "horse_artillery",
+     "text": "Horse artillery: filled circle over the cavalry diagonal (counter practice; NATO has no horse artillery symbol)",
+     "evidence": "Documented",
+     "sprite": "nato/base/union/horse_artillery/battery/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "sharpshooter",
+     "text": "Sharpshooters: saltire with a scope ring (invented here)",
+     "evidence": "Documented",
+     "sprite": "nato/base/union/sharpshooter/regiment/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "formation",
+     "text": "Formation (brigade, division, corps): an inset outline and no arm, because the data gives a formation no arm",
+     "evidence": "Documented",
+     "sprite": "nato/base/union/formation/brigade/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "battery",
+     "text": "Battery: I above the frame",
+     "evidence": "Documented",
+     "sprite": "nato/base/union/artillery/battery/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "regiment",
+     "text": "Regiment: III above the frame",
+     "evidence": "Documented",
+     "sprite": "nato/base/union/infantry/regiment/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "battalion",
+     "text": "Battalion: II above the frame",
+     "evidence": "Documented",
+     "sprite": "nato/base/confederate/artillery/battalion/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "brigade",
+     "text": "Brigade: X above the frame",
+     "evidence": "Documented",
+     "sprite": "nato/base/union/formation/brigade/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "division",
+     "text": "Division: XX",
+     "evidence": "Documented",
+     "sprite": "nato/base/union/formation/division/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "corps",
+     "text": "Corps: XXX",
+     "evidence": "Documented",
+     "sprite": "nato/base/union/formation/corps/fresh"
+    },
+    {
+     "channel": "state",
+     "value": "carried",
+     "text": "Carried forward: a dotted ring and a calmer, greyer plate: the latest keyframe is a day or more old, so the position is carried, not a fresh report",
+     "evidence": "Computed",
+     "sprite": "nato/base/union/infantry/regiment/carried"
+    },
+    {
+     "channel": "aggregate",
+     "value": "agg",
+     "text": "Aggregate mark: a stack of plates; the count is the number of placement records (never men), the row of glyphs the arms among them (I infantry, C cavalry, A artillery, F formation records); a split plate means both sides",
+     "evidence": "Computed",
+     "sprite": "nato/agg/union/IA/3"
+    },
+    {
+     "channel": "selection",
+     "value": "select",
+     "text": "Selected: a light ring between two dark keylines (interface state)",
+     "evidence": "Design",
+     "sprite": "nato/ring/select/diamond-regiment"
+    },
+    {
+     "channel": "posture",
+     "value": "charge",
+     "text": "Charging line",
+     "evidence": "Modelled",
+     "sprite": "chip/charge"
+    },
+    {
+     "channel": "posture",
+     "value": "retreat",
+     "text": "Chaotic retreat",
+     "evidence": "Modelled",
+     "sprite": "chip/retreat"
+    },
+    {
+     "channel": "posture",
+     "value": "march",
+     "text": "Line of march",
+     "evidence": "Modelled",
+     "sprite": "chip/march"
+    },
+    {
+     "channel": "posture",
+     "value": "skirmish",
+     "text": "Skirmish line",
+     "evidence": "Modelled",
+     "sprite": "chip/skirmish"
+    },
+    {
+     "channel": "posture",
+     "value": "reserve",
+     "text": "Reserve posture",
+     "evidence": "Modelled",
+     "sprite": "chip/reserve"
+    },
+    {
+     "channel": "posture",
+     "value": "bivouac",
+     "text": "Bivouac posture",
+     "evidence": "Modelled",
+     "sprite": "chip/bivouac"
+    },
+    {
+     "channel": "posture",
+     "value": "limbered",
+     "text": "Limbered artillery",
+     "evidence": "Modelled",
+     "sprite": "chip/limbered"
+    },
+    {
+     "channel": "posture",
+     "value": "dismounted",
+     "text": "Dismounted cavalry",
+     "evidence": "Modelled",
+     "sprite": "chip/dismounted"
+    },
+    {
+     "channel": "identity",
+     "value": "idonly",
+     "text": "Identity from the id alone: no order-of-battle record",
+     "evidence": "Unknown",
+     "sprite": "chip/idonly"
+    },
+    {
+     "channel": "strength",
+     "value": 0,
+     "text": "Strength gauge 0 of 4: keyframe strength under 12.5% of reference strength (a placement value, not a casualty record)",
+     "evidence": "Modelled",
+     "sprite": "gauge/0"
+    },
+    {
+     "channel": "strength",
+     "value": 1,
+     "text": "Strength gauge 1 of 4: keyframe strength 12.5 to 37.5% (a placement value, not a casualty record)",
+     "evidence": "Modelled",
+     "sprite": "gauge/1"
+    },
+    {
+     "channel": "strength",
+     "value": 2,
+     "text": "Strength gauge 2 of 4: keyframe strength 37.5 to 62.5% (a placement value, not a casualty record)",
+     "evidence": "Modelled",
+     "sprite": "gauge/2"
+    },
+    {
+     "channel": "strength",
+     "value": 3,
+     "text": "Strength gauge 3 of 4: keyframe strength 62.5 to 87.5% (a placement value, not a casualty record)",
+     "evidence": "Modelled",
+     "sprite": "gauge/3"
+    },
+    {
+     "channel": "strength",
+     "value": 4,
+     "text": "Strength gauge 4 of 4: keyframe strength 87.5% and over (a placement value, not a casualty record)",
+     "evidence": "Modelled",
+     "sprite": "gauge/4"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "I",
+     "text": "I Corps: circle (the NPS caption says circle, other sources sphere); colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/I/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "II",
+     "text": "II Corps: trefoil (clover leaf); colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/II/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "III",
+     "text": "III Corps: lozenge (diamond); colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/III/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "V",
+     "text": "V Corps: Maltese cross; colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/V/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "VI",
+     "text": "VI Corps: cross; colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/VI/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "XI",
+     "text": "XI Corps: crescent; colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/XI/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "XII",
+     "text": "XII Corps: star; colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/XII/red"
+    },
+    {
+     "channel": "displacement",
+     "value": "pin",
+     "text": "Pin and leader line: the tile was moved off its true position so that tiles do not overlap; the pin marks where the data places the unit (side-coloured), the line joins it to the tile",
+     "evidence": "Computed",
+     "sprite": "pin/union"
+    },
+    {
+     "channel": "label",
+     "value": "tab",
+     "text": "Label tab: the unit designation (or the id for the 95 units with no order-of-battle record)",
+     "evidence": "Documented",
+     "sprite": "tab/dark"
+    }
+   ]
+  },
+  "shield": {
+   "label": "Flat pictograms in a shield",
+   "rows": [
+    {
+     "channel": "side",
+     "value": "union",
+     "text": "Union: blue shield",
+     "evidence": "Documented",
+     "sprite": "shield/base/union/infantry/regiment/fresh"
+    },
+    {
+     "channel": "side",
+     "value": "confederate",
+     "text": "Confederate: red-orange shield",
+     "evidence": "Documented",
+     "sprite": "shield/base/confederate/infantry/regiment/fresh"
+    },
+    {
+     "channel": "side",
+     "value": "unknown",
+     "text": "Side unknown: gold shield with a dark pictogram: the id prefix and the state code disagree (10 ids)",
+     "evidence": "Contested",
+     "sprite": "shield/base/unknown/infantry/regiment/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "infantry",
+     "text": "Infantry: double chevron",
+     "evidence": "Documented",
+     "sprite": "shield/base/union/infantry/regiment/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "cavalry",
+     "text": "Cavalry: horse head",
+     "evidence": "Documented",
+     "sprite": "shield/base/union/cavalry/regiment/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "artillery",
+     "text": "Artillery: gun wheel",
+     "evidence": "Documented",
+     "sprite": "shield/base/union/artillery/battery/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "horse_artillery",
+     "text": "Horse artillery: gun wheel over a diagonal",
+     "evidence": "Documented",
+     "sprite": "shield/base/union/horse_artillery/battery/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "sharpshooter",
+     "text": "Sharpshooters: target",
+     "evidence": "Documented",
+     "sprite": "shield/base/union/sharpshooter/regiment/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "formation",
+     "text": "Formation (brigade, division, corps): three dots, composed of units; no arm, because the data gives a formation none",
+     "evidence": "Documented",
+     "sprite": "shield/base/union/formation/brigade/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "battery",
+     "text": "Battery: the base size, no mark",
+     "evidence": "Documented",
+     "sprite": "shield/base/union/artillery/battery/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "regiment",
+     "text": "Regiment: the base size, no mark",
+     "evidence": "Documented",
+     "sprite": "shield/base/union/infantry/regiment/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "battalion",
+     "text": "Artillery battalion: II in the header band",
+     "evidence": "Documented",
+     "sprite": "shield/base/confederate/artillery/battalion/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "brigade",
+     "text": "Brigade: X in the header band, a larger shield",
+     "evidence": "Documented",
+     "sprite": "shield/base/union/formation/brigade/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "division",
+     "text": "Division: XX, larger again",
+     "evidence": "Documented",
+     "sprite": "shield/base/union/formation/division/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "corps",
+     "text": "Corps: XXX, larger again",
+     "evidence": "Documented",
+     "sprite": "shield/base/union/formation/corps/fresh"
+    },
+    {
+     "channel": "state",
+     "value": "carried",
+     "text": "Carried forward: a dotted ring and a calmer, greyer shield: the latest keyframe is a day or more old, so the position is carried, not a fresh report",
+     "evidence": "Computed",
+     "sprite": "shield/base/union/infantry/regiment/carried"
+    },
+    {
+     "channel": "aggregate",
+     "value": "agg",
+     "text": "Aggregate mark: a stack of plates; the count is the number of placement records (never men), the row of glyphs the arms among them (I infantry, C cavalry, A artillery, F formation records); a split plate means both sides",
+     "evidence": "Computed",
+     "sprite": "shield/agg/union/IA/3"
+    },
+    {
+     "channel": "selection",
+     "value": "select",
+     "text": "Selected: a light ring between two dark keylines (interface state)",
+     "evidence": "Design",
+     "sprite": "shield/ring/select/shield-regiment"
+    },
+    {
+     "channel": "posture",
+     "value": "charge",
+     "text": "Charging line",
+     "evidence": "Modelled",
+     "sprite": "chip/charge"
+    },
+    {
+     "channel": "posture",
+     "value": "retreat",
+     "text": "Chaotic retreat",
+     "evidence": "Modelled",
+     "sprite": "chip/retreat"
+    },
+    {
+     "channel": "posture",
+     "value": "march",
+     "text": "Line of march",
+     "evidence": "Modelled",
+     "sprite": "chip/march"
+    },
+    {
+     "channel": "posture",
+     "value": "skirmish",
+     "text": "Skirmish line",
+     "evidence": "Modelled",
+     "sprite": "chip/skirmish"
+    },
+    {
+     "channel": "posture",
+     "value": "reserve",
+     "text": "Reserve posture",
+     "evidence": "Modelled",
+     "sprite": "chip/reserve"
+    },
+    {
+     "channel": "posture",
+     "value": "bivouac",
+     "text": "Bivouac posture",
+     "evidence": "Modelled",
+     "sprite": "chip/bivouac"
+    },
+    {
+     "channel": "posture",
+     "value": "limbered",
+     "text": "Limbered artillery",
+     "evidence": "Modelled",
+     "sprite": "chip/limbered"
+    },
+    {
+     "channel": "posture",
+     "value": "dismounted",
+     "text": "Dismounted cavalry",
+     "evidence": "Modelled",
+     "sprite": "chip/dismounted"
+    },
+    {
+     "channel": "identity",
+     "value": "idonly",
+     "text": "Identity from the id alone: no order-of-battle record",
+     "evidence": "Unknown",
+     "sprite": "chip/idonly"
+    },
+    {
+     "channel": "strength",
+     "value": 0,
+     "text": "Strength gauge 0 of 4: keyframe strength under 12.5% of reference strength (a placement value, not a casualty record)",
+     "evidence": "Modelled",
+     "sprite": "gauge/0"
+    },
+    {
+     "channel": "strength",
+     "value": 1,
+     "text": "Strength gauge 1 of 4: keyframe strength 12.5 to 37.5% (a placement value, not a casualty record)",
+     "evidence": "Modelled",
+     "sprite": "gauge/1"
+    },
+    {
+     "channel": "strength",
+     "value": 2,
+     "text": "Strength gauge 2 of 4: keyframe strength 37.5 to 62.5% (a placement value, not a casualty record)",
+     "evidence": "Modelled",
+     "sprite": "gauge/2"
+    },
+    {
+     "channel": "strength",
+     "value": 3,
+     "text": "Strength gauge 3 of 4: keyframe strength 62.5 to 87.5% (a placement value, not a casualty record)",
+     "evidence": "Modelled",
+     "sprite": "gauge/3"
+    },
+    {
+     "channel": "strength",
+     "value": 4,
+     "text": "Strength gauge 4 of 4: keyframe strength 87.5% and over (a placement value, not a casualty record)",
+     "evidence": "Modelled",
+     "sprite": "gauge/4"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "I",
+     "text": "I Corps: circle (the NPS caption says circle, other sources sphere); colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/I/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "II",
+     "text": "II Corps: trefoil (clover leaf); colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/II/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "III",
+     "text": "III Corps: lozenge (diamond); colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/III/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "V",
+     "text": "V Corps: Maltese cross; colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/V/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "VI",
+     "text": "VI Corps: cross; colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/VI/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "XI",
+     "text": "XI Corps: crescent; colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/XI/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "XII",
+     "text": "XII Corps: star; colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/XII/red"
+    },
+    {
+     "channel": "displacement",
+     "value": "pin",
+     "text": "Pin and leader line: the tile was moved off its true position so that tiles do not overlap; the pin marks where the data places the unit (side-coloured), the line joins it to the tile",
+     "evidence": "Computed",
+     "sprite": "pin/union"
+    },
+    {
+     "channel": "label",
+     "value": "tab",
+     "text": "Label tab: the unit designation (or the id for the 95 units with no order-of-battle record)",
+     "evidence": "Documented",
+     "sprite": "tab/dark"
+    }
+   ]
+  },
+  "minimal": {
+   "label": "Minimal glyphs",
+   "rows": [
+    {
+     "channel": "side",
+     "value": "union",
+     "text": "Union: blue marker",
+     "evidence": "Documented",
+     "sprite": "minimal/base/union/infantry/regiment/fresh"
+    },
+    {
+     "channel": "side",
+     "value": "confederate",
+     "text": "Confederate: red-orange marker",
+     "evidence": "Documented",
+     "sprite": "minimal/base/confederate/infantry/regiment/fresh"
+    },
+    {
+     "channel": "side",
+     "value": "unknown",
+     "text": "Side unknown: gold marker: the id prefix and the state code disagree (10 ids)",
+     "evidence": "Contested",
+     "sprite": "minimal/base/unknown/infantry/regiment/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "infantry",
+     "text": "Infantry: circle",
+     "evidence": "Documented",
+     "sprite": "minimal/base/union/infantry/regiment/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "cavalry",
+     "text": "Cavalry: triangle",
+     "evidence": "Documented",
+     "sprite": "minimal/base/union/cavalry/regiment/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "artillery",
+     "text": "Artillery: square",
+     "evidence": "Documented",
+     "sprite": "minimal/base/union/artillery/battery/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "horse_artillery",
+     "text": "Horse artillery: diamond",
+     "evidence": "Documented",
+     "sprite": "minimal/base/union/horse_artillery/battery/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "sharpshooter",
+     "text": "Sharpshooters: circle with a centre dot",
+     "evidence": "Documented",
+     "sprite": "minimal/base/union/sharpshooter/regiment/fresh"
+    },
+    {
+     "channel": "arm",
+     "value": "formation",
+     "text": "Formation (brigade, division, corps): hexagon; no arm is claimed because the data gives a formation none",
+     "evidence": "Documented",
+     "sprite": "minimal/base/union/formation/brigade/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "battery",
+     "text": "Battery: the base size",
+     "evidence": "Documented",
+     "sprite": "minimal/base/union/artillery/battery/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "regiment",
+     "text": "Regiment: the base size",
+     "evidence": "Documented",
+     "sprite": "minimal/base/union/infantry/regiment/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "battalion",
+     "text": "Artillery battalion: slightly larger",
+     "evidence": "Documented",
+     "sprite": "minimal/base/confederate/artillery/battalion/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "brigade",
+     "text": "Brigade: hexagon with one nested outline",
+     "evidence": "Documented",
+     "sprite": "minimal/base/union/formation/brigade/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "division",
+     "text": "Division: two nested outlines, larger",
+     "evidence": "Documented",
+     "sprite": "minimal/base/union/formation/division/fresh"
+    },
+    {
+     "channel": "echelon",
+     "value": "corps",
+     "text": "Corps: three nested outlines, larger again",
+     "evidence": "Documented",
+     "sprite": "minimal/base/union/formation/corps/fresh"
+    },
+    {
+     "channel": "state",
+     "value": "carried",
+     "text": "Carried forward: a dotted ring and a calmer, greyer marker: the latest keyframe is a day or more old, so the position is carried, not a fresh report",
+     "evidence": "Computed",
+     "sprite": "minimal/base/union/infantry/regiment/carried"
+    },
+    {
+     "channel": "aggregate",
+     "value": "agg",
+     "text": "Aggregate mark: a stack of plates; the count is the number of placement records (never men), the row of glyphs the arms among them (I infantry, C cavalry, A artillery, F formation records); a split plate means both sides",
+     "evidence": "Computed",
+     "sprite": "minimal/agg/union/IA/3"
+    },
+    {
+     "channel": "selection",
+     "value": "select",
+     "text": "Selected: a light ring between two dark keylines (interface state)",
+     "evidence": "Design",
+     "sprite": "minimal/ring/select/square-regiment"
+    },
+    {
+     "channel": "posture",
+     "value": "charge",
+     "text": "Charging line",
+     "evidence": "Modelled",
+     "sprite": "chip/charge"
+    },
+    {
+     "channel": "posture",
+     "value": "retreat",
+     "text": "Chaotic retreat",
+     "evidence": "Modelled",
+     "sprite": "chip/retreat"
+    },
+    {
+     "channel": "posture",
+     "value": "march",
+     "text": "Line of march",
+     "evidence": "Modelled",
+     "sprite": "chip/march"
+    },
+    {
+     "channel": "posture",
+     "value": "skirmish",
+     "text": "Skirmish line",
+     "evidence": "Modelled",
+     "sprite": "chip/skirmish"
+    },
+    {
+     "channel": "posture",
+     "value": "reserve",
+     "text": "Reserve posture",
+     "evidence": "Modelled",
+     "sprite": "chip/reserve"
+    },
+    {
+     "channel": "posture",
+     "value": "bivouac",
+     "text": "Bivouac posture",
+     "evidence": "Modelled",
+     "sprite": "chip/bivouac"
+    },
+    {
+     "channel": "posture",
+     "value": "limbered",
+     "text": "Limbered artillery",
+     "evidence": "Modelled",
+     "sprite": "chip/limbered"
+    },
+    {
+     "channel": "posture",
+     "value": "dismounted",
+     "text": "Dismounted cavalry",
+     "evidence": "Modelled",
+     "sprite": "chip/dismounted"
+    },
+    {
+     "channel": "identity",
+     "value": "idonly",
+     "text": "Identity from the id alone: no order-of-battle record",
+     "evidence": "Unknown",
+     "sprite": "chip/idonly"
+    },
+    {
+     "channel": "strength",
+     "value": 0,
+     "text": "Strength gauge 0 of 4: keyframe strength under 12.5% of reference strength (a placement value, not a casualty record)",
+     "evidence": "Modelled",
+     "sprite": "gauge/0"
+    },
+    {
+     "channel": "strength",
+     "value": 1,
+     "text": "Strength gauge 1 of 4: keyframe strength 12.5 to 37.5% (a placement value, not a casualty record)",
+     "evidence": "Modelled",
+     "sprite": "gauge/1"
+    },
+    {
+     "channel": "strength",
+     "value": 2,
+     "text": "Strength gauge 2 of 4: keyframe strength 37.5 to 62.5% (a placement value, not a casualty record)",
+     "evidence": "Modelled",
+     "sprite": "gauge/2"
+    },
+    {
+     "channel": "strength",
+     "value": 3,
+     "text": "Strength gauge 3 of 4: keyframe strength 62.5 to 87.5% (a placement value, not a casualty record)",
+     "evidence": "Modelled",
+     "sprite": "gauge/3"
+    },
+    {
+     "channel": "strength",
+     "value": 4,
+     "text": "Strength gauge 4 of 4: keyframe strength 87.5% and over (a placement value, not a casualty record)",
+     "evidence": "Modelled",
+     "sprite": "gauge/4"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "I",
+     "text": "I Corps: circle (the NPS caption says circle, other sources sphere); colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/I/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "II",
+     "text": "II Corps: trefoil (clover leaf); colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/II/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "III",
+     "text": "III Corps: lozenge (diamond); colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/III/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "V",
+     "text": "V Corps: Maltese cross; colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/V/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "VI",
+     "text": "VI Corps: cross; colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/VI/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "XI",
+     "text": "XI Corps: crescent; colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/XI/red"
+    },
+    {
+     "channel": "corpsBadge",
+     "value": "XII",
+     "text": "XII Corps: star; colour = division (red first, white second, blue third)",
+     "evidence": "Documented",
+     "sprite": "badge/XII/red"
+    },
+    {
+     "channel": "displacement",
+     "value": "pin",
+     "text": "Pin and leader line: the tile was moved off its true position so that tiles do not overlap; the pin marks where the data places the unit (side-coloured), the line joins it to the tile",
+     "evidence": "Computed",
+     "sprite": "pin/union"
+    },
+    {
+     "channel": "label",
+     "value": "tab",
+     "text": "Label tab: the unit designation (or the id for the 95 units with no order-of-battle record)",
+     "evidence": "Documented",
+     "sprite": "tab/dark"
+    }
+   ]
+  }
+ }
+}

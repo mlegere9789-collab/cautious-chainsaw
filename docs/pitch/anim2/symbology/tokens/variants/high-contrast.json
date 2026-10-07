@@ -1,0 +1,7 @@
+{
+  "$description": "Override file for the high-contrast variant: node build.mjs --palette highContrast --tokens tokens/variants/high-contrast.json (output in dist-highContrast/). Heavier rings, no shadow, no top light, a less washed-out carried-forward look. Only the leaves that change.",
+  "ring": { "light": { "$value": 1.5 }, "dark": { "$value": 1.25 }, "darkAlpha": { "$value": 1 } },
+  "shadow": { "alpha": { "$value": 0 } },
+  "fill": { "lift": { "$value": 0 } },
+  "carried": { "mix": { "$value": 0.3 }, "fillOpacity": { "$value": 0.95 }, "glyphOpacity": { "$value": 1 } }
+}

@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Symbol atlas demo</title>
+<style>
+:root{color-scheme:light dark}body{margin:0;font:13px/1.4 'Segoe UI',system-ui,sans-serif;background:#1b1f24;color:#e8ecef}
+header{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:10px 14px;background:#11151a}header b{font-size:15px}label{display:flex;gap:6px;align-items:center}select,input{font:inherit}
+#wrap{position:relative;width:1180px;height:720px;margin:12px auto}canvas{display:block;width:1180px;height:720px;border-radius:8px}#stat{font:12px Consolas,monospace;color:#9fb0bd;padding:0 14px 14px;max-width:1180px;margin:0 auto;white-space:pre-wrap}
+</style></head><body>
+<header><b>Symbol atlas demo</b>
+<label>language <select id="lang"><option>nato</option><option selected>shield</option><option>minimal</option></select></label>
+<label>scene <select id="scene"></select></label>
+<label>zoom <select id="zoom"><option value="auto" selected>scene</option><option>13.5</option><option>14</option><option>14.5</option><option>15</option><option>15.5</option><option>16</option><option>16.5</option><option>17</option></select></label>
+<label>ground <select id="ground"><option>aerial</option><option>naip-angle</option><option>naip-cemhill</option><option>naip-wheat</option><option>naip-cemhill135</option><option>forest</option><option>field</option><option>pale</option><option>soil</option><option>paper</option><option>ink</option></select></label>
+<label>labels <select id="labels"><option>tab</option><option>none</option></select></label>
+<label><input type="checkbox" id="gauge"> gauge</label><label><input type="checkbox" id="sel"> select first</label>
+<span id="info"></span></header>
+<div id="wrap"><canvas id="c"></canvas></div><div id="stat"></div>
+<script type="module" src="demo.mjs"></script></body></html>

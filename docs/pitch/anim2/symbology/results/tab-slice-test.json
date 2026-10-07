@@ -1,0 +1,54 @@
+{
+  "generated": "2026-10-07T05:57:15.398Z",
+  "note": "canvas A = runtime drawTab (three slices of the atlas), canvas B = the same pill rendered directly at that width; per-channel absolute difference over the 300x60 u area. The stretched middle matches a direct render (max diff in 0..255 below); the two end caps differ from a directly rendered wide pill by a few anti-aliased arc pixels because Chrome rasterises the same arc slightly differently in a wider element (tools/dev-tabdiff2.mjs: a minimum pill against a wide pill, left 17 columns, up to 70/255 on 52 channel values): the atlas cap is the shipped design, and it is identical at every text width",
+  "results": [
+    {
+      "dpr": 1,
+      "tone": "dark",
+      "pillW": 167,
+      "meanAbsDiff": 0.1142,
+      "maxDiffMiddle": 1,
+      "maxDiffCaps": 51
+    },
+    {
+      "dpr": 1,
+      "tone": "light",
+      "pillW": 167,
+      "meanAbsDiff": 0.1144,
+      "maxDiffMiddle": 3,
+      "maxDiffCaps": 71
+    },
+    {
+      "dpr": 2,
+      "tone": "dark",
+      "pillW": 167,
+      "meanAbsDiff": 0.0564,
+      "maxDiffMiddle": 0,
+      "maxDiffCaps": 82
+    },
+    {
+      "dpr": 2,
+      "tone": "light",
+      "pillW": 167,
+      "meanAbsDiff": 0.0641,
+      "maxDiffMiddle": 0,
+      "maxDiffCaps": 96
+    },
+    {
+      "dpr": 3,
+      "tone": "dark",
+      "pillW": 167,
+      "meanAbsDiff": 0.035,
+      "maxDiffMiddle": 2,
+      "maxDiffCaps": 51
+    },
+    {
+      "dpr": 3,
+      "tone": "light",
+      "pillW": 167,
+      "meanAbsDiff": 0.0363,
+      "maxDiffMiddle": 2,
+      "maxDiffCaps": 51
+    }
+  ]
+}
