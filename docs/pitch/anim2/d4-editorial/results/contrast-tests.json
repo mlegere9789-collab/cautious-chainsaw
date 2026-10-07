@@ -1,0 +1,1212 @@
+{
+ "checks": 134,
+ "failed": 0,
+ "results": [
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-paper: white glyph on Union, fresh",
+   "value": 7.09,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-paper: white glyph on Confederate, fresh",
+   "value": 5.08,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-paper: dark glyph on contested amber",
+   "value": 7.95,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-paper: white glyph on Union, a battle day old",
+   "value": 5.35,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "a graphic, not text: 3:1"
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-paper: white glyph on Confederate, a battle day old",
+   "value": 4.28,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "a graphic, not text: 3:1"
+  },
+  {
+   "group": "text",
+   "name": "dispatch-paper: ink on its halo",
+   "value": 14.3,
+   "bar": 7,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "ring on ground",
+   "name": "dispatch-paper: best ring on the worst of 28 measured ground colours (#a09270)",
+   "value": 3.33,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "WCAG 1.4.11 non-text 3:1"
+  },
+  {
+   "group": "selection",
+   "name": "dispatch-paper: amber ring against its dark underlay, worst ground",
+   "value": 3.31,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper: Union against Confederate, normal",
+   "value": 45.74,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper: Union against Confederate, protanopia",
+   "value": 49.14,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper: Union against Confederate, deuteranopia",
+   "value": 56.38,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper: Union against Confederate, tritanopia",
+   "value": 61.17,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper: Union against Confederate, luminance ratio (greyscale print)",
+   "value": 1.4,
+   "bar": 1.3,
+   "unit": ":1",
+   "pass": true,
+   "note": "colour is not the only cue: circle against rounded square, swallow-tail against point"
+  },
+  {
+   "group": "age",
+   "name": "dispatch-paper: a battle-day-old Union mark against a fresh one (the fade must be visible), CIEDE2000",
+   "value": 9.07,
+   "bar": 7,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "age is a device only if it can be seen (the high-contrast variant fades less on purpose)"
+  },
+  {
+   "group": "age",
+   "name": "dispatch-paper: a battle-day-old Union mark against a battle-day-old Confederate one (the side must survive the fade), CIEDE2000",
+   "value": 29.23,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper: contested amber against Union and Confederate (smallest, normal vision)",
+   "value": 34.27,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-paper/cvd: white glyph on Union, fresh",
+   "value": 6.67,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-paper/cvd: white glyph on Confederate, fresh",
+   "value": 5.05,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-paper/cvd: dark glyph on contested amber",
+   "value": 8.49,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-paper/cvd: white glyph on Union, a battle day old",
+   "value": 5.4,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "a graphic, not text: 3:1"
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-paper/cvd: white glyph on Confederate, a battle day old",
+   "value": 4.19,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "a graphic, not text: 3:1"
+  },
+  {
+   "group": "text",
+   "name": "dispatch-paper/cvd: ink on its halo",
+   "value": 14.3,
+   "bar": 7,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "ring on ground",
+   "name": "dispatch-paper/cvd: best ring on the worst of 28 measured ground colours (#a09270)",
+   "value": 3.33,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "WCAG 1.4.11 non-text 3:1"
+  },
+  {
+   "group": "selection",
+   "name": "dispatch-paper/cvd: amber ring against its dark underlay, worst ground",
+   "value": 3.31,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper/cvd: Union against Confederate, normal",
+   "value": 47.81,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper/cvd: Union against Confederate, protanopia",
+   "value": 51.56,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper/cvd: Union against Confederate, deuteranopia",
+   "value": 57.28,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper/cvd: Union against Confederate, tritanopia",
+   "value": 59.88,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper/cvd: Union against Confederate, luminance ratio (greyscale print)",
+   "value": 1.32,
+   "bar": 1.3,
+   "unit": ":1",
+   "pass": true,
+   "note": "colour is not the only cue: circle against rounded square, swallow-tail against point"
+  },
+  {
+   "group": "age",
+   "name": "dispatch-paper/cvd: a battle-day-old Union mark against a fresh one (the fade must be visible), CIEDE2000",
+   "value": 7.73,
+   "bar": 7,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "age is a device only if it can be seen (the high-contrast variant fades less on purpose)"
+  },
+  {
+   "group": "age",
+   "name": "dispatch-paper/cvd: a battle-day-old Union mark against a battle-day-old Confederate one (the side must survive the fade), CIEDE2000",
+   "value": 31.44,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper/cvd: contested amber against Union and Confederate (smallest, normal vision)",
+   "value": 35.8,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-paper/contrast: white glyph on Union, fresh",
+   "value": 10.37,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-paper/contrast: white glyph on Confederate, fresh",
+   "value": 6.79,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-paper/contrast: dark glyph on contested amber",
+   "value": 7.95,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-paper/contrast: white glyph on Union, a battle day old",
+   "value": 8.68,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "a graphic, not text: 3:1"
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-paper/contrast: white glyph on Confederate, a battle day old",
+   "value": 6.22,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "a graphic, not text: 3:1"
+  },
+  {
+   "group": "text",
+   "name": "dispatch-paper/contrast: ink on its halo",
+   "value": 14.69,
+   "bar": 7,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "ring on ground",
+   "name": "dispatch-paper/contrast: best ring on the worst of 28 measured ground colours (#a09270)",
+   "value": 3.33,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "WCAG 1.4.11 non-text 3:1"
+  },
+  {
+   "group": "selection",
+   "name": "dispatch-paper/contrast: amber ring against its dark underlay, worst ground",
+   "value": 3.31,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper/contrast: Union against Confederate, normal",
+   "value": 44.15,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper/contrast: Union against Confederate, protanopia",
+   "value": 47.62,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper/contrast: Union against Confederate, deuteranopia",
+   "value": 55.19,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper/contrast: Union against Confederate, tritanopia",
+   "value": 54.75,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper/contrast: Union against Confederate, luminance ratio (greyscale print)",
+   "value": 1.53,
+   "bar": 1.3,
+   "unit": ":1",
+   "pass": true,
+   "note": "colour is not the only cue: circle against rounded square, swallow-tail against point"
+  },
+  {
+   "group": "age",
+   "name": "dispatch-paper/contrast: a battle-day-old Union mark against a fresh one (the fade must be visible), CIEDE2000",
+   "value": 5.05,
+   "bar": 4,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "age is a device only if it can be seen (the high-contrast variant fades less on purpose)"
+  },
+  {
+   "group": "age",
+   "name": "dispatch-paper/contrast: a battle-day-old Union mark against a battle-day-old Confederate one (the side must survive the fade), CIEDE2000",
+   "value": 35.59,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-paper/contrast: contested amber against Union and Confederate (smallest, normal vision)",
+   "value": 40.46,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-aerial: white glyph on Union, fresh",
+   "value": 7.09,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-aerial: white glyph on Confederate, fresh",
+   "value": 5.08,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-aerial: dark glyph on contested amber",
+   "value": 7.95,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-aerial: white glyph on Union, a battle day old",
+   "value": 6.56,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "a graphic, not text: 3:1"
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-aerial: white glyph on Confederate, a battle day old",
+   "value": 5.28,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "a graphic, not text: 3:1"
+  },
+  {
+   "group": "text",
+   "name": "dispatch-aerial: ink on its halo",
+   "value": 17.89,
+   "bar": 7,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "ring on ground",
+   "name": "dispatch-aerial: best ring on the worst of 28 measured ground colours (#7a7d84)",
+   "value": 4.12,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "WCAG 1.4.11 non-text 3:1"
+  },
+  {
+   "group": "selection",
+   "name": "dispatch-aerial: amber ring against its dark underlay, worst ground",
+   "value": 6.35,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial: Union against Confederate, normal",
+   "value": 45.74,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial: Union against Confederate, protanopia",
+   "value": 49.14,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial: Union against Confederate, deuteranopia",
+   "value": 56.38,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial: Union against Confederate, tritanopia",
+   "value": 61.17,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial: Union against Confederate, luminance ratio (greyscale print)",
+   "value": 1.4,
+   "bar": 1.3,
+   "unit": ":1",
+   "pass": true,
+   "note": "colour is not the only cue: circle against rounded square, swallow-tail against point"
+  },
+  {
+   "group": "age",
+   "name": "dispatch-aerial: a battle-day-old Union mark against a fresh one (the fade must be visible), CIEDE2000",
+   "value": 9.33,
+   "bar": 7,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "age is a device only if it can be seen (the high-contrast variant fades less on purpose)"
+  },
+  {
+   "group": "age",
+   "name": "dispatch-aerial: a battle-day-old Union mark against a battle-day-old Confederate one (the side must survive the fade), CIEDE2000",
+   "value": 24.46,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial: contested amber against Union and Confederate (smallest, normal vision)",
+   "value": 34.27,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-aerial/cvd: white glyph on Union, fresh",
+   "value": 6.79,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-aerial/cvd: white glyph on Confederate, fresh",
+   "value": 4.8,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-aerial/cvd: dark glyph on contested amber",
+   "value": 10.21,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-aerial/cvd: white glyph on Union, a battle day old",
+   "value": 6.47,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "a graphic, not text: 3:1"
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-aerial/cvd: white glyph on Confederate, a battle day old",
+   "value": 4.97,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "a graphic, not text: 3:1"
+  },
+  {
+   "group": "text",
+   "name": "dispatch-aerial/cvd: ink on its halo",
+   "value": 17.89,
+   "bar": 7,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "ring on ground",
+   "name": "dispatch-aerial/cvd: best ring on the worst of 28 measured ground colours (#7a7d84)",
+   "value": 4.12,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "WCAG 1.4.11 non-text 3:1"
+  },
+  {
+   "group": "selection",
+   "name": "dispatch-aerial/cvd: amber ring against its dark underlay, worst ground",
+   "value": 6.35,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial/cvd: Union against Confederate, normal",
+   "value": 47.92,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial/cvd: Union against Confederate, protanopia",
+   "value": 51.71,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial/cvd: Union against Confederate, deuteranopia",
+   "value": 57.63,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial/cvd: Union against Confederate, tritanopia",
+   "value": 59.79,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial/cvd: Union against Confederate, luminance ratio (greyscale print)",
+   "value": 1.41,
+   "bar": 1.3,
+   "unit": ":1",
+   "pass": true,
+   "note": "colour is not the only cue: circle against rounded square, swallow-tail against point"
+  },
+  {
+   "group": "age",
+   "name": "dispatch-aerial/cvd: a battle-day-old Union mark against a fresh one (the fade must be visible), CIEDE2000",
+   "value": 9.39,
+   "bar": 7,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "age is a device only if it can be seen (the high-contrast variant fades less on purpose)"
+  },
+  {
+   "group": "age",
+   "name": "dispatch-aerial/cvd: a battle-day-old Union mark against a battle-day-old Confederate one (the side must survive the fade), CIEDE2000",
+   "value": 25.44,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial/cvd: contested amber against Union and Confederate (smallest, normal vision)",
+   "value": 38.7,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-aerial/contrast: white glyph on Union, fresh",
+   "value": 6.33,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-aerial/contrast: white glyph on Confederate, fresh",
+   "value": 4.78,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-aerial/contrast: dark glyph on contested amber",
+   "value": 7.95,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-aerial/contrast: white glyph on Union, a battle day old",
+   "value": 6.4,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "a graphic, not text: 3:1"
+  },
+  {
+   "group": "glyph on fill",
+   "name": "dispatch-aerial/contrast: white glyph on Confederate, a battle day old",
+   "value": 5.13,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "a graphic, not text: 3:1"
+  },
+  {
+   "group": "text",
+   "name": "dispatch-aerial/contrast: ink on its halo",
+   "value": 19,
+   "bar": 7,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "ring on ground",
+   "name": "dispatch-aerial/contrast: best ring on the worst of 28 measured ground colours (#7a7d84)",
+   "value": 4.12,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "WCAG 1.4.11 non-text 3:1"
+  },
+  {
+   "group": "selection",
+   "name": "dispatch-aerial/contrast: amber ring against its dark underlay, worst ground",
+   "value": 6.35,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial/contrast: Union against Confederate, normal",
+   "value": 46.54,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial/contrast: Union against Confederate, protanopia",
+   "value": 49.91,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial/contrast: Union against Confederate, deuteranopia",
+   "value": 56.87,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial/contrast: Union against Confederate, tritanopia",
+   "value": 62.72,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "the project bar of 20"
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial/contrast: Union against Confederate, luminance ratio (greyscale print)",
+   "value": 1.33,
+   "bar": 1.3,
+   "unit": ":1",
+   "pass": true,
+   "note": "colour is not the only cue: circle against rounded square, swallow-tail against point"
+  },
+  {
+   "group": "age",
+   "name": "dispatch-aerial/contrast: a battle-day-old Union mark against a fresh one (the fade must be visible), CIEDE2000",
+   "value": 4.25,
+   "bar": 4,
+   "unit": " dE2000",
+   "pass": true,
+   "note": "age is a device only if it can be seen (the high-contrast variant fades less on purpose)"
+  },
+  {
+   "group": "age",
+   "name": "dispatch-aerial/contrast: a battle-day-old Union mark against a battle-day-old Confederate one (the side must survive the fade), CIEDE2000",
+   "value": 37.34,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "side separation",
+   "name": "dispatch-aerial/contrast: contested amber against Union and Confederate (smallest, normal vision)",
+   "value": 32.8,
+   "bar": 20,
+   "unit": " dE2000",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --text on the card",
+   "value": 15.05,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --muted on the card",
+   "value": 6.52,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --ink-critical (the kicker of that tone) on the card",
+   "value": 6.52,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --ink-high (the kicker of that tone) on the card",
+   "value": 5.97,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --ink-medium (the kicker of that tone) on the card",
+   "value": 6.44,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --ink-story (the kicker of that tone) on the card",
+   "value": 7.58,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --ink-info (the kicker of that tone) on the card",
+   "value": 7.6,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --ink-day (the kicker of that tone) on the card",
+   "value": 7.58,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --ink-union (the kicker of that tone) on the card",
+   "value": 7.6,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --ink-confederate (the kicker of that tone) on the card",
+   "value": 6.28,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --ink-neutral (the kicker of that tone) on the card",
+   "value": 7.55,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --evi-Documented (an evidence label) on the card",
+   "value": 5.94,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --evi-Measured (an evidence label) on the card",
+   "value": 6.42,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --evi-Computed (an evidence label) on the card",
+   "value": 6.6,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --evi-Modelled (an evidence label) on the card",
+   "value": 5.97,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --evi-Contested (an evidence label) on the card",
+   "value": 5.66,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --evi-Unknown (an evidence label) on the card",
+   "value": 5.69,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: accent ink on the accent (the play button)",
+   "value": 11.3,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "light: --panel on --text (the active segment, the primary button)",
+   "value": 15.05,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --text on the card",
+   "value": 15.83,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --muted on the card",
+   "value": 8.16,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --ink-critical (the kicker of that tone) on the card",
+   "value": 8.46,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --ink-high (the kicker of that tone) on the card",
+   "value": 11.01,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --ink-medium (the kicker of that tone) on the card",
+   "value": 12.02,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --ink-story (the kicker of that tone) on the card",
+   "value": 12.28,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --ink-info (the kicker of that tone) on the card",
+   "value": 10,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --ink-day (the kicker of that tone) on the card",
+   "value": 12.28,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --ink-union (the kicker of that tone) on the card",
+   "value": 10,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --ink-confederate (the kicker of that tone) on the card",
+   "value": 9.25,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --ink-neutral (the kicker of that tone) on the card",
+   "value": 10.41,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --evi-Documented (an evidence label) on the card",
+   "value": 8.56,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --evi-Measured (an evidence label) on the card",
+   "value": 8.1,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --evi-Computed (an evidence label) on the card",
+   "value": 7.21,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --evi-Modelled (an evidence label) on the card",
+   "value": 9.07,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --evi-Contested (an evidence label) on the card",
+   "value": 6.93,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --evi-Unknown (an evidence label) on the card",
+   "value": 6.8,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: accent ink on the accent (the play button)",
+   "value": 11.3,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
+   "name": "dark: --panel on --text (the active segment, the primary button)",
+   "value": 15.83,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  }
+ ]
+}

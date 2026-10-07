@@ -1,0 +1,33 @@
+// layout/text.mjs - the text-width model behind every tile footprint.  A tile's chip is as wide as its text, so the zero-overlap guarantee is exactly as good as
+// the width model: wider rendered text than modelled would push ink outside its box.  Two sources, one interface:
+//   * the TABLE measured in real Chrome 155 on Windows (Segoe UI; data/text-widths.json, validated against measureText of all 478 real short codes: worst error 3.3 %, so a
+//     4 % safety factor is applied).  Node tests and the first frame use it, so layout is deterministic everywhere;
+//   * a table measured AT RUN TIME in the viewer's own browser with the viewer's own font (measureTextModel), which the app installs before the first solve.
+// text.width(font, string) -> CSS px (including the safety factor and 1 px)
+export const FONT_STACK = '"Inter", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif';          // D4 FORK: Inter (SIL OFL 1.1), shipped inside the page
+export const FONT_SPECS = { code: `600 12px ${FONT_STACK}`, label: `600 12px ${FONT_STACK}`, badge: `700 13px ${FONT_STACK}` };       // two sizes (12 and 13) and one numeral style (700)
+export const CHARSET = (() => { let s = ''; for (let i = 32; i < 127; i++) s += String.fromCharCode(i); return s + '×…·•'; })();
+
+/** @param {{fonts: Record<string,{adv: Record<string,number>}>}} table  @param {number} [safety] */
+export function createTextModel(table, safety = 1.04, source = 'table') {
+  const fonts = table.fonts;
+  return {
+    source, safety, table,
+    width(font, s) {
+      const adv = fonts[font].adv; let w = 0;
+      for (const ch of s) w += adv[ch] ?? adv.M;
+      return w * safety + 1;
+    },
+  };
+}
+
+/** measure every tile font with a 2D canvas context of the running browser; returns a table in the same shape as data/text-widths.json */
+export function measureTable(ctx2d, fontSpecs = FONT_SPECS, chars = CHARSET) {
+  const out = { browser: typeof navigator !== 'undefined' ? navigator.userAgent : 'unknown', fonts: {} };
+  for (const [k, css] of Object.entries(fontSpecs)) {
+    ctx2d.font = css; const adv = {};
+    for (const ch of chars) adv[ch] = ctx2d.measureText(ch).width;
+    out.fonts[k] = { css, adv };
+  }
+  return out;
+}
