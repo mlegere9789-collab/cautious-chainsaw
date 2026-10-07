@@ -1,0 +1,1131 @@
+{
+ "generated": "2026-10-07T08:07:45.073Z",
+ "note": "tools/contrast.mjs; colour maths of docs/pitch/anim2/symbology/src/colour.mjs",
+ "bars": {
+  "text": 4.5,
+  "nonText": 3
+ },
+ "failed": 0,
+ "checks": [
+  {
+   "group": "marks / standard",
+   "name": "code on plate",
+   "ratio": 16.94,
+   "bar": 4.5,
+   "ok": true,
+   "note": "color.text on color.plate"
+  },
+  {
+   "group": "marks / standard",
+   "name": "code on plate (hover, selected)",
+   "ratio": 14.14,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / standard",
+   "name": "tail (muted) on plate",
+   "ratio": 8.82,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / standard",
+   "name": "tail (muted) on plate (hover)",
+   "ratio": 7.36,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / standard",
+   "name": "arm symbol on union cell, fresh",
+   "ratio": 5.23,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / standard",
+   "name": "arm symbol on union cell, a day old",
+   "ratio": 5.94,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / standard",
+   "name": "union line colour on its underlay (pin, leader)",
+   "ratio": 9.08,
+   "bar": 3,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / standard",
+   "name": "arm symbol on confederate cell, fresh",
+   "ratio": 5.1,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / standard",
+   "name": "arm symbol on confederate cell, a day old",
+   "ratio": 5.71,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / standard",
+   "name": "confederate line colour on its underlay (pin, leader)",
+   "ratio": 8.25,
+   "bar": 3,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / standard",
+   "name": "arm symbol on contested cell, fresh",
+   "ratio": 7.27,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / standard",
+   "name": "arm symbol on contested cell, a day old",
+   "ratio": 5.18,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / standard",
+   "name": "plate boundary on the worst grey ground (plate or keyline)",
+   "ratio": 3.06,
+   "bar": 3,
+   "ok": true,
+   "note": "worst ground: grey 99"
+  },
+  {
+   "group": "marks / standard",
+   "name": "Union vs Confederate cell, fresh, normal",
+   "ratio": 45.78,
+   "bar": 20,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / standard",
+   "name": "Union vs Confederate cell, a day old, normal",
+   "ratio": 26.69,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000; the washed colours are closer by design"
+  },
+  {
+   "group": "marks / standard",
+   "name": "Union vs Confederate cell, fresh, protanopia",
+   "ratio": 50.46,
+   "bar": 20,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / standard",
+   "name": "Union vs Confederate cell, a day old, protanopia",
+   "ratio": 21.89,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000; the washed colours are closer by design"
+  },
+  {
+   "group": "marks / standard",
+   "name": "Union vs Confederate cell, fresh, deuteranopia",
+   "ratio": 55.88,
+   "bar": 20,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / standard",
+   "name": "Union vs Confederate cell, a day old, deuteranopia",
+   "ratio": 26.39,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000; the washed colours are closer by design"
+  },
+  {
+   "group": "marks / standard",
+   "name": "Union vs Confederate cell, fresh, tritanopia",
+   "ratio": 65.59,
+   "bar": 20,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / standard",
+   "name": "Union vs Confederate cell, a day old, tritanopia",
+   "ratio": 35.08,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000; the washed colours are closer by design"
+  },
+  {
+   "group": "marks / standard",
+   "name": "Union vs Confederate fresh luminance ratio (greyscale print)",
+   "ratio": 1.04,
+   "bar": null,
+   "ok": null,
+   "note": "information only: side is also in the cell glyph position and the code, never in colour alone for a reader of the legend"
+  },
+  {
+   "group": "marks / standard",
+   "name": "union: fresh vs a day old cell (the provisional device is visible)",
+   "ratio": 12.3,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / standard",
+   "name": "confederate: fresh vs a day old cell (the provisional device is visible)",
+   "ratio": 14.47,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / day",
+   "name": "code on plate",
+   "ratio": 17,
+   "bar": 4.5,
+   "ok": true,
+   "note": "color.text on color.plate"
+  },
+  {
+   "group": "marks / day",
+   "name": "code on plate (hover, selected)",
+   "ratio": 14.48,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / day",
+   "name": "tail (muted) on plate",
+   "ratio": 7.06,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / day",
+   "name": "tail (muted) on plate (hover)",
+   "ratio": 6.01,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / day",
+   "name": "arm symbol on union cell, fresh",
+   "ratio": 5.23,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / day",
+   "name": "arm symbol on union cell, a day old",
+   "ratio": 5.94,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / day",
+   "name": "union line colour on its underlay (pin, leader)",
+   "ratio": 6.8,
+   "bar": 3,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / day",
+   "name": "arm symbol on confederate cell, fresh",
+   "ratio": 5.1,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / day",
+   "name": "arm symbol on confederate cell, a day old",
+   "ratio": 5.71,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / day",
+   "name": "confederate line colour on its underlay (pin, leader)",
+   "ratio": 5.88,
+   "bar": 3,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / day",
+   "name": "arm symbol on contested cell, fresh",
+   "ratio": 7.27,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / day",
+   "name": "arm symbol on contested cell, a day old",
+   "ratio": 5.18,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / day",
+   "name": "plate boundary on the worst grey ground (plate or keyline)",
+   "ratio": 3.34,
+   "bar": 3,
+   "ok": true,
+   "note": "worst ground: grey 137"
+  },
+  {
+   "group": "marks / day",
+   "name": "Union vs Confederate cell, fresh, normal",
+   "ratio": 45.78,
+   "bar": 20,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / day",
+   "name": "Union vs Confederate cell, a day old, normal",
+   "ratio": 26.69,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000; the washed colours are closer by design"
+  },
+  {
+   "group": "marks / day",
+   "name": "Union vs Confederate cell, fresh, protanopia",
+   "ratio": 50.46,
+   "bar": 20,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / day",
+   "name": "Union vs Confederate cell, a day old, protanopia",
+   "ratio": 21.89,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000; the washed colours are closer by design"
+  },
+  {
+   "group": "marks / day",
+   "name": "Union vs Confederate cell, fresh, deuteranopia",
+   "ratio": 55.88,
+   "bar": 20,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / day",
+   "name": "Union vs Confederate cell, a day old, deuteranopia",
+   "ratio": 26.39,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000; the washed colours are closer by design"
+  },
+  {
+   "group": "marks / day",
+   "name": "Union vs Confederate cell, fresh, tritanopia",
+   "ratio": 65.59,
+   "bar": 20,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / day",
+   "name": "Union vs Confederate cell, a day old, tritanopia",
+   "ratio": 35.08,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000; the washed colours are closer by design"
+  },
+  {
+   "group": "marks / day",
+   "name": "Union vs Confederate fresh luminance ratio (greyscale print)",
+   "ratio": 1.04,
+   "bar": null,
+   "ok": null,
+   "note": "information only: side is also in the cell glyph position and the code, never in colour alone for a reader of the legend"
+  },
+  {
+   "group": "marks / day",
+   "name": "union: fresh vs a day old cell (the provisional device is visible)",
+   "ratio": 12.3,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / day",
+   "name": "confederate: fresh vs a day old cell (the provisional device is visible)",
+   "ratio": 14.47,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / cvd",
+   "name": "code on plate",
+   "ratio": 16.94,
+   "bar": 4.5,
+   "ok": true,
+   "note": "color.text on color.plate"
+  },
+  {
+   "group": "marks / cvd",
+   "name": "code on plate (hover, selected)",
+   "ratio": 14.14,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / cvd",
+   "name": "tail (muted) on plate",
+   "ratio": 8.82,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / cvd",
+   "name": "tail (muted) on plate (hover)",
+   "ratio": 7.36,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / cvd",
+   "name": "arm symbol on union cell, fresh",
+   "ratio": 5.19,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / cvd",
+   "name": "arm symbol on union cell, a day old",
+   "ratio": 5.19,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / cvd",
+   "name": "union line colour on its underlay (pin, leader)",
+   "ratio": 9.19,
+   "bar": 3,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / cvd",
+   "name": "arm symbol on confederate cell, fresh",
+   "ratio": 4.6,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / cvd",
+   "name": "arm symbol on confederate cell, a day old",
+   "ratio": 5.49,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / cvd",
+   "name": "confederate line colour on its underlay (pin, leader)",
+   "ratio": 9.61,
+   "bar": 3,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / cvd",
+   "name": "arm symbol on contested cell, fresh",
+   "ratio": 7.27,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / cvd",
+   "name": "arm symbol on contested cell, a day old",
+   "ratio": 5.18,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / cvd",
+   "name": "plate boundary on the worst grey ground (plate or keyline)",
+   "ratio": 3.06,
+   "bar": 3,
+   "ok": true,
+   "note": "worst ground: grey 99"
+  },
+  {
+   "group": "marks / cvd",
+   "name": "Union vs Confederate cell, fresh, normal",
+   "ratio": 48.37,
+   "bar": 20,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / cvd",
+   "name": "Union vs Confederate cell, a day old, normal",
+   "ratio": 27.85,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000; the washed colours are closer by design"
+  },
+  {
+   "group": "marks / cvd",
+   "name": "Union vs Confederate cell, fresh, protanopia",
+   "ratio": 49.26,
+   "bar": 20,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / cvd",
+   "name": "Union vs Confederate cell, a day old, protanopia",
+   "ratio": 25.85,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000; the washed colours are closer by design"
+  },
+  {
+   "group": "marks / cvd",
+   "name": "Union vs Confederate cell, fresh, deuteranopia",
+   "ratio": 54.57,
+   "bar": 20,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / cvd",
+   "name": "Union vs Confederate cell, a day old, deuteranopia",
+   "ratio": 28.31,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000; the washed colours are closer by design"
+  },
+  {
+   "group": "marks / cvd",
+   "name": "Union vs Confederate cell, fresh, tritanopia",
+   "ratio": 53.49,
+   "bar": 20,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / cvd",
+   "name": "Union vs Confederate cell, a day old, tritanopia",
+   "ratio": 36.05,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000; the washed colours are closer by design"
+  },
+  {
+   "group": "marks / cvd",
+   "name": "Union vs Confederate fresh luminance ratio (greyscale print)",
+   "ratio": 1.17,
+   "bar": null,
+   "ok": null,
+   "note": "information only: side is also in the cell glyph position and the code, never in colour alone for a reader of the legend"
+  },
+  {
+   "group": "marks / cvd",
+   "name": "union: fresh vs a day old cell (the provisional device is visible)",
+   "ratio": 12.4,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / cvd",
+   "name": "confederate: fresh vs a day old cell (the provisional device is visible)",
+   "ratio": 14.64,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / contrast",
+   "name": "code on plate",
+   "ratio": 21,
+   "bar": 4.5,
+   "ok": true,
+   "note": "color.text on color.plate"
+  },
+  {
+   "group": "marks / contrast",
+   "name": "code on plate (hover, selected)",
+   "ratio": 16.48,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / contrast",
+   "name": "tail (muted) on plate",
+   "ratio": 14.17,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / contrast",
+   "name": "tail (muted) on plate (hover)",
+   "ratio": 11.12,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / contrast",
+   "name": "arm symbol on union cell, fresh",
+   "ratio": 8.84,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / contrast",
+   "name": "arm symbol on union cell, a day old",
+   "ratio": 5.53,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / contrast",
+   "name": "union line colour on its underlay (pin, leader)",
+   "ratio": 9.08,
+   "bar": 3,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / contrast",
+   "name": "arm symbol on confederate cell, fresh",
+   "ratio": 6.8,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / contrast",
+   "name": "arm symbol on confederate cell, a day old",
+   "ratio": 7.24,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / contrast",
+   "name": "confederate line colour on its underlay (pin, leader)",
+   "ratio": 8.25,
+   "bar": 3,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / contrast",
+   "name": "arm symbol on contested cell, fresh",
+   "ratio": 7.27,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / contrast",
+   "name": "arm symbol on contested cell, a day old",
+   "ratio": 5.18,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "marks / contrast",
+   "name": "plate boundary on the worst grey ground (plate or keyline)",
+   "ratio": 4.05,
+   "bar": 3,
+   "ok": true,
+   "note": "worst ground: grey 108"
+  },
+  {
+   "group": "marks / contrast",
+   "name": "Union vs Confederate cell, fresh, normal",
+   "ratio": 45.76,
+   "bar": 20,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / contrast",
+   "name": "Union vs Confederate cell, a day old, normal",
+   "ratio": 28.28,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000; the washed colours are closer by design"
+  },
+  {
+   "group": "marks / contrast",
+   "name": "Union vs Confederate cell, fresh, protanopia",
+   "ratio": 49.68,
+   "bar": 20,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / contrast",
+   "name": "Union vs Confederate cell, a day old, protanopia",
+   "ratio": 25.02,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000; the washed colours are closer by design"
+  },
+  {
+   "group": "marks / contrast",
+   "name": "Union vs Confederate cell, fresh, deuteranopia",
+   "ratio": 56.3,
+   "bar": 20,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / contrast",
+   "name": "Union vs Confederate cell, a day old, deuteranopia",
+   "ratio": 27.53,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000; the washed colours are closer by design"
+  },
+  {
+   "group": "marks / contrast",
+   "name": "Union vs Confederate cell, fresh, tritanopia",
+   "ratio": 56.86,
+   "bar": 20,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / contrast",
+   "name": "Union vs Confederate cell, a day old, tritanopia",
+   "ratio": 38.19,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000; the washed colours are closer by design"
+  },
+  {
+   "group": "marks / contrast",
+   "name": "Union vs Confederate fresh luminance ratio (greyscale print)",
+   "ratio": 1.52,
+   "bar": null,
+   "ok": null,
+   "note": "information only: side is also in the cell glyph position and the code, never in colour alone for a reader of the legend"
+  },
+  {
+   "group": "marks / contrast",
+   "name": "union: fresh vs a day old cell (the provisional device is visible)",
+   "ratio": 14.46,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "marks / contrast",
+   "name": "confederate: fresh vs a day old cell (the provisional device is visible)",
+   "ratio": 14.38,
+   "bar": 12,
+   "ok": true,
+   "note": "CIEDE2000"
+  },
+  {
+   "group": "interface / night",
+   "name": "--text on --panel",
+   "ratio": 16.94,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "--text on --panel2",
+   "ratio": 15.69,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "--text on --panel3",
+   "ratio": 14.14,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "--muted on --panel",
+   "ratio": 8.82,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "--muted on --panel2",
+   "ratio": 8.16,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "--muted on --panel3",
+   "ratio": 7.36,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "--faint on --panel",
+   "ratio": 6.09,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "--faint on --panel2",
+   "ratio": 5.64,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "--faint on --panel3",
+   "ratio": 5.09,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "--signal on --panel",
+   "ratio": 9.71,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "--signal on --panel2",
+   "ratio": 8.99,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "--signal on --panel3",
+   "ratio": 8.11,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "signal-ink on --signal (primary buttons)",
+   "ratio": 9.95,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "evidence label Documented on --panel",
+   "ratio": 7.23,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "evidence label Measured on --panel",
+   "ratio": 7.55,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "evidence label Computed on --panel",
+   "ratio": 7.64,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "evidence label Modelled on --panel",
+   "ratio": 9.39,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "evidence label Contested on --panel",
+   "ratio": 6.9,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "evidence label Unknown on --panel",
+   "ratio": 6.91,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "union ink on --panel (card kicker)",
+   "ratio": 8.31,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "confederate ink on --panel (card kicker)",
+   "ratio": 7.54,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / night",
+   "name": "inverse button: --panel on --text",
+   "ratio": 16.94,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "--text on --panel",
+   "ratio": 17,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "--text on --panel2",
+   "ratio": 15.31,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "--text on --panel3",
+   "ratio": 13.7,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "--muted on --panel",
+   "ratio": 7.06,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "--muted on --panel2",
+   "ratio": 6.36,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "--muted on --panel3",
+   "ratio": 5.69,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "--faint on --panel",
+   "ratio": 5.76,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "--faint on --panel2",
+   "ratio": 5.19,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "--faint on --panel3",
+   "ratio": 4.64,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "--signal on --panel",
+   "ratio": 6.59,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "--signal on --panel2",
+   "ratio": 5.93,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "--signal on --panel3",
+   "ratio": 5.3,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "signal-ink on --signal (primary buttons)",
+   "ratio": 6.99,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "evidence label Documented on --panel",
+   "ratio": 4.99,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "evidence label Measured on --panel",
+   "ratio": 5.45,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "evidence label Computed on --panel",
+   "ratio": 5.94,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "evidence label Modelled on --panel",
+   "ratio": 5.43,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "evidence label Contested on --panel",
+   "ratio": 5.88,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "evidence label Unknown on --panel",
+   "ratio": 5.33,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "union ink on --panel (card kicker)",
+   "ratio": 6.8,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "confederate ink on --panel (card kicker)",
+   "ratio": 5.88,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "group": "interface / day",
+   "name": "inverse button: --panel on --text",
+   "ratio": 17,
+   "bar": 4.5,
+   "ok": true,
+   "note": ""
+  }
+ ]
+}

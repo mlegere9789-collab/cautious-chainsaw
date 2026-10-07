@@ -1,0 +1,393 @@
+{
+  "format": "d3-skin-tokens/1",
+  "id": "d3",
+  "label": "Precision Field Manual",
+  "version": "1.0",
+  "about": "The look of the Precision Field Manual, as data. A designer edits a value here and runs `node build.mjs`, or tries it live with ?skinset={\"d3\":{\"color.union.fill\":\"#2d6bc4\"}} (a token marked layout:true sizes the footprint the layout engine reserves, so it only takes effect after a rebuild). Every colour is #rrggbb, every length is CSS px at 1x on a 2 px grid.",
+  "tokens": [
+    {
+      "name": "color.plate",
+      "value": "#0f151c",
+      "doc": "Plate of a mark: the flat surface under the code. Opaque, so the text contrast is a property of the plate and never of the ground."
+    },
+    {
+      "name": "color.plateHover",
+      "value": "#1c2631",
+      "doc": "Plate while the pointer rests on the mark (eased)."
+    },
+    {
+      "name": "color.keyline",
+      "value": "#ffffff",
+      "doc": "The one-pixel line around a mark. It is the only ink that is not data: it keeps a dark plate readable on a dark photograph."
+    },
+    {
+      "name": "color.text",
+      "value": "#f4f6f8",
+      "doc": "Code, name and the strength gauge on the plate. 15:1 on the plate."
+    },
+    {
+      "name": "color.textMuted",
+      "value": "#aab5c1",
+      "doc": "The tail of a mark (the count of an aggregate), in the regular weight. Secondary detail."
+    },
+    {
+      "name": "color.glyph",
+      "value": "#ffffff",
+      "doc": "The arm symbol on a side colour."
+    },
+    {
+      "name": "color.ringLight",
+      "value": "#ffffff",
+      "doc": "Selection ring, inner line, and the ring of a pin."
+    },
+    {
+      "name": "color.ringDark",
+      "value": "#05080c",
+      "doc": "Selection ring, outer line, and the dark underlay of a leader and a pin: together with the light line it holds on any ground."
+    },
+    {
+      "name": "color.underlay",
+      "value": "#05080c",
+      "doc": "The dark underlay of a leader, a pin and the members of an aggregate: it holds a light line on any ground. On the day ground it is the paper colour, so the dark line colours hold."
+    },
+    {
+      "name": "color.union.fill",
+      "value": "#2d6bc4",
+      "doc": "Union cell: the side, when the keyframe is fresh. White glyph on it: 4.9:1 or better."
+    },
+    {
+      "name": "color.union.old",
+      "value": "#56657a",
+      "doc": "Union cell once its keyframe is a whole battle day old: the same hue washed toward grey (the one provisional device)."
+    },
+    {
+      "name": "color.union.ink",
+      "value": "#7db1f7",
+      "doc": "Union as a line colour on the ground: pin, leader, the members of an aggregate."
+    },
+    {
+      "name": "color.confederate.fill",
+      "value": "#c4411d",
+      "doc": "Confederate cell, fresh keyframe. White glyph on it: 4.9:1 or better."
+    },
+    {
+      "name": "color.confederate.old",
+      "value": "#8c5a4b",
+      "doc": "Confederate cell once its keyframe is a whole battle day old."
+    },
+    {
+      "name": "color.confederate.ink",
+      "value": "#f28b5f",
+      "doc": "Confederate as a line colour on the ground."
+    },
+    {
+      "name": "color.contested.fill",
+      "value": "#c99a1e",
+      "doc": "Ochre cell of a unit whose side the data cannot settle (the id prefix and the state code disagree). Never a side colour."
+    },
+    {
+      "name": "color.contested.old",
+      "value": "#988548",
+      "doc": "Contested cell once its keyframe is a whole day old."
+    },
+    {
+      "name": "color.contested.ink",
+      "value": "#e8c44f",
+      "doc": "Contested as a line colour on the ground."
+    },
+    {
+      "name": "color.contested.glyph",
+      "value": "#161106",
+      "doc": "Glyph ink on the ochre cell (dark: white would not reach 4.5:1 on ochre)."
+    },
+    {
+      "name": "color.contested.hatch",
+      "value": "#161106",
+      "doc": "Hatching of the contested cell."
+    },
+    {
+      "name": "size.plate.unit",
+      "value": 20,
+      "min": 16,
+      "max": 32,
+      "unit": "px",
+      "layout": true,
+      "doc": "Height of the plate of a regiment, battery or battalion; the cell is a square of the same side. 11 px type."
+    },
+    {
+      "name": "size.plate.brigade",
+      "value": 22,
+      "min": 18,
+      "max": 36,
+      "unit": "px",
+      "layout": true,
+      "doc": "Plate height of a brigade record (formation tier, 13 px type)."
+    },
+    {
+      "name": "size.plate.division",
+      "value": 24,
+      "min": 18,
+      "max": 40,
+      "unit": "px",
+      "layout": true,
+      "doc": "Plate height of a division record."
+    },
+    {
+      "name": "size.plate.corps",
+      "value": 26,
+      "min": 18,
+      "max": 44,
+      "unit": "px",
+      "layout": true,
+      "doc": "Plate height of a corps record."
+    },
+    {
+      "name": "size.plate.agg",
+      "value": 24,
+      "min": 18,
+      "max": 40,
+      "unit": "px",
+      "layout": true,
+      "doc": "Plate height of an aggregate (the formation mark a crowd merges into)."
+    },
+    {
+      "name": "size.tab",
+      "value": 10,
+      "min": 6,
+      "max": 14,
+      "unit": "px",
+      "layout": true,
+      "doc": "Height of the tab above a formation, which carries the echelon marks (II, X, XX, XXX) the way APP-6 puts them above the frame."
+    },
+    {
+      "name": "size.stack",
+      "value": 3,
+      "min": 2,
+      "max": 6,
+      "unit": "px",
+      "layout": true,
+      "doc": "Offset of the plate behind an aggregate: more than one record."
+    },
+    {
+      "name": "size.padL",
+      "value": 6,
+      "min": 3,
+      "max": 12,
+      "unit": "px",
+      "layout": true,
+      "doc": "Space between the cell and the code."
+    },
+    {
+      "name": "size.padR",
+      "value": 7,
+      "min": 3,
+      "max": 12,
+      "unit": "px",
+      "layout": true,
+      "doc": "Space after the last character of the mark."
+    },
+    {
+      "name": "size.tailGap",
+      "value": 6,
+      "min": 3,
+      "max": 12,
+      "unit": "px",
+      "layout": true,
+      "doc": "Space between the code and its tail (the count of an aggregate)."
+    },
+    {
+      "name": "type.small",
+      "value": 11,
+      "min": 11,
+      "max": 13,
+      "unit": "px",
+      "layout": true,
+      "doc": "The small type size: unit codes, tails, secondary text. 11 px is the floor of the language."
+    },
+    {
+      "name": "type.large",
+      "value": 13,
+      "min": 11,
+      "max": 16,
+      "unit": "px",
+      "layout": true,
+      "doc": "The large type size: formation marks and the primary text of every card. There is no third size."
+    },
+    {
+      "name": "gauge.h",
+      "value": 3,
+      "min": 1,
+      "max": 4,
+      "unit": "px",
+      "layout": true,
+      "doc": "Thickness of the strength gauge: the foot of the plate, flush with its edges."
+    },
+    {
+      "name": "gauge.segments",
+      "value": 4,
+      "min": 2,
+      "max": 8,
+      "doc": "Ticks of the strength gauge at the quartiles: it reads as a state and not as a measurement."
+    },
+    {
+      "name": "shape.radius",
+      "value": 3,
+      "min": 0,
+      "max": 6,
+      "unit": "px",
+      "doc": "Corner radius of every mark, ring and card: the one radius of the language."
+    },
+    {
+      "name": "shape.hatch",
+      "value": 4,
+      "min": 3,
+      "max": 8,
+      "unit": "px",
+      "doc": "Pitch of the hatching on a contested cell."
+    },
+    {
+      "name": "glyph.stroke",
+      "value": 1.6,
+      "min": 1,
+      "max": 2.4,
+      "unit": "px",
+      "doc": "Stroke of the arm symbols and the echelon marks."
+    },
+    {
+      "name": "alpha.keyline",
+      "value": 0.55,
+      "min": 0,
+      "max": 1,
+      "doc": "Opacity of the keyline."
+    },
+    {
+      "name": "alpha.keylineHover",
+      "value": 0.9,
+      "min": 0,
+      "max": 1,
+      "doc": "Opacity of the keyline under the pointer."
+    },
+    {
+      "name": "alpha.track",
+      "value": 0.2,
+      "min": 0,
+      "max": 1,
+      "doc": "Opacity of the empty part of the strength gauge."
+    },
+    {
+      "name": "alpha.gauge",
+      "value": 0.92,
+      "min": 0,
+      "max": 1,
+      "doc": "Opacity of the filled part of the strength gauge."
+    },
+    {
+      "name": "alpha.leader",
+      "value": 0.95,
+      "min": 0,
+      "max": 1,
+      "doc": "Opacity of the leader line of a displaced mark."
+    },
+    {
+      "name": "alpha.leaderUnder",
+      "value": 0.4,
+      "min": 0,
+      "max": 1,
+      "doc": "Opacity of the dark underlay of a leader."
+    },
+    {
+      "name": "form.nameZoom",
+      "value": 16,
+      "min": 12,
+      "max": 19,
+      "layout": true,
+      "doc": "Zoom from which a mark grows from its code to the unit's full name (the same object, wider). Below it only the selected mark is grown."
+    },
+    {
+      "name": "form.nameHyst",
+      "value": 0.2,
+      "min": 0,
+      "max": 1,
+      "layout": true,
+      "doc": "Hysteresis of that threshold in zoom steps: a camera that rests on the threshold does not flicker between forms."
+    },
+    {
+      "name": "form.nameOnSelect",
+      "value": true,
+      "layout": true,
+      "doc": "The selected mark always grows to its full name, whatever the zoom (the layout makes room for it)."
+    },
+    {
+      "name": "motion.selectMs",
+      "value": 140,
+      "min": 0,
+      "max": 600,
+      "unit": "ms",
+      "doc": "Ease of the selection ring."
+    },
+    {
+      "name": "motion.hoverMs",
+      "value": 80,
+      "min": 0,
+      "max": 600,
+      "unit": "ms",
+      "doc": "Ease of the hover response."
+    },
+    {
+      "name": "motion.growMs",
+      "value": 180,
+      "min": 0,
+      "max": 600,
+      "unit": "ms",
+      "doc": "Cross-fade of the code into the full name while a mark grows."
+    }
+  ],
+  "variants": {
+    "day": {
+      "label": "Day (paper ground)",
+      "ground": "real-fmday",
+      "set": {
+        "color.plate": "#fbf8f0",
+        "color.plateHover": "#ece6d6",
+        "color.keyline": "#10161d",
+        "color.text": "#0f1720",
+        "color.textMuted": "#4a5663",
+        "color.ringLight": "#ffffff",
+        "color.ringDark": "#10161d",
+        "color.union.ink": "#1f55a6",
+        "color.confederate.ink": "#b03512",
+        "color.contested.ink": "#8a6508",
+        "alpha.keyline": 0.7,
+        "alpha.keylineHover": 0.95,
+        "color.underlay": "#fbf8f0"
+      }
+    },
+    "cvd": {
+      "label": "Colour-blind safe",
+      "set": {
+        "color.union.fill": "#0072b2",
+        "color.union.old": "#5d6f7f",
+        "color.union.ink": "#6fb7e8",
+        "color.confederate.fill": "#c25400",
+        "color.confederate.old": "#8a6040",
+        "color.confederate.ink": "#f5a05a"
+      }
+    },
+    "contrast": {
+      "label": "High contrast",
+      "set": {
+        "color.plate": "#000000",
+        "color.plateHover": "#1f1f1f",
+        "color.text": "#ffffff",
+        "color.textMuted": "#d4d4d4",
+        "alpha.keyline": 0.8,
+        "alpha.keylineHover": 1,
+        "alpha.track": 0.35,
+        "color.union.fill": "#00479b",
+        "color.union.old": "#586a82",
+        "color.confederate.fill": "#a83000",
+        "color.confederate.old": "#7a4b3c"
+      }
+    }
+  }
+}
