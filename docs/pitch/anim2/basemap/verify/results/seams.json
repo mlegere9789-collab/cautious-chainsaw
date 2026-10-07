@@ -1,0 +1,694 @@
+{
+ "seamsFound": 0,
+ "pictures": 21,
+ "results": [
+  {
+   "picture": "angle-z13.5-dim.png",
+   "colOutliers": [
+    [
+     777,
+     6.0
+    ],
+    [
+     778,
+     5.3
+    ],
+    [
+     762,
+     -5.2
+    ]
+   ],
+   "rowOutliers": [
+    [
+     83,
+     28.9
+    ],
+    [
+     77,
+     21.6
+    ],
+    [
+     143,
+     21.0
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "angle-z15-dim.png",
+   "colOutliers": [
+    [
+     1438,
+     7.3
+    ],
+    [
+     688,
+     7.3
+    ],
+    [
+     728,
+     -6.9
+    ]
+   ],
+   "rowOutliers": [
+    [
+     52,
+     38.4
+    ],
+    [
+     46,
+     38.2
+    ],
+    [
+     347,
+     30.5
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "angle-z15-natural.png",
+   "colOutliers": [
+    [
+     1438,
+     8.3
+    ],
+    [
+     688,
+     7.9
+    ],
+    [
+     693,
+     7.8
+    ]
+   ],
+   "rowOutliers": [
+    [
+     52,
+     29.7
+    ],
+    [
+     46,
+     28.7
+    ],
+    [
+     347,
+     23.3
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "angle-z15-paper.png",
+   "colOutliers": [
+    [
+     423,
+     9.0
+    ],
+    [
+     1438,
+     7.6
+    ],
+    [
+     505,
+     7.5
+    ]
+   ],
+   "rowOutliers": [
+    [
+     52,
+     24.1
+    ],
+    [
+     46,
+     23.3
+    ],
+    [
+     792,
+     19.9
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "angle-z15-slate.png",
+   "colOutliers": [
+    [
+     688,
+     7.5
+    ],
+    [
+     728,
+     -7.3
+    ],
+    [
+     505,
+     7.0
+    ]
+   ],
+   "rowOutliers": [
+    [
+     52,
+     40.6
+    ],
+    [
+     46,
+     40.4
+    ],
+    [
+     347,
+     32.1
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "angle-z16.5-dim.png",
+   "colOutliers": [
+    [
+     612,
+     14.6
+    ],
+    [
+     616,
+     14.2
+    ],
+    [
+     617,
+     10.6
+    ]
+   ],
+   "rowOutliers": [
+    [
+     452,
+     82.3
+    ],
+    [
+     446,
+     71.4
+    ],
+    [
+     155,
+     59.6
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "angle-z17.5-dim.png",
+   "colOutliers": [
+    [
+     510,
+     19.1
+    ],
+    [
+     513,
+     -18.8
+    ],
+    [
+     514,
+     -18.3
+    ]
+   ],
+   "rowOutliers": [
+    [
+     452,
+     116.7
+    ],
+    [
+     446,
+     107.7
+    ],
+    [
+     450,
+     -58.2
+    ]
+   ],
+   "boundaryOutliers": [
+    {
+     "kind": "row",
+     "index": 450,
+     "sigma": -58.2,
+     "standsOutAlongSegments": 0,
+     "seam": false
+    }
+   ]
+  },
+  {
+   "picture": "cemhill-z13.5-dim.png",
+   "colOutliers": [
+    [
+     637,
+     13.4
+    ],
+    [
+     638,
+     7.9
+    ],
+    [
+     634,
+     -6.6
+    ]
+   ],
+   "rowOutliers": [
+    [
+     237,
+     24.5
+    ],
+    [
+     231,
+     19.2
+    ],
+    [
+     459,
+     17.5
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "cemhill-z15-dim.png",
+   "colOutliers": [
+    [
+     493,
+     14.6
+    ],
+    [
+     495,
+     12.3
+    ],
+    [
+     27,
+     9.9
+    ]
+   ],
+   "rowOutliers": [
+    [
+     859,
+     69.0
+    ],
+    [
+     853,
+     45.1
+    ],
+    [
+     482,
+     35.0
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "cemhill-z15-natural.png",
+   "colOutliers": [
+    [
+     493,
+     12.0
+    ],
+    [
+     495,
+     9.6
+    ],
+    [
+     27,
+     7.5
+    ]
+   ],
+   "rowOutliers": [
+    [
+     859,
+     53.9
+    ],
+    [
+     853,
+     34.5
+    ],
+    [
+     482,
+     28.3
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "cemhill-z15-paper.png",
+   "colOutliers": [
+    [
+     493,
+     13.4
+    ],
+    [
+     27,
+     12.7
+    ],
+    [
+     495,
+     12.0
+    ]
+   ],
+   "rowOutliers": [
+    [
+     859,
+     44.0
+    ],
+    [
+     853,
+     28.0
+    ],
+    [
+     857,
+     -23.6
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "cemhill-z15-slate.png",
+   "colOutliers": [
+    [
+     27,
+     10.5
+    ],
+    [
+     493,
+     8.9
+    ],
+    [
+     495,
+     8.4
+    ]
+   ],
+   "rowOutliers": [
+    [
+     859,
+     70.9
+    ],
+    [
+     853,
+     46.3
+    ],
+    [
+     482,
+     35.7
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "cemhill-z16.5-dim.png",
+   "colOutliers": [
+    [
+     0,
+     9.1
+    ],
+    [
+     1438,
+     7.4
+    ],
+    [
+     745,
+     6.9
+    ]
+   ],
+   "rowOutliers": [
+    [
+     555,
+     50.1
+    ],
+    [
+     549,
+     49.8
+    ],
+    [
+     553,
+     -26.6
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "cemhill-z17.5-dim.png",
+   "colOutliers": [
+    [
+     758,
+     8.6
+    ],
+    [
+     865,
+     7.3
+    ],
+    [
+     355,
+     7.1
+    ]
+   ],
+   "rowOutliers": [
+    [
+     652,
+     77.0
+    ],
+    [
+     658,
+     76.1
+    ],
+    [
+     656,
+     -41.4
+    ]
+   ],
+   "boundaryOutliers": [
+    {
+     "kind": "col",
+     "index": 865,
+     "sigma": 7.3,
+     "standsOutAlongSegments": 0,
+     "seam": false
+    }
+   ]
+  },
+  {
+   "picture": "wheatfield-z13.5-dim.png",
+   "colOutliers": [
+    [
+     1438,
+     11.1
+    ],
+    [
+     1437,
+     8.6
+    ],
+    [
+     0,
+     7.9
+    ]
+   ],
+   "rowOutliers": [
+    [
+     41,
+     30.8
+    ],
+    [
+     47,
+     26.8
+    ],
+    [
+     151,
+     24.2
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "wheatfield-z15-dim.png",
+   "colOutliers": [
+    [
+     1211,
+     7.6
+    ],
+    [
+     0,
+     6.6
+    ],
+    [
+     1438,
+     6.3
+    ]
+   ],
+   "rowOutliers": [
+    [
+     46,
+     35.8
+    ],
+    [
+     897,
+     35.3
+    ],
+    [
+     40,
+     31.9
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "wheatfield-z15-natural.png",
+   "colOutliers": [
+    [
+     0,
+     7.3
+    ],
+    [
+     1438,
+     7.2
+    ],
+    [
+     1211,
+     6.5
+    ]
+   ],
+   "rowOutliers": [
+    [
+     897,
+     28.8
+    ],
+    [
+     46,
+     26.6
+    ],
+    [
+     40,
+     23.2
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "wheatfield-z15-paper.png",
+   "colOutliers": [
+    [
+     1211,
+     9.6
+    ],
+    [
+     255,
+     7.9
+    ],
+    [
+     1044,
+     7.3
+    ]
+   ],
+   "rowOutliers": [
+    [
+     897,
+     27.8
+    ],
+    [
+     46,
+     26.3
+    ],
+    [
+     40,
+     25.1
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "wheatfield-z15-slate.png",
+   "colOutliers": [
+    [
+     0,
+     6.0
+    ],
+    [
+     1438,
+     6.0
+    ],
+    [
+     1211,
+     5.9
+    ]
+   ],
+   "rowOutliers": [
+    [
+     46,
+     37.4
+    ],
+    [
+     897,
+     36.4
+    ],
+    [
+     40,
+     33.2
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "wheatfield-z16.5-dim.png",
+   "colOutliers": [
+    [
+     1438,
+     11.7
+    ],
+    [
+     1409,
+     -6.1
+    ],
+    [
+     1436,
+     6.0
+    ]
+   ],
+   "rowOutliers": [
+    [
+     538,
+     46.6
+    ],
+    [
+     532,
+     34.7
+    ],
+    [
+     809,
+     26.7
+    ]
+   ],
+   "boundaryOutliers": []
+  },
+  {
+   "picture": "wheatfield-z17.5-dim.png",
+   "colOutliers": [
+    [
+     3,
+     9.2
+    ],
+    [
+     0,
+     7.7
+    ],
+    [
+     432,
+     7.5
+    ]
+   ],
+   "rowOutliers": [
+    [
+     624,
+     73.1
+    ],
+    [
+     618,
+     50.9
+    ],
+    [
+     622,
+     -23.9
+    ]
+   ],
+   "boundaryOutliers": []
+  }
+ ]
+}

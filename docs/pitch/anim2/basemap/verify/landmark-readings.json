@@ -1,0 +1,18 @@
+{
+  "note": "Readings made by eye on the pictures named in 'image' (tmp/look-dev/basemap/verify/, regenerate with verify/landmark-sheets.py and verify/landmark-crops.py; JPEG copies of the sheets are in previews/landmarks/). Pixel coordinates are in that picture (x right, y down); the coordinate under test is the red cross at 'cross'. 'points' are the corners (or the ends) of the feature read; the feature is their mean. Reading uncertainty about 1 m (the crops are NAIP at 0.6 m native resolution).",
+  "readings": [
+    {"id": "pa-memorial", "feature": "centre of the memorial's square stepped platform (corners read)", "image": "lm_pa-memorial.png (120 m window, 10 px/m)", "px_per_m": 10, "cross": [600, 600], "points": [[390, 500], [635, 345], [790, 600], [545, 750]]},
+    {"id": "soldiers-national", "feature": "centre of the diamond pedestal (corners read)", "image": "sheet_0.png top-right cell (40 m window, 15 px/m; cell origin 600,0)", "px_per_m": 15, "cross": [900, 300], "points": [[705, 205], [785, 115], [865, 185], [790, 265]]},
+    {"id": "virginia", "feature": "centre of the square pedestal under Lee's statue (corners read)", "image": "sheet_0.png bottom-left cell (cell origin 0,600)", "px_per_m": 15, "cross": [300, 900], "points": [[240, 865], [395, 880], [385, 990], [228, 985]]},
+    {"id": "ny-state", "feature": "centre of the monument base (corners read)", "image": "sheet_0.png bottom-right cell (cell origin 600,600)", "px_per_m": 15, "cross": [900, 900], "points": [[862, 830], [960, 775], [1035, 880], [935, 940]]},
+    {"id": "indiana", "feature": "centre of the small white monument base (corners read)", "image": "sheet_1.png top-left cell (cell origin 0,0)", "px_per_m": 15, "cross": [300, 300], "points": [[392, 270], [452, 268], [452, 350], [392, 350]]},
+    {"id": "meade", "feature": "centre of the statue's pedestal (corners read)", "image": "sheet_1.png top-right cell (cell origin 600,0)", "px_per_m": 15, "cross": [900, 300], "points": [[905, 285], [985, 285], [985, 315], [905, 315]]},
+    {"id": "hancock-statue", "feature": "centre of the statue's pedestal (corners read)", "image": "sheet_1.png bottom-left cell (cell origin 0,600)", "px_per_m": 15, "cross": [300, 900], "points": [[262, 880], [358, 880], [358, 925], [262, 925]]},
+    {"id": "eternal-light", "feature": "centre of the square pedestal of the shaft (corners read)", "image": "sheet_1.png bottom-right cell (cell origin 600,600)", "px_per_m": 15, "cross": [900, 900], "points": [[835, 880], [960, 880], [960, 975], [835, 975]]},
+    {"id": "schmucker-wiki", "feature": "centre of the verdigris cupola of Schmucker Hall (read; this is the reference for the seminary check, so the 'error' of this row is the error of the Wikipedia point itself)", "image": "lm_schmucker-wiki.png (120 m window, 10 px/m)", "px_per_m": 10, "cross": [600, 600], "points": [[895, 390]]}
+  ],
+  "absent": [
+    {"id": "seminary", "result": "no building within 20 m of the site's coordinate (open meadow and scrub, sheet_2.png top-left); the seminary's cupola was read on the Wikipedia reference crop instead (row schmucker-wiki); the distance from the site's coordinate to it is computed in landmarks.json"},
+    {"id": "evergreen-gate", "result": "no building within 25 m of the site's coordinate (scrub and young woodland, sheet_2.png top-right); the nearest candidate for the gatehouse (the building at the head of the cemetery's entrance drive on Baltimore Street, crop evergreen-candidate) is about 400 m to the north-west; not independently confirmed (Unknown)"}
+  ]
+}

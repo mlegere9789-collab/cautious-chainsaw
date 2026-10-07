@@ -1,0 +1,154 @@
+{
+  "note": "Landmarks for the georeferencing check against the SITE's own coordinates. 'site' = the number the site uses (source named). Crops are 120 m square, NAIP 2022 at 0.2 m/px, requested from the USGS service; the cross is at the site's coordinate, grid lines every 10 m (50 m heavier).",
+  "landmarks": [
+    {
+      "id": "pa-memorial",
+      "name": "Pennsylvania State Memorial",
+      "kind": "building",
+      "site": {
+        "lat": 39.807588,
+        "lng": -77.235153,
+        "source": "release/R1c bundle monuments array no. 46"
+      },
+      "site2": {
+        "lat": 39.807778,
+        "lng": -77.235278,
+        "source": "release/R1c/dist/data/monuments.json pa-state (Wikipedia)"
+      }
+    },
+    {
+      "id": "soldiers-national",
+      "name": "Soldiers' National Monument",
+      "kind": "monument",
+      "site": {
+        "lat": 39.819722,
+        "lng": -77.231111,
+        "source": "monuments.json soldiers-national (Wikipedia)"
+      }
+    },
+    {
+      "id": "virginia",
+      "name": "Virginia State Monument (Lee statue)",
+      "kind": "statue",
+      "site": {
+        "lat": 39.814163,
+        "lng": -77.25034,
+        "source": "bundle monuments array no. 14 and 18"
+      },
+      "site2": {
+        "lat": 39.814133,
+        "lng": -77.250317,
+        "source": "monuments.json va-state"
+      }
+    },
+    {
+      "id": "ny-state",
+      "name": "New York State Monument",
+      "kind": "monument",
+      "site": {
+        "lat": 39.8208,
+        "lng": -77.2306,
+        "source": "bundle monuments array no. 44"
+      },
+      "site2": {
+        "lat": 39.820833,
+        "lng": -77.230556,
+        "source": "monuments.json ny-state"
+      }
+    },
+    {
+      "id": "indiana",
+      "name": "Indiana State Monument",
+      "kind": "monument",
+      "site": {
+        "lat": 39.814138,
+        "lng": -77.21639,
+        "source": "bundle monuments array no. 43"
+      },
+      "site2": {
+        "lat": 39.8141,
+        "lng": -77.2163,
+        "source": "monuments.json in-state"
+      }
+    },
+    {
+      "id": "meade",
+      "name": "Meade equestrian statue",
+      "kind": "statue",
+      "site": {
+        "lat": 39.813881,
+        "lng": -77.23481,
+        "source": "bundle monuments array no. 76"
+      }
+    },
+    {
+      "id": "hancock-statue",
+      "name": "Hancock equestrian statue (Cemetery Hill)",
+      "kind": "statue",
+      "site": {
+        "lat": 39.82132,
+        "lng": -77.228877,
+        "source": "bundle monuments array no. 66"
+      }
+    },
+    {
+      "id": "eternal-light",
+      "name": "Eternal Light Peace Memorial",
+      "kind": "monument",
+      "site": {
+        "lat": 39.84848,
+        "lng": -77.24344,
+        "source": "bundle monuments array no. 501"
+      },
+      "site2": {
+        "lat": 39.84806,
+        "lng": -77.24384,
+        "source": "bundle tour stop 2 (a viewpoint, the car park below the memorial)"
+      }
+    },
+    {
+      "id": "seminary",
+      "name": "Lutheran Seminary (Schmucker Hall cupola)",
+      "kind": "building",
+      "site": {
+        "lat": 39.8261,
+        "lng": -77.2456,
+        "source": "terrain.json LOC-022 (both frames)"
+      },
+      "locId": "LOC-022"
+    },
+    {
+      "id": "evergreen-gate",
+      "name": "Evergreen Cemetery gatehouse",
+      "kind": "building",
+      "site": {
+        "lat": 39.8183,
+        "lng": -77.2261,
+        "source": "terrain.json LOC-023 (both frames)"
+      },
+      "locId": "LOC-023"
+    },
+    {
+      "id": "schmucker-wiki",
+      "name": "Schmucker Hall, Gettysburg seminary (Wikipedia coordinate)",
+      "kind": "building (reference point for the seminary check)",
+      "site": {
+        "lat": 39.83194444,
+        "lng": -77.24472222,
+        "source": "https://en.wikipedia.org/api/rest_v1/page/summary/Schmucker_Hall (coordinates field, read 2026-10-07); NOT the site's value"
+      },
+      "role": "reference"
+    },
+    {
+      "id": "evergreen-candidate",
+      "name": "Evergreen Cemetery: the building at the Baltimore Street entrance (candidate gatehouse, located by eye on previews/cemhill-z16.5-dim.png)",
+      "kind": "building (candidate)",
+      "site": {
+        "lat": 39.820778,
+        "lng": -77.229766,
+        "source": "read off the backdrop preview; NOT the site's value"
+      },
+      "role": "reference"
+    }
+  ]
+}

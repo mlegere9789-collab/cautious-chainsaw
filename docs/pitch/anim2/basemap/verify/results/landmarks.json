@@ -1,0 +1,188 @@
+{
+ "summary": {
+  "n_monuments": 8,
+  "median_err_m": 4.3,
+  "max_err_m": 10.4,
+  "within_5m": 5,
+  "within_11m": 8
+ },
+ "rows": [
+  {
+   "id": "pa-memorial",
+   "name": "Pennsylvania State Memorial",
+   "coordinate": {
+    "lat": 39.807588,
+    "lng": -77.235153,
+    "source": "release/R1c bundle monuments array no. 46"
+   },
+   "feature": "centre of the memorial's square stepped platform (corners read)",
+   "feature_offset_from_coordinate_m": {
+    "east": -1.0,
+    "north": 5.1
+   },
+   "err_m": 5.2,
+   "second_source": {
+    "source": "release/R1c/dist/data/monuments.json pa-state (Wikipedia)",
+    "err_m": 18.7
+   }
+  },
+  {
+   "id": "soldiers-national",
+   "name": "Soldiers' National Monument",
+   "coordinate": {
+    "lat": 39.819722,
+    "lng": -77.231111,
+    "source": "monuments.json soldiers-national (Wikipedia)"
+   },
+   "feature": "centre of the diamond pedestal (corners read)",
+   "feature_offset_from_coordinate_m": {
+    "east": -7.6,
+    "north": 7.2
+   },
+   "err_m": 10.4
+  },
+  {
+   "id": "virginia",
+   "name": "Virginia State Monument (Lee statue)",
+   "coordinate": {
+    "lat": 39.814163,
+    "lng": -77.25034,
+    "source": "bundle monuments array no. 14 and 18"
+   },
+   "feature": "centre of the square pedestal under Lee's statue (corners read)",
+   "feature_offset_from_coordinate_m": {
+    "east": 0.8,
+    "north": -2.0
+   },
+   "err_m": 2.2,
+   "second_source": {
+    "source": "monuments.json va-state",
+    "err_m": 1.8
+   }
+  },
+  {
+   "id": "ny-state",
+   "name": "New York State Monument",
+   "coordinate": {
+    "lat": 39.8208,
+    "lng": -77.2306,
+    "source": "bundle monuments array no. 44"
+   },
+   "feature": "centre of the monument base (corners read)",
+   "feature_offset_from_coordinate_m": {
+    "east": 3.2,
+    "north": 2.9
+   },
+   "err_m": 4.3,
+   "second_source": {
+    "source": "monuments.json ny-state",
+    "err_m": 0.9
+   }
+  },
+  {
+   "id": "indiana",
+   "name": "Indiana State Monument",
+   "coordinate": {
+    "lat": 39.814138,
+    "lng": -77.21639,
+    "source": "bundle monuments array no. 43"
+   },
+   "feature": "centre of the small white monument base (corners read)",
+   "feature_offset_from_coordinate_m": {
+    "east": 8.1,
+    "north": -0.6
+   },
+   "err_m": 8.2,
+   "second_source": {
+    "source": "monuments.json in-state",
+    "err_m": 3.6
+   }
+  },
+  {
+   "id": "meade",
+   "name": "Meade equestrian statue",
+   "coordinate": {
+    "lat": 39.813881,
+    "lng": -77.23481,
+    "source": "bundle monuments array no. 76"
+   },
+   "feature": "centre of the statue's pedestal (corners read)",
+   "feature_offset_from_coordinate_m": {
+    "east": 3.0,
+    "north": 0.0
+   },
+   "err_m": 3.0
+  },
+  {
+   "id": "hancock-statue",
+   "name": "Hancock equestrian statue (Cemetery Hill)",
+   "coordinate": {
+    "lat": 39.82132,
+    "lng": -77.228877,
+    "source": "bundle monuments array no. 66"
+   },
+   "feature": "centre of the statue's pedestal (corners read)",
+   "feature_offset_from_coordinate_m": {
+    "east": 0.7,
+    "north": -0.2
+   },
+   "err_m": 0.7
+  },
+  {
+   "id": "eternal-light",
+   "name": "Eternal Light Peace Memorial",
+   "coordinate": {
+    "lat": 39.84848,
+    "lng": -77.24344,
+    "source": "bundle monuments array no. 501"
+   },
+   "feature": "centre of the square pedestal of the shaft (corners read)",
+   "feature_offset_from_coordinate_m": {
+    "east": -0.2,
+    "north": -1.8
+   },
+   "err_m": 1.8,
+   "second_source": {
+    "source": "bundle tour stop 2 (a viewpoint, the car park below the memorial)",
+    "err_m": 56.3
+   }
+  },
+  {
+   "id": "schmucker-wiki",
+   "name": "Schmucker Hall, Gettysburg seminary (Wikipedia coordinate)",
+   "coordinate": {
+    "lat": 39.83194444,
+    "lng": -77.24472222,
+    "source": "https://en.wikipedia.org/api/rest_v1/page/summary/Schmucker_Hall (coordinates field, read 2026-10-07); NOT the site's value"
+   },
+   "feature": "centre of the verdigris cupola of Schmucker Hall (read; this is the reference for the seminary check, so the 'error' of this row is the error of the Wikipedia point itself)",
+   "feature_offset_from_coordinate_m": {
+    "east": 29.5,
+    "north": 21.0
+   },
+   "err_m": 36.2
+  },
+  {
+   "id": "seminary",
+   "name": "Lutheran Seminary (Schmucker Hall cupola)",
+   "coordinate": {
+    "lat": 39.8261,
+    "lng": -77.2456,
+    "source": "terrain.json LOC-022 (both frames)"
+   },
+   "result": "no building within 20 m of the site's coordinate (open meadow and scrub, sheet_2.png top-left); the seminary's cupola was read on the Wikipedia reference crop instead (row schmucker-wiki); the distance from the site's coordinate to it is computed in landmarks.json",
+   "distance_to_cupola_m": 679.0
+  },
+  {
+   "id": "evergreen-gate",
+   "name": "Evergreen Cemetery gatehouse",
+   "coordinate": {
+    "lat": 39.8183,
+    "lng": -77.2261,
+    "source": "terrain.json LOC-023 (both frames)"
+   },
+   "result": "no building within 25 m of the site's coordinate (scrub and young woodland, sheet_2.png top-right); the nearest candidate for the gatehouse (the building at the head of the cemetery's entrance drive on Baltimore Street, crop evergreen-candidate) is about 400 m to the north-west; not independently confirmed (Unknown)",
+   "distance_to_candidate_m": 402.0
+  }
+ ]
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Basemap preview</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:,">
+<style>html,body{margin:0;background:#0b0d10;color:#cfd6de;font:13px system-ui,sans-serif}canvas{display:block}#hud{position:fixed;left:8px;top:8px;background:rgba(0,0,0,.55);padding:4px 8px;border-radius:6px;font-size:12px}body.shot #hud{display:none}</style></head>
+<body><canvas id="c"></canvas><div id="hud"></div>
+<script type="module">
+import { configureBackdrop } from '../src/backdrop.mjs';
+import { LOOKS, registerLook } from '../src/looks.mjs';
+import { MANIFEST } from '../data/manifest.mjs';
+import { VECTORS } from '../data/vectors.mjs';
+const q = new URLSearchParams(location.search);
+if (q.get('shot') === '1') document.body.classList.add('shot');
+const w = +(q.get('w') || innerWidth), h = +(q.get('h') || innerHeight), dpr = +(q.get('dpr') || devicePixelRatio || 1);
+const cam = { lng: +(q.get('lng') || -77.2347), lat: +(q.get('lat') || 39.8117), zoom: +(q.get('z') || 15), w, h };
+const cv = document.getElementById('c'); cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); cv.style.width = w + 'px'; cv.style.height = h + 'px';
+const ctx = cv.getContext('2d'); ctx.scale(dpr, dpr);
+const pack = q.get('pack') === '1' ? (await import('../dist/pack.mjs')).PACK : null;      // ?pack=1: the tiles as data URIs (tools/build-pack.mjs), no tile file is requested
+const tune = {}; if (q.get('bakeBudget')) tune.bakeBudget = +q.get('bakeBudget'); if (q.get('bakeMs')) tune.bakeMs = +q.get('bakeMs');      // ?bakeBudget=4&bakeMs=1e9&direct=0 reproduces the first version's behaviour (tools/bench.mjs)
+const bd = configureBackdrop(pack ? { manifest: MANIFEST, vectors: VECTORS, pack, ...tune } : { manifest: MANIFEST, vectors: VECTORS, base: '../assets/', ...tune });
+window.__bd = bd; window.__cam = cam; window.__LOOKS = LOOKS; window.__ctx = ctx;
+const opts = { places: q.get('places') !== '0', placeFrame: q.get('frame') || 'ground', roads: q.get('roads') !== '0', contours: q.get('contours') !== '0', water: q.get('water') !== '0', labels: q.get('labels') !== '0', scaleBar: q.get('scale') === '1' ? {} : undefined, fade: q.get('fade') === '1', direct: q.get('direct') !== '0', live: q.get('live') === '1', quality: q.get('quality') || undefined };
+registerLook({ id: 'raw', label: 'Raw (test)', ground: '#000000', grade: [], shade: { op: 'soft-light', alpha: 0 }, vignette: null, edge: null, contours: null, water: null, roads: null, labels: LOOKS.dim.labels });
+const look = q.get('look') || 'dim'; window.__opts = opts; window.__look = look;
+if (q.get('ov')) { Object.assign(LOOKS[look], JSON.parse(q.get('ov'))); LOOKS[look].version = (LOOKS[look].version || 0) + 1; }      // quick tuning: ?ov={"grade":[...]}
+bd.prefetch(14);
+const hud = document.getElementById('hud');
+const BENCH = q.get('bench') === '1';                          // in a bench run the scripted loop below is the only thing that draws: one draw per animation frame, as a real host does
+const loop = () => {
+  const r = bd.draw(ctx, cam, look, opts);
+  hud.textContent = 'z' + cam.zoom + ' ' + look + ' tiles ' + bd.stats().aerialLoaded + ' baked ' + bd.stats().bakedTiles + ' render ' + bd.stats().lastRenderMs.toFixed(1) + ' ms';
+  if (BENCH) return;
+  if (r.animating || r.pending) requestAnimationFrame(loop); else window.__done = true;
+};
+bd.onchange = () => { if (BENCH) return; window.__done = false; requestAnimationFrame(loop); };
+window.__redraw = () => { window.__done = false; requestAnimationFrame(loop); };
+loop();
+
+// ?bench=1 : a scripted 8 s camera move (pan, then zoom 13.5 -> 16.7 -> 13.5, then still) timing every bd.draw call; result in window.__bench
+if (q.get('bench') === '1') {
+  const T = 8000, t0 = performance.now(); const times = []; const still = []; const gaps = []; let n = 0, last = null, prevT = null; const c0 = { ...cam };
+  const step = () => {
+    const t = performance.now() - t0; let phase = 'move'; if (prevT !== null && t < 6000) gaps.push(t - prevT); prevT = t;      // the time between two animation frames while the camera moves: what the viewer sees as smoothness (draw() alone leaves out the GPU and the compositor)
+    if (t < 2500) { const u = t / 2500; cam.lng = c0.lng + 0.012 * Math.sin(u * Math.PI); cam.lat = c0.lat + 0.006 * u; cam.zoom = 14.5; }
+    else if (t < 6000) { const u = (t - 2500) / 3500; cam.zoom = 14.5 + 2.2 * Math.sin(u * Math.PI); cam.lng = c0.lng + 0.0015 * u; }
+    else { phase = 'still'; }
+    const a = performance.now(); bd.draw(ctx, cam, look, opts); const d = performance.now() - a; (phase === 'move' ? times : still).push(d); n++; last = t;
+    if (t < T) requestAnimationFrame(step); else { times.sort((x, y) => x - y); const pct = (p) => times[Math.min(times.length - 1, Math.floor(times.length * p))]; still.sort((x, y) => x - y);
+      gaps.sort((x, y) => x - y); const gp = (p) => gaps[Math.min(gaps.length - 1, Math.floor(gaps.length * p))]; window.__bench = { gapMean: gaps.reduce((x, y) => x + y, 0) / gaps.length, gapP50: gp(0.5), gapP95: gp(0.95), gapMax: gaps[gaps.length - 1], gapsOver20: gaps.filter((g) => g > 20).length, gapsOver34: gaps.filter((g) => g > 34).length, gapFrames: gaps.length, frames: n, moveFrames: times.length, moveMean: times.reduce((x, y) => x + y, 0) / times.length, moveP95: pct(0.95), moveMax: times[times.length - 1], stillFrames: still.length, stillMean: still.length ? still.reduce((x, y) => x + y, 0) / still.length : 0, stillMax: still.length ? still[still.length - 1] : 0, stats: bd.stats() }; window.__done = true; }
+  };
+  window.__done = false; requestAnimationFrame(step);
+}
+</script></body></html>

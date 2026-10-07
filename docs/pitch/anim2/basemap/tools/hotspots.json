@@ -1,0 +1,13 @@
+{
+  "note": "Camera centres of the places the prototype looks at (docs/pitch/anim/prototype/src/tours/library.mjs HOTSPOTS, and docs/pitch/anim/prototype/data/dataset.json scenes) plus Little Round Top and the Peach Orchard. 'r' is the radius in ground metres that gets the finest tiles (z17).",
+  "hotspots": [
+    {"id": "the-angle",       "label": "The Angle",         "lat": 39.8117, "lng": -77.2347, "r": 560, "primary": true},
+    {"id": "rose-woods",      "label": "Wheatfield / Rose Woods", "lat": 39.7994, "lng": -77.2417, "r": 560, "primary": true},
+    {"id": "cemetery-hill",   "label": "Cemetery Hill",     "lat": 39.8189, "lng": -77.2262, "r": 560, "primary": true},
+    {"id": "culps-hill",      "label": "Culp's Hill",       "lat": 39.8150, "lng": -77.2194, "r": 380},
+    {"id": "seminary",        "label": "Seminary Ridge",    "lat": 39.8250, "lng": -77.2461, "r": 380},
+    {"id": "oak-hill",        "label": "Oak Hill",          "lat": 39.8317, "lng": -77.2300, "r": 380},
+    {"id": "little-round-top","label": "Little Round Top",  "lat": 39.7905, "lng": -77.2370, "r": 380},
+    {"id": "peach-orchard",   "label": "Peach Orchard",     "lat": 39.8008, "lng": -77.2490, "r": 380}
+  ]
+}

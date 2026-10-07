@@ -1,0 +1,103 @@
+{
+ "format": "gb-basemap/1",
+ "tileSize": 512,
+ "pad": 4,
+ "world": 512,
+ "layers": {
+  "aerial": {
+   "ext": "avif",
+   "levels": {
+    "13": {
+     "x0": 2336,
+     "y0": 3105,
+     "cols": 5,
+     "rows": 4,
+     "bits": "//8P",
+     "tiles": 20
+    },
+    "14": {
+     "x0": 4672,
+     "y0": 6210,
+     "cols": 9,
+     "rows": 7,
+     "bits": "/////////38=",
+     "tiles": 63
+    },
+    "15": {
+     "x0": 9344,
+     "y0": 12420,
+     "cols": 17,
+     "rows": 14,
+     "bits": "gAOAH8D/8P/3//////8//3/8//D/wH8AfwD4AOAB",
+     "tiles": 150
+    },
+    "16": {
+     "x0": 18694,
+     "y0": 24848,
+     "cols": 22,
+     "rows": 15,
+     "bits": "APYB8H/o/x/9/w/w/wfg/wHsfwDwHwD+A8A/APgPAP4DAPgAAD4AAAcA",
+     "tiles": 150
+    },
+    "17": {
+     "x0": 37409,
+     "y0": 49699,
+     "cols": 14,
+     "rows": 23,
+     "bits": "AAHgADgABA6AA8DwAD6AH/gPnsNH4AE4AAD8AD/AH8ADYABgABwABgA=",
+     "tiles": 92
+    }
+   }
+  },
+  "shade": {
+   "ext": "avif",
+   "levels": {
+    "13": {
+     "x0": 2336,
+     "y0": 3105,
+     "cols": 5,
+     "rows": 4,
+     "bits": "//8P",
+     "tiles": 20
+    },
+    "14": {
+     "x0": 4672,
+     "y0": 6210,
+     "cols": 9,
+     "rows": 7,
+     "bits": "/////////38=",
+     "tiles": 63
+    },
+    "15": {
+     "x0": 9344,
+     "y0": 12420,
+     "cols": 17,
+     "rows": 14,
+     "bits": "gAOAH8D/8P/3//////8//3/8//D/wH8AfwD4AOAB",
+     "tiles": 150
+    },
+    "16": {
+     "x0": 18704,
+     "y0": 24848,
+     "cols": 8,
+     "rows": 14,
+     "bits": "MDA/P////Pw/Pw8PDAw=",
+     "tiles": 68
+    }
+   }
+  }
+ },
+ "bbox": {
+  "w": -77.34375,
+  "s": 39.75788,
+  "e": -77.145996,
+  "n": 39.876019
+ },
+ "caption": "Modern ground: USGS NAIP aerial photographed 24 April to 10 May 2022 (24 April over most of the battlefield) and 3DEP hillshade. Not the 1863 landscape.",
+ "attribution": "Imagery: USDA NAIP via USGS National Map (public domain). Elevation: USGS 3DEP (public domain). Roads and water: US Census TIGER/Line (public domain).",
+ "acquired": "2022-04-24 to 2022-05-10",
+ "bytes": {
+  "aerial": 6549909,
+  "shade": 2616091
+ }
+}

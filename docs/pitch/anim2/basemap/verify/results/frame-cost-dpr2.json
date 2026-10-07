@@ -1,0 +1,114 @@
+{
+ "dpr": 2,
+ "note": "frame interval in ms while the camera moves (6 s of the scripted move); first frames include cold caches",
+ "variants": [
+  {
+   "variant": "floor: a page that only fills a rectangle",
+   "frames": 235,
+   "mean": 16.67,
+   "p50": 16.7,
+   "p95": 16.8,
+   "max": 17.6,
+   "over20": 0
+  },
+  {
+   "variant": "first version: frame cache + blit, live vectors, quality high, 4 bakes a frame",
+   "frames": 146,
+   "mean": 40.99,
+   "p50": 33,
+   "p95": 69.8,
+   "max": 87.1,
+   "over20": 143,
+   "drawMeanMs": 6.39,
+   "drawP95Ms": 14.5
+  },
+  {
+   "variant": "direct paint, live vectors, quality high",
+   "frames": 150,
+   "mean": 39.75,
+   "p50": 32.4,
+   "p95": 69.1,
+   "max": 87.3,
+   "over20": 147,
+   "drawMeanMs": 3.6,
+   "drawP95Ms": 13.5
+  },
+  {
+   "variant": "direct paint, live vectors, quality low",
+   "frames": 196,
+   "mean": 30.51,
+   "p50": 29.6,
+   "p95": 36.9,
+   "max": 76.4,
+   "over20": 194,
+   "drawMeanMs": 3.02,
+   "drawP95Ms": 8.2
+  },
+  {
+   "variant": "direct paint, live vectors, quality low, no roads",
+   "frames": 358,
+   "mean": 16.67,
+   "p50": 16.7,
+   "p95": 17.2,
+   "max": 28.1,
+   "over20": 4,
+   "drawMeanMs": 1.83,
+   "drawP95Ms": 7.1
+  },
+  {
+   "variant": "direct paint, live vectors, quality low, no contours",
+   "frames": 256,
+   "mean": 23.35,
+   "p50": 23,
+   "p95": 27.4,
+   "max": 71.7,
+   "over20": 241,
+   "drawMeanMs": 2.35,
+   "drawP95Ms": 7.8
+  },
+  {
+   "variant": "direct paint, live vectors, quality low, no roads and no contours",
+   "frames": 360,
+   "mean": 16.61,
+   "p50": 16.7,
+   "p95": 16.8,
+   "max": 19,
+   "over20": 0,
+   "drawMeanMs": 1.83,
+   "drawP95Ms": 7.2
+  },
+  {
+   "variant": "direct paint, baked vector tiles, quality high",
+   "frames": 291,
+   "mean": 20.54,
+   "p50": 16.7,
+   "p95": 39.4,
+   "max": 91.8,
+   "over20": 78,
+   "drawMeanMs": 2.23,
+   "drawP95Ms": 7.9
+  },
+  {
+   "variant": "direct paint, baked vector tiles, quality medium",
+   "frames": 290,
+   "mean": 20.58,
+   "p50": 16.7,
+   "p95": 38.8,
+   "max": 81.9,
+   "over20": 74,
+   "drawMeanMs": 2.18,
+   "drawP95Ms": 7.5
+  },
+  {
+   "variant": "now: direct paint, baked vector tiles, quality low",
+   "frames": 356,
+   "mean": 16.79,
+   "p50": 16.7,
+   "p95": 16.9,
+   "max": 82.4,
+   "over20": 2,
+   "drawMeanMs": 2.01,
+   "drawP95Ms": 7.2
+  }
+ ]
+}

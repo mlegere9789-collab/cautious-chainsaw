@@ -1,0 +1,86 @@
+"""Pick the tiles that fit the byte budget and write assets/ : aerial/<z>/<x>_<y>.avif, shade/<z>/<x>_<y>.avif, manifest.json and data/manifest.mjs.
+Order of inclusion (everything is ranked by tiers.json, i.e. by how much unit activity the tile sees):
+  1. z13, z14 (whole bbox) and z15 (within 2 km of any unit path or place mark): always, with their hillshade
+  2. z17 hotspot tiles and z16 tiles: added in priority order, each with its z16 hillshade when it exists, until the budget is full
+Usage: python build-assets.py [--budget-mb 9.7] [--vectors-kb 0]   (vectors are written by build-vectors.py; pass its size so the total stays under the cap)"""
+import base64, json, os, shutil, sys
+sys.path.insert(0, os.path.dirname(__file__))
+from common import *
+
+arg = lambda n, d: type(d)(sys.argv[sys.argv.index(n) + 1]) if n in sys.argv else d
+BUDGET = int(arg('--budget-mb', 9.7) * 1e6)
+VEC = int(arg('--vectors-kb', 0.0) * 1e3)
+BUILD = os.path.join(ROOT, 'tmp', 'look-dev', 'basemap', 'build')
+ASSETS = os.path.join(BASEMAP, 'assets')
+sa = json.load(open(os.path.join(BUILD, 'sizes-aerial.json')))
+ss = json.load(open(os.path.join(BUILD, 'sizes-shade.json')))
+tiers = json.load(open(os.path.join(os.path.dirname(__file__), 'tiers.json')))
+chosen = {'aerial': set(), 'shade': set()}
+total = VEC + 6000                                                           # manifest
+
+
+def add(layer, key):
+    sizes = sa if layer == 'aerial' else ss
+    if key in sizes and key not in chosen[layer]:
+        chosen[layer].add(key)
+        return sizes[key]
+    return 0
+
+
+for z in (13, 14, 15):
+    for x, y, _ in tiers[f'z{z}']:
+        total += add('aerial', f'{z}/{x}_{y}') + add('shade', f'{z}/{x}_{y}')
+print('base (z13-z15 aerial + shade, vectors, manifest):', round(total / 1e6, 2), 'MB')
+# z17 and z16, interleaved by priority score (z17 tiles outrank z16 tiles of the same hotspot because they carry 4x the detail per area)
+cand = [(p * 4 if z == 17 else p, z, x, y) for z in (16, 17) for x, y, p in tiers[f'z{z}'] if f'{z}/{x}_{y}' in sa]
+cand.sort(reverse=True)
+skipped = 0
+for _, z, x, y in cand:
+    k = f'{z}/{x}_{y}'
+    cost = sa[k] + (ss.get(k, 0) if z == 16 else 0)
+    if total + cost > BUDGET:
+        skipped += 1
+        continue
+    total += add('aerial', k) + (add('shade', k) if z == 16 else 0)
+print('total', round(total / 1e6, 3), 'MB; candidates left out for budget:', skipped)
+
+if os.path.isdir(os.path.join(ASSETS, 'aerial')):
+    shutil.rmtree(os.path.join(ASSETS, 'aerial'))
+if os.path.isdir(os.path.join(ASSETS, 'shade')):
+    shutil.rmtree(os.path.join(ASSETS, 'shade'))
+manifest = {'format': 'gb-basemap/1', 'tileSize': 512, 'pad': 4, 'world': 512, 'layers': {}}
+for layer in ('aerial', 'shade'):
+    levels = {}
+    by = {}
+    for k in chosen[layer]:
+        z, xy = k.split('/')
+        x, y = map(int, xy.split('_'))
+        by.setdefault(int(z), []).append((x, y))
+        dst = os.path.join(ASSETS, layer, z, f'{x}_{y}.avif')
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        shutil.copyfile(os.path.join(BUILD, layer, z, f'{x}_{y}.avif'), dst)
+    for z, lst in sorted(by.items()):
+        x0, x1 = min(t[0] for t in lst), max(t[0] for t in lst)
+        y0, y1 = min(t[1] for t in lst), max(t[1] for t in lst)
+        cols, rows = x1 - x0 + 1, y1 - y0 + 1
+        bits = bytearray((cols * rows + 7) // 8)
+        for x, y in lst:
+            i = (y - y0) * cols + (x - x0)
+            bits[i >> 3] |= 1 << (i & 7)
+        levels[str(z)] = {'x0': x0, 'y0': y0, 'cols': cols, 'rows': rows, 'bits': base64.b64encode(bytes(bits)).decode(), 'tiles': len(lst)}
+    manifest['layers'][layer] = {'ext': 'avif', 'levels': levels}
+plan = json.load(open(os.path.join(BASEMAP, 'plan.json')))
+R = plan['z14Range']
+sw = merc_to_lnglat(*tile_bounds_merc(14, R['x0'], R['y1'])[:2])
+ne = merc_to_lnglat(*tile_bounds_merc(14, R['x1'], R['y0'])[2:])
+manifest['bbox'] = {'w': round(sw[0], 6), 's': round(sw[1], 6), 'e': round(ne[0], 6), 'n': round(ne[1], 6)}
+manifest['caption'] = 'Modern ground: USGS NAIP aerial photographed 24 April to 10 May 2022 (24 April over most of the battlefield) and 3DEP hillshade. Not the 1863 landscape.'
+manifest['attribution'] = 'Imagery: USDA NAIP via USGS National Map (public domain). Elevation: USGS 3DEP (public domain). Roads and water: US Census TIGER/Line (public domain).'
+manifest['acquired'] = '2022-04-24 to 2022-05-10'          # three NAIP flight dates meet inside the bounding box: verify/results/naip-scenes.json (scene footprints) and the README, 'Which day is the ground'
+manifest['bytes'] = {'aerial': sum(sa[k] for k in chosen['aerial']), 'shade': sum(ss[k] for k in chosen['shade'])}
+json.dump(manifest, open(os.path.join(ASSETS, 'manifest.json'), 'w'), indent=1)
+os.makedirs(os.path.join(BASEMAP, 'data'), exist_ok=True)
+with open(os.path.join(BASEMAP, 'data', 'manifest.mjs'), 'w', encoding='utf8') as f:
+    f.write('// generated by tools/build-assets.py - the tile index of assets/ (named export so the Studio bundler can inline it)\nexport const MANIFEST = ' + json.dumps(manifest) + ';\n')
+print({l: {z: v['tiles'] for z, v in manifest['layers'][l]['levels'].items()} for l in manifest['layers']})
+print('aerial', round(manifest['bytes']['aerial'] / 1e6, 2), 'MB; shade', round(manifest['bytes']['shade'] / 1e6, 2), 'MB')

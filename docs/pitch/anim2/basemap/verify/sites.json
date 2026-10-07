@@ -1,0 +1,14 @@
+{
+  "note": "Sites for the end-to-end georeferencing check: the loader renders each site's centre (camera zoom z, DPR 1, raw look) and the same ground window is requested from the USGS NAIP service; the shift between the two images is the loader's error.",
+  "sites": [
+    {"id": "angle", "name": "The Angle / Copse of Trees", "lng": -77.2347, "lat": 39.8117},
+    {"id": "pa-memorial", "name": "Pennsylvania Memorial", "lng": -77.23515, "lat": 39.80759},
+    {"id": "wheatfield", "name": "Wheatfield", "lng": -77.2417, "lat": 39.7994},
+    {"id": "cemetery-hill", "name": "Cemetery Hill", "lng": -77.2262, "lat": 39.8189},
+    {"id": "culps-hill", "name": "Culp's Hill", "lng": -77.2194, "lat": 39.815},
+    {"id": "seminary", "name": "Seminary Ridge", "lng": -77.2461, "lat": 39.825},
+    {"id": "oak-hill", "name": "Oak Hill", "lng": -77.2300, "lat": 39.8317},
+    {"id": "lrt", "name": "Little Round Top", "lng": -77.2370, "lat": 39.7905},
+    {"id": "peach", "name": "Peach Orchard", "lng": -77.2490, "lat": 39.8008}
+  ]
+}
