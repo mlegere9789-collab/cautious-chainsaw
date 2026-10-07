@@ -1,0 +1,1418 @@
+{
+ "$id": "battle-studio-settings/1",
+ "title": "Battle Studio settings",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "format",
+  "tokens"
+ ],
+ "properties": {
+  "format": {
+   "const": "battle-studio-settings/1"
+  },
+  "tokens": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+    "time.baseTps": {
+     "description": "How many ticks 1x plays per second. The site plays 500 ms per tick (2 ticks per second); the speed buttons multiply this.",
+     "x-token": "time",
+     "type": "number",
+     "minimum": 0.5,
+     "maximum": 8,
+     "default": 2
+    },
+    "time.fixedHz": {
+     "description": "The clock advances in exact steps of 1/rate seconds; the renderer interpolates between steps. Independent of the display refresh rate.",
+     "x-token": "time",
+     "type": "number",
+     "minimum": 30,
+     "maximum": 240,
+     "default": 120
+    },
+    "time.maxFrameMs": {
+     "description": "A frame longer than this (a stalled or hidden tab) advances the clock by this much only, so the battle cannot fast-forward after a stall.",
+     "x-token": "time",
+     "type": "number",
+     "minimum": 20,
+     "maximum": 500,
+     "default": 100
+    },
+    "time.speedRampMs": {
+     "description": "Play, pause and speed changes ease in and out over about this time (0 = instant).",
+     "x-token": "time",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1000,
+     "default": 220
+    },
+    "time.glideMs": {
+     "description": "A seek or a jump to a scene flies the clock to the target with a critically damped glide of this time constant instead of teleporting.",
+     "x-token": "time",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 2000,
+     "default": 450
+    },
+    "time.glideMaxTps": {
+     "description": "The glide never flies faster than this, so a long jump is a fly-through of the interpolated paths, not a blur.",
+     "x-token": "time",
+     "type": "number",
+     "minimum": 10,
+     "maximum": 600,
+     "default": 120
+    },
+    "time.endBehavior": {
+     "description": "What happens when playback reaches the last tick.",
+     "x-token": "time",
+     "type": "string",
+     "enum": [
+      "stop",
+      "loop"
+     ],
+     "default": "stop"
+    },
+    "time.model": {
+     "description": "RESEARCH. The production loop adds the frame time to a per-tick accumulator and draws the tick read at the START of the frame with the fraction of the current one: on the frame in which the tick advances it draws the old tick with the new fraction, so interpolating units step back for one frame (report 01, 6.3). Pair it with a smooth motion model to see that bug alone.",
+     "x-token": "time",
+     "type": "string",
+     "enum": [
+      "smooth",
+      "production"
+     ],
+     "default": "smooth"
+    },
+    "interp.model": {
+     "description": "How a unit moves between its own keyframes. All models are exact at every keyframe; between keyframes the position is Modelled.",
+     "x-token": "interp",
+     "type": "string",
+     "default": "pchip"
+    },
+    "interp.endSlopes": {
+     "description": "Whether a unit's track starts and ends at rest (eased) or with the velocity of its first and last segment.",
+     "x-token": "interp",
+     "type": "string",
+     "enum": [
+      "rest",
+      "edge"
+     ],
+     "default": "rest"
+    },
+    "interp.strengthTweenMs": {
+     "description": "When a unit's current keyframe changes its strength, the bar eases to the new value over this time. The value itself is the keyframe's, never interpolated into numbers that are not in the data.",
+     "x-token": "interp",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1500,
+     "default": 350
+    },
+    "layout.strategy": {
+     "description": "Which layout module places the tiles. certified guarantees zero overlap; raw is a diagnostic that shows the unsolved problem.",
+     "x-token": "layout",
+     "type": "string",
+     "default": "certified"
+    },
+    "layout.visibility": {
+     "description": "The visibility rule decides how many tiles exist at all (typical 384 under carry-forward, 44 under a window, 7 under the snapshot; 03-data-fuel.md section 9.1).",
+     "x-token": "layout",
+     "type": "string",
+     "enum": [
+      "carry",
+      "window",
+      "snapshot"
+     ],
+     "default": "carry"
+    },
+    "layout.windowTicks": {
+     "description": "Under the window rule a unit is shown only within this many ticks before or after one of its own keyframes.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 1,
+     "maximum": 120,
+     "default": 24
+    },
+    "layout.dMaxPx": {
+     "description": "How far a tile may sit from its true position so it can be read (a pin and a leader line stay on the true position). 0 = pure aggregation. Beyond the budget the tile is merged into an aggregate.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 120,
+     "default": 48
+    },
+    "layout.gapPx": {
+     "description": "Minimum free space between any two tile boxes.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 6,
+     "default": 2
+    },
+    "layout.bandPx": {
+     "description": "An aggregate tries to split only when its members would fit within the budget minus this band, so it does not flicker.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 40,
+     "default": 12
+    },
+    "layout.relaxPxPerSec": {
+     "description": "How fast a displaced tile drifts back toward its true position when there is room.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 600,
+     "default": 120
+    },
+    "layout.splitDwellMs": {
+     "description": "An aggregate exists at least this long before a split is tried (merge now, split later).",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 3000,
+     "default": 500
+    },
+    "layout.labelShowDelayMs": {
+     "description": "A name label may appear only after it has fitted for this long (it disappears at once when it stops fitting).",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1500,
+     "default": 200
+    },
+    "layout.labelCooldownMs": {
+     "description": "After a name label is hidden (something took its place) it may not come back for this long, so a label does not blink while tiles jostle.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 5000,
+     "default": 1200
+    },
+    "layout.labelMinZoom": {
+     "description": "Below this zoom no name labels are drawn.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 8,
+     "maximum": 18,
+     "default": 12
+    },
+    "layout.kCap": {
+     "description": "A neighbourhood with more obstacles than this is declared saturated and the tile aggregates (a conservative failure: never an overlap).",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 10,
+     "maximum": 200,
+     "default": 60
+    },
+    "layout.pinProtect": {
+     "description": "No tile may cover another tile's true position.",
+     "x-token": "layout",
+     "type": "boolean",
+     "default": true
+    },
+    "layout.labels": {
+     "description": "Show the secondary name labels where they fit.",
+     "x-token": "layout",
+     "type": "boolean",
+     "default": true
+    },
+    "layout.continuityPx": {
+     "description": "EXPERIMENT. A tile that already has a place never jumps farther than this from it in one frame: when the only free place is farther it merges into an aggregate instead. Measured to multiply aggregate churn by ten at 14 px (see README), so it is off; the display layer travels instead. 0 = off.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 120,
+     "default": 0
+    },
+    "layout.solveEvery": {
+     "description": "How often the certified layout is re-solved. In between, the solved tiles move with their units (same offsets, new true positions) and every displayed frame is still verified. Automatic raises it when frames run long on a slow device and lowers it again when there is room.",
+     "x-token": "layout",
+     "type": "string",
+     "enum": [
+      "auto",
+      "1",
+      "2",
+      "3"
+     ],
+     "default": "auto"
+    },
+    "layout.maxSplitTries": {
+     "description": "At most this many aggregates try to split in one frame.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 1,
+     "maximum": 8,
+     "default": 2
+    },
+    "motion.mode": {
+     "description": "dynamics = smooth glide with collision-aware pushing; spring = smooth glide only; snap = show the layout as solved (the lab behaviour, for comparison).",
+     "x-token": "motion",
+     "type": "string",
+     "default": "dynamics"
+    },
+    "motion.smoothMs": {
+     "description": "Time constant of the glide that carries a tile to its newly solved position.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 500,
+     "default": 110
+    },
+    "motion.sizeMs": {
+     "description": "Time constant with which a mark grows or shrinks to its newly solved footprint (a name unfolding into a mark at close zoom, a selection, a crowd mark gaining a record); the drawing follows the footprint, so the whole mark animates.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 10,
+     "maximum": 400,
+     "default": 90
+    },
+    "motion.maxSpeedPxPerSec": {
+     "description": "A displaced tile never glides faster than this.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 100,
+     "maximum": 6000,
+     "default": 1600
+    },
+    "motion.travelPx": {
+     "description": "A tile whose solved place is farther than this from where it stands does not push its way there: it dims below 0.5 opacity, glides through, and solidifies on arrival, so it neither obscures nor is obscured on the way.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 4,
+     "maximum": 120,
+     "default": 24
+    },
+    "motion.travelMs": {
+     "description": "Glide time constant of a dimmed travelling tile.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 10,
+     "maximum": 300,
+     "default": 60
+    },
+    "motion.dimOpacity": {
+     "description": "Opacity of a travelling tile; must stay below 0.5, the opacity rule's threshold between solid and not solid.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0.1,
+     "maximum": 0.49,
+     "default": 0.42
+    },
+    "motion.maxPushPx": {
+     "description": "A contact moves a tile by at most this much per pass, so tiles are eased apart instead of shoved. What still overlaps is repaired by the safety net.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0.5,
+     "maximum": 40,
+     "default": 1.5
+    },
+    "motion.collisionIters": {
+     "description": "Passes of the pushing solver per frame.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 12,
+     "default": 4
+    },
+    "motion.fadeMs": {
+     "description": "Duration of a tile's fade in or out. Two tiles that hand over to each other never both have opacity of 0.5 or more at once.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1000,
+     "default": 220
+    },
+    "motion.birthScale": {
+     "description": "A new tile grows from this fraction of its size, pushing its neighbours gently aside.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0.2,
+     "maximum": 1,
+     "default": 0.6
+    },
+    "motion.labelFadeMs": {
+     "description": "Fade of a name label.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 600,
+     "default": 140
+    },
+    "motion.cutFadeMs": {
+     "description": "When the picture changes too much for a glide (a jump in time or zoom) the old tiles fade out and the new ones fade in, in sequence.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 600,
+     "default": 140
+    },
+    "motion.cutZoomJump": {
+     "description": "A zoom change larger than this in one frame is a cut (cross-fade) instead of a glide.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0.1,
+     "maximum": 3,
+     "default": 0.6
+    },
+    "motion.cutTickJump": {
+     "description": "A tick change larger than this in one frame is a cut (cross-fade) instead of a glide.",
+     "x-token": "motion",
+     "type": "number",
+     "minimum": 0.5,
+     "maximum": 50,
+     "default": 3
+    },
+    "motion.safetyNet": {
+     "description": "Every displayed frame is verified; of two solid tiles that would still overlap the lighter one is dimmed below 0.5 and travels to its certified place (counted). Turn off only to measure how often it fires.",
+     "x-token": "motion",
+     "type": "boolean",
+     "default": true
+    },
+    "motion.reduced": {
+     "description": "Reduced motion lands seeks at once and shows the layout as solved, with short fades.",
+     "x-token": "motion",
+     "type": "string",
+     "enum": [
+      "auto",
+      "on",
+      "off"
+     ],
+     "default": "auto"
+    },
+    "camera.zoom": {
+     "description": "Map zoom (Mapbox 512 px world). The site opens at 13.5; desktop views are clamped to 12.04 or more.",
+     "x-token": "camera",
+     "type": "number",
+     "minimum": 11,
+     "maximum": 18,
+     "default": 14
+    },
+    "camera.zoomGlideMs": {
+     "description": "Wheel zoom glides with this time constant.",
+     "x-token": "camera",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 800,
+     "default": 180
+    },
+    "camera.panGlideMs": {
+     "description": "Camera moves (scene jumps) glide with this time constant.",
+     "x-token": "camera",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 800,
+     "default": 120
+    },
+    "camera.minZoom": {
+     "description": "Lowest zoom the Studio allows.",
+     "x-token": "camera",
+     "type": "number",
+     "minimum": 8,
+     "maximum": 14,
+     "default": 11
+    },
+    "camera.maxZoom": {
+     "description": "Highest zoom the Studio allows (the site's maximum is 18).",
+     "x-token": "camera",
+     "type": "number",
+     "minimum": 14,
+     "maximum": 20,
+     "default": 18
+    },
+    "scene.leaders": {
+     "description": "Draw a thin line from a displaced tile to its pin on the true position.",
+     "x-token": "scene",
+     "type": "boolean",
+     "default": true
+    },
+    "scene.pins": {
+     "description": "Draw a pin on the true position of every displaced tile.",
+     "x-token": "scene",
+     "type": "boolean",
+     "default": true
+    },
+    "scene.hulls": {
+     "description": "Draw a dot on the true position of every record an aggregate stands for.",
+     "x-token": "scene",
+     "type": "boolean",
+     "default": true
+    },
+    "scene.hitSlopPx": {
+     "description": "Extra pixels around a tile that still count as a click on it.",
+     "x-token": "scene",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 16,
+     "default": 4
+    },
+    "skin.id": {
+     "description": "The skin that draws the tiles. The Studio ships one built-in REFERENCE skin that exercises every channel; design pitches register their own.",
+     "x-token": "skin",
+     "type": "string",
+     "default": "reference"
+    },
+    "skin.ageChannel": {
+     "description": "Reference skin: dim and dash the outline of a tile whose latest keyframe is old, so a carried-forward tile does not look like a fresh report (03-data-fuel.md).",
+     "x-token": "skin",
+     "type": "boolean",
+     "default": true
+    },
+    "backdrop.id": {
+     "description": "Schematic ground. Mapbox tiles are token-restricted, so the Studio draws a plain metric grid; it is not terrain.",
+     "x-token": "backdrop",
+     "type": "string",
+     "default": "paper"
+    },
+    "backdrop.gridM": {
+     "description": "Spacing of the metric grid.",
+     "x-token": "backdrop",
+     "type": "number",
+     "minimum": 100,
+     "maximum": 2000,
+     "default": 500
+    },
+    "backdrop.places": {
+     "description": "Show the 30 named places of terrain.json in the legacy frame the placements were authored in. 8 of them differ from production terrain.json by 166 to 733 m (Computed in the dataset); marks are orientation only.",
+     "x-token": "backdrop",
+     "type": "boolean",
+     "default": true
+    },
+    "metrics.overlay": {
+     "description": "Show frame times, motion, overlap and solve cost live.",
+     "x-token": "metrics",
+     "type": "boolean",
+     "default": false
+    },
+    "metrics.historyFrames": {
+     "description": "Frames kept for the graphs and the export.",
+     "x-token": "metrics",
+     "type": "number",
+     "minimum": 60,
+     "maximum": 1200,
+     "default": 240
+    },
+    "metrics.popPx": {
+     "description": "A tile that moves more than this beyond its true position's own motion in one frame counts as a pop (the lab definition).",
+     "x-token": "metrics",
+     "type": "number",
+     "minimum": 1,
+     "maximum": 20,
+     "default": 3
+    },
+    "metrics.verify": {
+     "description": "Run the independent overlap verifier on every displayed frame (about 0.2 ms).",
+     "x-token": "metrics",
+     "type": "boolean",
+     "default": true
+    },
+    "compare.mode": {
+     "description": "Replays the same ticks through the shipped tile renderer, reproduced from report 01 (bars, per-tick stepping with the stale-tick bug, hold-then-jump keyframes, the from-scratch relaxation that leaves tiles overlapping), or through the Studio. Your own settings are kept while the production dials are laid over them. Positions and strengths stay Modelled in both.",
+     "x-token": "compare",
+     "type": "string",
+     "enum": [
+      "after",
+      "before"
+     ],
+     "default": "after"
+    },
+    "popup.enabled": {
+     "description": "Master switch of every popup. Off hides all cards, chips, the rail and the Chronicle strip; the map is unchanged.",
+     "x-token": "popups",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.motion.enterMs": {
+     "description": "A card arrives with a decelerating curve over this time. One motion language for every popup (02-popups.md rule 7: 220 ms in, 160 ms out).",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1000,
+     "default": 220
+    },
+    "popup.motion.exitMs": {
+     "description": "A card leaves with an accelerating curve over this time; shorter than the enter so leaving never holds the viewer up.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1000,
+     "default": 160
+    },
+    "popup.motion.moveOutMs": {
+     "description": "A card whose place is being taken by tiles fades out where it was for this long. It never glides across the map, so it never passes over a tile.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 600,
+     "default": 110
+    },
+    "popup.motion.moveInMs": {
+     "description": "...and fades in at its new, free place over this time.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 800,
+     "default": 200
+    },
+    "popup.motion.risePx": {
+     "description": "A card rises this far while it fades in. Kept under the clear gap so the moving card never touches a tile; 0 = fade only. Reduced motion always uses 0.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 24,
+     "default": 6
+    },
+    "popup.motion.leaderMs": {
+     "description": "The line from a card to the tile it is about draws itself from the card to the tile over this time.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1000,
+     "default": 240
+    },
+    "popup.motion.pulseMs": {
+     "description": "A ring on the subject tile grows and fades once when its card appears (0 = no pulse).",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 2000,
+     "default": 700
+    },
+    "popup.motion.arrivalCueMs": {
+     "description": "A chip in the strip shows its leader line to the subject tile for this long when it arrives, then only while hovered, focused or pinned (a permanent line from the dock across the map would be noise).",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 5000,
+     "default": 1400
+    },
+    "popup.place.gridPx": {
+     "description": "Resolution of the free-space search. Finer cells find tighter gaps and cost more; the test is conservative either way (a touched cell counts as occupied).",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 2,
+     "maximum": 16,
+     "default": 4
+    },
+    "popup.place.gapPx": {
+     "description": "A card keeps at least this much clear ground around every chip, label, pin and aggregate dot (the vital core of a tile).",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 24,
+     "default": 6
+    },
+    "popup.place.marginPx": {
+     "description": "A card keeps this far from the edges of the map.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 40,
+     "default": 10
+    },
+    "popup.place.obstacleOpacity": {
+     "description": "A tile at least this opaque is something a card must not cover. Lower than the layout's solid threshold (0.5) on purpose: a tile fading in or gliding past is about to be solid.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0.02,
+     "maximum": 0.5,
+     "default": 0.2
+    },
+    "popup.place.anchorOffsetPx": {
+     "description": "How far from the subject tile a card is first tried.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 60,
+     "default": 14
+    },
+    "popup.place.maxLeaderPx": {
+     "description": "A card whose nearest free place is farther than this from its subject is not floated: a chip in the strip with an arrival cue says it better than a line across the map. Cards with no chip form (tooltips, hints) ignore it.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 120,
+     "maximum": 1200,
+     "default": 420
+    },
+    "popup.place.crossPenalty": {
+     "description": "A candidate place whose leader line would cross another tile is judged this many pixels farther away per tile crossed. Leaders are drawn beneath tiles, so a crossing hides nothing, but a clean line reads better.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 200,
+     "default": 40
+    },
+    "popup.place.stayPull": {
+     "description": "When a card must move, a place near where it was is preferred by this weight against a place near the subject.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1,
+     "default": 0.35
+    },
+    "popup.place.relocateMarginPx": {
+     "description": "A card whose clear ground to the nearest tile has shrunk below this starts a calm fade-relocation. A tile that actually touches it cuts it at once.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 20,
+     "default": 3
+    },
+    "popup.place.upgradeAfterMs": {
+     "description": "A card pushed down the ladder (full, compact, chip) tries the richer form again after things have been calm this long.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 200,
+     "maximum": 5000,
+     "default": 900
+    },
+    "popup.queue.aliveA": {
+     "description": "How many tier A cards (critical events, stories) may be full or compact at once. A newer one turns the oldest into a chip: nothing is evicted, a chip never evicts a card.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 1,
+     "maximum": 8,
+     "default": 2
+    },
+    "popup.queue.aliveB": {
+     "description": "How many tier B cards (high events) may be compact at once; the rest are chips.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 6,
+     "default": 1
+    },
+    "popup.queue.aliveChips": {
+     "description": "How many chips the Chronicle strip shows at once. Older chips leave the strip; their rows stay in the Chronicle.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 1,
+     "maximum": 10,
+     "default": 3
+    },
+    "popup.queue.chipMinShowMs": {
+     "description": "A chip is not pushed out of the strip by newer ones before it has been on show this long (at 16x a new moment arrives every half second; the Chronicle keeps every row either way).",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 6000,
+     "default": 1500
+    },
+    "popup.speed.fullMaxX": {
+     "description": "Up to this playback speed critical cards are full, high events compact. 02-popups.md 5.6: events arrive 24 per minute at 1x and 95 at 4x.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0.25,
+     "maximum": 16,
+     "default": 2
+    },
+    "popup.speed.compactMaxX": {
+     "description": "Up to this speed critical cards are compact and high events chips; beyond it only critical cards remain, as chips.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0.25,
+     "maximum": 32,
+     "default": 4
+    },
+    "popup.speed.chipMaxX": {
+     "description": "Beyond this speed no card is raised at all; the Chronicle still lists every row.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 1,
+     "maximum": 64,
+     "default": 16
+    },
+    "popup.read.wpm": {
+     "description": "Words per minute a card's lifetime assumes. 238 is the adult silent-reading figure of Brysbaert's meta-analysis as summarised by the BPS Research Digest (the paper itself was not opened); the product's own read time uses 200.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 120,
+     "maximum": 400,
+     "default": 238
+    },
+    "popup.dwell.aBaseMs": {
+     "description": "Time a critical card is held before reading time is added.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 6000,
+     "default": 1500
+    },
+    "popup.dwell.aMinMs": {
+     "description": "A critical card is never shorter than this, whatever its length (wall-clock, only while the battle plays).",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 500,
+     "maximum": 20000,
+     "default": 3000
+    },
+    "popup.dwell.aMaxMs": {
+     "description": "A critical card never outstays this; a pinned card never expires.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 2000,
+     "maximum": 60000,
+     "default": 12000
+    },
+    "popup.dwell.bBaseMs": {
+     "description": "Time a high-significance card is held before reading time is added.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 6000,
+     "default": 1200
+    },
+    "popup.dwell.bMinMs": {
+     "description": "Shortest life of a high-significance card.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 500,
+     "maximum": 20000,
+     "default": 2200
+    },
+    "popup.dwell.bMaxMs": {
+     "description": "Longest life of a high-significance card.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 1500,
+     "maximum": 40000,
+     "default": 8000
+    },
+    "popup.dwell.chipMinMs": {
+     "description": "A chip stays at least this long in the strip.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 500,
+     "maximum": 10000,
+     "default": 2500
+    },
+    "popup.dwell.chipMaxMs": {
+     "description": "A chip never stays longer than this, and a card demoted to a chip is cut to it.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 1000,
+     "maximum": 20000,
+     "default": 4500
+    },
+    "popup.land.delayMs": {
+     "description": "After a seek or a step the clock must be still this long before the cards of the moment it landed on appear (scrubbing raises none).",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 2000,
+     "default": 250
+    },
+    "popup.land.clearTicks": {
+     "description": "When a seek begins, cards that belong to a moment farther than this from where it is going leave (pinned cards stay). 02-popups.md F-05: no stale toasts after a jump.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 50,
+     "default": 3
+    },
+    "popup.dismiss.recallTicks": {
+     "description": "A dismissed card comes back when the clock has moved this far from its moment (one day = 225), or at once from the Chronicle.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 10,
+     "maximum": 675,
+     "default": 225
+    },
+    "popup.a11y.liveMinGapMs": {
+     "description": "At most one announcement per this time in the polite live region; when several cards arrive together one message names the most important and counts the rest.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 500,
+     "maximum": 10000,
+     "default": 2000
+    },
+    "popup.narrate.mode": {
+     "description": "While a card is being read the clock eases to a fraction of its speed and back, so a card can be read without pausing. Owner decision D-1 of 02-popups.md; off by default.",
+     "x-token": "popups",
+     "type": "string",
+     "enum": [
+      "off",
+      "critical",
+      "cards"
+     ],
+     "default": "off"
+    },
+    "popup.narrate.factor": {
+     "description": "The playback speed is multiplied by this while a card is being read in Narrated mode.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0.1,
+     "maximum": 1,
+     "default": 0.25
+    },
+    "popup.rail.widthPx": {
+     "description": "Width of the docked reading panel. The map viewport shrinks by this much, the ground staying put, so reading never lies on a tile.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 260,
+     "maximum": 560,
+     "default": 360
+    },
+    "popup.rail.animMs": {
+     "description": "Time the map takes to make room for the rail (and the phone sheet).",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 800,
+     "default": 260
+    },
+    "popup.sheet.peekPx": {
+     "description": "Height of the bottom sheet at its peek detent on a phone-sized screen.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 80,
+     "maximum": 260,
+     "default": 132
+    },
+    "popup.sheet.halfFrac": {
+     "description": "Height of the bottom sheet at its half detent as a share of the screen.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0.2,
+     "maximum": 0.7,
+     "default": 0.34
+    },
+    "popup.phone.belowPx": {
+     "description": "Below this screen width cards are chips in the lane and everything long opens in the bottom sheet (no free-standing cards: 02-popups.md 3.7 found no free ground on a phone).",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 400,
+     "maximum": 1000,
+     "default": 700
+    },
+    "popup.hud.returnDelayMs": {
+     "description": "A clock, legend or overview that stepped aside for a tile comes back only after its place has been clear this long, so it does not flicker.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 5000,
+     "default": 900
+    },
+    "popup.style.palette": {
+     "description": "Colour family of every popup. Colour is never the only cue: every tone also has a shape and a word.",
+     "x-token": "popup-style",
+     "type": "string",
+     "enum": [
+      "dispatch",
+      "signal",
+      "mono"
+     ],
+     "default": "dispatch"
+    },
+    "popup.style.density": {
+     "description": "Padding and line spacing of every card.",
+     "x-token": "popup-style",
+     "type": "string",
+     "enum": [
+      "comfortable",
+      "compact"
+     ],
+     "default": "comfortable"
+    },
+    "popup.style.radiusPx": {
+     "description": "Corner radius of cards, chips and the rail.",
+     "x-token": "popup-style",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 24,
+     "default": 10
+    },
+    "popup.style.blurPx": {
+     "description": "Backdrop blur behind a card; 0 = opaque panels (also what a browser without backdrop-filter shows).",
+     "x-token": "popup-style",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 24,
+     "default": 12
+    },
+    "popup.style.titleFont": {
+     "description": "Typeface of story, tour and banner titles.",
+     "x-token": "popup-style",
+     "type": "string",
+     "enum": [
+      "serif",
+      "sans"
+     ],
+     "default": "serif"
+    },
+    "popup.style.fontScale": {
+     "description": "Scales the type of every popup (13 px body at 1.0; 02-popups.md 5.8 asks for 13 px reading text and 11 px captions at least).",
+     "x-token": "popup-style",
+     "type": "number",
+     "minimum": 0.85,
+     "maximum": 1.3,
+     "default": 1
+    },
+    "popup.style.shadow": {
+     "description": "Shadow under cards: how far they stand off the map.",
+     "x-token": "popup-style",
+     "type": "string",
+     "enum": [
+      "none",
+      "soft",
+      "lifted"
+     ],
+     "default": "soft"
+    },
+    "popup.event.enabled": {
+     "description": "Show a card for each chronology event (134 events of significance critical, high or medium; 3 'low' rows are listed in the Chronicle only).",
+     "x-token": "popup-event",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.event.fullW": {
+     "description": "Width of the full event card (critical events at slow speeds). 02-popups.md measured tile-free ground for 460 x 150 in only 27 % of moments at the default zoom, so the ladder starts narrower.",
+     "x-token": "popup-event",
+     "type": "number",
+     "minimum": 300,
+     "maximum": 520,
+     "default": 400
+    },
+    "popup.event.peekW": {
+     "description": "Width of the event peek: the kicker, the first three lines of the sentence and the place. Tried when the full and compact cards find no free ground; the whole sentence is one click away (the tools button opens it in the reading panel).",
+     "x-token": "popup-event",
+     "type": "number",
+     "minimum": 220,
+     "maximum": 400,
+     "default": 300
+    },
+    "popup.event.miniW": {
+     "description": "Width of the smallest event card on the map: the kicker and two lines of the sentence. Below it only the chip in the strip remains.",
+     "x-token": "popup-event",
+     "type": "number",
+     "minimum": 200,
+     "maximum": 340,
+     "default": 270
+    },
+    "popup.event.compactW": {
+     "description": "Width of the compact event card (the sentence, no narrative).",
+     "x-token": "popup-event",
+     "type": "number",
+     "minimum": 240,
+     "maximum": 420,
+     "default": 320
+    },
+    "popup.event.highAs": {
+     "description": "How the 73 'high' events appear: a compact card (tier B) or only a chip. Tier B cards are shorter-lived than critical ones.",
+     "x-token": "popup-event",
+     "type": "string",
+     "enum": [
+      "card",
+      "chip"
+     ],
+     "default": "card"
+    },
+    "popup.event.mediumAs": {
+     "description": "How the 16 'medium' events appear. Never as a free-standing card.",
+     "x-token": "popup-event",
+     "type": "string",
+     "enum": [
+      "chip",
+      "off"
+     ],
+     "default": "chip"
+    },
+    "popup.event.narrative": {
+     "description": "Where the italic narrative of the 25 events that have one is shown.",
+     "x-token": "popup-event",
+     "type": "string",
+     "enum": [
+      "disclosure",
+      "inline",
+      "rail"
+     ],
+     "default": "disclosure"
+    },
+    "popup.event.landTicks": {
+     "description": "When the clock settles within this many ticks after an event, its card appears (the card of the moment you stopped on).",
+     "x-token": "popup-event",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 6,
+     "default": 0.5
+    },
+    "popup.event.frameSubject": {
+     "description": "When an event card appears for a unit that is off-screen, pan the map just enough to bring it in. Off: an edge arrow points to it instead.",
+     "x-token": "popup-event",
+     "type": "boolean",
+     "default": false
+    },
+    "popup.story.enabled": {
+     "description": "Show a card for each of the 24 vignettes when the clock reaches its trigger tick.",
+     "x-token": "popup-story",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.story.peekW": {
+     "description": "Width of the story peek: title, place, the first lines of the summary and 'Read the full story'.",
+     "x-token": "popup-story",
+     "type": "number",
+     "minimum": 280,
+     "maximum": 480,
+     "default": 360
+    },
+    "popup.story.miniW": {
+     "description": "Width of the smallest story card on the map: the title and one line of the summary. Below it only the chip in the strip remains.",
+     "x-token": "popup-story",
+     "type": "number",
+     "minimum": 200,
+     "maximum": 340,
+     "default": 270
+    },
+    "popup.story.compactW": {
+     "description": "Width of the compact story card (title and two lines).",
+     "x-token": "popup-story",
+     "type": "number",
+     "minimum": 240,
+     "maximum": 400,
+     "default": 300
+    },
+    "popup.story.peekLines": {
+     "description": "How many lines of the summary the peek shows before 'Read the full story'; the full summary and script are one action away.",
+     "x-token": "popup-story",
+     "type": "number",
+     "minimum": 1,
+     "maximum": 8,
+     "default": 3
+    },
+    "popup.story.landTicks": {
+     "description": "A story is eligible for this many ticks after its trigger (the product uses 2).",
+     "x-token": "popup-story",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 12,
+     "default": 2
+    },
+    "popup.story.autoRail": {
+     "description": "When to open the reading rail on a story without a click. Opening it never covers tiles: the map makes room.",
+     "x-token": "popup-story",
+     "type": "string",
+     "enum": [
+      "never",
+      "paused",
+      "always"
+     ],
+     "default": "never"
+    },
+    "popup.story.wpm": {
+     "description": "Words per minute of the '~N min read' label. The product uses 200; the reading budget of the card itself uses popup.read.wpm.",
+     "x-token": "popup-story",
+     "type": "number",
+     "minimum": 120,
+     "maximum": 400,
+     "default": 200
+    },
+    "popup.toast.enabled": {
+     "description": "Show a card for each of the 42 command changes (a general killed, wounded, captured, relieved, promoted, or arriving) when the clock reaches its tick.",
+     "x-token": "popup-toast",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.toast.w": {
+     "description": "Width of a command-change toast.",
+     "x-token": "popup-toast",
+     "type": "number",
+     "minimum": 240,
+     "maximum": 400,
+     "default": 300
+    },
+    "popup.toast.coalesceTicks": {
+     "description": "Command changes this close together become one card ('4 command changes', expandable); tick 550 alone has four.",
+     "x-token": "popup-toast",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 20,
+     "default": 3
+    },
+    "popup.toast.miniW": {
+     "description": "Width of the smallest command-change card: the kind, the clock and the sentence. Below it only the chip in the strip remains.",
+     "x-token": "popup-toast",
+     "type": "number",
+     "minimum": 200,
+     "maximum": 340,
+     "default": 270
+    },
+    "popup.toast.maxItems": {
+     "description": "At most this many command changes are merged into one card; the next one starts a new card (tick 550 has four, ticks 551 and 552 four more).",
+     "x-token": "popup-toast",
+     "type": "number",
+     "minimum": 1,
+     "maximum": 8,
+     "default": 4
+    },
+    "popup.toast.showSource": {
+     "description": "Show the per-row source of each command change (42 of 42 rows have one) as a Documented chip.",
+     "x-token": "popup-toast",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.toast.minKind": {
+     "description": "Filter for fast playback. The Chronicle always lists all 42.",
+     "x-token": "popup-toast",
+     "type": "string",
+     "enum": [
+      "all",
+      "fall"
+     ],
+     "default": "all"
+    },
+    "popup.crossout.enabled": {
+     "description": "Revived dead popup (02-popups.md P-04): when a command changes, the old commander's name is struck through on the unit's tile and the new name takes its place. Needs a free place next to the tile.",
+     "x-token": "popup-crossout",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.crossout.holdMs": {
+     "description": "How long the cross-out label stays (the product's dead card faded after 1.2 s and left at 3 s).",
+     "x-token": "popup-crossout",
+     "type": "number",
+     "minimum": 800,
+     "maximum": 8000,
+     "default": 2400
+    },
+    "popup.crossout.strikeAtMs": {
+     "description": "When the old name is struck through, after the label appears.",
+     "x-token": "popup-crossout",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 3000,
+     "default": 600
+    },
+    "popup.crossout.w": {
+     "description": "Width of the cross-out label.",
+     "x-token": "popup-crossout",
+     "type": "number",
+     "minimum": 180,
+     "maximum": 360,
+     "default": 240
+    },
+    "popup.unit.enabled": {
+     "description": "The hover tooltip (a dead popup revived, P-05) and the card of a selected unit (P-06): who, how strong, where it stands.",
+     "x-token": "popup-unit",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.unit.tipDelayMs": {
+     "description": "A tile must be hovered this long before its tooltip appears. The tooltip stays while the pointer is on the tile or on it, and Esc dismisses it (WCAG 1.4.13).",
+     "x-token": "popup-unit",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 2000,
+     "default": 350
+    },
+    "popup.unit.tipW": {
+     "description": "Width of the hover tooltip.",
+     "x-token": "popup-unit",
+     "type": "number",
+     "minimum": 200,
+     "maximum": 340,
+     "default": 250
+    },
+    "popup.unit.cardW": {
+     "description": "Width of the selected-unit card.",
+     "x-token": "popup-unit",
+     "type": "number",
+     "minimum": 240,
+     "maximum": 400,
+     "default": 300
+    },
+    "popup.unit.recent": {
+     "description": "How many of a unit's latest placement keyframes the unit card lists (Modelled: hand-authored positions).",
+     "x-token": "popup-unit",
+     "type": "number",
+     "minimum": 1,
+     "maximum": 12,
+     "default": 5
+    },
+    "popup.unit.casualties": {
+     "description": "Show the order-of-battle casualty total (Documented, secondary source: Busey and Martin as the file metadata claims; the source was not re-read here). Never drawn as a per-keyframe value.",
+     "x-token": "popup-unit",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.tour.enabled": {
+     "description": "The 16-stop tour of the production site (P-07). Opens in the rail; the map flies to the stop and the subject is framed in the free part of the screen (the product's drawer hid its own subject).",
+     "x-token": "popup-tour",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.tour.speedX": {
+     "description": "Speed the clock plays at during a stop (the product uses 2x).",
+     "x-token": "popup-tour",
+     "type": "number",
+     "minimum": 0.25,
+     "maximum": 16,
+     "default": 2
+    },
+    "popup.tour.msPerTick": {
+     "description": "A stop plays its tick window for this long per tick, then pauses (the product: tickWindow x 250 ms).",
+     "x-token": "popup-tour",
+     "type": "number",
+     "minimum": 50,
+     "maximum": 1000,
+     "default": 250
+    },
+    "popup.tour.restoreSpeed": {
+     "description": "Closing the tour puts the playback speed back as it was.",
+     "x-token": "popup-tour",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.tour.autoplay": {
+     "description": "Play the stop's tick window after the map has flown there; off: the clock is set to the stop and stays paused.",
+     "x-token": "popup-tour",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.banner.enabled": {
+     "description": "A title card when the clock enters a new day or a new part of the day (dawn, dusk, night), from the clock module. The product has none (P-39).",
+     "x-token": "popup-banner",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.banner.holdMs": {
+     "description": "How long a banner stays (wall-clock, only while the battle plays).",
+     "x-token": "popup-banner",
+     "type": "number",
+     "minimum": 1000,
+     "maximum": 10000,
+     "default": 3200
+    },
+    "popup.banner.w": {
+     "description": "Width of the banner ribbon.",
+     "x-token": "popup-banner",
+     "type": "number",
+     "minimum": 280,
+     "maximum": 640,
+     "default": 440
+    },
+    "popup.banner.phases": {
+     "description": "Also announce night and dawn (from the candidate clock, labelled Modelled), not only the three days.",
+     "x-token": "popup-banner",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.clock.enabled": {
+     "description": "The date, time and speed badge (P-10). It prints only what the clock module says: 'about 10:15 AM', always Modelled while the anchors are candidates.",
+     "x-token": "popup-clock",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.clock.sigma": {
+     "description": "Show the clock's stated uncertainty (plus or minus minutes, interpolated from the anchors' own estimates).",
+     "x-token": "popup-clock",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.clock.ring": {
+     "description": "A ring for how much of the day's ticks have passed (Computed from the three tick ranges).",
+     "x-token": "popup-clock",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.clock.slot": {
+     "description": "Where the badge lives. It steps aside (and returns after a calm delay) when a tile would be under it; the toolbar clock always shows the same time.",
+     "x-token": "popup-clock",
+     "type": "string",
+     "enum": [
+      "tl",
+      "tr",
+      "bl",
+      "br"
+     ],
+     "default": "tl"
+    },
+    "popup.legend.enabled": {
+     "description": "What the tile marks mean, generated from the active skin's own legend() so it can never describe a renderer that no longer exists (02-popups.md F-13: 3 of 11 swatches matched).",
+     "x-token": "popup-legend",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.legend.slot": {
+     "description": "Where the legend lives. It steps aside for a tile and returns after a calm delay; the About tab always has the same legend.",
+     "x-token": "popup-legend",
+     "type": "string",
+     "enum": [
+      "tl",
+      "tr",
+      "bl",
+      "br"
+     ],
+     "default": "bl"
+    },
+    "popup.minimap.enabled": {
+     "description": "A small overview of every unit on the field with the viewport box (P-13). Click to fly. It pulses when a card is about something off-screen.",
+     "x-token": "popup-minimap",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.minimap.w": {
+     "description": "Width of the overview map.",
+     "x-token": "popup-minimap",
+     "type": "number",
+     "minimum": 100,
+     "maximum": 280,
+     "default": 168
+    },
+    "popup.minimap.slot": {
+     "description": "Where the overview lives. It steps aside for a tile and returns after a calm delay.",
+     "x-token": "popup-minimap",
+     "type": "string",
+     "enum": [
+      "tl",
+      "tr",
+      "bl",
+      "br"
+     ],
+     "default": "br"
+    },
+    "popup.hints.enabled": {
+     "description": "Short contextual hints (P-38): how to play, step, select, and read the Chronicle. Each shows once and goes when used. Press ? for the full list.",
+     "x-token": "popup-hints",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.hints.holdMs": {
+     "description": "How long a hint stays when nothing is done (wall-clock).",
+     "x-token": "popup-hints",
+     "type": "number",
+     "minimum": 2000,
+     "maximum": 20000,
+     "default": 6500
+    },
+    "popup.hints.maxShown": {
+     "description": "At most this many hints are shown in a session.",
+     "x-token": "popup-hints",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 8,
+     "default": 4
+    },
+    "popup.chronicle.enabled": {
+     "description": "The strip in the dock that carries the chips and the list of everything that has happened so far (events, stories, command changes). Nothing is ever dropped: a card that finds no room is a chip here.",
+     "x-token": "popup-chronicle",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.chronicle.low": {
+     "description": "List the 3 'low' chronology rows too (they never raise a card).",
+     "x-token": "popup-chronicle",
+     "type": "boolean",
+     "default": true
+    },
+    "popup.chronicle.recentRows": {
+     "description": "How many of the latest rows the Chronicle list renders (older ones scroll in on request).",
+     "x-token": "popup-chronicle",
+     "type": "number",
+     "minimum": 10,
+     "maximum": 400,
+     "default": 60
+    }
+   }
+  }
+ }
+}

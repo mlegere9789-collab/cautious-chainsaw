@@ -1,0 +1,440 @@
+{
+ "made": "node tools/legibility.mjs",
+ "bar": 4.5,
+ "method": "ink luminance against the lightest (darkest for dark ink) background pixel within 3 px of the glyphs, 99th percentile (1st for dark ink), rendered at 3x on a transparent canvas",
+ "rows": [
+  {
+   "variant": "standard",
+   "name": "union fresh",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0857,
+   "bgLumWorst": 0.1145,
+   "contrast": 5.81,
+   "samples": 1675
+  },
+  {
+   "variant": "standard",
+   "name": "union carried 100%",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0615,
+   "bgLumWorst": 0.0686,
+   "contrast": 8.06,
+   "samples": 1690
+  },
+  {
+   "variant": "standard",
+   "name": "union carried 50%",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0749,
+   "bgLumWorst": 0.0908,
+   "contrast": 6.79,
+   "samples": 1684
+  },
+  {
+   "variant": "standard",
+   "name": "confederate fresh",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.1086,
+   "bgLumWorst": 0.1314,
+   "contrast": 5.27,
+   "samples": 1729
+  },
+  {
+   "variant": "standard",
+   "name": "confederate carried 100%",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0645,
+   "bgLumWorst": 0.071,
+   "contrast": 7.9,
+   "samples": 1754
+  },
+  {
+   "variant": "standard",
+   "name": "confederate carried 50%",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0855,
+   "bgLumWorst": 0.0994,
+   "contrast": 6.4,
+   "samples": 1736
+  },
+  {
+   "variant": "standard",
+   "name": "contested fresh",
+   "ink": "#140f03",
+   "bgLumP50": 0.4613,
+   "bgLumWorst": 0.4035,
+   "contrast": 8.25,
+   "samples": 1635
+  },
+  {
+   "variant": "standard",
+   "name": "contested carried 100%",
+   "ink": "#140f03",
+   "bgLumP50": 0.3739,
+   "bgLumWorst": 0.3401,
+   "contrast": 7.1,
+   "samples": 1619
+  },
+  {
+   "variant": "standard",
+   "name": "union brigade standard",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0796,
+   "bgLumWorst": 0.1073,
+   "contrast": 6.08,
+   "samples": 2252
+  },
+  {
+   "variant": "standard",
+   "name": "confederate corps standard",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0993,
+   "bgLumWorst": 0.1197,
+   "contrast": 5.64,
+   "samples": 950
+  },
+  {
+   "variant": "standard",
+   "name": "union name line (unfolded)",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.088,
+   "bgLumWorst": 0.1295,
+   "contrast": 5.33,
+   "samples": 28894
+  },
+  {
+   "variant": "standard",
+   "name": "confederate name line (unfolded)",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.1056,
+   "bgLumWorst": 0.1452,
+   "contrast": 4.9,
+   "samples": 18657
+  },
+  {
+   "variant": "standard",
+   "name": "crowd, one side (Union)",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.1027,
+   "bgLumWorst": 0.1323,
+   "contrast": 5.25,
+   "samples": 5000
+  },
+  {
+   "variant": "standard",
+   "name": "crowd, one side (Confederate)",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.1197,
+   "bgLumWorst": 0.1503,
+   "contrast": 4.77,
+   "samples": 9586
+  },
+  {
+   "variant": "standard",
+   "name": "crowd, both sides",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.1149,
+   "bgLumWorst": 0.1503,
+   "contrast": 4.77,
+   "samples": 8234
+  },
+  {
+   "variant": "standard",
+   "name": "crowd, contested",
+   "ink": "#140f03",
+   "bgLumP50": 0.4958,
+   "bgLumWorst": 0.2192,
+   "contrast": 4.9,
+   "samples": 8012
+  },
+  {
+   "variant": "contrast",
+   "name": "union fresh",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0624,
+   "bgLumWorst": 0.0713,
+   "contrast": 7.88,
+   "samples": 1682
+  },
+  {
+   "variant": "contrast",
+   "name": "union carried 100%",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0525,
+   "bgLumWorst": 0.0558,
+   "contrast": 9.03,
+   "samples": 1690
+  },
+  {
+   "variant": "contrast",
+   "name": "union carried 50%",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0584,
+   "bgLumWorst": 0.065,
+   "contrast": 8.31,
+   "samples": 1689
+  },
+  {
+   "variant": "contrast",
+   "name": "confederate fresh",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0917,
+   "bgLumWorst": 0.1004,
+   "contrast": 6.36,
+   "samples": 1730
+  },
+  {
+   "variant": "contrast",
+   "name": "confederate carried 100%",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0591,
+   "bgLumWorst": 0.063,
+   "contrast": 8.46,
+   "samples": 1754
+  },
+  {
+   "variant": "contrast",
+   "name": "confederate carried 50%",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0743,
+   "bgLumWorst": 0.0804,
+   "contrast": 7.34,
+   "samples": 1748
+  },
+  {
+   "variant": "contrast",
+   "name": "contested fresh",
+   "ink": "#140f03",
+   "bgLumP50": 0.457,
+   "bgLumWorst": 0.4035,
+   "contrast": 8.25,
+   "samples": 1635
+  },
+  {
+   "variant": "contrast",
+   "name": "contested carried 100%",
+   "ink": "#140f03",
+   "bgLumP50": 0.3739,
+   "bgLumWorst": 0.3401,
+   "contrast": 7.1,
+   "samples": 1619
+  },
+  {
+   "variant": "contrast",
+   "name": "union brigade standard",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0594,
+   "bgLumWorst": 0.0696,
+   "contrast": 8,
+   "samples": 2313
+  },
+  {
+   "variant": "contrast",
+   "name": "confederate corps standard",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0879,
+   "bgLumWorst": 0.0974,
+   "contrast": 6.49,
+   "samples": 954
+  },
+  {
+   "variant": "contrast",
+   "name": "union name line (unfolded)",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0635,
+   "bgLumWorst": 0.0806,
+   "contrast": 7.32,
+   "samples": 28919
+  },
+  {
+   "variant": "contrast",
+   "name": "confederate name line (unfolded)",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0907,
+   "bgLumWorst": 0.1097,
+   "contrast": 5.99,
+   "samples": 18663
+  },
+  {
+   "variant": "contrast",
+   "name": "crowd, one side (Union)",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0675,
+   "bgLumWorst": 0.0771,
+   "contrast": 7.52,
+   "samples": 5006
+  },
+  {
+   "variant": "contrast",
+   "name": "crowd, one side (Confederate)",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0965,
+   "bgLumWorst": 0.1086,
+   "contrast": 6.03,
+   "samples": 9608
+  },
+  {
+   "variant": "contrast",
+   "name": "crowd, both sides",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0879,
+   "bgLumWorst": 0.1076,
+   "contrast": 6.07,
+   "samples": 8255
+  },
+  {
+   "variant": "contrast",
+   "name": "crowd, contested",
+   "ink": "#140f03",
+   "bgLumP50": 0.4853,
+   "bgLumWorst": 0.2192,
+   "contrast": 4.9,
+   "samples": 8010
+  },
+  {
+   "variant": "cvd",
+   "name": "union fresh",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.1029,
+   "bgLumWorst": 0.1316,
+   "contrast": 5.27,
+   "samples": 1674
+  },
+  {
+   "variant": "cvd",
+   "name": "union carried 100%",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0679,
+   "bgLumWorst": 0.0736,
+   "contrast": 7.73,
+   "samples": 1690
+  },
+  {
+   "variant": "cvd",
+   "name": "union carried 50%",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0859,
+   "bgLumWorst": 0.1028,
+   "contrast": 6.26,
+   "samples": 1684
+  },
+  {
+   "variant": "cvd",
+   "name": "confederate fresh",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.1096,
+   "bgLumWorst": 0.1307,
+   "contrast": 5.29,
+   "samples": 1726
+  },
+  {
+   "variant": "cvd",
+   "name": "confederate carried 100%",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0664,
+   "bgLumWorst": 0.0711,
+   "contrast": 7.9,
+   "samples": 1753
+  },
+  {
+   "variant": "cvd",
+   "name": "confederate carried 50%",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0875,
+   "bgLumWorst": 0.1009,
+   "contrast": 6.34,
+   "samples": 1735
+  },
+  {
+   "variant": "cvd",
+   "name": "contested fresh",
+   "ink": "#140f03",
+   "bgLumP50": 0.4613,
+   "bgLumWorst": 0.4035,
+   "contrast": 8.25,
+   "samples": 1635
+  },
+  {
+   "variant": "cvd",
+   "name": "contested carried 100%",
+   "ink": "#140f03",
+   "bgLumP50": 0.3739,
+   "bgLumWorst": 0.3401,
+   "contrast": 7.1,
+   "samples": 1619
+  },
+  {
+   "variant": "cvd",
+   "name": "union brigade standard",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.0978,
+   "bgLumWorst": 0.1242,
+   "contrast": 5.49,
+   "samples": 2242
+  },
+  {
+   "variant": "cvd",
+   "name": "confederate corps standard",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.1012,
+   "bgLumWorst": 0.1187,
+   "contrast": 5.67,
+   "samples": 950
+  },
+  {
+   "variant": "cvd",
+   "name": "union name line (unfolded)",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.1052,
+   "bgLumWorst": 0.1454,
+   "contrast": 4.89,
+   "samples": 28876
+  },
+  {
+   "variant": "cvd",
+   "name": "confederate name line (unfolded)",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.1074,
+   "bgLumWorst": 0.1424,
+   "contrast": 4.97,
+   "samples": 18653
+  },
+  {
+   "variant": "cvd",
+   "name": "crowd, one side (Union)",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.1193,
+   "bgLumWorst": 0.1479,
+   "contrast": 4.83,
+   "samples": 4994
+  },
+  {
+   "variant": "cvd",
+   "name": "crowd, one side (Confederate)",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.121,
+   "bgLumWorst": 0.1454,
+   "contrast": 4.9,
+   "samples": 9586
+  },
+  {
+   "variant": "cvd",
+   "name": "crowd, both sides",
+   "ink": "#faf4e4",
+   "bgLumP50": 0.1197,
+   "bgLumWorst": 0.1479,
+   "contrast": 4.83,
+   "samples": 8234
+  },
+  {
+   "variant": "cvd",
+   "name": "crowd, contested",
+   "ink": "#140f03",
+   "bgLumP50": 0.4958,
+   "bgLumWorst": 0.2192,
+   "contrast": 4.9,
+   "samples": 8012
+  }
+ ],
+ "below": 0
+}

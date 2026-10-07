@@ -1,0 +1,10 @@
+{
+  "$label": "High contrast",
+  "$description": "Deeper fabric, stronger keylines, no gloss.",
+  "color": {
+    "union": { "hi": { "$value": "#1a4f93" }, "lo": { "$value": "#123a73" } },
+    "csa": { "hi": { "$value": "#a63826" }, "lo": { "$value": "#862a1c" } }
+  },
+  "light": { "gloss": { "$value": 0 }, "rimAlpha": { "$value": 0.9 } },
+  "state": { "carriedKeyline": { "$value": 0.8 } }
+}

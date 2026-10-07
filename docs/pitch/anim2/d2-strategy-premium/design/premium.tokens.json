@@ -1,0 +1,87 @@
+{
+  "$schema": "W3C Design Tokens draft shape ($value, $type, $description); leaves may carry $min, $max, $unit. Flattened to dotted names by tools/make-skin-tokens.mjs.",
+  "$description": "Strategy Premium: the tokens of the tile skin. Edit a $value, run node studio/build.mjs, reload. Lengths are CSS px at 1x. Colours are #rrggbb.",
+  "color": {
+    "union": {
+      "hi": { "$value": "#2b629f", "$type": "color", "$description": "Union fabric, lit end of the gradient (top)" },
+      "lo": { "$value": "#183f6f", "$type": "color", "$description": "Union fabric, shaded end of the gradient (bottom)" },
+      "strip": { "$value": "#0f2342", "$type": "color", "$description": "Union hoist band (the dark band that carries the arm or echelon sign)" },
+      "edge": { "$value": "#08142a", "$type": "color", "$description": "Union outer hairline" }
+    },
+    "csa": {
+      "hi": { "$value": "#b1432d", "$type": "color", "$description": "Confederate fabric, lit end of the gradient (top)" },
+      "lo": { "$value": "#86291b", "$type": "color", "$description": "Confederate fabric, shaded end of the gradient (bottom)" },
+      "strip": { "$value": "#43160f", "$type": "color", "$description": "Confederate hoist band" },
+      "edge": { "$value": "#2a0b07", "$type": "color", "$description": "Confederate outer hairline" }
+    },
+    "unk": {
+      "hi": { "$value": "#e2be58", "$type": "color", "$description": "Contested side fabric, lit end (a unit whose side is not decided is gold, never a side colour)" },
+      "lo": { "$value": "#c49e3a", "$type": "color", "$description": "Contested side fabric, shaded end" },
+      "strip": { "$value": "#4f3d0e", "$type": "color", "$description": "Contested hoist band" },
+      "edge": { "$value": "#251c05", "$type": "color", "$description": "Contested outer hairline" }
+    },
+    "ink": { "$value": "#faf4e4", "$type": "color", "$description": "Text and signs on fabric (ivory)" },
+    "inkOnGold": { "$value": "#140f03", "$type": "color", "$description": "Text on the contested gold fabric" },
+    "giltHi": { "$value": "#f3d98a", "$type": "color", "$description": "Gilt trim, lit" },
+    "giltLo": { "$value": "#b98f33", "$type": "color", "$description": "Gilt trim, shaded" },
+    "keyline": { "$value": "#060a10", "$type": "color", "$description": "Dark outer hairline under every mark (separation on bright ground)" },
+    "bone": { "$value": "#f2ecdc", "$type": "color", "$description": "Light keyline of a unit mark (separation on dark ground)" },
+    "accent": { "$value": "#f5cd62", "$type": "color", "$description": "Selection ring and hover glow" },
+    "carriedGrey": { "$value": "#7d8794", "$type": "color", "$description": "The neutral a carried-forward mark is mixed toward" },
+    "gaugeTrack": { "$value": "#050912", "$type": "color", "$description": "Empty part of the strength line" }
+  },
+  "geo": {
+    "ring": { "$value": 2, "$type": "number", "$min": 1, "$max": 4, "$unit": "px", "$description": "Air between the body and the footprint edge; the selection ring lives here" },
+    "radius": { "$value": 4, "$type": "number", "$min": 1, "$max": 8, "$unit": "px", "$description": "The one corner radius of every mark" },
+    "hairline": { "$value": 1, "$type": "number", "$min": 0.5, "$max": 2, "$unit": "px", "$description": "The one line weight (keylines, trim); selection uses 1.5x" },
+    "h0": { "$value": 22, "$type": "number", "$min": 16, "$max": 40, "$unit": "px", "$description": "Body height of a regiment or battery mark" },
+    "h1": { "$value": 24, "$type": "number", "$min": 16, "$max": 40, "$unit": "px", "$description": "Body height of a battalion mark" },
+    "h2": { "$value": 30, "$type": "number", "$min": 16, "$max": 48, "$unit": "px", "$description": "Body height of a brigade standard" },
+    "h3": { "$value": 34, "$type": "number", "$min": 16, "$max": 52, "$unit": "px", "$description": "Body height of a division standard" },
+    "h4": { "$value": 38, "$type": "number", "$min": 16, "$max": 56, "$unit": "px", "$description": "Body height of a corps standard" },
+    "hAgg": { "$value": 30, "$type": "number", "$min": 20, "$max": 52, "$unit": "px", "$description": "Body height of a crowd (formation) mark" },
+    "hoist0": { "$value": 17, "$type": "number", "$min": 10, "$max": 30, "$unit": "px", "$description": "Width of the hoist band of a unit mark" },
+    "hoist1": { "$value": 20, "$type": "number", "$min": 10, "$max": 30, "$unit": "px", "$description": "Width of the hoist band of a formation standard" },
+    "padL": { "$value": 5, "$type": "number", "$min": 2, "$max": 12, "$unit": "px", "$description": "Space between the hoist band and the text" },
+    "padR": { "$value": 5, "$type": "number", "$min": 2, "$max": 12, "$unit": "px", "$description": "Space between the text and the fly edge" },
+    "fly": { "$value": 6, "$type": "number", "$min": 0, "$max": 12, "$unit": "px", "$description": "Depth of the fly edge shape (notch for the Union, point for the Confederacy)" },
+    "nameLine": { "$value": 17, "$type": "number", "$min": 10, "$max": 20, "$unit": "px", "$description": "Height added when the full name unfolds under the code (the last 4 px of it are the strength line)" },
+    "stack": { "$value": 3, "$type": "number", "$min": 1, "$max": 6, "$unit": "px", "$description": "Offset of each banner behind a crowd mark" },
+    "nameZoom0": { "$value": 15.6, "$type": "number", "$min": 12, "$max": 18, "$description": "Zoom at which names begin to unfold into the marks" },
+    "nameZoom1": { "$value": 16.1, "$type": "number", "$min": 12, "$max": 18, "$description": "Zoom at which names are fully unfolded" }
+  },
+  "type": {
+    "family": { "$value": "\"Barlow Semi Condensed\", \"Bahnschrift SemiCondensed\", \"Segoe UI\", system-ui, sans-serif", "$type": "string", "$description": "Face of every mark (open licence: SIL OFL 1.1, bundled)" },
+    "unitSize": { "$value": 11, "$type": "number", "$min": 11, "$max": 16, "$unit": "px", "$description": "Type size 1: unit codes, names and the second line (11 px is the floor of the language)" },
+    "unitWeight": { "$value": 600, "$type": "number", "$min": 400, "$max": 800, "$description": "Weight of a unit code" },
+    "formSize": { "$value": 13, "$type": "number", "$min": 11, "$max": 18, "$unit": "px", "$description": "Type size 2: formation marks (standards and crowd marks) and their counts" },
+    "formWeight": { "$value": 700, "$type": "number", "$min": 400, "$max": 800, "$description": "Weight of a formation code and of every count" },
+    "nameWeight": { "$value": 500, "$type": "number", "$min": 400, "$max": 700, "$description": "Weight of the unfolded name" }
+  },
+  "light": {
+    "shadowAlpha": { "$value": 0.4, "$type": "number", "$min": 0, "$max": 0.8, "$description": "Strength of the soft ground shadow (light from the north-west: it falls south-east)" },
+    "shadowDx": { "$value": 1.6, "$type": "number", "$min": -6, "$max": 6, "$unit": "px", "$description": "Horizontal offset of the ground shadow" },
+    "shadowDy": { "$value": 2.8, "$type": "number", "$min": -6, "$max": 8, "$unit": "px", "$description": "Vertical offset of the ground shadow" },
+    "shadowBlur": { "$value": 5, "$type": "number", "$min": 0, "$max": 14, "$unit": "px", "$description": "Blur of the ground shadow" },
+    "contactAlpha": { "$value": 0.5, "$type": "number", "$min": 0, "$max": 0.9, "$description": "Strength of the tight contact shadow right under the edge" },
+    "rimAlpha": { "$value": 0.55, "$type": "number", "$min": 0, "$max": 1, "$description": "Strength of the light rim on the north and west edges" },
+    "keyline": { "$value": 0.5, "$type": "number", "$min": 0, "$max": 1, "$description": "Strength of the light keyline of a fresh unit mark (the dark hairline outside it is always there)" },
+    "sheen": { "$value": 0.05, "$type": "number", "$min": 0, "$max": 0.3, "$description": "Strength of the soft diagonal sheen across the cloth" },
+    "gloss": { "$value": 0.06, "$type": "number", "$min": 0, "$max": 0.4, "$description": "Top-light sheen over the upper half of the fabric" },
+    "liftPerEchelon": { "$value": 0.35, "$type": "number", "$min": 0, "$max": 1, "$unit": "px", "$description": "How far a formation standard floats above the ground per echelon (shadow grows with it)" }
+  },
+  "state": {
+    "carriedMix": { "$value": 0.32, "$type": "number", "$min": 0, "$max": 0.8, "$description": "How far a carried-forward mark is mixed toward grey (the one provisional device)" },
+    "carriedDark": { "$value": 0.28, "$type": "number", "$min": 0, "$max": 0.4, "$description": "Extra darkening of a carried-forward mark" },
+    "carriedKeyline": { "$value": 0.5, "$type": "number", "$min": 0.2, "$max": 1, "$description": "Strength of the light keyline of a carried-forward mark" },
+    "flutter": { "$value": 1.1, "$type": "number", "$min": 0, "$max": 3, "$unit": "px", "$description": "Amplitude of the fly-edge flutter of a unit in transit (0 turns it off)" }
+  },
+  "motion": {
+    "selectMs": { "$value": 170, "$type": "number", "$min": 0, "$max": 600, "$unit": "ms", "$description": "Selection ring and name unfold glide" },
+    "hoverMs": { "$value": 110, "$type": "number", "$min": 0, "$max": 600, "$unit": "ms", "$description": "Hover lift glide" },
+    "growMs": { "$value": 150, "$type": "number", "$min": 0, "$max": 600, "$unit": "ms", "$description": "Glide of the hover and selection unfold of a name into the banner" },
+    "flutterMs": { "$value": 240, "$type": "number", "$min": 0, "$max": 800, "$unit": "ms", "$description": "Time the fly takes to start and stop fluttering when a unit starts or stops marching" },
+    "dropPx": { "$value": 5, "$type": "number", "$min": 0, "$max": 16, "$unit": "px", "$description": "Height a mark drops from when it arrives (the arrival settle)" },
+    "unfurl": { "$value": 0.6, "$type": "number", "$min": 0, "$max": 1, "$description": "Share of the arrival in which the banner unfurls from the hoist" }
+  }
+}
