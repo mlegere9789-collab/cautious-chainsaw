@@ -1,0 +1,53 @@
+// render/places.mjs - the PLACE NAMES of the real ground, in the Quiet Cartographer's third level of lettering (11 px italic, never bold, never tinted by a side).  The basemap would draw them itself, but
+// under the unit marks, where a name and a mark print over each other.  Here they are set AROUND the marks: every frame each name tries its four slots (right, left, above, below its ring) against
+// the footprints of the solid marks and of the interface, keeps the slot it has while it stays free, and otherwise fades out, moves and fades in; a name that finds no free slot is simply not shown
+// (a place is orientation, not data: the units are never dropped, the names may be).  The ring is the data's own claim of where the place is (Modelled, in the legacy frame the units were placed in);
+// a ring with a gap means the two terrain frames disagree about this place (the basemap's own finding, up to 733 m).
+const SLOTS = ['r', 'l', 't', 'b'];
+const FADE = 0.2;                                          // fraction of the way to the target per drawn frame (about 120 ms at 60 fps)
+
+export function createPlaces({ places }) {
+  const list = []; const seen = new Set(); const order = { loc: 0, struct: 1, feat: 2 };
+  for (const p of [...(places || [])].sort((a, b) => order[a.k] - order[b.k])) { if (seen.has(p.n)) continue; seen.add(p.n); list.push(p); }
+  const state = new Map(); const widths = new Map();
+  const width = (c, font, s) => { const k = font + '|' + s; let w = widths.get(k); if (w === undefined) { c.font = font; w = c.measureText(s).width; widths.set(k, w); } return w; };
+  const hit = (a, b) => a.x0 < b.x1 && b.x0 < a.x1 && a.y0 < b.y1 && b.y0 < a.y1;
+
+  /** @param {object} v { w, h, camera, tiles (display tiles), view {dx, dy}, safe {top,right,bottom,left}, look, minorZoom } */
+  function draw(c, v) {
+    const { w: W, h: H, camera, tiles, view, safe, look } = v; const z = camera.zoom; const L = look.labels; const font = L.placeFont;
+    const obst = []; for (const t of tiles) { if (t.opacity < 0.3) continue; const hw = t.w * t.scale / 2 + 3; const hh = t.h * t.scale / 2 + 3; const x = t.x + view.dx; const y = t.y + view.dy; if (x + hw < -10 || x - hw > W + 10 || y + hh < -10 || y - hh > H + 10) continue; obst.push({ x0: x - hw, x1: x + hw, y0: y - hh, y1: y + hh }); }
+    if (safe) { if (safe.top) obst.push({ x0: -1e4, x1: 1e4, y0: -1e4, y1: safe.top }); if (safe.bottom) obst.push({ x0: -1e4, x1: 1e4, y0: H - safe.bottom, y1: 1e4 }); if (safe.left) obst.push({ x0: -1e4, x1: safe.left, y0: -1e4, y1: 1e4 }); if (safe.right) obst.push({ x0: W - safe.right, x1: 1e4, y0: -1e4, y1: 1e4 }); }
+    const taken = []; c.save(); c.lineJoin = 'round'; c.textBaseline = 'alphabetic'; c.textAlign = 'left';
+    for (const p of list) {
+      let st = state.get(p.id); if (!st) { st = { a: 0, slot: null, want: null }; state.set(p.id, st); }
+      const minor = p.k !== 'loc'; const on = !(minor ? z < (v.minorZoom ?? 14.5) : z < 12.5);
+      const [x, y] = camera.toScreen(p.lng, p.lat); const inView = x > -40 && x < W + 40 && y > -20 && y < H + 20;
+      let target = 0; let rect = null;
+      if (on && inView) {
+        const tw = width(c, font, p.n); const r = minor ? 2.2 : 2.8; const ringBox = { x0: x - r - 2, x1: x + r + 2, y0: y - r - 2, y1: y + r + 2 };
+        const box = (slot) => { const g = r + 5; if (slot === 'r') return { x0: x + g, x1: x + g + tw, y0: y - 8, y1: y + 6 }; if (slot === 'l') return { x0: x - g - tw, x1: x - g, y0: y - 8, y1: y + 6 }; if (slot === 't') return { x0: x - tw / 2, x1: x + tw / 2, y0: y - r - 17, y1: y - r - 3 }; return { x0: x - tw / 2, x1: x + tw / 2, y0: y + r + 4, y1: y + r + 18 }; };
+        const free = (b) => { for (const o of obst) if (hit(b, o)) return false; for (const o of taken) if (hit(b, o)) return false; return true; };
+        const ringFree = free(ringBox);
+        const tryOrder = st.slot ? [st.slot, ...SLOTS.filter((s) => s !== st.slot)] : SLOTS;
+        for (const s of tryOrder) { const b = box(s); if (free({ x0: b.x0 - 2, x1: b.x1 + 2, y0: b.y0, y1: b.y1 })) { st.want = s; rect = b; break; } }
+        if (rect && (ringFree || true)) target = 1;
+        if (!rect) st.want = null;
+      }
+      // fade out before moving to another slot
+      if (st.slot && st.want && st.slot !== st.want) { st.a += (0 - st.a) * (FADE * 1.6); if (st.a < 0.06) { st.slot = st.want; } }
+      else if (target > 0) { if (!st.slot) st.slot = st.want; st.a += (1 - st.a) * FADE; }
+      else { st.a += (0 - st.a) * FADE; if (st.a < 0.02) { st.a = 0; st.slot = null; } }
+      if (st.a < 0.02 || !st.slot) continue;
+      const b = (() => { const r = minor ? 2.2 : 2.8; const tw = width(c, font, p.n); const g = r + 5; return st.slot === 'r' ? { x0: x + g, x1: x + g + tw, y0: y - 8, y1: y + 6 } : st.slot === 'l' ? { x0: x - g - tw, x1: x - g, y0: y - 8, y1: y + 6 } : st.slot === 't' ? { x0: x - tw / 2, x1: x + tw / 2, y0: y - r - 17, y1: y - r - 3 } : { x0: x - tw / 2, x1: x + tw / 2, y0: y + r + 4, y1: y + r + 18 }; })();
+      taken.push({ x0: b.x0 - 2, x1: b.x1 + 2, y0: b.y0, y1: b.y1 });
+      const base = c.globalAlpha; c.globalAlpha = base * st.a; const r = minor ? 2.2 : 2.8;
+      // the ring (a gap when the two terrain frames disagree about the place)
+      c.beginPath(); if (p.d) c.arc(x, y, r, 0.45, Math.PI * 2 - 0.45); else c.arc(x, y, r, 0, Math.PI * 2); c.lineCap = 'round'; c.strokeStyle = L.dotRing; c.lineWidth = 3.2; c.stroke(); c.strokeStyle = L.dot; c.lineWidth = 1.1; c.stroke();
+      c.font = font; c.textAlign = 'left'; const tx = b.x0; const ty = b.y1 - 3.4;
+      c.lineWidth = 3.2; c.strokeStyle = L.placeHalo; c.strokeText(p.n, tx, ty); c.fillStyle = L.place; c.fillText(p.n, tx, ty); c.globalAlpha = base;
+    }
+    c.restore();
+  }
+  return { draw, list };
+}

@@ -1,0 +1,101 @@
+{
+ "generated": "2026-10-07T12:56:40.989Z",
+ "uiCurve": "cubic-bezier(.2, .72, .2, 1) at 140, 240 and 380 ms (quiet.css and studio.css)",
+ "rows": [
+  {
+   "name": "mark glide to its solved place",
+   "timeConstantMs": 120,
+   "source": "engine dial motion.smoothMs",
+   "ms50": 101,
+   "ms90": 234,
+   "ms99": 399,
+   "kind": "critically damped, no overshoot (interp/damp.mjs)"
+  },
+  {
+   "name": "travel of a dimmed mark",
+   "timeConstantMs": 60,
+   "source": "engine dial motion.travelMs",
+   "ms50": 51,
+   "ms90": 117,
+   "ms99": 200,
+   "kind": "critically damped, no overshoot (interp/damp.mjs)"
+  },
+  {
+   "name": "selection ring",
+   "timeConstantMs": 140,
+   "source": "skin token motion.selectMs",
+   "ms50": 118,
+   "ms90": 273,
+   "ms99": 465,
+   "kind": "critically damped, no overshoot (interp/damp.mjs)"
+  },
+  {
+   "name": "hover ring",
+   "timeConstantMs": 90,
+   "source": "skin token motion.hoverMs",
+   "ms50": 76,
+   "ms90": 176,
+   "ms99": 299,
+   "kind": "critically damped, no overshoot (interp/damp.mjs)"
+  },
+  {
+   "name": "name grows in or out",
+   "timeConstantMs": 180,
+   "source": "skin constant, ease(\"name\")",
+   "ms50": 152,
+   "ms90": 351,
+   "ms99": 598,
+   "kind": "critically damped, no overshoot (interp/damp.mjs)"
+  },
+  {
+   "name": "code appears or goes (pip codes by zoom)",
+   "timeConstantMs": 160,
+   "source": "skin constant, ease(\"txt\")",
+   "ms50": 135,
+   "ms90": 312,
+   "ms99": 532,
+   "kind": "critically damped, no overshoot (interp/damp.mjs)"
+  },
+  {
+   "name": "camera zoom glide",
+   "timeConstantMs": 180,
+   "source": "engine dial camera.zoomGlideMs",
+   "ms50": 152,
+   "ms90": 351,
+   "ms99": 598,
+   "kind": "critically damped, no overshoot (interp/damp.mjs)"
+  },
+  {
+   "name": "camera pan glide",
+   "timeConstantMs": 120,
+   "source": "engine dial camera.panGlideMs",
+   "ms50": 101,
+   "ms90": 234,
+   "ms99": 399,
+   "kind": "critically damped, no overshoot (interp/damp.mjs)"
+  },
+  {
+   "name": "fade in or out of a mark (opacity)",
+   "durationMs": 280,
+   "source": "engine dial motion.fadeMs",
+   "curve": "smoothstep 3x^2 - 2x^3",
+   "ms10": 55,
+   "ms50": 140,
+   "ms90": 225
+  },
+  {
+   "name": "arrival scale of a mark (skin)",
+   "from": 0.72,
+   "to": 1,
+   "driver": "the display layer ramps the tile scale birthScale 0.86 -> 1 with the fade; the skin maps that progress p with 1 - (1 - p)^3 (ease-out cubic)",
+   "pAt50": 0.875,
+   "pAt25": 0.578
+  },
+  {
+   "name": "dimmed travel opacity",
+   "value": 0.42,
+   "travelPx": 24,
+   "source": "engine dials motion.dimOpacity, motion.travelPx"
+  }
+ ]
+}
