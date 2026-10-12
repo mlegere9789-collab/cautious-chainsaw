@@ -1,0 +1,119 @@
+{
+ "d1": {
+  "page_css_ex_fonts": 81409,
+  "fonts_in_page_binary": 73392,
+  "page_bytes": 2249234,
+  "page_gzip": 833649,
+  "parts": {
+   "data:studio-dataset": 460042,
+   "data:studio-tokens": 53776,
+   "data:studio-text": 16337,
+   "data:studio-popups": 314164,
+   "code": 1224129,
+   "style (incl. inlined fonts)": 179265,
+   "of which inlined font data": 97856
+  },
+  "files": {
+   "src/skins/quiet-cartographer.mjs": [
+    "skin",
+    38062
+   ],
+   "src/skins/quiet-cartographer.spec.mjs": [
+    "skin",
+    14550
+   ],
+   "tokens/skin-tokens.json": [
+    "tokens",
+    19141
+   ],
+   "src/ui/quiet.css": [
+    "css",
+    28602
+   ],
+   "src/ground.mjs": [
+    "ground",
+    6514
+   ],
+   "src/render/places.mjs": [
+    "ground",
+    5793
+   ]
+  },
+  "fonts": {
+   "QCSans-Bold.woff": 18160,
+   "QCSans-Italic.woff": 18748,
+   "QCSans-Regular.woff": 18212,
+   "QCSans-SemiBold.woff": 18200
+  },
+  "fonts_total": 73320,
+  "skin_bytes": 52612,
+  "tokens_bytes": 19141,
+  "css_bytes": 28602,
+  "ground_bytes": 12307,
+  "skin_gzip": 33692
+ },
+ "d4": {
+  "page_css_ex_fonts": 87453,
+  "fonts_in_page_binary": 158508,
+  "page_bytes": 2344454,
+  "page_gzip": 914312,
+  "parts": {
+   "data:studio-dataset": 460042,
+   "data:studio-tokens": 54916,
+   "data:studio-text": 5219,
+   "data:studio-popups": 314164,
+   "code": 1209657,
+   "style (incl. inlined fonts)": 298798,
+   "of which inlined font data": 211345
+  },
+  "files": {
+   "studio/src/skins/editorial.mjs": [
+    "skin",
+    45171
+   ],
+   "studio/src/skins/editorial.spec.mjs": [
+    "skin",
+    13125
+   ],
+   "studio/tokens/dispatch.tokens.json": [
+    "tokens",
+    14746
+   ],
+   "studio/src/ui/editorial.css": [
+    "css",
+    24341
+   ],
+   "studio/src/ui/chrome.css": [
+    "css",
+    9993
+   ],
+   "studio/src/popups/fxdraw.mjs": [
+    "ground",
+    4280
+   ],
+   "studio/src/popups/legend.mjs": [
+    "ground",
+    3970
+   ]
+  },
+  "fonts": {
+   "Inter-400.woff2": 23692,
+   "Inter-500.woff2": 24368,
+   "Inter-600.woff2": 24304,
+   "Inter-700.woff2": 24352,
+   "SourceSerif4-400-italic.woff2": 20132,
+   "SourceSerif4-400.woff2": 20044,
+   "SourceSerif4-600.woff2": 21484
+  },
+  "fonts_total": 158376,
+  "skin_bytes": 58296,
+  "tokens_bytes": 14746,
+  "css_bytes": 34334,
+  "ground_bytes": 8250,
+  "skin_gzip": 34032
+ },
+ "_shared": {
+  "basemap_assets_bytes": 9168158,
+  "basemap_assets_files": 777
+ }
+}
