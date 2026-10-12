@@ -68,7 +68,7 @@ export async function boot() {
 
   const renderer = createRenderer({ canvas, engine, data: dataset });
   let updateSafeRef = () => {}; const ui = createStudioUI({ root: app, engine, data: dataset, onSafe: () => updateSafeRef() }); mark('ui');
-  { const cr = document.getElementById('credit'); if (cr && globalThis.__realBackdrop) { const full = globalThis.__realBackdrop.caption(); cr.replaceChildren(); const a = document.createElement('span'); a.className = 'credit-full'; a.textContent = full; const b = document.createElement('span'); b.className = 'credit-short'; b.textContent = 'Modern ground: USGS NAIP aerial, April to May 2022, and 3DEP hillshade. Not the 1863 landscape.'; cr.append(a, b); } }       // what this ground is, on screen at all times
+  { const cr = document.getElementById('credit'); if (cr && globalThis.__realBackdrop) { const full = globalThis.__realBackdrop.caption(); cr.replaceChildren(); const a = document.createElement('span'); a.className = 'credit-full'; a.textContent = full; const b = document.createElement('span'); b.className = 'credit-short'; b.textContent = 'Modern ground: USGS NAIP aerial, 2022. Not the 1863 landscape.'; cr.append(a, b); } }       // what this ground is, on screen at all times
   // Escape ends a running tour before anything else acts on it (registered before the popup layer, whose own Escape handler would otherwise consume the key)
   window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && director && director.running) { e.preventDefault(); e.stopImmediatePropagation(); director.stop('closed'); } }, true);
   let layer = null; const sysReduced = () => mql.matches;

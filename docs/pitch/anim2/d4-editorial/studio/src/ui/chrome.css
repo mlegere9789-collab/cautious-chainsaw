@@ -94,3 +94,5 @@
 @media (max-width: 760px) { #app[data-rail="open"] .brand { display: flex !important; } }
 /* the kicker is one line of label and a muted aside that follows it ("CRITICAL  about 3:35 PM"); a long aside wraps under the label, left aligned, and is never cut by the edge of the card */
 .pc-kick { flex-wrap: wrap; column-gap: 10px; row-gap: 3px; } .pc-kick-right { margin-left: 0 !important; white-space: normal; min-width: 0; flex: 0 1 auto; }
+/* phone: while the sheet is open the Chronicle chips give the map their row back (the sheet is the reading surface) */
+@media (max-width: 760px) { #app[data-rail="open"] .pop-strip { display: none !important; } }
