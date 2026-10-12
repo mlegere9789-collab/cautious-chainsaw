@@ -1,17 +1,17 @@
 // tools/sweep.mjs - the zero-overlap sweep in REAL CHROME on the built page (the engine's own check, applied to this skin): a ladder of zooms x a spread of ticks (the three hotspots, the densest tick,
 // the three days), both grounds, desktop and phone, with and without a selected mark.  At each sample the page is driven to a settled frame and the frame the page DREW is checked by tools/check.mjs
 // (a brute-force routine that shares no code with the engine's layout or verifier): core overlaps, pins covered, unrepresented units.  Also the engine's own verifier counters over every frame stepped.
-//   node tools/sweep.mjs [--viewport=1440x900] [--dpr=1] [--styles=night,day] [--zooms=...] [--ticks=...] [--select=1] [--out=results/sweep-1440x900.json] [--port=9842]
+//   node tools/sweep.mjs [--viewport=1440x900] [--dpr=1] [--styles=night,day] [--zooms=...] [--ticks=...] [--select=1] [--out=results/sweep-1440x900.json] [--port=10023]
 import fs from 'node:fs';
 import path from 'node:path';
 import { open, args, D1, stopServer } from './lib.mjs';
 import { CHECK_JS } from './check.mjs';
 
-const [VW, VH] = (args.viewport || '1440x900').split('x').map(Number); const DPR = +(args.dpr || 1); const PORT = +(args.port || 9842);
+const [VW, VH] = (args.viewport || '1440x900').split('x').map(Number); const DPR = +(args.dpr || 1); const PORT = +(args.port || 10023);
 const STYLES = (args.styles || 'night,day').split(','); const ZOOMS = (args.zooms || (VW < 700 ? '11,12,13,14,14.5,15,16,17' : '11,12,13,13.5,14,15,16,17,18')).split(',').map(Number);
 const TICKS = (args.ticks || '1,28,64,120,226,293,346,451,538,551,556,600,620,675').split(',').map(Number); const SELECT = !!args.select;
 const OUT = path.resolve(args.out || path.join(D1, 'results', `sweep-${VW}x${VH}${SELECT ? '-selected' : ''}.json`));
-const s = await open({ w: VW, h: VH, dpr: DPR, port: PORT, mobile: VW < 700, profile: 'sweep' + VW });
+const s = await open({ w: VW, h: VH, dpr: DPR, port: PORT, mobile: VW < 700, profile: 'sweep' + VW + (SELECT ? 's' : '') + (args.tag || ''), query: args.query || '' });
 const t0 = Date.now(); const rows = []; const worst = { coreOverlaps: 0, pinCovered: 0, unrepresented: 0, engineOverlaps: 0, minClear: Infinity };
 try {
   await s.page.evaluate(() => { const S = window.__studio; S.engine.tuning.set('popup.enabled', false); S.engine.tuning.set('layout.solveEvery', '1'); let T = 5000; window.__skinKit.setClock({ now: () => T }); globalThis.__adv = (n, dt = 1000 / 60) => { for (let i = 0; i < n; i++) { T += dt; S.step(1, dt); } }; });

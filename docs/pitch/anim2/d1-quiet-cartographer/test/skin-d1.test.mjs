@@ -70,7 +70,7 @@ test('compactName: the ellipsis of the data never reaches the map, and a name is
 
 test('the footprint: positive, grows with detail and selection, holds its own parts', () => {
   const P = QUIET_NIGHT[0].skin.P; const spec = makeSpec({ ...FOOT }, (id) => ({ 'layout.gapPx': 1, 'layout.dMaxPx': 64, 'layout.bandPx': 12, 'layout.relaxPxPerSec': 20, 'layout.splitDwellMs': 900, 'layout.labelShowDelayMs': 200, 'layout.labelCooldownMs': 600, 'layout.labelMinZoom': 12, 'layout.kCap': 60, 'layout.pinProtect': true, 'layout.labels': false, 'layout.maxSplitTries': 3, 'layout.continuityPx': 10 }[id]), TEXT);
-  const info = (u) => ({ flag: ['brigade', 'division', 'corps', 'army'].includes(u.kind), short: u.short, name: compactName(u), idOnly: !u.inOob, count: null, ech: u.kind === 'brigade' ? 1 : u.kind === 'division' ? 2 : u.kind === 'corps' ? 3 : 0 });
+  const info = (u) => ({ flag: ['brigade', 'division', 'corps', 'army'].includes(u.kind), side: u.side, short: u.short, name: compactName(u), idOnly: !u.inOob, count: null, ech: u.kind === 'brigade' ? 1 : u.kind === 'division' ? 2 : u.kind === 'corps' ? 3 : 0 });
   let checked = 0;
   for (const u of dataset.units) {
     const I = info(u); let prev = 0;
@@ -83,7 +83,17 @@ test('the footprint: positive, grows with detail and selection, holds its own pa
     const far = plan(spec, P, I, 16.5, false); const near = plan(spec, P, I, 11, false); if (I.name && !I.flag) assert.ok(far.w > near.w, `${u.id}: the name grows the mark`);
   }
   assert.ok(checked > 2800);
-  const agg = plan(spec, P, { flag: true, short: 'Both sides', name: null, idOnly: false, count: '27', ech: 0, generic: true }, 15, false); assert.ok(agg.numW > 0 && agg.flagW >= P['flag.w'], 'a two-digit count widens the flag');
+  const agg = plan(spec, P, { flag: true, side: 'mixed', short: 'Both sides', name: null, idOnly: false, count: '27', ech: 0, generic: true, agg: true }, 15, false); assert.ok(agg.numW > 0 && agg.flagW >= P['flag.w'], 'a two-digit count widens the flag');
+  // POLISH 1: the armies face each other, and the box hangs from the true position (the pip, the foot of the staff)
+  for (const [kind, flag] of [['regiment', false], ['brigade', true]]) {
+    const mk = (side) => ({ flag, side, short: '71 PA', name: flag ? "Harrow's Bde" : '71st Pennsylvania Infantry', idOnly: false, count: null, ech: flag ? 1 : 0 });
+    for (const z of [13.5, 16.5]) { const u = plan(spec, P, mk('union'), z, false); const c = plan(spec, P, mk('confederate'), z, false);
+      assert.equal(u.w, c.w, `${kind} z${z}: the two armies reserve the same width`); assert.ok(u.dx > 0 && c.dx < 0 && Math.abs(u.dx + c.dx) < 1e-9, `${kind} z${z}: Union hangs to the right of its place, Confederate to the left: ${u.dx} ${c.dx}`);
+      assert.ok(Math.abs(u.dx) <= u.w / 2, `${kind}: the true position lies inside the box`); assert.equal(u.sgn, 1); assert.equal(c.sgn, -1); }
+  }
+  assert.ok(plan(spec, P, { flag: true, side: 'confederate', short: 'x', name: 'x', count: null, ech: 1 }, 15, false).dy < -5, 'the box of a standard hangs above the foot of its staff');
+  const noName = plan(spec, P, { flag: false, side: 'union', short: '71 PA', name: '71st Pennsylvania Infantry', idOnly: false, count: null, ech: 0 }, 16.5, false); const code = plan(spec, P, { flag: false, side: 'union', short: '71 PA', name: '71st Pennsylvania Infantry', idOnly: false, count: null, ech: 0 }, 13.5, false);
+  assert.ok(noName.showName && noName.codeW === 0 && code.codeW > 0 && !code.showName, 'the full name replaces the code: they are never printed side by side');
 });
 
 test('the legend: one short sentence per drawn value, each with a legal evidence label', () => {
@@ -107,6 +117,29 @@ test('the engine with this skin\'s footprints: zero overlaps and zero unrepresen
   }
 });
 
+test('the pip stands on the true position of its unit (the foot of the staff on that of a formation), at rest and while a name grows, and Confederate marks read right to left', () => {
+  const P = QUIET_NIGHT[0].skin.P; const R = FOOT.ring;
+  for (const [zoom, tick] of [[13.5, 551], [15.5, 346], [16.5, 551]]) {
+    const e = makeEngine({ start: { tick, lat: 39.8117, lng: -77.2347, zoom }, viewport: { w: 1440, h: 900 } });
+    for (const s of ALL) e.kernel.skins.register(s.id, s, { replace: true }); e.tuning.set('skin.id', 'quiet-cartographer'); e.tuning.set('layout.labels', false);
+    for (let i = 0; i < 120; i++) e.step(16.667);
+    let n = 0; let worst = 0; let right = 0; let left = 0;
+    for (const t of e.frame.tiles) {
+      if (t.life !== 'live' || t.kind !== 'leaf' || t.displaced || t.opacity < 0.99 || t.entering) continue;
+      const sgn = t.side === 'confederate' ? -1 : 1; const near = ['brigade', 'division', 'corps', 'army'].includes(t.unit.kind) ? R + 1 : R + P['pip.size'] / 2; const pip = t.x - sgn * (t.w / 2 - near); worst = Math.max(worst, Math.abs(pip - t.ax)); n++; if (sgn > 0) right++; else left++;
+    }
+    assert.ok(n > 15, `z${zoom}: ${n} undisplaced marks`); assert.ok(worst <= 1.5 + 1e-6, `z${zoom}: a mark that is not displaced stands ${worst} px from its true position (the engine calls 1.5 px displaced)`); assert.ok(right > 0 && left > 0, 'both armies on the field');
+  }
+  // a selected unit grows its name from zoom 15: the box widens, the pip does not move
+  const e = makeEngine({ start: { tick: 551, lat: 39.8117, lng: -77.2347, zoom: 16 }, viewport: { w: 1440, h: 900 } });
+  for (const s of ALL) e.kernel.skins.register(s.id, s, { replace: true }); e.tuning.set('skin.id', 'quiet-cartographer'); e.tuning.set('layout.labels', false);
+  for (let i = 0; i < 90; i++) e.step(16.667);
+  const pick = e.frame.tiles.find((t) => t.life === 'live' && t.kind === 'leaf' && !t.displaced && t.opacity > 0.99 && t.unit && t.unit.id === 'C-53VA') || e.frame.tiles.find((t) => t.life === 'live' && t.kind === 'leaf' && !t.displaced && t.opacity > 0.99 && t.side === 'confederate');
+  assert.ok(pick, 'a Confederate leaf'); const id = pick.ids[0]; let worst = 0; let w0 = null; let w1 = 0;
+  for (let i = 0; i < 80; i++) { if (i === 5) e.select(id); const f = e.step(16.667); const t = f.tiles.find((q) => q.life === 'live' && q.ids[0] === id && q.kind === 'leaf'); if (!t) continue; if (w0 === null) w0 = t.w; w1 = t.w; if (!t.displaced) worst = Math.max(worst, Math.abs(t.x + (t.w / 2 - (R + P['pip.size'] / 2)) - t.ax)); }
+  assert.ok(w1 > w0 + 3, `the box grew (${w0} to ${w1})`); assert.ok(worst < 0.05, `the pip moved ${worst} px while the name grew`);
+});
+
 test('aggregates name only what their members share: both sides, a formation, or the corps they belong to', () => {
   const e = makeEngine({ start: { tick: 556, lat: 39.8117, lng: -77.2347, zoom: 13.5 }, viewport: { w: 1440, h: 900 } });
   for (const s of ALL) e.kernel.skins.register(s.id, s, { replace: true }); e.tuning.set('skin.id', 'quiet-cartographer'); e.tuning.set('layout.labels', false);
@@ -114,9 +147,10 @@ test('aggregates name only what their members share: both sides, a formation, or
   const aggs = e.frame.tiles.filter((t) => t.kind === 'agg' && t.life === 'live'); assert.ok(aggs.length > 10, 'aggregates exist at the opening zoom');
   for (const a of aggs) {
     assert.ok(/^\d+$/.test(a.badge), 'the badge is the plain count: ' + a.badge); assert.equal(+a.badge, a.n);
+    assert.ok(a.side !== 'mixed' || (a.nSides.union > 0 && a.nSides.confederate > 0), 'a standard says both sides only for Union and Confederate units');
     if (a.side === 'mixed') assert.equal(a.short, 'Both sides');
-    else if (a.nameKind === 'scope') assert.ok(/^(Union|Confed\.|Side unknown|(I|II|III|IV|V|VI|XI|XII)(, (I|II|III|IV|V|VI|XI|XII))*? Corps(?: \+\d+)?|\d+ corps)$/.test(a.short), 'scope name: ' + a.short);
-    assert.ok(!/Contact|\+\d+$/.test(a.short) || a.nameKind === 'scope', a.short);
+    else if (a.nameKind === 'scope') { assert.ok(/^(Union|Confederate|Side unknown|(I|II|III|IV|V|VI|XI|XII)(, (I|II|III|IV|V|VI|XI|XII))*? Corps|\d+ corps)$/.test(a.short), 'scope name: ' + a.short); assert.ok(a.ftail === null || /^(, \d+ unlisted|, unlisted)?(, \d+ contested)?$/.test(a.ftail), 'scope tail: ' + a.ftail); }
+    assert.ok(!/Contact|\+\d+$/.test(a.short) && !/Contact|\+\d+$/.test(a.ftail || ''), a.short);
   }
 });
 

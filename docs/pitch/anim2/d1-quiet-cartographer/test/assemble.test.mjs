@@ -94,7 +94,7 @@ test('the 60-second Showcase runs end to end: every step shows its words, both r
   const t0 = Date.now(); const r = runTour(TOURS.find((t) => t.id === 'showcase')); const { e, caps, seen, ctx } = r;
   console.log(`# showcase: ${seen.frames} frames, ${seen.afterFrames} Studio frames, ${seen.cardsSeen} frames with cards, ${((Date.now() - t0) / 1000).toFixed(1)} s`);
   assert.equal(r.ended, 'end'); assert.ok(Math.abs(seen.frames / 60 - 60) < 1, 'about 60 s of frames: ' + seen.frames);
-  assert.deepEqual(caps.filter((c, i) => i === 0 || c.id !== caps[i - 1].id).map((c) => c.id), ['open', 'before', 'after', 'results', 'style-night', 'style-day', 'field', 'popups', 'outro']);
+  assert.deepEqual(caps.filter((c, i) => i === 0 || c.id !== caps[i - 1].id).map((c) => c.id), ['open', 'before', 'after', 'results', 'style-day', 'style-night', 'field', 'popups', 'outro']);
   assert.ok(seen.compareSeen.has('before') && seen.compareSeen.has('after')); assert.deepEqual([...seen.styles].filter((s) => ['quiet-cartographer', 'quiet-cartographer-day'].includes(s)).sort(), ['quiet-cartographer', 'quiet-cartographer-day']);
   assert.deepEqual(seen.badAfter.slice(0, 3), [], 'no overlap and no lost unit on any Studio frame'); assert.deepEqual(seen.cardViolations.slice(0, 3), [], 'no card on a tile, label or pin'); assert.ok(seen.cardsSeen > 20, 'the popups step shows cards: ' + seen.cardsSeen);
   const res = caps.find((c) => c.id === 'results'); assert.ok(res.table && res.table.length === 6, 'the measured table'); const row = (id) => res.table.find((x) => x.id === id);

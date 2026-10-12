@@ -128,6 +128,7 @@ export const CHANNELS = {
     { id: 'red', text: 'First division: red', evidence: 'Documented' }, { id: 'white', text: 'Second division: white', evidence: 'Documented' }, { id: 'blue', text: 'Third division: blue', evidence: 'Documented' } ] },
   corpsText: { title: 'Confederate corps', values: [ { id: 'csa', text: 'Roman numeral: the corps of the order of battle', evidence: 'Documented' } ] },
   selection: { title: 'Selection', values: [ { id: 'selected', text: 'A ring: the selected mark (from zoom 15 it also grows its name)', evidence: 'Design' } ] },
+  facing: { title: 'Facing', values: [ { id: 'facing', text: 'The armies face each other: Union reads left to right, Confederate right to left', evidence: 'Design' } ] },
   pin: { title: 'True position', values: [ { id: 'pin', text: 'Pin and hairline: where a displaced mark really is', evidence: 'Modelled' } ] },
 };
 export const CHANNEL_IDS = Object.keys(CHANNELS);

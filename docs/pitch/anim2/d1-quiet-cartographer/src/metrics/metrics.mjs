@@ -37,7 +37,7 @@ export function createMetrics(tok) {
       M.frames++; const dtMs = t.rawDtMs ?? 16.667; M.seconds += dtMs / 1000;
       M.dt.push(dtMs); M.solveMs.push(f.solverMs || 0); M.displayMs.push(t.displayMs ?? 0); M.engineMs.push(t.engineMs ?? 0); M.tiles.push(f.tiles.length); M.onField.push(f.onField || 0);
       let pops = 0; let teleports = 0; let maxEx = 0;
-      const cur = new Map(); for (const tl of f.tiles) if (tl.life === 'live') cur.set(tl.key, [tl.x - tl.ax, tl.y - tl.ay, tl.solid, tl.ajx || 0, tl.ajy || 0]);   // [3], [4]: the part of the anchor's change the display layer absorbed into the offset this frame (aggregate membership changes), which is not motion
+      const cur = new Map(); for (const tl of f.tiles) if (tl.life === 'live') cur.set(tl.key, [tl.ox ?? tl.x - tl.ax, tl.oy ?? tl.y - tl.ay, tl.solid, tl.ajx || 0, tl.ajy || 0]);   // FORK: ox, oy are the displacement of the mark's own anchor (the pip, the foot of the staff) from the true position: the box centre also moves while a name grows or a crowd's words change, and that is not motion of the mark.  [3], [4]: the part of the anchor's change the display layer absorbed into the offset this frame (aggregate membership changes), which is not motion
       if (M._prev && !f.stats.cut) {
         for (const [k, o] of cur) {
           const p = M._prev.get(k); if (!p) continue;
@@ -50,7 +50,7 @@ export function createMetrics(tok) {
       }
       // absolute, map-fixed steps (layout px relative to the zoom's origin do not change with the camera while the zoom is the same)
       let hops = 0; let jumps = 0; let jumpsSolid = 0; let hopsSolid = 0; let stepMax = 0; const absNow = new Map(); const stepNow = new Map();
-      for (const tl of f.tiles) if (tl.life === 'live' && tl.opacity > 0.02) absNow.set(tl.key, [tl.x, tl.y, tl.solid]);
+      for (const tl of f.tiles) if (tl.life === 'live' && tl.opacity > 0.02) absNow.set(tl.key, [tl.ix ?? tl.x, tl.iy ?? tl.y, tl.solid]);      // FORK: the point the mark stands on (the pip), not its box centre
       if (M._absPrev && M._absZ === f.zoom && !f.stats.cut) {
         for (const [k, o] of absNow) {
           const p = M._absPrev.get(k);

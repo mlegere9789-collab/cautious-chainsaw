@@ -8,8 +8,8 @@
 
 /* ---------- 0. tokens ---------- */
 :root {
-  --font: "QC Sans", "Liberation Sans", Arial, "Helvetica Neue", sans-serif; --font-display: var(--font); --mono: var(--font);
-  --t-s: 11px; --t-m: 13px; --t-l: 16px; --t-xl: 22px;
+  --font: "QC Sans", "Source Sans 3", Arial, "Helvetica Neue", sans-serif; --font-display: var(--font); --mono: var(--font);
+  --t-s: 11px; --t-m: 13px; --t-l: 17px; --t-xl: 17px;      /* POLISH 1: three interface sizes (11 labels, 13 body and controls, 17 every title); round 0 had four (11, 13, 16, 22) */
   --r1: 6px; --r2: 10px; --r3: 10px; --bar-h: 40px; --gutter: 16px; --gap: 8px;
   --ease: cubic-bezier(.2, .72, .2, 1); --dur1: 140ms; --dur2: 240ms; --dur3: 380ms;
   --bg: #090d12; --panel: #0e141b; --panel2: #151d27; --line: rgba(255,255,255,.1); --text: #eef3f8; --muted: #aab6c4; --faint: #8794a3;
@@ -193,3 +193,39 @@ select.btn { background-position: calc(100% - 15px) 52%, calc(100% - 10px) 52%; 
 /* a pill (the Legend, closed) keeps the 3 px frame the popup system gives it; the density rule above must not fatten it */
 #app .pc[data-form="pill"] .pc-body { padding: 3px; } #app .pc[data-form="pill"] .pc-pill { height: 32px; padding: 0 12px; }
 .pc-kick { flex-wrap: wrap; }
+
+/* ---------- 9. POLISH ROUND 1: a compact dock, a quieter top bar ---------- */
+/* the dock is one row (transport, speed, timeline) and the evidence line; the Chronicle strip appears only while it has an event chip (the top bar has the Chronicle button); the readout of marks and zoom is a tool, not the face */
+#dock { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 18px; row-gap: 4px; align-items: center; width: min(1120px, calc(100% - var(--rail-w, 0px) - 2 * var(--gutter))); padding: 8px 14px 8px; }
+#dock .pop-strip { grid-column: 1 / -1; margin: 0 0 2px; }
+#dock .pop-strip:not(:has(.pop-chip)) { display: none; }
+#dock .transport { grid-column: 1; flex-wrap: nowrap; gap: 8px; }
+#dock .dockstat { display: none; }
+#dock .scrub { grid-column: 2; margin: 0; height: 34px; } #dock .scrub input[type=range]::-webkit-slider-runnable-track, #dock .scrub input[type=range]::-webkit-slider-thumb { height: 34px; } #dock .scrub input[type=range]::-moz-range-track, #dock .scrub input[type=range]::-moz-range-thumb { height: 34px; }
+#dock .honesty { grid-column: 1 / -1; margin: 2px 0 0; padding-top: 6px; border-top: 1px solid var(--edge); }
+.toolbar.view { display: grid; grid-template-columns: auto 1fr; gap: 8px 10px; align-items: center; } .toolbar.view .vsel { height: 30px; border: 1px solid var(--edge); border-radius: var(--r1); background: transparent; padding: 0 8px; color: var(--text); } .toolbar.view .seg { height: 32px; }
+.dev-only { display: none !important; } body.dev .dev-only { display: inline-flex !important; }
+/* the top bar is four pills, not eleven buttons: brand and clock are one, Day / Night is one, the three text tools are one, the four icon tools are one */
+#topbar { gap: 8px; }
+#topbar .brand { border-top-right-radius: 0; border-bottom-right-radius: 0; margin-right: -8px; border-right-color: transparent; }
+#topbar .clockbox { border-top-left-radius: 0; border-bottom-left-radius: 0; box-shadow: inset 1px 0 0 var(--edge), var(--shadow1); flex: 0 1 auto; }
+#topbar .pop-btns, #topbar .toolgrp { display: flex; gap: 0; padding: 0; height: var(--bar-h); align-items: stretch; background: var(--glass); border: 1px solid var(--edge); border-radius: var(--r2); box-shadow: var(--shadow1); -webkit-backdrop-filter: blur(16px) saturate(1.1); backdrop-filter: blur(16px) saturate(1.1); overflow: hidden; }
+#topbar .pop-btns .pop-tb, #topbar .toolgrp .btn { height: auto; background: transparent; border: 0; border-radius: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+#topbar .pop-btns .pop-tb + .pop-tb, #topbar .toolgrp .btn + .btn { box-shadow: inset 1px 0 0 var(--edge); }
+#topbar .pop-btns .pop-tb:hover, #topbar .toolgrp .btn:hover { background: color-mix(in srgb, var(--text) 8%, transparent); }
+#topbar .toolgrp .btn[aria-pressed="true"] { background: var(--text); color: var(--accent-ink); }
+
+/* ---------- 10. POLISH ROUND 1, phone: one row on top, a two-row dock, the sheet at a peek ---------- */
+@media (max-width: 760px) {
+  #topbar { flex-wrap: nowrap !important; padding: 8px 10px 4px; gap: 6px; }
+  #topbar .clockbox { flex: 1 1 0; min-width: 0; max-width: none; height: 40px; border-radius: var(--r2); box-shadow: var(--shadow1); overflow: hidden; } .clockbox .clock { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #topbar select.btn.style-sel { flex: none; width: 88px; min-width: 88px; height: 40px; } #topbar .toolgrp { display: none; }
+  .pop-rail[data-detent="peek"] .pop-rail-body { visibility: hidden; } .pop-rail[data-detent="peek"] .pop-rail-head { border-bottom-color: transparent; }
+  #dock { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 8px; row-gap: 4px; padding: 6px 8px 6px; }
+  #dock .transport { display: contents; }
+  #dock .transport .grp:not(.speeds) { grid-column: 1; grid-row: 1; } #dock .transport .grp:not(.speeds) .tbtn:first-child { display: none; }
+  #dock .speeds { grid-column: 2; grid-row: 1; justify-self: end; }
+  #dock .scrub { grid-column: 1 / -1; grid-row: 2; margin: 0; height: 26px; } #dock .scrub input[type=range]::-webkit-slider-runnable-track, #dock .scrub input[type=range]::-webkit-slider-thumb { height: 26px; }
+  #dock .honesty-mini { grid-column: 1 / -1; grid-row: 3; margin: 0; display: flex; gap: 6px; align-items: center; font-size: var(--t-s); line-height: 1.2; white-space: nowrap; overflow: hidden; }
+  #dock .pop-strip { grid-row: 4; grid-column: 1 / -1; }
+}

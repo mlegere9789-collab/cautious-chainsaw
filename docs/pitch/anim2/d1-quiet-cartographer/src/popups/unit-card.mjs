@@ -11,6 +11,8 @@ import { clockLine, thousands, chipText, ev, TONES } from './kit.mjs';
 const SIDE = { union: 'Union', confederate: 'Confederate', unknown: 'Side unknown', mixed: 'Both sides' };
 const KIND = { regiment: 'Regiment', brigade: 'Brigade', division: 'Division', corps: 'Corps', battery: 'Battery', battalion: 'Battalion', army: 'Army' };
 const ARM = { infantry: 'infantry', cavalry: 'cavalry', artillery: 'artillery', mixed: 'mixed arms' };
+/** the arm of a unit, in words: a brigade, division or corps record has no arm in the data (the loader defaults it to infantry), so none is claimed (POLISH 1: the card printed "infantry" under a brigade) */
+const armText = (d) => (['brigade', 'division', 'corps', 'army'].includes(d.kind) ? '' : (ARM[d.arm] || d.arm));
 const SEC = 'A secondary source: the file metadata names Busey and Martin, Regimental Strengths and Losses at Gettysburg (1994). The source was not re-read here.';
 
 function chainNames(api, d) { return d.chain.slice(1).filter((c) => c.designation && c.kind !== 'army').reverse().map((c) => c.designation); }
@@ -19,7 +21,7 @@ export function buildUnitCard(id, api) {
   const tok = api.tok; const d = api.engine.describeUnit(id, api.time.tau); if (!d) return null; const oob = api.pd.oob[id] || null; const tau = api.time.tau;
   const tone = d.side === 'union' ? 'union' : d.side === 'confederate' ? 'confederate' : 'info'; const name = d.designation || d.label || d.id;
   const now = d.now; const ratio = now ? Math.min(1, (now.strength || 0) / (now.strengthRef || 1)) : 0; const chain = chainNames(api, d);
-  const kick = { t: 'kicker', shape: 'box', label: d.side === 'unknown' ? 'Side unknown' : `${SIDE[d.side]} · ${KIND[d.kind] || d.kind}`, right: now ? `${ARM[d.arm] || d.arm}` : '' };
+  const kick = { t: 'kicker', shape: 'box', label: d.side === 'unknown' ? 'Side unknown' : `${SIDE[d.side]} · ${KIND[d.kind] || d.kind}`, right: now ? armText(d) : '' };
   const bar = now ? { t: 'bar', value: ratio, label: 'Strength at this placement', value2: `${thousands(now.strength)} of ${thousands(now.strengthRef)}`, sub: 'a placement value, not a casualty record ', chip: ev('Modelled'), aria: `Strength ${thousands(now.strength)} of ${thousands(now.strengthRef)} at this placement` } : { t: 'p', size: 'sm', muted: true, text: 'Not on the field at this moment.' };
   const side = d.sideNote ? [{ t: 'p', size: 'sm', text: d.sideNote }, { t: 'chips', items: [ev('Contested', 'side', 'The id prefix and the state code in the id disagree (03-data-fuel.md, T7). A historian has to decide.')] }] : [];
   const cmd = oob && oob.cmd ? [{ t: 'kv', rows: [['Commander', oob.cmd.name, ev('Documented', 'order of battle', 'Order-of-battle file of the production data')]] }] : [];
@@ -30,7 +32,7 @@ export function buildUnitCard(id, api) {
   const succ = api.pd.successions.filter((s) => s.unit === id && s.tick <= tau + 0.5);
   const recent = d.keyframes ? api.battle.units.get(id).kf.filter((k) => k.tick <= tau + 0.5).slice(-tok('popup.unit.recent')).reverse() : [];
   const docBlocks = [
-    { t: 'p', size: 'sm', muted: true, text: ARM[d.arm] || d.arm },
+    ...(armText(d) ? [{ t: 'p', size: 'sm', muted: true, text: armText(d) }] : []),
     ...(chain.length ? [{ t: 'p', size: 'sm', muted: true, text: chain.join(' › ') }] : []), ...side,
     { t: 'kv', rows: [['Identity', d.inOob ? 'in the order of battle' : 'no complete order-of-battle parent', ev(d.inOob ? 'Documented' : 'Unknown')], ...(oob && oob.state ? [['State', oob.state, ev('Documented')]] : []), ...(oob && oob.days ? [['Days engaged', oob.days.join(', '), ev('Documented', 'secondary', SEC)]] : [])] },
     ...(now ? [{ t: 'title', text: 'At this moment', level: 3 }, bar, { t: 'kv', rows: [['Disposition', now.disposition || 'n/a', ev('Modelled')], ['Last keyframe', `${clockLine(api.clock, now.kfTick).short} (${Math.round(now.ageTicks)} ticks ago${now.untilNext === Infinity ? ', the last one' : ''})`, ev('Modelled')], ['Position', `${now.lat.toFixed(4)}, ${now.lng.toFixed(4)}`, ev('Modelled', 'hand-authored', 'Placement rows are hand-authored and carry no basis field')]] }, ...(now.note ? [{ t: 'quote', text: now.note, cite: 'the keyframe’s own note' }] : [])] : []),

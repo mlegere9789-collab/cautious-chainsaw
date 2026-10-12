@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { open, setScene, shot, args, D1, stopServer } from './lib.mjs';
 
-const OUT = path.resolve(args.out || path.join(D1, 'shots', 'popups')); const DPR = +(args.dpr || 2);
+const OUT = path.resolve(args.out || path.join(D1, 'shots', 'round-1', 'popups')); const DPR = +(args.dpr || 2);
 const HERBST = [39.8278, -77.2528]; const ANGLE = [39.8117, -77.2347]; const LRT = [39.7956, -77.2411];
 const ONLY = (ids) => `const T = E.tuning; for (const k of ['event', 'story', 'toast', 'crossout', 'banner', 'hints', 'clock', 'unit', 'minimap', 'legend']) T.set('popup.' + k + '.enabled', ids.includes(k));`;
 export const SHOTS = [

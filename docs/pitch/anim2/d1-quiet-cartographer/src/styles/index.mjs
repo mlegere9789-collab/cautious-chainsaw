@@ -4,8 +4,8 @@
 //
 // FORK (d1 Quiet Cartographer): two styles, the two grounds of one design (skins/quiet-cartographer.mjs).
 export const STYLES = [
-  { id: 'night', family: 'quiet-cartographer', label: 'Night survey', blurb: 'Quiet Cartographer on slate relief: pips and standards in haloed lettering, hierarchy from size, weight and lightness only.', backdrop: 'qc-night', theme: 'dark' },
-  { id: 'day', family: 'quiet-cartographer-day', label: 'Day atlas', blurb: 'The same marks on a pale atlas sheet: dark ink, white halos, soft relief.', backdrop: 'qc-day', theme: 'light' },
+  { id: 'day', family: 'quiet-cartographer-day', label: 'Day', blurb: 'The marks on a pale atlas sheet: dark ink, ivory halos, relief lit from the north-west.', backdrop: 'qc-day', theme: 'light' },
+  { id: 'night', family: 'quiet-cartographer', label: 'Night', blurb: 'The same marks on slate relief: light ink, dark halos, the quietest ground for saturated colour.', backdrop: 'qc-night', theme: 'dark' },
 ];
 
 export const VARIANTS = [
@@ -14,7 +14,7 @@ export const VARIANTS = [
   { id: 'contrast', suffix: '/contrast', label: 'High contrast' },
 ];
 
-export const DEFAULT_STYLE = 'night';
+export const DEFAULT_STYLE = 'day';      // a history site opens on paper (three of three critics of round 0 asked for it); the night ground is the option
 
 /** the skin id of a style and a variant */
 export function skinIdOf(style, variant = 'standard') { const v = VARIANTS.find((x) => x.id === variant) || VARIANTS[0]; return style.family + v.suffix; }

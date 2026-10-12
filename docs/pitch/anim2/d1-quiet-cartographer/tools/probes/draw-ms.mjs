@@ -1,7 +1,7 @@
 // tools/probes/draw-ms.mjs - milliseconds per drawn frame of the marks in real Chrome (renderer.draw only, camera still), whole field at zoom 13.5, popups off, for a few token settings and the day ground.
 //   node tools/probes/draw-ms.mjs [--dpr=2]
 import { open, setScene, args, stopServer } from '../lib.mjs';
-const s = await open({ dpr: +(args.dpr || 1), profile: 'drawms', port: 9845 });
+const s = await open({ dpr: +(args.dpr || 1), profile: 'drawms', port: 10025 });
 try {
   await setScene(s.page, { tick: 612, lat: 39.81592, lng: -77.23677, zoom: 13.5, safe: false, popups: false, steps: 60 });
   const res = await s.page.evaluate(async () => {

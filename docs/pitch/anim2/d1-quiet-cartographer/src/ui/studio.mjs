@@ -21,7 +21,7 @@ export function createStudioUI({ root, engine, data, onSafe }) {
   // Style switcher: three families (a segmented control), a variant menu, and one select for narrow screens
   const styleBtns = STYLES.map((s) => h('button', { type: 'button', 'data-style': s.id, title: s.blurb, 'aria-pressed': 'false', onclick: () => chooseStyle(s.id, currentVariant()) }, s.label));
   el.variant = h('select', { class: 'vsel', 'aria-label': 'Style variant', title: 'Variant: standard, colour-blind safe or high contrast', onchange: () => chooseStyle((styleOfSkin(tok('skin.id')) || { style: STYLES[0] }).style.id, el.variant.value) }, VARIANTS.map((v) => h('option', { value: v.id }, v.label)));
-  const segStyle = h('div', { class: 'seg glass styles', role: 'group', 'aria-label': 'Style' }, styleBtns, el.variant);
+  const segStyle = h('div', { class: 'seg glass styles', role: 'group', 'aria-label': 'Ground: day or night' }, styleBtns);      // POLISH 1: the variant menu and Before / After moved to the Tune tab (development tools, not the face of a history site)
   el.styleSel = h('select', { class: 'btn style-sel', 'aria-label': 'Style', onchange: () => { const [sid, vid] = el.styleSel.value.split('|'); chooseStyle(sid, vid); } },
     STYLES.map((s) => h('optgroup', { label: s.label }, VARIANTS.map((v) => h('option', { value: s.id + '|' + v.id }, s.label + (v.id === 'standard' ? '' : ' · ' + v.label))))), h('option', { value: '|' , hidden: true, id: 'style-other' }, 'Test skin'));
   const currentVariant = () => (styleOfSkin(tok('skin.id')) || { variant: 'standard' }).variant;
@@ -49,7 +49,9 @@ export function createStudioUI({ root, engine, data, onSafe }) {
   el.btnMetrics = toolBtn('metrics', 'Metrics', 'Metrics overlay (M)', () => tuning.set('metrics.overlay', !tok('metrics.overlay')));
   el.btnAbout = toolBtn('info', 'About', 'Legend and honesty (A)', () => togglePanel('about'));
   function toolBtn(ic, label, title, run) { return h('button', { class: 'btn glass tool tool-btn', type: 'button', 'aria-pressed': 'false', title, 'aria-label': label, onclick: run }, icon(ic)); }
-  const topbar = h('header', { id: 'topbar' }, brand, clockbox, segStyle, el.styleSel, segCmp, el.showcase, h('div', { class: 'spacer' }), el.btnInspect, el.btnTune, el.btnMetrics, el.btnAbout);
+  const toolgrp = h('div', { class: 'toolgrp glass', role: 'group', 'aria-label': 'Tools' }, el.btnInspect, el.btnTune, el.btnMetrics, el.btnAbout);      // POLISH 1: four icon buttons are one pill
+  el.btnMetrics.classList.add('dev-only');                                                          // frame-time overlay: a development tool (key M, or ?dev=1), not the face of the page
+  const topbar = h('header', { id: 'topbar' }, brand, clockbox, segStyle, el.styleSel, el.showcase, h('div', { class: 'spacer' }), toolgrp);
   el.styleSel.classList.add('glass'); el.styleSel.style.display = 'none';
 
   // ---- menu ------------------------------------------------------------------------------------------------------------------------------------
@@ -87,7 +89,7 @@ export function createStudioUI({ root, engine, data, onSafe }) {
   el.marks = h('canvas', { 'aria-hidden': 'true' }); el.tip = h('div', { class: 'scrubtip hidden' });
   const scrub = h('div', { class: 'scrub' }, el.marks, el.range, el.tip);
   el.honesty = h('div', { class: 'honesty' }, evBadge('Modelled'), h('span', { class: 'note' }, 'positions: hand-authored keyframes, interpolated between'), evBadge('Modelled'), h('span', { class: 'note' }, 'clock: a candidate, not reviewed'), evBadge('Measured'), h('span', { class: 'note' }, 'ground: a 2022 aerial, not 1863'));
-  el.honestyMini = h('div', { class: 'honesty-mini' }, evBadge('Modelled'), 'positions and the candidate clock; the ground is a 2022 aerial');
+  el.honestyMini = h('div', { class: 'honesty-mini' }, evBadge('Modelled'), 'positions and clock; ground: a 2022 aerial');
   const dock = h('section', { id: 'dock', 'aria-label': 'Transport' },
     h('div', { class: 'transport' },
       h('div', { class: 'grp' }, h('button', { class: 'tbtn', 'aria-label': 'Go to tick 1', title: 'Start', onclick: () => transport.seek(1, { ms: 200 }) }, svgIcon(ICON.start)), stepBtn('Back one tick', ICON.stepBack, -1), el.play, stepBtn('Forward one tick', ICON.step, 1)),
@@ -146,6 +148,7 @@ export function createStudioUI({ root, engine, data, onSafe }) {
     out.push(h('div', { class: 'toolbar' },
       h('button', { class: 'btn', onclick: () => download('battle-studio-settings.json', JSON.stringify(tuning.export(), null, 1)) }, 'Export'), h('button', { class: 'btn', onclick: () => file.click() }, 'Import'),
       h('button', { class: 'btn', onclick: () => { tuning.reset(); ui.status = 'all dials reset'; renderChrome(); } }, 'Reset all'), file), search, status);
+    out.push(h('div', { class: 'toolbar view' }, h('span', { class: 'note' }, 'Variant'), el.variant, h('span', { class: 'note' }, 'Renderer'), segCmp));      // the two controls that left the top bar
     for (const g of tuning.groups()) {
       const body = h('div', null, ui.onPreview ? previewRow(g) : null, g.tokens.map(tokenRow)); let open = !['camera'].includes(g.id) || false; body.classList.toggle('hidden', !open);
       out.push(h('h3', null, h('button', { 'aria-expanded': String(open), onclick: (e) => { open = !open; body.classList.toggle('hidden', !open); e.currentTarget.setAttribute('aria-expanded', String(open)); } }, g.label)), body);
@@ -232,7 +235,7 @@ export function createStudioUI({ root, engine, data, onSafe }) {
     const css = getComputedStyle(document.documentElement); const line = css.getPropertyValue('--line').trim() || '#2a323c'; const muted = css.getPropertyValue('--muted').trim() || '#9ba6b2';
     g.fillStyle = css.getPropertyValue('--panel2').trim() || '#1b2128'; g.globalAlpha = 0.6; g.beginPath(); g.roundRect ? g.roundRect(0, 6, W, H - 12, 4) : g.rect(0, 6, W, H - 12); g.fill(); g.globalAlpha = 1;
     g.strokeStyle = line; g.lineWidth = 1; for (const t of [226, 451]) { g.beginPath(); g.moveTo(x(t), 2); g.lineTo(x(t), H - 2); g.stroke(); }
-    g.fillStyle = muted; g.font = '11px "QC Sans", "Liberation Sans", sans-serif'; g.textBaseline = 'top'; for (const [t, s] of [[1, 'July 1'], [226, 'July 2'], [451, 'July 3']]) g.fillText(s, x(t) + 6, 2);
+    g.fillStyle = muted; g.font = '11px "QC Sans", "Source Sans 3", sans-serif'; g.textBaseline = 'top'; for (const [t, s] of [[1, 'July 1'], [226, 'July 2'], [451, 'July 3']]) g.fillText(s, x(t) + 6, 2);
     const mc = (n, d) => css.getPropertyValue(n).trim() || d;
     for (const e of data.events) { g.strokeStyle = e.significance === 'critical' ? mc('--mark-critical', '#e0553a') : e.significance === 'high' ? mc('--mark-high', '#d9a21b') : mc('--mark-low', '#6d7782'); g.lineWidth = 1; const hh = e.significance === 'critical' ? 14 : e.significance === 'high' ? 9 : 5; g.beginPath(); g.moveTo(x(e.tick) + 0.5, H - 6); g.lineTo(x(e.tick) + 0.5, H - 6 - hh); g.stroke(); }
     g.fillStyle = mc('--mark-scene', '#5b9bf0'); for (const s of data.scenes) { const px = x(s.tick); g.beginPath(); g.moveTo(px, 8); g.lineTo(px + 4, 12); g.lineTo(px, 16); g.lineTo(px - 4, 12); g.closePath(); g.fill(); }

@@ -8,6 +8,7 @@ export const CHECK_JS = `(() => {
   const S = window.__studio; const E = S.engine; const f = E.frame; const W = f.view.w; const H = f.view.h;
   const solid = f.tiles.filter((t) => t.opacity >= 0.5); const ph = f.spec.pinHalf;
   const chips = solid.map((t) => ({ k: t.key, x0: t.x - t.w * t.scale / 2, x1: t.x + t.w * t.scale / 2, y0: t.y - t.h * t.scale / 2, y1: t.y + t.h * t.scale / 2 }));
+  const DX = f.view.dx; const DY = f.view.dy;      // layout px -> screen px
   const pins = solid.filter((t) => t.displaced).map((t) => ({ k: t.key, x0: t.ax - ph, x1: t.ax + ph, y0: t.ay - ph, y1: t.ay + ph }));
   const hit = (a, b) => a.x0 < b.x1 && b.x0 < a.x1 && a.y0 < b.y1 && b.y0 < a.y1;
   let coreOverlaps = 0; let pinCovered = 0; let minClear = Infinity; const ex = [];
@@ -17,8 +18,11 @@ export const CHECK_JS = `(() => {
   }
   const onField = new Set(E.battle.visibleAt(f.tau).map((e) => e.u.id)); const have = new Set(); for (const t of f.tiles) if (t.life === 'live') for (const id of t.ids) have.add(id); let unrepresented = 0; for (const id of onField) if (!have.has(id)) unrepresented++;
   const live = f.tiles.filter((t) => t.life === 'live'); const aggs = live.filter((t) => t.kind === 'agg'); let merged = 0; for (const a of aggs) merged += a.n;
-  const inView = chips.filter((c) => c.x1 > 0 && c.x0 < W && c.y1 > 0 && c.y0 < H).length;
-  return { marks: live.length, solid: solid.length, inView, units: onField.size, aggregates: aggs.length, unitsInAggregates: merged, coreOverlaps, pinCovered, unrepresented, minClear: Number.isFinite(minClear) ? +minClear.toFixed(2) : null, engineOverlaps: f.overlaps, displaced: solid.filter((t) => t.displaced).length };
+  const onScreen = (c) => c.x1 + DX > 0 && c.x0 + DX < W && c.y1 + DY > 0 && c.y0 + DY < H; const inView = chips.filter(onScreen).length;
+  // what the interface covers (engine.chromeRects: each control group of the top bar, the dock, the panel): a visible mark whose footprint lies on it (underChrome) or within the 16 px ramp before it (inMargin) is dissolved by the renderer (render/canvas.mjs); the scenes are framed to keep it few
+  const sf = E.safe || { top: 0, bottom: 0, left: 0, right: 0 }; const RAMP = 16; const CR = E.chromeRects ? E.chromeRects(true) : []; const inMargin = []; const under = [];
+  for (const c of chips) { if (!onScreen(c)) continue; let dmin = Infinity; for (const r of CR) { const d = Math.max(r.x0 - (c.x1 + DX), (c.x0 + DX) - r.x1, r.y0 - (c.y1 + DY), (c.y0 + DY) - r.y1); if (d < dmin) dmin = d; } if (dmin < 0) under.push(c.k); if (dmin < RAMP) inMargin.push(c.k); }
+  return { marks: live.length, solid: solid.length, inView, units: onField.size, aggregates: aggs.length, unitsInAggregates: merged, coreOverlaps, pinCovered, unrepresented, minClear: Number.isFinite(minClear) ? +minClear.toFixed(2) : null, inMargin: inMargin.length, underChrome: under.length, inMarginKeys: inMargin.slice(0, 6), safe: sf, engineOverlaps: f.overlaps, displaced: solid.filter((t) => t.displaced).length };
 })()`;
 
 /** the busiest w x h CSS-px window of the screen (most solid marks whose centre lies inside it), clear of the top bar and the dock: returns { x, y, w, h } */

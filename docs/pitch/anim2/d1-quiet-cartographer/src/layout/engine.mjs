@@ -113,7 +113,8 @@ export const labelRect = (t, cx, cy, slot, spec) => {
   return { x0: cx - w / 2, y0: cy - t.chipH / 2 - g - h, x1: cx + w / 2, y1: cy - t.chipH / 2 - g };
 };
 export const SLOTS = ['r', 'l', 'b', 't'];
-export const pinRect = (t, spec, kind = 'pin') => ({ x0: t.ax - spec.pinHalf, y0: t.ay - spec.pinHalf, x1: t.ax + spec.pinHalf, y1: t.ay + spec.pinHalf, owner: t.key, kind });
+// FORK: the pin guards the TRUE position (t.px, t.py: where the pip or the foot of the staff stands), not the anchor of the box (t.ax, t.ay), which is only where the box hangs when the mark stands on its place
+export const pinRect = (t, spec, kind = 'pin') => { const x = t.px ?? t.ax; const y = t.py ?? t.ay; return { x0: x - spec.pinHalf, y0: y - spec.pinHalf, x1: x + spec.pinHalf, y1: y + spec.pinHalf, owner: t.key, kind }; };
 export const plain = (r) => ({ x0: r.x0, y0: r.y0, x1: r.x1, y1: r.y1 });
 
 // ---- neighbourhood signatures (the REST LATCH) --------------------------------------------------------------------------------------------------------

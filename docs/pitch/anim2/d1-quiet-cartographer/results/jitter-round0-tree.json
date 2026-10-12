@@ -1,0 +1,175 @@
+{
+ "generated": "2026-10-12T04:01:48.599Z",
+ "method": "headless engine, this skin's footprints, 480 frames at 60 per second; a pip's displacement from its true position changing by more than 6 px in one frame is a pop; a velocity flip with both sides above 0.12 px per frame is jitter",
+ "rows": [
+  {
+   "scene": "march of the Mississippi regiment, 1 July, 4x, zoom 15",
+   "frames": 480,
+   "marksFollowed": 151,
+   "samples": 41107,
+   "steps": 35,
+   "reversals": 149,
+   "worstStepPx": 16.87,
+   "worstReversalPx": 3.2,
+   "eventsPerSecondOfPlay": [
+    5,
+    16,
+    22,
+    17,
+    27,
+    27,
+    24,
+    46
+   ],
+   "reversalsAbove0_5px": 14,
+   "bigExamples": [
+    "U-I-2-2 f125 3.46/-0.60",
+    "C-42MS f160 0.70/-0.93",
+    "C-2MS f196 1.76/-2.31",
+    "U-2WI f268 -0.92/1.09",
+    "U-HAB-E4US f295 -0.82/1.36",
+    "U-CAV-1-1 f296 1.03/-1.61"
+   ],
+   "examples": [
+    "U-84NY f41 reversal 0.24/-1.00",
+    "C-III-2-1 f42 reversal 0.29/-0.69",
+    "U-2WI f45 reversal -0.19/1.61",
+    "C-ART-Brander f59 step 6.7"
+   ]
+  },
+  {
+   "scene": "the whole field in motion, 3 July afternoon, 4x, zoom 13.5",
+   "frames": 480,
+   "marksFollowed": 425,
+   "samples": 171282,
+   "steps": 10,
+   "reversals": 236,
+   "worstStepPx": 12.89,
+   "worstReversalPx": 2.42,
+   "eventsPerSecondOfPlay": [
+    67,
+    37,
+    27,
+    35,
+    25,
+    43,
+    8,
+    4
+   ],
+   "reversalsAbove0_5px": 12,
+   "bigExamples": [
+    "C-11MS f19 -0.69/0.96",
+    "C-5NC f20 -1.67/1.54",
+    "C-11MS f35 0.72/-1.66",
+    "C-14VA f49 -1.46/6.24",
+    "agg:C-I-3-1:C-18VA f81 -0.75/0.92",
+    "C-ART-Doll f89 0.57/-1.86"
+   ],
+   "examples": [
+    "C-I-3-3 f9 reversal 0.17/-0.17",
+    "agg:C-I-3-2:C-1VA f14 reversal 0.31/-0.26",
+    "U-HAB-E4US f19 reversal -0.25/0.99",
+    "C-47VA f19 reversal 0.36/-0.66"
+   ]
+  },
+  {
+   "scene": "nine marks arriving on Seminary Ridge, 3 July, 1x, zoom 15.5",
+   "frames": 480,
+   "marksFollowed": 405,
+   "samples": 190239,
+   "steps": 1,
+   "reversals": 5,
+   "worstStepPx": 6.29,
+   "worstReversalPx": 0.59,
+   "eventsPerSecondOfPlay": [
+    3,
+    0,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1
+   ],
+   "reversalsAbove0_5px": 1,
+   "bigExamples": [
+    "U-III-1-2 f409 -1.14/0.59"
+   ],
+   "examples": [
+    "C-14SC f33 step 6.3",
+    "U-1MN f34 reversal 0.13/-0.21",
+    "U-II-2-1 f34 reversal 0.13/-0.21",
+    "U-II-3-1 f126 reversal 0.28/-0.12"
+   ]
+  },
+  {
+   "scene": "The Angle in motion, 4x, zoom 16",
+   "frames": 480,
+   "marksFollowed": 465,
+   "samples": 199969,
+   "steps": 18,
+   "reversals": 121,
+   "worstStepPx": 8.04,
+   "worstReversalPx": 2.15,
+   "eventsPerSecondOfPlay": [
+    11,
+    17,
+    19,
+    18,
+    33,
+    15,
+    17,
+    9
+   ],
+   "reversalsAbove0_5px": 11,
+   "bigExamples": [
+    "C-48GA f36 -2.15/2.89",
+    "U-14CT f104 -0.81/2.69",
+    "U-14CT f105 0.87/-0.81",
+    "C-56VA f158 0.68/-0.50",
+    "C-3VA f160 0.53/-0.62",
+    "U-CAV-2-2 f169 -0.88/0.52"
+   ],
+   "examples": [
+    "U-I-3-3 f5 step 6.4",
+    "C-14VA f6 reversal -0.74/0.13",
+    "C-I-3-1 f6 step 6.1",
+    "U-II-1 f19 reversal -1.33/0.34"
+   ]
+  },
+  {
+   "scene": "zoom glide 13.5 to 16 over a still Angle (camera in motion)",
+   "frames": 480,
+   "marksFollowed": 461,
+   "samples": 169175,
+   "steps": 5,
+   "reversals": 83,
+   "worstStepPx": 7.2,
+   "worstReversalPx": 0.98,
+   "eventsPerSecondOfPlay": [
+    65,
+    22,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "reversalsAbove0_5px": 5,
+   "bigExamples": [
+    "agg:A-U:U-109PA f4 4.09/-0.73",
+    "C-57VA f7 0.80/-0.58",
+    "C-57VA f8 -0.76/0.80",
+    "U-102NY f107 1.06/-0.69",
+    "C-3NC-SW f110 1.01/-0.98"
+   ],
+   "examples": [
+    "U-141PA f3 reversal -0.19/1.38",
+    "U-149PA f3 reversal -0.12/1.38",
+    "C-III-3-2 f3 reversal -0.23/0.17",
+    "U-ART-B4US f4 reversal 0.47/-0.13"
+   ]
+  }
+ ]
+}

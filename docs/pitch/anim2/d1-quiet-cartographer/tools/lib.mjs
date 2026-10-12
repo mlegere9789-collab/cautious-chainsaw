@@ -1,4 +1,4 @@
-// tools/lib.mjs - the picture-taking harness: playwright-core + the system Chrome, an own profile under tmp/look-dev/d1-quiet-cartographer, the static server on our port range (9840..9849),
+// tools/lib.mjs - the picture-taking harness: playwright-core + the system Chrome, an own profile under tmp/look-dev/polish-d1-quiet-cartographer, the static server on our port range (10020..10029),
 // deterministic frames (?manual=1: only studio.step() advances the engine, the skin kit's clock is injected) and a "settle" that waits for every aerial tile and font.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -8,7 +8,7 @@ import { serve } from './serve.mjs';
 
 export const HERE = path.dirname(fileURLToPath(import.meta.url)); export const D1 = path.resolve(HERE, '..'); export const REPO = path.resolve(D1, '..', '..', '..', '..');
 export const CHROME = process.env.T0_CHROME || 'C:/Program Files/Google/Chrome/Application/chrome.exe';
-export const PORT = 9840; export const TMP = path.join(REPO, 'tmp', 'look-dev', 'd1-quiet-cartographer');
+export const PORT = +(process.env.QC_PORT || 10020); export const TMP = path.join(REPO, 'tmp', 'look-dev', 'polish-d1-quiet-cartographer');
 export const args = Object.fromEntries(process.argv.slice(2).filter((a) => a.startsWith('--')).map((a) => { const i = a.indexOf('='); return i < 0 ? [a.slice(2), '1'] : [a.slice(2, i), a.slice(i + 1)]; }));
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 

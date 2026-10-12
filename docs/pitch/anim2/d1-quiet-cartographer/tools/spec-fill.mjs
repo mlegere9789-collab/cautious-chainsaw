@@ -17,8 +17,8 @@ S.CURVES = (() => { const c = R('curves.json'); if (!c) return '(results/curves.
   const fade = c.rows.find((r) => r.durationMs);
   return md(['what', 'time constant', '50 % / 90 % / 99 % reached after', 'where it is set'], rows) + `\n\nFade in or out of a mark: ${fade.durationMs} ms, smoothstep (10 % at ${fade.ms10} ms, 50 % at ${fade.ms50} ms, 90 % at ${fade.ms90} ms). ${c.uiCurve}.`; })();
 
-S.SCENES = (() => { const c = R('scene-checks.json'); if (!c) return '(results/scene-checks.json missing)'; const rows = c.map((r) => [`${r.scene}: ${r.file.replace('shots/', '')}`, `${r.vp.join('x')} @${r.dpr}x, tick ${r.tick}, zoom ${r.zoom}`, `${r.marks} (${r.inView} in view)`, r.units, `${r.aggregates} (${r.unitsInAggregates} units)`, r.coreOverlaps, r.pinCovered, r.unrepresented, r.minClear, r.cards ? r.cards.over : '-']);
-  return md(['scene', 'view', 'marks (in view)', 'units on the field', 'crowd standards (units merged)', 'overlapping cores', 'pins covered', 'units unrepresented', 'smallest gap (px)', 'frames with a card on a mark'], rows); })();
+S.SCENES = (() => { const c = R('scene-checks.json'); if (!c) return '(results/scene-checks.json missing)'; const rows = c.map((r) => [`${r.scene}: ${r.file.replace('shots/round-1/', '').replace('shots/', '')}`, `${r.vp.join('x')} @${r.dpr}x, tick ${r.tick}, zoom ${r.zoom}`, `${r.marks} (${r.inView} in view)`, r.units, `${r.aggregates} (${r.unitsInAggregates} units)`, r.coreOverlaps, r.pinCovered, r.unrepresented, r.minClear, `${r.underChrome} / ${r.inMargin}`, r.cards ? r.cards.over : '-']);
+  return md(['scene', 'view', 'marks (in view)', 'units on the field', 'crowd standards (units merged)', 'overlapping cores', 'pins covered', 'units unrepresented', 'smallest gap (px)', 'marks on the interface / within 16 px of it (dissolved)', 'frames with a card on a mark'], rows); })();
 
 S.SWEEPS = (() => { const files = [['sweep-1440x900.json', 'desktop 1440x900, DPR 1'], ['sweep-1440x900-selected.json', 'desktop, a mark selected'], ['sweep-390x844.json', 'phone 390x844, DPR 2'], ['sweep-390x844-selected.json', 'phone, a mark selected']]; const rows = []; const med = (a) => { const b = [...a].sort((x, y) => x - y); return b.length ? b[Math.floor(b.length / 2)] : null; };
   for (const [f, label] of files) { const r = R(f); if (!r) { rows.push([label, 'missing', '', '', '', '', '', '', '', '']); continue; } const capped = r.rows.filter((x) => x.capped).length; const sel = r.rows.map((x) => x.selectSettle).filter((x) => x != null);
@@ -54,6 +54,20 @@ S.ENGINEMS = (() => { const r = R('engine-ms.json'); if (!r) return '(results/en
   return md(['scene', 'marks', 'engine ms per frame (solve + display layer, no drawing)', 'of which the layout solve', 'prototype War Room, same scene'], rows) + `
 
 Headless engine, node ${r.node}, 600 frames at 4x after 120 warm-up frames, solve every frame (\`tools/probes/engine-ms.mjs --compare\`).`; })();
+
+S.JITTER = (() => {
+  const a = R('jitter.json'); const b = R('jitter-round0-tree.json'); if (!a) return '(results/jitter.json missing)';
+  const rows = a.rows.map((r, i) => { const o = b && b.rows[i]; return [r.scene, r.frames, r.marksFollowed, `${r.steps}${o ? ` (${o.steps})` : ''}`, `${r.reversals}${o ? ` (${o.reversals})` : ''}`, `${r.reversalsAbove0_5px}${o ? ` (${o.reversalsAbove0_5px})` : ''}`, r.worstStepPx]; });
+  const strips = ['march', 'select', 'deploy'].map((n) => { const x = R(`strip-${n}.json`); return x ? [x.title.split(':')[0], x.pictures, x.engineFrames, x.marksFollowed, x.samples, x.steps, x.reversals, x.worstStepPx] : null; }).filter(Boolean);
+  return md(['headless engine, this skin, 60 frames per second (in brackets: the round 0 tree, same probe)', 'frames', 'marks followed', 'pops: a mark\'s displacement from its place changes by more than 6 px in one frame', 'jitter: its velocity flips, both sides above 0.12 px per frame', 'of those, both sides above 0.5 px', 'largest one-frame step (px)'], rows)
+    + '\n\nThe motion strips of the shots folder, counted the same way over every engine frame between their eight pictures:\n\n' + md(['strip', 'pictures', 'engine frames', 'marks followed', 'mark-frames', 'pops', 'jitter', 'largest step (px)'], strips);
+})();
+
+S.TEXTFIT = (() => {
+  const t = R('textfit.json'); if (!t) return '(results/textfit.json missing)';
+  const rows = Object.entries(t.fonts).map(([k, v]) => [k, v.strings, v.overModel, v.worst.ratio, v.worst.s]);
+  return md(['cut', 'strings', 'wider than reserved', 'worst real / reserved', 'the string'], rows) + `\n\nGlyph coverage: ${t.chars} characters of the data, ${t.missing.length} missing from QC Sans.`;
+})();
 
 let spec = fs.readFileSync(path.join(D1, 'SPEC.md'), 'utf8');
 for (const [k, v] of Object.entries(S)) { const re = new RegExp(`<!--${k}-->[\\s\\S]*?<!--/${k}-->`); if (!re.test(spec)) { console.warn('no marker', k); continue; } spec = spec.replace(re, () => `<!--${k}-->\n${v}\n<!--/${k}-->`); }

@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-07T12:56:16.093Z",
+ "generated": "2026-10-12T03:36:19.775Z",
  "method": "ground bands read from the page's own backdrop render; marks tested against halo-over-ground",
  "bands": {
   "qc-night": {
@@ -10,19 +10,19 @@
     "#394550",
     "#495562",
     "#5f6d7c",
-    "#6b7a8a"
+    "#6c7a8a"
    ],
    "angle-z15": [
     "#161d24",
     "#212932",
-    "#343f49",
+    "#343f4a",
     "#434f5b",
     "#525f6d",
     "#627180",
     "#6c7c8c"
    ],
    "wheatfield-z15": [
-    "#171e26",
+    "#181e26",
     "#222a33",
     "#343f4a",
     "#434e5b",
@@ -33,11 +33,11 @@
    "cemetery-hill-z15.5": [
     "#12171e",
     "#1b222a",
-    "#2c3640",
+    "#2d3640",
     "#3a4651",
     "#4a5663",
     "#5e6c7b",
-    "#6d7b8a"
+    "#6c7b8a"
    ],
    "three-days-z12.5": [
     "#0b0f12",
@@ -45,55 +45,55 @@
     "#273039",
     "#37414d",
     "#46525f",
-    "#5e6c7a",
+    "#5f6c7a",
     "#6e7c8a"
    ]
   },
   "qc-day": {
    "field-z13.5": [
-    "#7a807a",
-    "#8a908b",
-    "#a6aaa5",
-    "#b5b9b4",
-    "#c3c7c2",
-    "#d2d5d1",
-    "#dbddda"
+    "#817d73",
+    "#928f85",
+    "#aeaaa1",
+    "#bdbab0",
+    "#ccc8c0",
+    "#dad7cf",
+    "#e3e0d9"
    ],
    "angle-z15": [
-    "#7f8681",
-    "#939892",
-    "#adb1ab",
-    "#bbbfb9",
-    "#c5c8c3",
-    "#d1d3cf",
-    "#dadcd8"
+    "#86847b",
+    "#9a978c",
+    "#b5b1a8",
+    "#c5c0b7",
+    "#cecbc2",
+    "#dad6cd",
+    "#e3dfd7"
    ],
    "wheatfield-z15": [
-    "#818985",
-    "#959a95",
-    "#aeb2ad",
-    "#bbbfb9",
-    "#c6c9c4",
-    "#d4d6d2",
-    "#dedfdc"
+    "#88877f",
+    "#9d998f",
+    "#b6b3a9",
+    "#c5c0b7",
+    "#cfccc3",
+    "#ddd9d1",
+    "#e4e1db"
    ],
    "cemetery-hill-z15.5": [
-    "#7a827f",
-    "#8d928c",
-    "#a4a8a3",
-    "#b3b7b2",
-    "#c2c5c1",
-    "#d4d6d2",
-    "#e0e2df"
+    "#818079",
+    "#939086",
+    "#aca89e",
+    "#bbb8ae",
+    "#cac7be",
+    "#dbd8d1",
+    "#e7e4dd"
    ],
    "three-days-z12.5": [
-    "#777d76",
-    "#868c86",
-    "#a3a8a2",
-    "#b7bbb6",
-    "#c8cbc6",
-    "#d6d8d4",
-    "#dee0dd"
+    "#7f7b6f",
+    "#8e8b81",
+    "#aca89e",
+    "#bfbcb3",
+    "#cfccc4",
+    "#dddad3",
+    "#e5e2dc"
    ]
   }
  },
@@ -129,12 +129,12 @@
     "unionVsConfederateMin": 49.1
    },
    "worstText": {
-    "ratio": 6.22,
-    "name": "unit name (grown in, carried)",
-    "state": "carried",
-    "view": "wheatfield-z15",
-    "band": 0.99,
-    "ground": "#6f7e8e"
+    "ratio": 4.85,
+    "name": "count in a union flag",
+    "state": "fresh",
+    "view": "field-z13.5",
+    "band": 0.01,
+    "ground": "#141b21"
    },
    "worstMark": {
     "ratio": 3.18,
@@ -180,12 +180,12 @@
     "unionVsConfederateMin": 49.2
    },
    "worstText": {
-    "ratio": 6.22,
-    "name": "unit name (grown in, carried)",
-    "state": "carried",
-    "view": "wheatfield-z15",
-    "band": 0.99,
-    "ground": "#6f7e8e"
+    "ratio": 4.73,
+    "name": "count in a union flag",
+    "state": "fresh",
+    "view": "field-z13.5",
+    "band": 0.01,
+    "ground": "#141b21"
    },
    "worstMark": {
     "ratio": 4.1,
@@ -231,12 +231,12 @@
     "unionVsConfederateMin": 47.1
    },
    "worstText": {
-    "ratio": 14.97,
-    "name": "tint-confederate",
+    "ratio": 6.03,
+    "name": "count in a confederate flag",
     "state": "fresh",
-    "view": "field-z13.5",
+    "view": "three-days-z12.5",
     "band": 0.99,
-    "ground": "#6b7a8a"
+    "ground": "#6e7c8a"
    },
    "worstMark": {
     "ratio": 4.67,
@@ -257,44 +257,44 @@
    "sides": {
     "deltaE2000": {
      "normal": {
-      "unionConfederate": 48.5,
+      "unionConfederate": 47.7,
       "unionContested": 22.2,
-      "confederateContested": 43.1
+      "confederateContested": 41.3
      },
      "protanopia": {
-      "unionConfederate": 54.1,
+      "unionConfederate": 53.8,
       "unionContested": 27.6,
-      "confederateContested": 34.4
+      "confederateContested": 32.9
      },
      "deuteranopia": {
-      "unionConfederate": 63,
+      "unionConfederate": 61.8,
       "unionContested": 25.1,
-      "confederateContested": 46.2
+      "confederateContested": 43.7
      },
      "tritanopia": {
-      "unionConfederate": 63.9,
+      "unionConfederate": 63.2,
       "unionContested": 23,
-      "confederateContested": 46.2
+      "confederateContested": 44.4
      }
     },
-    "greyscaleLuminanceRatio": 1.57,
+    "greyscaleLuminanceRatio": 1.42,
     "minDeltaE": 22.2,
-    "unionVsConfederateMin": 48.5
+    "unionVsConfederateMin": 47.7
    },
    "worstText": {
-    "ratio": 4.98,
-    "name": "unit name (grown in, carried)",
-    "state": "carried",
+    "ratio": 5.13,
+    "name": "count in a confederate flag",
+    "state": "fresh",
     "view": "three-days-z12.5",
-    "band": 0.01,
-    "ground": "#777d76"
+    "band": 0.99,
+    "ground": "#e5e2dc"
    },
    "worstMark": {
-    "ratio": 3.59,
+    "ratio": 3.95,
     "name": "pip ring confederate (carried)",
-    "view": "three-days-z12.5",
+    "view": "field-z13.5",
     "band": 0.01,
-    "ground": "#777d76"
+    "ground": "#817d73"
    },
    "verdict": {
     "text": true,
@@ -333,19 +333,19 @@
     "unionVsConfederateMin": 48.6
    },
    "worstText": {
-    "ratio": 4.76,
-    "name": "tint-union",
-    "state": "carried",
-    "view": "three-days-z12.5",
+    "ratio": 6,
+    "name": "count in a confederate flag",
+    "state": "fresh",
+    "view": "field-z13.5",
     "band": 0.01,
-    "ground": "#777d76"
+    "ground": "#817d73"
    },
    "worstMark": {
-    "ratio": 3.5,
+    "ratio": 3.48,
     "name": "pip ring confederate (carried)",
-    "view": "three-days-z12.5",
+    "view": "field-z13.5",
     "band": 0.01,
-    "ground": "#777d76"
+    "ground": "#817d73"
    },
    "verdict": {
     "text": true,
@@ -384,19 +384,19 @@
     "unionVsConfederateMin": 44.9
    },
    "worstText": {
-    "ratio": 9.63,
-    "name": "tint-confederate",
-    "state": "carried",
-    "view": "three-days-z12.5",
+    "ratio": 7,
+    "name": "count in a confederate flag",
+    "state": "fresh",
+    "view": "field-z13.5",
     "band": 0.01,
-    "ground": "#777d76"
+    "ground": "#817d73"
    },
    "worstMark": {
-    "ratio": 6.08,
+    "ratio": 6.04,
     "name": "pip ring confederate (carried)",
     "view": "three-days-z12.5",
     "band": 0.01,
-    "ground": "#777d76"
+    "ground": "#7f7b6f"
    },
    "verdict": {
     "text": true,

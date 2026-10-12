@@ -16,7 +16,7 @@ for name in names:
     sheet = Image.new('RGB', (W, H), (11, 15, 21)); d = ImageDraw.Draw(sheet)
     f_t = ImageFont.truetype(BOLD, 34); f_s = ImageFont.truetype(FONT, 26)
     d.text((pad, 22), meta['title'], font=f_t, fill=(238, 243, 248))
-    d.text((pad, 62), 'Eight consecutive engine frames, each a 100 % crop of a real screenshot at device pixel ratio 2.  Tau is the engine clock in ticks.', font=f_s, fill=(170, 182, 196))
+    d.text((pad, 62), 'Eight pictures of the engine, one every few frames (the engine ran at 60 frames per second in between and every one of those frames was checked for jitter, results/strip-*.json); each a 100 % crop of a real screenshot at device pixel ratio 2.  Tau is the engine clock in ticks.', font=f_s, fill=(170, 182, 196))
     for i, im in enumerate(frames):
         r, c = divmod(i, cols); x = pad + c * (w + pad); y = cap + pad + r * (h + lab + pad)
         sheet.paste(im, (x, y + lab)); d.rectangle([x - 1, y + lab - 1, x + w, y + lab + h], outline=(60, 72, 86), width=2)

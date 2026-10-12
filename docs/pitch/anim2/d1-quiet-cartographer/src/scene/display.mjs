@@ -33,6 +33,10 @@ const SETTLE_V = 12;                           // and solidifies over this long 
 const STAG_PX = 0.02;                           // FORK: a tile that moves less than this per frame ...
 const STAG_FRAMES = 24;                         // ... for this many frames is at rest where it stands (settle by stagnation, 8b of step())
 
+/** FORK: the horizontal shift that keeps a mark's pip (or staff) on its place while its box is still growing or shrinking toward the size the layout reserved.  The layout hangs the box on the true position for its FINAL width
+ *  (the centre sits sgn * (tw / 2 - p) from the pip, sgn = +1 when the pip is at the left end); while the width eases the centre must sit sgn * (w / 2 - p) from it, so the centre moves by sgn * (w - tw) / 2. */
+const cOff = (d) => (d.sgn ? d.sgn * (d.w - d.tw) / 2 : 0);
+
 function flattenLeaves(t, out = []) { if (t.kind === 'leaf') out.push(t); else for (const m of t.members) flattenLeaves(m, out); return out; }
 
 export class Display {
@@ -109,12 +113,12 @@ export class Display {
       if (d.kind === 'agg' && d.members && !snapMode) {                    // (snap mode shows the layout as solved, anchor hops included: it is the baseline the other modes are compared with)
         const old = this._mm || (this._mm = new Map()); old.clear(); for (const m of d.members) old.set(m.id, m);
         let ex = 0; let ey = 0; let sw = 0;
-        for (const l of flattenLeaves(t)) { const o = old.get(l.ids[0]); if (!o) continue; const w = Math.max(1, l.strength || 1); ex += (l.ax - o.ax) * w; ey += (l.ay - o.ay) * w; sw += w; }
+        for (const l of flattenLeaves(t)) { const o = old.get(l.ids[0]); if (!o) continue; const w = Math.max(1, l.strength || 1); ex += (l.px - o.ax) * w; ey += (l.py - o.ay) * w; sw += w; }
         if (sw > 0) { ex /= sw; ey /= sw; }
-        const jx = (t.ax - d.ax) - ex; const jy = (t.ay - d.ay) - ey;
+        const jx = (t.px - d.px) - ex; const jy = (t.py - d.py) - ey;       // FORK: in TRUE positions; the box anchor also moves when the mark's own size changes, and cOff() carries that
         if (jx * jx + jy * jy > 0.5625) { d.ox -= jx; d.oy -= jy; d.ajx = jx; d.ajy = jy; stats.anchorFixes = (stats.anchorFixes || 0) + 1; if (!d.dim && Math.hypot(d.ox, d.oy) > this.tok('layout.dMaxPx') + 0.5) { d.dim = true; stats.travels++; } }
       }
-      d.ax = t.ax; d.ay = t.ay; d.tx = p.cx - t.ax; d.ty = p.cy - t.ay; d.tw = t.chipW; d.th = t.chipH; d.prio = t.prio;
+      d.ax = t.ax; d.ay = t.ay; d.px = t.px ?? t.ax; d.py = t.py ?? t.ay; d.sgn = t.sgn || 0; d.tx = p.cx - t.ax; d.ty = p.cy - t.ay; d.tw = t.chipW; d.th = t.chipH; d.prio = t.prio;
       this._content(d, t, dt, inp);
     }
 
@@ -128,9 +132,9 @@ export class Display {
       if (d.life === 'dying') {
         d.deathAge += dtMs;
         const lf = d.leafId ? leafById.get(d.leafId) : null;
-        if (lf) { d.ax = lf.ax; d.ay = lf.ay; } else if (d.lat != null) { const pp = project(d.lng, d.lat, z); d.ax = pp[0] - ox; d.ay = pp[1] - oy; }
+        if (lf) { d.ax = lf.ax; d.ay = lf.ay; d.px = lf.px ?? lf.ax; d.py = lf.py ?? lf.ay; } else if (d.lat != null) { const pp = project(d.lng, d.lat, z); d.px = pp[0] - ox; d.py = pp[1] - oy; d.ax = d.px + (d.dxo || 0); d.ay = d.py + (d.dyo || 0); }
         const h = d.handoffTo ? this.tiles.get(d.handoffTo) : null;
-        if (h) { d.tx = h.ax + h.ox - d.ax; d.ty = h.ay + h.oy - d.ay; } else { d.tx = d.ox; d.ty = d.oy; }
+        if (h) { d.tx = h.ax + h.ox + cOff(h) - d.ax; d.ty = h.ay + h.oy - d.ay; } else { d.tx = d.ox; d.ty = d.oy; }
         base = d.fade <= 0 ? 0 : Math.min(d.op0 * (1 - smooth(d.deathAge / d.fade)), d.op0);
       } else {
         const fe = fadeMs <= 0 ? 1 : clamp01((d.age - d.birthDelay) / fadeMs);
@@ -205,16 +209,16 @@ export class Display {
   /** a live tile starts to fade out.  ghost = part of a cut (ignores every collision, hands over to nothing) */
   _die(d, fadeMs, ghost, z) {
     this.tiles.delete(d.key); d.key = d.key + '~' + this.frameNo; this.tiles.set(d.key, d);      // a dying tile gives up its identity: the same identity may be born again while it fades
-    d.life = 'dying'; d.deathAge = 0; d.op0 = d.opacity; d.fade = fadeMs; d.handoffTo = null; d.ghost = !!ghost; d.leafId = d.kind === 'leaf' ? d.ids[0] : null; d.dim = false; d.mv = 1;
-    if (d.kind === 'agg' && this.lastOrigin) { const ll = unproject(d.ax + this.lastOrigin[0], d.ay + this.lastOrigin[1], this.lastZ ?? z); d.lng = ll[0]; d.lat = ll[1]; }
+    d.life = 'dying'; d.deathAge = 0; d.op0 = d.opacity; d.fade = fadeMs; d.handoffTo = null; d.ghost = !!ghost; d.leafId = d.kind === 'leaf' ? d.ids[0] : null; d.dim = false; d.mv = 1; d.dxo = d.ax - d.px; d.dyo = d.ay - d.py;
+    if (d.kind === 'agg' && this.lastOrigin) { const ll = unproject(d.px + this.lastOrigin[0], d.py + this.lastOrigin[1], this.lastZ ?? z); d.lng = ll[0]; d.lat = ll[1]; }
   }
 
   _spawn(p, dying, prevTile, cutDelay, fadeMs) {
     const t = p.t; const key = t.key;
     // starting point: where the tiles it replaces were drawn (a merge, a split, an emergence from a persisting aggregate), else its own target
     const idset = new Set(t.ids); let w = 0; let cx = 0; let cy = 0; let srcFade = 0;
-    for (const dd of dying) if (!dd.ghost && dd.ids.some((id) => idset.has(id))) { const wt = Math.max(1, dd.n); cx += (dd.ax + dd.ox) * wt; cy += (dd.ay + dd.oy) * wt; w += wt; srcFade = Math.max(srcFade, dd.fade); }
-    if (w === 0) for (const id of t.ids) { const k = prevTile.get(id); const pd = k && k !== key ? this.tiles.get(k) : null; if (pd && pd.life === 'live') { cx += pd.ax + pd.ox; cy += pd.ay + pd.oy; w += 1; } }
+    for (const dd of dying) if (!dd.ghost && dd.ids.some((id) => idset.has(id))) { const wt = Math.max(1, dd.n); cx += (dd.ax + dd.ox + cOff(dd)) * wt; cy += (dd.ay + dd.oy) * wt; w += wt; srcFade = Math.max(srcFade, dd.fade); }
+    if (w === 0) for (const id of t.ids) { const k = prevTile.get(id); const pd = k && k !== key ? this.tiles.get(k) : null; if (pd && pd.life === 'live') { cx += pd.ax + pd.ox + cOff(pd); cy += pd.ay + pd.oy; w += 1; } }
     const tx = p.cx - t.ax; const ty = p.cy - t.ay;
     const sx = w > 0 ? cx / w - t.ax : tx; const sy = w > 0 ? cy / w - t.ay : ty;
     // the DISPLAY key must be unique: an aggregate that was matched to a layout tile of another key keeps its first key, and a layout tile with that key may be born later
@@ -222,7 +226,7 @@ export class Display {
     const d = {
       key: dk, lkey: key, kind: t.kind, ids: t.ids.slice(), n: t.n, life: 'live', age: 0, deathAge: 0, op0: 1, fade: 0, born: true, ghost: false, dim: false, mv: 1,
       birthDelay: Math.max(cutDelay, SEQ * srcFade),
-      ax: t.ax, ay: t.ay, ox: sx, oy: sy, vx: 0, vy: 0, tx, ty, w: t.chipW, h: t.chipH, tw: t.chipW, th: t.chipH, scale: this.tok('motion.birthScale'), opacity: 0,
+      ax: t.ax, ay: t.ay, px: t.px ?? t.ax, py: t.py ?? t.ay, sgn: t.sgn || 0, ox: sx, oy: sy, vx: 0, vy: 0, tx, ty, w: t.chipW, h: t.chipH, tw: t.chipW, th: t.chipH, scale: this.tok('motion.birthScale'), opacity: 0,
       handoffTo: null, prio: t.prio, label: { slot: 'r', vis: false, opacity: 0, feas: 0, rect: null }, leafId: null, ratioShown: t.ratio ?? 1,
       lat: t.kind === 'leaf' ? t.st.lat : null, lng: t.kind === 'leaf' ? t.st.lng : null, selected: false, labelText: null, labelW: 0, labelH: 0,
     };
@@ -233,7 +237,7 @@ export class Display {
 
   /** content that comes from the layout tile (text, side, arm, strength state ...), refreshed every frame */
   _content(d, t, dt, inp) {
-    d.n = t.n; d.ids = t.ids; d.side = t.side; d.arm = t.arm; d.short = t.short; d.fname = t.fname || null; d.badge = t.badge || null; d.strength = t.strength; d.nameKind = t.nameKind || null;
+    d.n = t.n; d.ids = t.ids; d.side = t.side; d.arm = t.arm; d.short = t.short; d.fname = t.fname || null; d.ftail = t.ftail || null; d.badge = t.badge || null; d.strength = t.strength; d.nameKind = t.nameKind || null;
     d.selected = inp.selectedId != null && t.ids.includes(inp.selectedId);
     const tween = this.tok('interp.strengthTweenMs') / 1000;
     d.ratioTarget = t.ratio ?? 1; d.ratioShown = tween <= 0 ? d.ratioTarget : dampStep(d.ratioShown, 0, d.ratioTarget, tween / 2, dt)[0];
@@ -244,7 +248,7 @@ export class Display {
       const leaves = flattenLeaves(t); d.unit = null; d.disposition = null; d.moving = false;
       let mn = Infinity; let mx = 0; for (const l of leaves) { mn = Math.min(mn, l.st.ageTicks); mx = Math.max(mx, l.st.ageTicks); }
       d.ageMin = mn; d.ageMax = mx; d.ageTicks = mx;
-      d.members = leaves.map((l) => ({ id: l.ids[0], ax: l.ax, ay: l.ay }));
+      d.members = leaves.map((l) => ({ id: l.ids[0], ax: l.px, ay: l.py }));      // TRUE positions
     }
   }
 
@@ -271,7 +275,7 @@ export class Display {
       if (o === d || o.opacity < SOLID || o.ghost || this._exempt(d, o)) continue;
       const q = this._chipRect(o);
       if (Math.max(r.x0 - q.x1, q.x0 - r.x1) < gap && Math.max(r.y0 - q.y1, q.y0 - r.y1) < gap) return true;
-      if (Math.hypot(o.ox, o.oy) > 1.5 && o.ax + spec.pinHalf > r.x0 - gap && o.ax - spec.pinHalf < r.x1 + gap && o.ay + spec.pinHalf > r.y0 - gap && o.ay - spec.pinHalf < r.y1 + gap) return true;
+      if (Math.hypot(o.ox, o.oy) > 1.5 && o.px + spec.pinHalf > r.x0 - gap && o.px - spec.pinHalf < r.x1 + gap && o.py + spec.pinHalf > r.y0 - gap && o.py - spec.pinHalf < r.y1 + gap) return true;
     }
     return false;
   }
@@ -286,8 +290,8 @@ export class Display {
     const n = act.length; const m = n + pins.length;
     if (!this._cx || this._cx.length < m) { const L = Math.ceil(m * 1.5); this._cx = new Float64Array(L); this._cy = new Float64Array(L); this._hw = new Float64Array(L); this._hh = new Float64Array(L); this._ms = new Float64Array(L); this._ord = new Int32Array(L); }
     const cx = this._cx; const cy = this._cy; const hw = this._hw; const hh = this._hh; const ms = this._ms; const ord = this._ord;
-    for (let i = 0; i < n; i++) { const d = act[i]; cx[i] = d.ax + d.ox; cy[i] = d.ay + d.oy; hw[i] = d.w * d.scale / 2; hh[i] = d.h * d.scale / 2; ms[i] = this._mass(d); d._ox0 = d.ox; d._oy0 = d.oy; }
-    for (let k = 0; k < pins.length; k++) { const i = n + k; const d = pins[k]; cx[i] = d.ax; cy[i] = d.ay; hw[i] = pinHalf; hh[i] = pinHalf; ms[i] = Infinity; }
+    for (let i = 0; i < n; i++) { const d = act[i]; cx[i] = d.ax + d.ox + cOff(d); cy[i] = d.ay + d.oy; hw[i] = d.w * d.scale / 2; hh[i] = d.h * d.scale / 2; ms[i] = this._mass(d); d._ox0 = d.ox; d._oy0 = d.oy; }
+    for (let k = 0; k < pins.length; k++) { const i = n + k; const d = pins[k]; cx[i] = d.px; cy[i] = d.py; hw[i] = pinHalf; hh[i] = pinHalf; ms[i] = Infinity; }
     for (let i = 0; i < m; i++) ord[i] = i;
     const owner = (i) => (i < n ? act[i] : pins[i - n]);
     for (let it = 0; it < iters; it++) {
@@ -317,18 +321,18 @@ export class Display {
       }
       for (let i = 0; i < n; i++) {                                                  // a settled tile never sits farther than the budget from its true position
         const d = act[i]; if (d.life === 'dying' || d.born) continue;
-        const ox = cx[i] - d.ax; const oy = cy[i] - d.ay; const mg = Math.hypot(ox, oy);
-        if (mg > dMax + 1e-6) { cx[i] = d.ax + ox * dMax / mg; cy[i] = d.ay + oy * dMax / mg; }
+        const co = cOff(d); const ox = cx[i] - d.ax - co; const oy = cy[i] - d.ay; const mg = Math.hypot(ox, oy);
+        if (mg > dMax + 1e-6) { cx[i] = d.ax + co + ox * dMax / mg; cy[i] = d.ay + oy * dMax / mg; }
       }
       if (!moved) break;
     }
     let pushed = 0;
-    for (let i = 0; i < n; i++) { const d = act[i]; const ox = cx[i] - d.ax; const oy = cy[i] - d.ay; if (Math.hypot(ox - d._ox0, oy - d._oy0) > 0.01) pushed++; d.ox = ox; d.oy = oy; }
+    for (let i = 0; i < n; i++) { const d = act[i]; const ox = cx[i] - d.ax - cOff(d); const oy = cy[i] - d.ay; if (Math.hypot(ox - d._ox0, oy - d._oy0) > 0.01) pushed++; d.ox = ox; d.oy = oy; }
     stats.pushed = pushed;
   }
 
   // ---- labels -----------------------------------------------------------------------------------------------------------------------------------
-  _chipRect(d, scale = d.scale) { const hw = d.w * scale / 2; const hh = d.h * scale / 2; const cx = d.ax + d.ox; const cy = d.ay + d.oy; return { x0: cx - hw, y0: cy - hh, x1: cx + hw, y1: cy + hh }; }
+  _chipRect(d, scale = d.scale) { const hw = d.w * scale / 2; const hh = d.h * scale / 2; const cx = d.ax + d.ox + cOff(d); const cy = d.ay + d.oy; return { x0: cx - hw, y0: cy - hh, x1: cx + hw, y1: cy + hh }; }
 
   _labels(spec, dtMs, z) {
     const tok = this.tok; const gap = spec.gap; const fadeMs = Math.max(1, tok('motion.labelFadeMs'));
@@ -337,12 +341,12 @@ export class Display {
     const occ = new Occ(64);
     for (const d of solid) {
       const r = this._chipRect(d); r.owner = d.key; r.kind = 'chip'; occ.add(r);
-      if (Math.hypot(d.ox, d.oy) > 1.5) occ.add({ x0: d.ax - spec.pinHalf, y0: d.ay - spec.pinHalf, x1: d.ax + spec.pinHalf, y1: d.ay + spec.pinHalf, owner: d.key, kind: 'pin' });
+      if (Math.hypot(d.ox, d.oy) > 1.5) occ.add({ x0: d.px - spec.pinHalf, y0: d.py - spec.pinHalf, x1: d.px + spec.pinHalf, y1: d.py + spec.pinHalf, owner: d.key, kind: 'pin' });
     }
     const want = spec.labels && z >= spec.labelMinZoom;
     const cand = solid.filter((d) => d.kind === 'leaf' && d.labelText && d.life === 'live' && !d.born && !d.dim && d.mv >= 0.999 && d.scale >= 0.99).sort((a, b) => b.prio - a.prio || (a.key < b.key ? -1 : 1));
     const placed = new Set(); const eligible = new Set(cand);
-    const rectFor = (d, slot) => labelRect({ chipW: d.w, chipH: d.h, labelW: d.labelW, labelH: d.labelH }, d.ax + d.ox, d.ay + d.oy, slot, spec);
+    const rectFor = (d, slot) => labelRect({ chipW: d.w, chipH: d.h, labelW: d.labelW, labelH: d.labelH }, d.ax + d.ox + cOff(d), d.ay + d.oy, slot, spec);
     const fit = (d, slot) => { const r = rectFor(d, slot); return rectFree(r, occ, d.key, gap) ? r : null; };
     if (want) {
       for (const d of cand) {                                                          // a label shown last frame keeps its slot (or takes another) while it fits
@@ -371,7 +375,7 @@ export class Display {
       if (d.opacity < SOLID) continue;
       items.push({ owner: d.key, kind: 'chip', ...this._chipRect(d) });
       if (d.label.opacity >= SOLID && d.label.rect) items.push({ owner: d.key, kind: 'label', ...plain(d.label.rect) });
-      if (Math.hypot(d.ox, d.oy) > 1.5) items.push({ owner: d.key, kind: 'pin', x0: d.ax - spec.pinHalf, y0: d.ay - spec.pinHalf, x1: d.ax + spec.pinHalf, y1: d.ay + spec.pinHalf });
+      if (Math.hypot(d.ox, d.oy) > 1.5) items.push({ owner: d.key, kind: 'pin', x0: d.px - spec.pinHalf, y0: d.py - spec.pinHalf, x1: d.px + spec.pinHalf, y1: d.py + spec.pinHalf });
     }
     return items;
   }
@@ -411,8 +415,8 @@ export class Display {
     const assign = new Map(); for (const d of this.tiles.values()) if (d.life === 'live') for (const id of d.ids) assign.set(id, d.key);
     this.prevAssign = assign;
     const tiles = list.map((d) => ({
-      key: d.key, kind: d.kind, ids: d.ids, n: d.n, x: d.ax + d.ox, y: d.ay + d.oy, ax: d.ax, ay: d.ay, w: d.w, h: d.h, scale: d.scale, opacity: d.opacity, solid: d.opacity >= SOLID, life: d.life,
-      ajx: d.ajx || 0, ajy: d.ajy || 0, entering: d.born, travelling: d.dim, displaced: Math.hypot(d.ox, d.oy) > 1.5, side: d.side, arm: d.arm, short: d.short, fname: d.fname || null, badge: d.badge, nameKind: d.nameKind, ratio: d.ratioShown, strength: d.strength,
+      key: d.key, kind: d.kind, ids: d.ids, n: d.n, x: d.ax + d.ox + cOff(d), y: d.ay + d.oy, ax: d.px, ay: d.py, ox: d.ox, oy: d.oy, ix: d.px + d.ox, iy: d.py + d.oy, sgn: d.sgn || 0, w: d.w, h: d.h, scale: d.scale, opacity: d.opacity, solid: d.opacity >= SOLID, life: d.life,
+      ajx: d.ajx || 0, ajy: d.ajy || 0, entering: d.born, travelling: d.dim, displaced: Math.hypot(d.ox, d.oy) > 1.5, side: d.side, arm: d.arm, short: d.short, fname: d.fname || null, ftail: d.ftail || null, badge: d.badge, nameKind: d.nameKind, ratio: d.ratioShown, strength: d.strength,
       disposition: d.disposition, selected: !!d.selected, unit: d.unit, ageTicks: d.ageTicks, ageMin: d.ageMin, ageMax: d.ageMax, moving: !!d.moving, members: d.members,
       label: d.label.opacity > 0.01 && d.label.rect && d.labelText ? { text: d.labelText, slot: d.label.slot, opacity: d.label.opacity, x0: d.label.rect.x0, y0: d.label.rect.y0, x1: d.label.rect.x1, y1: d.label.rect.y1 } : null,
     }));

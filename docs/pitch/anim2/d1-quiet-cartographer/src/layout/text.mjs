@@ -5,9 +5,10 @@
 //   * a table measured AT RUN TIME in the viewer's own browser with the viewer's own font (measureTextModel), which the app installs before the first solve.
 // text.width(font, string) -> CSS px (including the safety factor and 1 px)
 // FORK (d1 Quiet Cartographer): the page ships its own face, QC Sans (a subset of Liberation Sans 2.1.5, SIL OFL 1.1; assets/fonts), so the widths below are the same on every machine.
-// Two sizes only: 11 px (unit codes, numerals, names) and 13 px (formations).  code = bold 11, codeI = regular italic 11 (identity from the id alone), name = regular 11, form = bold 13.
-export const FONT_STACK = '"QC Sans", "Liberation Sans", Arial, "Helvetica Neue", sans-serif';
-export const FONT_SPECS = { code: `700 11px ${FONT_STACK}`, codeI: `italic 400 11px ${FONT_STACK}`, name: `400 11px ${FONT_STACK}`, form: `700 13px ${FONT_STACK}`, label: `400 11px ${FONT_STACK}`, badge: `700 11px ${FONT_STACK}` };
+// POLISH ROUND 1: the face is Source Sans 3 (renamed QC Sans), 12 px for lettering and 13 px for the large formations: code = semibold 12 (a unit's code, the count in a flag), codeI = italic 12 (identity from the
+// id alone), name = regular 12, brig = semibold 12 (a brigade, tinted), form = bold 13 (a division or a corps).
+export const FONT_STACK = '"QC Sans", "Source Sans 3", Arial, "Helvetica Neue", sans-serif';
+export const FONT_SPECS = { code: `600 12px ${FONT_STACK}`, codeI: `italic 400 12px ${FONT_STACK}`, name: `400 12px ${FONT_STACK}`, brig: `600 12px ${FONT_STACK}`, form: `700 13px ${FONT_STACK}`, label: `400 11px ${FONT_STACK}`, badge: `600 11px ${FONT_STACK}` };
 export const CHARSET = (() => { let s = ''; for (let i = 32; i < 127; i++) s += String.fromCharCode(i); return s + '×…·•'; })();
 
 /** @param {{fonts: Record<string,{adv: Record<string,number>}>}} table  @param {number} [safety] */

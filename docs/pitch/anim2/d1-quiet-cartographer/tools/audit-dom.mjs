@@ -10,11 +10,11 @@ import { open, setScene, args, D1, stopServer } from './lib.mjs';
 
 const HERBST = [39.8278, -77.2528]; const ANGLE = [39.8117, -77.2347];
 const STATES = [
-  { id: 'night-popups', style: null, tick: 28, at: HERBST, zoom: 14.5, popups: true },
-  { id: 'night-unit-card', style: null, tick: 40, at: HERBST, zoom: 15, popups: true, js: `E.select('U-I-1-1'); S.host.setSelected('U-I-1-1'); adv(60); S.host.openRail('unit-card:sel-U-I-1-1'); adv(60);` },
-  { id: 'night-tune', style: null, tick: 551, at: ANGLE, zoom: 15, popups: false, js: `S.ui.togglePanel('tune'); adv(20);` },
-  { id: 'night-about-legend', style: null, tick: 551, at: ANGLE, zoom: 15, popups: true, js: `S.ui.togglePanel('about'); S.host.act('legend:legend', 'toggle'); adv(80);` },
-  { id: 'night-narration', style: null, tick: 551, at: ANGLE, zoom: 15, popups: false, js: `S.startTour('showcase'); adv(200); S.ui.toggleMenu();` },
+  { id: 'night-popups', style: 'night', tick: 28, at: HERBST, zoom: 14.5, popups: true },
+  { id: 'night-unit-card', style: 'night', tick: 40, at: HERBST, zoom: 15, popups: true, js: `E.select('U-I-1-1'); S.host.setSelected('U-I-1-1'); adv(60); S.host.openRail('unit-card:sel-U-I-1-1'); adv(60);` },
+  { id: 'night-tune', style: 'night', tick: 551, at: ANGLE, zoom: 15, popups: false, js: `S.ui.togglePanel('tune'); adv(20);` },
+  { id: 'night-about-legend', style: 'night', tick: 551, at: ANGLE, zoom: 15, popups: true, js: `S.ui.togglePanel('about'); S.host.act('legend:legend', 'toggle'); adv(80);` },
+  { id: 'night-narration', style: 'night', tick: 551, at: ANGLE, zoom: 15, popups: false, js: `S.startTour('showcase'); adv(200); S.ui.toggleMenu();` },
   { id: 'day-popups', style: 'day', tick: 28, at: HERBST, zoom: 14.5, popups: true },
   { id: 'day-unit-card', style: 'day', tick: 40, at: HERBST, zoom: 15, popups: true, js: `E.select('U-I-1-1'); S.host.setSelected('U-I-1-1'); adv(60); S.host.openRail('unit-card:sel-U-I-1-1'); adv(60);` },
   { id: 'day-about-legend', style: 'day', tick: 551, at: ANGLE, zoom: 15, popups: true, js: `S.ui.togglePanel('about'); S.host.act('legend:legend', 'toggle'); adv(80);` },

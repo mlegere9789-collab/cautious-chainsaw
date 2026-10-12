@@ -1,6 +1,6 @@
 // tools/clr-probe.mjs - which pair has the smallest gap in a settled frame with a selected mark, and what was the state of each (development aid)
 import { open, stopServer } from './lib.mjs';
-const s = await open({ dpr: 1, profile: 'clr', port: 9844 });
+const s = await open({ dpr: 1, profile: 'clr', port: 10024 });
 try {
   const res = await s.page.evaluate(() => { const S = window.__studio; const E = S.engine; E.tuning.set('popup.enabled', false); E.tuning.set('layout.solveEvery', '1'); let T = 5000; window.__skinKit.setClock({ now: () => T }); const adv = (n, dt = 1000 / 60) => { for (let i = 0; i < n; i++) { T += dt; S.step(1, dt); } };
     const out = [];

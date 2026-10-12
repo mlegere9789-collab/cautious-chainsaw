@@ -125,6 +125,7 @@ export function createPopupLayer({ root, container, engine, host, systemReduced 
     }
     rail.removeAttribute('aria-hidden'); rail.inert = false;
     rail.style.transform = out.phone ? `translateY(${Math.round((1 - prog) * 100)}%)` : `translateX(${Math.round((1 - prog) * 100)}%)`; const dockPx = parseFloat(root.style.getPropertyValue('--dock-h')) || 0; rail.style.width = out.phone ? '' : r.widthPx + 'px'; rail.style.height = out.phone ? Math.max(1, (L.railH || py) - dockPx) + 'px' : '';
+    rail.dataset.detent = r.detent;      // POLISH 1: CSS hides the body of a sheet at its peek (a half line of text under the title looked like a fault)
     handle.setAttribute('aria-expanded', String(r.detent !== 'peek')); handle.setAttribute('aria-label', `Panel size: ${r.detent}. Activate to change.`);
     const doc = r.doc; const content = contentOf(doc) || { blocks: [] }; const ver = (doc.version ?? 0) + '|' + r.id; const fresh = L.railId !== r.id;
     if (fresh) { L.prevFocus = document.activeElement && document.activeElement !== document.body ? document.activeElement : null; L.railId = r.id; L.railVersion = null; railBody.scrollTop = 0; }

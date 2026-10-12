@@ -1,6 +1,6 @@
 // tools/probes/field-ms.mjs - milliseconds per frame (step + draw) in real Chrome for the whole field at zoom 13.5 under a few settings of the layout dials (solveEvery fixed at 1, camera still, 4x playback).
 import { open, setScene, stopServer } from '../lib.mjs';
-const s = await open({ dpr: 1, profile: 'fieldms', port: 9846 });
+const s = await open({ dpr: 1, profile: 'fieldms', port: 10026 });
 try {
   await setScene(s.page, { tick: 612, lat: 39.81592, lng: -77.23677, zoom: 13.5, safe: false, popups: false, steps: 40 });
   const res = await s.page.evaluate(() => { const S = window.__studio; const E = S.engine; const out = []; E.tuning.set('layout.solveEvery', '1'); E.transport.setSpeed(4); E.transport.play();

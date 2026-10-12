@@ -28,24 +28,33 @@ export function createRenderer({ canvas, engine, data, places = null }) {
     // 1. backdrop
     const bid = tok('backdrop.id'); const bd = engine.kernel.backdrops.has(bid) ? engine.kernel.backdrops.get(bid) : null;
     if (bd) bd.draw(c, { w: cssW, h: cssH, camera: cam, mpp: cam.mpp(), toScreen: (lng, lat) => cam.toScreen(lng, lat) }, data, tok); else { c.fillStyle = '#ddd'; c.fillRect(0, 0, cssW, cssH); }
-    if (placeNames && bd && bd.look && tok('backdrop.places')) placeNames.draw(c, { w: cssW, h: cssH, camera: cam, tiles: frame.tiles, view, safe: engine.safe, look: bd.look });
+    if (placeNames && bd && bd.look && tok('backdrop.places')) { const sf0 = engine.safe || { top: 0, bottom: 0, left: 0, right: 0 }; const sf1 = mapRect ? { ...sf0, bottom: Math.max(sf0.bottom, cssH - mapRect.h), right: Math.max(sf0.right, cssW - mapRect.w) } : sf0; placeNames.draw(c, { w: cssW, h: cssH, camera: cam, tiles: frame.tiles, view, safe: sf1, look: bd.look }); }      // POLISH 1: the reading rail or sheet narrows the map: a place name is never set across its edge
     // 2. fx modules
     for (const fx of engine.kernel.fx.list()) if (fx.draw) { c.save(); fx.draw(c, frame, env); c.restore(); }
     const on = (t) => { const x = t.x + view.dx; const y = t.y + view.dy; return x > -120 && x < cssW + 120 && y > -60 && y < cssH + 60; };
+    // POLISH 1: a mark that reaches into what the interface covers (a control group of the top bar, the dock, the side panel: engine.chromeRects) dissolves over the last RAMP px before it, so it is never cut in
+    // half by a bar and never hides under one, exactly as a mark dissolves at the edge of a scrolled map; the gaps between the controls stay open map; the reading rail narrows the map (mapRect) and works the same way.  The window's own edge is not a margin.
+    const rects = engine.chromeRects ? engine.chromeRects() : []; const RAMP = 16; const mapW = mapRect ? mapRect.w : cssW;
+    const fadeOf = (t) => {
+      const hw = t.w * t.scale / 2; const hh = t.h * t.scale / 2; const x = t.x + view.dx; const y = t.y + view.dy; let k = 1;
+      for (const r of rects) { const d = Math.max(r.x0 - (x + hw), (x - hw) - r.x1, r.y0 - (y + hh), (y - hh) - r.y1); if (d < RAMP) k = Math.min(k, d / RAMP); }
+      if (mapRect && mapRect.w < cssW) k = Math.min(k, (mapW - (x + hw)) / RAMP + 1);
+      return k >= 1 ? 1 : k <= 0 ? 0 : k * k * (3 - 2 * k);
+    };
     const D = skin.draw; let drawn = 0;
     // 2b. popup ink beneath the tiles: leader lines, place rings, arrows, pulses (a tile always paints over them)
     if (popupFx) drawBeneath(c, popupFx, toneColors);
     // 3. leaders and aggregate member dots (beneath every chip)
     for (const t of frame.tiles) {
       if (!on(t) || t.opacity < 0.02) continue;
-      c.globalAlpha = t.opacity;
+      const fk = fadeOf(t); if (fk <= 0.003) continue; c.globalAlpha = t.opacity * fk;
       if (t.displaced && tok('scene.leaders') && D.leader) D.leader(c, t, env, [t.ax + view.dx, t.ay + view.dy], [t.x + view.dx, t.y + view.dy]);
       if (t.kind === 'agg' && t.members && tok('scene.hulls') && D.hull) D.hull(c, t, env, t.members.map((m) => [m.ax + view.dx, m.ay + view.dy]));
     }
     // 4. chips
     for (const t of frame.tiles) {
       if (!on(t) || t.opacity < 0.02) continue;
-      const s = dpr * t.scale; c.setTransform(s, 0, 0, s, (t.x + view.dx) * dpr, (t.y + view.dy) * dpr); c.globalAlpha = t.opacity;
+      const fk = fadeOf(t); if (fk <= 0.003) continue; const s = dpr * t.scale; c.setTransform(s, 0, 0, s, (t.x + view.dx) * dpr, (t.y + view.dy) * dpr); c.globalAlpha = t.opacity * fk;
       D.tile(c, t, env); drawn++;
     }
     if (popupFx) { c.setTransform(dpr, 0, 0, dpr, 0, 0); drawAbove(c, popupFx, toneColors); }       // the subject ring, inside each chip's own reserved band

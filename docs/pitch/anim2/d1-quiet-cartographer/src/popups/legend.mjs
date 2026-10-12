@@ -17,6 +17,7 @@ export const legend = {
     const pill = { id: 'pill', level: 'compact', w: 104, h: 42, content: { label: 'Legend. Activate to open.', blocks: [{ t: 'pill', id: 'toggle', label: 'Legend', icon: 'list', expanded: open }] } };
     const blocks = [
       { t: 'p', size: 'sm', muted: true, text: `What each mark of the ${skin ? skin.label : 'tiles'} claims, and how well that is known. The rows are drawn by the skin itself.` },
+      ...(skin && skin.figure ? [{ t: 'canvas', w: 316, h: skin.figureH, label: 'The anatomy of the marks, drawn at their true size: a unit, a formation, a crowd, a carried-forward unit', paint: (g, w, h) => { g.clearRect(0, 0, w, h); skin.figure(g, w); } }] : []),
       rows.length ? { t: 'swatches', rows: rows.map((r) => ({ swatch: r.swatch, text: r.text, ev: r.evidence })) } : { t: 'p', size: 'sm', muted: true, text: 'The active skin does not publish a legend.' },
       { t: 'chips', items: [ev('Computed', 'rows read from the skin’s own drawing', 'The rows are read from the active skin each time, so they cannot describe a renderer that is not drawing.'), ev('Measured', 'ground: a 2022 aerial, not 1863', 'USDA NAIP photographed 24 April to 10 May 2022, lit by USGS 3DEP elevation: the modern ground.')] },
     ];

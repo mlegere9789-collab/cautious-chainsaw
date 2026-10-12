@@ -11,14 +11,20 @@ try {
   await s.page.evaluate(() => document.fonts.ready); await s.page.waitForFunction(() => globalThis.__fontsReady === true, null, { timeout: 20000 });
   const res = await s.page.evaluate(() => {
     const S = window.__studio; const E = S.engine; const T = E.text; const c = document.createElement('canvas').getContext('2d');
-    const specs = { code: '700 11px "QC Sans", "Liberation Sans", Arial, "Helvetica Neue", sans-serif', codeI: 'italic 400 11px "QC Sans", "Liberation Sans", Arial, "Helvetica Neue", sans-serif', name: '400 11px "QC Sans", "Liberation Sans", Arial, "Helvetica Neue", sans-serif', form: '700 13px "QC Sans", "Liberation Sans", Arial, "Helvetica Neue", sans-serif' };
-    const strings = { code: new Set(), codeI: new Set(), name: new Set(), form: new Set() };
-    const ORD = { First: '1st', Second: '2nd', Third: '3rd', Fourth: '4th', Fifth: '5th', Sixth: '6th', Seventh: '7th', Eighth: '8th', Ninth: '9th', Tenth: '10th', Eleventh: '11th', Twelfth: '12th' };
-    const FORM = new Set(['brigade', 'division', 'corps', 'army']);
-    const compact = (u) => { const label = u.label || ''; let full = label.includes('…') && u.designation ? u.designation : (FORM.has(u.kind) ? label : (u.designation || label)); full = full.replace(/\s*\([^)]*\)\s*$/, '').replace(/\b(First|Second|Third|Fourth|Fifth|Sixth|Seventh|Eighth|Ninth|Tenth|Eleventh|Twelfth)\b/g, (m) => ORD[m]).replace(/\bBrigade\b/g, 'Bde').replace(/\bDivision\b/g, 'Div').replace(/\bVolunteer /g, ''); return full && full !== u.short ? full : null; };
+    const Q = window.__qcSkin; const FAM = '"QC Sans", "Source Sans 3", Arial, "Helvetica Neue", sans-serif';
+    const specs = { code: `600 12px ${FAM}`, codeI: `italic 400 12px ${FAM}`, name: `400 12px ${FAM}`, brig: `600 12px ${FAM}`, form: `700 13px ${FAM}` };
+    // the strings exactly as the skin sets them: a unit's code (code, or codeI for an id-only unit), its name INSTEAD of the code from zoom 16 (set in the code's cut), a brigade's name (brig), a division's or a corps' (form),
+    // a crowd's words (brig or form, its tail in the name's cut) and its count (code)
+    const strings = { code: new Set(), codeI: new Set(), name: new Set(), brig: new Set(), form: new Set() };
     const chars = new Set();
-    for (const u of E.battle.units.values()) { const f = FORM.has(u.kind); const n = compact(u); (u.inOob ? strings.code : strings.codeI).add(u.short); if (f) strings.form.add(u.short); if (n) { (f ? strings.form : strings.name).add(n); } for (const ch of u.short + (n || '')) chars.add(ch); }
-    for (const k of ['Both sides', 'Union', 'Confed.', 'Side unknown', 'I, II Corps +12', 'XI, XII Corps +12']) strings.form.add(k);
+    for (const u of E.battle.units.values()) {
+      const f = ['brigade', 'division', 'corps', 'army'].includes(u.kind); const n = Q.compactName(u); const code = Q.codeOf(u);
+      if (!f) { (u.inOob ? strings.code : strings.codeI).add(code); if (n) strings.code.add(n); }
+      else { const k = u.kind === 'brigade' || u.kind === 'battalion' ? 'brig' : 'form'; strings[k].add(n || code); }
+      for (const ch of code + (n || '')) chars.add(ch);
+    }
+    for (const k of ['Both sides', 'Union', 'Confederate', 'Side unknown', 'Union, unlisted', 'Confederate, unlisted', 'I, II Corps', 'I, II, XI Corps', '12 corps', 'II Corps']) { strings.brig.add(k); strings.form.add(k); }
+    for (const k of [', 1 unlisted', ', 12 unlisted', ', unlisted', ', 2 contested', ', 12 unlisted, 2 contested']) strings.name.add(k);
     for (let i = 0; i <= 999; i += 7) strings.code.add(String(i));
     const out = { fonts: {}, loaded: [...document.fonts].map((f) => f.family + ' ' + f.weight + ' ' + f.style + ' ' + f.status) };
     for (const [k, css] of Object.entries(specs)) {
@@ -27,7 +33,7 @@ try {
       out.fonts[k] = { strings: n, overModel: over, worst };
     }
     // glyph coverage: draw each character with QC Sans and with a nonexistent family; if the widths match for a visible glyph the font lacks it
-    c.font = '700 13px "QC Sans"'; const missing = []; const probeFont = '700 13px "QC Sans", monospace'; for (const ch of chars) { if (/\s/.test(ch)) continue; if (!document.fonts.check('700 13px "QC Sans"', ch)) missing.push(ch); }
+    const missing = []; for (const ch of chars) { if (/\s/.test(ch)) continue; if (!document.fonts.check('600 12px "QC Sans"', ch)) missing.push(ch); }
     out.chars = chars.size; out.missing = missing; out.model = T.source;
     return out;
   });

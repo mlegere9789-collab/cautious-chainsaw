@@ -65,7 +65,7 @@ export function boot() {
   const measure = () => { try { engine.setTextTable(measureTable(mctx, FONT_SPECS), 'measured in this browser'); } catch (e) { console.warn('text measuring failed; using the table measured in Chrome 155', e); } };
   measure(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure); mark('measure');
   // FORK: the page's own face (QC Sans, embedded): load every cut the canvas uses, then measure again, so layout widths are the real ones from the first settled frame on
-  if (document.fonts && document.fonts.load) Promise.all(['700 11px "QC Sans"', '400 11px "QC Sans"', 'italic 400 11px "QC Sans"', '700 13px "QC Sans"'].map((f) => document.fonts.load(f, 'AaBb0123 ×·'))).then(() => { measure(); engine.dirty = true; globalThis.__fontsReady = true; }).catch(() => { globalThis.__fontsReady = true; });
+  if (document.fonts && document.fonts.load) Promise.all(['600 12px "QC Sans"', '400 12px "QC Sans"', 'italic 400 12px "QC Sans"', '700 13px "QC Sans"', '400 11px "QC Sans"'].map((f) => document.fonts.load(f, 'AaBb0123 ×·'))).then(() => { measure(); engine.dirty = true; globalThis.__fontsReady = true; }).catch(() => { globalThis.__fontsReady = true; });
 
   const renderer = createRenderer({ canvas, engine, data: dataset, places: ground.places });
   let updateSafeRef = () => {}; const ui = createStudioUI({ root: app, engine, data: dataset, onSafe: () => updateSafeRef() }); mark('ui');
@@ -75,13 +75,24 @@ export function boot() {
   const host = createPopupHost(engine, { popupData, size: { w: rect.width, h: rect.height }, systemReduced: sysReduced, chrome: () => (layer ? layer.chrome() : { rects: [], safe: { top: 0, right: 0, bottom: 0, left: 0 } }), measure: (c, f) => (layer ? layer.measure(c, f) : null), onSelect: (id) => { const t = id ? engine.frame && engine.frame.tiles.find((q) => q.ids[0] === id && q.kind === 'leaf') : null; ui.setSelection(t || null); } });
   layer = createPopupLayer({ root: app, container: popups, engine, host, systemReduced: sysReduced }); mark('popups');
   ui.onPreview = (id) => { host.preview(id); engine.dirty = true; }; if (q.has('tune')) ui.togglePanel('tune');
+  if (q.has('dev') || q.has('tune') || q.has('metrics')) document.body.classList.add('dev');      // POLISH 1: the development tools (metrics button) show only with ?dev=1, ?tune=1 or ?metrics=1
+  if (typeof innerWidth === 'number' && innerWidth < 700) engine.tuning.set('popup.minimap.enabled', false, { silent: true });      // POLISH 1: a phone has no room for a second map over the first
   if (q.has('speed')) engine.transport.setSpeed(+q.get('speed'));
   if (q.get('play') === '1') engine.transport.play();
 
   const updateSafe = () => { const r = app.getBoundingClientRect(); const top = document.getElementById('topbar'); const dock = document.getElementById('dock'); const panel = document.getElementById('panel'); const narrow = r.width < 760;
     engine.safe = { top: top ? top.getBoundingClientRect().bottom : 0, bottom: dock ? r.height - dock.getBoundingClientRect().top : 0, left: nar && nar.open && !narrow ? nar.width + 24 : 0, right: panel && !panel.classList.contains('hidden') && !narrow ? r.width - panel.getBoundingClientRect().left : 0 }; };
   updateSafeRef = updateSafe;
-  const resize = () => { const r = app.getBoundingClientRect(); const dpr = window.devicePixelRatio || 1; renderer.resize(r.width, r.height, dpr); fadeCanvas.width = canvas.width; fadeCanvas.height = canvas.height; host.setSize(r.width, r.height); ui.drawMarks(); };
+  /** POLISH 1: the rectangles the interface really covers (each control group of the top bar, the dock, the side panel), in map coordinates, read at most every 250 ms: the renderer dissolves a mark that reaches into one (render/canvas.mjs), and only into one: the gaps between the controls stay open map */
+  let chromeCache = null; let chromeAt = -1e9;
+  engine.chromeRects = (force = false) => {
+    const now = performance.now(); if (!force && chromeCache && now - chromeAt < 250) return chromeCache; const ar = app.getBoundingClientRect(); const out = [];
+    const add = (el) => { if (!el || el.classList.contains('hidden') || el.classList.contains('off')) return; const cs = getComputedStyle(el); if (cs.display === 'none' || +cs.opacity < 0.05) return; const r = el.getBoundingClientRect(); if (r.width > 1 && r.height > 1) out.push({ x0: r.left - ar.left, y0: r.top - ar.top, x1: r.right - ar.left, y1: r.bottom - ar.top }); };
+    const bar = document.getElementById('topbar'); if (bar) for (const k of bar.children) add(k); add(document.getElementById('dock')); const pn = document.getElementById('panel'); if (pn && !pn.classList.contains('hidden')) add(pn); for (const n of app.querySelectorAll('[data-chrome]')) add(n);
+    chromeCache = out; chromeAt = now; return out;
+  };
+  if (typeof ResizeObserver !== 'undefined') { const ro = new ResizeObserver(() => { updateSafe(); engine.dirty = true; }); for (const id of ['topbar', 'dock']) { const n = document.getElementById(id); if (n) ro.observe(n); } }      // POLISH 1: the margin the bars take is read again whenever a bar changes size (the renderer dissolves marks that reach into it)
+  const resize = () => { updateSafe(); const r = app.getBoundingClientRect(); const dpr = window.devicePixelRatio || 1; renderer.resize(r.width, r.height, dpr); fadeCanvas.width = canvas.width; fadeCanvas.height = canvas.height; host.setSize(r.width, r.height); ui.drawMarks(); };
   new ResizeObserver(() => { resize(); updateSafe(); }).observe(app);
 
   // ---- the theme follows the ground (ink = dark chrome, paper = light chrome); a skin or ground change dissolves instead of cutting ----------------------------------------------------
@@ -179,7 +190,7 @@ export function boot() {
     virtualNow += Math.min(dt, 100); const out = host.frame(f, virtualNow, Math.min(dt, 100)); layer.update(out, virtualNow); studio.lastOut = out;
     if (director.running) { director.update(Math.min(dt, 100)); } nar.update(now);
     renderer.draw(f, { hoverKey, popupFx: out.fx, mapRect: out.mapRect, toneColors: layer.toneColors() }); ui.update(f, now); checkCards(f, out); frames++;
-    if (firstFrameMs === null) { firstFrameMs = performance.now() - t0; studio.boot.firstFrameMs = +firstFrameMs.toFixed(1); requestAnimationFrame(() => { splash.classList.add('gone'); document.body.classList.remove('booting'); setTimeout(() => splash.remove(), 700); }); }
+    if (firstFrameMs === null) { firstFrameMs = performance.now() - t0; studio.boot.firstFrameMs = +firstFrameMs.toFixed(1); requestAnimationFrame(() => { splash.classList.add('gone'); document.body.classList.remove('booting'); setTimeout(() => { updateSafe(); engine.dirty = true; }, 450); /* the bars rise into place over 380 ms: the margin they take is read again when they have landed */ setTimeout(() => splash.remove(), 700); }); }
     return f;
   }
   function tick(now) {

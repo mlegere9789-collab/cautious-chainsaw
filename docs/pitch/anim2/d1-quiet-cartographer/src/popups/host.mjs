@@ -286,7 +286,7 @@ export function createPopupHost(engine, env = {}) {
     /** open a card's long form in the rail (phone: the sheet) and make room for it */
     openRail(id) {
       const c = S.cards.get(id); if (!c || !c.spec.doc) return false; if (S.rail && S.rail.id !== id) api.closeRail();
-      S.rail = { id, doc: c.spec.doc, owner: c.spec, def: c.def, live: c.spec.kind === 'doc', openedAt: S.now, tick: c.tick, framed: false }; S.sheet = 'half';
+      S.rail = { id, doc: c.spec.doc, owner: c.spec, def: c.def, live: c.spec.kind === 'doc', openedAt: S.now, tick: c.tick, framed: false }; S.sheet = isPhone() && /^sel-/.test(String(id).split(':').pop()) ? 'peek' : 'half';      // POLISH 1: a selected unit opens its card as a PEEK on a phone (kicker, title), so the map keeps at least 60 % of the screen; the handle pulls it up
       if (c.spec.doc.title) S.live.q.push({ text: `Reading panel opened: ${c.spec.doc.title}.`, prio: 90 }); return true;
     },
     closeRail() { if (!S.rail) return false; const r = S.rail; S.rail = null; const c = S.cards.get(r.id); if (c && c.spec.onRailClose) c.spec.onRailClose(makeApi(S.frame, S.now, 0, c.def)); return true; },
@@ -543,7 +543,7 @@ export function createPopupHost(engine, env = {}) {
         else if (i === 0) { const cx = clamp((r.x0 + r.x1) / 2, 14, m.w - 14); const cy = clamp((r.y0 + r.y1) / 2, 14, m.h - 14); arrows.push({ x: cx, y: cy, ang: Math.atan2((r.y0 + r.y1) / 2 - cy, (r.x0 + r.x1) / 2 - cx), tone, alpha }); }
       });
       if (subj.point) { const q = subj.point; if (q.x > 0 && q.x < m.w && q.y > 0 && q.y < m.h) places.push({ x: q.x, y: q.y, r: 20, tone, alpha, label: subj.placeLL && subj.placeLL.label }); else { const cx = clamp(q.x, 14, m.w - 14); const cy = clamp(q.y, 14, m.h - 14); arrows.push({ x: cx, y: cy, ang: Math.atan2(q.y - cy, q.x - cx), tone, alpha }); } }
-      if (from && anchorRect) {
+      if (from && anchorRect && !(S.rail && isPhone())) {      // POLISH 1: a card whose reading is in the bottom sheet draws no leader across the map
         const tx = (anchorRect.x0 + anchorRect.x1) / 2; const ty = (anchorRect.y0 + anchorRect.y1) / 2;
         if (tx > 0 && tx < m.w && ty > 0 && ty < m.h) { const e = subj.tiles.length ? clampPt(anchorRect, from.x, from.y) : [tx, ty]; leaders.push({ x0: from.x, y0: from.y, x1: e[0], y1: e[1], tone, p, alpha, onTile: subj.tiles.length > 0 }); }
       }
