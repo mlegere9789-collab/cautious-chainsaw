@@ -1,0 +1,19 @@
+How to re-run the objective checks (jury member "objective").
+
+The scripts expect to live in <repo>/tmp/look-dev/objective/ (copy the files of this folder there; node resolves playwright-core from the repo's node_modules).
+They measure a snapshot of docs/pitch/anim2 at a fixed commit, never the working tree:
+
+  mkdir -p tmp/look-dev/objective/snap && git archive 9db3f4b docs/pitch/anim2 | tar -x -C tmp/look-dev/objective/snap
+  cd tmp/look-dev/objective
+  node serve-bg.mjs &                    # static server on 9960 over snap/docs/pitch/anim2 (lib.mjs refuses to run if the served page differs from the snapshot)
+  cat jobs.txt | xargs -P 4 -I{} sh -c 'node capture.mjs {}'     # 270 captures: canvas PNGs in four renderings, text records, DOM text, ink masks (about 45 minutes)
+  cat jobs3.txt | xargs -P 4 -I{} sh -c 'node capture.mjs {}'    # the pixel (ink) pass with the search window and the noise mask (the final one)
+  cat jobs4.txt | xargs -P 4 -I{} sh -c 'node capture.mjs {}'    # frame/label geometry with --tag=lab
+  node props.mjs --vp=desktop ; node props.mjs --vp=phone         # own mark vs merged
+  python sizes.py ; node net.mjs                                  # bytes
+  node perf.mjs                                                   # draw time; run ALONE (nothing else heavy), about 45 minutes; PERF_ROWS=perf-rows-rep.jsonl for a repeat
+  for c in d1-night d1-day d2-default d3-default d4-paper d4-aerial; do python run_an.py $c; done
+  python tables.py > results/tables.md ; python tables2.py > results/tables2.md ; python glance.py > results/glance.md
+  python colour.py                                                # self-test of the colour maths (CIEDE2000 against published pairs)
+
+killall.ps1 stops the harness's node and Chrome processes (it matches on this folder's profile paths and script names only).

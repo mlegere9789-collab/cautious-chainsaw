@@ -1,0 +1,190 @@
+### T0 The scenes and what each direction puts on them
+
+Cell: marks in the viewport (a mark = one tile of the engine: a unit, or a formation or crowd standing for several) / units those marks stand for (all of the units that the viewport shows).
+
+| scene | D1 | D2 | D3 | D4 |
+|---|---:|---:|---:|---:|
+| S1a field z13.5 t551 (tick 551, zoom 13.5, 1440 x 900) | 338 marks of 451 units on the field | 104 marks of 451 units on the field | 101 marks of 451 units on the field | 113 marks of 451 units on the field |
+| S1b field z13.5 t556 (tick 556, zoom 13.5, 1440 x 900) | 339 marks of 456 units on the field | 105 marks of 456 units on the field | 100 marks of 456 units on the field | 117 marks of 456 units on the field |
+| S1c Angle z15 t556 (tick 556, zoom 15, 1440 x 900) | 90 marks of 456 units on the field | 78 marks of 456 units on the field | 71 marks of 456 units on the field | 78 marks of 456 units on the field |
+| S2 Wheatfield z15 t295 (tick 295, zoom 15, 1440 x 900) | 87 marks of 344 units on the field | 77 marks of 344 units on the field | 70 marks of 344 units on the field | 74 marks of 344 units on the field |
+| S3 Cemetery Hill z15.5 t346 (tick 346, zoom 15.5, 1440 x 900) | 63 marks of 385 units on the field | 62 marks of 385 units on the field | 60 marks of 385 units on the field | 61 marks of 385 units on the field |
+| S4 close-up z16.5, one unit selected (tick 556, zoom 16.5, 1440 x 900) | 32 marks of 456 units on the field | 26 marks of 456 units on the field | 28 marks of 456 units on the field | 34 marks of 456 units on the field |
+| S6 event + story cards, t28 (tick 28, zoom 14.5, 1440 x 900) | 47 marks of 88 units on the field | 45 marks of 88 units on the field | 46 marks of 88 units on the field | 45 marks of 88 units on the field |
+| S7 legend open (tick 551, zoom 15, 1440 x 900) | 89 marks of 451 units on the field | 78 marks of 451 units on the field | 73 marks of 451 units on the field | 75 marks of 451 units on the field |
+| S8 hover tooltip z16 (tick 556, zoom 16, 1440 x 900) | 35 marks of 456 units on the field | 27 marks of 456 units on the field | 27 marks of 456 units on the field | 35 marks of 456 units on the field |
+| S5 phone z14.5, sheet open (tick 556, zoom 14.5, 390 x 382) | 26 marks of 456 units on the field | 21 marks of 456 units on the field | 18 marks of 456 units on the field | 21 marks of 456 units on the field |
+| P1 phone Angle z14.5 (tick 556, zoom 14.5, 390 x 382) | 25 marks of 456 units on the field | 22 marks of 456 units on the field | 16 marks of 456 units on the field | 19 marks of 456 units on the field |
+| P2 phone Wheatfield z14.5 (tick 295, zoom 14.5, 390 x 382) | 32 marks of 344 units on the field | 26 marks of 344 units on the field | 25 marks of 344 units on the field | 28 marks of 344 units on the field |
+
+### T1 Contrast of unit lettering on the map (canvas text)
+
+| scene | D1 night | D1 day | D2 | D3 | D4 paper | D4 aerial |
+|---|---:|---:|---:|---:|---:|---:|
+| S1a field z13.5 t551 | 10.9 / 5.8 / 100% (n=39) | 9.7 / 4.7 / 100% (n=40) | 7.9 / 2.1 / 99% (n=123) | 16.9 / 8.8 / 100% (n=123) | 14.2 / 4.8 / 100% (n=140) | 18.2 / 5.1 / 100% (n=134) |
+| S1b field z13.5 t556 | 11.9 / 5.9 / 100% (n=45) | 13.9 / 4.8 / 100% (n=45) | 8.0 / 2.1 / 99% (n=131) | 16.9 / 8.8 / 100% (n=134) | 14.3 / 4.8 / 100% (n=150) | 18.2 / 5.1 / 100% (n=143) |
+| S1c Angle z15 t556 | 12.8 / 5.9 / 100% (n=88) | 8.7 / 4.7 / 100% (n=89) | 7.4 / 6.4 / 100% (n=81) | 16.9 / 8.8 / 100% (n=77) | 14.3 / 4.8 / 100% (n=83) | 18.3 / 5.1 / 100% (n=81) |
+| S2 Wheatfield z15 t295 | 14.0 / 9.8 / 100% (n=82) | 14.8 / 7.9 / 100% (n=83) | 7.4 / 6.4 / 100% (n=79) | 16.9 / 8.8 / 100% (n=73) | 14.3 / 5.1 / 100% (n=73) | 18.1 / 5.1 / 100% (n=73) |
+| S3 Cemetery Hill z15.5 t346 | 13.0 / 6.0 / 100% (n=61) | 8.8 / 4.8 / 100% (n=61) | 7.4 / 6.4 / 100% (n=65) | 16.9 / 8.8 / 100% (n=62) | 14.3 / 4.8 / 100% (n=60) | 18.3 / 6.0 / 100% (n=59) |
+| S4 close-up z16.5, one unit selected | 10.2 / 4.5 / 98% (n=40) | 8.7 / 4.8 / 100% (n=41) | 7.5 / 5.8 / 100% (n=41) | 16.9 / 7.4 / 100% (n=29) | 14.3 / 5.1 / 100% (n=31) | 18.2 / 5.1 / 100% (n=30) |
+| S6 event + story cards, t28 | 15.3 / 12.2 / 100% (n=40) | 15.0 / 8.2 / 100% (n=41) | 7.4 / 6.4 / 100% (n=43) | 16.9 / 8.8 / 100% (n=42) | 14.3 / 5.1 / 100% (n=41) | 18.3 / 5.1 / 100% (n=40) |
+| S7 legend open | 12.7 / 5.9 / 100% (n=84) | 8.7 / 4.7 / 100% (n=85) | 7.4 / 6.4 / 100% (n=78) | 16.9 / 8.8 / 100% (n=74) | 14.3 / 4.8 / 100% (n=77) | 18.3 / 5.1 / 100% (n=74) |
+| S8 hover tooltip z16 | 10.2 / 4.6 / 100% (n=39) | 8.7 / 4.8 / 100% (n=42) | 7.3 / 5.9 / 100% (n=41) | 16.9 / 8.8 / 100% (n=28) | 14.3 / 5.1 / 100% (n=35) | 18.2 / 5.1 / 100% (n=33) |
+| S5 phone z14.5, sheet open | 9.0 / 5.4 / 100% (n=24) | 8.0 / 4.5 / 96% (n=26) | 8.0 / 6.4 / 100% (n=26) | 16.9 / 7.4 / 100% (n=20) | 14.3 / 4.8 / 100% (n=20) | 18.1 / 6.0 / 100% (n=18) |
+| P1 phone Angle z14.5 | 10.2 / 6.0 / 100% (n=36) | 8.3 / 4.9 / 100% (n=38) | 8.0 / 6.4 / 100% (n=35) | 16.9 / 8.8 / 100% (n=29) | 14.4 / 4.8 / 100% (n=30) | 18.2 / 6.0 / 100% (n=30) |
+| P2 phone Wheatfield z14.5 | 14.8 / 9.1 / 100% (n=40) | 15.1 / 7.8 / 100% (n=41) | 7.4 / 6.4 / 100% (n=35) | 16.9 / 8.8 / 100% (n=36) | 14.3 / 5.1 / 100% (n=36) | 18.2 / 5.1 / 100% (n=36) |
+| **all desktop scenes pooled** | 12.8 / 4.5 / 100% (n=518) | 8.8 / 4.7 / 100% (n=527) | 7.7 / 2.1 / 100% (n=682) | 16.9 / 7.4 / 100% (n=642) | 14.3 / 4.8 / 100% (n=690) | 18.2 / 5.1 / 100% (n=667) |
+| **all phone scenes pooled** | 12.5 / 5.4 / 100% (n=100) | 8.8 / 4.5 / 99% (n=105) | 7.9 / 6.4 / 100% (n=96) | 16.9 / 7.4 / 100% (n=85) | 14.3 / 4.8 / 100% (n=86) | 18.2 / 5.1 / 100% (n=84) |
+
+### T1b Contrast of place names on the map (canvas text)
+
+| scene | D1 night | D1 day | D2 | D3 | D4 paper | D4 aerial |
+|---|---:|---:|---:|---:|---:|---:|
+| S1a field z13.5 t551 | 8.7 / 8.5 / 100% (n=4) | 7.6 / 7.5 / 100% (n=4) | 16.0 / 15.5 / 100% (n=3) | 16.6 / 16.4 / 100% (n=5) | 11.0 / 10.9 / 100% (n=2) | 15.3 / 15.2 / 100% (n=2) |
+| S1b field z13.5 t556 | 8.7 / 8.6 / 100% (n=4) | 7.6 / 7.5 / 100% (n=4) | 15.9 / 15.8 / 100% (n=3) | 16.5 / 16.3 / 100% (n=4) | 11.2 / 11.1 / 100% (n=4) | 15.1 / 14.3 / 100% (n=4) |
+| S1c Angle z15 t556 | 5.0 / 4.3 / 90% (n=10) | 5.0 / 4.2 / 64% (n=11) | 9.5 / 6.4 / 100% (n=8) | 8.4 / 6.1 / 100% (n=10) | 5.2 / 4.4 / 67% (n=6) | 8.4 / 6.1 / 100% (n=6) |
+| S2 Wheatfield z15 t295 | 4.6 / 2.9 / 64% (n=11) | 4.6 / 2.0 / 55% (n=11) | 5.3 / 2.5 / 58% (n=12) | 4.5 / 2.5 / 50% (n=12) | 5.3 / 3.6 / 82% (n=11) | 8.9 / 3.8 / 91% (n=11) |
+| S3 Cemetery Hill z15.5 t346 | 4.9 / 2.4 / 67% (n=27) | 4.2 / 2.3 / 11% (n=27) | 9.4 / 2.4 / 80% (n=30) | 8.6 / 2.9 / 81% (n=31) | 5.2 / 2.8 / 75% (n=28) | 8.7 / 3.0 / 85% (n=27) |
+| S4 close-up z16.5, one unit selected | 3.1 / 2.1 / 27% (n=30) | 3.4 / 2.4 / 23% (n=30) | 3.9 / 2.4 / 23% (n=30) | 3.7 / 2.1 / 16% (n=32) | 4.1 / 2.8 / 28% (n=29) | 4.2 / 2.5 / 38% (n=26) |
+| S6 event + story cards, t28 | 5.0 / 1.7 / 60% (n=52) | 4.2 / 2.5 / 37% (n=52) | 5.5 / 1.5 / 78% (n=49) | 5.5 / 1.8 / 78% (n=50) | 4.0 / 2.8 / 46% (n=48) | 5.9 / 1.9 / 80% (n=45) |
+| S7 legend open | 4.4 / 1.9 / 44% (n=45) | 3.6 / 1.3 / 26% (n=46) | 4.9 / 2.3 / 63% (n=43) | 4.8 / 2.2 / 52% (n=46) | 3.9 / 2.6 / 29% (n=41) | 5.0 / 2.2 / 60% (n=40) |
+| S8 hover tooltip z16 | 3.5 / 1.9 / 22% (n=49) | 3.3 / 2.0 / 16% (n=49) | 5.0 / 2.2 / 61% (n=49) | 4.4 / 2.3 / 45% (n=49) | 3.9 / 2.6 / 28% (n=46) | 4.4 / 2.3 / 49% (n=45) |
+| S5 phone z14.5, sheet open | 6.8 / 4.9 / 100% (n=2) | 5.9 / 4.2 / 50% (n=2) | 9.4 / 9.4 / 100% (n=1) | 15.8 / 5.3 / 100% (n=3) | 5.2 / 5.2 / 100% (n=1) | 8.6 / 8.6 / 100% (n=1) |
+| P1 phone Angle z14.5 | 4.9 / 4.9 / 100% (n=3) | 4.2 / 4.2 / 33% (n=3) | 9.5 / 9.5 / 100% (n=3) | 8.6 / 8.6 / 100% (n=3) | 8.3 / 5.2 / 100% (n=4) | 8.6 / 8.6 / 100% (n=3) |
+| P2 phone Wheatfield z14.5 | 8.6 / 2.9 / 80% (n=5) | 7.6 / 3.2 / 60% (n=5) | 3.7 / 3.5 / 0% (n=2) | 4.1 / 3.9 / 0% (n=2) | 8.7 / 4.0 / 75% (n=4) | 12.1 / 4.1 / 75% (n=4) |
+| **all desktop scenes pooled** | 4.4 / 1.7 / 48% (n=232) | 4.2 / 1.3 / 30% (n=234) | 5.2 / 1.5 / 65% (n=227) | 5.1 / 1.8 / 59% (n=239) | 4.2 / 2.6 / 44% (n=215) | 6.0 / 1.9 / 67% (n=206) |
+| **all phone scenes pooled** | 6.8 / 2.9 / 90% (n=10) | 5.9 / 3.2 / 50% (n=10) | 9.5 / 3.5 / 67% (n=6) | 8.6 / 3.9 / 75% (n=8) | 5.5 / 4.0 / 89% (n=9) | 8.6 / 4.1 / 88% (n=8) |
+
+### T2 Contrast of interface text (DOM)
+
+| scene | D1 night | D1 day | D2 | D3 | D4 paper | D4 aerial |
+|---|---:|---:|---:|---:|---:|---:|
+| S1a field z13.5 t551 | 9.0 / 6.9 / 100% (n=27) | 7.4 / 5.9 / 100% (n=27) | 14.4 / 6.7 / 100% (n=19) | 16.9 / 7.5 / 100% (n=26) | 15.1 / 6.0 / 100% (n=23) | 15.8 / 8.2 / 100% (n=23) |
+| S1b field z13.5 t556 | 9.0 / 6.9 / 100% (n=27) | 7.4 / 5.9 / 100% (n=27) | 14.2 / 6.7 / 100% (n=19) | 16.9 / 7.5 / 100% (n=26) | 15.1 / 6.0 / 100% (n=23) | 15.8 / 8.2 / 100% (n=23) |
+| S1c Angle z15 t556 | 9.0 / 6.8 / 100% (n=27) | 7.5 / 5.9 / 100% (n=27) | 14.2 / 6.7 / 100% (n=19) | 16.9 / 7.5 / 100% (n=26) | 15.1 / 6.0 / 100% (n=23) | 15.8 / 8.2 / 100% (n=23) |
+| S2 Wheatfield z15 t295 | 9.0 / 6.8 / 100% (n=27) | 7.5 / 6.0 / 100% (n=27) | 13.9 / 6.7 / 100% (n=19) | 16.9 / 7.5 / 100% (n=26) | 15.1 / 6.0 / 100% (n=23) | 15.8 / 8.2 / 100% (n=23) |
+| S3 Cemetery Hill z15.5 t346 | 9.0 / 6.8 / 100% (n=27) | 7.4 / 5.9 / 100% (n=27) | 14.2 / 6.7 / 100% (n=19) | 16.9 / 7.5 / 100% (n=26) | 15.1 / 6.0 / 100% (n=23) | 15.8 / 8.2 / 100% (n=23) |
+| S4 close-up z16.5, one unit selected | 9.0 / 6.8 / 100% (n=46) | 7.4 / 5.3 / 100% (n=46) | 10.7 / 6.7 / 100% (n=37) | 10.0 / 7.2 / 100% (n=45) | 10.8 / 5.9 / 100% (n=42) | 12.5 / 8.2 / 100% (n=42) |
+| S6 event + story cards, t28 | 9.0 / 7.0 / 100% (n=27) | 7.5 / 5.9 / 100% (n=27) | 14.2 / 6.7 / 100% (n=19) | 16.9 / 7.5 / 100% (n=26) | 15.1 / 6.0 / 100% (n=23) | 15.8 / 8.2 / 100% (n=23) |
+| S7 legend open | 9.0 / 6.8 / 100% (n=27) | 7.5 / 5.9 / 100% (n=27) | 14.2 / 6.7 / 100% (n=19) | 16.9 / 7.5 / 100% (n=26) | 15.1 / 6.0 / 100% (n=23) | 15.8 / 8.2 / 100% (n=23) |
+| S8 hover tooltip z16 | 8.9 / 6.8 / 100% (n=32) | 7.5 / 5.8 / 100% (n=32) | 13.8 / 6.7 / 100% (n=24) | 16.9 / 7.5 / 100% (n=31) | 15.1 / 6.0 / 100% (n=28) | 15.8 / 8.2 / 100% (n=28) |
+| S5 phone z14.5, sheet open | 9.3 / 7.4 / 100% (n=27) | 7.6 / 5.4 / 100% (n=27) | 9.5 / 6.7 / 100% (n=24) | 9.4 / 7.2 / 100% (n=31) | 6.5 / 5.9 / 100% (n=21) | 9.1 / 8.2 / 100% (n=21) |
+| P1 phone Angle z14.5 | 9.2 / 7.4 / 100% (n=12) | 7.6 / 6.1 / 100% (n=12) | 9.0 / 6.7 / 100% (n=7) | 16.9 / 8.8 / 100% (n=14) | 15.1 / 6.0 / 100% (n=9) | 15.8 / 8.2 / 100% (n=9) |
+| P2 phone Wheatfield z14.5 | 9.2 / 7.4 / 100% (n=12) | 7.6 / 6.1 / 100% (n=12) | 9.0 / 6.7 / 100% (n=7) | 16.9 / 8.8 / 100% (n=14) | 15.1 / 6.0 / 100% (n=9) | 15.8 / 8.2 / 100% (n=9) |
+| **all desktop scenes pooled** | 9.0 / 6.8 / 100% (n=267) | 7.4 / 5.3 / 100% (n=267) | 14.1 / 6.7 / 100% (n=194) | 16.9 / 7.2 / 100% (n=258) | 15.1 / 5.9 / 100% (n=231) | 15.8 / 8.2 / 100% (n=231) |
+| **all phone scenes pooled** | 9.3 / 7.4 / 100% (n=51) | 7.6 / 5.4 / 100% (n=51) | 9.3 / 6.7 / 100% (n=38) | 16.9 / 7.2 / 100% (n=59) | 6.5 / 5.9 / 100% (n=39) | 9.2 / 8.2 / 100% (n=39) |
+
+### T3 Contrast of the mark's side colour against its surroundings
+
+Cell: median WCAG ratio / share of marks at or above 3:1 (WCAG 1.4.11, non-text), against the bare ground around the mark (g) and against what touches the colour as drawn: outline, halo, plate (s); then the share of the marks that carry their side colour at all (a solid ink within dE00 12 of it).
+
+| scene | D1 night | D1 day | D2 | D3 | D4 paper | D4 aerial |
+|---|---:|---:|---:|---:|---:|---:|
+| S1a field z13.5 t551 | g 2.6 / 34% · s 2.8 / 39% · found 100% | g 2.6 / 40% · s 2.7 / 43% · found 100% | g 1.3 / 0% · s 1.8 / 0% · found 82% | g 1.6 / 0% · s 2.8 / 11% · found 20% | g 3.2 / 63% · s 3.1 / 58% · found 68% | g 1.4 / 0% · s 3.2 / 75% · found 53% |
+| S1b field z13.5 t556 | g 2.6 / 35% · s 2.8 / 40% · found 100% | g 2.6 / 42% · s 2.5 / 42% · found 100% | g 1.3 / 0% · s 1.8 / 0% · found 82% | g 1.6 / 0% · s 2.7 / 26% · found 25% | g 3.1 / 55% · s 3.1 / 58% · found 68% | g 1.4 / 0% · s 4.3 / 82% · found 51% |
+| S1c Angle z15 t556 | g 3.0 / 47% · s 2.4 / 30% · found 98% | g 2.9 / 46% · s 2.5 / 29% · found 98% | g 1.4 / 0% · s 2.0 / 6% · found 87% | g 1.8 / 0% · s 2.7 / 21% · found 61% | g 3.2 / 64% · s 5.1 / 95% · found 85% | g 1.4 / 0% · s 6.2 / 98% · found 64% |
+| S2 Wheatfield z15 t295 | g 2.5 / 29% · s 2.4 / 34% · found 99% | g 3.2 / 59% · s 2.5 / 35% · found 99% | g 1.4 / 0% · s 2.0 / 16% · found 100% | g 1.3 / 0% · s 2.7 / 13% · found 100% | g 3.5 / 66% · s 7.1 / 100% · found 99% | g 1.4 / 0% · s 7.1 / 100% · found 99% |
+| S3 Cemetery Hill z15.5 t346 | g 3.1 / 51% · s 2.4 / 37% · found 94% | g 3.0 / 53% · s 3.1 / 53% · found 97% | g 1.4 / 0% · s 1.9 / 9% · found 90% | g 1.6 / 0% · s 2.7 / 8% · found 63% | g 3.0 / 56% · s 5.1 / 91% · found 95% | g 1.4 / 0% · s 5.1 / 93% · found 77% |
+| S4 close-up z16.5, one unit selected | g 2.5 / 16% · s 2.4 / 25% · found 100% | g 3.1 / 62% · s 2.5 / 38% · found 100% | g 1.5 / 0% · s 1.9 / 0% · found 88% | g 1.3 / 0% · s 2.7 / 27% · found 54% | g 3.5 / 80% · s 7.1 / 100% · found 88% | g 1.2 / 0% · s 7.1 / 95% · found 65% |
+| S5 phone z14.5, sheet open | g 2.6 / 18% · s 2.3 / 0% · found 92% | g 3.3 / 62% · s 2.5 / 19% · found 92% | g 1.6 / 0% · s 1.9 / 6% · found 86% | g 1.2 / 0% · s 2.7 / 0% · found 44% | g 3.5 / 71% · s 6.1 / 79% · found 70% | g 1.3 / 0% · s 7.1 / 100% · found 45% |
+| P1 phone Angle z14.5 | g 2.7 / 25% · s 2.4 / 12% · found 96% | g 3.0 / 50% · s 2.5 / 12% · found 96% | g 1.6 / 0% · s 1.8 / 5% · found 86% | g 1.2 / 0% · s 2.7 / 17% · found 38% | g 3.4 / 71% · s 6.0 / 79% · found 74% | g 1.3 / 0% · s 7.1 / 100% · found 42% |
+| P2 phone Wheatfield z14.5 | g 2.8 / 41% · s 2.4 / 37% · found 87% | g 3.2 / 63% · s 2.5 / 37% · found 90% | g 1.4 / 0% · s 2.0 / 18% · found 92% | g 1.3 / 0% · s 2.7 / 25% · found 96% | g 3.6 / 73% · s 7.1 / 100% · found 96% | g 1.2 / 0% · s 7.1 / 100% · found 96% |
+| **pooled desktop scenes S1a to S4** | g 2.6 / 35% · s 2.6 / 37% · found 99% (n=911) | g 2.8 / 45% · s 2.5 / 41% · found 99% (n=907) | g 1.4 / 0% · s 1.9 / 5% · found 88% (n=385) | g 1.5 / 0% · s 2.7 / 16% · found 50% (n=208) | g 3.2 / 62% · s 5.1 / 81% · found 81% (n=375) | g 1.4 / 0% · s 5.1 / 90% · found 66% (n=305) |
+
+### T4 Smallest rendered text (CSS px), at 1x (desktop 1440 x 900, DPR 1) and on the phone shot (390 x 844)
+
+| scene | D1 night | D1 day | D2 | D3 | D4 paper | D4 aerial |
+|---|---:|---:|---:|---:|---:|---:|
+| S1a field z13.5 t551 (1x) | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 11.0 | map 11.0 · places 11.0 · UI 10.8 | map 12.0 · places 12.0 · UI 11.0 | map 12.0 · places 12.0 · UI 11.0 |
+| S1b field z13.5 t556 (1x) | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 11.0 | map 11.0 · places 11.0 · UI 10.8 | map 12.0 · places 12.0 · UI 11.0 | map 12.0 · places 12.0 · UI 11.0 |
+| S1c Angle z15 t556 (1x) | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 11.0 | map 11.0 · places 11.0 · UI 10.8 | map 12.0 · places 10.0 · UI 11.0 | map 12.0 · places 10.0 · UI 11.0 |
+| S2 Wheatfield z15 t295 (1x) | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 11.0 | map 11.0 · places 11.0 · UI 10.8 | map 12.0 · places 10.0 · UI 11.0 | map 12.0 · places 10.0 · UI 11.0 |
+| S3 Cemetery Hill z15.5 t346 (1x) | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 11.0 | map 11.0 · places 11.0 · UI 10.8 | map 12.0 · places 10.0 · UI 11.0 | map 12.0 · places 10.0 · UI 11.0 |
+| S4 close-up z16.5, one unit selected (1x) | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 11.0 | map 11.0 · places 11.0 · UI 10.9 | map 12.0 · places 10.0 · UI 10.9 | map 12.0 · places 10.0 · UI 10.9 |
+| S6 event + story cards, t28 (1x) | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 11.0 | map 11.0 · places 11.0 · UI 10.9 | map 12.0 · places 10.0 · UI 11.0 | map 12.0 · places 10.0 · UI 11.0 |
+| S7 legend open (1x) | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 11.0 | map 11.0 · places 11.0 · UI 10.9 | map 12.0 · places 10.0 · UI 11.0 | map 12.0 · places 10.0 · UI 11.0 |
+| S8 hover tooltip z16 (1x) | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 11.0 | map 11.0 · places 11.0 · UI 10.9 | map 12.0 · places 10.0 · UI 11.0 | map 12.0 · places 10.0 · UI 11.0 |
+| S5 phone z14.5, sheet open (phone) | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 11.0 | map 11.0 · places 11.0 · UI 10.9 | map 12.0 · places 10.0 · UI 10.9 | map 12.0 · places 10.0 · UI 10.9 |
+| P1 phone Angle z14.5 (phone) | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 11.0 | map 11.0 · places 11.0 · UI 10.8 | map 12.0 · places 10.0 · UI 11.0 | map 12.0 · places 10.0 · UI 11.0 |
+| P2 phone Wheatfield z14.5 (phone) | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 10.9 | map 11.0 · places 11.0 · UI 11.0 | map 11.0 · places 11.0 · UI 10.8 | map 12.0 · places 10.0 · UI 11.0 | map 12.0 · places 10.0 · UI 11.0 |
+
+### T4b How many text items are below 10, 11 and 12 CSS px (all desktop scenes at 1x, distinct strings per scene summed)
+
+| text | D1 night | D1 day | D2 | D3 | D4 paper | D4 aerial |
+|---|---:|---:|---:|---:|---:|---:|
+| map lettering | 0 / 0 / 305 of 517 | 0 / 0 / 309 of 525 | 0 / 0 / 225 of 680 | 0 / 0 / 177 of 638 | 0 / 0 / 0 of 690 | 0 / 0 / 0 of 665 |
+| place names | 0 / 0 / 231 of 231 | 0 / 0 / 234 of 234 | 0 / 0 / 227 of 227 | 0 / 0 / 239 of 239 | 0 / 197 / 197 of 215 | 0 / 191 / 191 of 206 |
+| interface text | 0 / 64 / 174 of 267 | 0 / 73 / 174 of 267 | 0 / 0 / 23 of 194 | 0 / 99 / 234 of 258 | 0 / 22 / 66 of 231 | 0 / 22 / 66 of 231 |
+
+### T5 Density in the busiest 100 x 100 CSS-px window (busiest = most separate ink objects; windows that the page chrome covers by more than 5 % are skipped)
+
+Cell: text elements (lettering + place names) / separate ink objects / marks, and the share of the window that is ink.
+
+| scene | D1 night | D1 day | D2 | D3 | D4 paper | D4 aerial |
+|---|---:|---:|---:|---:|---:|---:|
+| S1a field z13.5 t551 | 0 / 13 / 15 · 18% | 0 / 11 / 13 · 19% | 4 / 2 / 2 · 55% | 6 / 4 / 4 · 54% | 4 / 5 / 4 · 40% | 4 / 5 / 4 · 39% |
+| S1b field z13.5 t556 | 0 / 11 / 15 · 19% | 0 / 11 / 14 · 19% | 1 / 2 / 1 · 27% | 6 / 4 / 4 · 57% | 3 / 5 / 4 · 39% | 3 / 5 / 4 · 37% |
+| S1c Angle z15 t556 | 5 / 7 / 4 · 26% | 5 / 6 / 4 · 32% | 3 / 4 / 3 · 53% | 6 / 4 / 3 · 66% | 5 / 5 / 5 · 46% | 5 / 5 / 5 · 43% |
+| S2 Wheatfield z15 t295 | 7 / 5 / 6 · 40% | 4 / 5 / 5 · 30% | 2 / 2 / 2 · 18% | 3 / 3 / 3 · 48% | 3 / 4 / 2 · 41% | 3 / 4 / 2 · 42% |
+| S3 Cemetery Hill z15.5 t346 | 4 / 4 / 4 · 22% | 4 / 5 / 5 · 23% | 2 / 2 / 2 · 27% | 5 / 4 / 4 · 42% | 4 / 4 / 3 · 38% | 4 / 4 / 3 · 38% |
+| S4 close-up z16.5, one unit selected | 3 / 4 / 3 · 32% | 5 / 4 / 4 · 46% | 3 / 2 / 2 · 55% | 4 / 2 / 2 · 45% | 6 / 4 / 3 · 41% | 6 / 4 / 3 · 41% |
+| S5 phone z14.5, sheet open | 4 / 3 / 4 · 27% | 3 / 3 / 3 · 27% | 0 / 1 / 0 · 10% | 2 / 3 / 4 · 55% | 3 / 5 / 3 · 30% | 4 / 3 / 2 · 36% |
+| P1 phone Angle z14.5 | 5 / 4 / 5 · 34% | 5 / 4 / 5 · 36% | 6 / 2 / 3 · 56% | 3 / 3 / 3 · 41% | 5 / 3 / 3 · 35% | 4 / 3 / 3 · 37% |
+| P2 phone Wheatfield z14.5 | 5 / 5 / 5 · 30% | 5 / 5 / 5 · 33% | 2 / 2 / 2 · 27% | 5 / 3 / 4 · 65% | 6 / 4 / 3 · 44% | 5 / 4 / 3 · 41% |
+
+### T6 Vital-core overlaps
+
+Cell: footprint overlaps (engine tiles, recomputed) / label overlaps / pins covered / body-ink core pairs (pixels, tile drawn alone) / glyph boxes covered by another mark's core ink.
+
+| scene | D1 | D2 | D3 | D4 |
+|---|---:|---:|---:|---:|
+| S1a field z13.5 t551 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 |
+| S1b field z13.5 t556 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 |
+| S1c Angle z15 t556 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 |
+| S2 Wheatfield z15 t295 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 |
+| S3 Cemetery Hill z15.5 t346 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 |
+| S4 close-up z16.5, one unit selected | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 |
+| S6 event + story cards, t28 | 0 / 0 / 0 / n/m | 0 / 0 / 0 / n/m | 0 / 0 / 0 / n/m | 0 / 0 / 0 / n/m |
+| S7 legend open | 0 / 0 / 0 / n/m | 0 / 0 / 0 / n/m | 0 / 0 / 0 / n/m | 0 / 0 / 0 / n/m |
+| S8 hover tooltip z16 | 0 / 0 / 0 / n/m | 0 / 0 / 0 / n/m | 0 / 0 / 0 / n/m | 0 / 0 / 0 / n/m |
+| S5 phone z14.5, sheet open | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 |
+| P1 phone Angle z14.5 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 |
+| P2 phone Wheatfield z14.5 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 / 0 |
+
+### T6b Vital-core overlaps, totals over the pixel-checked scenes (desktop S1a to S4 and the three phone scenes), every mark drawn alone
+
+| count | D1 | D2 | D3 | D4 |
+|---|---:|---:|---:|---:|
+| marks drawn alone (in view or near it) | 1155 | 611 | 589 | 644 |
+| pairs of marks whose ink touches at all (halo, shadow, hairline) | 0 | 122 | 5 | 14 |
+| pairs whose solid ink overlaps (>= 64/255 on both): vital-core overlaps | 0 | 0 | 0 | 0 |
+| glyph boxes with another mark's solid ink on them | 0 | 0 | 0 | 0 |
+| pins lying on another mark's solid ink | 0 | 0 | 0 | 0 |
+| pins on pins (two units at one true position) | 12 | 11 | 12 | 6 |
+| leaders / crowd outlines passing under another mark's solid ink (drawn beneath, never over) | 79 | 3 | 2 | 1 |
+| marks whose ink goes beyond the box the layout reserved (footprint + label) by more than 4 CSS px | 1 | 14 | 5 | 19 |
+| ... and ink that still reaches 10 CSS px out (the edge of the search window) | 0 | 1 | 0 | 13 |
+| engine footprint overlaps, all scenes | 0 | 0 | 0 | 0 |
+| label rectangle overlaps, all scenes | 0 | 0 | 0 | 0 |
+| pins covered by a footprint, all scenes | 0 | 0 | 0 | 0 |
+| units not represented by any mark, all scenes | 0 | 0 | 0 | 0 |
+
+### T7 Units shown as their own mark vs merged into a formation or crowd mark (desktop)
+
+Share of the units inside the viewport that stand as their own mark; range over 4 ticks (295, 346, 551, 556) and 4 places (field centre, the Angle, the Wheatfield, Cemetery Hill) = 16 views per zoom. In brackets: the same share counted over every unit on the field.
+
+| zoom | D1 night | D1 day | D2 | D3 | D4 paper | D4 aerial |
+|---|---:|---:|---:|---:|---:|---:|
+| z13.5 | 72% (min 64%, max 78%) [77%] | 72% (min 64%, max 78%) [77%] | 13% (min 10%, max 16%) [16%] | 12% (min 8%, max 18%) [15%] | 14% (min 12%, max 19%) [17%] | 14% (min 12%, max 19%) [17%] |
+| z15 | 65% (min 58%, max 79%) [79%] | 65% (min 58%, max 79%) [79%] | 53% (min 47%, max 70%) [66%] | 50% (min 43%, max 73%) [66%] | 53% (min 42%, max 72%) [67%] | 53% (min 42%, max 72%) [67%] |
+| z16.5 | 93% (min 67%, max 100%) [98%] | 93% (min 67%, max 100%) [98%] | 56% (min 47%, max 100%) [79%] | 64% (min 49%, max 100%) [86%] | 96% (min 78%, max 100%) [99%] | 96% (min 78%, max 100%) [99%] |
+
+### T7 Units shown as their own mark vs merged into a formation or crowd mark (phone)
+
+Share of the units inside the viewport that stand as their own mark; range over 4 ticks (295, 346, 551, 556) and 4 places (field centre, the Angle, the Wheatfield, Cemetery Hill) = 16 views per zoom. In brackets: the same share counted over every unit on the field.
+
+| zoom | D1 night | D1 day | D2 | D3 | D4 paper | D4 aerial |
+|---|---:|---:|---:|---:|---:|---:|
+| z13.5 | 67% (min 60%, max 80%) [77%] | 67% (min 60%, max 80%) [77%] | 7% (min 4%, max 13%) [16%] | 6% (min 3%, max 11%) [15%] | 8% (min 6%, max 13%) [17%] | 8% (min 6%, max 13%) [17%] |
+| z15 | 61% (min 47%, max 100%) [79%] | 61% (min 47%, max 100%) [79%] | 46% (min 35%, max 90%) [66%] | 46% (min 32%, max 81%) [66%] | 48% (min 37%, max 82%) [67%] | 48% (min 37%, max 82%) [67%] |
+| z16.5 | 90% (min 61%, max 100%) [98%] | 90% (min 61%, max 100%) [98%] | 45% (min 34%, max 100%) [79%] | 55% (min 44%, max 100%) [86%] | 93% (min 70%, max 100%) [99%] | 93% (min 70%, max 100%) [99%] |

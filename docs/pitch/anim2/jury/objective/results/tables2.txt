@@ -1,0 +1,87 @@
+### T8 Bytes of the skin and of its assets (snapshot of commit 9db3f4b)
+
+Skin = the drawing module(s) and the token spec the page really contains; CSS = every stylesheet the page ships, without the inlined font data; fonts = the font binaries inlined in the page (base64 in the file is 4/3 of this).
+
+| bytes | D1 | D2 | D3 | D4 |
+|---|---:|---:|---:|---:|
+| skin code and tokens | 39.2 kB | 45.2 kB | 37.6 kB | 49.4 kB |
+| CSS (whole page) | 76.5 kB | 56.6 kB | 49.1 kB | 77.5 kB |
+| fonts (binary) | 91.9 kB | 130.5 kB | 113.5 kB | 158.5 kB |
+| **skin + CSS + fonts** | **207.6 kB** | **232.2 kB** | **200.1 kB** | **285.4 kB** |
+| of which fonts: files | 3 | 6 | 5 | 7 |
+| ground/place-name code of the direction (info) | 11.9 kB | 11.4 kB | 5.7 kB | 7.4 kB |
+| whole page, raw | 2,237.1 kB | 2,269.4 kB | 2,212.4 kB | 2,316.4 kB |
+| whole page, gzip -9 | 842.2 kB | 877.6 kB | 850.3 kB | 906.4 kB |
+
+Shared by all four: the aerial tiles, 777 files, 9.17 MB on disk.
+
+
+### T8b What a cold session really fetches (local server, no compression)
+
+| fetched | D1 night | D1 day | D2 | D3 | D4 paper | D4 aerial |
+|---|---:|---:|---:|---:|---:|---:|
+| page load + field overview z13.5 | 5.44 MB / 258 files (tiles 3.20 MB) | 5.44 MB / 258 files (tiles 3.20 MB) | 5.47 MB / 258 files (tiles 3.20 MB) | 5.42 MB / 258 files (tiles 3.20 MB) | 5.52 MB / 258 files (tiles 3.20 MB) | 5.52 MB / 258 files (tiles 3.20 MB) |
+| then close-up z16.5 at the Angle | 0.12 MB / 14 files (tiles 0.12 MB) | 0.08 MB / 10 files (tiles 0.08 MB) | 0.06 MB / 8 files (tiles 0.06 MB) | 0.06 MB / 8 files (tiles 0.06 MB) | 0.06 MB / 8 files (tiles 0.06 MB) | 0.06 MB / 8 files (tiles 0.06 MB) |
+| total | 5.56 MB / 272 files (tiles 3.32 MB) | 5.52 MB / 268 files (tiles 3.28 MB) | 5.53 MB / 266 files (tiles 3.26 MB) | 5.47 MB / 266 files (tiles 3.26 MB) | 5.58 MB / 266 files (tiles 3.26 MB) | 5.58 MB / 266 files (tiles 3.26 MB) |
+
+### T9 Draw time per frame at the densest tick (tick 620, 478 units on the field)
+
+Machine: 16 logical cores; WebGL renderer string: ANGLE (Intel, Intel(R) Arc(TM) Pro 140T GPU (16GB) (0x00007D51) Direct3D11 vs_5_0 ps_5_0, D3D11); headless Chrome (software or GPU raster as the machine decides; the numbers are relative between directions, not absolute for a user's device).
+
+
+**DPR 2, no CPU throttle (the reference).** Cell: draw time in ms, median / p95. "JS" = `renderer.draw()` call time over the frames of a real-time play across the densest tick (the page runs its own animation loop; about 420 frames); "still" = the same draw on a still frame with a one-pixel read-back forced so that the canvas work has really finished (200 draws); tiles = marks drawn.
+
+| view | D1 night | D1 day | D2 | D3 | D4 paper | D4 aerial |
+|---|---:|---:|---:|---:|---:|---:|
+| field-z13.5 | JS 2.0 / 3.3 · still 50 / 76 · 373 tiles | JS 2.3 / 4.2 · still 57 / 80 · 373 tiles | JS 4.4 / 9.5 · still 104 / 134 · 127 tiles | JS 2.6 / 4.0 · still 31 / 40 · 129 tiles | JS 1.5 / 8.3 · still 111 / 152 · 142 tiles | JS 1.0 / 1.4 · still 111 / 163 · 142 tiles |
+| angle-z15 | JS 1.0 / 1.2 · still 66 / 86 · 394 tiles | JS 1.1 / 1.3 · still 64 / 110 · 394 tiles | JS 2.7 / 3.8 · still 82 / 91 · 345 tiles | JS 1.5 / 1.8 · still 26 / 31 · 344 tiles | JS 1.0 / 1.6 · still 91 / 104 · 359 tiles | JS 0.8 / 1.3 · still 78 / 115 · 359 tiles |
+| angle-z16.5 | JS 0.7 / 1.0 · still 41 / 59 · 474 tiles | JS 0.6 / 0.8 · still 43 / 68 · 474 tiles | JS 1.2 / 1.5 · still 47 / 58 · 418 tiles | JS 0.8 / 0.9 · still 25 / 30 · 435 tiles | JS 0.5 / 0.6 · still 53 / 64 · 475 tiles | JS 0.4 / 0.6 · still 47 / 80 · 475 tiles |
+
+Same runs: the ground alone (skin switched off) on a still frame, median ms (the share of "still" that belongs to the ground, not to the direction), engine step (layout and motion) median / p95 ms, frame rate and share of frames over 20 ms in the play:
+
+| view | D1 night | D1 day | D2 | D3 | D4 paper | D4 aerial |
+|---|---:|---:|---:|---:|---:|---:|
+| field-z13.5 | ground 41 · step 3.5 / 26.3 · 58 fps · 3% > 20 ms | ground 33 · step 3.6 / 26.7 · 56 fps · 6% > 20 ms | ground 41 · step 1.6 / 7.2 · 33 fps · 60% > 20 ms | ground 37 · step 1.9 / 7.3 · 57 fps · 2% > 20 ms | ground 37 · step 2.4 / 9.9 · 49 fps · 11% > 20 ms | ground 37 · step 2.2 / 6.1 · 60 fps · 0% > 20 ms |
+| angle-z15 | ground 20 · step 3.1 / 6.8 · 60 fps · 0% > 20 ms | ground 21 · step 3.9 / 6.8 · 60 fps · 0% > 20 ms | ground 22 · step 2.7 / 6.3 · 58 fps · 3% > 20 ms | ground 20 · step 4.4 / 5.9 · 60 fps · 0% > 20 ms | ground 21 · step 5.7 / 7.8 · 60 fps · 0% > 20 ms | ground 20 · step 5.3 / 7.5 · 60 fps · 0% > 20 ms |
+| angle-z16.5 | ground 20 · step 6.5 / 8.4 · 60 fps · 0% > 20 ms | ground 20 · step 5.7 / 7.0 · 60 fps · 0% > 20 ms | ground 20 · step 4.9 / 6.2 · 60 fps · 0% > 20 ms | ground 21 · step 5.8 / 7.2 · 60 fps · 0% > 20 ms | ground 21 · step 5.6 / 7.2 · 60 fps · 0% > 20 ms | ground 21 · step 5.7 / 6.9 · 60 fps · 0% > 20 ms |
+
+**DPR 2, CPU throttled 4x (a mid-range device).** Cell: draw time in ms, median / p95. "JS" = `renderer.draw()` call time over the frames of a real-time play across the densest tick (the page runs its own animation loop; about 420 frames); "still" = the same draw on a still frame with a one-pixel read-back forced so that the canvas work has really finished (200 draws); tiles = marks drawn.
+
+| view | D1 night | D1 day | D2 | D3 | D4 paper | D4 aerial |
+|---|---:|---:|---:|---:|---:|---:|
+| field-z13.5 | JS 33.1 / 46.5 · still 137 / 186 · 373 tiles | JS 42.9 / 65.7 · still 168 / 227 · 373 tiles | JS 60.2 / 76.8 · still 409 / 480 · 127 tiles | JS 32.7 / 48.2 · still 152 / 188 · 129 tiles | JS 6.6 / 21.9 · still 198 / 284 · 142 tiles | JS 34.9 / 65.8 · still 326 / 458 · 142 tiles |
+| angle-z15 | JS 10.2 / 15.3 · still 134 / 176 · 394 tiles | JS 14.6 / 19.4 · still 204 / 304 · 394 tiles | JS 32.7 / 46.2 · still 285 / 325 · 345 tiles | JS 10.5 / 16.7 · still 124 / 153 · 344 tiles | JS 5.2 / 7.8 · still 185 / 244 · 359 tiles | JS 12.2 / 34.5 · still 302 / 444 · 359 tiles |
+| angle-z16.5 | JS 5.0 / 9.0 · still 101 / 120 · 474 tiles | JS 6.5 / 11.9 · still 143 / 212 · 474 tiles | JS 14.4 / 20.7 · still 174 / 198 · 418 tiles | JS 5.0 / 7.7 · still 93 / 115 · 435 tiles | JS 2.6 / 5.9 · still 133 / 183 · 475 tiles | JS 4.7 / 9.1 · still 165 / 304 · 475 tiles |
+
+Same runs: the ground alone (skin switched off) on a still frame, median ms (the share of "still" that belongs to the ground, not to the direction), engine step (layout and motion) median / p95 ms, frame rate and share of frames over 20 ms in the play:
+
+| view | D1 night | D1 day | D2 | D3 | D4 paper | D4 aerial |
+|---|---:|---:|---:|---:|---:|---:|
+| field-z13.5 | ground 90 · step 27.2 / 214.6 · 9 fps · 100% > 20 ms | ground 93 · step 32.4 / 232.6 · 7 fps · 100% > 20 ms | ground 84 · step 33.1 / 54.6 · 9 fps · 100% > 20 ms | ground 91 · step 30.7 / 50.4 · 14 fps · 100% > 20 ms | ground 89 · step 8.3 / 38.1 · 31 fps · 55% > 20 ms | ground 104 · step 45.3 / 74.1 · 10 fps · 100% > 20 ms |
+| angle-z15 | ground 64 · step 18.9 / 61.2 · 22 fps · 97% > 20 ms | ground 77 · step 26.9 / 76.0 · 16 fps · 100% > 20 ms | ground 72 · step 15.2 / 44.8 · 15 fps · 100% > 20 ms | ground 80 · step 9.7 / 31.4 · 30 fps · 76% > 20 ms | ground 75 · step 11.1 / 34.4 · 34 fps · 57% > 20 ms | ground 100 · step 26.7 / 77.4 · 16 fps · 98% > 20 ms |
+| angle-z16.5 | ground 63 · step 17.0 / 44.7 · 27 fps · 83% > 20 ms | ground 77 · step 20.3 / 47.0 · 23 fps · 94% > 20 ms | ground 77 · step 15.4 / 41.2 · 21 fps · 99% > 20 ms | ground 72 · step 12.1 / 38.4 · 33 fps · 57% > 20 ms | ground 72 · step 12.9 / 33.3 · 36 fps · 53% > 20 ms | ground 85 · step 21.9 / 57.0 · 22 fps · 95% > 20 ms |
+
+**How repeatable the timing is.** The same measurement a second time, later the same day (run 1 / run 2): JS draw time median, still-frame draw median with read-back, and frames per second of the play; field z13.5 at the densest tick.
+
+| run | D1 night | D1 day | D2 | D3 | D4 paper | D4 aerial |
+|---|---:|---:|---:|---:|---:|---:|
+| DPR 2, no throttle | JS 2.0 / 2.0 ms · still 50 / 43 ms · 58 / 34 fps | JS 2.3 / 2.3 ms · still 57 / 44 ms · 56 / 55 fps | JS 4.4 / 2.9 ms · still 104 / 83 ms · 33 / 49 fps | JS 2.6 / 2.1 ms · still 31 / 26 ms · 57 / 58 fps | JS 1.5 / 1.1 ms · still 111 / 88 ms · 49 / 55 fps | JS 1.0 / 0.9 ms · still 111 / 87 ms · 60 / 60 fps |
+| DPR 2, 4x throttle | JS 33.1 / 20.6 ms · still 137 / 134 ms · 9 / 13 fps | JS 42.9 / 24.1 ms · still 168 / 149 ms · 7 / 12 fps | JS 60.2 / 30.8 ms · still 409 / 286 ms · 9 / 15 fps | JS 32.7 / 14.6 ms · still 152 / 101 ms · 14 / 24 fps | JS 6.6 / 5.7 ms · still 198 / 175 ms · 31 / 33 fps | JS 34.9 / 6.2 ms · still 326 / 188 ms · 10 / 31 fps |
+
+### T10 Can the two sides be told apart without colour vision? (CIEDE2000 of the side colours as rendered)
+
+Side colours are measured from the pixels of the isolated marks (the solid ink that most separates the Union marks from the Confederate marks, pooled over S1a to S4); the simulation is Machado et al. 2009 at severity 1.0 on linear RGB. dE00 1 is the smallest visible difference; about 10 is a clear difference for two large patches, and marks are small. Cell: side against side / the smaller of the two sides against the ground behind its marks (median over marks).
+
+| vision | D1 night | D1 day | D2 | D3 | D4 paper | D4 aerial |
+|---|---:|---:|---:|---:|---:|---:|
+| normal | 49.1 / 35.8 | 48.5 / 36.9 | 39.2 / 19.8 | 45.8 / 24.2 | 45.7 / 36.6 | 45.7 / 21.9 |
+| protanopia | 53.7 / 32.6 | 54.1 / 35.1 | 37.4 / 18.8 | 50.5 / 23.5 | 49.0 / 35.0 | 49.0 / 22.6 |
+| deuteranopia | 56.1 / 35.8 | 63.0 / 28.3 | 45.1 / 20.1 | 55.9 / 24.6 | 56.2 / 26.1 | 56.2 / 23.0 |
+| tritanopia | 79.0 / 37.1 | 63.9 / 33.2 | 52.9 / 15.7 | 65.7 / 21.0 | 61.1 / 34.2 | 61.1 / 16.5 |
+
+The side colours that were measured (score = share of that side's solid ink in that colour minus the other side's share):
+
+| side | D1 night | D1 day | D2 | D3 | D4 paper | D4 aerial |
+|---|---:|---:|---:|---:|---:|---:|
+| union colour | rgb(98, 166, 255) score 0.30 | rgb(26, 88, 196) score 0.27 | rgb(28, 70, 120) score 0.12 | rgb(45, 107, 196) score 0.25 | rgb(28, 87, 166) score 0.38 | rgb(28, 87, 166) score 0.52 |
+| confederate colour | rgb(228, 82, 42) score 0.28 | rgb(221, 74, 31) score 0.30 | rgb(152, 52, 35) score 0.14 | rgb(196, 65, 29) score 0.30 | rgb(194, 68, 27) score 0.35 | rgb(194, 68, 27) score 0.46 |
