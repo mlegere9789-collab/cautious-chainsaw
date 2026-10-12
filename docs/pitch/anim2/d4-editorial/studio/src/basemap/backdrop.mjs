@@ -209,6 +209,12 @@ export class Backdrop {
     if (opts.scaleBar) drawScaleBar(ctx, camera, look, opts.scaleBar);
     return { animating: this.animating, pending: this.pending() };
   }
+  /** D4 round 1: the road and stream names the vector layer placed for this camera, in screen px: [{ x, y, ang, text, font, fill, halo, tw }].  The skin draws them (so that a name can step aside for a mark). */
+  roadLabels(camera) {
+    const lay = this.vectors && this.vectors.lay; if (!lay) return []; const view = viewOf(camera); const S = 512 * 2 ** view.z; const out = [];
+    for (const it of lay.items) { if (it.k !== 'line') continue; const x = it.ux * S - view.ox; const y = it.uy * S - view.oy; if (x < -160 || x > view.w + 160 || y < -160 || y > view.h + 160) continue; out.push({ x, y, ang: it.ang, text: it.text, font: it.font, fill: it.fill, halo: it.halo, tw: this.vectors.tw.get(it.font + '|' + it.text) || it.text.length * 6, id: it.text + '|' + it.ux.toFixed(6) + '|' + it.uy.toFixed(6) }); }
+    return out;
+  }
   pending() { return !!((this.aerial && !this.aerial.idle()) || (this.shade && !this.shade.idle())); }
   /** a one-line caption for the corner of the screen: what this ground is (never 1863) */
   caption() { return this.manifest ? this.manifest.caption : ''; }
@@ -216,7 +222,7 @@ export class Backdrop {
   stats() { return { ...this.stat, aerialLoaded: this.aerial ? this.aerial.loaded : 0, aerialFailed: this.aerial ? this.aerial.failed : 0, bakedTiles: this.baked.size }; }
 }
 
-function optsKey(o) { return [o.places, o.placeFrame, o.roads, o.contours, o.water, o.labels, o.vignette, o.fade].join(','); }
+function optsKey(o) { return [o.places, o.placeFrame, o.roads, o.contours, o.water, o.labels, o.vignette, o.fade, o.lineLabels].join(','); }
 function hexA(hex, a) {
   const m = /^#([0-9a-f]{6})$/i.exec(hex); if (!m) return hex; const n = parseInt(m[1], 16);
   return 'rgba(' + (n >> 16) + ',' + (n >> 8 & 255) + ',' + (n & 255) + ',' + a + ')';
@@ -248,6 +254,7 @@ export function backdropEntries(backdrop = null, options = {}) {
   const read = (tok, id) => { try { return tok ? tok(id) : undefined; } catch (e) { return undefined; } };       // a host without that token just gets the default
   return Object.values(LOOKS).map((look) => ({
     id: 'real-' + look.id, label: look.label + ' (real ground)', doc: look.doc, theme: look.theme,
-    draw: (c, view, data, tok) => (backdrop || shared || createBackdrop({})).draw(c, view.camera, look, { places: read(tok, 'backdrop.places') !== false, placeFrame: read(tok, 'backdrop.frame') || options.placeFrame || 'ground' }),
+    draw: (c, view, data, tok) => (backdrop || shared || createBackdrop({})).draw(c, view.camera, look, { places: read(tok, 'backdrop.places') !== false, placeFrame: read(tok, 'backdrop.frame') || options.placeFrame || 'ground', lineLabels: options.lineLabels === true }),
+    roadLabels: (camera) => (backdrop || shared || createBackdrop({})).roadLabels(camera),
   }));
 }

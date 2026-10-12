@@ -8,7 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { contrast, deltaE, simulate, mix, over, luminance } from './colour.mjs';
-import { DISPATCH_TOKENS, DP_VARIANTS, DA_SET, DA_VARIANTS, fadeFill } from '../studio/src/skins/editorial.spec.mjs';
+import { DISPATCH_TOKENS, DP_VARIANTS, DA_SET, DA_VARIANTS, fadeFill, fadeInk, fadeT } from '../studio/src/skins/editorial.spec.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const rows = (...sets) => { const P = {}; for (const r of DISPATCH_TOKENS) P[r[0]] = r[1]; P['text.dy'] = 0.6; for (const s of sets) Object.assign(P, s || {}); return P; };
@@ -25,8 +25,11 @@ export function runContrastTests() {
     T('glyph on fill', `${id}: white glyph on Union, fresh`, contrast(P['color.glyph'], P['color.union']), 4.5);
     T('glyph on fill', `${id}: white glyph on Confederate, fresh`, contrast(P['color.glyph'], P['color.confederate']), 4.5);
     T('glyph on fill', `${id}: dark glyph on contested amber`, contrast(P['color.unknownInk'], P['color.unknown']), 4.5);
-    T('glyph on fill', `${id}: white glyph on Union, a battle day old`, contrast(over(P['color.glyph'], 1 - P['fade.glyph'], faded(P['color.union'])), faded(P['color.union'])), 3, ':1', 'a graphic, not text: 3:1');
-    T('glyph on fill', `${id}: white glyph on Confederate, a battle day old`, contrast(over(P['color.glyph'], 1 - P['fade.glyph'], faded(P['color.confederate'])), faded(P['color.confederate'])), 3, ':1', 'a graphic, not text: 3:1');
+    // every one of the seven age buckets: the ink of the glyph, the pips and the count is the better of white and the dark ink, and it must read as text (4.5:1) on the aged fill
+    for (const [nm, hex] of [['Union', P['color.union']], ['Confederate', P['color.confederate']]]) {
+      let w = Infinity; let wb = 0; for (let k = 0; k <= 6; k++) { const bk = k / 6; const f = fadeFill(P, hex, bk); const v = contrast(fadeInk(P, hex, bk), over(fadeInk(P, hex, bk), 1 - P['fade.glyph'] * fadeT(bk), f) === f ? f : f); if (v < w) { w = v; wb = bk; } }
+      T('glyph on fill', `${id}: the glyph and the count on ${nm}, worst of the seven ages (age ${wb.toFixed(2)})`, w, 4.5);
+    }
     T('text', `${id}: ink on its halo`, contrast(P['text.ink'], over(P['text.halo'], P['text.haloAlpha'], ground === 'paper' ? '#c9bda1' : '#535959')), 7);
     // the ring against the ground: the better of the light ring and the dark hairline, on the worst band
     let worst = Infinity; let wb = null; for (const g of grounds[ground]) { const v = Math.max(contrast(P['color.ringLight'], g), contrast(over(P['color.ringDark'], 0.62, g), g)); if (v < worst) { worst = v; wb = g; } }

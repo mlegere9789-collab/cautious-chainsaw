@@ -3,66 +3,25 @@
  "scenes": [
   {
    "scene": "The Angle, z15.5",
-   "tiles": 177,
-   "states": 708,
+   "tiles": 181,
+   "states": 724,
    "over": [],
-   "labels": 75,
+   "labels": 79,
    "labelOver": [],
-   "pins": 68,
+   "pins": 72,
    "pinOver": [],
-   "maxOver": 0.5,
-   "worst": {
-    "key": "26 NC",
-    "state": "arriving",
-    "over": 0.5,
-    "box": [
-     68,
-     24
-    ],
-    "ink": [
-     -34.5,
-     -12.5,
-     31.5,
-     12.5
-    ]
-   },
+   "maxOver": 0,
+   "worst": null,
    "maxLabelOver": 0
   },
   {
    "scene": "Wheatfield, z15",
-   "tiles": 160,
-   "states": 640,
+   "tiles": 156,
+   "states": 624,
    "over": [],
-   "labels": 64,
+   "labels": 61,
    "labelOver": [],
-   "pins": 61,
-   "pinOver": [],
-   "maxOver": 0.5,
-   "worst": {
-    "key": "26 NC",
-    "state": "arriving",
-    "over": 0.5,
-    "box": [
-     68,
-     24
-    ],
-    "ink": [
-     -34.5,
-     -12.5,
-     31.5,
-     12.5
-    ]
-   },
-   "maxLabelOver": 0
-  },
-  {
-   "scene": "whole field, z13.5",
-   "tiles": 124,
-   "states": 496,
-   "over": [],
-   "labels": 0,
-   "labelOver": [],
-   "pins": 83,
+   "pins": 60,
    "pinOver": [],
    "maxOver": 0.5,
    "worst": {
@@ -79,60 +38,45 @@
      30,
      12.5
     ]
-   }
-  },
-  {
-   "scene": "The Angle, z16.5",
-   "tiles": 167,
-   "states": 668,
-   "over": [],
-   "labels": 81,
-   "labelOver": [],
-   "pins": 53,
-   "pinOver": [],
-   "maxOver": 0.5,
-   "worst": {
-    "key": "26 NC",
-    "state": "arriving",
-    "over": 0.5,
-    "box": [
-     68,
-     24
-    ],
-    "ink": [
-     -34.5,
-     -12.5,
-     31.5,
-     12.5
-    ]
    },
    "maxLabelOver": 0
   },
   {
-   "scene": "Cemetery Hill, z17, dark family",
-   "tiles": 149,
-   "states": 596,
+   "scene": "whole field, z13.5",
+   "tiles": 99,
+   "states": 396,
    "over": [],
-   "labels": 86,
+   "labels": 0,
+   "labelOver": [],
+   "pins": 62,
+   "pinOver": [],
+   "maxOver": 0,
+   "worst": null
+  },
+  {
+   "scene": "The Angle, z16.5",
+   "tiles": 166,
+   "states": 664,
+   "over": [],
+   "labels": 80,
+   "labelOver": [],
+   "pins": 52,
+   "pinOver": [],
+   "maxOver": 0,
+   "worst": null,
+   "maxLabelOver": 0
+  },
+  {
+   "scene": "Cemetery Hill, z17, dark family",
+   "tiles": 148,
+   "states": 592,
+   "over": [],
+   "labels": 85,
    "labelOver": [],
    "pins": 44,
    "pinOver": [],
-   "maxOver": 0.5,
-   "worst": {
-    "key": "26 NC",
-    "state": "arriving",
-    "over": 0.5,
-    "box": [
-     68,
-     24
-    ],
-    "ink": [
-     -34.5,
-     -12.5,
-     31,
-     12.5
-    ]
-   },
+   "maxOver": 0,
+   "worst": null,
    "maxLabelOver": 0
   }
  ]

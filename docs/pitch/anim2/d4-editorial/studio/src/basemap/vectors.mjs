@@ -122,6 +122,7 @@ export class Vectors {
       const x = it.ux * S - ox, y = it.uy * S - oy; if (x < -120 || x > W + 120 || y < -120 || y > H + 120) continue;
       ctx.font = it.font;
       if (it.k === 'line') {
+        if (opts.lineLabels === false) continue;                       // D4 round 1: the skin draws the road and stream names itself, so that a name can step aside for a mark
         ctx.save(); ctx.translate(x, y); ctx.rotate(it.ang); ctx.textAlign = 'center';
         ctx.lineWidth = 3; ctx.strokeStyle = it.halo; ctx.strokeText(it.text, 0, 0); ctx.fillStyle = it.fill; ctx.fillText(it.text, 0, 0); ctx.restore();
       } else {

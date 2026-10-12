@@ -37,5 +37,8 @@ set('motion.birthScale', { default: 0.85, min: 0.5, doc: 'Size of a mark at birt
 set('popup.motion.enterMs', { default: 240 });
 set('popup.motion.risePx', { default: 8 });
 set('popup.motion.leaderMs', { default: 280 });
+// round 1: a leader longer than this is not drawn at all (the critics: a 600 px red line across the map is noise); the subject keeps its highlighter and its pulse and the card names it
+add('popup.place.maxLeaderPx', { id: 'popup.place.leaderShowPx', group: 'popups', type: 'number', label: 'Longest leader line drawn', default: 300, min: 60, max: 1200, step: 10, unit: 'px', doc: 'A leader line from a card to its subject is drawn only when it is at most this long. A longer one is left out: the subject stays highlighted and pulses, and the card names it.', evidence: 'Design' });
+set('popup.sheet.peekPx', { default: 156, doc: 'Height of the bottom sheet at its peek detent on a phone-sized screen: the head of the card and its first row, so the map keeps more than 60 percent of the screen.' });
 fs.writeFileSync(OUT, JSON.stringify(t, null, 1));
 console.log('wrote', path.relative(process.cwd(), OUT), t.tokens.length, 'tokens');

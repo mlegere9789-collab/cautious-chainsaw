@@ -5,10 +5,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { serve, launch, open, settle, ROOT } from './lib.mjs';
 const a = process.argv.slice(2); const o = Object.fromEntries(a.filter((x) => x.startsWith('--')).map((x) => { const i = x.indexOf('='); return i < 0 ? [x.slice(2), '1'] : [x.slice(2, i), x.slice(i + 1)]; }));
-const SET = o.set || 'final'; const DPR = +(o.dpr || (SET === 'final' ? 2 : 1)); const LOOK = o.look || 'paper'; const FMT = 'jpg'; const OUT = SET === 'final' ? path.join(ROOT, 'shots') : path.join(ROOT, 'iterations', SET); fs.mkdirSync(OUT, { recursive: true });
+const SET = o.set || 'final'; const ROUND = /^round-/.test(SET); const DPR = +(o.dpr || (SET === 'final' || ROUND ? 2 : 1)); const LOOK = o.look || 'paper'; const FMT = 'jpg'; const OUT = SET === 'final' ? path.join(ROOT, 'shots') : ROUND ? path.join(ROOT, 'shots', SET) : path.join(ROOT, 'iterations', SET); fs.mkdirSync(OUT, { recursive: true });
 const style = LOOK === 'aerial' ? 'dispatch-aerial' : 'dispatch-paper';
 const srv = await serve(); const b = await launch({ dpr: DPR }); const done = [];
-const snap = async (name, clip) => { const f = path.join(OUT, `popups-${name}-${LOOK}.${FMT}`); await b.page.screenshot(FMT === 'png' ? { path: f, clip } : { path: f, type: 'jpeg', quality: SET === 'final' ? 90 : 84, clip }); done.push(name); console.log('wrote', path.relative(ROOT, f)); };
+const snap = async (name, clip) => { const f = path.join(OUT, `popups-${name}-${LOOK}.${FMT}`); await b.page.screenshot(FMT === 'png' ? { path: f, clip } : { path: f, type: 'jpeg', quality: SET === 'final' || ROUND ? 90 : 84, clip }); done.push(name); console.log('wrote', path.relative(ROOT, f)); };
 const q = (base, set = {}) => `${base}&style=${style}&set=${encodeURIComponent(JSON.stringify(set))}`;
 const play = (ticks) => b.page.evaluate((n) => { const S = window.__studio; S.engine.transport.setSpeed(1); S.engine.transport.play(); }, ticks);
 try {

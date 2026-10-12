@@ -37,7 +37,7 @@ export const LOOKS = {
       fade: [[16.3, 1], [17.4, 0.3]],
     },
     labels: {
-      font: '600 11px "Segoe UI", system-ui, sans-serif', placeFont: '600 11px "Segoe UI", system-ui, sans-serif', roadFont: '600 10px "Segoe UI", system-ui, sans-serif',
+      font: '600 11px Inter, "Segoe UI", system-ui, sans-serif', placeFont: '600 11px Inter, "Segoe UI", system-ui, sans-serif', roadFont: '600 11px Inter, "Segoe UI", system-ui, sans-serif',
       place: '#e7ecf2', placeHalo: 'rgba(10,13,17,0.82)', road: 'rgba(225,230,237,0.78)', roadHalo: 'rgba(10,13,17,0.78)', water: 'rgba(150,190,226,0.85)',
       dot: '#e7ecf2', dotRing: 'rgba(10,13,17,0.7)', tracking: 0.6,
     },
@@ -69,7 +69,7 @@ export const LOOKS = {
       fade: [[16.3, 1], [17.4, 0.3]],
     },
     labels: {
-      font: '600 11px "Segoe UI", system-ui, sans-serif', placeFont: '600 11px "Segoe UI", system-ui, sans-serif', roadFont: '600 10px "Segoe UI", system-ui, sans-serif',
+      font: '600 11px Inter, "Segoe UI", system-ui, sans-serif', placeFont: '600 11px Inter, "Segoe UI", system-ui, sans-serif', roadFont: '600 11px Inter, "Segoe UI", system-ui, sans-serif',
       place: '#f4f7fa', placeHalo: 'rgba(8,11,14,0.85)', road: 'rgba(240,244,248,0.85)', roadHalo: 'rgba(8,11,14,0.8)', water: 'rgba(170,205,238,0.9)',
       dot: '#f4f7fa', dotRing: 'rgba(8,11,14,0.7)', tracking: 0.6,
     },
@@ -102,7 +102,7 @@ export const LOOKS = {
       fade: [[16.3, 1], [17.4, 0.3]],
     },
     labels: {
-      font: '600 11px "Segoe UI", system-ui, sans-serif', placeFont: '600 11px "Segoe UI", system-ui, sans-serif', roadFont: '600 10px "Segoe UI", system-ui, sans-serif',
+      font: '600 11px Inter, "Segoe UI", system-ui, sans-serif', placeFont: '600 11px Inter, "Segoe UI", system-ui, sans-serif', roadFont: '600 11px Inter, "Segoe UI", system-ui, sans-serif',
       place: '#d9e2ec', placeHalo: 'rgba(6,9,12,0.85)', road: 'rgba(205,216,228,0.72)', roadHalo: 'rgba(6,9,12,0.8)', water: 'rgba(130,172,212,0.85)',
       dot: '#d9e2ec', dotRing: 'rgba(6,9,12,0.7)', tracking: 0.6,
     },
@@ -135,7 +135,7 @@ export const LOOKS = {
       fade: [[16.3, 1], [17.4, 0.3]],
     },
     labels: {
-      font: '600 11px "Segoe UI", system-ui, sans-serif', placeFont: '600 11px "Segoe UI", system-ui, sans-serif', roadFont: '600 10px "Segoe UI", system-ui, sans-serif',
+      font: '600 11px Inter, "Segoe UI", system-ui, sans-serif', placeFont: '600 11px Inter, "Segoe UI", system-ui, sans-serif', roadFont: '600 11px Inter, "Segoe UI", system-ui, sans-serif',
       place: '#4a3c26', placeHalo: 'rgba(240,234,218,0.9)', road: 'rgba(84,66,40,0.85)', roadHalo: 'rgba(240,234,218,0.88)', water: 'rgba(52,96,128,0.9)',
       dot: '#4a3c26', dotRing: 'rgba(240,234,218,0.9)', tracking: 0.6,
     },

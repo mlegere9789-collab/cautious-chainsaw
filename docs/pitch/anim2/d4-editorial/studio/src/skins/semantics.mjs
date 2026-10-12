@@ -76,7 +76,7 @@ export function describe(t) {
   const cf = !agg && u ? corpsFacts(u) : null;
   return {
     agg, n: t.n || 1, count: agg ? (t.badge || '×' + t.n) : null, scope: agg ? t.nameKind : null,
-    side: t.side, sideEv: t.side === 'unknown' ? 'Contested' : t.side === 'mixed' ? 'Computed' : 'Documented',
+    side: t.side, sides: t.nSides || null, sideEv: t.side === 'unknown' ? 'Contested' : t.side === 'mixed' ? 'Computed' : 'Documented',
     arm: formation ? 'formation' : t.arm, armState, armEv: agg ? 'Computed' : 'Documented',
     ech: agg ? 0 : (ECH_LEVEL[kind] ?? 0), kind,
     code: t.short, idOnly: !agg && !!u && !u.inOob,
@@ -97,7 +97,7 @@ export const CHANNELS = {
     { id: 'union', text: 'Union: the order of battle, or the id prefix U- for ids it does not list', evidence: 'Documented' },
     { id: 'confederate', text: 'Confederate: the order of battle, or the id prefix C- for ids it does not list', evidence: 'Documented' },
     { id: 'unknown', text: 'Side UNKNOWN: the id prefix and the state code in the id disagree (10 ids). Never drawn as a side', evidence: 'Contested' },
-    { id: 'mixed', text: 'Aggregate of more than one side, or of a contested one (Contact)', evidence: 'Computed' } ] },
+    { id: 'mixed', text: 'Aggregate of more than one side, or of a contested one (named Both sides)', evidence: 'Computed' } ] },
   arm: { title: 'Arm', values: [
     { id: 'infantry', text: 'Infantry regiment', evidence: 'Documented' }, { id: 'cavalry', text: 'Cavalry regiment', evidence: 'Documented' },
     { id: 'artillery', text: 'Artillery battery or battalion', evidence: 'Documented' },

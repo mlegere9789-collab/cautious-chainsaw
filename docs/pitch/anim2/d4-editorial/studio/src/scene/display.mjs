@@ -219,7 +219,7 @@ export class Display {
 
   /** content that comes from the layout tile (text, side, arm, strength state ...), refreshed every frame */
   _content(d, t, dt, inp) {
-    d.n = t.n; d.ids = t.ids; d.side = t.side; d.arm = t.arm; d.short = t.short; d.badge = t.badge || null; d.strength = t.strength; d.nameKind = t.nameKind || null;
+    d.n = t.n; d.ids = t.ids; d.side = t.side; d.nSides = t.nSides || null; d.arm = t.arm; d.short = t.short; d.badge = t.badge || null; d.strength = t.strength; d.nameKind = t.nameKind || null;
     d.selected = inp.selectedId != null && t.ids.includes(inp.selectedId);
     const tween = this.tok('interp.strengthTweenMs') / 1000;
     d.ratioTarget = t.ratio ?? 1; d.ratioShown = tween <= 0 ? d.ratioTarget : dampStep(d.ratioShown, 0, d.ratioTarget, tween / 2, dt)[0];
@@ -405,7 +405,7 @@ export class Display {
     this.prevAssign = assign;
     const tiles = list.map((d) => ({
       key: d.key, kind: d.kind, ids: d.ids, n: d.n, x: d.ax + d.ox, y: d.ay + d.oy, ax: d.ax, ay: d.ay, px: d.ax - (d.hx || 0), py: d.ay - (d.hy || 0), hx: d.hx || 0, hy: d.hy || 0, w: d.w, h: d.h, scale: d.scale, opacity: d.opacity, solid: d.opacity >= SOLID, life: d.life,
-      ajx: d.ajx || 0, ajy: d.ajy || 0, entering: d.born, travelling: d.dim, displaced: Math.hypot(d.ox, d.oy) > 1.5, side: d.side, arm: d.arm, short: d.short, badge: d.badge, nameKind: d.nameKind, ratio: d.ratioShown, strength: d.strength,
+      ajx: d.ajx || 0, ajy: d.ajy || 0, entering: d.born, travelling: d.dim, displaced: Math.hypot(d.ox, d.oy) > 1.5, side: d.side, nSides: d.nSides || null, arm: d.arm, short: d.short, badge: d.badge, nameKind: d.nameKind, ratio: d.ratioShown, strength: d.strength,
       disposition: d.disposition, selected: !!d.selected, unit: d.unit, ageTicks: d.ageTicks, ageMin: d.ageMin, ageMax: d.ageMax, moving: !!d.moving, members: d.members,
       label: d.label.opacity > 0.01 && d.label.rect && d.labelText ? { text: d.labelText, slot: d.label.slot, opacity: d.label.opacity, x0: d.label.rect.x0, y0: d.label.rect.y0, x1: d.label.rect.x1, y1: d.label.rect.y1 } : null,
     }));

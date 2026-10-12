@@ -11,7 +11,7 @@ import { createKernel } from '../src/kernel/registry.mjs';
 import { registerBuiltins } from '../src/builtins.mjs';
 import { SKINS } from '../src/skins/index.mjs';
 import { verifyFrame } from '../src/layout/geom.mjs';
-import { nameOf, abbreviate } from '../src/layout/tiles.mjs';
+import { nameOf, abbreviate, lcaOf } from '../src/layout/tiles.mjs';
 import { DISPATCH_TOKENS } from '../src/skins/editorial.spec.mjs';
 import { frameOf, sizeOf, labelSizeOf, formationOf } from '../src/skins/editorial.mjs';
 import { runContrastTests } from '../../tools/contrast-tests.mjs';
@@ -37,7 +37,8 @@ test('echelon is size: unit < brigade < division < corps, and the crowd mark is 
   assert.ok(unit.frameW < bde.frameW && bde.frameW < div.frameW && div.frameW < corps.frameW, 'the frame grows with echelon');
   for (const s of [unit, bn, bde, div, corps, crowd]) { assert.ok(s.hx > 0, 'the glyph stands left of the middle of the box'); assert.ok(s.w > s.frameW + 6, 'the box holds the frame and the text'); assert.equal(s.hy, 0); }
   assert.equal(frameOf(P, { agg: true }).kind, 'crowd'); assert.ok(frameOf(P, { agg: true }).stack > 0);
-  assert.ok(sizeOf(spec, { text: 'II/2', agg: true, nameKind: 'lead' }, P).w > sizeOf(spec, { text: 'II/2', agg: true, nameKind: 'brigade' }, P).w, 'the plus of a lead crowd is part of its box');
+  assert.ok(sizeOf(spec, { text: "Garnett's Bde", agg: true, nameKind: 'brigade' }, P).w > sizeOf(spec, { text: 'II', agg: true, nameKind: 'brigade' }, P).w, 'the words of a crowd are part of its box');
+  assert.ok(P['flag.w.crowd'] < P['flag.w.brigade'] && P['flag.h.crowd'] < P['flag.h.brigade'], 'the body of a crowd standard is smaller than a brigade standard: a crowd is no louder than the formation it merges');
 });
 
 test('the name grows out of the mark: the label rectangle is only the part of the name beyond the room the code has, and it carries the mark font', () => {
@@ -50,12 +51,12 @@ test('the name grows out of the mark: the label rectangle is only the part of th
 });
 
 test('names: whole (never cut with an ellipsis), the unit\'s own words, nicknames in brackets left to the unit card, formation records abbreviated by rule', () => {
-  assert.equal(abbreviate('Third Brigade, Second Division, Third Corps'), '3rd Bde, 2nd Div, 3rd Corps');
-  assert.equal(abbreviate('First Brigade, First Division, Twelfth Corps'), '1st Bde, 1st Div, 12th Corps');
+  assert.equal(abbreviate('Third Brigade, Second Division, Third Corps'), '3rd Bde, 2nd Div, III Corps');
+  assert.equal(abbreviate('First Brigade, First Division, Twelfth Corps'), '1st Bde, 1st Div, XII Corps');
   for (const u of e0().battle.units.values()) {
     const n = nameOf(u); assert.ok(n.length > 0, u.id); assert.ok(!/…$/.test(n), `${u.id}: "${n}" is cut`);
     const bag = ((u.designation || '') + ' ' + (u.label || '')).replace(/…/g, '').toLowerCase(); const norm = (w) => w.replace(/[^a-z0-9']/g, '');
-    const have = new Set(bag.split(/\s+/).map(norm)); const alias = { bde: 'brigade', div: 'division' };
+    const have = new Set(bag.split(/\s+/).map(norm)); const alias = { bde: 'brigade', div: 'division', i: 'first', ii: 'second', iii: 'third', iv: 'fourth', v: 'fifth', vi: 'sixth', vii: 'seventh', viii: 'eighth', ix: 'ninth', x: 'tenth', xi: 'eleventh', xii: 'twelfth' };
     for (const w of n.toLowerCase().split(/\s+/).map(norm)) { if (!w) continue; const ord = { '1st': 'first', '2nd': 'second', '3rd': 'third', '4th': 'fourth', '5th': 'fifth', '6th': 'sixth', '7th': 'seventh', '8th': 'eighth', '9th': 'ninth', '10th': 'tenth', '11th': 'eleventh', '12th': 'twelfth' }; assert.ok(have.has(w) || have.has(alias[w]) || have.has(ord[w]) || [...have].some((h) => h.startsWith(w.replace(/…/, ''))), `${u.id}: "${n}" says "${w}", which is not in "${bag}"`); }
   }
   function e0() { return engine(); }
@@ -127,4 +128,38 @@ test('every colour pair of the language meets its bar (marks on the real ground,
 
 test('the dataset behind the pictures is the prototype\'s: 478 units, 1,687 keyframes (nothing was added or edited for the design)', () => {
   assert.equal(dataset.provenance.counts.units, 478); assert.equal(dataset.provenance.counts.keyframes, 1687);
+});
+
+test('a crowd is named in words, from the order of battle: never "Contact", never a lead record and a plus; Both sides only when both armies are in it; a formation by its own name; the count is the records', () => {
+  const norm = (w) => w.replace(/[^a-z0-9'&]/g, ''); const roman = { i: 'first', ii: 'second', iii: 'third', iv: 'fourth', v: 'fifth', vi: 'sixth', vii: 'seventh', viii: 'eighth', ix: 'ninth', x: 'tenth', xi: 'eleventh', xii: 'twelfth' };
+  let crowds = 0; const kinds = new Set();
+  for (const [tick, zoom, lat, lng] of [[556, 13.5, 39.8117, -77.235], [551, 14.5, 39.8117, -77.235], [346, 15, 39.8117, -77.235]]) {
+    const e = engine('dispatch-paper', { tick, zoom, lat, lng }); e.moveTo({ lat, lng, zoom }, { glide: false }); for (let i = 0; i < 120; i++) e.step(16.667); const f = e.frame;
+    for (const t of f.tiles) {
+      if (t.kind !== 'agg' || t.life !== 'live') continue; crowds++; kinds.add(t.nameKind);
+      assert.ok(!/contact/i.test(t.short), `${t.short}: the data records no engagement`); assert.ok(!/ \+$|^\+| \+\d/.test(t.short), `${t.short}: no lead-and-a-plus`); assert.equal(t.badge, String(t.n), 'the count is the number of records');
+      const sides = new Set(t.ids.map((id) => f.unitOf(id).side)); if (t.short === 'Both sides') assert.ok(sides.has('union') && sides.has('confederate'), 'Both sides needs both armies'); if (sides.has('union') && sides.has('confederate')) assert.equal(t.short, 'Both sides');
+      if (['brigade', 'division', 'corps'].includes(t.nameKind)) { const lca = lcaOf(t.ids.map((id) => f.unitOf(id).chain)); const node = e.battle.nodes.get(lca); const bag = new Set(`${node.designation || ''} ${(e.battle.units.get(lca) || {}).label || ''}`.replace(/[(),]/g, ' ').toLowerCase().split(/\s+/).map(norm)); const alias = { bde: 'brigade', div: 'division', '1st': 'first', '2nd': 'second', '3rd': 'third', '4th': 'fourth', '5th': 'fifth', '6th': 'sixth', '7th': 'seventh', '8th': 'eighth', '9th': 'ninth' };
+        for (const w of t.short.toLowerCase().split(/\s+/).map(norm)) { if (!w) continue; assert.ok(bag.has(w) || bag.has(alias[w]) || bag.has(roman[w]) || [...bag].some((h) => h.startsWith(w)), `${t.short}: "${w}" is not in "${[...bag].join(' ')}"`); } }
+    }
+  }
+  assert.ok(crowds > 60 && kinds.size >= 3, `${crowds} crowds of ${[...kinds].join(', ')}`);
+});
+
+test('the legend teaches the mark: an anatomy specimen with nine numbered parts, and the words of the crowd rows are the ones above (no Contact)', () => {
+  const skin = kernel.skins.get('dispatch-paper'); assert.ok(skin.anatomy && skin.anatomy.notes.length === 9 && skin.anatomy.w > 200, 'the skin publishes an anatomy');
+  for (const r of skin.legend()) assert.ok(!/contact/i.test(r.text), r.text);
+  assert.ok(!/Contact/.test(SRC), 'no engagement is claimed in the skin');
+});
+
+test('the skin tokens are also plain JSON (studio/tokens/dispatch.tokens.json), the same values as the module, for both families and every variant', () => {
+  const j = JSON.parse(fs.readFileSync(path.join(HERE, '..', 'tokens', 'dispatch.tokens.json'), 'utf8')); assert.equal(j.format, 'dispatch-tokens/1'); assert.equal(j.tokens.length, DISPATCH_TOKENS.length);
+  for (const r of DISPATCH_TOKENS) { assert.equal(j.resolved['dispatch-paper'][r[0]], r[1], r[0]); const t = j.tokens.find((q) => q.name === r[0]); assert.equal(t.default, r[1]); }
+  assert.deepEqual(Object.keys(j.families['dispatch-paper'].variants).sort(), ['contrast', 'cvd']); assert.equal(j.resolved['dispatch-aerial']['color.fade'], '#0f1722');
+});
+
+test('the interface is a frame around the map, not a layer over it: the stage lies between the masthead and the dock, the popup director sees no chrome on the map, a mark is clipped by the stage as by a screen', () => {
+  const css = fs.readFileSync(path.join(HERE, '..', 'src', 'ui', 'chrome.css'), 'utf8'); const shell = fs.readFileSync(path.join(HERE, '..', 'src', 'ui', 'shell.html'), 'utf8'); const layer = fs.readFileSync(path.join(HERE, '..', 'src', 'ui', 'popup-layer.mjs'), 'utf8');
+  assert.ok(/#stage \{[^}]*top: var\(--mast-h\)[^}]*bottom: var\(--dock-h\)/.test(css), 'the stage ends where the masthead and the dock begin'); assert.ok(/<div id="stage">[\s\S]*id="map"[\s\S]*id="popups"[\s\S]*<\/div>/.test(shell), 'the canvas and the cards live in the stage');
+  assert.ok(/safe: \{ top: 0, bottom: 0/.test(layer), 'the director reserves nothing at the top or the bottom of the map: the interface is outside it');
 });

@@ -1,0 +1,629 @@
+{
+ "format": "dispatch-tokens/1",
+ "note": "Lengths are CSS px at 1x, colours #rrggbb. paper = dark ink on the survey print; aerial = white ink on the dimmed photograph. A variant lists only the tokens it changes.",
+ "tokens": [
+  {
+   "name": "color.union",
+   "default": "#1C57A6",
+   "doc": "Union: the fill of a unit mark and of a formation standard.  Documented side.  White glyph on it is 7.0:1 (tested)."
+  },
+  {
+   "name": "color.confederate",
+   "default": "#C2441B",
+   "doc": "Confederate: the fill of a unit mark and of a formation standard.  Documented side.  White glyph on it is 4.9:1 (tested)."
+  },
+  {
+   "name": "color.unknown",
+   "default": "#D9A21B",
+   "doc": "Contested side (10 ids whose state code contradicts the prefix): amber with a diagonal hatch, never a side colour."
+  },
+  {
+   "name": "color.unknownInk",
+   "default": "#1B1405",
+   "doc": "Ink of the glyph on the contested amber."
+  },
+  {
+   "name": "color.glyph",
+   "default": "#ffffff",
+   "doc": "Ink of the arm glyph, the pips and the count inside a mark."
+  },
+  {
+   "name": "color.glyphDark",
+   "default": "#17202b",
+   "doc": "Ink of the glyph, the pips and the count inside a mark that has aged to a light tint (the better of the two inks is used)."
+  },
+  {
+   "name": "color.ringLight",
+   "default": "#ffffff",
+   "doc": "The inner ring that separates a mark from any ground."
+  },
+  {
+   "name": "color.ringDark",
+   "default": "#0a1018",
+   "doc": "The outer hairline of the ring: the second chance on a pale ground."
+  },
+  {
+   "name": "color.accent",
+   "default": "#ffc21a",
+   "doc": "Selection, focus and the highlighter of the interface (amber)."
+  },
+  {
+   "name": "text.ink",
+   "default": "#17202b",
+   "doc": "Colour of the code and name beside a mark (dark ink on the light ground, white on the dark one)."
+  },
+  {
+   "name": "text.halo",
+   "default": "#f7f2e4",
+   "doc": "Colour of the halo that keeps the text legible on any ground."
+  },
+  {
+   "name": "text.haloAlpha",
+   "default": 0.94,
+   "doc": "Opacity of the solid inner halo.",
+   "min": 0.5,
+   "max": 1
+  },
+  {
+   "name": "text.haloWidth",
+   "default": 3.8,
+   "doc": "Width of the halo stroke (it extends half of this around each letter).",
+   "min": 0,
+   "max": 8,
+   "unit": "u"
+  },
+  {
+   "name": "text.formUnion",
+   "default": "#123f7a",
+   "doc": "Ink of the name of a Union formation (brigade, division, corps): the side in deep ink, so the formation tier is set apart from the units by colour and weight, not only by size."
+  },
+  {
+   "name": "text.formConfederate",
+   "default": "#8e2c0e",
+   "doc": "Ink of the name of a Confederate formation."
+  },
+  {
+   "name": "mark.r",
+   "default": 7.5,
+   "doc": "Radius of the disc of a regiment or a battery (the fill).",
+   "min": 5,
+   "max": 12,
+   "unit": "u"
+  },
+  {
+   "name": "mark.rBattalion",
+   "default": 8.5,
+   "doc": "Radius of the disc of a battalion (echelon 1): a little larger.",
+   "min": 5,
+   "max": 14,
+   "unit": "u"
+  },
+  {
+   "name": "ring.light",
+   "default": 1.5,
+   "doc": "Width of the light ring around a disc or a standard.",
+   "min": 0.5,
+   "max": 3,
+   "unit": "u"
+  },
+  {
+   "name": "ring.dark",
+   "default": 1,
+   "doc": "Width of the dark hairline outside the light ring.",
+   "min": 0,
+   "max": 2,
+   "unit": "u"
+  },
+  {
+   "name": "glyph.size",
+   "default": 3.4,
+   "doc": "Half-size of the arm glyph (infantry saltire, cavalry slash, artillery dot).",
+   "min": 2,
+   "max": 6,
+   "unit": "u"
+  },
+  {
+   "name": "glyph.stroke",
+   "default": 1.9,
+   "doc": "Stroke width of the arm glyph.",
+   "min": 1,
+   "max": 3.2,
+   "unit": "u"
+  },
+  {
+   "name": "unit.shape.confederate",
+   "default": "square",
+   "doc": "Silhouette of a Confederate unit mark (the side is redundant in colour and shape): square or circle."
+  },
+  {
+   "name": "flag.w.brigade",
+   "default": 28,
+   "doc": "Width of a brigade standard.",
+   "min": 14,
+   "max": 48,
+   "unit": "u"
+  },
+  {
+   "name": "flag.h.brigade",
+   "default": 18,
+   "doc": "Height of a brigade standard.",
+   "min": 10,
+   "max": 36,
+   "unit": "u"
+  },
+  {
+   "name": "flag.w.division",
+   "default": 34,
+   "doc": "Width of a division standard.",
+   "min": 14,
+   "max": 56,
+   "unit": "u"
+  },
+  {
+   "name": "flag.h.division",
+   "default": 22,
+   "doc": "Height of a division standard.",
+   "min": 10,
+   "max": 40,
+   "unit": "u"
+  },
+  {
+   "name": "flag.w.corps",
+   "default": 40,
+   "doc": "Width of a corps standard.",
+   "min": 14,
+   "max": 64,
+   "unit": "u"
+  },
+  {
+   "name": "flag.h.corps",
+   "default": 26,
+   "doc": "Height of a corps standard.",
+   "min": 10,
+   "max": 44,
+   "unit": "u"
+  },
+  {
+   "name": "flag.w.crowd",
+   "default": 25,
+   "doc": "Width of the crowd mark (a standard that stands for several records).",
+   "min": 14,
+   "max": 48,
+   "unit": "u"
+  },
+  {
+   "name": "flag.h.crowd",
+   "default": 17,
+   "doc": "Height of the crowd mark.",
+   "min": 10,
+   "max": 36,
+   "unit": "u"
+  },
+  {
+   "name": "flag.notch",
+   "default": 5,
+   "doc": "Depth of the swallow-tail (Union) or of the point (Confederate) at the fly end.",
+   "min": 0,
+   "max": 10,
+   "unit": "u"
+  },
+  {
+   "name": "flag.radius",
+   "default": 2.5,
+   "doc": "Corner radius of a standard.",
+   "min": 0,
+   "max": 8,
+   "unit": "u"
+  },
+  {
+   "name": "flag.stack",
+   "default": 3,
+   "doc": "Offset of the standard behind the crowd mark: \"this stands for several records\".",
+   "min": 0,
+   "max": 8,
+   "unit": "u"
+  },
+  {
+   "name": "pip.r",
+   "default": 2.1,
+   "doc": "Radius of the pips of a formation record (1 brigade, 2 division, 3 corps).",
+   "min": 1,
+   "max": 3,
+   "unit": "u"
+  },
+  {
+   "name": "pip.pitch",
+   "default": 4.6,
+   "doc": "Distance between two pips.",
+   "min": 3,
+   "max": 8,
+   "unit": "u"
+  },
+  {
+   "name": "gap.text",
+   "default": 3,
+   "doc": "Space between the mark and its text.",
+   "min": 0,
+   "max": 8,
+   "unit": "u"
+  },
+  {
+   "name": "pad.left",
+   "default": 2,
+   "doc": "Space left of the mark inside the footprint (the selection ring lives here).",
+   "min": 0,
+   "max": 6,
+   "unit": "u"
+  },
+  {
+   "name": "pad.right",
+   "default": 2,
+   "doc": "Space right of the text inside the footprint (half of the halo).",
+   "min": 0,
+   "max": 6,
+   "unit": "u"
+  },
+  {
+   "name": "pad.band",
+   "default": 2,
+   "doc": "Reserved band around the mark for the hover and selection rings.",
+   "min": 1,
+   "max": 4,
+   "unit": "u"
+  },
+  {
+   "name": "gauge.gap",
+   "default": 1.9,
+   "doc": "Gap between the four arcs of the ring (px along the ring).",
+   "min": 0.5,
+   "max": 4,
+   "unit": "u"
+  },
+  {
+   "name": "gauge.track",
+   "default": 0.2,
+   "doc": "Opacity of the quarters of the ring that are not lit (the strength the unit no longer has).",
+   "min": 0.05,
+   "max": 0.8
+  },
+  {
+   "name": "color.fade",
+   "default": "#fffdf4",
+   "doc": "The ground colour an old mark recedes toward: the paper of the survey print on the light ground, the near-black of the dimmed photograph on the dark one."
+  },
+  {
+   "name": "fade.desat",
+   "default": 0,
+   "doc": "How far the fill of a mark at least a battle day old loses chroma (a touch only: the side must stay blue or red, never grey).",
+   "min": 0,
+   "max": 0.4
+  },
+  {
+   "name": "fade.fill",
+   "default": 0.55,
+   "doc": "How far the fill of such a mark is then mixed toward the ground colour (a pale tint on paper, deeper on the aerial): age is a fading ink.",
+   "min": 0,
+   "max": 0.75
+  },
+  {
+   "name": "fade.ring",
+   "default": 0.3,
+   "doc": "Opacity lost by the light ring of such a mark.",
+   "min": 0,
+   "max": 0.8
+  },
+  {
+   "name": "fade.ringW",
+   "default": 0.62,
+   "doc": "Width of the light ring of such a mark, as a fraction of a fresh one: the second cue, independent of colour.",
+   "min": 0.3,
+   "max": 1
+  },
+  {
+   "name": "fade.glyph",
+   "default": 0.06,
+   "doc": "Opacity lost by the glyph of such a mark (it stays well above 3:1).",
+   "min": 0,
+   "max": 0.4
+  },
+  {
+   "name": "fade.text",
+   "default": 0.12,
+   "doc": "Opacity lost by the code of such a mark (it stays above 4.5:1).",
+   "min": 0,
+   "max": 0.4
+  },
+  {
+   "name": "hull.pad",
+   "default": 10,
+   "doc": "How far the hull reaches beyond the true positions of the records it joins.",
+   "min": 4,
+   "max": 40,
+   "unit": "u"
+  },
+  {
+   "name": "hull.alpha",
+   "default": 0.055,
+   "doc": "Opacity of the hull fill (the rim is where the soft stroke and the fill overlap).",
+   "min": 0.04,
+   "max": 0.5
+  },
+  {
+   "name": "hull.dot",
+   "default": 2.4,
+   "doc": "Radius of the dot at the true position of each record of a hull.",
+   "min": 1,
+   "max": 5,
+   "unit": "u"
+  },
+  {
+   "name": "leader.width",
+   "default": 1.1,
+   "doc": "Width of the leader line.",
+   "min": 0.5,
+   "max": 3,
+   "unit": "u"
+  },
+  {
+   "name": "leader.alpha",
+   "default": 0.9,
+   "doc": "Opacity of the leader line.",
+   "min": 0.2,
+   "max": 1
+  },
+  {
+   "name": "leader.minGap",
+   "default": 7,
+   "doc": "A leader and a pin are drawn only when the true position is at least this far outside the mark.",
+   "min": 0,
+   "max": 20,
+   "unit": "u"
+  },
+  {
+   "name": "pin.r",
+   "default": 2,
+   "doc": "Radius of the dot at a true position (white ring and dark hairline are added).",
+   "min": 1,
+   "max": 4,
+   "unit": "u"
+  },
+  {
+   "name": "place.fromZoom",
+   "default": 13.2,
+   "doc": "Zoom from which place names appear.",
+   "min": 10,
+   "max": 18,
+   "unit": "zoom"
+  },
+  {
+   "name": "place.dot",
+   "default": 2.2,
+   "doc": "Radius of the dot of a place (a ring when the position is in doubt).",
+   "min": 1,
+   "max": 5,
+   "unit": "u"
+  },
+  {
+   "name": "motion.selectMs",
+   "default": 240,
+   "doc": "Time constant of the selection ring (it draws itself around the mark).",
+   "min": 0,
+   "max": 800,
+   "unit": "ms"
+  },
+  {
+   "name": "motion.hoverMs",
+   "default": 130,
+   "doc": "Time constant of the hover ring and of the lift.",
+   "min": 0,
+   "max": 800,
+   "unit": "ms"
+  },
+  {
+   "name": "motion.rippleMs",
+   "default": 520,
+   "doc": "Duration of the ring that leaves a mark when it arrives.",
+   "min": 0,
+   "max": 1500,
+   "unit": "ms"
+  }
+ ],
+ "families": {
+  "dispatch-paper": {
+   "set": {},
+   "variants": {
+    "cvd": {
+     "label": "colour-blind safe",
+     "set": {
+      "color.union": "#0b5cad",
+      "color.confederate": "#b84f06",
+      "color.unknown": "#c9b037"
+     }
+    },
+    "contrast": {
+     "label": "high contrast",
+     "set": {
+      "color.union": "#0a3d86",
+      "color.confederate": "#a8300c",
+      "ring.light": 2,
+      "text.haloAlpha": 1,
+      "fade.desat": 0,
+      "fade.fill": 0.52,
+      "fade.ring": 0.2,
+      "fade.ringW": 0.8,
+      "fade.glyph": 0.03,
+      "fade.text": 0.06,
+      "hull.alpha": 0.1
+     }
+    }
+   }
+  },
+  "dispatch-aerial": {
+   "set": {
+    "text.ink": "#ffffff",
+    "text.halo": "#08111a",
+    "text.haloAlpha": 0.9,
+    "hull.alpha": 0.08,
+    "color.fade": "#0f1722",
+    "fade.desat": 0.05,
+    "fade.fill": 0.34,
+    "text.formUnion": "#a9cbf7",
+    "text.formConfederate": "#ffb59b"
+   },
+   "variants": {
+    "cvd": {
+     "label": "colour-blind safe",
+     "set": {
+      "color.union": "#1a5aab",
+      "color.confederate": "#bd5209",
+      "color.unknown": "#d8c24a"
+     }
+    },
+    "contrast": {
+     "label": "high contrast",
+     "set": {
+      "color.union": "#1d5fb0",
+      "color.confederate": "#c8481a",
+      "ring.light": 2,
+      "text.haloAlpha": 1,
+      "fade.desat": 0.05,
+      "fade.fill": 0.3,
+      "fade.ring": 0.2,
+      "fade.ringW": 0.8,
+      "fade.glyph": 0.03,
+      "fade.text": 0.06,
+      "hull.alpha": 0.14
+     }
+    }
+   }
+  }
+ },
+ "resolved": {
+  "dispatch-paper": {
+   "color.union": "#1C57A6",
+   "color.confederate": "#C2441B",
+   "color.unknown": "#D9A21B",
+   "color.unknownInk": "#1B1405",
+   "color.glyph": "#ffffff",
+   "color.glyphDark": "#17202b",
+   "color.ringLight": "#ffffff",
+   "color.ringDark": "#0a1018",
+   "color.accent": "#ffc21a",
+   "text.ink": "#17202b",
+   "text.halo": "#f7f2e4",
+   "text.haloAlpha": 0.94,
+   "text.haloWidth": 3.8,
+   "text.formUnion": "#123f7a",
+   "text.formConfederate": "#8e2c0e",
+   "mark.r": 7.5,
+   "mark.rBattalion": 8.5,
+   "ring.light": 1.5,
+   "ring.dark": 1,
+   "glyph.size": 3.4,
+   "glyph.stroke": 1.9,
+   "unit.shape.confederate": "square",
+   "flag.w.brigade": 28,
+   "flag.h.brigade": 18,
+   "flag.w.division": 34,
+   "flag.h.division": 22,
+   "flag.w.corps": 40,
+   "flag.h.corps": 26,
+   "flag.w.crowd": 25,
+   "flag.h.crowd": 17,
+   "flag.notch": 5,
+   "flag.radius": 2.5,
+   "flag.stack": 3,
+   "pip.r": 2.1,
+   "pip.pitch": 4.6,
+   "gap.text": 3,
+   "pad.left": 2,
+   "pad.right": 2,
+   "pad.band": 2,
+   "gauge.gap": 1.9,
+   "gauge.track": 0.2,
+   "color.fade": "#fffdf4",
+   "fade.desat": 0,
+   "fade.fill": 0.55,
+   "fade.ring": 0.3,
+   "fade.ringW": 0.62,
+   "fade.glyph": 0.06,
+   "fade.text": 0.12,
+   "hull.pad": 10,
+   "hull.alpha": 0.055,
+   "hull.dot": 2.4,
+   "leader.width": 1.1,
+   "leader.alpha": 0.9,
+   "leader.minGap": 7,
+   "pin.r": 2,
+   "place.fromZoom": 13.2,
+   "place.dot": 2.2,
+   "motion.selectMs": 240,
+   "motion.hoverMs": 130,
+   "motion.rippleMs": 520,
+   "text.dy": 0.6
+  },
+  "dispatch-aerial": {
+   "color.union": "#1C57A6",
+   "color.confederate": "#C2441B",
+   "color.unknown": "#D9A21B",
+   "color.unknownInk": "#1B1405",
+   "color.glyph": "#ffffff",
+   "color.glyphDark": "#17202b",
+   "color.ringLight": "#ffffff",
+   "color.ringDark": "#0a1018",
+   "color.accent": "#ffc21a",
+   "text.ink": "#ffffff",
+   "text.halo": "#08111a",
+   "text.haloAlpha": 0.9,
+   "text.haloWidth": 3.8,
+   "text.formUnion": "#a9cbf7",
+   "text.formConfederate": "#ffb59b",
+   "mark.r": 7.5,
+   "mark.rBattalion": 8.5,
+   "ring.light": 1.5,
+   "ring.dark": 1,
+   "glyph.size": 3.4,
+   "glyph.stroke": 1.9,
+   "unit.shape.confederate": "square",
+   "flag.w.brigade": 28,
+   "flag.h.brigade": 18,
+   "flag.w.division": 34,
+   "flag.h.division": 22,
+   "flag.w.corps": 40,
+   "flag.h.corps": 26,
+   "flag.w.crowd": 25,
+   "flag.h.crowd": 17,
+   "flag.notch": 5,
+   "flag.radius": 2.5,
+   "flag.stack": 3,
+   "pip.r": 2.1,
+   "pip.pitch": 4.6,
+   "gap.text": 3,
+   "pad.left": 2,
+   "pad.right": 2,
+   "pad.band": 2,
+   "gauge.gap": 1.9,
+   "gauge.track": 0.2,
+   "color.fade": "#0f1722",
+   "fade.desat": 0.05,
+   "fade.fill": 0.34,
+   "fade.ring": 0.3,
+   "fade.ringW": 0.62,
+   "fade.glyph": 0.06,
+   "fade.text": 0.12,
+   "hull.pad": 10,
+   "hull.alpha": 0.08,
+   "hull.dot": 2.4,
+   "leader.width": 1.1,
+   "leader.alpha": 0.9,
+   "leader.minGap": 7,
+   "pin.r": 2,
+   "place.fromZoom": 13.2,
+   "place.dot": 2.2,
+   "motion.selectMs": 240,
+   "motion.hoverMs": 130,
+   "motion.rippleMs": 520,
+   "text.dy": 0.6
+  }
+ }
+}

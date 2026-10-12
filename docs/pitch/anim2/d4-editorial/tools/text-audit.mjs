@@ -15,7 +15,7 @@ try {
     ['Showcase menu', 'scene=fresh2&tick=556&zoom=15', async () => { await b.page.click('button[aria-haspopup="menu"]'); }],
     ['tour caption (the showcase, live readout)', 'scene=field&tick=300&zoom=13.5', async () => { await b.page.evaluate(() => window.__studio.startTour('showcase')); }],
     ['welcome card', 'scene=field&tick=300&zoom=13.5', async () => { await b.page.evaluate(() => window.__studio.showWelcome()); }],
-    ['legend in the rail', 'scene=fresh2&tick=556&zoom=15', async () => { await b.page.click('.pc[data-popup="legend"] .pc-pill'); }],
+    ['legend in the rail', 'scene=fresh2&tick=556&zoom=15', async () => { await b.page.evaluate(() => window.__studio.host.openRail('legend:legend')); }],
     ['Chronicle in the rail', 'scene=fresh2&tick=551&zoom=15.5', async () => { await b.page.evaluate(() => window.__studio.host.toggleDoc('chronicle:list')); }],
     ['metrics overlay', 'scene=fresh2&tick=556&zoom=15&metrics=1', async () => {}],
   ];

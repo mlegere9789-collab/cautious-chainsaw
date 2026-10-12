@@ -1,0 +1,96 @@
+/* chrome.css - DISPATCH round 1: the interface as a frame around the map, not a layer over it.
+   The page is three bands: a masthead (56 px), the map (the stage, whatever is left) and the dock.  Nothing of the interface lies on the map except what floats over it on purpose (a card, the
+   legend pill, the minimap), and those are placed on free ground by the popup director.  So no mark can ever stand under an opaque panel: the marks are clipped by the edge of the stage exactly as
+   they are by the edge of the screen.
+   Loaded last: it replaces the floating dock and top bar of studio.css and editorial.css.  Grid 4 px; radii 2 / 4; one hairline (--line); one type scale (11, 12.5, 13, 15, 17). */
+:root { --mast-h: 56px; --dock-h: 112px; }
+#app { position: fixed; inset: 0; }
+#stage { position: absolute; left: 0; right: 0; top: var(--mast-h); bottom: var(--dock-h); overflow: hidden; background: var(--bg); }
+#stage > #map, #stage > #map-fade, #stage > #popups { position: absolute; inset: 0; }
+
+/* ---- the masthead ---- */
+#topbar { position: absolute; top: 0; left: 0; right: 0 !important; height: var(--mast-h); display: flex; align-items: center; gap: 4px; padding: 0 16px; flex-wrap: nowrap; background: var(--panel); border-bottom: 1px solid var(--line); z-index: 30; pointer-events: auto; }
+#topbar > * { pointer-events: auto; }
+.booting #topbar { transform: translateY(-8px); }
+#topbar .brand { display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 16px 0 0; margin: 0; background: none; border: 0; border-right: 1px solid var(--line); border-radius: 0; box-shadow: none; flex: 0 0 auto; }
+#topbar .brand svg { width: 20px; height: 20px; color: var(--accent); }
+#topbar .brand b { font: 600 17px/1.05 var(--serif); letter-spacing: -.005em; }
+#topbar .brand span { display: block; margin-top: 3px; font: 600 11px/1 var(--font); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+#topbar .brand div { display: flex; flex-direction: column; }
+#topbar .clockbox { display: flex; flex-direction: column; justify-content: center; height: 40px; margin: 0 0 0 12px; padding: 0 18px 0 0; background: none; border: 0; border-radius: 0; box-shadow: none; flex: 1 1 280px; min-width: 190px; max-width: 420px; }
+#topbar .clockbox .tick { font: 600 15px/1.15 var(--serif); letter-spacing: -.005em; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+#topbar .clockbox .clock { margin-top: 3px; font: 500 11.5px/1.1 var(--font); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+#topbar .spacer { flex: 1 1 8px; min-width: 0; }
+/* controls: one ghost style, a hairline only on hover; the pressed one is ink */
+#topbar .btn, #topbar .seg button, #topbar .pop-tb, .toolbox .btn.tool { height: 32px; padding: 0 12px; background: transparent; border: 1px solid transparent; border-radius: var(--r2); box-shadow: none; color: var(--text); font: 600 12.5px/1 var(--font); letter-spacing: 0; display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+#topbar .btn:hover, #topbar .seg button:hover, #topbar .pop-tb:hover, .toolbox .btn.tool:hover { background: var(--panel2); border-color: var(--line); color: var(--text); }
+#topbar .btn[aria-pressed="true"], #topbar .pop-tb[aria-pressed="true"], .toolbox .btn.tool[aria-pressed="true"] { background: var(--text); color: var(--panel); border-color: var(--text); }
+#topbar .btn svg, .toolbox .btn.tool svg { width: 16px; height: 16px; fill: currentColor; }
+#topbar .seg.styles { display: inline-flex; height: 32px; padding: 0; gap: 0; margin: 0 4px; background: transparent; border: 1px solid var(--line); border-radius: var(--r2); box-shadow: none; overflow: hidden; }
+#topbar .seg.styles button { height: 30px; border: 0; border-radius: 0; padding: 0 14px; color: var(--muted); }
+#topbar .seg.styles button + button { border-left: 1px solid var(--line); }
+#topbar .seg.styles button[aria-pressed="true"] { background: var(--text); color: var(--panel); }
+#topbar .seg.styles button:hover { background: var(--panel2); color: var(--text); } #topbar .seg.styles button[aria-pressed="true"]:hover { background: var(--text); color: var(--panel); }
+.pop-btns { gap: 2px; margin: 0 4px 0 0; padding: 0; background: none; border: 0; box-shadow: none; height: 32px; }
+.toolbox { display: flex; gap: 2px; padding: 0 0 0 8px; margin-left: 4px; height: 32px; align-items: center; background: none; border: 0; border-left: 1px solid var(--line); border-radius: 0; box-shadow: none; }
+.toolbox .btn.tool { width: 32px; padding: 0; justify-content: center; }
+.cmpbadge { top: calc(var(--mast-h) + 12px); }
+
+/* ---- the dock: one row of transport and timeline, two lines of what is Modelled and what the ground is ---- */
+#dock { position: absolute; left: 0 !important; right: 0; bottom: 0; width: auto !important; transform: none; padding: 10px 16px 10px; background: var(--panel); border: 0; border-top: 1px solid var(--line); border-radius: 0; box-shadow: none; z-index: 30; }
+.booting #dock { transform: translateY(10px); }
+#dock .transport { display: flex; align-items: center; gap: 12px; flex-wrap: nowrap; }
+#dock .transport .grp { display: flex; gap: 4px; flex: 0 0 auto; }
+#dock .scrub { flex: 1 1 auto; min-width: 120px; height: 36px; margin: 0; position: relative; }
+#dock .scrub input[type=range]::-webkit-slider-runnable-track, #dock .scrub input[type=range]::-webkit-slider-thumb { height: 36px; } #dock .scrub input[type=range]::-moz-range-track, #dock .scrub input[type=range]::-moz-range-thumb { height: 36px; }
+#dock .dockstat { display: none; }
+#dock .scalebar { margin-left: 0; flex: 0 0 auto; }
+#dock .honesty { display: flex; align-items: baseline; gap: 8px; margin: 8px 0 0; font-size: 11.5px; line-height: 1.4; color: var(--muted); flex-wrap: nowrap; }
+#dock .honesty .note { color: var(--muted); }
+#dock .credit { margin: 3px 0 0; font: 500 11.5px/1.4 var(--font); color: var(--muted); } #dock .credit .credit-short { display: none; }
+#dock .pop-strip { margin: 0 0 8px; }
+.honesty-mini { display: none; }
+
+/* ---- over the map (inside the stage's band) ---- */
+.pop-rail { top: var(--mast-h); bottom: var(--dock-h); right: 0; }
+#panel { top: calc(var(--mast-h) + 8px); bottom: calc(var(--dock-h) + 8px); right: calc(8px + var(--rail-w, 0px)); }
+#metrics { top: calc(var(--mast-h) + 12px); }
+.nar { top: calc(var(--mast-h) + 12px); max-height: calc(100% - var(--mast-h) - var(--dock-h) - 24px); }
+.menu { top: calc(var(--mast-h) - 2px); }
+.menu button.current b::after { content: " \2713"; color: var(--ink-union); }
+.menu .plain { grid-template-columns: 1fr; }
+
+@media (max-width: 1180px) { #topbar .brand span { display: none; } #topbar .clockbox { flex-basis: 220px; } .btn.tool-l .lbl { display: none; } #topbar .btn.tool-l { width: 32px; padding: 0; justify-content: center; } }
+
+/* ---- phone: the masthead is one thin row, the dock two, the map keeps the rest ---- */
+@media (max-width: 760px) {
+  :root { --mast-h: 48px; --dock-h: 120px; }
+  #topbar { padding: 0 10px; gap: 2px; flex-wrap: nowrap !important; }
+  #topbar .style-sel { display: none !important; }
+  #topbar .brand { display: flex !important; padding-right: 10px; border-right: 0; } #topbar .brand div { display: none; } #topbar .brand svg { width: 22px; height: 22px; }
+  #topbar .clockbox { flex: 1 1 auto; min-width: 0; max-width: none; margin-left: 0; padding-right: 8px; } #topbar .clockbox .tick { font-size: 15px; } #topbar .clockbox .clock { font-size: 11px; }
+  #topbar .seg, #topbar .toolbox, .pop-btns, .spacer { display: none !important; }
+  #topbar .btn.tool-l { width: 40px; height: 40px; padding: 0; justify-content: center; }
+  #dock { padding: 8px 10px 8px; }
+  #dock .transport { flex-wrap: wrap; gap: 6px 8px; } #dock .scrub { order: 5; flex: 1 1 100%; height: 30px; }
+  #dock .scrub input[type=range]::-webkit-slider-runnable-track, #dock .scrub input[type=range]::-webkit-slider-thumb { height: 30px; }
+  #dock .scalebar { display: none; }
+  #dock .honesty { display: none; } #dock .honesty-mini { display: flex; align-items: center; gap: 7px; margin: 6px 0 0; font-size: 11px; color: var(--muted); }
+  #dock .credit { margin-top: 2px; font-size: 11px; line-height: 1.35; } #dock .credit .credit-full { display: none; } #dock .credit .credit-short { display: inline; }
+  .pop-rail { top: auto; bottom: var(--dock-h); }
+  #panel { top: auto; left: 8px; right: 8px; bottom: calc(var(--dock-h) + 8px); height: 46vh; }
+  .nar { top: auto; bottom: calc(var(--dock-h) + 8px); }
+  .menu { left: 8px !important; right: 8px; top: calc(var(--mast-h) + 4px); max-height: calc(100% - var(--mast-h) - var(--dock-h) - 16px); }
+}
+
+/* ---- cards: figures never break, a kicker is one line ---- */
+.pc-bar-row b, .pc-kv dd .ev, .pc-bar-sub .ev-pair { white-space: nowrap; }
+.pc-bar-row { align-items: baseline; justify-content: space-between; }
+.pc-kv dd { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; }
+.pc-bar-sub { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; }
+
+/* the reading rail lies inside the map band: the masthead keeps its brand and its row */
+#app[data-rail="open"] .brand { display: flex; } #app[data-rail="open"] #topbar { flex-wrap: nowrap; }
+@media (max-width: 760px) { #app[data-rail="open"] .brand { display: flex !important; } }
+/* the kicker is one line of label and a muted aside that follows it ("CRITICAL  about 3:35 PM"); a long aside wraps under the label, left aligned, and is never cut by the edge of the card */
+.pc-kick { flex-wrap: wrap; column-gap: 10px; row-gap: 3px; } .pc-kick-right { margin-left: 0 !important; white-space: normal; min-width: 0; flex: 0 1 auto; }

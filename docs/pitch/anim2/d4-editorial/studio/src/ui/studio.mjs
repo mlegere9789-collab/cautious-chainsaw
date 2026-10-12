@@ -14,14 +14,14 @@ export function createStudioUI({ root, engine, data, onSafe }) {
   const icon = (name, cls) => { const s = svgIcon(ICON[name]); if (cls) s.setAttribute('class', cls); return s; };
 
   // ---- top bar -------------------------------------------------------------------------------------------------------------------------------
-  el.tick = h('div', { class: 'tick' }, 'Tick 1 / 675'); el.clock = h('div', { class: 'clock' }, '');
-  const brand = h('div', { class: 'brand glass' }, svgIcon(MARK), h('div', null, h('b', null, 'Battle Studio'), h('span', null, 'shared animation engine · prototype')));
-  const clockbox = h('div', { class: 'clockbox glass', 'aria-live': 'off' }, el.tick, el.clock);
+  el.tick = h('div', { class: 'tick' }, ''); el.clock = h('div', { class: 'clock' }, '');
+  const brand = h('div', { class: 'brand' }, svgIcon(MARK), h('div', null, h('b', null, 'Battle Studio'), h('span', null, 'Gettysburg, July 1 to 3, 1863')));
+  const clockbox = h('div', { class: 'clockbox', 'aria-live': 'off' }, el.tick, el.clock);
 
   // Style switcher: three families (a segmented control), a variant menu, and one select for narrow screens
   const styleBtns = STYLES.map((s) => h('button', { type: 'button', 'data-style': s.id, title: s.blurb, 'aria-pressed': 'false', onclick: () => chooseStyle(s.id, currentVariant()) }, s.label));
   el.variant = h('select', { class: 'vsel', 'aria-label': 'Style variant', title: 'Variant: standard, colour-blind safe or high contrast', onchange: () => chooseStyle((styleOfSkin(tok('skin.id')) || { style: STYLES[0] }).style.id, el.variant.value) }, VARIANTS.map((v) => h('option', { value: v.id }, v.label)));
-  const segStyle = h('div', { class: 'seg glass styles', role: 'group', 'aria-label': 'Style' }, styleBtns, el.variant);
+  const segStyle = h('div', { class: 'seg styles', role: 'group', 'aria-label': 'Look of the ground' }, styleBtns);
   el.styleSel = h('select', { class: 'btn style-sel', 'aria-label': 'Style', onchange: () => { const [sid, vid] = el.styleSel.value.split('|'); chooseStyle(sid, vid); } },
     STYLES.map((s) => h('optgroup', { label: s.label }, VARIANTS.map((v) => h('option', { value: s.id + '|' + v.id }, s.label + (v.id === 'standard' ? '' : ' · ' + v.label))))), h('option', { value: '|' , hidden: true, id: 'style-other' }, 'Test skin'));
   const currentVariant = () => (styleOfSkin(tok('skin.id')) || { variant: 'standard' }).variant;
@@ -60,6 +60,11 @@ export function createStudioUI({ root, engine, data, onSafe }) {
   function openMenu() {
     const groups = new Map(); for (const t of kernel.tours.list()) { if (!groups.has(t.group)) groups.set(t.group, []); groups.get(t.group).push(t); }
     const kids = [];
+    { const cur = styleOfSkin(tok('skin.id')) || { style: STYLES[0], variant: 'standard' };                     // the look of the ground and the colour set: one place, on every screen size
+      kids.push(h('h4', null, 'Look'));
+      for (const s of STYLES) kids.push(item(null, s.label, s.blurb, () => chooseStyle(s.id, currentVariant()), 'plain' + (cur.style.id === s.id ? ' current' : '')));
+      kids.push(h('h4', null, 'Colour'));
+      for (const v of VARIANTS) kids.push(item(null, v.label, v.blurb || '', () => chooseStyle(cur.style.id, v.id), 'plain' + (cur.variant === v.id ? ' current' : ''))); }
     for (const [g, list] of groups) { kids.push(h('h4', null, g)); for (const t of list) kids.push(item(g === 'Showcase' ? 'showcase' : 'target', t.label, t.blurb, () => ui.onTour && ui.onTour(t.id))); }
     kids.push(h('h4', null, 'Compare'), item('replay', 'Replay this view, before then after', 'The same ticks from where the camera is now, through the production reproduction and then the Studio, with the numbers measured on this run.', () => ui.onTour && ui.onTour('view-replay')));
     kids.push(item('target', engine.compare === 'before' ? 'Show the Studio again (After)' : 'Show the production renderer (Before)', 'The first prototype reproduction of the shipped tile renderer: stepping, hold-then-jump, overlapping bars. Key B.', () => setCompare(engine.compare === 'before' ? 'after' : 'before'), 'plain'));
@@ -87,13 +92,13 @@ export function createStudioUI({ root, engine, data, onSafe }) {
   el.range = h('input', { type: 'range', min: 1, max: 675, step: 0.01, value: 1, 'aria-label': 'Tick', oninput: () => transport.seek(+el.range.value, { ms: 90 }), onpointerdown: () => { ui.scrubbing = true; }, onpointerup: () => { ui.scrubbing = false; }, onpointercancel: () => { ui.scrubbing = false; } });
   el.marks = h('canvas', { 'aria-hidden': 'true' }); el.tip = h('div', { class: 'scrubtip hidden' });
   const scrub = h('div', { class: 'scrub' }, el.marks, el.range, el.tip);
-  el.honesty = h('div', { class: 'honesty' }, evBadge('Modelled'), h('span', { class: 'note' }, 'positions are hand-authored keyframes; motion between them is interpolated'), evBadge('Modelled'), h('span', { class: 'note' }, 'clock is a candidate, not reviewed'));
-  el.honestyMini = h('div', { class: 'honesty-mini' }, evBadge('Modelled'), 'positions, motion between keyframes and the candidate clock');
+    el.honesty = h('div', { class: 'honesty' }, evBadge('Modelled'), h('span', { class: 'note' }, 'Positions are hand-authored keyframes and motion between them is interpolated; the clock is a candidate, not a reviewed time.'));
+  el.honestyMini = h('div', { class: 'honesty-mini' }, evBadge('Modelled'), h('span', null, 'positions, motion and the candidate clock'));
   el.credit = h('div', { id: 'credit', class: 'credit', role: 'note' });      // D4 FORK: what this ground is, in the dock, on every screen (app.mjs fills it from the backdrop)
   const dock = h('section', { id: 'dock', 'aria-label': 'Transport' },
     h('div', { class: 'transport' },
       h('div', { class: 'grp' }, h('button', { class: 'tbtn', 'aria-label': 'Go to tick 1', title: 'Start', onclick: () => transport.seek(1, { ms: 200 }) }, svgIcon(ICON.start)), stepBtn('Back one tick', ICON.stepBack, -1), el.play, stepBtn('Forward one tick', ICON.step, 1)),
-      h('div', { class: 'grp speeds', role: 'group', 'aria-label': 'Speed' }, speedBtns), el.dockstat, el.scale), scrub, el.honesty, el.honestyMini, el.credit);
+      h('div', { class: 'grp speeds', role: 'group', 'aria-label': 'Speed' }, speedBtns), scrub, el.dockstat, el.scale), el.honesty, el.honestyMini, el.credit);
 
   // ---- panel ---------------------------------------------------------------------------------------------------------------------------------
   const tabs = ['tune', 'inspect', 'about'];
@@ -178,7 +183,7 @@ export function createStudioUI({ root, engine, data, onSafe }) {
       out.push(h('div', { class: 'card' }, h('b', null, 'Chain of command'), h('div', { class: 'note' }, d.chain.map((c) => `${c.id} (${c.kind})`).join(' › ')), h('div', { class: 'note' }, [d.parentSource === 'oob' ? 'parent from the order of battle ' : 'no complete order-of-battle parent ', evBadge(d.parentSource === 'oob' ? 'Documented' : 'Unknown')])));
     } else {
       out.push(h('div', { class: 'card' }, h('b', null, `${t.short} ${t.badge || ''}`), h('div', { class: 'note' }, `An aggregate: ${t.n} placement records share this tile because they cannot all stand on their true positions within the displacement budget. `, evBadge('Computed')),
-        kv([['Side', t.side === 'mixed' ? 'both sides (Contact) or mixed with unknown' : t.side], ['Last keyframe', `${fmt(t.ageMin, 0)} to ${fmt(t.ageMax, 0)} ticks ago`]])));
+        kv([['Side', t.side === 'mixed' ? 'both sides, or one side and a contested one' : t.side], ['Last keyframe', `${fmt(t.ageMin, 0)} to ${fmt(t.ageMax, 0)} ticks ago`]])));
       out.push(h('h3', null, 'Records'), h('div', { class: 'card' }, ...t.ids.slice(0, 40).map((id) => h('div', null, h('button', { class: 'btn', style: { height: '26px', padding: '0 8px', margin: '2px 6px 2px 0' }, onclick: () => { engine.select(id); ui.inspectTile = f && f.tiles.find((q) => q.ids.includes(id) && q.kind === 'leaf') || { kind: 'leaf', ids: [id] }; renderChrome(); } }, id), engine.battle.units.get(id)?.label || '')), t.ids.length > 40 ? h('div', { class: 'note' }, `and ${t.ids.length - 40} more`) : null));
     }
     out.push(h('div', { class: 'toolbar' }, h('button', { class: 'btn', onclick: () => { engine.select(null); ui.inspectTile = null; renderChrome(); } }, 'Clear selection')));
@@ -234,9 +239,9 @@ export function createStudioUI({ root, engine, data, onSafe }) {
     const css = getComputedStyle(document.documentElement); const line = css.getPropertyValue('--line').trim() || '#2a323c'; const muted = css.getPropertyValue('--muted').trim() || '#9ba6b2';
     g.fillStyle = css.getPropertyValue('--panel2').trim() || '#1b2128'; g.globalAlpha = 0.7; g.beginPath(); g.roundRect ? g.roundRect(0, 6, W, H - 12, 8) : g.rect(0, 6, W, H - 12); g.fill(); g.globalAlpha = 1;
     g.strokeStyle = line; g.lineWidth = 1; for (const t of [226, 451]) { g.beginPath(); g.moveTo(x(t), 2); g.lineTo(x(t), H - 2); g.stroke(); }
-    g.fillStyle = muted; g.font = '10px system-ui, sans-serif'; g.textBaseline = 'top'; for (const [t, s] of [[1, 'July 1'], [226, 'July 2'], [451, 'July 3']]) g.fillText(s, x(t) + 6, 2);
-    for (const e of data.events) { g.strokeStyle = e.significance === 'critical' ? '#e0553a' : e.significance === 'high' ? '#d9a21b' : '#6d7782'; g.lineWidth = 1; const hh = e.significance === 'critical' ? 14 : e.significance === 'high' ? 9 : 5; g.beginPath(); g.moveTo(x(e.tick) + 0.5, H - 6); g.lineTo(x(e.tick) + 0.5, H - 6 - hh); g.stroke(); }
-    g.fillStyle = '#5b9bf0'; for (const s of data.scenes) { const px = x(s.tick); g.beginPath(); g.moveTo(px, 8); g.lineTo(px + 4, 12); g.lineTo(px, 16); g.lineTo(px - 4, 12); g.closePath(); g.fill(); }
+    g.fillStyle = muted; g.font = '600 11px Inter, system-ui, sans-serif'; g.textBaseline = 'top'; for (const [t, s] of [[1, 'July 1'], [226, 'July 2'], [451, 'July 3']]) g.fillText(s, x(t) + 6, 1);
+    for (const e of data.events) { g.strokeStyle = e.significance === 'critical' ? '#e0553a' : e.significance === 'high' ? '#d9a21b' : '#6d7782'; g.lineWidth = 1; const hh = Math.min(e.significance === 'critical' ? 14 : e.significance === 'high' ? 9 : 5, H * 0.38); g.beginPath(); g.moveTo(x(e.tick) + 0.5, H - 5); g.lineTo(x(e.tick) + 0.5, H - 5 - hh); g.stroke(); }
+    g.fillStyle = '#4a7fd0'; const dy = Math.round(H * 0.6); for (const s of data.scenes) { const px = x(s.tick); g.beginPath(); g.moveTo(px, dy - 4); g.lineTo(px + 3.5, dy); g.lineTo(px, dy + 4); g.lineTo(px - 3.5, dy); g.closePath(); g.fill(); }
   }
   el.range.addEventListener('pointermove', (ev) => {
     const r = el.range.getBoundingClientRect(); const t = 1 + (ev.clientX - r.left - 2) / (r.width - 4) * 674; let best = null; let bd = 1e9;
@@ -252,8 +257,8 @@ export function createStudioUI({ root, engine, data, onSafe }) {
   // ---- per-frame update --------------------------------------------------------------------------------------------------------------------------
   let lastTickText = ''; let lastClockText = '';
   ui.update = (frame, now) => {
-    const t = engine.transport; const tickText = `Tick ${frame.tick} / 675`; if (tickText !== lastTickText) { el.tick.textContent = tickText; lastTickText = tickText; }
-    const cl = frame.clock; const clockText = `${cl.date}, about ${cl.text} (±${cl.sigmaMin} min) · candidate clock`; if (clockText !== lastClockText) { el.clock.textContent = clockText; lastClockText = clockText; }
+    const t = engine.transport; const cl = frame.clock; const tickText = `${cl.date}, about ${cl.text}`; if (tickText !== lastTickText) { el.tick.textContent = tickText; lastTickText = tickText; }
+    const clockText = `±${cl.sigmaMin} min · candidate clock · tick ${frame.tick} of 675`; if (clockText !== lastClockText) { el.clock.textContent = clockText; lastClockText = clockText; }
     el.play.setAttribute('aria-label', t.playing ? 'Pause' : 'Play'); const want = t.playing ? 'pause' : 'play'; if (el.play.dataset.state !== want) { el.play.dataset.state = want; el.play.replaceChildren(svgIcon(ICON[want])); }
     if (!ui.scrubbing) el.range.value = String(t.target ?? t.simTau);
     for (const b of speedBtns) b.setAttribute('aria-pressed', String(+b.dataset.speed === t.speed));

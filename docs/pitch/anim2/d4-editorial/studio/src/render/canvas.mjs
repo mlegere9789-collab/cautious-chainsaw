@@ -20,7 +20,7 @@ export function createRenderer({ canvas, engine, data }) {
     const t0 = performance.now(); const tok = engine.tok; const c = ctx;
     const skin = engine.kernel.skins.has(tok('skin.id')) ? engine.kernel.skins.get(tok('skin.id')) : fallbackSkin;
     const spec = frame.spec; const view = frame.view; const cam = engine.camera;
-    const env = { dpr, zoom: frame.zoom, timeMs: frame.tau * 500, tok, spec, data, camera: cam, size: [cssW, cssH], places: engine.kernel.places ? engine.kernel.places.list : null, toScreen: (lng, lat) => cam.toScreen(lng, lat) };
+    const env = { dpr, zoom: frame.zoom, timeMs: frame.tau * 500, tok, spec, data, camera: cam, size: [cssW, cssH], places: engine.kernel.places ? engine.kernel.places.list : null, toScreen: (lng, lat) => cam.toScreen(lng, lat), roadLabels: engine.kernel.backdrops.has(tok('backdrop.id')) && engine.kernel.backdrops.get(tok('backdrop.id')).roadLabels ? () => engine.kernel.backdrops.get(tok('backdrop.id')).roadLabels(cam) : null };
     c.setTransform(dpr, 0, 0, dpr, 0, 0); c.globalAlpha = 1;
     if (mapRect) { c.save(); c.beginPath(); c.rect(0, 0, mapRect.w, mapRect.h); c.clip(); }      // the map viewport (it shrinks when the reading rail is open)
     // 1. backdrop

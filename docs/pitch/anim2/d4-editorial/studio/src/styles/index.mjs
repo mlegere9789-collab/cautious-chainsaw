@@ -6,9 +6,9 @@ export const STYLES = [
 ];
 
 export const VARIANTS = [
-  { id: 'standard', suffix: '', label: 'Standard' },
-  { id: 'cvd', suffix: '/cvd', label: 'Colour-blind safe' },
-  { id: 'contrast', suffix: '/contrast', label: 'High contrast' },
+  { id: 'standard', suffix: '', label: 'Standard', blurb: 'Blue for the Union, red for the Confederacy.' },
+  { id: 'cvd', suffix: '/cvd', label: 'Colour-blind safe', blurb: 'Blue and orange, tuned for the common colour-vision differences.' },
+  { id: 'contrast', suffix: '/contrast', label: 'High contrast', blurb: 'Deeper colours and heavier rings.' },
 ];
 
 export const DEFAULT_STYLE = 'dispatch-paper';

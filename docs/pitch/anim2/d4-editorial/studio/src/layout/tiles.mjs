@@ -17,10 +17,15 @@ export function leafPriority(u, selectedId) { return (u.id === selectedId ? 1e9 
  *  nickname in brackets (the nickname stays on the unit card); a brigade, division or corps record keeps its short name when that is whole ("Harrow's Brigade"), else the designation. */
 const ORD = { First: '1st', Second: '2nd', Third: '3rd', Fourth: '4th', Fifth: '5th', Sixth: '6th', Seventh: '7th', Eighth: '8th', Ninth: '9th', Tenth: '10th', Eleventh: '11th', Twelfth: '12th', Reserve: 'Reserve' };
 /** "Third Brigade, Second Division, Third Corps" -> "3rd Bde, 2nd Div, 3rd Corps": ordinals as figures, Brigade and Division shortened; every word is the record's own */
-export function abbreviate(s) { return s.replace(/(First|Second|Third|Fourth|Fifth|Sixth|Seventh|Eighth|Ninth|Tenth|Eleventh|Twelfth)(?= (Brigade|Division|Corps))/g, (m) => ORD[m]).replace(/Brigade/g, 'Bde').replace(/Division/g, 'Div'); }
+const ROMAN = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+const ORDN = { First: 1, Second: 2, Third: 3, Fourth: 4, Fifth: 5, Sixth: 6, Seventh: 7, Eighth: 8, Ninth: 9, Tenth: 10, Eleventh: 11, Twelfth: 12 };
+/** a corps is written in Roman numerals ("II Corps"), the convention of both armies' orders of battle; every other ordinal is a figure ("2nd Div") */
+export const corpsRoman = (s) => s.replace(/\b(?:(First|Second|Third|Fourth|Fifth|Sixth|Seventh|Eighth|Ninth|Tenth|Eleventh|Twelfth)|(\d{1,2})(?:st|nd|rd|th)) Corps\b/g, (m, w, n) => { const k = w ? ORDN[w] : +n; return ROMAN[k] ? ROMAN[k] + ' Corps' : m; });
+/** "Third Brigade, Second Division, Third Corps" -> "3rd Bde, 2nd Div, III Corps": ordinals as figures (a corps in Roman numerals), Brigade and Division shortened; every word is the record's own */
+export function abbreviate(s) { return corpsRoman(s).replace(/(First|Second|Third|Fourth|Fifth|Sixth|Seventh|Eighth|Ninth|Tenth|Eleventh|Twelfth)(?= (Brigade|Division))/g, (m) => ORD[m]).replace(/Brigade/g, 'Bde').replace(/Division/g, 'Div'); }
 export function nameOf(u) {
   const full = u.designation ? u.designation.replace(/\s*\([^)]*\)\s*$/, '') : null; const lab = u.label || '';
-  if (u.kind === 'brigade' || u.kind === 'division' || u.kind === 'corps' || u.kind === 'army') return /…$/.test(lab) ? abbreviate(full || lab.replace(/…$/, '')) : lab;
+  if (u.kind === 'brigade' || u.kind === 'division' || u.kind === 'corps' || u.kind === 'army') return corpsRoman(/…$/.test(lab) ? abbreviate(full || lab.replace(/…$/, '')) : lab);
   return full || lab.replace(/…$/, '');
 }
 
@@ -55,15 +60,40 @@ export function nodeShort(all, id) {
   cache.set(id, s); return s;
 }
 
-/** The name an aggregate shows (the product owns the final wording):
- *   both Union and Confederate members            -> "Contact" + "x n"
- *   members share a brigade / division / corps    -> that formation's short code + "x n"
- *   anything else (several corps, unknown sides)  -> the lead member (highest echelon, then strength) + "+k" */
-export function aggregateName(all, lca, side, sides, lead, n) {
-  if (sides.union && sides.confederate) return { short: 'Contact', badge: '×' + n, kind: 'contact' };
+/** The name a crowd shows (D4 round 1: in words, from the order of battle, never a lead record and a plus, never the word "Contact": the data records no engagement).
+ *   both Union and Confederate members           -> "Both sides"
+ *   members share a brigade, division or corps    -> that formation's own name ("Harrow's Brigade", "1st Div, 2nd Corps", "2nd Corps")
+ *   same side, different corps                    -> the corps in words ("1st & 11th Corps"), or "Union, 4 corps" when there are more than two
+ *   same side, no formation on record             -> "Confederate, no formation on record"
+ *  The number beside it (the mark's count) is how many placement records the crowd stands for. */
+const FORMATION_KIND = new Set(['brigade', 'division', 'corps']);
+const nickOf = (d) => { const m = /\(([^)]+)\)\s*$/.exec(d || ''); return m ? m[1] : null; };
+/** a node's name in the words of its own designation: "Second Corps" -> "2nd Corps"; "First Division, Second Corps" -> "1st Div, 2nd Corps"; "First Brigade, First Division, First Corps (Iron Brigade)" -> "Iron Brigade" */
+const NAME_CACHE = new WeakMap();
+export function nodeName(all, id) {
+  let c = NAME_CACHE.get(all); if (!c) NAME_CACHE.set(all, c = new Map()); if (c.has(id)) return c.get(id);
+  const v = nodeName0(all, id); c.set(id, v); return v;
+}
+function nodeName0(all, id) {
+  const u = all.units.get(id); if (u && FORMATION_KIND.has(u.kind)) { const nm = nameOf(u); if (nm) return nm; }
+  const n = all.nodes.get(id); if (!n || !n.designation) return null;
+  const d = n.designation; const nick = nickOf(d); const bare = d.replace(/\s*\([^)]*\)\s*$/, '');
+  if (n.kind === 'brigade') { if (/^(First|Second|Third|Fourth|Fifth|Sixth|Seventh|Eighth|Ninth|Tenth) Brigade/.test(bare)) return nick && /Brigade|Bde/.test(nick) ? nick : abbreviate(bare); return abbreviate(bare); }
+  return abbreviate(bare);
+}
+const romanRank = (id) => { const i = ROMAN.indexOf(String(id).replace(/^[UC]-/, '')); return i > 0 ? i : 99; };
+const corpsOf = (all, chain) => { for (const id of chain) { const n = all.nodes.get(id); if (n && n.kind === 'corps') return id; } return null; };
+export function aggregateName(all, lca, side, sides, lead, n, units = []) {
+  if (sides.union && sides.confederate) return { short: 'Both sides', badge: String(n), kind: 'both' };
+  if (side === 'mixed') return { short: (sides.union ? 'Union' : 'Confederate') + ', ' + sides.unknown + ' contested', badge: String(n), kind: 'both' };
+  if (side === 'unknown') return { short: 'Side contested', badge: String(n), kind: 'both' };
   const node = all.nodes.get(lca);
-  if (side !== 'mixed' && node && ['brigade', 'battalion', 'division', 'corps'].includes(node.kind)) return { short: nodeShort(all, lca), badge: '×' + n, kind: node.kind };
-  return { short: lead.short, badge: '+' + (n - 1), kind: 'lead' };
+  if (node && FORMATION_KIND.has(node.kind)) { const w = nodeName(all, lca); if (w) return { short: w, badge: String(n), kind: node.kind }; }
+  const sideWord = side === 'union' ? 'Union' : 'Confederate'; const corps = new Set(); let orphans = 0;
+  for (const u of units) { const c = corpsOf(all, u.chain); if (c) corps.add(c); else orphans++; }
+  if (corps.size >= 1 && corps.size <= 3) { const nm = [...corps].sort((x, y) => romanRank(x) - romanRank(y)).map((c) => (nodeName(all, c) || c).replace(/ Corps$/, '')); const head = nm.length === 1 ? nm[0] : nm.slice(0, -1).join(', ') + ' & ' + nm[nm.length - 1]; return { short: head + ' Corps' + (orphans ? ' & others' : ''), badge: String(n), kind: 'side' }; }
+  if (corps.size > 3) return { short: `${sideWord}, ${corps.size} corps`, badge: String(n), kind: 'side' };
+  return { short: `${sideWord}, no formation`, badge: String(n), kind: 'side' };
 }
 
 /** lowest common ancestor of a set of chains (each runs node -> ... -> ROOT) */
@@ -99,7 +129,7 @@ export function makeAggregate(all, tiles, spec, createdFrame = 0) {
   const side = present.length > 1 ? 'mixed' : present[0];
   const n = ids.length;
   const leadTile = leaves.reduce((m, t) => (t.prio > m.prio ? t : m), leaves[0]);
-  const nm = aggregateName(all, lca, side, sides, leadTile, n);
+  const nm = aggregateName(all, lca, side, sides, leadTile, n, leaves.map((l) => all.units.get(l.ids[0])));
   const cs = chipSize(spec, nm.short, nm.badge, { agg: true, n, side, kind: nm.kind, nameKind: nm.kind, sides });
   const ax = px + (cs.hx || 0); const ay = py + (cs.hy || 0);
   const node = all.nodes.get(lca);

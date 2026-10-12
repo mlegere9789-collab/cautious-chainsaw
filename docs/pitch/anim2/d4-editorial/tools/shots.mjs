@@ -1,5 +1,5 @@
 // tools/shots.mjs - the pictures of the brief, rendered by the built page in real Chrome from the real data on the real aerial ground (a static server, no network).
-//   node tools/shots.mjs [--set=final|iN] [--dpr=2] [--only=S1a,S4] [--look=paper|aerial] [--port=9900] [--fmt=png|jpg]
+//   node tools/shots.mjs [--set=final|iN] [--dpr=2] [--only=S1a,S4] [--look=paper|aerial] [--port=10000] [--fmt=png|jpg]
 // --set=final writes to shots/ (PNG, DPR 2, 1440x900; the phone 390x844); --set=iN writes the same pictures as JPEG into iterations/iN/ (the log ITERATIONS.md cites them).
 // Every scene also writes its measured counts (the independent frame check, tools/frame-check.mjs) to results/scenes-<set>.json.
 import fs from 'node:fs';
@@ -8,8 +8,8 @@ import { serve, launch, open, settle, ROOT, PAGE } from './lib.mjs';
 import { frameCheck } from './frame-check.mjs';
 
 const a = process.argv.slice(2); const o = Object.fromEntries(a.filter((x) => x.startsWith('--')).map((x) => { const i = x.indexOf('='); return i < 0 ? [x.slice(2), '1'] : [x.slice(2, i), x.slice(i + 1)]; }));
-const SET = o.set || 'final'; const DPR = +(o.dpr || 2); const PORT = +(o.port || 9900); const LOOK = o.look || 'paper'; const only = o.only ? o.only.split(',') : null;
-const FMT = o.fmt || (SET === 'final' ? 'png' : 'jpg'); const OUT = SET === 'final' ? path.join(ROOT, 'shots') : path.join(ROOT, 'iterations', SET); fs.mkdirSync(OUT, { recursive: true }); fs.mkdirSync(path.join(ROOT, 'results'), { recursive: true });
+const SET = o.set || 'final'; const DPR = +(o.dpr || 2); const PORT = +(o.port || 10000); const LOOK = o.look || 'paper'; const only = o.only ? o.only.split(',') : null;
+const ROUND = /^round-/.test(SET); const FMT = o.fmt || (SET === 'final' || ROUND ? 'png' : 'jpg'); const OUT = SET === 'final' ? path.join(ROOT, 'shots') : ROUND ? path.join(ROOT, 'shots', SET) : path.join(ROOT, 'iterations', SET); fs.mkdirSync(OUT, { recursive: true }); fs.mkdirSync(path.join(ROOT, 'results'), { recursive: true });
 const QUIET = { 'popup.event.enabled': false, 'popup.story.enabled': false, 'popup.toast.enabled': false, 'popup.crossout.enabled': false, 'popup.banner.enabled': false, 'popup.hints.enabled': false };
 const q = (base, set = {}) => `${base}&style=${LOOK === 'aerial' ? 'dispatch-aerial' : 'dispatch-paper'}&set=${encodeURIComponent(JSON.stringify(set))}`;
 
@@ -45,7 +45,7 @@ try {
           // centre the unit's neighbourhood: the camera goes to the unit (the scene's own centre is the hotspot, the unit stands in it)
           target = await b.page.evaluate(`(() => { ${FIND(sc.select || sc.hover)} const d = S.engine.describeUnit(t.ids[0]); S.engine.moveTo({ lat: d.now.lat, lng: d.now.lng, zoom: ${sc.phone ? 14.5 : 16.5} }, { glide: false, safe: true }); return t.ids[0]; })()`);
           await settle(b.page, 140);
-          const pos = await b.page.evaluate(`(() => { ${FIND(sc.select || sc.hover)} return [t.x + f.view.dx - (t.hx || 0), t.y + f.view.dy]; })()`);
+          const pos = await b.page.evaluate(`(() => { ${FIND(sc.select || sc.hover)} const sr = document.getElementById('stage').getBoundingClientRect(); return [t.x + f.view.dx - (t.hx || 0) + sr.left, t.y + f.view.dy + sr.top]; })()`);
           if (sc.hover) { await b.page.mouse.move(pos[0] - 80, pos[1] - 40); await b.page.mouse.move(pos[0], pos[1], { steps: 6 }); await b.page.waitForTimeout(400); await settle(b.page, 120); }
           if (sc.select) {
             await b.page.mouse.move(pos[0] - 80, pos[1] - 40); await b.page.mouse.move(pos[0], pos[1], { steps: 4 }); await b.page.mouse.click(pos[0], pos[1]); await settle(b.page, 40);
@@ -60,12 +60,12 @@ try {
         let cropFile = null;
         if (sc.crop && !sc.phone) {                                                           // a 100-percent crop of the busiest 600 x 400 CSS px of the map (every pixel of the device-pixel picture, no resampling)
           const box = await b.page.evaluate(() => {
-            const f = window.__studio.engine.frame; const dx = f.view.dx; const dy = f.view.dy; const W = innerWidth; const H = innerHeight; const pts = f.tiles.filter((t) => t.life === 'live' && t.solid).map((t) => [t.x + dx, t.y + dy]);
+            const f = window.__studio.engine.frame; const sr = document.getElementById('stage').getBoundingClientRect(); const dx = f.view.dx + sr.left; const dy = f.view.dy + sr.top; const W = sr.right; const H = sr.bottom; const pts = f.tiles.filter((t) => t.life === 'live' && t.solid).map((t) => [t.x + dx, t.y + dy]);
             // the chrome and the cards of the picture: a crop of the busiest map area must not include them
             const occ = []; const add = (el) => { const r = el.getBoundingClientRect(); const cs = getComputedStyle(el); if (r.width > 4 && r.height > 4 && cs.visibility !== 'hidden' && cs.display !== 'none' && +cs.opacity > 0.05) occ.push([r.left, r.top, r.right, r.bottom]); };
             for (const el of document.querySelectorAll('#topbar > *, #dock, .pc, #panel:not(.hidden), .nar:not(.hidden), #metrics:not(.hidden), .pop-rail[data-open="true"], #credit')) add(el);
             const free = (x, y) => !occ.some((o) => o[0] < x + 600 && o[2] > x && o[1] < y + 400 && o[3] > y);
-            let best = null; for (const strict of [true, false]) { for (let x = 0; x <= W - 600; x += 20) for (let y = 0; y <= H - 400; y += 20) { if (strict && !free(x, y)) continue; let n = 0; for (const p of pts) if (p[0] > x + 20 && p[0] < x + 580 && p[1] > y + 20 && p[1] < y + 380) n++; if (!best || n > best.n) best = { x, y, n }; } if (best && best.n > 0) break; }
+            let best = null; for (const strict of [true, false]) { for (let x = Math.ceil(sr.left); x <= W - 600; x += 20) for (let y = Math.ceil(sr.top); y <= H - 400; y += 20) { if (strict && !free(x, y)) continue; let n = 0; for (const p of pts) if (p[0] > x + 20 && p[0] < x + 580 && p[1] > y + 20 && p[1] < y + 380) n++; if (!best || n > best.n) best = { x, y, n }; } if (best && best.n > 0) break; }
             return best;
           });
           cropFile = path.join(OUT, sc.id + sfx + '.crop.' + FMT);

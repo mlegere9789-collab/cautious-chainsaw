@@ -286,7 +286,7 @@ export function createPopupHost(engine, env = {}) {
     /** open a card's long form in the rail (phone: the sheet) and make room for it */
     openRail(id) {
       const c = S.cards.get(id); if (!c || !c.spec.doc) return false; if (S.rail && S.rail.id !== id) api.closeRail();
-      S.rail = { id, doc: c.spec.doc, owner: c.spec, def: c.def, live: c.spec.kind === 'doc', openedAt: S.now, tick: c.tick, framed: false }; S.sheet = 'half';
+      S.rail = { id, doc: c.spec.doc, owner: c.spec, def: c.def, live: c.spec.kind === 'doc', openedAt: S.now, tick: c.tick, framed: false }; S.sheet = isPhone() && /^unit-card:/.test(id) ? 'peek' : 'half';
       if (c.spec.doc.title) S.live.q.push({ text: `Reading panel opened: ${c.spec.doc.title}.`, prio: 90 }); return true;
     },
     closeRail() { if (!S.rail) return false; const r = S.rail; S.rail = null; const c = S.cards.get(r.id); if (c && c.spec.onRailClose) c.spec.onRailClose(makeApi(S.frame, S.now, 0, c.def)); return true; },
@@ -545,7 +545,7 @@ export function createPopupHost(engine, env = {}) {
       if (subj.point) { const q = subj.point; if (q.x > 0 && q.x < m.w && q.y > 0 && q.y < m.h) places.push({ x: q.x, y: q.y, r: 20, tone, alpha, label: subj.placeLL && subj.placeLL.label }); else { const cx = clamp(q.x, 14, m.w - 14); const cy = clamp(q.y, 14, m.h - 14); arrows.push({ x: cx, y: cy, ang: Math.atan2(q.y - cy, q.x - cx), tone, alpha }); } }
       if (from && anchorRect) {
         const tx = (anchorRect.x0 + anchorRect.x1) / 2; const ty = (anchorRect.y0 + anchorRect.y1) / 2;
-        if (tx > 0 && tx < m.w && ty > 0 && ty < m.h) { let e = subj.tiles.length ? clampPt(anchorRect, from.x, from.y) : [tx, ty]; if (subj.tiles.length && anchorRect.gx != null) { const dx = anchorRect.gx - from.x; const dy = anchorRect.gy - from.y; const d = Math.hypot(dx, dy) || 1; e = [anchorRect.gx - dx / d * (anchorRect.gr + 1.5), anchorRect.gy - dy / d * (anchorRect.gr + 1.5)]; } leaders.push({ x0: from.x, y0: from.y, x1: e[0], y1: e[1], tone, p, alpha, onTile: subj.tiles.length > 0 }); }
+        if (tx > 0 && tx < m.w && ty > 0 && ty < m.h) { let e = subj.tiles.length ? clampPt(anchorRect, from.x, from.y) : [tx, ty]; if (subj.tiles.length && anchorRect.gx != null) { const dx = anchorRect.gx - from.x; const dy = anchorRect.gy - from.y; const d = Math.hypot(dx, dy) || 1; e = [anchorRect.gx - dx / d * (anchorRect.gr + 1.5), anchorRect.gy - dy / d * (anchorRect.gr + 1.5)]; } if (Math.hypot(e[0] - from.x, e[1] - from.y) <= tok('popup.place.leaderShowPx')) leaders.push({ x0: from.x, y0: from.y, x1: e[0], y1: e[1], tone, p, alpha, onTile: subj.tiles.length > 0 }); }       // D4 round 1: a line longer than this is not drawn (a 900 px hairline across the map is noise): the subject is highlighted and pulses, the card names it
       }
     };
     let newestLane = null; for (const c of S.cards.values()) if (c.lane && c.phase !== 'out' && c.spec.kind === 'card' && (!newestLane || c.seq > newestLane.seq)) newestLane = c;

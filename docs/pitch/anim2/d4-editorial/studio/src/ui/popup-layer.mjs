@@ -124,7 +124,7 @@ export function createPopupLayer({ root, container, engine, host, systemReduced 
       return;
     }
     rail.removeAttribute('aria-hidden'); rail.inert = false;
-    rail.style.transform = out.phone ? `translateY(${Math.round((1 - prog) * 100)}%)` : `translateX(${Math.round((1 - prog) * 100)}%)`; const dockPx = parseFloat(root.style.getPropertyValue('--dock-h')) || 0; rail.style.width = out.phone ? '' : r.widthPx + 'px'; rail.style.height = out.phone ? Math.max(1, (L.railH || py) - dockPx) + 'px' : '';
+    rail.style.transform = out.phone ? `translateY(${Math.round((1 - prog) * 100)}%)` : `translateX(${Math.round((1 - prog) * 100)}%)`; rail.style.width = out.phone ? '' : r.widthPx + 'px'; rail.style.height = out.phone ? Math.max(1, L.railH || py) + 'px' : '';       // the dock lies outside the map: the sheet's height is the map's inset
     handle.setAttribute('aria-expanded', String(r.detent !== 'peek')); handle.setAttribute('aria-label', `Panel size: ${r.detent}. Activate to change.`);
     const doc = r.doc; const content = contentOf(doc) || { blocks: [] }; const ver = (doc.version ?? 0) + '|' + r.id; const fresh = L.railId !== r.id;
     if (fresh) { L.prevFocus = document.activeElement && document.activeElement !== document.body ? document.activeElement : null; L.railId = r.id; L.railVersion = null; railBody.scrollTop = 0; }
@@ -172,20 +172,17 @@ export function createPopupLayer({ root, container, engine, host, systemReduced 
   if (typeof MutationObserver !== 'undefined') { const mo = new MutationObserver(markChrome); for (const id of ['topbar', 'dock', 'panel', 'metrics']) { const n = document.getElementById(id); if (n) mo.observe(n, { attributes: true, attributeFilter: ['class', 'style'], subtree: id === 'topbar' }); } }
   function chrome() {
     const now = performance.now(); if (!L.chromeDirty && L.chromeCache && now - L.chromeAt < 600) return L.chromeCache;
-    const ar = root.getBoundingClientRect(); const rects = []; const rel = (r) => ({ x0: r.left - ar.left, y0: r.top - ar.top, x1: r.right - ar.left, y1: r.bottom - ar.top });
-    let top = 0; let bottom = 0; let right = 0;
-    const bar = document.getElementById('topbar'); if (bar) for (const k of bar.children) { const r = k.getBoundingClientRect(); if (r.width > 0 && r.height > 0) top = Math.max(top, rel(r).y1); }
-    let dockBand = 0; const insB = parseFloat(root.style.getPropertyValue('--sheet-h')) || 0;
-    const dk = document.getElementById('dock'); if (dk) { const r = dk.getBoundingClientRect(); if (r.height > 0) { dockBand = ar.bottom - r.top; bottom = Math.max(bottom, Math.max(0, dockBand - insB)); } }
-    root.style.setProperty('--dock-h', Math.round(dockBand + 8) + 'px');
-    const mapW = ar.width - (parseFloat(root.style.getPropertyValue('--rail-w')) || 0);
-    const pn = document.getElementById('panel'); if (pn && !pn.classList.contains('hidden') && ar.width >= 760) { const r = rel(pn.getBoundingClientRect()); right = Math.max(0, mapW - r.x0); }
+    const stage = document.getElementById('stage') || root; const ar = stage.getBoundingClientRect(); const ap = root.getBoundingClientRect(); const rects = []; const rel = (r) => ({ x0: r.left - ar.left, y0: r.top - ar.top, x1: r.right - ar.left, y1: r.bottom - ar.top });
+    // D4 round 1: the masthead and the dock are bands OUTSIDE the map (the stage lies between them), so nothing of the interface lies on the map but what floats over it on purpose: the panel, the narration, the metrics
+    let right = 0;
+    const mapW = ap.width - (parseFloat(root.style.getPropertyValue('--rail-w')) || 0);
+    const pn = document.getElementById('panel'); if (pn && !pn.classList.contains('hidden') && ap.width >= 760) { const r = pn.getBoundingClientRect(); right = Math.max(0, mapW - (r.left - ap.left)); }
     const mt = document.getElementById('metrics'); if (mt && !mt.classList.contains('hidden')) rects.push(rel(mt.getBoundingClientRect()));
     // other interface that floats over the map and announces itself with data-chrome (the narration card, the before badge): a card must not land under it either; the narration column also
     // narrows the free part of the map on a desktop (left inset), on a phone it is a strip above the dock and only a rectangle
     let left = 0;
-    for (const n of root.querySelectorAll('[data-chrome]')) { if (n.classList.contains('hidden') || n.classList.contains('off')) continue; const r = n.getBoundingClientRect(); if (r.width <= 0 || r.height <= 0) continue; const q = rel(r); rects.push(q); if (n.id === 'narration' && ar.width >= 760) left = Math.max(left, q.x1); }
-    L.chromeCache = { rects, dock: dockBand + 8, safe: { top: top > 0 ? top + 8 : 0, bottom: bottom > 0 ? bottom + 8 : 0, left: left > 0 ? left + 8 : 0, right: right > 0 ? right + 8 : 0 } }; L.chromeAt = now; L.chromeDirty = false; return L.chromeCache;
+    for (const n of root.querySelectorAll('[data-chrome]')) { if (n.classList.contains('hidden') || n.classList.contains('off')) continue; const r = n.getBoundingClientRect(); if (r.width <= 0 || r.height <= 0) continue; const q = rel(r); rects.push(q); if (n.id === 'narration' && ap.width >= 760) left = Math.max(left, q.x1); }
+    L.chromeCache = { rects, dock: 0, safe: { top: 0, bottom: 0, left: left > 0 ? left + 8 : 0, right: right > 0 ? right + 8 : 0 } }; L.chromeAt = now; L.chromeDirty = false; return L.chromeCache;
   }
 
 

@@ -636,6 +636,14 @@
      "maximum": 1200,
      "default": 420
     },
+    "popup.place.leaderShowPx": {
+     "description": "A leader line from a card to its subject is drawn only when it is at most this long. A longer one is left out: the subject stays highlighted and pulses, and the card names it.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 60,
+     "maximum": 1200,
+     "default": 300
+    },
     "popup.place.crossPenalty": {
      "description": "A candidate place whose leader line would cross another tile is judged this many pixels farther away per tile crossed. Leaders are drawn beneath tiles, so a crossing hides nothing, but a clean line reads better.",
      "x-token": "popups",
@@ -864,12 +872,12 @@
      "default": 260
     },
     "popup.sheet.peekPx": {
-     "description": "Height of the bottom sheet at its peek detent on a phone-sized screen.",
+     "description": "Height of the bottom sheet at its peek detent on a phone-sized screen: the head of the card and its first row, so the map keeps more than 60 percent of the screen.",
      "x-token": "popups",
      "type": "number",
      "minimum": 80,
      "maximum": 260,
-     "default": 132
+     "default": 156
     },
     "popup.sheet.halfFrac": {
      "description": "Height of the bottom sheet at its half detent as a share of the screen.",

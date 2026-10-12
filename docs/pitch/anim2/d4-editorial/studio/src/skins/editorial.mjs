@@ -17,7 +17,7 @@
 // the label rectangle, the pin inside pinHalf (test/editorial.test.mjs checks all three with a recording context).
 import { defineFamily, clamp01, ss, mixHex, rgba } from './kit.mjs';
 import { armGlyph, rr } from './glyphs.mjs';
-import { DISPATCH_TOKENS, DP_VARIANTS, DA_SET, DA_VARIANTS, fadeFill } from './editorial.spec.mjs';
+import { DISPATCH_TOKENS, DP_VARIANTS, DA_SET, DA_VARIANTS, fadeFill, fadeInk, fadeT } from './editorial.spec.mjs';
 
 export const FONT = '"Inter", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif';
 export const SERIF = '"Source Serif 4", Georgia, "Iowan Old Style", "Times New Roman", serif';
@@ -39,22 +39,22 @@ function sprite(key, wCss, hCss, dpr, paint) {
 const blit = (c, s, x, y, alpha) => { if (alpha !== undefined && alpha !== 1) { const a = c.globalAlpha; c.globalAlpha = a * alpha; c.drawImage(s.cv, x - s.w / 2, y - s.h / 2, s.w, s.h); c.globalAlpha = a; } else c.drawImage(s.cv, x - s.w / 2, y - s.h / 2, s.w, s.h); };
 
 /** a run of haloed text, rasterised once: the sprite's left edge is the text's origin minus `pad` */
-function textSprite(g, text, font, italic) {
-  const P = g.P; const dpr = g.dpr; const fnt = italic ? font.replace(/^(\d+)/, 'italic $1') : font;
-  const key = `t|${g.skin.id}|${g.skin.rev}|${fnt}|${text}|${dpr}`; let s = SPR.get(key); if (s) return s;
+function textSprite(g, text, font, italic, color) {
+  const P = g.P; const dpr = g.dpr; const fnt = italic ? font.replace(/^(\d+)/, 'italic $1') : font; const ink = color || P['text.ink'];
+  const key = `t|${g.skin.id}|${g.skin.rev}|${fnt}|${text}|${ink}|${dpr}`; let s = SPR.get(key); if (s) return s;
   const probe = mkCanvas(4, 4); if (!probe) return null; const pc = probe.getContext('2d'); pc.font = fnt; const tw = pc.measureText(text).width;
   const px = /(\d+(?:\.\d+)?)px/.exec(font) ? +/(\d+(?:\.\d+)?)px/.exec(font)[1] : 12; const hw = P['text.haloWidth']; const pad = Math.ceil(hw / 2 + 2); const wCss = tw + 2 * pad; const hCss = Math.ceil(px * 1.7 + 2 * pad);
   const pw = Math.ceil(wCss * dpr); const ph = Math.ceil(hCss * dpr); const cv = mkCanvas(pw, ph); const c = cv.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0);
   c.font = fnt; c.textBaseline = 'middle'; c.textAlign = 'left'; c.lineJoin = 'round'; c.lineCap = 'round'; const x = pad; const y = hCss / 2;
   if (hw > 0) { c.strokeStyle = rgba(P['text.halo'], P['text.haloAlpha'] * 0.32); c.lineWidth = hw + 2; c.strokeText(text, x, y); c.strokeStyle = rgba(P['text.halo'], P['text.haloAlpha']); c.lineWidth = hw; c.strokeText(text, x, y); }
-  c.fillStyle = P['text.ink']; c.fillText(text, x, y);
+  c.fillStyle = ink; c.fillText(text, x, y);
   s = { cv, w: pw / dpr, h: ph / dpr, pad, tw }; if (SPR.size > 3000) SPR.clear(); SPR.set(key, s); return s;
 }
 /** draw a text run with its origin at (x, yMid); falls back to plain text when there is no canvas to rasterise on (a node test with a recording context) */
 function textRun(c, g, text, font, x, yMid, o = {}) {
-  const s = textSprite(g, text, font, o.italic);
+  const s = textSprite(g, text, font, o.italic, o.color);
   if (s) { const al = o.alpha === undefined ? 1 : o.alpha; if (al <= 0.004) return s.tw; const a0 = c.globalAlpha; c.globalAlpha = a0 * al; if (o.clipW !== undefined) { c.save(); c.beginPath(); c.rect(x - s.pad - 1, yMid - s.h / 2, o.clipW + s.pad + 1, s.h); c.clip(); } c.drawImage(s.cv, x - s.pad, yMid - s.h / 2, s.w, s.h); if (o.clipW !== undefined) c.restore(); c.globalAlpha = a0; return s.tw; }
-  c.font = font; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillStyle = g.P['text.ink']; c.fillText(text, x, yMid); return c.measureText ? c.measureText(text).width : text.length * 6;
+  c.font = font; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillStyle = o.color || g.P['text.ink']; c.fillText(text, x, yMid); return c.measureText ? c.measureText(text).width : text.length * 6;
 }
 
 // ---- geometry: the one place where the size of a mark is decided (used by size(), by every draw call and by the legend) ---------------------------------------------------------------------------
@@ -64,10 +64,10 @@ function frameOf(P, info) {
   const edge = P['ring.light'] + P['ring.dark'];
   if (kind === 'unit') { const r = info.kind === 'battalion' ? P['mark.rBattalion'] : P['mark.r']; return { kind, r, w: 2 * (r + edge), h: 2 * (r + edge), font: 'code', body: 2 * r }; }
   const w = P['flag.w.' + kind]; const h = P['flag.h.' + kind]; const st = kind === 'crowd' ? P['flag.stack'] : 0;
-  return { kind, bw: w, bh: h, w: w + 2 * edge + st, h: h + 2 * edge + st, stack: st, font: 'badge', body: Math.max(w, h) };
+  return { kind, bw: w, bh: h, w: w + 2 * edge + st, h: h + 2 * edge + st, stack: st, font: kind === 'crowd' ? 'code' : 'badge', body: Math.max(w, h) };
 }
 /** the text of a mark as the tile draws it: the code, and for a crowd named after its lead record a plus ("and others") */
-const textOf = (info) => (info.text || '') + (info.agg && info.nameKind === 'lead' ? ' +' : '');
+const textOf = (info) => info.text || '';
 function sizeOf(spec, info, P) {
   const f = frameOf(P, info); const tw = Math.ceil(spec.text.width(f.font, textOf(info)));
   const left = P['pad.left']; const gap = P['gap.text']; const right = P['pad.right'] + Math.ceil(P['text.haloWidth'] / 2);
@@ -121,42 +121,44 @@ function unitSprite(g, vm, f, b, q = 4) {
     const shape = unitShapeOf(P, side); const r = f.r; const rl = P['ring.light']; const rd = P['ring.dark']; const unk = side === 'unknown';
     const s0 = shape === 'square' ? r * 0.92 : r; const cr0 = 2.6;
     const fill = unk ? P['color.unknown'] : faded(P, sideColour(P, side), b);
-    c.strokeStyle = rgba(P['color.ringDark'], 0.62); c.lineWidth = rd; shapePath(c, shape, s0 + rl + rd / 2, cr0 + rl + rd / 2); c.stroke();
-    const ra = 1 - P['fade.ring'] * b; const gp = P['gauge.gap'];
-    if (q >= 4) { c.strokeStyle = rgba(P['color.ringLight'], ra); c.lineWidth = rl; shapePath(c, shape, s0 + rl / 2, cr0 + rl / 2); c.stroke(); }
+    const T = fadeT(b); const rlA = rl * (1 - (1 - P['fade.ringW']) * T); c.strokeStyle = rgba(P['color.ringDark'], 0.62); c.lineWidth = rd; shapePath(c, shape, s0 + rlA + rd / 2, cr0 + rlA + rd / 2); c.stroke();
+    const ra = 1 - P['fade.ring'] * T; const gp = P['gauge.gap'];
+    if (q >= 4) { c.strokeStyle = rgba(P['color.ringLight'], ra); c.lineWidth = rlA; shapePath(c, shape, s0 + rlA / 2, cr0 + rlA / 2); c.stroke(); }
     else {                                                                           // the ring is the strength gauge: four arcs, the remaining quarters lit (Modelled, in quarters: a state, not a number)
-      const L = ringPath(c, shape, s0 + rl / 2, cr0 + rl / 2); const seg = L / 4 - gp; c.lineCap = 'butt'; c.lineWidth = rl; c.lineDashOffset = -gp / 2;
+      const L = ringPath(c, shape, s0 + rlA / 2, cr0 + rlA / 2); const seg = L / 4 - gp; c.lineCap = 'butt'; c.lineWidth = rlA; c.lineDashOffset = -gp / 2;
       c.setLineDash([seg, gp]); c.strokeStyle = rgba(P['color.ringLight'], ra * P['gauge.track']); c.stroke();
-      if (q > 0) { const arr = []; for (let i = 0; i < q; i++) arr.push(seg, gp); arr.push(L); ringPath(c, shape, s0 + rl / 2, cr0 + rl / 2); c.setLineDash(arr); c.strokeStyle = rgba(P['color.ringLight'], ra); c.stroke(); }
+      if (q > 0) { const arr = []; for (let i = 0; i < q; i++) arr.push(seg, gp); arr.push(L); ringPath(c, shape, s0 + rlA / 2, cr0 + rlA / 2); c.setLineDash(arr); c.strokeStyle = rgba(P['color.ringLight'], ra); c.stroke(); }
       c.setLineDash([]); c.lineDashOffset = 0; c.lineCap = 'round';
     }
     shapePath(c, shape, s0, cr0); c.fillStyle = fill; c.fill();
     if (unk) { shapePath(c, shape, s0, cr0); hatch(c, P['color.unknownInk'], -s0 * 1.4, s0 * 1.4, 0.34); }
-    const ink = unk ? P['color.unknownInk'] : P['color.glyph']; const a = 1 - P['fade.glyph'] * b;
+    const ink = unk ? P['color.unknownInk'] : fadeInk(P, sideColour(P, side), b); const a = 1 - P['fade.glyph'] * T;
     c.globalAlpha = a; armGlyph(c, vm.arm === 'mixed' ? 'infantry' : vm.arm, 0, 0, P['glyph.size'], { ink, lw: P['glyph.stroke'] }, null); c.globalAlpha = 1;
   });
 }
 /** the sprite of one standard (a formation record, or the crowd mark behind its count) */
+/** the two halves of a crowd that holds more than one side: [left, right] among union, confederate and unknown (the contested ones: amber, hatched, never a side) */
+const halvesOf = (sides) => { const have = ['union', 'confederate', 'unknown'].filter((k) => sides && sides[k] > 0); if (have.length < 2) return ['union', 'confederate']; return [have[0], have[have.length - 1]]; };
 function flagSprite(g, vm, f, b, pips) {
-  const P = g.P; const dpr = g.dpr; const side = vm.side; const key = `f|${g.skin.id}|${g.skin.rev}|${side}|${f.kind}|${pips}|${b}|${dpr}`;
+  const P = g.P; const dpr = g.dpr; const side = vm.side; const hv = side === 'mixed' ? halvesOf(vm.sides) : null; const key = `f|${g.skin.id}|${g.skin.rev}|${side}|${hv ? hv.join('+') : ''}|${f.kind}|${pips}|${b}|${dpr}`;
   const sw = Math.ceil(f.w + 4); const sh = Math.ceil(f.h + 4);
   return sprite(key, sw, sh, dpr, (c) => {
-    const rl = P['ring.light']; const rd = P['ring.dark']; const edge = rl + rd; const n = P['flag.notch']; const rad = P['flag.radius']; const kind = flagKindOf(side === 'mixed' ? 'x' : side);
+    const rl = P['ring.light']; const rd = P['ring.dark']; const edge = rl + rd; const T = fadeT(b); const rlA = rl * (1 - (1 - P['fade.ringW']) * T); const n = P['flag.notch']; const rad = P['flag.radius']; const kind = flagKindOf(side === 'mixed' ? 'x' : side);
     const unk = side === 'unknown'; const mixed = side === 'mixed';
     const bx = -f.bw / 2 + f.stack / 2; const by = -f.bh / 2 + f.stack / 2;                     // the body sits low and right; the pile peeks behind it up and left
     const paintOne = (x, y, alpha) => {
       c.globalAlpha = alpha;
-      c.strokeStyle = rgba(P['color.ringDark'], 0.62); c.lineWidth = 2 * (rl + rd); flagPath(c, kind, x, y, f.bw, f.bh, n, rad); c.stroke();
-      c.strokeStyle = rgba(P['color.ringLight'], 1 - P['fade.ring'] * b); c.lineWidth = 2 * rl; c.stroke();
-      const fillC = unk ? P['color.unknown'] : mixed ? P['color.union'] : faded(P, sideColour(P, side), b);
+      c.strokeStyle = rgba(P['color.ringDark'], 0.62); c.lineWidth = 2 * (rlA + rd); flagPath(c, kind, x, y, f.bw, f.bh, n, rad); c.stroke();
+      c.strokeStyle = rgba(P['color.ringLight'], 1 - P['fade.ring'] * T); c.lineWidth = 2 * rlA; c.stroke();
+      const hueOf = (k) => (k === 'unknown' ? P['color.unknown'] : faded(P, sideColour(P, k), b)); const fillC = unk ? P['color.unknown'] : mixed ? hueOf(hv[0]) : faded(P, sideColour(P, side), b);
       flagPath(c, kind, x, y, f.bw, f.bh, n, rad); c.fillStyle = fillC; c.fill();
-      if (mixed) { c.save(); flagPath(c, kind, x, y, f.bw, f.bh, n, rad); c.clip(); c.fillStyle = faded(P, P['color.confederate'], b); c.beginPath(); c.moveTo(x + f.bw * 0.62, y - 1); c.lineTo(x + f.bw + 2, y - 1); c.lineTo(x + f.bw + 2, y + f.bh + 1); c.lineTo(x + f.bw * 0.38, y + f.bh + 1); c.closePath(); c.fill(); c.restore(); }
+      if (mixed) { c.save(); flagPath(c, kind, x, y, f.bw, f.bh, n, rad); c.clip(); c.fillStyle = hueOf(hv[1]); c.beginPath(); c.moveTo(x + f.bw * 0.62, y - 1); c.lineTo(x + f.bw + 2, y - 1); c.lineTo(x + f.bw + 2, y + f.bh + 1); c.lineTo(x + f.bw * 0.38, y + f.bh + 1); c.closePath(); c.fill(); if (hv[1] === 'unknown') hatch(c, P['color.unknownInk'], x - f.bh, x + f.bw + f.bh, 0.34); c.restore(); }
       if (unk) { flagPath(c, kind, x, y, f.bw, f.bh, n, rad); hatch(c, P['color.unknownInk'], x - f.bh, x + f.bw + f.bh, 0.34); }
       c.globalAlpha = 1;
     };
     if (f.stack > 0) paintOne(bx - f.stack, by - f.stack, 0.62);
     paintOne(bx, by, 1);
-    if (pips > 0) { const ink = unk ? P['color.unknownInk'] : P['color.glyph']; c.fillStyle = ink; c.globalAlpha = 1 - P['fade.glyph'] * b; const px = bx + f.bw / 2 - (n > 0 && kind !== 'plain' ? n / 2 : 0); for (let i = 0; i < pips; i++) { c.beginPath(); c.arc(px + (i - (pips - 1) / 2) * P['pip.pitch'], by + f.bh / 2, P['pip.r'], 0, TAU); c.fill(); } c.globalAlpha = 1; }
+    if (pips > 0) { const ink = unk ? P['color.unknownInk'] : fadeInk(P, mixed ? P['color.union'] : sideColour(P, side), b); c.fillStyle = ink; c.globalAlpha = 1 - P['fade.glyph'] * T; const px = bx + f.bw / 2 - (n > 0 && kind !== 'plain' ? n / 2 : 0); for (let i = 0; i < pips; i++) { c.beginPath(); c.arc(px + (i - (pips - 1) / 2) * P['pip.pitch'], by + f.bh / 2, P['pip.r'], 0, TAU); c.fill(); } c.globalAlpha = 1; }
   });
 }
 /** where the body of a standard stands, relative to the frame centre */
@@ -189,8 +191,9 @@ function tile(c, t, g) {
     const pips = vm.agg ? 0 : Math.max(1, vm.ech - 1); const s = flagSprite(g, vm, f, b, pips); const fb = flagBody(f);
     if (s) { c.save(); c.translate(cx, cy); if (lift !== 1) c.scale(lift, lift); blit(c, s, 0, 0); c.restore(); }
     if (vm.agg) {                                                                                // the count: Inter 700, the one numeral style
-      const n = String(t.n || vm.n); c.font = MARK_FONTS.badge; c.textBaseline = 'middle'; c.textAlign = 'center'; c.fillStyle = vm.side === 'unknown' ? P['color.unknownInk'] : P['color.glyph'];
-      const tx = cx + fb.x - (f.bw ? flagKindOf(vm.side === 'mixed' ? 'x' : vm.side) !== 'plain' ? P['flag.notch'] / 2 - 0.5 : 0 : 0); c.save(); const w = c.measureText ? c.measureText(n).width : 8; const maxW = f.bw - P['flag.notch'] - 4; if (w > maxW) { c.translate(tx, cy + fb.y + 0.6); c.scale(maxW / w, 1); c.fillText(n, 0, 0); } else c.fillText(n, tx, cy + fb.y + 0.6); c.restore();
+      const n = String(t.n || vm.n); c.font = MARK_FONTS.badge; c.textBaseline = 'middle'; c.textAlign = 'center'; c.fillStyle = vm.side === 'unknown' ? P['color.unknownInk'] : fadeInk(P, vm.side === 'mixed' ? P['color.union'] : sideColour(P, vm.side), b);
+      const tx = cx + fb.x - (f.bw ? flagKindOf(vm.side === 'mixed' ? 'x' : vm.side) !== 'plain' ? P['flag.notch'] / 2 - 0.5 : 0 : 0); c.save(); const w = c.measureText ? c.measureText(n).width : 8; const maxW = f.bw - P['flag.notch'] - 4; const mixedCount = vm.side === 'mixed'; if (mixedCount) { c.fillStyle = P['color.glyph']; c.strokeStyle = rgba(P['color.ringDark'], 0.9); c.lineWidth = 2.4; c.lineJoin = 'round'; }       // the count straddles two colours: white with a dark outline reads on both
+      if (w > maxW) { c.translate(tx, cy + fb.y + 0.6); c.scale(maxW / w, 1); if (mixedCount) c.strokeText(n, 0, 0); c.fillText(n, 0, 0); } else { if (mixedCount) c.strokeText(n, tx, cy + fb.y + 0.6); c.fillText(n, tx, cy + fb.y + 0.6); } c.restore();
     }
   }
   // hover and selection: the ring draws itself around the mark (a circle around a disc, the outline of a standard), inside the band the footprint reserves
@@ -204,8 +207,8 @@ function tile(c, t, g) {
   }
   // the code, haloed: the first line of the mark's text; it hands over to the name when the name grows
   const tx = cx + textStart(P, f); const ty = cy + P['text.dy'];
-  const code = vm.agg ? (t.short + (t.nameKind === 'lead' ? ' +' : '')) : t.short;
-  textRun(c, g, code, MARK_FONTS[f.font], tx, ty, { alpha: 1 - Lo, italic: vm.idOnly });
+  const code = t.short; const tint = vm.agg || f.kind === 'unit' ? null : vm.side === 'union' ? P['text.formUnion'] : vm.side === 'confederate' ? P['text.formConfederate'] : null;
+  textRun(c, g, code, MARK_FONTS[f.font], tx, ty, { alpha: (1 - Lo) * (1 - P['fade.text'] * fadeT(b)), italic: vm.idOnly, color: tint });
 }
 
 /** label: the name, wiping out of the mark.  c is translated to the label rectangle's top-left; the name starts where the code starts, inside the tile's own box, so the ink of this call lies in
@@ -215,8 +218,8 @@ function label(c, t, g) {
   const f = frameOf(P, { agg: vm.agg, kind: vm.kind, echelon: vm.ech >= 2 ? vm.ech : 0 });
   const k = ss(0, 1, L.opacity); if (k <= 0.004) return;
   const x0 = (t.x - (t.hx || 0) + textStart(P, f)) - L.x0; const y = (t.y - (t.hy || 0) + P['text.dy']) - L.y0;
-  const font = MARK_FONTS[f.font]; const s = textSprite(g, L.text, font, false); const reveal = s ? s.tw + 3 : 0;
-  textRun(c, g, L.text, font, x0, y, { alpha: Math.min(1, k * 1.25), clipW: reveal * ss(0, 0.92, k) });
+  const font = MARK_FONTS[f.font]; const tint = vm.agg || f.kind === 'unit' ? null : vm.side === 'union' ? P['text.formUnion'] : vm.side === 'confederate' ? P['text.formConfederate'] : null; const s = textSprite(g, L.text, font, false, tint); const reveal = s ? s.tw + 3 : 0; const b = bucketOf(vm.carried);
+  textRun(c, g, L.text, font, x0, y, { alpha: Math.min(1, k * 1.25) * (1 - P['fade.text'] * fadeT(b)), clipW: reveal * ss(0, 0.92, k), color: tint });
 }
 
 // ---- pin and leader: the thin line from a displaced mark to the place it truly stands -----------------------------------------------------------------------------------------------------------
@@ -274,9 +277,10 @@ function focus(c, frame, g, info) {
   const sel = ft.selected ? 1 : 0.8; const col = fm.side === 'union' ? P['color.union'] : fm.side === 'confederate' ? P['color.confederate'] : P['color.unknown']; const pad = P['hull.pad']; const A = P['hull.alpha'] * sel;
   const poly = hullOf(pts); c.save(); c.lineJoin = 'round'; c.lineCap = 'round';
   const trace = () => { c.beginPath(); if (poly.length === 1) c.arc(poly[0][0], poly[0][1], 0.01, 0, TAU); else { c.moveTo(poly[0][0], poly[0][1]); for (let i = 1; i < poly.length; i++) c.lineTo(poly[i][0], poly[i][1]); c.closePath(); } };
-  trace(); c.strokeStyle = rgba(col, A * 1.05); c.lineWidth = pad * 2; c.stroke(); c.fillStyle = rgba(col, A); c.fill();
-  trace(); c.strokeStyle = rgba(col, Math.min(0.9, A * 3.2)); c.lineWidth = 1; c.setLineDash([]); c.stroke();
-  for (const q of pts) { c.beginPath(); c.arc(q[0], q[1], P['hull.dot'] + 1.2, 0, TAU); c.fillStyle = rgba(P['color.ringLight'], 0.95); c.fill(); c.beginPath(); c.arc(q[0], q[1], P['hull.dot'], 0, TAU); c.fillStyle = col; c.fill(); }
+  // a quiet shape, in the neutral ink of the print and not in a side's colour (a tinted wedge reads as an attack arrow, which is a claim about 1863 the data does not make): a very light wash over
+  // the padded records, a dot on each true position, nothing else
+  const wash = P['text.ink']; trace(); c.strokeStyle = rgba(wash, A * 1.1); c.lineWidth = pad * 2; c.stroke(); c.fillStyle = rgba(wash, A); c.fill();
+  for (const q of pts) { c.beginPath(); c.arc(q[0], q[1], P['hull.dot'] + 1, 0, TAU); c.fillStyle = rgba(P['color.ringLight'], 0.95); c.fill(); c.beginPath(); c.arc(q[0], q[1], P['hull.dot'], 0, TAU); c.fillStyle = col; c.fill(); }
   c.restore();
 }
 
@@ -286,6 +290,17 @@ function place(c, frame, g, info) {
   const P = g.P; const env = g.env; const list = env.places; if (!list || !env.toScreen) return;
   const z = env.zoom; const view = frame.view; const W = env.size ? env.size[0] : 1e4; const H = env.size ? env.size[1] : 1e4;
   const solid = []; for (const t of frame.tiles) { if (!t.solid || t.life !== 'live') continue; const x = t.x + view.dx; const y = t.y + view.dy; solid.push([x - t.w / 2, y - t.h / 2, x + t.w / 2, y + t.h / 2]); if (t.label && t.label.opacity > 0.3) solid.push([t.label.x0 + view.dx, t.label.y0 + view.dy, t.label.x1 + view.dx, t.label.y1 + view.dy]); }
+  // the ground's road and stream names, drawn here and not baked into the ground, so that a name steps aside (fading) for any mark or name that would lie on it
+  if (env.roadLabels) {
+    const dt0 = g.dt || 16;
+    for (const it of env.roadLabels()) {
+      const ca = Math.abs(Math.cos(it.ang)); const sa = Math.abs(Math.sin(it.ang)); const bw = it.tw * ca + 14 * sa + 4; const bh = it.tw * sa + 14 * ca + 4; const rx0 = it.x - bw / 2; const ry0 = it.y - bh / 2; let hit = false;
+      for (const b of solid) if (b[0] < rx0 + bw && b[2] > rx0 && b[1] < ry0 + bh && b[3] > ry0) { hit = true; break; }
+      let ps = PLACE_STATE.get(it.id); if (!ps) { ps = { a: hit ? 0 : 1 }; PLACE_STATE.set(it.id, ps); } const target = hit ? 0 : 1; ps.a += (target - ps.a) * Math.min(1, dt0 / 140) * (target > ps.a ? 0.5 : 1); if (Math.abs(ps.a - target) < 0.01) ps.a = target;
+      if (ps.a < 0.02) continue;
+      c.save(); c.globalAlpha = ps.a; c.translate(it.x, it.y); c.rotate(it.ang); c.textAlign = 'center'; c.textBaseline = 'middle'; c.lineJoin = 'round'; c.font = it.font; c.lineWidth = 3; c.strokeStyle = it.halo; c.strokeText(it.text, 0, 0); c.fillStyle = it.fill; c.fillText(it.text, 0, 0); c.restore();
+    }
+  }
   const font = `400 12px ${SERIF}`; const seen = new Set(); const dtc = g.dt || 16;
   for (const p of list) {
     if (p.k === 'loc' ? z < P['place.fromZoom'] : z < 14.9) continue; if (seen.has(p.n)) continue;
@@ -294,7 +309,8 @@ function place(c, frame, g, info) {
     const r = P['place.dot']; const box = [x - r - 2, y - 9, x + r + 8 + tw + 2, y + 9]; let hit = false; for (const b of solid) if (b[0] < box[2] && b[2] > box[0] && b[1] < box[3] && b[3] > box[1]) { hit = true; break; }
     let ps = PLACE_STATE.get(p.n); if (!ps) { ps = { a: 0 }; PLACE_STATE.set(p.n, ps); } const target = hit ? 0 : 1; ps.a += (target - ps.a) * Math.min(1, dtc / 160) * (target > ps.a ? 0.6 : 1); if (Math.abs(ps.a - target) < 0.01) ps.a = target;
     const measured = p.ev === 'Measured'; const doubt = !!p.off;
-    c.save(); c.lineWidth = 2.6; c.strokeStyle = rgba(P['text.halo'], 0.9); c.beginPath(); c.arc(x, y, r, 0, TAU); c.stroke(); c.lineWidth = 1.3; c.strokeStyle = rgba(P['text.ink'], 0.78); c.stroke(); if (measured) { c.beginPath(); c.arc(x, y, r - 1.1, 0, TAU); c.fillStyle = rgba(P['text.ink'], 0.78); c.fill(); } c.restore();
+    if (ps.a < 0.02) continue;                                                                                                          // no room for its name: no ring either (a bare ring reads as a speck)
+    c.save(); c.globalAlpha = ps.a; c.lineWidth = 2.6; c.strokeStyle = rgba(P['text.halo'], 0.9); c.beginPath(); c.arc(x, y, r, 0, TAU); c.stroke(); c.lineWidth = 1.3; c.strokeStyle = rgba(P['text.ink'], 0.78); c.stroke(); if (measured) { c.beginPath(); c.arc(x, y, r - 1.1, 0, TAU); c.fillStyle = rgba(P['text.ink'], 0.78); c.fill(); } c.restore();
     if (ps.a > 0.01) textRun(c, g, shown, font, x + r + 5, y, { alpha: ps.a * 0.92, italic: true });
   }
 }
@@ -318,18 +334,47 @@ function sample(c, ch, v, g, w, h) {
   }
 }
 
+// ---- the anatomy of a mark: a labelled specimen for the legend, drawn by the same code as the marks -----------------------------------------------------------------------------------------------------
+function anatomy(c, g, w, h) {
+  const P = g.P; const ink = P['text.ink']; const num = (n, x, y, tx, ty) => {
+    c.save(); c.strokeStyle = rgba(ink, 0.5); c.lineWidth = 1; c.beginPath(); c.moveTo(tx, ty); c.lineTo(x, y); c.stroke();
+    c.beginPath(); c.arc(x, y, 8, 0, TAU); c.fillStyle = ink; c.fill(); c.fillStyle = P['text.halo']; c.font = `700 11px ${FONT}`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(String(n), x, y + 0.6); c.restore();
+  };
+  const S = 1.8; const fu = frameOf(P, { kind: 'regiment' });
+  c.save(); c.translate(70, 58); c.scale(S, S); const su = unitSprite(g, { side: 'union', arm: 'infantry' }, fu, 0, 3); if (su) blit(c, su, 0, 0); textRun(c, g, '14 VT', MARK_FONTS.code, textStart(P, fu), P['text.dy']); c.restore();
+  num(1, 28, 26, 58, 46); num(2, 70, 16, 70, 52); num(3, 28, 92, 55, 72); num(4, 132, 22, 124, 50);
+  const fc = frameOf(P, { agg: true }); c.save(); c.translate(70, 150); c.scale(S, S); const sc = flagSprite(g, { side: 'union' }, fc, 0, 0); if (sc) blit(c, sc, 0, 0);
+  { const fb = flagBody(fc); c.font = MARK_FONTS.badge; c.textBaseline = 'middle'; c.textAlign = 'center'; c.fillStyle = P['color.glyph']; c.fillText('7', fb.x - P['flag.notch'] / 2 + 0.5, fb.y + 0.6); }
+  textRun(c, g, 'II Corps', MARK_FONTS.code, textStart(P, fc), P['text.dy']); c.restore();
+  num(5, 28, 126, 58, 142); num(6, 32, 176, 56, 160); num(7, 150, 126, 140, 144);
+  const fb2 = frameOf(P, { echelon: 2, kind: 'brigade' }); c.save(); c.translate(w - 62, 58); c.scale(S, S); const sf = flagSprite(g, { side: 'confederate', ech: 2 }, fb2, 0, 1); if (sf) blit(c, sf, 0, 0); c.restore(); num(8, w - 30, 22, w - 54, 50);
+  c.save(); c.translate(w - 62, 150); c.scale(S, S); const sa = unitSprite(g, { side: 'confederate', arm: 'infantry' }, fu, bucketOf(1), 4); if (sa) blit(c, sa, 0, 0); c.restore(); num(9, w - 30, 114, w - 54, 142);
+  void h;
+}
+const ANATOMY_NOTES = [
+  ['1', 'Colour and shape: the side. A blue circle is Union, a red square Confederate; amber and hatched is a side the data contests.', 'Documented'],
+  ['2', 'White glyph: the arm. A cross is infantry, a slash cavalry, a dot artillery.', 'Documented'],
+  ['3', 'Ring: the strength, in quarters. A placement value, not a casualty record.', 'Modelled'],
+  ['4', 'Code: the unit’s short name. The full name grows out of it when there is room, and on hover.', 'Documented'],
+  ['5', 'Number: how many placement records the crowd stands for (records, never men).', 'Computed'],
+  ['6', 'The pile behind it says several. Hover and the soft shape shows where each record truly stands.', 'Modelled'],
+  ['7', 'Name: what the records share, a brigade, a division or a corps; Both sides when both armies are in it.', 'Computed'],
+  ['8', 'A standard with pips is a brigade, division or corps record: one pip, two, three. Union swallow-tailed, Confederate pointed.', 'Documented'],
+  ['9', 'Paler, thinner ring: the latest keyframe is a battle day or more old, so the position is carried forward.', 'Computed'],
+];
+
 const WORDS = {
   'side:union': 'Blue: a Union unit (circle) or formation (swallow-tailed standard). From the order of battle, or the U- id prefix',
   'side:confederate': 'Red: a Confederate unit (rounded square) or formation (pointed standard). From the order of battle, or the C- id prefix',
   'side:unknown': 'Amber, hatched: the side is CONTESTED (10 ids whose state code contradicts their prefix). Never drawn as a side',
-  'side:mixed': 'Half blue, half red: a crowd of both sides (Contact), or of a contested one',
+  'side:mixed': 'Half blue, half red: a crowd that holds units of both sides, named Both sides; half amber and hatched: a crowd that holds contested ones. The data records no engagement, so nothing more is claimed',
   'arm:infantry': 'White cross: an infantry regiment', 'arm:cavalry': 'White slash: a cavalry regiment', 'arm:artillery': 'White dot: an artillery battery or battalion',
-  'arm:mixed': 'No glyph, a count: a crowd of more than one arm', 'arm:formation': 'Pips, no arm: a brigade, division or corps record; the data gives a formation no arm, so none is claimed',
+  'arm:mixed': 'No glyph, a count: a crowd of more than one arm', 'arm:formation': 'Pips, no arm: a brigade, division or corps record; the data gives a formation no arm, so none is claimed. Its code is Roman, corps / division / brigade (II/1/2); its name grows out of it when there is room',
   'echelon:1': 'A slightly larger disc: a battalion', 'echelon:2': 'One pip on a standard: a brigade record', 'echelon:3': 'Two pips, a larger standard: a division record', 'echelon:4': 'Three pips, the largest standard: a corps record',
   'fix:fresh': 'Full colour: the unit\'s latest keyframe is less than half a battle day old', 'fix:carried': 'Faded: the latest keyframe is a battle day or more old, so the position is carried forward, not a fresh report; the fade is gradual',
   'strength:1': 'The light ring is the strength gauge, in quarters: all four lit is the unit at its reference strength. A placement value, not a casualty record', 'strength:0.4': 'Two of the four quarters lit (shown at 40 percent): about half of the reference strength',
   'idOnly:idOnly': 'Italic code: no order-of-battle record for this id, so its name comes from the id alone',
-  'aggregate:agg': 'A standard with a number: that many placement records share this mark because they cannot all stand on their true positions (records, never men). Hover for the hull and the records',
+  'aggregate:agg': 'A small standard with a number and a name: that many placement records share the mark because they cannot all stand on their true positions (records, never men). The name is what they share: a brigade, a division, a corps (or the corps they come from, or Both sides). Hover for the soft shape and the records',
   'selection:selected': 'Amber ring, drawn around the mark: the selected unit. Its name grows, its formation\'s hull appears',
   'pin:pin': 'A dot and a thin line: the true position of a mark that had to stand aside',
 };
@@ -337,7 +382,7 @@ const WORDS = {
 export const DISPATCH_FOOT = FOOT;
 const channels = { side: true, arm: true, echelon: true, fix: true, strength: [1, 0.4], idOnly: true, aggregate: true, selection: true, pin: true };
 const baseDef = (id, title, rows) => ({
-  id, label: title, version: '1.0', footprint: FOOT, fonts: MARK_FONTS, tokens: rows, channels, fallbackSwatch: '#1c57a6', ownsHover: true,
+  id, label: title, version: '1.0', footprint: FOOT, anatomy: { w: 320, h: 196, notes: ANATOMY_NOTES, paint: anatomy }, fonts: MARK_FONTS, tokens: rows, channels, fallbackSwatch: '#1c57a6', ownsHover: true,
   size: sizeOf, labelSize: labelSizeOf, words: WORDS, swatch: { w: 34, h: 26 },
   draw: { tile, label, pin, leader, focus, place }, sample,
 });

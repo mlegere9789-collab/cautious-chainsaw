@@ -12,7 +12,7 @@ const out = {};
   out.CONTRAST = `**${c.checks - c.failed} of ${c.checks} checks pass** (6 skins x the mark tests, 2 themes x the card tests).\n\n| Group | Pass | Weakest pair | Measured | Bar |\n|---|---:|---|---:|---:|\n${rows.join('\n')}\n\nFull list: \`results/contrast-tests.json\`.`; } }
 
 // ---- scenes ---------------------------------------------------------------------------------------------------------------------------------------------------------------
-{ const s = R('scenes-final.json'); if (s) { const rs = s.results.filter((r) => r.scene); const rows = rs.map((r) => `| ${r.scene} | ${r.tick} / ${r.zoom} | ${r.marks + r.crowds} (${r.crowds} crowds for ${r.merged} records) | ${r.onField} | **${r.coreOverlaps}** | **${r.pinsCovered}** | **${r.labelOverlaps}** | **${r.unrepresented}** | ${r.minCoreGap} | ${r.names} | ${r.cardsOver} |`);
+{ const s = R('scenes-round-1.json') || R('scenes-final.json'); if (s) { const rs = s.results.filter((r) => r.scene); const rows = rs.map((r) => `| ${r.scene} | ${r.tick} / ${r.zoom} | ${r.marks + r.crowds} (${r.crowds} crowds for ${r.merged} records) | ${r.onField} | **${r.coreOverlaps}** | **${r.pinsCovered}** | **${r.labelOverlaps}** | **${r.unrepresented}** | ${r.minCoreGap} | ${r.names} | ${r.cardsOver} |`);
   const sum = (k) => rs.reduce((a, r) => a + (r[k] || 0), 0);
   out.SCENES = `### Scene checks (real Chrome, ${s.dpr}x, 1440x900 and 390x844; the independent frame check of \`tools/frame-check.mjs\`, which shares no code with the engine's verifier)\n\n| Scene | Tick / zoom | Marks on screen | Units on the field | Core overlaps | Pins covered | Name overlaps | Unrepresented units | Smallest gap between two boxes (px) | Names grown | Cards over a mark (frames) |\n|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|\n${rows.join('\n')}\n\n**Over the ${rs.length} scenes: ${sum('coreOverlaps')} overlapping vital cores, ${sum('pinsCovered')} covered true positions, ${sum('labelOverlaps')} overlapping names, ${sum('unrepresented')} unrepresented units; the engine's own verifier reports ${sum('engineOverlaps')} overlapping pairs on the same frames.** A *core* is the box of a mark (the glyph and its code, one object); a *crowd* is a standard that stands for several records, so every unit is represented. Console errors: ${(s.results.filter((r) => r._errors).flatMap((r) => r._errors)).length}; requests that left the machine: ${(s.results.filter((r) => r._external).flatMap((r) => r._external)).length}.`; } }
 
@@ -35,13 +35,24 @@ ${rows.join(String.fromCharCode(10))}
 *Largest step of a solid mark* and *sudden steps* come from an instrument of the driver's own (every tile that is solid in two consecutive frames; a step of 8 px or more that is at least 3 times the step before it is sudden), independent of the engine's recorder; the recorder also counts dimmed travelling marks, which can step farther (it reported up to 161 px at The Angle at 1x) and are not solid.`; } }
 
 // ---- the interface over the marks --------------------------------------------------------------------------------------------------------------------------------------------
-{ const c = R('chrome-cover.json'); if (c) { const rows = c.results.map((r) => `| ${r.scene} | ${r.marks} | ${r.hidden} (${(100 * r.hidden / r.marks).toFixed(0)}%) | ${r.partly} | ${Object.entries(r.who).map(([k, v]) => k + ' ' + v).join(', ')} |`);
-  out.CHROMECOVER = `### The interface over the marks (\`tools/chrome-cover.mjs\`: five points of every solid mark's box are asked of the browser)
+{ const c = R('chrome-cover.json'); if (c) { const rows = c.results.map((r) => `| ${r.scene} | ${r.marks} | ${r.hidden} | ${r.partly} | ${r.cutByTheMapEdge ?? 0} |`);
+  out.CHROMECOVER = `### The interface over the marks (\`tools/chrome-cover.mjs\`: five points of every solid mark's box are asked of the browser, \`document.elementsFromPoint\`)
 
-| Scene | Marks on screen | Hidden under an opaque panel | Partly hidden | By |
-|---|---:|---:|---:|---|
+| Scene | Marks on the map | Hidden under an opaque panel | Partly hidden | Cut by the edge of the map |
+|---|---:|---:|---:|---:|
 ${rows.join(String.fromCharCode(10))}
 
-**This is not solved.** The layout and the popup director treat the dock and the top bar as part of the map; a card never lies on a mark (section 9), but the dock and the top bar do. Panning reveals a hidden mark; no one can see it where it stands.`; } }
+**The first pass measured 6 to 12 percent of the marks under the dock or the top bar (14 of 117 in S1b) and called it "not solved". The interface is now a frame around the map (section 9), so the count is 0 by construction and the tool confirms it.** A mark near the edge of the map is cut by that edge as by the edge of any screen; those are counted apart and are not under the interface.`; } }
+
+// ---- the motion strips: the jitter count ---------------------------------------------------------------------------------------------------------------------------------
+{ const m = R('strips-src/meta.json'); if (m) { const row = (name, d) => d && d.stats ? `| ${name} | ${d.unit || d.crowd || ''} | ${d.stats.frames} | ${d.stats.marksTracked} | ${d.stats.framesWithOverlaps} | ${d.stats.maxStepPx} | ${d.stats.suddenSteps} (${d.stats.suddenStepsOfTheDisplay} of the display, ${d.stats.ofWhichTheUnitsOwnMotion} the unit's own motion) |` : null;
+  const rows = [row('A march (8x)', m.march), row('An arrival', m.arrival), row('A deployment (zoom 14.7 to 16.4)', m.deploy)].filter(Boolean);
+  out.STRIPS = `### The motion strips: overlaps and jitter, counted (\`tools/strips.mjs\`, virtual clock at 60 Hz)
+
+| Strip | Subject | Frames recorded | Marks tracked | Frames with an overlap | Largest one-frame step (px, camera removed) | Sudden steps (8 px or more and at least 3 times the step before) |
+|---|---|---:|---:|---:|---:|---|
+${rows.join(String.fromCharCode(10))}
+
+Every solid mark of every frame is followed; its step is measured with the camera's own motion taken out (the mark's previous place seen through this frame's camera), so a zoom is not mistaken for a hop. A sudden step is classed as *the unit's own motion* when the mark is on its true position and its step equals the step of that position: the unit's interpolated track changes speed there (the clock's time-warp gaps or a keyframe), which the display must follow and not hide. ${(() => { const all = [m.march, m.arrival, m.deploy].filter(Boolean); const disp = all.reduce((a, d) => a + (d.stats ? d.stats.suddenStepsOfTheDisplay : 0), 0); const own = all.reduce((a, d) => a + (d.stats ? d.stats.ofWhichTheUnitsOwnMotion : 0), 0); const ex = all.flatMap((d) => (d.stats && d.stats.examples) || []).filter((e) => !/own motion/.test(e)); return `**Over the three strips ${disp} sudden step${disp === 1 ? '' : 's'} of the display and ${own} of the units' own motion were counted** (the arrival and the deployment: none at all; the largest step of any mark in them is ${Math.max(m.arrival.stats.maxStepPx, m.deploy.stats.maxStepPx)} px).${ex.length ? ' The display step: ' + ex.join('; ') + ' (a crowd mark in the dimmed-travel rule of the engine; it did not recur on a second identical run).' : ''}`; })()}`; } }
 
 for (const [k, v] of Object.entries(out)) for (const f of ['SPEC.md', 'README.md']) if (fill(f, k, v)) console.log('filled', k, 'in', f);

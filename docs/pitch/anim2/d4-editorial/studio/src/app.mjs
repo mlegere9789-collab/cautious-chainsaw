@@ -32,7 +32,8 @@ async function loadFonts() { try { if (document.fonts && document.fonts.load) aw
 export async function boot() {
   await loadFonts();
   const t0 = performance.now(); const phases = {}; const mark = (k) => { phases[k] = +(performance.now() - t0).toFixed(1); };
-  const dataset = readJson('studio-dataset'); const tokens = readJson('studio-tokens'); const textTable = readJson('studio-text'); const popupData = readJson('studio-popups'); mark('parse');
+  const dataset = readJson('studio-dataset'); for (const sc of dataset.scenes) sc.name = sc.name.replace(/^Contact ([A-C])/, 'Fresh cluster $1');       // the data records no engagement: a cluster of fresh keyframes is not "contact"
+   const tokens = readJson('studio-tokens'); const textTable = readJson('studio-text'); const popupData = readJson('studio-popups'); mark('parse');
   const q = new URLSearchParams(location.search);
   let storage = null; try { if (!q.has('fresh')) { storage = window.localStorage; storage.getItem('probe'); } } catch { storage = null; }
 
@@ -42,7 +43,7 @@ export async function boot() {
   for (const k of FX) kernel.fx.register(k.id, k);
   for (const k of TOURS) kernel.tours.register(k.id, k);
   const app = document.getElementById('app'); const canvas = document.getElementById('map'); const popups = document.getElementById('popups'); const fadeCanvas = document.getElementById('map-fade'); const splash = document.getElementById('splash');
-  const rect = app.getBoundingClientRect();
+  const stage = document.getElementById('stage'); const rect = stage.getBoundingClientRect();           // the map is the stage: the band between the masthead and the dock, so no mark ever lies under the interface
   const mql = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
 
   // start: a scene (default: the densest fresh-contact scene, paused) unless the URL says otherwise
@@ -67,7 +68,7 @@ export async function boot() {
 
   const renderer = createRenderer({ canvas, engine, data: dataset });
   let updateSafeRef = () => {}; const ui = createStudioUI({ root: app, engine, data: dataset, onSafe: () => updateSafeRef() }); mark('ui');
-  { const cr = document.getElementById('credit'); if (cr && globalThis.__realBackdrop) cr.textContent = globalThis.__realBackdrop.caption(); }       // what this ground is, on screen at all times
+  { const cr = document.getElementById('credit'); if (cr && globalThis.__realBackdrop) { const full = globalThis.__realBackdrop.caption(); cr.replaceChildren(); const a = document.createElement('span'); a.className = 'credit-full'; a.textContent = full; const b = document.createElement('span'); b.className = 'credit-short'; b.textContent = 'Modern ground: USGS NAIP aerial, April to May 2022, and 3DEP hillshade. Not the 1863 landscape.'; cr.append(a, b); } }       // what this ground is, on screen at all times
   // Escape ends a running tour before anything else acts on it (registered before the popup layer, whose own Escape handler would otherwise consume the key)
   window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && director && director.running) { e.preventDefault(); e.stopImmediatePropagation(); director.stop('closed'); } }, true);
   let layer = null; const sysReduced = () => mql.matches;
@@ -77,11 +78,14 @@ export async function boot() {
   if (q.has('speed')) engine.transport.setSpeed(+q.get('speed'));
   if (q.get('play') === '1') engine.transport.play();
 
-  const updateSafe = () => { const r = app.getBoundingClientRect(); const top = document.getElementById('topbar'); const dock = document.getElementById('dock'); const panel = document.getElementById('panel'); const narrow = r.width < 760;
-    engine.safe = { top: top ? top.getBoundingClientRect().bottom : 0, bottom: dock ? r.height - dock.getBoundingClientRect().top : 0, left: nar && nar.open && !narrow ? nar.width + 24 : 0, right: panel && !panel.classList.contains('hidden') && !narrow ? r.width - panel.getBoundingClientRect().left : 0 }; };
+  const updateSafe = () => { const r = app.getBoundingClientRect(); const panel = document.getElementById('panel'); const narrow = r.width < 760;
+    engine.safe = { top: 0, bottom: 0, left: nar && nar.open && !narrow ? nar.width + 24 : 0, right: panel && !panel.classList.contains('hidden') && !narrow ? r.width - panel.getBoundingClientRect().left : 0 }; };
   updateSafeRef = updateSafe;
-  const resize = () => { const r = app.getBoundingClientRect(); const dpr = window.devicePixelRatio || 1; renderer.resize(r.width, r.height, dpr); fadeCanvas.width = canvas.width; fadeCanvas.height = canvas.height; host.setSize(r.width, r.height); ui.drawMarks(); };
-  new ResizeObserver(() => { resize(); updateSafe(); }).observe(app);
+  let lastStageH = null;
+  const resize = () => { const r = stage.getBoundingClientRect(); const dpr = window.devicePixelRatio || 1; if (lastStageH !== null && Math.abs(r.height - lastStageH) > 0.5 && engine.frame) engine.shiftView(0, (lastStageH - r.height) / 2); lastStageH = r.height;       // the dock grew or shrank: the ground stays where it is on screen
+    renderer.resize(r.width, r.height, dpr); fadeCanvas.width = canvas.width; fadeCanvas.height = canvas.height; host.setSize(r.width, r.height); ui.drawMarks(); };
+  { const dockEl = document.getElementById('dock'); const setDockH = () => { if (dockEl) app.style.setProperty('--dock-h', Math.ceil(dockEl.getBoundingClientRect().height) + 'px'); }; setDockH(); if (dockEl) new ResizeObserver(() => { setDockH(); }).observe(dockEl); }
+  new ResizeObserver(() => { resize(); updateSafe(); }).observe(stage);
 
   // ---- the theme follows the ground (ink = dark chrome, paper = light chrome); a skin or ground change dissolves instead of cutting ----------------------------------------------------
   const syncTheme = () => { const bid = T.get('backdrop.id'); const be = engine.kernel.backdrops.has(bid) ? engine.kernel.backdrops.get(bid) : null; document.documentElement.dataset.theme = (be && be.theme ? be.theme === 'dark' : bid === 'ink') ? 'dark' : 'light'; ui.drawMarks(); if (layer) layer.applyStyle(); engine.dirty = true; };

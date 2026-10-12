@@ -14,8 +14,8 @@ const num = (n) => n.toLocaleString('en-US');
 /** the hardest places (06-layout.md section 7: ranked by the most units within 120 m of one unit; the names are the nearest key locations of the data: labels, not claims) */
 export const HOTSPOTS = [
   { id: 'cemetery-hill', label: 'Cemetery Hill', tick: 346, lat: 39.8189, lng: -77.2262, zoom: 14, near: 'Evergreen Cemetery gatehouse', why: 'a stale pile: units placed on the evening of day 1 and carried forward for hundreds of ticks, so most of these tiles are old keyframes' },
-  { id: 'rose-woods', label: 'Rose Woods', tick: 293, lat: 39.7994, lng: -77.2417, zoom: 14, near: 'Rose Woods', why: 'live contact: both sides within about 150 m, most keyframes only a few ticks old' },
-  { id: 'the-angle', label: 'The Angle', tick: 556, lat: 39.8117, lng: -77.2347, zoom: 15, near: 'The Angle (High Water Mark)', why: 'live contact on day 3: the densest fresh keyframes of the battle' },
+  { id: 'rose-woods', label: 'Rose Woods', tick: 293, lat: 39.7994, lng: -77.2417, zoom: 14, near: 'Rose Woods', why: 'both sides within about 150 m of one another, most keyframes only a few ticks old' },
+  { id: 'the-angle', label: 'The Angle', tick: 556, lat: 39.8117, lng: -77.2347, zoom: 15, near: 'The Angle (High Water Mark)', why: 'the densest fresh keyframes of the battle, on day 3' },
 ];
 
 /** one before/after replay: the same ticks, the same camera, both renderers, then the numbers measured on this run */

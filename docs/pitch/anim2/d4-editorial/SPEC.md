@@ -1,22 +1,22 @@
 # Dispatch: the Editorial Annotation language (art direction 4)
 
-*The map is the hero. The marks are quiet narrators.* A design language for the Battle Studio's unit marks, formation marks and popups, in the register of a newspaper graphics desk (the New York Times, the Washington Post, the Guardian, Esri's story maps at their best). It is a skin module plus a token file of the engine, a stylesheet, and a handful of small engine hooks; nothing else changed. Everything below was drawn by the code in this folder, on the real USGS aerial ground, from the real order of battle, and measured by the scripts in `tools/` and `studio/test/`. Pictures are in `shots/`; how they were made is in section 12; the log of what was seen and changed is `ITERATIONS.md`.
+*The map is the hero. The marks are quiet narrators.* **This is the round-1 revision (the art-direction jury's first critique answered; see `ITERATIONS.md`, "Round 1").** A design language for the Battle Studio's unit marks, formation marks and popups, in the register of a newspaper graphics desk (the New York Times, the Washington Post, the Guardian, Esri's story maps at their best). It is a skin module plus a token file of the engine, a stylesheet, and a handful of small engine hooks; nothing else changed. Everything below was drawn by the code in this folder, on the real USGS aerial ground, from the real order of battle, and measured by the scripts in `tools/` and `studio/test/`. Pictures are in `shots/`; how they were made is in section 12; the log of what was seen and changed is `ITERATIONS.md`.
 
 | What | Where |
 |---|---|
 | The working fork (engine, skin, popups, tokens, stylesheet) | `studio/` (build: `node studio/build.mjs` -> `dist/battle-studio.html`) |
-| The skin and its token file | `studio/src/skins/editorial.mjs`, `studio/src/skins/editorial.spec.mjs` |
-| The interface and the popups | `studio/src/ui/editorial.css`, `studio/src/popups/fxdraw.mjs`, `studio/src/popups/legend.mjs` |
+| The skin and its token file | `studio/src/skins/editorial.mjs`, `studio/src/skins/editorial.spec.mjs`; the same tokens as plain JSON: `studio/tokens/dispatch.tokens.json` (`node tools/export-skin-tokens.mjs`) |
+| The interface and the popups | `studio/src/ui/editorial.css` (cards, evidence labels), `studio/src/ui/chrome.css` (the frame: masthead, map band, dock), `studio/src/popups/fxdraw.mjs`, `studio/src/popups/legend.mjs` |
 | The two typefaces, their licences and sources | `fonts/`, `fonts/SOURCES.md` |
-| The scenes S1 to S8, the popups, the motion strips, the specimens | `shots/` |
+| The scenes S1 to S8, the popups, the motion strips, the specimens | `shots/round-1/` (this revision), `shots/` (the first pass) |
 | Colour tests, pixel-ink check, scene checks, tests | `results/`, `tools/`, `studio/test/editorial.test.mjs` |
 
 ## 1. Principles
 
-1. **The map is the hero.** The ground is a real photograph of the real hills (USGS NAIP, April to May 2022), lit by a USGS elevation model, with contours and TIGER roads, in two looks: *paper* (the aerial ghosted into warm paper, brown relief: a survey print) and *aerial* (the photograph dimmed and calmed). A mark is small, flat and quiet; it sits on the ground like ink on a printed map. No plate, no shadow, no gradient on a mark. The interface around the map is paper (or ink) with a hairline, never glass.
+1. **The map is the hero.** The ground is a real photograph of the real hills (USGS NAIP, April to May 2022), lit by a USGS elevation model, with contours and TIGER roads, in two looks: *paper* (the aerial ghosted into warm paper, brown relief: a survey print) and *aerial* (the photograph dimmed and calmed). A mark is small, flat and quiet; it sits on the ground like ink on a printed map. No plate, no shadow, no gradient on a mark. **The interface is a frame around the map, not a layer over it**: a masthead above, a dock below, the map between them (the *stage*); nothing opaque lies on the map, so no mark can ever be hidden under it (a mark is cut by the edge of the map as by the edge of any screen). The frame is paper (or ink) with a hairline, never glass.
 2. **One object per unit.** A unit is one mark: a bold disc (a regiment, a battery, a battalion) or a standard (a brigade, division or corps record), one white glyph inside it, and its short code written beside it with a halo, as part of the same object. There is no caption box behind the text and no second box. The full name is *that same text growing*: it wipes out to the right of the code, in the free ground the layout reserved for it, on hover, on selection and, where there is room, at close zoom. The code gives way to the name in place; nothing appears beside it.
-3. **Three levels of weight, no more.** (1) formation marks: a standard (brigade, division, corps) and the crowd mark (a standard with a count); (2) unit marks: discs; (3) secondary detail: the strength ring, the hull, the leader and the pin, the place names. Two type sizes on the map (12 px for a unit's code and name, 13 px for a formation or a count) and one numeral style (Inter 700). Nothing that must be read is under 11 px at 1x.
-4. **Quiet.** No dashed outline anywhere (an approximate place is a soft disc, a Modelled age is a fade). No tiny badge: a mark has no corner chips. Crowds merge into a standard with a number whose pile behind it says "several"; its hull and the true position of each record appear on interaction only. Age is **one** device, used everywhere: a mark whose latest keyframe is old *fades* (its colour drains toward the grey of the same lightness, its ring thins, its glyph softens), gradually, over half a battle day to a whole one.
+3. **Three levels of weight, no more.** (1) formation marks: a standard (brigade 28x18, division 34x22, corps 40x26), its name in 13/700 **in the side's own deep ink** (blue or rust) so the formation tier is set apart by colour and weight, not by one pixel of size; (2) unit marks (a 15 px disc, its code in 12/600 neutral ink) and **crowd marks, which are smaller than a brigade standard (25x17) and set in the neutral 12/600 of a unit**, so a crowd is never louder than the formation it merges; (3) secondary detail: the strength ring, the hull, the leader and the pin, the place and road names. Two type sizes on the map (12 and 13) and one numeral style (Inter 700). Nothing that must be read is under 11 px at 1x (the road names of the ground, which were 10 px, are 11 now).
+4. **Quiet.** No dashed outline anywhere (an approximate place is a soft disc, a Modelled age is a fade). No tiny badge: a mark has no corner chips. Crowds merge into a standard with a number whose pile behind it says "several"; its hull and the true position of each record appear on interaction only. Age is **one** device, used everywhere: a mark whose latest keyframe is a battle day or more old *recedes into the ground it stands on*: its fill becomes a pale tint of **the same hue** (a pale blue or a pale salmon on paper; a deeper blue or red on the dark aerial), its ring thins to 62 percent, and the ink of its glyph and its count becomes the dark ink where that reads better (always the better of white and the dark ink: 4.5:1 at every one of seven ages, tested). Nothing greys: grey would read as a missing value, and a faded Union mark must still be blue.
 5. **True to the data.** The disc stands on the unit's true position; the layout's box is anchored on the glyph, not on the middle of the text (section 5.1). Every channel a mark draws is a field of the data, and each carries the site's evidence label (section 10): side, arm, echelon, identity, strength state, age, crowd count. Posture is not drawn on the mark (the data's posture is hand-authored per keyframe and has no honest heading to draw); it is on the unit card.
 6. **Motion is part of the language.** Every arrival, selection, hover, growth and merge has a curve and a duration (section 8), and the picture is a pure function of the time it is given, so a screenshot and the live page agree.
 7. **Every number is a token.** A designer changes `editorial.spec.mjs` (or `?skinset=` live) and nothing else; a variant is the same drawing under another token set (section 11).
@@ -31,12 +31,13 @@ A 4 px grid for the interface; the marks sit on a 1 px grid at 1x and are snappe
 | Battalion disc radius | 8.5 | `mark.rBattalion` |
 | Light ring / dark hairline (outside the disc) | 1.5 / 1.0 | `ring.light`, `ring.dark` |
 | Arm glyph half-size, stroke | 3.4, 1.9 | `glyph.size`, `glyph.stroke` |
-| Standard (body), brigade / division / corps | 26x17, 32x21, 38x25 | `flag.w.*`, `flag.h.*` |
-| Crowd mark body, pile offset | 28x19, 3.5 | `flag.w.crowd`, `flag.h.crowd`, `flag.stack` |
+| Standard (body), brigade / division / corps | 28x18, 34x22, 40x26 | `flag.w.*`, `flag.h.*` |
+| Crowd mark body (smaller than a brigade standard), pile offset | 25x17, 3 | `flag.w.crowd`, `flag.h.crowd`, `flag.stack` |
 | Notch of a Union standard, point of a Confederate one | 5 | `flag.notch` |
 | Pips of a formation record (1 brigade, 2 division, 3 corps), radius, pitch | 2.1, 4.6 | `pip.r`, `pip.pitch` |
 | Gap mark to text, left pad, right pad, reserved band | 3, 2, 2, 2 | `gap.text`, `pad.*` |
-| Box height: unit / battalion / brigade / division / corps / crowd | 24 / 26 / 26 / 30 / 34 / 32 | derived by `sizeOf()` |
+| Box height: unit / battalion / brigade / division / corps / crowd | 24 / 26 / 27 / 31 / 35 / 29 | derived by `sizeOf()` |
+| The frame: masthead / dock (desktop) / masthead (phone) | 56 / about 112 / 48 | `--mast-h` (`chrome.css`); the dock's height is measured and the stage follows it |
 | Pin box (a true position) | 7x7 | `pinHalf` 3.5 |
 | Clearance between two boxes | 2 | `layout.gapPx` |
 
@@ -47,9 +48,13 @@ The box of a mark is what the layout reserves, and the layout's guarantee (no tw
 | Role | Face | Size / weight | Where |
 |---|---|---|---|
 | Code of a unit mark; the name that grows out of it | Inter | 12 / 600 | map |
-| Code of a formation mark and a crowd; the name of a formation | Inter | 13 / 700 | map |
+| Code and name of a formation mark | Inter | 13 / 700, in the side's deep ink (`text.formUnion` #123F7A, `text.formConfederate` #8E2C0E on paper) | map |
+| The name of a crowd (what its records share) | Inter | 12 / 600, neutral ink | map |
 | The count in a crowd mark, the pips | Inter (numerals) | 13 / 700 | map |
 | Place names | Source Serif 4 italic | 12 / 400 | map |
+| Road and stream names of the ground | Inter | 11 / 600 (they step aside, fading, for any mark or name that would lie on them) | map |
+| The masthead: title / dateline / clock | Source Serif 4 / Source Serif 4 / Inter | 17 / 600; 15 / 600; 11.5 / 500 | masthead |
+| The timeline's day labels | Inter | 11 / 600 | dock |
 | Card kicker | Inter | 11 / 700, caps, tracking .12em | cards, rail |
 | Card title | Source Serif 4 | 19 / 600 (26 for the date line and the banner) | cards |
 | Card body, meta, evidence | Inter | 13.5 / 1.55; 12.5; 11 / 650 caps | cards |
@@ -71,8 +76,14 @@ Two families share one drawing. `dispatch-paper` (dark ink on the light ground) 
 | `color.ringDark` (the hairline) | #0A1018 | #0A1018 | | |
 | `text.ink` / `text.halo` | #17202B / #F7F2E4 | #FFFFFF / #08111A | | halo opacity 1 |
 | `color.accent` (selection, highlighter) | #FFC21A | #FFC21A | | |
+| `color.glyphDark` (the glyph and the count on an aged, pale mark) | #17202B | #17202B | | |
+| `color.fade` (the ground an old mark recedes toward) / `fade.fill` | #FFFDF4 / 0.55 | #0F1722 / 0.34 | | 0.52 / 0.30 |
+| `fade.ringW`, `fade.ring`, `fade.glyph`, `fade.text` (what else changes with age) | 0.62, 0.30, 0.06, 0.12 | same | | 0.80, 0.20, 0.03, 0.06 |
+| `text.formUnion` / `text.formConfederate` (the name of a formation) | #123F7A / #8E2C0E | #A9CBF7 / #FFB59B | | |
 
 The interface palette lives in `editorial.css` (`--bg --panel --text --muted --accent`, the tone inks and the six evidence colours), in a light and a dark theme that follow the ground.
+
+How age is drawn (`fadeFill`, `fadeInk`, `fadeT` in `editorial.spec.mjs`, shared by the drawing and the tests): nothing until half a battle day, then a quick change (a smoothstep from 0.45 to 0.70 of the age scale, so no mark rests in the mid-tone where neither white nor dark ink reads) to a tint of the same hue mixed toward the ground; the ink of the glyph, the pips and the count is the better of white and the dark ink for that fill.
 
 Every pair is tested (`tools/contrast-tests.mjs`, also run by `editorial.test.mjs`; the ground is **measured**: seven luminance bands of the real backdrop at three zooms and four scenes in each look, `results/ground-bands.json`):
 
@@ -81,12 +92,12 @@ Every pair is tested (`tools/contrast-tests.mjs`, also run by `editorial.test.mj
 
 | Group | Pass | Weakest pair | Measured | Bar |
 |---|---:|---|---:|---:|
-| glyph on fill | 30 of 30 | dispatch-aerial/contrast: white glyph on Confederate, fresh | 4.78:1 | 4.5:1 |
+| glyph on fill | 30 of 30 | dispatch-paper/cvd: the glyph and the count on Confederate, worst of the seven ages (age 0.50) | 4.59:1 | 4.5:1 |
 | text | 6 of 6 | dispatch-paper: ink on its halo | 14.3:1 | 7:1 |
 | ring on ground | 6 of 6 | dispatch-paper: best ring on the worst of 28 measured ground colours (#a09270) | 3.33:1 | 3:1 |
 | selection | 6 of 6 | dispatch-paper: amber ring against its dark underlay, worst ground | 3.31:1 | 3:1 |
 | side separation | 36 of 36 | dispatch-paper/cvd: Union against Confederate, luminance ratio (greyscale print) | 1.32:1 | 1.3:1 |
-| age | 12 of 12 | dispatch-aerial/contrast: a battle-day-old Union mark against a fresh one (the fade must be visible), CIEDE2000 | 4.25 dE2000 | 4 dE2000 |
+| age | 12 of 12 | dispatch-aerial: a battle-day-old Union mark against a fresh one (the fade must be visible), CIEDE2000 | 8.75 dE2000 | 7 dE2000 |
 | card text | 38 of 38 | light: --evi-Contested (an evidence label) on the card | 5.66:1 | 4.5:1 |
 
 Full list: `results/contrast-tests.json`.
@@ -96,15 +107,15 @@ The honest limits of these tests: the colour-vision figures are a software simul
 
 ## 5. The anatomy of a mark
 
-The specimen sheets draw every encoding with the skin's own code on the real ground: `shots/specimen-paper.png`, `shots/specimen-aerial.png`, and the variants `specimen-paper-cvd.png`, `specimen-aerial-contrast.png`.
+The specimen sheets draw every encoding with the skin's own code on the real ground: `shots/round-1/specimen-paper.jpg`, `specimen-aerial.jpg`, and the variants `specimen-paper-cvd.jpg`, `specimen-aerial-contrast.jpg`.
 
 ```
         unit mark                                         formation standard                              crowd mark
-   (ring: light 1.5 + hairline 1)                    (ring of the same two widths)               (the pile behind it, offset 3.5)
-        .--------.                                      ______________                              ______________
-       / ( X )    \  14 VT   <- code, haloed           |  .  .        >  I/3/2  <- code, 13/700    |   9        <  II/2  <- the lead record or the formation
-       \  disc 15 /                                    |_____________>                              |___ count __>
-        '--------'                                      brigade: 26x17, Union swallow-tail,        a standard that stands for N records
+   (ring: light 1.5 + hairline 1)                    (ring of the same two widths)               (the pile behind it, offset 3)
+        .--------.                                      ______________                              ____________
+       / ( X )    \  14 VT   <- code, haloed           |  .  .        >  I/3/2  <- code, 13/700    |   9      <  Kemper's Bde  <- what the records share
+       \  disc 15 /                                    |_____________>     in the side's deep ink  |__ count _>      (12/600, neutral ink)
+        '--------'                                      brigade: 28x18, Union swallow-tail,        a small standard (25x17) for N records
    the glyph centre IS the true position                Confederate point; pips = echelon
 ```
 
@@ -116,24 +127,24 @@ A mark is wider than its disc, because the text is part of it. The engine's firs
 
 | Channel | Encoding | Field of the data | Label |
 |---|---|---|---|
-| **Side** | colour *and* silhouette: Union a blue circle (unit) or swallow-tailed standard; Confederate a red rounded square or pointed standard; the **contested** side (10 ids whose state code contradicts the prefix) a hatched amber diamond; a crowd of both sides a standard split blue and red | `side` (order of battle, id prefix) | Documented; **Contested** for the ten; **Computed** for a mixed crowd |
+| **Side** | colour *and* silhouette: Union a blue circle (unit) or swallow-tailed standard; Confederate a red rounded square or pointed standard; the **contested** side (10 ids whose state code contradicts the prefix) a hatched amber diamond; a crowd of both sides a standard split blue and red, a crowd that holds contested records a standard half amber and hatched (a contested record is never counted as a side) | `side` (order of battle, id prefix) | Documented; **Contested** for the ten; **Computed** for a mixed crowd |
 | **Arm** | one white glyph in the disc: infantry a saltire, cavalry a slash, artillery a dot (the APP-6 convention; cavalry and artillery states are not drawn) | registry `arm` | Documented |
 | **Echelon** | size and shape: a battalion's disc is larger; a brigade, division, corps record is a standard with 1, 2, 3 pips and a larger body. A formation record has **no arm glyph**: the data gives a formation none | registry `kind` | Documented |
 | **Identity** | the code beside the mark; italic when the id has no order-of-battle record | `short`, `inOob` | Documented; **Unknown** for the 95 ids with no record |
 | **Strength** | the light ring of a unit disc is a four-arc gauge: the lit arcs are the keyframe's strength over the unit's reference strength, in quarters (a state, not a number) | keyframe `strength`, `strengthRef` | **Modelled** (a placement value, not a casualty record) |
-| **Age** | the fade (principle 4): fill, ring and glyph, from half a battle day to a whole one | ticks since the latest keyframe | **Computed** |
-| **Crowd** | a standard with a number: that many placement records share the mark (records, never men); the pile behind it; a trailing plus when the name is the lead record's | the layout's aggregate | **Computed** |
+| **Age** | recedes into the ground (principle 4): a pale tint of the same hue, a thinner ring, the better of white and dark ink for the glyph and the count; from half a battle day to a whole one, quickly | ticks since the latest keyframe | **Computed** |
+| **Crowd** | a small standard with a number and a name: that many placement records share the mark (records, never men); the pile behind it says several; the name is what the records share (section 7), never a lead record and a plus | the layout's aggregate | **Computed** |
 | **Position** | the glyph centre; a displaced mark has a thin leader and a dot at the true place (drawn only when that place is clear of the mark and not under its own text) | keyframe lat/lng | **Modelled** (hand-authored; between keyframes an interpolation) |
-| **Hull** | the soft shape of the formation's records, on hover or selection | order-of-battle chain, true positions | **Computed** from Modelled positions |
-| **Place names** | italic serif with a dot (a ring: the site's own coordinate; a filled dot: moved to the summit the elevation model measures; a trailing "?" on the two names whose coordinate has no building of that name: the Lutheran Seminary, 679 m from its cupola, and the Evergreen Cemetery gatehouse, nothing within 25 m); a name steps aside, fading, for any mark that would stand on it | `terrain.json`, 3DEP, the basemap's landmark check | Modelled; **Measured** for three hills |
+| **Hull** | a very light wash, in the neutral ink of the print (not in a side's colour: a tinted wedge reads as an attack arrow, a claim about 1863 the data does not make), over the formation's records, with a dot on each true position; on hover or selection | order-of-battle chain, true positions | **Computed** from Modelled positions |
+| **Place names** | italic serif with a dot (a ring: the site's own coordinate; a filled dot: moved to the summit the elevation model measures; a trailing "?" on the two names whose coordinate has no building of that name: the Lutheran Seminary, 679 m from its cupola, and the Evergreen Cemetery gatehouse, nothing within 25 m); a name steps aside, fading, for any mark that would stand on it, and a ring whose name has stepped aside goes with it; the road and stream names of the ground are drawn by the skin on the same rule | `terrain.json`, 3DEP, the basemap's landmark check | Modelled; **Measured** for three hills |
 
 ### 5.3 The unit's name grows out of the mark
 
 The layout already places a secondary label in free ground after every box is placed (it never moves a box). This language uses that mechanism for the name: the label rectangle is only the *overhang*, the part of the name beyond the room the code already has, adjacent to the mark (gap 0) and only to the right (`layout.labelSlots = r`). When it is shown, the mark's code fades and the name wipes out along the same baseline from the same x. Names are the order of battle's own words: a regiment's designation without the nickname in brackets (the nickname stays on the unit card), a formation's short name when whole, otherwise its designation with ordinals as figures ("Third Brigade, Second Division, Third Corps" -> "3rd Bde, 2nd Div, 3rd Corps"); `editorial.test.mjs` checks that every word of every name is in the unit's own record and that none is cut with an ellipsis (the dataset's `label` is cut at 24 characters: "Battery A, 4th US Artil..."). The hovered unit takes its room first and without the show delay, at any zoom; names appear everywhere else from zoom 15, where they fit.
 
-### 5.4 The hull and the leader
+### 5.4 The hull, the leader and the pin
 
-On hover or selection the formation's hull appears beneath every mark: the convex hull of the true positions of the unit's brigade (or of a crowd's records), padded 15 px, in the side colour at 13 percent with a soft rim where the stroke and the fill overlap, and a dot at each record's true position. It is a soft translucent shape, not a claim about a line of battle. A displaced mark's leader is 1.1 px in its side colour over a 3 px halo, from the true position to the edge of the disc; the pin is a 2 px dot with a white ring and a hairline. Neither is drawn when the true position is inside the mark's own box.
+On hover or selection the formation's hull appears beneath every mark: the convex hull of the true positions of the unit's brigade (or of a crowd's records), padded 10 px, as a very light wash (5.5 percent) in the neutral ink of the print, and a dot at each record's true position (the side's colour inside a white ring). It is a soft grouping, not a claim about a line of battle: it has no outline, no side colour and no taper that could read as an arrow. A displaced mark's leader is 1.1 px in its side colour over a 3 px halo, from the true position to the edge of the disc; the pin is a 2 px dot with a white ring and a hairline. Neither is drawn when the true position is inside the mark's own box. **A card's leader to its subject is drawn only when it is at most 300 px long** (`popup.place.leaderShowPx`): a longer one is left out, and the subject keeps its highlighter and its pulse (the round-1 verdict on a hairline across the whole map).
 
 ## 6. States
 
@@ -151,9 +162,21 @@ On hover or selection the formation's hull appears beneath every mark: the conve
 
 ## 7. Formation marks and crowds
 
-A **formation record** (a brigade, division or corps that has its own placement) is a standard: larger with echelon, side by silhouette, pips for the level, its short name in 13/700. A **crowd** is what the layout makes when marks cannot all stand on their true positions within the displacement budget (48 px): the nearest records merge, deepest common ancestor first, into one standard with a count. A crowd is named by what its records share: the formation's code ("II/1/2"), "Contact" when both sides are in it, otherwise its lead record's code with a plus. Nothing is dropped: the engine's guarantee (every unit in exactly one mark) is checked on every drawn frame.
+A **formation record** (a brigade, division or corps that has its own placement) is a standard: larger with echelon (28x18, 34x22, 40x26), side by silhouette, pips for the level, its short name in 13/700 in the side's deep ink; its full name grows out of it when there is room. A **crowd** is what the layout makes when marks cannot all stand on their true positions within the displacement budget (48 px): the nearest records merge, deepest common ancestor first, into one small standard (25x17) with a count. Nothing is dropped: the engine's guarantee (every unit in exactly one mark) is checked on every drawn frame.
 
-At the opening zoom 13.5 at the Day 3 assault, 456 units stand as 141 marks, 68 of them crowd marks standing for 383 records (`results/scenes-final.json`).
+**A crowd is named in words, from the order of battle** (`layout/tiles.mjs aggregateName`; `editorial.test.mjs` checks every word against the record):
+
+| The crowd holds | Its name | Example |
+|---|---|---|
+| units of both armies | **Both sides** (the data records no engagement, so the word "Contact" is gone from every screen, the legend and the data's own scene names: "Fresh cluster B") | Both sides |
+| one army and some contested records | the army, and how many are contested | Confederate, 3 contested |
+| only contested records | Side contested | Side contested |
+| records that share a brigade, a division or a corps | **that formation's own name**: a nickname where the order of battle gives one, otherwise the designation abbreviated by rule, corps in Roman numerals | Kemper's Bde; 2nd Div, V Corps; II Corps |
+| one army, records of up to three corps | the corps, in words; "& others" when some records have no corps in the order of battle | I & XI Corps; II Corps & others |
+| one army, records of more than three corps | the army and the number of corps | Union, 4 corps |
+| one army, no record has a formation | the army, "no formation" (the order of battle gives 95 of the 478 ids no parent) | Union, no formation |
+
+The number on the mark is how many placement records it stands for: **Computed**, records, never men. At the opening zoom 13.5 at the Day 3 assault, 456 units stand as about 115 marks, 47 of them crowd marks standing for 388 records (`results/scenes-round-1.json`): the first view is a field of named formations and counted, named crowds, none of them louder than the formation it merges. (**Not solved, and said plainly:** the critics asked for most units to stand alone at the opening zoom. An overview of 456 units in a 1,440 x 780 px map cannot give every unit a 15 px disc and its code without overlap, which the language never allows; so about 85 percent of the records stand in crowds at 13.5. What this revision changed is what the crowds say, how loud they are, and that they open the moment the zoom allows. Section 13 lists it.)
 
 ## 8. Motion
 
@@ -181,31 +204,43 @@ The strips `shots/motion-march.png` (eight consecutive frames, 16.7 ms apart, a 
 
 | Condition | Scene | Speed | fps | Frame p95 (ms) | Frames over 20 ms (%) | Engine (ms/frame) | Skin draw, median (ms) | Largest step of a solid mark (px) | Sudden steps of solid marks per s | Frames with overlaps |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| DPR 2, no slowdown | The Angle, z15.5 | 1x | 60 | 16.8 | 0 | 6.45 | 0.6 | 10.3 | 0.25 | 0 |
-| DPR 2, no slowdown | The Angle, z15.5 | 4x | 60 | 16.8 | 0 | 6.13 | 0.6 | 11.1 | 0.13 | 0 |
-| DPR 2, no slowdown | Wheatfield, z15 | 1x | 60 | 16.8 | 0 | 4.33 | 0.8 | 5.4 | 0 | 0 |
-| DPR 2, no slowdown | Wheatfield, z15 | 4x | 60 | 16.8 | 0 | 5.08 | 0.8 | 28.2 | 0.13 | 0 |
-| DPR 2, no slowdown | whole field, z13.5 | 1x | 60 | 16.8 | 0 | 2.97 | 1.2 | 18.3 | 0.25 | 0 |
-| DPR 2, no slowdown | whole field, z13.5 | 4x | 60 | 16.8 | 0 | 2.72 | 1.1 | 13.4 | 0.25 | 0 |
+| DPR 2, no slowdown | The Angle, z15.5 | 1x | 60 | 16.8 | 0 | 5.91 | 0.9 | 15.8 | 0.5 | 0 |
+| DPR 2, no slowdown | The Angle, z15.5 | 4x | 60 | 16.8 | 0 | 4.58 | 0.9 | 5.9 | 0 | 0 |
+| DPR 2, no slowdown | Wheatfield, z15 | 1x | 60 | 16.8 | 0 | 4.54 | 0.8 | 16.9 | 0.25 | 0 |
+| DPR 2, no slowdown | Wheatfield, z15 | 4x | 60 | 16.8 | 0 | 4.04 | 0.8 | 44.2 | 0.38 | 0 |
+| DPR 2, no slowdown | whole field, z13.5 | 1x | 60 | 16.8 | 0 | 2.4 | 1 | 36.9 | 0.38 | 0 |
+| DPR 2, no slowdown | whole field, z13.5 | 4x | 60 | 16.8 | 0 | 2.71 | 1.2 | 26.5 | 0.13 | 0 |
 | DPR 1, no slowdown | The Angle, z15.5 | 1x | 60 | 16.8 | 0 | 6.94 | 0.7 | 10.3 | 0.25 | 0 |
 | DPR 1, no slowdown | The Angle, z15.5 | 4x | 60 | 16.8 | 0 | 6.34 | 0.7 | 11.1 | 0.13 | 0 |
 | DPR 1, no slowdown | Wheatfield, z15 | 1x | 60 | 16.8 | 0 | 4.6 | 0.8 | 7.6 | 0 | 0 |
 | DPR 1, no slowdown | Wheatfield, z15 | 4x | 60 | 16.8 | 0 | 4.55 | 0.8 | 28.2 | 0.25 | 0 |
 | DPR 1, no slowdown | whole field, z13.5 | 1x | 60 | 16.8 | 0 | 3.82 | 1.2 | 25.5 | 0.25 | 0 |
 | DPR 1, no slowdown | whole field, z13.5 | 4x | 60 | 16.8 | 0 | 3.78 | 1 | 13.4 | 0.25 | 0 |
-| DPR 2, main thread 4x slower (a harsh stand-in for a phone, not a phone) | The Angle, z15.5 | 1x | 26.3 | 66.7 | 73 | 25.68 | 4.2 | 14.9 | 2.13 | 0 |
-| DPR 2, main thread 4x slower (a harsh stand-in for a phone, not a phone) | The Angle, z15.5 | 4x | 26.9 | 66.7 | 74.1 | 23.96 | 4.1 | 31 | 4 | 0 |
-| DPR 2, main thread 4x slower (a harsh stand-in for a phone, not a phone) | Wheatfield, z15 | 1x | 31 | 66.6 | 59.4 | 18.26 | 5.2 | 14.5 | 0.63 | 0 |
-| DPR 2, main thread 4x slower (a harsh stand-in for a phone, not a phone) | Wheatfield, z15 | 4x | 29.9 | 66.6 | 70.8 | 18.4 | 5.9 | 14.6 | 1.75 | 0 |
-| DPR 2, main thread 4x slower (a harsh stand-in for a phone, not a phone) | whole field, z13.5 | 1x | 32.3 | 66.6 | 52.9 | 15.32 | 6.8 | 18.6 | 0.25 | 0 |
-| DPR 2, main thread 4x slower (a harsh stand-in for a phone, not a phone) | whole field, z13.5 | 4x | 31.7 | 66.6 | 58.7 | 14.1 | 7.7 | 15 | 0.25 | 0 |
+| DPR 2, main thread 4x slower (a harsh stand-in for a phone, not a phone) | The Angle, z15.5 | 1x | 22.7 | 83.3 | 90.2 | 27.48 | 6.7 | 15.7 | 2.5 | 0 |
+| DPR 2, main thread 4x slower (a harsh stand-in for a phone, not a phone) | The Angle, z15.5 | 4x | 22.6 | 83.2 | 90.6 | 26.08 | 7.5 | 39.1 | 2.25 | 0 |
+| DPR 2, main thread 4x slower (a harsh stand-in for a phone, not a phone) | Wheatfield, z15 | 1x | 27.7 | 66.6 | 74.8 | 19.46 | 7 | 29.6 | 1.5 | 0 |
+| DPR 2, main thread 4x slower (a harsh stand-in for a phone, not a phone) | Wheatfield, z15 | 4x | 30.6 | 66.5 | 67.5 | 16.86 | 6.2 | 59.8 | 2.75 | 0 |
+| DPR 2, main thread 4x slower (a harsh stand-in for a phone, not a phone) | whole field, z13.5 | 1x | 37.2 | 50 | 50 | 11.31 | 7.5 | 11.5 | 0.25 | 0 |
+| DPR 2, main thread 4x slower (a harsh stand-in for a phone, not a phone) | whole field, z13.5 | 4x | 33.9 | 50.2 | 55.1 | 12.27 | 7.8 | 27 | 0.5 | 0 |
 
 *Largest step of a solid mark* and *sudden steps* come from an instrument of the driver's own (every tile that is solid in two consecutive frames; a step of 8 px or more that is at least 3 times the step before it is sudden), independent of the engine's recorder; the recorder also counts dimmed travelling marks, which can step farther (it reported up to 161 px at The Angle at 1x) and are not solid.
 <!--/PACING-->
 
+<!--STRIPS-->
+### The motion strips: overlaps and jitter, counted (`tools/strips.mjs`, virtual clock at 60 Hz)
+
+| Strip | Subject | Frames recorded | Marks tracked | Frames with an overlap | Largest one-frame step (px, camera removed) | Sudden steps (8 px or more and at least 3 times the step before) |
+|---|---|---:|---:|---:|---:|---|
+| A march (8x) | 5 TX | 68 | 278 | 0 | 32.23 | 3 (1 of the display, 2 the unit's own motion) |
+| An arrival | 3 ME | 40 | 275 | 0 | 4.13 | 0 (0 of the display, 0 the unit's own motion) |
+| A deployment (zoom 14.7 to 16.4) | I Corps & others | 152 | 324 | 0 | 4.13 | 0 (0 of the display, 0 the unit's own motion) |
+
+Every solid mark of every frame is followed; its step is measured with the camera's own motion taken out (the mark's previous place seen through this frame's camera), so a zoom is not mistaken for a hop. A sudden step is classed as *the unit's own motion* when the mark is on its true position and its step equals the step of that position: the unit's interpolated track changes speed there (the clock's time-warp gaps or a keyframe), which the display must follow and not hide. **Over the three strips 1 sudden step of the display and 2 of the units' own motion were counted** (the arrival and the deployment: none at all; the largest step of any mark in them is 4.13 px). The display step: agg:A-U:U-148PA (agg) f28 32.2px (was 1.9), opacity 0.84 (a crowd mark in the dimmed-travel rule of the engine; it did not recur on a second identical run).
+<!--/STRIPS-->
+
 **Jitter.** The engine fork keeps the first prototype's display layer (a critically damped glide of every tile's offset, collision-aware pushing, sequenced fades, the verified safety net); what this language adds to stillness is that a mark is a sprite blitted at a snapped position once it stops (no sub-pixel shimmer), its text is rasterised once per device-pixel ratio, and a name never changes a box. `studio/test/editorial.test.mjs` plays 1,440 frames at 4x in three scenes with a unit hovered and one selected and counts 0 overlaps on every frame.
 
-**What is left, measured and not hidden.** In real time at 60 fps the independent instrument finds 0 to 0.25 sudden steps of a solid mark per second (a step of 8 px or more that is at least 3 times the step before it), the largest 28 px (a single hop at 4x in the Wheatfield). `tools/jitter-probe.mjs` plays a scene on the virtual clock and lists each such step with the tile's key and kind. Three causes show: (a) a displaced mark shoved by contacts that compound (its unit at rest, its drawn box moving 2.5 px a frame and then 8 px in one): `motion.maxPushPx` went from the first prototype's 1.5 to 0.75, which cut the Wheatfield's hops at 4x from about 6 to about 2 in 600 frames, with 0 overlaps either way and the number of dimmed travelling frames within 10 percent (from 8 percent fewer to 9 percent more across the runs); (b) a crowd whose member list changes (the engine absorbs the centroid's jump into the offset; steps of 8 to 12 px still occur about once in 10 s); (c) a mark that passes 50 percent opacity on a travel hop. The counts differ by up to 2 between identical runs (not yet explained), so single digits mean the same thing. Under a 4x main-thread slowdown (26 to 32 fps) the rate is 0.25 to 4 a second, because a frame then covers 3 to 4 times the motion. The first prototype's audit counted 277 position pops a second for the *shipped* renderer at 4x (`docs/pitch/anim/06-layout.md`), but defined a pop differently (3 px beyond the true position's motion), so the two numbers are not a like-for-like comparison.
+**What is left, measured and not hidden (round 1, `results/pacing-*.json`).** In real time at 60 fps (DPR 2, no throttle) the independent instrument finds 0 to 0.5 sudden steps of a solid mark per second in the three scenes at 1x and 4x, the largest single step 44 px (the Wheatfield at 4x), 0 frames with an overlap, 0 frames over 20 ms, the engine at 2.4 to 5.9 ms a frame and the skin's drawing 0.8 to 1.2 ms (the road names, now drawn by the skin, add about 0.2 ms). Under a 4x main-thread slowdown (a stand-in for a phone's JavaScript, not a phone) the page runs at 23 to 37 fps and a frame covers three to four times the motion, so the rate is 0.25 to 2.75 steps a second; the engine's solve and display layer (11 to 27 ms there) is the cost, not the drawing. Three causes of a sudden step show (SPEC 8, above, and `tools/jitter-probe.mjs`): a displaced mark shoved by contacts that compound (cut by `motion.maxPushPx` 0.75), a crowd whose member list changes (the engine absorbs the centroid's jump into the offset, a step of 8 px or more still occurs about once in 10 s), and a mark that passes 50 percent opacity on a travel hop. In the march strip of round 1 one such step was counted (a crowd mark at 84 percent opacity, 32 px, not reproduced on a second identical run) and two steps that are not the display's: one regiment's own interpolated motion (the clock's time-warp or a keyframe). The counts differ by up to 2 between identical real-time runs (not yet explained).
 
 ## 9. Popups
 
@@ -215,14 +250,16 @@ All twelve popups of the first prototype are kept, with their content and purpos
 |---|---|
 | Event card | a paper card with a 3 px rule in the tone's colour (critical red, high amber, medium olive), a kicker in caps with the clock, the chronology sentence in Inter 13.5, the place and the units named as quiet meta lines, evidence as a dot and a word, "Show on map" as an underlined link; a thin leader ends in a small ring on the glyph of its subject, and the subject marks are highlighted as with a pen |
 | Story card | the same card with the title in Source Serif 4 19/600, the summary, the read time; the whole story in the reading rail in 16/1.68 serif |
-| Unit card (and the unit panel in the rail) | the unit's side colour on the rule and the leader, the name, the chain of command, the strength bar (3 px), the commander, **Details** (the rail) and **Show on map** |
-| Hover tooltip | the smallest callout (2 px rule), the name, the strength, the posture and the age, after the dwell |
+| Unit card (and the unit panel in the rail) | the unit's side colour on the rule and the leader; a kicker on one line ("Confederate · Infantry"); the name in the serif; the two lowest levels of the chain in the order of battle's own words ("Armistead's Brigade · Pickett's Division, I Corps"); the strength bar with its figure on one line ("261 of 435", never broken) and its evidence label; the commander on one line; **Details** (the rail) and **Show on map**. On a phone the sheet opens at its peek detent (kicker, name, the strength bar) so the map keeps more than 60 percent of the screen |
+| Hover tooltip | the smallest callout (2 px rule), the name, "Strength 261 of 435" on one line with its evidence label, the posture and the age, after the dwell; for a crowd its name, how many records and which |
 | Command toasts, cross-out | the same card; the old commander struck through, the successor after an arrow |
 | Day banner | a dateline across the ground: "Day 2", the date in 26 px serif, the tick range |
 | Clock | the date in serif, the time in tabular Inter, the uncertainty, a day-progress ring in ink |
-| Legend | a pill on the map; a click opens the whole key in the reading rail, grouped by what a mark says, each row a swatch drawn by the skin and an evidence label |
+| Legend | a pill on the map; a click opens the whole key in the reading rail: first an **anatomy** (a unit mark, a crowd, a brigade standard and an aged mark, drawn by the skin's own code with nine numbered parts and nine one-line notes), then the rows grouped by what a mark says, each a true-size swatch drawn by the skin and an evidence label |
 | Narration (tours, the welcome) | the same card family in a column: kicker, serif title at 25 px, the text, the evidence labels, a hairline progress bar |
 | Hints, Chronicle, overview map | the same card; Chronicle chips with the tone's rule |
+
+**The frame (round 1).** The masthead (title, the dateline in the serif, the look switch Paper | Aerial, Showcase, the popup buttons, the four tools) and the dock (transport, speeds, the timeline in one row; the scale; two lines: what is Modelled, and what the ground is) are bands outside the map. The Look and the Colour sets (standard, colour-blind safe, high contrast) are in the Showcase menu on every screen size. The reading rail lies inside the map band, so it never covers the masthead; on a phone it is a sheet above the dock. The popup director's chrome rects are now only what floats over the map on purpose (the tuning panel, the narration card, the metrics). A leader longer than 300 px is not drawn.
 
 Evidence labels are a dot and a word in the label's colour (a circle for Documented, Measured and Computed, a square for Modelled, a diamond for Contested, a ring for Unknown), never a pill; each colour meets 4.5:1 on the card in both themes (tested).
 
@@ -254,15 +291,15 @@ Section 5.2 is the table. The rules behind it, kept by the code and checked by t
 
 | Scene | Tick / zoom | Marks on screen | Units on the field | Core overlaps | Pins covered | Name overlaps | Unrepresented units | Smallest gap between two boxes (px) | Names grown | Cards over a mark (frames) |
 |---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| S1a-field-z13.5-t551 | 551 / 13.5 | 137 (61 crowds for 375 records) | 451 | **0** | **0** | **0** | **0** | 2 | 0 | 0 |
-| S1b-field-z13.5-t556-assault | 556 / 13.5 | 141 (68 crowds for 383 records) | 456 | **0** | **0** | **0** | **0** | 2 | 0 | 0 |
-| S2-wheatfield-rosewoods-z15-t295 | 295 / 15 | 276 (28 crowds for 96 records) | 344 | **0** | **0** | **0** | **0** | 2 | 125 | 0 |
-| S3-cemetery-hill-z15.5-t346 | 346 / 15.5 | 341 (18 crowds for 62 records) | 385 | **0** | **0** | **0** | **0** | 2 | 183 | 0 |
-| S4-selected-z16.5-t556 | 556 / 16.5 | 450 (4 crowds for 10 records) | 456 | **0** | **0** | **0** | **0** | 2 | 249 | 0 |
-| S6-event-and-story-in-situ-z15.5-t551 | 551 / 15.5 | 389 (26 crowds for 88 records) | 451 | **0** | **0** | **0** | **0** | 2 | 181 | 0 |
-| S7-legend-z15.5-t551 | 551 / 15.5 | 389 (26 crowds for 88 records) | 451 | **0** | **0** | **0** | **0** | 2 | 181 | 0 |
-| S8-hover-tooltip-z16.5-t556 | 556 / 16.5 | 450 (4 crowds for 10 records) | 456 | **0** | **0** | **0** | **0** | 2 | 249 | 0 |
-| S5-phone-z14.5-t556 | 556 / 14.5 | 276 (49 crowds for 229 records) | 456 | **0** | **0** | **0** | **0** | 2 | 0 | 0 |
+| S1a-field-z13.5-t551 | 551 / 13.5 | 110 (49 crowds for 390 records) | 451 | **0** | **0** | **0** | **0** | 2 | 0 | 0 |
+| S1b-field-z13.5-t556-assault | 556 / 13.5 | 110 (45 crowds for 391 records) | 456 | **0** | **0** | **0** | **0** | 2 | 0 | 0 |
+| S2-wheatfield-rosewoods-z15-t295 | 295 / 15 | 270 (28 crowds for 102 records) | 344 | **0** | **0** | **0** | **0** | 2 | 125 | 0 |
+| S3-cemetery-hill-z15.5-t346 | 346 / 15.5 | 334 (22 crowds for 73 records) | 385 | **0** | **0** | **0** | **0** | 2 | 178 | 0 |
+| S4-selected-z16.5-t556 | 556 / 16.5 | 447 (5 crowds for 14 records) | 456 | **0** | **0** | **0** | **0** | 2 | 246 | 0 |
+| S5-phone-z14.5-t556 | 556 / 14.5 | 259 (43 crowds for 240 records) | 456 | **0** | **0** | **0** | **0** | 2 | 0 | 0 |
+| S6-event-and-story-in-situ-z15.5-t551 | 551 / 15.5 | 381 (29 crowds for 99 records) | 451 | **0** | **0** | **0** | **0** | 2 | 177 | 0 |
+| S7-legend-z15.5-t551 | 551 / 15.5 | 381 (29 crowds for 99 records) | 451 | **0** | **0** | **0** | **0** | 2 | 177 | 0 |
+| S8-hover-tooltip-z16.5-t556 | 556 / 16.5 | 447 (5 crowds for 14 records) | 456 | **0** | **0** | **0** | **0** | 2 | 246 | 0 |
 
 **Over the 9 scenes: 0 overlapping vital cores, 0 covered true positions, 0 overlapping names, 0 unrepresented units; the engine's own verifier reports 0 overlapping pairs on the same frames.** A *core* is the box of a mark (the glyph and its code, one object); a *crowd* is a standard that stands for several records, so every unit is represented. Console errors: 0; requests that left the machine: 0.
 <!--/SCENES-->
@@ -270,32 +307,41 @@ Section 5.2 is the table. The rules behind it, kept by the code and checked by t
 <!--TESTS-->
 ### The ink stays in its box (`tools/skin-ink.mjs`, pixels, DPR 2)
 
-777 real tiles of 5 scenes were drawn alone in 3108 states (rest, hover, selected, arriving): **0 of them paint more than 0.5 px outside the box the layout reserved**; 306 grown names: **0** outside their tile's box plus label rectangle; 309 pins: **0** outside the pin box. The worst overrun is 0.50 px (anti-aliasing).
+750 real tiles of 5 scenes were drawn alone in 3000 states (rest, hover, selected, arriving): **0 of them paint more than 0.5 px outside the box the layout reserved**; 305 grown names: **0** outside their tile's box plus label rectangle; 290 pins: **0** outside the pin box. The worst overrun is 0.50 px (anti-aliasing).
 
 ### Tests
 
-* editorial (this language: sizing, anchors, layout and played frames with its footprint, names, hull, legend, colour): **11 of 11 pass** (13 s)
-* engine: layout, display, interpolation, time, data, tuning, extension, production reproduction, build: **88 of 88 pass** (66 s)
-* engine: fuzz (random actions on every API, three seeds), popups, assembled tours: **56 of 56 pass** (174 s)
+* editorial (this language: sizing, anchors, layout and played frames with its footprint, names, hull, legend, colour): **15 of 15 pass** (14 s)
+* engine: layout, display, interpolation, time, data, tuning, extension, production reproduction, build: **88 of 88 pass** (58 s)
+* engine: fuzz (random actions on every API, three seeds), popups, assembled tours: **56 of 56 pass** (162 s)
 * colour tests (tools/contrast-tests.mjs): **134 of 134 pass** (0 s)
 <!--/TESTS-->
 
 <!--CHROMECOVER-->
-### The interface over the marks (`tools/chrome-cover.mjs`: five points of every solid mark's box are asked of the browser)
+### The interface over the marks (`tools/chrome-cover.mjs`: five points of every solid mark's box are asked of the browser, `document.elementsFromPoint`)
 
-| Scene | Marks on screen | Hidden under an opaque panel | Partly hidden | By |
-|---|---:|---:|---:|---|
-| S1b whole field z13.5 | 117 | 14 (12%) | 5 | topbar 5, dock 14 |
-| S2 Wheatfield z15 | 74 | 7 (9%) | 4 | dock 11 |
-| S3 Cemetery Hill z15.5 | 60 | 4 (7%) | 3 | dock 3, topbar 4 |
-| S4 z16.5 | 32 | 2 (6%) | 2 | dock 4 |
-| S5 phone z14.5 | 31 | 2 (6%) | 2 | dock 2, topbar 2 |
+| Scene | Marks on the map | Hidden under an opaque panel | Partly hidden | Cut by the edge of the map |
+|---|---:|---:|---:|---:|
+| S1b whole field z13.5 | 72 | 0 | 0 | 5 |
+| S2 Wheatfield z15 | 62 | 0 | 0 | 4 |
+| S3 Cemetery Hill z15.5 | 50 | 0 | 0 | 6 |
+| S4 z16.5 | 24 | 0 | 0 | 0 |
+| S5 phone z14.5 | 23 | 0 | 0 | 7 |
 
-**This is not solved.** The layout and the popup director treat the dock and the top bar as part of the map; a card never lies on a mark (section 9), but the dock and the top bar do. Panning reveals a hidden mark; no one can see it where it stands.
+**The first pass measured 6 to 12 percent of the marks under the dock or the top bar (14 of 117 in S1b) and called it "not solved". The interface is now a frame around the map (section 9), so the count is 0 by construction and the tool confirms it.** A mark near the edge of the map is cut by that edge as by the edge of any screen; those are counted apart and are not under the interface.
 <!--/CHROMECOVER-->
 
 How to regenerate everything: `node tools/run-all.mjs` (about 25 minutes: build, tests, colour tests, pixel check, the scenes, popups, strips, specimens, the report); `node tools/report.mjs` rewrites the measured tables of this file and of the README from `results/`.
 
 ## 13. Not verified, limits, risks
 
-See the README's section "Limits" and the findings of the run; in short: one machine, one Chrome (155, headless, an Intel GPU), no phone, no Safari or Firefox; the language was designed and looked at by one author (no designer, no historian reviewed it); the aerial photograph is modern and leaf-off; the unit placements and the ground's place names sit in different frames; the colour-vision work is a simulation.
+See the README's section "Limits" and the findings of the run; in short: one machine, one Chrome (155, headless, an Intel GPU), no phone, Safari or Firefox (the phone is Chrome's 390 x 844 emulation); the language was designed and looked at by one author (no designer, no historian reviewed it); the aerial photograph is modern and leaf-off; the unit placements and the ground's place names sit in different frames; the colour-vision work is a simulation.
+
+**What is still short of perfection after round 1** (the list is in `ITERATIONS.md`, "Round 1", with the reasons):
+
+* About 87 percent of the records stand in crowds at the opening zoom (the critics' target was about 20). The crowds are named in words and open as soon as the zoom allows; some never open because their records stand on one coordinate in the data.
+* A card whose subject has no free ground within 300 px has no leader line (the subject is highlighted and pulses).
+* One regiment's own interpolated motion changes speed three-fold in one frame in the march strip (the clock's time-warp or a keyframe); the display follows it, it does not hide it.
+* A formation record shows its Roman code ("II/1/2") at the overview where its name does not fit.
+* The Tune, Inspect and Metrics panels are the first prototype's tools in the new paper, not redesigned.
+* The strips and the pacing numbers are one machine's; the 4x CPU throttle is a stand-in for a phone, not a phone.

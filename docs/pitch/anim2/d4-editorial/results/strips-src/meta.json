@@ -1,18 +1,60 @@
 {
  "march": {
-  "unit": "I/1/4",
-  "pxPerFrame": 3.3,
+  "unit": "5 TX",
+  "pxPerFrame": 3.03,
   "speed": 8,
-  "frameMs": 16.7
+  "frameMs": 16.7,
+  "stats": {
+   "examples": [
+    "agg:A-U:U-148PA (agg) f28 32.2px (was 1.9), opacity 0.84",
+    "U-1MN (leaf, the units own motion) f42 8.6px (was 2.3), opacity 1.00",
+    "U-1MN (leaf, the units own motion) f43 28.0px (was 8.6), opacity 1.00"
+   ],
+   "frames": 68,
+   "framesWithOverlaps": 0,
+   "marksTracked": 278,
+   "maxStepPx": 32.23,
+   "suddenSteps": 3,
+   "ofWhichTheUnitsOwnMotion": 2,
+   "suddenStepsOfTheDisplay": 1
+  }
  },
  "arrival": {
   "unit": "3 ME",
   "tick": 240,
   "frameMs": 80,
-  "clockStartsTicksBefore": 0.1
+  "clockStartsTicksBefore": 0.1,
+  "stats": {
+   "examples": [],
+   "frames": 40,
+   "framesWithOverlaps": 0,
+   "marksTracked": 275,
+   "maxStepPx": 4.13,
+   "suddenSteps": 0,
+   "ofWhichTheUnitsOwnMotion": 0,
+   "suddenStepsOfTheDisplay": 0
+  }
  },
  "growth": {
   "unit": "53 VA",
   "frameMs": 50
+ },
+ "deploy": {
+  "crowd": "I Corps & others",
+  "records": 6,
+  "frameMs": 67,
+  "zoom": "14.7 to 16.4",
+  "opensAfterFrames": 20,
+  "note": "eight frames 4 frames (67 ms) apart, from 20 frames before the crowd mark goes",
+  "stats": {
+   "examples": [],
+   "frames": 152,
+   "framesWithOverlaps": 0,
+   "marksTracked": 324,
+   "maxStepPx": 4.13,
+   "suddenSteps": 0,
+   "ofWhichTheUnitsOwnMotion": 0,
+   "suddenStepsOfTheDisplay": 0
+  }
  }
 }

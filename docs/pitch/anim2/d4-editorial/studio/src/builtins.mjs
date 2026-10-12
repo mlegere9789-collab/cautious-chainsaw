@@ -34,7 +34,7 @@ export function registerBuiltins(kernel, extra = {}) {
   if (typeof document !== 'undefined') {
     const base = (typeof location !== 'undefined' && new URLSearchParams(location.search).get('assets')) || globalThis.__D4_ASSETS || '../../basemap/assets/';
     const real = createBackdrop({ manifest: MANIFEST, vectors: VECTORS, base }); globalThis.__realBackdrop = real; real.prefetch(14);
-    for (const look of Object.values(LOOKS)) kernel.backdrops.register('real-' + look.id, { id: 'real-' + look.id, label: look.label + ' (real ground)', doc: look.doc, theme: look.theme, draw: (c, view) => real.draw(c, view.camera, look, { places: false, placeFrame: 'ground' }) });
+    for (const look of Object.values(LOOKS)) kernel.backdrops.register('real-' + look.id, { id: 'real-' + look.id, label: look.label + ' (real ground)', doc: look.doc, theme: look.theme, draw: (c, view) => real.draw(c, view.camera, look, { places: false, placeFrame: 'ground', lineLabels: false }), roadLabels: (camera) => real.roadLabels(camera) });
   }
   return kernel;
 }
