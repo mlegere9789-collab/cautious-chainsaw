@@ -1,0 +1,350 @@
+{
+ "pass": "check2-georeference",
+ "date": "2026-10-19",
+ "tile_registration": {
+  "windows": 118,
+  "median_shift_px": [
+   0.004,
+   0.021
+  ],
+  "unit": "NAIP 1 m pixel, tile minus NAIP",
+  "datum_note_m": 0.9,
+  "note": "EPSG:26918 treated as WGS84 (null transform); NAD83(2011)->WGS84(G1762) shift is about 0.2 m E and 0.9 m N"
+ },
+ "render_fidelity": {
+  "road_cross_sections": 329,
+  "road_centre_offset_m": {
+   "median": 0.38,
+   "rms": 0.5,
+   "max": 2.5
+  },
+  "road_width": {
+   "stated_vs_drawn_median_m": {
+    "3.0": 4.6,
+    "3.5": 5.2,
+    "4.0": 5.8,
+    "4.5": 6.9,
+    "5.5": 7.7,
+    "6.5": 8.8
+   }
+  },
+  "structures": {
+   "n": 433,
+   "with_pixels": 433,
+   "centroid_offset_m": {
+    "median": 0.84,
+    "rms": 0.93,
+    "max": 2.24
+   }
+  }
+ },
+ "roads": {
+  "road_runs": {
+   "n_runs": 45,
+   "n_windows": 384,
+   "rms_builder_affine_m": 17.09515850890083,
+   "median_abs": 8.0,
+   "p90_abs": 28.6,
+   "max_abs": 36.5
+  },
+  "road_table": [
+   {
+    "road": "US Hwy 15 Bus",
+    "catalogue_id": null,
+    "runs": 9,
+    "median_abs_offset_m": 5.5,
+    "max_abs_offset_m": 28.0,
+    "stated_error_m": null
+   },
+   {
+    "road": "Old Harrisburg Rd",
+    "catalogue_id": "RD-007",
+    "runs": 4,
+    "median_abs_offset_m": 4.0,
+    "max_abs_offset_m": 13.0,
+    "stated_error_m": 15
+   },
+   {
+    "road": "Emmitsburg Rd",
+    "catalogue_id": "RD-003",
+    "runs": 4,
+    "median_abs_offset_m": 15.75,
+    "max_abs_offset_m": 29.0,
+    "stated_error_m": 22
+   },
+   {
+    "road": "Taneytown Rd",
+    "catalogue_id": "RD-004",
+    "runs": 2,
+    "median_abs_offset_m": 12.0,
+    "max_abs_offset_m": 20.0,
+    "stated_error_m": 17
+   },
+   {
+    "road": "State Rte 97",
+    "catalogue_id": "RD-001",
+    "runs": 2,
+    "median_abs_offset_m": 15.0,
+    "max_abs_offset_m": 20.0,
+    "stated_error_m": 22
+   },
+   {
+    "road": "State Rte 134",
+    "catalogue_id": "RD-004",
+    "runs": 2,
+    "median_abs_offset_m": 11.75,
+    "max_abs_offset_m": 20.0,
+    "stated_error_m": 17
+   },
+   {
+    "road": "State Rte 116",
+    "catalogue_id": "RD-005",
+    "runs": 2,
+    "median_abs_offset_m": 29.5,
+    "max_abs_offset_m": 36.0,
+    "stated_error_m": 30
+   },
+   {
+    "road": "US Hwy 30",
+    "catalogue_id": null,
+    "runs": 2,
+    "median_abs_offset_m": 19.5,
+    "max_abs_offset_m": 32.0,
+    "stated_error_m": null
+   },
+   {
+    "road": "York Rd",
+    "catalogue_id": "RD-006",
+    "runs": 2,
+    "median_abs_offset_m": 5.0,
+    "max_abs_offset_m": 7.0,
+    "stated_error_m": 30
+   },
+   {
+    "road": "Wheatfield Rd",
+    "catalogue_id": "RD-014",
+    "runs": 2,
+    "median_abs_offset_m": 17.0,
+    "max_abs_offset_m": 27.0,
+    "stated_error_m": 24
+   },
+   {
+    "road": "Hunterstown Rd",
+    "catalogue_id": "RD-022",
+    "runs": 2,
+    "median_abs_offset_m": 7.25,
+    "max_abs_offset_m": 7.5,
+    "stated_error_m": 22
+   },
+   {
+    "road": "Table Rock Rd",
+    "catalogue_id": "RD-021",
+    "runs": 2,
+    "median_abs_offset_m": 20.5,
+    "max_abs_offset_m": 22.0,
+    "stated_error_m": 15
+   },
+   {
+    "road": "Steinwehr Ave",
+    "catalogue_id": "RD-003",
+    "runs": 1,
+    "median_abs_offset_m": 3.0,
+    "max_abs_offset_m": 3.0,
+    "stated_error_m": 22
+   },
+   {
+    "road": "Biglerville Rd",
+    "catalogue_id": "RD-009",
+    "runs": 1,
+    "median_abs_offset_m": 6.0,
+    "max_abs_offset_m": 6.0,
+    "stated_error_m": 15
+   },
+   {
+    "road": "State Rte 34",
+    "catalogue_id": "RD-009",
+    "runs": 1,
+    "median_abs_offset_m": 1.0,
+    "max_abs_offset_m": 1.0,
+    "stated_error_m": 15
+   },
+   {
+    "road": "York St",
+    "catalogue_id": "RD-006",
+    "runs": 1,
+    "median_abs_offset_m": 31.5,
+    "max_abs_offset_m": 31.5,
+    "stated_error_m": 30
+   },
+   {
+    "road": "Hanover St",
+    "catalogue_id": "RD-005",
+    "runs": 1,
+    "median_abs_offset_m": 36.5,
+    "max_abs_offset_m": 36.5,
+    "stated_error_m": 30
+   },
+   {
+    "road": "Carlisle St",
+    "catalogue_id": "RD-008",
+    "runs": 1,
+    "median_abs_offset_m": 1.5,
+    "max_abs_offset_m": 1.5,
+    "stated_error_m": 15
+   },
+   {
+    "road": "Baltimore Pike",
+    "catalogue_id": "RD-001",
+    "runs": 1,
+    "median_abs_offset_m": 9.0,
+    "max_abs_offset_m": 9.0,
+    "stated_error_m": 22
+   },
+   {
+    "road": "Baltimore St",
+    "catalogue_id": "RD-001",
+    "runs": 1,
+    "median_abs_offset_m": 21.0,
+    "max_abs_offset_m": 21.0,
+    "stated_error_m": 22
+   },
+   {
+    "road": "Herrs Ridge Rd",
+    "catalogue_id": "RD-012",
+    "runs": 1,
+    "median_abs_offset_m": 16.0,
+    "max_abs_offset_m": 16.0,
+    "stated_error_m": 30
+   },
+   {
+    "road": "Long Ln",
+    "catalogue_id": null,
+    "runs": 1,
+    "median_abs_offset_m": 20.0,
+    "max_abs_offset_m": 20.0,
+    "stated_error_m": null
+   }
+  ]
+ },
+ "warren_frames": {
+  "builder_affine_vs_25_gcps_m": {
+   "rms": 21.2,
+   "rms_without_F006_F007": 13.9,
+   "loo_reproduced": 16.48
+  },
+  "landcover_ffd_vs_25_gcps_m": {
+   "rms": 29.6,
+   "median": 26.8,
+   "max": 62.8,
+   "rms_without_F006_F007": 26.4,
+   "mean_bias_en": [
+    -0.8,
+    -14.0
+   ]
+  },
+  "affine_minus_ffd_at_45_road_runs_m": {
+   "rms": 32.8,
+   "median": 24.5,
+   "max": 113.0,
+   "mean_en": [
+    -4.1,
+    -22.3
+   ]
+  },
+  "road_runs_normal_offset_rms_m": {
+   "builder_affine": 17.1,
+   "landcover_ffd": 11.1
+  },
+  "road_field_cv_rms_m": {
+   "leave_one_run_out": 6.0,
+   "leave_road_family_out": [
+    10.9,
+    13.9
+   ]
+  },
+  "road_only_affine_vs_builder_gcps_rms_m": 27.5,
+  "my_repicks_vs_builder_gcp_residuals_rms_m": 5.5,
+  "my_repicks_n": 6,
+  "my_new_points": [
+   "Hanover Rd bridge (+8,+14)",
+   "York St bridge (-5,+14)",
+   "Peach Orchard crossing (+17,+8)"
+  ]
+ },
+ "hopkins": {
+  "builder_reproduced": {
+   "fit_rmse_m": 1.91,
+   "loo_rmse_m": 2.85
+  },
+  "my_picks": {
+   "n": 10,
+   "fit_rmse_m": 3.89,
+   "loo_rmse_m": 6.61,
+   "loo_max_m": 14.9
+  },
+  "builder_transform_vs_my_picks_rms_m": 6.74,
+  "drawn_roofs": 334,
+  "matched_within_15m_builder_frame": 319,
+  "median_offset_builder_frame_m": 0.4,
+  "rms_my_frame_m": 6.0,
+  "inside_control_hull": 103,
+  "outside_hull": 231,
+  "beyond_200m": 37,
+  "max_beyond_hull_m": 539,
+  "stated_positional_error_m_all": 4,
+  "penn_college_symbol_offset_from_penn_hall_m": 48,
+  "mass003_to_penn_hall_m": 70,
+  "control_hull_lonlat": [
+   [
+    -77.23105292589005,
+    39.82685755587017
+   ],
+   [
+    -77.22887517896042,
+    39.83094620033323
+   ],
+   [
+    -77.23330342345794,
+    39.83086550635895
+   ],
+   [
+    -77.23330809645631,
+    39.8297113858454
+   ],
+   [
+    -77.23329232776335,
+    39.8268081442767
+   ]
+  ]
+ },
+ "woodlot_edges": {
+  "ffd": {
+   "samples": 980,
+   "woodlots": 85,
+   "median_m": 6.0,
+   "mad_m": 20.8,
+   "share_within_10m": 0.34
+  },
+  "affine": {
+   "samples": 765,
+   "woodlots": 81,
+   "median_m": 4.0,
+   "mad_m": 23.7,
+   "share_within_10m": 0.33
+  },
+  "stated_error_m": [
+   30,
+   40
+  ]
+ },
+ "wheatfield": {
+  "best_shift_to_modern_open_field_m": [
+   4,
+   33
+  ],
+  "canopy_inside_before": 0.26,
+  "canopy_inside_after": 0.21,
+  "edge_contrast_before": -0.02,
+  "edge_contrast_after": 0.3
+ }
+}
