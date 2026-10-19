@@ -62,7 +62,19 @@ The data is not embedded: the engine builds its dataset at runtime from `placeme
 
 ## 4. What the owner decided, and where it lives
 
-TBD-DECISIONS-TABLE
+| decision | how it is met | where it is tested |
+|---|---|---|
+| The wrong clock is corrected | Not this group (`CLOCK.json`). ANIM prints no time of its own: the popups keep the app's clock, the engine runs on ticks and the app's integer tick stays the key of everything | n/a |
+| Every wrong displayed datum is fixed: verified, labelled with its uncertainty, or removed | What the marks print comes from the order of battle and the placements and from nothing else: names are the order of battle's own designations, a unit's code is its data code, strength is "N men at this placement" (a placement value, labelled Modelled, never called a casualty count), a unit whose records disagree about its side is Contested (hatched neutral cloth, never a side colour). **A record the order of battle does not list is never given an echelon**: the approved look printed "4th Div, 3rd Corps" for the record `C-III-4` (95 of the 478 records have no order-of-battle entry); it now reads "unit III/4". The legend and the hover card carry the site's evidence label on every claim (Documented, Modelled, Computed, Contested). The casualty-memory ground marks of the approved look are NOT shipped (their time and place were Modelled and read as noise at the opening zoom, `APPROVED-LOOK.md` limit 10) | N7, B10 (hover card) |
+| The Monuments feature works and is accurate | Untouched. One hook (`ANIM+mon.json`) makes its click arbitration use the units as drawn. The stars and dots are Mapbox layers, so they stay glued to the ground while the marks glide | the MON suites, section 7 |
+| Unit-marker movement is smooth and professional | One continuous clock, monotone cubic paths exact at every keyframe, eased entries and exits, an eased glide on jumps, a cross-fade beyond 40 ticks, steps under reduced motion, no mark moves beyond its unit's own motion except in a few discrete events (a crowd forms or splits) | N1, N2, N3, N6, B2, B4, B5, B6, B7, B8 |
+| Tiles never obscure each other and never hide vital information | The certified layout (exact placement, aggregation as the guaranteed fallback), the verifier on every displayed frame with the net, the stage (a mark is whole or absent), and cards placed on ground the marks do not use | N4, N5, B9, B10 |
+| Every popup is kept and improved | The same components, words, triggers and keys, restyled in the look, placed on free ground, with a ring and a leader to their subject, the legend generated from the skin, a hover card | B10 and the suites |
+| Extensible: skin module plus token JSON, tuning panel | Section 5 | B12, N8 |
+| No errors are permissible: say exactly what was verified | Section 6 and section 7 | the whole suite |
+
+Defaults of the brief (the open decisions): at the opening zoom 13.5 small side-and-arm marks below zoom 15 and full marks above (`detail.fullZoom` of the skin, `layout.fullZoom`); crowds merge into a formation mark that names what it stands for; **no ghost tiles** (a mark the layout replaces is swapped in one frame; only a unit coming onto or leaving the field fades, in place, over nothing; only a jump too big to glide cross-fades, `motion.cutFadeMs`); **no nudging of full marks** (`layout.dMaxFullPx` 0; small marks may stand up to 56 px from their unit with a pin, `layout.dMaxPx`); reduced motion = steps, no glides. *Deviation:* "rotation and tilt locked on the unit layer" is met as "the marks never rotate or tilt" (they stay upright, the layout is done in screen pixels through the map's own projection), not by switching the map's rotation off: the A2 test T0-DF-02 documents Shift+arrows as rotating the map, and a rotated, tilted map works (T0-ANIM-B13).
+
 
 ## 5. Extending it
 
@@ -76,7 +88,24 @@ TBD-DECISIONS-TABLE
 
 ## 6. Honest limits (what is not verified)
 
-TBD-LIMITS
+Everything below is stated as it is. Nothing here says the group is free of errors; section 7 says what was checked and with what.
+
+**Not verified at all.** A real phone (the "phone" numbers are a 4x CPU throttle on this desktop's GPU, which throttles the main thread only), Safari, Firefox, battery and heat, a screen reader on the new cards, colour-blind readers beyond the pitch's simulation (the greyscale luminance ratio of the two armies is 1.09:1, so colour alone does not separate them: the flag's direction and the cloth do), Windows high-contrast mode.
+
+**What the marks claim.** Every unit position is Modelled (hand-authored keyframes with no basis field); between two keyframes it is a Modelled interpolation. The monotone cubic path leaves the straight line between two keyframes by a median 0 m, 49 m at the 90th percentile and 390 m at most (939 moving segments, computed over the data of R1c); the unit panel and the hover card say "placement value", never "casualties". A mark in motion between keyframes is flagged `moving` to the skin; the look does not draw a distinct "in transit" cue.
+
+**History dependence.** The layout has memory (crowds merge now and split later, a displaced mark relaxes slowly), so the SAME moment can show a different crowding depending on how it was reached. What is deterministic and tested is every unit's true place and every mark that stands on its own unit (T0-ANIM-B5).
+
+**The look's known limits** (`APPROVED-LOOK.md`, 17 items), as they stand in this group: 1 (invented echelons) closed, tested (N7); 2 and 3 (strength references 3865, 6100, 4700) not closed: they are data, they only move a bar, and the hover card prints the placement value, not "of 3,865"; 4 (units before their arrival) data, not checked; 5 (the "ten men" claim of the ground marks) closed by leaving the ground marks out; 6 (ghost tiles) closed (N5); 7 (a pin on a place name) not tested: the place names are the map's own labels; 8 (contested flag) unchanged; 9 (overview map without ground) not improved: the overview is the app's own, restyled; 10 (ground marks read as noise) closed by leaving them out; 11 (crowd words) unchanged from the approved look; 12 (cards with no place on the map) closed for the event and story cards (a ring and a leader to the subject mark when it is on screen), not for the tour; 13 to 17 are pitch polish items that do not apply to this build.
+
+**Known behaviours that are choices, not defects.** At the opening zoom a dense scene is a few formation marks ("both armies, 109 units" at the heart of Day 3): that is what "no nudging and no overlap" costs; zooming in splits them. The pause is eased: at 8x the clock carries on for about one tick after Pause (a tenth of a tick at 1x). The legend opens closed (it opened over a fifth of the map); a viewer's own choice (`gtbg_prefs.showLegend`) is kept. The later days are fetched 1.5 s after the first frame: the minimap's unit count at tick 31 is 88, not 87, because `density_reserves.json` (listed under day 2) carries a row of `U-CAV-1` at tick 1 (T0-J2 of `journeys-desktop` encodes the lazy-loaded count and fails for that reason alone).
+
+**Data defects met on the way (for the DATA owner; not patched here).** `U-CAV-1` has a tick-1 row in a day-2 file (above). 95 of the 478 placed records have no order-of-battle entry (`inOob: false`); the engine labels them by their code only. Some consecutive keyframes imply speeds no unit had (`U-8NY-CAV` 2.4 km in one tick, `U-I-2-2` 1.5 km in one tick, `C-I-3-3` 0.9 km in one tick, `C-7TN` 3.8 km in five): the engine draws them as what they are, a fast but smooth move. 59 (unit, tick) keys have conflicting rows across files (the later file wins, as in the shipped loader).
+
+**Not shipped from the pitch.** The casualty memory (ground marks), the second look "Survey" (APPROVED-LOOK: B must not ship), the standalone narration, tours and Chronicle (the app's own popups are kept instead), the WebGL backend (the Canvas2D path meets the frame budget, section 7), a sprite atlas of the marks (the lettering is sprite-cached; the marks are vector draws).
+
+**Tool panels not restyled.** Search, Filter, Roster, Order of Battle, Extra Features and Help keep their own look; the cards over the map (event, story, tour, unit panel, toasts, legend, overview, day badge, Monuments card) are restyled.
+
 
 ## 7. Tests
 

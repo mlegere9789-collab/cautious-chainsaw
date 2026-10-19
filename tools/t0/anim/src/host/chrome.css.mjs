@@ -25,6 +25,8 @@ export const CHROME_CSS = `
 /* the ladder of forms of a card that must find free ground (host/popups.mjs): form 1 drops the italic narrative and shortens the reading; form 2 is the shortest (the words are the same, the card scrolls) */
 [data-gta="event"][data-gta-form="1"] > div:last-child[style*="italic"], [data-gta="event"][data-gta-form="2"] > div:last-child[style*="italic"] { display: none !important; }
 [data-gta="event"][data-gta-form="2"] { width: 330px !important; }
+/* an event card and a toast only tell: they have no action in their body, so the map under them stays draggable; their buttons keep the pointer */
+[data-gta="event"], [data-gta="toast"] { pointer-events: none !important; } [data-gta="event"] button, [data-gta="toast"] button { pointer-events: auto !important; }
 [data-gta="story"][data-gta-form="1"] { max-height: 300px !important; } [data-gta="story"][data-gta-form="2"] { max-height: 200px !important; width: 300px !important; }
 
 /* the command toasts: the same glass, a flag-tab each */
@@ -35,7 +37,7 @@ export const CHROME_CSS = `
 /* the legend: the skin's own */
 [data-gta="legend"] > div:first-child > div:first-child, [data-gta="legend"] > [role="group"] { display: none !important; }
 [data-gta="legend"] > div:first-child { border-bottom: 0 !important; padding: 8px 8px 0 12px !important; justify-content: flex-end !important; position: absolute; right: 0; top: 0; z-index: 2; background: transparent !important; }
-[data-gta="legend"] { width: 352px !important; max-height: min(70vh, 640px); overflow-y: auto; }
+[data-gta="legend"] { width: min(352px, calc(100vw - 32px)) !important; max-height: min(70vh, 640px); overflow-y: auto; }
 [data-gta-legend] { padding: 12px 14px 14px; font-family: var(--gta-font); color: var(--gta-ink); }
 [data-gta-legend] .gl-title { font: 700 13px/1.2 var(--gta-font); letter-spacing: .01em; color: var(--gta-title); margin: 0 28px 8px 0; }
 [data-gta-legend] canvas.gl-fig { display: block; margin: 0 0 8px; max-width: 100%; }

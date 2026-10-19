@@ -50,6 +50,14 @@ const certified = {
         if (stamped) state.stamp = (state.stamp || 0) + 1;
         r.leaves = leaves; return r;
       },
+      /** the rest canon (core.mjs): the same picture solved from clean state.  Adopted (and the sticky history replaced by it) only when it shows more marks than the layout on screen; null otherwise, the history untouched. */
+      canon(inp) {
+        const saved = state; const sel = grow.id; const on = grow.on; const before = inp.against ? inp.against.placed.length : 0;
+        state = newState(); state.time = saved.time; state.stamp = saved.stamp || 0; let r = null;
+        try { r = this.solve({ ...inp, cold: false }); } catch { r = null; }
+        if (r && r.placed.length > before && r.dropped.length === 0) { state.stamp = (state.stamp || 0) + 1; return r; }
+        state = saved; grow.id = sel; grow.on = on; return null;
+      },
       /** between two solves: move the solved tiles with their units (same offsets, new true positions).  false = the set of units changed, solve again. */
       refresh(L, { vis, z, spec, selectedId }) {
         if (!L || vis.length !== L.leaves.length) return false;

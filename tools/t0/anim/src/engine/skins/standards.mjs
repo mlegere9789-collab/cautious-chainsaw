@@ -7,7 +7,7 @@
 //   * a fix a battle day old or more = the cloth hollows into tinted glass with a light edge (the hue stays, never grey);
 //   * a crowd that cannot all stand on its own place merges into ONE larger standard whose flag carries the count and whose words say what the units share.
 // Below the full zoom (15) a unit is a small side-and-arm mark (no lettering); from 15 it is full (a taller pole, its short code, the strength bar); selected, hovered or close up the SAME mark grows its name.  Selection is a
-// ring lying on the ground round the foot.  The battle remembers through the ground marks of fx/memory.mjs.  What each pixel claims, and how well it is known, is in skins/semantics.mjs and the legend this file draws.
+// ring lying on the ground round the foot.  (ANIM: the casualty-memory ground marks of the approved look are not part of this build.)  What each pixel claims, and how well it is known, is in skins/semantics.mjs and the legend this file draws.
 import { defineFamily, ss, skinKit } from './kit.mjs';
 import { FONTS } from './semantics.mjs';
 import { STD_TOKENS, STD_VARIANTS } from './standards.spec.mjs';
@@ -210,7 +210,6 @@ function sample(c, ch, v, g, w, h) {
   else if (ch === 'selection') { swatch(c, P, 'union', 0); c.save(); c.translate(-5, 8); groundRing(c, P, 8.5, 3.6, P['color.unionBright'], 1, P['sel.width']); c.restore(); }
   else if (ch === 'facing') { swatch(c, P, 'union', 0, { x: -10, H: 11, fw: 8, fh: 6 }); c.save(); c.scale(-1, 1); swatch(c, P, 'confederate', 0, { x: -10, H: 11, fw: 8, fh: 6 }); c.restore(); }
   else if (ch === 'strength') { c.fillStyle = rgba(P['color.poleEdge'], P['strength.track'] + 0.3); c.fillRect(-9, -1.4, 18, P['strength.h']); c.fillStyle = P['color.unionBright']; c.fillRect(-9, -1.4, 18 * (v === 1 ? 1 : 0.4), P['strength.h']); }
-  else if (ch === 'memory') { c.save(); c.rotate(-0.5); c.lineCap = 'round'; for (const [x, y, col] of [[-5, -1, P['memory.union']], [4, 2, P['memory.confederate']]]) { c.beginPath(); c.moveTo(x - 2.4, y); c.lineTo(x + 2.4, y); c.strokeStyle = rgba(P['memory.edge'], P['memory.edgeAlpha']); c.lineWidth = P['memory.width'] + 1.6; c.stroke(); c.beginPath(); c.moveTo(x - 2.4, y); c.lineTo(x + 2.4, y); c.strokeStyle = col; c.lineWidth = P['memory.width']; c.stroke(); } c.restore(); }
   else return false;
 }
 
@@ -267,15 +266,14 @@ function figure(c, g, W) {
   barred(col3(0), 1, 'full'); barred(col3(1), 0.4, '40 %');
   stand('unknown', col3(2), foot, F, false); word('contested', col3(2) + F.fw + 8, fcy2, lab, ink);
   y += 44; caption('A hollow flag means the latest keyframe is a battle day old or more. The bar under a flag is the placement strength over the unit’s reference: a modelled value, not a casualty record. A pale hatched flag is a unit whose side the records disagree on (Contested): it is never drawn in either army’s colour.'); rule();
-  head('The battle remembers'); c.save(); c.lineCap = 'round'; const my = y + 10; for (let i = 0; i < 9; i++) { const x = M + 8 + i * 10 + (i % 3) * 2; const yy = my + ((i * 7) % 5) - 2; const ang = (i * 0.7) % 3; const col = i < 5 ? P['memory.union'] : P['memory.confederate']; c.beginPath(); c.moveTo(x - Math.cos(ang) * 2.3, yy - Math.sin(ang) * 2.3); c.lineTo(x + Math.cos(ang) * 2.3, yy + Math.sin(ang) * 2.3); c.strokeStyle = rgba(P['memory.edge'], P['memory.edgeAlpha']); c.lineWidth = P['memory.width'] + 1.6; c.stroke(); c.strokeStyle = col; c.lineWidth = P['memory.width']; c.stroke(); } c.restore();
-  y += 22; caption('Each mark on the ground stands for about ten men killed, wounded or missing. How many a unit lost is Documented (a secondary source); when and where they fell is Modelled.'); y += 8;
+  y += 8;      // (ANIM: the casualty-memory ground marks of the approved look are not shipped, so neither the legend nor its figure describes them)
   return y;
 }
 const FIG_H = 1000;
 
 const DEF = {
   id: 'standards', label: 'Standards', version: '1.0', tokens: STD_TOKENS, fonts: FONTS, footprint: FOOT, sizer: makeSizer,
-  channels: { side: true, facing: true, arm: ['infantry', 'cavalry', 'artillery', 'formation'], fix: true, aggregate: true, idOnly: true, selection: true, strength: true, memory: true },
+  channels: { side: true, facing: true, arm: ['infantry', 'cavalry', 'artillery', 'formation'], fix: true, aggregate: true, idOnly: true, selection: true, strength: true },
   draw: { tile, pin, leader, hull }, sample, figure, figureH: FIG_H, fallbackSwatch: '#8aa0b8',
   legendText: {
     'arm:infantry': 'Infantry: a square-ended flag', 'arm:cavalry': 'Cavalry: a swallow-tailed flag', 'arm:artillery': 'Artillery: an arrow-ended flag', 'arm:formation': 'Formation record (brigade, division, corps): a larger standard, no arm claimed',

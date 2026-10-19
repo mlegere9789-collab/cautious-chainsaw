@@ -80,17 +80,6 @@ export const STD_TOKENS = [
   ['carried.hollow', 1, 'How far a carried-forward flag hollows: 0 = no change, 1 = tinted glass with a light-side edge (the hue stays: never grey)', { min: 0, max: 1 }],
   ['carried.glass', 0.62, 'Opacity of the glass inside a hollow flag', { min: 0, max: 1 }],
   ['carried.tint', 0.3, 'How much of the side colour tints that glass', { min: 0, max: 0.6 }],
-  // ---- the casualty memory (fx/memory.mjs; the marks are Documented in number, Modelled in time and place) ---------------------------------------------------------------
-  ['memory.enabled', 1, 'Draw the ground marks that remember the losses (1) or not (0)', { min: 0, max: 1 }],
-  ['memory.shape', 'bar', 'The mark: bar (a fallen figure) or cross'],
-  ['memory.len', 4, 'Length of a mark at the closest zoom (shorter when zoomed out)', { min: 2, max: 9, unit: 'px' }],
-  ['memory.width', 1.5, 'Width of one ground mark (a fallen figure or a cross) at the closest zoom', { min: 0.8, max: 3, unit: 'px' }],
-  ['memory.union', '#223a66', 'Colour of a Union mark: a dark cloth blue'],
-  ['memory.confederate', '#5a2118', 'Colour of a Confederate mark: a dark cloth red-brown'],
-  ['memory.edge', '#efe4c6', 'The pale edge that keeps a dark mark readable on dark ground (empty: none)'],
-  ['memory.edgeAlpha', 0.38, 'Opacity of the pale or white edge under a ground mark', { min: 0, max: 1 }],
-  ['memory.alpha', 0.85, 'Opacity of the ground marks that remember the losses', { min: 0.2, max: 1 }],
-  ['memory.fadeTicks', 5, 'Ticks over which a new mark settles on the ground', { min: 1, max: 20, unit: 'ticks' }],
   // ---- crowd member dots -----------------------------------------------------------------------------------------------------------------------------------------------
   ['hull.dot', 2.3, 'Radius of the dot on the true position of one unit a crowd stands for (shown while the crowd is pointed at or selected)', { min: 1, max: 4, unit: 'px' }],
   ['hull.leader', 0.8, 'Opacity of the hairlines from a crowd to its units', { min: 0, max: 1 }],
@@ -112,6 +101,6 @@ export const STD_TOKENS = [
 // ---- variants -------------------------------------------------------------------------------------------------------------------------------------------------------
 // One family 'standards' on the FIELD ground; its colour-blind-safe and high-contrast variants (skin ids standards/cvd, standards/contrast).
 export const STD_VARIANTS = {
-  cvd: { label: 'Colour-blind safe', set: { 'color.union': '#1f6fb5', 'color.confederate': '#b25400', 'color.unionBright': '#6cc0ff', 'color.confederateBright': '#ffb35c', 'color.tintUnion': '#d8f0ff', 'color.tintConfederate': '#ffe5b8', 'memory.union': '#1b3a5c', 'memory.confederate': '#5a3410' } },
+  cvd: { label: 'Colour-blind safe', set: { 'color.union': '#1f6fb5', 'color.confederate': '#b25400', 'color.unionBright': '#6cc0ff', 'color.confederateBright': '#ffb35c', 'color.tintUnion': '#d8f0ff', 'color.tintConfederate': '#ffe5b8', } },
   contrast: { label: 'High contrast', set: { 'color.union': '#1d55b8', 'color.confederate': '#b2330f', 'halo.width': 4, 'halo.alpha': 0.95, 'flag.edge': 1.5, 'pole.width': 2, 'sel.width': 2.4, 'color.unknown': '#f2f4f1' } },
 };

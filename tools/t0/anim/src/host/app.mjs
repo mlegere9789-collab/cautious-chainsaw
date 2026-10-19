@@ -149,14 +149,17 @@ function armRaf() {
   S.raf = window.requestAnimationFrame(() => { S.raf = 0; if (S.state !== 1 || !S.map) return; if (mapBusy(S.map)) { S.map.triggerRepaint(); return; } guard(() => frame(), null); });
 }
 
-/** the trails of the app's "Trails ON" button, drawn on the app's own trail canvas (z-index 8, beneath the unit canvas): the path each moving unit has just walked, only while the clock moves; nothing is left behind when it stops */
+/** the trails of the app's "Trails ON" button, drawn on the app's own trail canvas (z-index 8, beneath the unit canvas): the path each moving unit has just walked, while the clock moves; when it stops they stay as they were until the camera or the tick changes (the shipped behaviour), so nothing stale is ever left */
+function trailSig(F) { const m = S.map; const c = m.getCenter(); return Math.floor(F.tau) + '|' + c.lng.toFixed(6) + '|' + c.lat.toFixed(6) + '|' + m.getZoom().toFixed(4) + '|' + m.getBearing().toFixed(2) + '|' + m.getPitch().toFixed(2) + '|' + F.view.w + 'x' + F.view.h; }
 function drawTrails(F, w, h) {
   let cv = S.trailCv; if (!cv || !cv.isConnected) cv = S.trailCv = [...S.map.getContainer().querySelectorAll('canvas')].find((c) => c.style.zIndex === '8') || null; if (!cv) return;
   const dpr = S.renderer.dpr; const pw = Math.round(w * dpr); const ph = Math.round(h * dpr);
   if (cv.width !== pw || cv.height !== ph) { cv.width = pw; cv.height = ph; cv.style.width = w + 'px'; cv.style.height = h + 'px'; S.trailInk = true; }
   const g = cv.getContext('2d'); const on = S.trails.enabled() && S.clock.moving;
-  if (on) { g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, pw, ph); g.setTransform(dpr, 0, 0, dpr, 0, 0); S.trails.draw(g, null, F); S.trailInk = true; }
-  else if (S.trailInk) { g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, pw, ph); S.trailInk = false; }
+  if (on) { g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, pw, ph); g.setTransform(dpr, 0, 0, dpr, 0, 0); S.trails.draw(g, null, F); S.trailInk = true; S.trailWasOn = true; }
+  else if (S.trailInk && !S.trails.enabled()) { g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, pw, ph); S.trailInk = false; S.trailWasOn = false; S.trailSig = null; }
+  else if (S.trailInk && S.trailWasOn) { S.trailWasOn = false; S.trailSig = trailSig(F); }                                                          // the first frame at rest: the picture the trails belong to
+  else if (S.trailInk && S.trailSig !== trailSig(F)) { g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, pw, ph); S.trailInk = false; S.trailSig = null; }       // paused: the trails stay as they were (the shipped behaviour) until the picture changes under them
 }
 
 // ---- entry points ----------------------------------------------------------------------------------------------------------------------------------------

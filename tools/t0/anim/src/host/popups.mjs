@@ -125,7 +125,10 @@ export function createPopups(S) {
   // map's bottom padding the centre is the centre of what the viewer can see, so the stop's place is never under the panel that describes it (the padding is eased in and out, the camera stays where it is)
   function tourPadding(c) {
     const el = P.nodes.tour; const map = S.map; if (!map || !map.easeTo) return; const want = el && window.getComputedStyle(el).display !== 'none' && el.getBoundingClientRect().width > c.width * 0.6 ? Math.round(Math.max(0, c.bottom - el.getBoundingClientRect().top)) : 0;
-    if (want === P.pad) return; P.pad = want; try { map.easeTo({ padding: { top: 0, left: 0, right: 0, bottom: want }, duration: S.reducedNow() ? 0 : 320 }); } catch { /* the map is gone */ }
+    if (want === P.pad) return;
+    // an easeTo would cancel a flight in progress (the tour's own flyTo): wait for the camera to land, then make room
+    if (map.isMoving && map.isMoving()) { if (!P.padWait) { P.padWait = true; map.once('moveend', () => { P.padWait = false; try { map.triggerRepaint(); } catch { /* gone */ } }); } return; }
+    P.pad = want; try { map.easeTo({ padding: { top: 0, left: 0, right: 0, bottom: want }, duration: S.reducedNow() ? 0 : 320 }); } catch { /* the map is gone */ }
   }
 
   // ---- the legend: the skin's own ---------------------------------------------------------------------------------------------------------------------------------------
@@ -159,7 +162,7 @@ export function createPopups(S) {
     const t = F.tiles.find((q) => q.key === key && q.life === 'live'); if (!t) return null; const oob = st.oobData || {};
     if (t.kind === 'leaf') {
       const u = t.unit; if (!u) return null; const rec = oob[u.id]; const side = u.side === 'union' ? 'Union' : u.side === 'confederate' ? 'Confederate' : 'Side contested';
-      const chain = (u.chain || []).filter((id) => id !== 'ROOT' && id !== u.id && S.core.battle.nodes.get(id) && !S.core.battle.nodes.get(id).virtual && /^(corps|division|brigade|battalion)$/.test(S.core.battle.nodes.get(id).kind)).map((id) => { const nd = S.core.battle.nodes.get(id); return nd.designation || null; }).filter(Boolean);
+      const chain = (u.parentSource !== 'oob' ? [] : u.chain || []).filter((id) => id !== 'ROOT' && id !== u.id && S.core.battle.nodes.get(id) && !S.core.battle.nodes.get(id).virtual && /^(corps|division|brigade|battalion)$/.test(S.core.battle.nodes.get(id).kind)).map((id) => { const nd = S.core.battle.nodes.get(id); return nd.designation || null; }).filter(Boolean);
       const ratio = t.ratio; const strength = t.strength != null ? t.strength : null;
       return { tone: u.side, kick: side + ' · ' + (u.kind === 'regiment' ? 'regiment' : u.kind), title: unitLine(u), lines: [chain.length ? chain.slice(0, 3).join(' → ') : (u.inOob ? '' : 'Not in the order of battle: identified by its record code only'), (strength != null ? strength.toLocaleString('en-US') + ' men at this placement' : '')].filter(Boolean), ev: [['Modelled', 'strength and place are placement values, not records'], [u.inOob ? 'Documented' : 'Unknown', u.inOob ? 'identity: order of battle' : 'identity']], rec: !!rec, ratio };
     }

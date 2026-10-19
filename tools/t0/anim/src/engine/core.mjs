@@ -59,7 +59,7 @@ export function createCore(o) {
   const E = { kernel, tuning, tok, camera, frame: null, frames: 0, forcedSolves: 0, dirty: true, selectedId: null, metrics, get battle() { return battle; }, get text() { return textModel; }, reduced };
   let layoutMod = null; let display = null; let specCache = null; let skinCache = null;
   let lastL = null; let lastSelected = null; let sinceSolve = 0; let accDtMs = 0; let autoEvery = 1; const gov = { n: 0, sum: 0, eng: 0, calm: 0 };
-  let prevIds = new Set(); let prevZoom = null; let forceCut = false; let lastStamp = -1; let stampFrame = 0; let solves = 0;
+  let prevIds = new Set(); let prevZoom = null; let forceCut = false; let lastStamp = -1; let stampFrame = 0; let solves = 0; let restSig = ''; let restSince = 0; let canonDone = false; E.canons = 0;
 
   const buildLayout = () => { layoutMod = kernel.layout.get(tok('layout.strategy')).create({ all: battle, tok }); };
   const buildDisplay = () => { display = new Display({ glide: tok('motion.mode') !== 'snap' }, tok); };
@@ -154,10 +154,16 @@ export function createCore(o) {
     }
     const setting = tok('layout.solveEvery'); const every = setting === 'auto' ? (o.autoQuality ? autoEvery : 1) : +setting;
     const frameDt = Math.min(dtMs || 16.667, 50); accDtMs += frameDt;
+    // THE REST CANON.  The sticky layout is history-dependent by design (merge now, split later), so after a long journey a still picture can sit in a coarser partition than the same picture reached fresh (measured: 7 marks against 24 for the same 29 units).
+    // Once the picture has been still for 20 frames and nothing on screen is fading, the layout is solved ONCE from clean state; it is adopted only if it shows MORE marks (never fewer: no flicker, no cycle), and not while a unit is selected.  Any change re-arms it.
+    let sig = zoom.toFixed(3) + '|' + (E.selectedId || '') + '|' + inp.tau.toFixed(3) + '|' + laid.length; let hs = 0; for (const v of laid) hs = (Math.imul(hs ^ (((v.sx || 0) * 4) | 0), 16777619) ^ (((v.sy || 0) * 4) | 0)) | 0; sig += '|' + hs;
+    if (sig !== restSig) { restSig = sig; restSince = E.frames; canonDone = false; }
+    let canonNow = !canonDone && !first && !cut && !E.selectedId && !!layoutMod.canon && !!lastL && E.frames - restSince >= 20 && !display.busy();
     const run = (force, dt) => {
       let L = null; let solved = true;
       // solve cadence: every frame, or (slow devices) every 2nd / 3rd with the solved tiles carried along by their units in between; a zoom change, a new selection or a change of the set of units always solves at once
       if (!force && lastL && every > 1 && sinceSolve + 1 < every && zoom === lastL._z && E.selectedId === lastSelected && newIds.size === 0 && goneIds.size === 0 && layoutMod.refresh) { if (layoutMod.refresh(lastL, { vis: laid, z: zoom, spec, selectedId: E.selectedId })) { L = lastL; solved = false; sinceSolve++; } }
+      if (!L && canonNow) { canonNow = false; canonDone = true; L = layoutMod.canon({ vis: laid, z: zoom, tau: inp.tau, view, dtMs: accDtMs, selectedId: E.selectedId, spec, against: lastL }); if (L) { E.canons++; sinceSolve = 0; accDtMs = 0; solves++; } }
       if (!L) { L = layoutMod.solve({ vis: laid, z: zoom, tau: inp.tau, view, dtMs: accDtMs, selectedId: E.selectedId, spec, cold: first || cut }); L._z = zoom; lastL = L; lastSelected = E.selectedId; sinceSolve = 0; accDtMs = 0; solves++; }
       const t1 = performance.now();
       const F = display.step(L, { dtMs: dt, z: zoom, origin, spec, cut: cut && !first, selectedId: E.selectedId, reduced: reduced(), newIds: first ? null : newIds, goneIds: first ? null : goneIds });

@@ -497,71 +497,6 @@
    "max": 0.6
   },
   {
-   "name": "memory.enabled",
-   "value": 1,
-   "doc": "Draw the ground marks that remember the losses (1) or not (0)",
-   "min": 0,
-   "max": 1
-  },
-  {
-   "name": "memory.shape",
-   "value": "bar",
-   "doc": "The mark: bar (a fallen figure) or cross"
-  },
-  {
-   "name": "memory.len",
-   "value": 4,
-   "doc": "Length of a mark at the closest zoom (shorter when zoomed out)",
-   "min": 2,
-   "max": 9,
-   "unit": "px"
-  },
-  {
-   "name": "memory.width",
-   "value": 1.5,
-   "doc": "Width of one ground mark (a fallen figure or a cross) at the closest zoom",
-   "min": 0.8,
-   "max": 3,
-   "unit": "px"
-  },
-  {
-   "name": "memory.union",
-   "value": "#223a66",
-   "doc": "Colour of a Union mark: a dark cloth blue"
-  },
-  {
-   "name": "memory.confederate",
-   "value": "#5a2118",
-   "doc": "Colour of a Confederate mark: a dark cloth red-brown"
-  },
-  {
-   "name": "memory.edge",
-   "value": "#efe4c6",
-   "doc": "The pale edge that keeps a dark mark readable on dark ground (empty: none)"
-  },
-  {
-   "name": "memory.edgeAlpha",
-   "value": 0.38,
-   "doc": "Opacity of the pale or white edge under a ground mark",
-   "min": 0,
-   "max": 1
-  },
-  {
-   "name": "memory.alpha",
-   "value": 0.85,
-   "doc": "Opacity of the ground marks that remember the losses",
-   "min": 0.2,
-   "max": 1
-  },
-  {
-   "name": "memory.fadeTicks",
-   "value": 5,
-   "doc": "Ticks over which a new mark settles on the ground",
-   "min": 1,
-   "max": 20,
-   "unit": "ticks"
-  },
-  {
    "name": "hull.dot",
    "value": 2.3,
    "doc": "Radius of the dot on the true position of one unit a crowd stands for (shown while the crowd is pointed at or selected)",
@@ -664,9 +599,7 @@
     "color.unionBright": "#6cc0ff",
     "color.confederateBright": "#ffb35c",
     "color.tintUnion": "#d8f0ff",
-    "color.tintConfederate": "#ffe5b8",
-    "memory.union": "#1b3a5c",
-    "memory.confederate": "#5a3410"
+    "color.tintConfederate": "#ffe5b8"
    }
   },
   "contrast": {
