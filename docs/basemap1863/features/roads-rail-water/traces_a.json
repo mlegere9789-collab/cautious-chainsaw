@@ -1,0 +1,171 @@
+{
+ "sheet": "bach1879_a (LOC cw0325000a, 50% render px)",
+ "note": "Hand-traced polylines: vertices read by eye on gridded crops (tview.py) at 1.8x; reading accuracy about +-4 px (8 m); the ground position adds the registration error (registration_sheet_a.json).",
+ "traces": {
+  "LN-001w": {
+   "name": "Trostle-Weikert-Swisher Lane, Emmitsburg Road to the Codori-Trostle woodlot (drawn as a double dashed lane)",
+   "lane": "LN-001",
+   "px": [
+    [
+     1822,
+     3428
+    ],
+    [
+     1860,
+     3452
+    ],
+    [
+     1910,
+     3478
+    ],
+    [
+     1960,
+     3497
+    ],
+    [
+     2010,
+     3516
+    ],
+    [
+     2050,
+     3541
+    ],
+    [
+     2100,
+     3568
+    ],
+    [
+     2150,
+     3597
+    ],
+    [
+     2200,
+     3625
+    ],
+    [
+     2238,
+     3646
+    ]
+   ],
+   "draw": "double dashed lane, clear"
+  },
+  "LN-001e": {
+   "name": "Trostle-Weikert-Swisher Lane, woodlot to the Taneytown Road through the George Weikert farmstead",
+   "lane": "LN-001",
+   "px": [
+    [
+     2238,
+     3646
+    ],
+    [
+     2262,
+     3600
+    ],
+    [
+     2275,
+     3560
+    ],
+    [
+     2292,
+     3535
+    ],
+    [
+     2320,
+     3520
+    ],
+    [
+     2352,
+     3510
+    ],
+    [
+     2400,
+     3487
+    ],
+    [
+     2430,
+     3470
+    ],
+    [
+     2470,
+     3448
+    ],
+    [
+     2520,
+     3436
+    ],
+    [
+     2560,
+     3432
+    ],
+    [
+     2590,
+     3430
+    ]
+   ],
+   "draw": "dashed lane; woodlot section not clearly drawn: Estimated",
+   "conf_note": "the woodlot section (2238,3646)-(2320,3520) is read along the edge of the wood and is uncertain"
+  },
+  "LN-010": {
+   "name": "H. Spangler Farm Lane (Emmitsburg Road to the Spangler buildings)",
+   "lane": "LN-010",
+   "px": [
+    [
+     1935,
+     3298
+    ],
+    [
+     1900,
+     3280
+    ],
+    [
+     1860,
+     3258
+    ],
+    [
+     1820,
+     3236
+    ],
+    [
+     1780,
+     3213
+    ],
+    [
+     1740,
+     3194
+    ],
+    [
+     1712,
+     3182
+    ]
+   ],
+   "draw": "double line, clear"
+  },
+  "LN-004": {
+   "name": "Codori Field Access (East), Emmitsburg Road eastward to the Codori fields 7 and 8",
+   "lane": "LN-004",
+   "px": [
+    [
+     1935,
+     3298
+    ],
+    [
+     1985,
+     3322
+    ],
+    [
+     2030,
+     3340
+    ],
+    [
+     2090,
+     3372
+    ],
+    [
+     2140,
+     3400
+    ]
+   ],
+   "draw": "lane drawn as double line / fence-defined"
+  }
+ }
+}

@@ -2,6 +2,7 @@
 import json, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from geomlib import *
+from shapely.ops import linemerge
 from sources import S
 
 def ways(ids):
@@ -13,13 +14,14 @@ def ways(ids):
 
 RAIL = [
  dict(id='RL-001', name='Gettysburg Railroad (Hanover Junction, Hanover and Gettysburg Railroad), Gettysburg to the east', subtype='railway (completed, in service)', present=True,
-      osm=[391694055, 493786763, 493786764], conf='Estimated', err=30,
+      osm=[391694055, 493786763, 493786764], conf='Documented', err=25,
       period_note='completed 1858 from Hanover and Hanover Junction to the Carlisle Street station (the Lincoln Railroad Station, built 1858-59); in service in 1863',
-      sources=[S('NPS-CLI-GETT', 'pdf p64', 'By 1863 railroad tracks for the Gettysburg and Hanover Railroad had reached the town from the east.'),
+      sources=[dict(cite='Map of the battle field of Gettysburg (Bachelder 1876, topography from Warren 1868-69), sheet cw0325000a', sheet_or_page='First day sheet, double line east of the borough (RL-001 snap statistics in method)', url='https://www.loc.gov/item/99447491/', type='A1', quote_or_paraphrase='The railroad is drawn on the sheet leaving the borough to the east; the modern line was snapped laterally to the drawn line.', key='LOC-BACH-1876'),
+               S('NPS-CLI-GETT', 'pdf p64', 'By 1863 railroad tracks for the Gettysburg and Hanover Railroad had reached the town from the east.'),
                S('NPS-TREAT-2004', 'pdf p19, fig. 2-1 caption', 'The Hanover and Gettysburg Railroad reached Gettysburg in 1858.'),
                S('OSM', 'way 453171438', 'Building "Lincoln Railroad Station", 35 Carlisle St, start_date 1858/May, "Built in 1859 by the Hanover Junction Railroad".')],
       method='Centreline of the modern CSX Hanover Subdivision (OSM ways 391694055, 493786763, 493786764) east of the Carlisle Street station, assumed to follow the 1858 line; the Bachelder/Warren sheet shows the line leaving the borough north-east (check pending).',
-      notes='Alignment of the 1858 line in the borough and on the first miles east is taken from the modern track bed; realignments since 1863 are not excluded.'),
+      notes='Positional error 25 m applies inside the Bachelder sheet (east to about lng -77.193); farther east the modern track bed is used unchecked (error 40 m or more, not measured). Realignments since 1863 are not excluded.'),
  dict(id='RL-002', name='Unfinished Gettysburg Railroad grade west of the borough (the Railroad Cuts)', subtype='railway grade (graded, no track laid)', present=True,
       osm=[1078695840, 1078695841, 702107202, 781044358, 1212407684, 1383353951, 1383353952], conf='Estimated', err=40,
       period_note='the roadbed west of Gettysburg was graded (cuts through Seminary Ridge and East and West McPherson Ridges) but no track was laid by July 1863; used as a wagon road and as an avenue of approach on 1 July',
@@ -61,11 +63,37 @@ POINTS = [
 
 FENCE_KEEP = {'split_rail': 'post and rail or worm fence (NPS reconstruction mapped by OSM)', 'dry_stone': 'dry-laid stone wall (mapped by OSM)', 'drystone_wall': 'dry-laid stone wall (mapped by OSM)'}
 
+SHEET_W = -77.2885      # western edge of Bachelder sheet 'a' in longitude (px 60 at y 700)
+def snapped(g):
+    from snap import snap_line
+    ln = g if g.geom_type == 'LineString' else max(g.geoms, key=lambda a: a.length)
+    new, st, filled, gap = snap_line(ln, W=34)
+    return new, st
 def build_rail():
     feats = []
     for r in RAIL:
         geoms = ways(r['osm'])
         g = merge_lines(geoms, clip=XBOX) if geoms else None
+        r = dict(r)
+        if r['id'] in ('RL-001', 'RL-002') and g is not None:
+            # order the merged line west to east first
+            ln0 = g if g.geom_type == 'LineString' else linemerge(g)
+            if ln0.geom_type != 'LineString': ln0 = max(ln0.geoms, key=lambda a: a.length)
+            new, st = snapped(ln0)
+            r['snap_stats'] = st
+            r['method'] = r['method'].split(';')[0] + '; then laterally snapped, every 40 m, to the double line drawn on the Bachelder/Warren sheet (LOC cw0325000a) using the sheet-a registration: shift median %s m, 90th percentile %s m, maximum %s m; where the sheet shows no clear line within 34 px (68 m) or lies outside the sheet the modern line is kept (%d of %d samples)' % (st['median_shift_m'], st['p90_shift_m'], st['max_shift_m'], st['gap_samples'], st['samples'])
+            g = new
+        if r['id'] == 'RL-002' and g is not None:
+            west = box(XW, XS, SHEET_W, XN); east = box(SHEET_W, XS, XE, XN)
+            gw = g.intersection(west); ge = g.intersection(east)
+            r2 = dict(r); r2['id'] = 'RL-002W'; r2['name'] = 'Unfinished Gettysburg Railroad grade, far west part (beyond the Bachelder sheet)'; r2['present'] = None; r2['conf'] = 'Unknown'; r2['err'] = None
+            r2['method'] = 'Modern CSX Hanover Subdivision line (OSM) west of the Bachelder sheet edge (lng %.4f); NOT checked against any period map' % SHEET_W
+            r2['notes'] = 'Whether the 1863 grade existed this far west is not established by the sources read (NPS names the cuts through Seminary Ridge and the two McPherson Ridges; the sheet shows the grade to its west edge); the line is kept only as a flagged candidate.'
+            r2['period_note'] = 'Extent of the grade beyond the sheet unknown.'
+            feats.append({'type': 'Feature', 'id': r2['id'], 'properties': {'id': r2['id'], 'category': 'railroad', 'subtype': 'railway grade (extent unknown)', 'name': r2['name'], 'name_modern': '', 'present_1863': None,
+                'period_note': r2['period_note'], 'sources': r['sources'][:1], 'method': r2['method'], 'positional_error_m': None, 'confidence': 'Unknown', 'notes': r2['notes'], 'osm_way_ids': r['osm'], 'length_m_in_box': round(length_m(gw))},
+                'geometry': mapping(gw)})
+            g = ge; r['err'] = 20; r['conf'] = 'Documented'
         feats.append({'type': 'Feature', 'id': r['id'], 'properties': {
             'id': r['id'], 'category': 'railroad', 'subtype': r['subtype'], 'name': r['name'], 'name_modern': '', 'present_1863': r['present'], 'period_note': r['period_note'],
             'sources': r['sources'], 'method': r['method'], 'positional_error_m': r['err'], 'confidence': r['conf'], 'notes': r['notes'], 'osm_way_ids': r['osm'],
