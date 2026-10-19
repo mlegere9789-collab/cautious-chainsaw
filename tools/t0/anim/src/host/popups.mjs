@@ -65,7 +65,19 @@ export function createPopups(S) {
   function markRects(F, pad) {
     const v = F.view; const out = [];
     for (const t of F.tiles) { if (t.life !== 'live' || t.opacity < 0.2) continue; const hw = t.w * t.scale / 2; const hh = t.h * t.scale / 2; const x = t.x + v.dx; const y = t.y + v.dy; out.push({ x0: x - hw - pad, y0: y - hh - pad, x1: x + hw + pad, y1: y + hh + pad, id: t.ids[0], key: t.key }); }
+    for (const r of monRects(pad)) out.push(r);
     return out;
+  }
+  /** the Monuments layer's dots and stars on screen (when the layer is on): a card never hides the thing a viewer is about to click (the stars always, the dots from zoom 15, where they are big enough to aim at); cached for 250 ms */
+  function monRects(pad) {
+    const map = S.map; if (!map) return [];
+    const now = window.performance.now(); const C = P.monCache; if (C && now - C.t < 250 && C.pad === pad) return C.out;
+    const out = [];
+    try {
+      const ids = (map.getZoom() >= 15 ? ['gtmon-stars', 'gtmon-dots'] : ['gtmon-stars']).filter((l) => map.getLayer(l) && map.getLayoutProperty(l, 'visibility') !== 'none');
+      if (ids.length) { const seen = new Set(); for (const f of map.queryRenderedFeatures(undefined, { layers: ids })) { const g = f.geometry; if (!g || g.type !== 'Point') continue; const key = g.coordinates[0] + ',' + g.coordinates[1]; if (seen.has(key)) continue; seen.add(key); const q = map.project(g.coordinates); const h = (f.layer.id === 'gtmon-stars' ? 11 : 7) + pad; out.push({ x0: q.x - h, y0: q.y - h, x1: q.x + h, y1: q.y + h, id: null, key: 'mon' }); } }
+    } catch { /* the layer is not there */ }
+    P.monCache = { t: now, pad, out }; return out;
   }
   const markOf = (F, id) => { for (const t of F.tiles) if (t.life === 'live' && t.opacity >= 0.3 && t.ids.includes(id)) return t; return null; };
   function subjectAnchor(F, ids, ll) {
@@ -96,7 +108,7 @@ export function createPopups(S) {
       const now = window.performance.now();
       if (!bad) { st0.goodSince = st0.goodSince || now; }
       else st0.goodSince = 0;
-      if (bad && (now - st0.since > 380)) {
+      if (bad && (now - st0.since > 260)) {
         const occK = new Occupancy(W, H, 8); for (const r of markRects(F, gap)) occK.add(r, 0); for (const r of P.chrome) occK.add(r, 2, { kind: 'chrome' }); for (const r of others) occK.add(r, 2, { kind: 'chrome' });
         // the ladder of forms (the same card, the same words): its natural size, then without its narrative / shorter, then the shortest; the first form that finds free ground wins
         let spot = null; let formUsed = st0.form || 0; const maxForm = k === 'event' || k === 'story' ? 3 : 1;

@@ -91,7 +91,7 @@ function attach(canvas, map) {
   if (S.map && S.map !== map && S.mapOff) { try { S.mapOff(); } catch { /* old map gone */ } }
   S.canvas = canvas; S.map = map; S.renderer = null;
   const onRender = () => { if (S.state !== 1 || S.map !== map) return; if (!mapBusy(map) && S.last && !S.idle && window.performance.now() - S.last < 10) return; guard(() => frame(), null); };      // (a render the map made for its own reasons, a tile that arrived, right after the engine drew this frame: nothing new to draw)
-  const onMove = (e) => { if (S.state !== 1) return; const h = S.core && S.core.frame ? S.core.pickAt(e.point.x, e.point.y, 4) : null; const k = h && h.kind === 'unit' ? h.tile.key : (h ? h.tile.key : null); if (k !== S.hoverKey) { S.hoverKey = k; skinKit.setHover(k); wake(); try { map.getCanvas().style.cursor = k ? 'pointer' : ''; } catch { /* cursor */ } } };
+  const onMove = (e) => { if (S.state !== 1) return; const h = S.core && S.core.frame && unitsShown() ? S.core.pickAt(e.point.x, e.point.y, 4) : null; const k = h && h.kind === 'unit' ? h.tile.key : (h ? h.tile.key : null); if (k !== S.hoverKey) { S.hoverKey = k; skinKit.setHover(k); wake(); try { map.getCanvas().style.cursor = k ? 'pointer' : ''; } catch { /* cursor */ } } };
   const onOut = () => { if (S.hoverKey !== null) { S.hoverKey = null; skinKit.setHover(null); wake(); } };
   map.on('render', onRender); map.on('mousemove', onMove); map.getCanvas().addEventListener('mouseleave', onOut);
   S.mapOff = () => { map.off('render', onRender); map.off('mousemove', onMove); map.getCanvas().removeEventListener('mouseleave', onOut); };
@@ -102,6 +102,8 @@ function attach(canvas, map) {
   if (!S.popups) S.popups = createPopups(S);
   wake();
 }
+/** are the marks on screen?  (the app's Toggle Units hides the canvas; a hidden mark can be neither hovered nor picked) */
+function unitsShown() { try { const st = S.store.getState(); return st.showUnits !== false && !(S.canvas && S.canvas.style.display === 'none'); } catch { return true; } }
 function wake() { try { if (S.map && S.state === 1) { if (mapBusy(S.map)) S.map.triggerRepaint(); else armRaf(); } } catch { /* map gone */ } }
 
 // ---- the frame ------------------------------------------------------------------------------------------------------------------------------------------
@@ -131,6 +133,7 @@ function frame() {
   S.renderer.fit(w, h);
   const proj = S.proj || (S.proj = (lng, lat) => { const q = S.map.project([lng, lat]); return [q.x, q.y]; });
   const shown = st.showUnits !== false && canvas.style.display !== 'none';
+  if (!shown && S.hoverKey !== null) { S.hoverKey = null; skinKit.setHover(null); }                      // hidden units have no hover
   const F = E.step({ dtMs: dt, rawDtMs: raw, tau, cam, selectedId: st.selectedUnitId || st.pinnedUnitId || null, pass: filterOf(st.filters), cut: ck.cut, project: proj });
   F.dtMs = dt; const pu = S.popups; const stage = pu ? pu.stage() : null; const extraRects = pu ? pu.rects() : null;
   if (shown) S.renderer.draw(F, { stage, extraRects, trails: (g, env) => { if (pu) pu.drawSubjects(g, env, F); } });
@@ -187,7 +190,7 @@ export const G = {
   },
   pick(clientX, clientY, touch) {
     return guard(() => {
-      if (!S.core || !S.canvas || !S.core.frame) return false;
+      if (!S.core || !S.canvas || !S.core.frame || !unitsShown()) return false;
       const r = S.canvas.getBoundingClientRect(); const h = S.core.pickAt(clientX - r.left, clientY - r.top, touch ? 14 : 4);
       if (!h) return { id: null, rec: null };
       if (h.kind === 'unit') { const t = h.tile; const u = S.core.battle.units.get(h.id); const st = S.core.battle.stateOf(u, S.core.frame.tau); const rec = u && u.raw && st ? u.raw[st.seg] || null : null; void t; return { id: h.id, rec }; }
