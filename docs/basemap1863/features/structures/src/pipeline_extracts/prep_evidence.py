@@ -16,10 +16,18 @@ import cl
 
 OUT = '../../../docs/basemap1863/features/structures/evidence/'
 SMOOTH = 1e4
-g = json.load(open('mapwork/gcps_final3.json'))
+g = json.load(open('mapwork/gcps_final4.json'))
 M = G.Model(g, SMOOTH)
 C = cty.load()
 DET = cl.DET
+DETD_ALL = np.array(json.load(open('mapwork/det2d.json')))
+DETD = DETD_ALL.copy()
+DETD = DETD[(DETD[:, 5] >= 4.5) & (DETD[:, 4] >= 12)]
+
+
+def snap_d(px, r=16):
+    d = np.hypot(DETD[:, 0] - px[0], DETD[:, 1] - px[1]); j = int(d.argmin())
+    return (float(DETD[j, 0]), float(DETD[j, 1]), [DETD[j, 2] + 6, DETD[j, 3] + 6]) if d[j] <= r else None
 
 
 def cty_c(i):
@@ -40,7 +48,9 @@ def run_clusters(mod='clusters_b'):
     for key, c in ca.C.items():
         syms = []
         for s in c['symbols']:
-            if s.get('det') is not None:
+            if s.get('detd') is not None:
+                i = int(s['detd']); px = [float(DETD_ALL[i][0]), float(DETD_ALL[i][1])]; ext = [DETD_ALL[i][2] + 6, DETD_ALL[i][3] + 6]; det = None
+            elif s.get('det') is not None:
                 i = int(s['det']); px = [float(DET[i][0]), float(DET[i][1])]; ext = [DET[i][2] + 6, DET[i][3] + 6]; det = i
             else:
                 px = list(map(float, s['px'])); i = cl.snap(px[0], px[1], r=10)
@@ -48,7 +58,12 @@ def run_clusters(mod='clusters_b'):
                     px = [float(DET[i][0]), float(DET[i][1])]; ext = [DET[i][2] + 6, DET[i][3] + 6]; det = i
                 else:
                     ext = None; det = None
-            syms.append(dict(role=s['role'], letter=s['letter'], cty=s['cty'], anchor=s['anchor'], note=s['note'], px=px, det=det, ext_px=ext))
+            sd = snap_d(px)
+            if sd is not None:
+                px = [sd[0], sd[1]]; ext = [float(v) for v in sd[2]]; snapped = True
+            else:
+                snapped = False
+            syms.append(dict(role=s['role'], letter=s['letter'], cty=s['cty'], anchor=s['anchor'], note=s['note'], px=px, det=det, ext_px=ext, px_frame='plate d (cw0353500 warped into the cw0325000a frame)', snapped_to_plate_d=snapped))
         P0 = np.mean([s['px'] for s in syms], axis=0)
         J = jac(P0)
         anchors = [s for s in syms if s['anchor'] and s['cty'] is not None]
@@ -111,8 +126,8 @@ if __name__ == '__main__':
         kinds.setdefault(a['kind'], []).append(float(x))
     acc = dict(n_gcps=len(g), n_curated=sum(a['kind'] == 'curated' for a in g), n_icp=sum(a['kind'] == 'icp' for a in g), n_sibling=sum(a['kind'].startswith('sib_') for a in g), smoothing=SMOOTH,
                loo_by_kind={k: dict(n=len(v), median_m=round(float(np.median(v)), 1), max_m=round(max(v), 1)) for k, v in kinds.items()},
-               excluded_outliers=['Schmucker Hall (curated)', 'McPherson barn (curated)', 'Evergreen gatehouse (curated)', 'bushman house (curated)', 'leister house (curated)', 'SIB:Leister house', 'SIB:York Pike bridge', 'SIB:Hanover Rd bridge', 'SIB:Big Round Top summit', 'SIB:Hill summit W of Plum Run', 'icp:cty11175'],
-               outlier_note='11 control points whose leave-one-out error exceeded 35-58 m were left out of the fit (local distortion of the plate or a mismatched pair); features placed with a local anchor are unaffected; features placed through the global model carry an error of 25 m.',
+               excluded_outliers=json.load(open('mapwork/gcps_dropped4.json')),
+               outlier_note='Control points whose leave-one-out error exceeded max(35 m, 3 x median) were left out of the fit (local distortion of the plate or a mismatched pair); features placed with a local anchor are unaffected; features placed through the global model carry an error of 25 m, and up to 60 m in the north-west (First Day) corner where control is sparse.',
                loo_median_m=float(np.median(e)), loo_mean_m=float(e.mean()), loo_p90_m=float(np.percentile(e, 90)), loo_max_m=float(e.max()),
                note='Leave-one-out error of the thin-plate-spline georeference of the Bachelder/Warren plate (pixel frame of LoC cw0325000a, about 1.0 m per pixel). Control: surviving-building outlines of the 2023 Adams County dataset (curated farm buildings and a robust-ICP set) and the independent road-junction, bridge and summit points of docs/basemap1863/maps/gcps/warren.json (sibling task). Pixel units are metres to within 3 percent.')
     json.dump(dict(accuracy=acc, gcps=g), open(OUT + 'gcps_final.json', 'w'), indent=1)

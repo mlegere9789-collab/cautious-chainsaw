@@ -4,7 +4,7 @@ Image.MAX_IMAGE_PIXELS=None
 import georef_final as G
 from geo import *
 from scipy.spatial import cKDTree
-M=G.Model(json.load(open('mapwork/gcps_final3.json')),1e4)
+M=G.Model(json.load(open('mapwork/gcps_final4.json')),1e4)
 im=np.array(Image.open('mapwork/d_in_a.jpg').convert('RGB'))
 X0,Y0,X1,Y1=4380,3380,5760,4740
 sub=im[Y0:Y1,X0:X1]
@@ -37,7 +37,17 @@ for i in keep:
         ap=cv2.approxPolyDP(c,1.0,True)[:,0,:].astype(float)+[X0,Y0]
         if len(ap)<3: continue
         ms=M.px2m(ap); ll=[T_INV.transform(*p) for p in ms]; ll.append(ll[0])
-        feats.append(dict(px=ap.round(1).tolist(),ll=[[round(a,7),round(b,7)] for a,b in ll],area_px=float(cv2.contourArea(c))))
+        from shapely.geometry import Polygon as _P
+        from shapely.validation import make_valid
+        import shapely
+        pg=_P(ll)
+        pg=shapely.set_precision(pg,1e-7)
+        if not pg.is_valid: pg=make_valid(pg)
+        pg=shapely.set_precision(pg,1e-7)
+        parts=[pg] if pg.geom_type=='Polygon' else [q for q in getattr(pg,'geoms',[]) if q.geom_type=='Polygon']
+        for q in parts:
+            if q.area<=0: continue
+            feats.append(dict(px=ap.round(1).tolist(),ll=[[round(a,7),round(b,7)] for a,b in q.exterior.coords],area_px=float(cv2.contourArea(c))/max(1,len(parts))))
 json.dump(feats,open('../../../docs/basemap1863/features/structures/evidence/borough_mass.json','w'))
 print(len(feats))
 vis=sub.copy()
