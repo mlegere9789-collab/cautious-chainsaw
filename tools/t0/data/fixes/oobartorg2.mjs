@@ -27,5 +27,24 @@ const rows2 = [
   { id: 'C-ART-Carrington', edit: { key_action: [["Oak Hill July 1 -- flanking fire that helped destroy I Corps. Key battery in Rodes's attack.", "Jones's battalion, Early's division artillery (the roster, 27/2 p.286): came up the York road with Early's division on July 1 and engaged north of the town on Rodes's left (27/2 p.456); not on Oak Hill."]] },
     cls: 'wrong-place', before: 'key_action "Oak Hill July 1 -- fired on the flank of the Union I Corps"; Oak Hill was held by Carter’s battalion of Rodes’s division', src: 'OR 27/2 p.286, p.456, p.603' },
 ];
-export const groups = [{ file: 'oob/confederate_artillery.json', key: 'battery_id', rows: [...rows, ...rows2] }];
+
+// Dance's battalion (the First Virginia Artillery, Second Corps Artillery Reserve), ranks and names the roster prints differently, and Atwell's rank
+const SRC_D = 'OR 27/2 p.288 (roster: Col. J. Thompson Brown; First Virginia Artillery, Capt. Willis J. Dance; Powhatan Artillery, Lieut. John M. Cunningham; Salem Artillery, Lieut. C. B. Griffin), p.604 (Dance)';
+const DANCE = "Dance's battalion (First Virginia Artillery), Second Corps Artillery Reserve (the roster, 27/2 p.288).";
+const rows3 = [
+  { id: 'C-ART-Watson', set: { key_action: `${DANCE} Posted on the left of the railroad cut on the morning of July 2 and opened at about 4 p.m.; on July 3 moved to the right of the Fairfield road (Dance, 27/2 p.604).` },
+    cls: 'wrong-place', before: 'key_action "Second Corps -- Cemetery Hill area July 2-3"; Dance puts the battery on the left of the railroad cut, then the Fairfield road', src: SRC_D },
+  { id: 'C-ART-Smith-B', set: { key_action: `${DANCE} Posted near the Seminary on July 2 and opened at about 4 p.m.; on July 3 moved to the right of the Fairfield road (Dance, 27/2 p.604).` },
+    cls: 'unsupported-claim', before: 'key_action "Second Corps support"', src: SRC_D },
+  { id: 'C-ART-Cunningham', set: { designation: "Cunningham's Battery (Powhatan Artillery VA, Dance's own battery)", 'commander.name': 'Lieutenant John M. Cunningham', 'commander.fate': null, key_action: `${DANCE} Posted on the left of the Fairfield road on July 2 (Dance, 27/2 p.604).` },
+    cls: 'wrong-name', before: 'designation "Rockbridge Artillery" (Graham’s battery) and commander "Captain Arthur Cunningham"; the roster has the Powhatan Artillery under Lieut. John M. Cunningham', src: SRC_D },
+  { id: 'C-ART-Hupp', set: { 'commander.name': 'Lieutenant C. B. Griffin (commanding Captain Hupp’s battery)', 'commander.fate': null, key_action: `${DANCE} Held in reserve on July 2; two rifled guns went into position on the right of the Fairfield road on July 3 (Dance, 27/2 p.604).` },
+    cls: 'wrong-name', before: 'commander "Captain Abraham Hupp"; the roster and Dance name Lieut. C. B. Griffin commanding the Salem Artillery', src: SRC_D },
+  { id: 'C-ART-Rice-B', set: { 'commander.name': 'Captain R. S. Rice', 'commander.fate': null }, cls: 'wrong-name', before: 'commander "Captain William Rice"; the roster prints Capt. R. S. Rice', src: 'OR 27/2 p.290 (roster)' },
+  { id: 'C-ART-Wallace', set: { 'commander.name': 'Lieutenant Samuel Wallace' }, cls: 'wrong-name', before: 'rank "Captain"; the roster prints Lieut. Samuel Wallace', src: 'OR 27/2 p.290 (roster)' },
+  { id: 'C-ART-Zimmerman', set: { 'commander.name': 'Lieutenant William E. Zimmerman' }, cls: 'wrong-name', before: 'rank "Captain"; the roster prints Lieut. William E. Zimmerman', src: 'OR 27/2 p.290 (roster)' },
+  { id: 'C-ART-Blount', edit: { designation: [['(Wise Artillery VA)', '(the roster calls it the Virginia Battery)']] }, cls: 'unsupported-claim', before: 'designation "Wise Artillery"; the roster (27/2 p.284) prints "Virginia Battery, Capt. Joseph G. Blount"', src: 'OR 27/2 p.284 (roster)' },
+];
+export const groups = [{ file: 'oob/confederate_artillery.json', key: 'battery_id', rows: [...rows, ...rows2, ...rows3] },
+  { file: 'oob/union_artillery.json', key: 'battery_id', rows: [{ id: 'U-ART-EPA', set: { 'commander.name': 'Lieutenant Charles A. Atwell' }, cls: 'wrong-name', before: 'rank "Captain"; the roster prints Lieut. Charles A. Atwell', src: 'OR 27/1 p.166 (roster)' }] }];
 export default [];

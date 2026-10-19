@@ -1,0 +1,605 @@
+{
+ "_doc": "Verdicts for the 150 claims of sample-F.claims.json (seed 20261024, drawn from the DATA build after the artillery, positions and rejoin work (tmp/data-audit/data-R1c, release id 2a2fcf9d at the draw). v: C correct (for an estimate: inside the range the sources allow), I incorrect or unsupported, L labelled (a Contested or modelled note is on the claim), U cannot be checked against the sources read (excluded). Evidence for a claim judged C without its own line is the source class named for its category; the evidence of every error, label and unverifiable claim is given. The errors were corrected after the draw (artillery organisation, fates of commanders, CS-005, Carrington's position, tour stop 1); a further sweep of each class followed (AUDIT.md section 4).",
+ "verdicts": {
+  "1": [
+   "C",
+   "roster OR 27/1 pp.155-168 and OR 27/2 pp.283-292: the name and rank match; the fate is the one the reports and the lists of officers killed (OR 27/1 pp.188-192) give"
+  ],
+  "2": [
+   "I",
+   "roster OR 27/1 p.157: Col. Ezra A. Carman, 13th New Jersey; \"later became one of the most important Civil War historians\" is a superlative no source read states; removed after the draw"
+  ],
+  "3": [
+   "C",
+   "roster OR 27/1 pp.155-168 and OR 27/2 pp.283-292: the name and rank match; the fate is the one the reports and the lists of officers killed (OR 27/1 pp.188-192) give"
+  ],
+  "4": [
+   "C",
+   "roster OR 27/1 pp.155-168 and OR 27/2 pp.283-292: the name and rank match; the fate is the one the reports and the lists of officers killed (OR 27/1 pp.188-192) give"
+  ],
+  "5": [
+   "C",
+   "roster OR 27/1 pp.155-168 and OR 27/2 pp.283-292: the name and rank match; the fate is the one the reports and the lists of officers killed (OR 27/1 pp.188-192) give"
+  ],
+  "6": [
+   "C",
+   "roster OR 27/1 pp.155-168 and OR 27/2 pp.283-292: the name and rank match; the fate is the one the reports and the lists of officers killed (OR 27/1 pp.188-192) give"
+  ],
+  "7": [
+   "C",
+   "roster OR 27/1 pp.155-168 and OR 27/2 pp.283-292: the name and rank match; the fate is the one the reports and the lists of officers killed (OR 27/1 pp.188-192) give"
+  ],
+  "8": [
+   "C",
+   "roster OR 27/1 pp.155-168 and OR 27/2 pp.283-292: the name and rank match; the fate is the one the reports and the lists of officers killed (OR 27/1 pp.188-192) give"
+  ],
+  "9": [
+   "C",
+   "roster OR 27/1 pp.155-168 and OR 27/2 pp.283-292: the name and rank match; the fate is the one the reports and the lists of officers killed (OR 27/1 pp.188-192) give"
+  ],
+  "10": [
+   "C",
+   "roster OR 27/1 pp.155-168 and OR 27/2 pp.283-292: the name and rank match; the fate is the one the reports and the lists of officers killed (OR 27/1 pp.188-192) give"
+  ],
+  "11": [
+   "C",
+   "return of casualties (OR 27/1 pp.173-187, OR 27/2 pp.339-346): the figure is the printed regimental total (or lies inside the range the printed total plus the brigade's unassigned missing allows); percentage arithmetic checked, the strength is the file's own"
+  ],
+  "12": [
+   "C",
+   "return OR 27/2 p.342: 9th Georgia 143 killed and wounded, 189 printed as the regimental total with the missing"
+  ],
+  "13": [
+   "C",
+   "return of casualties (OR 27/1 pp.173-187, OR 27/2 pp.339-346): the figure is the printed regimental total (or lies inside the range the printed total plus the brigade's unassigned missing allows); percentage arithmetic checked, the strength is the file's own"
+  ],
+  "14": [
+   "C",
+   "return of casualties (OR 27/1 pp.173-187, OR 27/2 pp.339-346): the figure is the printed regimental total (or lies inside the range the printed total plus the brigade's unassigned missing allows); percentage arithmetic checked, the strength is the file's own"
+  ],
+  "15": [
+   "L",
+   "labelled Contested: the file gives 153, the return prints 88 for the 37th North Carolina"
+  ],
+  "16": [
+   "C",
+   "return of casualties (OR 27/1 pp.173-187, OR 27/2 pp.339-346): the figure is the printed regimental total (or lies inside the range the printed total plus the brigade's unassigned missing allows); percentage arithmetic checked, the strength is the file's own"
+  ],
+  "17": [
+   "C",
+   "return of casualties (OR 27/1 pp.173-187, OR 27/2 pp.339-346): the figure is the printed regimental total (or lies inside the range the printed total plus the brigade's unassigned missing allows); percentage arithmetic checked, the strength is the file's own"
+  ],
+  "18": [
+   "C",
+   "return of casualties (OR 27/1 pp.173-187, OR 27/2 pp.339-346): the figure is the printed regimental total (or lies inside the range the printed total plus the brigade's unassigned missing allows); percentage arithmetic checked, the strength is the file's own"
+  ],
+  "19": [
+   "C",
+   "return of casualties (OR 27/1 pp.173-187, OR 27/2 pp.339-346): the figure is the printed regimental total (or lies inside the range the printed total plus the brigade's unassigned missing allows); percentage arithmetic checked, the strength is the file's own"
+  ],
+  "20": [
+   "L",
+   "labelled Contested: the file gives 295, the return prints 209 for the 11th North Carolina"
+  ],
+  "21": [
+   "C",
+   "return of casualties (OR 27/1 pp.173-187, OR 27/2 pp.339-346): the figure is the printed regimental total (or lies inside the range the printed total plus the brigade's unassigned missing allows); percentage arithmetic checked, the strength is the file's own"
+  ],
+  "22": [
+   "C",
+   "return OR 27/2 p.342: 14th Tennessee 27 printed; Archer's brigade has 517 unassigned (677 - 160), so 87 is inside the range the return allows"
+  ],
+  "23": [
+   "C",
+   "roster and the reports of the brigade: the brigade, the field and the event are the ones the Official Records give"
+  ],
+  "24": [
+   "U",
+   "\"90 men\" for the 88th New York is not in the reports read (Kelly's brigade return of strength not located)"
+  ],
+  "25": [
+   "C",
+   "roster and the reports of the brigade: the brigade, the field and the event are the ones the Official Records give"
+  ],
+  "26": [
+   "L",
+   "the record says itself that the strength shown belonged to the old label and is not verified"
+  ],
+  "27": [
+   "C",
+   "roster and the reports of the brigade: the brigade, the field and the event are the ones the Official Records give"
+  ],
+  "28": [
+   "C",
+   "Baxter's brigade in the roster (OR 27/1 p.156); the note on the transfer is the record's own and cites the roster"
+  ],
+  "29": [
+   "C",
+   "return OR 27/1 pp.173-187 / OR 27/2 pp.339-346: the brigade total and commander agree with the roster; the strength is the file's own"
+  ],
+  "30": [
+   "C",
+   "return OR 27/1 pp.173-187 / OR 27/2 pp.339-346: the brigade total and commander agree with the roster; the strength is the file's own"
+  ],
+  "31": [
+   "C",
+   "return OR 27/1 pp.173-187 / OR 27/2 pp.339-346: the brigade total and commander agree with the roster; the strength is the file's own"
+  ],
+  "32": [
+   "C",
+   "return OR 27/1 pp.173-187 / OR 27/2 pp.339-346: the brigade total and commander agree with the roster; the strength is the file's own"
+  ],
+  "33": [
+   "C",
+   "return OR 27/1 pp.173-187 / OR 27/2 pp.339-346: the brigade total and commander agree with the roster; the strength is the file's own"
+  ],
+  "34": [
+   "C",
+   "return OR 27/1 pp.173-187 / OR 27/2 pp.339-346: the brigade total and commander agree with the roster; the strength is the file's own"
+  ],
+  "35": [
+   "C",
+   "return OR 27/1 pp.173-187 / OR 27/2 pp.339-346: the brigade total and commander agree with the roster; the strength is the file's own"
+  ],
+  "36": [
+   "C",
+   "return OR 27/1 pp.173-187 / OR 27/2 pp.339-346: the brigade total and commander agree with the roster; the strength is the file's own"
+  ],
+  "37": [
+   "C",
+   "roster and return (OR 27/1 pp.166-168, 185-186; OR 27/2 p.346)"
+  ],
+  "38": [
+   "C",
+   "roster and return (OR 27/1 pp.166-168, 185-186; OR 27/2 p.346)"
+  ],
+  "39": [
+   "C",
+   "roster and return (OR 27/1 pp.166-168, 185-186; OR 27/2 p.346)"
+  ],
+  "40": [
+   "C",
+   "roster and return (OR 27/1 pp.166-168, 185-186; OR 27/2 p.346)"
+  ],
+  "41": [
+   "C",
+   "roster and return (OR 27/1 pp.166-168, 185-186; OR 27/2 p.346)"
+  ],
+  "42": [
+   "C",
+   "roster and return (OR 27/1 pp.166-168, 185-186; OR 27/2 p.346)"
+  ],
+  "43": [
+   "C",
+   "roster and reports of the brigade (the page named in the record)"
+  ],
+  "44": [
+   "C",
+   "roster and reports of the brigade (the page named in the record)"
+  ],
+  "45": [
+   "C",
+   "roster and reports of the brigade (the page named in the record)"
+  ],
+  "46": [
+   "I",
+   "Weed: OR 27/1 p.652 has him mortally wounded on the summit; the fate \"KIA July 2\" contradicts the corrected succession record (US-021); corrected after the draw"
+  ],
+  "47": [
+   "C",
+   "roster and reports of the brigade (the page named in the record)"
+  ],
+  "48": [
+   "C",
+   "roster and reports of the brigade (the page named in the record)"
+  ],
+  "49": [
+   "C",
+   "roster and reports of the brigade (the page named in the record)"
+  ],
+  "50": [
+   "C",
+   "roster and reports of the brigade (the page named in the record)"
+  ],
+  "51": [
+   "C",
+   "roster and reports of the brigade (the page named in the record)"
+  ],
+  "52": [
+   "L",
+   "labelled Contested: the return prints 496 for Law's brigade, the regiments in the file sum to 596"
+  ],
+  "53": [
+   "C",
+   "roster and reports of the brigade (the page named in the record)"
+  ],
+  "54": [
+   "C",
+   "roster and reports of the brigade (the page named in the record)"
+  ],
+  "55": [
+   "L",
+   "labelled Contested: the file gives 102, the return prints 38 for the 60th Georgia"
+  ],
+  "56": [
+   "I",
+   "Rice's battery is in McIntosh's battalion of the Artillery Reserve, not Heth's division (OR 27/2 p.290 roster); corrected after the draw"
+  ],
+  "57": [
+   "L",
+   "labelled: the roster (27/1 p.161) lists no Massachusetts Battery E (10th) in the Fifth Corps"
+  ],
+  "58": [
+   "C",
+   "roster and reports of the brigade (the page named in the record)"
+  ],
+  "59": [
+   "C",
+   "roster and reports of the brigade (the page named in the record)"
+  ],
+  "60": [
+   "I",
+   "Carpenter's battery is in Latimer's (Andrews's) battalion of Johnson's division, which reached the field late on July 1 (OR 27/2 p.286, p.504); it was not on Oak Hill on July 1; corrected after the draw"
+  ],
+  "61": [
+   "L",
+   "labelled Contested: the file gives 228, the return prints 147 for the 52nd North Carolina; Marshall supposed killed (OR 27/2 p.645)"
+  ],
+  "62": [
+   "C",
+   "roster and reports of the brigade (the page named in the record)"
+  ],
+  "63": [
+   "I",
+   "Wallace's (2nd Rockbridge) battery is in McIntosh's battalion of the Artillery Reserve (OR 27/2 p.290), not Heth's division; corrected after the draw"
+  ],
+  "64": [
+   "C",
+   "roster and reports of the brigade (the page named in the record)"
+  ],
+  "65": [
+   "C",
+   "roster order of commanders and the reports of the officers named; the hour is the CLOCK model's"
+  ],
+  "66": [
+   "I",
+   "CS-005: \"No clear successor -- brigade broken\"; the roster (OR 27/2 p.284) and Peyton's report (p.385) name Maj. Charles S. Peyton; corrected after the draw"
+  ],
+  "67": [
+   "C",
+   "roster order of commanders and the reports of the officers named; the hour is the CLOCK model's"
+  ],
+  "68": [
+   "C",
+   "roster order of commanders and the reports of the officers named; the hour is the CLOCK model's"
+  ],
+  "69": [
+   "C",
+   "roster order of commanders and the reports of the officers named; the hour is the CLOCK model's"
+  ],
+  "70": [
+   "C",
+   "roster order of commanders and the reports of the officers named; the hour is the CLOCK model's"
+  ],
+  "71": [
+   "C",
+   "the report named in the DATA fix for the event (docs/data-audit/fixes.json)"
+  ],
+  "72": [
+   "C",
+   "the report named in the DATA fix for the event (docs/data-audit/fixes.json)"
+  ],
+  "73": [
+   "L",
+   "labelled Contested: the hour of the charge and Chamberlain's own figure of 400"
+  ],
+  "74": [
+   "C",
+   "the report named in the DATA fix for the event (docs/data-audit/fixes.json)"
+  ],
+  "75": [
+   "L",
+   "labelled: Lee's report counts Garnett among the killed; Marshall reported wounded and taken (Pettigrew), supposed killed (p.645)"
+  ],
+  "76": [
+   "L",
+   "the note attributed to Avery is labelled a later account"
+  ],
+  "77": [
+   "C",
+   "the report named in the DATA fix for the event (docs/data-audit/fixes.json)"
+  ],
+  "78": [
+   "C",
+   "the report named in the DATA fix for the event (docs/data-audit/fixes.json)"
+  ],
+  "79": [
+   "C",
+   "the report named in the DATA fix for the event (docs/data-audit/fixes.json)"
+  ],
+  "80": [
+   "C",
+   "the report named in the DATA fix for the event (docs/data-audit/fixes.json)"
+  ],
+  "81": [
+   "C",
+   "the report named in the DATA fix for the event (docs/data-audit/fixes.json)"
+  ],
+  "82": [
+   "C",
+   "the report named in the DATA fix for the event (docs/data-audit/fixes.json)"
+  ],
+  "83": [
+   "C",
+   "the report named in the DATA fix for the event (docs/data-audit/fixes.json)"
+  ],
+  "84": [
+   "L",
+   "labelled Contested: when Pickett's division reached the field"
+  ],
+  "85": [
+   "C",
+   "the reports named in the DATA fix for the vignette (docs/data-audit/fixes.json)"
+  ],
+  "86": [
+   "C",
+   "the reports named in the DATA fix for the vignette (docs/data-audit/fixes.json)"
+  ],
+  "87": [
+   "C",
+   "the reports named in the DATA fix for the vignette (docs/data-audit/fixes.json)"
+  ],
+  "88": [
+   "C",
+   "the reports named in the DATA fix for the vignette (docs/data-audit/fixes.json)"
+  ],
+  "89": [
+   "C",
+   "the reports named in the DATA fix for the vignette (docs/data-audit/fixes.json)"
+  ],
+  "90": [
+   "C",
+   "the reports named in the DATA fix for the vignette (docs/data-audit/fixes.json)"
+  ],
+  "91": [
+   "C",
+   "the reports named in the DATA fix for the vignette (docs/data-audit/fixes.json)"
+  ],
+  "92": [
+   "C",
+   "the reports named in the DATA fix for the vignette (docs/data-audit/fixes.json)"
+  ],
+  "93": [
+   "C",
+   "the reports named in the DATA fix, or a description that makes no factual claim beyond the ground"
+  ],
+  "94": [
+   "C",
+   "the reports named in the DATA fix, or a description that makes no factual claim beyond the ground"
+  ],
+  "95": [
+   "C",
+   "the reports named in the DATA fix, or a description that makes no factual claim beyond the ground"
+  ],
+  "96": [
+   "C",
+   "the reports named in the DATA fix, or a description that makes no factual claim beyond the ground"
+  ],
+  "97": [
+   "C",
+   "the reports named in the DATA fix, or a description that makes no factual claim beyond the ground"
+  ],
+  "98": [
+   "L",
+   "labelled as tradition"
+  ],
+  "99": [
+   "C",
+   "the reports named in the DATA fix, or a description that makes no factual claim beyond the ground"
+  ],
+  "100": [
+   "C",
+   "the reports named in the DATA fix, or a description that makes no factual claim beyond the ground"
+  ],
+  "101": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "102": [
+   "C",
+   "the 1st Minnesota's ground on Cemetery Ridge at its monument (NPS 39.8105,-77.2361, 0.2 km from the row)"
+  ],
+  "103": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "104": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "105": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "106": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "107": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "108": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "109": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "110": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "111": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "112": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "113": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "114": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "115": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "116": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "117": [
+   "U",
+   "\"hand-to-hand\" at Bigelow's battery is in no report read (Hunt, OR 27/1 p.882, has the battery retiring by prolonge firing canister)"
+  ],
+  "118": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "119": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "120": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "121": [
+   "L",
+   "labelled: the row says it is shown with its brigade and that no later position of the regiment is recorded"
+  ],
+  "122": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "123": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "124": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "125": [
+   "C",
+   "the unit is where its brigade's reports put it (the field named), the note states nothing beyond them; positions are approximate (Help says so)"
+  ],
+  "126": [
+   "I",
+   "Carrington's battery belonged to Jones's battalion of Early's division, posted on the left of the Heidlersburg road in front of Hoke's brigade (Early, OR 27/2 p.468), not on Oak Hill with Carter's battalion of Rodes's division (p.603), and Early's division was not on the field at tick 49; row removed and a row at tick 55 added after the draw"
+  ],
+  "127": [
+   "C",
+   "the reports named in the DATA fix for the marker or tour stop (docs/data-audit/fixes.json)"
+  ],
+  "128": [
+   "I",
+   "tour stop 1: \"fence rails and earthworks\"; Buford (OR 27/1 p.927) had partial shelter behind a low stone fence; there were no earthworks; corrected after the draw"
+  ],
+  "129": [
+   "C",
+   "the reports named in the DATA fix for the marker or tour stop (docs/data-audit/fixes.json)"
+  ],
+  "130": [
+   "L",
+   "labelled: regimental tradition"
+  ],
+  "131": [
+   "C",
+   "Lee's dispatch (OR 27/2 p.298) and Longstreet (p.359): Hood wounded in the arm"
+  ],
+  "132": [
+   "C",
+   "the reports named in the DATA fix for the marker or tour stop (docs/data-audit/fixes.json)"
+  ],
+  "133": [
+   "C",
+   "the reports named in the DATA fix for the marker or tour stop (docs/data-audit/fixes.json)"
+  ],
+  "134": [
+   "C",
+   "the reports named in the DATA fix for the marker or tour stop (docs/data-audit/fixes.json)"
+  ],
+  "135": [
+   "C",
+   "the reports named in the DATA fix for the marker or tour stop (docs/data-audit/fixes.json)"
+  ],
+  "136": [
+   "C",
+   "the reports named in the DATA fix for the marker or tour stop (docs/data-audit/fixes.json)"
+  ],
+  "137": [
+   "C",
+   "the figure is computed from the data files of the build, or is a census figure"
+  ],
+  "138": [
+   "C",
+   "the figure is computed from the data files of the build, or is a census figure"
+  ],
+  "139": [
+   "C",
+   "the figure is computed from the data files of the build, or is a census figure"
+  ],
+  "140": [
+   "C",
+   "the figure is computed from the data files of the build, or is a census figure"
+  ],
+  "141": [
+   "C",
+   "the figure is computed from the data files of the build, or is a census figure"
+  ],
+  "142": [
+   "C",
+   "the figure is computed from the data files of the build, or is a census figure"
+  ],
+  "143": [
+   "C",
+   "return of casualties (corps totals); the day split is modelled and labelled on the dashboard"
+  ],
+  "144": [
+   "L",
+   "labelled Contested against the return's 6,735"
+  ],
+  "145": [
+   "C",
+   "return of casualties (corps totals); the day split is modelled and labelled on the dashboard"
+  ],
+  "146": [
+   "L",
+   "the claim carries the note that the day split is modelled and that the Official Records give the corps total of 6,059"
+  ],
+  "147": [
+   "C",
+   "Fox pp.555-556: 588 killed and wounded of over 800 engaged; the note labels the Busey and Martin comparison as not re-verified"
+  ],
+  "148": [
+   "L",
+   "labelled Contested against the return's corps total, and the note that the percentage once shown is unsupported"
+  ],
+  "149": [
+   "C",
+   "return of casualties (corps totals); the day split is modelled and labelled on the dashboard"
+  ],
+  "150": [
+   "L",
+   "return OR 27/1 p.186: Cavalry Corps 852; the day split is modelled and labelled on the dashboard"
+  ]
+ }
+}

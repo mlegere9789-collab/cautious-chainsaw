@@ -10256,6 +10256,14 @@
    "note": "wrong-claim: OR 27/2 p.352 (Pendleton); not an Official Records statement"
   },
   {
+   "id": "DATA-artorg-dance",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "\"designation\": \"Dance's Battalion\",\n        \"commander\": {\"name\": \"Colonel Willis Dance\", \"fate\": \"Survived\"},",
+   "repl": "\"designation\": \"Dance's Battalion (First Virginia Artillery, Second Corps Artillery Reserve)\",\n        \"commander\": {\"name\": \"Captain Willis J. Dance\", \"fate\": \"Survived\"},",
+   "expect": 1,
+   "note": "wrong-name: OR 27/2 p.288 (roster), p.604 (Dance)"
+  },
+  {
    "id": "DATA-artorg-latimer2",
    "target": "data/oob/confederate_artillery.json",
    "find": "\"designation\": \"Latimer's Battalion (Johnson's Division Artillery)\",\n        \"commander\": {\n          \"name\": \"Major Joseph Latimer\",",
@@ -16247,17 +16255,17 @@
    "id": "DATA-oob-confederate-artillery-C-ART-Rice-B",
    "target": "data/oob/confederate_artillery.json",
    "find": "{\"battery_id\":\"C-ART-Rice-B\",\"designation\":\"Rice's Battery (Danville Artillery VA)\",\"commander\":{\"name\":\"Captain William Rice\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":8,\"key_action\":\"Heth's division artillery July 1 and 3.\"}",
-   "repl": "{\"battery_id\":\"C-ART-Rice-B\",\"designation\":\"Rice's Battery (Danville Artillery VA)\",\"commander\":{\"name\":\"Captain William Rice\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":8,\"key_action\":\"McIntosh's battalion, Artillery Reserve of the Third Corps (the roster, 27/2 p.290); it marched with Pender's division on July 1 (Hill, 27/2 p.607).\"}",
+   "repl": "{\"battery_id\":\"C-ART-Rice-B\",\"designation\":\"Rice's Battery (Danville Artillery VA)\",\"commander\":{\"name\":\"Captain R. S. Rice\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":8,\"key_action\":\"McIntosh's battalion, Artillery Reserve of the Third Corps (the roster, 27/2 p.290); it marched with Pender's division on July 1 (Hill, 27/2 p.607).\"}",
    "expect": 1,
-   "note": "wrong-name: OR 27/2 pp.288-290 (roster of the artillery), p.607 (Hill)"
+   "note": "wrong-name: OR 27/2 pp.288-290 (roster of the artillery), p.607 (Hill); OR 27/2 p.290 (roster)"
   },
   {
    "id": "DATA-oob-confederate-artillery-C-ART-Wallace",
    "target": "data/oob/confederate_artillery.json",
    "find": "{\"battery_id\":\"C-ART-Wallace\",\"designation\":\"Wallace's Battery (2nd Rockbridge Artillery VA)\",\"commander\":{\"name\":\"Captain Samuel Wallace\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":7,\"key_action\":\"Heth's division artillery.\"}",
-   "repl": "{\"battery_id\":\"C-ART-Wallace\",\"designation\":\"Wallace's Battery (2nd Rockbridge Artillery VA)\",\"commander\":{\"name\":\"Captain Samuel Wallace\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":7,\"key_action\":\"McIntosh's battalion, Artillery Reserve of the Third Corps (the roster, 27/2 p.290); it marched with Pender's division on July 1 (Hill, 27/2 p.607).\"}",
+   "repl": "{\"battery_id\":\"C-ART-Wallace\",\"designation\":\"Wallace's Battery (2nd Rockbridge Artillery VA)\",\"commander\":{\"name\":\"Lieutenant Samuel Wallace\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":7,\"key_action\":\"McIntosh's battalion, Artillery Reserve of the Third Corps (the roster, 27/2 p.290); it marched with Pender's division on July 1 (Hill, 27/2 p.607).\"}",
    "expect": 1,
-   "note": "wrong-name: OR 27/2 pp.288-290 (roster of the artillery), p.607 (Hill)"
+   "note": "wrong-name: OR 27/2 pp.288-290 (roster of the artillery), p.607 (Hill); OR 27/2 p.290 (roster)"
   },
   {
    "id": "DATA-oob-confederate-artillery-C-ART-Ross",
@@ -16314,6 +16322,62 @@
    "repl": "{\"battery_id\":\"C-ART-Carrington\",\"designation\":\"Carrington's Battery (Charlottesville Artillery VA)\",\"commander\":{\"name\":\"Captain James Carrington\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":0,\"key_action\":\"Jones's battalion, Early's division artillery (the roster, 27/2 p.286): came up the York road with Early's division on July 1 and engaged north of the town on Rodes's left (27/2 p.456); not on Oak Hill.\"}",
    "expect": 1,
    "note": "wrong-place+wrong-number: OR 27/2 p.286, p.456, p.603; OR 27/2 p.338 and p.341 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Watson",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Watson\",\"designation\":\"Watson's Battery (2nd Richmond Howitzers)\",\"commander\":{\"name\":\"Captain David Watson\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":9,\"key_action\":\"Second Corps -- Cemetery Hill area July 2-3.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Watson\",\"designation\":\"Watson's Battery (2nd Richmond Howitzers)\",\"commander\":{\"name\":\"Captain David Watson\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":9,\"key_action\":\"Dance's battalion (First Virginia Artillery), Second Corps Artillery Reserve (the roster, 27/2 p.288). Posted on the left of the railroad cut on the morning of July 2 and opened at about 4 p.m.; on July 3 moved to the right of the Fairfield road (Dance, 27/2 p.604).\"}",
+   "expect": 1,
+   "note": "wrong-place: OR 27/2 p.288 (roster: Col. J. Thompson Brown; First Virginia Artillery, Capt. Willis J. Dance; Powhatan Artillery, Lieut. John M. Cunningham; Salem Artillery, Lieut. C. B. Griffin), p.604 (Dance)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Smith-B",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Smith-B\",\"designation\":\"Smith's Battery (3rd Richmond Howitzers)\",\"commander\":{\"name\":\"Captain Benjamin Smith\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":7,\"key_action\":\"Second Corps support.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Smith-B\",\"designation\":\"Smith's Battery (3rd Richmond Howitzers)\",\"commander\":{\"name\":\"Captain Benjamin Smith\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":7,\"key_action\":\"Dance's battalion (First Virginia Artillery), Second Corps Artillery Reserve (the roster, 27/2 p.288). Posted near the Seminary on July 2 and opened at about 4 p.m.; on July 3 moved to the right of the Fairfield road (Dance, 27/2 p.604).\"}",
+   "expect": 1,
+   "note": "unsupported-claim: OR 27/2 p.288 (roster: Col. J. Thompson Brown; First Virginia Artillery, Capt. Willis J. Dance; Powhatan Artillery, Lieut. John M. Cunningham; Salem Artillery, Lieut. C. B. Griffin), p.604 (Dance)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Cunningham",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Cunningham\",\"designation\":\"Cunningham's Battery (Rockbridge Artillery VA)\",\"commander\":{\"name\":\"Captain Arthur Cunningham\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":5,\"key_action\":\"Second Corps artillery.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Cunningham\",\"designation\":\"Cunningham's Battery (Powhatan Artillery VA, Dance's own battery)\",\"commander\":{\"name\":\"Lieutenant John M. Cunningham\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":5,\"key_action\":\"Dance's battalion (First Virginia Artillery), Second Corps Artillery Reserve (the roster, 27/2 p.288). Posted on the left of the Fairfield road on July 2 (Dance, 27/2 p.604).\"}",
+   "expect": 1,
+   "note": "wrong-name: OR 27/2 p.288 (roster: Col. J. Thompson Brown; First Virginia Artillery, Capt. Willis J. Dance; Powhatan Artillery, Lieut. John M. Cunningham; Salem Artillery, Lieut. C. B. Griffin), p.604 (Dance)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Hupp",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Hupp\",\"designation\":\"Hupp's Battery (Salem Artillery VA)\",\"commander\":{\"name\":\"Captain Abraham Hupp\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":4,\"key_action\":\"Second Corps support.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Hupp\",\"designation\":\"Hupp's Battery (Salem Artillery VA)\",\"commander\":{\"name\":\"Lieutenant C. B. Griffin (commanding Captain Hupp’s battery)\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":4,\"key_action\":\"Dance's battalion (First Virginia Artillery), Second Corps Artillery Reserve (the roster, 27/2 p.288). Held in reserve on July 2; two rifled guns went into position on the right of the Fairfield road on July 3 (Dance, 27/2 p.604).\"}",
+   "expect": 1,
+   "note": "wrong-name: OR 27/2 p.288 (roster: Col. J. Thompson Brown; First Virginia Artillery, Capt. Willis J. Dance; Powhatan Artillery, Lieut. John M. Cunningham; Salem Artillery, Lieut. C. B. Griffin), p.604 (Dance)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Zimmerman",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Zimmerman\",\"designation\":\"Zimmerman's Battery (Pee Dee Artillery SC)\",\"commander\":{\"name\":\"Captain William Zimmerman\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":8,\"key_action\":\"Pegram's battalion -- Herr Ridge.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Zimmerman\",\"designation\":\"Zimmerman's Battery (Pee Dee Artillery SC)\",\"commander\":{\"name\":\"Lieutenant William E. Zimmerman\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":8,\"key_action\":\"Pegram's battalion -- Herr Ridge.\"}",
+   "expect": 1,
+   "note": "wrong-name: OR 27/2 p.290 (roster)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Blount",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Blount\",\"designation\":\"Blount's Battery (Wise Artillery VA)\",\"commander\":{\"name\":\"Captain Joseph Blount\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":6,\"key_action\":\"July 3 cannonade.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Blount\",\"designation\":\"Blount's Battery (the roster calls it the Virginia Battery)\",\"commander\":{\"name\":\"Captain Joseph Blount\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":6,\"key_action\":\"July 3 cannonade.\"}",
+   "expect": 1,
+   "note": "unsupported-claim: OR 27/2 p.284 (roster)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-EPA",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-EPA\",\"designation\":\"Battery E, Pennsylvania Artillery (Knap's Battery)\",\"commander\":{\"name\":\"Captain Charles Atwell\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":3,\"key_action\":\"Knap's Battery at Culp's Hill -- unique firing angle across the saddle between Culp's Hill and Cemetery Hill.\"}",
+   "repl": "{\"battery_id\":\"U-ART-EPA\",\"designation\":\"Battery E, Pennsylvania Artillery (Knap's Battery)\",\"commander\":{\"name\":\"Lieutenant Charles A. Atwell\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":3,\"key_action\":\"Knap's Battery E, Pennsylvania Light Artillery, at Culp's Hill.\"}",
+   "expect": 1,
+   "note": "wrong-name+unsupported-claim: OR 27/1 p.166 (roster); no report read supports the removed phrase"
   },
   {
    "id": "DATA-oob-union-cavalry-artillery-U-8IL-CAV",
@@ -20722,14 +20786,6 @@
    "repl": "{\"battery_id\":\"U-ART-2ME\",\"designation\":\"2nd Maine Battery (Hall's Battery)\",\"commander\":{\"name\":\"Captain James Hall\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":18,\"key_action\":\"McPherson's Ridge July 1 -- Hall's battery stood on McPherson's Ridge (Hall, OR 27/1 p.246).\",\"flag_notes\":\"Hall's Battery is featured in a Gettysburg Animated YouTube vignette. Must be placed with high precision at McPherson's Ridge and Railroad Cut area.\"}",
    "expect": 1,
    "note": "leaked-note: OR 27/1 p.246"
-  },
-  {
-   "id": "DATA-oob-union-artillery-U-ART-EPA",
-   "target": "data/oob/union_artillery.json",
-   "find": "{\"battery_id\":\"U-ART-EPA\",\"designation\":\"Battery E, Pennsylvania Artillery (Knap's Battery)\",\"commander\":{\"name\":\"Captain Charles Atwell\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":3,\"key_action\":\"Knap's Battery at Culp's Hill -- unique firing angle across the saddle between Culp's Hill and Cemetery Hill.\"}",
-   "repl": "{\"battery_id\":\"U-ART-EPA\",\"designation\":\"Battery E, Pennsylvania Artillery (Knap's Battery)\",\"commander\":{\"name\":\"Captain Charles Atwell\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":3,\"key_action\":\"Knap's Battery E, Pennsylvania Light Artillery, at Culp's Hill.\"}",
-   "expect": 1,
-   "note": "unsupported-claim: no report read supports the removed phrase"
   },
   {
    "id": "DATA-oob-union-cavalry-artillery-U-5MI-CAV",

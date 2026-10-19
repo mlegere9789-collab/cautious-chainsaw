@@ -4,7 +4,8 @@
   "B": 20261020,
   "C": 20261021,
   "D": 20261022,
-  "E": 20261023
+  "E": 20261023,
+  "F": 20261024
  },
  "A": {
   "before": {
@@ -1201,6 +1202,212 @@
   "errors": [
    "oob-text:union_oob_brigades|file|notes|All 49 Union infantry br",
    "position-note:density_day2_culpshill_overnight|C-II-2-3|380"
+  ]
+ },
+ "F": {
+  "all": {
+   "n": 148,
+   "err": 8,
+   "C": 122,
+   "I": 8,
+   "L": 18,
+   "R": 0,
+   "U": 2,
+   "rate": 0.05405405405405406,
+   "lo": 0.027641133409649507,
+   "hi": 0.10303188373453236
+  },
+  "changedByData": {
+   "n": 103,
+   "err": 3,
+   "C": 85,
+   "I": 3,
+   "L": 15,
+   "R": 0,
+   "U": 0,
+   "rate": 0.02912621359223301,
+   "lo": 0.009954187460887338,
+   "hi": 0.08215974568874726
+  },
+  "untouchedByData": {
+   "n": 45,
+   "err": 5,
+   "C": 37,
+   "I": 5,
+   "L": 3,
+   "R": 0,
+   "U": 2,
+   "rate": 0.1111111111111111,
+   "lo": 0.04840400437825558,
+   "hi": 0.23499375490890945
+  },
+  "byCat": {
+   "oob-commander": {
+    "n": 10,
+    "err": 1,
+    "C": 9,
+    "I": 1,
+    "L": 0,
+    "R": 0,
+    "U": 0,
+    "rate": 0.1,
+    "lo": 0.01787574951572113,
+    "hi": 0.4041563854975721
+   },
+   "oob-casualties": {
+    "n": 12,
+    "err": 0,
+    "C": 10,
+    "I": 0,
+    "L": 2,
+    "R": 0,
+    "U": 0,
+    "rate": 0,
+    "lo": 0,
+    "hi": 0.2425007574992425
+   },
+   "oob-keyaction": {
+    "n": 5,
+    "err": 0,
+    "C": 4,
+    "I": 0,
+    "L": 1,
+    "R": 0,
+    "U": 1,
+    "rate": 0,
+    "lo": 0,
+    "hi": 0.43449149475208104
+   },
+   "oob-brigade": {
+    "n": 8,
+    "err": 0,
+    "C": 8,
+    "I": 0,
+    "L": 0,
+    "R": 0,
+    "U": 0,
+    "rate": 0,
+    "lo": 0,
+    "hi": 0.3244156195108769
+   },
+   "oob-battery-cav": {
+    "n": 6,
+    "err": 0,
+    "C": 6,
+    "I": 0,
+    "L": 0,
+    "R": 0,
+    "U": 0,
+    "rate": 0,
+    "lo": 0,
+    "hi": 0.3903430336530645
+   },
+   "succession": {
+    "n": 6,
+    "err": 1,
+    "C": 5,
+    "I": 1,
+    "L": 0,
+    "R": 0,
+    "U": 0,
+    "rate": 0.16666666666666666,
+    "lo": 0.03005258587173032,
+    "hi": 0.563509436563646
+   },
+   "chronology": {
+    "n": 14,
+    "err": 0,
+    "C": 10,
+    "I": 0,
+    "L": 4,
+    "R": 0,
+    "U": 0,
+    "rate": 0,
+    "lo": 0,
+    "hi": 0.21531701192718142
+   },
+   "vignette": {
+    "n": 8,
+    "err": 0,
+    "C": 8,
+    "I": 0,
+    "L": 0,
+    "R": 0,
+    "U": 0,
+    "rate": 0,
+    "lo": 0,
+    "hi": 0.3244156195108769
+   },
+   "terrain": {
+    "n": 8,
+    "err": 0,
+    "C": 7,
+    "I": 0,
+    "L": 1,
+    "R": 0,
+    "U": 0,
+    "rate": 0,
+    "lo": 0,
+    "hi": 0.3244156195108769
+   },
+   "position-note": {
+    "n": 25,
+    "err": 1,
+    "C": 23,
+    "I": 1,
+    "L": 1,
+    "R": 0,
+    "U": 1,
+    "rate": 0.04,
+    "lo": 0.007096050386699165,
+    "hi": 0.19544472405022525
+   },
+   "marker-tour-popup": {
+    "n": 10,
+    "err": 1,
+    "C": 8,
+    "I": 1,
+    "L": 1,
+    "R": 0,
+    "U": 0,
+    "rate": 0.1,
+    "lo": 0.01787574951572113,
+    "hi": 0.4041563854975721
+   },
+   "page-figure": {
+    "n": 6,
+    "err": 0,
+    "C": 6,
+    "I": 0,
+    "L": 0,
+    "R": 0,
+    "U": 0,
+    "rate": 0,
+    "lo": 0,
+    "hi": 0.3903430336530645
+   },
+   "casualty-file": {
+    "n": 8,
+    "err": 0,
+    "C": 4,
+    "I": 0,
+    "L": 4,
+    "R": 0,
+    "U": 0,
+    "rate": 0,
+    "lo": 0,
+    "hi": 0.3244156195108769
+   }
+  },
+  "errors": [
+   "oob-commander:U-13NJ",
+   "oob-text:union_oob_brigades|U-V-2-3|fate|KIA July 2 -- shot on Li",
+   "oob-text:confederate_artillery|C-ART-Rice-B|key_action|Heth's division artiller",
+   "oob-text:confederate_artillery|C-ART-Carpenter|key_action|Oak Hill July 1 -- flank",
+   "oob-text:confederate_artillery|C-ART-Wallace|key_action|Heth's division artiller",
+   "succession:CS-005",
+   "position-note:density_artillery_positions|C-ART-Carrington|49",
+   "marker-tour-popup:th:1"
   ]
  }
 }

@@ -448,6 +448,9 @@ suite.test('T0-DATA-16', 'the Confederate artillery file follows the Official Re
   const bat = {}; for (const b of bns) for (const y of b.batteries) bat[y.battery_id] = y;
   for (const id of ['C-ART-Dement', 'C-ART-Carpenter', 'C-ART-Raine', 'C-ART-Carrington']) if (/Oak Hill July 1 (bombardment|--)/.test(bat[id]?.key_action || 'x')) bad.push(`${id} still on Oak Hill July 1`);
   if (/Survived/.test(JSON.stringify(bat['C-ART-Brown-J']?.commander))) bad.push('Captain Brown (Chesapeake Artillery) still shown as surviving');
+  if (/Colonel Willis Dance/.test(JSON.stringify(bns.map((b) => b.commander)))) bad.push('Dance is shown as a colonel; the roster has Capt. Willis J. Dance');
+  if (!/Powhatan/.test(bat['C-ART-Cunningham']?.designation || '') || !/Lieutenant John M. Cunningham/.test(JSON.stringify(bat['C-ART-Cunningham']?.commander))) bad.push('the Powhatan Artillery is not under Lieut. John M. Cunningham');
+  if (/Cemetery Hill/.test(bat['C-ART-Watson']?.key_action || '')) bad.push('the battery of Watson is placed on Cemetery Hill; Dance puts it by the railroad cut and the Fairfield road');
   assertEq(bad, [], 'artillery organisation');
 });
 

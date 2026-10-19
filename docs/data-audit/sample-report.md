@@ -17,24 +17,27 @@ Rate = incorrect or unsupported claims over claims that could be checked; unveri
 | E, DATA build (fresh claims, before the fixes it triggered) | 2/141 = 1.4% (Wilson 95% 0.4%-5.0%); C 134, I 2, L 5, R 0, U 9 |
 | E, claims DATA changed | 1/95 = 1.1% (Wilson 95% 0.2%-5.7%); C 89, I 1, L 5, R 0, U 3 |
 | E, claims DATA left untouched | 1/46 = 2.2% (Wilson 95% 0.4%-11.3%); C 45, I 1, L 0, R 0, U 6 |
+| F, DATA build (fresh claims, before the fixes it triggered) | 8/148 = 5.4% (Wilson 95% 2.8%-10.3%); C 122, I 8, L 18, R 0, U 2 |
+| F, claims DATA changed | 3/103 = 2.9% (Wilson 95% 1.0%-8.2%); C 85, I 3, L 15, R 0, U 0 |
+| F, claims DATA left untouched | 5/45 = 11.1% (Wilson 95% 4.8%-23.5%); C 37, I 5, L 3, R 0, U 2 |
 | B, claims DATA changed | 2/93 = 2.2% (Wilson 95% 0.6%-7.5%); C 90, I 2, L 1, R 0, U 1 |
 | B, claims DATA left untouched | 4/50 = 8.0% (Wilson 95% 3.2%-18.8%); C 45, I 4, L 1, R 0, U 6 |
 
-| Category | A before | A after | B | C | D | E |
-|---|---|---|---|---|---|---|
-| oob-commander | 2/15 | 0/15 | 0/14 | 0/15 | 0/10 | 0/10 |
-| oob-casualties | 10/15 | 0/15 | 0/14 | 1/15 | 0/12 | 0/12 |
-| oob-keyaction | 2/8 | 0/8 | 0/6 | 2/8 | 0/6 | 0/6 |
-| oob-brigade | 6/8 | 0/8 | 0/8 | 3/8 | 0/8 | 0/8 |
-| oob-battery-cav | 5/7 | 0/7 | 0/7 | 0/4 | 0/4 | 0/2 |
-| succession | 3/8 | 0/8 | 0/8 | 0/8 | 0/6 | 0/6 |
-| chronology | 12/20 | 0/20 | 0/20 | 2/20 | 0/14 | 0/14 |
-| vignette | 9/10 | 0/10 | 0/10 | 0/10 | 0/8 | 0/8 |
-| terrain | 1/7 | 0/7 | 1/7 | 1/6 | 2/8 | 0/8 |
-| position-note | 9/20 | 0/20 | 4/24 | 5/23 | 5/24 | 1/25 |
-| marker-tour-popup | 8/10 | 0/10 | 0/10 | 3/10 | 3/10 | 0/10 |
-| page-figure | 2/7 | 0/7 | 1/8 | 0/7 | 0/6 | 0/4 |
-| casualty-file | 6/7 | 0/7 | 0/7 | 0/7 | 2/7 | 0/7 |
+| Category | A before | A after | B | C | D | E | F |
+|---|---|---|---|---|---|---|---|
+| oob-commander | 2/15 | 0/15 | 0/14 | 0/15 | 0/10 | 0/10 | 1/10 |
+| oob-casualties | 10/15 | 0/15 | 0/14 | 1/15 | 0/12 | 0/12 | 0/12 |
+| oob-keyaction | 2/8 | 0/8 | 0/6 | 2/8 | 0/6 | 0/6 | 0/5 |
+| oob-brigade | 6/8 | 0/8 | 0/8 | 3/8 | 0/8 | 0/8 | 0/8 |
+| oob-battery-cav | 5/7 | 0/7 | 0/7 | 0/4 | 0/4 | 0/2 | 0/6 |
+| succession | 3/8 | 0/8 | 0/8 | 0/8 | 0/6 | 0/6 | 1/6 |
+| chronology | 12/20 | 0/20 | 0/20 | 2/20 | 0/14 | 0/14 | 0/14 |
+| vignette | 9/10 | 0/10 | 0/10 | 0/10 | 0/8 | 0/8 | 0/8 |
+| terrain | 1/7 | 0/7 | 1/7 | 1/6 | 2/8 | 0/8 | 0/8 |
+| position-note | 9/20 | 0/20 | 4/24 | 5/23 | 5/24 | 1/25 | 1/25 |
+| marker-tour-popup | 8/10 | 0/10 | 0/10 | 3/10 | 3/10 | 0/10 | 1/10 |
+| page-figure | 2/7 | 0/7 | 1/8 | 0/7 | 0/6 | 0/4 | 0/6 |
+| casualty-file | 6/7 | 0/7 | 0/7 | 0/7 | 2/7 | 0/7 | 0/8 |
 
 Regressions in A (right before, wrong after): none.
 Wrong claims DATA left wrong in A: none.
@@ -42,3 +45,4 @@ Errors found in B: terrain:LOC-003, position-note:density_day3_morning|C-I-1|465
 Errors found in C: oob-casualties:U-107NY, oob-keyaction:U-124NY, oob-keyaction:U-28MA, oob-brigade:U-I-3, oob-brigade:U-I-2-1, oob-brigade:U-VI-3, chronology:d2t298, chronology:d2t271, terrain:TF-003, position-note:placements_day2_ticks301_375|U-XII-2-3|315, position-note:placements_day2_ticks301_375|C-I-3-1|360, position-note:density_day2_culpshill_overnight|U-ART-XII-CORPS|440, position-note:placements_day3_ticks521_600|C-I-3-1|549, position-note:density_day3_culpshill|U-2MA|460, marker-tour-popup:th:6, marker-tour-popup:th:11, marker-tour-popup:mA:mon_20nc.
 Errors found in D: terrain:STR-007, terrain:LOC-003, position-note:density_day2_cemhill|U-I-2-2|325, position-note:density_day2_wheatfield|C-8AL|305, position-note:placements_day2_ticks226_300|U-II-1-4|290, position-note:density_day2_wright|U-II-2-2|312, position-note:density_day3_aftermath|C-40VA|620, marker-tour-popup:th:15, marker-tour-popup:th:14, marker-tour-popup:th:16, casualty-file:note-most_compressed_union, casualty-file:union_corps|U-XI.
 Errors found in E: oob-text:union_oob_brigades|file|notes|All 49 Union infantry br, position-note:density_day2_culpshill_overnight|C-II-2-3|380.
+Errors found in F: oob-commander:U-13NJ, oob-text:union_oob_brigades|U-V-2-3|fate|KIA July 2 -- shot on Li, oob-text:confederate_artillery|C-ART-Rice-B|key_action|Heth's division artiller, oob-text:confederate_artillery|C-ART-Carpenter|key_action|Oak Hill July 1 -- flank, oob-text:confederate_artillery|C-ART-Wallace|key_action|Heth's division artiller, succession:CS-005, position-note:density_artillery_positions|C-ART-Carrington|49, marker-tour-popup:th:1.

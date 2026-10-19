@@ -12,6 +12,7 @@
 // Text patches on the battalion headers (kind 'text'); the battery records are in fixes/oobartorg2.mjs.
 export const kind = 'text';
 const OR2 = 'OR 27/2';
+const NL = String.fromCharCode(10);
 const SRC = `${OR2} pp.286-290 (roster of the artillery), p.607 (Hill)`;
 const T = (id, find, repl, cls, before, src = SRC) => ({ id: 'DATA-artorg-' + id, target: 'data/oob/confederate_artillery.json', find, repl, expect: 1, cls, before, src });
 export default [
@@ -25,6 +26,7 @@ export default [
     '"designation": "Carter\'s Battalion (Rodes\'s Division Artillery); Carrington\'s battery belonged to Jones\'s Battalion (Early\'s Division)",\n        "commander": {"name": "Lieutenant Colonel Thomas Carter", "fate": "Survived"},',
     'wrong-name', 'Carter\'s battery, Fry\'s and Page\'s (Rodes\'s artillery under Lieut. Col. T. H. Carter) filed as "Jones\'s Battalion (Rodes\'s Division)"; Jones\'s battalion was Early\'s (p.286)'),
   T('alexander', '"fate": "Survived -- lost arm later in war"', '"fate": "Survived"', 'wrong-claim', 'Colonel E. P. Alexander shown as having lost an arm later in the war (he did not; the arm was lost by Colonel Oates of the 15th Alabama)', `${OR2} p.352 (Pendleton); not an Official Records statement`),
+  T('dance', `"designation": "Dance's Battalion",${NL}        "commander": {"name": "Colonel Willis Dance", "fate": "Survived"},`, `"designation": "Dance's Battalion (First Virginia Artillery, Second Corps Artillery Reserve)",${NL}        "commander": {"name": "Captain Willis J. Dance", "fate": "Survived"},`, 'wrong-name', "Dance's battalion shown under 'Colonel Willis Dance'; the roster has Capt. Willis J. Dance commanding the First Virginia Artillery of the Reserve under Col. J. Thompson Brown", `${OR2} p.288 (roster), p.604 (Dance)`),
   T('latimer2', '"designation": "Latimer\'s Battalion (Johnson\'s Division Artillery)",\n        "commander": {\n          "name": "Major Joseph Latimer",',
     '"designation": "Batteries filed under Latimer\'s battalion that the roster places elsewhere or does not name (see each record)",\n        "commander": {\n          "name": "No commander of record: not a battalion of the roster (the note below is about Latimer\'s battalion, C-ART-II-1)",',
     'duplicate-record', 'a second "Latimer\'s Battalion" holding Doll\'s, Garber\'s, Tanner\'s and a duplicate Brown\'s'),
