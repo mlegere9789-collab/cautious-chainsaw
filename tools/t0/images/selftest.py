@@ -5,7 +5,7 @@
 
  1  the wrapper refuses to write into release/<train>
  2  build with IMG twice: identical tree digest (deterministic), every IMG anchor matched exactly once, and the spec passes on the result
- 3  build without IMG (the control) through the wrapper: the tree has the generic files again and the spec's feature tests fail (red-first on a real build)
+ 3  build without IMG (the control) through the wrapper: the tree has the generic files again and the spec's feature tests fail (red-first on a real build); 3b the control equals the stock build.py tree
  4  a mutated page anchor in IMG.json stops the build (exit 2) and names the patch id; nothing is shipped
  5  a mutated manifest anchor in IMG-overlay.json stops the wrapper with a message naming the row
  6  mutants of a good tree, each must turn exactly the intended spec test red:
@@ -78,6 +78,9 @@ def main():
     r, failed = spec(os.path.join(c, 'dist'), '--no-browser', '--expect-red')
     red = [ln for ln in r.stdout.splitlines() if ln.startswith('red-first')]
     check('3 control build (--without-img) is red-first', rc.returncode == 0 and r.returncode == 0 and bool(red), red[-1] if red else (r.stdout + r.stderr)[-200:])
+    stock = os.path.join(OUT, 'stock')
+    rs = run([sys.executable, os.path.join(REPO, 'tools', 't0', 'build.py'), '--train', 'R1c', '--out', os.path.relpath(stock, REPO), '--no-gate'])
+    check('3b control build equals the stock build.py tree (the wrapper adds nothing of its own)', rs.returncode == 0 and tree_digest(os.path.join(stock, 'dist')) == tree_digest(os.path.join(c, 'dist')), tree_digest(os.path.join(c, 'dist'))[:16])
     # 4
     img = json.load(open(os.path.join(REPO, 'tools', 't0', 'patches-next', 'IMG.json'), encoding='utf-8'))
     img['patches'][0]['find'] = img['patches'][0]['find'].replace('og:image', 'og:imagX')

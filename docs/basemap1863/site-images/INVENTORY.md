@@ -23,7 +23,7 @@ Measured on 2026-10-19 with `python tools/t0/images/inventory.py --dist <tree>`;
 | inline `<svg>` elements (UI glyph uses and one chart) | 5 | 6 | 6 |
 | PDF pictures (`user-guide.pdf`) | 0 | 0 | 0 |
 
-Production's social image problem, confirmed with a byte-level decoder and with Pillow: all 21 pages that name an og:image point at `screenshots/day3.png`, and that file (like `day1.png`) is corrupt (pixel data 3,687,120 bytes where the header needs 2,765,520; Pillow: "unrecognized data stream contents"). R1c already replaced the file by a valid generated card (`og/card-r1.png`), which is valid but is not an image of Gettysburg.
+Production's social image problem, confirmed with a byte-level decoder and with Pillow: all 21 pages that name an og:image point at `screenshots/day3.png`, and that file (like `day1.png`) is corrupt: its header declares an 8-bit RGB image but the pixel data is RGBA-sized (3,687,120 bytes = 720 x (1 + 1280 x 4); an RGB header needs 2,765,520). Pillow and a strict decoder refuse it ("unrecognized data stream contents"); Chrome accepts it and paints a flat grey rectangle with a green line (`evidence/prod-day3-in-chrome.png`), so a link preview shows nothing recognisable. R1c already replaced the file by a valid generated card (`og/card-r1.png`), which is valid but is not an image of Gettysburg.
 
 ## 2. File by file (what each served image was, and what happened)
 
@@ -72,7 +72,7 @@ Eleven derivative files of five public-domain 1863 photographs (Library of Congr
 
 | # | Check | Result |
 |---|---|---|
-| 1 | Byte-level decode of every image file and every referenced image (PNG chunk CRCs and pixel size, JPEG markers and EOI, ICO entries, SVG) + HTTP 200 and image content type through a Netlify-like server | T0-RIMG-01 pass; fails on `baseline/dist` for the two corrupt screenshots |
+| 1 | Byte-level decode of every image file and every referenced image (PNG chunk CRCs and pixel size, JPEG markers and EOI, ICO entries, SVG) + HTTP 200 and image content type through a Netlify-like server | T0-RIMG-01 pass; fails on `baseline/dist` for the two corrupt screenshots (T0-RIMG-02, Chrome, is lenient about them: it decodes the file and paints it grey) |
 | 2 | Real Chrome decodes all 12 image files (`img.decode`, natural size equals the byte size) | T0-RIMG-02 pass |
 | 3 | Source records re-read at the institutions: Met API (isPublicDomain true, title, artist, 1863, accession, primaryImage = our file), LoC item JSON (date 1863 July, rights "No known restrictions on publication.", plate 39) with LoC's own service image correlated with our master, Commons NARA template and sha1 | `verification.json` (see section 7 for its state) |
 | 4 | Pixel provenance: `build_images.py --check` rebuilds every derivative and the ledger from the sha256-pinned sources and compares bytes | T0-RIMG-11 pass |
