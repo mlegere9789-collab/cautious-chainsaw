@@ -23,8 +23,8 @@ export default [
     'Armistead fell here at Cushing\'s guns about 3:35 PM July 3 and was left mortally wounded within the Union lines (Harrow). Later accounts say he asked that a message and keepsake go to Hancock; that is tradition',
     'unsupported-claim', 'anecdote as fact; 3:15 PM', 'OR 27/1 p.428 (Harrow); time-facts R115'),
   L('hancock', 'Hancock wounded here at 3:20 PM July 3 — nail driven into his thigh. Refused to leave until victory certain.',
-    'Hancock wounded here about 3:30 PM July 3 (Meade reports Hancock and Gibbon both severely wounded); the saddle-nail wound and his refusal to leave are from later accounts',
-    'unsupported-claim', '3:20 PM and anecdote as fact', 'OR 27/1 p.117 (Meade)'),
+    'Hancock wounded here about 3:30 PM July 3 (Meade reports Hancock and Gibbon both severely wounded). His own dispatch says he was shot with a tenpenny nail and did not leave the field until the victory was secure',
+    'wrong-time', '3:20 PM', "OR 27/1 p.366 (Hancock's dispatch of July 3: 'I was shot with a tenpenny nail. I did not leave the field till the victory was entirely secured'), p.117 (Meade); time-facts R115"),
   L('140pa', '140th PA — Part of Vincent brigade that raced up Little Round Top just ahead of Law.',
     '140th PA — Zook\'s brigade, II Corps; fought in the Wheatfield on July 2, where its colonel, Richard P. Roberts, was killed',
     'wrong-unit', 'text described the 140th New York on Little Round Top', 'OR 27/1 p.157 (roster: 140th Pennsylvania in Zook\'s Third Brigade), p.375 (Roberts killed on the 2d)'),
@@ -43,7 +43,7 @@ export default [
   L('26nc', '26th NC — Lost 714 of 800 men on July 1 — highest regimental casualties in the battle on either side.',
     '26th NC — Fox: over 800 men engaged (820 present), 86 killed and 502 wounded, 588 in all (71.7 percent), most on July 1 with further loss on July 3; among the heaviest regimental losses of the battle',
     'wrong-number', '714 of 800; "highest ... on either side" as fact', 'Fox p.555-556; ledger WSD-13'),
-  L('16vt', '16th Vermont — Made two separate flanking charges during Pickett\'s Charge. First day of combat.',
+  L('16vt', '16th Vermont — Made two separate flanking charges during Picketts Charge. First day of combat.',
     '16th Vermont — Under Stannard\'s orders changed front twice against the flanks of the Confederate columns during Pickett\'s Charge, taking the colors of the 2nd Florida and 8th Virginia. First day of combat.',
     'unsupported-detail', 'no source for the flanking charges', 'OR 27/1 p.350 (Stannard)'),
   L('20nc', 'Iverson\'s Pits — 20th NC advanced without skirmishers into an ambush. 232 surrendered in the wheat field.',
@@ -64,4 +64,4 @@ export default [
   L('greene', 'Greene\'s NY brigade — 1,400 men held Culp\'s Hill overnight against 4,700 Confederates.',
     'Greene\'s NY brigade — 1,424 men by Geary\'s count, reinforced in the evening by detachments of the I and XI Corps, held the entrenched Culp\'s Hill against Johnson\'s division',
     'wrong-number', '4,700 Confederates (no source)', 'OR 27/1 p.121, p.833, p.858'),
-];
+].map((e) => (e.id === 'DATA-mA-16vt' ? { ...e, regex: true, find: e.find.replace('Picketts', "Pickett'?s").replace('combat.', 'combat\.').replace('Charge.', 'Charge\.') } : e));

@@ -114,8 +114,14 @@ for (const p of patches) { if (ids.has(p.id)) errors.push('duplicate patch id ' 
 
 // replay on baseline for data-file and html targets (bundle targets cannot be replayed here: the build asserts them)
 const cur = {};
+const BUNDLE = { js: 'assets/index-Cg8FAMXN.js', help: 'assets/HelpModal-CFV9T0zH.js', book: 'assets/BookmarkPanel-C5YT4b5k.js', css: 'assets/index-B4G7Z_2G.css' };
 for (const p of patches) {
-  if (['js', 'help', 'book', 'css'].includes(p.target)) continue;
+  if (BUNDLE[p.target]) {                      // bundle targets: the build asserts them on the patched text; here they are checked on the BASELINE text (these anchors lie in text no earlier group changes)
+    const bt = (cur['@' + p.target] ??= rd(path.join(BASE, BUNDLE[p.target])));
+    const n = p.regex ? (bt.match(new RegExp(p.find, 'g')) || []).length : bt.split(p.find).length - 1;
+    if (n !== p.expect) errors.push(`${p.id}: bundle anchor occurs ${n}x in the baseline ${p.target} text, expected ${p.expect}`);
+    continue;
+  }
   const fp = path.join(BASE, p.target);
   if (!fs.existsSync(fp)) { errors.push(`${p.id}: target ${p.target} not in baseline/dist`); continue; }
   let t = cur[p.target] ??= rd(fp);

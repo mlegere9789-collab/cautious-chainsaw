@@ -42,6 +42,35 @@ def stage_patches(dest, groups):
         shutil.copyfile(nxt, os.path.join(dest, g + '.json'))
 
 
+def run_gate(train, out, groups):
+    """The builder's gate, run here so that the one row DATA changes on purpose can be judged: `data-untouched` (no served data file of the baseline may change)
+    must fail on exactly the files DATA patches (the data/* targets of DATA.json) and on nothing else; every other row must pass.  Returns 0 or 3."""
+    import json
+    import subprocess
+    gate = ['node', os.path.join(T0, 'gate.mjs'), '--train', train, '--dist', os.path.join(out, 'dist'), '--anchors', os.path.join(out, 'anchors.json'),
+            '--out', os.path.join(out, 'gate.json'), '--legacy', os.path.join(REPO, 'baseline', 'dist'), '--ledger', os.path.join(REPO, 'ops', 'used-names.txt')]
+    subprocess.run(gate, cwd=REPO)
+    g = json.load(open(os.path.join(out, 'gate.json'), encoding='utf-8'))
+    allowed = set()
+    if 'DATA' in groups:
+        for base in (os.path.join(T0, 'patches', 'DATA.json'), os.path.join(T0, 'patches-next', 'DATA.json')):
+            if os.path.isfile(base):
+                for p in json.load(open(base, encoding='utf-8'))['patches']:
+                    if p['target'].startswith('data/'):
+                        allowed.add(p['target'])
+                break
+    bad = []
+    for c in g['checks']:
+        if c['ok']:
+            continue
+        if c['id'] == 'data-untouched' and not c.get('removed') and set(c.get('modified', [])) <= allowed and 'DATA' in groups:
+            print('gate: data-untouched differs on %d files, all of them data/* files patched by DATA (expected: owner decision 2026-10-05, item 3)' % len(c.get('modified', [])))
+            continue
+        bad.append(c['id'])
+    print('gate: %s' % ('every other row PASS' if not bad else 'FAILED rows: ' + ' '.join(bad)))
+    return 0 if not bad else 3
+
+
 def main(argv=None):
     for st in (sys.stdout, sys.stderr):
         try:
@@ -66,7 +95,7 @@ def main(argv=None):
     cfg['optional_groups'] = list(cfg.get('optional_groups', [])) + [g for g in groups if g not in reg]
     scratch = os.path.join(os.path.dirname(out_abs), '_data-patches-' + os.path.basename(out_abs))
     stage_patches(scratch, groups)
-    ns = argparse.Namespace(train=a.train, all=False, out=a.out, with_groups=groups, record=False, no_gate=a.no_gate,
+    ns = argparse.Namespace(train=a.train, all=False, out=a.out, with_groups=groups, record=False, no_gate=True,
                             keep_failed=True, order='fixed', dump_stage=None, legacy=None, base_dir=None, base_lock=None, patches=scratch, overlay=None,
                             ledger=None, config_hook=None)
     try:
@@ -77,8 +106,11 @@ def main(argv=None):
     except B.BuildError as e:
         print('BUILD FAILED:', e)
         return 2
-    print('OK: %s=%s (groups: %s)' % (r['train'], r['rid'], ','.join(groups) or 'none'))
-    return 0
+    rc = 0
+    if not a.no_gate:
+        rc = run_gate(a.train, r['out'], groups)
+    print('%s: %s=%s (groups: %s)' % ('OK' if rc == 0 else 'GATE FAILED', r['train'], r['rid'], ','.join(groups) or 'none'))
+    return rc
 
 
 if __name__ == '__main__':
