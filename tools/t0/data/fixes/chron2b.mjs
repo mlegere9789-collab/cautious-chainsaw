@@ -1,0 +1,26 @@
+// DATA fixes, chronology_day2.json, events the first passes left in the original wording (found by the full read of the 134 events after sample D): drama ("Critical moment",
+// "Heroic withdrawal"), a superlative ("farthest Confederate penetration"), an opinion ("controversial withdrawal"), a quotation and an internal id ("CS-014 activates").
+export const file = 'chronology_day2.json';
+export default [
+  { tick: 270, cls: 'unsupported-detail', before: '"Hazlett drags guns up the steep rocky slope"',
+    set: { event: "Vincent is mortally wounded on Little Round Top and Rice takes the brigade. Weed's brigade arrives on the summit with Hazlett's battery and O'Rorke's 140th New York.", flag: null },
+    src: 'OR 27/1 p.617 (Rice: Vincent fell mortally wounded), p.651 (Weed\'s brigade)' },
+  { tick: 273, cls: 'unsupported-claim', before: '"brief near-break ... Critical moment"',
+    set: { event: "An attack on the extreme right of Vincent's brigade forces back part of the 16th Michigan, which is broken and thrown into confusion; supported by the 140th New York, the line becomes firm again.", flag: null },
+    src: 'OR 27/1 p.617 (Rice)' },
+  { tick: 293, cls: 'unsupported-claim', before: '"reaches the farthest Confederate penetration toward Cemetery Ridge. Tilton\'s controversial withdrawal exposed the Union flank"',
+    set: { event: "Wofford's Georgia brigade advances through the Wheatfield as Caldwell's division falls back.", flag: null },
+    src: 'no report read ranks the penetration or gives Tilton\'s withdrawal as the cause' },
+  { tick: 299, cls: 'unsupported-claim', before: '"emergency artillery line"; "ordered to hold without support"',
+    set: { event: "McGilvery assembles batteries along the Plum Run -- Bigelow, Phillips, Hart and others -- to cover the ground the III Corps has given up, and orders Bigelow to hold his position as long as possible at all hazards, to give him time to form a new line.", flag: null },
+    src: 'OR 27/1 p.882 (McGilvery)' },
+  { tick: 300, cls: 'unsupported-claim', before: '"Heroic withdrawal saves McGilvery\'s line"',
+    set: { event: "Bigelow's 9th Massachusetts battery retires by prolonge, firing canister, after holding as ordered; McGilvery says it, with Phillips's and Thompson's batteries, checked the enemy for a short time, and that more than half Bigelow's men were killed or wounded and his horses shot down.", flag: null },
+    src: 'OR 27/1 p.882 (McGilvery)' },
+  { tick: 304, cls: 'unsupported-claim', before: '"Reinforcements close the gap"; "driven back without support"',
+    set: { event: "Wilcox's advance is halted. Wright's Georgia brigade, Lee reports, gains the crest of Cemetery Ridge and, attacked in front and on both flanks, is compelled to retire.", flag: null },
+    src: 'OR 27/2 p.320 (Lee)' },
+  { tick: 328, cls: 'unsupported-quote', before: 'a quotation stated as fact; an internal id ("Commander succession CS-014 activates")',
+    set: { event: "Avery is mortally wounded on the slope of Cemetery Hill and Colonel Godwin takes the brigade.", narrative: "The note attributed to Avery ('Tell my father I died with my face to the enemy') comes from later accounts, not the Official Records.", flag: null },
+    src: 'OR 27/2 p.286 (roster: Col. Isaac E. Avery, Col. A. C. Godwin); the note is a later account' },
+];

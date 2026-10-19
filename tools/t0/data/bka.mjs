@@ -38,7 +38,7 @@ export const U = {
   'U-CAV-1-1': "McPherson's Ridge, July 1 morning -- dismounted defense before the I Corps came up (Buford).",
   'U-CAV-1-2': "July 1 -- Devin's brigade screened the approaches north of the town.",
   'U-CAV-2-1': "East Cavalry Field, July 3 -- McIntosh's brigade fought Stuart's cavalry (Gregg).",
-  'U-CAV-2-3': "East Cavalry Field, July 3 -- Custer's Michigan regiments charged Hampton's column (Custer).",
+  'U-CAV-2-3': "East Cavalry Field, July 3 -- the Michigan regiments charged Hampton's column (Pleasonton, OR 27/1 p.916).",
   'U-CAV-3-1': "Farnsworth's brigade charged the Confederate right south of the Round Tops on July 3 at Kilpatrick's order; Farnsworth was killed (Kilpatrick).",
 };
 export const C = {

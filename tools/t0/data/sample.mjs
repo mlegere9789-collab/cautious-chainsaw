@@ -40,6 +40,19 @@ for (const r of cc.regiments) add('oob-battery-cav', r.regiment_id, `${r.designa
 const ca = OOB('confederate_artillery.json');
 for (const k of ['first_corps_artillery', 'second_corps_artillery', 'third_corps_artillery']) for (const bn of ca[k].battalions) for (const b of bn.batteries) add('oob-battery-cav', b.battery_id, `${b.designation} (${b.battery_id}): ${b.casualties} casualties; commander ${b.commander && b.commander.name}; in ${bn.designation}`, 'oob/confederate_artillery.json');
 
+// ---- every key_action / notes / fate string of every order-of-battle file (regiments, batteries, brigades, divisions, corps, file notes): added from sample D on, after sample C
+// showed the brigade, division, corps, battery and cavalry text had never been in the pool
+const textWalk = (o, f, ctx) => {
+  if (Array.isArray(o)) { o.forEach((x) => textWalk(x, f, ctx)); return; }
+  if (!o || typeof o !== 'object') return;
+  const id = o.regiment_id || o.battery_id || o.brigade_id || o.division_id || o.corps_id || ctx;
+  for (const [k, v] of Object.entries(o)) {
+    if (typeof v === 'string' && /^(key_action|notes|fate)$/.test(k) && v.length > 25 && !/^Survived/.test(v)) add('oob-text', `${f}|${id || 'file'}|${k}|${v.slice(0, 24)}`, `${id || f} [${k}]: ${v}`, `oob/${f}.json`);
+    else if (v && typeof v === 'object') textWalk(v, f, id);
+  }
+};
+for (const f of fs.readdirSync(path.join(D, 'oob')).filter((x) => /\.json$/.test(x) && !/commander_successions/.test(x))) textWalk(OOB(f), f.replace('.json', ''), '');
+
 // ---- successions
 const sc = OOB('commander_successions.json');
 for (const s of [...sc.union_successions, ...sc.confederate_successions]) add('succession', s.event_id, `${s.event_id} (${s.unit_id}): ${s.event}; ${s.from_commander} -> ${s.to_commander}; ${s.approx_time}; tick ${s.approx_tick}`, 'oob/commander_successions.json');
@@ -102,7 +115,7 @@ for (const [k, v] of Object.entries(ca2.notable_intensity_notes || {})) add('cas
 
 if (process.env.POOL_OUT) fs.writeFileSync(process.env.POOL_OUT, JSON.stringify(Object.values(pool).flat()));
 // ---- draw
-const QUOTA = { 'oob-commander': 15, 'oob-casualties': 15, 'oob-keyaction': 8, 'oob-brigade': 8, 'oob-battery-cav': 8, succession: 8, chronology: 20, vignette: 10, terrain: 8, 'position-note': 25, 'marker-tour-popup': 10, 'page-figure': 8, 'casualty-file': 7 };
+const QUOTA = { 'oob-commander': 10, 'oob-casualties': 12, 'oob-keyaction': 6, 'oob-brigade': 8, 'oob-battery-cav': 6, 'oob-text': 22, succession: 6, chronology: 14, vignette: 8, terrain: 8, 'position-note': 26, 'marker-tour-popup': 10, 'page-figure': 6, 'casualty-file': 8 };   // samples A to C used the quota of commit history (150 claims in 13 kinds, no oob-text)
 const N = Number((process.argv.find((a) => a === '--n') && process.argv[process.argv.indexOf('--n') + 1]) || 0) || Object.values(QUOTA).reduce((a, b) => a + b, 0);
 const rnd = mulberry32(seed);
 const out = [];

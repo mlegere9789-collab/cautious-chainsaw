@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { EXACT } from '../notes-rules.mjs';
+import { POST } from '../notes-rules-d.mjs';
 import { remapId, preArrival } from '../idmap.mjs';
 export const kind = 'text';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -14,6 +15,8 @@ const esc = (s) => { let o = ''; for (const ch of s) o += META.includes(ch) ? BS
 const LINE = new RegExp(String.raw`^\s*\{"unit_id":"([^"]+)","tick":(\d+),.*?"notes":"((?:[^"\\]|\\.)*)"`);
 const FLAG = new RegExp(String.raw`\d{1,2}:\d{2}|\b[ap]\.?m\b|\d{2,}|first|last|only|largest|highest|killed|wounded|will |reportedly|famous|never|died|dying|worst|destroyed|captured|surrender`, 'i');
 const out = [];
+const usedIds = new Map();
+const idOf = (f, unit, tick) => { const b = `DATA-note-${f.replace(/\.json$/, '').replace(/_/g, '-')}-${unit}-${tick}`; const n = usedIds.get(b) || 0; usedIds.set(b, n + 1); return n ? `${b}-${n + 1}` : b; };
 const uncovered = [];
 const seen = new Set();
 for (const f of fs.readdirSync(DATA).filter((x) => /^(placements_|density_).*\.json$/.test(x)).sort()) {
@@ -23,16 +26,19 @@ for (const f of fs.readdirSync(DATA).filter((x) => /^(placements_|density_).*\.j
     const [, unit, tick, rawNote] = m;
     const note = JSON.parse('"' + rawNote + '"');
     if (preArrival(unit, tick)) continue;   // the row is removed by fixes/prearrival.mjs
-    const r = EXACT.get(note);
-    if (!r) { if (FLAG.test(note)) uncovered.push(`${f} t${tick} ${unit} | ${note}`); continue; }
-    if (r.cls === 'keep' || r.repl === note) continue;
+    const r1 = EXACT.get(note);
+    const mid = r1 && r1.cls !== 'keep' ? r1.repl : note;
+    const r2 = POST.get(mid);                       // second pass: the notes as the first rules left them (notes-rules-d.mjs)
+    if (!r1 && !r2) { if (FLAG.test(note)) uncovered.push(`${f} t${tick} ${unit} | ${note}`); continue; }
+    const r = { repl: r2 ? r2.repl : mid, cls: r2 ? r2.cls : r1.cls, src: [r1 && r1.cls !== 'keep' ? r1.src : null, r2 ? r2.src : null].filter(Boolean).join('; ') };
+    if (r.repl === note) continue;
     const unit2 = remapId(f, unit, tick, note);   // fixes/ids.mjs runs first and has already corrected the id on this row
     const key = `${f}|${unit2}|${tick}|${note}`;
     if (seen.has(key)) continue;
     seen.add(key);
     const newRaw = JSON.stringify(r.repl).slice(1, -1);
     out.push({
-      id: `DATA-note-${f.replace(/\.json$/, '').replace(/_/g, '-')}-${unit}-${tick}`,
+      id: idOf(f, unit, tick),
       target: 'data/' + f, regex: true,
       find: `("unit_id":"${esc(unit2)}","tick":${tick},[^${BS}n]*?"notes":")${esc(rawNote)}"`,
       repl: BS + 'g<1>' + newRaw.split(BS).join(BS + BS) + '"',

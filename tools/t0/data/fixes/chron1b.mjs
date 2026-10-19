@@ -83,6 +83,7 @@ export default [
     src: 'OR 27/1 p.261 (Newton: "In obedience to an order ... dated July 1, I reported in person ... early in the morning of this day [July 2] and assumed command of the First Corps")' },
   { tick: 100, cls: 'wrong-claim', before: '"Meade arrives in person at ~11pm"',
     set: { event: "By nightfall the Union army holds Cemetery Hill and the ridge south of it, with its right bent back toward Culp's Hill (the fish-hook line). Meade, who broke up his Taneytown headquarters at 10 p.m. (his report; a later commentary says 11), reaches the field at 1 a.m. on July 2. The Confederates hold the town and Seminary Ridge.",
+           narrative: null,
            flag: null },
     src: 'OR 27/1 p.115 (Meade: "At 10 p. m. of the 1st, I broke up my headquarters ... arriving there at 1 a. m. of the 2d"); p.130 (commentary: 11 p. m.)' },
 ];

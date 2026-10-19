@@ -47,7 +47,7 @@ export default [
     '16th Vermont — Under Stannard\'s orders changed front twice against the flanks of the Confederate columns during Pickett\'s Charge, taking the colors of the 2nd Florida and 8th Virginia. First day of combat.',
     'unsupported-detail', 'no source for the flanking charges', 'OR 27/1 p.350 (Stannard)'),
   L('20nc', 'Iverson\'s Pits — 20th NC advanced without skirmishers into an ambush. 232 surrendered in the wheat field.',
-    'Iverson\'s brigade, Oak Ridge — the 20th NC, on the right of the brigade, suffered least when Iverson\'s attack was cut down by musketry from the stone wall; many of the brigade\'s men were surrounded and captured',
+    'Iverson\'s brigade, Oak Ridge — the 20th NC served in the brigade whose attack was cut down by musketry from the stone wall; many of the brigade\'s men were surrounded and captured',
     'wrong-claim', '232 surrendered "in the wheat field" (the 232 belongs to the Railroad Cut)', 'OR 27/2 p.444 (Ewell: "The Twentieth North Carolina, being on the right of his brigade, suffered least"), p.554 (Rodes)'),
   L('barlow', 'Barlow wounded here at 2:30 PM July 1. Gordon gave him water. They became friends after the war.',
     'Barlow severely wounded here about 3 PM July 1 and captured (Schurz, Ewell). The story that Gordon gave him water, and of their later friendship, is from Gordon\'s own account',

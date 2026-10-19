@@ -1,0 +1,939 @@
+{
+ "seed": 20261022,
+ "dist": "tmp/data-audit/data-R1c/dist",
+ "n": 150,
+ "poolSizes": {
+  "oob-commander": 407,
+  "oob-casualties": 392,
+  "oob-keyaction": 267,
+  "oob-brigade": 119,
+  "oob-battery-cav": 159,
+  "oob-text": 690,
+  "succession": 42,
+  "chronology": 131,
+  "vignette": 24,
+  "terrain": 50,
+  "position-note": 1220,
+  "marker-tour-popup": 38,
+  "page-figure": 18,
+  "casualty-file": 17
+ },
+ "quota": {
+  "oob-commander": 10,
+  "oob-casualties": 12,
+  "oob-keyaction": 6,
+  "oob-brigade": 8,
+  "oob-battery-cav": 6,
+  "oob-text": 22,
+  "succession": 6,
+  "chronology": 14,
+  "vignette": 8,
+  "terrain": 8,
+  "position-note": 26,
+  "marker-tour-popup": 10,
+  "page-figure": 6,
+  "casualty-file": 8
+ },
+ "claims": [
+  {
+   "id": "oob-commander:U-145PA",
+   "cat": "oob-commander",
+   "text": "145th Pennsylvania Volunteer Infantry (U-145PA): commander Colonel Hiram Brown -- Wounded July 2",
+   "where": "oob/union_regiments_i_ii_corps.json"
+  },
+  {
+   "id": "oob-commander:C-37VA",
+   "cat": "oob-commander",
+   "text": "37th Virginia Infantry (C-37VA): commander Major H. C. Wood",
+   "where": "oob/confederate_regiments_second_corps.json"
+  },
+  {
+   "id": "oob-commander:U-146NY",
+   "cat": "oob-commander",
+   "text": "146th New York Volunteer Infantry (Garrard's Zouaves) (U-146NY): commander Colonel Kenner Garrard -- Survived -- assumed brigade command when Weed killed",
+   "where": "oob/union_regiments_iii_v_corps.json"
+  },
+  {
+   "id": "oob-commander:C-6VA-M",
+   "cat": "oob-commander",
+   "text": "6th Virginia Infantry (Mahone's Brigade) (C-6VA-M): commander Colonel George Rogers -- Survived",
+   "where": "oob/confederate_regiments_third_corps.json"
+  },
+  {
+   "id": "oob-commander:C-21NC",
+   "cat": "oob-commander",
+   "text": "21st North Carolina Infantry (C-21NC): commander Colonel William Kirkland -- Survived",
+   "where": "oob/confederate_regiments_second_corps.json"
+  },
+  {
+   "id": "oob-commander:C-7NC",
+   "cat": "oob-commander",
+   "text": "7th North Carolina Infantry (C-7NC): commander Captain J. McLeod Turner",
+   "where": "oob/confederate_regiments_third_corps.json"
+  },
+  {
+   "id": "oob-commander:C-42VA",
+   "cat": "oob-commander",
+   "text": "42nd Virginia Infantry (C-42VA): commander Colonel Robert Withers -- Survived",
+   "where": "oob/confederate_regiments_second_corps.json"
+  },
+  {
+   "id": "oob-commander:U-3VT",
+   "cat": "oob-commander",
+   "text": "3rd Vermont Volunteer Infantry (U-3VT): commander Colonel Thomas O. Seaver",
+   "where": "oob/union_regiments_vi_xi_xii_corps.json"
+  },
+  {
+   "id": "oob-commander:C-7GA",
+   "cat": "oob-commander",
+   "text": "7th Georgia Infantry (C-7GA): commander Colonel William White -- Survived",
+   "where": "oob/confederate_regiments_first_corps.json"
+  },
+  {
+   "id": "oob-commander:C-7LA",
+   "cat": "oob-commander",
+   "text": "7th Louisiana Infantry (C-7LA): commander Colonel Davidson Penn -- Survived",
+   "where": "oob/confederate_regiments_second_corps.json"
+  },
+  {
+   "id": "oob-casualties:U-3MD",
+   "cat": "oob-casualties",
+   "text": "3rd Maryland Volunteer Infantry (U-3MD): 8 casualties (2.6% of 305)",
+   "where": "oob/union_regiments_vi_xi_xii_corps.json"
+  },
+  {
+   "id": "oob-casualties:U-110PA",
+   "cat": "oob-casualties",
+   "text": "110th Pennsylvania Volunteer Infantry (U-110PA): 53 casualties (34.9% of 152)",
+   "where": "oob/union_regiments_iii_v_corps.json"
+  },
+  {
+   "id": "oob-casualties:U-147PA",
+   "cat": "oob-casualties",
+   "text": "147th Pennsylvania Volunteer Infantry (U-147PA): 20 casualties (6.7% of 298)",
+   "where": "oob/union_regiments_vi_xi_xii_corps.json"
+  },
+  {
+   "id": "oob-casualties:C-7SC",
+   "cat": "oob-casualties",
+   "text": "7th South Carolina Infantry (C-7SC): 110 casualties (27% of 408)",
+   "where": "oob/confederate_regiments_first_corps.json"
+  },
+  {
+   "id": "oob-casualties:C-3GA",
+   "cat": "oob-casualties",
+   "text": "3rd Georgia Infantry (C-3GA): 146 casualties (42.9% of 340)",
+   "where": "oob/confederate_regiments_third_corps.json"
+  },
+  {
+   "id": "oob-casualties:C-1NC",
+   "cat": "oob-casualties",
+   "text": "1st North Carolina Infantry (C-1NC): 135 casualties (37.6% of 359)",
+   "where": "oob/confederate_regiments_second_corps.json"
+  },
+  {
+   "id": "oob-casualties:U-16MI",
+   "cat": "oob-casualties",
+   "text": "16th Michigan Volunteer Infantry (U-16MI): 60 casualties (22.8% of 263)",
+   "where": "oob/union_regiments_iii_v_corps.json"
+  },
+  {
+   "id": "oob-casualties:C-16GA",
+   "cat": "oob-casualties",
+   "text": "16th Georgia Infantry (C-16GA): 69 casualties",
+   "where": "oob/confederate_regiments_first_corps.json"
+  },
+  {
+   "id": "oob-casualties:C-3SC-B",
+   "cat": "oob-casualties",
+   "text": "3rd South Carolina Battalion (C-3SC-B): 46 casualties (22% of 209)",
+   "where": "oob/confederate_regiments_first_corps.json"
+  },
+  {
+   "id": "oob-casualties:U-7US",
+   "cat": "oob-casualties",
+   "text": "7th United States Infantry (U-7US): 59 casualties (38.8% of 152)",
+   "where": "oob/union_regiments_iii_v_corps.json"
+  },
+  {
+   "id": "oob-casualties:U-53PA",
+   "cat": "oob-casualties",
+   "text": "53rd Pennsylvania Volunteer Infantry (U-53PA): 80 casualties (59.3% of 135)",
+   "where": "oob/union_regiments_i_ii_corps.json"
+  },
+  {
+   "id": "oob-casualties:U-4MI",
+   "cat": "oob-casualties",
+   "text": "4th Michigan Volunteer Infantry (U-4MI): 165 casualties (48.2% of 342)",
+   "where": "oob/union_regiments_iii_v_corps.json"
+  },
+  {
+   "id": "oob-keyaction:C-5AL-H",
+   "cat": "oob-keyaction",
+   "text": "5th Alabama Battalion (Archer's Brigade) (C-5AL-H), key action: Archer's brigade -- battalion. 53.8% casualties.",
+   "where": "oob/confederate_regiments_third_corps.json"
+  },
+  {
+   "id": "oob-keyaction:U-28MA",
+   "cat": "oob-keyaction",
+   "text": "28th Massachusetts Volunteer Infantry (U-28MA), key action: Irish Brigade -- Wheatfield, July 2. Father Corby's general absolution before the advance is reported in later accounts, not in the Official Records.",
+   "where": "oob/union_regiments_i_ii_corps.json"
+  },
+  {
+   "id": "oob-keyaction:U-6NJ",
+   "cat": "oob-keyaction",
+   "text": "6th New Jersey Volunteer Infantry (U-6NJ), key action: Burling's brigade -- sent to support Ward's brigade (Humphreys, OR 27/1 p.534).",
+   "where": "oob/union_regiments_iii_v_corps.json"
+  },
+  {
+   "id": "oob-keyaction:U-27CT",
+   "cat": "oob-keyaction",
+   "text": "27th Connecticut Volunteer Infantry (U-27CT), key action: Brooke's brigade -- Wheatfield. Lieut. Col. Merwin killed.",
+   "where": "oob/union_regiments_i_ii_corps.json"
+  },
+  {
+   "id": "oob-keyaction:C-11MS",
+   "cat": "oob-keyaction",
+   "text": "11th Mississippi Infantry (C-11MS), key action: Davis's brigade -- Railroad Cut and July 3. Casualties: this file gives 342; the Official Records return prints 202 for the regiment. Contested.",
+   "where": "oob/confederate_regiments_third_corps.json"
+  },
+  {
+   "id": "oob-keyaction:C-30NC",
+   "cat": "oob-keyaction",
+   "text": "30th North Carolina Infantry (C-30NC), key action: Ramseur's brigade. Casualties: this file gives 74; the Official Records return prints 45 for the regiment. Contested.",
+   "where": "oob/confederate_regiments_second_corps.json"
+  },
+  {
+   "id": "oob-brigade:C-III-2-2",
+   "cat": "oob-brigade",
+   "text": "Brockenbrough's Brigade (C-III-2-2): commander Colonel John Brockenbrough; 148 casualties of 971",
+   "where": "oob/confederate_oob_corps_div_bde.json"
+  },
+  {
+   "id": "oob-brigade:U-II-1",
+   "cat": "oob-brigade",
+   "text": "First Division, Second Corps (U-II-1): commander Brigadier General John Caldwell; 1275 casualties of 3320",
+   "where": "oob division files"
+  },
+  {
+   "id": "oob-brigade:U-XI-2",
+   "cat": "oob-brigade",
+   "text": "Second Division, Eleventh Corps (U-XI-2): commander Brigadier General Adolph von Steinwehr; 946 casualties of 2709",
+   "where": "oob division files"
+  },
+  {
+   "id": "oob-brigade:C-III-1-2",
+   "cat": "oob-brigade",
+   "text": "Perry's Brigade (Lang commanding) (C-III-1-2): commander Colonel David Lang; 455 casualties of 742",
+   "where": "oob/confederate_oob_corps_div_bde.json"
+  },
+  {
+   "id": "oob-brigade:U-II-1-4",
+   "cat": "oob-brigade",
+   "text": "Fourth Brigade, First Division, Second Corps (Brooke's Brigade) (U-II-1-4): commander Colonel John Brooke; 389 casualties of 851",
+   "where": "oob/union_oob_brigades.json"
+  },
+  {
+   "id": "oob-brigade:U-XI-1",
+   "cat": "oob-brigade",
+   "text": "First Division, Eleventh Corps (U-XI-1): commander Brigadier General Francis Barlow; 1306 casualties of 2877",
+   "where": "oob division files"
+  },
+  {
+   "id": "oob-brigade:U-CAV-1",
+   "cat": "oob-brigade",
+   "text": "First Division, Cavalry Corps (Buford) (U-CAV-1): commander Brigadier General John Buford; 418 casualties of 4538",
+   "where": "oob division files"
+  },
+  {
+   "id": "oob-brigade:C-II-3-4",
+   "cat": "oob-brigade",
+   "text": "Ramseur's Brigade (C-II-3-4): commander Brigadier General Stephen Ramseur; 177 casualties of 1027",
+   "where": "oob/confederate_oob_corps_div_bde.json"
+  },
+  {
+   "id": "oob-battery-cav:U-ART-G4US",
+   "cat": "oob-battery-cav",
+   "text": "Battery G, 4th US Artillery (Wilkeson's Battery) (U-ART-G4US): 17 casualties; commander Lieutenant Bayard Wilkeson; in Eleventh Corps Artillery Brigade",
+   "where": "oob/union_artillery.json"
+  },
+  {
+   "id": "oob-battery-cav:C-ART-Tanner",
+   "cat": "oob-battery-cav",
+   "text": "Tanner's Battery (Courtney Artillery VA) (C-ART-Tanner): 0 casualties; commander Captain William Tanner; in Latimer's Battalion (Johnson's Division Artillery)",
+   "where": "oob/confederate_artillery.json"
+  },
+  {
+   "id": "oob-battery-cav:C-ART-Watson",
+   "cat": "oob-battery-cav",
+   "text": "Watson's Battery (2nd Richmond Howitzers) (C-ART-Watson): 9 casualties; commander Captain David Watson; in Dance's Battalion",
+   "where": "oob/confederate_artillery.json"
+  },
+  {
+   "id": "oob-battery-cav:U-5US-CAV",
+   "cat": "oob-battery-cav",
+   "text": "5th United States Cavalry (U-5US-CAV): 5 casualties; commander Captain Julius Mason",
+   "where": "oob/union_cavalry_artillery.json"
+  },
+  {
+   "id": "oob-battery-cav:C-17VA-CAV",
+   "cat": "oob-battery-cav",
+   "text": "17th Virginia Cavalry (C-17VA-CAV): 7 casualties",
+   "where": "oob/confederate_cavalry.json"
+  },
+  {
+   "id": "oob-battery-cav:U-3PA-CAV",
+   "cat": "oob-battery-cav",
+   "text": "3rd Pennsylvania Cavalry (U-3PA-CAV): 21 casualties; commander Lieutenant Colonel Edward Jones",
+   "where": "oob/union_cavalry_artillery.json"
+  },
+  {
+   "id": "oob-text:union_oob_corps_division|U-III|notes|Sickles advanced the III",
+   "cat": "oob-text",
+   "text": "U-III [notes]: Sickles advanced the III Corps to the Emmitsburg Road line on July 2; whether he was authorised to is disputed (Meade's report).",
+   "where": "oob/union_oob_corps_division.json"
+  },
+  {
+   "id": "oob-text:union_regiments_i_ii_corps|U-59NY|key_action|Hall's brigade -- 34 cas",
+   "cat": "oob-text",
+   "text": "U-59NY [key_action]: Hall's brigade -- 34 casualties (return, OR 27/1 p.176).",
+   "where": "oob/union_regiments_i_ii_corps.json"
+  },
+  {
+   "id": "oob-text:confederate_cavalry|C-HAB-Hart|key_action|Stuart's horse artillery",
+   "cat": "oob-text",
+   "text": "C-HAB-Hart [key_action]: Stuart's horse artillery -- East Cavalry Field.",
+   "where": "oob/confederate_cavalry.json"
+  },
+  {
+   "id": "oob-text:confederate_oob_corps_div_bde|C-I-1-2|key_action|Peach Orchard salient, J",
+   "cat": "oob-text",
+   "text": "C-I-1-2 [key_action]: Peach Orchard salient, July 2; Barksdale was mortally wounded.",
+   "where": "oob/confederate_oob_corps_div_bde.json"
+  },
+  {
+   "id": "oob-text:union_regiments_vi_xi_xii_corps|U-23NJ|key_action|Army reserve. The 23d Ne",
+   "cat": "oob-text",
+   "text": "U-23NJ [key_action]: Army reserve. The 23d New Jersey is not named in the Official Records order of battle (27/1 pp.155-168) or its return of casualties; this record and its commander are not confirmed by them.",
+   "where": "oob/union_regiments_vi_xi_xii_corps.json"
+  },
+  {
+   "id": "oob-text:union_oob_brigades|U-XI-1-2|key_action|Barlow's Knoll, July 1 -",
+   "cat": "oob-text",
+   "text": "U-XI-1-2 [key_action]: Barlow's Knoll, July 1 -- Ames took command of the division when Barlow fell.",
+   "where": "oob/union_oob_brigades.json"
+  },
+  {
+   "id": "oob-text:union_regiments_vi_xi_xii_corps|U-28PA|key_action|Candy's brigade -- Culp'",
+   "cat": "oob-text",
+   "text": "U-28PA [key_action]: Candy's brigade -- Culp's Hill.",
+   "where": "oob/union_regiments_vi_xi_xii_corps.json"
+  },
+  {
+   "id": "oob-text:union_regiments_i_ii_corps|U-19IN|key_action|Iron Brigade left flank ",
+   "cat": "oob-text",
+   "text": "U-19IN [key_action]: Iron Brigade left flank -- Herbst Woods charge July 1. 68% casualties.",
+   "where": "oob/union_regiments_i_ii_corps.json"
+  },
+  {
+   "id": "oob-text:union_artillery|U-ART-I1OH|notes|Dilger was born in Germa",
+   "cat": "oob-text",
+   "text": "U-ART-I1OH [notes]: Dilger was born in Germany and commanded Battery I, 1st Ohio.",
+   "where": "oob/union_artillery.json"
+  },
+  {
+   "id": "oob-text:union_regiments_iii_v_corps|U-5MI|key_action|DeTrobriand's brigade --",
+   "cat": "oob-text",
+   "text": "U-5MI [key_action]: DeTrobriand's brigade -- Wheatfield.",
+   "where": "oob/union_regiments_iii_v_corps.json"
+  },
+  {
+   "id": "oob-text:confederate_oob_corps_div_bde|C-III-3-1|key_action|Lane's brigade -- Semina",
+   "cat": "oob-text",
+   "text": "C-III-3-1 [key_action]: Lane's brigade -- Seminary Ridge July 1; the July 3 assault on the right of Trimble's command. Contested: the return prints 389 casualties for the brigade; the regiment records in this file sum to 792.",
+   "where": "oob/confederate_oob_corps_div_bde.json"
+  },
+  {
+   "id": "oob-text:confederate_oob_corps_div_bde|C-I-2|fate|Severely wounded on July",
+   "cat": "oob-text",
+   "text": "C-I-2 [fate]: Severely wounded on July 2",
+   "where": "oob/confederate_oob_corps_div_bde.json"
+  },
+  {
+   "id": "oob-text:confederate_regiments_first_corps|C-8SC|key_action|Kershaw's brigade -- Whe",
+   "cat": "oob-text",
+   "text": "C-8SC [key_action]: Kershaw's brigade -- Wheatfield.",
+   "where": "oob/confederate_regiments_first_corps.json"
+  },
+  {
+   "id": "oob-text:confederate_regiments_third_corps|C-26NC|key_action|588 killed and wounded o",
+   "cat": "oob-text",
+   "text": "C-26NC [key_action]: 588 killed and wounded of 843 in the file (Fox: over 800 engaged; he calls it the severest regimental loss of the war). Burgwyn killed July 1.",
+   "where": "oob/confederate_regiments_third_corps.json"
+  },
+  {
+   "id": "oob-text:confederate_regiments_third_corps|C-35GA|key_action|Thomas's brigade. The Of",
+   "cat": "oob-text",
+   "text": "C-35GA [key_action]: Thomas's brigade. The Official Records roster (27/2 p.290) names no commander for this regiment; the commander shown is not verified here.",
+   "where": "oob/confederate_regiments_third_corps.json"
+  },
+  {
+   "id": "oob-text:union_cavalry_artillery|U-2US-CAV|key_action|Merritt's Reserve -- Reg",
+   "cat": "oob-text",
+   "text": "U-2US-CAV [key_action]: Merritt's Reserve -- Regular Army cavalry.",
+   "where": "oob/union_cavalry_artillery.json"
+  },
+  {
+   "id": "oob-text:union_cavalry_artillery|U-1VT-CAV|key_action|Farnsworth's brigade -- ",
+   "cat": "oob-text",
+   "text": "U-1VT-CAV [key_action]: Farnsworth's brigade -- Kilpatrick's charge.",
+   "where": "oob/union_cavalry_artillery.json"
+  },
+  {
+   "id": "oob-text:union_cavalry_artillery|U-9NY-CAV|key_action|Devin's brigade -- right",
+   "cat": "oob-text",
+   "text": "U-9NY-CAV [key_action]: Devin's brigade -- right flank screen.",
+   "where": "oob/union_cavalry_artillery.json"
+  },
+  {
+   "id": "oob-text:confederate_cavalry|C-1SC-CAV|key_action|Hampton's brigade -- Eas",
+   "cat": "oob-text",
+   "text": "C-1SC-CAV [key_action]: Hampton's brigade -- East Cavalry Field. Casualties: this file gives 28; the Official Records return prints 14 for the regiment (its loss of record). Contested.",
+   "where": "oob/confederate_cavalry.json"
+  },
+  {
+   "id": "oob-text:union_regiments_i_ii_corps|U-147NY|key_action|Caught full force of Dav",
+   "cat": "oob-text",
+   "text": "U-147NY [key_action]: Caught full force of Davis's initial assault. 77.9% casualties.",
+   "where": "oob/union_regiments_i_ii_corps.json"
+  },
+  {
+   "id": "oob-text:union_oob_brigades|U-V-1-1|key_action|Stony Hill, July 2 -- Ti",
+   "cat": "oob-text",
+   "text": "U-V-1-1 [key_action]: Stony Hill, July 2 -- Tilton's brigade.",
+   "where": "oob/union_oob_brigades.json"
+  },
+  {
+   "id": "oob-text:union_oob_brigades|U-XI-3-2|key_action|Retreat through Gettysbu",
+   "cat": "oob-text",
+   "text": "U-XI-3-2 [key_action]: Retreat through Gettysburg, July 1; Schimmelfennig, cut off in the town, stayed hidden within the enemy's lines (Schurz, OR 27/1 p.730).",
+   "where": "oob/union_oob_brigades.json"
+  },
+  {
+   "id": "succession:US-022",
+   "cat": "succession",
+   "text": "US-022 (U-XI-1): Barlow wounded -- Ames assumes division; Brigadier General Francis Barlow -> Brigadier General Adelbert Ames; July 1 ~2:50pm; tick 56",
+   "where": "oob/commander_successions.json"
+  },
+  {
+   "id": "succession:US-025",
+   "cat": "succession",
+   "text": "US-025 (U-XII-1-3): Mudge KIA -- Morse assumes 2nd Massachusetts; Lieutenant Colonel Charles Mudge -> Major Charles Morse; July 3 ~10:30am; tick 515",
+   "where": "oob/commander_successions.json"
+  },
+  {
+   "id": "succession:US-003",
+   "cat": "succession",
+   "text": "US-003 (U-I-1-1): Meredith wounded -- Robinson assumes Iron Brigade; Brigadier General Solomon Meredith -> Colonel William Robinson; July 1 ~10:45am; tick 33",
+   "where": "oob/commander_successions.json"
+  },
+  {
+   "id": "succession:CS-007",
+   "cat": "succession",
+   "text": "CS-007 (C-I-3-3): Armistead mortally wounded beyond The Angle; Brigadier General Lewis Armistead -> No successor -- Armistead falls among Union troops; July 3 ~3:35pm; tick 551",
+   "where": "oob/commander_successions.json"
+  },
+  {
+   "id": "succession:CS-009",
+   "cat": "succession",
+   "text": "CS-009 (C-III-2-1): Pettigrew to division -- Marshall assumes brigade; Brigadier General James Pettigrew -> Colonel James Marshall; July 3 morning; tick 501",
+   "where": "oob/commander_successions.json"
+  },
+  {
+   "id": "succession:US-017",
+   "cat": "succession",
+   "text": "US-017 (U-III): Sickles wounded -- Birney assumes corps; Major General Daniel Sickles -> Major General David Birney; July 2 ~6:15pm; tick 280",
+   "where": "oob/commander_successions.json"
+  },
+  {
+   "id": "chronology:d2t280",
+   "cat": "chronology",
+   "text": "Day 2, tick 280 (9:30am): The Peach Orchard salient collapses and the III Corps line gives way from the south toward Cemetery Ridge. Graham is wounded and captured. The 141st Pennsylvania, at the angle, loses 150 of the 198 engaged (75.7 percent in Fox's table), the second-highest regimental percentage on the Union side after the 1st Minnesota.",
+   "where": "chronology_day2.json"
+  },
+  {
+   "id": "chronology:d2t240",
+   "cat": "chronology",
+   "text": "Day 2, tick 240 (6:10am): About 11 a.m. Birney orders Colonel Berdan to feel the enemy beyond the Union left. Berdan takes 100 men of the 1st U.S. Sharpshooters, with the 3rd Maine in support, down the Emmitsburg road. In the woods beyond they run into three Confederate columns changing direction by the right flank, attack them, and after a sharp fight withdraw; Berdan reports to Birney about 2 p.m.",
+   "where": "chronology_day2.json"
+  },
+  {
+   "id": "chronology:d2t301",
+   "cat": "chronology",
+   "text": "Day 2, tick 301 (7:10pm): Hancock establishes Colonel Willard's brigade on the line the III Corps had left, with no troops on its right or left. The brigade charges and drives back the enemy; Willard is killed by a shot from a Confederate battery, and Colonel Sherrill takes the brigade.",
+   "where": "chronology_day2.json"
+  },
+  {
+   "id": "chronology:d3t546",
+   "cat": "chronology",
+   "text": "Day 3, tick 546 (11:45am): STANNARD'S VERMONTERS HIT THE FLANK. The 14th Vermont fires from the line; Stannard orders the 13th, which changes front forward on its first company, and the 16th, which does the same on the 13th's left at right angles to the main line, onto the flank of the Confederate column. Hancock reports that the oblique fire of the Vermonters made the troops on that flank double toward their left.",
+   "where": "chronology_day3.json"
+  },
+  {
+   "id": "chronology:d3t505",
+   "cat": "chronology",
+   "text": "Day 3, tick 505 (8:30am): Heth's division under Pettigrew, in two lines, and part of Pender's division under Trimble (Lane's and Scales's brigades) are posted on Seminary Ridge on Pickett's left; Wilcox's brigade is ordered to move in rear of Pickett's right flank. // No Confederate count of the column appears in the reports read; Hancock estimated the attackers at more than 15,000 (OR 27/1 p.373).",
+   "where": "chronology_day3.json"
+  },
+  {
+   "id": "chronology:d2t315",
+   "cat": "chronology",
+   "text": "Day 2, tick 315 (12:15pm): Greene's brigade, entrenched on the hill, repels Johnson's attacks, extending its line and strengthened by the detachments sent to it. Steuart's brigade of Johnson's division reaches the works at the foot of the hill that the XII Corps had left.",
+   "where": "chronology_day2.json"
+  },
+  {
+   "id": "chronology:d3t538",
+   "cat": "chronology",
+   "text": "Day 3, tick 538 (11:05am): PICKETT'S CHARGE BEGINS. About three p.m. the assaulting column steps off Seminary Ridge, in line of battle, toward Cemetery Ridge: Pickett's division in front, Heth's under Pettigrew on its left, part of Pender's under Trimble in support, Wilcox's brigade behind Pickett's right. // Contested: the number (Hancock estimated more than 15,000; Lee and Longstreet give none) and the hour (about 2:00 to 3:00 p.m. in different accounts).",
+   "where": "chronology_day3.json"
+  },
+  {
+   "id": "chronology:d1t27",
+   "cat": "chronology",
+   "text": "Day 1, tick 27 (7:15am): The Iron Brigade (2nd and 7th Wisconsin, 19th Indiana and 24th Michigan in line; the 6th Wisconsin has been held back as reserve) charges into the woods against Archer's brigade, which has crossed the Willoughby Run. // The Iron Brigade wore the black Hardee hat of the regular army; a Confederate cry that these were not militia is a postwar tradition.",
+   "where": "chronology_day1.json"
+  },
+  {
+   "id": "chronology:d3t522",
+   "cat": "chronology",
+   "text": "Day 3, tick 522 (9:50am): Many Confederate shells pass over the crest and fall among the horses, caissons and limbers behind the line; Hunt writes that the whole slope behind the crest was swept by shot, and that the fire was 'too much dispersed' to produce the intended effect. // Hunt counts three battery commanders killed in the whole day's artillery fight and a great many horses lost.",
+   "where": "chronology_day3.json"
+  },
+  {
+   "id": "chronology:d3t544",
+   "cat": "chronology",
+   "text": "Day 3, tick 544 (11:35am): Confederate assault line reaches the Emmitsburg Road and crosses the fencing. Heavy casualties from Union artillery and musketry. Kemper's brigade begins obliquing left toward the Copse of Trees -- exposing its right flank.",
+   "where": "chronology_day3.json"
+  },
+  {
+   "id": "chronology:d1t38",
+   "cat": "chronology",
+   "text": "Day 1, tick 38 (8:10am): The fighting on the pike dies down. Doubleday reforms the I Corps on McPherson's and Seminary Ridges; Howard arrives about 11:30 a.m. and takes command of the field as senior officer. Heth, whose division had been repulsed, rests his men in line for an hour or more before ordering the next attack with Pender's division in support. // The lull lasted until Ewell's corps appeared on the Union right in the early afternoon.",
+   "where": "chronology_day1.json"
+  },
+  {
+   "id": "chronology:d1t68",
+   "cat": "chronology",
+   "text": "Day 1, tick 68 (10:40am): As the troops fall back through the streets, a section of Dilger's battery (Battery I, 1st Ohio) is planted on an eminence near the square and helps hold the enemy in check while the baggage wagons and ambulances withdraw.",
+   "where": "chronology_day1.json"
+  },
+  {
+   "id": "chronology:d1t64",
+   "cat": "chronology",
+   "text": "Day 1, tick 64 (10:20am): Pender's division (Perrin's, Lane's, Thomas's and Scales's brigades) comes up against the I Corps' line on McPherson's and Seminary Ridges. Perrin's South Carolinians carry the ridge near the seminary; Scales is wounded and his North Carolina brigade is hit hard, the Confederate return counting 424 killed and wounded in it.",
+   "where": "chronology_day1.json"
+  },
+  {
+   "id": "chronology:d2t334",
+   "cat": "chronology",
+   "text": "Day 2, tick 334 (9:15pm): Meade calls the corps commanders to a council at his headquarters. He puts three questions: whether to stay or retire, whether to attack or await attack, and how long to wait. Gibbon, Williams, Birney, Sykes, Newton, Howard, Hancock, Sedgwick and Slocum answer; all favor staying, and most favor waiting to be attacked. // The pencil minutes found among Meade's papers record each reply (OR 27/1 p.73-74); Newton called the position bad and Hancock was puzzled about retiring. The remark that Lee would attack the center is reported by Gibbon after the war.",
+   "where": "chronology_day2.json"
+  },
+  {
+   "id": "vignette:V-002",
+   "cat": "vignette",
+   "text": "V-002 \"Reynolds Falls\" (tick 28): Major General John F. Reynolds, commanding the left wing of the Army of the Potomac, was killed on the morning of July 1 as the Iron Brigade went into McPherson's (Herbst) Woods. Doubleday gives the hour as about 10:15 a.m., Howard's reports give 11:15, and the source of the shot is unsettled.",
+   "where": "vignettes_part1.json"
+  },
+  {
+   "id": "vignette:V-022",
+   "cat": "vignette",
+   "text": "V-022 \"Mudge and the Charge at Culp's Hill\" (tick 483): On the morning of July 3 Colonel Colgrove sent the 2nd Massachusetts and the 27th Indiana across the open meadow in front of the Confederate breastworks on Culp's Hill. The 2nd Massachusetts lost about 130 killed and wounded, including its commander, Lieutenant Colonel Mudge, and the 27th Indiana 112. The hour is disputed and Mudge's reported last words come from survivors' later accounts.",
+   "where": "vignettes_part3.json"
+  },
+  {
+   "id": "vignette:V-020",
+   "cat": "vignette",
+   "text": "V-020 \"Custer at East Cavalry Field\" (tick 539): East of Gettysburg on the afternoon of July 3 Stuart's cavalry met Gregg's division and Custer's Michigan Brigade while the infantry assault was made at the center. Lee's report says the cavalry 'effectually protected our left' and that Hampton was seriously wounded. The hour of the main charges (about 3 p.m. by one account) and Custer's reported shout are from later accounts.",
+   "where": "vignettes_part3.json"
+  },
+  {
+   "id": "vignette:V-019",
+   "cat": "vignette",
+   "text": "V-019 \"Pickett's Return\" (tick 557): After the repulse Pickett's division came back across the fields. The Confederate return counts 2,888 casualties in it, 1,499 of them captured or missing (OR 27/2 p.339); Lee reports that Armistead and Garnett were killed and Kemper dangerously wounded. Pickett's remark that he had no division is a tradition from later accounts.",
+   "where": "vignettes_part3.json"
+  },
+  {
+   "id": "vignette:V-021",
+   "cat": "vignette",
+   "text": "V-021 \"Farnsworth's Charge\" (tick 568): About 5 p.m. on July 3 Kilpatrick ordered Farnsworth's brigade to charge on the Confederate right south of the Round Tops, and Farnsworth was killed leading it. Farnsworth had been a brigadier general since June 29. Reports that he protested, and the words said to have passed between him and Kilpatrick, come from survivors' later accounts.",
+   "where": "vignettes_part3.json"
+  },
+  {
+   "id": "vignette:V-001",
+   "cat": "vignette",
+   "text": "V-001 \"The First Shot\" (tick 12): About 7:30 a.m. on July 1, 1863, Lieutenant Marcellus Jones of the 8th Illinois Cavalry is traditionally credited with the first shot of the battle, fired from a borrowed carbine at a Confederate officer on the Chambersburg Pike. Other men claimed earlier shots, so the claim is contested; the Official Records credit Lieutenant Roder's gun of Calef's battery with the first artillery shot.",
+   "where": "vignettes_part1.json"
+  },
+  {
+   "id": "vignette:V-004",
+   "cat": "vignette",
+   "text": "V-004 \"The Railroad Cut\" (tick 36): Lieutenant Colonel Rufus Dawes's 6th Wisconsin, with the 95th New York and the 14th Brooklyn, charged Davis's Confederates in the unfinished Railroad Cut north of the Chambersburg Pike. The men in the cut threw down their arms; the 6th Wisconsin sent to the rear 7 officers and about 225 men and took the 2nd Mississippi's flag.",
+   "where": "vignettes_part1.json"
+  },
+  {
+   "id": "vignette:V-014",
+   "cat": "vignette",
+   "text": "V-014 \"The Louisiana Tigers on Cemetery Hill\" (tick 326): At dusk on July 2 Hays's Louisiana brigade and Hoke's North Carolina brigade, under Colonel Avery, charged Cemetery Hill from the town. Lee's report says they drove two lines from the fences, forced their way into the works on the crest and seized several pieces of artillery, but a heavy force advanced against their unsupported right and they were compelled to retire, bringing out about 100 prisoners and four stand of colors.",
+   "where": "vignettes_part2.json"
+  },
+  {
+   "id": "terrain:STR-002",
+   "cat": "terrain",
+   "text": "Lee's Headquarters: Near the Chambersburg Pike on Seminary Ridge.",
+   "where": "terrain.json"
+  },
+  {
+   "id": "terrain:LOC-023",
+   "cat": "terrain",
+   "text": "Evergreen Cemetery gatehouse: Union headquarters area. Howard established headquarters here July 1. Evergreen Cemetery on the hill. (elevation 625 ft)",
+   "where": "terrain.json"
+  },
+  {
+   "id": "terrain:LOC-030",
+   "cat": "terrain",
+   "text": "Triangular Field: Rocky field below Devil's Den. Ward's brigade fought here. Texas Brigade assault through this terrain. (elevation 560 ft)",
+   "where": "terrain.json"
+  },
+  {
+   "id": "terrain:TF-003",
+   "cat": "terrain",
+   "text": "Railroad Cut (unfinished railroad grade): Davis's brigade was in the cut when the 6th Wisconsin, 95th New York and 14th Brooklyn charged it on July 1; the Confederates in it surrendered.",
+   "where": "terrain.json"
+  },
+  {
+   "id": "terrain:STR-007",
+   "cat": "terrain",
+   "text": "Lutheran Theological Seminary: Cupola used for observation. Perrin's charge broke through Seminary grounds July 1.",
+   "where": "terrain.json"
+  },
+  {
+   "id": "terrain:LOC-019",
+   "cat": "terrain",
+   "text": "Bliss Farm: Contested skirmish position between Seminary and Cemetery ridges July 2-3. Changed hands several times. Burned on July 3. (elevation 540 ft)",
+   "where": "terrain.json"
+  },
+  {
+   "id": "terrain:STR-006",
+   "cat": "terrain",
+   "text": "Bryan Farm: Adjacent to The Angle. Stood amid the fighting during Pickett's Charge.",
+   "where": "terrain.json"
+  },
+  {
+   "id": "terrain:LOC-003",
+   "cat": "terrain",
+   "text": "Little Round Top: Key terrain on Union left. Vincent's brigade arrived just in time July 2. 20th Maine held the extreme left. The 140th New York under Col. O'Rorke came up and charged down the slope; O'Rorke was killed. Hazlett's battery was brought onto the summit. (elevation 650 ft)",
+   "where": "terrain.json"
+  },
+  {
+   "id": "position-note:placements_day1_ticks51_100|C-II-1-2|58",
+   "cat": "position-note",
+   "text": "C-II-1-2 at tick 58: Avery's brigade pursuing",
+   "where": "placements_day1_ticks51_100.json"
+  },
+  {
+   "id": "position-note:density_day2_culpshill|U-137NY|315",
+   "cat": "position-note",
+   "text": "U-137NY at tick 315: Greene's brigade holding Culp's Hill",
+   "where": "density_day2_culpshill.json"
+  },
+  {
+   "id": "position-note:density_day1_railroadcut|U-I-1-2|28",
+   "cat": "position-note",
+   "text": "U-I-1-2 at tick 28: 95th NY and 14th Brooklyn joining the 6th Wisconsin's charge on the railroad cut",
+   "where": "density_day1_railroadcut.json"
+  },
+  {
+   "id": "position-note:density_day2_lrt|C-15AL|275",
+   "cat": "position-note",
+   "text": "C-15AL at tick 275: 15th Alabama driven back by Chamberlain's charge",
+   "where": "density_day2_lrt.json"
+  },
+  {
+   "id": "position-note:placements_day3_ticks601_675|U-1MN|675",
+   "cat": "position-note",
+   "text": "U-1MN at tick 675: END OF BATTLE. 1st Minnesota on Cemetery Ridge.",
+   "where": "placements_day3_ticks601_675.json"
+  },
+  {
+   "id": "position-note:density_day2_cemhill|U-I-2-2|325",
+   "cat": "position-note",
+   "text": "U-I-2-2 at tick 325: Union reinforcements hitting the Tigers from multiple directions",
+   "where": "density_day2_cemhill.json"
+  },
+  {
+   "id": "position-note:density_day2_wheatfield|C-I-1-3|283",
+   "cat": "position-note",
+   "text": "C-I-1-3 at tick 283: Semmes's brigade entering the Wheatfield",
+   "where": "density_day2_wheatfield.json"
+  },
+  {
+   "id": "position-note:density_day2_bigelow|U-ART-5MA|300",
+   "cat": "position-note",
+   "text": "U-ART-5MA at tick 300: McGilvery's line on the Plum Run",
+   "where": "density_day2_bigelow.json"
+  },
+  {
+   "id": "position-note:placements_day2_ticks301_375|C-15AL|375",
+   "cat": "position-note",
+   "text": "C-15AL at tick 375: 15th Alabama reformed south of Round Tops",
+   "where": "placements_day2_ticks301_375.json"
+  },
+  {
+   "id": "position-note:placements_day3_ticks521_600|U-ART-A4US|553",
+   "cat": "position-note",
+   "text": "U-ART-A4US at tick 553: Cushing killed at the fence beside his guns -- Sergeant Fuger assumes command (Webb)",
+   "where": "placements_day3_ticks521_600.json"
+  },
+  {
+   "id": "position-note:density_day2_wheatfield|C-8AL|305",
+   "cat": "position-note",
+   "text": "C-8AL at tick 305: Wilcox retreating -- 1st Minnesota bought the needed time",
+   "where": "density_day2_wheatfield.json"
+  },
+  {
+   "id": "position-note:placements_day3_ticks451_520|C-II-2-3|460",
+   "cat": "position-note",
+   "text": "C-II-2-3 at tick 460: Confederate position the charge is aimed at",
+   "where": "placements_day3_ticks451_520.json"
+  },
+  {
+   "id": "position-note:density_day2_lrt|C-3AR|256",
+   "cat": "position-note",
+   "text": "C-3AR at tick 256: 3rd Arkansas -- Robertson's brigade left regiment",
+   "where": "density_day2_lrt.json"
+  },
+  {
+   "id": "position-note:placements_day2_ticks226_300|U-II-1-4|290",
+   "cat": "position-note",
+   "text": "U-II-1-4 at tick 290: Brooke's brigade pushing farthest into Wheatfield",
+   "where": "placements_day2_ticks226_300.json"
+  },
+  {
+   "id": "position-note:density_day3_morning|U-XII-2-3|451",
+   "cat": "position-note",
+   "text": "U-XII-2-3 at tick 451: Greene's brigade -- still holding the upper works they never abandoned",
+   "where": "density_day3_morning.json"
+  },
+  {
+   "id": "position-note:density_day3_picketts_charge|C-1VA|538",
+   "cat": "position-note",
+   "text": "C-1VA at tick 538: Kemper's brigade",
+   "where": "density_day3_picketts_charge.json"
+  },
+  {
+   "id": "position-note:density_day2_cemhill|C-II-1-1|327",
+   "cat": "position-note",
+   "text": "C-II-1-1 at tick 327: Hays's brigade repulsed -- Carroll's brigade drives it off the hill",
+   "where": "density_day2_cemhill.json"
+  },
+  {
+   "id": "position-note:placements_day3_ticks521_600|C-I-3-1|555",
+   "cat": "position-note",
+   "text": "C-I-3-1 at tick 555: Garnett's brigade (Garnett dead) broken and retreating",
+   "where": "placements_day3_ticks521_600.json"
+  },
+  {
+   "id": "position-note:density_day2_culpshill|C-II-1-2|314",
+   "cat": "position-note",
+   "text": "C-II-1-2 at tick 314: Avery's NC brigade on the slope of East Cemetery Hill",
+   "where": "density_day2_culpshill.json"
+  },
+  {
+   "id": "position-note:placements_day3_ticks521_600|U-16VT|558",
+   "cat": "position-note",
+   "text": "U-16VT at tick 558: 16th Vermont wheeling against Wilcox's advancing brigade",
+   "where": "placements_day3_ticks521_600.json"
+  },
+  {
+   "id": "position-note:density_day1_iverson|C-12NC|50",
+   "cat": "position-note",
+   "text": "C-12NC at tick 50: 12th NC in column",
+   "where": "density_day1_iverson.json"
+  },
+  {
+   "id": "position-note:placements_day1_ticks51_100|U-I-2-1|52",
+   "cat": "position-note",
+   "text": "U-I-2-1 at tick 52: Paul's brigade on Oak Ridge",
+   "where": "placements_day1_ticks51_100.json"
+  },
+  {
+   "id": "position-note:placements_day1_ticks1_50|U-I-2-1|42",
+   "cat": "position-note",
+   "text": "U-I-2-1 at tick 42: Paul's brigade deploying on Oak Ridge",
+   "where": "placements_day1_ticks1_50.json"
+  },
+  {
+   "id": "position-note:density_day2_wright|U-II-2-2|312",
+   "cat": "position-note",
+   "text": "U-II-2-2 at tick 312: Webb's brigade near the Angle while Wright's brigade breaks the Union line to the south (Wright)",
+   "where": "density_day2_wright.json"
+  },
+  {
+   "id": "position-note:placements_day3_ticks521_600|C-III-2-1|555",
+   "cat": "position-note",
+   "text": "C-III-2-1 at tick 555: Pettigrew's brigades falling back. Marshall killed.",
+   "where": "placements_day3_ticks521_600.json"
+  },
+  {
+   "id": "position-note:density_day3_aftermath|C-40VA|620",
+   "cat": "position-note",
+   "text": "C-40VA at tick 620: Brockenbrough's survivors -- broke while others advanced. A shame that follows them.",
+   "where": "density_day3_aftermath.json"
+  },
+  {
+   "id": "marker-tour-popup:mA:mon_140pa",
+   "cat": "marker-tour-popup",
+   "text": "Story marker \"140th PA — Zook's brigade, II Corps; fought in the Wheatfield on July 2, where its colonel, Richard P. Roberts, was killed\" (tick 266)",
+   "where": "bundle mA"
+  },
+  {
+   "id": "marker-tour-popup:mA:mon_barlow",
+   "cat": "marker-tour-popup",
+   "text": "Story marker \"Barlow severely wounded here about 3 PM July 1 and captured (Schurz, Ewell). The story that Gordon gave him water, and of their later friendship, is from Gordon's own account\" (tick 63)",
+   "where": "bundle mA"
+  },
+  {
+   "id": "marker-tour-popup:th:12",
+   "cat": "marker-tour-popup",
+   "text": "Tour stop 12 \"The Angle\" (The High-Water Mark — July 3, about 3:30 PM; tick 549): About 3:30 PM on July 3 the survivors of the mile-long advance reached the stone wall at The Angle. By tradition Armistead raised his hat on his sword and called, \"Come on, boys, give them the cold steel!\" — words from survivors' later accounts. Led by Armistead, a part of his brigade crossed the wall and reached the guns of Cushing's battery. Lieutenant Alonzo Cushing, wounded in both thighs, had fought on for an hour and a half and was killed at the fence by his guns, Webb reports. Armistead fell wounded at the guns and was left within the Union lines, Harrow reports. A later account says that, told his old friend Hancock was wounded, he asked that his watch and effects be given to Hancock",
+   "where": "bundle th"
+  },
+  {
+   "id": "marker-tour-popup:th:15",
+   "cat": "marker-tour-popup",
+   "text": "Tour stop 15 \"The High Water Mark\" (The Copse of Trees — July 3; tick 555): A small copse of trees on Cemetery Ridge served as the visual aiming point for Pickett's Charge and has since become known as the High Water Mark of the Confederacy — the point of maximum Confederate penetration into the Union line. Monuments and markers at the copse of trees commemorate the assault. The Gettysburg Battlefield Memorial Association, chartered in 1864, preserved parts of the field; the federal government took over the ground when the park was established in the 1890s. General Lewis Armistead, who died after being wounded at the guns, is remembered by a marker near the copse of trees. His friendship with Union General Winfield Hancock — wounded the same afternoon, as Meade's re",
+   "where": "bundle th"
+  },
+  {
+   "id": "marker-tour-popup:th:14",
+   "cat": "marker-tour-popup",
+   "text": "Tour stop 14 \"Pickett's Charge\" (The Mile-Wide Advance — July 3, 3:00 PM; tick 538): About 1 PM on July 3, 1863 (1:07 by one count), at a given signal, Confederate artillery opened a heavy cannonade on Cemetery Ridge: nearly 150 guns in position by Pendleton's count, 100 to 125 or more by Union estimates. It lasted about two hours. At about 3:00 PM (accounts run from 2:00 to 3:00) the Confederate column, estimated by Hancock at more than 15,000 men, stepped from the tree line on Seminary Ridge and began the mile-wide advance. Pickett's division, Pettigrew's division, and Trimble's two brigades crossed the open ground under devastating artillery and musket fire. The charge reached The Angle but was repulsed with heavy loss: the Confederate return counts 2,888 casualties in Pi",
+   "where": "bundle th"
+  },
+  {
+   "id": "marker-tour-popup:mA:mon_83pa",
+   "cat": "marker-tour-popup",
+   "text": "Story marker \"83rd PA — Held the left center of Vincent's brigade on Little Round Top, between the 20th Maine on its left and the 44th New York on its right\" (tick 266)",
+   "where": "bundle mA"
+  },
+  {
+   "id": "marker-tour-popup:mA:mon_72pa",
+   "cat": "marker-tour-popup",
+   "text": "Story marker \"72nd PA — Webb's Philadelphia Brigade held The Angle against Pickett's Charge (the 72nd stood behind the crest; the 69th and 71st held the wall)\" (tick 548)",
+   "where": "bundle mA"
+  },
+  {
+   "id": "marker-tour-popup:th:10",
+   "cat": "marker-tour-popup",
+   "text": "Tour stop 10 \"Culp's Hill\" (The Overnight Fight — July 2-3; tick 380): While the fighting raged on the Union left on July 2, Johnson's Confederate division attacked the right flank at Culp's Hill. Greene's New York brigade — 1,424 men by Geary's count, reinforced during the evening by detachments of the I and XI Corps — held the entrenched hill against Johnson's division. Greene's men benefited from the solid earthworks they had constructed, firing from protected positions while Confederate attackers struggled uphill through dense woods in darkness. The fight continued sporadically through the night. The XII Corps, back from the left, fought at daylight on July 3 to retake the works the Confederates held. Kane reports fire of unintermitting strength for seven h",
+   "where": "bundle th"
+  },
+  {
+   "id": "marker-tour-popup:th:16",
+   "cat": "marker-tour-popup",
+   "text": "Tour stop 16 \"Confederate Avenue\" (The Retreat — July 4-5, 1863; tick 610): On the night of July 4-5, 1863, the Army of Northern Virginia began its retreat toward Virginia. A long wagon train of wounded men (Imboden's postwar account puts it at 17 miles) moved through driving rain toward the Potomac crossing at Williamsport. Meade chose not to pursue aggressively. President Lincoln was deeply disappointed that Lee's army escaped across the Potomac; in a letter to Meade that he did not send he wrote that Lee had been \"within your easy grasp\". Lee's army crossed the swollen Potomac on July 14, escaping to Virginia. The Gettysburg campaign was over. Estimated casualties: about 28,000 Confederate and about 23,000 Union (the Official Records return counts 20,451 and 23,0",
+   "where": "bundle th"
+  },
+  {
+   "id": "marker-tour-popup:mA:mon_greene",
+   "cat": "marker-tour-popup",
+   "text": "Story marker \"Greene's NY brigade — 1,424 men by Geary's count, reinforced in the evening by detachments of the I and XI Corps, held the entrenched Culp's Hill against Johnson's division\" (tick 380)",
+   "where": "bundle mA"
+  },
+  {
+   "id": "page-figure:aftermath.html|Lee's army finished crossing back into Virginia by July 14.",
+   "cat": "page-figure",
+   "text": "aftermath.html: Lee's army finished crossing back into Virginia by July 14.",
+   "where": "aftermath.html"
+  },
+  {
+   "id": "page-figure:aftermath.html|Aftermath: July 4 – November 1863",
+   "cat": "page-figure",
+   "text": "aftermath.html: Aftermath: July 4 – November 1863",
+   "where": "aftermath.html"
+  },
+  {
+   "id": "page-figure:index.html|Watch the battle unfold step by step across 675 snapshots.",
+   "cat": "page-figure",
+   "text": "index.html: Watch the battle unfold step by step across 675 snapshots.",
+   "where": "index.html"
+  },
+  {
+   "id": "page-figure:aftermath.html|The battle ended July 3, but the story didn't.",
+   "cat": "page-figure",
+   "text": "aftermath.html: The battle ended July 3, but the story didn't.",
+   "where": "aftermath.html"
+  },
+  {
+   "id": "page-figure:index.html|An interactive, step-by-step reconstruction of the Battle of",
+   "cat": "page-figure",
+   "text": "index.html: An interactive, step-by-step reconstruction of the Battle of Gettysburg (July 1 3, 1863): 412 units tracked across 675 snapshots, reconstructed from published unit records, chronology, and terrain data.",
+   "where": "index.html"
+  },
+  {
+   "id": "page-figure:documentary.html|All 24 of the battle's key moments, in order, with the full ",
+   "cat": "page-figure",
+   "text": "documentary.html: All 24 of the battle's key moments, in order, with the full narrative for each -- read at your own pace, or use as a script for narration.",
+   "where": "documentary.html"
+  },
+  {
+   "id": "casualty-file:union_corps|U-I",
+   "cat": "casualty-file",
+   "text": "union_corps U-I: initial strength 12222, total casualties 6059, rate 49.6%; periods day 1: 5724 (46.8%) Most I Corps casualties fell on July 1 (the day split is modelled; the Official Records give the corps total of 6,059 for the whole battle). | day 3: 335 (2.7%) Stannard's Vermont brigade (OR: 351 killed, wounded and missing in the battle, most of them on July 3) in its flank fire on Pickett's column and then on Wilcox's and Lang's brigades.",
+   "where": "casualty_apportionment.json"
+  },
+  {
+   "id": "casualty-file:note-most_compressed_union",
+   "cat": "casualty-file",
+   "text": "most_compressed_union: {\"unit\":\"U-III (Third Corps)\",\"note\":\"The III Corps lost 4,211 killed, wounded and missing on the afternoon and evening of July 2 (Official Records).\",\"tick_range\":[256,330]}",
+   "where": "casualty_apportionment.json"
+  },
+  {
+   "id": "casualty-file:union_corps|U-II",
+   "cat": "casualty-file",
+   "text": "union_corps U-II: initial strength 11347, total casualties 4369, rate 38.5%; periods day 2: 3102 (27.3%)  | day 3: 1267 (11.2%) The return counts 38 casualties in Cushing's battery (A, 4th U.S.), 25 in Woodruff's (I, 1st U.S.) and 28 in Brown's (B, 1st Rhode Island) over the battle, and 491 in Webb's brigade (sum of its regiments).",
+   "where": "casualty_apportionment.json"
+  },
+  {
+   "id": "casualty-file:union_corps|U-CAV",
+   "cat": "casualty-file",
+   "text": "union_corps U-CAV: initial strength 12441, total casualties 852, rate 6.9%; periods day 1: 290 (2.3%)  | day 2: 100 (0.8%)  | day 3: 462 (3.7%) ",
+   "where": "casualty_apportionment.json"
+  },
+  {
+   "id": "casualty-file:note-highest_union_regiment_loss",
+   "cat": "casualty-file",
+   "text": "highest_union_regiment_loss: {\"unit\":\"1st Minnesota (85.5%)\",\"note\":\"224 casualties of 262 engaged over the battle, 215 of them on July 2 in the charge; the highest percentage of any Union regiment in a single battle in Fox's tables.\"}",
+   "where": "casualty_apportionment.json"
+  },
+  {
+   "id": "casualty-file:union_corps|U-III",
+   "cat": "casualty-file",
+   "text": "union_corps U-III: initial strength 10675, total casualties 4211, rate 39.4%; periods day 2: 4211 (39.4%) Nearly all of the III Corps' 4,211 casualties fell on the afternoon and evening of July 2, from about 4 p.m. until dusk. Whether Sickles's advance was authorized is disputed (Meade's report says he did not fully apprehend his instructions).",
+   "where": "casualty_apportionment.json"
+  },
+  {
+   "id": "casualty-file:union_corps|U-VI",
+   "cat": "casualty-file",
+   "text": "union_corps U-VI: initial strength 13596, total casualties 242, rate 1.8%; periods day 2: 242 (1.8%) VI Corps served as army reserve and saw almost no direct action despite being the largest Union corps present.",
+   "where": "casualty_apportionment.json"
+  },
+  {
+   "id": "casualty-file:union_corps|U-XI",
+   "cat": "casualty-file",
+   "text": "union_corps U-XI: initial strength 9188, total casualties 3801, rate 41.4%; periods day 1: 3801 (41.4%) XI Corps routed July 1. Many casualties were captures rather than killed/wounded during the retreat through Gettysburg.",
+   "where": "casualty_apportionment.json"
+  }
+ ]
+}

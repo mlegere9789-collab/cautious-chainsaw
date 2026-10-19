@@ -36,7 +36,7 @@ export default [
     src: 'OR 27/1 p.114 (Meade: Buford reported the enemy on the Cashtown road in some force; Reynolds was directed to occupy Gettysburg and found Buford warmly engaged), p.129' },
   { tick: 25, cls: 'unsupported-detail', before: 'cupola conference, "hold at all costs" paraphrase presented as fact',
     set: { event: "Reynolds reaches the field and confers with Buford. He sends orders for the rest of the I Corps and for Howard's XI Corps to come up as promptly as possible.",
-           narrative: "Reynolds's decision to commit his corps west of the town, rather than fall back, fixed the place of the battle.",
+           narrative: "Whether Reynolds's decision to commit the corps west of the town fixed the place of the battle is a historians' judgement, not a statement of the Official Records.",
            flag: null },
     src: 'OR 27/1 p.114 (Meade: Reynolds "sending orders for the Eleventh Corps (General Howard) to advance as promptly as possible")' },
   { tick: 26, cls: 'unsupported-detail', before: '"personally leads the Iron Brigade"',

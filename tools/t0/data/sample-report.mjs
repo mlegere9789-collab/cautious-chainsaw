@@ -12,6 +12,7 @@ const A = rd('docs/data-audit/sample-A.claims.json');
 const B = rd('docs/data-audit/sample-B.claims.json');
 const VA = rd('docs/data-audit/sample-A.verdicts.json').verdicts;
 const VB = rd('docs/data-audit/sample-B.verdicts.json').verdicts;
+const SAMPLES = ['C', 'D'].filter((x) => fs.existsSync(path.join(ROOT, `docs/data-audit/sample-${x}.verdicts.json`)));   // later samples, same format as B
 function wilson(x, n) {
   if (n === 0) return [0, 1];
   const z = 1.96, p = x / n, d = 1 + (z * z) / n;
@@ -35,6 +36,12 @@ const basePool = new Map(JSON.parse(fs.readFileSync(poolFile, 'utf8')).map((c) =
 const rowsA = A.claims.map((c, i) => ({ cat: c.cat, id: c.id, b: VA[i + 1][0], a: VA[i + 1][1] }));
 const rowsB = B.claims.map((c, i) => ({ cat: c.cat, id: c.id, v: VB[i + 1][0], changed: basePool.has(c.id) ? basePool.get(c.id) !== c.text : true }));
 const out = { seeds: { A: A.seed, B: B.seed }, A: {}, B: {} };
+for (const x of SAMPLES) {
+  const cl = rd(`docs/data-audit/sample-${x}.claims.json`), vv = rd(`docs/data-audit/sample-${x}.verdicts.json`).verdicts;
+  const rows = cl.claims.map((c, i) => ({ cat: c.cat, id: c.id, v: vv[i + 1][0], changed: basePool.has(c.id) ? basePool.get(c.id) !== c.text : true }));
+  out.seeds[x] = cl.seed;
+  out[x] = { all: tally(rows.map((r) => r.v)), changedByData: tally(rows.filter((r) => r.changed).map((r) => r.v)), untouchedByData: tally(rows.filter((r) => !r.changed).map((r) => r.v)), byCat: Object.fromEntries(cats.map((c) => [c, tally(rows.filter((r) => r.cat === c).map((r) => r.v))])), errors: rows.filter((r) => r.v === 'I').map((r) => r.id) };
+}
 out.A.before = tally(rowsA.map((r) => r.b));
 out.A.after = tally(rowsA.filter((r) => r.b !== 'U').map((r) => r.a));
 out.B.all = tally(rowsB.map((r) => r.v));
@@ -57,9 +64,10 @@ md.push(`Sample A: 150 claims, seed ${A.seed}, drawn from the baseline data; Sam
 md.push('Rate = incorrect or unsupported claims over claims that could be checked; unverifiable claims (U) are excluded; labelled (L) and removed (R) claims are not errors.', '');
 md.push('| Measure | Result |', '|---|---|');
 md.push(`| A, baseline data | ${f(out.A.before)} |`, `| A, same claims after DATA | ${f(out.A.after)} |`, `| B, DATA build (fresh claims) | ${f(out.B.all)} |`);
+for (const x of SAMPLES) md.push(`| ${x}, DATA build (fresh claims, before the fixes it triggered) | ${f(out[x].all)} |`, `| ${x}, claims DATA changed | ${f(out[x].changedByData)} |`, `| ${x}, claims DATA left untouched | ${f(out[x].untouchedByData)} |`);
 md.push(`| B, claims DATA changed | ${f(out.B.changedByData)} |`, `| B, claims DATA left untouched | ${f(out.B.untouchedByData)} |`, '');
-md.push('| Category | A before | A after | B |', '|---|---|---|---|');
-for (const c of cats) { const a = out.A.byCat[c], b = out.B.byCat[c]; md.push(`| ${c} | ${a.before.err}/${a.before.n} | ${a.after.err}/${a.after.n} | ${b.err}/${b.n} |`); }
-md.push('', `Regressions in A (right before, wrong after): ${out.A.regressions.length ? out.A.regressions.join(', ') : 'none'}.`, `Wrong claims DATA left wrong in A: ${out.A.leftWrong.length ? out.A.leftWrong.join(', ') : 'none'}.`, `Errors found in B: ${out.B.errors.length ? out.B.errors.join(', ') : 'none'}.`, '');
+md.push('| Category | A before | A after | B |'+SAMPLES.map((x) => ` ${x} |`).join(''), '|---|---|---|---|'+SAMPLES.map(() => '---|').join(''));
+for (const c of cats) { const a = out.A.byCat[c], b = out.B.byCat[c]; md.push(`| ${c} | ${a.before.err}/${a.before.n} | ${a.after.err}/${a.after.n} | ${b.err}/${b.n} |`+SAMPLES.map((x) => ` ${out[x].byCat[c].err}/${out[x].byCat[c].n} |`).join('')); }
+md.push('', `Regressions in A (right before, wrong after): ${out.A.regressions.length ? out.A.regressions.join(', ') : 'none'}.`, `Wrong claims DATA left wrong in A: ${out.A.leftWrong.length ? out.A.leftWrong.join(', ') : 'none'}.`, `Errors found in B: ${out.B.errors.length ? out.B.errors.join(', ') : 'none'}.`, ...SAMPLES.map((x) => `Errors found in ${x}: ${out[x].errors.length ? out[x].errors.join(', ') : 'none'}.`), '');
 fs.writeFileSync(path.join(ROOT, 'docs/data-audit/sample-report.md'), md.join('\n'));
 console.log(md.join('\n'));

@@ -8,25 +8,29 @@ Rate = incorrect or unsupported claims over claims that could be checked; unveri
 | A, baseline data | 75/142 = 52.8% (Wilson 95% 44.6%-60.8%); C 67, I 75, L 0, R 0, U 8 |
 | A, same claims after DATA | 0/142 = 0.0% (Wilson 95% 0.0%-2.6%); C 127, I 0, L 13, R 2, U 0 |
 | B, DATA build (fresh claims) | 6/143 = 4.2% (Wilson 95% 1.9%-8.9%); C 135, I 6, L 2, R 0, U 7 |
+| C, DATA build (fresh claims, before the fixes it triggered) | 17/141 = 12.1% (Wilson 95% 7.7%-18.5%); C 117, I 17, L 7, R 0, U 9 |
+| C, claims DATA changed | 8/89 = 9.0% (Wilson 95% 4.6%-16.7%); C 76, I 8, L 5, R 0, U 0 |
+| C, claims DATA left untouched | 9/52 = 17.3% (Wilson 95% 9.4%-29.7%); C 41, I 9, L 2, R 0, U 9 |
 | B, claims DATA changed | 2/93 = 2.2% (Wilson 95% 0.6%-7.5%); C 90, I 2, L 1, R 0, U 1 |
 | B, claims DATA left untouched | 4/50 = 8.0% (Wilson 95% 3.2%-18.8%); C 45, I 4, L 1, R 0, U 6 |
 
-| Category | A before | A after | B |
-|---|---|---|---|
-| oob-commander | 2/15 | 0/15 | 0/14 |
-| oob-casualties | 10/15 | 0/15 | 0/14 |
-| oob-keyaction | 2/8 | 0/8 | 0/6 |
-| oob-brigade | 6/8 | 0/8 | 0/8 |
-| oob-battery-cav | 5/7 | 0/7 | 0/7 |
-| succession | 3/8 | 0/8 | 0/8 |
-| chronology | 12/20 | 0/20 | 0/20 |
-| vignette | 9/10 | 0/10 | 0/10 |
-| terrain | 1/7 | 0/7 | 1/7 |
-| position-note | 9/20 | 0/20 | 4/24 |
-| marker-tour-popup | 8/10 | 0/10 | 0/10 |
-| page-figure | 2/7 | 0/7 | 1/8 |
-| casualty-file | 6/7 | 0/7 | 0/7 |
+| Category | A before | A after | B | C |
+|---|---|---|---|---|
+| oob-commander | 2/15 | 0/15 | 0/14 | 0/15 |
+| oob-casualties | 10/15 | 0/15 | 0/14 | 1/15 |
+| oob-keyaction | 2/8 | 0/8 | 0/6 | 2/8 |
+| oob-brigade | 6/8 | 0/8 | 0/8 | 3/8 |
+| oob-battery-cav | 5/7 | 0/7 | 0/7 | 0/4 |
+| succession | 3/8 | 0/8 | 0/8 | 0/8 |
+| chronology | 12/20 | 0/20 | 0/20 | 2/20 |
+| vignette | 9/10 | 0/10 | 0/10 | 0/10 |
+| terrain | 1/7 | 0/7 | 1/7 | 1/6 |
+| position-note | 9/20 | 0/20 | 4/24 | 5/23 |
+| marker-tour-popup | 8/10 | 0/10 | 0/10 | 3/10 |
+| page-figure | 2/7 | 0/7 | 1/8 | 0/7 |
+| casualty-file | 6/7 | 0/7 | 0/7 | 0/7 |
 
 Regressions in A (right before, wrong after): none.
 Wrong claims DATA left wrong in A: none.
 Errors found in B: terrain:LOC-003, position-note:density_day3_morning|C-I-1|465, position-note:density_day2_bigelow|U-ART-9MA|298, position-note:placements_day2_ticks301_375|C-III-1-1|303, position-note:density_day1_ironbrigade|C-III-2-3|16, page-figure:index.html|An interactive, step-by-step reconstruction of the Battle of.
+Errors found in C: oob-casualties:U-107NY, oob-keyaction:U-124NY, oob-keyaction:U-28MA, oob-brigade:U-I-3, oob-brigade:U-I-2-1, oob-brigade:U-VI-3, chronology:d2t298, chronology:d2t271, terrain:TF-003, position-note:placements_day2_ticks301_375|U-XII-2-3|315, position-note:placements_day2_ticks301_375|C-I-3-1|360, position-note:density_day2_culpshill_overnight|U-ART-XII-CORPS|440, position-note:placements_day3_ticks521_600|C-I-3-1|549, position-note:density_day3_culpshill|U-2MA|460, marker-tour-popup:th:6, marker-tour-popup:th:11, marker-tour-popup:mA:mon_20nc.
