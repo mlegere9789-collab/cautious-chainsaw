@@ -1,0 +1,12 @@
+- **Not done: cars.** No separate car detection. Cars inside the road, parking and building masks are removed with them; cars on surfaces the masks miss (private drives, unmapped lots below the 80 px detection floor) are left.
+- **Not done: solar arrays and cell towers from their own registers.** Only what OpenStreetMap maps is listed (15 power-site records, 18 communication towers); the USGS photovoltaic database and the FCC antenna registry were not queried.
+- **Not removable at 1.0 m: fences, signs, rails, lamps.** They are sub-pixel; they are listed (714 fences, 820 items of site furniture) and not painted out. Rail fences of 1863 may stand on the same lines.
+- **Monuments:** 938 of about 1,320 objects are located; most are not resolvable at 1.0 m (17 % show an anomaly, 19 % at 0.6 m). Their removal from the picture changes little; their absence from the legend must come from the monument data, not from this layer.
+- **Buildings after 2013:** outlines whose roof is not visible in June 2013 are not cut out (3,020 of 16,249). Buildings that existed in 2013 and were demolished before the 2023 outlines are not in the vector layer; they are caught only where the detector finds a roof within 20 m of a mapped outline or as an unmapped component.
+- **Terrain is not rolled back.** The cut and fill candidates are measured, not applied; the DEM and the picture keep the modern ground shape. Many 1863 roads also lie in cuts.
+- **Vegetation that grew after 1863** is the land-cover layer's job; only the power-line corridors are measured here.
+- **Roads, farm lanes, buildings that did exist in 1863** are removed with their modern surfaces and must be drawn back by the roads and structures layers from their own sources.
+- **Whole-box removal was not run;** the method was tested on 20 windows of 256 m (and the 1,553 ha estimate is arithmetic). Dense town blocks and farmyards need the 1863 buildings and land cover drawn over the fill.
+- **Season:** the photograph is 4 June, the battle 1 to 3 July.
+- **Resolution:** 1.0 m; the 0.6 m flight is autumn and the 0.3 m flights are Maryland, south of the box.
+- **Process note:** the first commit of this layer (`2446596`) used `git add` on the whole `docs/basemap1863` folder and so also committed other layers' small script files that were untracked at that moment (`features/roads-rail-water/scripts`, `features/structures/src`, `maps/gcps`, `maps/tools`). Their content is unchanged; they only carry this layer's commit message.
