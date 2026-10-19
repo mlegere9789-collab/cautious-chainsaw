@@ -1,0 +1,35 @@
+<!doctype html><meta charset=utf-8><body style="margin:0;background:#000">
+<script type="importmap">{"imports":{"three":"/tooling/node_modules/three/build/three.module.js","three/addons/":"/tooling/node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+const R = new THREE.WebGLRenderer({antialias: false, preserveDrawingBuffer: false, powerPreference: 'high-performance'});
+R.setSize(1280, 720); document.body.appendChild(R.domElement);
+const gl = R.getContext();
+const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+const info = {gpu: dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : 'unknown'};
+const gltf = await new GLTFLoader().loadAsync('/out/s0.glb');
+// merge all meshes (bind pose) into one static geometry
+const pos = [], nor = [], col = [], idx = []; let off = 0;
+gltf.scene.traverse(o => { if (o.isMesh) { const g = o.geometry; const p = g.attributes.position, n = g.attributes.normal, c = g.attributes.color;
+  for (let i = 0; i < p.count; i++) { pos.push(p.getX(i), p.getY(i), p.getZ(i)); nor.push(n.getX(i), n.getY(i), n.getZ(i)); col.push(c ? c.getX(i) : 0.5, c ? c.getY(i) : 0.5, c ? c.getZ(i) : 0.5); }
+  const ix = g.index; for (let i = 0; i < ix.count; i++) idx.push(ix.getX(i) + off); off += p.count; } });
+const geo = new THREE.BufferGeometry();
+geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3)); geo.setAttribute('color', new THREE.Float32BufferAttribute(col, 3)); geo.setIndex(idx);
+const tris = idx.length / 3; info.tris_per_instance = tris;
+const S = new THREE.Scene(); S.add(new THREE.HemisphereLight(0xffffff, 0x444444, 1.5)); const dl = new THREE.DirectionalLight(0xffffff, 2); dl.position.set(3, 5, 4); S.add(dl);
+const cam = new THREE.PerspectiveCamera(50, 1280 / 720, 0.1, 500);
+const mat = new THREE.MeshStandardMaterial({vertexColors: true, roughness: 0.9});
+window.bench = async (N, decimate) => {
+  const m = new THREE.InstancedMesh(geo, mat, N); const d = new THREE.Object3D(); const side = Math.ceil(Math.sqrt(N));
+  for (let i = 0; i < N; i++) { d.position.set((i % side - side / 2) * 1.0, 0, (Math.floor(i / side)) * 1.0 - side); d.updateMatrix(); m.setMatrixAt(i, d.matrix); }
+  m.frustumCulled = false; S.add(m); cam.position.set(0, side * 0.5 + 2, side * 0.6); cam.lookAt(0, 0, -side * 0.3);
+  const px = new Uint8Array(4); const sync = () => gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px);
+  for (let w = 0; w < 3; w++) { R.render(S, cam); sync(); }
+  const t0 = performance.now(); const K = 20;
+  for (let k = 0; k < K; k++) { R.render(S, cam); sync(); }
+  const ms = (performance.now() - t0) / K; S.remove(m); m.dispose();
+  return {N, tris: N * tris, ms_per_frame: ms, mtris_per_s: (N * tris) / (ms / 1000) / 1e6, rendered_info_tris: R.info.render.triangles};
+};
+window.INFO = info; document.title = 'done';
+</script>

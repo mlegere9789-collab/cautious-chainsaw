@@ -1,0 +1,88 @@
+<!doctype html><meta charset=utf-8><body style="margin:0;background:#000">
+<script type="importmap">{"imports":{"three":"/tooling/node_modules/three/build/three.module.js","three/addons/":"/tooling/node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+const q = new URLSearchParams(location.search);
+const W = +(q.get('w') || 900), H = +(q.get('h') || 900);
+const R = new THREE.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
+R.setSize(W, H); R.setPixelRatio(1); document.body.appendChild(R.domElement);
+R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap;
+R.outputColorSpace = THREE.SRGBColorSpace; R.toneMapping = THREE.ACESFilmicToneMapping; R.toneMappingExposure = 1.0;
+const S = new THREE.Scene();
+const skyTop = new THREE.Color(0xa9bfd6), skyBot = new THREE.Color(0xd8d2bf);
+S.background = new THREE.Color(0xb9c4cc); S.fog = new THREE.Fog(0xb9c4cc, 12, 40);
+S.add(new THREE.HemisphereLight(0xcfe0f5, 0x6b6247, 1.15)); const fill = new THREE.DirectionalLight(0xdfe8ff, 0.7); fill.position.set(4, 2.5, 5); S.add(fill);
+const sun = new THREE.DirectionalLight(0xfff0d8, 2.6); sun.position.set(-3, 5, 4); sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048); const sc = sun.shadow.camera; sc.left = -3; sc.right = 3; sc.top = 3; sc.bottom = -3; sc.near = 0.5; sc.far = 20; sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.01;
+S.add(sun);
+// ground with scrolling stripes so foot sliding is visible
+const gcv = document.createElement('canvas'); gcv.width = gcv.height = 512; const g = gcv.getContext('2d');
+g.fillStyle = '#6f6a45'; g.fillRect(0, 0, 512, 512);
+for (let i = 0; i < 6000; i++) { g.fillStyle = `rgba(${40 + Math.random() * 60},${50 + Math.random() * 50},${20 + Math.random() * 30},0.25)`; g.fillRect(Math.random() * 512, Math.random() * 512, 2 + Math.random() * 5, 1 + Math.random() * 3); }
+g.fillStyle = 'rgba(30,25,10,0.55)'; for (let i = 0; i < 8; i++) g.fillRect(0, i * 64, 512, 3);   // transverse lines (1 m spacing)
+const gtex = new THREE.CanvasTexture(gcv); gtex.wrapS = gtex.wrapT = THREE.RepeatWrapping; gtex.repeat.set(8, 8); gtex.colorSpace = THREE.SRGBColorSpace; gtex.anisotropy = 8;
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(64, 64), new THREE.MeshStandardMaterial({map: gtex, roughness: 1}));
+ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; S.add(ground);
+
+const pm = new THREE.PMREMGenerator(R); S.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture; S.environmentIntensity = 0.30;
+const cam = new THREE.PerspectiveCamera(+(q.get('fov') || 28), W / H, 0.05, 80);
+
+// ---- procedural cloth shader hook: rest-position noise (mottling, fade, grain, dirt) ----
+const NOISE = `
+float h31(vec3 p){ p = fract(p*0.3183099+.1); p*=17.0; return fract(p.x*p.y*p.z*(p.x+p.y+p.z)); }
+float vn(vec3 x){ vec3 i=floor(x), f=fract(x); f=f*f*(3.0-2.0*f);
+ return mix(mix(mix(h31(i),h31(i+vec3(1,0,0)),f.x),mix(h31(i+vec3(0,1,0)),h31(i+vec3(1,1,0)),f.x),f.y),
+            mix(mix(h31(i+vec3(0,0,1)),h31(i+vec3(1,0,1)),f.x),mix(h31(i+vec3(0,1,1)),h31(i+vec3(1,1,1)),f.x),f.y),f.z); }
+float fbm(vec3 p){ float a=.5,s=0.; for(int i=0;i<4;i++){ s+=a*vn(p); p*=2.03; a*=.5;} return s; }
+`;
+function hook(mat, kind) {
+  mat.onBeforeCompile = (sh) => {
+    sh.vertexShader = 'varying vec3 vRest;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n vRest = position;');
+    sh.fragmentShader = 'varying vec3 vRest;\n' + NOISE + sh.fragmentShader.replace('#include <color_fragment>', `#include <color_fragment>
+      {
+        float mott = fbm(vRest*${kind === 'skin' ? '40.0' : '22.0'});
+        float grain = vn(vRest*${kind === 'cloth' ? '420.0' : '180.0'});
+        float weave = ${kind === 'cloth' ? '0.5+0.5*sin(vRest.y*2600.0)*sin(vRest.x*2600.0+vRest.z*2600.0)' : '0.5'};
+        diffuseColor.rgb *= ${kind === 'skin' ? '(0.93+0.14*mott)' : '(0.80+0.34*mott)*(0.92+0.10*grain)*(0.97+0.05*weave)'};
+      }`);
+  };
+  mat.needsUpdate = true;
+}
+const KIND = {skin: 'skin', hair: 'hair', coat: 'cloth', trousers: 'cloth', cap: 'cloth', wool: 'cloth', shirt: 'cloth', canvas: 'cloth', leather: 'leather', metal: 'metal', wood: 'leather', steel: 'metal'};
+
+const loader = new GLTFLoader();
+const gltf = await loader.loadAsync(q.get('glb'));
+const root = gltf.scene; S.add(root);
+const mixer = new THREE.AnimationMixer(root);
+let action = null;
+if (gltf.animations.length) { action = mixer.clipAction(gltf.animations[0]); action.play(); }
+const stats = {tris: 0, meshes: [], dur: gltf.animations[0] ? gltf.animations[0].duration : 0};
+root.traverse(o => {
+  if (o.isMesh || o.isSkinnedMesh) {
+    o.castShadow = true; o.receiveShadow = true; o.frustumCulled = false;
+    const m = o.material; m.vertexColors = true;
+    const kind = KIND[(m.name || '').split('_')[0]] || 'cloth';
+    hook(m, kind);
+    m.roughness = {skin: 0.62, cloth: 0.95, leather: 0.55, metal: 0.32, hair: 0.8}[kind] ?? 0.9;
+    m.metalness = (m.name||'').startsWith('steel') ? 0.55 : kind === 'metal' ? 0.8 : 0;
+    const gm = o.geometry; stats.tris += (gm.index ? gm.index.count : gm.attributes.position.count) / 3;
+    stats.meshes.push([o.name, (gm.index ? gm.index.count : 0) / 3 | 0, m.name]);
+  }
+});
+const speed = +(q.get('speed') || 0);
+window.STATS = stats;
+window.renderAt = (t, azDeg, opts = {}) => {
+  const dist = opts.dist ?? 5.2, tgtY = opts.tgtY ?? 0.95, camY = opts.camY ?? 1.15;
+  mixer.setTime(t);
+  gtex.offset.set(0, (speed * t) / 8);       // ground scrolls backwards at walking speed (texture repeat 8 over 64 m => 8 m per tile)
+  gtex.offset.y = (speed * t) / 8 * 1.0;
+  const a = azDeg * Math.PI / 180;
+  cam.position.set(Math.sin(a) * dist, camY, Math.cos(a) * dist); cam.lookAt(0, tgtY, 0);
+  sun.position.set(-3 + 0, 5, 4); sun.target.position.set(0, 0.9, 0); S.add(sun.target);
+  R.render(S, cam);
+  return true;
+};
+document.title = 'done';
+</script>

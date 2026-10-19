@@ -1,0 +1,50 @@
+{
+ "info": {
+  "gpu": "ANGLE (Intel, Intel(R) Arc(TM) Pro 140T GPU (16GB) (0x00007D51) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "tris_per_instance": 49170
+ },
+ "runs": [
+  {
+   "N": 1,
+   "tris": 49170,
+   "ms_per_frame": 1.7100000023841857,
+   "mtris_per_s": 28.75438592482117,
+   "rendered_info_tris": 49170
+  },
+  {
+   "N": 4,
+   "tris": 196680,
+   "ms_per_frame": 3.480000001192093,
+   "mtris_per_s": 56.517241359950056,
+   "rendered_info_tris": 196680
+  },
+  {
+   "N": 16,
+   "tris": 786720,
+   "ms_per_frame": 5.310000002384186,
+   "mtris_per_s": 148.15819202387254,
+   "rendered_info_tris": 786720
+  },
+  {
+   "N": 64,
+   "tris": 3146880,
+   "ms_per_frame": 10.280000001192093,
+   "mtris_per_s": 306.11673148201174,
+   "rendered_info_tris": 3146880
+  },
+  {
+   "N": 256,
+   "tris": 12587520,
+   "ms_per_frame": 16.775,
+   "mtris_per_s": 750.3737704918034,
+   "rendered_info_tris": 12587520
+  },
+  {
+   "N": 512,
+   "tris": 25175040,
+   "ms_per_frame": 21.909999999403954,
+   "mtris_per_s": 1149.0205385981226,
+   "rendered_info_tris": 25175040
+  }
+ ]
+}
