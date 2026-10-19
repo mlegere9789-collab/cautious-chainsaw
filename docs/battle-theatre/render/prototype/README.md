@@ -9,7 +9,7 @@ node docs/battle-theatre/render/prototype/tools/serve.mjs docs/battle-theatre/re
 open http://127.0.0.1:10740/prototype/index.html                   # Chrome, WebGPU; ?api=webgl2 for the WebGL2 path
 ```
 
-Controls: `WASD` move, `Q/E` down/up, `Shift` fast, drag = look, wheel = speed, `1..7` camera presets (overview, wide, ridge, ground, line, battery, cavalry), `F1` HUD, `Space` pause. Query: `api=webgpu|webgl2`, `shot=`, `w=&h=&dpr=`, `nearQ=` (near mesh quality, 1 = 2.9k tris, 2 = 9k, 3 = 19k), `midQ=`, `nearR=&midR=` (LOD radii in metres), `mid=vat|bones` (WebGPU), `fxAlpha=`, `gunRate=`, `f_<pass>=0` to disable a pass (`f_particles=0&f_shadows=0&f_far=0&f_mid=0&f_near=0&f_guns=0&f_terrain=0&f_post=0&f_bloom=0&f_dof=1&f_mblur=1`).
+Controls: `WASD` move, `Q/E` down/up, `Shift` fast, drag = look, wheel = speed, `1..7` camera presets (overview, ridge, line, battery, cavalry, ground, wide), `F1` HUD, `Space` pause. Query: `api=webgpu|webgl2`, `shot=`, `w=&h=&dpr=`, `nearQ=` (near mesh quality, 1 = 2.9k tris, 2 = 9k, 3 = 19k), `midQ=`, `nearR=&midR=` (LOD radii in metres), `mid=vat|bones` (WebGPU), `fxAlpha=`, `gunRate=`, `f_<pass>=0` to disable a pass (`f_particles=0&f_shadows=0&f_far=0&f_mid=0&f_near=0&f_guns=0&f_terrain=0&f_post=0&f_bloom=0&f_dof=1&f_mblur=1`).
 
 ## What is in it
 

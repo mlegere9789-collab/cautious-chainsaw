@@ -12,10 +12,10 @@ const res = { note: 'placeholder analytic gait (characters.mjs poseFoot), NOT mo
 // 1) slip per step in the world frame, for a root moving at speed v relative to the clip's nominal speed
 function slip(clip, dur, vNom, speedRatio, rate) { // rate = playback rate multiplier (1 = clip duration)
   const n = 600, cyc = cycle(clip, n); const v = vNom * speedRatio; const T = dur / rate; const out = [];
-  for (const side of ['L', 'R']) { const ys = cyc.map(c => c[side][1]); const ymin = Math.min(...ys); const stance = cyc.map((c, i) => ({ i, c })).filter(({ c }) => c[side][1] < ymin + 0.012); if (!stance.length) continue;
+  for (const side of ['L', 'R']) { const ys = cyc.map(c => c[side][1]); const ymin = Math.min(...ys); const stance = cyc.map((c, i) => ({ i, c })).filter(({ c, i }) => { const nxt = cyc[(i + 1) % n]; return c[side][1] < ymin + 0.04 && (nxt[side][2] - nxt.P[2]) < (c[side][2] - c.P[2]); }); if (!stance.length) continue; /* stance = ankle within 4 cm of its lowest point and moving backward relative to the pelvis */
     // world forward position of the foot over the stance segment (contiguous, handle wrap by shifting)
     const idx = stance.map(x => x.i); const wrapStart = idx.findIndex((x, k) => k > 0 && x - idx[k - 1] > 1); const ordered = wrapStart > 0 ? idx.slice(wrapStart).concat(idx.slice(0, wrapStart).map(x => x + n)) : idx;
-    const xs = ordered.map(i => { const c = cyc[i % n]; const t = i / n * T; return c[side][2] + v * t; }); const zs = ordered.map(i => cyc[i % n][side][0]); out.push({ slipCm: (Math.max(...xs) - Math.min(...xs)) * 100, lateralCm: (Math.max(...zs) - Math.min(...zs)) * 100, stanceFrac: ordered.length / n }); }
+    const xs = ordered.map(i => { const c = cyc[i % n]; const t = i / n * T; return c[side][2] - 0 + v * t; }); const zs = ordered.map(i => cyc[i % n][side][0]); out.push({ slipCm: (Math.max(...xs) - Math.min(...xs)) * 100, lateralCm: (Math.max(...zs) - Math.min(...zs)) * 100, stanceFrac: ordered.length / n }); }
   return out;
 }
 const dur = { march: 1.0, run: 0.62 }; const vNom = { march: 1.15, run: 2.35 }; const clipId = { march: 1, run: 2 };
@@ -39,7 +39,10 @@ function walkErr(x0, z0, dx, dz, vSp, clip) { const out = []; const L = 60; cons
       if (ankleAbove < 0.03) out.push(err); } }
   return out; }
 res.noIK_terrainContact = {};
-for (const [name, x0, z0, dx, dz] of [['Little Round Top slope (E-W line)', -300, 1950, 1, 0], ['Culp Hill slope (E-W line)', 1100, -1150, 1, 0], ['Cemetery Ridge (N-S line)', -430, 100, 0, 1]]) {
+const Z15 = 2 ** 15 * 512; const worldPx = (lng, lat) => { const sn = Math.sin(lat * Math.PI / 180); return [(lng + 180) / 360 * Z15, (0.5 - Math.log((1 + sn) / (1 - sn)) / (4 * Math.PI)) * Z15]; };
+const toXZ = (lng, lat) => { const [px, py] = worldPx(lng, lat); const [bx, by, bw, bh] = meta.z15box; return [(px - bx - bw / 2) * meta.groundMPerZ15Px, (py - by - bh / 2) * meta.groundMPerZ15Px]; };
+for (const [name, lng, lat] of [['Little Round Top (summit from 3DEP, +/- 80 m search)', -77.236623, 39.792059], ['Culps Hill (summit from 3DEP, +/- 80 m search)', -77.220422, 39.820115], ['Cemetery Ridge near the Copse of Trees (+/- 80 m search)', -77.2425, 39.8108]]) {
+  const [x0, z0] = toXZ(lng, lat), dx = 1, dz = 0;
   // search for the steepest 60 m window near the given start
   let best = null; for (let sx = -80; sx <= 80; sx += 10) for (let sz = -80; sz <= 80; sz += 10) for (const [ddx, ddz] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const a = hAt(x0 + sx, z0 + sz), b = hAt(x0 + sx + ddx * 60, z0 + sz + ddz * 60); const g = Math.abs(b - a) / 60; if (!best || g > best.g) best = { g, sx, sz, ddx, ddz }; }
   const e = walkErr(x0 + best.sx, z0 + best.sz, best.ddx, best.ddz, 1.15, 1); const ab = e.map(Math.abs); res.noIK_terrainContact[name] = { windowSlopeDeg: +(Math.atan(best.g) * 180 / Math.PI).toFixed(1), stanceSamples: e.length, footErrorCm_abs: Object.fromEntries(Object.entries(stats(ab)).map(([k, v]) => [k, +(v * 100).toFixed(1)])), pctStanceOver2cm: +(100 * ab.filter(x => x > .02).length / ab.length).toFixed(1) };
