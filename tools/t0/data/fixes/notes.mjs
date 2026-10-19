@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { EXACT } from '../notes-rules.mjs';
+import { remapId } from '../idmap.mjs';
 export const kind = 'text';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const DATA = path.join(HERE, '..', '..', '..', '..', 'baseline', 'dist', 'data');
@@ -24,14 +25,15 @@ for (const f of fs.readdirSync(DATA).filter((x) => /^(placements_|density_).*\.j
     const r = EXACT.get(note);
     if (!r) { if (FLAG.test(note)) uncovered.push(`${f} t${tick} ${unit} | ${note}`); continue; }
     if (r.cls === 'keep' || r.repl === note) continue;
-    const key = `${f}|${unit}|${tick}|${note}`;
+    const unit2 = remapId(f, unit, tick, note);   // fixes/ids.mjs runs first and has already corrected the id on this row
+    const key = `${f}|${unit2}|${tick}|${note}`;
     if (seen.has(key)) continue;
     seen.add(key);
     const newRaw = JSON.stringify(r.repl).slice(1, -1);
     out.push({
-      id: `DATA-note-${f.replace(/\.json$/, '').replace(/_/g, '-')}-${unit}-${tick}`,
+      id: `DATA-note-${f.replace(/\.json$/, '').replace(/_/g, '-')}-${unit2}-${tick}`,
       target: 'data/' + f, regex: true,
-      find: `("unit_id":"${esc(unit)}","tick":${tick},[^${BS}n]*?"notes":")${esc(rawNote)}"`,
+      find: `("unit_id":"${esc(unit2)}","tick":${tick},[^${BS}n]*?"notes":")${esc(rawNote)}"`,
       repl: BS + 'g<1>' + newRaw.split(BS).join(BS + BS) + '"',
       expect: 1, cls: r.cls, before: note, src: r.src,
     });
