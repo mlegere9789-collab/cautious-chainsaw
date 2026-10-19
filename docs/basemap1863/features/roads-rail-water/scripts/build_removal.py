@@ -29,6 +29,7 @@ def classify(overrides):
         gm = merge_lines(gs, clip=XBOX)
         if gm is not None: road_geoms[r['id']] = utm(gm).buffer(4.0)
     spec_ids = {i: r['id'] for r in spec_roads.ROADS for i in r['tiger']}
+    spec_present = {r['id']: r.get('present', True) for r in spec_roads.ROADS}
     rows = []
     for f in tiger():
         p = f['properties']; g = LineString(f['geometry']['coordinates'])
@@ -38,7 +39,9 @@ def classify(overrides):
         cen = gc.centroid
         row = dict(tiger_linearid=lid, name=nm, mtfcc=mt, length_m_in_box=round(L), centroid_lng=round(cen.x, 5), centroid_lat=round(cen.y, 5),
                    cls='', present_1863=None, feature_1863='', reason='', evidence='', action='')
-        if lid in spec_ids:
+        if lid in spec_ids and spec_present.get(spec_ids[lid], True) is None:
+            row.update(cls='ROAD_1863_CANDIDATE', present_1863=None, feature_1863=spec_ids[lid], reason='Catalogued as a candidate 1863 road (existence not yet established by a source read); kept out of the removal list until decided.', evidence='spec_roads (no source)', action='undecided')
+        elif lid in spec_ids:
             row.update(cls='ROAD_1863_SAME_LINE', present_1863=True, feature_1863=spec_ids[lid], reason='Centreline of this edge is the geometry of the catalogued 1863 road.', evidence='spec_roads',
                        action='surface removed, redrawn as the 1863 road')
         else:

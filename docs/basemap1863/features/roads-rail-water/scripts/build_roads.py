@@ -19,9 +19,9 @@ def build():
         v = ver.get(r['id'], {})
         feats.append({'type': 'Feature', 'id': r['id'], 'properties': {
             'id': r['id'], 'category': 'road', 'subtype': r['subtype'], 'name': r['name'], 'name_modern': r['name_modern'],
-            'present_1863': True, 'period_note': r['period_note'], 'sources': r['sources'] + v.get('sources', []),
+            'present_1863': r.get('present', True), 'period_note': r['period_note'], 'sources': r['sources'] + v.get('sources', []),
             'method': v.get('method') or 'Centreline of TIGER/Line 2023 edge(s) %s clipped to the map box; taken as the 1863 alignment (modern centreline) pending the period-map check.' % ', '.join(r['tiger']),
-            'positional_error_m': v.get('positional_error_m', 25), 'confidence': v.get('confidence', 'Estimated'),
+            'positional_error_m': v.get('positional_error_m', 25), 'confidence': v.get('confidence', 'Unknown' if r.get('present', True) is None else 'Estimated'),
             'notes': v.get('notes', ''), 'tiger_ids': r['tiger'], 'length_m_in_box': round(L)}, 'geometry': mapping(geom)})
         idmap[r['id']] = r['tiger']
     return feats
