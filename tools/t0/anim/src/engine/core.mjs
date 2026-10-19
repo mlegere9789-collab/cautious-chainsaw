@@ -56,7 +56,7 @@ export function createCore(o) {
   const metrics = createMetrics(tok);
   let textModel = createTextModel(o.textTable || { fonts: {} }, 1.04, o.textTable ? 'table' : 'none');
 
-  const E = { kernel, tuning, tok, camera, frame: null, frames: 0, dirty: true, selectedId: null, metrics, get battle() { return battle; }, get text() { return textModel; }, reduced };
+  const E = { kernel, tuning, tok, camera, frame: null, frames: 0, forcedSolves: 0, dirty: true, selectedId: null, metrics, get battle() { return battle; }, get text() { return textModel; }, reduced };
   let layoutMod = null; let display = null; let specCache = null; let skinCache = null;
   let lastL = null; let lastSelected = null; let sinceSolve = 0; let accDtMs = 0; let autoEvery = 1; const gov = { n: 0, sum: 0, eng: 0, calm: 0 };
   let prevIds = new Set(); let prevZoom = null; let forceCut = false; let lastStamp = -1; let stampFrame = 0; let solves = 0;
@@ -80,9 +80,9 @@ export function createCore(o) {
   tuning.on('skin.id', () => { invalidateSpec(); layoutMod.reset(); forceCut = true; });
   kernel.skins.subscribe(() => { invalidateSpec(); });
 
-  E.setTextTable = (table, source = 'measured') => { textModel = createTextModel(table, 1.04, source); specCache = null; lastL = null; E.dirty = true; };
+  E.setTextTable = (table, source = 'measured') => { textModel = createTextModel(table, 1.04, source); specCache = null; lastL = null; layoutMod.reset(); E.dirty = true; };      // the solver's remembered crowds carry boxes sized with the old widths: start them again
   /** a new dataset (a day of placements arrived): the battle is rebuilt, the layout starts from the picture the viewer sees (the display layer keeps its tiles by identity, so nothing blinks) */
-  E.setDataset = (ds) => { battle = createBattle(ds, kernel, tok); layoutMod.reset(); lastL = null; specCache = null; E.dirty = true; };
+  E.setDataset = (ds) => { battle = createBattle(ds, kernel, tok); buildLayout(); lastL = null; specCache = null; E.dirty = true; };
   E.select = (id) => { E.selectedId = id || null; E.dirty = true; };
   E.cut = () => { forceCut = true; E.dirty = true; };
 
@@ -97,6 +97,34 @@ export function createCore(o) {
     return null;
   };
 
+  /** what a pointer at (sx, sy) means: a unit (its own mark, or its true place: the foot of its pole, or its dot inside a crowd), a crowd (its mark), or nothing.  Order: a mark's box, a crowd member's dot, a crowd's
+   *  box, the foot of a pole.  { kind: 'unit'|'crowd', id?, tile } or null.  reach = extra pixels (a mouse 4, a finger 14). */
+  E.pickAt = (sx, sy, reach = 4) => {
+    const f = E.frame; if (!f) return null; const dx = f.view.dx; const dy = f.view.dy; const tiles = f.tiles;
+    for (let i = tiles.length - 1; i >= 0; i--) {
+      const t = tiles[i]; if (!t.solid || t.life !== 'live' || t.kind !== 'leaf') continue;
+      const hw = t.w * t.scale / 2 + reach; const hh = t.h * t.scale / 2 + reach; const x = t.x + dx; const y = t.y + dy;
+      if (sx >= x - hw && sx <= x + hw && sy >= y - hh && sy <= y + hh) return { kind: 'unit', id: t.ids[0], tile: t };
+    }
+    let best = null; let bd = (reach + 5) * (reach + 5);
+    for (let i = tiles.length - 1; i >= 0; i--) {
+      const t = tiles[i]; if (!t.solid || t.life !== 'live' || t.kind !== 'agg' || !t.members) continue;
+      for (const m of t.members) { const d = (m.ax + dx - sx) ** 2 + (m.ay + dy - sy) ** 2; if (d < bd) { bd = d; best = { kind: 'unit', id: m.id, tile: t }; } }
+    }
+    if (best) return best;
+    for (let i = tiles.length - 1; i >= 0; i--) {
+      const t = tiles[i]; if (!t.solid || t.life !== 'live' || t.kind !== 'agg') continue;
+      const hw = t.w * t.scale / 2 + reach; const hh = t.h * t.scale / 2 + reach; const x = t.x + dx; const y = t.y + dy;
+      if (sx >= x - hw && sx <= x + hw && sy >= y - hh && sy <= y + hh) return { kind: 'crowd', tile: t };
+    }
+    bd = (reach + 8) * (reach + 8);
+    for (let i = tiles.length - 1; i >= 0; i--) {
+      const t = tiles[i]; if (!t.solid || t.life !== 'live' || t.kind !== 'leaf') continue;
+      const d = (t.ax + dx - sx) ** 2 + (t.ay + dy - sy) ** 2; if (d < bd) { bd = d; best = { kind: 'unit', id: t.ids[0], tile: t }; }
+    }
+    return best;
+  };
+
   /**
    * advance by dtMs and return the display frame.
    * @param {{dtMs:number, rawDtMs?:number, tau:number, cam:{lng:number,lat:number,zoom:number,w:number,h:number}, selectedId?:string|null, pass?:(u:object,st:object)=>boolean, cut?:boolean, bias?:[number,number]}} inp
@@ -109,26 +137,39 @@ export function createCore(o) {
     const cut = forceCut || !!inp.cut || (!first && prevZoom !== null && Math.abs(zoom - prevZoom) > 0.6 && !inp.zoomGlide);
     forceCut = false; prevZoom = zoom;
     if (cut) { layoutMod.reset(); lastL = null; }
+    // the units on the field (every unit with a keyframe up to tau, filtered by the app's filters) ...
     let vis = battle.visibleAt(inp.tau); if (inp.pass) vis = vis.filter((v) => inp.pass(v.u, v.st));
-    const ids = new Set(); const newIds = new Set(); for (const v of vis) { ids.add(v.u.id); if (!prevIds.has(v.u.id)) newIds.add(v.u.id); }
-    const goneIds = new Set(); for (const id of prevIds) if (!ids.has(id)) goneIds.add(id);
-    prevIds = ids;
+    const alive = new Set(); const newIds = new Set(); for (const v of vis) { alive.add(v.u.id); if (!prevIds.has(v.u.id)) newIds.add(v.u.id); }
+    const goneIds = new Set(); for (const id of prevIds) if (!alive.has(id)) goneIds.add(id);
+    prevIds = alive;
+    // ... of which the ones near the screen are laid out (the others cannot be seen: a layout of 478 units for a phone showing 60 is wasted work).  The margin is wide, so a crowd near the edge is still whole.
     const spec = E.spec(); spec.zoom = zoom; spec.dMax = zoom >= tok('layout.fullZoom') ? tok('layout.dMaxFullPx') : tok('layout.dMaxPx'); const origin = worldOrigin(zoom); const camO = camera.origin(); const bias = inp.bias || [0, 0];
     const view = { dx: origin[0] - camO[0] + bias[0], dy: origin[1] - camO[1] + bias[1], w: camera.w, h: camera.h };
-    // solve cadence: every frame, or (slow devices) every 2nd / 3rd with the solved tiles carried along by their units in between; a zoom change, a new selection or a change of the set of units always solves at once
+    const cullPx = tok('layout.cullPx'); let laid = vis;
+    if (cullPx > 0) {
+      const sc = 512 * 2 ** zoom; const D2R = Math.PI / 180; const wx = (v) => (v.st.lng + 180) / 360 * sc - origin[0] + view.dx; const wy = (v) => { const s = Math.sin(v.st.lat * D2R); return (0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI)) * sc - origin[1] + view.dy; };
+      const x0 = -cullPx; const x1 = view.w + cullPx; const y0 = -cullPx; const y1 = view.h + cullPx; laid = [];
+      for (const v of vis) { const x = wx(v); const y = wy(v); if ((x > x0 && x < x1 && y > y0 && y < y1) || v.u.id === E.selectedId) laid.push(v); }
+    }
     const setting = tok('layout.solveEvery'); const every = setting === 'auto' ? (o.autoQuality ? autoEvery : 1) : +setting;
     const frameDt = Math.min(dtMs || 16.667, 50); accDtMs += frameDt;
-    let L = null; let solved = true;
-    if (lastL && every > 1 && sinceSolve + 1 < every && zoom === lastL._z && E.selectedId === lastSelected && newIds.size === 0 && goneIds.size === 0 && layoutMod.refresh) { if (layoutMod.refresh(lastL, { vis, z: zoom, spec, selectedId: E.selectedId })) { L = lastL; solved = false; sinceSolve++; } }
-    if (!L) { L = layoutMod.solve({ vis, z: zoom, tau: inp.tau, view, dtMs: accDtMs, selectedId: E.selectedId, spec, cold: first || cut }); L._z = zoom; lastL = L; lastSelected = E.selectedId; sinceSolve = 0; accDtMs = 0; solves++; }
-    const t1 = performance.now();
-    const F = display.step(L, { dtMs: dtMs || 16.667, z: zoom, origin, spec, cut: cut && !first, selectedId: E.selectedId, reduced: reduced(), newIds: first ? null : newIds, goneIds: first ? null : goneIds });
+    const run = (force, dt) => {
+      let L = null; let solved = true;
+      // solve cadence: every frame, or (slow devices) every 2nd / 3rd with the solved tiles carried along by their units in between; a zoom change, a new selection or a change of the set of units always solves at once
+      if (!force && lastL && every > 1 && sinceSolve + 1 < every && zoom === lastL._z && E.selectedId === lastSelected && newIds.size === 0 && goneIds.size === 0 && layoutMod.refresh) { if (layoutMod.refresh(lastL, { vis: laid, z: zoom, spec, selectedId: E.selectedId })) { L = lastL; solved = false; sinceSolve++; } }
+      if (!L) { L = layoutMod.solve({ vis: laid, z: zoom, tau: inp.tau, view, dtMs: accDtMs, selectedId: E.selectedId, spec, cold: first || cut }); L._z = zoom; lastL = L; lastSelected = E.selectedId; sinceSolve = 0; accDtMs = 0; solves++; }
+      const t1 = performance.now();
+      const F = display.step(L, { dtMs: dt, z: zoom, origin, spec, cut: cut && !first, selectedId: E.selectedId, reduced: reduced(), newIds: first ? null : newIds, goneIds: first ? null : goneIds });
+      F.solved = solved; F.t1 = t1; return F;
+    };
+    let F = run(false, dtMs || 16.667);
+    if (F.overlaps > 0 && !F.solved) { F = run(true, 0); E.forcedSolves++; }      // a frame carried on from the last solve touched a neighbour: solve it exactly now (the guarantee is per DISPLAYED frame)
     layoutMod.feedback(F.offsets);
     const t2 = performance.now();
-    F.tau = inp.tau; F.tick = Math.round(inp.tau); F.zoom = zoom; F.spec = spec; F.view = view; F.solved = solved; F.solveEvery = every; F.visible = vis.length; F.vis = vis; F.camera = { lng: camera.lng, lat: camera.lat, zoom };
+    F.tau = inp.tau; F.tick = Math.round(inp.tau); F.zoom = zoom; F.spec = spec; F.view = view; F.solveEvery = every; F.visible = vis.length; F.vis = vis; F.camera = { lng: camera.lng, lat: camera.lat, zoom }; F.laid = laid.length;
     if (layoutMod.stamp !== undefined && layoutMod.stamp !== lastStamp) { lastStamp = layoutMod.stamp; stampFrame = E.frames; }
     E.frame = F; E.frames++; E.dirty = false;
-    metrics.record(F, { rawDtMs, engineMs: t2 - t0, displayMs: t2 - t1 });
+    metrics.record(F, { rawDtMs, engineMs: t2 - t0, displayMs: t2 - F.t1 });
     if (o.autoQuality && tok('layout.solveEvery') === 'auto' && !first) autoEvery = governorStep(gov, autoEvery, rawDtMs, t2 - t0);
     return F;
   };

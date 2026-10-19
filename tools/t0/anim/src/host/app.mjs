@@ -63,7 +63,7 @@ function createEngine(ds) {
   let storage = null; try { storage = window.localStorage; storage.getItem('gtanim_probe'); } catch { storage = null; }
   const skins = [...STANDARDS, ...S.extraSkins];
   const settings = { 'skin.id': (S.sw.skin && skins.some((k) => k.id === S.sw.skin)) ? S.sw.skin : 'standards', ...(S.sw.set || {}) };
-  S.core = createCore({ dataset: ds, tokens: TOKENS_DOC, textTable: measure(), storage: S.sw.tune ? storage : null, skins, settings, autoQuality: true, systemReduced: reducedNow });
+  S.t0 = window.performance.now(); S.core = createCore({ dataset: ds, tokens: TOKENS_DOC, textTable: measure(), storage: S.sw.tune ? storage : null, skins, settings, autoQuality: true, systemReduced: reducedNow });
   S.core.tuning.on('*', () => { wake(); });
   skinKit.onInvalidate(() => wake());
   S.clock = createClock(S.core.tok);
@@ -88,7 +88,7 @@ function attach(canvas, map) {
   if (S.map && S.map !== map && S.mapOff) { try { S.mapOff(); } catch { /* old map gone */ } }
   S.canvas = canvas; S.map = map; S.renderer = null;
   const onRender = () => { if (S.state === 1 && S.map === map) guard(() => frame(), null); };
-  const onMove = (e) => { if (S.state !== 1) return; const t = S.core && S.core.frame ? S.core.hit(e.point.x, e.point.y, 4) : null; const k = t && t.kind === 'leaf' ? t.key : (t ? t.key : null); if (k !== S.hoverKey) { S.hoverKey = k; skinKit.setHover(k); wake(); try { map.getCanvas().style.cursor = k ? 'pointer' : ''; } catch { /* cursor */ } } };
+  const onMove = (e) => { if (S.state !== 1) return; const h = S.core && S.core.frame ? S.core.pickAt(e.point.x, e.point.y, 4) : null; const k = h && h.kind === 'unit' ? h.tile.key : (h ? h.tile.key : null); if (k !== S.hoverKey) { S.hoverKey = k; skinKit.setHover(k); wake(); try { map.getCanvas().style.cursor = k ? 'pointer' : ''; } catch { /* cursor */ } } };
   const onOut = () => { if (S.hoverKey !== null) { S.hoverKey = null; skinKit.setHover(null); wake(); } };
   map.on('render', onRender); map.on('mousemove', onMove); map.getCanvas().addEventListener('mouseleave', onOut);
   S.mapOff = () => { map.off('render', onRender); map.off('mousemove', onMove); map.getCanvas().removeEventListener('mouseleave', onOut); };
@@ -112,6 +112,7 @@ function frame() {
   const st = S.store.getState();
   if (!ensureData(st.placementsByTick) || !S.core) return;
   const E = S.core; const now = window.performance.now();
+  if (!S.fontsReady && now - S.t0 < 2500) { map.triggerRepaint(); return; }      // the layout is measured with the page's own face: the first picture waits for it (it is embedded, a few milliseconds)
   const gap = S.last ? now - S.last : 16.667; S.last = now; const raw = S.idle ? 16.667 : gap; S.idle = false; const dt = Math.min(raw, MAX_DT);
   const reduced = reducedNow();
   if (!S.ever) { S.ever = true; S.clock.init(st.currentTick); }
@@ -127,7 +128,7 @@ function frame() {
   const shown = st.showUnits !== false && canvas.style.display !== 'none';
   const F = E.step({ dtMs: dt, rawDtMs: raw, tau, cam, selectedId: st.selectedUnitId || st.pinnedUnitId || null, pass: filterOf(st.filters), cut: ck.cut, bias: S.bias });
   if (shown) S.renderer.draw(F, { trails: S.trails.enabled() ? (g, env) => S.trails.draw(g, env, F) : null });
-  S.frames++;
+  S.frames++; if (S.onFrame) S.onFrame(F, S);
   if (S.popups) S.popups.update(F, st);
   const more = !!st.isPlaying || S.clock.moving || E.busy() || S.trails.busy();
   if (more) map.triggerRepaint(); else S.idle = true;
@@ -156,11 +157,11 @@ export const G = {
   pick(clientX, clientY, touch) {
     return guard(() => {
       if (!S.core || !S.canvas || !S.core.frame) return false;
-      const r = S.canvas.getBoundingClientRect(); const t = S.core.hit(clientX - r.left, clientY - r.top, touch ? 14 : 4);
-      if (!t) return { id: null, rec: null };
-      if (t.kind === 'leaf') { const u = t.unit; const rec = u && u.raw ? u.raw.find((q) => q.tick === t.kfTick) || null : null; return { id: t.ids[0], rec }; }
+      const r = S.canvas.getBoundingClientRect(); const h = S.core.pickAt(clientX - r.left, clientY - r.top, touch ? 14 : 4);
+      if (!h) return { id: null, rec: null };
+      if (h.kind === 'unit') { const t = h.tile; const u = S.core.battle.units.get(h.id); const st = S.core.battle.stateOf(u, S.core.frame.tau); const rec = u && u.raw && st ? u.raw[st.seg] || null : null; void t; return { id: h.id, rec }; }
       // a crowd of several units: the map moves in until the crowd splits (a mark never hides what it stands for)
-      try { const f = S.core.frame; const lng = t.members && t.members.length ? null : null; void lng; const to = S.map.unproject([t.ax + f.view.dx, t.ay + f.view.dy]); S.map.easeTo({ center: to, zoom: Math.min(18, S.map.getZoom() + 1.6), duration: window.__gtbgReduceMotion ? 0 : 520 }); } catch { /* map gone */ }
+      try { const f = S.core.frame; const to = S.map.unproject([h.tile.ax + f.view.dx, h.tile.ay + f.view.dy]); S.map.easeTo({ center: to, zoom: Math.min(18, S.map.getZoom() + 1.6), duration: window.__gtbgReduceMotion ? 0 : 520 }); } catch { /* map gone */ }
       return { id: undefined, rec: null, crowd: true };
     }, false);
   },

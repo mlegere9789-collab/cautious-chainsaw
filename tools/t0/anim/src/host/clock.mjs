@@ -56,7 +56,8 @@ export function createClock(tok) {
         const gs = Math.max(0.04, S.glideMs / 1000 / 2.6);                        // time constant: the glide has covered about 99 % after the stated time
         const r = dampStep(S.tau, S.vel, S.target, gs, dt, 160);
         S.tau = r[0]; S.vel = r[1];
-        if (Math.abs(S.tau - S.target) < 2e-3 && Math.abs(S.vel) < 0.05) { S.tau = S.target; S.vel = 0; S.target = null; }
+        // landed: at rest on the target; or, while the clock plays (the target keeps moving ahead of it), within half a tick of it - from there it simply keeps playing
+        if (app.playing ? Math.abs(S.tau - S.target) < 0.5 : (Math.abs(S.tau - S.target) < 2e-3 && Math.abs(S.vel) < 0.05)) { if (!app.playing) S.tau = S.target; S.vel = 0; S.target = null; }
       } else if (adv !== 0) { S.tau += adv; S.vel = 0; }
       if (S.tau >= TICK_MAX) { S.tau = TICK_MAX; if (app.playing && S.target === null) { out.stop = true; S.ended = true; S.speedEff = 0; S.sv = 0; } }
       else if (S.tau < 1) S.tau = 1;
