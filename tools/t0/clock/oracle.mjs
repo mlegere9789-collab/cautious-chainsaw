@@ -88,5 +88,20 @@ export function makeOracle(doc = JSON.parse(fs.readFileSync(ANCHORS_FILE, 'utf8'
     const w = (t - a.tick) / (b.tick - a.tick), u = a.u * (1 - w) + b.u * w, st = RANK[a.st] <= RANK[b.st] ? a.st : b.st;
     return `give or take ${Math.round(u / 5) * 5} minutes. ${BETWEEN[st]}.`;
   };
-  return { A, tickMax, uncertaintyText, minutes, uncertainty, about, parts, fmt, hourStep, tabDays: doc.tab_days, approxSigma, anchorsDoc: doc };
+  /** uncertainty_min at a tick as a number (straight-line mix of the anchors' uncertainty_min) */
+  const uncertaintyMin = (t) => {
+    t = Math.min(tickMax, Math.max(1, t));
+    const i = seg(t), a = B[i], b = B[i + 1];
+    if (t === a.tick) return a.u;
+    if (t === b.tick) return b.u;
+    const w = (t - a.tick) / (b.tick - a.tick);
+    return a.u * (1 - w) + b.u * w;
+  };
+  /** the anchor nearest to a tick, with its label, adjudicated status, time and window */
+  const nearestAnchor = (t) => {
+    let best = doc.anchors[0];
+    for (const a of doc.anchors) if (Math.abs(a.tick - t) < Math.abs(best.tick - t)) best = a;
+    return { tick: best.tick, time: best.t.slice(5).replace('T', ' '), status: best.adj_status, label: best.label, window: best.range ? best.range.join('-') : null };
+  };
+  return { A, tickMax, uncertaintyText, uncertaintyMin, nearestAnchor, minutes, uncertainty, about, parts, fmt, hourStep, tabDays: doc.tab_days, approxSigma, anchorsDoc: doc };
 }

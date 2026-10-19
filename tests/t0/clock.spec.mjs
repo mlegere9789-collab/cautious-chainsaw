@@ -575,7 +575,7 @@ suite.test('T0-CLK-12', 'sub-pages: Compare, Camera, Immersive, Living Ledger, D
     eq('watch-together hint beside the field', (await P.evaluate(() => document.getElementById('new-tick-time').textContent)).trim(), O.fmt(538, 'compat'));
     await P.fill('#new-note', 'step-off'); await P.click('#add-stop'); await sleep(500);
     const wt = await P.evaluate(() => ({ row: (document.querySelector('.stop-tick') || {}).textContent, cap: document.getElementById('caption-bar').textContent, ph: document.getElementById('new-tick').placeholder }));
-    eq('watch-together stop row', wt.row, O.fmt(538, 'compat')); eq('watch-together caption', wt.cap, `${O.fmt(538, 'compat')} — step-off`); eq('watch-together placeholder', wt.ph, 'Frame (1-675)');
+    eq('watch-together stop row', wt.row, O.fmt(538, 'compat')); eq('watch-together caption', wt.cap, `${O.fmt(538, 'compat')} — step-off`); eq('watch-together placeholder', wt.ph, 'frame number (1-675)');
     await P.fill('#new-tick', 'abc'); await P.click('#add-stop'); await sleep(300);
     if (/tick/i.test(await P.evaluate(() => document.getElementById('add-stop-msg').textContent))) problems.push('watch-together error message says tick');
     t.note('details', notes);
