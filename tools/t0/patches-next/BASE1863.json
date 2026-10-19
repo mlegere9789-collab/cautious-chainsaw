@@ -1,0 +1,96 @@
+{
+ "group": "BASE1863",
+ "description": "Reconstruction of July 1863 as the base of the two main maps (desktop and phone): the Mapbox satellite style is replaced by an inline style that draws only the local tile pyramid /tiles1863/v1-65d491b8/ over a neutral ground colour; permanent label, \"Show what was changed\" toggle, sources link; the product's road/stream/farm overlays are redrawn from the catalogue geometry. The Walkthrough map is untouched. Needs the overlay files of tools/t0/base1863/stage_assets.py and the service-worker and headers additions of tools/t0/base1863/b63_build.py (BASE1863-README.md).",
+ "patches": [
+  {
+   "id": "B63:engine+roads-data",
+   "target": "js",
+   "find": "function T4(c){c.addSource(\"roads-1863\",{type:\"geojson\",data:x4}),",
+   "repl": "const GTB63 = (() => {\n  const VER = \"v1-65d491b8\", B = \"/tiles1863/\" + VER + \"/\", CFG = {\"wide\":{\"minzoom\":11,\"maxzoom\":15,\"bounds\":[-77.35454,39.74963,-77.13521,39.88425]},\"detail\":{\"minzoom\":16,\"maxzoom\":16,\"bounds\":[-77.2996,39.77075,-77.18465,39.86739]},\"changed\":{\"minzoom\":13,\"maxzoom\":16},\"ground\":{\"colour\":\"#708a6e\"},\"attribution\":\"Reconstruction, not a photograph. USDA NAIP 2013, USGS, Library of Congress, NPS, OpenStreetMap contributors\",\"classes\":[{\"code\":1,\"rgb\":[255,0,255],\"text\":\"Modern feature removed (road, roof, utility, small object); ground filled from its surroundings\"},{\"code\":2,\"rgb\":[200,0,160],\"text\":\"Modern feature or area removed; ground re-synthesised from real photograph blocks\"},{\"code\":3,\"rgb\":[255,128,0],\"text\":\"Modern tree canopy removed (outside the 1863 woods, with a margin)\"},{\"code\":4,\"rgb\":[0,180,0],\"text\":\"1863 woods added where the ground is open now\"},{\"code\":5,\"rgb\":[150,100,200],\"text\":\"Town block: modern street and yard trees removed\"},{\"code\":6,\"rgb\":[255,230,0],\"text\":\"1863 road drawn (from the road catalogue)\"},{\"code\":7,\"rgb\":[255,160,0],\"text\":\"1863 railroad grade drawn\"},{\"code\":8,\"rgb\":[0,200,255],\"text\":\"1863 bridge drawn\"},{\"code\":9,\"rgb\":[160,120,60],\"text\":\"1863 fence drawn\"},{\"code\":10,\"rgb\":[255,60,60],\"text\":\"1863 building drawn (schematic roof)\"},{\"code\":11,\"rgb\":[120,255,120],\"text\":\"1863 orchard trees drawn (schematic)\"},{\"code\":12,\"rgb\":[255,200,0],\"text\":\"Wheatfield recoloured to ripe wheat (colour estimated)\"},{\"code\":13,\"rgb\":[230,60,120],\"text\":\"1868-69 building mass drawn (schematic roofs)\"},{\"code\":20,\"rgb\":[120,120,255],\"text\":\"Kept as photographed: the evidence cannot say whether modern or 1863\"},{\"code\":21,\"rgb\":[0,120,255],\"text\":\"1863 building that still stands: real roof kept\"}]};\n  const EMPTY = () => ({ type: \"FeatureCollection\", features: [] });\n  const S = { maps: [], errors: 0, retried: 0, lastRetry: 0, overlays: null, loading: false, sharp: false, saveData: false, version: VER, base: B, ctl: [] };\n  const LABEL = \"Reconstruction of July 1863 (USGS imagery and period maps), not a photograph\";\n  let cssDone = false;\n\n  function env() {\n    try {\n      const c = navigator.connection || {};\n      const slow = /(^|-)2g$/.test(c.effectiveType || \"\");\n      S.saveData = !!c.saveData || slow || (window.matchMedia && matchMedia(\"(prefers-reduced-data: reduce)\").matches);\n      S.sharp = (window.devicePixelRatio || 1) >= 1.5 && !S.saveData;\n      S.reducedMotion = !!(window.matchMedia && matchMedia(\"(prefers-reduced-motion: reduce)\").matches);\n    } catch (e) { /* defaults */ }\n  }\n\n  function sources() {\n    const ts = S.sharp ? 256 : 512;\n    const tiles = [B + \"{z}/{x}/{y}.webp\"];\n    return {\n      \"b1863-wide\": { type: \"raster\", tiles, tileSize: ts, minzoom: CFG.wide.minzoom, maxzoom: CFG.wide.maxzoom, bounds: CFG.wide.bounds, attribution: CFG.attribution },\n      \"b1863-detail\": { type: \"raster\", tiles, tileSize: ts, minzoom: CFG.detail.minzoom, maxzoom: CFG.detail.maxzoom, bounds: CFG.detail.bounds },\n      \"b1863-changed\": { type: \"raster\", tiles: [B + \"changed/{z}/{x}/{y}.png\"], tileSize: 512, minzoom: CFG.changed.minzoom, maxzoom: CFG.changed.maxzoom, bounds: CFG.wide.bounds },\n    };\n  }\n\n  function layers(visibleChanged) {\n    const fade = S.reducedMotion ? 0 : 200;\n    return [\n      { id: \"b1863-wide\", type: \"raster\", source: \"b1863-wide\", paint: { \"raster-fade-duration\": fade } },\n      { id: \"b1863-detail\", type: \"raster\", source: \"b1863-detail\", paint: { \"raster-fade-duration\": fade } },\n      { id: \"b1863-changed\", type: \"raster\", source: \"b1863-changed\", layout: { visibility: visibleChanged ? \"visible\" : \"none\" }, paint: { \"raster-opacity\": 0.62, \"raster-resampling\": \"nearest\", \"raster-fade-duration\": 0 } },\n    ];\n  }\n\n  function style() {\n    env();\n    return {\n      version: 8, name: \"Gettysburg, July 1863 (reconstruction)\", projection: { name: \"mercator\" },\n      glyphs: \"mapbox://fonts/mapbox/{fontstack}/{range}.pbf\",\n      sources: sources(),\n      layers: [{ id: \"b1863-ground\", type: \"background\", paint: { \"background-color\": CFG.ground.colour } }].concat(layers(false)),\n    };\n  }\n\n  function d(key) { return S.overlays && S.overlays[key] ? S.overlays[key] : EMPTY(); }\n\n  function applyOverlays(map) {\n    if (!S.overlays) return;\n    [[\"roads-1863\", \"roads\"], [\"rivers\", \"rivers\"], [\"farms\", \"farms\"]].forEach(([src, key]) => {\n      try { const s = map.getSource(src); if (s && s.setData) s.setData(S.overlays[key] || EMPTY()); } catch (e) { /* source gone */ }\n    });\n  }\n\n  function loadOverlays() {\n    if (S.overlays || S.loading) return;\n    S.loading = true;\n    fetch(B + \"overlays.json\").then((r) => (r.ok ? r.json() : Promise.reject(new Error(\"overlays \" + r.status)))).then((j) => {\n      S.overlays = j; S.maps.forEach((r) => applyOverlays(r.map));\n    }).catch(() => { S.loading = false; });\n  }\n\n  /* called at the end of T4 (the product has just added roads-1863, rivers, breastworks, farms): the old hand-placed lines are replaced by the catalogue geometry and, as the base\n   * now draws the roads and streams themselves, the line layers start hidden (labels stay; the Layers panel can still switch the lines on) */\n  function refine(map) {\n    try {\n      [\"roads-1863-line\", \"rivers-line\", \"farms-outline\"].forEach((id) => { if (map.getLayer(id)) map.setLayoutProperty(id, \"visibility\", \"none\"); });\n      if (map.getLayer(\"roads-1863-label\")) map.setLayoutProperty(\"roads-1863-label\", \"symbol-sort-key\", [\"get\", \"rank\"]);\n      applyOverlays(map);\n      loadOverlays();\n    } catch (e) { /* the map keeps the product's own layers */ }\n  }\n\n  function css() {\n    if (cssDone || !document.head) return;\n    cssDone = true;\n    const st = document.createElement(\"style\");\n    st.id = \"gtb63-css\";\n    st.textContent =\n      \".gtb63-ctl{position:absolute;z-index:12;top:8px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;box-sizing:border-box;pointer-events:auto;background:rgba(10,10,20,.9);color:#e8d5a3;border:1px solid #8b6914;border-radius:6px;padding:6px 10px;font:12px/1.35 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;text-align:left}\" +\n      \".gtb63-ctl[data-gtb63=desktop]{left:50%;transform:translateX(-50%);width:max-content;max-width:min(940px,calc(100% - 440px))}\" +\n      \".gtb63-ctl[data-gtb63=phone]{left:8px;max-width:calc(100% - 64px)}\" +\n      \"@media (max-width:900px){.gtb63-ctl[data-gtb63=desktop]{left:190px;transform:none;max-width:calc(100% - 270px)}}\" +\n      \".gtb63-label{margin:0;font-weight:600;flex:1 1 auto}.gtb63-row{display:flex;flex-wrap:wrap;align-items:center;gap:2px 10px;flex:none}\" +\n      \".gtb63-ctl[data-gtb63=phone]{font-size:11px}\" +\n      \".gtb63-btn{font:inherit;color:#e8d5a3;background:rgba(139,105,20,.25);border:1px solid #8b6914;border-radius:4px;padding:3px 9px;min-height:28px;cursor:pointer}\" +\n      \".gtb63-btn[aria-pressed=true]{background:#8b6914;color:#0a0a14;font-weight:600}.gtb63-btn:focus-visible,.gtb63-link:focus-visible{outline:2px solid #fff;outline-offset:2px}\" +\n      \".gtb63-link{color:#e8d5a3;text-decoration:underline}.gtb63-leg{flex:0 0 100%;margin:2px 0 0;padding:0;list-style:none;max-height:min(34vh,230px);overflow:auto}\" +\n      \".gtb63-leg li{display:flex;align-items:center;gap:6px;margin:2px 0;font-size:11px}.gtb63-sw{flex:none;width:12px;height:12px;border:1px solid rgba(255,255,255,.55);border-radius:2px}\" +\n      \".gtb63-note,.gtb63-status{flex:0 0 100%;margin:0;font-size:11px;opacity:.92}.gtb63-status:empty,.gtb63-note:empty{display:none}.gtb63-leg[hidden],.gtb63-note[hidden]{display:none}\" +\n      \"@media (pointer:coarse){.gtb63-btn{min-height:44px;padding:6px 12px}.gtb63-link{display:inline-block;padding:12px 4px}}\" +\n      \"@media (max-height:420px){.gtb63-leg{max-height:90px}}\";\n    document.head.appendChild(st);\n  }\n\n  function mkLegend(ul) {\n    CFG.classes.forEach((c) => {\n      const li = document.createElement(\"li\"), sw = document.createElement(\"span\"), tx = document.createElement(\"span\");\n      sw.className = \"gtb63-sw\"; sw.style.background = \"rgb(\" + c.rgb.join(\",\") + \")\"; sw.setAttribute(\"aria-hidden\", \"true\");\n      tx.textContent = c.text; li.appendChild(sw); li.appendChild(tx); ul.appendChild(li);\n    });\n  }\n\n  class Ctl {\n    constructor(map, layout) { this.map = map; this.layout = layout; this.on = false; }\n    onAdd(map) {\n      css();\n      const el = document.createElement(\"div\");\n      el.className = \"gtb63-ctl\";\n      el.setAttribute(\"role\", \"region\"); el.setAttribute(\"aria-label\", \"About the base map\");\n      el.setAttribute(\"data-gtb63\", this.layout);\n      const p = document.createElement(\"p\"); p.className = \"gtb63-label\"; p.textContent = LABEL; el.appendChild(p);\n      const row = document.createElement(\"div\"); row.className = \"gtb63-row\";\n      const btn = document.createElement(\"button\"); btn.type = \"button\"; btn.className = \"gtb63-btn\"; btn.textContent = \"Show what was changed\";\n      btn.setAttribute(\"aria-pressed\", \"false\"); btn.setAttribute(\"aria-controls\", \"gtb63-leg-\" + this.layout);\n      const a = document.createElement(\"a\"); a.className = \"gtb63-link\"; a.href = B + \"ABOUT.txt\"; a.target = \"_blank\"; a.rel = \"noopener\"; a.textContent = \"Sources and licences\";\n      row.appendChild(btn); row.appendChild(a); el.appendChild(row);\n      const note = document.createElement(\"p\"); note.className = \"gtb63-note\"; note.hidden = true; note.setAttribute(\"role\", \"status\"); el.appendChild(note);\n      const ul = document.createElement(\"ul\"); ul.className = \"gtb63-leg\"; ul.id = \"gtb63-leg-\" + this.layout; ul.hidden = true; ul.setAttribute(\"aria-label\", \"What each colour means\");\n      mkLegend(ul); el.appendChild(ul);\n      const st = document.createElement(\"p\"); st.className = \"gtb63-status\"; st.setAttribute(\"role\", \"status\"); el.appendChild(st);\n      this.el = el; this.btn = btn; this.ul = ul; this.note = note; this.st = st;\n      btn.addEventListener(\"click\", () => this.set(!this.on));\n      [\"mousedown\", \"dblclick\", \"touchstart\", \"wheel\", \"pointerdown\"].forEach((t) => el.addEventListener(t, (e) => e.stopPropagation(), { passive: true }));\n      this.zoomFn = () => this.zoomNote();\n      map.on(\"zoom\", this.zoomFn);\n      return el;\n    }\n    onRemove() { try { this.map.off(\"zoom\", this.zoomFn); } catch (e) { /* removed */ } if (this.el) this.el.remove(); }\n    zoomNote() {\n      if (!this.note) return;\n      const lo = this.on && this.map.getZoom() < CFG.changed.minzoom;\n      this.note.hidden = !lo;\n      this.note.textContent = lo ? \"Zoom in to level \" + CFG.changed.minzoom + \" or closer to see what was changed.\" : \"\";\n    }\n    set(on) {\n      this.on = !!on;\n      try { if (this.map.getLayer(\"b1863-changed\")) this.map.setLayoutProperty(\"b1863-changed\", \"visibility\", this.on ? \"visible\" : \"none\"); } catch (e) { /* style swap */ }\n      this.btn.setAttribute(\"aria-pressed\", this.on ? \"true\" : \"false\");\n      this.ul.hidden = !this.on;\n      this.zoomNote();\n    }\n    status(t) { if (this.st) this.st.textContent = t || \"\"; }\n  }\n\n  function rebuild(map, ctl) {\n    try {\n      const before = map.getLayer(\"roads-1863-line\") ? \"roads-1863-line\" : void 0;\n      [\"b1863-changed\", \"b1863-detail\", \"b1863-wide\"].forEach((id) => { if (map.getLayer(id)) map.removeLayer(id); });\n      [\"b1863-changed\", \"b1863-detail\", \"b1863-wide\"].forEach((id) => { if (map.getSource(id)) map.removeSource(id); });\n      const src = sources();\n      layers(ctl && ctl.on).forEach((l) => { if (!map.getSource(l.source)) map.addSource(l.source, src[l.source]); map.addLayer(l, before); });\n    } catch (e) { /* the next retry tries again */ }\n  }\n\n  function attach(map, layout) {\n    try {\n      env();\n      const rec = { map, layout, ctl: null };\n      S.maps.push(rec);\n      const ctl = new Ctl(map, layout);\n      rec.ctl = ctl; S.ctl.push(ctl);\n      map.getContainer().appendChild(ctl.onAdd(map));\n      let errSince = false;\n      map.on(\"error\", (e) => {\n        const id = e && e.sourceId;\n        if (id && String(id).indexOf(\"b1863\") === 0) { S.errors++; errSince = true; ctl.status(\"Some base-map tiles could not be loaded; the neutral ground colour is shown there. They are requested again when the connection returns.\"); return; }\n        try { console.error(e && e.error ? e.error : e); } catch (_) { /* console gone */ }\n      });\n      const retry = () => {\n        const now = Date.now();\n        if (!errSince || now - S.lastRetry < 8000) return;\n        S.lastRetry = now; S.retried++; errSince = false; rebuild(map, ctl);\n      };\n      map.on(\"moveend\", () => { if (navigator.onLine !== false) retry(); });\n      window.addEventListener(\"online\", retry);\n      map.on(\"idle\", () => { if (!errSince && ctl.st && ctl.st.textContent) ctl.status(\"\"); });\n      map.on(\"remove\", () => { ctl.onRemove(); S.maps = S.maps.filter((r) => r.map !== map); S.ctl = S.ctl.filter((c) => c !== ctl); window.removeEventListener(\"online\", retry); });\n      window.__gtb63 = S;\n    } catch (e) { /* the map still works without the label: but the label is a requirement, so say so */ try { console.warn(\"GTB63 attach failed\", e); } catch (_) { /* no console */ } }\n  }\n\n  return { style, d, refine, attach, state: S, version: VER, label: LABEL };\n})();\nfunction T4(c){c.addSource(\"roads-1863\",{type:\"geojson\",data:GTB63.d(\"roads\")}),",
+   "expect": 1,
+   "regex": false,
+   "note": "inserts the runtime const GTB63 before T4 (the function that adds the product's own layers to a main map) and draws the road labels from the catalogue geometry"
+  },
+  {
+   "id": "B63:rivers-data",
+   "target": "js",
+   "find": "c.addSource(\"rivers\",{type:\"geojson\",data:b4})",
+   "repl": "c.addSource(\"rivers\",{type:\"geojson\",data:GTB63.d(\"rivers\")})",
+   "expect": 1,
+   "regex": false,
+   "note": "stream labels from the NHD catalogue courses"
+  },
+  {
+   "id": "B63:farms-data",
+   "target": "js",
+   "find": "c.addSource(\"farms\",{type:\"geojson\",data:S4})",
+   "repl": "c.addSource(\"farms\",{type:\"geojson\",data:GTB63.d(\"farms\")})",
+   "expect": 1,
+   "regex": false,
+   "note": "farm labels at the documented farmhouse points"
+  },
+  {
+   "id": "B63:refine",
+   "target": "js",
+   "find": "}}),gtPrecompile(c)}function gtPrecompile(m){",
+   "repl": "}}),GTB63.refine(c),gtPrecompile(c)}function gtPrecompile(m){",
+   "expect": 1,
+   "regex": false,
+   "note": "after the product layers exist: road/stream/farm-outline lines start hidden, labels sorted by rank, data applied"
+  },
+  {
+   "id": "B63:desktop-style",
+   "target": "js",
+   "find": "container:f.current,style:\"mapbox://styles/mapbox/satellite-v9\",center:pF",
+   "repl": "container:f.current,style:GTB63.style(),center:pF",
+   "expect": 1,
+   "regex": false,
+   "note": "the desktop main map: inline style with the local reconstruction instead of the Mapbox satellite style"
+  },
+  {
+   "id": "B63:desktop-attach",
+   "target": "js",
+   "find": "Xe.addControl(new z_.NavigationControl,\"top-right\"),GtbgMapSetup(Xe,x)",
+   "repl": "GTB63.attach(Xe,\"desktop\"),Xe.addControl(new z_.NavigationControl,\"top-right\"),GtbgMapSetup(Xe,x)",
+   "expect": 1,
+   "regex": false,
+   "note": "label, toggle, tile error filter"
+  },
+  {
+   "id": "B63:phone-style",
+   "target": "js",
+   "find": "container:Yn.current,style:\"mapbox://styles/mapbox/satellite-v9\",center:[-77.235,39.812]",
+   "repl": "container:Yn.current,style:GTB63.style(),center:[-77.235,39.812]",
+   "expect": 1,
+   "regex": false,
+   "note": "the phone main map (the Walkthrough map has its own style string and is NOT touched)"
+  },
+  {
+   "id": "B63:phone-attach",
+   "target": "js",
+   "find": "$t.touchZoomRotate.disableRotation(),$t.dragRotate.disable(),$t.addControl(new z_.AttributionControl({compact:!0}),\"top-right\")",
+   "repl": "GTB63.attach($t,\"phone\"),$t.touchZoomRotate.disableRotation(),$t.dragRotate.disable(),$t.addControl(new z_.AttributionControl({compact:!0}),\"top-right\")",
+   "expect": 1,
+   "regex": false,
+   "note": "label, toggle, tile error filter"
+  },
+  {
+   "id": "B63:layers-panel-state",
+   "target": "js",
+   "find": "{\"roads-1863-line\":!0,\"roads-1863-label\":!0,\"rivers-line\":!0,\"rivers-label\":!0,\"breastworks-line\":!0,\"farms-outline\":!0,\"farms-label\":!1}",
+   "repl": "{\"roads-1863-line\":!1,\"roads-1863-label\":!0,\"rivers-line\":!1,\"rivers-label\":!0,\"breastworks-line\":!0,\"farms-outline\":!1,\"farms-label\":!1}",
+   "expect": 1,
+   "regex": false,
+   "note": "the Layers panel starts in the state the map is in (the road and stream lines are hidden on the reconstruction base, see BASE1863-README.md section 6)"
+  },
+  {
+   "id": "B63:layers-panel-rows",
+   "target": "js",
+   "find": "{id:\"farms-outline\",label:\"Farm Outlines\"},",
+   "repl": "",
+   "expect": 1,
+   "regex": false,
+   "note": "there is no farm boundary in the catalogue: the old rectangles did not even contain their farmhouse (Rose: 347 m off), so the row is removed"
+  }
+ ]
+}
