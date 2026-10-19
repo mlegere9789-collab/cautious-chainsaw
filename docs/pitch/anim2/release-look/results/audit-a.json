@@ -1,0 +1,521 @@
+{
+ "generated": "2026-10-19T04:27:06.144Z",
+ "option": "a",
+ "method": "see the header of tools/audit.mjs",
+ "scenes": [
+  {
+   "scene": "s1a z13.5 t295",
+   "labels": 40,
+   "split": {
+    "haloed": {
+     "n": 26,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 12.97,
+     "worstP10": 6.7
+    },
+    "onCloth": {
+     "n": 14,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 8.09,
+     "worstP10": 4.63
+    }
+   },
+   "worstLabels": [
+    {
+     "ink": "#fffefd",
+     "med": 8.09,
+     "p10": 4.63,
+     "wCss": 15
+    },
+    {
+     "ink": "#efeadc",
+     "med": 8.82,
+     "p10": 7.32,
+     "wCss": 21
+    },
+    {
+     "ink": "#f6f0e1",
+     "med": 8.84,
+     "p10": 4.74,
+     "wCss": 15
+    }
+   ],
+   "medianOfMedians": 13.16,
+   "worstMedian": 8.09,
+   "shareMedianAbove4_5": 1,
+   "shareP10Above4_5": 1,
+   "worstP10": 4.63,
+   "spriteHeightsCss": [
+    24,
+    25
+   ]
+  },
+  {
+   "scene": "s1b z13.5 t556",
+   "labels": 40,
+   "split": {
+    "haloed": {
+     "n": 22,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 12.95,
+     "worstP10": 6.7
+    },
+    "onCloth": {
+     "n": 18,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 7.98,
+     "worstP10": 5.27
+    }
+   },
+   "worstLabels": [
+    {
+     "ink": "#f9f5f4",
+     "med": 7.98,
+     "p10": 5.52,
+     "wCss": 15
+    },
+    {
+     "ink": "#fdfbfb",
+     "med": 8.26,
+     "p10": 6.3,
+     "wCss": 15
+    },
+    {
+     "ink": "#fcfaf9",
+     "med": 8.26,
+     "p10": 7.21,
+     "wCss": 15
+    }
+   ],
+   "medianOfMedians": 12.98,
+   "worstMedian": 7.98,
+   "shareMedianAbove4_5": 1,
+   "shareP10Above4_5": 1,
+   "worstP10": 5.27,
+   "spriteHeightsCss": [
+    24,
+    25
+   ]
+  },
+  {
+   "scene": "s2 z15 t295",
+   "labels": 61,
+   "split": {
+    "haloed": {
+     "n": 27,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 12.61,
+     "worstP10": 5.4
+    },
+    "onCloth": {
+     "n": 34,
+     "shareMedian": 1,
+     "shareP10": 0.882,
+     "worstMedian": 7.39,
+     "worstP10": 4.12
+    }
+   },
+   "worstLabels": [
+    {
+     "ink": "#f6f0ef",
+     "med": 7.39,
+     "p10": 4.95,
+     "wCss": 37
+    },
+    {
+     "ink": "#f2f4f8",
+     "med": 7.72,
+     "p10": 5.77,
+     "wCss": 30
+    },
+    {
+     "ink": "#f1f4f7",
+     "med": 7.77,
+     "p10": 5.3,
+     "wCss": 30
+    }
+   ],
+   "medianOfMedians": 8.35,
+   "worstMedian": 7.39,
+   "shareMedianAbove4_5": 1,
+   "shareP10Above4_5": 0.934,
+   "worstP10": 4.12,
+   "spriteHeightsCss": [
+    24,
+    25
+   ]
+  },
+  {
+   "scene": "s3 z15.5 t346",
+   "labels": 37,
+   "split": {
+    "haloed": {
+     "n": 12,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 13.03,
+     "worstP10": 7
+    },
+    "onCloth": {
+     "n": 25,
+     "shareMedian": 1,
+     "shareP10": 0.72,
+     "worstMedian": 6.73,
+     "worstP10": 3.23
+    }
+   },
+   "worstLabels": [
+    {
+     "ink": "#e7ebf2",
+     "med": 6.73,
+     "p10": 3.23,
+     "wCss": 32
+    },
+    {
+     "ink": "#f2eae8",
+     "med": 6.9,
+     "p10": 3.87,
+     "wCss": 34
+    },
+    {
+     "ink": "#f4edec",
+     "med": 7.13,
+     "p10": 4.64,
+     "wCss": 31
+    }
+   ],
+   "medianOfMedians": 8.75,
+   "worstMedian": 6.73,
+   "shareMedianAbove4_5": 1,
+   "shareP10Above4_5": 0.811,
+   "worstP10": 3.23,
+   "spriteHeightsCss": [
+    24,
+    25
+   ]
+  },
+  {
+   "scene": "s4 z16.5 t551",
+   "labels": 27,
+   "split": {
+    "haloed": {
+     "n": 9,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 12.58,
+     "worstP10": 6.1
+    },
+    "onCloth": {
+     "n": 18,
+     "shareMedian": 1,
+     "shareP10": 0.944,
+     "worstMedian": 7.76,
+     "worstP10": 3.66
+    }
+   },
+   "worstLabels": [
+    {
+     "ink": "#fafbfc",
+     "med": 7.76,
+     "p10": 3.66,
+     "wCss": 34
+    },
+    {
+     "ink": "#fcf9f9",
+     "med": 7.95,
+     "p10": 5.62,
+     "wCss": 15
+    },
+    {
+     "ink": "#f9fafc",
+     "med": 8.12,
+     "p10": 4.9,
+     "wCss": 39
+    }
+   ],
+   "medianOfMedians": 8.98,
+   "worstMedian": 7.76,
+   "shareMedianAbove4_5": 1,
+   "shareP10Above4_5": 0.963,
+   "worstP10": 3.66,
+   "spriteHeightsCss": [
+    24,
+    25
+   ]
+  },
+  {
+   "scene": "z12.5 t226",
+   "labels": 30,
+   "split": {
+    "haloed": {
+     "n": 17,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 13.06,
+     "worstP10": 6.91
+    },
+    "onCloth": {
+     "n": 13,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 8.16,
+     "worstP10": 4.64
+    }
+   },
+   "worstLabels": [
+    {
+     "ink": "#f9fafc",
+     "med": 8.16,
+     "p10": 5.24,
+     "wCss": 21
+    },
+    {
+     "ink": "#fdfdfe",
+     "med": 8.2,
+     "p10": 6.77,
+     "wCss": 21
+    },
+    {
+     "ink": "#fefdfd",
+     "med": 8.21,
+     "p10": 4.64,
+     "wCss": 15
+    }
+   ],
+   "medianOfMedians": 13.11,
+   "worstMedian": 8.16,
+   "shareMedianAbove4_5": 1,
+   "shareP10Above4_5": 1,
+   "worstP10": 4.64,
+   "spriteHeightsCss": [
+    24,
+    25
+   ]
+  }
+ ],
+ "dom": [
+  {
+   "scene": "s1a z13.5 t295",
+   "min": 11,
+   "sizes": {
+    "11": 13,
+    "13": 8
+   }
+  },
+  {
+   "scene": "s1b z13.5 t556",
+   "min": 11,
+   "sizes": {
+    "11": 13,
+    "13": 8
+   }
+  },
+  {
+   "scene": "s2 z15 t295",
+   "min": 11,
+   "sizes": {
+    "11": 13,
+    "13": 8
+   }
+  },
+  {
+   "scene": "s3 z15.5 t346",
+   "min": 11,
+   "sizes": {
+    "11": 13,
+    "13": 8
+   }
+  },
+  {
+   "scene": "s4 z16.5 t551",
+   "min": 11,
+   "sizes": {
+    "11": 13,
+    "13": 8
+   }
+  },
+  {
+   "scene": "z12.5 t226",
+   "min": 11,
+   "sizes": {
+    "11": 13,
+    "13": 8
+   }
+  },
+  {
+   "scene": "legend",
+   "min": 11,
+   "sizes": {
+    "11": 25,
+    "13": 14,
+    "17": 1
+   }
+  },
+  {
+   "scene": "unit card",
+   "min": 11,
+   "sizes": {
+    "11": 37,
+    "13": 16,
+    "17": 2
+   }
+  },
+  {
+   "scene": "event + story",
+   "min": 11,
+   "sizes": {
+    "11": 35,
+    "13": 16,
+    "17": 2
+   }
+  }
+ ],
+ "bands": {
+  "field-z13.5": [
+   "#000000",
+   "#000000",
+   "#5f5c4a",
+   "#797661",
+   "#939079",
+   "#cdc19e",
+   "#decfaf"
+  ],
+  "angle-z15": [
+   "#000000",
+   "#000000",
+   "#6d6b56",
+   "#8b8770",
+   "#a19d83",
+   "#ccc19e",
+   "#decfae"
+  ],
+  "wheatfield-z15": [
+   "#000000",
+   "#000000",
+   "#6c6954",
+   "#89856e",
+   "#a6a087",
+   "#cdc19d",
+   "#dfcfae"
+  ],
+  "cemetery-hill-z15.5": [
+   "#000000",
+   "#000000",
+   "#5e5d4a",
+   "#7c7964",
+   "#96927a",
+   "#ccc19e",
+   "#decfae"
+  ],
+  "three-days-z12.5": [
+   "#000000",
+   "#000000",
+   "#5a5946",
+   "#797660",
+   "#949079",
+   "#ccc19e",
+   "#ded0af"
+  ]
+ },
+ "skins": {
+  "standard": {
+   "worstText": {
+    "ratio": 5.14,
+    "name": "numeral on the cloth or body",
+    "view": "n/a",
+    "band": 0,
+    "ground": "n/a"
+   },
+   "worstMark": {
+    "ratio": 3.83,
+    "name": "pole and flag edge",
+    "light": 3.79,
+    "dark": 3.83,
+    "view": "three-days-z12.5",
+    "band": 0.5,
+    "ground": "#797660"
+   },
+   "deltaE2000UnionVsConfederate": {
+    "normal": 45.6,
+    "protanopia": 51.2,
+    "deuteranopia": 57.7,
+    "tritanopia": 64.9
+   },
+   "greyscaleLuminanceRatio": 1.09,
+   "secondCueForGreyscale": "flag flies right (Union) or left (Confederate)",
+   "verdict": {
+    "text": true,
+    "marks": true,
+    "sides": true
+   }
+  },
+  "cvd": {
+   "worstText": {
+    "ratio": 5.05,
+    "name": "numeral on the cloth or body",
+    "view": "n/a",
+    "band": 0,
+    "ground": "n/a"
+   },
+   "worstMark": {
+    "ratio": 3.83,
+    "name": "pole and flag edge",
+    "light": 3.79,
+    "dark": 3.83,
+    "view": "three-days-z12.5",
+    "band": 0.5,
+    "ground": "#797660"
+   },
+   "deltaE2000UnionVsConfederate": {
+    "normal": 47.3,
+    "protanopia": 50.1,
+    "deuteranopia": 54.4,
+    "tritanopia": 61.7
+   },
+   "greyscaleLuminanceRatio": 1.04,
+   "secondCueForGreyscale": "flag flies right (Union) or left (Confederate)",
+   "verdict": {
+    "text": true,
+    "marks": true,
+    "sides": true
+   }
+  },
+  "contrast": {
+   "worstText": {
+    "ratio": 6.23,
+    "name": "numeral on the cloth or body",
+    "view": "n/a",
+    "band": 0,
+    "ground": "n/a"
+   },
+   "worstMark": {
+    "ratio": 3.83,
+    "name": "pole and flag edge",
+    "light": 3.79,
+    "dark": 3.83,
+    "view": "three-days-z12.5",
+    "band": 0.5,
+    "ground": "#797660"
+   },
+   "deltaE2000UnionVsConfederate": {
+    "normal": 45.5,
+    "protanopia": 51.7,
+    "deuteranopia": 57.9,
+    "tritanopia": 60.3
+   },
+   "greyscaleLuminanceRatio": 1.11,
+   "secondCueForGreyscale": "flag flies right (Union) or left (Confederate)",
+   "verdict": {
+    "text": true,
+    "marks": true,
+    "sides": true
+   }
+  }
+ },
+ "analyticFails": 0
+}

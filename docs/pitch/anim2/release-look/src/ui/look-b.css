@@ -1,0 +1,26 @@
+/* look-b.css - OPTION B (Glyph): the chrome and every popup restyled over quiet.css, in the language of the editorial glyph.
+   White paper, ink, a serif for what is read (card titles, the date, the clock) and the sans for what is operated; thin rules instead of boxes (every card hangs from a 3 px rule in its own tone, the way a
+   newspaper graphic hangs its box from a rule); 2 and 4 px corners.  Same structure, same content, same behaviour as the base: only tokens and a few details change.  Applies while the ground is the Survey
+   (theme 'light').  The tokens below are the whole look: a designer changes them and nothing else. */
+:root[data-theme="light"] {
+  --look-id: glyph; --font-display: "Look Serif", "Source Serif 4", Georgia, "Times New Roman", serif;
+  --r1: 2px; --r2: 4px; --r3: 4px; --pc-r: 3px;
+  --bg: #eceeea; --panel: #ffffff; --panel2: #f3f4f1; --line: rgba(15,24,38,.16); --text: #151b24; --muted: #434c58; --faint: #566170;
+  --accent: #151b24; --accent-ink: #ffffff;
+  --glass: rgba(255,255,255,.88); --glass-hi: rgba(255,255,255,.97); --edge: rgba(15,24,38,.15);
+  --shadow1: 0 1px 0 rgba(15,24,38,.06), 0 6px 18px rgba(15,24,38,.1); --shadow2: 0 1px 2px rgba(15,24,38,.1), 0 14px 34px rgba(15,24,38,.16); --pc-shadow: var(--shadow2);
+  --tone-union: #1d5bc2; --tone-confederate: #c23d1b; --tone-story: #70500a; --tone-day: #70500a; --tone-info: #384f95;
+  --ink-union: #103a85; --ink-confederate: #8a2307; --title-ink: #151b24; --pc-bg-a: 97%;
+  --mini-union: #1d5bc2; --mini-confederate: #c23d1b; --mini-unknown: #8c949c; --mini-mixed: #6b4f9a; --mini-bg: rgba(15,24,38,.05); --mini-grid: rgba(15,24,38,.13); --mini-box: #151b24;
+}
+:root[data-theme="light"] .pc::before { display: block; content: ""; top: 0; bottom: auto; left: 0; right: 0; width: auto; height: 3px; background: var(--tc, var(--text)); border-radius: 3px 3px 0 0; }
+:root[data-theme="light"] .pc { border-color: var(--edge); }
+:root[data-theme="light"] .pc-body { padding-top: 16px; }
+:root[data-theme="light"] .pc-title, :root[data-theme="light"] .pc-title.serif { font-family: var(--font-display); font-weight: 600; letter-spacing: 0; }
+:root[data-theme="light"] .nar-title, :root[data-theme="light"] .clockbox .tick, :root[data-theme="light"] .brand b, :root[data-theme="light"] #splash .sp b { font-family: var(--font-display); font-weight: 600; }
+:root[data-theme="light"] .pc-kick { letter-spacing: .1em; }
+:root[data-theme="light"] #dock { border-top: 2px solid var(--text); }
+:root[data-theme="light"] .clockbox, :root[data-theme="light"] .brand, :root[data-theme="light"] .seg { box-shadow: var(--shadow1); }
+:root[data-theme="light"] .seg button[aria-pressed="true"], :root[data-theme="light"] .seg button[aria-checked="true"] { background: var(--text); color: var(--accent-ink); font-weight: 700; }
+:root[data-theme="light"] .nar { border-top: 3px solid var(--text); }
+:root[data-theme="light"] .pc-quote { border-left: 2px solid var(--text); font-family: var(--font-display); font-style: italic; }

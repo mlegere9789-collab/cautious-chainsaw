@@ -1,0 +1,27 @@
+/* look-a.css - OPTION A (Standards): the chrome and every popup restyled over quiet.css, in the language of the planted standard.
+   Warm smoked glass, cream ink and one brass hairline; angular (3 and 5 px corners: cloth and pole, not pills); every card carries a small flag-tab on its left edge in its own tone, the way every mark carries
+   a flag on its pole.  Same structure, same content, same behaviour as the base: only tokens and a few details change.  Applies while the ground is the Field (theme 'dark').
+   The tokens below are the whole look: a designer changes them and nothing else. */
+:root {
+  --look-id: standards;
+  --r1: 3px; --r2: 5px; --r3: 5px; --pc-r: 4px; --bar-h: 40px;
+  --bg: #12100b; --panel: #1a170f; --panel2: #24201a; --line: rgba(244,236,216,.12); --text: #f4ecd8; --muted: #cdc2a8; --faint: #aa9f88;
+  --accent: #f4ecd8; --accent-ink: #17130c; --brass: #c9a24d;
+  --glass: rgba(22,19,13,.8); --glass-hi: rgba(22,19,13,.94); --edge: rgba(244,236,216,.17);
+  --shadow1: 0 1px 1px rgba(0,0,0,.35), 0 8px 22px rgba(0,0,0,.3); --shadow2: 0 2px 4px rgba(0,0,0,.4), 0 16px 40px rgba(0,0,0,.5); --pc-shadow: var(--shadow2);
+  --tone-union: #86b2ff; --tone-confederate: #ff9a72; --tone-story: #e9d29a; --tone-day: #e9d29a; --tone-info: #a9bff0; --tone-high: #e8bf5a; --tone-critical: #f2905a;
+  --ink-union: #b7d1ff; --ink-confederate: #ffc2a8; --ink-story: #f0e0b0; --ink-day: #f0e0b0; --title-ink: #fbf4e0;
+  --pc-bg-a: 94%;
+  --mini-union: #6fa4ff; --mini-confederate: #ff8a63; --mini-unknown: #d4d7d2; --mini-mixed: #e9d29a; --mini-bg: rgba(20,17,10,.55); --mini-grid: rgba(244,236,216,.16); --mini-box: #f4ecd8;
+}
+:root:not([data-theme="light"]) .pc::before { display: block; content: ""; top: 14px; bottom: auto; left: -1px; width: 4px; height: 30px; border-radius: 0 2px 2px 0; background: var(--tc, var(--brass)); }
+:root:not([data-theme="light"]) .pc { border-color: var(--edge); border-top: 1px solid color-mix(in srgb, var(--brass) 55%, var(--edge)); }
+:root:not([data-theme="light"]) .pc-kick { letter-spacing: .1em; color: var(--ti, var(--brass)); }
+:root:not([data-theme="light"]) .pc-title { letter-spacing: 0; }
+:root:not([data-theme="light"]) #dock, :root:not([data-theme="light"]) #panel, :root:not([data-theme="light"]) .nar, :root:not([data-theme="light"]) .menu { border-top-color: color-mix(in srgb, var(--brass) 45%, var(--edge)); }
+:root:not([data-theme="light"]) .btn.primary, :root:not([data-theme="light"]) .tbtn.play, :root:not([data-theme="light"]) .pc-act.primary { background: var(--text); color: var(--accent-ink); }
+:root:not([data-theme="light"]) .seg button[aria-pressed="true"], :root:not([data-theme="light"]) .seg button[aria-checked="true"] { background: color-mix(in srgb, var(--brass) 26%, transparent); color: var(--text); box-shadow: inset 0 -2px 0 var(--brass); }
+:root:not([data-theme="light"]) .nar-bar i, :root:not([data-theme="light"]) .pc-scroll-bar { background: var(--brass); }
+:root:not([data-theme="light"]) .scrub input[type=range]::-webkit-slider-thumb { background: var(--brass); }
+:root:not([data-theme="light"]) .clockbox .tick { letter-spacing: .01em; }
+:root:not([data-theme="light"]) .brand svg { color: var(--brass); }
