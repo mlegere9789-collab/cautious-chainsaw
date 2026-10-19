@@ -1,0 +1,217 @@
+{
+ "when": "2026-10-19",
+ "checks": [
+  {
+   "source": "SRC-MET-268204",
+   "check": "pinned file hashes to sources.json",
+   "ok": true,
+   "detail": "5687875d544212b2"
+  },
+  {
+   "source": "SRC-MET-268204",
+   "check": "Met API record reachable",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "source": "SRC-MET-268204",
+   "check": "isPublicDomain is true",
+   "ok": true,
+   "detail": "True"
+  },
+  {
+   "source": "SRC-MET-268204",
+   "check": "title matches",
+   "ok": true,
+   "detail": "[Gettysburg, Pennsylvania from Seminary Ridge]"
+  },
+  {
+   "source": "SRC-MET-268204",
+   "check": "artist is O'Sullivan",
+   "ok": true,
+   "detail": "Timothy H. O'Sullivan"
+  },
+  {
+   "source": "SRC-MET-268204",
+   "check": "objectDate is 1863",
+   "ok": true,
+   "detail": "1863"
+  },
+  {
+   "source": "SRC-MET-268204",
+   "check": "accession number matches the repository line",
+   "ok": true,
+   "detail": "33.65.393"
+  },
+  {
+   "source": "SRC-MET-268204",
+   "check": "primaryImage is the file we hold",
+   "ok": true,
+   "detail": "https://images.metmuseum.org/CRDImages/ph/original/DP70706.jpg"
+  },
+  {
+   "source": "SRC-MET-268205",
+   "check": "pinned file hashes to sources.json",
+   "ok": true,
+   "detail": "cfa975637ca9a485"
+  },
+  {
+   "source": "SRC-MET-268205",
+   "check": "Met API record reachable",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "source": "SRC-MET-268205",
+   "check": "isPublicDomain is true",
+   "ok": true,
+   "detail": "True"
+  },
+  {
+   "source": "SRC-MET-268205",
+   "check": "title matches",
+   "ok": true,
+   "detail": "[Gettysburg, Pennsylvania from the West]"
+  },
+  {
+   "source": "SRC-MET-268205",
+   "check": "artist is O'Sullivan",
+   "ok": true,
+   "detail": "Timothy H. O'Sullivan"
+  },
+  {
+   "source": "SRC-MET-268205",
+   "check": "objectDate is 1863",
+   "ok": true,
+   "detail": "1863"
+  },
+  {
+   "source": "SRC-MET-268205",
+   "check": "accession number matches the repository line",
+   "ok": true,
+   "detail": "33.65.394"
+  },
+  {
+   "source": "SRC-MET-268205",
+   "check": "primaryImage is the file we hold",
+   "ok": true,
+   "detail": "https://images.metmuseum.org/CRDImages/ph/original/DP70707.jpg"
+  },
+  {
+   "source": "SRC-NARA-533312",
+   "check": "pinned file hashes to sources.json",
+   "ok": true,
+   "detail": "fa02d2928c996f8d"
+  },
+  {
+   "source": "SRC-NARA-533312",
+   "check": "Commons file page reachable",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "source": "SRC-NARA-533312",
+   "check": "NARA template cites the ARC number",
+   "ok": true,
+   "detail": "533312"
+  },
+  {
+   "source": "SRC-NARA-533312",
+   "check": "date 1863-07 and author O'Sullivan",
+   "ok": true,
+   "detail": "template"
+  },
+  {
+   "source": "SRC-NARA-533312",
+   "check": "PD-USGov licence template",
+   "ok": true,
+   "detail": "template"
+  },
+  {
+   "source": "SRC-NARA-533312",
+   "check": "Commons sha1 equals the sha1 of our bytes",
+   "ok": true,
+   "detail": "1958fc143296d6519215974f4ca1c1f4757bf7cd"
+  },
+  {
+   "source": "SRC-NARA-533316",
+   "check": "pinned file hashes to sources.json",
+   "ok": true,
+   "detail": "a726138302b5cc01"
+  },
+  {
+   "source": "SRC-NARA-533316",
+   "check": "Commons file page reachable",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "source": "SRC-NARA-533316",
+   "check": "NARA template cites the ARC number",
+   "ok": true,
+   "detail": "533316"
+  },
+  {
+   "source": "SRC-NARA-533316",
+   "check": "date 1863-07 and author O'Sullivan",
+   "ok": true,
+   "detail": "template"
+  },
+  {
+   "source": "SRC-NARA-533316",
+   "check": "PD-USGov licence template",
+   "ok": true,
+   "detail": "template"
+  },
+  {
+   "source": "SRC-NARA-533316",
+   "check": "Commons sha1 equals the sha1 of our bytes",
+   "ok": true,
+   "detail": "2dab3c1d067bcfb9baf02c5a8f734d1215eca992"
+  },
+  {
+   "source": "SRC-LOC-2006692500",
+   "check": "pinned file hashes to sources.json",
+   "ok": true,
+   "detail": "10ea2f40f03dc540"
+  },
+  {
+   "source": "SRC-LOC-2006692500",
+   "check": "LoC item record read afresh",
+   "ok": null,
+   "detail": "HTTP 429 after 1 tries: not re-read in this run"
+  },
+  {
+   "source": "SRC-LOC-2006692500",
+   "check": "date is '1863 July, c1866.' (saved copy, not a fresh read)",
+   "ok": true,
+   "detail": "1863 July, c1866."
+  },
+  {
+   "source": "SRC-LOC-2006692500",
+   "check": "rights: no known restrictions on publication (saved copy, not a fresh read)",
+   "ok": true,
+   "detail": "No known restrictions on publication."
+  },
+  {
+   "source": "SRC-LOC-2006692500",
+   "check": "creator is O'Sullivan (photographer) (saved copy, not a fresh read)",
+   "ok": true,
+   "detail": "[\"O'Sullivan, Timothy H., 1840-1882\"]"
+  },
+  {
+   "source": "SRC-LOC-2006692500",
+   "check": "plate: Gardner's Sketch Book v. 1 no. 39 (saved copy, not a fresh read)",
+   "ok": true,
+   "detail": "notes"
+  },
+  {
+   "source": "SRC-LOC-2006692500",
+   "check": "pinned master == LoC's own service image (correlation >= 0.98)",
+   "ok": true,
+   "detail": "0.995"
+  }
+ ],
+ "failed": 0,
+ "not_run": 1
+}
