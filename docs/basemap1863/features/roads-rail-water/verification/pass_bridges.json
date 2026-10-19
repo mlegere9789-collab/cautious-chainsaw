@@ -1,73 +1,74 @@
 {
  "method": "300 x 300 px full-resolution crops (LOC IIIF region requests, cw0325000a) centred on each predicted crossing (sheet-a registration); the drawn symbol was looked for by eye within the crop (about +-75 m); images in tmp/b1863/roads/hi (not committed). The distance between the predicted crossing and the drawn symbol reflects the registration error (15-50 m), so the symbol confirms the type, not the exact position.",
  "readings": {
-  "BR-001": {
+  "RD-001|White Run": {
    "symbol": "probable",
    "note": "thick paired bar where the pike meets the creek (drawn about 45 m from the predicted crossing)"
   },
-  "BR-002": {
+  "RD-001|Rock Creek": {
    "symbol": "seen",
    "note": "thick bar across the creek at the pike (about 40 m from the predicted crossing)"
   },
-  "BR-003": {
+  "RD-002|Willoughby Run": {
    "symbol": "seen",
    "note": "thick bar across Willoughby Run at the pike (about 25 m from the predicted crossing)"
   },
-  "BR-004": {
+  "RD-002|Stevens Run": {
    "symbol": "unclear",
    "note": "no bridge or stream symbol clearly drawn inside the borough at this point"
   },
-  "BR-006": {
+  "RD-002|Marsh Creek": {
+   "symbol": "off-sheet",
+   "note": ""
+  },
+  "RD-005|Rock Creek": {
    "symbol": "seen",
    "note": "narrow bar across Rock Creek at the Hanover road (about 27 m from the predicted crossing)"
   },
-  "BR-007": {
+  "RD-006|Rock Creek": {
    "symbol": "seen",
    "note": "bar across Rock Creek at the York pike (about 27 m from the predicted crossing)"
   },
-  "BR-008": {
+  "RD-007|Rock Creek": {
    "symbol": "probable",
    "note": "bar-like structure at the Harrisburg road crossing of Rock Creek"
   },
-  "BR-009": {
+  "RD-008|Stevens Run": {
    "symbol": "unclear",
    "note": "no stream drawn at this point in the borough"
   },
-  "BR-010": {
+  "RD-009|Willoughby Run": {
    "symbol": "off-map",
    "note": "falls in the sheet margin"
   },
-  "BR-011": {
+  "RD-010|Willoughby Run": {
    "symbol": "unclear",
    "note": "road and creek both drawn but no bridge symbol identified"
   },
-  "BR-012": {
+  "RD-010|Marsh Creek": {
    "symbol": "seen",
    "note": "hatched bridge symbol across Marsh Creek on the Hagerstown road"
   },
-  "BR-013": {
+  "RD-010|Stevens Run": {
    "symbol": "unclear",
    "note": "no stream drawn at this point"
   },
-  "BR-014": {
+  "RD-012|Willoughby Run": {
    "symbol": "unclear",
    "note": "crossing area dominated by overlapping road and creek lines"
   },
-  "BR-015": {
+  "RD-013|Willoughby Run": {
    "symbol": "unclear",
    "note": "road not identifiable in the crop"
   },
-  "BR-005": {
+  "RD-020|Marsh Creek": {
    "symbol": "off-sheet",
    "note": ""
   },
-  "BR-016": {
-   "symbol": "off-sheet",
-   "note": ""
-  },
-  "BR-017": {
+  "RD-020|Little Marsh Creek": {
    "symbol": "off-sheet",
    "note": ""
   }
- }
+ },
+ "key": "road id | stream name (the BR-nnn numbers are assigned in build order and can change)"
 }

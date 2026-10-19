@@ -1,0 +1,5485 @@
+{
+ "method": "Pass 4b: for every TIGER edge in the box that lies on Bachelder sheet 'a', test whether a drawn road (double line) runs along it.\nSame detector as map_check.py (pair of parallel lines 4-12 px apart, each present along 70 percent of 18 px of tangent, searched within +-16 px), samples every 40 m;\ncontrol = same samples displaced 110-140 px sideways. An edge is 'drawn' when detection >= 0.55 and control <= 0.20 and at least 4 samples.",
+ "results": {
+  "110471847702": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.5,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847712": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847713": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.33,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 22.0
+  },
+  "110471847715": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": 28.0
+  },
+  "110471847734": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": -10.0
+  },
+  "110471847756": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.2,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847773": {
+   "on_sheet": false
+  },
+  "110471848375": {
+   "on_sheet": false
+  },
+  "110471848396": {
+   "on_sheet": false
+  },
+  "110471848397": {
+   "on_sheet": false
+  },
+  "110471848418": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848723": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848744": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848833": {
+   "on_sheet": false
+  },
+  "110471848964": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1104485736307": {
+   "on_sheet": true,
+   "samples": 81,
+   "detection": 0.64,
+   "control": 0.09,
+   "drawn": true,
+   "median_offset_m": -4.0
+  },
+  "110471833752": {
+   "on_sheet": true,
+   "samples": 77,
+   "detection": 0.83,
+   "control": 0.1,
+   "drawn": true,
+   "median_offset_m": -6.0
+  },
+  "110471833736": {
+   "on_sheet": true,
+   "samples": 189,
+   "detection": 0.65,
+   "control": 0.07,
+   "drawn": true,
+   "median_offset_m": 0.0
+  },
+  "1104483745895": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.78,
+   "control": 0.08,
+   "drawn": true,
+   "median_offset_m": -22.0
+  },
+  "1104483772005": {
+   "on_sheet": true,
+   "samples": 82,
+   "detection": 0.73,
+   "control": 0.08,
+   "drawn": true,
+   "median_offset_m": -16.0
+  },
+  "1104483984491": {
+   "on_sheet": false
+  },
+  "1108296490269": {
+   "on_sheet": true,
+   "samples": 276,
+   "detection": 0.04,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": 10.0
+  },
+  "1108296490322": {
+   "on_sheet": true,
+   "samples": 252,
+   "detection": 0.03,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": 24.0
+  },
+  "110471835507": {
+   "on_sheet": true,
+   "samples": 26,
+   "detection": 0.04,
+   "control": 0.22,
+   "drawn": false,
+   "median_offset_m": -12.0
+  },
+  "110471835521": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.14,
+   "control": 0.07,
+   "drawn": false,
+   "median_offset_m": -24.0
+  },
+  "110471837513": {
+   "on_sheet": true,
+   "samples": 32,
+   "detection": 0.09,
+   "control": 0.1,
+   "drawn": false,
+   "median_offset_m": 6.0
+  },
+  "110471840422": {
+   "on_sheet": true,
+   "samples": 15,
+   "detection": 0.33,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": 4.0
+  },
+  "110471840442": {
+   "on_sheet": true,
+   "samples": 19,
+   "detection": 0.11,
+   "control": 0.2,
+   "drawn": false,
+   "median_offset_m": -2.0
+  },
+  "110471837583": {
+   "on_sheet": true,
+   "samples": 43,
+   "detection": 0.21,
+   "control": 0.14,
+   "drawn": false,
+   "median_offset_m": -18.0
+  },
+  "110471835600": {
+   "on_sheet": false
+  },
+  "110471838576": {
+   "on_sheet": true,
+   "samples": 26,
+   "detection": 0.42,
+   "control": 0.14,
+   "drawn": false,
+   "median_offset_m": -6.0
+  },
+  "110471836419": {
+   "on_sheet": false
+  },
+  "110471840472": {
+   "on_sheet": true,
+   "samples": 56,
+   "detection": 0.18,
+   "control": 0.14,
+   "drawn": false,
+   "median_offset_m": -15.0
+  },
+  "110471834910": {
+   "on_sheet": true,
+   "samples": 16,
+   "detection": 0.38,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": -1.0
+  },
+  "1102600897481": {
+   "on_sheet": false
+  },
+  "110471836576": {
+   "on_sheet": true,
+   "samples": 44,
+   "detection": 0.05,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": -7.0
+  },
+  "110471836579": {
+   "on_sheet": false
+  },
+  "110471835713": {
+   "on_sheet": true,
+   "samples": 39,
+   "detection": 0.08,
+   "control": 0.1,
+   "drawn": false,
+   "median_offset_m": 6.0
+  },
+  "110471834132": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.89,
+   "control": 0.06,
+   "drawn": true,
+   "median_offset_m": 16.0
+  },
+  "110471838772": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834140": {
+   "on_sheet": true,
+   "samples": 23,
+   "detection": 0.04,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": 32.0
+  },
+  "110471834969": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.25,
+   "control": 0.02,
+   "drawn": false,
+   "median_offset_m": -6.0
+  },
+  "110471839985": {
+   "on_sheet": true,
+   "samples": 13,
+   "detection": 0.31,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": 8.0
+  },
+  "110471839992": {
+   "on_sheet": false
+  },
+  "110471838155": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471838173": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.58,
+   "control": 0.23,
+   "drawn": false,
+   "median_offset_m": -26.0
+  },
+  "110471838174": {
+   "on_sheet": true,
+   "samples": 28,
+   "detection": 0.29,
+   "control": 0.16,
+   "drawn": false,
+   "median_offset_m": -13.0
+  },
+  "110471838196": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.43,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": 10.0
+  },
+  "110471840468": {
+   "on_sheet": true,
+   "samples": 63,
+   "detection": 0.25,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": -17.0
+  },
+  "110471840482": {
+   "on_sheet": true,
+   "samples": 29,
+   "detection": 0.76,
+   "control": 0.03,
+   "drawn": true,
+   "median_offset_m": 1.0
+  },
+  "110471840483": {
+   "on_sheet": true,
+   "samples": 85,
+   "detection": 0.33,
+   "control": 0.1,
+   "drawn": false,
+   "median_offset_m": -2.0
+  },
+  "110471838217": {
+   "on_sheet": true,
+   "samples": 22,
+   "detection": 0.14,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": 0.0
+  },
+  "110471838219": {
+   "on_sheet": false
+  },
+  "110471842055": {
+   "on_sheet": true,
+   "samples": 15,
+   "detection": 0.27,
+   "control": 0.07,
+   "drawn": false,
+   "median_offset_m": 5.0
+  },
+  "110471837177": {
+   "on_sheet": true,
+   "samples": 23,
+   "detection": 0.26,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": 17.0
+  },
+  "110471837185": {
+   "on_sheet": true,
+   "samples": 39,
+   "detection": 0.33,
+   "control": 0.13,
+   "drawn": false,
+   "median_offset_m": -2.0
+  },
+  "110471836073": {
+   "on_sheet": true,
+   "samples": 27,
+   "detection": 0.11,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": -4.0
+  },
+  "110471842063": {
+   "on_sheet": true,
+   "samples": 21,
+   "detection": 0.14,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": 6.0
+  },
+  "110471835304": {
+   "on_sheet": true,
+   "samples": 17,
+   "detection": 0.06,
+   "control": 0.29,
+   "drawn": false,
+   "median_offset_m": 4.0
+  },
+  "110471841933": {
+   "on_sheet": true,
+   "samples": 32,
+   "detection": 0.38,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": 10.0
+  },
+  "110471840476": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 1.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": -22.0
+  },
+  "110471839238": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471839239": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.14,
+   "control": 0.07,
+   "drawn": false,
+   "median_offset_m": -28.0
+  },
+  "110471840169": {
+   "on_sheet": true,
+   "samples": 18,
+   "detection": 0.39,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": 10.0
+  },
+  "110471836302": {
+   "on_sheet": true,
+   "samples": 23,
+   "detection": 0.48,
+   "control": 0.09,
+   "drawn": false,
+   "median_offset_m": 0.0
+  },
+  "11033193128257": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "11033193129070": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.17,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": -16.0
+  },
+  "11033193121334": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "11033193129398": {
+   "on_sheet": true,
+   "samples": 15,
+   "detection": 0.07,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": 0.0
+  },
+  "1103604652077": {
+   "on_sheet": false
+  },
+  "1103647029277": {
+   "on_sheet": false
+  },
+  "1103647031690": {
+   "on_sheet": false
+  },
+  "1103647033439": {
+   "on_sheet": false
+  },
+  "1103677773435": {
+   "on_sheet": false
+  },
+  "1104692067045": {
+   "on_sheet": true,
+   "samples": 11,
+   "detection": 0.18,
+   "control": 0.02,
+   "drawn": false,
+   "median_offset_m": -20.0
+  },
+  "110471847580": {
+   "on_sheet": false
+  },
+  "110471847589": {
+   "on_sheet": false
+  },
+  "110471847591": {
+   "on_sheet": false
+  },
+  "110471847595": {
+   "on_sheet": false
+  },
+  "110471847755": {
+   "on_sheet": false
+  },
+  "110471847759": {
+   "on_sheet": false
+  },
+  "110471847761": {
+   "on_sheet": false
+  },
+  "110471847777": {
+   "on_sheet": false
+  },
+  "110471847778": {
+   "on_sheet": false
+  },
+  "110471847779": {
+   "on_sheet": false
+  },
+  "110471847780": {
+   "on_sheet": false
+  },
+  "110471847802": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.0,
+   "control": 0.34,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847863": {
+   "on_sheet": false
+  },
+  "110471847891": {
+   "on_sheet": false
+  },
+  "110471847893": {
+   "on_sheet": false
+  },
+  "110471847948": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.43,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 32.0
+  },
+  "110471847961": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.67,
+   "control": 0.21,
+   "drawn": false,
+   "median_offset_m": -6.0
+  },
+  "110471847962": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847969": {
+   "on_sheet": true,
+   "samples": 14,
+   "detection": 0.21,
+   "control": 0.07,
+   "drawn": false,
+   "median_offset_m": -8.0
+  },
+  "110471847976": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.25,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 14.0
+  },
+  "110471848099": {
+   "on_sheet": false
+  },
+  "110471848109": {
+   "on_sheet": false
+  },
+  "110471848111": {
+   "on_sheet": false
+  },
+  "110471848116": {
+   "on_sheet": false
+  },
+  "110471848182": {
+   "on_sheet": false
+  },
+  "110471848209": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848215": {
+   "on_sheet": false
+  },
+  "110471848218": {
+   "on_sheet": false
+  },
+  "110471848220": {
+   "on_sheet": false
+  },
+  "110471848222": {
+   "on_sheet": false
+  },
+  "110471848223": {
+   "on_sheet": false
+  },
+  "110471848230": {
+   "on_sheet": false
+  },
+  "110471848234": {
+   "on_sheet": false
+  },
+  "110471848237": {
+   "on_sheet": false
+  },
+  "110471848240": {
+   "on_sheet": false
+  },
+  "110471848285": {
+   "on_sheet": false
+  },
+  "110471848290": {
+   "on_sheet": false
+  },
+  "110471848295": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 22.0
+  },
+  "110471848296": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848326": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848329": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.15,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848357": {
+   "on_sheet": false
+  },
+  "110471848364": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.33,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": 28.0
+  },
+  "110471848366": {
+   "on_sheet": true,
+   "samples": 13,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848385": {
+   "on_sheet": true,
+   "samples": 10,
+   "detection": 0.0,
+   "control": 0.05,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848387": {
+   "on_sheet": false
+  },
+  "110471848393": {
+   "on_sheet": true,
+   "samples": 11,
+   "detection": 0.09,
+   "control": 0.02,
+   "drawn": false,
+   "median_offset_m": 30.0
+  },
+  "110471848398": {
+   "on_sheet": false
+  },
+  "110471848404": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.33,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": -32.0
+  },
+  "110471848405": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.67,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 26.0
+  },
+  "110471848412": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.43,
+   "control": 0.07,
+   "drawn": false,
+   "median_offset_m": -12.0
+  },
+  "110471848419": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.0,
+   "control": 0.11,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848424": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848425": {
+   "on_sheet": false
+  },
+  "110471848430": {
+   "on_sheet": false
+  },
+  "110471848433": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.25,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": -6.0
+  },
+  "110471848434": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.67,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": 18.0
+  },
+  "110471848443": {
+   "on_sheet": false
+  },
+  "110471848445": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.11,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": -22.0
+  },
+  "110471848447": {
+   "on_sheet": false
+  },
+  "110471848452": {
+   "on_sheet": false
+  },
+  "110471848457": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848458": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848461": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848462": {
+   "on_sheet": false
+  },
+  "110471848463": {
+   "on_sheet": false
+  },
+  "110471848465": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848473": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.3,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848475": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.17,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": 24.0
+  },
+  "110471848476": {
+   "on_sheet": false
+  },
+  "110471848478": {
+   "on_sheet": false
+  },
+  "110471848480": {
+   "on_sheet": false
+  },
+  "110471848482": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848488": {
+   "on_sheet": false
+  },
+  "110471848489": {
+   "on_sheet": false
+  },
+  "110471848490": {
+   "on_sheet": true,
+   "samples": 18,
+   "detection": 0.17,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": -16.0
+  },
+  "110471848500": {
+   "on_sheet": false
+  },
+  "110471848506": {
+   "on_sheet": true,
+   "samples": 10,
+   "detection": 0.7,
+   "control": 0.0,
+   "drawn": true,
+   "median_offset_m": -30.0
+  },
+  "110471848507": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.3,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848508": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848509": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.08,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": 22.0
+  },
+  "110471848514": {
+   "on_sheet": false
+  },
+  "110471848521": {
+   "on_sheet": false
+  },
+  "110471848525": {
+   "on_sheet": false
+  },
+  "110471848526": {
+   "on_sheet": false
+  },
+  "110471848527": {
+   "on_sheet": false
+  },
+  "110471848528": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848529": {
+   "on_sheet": false
+  },
+  "110471848530": {
+   "on_sheet": false
+  },
+  "110471848533": {
+   "on_sheet": false
+  },
+  "110471848538": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.2,
+   "control": 0.15,
+   "drawn": false,
+   "median_offset_m": -26.0
+  },
+  "110471848548": {
+   "on_sheet": false
+  },
+  "110471848562": {
+   "on_sheet": false
+  },
+  "110471848563": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848592": {
+   "on_sheet": true,
+   "samples": 22,
+   "detection": 0.68,
+   "control": 0.03,
+   "drawn": true,
+   "median_offset_m": -4.0
+  },
+  "110471848595": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848600": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.17,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 2.0
+  },
+  "110471848602": {
+   "on_sheet": false
+  },
+  "110471848607": {
+   "on_sheet": true,
+   "samples": 18,
+   "detection": 0.39,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 30.0
+  },
+  "110471848610": {
+   "on_sheet": false
+  },
+  "110471848611": {
+   "on_sheet": false
+  },
+  "110471848616": {
+   "on_sheet": false
+  },
+  "110471848617": {
+   "on_sheet": false
+  },
+  "110471848619": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.0,
+   "control": 0.07,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848620": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848624": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.05,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848625": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848629": {
+   "on_sheet": true,
+   "samples": 15,
+   "detection": 0.2,
+   "control": 0.05,
+   "drawn": false,
+   "median_offset_m": -8.0
+  },
+  "110471848638": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.17,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": 30.0
+  },
+  "110471848639": {
+   "on_sheet": false
+  },
+  "110471848642": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.25,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": -12.0
+  },
+  "110471848659": {
+   "on_sheet": false
+  },
+  "110471848660": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.2,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 20.0
+  },
+  "110471848661": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848662": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.67,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": -7.0
+  },
+  "110471848663": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848664": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848673": {
+   "on_sheet": false
+  },
+  "110471848684": {
+   "on_sheet": false
+  },
+  "110471848686": {
+   "on_sheet": false
+  },
+  "110471848704": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848712": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848722": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848731": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848734": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": 20.0
+  },
+  "110471848741": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848754": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.1,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848757": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.08,
+   "control": 0.02,
+   "drawn": false,
+   "median_offset_m": 6.0
+  },
+  "110471848758": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.05,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848759": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848761": {
+   "on_sheet": true,
+   "samples": 13,
+   "detection": 0.0,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848762": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848766": {
+   "on_sheet": false
+  },
+  "110471848770": {
+   "on_sheet": false
+  },
+  "110471848860": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848970": {
+   "on_sheet": false
+  },
+  "110471833873": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.11,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": 14.0
+  },
+  "110471837324": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.33,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 22.0
+  },
+  "1103689897947": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834729": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.0,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1103677773223": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1103730739398": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471838361": {
+   "on_sheet": true,
+   "samples": 18,
+   "detection": 0.0,
+   "control": 0.1,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834743": {
+   "on_sheet": true,
+   "samples": 13,
+   "detection": 0.23,
+   "control": 0.1,
+   "drawn": false,
+   "median_offset_m": 20.0
+  },
+  "110471838387": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "11033193129085": {
+   "on_sheet": false
+  },
+  "110471835433": {
+   "on_sheet": true,
+   "samples": 11,
+   "detection": 0.09,
+   "control": 0.05,
+   "drawn": false,
+   "median_offset_m": 4.0
+  },
+  "1108311086680": {
+   "on_sheet": true,
+   "samples": 16,
+   "detection": 0.0,
+   "control": 0.2,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836375": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.0,
+   "control": 0.21,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834757": {
+   "on_sheet": true,
+   "samples": 11,
+   "detection": 0.55,
+   "control": 0.36,
+   "drawn": false,
+   "median_offset_m": 17.0
+  },
+  "1102628193989": {
+   "on_sheet": true,
+   "samples": 11,
+   "detection": 0.0,
+   "control": 0.14,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "11029550535735": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1102628196107": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.17,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": 14.0
+  },
+  "110471836388": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1102628177587": {
+   "on_sheet": false
+  },
+  "110471838462": {
+   "on_sheet": true,
+   "samples": 10,
+   "detection": 0.2,
+   "control": 0.28,
+   "drawn": false,
+   "median_offset_m": 18.0
+  },
+  "1102628191986": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837427": {
+   "on_sheet": false
+  },
+  "1102628178134": {
+   "on_sheet": false
+  },
+  "1102628180020": {
+   "on_sheet": false
+  },
+  "110471839428": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.0,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837441": {
+   "on_sheet": false
+  },
+  "110471834794": {
+   "on_sheet": false
+  },
+  "1106258626340": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "11033193121624": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.33,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": -6.0
+  },
+  "11033193129215": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.0,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471841951": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836407": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.25,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": 24.0
+  },
+  "1102628191666": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834806": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.0,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837500": {
+   "on_sheet": true,
+   "samples": 13,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471841058": {
+   "on_sheet": false
+  },
+  "110471841059": {
+   "on_sheet": false
+  },
+  "110471841960": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471838481": {
+   "on_sheet": true,
+   "samples": 17,
+   "detection": 0.29,
+   "control": 0.07,
+   "drawn": false,
+   "median_offset_m": 18.0
+  },
+  "110471836449": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471841108": {
+   "on_sheet": true,
+   "samples": 34,
+   "detection": 0.12,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": -16.0
+  },
+  "110471838504": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.5,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834027": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471839562": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.2,
+   "control": 0.15,
+   "drawn": false,
+   "median_offset_m": -26.0
+  },
+  "110471839563": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471839569": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.0,
+   "control": 0.39,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835592": {
+   "on_sheet": false
+  },
+  "110471838530": {
+   "on_sheet": true,
+   "samples": 11,
+   "detection": 0.09,
+   "control": 0.05,
+   "drawn": false,
+   "median_offset_m": 16.0
+  },
+  "110471834837": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.43,
+   "control": 0.07,
+   "drawn": false,
+   "median_offset_m": -16.0
+  },
+  "110471834033": {
+   "on_sheet": false
+  },
+  "110471842168": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471842169": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471842170": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471842171": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1108311057585": {
+   "on_sheet": false
+  },
+  "1102628200477": {
+   "on_sheet": true,
+   "samples": 17,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471838565": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": -30.0
+  },
+  "110471842179": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835613": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1102628202625": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837429": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.12,
+   "control": 0.16,
+   "drawn": false,
+   "median_offset_m": -28.0
+  },
+  "110471837431": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.1,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836726": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "11012815115790": {
+   "on_sheet": false
+  },
+  "110471838114": {
+   "on_sheet": true,
+   "samples": 11,
+   "detection": 0.64,
+   "control": 0.2,
+   "drawn": false,
+   "median_offset_m": -14.0
+  },
+  "110471837249": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.57,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": -26.0
+  },
+  "110471834865": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1106258626346": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "11033193129281": {
+   "on_sheet": true,
+   "samples": 26,
+   "detection": 0.12,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": 24.0
+  },
+  "110471833915": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.6,
+   "control": 0.35,
+   "drawn": false,
+   "median_offset_m": -22.0
+  },
+  "110471834873": {
+   "on_sheet": true,
+   "samples": 17,
+   "detection": 0.0,
+   "control": 0.22,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834877": {
+   "on_sheet": false
+  },
+  "110471834878": {
+   "on_sheet": false
+  },
+  "110471839622": {
+   "on_sheet": false
+  },
+  "1103359346082": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1106258626422": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1103676583589": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1106258626365": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837620": {
+   "on_sheet": true,
+   "samples": 19,
+   "detection": 0.05,
+   "control": 0.39,
+   "drawn": false,
+   "median_offset_m": -14.0
+  },
+  "110471841968": {
+   "on_sheet": false
+  },
+  "110471837630": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.75,
+   "control": 0.06,
+   "drawn": true,
+   "median_offset_m": -19.0
+  },
+  "110471836527": {
+   "on_sheet": false
+  },
+  "110471841744": {
+   "on_sheet": false
+  },
+  "110471836530": {
+   "on_sheet": false
+  },
+  "110471836531": {
+   "on_sheet": false
+  },
+  "110471838666": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.33,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": -28.0
+  },
+  "110471833925": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "11012815112609": {
+   "on_sheet": true,
+   "samples": 14,
+   "detection": 0.07,
+   "control": 0.05,
+   "drawn": false,
+   "median_offset_m": -10.0
+  },
+  "110471839657": {
+   "on_sheet": true,
+   "samples": 27,
+   "detection": 0.04,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": 6.0
+  },
+  "110471835653": {
+   "on_sheet": false
+  },
+  "110471838675": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.83,
+   "control": 0.12,
+   "drawn": true,
+   "median_offset_m": 24.0
+  },
+  "1106261354826": {
+   "on_sheet": false
+  },
+  "110471836556": {
+   "on_sheet": false
+  },
+  "110471835673": {
+   "on_sheet": true,
+   "samples": 10,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471842469": {
+   "on_sheet": true,
+   "samples": 15,
+   "detection": 0.13,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": -5.0
+  },
+  "110471838690": {
+   "on_sheet": false
+  },
+  "110471834082": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.5,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": -16.0
+  },
+  "110471834912": {
+   "on_sheet": false
+  },
+  "110471840542": {
+   "on_sheet": false
+  },
+  "110471835685": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.0,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834916": {
+   "on_sheet": false
+  },
+  "110471839736": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.0,
+   "control": 0.14,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471841764": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834927": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.2,
+   "control": 0.2,
+   "drawn": false,
+   "median_offset_m": -8.0
+  },
+  "110471837739": {
+   "on_sheet": false
+  },
+  "110471837742": {
+   "on_sheet": true,
+   "samples": 11,
+   "detection": 0.09,
+   "control": 0.11,
+   "drawn": false,
+   "median_offset_m": -6.0
+  },
+  "110471833931": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.19,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834930": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.0,
+   "control": 0.4,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834934": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837746": {
+   "on_sheet": false
+  },
+  "110471837747": {
+   "on_sheet": true,
+   "samples": 11,
+   "detection": 0.0,
+   "control": 0.09,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837748": {
+   "on_sheet": false
+  },
+  "110471837749": {
+   "on_sheet": false
+  },
+  "110471837750": {
+   "on_sheet": false
+  },
+  "110471837751": {
+   "on_sheet": false
+  },
+  "110471837752": {
+   "on_sheet": false
+  },
+  "110471837753": {
+   "on_sheet": false
+  },
+  "110471837754": {
+   "on_sheet": false
+  },
+  "1106077688186": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837769": {
+   "on_sheet": true,
+   "samples": 20,
+   "detection": 0.0,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471842226": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 1.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": -4.0
+  },
+  "110471834938": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834123": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.0,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834946": {
+   "on_sheet": false
+  },
+  "110471834126": {
+   "on_sheet": false
+  },
+  "110471835702": {
+   "on_sheet": false
+  },
+  "110471837802": {
+   "on_sheet": true,
+   "samples": 10,
+   "detection": 0.3,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": 18.0
+  },
+  "110471839786": {
+   "on_sheet": true,
+   "samples": 16,
+   "detection": 0.0,
+   "control": 0.09,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835721": {
+   "on_sheet": true,
+   "samples": 10,
+   "detection": 0.0,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834136": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836664": {
+   "on_sheet": true,
+   "samples": 14,
+   "detection": 0.21,
+   "control": 0.3,
+   "drawn": false,
+   "median_offset_m": 24.0
+  },
+  "110471834951": {
+   "on_sheet": false
+  },
+  "1102638626682": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835727": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834149": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834967": {
+   "on_sheet": true,
+   "samples": 21,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836678": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836679": {
+   "on_sheet": false
+  },
+  "110471836680": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.67,
+   "control": 0.12,
+   "drawn": true,
+   "median_offset_m": 13.0
+  },
+  "110471834978": {
+   "on_sheet": false
+  },
+  "1106261360133": {
+   "on_sheet": true,
+   "samples": 10,
+   "detection": 0.0,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834163": {
+   "on_sheet": true,
+   "samples": 13,
+   "detection": 0.0,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471838814": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.19,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835753": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.08,
+   "control": 0.23,
+   "drawn": false,
+   "median_offset_m": 6.0
+  },
+  "110471835755": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.0,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835757": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834182": {
+   "on_sheet": false
+  },
+  "110471838832": {
+   "on_sheet": true,
+   "samples": 13,
+   "detection": 0.23,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": 10.0
+  },
+  "110471837833": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "11033193129277": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834195": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836698": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.0,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1102628179955": {
+   "on_sheet": false
+  },
+  "110471833939": {
+   "on_sheet": false
+  },
+  "1102628202703": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835790": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836730": {
+   "on_sheet": false
+  },
+  "1103978796030": {
+   "on_sheet": true,
+   "samples": 28,
+   "detection": 0.5,
+   "control": 0.1,
+   "drawn": false,
+   "median_offset_m": -10.0
+  },
+  "110471834218": {
+   "on_sheet": true,
+   "samples": 10,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834223": {
+   "on_sheet": false
+  },
+  "110471839839": {
+   "on_sheet": false
+  },
+  "110471834250": {
+   "on_sheet": true,
+   "samples": 18,
+   "detection": 0.0,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835032": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836740": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.0,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471840655": {
+   "on_sheet": false
+  },
+  "11033193128945": {
+   "on_sheet": false
+  },
+  "11033193130274": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "11033373602091": {
+   "on_sheet": false
+  },
+  "11033373602092": {
+   "on_sheet": false
+  },
+  "110471835071": {
+   "on_sheet": false
+  },
+  "110471835866": {
+   "on_sheet": false
+  },
+  "110471835868": {
+   "on_sheet": false
+  },
+  "1103594357973": {
+   "on_sheet": false
+  },
+  "110471840711": {
+   "on_sheet": false
+  },
+  "1108311057404": {
+   "on_sheet": false
+  },
+  "1108311057495": {
+   "on_sheet": false
+  },
+  "110471835083": {
+   "on_sheet": false
+  },
+  "110471835905": {
+   "on_sheet": false
+  },
+  "110471835909": {
+   "on_sheet": false
+  },
+  "110471838900": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1108311086502": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471833840": {
+   "on_sheet": true,
+   "samples": 15,
+   "detection": 0.07,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": -30.0
+  },
+  "110471833857": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.0,
+   "control": 0.22,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471833879": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471833932": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.62,
+   "control": 0.12,
+   "drawn": true,
+   "median_offset_m": 4.0
+  },
+  "110471835718": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471841887": {
+   "on_sheet": true,
+   "samples": 11,
+   "detection": 0.0,
+   "control": 0.09,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471840182": {
+   "on_sheet": true,
+   "samples": 22,
+   "detection": 0.64,
+   "control": 0.17,
+   "drawn": true,
+   "median_offset_m": -8.0
+  },
+  "11033193125415": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "11033193129286": {
+   "on_sheet": true,
+   "samples": 13,
+   "detection": 0.38,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": 14.0
+  },
+  "11033193129287": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.33,
+   "control": 0.35,
+   "drawn": false,
+   "median_offset_m": -20.0
+  },
+  "110471842423": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835920": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835933": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.0,
+   "control": 0.28,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835092": {
+   "on_sheet": false
+  },
+  "110471837982": {
+   "on_sheet": true,
+   "samples": 20,
+   "detection": 0.5,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 14.0
+  },
+  "110471833958": {
+   "on_sheet": true,
+   "samples": 16,
+   "detection": 0.06,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": 26.0
+  },
+  "1104484105628": {
+   "on_sheet": false
+  },
+  "1106261360287": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.14,
+   "control": 0.11,
+   "drawn": false,
+   "median_offset_m": 30.0
+  },
+  "110471835974": {
+   "on_sheet": false
+  },
+  "110471834292": {
+   "on_sheet": true,
+   "samples": 19,
+   "detection": 0.26,
+   "control": 0.26,
+   "drawn": false,
+   "median_offset_m": -32.0
+  },
+  "110471834311": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1103689896490": {
+   "on_sheet": true,
+   "samples": 24,
+   "detection": 0.08,
+   "control": 0.07,
+   "drawn": false,
+   "median_offset_m": -32.0
+  },
+  "110471835986": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.29,
+   "control": 0.18,
+   "drawn": false,
+   "median_offset_m": 10.0
+  },
+  "1106092751885": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836850": {
+   "on_sheet": false
+  },
+  "110471836859": {
+   "on_sheet": true,
+   "samples": 15,
+   "detection": 0.0,
+   "control": 0.13,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834325": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.33,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1106258626368": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1108311058551": {
+   "on_sheet": false
+  },
+  "1108311086734": {
+   "on_sheet": false
+  },
+  "110471836014": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837048": {
+   "on_sheet": false
+  },
+  "1104484105451": {
+   "on_sheet": false
+  },
+  "110471835159": {
+   "on_sheet": true,
+   "samples": 13,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835179": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.33,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 24.0
+  },
+  "110471837067": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.38,
+   "control": 0.09,
+   "drawn": false,
+   "median_offset_m": -14.0
+  },
+  "110471839070": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837071": {
+   "on_sheet": true,
+   "samples": 28,
+   "detection": 0.43,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": -5.0
+  },
+  "110471837080": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1106261470379": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.22,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": -32.0
+  },
+  "1106077688529": {
+   "on_sheet": true,
+   "samples": 10,
+   "detection": 0.0,
+   "control": 0.3,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835189": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.83,
+   "control": 0.21,
+   "drawn": false,
+   "median_offset_m": -12.0
+  },
+  "110471835199": {
+   "on_sheet": false
+  },
+  "110471835209": {
+   "on_sheet": false
+  },
+  "110471839085": {
+   "on_sheet": true,
+   "samples": 13,
+   "detection": 0.0,
+   "control": 0.13,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471839091": {
+   "on_sheet": true,
+   "samples": 32,
+   "detection": 0.19,
+   "control": 0.15,
+   "drawn": false,
+   "median_offset_m": -4.0
+  },
+  "110471839094": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471839098": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.25,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": -22.0
+  },
+  "110471839102": {
+   "on_sheet": false
+  },
+  "110471834362": {
+   "on_sheet": false
+  },
+  "1103579588882": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.11,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": -12.0
+  },
+  "110471837096": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.0,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835215": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471841369": {
+   "on_sheet": false
+  },
+  "110471835223": {
+   "on_sheet": true,
+   "samples": 13,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835225": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471839109": {
+   "on_sheet": true,
+   "samples": 18,
+   "detection": 0.06,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": 32.0
+  },
+  "11029550535752": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471833845": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.11,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": -18.0
+  },
+  "110471833867": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.31,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471833883": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471833934": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.5,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": -17.0
+  },
+  "1103339466762": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835720": {
+   "on_sheet": true,
+   "samples": 14,
+   "detection": 0.36,
+   "control": 0.39,
+   "drawn": false,
+   "median_offset_m": -4.0
+  },
+  "1106077691914": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.5,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471841524": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1102628191771": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834380": {
+   "on_sheet": false
+  },
+  "110471838222": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.0,
+   "control": 0.19,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837152": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836063": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.17,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": 4.0
+  },
+  "110471837159": {
+   "on_sheet": false
+  },
+  "110471837171": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837210": {
+   "on_sheet": true,
+   "samples": 11,
+   "detection": 0.09,
+   "control": 0.3,
+   "drawn": false,
+   "median_offset_m": -16.0
+  },
+  "110471835254": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.15,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835263": {
+   "on_sheet": false
+  },
+  "110471841515": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471841516": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.0,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837231": {
+   "on_sheet": true,
+   "samples": 21,
+   "detection": 0.14,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": -6.0
+  },
+  "110471841882": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836107": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.0,
+   "control": 0.28,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836108": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836109": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": -32.0
+  },
+  "1104480896786": {
+   "on_sheet": false
+  },
+  "1103579589303": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471840847": {
+   "on_sheet": false
+  },
+  "110471836136": {
+   "on_sheet": false
+  },
+  "110471836144": {
+   "on_sheet": false
+  },
+  "110471836145": {
+   "on_sheet": false
+  },
+  "1108311057616": {
+   "on_sheet": false
+  },
+  "110471836167": {
+   "on_sheet": true,
+   "samples": 16,
+   "detection": 0.19,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": 8.0
+  },
+  "110471838293": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1106077688245": {
+   "on_sheet": false
+  },
+  "110471836197": {
+   "on_sheet": false
+  },
+  "110471838304": {
+   "on_sheet": false
+  },
+  "110471841896": {
+   "on_sheet": false
+  },
+  "1106261360169": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837275": {
+   "on_sheet": true,
+   "samples": 17,
+   "detection": 0.06,
+   "control": 0.1,
+   "drawn": false,
+   "median_offset_m": -2.0
+  },
+  "110471840135": {
+   "on_sheet": true,
+   "samples": 20,
+   "detection": 0.2,
+   "control": 0.05,
+   "drawn": false,
+   "median_offset_m": -7.0
+  },
+  "110471833737": {
+   "on_sheet": true,
+   "samples": 90,
+   "detection": 0.8,
+   "control": 0.09,
+   "drawn": true,
+   "median_offset_m": 6.0
+  },
+  "1104483772004": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.67,
+   "control": 0.03,
+   "drawn": true,
+   "median_offset_m": -17.0
+  },
+  "1102628190418": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836222": {
+   "on_sheet": false
+  },
+  "110471835338": {
+   "on_sheet": false
+  },
+  "110471836234": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.05,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837286": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.5,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": -29.0
+  },
+  "110471840909": {
+   "on_sheet": false
+  },
+  "110471840910": {
+   "on_sheet": false
+  },
+  "110471840911": {
+   "on_sheet": false
+  },
+  "110471837433": {
+   "on_sheet": true,
+   "samples": 17,
+   "detection": 0.18,
+   "control": 0.24,
+   "drawn": false,
+   "median_offset_m": 18.0
+  },
+  "110471836728": {
+   "on_sheet": true,
+   "samples": 21,
+   "detection": 0.0,
+   "control": 0.13,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1106261472845": {
+   "on_sheet": false
+  },
+  "110471837251": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.8,
+   "control": 0.65,
+   "drawn": false,
+   "median_offset_m": 28.0
+  },
+  "110471836242": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.44,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": -29.0
+  },
+  "1104480897712": {
+   "on_sheet": false
+  },
+  "1102628180125": {
+   "on_sheet": false
+  },
+  "1102628195993": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.25,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": -7.0
+  },
+  "11033193129483": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835370": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.0,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834420": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.0,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835374": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.2,
+   "control": 0.05,
+   "drawn": false,
+   "median_offset_m": 28.0
+  },
+  "110471839262": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471838338": {
+   "on_sheet": true,
+   "samples": 13,
+   "detection": 0.15,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": 27.0
+  },
+  "1102628200964": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1103359346657": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471839274": {
+   "on_sheet": true,
+   "samples": 17,
+   "detection": 0.0,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "11029550540684": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.0,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1103661336253": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834427": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.38,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": 30.0
+  },
+  "110471839281": {
+   "on_sheet": true,
+   "samples": 11,
+   "detection": 0.0,
+   "control": 0.11,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471839282": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471839283": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471839284": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.17,
+   "control": 0.29,
+   "drawn": false,
+   "median_offset_m": 28.0
+  },
+  "110471839285": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.33,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": -12.0
+  },
+  "1102628194199": {
+   "on_sheet": true,
+   "samples": 14,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471833983": {
+   "on_sheet": true,
+   "samples": 10,
+   "detection": 0.0,
+   "control": 0.23,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1104483777998": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.67,
+   "control": 0.03,
+   "drawn": true,
+   "median_offset_m": -17.0
+  },
+  "11015504239495": {
+   "on_sheet": false
+  },
+  "11015504239496": {
+   "on_sheet": true,
+   "samples": 13,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "11033193121195": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "11033193130470": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "11033193130471": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": -24.0
+  },
+  "11033193130472": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.19,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847699": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847701": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 1.0,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": -26.0
+  },
+  "110471847716": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847717": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847718": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.33,
+   "control": 0.42,
+   "drawn": false,
+   "median_offset_m": 12.0
+  },
+  "110471847723": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847724": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847728": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.4,
+   "control": 0.1,
+   "drawn": false,
+   "median_offset_m": 21.0
+  },
+  "110471847729": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847764": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847803": {
+   "on_sheet": false
+  },
+  "110471847808": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.2,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 8.0
+  },
+  "110471847810": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847811": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847814": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847815": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847816": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.22,
+   "control": 0.19,
+   "drawn": false,
+   "median_offset_m": 16.0
+  },
+  "110471847817": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847819": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847820": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847822": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847823": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.25,
+   "control": 0.19,
+   "drawn": false,
+   "median_offset_m": 12.0
+  },
+  "110471847949": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.19,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847950": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847951": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847953": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 1.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": -30.0
+  },
+  "110471847954": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 1.0,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": 0.0
+  },
+  "110471847958": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847959": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.1,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847960": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.6,
+   "control": 0.1,
+   "drawn": true,
+   "median_offset_m": -4.0
+  },
+  "110471847966": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.11,
+   "control": 0.36,
+   "drawn": false,
+   "median_offset_m": 24.0
+  },
+  "110471847981": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847982": {
+   "on_sheet": true,
+   "samples": 10,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847983": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847984": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": 2.0
+  },
+  "110471847985": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847986": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847987": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847988": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847989": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471847990": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848074": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.57,
+   "control": 0.0,
+   "drawn": true,
+   "median_offset_m": -6.0
+  },
+  "110471848081": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848082": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848083": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848084": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848087": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848205": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848302": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848378": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848510": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848511": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848512": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.4,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 5.0
+  },
+  "110471848513": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848516": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.11,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": 8.0
+  },
+  "110471848614": {
+   "on_sheet": false
+  },
+  "110471848626": {
+   "on_sheet": true,
+   "samples": 22,
+   "detection": 0.14,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": -26.0
+  },
+  "110471848632": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": 0.0
+  },
+  "110471848668": {
+   "on_sheet": false
+  },
+  "110471848812": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848813": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848827": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471849121": {
+   "on_sheet": false
+  },
+  "110471849124": {
+   "on_sheet": false
+  },
+  "110471849125": {
+   "on_sheet": false
+  },
+  "110471849166": {
+   "on_sheet": false
+  },
+  "110471849169": {
+   "on_sheet": false
+  },
+  "110471849172": {
+   "on_sheet": false
+  },
+  "110471849174": {
+   "on_sheet": false
+  },
+  "110471849217": {
+   "on_sheet": false
+  },
+  "110471849220": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.17,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": 6.0
+  },
+  "110471849233": {
+   "on_sheet": false
+  },
+  "110471849256": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.2,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 28.0
+  },
+  "110471849262": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.1,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471849267": {
+   "on_sheet": true,
+   "samples": 18,
+   "detection": 0.11,
+   "control": 0.15,
+   "drawn": false,
+   "median_offset_m": -1.0
+  },
+  "110471849268": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471849286": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.25,
+   "control": 0.02,
+   "drawn": false,
+   "median_offset_m": -22.0
+  },
+  "110471849321": {
+   "on_sheet": false
+  },
+  "110471849342": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.0,
+   "control": 0.09,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471849394": {
+   "on_sheet": false
+  },
+  "110471849395": {
+   "on_sheet": false
+  },
+  "110471849455": {
+   "on_sheet": false
+  },
+  "110471849460": {
+   "on_sheet": false
+  },
+  "110471849487": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": -32.0
+  },
+  "1105045596109": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1105045596110": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1105045596111": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1105045596112": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1106092751625": {
+   "on_sheet": false
+  },
+  "1106092751626": {
+   "on_sheet": false
+  },
+  "1106092751630": {
+   "on_sheet": false
+  },
+  "1106092751631": {
+   "on_sheet": false
+  },
+  "110471835604": {
+   "on_sheet": false
+  },
+  "110471841124": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471842456": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.5,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1105045587892": {
+   "on_sheet": true,
+   "samples": 10,
+   "detection": 0.0,
+   "control": 0.15,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834923": {
+   "on_sheet": false
+  },
+  "110471837942": {
+   "on_sheet": false
+  },
+  "110471836138": {
+   "on_sheet": false
+  },
+  "1104481540589": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1104481837887": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1104481837888": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1104483750412": {
+   "on_sheet": false
+  },
+  "1104483769892": {
+   "on_sheet": false
+  },
+  "1104483769895": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.25,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 10.0
+  },
+  "1104483769896": {
+   "on_sheet": true,
+   "samples": 11,
+   "detection": 0.18,
+   "control": 0.11,
+   "drawn": false,
+   "median_offset_m": 1.0
+  },
+  "1104483769897": {
+   "on_sheet": true,
+   "samples": 10,
+   "detection": 0.1,
+   "control": 0.07,
+   "drawn": false,
+   "median_offset_m": 2.0
+  },
+  "1104483769898": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.29,
+   "control": 0.07,
+   "drawn": false,
+   "median_offset_m": 13.0
+  },
+  "1104483843823": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1104483843824": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "1104483843825": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.05,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848999": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.0,
+   "control": 0.18,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471849001": {
+   "on_sheet": false
+  },
+  "110471849002": {
+   "on_sheet": false
+  },
+  "110471849003": {
+   "on_sheet": false
+  },
+  "110471849004": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.0,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471849016": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.17,
+   "control": 0.21,
+   "drawn": false,
+   "median_offset_m": 12.0
+  },
+  "110471849033": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.0,
+   "control": 0.09,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471849035": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471849037": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.0,
+   "control": 0.07,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471849039": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.33,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": -12.0
+  },
+  "110471849042": {
+   "on_sheet": true,
+   "samples": 18,
+   "detection": 0.0,
+   "control": 0.1,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471849045": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471849046": {
+   "on_sheet": true,
+   "samples": 17,
+   "detection": 0.0,
+   "control": 0.13,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471849048": {
+   "on_sheet": false
+  },
+  "110471849052": {
+   "on_sheet": true,
+   "samples": 16,
+   "detection": 0.12,
+   "control": 0.05,
+   "drawn": false,
+   "median_offset_m": -21.0
+  },
+  "110471842105": {
+   "on_sheet": true,
+   "samples": 57,
+   "detection": 0.23,
+   "control": 0.09,
+   "drawn": false,
+   "median_offset_m": -6.0
+  },
+  "110471840583": {
+   "on_sheet": false
+  },
+  "110471840584": {
+   "on_sheet": true,
+   "samples": 68,
+   "detection": 0.69,
+   "control": 0.09,
+   "drawn": true,
+   "median_offset_m": -12.0
+  },
+  "110471840585": {
+   "on_sheet": false
+  },
+  "110471840586": {
+   "on_sheet": false
+  },
+  "110471840117": {
+   "on_sheet": true,
+   "samples": 32,
+   "detection": 0.88,
+   "control": 0.06,
+   "drawn": true,
+   "median_offset_m": 4.0
+  },
+  "110471838368": {
+   "on_sheet": true,
+   "samples": 103,
+   "detection": 0.47,
+   "control": 0.05,
+   "drawn": false,
+   "median_offset_m": 6.0
+  },
+  "110471838378": {
+   "on_sheet": true,
+   "samples": 29,
+   "detection": 0.86,
+   "control": 0.26,
+   "drawn": false,
+   "median_offset_m": -6.0
+  },
+  "110471840348": {
+   "on_sheet": true,
+   "samples": 52,
+   "detection": 0.83,
+   "control": 0.01,
+   "drawn": true,
+   "median_offset_m": -6.0
+  },
+  "110471842449": {
+   "on_sheet": true,
+   "samples": 19,
+   "detection": 0.32,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": -18.0
+  },
+  "110471842450": {
+   "on_sheet": true,
+   "samples": 68,
+   "detection": 0.41,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": 20.0
+  },
+  "110471839353": {
+   "on_sheet": true,
+   "samples": 17,
+   "detection": 0.47,
+   "control": 0.09,
+   "drawn": false,
+   "median_offset_m": 21.0
+  },
+  "110471835505": {
+   "on_sheet": true,
+   "samples": 21,
+   "detection": 0.76,
+   "control": 0.07,
+   "drawn": true,
+   "median_offset_m": 13.0
+  },
+  "110471837471": {
+   "on_sheet": true,
+   "samples": 26,
+   "detection": 0.92,
+   "control": 0.24,
+   "drawn": false,
+   "median_offset_m": -8.0
+  },
+  "110471841040": {
+   "on_sheet": true,
+   "samples": 106,
+   "detection": 0.87,
+   "control": 0.07,
+   "drawn": true,
+   "median_offset_m": 8.0
+  },
+  "110471841050": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 1.0,
+   "control": 0.46,
+   "drawn": false,
+   "median_offset_m": -32.0
+  },
+  "1104483919462": {
+   "on_sheet": true,
+   "samples": 145,
+   "detection": 0.57,
+   "control": 0.03,
+   "drawn": true,
+   "median_offset_m": -4.0
+  },
+  "1106092749970": {
+   "on_sheet": true,
+   "samples": 87,
+   "detection": 0.64,
+   "control": 0.07,
+   "drawn": true,
+   "median_offset_m": -9.0
+  },
+  "110471842506": {
+   "on_sheet": true,
+   "samples": 27,
+   "detection": 0.48,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": 6.0
+  },
+  "1104701938954": {
+   "on_sheet": true,
+   "samples": 57,
+   "detection": 0.49,
+   "control": 0.02,
+   "drawn": false,
+   "median_offset_m": -3.0
+  },
+  "110471836597": {
+   "on_sheet": true,
+   "samples": 16,
+   "detection": 0.81,
+   "control": 0.2,
+   "drawn": false,
+   "median_offset_m": -30.0
+  },
+  "110471839753": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.67,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": -12.0
+  },
+  "110471839760": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 1.0,
+   "control": 0.0,
+   "drawn": true,
+   "median_offset_m": -12.0
+  },
+  "110471840571": {
+   "on_sheet": true,
+   "samples": 51,
+   "detection": 0.63,
+   "control": 0.1,
+   "drawn": true,
+   "median_offset_m": -24.0
+  },
+  "110471840572": {
+   "on_sheet": true,
+   "samples": 75,
+   "detection": 0.59,
+   "control": 0.16,
+   "drawn": true,
+   "median_offset_m": 6.0
+  },
+  "110471836693": {
+   "on_sheet": true,
+   "samples": 25,
+   "detection": 0.6,
+   "control": 0.05,
+   "drawn": true,
+   "median_offset_m": -4.0
+  },
+  "110471836694": {
+   "on_sheet": false
+  },
+  "110471836695": {
+   "on_sheet": false
+  },
+  "110471836716": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.67,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": -3.0
+  },
+  "110471838864": {
+   "on_sheet": false
+  },
+  "110471842335": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.6,
+   "control": 0.1,
+   "drawn": true,
+   "median_offset_m": 32.0
+  },
+  "110471840728": {
+   "on_sheet": true,
+   "samples": 38,
+   "detection": 0.5,
+   "control": 0.02,
+   "drawn": false,
+   "median_offset_m": -20.0
+  },
+  "110471839896": {
+   "on_sheet": true,
+   "samples": 76,
+   "detection": 0.88,
+   "control": 0.04,
+   "drawn": true,
+   "median_offset_m": 2.0
+  },
+  "110471839905": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 1.0,
+   "control": 0.0,
+   "drawn": true,
+   "median_offset_m": 8.0
+  },
+  "110471839766": {
+   "on_sheet": true,
+   "samples": 61,
+   "detection": 0.8,
+   "control": 0.04,
+   "drawn": true,
+   "median_offset_m": 6.0
+  },
+  "110471834281": {
+   "on_sheet": true,
+   "samples": 86,
+   "detection": 0.72,
+   "control": 0.06,
+   "drawn": true,
+   "median_offset_m": 16.0
+  },
+  "110471840188": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 1.0,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": 14.0
+  },
+  "110471840190": {
+   "on_sheet": true,
+   "samples": 27,
+   "detection": 0.96,
+   "control": 0.33,
+   "drawn": false,
+   "median_offset_m": 0.0
+  },
+  "1106087964679": {
+   "on_sheet": true,
+   "samples": 130,
+   "detection": 0.7,
+   "control": 0.1,
+   "drawn": true,
+   "median_offset_m": -14.0
+  },
+  "1106087964691": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": -32.0
+  },
+  "1106087964694": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 1.0,
+   "control": 0.75,
+   "drawn": false,
+   "median_offset_m": 18.0
+  },
+  "110471833770": {
+   "on_sheet": true,
+   "samples": 149,
+   "detection": 0.54,
+   "control": 0.05,
+   "drawn": false,
+   "median_offset_m": -6.0
+  },
+  "1104483336163": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 1.0,
+   "control": 0.5,
+   "drawn": false,
+   "median_offset_m": -8.0
+  },
+  "1104483336164": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": -18.0
+  },
+  "1104483336165": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": -32.0
+  },
+  "110471833755": {
+   "on_sheet": true,
+   "samples": 114,
+   "detection": 0.46,
+   "control": 0.07,
+   "drawn": false,
+   "median_offset_m": 12.0
+  },
+  "110471839169": {
+   "on_sheet": true,
+   "samples": 27,
+   "detection": 1.0,
+   "control": 0.07,
+   "drawn": true,
+   "median_offset_m": 0.0
+  },
+  "110471839192": {
+   "on_sheet": true,
+   "samples": 146,
+   "detection": 0.53,
+   "control": 0.05,
+   "drawn": false,
+   "median_offset_m": -8.0
+  },
+  "11019626511151": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": -18.0
+  },
+  "11019626511152": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": -32.0
+  },
+  "1104483424922": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 1.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": 16.0
+  },
+  "1104483424923": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 1.0,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": -3.0
+  },
+  "110471833743": {
+   "on_sheet": true,
+   "samples": 138,
+   "detection": 0.87,
+   "control": 0.11,
+   "drawn": true,
+   "median_offset_m": 10.0
+  },
+  "110471835889": {
+   "on_sheet": true,
+   "samples": 40,
+   "detection": 0.88,
+   "control": 0.19,
+   "drawn": true,
+   "median_offset_m": -28.0
+  },
+  "110471840289": {
+   "on_sheet": true,
+   "samples": 47,
+   "detection": 0.6,
+   "control": 0.09,
+   "drawn": true,
+   "median_offset_m": 4.0
+  },
+  "110471842086": {
+   "on_sheet": true,
+   "samples": 50,
+   "detection": 0.28,
+   "control": 0.14,
+   "drawn": false,
+   "median_offset_m": 9.0
+  },
+  "1104483745883": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.78,
+   "control": 0.08,
+   "drawn": true,
+   "median_offset_m": -22.0
+  },
+  "1104483777997": {
+   "on_sheet": false
+  },
+  "1104483777999": {
+   "on_sheet": true,
+   "samples": 55,
+   "detection": 0.64,
+   "control": 0.05,
+   "drawn": true,
+   "median_offset_m": -10.0
+  },
+  "110471834443": {
+   "on_sheet": true,
+   "samples": 28,
+   "detection": 0.79,
+   "control": 0.13,
+   "drawn": true,
+   "median_offset_m": -28.0
+  },
+  "110471842359": {
+   "on_sheet": false
+  },
+  "110471842440": {
+   "on_sheet": false
+  },
+  "110471836373": {
+   "on_sheet": true,
+   "samples": 28,
+   "detection": 0.39,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": -18.0
+  },
+  "110471835472": {
+   "on_sheet": false
+  },
+  "11033193130723": {
+   "on_sheet": true,
+   "samples": 36,
+   "detection": 0.64,
+   "control": 0.02,
+   "drawn": true,
+   "median_offset_m": 0.0
+  },
+  "1106087422193": {
+   "on_sheet": false
+  },
+  "110471842135": {
+   "on_sheet": false
+  },
+  "1102638627205": {
+   "on_sheet": false
+  },
+  "110471839506": {
+   "on_sheet": true,
+   "samples": 23,
+   "detection": 0.04,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": -6.0
+  },
+  "110471841705": {
+   "on_sheet": false
+  },
+  "110471839577": {
+   "on_sheet": false
+  },
+  "110471840520": {
+   "on_sheet": true,
+   "samples": 33,
+   "detection": 0.03,
+   "control": 0.05,
+   "drawn": false,
+   "median_offset_m": -28.0
+  },
+  "110471842183": {
+   "on_sheet": true,
+   "samples": 40,
+   "detection": 0.23,
+   "control": 0.07,
+   "drawn": false,
+   "median_offset_m": 26.0
+  },
+  "110471839646": {
+   "on_sheet": false
+  },
+  "110471836569": {
+   "on_sheet": true,
+   "samples": 24,
+   "detection": 0.0,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471841138": {
+   "on_sheet": true,
+   "samples": 84,
+   "detection": 0.32,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": -20.0
+  },
+  "110471836658": {
+   "on_sheet": false
+  },
+  "110471837801": {
+   "on_sheet": true,
+   "samples": 37,
+   "detection": 0.11,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": -30.0
+  },
+  "110471836670": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834161": {
+   "on_sheet": false
+  },
+  "110471835756": {
+   "on_sheet": true,
+   "samples": 46,
+   "detection": 0.07,
+   "control": 0.07,
+   "drawn": false,
+   "median_offset_m": 20.0
+  },
+  "110471834982": {
+   "on_sheet": false
+  },
+  "110471842328": {
+   "on_sheet": false
+  },
+  "110471840695": {
+   "on_sheet": false
+  },
+  "110471835897": {
+   "on_sheet": false
+  },
+  "110471838898": {
+   "on_sheet": true,
+   "samples": 20,
+   "detection": 0.35,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": 10.0
+  },
+  "11033193131206": {
+   "on_sheet": true,
+   "samples": 19,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471838956": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835142": {
+   "on_sheet": true,
+   "samples": 41,
+   "detection": 0.29,
+   "control": 0.07,
+   "drawn": false,
+   "median_offset_m": 8.0
+  },
+  "1104484087509": {
+   "on_sheet": false
+  },
+  "1104484105450": {
+   "on_sheet": true,
+   "samples": 55,
+   "detection": 0.22,
+   "control": 0.01,
+   "drawn": false,
+   "median_offset_m": 27.0
+  },
+  "110471838148": {
+   "on_sheet": true,
+   "samples": 83,
+   "detection": 0.17,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": -8.0
+  },
+  "110471835196": {
+   "on_sheet": true,
+   "samples": 41,
+   "detection": 0.12,
+   "control": 0.01,
+   "drawn": false,
+   "median_offset_m": 24.0
+  },
+  "110471835213": {
+   "on_sheet": false
+  },
+  "110471842259": {
+   "on_sheet": true,
+   "samples": 18,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471840791": {
+   "on_sheet": true,
+   "samples": 11,
+   "detection": 0.18,
+   "control": 0.16,
+   "drawn": false,
+   "median_offset_m": 22.0
+  },
+  "110471842041": {
+   "on_sheet": false
+  },
+  "110471835227": {
+   "on_sheet": true,
+   "samples": 60,
+   "detection": 0.23,
+   "control": 0.07,
+   "drawn": false,
+   "median_offset_m": -14.0
+  },
+  "110471838213": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835231": {
+   "on_sheet": true,
+   "samples": 29,
+   "detection": 0.17,
+   "control": 0.02,
+   "drawn": false,
+   "median_offset_m": 14.0
+  },
+  "110471840826": {
+   "on_sheet": false
+  },
+  "110471837153": {
+   "on_sheet": true,
+   "samples": 44,
+   "detection": 0.73,
+   "control": 0.06,
+   "drawn": true,
+   "median_offset_m": -18.0
+  },
+  "110471834384": {
+   "on_sheet": false
+  },
+  "110471835257": {
+   "on_sheet": true,
+   "samples": 13,
+   "detection": 0.31,
+   "control": 0.04,
+   "drawn": false,
+   "median_offset_m": 1.0
+  },
+  "110471837222": {
+   "on_sheet": true,
+   "samples": 72,
+   "detection": 0.03,
+   "control": 0.02,
+   "drawn": false,
+   "median_offset_m": -19.0
+  },
+  "110471836132": {
+   "on_sheet": false
+  },
+  "110471840866": {
+   "on_sheet": false
+  },
+  "110471840197": {
+   "on_sheet": true,
+   "samples": 27,
+   "detection": 0.33,
+   "control": 0.03,
+   "drawn": false,
+   "median_offset_m": -20.0
+  },
+  "110471836267": {
+   "on_sheet": false
+  },
+  "110471837299": {
+   "on_sheet": false
+  },
+  "110471841567": {
+   "on_sheet": true,
+   "samples": 11,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836286": {
+   "on_sheet": false
+  },
+  "1103978803971": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471848558": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.31,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471833814": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.17,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": 4.0
+  },
+  "110471834779": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.25,
+   "control": 0.06,
+   "drawn": false,
+   "median_offset_m": 30.0
+  },
+  "110471841023": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.25,
+   "control": 0.42,
+   "drawn": false,
+   "median_offset_m": -16.0
+  },
+  "110471837494": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837521": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.62,
+   "drawn": false,
+   "median_offset_m": -26.0
+  },
+  "110471841086": {
+   "on_sheet": true,
+   "samples": 19,
+   "detection": 0.0,
+   "control": 0.16,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834823": {
+   "on_sheet": true,
+   "samples": 19,
+   "detection": 0.42,
+   "control": 0.05,
+   "drawn": false,
+   "median_offset_m": 2.0
+  },
+  "110471834844": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.6,
+   "control": 0.65,
+   "drawn": false,
+   "median_offset_m": 12.0
+  },
+  "110471835612": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.25,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 10.0
+  },
+  "110471834111": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.6,
+   "control": 0.5,
+   "drawn": false,
+   "median_offset_m": 20.0
+  },
+  "110471835786": {
+   "on_sheet": true,
+   "samples": 16,
+   "detection": 0.19,
+   "control": 0.31,
+   "drawn": false,
+   "median_offset_m": 20.0
+  },
+  "110471835887": {
+   "on_sheet": true,
+   "samples": 25,
+   "detection": 0.08,
+   "control": 0.16,
+   "drawn": false,
+   "median_offset_m": 23.0
+  },
+  "110471839049": {
+   "on_sheet": true,
+   "samples": 18,
+   "detection": 0.56,
+   "control": 0.14,
+   "drawn": true,
+   "median_offset_m": 30.0
+  },
+  "110471838115": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": 6.0
+  },
+  "110471835358": {
+   "on_sheet": true,
+   "samples": 14,
+   "detection": 0.21,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": 8.0
+  },
+  "110471837320": {
+   "on_sheet": true,
+   "samples": 25,
+   "detection": 0.32,
+   "control": 0.23,
+   "drawn": false,
+   "median_offset_m": 23.0
+  },
+  "110471834074": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 1.0,
+   "control": 0.56,
+   "drawn": false,
+   "median_offset_m": 12.0
+  },
+  "110471838682": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.2,
+   "control": 0.3,
+   "drawn": false,
+   "median_offset_m": 32.0
+  },
+  "110471838730": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.25,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 8.0
+  },
+  "110471837797": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834187": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.44,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836699": {
+   "on_sheet": true,
+   "samples": 16,
+   "detection": 0.31,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": -2.0
+  },
+  "110471835783": {
+   "on_sheet": true,
+   "samples": 17,
+   "detection": 0.71,
+   "control": 0.5,
+   "drawn": false,
+   "median_offset_m": 25.0
+  },
+  "110471834994": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 1.0,
+   "control": 0.5,
+   "drawn": false,
+   "median_offset_m": 0.0
+  },
+  "110471836707": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.5,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": -11.0
+  },
+  "110471836713": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.5,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": -24.0
+  },
+  "110471835794": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": 20.0
+  },
+  "110471835803": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.25,
+   "control": 0.19,
+   "drawn": false,
+   "median_offset_m": -26.0
+  },
+  "110471835067": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.42,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837936": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.0,
+   "control": 0.17,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471833821": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 1.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 5.0
+  },
+  "110471837686": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 1.0,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": -14.0
+  },
+  "110471838285": {
+   "on_sheet": true,
+   "samples": 17,
+   "detection": 0.71,
+   "control": 0.34,
+   "drawn": false,
+   "median_offset_m": -10.0
+  },
+  "110471834287": {
+   "on_sheet": true,
+   "samples": 3,
+   "detection": 0.33,
+   "control": 0.58,
+   "drawn": false,
+   "median_offset_m": 30.0
+  },
+  "110471836837": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.5,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 17.0
+  },
+  "110471836847": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.5,
+   "drawn": false,
+   "median_offset_m": 26.0
+  },
+  "110471835140": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471840019": {
+   "on_sheet": true,
+   "samples": 15,
+   "detection": 0.8,
+   "control": 0.45,
+   "drawn": false,
+   "median_offset_m": -30.0
+  },
+  "110471836026": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": 32.0
+  },
+  "110471837078": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.0,
+   "control": 0.12,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834376": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.4,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837691": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.5,
+   "control": 0.23,
+   "drawn": false,
+   "median_offset_m": -14.0
+  },
+  "110471838287": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.44,
+   "control": 0.31,
+   "drawn": false,
+   "median_offset_m": 18.0
+  },
+  "110471842264": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.75,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": 12.0
+  },
+  "110471840812": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.33,
+   "control": 0.36,
+   "drawn": false,
+   "median_offset_m": -32.0
+  },
+  "110471836071": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471835269": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.2,
+   "control": 0.15,
+   "drawn": false,
+   "median_offset_m": -32.0
+  },
+  "110471838273": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 1.0,
+   "control": 0.62,
+   "drawn": false,
+   "median_offset_m": -6.0
+  },
+  "110471841542": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.5,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836216": {
+   "on_sheet": true,
+   "samples": 4,
+   "detection": 0.75,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": -20.0
+  },
+  "110471837288": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.21,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471834115": {
+   "on_sheet": true,
+   "samples": 20,
+   "detection": 0.15,
+   "control": 0.44,
+   "drawn": false,
+   "median_offset_m": -10.0
+  },
+  "110471838119": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.8,
+   "control": 0.5,
+   "drawn": false,
+   "median_offset_m": 5.0
+  },
+  "110471835362": {
+   "on_sheet": true,
+   "samples": 7,
+   "detection": 0.0,
+   "control": 0.32,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471837322": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 1.0,
+   "control": 0.33,
+   "drawn": false,
+   "median_offset_m": 29.0
+  },
+  "110471834415": {
+   "on_sheet": true,
+   "samples": 2,
+   "detection": 0.5,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": 16.0
+  },
+  "110471834417": {
+   "on_sheet": true,
+   "samples": 10,
+   "detection": 0.0,
+   "control": 0.6,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471836262": {
+   "on_sheet": true,
+   "samples": 9,
+   "detection": 0.44,
+   "control": 0.42,
+   "drawn": false,
+   "median_offset_m": 13.0
+  },
+  "110471834421": {
+   "on_sheet": true,
+   "samples": 12,
+   "detection": 0.5,
+   "control": 0.38,
+   "drawn": false,
+   "median_offset_m": -6.0
+  },
+  "110471849054": {
+   "on_sheet": false
+  },
+  "110471840761": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.0,
+   "control": 0.08,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471840762": {
+   "on_sheet": true,
+   "samples": 8,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  },
+  "110471840763": {
+   "on_sheet": true,
+   "samples": 1,
+   "detection": 1.0,
+   "control": 0.25,
+   "drawn": false,
+   "median_offset_m": 22.0
+  },
+  "110471840764": {
+   "on_sheet": true,
+   "samples": 6,
+   "detection": 0.5,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": 8.0
+  },
+  "110471840765": {
+   "on_sheet": true,
+   "samples": 5,
+   "detection": 0.0,
+   "control": 0.0,
+   "drawn": false,
+   "median_offset_m": null
+  }
+ }
+}

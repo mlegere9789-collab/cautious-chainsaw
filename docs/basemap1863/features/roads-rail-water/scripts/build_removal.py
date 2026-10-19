@@ -21,13 +21,14 @@ def avenue_base(name):
         if n.endswith(suf): return n[:-len(suf)]
     return None
 
+PRES = (json.load(open(os.path.join(OUT, 'verification', 'pass4b_edge_presence.json')))['results'] if os.path.exists(os.path.join(OUT, 'verification', 'pass4b_edge_presence.json')) else {})
 def classify(overrides):
     # 1863 geometry in UTM for duplicate detection
     road_geoms = {}
     for r in spec_roads.ROADS:
         gs = [g for p, g in tiger_lines(ids=set(r['tiger']))]
         gm = merge_lines(gs, clip=XBOX)
-        if gm is not None: road_geoms[r['id']] = utm(gm).buffer(4.0)
+        if gm is not None: road_geoms[r['id']] = utm(gm).buffer(8.0)
     spec_ids = {i: r['id'] for r in spec_roads.ROADS for i in r['tiger']}
     spec_present = {r['id']: r.get('present', True) for r in spec_roads.ROADS}
     rows = []
@@ -39,7 +40,7 @@ def classify(overrides):
         cen = gc.centroid
         row = dict(tiger_linearid=lid, name=nm, mtfcc=mt, length_m_in_box=round(L), centroid_lng=round(cen.x, 5), centroid_lat=round(cen.y, 5),
                    cls='', present_1863=None, feature_1863='', reason='', evidence='', action='')
-        if lid in spec_ids and spec_present.get(spec_ids[lid], True) is None:
+        if lid in spec_ids and spec_present.get(spec_ids[lid], True) is None and False:
             row.update(cls='ROAD_1863_CANDIDATE', present_1863=None, feature_1863=spec_ids[lid], reason='Catalogued as a candidate 1863 road (existence not yet established by a source read); kept out of the removal list until decided.', evidence='spec_roads (no source)', action='undecided')
         elif lid in spec_ids:
             row.update(cls='ROAD_1863_SAME_LINE', present_1863=True, feature_1863=spec_ids[lid], reason='Centreline of this edge is the geometry of the catalogued 1863 road.', evidence='spec_roads',
@@ -48,9 +49,9 @@ def classify(overrides):
             ug = utm(gc); dup = None
             for rid, bg in road_geoms.items():
                 inter = ug.intersection(bg).length
-                if ug.length > 0 and inter / ug.length > 0.9: dup = rid; break
+                if ug.length > 0 and inter / ug.length > 0.6: dup = rid; break
             if dup:
-                row.update(cls='DUPLICATE_ROUTE_DESIGNATION', present_1863=True, feature_1863=dup, reason='Same geometry as an edge of the catalogued 1863 road (TIGER repeats the edge under a route designation).', evidence='geometry overlap > 90% within 4 m',
+                row.update(cls='DUPLICATE_ROUTE_DESIGNATION', present_1863=True, feature_1863=dup, reason='Same geometry as an edge of the catalogued 1863 road (TIGER repeats the edge under a route designation).', evidence='geometry overlap > 60% within 8 m',
                            action='same as the 1863 road')
             elif mt == 'S1100':
                 row.update(cls='EXPRESSWAY_US15', present_1863=False, reason='US 15 Gettysburg bypass (freeway) opened 28 June 1963.', evidence='AARoads wiki: U.S. Route 15 in Pennsylvania (Gettysburg bypass opened June 28, 1963)',
@@ -79,6 +80,13 @@ def classify(overrides):
                 else:
                     row.update(cls='POST_1863_STREET_OR_DRIVE', present_1863=False, reason='Short street, court, circle, lane or drive of the modern road pattern (suburban subdivisions of the 1950s and later around the borough, parking and park service roads); no 1863 source read places a road here.',
                                evidence='NPS CLI First Day pdf p23 (suburban development on historically open farmland, mostly since the 1950s)', action='remove unless overridden')
+        pe = PRES.get(lid, {})
+        row['period_map_check'] = ('drawn' if pe.get('drawn') else ('not drawn' if pe.get('on_sheet') else 'off sheet'))
+        if pe.get('on_sheet'): row['period_map_detection'] = pe['detection']; row['period_map_control'] = pe['control']
+        if pe.get('drawn') and row['cls'] in ('POST_1863_STREET_OR_DRIVE', 'PRIVATE_DRIVE', 'RURAL_ROAD_UNDECIDED', 'TOWN_STREET_UNDECIDED', 'NPS_MEMORIAL_AVENUE', 'ALLEY'):
+            row['cls_before_map_check'] = row['cls']; row['cls'] = 'DRAWN_ON_1876_SHEET'; row['present_1863'] = None
+            row['reason'] = 'A road (double line) is drawn along this line on the Bachelder/Warren sheet (surveyed 1868-69): the road probably existed by 1869 and may have existed in 1863; the sheet does not date it. Not removed until decided.'
+            row['evidence'] = 'verification/pass4b_edge_presence.json'; row['action'] = 'review (candidate 1863 road)'
         o = overrides.get(lid)
         if o: row.update(o)
         rows.append(row)
@@ -91,7 +99,11 @@ if __name__ == '__main__':
     rows.sort(key=lambda r: (r['cls'], r['name'], r['tiger_linearid']))
     json.dump(rows, open(os.path.join(OUT, 'modern-roads-remove.json'), 'w'), indent=1)
     with open(os.path.join(OUT, 'modern-roads-remove.csv'), 'w', newline='', encoding='utf8') as fh:
-        w = csv.DictWriter(fh, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(rows)
+        fn = []
+        for rr in rows:
+            for k in rr:
+                if k not in fn: fn.append(k)
+        w = csv.DictWriter(fh, fieldnames=fn, restval=''); w.writeheader(); w.writerows(rows)
     import collections
     c = collections.Counter(r['cls'] for r in rows); lk = collections.defaultdict(float)
     for r in rows: lk[r['cls']] += r['length_m_in_box'] / 1000

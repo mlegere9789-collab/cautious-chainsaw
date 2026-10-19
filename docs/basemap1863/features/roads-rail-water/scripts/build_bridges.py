@@ -35,9 +35,9 @@ def build():
                     'method': 'Intersection of the catalogued road centreline (%s) with the NHD flowline of %s; type from the road class.' % (rf['id'], sn),
                     'positional_error_m': 30, 'confidence': 'Unknown' if unk else 'Estimated',
                     'notes': 'Whether a bridge or a ford stood at this exact crossing in July 1863 is NOT established by a source naming this crossing; the class rule is the only support until the period-map symbol is read (verification_bridges.json).',
-                    'road_id': rf['id'], 'stream': sn, 'period_map_symbol': VER.get('BR-%03d' % n, {}).get('symbol', 'not examined')}, 'geometry': {'type': 'Point', 'coordinates': [round(p.x, 6), round(p.y, 6)]}})
+                    'road_id': rf['id'], 'stream': sn, 'period_map_symbol': VER.get(rf['id'] + '|' + sn, {}).get('symbol', 'not examined')}, 'geometry': {'type': 'Point', 'coordinates': [round(p.x, 6), round(p.y, 6)]}})
     for f in out:
-        v = VER.get(f['id'], {}); p = f['properties']
+        v = VER.get(f['properties']['road_id'] + '|' + f['properties']['stream'], {}); p = f['properties']
         if v.get('symbol') in ('seen', 'probable') and p['category'] == 'bridge':
             p['confidence'] = 'Documented' if v['symbol'] == 'seen' else 'Estimated'
             p['subtype'] = 'bridge (symbol on the Bachelder/Warren sheet)' if v['symbol'] == 'seen' else 'bridge (probable symbol on the Bachelder/Warren sheet)'
