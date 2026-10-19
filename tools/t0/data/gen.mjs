@@ -187,7 +187,9 @@ for (const p of patches) {
   const find = crlf && !p.find.includes('\r\n') ? p.find.replace(/\n/g, '\r\n') : p.find;
   const repl = crlf && !p.repl.includes('\r\n') ? p.repl.replace(/\n/g, '\r\n') : p.repl;
   let n = 0;
-  if (p.regex) { n = (t.match(new RegExp(find, 'g')) || []).length; if (n === p.expect) t = t.replace(new RegExp(find, 'g'), repl); }
+  // regex patches use the Python re.sub replacement syntax of the builder: \g<N> and \N are groups, a doubled backslash is one backslash
+  const pyRepl = (m, s) => s.replace(/\\(?:g<(\d+)>|(\d)|(\\))/g, (x, g1, g2, bs) => (bs ? '\\' : m[+(g1 || g2)] ?? ''));
+  if (p.regex) { n = (t.match(new RegExp(find, 'g')) || []).length; if (n === p.expect) t = t.replace(new RegExp(find, 'g'), (...m) => pyRepl(m, repl)); }
   else { n = t.split(find).length - 1; if (n === p.expect) t = t.split(find).join(repl); }
   if (n !== p.expect) errors.push(`${p.id}: find occurs ${n}x on the current text of ${p.target}, expected ${p.expect}`);
   cur[p.target] = t;

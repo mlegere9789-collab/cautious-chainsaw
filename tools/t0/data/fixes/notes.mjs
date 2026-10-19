@@ -32,7 +32,7 @@ for (const f of fs.readdirSync(DATA).filter((x) => /^(placements_|density_).*\.j
       id: `DATA-note-${f.replace(/\.json$/, '').replace(/_/g, '-')}-${unit}-${tick}`,
       target: 'data/' + f, regex: true,
       find: `("unit_id":"${esc(unit)}","tick":${tick},[^${BS}n]*?"notes":")${esc(rawNote)}"`,
-      repl: '$1' + newRaw.split('$').join('$$') + '"',
+      repl: BS + 'g<1>' + newRaw.split(BS).join(BS + BS) + '"',
       expect: 1, cls: r.cls, before: note, src: r.src,
     });
   }

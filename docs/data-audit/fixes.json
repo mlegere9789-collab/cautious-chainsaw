@@ -1718,7 +1718,7 @@
    "before": "Pegram's Fredericksburg Artillery on Herr Ridge -- first Confederate artillery fire",
    "src": "no report read names the first Confederate gun",
    "find": "(\"unit_id\":\"C-ART-Marye\",\"tick\":14,[^\\n]*?\"notes\":\")Pegram's Fredericksburg Artillery on Herr Ridge -- first Confederate artillery fire\"",
-   "repl": "$1Pegram's battalion (Marye's Fredericksburg Artillery) on Herr Ridge\"",
+   "repl": "\\g<1>Pegram's battalion (Marye's Fredericksburg Artillery) on Herr Ridge\"",
    "area": "notes"
   },
   {
@@ -1728,7 +1728,7 @@
    "before": "Latimer's battalion on Benner's Hill -- being destroyed by Union counterbattery fire",
    "src": "OR 27/2 p.446 (Ewell: Latimer withdrew all but one battery)",
    "find": "(\"unit_id\":\"C-ART-Doll\",\"tick\":280,[^\\n]*?\"notes\":\")Latimer's battalion on Benner's Hill -- being destroyed by Union counterbattery fire\"",
-   "repl": "$1Latimer's battalion on Benner's Hill under Union counter-battery fire\"",
+   "repl": "\\g<1>Latimer's battalion on Benner's Hill under Union counter-battery fire\"",
    "area": "notes"
   },
   {
@@ -1738,7 +1738,7 @@
    "before": "Latimer's battalion retreating from Benner's Hill -- Latimer mortally wounded",
    "src": "OR 27/2 p.446, p.351",
    "find": "(\"unit_id\":\"C-ART-Doll\",\"tick\":290,[^\\n]*?\"notes\":\")Latimer's battalion retreating from Benner's Hill -- Latimer mortally wounded\"",
-   "repl": "$1Latimer's battalion withdrawing from Benner's Hill -- Major Latimer mortally wounded\"",
+   "repl": "\\g<1>Latimer's battalion withdrawing from Benner's Hill -- Major Latimer mortally wounded\"",
    "area": "notes"
   },
   {
@@ -1748,7 +1748,7 @@
    "before": "Hart's Battery B, 15th NY -- Plum Run Line",
    "src": "OR 27/1 p.167 (roster: New York Light, 15th Battery, Capt. Patrick Hart)",
    "find": "(\"unit_id\":\"U-ART-15NY\",\"tick\":302,[^\\n]*?\"notes\":\")Hart's Battery B, 15th NY -- Plum Run Line\"",
-   "repl": "$1Hart's 15th New York Battery -- Plum Run line\"",
+   "repl": "\\g<1>Hart's 15th New York Battery -- Plum Run line\"",
    "area": "notes"
   },
   {
@@ -1758,7 +1758,7 @@
    "before": "Cushing -- serving last guns at the stone wall. Wounded twice. About to die.",
    "src": "OR 27/1 p.429 (Webb)",
    "find": "(\"unit_id\":\"U-ART-A4US\",\"tick\":549,[^\\n]*?\"notes\":\")Cushing -- serving last guns at the stone wall\\. Wounded twice\\. About to die\\.\"",
-   "repl": "$1Cushing, wounded in both thighs, serving the last guns at the wall (Webb: he fought on for an hour and a half after reporting the wounds)\"",
+   "repl": "\\g<1>Cushing, wounded in both thighs, serving the last guns at the wall (Webb: he fought on for an hour and a half after reporting the wounds)\"",
    "area": "notes"
   },
   {
@@ -1768,7 +1768,7 @@
    "before": "Cowan's Battery -- firing canister at 50 yards into Armistead's men",
    "src": "OR 27/1 p.690 (Cowan)",
    "find": "(\"unit_id\":\"U-ART-1NYIND\",\"tick\":554,[^\\n]*?\"notes\":\")Cowan's Battery -- firing canister at 50 yards into Armistead's men\"",
-   "repl": "$1Cowan's battery firing canister -- 200 yards at first, his last double charge at under 20 yards (Cowan)\"",
+   "repl": "\\g<1>Cowan's battery firing canister -- 200 yards at first, his last double charge at under 20 yards (Cowan)\"",
    "area": "notes"
   },
   {
@@ -1778,7 +1778,7 @@
    "before": "8th Illinois Cavalry -- Marcellus Jones fires the first shot from Knoxlyn Ridge",
    "src": "time-facts R005 (rival claimants)",
    "find": "(\"unit_id\":\"U-8IL\",\"tick\":3,[^\\n]*?\"notes\":\")8th Illinois Cavalry -- Marcellus Jones fires the first shot from Knoxlyn Ridge\"",
-   "repl": "$18th Illinois Cavalry -- Lieut. Marcellus Jones is credited with the first shot (the claim is disputed)\"",
+   "repl": "\\g<1>8th Illinois Cavalry -- Lieut. Marcellus Jones is credited with the first shot (the claim is disputed)\"",
    "area": "notes"
   },
   {
@@ -1788,7 +1788,7 @@
    "before": "Hampton's brigade advancing -- Hampton will be wounded in the melee",
    "src": "time-facts R120",
    "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":560,[^\\n]*?\"notes\":\")Hampton's brigade advancing -- Hampton will be wounded in the melee\"",
-   "repl": "$1Hampton's brigade advancing\"",
+   "repl": "\\g<1>Hampton's brigade advancing\"",
    "area": "notes"
   },
   {
@@ -1798,7 +1798,7 @@
    "before": "Hampton's brigade repulsed -- Hampton wounded in sabre melee",
    "src": "OR 27/2 p.298 (Lee: Hampton severely wounded)",
    "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":565,[^\\n]*?\"notes\":\")Hampton's brigade repulsed -- Hampton wounded in sabre melee\"",
-   "repl": "$1Hampton's brigade repulsed -- Hampton wounded in the cavalry fight\"",
+   "repl": "\\g<1>Hampton's brigade repulsed -- Hampton wounded in the cavalry fight\"",
    "area": "notes"
   },
   {
@@ -1808,7 +1808,7 @@
    "before": "19th Massachusetts in Harrow's brigade -- will charge into The Angle breach on July 3",
    "src": "OR 27/1 p.158 (roster: the 19th Massachusetts is in Hall's Third Brigade)",
    "find": "(\"unit_id\":\"U-19MA\",\"tick\":120,[^\\n]*?\"notes\":\")19th Massachusetts in Harrow's brigade -- will charge into The Angle breach on July 3\"",
-   "repl": "$119th Massachusetts in Hall's brigade\"",
+   "repl": "\\g<1>19th Massachusetts in Hall's brigade\"",
    "area": "notes"
   },
   {
@@ -1818,7 +1818,7 @@
    "before": "1st Minnesota in Harrow's brigade -- 262 men",
    "src": "Fox p.26, p.402",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":120,[^\\n]*?\"notes\":\")1st Minnesota in Harrow's brigade -- 262 men\"",
-   "repl": "$11st Minnesota in Harrow's brigade -- 262 men engaged (Fox)\"",
+   "repl": "\\g<1>1st Minnesota in Harrow's brigade -- 262 men engaged (Fox)\"",
    "area": "notes"
   },
   {
@@ -1828,7 +1828,7 @@
    "before": "12th NJ -- will fire buck-and-ball into Pettigrew's men on July 3",
    "src": "OR 27/1 p.158",
    "find": "(\"unit_id\":\"U-12NJ\",\"tick\":120,[^\\n]*?\"notes\":\")12th NJ -- will fire buck-and-ball into Pettigrew's men on July 3\"",
-   "repl": "$112th New Jersey in Smyth's brigade\"",
+   "repl": "\\g<1>12th New Jersey in Smyth's brigade\"",
    "area": "notes"
   },
   {
@@ -1838,7 +1838,7 @@
    "before": "26th NC -- 588 casualties from 843 initial. Bivouacking on Seminary Ridge.",
    "src": "OR 27/2 p.344 (return); Fox pp.555-556",
    "find": "(\"unit_id\":\"C-26NC\",\"tick\":120,[^\\n]*?\"notes\":\")26th NC -- 588 casualties from 843 initial\\. Bivouacking on Seminary Ridge\\.\"",
-   "repl": "$126th NC -- 588 killed and wounded of over 800 engaged (return; Fox). Bivouacking on Seminary Ridge.\"",
+   "repl": "\\g<1>26th NC -- 588 killed and wounded of over 800 engaged (return; Fox). Bivouacking on Seminary Ridge.\"",
    "area": "notes"
   },
   {
@@ -1848,7 +1848,7 @@
    "before": "15th Alabama bivouacking west of Round Tops -- will assault them tomorrow",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-15AL\",\"tick\":150,[^\\n]*?\"notes\":\")15th Alabama bivouacking west of Round Tops -- will assault them tomorrow\"",
-   "repl": "$115th Alabama bivouacking west of the Round Tops\"",
+   "repl": "\\g<1>15th Alabama bivouacking west of the Round Tops\"",
    "area": "notes"
   },
   {
@@ -1858,7 +1858,7 @@
    "before": "Texas Brigade bivouacking -- will charge Devil's Den tomorrow",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-4TX\",\"tick\":150,[^\\n]*?\"notes\":\")Texas Brigade bivouacking -- will charge Devil's Den tomorrow\"",
-   "repl": "$1Texas Brigade bivouacking\"",
+   "repl": "\\g<1>Texas Brigade bivouacking\"",
    "area": "notes"
   },
   {
@@ -1868,7 +1868,7 @@
    "before": "Barksdale's Mississippians bivouacking -- Barksdale will charge the Peach Orchard tomorrow",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-13MS-B\",\"tick\":200,[^\\n]*?\"notes\":\")Barksdale's Mississippians bivouacking -- Barksdale will charge the Peach Orchard tomorrow\"",
-   "repl": "$1Barksdale's Mississippians bivouacking\"",
+   "repl": "\\g<1>Barksdale's Mississippians bivouacking\"",
    "area": "notes"
   },
   {
@@ -1878,7 +1878,7 @@
    "before": "End of Day 1. Tomorrow they charge. All 262 of them.",
    "src": "Fox p.26",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":225,[^\\n]*?\"notes\":\")End of Day 1\\. Tomorrow they charge\\. All 262 of them\\.\"",
-   "repl": "$1End of Day 1. 262 men engaged (Fox).\"",
+   "repl": "\\g<1>End of Day 1. 262 men engaged (Fox).\"",
    "area": "notes"
   },
   {
@@ -1888,7 +1888,7 @@
    "before": "End of Day 1. July 3 they will charge again. 843 became 255.",
    "src": "OR 27/2 p.344; the return does not give a July 1 survivor count",
    "find": "(\"unit_id\":\"C-26NC\",\"tick\":225,[^\\n]*?\"notes\":\")End of Day 1\\. July 3 they will charge again\\. 843 became 255\\.\"",
-   "repl": "$1End of Day 1. The regiment lost 588 killed and wounded on July 1 (return).\"",
+   "repl": "\\g<1>End of Day 1. The regiment lost 588 killed and wounded on July 1 (return).\"",
    "area": "notes"
   },
   {
@@ -1898,7 +1898,7 @@
    "before": "Gordon riding forward -- he finds Barlow lying wounded and stops to give him water. They will become friends after the war.",
    "src": "OR 27/2 p.445 (Early/Ewell); Gordon's memoir (later account)",
    "find": "(\"unit_id\":\"C-II-1-1\",\"tick\":63,[^\\n]*?\"notes\":\")Gordon riding forward -- he finds Barlow lying wounded and stops to give him water\\. They will become friends after the war\\.\"",
-   "repl": "$1Gordon riding forward -- by his own later account he found Barlow wounded and gave him water; some details of the story have been questioned.\"",
+   "repl": "\\g<1>Gordon riding forward -- by his own later account he found Barlow wounded and gave him water; some details of the story have been questioned.\"",
    "area": "notes"
   },
   {
@@ -1908,7 +1908,7 @@
    "before": "Barlow's survivors in the streets -- Barlow himself on the field, left for dead. He will survive.",
    "src": "OR 27/1 p.705 (Howard: Barlow severely wounded)",
    "find": "(\"unit_id\":\"U-XI-1-1\",\"tick\":68,[^\\n]*?\"notes\":\")Barlow's survivors in the streets -- Barlow himself on the field, left for dead\\. He will survive\\.\"",
-   "repl": "$1Barlow's division falling back through the streets -- Barlow himself wounded and taken\"",
+   "repl": "\\g<1>Barlow's division falling back through the streets -- Barlow himself wounded and taken\"",
    "area": "notes"
   },
   {
@@ -1918,7 +1918,7 @@
    "before": "Gordon's brigade at the northern edge of Gettysburg -- Ewell will not order the advance to Cemetery Hill",
    "src": "OR 27/2 pp.445-446 (Ewell)",
    "find": "(\"unit_id\":\"C-II-1-1\",\"tick\":68,[^\\n]*?\"notes\":\")Gordon's brigade at the northern edge of Gettysburg -- Ewell will not order the advance to Cemetery Hill\"",
-   "repl": "$1Gordon's brigade at the northern edge of Gettysburg -- Ewell did not order the advance to Cemetery Hill that evening\"",
+   "repl": "\\g<1>Gordon's brigade at the northern edge of Gettysburg -- Ewell did not order the advance to Cemetery Hill that evening\"",
    "area": "notes"
   },
   {
@@ -1928,7 +1928,7 @@
    "before": "Ames's survivors reforming on Cemetery Hill -- down from 1400 this morning",
    "src": "OR 27/1 p.182 (return: Ames's brigade 778)",
    "find": "(\"unit_id\":\"U-XI-1-2\",\"tick\":70,[^\\n]*?\"notes\":\")Ames's survivors reforming on Cemetery Hill -- down from 1400 this morning\"",
-   "repl": "$1Ames's brigade reforming on Cemetery Hill (the return counts 778 casualties)\"",
+   "repl": "\\g<1>Ames's brigade reforming on Cemetery Hill (the return counts 778 casualties)\"",
    "area": "notes"
   },
   {
@@ -1938,7 +1938,7 @@
    "before": "24th Michigan -- largest regiment in the brigade. Will lose 362 of 496 today.",
    "src": "OR 27/1 p.269 (Morrow), p.173 (return)",
    "find": "(\"unit_id\":\"U-I-1-24MI\",\"tick\":16,[^\\n]*?\"notes\":\")24th Michigan -- largest regiment in the brigade\\. Will lose 362 of 496 today\\.\"",
-   "repl": "$124th Michigan -- 496 engaged (Morrow); the return counts 363 casualties\"",
+   "repl": "\\g<1>24th Michigan -- 496 engaged (Morrow); the return counts 363 casualties\"",
    "area": "notes"
   },
   {
@@ -1948,7 +1948,7 @@
    "before": "ARCHER CAPTURED -- Pvt. Patrick Maloney of 2nd Wisconsin grabs Archer personally. Archer, furious: Not so fast!",
    "src": "OR 27/2 p.637 (Heth: Archer lost); quotation not in the Official Records",
    "find": "(\"unit_id\":\"C-III-2-1\",\"tick\":22,[^\\n]*?\"notes\":\")ARCHER CAPTURED -- Pvt\\. Patrick Maloney of 2nd Wisconsin grabs Archer personally\\. Archer, furious: Not so fast!\"",
-   "repl": "$1ARCHER CAPTURED -- taken in the Iron Brigade's counterattack (the credit to Pvt. Patrick Maloney of the 2d Wisconsin is from later accounts)\"",
+   "repl": "\\g<1>ARCHER CAPTURED -- taken in the Iron Brigade's counterattack (the credit to Pvt. Patrick Maloney of the 2d Wisconsin is from later accounts)\"",
    "area": "notes"
   },
   {
@@ -1958,7 +1958,7 @@
    "before": "19th Indiana in Herbst Woods -- Reynolds arrives, directs the line, is shot from his horse. Tick 28.",
    "src": "internal tick reference removed",
    "find": "(\"unit_id\":\"U-I-1-19IN\",\"tick\":28,[^\\n]*?\"notes\":\")19th Indiana in Herbst Woods -- Reynolds arrives, directs the line, is shot from his horse\\. Tick 28\\.\"",
-   "repl": "$119th Indiana in Herbst Woods -- Reynolds arrives, directs the line and is killed\"",
+   "repl": "\\g<1>19th Indiana in Herbst Woods -- Reynolds arrives, directs the line and is killed\"",
    "area": "notes"
   },
   {
@@ -1968,7 +1968,7 @@
    "before": "12th NC in column -- 219 men",
    "src": "strength not confirmed by the return",
    "find": "(\"unit_id\":\"C-12NC-IV\",\"tick\":50,[^\\n]*?\"notes\":\")12th NC in column -- 219 men\"",
-   "repl": "$112th NC in column\"",
+   "repl": "\\g<1>12th NC in column\"",
    "area": "notes"
   },
   {
@@ -1978,7 +1978,7 @@
    "before": "20th NC -- Iverson's largest regiment",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-20NC-IV\",\"tick\":50,[^\\n]*?\"notes\":\")20th NC -- Iverson's largest regiment\"",
-   "repl": "$120th NC\"",
+   "repl": "\\g<1>20th NC\"",
    "area": "notes"
   },
   {
@@ -1988,7 +1988,7 @@
    "before": "23rd NC -- the flank regiment, about to be hit hardest",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-23NC-IV\",\"tick\":50,[^\\n]*?\"notes\":\")23rd NC -- the flank regiment, about to be hit hardest\"",
-   "repl": "$123rd NC on the brigade's flank\"",
+   "repl": "\\g<1>23rd NC on the brigade's flank\"",
    "area": "notes"
   },
   {
@@ -1998,7 +1998,7 @@
    "before": "Paul's brigade behind the stone wall on Oak Ridge -- 1200 rifles leveled at Iverson's exposed flank",
    "src": "OR 27/1 p.248 (Baxter); OR 27/2 p.553 (Rodes)",
    "find": "(\"unit_id\":\"U-I-2-3\",\"tick\":50,[^\\n]*?\"notes\":\")Paul's brigade behind the stone wall on Oak Ridge -- 1200 rifles leveled at Iverson's exposed flank\"",
-   "repl": "$1Baxter's brigade behind the stone wall on Oak Ridge, facing Iverson's exposed flank\"",
+   "repl": "\\g<1>Baxter's brigade behind the stone wall on Oak Ridge, facing Iverson's exposed flank\"",
    "area": "notes"
   },
   {
@@ -2008,7 +2008,7 @@
    "before": "5th NC IN THE PITS -- 290 of 470 down in the first volley. The survivors fall into a depression and surrender.",
    "src": "OR 27/1 p.342 (return: 5th NC 143)",
    "find": "(\"unit_id\":\"C-5NC-IV\",\"tick\":53,[^\\n]*?\"notes\":\")5th NC IN THE PITS -- 290 of 470 down in the first volley\\. The survivors fall into a depression and surrender\\.\"",
-   "repl": "$15th NC in the pits -- 143 killed, wounded or missing in the return; many of the rest were captured\"",
+   "repl": "\\g<1>5th NC in the pits -- 143 killed, wounded or missing in the return; many of the rest were captured\"",
    "area": "notes"
   },
   {
@@ -2018,7 +2018,7 @@
    "before": "12th NC -- 139 of 219 killed or wounded in minutes. 80 survivors.",
    "src": "OR 27/2 p.342 (return: 12th NC 56)",
    "find": "(\"unit_id\":\"C-12NC-IV\",\"tick\":53,[^\\n]*?\"notes\":\")12th NC -- 139 of 219 killed or wounded in minutes\\. 80 survivors\\.\"",
-   "repl": "$112th NC -- 56 killed, wounded or missing in the return\"",
+   "repl": "\\g<1>12th NC -- 56 killed, wounded or missing in the return\"",
    "area": "notes"
   },
   {
@@ -2028,7 +2028,7 @@
    "before": "20th NC devastated -- 232 casualties from one volley. Lying in ranks in the wheat field.",
    "src": "OR 27/2 p.342, p.553",
    "find": "(\"unit_id\":\"C-20NC-IV\",\"tick\":53,[^\\n]*?\"notes\":\")20th NC devastated -- 232 casualties from one volley\\. Lying in ranks in the wheat field\\.\"",
-   "repl": "$120th NC devastated -- 122 killed, wounded or missing in the return; Rodes wrote that the dead lay in a distinctly marked line of battle\"",
+   "repl": "\\g<1>20th NC devastated -- 122 killed, wounded or missing in the return; Rodes wrote that the dead lay in a distinctly marked line of battle\"",
    "area": "notes"
   },
   {
@@ -2038,7 +2038,7 @@
    "before": "23rd NC -- worst of all. 226 of 316 down. The regiment is destroyed as a fighting unit.",
    "src": "OR 27/2 p.342",
    "find": "(\"unit_id\":\"C-23NC-IV\",\"tick\":53,[^\\n]*?\"notes\":\")23rd NC -- worst of all\\. 226 of 316 down\\. The regiment is destroyed as a fighting unit\\.\"",
-   "repl": "$123rd NC -- 134 killed, wounded or missing in the return\"",
+   "repl": "\\g<1>23rd NC -- 134 killed, wounded or missing in the return\"",
    "area": "notes"
   },
   {
@@ -2048,7 +2048,7 @@
    "before": "Baxter's brigade -- over 500 Confederates surrender in the wheat field",
    "src": "OR 27/2 p.342 (return)",
    "find": "(\"unit_id\":\"U-I-2-2\",\"tick\":53,[^\\n]*?\"notes\":\")Baxter's brigade -- over 500 Confederates surrender in the wheat field\"",
-   "repl": "$1Baxter's brigade -- Iverson's men captured; the return counts 308 of the brigade captured or missing\"",
+   "repl": "\\g<1>Baxter's brigade -- Iverson's men captured; the return counts 308 of the brigade captured or missing\"",
    "area": "notes"
   },
   {
@@ -2058,7 +2058,7 @@
    "before": "5th NC survivors -- those who didn't surrender fleeing west",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-5NC-IV\",\"tick\":57,[^\\n]*?\"notes\":\")5th NC survivors -- those who didn't surrender fleeing west\"",
-   "repl": "$15th NC survivors falling back\"",
+   "repl": "\\g<1>5th NC survivors falling back\"",
    "area": "notes"
   },
   {
@@ -2068,7 +2068,7 @@
    "before": "23rd NC -- 60 men from 316. Iverson reportedly weeping, unable to command.",
    "src": "no report read",
    "find": "(\"unit_id\":\"C-23NC-IV\",\"tick\":57,[^\\n]*?\"notes\":\")23rd NC -- 60 men from 316\\. Iverson reportedly weeping, unable to command\\.\"",
-   "repl": "$123rd NC -- the survivors of Iverson's brigade falling back\"",
+   "repl": "\\g<1>23rd NC -- the survivors of Iverson's brigade falling back\"",
    "area": "notes"
   },
   {
@@ -2078,7 +2078,7 @@
    "before": "Paul's brigade with 500+ prisoners -- one of the most complete destructions of a brigade in the war",
    "src": "OR 27/2 p.342 (308 captured or missing)",
    "find": "(\"unit_id\":\"U-I-2-3\",\"tick\":60,[^\\n]*?\"notes\":\")Paul's brigade with 500\\+ prisoners -- one of the most complete destructions of a brigade in the war\"",
-   "repl": "$1Baxter's brigade with prisoners from Iverson's brigade\"",
+   "repl": "\\g<1>Baxter's brigade with prisoners from Iverson's brigade\"",
    "area": "notes"
   },
   {
@@ -2088,7 +2088,7 @@
    "before": "12th NC survivors -- Iverson's brigade has lost 900 of 1400 men in 20 minutes",
    "src": "OR 27/2 p.342",
    "find": "(\"unit_id\":\"C-12NC-IV\",\"tick\":60,[^\\n]*?\"notes\":\")12th NC survivors -- Iverson's brigade has lost 900 of 1400 men in 20 minutes\"",
-   "repl": "$112th NC survivors -- the return counts 820 of Iverson's brigade killed, wounded or missing (its own rows add to about 765)\"",
+   "repl": "\\g<1>12th NC survivors -- the return counts 820 of Iverson's brigade killed, wounded or missing (its own rows add to about 765)\"",
    "area": "notes"
   },
   {
@@ -2098,7 +2098,7 @@
    "before": "Barlow's XI Corps division reforming -- 50% casualties from Barlows Knoll",
    "src": "OR 27/1 p.182 (return)",
    "find": "(\"unit_id\":\"U-XI-1\",\"tick\":68,[^\\n]*?\"notes\":\")Barlow's XI Corps division reforming -- 50% casualties from Barlows Knoll\"",
-   "repl": "$1Barlow's XI Corps division reforming -- the return counts 1,308 casualties for the division\"",
+   "repl": "\\g<1>Barlow's XI Corps division reforming -- the return counts 1,308 casualties for the division\"",
    "area": "notes"
   },
   {
@@ -2108,7 +2108,7 @@
    "before": "Gordon halted -- Ewell will not order the advance on Cemetery Hill. Gordon is furious.",
    "src": "OR 27/2 pp.445-446",
    "find": "(\"unit_id\":\"C-38GA\",\"tick\":70,[^\\n]*?\"notes\":\")Gordon halted -- Ewell will not order the advance on Cemetery Hill\\. Gordon is furious\\.\"",
-   "repl": "$1Gordon halted at the edge of the town; Ewell did not order the advance on Cemetery Hill that evening\"",
+   "repl": "\\g<1>Gordon halted at the edge of the town; Ewell did not order the advance on Cemetery Hill that evening\"",
    "area": "notes"
   },
   {
@@ -2118,7 +2118,7 @@
    "before": "Iron Brigade survivors on Cemetery Hill -- down from 1800 this morning",
    "src": "OR 27/1 p.174 (return)",
    "find": "(\"unit_id\":\"U-I-3-1\",\"tick\":90,[^\\n]*?\"notes\":\")Iron Brigade survivors on Cemetery Hill -- down from 1800 this morning\"",
-   "repl": "$1Biddle's brigade reforming on Cemetery Hill (the return counts 898 casualties)\"",
+   "repl": "\\g<1>Biddle's brigade reforming on Cemetery Hill (the return counts 898 casualties)\"",
    "area": "notes"
   },
   {
@@ -2128,7 +2128,7 @@
    "before": "XII Corps arriving on Baltimore Pike -- Slocum will defend Culp's Hill",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-XII-1\",\"tick\":95,[^\\n]*?\"notes\":\")XII Corps arriving on Baltimore Pike -- Slocum will defend Culp's Hill\"",
-   "repl": "$1XII Corps arriving on the Baltimore Pike\"",
+   "repl": "\\g<1>XII Corps arriving on the Baltimore Pike\"",
    "area": "notes"
   },
   {
@@ -2138,7 +2138,7 @@
    "before": "Rodes's division -- waiting for the order that never comes",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"C-II-2\",\"tick\":95,[^\\n]*?\"notes\":\")Rodes's division -- waiting for the order that never comes\"",
-   "repl": "$1Rodes's division north of the town\"",
+   "repl": "\\g<1>Rodes's division north of the town\"",
    "area": "notes"
   },
   {
@@ -2148,7 +2148,7 @@
    "before": "Calef's Battery A deployed on Herr Ridge -- the first Union artillery in position",
    "src": "OR 27/1 p.1031 (Calef: on McPherson's Ridge, astride the Chambersburg pike)",
    "find": "(\"unit_id\":\"U-HAB-A2US\",\"tick\":8,[^\\n]*?\"notes\":\")Calef's Battery A deployed on Herr Ridge -- the first Union artillery in position\"",
-   "repl": "$1Calef's Battery A deployed on McPherson's Ridge -- the first Union artillery in position\"",
+   "repl": "\\g<1>Calef's Battery A deployed on McPherson's Ridge -- the first Union artillery in position\"",
    "area": "notes"
   },
   {
@@ -2158,7 +2158,7 @@
    "before": "Devin's brigade screening all the northern roads -- Barlow will arrive on one of these",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"U-CAV-1-2\",\"tick\":9,[^\\n]*?\"notes\":\")Devin's brigade screening all the northern roads -- Barlow will arrive on one of these\"",
-   "repl": "$1Devin's brigade screening the northern roads\"",
+   "repl": "\\g<1>Devin's brigade screening the northern roads\"",
    "area": "notes"
   },
   {
@@ -2168,7 +2168,7 @@
    "before": "Calef firing -- 6 guns vs Pegram's 20. Buying time.",
    "src": "Pegram had about 20 guns is not confirmed here",
    "find": "(\"unit_id\":\"U-HAB-A2US\",\"tick\":11,[^\\n]*?\"notes\":\")Calef firing -- 6 guns vs Pegram's 20\\. Buying time\\.\"",
-   "repl": "$1Calef firing with six guns against Pegram's battalion\"",
+   "repl": "\\g<1>Calef firing with six guns against Pegram's battalion\"",
    "area": "notes"
   },
   {
@@ -2178,7 +2178,7 @@
    "before": "42nd MS also in the cut -- celebrating having driven Cutler back. Not noticing the 6th Wisconsin forming.",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-42MS\",\"tick\":25,[^\\n]*?\"notes\":\")42nd MS also in the cut -- celebrating having driven Cutler back\\. Not noticing the 6th Wisconsin forming\\.\"",
-   "repl": "$142nd MS also in the cut\"",
+   "repl": "\\g<1>42nd MS also in the cut\"",
    "area": "notes"
   },
   {
@@ -2188,7 +2188,7 @@
    "before": "6th Wisconsin forming for the charge -- Dawes will lead them diagonally into Davis's exposed flank",
    "src": "OR 27/1 p.276 (Dawes)",
    "find": "(\"unit_id\":\"U-I-1-6W\",\"tick\":25,[^\\n]*?\"notes\":\")6th Wisconsin forming for the charge -- Dawes will lead them diagonally into Davis's exposed flank\"",
-   "repl": "$16th Wisconsin forming for the charge on the railroad cut\"",
+   "repl": "\\g<1>6th Wisconsin forming for the charge on the railroad cut\"",
    "area": "notes"
   },
   {
@@ -2198,7 +2198,7 @@
    "before": "42nd MS trying to escape the cut -- 232 Mississippi men will surrender here",
    "src": "OR 27/1 p.276 (Dawes)",
    "find": "(\"unit_id\":\"C-42MS\",\"tick\":29,[^\\n]*?\"notes\":\")42nd MS trying to escape the cut -- 232 Mississippi men will surrender here\"",
-   "repl": "$142nd MS in the cut -- Dawes reports 7 officers and about 225 men taken\"",
+   "repl": "\\g<1>42nd MS in the cut -- Dawes reports 7 officers and about 225 men taken\"",
    "area": "notes"
   },
   {
@@ -2208,7 +2208,7 @@
    "before": "55th NC retreating -- Davis's brigade collapsing. The railroad cut will cost Davis 600 casualties.",
    "src": "OR 27/2 p.344 (return)",
    "find": "(\"unit_id\":\"C-55NC-D\",\"tick\":30,[^\\n]*?\"notes\":\")55th NC retreating -- Davis's brigade collapsing\\. The railroad cut will cost Davis 600 casualties\\.\"",
-   "repl": "$155th NC retreating -- Davis's brigade driven back (the return counts 897 casualties for the brigade over the battle)\"",
+   "repl": "\\g<1>55th NC retreating -- Davis's brigade driven back (the return counts 897 casualties for the brigade over the battle)\"",
    "area": "notes"
   },
   {
@@ -2218,7 +2218,7 @@
    "before": "2nd Mississippi survivors -- 232 captured, flag lost. Same men who will fight at The Angle on July 3.",
    "src": "OR 27/1 p.276 (Dawes)",
    "find": "(\"unit_id\":\"C-2MS-D\",\"tick\":32,[^\\n]*?\"notes\":\")2nd Mississippi survivors -- 232 captured, flag lost\\. Same men who will fight at The Angle on July 3\\.\"",
-   "repl": "$12nd Mississippi survivors -- Dawes reports 7 officers and about 225 men taken and the flag of the 2d Mississippi captured\"",
+   "repl": "\\g<1>2nd Mississippi survivors -- Dawes reports 7 officers and about 225 men taken and the flag of the 2d Mississippi captured\"",
    "area": "notes"
   },
   {
@@ -2228,7 +2228,7 @@
    "before": "6th Wisconsin holding the cut -- 232 prisoners, 1 battle flag. Dawes's finest hour.",
    "src": "OR 27/1 p.276 (Dawes)",
    "find": "(\"unit_id\":\"U-I-1-6W\",\"tick\":32,[^\\n]*?\"notes\":\")6th Wisconsin holding the cut -- 232 prisoners, 1 battle flag\\. Dawes's finest hour\\.\"",
-   "repl": "$16th Wisconsin holding the cut -- about 7 officers and 225 men taken, and a flag (Dawes)\"",
+   "repl": "\\g<1>6th Wisconsin holding the cut -- about 7 officers and 225 men taken, and a flag (Dawes)\"",
    "area": "notes"
   },
   {
@@ -2238,7 +2238,7 @@
    "before": "Davis reforming behind Herr Ridge -- down to half strength, his brigade will not recover today",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-III-2-2\",\"tick\":35,[^\\n]*?\"notes\":\")Davis reforming behind Herr Ridge -- down to half strength, his brigade will not recover today\"",
-   "repl": "$1Davis reforming behind Herr Ridge\"",
+   "repl": "\\g<1>Davis reforming behind Herr Ridge\"",
    "area": "notes"
   },
   {
@@ -2248,7 +2248,7 @@
    "before": "Scales's brigade charging Seminary Ridge -- Scales himself will be wounded. Every field officer becomes a casualty.",
    "src": "OR 27/2 p.637",
    "find": "(\"unit_id\":\"C-III-3-4\",\"tick\":115,[^\\n]*?\"notes\":\")Scales's brigade charging Seminary Ridge -- Scales himself will be wounded\\. Every field officer becomes a casualty\\.\"",
-   "repl": "$1Scales's brigade charging Seminary Ridge -- Scales was wounded\"",
+   "repl": "\\g<1>Scales's brigade charging Seminary Ridge -- Scales was wounded\"",
    "area": "notes"
   },
   {
@@ -2258,7 +2258,7 @@
    "before": "Doubleday's division on Seminary Ridge -- the last Union infantry between Lee and Cemetery Hill",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"U-I-3\",\"tick\":115,[^\\n]*?\"notes\":\")Doubleday's division on Seminary Ridge -- the last Union infantry between Lee and Cemetery Hill\"",
-   "repl": "$1Doubleday's division on Seminary Ridge\"",
+   "repl": "\\g<1>Doubleday's division on Seminary Ridge\"",
    "area": "notes"
   },
   {
@@ -2268,7 +2268,7 @@
    "before": "Stevens's Battery B -- firing double canister at 50 yards into Scales's charging men",
    "src": "OR 27/1 p.161 (roster: Battery B, 4th U.S., Lieut. James Stewart; Capt. Stevens commanded the 5th Maine Battery)",
    "find": "(\"unit_id\":\"U-ART-B4US\",\"tick\":115,[^\\n]*?\"notes\":\")Stevens's Battery B -- firing double canister at 50 yards into Scales's charging men\"",
-   "repl": "$1Stewart's Battery B, 4th U.S. -- firing canister into the charging Confederates\"",
+   "repl": "\\g<1>Stewart's Battery B, 4th U.S. -- firing canister into the charging Confederates\"",
    "area": "notes"
   },
   {
@@ -2278,7 +2278,7 @@
    "before": "Cooper's Battery B, 1st PA -- Seminary Ridge artillery last line of defense",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"U-ART-1PA-L\",\"tick\":115,[^\\n]*?\"notes\":\")Cooper's Battery B, 1st PA -- Seminary Ridge artillery last line of defense\"",
-   "repl": "$1Cooper's Battery B, 1st Pennsylvania, on Seminary Ridge\"",
+   "repl": "\\g<1>Cooper's Battery B, 1st Pennsylvania, on Seminary Ridge\"",
    "area": "notes"
   },
   {
@@ -2288,7 +2288,7 @@
    "before": "Scales's brigade at the Seminary walls -- Scales wounded, every field officer down. 500 casualties already.",
    "src": "OR 27/2 p.345",
    "find": "(\"unit_id\":\"C-III-3-4\",\"tick\":120,[^\\n]*?\"notes\":\")Scales's brigade at the Seminary walls -- Scales wounded, every field officer down\\. 500 casualties already\\.\"",
-   "repl": "$1Scales's brigade at the Seminary walls -- Scales wounded; the return counts 535 casualties for the brigade\"",
+   "repl": "\\g<1>Scales's brigade at the Seminary walls -- Scales wounded; the return counts 535 casualties for the brigade\"",
    "area": "notes"
   },
   {
@@ -2298,7 +2298,7 @@
    "before": "Stevens limbering under fire -- will lose one gun to the Confederate surge",
    "src": "OR 27/1 p.161",
    "find": "(\"unit_id\":\"U-ART-B4US\",\"tick\":120,[^\\n]*?\"notes\":\")Stevens limbering under fire -- will lose one gun to the Confederate surge\"",
-   "repl": "$1Stewart's battery limbering under fire\"",
+   "repl": "\\g<1>Stewart's battery limbering under fire\"",
    "area": "notes"
   },
   {
@@ -2308,7 +2308,7 @@
    "before": "16th Maine sacrificial rearguard -- ordered to hold while everyone else retreats. They know what this means.",
    "src": "OR 27/1 p.295 (Farnham); \"They know what this means\" is editorial",
    "find": "(\"unit_id\":\"U-16ME\",\"tick\":122,[^\\n]*?\"notes\":\")16th Maine sacrificial rearguard -- ordered to hold while everyone else retreats\\. They know what this means\\.\"",
-   "repl": "$116th Maine holding its hill alone as ordered, until outflanked (Farnham)\"",
+   "repl": "\\g<1>16th Maine holding its hill alone as ordered, until outflanked (Farnham)\"",
    "area": "notes"
   },
   {
@@ -2318,7 +2318,7 @@
    "before": "16th Maine overrun -- 162 survivors from 298. Their sacrifice bought 10 minutes. Worth it.",
    "src": "OR 27/1 p.296 (Farnham), p.173 (return)",
    "find": "(\"unit_id\":\"U-16ME\",\"tick\":128,[^\\n]*?\"notes\":\")16th Maine overrun -- 162 survivors from 298\\. Their sacrifice bought 10 minutes\\. Worth it\\.\"",
-   "repl": "$116th Maine overrun -- 223 killed, wounded and missing on July 1 by Farnham's count; the return counts 232\"",
+   "repl": "\\g<1>16th Maine overrun -- 223 killed, wounded and missing on July 1 by Farnham's count; the return counts 232\"",
    "area": "notes"
   },
   {
@@ -2328,7 +2328,7 @@
    "before": "Robinson's division on Cemetery Hill -- 2400 men became 1300 today",
    "src": "OR 27/1 p.174 (return)",
    "find": "(\"unit_id\":\"U-I-2\",\"tick\":140,[^\\n]*?\"notes\":\")Robinson's division on Cemetery Hill -- 2400 men became 1300 today\"",
-   "repl": "$1Robinson's division on Cemetery Hill -- the return counts 1,690 casualties for the division over the battle\"",
+   "repl": "\\g<1>Robinson's division on Cemetery Hill -- the return counts 1,690 casualties for the division over the battle\"",
    "area": "notes"
   },
   {
@@ -2338,7 +2338,7 @@
    "before": "11th Mississippi flanking the cut -- not as deeply trapped",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-11MS\",\"tick\":36,[^\\n]*?\"notes\":\")11th Mississippi flanking the cut -- not as deeply trapped\"",
-   "repl": "$111th Mississippi near the cut\"",
+   "repl": "\\g<1>11th Mississippi near the cut\"",
    "area": "notes"
   },
   {
@@ -2348,7 +2348,7 @@
    "before": "Baxter advancing to mop up -- Iverson's men surrendering in rows",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"U-12MA\",\"tick\":53,[^\\n]*?\"notes\":\")Baxter advancing to mop up -- Iverson's men surrendering in rows\"",
-   "repl": "$1Baxter advancing -- Iverson's men surrendering\"",
+   "repl": "\\g<1>Baxter advancing -- Iverson's men surrendering\"",
    "area": "notes"
   },
   {
@@ -2358,7 +2358,7 @@
    "before": "16th NC -- 65% casualties already, still advancing",
    "src": "the return prints 66 for the 16th NC, not the percentage once shown",
    "find": "(\"unit_id\":\"C-16NC\",\"tick\":64,[^\\n]*?\"notes\":\")16th NC -- 65% casualties already, still advancing\"",
-   "repl": "$116th NC -- heavy losses, still advancing\"",
+   "repl": "\\g<1>16th NC -- heavy losses, still advancing\"",
    "area": "notes"
   },
   {
@@ -2368,7 +2368,7 @@
    "before": "22nd NC broken -- 68% casualties",
    "src": "the return prints 89 for the 22d NC",
    "find": "(\"unit_id\":\"C-22NC\",\"tick\":64,[^\\n]*?\"notes\":\")22nd NC broken -- 68% casualties\"",
-   "repl": "$122nd NC broken\"",
+   "repl": "\\g<1>22nd NC broken\"",
    "area": "notes"
   },
   {
@@ -2378,7 +2378,7 @@
    "before": "38th NC -- 75.6% casualties, barely a regiment",
    "src": "the return prints 79 for the 38th NC",
    "find": "(\"unit_id\":\"C-38NC-S\",\"tick\":64,[^\\n]*?\"notes\":\")38th NC -- 75\\.6% casualties, barely a regiment\"",
-   "repl": "$138th NC -- heavy losses\"",
+   "repl": "\\g<1>38th NC -- heavy losses\"",
    "area": "notes"
   },
   {
@@ -2388,7 +2388,7 @@
    "before": "Coster's brigade in brickyard -- trapped and destroyed",
    "src": "OR 27/1 p.183",
    "find": "(\"unit_id\":\"U-157NY\",\"tick\":60,[^\\n]*?\"notes\":\")Coster's brigade in brickyard -- trapped and destroyed\"",
-   "repl": "$1Coster's brigade in the brickyard -- 597 casualties in the return\"",
+   "repl": "\\g<1>Coster's brigade in the brickyard -- 597 casualties in the return\"",
    "area": "notes"
   },
   {
@@ -2398,7 +2398,7 @@
    "before": "Paul's brigade retreating after four commanders wounded",
    "src": "OR 27/1 p.156",
    "find": "(\"unit_id\":\"U-94NY\",\"tick\":62,[^\\n]*?\"notes\":\")Paul's brigade retreating after four commanders wounded\"",
-   "repl": "$1Paul's brigade retreating after its commanders were wounded in turn\"",
+   "repl": "\\g<1>Paul's brigade retreating after its commanders were wounded in turn\"",
    "area": "notes"
   },
   {
@@ -2408,7 +2408,7 @@
    "before": "26th NC survivors -- 588 casualties from 843. Night of July 1.",
    "src": "OR 27/2 p.344; Fox pp.555-556",
    "find": "(\"unit_id\":\"U-26NC\",\"tick\":95,[^\\n]*?\"notes\":\")26th NC survivors -- 588 casualties from 843\\. Night of July 1\\.\"",
-   "repl": "$126th NC survivors -- 588 killed and wounded of over 800 engaged (return; Fox). Night of July 1.\"",
+   "repl": "\\g<1>26th NC survivors -- 588 killed and wounded of over 800 engaged (return; Fox). Night of July 1.\"",
    "area": "notes"
   },
   {
@@ -2418,7 +2418,7 @@
    "before": "15th Alabama -- FIRST ASSAULT on Little Round Top. Men haven't had water in 25 miles of marching. Oates later: I could have won.",
    "src": "Oates reports are not in the Official Records read (27/2); later accounts",
    "find": "(\"unit_id\":\"C-15AL\",\"tick\":268,[^\\n]*?\"notes\":\")15th Alabama -- FIRST ASSAULT on Little Round Top\\. Men haven't had water in 25 miles of marching\\. Oates later: I could have won\\.\"",
-   "repl": "$115th Alabama -- first assault on the 20th Maine's position. Oates's own account says the men had marched long and had no water; his later remark that he could have won is his own.\"",
+   "repl": "\\g<1>15th Alabama -- first assault on the 20th Maine's position. Oates's own account says the men had marched long and had no water; his later remark that he could have won is his own.\"",
    "area": "notes"
   },
   {
@@ -2428,7 +2428,7 @@
    "before": "15th Alabama REPULSED on first assault -- falling back to reform. Company B still missing.",
    "src": "Company B detail from later accounts",
    "find": "(\"unit_id\":\"C-15AL\",\"tick\":270,[^\\n]*?\"notes\":\")15th Alabama REPULSED on first assault -- falling back to reform\\. Company B still missing\\.\"",
-   "repl": "$115th Alabama repulsed on its first assault -- falling back to reform\"",
+   "repl": "\\g<1>15th Alabama repulsed on its first assault -- falling back to reform\"",
    "area": "notes"
   },
   {
@@ -2438,7 +2438,7 @@
    "before": "THIRD ASSAULT -- men loading and firing on the run uphill. Some reach within 10 yards of the Union line.",
    "src": "distance not confirmed",
    "find": "(\"unit_id\":\"C-15AL\",\"tick\":273,[^\\n]*?\"notes\":\")THIRD ASSAULT -- men loading and firing on the run uphill\\. Some reach within 10 yards of the Union line\\.\"",
-   "repl": "$1Third assault -- men firing as they climb\"",
+   "repl": "\\g<1>Third assault -- men firing as they climb\"",
    "area": "notes"
   },
   {
@@ -2448,7 +2448,7 @@
    "before": "Third assault failing -- 15th Alabama men falling on the slope. Oates is ordering yet another charge.",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-15AL\",\"tick\":274,[^\\n]*?\"notes\":\")Third assault failing -- 15th Alabama men falling on the slope\\. Oates is ordering yet another charge\\.\"",
-   "repl": "$1Third assault failing -- 15th Alabama men falling on the slope\"",
+   "repl": "\\g<1>Third assault failing -- 15th Alabama men falling on the slope\"",
    "area": "notes"
   },
   {
@@ -2458,7 +2458,7 @@
    "before": "15th Alabama ROUTED by the unexpected charge -- men fleeing downhill in disorder",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-15AL\",\"tick\":275,[^\\n]*?\"notes\":\")15th Alabama ROUTED by the unexpected charge -- men fleeing downhill in disorder\"",
-   "repl": "$115th Alabama driven back by the 20th Maine's charge\"",
+   "repl": "\\g<1>15th Alabama driven back by the 20th Maine's charge\"",
    "area": "notes"
   },
   {
@@ -2468,7 +2468,7 @@
    "before": "47th Alabama also breaking -- the whole Confederate left collapsing",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"C-47AL\",\"tick\":275,[^\\n]*?\"notes\":\")47th Alabama also breaking -- the whole Confederate left collapsing\"",
-   "repl": "$147th Alabama also driven back\"",
+   "repl": "\\g<1>47th Alabama also driven back\"",
    "area": "notes"
   },
   {
@@ -2478,7 +2478,7 @@
    "before": "20th Maine pursuing down the slope -- capturing scores of prisoners from the broken Alabama regiments",
    "src": "the number varies by account",
    "find": "(\"unit_id\":\"U-20ME\",\"tick\":276,[^\\n]*?\"notes\":\")20th Maine pursuing down the slope -- capturing scores of prisoners from the broken Alabama regiments\"",
-   "repl": "$120th Maine pursuing down the slope, taking prisoners\"",
+   "repl": "\\g<1>20th Maine pursuing down the slope, taking prisoners\"",
    "area": "notes"
   },
   {
@@ -2488,7 +2488,7 @@
    "before": "15th Alabama reforming at the base -- 134 casualties from 499. Company B never found. Little Round Top is lost.",
    "src": "OR 27/2 p.339 (return and footnote)",
    "find": "(\"unit_id\":\"C-15AL\",\"tick\":278,[^\\n]*?\"notes\":\")15th Alabama reforming at the base -- 134 casualties from 499\\. Company B never found\\. Little Round Top is lost\\.\"",
-   "repl": "$115th Alabama reforming at the base -- the regimental report puts its loss at 161 (return footnote); the table prints 83 killed and wounded\"",
+   "repl": "\\g<1>15th Alabama reforming at the base -- the regimental report puts its loss at 161 (return footnote); the table prints 83 killed and wounded\"",
    "area": "notes"
   },
   {
@@ -2498,7 +2498,7 @@
    "before": "Gibbon's division holding Cemetery Ridge -- the men who will face Pickett tomorrow",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-II-2\",\"tick\":330,[^\\n]*?\"notes\":\")Gibbon's division holding Cemetery Ridge -- the men who will face Pickett tomorrow\"",
-   "repl": "$1Gibbon's division holding Cemetery Ridge\"",
+   "repl": "\\g<1>Gibbon's division holding Cemetery Ridge\"",
    "area": "notes"
   },
   {
@@ -2508,7 +2508,7 @@
    "before": "Pender's division on Seminary Ridge -- Pender mortally wounded by shell fragment today",
    "src": "OR 27/2 p.298, p.310 (Lee)",
    "find": "(\"unit_id\":\"C-III-4\",\"tick\":330,[^\\n]*?\"notes\":\")Pender's division on Seminary Ridge -- Pender mortally wounded by shell fragment today\"",
-   "repl": "$1Pender's division on Seminary Ridge -- General Pender wounded (he died July 18)\"",
+   "repl": "\\g<1>Pender's division on Seminary Ridge -- General Pender wounded (he died July 18)\"",
    "area": "notes"
   },
   {
@@ -2518,7 +2518,7 @@
    "before": "Sedgwick's VI Corps in reserve -- 15,000 fresh men never committed today",
    "src": "the corps strength in the file is 13,596",
    "find": "(\"unit_id\":\"U-VI-1\",\"tick\":360,[^\\n]*?\"notes\":\")Sedgwick's VI Corps in reserve -- 15,000 fresh men never committed today\"",
-   "repl": "$1Sedgwick's VI Corps in reserve\"",
+   "repl": "\\g<1>Sedgwick's VI Corps in reserve\"",
    "area": "notes"
   },
   {
@@ -2528,7 +2528,7 @@
    "before": "Johnson's division overnight -- tomorrow Geary's XII Corps will attack at dawn",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-II-4\",\"tick\":375,[^\\n]*?\"notes\":\")Johnson's division overnight -- tomorrow Geary's XII Corps will attack at dawn\"",
-   "repl": "$1Johnson's division overnight\"",
+   "repl": "\\g<1>Johnson's division overnight\"",
    "area": "notes"
   },
   {
@@ -2538,7 +2538,7 @@
    "before": "Gibbon's division overnight -- the men who will face Pickett in 12 hours",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-II-2\",\"tick\":375,[^\\n]*?\"notes\":\")Gibbon's division overnight -- the men who will face Pickett in 12 hours\"",
-   "repl": "$1Gibbon's division overnight\"",
+   "repl": "\\g<1>Gibbon's division overnight\"",
    "area": "notes"
   },
   {
@@ -2548,7 +2548,7 @@
    "before": "Barksdale's 13th Mississippi -- Barksdale on horseback far ahead of his men",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-13MS-B\",\"tick\":296,[^\\n]*?\"notes\":\")Barksdale's 13th Mississippi -- Barksdale on horseback far ahead of his men\"",
-   "repl": "$1Barksdale's 13th Mississippi leading the attack\"",
+   "repl": "\\g<1>Barksdale's 13th Mississippi leading the attack\"",
    "area": "notes"
   },
   {
@@ -2558,7 +2558,7 @@
    "before": "21st Mississippi closing on Bigelow -- they will overrun the guns in 2 more ticks",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-21MS\",\"tick\":298,[^\\n]*?\"notes\":\")21st Mississippi closing on Bigelow -- they will overrun the guns in 2 more ticks\"",
-   "repl": "$121st Mississippi closing on Bigelow's battery\"",
+   "repl": "\\g<1>21st Mississippi closing on Bigelow's battery\"",
    "area": "notes"
   },
   {
@@ -2568,7 +2568,7 @@
    "before": "Barksdale mortally wounded here -- shot from his horse, lying in the field",
    "src": "OR 27/2 p.298",
    "find": "(\"unit_id\":\"C-13MS-B\",\"tick\":298,[^\\n]*?\"notes\":\")Barksdale mortally wounded here -- shot from his horse, lying in the field\"",
-   "repl": "$1Barksdale mortally wounded here (Lee: Barksdale killed)\"",
+   "repl": "\\g<1>Barksdale mortally wounded here (Lee: Barksdale killed)\"",
    "area": "notes"
   },
   {
@@ -2578,7 +2578,7 @@
    "before": "Bigelow's GUNS OVERRUN -- 4 guns lost at Trostle Farm. Bigelow wounded. But he bought the 10 minutes McGilvery needed.",
    "src": "OR 27/1 p.187 (return: 9th Massachusetts Battery 28)",
    "find": "(\"unit_id\":\"U-ART-9MA\",\"tick\":300,[^\\n]*?\"notes\":\")Bigelow's GUNS OVERRUN -- 4 guns lost at Trostle Farm\\. Bigelow wounded\\. But he bought the 10 minutes McGilvery needed\\.\"",
-   "repl": "$1Bigelow's battery overrun at Trostle's -- Bigelow wounded; the return counts 28 casualties for the battery\"",
+   "repl": "\\g<1>Bigelow's battery overrun at Trostle's -- Bigelow wounded; the return counts 28 casualties for the battery\"",
    "area": "notes"
   },
   {
@@ -2588,7 +2588,7 @@
    "before": "21st Mississippi with Bigelow's guns -- but they have no support to exploit",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-21MS\",\"tick\":300,[^\\n]*?\"notes\":\")21st Mississippi with Bigelow's guns -- but they have no support to exploit\"",
-   "repl": "$121st Mississippi at Bigelow's guns\"",
+   "repl": "\\g<1>21st Mississippi at Bigelow's guns\"",
    "area": "notes"
   },
   {
@@ -2598,7 +2598,7 @@
    "before": "McGilvery's line now formed -- 35 guns on the Plum Run ready to fire",
    "src": "gun count not confirmed",
    "find": "(\"unit_id\":\"U-ART-5MA\",\"tick\":300,[^\\n]*?\"notes\":\")McGilvery's line now formed -- 35 guns on the Plum Run ready to fire\"",
-   "repl": "$1McGilvery's line now formed on the Plum Run\"",
+   "repl": "\\g<1>McGilvery's line now formed on the Plum Run\"",
    "area": "notes"
   },
   {
@@ -2608,7 +2608,7 @@
    "before": "Hart's Battery, 15th NY -- Plum Run line",
    "src": "OR 27/1 p.167",
    "find": "(\"unit_id\":\"U-ART-15NY\",\"tick\":300,[^\\n]*?\"notes\":\")Hart's Battery, 15th NY -- Plum Run line\"",
-   "repl": "$1Hart's 15th New York Battery -- Plum Run line\"",
+   "repl": "\\g<1>Hart's 15th New York Battery -- Plum Run line\"",
    "area": "notes"
   },
   {
@@ -2618,7 +2618,7 @@
    "before": "21st Mississippi repulsed by McGilvery's guns firing canister at 200 yards -- Barksdale is dying",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-21MS\",\"tick\":302,[^\\n]*?\"notes\":\")21st Mississippi repulsed by McGilvery's guns firing canister at 200 yards -- Barksdale is dying\"",
-   "repl": "$121st Mississippi repulsed by McGilvery's guns\"",
+   "repl": "\\g<1>21st Mississippi repulsed by McGilvery's guns\"",
    "area": "notes"
   },
   {
@@ -2628,7 +2628,7 @@
    "before": "Barksdale's brigade broken -- no Confederate infantry can face McGilvery's 35 guns alone",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"C-13MS-B\",\"tick\":302,[^\\n]*?\"notes\":\")Barksdale's brigade broken -- no Confederate infantry can face McGilvery's 35 guns alone\"",
-   "repl": "$1Barksdale's brigade broken\"",
+   "repl": "\\g<1>Barksdale's brigade broken\"",
    "area": "notes"
   },
   {
@@ -2638,7 +2638,7 @@
    "before": "Bigelow's battery reformed behind the Plum Run line -- only 88 men and 2 guns left. They held.",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"U-ART-9MA\",\"tick\":305,[^\\n]*?\"notes\":\")Bigelow's battery reformed behind the Plum Run line -- only 88 men and 2 guns left\\. They held\\.\"",
-   "repl": "$1Bigelow's battery behind the Plum Run line\"",
+   "repl": "\\g<1>Bigelow's battery behind the Plum Run line\"",
    "area": "notes"
   },
   {
@@ -2648,7 +2648,7 @@
    "before": "Avery's NC brigade -- assaulting alongside Hays. Avery is already wounded from an earlier action.",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-II-1-3\",\"tick\":318,[^\\n]*?\"notes\":\")Avery's NC brigade -- assaulting alongside Hays\\. Avery is already wounded from an earlier action\\.\"",
-   "repl": "$1Avery's NC brigade -- assaulting alongside Hays\"",
+   "repl": "\\g<1>Avery's NC brigade -- assaulting alongside Hays\"",
    "area": "notes"
   },
   {
@@ -2658,7 +2658,7 @@
    "before": "Avery's NC brigade charging the northern face -- Avery falls from his horse, mortally wounded",
    "src": "OR 27/2 p.320 (Lee), p.485",
    "find": "(\"unit_id\":\"C-II-1-3\",\"tick\":322,[^\\n]*?\"notes\":\")Avery's NC brigade charging the northern face -- Avery falls from his horse, mortally wounded\"",
-   "repl": "$1Avery's NC brigade charging the slope of East Cemetery Hill -- Colonel Avery mortally wounded\"",
+   "repl": "\\g<1>Avery's NC brigade charging the slope of East Cemetery Hill -- Colonel Avery mortally wounded\"",
    "area": "notes"
   },
   {
@@ -2668,7 +2668,7 @@
    "before": "Avery's brigade reaching the crest -- but Avery is down, writing his last note on a scrap of paper with his blood: It was my fault.",
    "src": "the quotation \"It was my fault\" appears in no source read",
    "find": "(\"unit_id\":\"C-II-1-3\",\"tick\":324,[^\\n]*?\"notes\":\")Avery's brigade reaching the crest -- but Avery is down, writing his last note on a scrap of paper with his blood: It was my fault\\.\"",
-   "repl": "$1Avery's brigade reaching the slope -- Avery is down; the note attributed to him ('Tell my father I died with my face to the enemy') is from later accounts\"",
+   "repl": "\\g<1>Avery's brigade reaching the slope -- Avery is down; the note attributed to him ('Tell my father I died with my face to the enemy') is from later accounts\"",
    "area": "notes"
   },
   {
@@ -2678,7 +2678,7 @@
    "before": "Louisiana Tigers repulsed -- Carroll's countercharge drives them off the hill. They held the guns for 10 minutes.",
    "src": "duration not confirmed",
    "find": "(\"unit_id\":\"C-II-1-2\",\"tick\":327,[^\\n]*?\"notes\":\")Louisiana Tigers repulsed -- Carroll's countercharge drives them off the hill\\. They held the guns for 10 minutes\\.\"",
-   "repl": "$1Hays's brigade repulsed -- Carroll's brigade drives it off the hill\"",
+   "repl": "\\g<1>Hays's brigade repulsed -- Carroll's brigade drives it off the hill\"",
    "area": "notes"
   },
   {
@@ -2688,7 +2688,7 @@
    "before": "Louisiana Tigers reforming north of town -- 695 casualties from the assault. They came closest of any Confederates to holding Cemetery Hill.",
    "src": "OR 27/2 p.340 (return: Hays 313)",
    "find": "(\"unit_id\":\"C-II-1-2\",\"tick\":332,[^\\n]*?\"notes\":\")Louisiana Tigers reforming north of town -- 695 casualties from the assault\\. They came closest of any Confederates to holding Cemetery Hill\\.\"",
-   "repl": "$1Hays's brigade reforming north of the town -- the return counts 313 casualties for the brigade\"",
+   "repl": "\\g<1>Hays's brigade reforming north of the town -- the return counts 313 casualties for the brigade\"",
    "area": "notes"
   },
   {
@@ -2698,7 +2698,7 @@
    "before": "Avery's NC brigade -- Avery will be mortally wounded on this slope",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-6NC-A\",\"tick\":314,[^\\n]*?\"notes\":\")Avery's NC brigade -- Avery will be mortally wounded on this slope\"",
-   "repl": "$1Avery's NC brigade on the slope of East Cemetery Hill\"",
+   "repl": "\\g<1>Avery's NC brigade on the slope of East Cemetery Hill\"",
    "area": "notes"
   },
   {
@@ -2708,7 +2708,7 @@
    "before": "Avery mortally wounded on the slope -- blood message: Tell my father I died with my face to the enemy",
    "src": "later accounts",
    "find": "(\"unit_id\":\"C-6NC-A\",\"tick\":327,[^\\n]*?\"notes\":\")Avery mortally wounded on the slope -- blood message: Tell my father I died with my face to the enemy\"",
-   "repl": "$1Avery mortally wounded on the slope (the note attributed to him is from later accounts)\"",
+   "repl": "\\g<1>Avery mortally wounded on the slope (the note attributed to him is from later accounts)\"",
    "area": "notes"
   },
   {
@@ -2718,7 +2718,7 @@
    "before": "Stonewall Brigade assaulting Greene's Culp's Hill position -- first assault",
    "src": "the order and count of assaults are not given",
    "find": "(\"unit_id\":\"C-2NC-SW\",\"tick\":315,[^\\n]*?\"notes\":\")Stonewall Brigade assaulting Greene's Culp's Hill position -- first assault\"",
-   "repl": "$1Stonewall Brigade assaulting Greene's position on Culp's Hill\"",
+   "repl": "\\g<1>Stonewall Brigade assaulting Greene's position on Culp's Hill\"",
    "area": "notes"
   },
   {
@@ -2728,7 +2728,7 @@
    "before": "Greene's brigade holding -- 1424 men against 6500",
    "src": "the strengths in the file are not confirmed by the reports",
    "find": "(\"unit_id\":\"U-137NY\",\"tick\":315,[^\\n]*?\"notes\":\")Greene's brigade holding -- 1424 men against 6500\"",
-   "repl": "$1Greene's brigade holding Culp's Hill\"",
+   "repl": "\\g<1>Greene's brigade holding Culp's Hill\"",
    "area": "notes"
   },
   {
@@ -2738,7 +2738,7 @@
    "before": "Geary's division taking position -- they will attack at dawn to reclaim their works",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-XII-2\",\"tick\":400,[^\\n]*?\"notes\":\")Geary's division taking position -- they will attack at dawn to reclaim their works\"",
-   "repl": "$1Geary's division taking position\"",
+   "repl": "\\g<1>Geary's division taking position\"",
    "area": "notes"
   },
   {
@@ -2748,7 +2748,7 @@
    "before": "Johnson's men sleeping in the Union breastworks -- in a few hours the assault will come",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-II-4\",\"tick\":420,[^\\n]*?\"notes\":\")Johnson's men sleeping in the Union breastworks -- in a few hours the assault will come\"",
-   "repl": "$1Johnson's men in the Union breastworks overnight\"",
+   "repl": "\\g<1>Johnson's men in the Union breastworks overnight\"",
    "area": "notes"
   },
   {
@@ -2758,7 +2758,7 @@
    "before": "Geary's XII Corps bivouacking -- orders received to retake the works at first light",
    "src": "OR 27/1 p.847",
    "find": "(\"unit_id\":\"U-XII-2\",\"tick\":420,[^\\n]*?\"notes\":\")Geary's XII Corps bivouacking -- orders received to retake the works at first light\"",
-   "repl": "$1Geary's division in position overnight; the XII Corps' artillery opens at dawn\"",
+   "repl": "\\g<1>Geary's division in position overnight; the XII Corps' artillery opens at dawn\"",
    "area": "notes"
   },
   {
@@ -2768,7 +2768,7 @@
    "before": "Greene's brigade -- the New Yorkers who held through the night. 1400 men vs 4700. They held.",
    "src": "strengths not confirmed",
    "find": "(\"unit_id\":\"U-XII-2-3\",\"tick\":420,[^\\n]*?\"notes\":\")Greene's brigade -- the New Yorkers who held through the night\\. 1400 men vs 4700\\. They held\\.\"",
-   "repl": "$1Greene's brigade holding the upper works through the night\"",
+   "repl": "\\g<1>Greene's brigade holding the upper works through the night\"",
    "area": "notes"
   },
   {
@@ -2778,7 +2778,7 @@
    "before": "Steuart's brigade at 4 AM -- Geary's artillery about to open",
    "src": "OR 27/1 p.847",
    "find": "(\"unit_id\":\"C-II-4-1\",\"tick\":440,[^\\n]*?\"notes\":\")Steuart's brigade at 4 AM -- Geary's artillery about to open\"",
-   "repl": "$1Steuart's brigade at about 4 a.m.\"",
+   "repl": "\\g<1>Steuart's brigade at about 4 a.m.\"",
    "area": "notes"
   },
   {
@@ -2788,7 +2788,7 @@
    "before": "Muhlenberg's artillery massing -- 26 guns about to open on the Culp's Hill works",
    "src": "OR 27/1 p.847",
    "find": "(\"unit_id\":\"U-ART-K4US\",\"tick\":440,[^\\n]*?\"notes\":\")Muhlenberg's artillery massing -- 26 guns about to open on the Culp's Hill works\"",
-   "repl": "$1Muhlenberg's artillery (five batteries) about to open on the Culp's Hill works\"",
+   "repl": "\\g<1>Muhlenberg's artillery (five batteries) about to open on the Culp's Hill works\"",
    "area": "notes"
   },
   {
@@ -2798,7 +2798,7 @@
    "before": "Vincent's brigade deploying on Little Round Top -- 83rd PA, 44th NY, 16th MI, 20th ME. Vincent: Hold this ground at all costs.",
    "src": "the order attributed to Vincent is from later accounts",
    "find": "(\"unit_id\":\"U-V-3-1\",\"tick\":266,[^\\n]*?\"notes\":\")Vincent's brigade deploying on Little Round Top -- 83rd PA, 44th NY, 16th MI, 20th ME\\. Vincent: Hold this ground at all costs\\.\"",
-   "repl": "$1Vincent's brigade deploying on Little Round Top -- 83rd PA, 44th NY, 16th MI, 20th ME\"",
+   "repl": "\\g<1>Vincent's brigade deploying on Little Round Top -- 83rd PA, 44th NY, 16th MI, 20th ME\"",
    "area": "notes"
   },
   {
@@ -2808,7 +2808,7 @@
    "before": "Texas Brigade repulsed on the left of Vincent's line -- 44th NY and 83rd PA holding",
    "src": "OR 27/1 p.652 (Rice); the attackers were Law's brigade",
    "find": "(\"unit_id\":\"C-I-2-1\",\"tick\":270,[^\\n]*?\"notes\":\")Texas Brigade repulsed on the left of Vincent's line -- 44th NY and 83rd PA holding\"",
-   "repl": "$1Confederate attack against the left of Vincent's line -- 44th NY and 83rd PA holding\"",
+   "repl": "\\g<1>Confederate attack against the left of Vincent's line -- 44th NY and 83rd PA holding\"",
    "area": "notes"
   },
   {
@@ -2818,7 +2818,7 @@
    "before": "Vincent's brigade still holding -- Vincent mortally wounded, Strong Vincent, this is the fifth time today I've ordered you forward.",
    "src": "the quotation is not in any source read",
    "find": "(\"unit_id\":\"U-V-3-1\",\"tick\":272,[^\\n]*?\"notes\":\")Vincent's brigade still holding -- Vincent mortally wounded, Strong Vincent, this is the fifth time today I've ordered you forward\\.\"",
-   "repl": "$1Vincent's brigade still holding -- Vincent mortally wounded\"",
+   "repl": "\\g<1>Vincent's brigade still holding -- Vincent mortally wounded\"",
    "area": "notes"
   },
   {
@@ -2828,7 +2828,7 @@
    "before": "3rd SC charging -- Kershaw gives the famous order that 3rd SC misunderstands, nearly causing a disaster",
    "src": "the story of the misunderstood order is not in the reports read",
    "find": "(\"unit_id\":\"C-I-1-3\",\"tick\":275,[^\\n]*?\"notes\":\")3rd SC charging -- Kershaw gives the famous order that 3rd SC misunderstands, nearly causing a disaster\"",
-   "repl": "$13rd SC advancing in Kershaw's brigade\"",
+   "repl": "\\g<1>3rd SC advancing in Kershaw's brigade\"",
    "area": "notes"
   },
   {
@@ -2838,7 +2838,7 @@
    "before": "15th Alabama beginning the long march that will end on Little Round Top",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-15AL\",\"tick\":256,[^\\n]*?\"notes\":\")15th Alabama beginning the long march that will end on Little Round Top\"",
-   "repl": "$115th Alabama marching toward the Round Tops\"",
+   "repl": "\\g<1>15th Alabama marching toward the Round Tops\"",
    "area": "notes"
   },
   {
@@ -2848,7 +2848,7 @@
    "before": "20th Maine on extreme left -- refused flank at ~225 degrees",
    "src": "bearing not confirmed",
    "find": "(\"unit_id\":\"U-20ME\",\"tick\":267,[^\\n]*?\"notes\":\")20th Maine on extreme left -- refused flank at ~225 degrees\"",
-   "repl": "$120th Maine on the extreme left, its left refused\"",
+   "repl": "\\g<1>20th Maine on the extreme left, its left refused\"",
    "area": "notes"
   },
   {
@@ -2858,7 +2858,7 @@
    "before": "16th MI right flank breaking -- critical moment",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"U-16MI\",\"tick\":273,[^\\n]*?\"notes\":\")16th MI right flank breaking -- critical moment\"",
-   "repl": "$116th MI hard pressed on the right\"",
+   "repl": "\\g<1>16th MI hard pressed on the right\"",
    "area": "notes"
   },
   {
@@ -2868,7 +2868,7 @@
    "before": "15th Alabama sensing the right flank cracking",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-15AL\",\"tick\":273,[^\\n]*?\"notes\":\")15th Alabama sensing the right flank cracking\"",
-   "repl": "$115th Alabama pressing the Union left\"",
+   "repl": "\\g<1>15th Alabama pressing the Union left\"",
    "area": "notes"
   },
   {
@@ -2878,7 +2878,7 @@
    "before": "Fourth and fifth assaults -- Oates cannot break the 20th Maine",
    "src": "the number of assaults varies by account",
    "find": "(\"unit_id\":\"C-15AL\",\"tick\":274,[^\\n]*?\"notes\":\")Fourth and fifth assaults -- Oates cannot break the 20th Maine\"",
-   "repl": "$1Repeated assaults on the 20th Maine\"",
+   "repl": "\\g<1>Repeated assaults on the 20th Maine\"",
    "area": "notes"
   },
   {
@@ -2888,7 +2888,7 @@
    "before": "20th Maine -- cartridges nearly exhausted",
    "src": "not confirmed in the reports read",
    "find": "(\"unit_id\":\"U-20ME\",\"tick\":274,[^\\n]*?\"notes\":\")20th Maine -- cartridges nearly exhausted\"",
-   "repl": "$120th Maine -- ammunition running low\"",
+   "repl": "\\g<1>20th Maine -- ammunition running low\"",
    "area": "notes"
   },
   {
@@ -2898,7 +2898,7 @@
    "before": "15th Alabama BROKEN by Chamberlain's charge -- retreating down slope",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-15AL\",\"tick\":275,[^\\n]*?\"notes\":\")15th Alabama BROKEN by Chamberlain's charge -- retreating down slope\"",
-   "repl": "$115th Alabama driven back by Chamberlain's charge\"",
+   "repl": "\\g<1>15th Alabama driven back by Chamberlain's charge\"",
    "area": "notes"
   },
   {
@@ -2908,7 +2908,7 @@
    "before": "20th Maine -- ~400 prisoners captured. Little Round Top secure.",
    "src": "the number of prisoners is not given consistently",
    "find": "(\"unit_id\":\"U-20ME\",\"tick\":278,[^\\n]*?\"notes\":\")20th Maine -- ~400 prisoners captured\\. Little Round Top secure\\.\"",
-   "repl": "$120th Maine -- prisoners taken (accounts differ on the number). Little Round Top held.\"",
+   "repl": "\\g<1>20th Maine -- prisoners taken (accounts differ on the number). Little Round Top held.\"",
    "area": "notes"
   },
   {
@@ -2918,7 +2918,7 @@
    "before": "20th Maine holds Little Round Top. 130 casualties from 386.",
    "src": "OR 27/1 p.179 (return: 20th Maine 125)",
    "find": "(\"unit_id\":\"U-20ME\",\"tick\":300,[^\\n]*?\"notes\":\")20th Maine holds Little Round Top\\. 130 casualties from 386\\.\"",
-   "repl": "$120th Maine holds Little Round Top -- the return counts 125 casualties\"",
+   "repl": "\\g<1>20th Maine holds Little Round Top -- the return counts 125 casualties\"",
    "area": "notes"
   },
   {
@@ -2928,7 +2928,7 @@
    "before": "Sedgwick's VI Corps still arriving -- they marched 35 miles in 17 hours",
    "src": "no figure in the reports read",
    "find": "(\"unit_id\":\"U-VI-1\",\"tick\":252,[^\\n]*?\"notes\":\")Sedgwick's VI Corps still arriving -- they marched 35 miles in 17 hours\"",
-   "repl": "$1Sedgwick's VI Corps still arriving after a long march\"",
+   "repl": "\\g<1>Sedgwick's VI Corps still arriving after a long march\"",
    "area": "notes"
   },
   {
@@ -2938,7 +2938,7 @@
    "before": "19th MA in position -- tomorrow it charges into The Angle",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-19MA\",\"tick\":400,[^\\n]*?\"notes\":\")19th MA in position -- tomorrow it charges into The Angle\"",
-   "repl": "$119th MA in position\"",
+   "repl": "\\g<1>19th MA in position\"",
    "area": "notes"
   },
   {
@@ -2948,7 +2948,7 @@
    "before": "38 survivors of the 1st Minnesota. They hold the line again tomorrow.",
    "src": "OR 27/1 p.425",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":400,[^\\n]*?\"notes\":\")38 survivors of the 1st Minnesota\\. They hold the line again tomorrow\\.\"",
-   "repl": "$11st Minnesota -- more than two-thirds of the men engaged were killed or wounded on July 2 (Coates)\"",
+   "repl": "\\g<1>1st Minnesota -- more than two-thirds of the men engaged were killed or wounded on July 2 (Coates)\"",
    "area": "notes"
   },
   {
@@ -2958,7 +2958,7 @@
    "before": "Stannard's 13th VT in position -- tomorrow it wheels left",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-13VT\",\"tick\":400,[^\\n]*?\"notes\":\")Stannard's 13th VT in position -- tomorrow it wheels left\"",
-   "repl": "$1Stannard's 13th Vermont in position\"",
+   "repl": "\\g<1>Stannard's 13th Vermont in position\"",
    "area": "notes"
   },
   {
@@ -2968,7 +2968,7 @@
    "before": "Stannard's 14th VT -- tomorrow it wheels left with 13th",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-14VT\",\"tick\":400,[^\\n]*?\"notes\":\")Stannard's 14th VT -- tomorrow it wheels left with 13th\"",
-   "repl": "$1Stannard's 14th Vermont in position\"",
+   "repl": "\\g<1>Stannard's 14th Vermont in position\"",
    "area": "notes"
   },
   {
@@ -2978,7 +2978,7 @@
    "before": "Stannard's 16th VT -- two bearing changes tomorrow",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-16VT\",\"tick\":400,[^\\n]*?\"notes\":\")Stannard's 16th VT -- two bearing changes tomorrow\"",
-   "repl": "$1Stannard's 16th Vermont in position\"",
+   "repl": "\\g<1>Stannard's 16th Vermont in position\"",
    "area": "notes"
   },
   {
@@ -2988,7 +2988,7 @@
    "before": "26th NC bivouacking -- 216 survivors march again tomorrow",
    "src": "the survivor count is not confirmed",
    "find": "(\"unit_id\":\"C-26NC\",\"tick\":400,[^\\n]*?\"notes\":\")26th NC bivouacking -- 216 survivors march again tomorrow\"",
-   "repl": "$126th NC bivouacking\"",
+   "repl": "\\g<1>26th NC bivouacking\"",
    "area": "notes"
   },
   {
@@ -2998,7 +2998,7 @@
    "before": "52nd NC -- Marshall commands. He will die leading them tomorrow.",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-52NC\",\"tick\":400,[^\\n]*?\"notes\":\")52nd NC -- Marshall commands\\. He will die leading them tomorrow\\.\"",
-   "repl": "$152nd NC -- Colonel Marshall commands the brigade\"",
+   "repl": "\\g<1>52nd NC -- Colonel Marshall commands the brigade\"",
    "area": "notes"
   },
   {
@@ -3008,7 +3008,7 @@
    "before": "Brockenbrough's brigade -- will be first to collapse tomorrow",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-40VA\",\"tick\":400,[^\\n]*?\"notes\":\")Brockenbrough's brigade -- will be first to collapse tomorrow\"",
-   "repl": "$1Brockenbrough's brigade\"",
+   "repl": "\\g<1>Brockenbrough's brigade\"",
    "area": "notes"
   },
   {
@@ -3018,7 +3018,7 @@
    "before": "End of Day 2. 27th Indiana on Culp's Hill. Tomorrow it charges the meadow.",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-27IN\",\"tick\":450,[^\\n]*?\"notes\":\")End of Day 2\\. 27th Indiana on Culp's Hill\\. Tomorrow it charges the meadow\\.\"",
-   "repl": "$1End of Day 2. 27th Indiana on Culp's Hill.\"",
+   "repl": "\\g<1>End of Day 2. 27th Indiana on Culp's Hill.\"",
    "area": "notes"
   },
   {
@@ -3028,7 +3028,7 @@
    "before": "End of Day 2. 38 survivors of 1st MN in line. They hold tomorrow too.",
    "src": "OR 27/1 p.425",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":450,[^\\n]*?\"notes\":\")End of Day 2\\. 38 survivors of 1st MN in line\\. They hold tomorrow too\\.\"",
-   "repl": "$1End of Day 2. 1st Minnesota in line on Cemetery Ridge.\"",
+   "repl": "\\g<1>End of Day 2. 1st Minnesota in line on Cemetery Ridge.\"",
    "area": "notes"
   },
   {
@@ -3038,7 +3038,7 @@
    "before": "141st PA -- 71% casualties at the Peach Orchard apex",
    "src": "OR 27/1 p.177 (return: 141st PA 149)",
    "find": "(\"unit_id\":\"U-141PA\",\"tick\":280,[^\\n]*?\"notes\":\")141st PA -- 71% casualties at the Peach Orchard apex\"",
-   "repl": "$1141st PA at the Peach Orchard apex -- the return counts 149 casualties\"",
+   "repl": "\\g<1>141st PA at the Peach Orchard apex -- the return counts 149 casualties\"",
    "area": "notes"
   },
   {
@@ -3048,7 +3048,7 @@
    "before": "116th PA -- the smallest regiment in Caldwell's division",
    "src": "superlative not confirmed",
    "find": "(\"unit_id\":\"U-116PA\",\"tick\":287,[^\\n]*?\"notes\":\")116th PA -- the smallest regiment in Caldwell's division\"",
-   "repl": "$1116th PA in the Irish Brigade\"",
+   "repl": "\\g<1>116th PA in the Irish Brigade\"",
    "area": "notes"
   },
   {
@@ -3058,7 +3058,7 @@
    "before": "1ST MINNESOTA -- 262 men charging Wilcox's brigade",
    "src": "Fox p.26",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":302,[^\\n]*?\"notes\":\")1ST MINNESOTA -- 262 men charging Wilcox's brigade\"",
-   "repl": "$11st Minnesota -- 262 men engaged (Fox) charging Wilcox's brigade\"",
+   "repl": "\\g<1>1st Minnesota -- 262 men engaged (Fox) charging Wilcox's brigade\"",
    "area": "notes"
   },
   {
@@ -3068,7 +3068,7 @@
    "before": "22nd GA -- Wasden KIA, 56% casualties",
    "src": "OR 27/2 p.344 (return: 22d Georgia 96)",
    "find": "(\"unit_id\":\"C-22GA\",\"tick\":304,[^\\n]*?\"notes\":\")22nd GA -- Wasden KIA, 56% casualties\"",
-   "repl": "$122nd GA -- Colonel Wasden killed (return: 96 casualties)\"",
+   "repl": "\\g<1>22nd GA -- Colonel Wasden killed (return: 96 casualties)\"",
    "area": "notes"
   },
   {
@@ -3078,7 +3078,7 @@
    "before": "Posey's Mississippi brigade -- supposed to support Wright's left. Will not advance far enough.",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-III-4-2\",\"tick\":308,[^\\n]*?\"notes\":\")Posey's Mississippi brigade -- supposed to support Wright's left\\. Will not advance far enough\\.\"",
-   "repl": "$1Posey's Mississippi brigade on Wright's left\"",
+   "repl": "\\g<1>Posey's Mississippi brigade on Wright's left\"",
    "area": "notes"
   },
   {
@@ -3088,7 +3088,7 @@
    "before": "Mahone's Virginia brigade -- supposed to support Wright's right. Will also not advance.",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-III-4-4\",\"tick\":308,[^\\n]*?\"notes\":\")Mahone's Virginia brigade -- supposed to support Wright's right\\. Will also not advance\\.\"",
-   "repl": "$1Mahone's Virginia brigade on Wright's right\"",
+   "repl": "\\g<1>Mahone's Virginia brigade on Wright's right\"",
    "area": "notes"
   },
   {
@@ -3098,7 +3098,7 @@
    "before": "Harrow's brigade -- the men who will face Pickett tomorrow",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-II-2-1\",\"tick\":308,[^\\n]*?\"notes\":\")Harrow's brigade -- the men who will face Pickett tomorrow\"",
-   "repl": "$1Harrow's brigade on Cemetery Ridge\"",
+   "repl": "\\g<1>Harrow's brigade on Cemetery Ridge\"",
    "area": "notes"
   },
   {
@@ -3108,7 +3108,7 @@
    "before": "Wright REPULSED -- unsupported on the crest, hit from three sides. He will say: We were on the crest -- we had the victory in our grasp.",
    "src": "quotation and \"three sides\" not confirmed",
    "find": "(\"unit_id\":\"C-III-4-3\",\"tick\":318,[^\\n]*?\"notes\":\")Wright REPULSED -- unsupported on the crest, hit from three sides\\. He will say: We were on the crest -- we had the victory in our grasp\\.\"",
-   "repl": "$1Wright's brigade repulsed from Cemetery Ridge\"",
+   "repl": "\\g<1>Wright's brigade repulsed from Cemetery Ridge\"",
    "area": "notes"
   },
   {
@@ -3118,7 +3118,7 @@
    "before": "Webb's brigade back on the ridge -- the crest held. But for 10 minutes the Union army was cut in two.",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"U-II-2-3\",\"tick\":320,[^\\n]*?\"notes\":\")Webb's brigade back on the ridge -- the crest held\\. But for 10 minutes the Union army was cut in two\\.\"",
-   "repl": "$1Webb's brigade back on the ridge -- the crest held\"",
+   "repl": "\\g<1>Webb's brigade back on the ridge -- the crest held\"",
    "area": "notes"
   },
   {
@@ -3128,7 +3128,7 @@
    "before": "Wright's survivors reforming -- 754 casualties. The most dangerous moment on July 2 that no one remembers.",
    "src": "OR 27/2 p.343 (return: Wright 668)",
    "find": "(\"unit_id\":\"C-III-4-3\",\"tick\":320,[^\\n]*?\"notes\":\")Wright's survivors reforming -- 754 casualties\\. The most dangerous moment on July 2 that no one remembers\\.\"",
-   "repl": "$1Wright's brigade reforming -- the return counts 668 casualties\"",
+   "repl": "\\g<1>Wright's brigade reforming -- the return counts 668 casualties\"",
    "area": "notes"
   },
   {
@@ -3138,7 +3138,7 @@
    "before": "19th Massachusetts -- helped seal The Angle breach. Devereux led them in without orders.",
    "src": "OR 27/1 p.374 (Hancock: Devereux asked leave to move his regiment)",
    "find": "(\"unit_id\":\"U-19MA\",\"tick\":620,[^\\n]*?\"notes\":\")19th Massachusetts -- helped seal The Angle breach\\. Devereux led them in without orders\\.\"",
-   "repl": "$119th Massachusetts -- helped close the breach at the Angle (Devereux)\"",
+   "repl": "\\g<1>19th Massachusetts -- helped close the breach at the Angle (Devereux)\"",
    "area": "notes"
   },
   {
@@ -3148,7 +3148,7 @@
    "before": "38 survivors of 1st Minnesota. Held the line all three days.",
    "src": "OR 27/1 p.425",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":620,[^\\n]*?\"notes\":\")38 survivors of 1st Minnesota\\. Held the line all three days\\.\"",
-   "repl": "$11st Minnesota -- in line on Cemetery Ridge; it took about 500 prisoners and the colors of the 28th Virginia on July 3 (Coates)\"",
+   "repl": "\\g<1>1st Minnesota -- in line on Cemetery Ridge; it took about 500 prisoners and the colors of the 28th Virginia on July 3 (Coates)\"",
    "area": "notes"
   },
   {
@@ -3158,7 +3158,7 @@
    "before": "12th NJ -- fired buck-and-ball into Pettigrew's men at close range",
    "src": "ammunition detail not confirmed",
    "find": "(\"unit_id\":\"U-12NJ\",\"tick\":620,[^\\n]*?\"notes\":\")12th NJ -- fired buck-and-ball into Pettigrew's men at close range\"",
-   "repl": "$112th New Jersey -- engaged Pettigrew's men at close range\"",
+   "repl": "\\g<1>12th New Jersey -- engaged Pettigrew's men at close range\"",
    "area": "notes"
   },
   {
@@ -3168,7 +3168,7 @@
    "before": "Garnett's 8th VA -- about 80 survivors. Garnett dead. Body never identified.",
    "src": "OR 27/2 p.339 (return)",
    "find": "(\"unit_id\":\"C-8VA\",\"tick\":620,[^\\n]*?\"notes\":\")Garnett's 8th VA -- about 80 survivors\\. Garnett dead\\. Body never identified\\.\"",
-   "repl": "$1Garnett's 8th VA -- the table prints 54 killed and wounded and the brigade 539 missing. Garnett killed; his body was not identified.\"",
+   "repl": "\\g<1>Garnett's 8th VA -- the table prints 54 killed and wounded and the brigade 539 missing. Garnett killed; his body was not identified.\"",
    "area": "notes"
   },
   {
@@ -3178,7 +3178,7 @@
    "before": "Armistead's 9th VA -- Armistead died July 5. His hat still on his sword.",
    "src": "the hat story is from later accounts",
    "find": "(\"unit_id\":\"C-9VA\",\"tick\":620,[^\\n]*?\"notes\":\")Armistead's 9th VA -- Armistead died July 5\\. His hat still on his sword\\.\"",
-   "repl": "$1Armistead's 9th VA -- Armistead died July 5\"",
+   "repl": "\\g<1>Armistead's 9th VA -- Armistead died July 5\"",
    "area": "notes"
   },
   {
@@ -3188,7 +3188,7 @@
    "before": "26th NC -- started July 1 with 843 men. Now 140. Still in line.",
    "src": "OR 27/2 p.344; Fox pp.555-556",
    "find": "(\"unit_id\":\"C-26NC\",\"tick\":620,[^\\n]*?\"notes\":\")26th NC -- started July 1 with 843 men\\. Now 140\\. Still in line\\.\"",
-   "repl": "$126th NC -- 588 killed and wounded of over 800 engaged on July 1 and 3 (return; Fox)\"",
+   "repl": "\\g<1>26th NC -- 588 killed and wounded of over 800 engaged on July 1 and 3 (return; Fox)\"",
    "area": "notes"
   },
   {
@@ -3198,7 +3198,7 @@
    "before": "Greene's 137th NY on Culp's Hill -- held two days and nights",
    "src": "duration not confirmed",
    "find": "(\"unit_id\":\"U-137NY\",\"tick\":620,[^\\n]*?\"notes\":\")Greene's 137th NY on Culp's Hill -- held two days and nights\"",
-   "repl": "$1Greene's 137th NY on Culp's Hill\"",
+   "repl": "\\g<1>Greene's 137th NY on Culp's Hill\"",
    "area": "notes"
   },
   {
@@ -3208,7 +3208,7 @@
    "before": "Stonewall Brigade -- 12 assaults on Culp's Hill. Jackson's old regiments.",
    "src": "the count of assaults is not in the reports read",
    "find": "(\"unit_id\":\"C-2NC-SW\",\"tick\":620,[^\\n]*?\"notes\":\")Stonewall Brigade -- 12 assaults on Culp's Hill\\. Jackson's old regiments\\.\"",
-   "repl": "$1Stonewall Brigade on Culp's Hill\"",
+   "repl": "\\g<1>Stonewall Brigade on Culp's Hill\"",
    "area": "notes"
   },
   {
@@ -3218,7 +3218,7 @@
    "before": "Steuart's 3rd NC -- 42.5% casualties across three days",
    "src": "OR 27/2 p.341 (return: 3d NC 156)",
    "find": "(\"unit_id\":\"C-3NC-SW\",\"tick\":620,[^\\n]*?\"notes\":\")Steuart's 3rd NC -- 42\\.5% casualties across three days\"",
-   "repl": "$1Steuart's 3rd NC -- the return counts 156 casualties\"",
+   "repl": "\\g<1>Steuart's 3rd NC -- the return counts 156 casualties\"",
    "area": "notes"
   },
   {
@@ -3228,7 +3228,7 @@
    "before": "END OF BATTLE. 20th Maine on Little Round Top. 130 casualties. The left of the Union line held.",
    "src": "OR 27/1 p.179",
    "find": "(\"unit_id\":\"U-20ME\",\"tick\":675,[^\\n]*?\"notes\":\")END OF BATTLE\\. 20th Maine on Little Round Top\\. 130 casualties\\. The left of the Union line held\\.\"",
-   "repl": "$1END OF BATTLE. 20th Maine on Little Round Top -- the return counts 125 casualties\"",
+   "repl": "\\g<1>END OF BATTLE. 20th Maine on Little Round Top -- the return counts 125 casualties\"",
    "area": "notes"
   },
   {
@@ -3238,7 +3238,7 @@
    "before": "END OF BATTLE. 38 survivors of the 1st Minnesota. All three days in line.",
    "src": "OR 27/1 p.425",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":675,[^\\n]*?\"notes\":\")END OF BATTLE\\. 38 survivors of the 1st Minnesota\\. All three days in line\\.\"",
-   "repl": "$1END OF BATTLE. 1st Minnesota on Cemetery Ridge\"",
+   "repl": "\\g<1>END OF BATTLE. 1st Minnesota on Cemetery Ridge\"",
    "area": "notes"
   },
   {
@@ -3248,7 +3248,7 @@
    "before": "END OF BATTLE. 26th North Carolina. 843 to 140 across July 1 and 3.",
    "src": "OR 27/2 p.344",
    "find": "(\"unit_id\":\"C-26NC\",\"tick\":675,[^\\n]*?\"notes\":\")END OF BATTLE\\. 26th North Carolina\\. 843 to 140 across July 1 and 3\\.\"",
-   "repl": "$1END OF BATTLE. 26th North Carolina -- 588 killed and wounded (return)\"",
+   "repl": "\\g<1>END OF BATTLE. 26th North Carolina -- 588 killed and wounded (return)\"",
    "area": "notes"
   },
   {
@@ -3258,7 +3258,7 @@
    "before": "END OF BATTLE. Armistead's 14th VA. The regiment closest to Cushing's guns.",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-14VA\",\"tick\":675,[^\\n]*?\"notes\":\")END OF BATTLE\\. Armistead's 14th VA\\. The regiment closest to Cushing's guns\\.\"",
-   "repl": "$1END OF BATTLE. Armistead's 14th VA.\"",
+   "repl": "\\g<1>END OF BATTLE. Armistead's 14th VA.\"",
    "area": "notes"
   },
   {
@@ -3268,7 +3268,7 @@
    "before": "END OF BATTLE. Greene's 137th NY. Culp's Hill never fell.",
    "src": "the works lower on the hill were held by the Confederates overnight",
    "find": "(\"unit_id\":\"U-137NY\",\"tick\":675,[^\\n]*?\"notes\":\")END OF BATTLE\\. Greene's 137th NY\\. Culp's Hill never fell\\.\"",
-   "repl": "$1END OF BATTLE. Greene's 137th NY on Culp's Hill.\"",
+   "repl": "\\g<1>END OF BATTLE. Greene's 137th NY on Culp's Hill.\"",
    "area": "notes"
   },
   {
@@ -3278,7 +3278,7 @@
    "before": "END OF BATTLE. Stonewall Brigade. 12 assaults. Jackson's men.",
    "src": "count not in the reports read",
    "find": "(\"unit_id\":\"C-2NC-SW\",\"tick\":675,[^\\n]*?\"notes\":\")END OF BATTLE\\. Stonewall Brigade\\. 12 assaults\\. Jackson's men\\.\"",
-   "repl": "$1END OF BATTLE. Stonewall Brigade.\"",
+   "repl": "\\g<1>END OF BATTLE. Stonewall Brigade.\"",
    "area": "notes"
   },
   {
@@ -3288,7 +3288,7 @@
    "before": "Cushing's Battery A -- 2 guns left of 6. Cushing wounded twice, holding his intestines with one hand, commanding with the other.",
    "src": "OR 27/1 p.429 (Webb)",
    "find": "(\"unit_id\":\"U-ART-A4US\",\"tick\":546,[^\\n]*?\"notes\":\")Cushing's Battery A -- 2 guns left of 6\\. Cushing wounded twice, holding his intestines with one hand, commanding with the other\\.\"",
-   "repl": "$1Cushing's Battery A -- wounded in both thighs, he fought on (Webb); several of its guns were out of action\"",
+   "repl": "\\g<1>Cushing's Battery A -- wounded in both thighs, he fought on (Webb); several of its guns were out of action\"",
    "area": "notes"
   },
   {
@@ -3298,7 +3298,7 @@
    "before": "Armistead's brigade 50 yards from the wall -- his hat on his sword, raised high so men can see him through the smoke",
    "src": "later accounts",
    "find": "(\"unit_id\":\"C-I-3-3\",\"tick\":546,[^\\n]*?\"notes\":\")Armistead's brigade 50 yards from the wall -- his hat on his sword, raised high so men can see him through the smoke\"",
-   "repl": "$1Armistead's brigade close to the wall -- Armistead is reported to have led with his hat on his sword\"",
+   "repl": "\\g<1>Armistead's brigade close to the wall -- Armistead is reported to have led with his hat on his sword\"",
    "area": "notes"
   },
   {
@@ -3308,7 +3308,7 @@
    "before": "Garnett's brigade closing on The Angle -- Garnett has ridden his horse into the charge, knowing he will die",
    "src": "motive not confirmed",
    "find": "(\"unit_id\":\"C-I-3-1\",\"tick\":546,[^\\n]*?\"notes\":\")Garnett's brigade closing on The Angle -- Garnett has ridden his horse into the charge, knowing he will die\"",
-   "repl": "$1Garnett's brigade closing on The Angle -- Garnett, mounted, leads it\"",
+   "repl": "\\g<1>Garnett's brigade closing on The Angle -- Garnett, mounted, leads it\"",
    "area": "notes"
   },
   {
@@ -3318,7 +3318,7 @@
    "before": "Cushing pulls his last 2 guns to the wall -- he will fire them from within 10 yards of Armistead. Canister at point-blank range.",
    "src": "distance not confirmed",
    "find": "(\"unit_id\":\"U-ART-A4US\",\"tick\":548,[^\\n]*?\"notes\":\")Cushing pulls his last 2 guns to the wall -- he will fire them from within 10 yards of Armistead\\. Canister at point-blank range\\.\"",
-   "repl": "$1Cushing's guns at the wall -- canister at close range\"",
+   "repl": "\\g<1>Cushing's guns at the wall -- canister at close range\"",
    "area": "notes"
   },
   {
@@ -3328,7 +3328,7 @@
    "before": "Webb's front line breaking -- some of the 71st PA running. Webb furious, trying to hold them.",
    "src": "OR 27/1 p.429 (Webb)",
    "find": "(\"unit_id\":\"U-II-2-3\",\"tick\":548,[^\\n]*?\"notes\":\")Webb's front line breaking -- some of the 71st PA running\\. Webb furious, trying to hold them\\.\"",
-   "repl": "$1Webb's front line giving way -- the 71st PA falls back from the wall\"",
+   "repl": "\\g<1>Webb's front line giving way -- the 71st PA falls back from the wall\"",
    "area": "notes"
   },
   {
@@ -3338,7 +3338,7 @@
    "before": "Armistead OVER THE WALL -- the high-water mark of the Confederacy. 150 men with him at Cushing's guns.",
    "src": "the count of men with him is not confirmed (time-facts R115 gives 100-300)",
    "find": "(\"unit_id\":\"C-I-3-3\",\"tick\":551,[^\\n]*?\"notes\":\")Armistead OVER THE WALL -- the high-water mark of the Confederacy\\. 150 men with him at Cushing's guns\\.\"",
-   "repl": "$1Armistead over the wall at the Angle with part of his brigade\"",
+   "repl": "\\g<1>Armistead over the wall at the Angle with part of his brigade\"",
    "area": "notes"
   },
   {
@@ -3348,7 +3348,7 @@
    "before": "CUSHING KILLED -- shot through the head as he fires his last round. Battery A is silent.",
    "src": "OR 27/1 p.429 (Webb: fell, mortally wounded, at the fence by his guns)",
    "find": "(\"unit_id\":\"U-ART-A4US\",\"tick\":551,[^\\n]*?\"notes\":\")CUSHING KILLED -- shot through the head as he fires his last round\\. Battery A is silent\\.\"",
-   "repl": "$1Cushing killed at the fence beside his guns (Webb)\"",
+   "repl": "\\g<1>Cushing killed at the fence beside his guns (Webb)\"",
    "area": "notes"
   },
   {
@@ -3358,7 +3358,7 @@
    "before": "Armistead FALLS -- shot at the guns. He is captured by Union soldiers, asks them to give his watch to Hancock. Dies 2 days later.",
    "src": "the watch story is from later accounts",
    "find": "(\"unit_id\":\"C-I-3-3\",\"tick\":552,[^\\n]*?\"notes\":\")Armistead FALLS -- shot at the guns\\. He is captured by Union soldiers, asks them to give his watch to Hancock\\. Dies 2 days later\\.\"",
-   "repl": "$1Armistead falls at the guns, wounded and taken; he died July 5\"",
+   "repl": "\\g<1>Armistead falls at the guns, wounded and taken; he died July 5\"",
    "area": "notes"
   },
   {
@@ -3368,7 +3368,7 @@
    "before": "Garnett's brigade survivors retreating -- Garnett dead, never found. 750 of 1459 casualties.",
    "src": "OR 27/2 p.339 (return)",
    "find": "(\"unit_id\":\"C-I-3-1\",\"tick\":555,[^\\n]*?\"notes\":\")Garnett's brigade survivors retreating -- Garnett dead, never found\\. 750 of 1459 casualties\\.\"",
-   "repl": "$1Garnett's brigade survivors retreating -- Garnett killed; the return counts 941 casualties for the brigade\"",
+   "repl": "\\g<1>Garnett's brigade survivors retreating -- Garnett killed; the return counts 941 casualties for the brigade\"",
    "area": "notes"
   },
   {
@@ -3378,7 +3378,7 @@
    "before": "Alexander positioning his 75-gun line. He will command the Confederate cannonade.",
    "src": "the gun count for his line is not confirmed",
    "find": "(\"unit_id\":\"C-ART-Alexander\",\"tick\":505,[^\\n]*?\"notes\":\")Alexander positioning his 75-gun line\\. He will command the Confederate cannonade\\.\"",
-   "repl": "$1Alexander posting the batteries for the cannonade\"",
+   "repl": "\\g<1>Alexander posting the batteries for the cannonade\"",
    "area": "notes"
   },
   {
@@ -3388,7 +3388,7 @@
    "before": "Dearing's battalion -- 20 guns",
    "src": "gun counts not confirmed",
    "find": "(\"unit_id\":\"C-ART-Dearing\",\"tick\":505,[^\\n]*?\"notes\":\")Dearing's battalion -- 20 guns\"",
-   "repl": "$1Dearing's battalion\"",
+   "repl": "\\g<1>Dearing's battalion\"",
    "area": "notes"
   },
   {
@@ -3398,7 +3398,7 @@
    "before": "Henry's battalion -- 20 guns",
    "src": "gun counts not confirmed",
    "find": "(\"unit_id\":\"C-ART-Henry\",\"tick\":505,[^\\n]*?\"notes\":\")Henry's battalion -- 20 guns\"",
-   "repl": "$1Henry's battalion\"",
+   "repl": "\\g<1>Henry's battalion\"",
    "area": "notes"
   },
   {
@@ -3408,7 +3408,7 @@
    "before": "Cabell's battalion -- 18 guns",
    "src": "gun counts not confirmed",
    "find": "(\"unit_id\":\"C-ART-Cabell\",\"tick\":505,[^\\n]*?\"notes\":\")Cabell's battalion -- 18 guns\"",
-   "repl": "$1Cabell's battalion\"",
+   "repl": "\\g<1>Cabell's battalion\"",
    "area": "notes"
   },
   {
@@ -3418,7 +3418,7 @@
    "before": "Osborn's Cemetery Hill batteries -- 40 guns. Will answer the Confederate cannonade.",
    "src": "gun counts not confirmed",
    "find": "(\"unit_id\":\"U-ART-Osborn\",\"tick\":505,[^\\n]*?\"notes\":\")Osborn's Cemetery Hill batteries -- 40 guns\\. Will answer the Confederate cannonade\\.\"",
-   "repl": "$1Osborn's Cemetery Hill batteries\"",
+   "repl": "\\g<1>Osborn's Cemetery Hill batteries\"",
    "area": "notes"
   },
   {
@@ -3428,7 +3428,7 @@
    "before": "McGilvery's Plum Run Line -- 39 guns on Cemetery Ridge south",
    "src": "gun counts not confirmed",
    "find": "(\"unit_id\":\"U-ART-McGilvery\",\"tick\":505,[^\\n]*?\"notes\":\")McGilvery's Plum Run Line -- 39 guns on Cemetery Ridge south\"",
-   "repl": "$1McGilvery's line on Cemetery Ridge south\"",
+   "repl": "\\g<1>McGilvery's line on Cemetery Ridge south\"",
    "area": "notes"
   },
   {
@@ -3438,7 +3438,7 @@
    "before": "CANNONADE BEGINS at 1 PM. Alexander fires the signal guns. Confederate bombardment opens.",
    "src": "OR 27/2 p.320; time-facts R100",
    "find": "(\"unit_id\":\"C-ART-Alexander\",\"tick\":518,[^\\n]*?\"notes\":\")CANNONADE BEGINS at 1 PM\\. Alexander fires the signal guns\\. Confederate bombardment opens\\.\"",
-   "repl": "$1The cannonade begins about 1 p.m. at the signal of two guns of the Washington Artillery (Lee: about 1 p.m.).\"",
+   "repl": "\\g<1>The cannonade begins about 1 p.m. at the signal of two guns of the Washington Artillery (Lee: about 1 p.m.).\"",
    "area": "notes"
   },
   {
@@ -3448,7 +3448,7 @@
    "before": "Washington Artillery firing -- the largest artillery bombardment in American history",
    "src": "superlative not supported",
    "find": "(\"unit_id\":\"C-ART-Eshleman\",\"tick\":518,[^\\n]*?\"notes\":\")Washington Artillery firing -- the largest artillery bombardment in American history\"",
-   "repl": "$1Washington Artillery firing\"",
+   "repl": "\\g<1>Washington Artillery firing\"",
    "area": "notes"
   },
   {
@@ -3458,7 +3458,7 @@
    "before": "McGilvery's guns returning fire -- 160 Union guns total engaged",
    "src": "OR 27/1 p.239 (Hunt); my chronology fix of tick 518",
    "find": "(\"unit_id\":\"U-ART-McGilvery\",\"tick\":518,[^\\n]*?\"notes\":\")McGilvery's guns returning fire -- 160 Union guns total engaged\"",
-   "repl": "$1Union batteries replying (about 80 in action by Hunt's count)\"",
+   "repl": "\\g<1>Union batteries replying (about 80 in action by Hunt's count)\"",
    "area": "notes"
   },
   {
@@ -3468,7 +3468,7 @@
    "before": "Stonewall Brigade -- first of twelve assaults",
    "src": "count of assaults not in the reports read",
    "find": "(\"unit_id\":\"C-2NC-SW\",\"tick\":452,[^\\n]*?\"notes\":\")Stonewall Brigade -- first of twelve assaults\"",
-   "repl": "$1Stonewall Brigade on Culp's Hill\"",
+   "repl": "\\g<1>Stonewall Brigade on Culp's Hill\"",
    "area": "notes"
   },
   {
@@ -3478,7 +3478,7 @@
    "before": "2nd MA repulsed. Mudge KIA instantly. 136 casualties from 316.",
    "src": "OR 27/1 p.814 (Colgrove: about 130), p.179 (return: 136)",
    "find": "(\"unit_id\":\"U-2MA\",\"tick\":461,[^\\n]*?\"notes\":\")2nd MA repulsed\\. Mudge KIA instantly\\. 136 casualties from 316\\.\"",
-   "repl": "$12nd MA repulsed. Mudge killed leading the charge; the return counts 136 casualties\"",
+   "repl": "\\g<1>2nd MA repulsed. Mudge killed leading the charge; the return counts 136 casualties\"",
    "area": "notes"
   },
   {
@@ -3488,7 +3488,7 @@
    "before": "Steuart's brigade -- final retreat. 42.5% total casualties.",
    "src": "OR 27/2 p.341",
    "find": "(\"unit_id\":\"C-3NC-SW\",\"tick\":510,[^\\n]*?\"notes\":\")Steuart's brigade -- final retreat\\. 42\\.5% total casualties\\.\"",
-   "repl": "$1Steuart's brigade -- final retreat from the works\"",
+   "repl": "\\g<1>Steuart's brigade -- final retreat from the works\"",
    "area": "notes"
   },
   {
@@ -3498,7 +3498,7 @@
    "before": "HANCOCK WOUNDED -- shot through the saddle. A nail and wood fragments driven into his thigh. He will not leave the field.",
    "src": "OR 27/1 p.366 (Hancock)",
    "find": "(\"unit_id\":\"U-II\",\"tick\":554,[^\\n]*?\"notes\":\")HANCOCK WOUNDED -- shot through the saddle\\. A nail and wood fragments driven into his thigh\\. He will not leave the field\\.\"",
-   "repl": "$1HANCOCK WOUNDED -- by his own dispatch a tenpenny nail and bits of wood from the saddle entered his thigh; he stayed on the field\"",
+   "repl": "\\g<1>HANCOCK WOUNDED -- by his own dispatch a tenpenny nail and bits of wood from the saddle entered his thigh; he stayed on the field\"",
    "area": "notes"
   },
   {
@@ -3508,7 +3508,7 @@
    "before": "Sykes V Corps in reserve -- Meade's largest intact force, never ordered to pursue",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"U-V\",\"tick\":554,[^\\n]*?\"notes\":\")Sykes V Corps in reserve -- Meade's largest intact force, never ordered to pursue\"",
-   "repl": "$1Sykes's V Corps near the Round Tops\"",
+   "repl": "\\g<1>Sykes's V Corps near the Round Tops\"",
    "area": "notes"
   },
   {
@@ -3518,7 +3518,7 @@
    "before": "Sedgwick's VI Corps -- 15,000 fresh men who fought almost nothing. Still in reserve.",
    "src": "OR 27/1 p.182 (return: Sixth Corps 242)",
    "find": "(\"unit_id\":\"U-VI-1\",\"tick\":554,[^\\n]*?\"notes\":\")Sedgwick's VI Corps -- 15,000 fresh men who fought almost nothing\\. Still in reserve\\.\"",
-   "repl": "$1Sedgwick's VI Corps in reserve (the return counts 242 casualties for the whole corps)\"",
+   "repl": "\\g<1>Sedgwick's VI Corps in reserve (the return counts 242 casualties for the whole corps)\"",
    "area": "notes"
   },
   {
@@ -3528,7 +3528,7 @@
    "before": "More VI Corps in reserve -- 27000 fresh men standing by while Lee's army retreats",
    "src": "the number was not supported",
    "find": "(\"unit_id\":\"U-VI-2\",\"tick\":565,[^\\n]*?\"notes\":\")More VI Corps in reserve -- 27000 fresh men standing by while Lee's army retreats\"",
-   "repl": "$1More of the VI Corps in reserve\"",
+   "repl": "\\g<1>More of the VI Corps in reserve\"",
    "area": "notes"
   },
   {
@@ -3538,7 +3538,7 @@
    "before": "VI Corps -- Meade has decided not to pursue today. Lincoln will be devastated. The war will continue two more years.",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"U-VI-1\",\"tick\":570,[^\\n]*?\"notes\":\")VI Corps -- Meade has decided not to pursue today\\. Lincoln will be devastated\\. The war will continue two more years\\.\"",
-   "repl": "$1VI Corps in position\"",
+   "repl": "\\g<1>VI Corps in position\"",
    "area": "notes"
   },
   {
@@ -3548,7 +3548,7 @@
    "before": "Williams's division driving Johnson back -- Culp's Hill will be Union by 11 AM",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-XII-1\",\"tick\":460,[^\\n]*?\"notes\":\")Williams's division driving Johnson back -- Culp's Hill will be Union by 11 AM\"",
-   "repl": "$1Williams's and Geary's divisions driving Johnson back\"",
+   "repl": "\\g<1>Williams's and Geary's divisions driving Johnson back\"",
    "area": "notes"
   },
   {
@@ -3558,7 +3558,7 @@
    "before": "Gibbon's division on Cemetery Ridge -- Meade's council just ended. They will face Pickett.",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-II-2\",\"tick\":465,[^\\n]*?\"notes\":\")Gibbon's division on Cemetery Ridge -- Meade's council just ended\\. They will face Pickett\\.\"",
-   "repl": "$1Gibbon's division on Cemetery Ridge\"",
+   "repl": "\\g<1>Gibbon's division on Cemetery Ridge\"",
    "area": "notes"
   },
   {
@@ -3568,7 +3568,7 @@
    "before": "Hays's division -- they will be on Picketts left, Gibbon on the right",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-II-3\",\"tick\":465,[^\\n]*?\"notes\":\")Hays's division -- they will be on Picketts left, Gibbon on the right\"",
-   "repl": "$1Hays's division on Cemetery Ridge\"",
+   "repl": "\\g<1>Hays's division on Cemetery Ridge\"",
    "area": "notes"
   },
   {
@@ -3578,7 +3578,7 @@
    "before": "Gregg's Union cavalry positioning -- he has spotted Stuart. Custer will charge.",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"U-CAV-1\",\"tick\":470,[^\\n]*?\"notes\":\")Gregg's Union cavalry positioning -- he has spotted Stuart\\. Custer will charge\\.\"",
-   "repl": "$1Gregg's cavalry positioning east of the town\"",
+   "repl": "\\g<1>Gregg's cavalry positioning east of the town\"",
    "area": "notes"
   },
   {
@@ -3588,7 +3588,7 @@
    "before": "Alexander moving his guns into final position -- 75 guns along Seminary Ridge",
    "src": "gun counts not confirmed",
    "find": "(\"unit_id\":\"C-ART-Alexander\",\"tick\":480,[^\\n]*?\"notes\":\")Alexander moving his guns into final position -- 75 guns along Seminary Ridge\"",
-   "repl": "$1Alexander moving his guns into position along Seminary Ridge\"",
+   "repl": "\\g<1>Alexander moving his guns into position along Seminary Ridge\"",
    "area": "notes"
   },
   {
@@ -3598,7 +3598,7 @@
    "before": "XII Corps -- Culp's Hill reclaimed by 11 AM. 7 hours of fighting. Union right secure.",
    "src": "OR 27/1 p.847",
    "find": "(\"unit_id\":\"U-XII-2\",\"tick\":495,[^\\n]*?\"notes\":\")XII Corps -- Culp's Hill reclaimed by 11 AM\\. 7 hours of fighting\\. Union right secure\\.\"",
-   "repl": "$1XII Corps -- the fighting on Culp's Hill ends about 11 a.m. (Kane)\"",
+   "repl": "\\g<1>XII Corps -- the fighting on Culp's Hill ends about 11 a.m. (Kane)\"",
    "area": "notes"
   },
   {
@@ -3608,7 +3608,7 @@
    "before": "Johnson's division on lower Culp's Hill -- repulsed. They will not attack again.",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-II-4\",\"tick\":495,[^\\n]*?\"notes\":\")Johnson's division on lower Culp's Hill -- repulsed\\. They will not attack again\\.\"",
-   "repl": "$1Johnson's division on lower Culp's Hill -- repulsed\"",
+   "repl": "\\g<1>Johnson's division on lower Culp's Hill -- repulsed\"",
    "area": "notes"
   },
   {
@@ -3618,7 +3618,7 @@
    "before": "26th NC before the charge -- 216 men from 843. Burgwyn commands (age 21). They will advance anyway.",
    "src": "OR 27/2 p.638 (Pettigrew)",
    "find": "(\"unit_id\":\"C-26NC\",\"tick\":535,[^\\n]*?\"notes\":\")26th NC before the charge -- 216 men from 843\\. Burgwyn commands \\(age 21\\)\\. They will advance anyway\\.\"",
-   "repl": "$126th NC before the charge -- Colonel Burgwyn was killed on July 1 (Pettigrew); Lieut. Col. Lane, wounded that day, is its senior officer\"",
+   "repl": "\\g<1>26th NC before the charge -- Colonel Burgwyn was killed on July 1 (Pettigrew); Lieut. Col. Lane, wounded that day, is its senior officer\"",
    "area": "notes"
   },
   {
@@ -3628,7 +3628,7 @@
    "before": "52nd NC -- Marshall commands the brigade. He will die in the charge.",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-52NC\",\"tick\":535,[^\\n]*?\"notes\":\")52nd NC -- Marshall commands the brigade\\. He will die in the charge\\.\"",
-   "repl": "$152nd NC -- Colonel Marshall commands the brigade\"",
+   "repl": "\\g<1>52nd NC -- Colonel Marshall commands the brigade\"",
    "area": "notes"
   },
   {
@@ -3638,7 +3638,7 @@
    "before": "Scales's 38th NC -- 82 survivors from Day 1 still in the ranks",
    "src": "the survivor count is not confirmed",
    "find": "(\"unit_id\":\"C-38NC-S\",\"tick\":535,[^\\n]*?\"notes\":\")Scales's 38th NC -- 82 survivors from Day 1 still in the ranks\"",
-   "repl": "$1Scales's 38th NC\"",
+   "repl": "\\g<1>Scales's 38th NC\"",
    "area": "notes"
   },
   {
@@ -3648,7 +3648,7 @@
    "before": "26th NC still advancing -- Burgwyn killed. Lane takes command momentarily.",
    "src": "OR 27/2 p.638 (Burgwyn was killed on July 1)",
    "find": "(\"unit_id\":\"C-26NC\",\"tick\":544,[^\\n]*?\"notes\":\")26th NC still advancing -- Burgwyn killed\\. Lane takes command momentarily\\.\"",
-   "repl": "$126th NC still advancing\"",
+   "repl": "\\g<1>26th NC still advancing\"",
    "area": "notes"
   },
   {
@@ -3658,7 +3658,7 @@
    "before": "52nd NC -- Marshall falls mortally wounded here",
    "src": "OR 27/2 p.645",
    "find": "(\"unit_id\":\"C-52NC\",\"tick\":544,[^\\n]*?\"notes\":\")52nd NC -- Marshall falls mortally wounded here\"",
-   "repl": "$152nd NC -- Marshall killed (supposed killed, Pettigrew)\"",
+   "repl": "\\g<1>52nd NC -- Marshall killed (supposed killed, Pettigrew)\"",
    "area": "notes"
   },
   {
@@ -3668,7 +3668,7 @@
    "before": "26th NC retreating -- Burgwyn dead, Marshall dead. From 843 to 140 surviving.",
    "src": "OR 27/2 p.638",
    "find": "(\"unit_id\":\"C-26NC\",\"tick\":555,[^\\n]*?\"notes\":\")26th NC retreating -- Burgwyn dead, Marshall dead\\. From 843 to 140 surviving\\.\"",
-   "repl": "$126th NC retreating\"",
+   "repl": "\\g<1>26th NC retreating\"",
    "area": "notes"
   },
   {
@@ -3678,7 +3678,7 @@
    "before": "Lane's NC retreating -- Trimble wounded, riding back on his horse",
    "src": "detail not confirmed",
    "find": "(\"unit_id\":\"C-7NC\",\"tick\":555,[^\\n]*?\"notes\":\")Lane's NC retreating -- Trimble wounded, riding back on his horse\"",
-   "repl": "$1Lane's NC retreating -- Trimble wounded\"",
+   "repl": "\\g<1>Lane's NC retreating -- Trimble wounded\"",
    "area": "notes"
   },
   {
@@ -3688,7 +3688,7 @@
    "before": "26th NC -- only 216 survivors from 843. Still they advance.",
    "src": "survivor count not confirmed",
    "find": "(\"unit_id\":\"C-26NC\",\"tick\":538,[^\\n]*?\"notes\":\")26th NC -- only 216 survivors from 843\\. Still they advance\\.\"",
-   "repl": "$126th NC advancing\"",
+   "repl": "\\g<1>26th NC advancing\"",
    "area": "notes"
   },
   {
@@ -3698,7 +3698,7 @@
    "before": "Marshall commands brigade -- he will be killed",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-52NC\",\"tick\":538,[^\\n]*?\"notes\":\")Marshall commands brigade -- he will be killed\"",
-   "repl": "$1Marshall commands the brigade\"",
+   "repl": "\\g<1>Marshall commands the brigade\"",
    "area": "notes"
   },
   {
@@ -3708,7 +3708,7 @@
    "before": "14th Vermont wheels left with 13th",
    "src": "Stannard names the 13th and 16th as changing front",
    "find": "(\"unit_id\":\"U-14VT\",\"tick\":546,[^\\n]*?\"notes\":\")14th Vermont wheels left with 13th\"",
-   "repl": "$114th Vermont near the 13th\"",
+   "repl": "\\g<1>14th Vermont near the 13th\"",
    "area": "notes"
   },
   {
@@ -3718,7 +3718,7 @@
    "before": "14th VA -- Armistead's regiment closest to Cushing's guns",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-14VA\",\"tick\":551,[^\\n]*?\"notes\":\")14th VA -- Armistead's regiment closest to Cushing's guns\"",
-   "repl": "$114th VA in Armistead's brigade\"",
+   "repl": "\\g<1>14th VA in Armistead's brigade\"",
    "area": "notes"
   },
   {
@@ -3728,7 +3728,7 @@
    "before": "26th NC survivors retreating -- 80-something men left from 843",
    "src": "survivor count not confirmed",
    "find": "(\"unit_id\":\"C-26NC\",\"tick\":555,[^\\n]*?\"notes\":\")26th NC survivors retreating -- 80-something men left from 843\"",
-   "repl": "$126th NC retreating\"",
+   "repl": "\\g<1>26th NC retreating\"",
    "area": "notes"
   },
   {
@@ -3738,7 +3738,7 @@
    "before": "26th NC -- after July 1 and July 3: approximately 85 men left from 843",
    "src": "OR 27/2 p.344",
    "find": "(\"unit_id\":\"C-26NC\",\"tick\":572,[^\\n]*?\"notes\":\")26th NC -- after July 1 and July 3: approximately 85 men left from 843\"",
-   "repl": "$126th NC -- 588 killed and wounded over the battle (return)\"",
+   "repl": "\\g<1>26th NC -- 588 killed and wounded over the battle (return)\"",
    "area": "notes"
   },
   {
@@ -3748,7 +3748,7 @@
    "before": "Gibbon's II Corps holding Cemetery Ridge -- Meade will not order an advance today",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-II-2\",\"tick\":580,[^\\n]*?\"notes\":\")Gibbon's II Corps holding Cemetery Ridge -- Meade will not order an advance today\"",
-   "repl": "$1II Corps holding Cemetery Ridge\"",
+   "repl": "\\g<1>II Corps holding Cemetery Ridge\"",
    "area": "notes"
   },
   {
@@ -3758,7 +3758,7 @@
    "before": "Imboden's cavalry brigade leading the 17-mile wagon train of Confederate wounded westward",
    "src": "later account",
    "find": "(\"unit_id\":\"C-CAV-3\",\"tick\":600,[^\\n]*?\"notes\":\")Imboden's cavalry brigade leading the 17-mile wagon train of Confederate wounded westward\"",
-   "repl": "$1Imboden's command escorting the wagon train of wounded westward (Imboden's own later account gives its length as 17 miles)\"",
+   "repl": "\\g<1>Imboden's command escorting the wagon train of wounded westward (Imboden's own later account gives its length as 17 miles)\"",
    "area": "notes"
   },
   {
@@ -3768,7 +3768,7 @@
    "before": "20th Maine still on Little Round Top -- they have not moved from where they charged 3 days ago",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"U-20ME\",\"tick\":660,[^\\n]*?\"notes\":\")20th Maine still on Little Round Top -- they have not moved from where they charged 3 days ago\"",
-   "repl": "$120th Maine on Little Round Top\"",
+   "repl": "\\g<1>20th Maine on Little Round Top\"",
    "area": "notes"
   },
   {
@@ -3778,7 +3778,7 @@
    "before": "1st Minnesota -- 38 survivors. Three days of battle. Still in place.",
    "src": "OR 27/1 p.425",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":660,[^\\n]*?\"notes\":\")1st Minnesota -- 38 survivors\\. Three days of battle\\. Still in place\\.\"",
-   "repl": "$11st Minnesota on Cemetery Ridge\"",
+   "repl": "\\g<1>1st Minnesota on Cemetery Ridge\"",
    "area": "notes"
   },
   {
@@ -3788,7 +3788,7 @@
    "before": "26th NC on Seminary Ridge -- 140 from 843. Waiting to march home to North Carolina.",
    "src": "survivor count not confirmed",
    "find": "(\"unit_id\":\"C-26NC\",\"tick\":660,[^\\n]*?\"notes\":\")26th NC on Seminary Ridge -- 140 from 843\\. Waiting to march home to North Carolina\\.\"",
-   "repl": "$126th NC on Seminary Ridge\"",
+   "repl": "\\g<1>26th NC on Seminary Ridge\"",
    "area": "notes"
   },
   {
@@ -3798,7 +3798,7 @@
    "before": "Cushing's battery being recovered from The Angle -- 4 of 6 guns destroyed. Cushing is dead.",
    "src": "the number of guns lost is not given in the reports read",
    "find": "(\"unit_id\":\"U-ART-A4US\",\"tick\":665,[^\\n]*?\"notes\":\")Cushing's battery being recovered from The Angle -- 4 of 6 guns destroyed\\. Cushing is dead\\.\"",
-   "repl": "$1Cushing's battery being recovered from The Angle -- Cushing is dead\"",
+   "repl": "\\g<1>Cushing's battery being recovered from The Angle -- Cushing is dead\"",
    "area": "notes"
   },
   {
@@ -3808,7 +3808,7 @@
    "before": "END OF BATTLE. 20th Maine on Little Round Top. July 3, 1863. The Union is saved.",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"U-20ME\",\"tick\":675,[^\\n]*?\"notes\":\")END OF BATTLE\\. 20th Maine on Little Round Top\\. July 3, 1863\\. The Union is saved\\.\"",
-   "repl": "$1END OF BATTLE. 20th Maine on Little Round Top.\"",
+   "repl": "\\g<1>END OF BATTLE. 20th Maine on Little Round Top.\"",
    "area": "notes"
   },
   {
@@ -3818,7 +3818,7 @@
    "before": "END OF BATTLE. 38 survivors. The price the 1st Minnesota paid for one day -- and the nation paid over three.",
    "src": "OR 27/1 p.425",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":675,[^\\n]*?\"notes\":\")END OF BATTLE\\. 38 survivors\\. The price the 1st Minnesota paid for one day -- and the nation paid over three\\.\"",
-   "repl": "$1END OF BATTLE. 1st Minnesota on Cemetery Ridge.\"",
+   "repl": "\\g<1>END OF BATTLE. 1st Minnesota on Cemetery Ridge.\"",
    "area": "notes"
   },
   {
@@ -3828,7 +3828,7 @@
    "before": "END OF BATTLE. 26th North Carolina. 843 men entered Pennsylvania. 140 leave it.",
    "src": "OR 27/2 p.344",
    "find": "(\"unit_id\":\"C-26NC\",\"tick\":675,[^\\n]*?\"notes\":\")END OF BATTLE\\. 26th North Carolina\\. 843 men entered Pennsylvania\\. 140 leave it\\.\"",
-   "repl": "$1END OF BATTLE. 26th North Carolina -- 588 killed and wounded (return).\"",
+   "repl": "\\g<1>END OF BATTLE. 26th North Carolina -- 588 killed and wounded (return).\"",
    "area": "notes"
   },
   {
@@ -3838,7 +3838,7 @@
    "before": "END OF BATTLE. Armistead's brigade. Their general died beyond the wall on July 5. His hat still on his sword.",
    "src": "the hat story is from later accounts",
    "find": "(\"unit_id\":\"C-I-3-3\",\"tick\":675,[^\\n]*?\"notes\":\")END OF BATTLE\\. Armistead's brigade\\. Their general died beyond the wall on July 5\\. His hat still on his sword\\.\"",
-   "repl": "$1END OF BATTLE. Armistead's brigade. Their general died July 5.\"",
+   "repl": "\\g<1>END OF BATTLE. Armistead's brigade. Their general died July 5.\"",
    "area": "notes"
   },
   {
@@ -3848,7 +3848,7 @@
    "before": "16th Vermont -- Stannard's fresh IX Corps brigade. They arrived yesterday and have never been in combat.",
    "src": "OR 27/1 p.350 (Stannard); the 13th and 14th were in action on July 2; Stannard's brigade belonged to the I Corps by the return",
    "find": "(\"unit_id\":\"U-16VT\",\"tick\":546,[^\\n]*?\"notes\":\")16th Vermont -- Stannard's fresh IX Corps brigade\\. They arrived yesterday and have never been in combat\\.\"",
-   "repl": "$116th Vermont in Stannard's brigade (arrived on July 1)\"",
+   "repl": "\\g<1>16th Vermont in Stannard's brigade (arrived on July 1)\"",
    "area": "notes"
   },
   {
@@ -3858,7 +3858,7 @@
    "before": "13th Vermont -- Stannard's right regiment, watching Kemper's flank pass in front of them",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"U-13VT\",\"tick\":546,[^\\n]*?\"notes\":\")13th Vermont -- Stannard's right regiment, watching Kemper's flank pass in front of them\"",
-   "repl": "$113th Vermont in Stannard's brigade\"",
+   "repl": "\\g<1>13th Vermont in Stannard's brigade\"",
    "area": "notes"
   },
   {
@@ -3868,7 +3868,7 @@
    "before": "16th Vermont FIRST CHARGE -- pivoting 90 degrees to strike Kemper's exposed right flank. Stannard acting without orders.",
    "src": "OR 27/1 p.350",
    "find": "(\"unit_id\":\"U-16VT\",\"tick\":548,[^\\n]*?\"notes\":\")16th Vermont FIRST CHARGE -- pivoting 90 degrees to strike Kemper's exposed right flank\\. Stannard acting without orders\\.\"",
-   "repl": "$116th Vermont changes front against Kemper's flank (Stannard)\"",
+   "repl": "\\g<1>16th Vermont changes front against Kemper's flank (Stannard)\"",
    "area": "notes"
   },
   {
@@ -3878,7 +3878,7 @@
    "before": "13th Vermont joining the charge into Kemper's flank -- the Vermont men are green but they are going",
    "src": "OR 27/1 p.350",
    "find": "(\"unit_id\":\"U-13VT\",\"tick\":548,[^\\n]*?\"notes\":\")13th Vermont joining the charge into Kemper's flank -- the Vermont men are green but they are going\"",
-   "repl": "$113th Vermont changes front into Kemper's flank\"",
+   "repl": "\\g<1>13th Vermont changes front into Kemper's flank\"",
    "area": "notes"
   },
   {
@@ -3888,7 +3888,7 @@
    "before": "Kemper's brigade struck in the flank -- Kemper wounded, falling from his horse. The brigade losing cohesion.",
    "src": "OR 27/2 p.298",
    "find": "(\"unit_id\":\"C-I-3-2\",\"tick\":548,[^\\n]*?\"notes\":\")Kemper's brigade struck in the flank -- Kemper wounded, falling from his horse\\. The brigade losing cohesion\\.\"",
-   "repl": "$1Kemper's brigade struck in the flank -- Kemper wounded\"",
+   "repl": "\\g<1>Kemper's brigade struck in the flank -- Kemper wounded\"",
    "area": "notes"
   },
   {
@@ -3898,7 +3898,7 @@
    "before": "16th Vermont having driven Kemper -- reforming. Stannard spots Wilcox's Alabama brigade advancing to support Pickett.",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"U-16VT\",\"tick\":550,[^\\n]*?\"notes\":\")16th Vermont having driven Kemper -- reforming\\. Stannard spots Wilcox's Alabama brigade advancing to support Pickett\\.\"",
-   "repl": "$116th Vermont reforming -- Wilcox's brigade advancing on the right\"",
+   "repl": "\\g<1>16th Vermont reforming -- Wilcox's brigade advancing on the right\"",
    "area": "notes"
   },
   {
@@ -3908,7 +3908,7 @@
    "before": "16th Vermont SECOND CHARGE -- pivoting again, now striking Wilcox's Alabama brigade in the flank. Two charges in 8 minutes.",
    "src": "timing not confirmed",
    "find": "(\"unit_id\":\"U-16VT\",\"tick\":554,[^\\n]*?\"notes\":\")16th Vermont SECOND CHARGE -- pivoting again, now striking Wilcox's Alabama brigade in the flank\\. Two charges in 8 minutes\\.\"",
-   "repl": "$116th Vermont changes front a second time against Wilcox's brigade\"",
+   "repl": "\\g<1>16th Vermont changes front a second time against Wilcox's brigade\"",
    "area": "notes"
   },
   {
@@ -3918,7 +3918,7 @@
    "before": "16th Vermont reforming -- two charges, two flank attacks. Their first day of combat. 76 casualties.",
    "src": "OR 27/1 p.174 (return: 16th Vermont 119)",
    "find": "(\"unit_id\":\"U-16VT\",\"tick\":558,[^\\n]*?\"notes\":\")16th Vermont reforming -- two charges, two flank attacks\\. Their first day of combat\\. 76 casualties\\.\"",
-   "repl": "$116th Vermont reforming -- the return counts 119 casualties\"",
+   "repl": "\\g<1>16th Vermont reforming -- the return counts 119 casualties\"",
    "area": "notes"
   },
   {
@@ -3928,7 +3928,7 @@
    "before": "13th Vermont also reforming -- Stannard's brigade has helped seal the Confederate defeat",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"U-13VT\",\"tick\":558,[^\\n]*?\"notes\":\")13th Vermont also reforming -- Stannard's brigade has helped seal the Confederate defeat\"",
-   "repl": "$113th Vermont reforming\"",
+   "repl": "\\g<1>13th Vermont reforming\"",
    "area": "notes"
   },
   {
@@ -3938,7 +3938,7 @@
    "before": "VI Corps beginning 35-mile forced march from Manchester -- will not arrive until late July 2",
    "src": "no distance in the reports read",
    "find": "(\"unit_id\":\"U-VI-1\",\"tick\":226,[^\\n]*?\"notes\":\")VI Corps beginning 35-mile forced march from Manchester -- will not arrive until late July 2\"",
-   "repl": "$1VI Corps beginning a long march from Manchester\"",
+   "repl": "\\g<1>VI Corps beginning a long march from Manchester\"",
    "area": "notes"
   },
   {
@@ -3948,7 +3948,7 @@
    "before": "VI Corps arriving -- too late for Day 2 fighting. 15,000 fresh men in reserve.",
    "src": "the corps strength in the file is 13,596",
    "find": "(\"unit_id\":\"U-VI-1\",\"tick\":300,[^\\n]*?\"notes\":\")VI Corps arriving -- too late for Day 2 fighting\\. 15,000 fresh men in reserve\\.\"",
-   "repl": "$1VI Corps arriving\"",
+   "repl": "\\g<1>VI Corps arriving\"",
    "area": "notes"
   },
   {
@@ -3958,7 +3958,7 @@
    "before": "Artillery Reserve (Tyler) -- 100 guns in reserve behind Cemetery Hill",
    "src": "gun counts not confirmed",
    "find": "(\"unit_id\":\"U-ART-RES\",\"tick\":226,[^\\n]*?\"notes\":\")Artillery Reserve \\(Tyler\\) -- 100 guns in reserve behind Cemetery Hill\"",
-   "repl": "$1Artillery Reserve (Tyler) behind Cemetery Hill\"",
+   "repl": "\\g<1>Artillery Reserve (Tyler) behind Cemetery Hill\"",
    "area": "notes"
   },
   {
@@ -3968,7 +3968,7 @@
    "before": "Artillery Reserve overnight -- 77 guns still uncommitted",
    "src": "gun counts not confirmed",
    "find": "(\"unit_id\":\"U-ART-RES\",\"tick\":400,[^\\n]*?\"notes\":\")Artillery Reserve overnight -- 77 guns still uncommitted\"",
-   "repl": "$1Artillery Reserve overnight\"",
+   "repl": "\\g<1>Artillery Reserve overnight\"",
    "area": "notes"
   },
   {
@@ -3978,7 +3978,7 @@
    "before": "Pickett's division -- assigned to guard the supply trains. They will not fight today.",
    "src": "OR 27/2 p.320 (Lee)",
    "find": "(\"unit_id\":\"C-I-3\",\"tick\":226,[^\\n]*?\"notes\":\")Pickett's division -- assigned to guard the supply trains\\. They will not fight today\\.\"",
-   "repl": "$1Pickett's division -- Lee's report says it arrived near the field in the afternoon of July 2\"",
+   "repl": "\\g<1>Pickett's division -- Lee's report says it arrived near the field in the afternoon of July 2\"",
    "area": "notes"
   },
   {
@@ -3988,7 +3988,7 @@
    "before": "Garnett's brigade in reserve -- the last reserves Lee has",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"C-I-3-1\",\"tick\":451,[^\\n]*?\"notes\":\")Garnett's brigade in reserve -- the last reserves Lee has\"",
-   "repl": "$1Garnett's brigade in reserve\"",
+   "repl": "\\g<1>Garnett's brigade in reserve\"",
    "area": "notes"
   },
   {
@@ -3998,7 +3998,7 @@
    "before": "Johnson's division in reserve -- will assault Culp's Hill tonight",
    "src": "OR 27/2 p.447 (Ewell)",
    "find": "(\"unit_id\":\"C-II-4\",\"tick\":226,[^\\n]*?\"notes\":\")Johnson's division in reserve -- will assault Culp's Hill tonight\"",
-   "repl": "$1Johnson's division on the left of Ewell's line\"",
+   "repl": "\\g<1>Johnson's division on the left of Ewell's line\"",
    "area": "notes"
   },
   {
@@ -4008,7 +4008,7 @@
    "before": "Pender's division in reserve -- Pender mortally wounded by shell fragment today",
    "src": "OR 27/2 p.310 (Lee)",
    "find": "(\"unit_id\":\"C-III-3\",\"tick\":226,[^\\n]*?\"notes\":\")Pender's division in reserve -- Pender mortally wounded by shell fragment today\"",
-   "repl": "$1Pender's division -- General Pender wounded (he died July 18)\"",
+   "repl": "\\g<1>Pender's division -- General Pender wounded (he died July 18)\"",
    "area": "notes"
   },
   {
@@ -4018,7 +4018,7 @@
    "before": "20th Maine company skirmishers -- feeling for Confederate approach",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"U-20ME\",\"tick\":264,[^\\n]*?\"notes\":\")20th Maine company skirmishers -- feeling for Confederate approach\"",
-   "repl": "$120th Maine company skirmishers\"",
+   "repl": "\\g<1>20th Maine company skirmishers\"",
    "area": "notes"
   },
   {
@@ -4028,7 +4028,7 @@
    "before": "15th Alabama skirmishers -- first contact with Vincent's men",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-15AL\",\"tick\":264,[^\\n]*?\"notes\":\")15th Alabama skirmishers -- first contact with Vincent's men\"",
-   "repl": "$115th Alabama skirmishers\"",
+   "repl": "\\g<1>15th Alabama skirmishers\"",
    "area": "notes"
   },
   {
@@ -4038,7 +4038,7 @@
    "before": "26th NC skirmishers -- 40 men from the 216 survivors",
    "src": "survivor count not confirmed",
    "find": "(\"unit_id\":\"C-26NC\",\"tick\":535,[^\\n]*?\"notes\":\")26th NC skirmishers -- 40 men from the 216 survivors\"",
-   "repl": "$126th NC skirmishers\"",
+   "repl": "\\g<1>26th NC skirmishers\"",
    "area": "notes"
   },
   {
@@ -4048,7 +4048,7 @@
    "before": "Scales's shattered brigade -- 66% casualties",
    "src": "OR 27/2 p.345",
    "find": "(\"unit_id\":\"C-III-3-4\",\"tick\":120,[^\\n]*?\"notes\":\")Scales's shattered brigade -- 66% casualties\"",
-   "repl": "$1Scales's brigade -- heavy losses (the return counts 535 for the battle)\"",
+   "repl": "\\g<1>Scales's brigade -- heavy losses (the return counts 535 for the battle)\"",
    "area": "notes"
   },
   {
@@ -4058,7 +4058,7 @@
    "before": "Pettigrew's brigade on Seminary Ridge -- 26th NC decimated",
    "src": "OR 27/2 p.638",
    "find": "(\"unit_id\":\"C-III-2-1\",\"tick\":120,[^\\n]*?\"notes\":\")Pettigrew's brigade on Seminary Ridge -- 26th NC decimated\"",
-   "repl": "$1Pettigrew's brigade on Seminary Ridge -- the 26th NC lost over half its numbers (Pettigrew)\"",
+   "repl": "\\g<1>Pettigrew's brigade on Seminary Ridge -- the 26th NC lost over half its numbers (Pettigrew)\"",
    "area": "notes"
   },
   {
@@ -4068,7 +4068,7 @@
    "before": "Vincent's brigade -- 20th Maine here, not yet aware of tomorrow's role",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"U-V-1-3\",\"tick\":150,[^\\n]*?\"notes\":\")Vincent's brigade -- 20th Maine here, not yet aware of tomorrow's role\"",
-   "repl": "$1Vincent's brigade -- 20th Maine here\"",
+   "repl": "\\g<1>Vincent's brigade -- 20th Maine here\"",
    "area": "notes"
   },
   {
@@ -4078,7 +4078,7 @@
    "before": "Crawford's Pennsylvania Reserves -- will charge down Little Round Top tomorrow",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-V-3-1\",\"tick\":150,[^\\n]*?\"notes\":\")Crawford's Pennsylvania Reserves -- will charge down Little Round Top tomorrow\"",
-   "repl": "$1Crawford's Pennsylvania Reserves\"",
+   "repl": "\\g<1>Crawford's Pennsylvania Reserves\"",
    "area": "notes"
   },
   {
@@ -4088,7 +4088,7 @@
    "before": "VI Corps arriving after 34-mile march",
    "src": "no figure in the reports read",
    "find": "(\"unit_id\":\"U-VI-1-1\",\"tick\":180,[^\\n]*?\"notes\":\")VI Corps arriving after 34-mile march\"",
-   "repl": "$1VI Corps arriving after a long march\"",
+   "repl": "\\g<1>VI Corps arriving after a long march\"",
    "area": "notes"
   },
   {
@@ -4098,7 +4098,7 @@
    "before": "Webb's brigade at The Angle -- this is the position they will defend to the death on July 3",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"U-II-2-2\",\"tick\":200,[^\\n]*?\"notes\":\")Webb's brigade at The Angle -- this is the position they will defend to the death on July 3\"",
-   "repl": "$1Webb's brigade at The Angle\"",
+   "repl": "\\g<1>Webb's brigade at The Angle\"",
    "area": "notes"
   },
   {
@@ -4108,7 +4108,7 @@
    "before": "Cushing's battery at The Angle -- will be here for 48 more hours",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"U-ART-A4US\",\"tick\":200,[^\\n]*?\"notes\":\")Cushing's battery at The Angle -- will be here for 48 more hours\"",
-   "repl": "$1Cushing's battery at The Angle\"",
+   "repl": "\\g<1>Cushing's battery at The Angle\"",
    "area": "notes"
   },
   {
@@ -4118,7 +4118,7 @@
    "before": "1st Minnesota with Harrow's brigade -- 262 men, unaware of tomorrow's charge",
    "src": "Fox p.26",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":200,[^\\n]*?\"notes\":\")1st Minnesota with Harrow's brigade -- 262 men, unaware of tomorrow's charge\"",
-   "repl": "$11st Minnesota with Harrow's brigade -- 262 men engaged (Fox)\"",
+   "repl": "\\g<1>1st Minnesota with Harrow's brigade -- 262 men engaged (Fox)\"",
    "area": "notes"
   },
   {
@@ -4128,7 +4128,7 @@
    "before": "20th Maine bivouacking south of Cemetery Ridge -- end of Day 1. Tomorrow they hold Little Round Top.",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-20ME\",\"tick\":225,[^\\n]*?\"notes\":\")20th Maine bivouacking south of Cemetery Ridge -- end of Day 1\\. Tomorrow they hold Little Round Top\\.\"",
-   "repl": "$120th Maine bivouacking south of Cemetery Ridge -- end of Day 1\"",
+   "repl": "\\g<1>20th Maine bivouacking south of Cemetery Ridge -- end of Day 1\"",
    "area": "notes"
   },
   {
@@ -4138,7 +4138,7 @@
    "before": "Pegram's battalion on Herr Ridge -- first Confederate artillery fire",
    "src": "no report read names the first Confederate gun",
    "find": "(\"unit_id\":\"C-ART-Marye\",\"tick\":14,[^\\n]*?\"notes\":\")Pegram's battalion on Herr Ridge -- first Confederate artillery fire\"",
-   "repl": "$1Pegram's battalion on Herr Ridge\"",
+   "repl": "\\g<1>Pegram's battalion on Herr Ridge\"",
    "area": "notes"
   },
   {
@@ -4148,7 +4148,7 @@
    "before": "6th Wisconsin at the cut -- 232 Confederates surrender",
    "src": "OR 27/1 p.276 (Dawes)",
    "find": "(\"unit_id\":\"U-6WI\",\"tick\":37,[^\\n]*?\"notes\":\")6th Wisconsin at the cut -- 232 Confederates surrender\"",
-   "repl": "$16th Wisconsin at the cut -- about 7 officers and 225 men taken (Dawes)\"",
+   "repl": "\\g<1>6th Wisconsin at the cut -- about 7 officers and 225 men taken (Dawes)\"",
    "area": "notes"
   },
   {
@@ -4158,7 +4158,7 @@
    "before": "IVERSON'S PITS. Baxter fires simultaneous volley into flank. ~500 men shot down in rows.",
    "src": "OR 27/2 p.553 (Rodes); the return counts 130 killed and 328 wounded for the brigade",
    "find": "(\"unit_id\":\"C-II-3-3\",\"tick\":53,[^\\n]*?\"notes\":\")IVERSON'S PITS\\. Baxter fires simultaneous volley into flank\\. ~500 men shot down in rows\\.\"",
-   "repl": "$1IVERSON'S PITS. Baxter's brigade fires into Iverson's flank from the stone wall; Rodes wrote that the dead lay in a distinctly marked line of battle.\"",
+   "repl": "\\g<1>IVERSON'S PITS. Baxter's brigade fires into Iverson's flank from the stone wall; Rodes wrote that the dead lay in a distinctly marked line of battle.\"",
    "area": "notes"
   },
   {
@@ -4168,7 +4168,7 @@
    "before": "Wilkeson's battery -- most exposed Union artillery position. Wilkeson about to be mortally wounded.",
    "src": "OR 27/1 p.230",
    "find": "(\"unit_id\":\"U-ART-G4US\",\"tick\":56,[^\\n]*?\"notes\":\")Wilkeson's battery -- most exposed Union artillery position\\. Wilkeson about to be mortally wounded\\.\"",
-   "repl": "$1Wilkeson's battery (G, 4th U.S.) posted close to the enemy's line (Osborn)\"",
+   "repl": "\\g<1>Wilkeson's battery (G, 4th U.S.) posted close to the enemy's line (Osborn)\"",
    "area": "notes"
   },
   {
@@ -4178,7 +4178,7 @@
    "before": "Gordon sweeps over Barlow's Knoll. Barlow wounded and left for dead. Gordon gives him water.",
    "src": "OR 27/1 p.705; Gordon's memoir",
    "find": "(\"unit_id\":\"C-II-1-3\",\"tick\":57,[^\\n]*?\"notes\":\")Gordon sweeps over Barlow's Knoll\\. Barlow wounded and left for dead\\. Gordon gives him water\\.\"",
-   "repl": "$1Gordon sweeps over Barlow's Knoll. Barlow severely wounded; Gordon's later account has him giving Barlow water.\"",
+   "repl": "\\g<1>Gordon sweeps over Barlow's Knoll. Barlow severely wounded; Gordon's later account has him giving Barlow water.\"",
    "area": "notes"
   },
   {
@@ -4188,7 +4188,7 @@
    "before": "Von Gilsa's brigade broken. 47% casualties.",
    "src": "OR 27/1 p.182",
    "find": "(\"unit_id\":\"U-XI-1-1\",\"tick\":57,[^\\n]*?\"notes\":\")Von Gilsa's brigade broken\\. 47% casualties\\.\"",
-   "repl": "$1Von Gilsa's brigade broken -- the return counts 526 casualties\"",
+   "repl": "\\g<1>Von Gilsa's brigade broken -- the return counts 526 casualties\"",
    "area": "notes"
   },
   {
@@ -4198,7 +4198,7 @@
    "before": "Wilkeson mortally wounded -- both legs shattered at Barlow's Knoll",
    "src": "OR 27/1 p.230, p.705",
    "find": "(\"unit_id\":\"U-ART-G4US\",\"tick\":57,[^\\n]*?\"notes\":\")Wilkeson mortally wounded -- both legs shattered at Barlow's Knoll\"",
-   "repl": "$1Wilkeson mortally wounded at Barlow's Knoll\"",
+   "repl": "\\g<1>Wilkeson mortally wounded at Barlow's Knoll\"",
    "area": "notes"
   },
   {
@@ -4208,7 +4208,7 @@
    "before": "Scales's brigade -- 66% casualties already. Remnants advancing.",
    "src": "OR 27/2 p.345 (return)",
    "find": "(\"unit_id\":\"C-III-3-4\",\"tick\":58,[^\\n]*?\"notes\":\")Scales's brigade -- 66% casualties already\\. Remnants advancing\\.\"",
-   "repl": "$1Scales's brigade -- heavy losses (the return counts 535 for the battle). Remnants advancing.\"",
+   "repl": "\\g<1>Scales's brigade -- heavy losses (the return counts 535 for the battle). Remnants advancing.\"",
    "area": "notes"
   },
   {
@@ -4218,7 +4218,7 @@
    "before": "Coster's brigade trapped in brickyard -- 566 casualties. 134NY, 154NY, 27PA, 73PA nearly destroyed.",
    "src": "OR 27/1 p.183 (return)",
    "find": "(\"unit_id\":\"U-XI-2-1\",\"tick\":60,[^\\n]*?\"notes\":\")Coster's brigade trapped in brickyard -- 566 casualties\\. 134NY, 154NY, 27PA, 73PA nearly destroyed\\.\"",
-   "repl": "$1Coster's brigade in the brickyard -- 597 casualties in the return (134th NY 252, 154th NY 200, 27th PA 111, 73d PA 34)\"",
+   "repl": "\\g<1>Coster's brigade in the brickyard -- 597 casualties in the return (134th NY 252, 154th NY 200, 27th PA 111, 73d PA 34)\"",
    "area": "notes"
   },
   {
@@ -4228,7 +4228,7 @@
    "before": "Paul's brigade collapsing. Paul blinded. Four commanders wounded in sequence.",
    "src": "OR 27/1 p.156 (roster), p.249",
    "find": "(\"unit_id\":\"U-I-2-1\",\"tick\":62,[^\\n]*?\"notes\":\")Paul's brigade collapsing\\. Paul blinded\\. Four commanders wounded in sequence\\.\"",
-   "repl": "$1Paul's brigade giving way. Paul severely wounded; his successors Leonard, Root and Coulter were wounded in turn (roster)\"",
+   "repl": "\\g<1>Paul's brigade giving way. Paul severely wounded; his successors Leonard, Root and Coulter were wounded in turn (roster)\"",
    "area": "notes"
   },
   {
@@ -4238,7 +4238,7 @@
    "before": "Stone's Bucktails -- 45% casualties, retreating toward Gettysburg",
    "src": "OR 27/1 p.174 (return: 853)",
    "find": "(\"unit_id\":\"U-I-3-2\",\"tick\":64,[^\\n]*?\"notes\":\")Stone's Bucktails -- 45% casualties, retreating toward Gettysburg\"",
-   "repl": "$1Stone's Bucktails -- 853 casualties in the return, retreating toward Gettysburg\"",
+   "repl": "\\g<1>Stone's Bucktails -- 853 casualties in the return, retreating toward Gettysburg\"",
    "area": "notes"
   },
   {
@@ -4248,7 +4248,7 @@
    "before": "Schimmelfennig cut off -- will hide in pigpen until July 4",
    "src": "later accounts",
    "find": "(\"unit_id\":\"U-XI-3-2\",\"tick\":66,[^\\n]*?\"notes\":\")Schimmelfennig cut off -- will hide in pigpen until July 4\"",
-   "repl": "$1Schimmelfennig cut off in the town (he is reported to have hidden until July 4)\"",
+   "repl": "\\g<1>Schimmelfennig cut off in the town (he is reported to have hidden until July 4)\"",
    "area": "notes"
   },
   {
@@ -4258,7 +4258,7 @@
    "before": "Iverson's shattered brigade in town -- 61% casualties",
    "src": "OR 27/2 p.342",
    "find": "(\"unit_id\":\"C-II-3-3\",\"tick\":95,[^\\n]*?\"notes\":\")Iverson's shattered brigade in town -- 61% casualties\"",
-   "repl": "$1Iverson's brigade in town -- the return counts 820 killed, wounded or missing\"",
+   "repl": "\\g<1>Iverson's brigade in town -- the return counts 820 killed, wounded or missing\"",
    "area": "notes"
   },
   {
@@ -4268,7 +4268,7 @@
    "before": "Barksdale's Mississippi brigade -- Barksdale will lead from the front",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-I-1-2\",\"tick\":256,[^\\n]*?\"notes\":\")Barksdale's Mississippi brigade -- Barksdale will lead from the front\"",
-   "repl": "$1Barksdale's Mississippi brigade\"",
+   "repl": "\\g<1>Barksdale's Mississippi brigade\"",
    "area": "notes"
   },
   {
@@ -4278,7 +4278,7 @@
    "before": "Vincent intercepts 20th Maine -- redirecting brigade up Little Round Top",
    "src": "OR 27/1 p.632 (Chamberlain's report is not in the pages read; Rice p.652)",
    "find": "(\"unit_id\":\"U-20ME\",\"tick\":265,[^\\n]*?\"notes\":\")Vincent intercepts 20th Maine -- redirecting brigade up Little Round Top\"",
-   "repl": "$1Vincent places the 20th Maine on the left of his line\"",
+   "repl": "\\g<1>Vincent places the 20th Maine on the left of his line\"",
    "area": "notes"
   },
   {
@@ -4288,7 +4288,7 @@
    "before": "20th Maine on extreme left -- REFUSED FLANK at approximately 225 degrees",
    "src": "bearing not confirmed",
    "find": "(\"unit_id\":\"U-20ME\",\"tick\":267,[^\\n]*?\"notes\":\")20th Maine on extreme left -- REFUSED FLANK at approximately 225 degrees\"",
-   "repl": "$120th Maine on the extreme left, its left refused\"",
+   "repl": "\\g<1>20th Maine on the extreme left, its left refused\"",
    "area": "notes"
   },
   {
@@ -4298,7 +4298,7 @@
    "before": "O'Rorke's 140th NY arriving at summit -- about to charge without orders",
    "src": "detail not confirmed",
    "find": "(\"unit_id\":\"U-140NY\",\"tick\":270,[^\\n]*?\"notes\":\")O'Rorke's 140th NY arriving at summit -- about to charge without orders\"",
-   "repl": "$1O'Rorke's 140th NY arriving at the summit\"",
+   "repl": "\\g<1>O'Rorke's 140th NY arriving at the summit\"",
    "area": "notes"
   },
   {
@@ -4308,7 +4308,7 @@
    "before": "16th MI near-break -- wavering under Confederate pressure",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"U-16MI\",\"tick\":273,[^\\n]*?\"notes\":\")16th MI near-break -- wavering under Confederate pressure\"",
-   "repl": "$116th MI hard pressed\"",
+   "repl": "\\g<1>16th MI hard pressed\"",
    "area": "notes"
   },
   {
@@ -4318,7 +4318,7 @@
    "before": "15th Alabama BROKEN by Chamberlain's charge -- retreating down slope",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-15AL\",\"tick\":275,[^\\n]*?\"notes\":\")15th Alabama BROKEN by Chamberlain's charge -- retreating down slope\"",
-   "repl": "$115th Alabama driven back by Chamberlain's charge\"",
+   "repl": "\\g<1>15th Alabama driven back by Chamberlain's charge\"",
    "area": "notes"
   },
   {
@@ -4328,7 +4328,7 @@
    "before": "Graham's brigade collapsing -- Graham wounded and captured. 141st PA 71% casualties.",
    "src": "OR 27/1 p.177 (return)",
    "find": "(\"unit_id\":\"U-III-1-3\",\"tick\":280,[^\\n]*?\"notes\":\")Graham's brigade collapsing -- Graham wounded and captured\\. 141st PA 71% casualties\\.\"",
-   "repl": "$1Graham's brigade collapsing -- Graham wounded and captured; the return counts 149 casualties for the 141st PA\"",
+   "repl": "\\g<1>Graham's brigade collapsing -- Graham wounded and captured; the return counts 149 casualties for the 141st PA\"",
    "area": "notes"
   },
   {
@@ -4338,7 +4338,7 @@
    "before": "Zook's brigade -- Zook about to be mortally wounded",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-II-1-3\",\"tick\":285,[^\\n]*?\"notes\":\")Zook's brigade -- Zook about to be mortally wounded\"",
-   "repl": "$1Zook's brigade in the Wheatfield\"",
+   "repl": "\\g<1>Zook's brigade in the Wheatfield\"",
    "area": "notes"
   },
   {
@@ -4348,7 +4348,7 @@
    "before": "Cross KIA in Wheatfield -- McKeen assumes command. Commander succession US-009.",
    "src": "internal id removed",
    "find": "(\"unit_id\":\"U-II-1-1\",\"tick\":290,[^\\n]*?\"notes\":\")Cross KIA in Wheatfield -- McKeen assumes command\\. Commander succession US-009\\.\"",
-   "repl": "$1Cross killed in the Wheatfield -- McKeen assumes command\"",
+   "repl": "\\g<1>Cross killed in the Wheatfield -- McKeen assumes command\"",
    "area": "notes"
   },
   {
@@ -4358,7 +4358,7 @@
    "before": "Zook mortally wounded -- Fraser assumes command. US-010.",
    "src": "internal id removed",
    "find": "(\"unit_id\":\"U-II-1-3\",\"tick\":290,[^\\n]*?\"notes\":\")Zook mortally wounded -- Fraser assumes command\\. US-010\\.\"",
-   "repl": "$1Zook mortally wounded -- Fraser assumes command\"",
+   "repl": "\\g<1>Zook mortally wounded -- Fraser assumes command\"",
    "area": "notes"
   },
   {
@@ -4368,7 +4368,7 @@
    "before": "1st MINNESOTA CHARGING into Wilcox's brigade. Hancock orders 262 men against 1700. Buying 5 minutes.",
    "src": "Fox p.26; time-facts R077",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":302,[^\\n]*?\"notes\":\")1st MINNESOTA CHARGING into Wilcox's brigade\\. Hancock orders 262 men against 1700\\. Buying 5 minutes\\.\"",
-   "repl": "$11st Minnesota charging Wilcox's brigade -- 262 men engaged (Fox); Hancock directs the charge\"",
+   "repl": "\\g<1>1st Minnesota charging Wilcox's brigade -- 262 men engaged (Fox); Hancock directs the charge\"",
    "area": "notes"
   },
   {
@@ -4378,7 +4378,7 @@
    "before": "Bigelow's last stand at Trostle Farm wall -- nearly out of men",
    "src": "OR 27/1 p.187 (return)",
    "find": "(\"unit_id\":\"U-ART-9MA\",\"tick\":302,[^\\n]*?\"notes\":\")Bigelow's last stand at Trostle Farm wall -- nearly out of men\"",
-   "repl": "$1Bigelow's battery at Trostle's -- the return counts 28 casualties\"",
+   "repl": "\\g<1>Bigelow's battery at Trostle's -- the return counts 28 casualties\"",
    "area": "notes"
   },
   {
@@ -4388,7 +4388,7 @@
    "before": "1st Minnesota -- 224 of 262 men down in 15 minutes. 85.5% casualties. 38 survivors.",
    "src": "OR 27/1 p.176 (return); Fox p.26, p.36",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":303,[^\\n]*?\"notes\":\")1st Minnesota -- 224 of 262 men down in 15 minutes\\. 85\\.5% casualties\\. 38 survivors\\.\"",
-   "repl": "$11st Minnesota -- 224 casualties of 262 engaged over the battle (return; Fox), 215 of them on July 2\"",
+   "repl": "\\g<1>1st Minnesota -- 224 casualties of 262 engaged over the battle (return; Fox), 215 of them on July 2\"",
    "area": "notes"
   },
   {
@@ -4398,7 +4398,7 @@
    "before": "Willard KIA by artillery shell while commanding charge. Sherrill assumes. US-013.",
    "src": "internal id removed",
    "find": "(\"unit_id\":\"U-II-3-3\",\"tick\":307,[^\\n]*?\"notes\":\")Willard KIA by artillery shell while commanding charge\\. Sherrill assumes\\. US-013\\.\"",
-   "repl": "$1Willard killed by an artillery shell while leading the charge -- Sherrill assumes command\"",
+   "repl": "\\g<1>Willard killed by an artillery shell while leading the charge -- Sherrill assumes command\"",
    "area": "notes"
   },
   {
@@ -4408,7 +4408,7 @@
    "before": "38 survivors of 1st Minnesota in line on Cemetery Ridge",
    "src": "OR 27/1 p.425",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":310,[^\\n]*?\"notes\":\")38 survivors of 1st Minnesota in line on Cemetery Ridge\"",
-   "repl": "$11st Minnesota in line on Cemetery Ridge\"",
+   "repl": "\\g<1>1st Minnesota in line on Cemetery Ridge\"",
    "area": "notes"
   },
   {
@@ -4418,7 +4418,7 @@
    "before": "GREENE'S LONE STAND -- 1424 men holding against 6500 Confederates",
    "src": "the strengths are not confirmed by the reports read",
    "find": "(\"unit_id\":\"U-XII-2-3\",\"tick\":314,[^\\n]*?\"notes\":\")GREENE'S LONE STAND -- 1424 men holding against 6500 Confederates\"",
-   "repl": "$1Greene's brigade holding Culp's Hill\"",
+   "repl": "\\g<1>Greene's brigade holding Culp's Hill\"",
    "area": "notes"
   },
   {
@@ -4428,7 +4428,7 @@
    "before": "Avery mortally wounded on slope -- writing blood message. CS-014.",
    "src": "internal id removed",
    "find": "(\"unit_id\":\"C-II-1-2\",\"tick\":327,[^\\n]*?\"notes\":\")Avery mortally wounded on slope -- writing blood message\\. CS-014\\.\"",
-   "repl": "$1Avery mortally wounded on the slope\"",
+   "repl": "\\g<1>Avery mortally wounded on the slope\"",
    "area": "notes"
   },
   {
@@ -4438,7 +4438,7 @@
    "before": "Avery's brigade retreating. Godwin now commands. CS-014.",
    "src": "internal id removed",
    "find": "(\"unit_id\":\"C-II-1-2\",\"tick\":328,[^\\n]*?\"notes\":\")Avery's brigade retreating\\. Godwin now commands\\. CS-014\\.\"",
-   "repl": "$1Avery's brigade retreating. Godwin now commands.\"",
+   "repl": "\\g<1>Avery's brigade retreating. Godwin now commands.\"",
    "area": "notes"
   },
   {
@@ -4448,7 +4448,7 @@
    "before": "Armistead's brigade -- Armistead tells his men what tomorrow will bring",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"C-I-3-3\",\"tick\":360,[^\\n]*?\"notes\":\")Armistead's brigade -- Armistead tells his men what tomorrow will bring\"",
-   "repl": "$1Armistead's brigade\"",
+   "repl": "\\g<1>Armistead's brigade\"",
    "area": "notes"
   },
   {
@@ -4458,7 +4458,7 @@
    "before": "Pettigrew's brigade on Seminary Ridge -- will lead left column of July 3 assault",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-III-2-1\",\"tick\":360,[^\\n]*?\"notes\":\")Pettigrew's brigade on Seminary Ridge -- will lead left column of July 3 assault\"",
-   "repl": "$1Pettigrew's brigade on Seminary Ridge\"",
+   "repl": "\\g<1>Pettigrew's brigade on Seminary Ridge\"",
    "area": "notes"
   },
   {
@@ -4468,7 +4468,7 @@
    "before": "Vermont Brigade on Cemetery Ridge -- Stannard will use them tomorrow",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-I-3-3\",\"tick\":360,[^\\n]*?\"notes\":\")Vermont Brigade on Cemetery Ridge -- Stannard will use them tomorrow\"",
-   "repl": "$1Vermont Brigade on Cemetery Ridge\"",
+   "repl": "\\g<1>Vermont Brigade on Cemetery Ridge\"",
    "area": "notes"
   },
   {
@@ -4478,7 +4478,7 @@
    "before": "20th Maine holds Little Round Top -- 130 casualties from today's fighting",
    "src": "OR 27/1 p.179",
    "find": "(\"unit_id\":\"U-20ME\",\"tick\":375,[^\\n]*?\"notes\":\")20th Maine holds Little Round Top -- 130 casualties from today's fighting\"",
-   "repl": "$120th Maine holds Little Round Top -- the return counts 125 casualties\"",
+   "repl": "\\g<1>20th Maine holds Little Round Top -- the return counts 125 casualties\"",
    "area": "notes"
   },
   {
@@ -4488,7 +4488,7 @@
    "before": "38 survivors of 1st Minnesota in line",
    "src": "OR 27/1 p.425",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":376,[^\\n]*?\"notes\":\")38 survivors of 1st Minnesota in line\"",
-   "repl": "$11st Minnesota in line\"",
+   "repl": "\\g<1>1st Minnesota in line\"",
    "area": "notes"
   },
   {
@@ -4498,7 +4498,7 @@
    "before": "Custer's Michigan Brigade east of Gettysburg -- Stuart will come here tomorrow",
    "src": "editorial claim removed",
    "find": "(\"unit_id\":\"U-CAV-2-3\",\"tick\":400,[^\\n]*?\"notes\":\")Custer's Michigan Brigade east of Gettysburg -- Stuart will come here tomorrow\"",
-   "repl": "$1Custer's Michigan Brigade east of Gettysburg\"",
+   "repl": "\\g<1>Custer's Michigan Brigade east of Gettysburg\"",
    "area": "notes"
   },
   {
@@ -4508,7 +4508,7 @@
    "before": "XII Corps in position -- artillery will open at dawn tomorrow",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-XII-1-1\",\"tick\":420,[^\\n]*?\"notes\":\")XII Corps in position -- artillery will open at dawn tomorrow\"",
-   "repl": "$1XII Corps in position\"",
+   "repl": "\\g<1>XII Corps in position\"",
    "area": "notes"
   },
   {
@@ -4518,7 +4518,7 @@
    "before": "Colgrove's brigade -- 2nd MA will charge across open ground tomorrow morning",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-XII-1-3\",\"tick\":420,[^\\n]*?\"notes\":\")Colgrove's brigade -- 2nd MA will charge across open ground tomorrow morning\"",
-   "repl": "$1Colgrove's brigade\"",
+   "repl": "\\g<1>Colgrove's brigade\"",
    "area": "notes"
   },
   {
@@ -4528,7 +4528,7 @@
    "before": "Armistead's brigade -- night before charge. Tomorrow he will cross The Angle.",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-I-3-3\",\"tick\":440,[^\\n]*?\"notes\":\")Armistead's brigade -- night before charge\\. Tomorrow he will cross The Angle\\.\"",
-   "repl": "$1Armistead's brigade -- night before the attack\"",
+   "repl": "\\g<1>Armistead's brigade -- night before the attack\"",
    "area": "notes"
   },
   {
@@ -4538,7 +4538,7 @@
    "before": "Brockenbrough's brigade -- will break first tomorrow",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-III-2-2\",\"tick\":440,[^\\n]*?\"notes\":\")Brockenbrough's brigade -- will break first tomorrow\"",
-   "repl": "$1Brockenbrough's brigade\"",
+   "repl": "\\g<1>Brockenbrough's brigade\"",
    "area": "notes"
   },
   {
@@ -4548,7 +4548,7 @@
    "before": "Fry's brigade (Archer's) -- Fry will be wounded at The Angle tomorrow",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-III-2-3\",\"tick\":440,[^\\n]*?\"notes\":\")Fry's brigade \\(Archer's\\) -- Fry will be wounded at The Angle tomorrow\"",
-   "repl": "$1Fry's brigade (Archer's)\"",
+   "repl": "\\g<1>Fry's brigade (Archer's)\"",
    "area": "notes"
   },
   {
@@ -4558,7 +4558,7 @@
    "before": "Lowrance's brigade (Scales's) -- 66% casualties already. Will charge again tomorrow.",
    "src": "OR 27/2 p.345",
    "find": "(\"unit_id\":\"C-III-3-4\",\"tick\":440,[^\\n]*?\"notes\":\")Lowrance's brigade \\(Scales's\\) -- 66% casualties already\\. Will charge again tomorrow\\.\"",
-   "repl": "$1Lowrance's brigade (Scales's) -- the return counts 535 casualties for the brigade\"",
+   "repl": "\\g<1>Lowrance's brigade (Scales's) -- the return counts 535 casualties for the brigade\"",
    "area": "notes"
   },
   {
@@ -4568,7 +4568,7 @@
    "before": "Cushing's battery -- end of Day 2. Cushing will die here tomorrow.",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-ART-A4US\",\"tick\":450,[^\\n]*?\"notes\":\")Cushing's battery -- end of Day 2\\. Cushing will die here tomorrow\\.\"",
-   "repl": "$1Cushing's battery -- end of Day 2\"",
+   "repl": "\\g<1>Cushing's battery -- end of Day 2\"",
    "area": "notes"
   },
   {
@@ -4578,7 +4578,7 @@
    "before": "38 survivors of 1st Minnesota in line. They hold here tomorrow too.",
    "src": "OR 27/1 p.425",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":450,[^\\n]*?\"notes\":\")38 survivors of 1st Minnesota in line\\. They hold here tomorrow too\\.\"",
-   "repl": "$11st Minnesota in line\"",
+   "repl": "\\g<1>1st Minnesota in line\"",
    "area": "notes"
   },
   {
@@ -4588,7 +4588,7 @@
    "before": "Vermont Brigade -- Stannard sees the ground he will use tomorrow for the flanking attack",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-I-3-3\",\"tick\":450,[^\\n]*?\"notes\":\")Vermont Brigade -- Stannard sees the ground he will use tomorrow for the flanking attack\"",
-   "repl": "$1Vermont Brigade on Cemetery Ridge\"",
+   "repl": "\\g<1>Vermont Brigade on Cemetery Ridge\"",
    "area": "notes"
   },
   {
@@ -4598,7 +4598,7 @@
    "before": "Armistead's brigade -- end of Day 2. Armistead will cross the wall tomorrow.",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-I-3-3\",\"tick\":450,[^\\n]*?\"notes\":\")Armistead's brigade -- end of Day 2\\. Armistead will cross the wall tomorrow\\.\"",
-   "repl": "$1Armistead's brigade -- end of Day 2\"",
+   "repl": "\\g<1>Armistead's brigade -- end of Day 2\"",
    "area": "notes"
   },
   {
@@ -4608,7 +4608,7 @@
    "before": "Steuart in XII Corps works -- end of Day 2. Will be driven out tomorrow morning.",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-II-2-4\",\"tick\":450,[^\\n]*?\"notes\":\")Steuart in XII Corps works -- end of Day 2\\. Will be driven out tomorrow morning\\.\"",
-   "repl": "$1Steuart in the XII Corps works -- end of Day 2\"",
+   "repl": "\\g<1>Steuart in the XII Corps works -- end of Day 2\"",
    "area": "notes"
   },
   {
@@ -4618,7 +4618,7 @@
    "before": "Colgrove's brigade -- 2nd MA and 27th IN will charge across the open meadow",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-XII-1-3\",\"tick\":451,[^\\n]*?\"notes\":\")Colgrove's brigade -- 2nd MA and 27th IN will charge across the open meadow\"",
-   "repl": "$1Colgrove's brigade -- 2nd MA and 27th IN\"",
+   "repl": "\\g<1>Colgrove's brigade -- 2nd MA and 27th IN\"",
    "area": "notes"
   },
   {
@@ -4628,7 +4628,7 @@
    "before": "38 survivors of 1st Minnesota in line -- hold again today",
    "src": "OR 27/1 p.425",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":451,[^\\n]*?\"notes\":\")38 survivors of 1st Minnesota in line -- hold again today\"",
-   "repl": "$11st Minnesota in line\"",
+   "repl": "\\g<1>1st Minnesota in line\"",
    "area": "notes"
   },
   {
@@ -4638,7 +4638,7 @@
    "before": "Stonewall Brigade counterattacking -- first of twelve Confederate assaults on Culp's Hill",
    "src": "count not in the reports read",
    "find": "(\"unit_id\":\"C-II-2-1\",\"tick\":452,[^\\n]*?\"notes\":\")Stonewall Brigade counterattacking -- first of twelve Confederate assaults on Culp's Hill\"",
-   "repl": "$1Stonewall Brigade attacking on Culp's Hill\"",
+   "repl": "\\g<1>Stonewall Brigade attacking on Culp's Hill\"",
    "area": "notes"
   },
   {
@@ -4648,7 +4648,7 @@
    "before": "2nd Massachusetts -- Mudge leads charge. His last words: 'It is murder but it is the order.'",
    "src": "OR 27/1 p.814 (Colgrove)",
    "find": "(\"unit_id\":\"U-2MA\",\"tick\":460,[^\\n]*?\"notes\":\")2nd Massachusetts -- Mudge leads charge\\. His last words: 'It is murder but it is the order\\.'\"",
-   "repl": "$12nd Massachusetts -- Mudge leads the charge (words attributed to him are from survivors' later accounts)\"",
+   "repl": "\\g<1>2nd Massachusetts -- Mudge leads the charge (words attributed to him are from survivors' later accounts)\"",
    "area": "notes"
   },
   {
@@ -4658,7 +4658,7 @@
    "before": "2nd MA repulsed -- Mudge KIA instantly. 43% casualties. Commander succession US-022.",
    "src": "internal id removed",
    "find": "(\"unit_id\":\"U-2MA\",\"tick\":461,[^\\n]*?\"notes\":\")2nd MA repulsed -- Mudge KIA instantly\\. 43% casualties\\. Commander succession US-022\\.\"",
-   "repl": "$12nd MA repulsed -- Mudge killed leading the charge\"",
+   "repl": "\\g<1>2nd MA repulsed -- Mudge killed leading the charge\"",
    "area": "notes"
   },
   {
@@ -4668,7 +4668,7 @@
    "before": "Greene still holding -- 12 Confederate assaults total this morning",
    "src": "count not in the reports read",
    "find": "(\"unit_id\":\"U-XII-2-3\",\"tick\":465,[^\\n]*?\"notes\":\")Greene still holding -- 12 Confederate assaults total this morning\"",
-   "repl": "$1Greene still holding\"",
+   "repl": "\\g<1>Greene still holding\"",
    "area": "notes"
   },
   {
@@ -4678,7 +4678,7 @@
    "before": "Stonewall Brigade retreating -- ammunition exhausted after 12 assaults",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-II-2-1\",\"tick\":490,[^\\n]*?\"notes\":\")Stonewall Brigade retreating -- ammunition exhausted after 12 assaults\"",
-   "repl": "$1Stonewall Brigade retreating\"",
+   "repl": "\\g<1>Stonewall Brigade retreating\"",
    "area": "notes"
   },
   {
@@ -4688,7 +4688,7 @@
    "before": "Steuart's brigade -- final retreat from Culp's Hill. 42.5% total casualties.",
    "src": "OR 27/2 p.341",
    "find": "(\"unit_id\":\"C-II-2-4\",\"tick\":510,[^\\n]*?\"notes\":\")Steuart's brigade -- final retreat from Culp's Hill\\. 42\\.5% total casualties\\.\"",
-   "repl": "$1Steuart's brigade -- final retreat from Culp's Hill\"",
+   "repl": "\\g<1>Steuart's brigade -- final retreat from Culp's Hill\"",
    "area": "notes"
   },
   {
@@ -4698,7 +4698,7 @@
    "before": "Brockenbrough's brigade -- will be the first to collapse",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"C-III-2-2\",\"tick\":516,[^\\n]*?\"notes\":\")Brockenbrough's brigade -- will be the first to collapse\"",
-   "repl": "$1Brockenbrough's brigade\"",
+   "repl": "\\g<1>Brockenbrough's brigade\"",
    "area": "notes"
   },
   {
@@ -4708,7 +4708,7 @@
    "before": "Cushing's battery -- approximately 45 minutes until the cannonade",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"U-ART-A4US\",\"tick\":516,[^\\n]*?\"notes\":\")Cushing's battery -- approximately 45 minutes until the cannonade\"",
-   "repl": "$1Cushing's battery at The Angle\"",
+   "repl": "\\g<1>Cushing's battery at The Angle\"",
    "area": "notes"
   },
   {
@@ -4718,7 +4718,7 @@
    "before": "8th Ohio in advanced skirmish position near Emmitsburg Road -- will enfilade Brockenbrough",
    "src": "prediction removed",
    "find": "(\"unit_id\":\"U-8OH\",\"tick\":516,[^\\n]*?\"notes\":\")8th Ohio in advanced skirmish position near Emmitsburg Road -- will enfilade Brockenbrough\"",
-   "repl": "$18th Ohio in an advanced position near the Emmitsburg road\"",
+   "repl": "\\g<1>8th Ohio in an advanced position near the Emmitsburg road\"",
    "area": "notes"
   },
   {
@@ -4728,7 +4728,7 @@
    "before": "THE CANNONADE BEGINS. Washington Artillery firing. 170 Confederate guns simultaneously.",
    "src": "OR 27/2 p.320; my chronology fix of tick 516",
    "find": "(\"unit_id\":\"C-ART-I-4\",\"tick\":521,[^\\n]*?\"notes\":\")THE CANNONADE BEGINS\\. Washington Artillery firing\\. 170 Confederate guns simultaneously\\.\"",
-   "repl": "$1THE CANNONADE BEGINS about 1 p.m. Washington Artillery firing; Pendleton counts nearly 150 guns in all.\"",
+   "repl": "\\g<1>THE CANNONADE BEGINS about 1 p.m. Washington Artillery firing; Pendleton counts nearly 150 guns in all.\"",
    "area": "notes"
   },
   {
@@ -4738,7 +4738,7 @@
    "before": "Brown's battery -- severely hit during cannonade. Brown wounded.",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"U-ART-B1RI\",\"tick\":521,[^\\n]*?\"notes\":\")Brown's battery -- severely hit during cannonade\\. Brown wounded\\.\"",
-   "repl": "$1Brown's battery -- hit during the cannonade\"",
+   "repl": "\\g<1>Brown's battery -- hit during the cannonade\"",
    "area": "notes"
   },
   {
@@ -4748,7 +4748,7 @@
    "before": "Webb's brigade pressed flat -- Alexander's first message to Pickett sent this tick",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"U-II-2-2\",\"tick\":525,[^\\n]*?\"notes\":\")Webb's brigade pressed flat -- Alexander's first message to Pickett sent this tick\"",
-   "repl": "$1Webb's brigade under the cannonade\"",
+   "repl": "\\g<1>Webb's brigade under the cannonade\"",
    "area": "notes"
   },
   {
@@ -4758,7 +4758,7 @@
    "before": "14th Vermont wheels left with 13th VT",
    "src": "Stannard names the 13th and 16th",
    "find": "(\"unit_id\":\"U-14VT\",\"tick\":546,[^\\n]*?\"notes\":\")14th Vermont wheels left with 13th VT\"",
-   "repl": "$114th Vermont near the 13th\"",
+   "repl": "\\g<1>14th Vermont near the 13th\"",
    "area": "notes"
   },
   {
@@ -4768,7 +4768,7 @@
    "before": "12th NJ firing buck-and-ball at point-blank range into Pettigrew's men",
    "src": "ammunition detail not confirmed",
    "find": "(\"unit_id\":\"U-12NJ\",\"tick\":548,[^\\n]*?\"notes\":\")12th NJ firing buck-and-ball at point-blank range into Pettigrew's men\"",
-   "repl": "$112th New Jersey firing into Pettigrew's men at close range\"",
+   "repl": "\\g<1>12th New Jersey firing into Pettigrew's men at close range\"",
    "area": "notes"
   },
   {
@@ -4778,7 +4778,7 @@
    "before": "Cushing -- wounded twice, serving last two guns at the wall",
    "src": "OR 27/1 p.429",
    "find": "(\"unit_id\":\"U-ART-A4US\",\"tick\":549,[^\\n]*?\"notes\":\")Cushing -- wounded twice, serving last two guns at the wall\"",
-   "repl": "$1Cushing, wounded in both thighs, serving the last guns at the wall (Webb)\"",
+   "repl": "\\g<1>Cushing, wounded in both thighs, serving the last guns at the wall (Webb)\"",
    "area": "notes"
   },
   {
@@ -4788,7 +4788,7 @@
    "before": "Garnett's brigade charging the wall. GARNETT KIA on horseback. CS-005.",
    "src": "internal id removed",
    "find": "(\"unit_id\":\"C-I-3-1\",\"tick\":550,[^\\n]*?\"notes\":\")Garnett's brigade charging the wall\\. GARNETT KIA on horseback\\. CS-005\\.\"",
-   "repl": "$1Garnett's brigade charging the wall -- Garnett killed on horseback\"",
+   "repl": "\\g<1>Garnett's brigade charging the wall -- Garnett killed on horseback\"",
    "area": "notes"
   },
   {
@@ -4798,7 +4798,7 @@
    "before": "Cushing rolling last two guns to the wall itself",
    "src": "detail not confirmed",
    "find": "(\"unit_id\":\"U-ART-A4US\",\"tick\":551,[^\\n]*?\"notes\":\")Cushing rolling last two guns to the wall itself\"",
-   "repl": "$1Cushing's guns at the wall\"",
+   "repl": "\\g<1>Cushing's guns at the wall\"",
    "area": "notes"
   },
   {
@@ -4808,7 +4808,7 @@
    "before": "ARMISTEAD MORTALLY WOUNDED beyond the wall. Falls touching a Union gun. CS-007.",
    "src": "internal id removed",
    "find": "(\"unit_id\":\"C-I-3-3\",\"tick\":552,[^\\n]*?\"notes\":\")ARMISTEAD MORTALLY WOUNDED beyond the wall\\. Falls touching a Union gun\\. CS-007\\.\"",
-   "repl": "$1Armistead mortally wounded beyond the wall\"",
+   "repl": "\\g<1>Armistead mortally wounded beyond the wall\"",
    "area": "notes"
   },
   {
@@ -4818,7 +4818,7 @@
    "before": "CUSHING KIA -- shot through mouth at The Angle. Fuger assumes. US-023.",
    "src": "OR 27/1 p.429",
    "find": "(\"unit_id\":\"U-ART-A4US\",\"tick\":553,[^\\n]*?\"notes\":\")CUSHING KIA -- shot through mouth at The Angle\\. Fuger assumes\\. US-023\\.\"",
-   "repl": "$1Cushing killed at the fence beside his guns -- Sergeant Fuger assumes command (Webb)\"",
+   "repl": "\\g<1>Cushing killed at the fence beside his guns -- Sergeant Fuger assumes command (Webb)\"",
    "area": "notes"
   },
   {
@@ -4828,7 +4828,7 @@
    "before": "Cowan's battery firing canister into Armistead's men at 50 yards",
    "src": "OR 27/1 p.690",
    "find": "(\"unit_id\":\"U-ART-1NYIND\",\"tick\":554,[^\\n]*?\"notes\":\")Cowan's battery firing canister into Armistead's men at 50 yards\"",
-   "repl": "$1Cowan's battery firing canister -- 200 yards at first, his last double charge at under 20 yards (Cowan)\"",
+   "repl": "\\g<1>Cowan's battery firing canister -- 200 yards at first, his last double charge at under 20 yards (Cowan)\"",
    "area": "notes"
   },
   {
@@ -4838,7 +4838,7 @@
    "before": "Devereux leads 19th MA to plug The Angle without orders",
    "src": "detail not confirmed",
    "find": "(\"unit_id\":\"U-19MA\",\"tick\":555,[^\\n]*?\"notes\":\")Devereux leads 19th MA to plug The Angle without orders\"",
-   "repl": "$1Devereux leads the 19th Massachusetts toward the Angle\"",
+   "repl": "\\g<1>Devereux leads the 19th Massachusetts toward the Angle\"",
    "area": "notes"
   },
   {
@@ -4848,7 +4848,7 @@
    "before": "Hampton wounded in melee -- sabre cut. CS-017. Stuart's cavalry repulsed.",
    "src": "internal id removed",
    "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":565,[^\\n]*?\"notes\":\")Hampton wounded in melee -- sabre cut\\. CS-017\\. Stuart's cavalry repulsed\\.\"",
-   "repl": "$1Hampton wounded in the cavalry fight. Stuart's cavalry repulsed.\"",
+   "repl": "\\g<1>Hampton wounded in the cavalry fight. Stuart's cavalry repulsed.\"",
    "area": "notes"
   },
   {
@@ -4858,7 +4858,7 @@
    "before": "Kemper's survivors -- Kemper wounded and briefly captured",
    "src": "capture not confirmed",
    "find": "(\"unit_id\":\"C-I-3-2\",\"tick\":572,[^\\n]*?\"notes\":\")Kemper's survivors -- Kemper wounded and briefly captured\"",
-   "repl": "$1Kemper's survivors -- Kemper wounded\"",
+   "repl": "\\g<1>Kemper's survivors -- Kemper wounded\"",
    "area": "notes"
   },
   {
@@ -4868,7 +4868,7 @@
    "before": "38 survivors of 1st Minnesota still in line",
    "src": "OR 27/1 p.425",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":620,[^\\n]*?\"notes\":\")38 survivors of 1st Minnesota still in line\"",
-   "repl": "$11st Minnesota still in line\"",
+   "repl": "\\g<1>1st Minnesota still in line\"",
    "area": "notes"
   },
   {
@@ -4878,7 +4878,7 @@
    "before": "Lowrance's survivors -- barely 300 men remain of Scales's brigade",
    "src": "survivor count not confirmed",
    "find": "(\"unit_id\":\"C-III-3-4\",\"tick\":620,[^\\n]*?\"notes\":\")Lowrance's survivors -- barely 300 men remain of Scales's brigade\"",
-   "repl": "$1Lowrance's survivors of Scales's brigade\"",
+   "repl": "\\g<1>Lowrance's survivors of Scales's brigade\"",
    "area": "notes"
   },
   {
@@ -4888,7 +4888,7 @@
    "before": "Steuart's brigade -- 42.5% total casualties across three days",
    "src": "OR 27/2 p.341",
    "find": "(\"unit_id\":\"C-II-2-4\",\"tick\":620,[^\\n]*?\"notes\":\")Steuart's brigade -- 42\\.5% total casualties across three days\"",
-   "repl": "$1Steuart's brigade -- the return counts 682 casualties\"",
+   "repl": "\\g<1>Steuart's brigade -- the return counts 682 casualties\"",
    "area": "notes"
   },
   {
@@ -4898,7 +4898,7 @@
    "before": "Imboden organizing the 17-mile wagon train of wounded for the retreat",
    "src": "later account",
    "find": "(\"unit_id\":\"C-CAV-5\",\"tick\":650,[^\\n]*?\"notes\":\")Imboden organizing the 17-mile wagon train of wounded for the retreat\"",
-   "repl": "$1Imboden organizing the wagon train of wounded for the retreat (Imboden's own later account gives its length as 17 miles)\"",
+   "repl": "\\g<1>Imboden organizing the wagon train of wounded for the retreat (Imboden's own later account gives its length as 17 miles)\"",
    "area": "notes"
   },
   {
@@ -4908,7 +4908,7 @@
    "before": "20th Maine -- Little Round Top secure. Chamberlain's charge two days ago.",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"U-20ME\",\"tick\":650,[^\\n]*?\"notes\":\")20th Maine -- Little Round Top secure\\. Chamberlain's charge two days ago\\.\"",
-   "repl": "$120th Maine on Little Round Top\"",
+   "repl": "\\g<1>20th Maine on Little Round Top\"",
    "area": "notes"
   },
   {
@@ -4918,7 +4918,7 @@
    "before": "END OF BATTLE. Webb's brigade at The Angle. Total Union casualties: ~23,000.",
    "src": "OR 27/1 p.187",
    "find": "(\"unit_id\":\"U-II-2-2\",\"tick\":675,[^\\n]*?\"notes\":\")END OF BATTLE\\. Webb's brigade at The Angle\\. Total Union casualties: ~23,000\\.\"",
-   "repl": "$1END OF BATTLE. Webb's brigade at The Angle. Union casualties in the return: 23,049.\"",
+   "repl": "\\g<1>END OF BATTLE. Webb's brigade at The Angle. Union casualties in the return: 23,049.\"",
    "area": "notes"
   },
   {
@@ -4928,7 +4928,7 @@
    "before": "38 survivors of 1st Minnesota. They held. End of battle.",
    "src": "OR 27/1 p.425",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":675,[^\\n]*?\"notes\":\")38 survivors of 1st Minnesota\\. They held\\. End of battle\\.\"",
-   "repl": "$1END OF BATTLE. 1st Minnesota on Cemetery Ridge.\"",
+   "repl": "\\g<1>END OF BATTLE. 1st Minnesota on Cemetery Ridge.\"",
    "area": "notes"
   },
   {
@@ -4938,7 +4938,7 @@
    "before": "Pettigrew's brigade. 26th NC -- 588 casualties. End of battle.",
    "src": "OR 27/2 p.344",
    "find": "(\"unit_id\":\"C-III-2-1\",\"tick\":675,[^\\n]*?\"notes\":\")Pettigrew's brigade\\. 26th NC -- 588 casualties\\. End of battle\\.\"",
-   "repl": "$1END OF BATTLE. Pettigrew's brigade. 26th NC -- 588 killed and wounded (return).\"",
+   "repl": "\\g<1>END OF BATTLE. Pettigrew's brigade. 26th NC -- 588 killed and wounded (return).\"",
    "area": "notes"
   },
   {
@@ -4948,7 +4948,7 @@
    "before": "Imboden's wagon train moving -- 17 miles of wounded. The retreat to Virginia begins.",
    "src": "later account for the length",
    "find": "(\"unit_id\":\"C-CAV-5\",\"tick\":675,[^\\n]*?\"notes\":\")Imboden's wagon train moving -- 17 miles of wounded\\. The retreat to Virginia begins\\.\"",
-   "repl": "$1Imboden's wagon train of wounded moving. The retreat to Virginia begins.\"",
+   "repl": "\\g<1>Imboden's wagon train of wounded moving. The retreat to Virginia begins.\"",
    "area": "notes"
   },
   {
@@ -4958,7 +4958,7 @@
    "before": "Gamble's cavalry screening Union left. Buford will die of typhoid in December 1863.",
    "src": "Buford died in December 1863; not a position fact",
    "find": "(\"unit_id\":\"U-CAV-1-1\",\"tick\":675,[^\\n]*?\"notes\":\")Gamble's cavalry screening Union left\\. Buford will die of typhoid in December 1863\\.\"",
-   "repl": "$1Gamble's cavalry screening the Union left.\"",
+   "repl": "\\g<1>Gamble's cavalry screening the Union left.\"",
    "area": "notes"
   },
   {
