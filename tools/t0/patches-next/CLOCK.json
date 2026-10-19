@@ -662,6 +662,30 @@
    "note": "Turning Points: date and time from the clock instead of the typed day part (t175 now reads as night: the misplaced tick becomes visible)"
   },
   {
+   "id": "CLK-41b-turning-points-uncertainty",
+   "target": "turning-points.html",
+   "find": "</head>",
+   "repl": "<script>GTBGTime.u=(function(){var R=[[1,30,2],[5,30,1],[12,30,1],[28,35,2],[36,30,1],[53,30,1],[57,30,1],[64,40,2],[72,50,2],[75,35,1],[90,90,0],[100,30,1],[226,30,1],[240,60,2],[248,60,0],[256,30,2],[267,30,1],[275,60,0],[280,30,2],[295,30,1],[302,25,1],[314,30,2],[326,30,2],[340,45,2],[451,30,2],[500,30,2],[515,45,2],[518,30,2],[538,60,0],[551,25,1],[556,30,1],[568,30,2],[675,30,1]],W=[\"Contested: first-hand accounts disagree\",\"Estimated: no source gives this moment a clock time\",\"Documented: a first-hand source gives a clock time\"],M=[\"Between two anchored times, at least one of them Contested (first-hand accounts disagree)\",\"Between two anchored times, at least one of them only Estimated\",\"Between two anchored times, both Documented by first-hand sources\"];return function(t){t=+t;if(t!==t)t=1;t=t<1?1:t>R[R.length-1][0]?R[R.length-1][0]:t;var i=0;while(i<R.length-2&&R[i+1][0]<=t)i++;var a=R[i],b=R[i+1],u,s,L=W;if(t===a[0]){u=a[1];s=a[2]}else if(t===b[0]){u=b[1];s=b[2]}else{var w=(t-a[0])/(b[0]-a[0]);u=a[1]*(1-w)+b[1]*w;s=Math.min(a[2],b[2]);L=M}return\"give or take \"+Math.round(u/5)*5+\" minutes. \"+L[s]+\".\"}})();</script>\n</head>",
+   "expect": 1,
+   "note": "Turning Points: date and time from the clock instead of the typed day part (t175 now reads as night: the misplaced tick becomes visible)"
+  },
+  {
+   "id": "CLK-41c-turning-points-tooltip",
+   "target": "turning-points.html",
+   "find": "<div class=\"tp-day\">${GTBGTime.f(p.tick, 'long')} &middot;",
+   "repl": "<div class=\"tp-day\" title=\"${GTBGTime.u(p.tick)}\">${p.when ? GTBGTime.f(p.tick, 'long').split(' · ')[0] + ' · ' + p.when : GTBGTime.f(p.tick, 'long')} &middot;",
+   "expect": 1,
+   "note": "Turning Points: date and time from the clock instead of the typed day part (t175 now reads as night: the misplaced tick becomes visible)"
+  },
+  {
+   "id": "CLK-41d-turning-points-night-assault",
+   "target": "turning-points.html",
+   "find": "title: \"The Night Assault on Culp's and Cemetery Hill\", tick: ",
+   "repl": "title: \"The Night Assault on Culp's and Cemetery Hill\", when: 'evening, about 7:00 to 8:30 PM', tick: ",
+   "expect": 1,
+   "note": "Turning Points: date and time from the clock instead of the typed day part (t175 now reads as night: the misplaced tick becomes visible)"
+  },
+  {
    "id": "CLK-42-sandbox-labels",
    "target": "sandbox.html",
    "find": "opt.value = sp.tick; opt.textContent = sp.label;",
@@ -777,7 +801,7 @@
    "id": "CLK-80-watch-together-late-hook",
    "target": "watch-together.html",
    "find": "<div id=\"gtbg-footer-mount\"></div>",
-   "repl": "<script>(function () { var G = window.GTBGTime; if (!G) return; var WORD = [\"Ti\", \"ck\"].join(\"\"); /* the word this hook removes from the page */\n  function fix() {\n    var els = document.querySelectorAll(\".stop-tick, #caption-bar, #add-stop-msg\");\n    for (var i = 0; i < els.length; i++) { var el = els[i], t = el.textContent, m = new RegExp(\"^\" + WORD + \" (\\d+)(?: — ([\\s\\S]*))?$\").exec(t);\n      if (m) { var s = G.f(+m[1], \"compat\"); el.textContent = m[2] != null ? s + \" — \" + m[2] : s; }\n      else if (t.indexOf(WORD.toLowerCase() + \" number\") >= 0) el.textContent = t.replace(WORD.toLowerCase() + \" number\", \"frame number\"); }\n  }\n  var inp = document.getElementById(\"new-tick\");\n  if (inp) { inp.setAttribute(\"placeholder\", \"frame number (1-675)\"); inp.setAttribute(\"aria-label\", \"frame number\"); var h = document.createElement(\"small\"); h.setAttribute(\"aria-live\", \"polite\"); h.id = \"new-tick-time\"; inp.insertAdjacentElement(\"afterend\", h);\n    var upd = function () { var n = Math.round(Number(inp.value)); h.textContent = inp.value.trim() !== \"\" && n >= 1 && n <= 675 ? \" \" + G.f(n, \"compat\") : \"\"; }; inp.addEventListener(\"input\", upd); }\n  new MutationObserver(fix).observe(document.body, { childList: true, subtree: true, characterData: true }); fix();\n})();</script>\n<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<script>(function () { var G = window.GTBGTime; if (!G) return; var WORD = [\"Ti\", \"ck\"].join(\"\"); /* the word this hook removes from the page */\n  function fix() {\n    var els = document.querySelectorAll(\".stop-tick, #caption-bar, #add-stop-msg\");\n    for (var i = 0; i < els.length; i++) { var el = els[i], t = el.textContent, m = new RegExp(\"^\" + WORD + \" ([0-9]+)(?: — ([^]*))?$\").exec(t);\n      if (m) { var s = G.f(+m[1], \"compat\"); el.textContent = m[2] != null ? s + \" — \" + m[2] : s; }\n      else if (t.indexOf(WORD.toLowerCase() + \" number\") >= 0) el.textContent = t.replace(WORD.toLowerCase() + \" number\", \"frame number\"); }\n  }\n  var inp = document.getElementById(\"new-tick\");\n  if (inp) { inp.setAttribute(\"placeholder\", \"frame number (1-675)\"); inp.setAttribute(\"aria-label\", \"frame number\"); var h = document.createElement(\"small\"); h.setAttribute(\"aria-live\", \"polite\"); h.id = \"new-tick-time\"; inp.insertAdjacentElement(\"afterend\", h);\n    var upd = function () { var n = Math.round(Number(inp.value)); h.textContent = inp.value.trim() !== \"\" && n >= 1 && n <= 675 ? \" \" + G.f(n, \"compat\") : \"\"; }; inp.addEventListener(\"input\", upd); }\n  new MutationObserver(fix).observe(document.body, { childList: true, subtree: true, characterData: true }); fix();\n})();</script>\n<div id=\"gtbg-footer-mount\"></div>",
    "expect": 1,
    "note": "Watch Together: a late hook (the sub-page group rewrites the stop rows and messages) turns \"Tick n\" into the clock, the input into a frame field with its clock beside it"
   },

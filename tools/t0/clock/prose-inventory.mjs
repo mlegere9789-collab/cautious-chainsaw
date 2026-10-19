@@ -54,7 +54,11 @@ const records = [];
 let fields = 0;                                   // typed clock fields of the data files (time, real_time, approx_time ...): counted, not prose
 function consider(source, where, tick, text, extra = {}) {
   if (typeof text !== 'string') return;
-  for (const t of times(text)) {
+  const list = times(text);
+  // "10:30am-1:00pm", "from 4 to 6 p.m.": a SPAN of the sentence, not a moment: the frame is consistent when it lies inside it (plus the frame's bound)
+  list.forEach((t, i) => { const nx = list[i + 1]; if (nx && /^\s*(?:-|–|—|to|and)\s*$/i.test(text.slice(t.index + t.phrase.length, nx.index))) { t.spanTo = nx; nx.spanFrom = t; } });
+  for (const t of list) {
+    if (t.spanFrom) continue;                                           // the end of a span is judged with its start
     const ctx = text.slice(Math.max(0, t.index - 60), t.index + t.phrase.length + 50).replace(/\s+/g, ' ');
     const rec = { source, where, tick: tick ?? null, phrase: t.phrase, context: ctx, ...extra };
     if (tick != null && tick >= 1 && tick <= 675) {
@@ -63,7 +67,8 @@ function consider(source, where, tick, text, extra = {}) {
       const typed = (date - 1) * 1440 + t.min;
       let best = typed;
       if (named == null) for (const d of [-1440, 1440]) if (Math.abs(typed + d - mod) < Math.abs(best - mod)) best = typed + d;
-      const delta = Math.round(best - mod), unc = O.uncertaintyMin(tick);
+      let delta = Math.round(best - mod); const unc = O.uncertaintyMin(tick);
+      if (t.spanTo) { const end = (date - 1) * 1440 + t.spanTo.min + (t.spanTo.min < t.min ? 1440 : 0); rec.phrase = text.slice(t.index, t.spanTo.index + t.spanTo.phrase.length).trim(); rec.span = true; delta = mod < typed ? Math.round(mod - typed) : mod > end ? Math.round(mod - end) : 0; }
       rec.model = O.fmt(tick, 'compat'); rec.deltaMin = delta; rec.uncertaintyMin = Math.round(unc);
       rec.verdict = Math.abs(delta) <= unc ? 'consistent' : Math.abs(delta) <= 2 * unc ? 'near' : 'differs';
       rec.nearestAnchor = O.nearestAnchor(tick);
@@ -90,8 +95,9 @@ const evalArr = (sl) => { try { return vm.runInNewContext('(' + sl.text + ')', {
 const entry = fs.readdirSync(path.join(DIST, 'assets')).find((f) => /^index-[0-9a-f]{8}\.js$/.test(f));
 const bundle = fs.readFileSync(path.join(DIST, 'assets', entry), 'utf8');
 const covered = [];
+const SUBTITLE_DERIVED = bundle.includes('GTBGT.s(M.subtitle,M.tick)');
 const ARR = [
-  ['story cards', /\bth=\[\{id:1,title:/, (o) => [o.tick, `${o.title}: ${o.subtitle}`, o.narrative], (o) => `story ${o.id} "${o.title}"`],
+  ['story cards', /\bth=\[\{id:1,title:/, (o) => [o.tick, SUBTITLE_DERIVED ? o.title : `${o.title}: ${o.subtitle}`, o.narrative], (o) => `story ${o.id} "${o.title}"`],   // with CLK-54 the subtitle's clock is the clock of the frame: nothing is typed
   ['monument story markers', /\bmA=\[\{id:"mon_/, (o) => [o.tick, o.name, o.label], (o) => `marker ${o.id}`],
   ['NPS tour stops', /\bd2=\[\{id:1,name:/, (o) => [null, o.name, (o.history || []).join('  ')], (o) => `tour stop ${o.id} "${o.name}"`],
   ['onboarding steps', /\bGc=\[\{tick:1,title:/, (o) => [o.tick, o.title, `${o.body} ${o.hint || ''}`], (o) => `onboarding "${o.title}"`],

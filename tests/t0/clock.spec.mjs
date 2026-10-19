@@ -527,7 +527,8 @@ suite.test('T0-CLK-12', 'sub-pages: Compare, Camera, Immersive, Living Ledger, D
     const tpDays = await P.evaluate(() => [...document.querySelectorAll('.tp-day')].map((e) => e.textContent.trim()));
     const tpTicks = tp.map((x) => +/tick=(\d+)/.exec(x.href)[1]);
     if (tpTicks.length !== 9 || tpDays.length !== 9) problems.push(`turning points: ${tpTicks.length} links, ${tpDays.length} day lines`);
-    tpTicks.forEach((tk, i) => { if (!(tpDays[i] || '').startsWith(O.fmt(tk, 'long') + ' · ')) problems.push(`turning point ${i + 1} (frame ${tk}): "${tpDays[i]}" does not start with "${O.fmt(tk, 'long')} · "`); });
+    const tpTips = await P.evaluate(() => [...document.querySelectorAll('.tp-day')].map((e) => e.title));
+    tpTicks.forEach((tk, i) => { const want = tk === 326 ? `${O.fmt(tk, 'long').split(' · ')[0]} · evening, about 7:00 to 8:30 PM · ` : O.fmt(tk, 'long') + ' · '; if (!(tpDays[i] || '').startsWith(want)) problems.push(`turning point ${i + 1} (frame ${tk}): "${tpDays[i]}" does not start with "${want}"`); if (tpTips[i] !== O.uncertaintyText(tk)) problems.push(`turning point ${i + 1} tooltip "${tpTips[i]}"`); });
     notes.turningPoints = tpTicks;
     // --- Search: vignette results
     await go('/search.html', 1500);
