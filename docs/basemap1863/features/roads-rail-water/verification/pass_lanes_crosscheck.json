@@ -1,0 +1,24 @@
+{
+ "method": "Median and 90th-percentile distance of each hand-traced lane section (densified every 1/20 segment) to the nearest of: OSM bridleway \"Trostle Lane\" ways 681900025 / 776829756 (NPS horse trail), TIGER United States Ave and Nps Farm Ln. An independent modern line, not a ground truth for 1863.",
+ "results": {
+  "LN-001w": {
+   "median_m": 27,
+   "p90_m": 178,
+   "note": "p90 large because the OSM way continues beyond the traced section"
+  },
+  "LN-001e": {
+   "median_m": 36,
+   "p90_m": 64
+  },
+  "LN-010": {
+   "median_m": 7,
+   "p90_m": 21,
+   "note": "matches the existing NPS H. Spangler Farm Lane"
+  },
+  "LN-004": {
+   "median_m": 273,
+   "p90_m": 476,
+   "note": "no modern line exists (lane lost: NPS says only fences mark it); the number is meaningless here"
+  }
+ }
+}

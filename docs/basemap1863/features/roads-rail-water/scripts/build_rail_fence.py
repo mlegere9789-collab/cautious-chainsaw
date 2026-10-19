@@ -97,7 +97,7 @@ def build_rail():
         feats.append({'type': 'Feature', 'id': r['id'], 'properties': {
             'id': r['id'], 'category': 'railroad', 'subtype': r['subtype'], 'name': r['name'], 'name_modern': '', 'present_1863': r['present'], 'period_note': r['period_note'],
             'sources': r['sources'], 'method': r['method'], 'positional_error_m': r['err'], 'confidence': r['conf'], 'notes': r['notes'], 'osm_way_ids': r['osm'],
-            'length_m_in_box': round(length_m(g)) if g is not None else 0}, 'geometry': mapping(g) if g is not None else None})
+            'length_m_in_box': round(length_m(g)) if g is not None else 0, **({'snap_stats': r['snap_stats']} if 'snap_stats' in r else {})}, 'geometry': mapping(g) if g is not None else None})
     for r in POINTS:
         feats.append({'type': 'Feature', 'id': r['id'], 'properties': {
             'id': r['id'], 'category': 'railroad', 'subtype': r['subtype'], 'name': r['name'], 'name_modern': '', 'present_1863': r['present'], 'period_note': r['period_note'],

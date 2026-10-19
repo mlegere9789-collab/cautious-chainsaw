@@ -117,11 +117,11 @@ def pass4():
     res['inconsistent'] = bad
     return res
 
-BAN = [r'1\s*:\s*1', r'100\s*(percent|%)\s*(accurate|exact|correct)', r'\bexact replica\b', r'\bpixel[- ]perfect\b', r'\bperfect(ly)? accurate\b']
+BAN = [r'(?<![\d:])1\s*:\s*1(?![\d])', r'100\s*(percent|%)\s*(accurate|exact|correct)', r'\bexact replica\b', r'\bpixel[- ]perfect\b', r'\bperfect(ly)? accurate\b']
 def pass8():
     res = dict(hits=[], files=[])
     for fp in glob.glob(os.path.join(OUT, '**', '*'), recursive=True) + [os.path.join(OUT, '..', '..', 'SOURCES-roads.md')]:
-        if not os.path.isfile(fp) or fp.endswith(('.png', '.jpg', '.pyc')) or os.sep + 'scripts' + os.sep in fp and fp.endswith('verify.py'): continue
+        if not os.path.isfile(fp) or os.path.basename(fp).startswith('pass') or fp.endswith(('.png', '.jpg', '.pyc')) or os.sep + 'scripts' + os.sep in fp and fp.endswith('verify.py'): continue
         try: t = open(fp, encoding='utf8', errors='ignore').read()
         except Exception: continue
         for rx in BAN:

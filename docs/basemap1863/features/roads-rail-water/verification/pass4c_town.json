@@ -1,0 +1,489 @@
+{
+ "method": "Pass 4c: street plan of the 1863 borough. For each TIGER edge whose centroid is inside the borough footprint, the 'street-gap contrast' is measured on sheet 'a':\nstreets are drawn as pale gaps between the black house blocks, so the mean grey level along the centre line minus the mean grey level at +-9 px either side is positive for a street.\nCalibration: the edges of the streets that the NPS and the ten-road list place in 1863 (Baltimore, Washington, Chambersburg, York, Hanover, Carlisle, Middle St) give the 'street' distribution;\nthe same edges shifted 6 px (12 m) sideways give the 'not street' distribution. Threshold = midpoint of the two medians; an edge is 'street drawn' above it.",
+ "calibration": {
+  "n": 16,
+  "street_median": 8.709506034851074,
+  "shifted_median": -5.146541118621826,
+  "threshold": 1.781482458114624
+ },
+ "results": {
+  "11019626511152": {
+   "contrast": 11.2,
+   "shifted": 24.8,
+   "name": "US Hwy 15 Bus",
+   "verdict": "not drawn"
+  },
+  "11019626511151": {
+   "contrast": -79.9,
+   "shifted": 30.5,
+   "name": "US Hwy 15 Bus",
+   "verdict": "not drawn"
+  },
+  "110471838285": {
+   "contrast": -3.1,
+   "shifted": 3.7,
+   "name": "N Stratton St",
+   "verdict": "not drawn"
+  },
+  "110471837686": {
+   "contrast": -59.8,
+   "shifted": 46.4,
+   "name": "N Franklin St",
+   "verdict": "not drawn"
+  },
+  "110471833821": {
+   "contrast": -6.2,
+   "shifted": -17.6,
+   "name": "N 3rd St",
+   "verdict": "not drawn"
+  },
+  "110471840190": {
+   "contrast": 26.2,
+   "shifted": -29.7,
+   "name": "S Washington St",
+   "verdict": "street drawn"
+  },
+  "110471838287": {
+   "contrast": 8.6,
+   "shifted": -6.8,
+   "name": "S Stratton St",
+   "verdict": "street drawn"
+  },
+  "110471837691": {
+   "contrast": -11.4,
+   "shifted": 11.2,
+   "name": "S Franklin St",
+   "verdict": "not drawn"
+  },
+  "110471838115": {
+   "contrast": -2.3,
+   "shifted": -27.0,
+   "name": "E Railroad St",
+   "verdict": "not drawn"
+  },
+  "110471837320": {
+   "contrast": 13.2,
+   "shifted": -6.8,
+   "name": "E Zerfing Aly",
+   "verdict": "street drawn"
+  },
+  "110471835358": {
+   "contrast": -7.6,
+   "shifted": -5.6,
+   "name": "E Water St",
+   "verdict": "not drawn"
+  },
+  "110471835887": {
+   "contrast": 6.7,
+   "shifted": -2.0,
+   "name": "E Middle St",
+   "verdict": "street drawn"
+  },
+  "110471839049": {
+   "contrast": 35.1,
+   "shifted": -13.2,
+   "name": "E Racehorse Aly",
+   "verdict": "street drawn"
+  },
+  "110471835786": {
+   "contrast": -10.6,
+   "shifted": 1.3,
+   "name": "E Legion Aly",
+   "verdict": "not drawn"
+  },
+  "110471834111": {
+   "contrast": 5.0,
+   "shifted": -3.5,
+   "name": "E High St",
+   "verdict": "street drawn"
+  },
+  "110471837322": {
+   "contrast": 30.4,
+   "shifted": -29.7,
+   "name": "W Zerfing Aly",
+   "verdict": "street drawn"
+  },
+  "110471838119": {
+   "contrast": 21.9,
+   "shifted": 15.7,
+   "name": "W Railroad St",
+   "verdict": "not drawn"
+  },
+  "110471835362": {
+   "contrast": 10.2,
+   "shifted": 4.3,
+   "name": "W Water St",
+   "verdict": "not drawn"
+  },
+  "110471834115": {
+   "contrast": 13.0,
+   "shifted": 1.0,
+   "name": "W High St",
+   "verdict": "street drawn"
+  },
+  "110471839905": {
+   "contrast": -10.1,
+   "shifted": -20.8,
+   "name": "Mummasburg St",
+   "verdict": "not drawn"
+  },
+  "110471836837": {
+   "contrast": -9.8,
+   "shifted": 1.9,
+   "name": "Patrick Aly",
+   "verdict": "not drawn"
+  },
+  "110471841050": {
+   "contrast": 65.4,
+   "shifted": -48.2,
+   "name": "Chambersburg St",
+   "verdict": "street drawn"
+  },
+  "1104483336164": {
+   "contrast": -79.9,
+   "shifted": 30.5,
+   "name": "State Rte 34",
+   "verdict": "not drawn"
+  },
+  "110471836707": {
+   "contrast": -11.5,
+   "shifted": 8.0,
+   "name": "Liberty St",
+   "verdict": "not drawn"
+  },
+  "110471837797": {
+   "contrast": 0.7,
+   "shifted": 7.7,
+   "name": "Hospital Aly",
+   "verdict": "not drawn"
+  },
+  "110471834415": {
+   "contrast": -20.7,
+   "shifted": 11.1,
+   "name": "Wade Ave",
+   "verdict": "not drawn"
+  },
+  "110471837521": {
+   "contrast": 16.0,
+   "shifted": 16.7,
+   "name": "Columbia Aly",
+   "verdict": "not drawn"
+  },
+  "110471838378": {
+   "contrast": 25.7,
+   "shifted": -21.2,
+   "name": "Baltimore St",
+   "verdict": "street drawn"
+  },
+  "110471837936": {
+   "contrast": -17.9,
+   "shifted": 12.5,
+   "name": "Monument Aly",
+   "verdict": "not drawn"
+  },
+  "110471834417": {
+   "contrast": 12.9,
+   "shifted": -3.2,
+   "name": "Wall Aly",
+   "verdict": "street drawn"
+  },
+  "1104483424923": {
+   "contrast": -60.4,
+   "shifted": 45.0,
+   "name": "US Hwy 30",
+   "verdict": "not drawn"
+  },
+  "110471838682": {
+   "contrast": 4.4,
+   "shifted": 9.8,
+   "name": "Gilliland Aly",
+   "verdict": "not drawn"
+  },
+  "110471836071": {
+   "contrast": -55.3,
+   "shifted": 37.0,
+   "name": "Slentz Aly",
+   "verdict": "not drawn"
+  },
+  "110471835612": {
+   "contrast": -19.3,
+   "shifted": 14.0,
+   "name": "Dobbin Aly",
+   "verdict": "not drawn"
+  },
+  "110471842264": {
+   "contrast": 17.3,
+   "shifted": -9.5,
+   "name": "Schimmelpfennig Aly",
+   "verdict": "street drawn"
+  },
+  "110471847734": {
+   "contrast": -5.8,
+   "shifted": -11.1,
+   "name": "",
+   "verdict": "not drawn"
+  },
+  "110471834074": {
+   "contrast": -29.4,
+   "shifted": -14.3,
+   "name": "Foth Aly",
+   "verdict": "not drawn"
+  },
+  "110471836716": {
+   "contrast": -41.8,
+   "shifted": 35.2,
+   "name": "Lincoln Sq",
+   "verdict": "not drawn"
+  },
+  "110471847715": {
+   "contrast": -0.3,
+   "shifted": 8.5,
+   "name": "",
+   "verdict": "not drawn"
+  },
+  "110471835783": {
+   "contrast": 9.5,
+   "shifted": -2.9,
+   "name": "Legion Aly",
+   "verdict": "street drawn"
+  },
+  "110471834187": {
+   "contrast": 0.2,
+   "shifted": 2.8,
+   "name": "Kuhn Aly",
+   "verdict": "not drawn"
+  },
+  "110471834844": {
+   "contrast": 17.5,
+   "shifted": 10.1,
+   "name": "Delap Aly",
+   "verdict": "not drawn"
+  },
+  "110471836699": {
+   "contrast": 0.4,
+   "shifted": -1.9,
+   "name": "Lefever St",
+   "verdict": "not drawn"
+  },
+  "110471834443": {
+   "contrast": 19.7,
+   "shifted": -9.2,
+   "name": "York St",
+   "verdict": "street drawn"
+  },
+  "110471841086": {
+   "contrast": -3.0,
+   "shifted": 9.3,
+   "name": "Constitution Ave",
+   "verdict": "not drawn"
+  },
+  "110471838273": {
+   "contrast": 27.4,
+   "shifted": -20.3,
+   "name": "Stauffer Aly",
+   "verdict": "street drawn"
+  },
+  "110471836713": {
+   "contrast": 12.8,
+   "shifted": -0.9,
+   "name": "Lincoln Ln",
+   "verdict": "street drawn"
+  },
+  "110471835794": {
+   "contrast": -31.5,
+   "shifted": 14.1,
+   "name": "Little Aly",
+   "verdict": "not drawn"
+  },
+  "110471834823": {
+   "contrast": -18.2,
+   "shifted": 15.0,
+   "name": "Court Aly",
+   "verdict": "not drawn"
+  },
+  "110471841023": {
+   "contrast": -6.9,
+   "shifted": 2.4,
+   "name": "Breckenridge St",
+   "verdict": "not drawn"
+  },
+  "110471840019": {
+   "contrast": 59.8,
+   "shifted": -47.1,
+   "name": "Race Horse Aly",
+   "verdict": "street drawn"
+  },
+  "1104483336165": {
+   "contrast": 11.2,
+   "shifted": 24.8,
+   "name": "State Rte 34",
+   "verdict": "not drawn"
+  },
+  "110471840812": {
+   "contrast": 9.4,
+   "shifted": -3.0,
+   "name": "Schoolhouse Aly",
+   "verdict": "street drawn"
+  },
+  "110471836847": {
+   "contrast": 16.8,
+   "shifted": -4.4,
+   "name": "Pfeffer Aly",
+   "verdict": "street drawn"
+  },
+  "110471836026": {
+   "contrast": -17.0,
+   "shifted": 5.5,
+   "name": "Reaser Aly",
+   "verdict": "not drawn"
+  },
+  "110471847702": {
+   "contrast": -5.6,
+   "shifted": 10.6,
+   "name": "",
+   "verdict": "not drawn"
+  },
+  "110471848558": {
+   "contrast": -1.4,
+   "shifted": -0.2,
+   "name": "",
+   "verdict": "not drawn"
+  },
+  "110471835140": {
+   "contrast": 1.7,
+   "shifted": 0.8,
+   "name": "Plank Aly",
+   "verdict": "not drawn"
+  },
+  "110471834376": {
+   "contrast": 9.8,
+   "shifted": -1.5,
+   "name": "Roth Aly",
+   "verdict": "street drawn"
+  },
+  "110471834779": {
+   "contrast": 5.5,
+   "shifted": 2.5,
+   "name": "Bream Aly",
+   "verdict": "not drawn"
+  },
+  "110471848723": {
+   "contrast": 4.9,
+   "shifted": -8.7,
+   "name": "",
+   "verdict": "street drawn"
+  },
+  "110471837288": {
+   "contrast": 0.8,
+   "shifted": 0.9,
+   "name": "Village Dr",
+   "verdict": "not drawn"
+  },
+  "110471841542": {
+   "contrast": -10.8,
+   "shifted": 4.7,
+   "name": "Strickhouser Aly",
+   "verdict": "not drawn"
+  },
+  "1104483424922": {
+   "contrast": -28.7,
+   "shifted": 25.8,
+   "name": "US Hwy 30",
+   "verdict": "not drawn"
+  },
+  "1106087964691": {
+   "contrast": -14.0,
+   "shifted": 22.6,
+   "name": "State Rte 116",
+   "verdict": "not drawn"
+  },
+  "110471834421": {
+   "contrast": -12.6,
+   "shifted": -5.8,
+   "name": "West St",
+   "verdict": "not drawn"
+  },
+  "110471836262": {
+   "contrast": -55.2,
+   "shifted": 17.2,
+   "name": "Warner Aly",
+   "verdict": "not drawn"
+  },
+  "1104483336163": {
+   "contrast": 73.0,
+   "shifted": -52.4,
+   "name": "State Rte 34",
+   "verdict": "street drawn"
+  },
+  "110471835269": {
+   "contrast": 8.6,
+   "shifted": -8.4,
+   "name": "South St",
+   "verdict": "street drawn"
+  },
+  "110471838730": {
+   "contrast": 10.7,
+   "shifted": -10.2,
+   "name": "Hillcrest Pl",
+   "verdict": "street drawn"
+  },
+  "110471835067": {
+   "contrast": -29.7,
+   "shifted": 9.8,
+   "name": "Mayor Aly",
+   "verdict": "not drawn"
+  },
+  "1106087964694": {
+   "verdict": "too short"
+  },
+  "110471837078": {
+   "contrast": -15.5,
+   "shifted": -13.3,
+   "name": "Regency Cir",
+   "verdict": "not drawn"
+  },
+  "1103978803971": {
+   "contrast": -1.4,
+   "shifted": 3.0,
+   "name": "",
+   "verdict": "not drawn"
+  },
+  "110471834994": {
+   "contrast": 73.7,
+   "shifted": -67.9,
+   "name": "Levan Aly",
+   "verdict": "street drawn"
+  },
+  "110471836216": {
+   "contrast": 16.8,
+   "shifted": -7.6,
+   "name": "United Aly",
+   "verdict": "street drawn"
+  },
+  "110471834287": {
+   "contrast": -23.7,
+   "shifted": 13.9,
+   "name": "Pape Aly",
+   "verdict": "not drawn"
+  },
+  "110471837494": {
+   "contrast": 1.5,
+   "shifted": 1.8,
+   "name": "Cemetery Aly",
+   "verdict": "not drawn"
+  },
+  "110471835803": {
+   "contrast": 24.3,
+   "shifted": -11.0,
+   "name": "Locust Ave",
+   "verdict": "street drawn"
+  },
+  "110471833814": {
+   "contrast": -6.7,
+   "shifted": 0.5,
+   "name": "3rd St",
+   "verdict": "not drawn"
+  }
+ },
+ "conclusion": "METHOD REJECTED: calibration streets that are certainly 1863 (N and S Franklin St, Mummasburg St, Liberty St, E Water St, Railroad Street, the Diamond edges) score \"not drawn\" because the 1863 street gaps are narrower than the registration error in the borough (15-20 m); the check is NOT used to decide any street. Borough-interior streets stay TOWN_STREET_UNDECIDED; NPS states the borough had a gridded plan with 180 dwellings by 1806 and blocks added south, west and east soon after (NPS-CLI-FD pdf p37), so most of the interior grid is older than 1863 but each street is not individually established."
+}
