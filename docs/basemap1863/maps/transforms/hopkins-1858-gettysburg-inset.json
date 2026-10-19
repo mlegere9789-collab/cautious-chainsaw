@@ -1,0 +1,105 @@
+{
+ "map_id": "hopkins-1858-gettysburg-inset",
+ "title": "Map of Adams Co., Pennsylvania (Hopkins; Converse 1858), Gettysburg borough inset",
+ "loc_item": "https://www.loc.gov/item/2004629149/",
+ "scan": "la000697.jp2",
+ "crs": "EPSG:32618",
+ "gcp_file": "docs/basemap1863/maps/gcps/hopkins_inset.json",
+ "n_gcps": 8,
+ "model": "affine",
+ "px_to_en": {
+  "A": [
+   [
+    0.40664108169328594,
+    -0.01076824664832543
+   ],
+   [
+    -0.003561699906804524,
+    -0.4244504749872249
+   ]
+  ],
+  "t": [
+   303602.37670556846,
+   4412455.779738143
+  ],
+  "note": "E,N = A @ [x,y] + t"
+ },
+ "en_to_px": {
+  "A": [
+   [
+    2.458624777840827,
+    -0.062374952046575484
+   ],
+   [
+    -0.020631108122488338,
+    -2.355464060133753
+   ]
+  ],
+  "t": [
+   -471217.6083108738,
+   10399644.659562709
+  ]
+ },
+ "scale_m_per_px": [
+  0.4066566795552629,
+  0.42458704743875547
+ ],
+ "accuracy": {
+  "fit_rmse_m": 1.91,
+  "loo_rmse_m": 2.85,
+  "loo_max_m": 4.24,
+  "loo_median_m": 2.52
+ },
+ "valid_region": "Gettysburg borough street grid only (about 0.8 x 0.6 km around the Diamond). Extrapolation beyond the control points is untested.",
+ "grade": "A: usable for tracing the 1858-1863 street grid and building footprints in the borough (error about 3 m between the control points).",
+ "residuals": [
+  {
+   "id": "I001",
+   "name": "Baltimore St x Middle St",
+   "resid_m": 2.1,
+   "loo_m": 2.6
+  },
+  {
+   "id": "I002",
+   "name": "Washington St x Middle St",
+   "resid_m": 1.9,
+   "loo_m": 2.7
+  },
+  {
+   "id": "I003",
+   "name": "Baltimore St x High St",
+   "resid_m": 3.4,
+   "loo_m": 4.2
+  },
+  {
+   "id": "I004",
+   "name": "Washington St x High St",
+   "resid_m": 1.5,
+   "loo_m": 1.9
+  },
+  {
+   "id": "I005",
+   "name": "Stratton St x York St",
+   "resid_m": 0.6,
+   "loo_m": 2.0
+  },
+  {
+   "id": "I006",
+   "name": "Washington St x Chambersburg St (inset: York St)",
+   "resid_m": 2.1,
+   "loo_m": 4.1
+  },
+  {
+   "id": "I007",
+   "name": "Washington St x Breckenridge St",
+   "resid_m": 1.4,
+   "loo_m": 2.5
+  },
+  {
+   "id": "I008",
+   "name": "Baltimore St x Breckenridge St",
+   "resid_m": 0.7,
+   "loo_m": 1.4
+  }
+ ]
+}

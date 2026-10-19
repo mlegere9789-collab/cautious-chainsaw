@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw
 Image.MAX_IMAGE_PIXELS = None
 from common import *
 from viewtools import _font, _grid
-import georef, rasterio
+import numpy as np, georef, rasterio
 from rasterio.windows import Window
 ap = argparse.ArgumentParser(); ap.add_argument('out'); ap.add_argument('gcps'); ap.add_argument('pts', nargs='*')
 ap.add_argument('--half', type=float, default=80); ap.add_argument('--ppm', type=float, default=2.5); ap.add_argument('--cols', type=int, default=2)
@@ -14,6 +14,8 @@ ap.add_argument('--scan', default='cw0353500.jp2'); ap.add_argument('--tif', def
 ap.add_argument('--grid', type=float, default=20)
 a = ap.parse_args()
 d, px, en, g = georef.load_gcps(a.gcps)
+if len(px) < 3:
+    import json as _j; _d = _j.load(open(a.gcps)); px = np.array([x['px'] for x in _d['gcps']], float); en = np.array([x['en'] for x in _d['gcps']], float)
 kind = a.model or ('tps' if len(px) > 30 else ('poly2' if len(px) > 20 else 'affine'))
 m = georef.Model(kind, 0.3 if kind == 'tps' else 0).fit(en, px)
 en2px = lambda e, n: tuple(m([[e, n]])[0])

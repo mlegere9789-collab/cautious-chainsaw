@@ -1,0 +1,87 @@
+{
+ "map_id": "hotchkiss-jacobs",
+ "title": "Map of the battle field of Gettysburg [Hotchkiss copy of the Jacobs map, 1863; LOC edition 1888?]",
+ "loc_item": "https://www.loc.gov/item/99439128/",
+ "scan": "cw0340000.jp2",
+ "crs": "EPSG:32618",
+ "gcp_file": "docs/basemap1863/maps/gcps/hotchkiss.json",
+ "n_gcps": 5,
+ "model": "affine",
+ "px_to_en": {
+  "A": [
+   [
+    1.7099972837513937,
+    -0.6820259770468482
+   ],
+   [
+    0.13364175481713958,
+    -1.7997308819406044
+   ]
+  ],
+  "t": [
+   308664.60867434787,
+   4415612.476267728
+  ],
+  "note": "E,N = A @ [x,y] + t"
+ },
+ "en_to_px": {
+  "A": [
+   [
+    0.6026447400092062,
+    -0.2283782379584057
+   ],
+   [
+    0.044750302055886565,
+    -0.572597202628219
+   ]
+  ],
+  "t": [
+   822414.6939925804,
+   2514554.517329025
+  ]
+ },
+ "scale_m_per_px": [
+  1.7152115989194303,
+  1.9246274134952492
+ ],
+ "accuracy": {
+  "fit_rmse_m": 169.69,
+  "loo_rmse_m": 492.1,
+  "loo_max_m": 808.02,
+  "loo_median_m": 442.49
+ },
+ "valid_region": "southern battlefield only (5 control points between Peach Orchard and Little Round Top)",
+ "grade": "D: NOT usable for tracing. A sketch: rotation and scale are inconsistent between control points (residuals 20-270 m). Useful only as testimony about which buildings and orchards existed.",
+ "residuals": [
+  {
+   "id": "H01",
+   "name": "Sherfy house (J. Sherfy)",
+   "resid_m": 49.7,
+   "loo_m": 114.0
+  },
+  {
+   "id": "H02",
+   "name": "Rose house",
+   "resid_m": 19.7,
+   "loo_m": 560.1
+  },
+  {
+   "id": "H03",
+   "name": "A. Trostle house",
+   "resid_m": 312.1,
+   "loo_m": 442.5
+  },
+  {
+   "id": "H04",
+   "name": "Emmitsburg Rd x Millerstown Rd (Peach Orchard)",
+   "resid_m": 114.2,
+   "loo_m": 188.2
+  },
+  {
+   "id": "H05",
+   "name": "Taneytown Rd x Wheatfield Rd",
+   "resid_m": 175.2,
+   "loo_m": 808.0
+  }
+ ]
+}

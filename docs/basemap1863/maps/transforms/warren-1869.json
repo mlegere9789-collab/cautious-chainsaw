@@ -6,7 +6,7 @@
  "crs": "EPSG:32618",
  "gcp_file": "docs/basemap1863/maps/gcps/warren.json",
  "n_gcps": 23,
- "model_recommended": "affine",
+ "model_recommended": "affine (all GCPs)",
  "px_to_en": {
   "A": [
    [
@@ -61,7 +61,18 @@
    28.0,
    5.4
   ],
-  "n_independent_lines": 6
+  "n_independent_lines": 6,
+  "robust_loo_rmse_m": 12.98461325580777,
+  "robust_loo_max_m": 32.74916625547465,
+  "robust_independent_road_line_rmse_m": 17.546844291513963,
+  "robust_independent_road_line_resid_m": [
+   1.7,
+   1.2,
+   2.6,
+   24.3,
+   34.7,
+   6.7
+  ]
  },
  "model_comparison": [
   {
@@ -325,5 +336,10 @@
    304022.0677620345,
    4415554.126173395
   ]
- }
+ },
+ "excluded_from_robust": [
+  "W015",
+  "W004"
+ ],
+ "recommendation_note": "The robust affine (2 GCPs dropped) lowers the fit RMSE but raises the independent road-line RMSE (17.5 vs 13.9 m), so it is not judged better; all-GCP affine is used."
 }

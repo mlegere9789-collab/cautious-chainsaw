@@ -1,0 +1,117 @@
+{
+ "map_id": "hopkins-1858-county",
+ "title": "Map of Adams Co., Pennsylvania (Hopkins; Converse 1858), county sheet",
+ "loc_item": "https://www.loc.gov/item/2004629149/",
+ "scan": "la000697.jp2",
+ "crs": "EPSG:32618",
+ "gcp_file": "docs/basemap1863/maps/gcps/hopkins_county.json",
+ "n_gcps": 10,
+ "model": "affine",
+ "px_to_en": {
+  "A": [
+   [
+    4.333203162637867,
+    -0.09735535810046514
+   ],
+   [
+    -0.10371179263146818,
+    -4.319752429921664
+   ]
+  ],
+  "t": [
+   277081.8545734378,
+   4446279.083106357
+  ],
+  "note": "E,N = A @ [x,y] + t"
+ },
+ "en_to_px": {
+  "A": [
+   [
+    0.23065174697157792,
+    -0.005198257026809069
+   ],
+   [
+    -0.005537656738452476,
+    -0.23136994437973268
+   ]
+  ],
+  "t": [
+   -40796.51232457633,
+   1030269.728354168
+  ]
+ },
+ "scale_m_per_px": [
+  4.3344441148347554,
+  4.32084935187111
+ ],
+ "accuracy": {
+  "fit_rmse_m": 250.07,
+  "loo_rmse_m": 376.56,
+  "loo_max_m": 722.82,
+  "loo_median_m": 325.66
+ },
+ "valid_region": "county-scale only",
+ "grade": "D: NOT usable for tracing. About 375 m leave-one-out error, from village dots read to +-200 m against GNIS points that are not exact village centres. Useful for place names, owners and which settlements and roads existed in 1858.",
+ "residuals": [
+  {
+   "id": "H00",
+   "name": "Cashtown",
+   "resid_m": 184.3,
+   "loo_m": 283.6
+  },
+  {
+   "id": "H01",
+   "name": "Arendtsville",
+   "resid_m": 285.9,
+   "loo_m": 367.7
+  },
+  {
+   "id": "H02",
+   "name": "Mummasburg",
+   "resid_m": 363.9,
+   "loo_m": 455.8
+  },
+  {
+   "id": "H03",
+   "name": "Bendersville",
+   "resid_m": 360.0,
+   "loo_m": 722.8
+  },
+  {
+   "id": "H04",
+   "name": "Hunterstown",
+   "resid_m": 241.9,
+   "loo_m": 276.0
+  },
+  {
+   "id": "H05",
+   "name": "Hampton",
+   "resid_m": 287.5,
+   "loo_m": 387.1
+  },
+  {
+   "id": "H06",
+   "name": "Abbottstown",
+   "resid_m": 227.6,
+   "loo_m": 381.5
+  },
+  {
+   "id": "H07",
+   "name": "New Oxford",
+   "resid_m": 146.7,
+   "loo_m": 207.6
+  },
+  {
+   "id": "H08",
+   "name": "Heidlersburg",
+   "resid_m": 180.5,
+   "loo_m": 236.2
+  },
+  {
+   "id": "H09",
+   "name": "Gettysburg",
+   "resid_m": 23.4,
+   "loo_m": 39.6
+  }
+ ]
+}

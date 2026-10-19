@@ -1,0 +1,142 @@
+{
+ "map": "gnmp-1900",
+ "scan": "cw0351700.jp2",
+ "gcps": [
+  {
+   "id": "seed0",
+   "name": "seed",
+   "kind": "seed",
+   "px": [
+    2000,
+    3000
+   ],
+   "en": [
+    309192.88043257425,
+    4411976.823519515
+   ],
+   "note": "seed",
+   "use": false
+  },
+  {
+   "id": "seed1",
+   "name": "seed",
+   "kind": "seed",
+   "px": [
+    9000,
+    2500
+   ],
+   "en": [
+    309298.9606823475,
+    4406889.483863091
+   ],
+   "note": "seed",
+   "use": false
+  },
+  {
+   "id": "seed2",
+   "name": "seed",
+   "kind": "seed",
+   "px": [
+    5500,
+    6500
+   ],
+   "en": [
+    306601.4075332794,
+    4409609.834375198
+   ],
+   "note": "seed",
+   "use": false
+  },
+  {
+   "id": "seed3",
+   "name": "seed",
+   "kind": "seed",
+   "px": [
+    10200,
+    5000
+   ],
+   "en": [
+    307493.69117325393,
+    4406139.194031647
+   ],
+   "note": "seed",
+   "use": false
+  },
+  {
+   "id": "seed4",
+   "name": "seed",
+   "kind": "seed",
+   "px": [
+    3000,
+    6800
+   ],
+   "en": [
+    306477.8898794821,
+    4411432.462484161
+   ],
+   "note": "seed",
+   "use": false
+  },
+  {
+   "id": "G001",
+   "name": "Baltimore St x Middle St",
+   "kind": "road-junction",
+   "px": [
+    3017.3,
+    3097.2
+   ],
+   "en": [
+    309074.4,
+    4411243.0
+   ],
+   "note": "street pair centreline vs N0604 (read +-10 px = 7 m)",
+   "station": "zg1.png#0"
+  },
+  {
+   "id": "G002",
+   "name": "Baltimore St x High St",
+   "kind": "road-junction",
+   "px": [
+    3211.4,
+    3092.2
+   ],
+   "en": [
+    309071.3,
+    4411113.3
+   ],
+   "note": "N0467",
+   "station": "zg1.png#1"
+  },
+  {
+   "id": "G003",
+   "name": "Lincoln Square (Diamond) centre",
+   "kind": "road-junction",
+   "px": [
+    2835.3,
+    3079.4
+   ],
+   "en": [
+    309073.4,
+    4411372.5
+   ],
+   "note": "centre of circle vs NAIP roundabout centre",
+   "station": "zg1.png#2"
+  },
+  {
+   "id": "G004",
+   "name": "Emmitsburg Rd x Millerstown Rd (Peach Orchard)",
+   "kind": "road-junction",
+   "px": [
+    7415.4,
+    5302.0
+   ],
+   "en": [
+    307373.3,
+    4408168.8
+   ],
+   "note": "N0521",
+   "station": "zg1.png#3"
+  }
+ ],
+ "lines": []
+}

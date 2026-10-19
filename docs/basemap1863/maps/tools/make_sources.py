@@ -1,0 +1,53 @@
+"""Writes docs/basemap1863/maps/sources.json (citation and licence table). Every field is from the LOC item record (fetched 2026-10-19) or from the scan itself."""
+import json, os
+OUT = os.path.join(os.path.dirname(__file__), '..')
+LOCNOTE = 'Public domain by age. LOC: free to use and reuse unless a Rights Advisory is present (none on this item); credit line: Library of Congress, Geography and Map Division.'
+TG = 'https://tile.loc.gov/storage-services/service/gmd/gmd382/'
+S = [
+ dict(id='warren-1869', role='MASTER: primary georeferenced base', title='Battle field of Gettysburg [Warren survey 1868-69, revised on the ground 1873 by P. M. Blake; reduced from a 200 ft to 1 inch original]',
+      author='G. K. Warren, Office of the Chief of Engineers', date='187-?', type='A1 primary survey map', loc='https://www.loc.gov/item/99448794/', call='G3824.G3 187- W3',
+      file=TG + 'g3824/g3824g/cw0353500.jp2', px='8878x9845', licence=LOCNOTE, status='georeferenced: affine, 23 GCPs, leave-one-out 16.5 m',
+      shows='4 ft contours with spot heights, drainage, roads, railroad, fences, houses with owner names, woods, orchards; no troop positions'),
+ dict(id='bachelder-1876-sheet1/2/3', role='troop positions on the Warren topography', title='Map of the battle field of Gettysburg, July 1st, 2nd, 3rd 1863 (first, second, third day)',
+      author='J. B. Bachelder; topography engraved by Julia Bien; positions by L. E. Neuman; Endicott & Co.', date='1876 (LOC date field 1879)', type='B compiled from Warren plus testimony for positions',
+      loc='https://www.loc.gov/item/99447491/', call='G3824.G3S5 1863 .B33', file=TG + 'g3824/g3824g/cw0325000a.jp2 (b, c)', px='8292x10756; 8304x11092; 8315x11407', licence=LOCNOTE,
+      status='georeferenced: SIFT registration to Warren (about 3700 matches per sheet) then thin-plate refinement', shows='the Warren base with troop lines for each day'),
+ dict(id='woeltje-1888', role='Warren derivative with hachures and owner names', title='Map of the battle field of Gettysburg. July 1st, 2nd, 3rd, 1863', author='Woeltje & Cutting, New York (copyright 1888), based on Warren',
+      date='1888', type='B derivative of Warren', loc='https://www.loc.gov/item/99448798/', call='G3824.G3 1863 .W6', file=TG + 'g3824/g3824g/cw0357200.jp2', px='8597x9851', licence=LOCNOTE,
+      status='georeferenced: SIFT (83 matches) then thin-plate on 53 thinned pairs', shows='Warren plus hachures and owner names overprinted in red; troop positions not noted'),
+ dict(id='hopkins-1858', role='1858 county map and Gettysburg borough inset', title='Map of Adams Co., Pennsylvania, from actual survey by G. M. Hopkins C.E.',
+      author='G. M. Hopkins; R. P. Smith (1857 copyright); M. S. & E. Converse, Philadelphia', date='1858', type='A1 contemporary map, five years before the battle',
+      loc='https://www.loc.gov/item/2004629149/', call='G3823.A3 1858 .H6 (LC Land ownership maps 697)', file=TG + 'g3823/g3823a/la000697.jp2', px='16639x11740',
+      licence=LOCNOTE + ' The task brief named Combs; the LOC record credits Hopkins and Converse, so Hopkins is cited.',
+      status='inset georeferenced (affine, 8 street junctions, leave-one-out 2.9 m); county sheet georeferenced coarsely (10 villages, leave-one-out 376 m)',
+      shows='borough street grid with building footprints and named buildings (depot, churches, hotels, seminary, college, court house); county roads and owner names'),
+ dict(id='hotchkiss-jacobs', role='contemporary 1863 sketch', title='Map of the battle field of Gettysburg [July 1st, 2nd, and 3rd 1863]', author='after Jacobs; Hotchkiss collection (LOC note: Philadelphia, 1888? edition of the 1863 map)',
+      date='1863 (edition 1888?)', type='A2/B', loc='https://www.loc.gov/item/99439128/', call='G3824.G3S5 1863 .J32', file=TG + 'g3824/g3824g/cw0340000.jp2', px='3492x5213', licence=LOCNOTE,
+      status='coarse affine only (5 GCPs, residuals 20-270 m): not for tracing', shows='positions, houses, orchards as a sketch'),
+ dict(id='cope-culps-1898', role="1898 Culp's Hill survey, 1:2400, restored woods", title="Map of one square mile or 1/25 of the battlefield of Gettysburg (No. 3, Culp's Hill)",
+      author='Gettysburg National Military Park Commission; E. B. Cope, engineer', date='1898', type='B shows 1898 conditions and work done', loc='https://www.loc.gov/item/99439193/', call='G3822.G4 1898 .G4',
+      file=TG + 'g3822/g3822g/cw0351400.jp2', px='8665x9097', licence=LOCNOTE, status='NOT georeferenced (SIFT failed, manual alignment unfinished)',
+      shows='telford roads, stone walls, earthworks, woodland restored to the condition of 1863, monuments'),
+ dict(id='gnmp-1900', role='1900 park map with 1863 owner names', title='Map of the Gettysburg Battlefield', author='Gettysburg National Military Park Commission; E. B. Cope; H. W. Mattern', date='1900?',
+      type='B', loc='https://www.loc.gov/item/99448795/', call='G3822.G4S5 1900 .G4', file=TG + 'g3822/g3822g/cw0351700.jp2', px='11856x7921', licence=LOCNOTE,
+      status='NOT georeferenced (SIFT 7-15 inliers; 4 hand GCPs recorded in gcps/gnmp1900.json, insufficient)', shows='four classes of roads, stone walls, relief by contours and shading; 1863 owner names in small italics'),
+ dict(id='ny-monuments-1894', role='what had changed by 1894', title='Map of the battlefield of Gettysburg', author='Gettysburg Monuments Commissioners, New York Board (LOC credit)', date='1894', type='B',
+      loc='https://www.loc.gov/item/99447503/', call='G3824.G3 1894 .G4', file=TG + 'g3824/g3824g/cw0336500.jp2', px='8814x10321', licence=LOCNOTE, status='downloaded; thumbnail only; NOT georeferenced',
+      shows='lands owned by the Gettysburg Battlefield Memorial Association and by the United States, proposed purchases, avenues'),
+ dict(id='elliott-1864', role='1864 map', title='Map of the battlefield of Gettysburg (with Plan of the National Cemetery)', author='S. G. Elliott; H. H. Lloyd & Co., New York', date='1864', type='A1/B',
+      loc='https://www.loc.gov/item/99447501/', call='G3824.G3S5 1863 .E5', file=TG + 'g3824/g3824g/cw0333000.jp2', px='7057x9869', licence=LOCNOTE, status='downloaded; thumbnail only; NOT georeferenced', shows='scale 1:9051, houses, cemetery plan'),
+ dict(id='cope-1863-sketch', role='sketch', title='Gettysburg battlefield', author='E. B. Cope; E. M. Hewitt (LOC credit)', date='1863 (LOC date; scale ca. 1:26,000)', type='B',
+      loc='https://www.loc.gov/item/99447498/', call='G3824.G3S5 1863 .C6', file=TG + 'g3824/g3824g/cw0330000.jp2', px='3098x5100', licence=LOCNOTE, status='downloaded; thumbnail only; NOT georeferenced (sketch scale)', shows='troop points, drainage, roads, houses with occupant names'),
+ dict(id='habs-1863-structures', role='HABS records of structures that stood in 1863 (building scale; not georeferenced here)',
+      title='Trostle Barn (HABS PA-1962; loc pa1728); Weikert Summer Kitchen (pa0021); Weikert Barn (pa0020); Spangler Farm (pa1676); Henry Spangler Farm House (pa1745); Trostle Farm Summer Kitchen (pa4187); Eisenhower Farm One and Two (pa1793, pa1815)',
+      author='Historic American Buildings Survey (Trostle barn drawings: B. W. Seamans, M. J. Felber, R. P. Smith, W. Freitag, J. Perry, A. Hron; project manager G. McCall)', date='documentation compiled after 1933', type='modern documentation of 1863 fabric',
+      loc='https://www.loc.gov/item/pa1728/ and /pa0021/ /pa0020/ /pa1676/ /pa1745/ /pa4187/ /pa1793/ /pa1815/', call='HABS PA,1-GET.V,17A- etc.', file='record metadata only; drawing sheets not downloaded', px='-',
+      licence='LOC: no known restrictions on images made by the US Government; images copied from other sources may be restricted (https://www.loc.gov/rr/print/res/114_habs.html). Check each sheet before reuse.', status='cited only',
+      shows='Trostle barn: brick gabled Pennsylvania bank barn, west elevation later rebuilt, stable area altered; used by Sickles on 2 July'),
+ dict(id='modern-reference', role='ground control (not period data)', title='USGS NAIP imagery, USGS 3DEP bare-earth DEM (1 m), Census TIGERweb roads and rail, USGS NHD flowlines, USGS GNIS populated places',
+      author='USGS; US Census Bureau; USDA Farm Service Agency (NAIP)', date='DEM service: data published as of 2026-09-28; NAIP acquisition year as served', type='modern reference',
+      loc='https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer ; https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer ; https://tigerweb.geo.census.gov ; https://hydro.nationalmap.gov ; https://carto.nationalmap.gov/arcgis/rest/services/geonames/MapServer',
+      call='-', file='cached under tmp/b1863/maps/ref (not committed)', px='1 m grid, EPSG:32618', licence='US Government works, public domain. Google, Bing, Maxar and Mapbox imagery were not used.', status='used', shows='-'),
+]
+json.dump(S, open(os.path.join(OUT, 'sources.json'), 'w'), indent=1)
+print(len(S), 'sources')
