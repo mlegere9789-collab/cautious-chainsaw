@@ -1,0 +1,2621 @@
+{
+ "schema": "gtbg/time-anchor-evidence/1",
+ "historian": "a",
+ "written": "2026-10-18",
+ "scope": "open anchors t28, t75, t90, t248, t275, t518, t538 and the two provisional Turning Points anchors (t75 Ewell, t326 Night Assault)",
+ "time_standard": "Gettysburg local mean time (LMT), the standard of data-src/time/time_anchors.json. 1863 had no standard time; the reports use unsynchronised army/watch time. Washington (Naval Observatory) time differs from Gettysburg LMT by about 0.8 minute (my arithmetic from longitudes, not a sourced figure), so no offset is applied; the real error is watch error, which the reports themselves show to be 30 to 60 minutes between two witnesses of one event.",
+ "sunset_note": "Sunset 19:32, civil dusk 20:04, nautical dusk 20:46 LMT on 1 to 3 July 1863 (NOAA algorithm as recorded in time_anchors.json; not checked against an almanac).",
+ "method": {
+  "corpus": "historian-src/corpus/or27 and historian-src/raw/or27/passages.jsonl (Internet Archive OCR of the 1889 GPO volumes, original not the 1971 reprint). Page = the corpus folio of the leaf the passage stands on.",
+  "quote_check": "Every quotation was checked twice by script (tmp/clock-hist-a/build.py): (1) as a substring of the repo corpus passage text; (2) as a substring of an independent fresh fetch of the Internet Archive OCR text of the same volume (letters and digits only, case-folded). Quotes are OCR text, so they carry OCR damage. NO page image was opened: a quote that matches the OCR may still differ from the printed page.",
+  "externals": "Internet Archive full texts fetched read-only with an identifying User-Agent, one request per second: Southern Historical Society Papers issues (vol. 4 Dec 1877; vol. 6 Sept and Oct 1878; vol. 26 1898), Battles and Leaders vol. 3, Maine at Gettysburg (1898), Report of the Joint Committee on the Conduct of the War (1865) vol. 1. HathiTrust, Perseus and ehistory.osu.edu were not touched.",
+  "types": "A1 primary report or dispatch of 1863 (or sworn testimony of 1864); A2 memoir written years later; B secondary. Pages for A2/B items come from OCR running heads and are marked 'about' where estimated."
+ },
+ "anchors": [
+  {
+   "tick": 28,
+   "label": "Reynolds killed",
+   "day": "1863-07-01",
+   "animation_shows": "Chronology event t28 (significance critical, old map label 7:20am): 'REYNOLDS KILLED ... at the eastern edge of Herbst Woods ... Doubleday assumes corps command'; units U-I and U-I-1-1 (Iron Brigade). Neighbours t25-27 show Reynolds reaching the seminary and the Iron Brigade double-quicking into Herbst Woods.",
+   "current_in_repo": {
+    "t": "10:15",
+    "range": [
+     "10:15",
+     "10:50"
+    ],
+    "sigma_min": 20,
+    "status": "S",
+    "note": "evidence text cites a 10:40-10:50 dispute; none of that dispute is in the OR volume 27 corpus"
+   },
+   "best": {
+    "t": "10:15",
+    "range": [
+     "10:00",
+     "10:45"
+    ],
+    "display": "about 10:15 a.m.",
+    "standard": "LMT (reports' own clocks)"
+   },
+   "uncertainty_min": 30,
+   "confidence": "B",
+   "status": "SUPPORTED",
+   "reasoned_choice": "Two reports of the First Corps, one written on 4 July by the division commander on the field (Wadsworth) and one by Doubleday in December, both say about 10:15; Buford (3:20 p.m. dispatch of the day) puts the start of the 'tremendous battle' at 9:30 and Cutler's brigade was in action from 10. Howard's 5 p.m. dispatch says 11:15, but Howard was not there and his formal report dates the arrival of Reynolds's aide with the news at about 11:30, so 11:15 is best read as the time the news reached him, an upper bound. Doubleday's report may rest on Wadsworth's, so the two are one family, not two independent witnesses. 10:15 is therefore a single-family estimate with a one-sided later bound; the window is 10:00 to 10:45.",
+   "conflicts": [
+    {
+     "claim": "10:15",
+     "by": [
+      "Wadsworth (A1)",
+      "Doubleday (A1)"
+     ],
+     "weight": "preferred: eyewitness division commander, three days after"
+    },
+    {
+     "claim": "11:15",
+     "by": [
+      "Howard dispatch (A1)"
+     ],
+     "weight": "rejected as the time of death: second-hand, and Howard's own report puts the news at about 11:30"
+    },
+    {
+     "claim": "10:40-10:50",
+     "by": [
+      "secondary compilations cited in the repo's earlier evidence note"
+     ],
+     "weight": "not found in any primary source read; UNVERIFIED, not used"
+    }
+   ],
+   "not_verified": [
+    "the minute of death: no source gives a clock time better than 'about'",
+    "Hall, Meredith, Dawes and the Iron Brigade accounts were not read",
+    "the repo's earlier '10:40-10:50' dispute could not be traced"
+   ],
+   "sources": [
+    {
+     "id": "S28-1",
+     "type": "A1",
+     "who": "Brig. Gen. J. S. Wadsworth, 1st Div. I Corps",
+     "kind": "or",
+     "doc": "or27-1:0032",
+     "written": "1863-07-04",
+     "quote": "at this time (about 10.15 a. m.) our gallant leader fell, mortally wounded",
+     "claim": "10:15",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0032",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 266,
+      "leaf": 284,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S28-2",
+     "type": "A1",
+     "who": "Maj. Gen. A. Doubleday, I Corps",
+     "kind": "or",
+     "doc": "or27-1:0029",
+     "written": "1863-12-14",
+     "quote": "referred to, about 10.15 a. m.",
+     "claim": "10:15",
+     "note": "Report written five months later; Doubleday took command on Reynolds's death. Not independent of Wadsworth.",
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0029",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 245,
+      "leaf": 263,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S28-3",
+     "type": "A1",
+     "who": "Maj. Gen. O. O. Howard, XI Corps, dispatch to Meade \"July 1, 1863, 5 p. m.\"",
+     "kind": "or",
+     "doc": "or27-1:0243",
+     "written": "1863-07-01",
+     "quote": "General Reynolds was killed at 11.15 a. m.",
+     "claim": "11:15",
+     "note": "Howard was not at the spot. His formal report (S28-4) puts his receipt of the news at about 11:30.",
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0243",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 696,
+      "leaf": 716,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S28-4",
+     "type": "A1",
+     "who": "Howard, formal report",
+     "kind": "or",
+     "doc": "or27-1:0243",
+     "written": "1863 (formal report; heading date not read)",
+     "quote": "about 11.30 a. m. Prior to this the general had sent me orders",
+     "claim": "news of the death reached Howard about 11:30",
+     "note": "OCR reads \"This was j about 11.30 a. m.\"; the clause fixes the arrival of Riddle with the news, not the death.",
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0243",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 702,
+      "leaf": 722,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S28-5",
+     "type": "A1",
+     "who": "Brig. Gen. J. Buford, dispatch to Meade \"July 1, 1863 - 3.20 p. m.\"",
+     "kind": "or",
+     "doc": "or27-1:0337",
+     "written": "1863-07-01",
+     "quote": "A tremendous battle has been raging since 9.30 a. m.",
+     "claim": "battle since 9:30",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0337",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 924,
+      "leaf": 946,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S28-6",
+     "type": "A1",
+     "who": "Brig. Gen. L. Cutler, 2d Bde, 1st Div. I Corps",
+     "kind": "or",
+     "doc": "or27-1:0037",
+     "written": "1863-07-09",
+     "quote": "having been in action from 10 a. m. until 4 p. m.",
+     "claim": "in action from 10:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0037",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 283,
+      "leaf": 301,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S28-7",
+     "type": "A1",
+     "who": "Maj. Gen. D. Butterfield, dispatch to Hancock \"July 1, 1863 - 1.10 p. m.\"",
+     "kind": "or",
+     "doc": "or27-3:p0461.2",
+     "written": "1863-07-01",
+     "quote": "has just been informed that General Reynolds has been killed or badly wounded",
+     "claim": "army HQ (Taneytown) had news by 1:10 p.m.",
+     "note": "Upper bound for the news reaching Meade, not for the death.",
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 3 (Correspondence)",
+     "edition": "GPO 1889 original (IA scan warofrebellion273unit; never the 1971 reprint)",
+     "ref": "or27-3:p0461.2",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 461,
+      "leaf": 467,
+      "ia_ocr_found": true
+     }
+    }
+   ]
+  },
+  {
+   "tick": 75,
+   "label": "Lee's 'if practicable' order to Ewell",
+   "day": "1863-07-01",
+   "animation_shows": "Chronology event t75 (critical, old label 11:15am): 'LEE'S DISCRETIONARY ORDER TO EWELL: take Cemetery Hill if practicable ... Ewell ... decides it is not practicable. Does not order the attack.'; unit C-II (Ewell's corps). t72 (Hancock rallies the Union on Cemetery Hill) precedes it, t90 follows. It is also the re-pointed Turning Points tick for 'Ewell's Discretion on Cemetery Hill' (was 175, provisional).",
+   "current_in_repo": {
+    "t": "17:00",
+    "range": [
+     "16:30",
+     "17:30"
+    ],
+    "sigma_min": 30,
+    "status": "R",
+    "note": "'after 5 p.m.' rests on a search summary that was never opened"
+   },
+   "best": {
+    "t": null,
+    "working_value": "16:45",
+    "range": [
+     "16:15",
+     "17:30"
+    ],
+    "hard_bounds": [
+     "16:00",
+     "18:30"
+    ],
+    "display": "between about 4:15 and 5:30 p.m.",
+    "standard": "LMT"
+   },
+   "uncertainty_min": 45,
+   "confidence": "D",
+   "status": "UNRESOLVED",
+   "reasoned_choice": "No primary source gives a clock time for the order. What the sources fix: (1) it was sent while Lee 'witnessed the flight of the Federals through Gettysburg and up the hills beyond' (Taylor, who carried it, 1877), that flight began when Howard ordered the retreat at 4:10 (Doubleday says his corps retired at 3:45) and the columns reached Cemetery Hill at 4:30 (Howard); (2) Ewell received it 'on entering the town' (Ewell) when Johnson was reported close; Johnson's leading units reached the field between about 6:30 and sunset (Walker, Richardson, Latimer), which caps the order at about 18:30 on Ewell's own account; (3) Hancock's 5:25 p.m. dispatch finds 'the battle quiet' and no Confederate advance in progress. The probable window is therefore 16:15 to 17:30. 16:45 is a WORKING value inside it, not a finding. The 17:00 now on the anchor, and the 'after 5 p.m.' behind it, could not be traced to any source I could read. Trimble's 1898 account puts the same afternoon 1 to 1.5 hours too early and is rejected as a clock source.",
+   "conflicts": [
+    {
+     "claim": "after 17:00",
+     "by": [
+      "search summary cited in the repo (never opened)"
+     ],
+     "weight": "unverified, not used"
+    },
+    {
+     "claim": "16:15-17:30",
+     "by": [
+      "inference from Taylor + Howard + Doubleday + Hancock 5:25"
+     ],
+     "weight": "preferred, inferential"
+    },
+    {
+     "claim": "about 15:00-15:30",
+     "by": [
+      "Trimble 1898 (A2)"
+     ],
+     "weight": "rejected: his times for the whole afternoon run 1-1.5 h early (retreat 'by 2:30', Culp's Hill occupied 'about 3:30')"
+    }
+   ],
+   "not_verified": [
+    "any minute-level time",
+    "Walter Taylor's later book 'General Lee' (1906) and Four Years with General Lee (1877) were searched and give no time",
+    "Long (Memoirs, 1886) searched, no time found",
+    "Campbell Brown, Venable, Marshall, Pfanz not read",
+    "Ewell's report is dated '1864' in the printed heading"
+   ],
+   "note_for_adjudicator": "Keep the label 'about' and show a range; if a single instant is needed for the clock, the tick must fall between t72 (16:20) and t90 and 16:45 satisfies that.",
+   "sources": [
+    {
+     "id": "S75-1",
+     "type": "A1",
+     "who": "Lt. Gen. R. S. Ewell, report",
+     "kind": "or",
+     "doc": "or27-2:0467",
+     "written": "1864-08-14",
+     "quote": "received a message from the commanding general to attack this hill",
+     "claim": "order reached Ewell \"on entering the town\"; no clock time given",
+     "note": "Ewell adds that he was notified Johnson's division was close to the town (OCR damaged: \"I vvas notified that General Johnson's division\"). Dated \"August 14, 1864\" in the printed heading.",
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0467",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 445,
+      "leaf": 451,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S75-2",
+     "type": "A1",
+     "who": "Gen. R. E. Lee, report",
+     "kind": "or",
+     "doc": "or27-2:0426",
+     "written": "1863-07",
+     "quote": "instructed to carry the hill occupied by the enemy, if he found it practicable",
+     "claim": "order text; no clock time given",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0426",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 318,
+      "leaf": 324,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S75-3",
+     "type": "A2",
+     "who": "Col. W. H. Taylor (carried the order), quoted from the Philadelphia Times in Early's article",
+     "kind": "ext",
+     "work": "Southern Historical Society Papers vol. 4 (Dec. 1877), Early, \"Causes of the Defeat of General Lee's Army at Gettysburg\"",
+     "edition": "periodical issue, IA item sim_southern-historical-society-papers_1877-12_4_6",
+     "ref": "sim_southern-historical-society-papers_1877-12_4_6",
+     "written": "1877",
+     "quote": "witnessed the flight of the Federals through Gettysburg",
+     "claim": "the order was sent while Lee watched the Federal flight through the town and up the hills; no clock time",
+     "page": "252-253",
+     "note": "Page from the issue's running heads (253 follows the quotation); not read from a page image.",
+     "role": "primary",
+     "verification": {
+      "ia_ocr_found": true,
+      "corpus_ocr_found": null,
+      "page": "252-253"
+     }
+    },
+    {
+     "id": "S75-4",
+     "type": "A1",
+     "who": "Maj. Gen. O. O. Howard, formal report",
+     "kind": "or",
+     "doc": "or27-1:0243",
+     "written": "1863 (formal report; heading date not read)",
+     "quote": "At 4.10 p. m., finding that I could hold out no longer",
+     "claim": "Union order to fall back 4:10; reached Cemetery Hill 4:30 (p. 704)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0243",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 704,
+      "leaf": 724,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S75-5",
+     "type": "A1",
+     "who": "Howard, formal report",
+     "kind": "or",
+     "doc": "or27-1:0243",
+     "written": "1863 (formal report; heading date not read)",
+     "quote": "At 4.30 p. m. the columns reached Cemetery Hill",
+     "claim": "retreat complete 4:30",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0243",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 704,
+      "leaf": 724,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S75-6",
+     "type": "A1",
+     "who": "Maj. Gen. A. Doubleday",
+     "kind": "or",
+     "doc": "or27-1:0029",
+     "written": "1863-12-14",
+     "quote": "I ordered the command to retire at 3.45 o'clock",
+     "claim": "I Corps retired 3:45 (15-25 min earlier than Howard)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0029",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 251,
+      "leaf": 269,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S75-7",
+     "type": "A1",
+     "who": "Maj. Gen. W. S. Hancock, dispatch to Meade \"5.25 p. m.\" (first item of his report)",
+     "kind": "or",
+     "doc": "or27-1:0076",
+     "written": "1863-07-01",
+     "quote": "The battle is quiet now.",
+     "claim": "quiet by 5:25 p.m.",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0076",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 366,
+      "leaf": 384,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S75-8",
+     "type": "A2",
+     "who": "Maj. Gen. I. R. Trimble",
+     "kind": "ext",
+     "work": "Southern Historical Society Papers vol. 26 (1898), \"The Campaign and Battle of Gettysburg\"",
+     "edition": "annual volume, IA item sim_southern-historical-society-papers_january-december-1898_26",
+     "ref": "sim_southern-historical-society-papers_january-december-1898_26",
+     "written": "1898",
+     "quote": "were signally defeated by 2:30, July",
+     "claim": "REJECTED as a clock source: puts the Federal defeat at 2:30 and Culp's Hill occupied \"about 3:30\", 1-2 h earlier than the reports of Howard, Doubleday and Hancock",
+     "page": "about 123-124",
+     "note": "Quote checked in the OCR as \"rst and r1th Corps\"; verification uses a shorter fragment.",
+     "role": "rejected",
+     "verification": {
+      "ia_ocr_found": true,
+      "corpus_ocr_found": null,
+      "page": "about 123-124"
+     }
+    }
+   ]
+  },
+  {
+   "tick": 90,
+   "label": "XII Corps (and Johnson's division) arrive",
+   "day": "1863-07-01",
+   "animation_shows": "Chronology event t90 (high, old label 12:30pm): 'XII Corps (Williams) arrives on Baltimore Pike and takes position on Culp's Hill. Greene's brigade on the right. Powers Hill reserve.'; unit U-XII only. Johnson's Confederate division is NOT in this event (it is the second fact row, R038/R039, of the anchor).",
+   "current_in_repo": {
+    "t": "18:00",
+    "range": [
+     "16:30",
+     "20:00"
+    ],
+    "sigma_min": 30,
+    "status": "R",
+    "note": "'a compromise between two ranges, not a measurement'"
+   },
+   "best": {
+    "t": "17:30",
+    "range": [
+     "16:00",
+     "19:00"
+    ],
+    "display": "between about 4 and 7 p.m. (about 5:30 p.m.)",
+    "standard": "LMT",
+    "sub_events": {
+     "XII Corps head near the field": {
+      "t": "16:00",
+      "range": [
+       "15:30",
+       "16:30"
+      ]
+     },
+     "XII Corps formed on the line / Slocum on the field": {
+      "t": "17:30",
+      "range": [
+       "17:00",
+       "19:00"
+      ]
+     },
+     "Johnson's division reaches the field (Confederate)": {
+      "t": "19:00",
+      "range": [
+       "18:30",
+       "19:45"
+      ]
+     }
+    }
+   },
+   "uncertainty_min": 60,
+   "confidence": "C",
+   "status": "CONTESTED",
+   "reasoned_choice": "For the event the animation shows (the XII Corps in place on the Union right) the sources split: first infantry near the field about 4 p.m. (Crane); Slocum still 'moving' at 3:35; Geary in position on the left at 5 (his own figure); Hancock puts Slocum's arrival between 5 and 6; Ruger repositions about sunset; Howard and Meade say Slocum reached the cemetery about 7. I choose 17:30, the centre of Hancock's explicit 'between 5 and 6' (an A1 by the officer who handed command to Slocum) and consistent with Geary's 5:00; this is a reasoned choice among sources, not an average of the 4:00 and 7:00 readings, which I keep as the ends of the window. Johnson (the other half of the anchor) is a different, later event: his division arrived 'about sunset' / 'near dark' (Richardson, Funk), an hour before sunset at the earliest (Walker), and was in line only after dark (Early). CONTENT DEFECT for the data owner: Culp's Hill was occupied by Greene's brigade on 2 July at about 6 a.m. (Greene), not on the evening of 1 July; on 1 July the XII Corps stood on the Baltimore pike and the left, and Wadsworth held Culp's Hill that evening. The card text 'takes position on Culp's Hill' belongs to the morning of 2 July (tick 226-236).",
+   "conflicts": [
+    {
+     "claim": "about 16:00 (near the field)",
+     "by": [
+      "Crane 107th NY (A1)",
+      "Barnum 149th NY 15:30 departure (A1)"
+     ],
+     "weight": "fixes the head of the column, not the corps in place"
+    },
+    {
+     "claim": "17:00",
+     "by": [
+      "Geary (A1)",
+      "Hancock 'between 5 and 6' (A1)"
+     ],
+     "weight": "preferred"
+    },
+    {
+     "claim": "about 19:00",
+     "by": [
+      "Howard (A1)",
+      "Meade (A1, second-hand)",
+      "Ruger 'about sunset' (A1)"
+     ],
+     "weight": "Slocum personally at the cemetery, not the corps' arrival"
+    },
+    {
+     "claim": "Johnson about sunset to after dark",
+     "by": [
+      "Richardson",
+      "Funk",
+      "Andrews/Latimer",
+      "Nicholls 7 o'clock (OCR damaged)",
+      "Walker (A2)",
+      "Early (A2)",
+      "B&L editors (B)"
+     ],
+     "weight": "consistent: 18:30-20:00; best 19:00"
+    }
+   ],
+   "not_verified": [
+    "Slocum's own report and testimony (his report is printed at p. 758 and gives no clocks)",
+    "Williams's report gives no clock for the arrival",
+    "the Johnson timings rest on regimental reports of 42d Va, 5th Va and Andrews's battalion; Rodes's and Ewell's reports give no clock",
+    "Pfanz not read"
+   ],
+   "sources": [
+    {
+     "id": "S90-1",
+     "type": "A1",
+     "who": "Col. N. M. Crane, 107th N.Y. (Ruger's brigade, XII Corps)",
+     "kind": "or",
+     "doc": "or27-1:0290",
+     "written": "1863-08-06",
+     "quote": "about the hour of 4 p. m., we arrived near the field",
+     "claim": "first XII Corps infantry near the field about 4:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0290",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 819,
+      "leaf": 839,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S90-2",
+     "type": "A1",
+     "who": "Maj. Gen. H. W. Slocum, note to Hancock or Howard \"July 1, 1863 - 3.35 p. m.\"",
+     "kind": "or",
+     "doc": "or27-3:p0465.2",
+     "written": "1863-07-01",
+     "quote": "I am moving the Twelfth Corps so as to come in",
+     "claim": "XII Corps moving up at 3:35, not yet in",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 3 (Correspondence)",
+     "edition": "GPO 1889 original (IA scan warofrebellion273unit; never the 1971 reprint)",
+     "ref": "or27-3:p0465.2",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 465,
+      "leaf": 471,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S90-3",
+     "type": "A1",
+     "who": "Brig. Gen. J. W. Geary, 2d Div. XII Corps",
+     "kind": "or",
+     "doc": "or27-1:0293",
+     "written": "1863-07-29",
+     "quote": "reached Two Taverns at 11 a. m.",
+     "claim": "Geary at Two Taverns 11:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0293",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 825,
+      "leaf": 845,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S90-4",
+     "type": "A1",
+     "who": "Geary",
+     "kind": "or",
+     "doc": "or27-1:0293",
+     "written": "1863-07-29",
+     "quote": "at about 2 p. m. advanced rapidly on the road to the town",
+     "claim": "Geary advanced ~14:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0293",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 825,
+      "leaf": 845,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S90-5",
+     "type": "A1",
+     "who": "Geary",
+     "kind": "or",
+     "doc": "or27-1:0293",
+     "written": "1863-07-29",
+     "quote": "At 5 p. m. this movement was consummated",
+     "claim": "Geary in position on the left of the line 17:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0293",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 825,
+      "leaf": 845,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S90-6",
+     "type": "A1",
+     "who": "Maj. Gen. W. S. Hancock, report",
+     "kind": "or",
+     "doc": "or27-1:0076",
+     "written": "1863 (heading date not read; addendum dated 24 Oct 1863)",
+     "quote": "Between 5 and 6 o'clock, my dispositions having been completed",
+     "claim": "Slocum arrived on the field between 17:00 and 18:00 (next sentence: \"Major-General Slocum arrived on the field\")",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0076",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 368,
+      "leaf": 386,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S90-7",
+     "type": "A1",
+     "who": "Maj. Gen. O. O. Howard, formal report",
+     "kind": "or",
+     "doc": "or27-1:0243",
+     "written": "1863 (formal report; heading date not read)",
+     "quote": "About 7 p. m. Generals Slocum and Sickles arrived at the cemetery",
+     "claim": "Slocum and Sickles at the cemetery ~19:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0243",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 704,
+      "leaf": 724,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S90-8",
+     "type": "A1",
+     "who": "Maj. Gen. G. G. Meade, report",
+     "kind": "or",
+     "doc": "or27-1:0006",
+     "written": "1863-10-01",
+     "quote": "About 7 p. m., Major-Generals Slocum and Sickles",
+     "claim": "Slocum and Sickles reached the ground ~19:00 (Meade was not there; second-hand)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0006",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 115,
+      "leaf": 133,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S90-9",
+     "type": "A1",
+     "who": "Brig. Gen. T. H. Ruger, 1st Div. XII Corps",
+     "kind": "or",
+     "doc": "or27-1:0273",
+     "written": "1863-12-05",
+     "quote": "About sunset, the division, in accordance with orders, took up a position",
+     "claim": "1st Div. repositioned about sunset (19:32 LMT)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0273",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 777,
+      "leaf": 797,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S90-10",
+     "type": "A1",
+     "who": "Col. A. L. McDougall, 1st Bde, 1st Div. XII Corps",
+     "kind": "or",
+     "doc": "or27-1:0274",
+     "written": "1863-07-26",
+     "quote": "Arriving near this place toward evening",
+     "claim": "toward evening",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0274",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 782,
+      "leaf": 802,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S90-11",
+     "type": "A1",
+     "who": "Col. H. A. Barnum, 149th N.Y. (Greene's brigade)",
+     "kind": "or",
+     "doc": "or27-1:0313",
+     "written": "1863-07",
+     "quote": "the command rested until 3.30 p. m.",
+     "claim": "Greene's brigade left Two Taverns ~15:30",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0313",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 868,
+      "leaf": 890,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S90-12",
+     "type": "A1",
+     "who": "Brig. Gen. G. S. Greene",
+     "kind": "or",
+     "doc": "or27-1:0307",
+     "written": "1863-07-12",
+     "quote": "we took position at about 6 a. m. on the right of the First Corps",
+     "claim": "Culp's Hill itself was taken 6 a.m. on JULY 2, not July 1",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0307",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 855,
+      "leaf": 875,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S90-13",
+     "type": "A1",
+     "who": "Col. J. H. S. Funk, 5th Va. (Stonewall Bde, Johnson)",
+     "kind": "or",
+     "doc": "or27-2:0492",
+     "written": "1863-08-18",
+     "quote": "Reached Gettysburg near dark",
+     "claim": "Johnson's division near dark",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0492",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 526,
+      "leaf": 532,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S90-14",
+     "type": "A1",
+     "who": "Capt. J. M. Richardson, 42d Va. (Jones' brigade, Johnson's division)",
+     "kind": "or",
+     "doc": "or27-2:0501",
+     "written": "1863-07",
+     "quote": "arrived upon the battle-field and town of Gettysburg about sunset",
+     "claim": "Johnson's division about sunset (19:32 LMT)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0501",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 537,
+      "leaf": 543,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S90-15",
+     "type": "A1",
+     "who": "Lt. Col. R. S. Andrews, report of his artillery battalion (Johnson's division; Maj. J. W. Latimer commanding on the field)",
+     "kind": "or",
+     "doc": "or27-2:0505",
+     "written": "1863-08",
+     "quote": "appeared in front of Gettysburg just before dark",
+     "claim": "Johnson's artillery just before dark",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0505",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 543,
+      "leaf": 549,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S90-16",
+     "type": "A1",
+     "who": "Col. J. M. Williams, Nicholls' brigade",
+     "kind": "or",
+     "doc": "or27-2:0483",
+     "written": "1863-08-28",
+     "quote": "o'clock, while marching on the Cashtown",
+     "claim": "Nicholls' brigade (leading) ~19:00",
+     "note": "OCR damaged (\"0a at a^°ut 7 o'clock\"). Weakest of the Johnson readings.",
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0483",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 513,
+      "leaf": 519,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S90-17",
+     "type": "A2",
+     "who": "Brig. Gen. J. A. Walker (Stonewall Bde), letter of 13 Oct. 1877, printed by Early",
+     "kind": "ext",
+     "work": "Southern Historical Society Papers vol. 4 (Dec. 1877), Early, \"Causes of the Defeat of General Lee's Army at Gettysburg\"",
+     "edition": "periodical issue, IA item sim_southern-historical-society-papers_1877-12_4_6",
+     "ref": "sim_southern-historical-society-papers_1877-12_4_6",
+     "written": "1877-10-13",
+     "quote": "not earlier than an hour before sun-set",
+     "claim": "Stonewall Brigade reached the field no earlier than ~18:30",
+     "page": "264",
+     "note": null,
+     "role": "primary",
+     "verification": {
+      "ia_ocr_found": true,
+      "corpus_ocr_found": null,
+      "page": "264"
+     }
+    },
+    {
+     "id": "S90-18",
+     "type": "A2",
+     "who": "Maj. Gen. J. Early",
+     "kind": "ext",
+     "work": "Southern Historical Society Papers vol. 4 (Dec. 1877)",
+     "edition": "periodical issue, as above",
+     "ref": "sim_southern-historical-society-papers_1877-12_4_6",
+     "written": "1877",
+     "quote": "Johnson did not get into line of battle on my left until atter dark",
+     "claim": "Johnson in line after dark",
+     "page": "261",
+     "note": "OCR \"atter\" for \"after\".",
+     "role": "primary",
+     "verification": {
+      "ia_ocr_found": true,
+      "corpus_ocr_found": null,
+      "page": "261"
+     }
+    },
+    {
+     "id": "S90-19",
+     "type": "B",
+     "who": "Editors of Battles and Leaders (Century Co.), note under Map 15",
+     "kind": "ext",
+     "work": "Battles and Leaders of the Civil War vol. 3",
+     "edition": "Century 1887, IA item battlesleadersci03underich",
+     "ref": "battlesleadersci03underich",
+     "written": "1887",
+     "quote": "after sunset or about dusk",
+     "claim": "Johnson did not reach his position until after sunset or about dusk",
+     "page": "282",
+     "note": null,
+     "role": "corroboration",
+     "verification": {
+      "ia_ocr_found": true,
+      "corpus_ocr_found": null,
+      "page": "282"
+     }
+    }
+   ]
+  },
+  {
+   "tick": 248,
+   "label": "Sickles advances III Corps to the Peach Orchard / Emmitsburg road",
+   "day": "1863-07-02",
+   "animation_shows": "Chronology event t248 (critical, old label 6:50am): 'Sickles advances his entire III Corps to the Peach Orchard -- without orders ... exposed apex at the Orchard ... thin line stretching to Devil's Den'; unit U-III. Placement data at t248: U-III-1-1 (Ward) 'advanced to Devil's Den area', U-III-2-1 (Carr) 'on Emmitsburg Road'. t240 is the Berdan reconnaissance (12:00); t256 Longstreet's assault (16:00).",
+   "current_in_repo": {
+    "t": "14:30",
+    "range": [
+     "12:00",
+     "15:30"
+    ],
+    "sigma_min": 30,
+    "status": "R",
+    "note": "midpoint of the range; vignette V-007 says 'around 3:00'"
+   },
+   "best": {
+    "t": "15:00",
+    "range": [
+     "14:00",
+     "16:00"
+    ],
+    "display": "about 3 p.m. (between about 2 and 4 p.m.)",
+    "standard": "LMT",
+    "sub_events": {
+     "Sickles announces the change of line": {
+      "t": "13:30",
+      "range": [
+       "13:00",
+       "14:00"
+      ]
+     },
+     "Birney's division on the advanced line, batteries firing": {
+      "t": "15:00",
+      "range": [
+       "14:00",
+       "15:30"
+      ]
+     },
+     "Humphreys's division moves up to the Emmitsburg road": {
+      "t": "16:00",
+      "range": [
+       "15:55",
+       "16:15"
+      ]
+     }
+    }
+   },
+   "uncertainty_min": 45,
+   "confidence": "C",
+   "status": "CONTESTED",
+   "reasoned_choice": "The advance was a sequence, so there is no single instant. Randolph dates Sickles's announcement between 1 and 2; Birney's division was on the new line firing by about 3:30; Hancock (1863) says the Corps 'advanced ... about 3 p. m.' and Meade (1863) found Sickles 'in the act of advancing' at about 3; Humphreys moved forward 'about 4' and Hancock's 1864 testimony and Wilcox say about 4 for the visible movement. The animation's tick shows the corps advancing as one act, ending with Ward at Devil's Den and Carr on the road, which is the 14:00-16:00 phase. I choose 15:00 because the two corps-level reports of the neighbours who watched it (Hancock, Meade) agree on it, and move the anchor 30 minutes later than the repo's midpoint. Birney's own two accounts differ by an hour for the preceding reconnaissance (12:00 in 1863, 11:00 in 1864), which shows the size of the clock noise. The Confederate side only says the line was in place by about 4 (Longstreet).",
+   "conflicts": [
+    {
+     "claim": "13:00-14:00 (order)",
+     "by": [
+      "Randolph (A1)"
+     ],
+     "weight": "the decision/announcement, not the movement"
+    },
+    {
+     "claim": "about 15:00",
+     "by": [
+      "Hancock 1863",
+      "Meade 1863",
+      "Sykes (council at 15:00)",
+      "Birney 15:30"
+     ],
+     "weight": "preferred"
+    },
+    {
+     "claim": "about 16:00",
+     "by": [
+      "Humphreys 1863 and 1864",
+      "Hancock 1864",
+      "Meade 1864 (arrived 'a few minutes before 4')",
+      "Wilcox (A2)",
+      "Longstreet"
+     ],
+     "weight": "the last stage of the advance and the first Confederate observation"
+    },
+    {
+     "claim": "12:00",
+     "by": [
+      "Sickles's first move, Humphreys 1864 'about 12 o'clock'"
+     ],
+     "weight": "positions inside the original line, not the Peach Orchard advance"
+    }
+   ],
+   "not_verified": [
+    "Sickles's own testimony and Graham's, De Trobriand's and Ward's accounts of the move were not read for clocks",
+    "Hessler and Pfanz (named in the repo as differing) not read",
+    "the Hancock 1863 versus 1864 difference (3 p.m. vs 4) is unexplained"
+   ],
+   "sources": [
+    {
+     "id": "S248-1",
+     "type": "A1",
+     "who": "Capt. G. E. Randolph, chief of artillery III Corps",
+     "kind": "or",
+     "doc": "or27-1:0181",
+     "written": "1863-09-02",
+     "quote": "Between 1 and 2 p. m. Major-General Sickles notified me",
+     "claim": "Sickles announced the change of line between 13:00 and 14:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0181",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 581,
+      "leaf": 601,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S248-2",
+     "type": "A1",
+     "who": "Maj. Gen. D. B. Birney",
+     "kind": "or",
+     "doc": "or27-1:0133",
+     "written": "1863-08-07",
+     "quote": "At 12 m., believing from the constant fire of the enemy",
+     "claim": "Berdan reconnaissance 12:00, which led to the order to change front",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0133",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 482,
+      "leaf": 502,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S248-3",
+     "type": "A1",
+     "who": "Birney",
+     "kind": "or",
+     "doc": "or27-1:0133",
+     "written": "1863-08-07",
+     "quote": "I now opened (say at 3.30 p. m.)",
+     "claim": "division on the advanced line and firing 15:30",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0133",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 483,
+      "leaf": 503,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S248-4",
+     "type": "A1",
+     "who": "Maj. Gen. W. S. Hancock, report",
+     "kind": "or",
+     "doc": "or27-1:0076",
+     "written": "1863 (heading date not read; addendum dated 24 Oct 1863)",
+     "quote": "until about 3 p. m. , when the Third Corps advanced from its position",
+     "claim": "III Corps advanced ~15:00 (Hancock's corps was adjacent)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0076",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 369,
+      "leaf": 387,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S248-5",
+     "type": "A1",
+     "who": "Maj. Gen. G. G. Meade, report",
+     "kind": "or",
+     "doc": "or27-1:0006",
+     "written": "1863-10-01",
+     "quote": "About 3 p. m. I rode out to the extreme left",
+     "claim": "Meade left ~15:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0006",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 116,
+      "leaf": 134,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S248-6",
+     "type": "A1",
+     "who": "Meade",
+     "kind": "or",
+     "doc": "or27-1:0006",
+     "written": "1863-10-01",
+     "quote": "was in the act of advancing",
+     "claim": "found Sickles in the act of advancing (OCR: \"had advanced, or rather was in the act of advancing, his corps\")",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0006",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 116,
+      "leaf": 134,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S248-7",
+     "type": "A1",
+     "who": "Maj. Gen. G. Sykes, V Corps",
+     "kind": "or",
+     "doc": "or27-1:0187",
+     "written": "1863-07-31",
+     "quote": "At 3 p. m. General Meade sent for me",
+     "claim": "Meade's conference 15:00; the attack began while it was in progress",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0187",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 592,
+      "leaf": 612,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S248-8",
+     "type": "A1",
+     "who": "Brig. Gen. A. A. Humphreys, 2d Div. III Corps",
+     "kind": "or",
+     "doc": "or27-1:0158",
+     "written": "1863-08-16",
+     "quote": "About 4 p. m. , in compliance with General Sickles' orders, I moved my division forward",
+     "claim": "Humphreys moved forward ~16:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0158",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 532,
+      "leaf": 552,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S248-9",
+     "type": "A1",
+     "who": "Maj. Gen. G. G. Meade, sworn testimony to the Joint Committee, March 1864",
+     "kind": "ext",
+     "work": "Report of the Joint Committee on the Conduct of the War, 38th Cong. 2d sess., 1865, vol. 1 (Army of the Potomac, Gettysburg)",
+     "edition": "IA item reportofjointcomm01unit",
+     "ref": "reportofjointcomm01unit",
+     "written": "1864-03",
+     "quote": "a few minutes before 4 o'clock in the afternoon",
+     "claim": "Meade reached Sickles ~15:55",
+     "page": "332",
+     "note": null,
+     "role": "primary",
+     "verification": {
+      "ia_ocr_found": true,
+      "corpus_ocr_found": null,
+      "page": "332"
+     }
+    },
+    {
+     "id": "S248-10",
+     "type": "A1",
+     "who": "Maj. Gen. W. S. Hancock, testimony to the Joint Committee, 1864",
+     "kind": "ext",
+     "work": "same, vol. 1",
+     "edition": "IA item reportofjointcomm01unit",
+     "ref": "reportofjointcomm01unit",
+     "written": "1864",
+     "quote": "until about 4 o'clock that afternoon, when General Sickles moved out to the front",
+     "claim": "Sickles \"moved out to the front\" ~16:00 (Hancock's 1863 report says ~15:00)",
+     "page": "406",
+     "note": null,
+     "role": "primary",
+     "verification": {
+      "ia_ocr_found": true,
+      "corpus_ocr_found": null,
+      "page": "406"
+     }
+    },
+    {
+     "id": "S248-11",
+     "type": "A1",
+     "who": "Maj. Gen. A. A. Humphreys, testimony to the Joint Committee, 1864",
+     "kind": "ext",
+     "work": "same, vol. 1",
+     "edition": "IA item reportofjointcomm01unit",
+     "ref": "reportofjointcomm01unit",
+     "written": "1864",
+     "quote": "Perhaps a little after 4 o'clock I received orders from General Sickles to move up",
+     "claim": "Humphreys ordered up to the Emmitsburg road just after 16:00",
+     "page": "391",
+     "note": null,
+     "role": "primary",
+     "verification": {
+      "ia_ocr_found": true,
+      "corpus_ocr_found": null,
+      "page": "391"
+     }
+    },
+    {
+     "id": "S248-12",
+     "type": "A1",
+     "who": "Lt. Gen. J. Longstreet, report",
+     "kind": "or",
+     "doc": "or27-2:0430",
+     "written": "1863-07-27",
+     "quote": "McLaws' division got into position opposite the enemy's left about 4 p. m.",
+     "claim": "Confederate view: Sickles' line already in place ~16:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0430",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 358,
+      "leaf": 364,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S248-14",
+     "type": "A1",
+     "who": "Maj. Gen. D. B. Birney, testimony to the Joint Committee, 1864",
+     "kind": "ext",
+     "work": "same, vol. 1",
+     "edition": "IA item reportofjointcomm01unit",
+     "ref": "reportofjointcomm01unit",
+     "written": "1864",
+     "quote": "About 11 o'clock, the firing with my skirmishers being very sharp",
+     "claim": "Birney puts the reconnaissance request at 11:00 (his 1863 report: 12:00)",
+     "page": "366",
+     "note": null,
+     "role": "consistency",
+     "verification": {
+      "ia_ocr_found": true,
+      "corpus_ocr_found": null,
+      "page": "366"
+     }
+    },
+    {
+     "id": "S248-13",
+     "type": "A2",
+     "who": "Brig. Gen. C. M. Wilcox (Confederate)",
+     "kind": "ext",
+     "work": "Southern Historical Society Papers vol. 6 (Sept. 1878, no. 3; the issue head reads \"Vol. V.\"), \"General C. M. Wilcox on the Battle of Gettysburg\"",
+     "edition": "periodical issue, IA item sim_southern-historical-society-papers_1878-09_6_3",
+     "ref": "sim_southern-historical-society-papers_1878-09_6_3",
+     "written": "1878",
+     "quote": "It was not until 4 P. M. that the right of Sickles moved forward and halted",
+     "claim": "Sickles' right moved forward and halted ~16:00 (Confederate memoir)",
+     "page": "about 116",
+     "note": "Page estimated from running heads (112 appears 9 000 characters earlier).",
+     "role": "corroboration",
+     "verification": {
+      "ia_ocr_found": true,
+      "corpus_ocr_found": null,
+      "page": "about 116"
+     }
+    }
+   ]
+  },
+  {
+   "tick": 275,
+   "label": "Chamberlain's 20th Maine bayonet charge",
+   "day": "1863-07-02",
+   "animation_shows": "Chronology event t275 (critical, old label 9:05am): 'CHAMBERLAIN'S BAYONET CHARGE ... 15th Alabama broken and retreating. Nearly 400 Confederate prisoners'; units U-20ME, C-15AL. Placement data: t267 20th Maine refused flank, t268 first Confederate assault, t270 'Vincent mortally wounded nearby', t275 'Charging Line'; C-15AL 'Chaotic Retreat' at t275. t267 (Vincent arrives) is 16:30 and t280 (Peach Orchard collapses) 18:30 in the anchor table.",
+   "current_in_repo": {
+    "t": "18:00",
+    "range": [
+     "17:10",
+     "19:00"
+    ],
+    "sigma_min": 30,
+    "status": "R",
+    "note": "'defensible mid value, labelled approximate'"
+   },
+   "best": {
+    "t": "18:00",
+    "range": [
+     "17:15",
+     "19:00"
+    ],
+    "display": "about 6 p.m. (between about 5:15 and 7 p.m.)",
+    "standard": "LMT"
+   },
+   "uncertainty_min": 45,
+   "confidence": "C",
+   "status": "CONTESTED",
+   "reasoned_choice": "Chamberlain's own report (6 July) and Rice's agree that the brigade went into position about 4 p.m.; Chamberlain adds an hour of severe fighting before the final assault and Rice more than half an hour of 'desperate' struggle on the left before the charge. The Confederate reports put Hood's advance at 4:00 to 4:30 (Bryan, Bane), and Oates (1878) puts his regiment's break and rally 'just about sunset' (19:32). That gives a charge between roughly 5:15 (4:00 + the first assaults) and 7:00 (sunset); the Union sources, which time the start and describe the duration, put it in the first half. I keep 18:00 with the window 17:15-19:00. Chamberlain's report says the 'fall of Colonel Vincent' was told him 'at dusk', after the charge; this does not pin the charge to dusk because it is the second event in his sequence. The 5:10 and 5:30 readings in the repo's summaries are not in the OR text and could not be sourced; the 'after 7 p.m.' reading would put the charge at or after sunset, which Oates's 'sunset' for the already-broken regiment allows only at its limit and sits at the extreme edge of Oates's 'sunset' (19:32), so I weight it low.",
+   "conflicts": [
+    {
+     "claim": "15:15 first contact",
+     "by": [
+      "Woodward 83d Pa (A1)"
+     ],
+     "weight": "outlier, 45-75 min before the Confederate step-off"
+    },
+    {
+     "claim": "first contact about 16:15-16:45; fighting 'an hour'; charge about 17:30-18:30",
+     "by": [
+      "Chamberlain",
+      "Rice",
+      "Conner",
+      "Welch",
+      "Bryan",
+      "Bane",
+      "Hunt",
+      "Maine at Gettysburg (B)"
+     ],
+     "weight": "preferred"
+    },
+    {
+     "claim": "about 19:00-19:30 (sunset)",
+     "by": [
+      "Oates 1878 (A2)"
+     ],
+     "weight": "an upper bound: he places the rally of the broken regiment at sunset"
+    }
+   ],
+   "not_verified": [
+    "Oates's own 1863 report (No. 444) was searched and gives no clock",
+    "Desjardin, Pfanz, Cross not read; the '6:30' and 'after 7 p.m.' readings in the repo's summaries are unverified here",
+    "Law's and Kershaw's accounts not checked for clocks",
+    "Maine at Gettysburg page not determined"
+   ],
+   "sources": [
+    {
+     "id": "S275-1",
+     "type": "A1",
+     "who": "Col. J. L. Chamberlain, 20th Maine",
+     "kind": "or",
+     "doc": "or27-1:0196",
+     "written": "1863-07-06",
+     "quote": "Somewhere near 4 p. m. a sharp cannonade, at some distance to our left",
+     "claim": "brigade ordered to Little Round Top ~16:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0196",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 622,
+      "leaf": 642,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S275-2",
+     "type": "A1",
+     "who": "Chamberlain",
+     "kind": "or",
+     "doc": "or27-1:0196",
+     "written": "1863-07-06",
+     "quote": "for an hour the fighting was severe",
+     "claim": "an hour of severe fighting before the final assault and the bayonet order",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0196",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 624,
+      "leaf": 644,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S275-3",
+     "type": "A1",
+     "who": "Chamberlain",
+     "kind": "or",
+     "doc": "or27-1:0196",
+     "written": "1863-07-06",
+     "quote": "At dusk, Colonel Rice informed me of the fall of Colonel Vincent",
+     "claim": "Vincent's fall reported AFTER the charge, at dusk",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0196",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 625,
+      "leaf": 645,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S275-4",
+     "type": "A1",
+     "who": "Col. J. C. Rice, 3d Bde",
+     "kind": "or",
+     "doc": "or27-1:0195",
+     "written": "1863-07-31",
+     "quote": "For above half an hour the struggle was desperate",
+     "claim": "half an hour of desperate fighting on the left before Chamberlain ordered the charge",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0195",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 617,
+      "leaf": 637,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S275-5",
+     "type": "A1",
+     "who": "Lt. Col. F. Conner, 44th N.Y.",
+     "kind": "or",
+     "doc": "or27-1:0200",
+     "written": "1863-07-06",
+     "quote": "About 4 p. m. our regiment, Col. J. C. Rice commanding, was placed in position",
+     "claim": "brigade in position ~16:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0200",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 630,
+      "leaf": 650,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S275-6",
+     "type": "A1",
+     "who": "Lt. Col. N. E. Welch, 16th Mich.",
+     "kind": "or",
+     "doc": "or27-1:0198",
+     "written": "1863-07-06",
+     "quote": "About 4 p. m. we moved rapidly to the extreme left",
+     "claim": "brigade moved ~16:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0198",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 628,
+      "leaf": 648,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S275-7",
+     "type": "A1",
+     "who": "Capt. O. S. Woodward, 83d Pa.",
+     "kind": "or",
+     "doc": "or27-1:0201",
+     "written": "1863-08",
+     "quote": "At 3.15 p. m. the enemy advanced and engaged my skirmishers",
+     "claim": "first contact 15:15 (outlier: 45-75 min earlier than the Confederate reports)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0201",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 632,
+      "leaf": 652,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S275-8",
+     "type": "A1",
+     "who": "Brig. Gen. H. J. Hunt, report",
+     "kind": "or",
+     "doc": "or27-1:0028",
+     "written": "1863-09-27",
+     "quote": "About 4.30 p. m. Hazlett's battery was moved to the extreme left.",
+     "claim": "Hazlett on Little Round Top ~16:30",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0028",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 236,
+      "leaf": 254,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S275-9",
+     "type": "A1",
+     "who": "Maj. J. P. Bane, 4th Texas",
+     "kind": "or",
+     "doc": "or27-2:0455",
+     "written": "1863-07-09",
+     "quote": "About 4.30 p. m. the 2d instant, we were ordered to advance on the enemy",
+     "claim": "Texas brigade stepped off ~16:30",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0455",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 410,
+      "leaf": 416,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S275-10",
+     "type": "A1",
+     "who": "Lt. Col. K. Bryan, 5th Texas",
+     "kind": "or",
+     "doc": "or27-2:0456",
+     "written": "1863-07-08",
+     "quote": "About 4 p. m. on the 2d instant, General Hood's division was drawn up",
+     "claim": "Hood's division formed ~16:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0456",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 412,
+      "leaf": 418,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S275-11",
+     "type": "A1",
+     "who": "Col. W. F. Perry, 44th Ala.",
+     "kind": "or",
+     "doc": "or27-2:0445",
+     "written": "1863-08-08",
+     "quote": "It was now past 5 p. m.",
+     "claim": "Benning's brigade came up at Devil's Den after 17:00 (not the Maine front itself)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0445",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 394,
+      "leaf": 400,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S275-12",
+     "type": "A2",
+     "who": "Col. W. C. Oates, 15th Ala. (the regiment the Maine charge broke)",
+     "kind": "ext",
+     "work": "Southern Historical Society Papers vol. 6 (Oct. 1878, no. 4; the issue head reads \"Vol. V.\"), \"Gettysburg - The Battle on the Right\"",
+     "edition": "periodical issue, IA item sim_southern-historical-society-papers_1878-10_6_4",
+     "ref": "sim_southern-historical-society-papers_1878-10_6_4",
+     "written": "1878",
+     "quote": "This was just about sunset, and the fighting all along our line had pretty well ceased",
+     "claim": "Oates, after his regiment broke and he tried to rally it, places that \"just about sunset\" (19:32 LMT) and the battle as four hours old at dark",
+     "page": "about 178-179",
+     "note": "Page estimated from running heads (the article opens p. 172, \"79\" printed 1 300 characters after the passage).",
+     "role": "primary",
+     "verification": {
+      "ia_ocr_found": true,
+      "corpus_ocr_found": null,
+      "page": "about 178-179"
+     }
+    },
+    {
+     "id": "S275-13",
+     "type": "B",
+     "who": "Maine Commission, \"Maine at Gettysburg\" (narrative of the fight)",
+     "kind": "ext",
+     "work": "Maine at Gettysburg (Report of the Maine Commissioners)",
+     "edition": "Portland 1898, IA item maineatgettysbur01main",
+     "ref": "maineatgettysbur01main",
+     "written": "1898",
+     "quote": "It was now nearly 5 o'clock, perhaps nearer 4.45",
+     "claim": "44th Alabama appears on the 20th Maine's front ~16:45-17:00",
+     "page": "about 270",
+     "note": "Secondary compilation; page not determined.",
+     "role": "corroboration",
+     "verification": {
+      "ia_ocr_found": true,
+      "corpus_ocr_found": null,
+      "page": "about 270"
+     }
+    }
+   ]
+  },
+  {
+   "tick": 326,
+   "label": "Early's brigades assault East Cemetery Hill (Turning Points 'Night Assault', provisional)",
+   "day": "1863-07-02",
+   "animation_shows": "Chronology event t326 (critical, old label 1:10pm): 'CEMETERY HILL ASSAULT. Hays's Louisiana Tigers and Avery's North Carolina brigade charge Cemetery Hill at dusk ... briefly seize Union guns'; units C-II-1-1, C-II-1-2, U-XI-2, U-ART-F1PA. Placement: C-II-1-1 'Charging Line' t326, 'on the crest' t327, 'driven back' t328. It is the re-pointed Turning Points tick for 'The Night Assault on Culp's and Cemetery Hill' (was 340, provisional); the Culp's Hill half is t314.",
+   "current_in_repo": {
+    "t": "20:00",
+    "range": [
+     "19:30",
+     "20:30"
+    ],
+    "sigma_min": 30,
+    "status": "S",
+    "note": "supported anchor; re-checked here because Turning Points now points at it"
+   },
+   "best": {
+    "t": "20:00",
+    "range": [
+     "19:30",
+     "20:30"
+    ],
+    "display": "about 8 p.m.",
+    "standard": "LMT"
+   },
+   "uncertainty_min": 30,
+   "confidence": "B",
+   "status": "SUPPORTED",
+   "reasoned_choice": "Both sides agree to within the usual watch noise: Hays was ordered forward 'a little before 8' (his order, about 19:50), Early ordered the advance 'a little before dusk' (before 20:04), Godwin's regiment moved at sunset (19:32), Harris and Wainwright say 'about dusk', Howard says the attack began between 7 and 8 and lasted under an hour, Schurz heard the fire between 8 and 9, and Tate says the crest was reached when it was 'fully dark'. The step-off therefore falls about 19:45-20:00 and the crest 20:15-20:30. Steinwehr's 'about 9 p.m.' is an outlier (one hour late) and may describe the end of the action. 20:00 stays.",
+   "conflicts": [
+    {
+     "claim": "about 21:00",
+     "by": [
+      "Steinwehr (A1)"
+     ],
+     "weight": "outlier"
+    }
+   ],
+   "not_verified": [
+    "Avery's and Hays's brigade regimental reports not all read",
+    "Ames, Carroll, Krzyzanowski not searched for clocks"
+   ],
+   "sources": [
+    {
+     "id": "S326-1",
+     "type": "A1",
+     "who": "Brig. Gen. H. T. Hays",
+     "kind": "or",
+     "doc": "or27-2:0472",
+     "written": "1863-08-04",
+     "quote": "A little before 8 p. m. I was ordered to advance",
+     "claim": "Hays ordered forward ~19:50",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0472",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 480,
+      "leaf": 486,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S326-2",
+     "type": "A1",
+     "who": "Maj. Gen. J. A. Early",
+     "kind": "or",
+     "doc": "or27-2:0470",
+     "written": "1863-08-22",
+     "quote": "a little before dusk, I ordered Hays and Avery to advance",
+     "claim": "Early gave the order ~19:30-19:45",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0470",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 470,
+      "leaf": 476,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S326-3",
+     "type": "A1",
+     "who": "Col. A. C. Godwin, Hoke's (Avery's) brigade",
+     "kind": "or",
+     "doc": "or27-2:0473",
+     "written": "1863-07-30",
+     "quote": "At sunset, by order of Major-General Early",
+     "claim": "regiment ordered forward at sunset (19:32)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0473",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 483,
+      "leaf": 489,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S326-4",
+     "type": "A1",
+     "who": "Maj. S. McD. Tate, 6th N.C.",
+     "kind": "or",
+     "doc": "or27-2:0474",
+     "written": "1863-07-08",
+     "quote": "It was now fully dark.",
+     "claim": "crest taken in full dark (after ~20:15)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0474",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 486,
+      "leaf": 492,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S326-5",
+     "type": "A1",
+     "who": "Maj. Gen. O. O. Howard, formal report",
+     "kind": "or",
+     "doc": "or27-1:0243",
+     "written": "1863 (formal report; heading date not read)",
+     "quote": "commenced between 7 and 8 p. m. ,",
+     "claim": "Union view: the evening attack began 19:00-20:00 and lasted under an hour",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0243",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 705,
+      "leaf": 725,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S326-6",
+     "type": "A1",
+     "who": "Maj. Gen. C. Schurz",
+     "kind": "or",
+     "doc": "or27-1:0253",
+     "written": "1863-08-20",
+     "quote": "between 8 and 9 p.m., we suddenly heard a rapid musketry fire",
+     "claim": "fire on the hill east of the cemetery 20:00-21:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0253",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 731,
+      "leaf": 751,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S326-7",
+     "type": "A1",
+     "who": "Col. A. L. Harris, 75th Ohio",
+     "kind": "or",
+     "doc": "or27-1:0246",
+     "written": "1863-07-05",
+     "quote": "About dusk the enemy attacked the regiment",
+     "claim": "~19:30-20:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0246",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 715,
+      "leaf": 735,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S326-8",
+     "type": "A1",
+     "who": "Brig. Gen. A. von Steinwehr",
+     "kind": "or",
+     "doc": "or27-1:0250",
+     "written": "1863-08-30",
+     "quote": "At about 9 p. m. the Louisiana Brigade (Tigers) made a vigorous",
+     "claim": "Union division commander puts the Louisiana charge at ~21:00 (outlier)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0250",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 722,
+      "leaf": 742,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S326-9",
+     "type": "A1",
+     "who": "Col. C. S. Wainwright, I Corps artillery",
+     "kind": "or",
+     "doc": "or27-1:0071",
+     "written": "1863-07-17",
+     "quote": "About dusk they again opened from a knoll on our left and front",
+     "claim": "Confederate batteries and attack opened ~dusk",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0071",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 358,
+      "leaf": 376,
+      "ia_ocr_found": true
+     }
+    }
+   ]
+  },
+  {
+   "tick": 518,
+   "label": "Cannonade opens (Confederate signal guns)",
+   "day": "1863-07-03",
+   "animation_shows": "Chronology event t518 (critical, old label 9:30am): 'THE CANNONADE BEGINS. At approximately 1:00pm, two Confederate signal guns fire ... 170 guns'; units C-ART-I-1..4, C-ART-III-1..3. t515 Culp's Hill fighting ends, t516 Alexander posts the guns. Also the Turning Points tick for 'The Cannonade and Its Effect' (was 540).",
+   "current_in_repo": {
+    "t": "13:07",
+    "range": [
+     "13:00",
+     "13:10"
+    ],
+    "sigma_min": 5,
+    "status": "S",
+    "note": "minute 1:07 comes from a secondary web page"
+   },
+   "best": {
+    "t": "13:00",
+    "range": [
+     "12:55",
+     "13:15"
+    ],
+    "display": "about 1:00 p.m.",
+    "standard": "LMT"
+   },
+   "uncertainty_min": 10,
+   "confidence": "A",
+   "status": "SUPPORTED",
+   "reasoned_choice": "Nine independent-looking reports on the two sides say about 1 p.m. (Hancock, Hunt, Webb, Devereux, Harrow, Howard on the Union side; Cabell, Walker and Davis on the Confederate side), plus Longstreet's 1886 'About 1 o'clock'. Eshleman, whose battery fired the signal, says 'between 1 and 2'. Peyton (1:30) and Anderson (3:30) are outliers, and Longstreet's own 1863 report places Pickett's 'about 2 p.m.' report before the guns opened, which the other reports contradict. The minute 1:07 is supported by no primary source I read; it traces to a secondary web page (Welsh). The anchor is supported at 'about 1:00 p.m.' to plus or minus ten minutes, NOT at the minute; if the 13:07 is kept it should be displayed as 'about 1:00 p.m.'.",
+   "conflicts": [
+    {
+     "claim": "13:00",
+     "by": [
+      "nine reports (S518-1..9) plus Longstreet 1886"
+     ],
+     "weight": "preferred"
+    },
+    {
+     "claim": "13:07",
+     "by": [
+      "a secondary web page (Welsh)"
+     ],
+     "weight": "unverified"
+    },
+    {
+     "claim": "13:30",
+     "by": [
+      "Peyton"
+     ],
+     "weight": "outlier"
+    },
+    {
+     "claim": "15:30",
+     "by": [
+      "R. H. Anderson"
+     ],
+     "weight": "outlier (probably the time he first noticed it)"
+    }
+   ],
+   "not_verified": [
+    "the origin of 1:07 (Welsh's source not traced)",
+    "NPS 'around 1 pm' not re-read",
+    "Alexander's 'Military Memoirs' not read"
+   ],
+   "sources": [
+    {
+     "id": "S518-1",
+     "type": "A1",
+     "who": "Maj. Gen. W. S. Hancock",
+     "kind": "or",
+     "doc": "or27-1:0076",
+     "written": "1863 (heading date not read; addendum dated 24 Oct 1863)",
+     "quote": "About 1 o'clock, apparently by a given signal, the enemy opened",
+     "claim": "~13:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0076",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 372,
+      "leaf": 390,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S518-2",
+     "type": "A1",
+     "who": "Brig. Gen. H. J. Hunt",
+     "kind": "or",
+     "doc": "or27-1:0028",
+     "written": "1863-09-27",
+     "quote": "when the enemy opened, at about 1 p. m.",
+     "claim": "~13:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0028",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 239,
+      "leaf": 257,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S518-3",
+     "type": "A1",
+     "who": "Brig. Gen. A. S. Webb",
+     "kind": "or",
+     "doc": "or27-1:0104",
+     "written": "1863-07-12",
+     "quote": "About 1 p. m. tbe enemy opened with more than twenty batteries",
+     "claim": "~13:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0104",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 428,
+      "leaf": 446,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S518-4",
+     "type": "A1",
+     "who": "Col. A. F. Devereux, 19th Mass.",
+     "kind": "or",
+     "doc": "or27-1:0110",
+     "written": "1863-07-07",
+     "quote": "at a signal of a gun fired to our left",
+     "claim": "signal gun; \"quiet ... until 1 p. m.\"",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0110",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 443,
+      "leaf": 461,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S518-5",
+     "type": "A1",
+     "who": "Brig. Gen. W. Harrow",
+     "kind": "or",
+     "doc": "or27-1:0099",
+     "written": "1863-07-16",
+     "quote": "At 1 p. m. the enemy opened a fierce cannonade",
+     "claim": "13:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0099",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 420,
+      "leaf": 438,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S518-6",
+     "type": "A1",
+     "who": "Maj. Gen. O. O. Howard, formal report",
+     "kind": "or",
+     "doc": "or27-1:0243",
+     "written": "1863 (formal report; heading date not read)",
+     "quote": "At about 1 p. m. a terrific cannonade opened upon us",
+     "claim": "~13:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0243",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 706,
+      "leaf": 726,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S518-7",
+     "type": "A1",
+     "who": "Col. H. C. Cabell (Confederate artillery)",
+     "kind": "or",
+     "doc": "or27-2:0435",
+     "written": "1863-08-01",
+     "quote": "The fire of the artillery was opened about 1 p. m.",
+     "claim": "~13:00 (Confederate side)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0435",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 376,
+      "leaf": 382,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S518-8",
+     "type": "A1",
+     "who": "Col. R. L. Walker, chief of artillery, A. P. Hill's corps",
+     "kind": "or",
+     "doc": "or27-2:0535",
+     "written": "1863",
+     "quote": "from about 1 p. m. to the time of the advance of the infantry",
+     "claim": "~13:00 (Confederate side)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0535",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 610,
+      "leaf": 616,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S518-9",
+     "type": "A1",
+     "who": "Brig. Gen. J. R. Davis",
+     "kind": "or",
+     "doc": "or27-2:0553",
+     "written": "1863-08-26",
+     "quote": "About 1 p. m. the artillery along our entire line opened on the enemy",
+     "claim": "~13:00 (Confederate side)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0553",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 650,
+      "leaf": 656,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S518-10",
+     "type": "A1",
+     "who": "Maj. B. F. Eshleman, Washington Artillery (gave the signal)",
+     "kind": "or",
+     "doc": "or27-2:0466",
+     "written": "1863-08-11",
+     "quote": "Between 1 and 2 p. m. you ordered me to give the signal",
+     "claim": "signal between 13:00 and 14:00 (his own battery fired it)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0466",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 434,
+      "leaf": 440,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S518-11",
+     "type": "A1",
+     "who": "Maj. C. S. Peyton, Garnett's brigade",
+     "kind": "or",
+     "doc": "or27-2:0441",
+     "written": "1863-07-09",
+     "quote": "which opened at 1.30 p. m.",
+     "claim": "13:30 (outlier)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0441",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 385,
+      "leaf": 391,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S518-12",
+     "type": "A1",
+     "who": "Maj. Gen. R. H. Anderson",
+     "kind": "or",
+     "doc": "or27-2:0536",
+     "written": "1863-08-07",
+     "quote": "at 3.30 o'clock a great number of pieces of our artillery",
+     "claim": "15:30 (outlier; contradicted by every other report)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0536",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 614,
+      "leaf": 620,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S518-13",
+     "type": "A2",
+     "who": "Gen. J. Longstreet",
+     "kind": "ext",
+     "work": "Battles and Leaders of the Civil War vol. 3, \"Lee's Right Wing at Gettysburg\"",
+     "edition": "Century 1887, IA item battlesleadersci03underich",
+     "ref": "battlesleadersci03underich",
+     "written": "1886",
+     "quote": "About 1 o'clock everything was in readiness. The signal guns",
+     "claim": "~13:00 (his own 1863 report says \"About 2 p. m.\" for Pickett reporting the lines in order, S538-9)",
+     "page": "344",
+     "note": null,
+     "role": "corroboration",
+     "verification": {
+      "ia_ocr_found": true,
+      "corpus_ocr_found": null,
+      "page": "344"
+     }
+    },
+    {
+     "id": "S518-14",
+     "type": "B",
+     "who": "William E. Welsh, article on Lt. A. Cushing (Warfare History Network)",
+     "kind": "ext",
+     "work": "web page, https://warfarehistorynetwork.com/article/union-lieutenant-alonzo-cushing/",
+     "edition": "n/d",
+     "ref": "web",
+     "written": "n/d",
+     "quote": "1:07",
+     "claim": "source of the \"1:07\" minute (as relayed by a web search summary); no primary source for the minute was found",
+     "page": null,
+     "note": "Not fetched or checked beyond the search summary; listed so the 1:07 figure is traceable.",
+     "role": "unverified",
+     "verification": {
+      "corpus_ocr_found": null,
+      "ia_ocr_found": null,
+      "page": null
+     }
+    }
+   ]
+  },
+  {
+   "tick": 538,
+   "label": "Pickett-Pettigrew-Trimble assault steps off Seminary Ridge",
+   "day": "1863-07-03",
+   "animation_shows": "Chronology event t538 (critical, old label 11:05am): 'PICKETT'S CHARGE BEGINS ... approximately 12,500 men ... steps off Seminary Ridge'; units C-I-3-1..3, C-III-2-1..4, C-III-3-1, C-III-3-4. Placement: Garnett's brigade leaves the tree line at t530 ('Alexander's second message sent'), 'Line of Battle advancing east' at t538, at the Emmitsburg road t544. t518 is 13:07 and t551 (Armistead over the wall) 15:35 in the anchor table.",
+   "current_in_repo": {
+    "t": "15:00",
+    "range": [
+     "14:00",
+     "15:00"
+    ],
+    "sigma_min": 30,
+    "status": "R",
+    "note": "Wikipedia's two articles disagree (about 2:00 vs around 3:00)"
+   },
+   "best": {
+    "t": "14:45",
+    "range": [
+     "14:30",
+     "15:00"
+    ],
+    "display": "about 2:45 p.m. (between 2:30 and 3 p.m.)",
+    "standard": "LMT"
+   },
+   "uncertainty_min": 15,
+   "confidence": "B",
+   "status": "CONTESTED",
+   "reasoned_choice": "The Union reports all describe the infantry emerging from the woods after their own fire was stopped at 2:30 (Hunt, Howard): Hancock's arithmetic (1:00 plus 'an hour and forty-five minutes' = 2:45), Hunt 'about 3', Harrow 'nearly 3', Devereux 'just about 3'. The Confederate reports that name the order are Peyton for Pickett's division, 2:30, Jones for Pettigrew, 'about 2', and Davis for Heth's left, 3. A step-off at 2:30 to 2:45 with the line visible and advancing across the open ground by 2:45 to 3:00 fits all of them except Jones (earlier) and Davis (later). I choose 14:45: the Confederate order (2:30) plus the minutes needed to form the line, which meets Hancock's computed 2:45 and Hunt's 'about 3' for the same line seen in the open. The 'about 2:00' reading (Wikipedia citing Hess/Sears/Wert/Coddington) was not checked against those books and fits only Jones; Longstreet's 'About 2 p. m.' is the lines reported in order, not the step-off. Walking time to the wall (about a mile) from 14:45 gives about 15:15-15:30 at the wall, within the 15:10-15:45 of anchor t551.",
+   "conflicts": [
+    {
+     "claim": "14:00",
+     "by": [
+      "Jones 26th N.C. (A1)",
+      "Wikipedia citing Coddington/Hess/Sears/Wert (B, unchecked)"
+     ],
+     "weight": "minority; conflicts with the Union observation of the cannonade lasting to 2:30"
+    },
+    {
+     "claim": "14:30-14:45",
+     "by": [
+      "Peyton (A1)",
+      "Hancock arithmetic (A1)"
+     ],
+     "weight": "preferred"
+    },
+    {
+     "claim": "15:00",
+     "by": [
+      "Hunt",
+      "Harrow",
+      "Devereux",
+      "Davis",
+      "ABT/Wikipedia main (B)"
+     ],
+     "weight": "the time the line was seen in the open"
+    },
+    {
+     "claim": "16:00",
+     "by": [
+      "Curtis 7th Mich."
+     ],
+     "weight": "outlier"
+    }
+   ],
+   "not_verified": [
+    "Wert, Sears, Coddington, Hess and Hessler/Motts not read; their 2:00-3:00 statements are cited only second-hand",
+    "Alexander's Military Memoirs and Pickett's own papers not read",
+    "Kemper, Armistead and Pettigrew's own reports not available in the volume"
+   ],
+   "sources": [
+    {
+     "id": "S538-1",
+     "type": "A1",
+     "who": "Maj. Gen. W. S. Hancock",
+     "kind": "or",
+     "doc": "or27-1:0076",
+     "written": "1863 (heading date not read; addendum dated 24 Oct 1863)",
+     "quote": "After an hour and forty-five minutes, the fire of the enemy became less furious",
+     "claim": "1:00 + 1:45 = about 14:45; infantry then seen forming and advancing",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0076",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 373,
+      "leaf": 391,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S538-2",
+     "type": "A1",
+     "who": "Brig. Gen. H. J. Hunt",
+     "kind": "or",
+     "doc": "or27-1:0028",
+     "written": "1863-09-27",
+     "quote": "About 2.30 p. m. , finding our ammunition running low",
+     "claim": "Union fire stopped ~14:30",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0028",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 239,
+      "leaf": 257,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S538-3",
+     "type": "A1",
+     "who": "Hunt",
+     "kind": "or",
+     "doc": "or27-1:0028",
+     "written": "1863-09-27",
+     "quote": "About 3 p. m., and soon after the enemy's fire had ceased",
+     "claim": "column of attack formed at the edge of the woods ~15:00",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0028",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 239,
+      "leaf": 257,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S538-4",
+     "type": "A1",
+     "who": "Maj. Gen. O. O. Howard, formal report",
+     "kind": "or",
+     "doc": "or27-1:0243",
+     "written": "1863 (formal report; heading date not read)",
+     "quote": "At 2. 30 p. m. we ceased our artillery fire.",
+     "claim": "14:30; \"Soon after\" the infantry line appeared",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0243",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 706,
+      "leaf": 726,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S538-5",
+     "type": "A1",
+     "who": "Brig. Gen. W. Harrow",
+     "kind": "or",
+     "doc": "or27-1:0099",
+     "written": "1863-07-16",
+     "quote": "until nearly 3 p. m., when his infantry columns moved from the woods",
+     "claim": "~14:55 infantry moved out of the woods",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0099",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 420,
+      "leaf": 438,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S538-6",
+     "type": "A1",
+     "who": "Col. A. F. Devereux, 19th Mass.",
+     "kind": "or",
+     "doc": "or27-1:0110",
+     "written": "1863-07-07",
+     "quote": "Just about 3 o'clock the enemy's cannonade slackened",
+     "claim": "~15:00 columns emerging from the woods",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0110",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 443,
+      "leaf": 461,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S538-7",
+     "type": "A1",
+     "who": "Maj. C. S. Peyton, Garnett's brigade (Pickett)",
+     "kind": "or",
+     "doc": "or27-2:0441",
+     "written": "1863-07-09",
+     "quote": "At 2.30 p. m., the artillery fire having to some extent abated",
+     "claim": "order to advance 14:30 (next page: \"the order to advance was given, first by Major-General Pickett\")",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0441",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 385,
+      "leaf": 391,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S538-8",
+     "type": "A1",
+     "who": "Maj. J. Jones, 26th N.C. (Pettigrew's brigade)",
+     "kind": "or",
+     "doc": "or27-2:0550",
+     "written": "1863-08-09",
+     "quote": "About 2 o'clock we were ordered to advance.",
+     "claim": "~14:00 (early reading)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0550",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 643,
+      "leaf": 649,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S538-9",
+     "type": "A1",
+     "who": "Lt. Gen. J. Longstreet, report",
+     "kind": "or",
+     "doc": "or27-2:0430",
+     "written": "1863-07-27",
+     "quote": "About 2 p. m. General Pickett, who had been charged with the duty",
+     "claim": "Pickett reported his lines in order ~14:00; Walton then ordered to open the batteries (the report thus places the opening after 14:00; contradicted by the nine reports of S518-1..9)",
+     "note": "Not a step-off time.",
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0430",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 359,
+      "leaf": 365,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S538-10",
+     "type": "A1",
+     "who": "Brig. Gen. J. R. Davis (Heth's division)",
+     "kind": "or",
+     "doc": "or27-2:0553",
+     "written": "1863-08-26",
+     "quote": "The artillery ceased firing at 3 o'clock, and the order to move forward was given",
+     "claim": "15:00 (late reading; Davis was in the left-hand division)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 2 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion272unit; never the 1971 reprint)",
+     "ref": "or27-2:0553",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 651,
+      "leaf": 657,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S538-11",
+     "type": "A1",
+     "who": "Maj. S. W. Curtis, 7th Mich.",
+     "kind": "or",
+     "doc": "or27-1:0112",
+     "written": "1863-07-16",
+     "quote": "This continued until 4 p. m., when their infantry columns were seen advancing",
+     "claim": "16:00 (outlier)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0112",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 449,
+      "leaf": 467,
+      "ia_ocr_found": true
+     }
+    },
+    {
+     "id": "S538-12",
+     "type": "A1",
+     "who": "Brig. Gen. A. S. Webb",
+     "kind": "or",
+     "doc": "or27-1:0104",
+     "written": "1863-07-12",
+     "quote": "By 2.45 o'clock bad silenced the Rhode Island battery",
+     "claim": "by 14:45 Confederate fire had silenced the Rhode Island battery and all but one of Cushing's guns (fire still heavy at 14:45)",
+     "note": null,
+     "role": "primary",
+     "work": "Official Records, Ser. I, vol. 27, pt. 1 (Reports)",
+     "edition": "GPO 1889 original (IA scan warofrebellion271unit; never the 1971 reprint)",
+     "ref": "or27-1:0104",
+     "verification": {
+      "corpus_ocr_found": true,
+      "page": 428,
+      "leaf": 446,
+      "ia_ocr_found": true
+     }
+    }
+   ]
+  }
+ ],
+ "turning_points": [
+  {
+   "point": "Ewell's Discretion on Cemetery Hill",
+   "old_tick": 175,
+   "provisional_tick": 75,
+   "result": "same as anchor t75: UNRESOLVED, working 16:45, probable window 16:15-17:30; do not print a minute"
+  },
+  {
+   "point": "The Night Assault on Culp's and Cemetery Hill",
+   "old_tick": 340,
+   "provisional_tick": 326,
+   "result": "same as anchor t326: SUPPORTED at about 8 p.m. (19:30-20:30); the Culp's Hill half (t314, 19:20) is outside this task and was not re-checked"
+  },
+  {
+   "point": "interpretation note",
+   "result": "The brief names 'the two provisional Turning Points anchors' without listing them. docs/plan/FINAL/02 (WP-T0-09, patch DL) says the corrected ticks 75 and 326 'ship as provisional'; I took those two. The other Turning Points re-pointings (256, 275, 518, 538) are open or supported anchors covered above."
+  }
+ ],
+ "failed_quote_checks": [],
+ "not_read": [
+  "Pfanz (Gettysburg: The First Day; The Second Day; Culp's Hill and Cemetery Hill)",
+  "Coddington, The Gettysburg Campaign",
+  "Hessler, Sickles at Gettysburg",
+  "Desjardin, Stand Firm Ye Boys from Maine",
+  "Busey and Martin / Busey and Hartwig",
+  "Wert, Sears, Gottfried, Hess (modern books, in copyright)",
+  "Bachelder papers",
+  "regimental histories other than Maine at Gettysburg",
+  "page images of any source",
+  "NPS timelines (not fetched; the cannonade summary in the repo cites NPS 'around 1 pm' and was not re-read)"
+ ]
+}
