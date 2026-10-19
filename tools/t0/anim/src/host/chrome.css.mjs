@@ -19,7 +19,7 @@ export const CHROME_CSS = `
 [data-gta] button { font-family: var(--gta-font) !important; transition: background 140ms var(--gta-ease), color 140ms var(--gta-ease), border-color 140ms var(--gta-ease); }
 [data-gta] button[aria-label="Close"], [data-gta] button[aria-label^="Close"] { color: var(--gta-faint) !important; width: 24px; height: 24px; border-radius: 3px !important; display: inline-flex; align-items: center; justify-content: center; }
 [data-gta] button[aria-label="Close"]:hover, [data-gta] button[aria-label^="Close"]:hover { background: rgba(244,236,216,.12) !important; color: var(--gta-ink) !important; }
-[data-gta] button:focus-visible { outline: 2px solid var(--gta-ink) !important; outline-offset: 2px; }
+[data-gta] button:focus-visible { outline: 2px solid #fff !important; box-shadow: 0 0 0 4px rgba(0,0,0,.55) !important; outline-offset: 2px; }
 [data-gta] ::-webkit-scrollbar { width: 8px; } [data-gta] ::-webkit-scrollbar-thumb { background: rgba(244,236,216,.22); border-radius: 4px; } [data-gta] ::-webkit-scrollbar-track { background: transparent; }
 
 /* the ladder of forms of a card that must find free ground (host/popups.mjs): form 1 drops the italic narrative and shortens the reading; form 2 is the shortest (the words are the same, the card scrolls) */

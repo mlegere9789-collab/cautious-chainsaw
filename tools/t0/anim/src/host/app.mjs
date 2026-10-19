@@ -177,9 +177,12 @@ export const G = {
   heartbeat(c, map) { return guard(() => { attach(c, map); wake(); return true; }, false); },
   units(pbt, f, x) {
     return guard(() => {
-      if (!S.core || S.pbt !== pbt) return null; const t = f + (x || 0); const out = [];
-      for (const { u, st } of S.core.battle.visibleAt(t)) { const raw = u.raw && u.raw[st.seg]; if (!raw) continue; out.push({ ...raw, lng: st.lng, lat: st.lat }); }
-      return out;
+      if (!S.core || S.pbt !== pbt) return null; const t = f + (x || 0);
+      // the SAME array (and the same records) for the same time: the shipped phone shell compares what it gets by identity, and a fresh object on every call made its popup effect set state on every pass, forever
+      const bt = S.core.battle; let C = S.unitsCache; if (!C || C.battle !== bt) C = S.unitsCache = { battle: bt, m: new Map() };
+      let out = C.m.get(t); if (out) return out; out = [];
+      for (const { u, st } of bt.visibleAt(t)) { const raw = u.raw && u.raw[st.seg]; if (!raw) continue; out.push({ ...raw, lng: st.lng, lat: st.lat }); }
+      if (C.m.size >= 48) C.m.delete(C.m.keys().next().value); C.m.set(t, out); return out;
     }, null);
   },
   pick(clientX, clientY, touch) {
