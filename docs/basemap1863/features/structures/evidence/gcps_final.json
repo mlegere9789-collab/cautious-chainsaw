@@ -1,0 +1,961 @@
+{
+ "accuracy": {
+  "n_gcps": 86,
+  "n_curated": 23,
+  "n_icp": 63,
+  "smoothing": 10000.0,
+  "loo_median_m": 9.004404451367577,
+  "loo_mean_m": 11.462776817014873,
+  "loo_p90_m": 16.821955289475795,
+  "loo_max_m": 55.337293790274124,
+  "note": "Leave-one-out error of the thin-plate-spline georeference of the Bachelder/Warren plate (pixel frame of LoC cw0325000a, about 1.0 m per pixel) against surviving-building outlines of the 2023 Adams County dataset. Pixel units are metres to within 3 percent."
+ },
+ "gcps": [
+  {
+   "name": "Schmucker Hall",
+   "px": [
+    3886,
+    3736
+   ],
+   "lon": -77.24413246972115,
+   "lat": 39.83167095124453,
+   "src": "county 3275",
+   "kind": "curated"
+  },
+  {
+   "name": "SS Schmucker house",
+   "px": [
+    3913,
+    3888
+   ],
+   "lon": -77.2440617243911,
+   "lat": 39.830848579270004,
+   "src": "county 8850",
+   "kind": "curated"
+  },
+  {
+   "name": "McPherson barn",
+   "px": [
+    3186,
+    3257
+   ],
+   "lon": -77.25134615074083,
+   "lat": 39.836960053557696,
+   "src": "county 11495",
+   "kind": "curated"
+  },
+  {
+   "name": "Evergreen gatehouse",
+   "px": [
+    5143,
+    4959
+   ],
+   "lon": -77.22940854484911,
+   "lat": 39.8207850105145,
+   "src": "county 16124",
+   "kind": "curated"
+  },
+  {
+   "name": "McClean house",
+   "px": [
+    4163,
+    2206
+   ],
+   "lon": -77.24052552528727,
+   "lat": 39.846043149421575,
+   "src": "county 5437",
+   "kind": "curated"
+  },
+  {
+   "name": "McClean barn",
+   "px": [
+    4154,
+    2267
+   ],
+   "lon": -77.2407523377818,
+   "lat": 39.845545734170514,
+   "src": "county 7678",
+   "kind": "curated"
+  },
+  {
+   "name": "sherfy:house:10287",
+   "px": [
+    3534.708955223881,
+    6903.559701492537
+   ],
+   "lon": -77.24913434814988,
+   "lat": 39.8037848362669,
+   "src": "county 10287",
+   "kind": "curated"
+  },
+  {
+   "name": "sherfy:barn:4665",
+   "px": [
+    3536.7989130434785,
+    6975.114130434783
+   ],
+   "lon": -77.24914096535339,
+   "lat": 39.80318208710384,
+   "src": "county 4665",
+   "kind": "curated"
+  },
+  {
+   "name": "klingel:house:6979",
+   "px": [
+    3756.9295774647885,
+    6656.760563380281
+   ],
+   "lon": -77.24623130230886,
+   "lat": 39.80622898073515,
+   "src": "county 6979",
+   "kind": "curated"
+  },
+  {
+   "name": "codori:house:9137",
+   "px": [
+    4319.883333333333,
+    6008.0
+   ],
+   "lon": -77.24000930759652,
+   "lat": 39.81131476911668,
+   "src": "county 9137",
+   "kind": "curated"
+  },
+  {
+   "name": "codori:barn:10863",
+   "px": [
+    4272.13125,
+    6059.25
+   ],
+   "lon": -77.24036829254611,
+   "lat": 39.81086415949115,
+   "src": "county 10863",
+   "kind": "curated"
+  },
+  {
+   "name": "spangler_h:barn:1977",
+   "px": [
+    3432.672727272727,
+    6399.854545454546
+   ],
+   "lon": -77.25015880650656,
+   "lat": 39.80849053052162,
+   "src": "county 1977",
+   "kind": "curated"
+  },
+  {
+   "name": "trostle:barn:14014",
+   "px": [
+    4097.065573770492,
+    7072.795081967213
+   ],
+   "lon": -77.24257682391202,
+   "lat": 39.80217819879723,
+   "src": "county 14014",
+   "kind": "curated"
+  },
+  {
+   "name": "trostle:house:10049",
+   "px": [
+    4129.704918032787,
+    7110.393442622951
+   ],
+   "lon": -77.24216649193404,
+   "lat": 39.80168513380905,
+   "src": "county 10049",
+   "kind": "curated"
+  },
+  {
+   "name": "slyder:house:12158",
+   "px": [
+    3798.5106382978724,
+    8518.68085106383
+   ],
+   "lon": -77.24681286043112,
+   "lat": 39.78880301690161,
+   "src": "county 12158",
+   "kind": "curated"
+  },
+  {
+   "name": "slyder:barn:6452",
+   "px": [
+    3788.809523809524,
+    8556.166666666666
+   ],
+   "lon": -77.24701828985971,
+   "lat": 39.78842805317628,
+   "src": "county 6452",
+   "kind": "curated"
+  },
+  {
+   "name": "bushman:house:4852",
+   "px": [
+    3367.8571428571427,
+    8399.27731092437
+   ],
+   "lon": -77.25157927714827,
+   "lat": 39.789679240361075,
+   "src": "county 4852",
+   "kind": "curated"
+  },
+  {
+   "name": "rose:house:4419",
+   "px": [
+    3537.714285714286,
+    7632.151785714285
+   ],
+   "lon": -77.2492175190595,
+   "lat": 39.796934236434915,
+   "src": "county 4419",
+   "kind": "curated"
+  },
+  {
+   "name": "warfield:house:9546",
+   "px": [
+    3016.936170212766,
+    7126.04255319149
+   ],
+   "lon": -77.25526999842677,
+   "lat": 39.80175287496472,
+   "src": "county 9546",
+   "kind": "curated"
+  },
+  {
+   "name": "gweikert:house:8549",
+   "px": [
+    4742.82,
+    7026.76
+   ],
+   "lon": -77.23501672713168,
+   "lat": 39.80185843313096,
+   "src": "county 8549",
+   "kind": "curated"
+  },
+  {
+   "name": "gweikert:barn:2870",
+   "px": [
+    4692.4473684210525,
+    7054.0526315789475
+   ],
+   "lon": -77.23547065671147,
+   "lat": 39.801678580616084,
+   "src": "county 2870",
+   "kind": "curated"
+  },
+  {
+   "name": "hummelbaugh:house:3580",
+   "px": [
+    5008,
+    6383
+   ],
+   "lon": -77.23158283297832,
+   "lat": 39.80793311878227,
+   "src": "county 3580",
+   "kind": "curated"
+  },
+  {
+   "name": "leister:house:13528",
+   "px": [
+    4921.484375,
+    5693.328125
+   ],
+   "lon": -77.23210418795098,
+   "lat": 39.81444852096437,
+   "src": "county 13528",
+   "kind": "curated"
+  },
+  {
+   "name": "icp:cty193",
+   "px": [
+    5392.210144927536,
+    3823.1159420289855
+   ],
+   "lon": -77.22644128922062,
+   "lat": 39.83043166244645,
+   "src": "county outline 193 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty883",
+   "px": [
+    8119.863636363636,
+    3448.2272727272725
+   ],
+   "lon": -77.1943010060832,
+   "lat": 39.832428126972175,
+   "src": "county outline 883 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty957",
+   "px": [
+    4064.722222222222,
+    3958.277777777778
+   ],
+   "lon": -77.24244946568061,
+   "lat": 39.83014635680834,
+   "src": "county outline 957 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty1839",
+   "px": [
+    4784.768115942029,
+    3526.6666666666665
+   ],
+   "lon": -77.23398284698023,
+   "lat": 39.8332234133197,
+   "src": "county outline 1839 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty2069",
+   "px": [
+    4677.414634146341,
+    4007.3937282229967
+   ],
+   "lon": -77.23512369976336,
+   "lat": 39.829221180418195,
+   "src": "county outline 2069 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty2119",
+   "px": [
+    5005.707547169812,
+    3599.5377358490564
+   ],
+   "lon": -77.23095316892112,
+   "lat": 39.8325489144571,
+   "src": "county outline 2119 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty2189",
+   "px": [
+    8121.975609756098,
+    3426.243902439024
+   ],
+   "lon": -77.19421190388941,
+   "lat": 39.83254191138843,
+   "src": "county outline 2189 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty2488",
+   "px": [
+    603.0,
+    4875.233333333334
+   ],
+   "lon": -77.28138160723694,
+   "lat": 39.824079268911035,
+   "src": "county outline 2488 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty2556",
+   "px": [
+    8003.514705882353,
+    4020.220588235294
+   ],
+   "lon": -77.19564810249186,
+   "lat": 39.82745735299478,
+   "src": "county outline 2556 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty2689",
+   "px": [
+    5273.825825825826,
+    3452.033033033033
+   ],
+   "lon": -77.22798208604623,
+   "lat": 39.833633427480926,
+   "src": "county outline 2689 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty3636",
+   "px": [
+    4825.485106382978,
+    3785.8468085106383
+   ],
+   "lon": -77.23347090271874,
+   "lat": 39.83107462556447,
+   "src": "county outline 3636 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty3781",
+   "px": [
+    8045.986486486487,
+    3690.4594594594596
+   ],
+   "lon": -77.1951561804048,
+   "lat": 39.83040708109856,
+   "src": "county outline 3781 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty4115",
+   "px": [
+    4971.91124260355,
+    3412.183431952663
+   ],
+   "lon": -77.23141325246542,
+   "lat": 39.834119399340274,
+   "src": "county outline 4115 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty4151",
+   "px": [
+    4115.762711864407,
+    3988.6525423728813
+   ],
+   "lon": -77.24174479278678,
+   "lat": 39.82997333523109,
+   "src": "county outline 4151 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty4214",
+   "px": [
+    2326.1923076923076,
+    4329.3317307692305
+   ],
+   "lon": -77.2617304340857,
+   "lat": 39.828258842054446,
+   "src": "county outline 4214 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty4916",
+   "px": [
+    5197.293617021277,
+    3446.91914893617
+   ],
+   "lon": -77.22873498051379,
+   "lat": 39.833681633097804,
+   "src": "county outline 4916 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty5176",
+   "px": [
+    5187.490196078431,
+    3792.8692810457514
+   ],
+   "lon": -77.22908460468949,
+   "lat": 39.83074008970356,
+   "src": "county outline 5176 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty5202",
+   "px": [
+    4812.096774193548,
+    4098.017921146953
+   ],
+   "lon": -77.23351746572627,
+   "lat": 39.82846009426228,
+   "src": "county outline 5202 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty5255",
+   "px": [
+    5445.1736842105265,
+    3785.036842105263
+   ],
+   "lon": -77.22584543000585,
+   "lat": 39.83080000696775,
+   "src": "county outline 5255 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty5820",
+   "px": [
+    1267.842105263158,
+    3869.8552631578946
+   ],
+   "lon": -77.27320478729882,
+   "lat": 39.83296875007302,
+   "src": "county outline 5820 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty6294",
+   "px": [
+    1806.90625,
+    4445.96875
+   ],
+   "lon": -77.26788517481599,
+   "lat": 39.82760242061863,
+   "src": "county outline 6294 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty6319",
+   "px": [
+    2456.086956521739,
+    3149.5434782608695
+   ],
+   "lon": -77.25959245179988,
+   "lat": 39.83876696334593,
+   "src": "county outline 6319 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty6323",
+   "px": [
+    3861.095238095238,
+    3901.126984126984
+   ],
+   "lon": -77.24457021524307,
+   "lat": 39.830728121071566,
+   "src": "county outline 6323 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty6505",
+   "px": [
+    8089.934782608696,
+    3890.0434782608695
+   ],
+   "lon": -77.19470692329335,
+   "lat": 39.828488121934605,
+   "src": "county outline 6505 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty7310",
+   "px": [
+    8119.629032258064,
+    4380.790322580645
+   ],
+   "lon": -77.19446550718315,
+   "lat": 39.82417858570061,
+   "src": "county outline 7310 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty7525",
+   "px": [
+    1717.0845070422536,
+    3785.4084507042253
+   ],
+   "lon": -77.26831449736913,
+   "lat": 39.83357674445467,
+   "src": "county outline 7525 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty7606",
+   "px": [
+    1278.3614457831325,
+    2523.421686746988
+   ],
+   "lon": -77.27257129885474,
+   "lat": 39.84553329271581,
+   "src": "county outline 7606 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty7839",
+   "px": [
+    8088.5,
+    3844.925
+   ],
+   "lon": -77.19477131492955,
+   "lat": 39.82887621710617,
+   "src": "county outline 7839 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty8065",
+   "px": [
+    2387.8045977011493,
+    3126.229885057471
+   ],
+   "lon": -77.2603131648883,
+   "lat": 39.839091384041794,
+   "src": "county outline 8065 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty8158",
+   "px": [
+    8112.763888888889,
+    4015.4583333333335
+   ],
+   "lon": -77.19439253609977,
+   "lat": 39.82735252024959,
+   "src": "county outline 8158 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty8634",
+   "px": [
+    8106.027397260274,
+    4380.465753424657
+   ],
+   "lon": -77.1947753348245,
+   "lat": 39.82422236825766,
+   "src": "county outline 8634 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty8780",
+   "px": [
+    5077.061776061776,
+    3454.1467181467183
+   ],
+   "lon": -77.23023348170804,
+   "lat": 39.83374199084256,
+   "src": "county outline 8780 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty9548",
+   "px": [
+    8109.1125,
+    3686.65
+   ],
+   "lon": -77.19450993507986,
+   "lat": 39.83033215602562,
+   "src": "county outline 9548 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty9573",
+   "px": [
+    4846.430976430976,
+    3455.986531986532
+   ],
+   "lon": -77.23316213358105,
+   "lat": 39.833757481987654,
+   "src": "county outline 9573 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty9880",
+   "px": [
+    1647.212962962963,
+    3926.6481481481483
+   ],
+   "lon": -77.26913584240755,
+   "lat": 39.832279492988896,
+   "src": "county outline 9880 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty10023",
+   "px": [
+    5325.707070707071,
+    3954.9343434343436
+   ],
+   "lon": -77.22724496005033,
+   "lat": 39.82929994557391,
+   "src": "county outline 10023 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty10266",
+   "px": [
+    2286.044117647059,
+    3751.544117647059
+   ],
+   "lon": -77.2618813508525,
+   "lat": 39.833546619753854,
+   "src": "county outline 10266 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty10321",
+   "px": [
+    5161.580645161291,
+    3125.6021505376343
+   ],
+   "lon": -77.22919251810004,
+   "lat": 39.836600028060865,
+   "src": "county outline 10321 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty10375",
+   "px": [
+    5093.158227848101,
+    3418.9367088607596
+   ],
+   "lon": -77.23016887773335,
+   "lat": 39.83407427135809,
+   "src": "county outline 10375 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty10790",
+   "px": [
+    4245.269461077844,
+    3890.5808383233534
+   ],
+   "lon": -77.24002798720193,
+   "lat": 39.830592361723625,
+   "src": "county outline 10790 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty10795",
+   "px": [
+    4565.55504587156,
+    3848.9311926605506
+   ],
+   "lon": -77.23654417992579,
+   "lat": 39.83071217372586,
+   "src": "county outline 10795 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty10980",
+   "px": [
+    1309.9473684210527,
+    4712.1578947368425
+   ],
+   "lon": -77.27347267248528,
+   "lat": 39.82529909516084,
+   "src": "county outline 10980 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty11174",
+   "px": [
+    2136.030303030303,
+    4433.742424242424
+   ],
+   "lon": -77.26398533710693,
+   "lat": 39.827490356430744,
+   "src": "county outline 11174 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty11175",
+   "px": [
+    5115.152709359606,
+    8008.679802955665
+   ],
+   "lon": -77.23123213299156,
+   "lat": 39.79283470684457,
+   "src": "county outline 11175 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty11289",
+   "px": [
+    5332.701923076923,
+    3933.673076923077
+   ],
+   "lon": -77.22725605348947,
+   "lat": 39.829605154175304,
+   "src": "county outline 11289 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty11372",
+   "px": [
+    696.6666666666666,
+    4897.5
+   ],
+   "lon": -77.28029418901768,
+   "lat": 39.8237916502822,
+   "src": "county outline 11372 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty11502",
+   "px": [
+    5185.408256880734,
+    3902.229357798165
+   ],
+   "lon": -77.22907171891359,
+   "lat": 39.8298729636524,
+   "src": "county outline 11502 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty11543",
+   "px": [
+    4963.321428571428,
+    3206.1479591836733
+   ],
+   "lon": -77.23173502356968,
+   "lat": 39.835922781996466,
+   "src": "county outline 11543 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty11605",
+   "px": [
+    4852.121813031162,
+    4432.589235127479
+   ],
+   "lon": -77.23312979764204,
+   "lat": 39.82559335096924,
+   "src": "county outline 11605 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty11614",
+   "px": [
+    5045.749077490775,
+    3759.217712177122
+   ],
+   "lon": -77.23061179978954,
+   "lat": 39.83120874922255,
+   "src": "county outline 11614 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty12436",
+   "px": [
+    4923.683720930233,
+    3524.6697674418606
+   ],
+   "lon": -77.23205753914513,
+   "lat": 39.83324279057595,
+   "src": "county outline 12436 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty13461",
+   "px": [
+    5238.383838383838,
+    3456.121212121212
+   ],
+   "lon": -77.22830132681736,
+   "lat": 39.83369141198376,
+   "src": "county outline 13461 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty14231",
+   "px": [
+    8065.041666666667,
+    3643.7708333333335
+   ],
+   "lon": -77.19493774729406,
+   "lat": 39.83075544138476,
+   "src": "county outline 14231 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty14342",
+   "px": [
+    4801.62012987013,
+    3842.146103896104
+   ],
+   "lon": -77.2337910254568,
+   "lat": 39.83058947353149,
+   "src": "county outline 14342 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty14430",
+   "px": [
+    1155.9305555555557,
+    2530.4166666666665
+   ],
+   "lon": -77.2739692039708,
+   "lat": 39.84570091719088,
+   "src": "county outline 14430 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty14705",
+   "px": [
+    1618.6734693877552,
+    3963.204081632653
+   ],
+   "lon": -77.26940831968662,
+   "lat": 39.831997716889916,
+   "src": "county outline 14705 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty14796",
+   "px": [
+    4189.455882352941,
+    3985.764705882353
+   ],
+   "lon": -77.24075636963182,
+   "lat": 39.82995496570272,
+   "src": "county outline 14796 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty14900",
+   "px": [
+    5179.8387096774195,
+    3024.064516129032
+   ],
+   "lon": -77.22894000022534,
+   "lat": 39.837484779762384,
+   "src": "county outline 14900 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty15382",
+   "px": [
+    1744.159090909091,
+    3335.6022727272725
+   ],
+   "lon": -77.26753885356477,
+   "lat": 39.837730467950195,
+   "src": "county outline 15382 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty15386",
+   "px": [
+    4727.811320754717,
+    3520.5283018867926
+   ],
+   "lon": -77.23458771482021,
+   "lat": 39.833259692982146,
+   "src": "county outline 15386 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty15429",
+   "px": [
+    1452.8387096774193,
+    4302.629032258064
+   ],
+   "lon": -77.27166790173361,
+   "lat": 39.82896102029831,
+   "src": "county outline 15429 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty15478",
+   "px": [
+    1055.7736842105264,
+    4853.873684210526
+   ],
+   "lon": -77.2762171295958,
+   "lat": 39.82409746450288,
+   "src": "county outline 15478 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  },
+  {
+   "name": "icp:cty16147",
+   "px": [
+    5031.8877005347595,
+    3465.6470588235293
+   ],
+   "lon": -77.23072356383709,
+   "lat": 39.83356799083313,
+   "src": "county outline 16147 <-> Warren-plate symbol (robust ICP)",
+   "kind": "icp"
+  }
+ ]
+}
