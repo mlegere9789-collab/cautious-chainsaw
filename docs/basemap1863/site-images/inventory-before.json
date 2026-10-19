@@ -1,0 +1,425 @@
+{
+ "label": "R1c without IMG",
+ "dist": "release/R1c/dist",
+ "counts": {
+  "image_files": 11,
+  "raster_files": 10,
+  "REAL-IMAGE-OF-GETTYSBURG": 0,
+  "NOT-GETTYSBURG": 10,
+  "UI-GLYPH": 1,
+  "UNKNOWN": 0,
+  "files_that_do_not_decode": 0,
+  "image_references": 41,
+  "references_by_kind": {
+   "og:image": 21,
+   "twitter:image": 11,
+   "link-icon": 2,
+   "link-apple-touch-icon": 1,
+   "manifest-icon": 4,
+   "manifest-screenshot": 2
+  },
+  "pages": 26,
+  "pages_with_og_image": 21,
+  "distinct_og_images": 1,
+  "img_elements": 0,
+  "img_elements_with_alt": 0,
+  "og_image_alt_tags": 0,
+  "inline_svg_elements": 6,
+  "inline_svg_pages": {
+   "dashboard.html": 1,
+   "index.html": 5
+  },
+  "total_image_bytes": 384478
+ },
+ "images": [
+  {
+   "path": "apple-touch-icon-precomposed.png",
+   "bytes": 1423,
+   "sha256": "5c7d923dde8b54fe04004637a328b2bf81b2bdc2d5cf6c2b0fac21cc1393db17",
+   "format": "PNG",
+   "px": [
+    180,
+    180
+   ],
+   "decodes": true,
+   "error": "",
+   "class": "NOT-GETTYSBURG",
+   "what": "the same star icon, 180 px"
+  },
+  {
+   "path": "apple-touch-icon.png",
+   "bytes": 1423,
+   "sha256": "5c7d923dde8b54fe04004637a328b2bf81b2bdc2d5cf6c2b0fac21cc1393db17",
+   "format": "PNG",
+   "px": [
+    180,
+    180
+   ],
+   "decodes": true,
+   "error": "",
+   "class": "NOT-GETTYSBURG",
+   "what": "the same star icon, 180 px"
+  },
+  {
+   "path": "favicon.ico",
+   "bytes": 1090,
+   "sha256": "21de15a234a4a6050e37bec5e6dd661dd8799f2db83c32d13542af0f287ed618",
+   "format": "ICO",
+   "px": [
+    32,
+    32
+   ],
+   "decodes": true,
+   "error": "",
+   "class": "NOT-GETTYSBURG",
+   "what": "generic gold five-point star on a dark tile (a symbol, not a place)"
+  },
+  {
+   "path": "icons.svg",
+   "bytes": 3938,
+   "sha256": "6af4f277e063bbe5a34aeb722776e791265f56235111f0f40f8cae264c9f7885",
+   "format": "svg",
+   "px": null,
+   "decodes": true,
+   "error": "",
+   "class": "UI-GLYPH",
+   "what": "sprite of 19 stroke-line interface glyphs (compass, search, clock, menu ...); not referenced by any page; not well-formed XML (a double hyphen inside its comment)"
+  },
+  {
+   "path": "icons/icon-192.png",
+   "bytes": 1548,
+   "sha256": "fca6fb778df59ace10658cdc5e0c8f096d15046041fba09fc8045a28da46382d",
+   "format": "PNG",
+   "px": [
+    192,
+    192
+   ],
+   "decodes": true,
+   "error": "",
+   "class": "NOT-GETTYSBURG",
+   "what": "the star icon with a time-slider bar, 192 px"
+  },
+  {
+   "path": "icons/icon-512.png",
+   "bytes": 4561,
+   "sha256": "744576cfe0f276b474bd96f60083ad6e303c922ae089eb5fbcc9a70028446abf",
+   "format": "PNG",
+   "px": [
+    512,
+    512
+   ],
+   "decodes": true,
+   "error": "",
+   "class": "NOT-GETTYSBURG",
+   "what": "the star icon with a time-slider bar, 512 px"
+  },
+  {
+   "path": "icons/icon-maskable-192.png",
+   "bytes": 4679,
+   "sha256": "1a9fc84e2e0a01fdab8527480a9d508797eab699166e3b931836d37e999a8353",
+   "format": "PNG",
+   "px": [
+    192,
+    192
+   ],
+   "decodes": true,
+   "error": "",
+   "class": "NOT-GETTYSBURG",
+   "what": "the star icon, maskable, 192 px"
+  },
+  {
+   "path": "icons/icon-maskable-512.png",
+   "bytes": 12972,
+   "sha256": "b1b90e4e5c567cc19234385e435444e1096678417603cdf3f29dec671d68ff04",
+   "format": "PNG",
+   "px": [
+    512,
+    512
+   ],
+   "decodes": true,
+   "error": "",
+   "class": "NOT-GETTYSBURG",
+   "what": "the star icon, maskable, 512 px"
+  },
+  {
+   "path": "og/card-r1.png",
+   "bytes": 123761,
+   "sha256": "aa258399dfc91415932b90b6fa53104b6fe1fa4f2659c51af5ab1eae22fabcb7",
+   "format": "PNG",
+   "px": [
+    1200,
+    630
+   ],
+   "decodes": true,
+   "error": "",
+   "class": "NOT-GETTYSBURG",
+   "what": "generated title card: gold title text, red and blue dots and drawn contour lines on near-black (no photograph, no real terrain)"
+  },
+  {
+   "path": "screenshots/day1.png",
+   "bytes": 108348,
+   "sha256": "c64fce8b3b409227366ddab15e9cbce88cc418a93f99da1bd56be73bf03ff041",
+   "format": "PNG",
+   "px": [
+    1280,
+    720
+   ],
+   "decodes": true,
+   "error": "",
+   "class": "NOT-GETTYSBURG",
+   "what": "generated title card \"First contact on McPherson's Ridge\" (dots, arrows, contours); labelled a screenshot in the manifest; production serves this file corrupt"
+  },
+  {
+   "path": "screenshots/day3.png",
+   "bytes": 120735,
+   "sha256": "237649f7df67cdd83fc1ca851f143ca085c98a9c6d8f04fa611923d5de081767",
+   "format": "PNG",
+   "px": [
+    1280,
+    720
+   ],
+   "decodes": true,
+   "error": "",
+   "class": "NOT-GETTYSBURG",
+   "what": "generated title card \"Pickett's Charge across the open fields\" (dots, arrows, contours); labelled a screenshot in the manifest; production serves this file corrupt"
+  }
+ ],
+ "references": [
+  {
+   "from": "aftermath.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "aftermath.html",
+   "kind": "twitter:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "ar.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "camera.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "camera.html",
+   "kind": "twitter:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "cinematic-export.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "compare.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "compare.html",
+   "kind": "twitter:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "dashboard.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "dashboard.html",
+   "kind": "twitter:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "documentary.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "documentary.html",
+   "kind": "twitter:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "education.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "education.html",
+   "kind": "twitter:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "find-ancestor.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "ground-remembers.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "historian.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "immersive.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "index.html",
+   "kind": "link-icon",
+   "url": "/favicon.ico"
+  },
+  {
+   "from": "index.html",
+   "kind": "link-icon",
+   "url": "/icons/icon-192.png"
+  },
+  {
+   "from": "index.html",
+   "kind": "link-apple-touch-icon",
+   "url": "/apple-touch-icon.png"
+  },
+  {
+   "from": "index.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "index.html",
+   "kind": "twitter:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "living-ledger.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "regiment.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "report.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "report.html",
+   "kind": "twitter:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "sandbox.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "sandbox.html",
+   "kind": "twitter:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "search.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "search.html",
+   "kind": "twitter:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "turning-points.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "viewshed.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "viewshed.html",
+   "kind": "twitter:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "watch-together.html",
+   "kind": "og:image",
+   "url": "https://gettysburginteractivemap.com/og/card-r1.png"
+  },
+  {
+   "from": "manifest.json",
+   "kind": "manifest-icon",
+   "url": "/icons/icon-192.png"
+  },
+  {
+   "from": "manifest.json",
+   "kind": "manifest-icon",
+   "url": "/icons/icon-512.png"
+  },
+  {
+   "from": "manifest.json",
+   "kind": "manifest-icon",
+   "url": "/icons/icon-maskable-192.png"
+  },
+  {
+   "from": "manifest.json",
+   "kind": "manifest-icon",
+   "url": "/icons/icon-maskable-512.png"
+  },
+  {
+   "from": "manifest.json",
+   "kind": "manifest-screenshot",
+   "url": "/screenshots/day1.png"
+  },
+  {
+   "from": "manifest.json",
+   "kind": "manifest-screenshot",
+   "url": "/screenshots/day3.png"
+  }
+ ],
+ "external_imagery": {
+  "mapbox_satellite_style_in_entry": 3,
+  "mapbox_standard_style_in_entry": 1,
+  "google_streetview_embed_in_entry": 1,
+  "pages_with_mapbox_gl_script": [
+   "camera.html",
+   "cinematic-export.html",
+   "compare.html",
+   "ground-remembers.html",
+   "immersive.html",
+   "sandbox.html",
+   "viewshed.html",
+   "watch-together.html"
+  ],
+  "pages_with_satellite_style": [
+   "camera.html",
+   "cinematic-export.html",
+   "compare.html",
+   "immersive.html",
+   "sandbox.html",
+   "viewshed.html",
+   "watch-together.html"
+  ],
+  "data_uri_images_in_entry": 2
+ },
+ "pdf": {
+  "user-guide.pdf": {
+   "image_xobjects": 0,
+   "bytes": 14321
+  }
+ }
+}

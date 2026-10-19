@@ -1,0 +1,25 @@
+{
+ "file": "manifest.json",
+ "rows": [
+  {
+   "id": "IMG:manifest:icons",
+   "find": "    {\"src\": \"/icons/icon-192.png\", \"sizes\": \"192x192\", \"type\": \"image/png\", \"purpose\": \"any\"},\n    {\"src\": \"/icons/icon-512.png\", \"sizes\": \"512x512\", \"type\": \"image/png\", \"purpose\": \"any\"},\n    {\"src\": \"/icons/icon-maskable-192.png\", \"sizes\": \"192x192\", \"type\": \"image/png\", \"purpose\": \"maskable\"},\n    {\"src\": \"/icons/icon-maskable-512.png\", \"sizes\": \"512x512\", \"type\": \"image/png\", \"purpose\": \"maskable\"}\n",
+   "repl": "    {\"src\": \"/icons/gettysburg-192.png\", \"sizes\": \"192x192\", \"type\": \"image/png\", \"purpose\": \"any\"},\n    {\"src\": \"/icons/gettysburg-512.png\", \"sizes\": \"512x512\", \"type\": \"image/png\", \"purpose\": \"any\"},\n    {\"src\": \"/icons/gettysburg-maskable-192.png\", \"sizes\": \"192x192\", \"type\": \"image/png\", \"purpose\": \"maskable\"},\n    {\"src\": \"/icons/gettysburg-maskable-512.png\", \"sizes\": \"512x512\", \"type\": \"image/png\", \"purpose\": \"maskable\"}\n",
+   "expect": 1
+  },
+  {
+   "id": "IMG:manifest:screenshots",
+   "find": "  \"screenshots\": [\n    {\"src\": \"/screenshots/day1.png\", \"sizes\": \"1280x720\", \"type\": \"image/png\", \"label\": \"Day 1 -- July 1, 1863: First contact on McPherson's Ridge\", \"form_factor\": \"wide\"},\n    {\"src\": \"/screenshots/day3.png\", \"sizes\": \"1280x720\", \"type\": \"image/png\", \"label\": \"Day 3 -- Pickett's Charge across the open fields\", \"form_factor\": \"wide\"}\n  ],\n",
+   "repl": "",
+   "expect": 1,
+   "note": "the two \"screenshots\" were generated title cards (production: corrupt files), not screenshots of the app; a manifest screenshot must show the app, so they are removed until real screenshots exist"
+  }
+ ],
+ "remove_from_overlay": [
+  "screenshots/day1.png",
+  "screenshots/day3.png",
+  "og/card-r1.png",
+  "icons/icon-maskable-192.png",
+  "icons/icon-maskable-512.png"
+ ]
+}
