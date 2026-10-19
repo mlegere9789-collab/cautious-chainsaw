@@ -44,7 +44,8 @@ SW_EDITS = [
     ("  const u = new URL(r.url); if (u.origin !== self.location.origin || u.pathname.indexOf('/assets/') !== 0) return;\n",
      "  const u = new URL(r.url); if (u.origin !== self.location.origin) return;\n"
      "  const tile = u.pathname.indexOf(TILES) === 0; if (!tile && u.pathname.indexOf('/assets/') !== 0) return;\n"),
-    ("if (res.ok && res.status === 200 && res.type === 'basic') e.waitUntil(c.put(r, res.clone())); return res; })());",
+    ("const res = await fetch(r); if (res.ok && res.status === 200 && res.type === 'basic') e.waitUntil(c.put(r, res.clone())); return res; })());",
+     "let res; try { res = await fetch(r); } catch (err) { if (tile) return Response.error(); throw err; } "
      "if (res.ok && res.status === 200 && res.type === 'basic') e.waitUntil(tile ? putTile(c, r, res.clone()) : c.put(r, res.clone())); return res; })());"),
 ]
 

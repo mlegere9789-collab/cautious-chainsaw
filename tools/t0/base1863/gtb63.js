@@ -32,7 +32,8 @@ const GTB63 = (() => {
     return {
       "b1863-wide": { type: "raster", tiles, tileSize: ts, minzoom: CFG.wide.minzoom, maxzoom: CFG.wide.maxzoom, bounds: CFG.wide.bounds, attribution: CFG.attribution },
       "b1863-detail": { type: "raster", tiles, tileSize: ts, minzoom: CFG.detail.minzoom, maxzoom: CFG.detail.maxzoom, bounds: CFG.detail.bounds },
-      "b1863-changed": { type: "raster", tiles: [B + "changed/{z}/{x}/{y}.png"], tileSize: 512, minzoom: CFG.changed.minzoom, maxzoom: CFG.changed.maxzoom, bounds: CFG.wide.bounds },
+      "b1863-changed": { type: "raster", tiles: [B + "changed/{z}/{x}/{y}.png"], tileSize: 512, minzoom: CFG.changed.minzoom, maxzoom: 15, bounds: CFG.wide.bounds },
+      "b1863-changed-detail": { type: "raster", tiles: [B + "changed/{z}/{x}/{y}.png"], tileSize: 512, minzoom: 16, maxzoom: 16, bounds: CFG.detail.bounds },
     };
   }
 
@@ -42,6 +43,7 @@ const GTB63 = (() => {
       { id: "b1863-wide", type: "raster", source: "b1863-wide", paint: { "raster-fade-duration": fade } },
       { id: "b1863-detail", type: "raster", source: "b1863-detail", paint: { "raster-fade-duration": fade } },
       { id: "b1863-changed", type: "raster", source: "b1863-changed", layout: { visibility: visibleChanged ? "visible" : "none" }, paint: { "raster-opacity": 0.62, "raster-resampling": "nearest", "raster-fade-duration": 0 } },
+      { id: "b1863-changed-detail", type: "raster", source: "b1863-changed-detail", layout: { visibility: visibleChanged ? "visible" : "none" }, paint: { "raster-opacity": 0.62, "raster-resampling": "nearest", "raster-fade-duration": 0 } },
     ];
   }
 
@@ -95,9 +97,10 @@ const GTB63 = (() => {
       "@media (max-width:900px){.gtb63-ctl[data-gtb63=desktop]{left:190px;transform:none;max-width:calc(100% - 270px)}}" +
       ".gtb63-label{margin:0;font-weight:600;flex:1 1 auto}.gtb63-row{display:flex;flex-wrap:wrap;align-items:center;gap:2px 10px;flex:none}" +
       ".gtb63-ctl[data-gtb63=phone]{font-size:11px}" +
-      ".gtb63-btn{font:inherit;color:#e8d5a3;background:rgba(139,105,20,.25);border:1px solid #8b6914;border-radius:4px;padding:3px 9px;min-height:28px;cursor:pointer}" +
-      ".gtb63-btn[aria-pressed=true]{background:#8b6914;color:#0a0a14;font-weight:600}.gtb63-btn:focus-visible,.gtb63-link:focus-visible{outline:2px solid #fff;outline-offset:2px}" +
+      ".gtb63-btn{font:inherit;color:#e8d5a3;background:#2a2410;border:1px solid #8b6914;border-radius:4px;padding:3px 9px;min-height:28px;cursor:pointer}" +
+      ".gtb63-btn[aria-pressed=true]{background:#c8a84a;color:#0a0a14;font-weight:600}.gtb63-btn:focus-visible,.gtb63-link:focus-visible{outline:2px solid #fff;outline-offset:2px}" +
       ".gtb63-link{color:#e8d5a3;text-decoration:underline}.gtb63-leg{flex:0 0 100%;margin:2px 0 0;padding:0;list-style:none;max-height:min(34vh,230px);overflow:auto}" +
+      ".gtb63-ctl[data-gtb63=desktop] .gtb63-leg{columns:2;column-gap:20px}.gtb63-leg li{break-inside:avoid}" +
       ".gtb63-leg li{display:flex;align-items:center;gap:6px;margin:2px 0;font-size:11px}.gtb63-sw{flex:none;width:12px;height:12px;border:1px solid rgba(255,255,255,.55);border-radius:2px}" +
       ".gtb63-note,.gtb63-status{flex:0 0 100%;margin:0;font-size:11px;opacity:.92}.gtb63-status:empty,.gtb63-note:empty{display:none}.gtb63-leg[hidden],.gtb63-note[hidden]{display:none}" +
       "@media (pointer:coarse){.gtb63-btn{min-height:44px;padding:6px 12px}.gtb63-link{display:inline-block;padding:12px 4px}}" +
@@ -128,7 +131,7 @@ const GTB63 = (() => {
       const a = document.createElement("a"); a.className = "gtb63-link"; a.href = B + "ABOUT.txt"; a.target = "_blank"; a.rel = "noopener"; a.textContent = "Sources and licences";
       row.appendChild(btn); row.appendChild(a); el.appendChild(row);
       const note = document.createElement("p"); note.className = "gtb63-note"; note.hidden = true; note.setAttribute("role", "status"); el.appendChild(note);
-      const ul = document.createElement("ul"); ul.className = "gtb63-leg"; ul.id = "gtb63-leg-" + this.layout; ul.hidden = true; ul.setAttribute("aria-label", "What each colour means");
+      const ul = document.createElement("ul"); ul.className = "gtb63-leg"; ul.id = "gtb63-leg-" + this.layout; ul.hidden = true; ul.tabIndex = 0; ul.setAttribute("aria-label", "What each colour means");
       mkLegend(ul); el.appendChild(ul);
       const st = document.createElement("p"); st.className = "gtb63-status"; st.setAttribute("role", "status"); el.appendChild(st);
       this.el = el; this.btn = btn; this.ul = ul; this.note = note; this.st = st;
@@ -147,7 +150,7 @@ const GTB63 = (() => {
     }
     set(on) {
       this.on = !!on;
-      try { if (this.map.getLayer("b1863-changed")) this.map.setLayoutProperty("b1863-changed", "visibility", this.on ? "visible" : "none"); } catch (e) { /* style swap */ }
+      try { ["b1863-changed", "b1863-changed-detail"].forEach((id) => { if (this.map.getLayer(id)) this.map.setLayoutProperty(id, "visibility", this.on ? "visible" : "none"); }); } catch (e) { /* style swap */ }
       this.btn.setAttribute("aria-pressed", this.on ? "true" : "false");
       this.ul.hidden = !this.on;
       this.zoomNote();
@@ -158,8 +161,9 @@ const GTB63 = (() => {
   function rebuild(map, ctl) {
     try {
       const before = map.getLayer("roads-1863-line") ? "roads-1863-line" : void 0;
-      ["b1863-changed", "b1863-detail", "b1863-wide"].forEach((id) => { if (map.getLayer(id)) map.removeLayer(id); });
-      ["b1863-changed", "b1863-detail", "b1863-wide"].forEach((id) => { if (map.getSource(id)) map.removeSource(id); });
+      const ids = ["b1863-changed-detail", "b1863-changed", "b1863-detail", "b1863-wide"];
+      ids.forEach((id) => { if (map.getLayer(id)) map.removeLayer(id); });
+      ids.forEach((id) => { if (map.getSource(id)) map.removeSource(id); });
       const src = sources();
       layers(ctl && ctl.on).forEach((l) => { if (!map.getSource(l.source)) map.addSource(l.source, src[l.source]); map.addLayer(l, before); });
     } catch (e) { /* the next retry tries again */ }
