@@ -10,7 +10,7 @@ F('almshouse', 'Adams County Almshouse (Poor Farm) complex', 'Adams County',
           R('ASYLUM-ALMS', 'Adams County Almshouse page (PHMC marker text)',
             'Complex closed 1964, barn burned 1967, last building demolished 1974; the site is now the county agricultural center.')],
      notes='Roles of individual buildings (main house, asylum, workhouse, barns) are UNKNOWN; each Warren-plate symbol is drawn as a point.')
-   for k in range(13)])
+   for k in range(9)])
 
 TOWN = []
 

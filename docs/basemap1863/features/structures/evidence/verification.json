@@ -1,0 +1,1066 @@
+{
+ "1_schema": {
+  "features": 599,
+  "problems": [],
+  "passed": true
+ },
+ "2_sources": {
+  "registry_keys_missing": [],
+  "sources_by_type": {
+   "B": 21,
+   "A1": 2
+  },
+  "unique_urls": 23,
+  "http_status": {},
+  "passed": true
+ },
+ "3_position_cross_checks": {
+  "n": 31,
+  "median_m": 3.8,
+  "p90_m": 36.6,
+  "over_30m": [
+   {
+    "id": "STR-BRYAN-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 41.0,
+    "explanation": "NPS The Brien Farm and Family: Warren shows house and barn 30 ft apart, the present buildings are 75 ft apart; the plate is the survey of record, the outline is the survivor"
+   },
+   {
+    "id": "STR-BUSHMAN-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 36.6,
+    "explanation": "southern edge of the plate, sparse control: the global georeference puts the plate symbol 37 m from the surviving house (the house was dropped from the control fit as an outlier at 39 m); footprint is the survivor"
+   },
+   {
+    "id": "STR-BUSHMAN-BARN1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 63.0,
+    "explanation": "same: global-model error at the southern edge (63 m); the barn footprint is the survivor and no symbol point is drawn"
+   },
+   {
+    "id": "STR-BLISS-HOUSE1",
+    "kind": "plate symbol vs NPS/OSM site mark",
+    "offset_m": 33.8,
+    "explanation": "two plate symbols bracket the NPS tablet at 36 m; the tablet is not used, the symbol is; Bliss buildings burned and left no outline"
+   },
+   {
+    "id": "STR-MCMILLAN-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 33.5,
+    "explanation": "west-centre of the plate where the global model has few control points (leave-one-out errors reach 30 m); the surviving house outline is drawn, no symbol point; which of the three McMillan symbols is the house is not established"
+   },
+   {
+    "id": "STR-MCPHERSON-BARN1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 84.0,
+    "explanation": "every Warren symbol of the McPherson farmstead lies about 50 m east of the georeferenced barn outline; symbol identity unresolved; footprint taken from the survivor, no symbol tied to it"
+   }
+  ],
+  "unexplained_over_30m": [],
+  "details": [
+   {
+    "id": "STR-KLINGEL-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 1.6
+   },
+   {
+    "id": "STR-TROSTLE-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 0.6
+   },
+   {
+    "id": "STR-TROSTLE-BARN1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 2.6
+   },
+   {
+    "id": "STR-SHERFY-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 3.8
+   },
+   {
+    "id": "STR-CODORI-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 3.6
+   },
+   {
+    "id": "STR-SPANGLER_H-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 29.3
+   },
+   {
+    "id": "STR-SPANGLER_H-BARN1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 0.5
+   },
+   {
+    "id": "STR-BRYAN-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 41.0,
+    "explanation": "NPS The Brien Farm and Family: Warren shows house and barn 30 ft apart, the present buildings are 75 ft apart; the plate is the survey of record, the outline is the survivor"
+   },
+   {
+    "id": "STR-BRYAN-BARN1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 28.5
+   },
+   {
+    "id": "STR-LEISTER-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 3.0
+   },
+   {
+    "id": "STR-LEISTER-BARN1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 4.0
+   },
+   {
+    "id": "STR-HUMMELBAUGH-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 4.1
+   },
+   {
+    "id": "STR-HUMMELBAUGH-OUTBUILDING1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 3.8
+   },
+   {
+    "id": "STR-GWEIKERT-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 3.6
+   },
+   {
+    "id": "STR-GWEIKERT-BARN1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 3.0
+   },
+   {
+    "id": "STR-GWEIKERT-SUMMER_KITCHEN1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 8.1
+   },
+   {
+    "id": "STR-JWEIKERT-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 5.5
+   },
+   {
+    "id": "STR-ROSE-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 3.2
+   },
+   {
+    "id": "STR-SLYDER-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 2.4
+   },
+   {
+    "id": "STR-SLYDER-BARN1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 2.4
+   },
+   {
+    "id": "STR-BUSHMAN-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 36.6,
+    "explanation": "southern edge of the plate, sparse control: the global georeference puts the plate symbol 37 m from the surviving house (the house was dropped from the control fit as an outlier at 39 m); footprint is the survivor"
+   },
+   {
+    "id": "STR-BUSHMAN-BARN1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 63.0,
+    "explanation": "same: global-model error at the southern edge (63 m); the barn footprint is the survivor and no symbol point is drawn"
+   },
+   {
+    "id": "STR-WARFIELD_SNYDER-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 0.3
+   },
+   {
+    "id": "STR-WENTZ-HOUSE1",
+    "kind": "plate symbol vs NPS/OSM site mark",
+    "offset_m": 9.3
+   },
+   {
+    "id": "STR-ROGERS-HOUSE1",
+    "kind": "plate symbol vs NPS/OSM site mark",
+    "offset_m": 24.1
+   },
+   {
+    "id": "STR-BLISS-HOUSE1",
+    "kind": "plate symbol vs NPS/OSM site mark",
+    "offset_m": 33.8,
+    "explanation": "two plate symbols bracket the NPS tablet at 36 m; the tablet is not used, the symbol is; Bliss buildings burned and left no outline"
+   },
+   {
+    "id": "STR-MCMILLAN-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 33.5,
+    "explanation": "west-centre of the plate where the global model has few control points (leave-one-out errors reach 30 m); the surviving house outline is drawn, no symbol point; which of the three McMillan symbols is the house is not established"
+   },
+   {
+    "id": "STR-MCLEAN-BARN1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 3.5
+   },
+   {
+    "id": "STR-MCLEAN-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 2.9
+   },
+   {
+    "id": "STR-MCPHERSON-BARN1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 84.0,
+    "explanation": "every Warren symbol of the McPherson farmstead lies about 50 m east of the georeferenced barn outline; symbol identity unresolved; footprint taken from the survivor, no symbol tied to it"
+   },
+   {
+    "id": "STR-CULP-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 21.2
+   }
+  ],
+  "passed": true
+ },
+ "4_georeference": {
+  "accuracy": {
+   "n_gcps": 84,
+   "n_curated": 17,
+   "n_icp": 46,
+   "n_sibling": 21,
+   "smoothing": 10000.0,
+   "loo_by_kind": {
+    "curated": {
+     "n": 17,
+     "median_m": 9.9,
+     "max_m": 31.8
+    },
+    "icp": {
+     "n": 46,
+     "median_m": 9.2,
+     "max_m": 27.2
+    },
+    "sib_summit": {
+     "n": 4,
+     "median_m": 15.0,
+     "max_m": 21.8
+    },
+    "sib_road-junction": {
+     "n": 7,
+     "median_m": 10.6,
+     "max_m": 13.3
+    },
+    "sib_farm-building": {
+     "n": 10,
+     "median_m": 5.4,
+     "max_m": 25.3
+    }
+   },
+   "excluded_outliers": [
+    [
+     "bushman:house:4852",
+     38.9
+    ],
+    [
+     "icp:cty375",
+     59.1
+    ],
+    [
+     "icp:cty6133",
+     88.9
+    ],
+    [
+     "icp:cty11175",
+     36.3
+    ],
+    [
+     "icp:cty12018",
+     57.4
+    ],
+    [
+     "SIB:York Pike bridge over Rock Creek",
+     56.2
+    ],
+    [
+     "SIB:Big Round Top summit",
+     47.5
+    ],
+    [
+     "icp:cty5561",
+     42.6
+    ],
+    [
+     "icp:cty9170",
+     61.0
+    ],
+    [
+     "icp:cty9445",
+     55.2
+    ],
+    [
+     "SIB:Hanover Rd bridge over Rock Creek",
+     53.7
+    ],
+    [
+     "SIB:Hill summit W of Plum Run (DEM S160)",
+     61.5
+    ]
+   ],
+   "outlier_note": "Control points whose leave-one-out error exceeded max(35 m, 3 x median) were left out of the fit (local distortion of the plate or a mismatched pair); features placed with a local anchor are unaffected; features placed through the global model carry an error of 25 m, and up to 60 m in the north-west (First Day) corner where control is sparse.",
+   "loo_median_m": 9.84660984835376,
+   "loo_mean_m": 10.885327478984298,
+   "loo_p90_m": 20.459231773460377,
+   "loo_max_m": 31.844087841430838,
+   "note": "Leave-one-out error of the thin-plate-spline georeference of the Bachelder/Warren plate (pixel frame of LoC cw0325000a, about 1.0 m per pixel). Control: surviving-building outlines of the 2023 Adams County dataset (curated farm buildings and a robust-ICP set) and the independent road-junction, bridge and summit points of docs/basemap1863/maps/gcps/warren.json (sibling task). Pixel units are metres to within 3 percent."
+  },
+  "independent_prior_check": {
+   "what": "Before the road-junction, bridge and summit control points of the sibling maps task were added, the building-only georeference was compared with those 25 independent points: median 49 m, maximum 115 m, with the borough about 100 m out. The cross-check exposed a bias in the first fit (wrong building pairs in the borough); those pairs were removed and the independent points were added as control. After the fix the leave-one-out error over the 20 sibling points kept in the fit has median 9 m and maximum 29 m.",
+   "source": "docs/basemap1863/maps/gcps/warren.json"
+  },
+  "passed": true
+ },
+ "5_dimensions": {
+  "n": 10,
+  "details": [
+   {
+    "id": "STR-KLINGEL-HOUSE1",
+    "documented_m2": 50.7,
+    "outline2023_m2": 70.4,
+    "ratio": 1.39,
+    "status": "survives_altered"
+   },
+   {
+    "id": "STR-TROSTLE-HOUSE1",
+    "documented_m2": 92.2,
+    "outline2023_m2": 138.2,
+    "ratio": 1.5,
+    "status": "survives_altered"
+   },
+   {
+    "id": "STR-TROSTLE-BARN1",
+    "documented_m2": 475.7,
+    "outline2023_m2": 353.6,
+    "ratio": 0.74,
+    "status": "survives"
+   },
+   {
+    "id": "STR-TROSTLE-SUMMER_KITCHEN1",
+    "documented_m2": 30.7,
+    "outline2023_m2": 27.7,
+    "ratio": 0.9,
+    "status": "survives"
+   },
+   {
+    "id": "STR-SHERFY-HOUSE1",
+    "documented_m2": 114.3,
+    "outline2023_m2": 135.8,
+    "ratio": 1.19,
+    "status": "survives_altered"
+   },
+   {
+    "id": "STR-CODORI-HOUSE1",
+    "documented_m2": 55.2,
+    "outline2023_m2": 128.3,
+    "ratio": 2.33,
+    "status": "survives_altered"
+   },
+   {
+    "id": "STR-SPANGLER_H-HOUSE1",
+    "documented_m2": 56.6,
+    "outline2023_m2": 113.4,
+    "ratio": 2.0,
+    "status": "survives"
+   },
+   {
+    "id": "STR-SPANGLER_H-BARN1",
+    "documented_m2": 335.6,
+    "outline2023_m2": 388.6,
+    "ratio": 1.16,
+    "status": "destroyed_1863"
+   },
+   {
+    "id": "STR-MCLEAN-BARN1",
+    "documented_m2": 204.4,
+    "outline2023_m2": 302.9,
+    "ratio": 1.48,
+    "status": "survives"
+   },
+   {
+    "id": "STR-MCLEAN-HOUSE1",
+    "documented_m2": 46.5,
+    "outline2023_m2": 124.2,
+    "ratio": 2.67,
+    "status": "survives_altered"
+   }
+  ],
+  "outside_0p6_to_2p2": [
+   {
+    "id": "STR-CODORI-HOUSE1",
+    "documented_m2": 55.2,
+    "outline2023_m2": 128.3,
+    "ratio": 2.33,
+    "status": "survives_altered"
+   },
+   {
+    "id": "STR-MCLEAN-HOUSE1",
+    "documented_m2": 46.5,
+    "outline2023_m2": 124.2,
+    "ratio": 2.67,
+    "status": "survives_altered"
+   }
+  ],
+  "note": "Ratios above 1 are expected where the 2023 outline includes post-1863 additions (the entry then says so in fabric_1863); ratios far from 1 are flagged in the entry notes.",
+  "passed": true
+ },
+ "6_chronology": {
+  "problems": [],
+  "passed": true,
+  "note": "Every feature with a first construction year after 1863 would have to be flagged destroyed_1863 (a later building on an 1863 site); none is drawn as an 1863 building."
+ },
+ "7_cross_sheet": {
+  "result": {
+   "method": "For each curated symbol (px in the cw0325000a frame) the fraction of ink pixels (grey<110) in a 9x9 window is measured on the July-3 sheet cw0325000c and on the 1:1000 Warren plate cw0353500, both warped into the July-1 frame by SIFT homographies (median registration residual 2-3 px), taking the best of a 7x7 grid of offsets up to 6 px. A symbol counts as present when at least 0.55 of the window is ink.",
+   "n": 87,
+   "present_on_july3_sheet": 85,
+   "present_on_warren_plate": 79,
+   "present_fraction": 0.977,
+   "present_fraction_plate": 0.908,
+   "note": "Sheets a and c are two sheets of the same 1876 Bachelder map and plate d is the 1:1000 Warren plate: all derive from the same 1868-69 survey, so this check tests transcription (registration, symbol detection), not independent evidence of existence in 1863.",
+   "rows": [
+    {
+     "cluster": "sherfy",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "sherfy",
+     "idx": 1,
+     "sheet_a": 0.93,
+     "sheet_c_july3": 0.95,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "sherfy",
+     "idx": 2,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "klingel",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "klingel",
+     "idx": 1,
+     "sheet_a": 0.94,
+     "sheet_c_july3": 0.99,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "codori",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "codori",
+     "idx": 1,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "codori",
+     "idx": 2,
+     "sheet_a": 0.95,
+     "sheet_c_july3": 0.96,
+     "plate_d": 0.95
+    },
+    {
+     "cluster": "spangler_h",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "spangler_h",
+     "idx": 1,
+     "sheet_a": 0.99,
+     "sheet_c_july3": 1.0,
+     "plate_d": 0.95
+    },
+    {
+     "cluster": "spangler_h",
+     "idx": 2,
+     "sheet_a": 0.56,
+     "sheet_c_july3": 0.96,
+     "plate_d": 0.41
+    },
+    {
+     "cluster": "spangler_h",
+     "idx": 3,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "spangler_h",
+     "idx": 4,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 0.99
+    },
+    {
+     "cluster": "rogers",
+     "idx": 0,
+     "sheet_a": 0.37,
+     "sheet_c_july3": 1.0,
+     "plate_d": 0.9
+    },
+    {
+     "cluster": "rogers",
+     "idx": 1,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "rogers",
+     "idx": 2,
+     "sheet_a": 0.41,
+     "sheet_c_july3": 0.91,
+     "plate_d": 0.59
+    },
+    {
+     "cluster": "trostle",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "trostle",
+     "idx": 1,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "trostle",
+     "idx": 2,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "slyder",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "slyder",
+     "idx": 1,
+     "sheet_a": 0.32,
+     "sheet_c_july3": 0.54,
+     "plate_d": 0.86
+    },
+    {
+     "cluster": "slyder",
+     "idx": 2,
+     "sheet_a": 0.94,
+     "sheet_c_july3": 0.95,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "bushman",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "rose",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "rose",
+     "idx": 1,
+     "sheet_a": 0.95,
+     "sheet_c_july3": 0.99,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "rose",
+     "idx": 2,
+     "sheet_a": 0.57,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "snyder",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "snyder",
+     "idx": 1,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "warfield",
+     "idx": 0,
+     "sheet_a": 0.99,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "warfield",
+     "idx": 1,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "warfield",
+     "idx": 2,
+     "sheet_a": 0.91,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "warfield",
+     "idx": 3,
+     "sheet_a": 0.84,
+     "sheet_c_july3": 0.94,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "gweikert",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "gweikert",
+     "idx": 1,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "gweikert",
+     "idx": 2,
+     "sheet_a": 0.95,
+     "sheet_c_july3": 0.94,
+     "plate_d": 0.96
+    },
+    {
+     "cluster": "gweikert",
+     "idx": 3,
+     "sheet_a": 0.99,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "gweikert",
+     "idx": 4,
+     "sheet_a": 0.85,
+     "sheet_c_july3": 0.9,
+     "plate_d": 0.74
+    },
+    {
+     "cluster": "hummelbaugh",
+     "idx": 0,
+     "sheet_a": 0.01,
+     "sheet_c_july3": 0.53,
+     "plate_d": 0.48
+    },
+    {
+     "cluster": "hummelbaugh",
+     "idx": 1,
+     "sheet_a": 0.46,
+     "sheet_c_july3": 0.6,
+     "plate_d": 0.75
+    },
+    {
+     "cluster": "leister",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "leister",
+     "idx": 1,
+     "sheet_a": 0.59,
+     "sheet_c_july3": 0.84,
+     "plate_d": 0.73
+    },
+    {
+     "cluster": "leister",
+     "idx": 2,
+     "sheet_a": 0.42,
+     "sheet_c_july3": 0.63,
+     "plate_d": 0.68
+    },
+    {
+     "cluster": "bryan",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "bryan",
+     "idx": 1,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "fry",
+     "idx": 0,
+     "sheet_a": 0.96,
+     "sheet_c_july3": 0.99,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "fry",
+     "idx": 1,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "fry",
+     "idx": 2,
+     "sheet_a": 0.96,
+     "sheet_c_july3": 0.99,
+     "plate_d": 0.95
+    },
+    {
+     "cluster": "patterson",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "patterson",
+     "idx": 1,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "patterson",
+     "idx": 2,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "jweikert",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "jweikert",
+     "idx": 1,
+     "sheet_a": 0.94,
+     "sheet_c_july3": 1.0,
+     "plate_d": 0.99
+    },
+    {
+     "cluster": "jweikert",
+     "idx": 2,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "culp",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "culp",
+     "idx": 1,
+     "sheet_a": 0.98,
+     "sheet_c_july3": 1.0,
+     "plate_d": 0.99
+    },
+    {
+     "cluster": "culp",
+     "idx": 2,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "culp",
+     "idx": 3,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 0.99
+    },
+    {
+     "cluster": "culp",
+     "idx": 4,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "mcmillan",
+     "idx": 0,
+     "sheet_a": 0.48,
+     "sheet_c_july3": 0.98,
+     "plate_d": 0.68
+    },
+    {
+     "cluster": "mcmillan",
+     "idx": 1,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "mcmillan",
+     "idx": 2,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "bliss",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 0.94
+    },
+    {
+     "cluster": "bliss",
+     "idx": 1,
+     "sheet_a": 0.7,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "wentz",
+     "idx": 0,
+     "sheet_a": 0.05,
+     "sheet_c_july3": 0.78,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "wentz",
+     "idx": 1,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "wentz",
+     "idx": 2,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 0.99,
+     "plate_d": 0.99
+    },
+    {
+     "cluster": "forney",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "hagy_beams",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "hagy_beams",
+     "idx": 1,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 0.99,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "hagy_beams",
+     "idx": 2,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "hagy_beams",
+     "idx": 3,
+     "sheet_a": 0.98,
+     "sheet_c_july3": 1.0,
+     "plate_d": 0.98
+    },
+    {
+     "cluster": "mclean",
+     "idx": 0,
+     "sheet_a": 0.93,
+     "sheet_c_july3": 0.93,
+     "plate_d": 0.89
+    },
+    {
+     "cluster": "mclean",
+     "idx": 1,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "mcpherson",
+     "idx": 0,
+     "sheet_a": 0.01,
+     "sheet_c_july3": 1.0,
+     "plate_d": 0.62
+    },
+    {
+     "cluster": "almshouse",
+     "idx": 0,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 0.4
+    },
+    {
+     "cluster": "almshouse",
+     "idx": 1,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "almshouse",
+     "idx": 2,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 0.32
+    },
+    {
+     "cluster": "almshouse",
+     "idx": 3,
+     "sheet_a": 0.99,
+     "sheet_c_july3": 0.99,
+     "plate_d": 0.96
+    },
+    {
+     "cluster": "almshouse",
+     "idx": 4,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 0.52
+    },
+    {
+     "cluster": "almshouse",
+     "idx": 5,
+     "sheet_a": 0.96,
+     "sheet_c_july3": 1.0,
+     "plate_d": 0.27
+    },
+    {
+     "cluster": "almshouse",
+     "idx": 6,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 0.09
+    },
+    {
+     "cluster": "almshouse",
+     "idx": 7,
+     "sheet_a": 0.99,
+     "sheet_c_july3": 0.99,
+     "plate_d": 0.84
+    },
+    {
+     "cluster": "almshouse",
+     "idx": 8,
+     "sheet_a": 0.98,
+     "sheet_c_july3": 0.99,
+     "plate_d": 1.0
+    },
+    {
+     "cluster": "almshouse",
+     "idx": 9,
+     "sheet_a": 0.98,
+     "sheet_c_july3": 0.98,
+     "plate_d": 0.93
+    },
+    {
+     "cluster": "almshouse",
+     "idx": 10,
+     "sheet_a": 0.99,
+     "sheet_c_july3": 1.0,
+     "plate_d": 0.53
+    },
+    {
+     "cluster": "almshouse",
+     "idx": 11,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 0.67
+    },
+    {
+     "cluster": "almshouse",
+     "idx": 12,
+     "sheet_a": 1.0,
+     "sheet_c_july3": 1.0,
+     "plate_d": 0.84
+    }
+   ]
+  },
+  "passed": true
+ },
+ "8_duplicates_counts": {
+  "near_duplicate_pairs_under_2m": [],
+  "by_status": {
+   "survives_altered": 16,
+   "survives": 29,
+   "unknown_fate": 25,
+   "lost_later": 31,
+   "destroyed_1863": 4,
+   "ruin": 2,
+   "map_mass": 229,
+   "unreviewed_symbol": 263
+  },
+  "by_confidence": {
+   "Documented": 39,
+   "Estimated": 556,
+   "Unknown": 3,
+   "Contested": 1
+  },
+  "curated_farmsteads": 26,
+  "total_features": 599,
+  "context": "NPS 1999 GMP: 71 farms of the 1863 battlefield lie inside the park boundary; NPS CLI: over 50 agricultural properties had farm structures in 1863. 28 farmsteads are curated here; the rest are in the unreviewed machine-detected layer.",
+  "passed": true
+ }
+}

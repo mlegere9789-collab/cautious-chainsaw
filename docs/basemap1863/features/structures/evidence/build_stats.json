@@ -1,26 +1,32 @@
 {
  "stats": {
   "curated_survives_altered": 8,
-  "curated_survives": 22,
-  "curated_unknown_fate": 22,
-  "curated_lost_later": 31,
+  "curated_survives": 23,
+  "curated_unknown_fate": 24,
+  "curated_lost_later": 27,
   "curated_destroyed_1863": 4,
   "curated_ruin": 2,
-  "town_survives_altered": 7,
-  "town_survives": 1,
+  "town_survives_altered": 8,
+  "town_survives": 4,
   "lost_nogeom": 5,
-  "auto_symbol": 270
+  "site_point": 2,
+  "borough_mass": 229,
+  "auto_symbol": 263
  },
- "n_features": 372,
+ "n_features": 599,
  "used_cty": [
   346,
+  701,
+  967,
   1977,
+  1999,
   2656,
   2781,
   2870,
   3275,
   3539,
   3580,
+  4321,
   4419,
   4533,
   4649,
@@ -43,6 +49,7 @@
   11495,
   12138,
   12158,
+  12463,
   12743,
   13105,
   13528,
@@ -50,5 +57,5 @@
   14014,
   16124
  ],
- "georef": "Bachelder 1876 / Warren 1868-69 plate georeferenced by a thin-plate spline fitted to 86 surviving-building control points; leave-one-out error median 9.0 m, 90th percentile 16.8 m, maximum 55 m (evidence/gcps_final.json)"
+ "georef": "Bachelder 1876 / Warren 1868-69 plate georeferenced by a thin-plate spline fitted to 84 control points (surviving buildings, road junctions, bridges, summits); leave-one-out error median 9.8 m, 90th percentile 20.5 m, maximum 32 m (evidence/gcps_final.json)"
 }

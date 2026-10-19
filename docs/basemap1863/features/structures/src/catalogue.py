@@ -90,11 +90,11 @@ F('codori', 'Nicholas Codori farmstead', 'N. Codori', 'On the Emmitsburg Road in
      src=[R('WARREN-BACH', 'July-1 sheet, symbol marked W', 'Filled symbol marked W between house and barn.')], notes='Function unresolved.')])
 
 F('spangler_h', 'Henry Spangler farmstead', 'H. Spangler', 'Pickett\'s division formed behind it 3 July; barn burned during the battle.',
-  [B('house', 'farmhouse', 'Henry Spangler farm house', 'survives', cty=346, dims='29 x 21 ft log hall-and-parlor block with 20 x 29 ft brick-and-stone rear ell', material='log, board-and-batten, ell of brick and stone; stone foundation',
+  [B('house', 'farmhouse', 'Henry Spangler farm house', 'survives', cty=346, sym=('spangler_h', 2), dims='29 x 21 ft log hall-and-parlor block with 20 x 29 ft brick-and-stone rear ell', material='log, board-and-batten, ell of brick and stone; stone foundation',
      roof='wood shingle, gable', built='c.1820', fabric='block and ell',
      src=[R('NPS-CLI-PICKETT', 'Henry Spangler Farm: House (NR 2004 Sec.7:9)', 'House at 999 Emmitsburg Road, 2-story log hall-and-parlor house with board-and-batten siding, 29 x 21 ft with brick and stone ell 20 x 29 ft; barn burned during the battle, house damage limited to contents.'),
            R('NPS-HS-SPANGLER', 'Historical Statement: Henry Spangler Farm Buildings', 'Historical study of the farm buildings.')],
-     notes='Warren-plate house symbol lies 28 m N of this outline (map-vs-survey offset recorded in evidence).'),
+     notes='The Warren-plate symbol taken for the house lies about 28 m from this outline (map-vs-survey offset recorded in evidence); the identification of the symbol is not certain.'),
    B('barn', 'bank_barn', 'Henry Spangler barn (burned in the battle; 1935 reconstruction on the old foundation)', 'destroyed_1863', cty=1977, sym=('spangler_h', 0), dims='43 x 84 ft (1935 barn)', material='frame, vertical board', roof='gable', built='1935 (on foundations of the pre-war barn)',
      fabric='foundations only',
      src=[R('NPS-CLI-PICKETT', 'Henry Spangler Farm: Barn (NR 2004 Sec.7:15)', '2-story gable-roof bank barn 43 x 84 ft built 1935 on foundations of the pre-Civil War barn destroyed during the battle.'),
@@ -106,8 +106,12 @@ F('spangler_h', 'Henry Spangler farmstead', 'H. Spangler', 'Pickett\'s division 
    B('outbuilding', 'stable', 'Spangler stable and carriage shed', 'survives', dims='19 x 13 ft', material='frame, stone foundation', roof='wood shingle, gable', built='c.1850s-1860s', conf='Estimated',
      src=[R('NPS-CLI-PICKETT', 'Henry Spangler Farm: Stable and Carriage Shed (NR 2004 Sec.7:9)', '1-story frame building 19 x 13 ft, c.1850s-1860s.')],
      notes='Assignment among small 2023 outlines not resolved; UNKNOWN geometry.'),
-   B('outbuilding', 'building', 'Spangler farmstead: wood buildings on the Warren plate (cluster W of house)', 'unknown_fate', sym=('spangler_h', 1), conf='Estimated',
-     src=[R('WARREN-BACH', 'July-1 sheet', 'Symbols marked W between barn and house.')], notes='Function unresolved.')])
+   B('outbuilding', 'building', 'Spangler farmstead: wood building W of the house (Warren plate)', 'unknown_fate', sym=('spangler_h', 1), conf='Estimated',
+     src=[R('WARREN-BACH', 'July-1 sheet', 'Symbol marked W between barn and house.')], notes='Function unresolved.'),
+   B('outbuilding', 'building', 'Spangler farmstead: stone-lettered symbol E of the house (Warren plate)', 'unknown_fate', sym=('spangler_h', 3), conf='Estimated',
+     src=[R('WARREN-BACH', 'July-1 sheet', 'Symbol marked S (stone).')], notes='Function unresolved; NPS lists a brick smokehouse and brick-and-stone ell at this farm.'),
+   B('outbuilding', 'building', 'Spangler farmstead: building N of the house (Warren plate)', 'unknown_fate', sym=('spangler_h', 4), conf='Estimated',
+     src=[R('WARREN-BACH', 'July-1 sheet', 'Unlettered symbol.')], notes='Function unresolved.')])
 
 F('bryan', 'Abraham Brien (Bryan) farmstead', 'A. Brien (free African American family)', 'Behind the Union line at The Angle; barn and house inside the fighting of 3 July.',
   [B('house', 'farmhouse', 'Brien (Bryan) house', 'survives_altered', cty=4533, sym=('bryan', 0), dims='1.5-story small frame house in 1863', material='wood frame, stone foundation', roof='wood shingle', built='before 1863', fabric='1.5-story form in the 1863 Brady photograph; later raised to an L-shaped 2-story house (1863-1880) then restored in 1957',
@@ -123,17 +127,17 @@ F('leister', 'Lydia Leister farmstead (Meade headquarters)', 'L. Leister', 'Army
      src=[R('NPS-THEN-NOW', 'Meade\'s Headquarters: Lydia Leister House', 'The house still stands; Meade held the council of war here on 2 July; it was damaged by Confederate fire on 3 July.'),
           R('NPS-HSR-LEISTER-BARN', 'HSR Leister Barn, scope of work', 'The barn and adjacent house were used for headquarters; the house was reduced to its smaller 1863 plan.'),
           R('HABS-PA', 'HABS Lydia Leister House, https://www.loc.gov/item/pa0014/', 'HABS record of the house.')]),
-   B('barn', 'barn', 'Leister barn', 'survives', cty=7153, dims='37 ft 8 in long (N-S); width about 22 ft (HSR scan OCR is partly garbled)', material='log north bay with frame overshoot, post-and-frame bays; stone foundation',
+   B('barn', 'barn', 'Leister barn', 'survives', cty=7153, sym=('leister', 1), dims='37 ft 8 in long (N-S); width about 22 ft (HSR scan OCR is partly garbled)', material='log north bay with frame overshoot, post-and-frame bays; stone foundation',
      built='before 1863', conf='Documented', fabric='original frame, roof pitch altered after 1863',
      src=[R('NPS-HSR-LEISTER-BARN', 'Existing Fabric, A. General Plan', 'Leister barn sited about 60 yards west of the house, long axis north-south, perpendicular to the house; overall dimensions 37 ft 8 in by 22 ft (OCR); used as signal station and temporary hospital.'),
           R('HABS-PA', 'HABS Lydia Leister Barn, https://www.loc.gov/item/pa1413/', 'Measured drawings.')])])
 
 F('hummelbaugh', 'Jacob Hummelbaugh farmstead', 'J. Hummelbaugh', 'Cavalry headquarters (Pleasonton) and hospital; Brig. Gen. Barksdale died here.',
-  [B('house', 'farmhouse', 'Hummelbaugh house', 'survives', cty=3580, sym=('hummelbaugh', 1), material='frame', built='before 1863', conf='Documented',
+  [B('house', 'farmhouse', 'Hummelbaugh house', 'survives', cty=3580, sym=('hummelbaugh', 0), material='frame', built='before 1863', conf='Documented',
      src=[R('NPS-CLR-ROT1', 'Area 9, Hummelbaugh Orchard', 'Union cavalry commander Pleasonton used the Hummelbaugh House for his headquarters; picket fencing documented around yard and garden.'),
           R('HABS-PA', 'HABS Hummelbaugh Farm House, https://www.loc.gov/item/pa1740/', 'HABS record of the house.')]),
-   B('outbuilding', 'building', 'Hummelbaugh farmstead: second building W of house (Warren plate)', 'unknown_fate', cty=13683, sym=('hummelbaugh', 0), conf='Estimated',
-     src=[R('WARREN-BACH', 'July-1 sheet', 'Symbol marked W 45 m west of the house symbol; a 67 m2 building stands there in 2023.')],
+   B('outbuilding', 'building', 'Hummelbaugh farmstead: second building W of house (Warren plate)', 'unknown_fate', cty=13683, sym=('hummelbaugh', 1), conf='Estimated',
+     src=[R('WARREN-BACH', 'July-1 sheet', 'Symbol marked W 35 m west of the house symbol; a 67 m2 building stands there in 2023.')],
      notes='Identity of the 2023 outline as the 1863 building is not independently confirmed; the Warren-plate symbol is 12 m from it.')])
 
 F('gweikert', 'George Weikert farmstead', 'G. Weikert', 'Behind Cemetery Ridge; hospital; the NPS 2004 treatment study calls it well preserved.',
@@ -185,7 +189,11 @@ F('bushman', 'Michael Bushman farmstead', 'M. Bushman', 'South end of the Union 
   [B('house', 'farmhouse', 'Bushman farm house', 'survives', cty=4852, sym=('bushman', 0), material='stone (Warren plate letter S)', built='before 1863', conf='Estimated',
      src=[R('HABS-PA', 'HABS Bushman House, Southern Pennsylvania District (https://www.loc.gov/item/pa0005/)', 'HABS record of the Bushman House.'),
           R('OSM', 'way 453167592 Bushman Farm House', 'Named building.')],
-     notes='HABS also records a Bushman barn (https://www.loc.gov/item/pa1693/); the OSM-named barn (2023 outline 701) is not separately dated in the sources read and is not drawn.')])
+     notes='Warren plate: stone symbol S for the house.'),
+   B('barn', 'barn', 'Bushman barn', 'survives', cty=701, sym=('bushman', 1), built='before 1863', conf='Estimated',
+     src=[R('HABS-PA', 'HABS Bushman Barn, Business U.S. 15 / Emmitsburg Road (https://www.loc.gov/item/pa1693/)', 'HABS record of the Bushman barn.'),
+          R('OSM', 'way 453167593 Bushman Barn', 'Named building 62 m south of the house, matching the plate symbol marked W south of the stone house symbol.')],
+     notes='The surviving barn date is not given in the sources read; the plate symbol supports a barn at this spot in 1868-69.')])
 
 F('warfield_snyder', 'Warfield / Snyder farmsteads', 'J. Warfield; P. Snyder', 'Warfield Ridge: Confederate battle line; Snyder farm severely altered (NPS 2004).',
   [B('house', 'farmhouse', 'Warfield house', 'survives', cty=9546, sym=('warfield', 0), built='before 1863', conf='Estimated',
@@ -256,6 +264,7 @@ F('hagy_beams', 'McClean tenant farms: David Hagy and John Beams', 'D. Hagy; J. 
 
 F('mcpherson', 'Edward McPherson farmstead', 'E. McPherson', 'Opening of the battle 1 July; barn survives; house burned 1895.',
   [B('barn', 'bank_barn', 'McPherson barn', 'survives', cty=11495, sym=('mcpherson', 0), material='stone lower level, frame upper', built='before 1863', conf='Documented',
+     notes='The Warren-plate symbols of this farmstead lie about 50 m east of where the georeference puts the surviving barn, so no plate symbol is tied to the barn; the footprint is the 2023 outline.',
      src=[R('NPS-THEN-NOW', 'McPherson Farm', 'The stone barn is the only remnant of the farm; the house burned in 1895 and the central wagon shed is gone.'),
           R('NPS-CLI-1CORPS', 'McPherson Barn', 'Restored to its battle-era exterior; the only battle-era building on park property within the 1st Corps battlefield.'),
           R('HABS-PA', 'HABS McPherson Barn (https://www.loc.gov/item/pa0008/)', 'Measured drawings.')]),
@@ -273,12 +282,12 @@ F('forney', 'John Forney farmstead', 'J. Forney', 'Landmark of the first-day fig
      notes='Only the large symbol near the J. FORNEY label is used; the farmstead had more than one building (unplaced).', err=20)])
 
 F('culp', 'William/Henry Culp farmstead (Rock Creek)', 'Wm. Culp', 'East of Rock Creek below Culp\'s Hill; HABS records house, barn, springhouse, woodshed and smokehouse.',
-  [B('house', 'farmhouse', 'Culp farm house (brick)', 'survives', cty=8971, sym=('culp', 3), material='brick', built='after 1800, before 1866 (HABS)', conf='Documented',
+  [B('house', 'farmhouse', 'Culp farm house (brick)', 'survives', cty=8971, sym=('culp', 0), material='brick', built='after 1800, before 1866 (HABS)', conf='Documented',
      src=[R('HABS-PA', 'HABS PA-354 Culp House (https://www.loc.gov/item/pa0006/)', 'Date of erection before the Battle of Gettysburg; material brick; NPS ownership.')],
      notes='2023 outline (461 m2) includes later additions; HABS also records Culp barn, springhouse, woodshed and smokehouse (https://www.loc.gov/item/pa1817/ to pa1820), not separately located.'),
-   B('outbuilding', 'building', 'Culp farmstead: other symbols (Warren plate)', 'unknown_fate', sym=('culp', 0), conf='Estimated', src=[R('WARREN-BACH', 'July-1 sheet', 'Symbols marked W/S.')], notes='Barn/springhouse/woodshed roles unresolved.'),
-   B('outbuilding', 'building', 'Culp farmstead: symbol 2', 'unknown_fate', sym=('culp', 1), conf='Estimated', src=[R('WARREN-BACH', 'July-1 sheet', 'Symbol.')], notes=''),
-   B('outbuilding', 'building', 'Culp farmstead: symbol 3', 'unknown_fate', sym=('culp', 2), conf='Estimated', src=[R('WARREN-BACH', 'July-1 sheet', 'Symbol marked S.')], notes=''),
+   B('outbuilding', 'building', 'Culp farmstead: symbol 2 (Warren plate)', 'unknown_fate', sym=('culp', 1), conf='Estimated', src=[R('WARREN-BACH', 'July-1 sheet', 'Symbols marked W/S.')], notes='Barn/springhouse/woodshed roles unresolved.'),
+   B('outbuilding', 'building', 'Culp farmstead: symbol 3 (stone-lettered)', 'unknown_fate', sym=('culp', 2), conf='Estimated', src=[R('WARREN-BACH', 'July-1 sheet', 'Symbol.')], notes=''),
+   B('outbuilding', 'building', 'Culp farmstead: symbol 4', 'unknown_fate', sym=('culp', 3), conf='Estimated', src=[R('WARREN-BACH', 'July-1 sheet', 'Symbol marked S.')], notes=''),
    B('outbuilding', 'building', 'Culp farmstead: symbol 5', 'unknown_fate', sym=('culp', 4), conf='Estimated', src=[R('WARREN-BACH', 'July-1 sheet', 'Symbol.')], notes='')])
 
 F('fry', 'M. Fry (Frey) farmstead', 'M. Fry', 'Behind Cemetery Ridge; NPS CLR mentions a Frey house and barn (Frey Field/Orchard).',

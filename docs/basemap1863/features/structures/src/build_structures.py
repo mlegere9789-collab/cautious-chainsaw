@@ -16,6 +16,7 @@ from shapely.ops import transform as shp_transform
 from sources import SRC
 import catalogue
 import catalogue_town
+import catalogue_extra
 
 OUTDIR = os.path.abspath(os.path.join(HERE, '..'))
 EVID = os.path.join(OUTDIR, 'evidence')
@@ -25,7 +26,7 @@ T_INV = Transformer.from_crs(32618, 4326, always_xy=True)
 T_WM = Transformer.from_crs(4326, 3857, always_xy=True)
 FT = 0.3048
 
-GEORef_NOTE = ('Bachelder 1876 / Warren 1868-69 plate georeferenced by a thin-plate spline fitted to %d surviving-building control points; '
+GEORef_NOTE = ('Bachelder 1876 / Warren 1868-69 plate georeferenced by a thin-plate spline fitted to %d control points (surviving buildings, road junctions, bridges, summits); '
                'leave-one-out error median %.1f m, 90th percentile %.1f m, maximum %.0f m (evidence/gcps_final.json)')
 
 
@@ -34,7 +35,7 @@ def load_county():
     out = {}
     for i, f in enumerate(d):
         g = shape(f['geometry'])
-        out[i] = dict(ll=g, utm=shp_transform(lambda x, y, z=None: T_UTM.transform(x, y), g), props=f['properties'])
+        out[i] = dict(ll=g, utm=shp_transform(lambda x, y, z=None: T_UTM.transform(x, y), g), props=f['properties'], srcid=str(f.get('id')))
     return out
 
 
@@ -77,17 +78,25 @@ def build():
             m = ('Position of the Bachelder/Warren plate building symbol (px %.0f,%.0f in the cw0325000a frame), carried to ground coordinates by a local offset '
                  'from %d surviving anchor building(s) of the same farmstead (anchor spread %.1f m).' % (s['px'][0], s['px'][1], s['anchor_n'], spread))
         else:
-            err = 15
+            err = 25
             m = ('Position of the Bachelder/Warren plate building symbol (px %.0f,%.0f in the cw0325000a frame) through the global thin-plate-spline georeference.' % (s['px'][0], s['px'][1]))
         return s, err, m
 
     seq = collections.Counter()
+    seen_sym = set()
     # ------------------------------------------------ curated farm buildings
     for farm in catalogue.FARMS:
         for b in farm['buildings']:
             seq[(farm['key'], b['role'])] += 1
             fid = 'STR-%s-%s%d' % (farm['key'].upper(), b['role'].upper(), seq[(farm['key'], b['role'])])
             geom = None; err = None; method = ''; map_px = None; check = {}
+            if b['sym'] is not None and b['cty'] is None and b['pt'] is None:
+                _s = ev[b['sym'][0]]['symbols'][b['sym'][1]]
+                _k = (b['sym'][0], round(_s['px'][0]), round(_s['px'][1]))
+                if _k in seen_sym:
+                    stats['duplicate_symbol_skipped'] += 1
+                    continue
+                seen_sym.add(_k)
             if b['cty'] is not None:
                 c = county[b['cty']]
                 geom = ll_poly(c['ll']); used_cty.add(b['cty'])
@@ -128,6 +137,9 @@ def build():
             extra = dict(farm=farm['key'], farm_name=farm['name'], owner_1863=farm['owner_1863'], status=b['status'], dims_documented=b['dims'], material=b['material'], roof=b['roof'],
                          built=b['built'], fabric_1863=b['fabric'], geometry_kind=('footprint_2023_outline' if b['cty'] is not None else ('map_symbol_point' if geom else 'none')),
                          georef_model=(georef if (b['sym'] is not None and b['cty'] is None) else None), map_px_cw0325000a=map_px)
+            if b['cty'] is not None:
+                extra['adams_county_srcid'] = county[b['cty']]['srcid']
+                extra['geometry_represents'] = ('later building on the 1863 site/foundation (not the 1863 structure itself)' if b['status'] == 'destroyed_1863' else ('present building outline; 1863 form may have been smaller (see fabric_1863)' if b['status'] == 'survives_altered' else 'present building outline, taken as the 1863 building'))
             extra.update(check)
             f = base(fid, b['subtype'], b['name'], geom, b['present'], b['period'], b['src'], method, err, conf, b['notes'], extra)
             add(f); stats['curated_' + b['status']] += 1
@@ -136,7 +148,8 @@ def build():
         c = county[t['cty']]; used_cty.add(t['cty'])
         fid = 'STR-TOWN-%s' % t['key'].upper()
         method = 'Footprint = 2023 Adams County outline of the surviving building (index %d, %.0f m2); identity from the named source; the 1863 footprint may be smaller (see notes).' % (t['cty'], c['utm'].area)
-        extra = dict(farm=None, status=t['status'], dims_documented=t['dims'], built=t['built'], geometry_kind='footprint_2023_outline')
+        extra = dict(farm=None, status=t['status'], dims_documented=t['dims'], built=t['built'], geometry_kind='footprint_2023_outline', adams_county_srcid=county[t['cty']]['srcid'],
+                     geometry_represents=('present building outline; 1863 form may have been smaller' if t['status'] == 'survives_altered' else 'present building outline, taken as the 1863 building'))
         f = base(fid, t['subtype'], t['name'], ll_poly(c['ll']), True, '', t['src'], method, t['err'], t['conf'], t['notes'], extra)
         add(f); stats['town_' + t['status']] += 1
     for t in catalogue_town.LOST:
@@ -144,6 +157,25 @@ def build():
         extra = dict(farm=None, status=t['status'], built=t['built'], geometry_kind='none')
         f = base(fid, t['subtype'], t['name'], None, True, '', t['src'], 'No geometry: no source read gives coordinates (UNKNOWN).', None, 'Unknown' if t['conf'] != 'Documented' else 'Documented', t['notes'], extra)
         add(f); stats['lost_nogeom'] += 1
+    # ------------------------------------------------ extra named points (bridge, mill)
+    for t in catalogue_extra.EXTRA_POINTS:
+        fid = 'STR-SITE-%s' % t['key'].upper()
+        extra = dict(farm=None, status=t['status'], built=t['built'], geometry_kind='named_point', geometry_represents='site position, not a footprint')
+        f = base(fid, t['subtype'], t['name'], dict(type='Point', coordinates=[t['lon'], t['lat']]), True, '', t['src'], 'Point = %s.' % t['why'], t['err'], t['conf'], t['notes'], extra)
+        add(f); stats['site_point'] += 1
+    # ------------------------------------------------ borough building masses (map-derived)
+    mass = json.load(open(os.path.join(EVID, 'borough_mass.json'), encoding='utf-8'))
+    for i, m in enumerate(mass):
+        fid = 'STR-BORO-MASS-%03d' % (i + 1)
+        method = ('Outline of an inked building mass on the Warren plate (cw0353500 registered to the cw0325000a frame), extracted by thresholding and contour tracing, '
+                  'then carried to ground coordinates through the global thin-plate-spline georeference. The plate draws buildings as solid symbols that are larger than the buildings and run together along the street fronts: '
+                  'this polygon is the extent of the ink, NOT an individual building footprint.')
+        extra = dict(farm=None, status='map_mass', geometry_kind='map_ink_mass', geometry_represents='extent of drawn building symbols (merges neighbouring buildings)', georef_model=georef, area_ink_px=round(m['area_px']))
+        srcs = [('WARREN-PLATE', 'Gettysburg borough, whole plate', 'Solid building symbols along the street fronts of the borough as surveyed in 1868-69; letters W/B/S mark wood, brick, stone where drawn.')]
+        f = base(fid, 'borough_building_mass', 'Gettysburg borough building mass %d (Warren plate)' % (i + 1), dict(type='Polygon', coordinates=[m['ll']]), True,
+                 'Standing at the 1868-69 survey; most borough blocks were built up before 1863 but individual buildings are not dated.', srcs, method, 20, 'Estimated',
+                 'Buildings erected between July 1863 and 1869 cannot be separated from those standing in July 1863 using this plate alone.', extra)
+        add(f); stats['borough_mass'] += 1
     # ------------------------------------------------ machine-detected symbols (unreviewed)
     for i, a in enumerate(auto):
         fid = 'STR-MAPSYM-%04d' % (i + 1)
@@ -153,7 +185,7 @@ def build():
                      georef_model=georef, map_px_cw0325000a=a['px'], review_status='auto-detected, not reviewed')
         srcs = [('WARREN-PLATE', 'Whole plate (cw0353500 registered to cw0325000a)', 'Filled building symbol; occupant name label nearest: %s.' % a['nearest_label'])]
         f = base(fid, 'building', 'Building symbol near owner label "%s" (unreviewed)' % a['nearest_label'], dict(type='Point', coordinates=[a['lon'], a['lat']]), True,
-                 'Standing when the Warren survey was made (1868-69); standing in July 1863 is probable but not independently confirmed.', srcs, method, 18, 'Estimated',
+                 'Standing when the Warren survey was made (1868-69); standing in July 1863 is probable but not independently confirmed.', srcs, method, 30, 'Estimated',
                  'Auto-detected; owner label is a nearest-label hint (OCR) and may belong to a neighbouring farm; roles unknown.', extra)
         add(f); stats['auto_symbol'] += 1
     return feats, used_cty, stats, georef
