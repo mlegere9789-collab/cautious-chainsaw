@@ -73,15 +73,15 @@
    "id": "CLK-08-mobile-transport-frame",
    "target": "js",
    "find": "V.jsxs(\"div\",{style:tn.tickInfo,children:[\"Tick \",f,\"/\",P]})",
-   "repl": "V.jsx(\"div\",{style:tn.tickInfo,title:GTBGT.f(f,\"frame\")+\" · \"+GTBGT.u(f),children:GTBGT.f(f,\"time\")})",
+   "repl": "V.jsx(\"div\",{style:tn.tickInfo,\"data-gt-frame\":f,title:GTBGT.f(f,\"frame\")+\" · \"+GTBGT.u(f),children:GTBGT.f(f,\"time\")})",
    "expect": 1,
-   "note": "mobile transport row: the time (\"about 3:00 PM\") instead of \"Tick n/675\"; \"Frame n of 675\" only in the tooltip (chapter 04 section 4.9: never visible text)"
+   "note": "mobile transport row: the time (\"about 3:00 PM\") instead of \"Tick n/675\"; \"Frame n of 675\" and the uncertainty only in the tooltip (chapter 04 section 4.9: never visible text); data-gt-frame carries the frame id for tests and tools"
   },
   {
    "id": "CLK-09-timebar-frame",
    "target": "js",
    "find": "V.jsxs(\"span\",{style:Po.tickNum,children:[\"Tick \",c,\"/675\"]})",
-   "repl": "V.jsx(\"span\",{style:Po.tickNum,title:GTBGT.f(c,\"frame\")+\" · \"+GTBGT.u(c),children:GTBGT.f(c,\"time\")})",
+   "repl": "V.jsx(\"span\",{style:Po.tickNum,\"data-gt-frame\":c,title:GTBGT.f(c,\"frame\")+\" · \"+GTBGT.u(c),children:GTBGT.f(c,\"time\")})",
    "expect": 1,
    "note": "time bar footer: the time instead of \"Tick n/675\"; \"Frame n of 675\" only in the tooltip (chapter 04 section 4.9)"
   },

@@ -23,6 +23,9 @@ const toMin = (iso) => {                     // "1863-07-03T15:00" -> minutes si
 };
 const hhmm = (s) => +s.slice(0, 2) * 60 + +s.slice(3, 5);
 
+const EXACT = { Contested: 'Contested: first-hand accounts disagree', Estimated: 'Estimated: no source gives this moment a clock time', Documented: 'Documented: a first-hand source gives a clock time' };
+const BETWEEN = { Contested: 'Between two anchored times, at least one of them Contested (first-hand accounts disagree)', Estimated: 'Between two anchored times, at least one of them only Estimated', Documented: 'Between two anchored times, both Documented by first-hand sources' };
+
 export function makeOracle(doc = JSON.parse(fs.readFileSync(ANCHORS_FILE, 'utf8'))) {
   const A = doc.anchors.map((a) => ({ tick: a.tick, min: toMin(a.t), sigma: a.sigma_min, state: a.state || 'proposed' }));
   const tickMax = doc.tick_max;
@@ -75,5 +78,15 @@ export function makeOracle(doc = JSON.parse(fs.readFileSync(ANCHORS_FILE, 'utf8'
     for (let k = 1; k <= tickMax; k++) { const d = Math.abs(minutes(k) - target); if (d < bd) { bd = d; best = k; } }
     return best;
   };
-  return { A, tickMax, minutes, uncertainty, about, parts, fmt, hourStep, tabDays: doc.tab_days, approxSigma, anchorsDoc: doc };
+  // how sure the clock is: the straight-line mix of the anchors' uncertainty_min, the weaker adjudicated status of the two anchors (an anchor tick speaks for itself)
+  const RANK = { Contested: 0, Estimated: 1, Documented: 2 };
+  const B = doc.anchors.map((a) => ({ tick: a.tick, u: a.uncertainty_min, st: a.adj_status }));
+  const uncertaintyText = (t) => {
+    t = Math.min(tickMax, Math.max(1, t));
+    const i = seg(t), a = B[i], b = B[i + 1];
+    if (t === a.tick || t === b.tick) { const e = t === a.tick ? a : b; return `give or take ${Math.round(e.u / 5) * 5} minutes. ${EXACT[e.st]}.`; }
+    const w = (t - a.tick) / (b.tick - a.tick), u = a.u * (1 - w) + b.u * w, st = RANK[a.st] <= RANK[b.st] ? a.st : b.st;
+    return `give or take ${Math.round(u / 5) * 5} minutes. ${BETWEEN[st]}.`;
+  };
+  return { A, tickMax, uncertaintyText, minutes, uncertainty, about, parts, fmt, hourStep, tabDays: doc.tab_days, approxSigma, anchorsDoc: doc };
 }
