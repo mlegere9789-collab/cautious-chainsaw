@@ -10368,6 +10368,30 @@
    "note": "unsupported-claim: an internal remark"
   },
   {
+   "id": "DATA-meta-ustr",
+   "target": "data/oob/union_oob_corps_division.json",
+   "find": "\"total_strength\": 93921,",
+   "repl": "\"total_strength\": 93921, \"total_strength_note\": \"Not verified: the file attributed 93,921 to Busey and Martin as cited by Wikipedia; the corps strengths in this file add to 90,164; Livermore (1900, p.102) estimates 83,289 engaged. The 23,049 casualties are the printed total of OR 27/1 p.187.\",",
+   "expect": 1,
+   "note": "unsupported-number: OR 27/1 p.187 (return: 23,049); Livermore 1900 p.102; ledger WSD-09"
+  },
+  {
+   "id": "DATA-meta-cstr",
+   "target": "data/oob/confederate_oob_corps_div_bde.json",
+   "find": "\"strength\": 75000,",
+   "repl": "\"strength\": 75000, \"strength_note\": \"Round figure, not verified: Livermore (1900, p.103) estimates 75,054 engaged; the corps strengths in this file add to 65,000.\",",
+   "expect": 1,
+   "note": "contested-number: Livermore 1900 pp.102-103; ledger WSD-10"
+  },
+  {
+   "id": "DATA-meta-ccas",
+   "target": "data/oob/confederate_oob_corps_div_bde.json",
+   "find": "\"total_casualties\": 28000,",
+   "repl": "\"total_casualties\": 28000, \"total_casualties_note\": \"Estimate: the National Park Service gives about 28,000 and Livermore 28,063; the Official Records return (OR 27/2 p.346) counts 20,451.\",",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 p.346 (recapitulation 2,592 / 12,709 / 5,150 = 20,451); Livermore 1900 pp.102-103; ledger WSD-02"
+  },
+  {
    "id": "DATA-meta-corr",
    "target": "data/oob/union_regiments_iii_v_corps.json",
    "find": "CORRECT). The V Corps slot previously assigned to U-105PA is incorrect -- correct regiment is U-11PA-R (11th Pennsylvania Reserves). Fix tracked.\"",

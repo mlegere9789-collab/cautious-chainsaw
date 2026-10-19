@@ -1,0 +1,34 @@
+{
+ "generated": "tools/t0/data/position-screens.mjs",
+ "note": "rejoin rows (note \"Shown with its brigade\") count as rows in the first screens and are left out of the monuments screen",
+ "before": {
+  "rows": 1804,
+  "units": 478,
+  "duplicates": 25,
+  "spikes": 4,
+  "fastSteps": 21,
+  "regimentsCompared": 208,
+  "staleRegiments": 42,
+  "monuments": {
+   "regimentsMatched": 100,
+   "medianWithin035km": 26,
+   "median035to07km": 37,
+   "medianOver07km": 37
+  }
+ },
+ "after": {
+  "rows": 1744,
+  "units": 405,
+  "duplicates": 23,
+  "spikes": 5,
+  "fastSteps": 20,
+  "regimentsCompared": 220,
+  "staleRegiments": 1,
+  "monuments": {
+   "regimentsMatched": 103,
+   "medianWithin035km": 33,
+   "median035to07km": 40,
+   "medianOver07km": 30
+  }
+ }
+}
