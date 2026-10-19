@@ -41,31 +41,37 @@
  "3_position_cross_checks": {
   "n": 31,
   "median_m": 3.8,
-  "p90_m": 33.7,
+  "p90_m": 33.5,
   "over_30m": [
    {
     "id": "STR-BRYAN-HOUSE1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 41.0,
+    "offset_m": 40.9,
     "explanation": "NPS The Brien Farm and Family: Warren shows house and barn 30 ft apart, the present buildings are 75 ft apart; the plate is the survey of record, the outline is the survivor"
    },
    {
     "id": "STR-BLISS-HOUSE1",
     "kind": "plate symbol vs NPS/OSM site mark",
-    "offset_m": 33.9,
+    "offset_m": 33.5,
     "explanation": "two plate symbols bracket the NPS tablet at 36 m; the tablet is not used, the symbol is; Bliss buildings burned and left no outline"
    },
    {
     "id": "STR-MCMILLAN-HOUSE1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 33.7,
+    "offset_m": 33.3,
     "explanation": "west-centre of the plate where the global model has few control points (leave-one-out errors reach 30 m); the surviving house outline is drawn, no symbol point; which of the three McMillan symbols is the house is not established"
    },
    {
     "id": "STR-MCPHERSON-BARN1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 84.2,
+    "offset_m": 84.5,
     "explanation": "every Warren symbol of the McPherson farmstead lies about 50 m east of the georeferenced barn outline; symbol identity unresolved; footprint taken from the survivor, no symbol tied to it"
+   },
+   {
+    "id": "STR-CULP-HOUSE1",
+    "kind": "plate symbol (global georef) vs surviving building outline centroid",
+    "offset_m": 47.3,
+    "explanation": "north-east, east of town: adding the two Rock Creek bridges as control moved this area by about 40 m and the symbol taken for the brick Culp house (five W/S symbols, none lettered B) is not certain; the footprint is the survivor; error for symbol points there is 45 m"
    }
   ],
   "unexplained_over_30m": [],
@@ -108,13 +114,13 @@
    {
     "id": "STR-BRYAN-HOUSE1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 41.0,
+    "offset_m": 40.9,
     "explanation": "NPS The Brien Farm and Family: Warren shows house and barn 30 ft apart, the present buildings are 75 ft apart; the plate is the survey of record, the outline is the survivor"
    },
    {
     "id": "STR-BRYAN-BARN1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 28.5
+    "offset_m": 28.4
    },
    {
     "id": "STR-LEISTER-HOUSE1",
@@ -199,45 +205,46 @@
    {
     "id": "STR-BLISS-HOUSE1",
     "kind": "plate symbol vs NPS/OSM site mark",
-    "offset_m": 33.9,
+    "offset_m": 33.5,
     "explanation": "two plate symbols bracket the NPS tablet at 36 m; the tablet is not used, the symbol is; Bliss buildings burned and left no outline"
    },
    {
     "id": "STR-MCMILLAN-HOUSE1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 33.7,
+    "offset_m": 33.3,
     "explanation": "west-centre of the plate where the global model has few control points (leave-one-out errors reach 30 m); the surviving house outline is drawn, no symbol point; which of the three McMillan symbols is the house is not established"
    },
    {
     "id": "STR-MCLEAN-BARN1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 3.5
+    "offset_m": 3.6
    },
    {
     "id": "STR-MCLEAN-HOUSE1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 2.9
+    "offset_m": 3.0
    },
    {
     "id": "STR-MCPHERSON-BARN1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 84.2,
+    "offset_m": 84.5,
     "explanation": "every Warren symbol of the McPherson farmstead lies about 50 m east of the georeferenced barn outline; symbol identity unresolved; footprint taken from the survivor, no symbol tied to it"
    },
    {
     "id": "STR-CULP-HOUSE1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 21.1
+    "offset_m": 47.3,
+    "explanation": "north-east, east of town: adding the two Rock Creek bridges as control moved this area by about 40 m and the symbol taken for the brick Culp house (five W/S symbols, none lettered B) is not certain; the footprint is the survivor; error for symbol points there is 45 m"
    }
   ],
   "passed": true
  },
  "4_georeference": {
   "accuracy": {
-   "n_gcps": 86,
+   "n_gcps": 88,
    "n_curated": 19,
    "n_icp": 46,
-   "n_sibling": 21,
+   "n_sibling": 23,
    "smoothing": 10000.0,
    "loo_by_kind": {
     "curated": {
@@ -248,22 +255,27 @@
     "icp": {
      "n": 46,
      "median_m": 9.3,
-     "max_m": 27.2
+     "max_m": 24.4
     },
     "sib_summit": {
      "n": 4,
-     "median_m": 18.3,
-     "max_m": 23.0
+     "median_m": 15.8,
+     "max_m": 22.9
     },
     "sib_road-junction": {
      "n": 7,
      "median_m": 9.9,
-     "max_m": 13.3
+     "max_m": 12.9
+    },
+    "sib_bridge": {
+     "n": 2,
+     "median_m": 26.4,
+     "max_m": 35.0
     },
     "sib_farm-building": {
      "n": 10,
      "median_m": 5.4,
-     "max_m": 25.3
+     "max_m": 25.4
     }
    },
    "excluded_outliers": [
@@ -284,10 +296,6 @@
      57.4
     ],
     [
-     "SIB:York Pike bridge over Rock Creek",
-     56.2
-    ],
-    [
      "SIB:Hill summit W of Plum Run (DEM S160)",
      43.1
     ],
@@ -297,7 +305,7 @@
     ],
     [
      "icp:cty5561",
-     41.7
+     42.0
     ],
     [
      "icp:cty9170",
@@ -305,23 +313,19 @@
     ],
     [
      "icp:cty9445",
-     56.3
-    ],
-    [
-     "SIB:Hanover Rd bridge over Rock Creek",
-     53.9
+     82.5
     ]
    ],
    "outlier_note": "Control points whose leave-one-out error exceeded max(35 m, 3 x median) were left out of the fit (local distortion of the plate or a mismatched pair); features placed with a local anchor are unaffected; features placed through the global model carry an error of 25 m, and up to 60 m in the north-west (First Day) corner where control is sparse.",
-   "loo_median_m": 9.896435694971636,
-   "loo_mean_m": 11.23416816780828,
-   "loo_p90_m": 22.009229362805776,
-   "loo_max_m": 31.969175887477775,
+   "loo_median_m": 10.013007159926886,
+   "loo_mean_m": 11.44019240350002,
+   "loo_p90_m": 22.36092581406053,
+   "loo_max_m": 35.03288890124636,
    "note": "Leave-one-out error of the thin-plate-spline georeference of the Bachelder/Warren plate (pixel frame of LoC cw0325000a, about 1.0 m per pixel). Control: surviving-building outlines of the 2023 Adams County dataset (curated farm buildings and a robust-ICP set) and the independent road-junction, bridge and summit points of docs/basemap1863/maps/gcps/warren.json (sibling task). Pixel units are metres to within 3 percent."
   },
   "independent_prior_check": {
-   "what": "Before the road-junction, bridge and summit control points of the sibling maps task were added, the building-only georeference was compared with those 25 independent points: median 49 m, maximum 115 m, with the borough about 100 m out. The cross-check exposed a bias in the first fit (wrong building pairs in the borough); those pairs were removed and the independent points were added as control. After the fix the leave-one-out error over the 20 sibling points kept in the fit has median 9 m and maximum 29 m.",
-   "source": "docs/basemap1863/maps/gcps/warren.json"
+   "what": "Three independent checks. (a) Before the sibling control points were added, the building-only fit was compared with the 25 road-junction, bridge, summit and farm points of docs/basemap1863/maps/gcps/warren.json: median 49 m, maximum 115 m, about 100 m out in the borough; the building pairs that caused it (wrong matches in the borough) were removed and the independent points added as control. (b) The two Rock Creek bridges of that file were first dropped by the outlier rule (error 52 and 71 m) and then restored, because they are the only controls east of town and the rule had removed real evidence; they now fit to 26 m median. (c) The sibling affine georeference of the same plate was tested on this task control points: median 88.2 m error, against 10 m leave-one-out here; the two models differ by a median of 26.6 m in the central block and 76.0 m at the edges (evidence/georef_comparison.json).",
+   "source": "docs/basemap1863/maps/gcps/warren.json; docs/basemap1863/maps/transforms/warren-1869.json"
   },
   "passed": true
  },

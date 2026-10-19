@@ -1,9 +1,9 @@
 {
  "accuracy": {
-  "n_gcps": 86,
+  "n_gcps": 88,
   "n_curated": 19,
   "n_icp": 46,
-  "n_sibling": 21,
+  "n_sibling": 23,
   "smoothing": 10000.0,
   "loo_by_kind": {
    "curated": {
@@ -14,22 +14,27 @@
    "icp": {
     "n": 46,
     "median_m": 9.3,
-    "max_m": 27.2
+    "max_m": 24.4
    },
    "sib_summit": {
     "n": 4,
-    "median_m": 18.3,
-    "max_m": 23.0
+    "median_m": 15.8,
+    "max_m": 22.9
    },
    "sib_road-junction": {
     "n": 7,
     "median_m": 9.9,
-    "max_m": 13.3
+    "max_m": 12.9
+   },
+   "sib_bridge": {
+    "n": 2,
+    "median_m": 26.4,
+    "max_m": 35.0
    },
    "sib_farm-building": {
     "n": 10,
     "median_m": 5.4,
-    "max_m": 25.3
+    "max_m": 25.4
    }
   },
   "excluded_outliers": [
@@ -50,10 +55,6 @@
     57.4
    ],
    [
-    "SIB:York Pike bridge over Rock Creek",
-    56.2
-   ],
-   [
     "SIB:Hill summit W of Plum Run (DEM S160)",
     43.1
    ],
@@ -63,7 +64,7 @@
    ],
    [
     "icp:cty5561",
-    41.7
+    42.0
    ],
    [
     "icp:cty9170",
@@ -71,18 +72,14 @@
    ],
    [
     "icp:cty9445",
-    56.3
-   ],
-   [
-    "SIB:Hanover Rd bridge over Rock Creek",
-    53.9
+    82.5
    ]
   ],
   "outlier_note": "Control points whose leave-one-out error exceeded max(35 m, 3 x median) were left out of the fit (local distortion of the plate or a mismatched pair); features placed with a local anchor are unaffected; features placed through the global model carry an error of 25 m, and up to 60 m in the north-west (First Day) corner where control is sparse.",
-  "loo_median_m": 9.896435694971636,
-  "loo_mean_m": 11.23416816780828,
-  "loo_p90_m": 22.009229362805776,
-  "loo_max_m": 31.969175887477775,
+  "loo_median_m": 10.013007159926886,
+  "loo_mean_m": 11.44019240350002,
+  "loo_p90_m": 22.36092581406053,
+  "loo_max_m": 35.03288890124636,
   "note": "Leave-one-out error of the thin-plate-spline georeference of the Bachelder/Warren plate (pixel frame of LoC cw0325000a, about 1.0 m per pixel). Control: surviving-building outlines of the 2023 Adams County dataset (curated farm buildings and a robust-ICP set) and the independent road-junction, bridge and summit points of docs/basemap1863/maps/gcps/warren.json (sibling task). Pixel units are metres to within 3 percent."
  },
  "gcps": [
@@ -857,6 +854,28 @@
    "kind": "sib_road-junction"
   },
   {
+   "name": "SIB:Hanover Rd bridge over Rock Creek",
+   "px": [
+    6158.287876577111,
+    3838.4244911849937
+   ],
+   "lon": -77.21793160179664,
+   "lat": 39.830957831811766,
+   "src": "sibling maps GCP W014 (bridge)",
+   "kind": "sib_bridge"
+  },
+  {
+   "name": "SIB:York Pike bridge over Rock Creek",
+   "px": [
+    5989.2624373094,
+    3434.076825083061
+   ],
+   "lon": -77.21972018672759,
+   "lat": 39.834647862405255,
+   "src": "sibling maps GCP W015 (bridge)",
+   "kind": "sib_bridge"
+  },
+  {
    "name": "SIB:Hill summit E of Devil's Den (DEM S149)",
    "px": [
     4261.812945690766,
@@ -1032,5 +1051,40 @@
    "src": "sibling maps GCP W002 (summit)",
    "kind": "sib_summit"
   }
- ]
+ ],
+ "plate_cw0353500_to_cw0325000a_homography": [
+  [
+   0.9947524718939671,
+   -0.001342026563954274,
+   -282.9340700260668
+  ],
+  [
+   -0.0014521043929895776,
+   0.9872901023595929,
+   165.0466713392306
+  ],
+  [
+   1.1799388242964076e-07,
+   -2.3238349666818607e-07,
+   1.0
+  ]
+ ],
+ "sheet_cw0325000c_to_cw0325000a_homography": [
+  [
+   0.9951634312134596,
+   -0.0005460454047470905,
+   24.251373794250302
+  ],
+  [
+   0.00021103144147384227,
+   1.003413986110117,
+   -316.1513761977702
+  ],
+  [
+   4.209252617693094e-08,
+   4.3014016786520386e-08,
+   1.0
+  ]
+ ],
+ "frame_note": "px coordinates are in the pixel frame of LoC scan cw0325000a (8292x10756 JP2); plate cw0353500 and sheet cw0325000c are warped into it by the homographies given (SIFT+RANSAC, median residual 2-3 px)."
 }

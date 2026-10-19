@@ -60,9 +60,17 @@ def build():
     gcl = json.load(open(os.path.join(EVID, 'gcps_final.json'), encoding='utf-8'))['gcps']
     gxy = np.array([T_UTM.transform(a['lon'], a['lat']) for a in gcl])
 
-    def global_err(lon, lat):
+    def global_err(lon, lat, px=None):
         x, y = T_UTM.transform(lon, lat); d = float(np.min(np.hypot(gxy[:, 0] - x, gxy[:, 1] - y)))
-        return round(25 + 0.04 * max(0.0, d - 800.0)), round(d)
+        e = 25 + 0.04 * max(0.0, d - 800.0)
+        if px is not None:
+            # regions where this georeference and the sibling affine disagree and the control is thin (evidence/georef_comparison.json):
+            # north-west quarter, and east of town (NE, where a two-bridge control and a building anchor disagree by 30 m)
+            if px[0] < 3000 and px[1] < 4500:
+                e = max(e, 60.0)
+            elif px[0] > 5200 and px[1] < 4700:
+                e = max(e, 45.0)
+        return round(e), round(d)
     feats = []
     used_cty = set()
     stats = collections.Counter()
@@ -84,8 +92,8 @@ def build():
             m = ('Position of the Bachelder/Warren plate building symbol (px %.0f,%.0f in the cw0325000a frame), carried to ground coordinates by a local offset '
                  'from %d surviving anchor building(s) of the same farmstead (anchor spread %.1f m).' % (s['px'][0], s['px'][1], s['anchor_n'], spread))
         else:
-            err, dn = global_err(s['lon'], s['lat'])
-            m = ('Position of the Bachelder/Warren plate building symbol (px %.0f,%.0f in the cw0325000a frame) through the global thin-plate-spline georeference; nearest control point %d m away (error 25 m within 800 m, growing 4 m per 100 m beyond).' % (s['px'][0], s['px'][1], dn))
+            err, dn = global_err(s['lon'], s['lat'], s['px'])
+            m = ('Position of the Bachelder/Warren plate building symbol (px %.0f,%.0f in the cw0325000a frame) through the global thin-plate-spline georeference; nearest control point %d m away (error 25 m within 800 m, growing 4 m per 100 m beyond; floor 60 m in the north-west quarter and 45 m east of town where the control is thin).' % (s['px'][0], s['px'][1], dn))
         return s, err, m
 
     seq = collections.Counter()
@@ -191,7 +199,7 @@ def build():
                      georef_model=georef, map_px_cw0325000a=a['px'], review_status='auto-detected, not reviewed')
         srcs = [('WARREN-PLATE', 'Whole plate (cw0353500 registered to cw0325000a)', 'Filled building symbol; occupant name label nearest: %s.' % a['nearest_label'])]
         f = base(fid, 'building', 'Building symbol near owner label "%s" (unreviewed)' % a['nearest_label'], dict(type='Point', coordinates=[a['lon'], a['lat']]), True,
-                 'Standing when the Warren survey was made (1868-69); standing in July 1863 is probable but not independently confirmed.', srcs, method, global_err(a['lon'], a['lat'])[0] if global_err(a['lon'], a['lat'])[0] > 30 else 30, 'Estimated',
+                 'Standing when the Warren survey was made (1868-69); standing in July 1863 is probable but not independently confirmed.', srcs, method, max(30, global_err(a['lon'], a['lat'], a['px'])[0]), 'Estimated',
                  'Auto-detected; owner label is a nearest-label hint (OCR) and may belong to a neighbouring farm; roles unknown.', extra)
         add(f); stats['auto_symbol'] += 1
     return feats, used_cty, stats, georef

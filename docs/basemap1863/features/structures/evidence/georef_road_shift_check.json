@@ -1,0 +1,142 @@
+{
+ "north-west (x<3000,y<4500)": {
+  "n_TPS": 1585,
+  "TPS": {
+   "best_shift_px": [
+    -81,
+    33
+   ],
+   "ink_at_best": 0.163,
+   "ink_at_zero": 0.145
+  },
+  "n_affine": 1660,
+  "affine": {
+   "best_shift_px": [
+    90,
+    -90
+   ],
+   "ink_at_best": 0.227,
+   "ink_at_zero": 0.127
+  }
+ },
+ "north (3000-5000,y<3500)": {
+  "n_TPS": 1605,
+  "TPS": {
+   "best_shift_px": [
+    -15,
+    90
+   ],
+   "ink_at_best": 0.156,
+   "ink_at_zero": 0.135
+  },
+  "n_affine": 1731,
+  "affine": {
+   "best_shift_px": [
+    6,
+    -81
+   ],
+   "ink_at_best": 0.231,
+   "ink_at_zero": 0.102
+  }
+ },
+ "north-east (x>5500,y<4500)": {
+  "n_TPS": 5790,
+  "TPS": {
+   "best_shift_px": [
+    69,
+    -27
+   ],
+   "ink_at_best": 0.185,
+   "ink_at_zero": 0.151
+  },
+  "n_affine": 5723,
+  "affine": {
+   "best_shift_px": [
+    -12,
+    3
+   ],
+   "ink_at_best": 0.228,
+   "ink_at_zero": 0.19
+  }
+ },
+ "west-centre (x<3000,4500-8000)": {
+  "n_TPS": 974,
+  "TPS": {
+   "best_shift_px": [
+    -78,
+    -90
+   ],
+   "ink_at_best": 0.245,
+   "ink_at_zero": 0.132
+  },
+  "n_affine": 996,
+  "affine": {
+   "best_shift_px": [
+    27,
+    -90
+   ],
+   "ink_at_best": 0.248,
+   "ink_at_zero": 0.138
+  }
+ },
+ "centre (3000-6000,4500-8000)": {
+  "n_TPS": 3555,
+  "TPS": {
+   "best_shift_px": [
+    9,
+    12
+   ],
+   "ink_at_best": 0.246,
+   "ink_at_zero": 0.223
+  },
+  "n_affine": 3525,
+  "affine": {
+   "best_shift_px": [
+    9,
+    9
+   ],
+   "ink_at_best": 0.262,
+   "ink_at_zero": 0.217
+  }
+ },
+ "east (x>6000,4500-8000)": {
+  "n_TPS": 2169,
+  "TPS": {
+   "best_shift_px": [
+    -72,
+    -60
+   ],
+   "ink_at_best": 0.227,
+   "ink_at_zero": 0.166
+  },
+  "n_affine": 2328,
+  "affine": {
+   "best_shift_px": [
+    -90,
+    -66
+   ],
+   "ink_at_best": 0.216,
+   "ink_at_zero": 0.18
+  }
+ },
+ "south (y>8000)": {
+  "n_TPS": 3977,
+  "TPS": {
+   "best_shift_px": [
+    -51,
+    -90
+   ],
+   "ink_at_best": 0.113,
+   "ink_at_zero": 0.082
+  },
+  "n_affine": 3817,
+  "affine": {
+   "best_shift_px": [
+    -6,
+    84
+   ],
+   "ink_at_best": 0.131,
+   "ink_at_zero": 0.087
+  }
+ }
+}

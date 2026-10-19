@@ -99,6 +99,7 @@ EXPLAINED = {
     'STR-BUSHMAN-HOUSE1': 'southern edge of the plate, sparse control: the global georeference puts the plate symbol 37 m from the surviving house (the house was dropped from the control fit as an outlier at 39 m); footprint is the survivor',
     'STR-BUSHMAN-BARN1': 'same: global-model error at the southern edge (63 m); the barn footprint is the survivor and no symbol point is drawn',
     'STR-MCMILLAN-HOUSE1': 'west-centre of the plate where the global model has few control points (leave-one-out errors reach 30 m); the surviving house outline is drawn, no symbol point; which of the three McMillan symbols is the house is not established',
+    'STR-CULP-HOUSE1': 'north-east, east of town: adding the two Rock Creek bridges as control moved this area by about 40 m and the symbol taken for the brick Culp house (five W/S symbols, none lettered B) is not certain; the footprint is the survivor; error for symbol points there is 45 m',
     'STR-BLISS-HOUSE1': 'two plate symbols bracket the NPS tablet at 36 m; the tablet is not used, the symbol is; Bliss buildings burned and left no outline',
 }
 unexplained = [c for c in big if c['id'] not in EXPLAINED]
@@ -110,9 +111,11 @@ res['3_position_cross_checks'] = dict(n=len(chk3), median_m=float(np.median([c['
 
 # ---------------------------------------------------------------- 4 georeference accuracy (leave-one-out) and independence
 gc = json.load(open(os.path.join(EV, 'gcps_final.json'), encoding='utf-8'))
+cmpf = os.path.join(EV, 'georef_comparison.json')
+cmpd = json.load(open(cmpf, encoding='utf-8')) if os.path.exists(cmpf) else None
 res['4_georeference'] = dict(accuracy=gc['accuracy'], independent_prior_check=dict(
-    what='Before the road-junction, bridge and summit control points of the sibling maps task were added, the building-only georeference was compared with those 25 independent points: median 49 m, maximum 115 m, with the borough about 100 m out. The cross-check exposed a bias in the first fit (wrong building pairs in the borough); those pairs were removed and the independent points were added as control. After the fix the leave-one-out error over the 20 sibling points kept in the fit has median 9 m and maximum 29 m.',
-    source='docs/basemap1863/maps/gcps/warren.json'), passed=gc['accuracy']['loo_median_m'] < 15 and gc['accuracy']['loo_p90_m'] < 30)
+    what='Three independent checks. (a) Before the sibling control points were added, the building-only fit was compared with the 25 road-junction, bridge, summit and farm points of docs/basemap1863/maps/gcps/warren.json: median 49 m, maximum 115 m, about 100 m out in the borough; the building pairs that caused it (wrong matches in the borough) were removed and the independent points added as control. (b) The two Rock Creek bridges of that file were first dropped by the outlier rule (error 52 and 71 m) and then restored, because they are the only controls east of town and the rule had removed real evidence; they now fit to 26 m median. (c) The sibling affine georeference of the same plate was tested on this task control points: median %s m error, against 10 m leave-one-out here; the two models differ by a median of %s m in the central block and %s m at the edges (evidence/georef_comparison.json).' % (cmpd['sibling_affine_error_on_this_task_control_points']['median_m'] if cmpd else '?', cmpd['grid_difference_m']['centre_median'] if cmpd else '?', cmpd['grid_difference_m']['edge_median'] if cmpd else '?'),
+    source='docs/basemap1863/maps/gcps/warren.json; docs/basemap1863/maps/transforms/warren-1869.json'), passed=gc['accuracy']['loo_median_m'] < 15 and gc['accuracy']['loo_p90_m'] < 30)
 
 # ---------------------------------------------------------------- 5 dimensions vs footprint area
 chk5 = []

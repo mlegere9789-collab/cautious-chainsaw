@@ -772,13 +772,46 @@
      "src_key": "NPS-CLI-LAND"
     }
    ]
+  },
+  {
+   "id": "MODSTR-027",
+   "name": "Soldiers' National Cemetery (original 17-acre section, designed by William Saunders 1863, completed in large part 1869) with lodge (1864), enclosure wall (1865), Soldiers' National Monument and later buildings",
+   "kind": "cemetery",
+   "built": 1863,
+   "removed": null,
+   "standing_2026": true,
+   "in_2013_naip": "yes",
+   "where": "Cemetery Hill, between Evergreen Cemetery (1854) and the Baltimore Pike / Taneytown Road",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "The Soldiers' National Cemetery did not exist on 1-3 July 1863: the graves, drives, walls, lodge and monuments of the original section are all later. Evergreen Cemetery (1854) and its 1855 gatehouse did exist and are kept.",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: Gettysburg National Cemetery, Gettysburg NMP",
+     "sheet_or_page": "Introduction and Buildings and Structures history",
+     "url": "https://npshistory.com/publications/gett/cli-cemetery.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "The original 17-acre cemetery opened for burials in 1863 and was designed by William Saunders in 1863 and completed in large part by 1869; the granite lodge was built in 1864, the granite enclosure wall in 1865 and Soldiers' National Monument followed; Evergreen Cemetery (established 1854) was the adjoining cemetery that existed in July 1863.",
+     "src_key": "NPS-CLI-CEM"
+    },
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: Gettysburg National Cemetery, Gettysburg NMP",
+     "sheet_or_page": "Buildings and Structures: later changes",
+     "url": "https://npshistory.com/publications/gett/cli-cemetery.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "Lodge porches and mansard roof 1868; frame barn c.1868; kitchen building 1875 (demolished 1907); gun-storage building 1873 and barn demolished 1890 for a brick garage; rostrum 1879; summerhouse 1881; New York State Monument 1893; Lincoln Address Memorial 1912; new lodge 1907; 5-acre annex from 1968.",
+     "src_key": "NPS-CLI-CEM"
+    }
+   ]
   }
  ],
  "county_building_classes": [
   {
    "zone": "borough zone: remove; replace by the 1863 borough building masses",
-   "count": 1005,
-   "footprint_m2": 243000
+   "count": 1006,
+   "footprint_m2": 243173
   },
   {
    "zone": "retain: surviving 1863 structure (named in this catalogue)",
@@ -787,8 +820,8 @@
   },
   {
    "zone": "rural, house-sized (100-1500 m2): remove unless it is a surviving 1863 farm building not yet catalogued",
-   "count": 4663,
-   "footprint_m2": 1185809
+   "count": 4662,
+   "footprint_m2": 1185658
   },
   {
    "zone": "rural, large (>=1500 m2: commercial, institutional, industrial, farm-industrial): remove",
@@ -798,7 +831,7 @@
   {
    "zone": "rural, small (<100 m2: sheds, garages, pool houses): remove",
    "count": 2611,
-   "footprint_m2": 113762
+   "footprint_m2": 113739
   }
  ],
  "county_buildings_in_bounds": 8394,
