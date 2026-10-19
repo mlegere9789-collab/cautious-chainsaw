@@ -1,0 +1,122 @@
+{
+ "p1_tiger_fit_similarity": {
+  "n_points": 1880,
+  "median_m": 2.4,
+  "p75_m": 5.3,
+  "frac_within_5m": 0.73,
+  "note": "distance from modern TIGER road points to nearest Warren ink pixel (capped 15 px at half scale); fitted data, so optimistic; roads also moved since 1863"
+ },
+ "p1_tiger_fit_ffd": {
+  "n_points": 1883,
+  "median_m": 1.4,
+  "p75_m": 3.7,
+  "frac_within_5m": 0.81,
+  "note": "distance from modern TIGER road points to nearest Warren ink pixel (capped 15 px at half scale); fitted data, so optimistic; roads also moved since 1863"
+ },
+ "p2_independent_gcps": {
+  "n": 25,
+  "median_m": 26.8,
+  "p90_m": 39.6,
+  "max_m": 62.8,
+  "roads_bridges_median_m": 29.0,
+  "farm_buildings_median_m": 30.5,
+  "note": "GCPs were picked by another agent from different features (summits, junctions, buildings) and not used in my fit. A 25 to 30 m median disagreement means either my transform, their GCP picks, or both carry errors of that size; unresolved. Stated positional error of the land-cover polygons is therefore 30 to 40 m, not the 1.4 m of pass 1."
+ },
+ "p3_terrain_registration": {
+  "n_tiles": 42,
+  "n_core": 16,
+  "median_dE": 0.0,
+  "median_dN": -5.0,
+  "mean_abs_shift_m": 23.731730865850402,
+  "median_abs_shift_m": 21.18033988749895,
+  "p90_abs_shift_m": 42.976207903086205,
+  "note": "Local best shifts of the Warren sheet (3 km windows, 10 m steps, +-60 m) against slope from 3DEP lidar; windows with NCC>0.28 only; the NCC is weak (peak about 0.3 to 0.47) so this indicates the local error scale (about 20 m), not a correction."
+ },
+ "p4_canopy_persistence": {
+  "woods_interior_cells_ha": 672.0,
+  "modern_canopy_in_woods_interior": 0.795,
+  "modern_canopy_in_orchard_polys": 0.334,
+  "modern_canopy_outside_all_1863_tree_polys_excl_town": 0.32,
+  "modern_canopy_frac_of_sheet": 0.417,
+  "note": "If the mapped 1863 woods are right, most of their interior should carry canopy today (woods persist); open 1863 ground should carry little. This tests the extraction, not the 1863 truth."
+ },
+ "p5_naip_2022_04_leafoff_check": {
+  "woods": {
+   "ndvi_mean": 0.146,
+   "brightness_mean": 121.4
+  },
+  "open_ground_1863": {
+   "ndvi_mean": 0.155,
+   "brightness_mean": 131.6
+  },
+  "note": "April-2022 NAIP is leaf-off/leaf-emerging: woods read lower NDVI than green spring pasture and darker. A clear woods vs open contrast supports the polygons were not drawn on open fields; the exact values are not a pass/fail threshold."
+ },
+ "p6_landmarks": {
+  "Culps Hill summit (woods expected)": {
+   "in_woods": true,
+   "in_orchard": false,
+   "distance_to_nearest_wood_m": 0.0,
+   "expected": true,
+   "agrees": true
+  },
+  "Big Round Top summit (woods expected)": {
+   "in_woods": true,
+   "in_orchard": false,
+   "distance_to_nearest_wood_m": 0.0,
+   "expected": true,
+   "agrees": true
+  },
+  "Peach Orchard (orchard expected)": {
+   "in_woods": false,
+   "in_orchard": true,
+   "distance_to_nearest_wood_m": 275.0,
+   "expected": "orch",
+   "agrees": true
+  },
+  "Wheatfield centre (open field expected, not woods)": {
+   "in_woods": false,
+   "in_orchard": false,
+   "distance_to_nearest_wood_m": 24.0,
+   "expected": false,
+   "agrees": true
+  },
+  "Little Round Top summit (cleared / not woods expected)": {
+   "in_woods": false,
+   "in_orchard": false,
+   "distance_to_nearest_wood_m": 51.0,
+   "expected": false,
+   "agrees": true
+  },
+  "Cemetery Hill (not woods)": {
+   "in_woods": false,
+   "in_orchard": false,
+   "distance_to_nearest_wood_m": 129.0,
+   "expected": false,
+   "agrees": true
+  },
+  "Herbst Woods (woods expected)": {
+   "in_woods": false,
+   "in_orchard": false,
+   "distance_to_nearest_wood_m": 52.0,
+   "expected": true,
+   "agrees": false
+  }
+ },
+ "p7_schema": {
+  "features": 2851,
+  "schema_problems": 0,
+  "first_problems": [],
+  "invalid_geometries": 0,
+  "source_type_counts": {
+   "A1": 2851,
+   "B": 6,
+   "MODERN": 2199
+  },
+  "directory_mb": 18.6
+ },
+ "p8_rebuild_identical": {
+  "files": 24,
+  "identical": true,
+  "differing": []
+ }
+}

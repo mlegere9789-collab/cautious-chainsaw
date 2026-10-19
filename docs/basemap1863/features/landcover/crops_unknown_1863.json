@@ -1,0 +1,9 @@
+{
+ "id": "CROPS-UNKNOWN",
+ "statement": "No source read in this pipeline assigns a crop, pasture or meadow class to individual fields of the 1863 battlefield, except that wheat stood in the Wheatfield (Rose farm) and wheat fields existed on the Herbst farm. The open ground inside the Warren-sheet neatline that is not woods, orchard, scattered trees, wetland, boulder field, cleared slope, the Wheatfield or the built-up town block is mapped as one class, open_ground_1863, with confidence Estimated for 'open' and Unknown for crop type.",
+ "what_would_fix_it": [
+  "Adams County damage claims (Gettysburg Compensation) that list acres per crop per farm, plus farm boundaries from deeds (the NPS title-search notes cited in the Little Round Top CLR), would give acreage per crop per farm but not which field.",
+  "Soldiers' accounts naming fields as corn, oats or clover (Official Records and regimental histories) would place a few fields.",
+  "The 1863 battle photographs by Gardner, O'Sullivan and Brady show ground cover at specific places (Rose Woods edge, Devil's Den, the Wheatfield margins); cataloguing them with Frassanito's camera positions would pin crop or stubble at those spots. Not done in this run: the Library of Congress API returned HTTP 429 and its item pages HTTP 403 to the fetch tool."
+ ]
+}

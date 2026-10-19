@@ -1,0 +1,30 @@
+{
+ "id": "SEASON-1863-07",
+ "title": "Season and ground colour for 1-3 July 1863 at Gettysburg (what the imagery grading must assume)",
+ "status": "Reconstruction notes; every line says how it is known (Documented, Estimated or Unknown). Not an observation of 1863 by an aerial instrument; none exists.",
+ "date_window": "1863-07-01 to 1863-07-03",
+ "tree_canopy": {
+  "state": "Full summer leaf-on (oak-hickory woodlots per NPS; orchard species not established here).",
+  "confidence": "Estimated",
+  "basis": "Calendar date (early July; docs/basemap1863/IMAGERY-CHOICE.md computes a noon sun elevation of about 73 degrees for early July). Soldiers' accounts of fighting among leafy woods are not catalogued here yet (UNKNOWN as a quoted source).",
+  "note": "NPS says the oak-hickory woodlots were open under the canopy in 1863 because cattle grazed them (NPS Natural Features page; Hartwig for Herbst Woods): from above the canopy still looks closed; do not paint dense understory shadow."
+ },
+ "weather_context": {
+  "rain": "Heavy rain the night of 25 June and rain on 26 June 1863 at Gettysburg; 2 July morning pleasant and calm with the sun through a smoky haze (Michael Jacobs, Notes on the Rebel Invasion, 1864, pp. 14, 16, 32, as extracted in data-src/environment/weather_by_day.json, quotes Q-N-rain-jun25, Q-N-wet-jun26, Q-N-morning-jul2).",
+  "confidence": "Documented (second-hand observer record)",
+  "implication": "Streams and low ground (Plum Run, Willoughby Run, Rock Creek margins) were probably wet in the first days of July; extent UNKNOWN beyond the Warren marsh symbols."
+ },
+ "crops": {
+  "standing_wheat": {"where": "Wheatfield (Rose farm) on 2 July; also wheat fields on the Herbst farm (Hartwig); a wheat field at the Codori farm is reported in a secondary web source that was not verified.", "colour": "golden-tan, ripe or nearly ripe, standing and not harvested", "confidence": "Documented that wheat stood in the Wheatfield (NPS marker text via HMDB m=13342; Hartwig records wheat fields on the Herbst farm); ripeness colour Estimated"},
+  "farm_mix_example": {"source": "Trostle damage claim, NPS Civil War Series (npshistory.com/publications/civil_war_series/16/sec20.htm)", "values_acres": {"wheat": 27, "corn": 9, "oats": 8, "barley": 4, "flax": 1, "potatoes": 1, "grass": 32}, "hay_tons_in_barn": 20, "meaning": "A typical farm mixed wheat, grass meadow, corn, oats and small plots; one farm only, not a map of fields."},
+  "corn": {"colour": "green, young to half grown", "confidence": "Estimated (growth stage not documented in the sources read)"},
+  "oats_barley": {"colour": "oats green to yellowing, barley ripening", "confidence": "Estimated"},
+  "hay_meadow": {"colour": "straw-green to cut stubble; mowing date UNKNOWN", "confidence": "Unknown for any specific field"},
+  "pasture": {"colour": "mixed green and dry tan grass", "confidence": "Estimated"},
+  "per_field_crop_assignment": "UNKNOWN. No source read here assigns a crop to each Warren-sheet field. The open-ground layer is therefore left as unclassified farmland (open_ground_1863.geojson); do not paint individual fields in crop-specific colours except the Wheatfield polygon."
+ },
+ "grading_guidance_for_the_map": {
+  "photographic_base_note": "The base photograph chosen by the modern-imagery work is NAIP 2013-06-04 (early June, leaf-on). Early June fields are greener than early July; a modest shift toward straw/tan for open farmland is justified for July, but the amount is a stylistic judgement and must not be presented as measured.",
+  "do_not": ["Do not invent crop patterns, furrows, haystacks or tents (no source gives positions).", "Do not claim the grading reproduces 1863 colours; it matches the stated season only."]
+ }
+}
