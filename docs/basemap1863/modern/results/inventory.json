@@ -8,6 +8,8 @@
  "osm_elements_unique": 10213,
  "adams_building_outlines": 16209,
  "osm_buildings_added_not_in_adams": 75,
+ "nhd_water_duplicates_of_osm": 145,
+ "nhd_water_added": 158,
  "road_cross_check": {
   "adams_centerline.json": {
    "segments": 734,
@@ -588,43 +590,43 @@
    "label": "Basins, wastewater ponds, reservoirs, golf hazards",
    "removal": "REMOVE",
    "note": "Engineered water, post-1863",
-   "count": 47,
+   "count": 42,
    "sources": {
-    "OSM": 27,
-    "NHD": 20
+    "OSM": 29,
+    "NHD": 13
    },
-   "area_ha": 7.36,
+   "area_ha": 64.78,
    "geometry_types": {
-    "Polygon": 47
+    "Polygon": 42
    },
    "subclasses": {
-    "FCODE 43624": 17,
     "basin": 16,
+    "FCODE 43624": 11,
     "wastewater": 10,
-    "FCODE 43613": 3,
-    "reservoir": 1
+    "FCODE 43613": 2,
+    "large lake (>= 5 ha)": 1,
+    "reservoir": 1,
+    "quarry pond": 1
    }
   },
   "WATER_POND": {
    "label": "Ponds and lakes (origin not stated)",
    "removal": "UNKNOWN",
    "note": "Farm ponds and dammed pools: 1863 existence needs a period map; kept",
-   "count": 472,
+   "count": 332,
    "sources": {
-    "OSM": 189,
-    "NHD": 283
+    "OSM": 187,
+    "NHD": 145
    },
-   "area_ha": 259.55,
+   "area_ha": 93.28,
    "geometry_types": {
-    "Polygon": 472
+    "Polygon": 332
    },
    "subclasses": {
-    "FCODE 39004": 273,
-    "pond": 182,
-    "FCODE 39011": 9,
+    "pond": 181,
+    "FCODE 39004": 143,
     "water": 6,
-    "lake": 1,
-    "FCODE 39001": 1
+    "FCODE 39011": 2
    }
   },
   "CEMETERY": {

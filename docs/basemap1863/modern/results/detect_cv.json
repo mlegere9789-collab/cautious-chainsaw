@@ -1,0 +1,32 @@
+{
+ "labels": "0 background (>30 m from any mapped modern feature), 1 pavement (road core, parking), 2 roof (Adams 2023 outline eroded 1.5 m)",
+ "sampling": "3000/3000/4000 pixels per class per 1 km block, checkerboard 2-fold spatial hold-out",
+ "confusion_rows_true_cols_pred": [
+  [
+   919530,
+   26965,
+   5505
+  ],
+  [
+   130852,
+   459298,
+   68011
+  ],
+  [
+   59005,
+   113484,
+   400947
+  ]
+ ],
+ "recall": {
+  "background": 0.9658928571428571,
+  "pavement": 0.6978505259351435,
+  "roof": 0.6992009570379257
+ },
+ "precision": {
+  "background": 0.8288631469451148,
+  "pavement": 0.7658195872592943,
+  "roof": 0.8450543034967953
+ },
+ "caveat": "measured against the weak map-derived labels, not against hand-drawn truth; recall/precision on unmapped features is not measured here (see results/visual_review.json)"
+}

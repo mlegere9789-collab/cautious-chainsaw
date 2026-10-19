@@ -1,0 +1,21 @@
+{
+ "n_points": 938,
+ "control_points": 3000,
+ "control_anomaly_p50": 1.64,
+ "control_anomaly_p95": 3.42,
+ "visible_fraction": 0.166,
+ "visible_count": 156,
+ "offset_of_peak_m_median_visible": 2.83,
+ "offset_p90_visible": 3.16,
+ "by_source": {
+  "OSM": {
+   "n": 873,
+   "visible_fraction": 0.17
+  },
+  "WIKI": {
+   "n": 65,
+   "visible_fraction": 0.123
+  }
+ },
+ "note": "An anomaly above the control 95th percentile means something in the 3.5 m disc stands out from the ground around it; it does not prove it is the monument. The false-alarm rate is 5 percent by construction. Markers of 1 m or less are not resolvable at 1.0 m."
+}

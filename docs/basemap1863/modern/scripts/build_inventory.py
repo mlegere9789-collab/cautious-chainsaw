@@ -99,14 +99,36 @@ for r in geojson_records('tiger_rail.json', 'TIGER'):
     r['tags'] = {'NAME': r['name']}
     recs.append(r)
 
-# ---------- water ----------
+# ---------- water: NHD records are added only where no OSM water polygon covers them (the two overlap heavily) ----------
+osm_w = [r for r in recs if r['cls'] in ('WATER_POND', 'WATER_MODERN') and r['src'] == 'OSM' and r['geom'].geom_type in ('Polygon', 'MultiPolygon')]
+wtree = STRtree([r['geom'] for r in osm_w])
+nhd_dup = nhd_add = 0
 for r in geojson_records('nhd_waterbody.json', 'NHD'):
-    fc = r['tags'].get('FCODE')
-    ft = r['tags'].get('FTYPE')
+    g = r['geom']
+    hit = wtree.query(g, predicate='intersects')
+    cov = sum(osm_w[i]['geom'].intersection(g).area for i in hit) / g.area if g.area else 1
+    if cov >= 0.5:
+        nhd_dup += 1
+        continue
+    nhd_add += 1
+    fc = r['tags'].get('FCODE'); ft = r['tags'].get('FTYPE')
     r['cls'] = 'WATER_MODERN' if ft == 436 else 'WATER_POND'
     r['sub'] = f'FCODE {fc}'
     r['tags'] = {k: r['tags'].get(k) for k in ('PERMANENT_IDENTIFIER', 'FTYPE', 'FCODE', 'AREASQKM', 'GNIS_NAME')}
     recs.append(r)
+# named / sized impoundments: a lake of 5 ha or more and a pond named for a quarry are engineered water
+EVIDENCE = {}
+for r in recs:
+    if r['cls'] == 'WATER_POND' and r['geom'].geom_type in ('Polygon', 'MultiPolygon'):
+        if r['geom'].area >= 5e4:
+            r['cls'] = 'WATER_MODERN'; r['sub'] = 'large lake (>= 5 ha)'
+            if r.get('name') == 'Lake Heritage':
+                EVIDENCE[r['srcid']] = dict(feature='Lake Heritage', claim='impounded by a dam completed in 1966; the community was founded in 1965; the lake did not exist in 1863', confidence='Documented (secondary)',
+                                            sources=['https://en.wikipedia.org/wiki/Lake_Heritage,_Pennsylvania (B, describes a 154-acre artificial lake)', 'https://recallcheck.net/dam-safety/58120 (B, republishes the National Inventory of Dams: year completed 1966)', 'https://snoflo.org/reservoir/pennsylvania/pa00334-lake-heritage (B, dam report: 1966)', 'https://lakeheritage.org/ (B, community founded 1965)'],
+                                            note='no 1860s map was checked here for the valley (the maps layer owns that check); the dam record is the evidence')
+        elif 'quarry' in (r.get('name') or '').lower():
+            r['cls'] = 'WATER_MODERN'; r['sub'] = 'quarry pond'
+json.dump(EVIDENCE, open(os.path.join(OUT, 'data', 'evidence_cases.json'), 'w', encoding='utf8'), indent=1)
 
 # ---------- monuments: OSM points plus the Wikipedia list (CC BY-SA 4.0) where the OSM net has no point within 15 m ----------
 mons = [r for r in recs if r['cls'] == 'MONUMENT']
@@ -163,7 +185,7 @@ for c, (label, kind, removal, note) in CLASSES.items():
 
 summary = dict(
     box_wgs84=[-77.34375, 39.75788, -77.14600, 39.87602],
-    osm_elements_unique=n_osm, adams_building_outlines=len(adams_b), osm_buildings_added_not_in_adams=extra_b,
+    osm_elements_unique=n_osm, adams_building_outlines=len(adams_b), osm_buildings_added_not_in_adams=extra_b, nhd_water_duplicates_of_osm=nhd_dup, nhd_water_added=nhd_add,
     road_cross_check=checks, road_segments_added_from_adams_tiger={f'{a}:{b}': v for (a, b), v in added.items()},
     monuments=dict(osm_points=len(mons), wikipedia_list_entries_with_coords=len(wiki), wikipedia_matched_to_osm_within_15m=w_dup, wikipedia_added=w_added,
                    wiki_osm_offset_median_m=round(sorted(w_offsets)[len(w_offsets) // 2], 1) if w_offsets else None,

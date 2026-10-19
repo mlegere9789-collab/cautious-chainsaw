@@ -1,0 +1,78 @@
+"""Specification of the 1863 public roads (county roads, turnpikes, township roads) inside the battlefield map bounds.
+Geometry rule: centreline of the named TIGER/Line 2023 edges (all within the expanded box), taken as the 1863 alignment where the period map
+and the NPS texts show the road on that line; deviations found by the map check are recorded in verification_roads.json and applied by build_features.py.
+Evidence entries quote or paraphrase only text that was read in the cited PDF (page = PDF page index of the cached text)."""
+from sources import S
+
+TREAT10 = S('NPS-TREAT-2004', 'pdf p80, note 1 (citing R. L. Bloom, A History of Adams County, 1700-1990, pp. 30-36, 118-128)',
+            'Ten roads met at the square in 1863, clockwise from the north: Carlisle Road, Harrisburg Road, York Pike, Hanover Road, Baltimore Pike, Taneytown Road, Emmitsburg Road, Fairfield Road, Chambersburg Pike, Mummasburg Road; most were dirt, the pikes macadamized.')
+TREAT_COUNTY = S('NPS-TREAT-2004', 'pdf p21', 'Harrisburg, Taneytown, Carlisle, Hanover, Low Dutch and Emmitsburg Roads are named as county roads present on the 1863 landscape (minimal grading, meandering, rutted in wet weather).')
+TREAT_PIKES = S('NPS-TREAT-2004', 'pdf p20, p22-23', 'Three of the roads radiating from Gettysburg were macadamized turnpikes; they were enclosed on both sides by fencing; Baltimore Pike and Chambersburg Pike are the two named macadamized roads in note 2 on p80.')
+DOUBLEDAY = S('OR-27', 'Part 1, pp. 246-247 (Doubleday), as quoted in NPS-TREAT-2004 pdf p22', 'Gettysburg "is the junction of seven great roads leading to Hagerstown, Chambersburg, Carlisle, York, Baltimore, Taneytown, and Washington".', type='A2')
+BACH_ALL = lambda extra='': S('LOC-BACH-1876', 'sheets a-c (all three show the same base map)', 'Road drawn on the Warren/Bachelder base map.' + (' ' + extra if extra else ''))
+
+# Each road: id, name_1863, name_modern, subtype, tiger edge ids (linearid), extra notes, sources
+ROADS = [
+ dict(id='RD-001', name='Baltimore Pike (Baltimore Turnpike), with Baltimore Street in the borough', name_modern='Baltimore Pike / Baltimore St (PA 97)', subtype='turnpike',
+      tiger=['110471838368', '110471838378', '110471833755'], clip_end=None,
+      period_note='macadamized turnpike in July 1863; Union reinforcements, the artillery reserve and trains used it; Rock Creek bridge and the McAllister mill dams lay beside it',
+      sources=[TREAT10, TREAT_PIKES, S('NPS-CLI-GETT', 'pdf p64', 'The Baltimore Pike provided the shortest distance to an eastern seaboard and tied Gettysburg\'s trade to Baltimore.')]),
+ dict(id='RD-002', name='Chambersburg Pike (Chambersburg Turnpike)', name_modern='Chambersburg Street / Buford Avenue (the road, not the avenue) / Chambersburg Road (US 30 west)', subtype='turnpike',
+      tiger=['110471841050', '110471835505', '110471841040', '110471833743'], period_note='macadamized turnpike west of the borough; Herr\'s Tavern, Willoughby Run bridge and the unfinished railroad cuts lie beside it; scene of the first shots on 1 July',
+      sources=[TREAT10, TREAT_PIKES, S('NPS-CLI-FD', 'pdf p37', 'Three main roads crossed the 1st Corps field in 1863: Mummasburg Road, Chambersburg Pike and Hagerstown Road; commercial establishments were limited to Herr\'s Tavern and one or two blacksmith-carriage shops.')]),
+ dict(id='RD-003', name='Emmitsburg Road', name_modern='Emmitsburg Road (US 15 Business) and Steinwehr Avenue', subtype='county road',
+      tiger=['1104483919462', '110471839169'], period_note='dirt county road, sunken in places and enclosed by post-and-rail and worm fences; Union approach road on 1 and 2 July; Confederate attacks of 2 and 3 July crossed it',
+      sources=[TREAT10, TREAT_COUNTY, S('NPS-CLI-EMM', 'pdf p89', 'Emmitsburg Road existed but was a rural wagon road, not well graded or surfaced; it was a significant feature of the battle.'),
+               S('NPS-CLI-PC', 'pdf p49', 'Emmitsburg Road extended southwest from Taneytown Road [at the south edge of the borough] and was lined predominantly by worm and post and rail fencing.')]),
+ dict(id='RD-004', name='Taneytown Road, with Washington Street in the borough', name_modern='Taneytown Road (PA 134) / S Washington St', subtype='county road',
+      tiger=['110471839192', '110471833770', '110471840188', '110471840190'], period_note='dirt county road along the rear of Cemetery Ridge; Meade\'s headquarters (Leister house) stood beside it',
+      sources=[TREAT10, TREAT_COUNTY, S('NPS-TREAT-2004', 'pdf p17, fig. 2-4 caption', 'Lydia Leister farmhouse, 1863: the appearance and composition of the Taneytown Road, one of the county roads present on the 1863 landscape.')]),
+ dict(id='RD-005', name='Hanover Road', name_modern='Hanover Road / Hanover Street (PA 116 east)', subtype='county road', tiger=['1104701938954', '110471836597'],
+      period_note='county road east of the borough crossing Rock Creek; Johnson\'s division and Stuart\'s cavalry operations on 2-3 July', sources=[TREAT10, TREAT_COUNTY]),
+ dict(id='RD-006', name='York Pike (York Turnpike)', name_modern='York Street / York Road (US 30 east)', subtype='turnpike', tiger=['110471834443', '1104483777999', '1104483777997'],
+      period_note='York Pike leaves the borough north-east; Devin\'s cavalry moved to it on 1 July', sources=[TREAT10, S('NPS-CLR-1DAY', 'pdf p60', 'Devin\'s Brigade, relieved by the 11th Corps, moved to the York Pike east of town (1 July).')]),
+ dict(id='RD-007', name='Harrisburg Road', name_modern='Harrisburg Street / Old Harrisburg Road (US 15 Business north)', subtype='county road', tiger=['110471839760', '110471839753', '110471839766'],
+      period_note='county road north-east of the borough; Early\'s division arrived along it on 1 July and crushed the Union right at Blocher\'s Knoll', sources=[TREAT10, TREAT_COUNTY, S('NPS-CLI-FD', 'pdf p32', 'Another of Ewell\'s divisions arrived along the Harrisburg Road and crushed the right flank of the Union line at Blocher Knoll.')]),
+ dict(id='RD-008', name='Carlisle Road', name_modern='Carlisle Street / Biglerville Road (PA 34 north)', subtype='county road', tiger=['110471837471', '110471840348'],
+      period_note='county road north of the borough', sources=[TREAT10, TREAT_COUNTY]),
+ dict(id='RD-009', name='Mummasburg Road', name_modern='Mummasburg Road / Mummasburg Street', subtype='county road', tiger=['110471839905', '110471839896'],
+      period_note='laid out 1769 and part of the Shippensburg-Baltimore Road; crosses Oak Ridge and McPherson Ridge north-west of the borough',
+      sources=[TREAT10, S('NPS-CLI-FD', 'pdf p36', 'Mummasburg Road through the battlefield was laid out in 1769 and became part of the Shippensburg-Baltimore Road (CLR 2021: 13).')]),
+ dict(id='RD-010', name='Hagerstown Road (Fairfield Road of the ten-road list; Nicholson\'s Gap Road), with West Middle Street in the borough', name_modern='Fairfield Road (PA 116 west) / W Middle St', subtype='county road',
+      tiger=['110471835889', '1106092749970', '1106087964679'], period_note='built 1749 as Nicholson\'s Gap Road; ran generally west from the centre of town, along the south edge of the Seminary grounds; the "Fairfield Road" of the NPS ten-road list and the "Hagerstown Road" of the 1st Corps texts are the same road (this note: the naming is not consistent across sources)',
+      sources=[TREAT10, S('NPS-CLI-FD', 'pdf p36', 'One of the earliest public roads was Nicholson\'s Gap Road (present Hagerstown Road), built 1749 (CLR 2021: 13).'),
+               S('NPS-CLI-PC', 'pdf p49', 'Hagerstown Road proceeded generally west from the center of town and defined the northern boundary of the Pitzer-McMillan-Bliss area.'),
+               S('NPS-CLI-FD', 'pdf p24', 'Hagerstown Road (PA 116, also known as Fairfield Road) is one of three main public highways through the 1st Corps battlefield; Old Mill Road (historically Hereter\'s Mill Road) branches off it.')]),
+ dict(id='RD-011', name='Hereter\'s Mill Road (Old Mill Road)', name_modern='Old Mill Rd', subtype='township road', tiger=['110471834281'],
+      period_note='branches north-west from the Hagerstown Road to Knoxlyn Road / the First Shot site', sources=[S('NPS-CLI-FD', 'pdf p24', 'Old Mill Road (historically known as Hereter\'s Mill Road) branches off Hagerstown Road and extends northwest, ending at Knoxlyn Road.')]),
+ dict(id='RD-012', name='Herr\'s Ridge Road', name_modern='Herrs Ridge Rd', subtype='township road', tiger=['110471840572', '110471840571'],
+      period_note='crosses the Chambersburg Pike at Herr\'s Ridge; named in the 1895 ceded-road list', sources=[S('NPS-CLI-FD', 'pdf p47', 'Lists 2,000 feet of Herr\'s Ridge Road (probably Hereter\'s Mill Road to Chambersburg Pike) among roads ceded to the park in 1895.')]),
+ dict(id='RD-013', name='Black Horse Tavern Road', name_modern='Black Horse Tavern Rd', subtype='township road', tiger=['110471842450', '110471842449', '110471839353'],
+      period_note='settlement road west of the ridge; the Trostle Farm Lane was part of an earlier settlement road connecting Taneytown Road with Black Horse Tavern Road',
+      sources=[S('NPS-CLI-EMM', 'pdf p40', 'The Trostle Farm Lane was part of a yet earlier settlement road, connecting the Taneytown Road on the east with the Black Horse Tavern Road on the west (CLR 2002: 10).')]),
+ dict(id='RD-014', name='Wheatfield Road', name_modern='Wheatfield Road', subtype='township road', tiger=['110471840289'],
+      period_note='established about 1829; dirt road connecting the Emmitsburg and Taneytown Roads; "so little travelled as to be marked by fences more than anything else"; used by artillery and the 2nd, 3rd, 5th and 6th Corps on 2 July',
+      sources=[S('NPS-CLI-EMM', 'pdf p91', 'Wheatfield Road (1829): east-west road connecting Emmitsburg and Taneytown Road, used by Union artillery and elements of four corps on 2 July.'),
+               S('NPS-CLI-LRT', 'pdf p64', 'Wheatfield Road was established in 1829, connecting to Taneytown Road to the east and Emmitsburg Road to the west.'),
+               S('NPS-TREAT-2004', 'pdf p80, note 9', 'A Massachusetts battery historian described the Wheatfield Road as "a road so little travelled as to be marked by fences more than anything else".', type='B')]),
+ dict(id='RD-015', name='Fairfield Road at the Peach Orchard (modern Millerstown Road)', name_modern='Millerstown Rd', subtype='township road', tiger=['110471840728'],
+      period_note='continued west from the Emmitsburg/Wheatfield crossing; NPS calls it "Fairfield Road (presently Millerstown Road)" for 1863; an "early road" acquired by the War Department in the 1890s and improved in the 1930s',
+      sources=[S('NPS-CLI-PC', 'pdf p49', 'Fairfield Road (presently, Millerstown Road) continued in a westward direction from the intersection of Wheatfield and Emmitsburg Roads.'),
+               S('NPS-CLI-PC', 'pdf p90', 'Millerstown Road: early road acquired by the War Department in the 1890s, improved in the 1930s.')]),
+ dict(id='RD-016', name='Granite Schoolhouse Lane', name_modern='Granite Schoolhouse Ln', subtype='lane (neighbourhood lane)', tiger=['110471842506'],
+      period_note='connects Taneytown Road with Baltimore Pike; Twelfth Corps, Artillery Reserve and reinforcements used it; photographed in 1934 and judged similar to 1863',
+      sources=[S('NPS-TREAT-2004', 'pdf p24-25 (list of neighbourhood lanes) and p17 (fig. 2-6/2-7 captions)', 'Granite School House Lane connects the Baltimore Pike and the Taneytown Road and was an important avenue of approach; it is one of the connecting neighbourhood lanes.')]),
+ dict(id='RD-017', name='Blacksmith Shop Road (continuation of Wheatfield Road east of the Taneytown Road)', name_modern='Blacksmith Shop Rd', subtype='township road', tiger=['110471842105'],
+      period_note='Wikipedia states that Wheatfield Road continues east as Blacksmith Shop Road to the Baltimore Pike; the 1863 existence of the eastern continuation is to be confirmed on the period map',
+      sources=[]),
+ dict(id='RD-018', name='McAllister\'s Mill road', name_modern='McCallister Mill Rd (remnant)', subtype='lane (neighbourhood lane)', tiger=['110471842335'],
+      period_note='cobbled neighbourhood lane to the mill on Rock Creek; ford on Rock Creek at the mill; the grist mill was the closest mill for most farmers',
+      sources=[S('NPS-TREAT-2004', 'pdf p24-26', 'McAllister Mill Lane is one of the shared neighbourhood lanes; it was improved with a cobbled base; Tipton 1903 photo "Wagon Road to McAllister\'s Mill".')]),
+ dict(id='RD-019', name='Willoughby Run Road', name_modern='Willoughby Run Rd', subtype='township road', tiger=['110471842086'], period_note='Willoughby Run Road is named in the NPS ford list; connected to Pitzer Lane', sources=[S('NPS-TREAT-2004', 'pdf p80, note 15', 'Possible fords include Willoughby Run Road to Pitzer Lane (outside the park).')]),
+ dict(id='RD-020', name='Knoxlyn Road (to the First Shot site)', name_modern='Knoxlyn Rd', subtype='township road', tiger=['110471836693', '110471836695', '110471836694'], period_note='ends at the First Shot site on the Chambersburg Pike',
+      sources=[S('NPS-CLI-FD', 'pdf p24', 'Old Mill Road ends at Knoxlyn Road, which terminates at the First Shot site.')]),
+ dict(id='RD-021', name='Table Rock Road', name_modern='Table Rock Rd', subtype='township road', tiger=['110471840117'], period_note='existence in 1863 to be confirmed on the period map', sources=[]),
+ dict(id='RD-022', name='Hunterstown Road', name_modern='Hunterstown Rd', subtype='township road', tiger=['110471840584', '110471840583', '110471840585', '110471840586'], period_note='existence in 1863 to be confirmed on the period map (Hunterstown cavalry action of 2 July is on this road)', sources=[]),
+ dict(id='RD-023', name='Low Dutch Road', name_modern='Low Dutch Rd', subtype='county road', tiger=['110471838864'], period_note='named county road in the NPS list; Stuart saw Union cavalry on it on 3 July (East Cavalry Field)',
+      sources=[TREAT_COUNTY, S('NPS-CLI-GETT', 'pdf p33', 'Stuart saw Union cavalry along the Low Dutch Road on the afternoon of 3 July.')]),
+]
