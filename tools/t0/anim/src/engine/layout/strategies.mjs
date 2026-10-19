@@ -11,7 +11,7 @@ import { buildLeaves, refreshTile } from './tiles.mjs';
 import { FRAME_MS } from './spec.mjs';
 import { updateCrowdSuffixes } from './crowdnames.mjs';
 
-const CANON_STEP_MS = 250; const CANON_STABLE = 4; const CANON_MAX = 80;      // the rest canon probe: 250 ms of clock per background solve, done when the count has held 4 solves (at most 80)
+const CANON_STEP_MS = 250; const CANON_STABLE = 3; const CANON_MAX = 30;      // the rest canon probe: 250 ms of clock per background solve, done when the count has held 3 solves (at most 30, half a second of frames)
 const certified = {
   id: 'certified', label: 'Certified hybrid (zero overlap)',
   doc: 'Exact minimum-displacement placement within a budget, aggregation along the order of battle as the guaranteed fallback, exact all-pairs certification before a frame is emitted.',
@@ -63,7 +63,7 @@ const certified = {
         P.n++; if (r.placed.length === P.last) P.stable++; else { P.stable = 0; P.last = r.placed.length; }
         if (P.stable < CANON_STABLE && P.n < CANON_MAX) return null;
         canonP = null; const before = inp.against ? inp.against.placed.length : 0;
-        if (r.placed.length > before) { state = P.state; state.stamp = (saved.stamp || 0) + 1; return r; }
+        if (r.placed.length > before) { state = P.state; state.stamp = saved.stamp || 0; return r; }                      // no new stamp: the picture is at rest, it does not need another settling period
         return null;
       },
       /** after a CUT (the first frame, a jump in time, a jump in zoom) the layout starts from clean state and would take a second of frames to refine; the picture is a cross-fade anyway, so the refinement runs HERE, at once,
