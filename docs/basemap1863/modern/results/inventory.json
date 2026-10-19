@@ -1,0 +1,726 @@
+{
+ "box_wgs84": [
+  -77.34375,
+  39.75788,
+  -77.146,
+  39.87602
+ ],
+ "osm_elements_unique": 10213,
+ "adams_building_outlines": 16209,
+ "osm_buildings_added_not_in_adams": 75,
+ "road_cross_check": {
+  "adams_centerline.json": {
+   "segments": 734,
+   "length_km": 685.58,
+   "osm_covered_fraction": 0.881
+  },
+  "tiger_local.json": {
+   "segments": 884,
+   "length_km": 573.2,
+   "osm_covered_fraction": 0.891
+  },
+  "tiger_primary.json": {
+   "segments": 2,
+   "length_km": 74.95,
+   "osm_covered_fraction": 0.522
+  },
+  "tiger_sec_hwy.json": {
+   "segments": 11,
+   "length_km": 62.14,
+   "osm_covered_fraction": 0.65
+  },
+  "tiger_sec_72k.json": {
+   "segments": 50,
+   "length_km": 309.93,
+   "osm_covered_fraction": 0.643
+  }
+ },
+ "road_segments_added_from_adams_tiger": {
+  "ADAMS:ROAD_SERVICE": 48,
+  "ADAMS:ROAD_LOCAL": 7,
+  "ADAMS:ROAD_ARTERIAL": 6,
+  "TIGER:ROAD_SERVICE": 21,
+  "TIGER:ROAD_LOCAL": 72,
+  "TIGER:ROAD_ARTERIAL": 5
+ },
+ "monuments": {
+  "osm_points": 873,
+  "wikipedia_list_entries_with_coords": 512,
+  "wikipedia_matched_to_osm_within_15m": 446,
+  "wikipedia_added": 66,
+  "wiki_osm_offset_median_m": 4.1,
+  "wiki_osm_offset_p90_m": 11.3,
+  "total_listed": 938,
+  "nps_published_count_note": "NPS-managed unit: 1,320 monuments and markers as of 2008 (cited by the Wikipedia list to its ref 2); the NPS Civil War Soldiers and Sailors page says almost 1,400. The NPS does not publish their coordinates as open data (searched: data.gov, NPS Data Store, NPS ArcGIS org). Positions here come from OSM (ODbL) and the Wikipedia list (CC BY-SA 4.0)."
+ },
+ "classes": {
+  "ROAD_ARTERIAL": {
+   "label": "Arterial roads (US/State routes, bypass, ramps)",
+   "removal": "REMOVE_REPLACE",
+   "note": "The 1863 road net is drawn back by the roads layer; US 15 bypass, ramps and the 20th-century realignments have no 1863 counterpart",
+   "count": 301,
+   "sources": {
+    "OSM": 290,
+    "ADAMS": 6,
+    "TIGER": 5
+   },
+   "length_km": 153.32,
+   "geometry_types": {
+    "LineString": 297,
+    "MultiLineString": 4
+   },
+   "subclasses": {
+    "trunk": 79,
+    "secondary": 74,
+    "motorway": 49,
+    "motorway_link": 44,
+    "primary": 36,
+    "trunk_link": 7,
+    "State": 6,
+    "S1200": 5,
+    "primary_link": 1
+   }
+  },
+  "ROAD_LOCAL": {
+   "label": "Local roads, streets, park avenues",
+   "removal": "REMOVE_REPLACE",
+   "note": "Many follow an 1863 alignment (Emmitsburg, Taneytown, Baltimore Pike); the surface is removed, the 1863 road is redrawn from period maps",
+   "count": 784,
+   "sources": {
+    "OSM": 705,
+    "ADAMS": 7,
+    "TIGER": 72
+   },
+   "length_km": 431.4,
+   "geometry_types": {
+    "LineString": 779,
+    "MultiLineString": 5
+   },
+   "subclasses": {
+    "residential": 490,
+    "unclassified": 116,
+    "tertiary": 96,
+    "S1400": 72,
+    "Township": 4,
+    "tertiary_link": 3,
+    "GNMP": 2,
+    "Undetermined": 1
+   }
+  },
+  "ROAD_SERVICE": {
+   "label": "Service roads, driveways, parking aisles",
+   "removal": "REMOVE",
+   "note": "Almost all are post-1863; farm lanes that existed are redrawn by the roads layer",
+   "count": 2559,
+   "sources": {
+    "OSM": 2490,
+    "ADAMS": 48,
+    "TIGER": 21
+   },
+   "length_km": 383.28,
+   "geometry_types": {
+    "LineString": 2474,
+    "MultiLineString": 85
+   },
+   "subclasses": {
+    "driveway": 1179,
+    "service": 788,
+    "parking_aisle": 399,
+    "alley": 74,
+    "Private": 47,
+    "golf cart path": 22,
+    "S1740": 19,
+    "drive-through": 17,
+    "emergency_access": 5,
+    "raceway": 5,
+    "S1730": 2,
+    "construction": 1
+   }
+  },
+  "PARKING": {
+   "label": "Parking lots",
+   "removal": "REMOVE",
+   "note": "All paved lots are post-1863",
+   "count": 131,
+   "sources": {
+    "OSM": 131
+   },
+   "area_ha": 37.11,
+   "geometry_types": {
+    "Polygon": 131
+   },
+   "subclasses": {
+    "surface": 124,
+    "street_side": 6,
+    "multi-storey": 1
+   }
+  },
+  "PATH": {
+   "label": "Footways, trails, steps, cycleways",
+   "removal": "REMOVE",
+   "note": "Modern visitor trails; wide worn paths in the image are caught by the pixel detector, not by this class",
+   "count": 936,
+   "sources": {
+    "OSM": 936
+   },
+   "length_km": 122.64,
+   "geometry_types": {
+    "LineString": 923,
+    "MultiLineString": 13
+   },
+   "subclasses": {
+    "footway": 881,
+    "path": 24,
+    "bridleway": 20,
+    "cycleway": 8,
+    "steps": 3
+   }
+  },
+  "TRACK": {
+   "label": "Tracks (unpaved farm/park lanes)",
+   "removal": "UNKNOWN",
+   "note": "May follow a farm lane that existed in 1863; needs the roads layer",
+   "count": 29,
+   "sources": {
+    "OSM": 29
+   },
+   "length_km": 7.65,
+   "geometry_types": {
+    "LineString": 29
+   },
+   "subclasses": {
+    "track": 29
+   }
+  },
+  "RAIL": {
+   "label": "Railways",
+   "removal": "UNKNOWN",
+   "note": "The Gettysburg Railroad line and the Unfinished Railroad grade pre-date the battle; later spurs and yards did not; needs a dated source per segment",
+   "count": 52,
+   "sources": {
+    "OSM": 41,
+    "TIGER": 11
+   },
+   "length_km": 62.62,
+   "area_ha": 0.03,
+   "geometry_types": {
+    "LineString": 51,
+    "Polygon": 1
+   },
+   "subclasses": {
+    "rail": 35,
+    "R1011": 11,
+    "abandoned": 5,
+    "station": 1
+   }
+  },
+  "AIRFIELD": {
+   "label": "Runways, helipads, aprons",
+   "removal": "REMOVE",
+   "note": "No aircraft facilities in 1863",
+   "count": 29,
+   "sources": {
+    "OSM": 29
+   },
+   "length_km": 4.56,
+   "area_ha": 24.65,
+   "geometry_types": {
+    "LineString": 11,
+    "Polygon": 18
+   },
+   "subclasses": {
+    "helipad": 14,
+    "runway": 7,
+    "taxiway": 4,
+    "apron": 3,
+    "aerodrome": 1
+   }
+  },
+  "BUILDING": {
+   "label": "Buildings (Adams County 2023 outlines)",
+   "removal": "REMOVE_REPLACE",
+   "note": "Roofs, walls and cast shadows are cut out; buildings that stood in 1863 are redrawn by the structures layer from HABS/NPS/period-map sources",
+   "count": 16258,
+   "sources": {
+    "OSM": 76,
+    "ADAMS": 16182
+   },
+   "area_ha": 325.14,
+   "geometry_types": {
+    "Point": 1,
+    "Polygon": 16257
+   },
+   "subclasses": {
+    "outline2023": 16182,
+    "shed": 36,
+    "yes": 20,
+    "house": 11,
+    "ruins": 3,
+    "barn": 2,
+    "industrial": 2,
+    "retail": 2
+   }
+  },
+  "STRUCTURE_OTHER": {
+   "label": "Silos, tanks, chimneys, treatment tanks",
+   "removal": "REMOVE",
+   "note": "Modern industrial or farm infrastructure",
+   "count": 47,
+   "sources": {
+    "OSM": 47
+   },
+   "length_km": 45.97,
+   "area_ha": 7.93,
+   "geometry_types": {
+    "Point": 6,
+    "LineString": 8,
+    "Polygon": 33
+   },
+   "subclasses": {
+    "silo": 17,
+    "storage_tank": 8,
+    "pipeline": 7,
+    "chimney": 6,
+    "clarifier": 5,
+    "wastewater_plant": 3,
+    "works": 1
+   }
+  },
+  "MONUMENT": {
+   "label": "Monuments, memorials, statues, markers, tablets",
+   "removal": "REMOVE",
+   "note": "Every Gettysburg monument dates from 1863 or later; none stood on the field in July 1863",
+   "count": 938,
+   "sources": {
+    "OSM": 873,
+    "WIKI": 65
+   },
+   "geometry_types": {
+    "Point": 938
+   },
+   "subclasses": {
+    "monument": 787,
+    "listed (Wikipedia list)": 65,
+    "plaque": 33,
+    "statue": 24,
+    "memorial": 12,
+    "grave": 9,
+    "artwork": 4,
+    "stone": 2,
+    "marker": 2
+   }
+  },
+  "INFO_SIGN": {
+   "label": "Interpretive signs, information boards",
+   "removal": "REMOVE",
+   "note": "Modern",
+   "count": 28,
+   "sources": {
+    "OSM": 28
+   },
+   "geometry_types": {
+    "Point": 28
+   },
+   "subclasses": {
+    "board": 16,
+    "guidepost": 11,
+    "map": 1
+   }
+  },
+  "TOWER_COMM": {
+   "label": "Communication towers and masts",
+   "removal": "REMOVE",
+   "note": "Modern",
+   "count": 18,
+   "sources": {
+    "OSM": 18
+   },
+   "geometry_types": {
+    "Point": 18
+   },
+   "subclasses": {
+    "mast": 10,
+    "tower": 8
+   }
+  },
+  "TOWER_OBS": {
+   "label": "Observation towers",
+   "removal": "REMOVE",
+   "note": "Observation towers on the field are memorial-era (post-battle) structures; the 1863 Lutheran Seminary cupola is part of a building, not in this class",
+   "count": 3,
+   "sources": {
+    "OSM": 3
+   },
+   "area_ha": 0.02,
+   "geometry_types": {
+    "Polygon": 3
+   },
+   "subclasses": {
+    "observation": 3
+   }
+  },
+  "WATER_TOWER": {
+   "label": "Water towers and tanks",
+   "removal": "REMOVE",
+   "note": "Modern",
+   "count": 3,
+   "sources": {
+    "OSM": 3
+   },
+   "area_ha": 0.01,
+   "geometry_types": {
+    "Point": 2,
+    "Polygon": 1
+   },
+   "subclasses": {
+    "water_tower": 3
+   }
+  },
+  "POWER_LINE": {
+   "label": "Power lines and their cleared corridors",
+   "removal": "REMOVE",
+   "note": "Modern; the cleared corridor through woodland is a separate vegetation edit",
+   "count": 51,
+   "sources": {
+    "OSM": 51
+   },
+   "length_km": 52.27,
+   "geometry_types": {
+    "LineString": 49,
+    "MultiLineString": 2
+   },
+   "subclasses": {
+    "line": 51
+   }
+  },
+  "POWER_SUPPORT": {
+   "label": "Pylons, poles, portals, switches, transformers",
+   "removal": "REMOVE",
+   "note": "Modern",
+   "count": 284,
+   "sources": {
+    "OSM": 284
+   },
+   "geometry_types": {
+    "Point": 284
+   },
+   "subclasses": {
+    "tower": 202,
+    "portal": 35,
+    "switch": 29,
+    "transformer": 15,
+    "compensator": 3
+   }
+  },
+  "POWER_SITE": {
+   "label": "Substations, power plants, solar arrays",
+   "removal": "REMOVE",
+   "note": "Modern",
+   "count": 15,
+   "sources": {
+    "OSM": 15
+   },
+   "length_km": 3.19,
+   "area_ha": 6.14,
+   "geometry_types": {
+    "Point": 7,
+    "Polygon": 1,
+    "LineString": 7
+   },
+   "subclasses": {
+    "generator:gas": 7,
+    "substation": 6,
+    "plant": 2
+   }
+  },
+  "FLAGPOLE": {
+   "label": "Flagpoles",
+   "removal": "REMOVE",
+   "note": "Modern",
+   "count": 19,
+   "sources": {
+    "OSM": 19
+   },
+   "geometry_types": {
+    "Point": 19
+   },
+   "subclasses": {
+    "flagpole": 19
+   }
+  },
+  "FENCE_WALL": {
+   "label": "Mapped fences, walls, hedges, gates, guard rails",
+   "removal": "UNKNOWN",
+   "note": "Modern NPS and farm fences mixed with rebuilt 1863 fence lines: not separable by the mapped data; at 1 m they are sub-pixel lines (cannot be seen), so nothing is painted out for them",
+   "count": 714,
+   "sources": {
+    "OSM": 714
+   },
+   "length_km": 100.98,
+   "geometry_types": {
+    "Point": 45,
+    "LineString": 664,
+    "MultiLineString": 5
+   },
+   "subclasses": {
+    "fence": 643,
+    "gate": 22,
+    "wall": 18,
+    "kerb": 10,
+    "yes": 5,
+    "hedge": 5,
+    "chain": 3,
+    "block": 2,
+    "sign": 2,
+    "retaining_wall": 2,
+    "Sign": 1,
+    "hampshire_gate": 1
+   }
+  },
+  "SITE_FURNITURE": {
+   "label": "Street lamps, traffic signals, stop signs, crossings, bus stops",
+   "removal": "REMOVE",
+   "note": "Modern",
+   "count": 820,
+   "sources": {
+    "OSM": 820
+   },
+   "geometry_types": {
+    "Point": 820
+   },
+   "subclasses": {
+    "crossing": 597,
+    "stop": 173,
+    "traffic_signals": 43,
+    "bus_stop": 7
+   }
+  },
+  "GOLF": {
+   "label": "Golf courses and their features",
+   "removal": "REMOVE",
+   "note": "Modern land use; needs a land-cover replacement, not a patch fill",
+   "count": 31,
+   "sources": {
+    "OSM": 31
+   },
+   "area_ha": 110.05,
+   "geometry_types": {
+    "Polygon": 31
+   },
+   "subclasses": {
+    "rough": 16,
+    "water_hazard": 11,
+    "golf_course": 3,
+    "tee": 1
+   }
+  },
+  "SPORTS_REC": {
+   "label": "Sports pitches, tracks, pools, playgrounds, camp sites",
+   "removal": "REMOVE",
+   "note": "Modern",
+   "count": 174,
+   "sources": {
+    "OSM": 174
+   },
+   "area_ha": 156.14,
+   "geometry_types": {
+    "Polygon": 174
+   },
+   "subclasses": {
+    "pitch": 76,
+    "swimming_pool": 64,
+    "playground": 9,
+    "camp_site": 6,
+    "miniature_golf": 5,
+    "fitness_station": 4,
+    "track": 3,
+    "sports_centre": 2,
+    "stadium": 2,
+    "fitness_centre": 1,
+    "caravan_site": 1,
+    "dog_park": 1
+   }
+  },
+  "DEVELOPED_LAND": {
+   "label": "Residential, commercial, industrial, retail land use",
+   "removal": "REMOVE_REPLACE",
+   "note": "Modern developed land; the ground is replaced by the 1863 land cover from the landcover layer",
+   "count": 85,
+   "sources": {
+    "OSM": 85
+   },
+   "area_ha": 609.78,
+   "geometry_types": {
+    "Polygon": 85
+   },
+   "subclasses": {
+    "residential": 21,
+    "recreation_ground": 8,
+    "retail": 7,
+    "industrial": 6,
+    "school": 6,
+    "bleachers": 5,
+    "park": 4,
+    "garden": 4,
+    "commercial": 3,
+    "charging_station": 3,
+    "parking_space": 2,
+    "picnic_site": 2
+   }
+  },
+  "QUARRY_LANDFILL": {
+   "label": "Quarries, landfills, construction",
+   "removal": "UNKNOWN",
+   "note": "Terrain change: the 1863 ground surface is not recoverable from the modern lidar alone",
+   "count": 1,
+   "sources": {
+    "OSM": 1
+   },
+   "area_ha": 37.6,
+   "geometry_types": {
+    "Polygon": 1
+   },
+   "subclasses": {
+    "quarry": 1
+   }
+  },
+  "WATER_MODERN": {
+   "label": "Basins, wastewater ponds, reservoirs, golf hazards",
+   "removal": "REMOVE",
+   "note": "Engineered water, post-1863",
+   "count": 47,
+   "sources": {
+    "OSM": 27,
+    "NHD": 20
+   },
+   "area_ha": 7.36,
+   "geometry_types": {
+    "Polygon": 47
+   },
+   "subclasses": {
+    "FCODE 43624": 17,
+    "basin": 16,
+    "wastewater": 10,
+    "FCODE 43613": 3,
+    "reservoir": 1
+   }
+  },
+  "WATER_POND": {
+   "label": "Ponds and lakes (origin not stated)",
+   "removal": "UNKNOWN",
+   "note": "Farm ponds and dammed pools: 1863 existence needs a period map; kept",
+   "count": 472,
+   "sources": {
+    "OSM": 189,
+    "NHD": 283
+   },
+   "area_ha": 259.55,
+   "geometry_types": {
+    "Polygon": 472
+   },
+   "subclasses": {
+    "FCODE 39004": 273,
+    "pond": 182,
+    "FCODE 39011": 9,
+    "water": 6,
+    "lake": 1,
+    "FCODE 39001": 1
+   }
+  },
+  "CEMETERY": {
+   "label": "Cemeteries",
+   "removal": "UNKNOWN",
+   "note": "Evergreen Cemetery pre-dates the battle; the Soldiers National Cemetery was created after it (dedicated November 1863); later sections of both did not exist: needs a dated plan per section",
+   "count": 13,
+   "sources": {
+    "OSM": 13
+   },
+   "geometry_types": {
+    "Point": 13
+   },
+   "subclasses": {
+    "cemetery": 13
+   }
+  },
+  "HYDRO_STREAM": {
+   "label": "Streams, rivers, ditches (OSM waterway)",
+   "removal": "KEEP",
+   "note": "Natural drainage: not removed; modern channelisation or culverts are not separable here",
+   "count": 373,
+   "sources": {
+    "OSM": 373
+   },
+   "length_km": 174.94,
+   "geometry_types": {
+    "LineString": 373
+   },
+   "subclasses": {
+    "stream": 352,
+    "river": 18,
+    "ditch": 2,
+    "drain": 1
+   }
+  },
+  "LANDCOVER_OSM": {
+   "label": "Mapped land cover: farmland, forest, orchard, meadow, grass",
+   "removal": "KEEP",
+   "note": "Modern land cover for the land-cover layer to compare with 1863; not removed here",
+   "count": 175,
+   "sources": {
+    "OSM": 175
+   },
+   "area_ha": 1000.54,
+   "geometry_types": {
+    "Polygon": 175
+   },
+   "subclasses": {
+    "farmland": 61,
+    "forest": 48,
+    "grass": 32,
+    "orchard": 25,
+    "meadow": 7,
+    "farmyard": 2
+   }
+  },
+  "HISTORIC_OTHER": {
+   "label": "Other historic or attraction features (hollow way, bridges, piers)",
+   "removal": "UNKNOWN",
+   "note": "Each needs a dated source",
+   "count": 9,
+   "sources": {
+    "OSM": 9
+   },
+   "length_km": 0.01,
+   "area_ha": 21.73,
+   "geometry_types": {
+    "Point": 3,
+    "Polygon": 4,
+    "LineString": 2
+   },
+   "subclasses": {
+    "bridge": 2,
+    "pier": 2,
+    "protected_land": 2,
+    "attraction": 1,
+    "yes": 1,
+    "hollow_way": 1
+   }
+  },
+  "OTHER": {
+   "label": "Unclassified mapped features",
+   "removal": "UNKNOWN",
+   "note": "No rule matched; kept for review",
+   "count": 2,
+   "sources": {
+    "OSM": 2
+   },
+   "area_ha": 0.01,
+   "geometry_types": {
+    "Polygon": 2
+   },
+   "subclasses": {
+    "": 2
+   }
+  }
+ }
+}
