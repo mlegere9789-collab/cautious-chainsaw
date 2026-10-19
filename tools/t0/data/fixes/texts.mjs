@@ -135,6 +135,8 @@ export default [
     'contested-fact', '"51,000 casualties" as fact', 'ledger WSD-01, WSD-02'),
 
   // ---- static pages
+  J('DATA-find-count', 'find-ancestor.html', 'which of the 467 Union and Confederate regiments and batteries at Gettysburg your ancestor may have served in', 'which of the 443 Union and Confederate infantry and cavalry regiment records in the order of battle of this site your ancestor may have served in (batteries are not searched)',
+    'wrong-number', '"467 ... regiments and batteries": the page loads 384 infantry, 59 cavalry records and no batteries', 'count of regiments[] in the eight data/oob files the page fetches: 443'),
   J('DATA-idx-meta', 'index.html', 'unfold in real time -- 467 regiments and batteries across 675 five-minute snapshots', 'unfold step by step -- 478 units (regiments, batteries and the brigades, divisions and corps above them) across 675 snapshots',
     'wrong-number', '"467 regiments and batteries", "five-minute snapshots", "real time"', 'count of distinct unit ids in data/placements_*.json and density_*.json: 478 (256 regiments, 56 batteries, 115 brigades, 34 divisions, 6 corps, 11 other ids); 4 occurrences', 4),
   J('DATA-idx-about', 'index.html', 'minute-by-minute reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): 467 regiments and batteries tracked across 675 five-minute snapshots, built from primary-source unit records, chronology, and terrain data',
