@@ -116,19 +116,19 @@ def main():
             assert t2 != t, 'mutation did nothing: ' + rel
             open(p, 'w', encoding='utf-8', newline='').write(t2)
 
-    mutant('truncated-png', 'T0-IMG-01', lambda d: edit(d, 'icons/gettysburg-512.png', lambda b: b[:1200], True))
-    mutant('flipped-jpeg-byte', 'T0-IMG-03', lambda d: edit(d, 'og/gettysburg-card.jpg', lambda b: (b.__setitem__(60000, b[60000] ^ 0xFF) or b), True))
-    mutant('alt-removed', 'T0-IMG-05', lambda d: edit(d, 'education.html', lambda t: t.replace(' alt="Photograph from 1863', ' data-x="Photograph from 1863')))
-    mutant('figcaption-removed', 'T0-IMG-05', lambda d: edit(d, 'aftermath.html', lambda t: t.replace('<figcaption', '<div').replace('</figcaption>', '</div>')))
-    mutant('og-image-old-name', 'T0-IMG-06', lambda d: edit(d, 'search.html', lambda t: t.replace('og/gettysburg-card.jpg', 'og/card-r1.png', 1)))
-    mutant('manifest-size-lie', 'T0-IMG-07', lambda d: edit(d, 'manifest.json', lambda t: t.replace('"sizes": "512x512", "type": "image/png", "purpose": "any"', '"sizes": "1024x1024", "type": "image/png", "purpose": "any"')))
-    mutant('hotlinked-image', 'T0-IMG-08', lambda d: edit(d, 'privacy.html', lambda t: t.replace('</header>', '<img src="https://example.com/x.jpg" alt="x"></header>', 1) if '</header>' in t else t.replace('<body>', '<body><img src="https://example.com/x.jpg" alt="x">', 1)))
-    mutant('truncated-jpeg-no-eoi', 'T0-IMG-01', lambda d: edit(d, 'img/trostle-farm-july-1863.jpg', lambda b: b[:-12], True))
+    mutant('truncated-png', 'T0-RIMG-01', lambda d: edit(d, 'icons/gettysburg-512.png', lambda b: b[:1200], True))
+    mutant('flipped-jpeg-byte', 'T0-RIMG-03', lambda d: edit(d, 'og/gettysburg-card.jpg', lambda b: (b.__setitem__(60000, b[60000] ^ 0xFF) or b), True))
+    mutant('alt-removed', 'T0-RIMG-05', lambda d: edit(d, 'education.html', lambda t: t.replace(' alt="Photograph from 1863', ' data-x="Photograph from 1863')))
+    mutant('figcaption-removed', 'T0-RIMG-05', lambda d: edit(d, 'aftermath.html', lambda t: t.replace('<figcaption', '<div').replace('</figcaption>', '</div>')))
+    mutant('og-image-old-name', 'T0-RIMG-06', lambda d: edit(d, 'search.html', lambda t: t.replace('og/gettysburg-card.jpg', 'og/card-r1.png', 1)))
+    mutant('manifest-size-lie', 'T0-RIMG-07', lambda d: edit(d, 'manifest.json', lambda t: t.replace('"sizes": "512x512", "type": "image/png", "purpose": "any"', '"sizes": "1024x1024", "type": "image/png", "purpose": "any"')))
+    mutant('hotlinked-image', 'T0-RIMG-08', lambda d: edit(d, 'privacy.html', lambda t: t.replace('</header>', '<img src="https://example.com/x.jpg" alt="x"></header>', 1) if '</header>' in t else t.replace('<body>', '<body><img src="https://example.com/x.jpg" alt="x">', 1)))
+    mutant('truncated-jpeg-no-eoi', 'T0-RIMG-01', lambda d: edit(d, 'img/trostle-farm-july-1863.jpg', lambda b: b[:-12], True))
 
     def add_star(d):
         shutil.copyfile(os.path.join(REPO, 'baseline', 'dist', 'icons', 'icon-192.png'), os.path.join(d, 'icons', 'icon-192.png'))
-    mutant('generic-star-added-back', 'T0-IMG-04', add_star)
-    mutant('caption-font-10px', 'T0-IMG-10', lambda d: edit(d, 'turning-points.html', lambda t: t.replace('font-size:12px;line-height:1.5;color:#8a93a8', 'font-size:10px;line-height:1.5;color:#8a93a8')), '--filter', 'T0-IMG-10')
+    mutant('generic-star-added-back', 'T0-RIMG-04', add_star)
+    mutant('caption-font-10px', 'T0-RIMG-10', lambda d: edit(d, 'turning-points.html', lambda t: t.replace('font-size:12px;line-height:1.5;color:#8a93a8', 'font-size:10px;line-height:1.5;color:#8a93a8')), '--filter', 'T0-RIMG-10')
     bad = [n for n, ok, _ in RESULTS if not ok]
     print('\nself-test: %d/%d passed' % (len(RESULTS) - len(bad), len(RESULTS)))
     if not keep:

@@ -1,4 +1,4 @@
-// T0-IMG-* : the site uses ONLY actual images of Gettysburg (optional patch group IMG, tools/t0/images/, licence ledger docs/basemap1863/site-images/LEDGER.md).
+// T0-RIMG-* : the site uses ONLY actual images of Gettysburg (optional patch group IMG, tools/t0/images/, licence ledger docs/basemap1863/site-images/LEDGER.md).
 // Static checks of every image the built site serves or references (HTTP 200 through the Netlify-like lab server, byte-level decode of PNG / JPEG / ICO / SVG, the ledger,
 // alt text and provenance captions, social cards, manifest and icons, hot-linked images, the user-guide PDF) plus a real-Chrome pass (every image decodes, the three
 // captioned photographs render at 1440, 375 and 320 px without overflow, caption contrast).  No Mapbox request leaves the machine (tiles 'block').
@@ -10,26 +10,27 @@
 //   node tests/t0/images.spec.mjs --dist <tree> --no-browser                              skip the two Chrome tests (IMG-02, IMG-10)
 //
 // Ids (F = feature test, red on a tree without IMG; G = guard, true on any good tree; IMG-01 and IMG-08 also catch the audit's corrupt og image on baseline/dist):
-//   T0-IMG-01 G  every image file the tree contains or any page / manifest / stylesheet / script references: exists, HTTP 200, image/* content type, decodes at byte level
-//   T0-IMG-02 G  real Chrome decodes every raster and the ICO/SVG (img.decode, natural size equals the byte-level size)
-//   T0-IMG-03 F  ledger: every image file of the tree is a row of LEDGER.md with the same sha256 (or a listed UI-glyph file), every row has a source id, a licence and a derivation, LEDGER.md and ledger.json agree
-//   T0-IMG-04 F  only real images of Gettysburg: no generic art left (card-r1.png, screenshots/*, icons/icon-*.png), every raster is a REAL-IMAGE-OF-GETTYSBURG row, sources are public-domain hosts / licences
-//   T0-IMG-05 F  alt and captions: every <img> has alt text, size attributes and sits in a <figure> whose <figcaption> links its source record and names its licence; every og/twitter image has alt text
-//   T0-IMG-06 F  social cards: og:image / twitter:image on every page name one existing JPEG/PNG, 1200x630, under 300 KB, with width/height/type/alt tags that match
-//   T0-IMG-07 F  manifest and icons: icon files exist with the declared sizes and types, a 512 any and a 512 maskable icon, no "screenshots" that are not real, favicon.ico 16/32, apple-touch-icon 180
-//   T0-IMG-08 G  no hot-linked images (every image URL in pages, styles and scripts is on this site), the user guide PDF embeds no picture, inline SVG is UI glyphs/charts only
-//   T0-IMG-09 G  ledger.json sources: id, creator, date, repository, record URL, licence, sha256, record type; licences from the allow-list; no Google/Bing/Maxar/Mapbox host
-//   T0-IMG-10 F  Chrome render: the captioned photographs load (naturalWidth > 0), captions are visible with contrast >= 4.5, no horizontal overflow at 375 and 320 px
-//   T0-IMG-11 G  reproducible: tools/t0/images/build_images.py --check (the committed derivatives and ledger are what the verified sources give); skipped if the sources are not fetched
-//   T0-IMG-X  G  the Chrome pass: 0 uncaught exceptions and 0 first-party console errors
-process.env.T0_AGENT ??= 'images';
+//   T0-RIMG-01 G  every image file the tree contains or any page / manifest / stylesheet / script references: exists, HTTP 200, image/* content type, decodes at byte level
+//   T0-RIMG-02 G  real Chrome decodes every raster and the ICO/SVG (img.decode, natural size equals the byte-level size)
+//   T0-RIMG-03 F  ledger: every image file of the tree is a row of LEDGER.md with the same sha256 (or a listed UI-glyph file), every row has a source id, a licence and a derivation, LEDGER.md and ledger.json agree
+//   T0-RIMG-04 F  only real images of Gettysburg: no generic art left (card-r1.png, screenshots/*, icons/icon-*.png), every raster is a REAL-IMAGE-OF-GETTYSBURG row, sources are public-domain hosts / licences
+//   T0-RIMG-05 F  alt and captions: every <img> has alt text, size attributes and sits in a <figure> whose <figcaption> links its source record and names its licence; every og/twitter image has alt text
+//   T0-RIMG-06 F  social cards: og:image / twitter:image on every page name one existing JPEG/PNG, 1200x630, under 300 KB, with width/height/type/alt tags that match
+//   T0-RIMG-07 F  manifest and icons: icon files exist with the declared sizes and types, a 512 any and a 512 maskable icon, no "screenshots" that are not real, favicon.ico 16/32, apple-touch-icon 180
+//   T0-RIMG-08 G  no hot-linked images (every image URL in pages, styles and scripts is on this site), the user guide PDF embeds no picture, inline SVG is UI glyphs/charts only
+//   T0-RIMG-09 G  ledger.json sources: id, creator, date, repository, record URL, licence, sha256, record type; licences from the allow-list; no Google/Bing/Maxar/Mapbox host
+//   T0-RIMG-10 F  Chrome render: the captioned photographs load (naturalWidth > 0), captions are visible with contrast >= 4.5, no horizontal overflow at 375 and 320 px
+//   T0-RIMG-11 G  reproducible: tools/t0/images/build_images.py --check (the committed derivatives and ledger are what the verified sources give); skipped if the sources are not fetched
+//   T0-RIMG-12 G  Chrome reads the manifest without errors and reports no icon / manifest installability error (Page.getAppManifest, Page.getInstallabilityErrors); manifest icons decode at their declared size
+//   T0-RIMG-X  G  the Chrome pass: 0 uncaught exceptions and 0 first-party console errors
+process.env.T0_AGENT ??= 'b1863/images';
 process.env.T0_PORT_BASE ??= '9740';
 import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
 import { spawnSync } from 'node:child_process';
 import crypto from 'node:crypto';
-const { REPO, PORT_BASE, openSession, createStaticServer, createSuite, assert, Skip, emulateViewport } = await import('./lib.mjs');
+const { REPO, TMP, PORT_BASE, openSession, createStaticServer, createSuite, assert, Skip, emulateViewport, cdpFor } = await import('./lib.mjs');
 
 const argv = process.argv.slice(2);
 const opt = (name, dflt) => { const i = argv.indexOf(`--${name}`); return i >= 0 ? (argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : true) : dflt; };
@@ -55,6 +56,7 @@ const FILES = walk(DIST);
 const read = (rel) => fs.readFileSync(path.join(DIST, rel));
 const readText = (rel) => fs.readFileSync(path.join(DIST, rel), 'utf8');
 const sha256 = (b) => crypto.createHash('sha256').update(b).digest('hex');
+const AXE = fs.readFileSync(path.join(REPO, 'node_modules', 'axe-core', 'axe.min.js'), 'utf8');
 const HTML = FILES.filter((f) => f.endsWith('.html'));
 const IMAGE_FILES = FILES.filter((f) => IMG_EXT.test(f) && !f.startsWith('_ops/'));
 
@@ -187,7 +189,7 @@ const guard = (id, title, fn) => suite.test(id, title, fn);
 let lab = null;
 const getLab = async () => (lab ??= await createStaticServer({ root: DIST, port: PORT_BASE }));
 
-guard('T0-IMG-01', 'every image file and every referenced image: exists, HTTP 200, image content type, decodes at byte level', async (ctx) => {
+guard('T0-RIMG-01', 'every image file and every referenced image: exists, HTTP 200, image content type, decodes at byte level', async (ctx) => {
   const lab = await getLab();
   const wanted = new Set(IMAGE_FILES);
   for (const r of refs()) if (r.local && IMG_EXT.test(r.local)) wanted.add(r.local);
@@ -207,7 +209,7 @@ guard('T0-IMG-01', 'every image file and every referenced image: exists, HTTP 20
   assert(og.length > 0, 'no og:image / twitter:image reference found at all');
 });
 
-guard('T0-IMG-02', 'real Chrome decodes every raster, the ICO and the SVG (natural size equals the byte-level size)', async (ctx) => {
+guard('T0-RIMG-02', 'real Chrome decodes every raster, the ICO and the SVG (natural size equals the byte-level size)', async (ctx) => {
   if (NO_BROWSER) throw new Skip('--no-browser');
   const lab = await getLab();
   const s = await session();
@@ -236,7 +238,7 @@ guard('T0-IMG-02', 'real Chrome decodes every raster, the ICO and the SVG (natur
   } finally { await page.close(); }
 });
 
-feature('T0-IMG-03', 'ledger: every image of the tree is a row of LEDGER.md with the same sha256; every row has a source, licence and derivation; md and json agree', async (ctx) => {
+feature('T0-RIMG-03', 'ledger: every image of the tree is a row of LEDGER.md with the same sha256; every row has a source, licence and derivation; md and json agree', async (ctx) => {
   const { rows, text } = ledgerMd(); const led = ledgerJson();
   const byPath = new Map(rows.filter((r) => !r.ui).map((r) => [r.path, r])); const ui = new Set(rows.filter((r) => r.ui).map((r) => r.path));
   const bad = [];
@@ -260,7 +262,7 @@ feature('T0-IMG-03', 'ledger: every image of the tree is a row of LEDGER.md with
   assert(!bad.length, `${bad.length} problem(s): ${bad.slice(0, 12).join(' | ')}`);
 });
 
-feature('T0-IMG-04', 'only real images of Gettysburg: no generic art left, every raster is a REAL-IMAGE-OF-GETTYSBURG row from a public-domain source', async (ctx) => {
+feature('T0-RIMG-04', 'only real images of Gettysburg: no generic art left, every raster is a REAL-IMAGE-OF-GETTYSBURG row from a public-domain source', async (ctx) => {
   const led = ledgerJson(); const by = new Map(led.rows.map((r) => [r.path, r]));
   const bad = [];
   for (const old of ['og/card-r1.png', 'screenshots/day1.png', 'screenshots/day3.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-192.png', 'icons/icon-maskable-512.png']) if (FILES.includes(old)) bad.push(`${old}: generic / generated art is still served`);
@@ -273,7 +275,7 @@ feature('T0-IMG-04', 'only real images of Gettysburg: no generic art left, every
   assert(!bad.length, `${bad.length} problem(s): ${bad.slice(0, 12).join(' | ')}`);
 });
 
-feature('T0-IMG-05', 'alt text and provenance captions: every <img> and every social image', async (ctx) => {
+feature('T0-RIMG-05', 'alt text and provenance captions: every <img> and every social image', async (ctx) => {
   const led = ledgerJson(); const by = new Map(led.rows.map((r) => [r.path, r]));
   const bad = []; let imgs = 0, withOg = 0;
   for (const page of HTML) {
@@ -303,7 +305,7 @@ feature('T0-IMG-05', 'alt text and provenance captions: every <img> and every so
   assert(!bad.length, `${bad.length} problem(s): ${bad.slice(0, 10).join(' | ')}`);
 });
 
-feature('T0-IMG-06', 'social cards: one existing JPEG/PNG of exactly 1200x630 under 300 KB on every page, tags match the pixels', async (ctx) => {
+feature('T0-RIMG-06', 'social cards: one existing JPEG/PNG of exactly 1200x630 under 300 KB on every page, tags match the pixels', async (ctx) => {
   const bad = []; const urls = new Set(); let pages = 0;
   for (const page of HTML) {
     const html = readText(page);
@@ -328,7 +330,7 @@ feature('T0-IMG-06', 'social cards: one existing JPEG/PNG of exactly 1200x630 un
   assert(!bad.length, `${bad.length} problem(s): ${bad.slice(0, 10).join(' | ')}`);
 });
 
-feature('T0-IMG-07', 'manifest and icons: declared sizes and types are true, 512 any + 512 maskable, no unreal screenshots, favicon 16/32, apple-touch-icon 180', async (ctx) => {
+feature('T0-RIMG-07', 'manifest and icons: declared sizes and types are true, 512 any + 512 maskable, no unreal screenshots, favicon 16/32, apple-touch-icon 180', async (ctx) => {
   const bad = [];
   const mf = JSON.parse(readText('manifest.json')); const led = ledgerJson(); const by = new Map(led.rows.map((r) => [r.path, r]));
   const icons = mf.icons || [];
@@ -352,7 +354,7 @@ feature('T0-IMG-07', 'manifest and icons: declared sizes and types are true, 512
   assert(!bad.length, `${bad.length} problem(s): ${bad.slice(0, 10).join(' | ')}`);
 });
 
-guard('T0-IMG-08', 'no hot-linked images; the user guide PDF embeds no picture; inline SVG is UI glyphs or charts only', async (ctx) => {
+guard('T0-RIMG-08', 'no hot-linked images; the user guide PDF embeds no picture; inline SVG is UI glyphs or charts only', async (ctx) => {
   const bad = [];
   for (const r of refs()) if (r.external) bad.push(`${r.from} (${r.kind}): ${r.url}`);
   const pdf = read('user-guide.pdf').toString('latin1');
@@ -365,7 +367,7 @@ guard('T0-IMG-08', 'no hot-linked images; the user guide PDF embeds no picture; 
   assert(!bad.length, `${bad.length} problem(s): ${bad.slice(0, 10).join(' | ')}`);
 });
 
-guard('T0-IMG-09', 'ledger.json sources: complete records, licences on the allow-list, no Google/Bing/Maxar/Mapbox', async (ctx) => {
+guard('T0-RIMG-09', 'ledger.json sources: complete records, licences on the allow-list, no Google/Bing/Maxar/Mapbox', async (ctx) => {
   const led = ledgerJson(); const bad = [];
   const LIC = /(public domain|cc0|no known restrictions)/i;
   for (const s of led.sources) {
@@ -380,12 +382,12 @@ guard('T0-IMG-09', 'ledger.json sources: complete records, licences on the allow
   assert(led.sources.length >= 1 && !bad.length, `${bad.length} problem(s): ${bad.join(' | ')}`);
 });
 
-feature('T0-IMG-10', 'Chrome render: the captioned photographs load, captions are visible with contrast >= 4.5, no horizontal overflow at 375 and 320 px', async (ctx) => {
+feature('T0-RIMG-10', 'Chrome render: the captioned photographs load, captions are visible with contrast >= 4.5, no horizontal overflow at 375 and 320 px', async (ctx) => {
   if (NO_BROWSER) throw new Skip('--no-browser');
   const led = ledgerJson(); const lab = await getLab();
   const figs = led.rows.map((r) => ({ path: r.path, page: (/figure on (\S+\.html)/.exec(r.use) || [])[1] })).filter((x) => x.page);
   assert(figs.length >= 1, 'the ledger names no figure page');
-  const s = await session(); const bad = []; const shots = path.join(REPO, 'tmp', 'images', 'shots'); fs.mkdirSync(shots, { recursive: true });
+  const s = await session(); const bad = []; const shots = path.join(TMP, 'shots'); fs.mkdirSync(shots, { recursive: true });
   for (const f of figs) {
     for (const [w, h, label] of [[1440, 900, 'd'], [375, 812, 'p'], [320, 568, 's']]) {
       const page = await s.newPage();
@@ -413,6 +415,11 @@ feature('T0-IMG-10', 'Chrome render: the captioned photographs load, captions ar
         if (r.ratio < 4.5) bad.push(`${f.page}@${w}: caption contrast ${r.ratio}`);
         if (r.capFont < 12) bad.push(`${f.page}@${w}: caption font ${r.capFont}px`);
         if (r.overflowX > 0) bad.push(`${f.page}@${w}: horizontal overflow ${r.overflowX}px`);
+        if (w === 1440) {   // axe-core on the figure itself: alt text, link name, contrast, no violations of any impact
+          await page.evaluate(AXE);
+          const v = await page.evaluate(async () => (await window.axe.run({ include: [['figure.gtbg-photo']] })).violations.map((x) => `${x.id}(${x.impact})`));
+          if (v.length) bad.push(`${f.page}: axe violations in the figure: ${v.join(', ')}`);
+        }
         if (w === 375 || w === 1440) await page.screenshot({ path: path.join(shots, `${f.page.replace('.html', '')}-${label}.png`) });
         ctx.note(`${f.page}@${w}`, `${r.shown.join('x')} contrast ${r.ratio}`);
       } finally { await page.close(); }
@@ -421,7 +428,30 @@ feature('T0-IMG-10', 'Chrome render: the captioned photographs load, captions ar
   assert(!bad.length, `${bad.length} problem(s): ${bad.slice(0, 10).join(' | ')}`);
 });
 
-guard('T0-IMG-11', 'reproducible: build_images.py --check (committed derivatives and ledger equal what the verified sources give)', async () => {
+guard('T0-RIMG-12', 'Chrome: the manifest parses without errors, no icon/manifest installability error, every manifest icon decodes at its declared size', async (ctx) => {
+  if (NO_BROWSER) throw new Skip('--no-browser');
+  const lab = await getLab(); const s = await session();
+  const probe = path.join(TMP, 'manifest-probe.html'); fs.mkdirSync(path.dirname(probe), { recursive: true });
+  fs.writeFileSync(probe, '<!doctype html><meta charset=utf-8><title>probe</title><link rel="manifest" href="/manifest.json"><body>probe</body>');
+  lab.setOverrides({ '/__manifest-probe.html': probe });
+  const page = await s.newPage();
+  try {
+    await page.goto(`${lab.url}/__manifest-probe.html`, { waitUntil: 'load' });
+    const cdp = await cdpFor(page); await cdp.send('Page.enable');
+    const man = await cdp.send('Page.getAppManifest'); const errors = (man.errors || []).map((e) => e.message);
+    const parsed = JSON.parse(man.data); const inst = await cdp.send('Page.getInstallabilityErrors');
+    ctx.note('manifest parse errors', errors); ctx.note('installability errors', (inst.installabilityErrors || []).map((e) => e.errorId));
+    assert(!errors.length, `manifest parse errors: ${errors.join(' | ')}`);
+    const bad = (inst.installabilityErrors || []).filter((e) => /icon|manifest/i.test(e.errorId));
+    assert(!bad.length, `manifest/icon installability errors: ${bad.map((e) => e.errorId).join(', ')}`);
+    const list = [...(parsed.icons || []), ...(parsed.screenshots || [])];
+    const out = await page.evaluate(async (l) => Promise.all(l.map(async (i) => { const im = new Image(); im.src = i.src; try { await im.decode(); return { src: i.src, sizes: i.sizes, w: im.naturalWidth, h: im.naturalHeight }; } catch (e) { return { src: i.src, sizes: i.sizes, w: 0, h: 0 }; } })), list.map((i) => ({ src: i.src, sizes: i.sizes })));
+    const wrong = out.filter((o) => o.sizes !== `${o.w}x${o.h}`);
+    assert(!wrong.length, `Chrome-decoded size differs from the manifest: ${JSON.stringify(wrong)}`);
+  } finally { lab.setOverrides({}); await page.close(); }
+});
+
+guard('T0-RIMG-11', 'reproducible: build_images.py --check (committed derivatives and ledger equal what the verified sources give)', async () => {
   const src = path.join(REPO, 'tmp', 'b1863', 'images', 'sources');
   if (!fs.existsSync(src) || !fs.readdirSync(src).length) throw new Skip('sources not fetched (python tools/t0/images/fetch_sources.py)');
   const r = spawnSync('python', [path.join(REPO, 'tools', 't0', 'images', 'build_images.py'), '--check'], { encoding: 'utf8' });
@@ -435,18 +465,18 @@ let sess = null; const errors = [];
 async function session() {
   if (sess) return sess;
   await getLab();
-  sess = await openSession({ profile: 'images', cdpPort: PORT_BASE + 1, tiles: 'block', onboarded: true, viewport: { width: 1440, height: 900, dpr: 1, mobile: false, touch: false } });
+  sess = await openSession({ profile: 'spec', cdpPort: PORT_BASE + 1, tiles: 'block', onboarded: true, viewport: { width: 1440, height: 900, dpr: 1, mobile: false, touch: false } });
   const origNew = sess.newPage.bind(sess);
   sess.newPage = async () => { const p = await origNew(); p.on('pageerror', (e) => errors.push(`pageerror ${e.message}`)); p.on('console', (m) => { if (m.type() === 'error') errors.push(`console.error ${m.text()}`.slice(0, 300)); }); return p; };
   return sess;
 }
-guard('T0-IMG-X', 'the Chrome pass had 0 uncaught exceptions and 0 first-party console errors', async () => {
+guard('T0-RIMG-X', 'the Chrome pass had 0 uncaught exceptions and 0 first-party console errors', async () => {
   if (!sess) throw new Skip('no browser test ran');
   const own = errors.filter((e) => !/mapbox|ERR_BLOCKED_BY_CLIENT|Failed to load resource/i.test(e));
   assert(!own.length, own.slice(0, 5).join(' | '));
 });
 
-const outFile = path.join(REPO, 'tmp', 'images', EXPECT_RED ? 'results-red.json' : 'results.json');
+const outFile = path.join(TMP, EXPECT_RED ? 'results-red.json' : 'results.json');
 const summary = await suite.run({ filter: FILTER, outFile, extra: () => ({ dist: path.relative(REPO, DIST).split(path.sep).join('/') }) });
 try { if (sess) await sess.close(); } catch { /* closing */ }
 try { if (lab) await lab.close(); } catch { /* closing */ }

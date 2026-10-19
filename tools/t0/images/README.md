@@ -4,7 +4,7 @@ Optional patch group (owner requirement 2026-10-19). Replaces every generic or c
 
 * What was found and why: `docs/basemap1863/site-images/INVENTORY.md`
 * Licence ledger (every shipped file: what it shows, source, licence, attribution, derivation, sha256): `docs/basemap1863/site-images/LEDGER.md` (+ `ledger.json`)
-* Test: `tests/t0/images.spec.mjs` (T0-IMG-01..11, X)
+* Test: `tests/t0/images.spec.mjs` (T0-RIMG-01..12, X)
 
 ## Use
 
@@ -13,13 +13,13 @@ python tools/t0/images/fetch_sources.py                       # the 5 source pho
 python tools/t0/images/build_images.py                        # derivatives -> tools/t0/images/overlay/common/** and the ledger (committed; --check compares)
 python tools/t0/images/gen_patches.py                         # tools/t0/patches-next/IMG.json + IMG-overlay.json from a built R1c (--check compares)
 python tools/t0/images/img_build.py --train R1c --out tmp/b1863/images/img-R1c       # a train WITH IMG (gates on; --no-gate for speed; --without-img = control)
-node tests/t0/images.spec.mjs --dist tmp/b1863/images/img-R1c/dist                    # 12 tests, 0 Mapbox requests
+node tests/t0/images.spec.mjs --dist tmp/b1863/images/img-R1c/dist                    # 13 tests, 0 Mapbox requests
 node tests/t0/images.spec.mjs --dist release/R1c/dist --expect-red                    # red-first: every feature test fails on a tree without IMG
 python tools/t0/images/inventory.py --dist <tree> [--json out.json]                   # counts and classification of every image of a tree
 python tools/t0/images/verify_sources.py                                              # re-read the institutions' records (Met API, LoC JSON, Commons NARA template)
 python tools/t0/images/selftest.py                                                    # wrapper refusal, determinism, mutated anchors, 10 mutants of a good tree
 ```
-Ports: `T0_PORT_BASE=9740` (static server 9740, Chrome 9741); scratch `tmp/images/`. Builds run at below-normal priority.
+Ports: `T0_PORT_BASE=9740` (static server 9740, Chrome 9741); scratch `tmp/b1863/images/` (Chrome profile, screenshots `shots/`, `results.json`). Builds run at below-normal priority.
 
 ## How the group is wired (why a wrapper)
 
@@ -43,3 +43,15 @@ New files get new names (`og/gettysburg-card.jpg`, `icons/gettysburg-*.png`, `im
 Sources are only public-domain or openly licensed: the Metropolitan Museum of Art Open Access API (CC0), the Library of Congress (rights statement "No known restrictions on publication"), the U.S. National Archives (via the Wikimedia Commons file pages that cite the ARC records). `fetch_sources.py` refuses any other host. Nothing from Google Earth, Google Maps, Bing, Maxar or Mapbox is used. Derivatives are crops and resizes (the social card also has the site title over a crop); nothing is generated, painted or retouched. No aerial or satellite photograph of 1863 exists; none is shown or implied. The reconstructed 1863 basemap is a separate, labelled reconstruction.
 
 Limits: the test reads the ledger from `docs/basemap1863/site-images/`; Georgia Bold and Segoe UI (Windows font folder, not redistributed) are needed only to regenerate the card; the NARA catalogue could not be read by script (see INVENTORY.md section 7); Chrome checks are headless Chrome on Windows.
+
+## Interactions with existing checks (not changed by IMG; for the owner of those files when IMG is integrated)
+
+Measured 2026-10-19 on `img_build.py --train R1c` (and R1a, R1b: IMG anchors match, the gated builds pass, the spec passes without the browser tests):
+
+* **Pass unchanged** with IMG: all 10 gates of `build.py` (anchors 585 records, 0 failed; references; ledger ...), `headers.spec.mjs` HDR-01..08, 10, 12, 13, 24 (`/img/*` gets the generator's default class), `pages-fixes.spec.mjs` PGF-02, 04, 06, 16, `pages-core.spec.mjs` PGC-05, 06, 07 (CLS 0 on education), 09, `pages-maps.spec.mjs` PG-08, and IMG's own T0-RIMG-12 (Chrome reads the manifest with no error and no icon/manifest installability error).
+* **Encode the generic art and fail with IMG** (each is a statement about the files IMG removes, so each needs the owner's edit, none is a regression):
+  * `tests/t0/pages-maps.spec.mjs` PG-06 (runs `tools/t0/assets-src/check_images.py`: card must be a PNG of at most 150 KB, maskable icons must be mode RGB with vector artwork inside the 40 percent safe radius; a photograph is a 139 KB JPEG and a full-bleed photographic icon) and PG-07 (expects `/og/card-r1.png` as `image/png`, the two screenshots and the old icon names);
+  * `tests/t0/headers.spec.mjs` HDR-11 (lines 322-323: `screenshots/day1.png`, `day3.png` "replaced under the same name", cache class of `og/card-r1.png`) and HDR-09, which runs `ops/headers-probe.mjs` probe E-02 on `/icons/icon-192.png` (line 196);
+  * `tests/t0/prod-probe.mjs` line 211 (probe of production paths; unaffected until IMG is deployed);
+  * the generator of the generic art, `tools/t0/assets-src/build_assets.py` (and `release_notes.py` lines 85 and 137, text only).
+  Suggested edits: point those expectations at `og/gettysburg-card.jpg` (JPEG), `icons/gettysburg-192.png`, drop the screenshot rows, and let `check_images.py` accept a JPEG card and a photographic maskable icon (or call `tests/t0/images.spec.mjs` instead).
