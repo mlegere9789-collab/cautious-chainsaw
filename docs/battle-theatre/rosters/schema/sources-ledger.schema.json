@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "roster-sources-ledger",
+  "title": "One source in the sources ledger (sources.json). Every roster row and every reconciliation number must cite one of these.",
+  "type": "object",
+  "required": ["source_id", "citation", "tier", "licence", "retrieved", "files", "transform"],
+  "additionalProperties": false,
+  "properties": {
+    "source_id": { "type": "string", "pattern": "^[A-Z]{2,3}-[A-Z0-9-]+-v[0-9]+$" },
+    "citation": { "type": "string", "description": "author, title, place, year, volume and pages" },
+    "tier": { "enum": ["A-primary-contemporary", "B-official-compilation", "C-regimental-history-or-memoir", "D-modern-secondary", "E-index-or-finding-aid"], "description": "A: muster rolls, returns, reports written at the time. B: adjutant general rosters and commission volumes compiled from A. C: regimental histories. D: modern compilations such as Busey and Martin, Manarin. E: indexes." },
+    "licence": { "enum": ["PD-US", "US-government-work", "restricted-link-out", "permission-granted", "permission-pending"] },
+    "licence_note": { "type": "string" },
+    "terms_url": { "type": ["string", "null"] },
+    "locator": { "type": "string", "description": "Internet Archive identifier or other stable address" },
+    "retrieved": { "type": "string", "format": "date" },
+    "user_agent": { "type": "string" },
+    "files": {
+      "type": "array",
+      "items": { "type": "object", "required": ["name", "sha256", "bytes"], "properties": { "name": { "type": "string" }, "url": { "type": "string" }, "sha256": { "type": "string" }, "bytes": { "type": "integer" } } }
+    },
+    "transform": { "type": "string", "description": "pipeline version and script names that turned the files into rows, with the git commit" },
+    "known_defects": { "type": "array", "items": { "type": "string" } },
+    "attribution": { "type": "string", "description": "text shown on the roster page for this source" }
+  }
+}

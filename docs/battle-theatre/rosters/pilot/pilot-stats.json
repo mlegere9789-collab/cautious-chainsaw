@@ -1,0 +1,67 @@
+{
+ "6th Wisconsin": {
+  "rows": 2098,
+  "unique_persons": 2056,
+  "transfer_pairs": 34,
+  "exact_same_name_pairs": 67,
+  "variant_pairs": 9,
+  "labels": {
+   "Unknown": 929,
+   "Absent-Documented": 982,
+   "Present-Documented": 177,
+   "Duplicate-Xref": 10
+  },
+  "name_flagged_rows": 157,
+  "roll_status": {
+   "unreadable-or-ambiguous": 559,
+   "off-roll-before-battle": 400,
+   "named-present": 177,
+   "on-roll-undetermined": 370,
+   "xref": 10,
+   "not-yet-enlisted": 582
+  },
+  "csv_rows": 2098
+ },
+ "20th Maine": {
+  "rows": 1306,
+  "unique_persons": 1306,
+  "transfer_pairs": 0,
+  "exact_same_name_pairs": 10,
+  "variant_pairs": 0,
+  "labels": {
+   "Unknown": 607,
+   "Present-Documented": 479,
+   "Absent-Documented": 220
+  },
+  "name_flagged_rows": 83,
+  "roll_status": {
+   "on-roll-undetermined": 557,
+   "named-present": 529,
+   "off-roll-before-battle": 216,
+   "unreadable-or-ambiguous": 50,
+   "not-yet-enlisted": 4
+  },
+  "csv_rows": 1356
+ },
+ "26th North Carolina": {
+  "rows": 1925,
+  "unique_persons_if_all_same_name_pairs_merged": 1898,
+  "exact_same_name_pairs": 35,
+  "same_company_same_name_pairs": 27,
+  "variant_pairs": 0,
+  "labels": {
+   "Unknown": 1036,
+   "Present-Documented": 512,
+   "Absent-Documented": 377
+  },
+  "name_flagged_rows": 87,
+  "roll_status": {
+   "on-roll-undetermined": 717,
+   "named-present": 512,
+   "unreadable-or-ambiguous": 319,
+   "not-yet-enlisted": 103,
+   "off-roll-before-battle": 274
+  },
+  "csv_rows": 1925
+ }
+}

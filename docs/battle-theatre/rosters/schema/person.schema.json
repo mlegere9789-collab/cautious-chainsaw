@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "roster-person",
+  "title": "One roster entry: one man as one source printed him, joined to the unit he belongs to at Gettysburg",
+  "type": "object",
+  "required": ["id", "army", "unit_id", "name_as_printed", "label", "basis", "sources"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "description": "stable: <unit_id>-<company or FS>-<zero padded sequence in source order>; never reused when rows are removed (a removed row becomes a tombstone in the ledger)" },
+    "army": { "enum": ["union", "confederate"] },
+    "unit_id": { "type": "string", "description": "matches regiment_id or battery_id in baseline/dist/data/oob (for example U-20ME, C-26NC)" },
+    "company": { "type": "string", "description": "A-K, FS (field and staff), BAND, REC (recruits not on company rolls), or battery section" },
+    "attached_to_unit_id": { "type": ["string", "null"], "description": "set when documented present with another unit (for example detached in Battery B, 4th U.S. Artillery)" },
+    "rank_as_printed": { "type": "string" },
+    "rank_class": { "enum": ["field", "staff", "company_officer", "nco", "musician", "private", "other"] },
+    "rank_at_battle": { "type": ["string", "null"], "description": "only when a source gives it; rank-from dates later than 3 July 1863 are not used" },
+    "name_as_printed": { "type": "string", "description": "exactly as in the source after OCR; never silently corrected" },
+    "name": {
+      "type": "object",
+      "properties": {
+        "surname": { "type": "string" }, "given": { "type": "string" }, "suffix": { "type": "string" },
+        "surname_key": { "type": "string", "description": "lower case, letters only, used for search shards" },
+        "phonetic": { "type": "string", "description": "double metaphone of the surname" },
+        "variants": { "type": "array", "items": { "type": "string" }, "description": "other spellings found in other sources or on other pages" },
+        "status": { "enum": ["as-printed", "corrected-from-image", "corrected-from-second-source", "ocr-suspect"] }
+      }
+    },
+    "residence": { "type": "string" },
+    "age": { "type": ["integer", "null"] },
+    "enlisted": { "type": ["string", "null"], "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$" },
+    "label": { "enum": ["present-documented", "present-probable", "absent-documented", "unknown"] },
+    "roll_status": { "enum": ["named-present", "on-roll-undetermined", "off-roll-before-battle", "not-yet-enlisted", "unreadable-or-ambiguous", "xref"] },
+    "probability": { "type": ["number", "null"], "minimum": 0, "maximum": 1, "description": "present-probable only: the documented estimate that he was present, with the model named in basis; null for the other labels" },
+    "basis": { "type": "array", "items": { "type": "string", "description": "rule codes, for example CAS-REMARK (casualty remark names Gettysburg), PART-LIST (named on a participants list), MUSTER-JUN63-PRESENT, OFFICER-HISTORY, SEP-BEFORE, ENL-AFTER, DRAFTED-1864, ONROLL-NO-STATUS, OCR-DATE-LOST" }, "minItems": 1 },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["kind", "source"],
+        "properties": {
+          "kind": { "enum": ["killed", "mortally-wounded", "wounded", "captured", "missing", "detached", "sick", "furlough", "color-bearer", "promoted", "discharged", "transferred", "deserted", "died", "mustered-out"] },
+          "date": { "type": ["string", "null"] }, "date_precision": { "enum": ["day", "month", "year", "none"] },
+          "place": { "type": ["string", "null"] }, "detail": { "type": ["string", "null"] },
+          "source": { "type": "string" }
+        }
+      }
+    },
+    "flags": { "type": "array", "items": { "enum": ["name-garbled", "ocr-noise-in-name", "ocr-date-conflict", "same-name-different-man-possible", "duplicate-group", "contested", "officer-evidence-needed", "merged-row-suspected"] } },
+    "dup_group": { "type": ["string", "null"] },
+    "sources": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "required": ["source_id", "locator"],
+        "properties": {
+          "source_id": { "type": "string", "description": "key into sources.json (the ledger), for example WI-ROSTER-1886-v1" },
+          "locator": { "type": "string", "description": "page or entry, for example p.513" },
+          "image": { "type": ["string", "null"], "description": "page image URL, for example https://archive.org/download/rosterofwisconsi01wisc/page/n530_w1500.jpg" },
+          "ocr_row_text": { "type": "string" }
+        }
+      }
+    },
+    "evidence_label": { "enum": ["Documented", "Measured", "Computed", "Modelled", "Contested", "Unknown"], "description": "the site vocabulary: present-documented and absent-documented = Documented; present-probable = Modelled; unknown = Unknown; a row on a contested unit reconciliation = Contested" }
+  }
+}

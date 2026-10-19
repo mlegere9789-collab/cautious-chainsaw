@@ -1,0 +1,363 @@
+{
+ "6th Wisconsin": {
+  "documented_strength": [
+   {
+    "value": 340,
+    "meaning": "officers and enlisted men marched in the ranks of the regiment on 1 July 1863 (plus a brigade guard of 2 officers and 100 men attached from the brigade)",
+    "source": "Dawes 1890, Service with the Sixth Wisconsin Volunteers, chapter The Sixth Wisconsin at Gettysburg (IA cu31924030918944), first paragraph",
+    "label": "Documented"
+   },
+   {
+    "value": 344,
+    "meaning": "strength figure carried in the repository OOB file baseline/dist/data/oob/union_regiments_i_ii_corps.json (U-6WI), which cites Busey and Martin 1994 (not re-read this session: IA copy is lending-restricted)",
+    "label": "Documented (second-hand)"
+   }
+  ],
+  "documented_casualties": [
+   {
+    "value": 168,
+    "meaning": "30 killed, 116 wounded, 22 missing",
+    "source": "Fox 1889, Regimental Losses, Sixth Wisconsin notes (IA reglossescivilwar00foxwrich)"
+   },
+   {
+    "value": 169,
+    "meaning": "2+28 killed, 7+109 wounded, 23 missing",
+    "source": "Dawes 1890 appendix table Casualties in the Battle of Gettysburg, p.184 (image read)"
+   },
+   {
+    "value": 168,
+    "meaning": "Dawes footnote: 'Actual loss one hundred and sixty eight' against 160 in a letter",
+    "source": "Dawes 1890"
+   }
+  ],
+  "rows": 2098,
+  "labels": {
+   "Unknown": 929,
+   "Absent-Documented": 982,
+   "Present-Documented": 177,
+   "Duplicate-Xref": 10
+  },
+  "named_casualty_rows": {
+   "killed_at_gettysburg": 31,
+   "wounded_or_other_gettysburg_remark": 155,
+   "officers_named_by_dawes": 16
+  },
+  "by_company": {
+   "A": {
+    "Unknown": 65,
+    "Absent-Documented": 118,
+    "Present-Documented": 11
+   },
+   "B": {
+    "Unknown": 64,
+    "Present-Documented": 18,
+    "Absent-Documented": 112,
+    "Duplicate-Xref": 1
+   },
+   "C": {
+    "Absent-Documented": 92,
+    "Unknown": 68,
+    "Present-Documented": 21
+   },
+   "D": {
+    "Absent-Documented": 119,
+    "Present-Documented": 17,
+    "Unknown": 77
+   },
+   "E": {
+    "Absent-Documented": 114,
+    "Present-Documented": 11,
+    "Unknown": 64,
+    "Duplicate-Xref": 1
+   },
+   "F": {
+    "Absent-Documented": 82,
+    "Unknown": 71,
+    "Present-Documented": 27,
+    "Duplicate-Xref": 4
+   },
+   "FS": {
+    "Unknown": 65,
+    "Absent-Documented": 11,
+    "Present-Documented": 3,
+    "Duplicate-Xref": 1
+   },
+   "G": {
+    "Absent-Documented": 43,
+    "Unknown": 135,
+    "Present-Documented": 14,
+    "Duplicate-Xref": 1
+   },
+   "H": {
+    "Unknown": 127,
+    "Absent-Documented": 83,
+    "Present-Documented": 22
+   },
+   "I": {
+    "Absent-Documented": 71,
+    "Unknown": 109,
+    "Present-Documented": 14
+   },
+   "K": {
+    "Absent-Documented": 99,
+    "Present-Documented": 19,
+    "Unknown": 78,
+    "Duplicate-Xref": 2
+   },
+   "REC": {
+    "Absent-Documented": 38,
+    "Unknown": 6
+   }
+  }
+ },
+ "20th Maine": {
+  "documented_strength": [
+   {
+    "value": 386,
+    "meaning": "went into the fight with 386 all told, 358 guns (28 officers and 358 men present for duty equipped per the official reports)",
+    "source": "Chamberlain report 6 July 1863, OR Series I vol 27 part 1 p.626 (IA warofrebellion012701rootrich); repeated in Maine at Gettysburg 1898 p.254-255"
+   },
+   {
+    "value": 358,
+    "meaning": "monument inscription: lost 130 killed and wounded out of 358 engaged",
+    "source": "Maine at Gettysburg 1898 (IA maineatgettysbur01main), monument texts"
+   },
+   {
+    "value": 386,
+    "meaning": "repository OOB strength U-20ME (cites Busey and Martin)",
+    "label": "Documented (second-hand)"
+   }
+  ],
+  "contested": [
+   {
+    "item": "names on the 1898 participants list",
+    "value": 576,
+    "note": "about 575 named persons (526 privates, NCOs and special-duty men parsed + about 50 officers and staff) against 386 in the official report. The 1898 note says some reported absent sick came up, and pioneers, provost guard and prisoners under arrest went into the ranks, which explains part but not all of the 189-name gap. Not resolved; needs the 30 June 1863 muster rolls."
+   }
+  ],
+  "documented_casualties": [
+   {
+    "value": 130,
+    "meaning": "38 killed or mortally wounded and 92 wounded",
+    "source": "Maine at Gettysburg 1898 monument text"
+   },
+   {
+    "value": 136,
+    "meaning": "loss so far as I can ascertain it (30 killed)",
+    "source": "Chamberlain OR report"
+   },
+   {
+    "value": 41,
+    "meaning": "killed and mortally wounded at Gettysburg",
+    "source": "Fox 1889 20th Maine battle table"
+   }
+  ],
+  "named_casualties": {
+   "parsed": 112,
+   "found_in_participants_list": 111,
+   "note": "regex parse of the Revised Report of Casualties finds 112 of about 130 names; 111 of 112 are also on the participants list"
+  },
+  "rows": 1306,
+  "labels": {
+   "Unknown": 607,
+   "Present-Documented": 479,
+   "Absent-Documented": 220
+  },
+  "participants_without_return_row": 50,
+  "by_company": {
+   "A": {
+    "return_rows": 135,
+    "present_documented": 43,
+    "absent_documented": 23,
+    "unknown_on_roll": 69,
+    "participants_without_return_row": 7
+   },
+   "B": {
+    "return_rows": 120,
+    "present_documented": 39,
+    "absent_documented": 21,
+    "unknown_on_roll": 60,
+    "participants_without_return_row": 5
+   },
+   "C": {
+    "return_rows": 131,
+    "present_documented": 49,
+    "absent_documented": 23,
+    "unknown_on_roll": 59,
+    "participants_without_return_row": 4
+   },
+   "D": {
+    "return_rows": 127,
+    "present_documented": 43,
+    "absent_documented": 34,
+    "unknown_on_roll": 50,
+    "participants_without_return_row": 4
+   },
+   "E": {
+    "return_rows": 134,
+    "present_documented": 43,
+    "absent_documented": 25,
+    "unknown_on_roll": 66,
+    "participants_without_return_row": 7
+   },
+   "F": {
+    "return_rows": 137,
+    "present_documented": 54,
+    "absent_documented": 24,
+    "unknown_on_roll": 59,
+    "participants_without_return_row": 2
+   },
+   "FS": {
+    "return_rows": 28,
+    "present_documented": 1,
+    "absent_documented": 3,
+    "unknown_on_roll": 24,
+    "participants_without_return_row": 0
+   },
+   "G": {
+    "return_rows": 123,
+    "present_documented": 51,
+    "absent_documented": 16,
+    "unknown_on_roll": 56,
+    "participants_without_return_row": 6
+   },
+   "H": {
+    "return_rows": 113,
+    "present_documented": 44,
+    "absent_documented": 12,
+    "unknown_on_roll": 57,
+    "participants_without_return_row": 8
+   },
+   "I": {
+    "return_rows": 129,
+    "present_documented": 56,
+    "absent_documented": 21,
+    "unknown_on_roll": 52,
+    "participants_without_return_row": 5
+   },
+   "K": {
+    "return_rows": 129,
+    "present_documented": 56,
+    "absent_documented": 18,
+    "unknown_on_roll": 55,
+    "participants_without_return_row": 2
+   }
+  }
+ },
+ "26th North Carolina": {
+  "documented_strength": [
+   {
+    "value": 885,
+    "meaning": "aggregate present for duty, enlisted men, per the muster and pay rolls for 30 June 1863; 800 muskets taken into the first day after allowing 10 percent for extra duty and details",
+    "source": "Clark 1901, Histories of the Several Regiments vol 2, 26th Regiment chapter (IA cu31924092908544) pp.371-374"
+   },
+   {
+    "value": 843,
+    "meaning": "repository OOB strength C-26NC (cites Busey and Martin)",
+    "label": "Documented (second-hand)"
+   }
+  ],
+  "contested": [
+   {
+    "item": "casualty total",
+    "values": {
+     "repo OOB (Busey and Martin)": 588,
+     "Clark 1901 killed wounded missing first and third day": 708,
+     "Clark 1901 muster rolls 31 Aug 1863: killed and mortally wounded 139 plus wounded and missing 535": 674
+    },
+    "note": "three different totals; Moore 1882 names only 512 men with a Gettysburg remark"
+   }
+  ],
+  "rows": 1925,
+  "labels": {
+   "Unknown": 1036,
+   "Present-Documented": 512,
+   "Absent-Documented": 377
+  },
+  "by_company": {
+   "A": {
+    "moore_entries": 196,
+    "absent_documented": 39,
+    "present_documented": 63,
+    "unknown_on_roll": 94,
+    "on_roll_not_absent": 157,
+    "clark_present_for_duty_30_june_1863": 97
+   },
+   "B": {
+    "moore_entries": 176,
+    "absent_documented": 43,
+    "present_documented": 25,
+    "unknown_on_roll": 108,
+    "on_roll_not_absent": 133,
+    "clark_present_for_duty_30_june_1863": 92
+   },
+   "C": {
+    "moore_entries": 189,
+    "absent_documented": 29,
+    "present_documented": 50,
+    "unknown_on_roll": 110,
+    "on_roll_not_absent": 160,
+    "clark_present_for_duty_30_june_1863": 80
+   },
+   "D": {
+    "moore_entries": 191,
+    "absent_documented": 21,
+    "present_documented": 18,
+    "unknown_on_roll": 152,
+    "on_roll_not_absent": 170,
+    "clark_present_for_duty_30_june_1863": 79
+   },
+   "E": {
+    "moore_entries": 210,
+    "absent_documented": 42,
+    "present_documented": 70,
+    "unknown_on_roll": 98,
+    "on_roll_not_absent": 168,
+    "clark_present_for_duty_30_june_1863": 104
+   },
+   "F": {
+    "moore_entries": 221,
+    "absent_documented": 56,
+    "present_documented": 71,
+    "unknown_on_roll": 94,
+    "on_roll_not_absent": 165,
+    "clark_present_for_duty_30_june_1863": 91
+   },
+   "G": {
+    "moore_entries": 187,
+    "absent_documented": 31,
+    "present_documented": 54,
+    "unknown_on_roll": 102,
+    "on_roll_not_absent": 156,
+    "clark_present_for_duty_30_june_1863": 91
+   },
+   "H": {
+    "moore_entries": 170,
+    "absent_documented": 35,
+    "present_documented": 49,
+    "unknown_on_roll": 86,
+    "on_roll_not_absent": 135,
+    "clark_present_for_duty_30_june_1863": 78
+   },
+   "I": {
+    "moore_entries": 185,
+    "absent_documented": 48,
+    "present_documented": 50,
+    "unknown_on_roll": 87,
+    "on_roll_not_absent": 137,
+    "clark_present_for_duty_30_june_1863": 74
+   },
+   "K": {
+    "moore_entries": 184,
+    "absent_documented": 33,
+    "present_documented": 59,
+    "unknown_on_roll": 92,
+    "on_roll_not_absent": 151,
+    "clark_present_for_duty_30_june_1863": 99
+   }
+  },
+  "company_officers_present": [
+   "Clark 1901 p.371-372 lists the company officers present on 30 June 1863 and the officers absent (Mclver, Hays, Jordan detached; Ingram sick furlough)"
+  ]
+ }
+}
