@@ -1,0 +1,59 @@
+{
+ "map_id": "bachelder-1876-sheet2",
+ "title": "Bachelder, Map of the battle field of Gettysburg, Second day's battle (1876)",
+ "loc_item": "https://www.loc.gov/item/99447491/",
+ "scan": "cw0325000b.jp2",
+ "crs": "EPSG:32618",
+ "method": "SIFT feature matching to the Warren scan (same engraved topographic base), robust affine (RANSAC), composed with the Warren affine",
+ "px_to_en": {
+  "A": [
+   [
+    0.9921303791772613,
+    -0.04603300973599945
+   ],
+   [
+    -0.06488004508674608,
+    -1.0247045756180884
+   ]
+  ],
+  "t": [
+   304275.017332947,
+   4415890.242588482
+  ]
+ },
+ "en_to_px": {
+  "A": [
+   [
+    1.004979675809979,
+    -0.04514690409490712
+   ],
+   [
+    -0.0636311462144933,
+    -0.9730325115659559
+   ]
+  ],
+  "t": [
+   -106426.43500056249,
+   4316166.1416628
+  ]
+ },
+ "px_to_warren_px": [
+  [
+   1.0048388912670632,
+   0.0038899313597695923,
+   256.3174973575738
+  ],
+  [
+   -0.0013822875742769787,
+   1.0115442822791263,
+   -336.0826329782316
+  ]
+ ],
+ "accuracy": {
+  "sift_inliers": 3305,
+  "sift_matches": 3776,
+  "relative_to_warren_rms_m": 4.87,
+  "relative_to_warren_median_m": 4.05,
+  "absolute_rmse_m_note": "relative error adds in quadrature to the Warren absolute error (16.5 m leave-one-out RMSE)"
+ }
+}

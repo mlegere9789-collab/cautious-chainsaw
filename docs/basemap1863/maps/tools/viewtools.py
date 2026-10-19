@@ -85,6 +85,17 @@ def station(scan, en2px, ec, nc, half, out, ppm=0.5, mpp=1.027, roads=True, grid
     sc = S / (x1 - x0)
     # grid on the scan: every 100 scan px
     _grid(im, x0, y0, 100, sc)
+    if roads and os.environ.get('LEFTROADS', '1') == '1':
+        d = ImageDraw.Draw(im)
+        for name, col in [('tiger_local', (255, 0, 255)), ('tiger_secondary', (255, 120, 0)), ('tiger_primary', (255, 0, 0)), ('tiger_rail', (0, 150, 0))]:
+            for nm, gg in vec(name):
+                segs = [gg['coordinates']] if gg['type'] == 'LineString' else gg['coordinates']
+                for sg in segs:
+                    if not any(abs(c[0] - ec) < half * 1.2 and abs(c[1] - nc) < half * 1.2 for c in sg): continue
+                    pts = []
+                    for c in sg:
+                        px_, py_ = en2px(c[0], c[1]); pts.append(((px_ - x0) * sc, (py_ - y0) * sc))
+                    d.line(pts, fill=col, width=1)
     ground_crop(ec - half, nc - half, ec + half, nc + half, out + '.g.png', scale=ppm, step=gridm, roads=roads, tif=tif)
     g = Image.open(out + '.g.png'); g.load()
     json.dump(dict(scan_x0=x0, scan_y0=y0, sc=sc, e0=ec - half, n_top=nc + half, ppm=ppm, S=S), open(out + '.json', 'w'))

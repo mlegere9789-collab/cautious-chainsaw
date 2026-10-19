@@ -1,0 +1,59 @@
+{
+ "map_id": "bachelder-1876-sheet3",
+ "title": "Bachelder, Map of the battle field of Gettysburg, Third day's battle (1876)",
+ "loc_item": "https://www.loc.gov/item/99447491/",
+ "scan": "cw0325000c.jp2",
+ "crs": "EPSG:32618",
+ "method": "SIFT feature matching to the Warren scan (same engraved topographic base), robust affine (RANSAC), composed with the Warren affine",
+ "px_to_en": {
+  "A": [
+   [
+    0.9869676526466283,
+    -0.050505957538266054
+   ],
+   [
+    -0.06745549851353445,
+    -1.026729433335629
+   ]
+  ],
+  "t": [
+   304339.7142333362,
+   4416031.553064774
+  ]
+ },
+ "en_to_px": {
+  "A": [
+   [
+    1.0098094268131863,
+    -0.049673643684952834
+   ],
+   [
+    -0.06634386438893784,
+    -0.9707029011181096
+   ]
+  ],
+  "t": [
+   -87964.73451800572,
+   4306845.712718352
+  ]
+ },
+ "px_to_warren_px": [
+  [
+   0.9997532121927686,
+   -0.0005264124574876471,
+   314.6897080285965
+  ],
+  [
+   0.0014919561195285628,
+   1.0138312716604054,
+   -479.4149749854565
+  ]
+ ],
+ "accuracy": {
+  "sift_inliers": 3706,
+  "sift_matches": 4787,
+  "relative_to_warren_rms_m": 4.83,
+  "relative_to_warren_median_m": 3.91,
+  "absolute_rmse_m_note": "relative error adds in quadrature to the Warren absolute error (16.5 m leave-one-out RMSE)"
+ }
+}

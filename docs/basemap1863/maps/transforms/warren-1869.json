@@ -1,0 +1,329 @@
+{
+ "map_id": "warren-1869",
+ "title": "Map of the battle-field of Gettysburg (Warren survey 1868-69, revised 1873)",
+ "loc_item": "https://www.loc.gov/item/99448794/",
+ "scan": "cw0353500.jp2",
+ "crs": "EPSG:32618",
+ "gcp_file": "docs/basemap1863/maps/gcps/warren.json",
+ "n_gcps": 23,
+ "model_recommended": "affine",
+ "px_to_en": {
+  "A": [
+   [
+    0.9872848623610838,
+    -0.04930429735686204
+   ],
+   [
+    -0.0659607886541599,
+    -1.012756446380763
+   ]
+  ],
+  "t": [
+   304005.38862977474,
+   4415566.779639688
+  ],
+  "note": "E,N = A @ [x,y] + t ; x right, y down in the 8878x9845 service JP2 of the LOC item"
+ },
+ "en_to_px": {
+  "A": [
+   [
+    1.009595142395714,
+    -0.049150394735682675
+   ],
+   [
+    -0.06575489304641081,
+    -0.9842030675416931
+   ]
+  ],
+  "t": [
+   -89895.51342168395,
+   4365804.211271459
+  ]
+ },
+ "affine_scale_m_per_px": [
+  0.9894858387502183,
+  1.0139558833714835
+ ],
+ "rotation_deg": 3.8222673951302086,
+ "accuracy": {
+  "fit_rmse_m": 13.894235198305662,
+  "loo_rmse_m": 16.476985924382742,
+  "loo_max_m": 36.497019918449304,
+  "loo_median_m": 12.606062255483073,
+  "robust_affine_n": 21,
+  "robust_fit_rmse_m": 10.732772874927978,
+  "independent_road_line_rmse_m": 13.894201762045803,
+  "independent_road_line_resid_m": [
+   2.0,
+   0.9,
+   3.0,
+   18.1,
+   28.0,
+   5.4
+  ],
+  "n_independent_lines": 6
+ },
+ "model_comparison": [
+  {
+   "model": "affine",
+   "smooth": 0,
+   "n": 23,
+   "fit_rmse_m": 13.89,
+   "loo_rmse_m": 16.48,
+   "loo_max_m": 36.5,
+   "loo_median_m": 12.61
+  },
+  {
+   "model": "poly2",
+   "smooth": 0,
+   "n": 23,
+   "fit_rmse_m": 11.13,
+   "loo_rmse_m": 16.28,
+   "loo_max_m": 37.77,
+   "loo_median_m": 8.55
+  },
+  {
+   "model": "tps",
+   "smooth": 0.5,
+   "n": 23,
+   "fit_rmse_m": 7.56,
+   "loo_rmse_m": 16.62,
+   "loo_max_m": 41.21,
+   "loo_median_m": 10.97
+  },
+  {
+   "model": "tps",
+   "smooth": 2.0,
+   "n": 23,
+   "fit_rmse_m": 9.76,
+   "loo_rmse_m": 15.57,
+   "loo_max_m": 37.07,
+   "loo_median_m": 9.29
+  }
+ ],
+ "residuals": [
+  {
+   "id": "W001",
+   "name": "Culp's Hill summit",
+   "kind": "summit",
+   "resid_m": 12.7,
+   "loo_m": 15.0,
+   "dE": 1.3,
+   "dN": -12.6
+  },
+  {
+   "id": "W010",
+   "name": "Peach Orchard crossroads (Emmitsburg Rd x Millerstown/Wheatfield Rd)",
+   "kind": "road-junction",
+   "resid_m": 18.6,
+   "loo_m": 22.4,
+   "dE": 18.4,
+   "dN": 2.6
+  },
+  {
+   "id": "W011",
+   "name": "Baltimore St x South St",
+   "kind": "road-junction",
+   "resid_m": 11.4,
+   "loo_m": 12.6,
+   "dE": -3.3,
+   "dN": -10.9
+  },
+  {
+   "id": "W012",
+   "name": "Baltimore St / Steinwehr Ave fork (Cemetery Hill foot)",
+   "kind": "road-junction",
+   "resid_m": 2.6,
+   "loo_m": 2.9,
+   "dE": -2.2,
+   "dN": 1.4
+  },
+  {
+   "id": "W013",
+   "name": "Taneytown Rd x Wheatfield Rd",
+   "kind": "road-junction",
+   "resid_m": 13.7,
+   "loo_m": 16.7,
+   "dE": -6.6,
+   "dN": -12.0
+  },
+  {
+   "id": "W014",
+   "name": "Hanover Rd bridge over Rock Creek",
+   "kind": "bridge",
+   "resid_m": 20.0,
+   "loo_m": 24.6,
+   "dE": 15.3,
+   "dN": 12.9
+  },
+  {
+   "id": "W015",
+   "name": "York Pike bridge over Rock Creek",
+   "kind": "bridge",
+   "resid_m": 27.5,
+   "loo_m": 33.5,
+   "dE": 10.6,
+   "dN": 25.4
+  },
+  {
+   "id": "W016",
+   "name": "Hill summit W of Plum Run (DEM S160)",
+   "kind": "summit",
+   "resid_m": 13.2,
+   "loo_m": 15.9,
+   "dE": 12.2,
+   "dN": -5.2
+  },
+  {
+   "id": "W017",
+   "name": "Hill summit E of Devil's Den (DEM S149)",
+   "kind": "summit",
+   "resid_m": 10.1,
+   "loo_m": 11.5,
+   "dE": 9.1,
+   "dN": 4.2
+  },
+  {
+   "id": "F001",
+   "name": "Sherfy house",
+   "kind": "farm-building",
+   "resid_m": 1.1,
+   "loo_m": 1.4,
+   "dE": -0.3,
+   "dN": -1.1
+  },
+  {
+   "id": "F002",
+   "name": "Sherfy barn",
+   "kind": "farm-building",
+   "resid_m": 9.2,
+   "loo_m": 10.9,
+   "dE": 9.1,
+   "dN": 0.9
+  },
+  {
+   "id": "F003",
+   "name": "Trostle barn",
+   "kind": "farm-building",
+   "resid_m": 14.1,
+   "loo_m": 15.1,
+   "dE": 0.6,
+   "dN": -14.1
+  },
+  {
+   "id": "F004",
+   "name": "Trostle house",
+   "kind": "farm-building",
+   "resid_m": 6.3,
+   "loo_m": 6.7,
+   "dE": -6.1,
+   "dN": 1.6
+  },
+  {
+   "id": "F005",
+   "name": "Rose house",
+   "kind": "farm-building",
+   "resid_m": 18.9,
+   "loo_m": 22.0,
+   "dE": -7.3,
+   "dN": 17.4
+  },
+  {
+   "id": "F008",
+   "name": "Hummelbaugh farm building",
+   "kind": "farm-building",
+   "resid_m": 2.3,
+   "loo_m": 2.5,
+   "dE": -1.0,
+   "dN": 2.1
+  },
+  {
+   "id": "F009",
+   "name": "S. Patterson house",
+   "kind": "farm-building",
+   "resid_m": 10.2,
+   "loo_m": 12.3,
+   "dE": 10.0,
+   "dN": -1.9
+  },
+  {
+   "id": "T101",
+   "name": "Baltimore St x 1st E-W alley N of Middle St",
+   "kind": "road-junction",
+   "resid_m": 12.1,
+   "loo_m": 14.0,
+   "dE": -10.1,
+   "dN": -6.6
+  },
+  {
+   "id": "T102",
+   "name": "Baltimore St x Middle St",
+   "kind": "road-junction",
+   "resid_m": 12.2,
+   "loo_m": 14.0,
+   "dE": -10.4,
+   "dN": -6.3
+  },
+  {
+   "id": "T103",
+   "name": "Baltimore St x Legion Alley",
+   "kind": "road-junction",
+   "resid_m": 9.8,
+   "loo_m": 11.2,
+   "dE": -8.0,
+   "dN": -5.7
+  },
+  {
+   "id": "F010",
+   "name": "Leister house",
+   "kind": "farm-building",
+   "resid_m": 1.2,
+   "loo_m": 1.2,
+   "dE": 0.1,
+   "dN": -1.2
+  },
+  {
+   "id": "W004",
+   "name": "Big Round Top summit",
+   "kind": "summit",
+   "resid_m": 30.5,
+   "loo_m": 36.5,
+   "dE": -25.0,
+   "dN": 17.5
+  },
+  {
+   "id": "W003",
+   "name": "Little Round Top summit",
+   "kind": "summit",
+   "resid_m": 5.9,
+   "loo_m": 6.8,
+   "dE": -3.5,
+   "dN": -4.7
+  },
+  {
+   "id": "W002",
+   "name": "Stevens Knoll summit",
+   "kind": "summit",
+   "resid_m": 4.8,
+   "loo_m": 5.3,
+   "dE": -2.8,
+   "dN": -3.9
+  }
+ ],
+ "robust_px_to_en": {
+  "A": [
+   [
+    0.986262846162005,
+    -0.05129859071730891
+   ],
+   [
+    -0.06338267314932731,
+    -1.0124591792141473
+   ]
+  ],
+  "t": [
+   304022.0677620345,
+   4415554.126173395
+  ]
+ }
+}

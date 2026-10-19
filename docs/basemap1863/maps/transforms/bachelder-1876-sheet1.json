@@ -1,0 +1,59 @@
+{
+ "map_id": "bachelder-1876-sheet1",
+ "title": "Bachelder, Map of the battle field of Gettysburg, First day's battle (1876)",
+ "loc_item": "https://www.loc.gov/item/99447491/",
+ "scan": "cw0325000a.jp2",
+ "crs": "EPSG:32618",
+ "method": "SIFT feature matching to the Warren scan (same engraved topographic base), robust affine (RANSAC), composed with the Warren affine",
+ "px_to_en": {
+  "A": [
+   [
+    0.99204804333319,
+    -0.04927627807023464
+   ],
+   [
+    -0.06807619280349703,
+    -1.0239049192924903
+   ]
+  ],
+  "t": [
+   304297.42525495717,
+   4415712.320820885
+  ]
+ },
+ "en_to_px": {
+  "A": [
+   [
+    1.004697698303282,
+    -0.04835191454332175
+   ],
+   [
+    -0.06679916555746698,
+    -0.9734384189030441
+   ]
+  ],
+  "t": [
+   -92218.77796904607,
+   4318750.83399889
+  ]
+ },
+ "px_to_warren_px": [
+  [
+   1.0049128573207555,
+   0.0005762399799838767,
+   287.68535167971527
+  ],
+  [
+   0.0017687847974864784,
+   1.010970518832932,
+   -162.44491404142343
+  ]
+ ],
+ "accuracy": {
+  "sift_inliers": 3936,
+  "sift_matches": 4687,
+  "relative_to_warren_rms_m": 4.7,
+  "relative_to_warren_median_m": 3.9,
+  "absolute_rmse_m_note": "relative error adds in quadrature to the Warren absolute error (16.5 m leave-one-out RMSE)"
+ }
+}

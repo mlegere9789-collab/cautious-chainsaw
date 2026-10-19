@@ -1,6 +1,6 @@
 {
- "map": "",
- "scan": "",
+ "map": "warren-1869",
+ "scan": "cw0353500.jp2",
  "gcps": [
   {
    "id": "W001",
@@ -18,19 +18,428 @@
    "station": "st3.png"
   },
   {
+   "id": "W010",
+   "name": "Peach Orchard crossroads (Emmitsburg Rd x Millerstown/Wheatfield Rd)",
+   "kind": "road-junction",
+   "px": [
+    3782.2,
+    7049.8
+   ],
+   "en": [
+    307373.5,
+    4408175.0
+   ],
+   "note": "four-way crossing, drawn in scan as paired road edges, same crossing in NAIP/TIGER",
+   "station": "sb2.png"
+  },
+  {
+   "id": "W011",
+   "name": "Baltimore St x South St",
+   "kind": "road-junction",
+   "px": [
+    5338.7,
+    4370.9
+   ],
+   "en": [
+    309064.0,
+    4410798.9
+   ],
+   "note": "street crossing, town south edge, both drawn in scan",
+   "station": "z1.png#0"
+  },
+  {
+   "id": "W012",
+   "name": "Baltimore St / Steinwehr Ave fork (Cemetery Hill foot)",
+   "kind": "road-junction",
+   "px": [
+    5347.3,
+    4519.4
+   ],
+   "en": [
+    309064.1,
+    4410635.6
+   ],
+   "note": "Y fork of Baltimore Pike/Steinwehr from Baltimore St",
+   "station": "z1.png#2"
+  },
+  {
+   "id": "W013",
+   "name": "Taneytown Rd x Wheatfield Rd",
+   "kind": "road-junction",
+   "px": [
+    5415.5,
+    7807.5
+   ],
+   "en": [
+    308973.7,
+    4407314.5
+   ],
+   "note": "crossroad; E-W road in scan meets N-S road; TIGER node N0058",
+   "station": "z2.png#2"
+  },
+  {
+   "id": "W014",
+   "name": "Hanover Rd bridge over Rock Creek",
+   "kind": "bridge",
+   "px": [
+    6479.6,
+    3729.8
+   ],
+   "en": [
+    310203.4,
+    4411349.1
+   ],
+   "note": "road crossing creek; modern bridge from NAIP; TIGER/NHD B0160",
+   "station": "z3.png#0"
+  },
+  {
+   "id": "W015",
+   "name": "York Pike bridge over Rock Creek",
+   "kind": "bridge",
+   "px": [
+    6309.6,
+    3320.3
+   ],
+   "en": [
+    310060.5,
+    4411762.5
+   ],
+   "note": "bridge symbol in scan; NAIP bridge deck; B0161",
+   "station": "z3.png#1"
+  },
+  {
+   "id": "W016",
+   "name": "Hill summit W of Plum Run (DEM S160)",
+   "kind": "summit",
+   "px": [
+    4131.1,
+    9059.5
+   ],
+   "en": [
+    307625.1,
+    4406124.4
+   ],
+   "note": "bold summit circle in scan vs DEM maximum (z 174 m)",
+   "station": "z5.png#4"
+  },
+  {
+   "id": "W017",
+   "name": "Hill summit E of Devil's Den (DEM S149)",
+   "kind": "summit",
+   "px": [
+    4574.0,
+    8390.9
+   ],
+   "en": [
+    308098.4,
+    4406762.9
+   ],
+   "note": "nested closed contours vs DEM maximum (z 181 m)",
+   "station": "z5.png#5"
+  },
+  {
+   "id": "F001",
+   "name": "Sherfy house",
+   "kind": "farm-building",
+   "px": [
+    3837.1,
+    6826.5
+   ],
+   "en": [
+    307457.4,
+    4408401.2
+   ],
+   "note": "1863 house (still stands, NPS Sherfy farm); black blob in scan",
+   "station": "z8.png#0"
+  },
+  {
+   "id": "F002",
+   "name": "Sherfy barn",
+   "kind": "farm-building",
+   "px": [
+    3843.9,
+    6893.9
+   ],
+   "en": [
+    307451.4,
+    4408330.5
+   ],
+   "note": "barn S of house",
+   "station": "z8.png#0"
+  },
+  {
+   "id": "F003",
+   "name": "Trostle barn",
+   "kind": "farm-building",
+   "px": [
+    4411.2,
+    6991.8
+   ],
+   "en": [
+    308015.2,
+    4408208.9
+   ],
+   "note": "stone barn; larger blob",
+   "station": "z8.png#1"
+  },
+  {
+   "id": "F004",
+   "name": "Trostle house",
+   "kind": "farm-building",
+   "px": [
+    4441.5,
+    7031.6
+   ],
+   "en": [
+    308049.8,
+    4408150.9
+   ],
+   "note": "house",
+   "station": "z8.png#1"
+  },
+  {
+   "id": "F005",
+   "name": "Rose house",
+   "kind": "farm-building",
+   "px": [
+    3842.1,
+    7557.5
+   ],
+   "en": [
+    307433.3,
+    4407642.0
+   ],
+   "note": "house",
+   "station": "z8.png#2"
+  },
+  {
+   "id": "F006",
+   "name": "J. Weikert house A",
+   "kind": "farm-building",
+   "px": [
+    4799.2,
+    7390.2
+   ],
+   "en": [
+    308438.3,
+    4407734.7
+   ],
+   "note": "NW building of cluster [excluded: building identity unverified; 40-58 m from fit]",
+   "station": "z8.png#3",
+   "use": false
+  },
+  {
+   "id": "F007",
+   "name": "J. Weikert house B",
+   "kind": "farm-building",
+   "px": [
+    4847.5,
+    7407.0
+   ],
+   "en": [
+    308469.6,
+    4407723.3
+   ],
+   "note": "SE building of cluster [excluded: building identity unverified; 40-58 m from fit]",
+   "station": "z8.png#3",
+   "use": false
+  },
+  {
+   "id": "F008",
+   "name": "Hummelbaugh farm building",
+   "kind": "farm-building",
+   "px": [
+    5306.0,
+    6301.8
+   ],
+   "en": [
+    308934.2,
+    4408832.5
+   ],
+   "note": "small building at Hummelbaugh site; near-zero offset from affine prediction; identity as 1863 structure uncertain",
+   "station": "z9.png#0"
+  },
+  {
+   "id": "F009",
+   "name": "S. Patterson house",
+   "kind": "farm-building",
+   "px": [
+    5702.9,
+    7163.2
+   ],
+   "en": [
+    309272.6,
+    4407937.9
+   ],
+   "note": "house; identity as 1863 structure uncertain",
+   "station": "z9.png#4"
+  },
+  {
+   "id": "T101",
+   "name": "Baltimore St x 1st E-W alley N of Middle St",
+   "kind": "road-junction",
+   "px": [
+    5316.6,
+    3868.4
+   ],
+   "en": [
+    309073.8,
+    4411304.9
+   ],
+   "note": "street grid, 4-way; centreline",
+   "station": "z10.png#0"
+  },
+  {
+   "id": "T102",
+   "name": "Baltimore St x Middle St",
+   "kind": "road-junction",
+   "px": [
+    5320.0,
+    3930.1
+   ],
+   "en": [
+    309074.4,
+    4411241.9
+   ],
+   "note": "street grid, 4-way",
+   "station": "z10.png#1"
+  },
+  {
+   "id": "T103",
+   "name": "Baltimore St x Legion Alley",
+   "kind": "road-junction",
+   "px": [
+    5321.6,
+    3995.7
+   ],
+   "en": [
+    309070.3,
+    4411174.8
+   ],
+   "note": "street grid, 4-way",
+   "station": "z10.png#2"
+  },
+  {
+   "id": "F010",
+   "name": "Leister house",
+   "kind": "farm-building",
+   "px": [
+    5282.9,
+    5602.5
+   ],
+   "en": [
+    308944.8,
+    4409545.5
+   ],
+   "note": "house W of Taneytown Rd; extant (NPS Leister farm); pairing moderately uncertain (+-10 m)",
+   "station": "z12.png#0"
+  },
+  {
+   "id": "W004",
+   "name": "Big Round Top summit",
+   "kind": "summit",
+   "px": [
+    4725.0,
+    8693.7
+   ],
+   "en": [
+    308266.7,
+    4406433.0
+   ],
+   "note": "ring around summit mark in scan vs DEM maximum (DEM is modern surface; +-8 m)",
+   "station": "z13.png#0"
+  },
+  {
+   "id": "W003",
+   "name": "Little Round Top summit",
+   "kind": "summit",
+   "px": [
+    4946.7,
+    8067.0
+   ],
+   "en": [
+    308495.0,
+    4407075.3
+   ],
+   "note": "summit circle vs DEM maximum",
+   "station": "z13.png#1"
+  },
+  {
    "id": "W002",
    "name": "Stevens Knoll summit",
    "kind": "summit",
    "px": [
-    5920.4,
-    5057.5
+    5921.5,
+    5057.6
    ],
    "en": [
-    309599.0,
-    4410060.0
+    309605.0,
+    4410058.0
    ],
-   "note": "spot 452 label vs DEM max",
-   "station": "st3.png"
+   "note": "innermost closed contour (452) vs DEM maximum",
+   "station": "z13.png#4"
+  }
+ ],
+ "lines": [
+  {
+   "id": "L001",
+   "road": "Emmitsburg Rd",
+   "px": [
+    4200.1,
+    6399.2
+   ],
+   "note": "centre of dash-dot road pair",
+   "station": "rv3.png"
+  },
+  {
+   "id": "L002",
+   "road": "Emmitsburg Rd",
+   "px": [
+    4030.1,
+    6592.8
+   ],
+   "note": "centre of road pair",
+   "station": "rv3.png"
+  },
+  {
+   "id": "L003",
+   "road": "Emmitsburg Rd",
+   "px": [
+    4255.4,
+    6341.8
+   ],
+   "note": "centre of road pair",
+   "station": "rv3.png"
+  },
+  {
+   "id": "L004",
+   "road": "Taneytown Rd",
+   "px": [
+    5507.1,
+    8690.6
+   ],
+   "note": "centre between paired edge lines",
+   "station": "rv4.png"
+  },
+  {
+   "id": "L005",
+   "road": "Taneytown Rd",
+   "px": [
+    5514.8,
+    8946.7
+   ],
+   "note": "centre between paired edge lines",
+   "station": "rv4.png"
+  },
+  {
+   "id": "L006",
+   "road": "Baltimore Pike",
+   "px": [
+    6513.0,
+    6206.4
+   ],
+   "note": "centre of road pair",
+   "station": "rv5.png"
   }
  ]
 }
