@@ -3,7 +3,8 @@ import test, { describe } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { P } from '../../tools/time/lib.mjs';
-import m, { createPlayback, storyPace, makeBridge } from '../../src/lib/time/index.js';
+import { createPlayback, storyPace, makeBridge } from '../../src/lib/time/index.js';
+import { proposalModel as m } from './helpers.mjs'; // pins describe the frozen 2026-09-30 proposal (live: see adjudicated.test.mjs)
 
 describe('createPlayback (Battle-time pace)', () => {
   test('the clock advances at a constant rate in battle-minutes per second, independent of ticks', () => {

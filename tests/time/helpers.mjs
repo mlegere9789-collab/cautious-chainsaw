@@ -2,8 +2,16 @@
 import { P, readJson, readCsv } from '../../tools/time/lib.mjs';
 import { makeTimeModel } from '../../src/lib/time/index.js';
 
+// `doc` / `model` are the LIVE adjudicated document (data-src/time/time_anchors.json). `proposal` / `proposalModel` are the FROZEN 2026-09-30
+// specialist proposal (tests/time/fixtures/anchors-proposal-2026-09-30.json). The numeric oracles that describe the proposal (CSV agreement, golden
+// residuals, leave-one-out, slopes and labels at the proposal's times) run on `proposal`. Evidence reason for freezing it: the owner decision of
+// 2026-10-05 (item 2) and the adjudication of 2026-10-18 (docs/time/ANCHORS-FINAL.md) change anchor times, windows and sigma in the live file,
+// which would silently re-pin every one of those oracles; the live file is covered by tests/time/adjudicated.test.mjs and by the structural,
+// schema, validator and generated-file tests.
 export const doc = readJson(P('data-src', 'time', 'time_anchors.json'));
 export const model = makeTimeModel(doc);
+export const proposal = readJson(P('tests', 'time', 'fixtures', 'anchors-proposal-2026-09-30.json'));
+export const proposalModel = makeTimeModel(proposal);
 export const csv = (name) => readCsv(P('docs', 'plan', 'data', name));
 
 /** deterministic PRNG (mulberry32) so property tests are reproducible */

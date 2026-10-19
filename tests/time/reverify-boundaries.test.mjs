@@ -4,7 +4,8 @@
 import test, { describe } from 'node:test';
 import assert from 'node:assert/strict';
 import m, { makeTimeModel, createPlayback, storyPace, makeBridge, validateAnchors } from '../../src/lib/time/index.js';
-import { doc } from './helpers.mjs';
+// Evidence reason (docs/time/ANCHORS-FINAL.md): the numeric pins in this file describe the FROZEN 2026-09-30 proposal; the live adjudicated file moves anchors and widens windows.
+import { proposal as doc } from './helpers.mjs';
 
 const clone = (x) => JSON.parse(JSON.stringify(x));
 // a tiny document: ticks 1..10, every anchor spelled out

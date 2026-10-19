@@ -2,8 +2,12 @@
 // CANDIDATE: the anchors under test are proposed and unreviewed (D-TIME); these tests prove the machinery, not the history.
 import test, { describe } from 'node:test';
 import assert from 'node:assert/strict';
-import m, { makeTimeModel, tickToClock, clockToTick, tickToLabel, parseLocal, resolveTickParam } from '../../src/lib/time/index.js';
-import { doc, rng, randomDoc, isoFromMinutes } from './helpers.mjs';
+import { makeTimeModel, parseLocal } from '../../src/lib/time/index.js';
+// The numeric pins in this file (tick positions of midnight, slopes, night-tick counts, labels at 5-minute rounding) describe the FROZEN 2026-09-30
+// proposal (helpers.mjs). The live adjudicated file moves 12 anchors and widens most windows (docs/time/ANCHORS-FINAL.md); its own pins are in
+// adjudicated.test.mjs. `m` and the bound functions below are the proposal's model, `doc` its document.
+import { proposal as doc, proposalModel as m, rng, randomDoc, isoFromMinutes } from './helpers.mjs';
+const { tickToClock, clockToTick, tickToLabel, resolveTickParam } = m;
 
 const T = m.tickMax;
 const A = doc.anchors;

@@ -4,7 +4,9 @@ import assert from 'node:assert/strict';
 import { P, readJson, parseHm, parseJulyDay, julyMinutes, isoOf } from '../../tools/time/lib.mjs';
 import { validate as jsValidate, unsupported } from '../../tools/time/jsonschema.mjs';
 import { validateAnchors, loadAnchors, AnchorError, deriveSigma, mechanicalFlags, makeTimeModel } from '../../src/lib/time/index.js';
-import { doc, csv } from './helpers.mjs';
+// `doc` here is the FROZEN 2026-09-30 proposal (see helpers.mjs): the CSV agreement, sigma/flag derivation and validator-mutation checks pin that
+// document. The live adjudicated file is checked against the same schema and validator in adjudicated.test.mjs.
+import { proposal as doc, csv } from './helpers.mjs';
 
 const schema = readJson(P('data-src', 'time', 'time_anchors.schema.json'));
 const A = doc.anchors;

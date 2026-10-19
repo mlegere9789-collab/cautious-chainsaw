@@ -9,7 +9,7 @@ import m, { makeBridge, makeTimeModel, parseLocal } from '../../src/lib/time/ind
 import { P, readText, readJson } from '../../tools/time/lib.mjs';
 import { buildInline, pruneReturn, stripRegions, KEEP, sizeOf } from '../../tools/time/inline.mjs';
 import { inlineDoc, runtimeDoc } from '../../tools/time/slim.mjs';
-import { doc } from './helpers.mjs';
+import { doc, proposal } from './helpers.mjs';
 
 const T = m.tickMax;
 const STYLES = ['compat', 'chip', 'time', 'day', 'date', 'long', 'short', 'aria', 'frame', 'iso'];
@@ -35,18 +35,19 @@ describe('what the build keeps', () => {
     const out = stripRegions(src); assert.doesNotMatch(out, /anchors must be strictly increasing|is outside ' \+ slopeLo|function parseLocal|function daysFromCivil/); assert.match(out, /function civilFromDays/); assert.match(out, /function makeCore/);
     assert.throws(() => stripRegions('const a = 1;'), /no \/\*@strip\*\/ region/);
   });
+  // These two tests pin the shape for the FROZEN proposal (every state 'proposed', t5 as in 2026-09-30); the live file carries states 'reviewed'/'contested'.
   test('the inlined document is the minimum the bridge reads: minutes pre-parsed, no status, gaps, ranges, labels; state only when not the default', () => {
-    const d = inlineDoc(doc);
+    const d = inlineDoc(proposal);
     assert.deepEqual(Object.keys(d).sort(), ['anchors', 'approx_sigma_min', 'dv', 'solar', 'tab_days', 'version']);
-    assert.equal(d.anchors.length, 33); for (const [i, a] of d.anchors.entries()) { assert.deepEqual(Object.keys(a), ['tick', 'min', 'sigma_min']); assert.equal(a.min, parseLocal(doc.anchors[i].t)); }
-    const s = JSON.parse(JSON.stringify(doc)); s.anchors[3].state = 'signed'; s.anchors[3].decision = 'D-1'; assert.equal(inlineDoc(s).anchors[3].state, 'signed');
+    assert.equal(d.anchors.length, 33); for (const [i, a] of d.anchors.entries()) { assert.deepEqual(Object.keys(a), ['tick', 'min', 'sigma_min']); assert.equal(a.min, parseLocal(proposal.anchors[i].t)); }
+    const s = JSON.parse(JSON.stringify(proposal)); s.anchors[3].state = 'signed'; s.anchors[3].decision = 'D-1'; assert.equal(inlineDoc(s).anchors[3].state, 'signed');
   });
   test('the runtime (ES route) document: every field makeTimeModel reads, none of the text fields', () => {
-    const r = runtimeDoc(doc);
+    const r = runtimeDoc(proposal);
     assert.equal(r.anchors.length, 33); for (const a of r.anchors) for (const k of Object.keys(a)) assert.ok(['tick', 't', 'status', 'sigma_min', 'effective_status', 'state', 'review_flag', 'circular', 'range'].includes(k), k);
     assert.deepEqual(r.anchors.find((a) => a.tick === 5), { tick: 5, t: '1863-07-01T05:20', status: 'M', sigma_min: 30, effective_status: 'D', review_flag: 'owner-decision', circular: true, range: ['05:00', '05:30'] });
     assert.deepEqual(Object.keys(r.solar), ['1863-07-01'], 'days identical to July 1 are not repeated (the model falls back to July 1)');
-    const s = JSON.parse(JSON.stringify(doc)); s.solar['1863-07-02'].sunrise = '04:36'; assert.deepEqual(Object.keys(runtimeDoc(s).solar), ['1863-07-01', '1863-07-02'], 'a day that differs IS kept');
+    const s = JSON.parse(JSON.stringify(proposal)); s.solar['1863-07-02'].sunrise = '04:36'; assert.deepEqual(Object.keys(runtimeDoc(s).solar), ['1863-07-01', '1863-07-02'], 'a day that differs IS kept');
     assert.deepEqual(Object.keys(inlineDoc(s).solar), ['1863-07-01', '1863-07-02']);
   });
 });
@@ -88,8 +89,9 @@ describe('the built inline module behaves exactly like src/lib/time', () => {
     const page = { window: {} }; page.globalThis = page; vm.createContext(page); vm.runInContext(readText(P('tools', 'time', 'build', 'gtbg-time.iife.js')), page);
     for (let t = 1; t <= T; t += 7) for (const s of STYLES) assert.equal(page.GTBGTime.f(t, s), ref.f(t, s));
   });
+  // pinned to the frozen proposal: t12 and t518 have sigma 5 there, so signing them clears 'about'; in the live file every sigma is above 20.
   test('a "signed" state in the inlined document changes "about" exactly as it does in the ES model (the one runtime input besides sigma)', async () => {
-    const d = JSON.parse(JSON.stringify(doc)); for (const a of d.anchors) if (a.tick === 12 || a.tick === 518) { a.state = 'signed'; a.decision = 'D-0001'; }
+    const d = JSON.parse(JSON.stringify(proposal)); for (const a of d.anchors) if (a.tick === 12 || a.tick === 518) { a.state = 'signed'; a.decision = 'D-0001'; }
     const b2 = await buildInline(d), sb2 = { window: {} }; vm.createContext(sb2); vm.runInContext('var G=' + b2.inline + ';', sb2);
     const r2 = makeBridge(makeTimeModel(d));
     for (let t = 1; t <= T; t++) assert.equal(sb2.G.f(t, 'compat'), r2.f(t, 'compat'), `tick ${t}`);

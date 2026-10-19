@@ -6,7 +6,7 @@ import { P, parseHm, parseJulyDay, julyMinutes, parseJulyClock } from '../../too
 import m, { makeTimeModel, anchorsDoc, ticksJson, goldenCsv } from '../../src/lib/time/index.js';
 import FULL from '../../src/lib/time/anchors.generated.js';
 import { runtimeDoc } from '../../tools/time/slim.mjs';
-import { doc, model, csv } from './helpers.mjs';
+import { doc, model, csv, proposalModel } from './helpers.mjs';
 
 const norm = (s) => s.replace(/(\d)a$/, '$1am').replace(/(\d)p$/, '$1pm');
 
@@ -26,7 +26,7 @@ describe('golden tick-clock table (TM-V11)', () => {
   test('independent oracle: the clocks app-time listed for the proposed anchors', () => {
     const want = { 1: '5:00 AM', 12: '7:30 AM', 17: '8:22 AM', 28: '10:15 AM', 100: '8:00 PM', 150: '11:22 PM', 225: '4:26 AM', 226: '4:30 AM', 240: '12:00 PM', 256: '4:00 PM', 264: '4:22 PM', 267: '4:30 PM',
       275: '6:00 PM', 280: '6:30 PM', 302: '7:10 PM', 376: '12:27 AM', 440: '3:54 AM', 450: '4:27 AM', 451: '4:30 AM', 460: '5:20 AM', 518: '1:07 PM', 538: '3:00 PM', 551: '3:35 PM', 553: '3:45 PM', 556: '4:00 PM', 600: '6:04 PM', 675: '8:00 PM' };
-    for (const [t, s] of Object.entries(want)) assert.equal(m.format(+t, 'time'), s, `tick ${t}`);
+    for (const [t, s] of Object.entries(want)) assert.equal(proposalModel.format(+t, 'time'), s, `tick ${t}`);
   });
   test('TX-01 ticks {1,12,17,28,160,226,267,302,451,538,553,675}: one string per tick from one function', () => {
     for (const t of [1, 12, 17, 28, 160, 226, 267, 302, 451, 538, 553, 675]) {
@@ -35,35 +35,36 @@ describe('golden tick-clock table (TM-V11)', () => {
   });
 });
 
+// These oracles describe the FROZEN 2026-09-30 proposal (helpers.mjs `proposalModel`): the specialist CSVs were computed from it.
 describe('inverse consistency against the time-facts specialist (WP-TIME-02 acceptance)', () => {
   test('129/129: minutesToTick(real_best) reproduces tick_under_proposed_anchors within 0.1 tick (worst 0.05)', () => {
     const facts = csv('time-facts.csv'); let worst = 0, inRange = 0;
     for (const f of facts) {
       const min = julyMinutes(parseJulyDay(f.date_1863), parseHm(f.real_best)), want = +f.tick_under_proposed_anchors;
-      const got = m.clockToTick(min, { extrapolate: true }); worst = Math.max(worst, Math.abs(got - want));
+      const got = proposalModel.clockToTick(min, { extrapolate: true }); worst = Math.max(worst, Math.abs(got - want));
       assert.ok(Math.abs(got - want) <= 0.1, `${f.id}: got ${got}, specialist ${want}`);
-      if (min >= m.tickToMinutes(1) && min <= m.tickToMinutes(675)) { inRange++; assert.ok(Math.abs(m.clockToTick(min) - want) <= 0.1, f.id); }
+      if (min >= proposalModel.tickToMinutes(1) && min <= proposalModel.tickToMinutes(675)) { inRange++; assert.ok(Math.abs(proposalModel.clockToTick(min) - want) <= 0.1, f.id); }
     }
     assert.equal(facts.length, 129); assert.ok(worst <= 0.05 + 1e-9, `worst ${worst}`); assert.equal(inRange, 123, '6 facts sit before 5:00 AM July 1 or after 8:00 PM July 3 and are extrapolated at 5 min/tick');
   });
   test('137/137: the proposed clock at each site tick equals proposed_clock_from_anchors (+-1 min)', () => {
     const disc = csv('time-facts-discrepancy.csv'); assert.equal(disc.length, 137);
-    for (const r of disc) assert.ok(Math.abs(Math.round(m.tickToMinutes(+r.site_tick)) - parseJulyClock(norm(r.proposed_clock_from_anchors))) <= 1, `tick ${r.site_tick}`);
+    for (const r of disc) assert.ok(Math.abs(Math.round(proposalModel.tickToMinutes(+r.site_tick)) - parseJulyClock(norm(r.proposed_clock_from_anchors))) <= 1, `tick ${r.site_tick}`);
   });
   test('62/62: the proposed clock at each other-claim tick equals proposed_clock_at_tick (+-1 min)', () => {
     const oc = csv('time-facts-otherclaims.csv');
-    for (const r of oc) assert.ok(Math.abs(Math.round(m.tickToMinutes(+r.site_tick)) - parseJulyClock(norm(r.proposed_clock_at_tick))) <= 1, `${r.kind} ${r.id} tick ${r.site_tick}`);
+    for (const r of oc) assert.ok(Math.abs(Math.round(proposalModel.tickToMinutes(+r.site_tick)) - parseJulyClock(norm(r.proposed_clock_at_tick))) <= 1, `${r.kind} ${r.id} tick ${r.site_tick}`);
     assert.equal(oc.length, 62);
   });
   test('residuals over the 102 matched events reproduce the specialist: mean abs 21 min, median 10, 86/102 within 30 (in-sample)', () => {
     const rows = csv('time-facts-discrepancy.csv').filter((r) => ['RELABEL', 'RELABEL-CONTESTED', 'TEXT-VS-LABEL'].includes(r.class));
     assert.equal(rows.length, 102);
-    const res = rows.map((r) => Math.abs(parseJulyClock(norm(r.real_best)) - Math.round(m.tickToMinutes(+r.site_tick))));
+    const res = rows.map((r) => Math.abs(parseJulyClock(norm(r.real_best)) - Math.round(proposalModel.tickToMinutes(+r.site_tick))));
     const mean = res.reduce((a, b) => a + b, 0) / res.length, sorted = [...res].sort((a, b) => a - b);
     assert.ok(Math.abs(mean - 21.3) < 0.2, `mean abs ${mean}`); assert.equal((sorted[50] + sorted[51]) / 2, 10); assert.equal(res.filter((x) => x <= 30).length, 86);
   });
   test('leave-one-out anchor prediction (29 interior non-design anchors): RMS 43.8 min, worst t518 +96, t340 +93, t515 -86', () => {
-    const A = m.anchors, e = [];
+    const A = proposalModel.anchors, e = [];
     for (let i = 1; i < A.length - 1; i++) { if (A[i].status === 'D') continue; const p = A[i - 1], n = A[i + 1]; e.push([A[i].tick, A[i].minutes - (p.minutes + (n.minutes - p.minutes) * (A[i].tick - p.tick) / (n.tick - p.tick))]); }
     assert.equal(e.length, 29);
     assert.ok(Math.abs(Math.sqrt(e.reduce((a, [, x]) => a + x * x, 0) / e.length) - 43.8) < 0.2);

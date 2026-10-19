@@ -3,7 +3,7 @@
 import test, { describe } from 'node:test';
 import assert from 'node:assert/strict';
 import m, { makeTimeModel, makeCore, parseLocal, tickToLabel, format, tickAfterMinutes, clockToTick } from '../../src/lib/time/index.js';
-import { doc, model, rng, randomDoc } from './helpers.mjs';
+import { doc, model, rng, randomDoc, proposalModel } from './helpers.mjs';
 
 const T = m.tickMax;
 const clone = () => JSON.parse(JSON.stringify(doc));
@@ -115,8 +115,11 @@ describe('load-time validation (chapter 04 section 4.2): the slope limits are en
 
 describe('the circular anchor t5 is honoured as class D at runtime (VERIFY-05)', () => {
   test('effective_status D: tickToClock basis, the anchors view and the class all say D, on ticks at and around t5', () => {
+    // pinned to the FROZEN proposal, where t12 is class A (S status); in the live adjudicated file t12 is class B (Estimated, M status)
+    const m = proposalModel;
     assert.equal(m.tickToClock(5).basis, 'D'); assert.equal(model.tickToClock(5).basis, 'D');
     for (const t of [2, 4, 5, 6, 11, 12]) assert.equal(m.tickToClock(t).basis, t === 12 ? 'A' : 'D', `tick ${t}`);
+    assert.equal(model.tickToClock(12).basis, 'B', 'live: the first shot is an estimate, class B');
     const a5 = m.anchors.find((a) => a.tick === 5); assert.equal(a5.status, 'M'); assert.equal(a5.effectiveStatus, 'D'); assert.equal(a5.confidence, 'D'); assert.equal(a5.circular, true);
     for (const a of m.anchors) if (a.tick !== 5) assert.equal(a.effectiveStatus, a.status, `tick ${a.tick}`);
   });

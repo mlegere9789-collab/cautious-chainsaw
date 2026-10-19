@@ -28,7 +28,7 @@ const edit = (d, rel, f) => { const p = path.join(d, rel); fs.writeFileSync(p, f
 
 describe('today: what the frozen legacy site measures', () => {
   test('TM-V1 passes with warnings only; V11 and V12 pass', () => {
-    assert.notEqual(res['TM-V1'].status, 'fail'); assert.equal(res['TM-V1'].data.warnings, 5);
+    assert.notEqual(res['TM-V1'].status, 'fail'); assert.equal(res['TM-V1'].data.warnings, 4); // was 5: the adjudication gives every S-status anchor an OR report (V1.evidence is gone); the four lulls remain
     assert.equal(res['TM-V11'].status, 'pass'); assert.equal(res['TM-V12'].status, 'pass');
   });
   test('TM-V2: 8 pages and 16 sites in the JS chunks hard-code tab boundaries, none disagrees with tab_days', () => {

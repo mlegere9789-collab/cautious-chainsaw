@@ -275,7 +275,7 @@ export async function buildFiles() {
     const dAz = (x, y) => Math.abs(((x - y + 540) % 360) - 180); maxAz = Math.max(maxAz, dAz(sa.sun.az, sb.sun.az), dAz(sa.moon.az, sb.moon.az));
     const day = 1 + Math.floor(min / 1440), m = min - Math.floor(min / 1440) * 1440;
     const lmtLabel = `07-${String(day).padStart(2, '0')} ${K.hhmm(m)}`;
-    rows.push([tick, round(min, 2), lmtLabel, round(sa.sun.alt, 2), round(sa.sun.az, 1), round(sa.moon.alt, 2), round(sa.moon.az, 1), round(sa.moon.illum * 100, 1), light(sa.sun.alt), sa.moon.alt >= -0.8333 ? 1 : 0]);
+    rows.push([tick, round(min, 2), lmtLabel, round(sa.sun.alt, 2), round(sa.sun.az, 1), round(sa.moon.alt, 2), round(sa.moon.az, 1), round(sa.moon.illum * 100, 1), light(round(sa.sun.alt, 2)), sa.moon.alt >= -0.8333 ? 1 : 0]); // classified from the stored (rounded) altitude, as validate.mjs does: tick 420 of the 2026-10-18 clock sits at -18.00 and the two disagreed
   }
   // the sun and moon events of July 1-3 placed on the candidate tick clock (the inverse of tickToLmtMinutes; null where the event is outside ticks 1..675)
   const events = [];

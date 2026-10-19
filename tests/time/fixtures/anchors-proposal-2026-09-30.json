@@ -1,0 +1,1194 @@
+{
+  "$schema": "./time_anchors.schema.json",
+  "schema": 1,
+  "version": "2026-09-30.1",
+  "release": "candidate",
+  "dv": 2,
+  "notice": "CANDIDATE. All 33 anchors are state \"proposed\": not reviewed by a historian, not approved by the owner (D-TIME, sign-off DG-3). Nothing derived from this file may ship or be described as reviewed or accurate to the minute.",
+  "tz": "LMT",
+  "tz_note": "Local mean time at Gettysburg (39.83 N, 77.23 W). 1863 had no standard time zones. EST would be about +9 minutes.",
+  "tick_max": 675,
+  "tab_days": [
+    [
+      1,
+      225
+    ],
+    [
+      226,
+      450
+    ],
+    [
+      451,
+      675
+    ]
+  ],
+  "approx_sigma_min": 10,
+  "sigma_cap_min": 30,
+  "slope": {
+    "min_min_per_tick": 0.75,
+    "warn_over": 15,
+    "error_over": 60
+  },
+  "gaps": [
+    {
+      "from": 226,
+      "to": 240,
+      "policy": "fast_forward"
+    },
+    {
+      "from": 515,
+      "to": 518,
+      "policy": "fast_forward"
+    }
+  ],
+  "solar": {
+    "source": "NOAA solar algorithm computed by the time-facts specialist for 39.8309 N, 77.2311 W, local mean time; re-derived in tests/time/solar.test.mjs (+-2 min). Not checked against an almanac.",
+    "1863-07-01": {
+      "civil_dawn": "04:03",
+      "sunrise": "04:35",
+      "noon": "12:03",
+      "sunset": "19:32",
+      "civil_dusk": "20:04",
+      "nautical_dusk": "20:46"
+    },
+    "1863-07-02": {
+      "civil_dawn": "04:03",
+      "sunrise": "04:35",
+      "noon": "12:03",
+      "sunset": "19:32",
+      "civil_dusk": "20:04",
+      "nautical_dusk": "20:46"
+    },
+    "1863-07-03": {
+      "civil_dawn": "04:03",
+      "sunrise": "04:35",
+      "noon": "12:03",
+      "sunset": "19:32",
+      "civil_dusk": "20:04",
+      "nautical_dusk": "20:46"
+    }
+  },
+  "evidence_families": {
+    "strong": [
+      "OR",
+      "WP",
+      "ABT",
+      "HN",
+      "NPS",
+      "PART"
+    ],
+    "weak": [
+      "SS",
+      "THJ",
+      "CWC",
+      "SRCH",
+      "LIT"
+    ]
+  },
+  "anchors": [
+    {
+      "tick": 1,
+      "t": "1863-07-01T05:00",
+      "status": "S",
+      "confidence": "A",
+      "sigma_min": 15,
+      "range": [
+        "05:00",
+        "05:30"
+      ],
+      "label": "Heth's column leaves Cashtown",
+      "facts": [
+        "R003"
+      ],
+      "fact_confidences": {
+        "R003": "M"
+      },
+      "sources": [
+        "SS1",
+        "THJ",
+        "LIT"
+      ],
+      "families": [
+        "LIT",
+        "SS",
+        "THJ"
+      ],
+      "evidence": "SS1, THJ; site label already 5:00am",
+      "flags": [
+        "M",
+        "E",
+        "W"
+      ],
+      "review_flag": "evidence-weak",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 5,
+      "t": "1863-07-01T05:20",
+      "status": "M",
+      "confidence": "B",
+      "sigma_min": 30,
+      "range": [
+        "05:00",
+        "05:30"
+      ],
+      "label": "Archer/Davis lead Heth's column out of Cashtown",
+      "facts": [
+        "R003"
+      ],
+      "fact_confidences": {
+        "R003": "M"
+      },
+      "sources": [
+        "SS1",
+        "THJ",
+        "LIT"
+      ],
+      "families": [
+        "LIT",
+        "SS",
+        "THJ"
+      ],
+      "evidence": "SS1, THJ (5:00 departure); keeps the pre-7:30 slope realistic",
+      "flags": [
+        "C",
+        "W"
+      ],
+      "review_flag": "owner-decision",
+      "state": "proposed",
+      "decision": null,
+      "circular": true,
+      "effective_status": "D",
+      "note": "Circular: derived from the site's own t5 label (5:20am). Imported as design-class sigma 30 (owner decision 3 default); drop or keep is an owner decision."
+    },
+    {
+      "tick": 12,
+      "t": "1863-07-01T07:30",
+      "status": "S",
+      "confidence": "A",
+      "sigma_min": 5,
+      "range": [
+        "07:30",
+        "07:30"
+      ],
+      "label": "First shot, Lt. Marcellus Jones",
+      "facts": [
+        "R005"
+      ],
+      "fact_confidences": {
+        "R005": "H"
+      },
+      "sources": [
+        "HNj",
+        "SS1",
+        "WPd1",
+        "ABTa",
+        "THJ",
+        "Jones"
+      ],
+      "families": [
+        "ABT",
+        "HN",
+        "PART",
+        "WP"
+      ],
+      "evidence": "HNj, SS1, WPd1, ABTa, THJ; site text/vignette/walkthrough already say 7:30",
+      "flags": [],
+      "review_flag": "none",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 28,
+      "t": "1863-07-01T10:15",
+      "status": "S",
+      "confidence": "A",
+      "sigma_min": 20,
+      "range": [
+        "10:15",
+        "10:50"
+      ],
+      "label": "Reynolds killed",
+      "facts": [
+        "R012"
+      ],
+      "fact_confidences": {
+        "R012": "M"
+      },
+      "sources": [
+        "DBL",
+        "WPrey",
+        "WPd1",
+        "SS1",
+        "CWC",
+        "THJ"
+      ],
+      "families": [
+        "OR",
+        "WP"
+      ],
+      "evidence": "Doubleday OR 10.15; WPd1; site monument tooltip 10:15; dispute 10:40-10:50",
+      "flags": [
+        "M"
+      ],
+      "review_flag": "evidence-weak",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 36,
+      "t": "1863-07-01T11:00",
+      "status": "S",
+      "confidence": "A",
+      "sigma_min": 15,
+      "range": [
+        "10:45",
+        "11:15"
+      ],
+      "label": "Railroad Cut charge",
+      "facts": [
+        "R017"
+      ],
+      "fact_confidences": {
+        "R017": "H"
+      },
+      "sources": [
+        "WPd1",
+        "SS1"
+      ],
+      "families": [
+        "WP",
+        "SS"
+      ],
+      "evidence": "WPd1 ~11am; SS1 10:45-11:00",
+      "flags": [
+        "E"
+      ],
+      "review_flag": "evidence-weak",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 53,
+      "t": "1863-07-01T14:30",
+      "status": "S",
+      "confidence": "A",
+      "sigma_min": 30,
+      "range": [
+        "14:00",
+        "15:00"
+      ],
+      "label": "Iverson's Pits",
+      "facts": [
+        "R025"
+      ],
+      "fact_confidences": {
+        "R025": "M"
+      },
+      "sources": [
+        "SS1",
+        "WPd1",
+        "DBL"
+      ],
+      "families": [
+        "OR",
+        "WP"
+      ],
+      "evidence": "SS1 2:30; WPd1 (Rodes 2:00); Doubleday OR (Schurz 2:30)",
+      "flags": [
+        "M"
+      ],
+      "review_flag": "evidence-weak",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 57,
+      "t": "1863-07-01T15:00",
+      "status": "M",
+      "confidence": "B",
+      "sigma_min": 25,
+      "range": [
+        "14:30",
+        "15:15"
+      ],
+      "label": "Barlow's Knoll overwhelmed",
+      "facts": [
+        "R027"
+      ],
+      "fact_confidences": {
+        "R027": "M"
+      },
+      "sources": [
+        "ABTm",
+        "WPd1",
+        "CWC"
+      ],
+      "families": [
+        "ABT",
+        "WP"
+      ],
+      "evidence": "ABT map 2:45-4:30; WPd1; site monument says 2:30",
+      "flags": [],
+      "review_flag": "none",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 64,
+      "t": "1863-07-01T16:00",
+      "status": "S",
+      "confidence": "A",
+      "sigma_min": 15,
+      "range": [
+        "15:45",
+        "16:15"
+      ],
+      "label": "Pender/Perrin hit Seminary Ridge",
+      "facts": [
+        "R032"
+      ],
+      "fact_confidences": {
+        "R032": "H"
+      },
+      "sources": [
+        "WPd1",
+        "ABTm",
+        "DBL",
+        "CWC"
+      ],
+      "families": [
+        "OR",
+        "ABT",
+        "WP"
+      ],
+      "evidence": "WPd1, ABT map, Doubleday OR \"About 4 p.m.\", CWC",
+      "flags": [],
+      "review_flag": "none",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 72,
+      "t": "1863-07-01T16:20",
+      "status": "M",
+      "confidence": "B",
+      "sigma_min": 30,
+      "range": [
+        "15:30",
+        "16:30"
+      ],
+      "label": "Hancock reaches Cemetery Hill",
+      "facts": [
+        "R035"
+      ],
+      "fact_confidences": {
+        "R035": "M"
+      },
+      "sources": [
+        "WPd1",
+        "SS1",
+        "SRCH"
+      ],
+      "families": [
+        "WP",
+        "SRCH"
+      ],
+      "evidence": "WPd1 \"after 4:00\"; SS1 ~4:00; search 4:00-4:30",
+      "flags": [],
+      "review_flag": "none",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 75,
+      "t": "1863-07-01T17:00",
+      "status": "R",
+      "confidence": "C",
+      "sigma_min": 30,
+      "range": [
+        "16:30",
+        "17:30"
+      ],
+      "label": "Lee's 'if practicable' order",
+      "facts": [
+        "R037"
+      ],
+      "fact_confidences": {
+        "R037": "L"
+      },
+      "sources": [
+        "SRCH",
+        "WPd1"
+      ],
+      "families": [
+        "WP",
+        "SRCH"
+      ],
+      "evidence": "SRCH \"after 5 p.m.\"; WP no time",
+      "flags": [
+        "H"
+      ],
+      "review_flag": "needs-historian",
+      "state": "proposed",
+      "decision": null,
+      "note": "Needs a named historian decision before any exact time is shown (D-TIME sign-off item 1). See docs/editorial/anchor-review-packet.md."
+    },
+    {
+      "tick": 90,
+      "t": "1863-07-01T18:00",
+      "status": "R",
+      "confidence": "C",
+      "sigma_min": 30,
+      "range": [
+        "16:30",
+        "20:00"
+      ],
+      "label": "XII Corps/Johnson arrive",
+      "facts": [
+        "R038",
+        "R039"
+      ],
+      "fact_confidences": {
+        "R038": "L",
+        "R039": "M"
+      },
+      "sources": [
+        "SRCH",
+        "LIT",
+        "SS1"
+      ],
+      "families": [
+        "SS",
+        "SRCH",
+        "LIT"
+      ],
+      "evidence": "SS1 5:30; SRCH Geary 5pm",
+      "flags": [
+        "H",
+        "W"
+      ],
+      "review_flag": "needs-historian",
+      "state": "proposed",
+      "decision": null,
+      "note": "Needs a named historian decision before any exact time is shown (D-TIME sign-off item 1). See docs/editorial/anchor-review-packet.md."
+    },
+    {
+      "tick": 100,
+      "t": "1863-07-01T20:00",
+      "status": "D",
+      "confidence": "D",
+      "sigma_min": 30,
+      "range": [
+        "19:32",
+        "20:04"
+      ],
+      "label": "Nightfall",
+      "facts": [],
+      "fact_confidences": {},
+      "sources": [],
+      "families": [
+        "sun"
+      ],
+      "evidence": "computed",
+      "flags": [
+        "O"
+      ],
+      "review_flag": "owner-sign",
+      "state": "proposed",
+      "decision": null,
+      "design": true,
+      "note": "Design anchor: no historical event; closes a day boundary or night. Owner signs (D-TIME sign-off item 2). Times from the NOAA solar algorithm (local mean time), not from an almanac."
+    },
+    {
+      "tick": 226,
+      "t": "1863-07-02T04:30",
+      "status": "D",
+      "confidence": "D",
+      "sigma_min": 30,
+      "range": [
+        "04:03",
+        "04:35"
+      ],
+      "label": "Day-2 start (first light)",
+      "facts": [],
+      "fact_confidences": {},
+      "sources": [],
+      "families": [
+        "sun"
+      ],
+      "evidence": "computed",
+      "flags": [
+        "O"
+      ],
+      "review_flag": "owner-sign",
+      "state": "proposed",
+      "decision": null,
+      "design": true,
+      "note": "Design anchor: no historical event; closes a day boundary or night. Owner signs (D-TIME sign-off item 2). Times from the NOAA solar algorithm (local mean time), not from an almanac."
+    },
+    {
+      "tick": 240,
+      "t": "1863-07-02T12:00",
+      "status": "M",
+      "confidence": "B",
+      "sigma_min": 30,
+      "range": [
+        "11:30",
+        "12:30"
+      ],
+      "label": "Berdan's probe / Pitzer's Woods",
+      "facts": [
+        "R046"
+      ],
+      "fact_confidences": {
+        "R046": "M"
+      },
+      "sources": [
+        "WPd2",
+        "SS2"
+      ],
+      "families": [
+        "WP",
+        "SS"
+      ],
+      "evidence": "WPd2 \"About noon\"; SS2 Noon",
+      "flags": [],
+      "review_flag": "none",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 248,
+      "t": "1863-07-02T14:30",
+      "status": "R",
+      "confidence": "C",
+      "sigma_min": 30,
+      "range": [
+        "12:00",
+        "15:30"
+      ],
+      "label": "Sickles's advance to Peach Orchard",
+      "facts": [
+        "R050"
+      ],
+      "fact_confidences": {
+        "R050": "L"
+      },
+      "sources": [
+        "WPd2",
+        "SS2",
+        "SRCH",
+        "LIT"
+      ],
+      "families": [
+        "WP",
+        "SRCH",
+        "LIT"
+      ],
+      "evidence": "range noon-3:30pm; SS2 noon, SRCH 2pm, V-007 3pm",
+      "flags": [
+        "H"
+      ],
+      "review_flag": "needs-historian",
+      "state": "proposed",
+      "decision": null,
+      "note": "Needs a named historian decision before any exact time is shown (D-TIME sign-off item 1). See docs/editorial/anchor-review-packet.md."
+    },
+    {
+      "tick": 256,
+      "t": "1863-07-02T16:00",
+      "status": "S",
+      "confidence": "A",
+      "sigma_min": 25,
+      "range": [
+        "15:45",
+        "16:30"
+      ],
+      "label": "Longstreet's assault: guns + Hood step off",
+      "facts": [
+        "R054",
+        "R056"
+      ],
+      "fact_confidences": {
+        "R054": "M",
+        "R056": "H"
+      },
+      "sources": [
+        "SS2",
+        "LSTR",
+        "WPmain",
+        "WPd2",
+        "WORK",
+        "ABTa",
+        "WPhood"
+      ],
+      "families": [
+        "OR",
+        "ABT",
+        "WP"
+      ],
+      "evidence": "WPd2, LSTR OR, WORK OR, ABTa, Hall OR (Benner's Hill 4:00-4:15)",
+      "flags": [],
+      "review_flag": "none",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 267,
+      "t": "1863-07-02T16:30",
+      "status": "M",
+      "confidence": "B",
+      "sigma_min": 15,
+      "range": [
+        "16:15",
+        "16:45"
+      ],
+      "label": "Vincent reaches Little Round Top",
+      "facts": [
+        "R059"
+      ],
+      "fact_confidences": {
+        "R059": "M"
+      },
+      "sources": [
+        "SS2",
+        "WPLRT",
+        "HNc",
+        "SRCH"
+      ],
+      "families": [
+        "HN",
+        "WP"
+      ],
+      "evidence": "SS2 4:30, WP LRT, Cross",
+      "flags": [],
+      "review_flag": "none",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 275,
+      "t": "1863-07-02T18:00",
+      "status": "R",
+      "confidence": "C",
+      "sigma_min": 30,
+      "range": [
+        "17:10",
+        "19:00"
+      ],
+      "label": "20th Maine bayonet charge",
+      "facts": [
+        "R066"
+      ],
+      "fact_confidences": {
+        "R066": "L"
+      },
+      "sources": [
+        "SRCH",
+        "THJ",
+        "SS2",
+        "HNc"
+      ],
+      "families": [
+        "HN",
+        "THJ",
+        "SRCH"
+      ],
+      "evidence": "contested 5:10pm - 7:00pm+; choose a defensible mid value and label as approximate",
+      "flags": [
+        "H"
+      ],
+      "review_flag": "needs-historian",
+      "state": "proposed",
+      "decision": null,
+      "note": "Needs a named historian decision before any exact time is shown (D-TIME sign-off item 1). See docs/editorial/anchor-review-packet.md."
+    },
+    {
+      "tick": 280,
+      "t": "1863-07-02T18:30",
+      "status": "M",
+      "confidence": "B",
+      "sigma_min": 25,
+      "range": [
+        "18:00",
+        "18:45"
+      ],
+      "label": "Peach Orchard salient collapses",
+      "facts": [
+        "R071"
+      ],
+      "fact_confidences": {
+        "R071": "M"
+      },
+      "sources": [
+        "WPpeach",
+        "SS2"
+      ],
+      "families": [
+        "WP",
+        "SS"
+      ],
+      "evidence": "WP Peach Orchard (marker 6:30), SS2",
+      "flags": [],
+      "review_flag": "none",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 295,
+      "t": "1863-07-02T19:00",
+      "status": "M",
+      "confidence": "B",
+      "sigma_min": 30,
+      "range": [
+        "18:30",
+        "19:30"
+      ],
+      "label": "Crawford counterattack",
+      "facts": [
+        "R076"
+      ],
+      "fact_confidences": {
+        "R076": "M"
+      },
+      "sources": [
+        "SS2",
+        "WPLRT"
+      ],
+      "families": [
+        "WP",
+        "SS"
+      ],
+      "evidence": "SS2 6:30-7:30; WP \"at dusk\"",
+      "flags": [],
+      "review_flag": "none",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 302,
+      "t": "1863-07-02T19:10",
+      "status": "M",
+      "confidence": "B",
+      "sigma_min": 25,
+      "range": [
+        "18:45",
+        "19:30"
+      ],
+      "label": "1st Minnesota's charge",
+      "facts": [
+        "R077"
+      ],
+      "fact_confidences": {
+        "R077": "M"
+      },
+      "sources": [
+        "SS2",
+        "LIT"
+      ],
+      "families": [
+        "SS",
+        "LIT"
+      ],
+      "evidence": "SS2 6:30-7:00 block; LIT 7pm",
+      "flags": [
+        "W"
+      ],
+      "review_flag": "evidence-weak",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 314,
+      "t": "1863-07-02T19:20",
+      "status": "S",
+      "confidence": "A",
+      "sigma_min": 30,
+      "range": [
+        "18:30",
+        "19:30"
+      ],
+      "label": "Johnson attacks Culp's Hill",
+      "facts": [
+        "R080"
+      ],
+      "fact_confidences": {
+        "R080": "H"
+      },
+      "sources": [
+        "WPCH",
+        "ABTa",
+        "SS2"
+      ],
+      "families": [
+        "ABT",
+        "WP"
+      ],
+      "evidence": "WPCH \"around 7 pm\"; ABT \"by about 7:00\"; SS2",
+      "flags": [],
+      "review_flag": "none",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 326,
+      "t": "1863-07-02T20:00",
+      "status": "S",
+      "confidence": "A",
+      "sigma_min": 30,
+      "range": [
+        "19:30",
+        "20:30"
+      ],
+      "label": "Early attacks East Cemetery Hill",
+      "facts": [
+        "R082"
+      ],
+      "fact_confidences": {
+        "R082": "H"
+      },
+      "sources": [
+        "WPd2",
+        "WPCem",
+        "SS2"
+      ],
+      "families": [
+        "WP",
+        "SS"
+      ],
+      "evidence": "WPd2 8pm; WPCem dusk 7:30; SS2",
+      "flags": [
+        "E"
+      ],
+      "review_flag": "evidence-weak",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 340,
+      "t": "1863-07-02T22:30",
+      "status": "M",
+      "confidence": "B",
+      "sigma_min": 15,
+      "range": [
+        "22:00",
+        "22:30"
+      ],
+      "label": "Battlefield falls silent",
+      "facts": [
+        "R087"
+      ],
+      "fact_confidences": {
+        "R087": "M"
+      },
+      "sources": [
+        "WPd2"
+      ],
+      "families": [
+        "WP"
+      ],
+      "evidence": "WPd2 10:30pm",
+      "flags": [],
+      "review_flag": "none",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 451,
+      "t": "1863-07-03T04:30",
+      "status": "S",
+      "confidence": "A",
+      "sigma_min": 25,
+      "range": [
+        "04:00",
+        "04:45"
+      ],
+      "label": "XII Corps guns open on Culp's Hill",
+      "facts": [
+        "R091"
+      ],
+      "fact_confidences": {
+        "R091": "H"
+      },
+      "sources": [
+        "SS3",
+        "WPCH",
+        "ABTa"
+      ],
+      "families": [
+        "ABT",
+        "WP",
+        "SS"
+      ],
+      "evidence": "SS3 4:30; WPCH dawn; ABT dawn; sunrise 4:35am",
+      "flags": [],
+      "review_flag": "none",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 500,
+      "t": "1863-07-03T09:00",
+      "status": "M",
+      "confidence": "B",
+      "sigma_min": 30,
+      "range": [
+        "08:30",
+        "10:00"
+      ],
+      "label": "Pickett's division arrives",
+      "facts": [
+        "R094"
+      ],
+      "fact_confidences": {
+        "R094": "L"
+      },
+      "sources": [
+        "SS3"
+      ],
+      "families": [
+        "SS"
+      ],
+      "evidence": "SS3 9:00 (single source; needs Wert/Hessler check)",
+      "flags": [
+        "W"
+      ],
+      "review_flag": "evidence-weak",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 515,
+      "t": "1863-07-03T11:00",
+      "status": "S",
+      "confidence": "A",
+      "sigma_min": 30,
+      "range": [
+        "10:30",
+        "12:00"
+      ],
+      "label": "Culp's Hill fighting ends",
+      "facts": [
+        "R097"
+      ],
+      "fact_confidences": {
+        "R097": "M"
+      },
+      "sources": [
+        "WPmain",
+        "WPCH",
+        "SS3"
+      ],
+      "families": [
+        "SS",
+        "WP"
+      ],
+      "evidence": "WPmain ~11am; SS3 10-11; site text itself says 11:00am",
+      "flags": [
+        "M",
+        "E"
+      ],
+      "review_flag": "evidence-weak",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 518,
+      "t": "1863-07-03T13:07",
+      "status": "S",
+      "confidence": "A",
+      "sigma_min": 5,
+      "range": [
+        "13:00",
+        "13:10"
+      ],
+      "label": "Cannonade opens",
+      "facts": [
+        "R100"
+      ],
+      "fact_confidences": {
+        "R100": "H"
+      },
+      "sources": [
+        "SS3",
+        "HNp",
+        "WPPC",
+        "NPS-Cushing",
+        "CAB"
+      ],
+      "families": [
+        "OR",
+        "HN",
+        "NPS",
+        "WP"
+      ],
+      "evidence": "HNp (multiple OR witnesses), SS3 1:07, NPS 1pm; site text/vignette/walkthrough say 1:00/1:07",
+      "flags": [],
+      "review_flag": "none",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 538,
+      "t": "1863-07-03T15:00",
+      "status": "R",
+      "confidence": "C",
+      "sigma_min": 30,
+      "range": [
+        "14:00",
+        "15:00"
+      ],
+      "label": "Infantry step-off",
+      "facts": [
+        "R108"
+      ],
+      "fact_confidences": {
+        "R108": "M"
+      },
+      "sources": [
+        "ABTm",
+        "ABTa",
+        "WPmain",
+        "SS3",
+        "WPPC",
+        "LSTR"
+      ],
+      "families": [
+        "OR",
+        "ABT",
+        "WP"
+      ],
+      "evidence": "ABT 3:00; WPmain 3:00; SS3 2:30-3:00; WPPC 2:00; Longstreet OR ~2:00",
+      "flags": [
+        "H"
+      ],
+      "review_flag": "needs-historian",
+      "state": "proposed",
+      "decision": null,
+      "note": "Needs a named historian decision before any exact time is shown (D-TIME sign-off item 1). See docs/editorial/anchor-review-packet.md."
+    },
+    {
+      "tick": 551,
+      "t": "1863-07-03T15:35",
+      "status": "M",
+      "confidence": "B",
+      "sigma_min": 20,
+      "range": [
+        "15:10",
+        "15:45"
+      ],
+      "label": "Armistead over the wall",
+      "facts": [
+        "R115"
+      ],
+      "fact_confidences": {
+        "R115": "M"
+      },
+      "sources": [
+        "SS3",
+        "ABTm"
+      ],
+      "families": [
+        "ABT",
+        "SS"
+      ],
+      "evidence": "ABT map 3:30-3:45; SS3 3:30-4:00; site monument 3:15",
+      "flags": [],
+      "review_flag": "none",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 556,
+      "t": "1863-07-03T16:00",
+      "status": "M",
+      "confidence": "B",
+      "sigma_min": 25,
+      "range": [
+        "15:45",
+        "16:30"
+      ],
+      "label": "Assault collapses / Lee meets survivors",
+      "facts": [
+        "R118"
+      ],
+      "fact_confidences": {
+        "R118": "L"
+      },
+      "sources": [
+        "SS3"
+      ],
+      "families": [
+        "SS"
+      ],
+      "evidence": "SS3 4:00-6:00; ABT 4:00 map",
+      "flags": [
+        "W"
+      ],
+      "review_flag": "evidence-weak",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 568,
+      "t": "1863-07-03T17:15",
+      "status": "M",
+      "confidence": "B",
+      "sigma_min": 25,
+      "range": [
+        "17:00",
+        "17:45"
+      ],
+      "label": "Farnsworth's charge",
+      "facts": [
+        "R122"
+      ],
+      "fact_confidences": {
+        "R122": "M"
+      },
+      "sources": [
+        "ABTm",
+        "SS3",
+        "SRCH"
+      ],
+      "families": [
+        "ABT",
+        "SRCH"
+      ],
+      "evidence": "ABT South Cavalry Field 5:15-6:00; SS3 5:30",
+      "flags": [],
+      "review_flag": "none",
+      "state": "proposed",
+      "decision": null
+    },
+    {
+      "tick": 675,
+      "t": "1863-07-03T20:00",
+      "status": "D",
+      "confidence": "D",
+      "sigma_min": 30,
+      "range": [
+        "19:32",
+        "20:04"
+      ],
+      "label": "Nominal end of battle",
+      "facts": [],
+      "fact_confidences": {},
+      "sources": [],
+      "families": [
+        "sun"
+      ],
+      "evidence": "computed; Starr fight ~6pm",
+      "flags": [
+        "O"
+      ],
+      "review_flag": "owner-sign",
+      "state": "proposed",
+      "decision": null,
+      "design": true,
+      "note": "Design anchor: no historical event; closes a day boundary or night. Owner signs (D-TIME sign-off item 2). Times from the NOAA solar algorithm (local mean time), not from an almanac."
+    }
+  ]
+}

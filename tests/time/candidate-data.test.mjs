@@ -60,7 +60,7 @@ describe('chronology', () => {
 describe('metadata truth', () => {
   test('placement_schema: per-day real_time from the model, no 430,000 or 600-700, no 5-minute tick claim', () => {
     const s = cand('placement_schema.json'), md = s.metadata;
-    assert.equal(md.ticks_per_day.day1.real_time, 'about 5:00 AM July 1 to about 4:25 AM July 2'); assert.equal(md.ticks_per_day.day3.real_time, 'about 4:30 AM July 3 to about 8:00 PM July 3');
+    assert.equal(md.ticks_per_day.day1.real_time, 'about 5:00 AM July 1 to about 4:25 AM July 2'); assert.equal(md.ticks_per_day.day3.real_time, 'about 4:15 AM July 3 to about 8:00 PM July 3'); // adjudication 2026-10-18: t451 moved 04:30 -> 04:15 (docs/time/ANCHORS-FINAL.md)
     assert.doesNotMatch(md.purpose, /430,000/); assert.match(md.purpose, /1,804 rows in 47 files, on 188 of 675 ticks/); assert.equal(md.total_placement_records, '1804'); assert.match(md.expected_units_per_tick, /^about 10 rows on a populated tick/);
     assert.doesNotMatch(JSON.stringify(s), /5-minute tick number/);
   });
@@ -90,7 +90,7 @@ describe('the change list', () => {
     const before = fs.readFileSync(P('tools', 'time', 'build', 'candidate-data', 'changes.json'), 'utf8'); const r = spawnSync(process.execPath, [P('tools', 'time', 'relabel-data.mjs')], { encoding: 'utf8' }); assert.equal(r.status, 0);
     assert.equal(fs.readFileSync(P('tools', 'time', 'build', 'candidate-data', 'changes.json'), 'utf8'), before);
     assert.match(fs.readFileSync(P('docs', 'editorial', 'candidate-data-diff.md'), 'utf8').split('\n').slice(0, 4).join('\n'), /nothing here ships until they approve it/);
-    const c = JSON.parse(before); assert.equal(c.stats.chronology.relabeled, 134); assert.equal(c.stats.chronology.dated, 5); assert.equal(c.stats.chronology.unchanged, 3);
+    const c = JSON.parse(before); assert.equal(c.stats.chronology.relabeled, 133); assert.equal(c.stats.chronology.dated, 5); assert.equal(c.stats.chronology.unchanged, 4); // was 134/5/3 before the 2026-10-18 adjudication moved anchors
   });
   test('a write-tree without a directory is an error, not a stray folder named "true"', () => {
     const r = spawnSync(process.execPath, [P('tools', 'time', 'relabel-data.mjs'), '--write-tree'], { encoding: 'utf8' }); assert.equal(r.status, 2); assert.ok(!fs.existsSync(P('true')));

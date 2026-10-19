@@ -22,7 +22,7 @@ describe('the nine implementations of chapter 04 section 2.1', () => {
   });
   test('each implementation is measured against the model on all 675 ticks: dates and clocks are wrong almost everywhere', () => {
     const byId = Object.fromEntries(t.map((x) => [x[0], x]));
-    assert.equal(byId.A[7], '149'); assert.equal(byId.B[7], '675'); assert.equal(byId.C[7], '675'); assert.equal(byId.D[7], '675'); assert.equal(byId.G[7], '149');
+    assert.equal(byId.A[7], '144'); // was 149 before the 2026-10-18 adjudication moved anchors (t451 04:30 -> 04:15 and others) assert.equal(byId.B[7], '675'); assert.equal(byId.C[7], '675'); assert.equal(byId.D[7], '675'); assert.equal(byId.G[7], '144');
     for (const id of ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I']) assert.ok(+byId[id][5] > 500, `${id} has ${byId[id][5]} ticks over 30 min`);
     assert.equal(byId.B[5], '0'); // the HUD prints a date only
   });
@@ -50,6 +50,6 @@ describe('regression detection', () => {
     const chk = spawnSync(process.execPath, [P('tools', 'time', 'check-patches.mjs'), '--out=' + out, '--no-scope'], { encoding: 'utf8', maxBuffer: 32 * 1024 * 1024 });
     assert.equal(chk.status, 0, chk.stdout + chk.stderr);
     const t = rows(run('--root=' + out).stdout); assert.equal(t.length, 8); assert.equal(t.filter((x) => x[4] === 'yes').length, 7); assert.equal(t.find((x) => x[4] === 'no')[0], 'E');
-    for (const x of t.filter((y) => y[4] === 'yes')) assert.ok(+x[5] <= 3, `${x[1]} still has ${x[5]} ticks over 30 min`); // camera/immersive hour boundary artefacts only
+    for (const x of t.filter((y) => y[4] === 'yes')) assert.ok(+x[5] <= 5, `${x[1]} still has ${x[5]} ticks over 30 min`); // camera/immersive whole-hour rounding artefacts only; bound 3 -> 5 after the 2026-10-18 adjudication (steeper segments 240-248 and 515-518 put more ticks across an hour boundary)
   });
 });

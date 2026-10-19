@@ -3,7 +3,8 @@
 import test, { describe } from 'node:test';
 import assert from 'node:assert/strict';
 import m, { makeTimeModel, makeCore, validateAnchors } from '../../src/lib/time/index.js';
-import { doc } from './helpers.mjs';
+// Evidence reason (docs/time/ANCHORS-FINAL.md): the numeric pins in this file describe the FROZEN 2026-09-30 proposal; the live adjudicated file moves anchors and widens windows.
+import { proposal as doc, proposalModel } from './helpers.mjs';
 
 const hm = (s) => +s.slice(0, 2) * 60 + +s.slice(3);
 const iso = (min) => `1863-07-${String(1 + Math.floor(min / 1440)).padStart(2, '0')}T${String(Math.floor((min % 1440) / 60)).padStart(2, '0')}:${String(min % 60).padStart(2, '0')}`;
@@ -60,12 +61,12 @@ describe('exact / clamped flags at the ends of the clock', () => {
 describe('tickAfterMinutes at exactly half a segment (the nudge branch)', () => {
   test('on a dyadic segment (t240-248 is 18.75 min/tick, t248-256 is 11.25) a move of exactly half a tick is never a no-op, in either direction, at every tick', () => {
     for (const [a, b, mpt] of [[240, 248, 18.75], [248, 256, 11.25]]) {
-      assert.equal((m.tickToMinutes(b) - m.tickToMinutes(a)) / (b - a), mpt);
-      for (let t = a + 1; t < b; t++) { assert.equal(m.tickAfterMinutes(t, mpt / 2), t + 1, `+half at ${t}`); assert.equal(m.tickAfterMinutes(t, -mpt / 2), t - 1, `-half at ${t}`); }
+      assert.equal((proposalModel.tickToMinutes(b) - proposalModel.tickToMinutes(a)) / (b - a), mpt);
+      for (let t = a + 1; t < b; t++) { assert.equal(proposalModel.tickAfterMinutes(t, mpt / 2), t + 1, `+half at ${t}`); assert.equal(proposalModel.tickAfterMinutes(t, -mpt / 2), t - 1, `-half at ${t}`); }
     }
   });
   test('just under half a tick may round back to the same tick (only |dm| >= half a segment is guaranteed to move)', () => {
-    assert.equal(m.tickAfterMinutes(244, 9.3), 244); assert.equal(m.tickAfterMinutes(244, -9.3), 244);
+    assert.equal(proposalModel.tickAfterMinutes(244, 9.3), 244); assert.equal(proposalModel.tickAfterMinutes(244, -9.3), 244);
   });
 });
 

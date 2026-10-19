@@ -1,12 +1,12 @@
-// GENERATED from data-src/time/time_anchors.json by tools/time/build.mjs. Do not edit. CANDIDATE anchors: all state "proposed".
+// GENERATED from data-src/time/time_anchors.json by tools/time/build.mjs. Do not edit. CANDIDATE release: anchors adjudicated 2026-10-18 (state reviewed or contested), none signed.
 // The FULL document (labels, facts, evidence): tooling and tests import this; no runtime module does (see anchors.runtime.generated.js).
 export default {
   "$schema": "./time_anchors.schema.json",
   "schema": 1,
-  "version": "2026-09-30.1",
+  "version": "2026-10-18.1",
   "release": "candidate",
-  "dv": 2,
-  "notice": "CANDIDATE. All 33 anchors are state \"proposed\": not reviewed by a historian, not approved by the owner (D-TIME, sign-off DG-3). Nothing derived from this file may ship or be described as reviewed or accurate to the minute.",
+  "dv": 3,
+  "notice": "ADJUDICATED CANDIDATE. All 33 anchors were re-examined from primary sources by two independent evidence passes (historians a and b, docs/time/evidence) and an adjudicator (docs/time/ANCHORS-FINAL.md). Anchors are state 'reviewed' (or 'contested' where the sources disagree); none is 'signed': no human historian or the owner has signed the release. Every event time is an estimate with an uncertainty; a clock whose uncertainty exceeds 20 minutes is printed with 'about'.",
   "tz": "LMT",
   "tz_note": "Local mean time at Gettysburg (39.83 N, 77.23 W). 1863 had no standard time zones. EST would be about +9 minutes.",
   "tick_max": 675,
@@ -24,8 +24,8 @@ export default {
       675
     ]
   ],
-  "approx_sigma_min": 10,
-  "sigma_cap_min": 30,
+  "approx_sigma_min": 20,
+  "sigma_cap_min": 90,
   "slope": {
     "min_min_per_tick": 0.75,
     "warn_over": 15,
@@ -91,11 +91,13 @@ export default {
     {
       "tick": 1,
       "t": "1863-07-01T05:00",
-      "status": "S",
-      "confidence": "A",
-      "sigma_min": 15,
+      "status": "M",
+      "confidence": "B",
+      "sigma_min": 25,
+      "uncertainty_min": 30,
+      "adj_status": "Documented",
       "range": [
-        "05:00",
+        "04:45",
         "05:30"
       ],
       "label": "Heth's column leaves Cashtown",
@@ -112,25 +114,29 @@ export default {
       ],
       "families": [
         "LIT",
+        "OR",
         "SS",
         "THJ"
       ],
-      "evidence": "SS1, THJ; site label already 5:00am",
-      "flags": [
-        "M",
-        "E",
-        "W"
+      "evidence": "Adjudicated 2026-10-18: Heth's report: the division was ordered to move at 5 a.m. (one witness; an order time, not a departure time).",
+      "evidence_refs": [
+        "F01"
       ],
-      "review_flag": "evidence-weak",
-      "state": "proposed",
-      "decision": null
+      "adj_note": "Heth's report: the division was ordered to move at 5 a.m. (one witness; an order time, not a departure time).",
+      "flags": [],
+      "review_flag": "none",
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 5,
       "t": "1863-07-01T05:20",
       "status": "M",
+      "effective_status": "D",
       "confidence": "B",
       "sigma_min": 30,
+      "uncertainty_min": 30,
+      "adj_status": "Estimated",
       "range": [
         "05:00",
         "05:30"
@@ -152,27 +158,30 @@ export default {
         "SS",
         "THJ"
       ],
-      "evidence": "SS1, THJ (5:00 departure); keeps the pre-7:30 slope realistic",
+      "evidence": "Adjudicated 2026-10-18: Derived from tick 1 and the column's length; not an independent datum (circular, kept as a design-class anchor).",
+      "evidence_refs": [],
+      "adj_note": "Derived from tick 1 and the column's length; not an independent datum (circular, kept as a design-class anchor).",
       "flags": [
         "C",
         "W"
       ],
-      "review_flag": "owner-decision",
+      "review_flag": "none",
       "state": "proposed",
       "decision": null,
       "circular": true,
-      "effective_status": "D",
       "note": "Circular: derived from the site's own t5 label (5:20am). Imported as design-class sigma 30 (owner decision 3 default); drop or keep is an owner decision."
     },
     {
       "tick": 12,
       "t": "1863-07-01T07:30",
-      "status": "S",
-      "confidence": "A",
-      "sigma_min": 5,
+      "status": "M",
+      "confidence": "B",
+      "sigma_min": 25,
+      "uncertainty_min": 30,
+      "adj_status": "Estimated",
       "range": [
-        "07:30",
-        "07:30"
+        "07:10",
+        "08:00"
       ],
       "label": "First shot, Lt. Marcellus Jones",
       "facts": [
@@ -192,23 +201,31 @@ export default {
       "families": [
         "ABT",
         "HN",
+        "OR",
         "PART",
         "WP"
       ],
-      "evidence": "HNj, SS1, WPd1, ABTa, THJ; site text/vignette/walkthrough already say 7:30",
+      "evidence": "Adjudicated 2026-10-18: First shot about 07:30 rests on Lt. Jones's later account; the Official Records give 'about 8' for the notice that the enemy was coming.",
+      "evidence_refs": [
+        "F12a",
+        "F12b"
+      ],
+      "adj_note": "First shot about 07:30 rests on Lt. Jones's later account; the Official Records give 'about 8' for the notice that the enemy was coming.",
       "flags": [],
-      "review_flag": "none",
-      "state": "proposed",
-      "decision": null
+      "review_flag": "evidence-weak",
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 28,
       "t": "1863-07-01T10:15",
       "status": "S",
       "confidence": "A",
-      "sigma_min": 20,
+      "sigma_min": 25,
+      "uncertainty_min": 35,
+      "adj_status": "Documented",
       "range": [
-        "10:15",
+        "10:00",
         "10:50"
       ],
       "label": "Reynolds killed",
@@ -230,23 +247,41 @@ export default {
         "OR",
         "WP"
       ],
-      "evidence": "Doubleday OR 10.15; WPd1; site monument tooltip 10:15; dispute 10:40-10:50",
+      "evidence": "Adjudicated 2026-10-18: Wadsworth and Doubleday (OR 27/1 pp. 266, 245): about 10.15. Sequence bounds 10.00 to 10.50 (Hunt 10.15 Reynolds alive; Hall opened 10.45).",
+      "evidence_refs": [
+        "F28a",
+        "F28b",
+        "F28c",
+        "F28d",
+        "F28e",
+        "A:S28-1",
+        "A:S28-2",
+        "A:S28-3",
+        "A:S28-4",
+        "A:S28-5",
+        "A:S28-6",
+        "A:S28-7",
+        "B:anchors-b.json#28"
+      ],
+      "adj_note": "Wadsworth and Doubleday (OR 27/1 pp. 266, 245): about 10.15. Sequence bounds 10.00 to 10.50 (Hunt 10.15 Reynolds alive; Hall opened 10.45).",
       "flags": [
         "M"
       ],
-      "review_flag": "evidence-weak",
-      "state": "proposed",
-      "decision": null
+      "review_flag": "none",
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 36,
       "t": "1863-07-01T11:00",
-      "status": "S",
-      "confidence": "A",
-      "sigma_min": 15,
+      "status": "M",
+      "confidence": "B",
+      "sigma_min": 30,
+      "uncertainty_min": 30,
+      "adj_status": "Estimated",
       "range": [
-        "10:45",
-        "11:15"
+        "10:30",
+        "11:30"
       ],
       "label": "Railroad Cut charge",
       "facts": [
@@ -260,23 +295,29 @@ export default {
         "SS1"
       ],
       "families": [
-        "WP",
-        "SS"
+        "OR",
+        "SS",
+        "WP"
       ],
-      "evidence": "WPd1 ~11am; SS1 10:45-11:00",
-      "flags": [
-        "E"
+      "evidence": "Adjudicated 2026-10-18: No report clocks the Railroad Cut charge; sequence after Reynolds (10:15) and Hofmann's 'engaged at 11 a.m.'.",
+      "evidence_refs": [
+        "F36a",
+        "F36b"
       ],
+      "adj_note": "No report clocks the Railroad Cut charge; sequence after Reynolds (10:15) and Hofmann's 'engaged at 11 a.m.'.",
+      "flags": [],
       "review_flag": "evidence-weak",
-      "state": "proposed",
-      "decision": null
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 53,
       "t": "1863-07-01T14:30",
-      "status": "S",
-      "confidence": "A",
+      "status": "M",
+      "confidence": "B",
       "sigma_min": 30,
+      "uncertainty_min": 30,
+      "adj_status": "Estimated",
       "range": [
         "14:00",
         "15:00"
@@ -297,23 +338,31 @@ export default {
         "OR",
         "WP"
       ],
-      "evidence": "SS1 2:30; WPd1 (Rodes 2:00); Doubleday OR (Schurz 2:30)",
-      "flags": [
-        "M"
+      "evidence": "Adjudicated 2026-10-18: Doubleday 13:30 (advance), Lee 14:30 (Rodes arrives), Howard 14:45 (enemy in force); Baxter engaged over two hours from about noon.",
+      "evidence_refs": [
+        "F36b",
+        "F53a",
+        "F53b",
+        "F53c",
+        "F53d"
       ],
+      "adj_note": "Doubleday 13:30 (advance), Lee 14:30 (Rodes arrives), Howard 14:45 (enemy in force); Baxter engaged over two hours from about noon.",
+      "flags": [],
       "review_flag": "evidence-weak",
-      "state": "proposed",
-      "decision": null
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 57,
       "t": "1863-07-01T15:00",
       "status": "M",
       "confidence": "B",
-      "sigma_min": 25,
+      "sigma_min": 30,
+      "uncertainty_min": 30,
+      "adj_status": "Estimated",
       "range": [
         "14:30",
-        "15:15"
+        "15:30"
       ],
       "label": "Barlow's Knoll overwhelmed",
       "facts": [
@@ -329,22 +378,32 @@ export default {
       ],
       "families": [
         "ABT",
+        "OR",
         "WP"
       ],
-      "evidence": "ABT map 2:45-4:30; WPd1; site monument says 2:30",
+      "evidence": "Adjudicated 2026-10-18: Hays: Gordon ordered forward a little after 14:00; Howard first sees the enemy in force at 14:45 and the line is giving way by 15:45.",
+      "evidence_refs": [
+        "F53c",
+        "F57a",
+        "F57b",
+        "F57c"
+      ],
+      "adj_note": "Hays: Gordon ordered forward a little after 14:00; Howard first sees the enemy in force at 14:45 and the line is giving way by 15:45.",
       "flags": [],
-      "review_flag": "none",
-      "state": "proposed",
-      "decision": null
+      "review_flag": "evidence-weak",
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 64,
       "t": "1863-07-01T16:00",
       "status": "S",
       "confidence": "A",
-      "sigma_min": 15,
+      "sigma_min": 30,
+      "uncertainty_min": 40,
+      "adj_status": "Documented",
       "range": [
-        "15:45",
+        "15:20",
         "16:15"
       ],
       "label": "Pender/Perrin hit Seminary Ridge",
@@ -361,22 +420,31 @@ export default {
         "CWC"
       ],
       "families": [
-        "OR",
         "ABT",
+        "OR",
         "WP"
       ],
-      "evidence": "WPd1, ABT map, Doubleday OR \"About 4 p.m.\", CWC",
+      "evidence": "Adjudicated 2026-10-18: Doubleday 'About 4 p.m.' (general advance), Rowley 'nearly 4'; Howard puts a renewed attack on the I Corps at 15:20.",
+      "evidence_refs": [
+        "F57c",
+        "F64a",
+        "F64b",
+        "F64c"
+      ],
+      "adj_note": "Doubleday 'About 4 p.m.' (general advance), Rowley 'nearly 4'; Howard puts a renewed attack on the I Corps at 15:20.",
       "flags": [],
       "review_flag": "none",
-      "state": "proposed",
-      "decision": null
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 72,
       "t": "1863-07-01T16:20",
-      "status": "M",
-      "confidence": "B",
+      "status": "S",
+      "confidence": "A",
       "sigma_min": 30,
+      "uncertainty_min": 50,
+      "adj_status": "Documented",
       "range": [
         "15:30",
         "16:30"
@@ -394,23 +462,35 @@ export default {
         "SRCH"
       ],
       "families": [
-        "WP",
-        "SRCH"
+        "OR",
+        "SRCH",
+        "WP"
       ],
-      "evidence": "WPd1 \"after 4:00\"; SS1 ~4:00; search 4:00-4:30",
-      "flags": [],
+      "evidence": "Adjudicated 2026-10-18: Hancock's dispatch stamped 5.25 p.m.: arrived 'an hour since' (16:25); Howard the same day: 4 p.m. Hancock's later report says 3 p.m.",
+      "evidence_refs": [
+        "F72a",
+        "F72b",
+        "F72c",
+        "F75c"
+      ],
+      "adj_note": "Hancock's dispatch stamped 5.25 p.m.: arrived 'an hour since' (16:25); Howard the same day: 4 p.m. Hancock's later report says 3 p.m.",
+      "flags": [
+        "M"
+      ],
       "review_flag": "none",
-      "state": "proposed",
-      "decision": null
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 75,
-      "t": "1863-07-01T17:00",
-      "status": "R",
-      "confidence": "C",
-      "sigma_min": 30,
+      "t": "1863-07-01T16:55",
+      "status": "M",
+      "confidence": "B",
+      "sigma_min": 35,
+      "uncertainty_min": 35,
+      "adj_status": "Estimated",
       "range": [
-        "16:30",
+        "16:20",
         "17:30"
       ],
       "label": "Lee's 'if practicable' order",
@@ -425,27 +505,46 @@ export default {
         "WPd1"
       ],
       "families": [
-        "WP",
-        "SRCH"
+        "OR",
+        "SRCH",
+        "WP"
       ],
-      "evidence": "SRCH \"after 5 p.m.\"; WP no time",
-      "flags": [
-        "H"
+      "evidence": "Adjudicated 2026-10-18: NO source gives a clock time for Lee's order. Estimate from sequence: after the retreat (16:10 to 16:30) and before Hancock's 'quiet' dispatch (17:25).",
+      "evidence_refs": [
+        "F75a",
+        "F75b",
+        "F75c",
+        "F75d",
+        "F75e",
+        "F75f",
+        "A:S75-1",
+        "A:S75-2",
+        "A:S75-3",
+        "A:S75-4",
+        "A:S75-5",
+        "A:S75-6",
+        "A:S75-7",
+        "A:S75-8",
+        "B:anchors-b.json#75"
       ],
-      "review_flag": "needs-historian",
-      "state": "proposed",
-      "decision": null,
+      "adj_note": "NO source gives a clock time for Lee's order. Estimate from sequence: after the retreat (16:10 to 16:30) and before Hancock's 'quiet' dispatch (17:25).",
+      "flags": [],
+      "review_flag": "evidence-weak",
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18",
       "note": "Needs a named historian decision before any exact time is shown (D-TIME sign-off item 1). See docs/editorial/anchor-review-packet.md."
     },
     {
       "tick": 90,
-      "t": "1863-07-01T18:00",
+      "t": "1863-07-01T17:30",
       "status": "R",
       "confidence": "C",
-      "sigma_min": 30,
+      "sigma_min": 90,
+      "uncertainty_min": 90,
+      "adj_status": "Contested",
       "range": [
-        "16:30",
-        "20:00"
+        "16:00",
+        "19:00"
       ],
       "label": "XII Corps/Johnson arrive",
       "facts": [
@@ -462,18 +561,47 @@ export default {
         "SS1"
       ],
       "families": [
-        "SS",
+        "LIT",
+        "OR",
         "SRCH",
-        "LIT"
+        "SS"
       ],
-      "evidence": "SS1 5:30; SRCH Geary 5pm",
+      "evidence": "Adjudicated 2026-10-18: XII Corps: head near the field about 16:00 (Crane), Slocum 'coming on the ground' 17:25 (Hancock), Geary in position 17:00, Howard/Meade 'about 7'. Johnson (the Confederate half) about 19:00.",
+      "evidence_refs": [
+        "F90a",
+        "F90b",
+        "F90c",
+        "F90d",
+        "F90e",
+        "F90f",
+        "A:S90-1",
+        "A:S90-2",
+        "A:S90-3",
+        "A:S90-4",
+        "A:S90-5",
+        "A:S90-6",
+        "A:S90-7",
+        "A:S90-8",
+        "A:S90-9",
+        "A:S90-10",
+        "A:S90-11",
+        "A:S90-12",
+        "A:S90-13",
+        "A:S90-14",
+        "A:S90-15",
+        "A:S90-16",
+        "A:S90-17",
+        "A:S90-18",
+        "A:S90-19",
+        "B:anchors-b.json#90"
+      ],
+      "adj_note": "XII Corps: head near the field about 16:00 (Crane), Slocum 'coming on the ground' 17:25 (Hancock), Geary in position 17:00, Howard/Meade 'about 7'. Johnson (the Confederate half) about 19:00.",
       "flags": [
-        "H",
-        "W"
+        "H"
       ],
       "review_flag": "needs-historian",
-      "state": "proposed",
-      "decision": null,
+      "state": "contested",
+      "decision": "ADJ-2026-10-18",
       "note": "Needs a named historian decision before any exact time is shown (D-TIME sign-off item 1). See docs/editorial/anchor-review-packet.md."
     },
     {
@@ -482,6 +610,8 @@ export default {
       "status": "D",
       "confidence": "D",
       "sigma_min": 30,
+      "uncertainty_min": 30,
+      "adj_status": "Estimated",
       "range": [
         "19:32",
         "20:04"
@@ -493,7 +623,9 @@ export default {
       "families": [
         "sun"
       ],
-      "evidence": "computed",
+      "evidence": "Adjudicated 2026-10-18: Design anchor (nightfall): sunset 19:32 to civil dusk 20:04 LMT, recomputed independently, agrees within 1 minute.",
+      "evidence_refs": [],
+      "adj_note": "Design anchor (nightfall): sunset 19:32 to civil dusk 20:04 LMT, recomputed independently, agrees within 1 minute.",
       "flags": [
         "O"
       ],
@@ -509,6 +641,8 @@ export default {
       "status": "D",
       "confidence": "D",
       "sigma_min": 30,
+      "uncertainty_min": 30,
+      "adj_status": "Estimated",
       "range": [
         "04:03",
         "04:35"
@@ -520,7 +654,9 @@ export default {
       "families": [
         "sun"
       ],
-      "evidence": "computed",
+      "evidence": "Adjudicated 2026-10-18: Design anchor (Day 2 first light): civil dawn 04:03, sunrise 04:35 LMT.",
+      "evidence_refs": [],
+      "adj_note": "Design anchor (Day 2 first light): civil dawn 04:03, sunrise 04:35 LMT.",
       "flags": [
         "O"
       ],
@@ -535,9 +671,11 @@ export default {
       "t": "1863-07-02T12:00",
       "status": "M",
       "confidence": "B",
-      "sigma_min": 30,
+      "sigma_min": 45,
+      "uncertainty_min": 60,
+      "adj_status": "Documented",
       "range": [
-        "11:30",
+        "11:00",
         "12:30"
       ],
       "label": "Berdan's probe / Pitzer's Woods",
@@ -552,24 +690,33 @@ export default {
         "SS2"
       ],
       "families": [
-        "WP",
-        "SS"
+        "OR",
+        "SS",
+        "WP"
       ],
-      "evidence": "WPd2 \"About noon\"; SS2 Noon",
+      "evidence": "Adjudicated 2026-10-18: Berdan: second detachment ordered about 11 a.m.; Hunt: sent about 12 m.; Birney: permission at 12 m. (1863) or 11 (1864 testimony).",
+      "evidence_refs": [
+        "F240a",
+        "F240b",
+        "F240c"
+      ],
+      "adj_note": "Berdan: second detachment ordered about 11 a.m.; Hunt: sent about 12 m.; Birney: permission at 12 m. (1863) or 11 (1864 testimony).",
       "flags": [],
       "review_flag": "none",
-      "state": "proposed",
-      "decision": null
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 248,
-      "t": "1863-07-02T14:30",
+      "t": "1863-07-02T15:00",
       "status": "R",
       "confidence": "C",
-      "sigma_min": 30,
+      "sigma_min": 60,
+      "uncertainty_min": 60,
+      "adj_status": "Contested",
       "range": [
-        "12:00",
-        "15:30"
+        "14:00",
+        "16:00"
       ],
       "label": "Sickles's advance to Peach Orchard",
       "facts": [
@@ -585,17 +732,42 @@ export default {
         "LIT"
       ],
       "families": [
-        "WP",
+        "LIT",
+        "OR",
         "SRCH",
-        "LIT"
+        "WP"
       ],
-      "evidence": "range noon-3:30pm; SS2 noon, SRCH 2pm, V-007 3pm",
+      "evidence": "Adjudicated 2026-10-18: The advance was in stages: announced 13:00-14:00 (Randolph), seen as an advance at 15:00 (Hancock, Meade), second division moved to the road about 16:00 (Humphreys, Meade's 1864 testimony).",
+      "evidence_refs": [
+        "F240c",
+        "F248a",
+        "F248b",
+        "F248c",
+        "F248d",
+        "F248e",
+        "A:S248-1",
+        "A:S248-2",
+        "A:S248-3",
+        "A:S248-4",
+        "A:S248-5",
+        "A:S248-6",
+        "A:S248-7",
+        "A:S248-8",
+        "A:S248-9",
+        "A:S248-10",
+        "A:S248-11",
+        "A:S248-12",
+        "A:S248-14",
+        "A:S248-13",
+        "B:anchors-b.json#248"
+      ],
+      "adj_note": "The advance was in stages: announced 13:00-14:00 (Randolph), seen as an advance at 15:00 (Hancock, Meade), second division moved to the road about 16:00 (Humphreys, Meade's 1864 testimony).",
       "flags": [
         "H"
       ],
       "review_flag": "needs-historian",
-      "state": "proposed",
-      "decision": null,
+      "state": "contested",
+      "decision": "ADJ-2026-10-18",
       "note": "Needs a named historian decision before any exact time is shown (D-TIME sign-off item 1). See docs/editorial/anchor-review-packet.md."
     },
     {
@@ -604,6 +776,8 @@ export default {
       "status": "S",
       "confidence": "A",
       "sigma_min": 25,
+      "uncertainty_min": 30,
+      "adj_status": "Documented",
       "range": [
         "15:45",
         "16:30"
@@ -627,25 +801,34 @@ export default {
         "WPhood"
       ],
       "families": [
-        "OR",
         "ABT",
+        "OR",
         "WP"
       ],
-      "evidence": "WPd2, LSTR OR, WORK OR, ABTa, Hall OR (Benner's Hill 4:00-4:15)",
+      "evidence": "Adjudicated 2026-10-18: Alexander, Pendleton, Bryan: about 16:00; Bane about 16:30.",
+      "evidence_refs": [
+        "F256a",
+        "F256b",
+        "F256c",
+        "F256d"
+      ],
+      "adj_note": "Alexander, Pendleton, Bryan: about 16:00; Bane about 16:30.",
       "flags": [],
       "review_flag": "none",
-      "state": "proposed",
-      "decision": null
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 267,
       "t": "1863-07-02T16:30",
       "status": "M",
       "confidence": "B",
-      "sigma_min": 15,
+      "sigma_min": 25,
+      "uncertainty_min": 30,
+      "adj_status": "Estimated",
       "range": [
-        "16:15",
-        "16:45"
+        "16:00",
+        "16:50"
       ],
       "label": "Vincent reaches Little Round Top",
       "facts": [
@@ -662,22 +845,33 @@ export default {
       ],
       "families": [
         "HN",
+        "OR",
         "WP"
       ],
-      "evidence": "SS2 4:30, WP LRT, Cross",
+      "evidence": "Adjudicated 2026-10-18: Rice, Conner: brigade placed about 16:00; Hunt: Hazlett to the hill about 16:30, after Vincent's brigade.",
+      "evidence_refs": [
+        "F256c",
+        "F256d",
+        "F267a",
+        "F267b",
+        "F267c"
+      ],
+      "adj_note": "Rice, Conner: brigade placed about 16:00; Hunt: Hazlett to the hill about 16:30, after Vincent's brigade.",
       "flags": [],
-      "review_flag": "none",
-      "state": "proposed",
-      "decision": null
+      "review_flag": "evidence-weak",
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 275,
       "t": "1863-07-02T18:00",
       "status": "R",
       "confidence": "C",
-      "sigma_min": 30,
+      "sigma_min": 45,
+      "uncertainty_min": 60,
+      "adj_status": "Contested",
       "range": [
-        "17:10",
+        "17:30",
         "19:00"
       ],
       "label": "20th Maine bayonet charge",
@@ -695,26 +889,53 @@ export default {
       ],
       "families": [
         "HN",
-        "THJ",
-        "SRCH"
+        "OR",
+        "PART",
+        "SRCH",
+        "THJ"
       ],
-      "evidence": "contested 5:10pm - 7:00pm+; choose a defensible mid value and label as approximate",
+      "evidence": "Adjudicated 2026-10-18: No participant clocks the charge. Chamberlain: about an hour of severe fighting after about 16:00-16:30; Woodward: enemy fell back nearly 18:00; Oates: his regiment broke and rallied about sunset (19:32).",
+      "evidence_refs": [
+        "F256c",
+        "F256d",
+        "F275a",
+        "F275b",
+        "F275c",
+        "F275d",
+        "A:S275-1",
+        "A:S275-2",
+        "A:S275-3",
+        "A:S275-4",
+        "A:S275-5",
+        "A:S275-6",
+        "A:S275-7",
+        "A:S275-8",
+        "A:S275-9",
+        "A:S275-10",
+        "A:S275-11",
+        "A:S275-12",
+        "A:S275-13",
+        "B:anchors-b.json#275"
+      ],
+      "adj_note": "No participant clocks the charge. Chamberlain: about an hour of severe fighting after about 16:00-16:30; Woodward: enemy fell back nearly 18:00; Oates: his regiment broke and rallied about sunset (19:32).",
       "flags": [
         "H"
       ],
       "review_flag": "needs-historian",
-      "state": "proposed",
-      "decision": null,
+      "state": "contested",
+      "decision": "ADJ-2026-10-18",
       "note": "Needs a named historian decision before any exact time is shown (D-TIME sign-off item 1). See docs/editorial/anchor-review-packet.md."
     },
     {
       "tick": 280,
-      "t": "1863-07-02T18:30",
-      "status": "M",
-      "confidence": "B",
-      "sigma_min": 25,
+      "t": "1863-07-02T18:15",
+      "status": "S",
+      "confidence": "A",
+      "sigma_min": 30,
+      "uncertainty_min": 30,
+      "adj_status": "Documented",
       "range": [
-        "18:00",
+        "17:45",
         "18:45"
       ],
       "label": "Peach Orchard salient collapses",
@@ -729,14 +950,24 @@ export default {
         "SS2"
       ],
       "families": [
-        "WP",
-        "SS"
+        "OR",
+        "SS",
+        "WP"
       ],
-      "evidence": "WP Peach Orchard (marker 6:30), SS2",
-      "flags": [],
+      "evidence": "Adjudicated 2026-10-18: Hunt: the line was forced back 'about 5.30 or 6'; Lang: Wilcox began to advance 18:00; Wilcox: the cannonade lasted until 18:20.",
+      "evidence_refs": [
+        "F280a",
+        "F280b",
+        "F280c",
+        "F280d"
+      ],
+      "adj_note": "Hunt: the line was forced back 'about 5.30 or 6'; Lang: Wilcox began to advance 18:00; Wilcox: the cannonade lasted until 18:20.",
+      "flags": [
+        "M"
+      ],
       "review_flag": "none",
-      "state": "proposed",
-      "decision": null
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 295,
@@ -744,6 +975,8 @@ export default {
       "status": "M",
       "confidence": "B",
       "sigma_min": 30,
+      "uncertainty_min": 30,
+      "adj_status": "Estimated",
       "range": [
         "18:30",
         "19:30"
@@ -760,14 +993,21 @@ export default {
         "WPLRT"
       ],
       "families": [
-        "WP",
-        "SS"
+        "OR",
+        "SS",
+        "WP"
       ],
-      "evidence": "SS2 6:30-7:30; WP \"at dusk\"",
+      "evidence": "Adjudicated 2026-10-18: No clock in Crawford's report ('as night was approaching'); sequence after the Peach Orchard fell (about 18:15) and before dusk.",
+      "evidence_refs": [
+        "F280d",
+        "F295a",
+        "F302a"
+      ],
+      "adj_note": "No clock in Crawford's report ('as night was approaching'); sequence after the Peach Orchard fell (about 18:15) and before dusk.",
       "flags": [],
-      "review_flag": "none",
-      "state": "proposed",
-      "decision": null
+      "review_flag": "evidence-weak",
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 302,
@@ -775,6 +1015,8 @@ export default {
       "status": "M",
       "confidence": "B",
       "sigma_min": 25,
+      "uncertainty_min": 25,
+      "adj_status": "Estimated",
       "range": [
         "18:45",
         "19:30"
@@ -791,16 +1033,20 @@ export default {
         "LIT"
       ],
       "families": [
-        "SS",
-        "LIT"
+        "LIT",
+        "OR",
+        "SS"
       ],
-      "evidence": "SS2 6:30-7:00 block; LIT 7pm",
-      "flags": [
-        "W"
+      "evidence": "Adjudicated 2026-10-18: The Official Records describe the charge without a time; sequence after Wilcox began to advance (18:00-18:20) and before 'near dusk' (Humphreys).",
+      "evidence_refs": [
+        "F280d",
+        "F302a"
       ],
+      "adj_note": "The Official Records describe the charge without a time; sequence after Wilcox began to advance (18:00-18:20) and before 'near dusk' (Humphreys).",
+      "flags": [],
       "review_flag": "evidence-weak",
-      "state": "proposed",
-      "decision": null
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 314,
@@ -808,9 +1054,11 @@ export default {
       "status": "S",
       "confidence": "A",
       "sigma_min": 30,
+      "uncertainty_min": 30,
+      "adj_status": "Documented",
       "range": [
-        "18:30",
-        "19:30"
+        "18:50",
+        "19:45"
       ],
       "label": "Johnson attacks Culp's Hill",
       "facts": [
@@ -826,13 +1074,20 @@ export default {
       ],
       "families": [
         "ABT",
+        "OR",
         "WP"
       ],
-      "evidence": "WPCH \"around 7 pm\"; ABT \"by about 7:00\"; SS2",
+      "evidence": "Adjudicated 2026-10-18: Greene: attacked 'a few minutes before 7 p.m.'; Early: Johnson 'warmly engaged' before dusk (20:04).",
+      "evidence_refs": [
+        "F314a",
+        "F314b",
+        "F314c"
+      ],
+      "adj_note": "Greene: attacked 'a few minutes before 7 p.m.'; Early: Johnson 'warmly engaged' before dusk (20:04).",
       "flags": [],
       "review_flag": "none",
-      "state": "proposed",
-      "decision": null
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 326,
@@ -840,6 +1095,8 @@ export default {
       "status": "S",
       "confidence": "A",
       "sigma_min": 30,
+      "uncertainty_min": 30,
+      "adj_status": "Documented",
       "range": [
         "19:30",
         "20:30"
@@ -857,26 +1114,47 @@ export default {
         "SS2"
       ],
       "families": [
-        "WP",
-        "SS"
+        "OR",
+        "SS",
+        "WP"
       ],
-      "evidence": "WPd2 8pm; WPCem dusk 7:30; SS2",
-      "flags": [
-        "E"
+      "evidence": "Adjudicated 2026-10-18: Hays 'a little before 8', Early 'a little before dusk', Ricketts and Meade about 20:00, Schurz 20:00-21:00, Tate 'fully dark'.",
+      "evidence_refs": [
+        "F314b",
+        "F326a",
+        "F326b",
+        "F326c",
+        "F326d",
+        "F326e",
+        "F326f",
+        "A:S326-1",
+        "A:S326-2",
+        "A:S326-3",
+        "A:S326-4",
+        "A:S326-5",
+        "A:S326-6",
+        "A:S326-7",
+        "A:S326-8",
+        "A:S326-9",
+        "B:anchors-b.json#326"
       ],
-      "review_flag": "evidence-weak",
-      "state": "proposed",
-      "decision": null
+      "adj_note": "Hays 'a little before 8', Early 'a little before dusk', Ricketts and Meade about 20:00, Schurz 20:00-21:00, Tate 'fully dark'.",
+      "flags": [],
+      "review_flag": "none",
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 340,
-      "t": "1863-07-02T22:30",
-      "status": "M",
-      "confidence": "B",
-      "sigma_min": 15,
+      "t": "1863-07-02T22:15",
+      "status": "S",
+      "confidence": "A",
+      "sigma_min": 45,
+      "uncertainty_min": 45,
+      "adj_status": "Documented",
       "range": [
-        "22:00",
-        "22:30"
+        "21:30",
+        "23:00"
       ],
       "label": "Battlefield falls silent",
       "facts": [
@@ -889,22 +1167,33 @@ export default {
         "WPd2"
       ],
       "families": [
+        "OR",
         "WP"
       ],
-      "evidence": "WPd2 10:30pm",
-      "flags": [],
+      "evidence": "Adjudicated 2026-10-18: Geary: Culp's Hill attack broken off about 22:00; Howard: line resumed 21:30; Steuart rested from about 23:00.",
+      "evidence_refs": [
+        "F340a",
+        "F340b",
+        "F340c"
+      ],
+      "adj_note": "Geary: Culp's Hill attack broken off about 22:00; Howard: line resumed 21:30; Steuart rested from about 23:00.",
+      "flags": [
+        "M"
+      ],
       "review_flag": "none",
-      "state": "proposed",
-      "decision": null
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 451,
-      "t": "1863-07-03T04:30",
+      "t": "1863-07-03T04:15",
       "status": "S",
       "confidence": "A",
-      "sigma_min": 25,
+      "sigma_min": 30,
+      "uncertainty_min": 30,
+      "adj_status": "Documented",
       "range": [
-        "04:00",
+        "03:45",
         "04:45"
       ],
       "label": "XII Corps guns open on Culp's Hill",
@@ -921,14 +1210,22 @@ export default {
       ],
       "families": [
         "ABT",
-        "WP",
-        "SS"
+        "OR",
+        "SS",
+        "WP"
       ],
-      "evidence": "SS3 4:30; WPCH dawn; ABT dawn; sunrise 4:35am",
+      "evidence": "Adjudicated 2026-10-18: Slocum: XII Corps artillery opened at 4 a.m.; Hunt: Reserve batteries 4.30; Geary 3.30 (before civil dawn, so a fast watch); regimental reports 'about 4'.",
+      "evidence_refs": [
+        "F451a",
+        "F451b",
+        "F451c",
+        "F451d"
+      ],
+      "adj_note": "Slocum: XII Corps artillery opened at 4 a.m.; Hunt: Reserve batteries 4.30; Geary 3.30 (before civil dawn, so a fast watch); regimental reports 'about 4'.",
       "flags": [],
       "review_flag": "none",
-      "state": "proposed",
-      "decision": null
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 500,
@@ -936,9 +1233,11 @@ export default {
       "status": "M",
       "confidence": "B",
       "sigma_min": 30,
+      "uncertainty_min": 30,
+      "adj_status": "Documented",
       "range": [
         "08:30",
-        "10:00"
+        "09:30"
       ],
       "label": "Pickett's division arrives",
       "facts": [
@@ -951,25 +1250,30 @@ export default {
         "SS3"
       ],
       "families": [
+        "OR",
         "SS"
       ],
-      "evidence": "SS3 9:00 (single source; needs Wert/Hessler check)",
-      "flags": [
-        "W"
+      "evidence": "Adjudicated 2026-10-18: Peyton (Garnett's brigade): reached the field about 9 a.m. One witness.",
+      "evidence_refs": [
+        "F500a"
       ],
-      "review_flag": "evidence-weak",
-      "state": "proposed",
-      "decision": null
+      "adj_note": "Peyton (Garnett's brigade): reached the field about 9 a.m. One witness.",
+      "flags": [],
+      "review_flag": "none",
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 515,
-      "t": "1863-07-03T11:00",
+      "t": "1863-07-03T10:30",
       "status": "S",
       "confidence": "A",
-      "sigma_min": 30,
+      "sigma_min": 40,
+      "uncertainty_min": 45,
+      "adj_status": "Documented",
       "range": [
-        "10:30",
-        "12:00"
+        "10:00",
+        "11:15"
       ],
       "label": "Culp's Hill fighting ends",
       "facts": [
@@ -984,27 +1288,37 @@ export default {
         "SS3"
       ],
       "families": [
+        "OR",
         "SS",
         "WP"
       ],
-      "evidence": "WPmain ~11am; SS3 10-11; site text itself says 11:00am",
-      "flags": [
-        "M",
-        "E"
+      "evidence": "Adjudicated 2026-10-18: Slocum: engagement continued until 10.30; Hunt, Ruger: about 10; Geary, Hayes: about 11.",
+      "evidence_refs": [
+        "F515a",
+        "F515b",
+        "F515c",
+        "F515e",
+        "F515d"
       ],
-      "review_flag": "evidence-weak",
-      "state": "proposed",
-      "decision": null
+      "adj_note": "Slocum: engagement continued until 10.30; Hunt, Ruger: about 10; Geary, Hayes: about 11.",
+      "flags": [
+        "M"
+      ],
+      "review_flag": "none",
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 518,
-      "t": "1863-07-03T13:07",
+      "t": "1863-07-03T13:00",
       "status": "S",
       "confidence": "A",
-      "sigma_min": 5,
+      "sigma_min": 25,
+      "uncertainty_min": 30,
+      "adj_status": "Documented",
       "range": [
-        "13:00",
-        "13:10"
+        "12:40",
+        "13:30"
       ],
       "label": "Cannonade opens",
       "facts": [
@@ -1021,26 +1335,54 @@ export default {
         "CAB"
       ],
       "families": [
-        "OR",
         "HN",
         "NPS",
+        "OR",
+        "PART",
         "WP"
       ],
-      "evidence": "HNp (multiple OR witnesses), SS3 1:07, NPS 1pm; site text/vignette/walkthrough say 1:00/1:07",
+      "evidence": "Adjudicated 2026-10-18: Nine reports on both sides say about 13:00; Alexander: 13:00 by his watch; Walton: Longstreet's order arrived a few minutes after 13:00; Peyton 13:30 (his watch).",
+      "evidence_refs": [
+        "F518a",
+        "F518b",
+        "F518c",
+        "F518d",
+        "F518e",
+        "F518f",
+        "F518g",
+        "A:S518-1",
+        "A:S518-2",
+        "A:S518-3",
+        "A:S518-4",
+        "A:S518-5",
+        "A:S518-6",
+        "A:S518-7",
+        "A:S518-8",
+        "A:S518-9",
+        "A:S518-10",
+        "A:S518-11",
+        "A:S518-12",
+        "A:S518-13",
+        "A:S518-14",
+        "B:anchors-b.json#518"
+      ],
+      "adj_note": "Nine reports on both sides say about 13:00; Alexander: 13:00 by his watch; Walton: Longstreet's order arrived a few minutes after 13:00; Peyton 13:30 (his watch).",
       "flags": [],
       "review_flag": "none",
-      "state": "proposed",
-      "decision": null
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 538,
       "t": "1863-07-03T15:00",
       "status": "R",
       "confidence": "C",
-      "sigma_min": 30,
+      "sigma_min": 40,
+      "uncertainty_min": 60,
+      "adj_status": "Contested",
       "range": [
         "14:00",
-        "15:00"
+        "15:15"
       ],
       "label": "Infantry step-off",
       "facts": [
@@ -1058,17 +1400,43 @@ export default {
         "LSTR"
       ],
       "families": [
-        "OR",
         "ABT",
+        "OR",
         "WP"
       ],
-      "evidence": "ABT 3:00; WPmain 3:00; SS3 2:30-3:00; WPPC 2:00; Longstreet OR ~2:00",
+      "evidence": "Adjudicated 2026-10-18: Webb, Hunt, Harrow (Union) and Davis (Confederate): about 15:00; Peyton 14:30 on a watch that gives 13:30 for the opening; Jones about 14:00; Alexander about 14:00.",
+      "evidence_refs": [
+        "F518c",
+        "F518f",
+        "F518g",
+        "F538a",
+        "F538b",
+        "F538c",
+        "F538d",
+        "F538e",
+        "F538f",
+        "F538g",
+        "A:S538-1",
+        "A:S538-2",
+        "A:S538-3",
+        "A:S538-4",
+        "A:S538-5",
+        "A:S538-6",
+        "A:S538-7",
+        "A:S538-8",
+        "A:S538-9",
+        "A:S538-10",
+        "A:S538-11",
+        "A:S538-12",
+        "B:anchors-b.json#538"
+      ],
+      "adj_note": "Webb, Hunt, Harrow (Union) and Davis (Confederate): about 15:00; Peyton 14:30 on a watch that gives 13:30 for the opening; Jones about 14:00; Alexander about 14:00.",
       "flags": [
         "H"
       ],
       "review_flag": "needs-historian",
-      "state": "proposed",
-      "decision": null,
+      "state": "contested",
+      "decision": "ADJ-2026-10-18",
       "note": "Needs a named historian decision before any exact time is shown (D-TIME sign-off item 1). See docs/editorial/anchor-review-packet.md."
     },
     {
@@ -1076,10 +1444,12 @@ export default {
       "t": "1863-07-03T15:35",
       "status": "M",
       "confidence": "B",
-      "sigma_min": 20,
+      "sigma_min": 25,
+      "uncertainty_min": 25,
+      "adj_status": "Estimated",
       "range": [
         "15:10",
-        "15:45"
+        "16:00"
       ],
       "label": "Armistead over the wall",
       "facts": [
@@ -1094,13 +1464,18 @@ export default {
       ],
       "families": [
         "ABT",
+        "OR",
         "SS"
       ],
-      "evidence": "ABT map 3:30-3:45; SS3 3:30-4:00; site monument 3:15",
+      "evidence": "Adjudicated 2026-10-18: No clock in Webb's report; sequence 20 to 35 minutes after the 15:00 step-off.",
+      "evidence_refs": [
+        "F551a"
+      ],
+      "adj_note": "No clock in Webb's report; sequence 20 to 35 minutes after the 15:00 step-off.",
       "flags": [],
-      "review_flag": "none",
-      "state": "proposed",
-      "decision": null
+      "review_flag": "evidence-weak",
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 556,
@@ -1108,6 +1483,8 @@ export default {
       "status": "M",
       "confidence": "B",
       "sigma_min": 25,
+      "uncertainty_min": 30,
+      "adj_status": "Estimated",
       "range": [
         "15:45",
         "16:30"
@@ -1123,24 +1500,29 @@ export default {
         "SS3"
       ],
       "families": [
+        "OR",
         "SS"
       ],
-      "evidence": "SS3 4:00-6:00; ABT 4:00 map",
-      "flags": [
-        "W"
+      "evidence": "Adjudicated 2026-10-18: Davis: Heth's division back on Seminary Ridge about 16:00; Lee's meeting with survivors is later and is not timed in the texts read.",
+      "evidence_refs": [
+        "F556a"
       ],
+      "adj_note": "Davis: Heth's division back on Seminary Ridge about 16:00; Lee's meeting with survivors is later and is not timed in the texts read.",
+      "flags": [],
       "review_flag": "evidence-weak",
-      "state": "proposed",
-      "decision": null
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 568,
       "t": "1863-07-03T17:15",
-      "status": "M",
-      "confidence": "B",
-      "sigma_min": 25,
+      "status": "S",
+      "confidence": "A",
+      "sigma_min": 30,
+      "uncertainty_min": 30,
+      "adj_status": "Documented",
       "range": [
-        "17:00",
+        "16:45",
         "17:45"
       ],
       "label": "Farnsworth's charge",
@@ -1157,13 +1539,21 @@ export default {
       ],
       "families": [
         "ABT",
+        "OR",
         "SRCH"
       ],
-      "evidence": "ABT South Cavalry Field 5:15-6:00; SS3 5:30",
-      "flags": [],
+      "evidence": "Adjudicated 2026-10-18: Preston (1st Vt. Cav.): the charge at 5 p.m.; Capehart (1st W.Va.): contact at 3 p.m., order to make ready.",
+      "evidence_refs": [
+        "F568a",
+        "F568b"
+      ],
+      "adj_note": "Preston (1st Vt. Cav.): the charge at 5 p.m.; Capehart (1st W.Va.): contact at 3 p.m., order to make ready.",
+      "flags": [
+        "M"
+      ],
       "review_flag": "none",
-      "state": "proposed",
-      "decision": null
+      "state": "reviewed",
+      "decision": "ADJ-2026-10-18"
     },
     {
       "tick": 675,
@@ -1171,6 +1561,8 @@ export default {
       "status": "D",
       "confidence": "D",
       "sigma_min": 30,
+      "uncertainty_min": 30,
+      "adj_status": "Estimated",
       "range": [
         "19:32",
         "20:04"
@@ -1182,7 +1574,9 @@ export default {
       "families": [
         "sun"
       ],
-      "evidence": "computed; Starr fight ~6pm",
+      "evidence": "Adjudicated 2026-10-18: Design anchor (nominal end of the battle): sunset to civil dusk, same solar check.",
+      "evidence_refs": [],
+      "adj_note": "Design anchor (nominal end of the battle): sunset to civil dusk, same solar check.",
       "flags": [
         "O"
       ],
@@ -1192,5 +1586,22 @@ export default {
       "design": true,
       "note": "Design anchor: no historical event; closes a day boundary or night. Owner signs (D-TIME sign-off item 2). Times from the NOAA solar algorithm (local mean time), not from an almanac."
     }
-  ]
+  ],
+  "adjudication": {
+    "date": "2026-10-18",
+    "by": "adjudicator (AI), second reviewer under the unanimity rule, acting on docs/decisions/OWNER-DECISIONS-2026-10-05.md item 2",
+    "inputs": [
+      "docs/time/evidence/anchors-a.json",
+      "docs/time/evidence/anchors-b.json",
+      "docs/time/evidence/anchors-final.json"
+    ],
+    "decision_id": "ADJ-2026-10-18",
+    "statuses": {
+      "Documented": "a first-hand primary source gives a clock time for this event or its direct precursor and the window is bounded by sources",
+      "Estimated": "no source clocks the event itself; the time is inferred from sequence, neighbouring clocks or astronomy and is labelled an estimate",
+      "Contested": "first-hand sources disagree by more than the window an ordinary watch error explains; the range is shown and the status is Contested"
+    },
+    "uncertainty_rule": "sigma_min is the half-width of the window the sources defend (rounded up to 5 minutes; the model's own measure). uncertainty_min is the larger distance from the anchor time to either end of that window, rounded up to 5 minutes: a true bound, also for lopsided windows (design anchors: 30). Witness watches in 1863 were not synchronised and the reports show 10 to 30 minutes of scatter, so no event anchor claims better than 25 minutes.",
+    "about_policy": "A displayed clock is prefixed with 'about' when its uncertainty bound exceeds 20 minutes (approx_sigma_min 20). The bound at a tick between two anchors is the linear interpolation of their uncertainties."
+  }
 };

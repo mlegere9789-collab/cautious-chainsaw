@@ -17,7 +17,8 @@ import m, { makeTimeModel, makeBridge, createPlayback, validateAnchors, loadAnch
 import { P, LEGACY, readText } from '../../tools/time/lib.mjs';
 import { findMatches, monthSites } from '../../tools/time/detectors.mjs';
 import { buildContext, runAll } from '../../tools/time/rules.mjs';
-import { doc, model, rng, randomDoc } from './helpers.mjs';
+// Evidence reason (docs/time/ANCHORS-FINAL.md): the numeric pins in this file describe the FROZEN 2026-09-30 proposal; the live adjudicated file moves anchors and widens windows.
+import { proposal as doc, proposalModel as model, rng, randomDoc } from './helpers.mjs';
 
 const clone = (x) => JSON.parse(JSON.stringify(x));
 

@@ -57,6 +57,7 @@
       },
       "additionalProperties": false
     },
+    "adjudication": { "type": "object", "description": "Who adjudicated, when, the status vocabulary, the uncertainty rule and the 'about' policy." },
     "evidence_families": {
       "type": "object", "additionalProperties": false,
       "properties": {
@@ -81,7 +82,11 @@
         "status": { "enum": ["S", "M", "R", "D"], "description": "time-facts status: S solid, M medium, R needs a historian decision (range over 45 min or a conflict), D design anchor (no historical event)." },
         "effective_status": { "enum": ["S", "M", "R", "D"], "description": "Status the model uses when it differs from 'status' (t5: circular, imported as D)." },
         "confidence": { "enum": ["A", "B", "C", "D"], "description": "Evidence class: S=A, M=B, R=C, D=D." },
-        "sigma_min": { "type": "number", "minimum": 5, "maximum": 30, "description": "[E] min(30, max(5, ceil(half-width of the widest linked fact range / 5) * 5)); design anchors 30." },
+        "sigma_min": { "type": "number", "minimum": 5, "maximum": 90, "description": "[E] min(sigma_cap_min, max(5, ceil(half-width of the accepted range / 5) * 5)); design anchors 30. " },
+        "uncertainty_min": { "type": "number", "minimum": 5, "maximum": 90, "description": "Adjudicated uncertainty BOUND in minutes: the larger distance from the anchor time to either end of its window, rounded up to 5 (design anchors 30). Always >= sigma_min (the half-width). The per-tick bound in tools/time/build/uncertainty.json interpolates it." },
+        "adj_status": { "enum": ["Documented", "Estimated", "Contested"], "description": "Adjudicator's evidence status (docs/time/ANCHORS-FINAL.md): Documented = a first-hand source clocks the event; Estimated = inferred from sequence or astronomy; Contested = first-hand sources disagree, the range is shown." },
+        "evidence_refs": { "type": "array", "items": { "type": "string" }, "description": "Source ids in docs/time/evidence/anchors-final.json (F...), historian a (A:S...) and historian b (B:anchors-b.json#tick)." },
+        "adj_note": { "type": "string", "description": "One-sentence adjudication summary." },
         "range": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "$ref": "#/$defs/hm" }, "description": "Accepted window on the anchor's date (union of the linked fact ranges; sun-derived for design anchors)." },
         "label": { "type": "string", "minLength": 1 },
         "facts": { "type": "array", "items": { "type": "string", "pattern": "^R\\d{3}$" }, "description": "Rows of docs/plan/data/time-facts.csv (TIME:R### in the evidence file)." },
