@@ -11,26 +11,34 @@ Rate = incorrect or unsupported claims over claims that could be checked; unveri
 | C, DATA build (fresh claims, before the fixes it triggered) | 17/141 = 12.1% (Wilson 95% 7.7%-18.5%); C 117, I 17, L 7, R 0, U 9 |
 | C, claims DATA changed | 8/89 = 9.0% (Wilson 95% 4.6%-16.7%); C 76, I 8, L 5, R 0, U 0 |
 | C, claims DATA left untouched | 9/52 = 17.3% (Wilson 95% 9.4%-29.7%); C 41, I 9, L 2, R 0, U 9 |
+| D, DATA build (fresh claims, before the fixes it triggered) | 12/145 = 8.3% (Wilson 95% 4.8%-13.9%); C 126, I 12, L 7, R 0, U 5 |
+| D, claims DATA changed | 7/105 = 6.7% (Wilson 95% 3.3%-13.1%); C 91, I 7, L 7, R 0, U 0 |
+| D, claims DATA left untouched | 5/40 = 12.5% (Wilson 95% 5.5%-26.1%); C 35, I 5, L 0, R 0, U 5 |
+| E, DATA build (fresh claims, before the fixes it triggered) | 2/141 = 1.4% (Wilson 95% 0.4%-5.0%); C 134, I 2, L 5, R 0, U 9 |
+| E, claims DATA changed | 1/95 = 1.1% (Wilson 95% 0.2%-5.7%); C 89, I 1, L 5, R 0, U 3 |
+| E, claims DATA left untouched | 1/46 = 2.2% (Wilson 95% 0.4%-11.3%); C 45, I 1, L 0, R 0, U 6 |
 | B, claims DATA changed | 2/93 = 2.2% (Wilson 95% 0.6%-7.5%); C 90, I 2, L 1, R 0, U 1 |
 | B, claims DATA left untouched | 4/50 = 8.0% (Wilson 95% 3.2%-18.8%); C 45, I 4, L 1, R 0, U 6 |
 
-| Category | A before | A after | B | C |
-|---|---|---|---|---|
-| oob-commander | 2/15 | 0/15 | 0/14 | 0/15 |
-| oob-casualties | 10/15 | 0/15 | 0/14 | 1/15 |
-| oob-keyaction | 2/8 | 0/8 | 0/6 | 2/8 |
-| oob-brigade | 6/8 | 0/8 | 0/8 | 3/8 |
-| oob-battery-cav | 5/7 | 0/7 | 0/7 | 0/4 |
-| succession | 3/8 | 0/8 | 0/8 | 0/8 |
-| chronology | 12/20 | 0/20 | 0/20 | 2/20 |
-| vignette | 9/10 | 0/10 | 0/10 | 0/10 |
-| terrain | 1/7 | 0/7 | 1/7 | 1/6 |
-| position-note | 9/20 | 0/20 | 4/24 | 5/23 |
-| marker-tour-popup | 8/10 | 0/10 | 0/10 | 3/10 |
-| page-figure | 2/7 | 0/7 | 1/8 | 0/7 |
-| casualty-file | 6/7 | 0/7 | 0/7 | 0/7 |
+| Category | A before | A after | B | C | D | E |
+|---|---|---|---|---|---|---|
+| oob-commander | 2/15 | 0/15 | 0/14 | 0/15 | 0/10 | 0/10 |
+| oob-casualties | 10/15 | 0/15 | 0/14 | 1/15 | 0/12 | 0/12 |
+| oob-keyaction | 2/8 | 0/8 | 0/6 | 2/8 | 0/6 | 0/6 |
+| oob-brigade | 6/8 | 0/8 | 0/8 | 3/8 | 0/8 | 0/8 |
+| oob-battery-cav | 5/7 | 0/7 | 0/7 | 0/4 | 0/4 | 0/2 |
+| succession | 3/8 | 0/8 | 0/8 | 0/8 | 0/6 | 0/6 |
+| chronology | 12/20 | 0/20 | 0/20 | 2/20 | 0/14 | 0/14 |
+| vignette | 9/10 | 0/10 | 0/10 | 0/10 | 0/8 | 0/8 |
+| terrain | 1/7 | 0/7 | 1/7 | 1/6 | 2/8 | 0/8 |
+| position-note | 9/20 | 0/20 | 4/24 | 5/23 | 5/24 | 1/25 |
+| marker-tour-popup | 8/10 | 0/10 | 0/10 | 3/10 | 3/10 | 0/10 |
+| page-figure | 2/7 | 0/7 | 1/8 | 0/7 | 0/6 | 0/4 |
+| casualty-file | 6/7 | 0/7 | 0/7 | 0/7 | 2/7 | 0/7 |
 
 Regressions in A (right before, wrong after): none.
 Wrong claims DATA left wrong in A: none.
 Errors found in B: terrain:LOC-003, position-note:density_day3_morning|C-I-1|465, position-note:density_day2_bigelow|U-ART-9MA|298, position-note:placements_day2_ticks301_375|C-III-1-1|303, position-note:density_day1_ironbrigade|C-III-2-3|16, page-figure:index.html|An interactive, step-by-step reconstruction of the Battle of.
 Errors found in C: oob-casualties:U-107NY, oob-keyaction:U-124NY, oob-keyaction:U-28MA, oob-brigade:U-I-3, oob-brigade:U-I-2-1, oob-brigade:U-VI-3, chronology:d2t298, chronology:d2t271, terrain:TF-003, position-note:placements_day2_ticks301_375|U-XII-2-3|315, position-note:placements_day2_ticks301_375|C-I-3-1|360, position-note:density_day2_culpshill_overnight|U-ART-XII-CORPS|440, position-note:placements_day3_ticks521_600|C-I-3-1|549, position-note:density_day3_culpshill|U-2MA|460, marker-tour-popup:th:6, marker-tour-popup:th:11, marker-tour-popup:mA:mon_20nc.
+Errors found in D: terrain:STR-007, terrain:LOC-003, position-note:density_day2_cemhill|U-I-2-2|325, position-note:density_day2_wheatfield|C-8AL|305, position-note:placements_day2_ticks226_300|U-II-1-4|290, position-note:density_day2_wright|U-II-2-2|312, position-note:density_day3_aftermath|C-40VA|620, marker-tour-popup:th:15, marker-tour-popup:th:14, marker-tour-popup:th:16, casualty-file:note-most_compressed_union, casualty-file:union_corps|U-XI.
+Errors found in E: oob-text:union_oob_brigades|file|notes|All 49 Union infantry br, position-note:density_day2_culpshill_overnight|C-II-2-3|380.

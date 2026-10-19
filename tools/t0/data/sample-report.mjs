@@ -12,7 +12,7 @@ const A = rd('docs/data-audit/sample-A.claims.json');
 const B = rd('docs/data-audit/sample-B.claims.json');
 const VA = rd('docs/data-audit/sample-A.verdicts.json').verdicts;
 const VB = rd('docs/data-audit/sample-B.verdicts.json').verdicts;
-const SAMPLES = ['C', 'D'].filter((x) => fs.existsSync(path.join(ROOT, `docs/data-audit/sample-${x}.verdicts.json`)));   // later samples, same format as B
+const SAMPLES = ['C', 'D', 'E'].filter((x) => fs.existsSync(path.join(ROOT, `docs/data-audit/sample-${x}.verdicts.json`)));   // later samples, same format as B
 function wilson(x, n) {
   if (n === 0) return [0, 1];
   const z = 1.96, p = x / n, d = 1 + (z * z) / n;

@@ -221,6 +221,10 @@ suite.test('T0-DATA-06', 'pages: dashboard, index, find-ancestor, living ledger,
     if (/467 regiments and batteries|478 units/.test(html)) bad.push('index.html still states 467 regiments and batteries / 478 units');
     if (!m || +m[1] !== distinct.size) bad.push(`index.html says ${m && m[1]} units tracked; the placement and density files name ${distinct.size} distinct unit ids`);
     t.note('index meta', idx.slice(0, 160));
+    const gr = fs.readFileSync(path.join(DIST, 'ground-remembers.html'), 'utf8');
+    const grm = /same (\d+) recorded unit positions/.exec(gr);
+    const nPlace = rowsOf(DIST, /^placements_.*\.json$/).length; t.note('ground-remembers positions / placement rows', `${grm && grm[1]} / ${nPlace}`);
+    if (!grm || +grm[1] !== nPlace) bad.push(`ground-remembers.html says ${grm && grm[1]} recorded unit positions; the placement files hold ${nPlace} rows`);
     const fa = await text('find-ancestor.html');
     if (/467/.test(fa)) bad.push('find-ancestor.html still says 467 regiments');
     if (!/443/.test(fa)) bad.push('find-ancestor.html does not state the 443 regiment records it loads');

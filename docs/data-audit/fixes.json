@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "count": 2087,
+ "count": 2098,
  "fixes": [
   {
    "id": "DATA-cas-UI-day1",
@@ -149,7 +149,7 @@
    "before": "\"approximately 2 hours ... most compressed\"",
    "src": "OR 27/1 p.187",
    "find": "Nearly 4,200 casualties in approximately 2 hours on July 2 afternoon -- the most compressed major corps casualty period of the battle.",
-   "repl": "The III Corps lost 4,211 killed, wounded and missing on the afternoon and evening of July 2 (Official Records).",
+   "repl": "Nearly all of the III Corps' 4,211 killed, wounded and missing (the whole-battle total in the Official Records) fell on the afternoon and evening of July 2; the Official Records give no day split.",
    "area": "casualty"
   },
   {
@@ -220,6 +220,16 @@
    "src": "OR 27/1 p.187; OR 27/2 p.346; ledger WSD-01, WSD-02",
    "find": "<div class=\"count-lbl\">Total casualties, both armies</div>",
    "repl": "<div class=\"count-lbl\">Modelled running total of casualties, both armies (Official Records: 23,049 Union and 20,451 Confederate as returned; Park Service estimate about 51,000)</div>",
+   "area": "casualty"
+  },
+  {
+   "id": "DATA-cas-XI-note",
+   "target": "data/casualty_apportionment.json",
+   "cls": "unsupported-claim",
+   "before": "\"routed\"; \"many casualties were captures\" without a figure",
+   "src": "OR 27/1 p.183 (Total Eleventh Army Corps: 62 officers and 1,448 men captured or missing)",
+   "find": "XI Corps routed July 1. Many casualties were captures rather than killed/wounded during the retreat through Gettysburg.",
+   "repl": "XI Corps fell back through Gettysburg on July 1. The return counts 1,510 of its 3,801 casualties as captured or missing (OR 27/1 p.183).",
    "area": "casualty"
   },
   {
@@ -6662,6 +6672,16 @@
    "area": "notes"
   },
   {
+   "id": "DATA-note-density-day2-culpshill-overnight-C-II-4-3-380",
+   "target": "data/density_day2_culpshill_overnight.json",
+   "cls": "unsupported-claim",
+   "before": "Nichols's brigade holding the upper works",
+   "src": "no report read supports the removed phrases (drama, a motive or thought, hindsight, a superlative, a count)",
+   "find": "(\"unit_id\":\"C-II-2-3\",\"tick\":380,[^\\n]*?\"notes\":\")Nichols's brigade holding the upper works\"",
+   "repl": "\\g<1>Nicholls's brigade (Williams commanding) with Johnson's division on Culp's Hill\"",
+   "area": "notes"
+  },
+  {
    "id": "DATA-note-density-day2-culpshill-overnight-C-II-4-1-400",
    "target": "data/density_day2_culpshill_overnight.json",
    "cls": "unsupported-claim",
@@ -8579,6 +8599,16 @@
    "src": "no report read supports the removed phrases (drama, a motive or thought, hindsight, a superlative, a count)",
    "find": "(\"unit_id\":\"C-II-2\",\"tick\":451,[^\\n]*?\"notes\":\")Johnson's division defending -- losing ground slowly back up the hill\"",
    "repl": "\\g<1>Johnson's division in the captured works\"",
+   "area": "notes"
+  },
+  {
+   "id": "DATA-note-density-day3-morning-U-XII-2-3-451",
+   "target": "data/density_day3_morning.json",
+   "cls": "unsupported-claim",
+   "before": "Greene's brigade -- still holding the upper works they never abandoned",
+   "src": "no report read supports the removed phrases (drama, a motive or thought, hindsight, a superlative, a count)",
+   "find": "(\"unit_id\":\"U-XII-2-3\",\"tick\":451,[^\\n]*?\"notes\":\")Greene's brigade -- still holding the upper works they never abandoned\"",
+   "repl": "\\g<1>Greene's brigade -- still holding the upper works\"",
    "area": "notes"
   },
   {
@@ -11588,7 +11618,7 @@
    "before": "CUSTER'S CHARGE. Custer personally leads. Two lines meet at a gallop.",
    "src": "no report read supports the removed phrases (drama, a motive or thought, hindsight, a superlative, a count)",
    "find": "(\"unit_id\":\"U-CAV-2-3\",\"tick\":563,[^\\n]*?\"notes\":\")CUSTER'S CHARGE\\. Custer personally leads\\. Two lines meet at a gallop\\.\"",
-   "repl": "\\g<1>Custer's charge -- the Michigan regiments charge Hampton's column (Pleasonton, OR 27/1 p.916)\"",
+   "repl": "\\g<1>Custer's charge -- Custer leads the Michigan regiments (Custer)\"",
    "area": "notes"
   },
   {
@@ -12060,6 +12090,76 @@
    "find": "\"notes\": \"Buford's division fought the critical dismounted delaying action on July 1 morning. East Cavalry Field action July 3 stopped Stuart from reaching the Union rear.\"",
    "repl": "\"notes\": \"Buford's division fought dismounted on McPherson's Ridge on July 1 morning; Gregg's division and Custer's brigade fought Stuart's cavalry at East Cavalry Field on July 3.\"",
    "area": "oobcorps"
+  },
+  {
+   "id": "DATA-meta-brig",
+   "target": "data/oob/union_oob_brigades.json",
+   "cls": "wrong-number",
+   "before": "\"All 49 Union infantry brigades\"; the file has 43 and the army had 51",
+   "src": "OR 27/1 pp.155-168 (roster)",
+   "find": "\"notes\": \"All 49 Union infantry brigades plus cavalry brigades. Each brigade record includes commander, regiment_ids list, strength, casualties, and days engaged.\"",
+   "repl": "\"notes\": \"43 Union infantry brigades (the I, II, III, V, XI and XII Corps) and 8 cavalry brigades. The eight Sixth Corps brigades named by the division records (U-VI-1-1 to U-VI-3-3) have no record in this file. Each brigade record includes commander, regiment_ids list, strength, casualties, and days engaged.\"",
+   "area": "oobmeta"
+  },
+  {
+   "id": "DATA-meta-gunsc",
+   "target": "data/oob/confederate_artillery.json",
+   "cls": "unsupported-number",
+   "before": "\"total_guns_approximately\": 283; the battery records add to 182",
+   "src": "the records of this file",
+   "find": "\"total_guns_approximately\": 283,",
+   "repl": "\"total_guns_in_records\": 182,",
+   "area": "oobmeta"
+  },
+  {
+   "id": "DATA-meta-gunse",
+   "target": "data/oob/confederate_artillery.json",
+   "cls": "wrong-number",
+   "before": "170 guns engaged",
+   "src": "OR 27/2 (Pendleton: nearly 150 in position)",
+   "find": "\"total_confederate_guns_engaged\": 170,",
+   "repl": "\"guns_in_position_by_pendleton\": \"nearly 150\",",
+   "area": "oobmeta"
+  },
+  {
+   "id": "DATA-meta-msg1",
+   "target": "data/oob/confederate_artillery.json",
+   "cls": "unsupported-quote",
+   "before": "wording that is in neither the memoir nor the reports",
+   "src": "Alexander, Military Memoirs of a Confederate (1907)",
+   "find": "\"alexander_message_1\": \"For God's sake come quick or we cannot support you -- ammunition nearly exhausted\",",
+   "repl": "\"alexander_message_1\": \"Alexander's two notes to Pickett are known from his 1907 memoir; the Official Records do not print them (see vignette V-015)\",",
+   "area": "oobmeta"
+  },
+  {
+   "id": "DATA-meta-msg2",
+   "target": "data/oob/confederate_artillery.json",
+   "cls": "unsupported-quote",
+   "before": "words not in the memoir",
+   "src": "Alexander (1907)",
+   "find": "\"alexander_message_2\": \"I would not make the charge now -- but the order has been given and the troops are already moving\",",
+   "repl": "\"alexander_message_2\": \"see vignette V-015\",",
+   "area": "oobmeta"
+  },
+  {
+   "id": "DATA-meta-pnote",
+   "target": "data/oob/confederate_artillery.json",
+   "cls": "unsupported-claim",
+   "before": "\"Most complex artillery animation sequence in the entire battle\"",
+   "src": "an internal remark",
+   "find": " Most complex artillery animation sequence in the entire battle.\"",
+   "repl": "\"",
+   "area": "oobmeta"
+  },
+  {
+   "id": "DATA-meta-corr",
+   "target": "data/oob/union_regiments_iii_v_corps.json",
+   "cls": "leaked-note",
+   "before": "\"Fix tracked\" (an internal work note)",
+   "src": "internal note",
+   "find": "CORRECT). The V Corps slot previously assigned to U-105PA is incorrect -- correct regiment is U-11PA-R (11th Pennsylvania Reserves). Fix tracked.\"",
+   "repl": "correct). The V Corps record for the 11th Pennsylvania Reserves is U-11PA-R.\"",
+   "area": "oobmeta"
   },
   {
    "id": "DATA-pre-density-day1-lateafternoon-U-II-3-1-75",
@@ -14629,6 +14729,16 @@
    "src": "opinion",
    "find": "Their stand bought precious time for Reynolds' I Corps to arrive.\n\nGeneral John Reynolds, one of the most respected officers in the Army of the Potomac, rode forward",
    "repl": "Reynolds' I Corps then arrived.\n\nGeneral John Reynolds rode forward",
+   "area": "texts"
+  },
+  {
+   "id": "DATA-gr-count",
+   "target": "ground-remembers.html",
+   "cls": "wrong-number",
+   "before": "694 positions, before the pre-arrival rows were removed",
+   "src": "the placements_*.json files of this build",
+   "find": "Built from the same 694 recorded unit positions",
+   "repl": "Built from the same 640 recorded unit positions",
    "area": "texts"
   },
   {

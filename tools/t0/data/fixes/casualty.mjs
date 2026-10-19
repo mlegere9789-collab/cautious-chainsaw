@@ -40,7 +40,7 @@ export default [
     'unsupported-number', 'cavalry total not matching the return', 'OR 27/2 p.346 (division of Stuart: 240)'),
   J('DATA-cas-CCAV-rate', '"overall_rate": 6.1,', '"overall_rate": 5.1,', 'sum-mismatch', 'rate belonged to the 583 total', '483 / 9,536'),
   J('DATA-cas-notable-III', 'Nearly 4,200 casualties in approximately 2 hours on July 2 afternoon -- the most compressed major corps casualty period of the battle.',
-    'The III Corps lost 4,211 killed, wounded and missing on the afternoon and evening of July 2 (Official Records).',
+    'Nearly all of the III Corps\' 4,211 killed, wounded and missing (the whole-battle total in the Official Records) fell on the afternoon and evening of July 2; the Official Records give no day split.',
     'unsupported-claim', '"approximately 2 hours ... most compressed"', 'OR 27/1 p.187'),
   J('DATA-cas-notable-Pickett', 'Approximately 2,700 casualties in 30 minutes during Pickett\'s Charge -- the most intense 30-minute casualty period of the battle.',
     'The Confederate return counts 2,888 casualties in Pickett\'s division, 1,499 of them captured or missing, in the assault of July 3.',
@@ -65,4 +65,7 @@ export default [
   J('DATA-ledger-label', '<div class="count-lbl">Total casualties, both armies</div>',
     '<div class="count-lbl">Modelled running total of casualties, both armies (Official Records: 23,049 Union and 20,451 Confederate as returned; Park Service estimate about 51,000)</div>',
     'unsupported-claim', 'a modelled sum labelled as the total of the battle', 'OR 27/1 p.187; OR 27/2 p.346; ledger WSD-01, WSD-02', 'living-ledger.html'),
+  J('DATA-cas-XI-note', 'XI Corps routed July 1. Many casualties were captures rather than killed/wounded during the retreat through Gettysburg.',
+    'XI Corps fell back through Gettysburg on July 1. The return counts 1,510 of its 3,801 casualties as captured or missing (OR 27/1 p.183).',
+    'unsupported-claim', '"routed"; "many casualties were captures" without a figure', 'OR 27/1 p.183 (Total Eleventh Army Corps: 62 officers and 1,448 men captured or missing)'),
 ];

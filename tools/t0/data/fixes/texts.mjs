@@ -10,15 +10,17 @@ import { remapId, preArrival, noteOf } from '../idmap.mjs';
 const DATA_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..', '..', 'baseline', 'dist', 'data');
 const UNIT_ROW = new RegExp(String.raw`^\s*\{"unit_id":"([^"]+)","tick":(\d+),`);
 const UNITS = new Set();
+let PLACEMENT_ROWS = 0;   // rows of the placements_*.json files after the arrival fixes (the Ground Remembers page counts them)
 const COUNTS = { regiment: 0, battery: 0, brigade: 0, division: 0, corps: 0 };
 for (const f of fs.readdirSync(DATA_DIR).filter((x) => /^(placements_|density_).*\.json$/.test(x))) {
   const text = fs.readFileSync(path.join(DATA_DIR, f), 'utf8');
-  for (const l of text.split(String.fromCharCode(10))) { const m = UNIT_ROW.exec(l); if (m && !preArrival(m[1], m[2])) UNITS.add(remapId(f, m[1], m[2], noteOf(l))); }
+  for (const l of text.split(String.fromCharCode(10))) { const m = UNIT_ROW.exec(l); if (m && !preArrival(m[1], m[2])) { UNITS.add(remapId(f, m[1], m[2], noteOf(l))); if (f.startsWith('placements_')) PLACEMENT_ROWS++; } }
   // a pretty-printed file (density_day3_cavalry.json): one key per line, no id remaps or arrival rules apply to its rows
   if (!/^\s*\{"unit_id"/m.test(text)) for (const m of text.matchAll(/"unit_id":\s*"([^"]+)",\s*"tick":\s*(\d+)/g)) if (!preArrival(m[1], m[2])) UNITS.add(m[1]);
 }
 for (const u of UNITS) { if (/^[UC]-ART|^U-HAB|^C-HAB/.test(u)) COUNTS.battery++; else if (/^[UC]-[IVX]+$|^[UC]-CAV$/.test(u)) COUNTS.corps++; else if (/^[UC]-[IVX]+-\d$|^[UC]-CAV-\d$/.test(u)) COUNTS.division++; else if (/^[UC]-[IVX]+-\d-\w+$|^[UC]-CAV-\d-\w+$/.test(u)) COUNTS.brigade++; else COUNTS.regiment++; }
 export const UNIT_COUNT = UNITS.size;
+export const PLACEMENT_COUNT = PLACEMENT_ROWS;
 const UC = String(UNIT_COUNT);
 const J = (id, target, find, repl, cls, before, src, expect = 1) => ({ id, target, find, repl, expect, cls, before, src });
 const T = (id, find, repl, cls, before, src, expect = 1) => J(id, 'js', find, repl, cls, before, src, expect);
@@ -193,4 +195,5 @@ export default [
   T('DATA-tour-16y', "The battle proved to be the turning point of the war in the East.", "Many historians treat the battle as the turning point of the war in the East.", 'unsupported-claim', '"proved to be the turning point"', 'a judgement'),
   T('DATA-tour-1x', " Buford recognized the strategic importance of the high ground and determined to hold it until infantry arrived.", "", 'unsupported-claim', 'Buford\'s reasoning stated as fact', 'no report read gives it'),
   T('DATA-tour-1y', "Their stand bought precious time for Reynolds' I Corps to arrive.\n\nGeneral John Reynolds, one of the most respected officers in the Army of the Potomac, rode forward", "Reynolds' I Corps then arrived.\n\nGeneral John Reynolds rode forward", 'unsupported-claim', '"bought precious time"; "one of the most respected officers"', 'opinion'),
+  J('DATA-gr-count', 'ground-remembers.html', 'Built from the same 694 recorded unit positions', `Built from the same ${PLACEMENT_ROWS} recorded unit positions`, 'wrong-number', '694 positions, before the pre-arrival rows were removed', 'the placements_*.json files of this build'),
 ];
