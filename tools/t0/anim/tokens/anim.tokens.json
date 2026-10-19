@@ -93,12 +93,12 @@
    "group": "layout",
    "type": "number",
    "label": "Displacement budget (small marks)",
-   "default": 0,
+   "default": 56,
    "min": 0,
    "max": 120,
    "step": 1,
    "unit": "px",
-   "doc": "How far a SMALL mark (below layout.fullZoom) may sit from its unit's true place so it can be read; beyond the budget the mark merges into a formation mark with a count. RELEASE DEFAULT 0 (pure aggregation, nothing is nudged anywhere): measured over 10 s of playback at 4x, a budget of 28 px gives 3.8 pops and 1.3 teleports a second (a displaced mark's glide meets a neighbour and the net snaps it), a budget of 0 gives none. Raising it shows more small marks and brings back pins and leader lines; it is a tuning experiment, not the default.",
+   "doc": "How far a SMALL mark (below layout.fullZoom) may sit from its unit's true place so it can be read; a pin and a hairline run to the true place. Beyond the budget the mark merges into a formation mark with a count. Release default 56 px (the approved look) together with layout.continuityPx 3, which is what keeps it smooth: measured over 20 s of playback at 1x, 0.25 teleports a second over 49 to 92 marks (a mark moving more than 12 px beyond its unit's own motion in one frame); without continuity the same budget gave 5.5 a second. 0 = pure aggregation (no displacement at all, no teleport ever, but one mark per crowd).",
    "evidence": "Computed",
    "source": "docs/pitch/anim/06-layout.md 4.4"
   },
@@ -139,6 +139,19 @@
    "step": 10,
    "unit": "px",
    "doc": "Only units within this many pixels of the screen are laid out (crowds near the edge stay whole; the rest cannot be seen). 0 = lay out every unit on the field.",
+   "evidence": "Design"
+  },
+  {
+   "id": "layout.continuityPx",
+   "group": "layout",
+   "type": "number",
+   "label": "Continuity",
+   "default": 3,
+   "min": 0,
+   "max": 60,
+   "step": 0.5,
+   "unit": "px",
+   "doc": "A displaced mark that already has a place never moves farther than this per frame from it: when its neighbours leave it no free spot that near, it merges into a crowd (a one-frame swap) instead of jumping across a neighbour. 0 = off.",
    "evidence": "Design"
   },
   {

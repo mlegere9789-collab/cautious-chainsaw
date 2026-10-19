@@ -215,6 +215,10 @@ export class Display {
         if (!changed) break;
         items = this._items(spec); v = verifyFrame(items, spec.gap - 0.05, true);
       }
+      if (v.overlaps > 0) {                                           // the glides could not be repaired one by one: every live mark stands on the certified place this frame (the certified layout has no overlap by construction)
+        for (const d of this.tiles.values()) if (d.life === 'live') { d.ox = d.tx; d.oy = d.ty; d.vx = 0; d.vy = 0; d.w = d.tw; d.h = d.th; }
+        stats.fullSnaps = (stats.fullSnaps || 0) + 1; items = this._items(spec); v = verifyFrame(items, spec.gap - 0.05, true);
+      }
     }
     return v;
   }

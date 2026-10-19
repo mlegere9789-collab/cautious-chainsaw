@@ -127,10 +127,11 @@ function frame() {
   const p0 = map.project([c.lng, c.lat]); S.bias[0] = p0.x - w / 2; S.bias[1] = p0.y - h / 2;
   const shown = st.showUnits !== false && canvas.style.display !== 'none';
   const F = E.step({ dtMs: dt, rawDtMs: raw, tau, cam, selectedId: st.selectedUnitId || st.pinnedUnitId || null, pass: filterOf(st.filters), cut: ck.cut, bias: S.bias });
-  if (shown) S.renderer.draw(F, { trails: S.trails.enabled() ? (g, env) => S.trails.draw(g, env, F) : null });
+  F.dtMs = dt; const pu = S.popups; const stage = pu ? pu.stage() : null; const extraRects = pu ? pu.rects() : null;
+  if (shown) S.renderer.draw(F, { stage, extraRects, trails: (g, env) => { if (S.trails.enabled()) S.trails.draw(g, env, F); if (pu) pu.drawSubjects(g, env, F); } });
   S.frames++; if (S.onFrame) S.onFrame(F, S);
   if (S.popups) S.popups.update(F, st);
-  const more = !!st.isPlaying || S.clock.moving || E.busy() || S.trails.busy();
+  const more = !!st.isPlaying || S.clock.moving || E.busy() || S.trails.busy() || (S.renderer && S.renderer.stageEasing());
   if (more) map.triggerRepaint(); else S.idle = true;
 }
 

@@ -20,7 +20,7 @@ export function makeSpec(footprint, tok, text, sizer = null) {
     relax: tok('layout.relaxPxPerSec') / 60,                       // px per frame-equivalent
     splitDwell: tok('layout.splitDwellMs') / FRAME_MS, labelShowDelay: 12, labelCooldown: 72,
     labelMinZoom: 12, kCap: tok('layout.kCap'), pinProtect: tok('layout.pinProtect'), labels: false,
-    maxSplitTries: tok('layout.maxSplitTries'), continuity: 0,
+    maxSplitTries: tok('layout.maxSplitTries'), continuity: tok('layout.continuityPx'),
   };
 }
 
