@@ -1,0 +1,468 @@
+{
+ "format": "battle-studio-tokens/1",
+ "version": 1,
+ "groups": [
+  {
+   "id": "clock",
+   "label": "Clock and jumps"
+  },
+  {
+   "id": "render",
+   "label": "Rendering"
+  },
+  {
+   "id": "interp",
+   "label": "Motion between keyframes"
+  },
+  {
+   "id": "layout",
+   "label": "Layout: tiles never obscure"
+  },
+  {
+   "id": "motion",
+   "label": "Display dynamics"
+  },
+  {
+   "id": "scene",
+   "label": "Scene"
+  },
+  {
+   "id": "skin",
+   "label": "Skin"
+  },
+  {
+   "id": "metrics",
+   "label": "Metrics"
+  }
+ ],
+ "tokens": [
+  {
+   "id": "interp.model",
+   "group": "interp",
+   "type": "registry",
+   "registry": "interp",
+   "label": "Motion model",
+   "default": "pchip",
+   "doc": "How a unit moves between its own keyframes. All models are exact at every keyframe; between keyframes the position is Modelled.",
+   "evidence": "Modelled"
+  },
+  {
+   "id": "interp.endSlopes",
+   "group": "interp",
+   "type": "select",
+   "label": "Start and stop",
+   "default": "rest",
+   "options": [
+    {
+     "value": "rest",
+     "label": "Start and stop at rest"
+    },
+    {
+     "value": "edge",
+     "label": "Keep the edge velocity"
+    }
+   ],
+   "doc": "Whether a unit's track starts and ends at rest (eased) or with the velocity of its first and last segment.",
+   "evidence": "Modelled"
+  },
+  {
+   "id": "interp.strengthTweenMs",
+   "group": "interp",
+   "type": "number",
+   "label": "Strength bar tween",
+   "default": 350,
+   "min": 0,
+   "max": 1500,
+   "step": 25,
+   "unit": "ms",
+   "doc": "When a unit's current keyframe changes its strength, the bar eases to the new value over this time. The value itself is the keyframe's, never interpolated into numbers that are not in the data.",
+   "evidence": "Design"
+  },
+  {
+   "id": "layout.strategy",
+   "group": "layout",
+   "type": "registry",
+   "registry": "layout",
+   "label": "Layout strategy",
+   "default": "certified",
+   "doc": "Which layout module places the tiles. certified guarantees zero overlap; raw is a diagnostic that shows the unsolved problem.",
+   "evidence": "Design"
+  },
+  {
+   "id": "layout.dMaxPx",
+   "group": "layout",
+   "type": "number",
+   "label": "Displacement budget (small marks)",
+   "default": 28,
+   "min": 0,
+   "max": 120,
+   "step": 1,
+   "unit": "px",
+   "doc": "How far a SMALL mark (below layout.fullZoom) may sit from its unit's true place so it can be read; a pin and a hairline run to the true place. Beyond the budget the mark merges into a formation mark with a count. 0 = pure aggregation.",
+   "evidence": "Computed",
+   "source": "docs/pitch/anim/06-layout.md 4.4"
+  },
+  {
+   "id": "layout.dMaxFullPx",
+   "group": "layout",
+   "type": "number",
+   "label": "Displacement budget (full marks)",
+   "default": 0,
+   "min": 0,
+   "max": 120,
+   "step": 1,
+   "unit": "px",
+   "doc": "The same budget for FULL marks (zoom at or above layout.fullZoom). Release default 0: a full mark is never nudged; a crowd that cannot all stand on its own place becomes one formation mark that names what it stands for.",
+   "evidence": "Design"
+  },
+  {
+   "id": "layout.fullZoom",
+   "group": "layout",
+   "type": "number",
+   "label": "Full-mark zoom",
+   "default": 15,
+   "min": 12,
+   "max": 18,
+   "step": 0.1,
+   "unit": "zoom",
+   "doc": "At and above this zoom a unit is a full mark (code, strength bar, name on select); below it a small side-and-arm mark. Must equal the skin's detail.fullZoom token.",
+   "evidence": "Design"
+  },
+  {
+   "id": "layout.gapPx",
+   "group": "layout",
+   "type": "number",
+   "label": "Clearance between tiles",
+   "default": 1,
+   "min": 0,
+   "max": 6,
+   "step": 0.5,
+   "unit": "px",
+   "doc": "Minimum free space between any two mark footprints (each footprint already carries a 2 px band for the selection ring, so the visible gap is at least 5 px).",
+   "evidence": "Design"
+  },
+  {
+   "id": "layout.bandPx",
+   "group": "layout",
+   "type": "number",
+   "label": "Split hysteresis band",
+   "default": 12,
+   "min": 0,
+   "max": 40,
+   "step": 1,
+   "unit": "px",
+   "doc": "An aggregate tries to split only when its members would fit within the budget minus this band, so it does not flicker.",
+   "evidence": "Design"
+  },
+  {
+   "id": "layout.relaxPxPerSec",
+   "group": "layout",
+   "type": "number",
+   "label": "Return speed",
+   "default": 120,
+   "min": 0,
+   "max": 600,
+   "step": 10,
+   "unit": "px/s",
+   "doc": "How fast a displaced tile drifts back toward its true position when there is room.",
+   "evidence": "Design"
+  },
+  {
+   "id": "layout.splitDwellMs",
+   "group": "layout",
+   "type": "number",
+   "label": "Aggregate dwell",
+   "default": 500,
+   "min": 0,
+   "max": 3000,
+   "step": 50,
+   "unit": "ms",
+   "doc": "An aggregate exists at least this long before a split is tried (merge now, split later).",
+   "evidence": "Design"
+  },
+  {
+   "id": "layout.kCap",
+   "group": "layout",
+   "type": "number",
+   "label": "Neighbourhood cap",
+   "default": 60,
+   "min": 10,
+   "max": 200,
+   "step": 5,
+   "unit": "obstacles",
+   "doc": "A neighbourhood with more obstacles than this is declared saturated and the tile aggregates (a conservative failure: never an overlap).",
+   "evidence": "Design"
+  },
+  {
+   "id": "layout.pinProtect",
+   "group": "layout",
+   "type": "boolean",
+   "label": "Protect true positions",
+   "default": true,
+   "doc": "No tile may cover another tile's true position.",
+   "evidence": "Design"
+  },
+  {
+   "id": "layout.solveEvery",
+   "group": "layout",
+   "type": "select",
+   "label": "Solve cadence",
+   "default": "auto",
+   "options": [
+    {
+     "value": "auto",
+     "label": "Automatic (follows the frame time)"
+    },
+    {
+     "value": "1",
+     "label": "Every frame"
+    },
+    {
+     "value": "2",
+     "label": "Every second frame"
+    },
+    {
+     "value": "3",
+     "label": "Every third frame"
+    }
+   ],
+   "doc": "How often the certified layout is re-solved. In between, the solved tiles move with their units (same offsets, new true positions) and every displayed frame is still verified. Automatic raises it when frames run long on a slow device and lowers it again when there is room.",
+   "evidence": "Design"
+  },
+  {
+   "id": "layout.maxSplitTries",
+   "group": "layout",
+   "type": "number",
+   "label": "Split trials per frame",
+   "default": 2,
+   "min": 1,
+   "max": 8,
+   "step": 1,
+   "unit": "aggregates",
+   "doc": "At most this many aggregates try to split in one frame.",
+   "evidence": "Design"
+  },
+  {
+   "id": "motion.mode",
+   "group": "motion",
+   "type": "select",
+   "label": "Display dynamics",
+   "default": "glide",
+   "doc": "glide = a crowd re-anchors by easing, every mark entering or leaving fades and scales; snap = every change is a step (what reduced motion does).",
+   "evidence": "Design",
+   "options": [
+    {
+     "value": "glide",
+     "label": "Glide (release)"
+    },
+    {
+     "value": "snap",
+     "label": "Snap (as solved, for comparison)"
+    }
+   ]
+  },
+  {
+   "id": "motion.smoothMs",
+   "group": "motion",
+   "type": "number",
+   "label": "Glide time",
+   "default": 120,
+   "min": 0,
+   "max": 500,
+   "step": 5,
+   "unit": "ms",
+   "doc": "Time constant of the glide that carries a tile to its newly solved position.",
+   "evidence": "Design"
+  },
+  {
+   "id": "motion.maxSpeedPxPerSec",
+   "group": "motion",
+   "type": "number",
+   "label": "Glide speed cap",
+   "default": 1600,
+   "min": 100,
+   "max": 6000,
+   "step": 100,
+   "unit": "px/s",
+   "doc": "A displaced tile never glides faster than this.",
+   "evidence": "Design"
+  },
+  {
+   "id": "motion.fadeMs",
+   "group": "motion",
+   "type": "number",
+   "label": "Fade time",
+   "default": 250,
+   "min": 0,
+   "max": 1000,
+   "step": 10,
+   "unit": "ms",
+   "doc": "Entry and exit of a mark (a unit coming onto or leaving the field): it grows from birthScale while it fades in or out over this time. A mark the layout REPLACES (a crowd forms or splits) is swapped in one frame, never dissolved: there are no ghost tiles.",
+   "evidence": "Design"
+  },
+  {
+   "id": "motion.birthScale",
+   "group": "motion",
+   "type": "number",
+   "label": "Birth size",
+   "default": 0.86,
+   "min": 0.2,
+   "max": 1,
+   "step": 0.05,
+   "unit": "x",
+   "doc": "A new mark grows from this fraction of its size while it fades in: a settle, not a pop.",
+   "evidence": "Design"
+  },
+  {
+   "id": "motion.cutFadeMs",
+   "group": "motion",
+   "type": "number",
+   "label": "Cross-fade time of a cut",
+   "default": 160,
+   "min": 0,
+   "max": 600,
+   "step": 10,
+   "unit": "ms",
+   "doc": "A jump in time or zoom too big to glide is a cross-fade of the whole picture over this time (the only moment two marks are drawn at once).",
+   "evidence": "Design"
+  },
+  {
+   "id": "motion.safetyNet",
+   "group": "motion",
+   "type": "boolean",
+   "label": "Safety net",
+   "default": true,
+   "doc": "Every displayed frame is verified; of two solid tiles that would still overlap the lighter one is dimmed below 0.5 and travels to its certified place (counted). Turn off only to measure how often it fires.",
+   "evidence": "Design"
+  },
+  {
+   "id": "motion.reduced",
+   "group": "motion",
+   "type": "select",
+   "label": "Reduced motion",
+   "default": "auto",
+   "options": [
+    {
+     "value": "auto",
+     "label": "Follow the system setting"
+    },
+    {
+     "value": "on",
+     "label": "Always reduce"
+    },
+    {
+     "value": "off",
+     "label": "Never reduce"
+    }
+   ],
+   "doc": "Reduced motion lands seeks at once and shows the layout as solved, with short fades.",
+   "evidence": "Design"
+  },
+  {
+   "id": "skin.id",
+   "group": "skin",
+   "type": "registry",
+   "registry": "skins",
+   "label": "Skin",
+   "default": "standards",
+   "doc": "The skin that draws the marks. Default: the Quiet Cartographer (night). The REFERENCE skin is the engine test skin.",
+   "evidence": "Design"
+  },
+  {
+   "id": "metrics.verify",
+   "group": "metrics",
+   "type": "boolean",
+   "label": "Verify every frame",
+   "default": true,
+   "doc": "Run the independent overlap verifier on every displayed frame (about 0.2 ms).",
+   "evidence": "Design"
+  },
+  {
+   "id": "clock.glideMs",
+   "group": "clock",
+   "type": "number",
+   "label": "Jump glide",
+   "default": 420,
+   "min": 60,
+   "max": 1200,
+   "step": 10,
+   "unit": "ms",
+   "doc": "A jump or scrub of the clock (a day button, the slider, Follow Your Ancestor) glides the displayed time to its target over about this time (a critically damped glide, never longer than the cap below). Units travel along their own paths while it runs.",
+   "evidence": "Design"
+  },
+  {
+   "id": "clock.glideMaxMs",
+   "group": "clock",
+   "type": "number",
+   "label": "Longest glide",
+   "default": 600,
+   "min": 100,
+   "max": 2000,
+   "step": 10,
+   "unit": "ms",
+   "doc": "No glide lasts longer than this: the glide is cut to land by then.",
+   "evidence": "Design"
+  },
+  {
+   "id": "clock.crossfadeTicks",
+   "group": "clock",
+   "type": "number",
+   "label": "Cross-fade beyond",
+   "default": 40,
+   "min": 2,
+   "max": 675,
+   "step": 1,
+   "unit": "ticks",
+   "doc": "A jump of more than this many ticks does not glide (hundreds of marks would sweep across the map): the picture cross-fades to the new moment (motion.cutFadeMs).",
+   "evidence": "Design"
+  },
+  {
+   "id": "clock.followTicks",
+   "group": "clock",
+   "type": "number",
+   "label": "Follow window",
+   "default": 1.6,
+   "min": 0.05,
+   "max": 10,
+   "step": 0.05,
+   "unit": "ticks",
+   "doc": "While the clock plays, the displayed time follows it exactly; a difference of more than this many ticks between the app's tick and the displayed time is a jump (glide or cross-fade).",
+   "evidence": "Design"
+  },
+  {
+   "id": "render.dprCap",
+   "group": "render",
+   "type": "number",
+   "label": "Pixel ratio cap",
+   "default": 2,
+   "min": 1,
+   "max": 3,
+   "step": 0.5,
+   "unit": "x",
+   "doc": "The canvas is drawn at the device pixel ratio up to this cap (a phone at 3x would triple the fill cost for no visible gain on 20 px marks).",
+   "evidence": "Design"
+  },
+  {
+   "id": "render.cullPx",
+   "group": "render",
+   "type": "number",
+   "label": "Culling margin",
+   "default": 80,
+   "min": 0,
+   "max": 400,
+   "step": 10,
+   "unit": "px",
+   "doc": "Marks farther than this outside the screen are not drawn (their crowds are still laid out, so a crowd never changes as it crosses the edge).",
+   "evidence": "Design"
+  },
+  {
+   "id": "render.sprites",
+   "group": "render",
+   "type": "boolean",
+   "label": "Cached sprites",
+   "default": true,
+   "doc": "Draw a mark that is at rest from a cached, device-pixel-exact sprite instead of painting its vector shapes again every frame.",
+   "evidence": "Design"
+  }
+ ]
+}

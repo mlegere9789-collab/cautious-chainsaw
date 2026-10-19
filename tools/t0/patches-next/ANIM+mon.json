@@ -1,0 +1,13 @@
+{
+ "group": "ANIM",
+ "patches": [
+  {
+   "id": "ANIM:mon-units",
+   "target": "js",
+   "expect": 1,
+   "find": "function unitsNow(){var st=yn.getState(),pbt=st.placementsByTick||{},t=st.currentTick,u={},k,a,j;",
+   "repl": "function unitsNow(){var st=yn.getState(),pbt=st.placementsByTick||{},t=st.currentTick,u={},k,a,j;if(GTANIM.on()){var gtd=GTANIM.drawn();if(gtd)return gtd}",
+   "note": "ONLY with MON (the anchor lies in the MON runtime): the Monuments click arbitration asks which unit is nearest to the pointer; it must use the positions the engine drew, not the latest keyframe"
+  }
+ ]
+}
