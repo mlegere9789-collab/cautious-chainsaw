@@ -4886,9 +4886,9 @@
    "target": "data/density_day1_afternoon.json",
    "cls": "wrong-number",
    "before": "End of Day 1. July 3 they will charge again. 843 became 255.",
-   "src": "OR 27/2 p.344; the return does not give a July 1 survivor count",
+   "src": "OR 27/2 p.344 (the return gives the battle total, not a July 1 figure); Fox pp.555-556",
    "find": "(\"unit_id\":\"C-26NC\",\"tick\":225,[^\\n]*?\"notes\":\")End of Day 1\\. July 3 they will charge again\\. 843 became 255\\.\"",
-   "repl": "\\g<1>End of Day 1. The regiment lost 588 killed and wounded on July 1 (return).\"",
+   "repl": "\\g<1>End of Day 1. The return prints 588 killed and wounded for the regiment over the whole battle, most of them on July 1 (Fox).\"",
    "area": "notes"
   },
   {
@@ -21629,11 +21629,11 @@
   {
    "id": "DATA-oob-union-regiments-iii-v-corps-U-83PA",
    "target": "data/oob/union_regiments_iii_v_corps.json",
-   "cls": "wrong-number",
-   "before": "casualties 129 against 55 in the Official Records return (83d Pennsylvania)",
-   "src": "OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json",
+   "cls": "wrong-number+wrong-place",
+   "before": "casualties 129 against 55 in the Official Records return (83d Pennsylvania) | key_action \"right-center of Little Round Top line\"",
+   "src": "OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json; OR 27/1 p.624 (Chamberlain), p.617 (Rice)",
    "find": "{\"regiment_id\":\"U-83PA\",\"designation\":\"83rd Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-V-1-3\",\"parent_corps_id\":\"U-V\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Captain Orpheus Woodward\",\"fate\":\"Survived\"},\"strength\":295,\"casualties\":129,\"casualty_percentage\":43.7,\"days_engaged\":[2],\"key_action\":\"Vincent's brigade -- right-center of Little Round Top line.\"}",
-   "repl": "{\"regiment_id\":\"U-83PA\",\"designation\":\"83rd Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-V-1-3\",\"parent_corps_id\":\"U-V\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Captain Orpheus Woodward\",\"fate\":\"Survived\"},\"strength\":295,\"casualties\":55,\"casualty_percentage\":18.6,\"days_engaged\":[2],\"key_action\":\"Vincent's brigade -- right-center of Little Round Top line.\"}",
+   "repl": "{\"regiment_id\":\"U-83PA\",\"designation\":\"83rd Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-V-1-3\",\"parent_corps_id\":\"U-V\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Captain Orpheus Woodward\",\"fate\":\"Survived\"},\"strength\":295,\"casualties\":55,\"casualty_percentage\":18.6,\"days_engaged\":[2],\"key_action\":\"Vincent's brigade -- Little Round Top, on the right of the 20th Maine, left of the centre of the brigade's line (Chamberlain, OR 27/1 p.624).\"}",
    "area": "oobcas",
    "unit": "U-83PA"
   },
