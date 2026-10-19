@@ -81,9 +81,8 @@ if chk:
     w('\n## 6. The eight checks\n')
     for k, v in chk.items():
         w(f'- {k}: {v}')
-w('
-## 7. Gaps, limits and things not done
-')
+w('## 7. Gaps, limits and things not done')
+w('')
 w(open(os.path.join(HERE, 'report_prose', 'gaps.md'), encoding='utf8').read())
 open(os.path.join(MOD, 'MODERN-FEATURES.md'), 'w', encoding='utf8').write('\n'.join(L) + '\n')
 print('written', len(L), 'lines')
