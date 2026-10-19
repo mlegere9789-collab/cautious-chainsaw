@@ -45,6 +45,20 @@ RAIL = [
       method='OSM railway ways other than the main Hanover Subdivision line.', notes='Spurs and sidings are treated as post-1863 unless a dated source places them in 1863; confidence Estimated.'),
 ]
 
+
+POINTS = [
+ dict(id='RL-006', name='Gettysburg Railroad passenger depot (Lincoln Railroad Station), Carlisle and Railroad Streets', subtype='railway depot', present=True, pt=(-77.2307455, 39.832019), conf='Documented', err=15,
+      period_note='built 1858 for the Gettysburg Railroad; used as a hospital in July 1863 and its cupola used by soldiers; Lincoln arrived here on 18 November 1863',
+      sources=[S('OSM', 'way 453171438', 'Building "Lincoln Railroad Station", 35 Carlisle St, start_date 1858/May, description: built in 1859 by the Hanover Junction Railroad.'),
+               dict(cite='Wikipedia, "Gettysburg station" (CC BY-SA 4.0)', sheet_or_page='article text, read 2026-10-19', url='https://en.wikipedia.org/wiki/Gettysburg_station', type='B', quote_or_paraphrase='Depot contract signed 18 September 1858 for the corner of Carlisle and Railroad Streets; used as a hospital in July 1863; c. 1858 depot still stands.', key='WIKI-GETTYSBURG-STATION')],
+      method='Centroid of the OSM building way 453171438 (the 1858 depot still stands).', notes='The building is also a structure of the structures layer; listed here as the railroad terminus.'),
+ dict(id='RL-007', name='Rock Creek trestle of the Gettysburg Railroad (burned 27 June 1863)', subtype='railway bridge (destroyed)', present=True, pt=(-77.2198709, 39.8351133), conf='Estimated', err=40,
+      period_note='the trestle was burned by Confederates under Early on 27 June 1863, cutting rail service until repairs after 10 July; during the battle it was a ruin',
+      sources=[dict(cite='Wikipedia, "Gettysburg station" (CC BY-SA 4.0)', sheet_or_page='article text, read 2026-10-19', url='https://en.wikipedia.org/wiki/Gettysburg_station', type='B', quote_or_paraphrase='Rail service was cut on 27 June 1863 when Confederates under Early burned the Rock Creek trestle; service resumed on 10 July after repairs.', key='WIKI-GETTYSBURG-STATION')],
+      method='Point where the OSM line of the modern Hanover Subdivision (way 391694055) crosses the NHD Rock Creek flowline; the 1863 trestle site is not surveyed here.',
+      notes='Secondary source only (type B). The extent of the damage in July 1863 is not stated by the source read.'),
+]
+
 FENCE_KEEP = {'split_rail': 'post and rail or worm fence (NPS reconstruction mapped by OSM)', 'dry_stone': 'dry-laid stone wall (mapped by OSM)', 'drystone_wall': 'dry-laid stone wall (mapped by OSM)'}
 
 def build_rail():
@@ -56,6 +70,11 @@ def build_rail():
             'id': r['id'], 'category': 'railroad', 'subtype': r['subtype'], 'name': r['name'], 'name_modern': '', 'present_1863': r['present'], 'period_note': r['period_note'],
             'sources': r['sources'], 'method': r['method'], 'positional_error_m': r['err'], 'confidence': r['conf'], 'notes': r['notes'], 'osm_way_ids': r['osm'],
             'length_m_in_box': round(length_m(g)) if g is not None else 0}, 'geometry': mapping(g) if g is not None else None})
+    for r in POINTS:
+        feats.append({'type': 'Feature', 'id': r['id'], 'properties': {
+            'id': r['id'], 'category': 'railroad', 'subtype': r['subtype'], 'name': r['name'], 'name_modern': '', 'present_1863': r['present'], 'period_note': r['period_note'],
+            'sources': r['sources'], 'method': r['method'], 'positional_error_m': r['err'], 'confidence': r['conf'], 'notes': r['notes'], 'osm_way_ids': [], 'length_m_in_box': 0},
+            'geometry': {'type': 'Point', 'coordinates': [r['pt'][0], r['pt'][1]]}})
     return feats
 
 def build_fences():
