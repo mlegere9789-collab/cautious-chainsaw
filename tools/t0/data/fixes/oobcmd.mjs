@@ -15,12 +15,11 @@ const T = { Col: 'Colonel', LtCol: 'Lieutenant Colonel', Maj: 'Major', Capt: 'Ca
 const D = [
   // id, new commander name, source, note
   ['U-56PA', `${T.Col} J. William Hofmann`, U, 'spelling: the Official Records print Hofmann'],
-  ['U-107NY', `${T.Col} Nirom M. Crane`, U],
   ['U-52NY', `${T.LtCol} C. G. Freudenberg`, U],
   ['U-125NY', `${T.LtCol} Levin Crandell`, U, 'Willard commanded the brigade'],
   ['U-17ME', `${T.LtCol} Charles B. Merrill`, U],
   ['U-73NY', `${T.Maj} Michael W. Burns`, U],
-  ['U-115PA', `${T.Maj} John P. Dunne`, U, 'the roster marks the regiment as guarding corps trains and not engaged'],
+  ['U-115PA', `${T.Maj} John P. Dunne`, U],
   ['U-3US-1', `${T.Capt} Henry W. Freedley`, U],
   ['U-12US-2', `${T.Capt} Thomas S. Dunn`, U],
   ['U-17US', `${T.LtCol} J. Durell Greene`, U],

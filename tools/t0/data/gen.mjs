@@ -53,7 +53,8 @@ for (const f of files) {
       for (const e of grp.rows) {
         const k = grp.file + '|' + grp.key + '|' + e.id;
         const cur = rowAcc.get(k) || { file: grp.file, key: grp.key, id: e.id, set: {}, cls: [], before: [], src: [], area };
-        Object.assign(cur.set, e.set);
+        Object.assign(cur.set, e.set || {});
+        if (e.edit) { cur.edit ||= {}; for (const [k, arr] of Object.entries(e.edit)) cur.edit[k] = (cur.edit[k] || []).concat(arr); }   // [[old fragment, new fragment]] applied to the merged value
         if (e.cls && !cur.cls.includes(e.cls)) cur.cls.push(e.cls);
         if (e.before) cur.before.push(e.before);
         if (e.src && !cur.src.includes(e.src)) cur.src.push(e.src);
@@ -143,6 +144,14 @@ for (const e of rowAcc.values()) {
     let o = obj;
     for (let i = 0; i < parts.length - 1; i++) { o[parts[i]] ??= {}; o = o[parts[i]]; }
     if (v === null) delete o[parts[parts.length - 1]]; else o[parts[parts.length - 1]] = v;
+  }
+  for (const [k, arr] of Object.entries(e.edit || {})) {
+    const parts = k.split('.'); let o = obj;
+    for (let i = 0; i < parts.length - 1; i++) { o[parts[i]] ??= {}; o = o[parts[i]]; }
+    let v = o[parts[parts.length - 1]];
+    if (typeof v !== 'string') { errors.push(`${e.file}: ${e.id} edit of ${k}: not a string`); continue; }
+    for (const [a, b] of arr) { if (!v.includes(a)) { errors.push(`${e.file}: ${e.id} edit of ${k}: fragment not found: ${a.slice(0, 60)}`); continue; } v = v.replace(a, () => b); }
+    o[parts[parts.length - 1]] = v; e.set[k] = v;
   }
   let nw = old;
   for (const k of new Set(Object.keys(e.set).map((x) => x.split('.')[0]))) {

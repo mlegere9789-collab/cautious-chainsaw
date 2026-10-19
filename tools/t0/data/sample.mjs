@@ -62,10 +62,14 @@ for (const k of t.roads) add('terrain', k.road_id, `${k.name}: ${k.significance}
 
 // ---- placement notes
 for (const f of fs.readdirSync(D).filter((x) => /^(placements_|density_).*\.json$/.test(x)).sort()) {
-  for (const l of rd(path.join(D, f)).split('\n')) {
+  const text = rd(path.join(D, f));
+  let lined = 0;
+  for (const l of text.split('\n')) {
     const m = /^\s*\{"unit_id":"([^"]+)","tick":(\d+),.*?"notes":"((?:[^"\\]|\\.)*)"/.exec(l);
-    if (m) add('position-note', `${f.replace('.json', '')}|${m[1]}|${m[2]}`, `${m[1]} at tick ${m[2]}: ${JSON.parse('"' + m[3] + '"')}`, f);
+    if (m) { lined++; add('position-note', `${f.replace('.json', '')}|${m[1]}|${m[2]}`, `${m[1]} at tick ${m[2]}: ${JSON.parse('"' + m[3] + '"')}`, f); }
   }
+  // pretty-printed files (density_day3_cavalry.json) are read as JSON; samples A and B were drawn before the sampler read them (found by the unit-count check, see AUDIT.md)
+  if (!lined) for (const r of (JSON.parse(text).placements || [])) if (r.unit_id && r.notes) add('position-note', `${f.replace('.json', '')}|${r.unit_id}|${r.tick}`, `${r.unit_id} at tick ${r.tick}: ${r.notes}`, f);
 }
 
 // ---- bundle strings: story markers, tour stops, popup alerts

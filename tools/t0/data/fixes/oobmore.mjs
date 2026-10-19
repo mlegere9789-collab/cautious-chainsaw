@@ -36,6 +36,19 @@ const unionRegs = [
 const confRegs = [
   { id: 'C-Phil-GA', file: 'confederate_regiments_first_corps', set: { 'commander.name': 'Lieutenant Colonel E. S. Barclay' }, cls: 'wrong-name', before: 'commander "Lieutenant Colonel Emory Best"; the roster prints Lieut. Col. E. S. Barclay', src: `${OR2} p.283` },
 ];
+const kaOf = (file, id) => (jr(file + '.json').regiments.find((r) => r.regiment_id === id) || {}).key_action;
+// found by the full-population commander check (tools/t0/data/cmdcheck.mjs) after sample C: the roster names a different commander, or none
+const ROSTER_SILENT = 'The Official Records roster (27/2 p.290) names no commander for this regiment; the commander shown is not verified here.';
+confRegs.push(
+  { id: 'C-1LA-T', file: 'confederate_regiments_second_corps', set: { 'commander.name': 'Captain E. D. Willett', 'commander.fate': null, key_action: "Nicholls's (Williams's) brigade -- Culp's Hill. The roster names Capt. E. D. Willett as its commander; the record's earlier statement that Lieut. Col. Nolan was killed is not supported by the sources read." }, cls: 'wrong-name', before: 'commander "Lieutenant Colonel Michael Nolan", "KIA July 2"; the roster prints 1st Louisiana, Capt. E. D. Willett', src: `${OR2} p.286 (roster), p.513 (Williams: the First Louisiana, Captain Willett)` },
+  { id: 'C-7NC', file: 'confederate_regiments_third_corps', set: { 'commander.name': 'Captain J. McLeod Turner', 'commander.fate': null }, cls: 'wrong-name', before: 'commander "Captain James Harris"; the roster prints 7th North Carolina: Capt. J. McLeod Turner, Capt. James G. Harris (in that order)', src: `${OR2} p.289 (roster)` },
+  { id: 'C-14GA', file: 'confederate_regiments_third_corps', set: { 'commander.name': 'Not named in the roster', 'commander.fate': null, key_action: NOTE(kaOf('confederate_regiments_third_corps', 'C-14GA'), ROSTER_SILENT) }, cls: 'wrong-name', before: 'commander "Colonel Robert McMillan", who is the 24th Georgia\'s colonel in the roster (p.286)', src: `${OR2} p.290 (roster: the 14th Georgia has no commander)` },
+  { id: 'C-35GA', file: 'confederate_regiments_third_corps', set: { key_action: NOTE(kaOf('confederate_regiments_third_corps', 'C-35GA'), ROSTER_SILENT) }, cls: 'unverified-record', before: 'commander not in the roster', src: `${OR2} p.290 (roster)` },
+  { id: 'C-45GA', file: 'confederate_regiments_third_corps', set: { key_action: NOTE(kaOf('confederate_regiments_third_corps', 'C-45GA'), ROSTER_SILENT) }, cls: 'unverified-record', before: 'commander not in the roster', src: `${OR2} p.290 (roster)` },
+);
+unionRegs.push(
+  { id: 'U-4VT', file: 'union_regiments_vi_xi_xii_corps', set: { 'commander.name': 'Colonel Charles B. Stoughton' }, cls: 'wrong-name', before: 'rank "Lieutenant Colonel"; the roster prints 4th Vermont, Col. Charles B. Stoughton', src: `${OR1} p.167` },
+);
 const NOTE_ART = {
   'U-ART-G1NY': { text: "The roster lists Battery G, 1st New York (Capt. Nelson Ames) in the Fourth Volunteer Brigade of the Artillery Reserve (27/1 p.168), not in the Second Corps Artillery Brigade.", src: `${OR1} p.168` },
   'C-ART-Doll': { text: "The roster names no Doll's battery in this battalion: Latimer's (Andrews's) battalion held Dement's, Carpenter's, Brown's (Chesapeake) and Raine's batteries (27/2 p.286); the 2d Maryland (Griffin's) battery was with Stuart's horse artillery (p.346).", src: `${OR2} p.286, p.346` },
@@ -52,6 +65,6 @@ export const groups = [
   { file: 'oob/confederate_artillery.json', key: 'battery_id', rows: batRows(cb) },
   { file: 'oob/union_oob_brigades.json', key: 'brigade_id', rows: unionBrig },
   ...['union_regiments_i_ii_corps', 'union_regiments_iii_v_corps', 'union_regiments_vi_xi_xii_corps'].map((f) => ({ file: `oob/${f}.json`, key: 'regiment_id', rows: unionRegs.filter((r) => r.file === f).map(({ file, ...r }) => r) })),
-  ...['confederate_regiments_first_corps'].map((f) => ({ file: `oob/${f}.json`, key: 'regiment_id', rows: confRegs.filter((r) => r.file === f).map(({ file, ...r }) => r) })),
+  ...['confederate_regiments_first_corps', 'confederate_regiments_second_corps', 'confederate_regiments_third_corps'].map((f) => ({ file: `oob/${f}.json`, key: 'regiment_id', rows: confRegs.filter((r) => r.file === f).map(({ file, ...r }) => r) })),
 ];
 export default [];

@@ -3,6 +3,7 @@
 // the Official Records or the return of casualties contradicts is corrected; a note whose specifics no source read supports is reduced to what is supported;
 // leaked internal ids ('US-009', 'Tick 28') are removed.  Notes that are position descriptions or sourced and unobjectionable are left alone (KEEP).
 // Each rule is [match, replacement, class, source]; match is an exact note or a RegExp applied to the note.
+import { addC } from './notes-rules-c.mjs';
 const OR1 = 'OR 27/1', OR2 = 'OR 27/2';
 
 // ---- ordered rules: first match wins (regex rules are applied after exact rules)
@@ -452,3 +453,6 @@ X(`Cushing's Battery A at The Angle -- 6 guns. Cushing has been here since July 
 X(`Humphreys's 2.5 miles of thin line -- no support on either flank`, `Humphreys's division on the Emmitsburg road`, 'unsupported-claim', 'the length of line and the absence of support are not given');
 X(`Stuart's 4 brigades moving east -- Lee has sent him to get behind Meade and strike when Pickett charges`, `Stuart's cavalry moving east toward the Confederate left`, 'unsupported-claim', 'Lee\'s intention is not given in his report');
 X(`Kershaw's 3rd SC -- trading the Stony Hill back and forth. The Wheatfield changes hands 6 times today.`, `Kershaw's 3rd SC -- fighting on the Stony Hill. The Wheatfield changed hands several times.`, 'unsupported-claim', 'the count of six is the usual tradition, not in the reports read');
+
+// ---- sample C and the hindsight / mind-reading sweep
+addC(X, OR1, OR2);
