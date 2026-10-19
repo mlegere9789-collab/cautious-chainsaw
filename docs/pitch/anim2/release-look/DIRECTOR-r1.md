@@ -48,3 +48,9 @@ I did not verify the data behind the pictures (counts, casualty totals, clock te
 ## 5. Next step
 
 Builder closes fixes 1 to 9 (A) and either 10 and 11 or drops B from the bundle; re-shoots the affected stills (legend, phone sheets, scale bar, overview, banner); the director re-runs the gates (`tmp/look-director/audit-dir.mjs`, `sweep.mjs`) and then writes `APPROVED-LOOK.md`.
+
+## 6. Resume check (2026-10-19, 11:50)
+
+The builder's latest report is still the round-1 report. Every still and result in `shots/` is older than this review (last write 00:31, review 01:14); nothing under `shots/` changed since. The working tree holds uncommitted builder edits (skins, layout, `crowdnames.mjs`, legend, rebuilt pages at 02:28) but no re-shot stills, so there is nothing new to judge: the look is judged on stills only.
+
+Re-opened `a-standards/final/s7-legend-t60.jpg` and `s5-phone-z14.5-sheet-t551.jpg`: fix 1 (fourth legend sample "53 VA" wrapped and right-aligned) and fix 6 (selected 14 VT has no flag or name on the map, only a ring dot at upper right) are still present exactly as written. The verdict stands: NOT APPROVED, `APPROVED-LOOK.md` not written, the 11 fixes of section 3 all open. Next step is unchanged (section 5): commit the builder's fixes, re-shoot the affected stills, then the director re-runs `tmp/look-director/audit-dir.mjs` and `sweep.mjs`.
