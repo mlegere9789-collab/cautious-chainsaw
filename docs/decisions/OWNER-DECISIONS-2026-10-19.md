@@ -11,3 +11,4 @@
 - Fidelity target: the owner accepts that no record gives every soldier's second-by-second action; the target is research deep enough to get well over 97 percent close.
 - Rosters: build a dedicated section with the complete, accurate rosters of both armies for the battle (names need not appear in the animation). All the names are online; find them.
 - Working rule from this: standards are gates, never relaxed silently. Where evidence is missing the data carries an evidence label; I do not lower a quality gate, I report it and keep working on it.
+- Sound (Part F): use real, period-accurate sound effects for weapons: every individual weapon firing (each musket, rifle, carbine, revolver, cannon) shows accurate visuals and plays its accurate sound; the sheer number of overlapping shots creates realistic battle chaos. Sound sources must be real recordings of the right weapon types with open or properly licensed terms.
