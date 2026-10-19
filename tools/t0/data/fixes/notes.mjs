@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { EXACT } from '../notes-rules.mjs';
-import { remapId } from '../idmap.mjs';
+import { remapId, preArrival } from '../idmap.mjs';
 export const kind = 'text';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const DATA = path.join(HERE, '..', '..', '..', '..', 'baseline', 'dist', 'data');
@@ -22,6 +22,7 @@ for (const f of fs.readdirSync(DATA).filter((x) => /^(placements_|density_).*\.j
     if (!m) continue;
     const [, unit, tick, rawNote] = m;
     const note = JSON.parse('"' + rawNote + '"');
+    if (preArrival(unit, tick)) continue;   // the row is removed by fixes/prearrival.mjs
     const r = EXACT.get(note);
     if (!r) { if (FLAG.test(note)) uncovered.push(`${f} t${tick} ${unit} | ${note}`); continue; }
     if (r.cls === 'keep' || r.repl === note) continue;

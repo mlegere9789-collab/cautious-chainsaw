@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "count": 1438,
+ "count": 1490,
  "fixes": [
   {
    "id": "DATA-cas-UI-day1",
@@ -30,6 +30,16 @@
    "src": "OR 27/1 p.174 (page image: Third Brigade total 351), p.350",
    "find": "Vermont Brigade casualties during double enfilade on Pickett's right and Wilcox.",
    "repl": "Stannard's Vermont brigade (OR: 351 killed, wounded and missing in the battle, most of them on July 3) in its flank fire on Pickett's column and then on Wilcox's and Lang's brigades.",
+   "area": "casualty"
+  },
+  {
+   "id": "DATA-cas-UII-d3note",
+   "target": "data/casualty_apportionment.json",
+   "cls": "wrong-number",
+   "before": "battery figures 25, 11 and 16 against 38, 25 and 28 in the return",
+   "src": "OR 27/1 p.177 (return: artillery brigade of the Second Corps), p.176 (Webb)",
+   "find": "Cushing's battery (25 casualties), Woodruff's battery (11), Brown's battery (16), and Webb's brigade all suffered heavily at The Angle.",
+   "repl": "The return counts 38 casualties in Cushing's battery (A, 4th U.S.), 25 in Woodruff's (I, 1st U.S.) and 28 in Brown's (B, 1st Rhode Island) over the battle, and 491 in Webb's brigade (sum of its regiments).",
    "area": "casualty"
   },
   {
@@ -1899,26 +1909,6 @@
    "src": "order of battle ids (data/oob/*.json) against the unit named in the row's own note; OR 27/1 pp.155-168 and OR 27/2 pp.283-292 for the brigade and division names",
    "find": "\"unit_id\":\"U-CAV-1-1\",\"tick\":80,\"lat\":39.8289,\"lng\":-77.2372,",
    "repl": "\"unit_id\":\"U-CAV-1\",\"tick\":80,\"lat\":39.8289,\"lng\":-77.2372,",
-   "area": "ids"
-  },
-  {
-   "id": "DATA-id-density-day1-lateafternoon-U-II-3-1-75",
-   "target": "data/density_day1_lateafternoon.json",
-   "cls": "wrong-id",
-   "before": "unit id U-II-3-1: Hancock's arrival carried Carroll's brigade id",
-   "src": "order of battle ids (data/oob/*.json) against the unit named in the row's own note; OR 27/1 pp.155-168 and OR 27/2 pp.283-292 for the brigade and division names",
-   "find": "\"unit_id\":\"U-II-3-1\",\"tick\":75,\"lat\":39.8239,\"lng\":-77.2117,",
-   "repl": "\"unit_id\":\"U-II\",\"tick\":75,\"lat\":39.8239,\"lng\":-77.2117,",
-   "area": "ids"
-  },
-  {
-   "id": "DATA-id-density-day1-lateafternoon-U-II-3-1-80",
-   "target": "data/density_day1_lateafternoon.json",
-   "cls": "wrong-id",
-   "before": "unit id U-II-3-1: Hancock's arrival carried Carroll's brigade id",
-   "src": "order of battle ids (data/oob/*.json) against the unit named in the row's own note; OR 27/1 pp.155-168 and OR 27/2 pp.283-292 for the brigade and division names",
-   "find": "\"unit_id\":\"U-II-3-1\",\"tick\":80,\"lat\":39.8206,\"lng\":-77.2217,",
-   "repl": "\"unit_id\":\"U-II\",\"tick\":80,\"lat\":39.8206,\"lng\":-77.2217,",
    "area": "ids"
   },
   {
@@ -5702,6 +5692,16 @@
    "area": "notes"
   },
   {
+   "id": "DATA-note-density-day2-wright-U-II-2-2-312",
+   "target": "data/density_day2_wright.json",
+   "cls": "unsupported-claim",
+   "before": "Webb's brigade falling back -- Wright is pushing through the Union line",
+   "src": "OR 27/2 pp.623-629 (Wright's report); no report read has Webb's brigade falling back on July 2",
+   "find": "(\"unit_id\":\"U-II-2-2\",\"tick\":312,[^\\n]*?\"notes\":\")Webb's brigade falling back -- Wright is pushing through the Union line\"",
+   "repl": "\\g<1>Webb's brigade near the Angle while Wright's brigade breaks the Union line to the south (Wright)\"",
+   "area": "notes"
+  },
+  {
    "id": "DATA-note-density-day2-wright-C-III-1-3-318",
    "target": "data/density_day2_wright.json",
    "cls": "unsupported-claim",
@@ -6632,16 +6632,6 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-reserves-C-I-3-226",
-   "target": "data/density_reserves.json",
-   "cls": "wrong-claim",
-   "before": "Pickett's division -- assigned to guard the supply trains. They will not fight today.",
-   "src": "OR 27/2 p.320 (Lee)",
-   "find": "(\"unit_id\":\"C-I-3\",\"tick\":226,[^\\n]*?\"notes\":\")Pickett's division -- assigned to guard the supply trains\\. They will not fight today\\.\"",
-   "repl": "\\g<1>Pickett's division -- Lee's report says it arrived near the field in the afternoon of July 2\"",
-   "area": "notes"
-  },
-  {
    "id": "DATA-note-density-reserves-C-I-3-1-451",
    "target": "data/density_reserves.json",
    "cls": "unsupported-claim",
@@ -6729,46 +6719,6 @@
    "src": "OR 27/2 p.638",
    "find": "(\"unit_id\":\"C-III-2-1\",\"tick\":120,[^\\n]*?\"notes\":\")Pettigrew's brigade on Seminary Ridge -- 26th NC decimated\"",
    "repl": "\\g<1>Pettigrew's brigade on Seminary Ridge -- the 26th NC lost over half its numbers (Pettigrew)\"",
-   "area": "notes"
-  },
-  {
-   "id": "DATA-note-placements-day1-ticks101-225-U-V-1-3-150",
-   "target": "data/placements_day1_ticks101_225.json",
-   "cls": "unsupported-claim",
-   "before": "Vincent's brigade -- 20th Maine here, not yet aware of tomorrow's role",
-   "src": "editorial claim removed",
-   "find": "(\"unit_id\":\"U-V-1-3\",\"tick\":150,[^\\n]*?\"notes\":\")Vincent's brigade -- 20th Maine here, not yet aware of tomorrow's role\"",
-   "repl": "\\g<1>Vincent's brigade -- 20th Maine here\"",
-   "area": "notes"
-  },
-  {
-   "id": "DATA-note-placements-day1-ticks101-225-U-V-3-1-150",
-   "target": "data/placements_day1_ticks101_225.json",
-   "cls": "unsupported-claim",
-   "before": "Crawford's Pennsylvania Reserves -- will charge down Little Round Top tomorrow",
-   "src": "prediction removed",
-   "find": "(\"unit_id\":\"U-V-3-1\",\"tick\":150,[^\\n]*?\"notes\":\")Crawford's Pennsylvania Reserves -- will charge down Little Round Top tomorrow\"",
-   "repl": "\\g<1>Crawford's Pennsylvania Reserves\"",
-   "area": "notes"
-  },
-  {
-   "id": "DATA-note-placements-day1-ticks101-225-U-VI-1-1-180",
-   "target": "data/placements_day1_ticks101_225.json",
-   "cls": "unsupported-claim",
-   "before": "VI Corps arriving after 34-mile march",
-   "src": "no figure in the reports read",
-   "find": "(\"unit_id\":\"U-VI-1-1\",\"tick\":180,[^\\n]*?\"notes\":\")VI Corps arriving after 34-mile march\"",
-   "repl": "\\g<1>VI Corps arriving after a long march\"",
-   "area": "notes"
-  },
-  {
-   "id": "DATA-note-placements-day1-ticks101-225-U-II-2-2-200",
-   "target": "data/placements_day1_ticks101_225.json",
-   "cls": "unsupported-claim",
-   "before": "Webb's brigade at The Angle -- this is the position they will defend to the death on July 3",
-   "src": "editorial claim removed",
-   "find": "(\"unit_id\":\"U-II-2-2\",\"tick\":200,[^\\n]*?\"notes\":\")Webb's brigade at The Angle -- this is the position they will defend to the death on July 3\"",
-   "repl": "\\g<1>Webb's brigade at The Angle\"",
    "area": "notes"
   },
   {
@@ -7660,6 +7610,576 @@
    "find": "(\"unit_id\":\"U-CAV-1-1\",\"tick\":675,[^\\n]*?\"notes\":\")Gamble's cavalry screening Union left\\. Buford will die of typhoid in December 1863\\.\"",
    "repl": "\\g<1>Gamble's cavalry screening the Union left.\"",
    "area": "notes"
+  },
+  {
+   "id": "DATA-pre-density-day1-lateafternoon-U-II-3-1-75",
+   "target": "data/density_day1_lateafternoon.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-3-1 at tick 75: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-3-1\",\"tick\":75,\"lat\":39.8239,\"lng\":-77.2117,\"bearing\":270,\"disposition\":\"Line of March\",\"strength\":12500,\"notes\":\"Hancock arriving from Taneytown on horseback -- sent by Meade to stabilize the position\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-density-day1-lateafternoon-U-II-3-1-80",
+   "target": "data/density_day1_lateafternoon.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-3-1 at tick 80: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-3-1\",\"tick\":80,\"lat\":39.8206,\"lng\":-77.2217,\"bearing\":270,\"disposition\":\"Line of Battle\",\"strength\":12500,\"notes\":\"Hancock takes command of Cemetery Hill by Meade's orders. He places the I and XI Corps.\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-density-reserves-C-I-3-226",
+   "target": "data/density_reserves.json",
+   "cls": "before-arrival",
+   "before": "row for C-I-3 at tick 226: the unit was not on the field yet",
+   "src": "OR 27/2 p.320 (Lee: three brigades of Pickett arrived near the field during the afternoon of July 2), p.308 (the following morning), p.358 (Pickett left at Chambersburg until relieved)",
+   "find": "    {\"unit_id\":\"C-I-3\",\"tick\":226,\"lat\":39.8122,\"lng\":-77.2739,\"bearing\":90,\"disposition\":\"Reserve\",\"strength\":5200,\"notes\":\"Pickett's division -- assigned to guard the supply trains. They will not fight today.\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-II-1-1-120",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-1-1 at tick 120: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-1-1\",\"tick\":120,\"lat\":39.8128,\"lng\":-77.2322,\"bearing\":270,\"disposition\":\"Line of Battle\",\"strength\":853},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-II-1-2-120",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-1-2 at tick 120: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-1-2\",\"tick\":120,\"lat\":39.8117,\"lng\":-77.2317,\"bearing\":270,\"disposition\":\"Line of Battle\",\"strength\":532},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-II-1-3-120",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-1-3 at tick 120: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-1-3\",\"tick\":120,\"lat\":39.8106,\"lng\":-77.2311,\"bearing\":270,\"disposition\":\"Line of Battle\",\"strength\":975},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-II-1-4-120",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-1-4 at tick 120: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-1-4\",\"tick\":120,\"lat\":39.8094,\"lng\":-77.2306,\"bearing\":270,\"disposition\":\"Line of Battle\",\"strength\":851},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-II-2-1-120",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-2-1 at tick 120: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-2-1\",\"tick\":120,\"lat\":39.8128,\"lng\":-77.2350,\"bearing\":270,\"disposition\":\"Line of Battle\",\"strength\":1365,\"notes\":\"Harrow's brigade -- 1st Minnesota here\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-II-2-2-120",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-2-2 at tick 120: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-2-2\",\"tick\":120,\"lat\":39.8117,\"lng\":-77.2350,\"bearing\":270,\"disposition\":\"Line of Battle\",\"strength\":1224,\"notes\":\"Webb's brigade at The Angle area\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-II-2-3-120",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-2-3 at tick 120: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-2-3\",\"tick\":120,\"lat\":39.8106,\"lng\":-77.2344,\"bearing\":270,\"disposition\":\"Line of Battle\",\"strength\":1239},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-II-3-1-120",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-3-1 at tick 120: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-3-1\",\"tick\":120,\"lat\":39.8167,\"lng\":-77.2272,\"bearing\":270,\"disposition\":\"Line of Battle\",\"strength\":975},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-II-3-2-120",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-3-2 at tick 120: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-3-2\",\"tick\":120,\"lat\":39.8156,\"lng\":-77.2267,\"bearing\":270,\"disposition\":\"Line of Battle\",\"strength\":1617},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-II-3-3-120",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-3-3 at tick 120: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-3-3\",\"tick\":120,\"lat\":39.8144,\"lng\":-77.2261,\"bearing\":270,\"disposition\":\"Line of Battle\",\"strength\":1508},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-V-1-1-150",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-V-1-1 at tick 150: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: by 7 a.m. of July 2)",
+   "find": "    {\"unit_id\":\"U-V-1-1\",\"tick\":150,\"lat\":39.7978,\"lng\":-77.2356,\"bearing\":270,\"disposition\":\"Bivouac\",\"strength\":2220,\"notes\":\"Barnes's division arriving -- in reserve south of Cemetery Ridge\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-V-1-2-150",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-V-1-2 at tick 150: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: by 7 a.m. of July 2)",
+   "find": "    {\"unit_id\":\"U-V-1-2\",\"tick\":150,\"lat\":39.7967,\"lng\":-77.2356,\"bearing\":270,\"disposition\":\"Bivouac\",\"strength\":1423},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-V-1-3-150",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-V-1-3 at tick 150: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: by 7 a.m. of July 2)",
+   "find": "    {\"unit_id\":\"U-V-1-3\",\"tick\":150,\"lat\":39.7956,\"lng\":-77.2361,\"bearing\":270,\"disposition\":\"Bivouac\",\"strength\":1336,\"notes\":\"Vincent's brigade -- 20th Maine here, not yet aware of tomorrow's role\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-V-2-1-150",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-V-2-1 at tick 150: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: by 7 a.m. of July 2)",
+   "find": "    {\"unit_id\":\"U-V-2-1\",\"tick\":150,\"lat\":39.7944,\"lng\":-77.2350,\"bearing\":270,\"disposition\":\"Bivouac\",\"strength\":1303},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-V-2-2-150",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-V-2-2 at tick 150: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: by 7 a.m. of July 2)",
+   "find": "    {\"unit_id\":\"U-V-2-2\",\"tick\":150,\"lat\":39.7933,\"lng\":-77.2344,\"bearing\":270,\"disposition\":\"Bivouac\",\"strength\":954},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-V-2-3-150",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-V-2-3 at tick 150: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: by 7 a.m. of July 2)",
+   "find": "    {\"unit_id\":\"U-V-2-3\",\"tick\":150,\"lat\":39.7922,\"lng\":-77.2339,\"bearing\":270,\"disposition\":\"Bivouac\",\"strength\":1591,\"notes\":\"Weed's brigade -- Little Round Top summit tomorrow\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-V-3-1-150",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-V-3-1 at tick 150: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: by 7 a.m. of July 2)",
+   "find": "    {\"unit_id\":\"U-V-3-1\",\"tick\":150,\"lat\":39.7911,\"lng\":-77.2333,\"bearing\":270,\"disposition\":\"Bivouac\",\"strength\":1251,\"notes\":\"Crawford's Pennsylvania Reserves -- will charge down Little Round Top tomorrow\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-V-3-2-150",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-V-3-2 at tick 150: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: by 7 a.m. of July 2)",
+   "find": "    {\"unit_id\":\"U-V-3-2\",\"tick\":150,\"lat\":39.7900,\"lng\":-77.2328,\"bearing\":270,\"disposition\":\"Bivouac\",\"strength\":1048},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-VI-1-1-180",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-VI-1-1 at tick 180: the unit was not on the field yet",
+   "src": "OR 27/1 p.663 (Sedgwick: the Sixth Corps arrived the afternoon of July 2), p.678 (Grant: about 5 p.m.)",
+   "find": "    {\"unit_id\":\"U-VI-1-1\",\"tick\":180,\"lat\":39.8006,\"lng\":-77.2289,\"bearing\":270,\"disposition\":\"Line of March\",\"strength\":4173,\"notes\":\"VI Corps arriving after 34-mile march\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-VI-1-2-180",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-VI-1-2 at tick 180: the unit was not on the field yet",
+   "src": "OR 27/1 p.663 (Sedgwick: the Sixth Corps arrived the afternoon of July 2), p.678 (Grant: about 5 p.m.)",
+   "find": "    {\"unit_id\":\"U-VI-1-2\",\"tick\":180,\"lat\":39.7994,\"lng\":-77.2289,\"bearing\":270,\"disposition\":\"Line of March\",\"strength\":2207},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-VI-1-3-180",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-VI-1-3 at tick 180: the unit was not on the field yet",
+   "src": "OR 27/1 p.663 (Sedgwick: the Sixth Corps arrived the afternoon of July 2), p.678 (Grant: about 5 p.m.)",
+   "find": "    {\"unit_id\":\"U-VI-1-3\",\"tick\":180,\"lat\":39.7983,\"lng\":-77.2289,\"bearing\":270,\"disposition\":\"Line of March\",\"strength\":1396},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-VI-2-1-180",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-VI-2-1 at tick 180: the unit was not on the field yet",
+   "src": "OR 27/1 p.663 (Sedgwick: the Sixth Corps arrived the afternoon of July 2), p.678 (Grant: about 5 p.m.)",
+   "find": "    {\"unit_id\":\"U-VI-2-1\",\"tick\":180,\"lat\":39.7972,\"lng\":-77.2289,\"bearing\":270,\"disposition\":\"Line of March\",\"strength\":1586},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-VI-2-2-180",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-VI-2-2 at tick 180: the unit was not on the field yet",
+   "src": "OR 27/1 p.663 (Sedgwick: the Sixth Corps arrived the afternoon of July 2), p.678 (Grant: about 5 p.m.)",
+   "find": "    {\"unit_id\":\"U-VI-2-2\",\"tick\":180,\"lat\":39.7961,\"lng\":-77.2289,\"bearing\":270,\"disposition\":\"Line of March\",\"strength\":1802},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-VI-3-1-180",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-VI-3-1 at tick 180: the unit was not on the field yet",
+   "src": "OR 27/1 p.663 (Sedgwick: the Sixth Corps arrived the afternoon of July 2), p.678 (Grant: about 5 p.m.)",
+   "find": "    {\"unit_id\":\"U-VI-3-1\",\"tick\":180,\"lat\":39.7950,\"lng\":-77.2289,\"bearing\":270,\"disposition\":\"Line of March\",\"strength\":1670},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-VI-3-2-180",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-VI-3-2 at tick 180: the unit was not on the field yet",
+   "src": "OR 27/1 p.663 (Sedgwick: the Sixth Corps arrived the afternoon of July 2), p.678 (Grant: about 5 p.m.)",
+   "find": "    {\"unit_id\":\"U-VI-3-2\",\"tick\":180,\"lat\":39.7939,\"lng\":-77.2289,\"bearing\":270,\"disposition\":\"Line of March\",\"strength\":1387},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-VI-3-3-180",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-VI-3-3 at tick 180: the unit was not on the field yet",
+   "src": "OR 27/1 p.663 (Sedgwick: the Sixth Corps arrived the afternoon of July 2), p.678 (Grant: about 5 p.m.)",
+   "find": "    {\"unit_id\":\"U-VI-3-3\",\"tick\":180,\"lat\":39.7928,\"lng\":-77.2289,\"bearing\":270,\"disposition\":\"Line of March\",\"strength\":1568},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-C-I-2-1-180",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for C-I-2-1 at tick 180: the unit was not on the field yet",
+   "src": "OR 27/2 p.358 (Longstreet: the brigade of Law, left on picket at New Guilford, joined its division about noon on the 2d)",
+   "find": "    {\"unit_id\":\"C-I-2-1\",\"tick\":180,\"lat\":39.7922,\"lng\":-77.2756,\"bearing\":90,\"disposition\":\"Bivouac\",\"strength\":1933,\"notes\":\"Law's brigade -- 15th Alabama bivouacking west of Round Tops\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-C-I-3-1-180",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for C-I-3-1 at tick 180: the unit was not on the field yet",
+   "src": "OR 27/2 p.320 (Lee: three brigades of Pickett arrived near the field during the afternoon of July 2), p.308 (the following morning), p.358 (Pickett left at Chambersburg until relieved)",
+   "find": "    {\"unit_id\":\"C-I-3-1\",\"tick\":180,\"lat\":39.8089,\"lng\":-77.2917,\"bearing\":90,\"disposition\":\"Line of March\",\"strength\":1459,\"notes\":\"Pickett's division -- Garnett's brigade still approaching\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-C-I-3-2-180",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for C-I-3-2 at tick 180: the unit was not on the field yet",
+   "src": "OR 27/2 p.320 (Lee: three brigades of Pickett arrived near the field during the afternoon of July 2), p.308 (the following morning), p.358 (Pickett left at Chambersburg until relieved)",
+   "find": "    {\"unit_id\":\"C-I-3-2\",\"tick\":180,\"lat\":39.8078,\"lng\":-77.2917,\"bearing\":90,\"disposition\":\"Line of March\",\"strength\":1634},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-C-I-3-3-180",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for C-I-3-3 at tick 180: the unit was not on the field yet",
+   "src": "OR 27/2 p.320 (Lee: three brigades of Pickett arrived near the field during the afternoon of July 2), p.308 (the following morning), p.358 (Pickett left at Chambersburg until relieved)",
+   "find": "    {\"unit_id\":\"C-I-3-3\",\"tick\":180,\"lat\":39.8067,\"lng\":-77.2917,\"bearing\":90,\"disposition\":\"Line of March\",\"strength\":1950,\"notes\":\"Armistead's brigade on the march\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-II-2-2-200",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-2-2 at tick 200: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-2-2\",\"tick\":200,\"lat\":39.8117,\"lng\":-77.2350,\"bearing\":270,\"disposition\":\"Line of Battle\",\"strength\":1224,\"notes\":\"Webb's brigade at The Angle -- this is the position they will defend to the death on July 3\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-C-I-3-1-200",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for C-I-3-1 at tick 200: the unit was not on the field yet",
+   "src": "OR 27/2 p.320 (Lee: three brigades of Pickett arrived near the field during the afternoon of July 2), p.308 (the following morning), p.358 (Pickett left at Chambersburg until relieved)",
+   "find": "    {\"unit_id\":\"C-I-3-1\",\"tick\":200,\"lat\":39.8183,\"lng\":-77.2711,\"bearing\":90,\"disposition\":\"Bivouac\",\"strength\":1459,\"notes\":\"Garnett's brigade bivouacking on Chambersburg Pike\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-C-I-3-2-200",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for C-I-3-2 at tick 200: the unit was not on the field yet",
+   "src": "OR 27/2 p.320 (Lee: three brigades of Pickett arrived near the field during the afternoon of July 2), p.308 (the following morning), p.358 (Pickett left at Chambersburg until relieved)",
+   "find": "    {\"unit_id\":\"C-I-3-2\",\"tick\":200,\"lat\":39.8172,\"lng\":-77.2700,\"bearing\":90,\"disposition\":\"Bivouac\",\"strength\":1634},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-C-I-3-3-200",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for C-I-3-3 at tick 200: the unit was not on the field yet",
+   "src": "OR 27/2 p.320 (Lee: three brigades of Pickett arrived near the field during the afternoon of July 2), p.308 (the following morning), p.358 (Pickett left at Chambersburg until relieved)",
+   "find": "    {\"unit_id\":\"C-I-3-3\",\"tick\":200,\"lat\":39.8161,\"lng\":-77.2689,\"bearing\":90,\"disposition\":\"Bivouac\",\"strength\":1950,\"notes\":\"Armistead's brigade -- resting before July 3\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-U-II-2-2-225",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-2-2 at tick 225: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-2-2\",\"tick\":225,\"lat\":39.8117,\"lng\":-77.2350,\"bearing\":270,\"disposition\":\"Line of Battle\",\"strength\":1224,\"notes\":\"Webb's brigade at The Angle -- end of Day 1\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks101-225-C-I-3-3-225",
+   "target": "data/placements_day1_ticks101_225.json",
+   "cls": "before-arrival",
+   "before": "row for C-I-3-3 at tick 225: the unit was not on the field yet",
+   "src": "OR 27/2 p.320 (Lee: three brigades of Pickett arrived near the field during the afternoon of July 2), p.308 (the following morning), p.358 (Pickett left at Chambersburg until relieved)",
+   "find": "    {\"unit_id\":\"C-I-3-3\",\"tick\":225,\"lat\":39.8200,\"lng\":-77.2594,\"bearing\":90,\"disposition\":\"Bivouac\",\"strength\":1950,\"notes\":\"Armistead's brigade resting -- end of Day 1\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks1-50-U-II-1-1-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-1-1 at tick 1: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-1-1\",\"tick\":1,\"lat\":39.7700,\"lng\":-77.2356,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":853},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks1-50-U-II-1-2-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-1-2 at tick 1: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-1-2\",\"tick\":1,\"lat\":39.7711,\"lng\":-77.2356,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":532},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks1-50-U-II-1-3-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-1-3 at tick 1: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-1-3\",\"tick\":1,\"lat\":39.7722,\"lng\":-77.2356,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":975},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks1-50-U-II-1-4-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-1-4 at tick 1: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-1-4\",\"tick\":1,\"lat\":39.7733,\"lng\":-77.2356,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":851},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks1-50-U-II-2-1-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-2-1 at tick 1: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-2-1\",\"tick\":1,\"lat\":39.7744,\"lng\":-77.2356,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":1365},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks1-50-U-II-2-2-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-2-2 at tick 1: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-2-2\",\"tick\":1,\"lat\":39.7756,\"lng\":-77.2356,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":1224},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks1-50-U-II-2-3-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-2-3 at tick 1: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-2-3\",\"tick\":1,\"lat\":39.7767,\"lng\":-77.2356,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":1239},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks1-50-U-II-3-1-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-3-1 at tick 1: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-3-1\",\"tick\":1,\"lat\":39.7778,\"lng\":-77.2356,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":975},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks1-50-U-II-3-2-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-3-2 at tick 1: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-3-2\",\"tick\":1,\"lat\":39.7789,\"lng\":-77.2356,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":1617},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks1-50-U-II-3-3-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-3-3 at tick 1: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-3-3\",\"tick\":1,\"lat\":39.7800,\"lng\":-77.2356,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":1508},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks51-100-U-II-2-2-100",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-2-2 at tick 100: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-2-2\",\"tick\":100,\"lat\":39.8117,\"lng\":-77.2356,\"bearing\":90,\"disposition\":\"Line of Battle\",\"strength\":1224,\"notes\":\"Webb's Philadelphia Brigade arriving on Cemetery Ridge\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks51-100-U-II-2-1-100",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-2-1 at tick 100: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-2-1\",\"tick\":100,\"lat\":39.8128,\"lng\":-77.2361,\"bearing\":90,\"disposition\":\"Line of Battle\",\"strength\":1365,\"notes\":\"Harrow's brigade -- 1st Minnesota in this brigade, not yet engaged\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks51-100-U-II-3-1-100",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "before-arrival",
+   "before": "row for U-II-3-1 at tick 100: the unit was not on the field yet",
+   "src": "OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2",
+   "find": "    {\"unit_id\":\"U-II-3-1\",\"tick\":100,\"lat\":39.8167,\"lng\":-77.2272,\"bearing\":90,\"disposition\":\"Line of Battle\",\"strength\":975,\"notes\":\"Carroll's brigade on Cemetery Ridge\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day1-ticks51-100-C-I-3-100",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "before-arrival",
+   "before": "row for C-I-3 at tick 100: the unit was not on the field yet",
+   "src": "OR 27/2 p.320 (Lee: three brigades of Pickett arrived near the field during the afternoon of July 2), p.308 (the following morning), p.358 (Pickett left at Chambersburg until relieved)",
+   "find": "    {\"unit_id\":\"C-III-3-3\",\"tick\":100,\"lat\":39.8244,\"lng\":-77.2461,\"bearing\":90,\"disposition\":\"Line of Battle\",\"strength\":1882,\"notes\":\"Confederate Seminary Ridge line consolidating for night\"},\n    {\"unit_id\":\"C-I-3\",\"tick\":100,\"lat\":39.8100,\"lng\":-77.2861,\"bearing\":90,\"disposition\":\"Line of March\",\"strength\":5500,\"notes\":\"Pickett's division -- not yet on battlefield, still marching toward Gettysburg\"}\n",
+   "repl": "    {\"unit_id\":\"C-III-3-3\",\"tick\":100,\"lat\":39.8244,\"lng\":-77.2461,\"bearing\":90,\"disposition\":\"Line of Battle\",\"strength\":1882,\"notes\":\"Confederate Seminary Ridge line consolidating for night\"}\n",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day2-ticks226-300-C-I-2-1-226",
+   "target": "data/placements_day2_ticks226_300.json",
+   "cls": "before-arrival",
+   "before": "row for C-I-2-1 at tick 226: the unit was not on the field yet",
+   "src": "OR 27/2 p.358 (Longstreet: the brigade of Law, left on picket at New Guilford, joined its division about noon on the 2d)",
+   "find": "    {\"unit_id\":\"C-I-2-1\",\"tick\":226,\"lat\":39.7944,\"lng\":-77.2700,\"bearing\":90,\"disposition\":\"Bivouac\",\"strength\":1933,\"notes\":\"Law's brigade -- 15th Alabama resting\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day2-ticks226-300-C-I-3-1-226",
+   "target": "data/placements_day2_ticks226_300.json",
+   "cls": "before-arrival",
+   "before": "row for C-I-3-1 at tick 226: the unit was not on the field yet",
+   "src": "OR 27/2 p.320 (Lee: three brigades of Pickett arrived near the field during the afternoon of July 2), p.308 (the following morning), p.358 (Pickett left at Chambersburg until relieved)",
+   "find": "    {\"unit_id\":\"C-I-3-1\",\"tick\":226,\"lat\":39.8200,\"lng\":-77.2594,\"bearing\":90,\"disposition\":\"Bivouac\",\"strength\":1459,\"notes\":\"Garnett's brigade -- Pickett's division behind Seminary Ridge\"},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day2-ticks226-300-C-I-3-2-226",
+   "target": "data/placements_day2_ticks226_300.json",
+   "cls": "before-arrival",
+   "before": "row for C-I-3-2 at tick 226: the unit was not on the field yet",
+   "src": "OR 27/2 p.320 (Lee: three brigades of Pickett arrived near the field during the afternoon of July 2), p.308 (the following morning), p.358 (Pickett left at Chambersburg until relieved)",
+   "find": "    {\"unit_id\":\"C-I-3-2\",\"tick\":226,\"lat\":39.8189,\"lng\":-77.2589,\"bearing\":90,\"disposition\":\"Bivouac\",\"strength\":1634},\n",
+   "repl": "",
+   "area": "prearrival"
+  },
+  {
+   "id": "DATA-pre-placements-day2-ticks226-300-C-I-3-3-226",
+   "target": "data/placements_day2_ticks226_300.json",
+   "cls": "before-arrival",
+   "before": "row for C-I-3-3 at tick 226: the unit was not on the field yet",
+   "src": "OR 27/2 p.320 (Lee: three brigades of Pickett arrived near the field during the afternoon of July 2), p.308 (the following morning), p.358 (Pickett left at Chambersburg until relieved)",
+   "find": "    {\"unit_id\":\"C-I-3-3\",\"tick\":226,\"lat\":39.8178,\"lng\":-77.2583,\"bearing\":90,\"disposition\":\"Bivouac\",\"strength\":1950,\"notes\":\"Armistead's brigade -- not engaged today\"},\n",
+   "repl": "",
+   "area": "prearrival"
   },
   {
    "id": "DATA-succ-US-001",

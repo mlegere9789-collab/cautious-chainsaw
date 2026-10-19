@@ -134,3 +134,13 @@ export function remapId(file, unit, tick, note = '') {
   for (const [fk, from, to, ticks, , nre] of ALL) if (from === unit && (fk === '*' || file === fk + '.json') && (ticks === 'all' || ticks.includes(+tick)) && (!nre || nre.test(note))) return to;
   return unit;
 }
+
+// Rows that put a unit on the field before the Official Records say it arrived: [id pattern, first tick it may appear, source]
+export const PRE = [
+  [/^U-II-\d-\d$/, 226, 'OR 27/1 p.115 (Meade: the Second and Fifth Corps had reached the ground by 7 a.m. of July 2), p.379 (Caldwell), p.416 (Gibbon), p.419 (Harrow): the Second Corps arrived the morning of July 2'],
+  [/^U-V-\d-\d$/, 226, 'OR 27/1 p.115 (Meade: by 7 a.m. of July 2)'],
+  [/^U-VI-\d-\d$/, 240, 'OR 27/1 p.663 (Sedgwick: the Sixth Corps arrived the afternoon of July 2), p.678 (Grant: about 5 p.m.)'],
+  [/^C-I-2-1$/, 238, 'OR 27/2 p.358 (Longstreet: the brigade of Law, left on picket at New Guilford, joined its division about noon on the 2d)'],
+  [/^C-I-3(-\d)?$/, 240, 'OR 27/2 p.320 (Lee: three brigades of Pickett arrived near the field during the afternoon of July 2), p.308 (the following morning), p.358 (Pickett left at Chambersburg until relieved)'],
+];
+export function preArrival(unit, tick) { for (const [re, t, src] of PRE) if (re.test(unit) && +tick < t) return src; return null; }

@@ -435,3 +435,4 @@ X(`Graham's III Corps brigade on the Stony Hill -- about to be hit by Kershaw`, 
 X(`Graham's brigade falling back from the Stony Hill -- Kershaw is through`, `De Trobriand's brigade falling back from the Stony Hill -- Kershaw is through`, 'wrong-name', `${OR1} p.160`);
 X(`Sweitzer's V Corps brigade countercharging into the Wheatfield -- trying to seal the break`, `Sweitzer's V Corps brigade countercharging into the Wheatfield`, 'keep', '');
 X(`Confederate position the doomed charge is aimed at`, `Confederate position on Culp's Hill (Steuart's brigade) -- the objective of Colgrove's advance`, 'unsupported-claim', 'editorial claim removed');
+X(`Webb's brigade falling back -- Wright is pushing through the Union line`, `Webb's brigade near the Angle while Wright's brigade breaks the Union line to the south (Wright)`, 'unsupported-claim', `${OR2} pp.623-629 (Wright's report); no report read has Webb's brigade falling back on July 2`);

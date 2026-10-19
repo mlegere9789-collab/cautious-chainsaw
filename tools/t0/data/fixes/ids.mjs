@@ -4,7 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { ALL, noteOf } from '../idmap.mjs';
+import { ALL, noteOf, preArrival } from '../idmap.mjs';
 export const kind = 'text';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const DATA = path.join(HERE, '..', '..', '..', '..', 'baseline', 'dist', 'data');
@@ -20,6 +20,7 @@ for (const [fileKey, from, to, ticks, why, nre] of ALL) {
       if (!m) continue;
       if (ticks !== 'all' && !ticks.includes(+m[1])) continue;
       if (nre && !nre.test(noteOf(l))) continue;
+      if (preArrival(from, m[1])) continue;   // the row is removed by fixes/prearrival.mjs
       const find = `"unit_id":"${from}","tick":${m[1]},"lat":${m[2]},"lng":${m[3]},`;
       const key = f + '|' + find;
       if (seen.has(key)) continue;
