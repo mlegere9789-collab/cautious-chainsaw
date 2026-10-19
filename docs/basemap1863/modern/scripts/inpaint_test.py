@@ -2,8 +2,8 @@
 
 For every sample site a 256 x 256 m window (1 m px) of the 2013 base and the patch-removal mask (classes 1,2,3,4,6 of removal_mask_1m.tif) is cut.
  (a) REAL: the three methods fill the real mask. Before/after strips are written to previews/ and LOOKED AT. Seam metric:
-       seam_ratio = mean gradient magnitude on a 3 px band straddling the mask boundary after filling
-                    / mean gradient magnitude on the same band shape translated to a clean place in the same window (the control).
+       seam_ratio = mean gradient magnitude on a 5 px band straddling the mask boundary after filling
+                    / mean gradient magnitude of the untouched pixels 6-40 px from the mask (the local ordinary ground).
        1.0 = the boundary is as busy as ordinary ground, > 1.3 = a visible seam. Also tex_ratio = Laplacian variance inside the fill / in a 6 px ring outside it
        (1.0 = same grain; << 1 = blurred; >> 1 = invented detail).
  (b) TRUTH: the same mask shape is moved onto clean ground (>= 40 m from any mask pixel, same window or a neighbour, similar mean NDVI), the method fills it and
@@ -55,28 +55,16 @@ def lapvar(img, m):
 
 
 def seam_ratio(out, m):
-    k = np.ones((3, 3), np.uint8)
-    band = (cv2.dilate(m.astype(np.uint8), np.ones((5, 5), np.uint8)) - cv2.erode(m.astype(np.uint8), np.ones((5, 5), np.uint8))).astype(bool)
+    """mean gradient on the 5 px band straddling the mask boundary / mean gradient of the untouched pixels 6..40 px from the mask (the local ordinary ground)"""
+    mu = m.astype(np.uint8)
+    band = (cv2.dilate(mu, np.ones((5, 5), np.uint8)) - cv2.erode(mu, np.ones((5, 5), np.uint8))).astype(bool)
     G = grad(out)
     if band.sum() < 10:
         return float('nan')
-    sb = G[band].mean()
-    # control: the same band shape moved to clean places, best of 40 random translations that stay clean
-    rng = np.random.default_rng(5)
-    clean = ~cv2.dilate(m.astype(np.uint8), np.ones((9, 9), np.uint8)).astype(bool)
-    ys, xs = np.nonzero(band)
-    vals = []
-    for _ in range(300):
-        dy = int(rng.integers(-90, 91)); dx = int(rng.integers(-90, 91))
-        yy, xx = ys + dy, xs + dx
-        if yy.min() < 2 or xx.min() < 2 or yy.max() >= SZ - 2 or xx.max() >= SZ - 2:
-            continue
-        if not clean[yy, xx].all():
-            continue
-        vals.append(G[yy, xx].mean())
-        if len(vals) >= 12:
-            break
-    return float(sb / np.mean(vals)) if vals else float('nan')
+    near = cv2.dilate(mu, np.ones((81, 81), np.uint8)).astype(bool) & ~cv2.dilate(mu, np.ones((13, 13), np.uint8)).astype(bool)
+    if near.sum() < 50:
+        near = ~cv2.dilate(mu, np.ones((13, 13), np.uint8)).astype(bool)
+    return float(G[band].mean() / G[near].mean()) if near.sum() >= 50 else float('nan')
 
 
 def tex_ratio(out, m):
@@ -104,7 +92,7 @@ SITES = [
     ('local_road_town', 'ROAD_LOCAL', 500, lambda r: r['geom'].length > 150),
     ('service_drive_A', 'ROAD_SERVICE', 20, lambda r: r['geom'].length > 150),
     ('service_drive_B', 'ROAD_SERVICE', 700, lambda r: r['geom'].length > 150),
-    ('parking_large', 'PARKING', 0, lambda r: r['geom'].area > 6000),
+    ('parking_large', 'PARKING', 0, lambda r: 2500 < r['geom'].area < 8000),
     ('parking_small', 'PARKING', 5, lambda r: 800 < r['geom'].area < 3000),
     ('path_trail', 'PATH', 30, lambda r: r['geom'].length > 200),
     ('rail_line', 'RAIL', 4, lambda r: r['geom'].length > 400),
@@ -129,55 +117,50 @@ for name, cls, k, cond in SITES:
     c = r['geom'].centroid
     win = window_at(c.x, c.y)
     img, m = read(win)
-    if m.sum() < 15:
+    def ok(mm): return 0.02 <= mm.mean() <= 0.25
+    if not ok(m):
         # try neighbours of the same class until the window really contains mask pixels
-        for kk in range(k + 1, k + 40):
+        for kk in range(k + 1, k + 600):
             r2 = pick(cls, kk, cond)
             if r2 is None:
                 break
             c = r2['geom'].centroid; win = window_at(c.x, c.y); img, m = read(win)
-            if m.sum() >= 40:
+            if ok(m):
                 r = r2; break
-    if m.sum() < 15:
+    if not ok(m):
         print(name, 'mask too small', int(m.sum())); continue
     res = dict(site=name, cls=cls, feature=r['id'], x=round(c.x, 1), y=round(c.y, 1), mask_px=int(m.sum()), mask_frac=round(float(m.mean()), 3))
+    ys, xs = np.nonzero(m)
     outs = {}
     for mn, fn in IM.METHODS.items():
         t = time.time(); out = fn(img, m); dt = time.time() - t
         outs[mn] = out
-        res[mn] = dict(seconds=round(dt, 2), seam_ratio=round(seam_ratio(out, m), 2), tex_ratio=round(tex_ratio(out, m), 2))
-    # truth test: move the mask shape onto clean ground
-    rng = np.random.default_rng(11)
-    ys, xs = np.nonzero(m); bh0, bh1, bw0, bw1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
-    shape = m[bh0:bh1, bw0:bw1]
-    big = ds.read([1, 2, 3, 4], window=Window(max(win.col_off - 300, 0), max(win.row_off - 300, 0), min(SZ + 600, ds.width), min(SZ + 600, ds.height)))
-    bigm = np.isin(dm.read(1, window=Window(max(win.col_off - 300, 0), max(win.row_off - 300, 0), min(SZ + 600, ds.width), min(SZ + 600, ds.height))), PATCH + (5, 7))
+        res[mn] = dict(seconds=round(dt, 2), **({'fallback_px_fraction': round(IM.exemplar.last['fallback_px'] / max(IM.exemplar.last['fill_px'], 1), 3)} if mn == 'exemplar' else {}), seam_ratio=round(seam_ratio(out, m), 2), tex_ratio=round(tex_ratio(out, m), 2))
+    # truth test: the same window mask is laid on clean ground (a SZ x SZ window with no mask class in it, mean NDVI within 0.08 of this site's), the method fills it,
+    # and the result is compared with the untouched pixels
+    HALF = 1500
+    big_w = Window(max(win.col_off - HALF, 0), max(win.row_off - HALF, 0), min(SZ + 2 * HALF, ds.width), min(SZ + 2 * HALF, ds.height))
+    big = ds.read([1, 2, 3, 4], window=big_w); bigm = dm.read(1, window=big_w) > 0
     bigi = np.moveaxis(big[:3], 0, 2).copy()
     ndvi = (big[3].astype(np.float32) - big[0]) / (big[3].astype(np.float32) + big[0] + 1e-3)
-    clean = ~cv2.dilate(bigm.astype(np.uint8), np.ones((81, 81), np.uint8)).astype(bool)
-    ref_ndvi = float(((ds.read(4, window=win).astype(np.float32) - ds.read(1, window=win)) / (ds.read(4, window=win).astype(np.float32) + ds.read(1, window=win) + 1e-3))[cv2.dilate(m.astype(np.uint8), np.ones((31, 31), np.uint8)).astype(bool) & ~m].mean())
+    nd_here = (ds.read(4, window=win).astype(np.float32) - ds.read(1, window=win)) / (ds.read(4, window=win).astype(np.float32) + ds.read(1, window=win) + 1e-3)
+    ref_ndvi = float(nd_here.mean())
+    integ = cv2.integral(bigm.astype(np.uint8))
+    rng = np.random.default_rng(11)
     tests = []
-    for _ in range(4000):
+    for _ in range(6000):
         if len(tests) >= 5: break
-        ty = int(rng.integers(40, big.shape[1] - SZ + 0)) if big.shape[1] > SZ + 80 else None
-        tx = int(rng.integers(40, big.shape[2] - SZ + 0)) if big.shape[2] > SZ + 80 else None
-        if ty is None or tx is None: break
-        tw = (ty, tx)
-        cwin = clean[ty:ty + SZ, tx:tx + SZ]
-        if cwin.shape != (SZ, SZ) or not cwin.all():
-            continue
-        nd = float(ndvi[ty:ty + SZ, tx:tx + SZ].mean())
-        if abs(nd - ref_ndvi) > 0.08:
-            continue
-        tests.append(tw)
+        ty = int(rng.integers(0, big.shape[1] - SZ)); tx = int(rng.integers(0, big.shape[2] - SZ))
+        if integ[ty + SZ, tx + SZ] - integ[ty, tx + SZ] - integ[ty + SZ, tx] + integ[ty, tx] > 0: continue
+        if abs(float(ndvi[ty:ty + SZ, tx:tx + SZ].mean()) - ref_ndvi) > 0.08: continue
+        tests.append((ty, tx))
     truth = {mn: [] for mn in IM.METHODS}
     for (ty, tx) in tests:
         timg = bigi[ty:ty + SZ, tx:tx + SZ].copy()
-        py, px = SZ // 2 - (bh1 - bh0) // 2, SZ // 2 - (bw1 - bw0) // 2
-        tmask = np.zeros((SZ, SZ), bool); tmask[py:py + bh1 - bh0, px:px + bw1 - bw0] = shape
+        tmask = m.copy()
         for mn, fn in IM.METHODS.items():
             o = fn(timg, tmask)
-            sl = (slice(py, py + bh1 - bh0), slice(px, px + bw1 - bw0))
+            sl = (slice(int(ys.min()), int(ys.max()) + 1), slice(int(xs.min()), int(xs.max()) + 1))
             mse = float(((o[sl].astype(np.float32) - timg[sl].astype(np.float32)) ** 2)[tmask[sl]].mean())
             psnr = 10 * np.log10(255 ** 2 / max(mse, 1e-6))
             ss = float(ssim(cv2.cvtColor(timg[sl], cv2.COLOR_RGB2GRAY), cv2.cvtColor(o[sl], cv2.COLOR_RGB2GRAY), data_range=255)) if min(timg[sl].shape[:2]) >= 7 else float('nan')

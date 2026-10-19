@@ -1,0 +1,33 @@
+{
+ "file": "removal_mask_1m.png",
+ "crs": "EPSG:26918 (UTM 18N)",
+ "pixel_m": 1.0,
+ "origin_upper_left": [
+  299220.0,
+  4416660.0
+ ],
+ "size_px": [
+  17280,
+  13620
+ ],
+ "values": {
+  "0": "nothing",
+  "1": "ROAD_SURFACE",
+  "2": "BUILDING (roof + cast shadow)",
+  "3": "MONUMENT",
+  "4": "UTILITY",
+  "5": "AREA_RETEXTURE",
+  "6": "DETECTED_UNMAPPED",
+  "7": "WATER_MODERN"
+ },
+ "palette": {
+  "1": "magenta",
+  "2": "yellow",
+  "3": "cyan",
+  "4": "orange",
+  "5": "azure",
+  "6": "red",
+  "7": "blue"
+ },
+ "note": "patch removal = values 1,2,3,4,6; 5 and 7 need 1863 land cover. Aligned to the NAIP 2013 base mosaic grid (same origin and size). Rebuild with scripts/build_masks.py."
+}

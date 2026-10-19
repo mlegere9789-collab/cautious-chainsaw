@@ -81,6 +81,9 @@ for r0 in range(0, H, BLK):
         r_, g_, b_, n_ = [a[i].astype(np.float32) for i in range(4)]
         ndvi = (n_ - r_) / (n_ + r_ + 1e-3)
         lum = 0.299 * r_ + 0.587 * g_ + 0.114 * b_
+        mxc = np.maximum(np.maximum(r_, g_), b_); mnc = np.minimum(np.minimum(r_, g_), b_)
+        sat = (mxc - mnc) / (mxc + 1e-3)
+        imp = (ndvi < 0.12) & (sat < 0.30)          # impervious-looking: not vegetated, not strongly coloured
         # ---- roads / parking
         corr_g, core_g, park_g = [], [], []
         for r in sub:
@@ -91,13 +94,20 @@ for r0 in range(0, H, BLK):
             elif c in ('PARKING', 'AIRFIELD') and g.geom_type in ('Polygon', 'MultiPolygon'):
                 corr_g.append(g.buffer(2.0)); park_g.append(g)
         corr_m = ras(corr_g, shp, tr).astype(bool); core_m = ras(core_g, shp, tr).astype(bool); park_m = ras(park_g, shp, tr).astype(bool)
-        road = ((pav > 0.45) & corr_m) | (core_m & (ndvi < 0.2) & (lum > 40)) | (park_m & (ndvi < 0.25))
-        road = cv2.morphologyEx(road.astype(np.uint8), cv2.MORPH_CLOSE, np.ones((3, 3), np.uint8)).astype(bool)
+        road = ((pav > 0.5) & imp & corr_m) | (core_m & imp & (lum > 50)) | (park_m & imp)
+        road = cv2.morphologyEx(road.astype(np.uint8), cv2.MORPH_CLOSE, np.ones((3, 3), np.uint8))
+        road = cv2.morphologyEx(road, cv2.MORPH_OPEN, np.ones((2, 2), np.uint8)).astype(bool)
+        # keep only road pieces that touch the mapped centre-line core (+3 m) or a mapped lot; drop floating specks
+        touch = grow(core_m | park_m, 3).astype(bool)
+        n_r, lab_r = cv2.connectedComponents(road.astype(np.uint8), connectivity=8)
+        if n_r > 1:
+            keep_ids = np.unique(lab_r[touch & road]); keep_ids = keep_ids[keep_ids > 0]
+            road = np.isin(lab_r, keep_ids)
         # ---- buildings
         bld_g = [r['geom'] for r in sub if r['cls'] == 'BUILDING' and r['geom'].geom_type in ('Polygon', 'MultiPolygon')]
         bld_m = ras(bld_g, shp, tr).astype(bool)
         bld_near = grow(bld_m, 20).astype(bool)
-        roof = (rof > 0.5) & bld_near
+        roof = (rof > 0.5) & bld_near & (ndvi < 0.25)
         # footprints count only where the 2013 image shows a roof (mean roof probability inside >= 0.25); new-since-2013 outlines are not cut out
         vis = np.zeros(shp, bool)
         bl = [r for r in sub if r['cls'] == 'BUILDING' and r['geom'].geom_type in ('Polygon', 'MultiPolygon') and r['geom'].intersects(bb)]
@@ -133,12 +143,13 @@ for r0 in range(0, H, BLK):
         wat = ras([r['geom'] for r in sub if r['cls'] == 'WATER_MODERN' and r['geom'].geom_type in ('Polygon', 'MultiPolygon')], shp, tr).astype(bool)
         # ---- detected, no mapped feature within 12 m
         mapped = grow(road | building | mon | util | bld_m | corr_m, 12).astype(bool)
-        det = (dc.read(1, window=win) > 0) & ~mapped
-        det = cv2.morphologyEx(det.astype(np.uint8), cv2.MORPH_OPEN, np.ones((2, 2), np.uint8))
+        det = (dc.read(1, window=win) > 0) & imp & ~mapped
+        det = cv2.morphologyEx(det.astype(np.uint8), cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
         n, lab, st, cen = cv2.connectedComponentsWithStats(det, connectivity=8)
         unm = np.zeros(shp, bool)
         for k in range(1, n):
-            if st[k, cv2.CC_STAT_AREA] >= 60:
+            ar = st[k, cv2.CC_STAT_AREA]
+            if ar >= 80 and ar / (st[k, cv2.CC_STAT_WIDTH] * st[k, cv2.CC_STAT_HEIGHT]) >= 0.25:
                 unm |= lab == k
         # ---- compose, grown 1 px
         out = np.zeros(shp, np.uint8)

@@ -92,12 +92,22 @@ for name, src, cmap, key in [('adams_centerline.json', 'ADAMS', ADAMS_CLS, 'Road
             added[(src, r['cls'])] += 1
     checks[name] = dict(segments=len(rows), length_km=round(tot / 1000, 2), osm_covered_fraction=round(cov / tot, 3) if tot else None)
 
-# TIGER rail
+# TIGER rail: only segments not already covered (within 15 m) by an OSM railway line
+osm_rail = [r for r in recs if r['cls'] == 'RAIL' and r['src'] == 'OSM' and r['geom'].geom_type in ('LineString', 'MultiLineString')]
+rail_u = unary_union([r['geom'].buffer(15) for r in osm_rail]) if osm_rail else None
+rail_dup = rail_add = 0
 for r in geojson_records('tiger_rail.json', 'TIGER'):
+    g = r['geom']
+    f = g.intersection(rail_u).length / g.length if (rail_u is not None and g.length) else 0
+    if f >= 0.5:
+        rail_dup += 1
+        continue
+    rail_add += 1
     r['cls'], r['sub'] = 'RAIL', 'R1011'
     r['name'] = r['tags'].get('NAME')
     r['tags'] = {'NAME': r['name']}
     recs.append(r)
+checks['tiger_rail'] = dict(segments=rail_dup + rail_add, covered_by_osm=rail_dup, added=rail_add)
 
 # ---------- water: NHD records are added only where no OSM water polygon covers them (the two overlap heavily) ----------
 osm_w = [r for r in recs if r['cls'] in ('WATER_POND', 'WATER_MODERN') and r['src'] == 'OSM' and r['geom'].geom_type in ('Polygon', 'MultiPolygon')]

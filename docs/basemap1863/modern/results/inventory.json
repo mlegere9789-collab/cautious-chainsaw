@@ -35,6 +35,11 @@
    "segments": 50,
    "length_km": 309.93,
    "osm_covered_fraction": 0.643
+  },
+  "tiger_rail": {
+   "segments": 11,
+   "covered_by_osm": 10,
+   "added": 1
   }
  },
  "road_segments_added_from_adams_tiger": {
@@ -198,22 +203,22 @@
    "label": "Railways",
    "removal": "UNKNOWN",
    "note": "The Gettysburg Railroad line and the Unfinished Railroad grade pre-date the battle; later spurs and yards did not; needs a dated source per segment",
-   "count": 52,
+   "count": 42,
    "sources": {
     "OSM": 41,
-    "TIGER": 11
+    "TIGER": 1
    },
-   "length_km": 62.62,
+   "length_km": 40.02,
    "area_ha": 0.03,
    "geometry_types": {
-    "LineString": 51,
+    "LineString": 41,
     "Polygon": 1
    },
    "subclasses": {
     "rail": 35,
-    "R1011": 11,
     "abandoned": 5,
-    "station": 1
+    "station": 1,
+    "R1011": 1
    }
   },
   "AIRFIELD": {

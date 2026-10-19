@@ -1,0 +1,399 @@
+{
+ "detector": "RGB-only gradient-boosted trees, weak map labels, 60 random 1 km blocks",
+ "per_site": [
+  {
+   "site": "arterial_road_A",
+   "mask_px": 11315,
+   "before_mean_p": 0.908,
+   "before_share_gt0.5": 0.943,
+   "untouched_ground_mean_p": 0.188,
+   "telea": {
+    "mean_p": 0.488,
+    "share_gt0p5": 0.438
+   },
+   "ns": {
+    "mean_p": 0.548,
+    "share_gt0p5": 0.526
+   },
+   "exemplar": {
+    "mean_p": 0.25,
+    "share_gt0p5": 0.113
+   }
+  },
+  {
+   "site": "arterial_road_B",
+   "mask_px": 3447,
+   "before_mean_p": 0.923,
+   "before_share_gt0.5": 0.948,
+   "untouched_ground_mean_p": 0.162,
+   "telea": {
+    "mean_p": 0.229,
+    "share_gt0p5": 0.073
+   },
+   "ns": {
+    "mean_p": 0.38,
+    "share_gt0p5": 0.279
+   },
+   "exemplar": {
+    "mean_p": 0.181,
+    "share_gt0p5": 0.02
+   }
+  },
+  {
+   "site": "local_road_field",
+   "mask_px": 12344,
+   "before_mean_p": 0.906,
+   "before_share_gt0.5": 0.938,
+   "untouched_ground_mean_p": 0.21,
+   "telea": {
+    "mean_p": 0.412,
+    "share_gt0p5": 0.314
+   },
+   "ns": {
+    "mean_p": 0.472,
+    "share_gt0p5": 0.407
+   },
+   "exemplar": {
+    "mean_p": 0.295,
+    "share_gt0p5": 0.136
+   }
+  },
+  {
+   "site": "local_road_town",
+   "mask_px": 3471,
+   "before_mean_p": 0.879,
+   "before_share_gt0.5": 0.918,
+   "untouched_ground_mean_p": 0.154,
+   "telea": {
+    "mean_p": 0.205,
+    "share_gt0p5": 0.03
+   },
+   "ns": {
+    "mean_p": 0.265,
+    "share_gt0p5": 0.113
+   },
+   "exemplar": {
+    "mean_p": 0.133,
+    "share_gt0p5": 0.005
+   }
+  },
+  {
+   "site": "service_drive_A",
+   "mask_px": 10230,
+   "before_mean_p": 0.902,
+   "before_share_gt0.5": 0.937,
+   "untouched_ground_mean_p": null,
+   "telea": {
+    "mean_p": 0.552,
+    "share_gt0p5": 0.491
+   },
+   "ns": {
+    "mean_p": 0.607,
+    "share_gt0p5": 0.576
+   },
+   "exemplar": {
+    "mean_p": 0.335,
+    "share_gt0p5": 0.205
+   }
+  },
+  {
+   "site": "service_drive_B",
+   "mask_px": 8533,
+   "before_mean_p": 0.911,
+   "before_share_gt0.5": 0.956,
+   "untouched_ground_mean_p": 0.232,
+   "telea": {
+    "mean_p": 0.617,
+    "share_gt0p5": 0.608
+   },
+   "ns": {
+    "mean_p": 0.654,
+    "share_gt0p5": 0.659
+   },
+   "exemplar": {
+    "mean_p": 0.461,
+    "share_gt0p5": 0.411
+   }
+  },
+  {
+   "site": "parking_large",
+   "mask_px": 15972,
+   "before_mean_p": 0.915,
+   "before_share_gt0.5": 0.973,
+   "untouched_ground_mean_p": null,
+   "telea": {
+    "mean_p": 0.362,
+    "share_gt0p5": 0.256
+   },
+   "ns": {
+    "mean_p": 0.455,
+    "share_gt0p5": 0.39
+   },
+   "exemplar": {
+    "mean_p": 0.187,
+    "share_gt0p5": 0.058
+   }
+  },
+  {
+   "site": "parking_small",
+   "mask_px": 15572,
+   "before_mean_p": 0.93,
+   "before_share_gt0.5": 0.959,
+   "untouched_ground_mean_p": null,
+   "telea": {
+    "mean_p": 0.424,
+    "share_gt0p5": 0.363
+   },
+   "ns": {
+    "mean_p": 0.481,
+    "share_gt0p5": 0.424
+   },
+   "exemplar": {
+    "mean_p": 0.172,
+    "share_gt0p5": 0.053
+   }
+  },
+  {
+   "site": "path_trail",
+   "mask_px": 1411,
+   "before_mean_p": 0.746,
+   "before_share_gt0.5": 0.759,
+   "untouched_ground_mean_p": 0.251,
+   "telea": {
+    "mean_p": 0.379,
+    "share_gt0p5": 0.245
+   },
+   "ns": {
+    "mean_p": 0.44,
+    "share_gt0p5": 0.325
+   },
+   "exemplar": {
+    "mean_p": 0.282,
+    "share_gt0p5": 0.11
+   }
+  },
+  {
+   "site": "rail_line",
+   "mask_px": 8494,
+   "before_mean_p": 0.966,
+   "before_share_gt0.5": 0.992,
+   "untouched_ground_mean_p": 0.189,
+   "telea": {
+    "mean_p": 0.571,
+    "share_gt0p5": 0.53
+   },
+   "ns": {
+    "mean_p": 0.604,
+    "share_gt0p5": 0.58
+   },
+   "exemplar": {
+    "mean_p": 0.286,
+    "share_gt0p5": 0.164
+   }
+  },
+  {
+   "site": "building_farm_A",
+   "mask_px": 6423,
+   "before_mean_p": 0.923,
+   "before_share_gt0.5": 0.936,
+   "untouched_ground_mean_p": 0.171,
+   "telea": {
+    "mean_p": 0.623,
+    "share_gt0p5": 0.603
+   },
+   "ns": {
+    "mean_p": 0.682,
+    "share_gt0p5": 0.693
+   },
+   "exemplar": {
+    "mean_p": 0.319,
+    "share_gt0p5": 0.239
+   }
+  },
+  {
+   "site": "building_farm_B",
+   "mask_px": 14157,
+   "before_mean_p": 0.928,
+   "before_share_gt0.5": 0.962,
+   "untouched_ground_mean_p": 0.291,
+   "telea": {
+    "mean_p": 0.538,
+    "share_gt0p5": 0.498
+   },
+   "ns": {
+    "mean_p": 0.6,
+    "share_gt0p5": 0.58
+   },
+   "exemplar": {
+    "mean_p": 0.45,
+    "share_gt0p5": 0.377
+   }
+  },
+  {
+   "site": "building_large",
+   "mask_px": 3086,
+   "before_mean_p": 0.954,
+   "before_share_gt0.5": 0.976,
+   "untouched_ground_mean_p": 0.176,
+   "telea": {
+    "mean_p": 0.514,
+    "share_gt0p5": 0.51
+   },
+   "ns": {
+    "mean_p": 0.593,
+    "share_gt0p5": 0.623
+   },
+   "exemplar": {
+    "mean_p": 0.188,
+    "share_gt0p5": 0.064
+   }
+  },
+  {
+   "site": "building_town",
+   "mask_px": 8045,
+   "before_mean_p": 0.902,
+   "before_share_gt0.5": 0.935,
+   "untouched_ground_mean_p": 0.178,
+   "telea": {
+    "mean_p": 0.441,
+    "share_gt0p5": 0.366
+   },
+   "ns": {
+    "mean_p": 0.52,
+    "share_gt0p5": 0.48
+   },
+   "exemplar": {
+    "mean_p": 0.326,
+    "share_gt0p5": 0.172
+   }
+  },
+  {
+   "site": "monument_A",
+   "mask_px": 10740,
+   "before_mean_p": 0.934,
+   "before_share_gt0.5": 0.967,
+   "untouched_ground_mean_p": 0.238,
+   "telea": {
+    "mean_p": 0.402,
+    "share_gt0p5": 0.348
+   },
+   "ns": {
+    "mean_p": 0.447,
+    "share_gt0p5": 0.411
+   },
+   "exemplar": {
+    "mean_p": 0.371,
+    "share_gt0p5": 0.298
+   }
+  },
+  {
+   "site": "monument_B",
+   "mask_px": 5126,
+   "before_mean_p": 0.847,
+   "before_share_gt0.5": 0.886,
+   "untouched_ground_mean_p": 0.118,
+   "telea": {
+    "mean_p": 0.244,
+    "share_gt0p5": 0.085
+   },
+   "ns": {
+    "mean_p": 0.305,
+    "share_gt0p5": 0.173
+   },
+   "exemplar": {
+    "mean_p": 0.186,
+    "share_gt0p5": 0.023
+   }
+  },
+  {
+   "site": "monument_C",
+   "mask_px": 15602,
+   "before_mean_p": 0.927,
+   "before_share_gt0.5": 0.952,
+   "untouched_ground_mean_p": 0.138,
+   "telea": {
+    "mean_p": 0.49,
+    "share_gt0p5": 0.429
+   },
+   "ns": {
+    "mean_p": 0.513,
+    "share_gt0p5": 0.463
+   },
+   "exemplar": {
+    "mean_p": 0.195,
+    "share_gt0p5": 0.1
+   }
+  },
+  {
+   "site": "pylon",
+   "mask_px": 13036,
+   "before_mean_p": 0.787,
+   "before_share_gt0.5": 0.766,
+   "untouched_ground_mean_p": null,
+   "telea": {
+    "mean_p": 0.585,
+    "share_gt0p5": 0.538
+   },
+   "ns": {
+    "mean_p": 0.607,
+    "share_gt0p5": 0.566
+   },
+   "exemplar": {
+    "mean_p": 0.535,
+    "share_gt0p5": 0.49
+   }
+  },
+  {
+   "site": "tower_comm",
+   "mask_px": 2320,
+   "before_mean_p": 0.823,
+   "before_share_gt0.5": 0.797,
+   "untouched_ground_mean_p": 0.06,
+   "telea": {
+    "mean_p": 0.252,
+    "share_gt0p5": 0.081
+   },
+   "ns": {
+    "mean_p": 0.286,
+    "share_gt0p5": 0.143
+   },
+   "exemplar": {
+    "mean_p": 0.239,
+    "share_gt0p5": 0.022
+   }
+  },
+  {
+   "site": "airfield_apron",
+   "mask_px": 13744,
+   "before_mean_p": 0.897,
+   "before_share_gt0.5": 0.937,
+   "untouched_ground_mean_p": 0.215,
+   "telea": {
+    "mean_p": 0.559,
+    "share_gt0p5": 0.516
+   },
+   "ns": {
+    "mean_p": 0.605,
+    "share_gt0p5": 0.579
+   },
+   "exemplar": {
+    "mean_p": 0.362,
+    "share_gt0p5": 0.302
+   }
+  }
+ ],
+ "mean_over_sites": {
+  "telea": 0.444,
+  "ns": 0.503,
+  "exemplar": 0.288,
+  "before": 0.895,
+  "untouched_ground": 0.186,
+  "share_gt0p5": {
+   "telea": 0.366,
+   "ns": 0.45,
+   "exemplar": 0.168,
+   "before": 0.922
+  }
+ },
+ "reading": "mean P(modern surface) inside the mask; lower is better; the floor is the value on untouched ground"
+}

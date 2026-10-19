@@ -1,22 +1,35 @@
 {
  "dem": "USGS 3DEP 1 m, lidar project PA_South_Central_B1_2017 (identify on the 3DEPElevation ImageServer, see IMAGERY-CHOICE.md)",
- "noise_sigma_m": 0.69,
- "noise_mad_sigma_m": 0.28,
- "noise_n": 2901,
- "threshold_m": 2.07,
+ "noise_sigma_m": 0.59,
+ "noise_mad_sigma_m": 0.27,
+ "noise_n": 3000,
+ "threshold_m": 1.77,
  "road_length_scanned_km": {
   "ROAD_LOCAL": 419.6,
   "ROAD_ARTERIAL": 147.9
  },
- "road_candidates": 180,
- "road_candidate_length_km": 18.73,
- "cuts": 84,
- "fills": 96,
+ "road_candidates": 252,
+ "road_candidate_length_km": 25.07,
+ "cuts": 115,
+ "fills": 137,
  "by_road_class": {
-  "ROAD_ARTERIAL": 124,
-  "ROAD_LOCAL": 56
+  "ROAD_ARTERIAL": 170,
+  "ROAD_LOCAL": 82
  },
  "polygons": [
+  {
+   "id": "MOD-WATER_MODERN-00001",
+   "kind": "water_modern",
+   "sub": "large lake (>= 5 ha)",
+   "area_ha": 57.1,
+   "rim_m": 148.4,
+   "p5_inside_m": 146.1,
+   "p95_inside_m": 146.1,
+   "depth_m": 2.2,
+   "method": "3DEP 1 m DEM ring (10-30 m) vs inside",
+   "error_m": 1.0,
+   "confidence": "Estimated"
+  },
   {
    "id": "MOD-QUARRY_LANDFILL-00001",
    "kind": "quarry_landfill",
@@ -31,7 +44,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00001",
+   "id": "MOD-WATER_MODERN-00002",
    "kind": "water_modern",
    "sub": "reservoir",
    "area_ha": 0.07,
@@ -44,7 +57,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00002",
+   "id": "MOD-WATER_MODERN-00003",
    "kind": "water_modern",
    "sub": "basin",
    "area_ha": 0.14,
@@ -57,7 +70,20 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00003",
+   "id": "MOD-WATER_MODERN-00004",
+   "kind": "water_modern",
+   "sub": "quarry pond",
+   "area_ha": 1.79,
+   "rim_m": 160.4,
+   "p5_inside_m": 159.4,
+   "p95_inside_m": 159.4,
+   "depth_m": 1.0,
+   "method": "3DEP 1 m DEM ring (10-30 m) vs inside",
+   "error_m": 1.0,
+   "confidence": "Estimated"
+  },
+  {
+   "id": "MOD-WATER_MODERN-00005",
    "kind": "water_modern",
    "sub": "basin",
    "area_ha": 0.06,
@@ -70,7 +96,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00004",
+   "id": "MOD-WATER_MODERN-00006",
    "kind": "water_modern",
    "sub": "basin",
    "area_ha": 0.09,
@@ -83,7 +109,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00005",
+   "id": "MOD-WATER_MODERN-00007",
    "kind": "water_modern",
    "sub": "basin",
    "area_ha": 0.31,
@@ -96,7 +122,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00006",
+   "id": "MOD-WATER_MODERN-00008",
    "kind": "water_modern",
    "sub": "basin",
    "area_ha": 0.11,
@@ -109,7 +135,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00007",
+   "id": "MOD-WATER_MODERN-00009",
    "kind": "water_modern",
    "sub": "basin",
    "area_ha": 0.31,
@@ -122,7 +148,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00008",
+   "id": "MOD-WATER_MODERN-00010",
    "kind": "water_modern",
    "sub": "basin",
    "area_ha": 0.09,
@@ -135,7 +161,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00009",
+   "id": "MOD-WATER_MODERN-00011",
    "kind": "water_modern",
    "sub": "basin",
    "area_ha": 0.99,
@@ -148,7 +174,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00011",
+   "id": "MOD-WATER_MODERN-00013",
    "kind": "water_modern",
    "sub": "basin",
    "area_ha": 0.86,
@@ -161,7 +187,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00012",
+   "id": "MOD-WATER_MODERN-00014",
    "kind": "water_modern",
    "sub": "basin",
    "area_ha": 0.2,
@@ -174,7 +200,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00013",
+   "id": "MOD-WATER_MODERN-00015",
    "kind": "water_modern",
    "sub": "basin",
    "area_ha": 0.17,
@@ -187,7 +213,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00014",
+   "id": "MOD-WATER_MODERN-00016",
    "kind": "water_modern",
    "sub": "basin",
    "area_ha": 0.45,
@@ -200,7 +226,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00015",
+   "id": "MOD-WATER_MODERN-00017",
    "kind": "water_modern",
    "sub": "wastewater",
    "area_ha": 0.06,
@@ -213,7 +239,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00018",
+   "id": "MOD-WATER_MODERN-00020",
    "kind": "water_modern",
    "sub": "wastewater",
    "area_ha": 0.07,
@@ -226,7 +252,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00019",
+   "id": "MOD-WATER_MODERN-00021",
    "kind": "water_modern",
    "sub": "basin",
    "area_ha": 0.08,
@@ -239,7 +265,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00020",
+   "id": "MOD-WATER_MODERN-00022",
    "kind": "water_modern",
    "sub": "basin",
    "area_ha": 0.1,
@@ -252,7 +278,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00021",
+   "id": "MOD-WATER_MODERN-00023",
    "kind": "water_modern",
    "sub": "wastewater",
    "area_ha": 0.09,
@@ -265,7 +291,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00022",
+   "id": "MOD-WATER_MODERN-00024",
    "kind": "water_modern",
    "sub": "wastewater",
    "area_ha": 0.09,
@@ -278,7 +304,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00023",
+   "id": "MOD-WATER_MODERN-00025",
    "kind": "water_modern",
    "sub": "wastewater",
    "area_ha": 0.05,
@@ -291,7 +317,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00024",
+   "id": "MOD-WATER_MODERN-00026",
    "kind": "water_modern",
    "sub": "wastewater",
    "area_ha": 0.05,
@@ -304,7 +330,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00025",
+   "id": "MOD-WATER_MODERN-00027",
    "kind": "water_modern",
    "sub": "wastewater",
    "area_ha": 0.09,
@@ -317,7 +343,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00026",
+   "id": "MOD-WATER_MODERN-00028",
    "kind": "water_modern",
    "sub": "wastewater",
    "area_ha": 0.09,
@@ -330,7 +356,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00027",
+   "id": "MOD-WATER_MODERN-00029",
    "kind": "water_modern",
    "sub": "basin",
    "area_ha": 0.22,
@@ -343,7 +369,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00028",
+   "id": "MOD-WATER_MODERN-00030",
    "kind": "water_modern",
    "sub": "FCODE 43624",
    "area_ha": 0.06,
@@ -356,20 +382,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00029",
-   "kind": "water_modern",
-   "sub": "FCODE 43624",
-   "area_ha": 0.09,
-   "rim_m": 146.1,
-   "p5_inside_m": 144.9,
-   "p95_inside_m": 146.3,
-   "depth_m": 1.2,
-   "method": "3DEP 1 m DEM ring (10-30 m) vs inside",
-   "error_m": 1.0,
-   "confidence": "Estimated"
-  },
-  {
-   "id": "MOD-WATER_MODERN-00030",
+   "id": "MOD-WATER_MODERN-00031",
    "kind": "water_modern",
    "sub": "FCODE 43624",
    "area_ha": 0.04,
@@ -382,46 +395,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00032",
-   "kind": "water_modern",
-   "sub": "FCODE 43624",
-   "area_ha": 0.09,
-   "rim_m": 146.2,
-   "p5_inside_m": 146.5,
-   "p95_inside_m": 146.7,
-   "depth_m": -0.2,
-   "method": "3DEP 1 m DEM ring (10-30 m) vs inside",
-   "error_m": 1.0,
-   "confidence": "Estimated"
-  },
-  {
    "id": "MOD-WATER_MODERN-00034",
-   "kind": "water_modern",
-   "sub": "FCODE 43624",
-   "area_ha": 0.13,
-   "rim_m": 158.9,
-   "p5_inside_m": 158.0,
-   "p95_inside_m": 159.2,
-   "depth_m": 0.9,
-   "method": "3DEP 1 m DEM ring (10-30 m) vs inside",
-   "error_m": 1.0,
-   "confidence": "Estimated"
-  },
-  {
-   "id": "MOD-WATER_MODERN-00035",
-   "kind": "water_modern",
-   "sub": "FCODE 43624",
-   "area_ha": 0.09,
-   "rim_m": 146.3,
-   "p5_inside_m": 144.9,
-   "p95_inside_m": 146.8,
-   "depth_m": 1.4,
-   "method": "3DEP 1 m DEM ring (10-30 m) vs inside",
-   "error_m": 1.0,
-   "confidence": "Estimated"
-  },
-  {
-   "id": "MOD-WATER_MODERN-00036",
    "kind": "water_modern",
    "sub": "FCODE 43613",
    "area_ha": 0.13,
@@ -434,20 +408,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00038",
-   "kind": "water_modern",
-   "sub": "FCODE 43624",
-   "area_ha": 0.09,
-   "rim_m": 146.6,
-   "p5_inside_m": 146.6,
-   "p95_inside_m": 146.9,
-   "depth_m": -0.0,
-   "method": "3DEP 1 m DEM ring (10-30 m) vs inside",
-   "error_m": 1.0,
-   "confidence": "Estimated"
-  },
-  {
-   "id": "MOD-WATER_MODERN-00039",
+   "id": "MOD-WATER_MODERN-00036",
    "kind": "water_modern",
    "sub": "FCODE 43624",
    "area_ha": 0.12,
@@ -460,20 +421,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00040",
-   "kind": "water_modern",
-   "sub": "FCODE 43624",
-   "area_ha": 0.18,
-   "rim_m": 146.5,
-   "p5_inside_m": 145.6,
-   "p95_inside_m": 147.3,
-   "depth_m": 1.0,
-   "method": "3DEP 1 m DEM ring (10-30 m) vs inside",
-   "error_m": 1.0,
-   "confidence": "Estimated"
-  },
-  {
-   "id": "MOD-WATER_MODERN-00042",
+   "id": "MOD-WATER_MODERN-00038",
    "kind": "water_modern",
    "sub": "FCODE 43624",
    "area_ha": 0.13,
@@ -486,7 +434,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00043",
+   "id": "MOD-WATER_MODERN-00039",
    "kind": "water_modern",
    "sub": "FCODE 43624",
    "area_ha": 0.05,
@@ -499,7 +447,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00044",
+   "id": "MOD-WATER_MODERN-00040",
    "kind": "water_modern",
    "sub": "FCODE 43613",
    "area_ha": 0.21,
@@ -512,20 +460,7 @@
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-WATER_MODERN-00045",
-   "kind": "water_modern",
-   "sub": "FCODE 43613",
-   "area_ha": 0.79,
-   "rim_m": 163.0,
-   "p5_inside_m": 163.4,
-   "p95_inside_m": 163.4,
-   "depth_m": -0.4,
-   "method": "3DEP 1 m DEM ring (10-30 m) vs inside",
-   "error_m": 1.0,
-   "confidence": "Estimated"
-  },
-  {
-   "id": "MOD-WATER_MODERN-00047",
+   "id": "MOD-WATER_MODERN-00042",
    "kind": "water_modern",
    "sub": "FCODE 43624",
    "area_ha": 0.13,
@@ -540,21 +475,21 @@
  ],
  "top_road_candidates": [
   {
-   "id": "MOD-TERRAIN-0098",
+   "id": "MOD-TERRAIN-0133",
    "kind": "road_cut",
    "road_class": "ROAD_ARTERIAL",
    "road_src": "OSM",
    "road_srcid": "w340633709",
    "name": "Fairfield Road",
-   "length_m": 375,
-   "median_h_m": -6.7,
+   "length_m": 400,
+   "median_h_m": -6.4,
    "max_abs_h_m": -10.4,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0110",
+   "id": "MOD-TERRAIN-0156",
    "kind": "road_cut",
    "road_class": "ROAD_ARTERIAL",
    "road_src": "OSM",
@@ -564,11 +499,11 @@
    "median_h_m": -3.8,
    "max_abs_h_m": -6.1,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0056",
+   "id": "MOD-TERRAIN-0079",
    "kind": "road_cut",
    "road_class": "ROAD_ARTERIAL",
    "road_src": "OSM",
@@ -578,11 +513,11 @@
    "median_h_m": -5.4,
    "max_abs_h_m": -6.2,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0028",
+   "id": "MOD-TERRAIN-0039",
    "kind": "road_fill",
    "road_class": "ROAD_ARTERIAL",
    "road_src": "OSM",
@@ -592,11 +527,11 @@
    "median_h_m": 3.8,
    "max_abs_h_m": 5.0,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0035",
+   "id": "MOD-TERRAIN-0048",
    "kind": "road_cut",
    "road_class": "ROAD_LOCAL",
    "road_src": "OSM",
@@ -606,11 +541,11 @@
    "median_h_m": -6.2,
    "max_abs_h_m": -7.4,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0082",
+   "id": "MOD-TERRAIN-0110",
    "kind": "road_fill",
    "road_class": "ROAD_LOCAL",
    "road_src": "OSM",
@@ -620,11 +555,25 @@
    "median_h_m": 4.1,
    "max_abs_h_m": 5.1,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0007",
+   "id": "MOD-TERRAIN-0172",
+   "kind": "road_fill",
+   "road_class": "ROAD_ARTERIAL",
+   "road_src": "OSM",
+   "road_srcid": "w488756105",
+   "name": null,
+   "length_m": 325,
+   "median_h_m": 2.8,
+   "max_abs_h_m": 3.4,
+   "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
+   "error_m": 1.2,
+   "confidence": "Estimated"
+  },
+  {
+   "id": "MOD-TERRAIN-0011",
    "kind": "road_cut",
    "road_class": "ROAD_ARTERIAL",
    "road_src": "OSM",
@@ -634,11 +583,11 @@
    "median_h_m": -3.6,
    "max_abs_h_m": -4.3,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0039",
+   "id": "MOD-TERRAIN-0053",
    "kind": "road_fill",
    "road_class": "ROAD_LOCAL",
    "road_src": "OSM",
@@ -648,25 +597,11 @@
    "median_h_m": 3.2,
    "max_abs_h_m": 5.2,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0122",
-   "kind": "road_fill",
-   "road_class": "ROAD_ARTERIAL",
-   "road_src": "OSM",
-   "road_srcid": "w488756105",
-   "name": null,
-   "length_m": 300,
-   "median_h_m": 2.9,
-   "max_abs_h_m": 3.4,
-   "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
-   "confidence": "Estimated"
-  },
-  {
-   "id": "MOD-TERRAIN-0012",
+   "id": "MOD-TERRAIN-0017",
    "kind": "road_cut",
    "road_class": "ROAD_LOCAL",
    "road_src": "OSM",
@@ -676,53 +611,67 @@
    "median_h_m": -3.8,
    "max_abs_h_m": -4.9,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0163",
+   "id": "MOD-TERRAIN-0227",
    "kind": "road_fill",
    "road_class": "ROAD_ARTERIAL",
    "road_src": "TIGER",
    "road_srcid": "159747",
    "name": "US Hwy 30",
-   "length_m": 250,
-   "median_h_m": 3.2,
+   "length_m": 275,
+   "median_h_m": 3.1,
    "max_abs_h_m": 5.6,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0173",
+   "id": "MOD-TERRAIN-0241",
    "kind": "road_fill",
    "road_class": "ROAD_ARTERIAL",
    "road_src": "TIGER",
    "road_srcid": "159727",
    "name": "York Rd",
-   "length_m": 250,
-   "median_h_m": 3.2,
+   "length_m": 275,
+   "median_h_m": 3.1,
    "max_abs_h_m": 5.6,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0178",
+   "id": "MOD-TERRAIN-0248",
    "kind": "road_fill",
    "road_class": "ROAD_ARTERIAL",
    "road_src": "TIGER",
    "road_srcid": "159747",
    "name": "US Hwy 30",
-   "length_m": 250,
-   "median_h_m": 3.2,
+   "length_m": 275,
+   "median_h_m": 3.1,
    "max_abs_h_m": 5.6,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0072",
+   "id": "MOD-TERRAIN-0067",
+   "kind": "road_fill",
+   "road_class": "ROAD_LOCAL",
+   "road_src": "OSM",
+   "road_srcid": "w11819151",
+   "name": "Bream Hill Road",
+   "length_m": 225,
+   "median_h_m": 3.5,
+   "max_abs_h_m": 4.3,
+   "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
+   "error_m": 1.2,
+   "confidence": "Estimated"
+  },
+  {
+   "id": "MOD-TERRAIN-0097",
    "kind": "road_fill",
    "road_class": "ROAD_ARTERIAL",
    "road_src": "OSM",
@@ -732,11 +681,39 @@
    "median_h_m": 4.5,
    "max_abs_h_m": 4.9,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0047",
+   "id": "MOD-TERRAIN-0093",
+   "kind": "road_cut",
+   "road_class": "ROAD_ARTERIAL",
+   "road_src": "OSM",
+   "road_srcid": "w115255471",
+   "name": null,
+   "length_m": 200,
+   "median_h_m": -3.9,
+   "max_abs_h_m": -5.3,
+   "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
+   "error_m": 1.2,
+   "confidence": "Estimated"
+  },
+  {
+   "id": "MOD-TERRAIN-0185",
+   "kind": "road_fill",
+   "road_class": "ROAD_ARTERIAL",
+   "road_src": "OSM",
+   "road_srcid": "w493792021",
+   "name": "York Road",
+   "length_m": 250,
+   "median_h_m": 3.1,
+   "max_abs_h_m": 5.1,
+   "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
+   "error_m": 1.2,
+   "confidence": "Estimated"
+  },
+  {
+   "id": "MOD-TERRAIN-0069",
    "kind": "road_cut",
    "road_class": "ROAD_ARTERIAL",
    "road_src": "OSM",
@@ -746,39 +723,39 @@
    "median_h_m": -4.4,
    "max_abs_h_m": -7.1,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0045",
-   "kind": "road_fill",
+   "id": "MOD-TERRAIN-0031",
+   "kind": "road_cut",
    "road_class": "ROAD_LOCAL",
    "road_src": "OSM",
-   "road_srcid": "w11819151",
-   "name": "Bream Hill Road",
-   "length_m": 200,
-   "median_h_m": 3.7,
-   "max_abs_h_m": 4.3,
+   "road_srcid": "w11810912",
+   "name": "Knox Road",
+   "length_m": 225,
+   "median_h_m": -3.3,
+   "max_abs_h_m": -4.5,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0130",
+   "id": "MOD-TERRAIN-0086",
    "kind": "road_fill",
    "road_class": "ROAD_ARTERIAL",
    "road_src": "OSM",
-   "road_srcid": "w493792021",
-   "name": "York Road",
-   "length_m": 225,
-   "median_h_m": 3.2,
-   "max_abs_h_m": 5.1,
+   "road_srcid": "w115255459",
+   "name": null,
+   "length_m": 325,
+   "median_h_m": 2.2,
+   "max_abs_h_m": 2.9,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0009",
+   "id": "MOD-TERRAIN-0014",
    "kind": "road_cut",
    "road_class": "ROAD_LOCAL",
    "road_src": "OSM",
@@ -788,25 +765,11 @@
    "median_h_m": -4.0,
    "max_abs_h_m": -4.8,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0069",
-   "kind": "road_cut",
-   "road_class": "ROAD_ARTERIAL",
-   "road_src": "OSM",
-   "road_srcid": "w115255471",
-   "name": null,
-   "length_m": 175,
-   "median_h_m": -4.0,
-   "max_abs_h_m": -5.3,
-   "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
-   "confidence": "Estimated"
-  },
-  {
-   "id": "MOD-TERRAIN-0169",
+   "id": "MOD-TERRAIN-0236",
    "kind": "road_cut",
    "road_class": "ROAD_ARTERIAL",
    "road_src": "TIGER",
@@ -816,11 +779,11 @@
    "median_h_m": -4.0,
    "max_abs_h_m": -5.7,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0052",
+   "id": "MOD-TERRAIN-0075",
    "kind": "road_cut",
    "road_class": "ROAD_ARTERIAL",
    "road_src": "OSM",
@@ -830,25 +793,25 @@
    "median_h_m": -2.7,
    "max_abs_h_m": -3.2,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0022",
+   "id": "MOD-TERRAIN-0187",
    "kind": "road_cut",
-   "road_class": "ROAD_LOCAL",
+   "road_class": "ROAD_ARTERIAL",
    "road_src": "OSM",
-   "road_srcid": "w11810912",
-   "name": "Knox Road",
-   "length_m": 200,
-   "median_h_m": -3.3,
-   "max_abs_h_m": -4.5,
+   "road_srcid": "w493792021",
+   "name": "York Road",
+   "length_m": 225,
+   "median_h_m": -2.9,
+   "max_abs_h_m": -3.6,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   },
   {
-   "id": "MOD-TERRAIN-0164",
+   "id": "MOD-TERRAIN-0229",
    "kind": "road_cut",
    "road_class": "ROAD_ARTERIAL",
    "road_src": "TIGER",
@@ -858,35 +821,7 @@
    "median_h_m": -3.2,
    "max_abs_h_m": -3.6,
    "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
-   "confidence": "Estimated"
-  },
-  {
-   "id": "MOD-TERRAIN-0174",
-   "kind": "road_cut",
-   "road_class": "ROAD_ARTERIAL",
-   "road_src": "TIGER",
-   "road_srcid": "159727",
-   "name": "York Rd",
-   "length_m": 200,
-   "median_h_m": -3.2,
-   "max_abs_h_m": -3.6,
-   "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
-   "confidence": "Estimated"
-  },
-  {
-   "id": "MOD-TERRAIN-0179",
-   "kind": "road_cut",
-   "road_class": "ROAD_ARTERIAL",
-   "road_src": "TIGER",
-   "road_srcid": "159747",
-   "name": "US Hwy 30",
-   "length_m": 200,
-   "median_h_m": -3.2,
-   "max_abs_h_m": -3.6,
-   "method": "3DEP 1 m DEM, cross-profile estimate (see terrain.py)",
-   "error_m": 1.4,
+   "error_m": 1.2,
    "confidence": "Estimated"
   }
  ],

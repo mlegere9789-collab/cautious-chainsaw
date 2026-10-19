@@ -1,0 +1,10 @@
+{
+ "1 registration (vectors vs photograph)": "4000 Adams outlines fitted to 2013 image edges: median shift (+0.0, -1.0) m, spread 1.5 m; masks grown 1 m. results/registration.json",
+ "2 detector, spatial hold-out": "pavement recall 0.70 / precision 0.77; roof 0.70 / 0.85; against map-derived labels only. results/detect_cv.json",
+ "3 mask drawn on the photograph, looked at": "18 windows before and 12 after the spectral gate; the first round exposed shadow false hits and over-wide road masks, fixed, second round clean apart from ragged 1-2 m edges. results/visual_review.json, previews/review_*.jpg",
+ "4 precision of unmapped detections, by eye": "15 of 24 confirmed, 3 engineered, 6 false. results/visual_review.json",
+ "5 seams of the removal, 20 real masks": "seam_ratio mean: telea 1.13, ns 1.156, exemplar 0.974 (1.0 = boundary as busy as ordinary ground); sites above 1.3: 4, 7, 1. results/inpaint_test.json",
+ "6 removal vs truth on clean ground": "grain ratio (Laplacian variance, 1.0 = real): telea 0.059, ns 0.069, exemplar 0.661; gradient-histogram distance (lower = more like real): 0.344, 0.303, 0.117; PSNR dB 26.865, 26.932, 23.075 (PSNR rewards blur).",
+ "7 closed loop: does a detector still see modern surface in the filled mask": "mean P(modern) inside masks: before 0.895, telea 0.444, ns 0.503, exemplar 0.288, untouched ground 0.186; share of mask pixels above 0.5: {'telea': 0.366, 'ns': 0.45, 'exemplar': 0.168, 'before': 0.922}. results/closedloop.json",
+ "8 source cross-consistency": "OSM vs Adams centre lines: 88% of Adams length within 15 m of OSM; TIGER local 89%; monuments Wikipedia vs OSM median offset 4.1 m (p90 11.3 m) over 446 matched; quad-edge seams in the 2013 mosaic 4.27 vs 4.2 on random lines."
+}

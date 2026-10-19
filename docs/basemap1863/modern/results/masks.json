@@ -1,0 +1,49 @@
+{
+ "grid": "EPSG:26918, 1.0 m, origin (299220.0, 4416660.0), 17280 x 13620 px",
+ "box_area_km2": 235.4,
+ "classes": {
+  "ROAD_SURFACE": {
+   "pixels": 7708464,
+   "area_ha": 770.8,
+   "percent_of_box": 3.275
+  },
+  "BUILDING": {
+   "pixels": 6464323,
+   "area_ha": 646.4,
+   "percent_of_box": 2.747
+  },
+  "MONUMENT": {
+   "pixels": 18243,
+   "area_ha": 1.8,
+   "percent_of_box": 0.008
+  },
+  "UTILITY": {
+   "pixels": 299103,
+   "area_ha": 29.9,
+   "percent_of_box": 0.127
+  },
+  "AREA_RETEXTURE": {
+   "pixels": 5984099,
+   "area_ha": 598.4,
+   "percent_of_box": 2.543
+  },
+  "DETECTED_UNMAPPED": {
+   "pixels": 1039362,
+   "area_ha": 103.9,
+   "percent_of_box": 0.442
+  },
+  "WATER_MODERN": {
+   "pixels": 609078,
+   "area_ha": 60.9,
+   "percent_of_box": 0.259
+  }
+ },
+ "patch_removal_area_ha": 1552.9,
+ "retexture_area_ha": 659.3,
+ "building_outlines_evaluated": 16249,
+ "building_outlines_with_roof_visible_in_2013": 13229,
+ "building_outlines_not_visible_in_2013": 3020,
+ "detected_unmapped_components": 1855,
+ "detected_unmapped_area_ha": 103.86,
+ "elapsed_s": 55
+}

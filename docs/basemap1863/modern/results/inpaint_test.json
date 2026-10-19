@@ -1,0 +1,871 @@
+{
+ "n_sites": 20,
+ "window_m": 256,
+ "mask_classes": [
+  1,
+  2,
+  3,
+  4,
+  6
+ ],
+ "per_site": [
+  {
+   "site": "arterial_road_A",
+   "cls": "ROAD_ARTERIAL",
+   "feature": "MOD-ROAD_ARTERIAL-00022",
+   "x": 305177.8,
+   "y": 4413518.8,
+   "mask_px": 11315,
+   "mask_frac": 0.173,
+   "telea": {
+    "seconds": 0.03,
+    "seam_ratio": 1.29,
+    "tex_ratio": 0.12,
+    "truth_psnr": 26.494,
+    "truth_ssim": 0.94,
+    "truth_tex": 0.077,
+    "truth_js": 0.277,
+    "truth_seam": 0.781
+   },
+   "ns": {
+    "seconds": 0.02,
+    "seam_ratio": 1.31,
+    "tex_ratio": 0.19,
+    "truth_psnr": 26.62,
+    "truth_ssim": 0.943,
+    "truth_tex": 0.095,
+    "truth_js": 0.248,
+    "truth_seam": 0.795
+   },
+   "exemplar": {
+    "seconds": 0.98,
+    "fallback_px_fraction": 0.0,
+    "seam_ratio": 1.02,
+    "tex_ratio": 0.37,
+    "truth_psnr": 22.936,
+    "truth_ssim": 0.853,
+    "truth_tex": 0.566,
+    "truth_js": 0.116,
+    "truth_seam": 0.955
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "arterial_road_B",
+   "cls": "ROAD_ARTERIAL",
+   "feature": "MOD-ROAD_ARTERIAL-00151",
+   "x": 308952.2,
+   "y": 4404522.8,
+   "mask_px": 3447,
+   "mask_frac": 0.053,
+   "telea": {
+    "seconds": 0.01,
+    "seam_ratio": 1.15,
+    "tex_ratio": 0.05,
+    "truth_psnr": 26.516,
+    "truth_ssim": 0.962,
+    "truth_tex": 0.069,
+    "truth_js": 0.326,
+    "truth_seam": 0.596
+   },
+   "ns": {
+    "seconds": 0.01,
+    "seam_ratio": 1.19,
+    "tex_ratio": 0.08,
+    "truth_psnr": 26.433,
+    "truth_ssim": 0.963,
+    "truth_tex": 0.114,
+    "truth_js": 0.307,
+    "truth_seam": 0.621
+   },
+   "exemplar": {
+    "seconds": 0.62,
+    "fallback_px_fraction": 0.0,
+    "seam_ratio": 0.92,
+    "tex_ratio": 0.52,
+    "truth_psnr": 23.267,
+    "truth_ssim": 0.92,
+    "truth_tex": 0.858,
+    "truth_js": 0.085,
+    "truth_seam": 0.842
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "local_road_field",
+   "cls": "ROAD_LOCAL",
+   "feature": "MOD-ROAD_LOCAL-00041",
+   "x": 307205.7,
+   "y": 4410522.8,
+   "mask_px": 12344,
+   "mask_frac": 0.188,
+   "telea": {
+    "seconds": 0.02,
+    "seam_ratio": 0.89,
+    "tex_ratio": 0.12,
+    "truth_psnr": 26.851,
+    "truth_ssim": 0.885,
+    "truth_tex": 0.054,
+    "truth_js": 0.301,
+    "truth_seam": 0.756
+   },
+   "ns": {
+    "seconds": 0.02,
+    "seam_ratio": 0.91,
+    "tex_ratio": 0.22,
+    "truth_psnr": 26.89,
+    "truth_ssim": 0.889,
+    "truth_tex": 0.058,
+    "truth_js": 0.266,
+    "truth_seam": 0.779
+   },
+   "exemplar": {
+    "seconds": 0.97,
+    "fallback_px_fraction": 0.12,
+    "seam_ratio": 0.99,
+    "tex_ratio": 0.76,
+    "truth_psnr": 23.597,
+    "truth_ssim": 0.711,
+    "truth_tex": 0.615,
+    "truth_js": 0.136,
+    "truth_seam": 0.92
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "local_road_town",
+   "cls": "ROAD_LOCAL",
+   "feature": "MOD-ROAD_LOCAL-00720",
+   "x": 307783.6,
+   "y": 4413204.4,
+   "mask_px": 3471,
+   "mask_frac": 0.053,
+   "telea": {
+    "seconds": 0.01,
+    "seam_ratio": 0.83,
+    "tex_ratio": 0.07,
+    "truth_psnr": 27.535,
+    "truth_ssim": 0.973,
+    "truth_tex": 0.049,
+    "truth_js": 0.348,
+    "truth_seam": 0.691
+   },
+   "ns": {
+    "seconds": 0.01,
+    "seam_ratio": 0.84,
+    "tex_ratio": 0.06,
+    "truth_psnr": 27.539,
+    "truth_ssim": 0.973,
+    "truth_tex": 0.06,
+    "truth_js": 0.296,
+    "truth_seam": 0.713
+   },
+   "exemplar": {
+    "seconds": 0.62,
+    "fallback_px_fraction": 0.0,
+    "seam_ratio": 0.82,
+    "tex_ratio": 0.42,
+    "truth_psnr": 24.55,
+    "truth_ssim": 0.938,
+    "truth_tex": 0.795,
+    "truth_js": 0.113,
+    "truth_seam": 0.9
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "service_drive_A",
+   "cls": "ROAD_SERVICE",
+   "feature": "MOD-ROAD_SERVICE-00026",
+   "x": 308544.9,
+   "y": 4405286.2,
+   "mask_px": 10230,
+   "mask_frac": 0.156,
+   "telea": {
+    "seconds": 0.02,
+    "seam_ratio": 1.16,
+    "tex_ratio": 0.11,
+    "truth_psnr": 25.331,
+    "truth_ssim": 0.921,
+    "truth_tex": 0.049,
+    "truth_js": 0.338,
+    "truth_seam": 0.702
+   },
+   "ns": {
+    "seconds": 0.02,
+    "seam_ratio": 1.2,
+    "tex_ratio": 0.16,
+    "truth_psnr": 25.426,
+    "truth_ssim": 0.926,
+    "truth_tex": 0.056,
+    "truth_js": 0.283,
+    "truth_seam": 0.732
+   },
+   "exemplar": {
+    "seconds": 1.61,
+    "fallback_px_fraction": 0.545,
+    "seam_ratio": 0.79,
+    "tex_ratio": 0.27,
+    "truth_psnr": 21.724,
+    "truth_ssim": 0.773,
+    "truth_tex": 0.352,
+    "truth_js": 0.278,
+    "truth_seam": 0.646
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "service_drive_B",
+   "cls": "ROAD_SERVICE",
+   "feature": "MOD-ROAD_SERVICE-02377",
+   "x": 308973.3,
+   "y": 4414331.0,
+   "mask_px": 8533,
+   "mask_frac": 0.13,
+   "telea": {
+    "seconds": 0.02,
+    "seam_ratio": 1.06,
+    "tex_ratio": 0.09,
+    "truth_psnr": 26.79,
+    "truth_ssim": 0.939,
+    "truth_tex": 0.046,
+    "truth_js": 0.345,
+    "truth_seam": 0.721
+   },
+   "ns": {
+    "seconds": 0.02,
+    "seam_ratio": 1.1,
+    "tex_ratio": 0.14,
+    "truth_psnr": 26.804,
+    "truth_ssim": 0.941,
+    "truth_tex": 0.051,
+    "truth_js": 0.295,
+    "truth_seam": 0.753
+   },
+   "exemplar": {
+    "seconds": 1.33,
+    "fallback_px_fraction": 0.002,
+    "seam_ratio": 0.93,
+    "tex_ratio": 0.47,
+    "truth_psnr": 22.76,
+    "truth_ssim": 0.855,
+    "truth_tex": 0.709,
+    "truth_js": 0.08,
+    "truth_seam": 0.965
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "parking_large",
+   "cls": "PARKING",
+   "feature": "MOD-PARKING-00026",
+   "x": 312402.1,
+   "y": 4404009.9,
+   "mask_px": 15972,
+   "mask_frac": 0.244,
+   "telea": {
+    "seconds": 0.03,
+    "seam_ratio": 1.29,
+    "tex_ratio": 0.08,
+    "truth_psnr": 24.808,
+    "truth_ssim": 0.908,
+    "truth_tex": 0.051,
+    "truth_js": 0.351,
+    "truth_seam": 0.72
+   },
+   "ns": {
+    "seconds": 0.03,
+    "seam_ratio": 1.39,
+    "tex_ratio": 0.13,
+    "truth_psnr": 24.537,
+    "truth_ssim": 0.911,
+    "truth_tex": 0.064,
+    "truth_js": 0.316,
+    "truth_seam": 0.75
+   },
+   "exemplar": {
+    "seconds": 0.74,
+    "fallback_px_fraction": 0.669,
+    "seam_ratio": 0.75,
+    "tex_ratio": 0.12,
+    "truth_psnr": 21.654,
+    "truth_ssim": 0.82,
+    "truth_tex": 0.234,
+    "truth_js": 0.299,
+    "truth_seam": 0.667
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "parking_small",
+   "cls": "PARKING",
+   "feature": "MOD-PARKING-00023",
+   "x": 308368.1,
+   "y": 4410496.1,
+   "mask_px": 15572,
+   "mask_frac": 0.238,
+   "telea": {
+    "seconds": 0.03,
+    "seam_ratio": 1.35,
+    "tex_ratio": 0.1,
+    "truth_psnr": 29.771,
+    "truth_ssim": 0.94,
+    "truth_tex": 0.064,
+    "truth_js": 0.378,
+    "truth_seam": 0.677
+   },
+   "ns": {
+    "seconds": 0.03,
+    "seam_ratio": 1.43,
+    "tex_ratio": 0.16,
+    "truth_psnr": 29.738,
+    "truth_ssim": 0.942,
+    "truth_tex": 0.06,
+    "truth_js": 0.335,
+    "truth_seam": 0.708
+   },
+   "exemplar": {
+    "seconds": 0.71,
+    "fallback_px_fraction": 0.014,
+    "seam_ratio": 0.79,
+    "tex_ratio": 0.24,
+    "truth_psnr": 25.567,
+    "truth_ssim": 0.851,
+    "truth_tex": 0.703,
+    "truth_js": 0.05,
+    "truth_seam": 0.951
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "path_trail",
+   "cls": "PATH",
+   "feature": "MOD-PATH-00176",
+   "x": 308538.4,
+   "y": 4406842.3,
+   "mask_px": 1411,
+   "mask_frac": 0.022,
+   "telea": {
+    "seconds": 0.0,
+    "seam_ratio": 1.01,
+    "tex_ratio": 0.1,
+    "truth_psnr": 25.483,
+    "truth_ssim": 0.981,
+    "truth_tex": 0.057,
+    "truth_js": 0.372,
+    "truth_seam": 0.772
+   },
+   "ns": {
+    "seconds": 0.0,
+    "seam_ratio": 1.04,
+    "tex_ratio": 0.18,
+    "truth_psnr": 25.822,
+    "truth_ssim": 0.982,
+    "truth_tex": 0.068,
+    "truth_js": 0.309,
+    "truth_seam": 0.801
+   },
+   "exemplar": {
+    "seconds": 1.24,
+    "fallback_px_fraction": 0.0,
+    "seam_ratio": 1.07,
+    "tex_ratio": 0.84,
+    "truth_psnr": 21.826,
+    "truth_ssim": 0.922,
+    "truth_tex": 0.868,
+    "truth_js": 0.084,
+    "truth_seam": 0.987
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "rail_line",
+   "cls": "RAIL",
+   "feature": "MOD-RAIL-00023",
+   "x": 305698.7,
+   "y": 4413447.1,
+   "mask_px": 8494,
+   "mask_frac": 0.13,
+   "telea": {
+    "seconds": 0.02,
+    "seam_ratio": 1.29,
+    "tex_ratio": 0.05,
+    "truth_psnr": 24.656,
+    "truth_ssim": 0.935,
+    "truth_tex": 0.049,
+    "truth_js": 0.319,
+    "truth_seam": 0.65
+   },
+   "ns": {
+    "seconds": 0.02,
+    "seam_ratio": 1.31,
+    "tex_ratio": 0.08,
+    "truth_psnr": 24.782,
+    "truth_ssim": 0.938,
+    "truth_tex": 0.068,
+    "truth_js": 0.292,
+    "truth_seam": 0.674
+   },
+   "exemplar": {
+    "seconds": 0.85,
+    "fallback_px_fraction": 0.0,
+    "seam_ratio": 1.07,
+    "tex_ratio": 0.25,
+    "truth_psnr": 21.621,
+    "truth_ssim": 0.872,
+    "truth_tex": 0.828,
+    "truth_js": 0.053,
+    "truth_seam": 0.972
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "building_farm_A",
+   "cls": "BUILDING",
+   "feature": "MOD-BUILDING-00273",
+   "x": 309919.3,
+   "y": 4415322.3,
+   "mask_px": 6423,
+   "mask_frac": 0.098,
+   "telea": {
+    "seconds": 0.01,
+    "seam_ratio": 1.53,
+    "tex_ratio": 0.11,
+    "truth_psnr": 26.428,
+    "truth_ssim": 0.958,
+    "truth_tex": 0.07,
+    "truth_js": 0.339,
+    "truth_seam": 0.729
+   },
+   "ns": {
+    "seconds": 0.01,
+    "seam_ratio": 1.53,
+    "tex_ratio": 0.18,
+    "truth_psnr": 26.462,
+    "truth_ssim": 0.959,
+    "truth_tex": 0.085,
+    "truth_js": 0.299,
+    "truth_seam": 0.743
+   },
+   "exemplar": {
+    "seconds": 1.17,
+    "fallback_px_fraction": 0.0,
+    "seam_ratio": 1.17,
+    "tex_ratio": 0.29,
+    "truth_psnr": 23.407,
+    "truth_ssim": 0.896,
+    "truth_tex": 0.718,
+    "truth_js": 0.069,
+    "truth_seam": 0.922
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "building_farm_B",
+   "cls": "BUILDING",
+   "feature": "MOD-BUILDING-02118",
+   "x": 309490.1,
+   "y": 4413989.8,
+   "mask_px": 14157,
+   "mask_frac": 0.216,
+   "telea": {
+    "seconds": 0.03,
+    "seam_ratio": 0.82,
+    "tex_ratio": 0.08,
+    "truth_psnr": 26.405,
+    "truth_ssim": 0.904,
+    "truth_tex": 0.059,
+    "truth_js": 0.345,
+    "truth_seam": 0.66
+   },
+   "ns": {
+    "seconds": 0.03,
+    "seam_ratio": 0.86,
+    "tex_ratio": 0.11,
+    "truth_psnr": 26.284,
+    "truth_ssim": 0.906,
+    "truth_tex": 0.059,
+    "truth_js": 0.307,
+    "truth_seam": 0.683
+   },
+   "exemplar": {
+    "seconds": 1.09,
+    "fallback_px_fraction": 0.018,
+    "seam_ratio": 0.99,
+    "tex_ratio": 0.68,
+    "truth_psnr": 21.937,
+    "truth_ssim": 0.728,
+    "truth_tex": 0.787,
+    "truth_js": 0.188,
+    "truth_seam": 0.995
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "building_large",
+   "cls": "BUILDING",
+   "feature": "MOD-BUILDING-03557",
+   "x": 313031.1,
+   "y": 4403588.6,
+   "mask_px": 3086,
+   "mask_frac": 0.047,
+   "telea": {
+    "seconds": 0.0,
+    "seam_ratio": 0.8,
+    "tex_ratio": 0.1,
+    "truth_psnr": 26.288,
+    "truth_ssim": 0.984,
+    "truth_tex": 0.071,
+    "truth_js": 0.334,
+    "truth_seam": 0.793
+   },
+   "ns": {
+    "seconds": 0.01,
+    "seam_ratio": 0.83,
+    "tex_ratio": 0.19,
+    "truth_psnr": 26.781,
+    "truth_ssim": 0.985,
+    "truth_tex": 0.094,
+    "truth_js": 0.306,
+    "truth_seam": 0.815
+   },
+   "exemplar": {
+    "seconds": 0.52,
+    "fallback_px_fraction": 0.0,
+    "seam_ratio": 0.75,
+    "tex_ratio": 0.34,
+    "truth_psnr": 20.974,
+    "truth_ssim": 0.965,
+    "truth_tex": 0.516,
+    "truth_js": 0.144,
+    "truth_seam": 0.96
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "building_town",
+   "cls": "BUILDING",
+   "feature": "MOD-BUILDING-12915",
+   "x": 313319.8,
+   "y": 4407322.7,
+   "mask_px": 8045,
+   "mask_frac": 0.123,
+   "telea": {
+    "seconds": 0.02,
+    "seam_ratio": 1.04,
+    "tex_ratio": 0.11,
+    "truth_psnr": 24.637,
+    "truth_ssim": 0.891,
+    "truth_tex": 0.054,
+    "truth_js": 0.371,
+    "truth_seam": 0.703
+   },
+   "ns": {
+    "seconds": 0.02,
+    "seam_ratio": 1.06,
+    "tex_ratio": 0.18,
+    "truth_psnr": 24.764,
+    "truth_ssim": 0.896,
+    "truth_tex": 0.065,
+    "truth_js": 0.314,
+    "truth_seam": 0.73
+   },
+   "exemplar": {
+    "seconds": 0.8,
+    "fallback_px_fraction": 0.0,
+    "seam_ratio": 1.08,
+    "tex_ratio": 0.5,
+    "truth_psnr": 20.38,
+    "truth_ssim": 0.728,
+    "truth_tex": 0.829,
+    "truth_js": 0.063,
+    "truth_seam": 1.072
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "monument_A",
+   "cls": "MONUMENT",
+   "feature": "MOD-MONUMENT-00007",
+   "x": 308739.9,
+   "y": 4409813.4,
+   "mask_px": 10740,
+   "mask_frac": 0.164,
+   "telea": {
+    "seconds": 0.02,
+    "seam_ratio": 1.05,
+    "tex_ratio": 0.05,
+    "truth_psnr": 28.723,
+    "truth_ssim": 0.952,
+    "truth_tex": 0.055,
+    "truth_js": 0.397,
+    "truth_seam": 0.669
+   },
+   "ns": {
+    "seconds": 0.02,
+    "seam_ratio": 1.08,
+    "tex_ratio": 0.09,
+    "truth_psnr": 28.861,
+    "truth_ssim": 0.953,
+    "truth_tex": 0.042,
+    "truth_js": 0.354,
+    "truth_seam": 0.692
+   },
+   "exemplar": {
+    "seconds": 1.62,
+    "fallback_px_fraction": 0.0,
+    "seam_ratio": 0.89,
+    "tex_ratio": 0.33,
+    "truth_psnr": 25.348,
+    "truth_ssim": 0.883,
+    "truth_tex": 0.753,
+    "truth_js": 0.071,
+    "truth_seam": 0.948
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "monument_B",
+   "cls": "MONUMENT",
+   "feature": "MOD-MONUMENT-00303",
+   "x": 307767.2,
+   "y": 4412403.6,
+   "mask_px": 5126,
+   "mask_frac": 0.078,
+   "telea": {
+    "seconds": 0.01,
+    "seam_ratio": 1.13,
+    "tex_ratio": 0.08,
+    "truth_psnr": 28.648,
+    "truth_ssim": 0.974,
+    "truth_tex": 0.06,
+    "truth_js": 0.348,
+    "truth_seam": 0.707
+   },
+   "ns": {
+    "seconds": 0.01,
+    "seam_ratio": 1.15,
+    "tex_ratio": 0.08,
+    "truth_psnr": 28.731,
+    "truth_ssim": 0.975,
+    "truth_tex": 0.064,
+    "truth_js": 0.299,
+    "truth_seam": 0.733
+   },
+   "exemplar": {
+    "seconds": 0.77,
+    "fallback_px_fraction": 0.0,
+    "seam_ratio": 1.23,
+    "tex_ratio": 0.46,
+    "truth_psnr": 25.143,
+    "truth_ssim": 0.934,
+    "truth_tex": 0.801,
+    "truth_js": 0.062,
+    "truth_seam": 0.997
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "monument_C",
+   "cls": "MONUMENT",
+   "feature": "MOD-MONUMENT-00651",
+   "x": 309186.4,
+   "y": 4410316.9,
+   "mask_px": 15602,
+   "mask_frac": 0.238,
+   "telea": {
+    "seconds": 0.03,
+    "seam_ratio": 1.42,
+    "tex_ratio": 0.09,
+    "truth_psnr": 28.655,
+    "truth_ssim": 0.923,
+    "truth_tex": 0.041,
+    "truth_js": 0.414,
+    "truth_seam": 0.667
+   },
+   "ns": {
+    "seconds": 0.03,
+    "seam_ratio": 1.47,
+    "tex_ratio": 0.15,
+    "truth_psnr": 28.645,
+    "truth_ssim": 0.924,
+    "truth_tex": 0.039,
+    "truth_js": 0.37,
+    "truth_seam": 0.692
+   },
+   "exemplar": {
+    "seconds": 1.19,
+    "fallback_px_fraction": 0.088,
+    "seam_ratio": 0.94,
+    "tex_ratio": 0.16,
+    "truth_psnr": 25.665,
+    "truth_ssim": 0.823,
+    "truth_tex": 0.534,
+    "truth_js": 0.111,
+    "truth_seam": 0.845
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "pylon",
+   "cls": "POWER_SUPPORT",
+   "feature": "MOD-POWER_SUPPORT-00041",
+   "x": 314891.0,
+   "y": 4415386.8,
+   "mask_px": 13036,
+   "mask_frac": 0.199,
+   "telea": {
+    "seconds": 0.03,
+    "seam_ratio": 0.83,
+    "tex_ratio": 0.06,
+    "truth_psnr": 27.192,
+    "truth_ssim": 0.94,
+    "truth_tex": 0.089,
+    "truth_js": 0.269,
+    "truth_seam": 0.729
+   },
+   "ns": {
+    "seconds": 0.03,
+    "seam_ratio": 0.86,
+    "tex_ratio": 0.09,
+    "truth_psnr": 27.653,
+    "truth_ssim": 0.946,
+    "truth_tex": 0.114,
+    "truth_js": 0.222,
+    "truth_seam": 0.761
+   },
+   "exemplar": {
+    "seconds": 0.76,
+    "fallback_px_fraction": 0.499,
+    "seam_ratio": 0.69,
+    "tex_ratio": 0.32,
+    "truth_psnr": 22.069,
+    "truth_ssim": 0.828,
+    "truth_tex": 0.252,
+    "truth_js": 0.184,
+    "truth_seam": 0.715
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "tower_comm",
+   "cls": "TOWER_COMM",
+   "feature": "MOD-TOWER_COMM-00004",
+   "x": 312026.5,
+   "y": 4403377.8,
+   "mask_px": 2320,
+   "mask_frac": 0.035,
+   "telea": {
+    "seconds": 0.0,
+    "seam_ratio": 1.85,
+    "tex_ratio": 0.14,
+    "truth_psnr": 29.522,
+    "truth_ssim": 0.977,
+    "truth_tex": 0.051,
+    "truth_js": 0.324,
+    "truth_seam": 0.63
+   },
+   "ns": {
+    "seconds": 0.0,
+    "seam_ratio": 1.74,
+    "tex_ratio": 0.1,
+    "truth_psnr": 29.317,
+    "truth_ssim": 0.977,
+    "truth_tex": 0.059,
+    "truth_js": 0.291,
+    "truth_seam": 0.637
+   },
+   "exemplar": {
+    "seconds": 0.41,
+    "fallback_px_fraction": 0.0,
+    "seam_ratio": 1.69,
+    "tex_ratio": 0.38,
+    "truth_psnr": 25.287,
+    "truth_ssim": 0.943,
+    "truth_tex": 0.636,
+    "truth_js": 0.08,
+    "truth_seam": 0.845
+   },
+   "truth_trials": 5
+  },
+  {
+   "site": "airfield_apron",
+   "cls": "AIRFIELD",
+   "feature": "MOD-AIRFIELD-00016",
+   "x": 306746.1,
+   "y": 4406244.3,
+   "mask_px": 13744,
+   "mask_frac": 0.21,
+   "telea": {
+    "seconds": 0.03,
+    "seam_ratio": 0.81,
+    "tex_ratio": 0.06,
+    "truth_psnr": 26.574,
+    "truth_ssim": 0.92,
+    "truth_tex": 0.064,
+    "truth_js": 0.383,
+    "truth_seam": 0.604
+   },
+   "ns": {
+    "seconds": 0.03,
+    "seam_ratio": 0.83,
+    "tex_ratio": 0.1,
+    "truth_psnr": 26.551,
+    "truth_ssim": 0.921,
+    "truth_tex": 0.074,
+    "truth_js": 0.359,
+    "truth_seam": 0.62
+   },
+   "exemplar": {
+    "seconds": 0.74,
+    "fallback_px_fraction": 0.0,
+    "seam_ratio": 0.9,
+    "tex_ratio": 0.51,
+    "truth_psnr": 21.794,
+    "truth_ssim": 0.839,
+    "truth_tex": 0.869,
+    "truth_js": 0.072,
+    "truth_seam": 0.926
+   },
+   "truth_trials": 5
+  }
+ ],
+ "aggregate_mean": {
+  "telea": {
+   "seam_ratio": 1.13,
+   "tex_ratio": 0.088,
+   "truth_psnr": 26.865,
+   "truth_ssim": 0.94,
+   "truth_tex": 0.059,
+   "truth_js": 0.344,
+   "truth_seam": 0.698,
+   "seconds": 0.019,
+   "seam_ratio_median": 1.095,
+   "seam_visible_sites(>1.3)": 4
+  },
+  "ns": {
+   "seam_ratio": 1.156,
+   "tex_ratio": 0.134,
+   "truth_psnr": 26.932,
+   "truth_ssim": 0.943,
+   "truth_tex": 0.069,
+   "truth_js": 0.303,
+   "truth_seam": 0.722,
+   "seconds": 0.019,
+   "seam_ratio_median": 1.125,
+   "seam_visible_sites(>1.3)": 7
+  },
+  "exemplar": {
+   "seam_ratio": 0.974,
+   "tex_ratio": 0.412,
+   "truth_psnr": 23.075,
+   "truth_ssim": 0.854,
+   "truth_tex": 0.661,
+   "truth_js": 0.117,
+   "truth_seam": 0.901,
+   "seconds": 0.937,
+   "seam_ratio_median": 0.935,
+   "seam_visible_sites(>1.3)": 1
+  }
+ }
+}
