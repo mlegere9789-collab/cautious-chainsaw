@@ -32,8 +32,12 @@ def build():
             continue
         else:
             sub = 'stream (perennial)' if fc == 46006 else 'stream (intermittent)'
-            pres, conf = True, 'Estimated'
-            note = 'Natural drainage assumed present; course taken from the modern NHD flowline; NPS notes that stream courses have changed over 140 years.'
+            if nm:
+                pres, conf = True, 'Estimated'
+                note = 'Named stream: course taken from the modern NHD flowline and compared with the drawn creek on the Bachelder/Warren sheet at 14 stations (median offset 13 m, maximum 50 m; verification/pass6_streams.json); NPS notes that stream courses have changed over 140 years.'
+            else:
+                pres, conf = None, 'Unknown'
+                note = 'Unnamed NHD channel: may be a natural swale or intermittent stream of 1863, or a modern ditch or tile-drain outfall; NOT compared with the period map. Not drawn unless confirmed.'
         notes, srcs = ('', [])
         if nm in STREAM_NOTES: notes, srcs = STREAM_NOTES[nm]
         srcs = srcs + [S('NHD-HR', 'flowline ' + str(p.get('permanent_identifier')), 'USGS NHD high-resolution flowline (' + ('named ' + nm if nm else 'unnamed') + '); the modern course.')]
@@ -41,7 +45,7 @@ def build():
             'id': 'WT-%03d' % n, 'category': 'waterway', 'subtype': sub, 'name': nm or 'unnamed tributary', 'name_modern': nm or '',
             'present_1863': pres, 'period_note': notes, 'sources': srcs,
             'method': 'NHD high-resolution flowline (fcode %s) clipped to the map box; Bachelder/Warren drainage comparison pending (see verification_water.json).' % fc,
-            'positional_error_m': 20, 'confidence': conf, 'notes': note, 'nhd_permanent_identifier': p.get('permanent_identifier'), 'nhd_fcode': fc,
+            'positional_error_m': 30 if nm else None, 'confidence': conf, 'notes': note, 'nhd_permanent_identifier': p.get('permanent_identifier'), 'nhd_fcode': fc,
             'length_m_in_box': round(length_m(gg))}, 'geometry': mapping(gg)})
     return feats
 

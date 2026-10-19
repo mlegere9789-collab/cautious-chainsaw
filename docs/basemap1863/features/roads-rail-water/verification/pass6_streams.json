@@ -1,0 +1,127 @@
+{
+ "method": "22 stream stations generated (stream_stations.py, panel 90 px wide at 4x, stream vertical); 14 had an identifiable drawn creek band (white channel between dark bank lines); the lateral offset of the band centre from the NHD flowline was read by eye (+-5 px = +-10 m).",
+ "registration": "sheet-a registration (regtf.FieldTF), see registration_sheet_a.json",
+ "readings": [
+  {
+   "station": 1,
+   "stream": "Rock Creek",
+   "E": 310407.9,
+   "N": 4409481.0,
+   "offset_px": -2,
+   "offset_m": -4.0
+  },
+  {
+   "station": 2,
+   "stream": "Rock Creek",
+   "E": 310206.1,
+   "N": 4411205.5,
+   "offset_px": 2,
+   "offset_m": 4.0
+  },
+  {
+   "station": 3,
+   "stream": "Rock Creek",
+   "E": 310702.2,
+   "N": 4408400.6,
+   "offset_px": 7,
+   "offset_m": 14.0
+  },
+  {
+   "station": 4,
+   "stream": "Rock Creek",
+   "E": 309678.3,
+   "N": 4413112.4,
+   "offset_px": -12,
+   "offset_m": -24.0
+  },
+  {
+   "station": 7,
+   "stream": "Willoughby Run",
+   "E": 306676.7,
+   "N": 4410824.3,
+   "offset_px": -3,
+   "offset_m": -6.0
+  },
+  {
+   "station": 8,
+   "stream": "Willoughby Run",
+   "E": 307009.5,
+   "N": 4412659.7,
+   "offset_px": -15,
+   "offset_m": -30.0
+  },
+  {
+   "station": 9,
+   "stream": "Willoughby Run",
+   "E": 305965.8,
+   "N": 4408514.4,
+   "offset_px": -22,
+   "offset_m": -44.0
+  },
+  {
+   "station": 10,
+   "stream": "Willoughby Run",
+   "E": 306080.9,
+   "N": 4409832.9,
+   "offset_px": -25,
+   "offset_m": -50.0
+  },
+  {
+   "station": 11,
+   "stream": "Marsh Creek",
+   "E": 305204.0,
+   "N": 4407541.9,
+   "offset_px": -3,
+   "offset_m": -6.0
+  },
+  {
+   "station": 12,
+   "stream": "Marsh Creek",
+   "E": 304341.7,
+   "N": 4410538.8,
+   "offset_px": -6,
+   "offset_m": -12.0
+  },
+  {
+   "station": 13,
+   "stream": "Plum Run",
+   "E": 307829.3,
+   "N": 4406840.2,
+   "offset_px": -7,
+   "offset_m": -14.0
+  },
+  {
+   "station": 15,
+   "stream": "White Run",
+   "E": 311831.4,
+   "N": 4407393.7,
+   "offset_px": -5,
+   "offset_m": -10.0
+  },
+  {
+   "station": 16,
+   "stream": "White Run",
+   "E": 311437.0,
+   "N": 4406353.3,
+   "offset_px": -20,
+   "offset_m": -40.0
+  },
+  {
+   "station": 17,
+   "stream": "Stevens Run",
+   "E": 308161.9,
+   "N": 4409774.9,
+   "offset_px": -3,
+   "offset_m": -6.0
+  }
+ ],
+ "summary": {
+  "n": 14,
+  "median_abs_m": 13.0,
+  "mean_abs_m": 18.857142857142858,
+  "max_abs_m": 50.0,
+  "n_over_20m": 5
+ },
+ "detector_note": "An automatic detector (snap.py) reported larger median shifts (10-28 m) for the same streams but locks onto contour lines in valleys; it was NOT used to move any stream. A side-by-side overlay of the snapped and NHD Willoughby Run (tmp/b1863/roads/snapw.png) shows the two within about 10 px of each other and both on the drawn channel.",
+ "conclusion": "NHD flowlines are kept as the 1863 stream courses with positional error 30 m (median measured 14 m, maximum read 50 m at Willoughby Run west of the constrained band)."
+}

@@ -6,7 +6,8 @@ sys.path.insert(0, os.path.dirname(__file__))
 from icp import *
 def station_panel(s, af, E, N, tx, ty, half=int(os.environ.get("SHALF",70)), sc=float(os.environ.get("SSC",3)), label=""):
     img = cv2.imread(os.path.join(MAPS, f'bach1879_{s}.50.jpg'))
-    M = af.M; p = M @ np.array([E, N, 1.0]); tp = M[:, :2] @ np.array([tx, ty]); tp /= np.linalg.norm(tp)
+    if hasattr(af, 'en2px'): p = np.array(af.en2px(E, N)); tp = af.jac_tangent(E, N, tx, ty)
+    else: M = af.M; p = M @ np.array([E, N, 1.0]); tp = M[:, :2] @ np.array([tx, ty]); tp /= np.linalg.norm(tp)
     nrm = np.array([-tp[1], tp[0]])  # +s direction
     # panel axes: panel x (right) = nrm, panel y (down) = -tp   (road runs upward)
     size = int(2 * half * sc)

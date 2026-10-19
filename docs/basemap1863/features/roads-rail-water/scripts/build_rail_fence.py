@@ -107,6 +107,8 @@ def build_rail():
 
 def build_fences():
     feats = []; n = 0
+    pv = os.path.join(OUT, 'verification', 'pass7_fences.json')
+    PV = json.load(open(pv))['results'] if os.path.exists(pv) else {}
     for e in osm_fence().values():
         t = e['tags']
         if e['type'] != 'way': continue
@@ -123,8 +125,25 @@ def build_fences():
             'period_note': 'A fence or wall is mapped here today; whether it stands on an 1863 fence line is decided by the period-map check (verification_fences.json).',
             'sources': [S('OSM', 'way %s' % e['id'], 'barrier=%s fence_type=%s' % (b, ft)), S('NPS-TREAT-2004', 'pdf p69', 'NPS rebuilds fences in the 1863 styles along documented 1863 fence lines (worm, post and rail, stone wall, stone and rail, stone and rider); about 39.1 miles of 1863 fences were lost park-wide.')],
             'method': 'OSM way %s geometry (modern mapped line).' % e['id'], 'positional_error_m': 10, 'confidence': 'Unknown',
-            'notes': 'Candidate only until verified.', 'osm_way_id': e['id'], 'length_m': round(line_len(c))},
+            'notes': 'Candidate only until verified.', 'osm_way_id': e['id'], 'length_m': round(line_len(c)), 'draw': False},
             'geometry': {'type': 'LineString', 'coordinates': [list(q) for q in c]}})
+    for f in feats:
+        v = PV.get(f['id']); p = f['properties']
+        if not v: continue
+        p['period_map_check'] = v
+        if v['verdict'] == 'confirmed' and not v.get('ambiguous'):
+            p['present_1863'] = True; p['confidence'] = 'Estimated'; p['positional_error_m'] = 25; p['draw'] = True
+            p['period_note'] = 'A continuous drawn line lies along this mapped fence on the Bachelder/Warren sheet (continuity %.2f at the best lateral shift of %.0f px; control %.2f); the fence type of 1863 is NOT read from the sheet.' % (v['continuity'], v['shift_px'], v['control'])
+            p['notes'] = 'Geometry is the modern OSM line (NPS fence); the sheet confirms a drawn line there, within the registration error. Style in 1863 unknown from this check (NPS rebuilds worm, post-and-rail or stone styles by documented line).'
+            p['sources'].append(dict(cite='Map of the battle field of Gettysburg (Bachelder 1876, topography from Warren 1868-69), sheet cw0325000a', sheet_or_page='First day sheet, automatic line-continuity check (verification/pass7_fences.json)', url='https://www.loc.gov/item/99447491/', type='A1', quote_or_paraphrase='Continuous drawn line found along the candidate (continuity %.2f, control %.2f).' % (v['continuity'], v['control']), key='LOC-BACH-1876'))
+        elif v['verdict'] == 'confirmed':
+            p['notes'] = 'A drawn line lies along this mapped fence, but a parallel line (contour or road edge) lies within 8 px: ambiguous; not drawn.'
+        elif v['verdict'] == 'not confirmed':
+            p['notes'] = 'No continuous drawn line found along this mapped fence on the sheet (continuity %.2f): it may be a modern fence, a fence not drawn, or beyond the registration accuracy. Not drawn.' % v['continuity']
+        elif v['verdict'] == 'off sheet':
+            p['notes'] = 'Outside the Bachelder sheet: not checked. Not drawn.'
+        elif v['verdict'] == 'too short':
+            p['notes'] = 'Shorter than 40 m: not checked. Not drawn.'
     return feats
 
 if __name__ == '__main__':

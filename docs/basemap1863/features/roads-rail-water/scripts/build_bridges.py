@@ -11,6 +11,7 @@ import spec_roads
 BRIDGE_CLASSES = ('turnpike', 'county road')
 NAMED = ('Rock Creek', 'Willoughby Run', 'Marsh Creek', 'Plum Run', 'White Run', 'Stevens Run', 'Littles Run', 'Little Marsh Creek')
 
+VER = json.load(open(os.path.join(OUT, 'verification', 'pass_bridges.json')))['readings'] if os.path.exists(os.path.join(OUT, 'verification', 'pass_bridges.json')) else {}
 def build():
     roads = json.load(open(os.path.join(OUT, 'roads.geojson')))['features']
     nhd = json.load(open(os.path.join(CACHE, 'nhd_6.geojson')))['features']
@@ -34,7 +35,16 @@ def build():
                     'method': 'Intersection of the catalogued road centreline (%s) with the NHD flowline of %s; type from the road class.' % (rf['id'], sn),
                     'positional_error_m': 30, 'confidence': 'Unknown' if unk else 'Estimated',
                     'notes': 'Whether a bridge or a ford stood at this exact crossing in July 1863 is NOT established by a source naming this crossing; the class rule is the only support until the period-map symbol is read (verification_bridges.json).',
-                    'road_id': rf['id'], 'stream': sn}, 'geometry': {'type': 'Point', 'coordinates': [round(p.x, 6), round(p.y, 6)]}})
+                    'road_id': rf['id'], 'stream': sn, 'period_map_symbol': VER.get('BR-%03d' % n, {}).get('symbol', 'not examined')}, 'geometry': {'type': 'Point', 'coordinates': [round(p.x, 6), round(p.y, 6)]}})
+    for f in out:
+        v = VER.get(f['id'], {}); p = f['properties']
+        if v.get('symbol') in ('seen', 'probable') and p['category'] == 'bridge':
+            p['confidence'] = 'Documented' if v['symbol'] == 'seen' else 'Estimated'
+            p['subtype'] = 'bridge (symbol on the Bachelder/Warren sheet)' if v['symbol'] == 'seen' else 'bridge (probable symbol on the Bachelder/Warren sheet)'
+            p['sources'].append(dict(cite='Map of the battle field of Gettysburg (Bachelder 1876, topography from Warren 1868-69), sheet cw0325000a', sheet_or_page='First day sheet, crop at ' + str(f['geometry']['coordinates']), url='https://www.loc.gov/item/99447491/', type='A1', quote_or_paraphrase=v['note'], key='LOC-BACH-1876'))
+            p['notes'] = 'Bridge symbol identified on the period map near this crossing (verification/pass_bridges.json); the position is the modern road x stream crossing (error 30 m).'
+        elif v.get('symbol') == 'unclear':
+            p['notes'] += ' Period-map reading: ' + v['note'] + '.'
     return out
 
 if __name__ == '__main__':

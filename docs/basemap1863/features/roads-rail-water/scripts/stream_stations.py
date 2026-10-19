@@ -14,14 +14,15 @@ def build(af, gj_n, names, spacing=1100.0):
         # greedy spacing: pick vertices at least `spacing` apart (euclid) that fall inside the sheet
         picked = []
         for p in pts:
-            px, py = af.ll2px(*m2ll(p[0], p[1]))
+            px, py = af.en2px(p[0], p[1])
             if not (150 < px < 4000 and 1050 < py < 5000): continue
             if all(math.hypot(p[0] - q[0], p[1] - q[1]) > spacing for q in picked): picked.append(p)
         for p in picked: out.append((nm, p))
     return out
 if __name__ == '__main__':
     s = sys.argv[1]; src = sys.argv[2]; outpref = sys.argv[3]
-    af = Affine(json.load(open(os.path.join(ROOT, 'tmp/b1863/roads', src)))['M'])
+    import regtf
+    af = regtf.FieldTF()
     n = json.load(open(os.path.join(CACHE, 'nhd_6.geojson')))
     st = build(af, n, ['Rock Creek', 'Willoughby Run', 'Marsh Creek', 'Plum Run', 'White Run', 'Stevens Run', 'Littles Run'])
     print(len(st))
