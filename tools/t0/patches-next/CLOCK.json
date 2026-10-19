@@ -294,6 +294,46 @@
    "note": "same for the forward step"
   },
   {
+   "id": "CLK-92-scrubber-marker-title",
+   "target": "js",
+   "find": "V.jsx(\"div\",{title:Ie.label,onClick:()=>P(Ie.tick)",
+   "repl": "V.jsx(\"div\",{title:Ie.label+\", \"+GTBGT.f(Ie.tick,\"time\"),onClick:()=>P(Ie.tick)",
+   "expect": 1,
+   "note": "scrubber markers (First shot, Reynolds KIA ...): the tooltip adds the clock of the marker"
+  },
+  {
+   "id": "CLK-93-timebar-day-tab-title",
+   "target": "js",
+   "find": "V.jsx(\"button\",{onClick:()=>l(Ie.day),",
+   "repl": "V.jsx(\"button\",{title:\"Jump to \"+GTBGT.f(Ie.tick,\"compat\"),onClick:()=>l(Ie.day),",
+   "expect": 1,
+   "note": "July 1/2/3 buttons of the time bar: the tooltip says where the tab lands (\"Jump to July 2, about 4:30 AM\")"
+  },
+  {
+   "id": "CLK-94-phone-day-tab-title",
+   "target": "js",
+   "find": "onClick:()=>{R($t),H(!1)},children:[\"July \",$t]",
+   "repl": "title:\"Jump to \"+GTBGT.f(GTBGT.tabStart($t),\"compat\"),onClick:()=>{R($t),H(!1)},children:[\"July \",$t]",
+   "expect": 1,
+   "note": "July 1/2/3 tabs of the phone shell: same tooltip"
+  },
+  {
+   "id": "CLK-95-map-tint-hour",
+   "target": "js",
+   "find": "function M4(c){const f=c<=225?1:c<=450?2:3,M=(c-(f===1?0:f===2?225:450)-1)*5;return(5*60+M)/60}",
+   "repl": "function M4(c){return GTBGT.hour(c)}",
+   "expect": 1,
+   "note": "day and night tint of the main map: the hour of day comes from the clock (it was 05:00 + 5 minutes a frame on each tab, so frame 326, the Tigers' assault at dusk, was tinted for 12:20 PM)"
+  },
+  {
+   "id": "CLK-96-map-tint-first-paint",
+   "target": "js",
+   "find": "A4(f.current),J4(f.current)",
+   "repl": "A4(f.current),C4(yn.getState().currentTick),J4(f.current)",
+   "expect": 1,
+   "note": "the tint overlay is created when the map has loaded, but its colour was only set on the next frame change: a map opened at frame 1 (5:00 AM) or by a deep link showed no tint until the visitor moved the clock; now set when the overlay is created"
+  },
+  {
    "id": "CLK-21-bookmark-import",
    "target": "book",
    "find": "import{u as L,",

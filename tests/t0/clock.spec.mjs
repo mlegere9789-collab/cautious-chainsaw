@@ -682,6 +682,53 @@ suite.test('T0-CLK-15', 'ticks stay permanent frame ids: the same units stand on
   } finally { await closeSession(A); await closeSession(B); await ctl.close(); }
 });
 
+// ================================================================== T0-CLK-17 day and night tint
+suite.test('T0-CLK-17', 'the map\'s day/night tint follows the clock: at every tick where the tint changes (both sides) and at 20 more, the overlay colour is the one the oracle hour calls for (the old tint used 05:00 + 5 minutes a frame)', async (t) => {
+  const tintFor = (h) => (h < 5 ? [15, 15, 60, 0.35] : h < 6 ? [20, 20, 80, 0.25] : h < 7 ? [40, 30, 80, 0.15] : h < 8 ? [60, 40, 20, 0.08] : h < 16 ? null : h < 18 ? [80, 50, 10, 0.08] : h < 19 ? [100, 50, 10, 0.15] : h < 20 ? [80, 30, 10, 0.2] : h < 21 ? [30, 15, 40, 0.3] : [10, 10, 50, 0.4]);
+  const hourOf = (k) => { const m = O.minutes(k); return (m - Math.floor(m / 1440) * 1440) / 60; };
+  const picks = new Set([1, 100, 225, 226, 326, 340, 451, 538, 675]);
+  for (let k = 2; k <= 675; k++) if (JSON.stringify(tintFor(hourOf(k))) !== JSON.stringify(tintFor(hourOf(k - 1)))) { picks.add(k); picks.add(k - 1); }
+  for (let k = 20; k <= 675; k += 33) picks.add(k);
+  const S = await open({ profile: 'tint', tiles: 'inject' });          // the overlay is created when the map has loaded
+  try {
+    await bootTo(S, '', 'desktop');
+    await waitFor(async () => S.page.evaluate(() => [...document.querySelectorAll('div')].some((d) => d.style.mixBlendMode === 'multiply')), { timeout: 40000, label: 'tint overlay (map loaded)' });
+    const bad = []; let changes = 0;
+    for (const k of [...picks].sort((a, b) => a - b)) {
+      await setTickDesktop(S.page, k); await sleep(60);
+      const bg = await S.page.evaluate(() => { const d = [...document.querySelectorAll('div')].find((x) => x.style.mixBlendMode === 'multiply'); return d ? d.style.background : null; });
+      const want = tintFor(hourOf(k));
+      const got = bg === 'transparent' || bg === '' ? null : (bg.match(/[\d.]+/g) || []).map(Number);
+      if (JSON.stringify(got) !== JSON.stringify(want)) bad.push(`tick ${k} (${O.fmt(k, 'compat')}): tint ${bg} want ${want ? 'rgba(' + want.join(', ') + ')' : 'none'}`); else changes++;
+    }
+    t.note('ticks checked', picks.size);
+    assertEq(bad.slice(0, 8), [], 'tint disagrees with the clock');
+    // the Tigers' assault at dusk (anchor 326, 8:00 PM) must be tinted for dusk, not left as day
+    await setTickDesktop(S.page, 326); await sleep(60);
+    assert((await S.page.evaluate(() => [...document.querySelectorAll('div')].find((x) => x.style.mixBlendMode === 'multiply').style.background)) !== 'transparent', 'frame 326 (8:00 PM) is not tinted');
+  } finally { await closeSession(S); }
+});
+
+// ================================================================== T0-CLK-18 scrubber and tab tooltips
+suite.test('T0-CLK-18', 'scrubber marker tooltips carry the marker\'s clock; the July tabs say where they land (desktop and phone); the First shot marker sits on frame 12 (7:30 AM)', async (t) => {
+  const D = await open({ profile: 'tips-d' });
+  try {
+    await bootTo(D, '', 'desktop');
+    const tips = await D.page.evaluate(() => ({ markers: [...document.querySelectorAll('#gt-timeline div[title]')].map((e) => e.title).filter((x) => /,/.test(x)), tabs: [...document.querySelectorAll('#gt-timeline button[title^="Jump to"]')].map((e) => e.title) }));
+    t.note('tips', tips);
+    const first = tips.markers.find((x) => /^First shot/.test(x));
+    assertEq(first, `First shot, ${O.fmt(12, 'time')}`, 'First shot marker tooltip (frame 12)');
+    assertEq(tips.tabs, [1, 226, 451].map((k) => `Jump to ${O.fmt(k, 'compat')}`), 'desktop tab tooltips');
+    for (const m of tips.markers) assert(/, (about )?\d{1,2}:\d{2} [AP]M$/.test(m), `marker tooltip without a clock: ${m}`);
+  } finally { await closeSession(D); }
+  const P = await open({ profile: 'tips-p', viewport: PHONE });
+  try {
+    await bootTo(P, '', 'phone');
+    const tabs = await P.page.evaluate(() => [...document.querySelectorAll('.gtbg-m-days button')].map((e) => e.title));
+    assertEq(tabs, [1, 226, 451].map((k) => `Jump to ${O.fmt(k, 'compat')}`), 'phone tab tooltips');
+  } finally { await closeSession(P); }
+});
+
 // ================================================================== T0-CLK-16 one command
 suite.test('T0-CLK-16', 'node tools/t0/clock/build-clock.mjs --check: patches-next/CLOCK.json is exactly what the anchors generate, and the derived time modules are current', async (t) => {
   const r = spawnSync(process.execPath, ['tools/t0/clock/build-clock.mjs', '--check'], { cwd: REPO, encoding: 'utf8' });

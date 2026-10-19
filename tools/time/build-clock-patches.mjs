@@ -92,6 +92,15 @@ B('CLK-54-story-subtitle-clock', 'V.jsx("div",{style:Zr.stopSubtitle,children:M.
 B('CLK-55-mobile-step-back', '"aria-label":"Step back 5 minutes",title:"Step back 5 minutes"', '"aria-label":"Previous step",title:"Previous step"'); after('CLK-55-mobile-step-back');
 B('CLK-56-mobile-step-forward', '"aria-label":"Step forward 5 minutes",title:"Step forward 5 minutes"', '"aria-label":"Next step",title:"Next step"'); after('CLK-56-mobile-step-forward');
 
+// scrubber labels and tooltips: each marker carries its clock, each day tab says where it lands
+B('CLK-92-scrubber-marker-title', 'V.jsx("div",{title:Ie.label,onClick:()=>P(Ie.tick)', 'V.jsx("div",{title:Ie.label+", "+GTBGT.f(Ie.tick,"time"),onClick:()=>P(Ie.tick)');
+B('CLK-93-timebar-day-tab-title', 'V.jsx("button",{onClick:()=>l(Ie.day),', 'V.jsx("button",{title:"Jump to "+GTBGT.f(Ie.tick,"compat"),onClick:()=>l(Ie.day),');
+B('CLK-94-phone-day-tab-title', 'onClick:()=>{R($t),H(!1)},children:["July ",$t]', 'title:"Jump to "+GTBGT.f(GTBGT.tabStart($t),"compat"),onClick:()=>{R($t),H(!1)},children:["July ",$t]');
+// the day and night tint of the main map (M4 turned a frame into an hour of day at 5 minutes a frame from 05:00 on each tab, E4 turns the hour into a colour):
+// the hour now comes from the clock, so dusk and night fall at the hour the story says (E4 is unchanged: its thresholds are hours of the day)
+B('CLK-95-map-tint-hour', 'function M4(c){const f=c<=225?1:c<=450?2:3,M=(c-(f===1?0:f===2?225:450)-1)*5;return(5*60+M)/60}', 'function M4(c){return GTBGT.hour(c)}');
+
+B('CLK-96-map-tint-first-paint', 'A4(f.current),J4(f.current)', 'A4(f.current),C4(yn.getState().currentTick),J4(f.current)');
 // ------------------------------------------------------------------ lazy chunks (they read the module from window.GTBGT)
 const BM = 'book', HM = 'help';
 add('CLK-21-bookmark-import', BM, 'import{u as L,', 'import{G as GT,u as L,');
@@ -258,6 +267,11 @@ const NOTES = {
   'CLK-54-story-subtitle-clock': 'Story card subtitle: a typed clock at its end ("July 1, 4:00 PM") becomes the clock of the frame the card flies to; other subtitles stay',
   'CLK-55-mobile-step-back': 'mobile transport (group C) said "Step back 5 minutes"; a step is 0.8 to 42 minutes of battle time',
   'CLK-56-mobile-step-forward': 'same for the forward step',
+  'CLK-92-scrubber-marker-title': 'scrubber markers (First shot, Reynolds KIA ...): the tooltip adds the clock of the marker',
+  'CLK-93-timebar-day-tab-title': 'July 1/2/3 buttons of the time bar: the tooltip says where the tab lands ("Jump to July 2, about 4:30 AM")',
+  'CLK-94-phone-day-tab-title': 'July 1/2/3 tabs of the phone shell: same tooltip',
+  'CLK-95-map-tint-hour': 'day and night tint of the main map: the hour of day comes from the clock (it was 05:00 + 5 minutes a frame on each tab, so frame 326, the Tigers\' assault at dusk, was tinted for 12:20 PM)',
+  'CLK-96-map-tint-first-paint': 'the tint overlay is created when the map has loaded, but its colour was only set on the next frame change: a map opened at frame 1 (5:00 AM) or by a deep link showed no tint until the visitor moved the clock; now set when the overlay is created',
   'CLK-57-help-step-back': 'Help: "Go back one tick" becomes "Go back one step"',
   'CLK-58-help-day1': 'Help: the 1 key jumps to the July 1 tab, shown with its clock instead of "dawn (tick 1)"',
   'CLK-59-help-day2': 'Help: the 2 key, same',
