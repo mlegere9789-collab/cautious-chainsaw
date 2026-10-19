@@ -609,7 +609,7 @@
    "id": "CLK-43-regiment-span",
    "target": "regiment.html",
    "find": "const span = run.startTick === run.endTick ? `tick ${run.startTick}` : `ticks ${run.startTick}&ndash;${run.endTick}`;",
-   "repl": "const span = run.startTick === run.endTick ? GTBGTime.f(run.startTick, 'chip') : GTBGTime.f(run.startTick, 'chip') + '&ndash;' + GTBGTime.f(run.endTick, 'chip');",
+   "repl": "const span = run.startTick === run.endTick ? GTBGTime.f(run.startTick, 'chip') : GTBGTime.f(run.startTick, 'chip') + '&ndash;' + (GTBGTime.f(run.startTick, 'day') === GTBGTime.f(run.endTick, 'day') ? GTBGTime.f(run.endTick, 'time').replace(/^about /, '') : GTBGTime.f(run.endTick, 'chip'));",
    "expect": 1,
    "note": "Regiment timeline spans as clock times"
   },
@@ -716,6 +716,102 @@
    "repl": "<script>(function () { var G = window.GTBGTime; if (!G) return;\n  function fix() {\n    var els = document.querySelectorAll(\".stop-tick, #caption-bar, #add-stop-msg\");\n    for (var i = 0; i < els.length; i++) { var el = els[i], t = el.textContent, m = /^Tick (\\d+)(?: — ([\\s\\S]*))?$/.exec(t);\n      if (m) { var s = G.f(+m[1], \"compat\"); el.textContent = m[2] != null ? s + \" — \" + m[2] : s; }\n      else if (/tick number/.test(t)) el.textContent = t.replace(\"tick number\", \"frame number\"); }\n  }\n  var inp = document.getElementById(\"new-tick\");\n  if (inp) { inp.setAttribute(\"placeholder\", \"Frame (1-675)\"); inp.setAttribute(\"aria-label\", \"Frame number\"); var h = document.createElement(\"small\"); h.setAttribute(\"aria-live\", \"polite\"); h.id = \"new-tick-time\"; inp.insertAdjacentElement(\"afterend\", h);\n    var upd = function () { var n = Math.round(Number(inp.value)); h.textContent = inp.value.trim() !== \"\" && n >= 1 && n <= 675 ? \" \" + G.f(n, \"compat\") : \"\"; }; inp.addEventListener(\"input\", upd); }\n  new MutationObserver(fix).observe(document.body, { childList: true, subtree: true, characterData: true }); fix();\n})();</script>\n<div id=\"gtbg-footer-mount\"></div>",
    "expect": 1,
    "note": "Watch Together: a late hook (the sub-page group rewrites the stop rows and messages) turns \"Tick n\" into the clock, the input into a frame field with its clock beside it"
+  },
+  {
+   "id": "CLK-81-compare-label-a",
+   "target": "compare.html",
+   "find": "<span>Tick <b id=\"tick-num-a\">60</b></span>",
+   "repl": "<span><b id=\"tick-num-a\">July 1</b></span>",
+   "expect": 1,
+   "note": "Compare: the label beside each slider is the date, not \"Tick n\""
+  },
+  {
+   "id": "CLK-81-compare-label-b",
+   "target": "compare.html",
+   "find": "<span>Tick <b id=\"tick-num-b\">300</b></span>",
+   "repl": "<span><b id=\"tick-num-b\">July 1</b></span>",
+   "expect": 1,
+   "note": "Compare: the label beside each slider is the date, not \"Tick n\""
+  },
+  {
+   "id": "CLK-82-compare-label-text",
+   "target": "compare.html",
+   "find": "document.getElementById(tickNumId).textContent = tick;",
+   "repl": "{ const nb = document.getElementById(tickNumId); nb.textContent = GTBGTime.f(tick, 'day'); nb.title = GTBGTime.f(tick, 'frame') + ' · ' + GTBGTime.u(tick); }",
+   "expect": 1,
+   "note": "Compare: that label follows the slider; the frame number and the uncertainty are its tooltip"
+  },
+  {
+   "id": "CLK-83-compare-popup",
+   "target": "compare.html",
+   "find": "as of tick ${p.asOfTick}",
+   "repl": "as of ${GTBGTime.f(p.asOfTick, 'compat')}",
+   "expect": 1,
+   "note": "Compare: unit popup \"as of tick n\" becomes the clock"
+  },
+  {
+   "id": "CLK-84-compare-hint",
+   "target": "compare.html",
+   "find": "Set each map to a different tick and compare unit positions side by side",
+   "repl": "Set each map to a different moment and compare unit positions side by side",
+   "expect": 1,
+   "note": "Compare: the hint no longer says tick"
+  },
+  {
+   "id": "CLK-85-camera-prose",
+   "target": "camera.html",
+   "find": "wherever the most units are engaged, each tick.",
+   "repl": "wherever the most units are engaged, at every step.",
+   "expect": 1,
+   "note": "Camera: prose says step, not tick"
+  },
+  {
+   "id": "CLK-86-immersive-prose",
+   "target": "immersive.html",
+   "find": "real unit density at each tick --",
+   "repl": "real unit density at each moment --",
+   "expect": 1,
+   "note": "Immersive: prose says moment, not tick"
+  },
+  {
+   "id": "CLK-87-sandbox-preset-1",
+   "target": "sandbox.html",
+   "find": "{ tick: 260, label: \"Day 2, mid-afternoon (tick 260) -- before Longstreet's assault\" },",
+   "repl": "{ tick: 252, label: \"Day 2, mid-afternoon -- before Longstreet's assault opens\" },",
+   "expect": 1,
+   "note": "Sandbox preset 1 starts at frame 252 (3:30 PM), before the assault that opens at 4:00 PM (anchor 256); it was frame 260 (4:10 PM)"
+  },
+  {
+   "id": "CLK-88-sandbox-preset-2",
+   "target": "sandbox.html",
+   "find": "{ tick: 553, label: \"Day 3, ~3:00pm (tick 553) -- moments before Pickett's Charge reaches the wall\" },",
+   "repl": "{ tick: 548, label: \"Day 3, mid-afternoon -- moments before Pickett's Charge reaches the wall\" },",
+   "expect": 1,
+   "note": "Sandbox preset 2 starts at frame 548 (3:25 PM), before Armistead is over the wall at 3:35 PM (anchor 551); it was frame 553 (3:45 PM)"
+  },
+  {
+   "id": "CLK-89-sandbox-preset-3",
+   "target": "sandbox.html",
+   "find": "{ tick: 62, label: \"Day 1, mid-morning (tick 62) -- I Corps holding McPherson's Ridge\" },",
+   "repl": "{ tick: 30, label: \"Day 1, mid-morning -- I Corps holding McPherson's Ridge\" },",
+   "expect": 1,
+   "note": "Sandbox preset 3 starts at frame 30 (10:25 AM), I Corps on McPherson's Ridge (anchor 28, 10:15 AM); it was frame 62 (3:45 PM, \"mid-morning\")"
+  },
+  {
+   "id": "CLK-90-sandbox-default",
+   "target": "sandbox.html",
+   "find": "loadTickIntoSandbox(260);",
+   "repl": "loadTickIntoSandbox(252);",
+   "expect": 1,
+   "note": "Sandbox opens on the first preset (frame 252)"
+  },
+  {
+   "id": "CLK-91-cinematic-labels-hook",
+   "target": "cinematic-export.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<script>(function () { var m = { \"start-tick\": \"Start frame\", \"end-tick\": \"End frame\" }; Object.keys(m).forEach(function (id) { var l = document.querySelector('label[for=\"' + id + '\"]'); if (!l) { var i = document.getElementById(id); l = i && i.parentElement && i.parentElement.querySelector(\"label\"); } if (l) l.textContent = m[id]; }); })();</script>\n<div id=\"gtbg-footer-mount\"></div>",
+   "expect": 1,
+   "note": "Cinematic export: the input labels say frame (late hook, the sub-page group wrote the labels)"
   }
  ]
 }
