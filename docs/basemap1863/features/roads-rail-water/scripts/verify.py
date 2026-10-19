@@ -53,9 +53,14 @@ def page_text(key, page):
 STOP = set('the a an and of to in on at by for with from was were is are as that this which it its their his her not or be been had has have but also than into who during after before over under'.split())
 def pass2():
     res = dict(checked=0, ok=0, weak=[], nopage=[], untested=[])
+    items = []
     for fn in FILES:
-        for f in load(fn):
-            p = f['properties']
+        for f in load(fn): items.append(f['properties'])
+    inv = os.path.join(OUT, 'lanes_inventory.json')
+    if os.path.exists(inv):
+        for L in json.load(open(inv)): items.append(dict(id=L['id'], sources=L['sources']))
+    for p in items:
+        if True:
             for s in p.get('sources', []):
                 k = s.get('key')
                 m = re.findall(r'p(\d+)', s['sheet_or_page'])
@@ -66,7 +71,7 @@ def pass2():
                 txt = '';
                 for pg in m: txt += (page_text(k, int(pg)) or '') + ' '
                 # also allow the next page (PDF page offsets)
-                txt = txt.lower().replace('’', "'")
+                txt = txt.lower().replace('’', "'").replace('neighborhood', 'neighbourhood')
                 hit = [w for w in words if w.replace('’', "'") in txt]
                 res['checked'] += 1
                 frac = len(hit) / max(1, len(words))
