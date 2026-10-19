@@ -1,0 +1,108 @@
+{
+ "note": "placeholder analytic gait (characters.mjs poseFoot), NOT mocap: these are the numbers a hand-made cycle gives; the gates in PLAN.md are stated against them",
+ "gaitGeometry": {
+  "march": {
+   "footTravelPerCycleM_modelFrame": 0.822,
+   "clipDurationS": 1,
+   "nominalSpeedMs": 1.15,
+   "impliedStrideM": 1.15
+  },
+  "run": {
+   "footTravelPerCycleM_modelFrame": 1.196,
+   "clipDurationS": 0.62,
+   "nominalSpeedMs": 2.35,
+   "impliedStrideM": 1.457
+  }
+ },
+ "slip": {
+  "march": {
+   "bestMatchedSpeedMs": 0.345,
+   "slipAtBestCm": 58.88,
+   "speedRatio_0.5_noRateMatch_cm": 73.1,
+   "speedRatio_0.5_rateMatched_cm": 108.8,
+   "speedRatio_0.8_noRateMatch_cm": 94.5,
+   "speedRatio_0.8_rateMatched_cm": 108.8,
+   "speedRatio_0.9_noRateMatch_cm": 101.7,
+   "speedRatio_0.9_rateMatched_cm": 108.8,
+   "speedRatio_1_noRateMatch_cm": 108.8,
+   "speedRatio_1_rateMatched_cm": 108.8,
+   "speedRatio_1.1_noRateMatch_cm": 115.9,
+   "speedRatio_1.1_rateMatched_cm": 108.8,
+   "speedRatio_1.25_noRateMatch_cm": 126.6,
+   "speedRatio_1.25_rateMatched_cm": 108.8,
+   "speedRatio_1.5_noRateMatch_cm": 144.4,
+   "speedRatio_1.5_rateMatched_cm": 108.8
+  },
+  "run": {
+   "bestMatchedSpeedMs": 5.875,
+   "slipAtBestCm": 0.71,
+   "speedRatio_0.5_noRateMatch_cm": 27.7,
+   "speedRatio_0.5_rateMatched_cm": 20.8,
+   "speedRatio_0.8_noRateMatch_cm": 23.6,
+   "speedRatio_0.8_rateMatched_cm": 20.8,
+   "speedRatio_0.9_noRateMatch_cm": 22.2,
+   "speedRatio_0.9_rateMatched_cm": 20.8,
+   "speedRatio_1_noRateMatch_cm": 20.8,
+   "speedRatio_1_rateMatched_cm": 20.8,
+   "speedRatio_1.1_noRateMatch_cm": 19.4,
+   "speedRatio_1.1_rateMatched_cm": 20.8,
+   "speedRatio_1.25_noRateMatch_cm": 17.3,
+   "speedRatio_1.25_rateMatched_cm": 20.8,
+   "speedRatio_1.5_noRateMatch_cm": 13.9,
+   "speedRatio_1.5_rateMatched_cm": 20.8
+  }
+ },
+ "terrainSlopeDeg": {
+  "mean": 3.71,
+  "p50": 2.77,
+  "p95": 9.74,
+  "max": 67.26,
+  "pctAbove10deg": 4.72,
+  "pctAbove20deg": 0.76,
+  "note": "central difference over 8 m on the 4 m heightfield (3DEP 1 m DEM resampled), whole 6.1 x 6.1 km window"
+ },
+ "noIK_terrainContact": {
+  "Little Round Top slope (E-W line)": {
+   "windowSlopeDeg": 9,
+   "stanceSamples": 2103,
+   "footErrorCm_abs": {
+    "mean": 2.4,
+    "p50": 2.3,
+    "p95": 5.8,
+    "max": 8.3
+   },
+   "pctStanceOver2cm": 57.9
+  },
+  "Culp Hill slope (E-W line)": {
+   "windowSlopeDeg": 14.3,
+   "stanceSamples": 2103,
+   "footErrorCm_abs": {
+    "mean": 4.1,
+    "p50": 3.6,
+    "p95": 9.4,
+    "max": 18.2
+   },
+   "pctStanceOver2cm": 80.6
+  },
+  "Cemetery Ridge (N-S line)": {
+   "windowSlopeDeg": 4.3,
+   "stanceSamples": 2103,
+   "footErrorCm_abs": {
+    "mean": 1.3,
+    "p50": 0.8,
+    "p95": 3.8,
+    "max": 8.6
+   },
+   "pctStanceOver2cm": 25.1
+  }
+ },
+ "legGeometry": {
+  "thighM": 0.43,
+  "shinM": 0.42,
+  "restHipHeightM": 0.93,
+  "restAnkleHeightM": 0.08,
+  "maxReachM": 0.85,
+  "restPelvisToAnkleM": 0.85,
+  "note": "the placeholder rest pose has straight legs (zero knee headroom): a mocap skeleton stands with ~5 to 10 degrees of knee flexion, which gives IK 2 to 4 cm of reach each way before the pelvis must move"
+ }
+}

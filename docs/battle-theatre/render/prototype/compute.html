@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="data:,"><title>Compute microbenchmarks</title>
+<style>body{background:#101214;color:#dde;font:12px/1.4 ui-monospace,Consolas,monospace;padding:12px}pre{white-space:pre-wrap}</style></head>
+<body><pre id="out">running...</pre>
+<script type="module">
+// GPU-driven crowd compute microbenchmarks: LOD cull+bin of N soldiers, pose blend + forward kinematics of M soldiers (NB bones, two clips blended), spring bones.
+// window.compute.run({ ... }) returns JSON; tools/run-compute.mjs drives it. Nothing here draws.
+const WG = 128;
+const cullWGSL = `struct P { planes: array<vec4f, 6>, cam: vec4f, nearR: f32, midR: f32, n: u32, pad: u32 }
+@group(0) @binding(0) var<uniform> U: P; @group(0) @binding(1) var<storage, read> pos: array<vec4f>; @group(0) @binding(2) var<storage, read_write> counters: array<atomic<u32>, 4>; @group(0) @binding(3) var<storage, read_write> lists: array<u32>;
+@compute @workgroup_size(${WG}) fn cs(@builtin(global_invocation_id) id: vec3u) { let i = id.x; if (i >= U.n) { return; } let p = pos[i]; for (var k = 0; k < 6; k++) { if (dot(U.planes[k].xyz, p.xyz) + U.planes[k].w < -p.w) { return; } }
+  let d = distance(p.xyz, U.cam.xyz); var cls = 2u; if (d < U.nearR) { cls = 0u; } else if (d < U.midR) { cls = 1u; } let slot = atomicAdd(&counters[cls], 1u); lists[cls * U.n + slot] = i; }`;
+const poseWGSL = (NB) => `struct S { a: vec4f }  // x = clipA frame index (float), y = clipB frame index, z = blend, w = unused
+@group(0) @binding(0) var<storage, read> st: array<vec4f>; @group(0) @binding(1) var<storage, read> clipQ: array<vec4f>; @group(0) @binding(2) var<storage, read> clipP: array<vec4f>; @group(0) @binding(3) var<storage, read> parent: array<i32>;
+@group(0) @binding(4) var<storage, read> rest: array<vec4f>; @group(0) @binding(5) var<storage, read_write> outM: array<vec4f>; @group(0) @binding(6) var<uniform> cnt: vec4u;
+fn qmul(a: vec4f, b: vec4f) -> vec4f { return vec4f(a.w * b.xyz + b.w * a.xyz + cross(a.xyz, b.xyz), a.w * b.w - dot(a.xyz, b.xyz)); }
+fn qrot(q: vec4f, v: vec3f) -> vec3f { let t = 2.0 * cross(q.xyz, v); return v + q.w * t + cross(q.xyz, t); }
+var<private> wq: array<vec4f, ${NB}>; var<private> wp: array<vec3f, ${NB}>;
+@compute @workgroup_size(64) fn cs(@builtin(global_invocation_id) id: vec3u) { let i = id.x; if (i >= cnt.x) { return; } let s = st[i]; let fa = u32(s.x) * ${NB}u; let fb = u32(s.y) * ${NB}u;
+  for (var b = 0u; b < ${NB}u; b++) { var qa = clipQ[fa + b]; var qb = clipQ[fb + b]; if (dot(qa, qb) < 0.0) { qb = -qb; } let q = normalize(mix(qa, qb, s.z)); let pp = mix(clipP[fa + b].xyz, clipP[fb + b].xyz, s.z);
+    let par = parent[b]; if (par < 0) { wq[b] = q; wp[b] = pp + rest[b].xyz; } else { wq[b] = qmul(wq[u32(par)], q); wp[b] = wp[u32(par)] + qrot(wq[u32(par)], pp + rest[b].xyz - rest[u32(par)].xyz); }
+    // skin matrix rows (rotation + translation relative to rest), 3 vec4 per bone
+    let q4 = wq[b]; let x = q4.x; let y = q4.y; let z = q4.z; let w = q4.w; let r0 = vec3f(1.0 - 2.0 * (y * y + z * z), 2.0 * (x * y - w * z), 2.0 * (x * z + w * y)); let r1 = vec3f(2.0 * (x * y + w * z), 1.0 - 2.0 * (x * x + z * z), 2.0 * (y * z - w * x)); let r2 = vec3f(2.0 * (x * z - w * y), 2.0 * (y * z + w * x), 1.0 - 2.0 * (x * x + y * y));
+    let h = rest[b].xyz; let t = wp[b] - vec3f(dot(r0, h), dot(r1, h), dot(r2, h)); let o = (i * ${NB}u + b) * 3u; outM[o] = vec4f(r0, t.x); outM[o + 1u] = vec4f(r1, t.y); outM[o + 2u] = vec4f(r2, t.z); } }`;
+const springWGSL = `@group(0) @binding(0) var<storage, read_write> x: array<vec4f>; @group(0) @binding(1) var<storage, read_write> v: array<vec4f>; @group(0) @binding(2) var<storage, read> tg: array<vec4f>; @group(0) @binding(3) var<uniform> cnt: vec4u;
+@compute @workgroup_size(64) fn cs(@builtin(global_invocation_id) id: vec3u) { let i = id.x; if (i >= cnt.x) { return; } let dt = 1.0 / 60.0; let a = 180.0 * (tg[i] - x[i]) - 12.0 * v[i]; let nv = v[i] + a * dt; v[i] = nv; x[i] = x[i] + nv * dt; }`;
+async function run(opts = {}) {
+  const adapter = await navigator.gpu.requestAdapter(opts.power ? { powerPreference: opts.power } : {}); const hasTS = adapter.features.has('timestamp-query'); const dev = await adapter.requestDevice({ requiredFeatures: hasTS ? ['timestamp-query'] : [], requiredLimits: { maxStorageBufferBindingSize: Math.min(adapter.limits.maxStorageBufferBindingSize, 1 << 29), maxBufferSize: Math.min(adapter.limits.maxBufferSize, 1 << 30) } });
+  const S = GPUBufferUsage.STORAGE, C = GPUBufferUsage.COPY_DST; const out = { adapter: adapter.info ? { vendor: adapter.info.vendor, arch: adapter.info.architecture } : {}, hasTimestamps: hasTS, results: [] };
+  const buf = (n, u, d) => { const b = dev.createBuffer({ size: Math.max(16, n), usage: u | C }); if (d) dev.queue.writeBuffer(b, 0, d); return b; };
+  const qs = hasTS ? dev.createQuerySet({ type: 'timestamp', count: 2 }) : null, qb = hasTS ? dev.createBuffer({ size: 16, usage: GPUBufferUsage.QUERY_RESOLVE | GPUBufferUsage.COPY_SRC }) : null, rb = hasTS ? dev.createBuffer({ size: 16, usage: GPUBufferUsage.MAP_READ | C }) : null;
+  async function time(name, pipeline, bg, groups, iters, meta) { // one compute pass containing `iters` dispatches; GPU ms from timestamps and from wall (submit to done)
+    const warm = dev.createCommandEncoder(); { const p = warm.beginComputePass(); p.setPipeline(pipeline); p.setBindGroup(0, bg); for (let i = 0; i < 3; i++) p.dispatchWorkgroups(groups); p.end(); } dev.queue.submit([warm.finish()]); await dev.queue.onSubmittedWorkDone();
+    const res = []; for (let rep = 0; rep < 5; rep++) { const enc = dev.createCommandEncoder(); const p = enc.beginComputePass(hasTS ? { timestampWrites: { querySet: qs, beginningOfPassWriteIndex: 0, endOfPassWriteIndex: 1 } } : undefined); p.setPipeline(pipeline); p.setBindGroup(0, bg); for (let i = 0; i < iters; i++) p.dispatchWorkgroups(groups); p.end();
+      if (hasTS) { enc.resolveQuerySet(qs, 0, 2, qb, 0); enc.copyBufferToBuffer(qb, 0, rb, 0, 16); } const t0 = performance.now(); dev.queue.submit([enc.finish()]); await dev.queue.onSubmittedWorkDone(); const wall = (performance.now() - t0) / iters;
+      let ts = null; if (hasTS) { await rb.mapAsync(GPUMapMode.READ); const a = new BigUint64Array(rb.getMappedRange().slice(0)); rb.unmap(); ts = Number(a[1] - a[0]) / 1e6 / iters; } res.push({ wall, ts }); }
+    res.sort((a, b) => a.wall - b.wall); const m = res[2]; out.results.push({ name, ...meta, gpuMsPerDispatch: m.ts === null ? null : +m.ts.toFixed(4), wallMsPerDispatch: +m.wall.toFixed(4), repsWallMs: res.map(r => +r.wall.toFixed(3)) }); }
+  // 1) cull + LOD bin
+  for (const N of [165000, 660000]) { const pos = new Float32Array(N * 4); for (let i = 0; i < N; i++) { pos[i * 4] = (Math.random() - .5) * 6000; pos[i * 4 + 1] = Math.random() * 30; pos[i * 4 + 2] = (Math.random() - .5) * 6000; pos[i * 4 + 3] = 1.5; }
+    const U = new Float32Array(24 + 8); // six planes pointing roughly +x with a wide cone, cam at origin
+    const planes = [[1, 0, 0, 3200], [-1, 0, 0, 3200], [0, 0, 1, 3200], [0, 0, -1, 3200], [0, 1, 0, 100], [0, -1, 0, 400]]; planes.forEach((p, i) => U.set(p, i * 4)); U.set([0, 20, 0, 0], 24); const u32 = new Uint32Array(U.buffer); U[28] = 40; U[29] = 300; u32[30] = N;
+    const ub = buf(128, GPUBufferUsage.UNIFORM, U), pb = buf(N * 16, S, pos), cb = buf(16, S), lb = buf(N * 3 * 4, S); const mod = dev.createShaderModule({ code: cullWGSL }); const pl = dev.createComputePipeline({ layout: 'auto', compute: { module: mod, entryPoint: 'cs' } });
+    const bg = dev.createBindGroup({ layout: pl.getBindGroupLayout(0), entries: [{ binding: 0, resource: { buffer: ub } }, { binding: 1, resource: { buffer: pb } }, { binding: 2, resource: { buffer: cb } }, { binding: 3, resource: { buffer: lb } }] });
+    await time('cull+lod-bin', pl, bg, Math.ceil(N / WG), 20, { instances: N, note: 'frustum sphere test, 3 distance classes, atomic append; 90% of points inside the frustum' }); }
+  // 2) pose blend + FK
+  for (const NB of [24, 60]) for (const M of [600, 20000, 165000]) { const frames = 120, clips = 40; const nf = frames * clips; const st = new Float32Array(M * 4); for (let i = 0; i < M; i++) { st[i * 4] = Math.floor(Math.random() * nf); st[i * 4 + 1] = Math.floor(Math.random() * nf); st[i * 4 + 2] = Math.random(); }
+    const cq = new Float32Array(nf * NB * 4), cp = new Float32Array(nf * NB * 4); for (let i = 0; i < nf * NB; i++) { const a = Math.random() * .3, ax = [Math.random(), Math.random(), Math.random()]; const l = Math.hypot(...ax); cq.set([ax[0] / l * Math.sin(a), ax[1] / l * Math.sin(a), ax[2] / l * Math.sin(a), Math.cos(a)], i * 4); }
+    const par = new Int32Array(NB); for (let b = 0; b < NB; b++) par[b] = b === 0 ? -1 : Math.floor(Math.random() * b * .5 + b * .4 - .4 * (b > 3 ? 0 : 0)) % b; const rest = new Float32Array(NB * 4); for (let b = 0; b < NB; b++) rest.set([Math.random() * .2, b * .03, Math.random() * .1, 0], b * 4);
+    const bufs = [buf(M * 16, S, st), buf(cq.byteLength, S, cq), buf(cp.byteLength, S, cp), buf(NB * 4, S, par), buf(NB * 16, S, rest), buf(M * NB * 48, S), buf(16, GPUBufferUsage.UNIFORM, new Uint32Array([M, 0, 0, 0]))];
+    const mod = dev.createShaderModule({ code: poseWGSL(NB) }); const pl = dev.createComputePipeline({ layout: 'auto', compute: { module: mod, entryPoint: 'cs' } }); const bg = dev.createBindGroup({ layout: pl.getBindGroupLayout(0), entries: bufs.map((b, i) => ({ binding: i, resource: { buffer: b } })) });
+    await time('pose-blend+FK', pl, bg, Math.ceil(M / 64), M > 50000 ? 5 : 20, { soldiers: M, bones: NB, outputMiB: +(M * NB * 48 / 1048576).toFixed(1), note: 'two clips blended (nlerp), serial FK per soldier thread, writes 3 vec4 per bone; clip data 40 clips x 120 frames' }); }
+  // 3) spring bones
+  for (const N of [6000, 165000 * 10]) { const bx = buf(N * 16, S), bv = buf(N * 16, S), bt = buf(N * 16, S, new Float32Array(N * 4).fill(.1)), bc = buf(16, GPUBufferUsage.UNIFORM, new Uint32Array([N, 0, 0, 0])); const mod = dev.createShaderModule({ code: springWGSL }); const pl = dev.createComputePipeline({ layout: 'auto', compute: { module: mod, entryPoint: 'cs' } });
+    const bg = dev.createBindGroup({ layout: pl.getBindGroupLayout(0), entries: [bx, bv, bt, bc].map((b, i) => ({ binding: i, resource: { buffer: b } })) }); await time('spring-bones', pl, bg, Math.ceil(N / 64), 20, { springs: N, note: 'semi-implicit Euler, 3 axes packed in vec4' }); }
+  return out;
+}
+window.compute = { run };
+run().then(r => { window.computeResult = r; document.getElementById('out').textContent = JSON.stringify(r, null, 1); }).catch(e => { window.computeError = String(e); document.getElementById('out').textContent = 'ERROR ' + e; });
+</script></body></html>

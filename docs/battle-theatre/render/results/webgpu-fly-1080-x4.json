@@ -1,0 +1,162 @@
+{
+ "suite": "fly",
+ "api": "webgpu",
+ "res": [
+  1920,
+  1080
+ ],
+ "throttle": 4,
+ "date": "2026-10-19T19:29:13.816Z",
+ "runs": [
+  {
+   "name": "fly-through film",
+   "shot": "ridge",
+   "flags": "all",
+   "fps": 128.8,
+   "frame_ms": 7.76,
+   "p95": 11.4,
+   "p99": 13.6,
+   "max": 22.1,
+   "hitches": 39,
+   "gpuWall": 12.21,
+   "cpu": {
+    "mean": 3.1,
+    "lod": 1.43,
+    "pose": 0.01,
+    "encode": 0.71,
+    "fx": 0.4
+   },
+   "gpu": {
+    "shadow0": 0.44,
+    "shadow1": 0.43,
+    "scene": 2.65,
+    "particles": 0.37,
+    "bloom": 0.3,
+    "post": 0.56,
+    "total": 4.75
+   },
+   "counts": {
+    "nearFoot": 0,
+    "nearMnt": 0,
+    "midFoot": 1509,
+    "midMnt": 128,
+    "far": 165000,
+    "tris_M": 3.9,
+    "events": 2212
+   }
+  },
+  {
+   "name": "fly-through x3 speed",
+   "shot": "ridge",
+   "flags": "all",
+   "fps": 100.5,
+   "frame_ms": 9.95,
+   "p95": 15.4,
+   "p99": 21.4,
+   "max": 29.4,
+   "hitches": 44,
+   "gpuWall": 15.41,
+   "cpu": {
+    "mean": 4.07,
+    "lod": 1.81,
+    "pose": 0.31,
+    "encode": 0.89,
+    "fx": 0.48
+   },
+   "gpu": {
+    "shadow0": 0.72,
+    "shadow1": 0.71,
+    "scene": 2.64,
+    "particles": 1.33,
+    "bloom": 0.32,
+    "post": 0.62,
+    "total": 6.34
+   },
+   "counts": {
+    "nearFoot": 76,
+    "nearMnt": 0,
+    "midFoot": 1075,
+    "midMnt": 96,
+    "far": 165000,
+    "tris_M": 3.49,
+    "events": 1784
+   }
+  },
+  {
+   "name": "fly-through full",
+   "shot": "ridge",
+   "flags": "-dof -mblur",
+   "fps": 107.1,
+   "frame_ms": 9.34,
+   "p95": 13.1,
+   "p99": 16.1,
+   "max": 20.8,
+   "hitches": 12,
+   "gpuWall": 14.59,
+   "cpu": {
+    "mean": 3.8,
+    "lod": 1.82,
+    "pose": 0.01,
+    "encode": 0.99,
+    "fx": 0.39
+   },
+   "gpu": {
+    "shadow0": 0.58,
+    "shadow1": 0.57,
+    "scene": 3.49,
+    "particles": 0.45,
+    "bloom": 0.33,
+    "post": 0.47,
+    "total": 5.89
+   },
+   "counts": {
+    "nearFoot": 0,
+    "nearMnt": 0,
+    "midFoot": 778,
+    "midMnt": 24,
+    "far": 165000,
+    "tris_M": 2.82,
+    "events": 1499
+   }
+  }
+ ],
+ "adapter": {
+  "vendor": "intel",
+  "arch": "xe-lpg",
+  "device": "",
+  "desc": ""
+ },
+ "world": {
+  "soldiers": 165000,
+  "units": 992,
+  "guns": 360,
+  "batteries": 60,
+  "mounted": 12000,
+  "horses": 12000,
+  "crew": 2880,
+  "union": 92686,
+  "confederate": 72314
+ },
+ "timing": {
+  "navToWorld": 472.69999998807907,
+  "worldToInit": 2400.2000000476837,
+  "initMs": 2382.900000035763,
+  "bakeMs": 1936.8999999761581,
+  "navToReady": 2874.5
+ },
+ "loadMs": 2953,
+ "bytes": {
+  "total": 5552254,
+  "items": [
+   [
+    "/prototype/data/height.bin",
+    4413259
+   ],
+   [
+    "/prototype/data/aerial.jpg",
+    1096087
+   ]
+  ]
+ },
+ "log": []
+}

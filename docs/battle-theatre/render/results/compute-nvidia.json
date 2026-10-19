@@ -1,0 +1,162 @@
+{
+ "adapter": {
+  "vendor": "nvidia",
+  "arch": "blackwell"
+ },
+ "hasTimestamps": true,
+ "results": [
+  {
+   "name": "cull+lod-bin",
+   "instances": 165000,
+   "note": "frustum sphere test, 3 distance classes, atomic append; 90% of points inside the frustum",
+   "gpuMsPerDispatch": 0.0284,
+   "wallMsPerDispatch": 0.19,
+   "repsWallMs": [
+    0.13,
+    0.135,
+    0.19,
+    0.205,
+    0.25
+   ]
+  },
+  {
+   "name": "cull+lod-bin",
+   "instances": 660000,
+   "note": "frustum sphere test, 3 distance classes, atomic append; 90% of points inside the frustum",
+   "gpuMsPerDispatch": 0.1045,
+   "wallMsPerDispatch": 0.195,
+   "repsWallMs": [
+    0.17,
+    0.185,
+    0.195,
+    0.295,
+    0.415
+   ]
+  },
+  {
+   "name": "pose-blend+FK",
+   "soldiers": 600,
+   "bones": 24,
+   "outputMiB": 0.7,
+   "note": "two clips blended (nlerp), serial FK per soldier thread, writes 3 vec4 per bone; clip data 40 clips x 120 frames",
+   "gpuMsPerDispatch": 0.0414,
+   "wallMsPerDispatch": 0.15,
+   "repsWallMs": [
+    0.14,
+    0.15,
+    0.15,
+    0.15,
+    0.155
+   ]
+  },
+  {
+   "name": "pose-blend+FK",
+   "soldiers": 20000,
+   "bones": 24,
+   "outputMiB": 22,
+   "note": "two clips blended (nlerp), serial FK per soldier thread, writes 3 vec4 per bone; clip data 40 clips x 120 frames",
+   "gpuMsPerDispatch": 0.3098,
+   "wallMsPerDispatch": 0.375,
+   "repsWallMs": [
+    0.355,
+    0.37,
+    0.375,
+    0.395,
+    0.44
+   ]
+  },
+  {
+   "name": "pose-blend+FK",
+   "soldiers": 165000,
+   "bones": 24,
+   "outputMiB": 181.3,
+   "note": "two clips blended (nlerp), serial FK per soldier thread, writes 3 vec4 per bone; clip data 40 clips x 120 frames",
+   "gpuMsPerDispatch": 2.5005,
+   "wallMsPerDispatch": 2.68,
+   "repsWallMs": [
+    2.66,
+    2.68,
+    2.68,
+    2.86,
+    2.98
+   ]
+  },
+  {
+   "name": "pose-blend+FK",
+   "soldiers": 600,
+   "bones": 60,
+   "outputMiB": 1.6,
+   "note": "two clips blended (nlerp), serial FK per soldier thread, writes 3 vec4 per bone; clip data 40 clips x 120 frames",
+   "gpuMsPerDispatch": 1.2185,
+   "wallMsPerDispatch": 1.29,
+   "repsWallMs": [
+    1.265,
+    1.27,
+    1.29,
+    1.33,
+    1.34
+   ]
+  },
+  {
+   "name": "pose-blend+FK",
+   "soldiers": 20000,
+   "bones": 60,
+   "outputMiB": 54.9,
+   "note": "two clips blended (nlerp), serial FK per soldier thread, writes 3 vec4 per bone; clip data 40 clips x 120 frames",
+   "gpuMsPerDispatch": 7.2298,
+   "wallMsPerDispatch": 7.345,
+   "repsWallMs": [
+    6.95,
+    7,
+    7.345,
+    7.52,
+    7.72
+   ]
+  },
+  {
+   "name": "pose-blend+FK",
+   "soldiers": 165000,
+   "bones": 60,
+   "outputMiB": 453.2,
+   "note": "two clips blended (nlerp), serial FK per soldier thread, writes 3 vec4 per bone; clip data 40 clips x 120 frames",
+   "gpuMsPerDispatch": 52.0564,
+   "wallMsPerDispatch": 52.5,
+   "repsWallMs": [
+    46.9,
+    49.66,
+    52.5,
+    55.1,
+    60.06
+   ]
+  },
+  {
+   "name": "spring-bones",
+   "springs": 6000,
+   "note": "semi-implicit Euler, 3 axes packed in vec4",
+   "gpuMsPerDispatch": 0.0018,
+   "wallMsPerDispatch": 0.145,
+   "repsWallMs": [
+    0.135,
+    0.135,
+    0.145,
+    0.145,
+    0.205
+   ]
+  },
+  {
+   "name": "spring-bones",
+   "springs": 1650000,
+   "note": "semi-implicit Euler, 3 axes packed in vec4",
+   "gpuMsPerDispatch": 0.4952,
+   "wallMsPerDispatch": 0.55,
+   "repsWallMs": [
+    0.535,
+    0.545,
+    0.55,
+    0.555,
+    0.575
+   ]
+  }
+ ],
+ "log": []
+}

@@ -1,0 +1,264 @@
+{
+ "note": "placeholder analytic clips on the 0.35-quality mid mesh (1152 tris, 909 vertices); numbers are the harness output, the gate targets are in PLAN.md",
+ "vatInterpErrorMm": {
+  "8": {
+   "idle": {
+    "max": 3.18,
+    "mean": 0.26
+   },
+   "march": {
+    "max": 95.71,
+    "mean": 4.86
+   },
+   "run": {
+    "max": 154.03,
+    "mean": 9.62
+   },
+   "load": {
+    "max": 403.79,
+    "mean": 4.89
+   },
+   "fire": {
+    "max": 220.5,
+    "mean": 10.54
+   },
+   "fall": {
+    "max": 54.38,
+    "mean": 11.65
+   }
+  },
+  "16": {
+   "idle": {
+    "max": 0.81,
+    "mean": 0.07
+   },
+   "march": {
+    "max": 24.36,
+    "mean": 1.19
+   },
+   "run": {
+    "max": 39.52,
+    "mean": 2.41
+   },
+   "load": {
+    "max": 272.52,
+    "mean": 2.8
+   },
+   "fire": {
+    "max": 83.87,
+    "mean": 2.95
+   },
+   "fall": {
+    "max": 12.59,
+    "mean": 2.63
+   }
+  },
+  "32": {
+   "idle": {
+    "max": 0.2,
+    "mean": 0.02
+   },
+   "march": {
+    "max": 18.25,
+    "mean": 0.32
+   },
+   "run": {
+    "max": 29.6,
+    "mean": 0.64
+   },
+   "load": {
+    "max": 102.06,
+    "mean": 1
+   },
+   "fire": {
+    "max": 74.26,
+    "mean": 0.91
+   },
+   "fall": {
+    "max": 3.46,
+    "mean": 0.62
+   }
+  },
+  "64": {
+   "idle": {
+    "max": 0.05,
+    "mean": 0
+   },
+   "march": {
+    "max": 9.17,
+    "mean": 0.08
+   },
+   "run": {
+    "max": 14.86,
+    "mean": 0.16
+   },
+   "load": {
+    "max": 57.15,
+    "mean": 0.28
+   },
+   "fire": {
+    "max": 29.65,
+    "mean": 0.23
+   },
+   "fall": {
+    "max": 0.8,
+    "mean": 0.15
+   }
+  },
+  "128": {
+   "idle": {
+    "max": 0.01,
+    "mean": 0
+   },
+   "march": {
+    "max": 3.94,
+    "mean": 0.02
+   },
+   "run": {
+    "max": 6.4,
+    "mean": 0.04
+   },
+   "load": {
+    "max": 46.26,
+    "mean": 0.08
+   },
+   "fire": {
+    "max": 8.52,
+    "mean": 0.06
+   },
+   "fall": {
+    "max": 0.2,
+    "mean": 0.04
+   }
+  }
+ },
+ "transitionPops": [
+  {
+   "from": "load",
+   "to": "fire",
+   "popMeanMm": 24.1,
+   "popMaxMm": 202.8,
+   "normalFrameStepMeanMm_at60Hz": 4.45,
+   "popAsFrames": 5.4
+  },
+  {
+   "from": "fire",
+   "to": "load",
+   "popMeanMm": 28.2,
+   "popMaxMm": 202.8,
+   "normalFrameStepMeanMm_at60Hz": 1.62,
+   "popAsFrames": 17.4
+  },
+  {
+   "from": "march",
+   "to": "fall",
+   "popMeanMm": 101.3,
+   "popMaxMm": 664.5,
+   "normalFrameStepMeanMm_at60Hz": 7.8,
+   "popAsFrames": 13
+  },
+  {
+   "from": "march",
+   "to": "run",
+   "popMeanMm": 87.2,
+   "popMaxMm": 438.2,
+   "normalFrameStepMeanMm_at60Hz": 7.87,
+   "popAsFrames": 11.1
+  },
+  {
+   "from": "run",
+   "to": "march",
+   "popMeanMm": 121.5,
+   "popMaxMm": 451.6,
+   "normalFrameStepMeanMm_at60Hz": 14.63,
+   "popAsFrames": 8.3
+  },
+  {
+   "from": "idle",
+   "to": "march",
+   "popMeanMm": 229.3,
+   "popMaxMm": 939.9,
+   "normalFrameStepMeanMm_at60Hz": 0.17,
+   "popAsFrames": 1333.4
+  },
+  {
+   "from": "march",
+   "to": "idle",
+   "popMeanMm": 231.1,
+   "popMaxMm": 939.8,
+   "normalFrameStepMeanMm_at60Hz": 7.8,
+   "popAsFrames": 29.6
+  },
+  {
+   "from": "fire",
+   "to": "march",
+   "popMeanMm": 215.3,
+   "popMaxMm": 962.3,
+   "normalFrameStepMeanMm_at60Hz": 7.8,
+   "popAsFrames": 27.6
+  },
+  {
+   "from": "load",
+   "to": "run",
+   "popMeanMm": 232.2,
+   "popMaxMm": 873.1,
+   "normalFrameStepMeanMm_at60Hz": 0.17,
+   "popAsFrames": 1371.7
+  },
+  {
+   "from": "idle",
+   "to": "fall",
+   "popMeanMm": 218.1,
+   "popMaxMm": 890.6,
+   "normalFrameStepMeanMm_at60Hz": 0.08,
+   "popAsFrames": 2181
+  }
+ ],
+ "inClipStepMm_60Hz": {
+  "idle": {
+   "meanOfMeans": 0.13,
+   "maxOfMax": 1.1
+  },
+  "march": {
+   "meanOfMeans": 6.81,
+   "maxOfMax": 62.6
+  },
+  "run": {
+   "meanOfMeans": 19.69,
+   "maxOfMax": 162.4
+  },
+  "load": {
+   "meanOfMeans": 0.8,
+   "maxOfMax": 60.5
+  },
+  "fire": {
+   "meanOfMeans": 7.93,
+   "maxOfMax": 160.5
+  },
+  "fall": {
+   "meanOfMeans": 16.31,
+   "maxOfMax": 68.3
+  }
+ },
+ "springBones": {
+  "springs": 6000,
+  "axes": 3,
+  "msPerFrame": 0.0411,
+  "note": "one semi-implicit Euler step per axis, JS scalar; 6000 springs = 600 near soldiers x 10 secondary bones"
+ },
+ "poseFkCost": {
+  "bones": 18,
+  "usPerSoldier": 1.84,
+  "note": "poseFoot + fk, allocation-heavy placeholder code (quaternion arrays); a typed-array FK would be 3 to 5 times cheaper (Unknown until written)"
+ },
+ "placeholderVariation": {
+  "neighbourPairsTested": 5591,
+  "identicalQuantisedSignature": 23,
+  "pct": 0.41,
+  "signature": "clip, phase bucket (1/20 cycle = 50 ms at 1 s cycle), body-variant bucket (8), height-scale bucket (2 cm)",
+  "distinctBodyMeshes": 1,
+  "distinctFaces": 0,
+  "distinctGaitClipsPerState": 1,
+  "note": "continuous parameters only (phase, rate, scale, tint); the placeholder has 1 body mesh, 0 faces, 1 clip per state, so it fails the clone gate by construction"
+ }
+}

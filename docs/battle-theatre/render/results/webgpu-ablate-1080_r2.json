@@ -1,0 +1,1161 @@
+{
+ "suite": "ablate",
+ "api": "webgpu",
+ "res": [
+  1920,
+  1080
+ ],
+ "throttle": 1,
+ "date": "2026-10-19T19:39:30.358Z",
+ "runs": [
+  {
+   "name": "all",
+   "shot": "ridge",
+   "flags": "all",
+   "fps": 187.6,
+   "frame_ms": 5.33,
+   "p95": 7.6,
+   "p99": 8.6,
+   "max": 12.3,
+   "hitches": 5,
+   "gpuWall": 10.17,
+   "cpu": {
+    "mean": 0.55,
+    "lod": 0.19,
+    "pose": 0,
+    "encode": 0.09,
+    "fx": 0.07
+   },
+   "gpu": {
+    "shadow0": 0.31,
+    "shadow1": 0.27,
+    "scene": 1.6,
+    "particles": 0.94,
+    "bloom": 0.27,
+    "post": 0.5,
+    "total": 3.9
+   },
+   "counts": {
+    "nearFoot": 0,
+    "nearMnt": 0,
+    "midFoot": 280,
+    "midMnt": 0,
+    "far": 165000,
+    "tris_M": 2.42,
+    "events": 3087
+   }
+  },
+  {
+   "name": "-particles",
+   "shot": "ridge",
+   "flags": "-particles",
+   "fps": 227.4,
+   "frame_ms": 4.4,
+   "p95": 6.9,
+   "p99": 8.9,
+   "max": 9.8,
+   "hitches": 9,
+   "gpuWall": 8.37,
+   "cpu": {
+    "mean": 0.41,
+    "lod": 0.18,
+    "pose": 0,
+    "encode": 0.07,
+    "fx": 0.07
+   },
+   "gpu": {
+    "shadow0": 0.3,
+    "shadow1": 0.27,
+    "scene": 1.6,
+    "particles": 0,
+    "bloom": 0.28,
+    "post": 0.51,
+    "total": 2.96
+   },
+   "counts": {
+    "nearFoot": 0,
+    "nearMnt": 0,
+    "midFoot": 280,
+    "midMnt": 0,
+    "far": 165000,
+    "tris_M": 2.42,
+    "events": 3087
+   }
+  },
+  {
+   "name": "-shadows",
+   "shot": "ridge",
+   "flags": "-shadows",
+   "fps": 209.8,
+   "frame_ms": 4.77,
+   "p95": 7,
+   "p99": 7.4,
+   "max": 7.5,
+   "hitches": 2,
+   "gpuWall": 9.03,
+   "cpu": {
+    "mean": 0.49,
+    "lod": 0.24,
+    "pose": 0,
+    "encode": 0.09,
+    "fx": 0.07
+   },
+   "gpu": {
+    "shadow0": 0,
+    "shadow1": 0,
+    "scene": 1.62,
+    "particles": 0.88,
+    "bloom": 0.28,
+    "post": 0.51,
+    "total": 3.3
+   },
+   "counts": {
+    "nearFoot": 0,
+    "nearMnt": 0,
+    "midFoot": 280,
+    "midMnt": 0,
+    "far": 165000,
+    "tris_M": 2.42,
+    "events": 3087
+   }
+  },
+  {
+   "name": "-far",
+   "shot": "ridge",
+   "flags": "-far",
+   "fps": 200.6,
+   "frame_ms": 4.98,
+   "p95": 7,
+   "p99": 7.4,
+   "max": 10.9,
+   "hitches": 1,
+   "gpuWall": 9.41,
+   "cpu": {
+    "mean": 0.5,
+    "lod": 0.27,
+    "pose": 0,
+    "encode": 0.1,
+    "fx": 0.07
+   },
+   "gpu": {
+    "shadow0": 0.3,
+    "shadow1": 0.27,
+    "scene": 1.22,
+    "particles": 0.91,
+    "bloom": 0.29,
+    "post": 0.52,
+    "total": 3.5
+   },
+   "counts": {
+    "nearFoot": 0,
+    "nearMnt": 0,
+    "midFoot": 280,
+    "midMnt": 0,
+    "far": 165000,
+    "tris_M": 2.42,
+    "events": 3087
+   }
+  },
+  {
+   "name": "-mid",
+   "shot": "ridge",
+   "flags": "-mid",
+   "fps": 187.7,
+   "frame_ms": 5.33,
+   "p95": 8,
+   "p99": 10.2,
+   "max": 10.3,
+   "hitches": 6,
+   "gpuWall": 10.08,
+   "cpu": {
+    "mean": 0.56,
+    "lod": 0.29,
+    "pose": 0,
+    "encode": 0.11,
+    "fx": 0.07
+   },
+   "gpu": {
+    "shadow0": 0.22,
+    "shadow1": 0.19,
+    "scene": 1.51,
+    "particles": 0.95,
+    "bloom": 0.28,
+    "post": 0.52,
+    "total": 3.68
+   },
+   "counts": {
+    "nearFoot": 0,
+    "nearMnt": 0,
+    "midFoot": 280,
+    "midMnt": 0,
+    "far": 165000,
+    "tris_M": 2.42,
+    "events": 3087
+   }
+  },
+  {
+   "name": "-near",
+   "shot": "ridge",
+   "flags": "-near",
+   "fps": 181.3,
+   "frame_ms": 5.52,
+   "p95": 7.2,
+   "p99": 8.8,
+   "max": 9.9,
+   "hitches": 3,
+   "gpuWall": 10.47,
+   "cpu": {
+    "mean": 0.59,
+    "lod": 0.28,
+    "pose": 0,
+    "encode": 0.13,
+    "fx": 0.08
+   },
+   "gpu": {
+    "shadow0": 0.31,
+    "shadow1": 0.27,
+    "scene": 1.66,
+    "particles": 0.85,
+    "bloom": 0.29,
+    "post": 0.53,
+    "total": 3.91
+   },
+   "counts": {
+    "nearFoot": 0,
+    "nearMnt": 0,
+    "midFoot": 280,
+    "midMnt": 0,
+    "far": 165000,
+    "tris_M": 2.42,
+    "events": 3087
+   }
+  },
+  {
+   "name": "-guns",
+   "shot": "ridge",
+   "flags": "-guns",
+   "fps": 191.8,
+   "frame_ms": 5.21,
+   "p95": 7.1,
+   "p99": 8.1,
+   "max": 10.7,
+   "hitches": 3,
+   "gpuWall": 9.82,
+   "cpu": {
+    "mean": 0.58,
+    "lod": 0.29,
+    "pose": 0,
+    "encode": 0.12,
+    "fx": 0.08
+   },
+   "gpu": {
+    "shadow0": 0.08,
+    "shadow1": 0.07,
+    "scene": 1.4,
+    "particles": 0.96,
+    "bloom": 0.29,
+    "post": 0.52,
+    "total": 3.32
+   },
+   "counts": {
+    "nearFoot": 0,
+    "nearMnt": 0,
+    "midFoot": 280,
+    "midMnt": 0,
+    "far": 165000,
+    "tris_M": 1.39,
+    "events": 3087
+   }
+  },
+  {
+   "name": "-terrain",
+   "shot": "ridge",
+   "flags": "-terrain",
+   "fps": 195.1,
+   "frame_ms": 5.13,
+   "p95": 7.2,
+   "p99": 9.7,
+   "max": 10.7,
+   "hitches": 3,
+   "gpuWall": 9.73,
+   "cpu": {
+    "mean": 0.47,
+    "lod": 0.23,
+    "pose": 0,
+    "encode": 0.1,
+    "fx": 0.06
+   },
+   "gpu": {
+    "shadow0": 0.3,
+    "shadow1": 0.27,
+    "scene": 0.95,
+    "particles": 1.03,
+    "bloom": 0.28,
+    "post": 0.49,
+    "total": 3.32
+   },
+   "counts": {
+    "nearFoot": 0,
+    "nearMnt": 0,
+    "midFoot": 280,
+    "midMnt": 0,
+    "far": 165000,
+    "tris_M": 2.42,
+    "events": 3087
+   }
+  },
+  {
+   "name": "-post",
+   "shot": "ridge",
+   "flags": "-post",
+   "fps": 190.3,
+   "frame_ms": 5.26,
+   "p95": 7,
+   "p99": 8,
+   "max": 9.5,
+   "hitches": 4,
+   "gpuWall": 10.05,
+   "cpu": {
+    "mean": 0.44,
+    "lod": 0.24,
+    "pose": 0,
+    "encode": 0.07,
+    "fx": 0.06
+   },
+   "gpu": {
+    "shadow0": 0.3,
+    "shadow1": 0.27,
+    "scene": 1.59,
+    "particles": 0.88,
+    "bloom": 0,
+    "post": 0.49,
+    "total": 3.54
+   },
+   "counts": {
+    "nearFoot": 0,
+    "nearMnt": 0,
+    "midFoot": 280,
+    "midMnt": 0,
+    "far": 165000,
+    "tris_M": 2.42,
+    "events": 3087
+   }
+  },
+  {
+   "name": "sky only",
+   "shot": "ridge",
+   "flags": "-terrain -near -mid -far -guns -particles -shadows -post -bloom -dof -mblur",
+   "fps": 460.5,
+   "frame_ms": 2.17,
+   "p95": 5,
+   "p99": 5.1,
+   "max": 5.5,
+   "hitches": 51,
+   "gpuWall": 3.84,
+   "cpu": {
+    "mean": 0.39,
+    "lod": 0.19,
+    "pose": 0,
+    "encode": 0.05,
+    "fx": 0.07
+   },
+   "gpu": {
+    "shadow0": 0,
+    "shadow1": 0,
+    "scene": 0.2,
+    "particles": 0,
+    "bloom": 0,
+    "post": 0.42,
+    "total": 0.62
+   },
+   "counts": {
+    "nearFoot": 0,
+    "nearMnt": 0,
+    "midFoot": 280,
+    "midMnt": 0,
+    "far": 165000,
+    "tris_M": 1.39,
+    "events": 3087
+   }
+  },
+  {
+   "name": "all",
+   "shot": "line",
+   "flags": "all",
+   "fps": 70.7,
+   "frame_ms": 14.14,
+   "p95": 22.1,
+   "p99": 24.5,
+   "max": 26.4,
+   "hitches": 7,
+   "gpuWall": 27.08,
+   "cpu": {
+    "mean": 1.13,
+    "lod": 0.54,
+    "pose": 0.24,
+    "encode": 0.14,
+    "fx": 0.09
+   },
+   "gpu": {
+    "shadow0": 1.18,
+    "shadow1": 1.13,
+    "scene": 2.71,
+    "particles": 5.37,
+    "bloom": 0.34,
+    "post": 0.59,
+    "total": 11.3
+   },
+   "counts": {
+    "nearFoot": 124,
+    "nearMnt": 0,
+    "midFoot": 2256,
+    "midMnt": 48,
+    "far": 165000,
+    "tris_M": 5,
+    "events": 1828
+   }
+  },
+  {
+   "name": "-particles",
+   "shot": "line",
+   "flags": "-particles",
+   "fps": 132.2,
+   "frame_ms": 7.56,
+   "p95": 10.9,
+   "p99": 11.8,
+   "max": 12.1,
+   "hitches": 3,
+   "gpuWall": 14.11,
+   "cpu": {
+    "mean": 1.02,
+    "lod": 0.47,
+    "pose": 0.24,
+    "encode": 0.12,
+    "fx": 0.11
+   },
+   "gpu": {
+    "shadow0": 0.94,
+    "shadow1": 0.92,
+    "scene": 2.19,
+    "particles": 0,
+    "bloom": 0.3,
+    "post": 0.54,
+    "total": 4.89
+   },
+   "counts": {
+    "nearFoot": 124,
+    "nearMnt": 0,
+    "midFoot": 2256,
+    "midMnt": 48,
+    "far": 165000,
+    "tris_M": 5,
+    "events": 1828
+   }
+  },
+  {
+   "name": "-shadows",
+   "shot": "line",
+   "flags": "-shadows",
+   "fps": 93.5,
+   "frame_ms": 10.7,
+   "p95": 14.2,
+   "p99": 15.5,
+   "max": 17.2,
+   "hitches": 1,
+   "gpuWall": 20.4,
+   "cpu": {
+    "mean": 1.02,
+    "lod": 0.48,
+    "pose": 0.22,
+    "encode": 0.12,
+    "fx": 0.09
+   },
+   "gpu": {
+    "shadow0": 0,
+    "shadow1": 0,
+    "scene": 2.17,
+    "particles": 4.49,
+    "bloom": 0.29,
+    "post": 0.52,
+    "total": 7.46
+   },
+   "counts": {
+    "nearFoot": 124,
+    "nearMnt": 0,
+    "midFoot": 2256,
+    "midMnt": 48,
+    "far": 165000,
+    "tris_M": 5,
+    "events": 1828
+   }
+  },
+  {
+   "name": "-far",
+   "shot": "line",
+   "flags": "-far",
+   "fps": 83.1,
+   "frame_ms": 12.03,
+   "p95": 14.7,
+   "p99": 15.6,
+   "max": 15.6,
+   "hitches": 0,
+   "gpuWall": 22.97,
+   "cpu": {
+    "mean": 1.09,
+    "lod": 0.53,
+    "pose": 0.23,
+    "encode": 0.14,
+    "fx": 0.09
+   },
+   "gpu": {
+    "shadow0": 0.93,
+    "shadow1": 0.96,
+    "scene": 1.69,
+    "particles": 4.39,
+    "bloom": 0.29,
+    "post": 0.53,
+    "total": 8.78
+   },
+   "counts": {
+    "nearFoot": 124,
+    "nearMnt": 0,
+    "midFoot": 2256,
+    "midMnt": 48,
+    "far": 165000,
+    "tris_M": 5,
+    "events": 1828
+   }
+  },
+  {
+   "name": "-mid",
+   "shot": "line",
+   "flags": "-mid",
+   "fps": 90.4,
+   "frame_ms": 11.06,
+   "p95": 14.4,
+   "p99": 16,
+   "max": 16.3,
+   "hitches": 0,
+   "gpuWall": 20.84,
+   "cpu": {
+    "mean": 1.23,
+    "lod": 0.56,
+    "pose": 0.25,
+    "encode": 0.18,
+    "fx": 0.12
+   },
+   "gpu": {
+    "shadow0": 0.35,
+    "shadow1": 0.35,
+    "scene": 1.83,
+    "particles": 5.23,
+    "bloom": 0.4,
+    "post": 0.57,
+    "total": 8.74
+   },
+   "counts": {
+    "nearFoot": 124,
+    "nearMnt": 0,
+    "midFoot": 2256,
+    "midMnt": 48,
+    "far": 165000,
+    "tris_M": 5,
+    "events": 1828
+   }
+  },
+  {
+   "name": "-near",
+   "shot": "line",
+   "flags": "-near",
+   "fps": 83.2,
+   "frame_ms": 12.03,
+   "p95": 15.1,
+   "p99": 16,
+   "max": 17,
+   "hitches": 0,
+   "gpuWall": 22.69,
+   "cpu": {
+    "mean": 1.33,
+    "lod": 0.58,
+    "pose": 0.27,
+    "encode": 0.2,
+    "fx": 0.13
+   },
+   "gpu": {
+    "shadow0": 0.84,
+    "shadow1": 0.84,
+    "scene": 2.06,
+    "particles": 4.46,
+    "bloom": 0.32,
+    "post": 0.55,
+    "total": 9.07
+   },
+   "counts": {
+    "nearFoot": 124,
+    "nearMnt": 0,
+    "midFoot": 2256,
+    "midMnt": 48,
+    "far": 165000,
+    "tris_M": 5,
+    "events": 1828
+   }
+  },
+  {
+   "name": "-guns",
+   "shot": "line",
+   "flags": "-guns",
+   "fps": 92.3,
+   "frame_ms": 10.83,
+   "p95": 13.5,
+   "p99": 14.7,
+   "max": 16.4,
+   "hitches": 1,
+   "gpuWall": 20.39,
+   "cpu": {
+    "mean": 1.23,
+    "lod": 0.57,
+    "pose": 0.26,
+    "encode": 0.17,
+    "fx": 0.11
+   },
+   "gpu": {
+    "shadow0": 0.7,
+    "shadow1": 0.77,
+    "scene": 1.99,
+    "particles": 4.11,
+    "bloom": 0.3,
+    "post": 0.54,
+    "total": 8.41
+   },
+   "counts": {
+    "nearFoot": 124,
+    "nearMnt": 0,
+    "midFoot": 2256,
+    "midMnt": 48,
+    "far": 165000,
+    "tris_M": 3.97,
+    "events": 1828
+   }
+  },
+  {
+   "name": "-terrain",
+   "shot": "line",
+   "flags": "-terrain",
+   "fps": 87,
+   "frame_ms": 11.49,
+   "p95": 14.1,
+   "p99": 14.6,
+   "max": 15.7,
+   "hitches": 0,
+   "gpuWall": 21.78,
+   "cpu": {
+    "mean": 1.21,
+    "lod": 0.55,
+    "pose": 0.28,
+    "encode": 0.16,
+    "fx": 0.09
+   },
+   "gpu": {
+    "shadow0": 0.95,
+    "shadow1": 0.91,
+    "scene": 1.81,
+    "particles": 4.55,
+    "bloom": 0.29,
+    "post": 0.51,
+    "total": 9.04
+   },
+   "counts": {
+    "nearFoot": 124,
+    "nearMnt": 0,
+    "midFoot": 2256,
+    "midMnt": 48,
+    "far": 165000,
+    "tris_M": 5,
+    "events": 1828
+   }
+  },
+  {
+   "name": "-post",
+   "shot": "line",
+   "flags": "-post",
+   "fps": 87.8,
+   "frame_ms": 11.39,
+   "p95": 13.4,
+   "p99": 14.5,
+   "max": 17.3,
+   "hitches": 1,
+   "gpuWall": 21.63,
+   "cpu": {
+    "mean": 1.11,
+    "lod": 0.56,
+    "pose": 0.22,
+    "encode": 0.13,
+    "fx": 0.1
+   },
+   "gpu": {
+    "shadow0": 0.95,
+    "shadow1": 0.94,
+    "scene": 2.1,
+    "particles": 4.39,
+    "bloom": 0,
+    "post": 0.5,
+    "total": 8.88
+   },
+   "counts": {
+    "nearFoot": 124,
+    "nearMnt": 0,
+    "midFoot": 2256,
+    "midMnt": 48,
+    "far": 165000,
+    "tris_M": 5,
+    "events": 1828
+   }
+  },
+  {
+   "name": "sky only",
+   "shot": "line",
+   "flags": "-terrain -near -mid -far -guns -particles -shadows -post -bloom -dof -mblur",
+   "fps": 432,
+   "frame_ms": 2.31,
+   "p95": 5.5,
+   "p99": 6.1,
+   "max": 6.5,
+   "hitches": 53,
+   "gpuWall": 3.5,
+   "cpu": {
+    "mean": 0.93,
+    "lod": 0.45,
+    "pose": 0.25,
+    "encode": 0.07,
+    "fx": 0.08
+   },
+   "gpu": {
+    "shadow0": 0,
+    "shadow1": 0,
+    "scene": 0.21,
+    "particles": 0,
+    "bloom": 0,
+    "post": 0.44,
+    "total": 0.65
+   },
+   "counts": {
+    "nearFoot": 124,
+    "nearMnt": 0,
+    "midFoot": 2256,
+    "midMnt": 48,
+    "far": 165000,
+    "tris_M": 3.97,
+    "events": 1828
+   }
+  },
+  {
+   "name": "all",
+   "shot": "battery",
+   "flags": "all",
+   "fps": 98.6,
+   "frame_ms": 10.14,
+   "p95": 13.3,
+   "p99": 14.9,
+   "max": 15,
+   "hitches": 0,
+   "gpuWall": 19.17,
+   "cpu": {
+    "mean": 1.03,
+    "lod": 0.57,
+    "pose": 0.12,
+    "encode": 0.15,
+    "fx": 0.08
+   },
+   "gpu": {
+    "shadow0": 1.02,
+    "shadow1": 1.03,
+    "scene": 2.38,
+    "particles": 2.88,
+    "bloom": 0.3,
+    "post": 0.56,
+    "total": 8.17
+   },
+   "counts": {
+    "nearFoot": 17,
+    "nearMnt": 1,
+    "midFoot": 2499,
+    "midMnt": 24,
+    "far": 165000,
+    "tris_M": 5.09,
+    "events": 3168
+   }
+  },
+  {
+   "name": "-particles",
+   "shot": "battery",
+   "flags": "-particles",
+   "fps": 134.2,
+   "frame_ms": 7.45,
+   "p95": 9.5,
+   "p99": 10.6,
+   "max": 11,
+   "hitches": 0,
+   "gpuWall": 13.98,
+   "cpu": {
+    "mean": 0.94,
+    "lod": 0.56,
+    "pose": 0.08,
+    "encode": 0.13,
+    "fx": 0.09
+   },
+   "gpu": {
+    "shadow0": 1.16,
+    "shadow1": 1.15,
+    "scene": 2.61,
+    "particles": 0,
+    "bloom": 0.31,
+    "post": 0.6,
+    "total": 5.82
+   },
+   "counts": {
+    "nearFoot": 17,
+    "nearMnt": 1,
+    "midFoot": 2499,
+    "midMnt": 24,
+    "far": 165000,
+    "tris_M": 5.09,
+    "events": 3168
+   }
+  },
+  {
+   "name": "-shadows",
+   "shot": "battery",
+   "flags": "-shadows",
+   "fps": 100.4,
+   "frame_ms": 9.96,
+   "p95": 13.1,
+   "p99": 13.6,
+   "max": 15.3,
+   "hitches": 1,
+   "gpuWall": 18.92,
+   "cpu": {
+    "mean": 0.99,
+    "lod": 0.54,
+    "pose": 0.08,
+    "encode": 0.14,
+    "fx": 0.09
+   },
+   "gpu": {
+    "shadow0": 0,
+    "shadow1": 0,
+    "scene": 2.9,
+    "particles": 3.76,
+    "bloom": 0.31,
+    "post": 0.64,
+    "total": 7.6
+   },
+   "counts": {
+    "nearFoot": 17,
+    "nearMnt": 1,
+    "midFoot": 2499,
+    "midMnt": 24,
+    "far": 165000,
+    "tris_M": 5.09,
+    "events": 3168
+   }
+  },
+  {
+   "name": "-far",
+   "shot": "battery",
+   "flags": "-far",
+   "fps": 90.9,
+   "frame_ms": 11,
+   "p95": 13,
+   "p99": 13.7,
+   "max": 14,
+   "hitches": 0,
+   "gpuWall": 20.98,
+   "cpu": {
+    "mean": 0.98,
+    "lod": 0.56,
+    "pose": 0.08,
+    "encode": 0.15,
+    "fx": 0.08
+   },
+   "gpu": {
+    "shadow0": 1.27,
+    "shadow1": 1.24,
+    "scene": 2.15,
+    "particles": 3.53,
+    "bloom": 0.3,
+    "post": 0.62,
+    "total": 9.12
+   },
+   "counts": {
+    "nearFoot": 17,
+    "nearMnt": 1,
+    "midFoot": 2499,
+    "midMnt": 24,
+    "far": 165000,
+    "tris_M": 5.09,
+    "events": 3168
+   }
+  },
+  {
+   "name": "-mid",
+   "shot": "battery",
+   "flags": "-mid",
+   "fps": 115.2,
+   "frame_ms": 8.68,
+   "p95": 10.5,
+   "p99": 10.9,
+   "max": 12.1,
+   "hitches": 0,
+   "gpuWall": 16.38,
+   "cpu": {
+    "mean": 0.97,
+    "lod": 0.53,
+    "pose": 0.1,
+    "encode": 0.14,
+    "fx": 0.08
+   },
+   "gpu": {
+    "shadow0": 0.3,
+    "shadow1": 0.27,
+    "scene": 1.78,
+    "particles": 3.69,
+    "bloom": 0.32,
+    "post": 0.6,
+    "total": 6.95
+   },
+   "counts": {
+    "nearFoot": 17,
+    "nearMnt": 1,
+    "midFoot": 2499,
+    "midMnt": 24,
+    "far": 165000,
+    "tris_M": 5.09,
+    "events": 3168
+   }
+  },
+  {
+   "name": "-near",
+   "shot": "battery",
+   "flags": "-near",
+   "fps": 83.7,
+   "frame_ms": 11.94,
+   "p95": 15,
+   "p99": 15.6,
+   "max": 16.9,
+   "hitches": 0,
+   "gpuWall": 22.85,
+   "cpu": {
+    "mean": 1,
+    "lod": 0.56,
+    "pose": 0.12,
+    "encode": 0.14,
+    "fx": 0.09
+   },
+   "gpu": {
+    "shadow0": 1.15,
+    "shadow1": 1.12,
+    "scene": 2.5,
+    "particles": 3.34,
+    "bloom": 0.29,
+    "post": 0.58,
+    "total": 8.98
+   },
+   "counts": {
+    "nearFoot": 17,
+    "nearMnt": 1,
+    "midFoot": 2499,
+    "midMnt": 24,
+    "far": 165000,
+    "tris_M": 5.09,
+    "events": 3168
+   }
+  },
+  {
+   "name": "-guns",
+   "shot": "battery",
+   "flags": "-guns",
+   "fps": 90.1,
+   "frame_ms": 11.1,
+   "p95": 13.4,
+   "p99": 14.4,
+   "max": 14.7,
+   "hitches": 0,
+   "gpuWall": 21.26,
+   "cpu": {
+    "mean": 0.92,
+    "lod": 0.55,
+    "pose": 0.06,
+    "encode": 0.14,
+    "fx": 0.08
+   },
+   "gpu": {
+    "shadow0": 1.02,
+    "shadow1": 1,
+    "scene": 2.57,
+    "particles": 3.84,
+    "bloom": 0.33,
+    "post": 0.63,
+    "total": 9.38
+   },
+   "counts": {
+    "nearFoot": 17,
+    "nearMnt": 1,
+    "midFoot": 2499,
+    "midMnt": 24,
+    "far": 165000,
+    "tris_M": 4.07,
+    "events": 3168
+   }
+  },
+  {
+   "name": "-terrain",
+   "shot": "battery",
+   "flags": "-terrain",
+   "fps": 82.6,
+   "frame_ms": 12.1,
+   "p95": 14.7,
+   "p99": 15.5,
+   "max": 17.4,
+   "hitches": 0,
+   "gpuWall": 23.27,
+   "cpu": {
+    "mean": 0.94,
+    "lod": 0.52,
+    "pose": 0.1,
+    "encode": 0.13,
+    "fx": 0.09
+   },
+   "gpu": {
+    "shadow0": 1.35,
+    "shadow1": 1.34,
+    "scene": 2.47,
+    "particles": 4.01,
+    "bloom": 0.37,
+    "post": 0.64,
+    "total": 10.19
+   },
+   "counts": {
+    "nearFoot": 17,
+    "nearMnt": 1,
+    "midFoot": 2499,
+    "midMnt": 24,
+    "far": 165000,
+    "tris_M": 5.09,
+    "events": 3168
+   }
+  },
+  {
+   "name": "-post",
+   "shot": "battery",
+   "flags": "-post",
+   "fps": 73.7,
+   "frame_ms": 13.56,
+   "p95": 18,
+   "p99": 19,
+   "max": 19.1,
+   "hitches": 0,
+   "gpuWall": 26.09,
+   "cpu": {
+    "mean": 1,
+    "lod": 0.57,
+    "pose": 0.1,
+    "encode": 0.15,
+    "fx": 0.09
+   },
+   "gpu": {
+    "shadow0": 1.49,
+    "shadow1": 1.44,
+    "scene": 3.12,
+    "particles": 4.38,
+    "bloom": 0,
+    "post": 0.69,
+    "total": 11.12
+   },
+   "counts": {
+    "nearFoot": 17,
+    "nearMnt": 1,
+    "midFoot": 2499,
+    "midMnt": 24,
+    "far": 165000,
+    "tris_M": 5.09,
+    "events": 3168
+   }
+  },
+  {
+   "name": "sky only",
+   "shot": "battery",
+   "flags": "-terrain -near -mid -far -guns -particles -shadows -post -bloom -dof -mblur",
+   "fps": 468.9,
+   "frame_ms": 2.13,
+   "p95": 2.9,
+   "p99": 4.2,
+   "max": 4.6,
+   "hitches": 4,
+   "gpuWall": 2.91,
+   "cpu": {
+    "mean": 1.33,
+    "lod": 0.81,
+    "pose": 0.12,
+    "encode": 0.12,
+    "fx": 0.15
+   },
+   "gpu": {
+    "shadow0": 0,
+    "shadow1": 0,
+    "scene": 0.22,
+    "particles": 0,
+    "bloom": 0,
+    "post": 0.45,
+    "total": 0.67
+   },
+   "counts": {
+    "nearFoot": 17,
+    "nearMnt": 1,
+    "midFoot": 2499,
+    "midMnt": 24,
+    "far": 165000,
+    "tris_M": 4.07,
+    "events": 3168
+   }
+  }
+ ],
+ "adapter": {
+  "vendor": "intel",
+  "arch": "xe-lpg",
+  "device": "",
+  "desc": ""
+ },
+ "world": {
+  "soldiers": 165000,
+  "units": 992,
+  "guns": 360,
+  "batteries": 60,
+  "mounted": 12000,
+  "horses": 12000,
+  "crew": 2880,
+  "union": 92686,
+  "confederate": 72314
+ },
+ "timing": {
+  "navToWorld": 296.69999998807907,
+  "worldToInit": 628.5,
+  "initMs": 608.7999999523163,
+  "bakeMs": 353.10000002384186,
+  "navToReady": 925.5
+ },
+ "loadMs": 955,
+ "bytes": {
+  "total": 5552254,
+  "items": [
+   [
+    "/prototype/data/height.bin",
+    4413259
+   ],
+   [
+    "/prototype/data/aerial.jpg",
+    1096087
+   ]
+  ]
+ },
+ "log": []
+}
