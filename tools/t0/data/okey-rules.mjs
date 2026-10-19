@@ -178,6 +178,6 @@ export const RULES = [
   ["Custer had just been promoted to brigadier general. He personally led the mounted charge shouting 'Come on, you Wolverines!'", "Custer commanded the Michigan brigade (roster).", 'unsupported-quote', L],
   ["KIA July 3 -- killed in Kilpatrick's doomed charge against Confederate infantry. General for only 4 days.", "Killed July 3 in Kilpatrick's charge against the Confederate right (Kilpatrick). General for only 4 days.", 'unsupported-claim', `${OR1} Kilpatrick`],
   ["Largest regiment in Cross's brigade. Wheatfield.", "Cross's brigade. Wheatfield.", 'unsupported-claim', U],
-  ["Largest in Zook's brigade. Roberts mortally wounded.", "Zook's brigade. Roberts mortally wounded.", 'unsupported-claim', U],
+  ["Largest in Zook's brigade. Roberts mortally wounded.", "Zook's brigade -- Wheatfield. Colonel Roberts was killed (OR 27/1 p.188).", 'unsupported-claim', `${OR1} p.188 (list of officers killed)`],
   ["Largest regiment in VI Corps -- ", "", 'unsupported-claim', U],
 ];

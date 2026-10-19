@@ -41,11 +41,11 @@ const E = {
   'CS-002': ['1863-07-02T16:30', 'July 2 ~4:30pm', {}, 'tick on the CLOCK model', `${OR2} p.284 (roster: Law, Sheffield)`],
   'CS-003': ['1863-07-02T19:10', 'July 2 ~7:10pm', {}, 'Barksdale fell in the Peach Orchard fighting; time-facts has about 7:10 p.m.', `time-facts R078; ${OR2} p.283 (roster: Barksdale, Humphreys)`],
   'CS-004': ['1863-07-02T18:15', 'July 2 ~6:15pm', { notes: 'The roster notes that no reports are on file for the brigade of Semmes; Colonel Bryan was in command on July 7 and was probably his immediate successor (27/2 p.283 note). Contested.' }, 'Semmes about 6:15 p.m.', `time-facts R068; ${OR2} p.283 (roster: Semmes, Bryan)`],
-  'CS-005': ['1863-07-03T15:30', 'July 3 ~3:30pm', {}, 'Garnett about 3:30 p.m.', `time-facts R113; ${OR2} p.284 (roster)`],
+  'CS-005': ['1863-07-03T15:30', 'July 3 ~3:30pm', { to_commander: 'Major Charles S. Peyton' }, "Garnett about 3:30 p.m.; the file said 'No clear successor -- brigade broken', but the roster and Peyton's report name Peyton", `time-facts R113; ${OR2} p.284 (roster), p.385 (Peyton, commanding Garnett's brigade)`, 'wrong-claim'],
   'CS-006': ['1863-07-03T15:30', 'July 3 ~3:30pm', {}, 'Kemper about 3:30 p.m.', `time-facts R113; ${OR2} p.284 (roster: Kemper, Mayo)`],
-  'CS-007': ['1863-07-03T15:35', 'July 3 ~3:35pm', {}, 'Armistead about 3:35 p.m.', `time-facts R115`],
+  'CS-007': ['1863-07-03T15:35', 'July 3 ~3:35pm', { to_commander: 'Colonel William R. Aylett' }, "Armistead about 3:35 p.m.; the file said 'No successor', but the roster names Aylett after him", `time-facts R115; ${OR2} p.284 (roster)`, 'wrong-claim'],
   'CS-008': ['1863-07-01T14:30', null, {}, 'tick on the CLOCK model', `${OR2} p.637 (Heth)`],
-  'CS-010': ['1863-07-03T15:30', 'July 3 ~3:30pm', {}, 'Marshall about 3:30 p.m.', `time-facts R113-R114`],
+  'CS-010': ['1863-07-03T15:30', 'July 3 ~3:30pm', { to_commander: 'Not named in the roster', notes: "The roster (27/2 p.289) names Pettigrew and Marshall only for this brigade; no report read names who led it after Marshall fell. Pettigrew's letter of the same period reports Marshall as supposed killed (p.645)." }, "Marshall about 3:30 p.m.; the file said 'No effective successor', which no source gives", `time-facts R113-R114; ${OR2} p.289 (roster), p.645`, 'unsupported-claim'],
   'CS-011': ['1863-07-01T10:45', 'July 1 ~10:45am', { notes: 'When Union soldiers recognized Archer, one is reported to have said "Good morning, General -- we are glad to see you." Archer is said to have been furious. He died in 1864.' }, 'Archer was taken in the Iron Brigade\'s counterattack at about 10:45 a.m.', `time-facts R013; ${OR2} p.637 (Heth: Archer captured)`],
   'CS-012': ['1863-07-02T17:30', 'July 2 (hour not stated)', {}, 'tick on the CLOCK model for an hour that is only approximate', `${OR2} p.283 (roster)`],
   'CS-013': ['1863-07-01T16:15', 'July 1 ~4:15pm', {}, 'Pender\'s division attacked about 4 p.m. (time-facts R032); Scales fell in that attack', `time-facts R032; ${OR2} p.637`],
@@ -60,13 +60,13 @@ const raw = fs.readFileSync(FILE, 'utf8');
 const NL = String.fromCharCode(10);
 const ind = (str, n) => str.split(NL).map((l, k) => (k === 0 ? l : ' '.repeat(n) + l)).join(NL);
 const out = [];
-for (const [id, [iso, text, extra, why, src]] of Object.entries(E)) {
+for (const [id, [iso, text, extra, why, src, cls]] of Object.entries(E)) {
   const m = new RegExp(String.raw`\{\n      "event_id": "` + id + String.raw`",[\s\S]*?\n    \}`).exec(raw);
   if (!m) throw new Error('succ: ' + id + ' not found');
   const obj = JSON.parse(m[0]);
   if (ind(JSON.stringify(obj, null, 2), 4) !== m[0]) throw new Error('succ: ' + id + ' does not round-trip');
   const nw = { ...obj, approx_tick: tk(iso), ...extra };
   if (text) nw.approx_time = text;
-  out.push({ id: 'DATA-succ-' + id, target: 'data/oob/commander_successions.json', find: m[0], repl: ind(JSON.stringify(nw, null, 2), 4), expect: 1, cls: 'wrong-time', before: why, src });
+  out.push({ id: 'DATA-succ-' + id, target: 'data/oob/commander_successions.json', find: m[0], repl: ind(JSON.stringify(nw, null, 2), 4), expect: 1, cls: cls || 'wrong-time', before: why, src });
 }
 export default out;

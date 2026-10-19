@@ -165,7 +165,7 @@ const SRC_N = 'NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-
 const SRC_E = 'NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174';
 const SECTORS = [
   // [name, dlat, dlng, unit pattern, first tick, last tick, source, what]
-  ['OH', 0.0146, -0.0074, /^(C-ART-(Carrington|Carter|Fry|Page)|C-II-3-1|C-II-3-2)$/, 40, 53, SRC_N, 'Oak Hill'],
+  ['OH', 0.0146, -0.0074, /^(C-ART-(Carter|Fry|Page)|C-II-3-1|C-II-3-2)$/, 40, 53, SRC_N, 'Oak Hill'],
   ['OR', OR_DLAT, OR_DLNG, /^(C-II-3-3|C-II-3-4|C-II-3-5|C-5NC|C-12NC|C-20NC|C-23NC|U-I-2-1|U-I-2-2|U-12MA|U-83NY|U-97NY|U-88PA|U-90PA|U-94NY|U-104NY|U-16ME)$/, 40, 62, SRC_N, 'the Oak Ridge stone wall'],
   ['BK', 0.0095, 0.0005, /^(U-XI-1|U-XI-1-1|U-XI-1-2|U-153PA|U-54NY|U-68NY|U-41NY|U-ART-G4US)$/, 50, 60, SRC_N, "Barlow's Knoll"],
   ['SC', 0.0108, -0.0020, /^(U-XI-3-1|U-XI-3-2)$/, 50, 50, SRC_N, "Schurz's line on the Carlisle Road"],
@@ -185,6 +185,14 @@ for (const [name, dlat, dlng, re, lo, hi, src, what] of SECTORS) {
     nSector++;
   }
 }
+
+// Carrington's battery belonged to Jones's battalion of Early's division, which came up by the Heidlersburg road: "Jones battalion of artillery was posted in a field on the left of the
+// Heidlersburg road, immediately in front of Hoke's brigade, so as to fire on the enemy's flank" (Early, OR 27/2 p.468); Oak Hill was Carter's battalion of Rodes's division (p.603).
+// The file had the battery on Oak Hill at ticks 48-52, before Early's division arrived (Hoke's brigade is first on the field at tick 55).
+const SRC_CARR = `${OR2} p.468 (Early: Jones's battalion posted in a field on the left of the Heidlersburg road in front of Hoke's brigade), p.456 (Brown), p.603 (Carter's battalion on Oak Hill)`;
+for (const [f, t] of [['placements_day1_ticks1_50', 48], ['density_artillery_positions', 49], ['placements_day1_ticks51_100', 52]])
+  del(f, 'C-ART-Carrington', t, 'wrong-place', "the row puts Early's Charlottesville Artillery on Oak Hill with Carter's battalion of Rodes's division at tick " + t + ", before Early's division reached the field", SRC_CARR);
+addTo('C-ART-Carrington', { tick: 55, lat: 39.8444, lng: -77.2275, disposition: 'Deployed Artillery', bearing: 225, strength: 80, note: "Jones's battalion posted in a field on the left of the Heidlersburg road in front of Hoke's brigade, firing on the flank of the Union line (Early, OR 27/2 p.468); the exact spot is approximate" }, 'wrong-place', "the battery is shown on Oak Hill, 1.4 km from the field where Early's report puts Jones's battalion", SRC_CARR);
 
 export default P.out;
 export const zposErrors = P.errors;

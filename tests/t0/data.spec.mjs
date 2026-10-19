@@ -22,6 +22,7 @@
 //   T0-DATA-14 F  the app (real Chrome): the data the browser loads gives the Iron Brigade on Culp's Hill at tick 300, Buford's brigades on the Taneytown Road, no First Corps unit on the field at tick 12
 //   T0-DATA-15 F  positions: the north sector of July 1 (Oak Hill, Oak Ridge, Barlow's Knoll) and East Cavalry Field lie where the NPS monuments are (terrain points and unit rows)
 //   T0-DATA-16 F  the Confederate artillery file follows the roster (battalion designations, commanders, Johnson's batteries not at Oak Hill on July 1, Captain Brown's fate)
+//   T0-DATA-17 F  commanders: fates follow the Official Records (Jeffords, Douty, Dilger, Weed, Zook, Ward, Garnett, Avery ...); CS-005 names Peyton
 //   T0-DATA-09 G  the Virtual Walkthrough monument array, its Monuments tab data and the DATA group touch nothing there: 512 monuments, byte-identical to the control tree
 //   T0-DATA-X  G  every browser test of this run: 0 uncaught exceptions and 0 first-party console.error
 process.env.T0_AGENT ??= 'data';
@@ -448,6 +449,27 @@ suite.test('T0-DATA-16', 'the Confederate artillery file follows the Official Re
   for (const id of ['C-ART-Dement', 'C-ART-Carpenter', 'C-ART-Raine', 'C-ART-Carrington']) if (/Oak Hill July 1 (bombardment|--)/.test(bat[id]?.key_action || 'x')) bad.push(`${id} still on Oak Hill July 1`);
   if (/Survived/.test(JSON.stringify(bat['C-ART-Brown-J']?.commander))) bad.push('Captain Brown (Chesapeake Artillery) still shown as surviving');
   assertEq(bad, [], 'artillery organisation');
+});
+
+suite.test('T0-DATA-17', 'commanders: no officer is shown killed who the Official Records have elsewhere or alive; no fate rests on a later story, a superlative or a false career; CS-005 names Peyton', async (t) => {
+  const bad = []; const oob = (f) => rdJson(DIST, `data/oob/${f}.json`);
+  const find = (f, key, id) => (oob(f)[Object.keys(oob(f)).find((k) => Array.isArray(oob(f)[k]) && oob(f)[k].some((x) => x[key] === id))] || []).find((x) => x[key] === id);
+  const fate = (f, key, id) => JSON.stringify((find(f, key, id) || {}).commander || {});
+  const chk = (cond, msg) => { if (!cond) bad.push(msg); };
+  const j4 = find('union_regiments_iii_v_corps', 'regiment_id', 'U-4MI');
+  chk(j4 && /Jeffords/.test(j4.commander.name) && /Killed/.test(j4.commander.fate), 'U-4MI: Colonel Jeffords (killed July 2) is not the commander shown');
+  const me = find('union_cavalry_artillery', 'regiment_id', 'U-1ME-CAV');
+  chk(me && !/Douty killed in Kilpatrick/.test(me.key_action) && !/Boothby/.test(JSON.stringify(me.commander)), 'U-1ME-CAV: Douty (killed at Aldie on June 17) still shown killed at Gettysburg');
+  chk(!/Medal of Honor for Gettysburg/.test(fate('union_artillery', 'battery_id', 'U-ART-I1OH')), 'Dilger: Medal of Honor for Gettysburg');
+  chk(!/KIA/.test(fate('union_oob_brigades', 'brigade_id', 'U-V-2-3')) && !/KIA/.test(fate('union_oob_brigades', 'brigade_id', 'U-II-1-3')), 'Weed or Zook: KIA for an officer mortally wounded');
+  chk(!/body never|on horseback/.test(fate('confederate_oob_corps_div_bde', 'brigade_id', 'C-I-3-1')), 'Garnett: a later story in the fate');
+  chk(!/blood|hat on his sword|first Confederate general|never given|never promoted|groin/.test(['C-II-1-2', 'C-I-3-3', 'C-III-2-3', 'C-II-3-3', 'C-II-3-5', 'C-I-3-2'].map((id) => fate('confederate_oob_corps_div_bde', 'brigade_id', id)).join(' ')), 'a later story, a false career or an unsupported detail is still in a Confederate commander\'s fate');
+  chk(!/most important|revolutionized|blinded permanently|both eyes|nearly fatal/.test(['union_regiments_vi_xi_xii_corps', 'union_regiments_i_ii_corps'].map((f) => JSON.stringify(oob(f))).join(' ') + fate('union_oob_brigades', 'brigade_id', 'U-I-2-1')), 'a superlative or an unsupported wound detail is still in a Union commander\'s fate');
+  const s = oob('commander_successions').confederate_successions.find((e) => e.event_id === 'CS-005');
+  chk(s && /Peyton/.test(s.to_commander), 'CS-005: the successor to Garnett is not Peyton');
+  const wd = find('union_regiments_i_ii_corps', 'regiment_id', 'U-15MA');
+  chk(wd && /July 2/.test(wd.commander.fate) && !/Pickett/.test(wd.key_action), 'U-15MA: Colonel Ward shown mortally wounded on July 3 during Pickett\'s Charge');
+  assertEq(bad, [], 'commander fates');
 });
 
 suite.test('T0-DATA-09', 'the Virtual Walkthrough code and its 512-monument array are byte-identical to the control tree', async (t) => {

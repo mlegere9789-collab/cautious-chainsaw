@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "count": 2462,
+ "count": 2466,
  "fixes": [
   {
    "id": "DATA-cas-UI-day1",
@@ -12012,6 +12012,16 @@
    "area": "oobartorg"
   },
   {
+   "id": "DATA-artorg-alexander",
+   "target": "data/oob/confederate_artillery.json",
+   "cls": "wrong-claim",
+   "before": "Colonel E. P. Alexander shown as having lost an arm later in the war (he did not; the arm was lost by Colonel Oates of the 15th Alabama)",
+   "src": "OR 27/2 p.352 (Pendleton); not an Official Records statement",
+   "find": "\"fate\": \"Survived -- lost arm later in war\"",
+   "repl": "\"fate\": \"Survived\"",
+   "area": "oobartorg"
+  },
+  {
    "id": "DATA-artorg-latimer2",
    "target": "data/oob/confederate_artillery.json",
    "cls": "duplicate-record",
@@ -13124,11 +13134,11 @@
   {
    "id": "DATA-succ-CS-005",
    "target": "data/oob/commander_successions.json",
-   "cls": "wrong-time",
-   "before": "Garnett about 3:30 p.m.",
-   "src": "time-facts R113; OR 27/2 p.284 (roster)",
+   "cls": "wrong-claim",
+   "before": "Garnett about 3:30 p.m.; the file said 'No clear successor -- brigade broken', but the roster and Peyton's report name Peyton",
+   "src": "time-facts R113; OR 27/2 p.284 (roster), p.385 (Peyton, commanding Garnett's brigade)",
    "find": "{\n      \"event_id\": \"CS-005\",\n      \"unit_id\": \"C-I-3-1\",\n      \"event\": \"Garnett KIA at The Angle\",\n      \"approx_time\": \"July 3 ~3:20pm\",\n      \"approx_tick\": 550,\n      \"from_commander\": \"Brigadier General Richard Garnett\",\n      \"to_commander\": \"No clear successor -- brigade broken\",\n      \"cause\": \"KIA on horseback at The Angle\",\n      \"notes\": \"Garnett rode because he was too sick to walk. His body was never conclusively identified after the battle.\",\n      \"source\": \"Hessler-Motts p.125\"\n    }",
-   "repl": "{\n      \"event_id\": \"CS-005\",\n      \"unit_id\": \"C-I-3-1\",\n      \"event\": \"Garnett KIA at The Angle\",\n      \"approx_time\": \"July 3 ~3:30pm\",\n      \"approx_tick\": 549,\n      \"from_commander\": \"Brigadier General Richard Garnett\",\n      \"to_commander\": \"No clear successor -- brigade broken\",\n      \"cause\": \"KIA on horseback at The Angle\",\n      \"notes\": \"Garnett rode because he was too sick to walk. His body was never conclusively identified after the battle.\",\n      \"source\": \"Hessler-Motts p.125\"\n    }",
+   "repl": "{\n      \"event_id\": \"CS-005\",\n      \"unit_id\": \"C-I-3-1\",\n      \"event\": \"Garnett KIA at The Angle\",\n      \"approx_time\": \"July 3 ~3:30pm\",\n      \"approx_tick\": 549,\n      \"from_commander\": \"Brigadier General Richard Garnett\",\n      \"to_commander\": \"Major Charles S. Peyton\",\n      \"cause\": \"KIA on horseback at The Angle\",\n      \"notes\": \"Garnett rode because he was too sick to walk. His body was never conclusively identified after the battle.\",\n      \"source\": \"Hessler-Motts p.125\"\n    }",
    "area": "succ"
   },
   {
@@ -13144,11 +13154,11 @@
   {
    "id": "DATA-succ-CS-007",
    "target": "data/oob/commander_successions.json",
-   "cls": "wrong-time",
-   "before": "Armistead about 3:35 p.m.",
-   "src": "time-facts R115",
+   "cls": "wrong-claim",
+   "before": "Armistead about 3:35 p.m.; the file said 'No successor', but the roster names Aylett after him",
+   "src": "time-facts R115; OR 27/2 p.284 (roster)",
    "find": "{\n      \"event_id\": \"CS-007\",\n      \"unit_id\": \"C-I-3-3\",\n      \"event\": \"Armistead mortally wounded beyond The Angle\",\n      \"approx_time\": \"July 3 ~3:30pm\",\n      \"approx_tick\": 552,\n      \"from_commander\": \"Brigadier General Lewis Armistead\",\n      \"to_commander\": \"No successor -- Armistead falls among Union troops\",\n      \"cause\": \"Shot moments after breaching The Angle -- died July 5\",\n      \"notes\": \"Armistead fell among Union soldiers beyond the wall. He asked for Hancock to be brought to him. He died July 5 in a Union field hospital.\",\n      \"source\": \"Hessler-Motts p.195\"\n    }",
-   "repl": "{\n      \"event_id\": \"CS-007\",\n      \"unit_id\": \"C-I-3-3\",\n      \"event\": \"Armistead mortally wounded beyond The Angle\",\n      \"approx_time\": \"July 3 ~3:35pm\",\n      \"approx_tick\": 551,\n      \"from_commander\": \"Brigadier General Lewis Armistead\",\n      \"to_commander\": \"No successor -- Armistead falls among Union troops\",\n      \"cause\": \"Shot moments after breaching The Angle -- died July 5\",\n      \"notes\": \"Armistead fell among Union soldiers beyond the wall. He asked for Hancock to be brought to him. He died July 5 in a Union field hospital.\",\n      \"source\": \"Hessler-Motts p.195\"\n    }",
+   "repl": "{\n      \"event_id\": \"CS-007\",\n      \"unit_id\": \"C-I-3-3\",\n      \"event\": \"Armistead mortally wounded beyond The Angle\",\n      \"approx_time\": \"July 3 ~3:35pm\",\n      \"approx_tick\": 551,\n      \"from_commander\": \"Brigadier General Lewis Armistead\",\n      \"to_commander\": \"Colonel William R. Aylett\",\n      \"cause\": \"Shot moments after breaching The Angle -- died July 5\",\n      \"notes\": \"Armistead fell among Union soldiers beyond the wall. He asked for Hancock to be brought to him. He died July 5 in a Union field hospital.\",\n      \"source\": \"Hessler-Motts p.195\"\n    }",
    "area": "succ"
   },
   {
@@ -13164,11 +13174,11 @@
   {
    "id": "DATA-succ-CS-010",
    "target": "data/oob/commander_successions.json",
-   "cls": "wrong-time",
-   "before": "Marshall about 3:30 p.m.",
-   "src": "time-facts R113-R114",
+   "cls": "unsupported-claim",
+   "before": "Marshall about 3:30 p.m.; the file said 'No effective successor', which no source gives",
+   "src": "time-facts R113-R114; OR 27/2 p.289 (roster), p.645",
    "find": "{\n      \"event_id\": \"CS-010\",\n      \"unit_id\": \"C-III-2-1\",\n      \"event\": \"Marshall KIA during July 3 charge\",\n      \"approx_time\": \"July 3 ~3:20pm\",\n      \"approx_tick\": 550,\n      \"from_commander\": \"Colonel James Marshall\",\n      \"to_commander\": \"No effective successor\",\n      \"cause\": \"KIA leading brigade in the charge\",\n      \"source\": \"Hessler-Motts p.322\"\n    }",
-   "repl": "{\n      \"event_id\": \"CS-010\",\n      \"unit_id\": \"C-III-2-1\",\n      \"event\": \"Marshall KIA during July 3 charge\",\n      \"approx_time\": \"July 3 ~3:30pm\",\n      \"approx_tick\": 549,\n      \"from_commander\": \"Colonel James Marshall\",\n      \"to_commander\": \"No effective successor\",\n      \"cause\": \"KIA leading brigade in the charge\",\n      \"source\": \"Hessler-Motts p.322\"\n    }",
+   "repl": "{\n      \"event_id\": \"CS-010\",\n      \"unit_id\": \"C-III-2-1\",\n      \"event\": \"Marshall KIA during July 3 charge\",\n      \"approx_time\": \"July 3 ~3:30pm\",\n      \"approx_tick\": 549,\n      \"from_commander\": \"Colonel James Marshall\",\n      \"to_commander\": \"Not named in the roster\",\n      \"cause\": \"KIA leading brigade in the charge\",\n      \"source\": \"Hessler-Motts p.322\",\n      \"notes\": \"The roster (27/2 p.289) names Pettigrew and Marshall only for this brigade; no report read names who led it after Marshall fell. Pettigrew's letter of the same period reports Marshall as supposed killed (p.645).\"\n    }",
    "area": "succ"
   },
   {
@@ -13478,7 +13488,7 @@
    "before": "Garnett rode because he was too sick to walk. His body was never conclusively identified after the battle.",
    "src": "a later account, not in the Official Records",
    "find": "\"notes\": \"Garnett rode because he was too sick to walk. His body was never conclusively identified after the battle.\"",
-   "repl": "\"notes\": \"Lee's report names Garnett among the killed. That he rode because he was ill, and that his body was not identified, come from later accounts.\"",
+   "repl": "\"notes\": \"Lee's report names Garnett among the killed. The roster (27/2 p.284) and Peyton's own report (p.385) have Maj. Charles S. Peyton of the 19th Virginia commanding the brigade after him. That Garnett rode because he was ill, and that his body was not identified, come from later accounts.\"",
    "area": "succ2"
   },
   {
@@ -13508,7 +13518,7 @@
    "before": "Armistead fell among Union soldiers beyond the wall. He asked for Hancock to be brought to him. He died July 5 in a Union field hospital.",
    "src": "a later account, not in the Official Records",
    "find": "\"notes\": \"Armistead fell among Union soldiers beyond the wall. He asked for Hancock to be brought to him. He died July 5 in a Union field hospital.\"",
-   "repl": "\"notes\": \"Armistead fell among Union soldiers beyond the wall. The messages reported from him come from later accounts.\"",
+   "repl": "\"notes\": \"Armistead fell among Union soldiers beyond the wall. The roster (27/2 p.284) lists Col. W. R. Aylett after him in the command of the brigade; no report read says who took it at the moment he fell (Contested). The messages reported from Armistead come from later accounts.\"",
    "area": "succ2"
   },
   {
@@ -14862,6 +14872,16 @@
    "area": "texts"
   },
   {
+   "id": "DATA-tour-1z",
+   "target": "js",
+   "cls": "wrong-claim",
+   "before": "earthworks on McPherson Ridge on the morning of July 1",
+   "src": "OR 27/1 p.927 (Buford: \"partial shelter behind a low stone fence\")",
+   "find": "fought a delaying action from behind fence rails and earthworks.",
+   "repl": "fought a delaying action, with partial shelter behind a low stone fence.",
+   "area": "texts"
+  },
+  {
    "id": "DATA-tour-1y",
    "target": "js",
    "cls": "unsupported-claim",
@@ -14878,7 +14898,7 @@
    "before": "694 positions, before the pre-arrival rows were removed",
    "src": "the placements_*.json files of this build",
    "find": "Built from the same 694 recorded unit positions",
-   "repl": "Built from the same 687 recorded unit positions",
+   "repl": "Built from the same 686 recorded unit positions",
    "area": "texts"
   },
   {
@@ -17414,16 +17434,6 @@
    "area": "zpos"
   },
   {
-   "id": "DATA-pos-move-density-artillery-positions-C-ART-Carrington-49",
-   "target": "data/density_artillery_positions.json",
-   "cls": "wrong-place",
-   "before": "density_artillery_positions C-ART-Carrington tick 49 (39.8339, -77.2361): Oak Hill -- Carrington's battery enfilading Union I Corps. Decisive flanking fire. -- the row is 1.0-1.7 km south of the NPS ground at Oak Hill; moved by (0.0146, -0.0074) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
-   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
-   "find": "(\"unit_id\":\"C-ART-Carrington\",\"tick\":49,)\"lat\":39\\.8339,\"lng\":-77\\.2361",
-   "repl": "\\g<1>\"lat\":39.8485,\"lng\":-77.2435",
-   "area": "zpos"
-  },
-  {
    "id": "DATA-pos-move-density-artillery-positions-C-ART-Carter-49",
    "target": "data/density_artillery_positions.json",
    "cls": "wrong-place",
@@ -17474,16 +17484,6 @@
    "area": "zpos"
   },
   {
-   "id": "DATA-pos-move-placements-day1-ticks1-50-C-ART-Carrington-48",
-   "target": "data/placements_day1_ticks1_50.json",
-   "cls": "wrong-place",
-   "before": "placements_day1_ticks1_50 C-ART-Carrington tick 48 (39.8339, -77.2361): Oak Hill artillery -- flanking fire on Union I Corps -- the row is 1.0-1.7 km south of the NPS ground at Oak Hill; moved by (0.0146, -0.0074) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
-   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
-   "find": "(\"unit_id\":\"C-ART-Carrington\",\"tick\":48,)\"lat\":39\\.8339,\"lng\":-77\\.2361",
-   "repl": "\\g<1>\"lat\":39.8485,\"lng\":-77.2435",
-   "area": "zpos"
-  },
-  {
    "id": "DATA-pos-move-placements-day1-ticks1-50-C-ART-Carter-48",
    "target": "data/placements_day1_ticks1_50.json",
    "cls": "wrong-place",
@@ -17501,16 +17501,6 @@
    "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
    "find": "(\"unit_id\":\"C-II-3-1\",\"tick\":52,)\"lat\":39\\.8339,\"lng\":-77\\.2389",
    "repl": "\\g<1>\"lat\":39.8485,\"lng\":-77.2463",
-   "area": "zpos"
-  },
-  {
-   "id": "DATA-pos-move-placements-day1-ticks51-100-C-ART-Carrington-52",
-   "target": "data/placements_day1_ticks51_100.json",
-   "cls": "wrong-place",
-   "before": "placements_day1_ticks51_100 C-ART-Carrington tick 52 (39.8339, -77.2361): Oak Hill flanking fire continuing -- the row is 1.0-1.7 km south of the NPS ground at Oak Hill; moved by (0.0146, -0.0074) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
-   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
-   "find": "(\"unit_id\":\"C-ART-Carrington\",\"tick\":52,)\"lat\":39\\.8339,\"lng\":-77\\.2361",
-   "repl": "\\g<1>\"lat\":39.8485,\"lng\":-77.2435",
    "area": "zpos"
   },
   {
@@ -18431,6 +18421,46 @@
    "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
    "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":620,)\"lat\":39\\.8344,\"lng\":-77\\.2022",
    "repl": "\\g<1>\"lat\":39.8377,\"lng\":-77.1689",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-C-ART-Carrington-48",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks1_50 C-ART-Carrington tick 48 (39.8339, -77.2361): Oak Hill artillery -- flanking fire on Union I Corps -- the row puts Early's Charlottesville Artillery on Oak Hill with Carter's battalion of Rodes's division at tick 48, before Early's division reached the field",
+   "src": "OR 27/2 p.468 (Early: Jones's battalion posted in a field on the left of the Heidlersburg road in front of Hoke's brigade), p.456 (Brown), p.603 (Carter's battalion on Oak Hill)",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-ART-Carrington\",\"tick\":48,\"lat\":39\\.8339,\"lng\":-77\\.2361,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-ART-Carrington\",\"tick\":48,\"lat\":39\\.8339,\"lng\":-77\\.2361,[^\\n]*\\},\\n)",
+   "repl": "",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-del-density-artillery-positions-C-ART-Carrington-49",
+   "target": "data/density_artillery_positions.json",
+   "cls": "wrong-place",
+   "before": "density_artillery_positions C-ART-Carrington tick 49 (39.8339, -77.2361): Oak Hill -- Carrington's battery enfilading Union I Corps. Decisive flanking fire. -- the row puts Early's Charlottesville Artillery on Oak Hill with Carter's battalion of Rodes's division at tick 49, before Early's division reached the field",
+   "src": "OR 27/2 p.468 (Early: Jones's battalion posted in a field on the left of the Heidlersburg road in front of Hoke's brigade), p.456 (Brown), p.603 (Carter's battalion on Oak Hill)",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-ART-Carrington\",\"tick\":49,\"lat\":39\\.8339,\"lng\":-77\\.2361,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-ART-Carrington\",\"tick\":49,\"lat\":39\\.8339,\"lng\":-77\\.2361,[^\\n]*\\},\\n)",
+   "repl": "",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks51-100-C-ART-Carrington-52",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 C-ART-Carrington tick 52 (39.8339, -77.2361): Oak Hill flanking fire continuing -- the row puts Early's Charlottesville Artillery on Oak Hill with Carter's battalion of Rodes's division at tick 52, before Early's division reached the field",
+   "src": "OR 27/2 p.468 (Early: Jones's battalion posted in a field on the left of the Heidlersburg road in front of Hoke's brigade), p.456 (Brown), p.603 (Carter's battalion on Oak Hill)",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-ART-Carrington\",\"tick\":52,\"lat\":39\\.8339,\"lng\":-77\\.2361,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-ART-Carrington\",\"tick\":52,\"lat\":39\\.8339,\"lng\":-77\\.2361,[^\\n]*\\},\\n)",
+   "repl": "",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-add-placements-day1-ticks51-100-C-ART-Carrington-55",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "C-ART-Carrington: the battery is shown on Oak Hill, 1.4 km from the field where Early's report puts Jones's battalion",
+   "src": "OR 27/2 p.468 (Early: Jones's battalion posted in a field on the left of the Heidlersburg road in front of Hoke's brigade), p.456 (Brown), p.603 (Carter's battalion on Oak Hill)",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-ART-Carrington\",\"tick\":55,\"lat\":39.8444,\"lng\":-77.2275,\"bearing\":225,\"disposition\":\"Deployed Artillery\",\"strength\":80,\"notes\":\"Jones's battalion posted in a field on the left of the Heidlersburg road in front of Hoke's brigade, firing on the flank of the Union line (Early, OR 27/2 p.468); the exact spot is approximate\"},\n",
    "area": "zpos"
   },
   {
@@ -19488,11 +19518,11 @@
   {
    "id": "DATA-oob-union-cavalry-artillery-U-1ME-CAV",
    "target": "data/oob/union_cavalry_artillery.json",
-   "cls": "wrong-number",
-   "before": "casualties 19 against 5 in the return; commander \"Colonel Calvin Douty\" is not the regiment's commander in the Official Records roster",
-   "src": "OR 27/1 pp.166-167 (roster); OR 27/1 pp.173-187 (return of casualties) pp.185-186",
+   "cls": "wrong-number+wrong-claim",
+   "before": "casualties 19 against 5 in the return; commander \"Colonel Calvin Douty\" is not the regiment's commander in the Official Records roster | key_action \"Douty killed in Kilpatrick's charge\" and a successor \"Lieutenant Colonel Stephen Boothby, July 3\"; Colonel Douty was killed at Aldie on June 17",
+   "src": "OR 27/1 pp.166-167 (roster); OR 27/1 pp.173-187 (return of casualties) pp.185-186; OR 27/1 p.167 (roster), p.171 (officers killed), p.953 (Kilpatrick: Douty fell at Aldie)",
    "find": "{\"regiment_id\":\"U-1ME-CAV\",\"designation\":\"1st Maine Cavalry\",\"parent_brigade_id\":\"U-CAV-3-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Maine\",\"commander\":{\"name\":\"Colonel Calvin Douty\",\"fate\":\"KIA July 3 -- killed in Kilpatrick's charge\",\"successor\":{\"name\":\"Lieutenant Colonel Stephen Boothby\",\"assumed_command\":\"July 3\"}},\"strength\":421,\"casualties\":19,\"days_engaged\":[3],\"key_action\":\"Richmond's brigade -- Douty killed in Kilpatrick's charge.\"}",
-   "repl": "{\"regiment_id\":\"U-1ME-CAV\",\"designation\":\"1st Maine Cavalry\",\"parent_brigade_id\":\"U-CAV-3-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Maine\",\"commander\":{\"name\":\"Lieutenant Colonel Charles H. Smith\",\"successor\":{\"name\":\"Lieutenant Colonel Stephen Boothby\",\"assumed_command\":\"July 3\"}},\"strength\":421,\"casualties\":5,\"days_engaged\":[3],\"key_action\":\"Richmond's brigade -- Douty killed in Kilpatrick's charge.\"}",
+   "repl": "{\"regiment_id\":\"U-1ME-CAV\",\"designation\":\"1st Maine Cavalry\",\"parent_brigade_id\":\"U-CAV-3-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Maine\",\"commander\":{\"name\":\"Lieutenant Colonel Charles H. Smith\"},\"strength\":421,\"casualties\":5,\"days_engaged\":[3],\"key_action\":\"Listed in the Official Records roster in Col. J. Irvin Gregg's Third Brigade of the Second Division under Lieut. Col. Charles H. Smith (27/1 p.167); this file places it with Richmond's brigade, which the roster does not support. Colonel Calvin Douty was killed at Aldie on June 17, 1863 (27/1 p.171, p.953), not at Gettysburg.\"}",
    "area": "oobarty",
    "unit": "U-1ME-CAV"
   },
@@ -19797,10 +19827,10 @@
    "id": "DATA-oob-union-artillery-U-ART-I1OH",
    "target": "data/oob/union_artillery.json",
    "cls": "wrong-number+wrong-claim+unsupported-claim",
-   "before": "casualties 12 against 13 for 1st Ohio, Battery I in the return | 'Leatherbreeches' Dilger was born in Germany, served in European armies. MOH for delaying Rodes's attack at close range while Union infantry retreated throug... | Fought in the most dramatic artillery action of July 1 -- engaged Confederate infantry at close range IN THE STREETS OF GETTYSBURG to cover the Union retreat...",
-   "src": "OR 27/1 pp.173-187 (return of casualties); his Medal of Honor is for Chancellorsville (May 1863), not Gettysburg; no report read supports the removed phrase",
+   "before": "casualties 12 against 13 for 1st Ohio, Battery I in the return | fate \"Medal of Honor for Gettysburg\"; Dilger's Medal of Honor was for Chancellorsville (1863), not Gettysburg | 'Leatherbreeches' Dilger was born in Germany, served in European armies. MOH for delaying Rodes's attack at close range while Union infantry retreated throug... | Fought in the most dramatic artillery action of July 1 -- engaged Confederate infantry at close range IN THE STREETS OF GETTYSBURG to cover the Union retreat...",
+   "src": "OR 27/1 pp.173-187 (return of casualties); Medal of Honor citation for Hubert Dilger (Chancellorsville); not an Official Records statement; his Medal of Honor is for Chancellorsville (May 1863), not Gettysburg; no report read supports the removed phrase",
    "find": "{\"battery_id\":\"U-ART-I1OH\",\"designation\":\"Battery I, 1st Ohio Artillery (Dilger's Battery)\",\"commander\":{\"name\":\"Captain Hubert Dilger\",\"fate\":\"Survived -- Medal of Honor for Gettysburg\",\"notes\":\"'Leatherbreeches' Dilger was born in Germany, served in European armies. MOH for delaying Rodes's attack at close range while Union infantry retreated through Gettysburg.\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":12,\"key_action\":\"Fought in the most dramatic artillery action of July 1 -- engaged Confederate infantry at close range IN THE STREETS OF GETTYSBURG to cover the Union retreat. Fighting withdrawal through the town itself.\",\"flag_notes\":\"UNIQUE PLACEMENT: Dilger's battery moved THROUGH Gettysburg's streets during the retreat -- the only artillery unit to fight in the town. Requires precise in-town placement across several ticks.\"}",
-   "repl": "{\"battery_id\":\"U-ART-I1OH\",\"designation\":\"Battery I, 1st Ohio Artillery (Dilger's Battery)\",\"commander\":{\"name\":\"Captain Hubert Dilger\",\"fate\":\"Survived -- Medal of Honor for Gettysburg\",\"notes\":\"Dilger was born in Germany and commanded Battery I, 1st Ohio.\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":13,\"key_action\":\"Fought north of the town on July 1 and withdrew through Gettysburg to Cemetery Hill.\",\"flag_notes\":\"UNIQUE PLACEMENT: Dilger's battery moved THROUGH Gettysburg's streets during the retreat -- the only artillery unit to fight in the town. Requires precise in-town placement across several ticks.\"}",
+   "repl": "{\"battery_id\":\"U-ART-I1OH\",\"designation\":\"Battery I, 1st Ohio Artillery (Dilger's Battery)\",\"commander\":{\"name\":\"Captain Hubert Dilger\",\"fate\":\"Survived Gettysburg\",\"notes\":\"Dilger was born in Germany and commanded Battery I, 1st Ohio.\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":13,\"key_action\":\"Fought north of the town on July 1 and withdrew through Gettysburg to Cemetery Hill.\",\"flag_notes\":\"UNIQUE PLACEMENT: Dilger's battery moved THROUGH Gettysburg's streets during the retreat -- the only artillery unit to fight in the town. Requires precise in-town placement across several ticks.\"}",
    "area": "oobarty",
    "unit": "U-ART-I1OH"
   },
@@ -20060,11 +20090,11 @@
   {
    "id": "DATA-oob-union-oob-brigades-U-I-2-1",
    "target": "data/oob/union_oob_brigades.json",
-   "cls": "wrong-id+wrong-number",
-   "before": "regiment_ids lists U-107NY for the 107th Pennsylvania | brigade casualties 793 against 1041 (the printed total of the brigade, including its staff row (p.173))",
-   "src": "OR 27/1 p.156 (roster: 107th Pennsylvania in the First Brigade of the Second Division, First Corps) and p.173 (return); OR 27/1 pp.173-186 (return of casualties)",
+   "cls": "wrong-id+unsupported-detail+wrong-number",
+   "before": "regiment_ids lists U-107NY for the 107th Pennsylvania | fate \"shot through both eyes, blinded permanently\" | brigade casualties 793 against 1041 (the printed total of the brigade, including its staff row (p.173))",
+   "src": "OR 27/1 p.156 (roster: 107th Pennsylvania in the First Brigade of the Second Division, First Corps) and p.173 (return); OR 27/1 p.156 (roster note); OR 27/1 pp.173-186 (return of casualties)",
    "find": "{\"brigade_id\":\"U-I-2-1\",\"designation\":\"First Brigade, Second Division, First Corps (Paul's Brigade)\",\"parent_division_id\":\"U-I-2\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Brigadier General Gabriel Paul\",\"fate\":\"Wounded July 1 -- shot through both eyes, blinded permanently\",\"successor\":{\"name\":\"Colonel Samuel Leonard\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Adrian Root\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Richard Coulter\",\"assumed_command\":\"July 1 -- fourth commander in one afternoon\"}}}},\"strength\":1536,\"casualties\":793,\"casualty_percentage\":51.6,\"days_engaged\":[1],\"state\":\"New York/Pennsylvania/Massachusetts\",\"regiment_ids\":[\"U-16ME\",\"U-13MA\",\"U-94NY\",\"U-104NY\",\"U-107NY\",\"U-11PA\"],\"key_action\":\"Oak Ridge defense. Paul blinded, then three successive commanders wounded in under an hour. 16th Maine left as sacrifice regiment to cover retreat.\"}",
-   "repl": "{\"brigade_id\":\"U-I-2-1\",\"designation\":\"First Brigade, Second Division, First Corps (Paul's Brigade)\",\"parent_division_id\":\"U-I-2\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Brigadier General Gabriel Paul\",\"fate\":\"Wounded July 1 -- shot through both eyes, blinded permanently\",\"successor\":{\"name\":\"Colonel Samuel Leonard\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Adrian Root\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Richard Coulter\",\"assumed_command\":\"July 1 -- fourth commander in one afternoon\"}}}},\"strength\":1536,\"casualties\":1041,\"casualty_percentage\":67.8,\"days_engaged\":[1],\"state\":\"New York/Pennsylvania/Massachusetts\",\"regiment_ids\":[\"U-16ME\",\"U-13MA\",\"U-94NY\",\"U-104NY\",\"U-107PA\",\"U-11PA\"],\"key_action\":\"Oak Ridge. Paul was severely wounded and command passed through Leonard, Root and Coulter (roster, OR 27/1 p.156); the 16th Maine was ordered alone to take and hold a hill commanding the road (Farnham, OR 27/1 p.295).\"}",
+   "repl": "{\"brigade_id\":\"U-I-2-1\",\"designation\":\"First Brigade, Second Division, First Corps (Paul's Brigade)\",\"parent_division_id\":\"U-I-2\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Brigadier General Gabriel Paul\",\"fate\":\"Severely wounded July 1\",\"successor\":{\"name\":\"Colonel Samuel Leonard\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Adrian Root\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Richard Coulter\",\"assumed_command\":\"July 1 -- fourth commander in one afternoon\"}}}},\"strength\":1536,\"casualties\":1041,\"casualty_percentage\":67.8,\"days_engaged\":[1],\"state\":\"New York/Pennsylvania/Massachusetts\",\"regiment_ids\":[\"U-16ME\",\"U-13MA\",\"U-94NY\",\"U-104NY\",\"U-107PA\",\"U-11PA\"],\"key_action\":\"Oak Ridge. Paul was severely wounded and command passed through Leonard, Root and Coulter (roster, OR 27/1 p.156); the 16th Maine was ordered alone to take and hold a hill commanding the road (Farnham, OR 27/1 p.295).\"}",
    "area": "oobbrig",
    "unit": "U-I-2-1"
   },
@@ -20720,11 +20750,11 @@
   {
    "id": "DATA-oob-union-regiments-i-ii-corps-U-140PA",
    "target": "data/oob/union_regiments_i_ii_corps.json",
-   "cls": "wrong-number+unsupported-claim",
-   "before": "casualties 197 against 241 in the Official Records return (140th Pennsylvania) | Largest in Zook's brigade. Roberts mortally wounded.",
-   "src": "OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json; no report read supports the removed phrase",
+   "cls": "wrong-number+wrong-claim+unsupported-claim",
+   "before": "casualties 197 against 241 in the Official Records return (140th Pennsylvania) | fate \"Mortally wounded July 2\"; the Official Records list him among the officers killed | Largest in Zook's brigade. Roberts mortally wounded.",
+   "src": "OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json; OR 27/1 p.188; OR 27/1 p.188 (list of officers killed)",
    "find": "{\"regiment_id\":\"U-140PA\",\"designation\":\"140th Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-II-1-3\",\"parent_corps_id\":\"U-II\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Colonel Richard Roberts\",\"fate\":\"Mortally wounded July 2\"},\"strength\":515,\"casualties\":197,\"casualty_percentage\":38.3,\"days_engaged\":[2],\"key_action\":\"Largest in Zook's brigade. Roberts mortally wounded.\"}",
-   "repl": "{\"regiment_id\":\"U-140PA\",\"designation\":\"140th Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-II-1-3\",\"parent_corps_id\":\"U-II\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Colonel Richard Roberts\",\"fate\":\"Mortally wounded July 2\"},\"strength\":515,\"casualties\":241,\"casualty_percentage\":46.8,\"days_engaged\":[2],\"key_action\":\"Zook's brigade. Roberts mortally wounded.\"}",
+   "repl": "{\"regiment_id\":\"U-140PA\",\"designation\":\"140th Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-II-1-3\",\"parent_corps_id\":\"U-II\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Colonel Richard Roberts\",\"fate\":\"Killed July 2 (OR 27/1 p.188, list of officers killed)\"},\"strength\":515,\"casualties\":241,\"casualty_percentage\":46.8,\"days_engaged\":[2],\"key_action\":\"Zook's brigade -- Wheatfield. Colonel Roberts was killed (OR 27/1 p.188).\"}",
    "area": "oobcas",
    "unit": "U-140PA"
   },
@@ -20797,11 +20827,11 @@
   {
    "id": "DATA-oob-union-regiments-i-ii-corps-U-15MA",
    "target": "data/oob/union_regiments_i_ii_corps.json",
-   "cls": "wrong-number",
-   "before": "casualties 149 against 148 in the Official Records return (15th Massachusetts)",
-   "src": "OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json",
+   "cls": "wrong-number+wrong-date",
+   "before": "casualties 149 against 148 in the Official Records return (15th Massachusetts) | fate \"Mortally wounded July 3\"; Harrow has the 15th Massachusetts advancing to the road and Colonel Ward falling on July 2",
+   "src": "OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json; OR 27/1 pp.418-419, p.423 (Harrow), p.188",
    "find": "{\"regiment_id\":\"U-15MA\",\"designation\":\"15th Massachusetts Volunteer Infantry\",\"parent_brigade_id\":\"U-II-2-1\",\"parent_corps_id\":\"U-II\",\"state\":\"Massachusetts\",\"commander\":{\"name\":\"Colonel George Ward\",\"fate\":\"Mortally wounded July 3\"},\"strength\":239,\"casualties\":149,\"casualty_percentage\":62.3,\"days_engaged\":[2,3],\"key_action\":\"Harrow's brigade -- Ward mortally wounded during Pickett's Charge.\"}",
-   "repl": "{\"regiment_id\":\"U-15MA\",\"designation\":\"15th Massachusetts Volunteer Infantry\",\"parent_brigade_id\":\"U-II-2-1\",\"parent_corps_id\":\"U-II\",\"state\":\"Massachusetts\",\"commander\":{\"name\":\"Colonel George Ward\",\"fate\":\"Mortally wounded July 3\"},\"strength\":239,\"casualties\":148,\"casualty_percentage\":61.9,\"days_engaged\":[2,3],\"key_action\":\"Harrow's brigade -- Ward mortally wounded during Pickett's Charge.\"}",
+   "repl": "{\"regiment_id\":\"U-15MA\",\"designation\":\"15th Massachusetts Volunteer Infantry\",\"parent_brigade_id\":\"U-II-2-1\",\"parent_corps_id\":\"U-II\",\"state\":\"Massachusetts\",\"commander\":{\"name\":\"Colonel George Ward\",\"fate\":\"Mortally wounded July 2 in the advance to the Emmitsburg road (Harrow lists him among the killed)\"},\"strength\":239,\"casualties\":148,\"casualty_percentage\":61.9,\"days_engaged\":[2,3],\"key_action\":\"Harrow's brigade -- Colonel Ward fell on July 2 in the advance to the Emmitsburg road (Harrow, OR 27/1 pp.418-419, p.423).\"}",
    "area": "oobcas",
    "unit": "U-15MA"
   },
@@ -20874,11 +20904,11 @@
   {
    "id": "DATA-oob-union-regiments-i-ii-corps-U-7MI",
    "target": "data/oob/union_regiments_i_ii_corps.json",
-   "cls": "wrong-number",
-   "before": "casualties 75 against 65 in the Official Records return (7th Michigan)",
-   "src": "OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json",
+   "cls": "wrong-number+unsupported-detail",
+   "before": "casualties 75 against 65 in the Official Records return (7th Michigan) | fate \"Mortally wounded July 3 -- died July 7\"",
+   "src": "OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json; OR 27/1 p.188, p.418 (Harrow)",
    "find": "{\"regiment_id\":\"U-7MI\",\"designation\":\"7th Michigan Volunteer Infantry\",\"parent_brigade_id\":\"U-II-2-3\",\"parent_corps_id\":\"U-II\",\"state\":\"Michigan\",\"commander\":{\"name\":\"Lieutenant Colonel Amos Steele\",\"fate\":\"Mortally wounded July 3 -- died July 7\"},\"strength\":165,\"casualties\":75,\"casualty_percentage\":45.5,\"days_engaged\":[2,3],\"key_action\":\"Hall's brigade -- Steele mortally wounded July 3.\"}",
-   "repl": "{\"regiment_id\":\"U-7MI\",\"designation\":\"7th Michigan Volunteer Infantry\",\"parent_brigade_id\":\"U-II-2-3\",\"parent_corps_id\":\"U-II\",\"state\":\"Michigan\",\"commander\":{\"name\":\"Lieutenant Colonel Amos Steele\",\"fate\":\"Mortally wounded July 3 -- died July 7\"},\"strength\":165,\"casualties\":65,\"casualty_percentage\":39.4,\"days_engaged\":[2,3],\"key_action\":\"Hall's brigade -- Steele mortally wounded July 3.\"}",
+   "repl": "{\"regiment_id\":\"U-7MI\",\"designation\":\"7th Michigan Volunteer Infantry\",\"parent_brigade_id\":\"U-II-2-3\",\"parent_corps_id\":\"U-II\",\"state\":\"Michigan\",\"commander\":{\"name\":\"Lieutenant Colonel Amos Steele\",\"fate\":\"Killed July 3 (OR 27/1 p.188, list of officers killed)\"},\"strength\":165,\"casualties\":65,\"casualty_percentage\":39.4,\"days_engaged\":[2,3],\"key_action\":\"Hall's brigade -- Steele mortally wounded July 3.\"}",
    "area": "oobcas",
    "unit": "U-7MI"
   },
@@ -21468,11 +21498,11 @@
   {
    "id": "DATA-oob-union-regiments-iii-v-corps-U-4MI",
    "target": "data/oob/union_regiments_iii_v_corps.json",
-   "cls": "wrong-number",
-   "before": "casualties 136 against 165 in the Official Records return (4th Michigan)",
-   "src": "OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json",
+   "cls": "wrong-number+wrong-claim",
+   "before": "casualties 136 against 165 in the Official Records return (4th Michigan) | commander Lieutenant Colonel George Lumbard, fate \"KIA July 2 -- killed in Wheatfield\" (Colonel Jeffords was the officer killed; Lumbard survived)",
+   "src": "OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json; OR 27/1 p.161 (roster: Jeffords, Lumbard), p.188 (killed: Col. Harrison H. Jeffords), p.602 and p.612 (thrust through with a bayonet)",
    "find": "{\"regiment_id\":\"U-4MI\",\"designation\":\"4th Michigan Volunteer Infantry\",\"parent_brigade_id\":\"U-V-1-2\",\"parent_corps_id\":\"U-V\",\"state\":\"Michigan\",\"commander\":{\"name\":\"Lieutenant Colonel George Lumbard\",\"fate\":\"KIA July 2 -- killed in Wheatfield\"},\"strength\":342,\"casualties\":136,\"casualty_percentage\":39.8,\"days_engaged\":[2],\"key_action\":\"Sweitzer's brigade -- Lumbard killed in Wheatfield.\"}",
-   "repl": "{\"regiment_id\":\"U-4MI\",\"designation\":\"4th Michigan Volunteer Infantry\",\"parent_brigade_id\":\"U-V-1-2\",\"parent_corps_id\":\"U-V\",\"state\":\"Michigan\",\"commander\":{\"name\":\"Lieutenant Colonel George Lumbard\",\"fate\":\"KIA July 2 -- killed in Wheatfield\"},\"strength\":342,\"casualties\":165,\"casualty_percentage\":48.2,\"days_engaged\":[2],\"key_action\":\"Sweitzer's brigade -- Lumbard killed in Wheatfield.\"}",
+   "repl": "{\"regiment_id\":\"U-4MI\",\"designation\":\"4th Michigan Volunteer Infantry\",\"parent_brigade_id\":\"U-V-1-2\",\"parent_corps_id\":\"U-V\",\"state\":\"Michigan\",\"commander\":{\"name\":\"Colonel Harrison H. Jeffords\",\"fate\":\"Killed July 2, thrust through with a bayonet while trying to save the colors (Sweitzer, Sykes)\"},\"strength\":342,\"casualties\":165,\"casualty_percentage\":48.2,\"days_engaged\":[2],\"key_action\":\"Sweitzer's brigade -- Wheatfield. Colonel Jeffords was killed there; Lieutenant Colonel George W. Lumbard, the next officer in the roster, took the regiment.\"}",
    "area": "oobcas",
    "unit": "U-4MI"
   },
@@ -21810,10 +21840,10 @@
    "id": "DATA-oob-union-regiments-vi-xi-xii-corps-U-121NY",
    "target": "data/oob/union_regiments_vi_xi_xii_corps.json",
    "cls": "wrong-number+unsupported-claim",
-   "before": "casualties 0 against 2 in the Official Records return (121st New York) | Bartlett's brigade -- army reserve. Upton's later tactical innovations make this regiment historically notable.",
-   "src": "OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json; no report read supports the removed phrase",
+   "before": "casualties 0 against 2 in the Official Records return (121st New York) | fate \"later revolutionized infantry tactics at Spotsylvania 1864\" (an opinion) | Bartlett's brigade -- army reserve. Upton's later tactical innovations make this regiment historically notable.",
+   "src": "OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json; a judgement; no source read; no report read supports the removed phrase",
    "find": "{\"regiment_id\":\"U-121NY\",\"designation\":\"121st New York Volunteer Infantry\",\"parent_brigade_id\":\"U-VI-1-2\",\"parent_corps_id\":\"U-VI\",\"state\":\"New York\",\"commander\":{\"name\":\"Colonel Emory Upton\",\"fate\":\"Survived -- later revolutionized infantry tactics at Spotsylvania 1864\"},\"strength\":426,\"casualties\":0,\"days_engaged\":[],\"key_action\":\"Bartlett's brigade -- army reserve. Upton's later tactical innovations make this regiment historically notable.\"}",
-   "repl": "{\"regiment_id\":\"U-121NY\",\"designation\":\"121st New York Volunteer Infantry\",\"parent_brigade_id\":\"U-VI-1-2\",\"parent_corps_id\":\"U-VI\",\"state\":\"New York\",\"commander\":{\"name\":\"Colonel Emory Upton\",\"fate\":\"Survived -- later revolutionized infantry tactics at Spotsylvania 1864\"},\"strength\":426,\"casualties\":2,\"days_engaged\":[],\"key_action\":\"Bartlett's brigade -- army reserve.\",\"casualty_percentage\":0.5}",
+   "repl": "{\"regiment_id\":\"U-121NY\",\"designation\":\"121st New York Volunteer Infantry\",\"parent_brigade_id\":\"U-VI-1-2\",\"parent_corps_id\":\"U-VI\",\"state\":\"New York\",\"commander\":{\"name\":\"Colonel Emory Upton\",\"fate\":\"Survived Gettysburg\"},\"strength\":426,\"casualties\":2,\"days_engaged\":[],\"key_action\":\"Bartlett's brigade -- army reserve.\",\"casualty_percentage\":0.5}",
    "area": "oobcas",
    "unit": "U-121NY"
   },
@@ -22404,10 +22434,10 @@
    "id": "DATA-oob-union-regiments-vi-xi-xii-corps-U-13NJ",
    "target": "data/oob/union_regiments_vi_xi_xii_corps.json",
    "cls": "wrong-number+unsupported-claim",
-   "before": "casualties 16 against 21 in the Official Records return (13th New Jersey) | Colgrove's brigade -- Culp's Hill. Carman later wrote the definitive Antietam study.",
-   "src": "OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json; no report read supports the removed phrase",
+   "before": "casualties 16 against 21 in the Official Records return (13th New Jersey) | fate \"later became one of the most important Civil War historians\" (a superlative) | Colgrove's brigade -- Culp's Hill. Carman later wrote the definitive Antietam study.",
+   "src": "OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json; a judgement; no source read; no report read supports the removed phrase",
    "find": "{\"regiment_id\":\"U-13NJ\",\"designation\":\"13th New Jersey Volunteer Infantry\",\"parent_brigade_id\":\"U-XII-1-3\",\"parent_corps_id\":\"U-XII\",\"state\":\"New Jersey\",\"commander\":{\"name\":\"Colonel Ezra Carman\",\"fate\":\"Survived -- later became one of the most important Civil War historians\"},\"strength\":400,\"casualties\":16,\"days_engaged\":[1,2,3],\"key_action\":\"Colgrove's brigade -- Culp's Hill. Carman later wrote the definitive Antietam study.\"}",
-   "repl": "{\"regiment_id\":\"U-13NJ\",\"designation\":\"13th New Jersey Volunteer Infantry\",\"parent_brigade_id\":\"U-XII-1-3\",\"parent_corps_id\":\"U-XII\",\"state\":\"New Jersey\",\"commander\":{\"name\":\"Colonel Ezra Carman\",\"fate\":\"Survived -- later became one of the most important Civil War historians\"},\"strength\":400,\"casualties\":21,\"days_engaged\":[1,2,3],\"key_action\":\"Colgrove's brigade -- Culp's Hill.\",\"casualty_percentage\":5.3}",
+   "repl": "{\"regiment_id\":\"U-13NJ\",\"designation\":\"13th New Jersey Volunteer Infantry\",\"parent_brigade_id\":\"U-XII-1-3\",\"parent_corps_id\":\"U-XII\",\"state\":\"New Jersey\",\"commander\":{\"name\":\"Colonel Ezra Carman\",\"fate\":\"Survived\"},\"strength\":400,\"casualties\":21,\"days_engaged\":[1,2,3],\"key_action\":\"Colgrove's brigade -- Culp's Hill.\",\"casualty_percentage\":5.3}",
    "area": "oobcas",
    "unit": "U-13NJ"
   },
@@ -23787,6 +23817,149 @@
    "unit": "C-III"
   },
   {
+   "id": "DATA-oob-confederate-oob-corps-div-bde-C-I-1-2",
+   "target": "data/oob/confederate_oob_corps_div_bde.json",
+   "cls": "wrong-claim+wrong-number",
+   "before": "fate \"KIA July 2 -- mortally wounded ... died July 3\" (killed and mortally wounded in one string) | brigade casualties 564 against 747 in the return",
+   "src": "OR 27/2 p.283 (roster note); OR 27/2 pp.338-346 (return of casualties; transcription tools/t0/data/sources/or27_confed_losses.json)",
+   "find": "{\"brigade_id\":\"C-I-1-2\",\"designation\":\"Barksdale's Brigade\",\"parent_division_id\":\"C-I-1\",\"parent_corps_id\":\"C-I\",\"commander\":{\"name\":\"Brigadier General William Barksdale\",\"fate\":\"KIA July 2 -- mortally wounded leading the Peach Orchard charge; died July 3\",\"successor\":{\"name\":\"Colonel Benjamin Humphreys\",\"assumed_command\":\"July 2\"}},\"strength\":1620,\"casualties\":564,\"casualty_percentage\":34.8,\"state\":\"Mississippi\",\"days_engaged\":[2],\"key_action\":\"Shattered the Peach Orchard salient. Barksdale rode ahead of his men and was mortally wounded.\",\"flag_notes\":\"Barksdale's charge -- his being mortally wounded ahead of his men is a vignette candidate.\",\"regiment_ids\":[\"C-13MS\",\"C-17MS\",\"C-18MS\",\"C-21MS\"]}",
+   "repl": "{\"brigade_id\":\"C-I-1-2\",\"designation\":\"Barksdale's Brigade\",\"parent_division_id\":\"C-I-1\",\"parent_corps_id\":\"C-I\",\"commander\":{\"name\":\"Brigadier General William Barksdale\",\"fate\":\"Mortally wounded July 2 leading the charge toward the Peach Orchard; died July 3\",\"successor\":{\"name\":\"Colonel Benjamin Humphreys\",\"assumed_command\":\"July 2\"}},\"strength\":1620,\"casualties\":747,\"casualty_percentage\":46.1,\"state\":\"Mississippi\",\"days_engaged\":[2],\"key_action\":\"Peach Orchard salient, July 2; Barksdale was mortally wounded.\",\"flag_notes\":\"Barksdale's charge -- his being mortally wounded ahead of his men is a vignette candidate.\",\"regiment_ids\":[\"C-13MS\",\"C-17MS\",\"C-18MS\",\"C-21MS\"]}",
+   "area": "oobfate",
+   "unit": "C-I-1-2"
+  },
+  {
+   "id": "DATA-oob-confederate-oob-corps-div-bde-C-I-3-1",
+   "target": "data/oob/confederate_oob_corps_div_bde.json",
+   "cls": "unsupported-claim+contested-number",
+   "before": "fate \"KIA July 3 -- killed on horseback at The Angle; body never officially identified\" | brigade key_action",
+   "src": "OR 27/2 p.320 (Lee); the body story is a later account, not in the Official Records; OR 27/2 pp.338-346 (return of casualties; transcription tools/t0/data/sources/or27_confed_losses.json)",
+   "find": "{\"brigade_id\":\"C-I-3-1\",\"designation\":\"Garnett's Brigade\",\"parent_division_id\":\"C-I-3\",\"parent_corps_id\":\"C-I\",\"commander\":{\"name\":\"Brigadier General Richard Garnett\",\"fate\":\"KIA July 3 -- killed on horseback at The Angle; body never officially identified\"},\"strength\":1459,\"casualties\":941,\"casualty_percentage\":64.5,\"state\":\"Virginia\",\"days_engaged\":[3],\"key_action\":\"Center of Pickett's charge -- reached The Angle. Garnett killed on horseback. 64.5% casualties.\",\"regiment_ids\":[\"C-8VA\",\"C-18VA\",\"C-19VA\",\"C-28VA\",\"C-56VA\"]}",
+   "repl": "{\"brigade_id\":\"C-I-3-1\",\"designation\":\"Garnett's Brigade\",\"parent_division_id\":\"C-I-3\",\"parent_corps_id\":\"C-I\",\"commander\":{\"name\":\"Brigadier General Richard Garnett\",\"fate\":\"Killed July 3 in Pickett's Charge (Lee's report)\"},\"strength\":1459,\"casualties\":941,\"casualty_percentage\":64.5,\"state\":\"Virginia\",\"days_engaged\":[3],\"key_action\":\"Pickett's Charge, July 3 -- Garnett was killed. 64.5% casualties (941 by the return).\",\"regiment_ids\":[\"C-8VA\",\"C-18VA\",\"C-19VA\",\"C-28VA\",\"C-56VA\"]}",
+   "area": "oobfate",
+   "unit": "C-I-3-1"
+  },
+  {
+   "id": "DATA-oob-confederate-oob-corps-div-bde-C-I-3-2",
+   "target": "data/oob/confederate_oob_corps_div_bde.json",
+   "cls": "unsupported-detail+wrong-number",
+   "before": "fate \"Severely wounded July 3 -- shot through groin; survived\" | brigade casualties 741 against 731 in the return",
+   "src": "OR 27/2 p.320 (Lee); the wound is a later account, not in the Official Records; OR 27/2 pp.338-346 (return of casualties; transcription tools/t0/data/sources/or27_confed_losses.json)",
+   "find": "{\"brigade_id\":\"C-I-3-2\",\"designation\":\"Kemper's Brigade\",\"parent_division_id\":\"C-I-3\",\"parent_corps_id\":\"C-I\",\"commander\":{\"name\":\"Brigadier General James Kemper\",\"fate\":\"Severely wounded July 3 -- shot through groin; survived\",\"successor\":{\"name\":\"Colonel Joseph Mayo\",\"assumed_command\":\"July 3\"}},\"strength\":1634,\"casualties\":741,\"casualty_percentage\":45.3,\"state\":\"Virginia\",\"days_engaged\":[3],\"key_action\":\"Right of Pickett's line -- hit by Stannard's flanking fire. Kemper severely wounded.\",\"regiment_ids\":[\"C-1VA\",\"C-3VA\",\"C-7VA\",\"C-11VA\",\"C-24VA\"]}",
+   "repl": "{\"brigade_id\":\"C-I-3-2\",\"designation\":\"Kemper's Brigade\",\"parent_division_id\":\"C-I-3\",\"parent_corps_id\":\"C-I\",\"commander\":{\"name\":\"Brigadier General James Kemper\",\"fate\":\"Severely wounded July 3; survived\",\"successor\":{\"name\":\"Colonel Joseph Mayo\",\"assumed_command\":\"July 3\"}},\"strength\":1634,\"casualties\":731,\"casualty_percentage\":44.7,\"state\":\"Virginia\",\"days_engaged\":[3],\"key_action\":\"Right of Pickett's line -- hit by Stannard's flanking fire. Kemper severely wounded.\",\"regiment_ids\":[\"C-1VA\",\"C-3VA\",\"C-7VA\",\"C-11VA\",\"C-24VA\"]}",
+   "area": "oobfate",
+   "unit": "C-I-3-2"
+  },
+  {
+   "id": "DATA-oob-confederate-oob-corps-div-bde-C-I-3-3",
+   "target": "data/oob/confederate_oob_corps_div_bde.json",
+   "cls": "unsupported-detail+wrong-number",
+   "before": "fate \"shot moments after breaching The Angle with his hat on his sword; died July 5\" | brigade casualties 1223 against 1191 in the return",
+   "src": "OR 27/1 p.418 (Harrow); the hat on the sword is a later account, not in the Official Records; OR 27/2 pp.338-346 (return of casualties; transcription tools/t0/data/sources/or27_confed_losses.json)",
+   "find": "{\"brigade_id\":\"C-I-3-3\",\"designation\":\"Armistead's Brigade\",\"parent_division_id\":\"C-I-3\",\"parent_corps_id\":\"C-I\",\"commander\":{\"name\":\"Brigadier General Lewis Armistead\",\"fate\":\"Mortally wounded July 3 -- shot moments after breaching The Angle with his hat on his sword; died July 5\",\"notes\":\"Armistead and Union General Hancock were close friends before the war.\"},\"strength\":1950,\"casualties\":1223,\"casualty_percentage\":62.7,\"state\":\"Virginia\",\"days_engaged\":[3],\"key_action\":\"Achieved the deepest Confederate penetration -- the High Water Mark of the Confederacy.\",\"flag_notes\":\"HIGHEST PRIORITY Confederate placement July 3: Armistead's breach of The Angle is the climactic moment of the battle.\",\"regiment_ids\":[\"C-9VA\",\"C-14VA\",\"C-38VA\",\"C-53VA\",\"C-57VA\"]}",
+   "repl": "{\"brigade_id\":\"C-I-3-3\",\"designation\":\"Armistead's Brigade\",\"parent_division_id\":\"C-I-3\",\"parent_corps_id\":\"C-I\",\"commander\":{\"name\":\"Brigadier General Lewis Armistead\",\"fate\":\"Mortally wounded July 3 at the stone wall; died July 5\",\"notes\":\"Armistead and Union General Hancock were close friends before the war.\"},\"strength\":1950,\"casualties\":1191,\"casualty_percentage\":61.1,\"state\":\"Virginia\",\"days_engaged\":[3],\"key_action\":\"Armistead's brigade reached the stone wall at the Angle during Pickett's Charge; Armistead was mortally wounded (Lee, Harrow).\",\"flag_notes\":\"HIGHEST PRIORITY Confederate placement July 3: Armistead's breach of The Angle is the climactic moment of the battle.\",\"regiment_ids\":[\"C-9VA\",\"C-14VA\",\"C-38VA\",\"C-53VA\",\"C-57VA\"]}",
+   "area": "oobfate",
+   "unit": "C-I-3-3"
+  },
+  {
+   "id": "DATA-oob-confederate-oob-corps-div-bde-C-II-1-2",
+   "target": "data/oob/confederate_oob_corps_div_bde.json",
+   "cls": "unsupported-quote+wrong-number",
+   "before": "fate quotes a note written in his own blood | brigade casualties 322 against 345 in the return",
+   "src": "OR 27/2 p.285 (roster); a later account, not in the Official Records; OR 27/2 pp.338-346 (return of casualties; transcription tools/t0/data/sources/or27_confed_losses.json)",
+   "find": "{\"brigade_id\":\"C-II-1-2\",\"designation\":\"Hoke's Brigade (Avery commanding)\",\"parent_division_id\":\"C-II-1\",\"parent_corps_id\":\"C-II\",\"commander\":{\"name\":\"Colonel Isaac Avery\",\"fate\":\"Mortally wounded July 2 -- wrote final message in his own blood: 'Tell my father I died with my face to the enemy'\",\"successor\":{\"name\":\"Colonel Archibald Godwin\",\"assumed_command\":\"July 2\"}},\"strength\":1244,\"casualties\":322,\"casualty_percentage\":25.9,\"state\":\"North Carolina\",\"days_engaged\":[1,2],\"key_action\":\"Cemetery Hill assault alongside Hays. Avery killed writing his blood-message.\",\"flag_notes\":\"Avery's blood-written dying message is a vignette-worthy human story.\",\"regiment_ids\":[\"C-6NC\",\"C-21NC\",\"C-57NC\"]}",
+   "repl": "{\"brigade_id\":\"C-II-1-2\",\"designation\":\"Hoke's Brigade (Avery commanding)\",\"parent_division_id\":\"C-II-1\",\"parent_corps_id\":\"C-II\",\"commander\":{\"name\":\"Colonel Isaac Avery\",\"fate\":\"Mortally wounded July 2 (the note attributed to him comes from later accounts, not the Official Records)\",\"successor\":{\"name\":\"Colonel Archibald Godwin\",\"assumed_command\":\"July 2\"}},\"strength\":1244,\"casualties\":345,\"casualty_percentage\":27.7,\"state\":\"North Carolina\",\"days_engaged\":[1,2],\"key_action\":\"Cemetery Hill assault alongside Hays, evening of July 2; Colonel Avery was mortally wounded and Colonel Godwin took the brigade (roster, OR 27/2 p.286).\",\"flag_notes\":\"Avery's blood-written dying message is a vignette-worthy human story.\",\"regiment_ids\":[\"C-6NC\",\"C-21NC\",\"C-57NC\"]}",
+   "area": "oobfate",
+   "unit": "C-II-1-2"
+  },
+  {
+   "id": "DATA-oob-confederate-oob-corps-div-bde-C-II-3-3",
+   "target": "data/oob/confederate_oob_corps_div_bde.json",
+   "cls": "wrong-claim+wrong-number",
+   "before": "fate \"never given another brigade command after Gettysburg\"; Iverson commanded cavalry brigades in Georgia in 1864-65 | brigade casualties 903 against 820 in the return (the printed total; its rows add to 763)",
+   "src": "no Official Records source for the claim (OR 27/2 p.286 lists his brigade only); OR 27/2 pp.338-346 (return of casualties; transcription tools/t0/data/sources/or27_confed_losses.json)",
+   "find": "{\"brigade_id\":\"C-II-3-3\",\"designation\":\"Iverson's Brigade\",\"parent_division_id\":\"C-II-3\",\"parent_corps_id\":\"C-II\",\"commander\":{\"name\":\"Brigadier General Alfred Iverson\",\"fate\":\"Survived -- never given another brigade command after Gettysburg\"},\"strength\":1470,\"casualties\":903,\"casualty_percentage\":61.4,\"state\":\"North Carolina\",\"days_engaged\":[1],\"key_action\":\"One of the most catastrophic brigade-level disasters of the Civil War. Advanced in perfect alignment directly into the stone wall ambush. ~900 men killed, wounded, or captured in minutes.\",\"flag_notes\":\"CRITICAL ANIMATION: brigade advances in perfect alignment, then is suddenly shot down. The contrast between the orderly advance and sudden destruction is the dramatic core.\",\"regiment_ids\":[\"C-5NC\",\"C-12NC\",\"C-20NC\",\"C-23NC\"]}",
+   "repl": "{\"brigade_id\":\"C-II-3-3\",\"designation\":\"Iverson's Brigade\",\"parent_division_id\":\"C-II-3\",\"parent_corps_id\":\"C-II\",\"commander\":{\"name\":\"Brigadier General Alfred Iverson\",\"fate\":\"Survived\"},\"strength\":1470,\"casualties\":820,\"casualty_percentage\":55.8,\"state\":\"North Carolina\",\"days_engaged\":[1],\"key_action\":\"Iverson's brigade attacked the stone wall on Oak Ridge on July 1 and lost heavily; Rodes wrote that its dead lay in a distinctly marked line of battle (OR 27/2 p.554). The return prints 820 killed, wounded or missing for the brigade (its own rows add to about 765); the regiment records in this file sum to 903 (Contested).\",\"flag_notes\":\"CRITICAL ANIMATION: brigade advances in perfect alignment, then is suddenly shot down. The contrast between the orderly advance and sudden destruction is the dramatic core.\",\"regiment_ids\":[\"C-5NC\",\"C-12NC\",\"C-20NC\",\"C-23NC\"]}",
+   "area": "oobfate",
+   "unit": "C-II-3-3"
+  },
+  {
+   "id": "DATA-oob-confederate-oob-corps-div-bde-C-II-3-5",
+   "target": "data/oob/confederate_oob_corps_div_bde.json",
+   "cls": "unsupported-claim+contested-number",
+   "before": "fate \"never promoted to brigadier general\" | brigade key_action",
+   "src": "no source read states it; OR 27/2 pp.338-346 (return of casualties; transcription tools/t0/data/sources/or27_confed_losses.json)",
+   "find": "{\"brigade_id\":\"C-II-3-5\",\"designation\":\"O'Neal's Brigade\",\"parent_division_id\":\"C-II-3\",\"parent_corps_id\":\"C-II\",\"commander\":{\"name\":\"Colonel Edward O'Neal\",\"fate\":\"Survived -- never promoted to brigadier general\"},\"strength\":1688,\"casualties\":696,\"casualty_percentage\":41.2,\"state\":\"Alabama\",\"days_engaged\":[1],\"key_action\":\"O'Neal's attack miscarried -- he failed to lead personally, kept a regiment back without authority.\",\"regiment_ids\":[\"C-3AL\",\"C-5AL-R\",\"C-6AL\",\"C-12AL\",\"C-26AL\"]}",
+   "repl": "{\"brigade_id\":\"C-II-3-5\",\"designation\":\"O'Neal's Brigade\",\"parent_division_id\":\"C-II-3\",\"parent_corps_id\":\"C-II\",\"commander\":{\"name\":\"Colonel Edward O'Neal\",\"fate\":\"Survived\"},\"strength\":1688,\"casualties\":696,\"casualty_percentage\":41.2,\"state\":\"Alabama\",\"days_engaged\":[1],\"key_action\":\"O'Neal's brigade attacked on Oak Ridge on July 1; Rodes reports that O'Neal himself remained with the 5th Alabama (OR 27/2 p.553).\",\"regiment_ids\":[\"C-3AL\",\"C-5AL-R\",\"C-6AL\",\"C-12AL\",\"C-26AL\"]}",
+   "area": "oobfate",
+   "unit": "C-II-3-5"
+  },
+  {
+   "id": "DATA-oob-confederate-oob-corps-div-bde-C-III-2-3",
+   "target": "data/oob/confederate_oob_corps_div_bde.json",
+   "cls": "unsupported-claim+wrong-number",
+   "before": "fate \"first Confederate general captured since Lee assumed command\" | brigade casualties 602 against 677 in the return",
+   "src": "OR 27/1 p.245 (Doubleday); OR 27/2 pp.338-346 (return of casualties; transcription tools/t0/data/sources/or27_confed_losses.json)",
+   "find": "{\"brigade_id\":\"C-III-2-3\",\"designation\":\"Archer's Brigade (Fry commanding)\",\"parent_division_id\":\"C-III-2\",\"parent_corps_id\":\"C-III\",\"commander\":{\"name\":\"Brigadier General James Archer\",\"fate\":\"Captured July 1 -- first Confederate general captured since Lee assumed command\",\"successor\":{\"name\":\"Colonel Birkett Fry\",\"fate\":\"Wounded July 3 at The Angle\"}},\"strength\":1197,\"casualties\":602,\"casualty_percentage\":50.3,\"state\":\"Tennessee/Alabama\",\"days_engaged\":[1,3],\"key_action\":\"Archer captured July 1. Fry led the brigade in the July 3 charge and was wounded reaching The Angle.\",\"regiment_ids\":[\"C-13AL\",\"C-1TN-P\",\"C-7TN\",\"C-14TN\",\"C-5AL-H\"]}",
+   "repl": "{\"brigade_id\":\"C-III-2-3\",\"designation\":\"Archer's Brigade (Fry commanding)\",\"parent_division_id\":\"C-III-2\",\"parent_corps_id\":\"C-III\",\"commander\":{\"name\":\"Brigadier General James Archer\",\"fate\":\"Captured July 1 (Doubleday: taken by Private Patrick Maloney of the 2d Wisconsin)\",\"successor\":{\"name\":\"Colonel Birkett Fry\",\"fate\":\"Wounded July 3 at The Angle\"}},\"strength\":1197,\"casualties\":677,\"casualty_percentage\":56.6,\"state\":\"Tennessee/Alabama\",\"days_engaged\":[1,3],\"key_action\":\"Archer captured July 1. Fry led the brigade in the July 3 charge and was wounded.\",\"regiment_ids\":[\"C-13AL\",\"C-1TN-P\",\"C-7TN\",\"C-14TN\",\"C-5AL-H\"]}",
+   "area": "oobfate",
+   "unit": "C-III-2-3"
+  },
+  {
+   "id": "DATA-oob-union-oob-brigades-U-II-1-1",
+   "target": "data/oob/union_oob_brigades.json",
+   "cls": "unsupported-quote+wrong-number",
+   "before": "fate \"KIA ... Hancock told him 'This is not your last fight Cross.'\" quoted as fact | brigade casualties 322 against 330 (the printed total of the brigade, including its staff row (p.175))",
+   "src": "OR 27/1 p.175 (roster), p.188 (list of officers killed); a later account, not in the Official Records; OR 27/1 pp.173-186 (return of casualties)",
+   "find": "{\"brigade_id\":\"U-II-1-1\",\"designation\":\"First Brigade, First Division, Second Corps (Cross's Brigade)\",\"parent_division_id\":\"U-II-1\",\"parent_corps_id\":\"U-II\",\"commander\":{\"name\":\"Colonel Edward Cross\",\"fate\":\"KIA July 2 -- shot through abdomen in the Wheatfield. Hancock told him 'This is not your last fight Cross.' Cross replied 'I think this IS my last battle.'\",\"successor\":{\"name\":\"Colonel H. Boyd McKeen\",\"assumed_command\":\"July 2\"}},\"strength\":853,\"casualties\":322,\"casualty_percentage\":37.7,\"days_engaged\":[2],\"state\":\"New Hampshire/New York/Pennsylvania\",\"regiment_ids\":[\"U-5NH\",\"U-61NY\",\"U-81PA\",\"U-148PA\"],\"key_action\":\"Wheatfield -- Cross killed almost immediately upon entering the field.\"}",
+   "repl": "{\"brigade_id\":\"U-II-1-1\",\"designation\":\"First Brigade, First Division, Second Corps (Cross's Brigade)\",\"parent_division_id\":\"U-II-1\",\"parent_corps_id\":\"U-II\",\"commander\":{\"name\":\"Colonel Edward Cross\",\"fate\":\"Mortally wounded July 2 in the Wheatfield (the exchange reported between Hancock and Cross before the advance comes from later accounts)\",\"successor\":{\"name\":\"Colonel H. Boyd McKeen\",\"assumed_command\":\"July 2\"}},\"strength\":853,\"casualties\":330,\"casualty_percentage\":38.7,\"days_engaged\":[2],\"state\":\"New Hampshire/New York/Pennsylvania\",\"regiment_ids\":[\"U-5NH\",\"U-61NY\",\"U-81PA\",\"U-148PA\"],\"key_action\":\"Wheatfield, July 2 -- Cross was mortally wounded.\"}",
+   "area": "oobfate",
+   "unit": "U-II-1-1"
+  },
+  {
+   "id": "DATA-oob-union-oob-brigades-U-II-1-3",
+   "target": "data/oob/union_oob_brigades.json",
+   "cls": "wrong-claim+wrong-number",
+   "before": "fate \"KIA July 2 -- mortally wounded\" (killed and mortally wounded in one string) | brigade casualties 373 against 358 (the printed total of the brigade, including its staff row (p.175))",
+   "src": "OR 27/1 p.158 (roster), p.190; OR 27/1 pp.173-186 (return of casualties)",
+   "find": "{\"brigade_id\":\"U-II-1-3\",\"designation\":\"Third Brigade, First Division, Second Corps (Zook's Brigade)\",\"parent_division_id\":\"U-II-1\",\"parent_corps_id\":\"U-II\",\"commander\":{\"name\":\"Brigadier General Samuel Zook\",\"fate\":\"KIA July 2 -- mortally wounded in the Wheatfield\",\"successor\":{\"name\":\"Lieutenant Colonel John Fraser\",\"assumed_command\":\"July 2\"}},\"strength\":975,\"casualties\":373,\"casualty_percentage\":38.3,\"days_engaged\":[2],\"state\":\"New York/Pennsylvania\",\"regiment_ids\":[\"U-52NY\",\"U-57NY\",\"U-66NY\",\"U-140PA\"],\"key_action\":\"Wheatfield -- Zook killed.\"}",
+   "repl": "{\"brigade_id\":\"U-II-1-3\",\"designation\":\"Third Brigade, First Division, Second Corps (Zook's Brigade)\",\"parent_division_id\":\"U-II-1\",\"parent_corps_id\":\"U-II\",\"commander\":{\"name\":\"Brigadier General Samuel Zook\",\"fate\":\"Mortally wounded July 2 in the Wheatfield\",\"successor\":{\"name\":\"Lieutenant Colonel John Fraser\",\"assumed_command\":\"July 2\"}},\"strength\":975,\"casualties\":358,\"casualty_percentage\":36.7,\"days_engaged\":[2],\"state\":\"New York/Pennsylvania\",\"regiment_ids\":[\"U-52NY\",\"U-57NY\",\"U-66NY\",\"U-140PA\"],\"key_action\":\"Wheatfield, July 2 -- Zook was mortally wounded and Lieut. Col. Fraser took the brigade (roster).\"}",
+   "area": "oobfate",
+   "unit": "U-II-1-3"
+  },
+  {
+   "id": "DATA-oob-union-oob-brigades-U-V-2-3",
+   "target": "data/oob/union_oob_brigades.json",
+   "cls": "wrong-claim+wrong-number",
+   "before": "fate \"KIA July 2 -- shot on Little Round Top summit beside Hazlett\" | brigade casualties 356 against 200 (the printed total of the brigade, including its staff row (p.180))",
+   "src": "OR 27/1 p.652; OR 27/1 pp.173-186 (return of casualties)",
+   "find": "{\"brigade_id\":\"U-V-2-3\",\"designation\":\"Third Brigade, Second Division, Fifth Corps (Weed's Brigade)\",\"parent_division_id\":\"U-V-2\",\"parent_corps_id\":\"U-V\",\"commander\":{\"name\":\"Brigadier General Stephen Weed\",\"fate\":\"KIA July 2 -- shot on Little Round Top summit beside Hazlett\",\"successor\":{\"name\":\"Colonel Kenner Garrard\",\"assumed_command\":\"July 2\"}},\"strength\":1591,\"casualties\":356,\"casualty_percentage\":22.4,\"days_engaged\":[2],\"state\":\"New York/Pennsylvania\",\"regiment_ids\":[\"U-140NY\",\"U-146NY\",\"U-91PA\",\"U-155PA\"],\"key_action\":\"Little Round Top summit -- Weed and Hazlett killed side by side. O'Rorke's 140th NY charged downhill without orders.\"}",
+   "repl": "{\"brigade_id\":\"U-V-2-3\",\"designation\":\"Third Brigade, Second Division, Fifth Corps (Weed's Brigade)\",\"parent_division_id\":\"U-V-2\",\"parent_corps_id\":\"U-V\",\"commander\":{\"name\":\"Brigadier General Stephen Weed\",\"fate\":\"Mortally wounded July 2 on the summit of Little Round Top\",\"successor\":{\"name\":\"Colonel Kenner Garrard\",\"assumed_command\":\"July 2\"}},\"strength\":1591,\"casualties\":200,\"casualty_percentage\":12.6,\"days_engaged\":[2],\"state\":\"New York/Pennsylvania\",\"regiment_ids\":[\"U-140NY\",\"U-146NY\",\"U-91PA\",\"U-155PA\"],\"key_action\":\"Little Round Top, July 2 -- Weed and Hazlett were both mortally wounded on the summit (brigade report, OR 27/1 p.652); the 140th New York under O'Rorke went into action on the left slope (p.651).\"}",
+   "area": "oobfate",
+   "unit": "U-V-2-3"
+  },
+  {
+   "id": "DATA-oob-union-regiments-i-ii-corps-U-151PA",
+   "target": "data/oob/union_regiments_i_ii_corps.json",
+   "cls": "unsupported-detail+unsupported-claim",
+   "before": "fate \"Both legs wounded -- nearly fatal\" | Largest regiment in Biddle's brigade -- 72.2% casualties.",
+   "src": "OR 27/1 p.255 (Rowley), p.316 (Biddle: badly wounded); no report read supports the removed phrase",
+   "find": "{\"regiment_id\":\"U-151PA\",\"designation\":\"151st Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-I-3-1\",\"parent_corps_id\":\"U-I\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Lieutenant Colonel George McFarland\",\"fate\":\"Both legs wounded -- nearly fatal\"},\"strength\":467,\"casualties\":337,\"casualty_percentage\":72.2,\"days_engaged\":[1],\"key_action\":\"Largest regiment in Biddle's brigade -- 72.2% casualties.\"}",
+   "repl": "{\"regiment_id\":\"U-151PA\",\"designation\":\"151st Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-I-3-1\",\"parent_corps_id\":\"U-I\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Lieutenant Colonel George McFarland\",\"fate\":\"Severely wounded July 1\"},\"strength\":467,\"casualties\":337,\"casualty_percentage\":72.2,\"days_engaged\":[1],\"key_action\":\"Biddle's brigade -- 72.2% casualties.\"}",
+   "area": "oobfate",
+   "unit": "U-151PA"
+  },
+  {
+   "id": "DATA-oob-union-regiments-vi-xi-xii-corps-U-17CT",
+   "target": "data/oob/union_regiments_vi_xi_xii_corps.json",
+   "cls": "unsupported-detail",
+   "before": "fate \"KIA July 1 -- shot through head at Barlow's Knoll\"",
+   "src": "OR 27/1 p.188",
+   "find": "{\"regiment_id\":\"U-17CT\",\"designation\":\"17th Connecticut Volunteer Infantry\",\"parent_brigade_id\":\"U-XI-1-2\",\"parent_corps_id\":\"U-XI\",\"state\":\"Connecticut\",\"commander\":{\"name\":\"Lieutenant Colonel Douglas Fowler\",\"fate\":\"KIA July 1 -- shot through head at Barlow's Knoll\",\"successor\":{\"name\":\"Major Allen Brady\",\"assumed_command\":\"July 1\"}},\"strength\":386,\"casualties\":197,\"casualty_percentage\":51.0,\"days_engaged\":[1],\"key_action\":\"Ames's brigade -- Fowler killed. 51% casualties at Barlow's Knoll.\"}",
+   "repl": "{\"regiment_id\":\"U-17CT\",\"designation\":\"17th Connecticut Volunteer Infantry\",\"parent_brigade_id\":\"U-XI-1-2\",\"parent_corps_id\":\"U-XI\",\"state\":\"Connecticut\",\"commander\":{\"name\":\"Lieutenant Colonel Douglas Fowler\",\"fate\":\"Killed July 1 (OR 27/1 p.188, list of officers killed)\",\"successor\":{\"name\":\"Major Allen Brady\",\"assumed_command\":\"July 1\"}},\"strength\":386,\"casualties\":197,\"casualty_percentage\":51.0,\"days_engaged\":[1],\"key_action\":\"Ames's brigade -- Fowler killed. 51% casualties at Barlow's Knoll.\"}",
+   "area": "oobfate",
+   "unit": "U-17CT"
+  },
+  {
    "id": "DATA-oob-confederate-artillery-C-ART-Doll",
    "target": "data/oob/confederate_artillery.json",
    "cls": "unverified-record+unsupported-claim",
@@ -24106,28 +24279,6 @@
    "unit": "U-I-3-3"
   },
   {
-   "id": "DATA-oob-union-oob-brigades-U-II-1-1",
-   "target": "data/oob/union_oob_brigades.json",
-   "cls": "wrong-number",
-   "before": "brigade casualties 322 against 330 (the printed total of the brigade, including its staff row (p.175))",
-   "src": "OR 27/1 pp.173-186 (return of casualties)",
-   "find": "{\"brigade_id\":\"U-II-1-1\",\"designation\":\"First Brigade, First Division, Second Corps (Cross's Brigade)\",\"parent_division_id\":\"U-II-1\",\"parent_corps_id\":\"U-II\",\"commander\":{\"name\":\"Colonel Edward Cross\",\"fate\":\"KIA July 2 -- shot through abdomen in the Wheatfield. Hancock told him 'This is not your last fight Cross.' Cross replied 'I think this IS my last battle.'\",\"successor\":{\"name\":\"Colonel H. Boyd McKeen\",\"assumed_command\":\"July 2\"}},\"strength\":853,\"casualties\":322,\"casualty_percentage\":37.7,\"days_engaged\":[2],\"state\":\"New Hampshire/New York/Pennsylvania\",\"regiment_ids\":[\"U-5NH\",\"U-61NY\",\"U-81PA\",\"U-148PA\"],\"key_action\":\"Wheatfield -- Cross killed almost immediately upon entering the field.\"}",
-   "repl": "{\"brigade_id\":\"U-II-1-1\",\"designation\":\"First Brigade, First Division, Second Corps (Cross's Brigade)\",\"parent_division_id\":\"U-II-1\",\"parent_corps_id\":\"U-II\",\"commander\":{\"name\":\"Colonel Edward Cross\",\"fate\":\"KIA July 2 -- shot through abdomen in the Wheatfield. Hancock told him 'This is not your last fight Cross.' Cross replied 'I think this IS my last battle.'\",\"successor\":{\"name\":\"Colonel H. Boyd McKeen\",\"assumed_command\":\"July 2\"}},\"strength\":853,\"casualties\":330,\"casualty_percentage\":38.7,\"days_engaged\":[2],\"state\":\"New Hampshire/New York/Pennsylvania\",\"regiment_ids\":[\"U-5NH\",\"U-61NY\",\"U-81PA\",\"U-148PA\"],\"key_action\":\"Wheatfield, July 2 -- Cross was mortally wounded.\"}",
-   "area": "oobtotals",
-   "unit": "U-II-1-1"
-  },
-  {
-   "id": "DATA-oob-union-oob-brigades-U-II-1-3",
-   "target": "data/oob/union_oob_brigades.json",
-   "cls": "wrong-number",
-   "before": "brigade casualties 373 against 358 (the printed total of the brigade, including its staff row (p.175))",
-   "src": "OR 27/1 pp.173-186 (return of casualties)",
-   "find": "{\"brigade_id\":\"U-II-1-3\",\"designation\":\"Third Brigade, First Division, Second Corps (Zook's Brigade)\",\"parent_division_id\":\"U-II-1\",\"parent_corps_id\":\"U-II\",\"commander\":{\"name\":\"Brigadier General Samuel Zook\",\"fate\":\"KIA July 2 -- mortally wounded in the Wheatfield\",\"successor\":{\"name\":\"Lieutenant Colonel John Fraser\",\"assumed_command\":\"July 2\"}},\"strength\":975,\"casualties\":373,\"casualty_percentage\":38.3,\"days_engaged\":[2],\"state\":\"New York/Pennsylvania\",\"regiment_ids\":[\"U-52NY\",\"U-57NY\",\"U-66NY\",\"U-140PA\"],\"key_action\":\"Wheatfield -- Zook killed.\"}",
-   "repl": "{\"brigade_id\":\"U-II-1-3\",\"designation\":\"Third Brigade, First Division, Second Corps (Zook's Brigade)\",\"parent_division_id\":\"U-II-1\",\"parent_corps_id\":\"U-II\",\"commander\":{\"name\":\"Brigadier General Samuel Zook\",\"fate\":\"KIA July 2 -- mortally wounded in the Wheatfield\",\"successor\":{\"name\":\"Lieutenant Colonel John Fraser\",\"assumed_command\":\"July 2\"}},\"strength\":975,\"casualties\":358,\"casualty_percentage\":36.7,\"days_engaged\":[2],\"state\":\"New York/Pennsylvania\",\"regiment_ids\":[\"U-52NY\",\"U-57NY\",\"U-66NY\",\"U-140PA\"],\"key_action\":\"Wheatfield, July 2 -- Zook was mortally wounded and Lieut. Col. Fraser took the brigade (roster).\"}",
-   "area": "oobtotals",
-   "unit": "U-II-1-3"
-  },
-  {
    "id": "DATA-oob-union-oob-brigades-U-II-1-4",
    "target": "data/oob/union_oob_brigades.json",
    "cls": "wrong-number",
@@ -24269,17 +24420,6 @@
    "repl": "{\"brigade_id\":\"U-V-2-2\",\"designation\":\"Second Brigade, Second Division, Fifth Corps (Burbank's Regular Brigade)\",\"parent_division_id\":\"U-V-2\",\"parent_corps_id\":\"U-V\",\"commander\":{\"name\":\"Colonel Sidney Burbank\",\"fate\":\"Survived\"},\"strength\":954,\"casualties\":447,\"casualty_percentage\":46.9,\"days_engaged\":[2],\"state\":\"Regular Army\",\"regiment_ids\":[\"U-2US\",\"U-7US\",\"U-10US\",\"U-11US\",\"U-17US\"],\"key_action\":\"Wheatfield -- Regular Army brigade suffered 46.9% casualties (447 of 954 by the return).\"}",
    "area": "oobtotals",
    "unit": "U-V-2-2"
-  },
-  {
-   "id": "DATA-oob-union-oob-brigades-U-V-2-3",
-   "target": "data/oob/union_oob_brigades.json",
-   "cls": "wrong-number",
-   "before": "brigade casualties 356 against 200 (the printed total of the brigade, including its staff row (p.180))",
-   "src": "OR 27/1 pp.173-186 (return of casualties)",
-   "find": "{\"brigade_id\":\"U-V-2-3\",\"designation\":\"Third Brigade, Second Division, Fifth Corps (Weed's Brigade)\",\"parent_division_id\":\"U-V-2\",\"parent_corps_id\":\"U-V\",\"commander\":{\"name\":\"Brigadier General Stephen Weed\",\"fate\":\"KIA July 2 -- shot on Little Round Top summit beside Hazlett\",\"successor\":{\"name\":\"Colonel Kenner Garrard\",\"assumed_command\":\"July 2\"}},\"strength\":1591,\"casualties\":356,\"casualty_percentage\":22.4,\"days_engaged\":[2],\"state\":\"New York/Pennsylvania\",\"regiment_ids\":[\"U-140NY\",\"U-146NY\",\"U-91PA\",\"U-155PA\"],\"key_action\":\"Little Round Top summit -- Weed and Hazlett killed side by side. O'Rorke's 140th NY charged downhill without orders.\"}",
-   "repl": "{\"brigade_id\":\"U-V-2-3\",\"designation\":\"Third Brigade, Second Division, Fifth Corps (Weed's Brigade)\",\"parent_division_id\":\"U-V-2\",\"parent_corps_id\":\"U-V\",\"commander\":{\"name\":\"Brigadier General Stephen Weed\",\"fate\":\"KIA July 2 -- shot on Little Round Top summit beside Hazlett\",\"successor\":{\"name\":\"Colonel Kenner Garrard\",\"assumed_command\":\"July 2\"}},\"strength\":1591,\"casualties\":200,\"casualty_percentage\":12.6,\"days_engaged\":[2],\"state\":\"New York/Pennsylvania\",\"regiment_ids\":[\"U-140NY\",\"U-146NY\",\"U-91PA\",\"U-155PA\"],\"key_action\":\"Little Round Top, July 2 -- Weed and Hazlett were both mortally wounded on the summit (brigade report, OR 27/1 p.652); the 140th New York under O'Rorke went into action on the left slope (p.651).\"}",
-   "area": "oobtotals",
-   "unit": "U-V-2-3"
   },
   {
    "id": "DATA-oob-union-oob-brigades-U-V-3-1",
@@ -24513,17 +24653,6 @@
    "unit": "C-I-1-1"
   },
   {
-   "id": "DATA-oob-confederate-oob-corps-div-bde-C-I-1-2",
-   "target": "data/oob/confederate_oob_corps_div_bde.json",
-   "cls": "wrong-number",
-   "before": "brigade casualties 564 against 747 in the return",
-   "src": "OR 27/2 pp.338-346 (return of casualties; transcription tools/t0/data/sources/or27_confed_losses.json)",
-   "find": "{\"brigade_id\":\"C-I-1-2\",\"designation\":\"Barksdale's Brigade\",\"parent_division_id\":\"C-I-1\",\"parent_corps_id\":\"C-I\",\"commander\":{\"name\":\"Brigadier General William Barksdale\",\"fate\":\"KIA July 2 -- mortally wounded leading the Peach Orchard charge; died July 3\",\"successor\":{\"name\":\"Colonel Benjamin Humphreys\",\"assumed_command\":\"July 2\"}},\"strength\":1620,\"casualties\":564,\"casualty_percentage\":34.8,\"state\":\"Mississippi\",\"days_engaged\":[2],\"key_action\":\"Shattered the Peach Orchard salient. Barksdale rode ahead of his men and was mortally wounded.\",\"flag_notes\":\"Barksdale's charge -- his being mortally wounded ahead of his men is a vignette candidate.\",\"regiment_ids\":[\"C-13MS\",\"C-17MS\",\"C-18MS\",\"C-21MS\"]}",
-   "repl": "{\"brigade_id\":\"C-I-1-2\",\"designation\":\"Barksdale's Brigade\",\"parent_division_id\":\"C-I-1\",\"parent_corps_id\":\"C-I\",\"commander\":{\"name\":\"Brigadier General William Barksdale\",\"fate\":\"KIA July 2 -- mortally wounded leading the Peach Orchard charge; died July 3\",\"successor\":{\"name\":\"Colonel Benjamin Humphreys\",\"assumed_command\":\"July 2\"}},\"strength\":1620,\"casualties\":747,\"casualty_percentage\":46.1,\"state\":\"Mississippi\",\"days_engaged\":[2],\"key_action\":\"Peach Orchard salient, July 2; Barksdale was mortally wounded.\",\"flag_notes\":\"Barksdale's charge -- his being mortally wounded ahead of his men is a vignette candidate.\",\"regiment_ids\":[\"C-13MS\",\"C-17MS\",\"C-18MS\",\"C-21MS\"]}",
-   "area": "oobtotals",
-   "unit": "C-I-1-2"
-  },
-  {
    "id": "DATA-oob-confederate-oob-corps-div-bde-C-I-1-3",
    "target": "data/oob/confederate_oob_corps_div_bde.json",
    "cls": "wrong-number",
@@ -24579,28 +24708,6 @@
    "unit": "C-I-2-4"
   },
   {
-   "id": "DATA-oob-confederate-oob-corps-div-bde-C-I-3-2",
-   "target": "data/oob/confederate_oob_corps_div_bde.json",
-   "cls": "wrong-number",
-   "before": "brigade casualties 741 against 731 in the return",
-   "src": "OR 27/2 pp.338-346 (return of casualties; transcription tools/t0/data/sources/or27_confed_losses.json)",
-   "find": "{\"brigade_id\":\"C-I-3-2\",\"designation\":\"Kemper's Brigade\",\"parent_division_id\":\"C-I-3\",\"parent_corps_id\":\"C-I\",\"commander\":{\"name\":\"Brigadier General James Kemper\",\"fate\":\"Severely wounded July 3 -- shot through groin; survived\",\"successor\":{\"name\":\"Colonel Joseph Mayo\",\"assumed_command\":\"July 3\"}},\"strength\":1634,\"casualties\":741,\"casualty_percentage\":45.3,\"state\":\"Virginia\",\"days_engaged\":[3],\"key_action\":\"Right of Pickett's line -- hit by Stannard's flanking fire. Kemper severely wounded.\",\"regiment_ids\":[\"C-1VA\",\"C-3VA\",\"C-7VA\",\"C-11VA\",\"C-24VA\"]}",
-   "repl": "{\"brigade_id\":\"C-I-3-2\",\"designation\":\"Kemper's Brigade\",\"parent_division_id\":\"C-I-3\",\"parent_corps_id\":\"C-I\",\"commander\":{\"name\":\"Brigadier General James Kemper\",\"fate\":\"Severely wounded July 3 -- shot through groin; survived\",\"successor\":{\"name\":\"Colonel Joseph Mayo\",\"assumed_command\":\"July 3\"}},\"strength\":1634,\"casualties\":731,\"casualty_percentage\":44.7,\"state\":\"Virginia\",\"days_engaged\":[3],\"key_action\":\"Right of Pickett's line -- hit by Stannard's flanking fire. Kemper severely wounded.\",\"regiment_ids\":[\"C-1VA\",\"C-3VA\",\"C-7VA\",\"C-11VA\",\"C-24VA\"]}",
-   "area": "oobtotals",
-   "unit": "C-I-3-2"
-  },
-  {
-   "id": "DATA-oob-confederate-oob-corps-div-bde-C-I-3-3",
-   "target": "data/oob/confederate_oob_corps_div_bde.json",
-   "cls": "wrong-number",
-   "before": "brigade casualties 1223 against 1191 in the return",
-   "src": "OR 27/2 pp.338-346 (return of casualties; transcription tools/t0/data/sources/or27_confed_losses.json)",
-   "find": "{\"brigade_id\":\"C-I-3-3\",\"designation\":\"Armistead's Brigade\",\"parent_division_id\":\"C-I-3\",\"parent_corps_id\":\"C-I\",\"commander\":{\"name\":\"Brigadier General Lewis Armistead\",\"fate\":\"Mortally wounded July 3 -- shot moments after breaching The Angle with his hat on his sword; died July 5\",\"notes\":\"Armistead and Union General Hancock were close friends before the war.\"},\"strength\":1950,\"casualties\":1223,\"casualty_percentage\":62.7,\"state\":\"Virginia\",\"days_engaged\":[3],\"key_action\":\"Achieved the deepest Confederate penetration -- the High Water Mark of the Confederacy.\",\"flag_notes\":\"HIGHEST PRIORITY Confederate placement July 3: Armistead's breach of The Angle is the climactic moment of the battle.\",\"regiment_ids\":[\"C-9VA\",\"C-14VA\",\"C-38VA\",\"C-53VA\",\"C-57VA\"]}",
-   "repl": "{\"brigade_id\":\"C-I-3-3\",\"designation\":\"Armistead's Brigade\",\"parent_division_id\":\"C-I-3\",\"parent_corps_id\":\"C-I\",\"commander\":{\"name\":\"Brigadier General Lewis Armistead\",\"fate\":\"Mortally wounded July 3 -- shot moments after breaching The Angle with his hat on his sword; died July 5\",\"notes\":\"Armistead and Union General Hancock were close friends before the war.\"},\"strength\":1950,\"casualties\":1191,\"casualty_percentage\":61.1,\"state\":\"Virginia\",\"days_engaged\":[3],\"key_action\":\"Armistead's brigade reached the stone wall at the Angle during Pickett's Charge; Armistead was mortally wounded (Lee, Harrow).\",\"flag_notes\":\"HIGHEST PRIORITY Confederate placement July 3: Armistead's breach of The Angle is the climactic moment of the battle.\",\"regiment_ids\":[\"C-9VA\",\"C-14VA\",\"C-38VA\",\"C-53VA\",\"C-57VA\"]}",
-   "area": "oobtotals",
-   "unit": "C-I-3-3"
-  },
-  {
    "id": "DATA-oob-confederate-oob-corps-div-bde-C-II-1-1",
    "target": "data/oob/confederate_oob_corps_div_bde.json",
    "cls": "wrong-number",
@@ -24610,17 +24717,6 @@
    "repl": "{\"brigade_id\":\"C-II-1-1\",\"designation\":\"Hays's Brigade (Louisiana Tigers)\",\"parent_division_id\":\"C-II-1\",\"parent_corps_id\":\"C-II\",\"commander\":{\"name\":\"Brigadier General Harry Hays\",\"fate\":\"Survived\"},\"strength\":1295,\"casualties\":313,\"casualty_percentage\":24.2,\"state\":\"Louisiana\",\"days_engaged\":[1,2],\"key_action\":\"July 2 evening -- briefly seized the crest of Cemetery Hill before being driven back.\",\"flag_notes\":\"Cemetery Hill assault -- brigade advances up the hill, occupies crest for 1-2 ticks, then driven back.\",\"regiment_ids\":[\"C-5LA\",\"C-6LA\",\"C-7LA\",\"C-8LA\",\"C-9LA\"]}",
    "area": "oobtotals",
    "unit": "C-II-1-1"
-  },
-  {
-   "id": "DATA-oob-confederate-oob-corps-div-bde-C-II-1-2",
-   "target": "data/oob/confederate_oob_corps_div_bde.json",
-   "cls": "wrong-number",
-   "before": "brigade casualties 322 against 345 in the return",
-   "src": "OR 27/2 pp.338-346 (return of casualties; transcription tools/t0/data/sources/or27_confed_losses.json)",
-   "find": "{\"brigade_id\":\"C-II-1-2\",\"designation\":\"Hoke's Brigade (Avery commanding)\",\"parent_division_id\":\"C-II-1\",\"parent_corps_id\":\"C-II\",\"commander\":{\"name\":\"Colonel Isaac Avery\",\"fate\":\"Mortally wounded July 2 -- wrote final message in his own blood: 'Tell my father I died with my face to the enemy'\",\"successor\":{\"name\":\"Colonel Archibald Godwin\",\"assumed_command\":\"July 2\"}},\"strength\":1244,\"casualties\":322,\"casualty_percentage\":25.9,\"state\":\"North Carolina\",\"days_engaged\":[1,2],\"key_action\":\"Cemetery Hill assault alongside Hays. Avery killed writing his blood-message.\",\"flag_notes\":\"Avery's blood-written dying message is a vignette-worthy human story.\",\"regiment_ids\":[\"C-6NC\",\"C-21NC\",\"C-57NC\"]}",
-   "repl": "{\"brigade_id\":\"C-II-1-2\",\"designation\":\"Hoke's Brigade (Avery commanding)\",\"parent_division_id\":\"C-II-1\",\"parent_corps_id\":\"C-II\",\"commander\":{\"name\":\"Colonel Isaac Avery\",\"fate\":\"Mortally wounded July 2 -- wrote final message in his own blood: 'Tell my father I died with my face to the enemy'\",\"successor\":{\"name\":\"Colonel Archibald Godwin\",\"assumed_command\":\"July 2\"}},\"strength\":1244,\"casualties\":345,\"casualty_percentage\":27.7,\"state\":\"North Carolina\",\"days_engaged\":[1,2],\"key_action\":\"Cemetery Hill assault alongside Hays, evening of July 2; Colonel Avery was mortally wounded and Colonel Godwin took the brigade (roster, OR 27/2 p.286).\",\"flag_notes\":\"Avery's blood-written dying message is a vignette-worthy human story.\",\"regiment_ids\":[\"C-6NC\",\"C-21NC\",\"C-57NC\"]}",
-   "area": "oobtotals",
-   "unit": "C-II-1-2"
   },
   {
    "id": "DATA-oob-confederate-oob-corps-div-bde-C-II-1-3",
@@ -24700,17 +24796,6 @@
    "unit": "C-II-3-2"
   },
   {
-   "id": "DATA-oob-confederate-oob-corps-div-bde-C-II-3-3",
-   "target": "data/oob/confederate_oob_corps_div_bde.json",
-   "cls": "wrong-number",
-   "before": "brigade casualties 903 against 820 in the return (the printed total; its rows add to 763)",
-   "src": "OR 27/2 pp.338-346 (return of casualties; transcription tools/t0/data/sources/or27_confed_losses.json)",
-   "find": "{\"brigade_id\":\"C-II-3-3\",\"designation\":\"Iverson's Brigade\",\"parent_division_id\":\"C-II-3\",\"parent_corps_id\":\"C-II\",\"commander\":{\"name\":\"Brigadier General Alfred Iverson\",\"fate\":\"Survived -- never given another brigade command after Gettysburg\"},\"strength\":1470,\"casualties\":903,\"casualty_percentage\":61.4,\"state\":\"North Carolina\",\"days_engaged\":[1],\"key_action\":\"One of the most catastrophic brigade-level disasters of the Civil War. Advanced in perfect alignment directly into the stone wall ambush. ~900 men killed, wounded, or captured in minutes.\",\"flag_notes\":\"CRITICAL ANIMATION: brigade advances in perfect alignment, then is suddenly shot down. The contrast between the orderly advance and sudden destruction is the dramatic core.\",\"regiment_ids\":[\"C-5NC\",\"C-12NC\",\"C-20NC\",\"C-23NC\"]}",
-   "repl": "{\"brigade_id\":\"C-II-3-3\",\"designation\":\"Iverson's Brigade\",\"parent_division_id\":\"C-II-3\",\"parent_corps_id\":\"C-II\",\"commander\":{\"name\":\"Brigadier General Alfred Iverson\",\"fate\":\"Survived -- never given another brigade command after Gettysburg\"},\"strength\":1470,\"casualties\":820,\"casualty_percentage\":55.8,\"state\":\"North Carolina\",\"days_engaged\":[1],\"key_action\":\"Iverson's brigade attacked the stone wall on Oak Ridge on July 1 and lost heavily; Rodes wrote that its dead lay in a distinctly marked line of battle (OR 27/2 p.554). The return prints 820 killed, wounded or missing for the brigade (its own rows add to about 765); the regiment records in this file sum to 903 (Contested).\",\"flag_notes\":\"CRITICAL ANIMATION: brigade advances in perfect alignment, then is suddenly shot down. The contrast between the orderly advance and sudden destruction is the dramatic core.\",\"regiment_ids\":[\"C-5NC\",\"C-12NC\",\"C-20NC\",\"C-23NC\"]}",
-   "area": "oobtotals",
-   "unit": "C-II-3-3"
-  },
-  {
    "id": "DATA-oob-confederate-oob-corps-div-bde-C-II-3-4",
    "target": "data/oob/confederate_oob_corps_div_bde.json",
    "cls": "wrong-number",
@@ -24788,17 +24873,6 @@
    "unit": "C-III-2-2"
   },
   {
-   "id": "DATA-oob-confederate-oob-corps-div-bde-C-III-2-3",
-   "target": "data/oob/confederate_oob_corps_div_bde.json",
-   "cls": "wrong-number",
-   "before": "brigade casualties 602 against 677 in the return",
-   "src": "OR 27/2 pp.338-346 (return of casualties; transcription tools/t0/data/sources/or27_confed_losses.json)",
-   "find": "{\"brigade_id\":\"C-III-2-3\",\"designation\":\"Archer's Brigade (Fry commanding)\",\"parent_division_id\":\"C-III-2\",\"parent_corps_id\":\"C-III\",\"commander\":{\"name\":\"Brigadier General James Archer\",\"fate\":\"Captured July 1 -- first Confederate general captured since Lee assumed command\",\"successor\":{\"name\":\"Colonel Birkett Fry\",\"fate\":\"Wounded July 3 at The Angle\"}},\"strength\":1197,\"casualties\":602,\"casualty_percentage\":50.3,\"state\":\"Tennessee/Alabama\",\"days_engaged\":[1,3],\"key_action\":\"Archer captured July 1. Fry led the brigade in the July 3 charge and was wounded reaching The Angle.\",\"regiment_ids\":[\"C-13AL\",\"C-1TN-P\",\"C-7TN\",\"C-14TN\",\"C-5AL-H\"]}",
-   "repl": "{\"brigade_id\":\"C-III-2-3\",\"designation\":\"Archer's Brigade (Fry commanding)\",\"parent_division_id\":\"C-III-2\",\"parent_corps_id\":\"C-III\",\"commander\":{\"name\":\"Brigadier General James Archer\",\"fate\":\"Captured July 1 -- first Confederate general captured since Lee assumed command\",\"successor\":{\"name\":\"Colonel Birkett Fry\",\"fate\":\"Wounded July 3 at The Angle\"}},\"strength\":1197,\"casualties\":677,\"casualty_percentage\":56.6,\"state\":\"Tennessee/Alabama\",\"days_engaged\":[1,3],\"key_action\":\"Archer captured July 1. Fry led the brigade in the July 3 charge and was wounded.\",\"regiment_ids\":[\"C-13AL\",\"C-1TN-P\",\"C-7TN\",\"C-14TN\",\"C-5AL-H\"]}",
-   "area": "oobtotals",
-   "unit": "C-III-2-3"
-  },
-  {
    "id": "DATA-oob-confederate-oob-corps-div-bde-C-III-2-4",
    "target": "data/oob/confederate_oob_corps_div_bde.json",
    "cls": "wrong-number",
@@ -24865,17 +24939,6 @@
    "unit": "C-I-2-1"
   },
   {
-   "id": "DATA-oob-confederate-oob-corps-div-bde-C-I-3-1",
-   "target": "data/oob/confederate_oob_corps_div_bde.json",
-   "cls": "contested-number",
-   "before": "brigade key_action",
-   "src": "OR 27/2 pp.338-346 (return of casualties; transcription tools/t0/data/sources/or27_confed_losses.json)",
-   "find": "{\"brigade_id\":\"C-I-3-1\",\"designation\":\"Garnett's Brigade\",\"parent_division_id\":\"C-I-3\",\"parent_corps_id\":\"C-I\",\"commander\":{\"name\":\"Brigadier General Richard Garnett\",\"fate\":\"KIA July 3 -- killed on horseback at The Angle; body never officially identified\"},\"strength\":1459,\"casualties\":941,\"casualty_percentage\":64.5,\"state\":\"Virginia\",\"days_engaged\":[3],\"key_action\":\"Center of Pickett's charge -- reached The Angle. Garnett killed on horseback. 64.5% casualties.\",\"regiment_ids\":[\"C-8VA\",\"C-18VA\",\"C-19VA\",\"C-28VA\",\"C-56VA\"]}",
-   "repl": "{\"brigade_id\":\"C-I-3-1\",\"designation\":\"Garnett's Brigade\",\"parent_division_id\":\"C-I-3\",\"parent_corps_id\":\"C-I\",\"commander\":{\"name\":\"Brigadier General Richard Garnett\",\"fate\":\"KIA July 3 -- killed on horseback at The Angle; body never officially identified\"},\"strength\":1459,\"casualties\":941,\"casualty_percentage\":64.5,\"state\":\"Virginia\",\"days_engaged\":[3],\"key_action\":\"Pickett's Charge, July 3 -- Garnett was killed. 64.5% casualties (941 by the return).\",\"regiment_ids\":[\"C-8VA\",\"C-18VA\",\"C-19VA\",\"C-28VA\",\"C-56VA\"]}",
-   "area": "oobtotals",
-   "unit": "C-I-3-1"
-  },
-  {
    "id": "DATA-oob-confederate-oob-corps-div-bde-C-II-3-1",
    "target": "data/oob/confederate_oob_corps_div_bde.json",
    "cls": "contested-number",
@@ -24885,17 +24948,6 @@
    "repl": "{\"brigade_id\":\"C-II-3-1\",\"designation\":\"Daniel's Brigade\",\"parent_division_id\":\"C-II-3\",\"parent_corps_id\":\"C-II\",\"commander\":{\"name\":\"Brigadier General Junius Daniel\",\"fate\":\"Survived\"},\"strength\":2162,\"casualties\":916,\"casualty_percentage\":42.4,\"state\":\"North Carolina\",\"days_engaged\":[1,2,3],\"key_action\":\"Daniel's brigade -- attacked from Oak Hill toward the Railroad Cut, July 1.\",\"regiment_ids\":[\"C-32NC\",\"C-43NC\",\"C-45NC\",\"C-53NC\",\"C-2NC-B\"]}",
    "area": "oobtotals",
    "unit": "C-II-3-1"
-  },
-  {
-   "id": "DATA-oob-confederate-oob-corps-div-bde-C-II-3-5",
-   "target": "data/oob/confederate_oob_corps_div_bde.json",
-   "cls": "contested-number",
-   "before": "brigade key_action",
-   "src": "OR 27/2 pp.338-346 (return of casualties; transcription tools/t0/data/sources/or27_confed_losses.json)",
-   "find": "{\"brigade_id\":\"C-II-3-5\",\"designation\":\"O'Neal's Brigade\",\"parent_division_id\":\"C-II-3\",\"parent_corps_id\":\"C-II\",\"commander\":{\"name\":\"Colonel Edward O'Neal\",\"fate\":\"Survived -- never promoted to brigadier general\"},\"strength\":1688,\"casualties\":696,\"casualty_percentage\":41.2,\"state\":\"Alabama\",\"days_engaged\":[1],\"key_action\":\"O'Neal's attack miscarried -- he failed to lead personally, kept a regiment back without authority.\",\"regiment_ids\":[\"C-3AL\",\"C-5AL-R\",\"C-6AL\",\"C-12AL\",\"C-26AL\"]}",
-   "repl": "{\"brigade_id\":\"C-II-3-5\",\"designation\":\"O'Neal's Brigade\",\"parent_division_id\":\"C-II-3\",\"parent_corps_id\":\"C-II\",\"commander\":{\"name\":\"Colonel Edward O'Neal\",\"fate\":\"Survived -- never promoted to brigadier general\"},\"strength\":1688,\"casualties\":696,\"casualty_percentage\":41.2,\"state\":\"Alabama\",\"days_engaged\":[1],\"key_action\":\"O'Neal's brigade attacked on Oak Ridge on July 1; Rodes reports that O'Neal himself remained with the 5th Alabama (OR 27/2 p.553).\",\"regiment_ids\":[\"C-3AL\",\"C-5AL-R\",\"C-6AL\",\"C-12AL\",\"C-26AL\"]}",
-   "area": "oobtotals",
-   "unit": "C-II-3-5"
   },
   {
    "id": "DATA-oob-confederate-oob-corps-div-bde-C-III-2-1",
@@ -25314,17 +25366,6 @@
    "repl": "{\"regiment_id\":\"U-16ME\",\"designation\":\"16th Maine Volunteer Infantry\",\"parent_brigade_id\":\"U-I-2-1\",\"parent_corps_id\":\"U-I\",\"state\":\"Maine\",\"commander\":{\"name\":\"Colonel Charles Tilden\",\"fate\":\"Captured July 1\"},\"strength\":298,\"casualties\":232,\"casualty_percentage\":77.9,\"days_engaged\":[1],\"key_action\":\"Robinson ordered the regiment alone to take a hill commanding the road and hold it as long as there was a man left (Farnham, OR 27/1 p.295). 77.9% casualties.\",\"flag_notes\":\"SACRIFICE REGIMENT -- must show holding position alone as all surrounding units retreat.\"}",
    "area": "zkey",
    "unit": "U-16ME"
-  },
-  {
-   "id": "DATA-oob-union-regiments-i-ii-corps-U-151PA",
-   "target": "data/oob/union_regiments_i_ii_corps.json",
-   "cls": "unsupported-claim",
-   "before": "Largest regiment in Biddle's brigade -- 72.2% casualties.",
-   "src": "no report read supports the removed phrase",
-   "find": "{\"regiment_id\":\"U-151PA\",\"designation\":\"151st Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-I-3-1\",\"parent_corps_id\":\"U-I\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Lieutenant Colonel George McFarland\",\"fate\":\"Both legs wounded -- nearly fatal\"},\"strength\":467,\"casualties\":337,\"casualty_percentage\":72.2,\"days_engaged\":[1],\"key_action\":\"Largest regiment in Biddle's brigade -- 72.2% casualties.\"}",
-   "repl": "{\"regiment_id\":\"U-151PA\",\"designation\":\"151st Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-I-3-1\",\"parent_corps_id\":\"U-I\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Lieutenant Colonel George McFarland\",\"fate\":\"Both legs wounded -- nearly fatal\"},\"strength\":467,\"casualties\":337,\"casualty_percentage\":72.2,\"days_engaged\":[1],\"key_action\":\"Biddle's brigade -- 72.2% casualties.\"}",
-   "area": "zkey",
-   "unit": "U-151PA"
   },
   {
    "id": "DATA-oob-union-regiments-i-ii-corps-U-149PA",

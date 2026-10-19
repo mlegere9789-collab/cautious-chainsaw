@@ -24,6 +24,7 @@ export default [
   T('carter', '"designation": "Jones\'s Battalion (Rodes\'s Division Artillery)",\n        "commander": {"name": "Lieutenant Colonel Hilary Jones", "fate": "Survived"},',
     '"designation": "Carter\'s Battalion (Rodes\'s Division Artillery); Carrington\'s battery belonged to Jones\'s Battalion (Early\'s Division)",\n        "commander": {"name": "Lieutenant Colonel Thomas Carter", "fate": "Survived"},',
     'wrong-name', 'Carter\'s battery, Fry\'s and Page\'s (Rodes\'s artillery under Lieut. Col. T. H. Carter) filed as "Jones\'s Battalion (Rodes\'s Division)"; Jones\'s battalion was Early\'s (p.286)'),
+  T('alexander', '"fate": "Survived -- lost arm later in war"', '"fate": "Survived"', 'wrong-claim', 'Colonel E. P. Alexander shown as having lost an arm later in the war (he did not; the arm was lost by Colonel Oates of the 15th Alabama)', `${OR2} p.352 (Pendleton); not an Official Records statement`),
   T('latimer2', '"designation": "Latimer\'s Battalion (Johnson\'s Division Artillery)",\n        "commander": {\n          "name": "Major Joseph Latimer",',
     '"designation": "Batteries filed under Latimer\'s battalion that the roster places elsewhere or does not name (see each record)",\n        "commander": {\n          "name": "No commander of record: not a battalion of the roster (the note below is about Latimer\'s battalion, C-ART-II-1)",',
     'duplicate-record', 'a second "Latimer\'s Battalion" holding Doll\'s, Garber\'s, Tanner\'s and a duplicate Brown\'s'),
