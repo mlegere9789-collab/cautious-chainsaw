@@ -23,9 +23,11 @@ const ub = rd('union_oob_brigades.json').brigades;
 export const unionBrigades = {};
 const OVERRIDE = {
   'U-III-2-2': { total: null, add: 203, note: 'sum of the five regiments in this file plus the 120th New York (203, return p.178), which this file does not list' },
+  'U-XII-1-2': { total: 174, note: 'return: 1st Maryland Potomac Home Brigade 104, 1st Maryland Eastern Shore 25, 150th New York 45 (p.184); the Potomac Home Brigade regiment is not in this file' },
   'U-V-3-1': { total: 155, note: 'return: 1st 46, 2d 37, 6th 24, 13th Pennsylvania Reserves 48 (OR 27/1 p.162 roster: the 11th Reserves served in Fisher\'s brigade)' },
   'U-V-3-2': { total: 55, note: 'return: 5th 2, 9th 5, 10th 5, 11th 41, 12th Pennsylvania Reserves 2 (OR 27/1 p.162 roster)' },
 };
+const CAVB = { "U-CAV-1-1": [99, "Gamble's First Brigade (p.185)"], "U-CAV-1-2": [28, "Devin's Second Brigade (p.185)"], "U-CAV-1-R": [291, "Merritt's Reserve Brigade, which includes the 6th U.S. Cavalry's 242 at Fairfield (p.185)"], "U-CAV-2-1": [35, "McIntosh's First Brigade (p.186)"], "U-CAV-2-2": [0, "no loss of record; the roster notes the brigade was at Westminster, not engaged (p.166)"], "U-CAV-3-1": [98, "Farnsworth's (Richmond's) First Brigade (p.186)"] };
 const brRows = [];
 for (const b of ub) {
   const ids = (b.regiment_ids || []).filter((i) => i !== 'U-11PA-R-F');
@@ -35,6 +37,7 @@ for (const b of ub) {
     note = o.note;
     total = o.total ?? ids.reduce((a, i) => a + newCas[i], 0) + o.add;
   } else if (ids.length && ids.every((i) => orIds.has(i))) total = ids.reduce((a, i) => a + newCas[i], 0);
+  if (CAVB[b.brigade_id]) { total = CAVB[b.brigade_id][0]; note = CAVB[b.brigade_id][1]; }
   if (total === null) continue;
   unionBrigades[b.brigade_id] = total;
   if (Math.abs(total - b.casualties) <= Math.max(5, 0.03 * total)) continue;

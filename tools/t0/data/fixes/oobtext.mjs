@@ -20,7 +20,7 @@ const MAN = {
   'U-73NY': ['hardest hit regiment in brigade.', `${newCas['U-73NY']} casualties in the Official Records return (the 120th New York of the same brigade lost 203).`, 'ranking contradicted by the return'],
   'U-2US': ['52.8% casualties in the Wheatfield. Hardest-hit Regular Army unit.', `${newCas['U-2US']} casualties (${newPct['U-2US']}% of the strength in the file) in the Wheatfield; the 11th and 17th U.S. of the same brigade lost more (120 and 150).`, 'percentage and ranking contradicted by the return'],
   'U-6PA-R': ['most casualties in brigade during Crawford\'s charge.', `${newCas['U-6PA-R']} casualties in the Official Records return (the 13th Pennsylvania Reserves lost the most in the brigade, 48).`, 'ranking contradicted by the return'],
-  'U-37MA': ['army reserve.', `Edwards's brigade in the Official Records roster; the return lists ${newCas['U-37MA']} casualties.`, 'record showed no casualties; the return lists 47'],
+  'U-37MA': ['army reserve.', `Eustis's Second Brigade, Third Division, VI Corps (Official Records roster, p.163); the return lists ${newCas['U-37MA']} casualties.`, 'record showed no casualties; the return lists 47'],
   'U-123NY': ['regiment led by Major Lester Willson.', 'regiment led by Lieutenant Colonel James C. Rogers (Official Records roster).', 'commander'],
   'U-150NY': ['THE LARGEST SINGLE INFANTRY REGIMENT AT GETTYSBURG by strength. 765 men.', '765 men by the strength in the file (Busey and Martin basis; the "largest regiment" superlative is not verified here).', 'unverified superlative'],
   'U-149NY': ['Nearly 40% casualties across Culp\'s Hill fighting.', `${newCas['U-149NY']} casualties (${newPct['U-149NY']}% of the strength in the file) at Culp's Hill.`, 'percentage'],

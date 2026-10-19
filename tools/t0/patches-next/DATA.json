@@ -2236,6 +2236,910 @@
    "note": "wrong-number: OR 27/1 p.187; OR 27/2 p.322, p.346; ledger WSD-01, WSD-02; NPS Battle Detail (about 23,000 and 28,000); the 1,328 is the NPS-wide count named in docs/plan findings (data-integrity-29), distinct from the 512 monuments of the app"
   },
   {
+   "id": "DATA-oob-union-cavalry-artillery-U-8IL-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-8IL-CAV\",\"designation\":\"8th Illinois Cavalry\",\"parent_brigade_id\":\"U-CAV-1-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Illinois\",\"commander\":{\"name\":\"Major John Beveridge\",\"fate\":\"Survived\"},\"strength\":466,\"casualties\":26,\"days_engaged\":[1,2,3],\"key_action\":\"Gamble's brigade -- dismounted on McPherson's Ridge July 1 morning, delaying Heth with Spencer repeating carbines. First line of Buford's defense.\"}",
+   "repl": "{\"regiment_id\":\"U-8IL-CAV\",\"designation\":\"8th Illinois Cavalry\",\"parent_brigade_id\":\"U-CAV-1-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Illinois\",\"commander\":{\"name\":\"Major John Beveridge\",\"fate\":\"Survived\"},\"strength\":466,\"casualties\":7,\"days_engaged\":[1,2,3],\"key_action\":\"Gamble's brigade -- dismounted on McPherson's Ridge July 1 morning, delaying Heth with Spencer repeating carbines. First line of Buford's defense.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-12IL-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-12IL-CAV\",\"designation\":\"12th Illinois Cavalry\",\"parent_brigade_id\":\"U-CAV-1-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Illinois\",\"commander\":{\"name\":\"Lieutenant Colonel Hasbrouck Davis\",\"fate\":\"Survived\"},\"strength\":378,\"casualties\":24,\"days_engaged\":[1,2],\"key_action\":\"Gamble's brigade -- dismounted skirmishing on McPherson's and Herr ridges July 1.\"}",
+   "repl": "{\"regiment_id\":\"U-12IL-CAV\",\"designation\":\"12th Illinois Cavalry\",\"parent_brigade_id\":\"U-CAV-1-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Illinois\",\"commander\":{\"name\":\"Lieutenant Colonel Hasbrouck Davis\",\"fate\":\"Survived\"},\"strength\":378,\"casualties\":20,\"days_engaged\":[1,2],\"key_action\":\"Gamble's brigade -- dismounted skirmishing on McPherson's and Herr ridges July 1. The Official Records roster (27/1 p.166) lists the 12th Illinois (four companies) and 3d Indiana (six companies) together under Col. George H. Chapman; the regimental commander shown here is not confirmed by it.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-3IN-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-3IN-CAV\",\"designation\":\"3rd Indiana Cavalry (6 companies only)\",\"parent_brigade_id\":\"U-CAV-1-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Indiana\",\"commander\":{\"name\":\"Lieutenant Colonel William Patton\",\"fate\":\"Survived\"},\"strength\":377,\"casualties\":11,\"days_engaged\":[1],\"key_action\":\"Gamble's brigade -- only 6 of 10 companies present. Buford's July 1 dismounted defense.\",\"flag_notes\":\"6 of 10 companies present -- unit length formula must account for partial regiment strength.\"}",
+   "repl": "{\"regiment_id\":\"U-3IN-CAV\",\"designation\":\"3rd Indiana Cavalry (6 companies only)\",\"parent_brigade_id\":\"U-CAV-1-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Indiana\",\"commander\":{\"name\":\"Lieutenant Colonel William Patton\",\"fate\":\"Survived\"},\"strength\":377,\"casualties\":32,\"days_engaged\":[1],\"key_action\":\"Gamble's brigade -- only 6 of 10 companies present. Buford's July 1 dismounted defense. The Official Records roster (27/1 p.166) lists the 12th Illinois (four companies) and 3d Indiana (six companies) together under Col. George H. Chapman; the regimental commander shown here is not confirmed by it.\",\"flag_notes\":\"6 of 10 companies present -- unit length formula must account for partial regiment strength.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-8NY-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-8NY-CAV\",\"designation\":\"8th New York Cavalry\",\"parent_brigade_id\":\"U-CAV-1-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New York\",\"commander\":{\"name\":\"Lieutenant Colonel William Markell\",\"fate\":\"Survived\"},\"strength\":339,\"casualties\":33,\"days_engaged\":[1,2,3],\"key_action\":\"Gamble's brigade -- McPherson's Ridge dismounted defense July 1.\"}",
+   "repl": "{\"regiment_id\":\"U-8NY-CAV\",\"designation\":\"8th New York Cavalry\",\"parent_brigade_id\":\"U-CAV-1-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New York\",\"commander\":{\"name\":\"Lieutenant Colonel William Markell\",\"fate\":\"Survived\"},\"strength\":339,\"casualties\":40,\"days_engaged\":[1,2,3],\"key_action\":\"Gamble's brigade -- McPherson's Ridge dismounted defense July 1.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-6NY-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-6NY-CAV\",\"designation\":\"6th New York Cavalry\",\"parent_brigade_id\":\"U-CAV-1-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New York\",\"commander\":{\"name\":\"Major William Beardsley\",\"fate\":\"Survived\"},\"strength\":374,\"casualties\":16,\"days_engaged\":[1,2,3],\"key_action\":\"Devin's brigade -- screened Union right flank July 1, protected XI Corps retreat.\"}",
+   "repl": "{\"regiment_id\":\"U-6NY-CAV\",\"designation\":\"6th New York Cavalry\",\"parent_brigade_id\":\"U-CAV-1-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New York\",\"commander\":{\"name\":\"Major William Beardsley\",\"fate\":\"Survived\"},\"strength\":374,\"casualties\":9,\"days_engaged\":[1,2,3],\"key_action\":\"Devin's brigade -- screened Union right flank July 1, protected XI Corps retreat.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-9NY-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-9NY-CAV\",\"designation\":\"9th New York Cavalry\",\"parent_brigade_id\":\"U-CAV-1-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New York\",\"commander\":{\"name\":\"Colonel William Sackett\",\"fate\":\"Survived\"},\"strength\":473,\"casualties\":15,\"days_engaged\":[1,2,3],\"key_action\":\"Devin's brigade -- right flank screen.\"}",
+   "repl": "{\"regiment_id\":\"U-9NY-CAV\",\"designation\":\"9th New York Cavalry\",\"parent_brigade_id\":\"U-CAV-1-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New York\",\"commander\":{\"name\":\"Colonel William Sackett\",\"fate\":\"Survived\"},\"strength\":473,\"casualties\":11,\"days_engaged\":[1,2,3],\"key_action\":\"Devin's brigade -- right flank screen.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-17PA-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-17PA-CAV\",\"designation\":\"17th Pennsylvania Cavalry\",\"parent_brigade_id\":\"U-CAV-1-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Colonel Josiah Kellogg\",\"fate\":\"Survived\"},\"strength\":464,\"casualties\":27,\"days_engaged\":[1,2,3],\"key_action\":\"Devin's brigade -- largest regiment. Right flank screen all three days.\"}",
+   "repl": "{\"regiment_id\":\"U-17PA-CAV\",\"designation\":\"17th Pennsylvania Cavalry\",\"parent_brigade_id\":\"U-CAV-1-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Colonel Josiah Kellogg\",\"fate\":\"Survived\"},\"strength\":464,\"casualties\":4,\"days_engaged\":[1,2,3],\"key_action\":\"Devin's brigade -- largest regiment. Right flank screen all three days.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-6PA-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-6PA-CAV\",\"designation\":\"6th Pennsylvania Cavalry (Rush's Lancers)\",\"parent_brigade_id\":\"U-CAV-1-R\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Major James Haseltine\",\"fate\":\"Survived\"},\"strength\":299,\"casualties\":11,\"days_engaged\":[2,3],\"key_action\":\"Merritt's Reserve Brigade -- operations south of battlefield.\"}",
+   "repl": "{\"regiment_id\":\"U-6PA-CAV\",\"designation\":\"6th Pennsylvania Cavalry (Rush's Lancers)\",\"parent_brigade_id\":\"U-CAV-1-R\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Major James Haseltine\",\"fate\":\"Survived\"},\"strength\":299,\"casualties\":12,\"days_engaged\":[2,3],\"key_action\":\"Merritt's Reserve Brigade -- operations south of battlefield.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-2US-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-2US-CAV\",\"designation\":\"2nd United States Cavalry\",\"parent_brigade_id\":\"U-CAV-1-R\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Regular Army\",\"commander\":{\"name\":\"Captain T.F. Rodenbough\",\"fate\":\"Survived\"},\"strength\":326,\"casualties\":14,\"days_engaged\":[2,3],\"key_action\":\"Merritt's Reserve -- Regular Army cavalry.\"}",
+   "repl": "{\"regiment_id\":\"U-2US-CAV\",\"designation\":\"2nd United States Cavalry\",\"parent_brigade_id\":\"U-CAV-1-R\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Regular Army\",\"commander\":{\"name\":\"Captain T.F. Rodenbough\",\"fate\":\"Survived\"},\"strength\":326,\"casualties\":17,\"days_engaged\":[2,3],\"key_action\":\"Merritt's Reserve -- Regular Army cavalry.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-5US-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-5US-CAV\",\"designation\":\"5th United States Cavalry\",\"parent_brigade_id\":\"U-CAV-1-R\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Regular Army\",\"commander\":{\"name\":\"Captain Julius Mason\",\"fate\":\"Survived\"},\"strength\":309,\"casualties\":11,\"days_engaged\":[2,3],\"key_action\":\"Merritt's Reserve -- engaged Law's Confederate infantry near Emmitsburg Road July 3.\"}",
+   "repl": "{\"regiment_id\":\"U-5US-CAV\",\"designation\":\"5th United States Cavalry\",\"parent_brigade_id\":\"U-CAV-1-R\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Regular Army\",\"commander\":{\"name\":\"Captain Julius Mason\",\"fate\":\"Survived\"},\"strength\":309,\"casualties\":5,\"days_engaged\":[2,3],\"key_action\":\"Merritt's Reserve -- engaged Law's Confederate infantry near Emmitsburg Road July 3.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-6US-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-6US-CAV\",\"designation\":\"6th United States Cavalry\",\"parent_brigade_id\":\"U-CAV-1-R\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Regular Army\",\"commander\":{\"name\":\"Captain Ira Claflin\",\"fate\":\"Survived\"},\"strength\":226,\"casualties\":10,\"days_engaged\":[2,3],\"key_action\":\"Merritt's Reserve -- Regular Army cavalry.\"}",
+   "repl": "{\"regiment_id\":\"U-6US-CAV\",\"designation\":\"6th United States Cavalry\",\"parent_brigade_id\":\"U-CAV-1-R\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Regular Army\",\"commander\":{\"name\":\"Captain Ira Claflin\",\"fate\":\"Survived\"},\"strength\":226,\"casualties\":242,\"days_engaged\":[2,3],\"key_action\":\"Merritt's Reserve -- Regular Army cavalry. The return's 242 casualties for this regiment occurred at Fairfield, Pa. (OR 27/1 p.185 footnote), not on the Gettysburg field.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-1MD-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-1MD-CAV\",\"designation\":\"1st Maryland Cavalry\",\"parent_brigade_id\":\"U-CAV-2-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Maryland\",\"commander\":{\"name\":\"Lieutenant Colonel James Deems\",\"fate\":\"Survived\"},\"strength\":347,\"casualties\":5,\"days_engaged\":[3],\"key_action\":\"McIntosh's brigade -- East Cavalry Field July 3. Blocked Stuart's attempt to reach Union rear.\"}",
+   "repl": "{\"regiment_id\":\"U-1MD-CAV\",\"designation\":\"1st Maryland Cavalry\",\"parent_brigade_id\":\"U-CAV-2-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Maryland\",\"commander\":{\"name\":\"Lieutenant Colonel James Deems\",\"fate\":\"Survived\"},\"strength\":347,\"casualties\":3,\"days_engaged\":[3],\"key_action\":\"McIntosh's brigade -- East Cavalry Field July 3. Blocked Stuart's attempt to reach Union rear.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-1MA-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-1MA-CAV\",\"designation\":\"1st Massachusetts Cavalry\",\"parent_brigade_id\":\"U-CAV-2-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Massachusetts\",\"commander\":{\"name\":\"Lieutenant Colonel Greely Curtis\",\"fate\":\"Survived\"},\"strength\":421,\"casualties\":21,\"days_engaged\":[2,3],\"key_action\":\"McIntosh's brigade -- East Cavalry Field.\"}",
+   "repl": "{\"regiment_id\":\"U-1MA-CAV\",\"designation\":\"1st Massachusetts Cavalry\",\"parent_brigade_id\":\"U-CAV-2-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Massachusetts\",\"commander\":{\"name\":\"Lieutenant Colonel Greely Curtis\",\"fate\":\"Survived\"},\"strength\":421,\"casualties\":0,\"days_engaged\":[2,3],\"key_action\":\"McIntosh's brigade -- East Cavalry Field. The Official Records return of casualties lists no loss for it.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-1NJ-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-1NJ-CAV\",\"designation\":\"1st New Jersey Cavalry\",\"parent_brigade_id\":\"U-CAV-2-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New Jersey\",\"commander\":{\"name\":\"Lieutenant Colonel Virgil Brodrick\",\"fate\":\"Survived\"},\"strength\":349,\"casualties\":26,\"days_engaged\":[2,3],\"key_action\":\"McIntosh's brigade -- East Cavalry Field.\"}",
+   "repl": "{\"regiment_id\":\"U-1NJ-CAV\",\"designation\":\"1st New Jersey Cavalry\",\"parent_brigade_id\":\"U-CAV-2-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New Jersey\",\"commander\":{\"name\":\"Major M. H. Beaumont\"},\"strength\":349,\"casualties\":9,\"days_engaged\":[2,3],\"key_action\":\"McIntosh's brigade -- East Cavalry Field.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.166-167 (roster); OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-3PA-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-3PA-CAV\",\"designation\":\"3rd Pennsylvania Cavalry\",\"parent_brigade_id\":\"U-CAV-2-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Lieutenant Colonel Edward Jones\",\"fate\":\"Survived\"},\"strength\":422,\"casualties\":11,\"days_engaged\":[2,3],\"key_action\":\"McIntosh's brigade -- East Cavalry Field.\"}",
+   "repl": "{\"regiment_id\":\"U-3PA-CAV\",\"designation\":\"3rd Pennsylvania Cavalry\",\"parent_brigade_id\":\"U-CAV-2-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Lieutenant Colonel Edward Jones\",\"fate\":\"Survived\"},\"strength\":422,\"casualties\":21,\"days_engaged\":[2,3],\"key_action\":\"McIntosh's brigade -- East Cavalry Field.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-1PA-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-1PA-CAV\",\"designation\":\"1st Pennsylvania Cavalry\",\"parent_brigade_id\":\"U-CAV-2-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Colonel John Taylor\",\"fate\":\"Survived\"},\"strength\":329,\"casualties\":19,\"days_engaged\":[2,3],\"key_action\":\"McIntosh's brigade -- East Cavalry Field July 3.\"}",
+   "repl": "{\"regiment_id\":\"U-1PA-CAV\",\"designation\":\"1st Pennsylvania Cavalry\",\"parent_brigade_id\":\"U-CAV-2-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Colonel John Taylor\",\"fate\":\"Survived\"},\"strength\":329,\"casualties\":2,\"days_engaged\":[2,3],\"key_action\":\"McIntosh's brigade -- East Cavalry Field July 3.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-2NY-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-2NY-CAV\",\"designation\":\"2nd New York Cavalry\",\"parent_brigade_id\":\"U-CAV-2-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New York\",\"commander\":{\"name\":\"Lieutenant Colonel Henry Gregg\",\"fate\":\"Survived\"},\"strength\":384,\"casualties\":10,\"days_engaged\":[2,3],\"key_action\":\"Huey's brigade -- operations east of battlefield.\"}",
+   "repl": "{\"regiment_id\":\"U-2NY-CAV\",\"designation\":\"2nd New York Cavalry\",\"parent_brigade_id\":\"U-CAV-2-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New York\",\"commander\":{\"name\":\"Lieutenant Colonel Otto Harhaus\"},\"strength\":384,\"casualties\":0,\"days_engaged\":[2,3],\"key_action\":\"Huey's brigade -- operations east of battlefield. The Official Records roster notes that the brigade was at Westminster, etc., and not engaged in the battle (27/1 p.166); the return lists no loss for it.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.166-167 (roster); OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-4NY-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-4NY-CAV\",\"designation\":\"4th New York Cavalry\",\"parent_brigade_id\":\"U-CAV-2-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New York\",\"commander\":{\"name\":\"Lieutenant Colonel Augustus Pruyn\",\"fate\":\"Survived\"},\"strength\":328,\"casualties\":8,\"days_engaged\":[2,3],\"key_action\":\"Huey's brigade.\"}",
+   "repl": "{\"regiment_id\":\"U-4NY-CAV\",\"designation\":\"4th New York Cavalry\",\"parent_brigade_id\":\"U-CAV-2-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New York\",\"commander\":{\"name\":\"Lieutenant Colonel Augustus Pruyn\",\"fate\":\"Survived\"},\"strength\":328,\"casualties\":0,\"days_engaged\":[2,3],\"key_action\":\"Huey's brigade. The Official Records roster notes that the brigade was at Westminster, etc., and not engaged in the battle (27/1 p.166); the return lists no loss for it.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-6OH-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-6OH-CAV\",\"designation\":\"6th Ohio Cavalry\",\"parent_brigade_id\":\"U-CAV-2-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Ohio\",\"commander\":{\"name\":\"Major William Stedman\",\"fate\":\"Survived\"},\"strength\":340,\"casualties\":10,\"days_engaged\":[2,3],\"key_action\":\"Huey's brigade.\"}",
+   "repl": "{\"regiment_id\":\"U-6OH-CAV\",\"designation\":\"6th Ohio Cavalry\",\"parent_brigade_id\":\"U-CAV-2-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Ohio\",\"commander\":{\"name\":\"Major William Stedman\",\"fate\":\"Survived\"},\"strength\":340,\"casualties\":0,\"days_engaged\":[2,3],\"key_action\":\"Huey's brigade. The Official Records roster notes that the brigade was at Westminster, etc., and not engaged in the battle (27/1 p.166); the return lists no loss for it.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-8PA-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-8PA-CAV\",\"designation\":\"8th Pennsylvania Cavalry\",\"parent_brigade_id\":\"U-CAV-2-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Captain William Lowe\",\"fate\":\"Survived\"},\"strength\":300,\"casualties\":9,\"days_engaged\":[2,3],\"key_action\":\"Huey's brigade.\"}",
+   "repl": "{\"regiment_id\":\"U-8PA-CAV\",\"designation\":\"8th Pennsylvania Cavalry\",\"parent_brigade_id\":\"U-CAV-2-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Captain William A. Corrie\"},\"strength\":300,\"casualties\":0,\"days_engaged\":[2,3],\"key_action\":\"Huey's brigade. The Official Records roster notes that the brigade was at Westminster, etc., and not engaged in the battle (27/1 p.166); the return lists no loss for it.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.166-167 (roster); OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-1MI-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-1MI-CAV\",\"designation\":\"1st Michigan Cavalry\",\"parent_brigade_id\":\"U-CAV-2-3\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Michigan\",\"commander\":{\"name\":\"Colonel Charles Town\",\"fate\":\"Survived\"},\"strength\":427,\"casualties\":80,\"casualty_percentage\":18.7,\"days_engaged\":[3],\"key_action\":\"Custer's Michigan Brigade -- East Cavalry Field. Town led regiment when Custer personally commanded the brigade charge shouting 'Come on, you Wolverines!'\"}",
+   "repl": "{\"regiment_id\":\"U-1MI-CAV\",\"designation\":\"1st Michigan Cavalry\",\"parent_brigade_id\":\"U-CAV-2-3\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Michigan\",\"commander\":{\"name\":\"Colonel Charles Town\",\"fate\":\"Survived\"},\"strength\":427,\"casualties\":73,\"casualty_percentage\":18.7,\"days_engaged\":[3],\"key_action\":\"Custer's Michigan Brigade -- East Cavalry Field. Town led regiment when Custer personally commanded the brigade charge shouting 'Come on, you Wolverines!'\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-6MI-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-6MI-CAV\",\"designation\":\"6th Michigan Cavalry\",\"parent_brigade_id\":\"U-CAV-2-3\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Michigan\",\"commander\":{\"name\":\"Colonel George Gray\",\"fate\":\"Survived\"},\"strength\":477,\"casualties\":47,\"casualty_percentage\":9.9,\"days_engaged\":[3],\"key_action\":\"Custer's Michigan Brigade -- dismounted and mounted fighting at East Cavalry Field.\"}",
+   "repl": "{\"regiment_id\":\"U-6MI-CAV\",\"designation\":\"6th Michigan Cavalry\",\"parent_brigade_id\":\"U-CAV-2-3\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Michigan\",\"commander\":{\"name\":\"Colonel George Gray\",\"fate\":\"Survived\"},\"strength\":477,\"casualties\":28,\"casualty_percentage\":9.9,\"days_engaged\":[3],\"key_action\":\"Custer's Michigan Brigade -- dismounted and mounted fighting at East Cavalry Field.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-7MI-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-7MI-CAV\",\"designation\":\"7th Michigan Cavalry\",\"parent_brigade_id\":\"U-CAV-2-3\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Michigan\",\"commander\":{\"name\":\"Colonel William Mann\",\"fate\":\"Survived\"},\"strength\":369,\"casualties\":68,\"casualty_percentage\":18.4,\"days_engaged\":[3],\"key_action\":\"Custer's Michigan Brigade -- participated in the decisive mounted charge at East Cavalry Field.\",\"flag_notes\":\"East Cavalry Field ticks: Michigan brigade converts from Line of March to Charging Line for Custer's decisive charge.\"}",
+   "repl": "{\"regiment_id\":\"U-7MI-CAV\",\"designation\":\"7th Michigan Cavalry\",\"parent_brigade_id\":\"U-CAV-2-3\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Michigan\",\"commander\":{\"name\":\"Colonel William Mann\",\"fate\":\"Survived\"},\"strength\":369,\"casualties\":100,\"casualty_percentage\":18.4,\"days_engaged\":[3],\"key_action\":\"Custer's Michigan Brigade -- participated in the decisive mounted charge at East Cavalry Field.\",\"flag_notes\":\"East Cavalry Field ticks: Michigan brigade converts from Line of March to Charging Line for Custer's decisive charge.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-5NY-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-5NY-CAV\",\"designation\":\"5th New York Cavalry\",\"parent_brigade_id\":\"U-CAV-3-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New York\",\"commander\":{\"name\":\"Major John Hammond\",\"fate\":\"Survived\"},\"strength\":422,\"casualties\":18,\"days_engaged\":[3],\"key_action\":\"Farnsworth's brigade -- Kilpatrick's doomed charge against Confederate infantry south of battlefield July 3.\"}",
+   "repl": "{\"regiment_id\":\"U-5NY-CAV\",\"designation\":\"5th New York Cavalry\",\"parent_brigade_id\":\"U-CAV-3-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New York\",\"commander\":{\"name\":\"Major John Hammond\",\"fate\":\"Survived\"},\"strength\":422,\"casualties\":6,\"days_engaged\":[3],\"key_action\":\"Farnsworth's brigade -- Kilpatrick's doomed charge against Confederate infantry south of battlefield July 3.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-18PA-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-18PA-CAV\",\"designation\":\"18th Pennsylvania Cavalry\",\"parent_brigade_id\":\"U-CAV-3-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Lieutenant Colonel William Brinton\",\"fate\":\"Survived\"},\"strength\":490,\"casualties\":28,\"days_engaged\":[3],\"key_action\":\"Farnsworth's brigade -- Kilpatrick's charge over rocky ground against Confederate infantry.\"}",
+   "repl": "{\"regiment_id\":\"U-18PA-CAV\",\"designation\":\"18th Pennsylvania Cavalry\",\"parent_brigade_id\":\"U-CAV-3-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Lieutenant Colonel William Brinton\",\"fate\":\"Survived\"},\"strength\":490,\"casualties\":14,\"days_engaged\":[3],\"key_action\":\"Farnsworth's brigade -- Kilpatrick's charge over rocky ground against Confederate infantry.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-1VT-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-1VT-CAV\",\"designation\":\"1st Vermont Cavalry\",\"parent_brigade_id\":\"U-CAV-3-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Vermont\",\"commander\":{\"name\":\"Lieutenant Colonel Addison Preston\",\"fate\":\"Survived\"},\"strength\":611,\"casualties\":36,\"days_engaged\":[3],\"key_action\":\"Farnsworth's brigade -- largest regiment. Kilpatrick's charge.\"}",
+   "repl": "{\"regiment_id\":\"U-1VT-CAV\",\"designation\":\"1st Vermont Cavalry\",\"parent_brigade_id\":\"U-CAV-3-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Vermont\",\"commander\":{\"name\":\"Lieutenant Colonel Addison Preston\",\"fate\":\"Survived\"},\"strength\":611,\"casualties\":65,\"days_engaged\":[3],\"key_action\":\"Farnsworth's brigade -- largest regiment. Kilpatrick's charge.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-1WV-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-1WV-CAV\",\"designation\":\"1st West Virginia Cavalry\",\"parent_brigade_id\":\"U-CAV-3-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"West Virginia\",\"commander\":{\"name\":\"Colonel Nathaniel Richmond\",\"fate\":\"Survived -- also nominally commanded 2nd brigade\"},\"strength\":382,\"casualties\":20,\"days_engaged\":[3],\"key_action\":\"Farnsworth's brigade -- Kilpatrick's charge.\"}",
+   "repl": "{\"regiment_id\":\"U-1WV-CAV\",\"designation\":\"1st West Virginia Cavalry\",\"parent_brigade_id\":\"U-CAV-3-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"West Virginia\",\"commander\":{\"name\":\"Colonel Nathaniel Richmond\",\"fate\":\"Survived -- also nominally commanded 2nd brigade\"},\"strength\":382,\"casualties\":12,\"days_engaged\":[3],\"key_action\":\"Farnsworth's brigade -- Kilpatrick's charge.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-1ME-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-1ME-CAV\",\"designation\":\"1st Maine Cavalry\",\"parent_brigade_id\":\"U-CAV-3-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Maine\",\"commander\":{\"name\":\"Colonel Calvin Douty\",\"fate\":\"KIA July 3 -- killed in Kilpatrick's charge\",\"successor\":{\"name\":\"Lieutenant Colonel Stephen Boothby\",\"assumed_command\":\"July 3\"}},\"strength\":421,\"casualties\":19,\"days_engaged\":[3],\"key_action\":\"Richmond's brigade -- Douty killed in Kilpatrick's charge.\"}",
+   "repl": "{\"regiment_id\":\"U-1ME-CAV\",\"designation\":\"1st Maine Cavalry\",\"parent_brigade_id\":\"U-CAV-3-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Maine\",\"commander\":{\"name\":\"Lieutenant Colonel Charles H. Smith\",\"successor\":{\"name\":\"Lieutenant Colonel Stephen Boothby\",\"assumed_command\":\"July 3\"}},\"strength\":421,\"casualties\":5,\"days_engaged\":[3],\"key_action\":\"Richmond's brigade -- Douty killed in Kilpatrick's charge.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.166-167 (roster); OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-2NY-CAV-b",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-2NY-CAV-b\",\"designation\":\"2nd New York Cavalry (detachment, Richmond's brigade)\",\"parent_brigade_id\":\"U-CAV-3-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New York\",\"notes\":\"Separate detachment from U-2NY-CAV in Huey's brigade.\",\"strength\":95,\"casualties\":2,\"days_engaged\":[3],\"key_action\":\"Small detachment with Richmond's brigade July 3.\"}",
+   "repl": "{\"regiment_id\":\"U-2NY-CAV-b\",\"designation\":\"2nd New York Cavalry (detachment, Richmond's brigade)\",\"parent_brigade_id\":\"U-CAV-3-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New York\",\"notes\":\"Separate detachment from U-2NY-CAV in Huey's brigade.\",\"strength\":95,\"casualties\":0,\"days_engaged\":[3],\"key_action\":\"Small detachment with Richmond's brigade July 3. The Official Records return of casualties lists no loss for it.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-5NY-CAV-b",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-5NY-CAV-b\",\"designation\":\"5th New York Cavalry (detachment, Richmond's brigade)\",\"parent_brigade_id\":\"U-CAV-3-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New York\",\"notes\":\"Separate detachment from U-5NY-CAV in Farnsworth's brigade.\",\"strength\":80,\"casualties\":1,\"days_engaged\":[3],\"key_action\":\"Small detachment with Richmond's brigade.\"}",
+   "repl": "{\"regiment_id\":\"U-5NY-CAV-b\",\"designation\":\"5th New York Cavalry (detachment, Richmond's brigade)\",\"parent_brigade_id\":\"U-CAV-3-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"New York\",\"notes\":\"Separate detachment from U-5NY-CAV in Farnsworth's brigade.\",\"strength\":80,\"casualties\":6,\"days_engaged\":[3],\"key_action\":\"Small detachment with Richmond's brigade.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-18PA-CAV-b",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-18PA-CAV-b\",\"designation\":\"18th Pennsylvania Cavalry (detachment, Richmond's brigade)\",\"parent_brigade_id\":\"U-CAV-3-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Pennsylvania\",\"notes\":\"Small detachment separate from main 18th PA Cavalry.\",\"strength\":60,\"casualties\":1,\"days_engaged\":[3],\"key_action\":\"Small detachment with Richmond's brigade.\"}",
+   "repl": "{\"regiment_id\":\"U-18PA-CAV-b\",\"designation\":\"18th Pennsylvania Cavalry (detachment, Richmond's brigade)\",\"parent_brigade_id\":\"U-CAV-3-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Pennsylvania\",\"notes\":\"Small detachment separate from main 18th PA Cavalry.\",\"strength\":60,\"casualties\":14,\"days_engaged\":[3],\"key_action\":\"Small detachment with Richmond's brigade.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-1WV-CAV-b",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-1WV-CAV-b\",\"designation\":\"1st West Virginia Cavalry (detachment, Richmond's brigade)\",\"parent_brigade_id\":\"U-CAV-3-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"West Virginia\",\"notes\":\"Small detachment separate from main 1st WV Cavalry.\",\"strength\":55,\"casualties\":1,\"days_engaged\":[3],\"key_action\":\"Small detachment with Richmond's brigade.\"}",
+   "repl": "{\"regiment_id\":\"U-1WV-CAV-b\",\"designation\":\"1st West Virginia Cavalry (detachment, Richmond's brigade)\",\"parent_brigade_id\":\"U-CAV-3-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"West Virginia\",\"notes\":\"Small detachment separate from main 1st WV Cavalry.\",\"strength\":55,\"casualties\":12,\"days_engaged\":[3],\"key_action\":\"Small detachment with Richmond's brigade.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) pp.185-186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-3WV-CAV",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-3WV-CAV\",\"designation\":\"3rd West Virginia Cavalry (detachment)\",\"parent_brigade_id\":\"U-CAV-1-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"West Virginia\",\"commander\":{\"name\":\"Captain Seymour Beach\",\"fate\":\"Survived\"},\"strength\":65,\"casualties\":4,\"days_engaged\":[1],\"key_action\":\"Devin's brigade -- very small detachment, 65 men. Right flank.\"}",
+   "repl": "{\"regiment_id\":\"U-3WV-CAV\",\"designation\":\"3rd West Virginia Cavalry (detachment)\",\"parent_brigade_id\":\"U-CAV-1-2\",\"parent_corps_id\":\"U-CAV\",\"state\":\"West Virginia\",\"commander\":{\"name\":\"Captain Seymour B. Conger\"},\"strength\":65,\"casualties\":4,\"days_engaged\":[1],\"key_action\":\"Devin's brigade -- very small detachment, 65 men. Right flank.\"}",
+   "expect": 1,
+   "note": "wrong-name: OR 27/1 pp.166-167 (roster); OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-Purnell-MD",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"regiment_id\":\"U-Purnell-MD\",\"designation\":\"Purnell Legion (Maryland) Cavalry\",\"parent_brigade_id\":\"U-CAV-2-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Maryland\",\"commander\":{\"name\":\"Captain Robert Snowden\",\"fate\":\"Survived\"},\"strength\":147,\"casualties\":0,\"days_engaged\":[3],\"key_action\":\"McIntosh's brigade -- small detachment, East Cavalry Field.\"}",
+   "repl": "{\"regiment_id\":\"U-Purnell-MD\",\"designation\":\"Purnell Legion (Maryland) Cavalry\",\"parent_brigade_id\":\"U-CAV-2-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Maryland\",\"commander\":{\"name\":\"Captain Robert E. Duvall\"},\"strength\":147,\"casualties\":0,\"days_engaged\":[3],\"key_action\":\"McIntosh's brigade -- small detachment, East Cavalry Field.\"}",
+   "expect": 1,
+   "note": "wrong-name: OR 27/1 pp.166-167 (roster); OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-HAB-A2US",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"battery_id\":\"U-HAB-A2US\",\"designation\":\"Battery A, 2nd US Artillery (Calef's Battery)\",\"division_attached\":\"U-CAV-1\",\"commander\":{\"name\":\"Lieutenant John Calef\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":89,\"casualties\":5,\"key_action\":\"FIRST UNION ARTILLERY TO FIRE at Gettysburg -- approximately 7:30am July 1, before any Union infantry arrived. Fought on McPherson's Ridge alongside Buford's dismounted cavalry.\",\"flag_notes\":\"FIRST ARTILLERY FIRE of the battle -- must be precisely placed on McPherson's Ridge for the earliest July 1 ticks. Critical for opening action animation.\"}",
+   "repl": "{\"battery_id\":\"U-HAB-A2US\",\"designation\":\"Battery A, 2nd US Artillery (Calef's Battery)\",\"division_attached\":\"U-CAV-1\",\"commander\":{\"name\":\"Lieutenant John Calef\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":89,\"casualties\":12,\"key_action\":\"FIRST UNION ARTILLERY TO FIRE at Gettysburg -- approximately 7:30am July 1, before any Union infantry arrived. Fought on McPherson's Ridge alongside Buford's dismounted cavalry.\",\"flag_notes\":\"FIRST ARTILLERY FIRE of the battle -- must be precisely placed on McPherson's Ridge for the earliest July 1 ticks. Critical for opening action animation.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) p.186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-HAB-E4US",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"battery_id\":\"U-HAB-E4US\",\"designation\":\"Battery E, 4th US Artillery\",\"division_attached\":\"U-CAV-1\",\"commander\":{\"name\":\"Lieutenant Samuel Elder\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":60,\"casualties\":2,\"key_action\":\"Buford's division horse artillery -- supported July 1 dismounted defense.\"}",
+   "repl": "{\"battery_id\":\"U-HAB-E4US\",\"designation\":\"Battery E, 4th US Artillery\",\"division_attached\":\"U-CAV-1\",\"commander\":{\"name\":\"Lieutenant Samuel Elder\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":60,\"casualties\":1,\"key_action\":\"Buford's division horse artillery -- supported July 1 dismounted defense.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) p.186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-HAB-M2US",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"battery_id\":\"U-HAB-M2US\",\"designation\":\"Battery M, 2nd US Artillery (Pennington's Battery)\",\"division_attached\":\"U-CAV-2\",\"commander\":{\"name\":\"Lieutenant Alexander Pennington\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":100,\"casualties\":9,\"key_action\":\"Gregg's division -- East Cavalry Field July 3. Pennington's battery provided critical fire support during Custer's action against Stuart.\",\"flag_notes\":\"East Cavalry Field -- must show unlimbering for July 3 action.\"}",
+   "repl": "{\"battery_id\":\"U-HAB-M2US\",\"designation\":\"Battery M, 2nd US Artillery (Pennington's Battery)\",\"division_attached\":\"U-CAV-2\",\"commander\":{\"name\":\"Lieutenant Alexander Pennington\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":100,\"casualties\":1,\"key_action\":\"Gregg's division -- East Cavalry Field July 3. Pennington's battery provided critical fire support during Custer's action against Stuart.\",\"flag_notes\":\"East Cavalry Field -- must show unlimbering for July 3 action.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) p.186"
+  },
+  {
+   "id": "DATA-oob-union-cavalry-artillery-U-HAB-E1US",
+   "target": "data/oob/union_cavalry_artillery.json",
+   "find": "{\"battery_id\":\"U-HAB-E1US\",\"designation\":\"Battery E, 1st US Artillery\",\"division_attached\":\"U-CAV-3\",\"commander\":{\"name\":\"Lieutenant Edward Heaton\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":90,\"casualties\":4,\"key_action\":\"Kilpatrick's division horse artillery -- supported Farnsworth's charge July 3.\"}",
+   "repl": "{\"battery_id\":\"U-HAB-E1US\",\"designation\":\"Batteries B and L, 2nd US Artillery (Heaton's)\",\"division_attached\":\"U-CAV-3\",\"commander\":{\"name\":\"Lieutenant Edward Heaton\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":90,\"casualties\":0,\"key_action\":\"Kilpatrick's division horse artillery -- supported Farnsworth's charge July 3. The Official Records return of casualties lists no loss for it.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties) p.186"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-L1NY-I",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-L1NY-I\",\"designation\":\"Battery L, 1st New York Artillery (I Corps)\",\"commander\":{\"name\":\"Captain Gilbert Reynolds\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":10,\"key_action\":\"First Corps artillery -- McPherson's Ridge then Seminary Ridge July 1.\"}",
+   "repl": "{\"battery_id\":\"U-ART-L1NY-I\",\"designation\":\"Battery L, 1st New York Artillery (I Corps)\",\"commander\":{\"name\":\"Captain Gilbert Reynolds\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":17,\"key_action\":\"First Corps artillery -- McPherson's Ridge then Seminary Ridge July 1.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-B4US",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-B4US\",\"designation\":\"Battery B, 4th US Artillery (Stewart's)\",\"commander\":{\"name\":\"Lieutenant James Stewart\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":17,\"key_action\":\"Seminary Ridge July 1 -- one of the last Union batteries to leave, covering the infantry retreat.\"}",
+   "repl": "{\"battery_id\":\"U-ART-B4US\",\"designation\":\"Battery B, 4th US Artillery (Stewart's)\",\"commander\":{\"name\":\"Lieutenant James Stewart\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":36,\"key_action\":\"Seminary Ridge July 1 -- one of the last Union batteries to leave, covering the infantry retreat.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-B1PA",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-B1PA\",\"designation\":\"Battery B, 1st Pennsylvania Artillery\",\"commander\":{\"name\":\"Captain James Cooper\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":5,\"key_action\":\"First Corps artillery -- Seminary Ridge then Cemetery Hill.\"}",
+   "repl": "{\"battery_id\":\"U-ART-B1PA\",\"designation\":\"Battery B, 1st Pennsylvania Artillery\",\"commander\":{\"name\":\"Captain James Cooper\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":12,\"key_action\":\"First Corps artillery -- Seminary Ridge then Cemetery Hill.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-B1RI",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-B1RI\",\"designation\":\"Battery B, 1st Rhode Island Artillery (Brown's)\",\"commander\":{\"name\":\"Lieutenant T. Fred Brown\",\"fate\":\"Wounded July 3 -- severely wounded in Confederate cannonade\",\"successor\":{\"name\":\"Sergeant William Perrin\",\"assumed_command\":\"July 3\"}},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":16,\"key_action\":\"Cemetery Ridge -- opposite The Angle during Pickett's Charge. Brown severely wounded in the cannonade.\"}",
+   "repl": "{\"battery_id\":\"U-ART-B1RI\",\"designation\":\"Battery B, 1st Rhode Island Artillery (Brown's)\",\"commander\":{\"name\":\"Lieutenant T. Fred Brown\",\"fate\":\"Wounded July 3 -- severely wounded in Confederate cannonade\",\"successor\":{\"name\":\"Sergeant William Perrin\",\"assumed_command\":\"July 3\"}},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":28,\"key_action\":\"Cemetery Ridge -- opposite The Angle during Pickett's Charge. Brown severely wounded in the cannonade.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-A1RI",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-A1RI\",\"designation\":\"Battery A, 1st Rhode Island Artillery (Arnold's)\",\"commander\":{\"name\":\"Captain William Arnold\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":11,\"key_action\":\"Second Corps artillery -- Cemetery Ridge July 2-3.\"}",
+   "repl": "{\"battery_id\":\"U-ART-A1RI\",\"designation\":\"Battery A, 1st Rhode Island Artillery (Arnold's)\",\"commander\":{\"name\":\"Captain William Arnold\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":32,\"key_action\":\"Second Corps artillery -- Cemetery Ridge July 2-3.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-I1US",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-I1US\",\"designation\":\"Battery I, 1st US Artillery (Woodruff's)\",\"commander\":{\"name\":\"Lieutenant George Woodruff\",\"fate\":\"KIA July 3 -- killed during Pickett's Charge\",\"successor\":{\"name\":\"Lieutenant Tully McCrea\",\"assumed_command\":\"July 3\"}},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":11,\"key_action\":\"Cemetery Ridge -- Woodruff killed during Pickett's Charge. Guns fired canister into Pettigrew's and Trimble's advancing Confederates.\"}",
+   "repl": "{\"battery_id\":\"U-ART-I1US\",\"designation\":\"Battery I, 1st US Artillery (Woodruff's)\",\"commander\":{\"name\":\"Lieutenant George Woodruff\",\"fate\":\"KIA July 3 -- killed during Pickett's Charge\",\"successor\":{\"name\":\"Lieutenant Tully McCrea\",\"assumed_command\":\"July 3\"}},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":25,\"key_action\":\"Cemetery Ridge -- Woodruff killed during Pickett's Charge. Guns fired canister into Pettigrew's and Trimble's advancing Confederates.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-A4US",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-A4US\",\"designation\":\"Battery A, 4th US Artillery (Cushing's Battery)\",\"commander\":{\"name\":\"Lieutenant Alonzo Cushing\",\"fate\":\"KIA July 3 -- killed at The Angle while serving his last gun. Received Medal of Honor posthumously 2014 -- longest gap between action and award in MOH history.\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":25,\"key_action\":\"The Angle -- Cushing's battery stood directly opposite the Confederate breakthrough. As Armistead's men surged over the wall Cushing rolled his last two guns to the wall and was killed serving them.\",\"flag_notes\":\"HIGHEST PRIORITY PLACEMENT: Cushing's battery must be positioned immediately behind The Angle stone wall. Precision required to within 20 meters.\"}",
+   "repl": "{\"battery_id\":\"U-ART-A4US\",\"designation\":\"Battery A, 4th US Artillery (Cushing's Battery)\",\"commander\":{\"name\":\"Lieutenant Alonzo Cushing\",\"fate\":\"KIA July 3 -- killed at The Angle while serving his last gun. Received Medal of Honor posthumously 2014 -- longest gap between action and award in MOH history.\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":38,\"key_action\":\"The Angle -- Cushing's battery stood directly opposite the Confederate breakthrough. As Armistead's men surged over the wall Cushing rolled his last two guns to the wall and was killed serving them.\",\"flag_notes\":\"HIGHEST PRIORITY PLACEMENT: Cushing's battery must be positioned immediately behind The Angle stone wall. Precision required to within 20 meters.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-G1NY",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-G1NY\",\"designation\":\"Battery G, 1st New York Artillery (Ames's)\",\"commander\":{\"name\":\"Captain Nelson Ames\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":6,\"key_action\":\"Second Corps artillery -- Cemetery Ridge.\"}",
+   "repl": "{\"battery_id\":\"U-ART-G1NY\",\"designation\":\"Battery G, 1st New York Artillery (Ames's)\",\"commander\":{\"name\":\"Captain Nelson Ames\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":7,\"key_action\":\"Second Corps artillery -- Cemetery Ridge.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-E4US-III",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-E4US-III\",\"designation\":\"Battery E, 4th US Artillery (Seeley's)\",\"commander\":{\"name\":\"Lieutenant Francis Seeley\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":8,\"key_action\":\"Third Corps -- Peach Orchard salient July 2.\"}",
+   "repl": "{\"battery_id\":\"U-ART-E4US-III\",\"designation\":\"Battery K, 4th US Artillery (Seeley's Battery)\",\"commander\":{\"name\":\"Lieutenant Francis Seeley\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":24,\"key_action\":\"Third Corps -- Peach Orchard salient July 2.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-B1NJ",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-B1NJ\",\"designation\":\"Battery B, 1st New Jersey Artillery (Clark's)\",\"commander\":{\"name\":\"Captain A. Judson Clark\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":19,\"key_action\":\"Peach Orchard -- heavily engaged. 19 casualties.\"}",
+   "repl": "{\"battery_id\":\"U-ART-B1NJ\",\"designation\":\"Battery B, 1st New Jersey Artillery (Clark's)\",\"commander\":{\"name\":\"Captain A. Judson Clark\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":20,\"key_action\":\"Peach Orchard -- heavily engaged. 19 casualties.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-D1NY",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-D1NY\",\"designation\":\"Battery D, 1st New York Artillery (Winslow's)\",\"commander\":{\"name\":\"Captain George Winslow\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":114,\"casualties\":7,\"key_action\":\"Wheatfield area -- one of the most contested artillery positions of Day 2.\"}",
+   "repl": "{\"battery_id\":\"U-ART-D1NY\",\"designation\":\"Battery D, 1st New York Artillery (Winslow's)\",\"commander\":{\"name\":\"Captain George Winslow\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":114,\"casualties\":18,\"key_action\":\"Wheatfield area -- one of the most contested artillery positions of Day 2.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-4NYIND",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-4NYIND\",\"designation\":\"4th New York Battery Independent (Smith's)\",\"commander\":{\"name\":\"Captain James Smith\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"10-pdr Parrott\",\"strength\":107,\"casualties\":19,\"key_action\":\"Devil's Den -- one of the most famous artillery positions of the battle. Guns briefly captured by Hood's Confederates then recaptured.\",\"flag_notes\":\"Devil's Den gun position -- must be placed precisely among the boulders. Among the most photographed positions on the battlefield.\"}",
+   "repl": "{\"battery_id\":\"U-ART-4NYIND\",\"designation\":\"4th New York Battery Independent (Smith's)\",\"commander\":{\"name\":\"Captain James Smith\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"10-pdr Parrott\",\"strength\":107,\"casualties\":15,\"key_action\":\"Devil's Den -- one of the most famous artillery positions of the battle. Guns briefly captured by Hood's Confederates then recaptured.\",\"flag_notes\":\"Devil's Den gun position -- must be placed precisely among the boulders. Among the most photographed positions on the battlefield.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-C1MA",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-C1MA\",\"designation\":\"Battery C, 1st Massachusetts Artillery\",\"commander\":{\"name\":\"Lieutenant Aaron Walcott\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":0,\"key_action\":\"Fifth Corps -- reserve. Little Round Top area.\"}",
+   "repl": "{\"battery_id\":\"U-ART-C1MA\",\"designation\":\"3rd Massachusetts Battery (C)\",\"commander\":{\"name\":\"Lieutenant Aaron Walcott\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":6,\"key_action\":\"Fifth Corps -- reserve. Little Round Top area.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-L1OH",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-L1OH\",\"designation\":\"Battery L, 1st Ohio Artillery (Gibbs's)\",\"commander\":{\"name\":\"Captain Frank Gibbs\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":1,\"key_action\":\"Fifth Corps -- Little Round Top area.\"}",
+   "repl": "{\"battery_id\":\"U-ART-L1OH\",\"designation\":\"Battery L, 1st Ohio Artillery (Gibbs's)\",\"commander\":{\"name\":\"Captain Frank Gibbs\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":2,\"key_action\":\"Fifth Corps -- Little Round Top area.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-D5US",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-D5US\",\"designation\":\"Battery D, 5th US Artillery (Hazlett's Battery)\",\"commander\":{\"name\":\"Lieutenant Charles Hazlett\",\"fate\":\"KIA July 2 -- shot on Little Round Top summit beside the dying Weed\",\"successor\":{\"name\":\"Lieutenant Benjamin Rittenhouse\",\"assumed_command\":\"July 2\"}},\"gun_count\":6,\"gun_type\":\"10-pdr Parrott\",\"strength\":107,\"casualties\":9,\"key_action\":\"Hazlett's battery dragged its guns up the steep rocky slope of Little Round Top. Technically too elevated to fire effectively on Confederate infantry below but their moral effect was significant. Hazlett killed beside Weed -- both dying on the summit at nearly the same moment.\",\"flag_notes\":\"Little Round Top summit -- guns placed at rocky peak. Hazlett and Weed killed together is a vignette-worthy simultaneous event.\"}",
+   "repl": "{\"battery_id\":\"U-ART-D5US\",\"designation\":\"Battery D, 5th US Artillery (Hazlett's Battery)\",\"commander\":{\"name\":\"Lieutenant Charles Hazlett\",\"fate\":\"KIA July 2 -- shot on Little Round Top summit beside the dying Weed\",\"successor\":{\"name\":\"Lieutenant Benjamin Rittenhouse\",\"assumed_command\":\"July 2\"}},\"gun_count\":6,\"gun_type\":\"10-pdr Parrott\",\"strength\":107,\"casualties\":13,\"key_action\":\"Hazlett's battery dragged its guns up the steep rocky slope of Little Round Top. Technically too elevated to fire effectively on Confederate infantry below but their moral effect was significant. Hazlett killed beside Weed -- both dying on the summit at nearly the same moment.\",\"flag_notes\":\"Little Round Top summit -- guns placed at rocky peak. Hazlett and Weed killed together is a vignette-worthy simultaneous event.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-MAE",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-MAE\",\"designation\":\"Massachusetts Battery E (10th)\",\"commander\":{\"name\":\"Captain Josiah Porter\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":0,\"key_action\":\"Fifth Corps -- reserve.\"}",
+   "repl": "{\"battery_id\":\"U-ART-MAE\",\"designation\":\"Massachusetts Battery E (10th)\",\"commander\":{\"name\":\"Captain Josiah Porter\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":0,\"key_action\":\"Fifth Corps -- reserve. The roster (27/1 p.161) lists no Massachusetts Battery E (10th) in the Fifth Corps; its Artillery Brigade held 5th U.S. Battery I (Lieut. Malbone Watson, 22 losses in the return), which this file lacks.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-F5US-VI",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-F5US-VI\",\"designation\":\"Battery F, 5th US Artillery (VI Corps)\",\"commander\":{\"name\":\"Lieutenant Leonard Martin\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":0,\"key_action\":\"Sixth Corps -- reserve.\"}",
+   "repl": "{\"battery_id\":\"U-ART-F5US-VI\",\"designation\":\"Battery F, 5th US Artillery (VI Corps)\",\"commander\":{\"name\":\"Lieutenant Leonard Martin\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":0,\"key_action\":\"Sixth Corps -- reserve. The return lists no loss for it.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-I1OH",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-I1OH\",\"designation\":\"Battery I, 1st Ohio Artillery (Dilger's Battery)\",\"commander\":{\"name\":\"Captain Hubert Dilger\",\"fate\":\"Survived -- Medal of Honor for Gettysburg\",\"notes\":\"'Leatherbreeches' Dilger was born in Germany, served in European armies. MOH for delaying Rodes's attack at close range while Union infantry retreated through Gettysburg.\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":12,\"key_action\":\"Fought in the most dramatic artillery action of July 1 -- engaged Confederate infantry at close range IN THE STREETS OF GETTYSBURG to cover the Union retreat. Fighting withdrawal through the town itself.\",\"flag_notes\":\"UNIQUE PLACEMENT: Dilger's battery moved THROUGH Gettysburg's streets during the retreat -- the only artillery unit to fight in the town. Requires precise in-town placement across several ticks.\"}",
+   "repl": "{\"battery_id\":\"U-ART-I1OH\",\"designation\":\"Battery I, 1st Ohio Artillery (Dilger's Battery)\",\"commander\":{\"name\":\"Captain Hubert Dilger\",\"fate\":\"Survived -- Medal of Honor for Gettysburg\",\"notes\":\"'Leatherbreeches' Dilger was born in Germany, served in European armies. MOH for delaying Rodes's attack at close range while Union infantry retreated through Gettysburg.\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":13,\"key_action\":\"Fought in the most dramatic artillery action of July 1 -- engaged Confederate infantry at close range IN THE STREETS OF GETTYSBURG to cover the Union retreat. Fighting withdrawal through the town itself.\",\"flag_notes\":\"UNIQUE PLACEMENT: Dilger's battery moved THROUGH Gettysburg's streets during the retreat -- the only artillery unit to fight in the town. Requires precise in-town placement across several ticks.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-K1OH",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-K1OH\",\"designation\":\"Battery K, 1st Ohio Artillery (Heckman's)\",\"commander\":{\"name\":\"Captain Lewis Heckman\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":10,\"key_action\":\"XI Corps -- north of town July 1 then Cemetery Hill.\"}",
+   "repl": "{\"battery_id\":\"U-ART-K1OH\",\"designation\":\"Battery K, 1st Ohio Artillery (Heckman's)\",\"commander\":{\"name\":\"Captain Lewis Heckman\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":15,\"key_action\":\"XI Corps -- north of town July 1 then Cemetery Hill.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-G4US",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-G4US\",\"designation\":\"Battery G, 4th US Artillery (Wilkeson's Battery)\",\"commander\":{\"name\":\"Lieutenant Bayard Wilkeson\",\"fate\":\"KIA July 1 -- both legs shattered; reportedly amputated one leg himself with a penknife before dying\",\"successor\":{\"name\":\"Sergeant Eugene Bancroft\",\"assumed_command\":\"July 1\"}},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":19,\"key_action\":\"Barlow's Knoll July 1 -- most exposed Union artillery position. Wilkeson had both legs shattered. He reportedly amputated one leg himself with a penknife and bled to death.\",\"flag_notes\":\"Barlow's Knoll -- most exposed Union position July 1. Wilkeson's mortal wounding is one of the most harrowing stories of Day 1.\"}",
+   "repl": "{\"battery_id\":\"U-ART-G4US\",\"designation\":\"Battery G, 4th US Artillery (Wilkeson's Battery)\",\"commander\":{\"name\":\"Lieutenant Bayard Wilkeson\",\"fate\":\"KIA July 1 -- both legs shattered; reportedly amputated one leg himself with a penknife before dying\",\"successor\":{\"name\":\"Sergeant Eugene Bancroft\",\"assumed_command\":\"July 1\"}},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":17,\"key_action\":\"Barlow's Knoll July 1 -- most exposed Union artillery position. Wilkeson had both legs shattered. He reportedly amputated one leg himself with a penknife and bled to death.\",\"flag_notes\":\"Barlow's Knoll -- most exposed Union position July 1. Wilkeson's mortal wounding is one of the most harrowing stories of Day 1.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-F4US-XI",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-F4US-XI\",\"designation\":\"Battery F, 4th US Artillery (XI Corps)\",\"commander\":{\"name\":\"Lieutenant Chandler Eakin\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":9,\"key_action\":\"XI Corps artillery -- north of town July 1 then Cemetery Hill.\"}",
+   "repl": "{\"battery_id\":\"U-ART-F4US-XI\",\"designation\":\"Battery I, 1st New York Light Artillery (Wiedrich's Battery)\",\"commander\":{\"name\":\"Captain Michael Wiedrich\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":13,\"key_action\":\"XI Corps artillery -- north of town July 1 then Cemetery Hill.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-13NY",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-13NY\",\"designation\":\"13th New York Battery (Wheeler's)\",\"commander\":{\"name\":\"Lieutenant William Wheeler\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":4,\"key_action\":\"XI Corps -- Cemetery Hill.\"}",
+   "repl": "{\"battery_id\":\"U-ART-13NY\",\"designation\":\"13th New York Battery (Wheeler's)\",\"commander\":{\"name\":\"Lieutenant William Wheeler\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":11,\"key_action\":\"XI Corps -- Cemetery Hill.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-K5US",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-K5US\",\"designation\":\"Battery K, 5th US Artillery\",\"commander\":{\"name\":\"Lieutenant David Kinzie\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":0,\"key_action\":\"XII Corps -- Culp's Hill.\"}",
+   "repl": "{\"battery_id\":\"U-ART-K5US\",\"designation\":\"Battery K, 5th US Artillery\",\"commander\":{\"name\":\"Lieutenant David Kinzie\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":5,\"key_action\":\"XII Corps -- Culp's Hill.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-M1NY",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-M1NY\",\"designation\":\"Battery M, 1st New York Artillery (Winegar's)\",\"commander\":{\"name\":\"Lieutenant Charles Winegar\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":1,\"key_action\":\"XII Corps -- Culp's Hill.\"}",
+   "repl": "{\"battery_id\":\"U-ART-M1NY\",\"designation\":\"Battery M, 1st New York Artillery (Winegar's)\",\"commander\":{\"name\":\"Lieutenant Charles Winegar\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":1,\"key_action\":\"XII Corps -- Culp's Hill. The return of casualties does not list a battery of this designation in this brigade, so its casualties are not confirmed by it.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-5MA",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-5MA\",\"designation\":\"5th Massachusetts Battery (E)\",\"commander\":{\"name\":\"Captain Charles Phillips\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":104,\"casualties\":10,\"key_action\":\"McGilvery's Line July 2 evening -- helped stop Confederate advance. Fought during Pickett's Charge July 3.\"}",
+   "repl": "{\"battery_id\":\"U-ART-5MA\",\"designation\":\"5th Massachusetts Battery (E)\",\"commander\":{\"name\":\"Captain Charles Phillips\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":104,\"casualties\":21,\"key_action\":\"McGilvery's Line July 2 evening -- helped stop Confederate advance. Fought during Pickett's Charge July 3.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-15NY",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-15NY\",\"designation\":\"15th New York Battery (Hart's)\",\"commander\":{\"name\":\"Captain Patrick Hart\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":73,\"casualties\":4,\"key_action\":\"McGilvery's brigade -- Plum Run Line July 2-3.\"}",
+   "repl": "{\"battery_id\":\"U-ART-15NY\",\"designation\":\"15th New York Battery (Hart's)\",\"commander\":{\"name\":\"Captain Patrick Hart\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":73,\"casualties\":16,\"key_action\":\"McGilvery's brigade -- Plum Run Line July 2-3.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-MAF",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-MAF\",\"designation\":\"Massachusetts Battery F\",\"commander\":{\"name\":\"Captain Timothy Regan\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":67,\"casualties\":1,\"key_action\":\"McGilvery's brigade reserve.\"}",
+   "repl": "{\"battery_id\":\"U-ART-MAF\",\"designation\":\"Massachusetts Battery F\",\"commander\":{\"name\":\"Captain Timothy Regan\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":67,\"casualties\":1,\"key_action\":\"McGilvery's brigade reserve. The roster names no Massachusetts Battery F in the Artillery Reserve; its First Volunteer Brigade held Pennsylvania Batteries C and F (Capt. James Thompson, 28 losses in the return), which this file lacks.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-5NY",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-5NY\",\"designation\":\"5th New York Battery\",\"commander\":{\"name\":\"Captain Elijah Taft\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"20-pdr Parrott\",\"strength\":114,\"casualties\":2,\"key_action\":\"Long-range Parrott rifles for counterbattery fire.\"}",
+   "repl": "{\"battery_id\":\"U-ART-5NY\",\"designation\":\"5th New York Battery\",\"commander\":{\"name\":\"Captain Elijah Taft\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"20-pdr Parrott\",\"strength\":114,\"casualties\":3,\"key_action\":\"Long-range Parrott rifles for counterbattery fire.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-NYC",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-NYC\",\"designation\":\"New York Battery C (Roemer's)\",\"commander\":{\"name\":\"Captain Jacob Roemer\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":100,\"casualties\":3,\"key_action\":\"Taft's brigade -- July 3 cannonade support.\"}",
+   "repl": "{\"battery_id\":\"U-ART-NYC\",\"designation\":\"New York Battery C (Roemer's)\",\"commander\":{\"name\":\"Captain Jacob Roemer\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":100,\"casualties\":3,\"key_action\":\"Taft's brigade -- July 3 cannonade support. The roster names no New York Battery C (Roemer) in the Artillery Reserve; its Second Volunteer Brigade held the Connecticut 2d Battery (Capt. John Sterling, 5 losses in the return), which this file lacks.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-1NH",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-1NH\",\"designation\":\"1st New Hampshire Battery\",\"commander\":{\"name\":\"Captain Frederick Edgell\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":11,\"key_action\":\"Cemetery Hill -- July 2-3 fighting.\"}",
+   "repl": "{\"battery_id\":\"U-ART-1NH\",\"designation\":\"1st New Hampshire Battery\",\"commander\":{\"name\":\"Captain Frederick Edgell\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":3,\"key_action\":\"Cemetery Hill -- July 2-3 fighting.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-H1OH",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-H1OH\",\"designation\":\"Battery H, 1st Ohio Artillery\",\"commander\":{\"name\":\"Lieutenant George Norton\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":0,\"key_action\":\"Reserve artillery.\"}",
+   "repl": "{\"battery_id\":\"U-ART-H1OH\",\"designation\":\"Battery H, 1st Ohio Artillery\",\"commander\":{\"name\":\"Lieutenant George Norton\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":7,\"key_action\":\"Reserve artillery.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-F1PA",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-F1PA\",\"designation\":\"Battery F, 1st Pennsylvania Artillery (Ricketts's)\",\"commander\":{\"name\":\"Captain R. Bruce Ricketts\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":117,\"casualties\":19,\"key_action\":\"Cemetery Hill -- fought in the East Cemetery Hill action July 2 evening when Early's Confederates briefly seized the crest.\",\"flag_notes\":\"Cemetery Hill July 2 evening -- battery must show Online position during Confederate assault on the hill.\"}",
+   "repl": "{\"battery_id\":\"U-ART-F1PA\",\"designation\":\"Battery F, 1st Pennsylvania Artillery (Ricketts's)\",\"commander\":{\"name\":\"Captain R. Bruce Ricketts\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":117,\"casualties\":23,\"key_action\":\"Cemetery Hill -- fought in the East Cemetery Hill action July 2 evening when Early's Confederates briefly seized the crest.\",\"flag_notes\":\"Cemetery Hill July 2 evening -- battery must show Online position during Confederate assault on the hill.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-CWV",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-CWV\",\"designation\":\"Battery C, West Virginia Artillery\",\"commander\":{\"name\":\"Captain Wallace Hill\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":1,\"key_action\":\"Reserve.\"}",
+   "repl": "{\"battery_id\":\"U-ART-CWV\",\"designation\":\"Battery C, West Virginia Artillery\",\"commander\":{\"name\":\"Captain Wallace Hill\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":4,\"key_action\":\"Reserve.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-C1NY",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-C1NY\",\"designation\":\"Battery C, 1st New York Artillery\",\"commander\":{\"name\":\"Captain Almont Barnes\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":0,\"key_action\":\"Reserve.\"}",
+   "repl": "{\"battery_id\":\"U-ART-C1NY\",\"designation\":\"Battery C, 1st New York Artillery\",\"commander\":{\"name\":\"Captain Almont Barnes\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":0,\"key_action\":\"Reserve. The Official Records roster (27/1 p.161) lists Battery C, 1st New York (Capt. Almont Barnes) in the Fifth Corps Artillery Brigade; the return lists no loss for it.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-L1NY",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-L1NY\",\"designation\":\"Battery L, 1st New York Artillery\",\"commander\":{\"name\":\"Captain Gilbert Reynolds\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":3,\"key_action\":\"Support of Union left July 2.\"}",
+   "repl": "{\"battery_id\":\"U-ART-L1NY\",\"designation\":\"Battery L, 1st New York Artillery\",\"commander\":{\"name\":\"Captain Gilbert Reynolds\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":3,\"key_action\":\"Support of Union left July 2. The roster lists Battery L, 1st New York (Capt. Gilbert Reynolds) only in the First Corps Artillery Brigade (see U-ART-L1NY-I), so this Reserve record duplicates it; the return lists no separate loss.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-1NYIND",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-1NYIND\",\"designation\":\"1st New York Battery Independent (Cowan's)\",\"commander\":{\"name\":\"Captain Andrew Cowan\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":8,\"key_action\":\"Cemetery Ridge -- fired canister at point-blank range into Armistead's Confederates breaching The Angle July 3. Approximately 50 yards from Armistead's men.\",\"flag_notes\":\"Cowan's canister fire at The Angle -- guns must be placed very close to the Confederate breakthrough point, approximately 50 yards.\"}",
+   "repl": "{\"battery_id\":\"U-ART-1NYIND\",\"designation\":\"1st New York Battery Independent (Cowan's)\",\"commander\":{\"name\":\"Captain Andrew Cowan\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":12,\"key_action\":\"Cemetery Ridge -- fired canister at point-blank range into Armistead's Confederates breaching The Angle July 3. Approximately 50 yards from Armistead's men.\",\"flag_notes\":\"Cowan's canister fire at The Angle -- guns must be placed very close to the Confederate breakthrough point, approximately 50 yards.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-3NY",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-3NY\",\"designation\":\"3rd New York Battery Independent\",\"commander\":{\"name\":\"Captain William Harn\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":114,\"casualties\":4,\"key_action\":\"Reserve support.\"}",
+   "repl": "{\"battery_id\":\"U-ART-3NY\",\"designation\":\"3rd New York Battery Independent\",\"commander\":{\"name\":\"Captain William Harn\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":114,\"casualties\":4,\"key_action\":\"Reserve support. The roster (27/1 p.163) lists the 3d New York Independent Battery (Capt. William Harn) in the Sixth Corps Artillery Brigade; the return lists no loss for it.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-C4US",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-C4US\",\"designation\":\"Battery C, 4th US Artillery (Thomas's)\",\"commander\":{\"name\":\"Lieutenant Evan Thomas\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":9,\"key_action\":\"Cemetery Ridge -- July 3 cannonade and Pickett's Charge repulse.\"}",
+   "repl": "{\"battery_id\":\"U-ART-C4US\",\"designation\":\"Battery C, 4th US Artillery (Thomas's)\",\"commander\":{\"name\":\"Lieutenant Evan Thomas\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":18,\"key_action\":\"Cemetery Ridge -- July 3 cannonade and Pickett's Charge repulse.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-F4US",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-F4US\",\"designation\":\"Battery F, 4th US Artillery\",\"commander\":{\"name\":\"Lieutenant Chandler Eakin\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":7,\"key_action\":\"Cemetery Ridge -- July 3.\"}",
+   "repl": "{\"battery_id\":\"U-ART-F4US\",\"designation\":\"Battery H, 1st US Artillery (Eakin's Battery)\",\"commander\":{\"name\":\"Lieutenant Chandler Eakin\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":107,\"casualties\":10,\"key_action\":\"Cemetery Ridge -- July 3.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-artillery-U-ART-F5US",
+   "target": "data/oob/union_artillery.json",
+   "find": "{\"battery_id\":\"U-ART-F5US\",\"designation\":\"Battery F, 5th US Artillery\",\"commander\":{\"name\":\"Lieutenant Leonard Martin\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":5,\"key_action\":\"Reserve.\"}",
+   "repl": "{\"battery_id\":\"U-ART-F5US\",\"designation\":\"Battery F, 5th US Artillery\",\"commander\":{\"name\":\"Lieutenant Leonard Martin\",\"fate\":\"Survived\"},\"gun_count\":6,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":107,\"casualties\":5,\"key_action\":\"Reserve. The roster (27/1 p.163) lists Battery F, 5th U.S. (Lieut. Leonard Martin) in the Sixth Corps Artillery Brigade, not the Reserve; the return lists no loss for it.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-187 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-oob-brigades-U-I-3-1",
+   "target": "data/oob/union_oob_brigades.json",
+   "find": "{\"brigade_id\":\"U-I-3-1\",\"designation\":\"First Brigade, Third Division, First Corps (Biddle's Brigade)\",\"parent_division_id\":\"U-I-3\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Colonel Roy Stone\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Langhorne Wister\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Edmund Dana\",\"assumed_command\":\"July 1\"}}},\"strength\":1317,\"casualties\":748,\"casualty_percentage\":56.8,\"days_engaged\":[1],\"state\":\"Pennsylvania/New York\",\"regiment_ids\":[\"U-80NY\",\"U-121PA\",\"U-142PA\",\"U-151PA\"],\"key_action\":\"South of Chambersburg Pike -- Seminary Ridge fighting. Three brigade commanders wounded in succession.\"}",
+   "repl": "{\"brigade_id\":\"U-I-3-1\",\"designation\":\"First Brigade, Third Division, First Corps (Biddle's Brigade)\",\"parent_division_id\":\"U-I-3\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Colonel Chapman Biddle\",\"fate\":\"Survived\"},\"strength\":1317,\"casualties\":897,\"casualty_percentage\":68.1,\"days_engaged\":[1],\"state\":\"Pennsylvania/New York\",\"regiment_ids\":[\"U-80NY\",\"U-121PA\",\"U-142PA\",\"U-151PA\"],\"key_action\":\"South of Chambersburg Pike -- Seminary Ridge fighting. Colonel Chapman Biddle commanded the brigade (the Official Records roster also names Brig. Gen. Thomas A. Rowley in the brigade's command).\"}",
+   "expect": 1,
+   "note": "wrong-name+wrong-number: OR 27/1 p.156 (order of battle: First Brigade, Third Division, I Corps, Col. Chapman Biddle) and p.6 (Biddle commanding regiment and First Brigade); OR 27/1 pp.173-186 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-oob-brigades-U-I-3-2",
+   "target": "data/oob/union_oob_brigades.json",
+   "find": "{\"brigade_id\":\"U-I-3-2\",\"designation\":\"Second Brigade, Third Division, First Corps (Stone's Bucktails)\",\"parent_division_id\":\"U-I-3\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Colonel Roy Stone\",\"fate\":\"Wounded July 1\"},\"strength\":1899,\"casualties\":858,\"casualty_percentage\":45.2,\"days_engaged\":[1],\"state\":\"Pennsylvania\",\"regiment_ids\":[\"U-143PA\",\"U-149PA\",\"U-150PA\"],\"key_action\":\"Bucktail Brigade astride Chambersburg Pike. 149th PA suffered 84% casualties -- one of the highest single-regiment rates of the battle.\"}",
+   "repl": "{\"brigade_id\":\"U-I-3-2\",\"designation\":\"Second Brigade, Third Division, First Corps (Stone's Bucktails)\",\"parent_division_id\":\"U-I-3\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Colonel Roy Stone\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Lieutenant Colonel Langhorne Wister\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Edmund Dana\",\"assumed_command\":\"July 1\"}}},\"strength\":1899,\"casualties\":858,\"casualty_percentage\":45.2,\"days_engaged\":[1],\"state\":\"Pennsylvania\",\"regiment_ids\":[\"U-143PA\",\"U-149PA\",\"U-150PA\"],\"key_action\":\"Bucktail Brigade astride Chambersburg Pike. 149th PA suffered 84% casualties -- one of the highest single-regiment rates of the battle.\"}",
+   "expect": 1,
+   "note": "wrong-name: OR 27/1 p.156 (Second Brigade, Col. Roy Stone) and the Stone, Wister and Dana reports"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-1SC-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-1SC-CAV\",\"designation\":\"1st South Carolina Cavalry\",\"parent_brigade_id\":\"C-CAV-1\",\"state\":\"South Carolina\",\"strength\":289,\"casualties\":28,\"days_engaged\":[3],\"key_action\":\"Hampton's brigade -- East Cavalry Field.\"}",
+   "repl": "{\"regiment_id\":\"C-1SC-CAV\",\"designation\":\"1st South Carolina Cavalry\",\"parent_brigade_id\":\"C-CAV-1\",\"state\":\"South Carolina\",\"strength\":289,\"casualties\":28,\"days_engaged\":[3],\"key_action\":\"Hampton's brigade -- East Cavalry Field. Casualties: this file gives 28; the Official Records return prints 14 for the regiment (its loss of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-2SC-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-2SC-CAV\",\"designation\":\"2nd South Carolina Cavalry\",\"parent_brigade_id\":\"C-CAV-1\",\"state\":\"South Carolina\",\"strength\":206,\"casualties\":12,\"days_engaged\":[3],\"key_action\":\"Hampton's brigade.\"}",
+   "repl": "{\"regiment_id\":\"C-2SC-CAV\",\"designation\":\"2nd South Carolina Cavalry\",\"parent_brigade_id\":\"C-CAV-1\",\"state\":\"South Carolina\",\"strength\":206,\"casualties\":12,\"days_engaged\":[3],\"key_action\":\"Hampton's brigade. Casualties: this file gives 12; the Official Records return prints 7 for the regiment (its loss of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-Cobb-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-Cobb-CAV\",\"designation\":\"Cobb's Legion Cavalry (Georgia)\",\"parent_brigade_id\":\"C-CAV-1\",\"state\":\"Georgia\",\"strength\":350,\"casualties\":36,\"days_engaged\":[3],\"key_action\":\"Hampton's brigade -- East Cavalry Field.\"}",
+   "repl": "{\"regiment_id\":\"C-Cobb-CAV\",\"designation\":\"Cobb's Legion Cavalry (Georgia)\",\"parent_brigade_id\":\"C-CAV-1\",\"state\":\"Georgia\",\"strength\":350,\"casualties\":36,\"days_engaged\":[3],\"key_action\":\"Hampton's brigade -- East Cavalry Field. Casualties: this file gives 36; the Official Records return prints 21 for the regiment (its loss of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-Phil-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-Phil-CAV\",\"designation\":\"Phillips Legion Cavalry (Georgia)\",\"parent_brigade_id\":\"C-CAV-1\",\"state\":\"Georgia\",\"strength\":213,\"casualties\":15,\"days_engaged\":[3],\"key_action\":\"Hampton's brigade.\"}",
+   "repl": "{\"regiment_id\":\"C-Phil-CAV\",\"designation\":\"Phillips Legion Cavalry (Georgia)\",\"parent_brigade_id\":\"C-CAV-1\",\"state\":\"Georgia\",\"strength\":213,\"casualties\":15,\"days_engaged\":[3],\"key_action\":\"Hampton's brigade. Casualties: this file gives 15; the Official Records return prints 10 for the regiment (its loss of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-Jeff-MS-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-Jeff-MS-CAV\",\"designation\":\"Jeff Davis Legion (Mississippi Cavalry)\",\"parent_brigade_id\":\"C-CAV-1\",\"state\":\"Mississippi\",\"strength\":242,\"casualties\":22,\"days_engaged\":[3],\"key_action\":\"Hampton's brigade -- East Cavalry Field.\"}",
+   "repl": "{\"regiment_id\":\"C-Jeff-MS-CAV\",\"designation\":\"Jeff Davis Legion (Mississippi Cavalry)\",\"parent_brigade_id\":\"C-CAV-1\",\"state\":\"Mississippi\",\"strength\":242,\"casualties\":22,\"days_engaged\":[3],\"key_action\":\"Hampton's brigade -- East Cavalry Field. Casualties: this file gives 22; the Official Records return prints 15 for the regiment (its loss of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-1VA-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-1VA-CAV\",\"designation\":\"1st Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-2\",\"state\":\"Virginia\",\"strength\":380,\"casualties\":30,\"days_engaged\":[3],\"key_action\":\"Fitz Lee's brigade -- East Cavalry Field.\"}",
+   "repl": "{\"regiment_id\":\"C-1VA-CAV\",\"designation\":\"1st Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-2\",\"state\":\"Virginia\",\"strength\":380,\"casualties\":30,\"days_engaged\":[3],\"key_action\":\"Fitz Lee's brigade -- East Cavalry Field. Casualties: this file gives 30; the Official Records return prints 22 for the regiment (its loss of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-2VA-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-2VA-CAV\",\"designation\":\"2nd Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-2\",\"state\":\"Virginia\",\"strength\":340,\"casualties\":29,\"days_engaged\":[3],\"key_action\":\"Fitz Lee's brigade.\"}",
+   "repl": "{\"regiment_id\":\"C-2VA-CAV\",\"designation\":\"2nd Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-2\",\"state\":\"Virginia\",\"strength\":340,\"casualties\":29,\"days_engaged\":[3],\"key_action\":\"Fitz Lee's brigade. Casualties: this file gives 29; the Official Records return prints 5 for the regiment (its loss of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-3VA-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-3VA-CAV\",\"designation\":\"3rd Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-2\",\"state\":\"Virginia\",\"strength\":260,\"casualties\":23,\"days_engaged\":[3],\"key_action\":\"Fitz Lee's brigade.\"}",
+   "repl": "{\"regiment_id\":\"C-3VA-CAV\",\"designation\":\"3rd Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-2\",\"state\":\"Virginia\",\"strength\":260,\"casualties\":23,\"days_engaged\":[3],\"key_action\":\"Fitz Lee's brigade. Casualties: this file gives 23; the Official Records return prints 6 for the regiment (its loss of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-4VA-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-4VA-CAV\",\"designation\":\"4th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-2\",\"state\":\"Virginia\",\"strength\":365,\"casualties\":32,\"days_engaged\":[3],\"key_action\":\"Fitz Lee's brigade -- East Cavalry Field.\"}",
+   "repl": "{\"regiment_id\":\"C-4VA-CAV\",\"designation\":\"4th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-2\",\"state\":\"Virginia\",\"strength\":365,\"casualties\":32,\"days_engaged\":[3],\"key_action\":\"Fitz Lee's brigade -- East Cavalry Field. Casualties: this file gives 32; the Official Records return prints 17 for the regiment (its loss of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-5VA-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-5VA-CAV\",\"designation\":\"5th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-2\",\"state\":\"Virginia\",\"strength\":355,\"casualties\":28,\"days_engaged\":[3],\"key_action\":\"Fitz Lee's brigade.\"}",
+   "repl": "{\"regiment_id\":\"C-5VA-CAV\",\"designation\":\"5th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-2\",\"state\":\"Virginia\",\"strength\":355,\"casualties\":28,\"days_engaged\":[3],\"key_action\":\"Fitz Lee's brigade. Casualties: this file gives 28; the Official Records return has no loss of record for the regiment (loss, if any, not of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-9VA-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-9VA-CAV\",\"designation\":\"9th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-3\",\"state\":\"Virginia\",\"strength\":384,\"casualties\":28,\"days_engaged\":[3],\"key_action\":\"Chambliss's brigade -- East Cavalry Field.\"}",
+   "repl": "{\"regiment_id\":\"C-9VA-CAV\",\"designation\":\"9th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-3\",\"state\":\"Virginia\",\"strength\":384,\"casualties\":28,\"days_engaged\":[3],\"key_action\":\"Chambliss's brigade -- East Cavalry Field. Casualties: this file gives 28; the Official Records return prints 12 for the regiment (its loss of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-10VA-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-10VA-CAV\",\"designation\":\"10th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-3\",\"state\":\"Virginia\",\"strength\":254,\"casualties\":19,\"days_engaged\":[3],\"key_action\":\"Chambliss's brigade.\"}",
+   "repl": "{\"regiment_id\":\"C-10VA-CAV\",\"designation\":\"10th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-3\",\"state\":\"Virginia\",\"strength\":254,\"casualties\":19,\"days_engaged\":[3],\"key_action\":\"Chambliss's brigade. Casualties: this file gives 19; the Official Records return prints 12 for the regiment (its loss of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-13VA-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-13VA-CAV\",\"designation\":\"13th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-3\",\"state\":\"Virginia\",\"strength\":295,\"casualties\":21,\"days_engaged\":[3],\"key_action\":\"Chambliss's brigade.\"}",
+   "repl": "{\"regiment_id\":\"C-13VA-CAV\",\"designation\":\"13th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-3\",\"state\":\"Virginia\",\"strength\":295,\"casualties\":21,\"days_engaged\":[3],\"key_action\":\"Chambliss's brigade. Casualties: this file gives 21; the Official Records return prints 17 for the regiment (its loss of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-14VA-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-14VA-CAV\",\"designation\":\"14th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-4\",\"state\":\"Virginia\",\"strength\":290,\"casualties\":9,\"days_engaged\":[1,2,3],\"key_action\":\"Jenkins's brigade -- with Ewell's column.\"}",
+   "repl": "{\"regiment_id\":\"C-14VA-CAV\",\"designation\":\"14th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-4\",\"state\":\"Virginia\",\"strength\":290,\"casualties\":9,\"days_engaged\":[1,2,3],\"key_action\":\"Jenkins's brigade -- with Ewell's column. Casualties: this file gives 9; the Official Records return has no loss of record for the regiment (loss, if any, not of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-16VA-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-16VA-CAV\",\"designation\":\"16th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-4\",\"state\":\"Virginia\",\"strength\":272,\"casualties\":8,\"days_engaged\":[1,2,3],\"key_action\":\"Jenkins's brigade.\"}",
+   "repl": "{\"regiment_id\":\"C-16VA-CAV\",\"designation\":\"16th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-4\",\"state\":\"Virginia\",\"strength\":272,\"casualties\":8,\"days_engaged\":[1,2,3],\"key_action\":\"Jenkins's brigade. Casualties: this file gives 8; the Official Records return has no loss of record for the regiment (loss, if any, not of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-17VA-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-17VA-CAV\",\"designation\":\"17th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-4\",\"state\":\"Virginia\",\"strength\":250,\"casualties\":7,\"days_engaged\":[1,2,3],\"key_action\":\"Jenkins's brigade.\"}",
+   "repl": "{\"regiment_id\":\"C-17VA-CAV\",\"designation\":\"17th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-4\",\"state\":\"Virginia\",\"strength\":250,\"casualties\":7,\"days_engaged\":[1,2,3],\"key_action\":\"Jenkins's brigade. Casualties: this file gives 7; the Official Records return has no loss of record for the regiment (loss, if any, not of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-34VA-CAV-B",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-34VA-CAV-B\",\"designation\":\"34th Virginia Cavalry Battalion\",\"parent_brigade_id\":\"C-CAV-4\",\"state\":\"Virginia\",\"strength\":161,\"casualties\":5,\"days_engaged\":[1,2,3],\"key_action\":\"Jenkins's brigade -- battalion.\"}",
+   "repl": "{\"regiment_id\":\"C-34VA-CAV-B\",\"designation\":\"34th Virginia Cavalry Battalion\",\"parent_brigade_id\":\"C-CAV-4\",\"state\":\"Virginia\",\"strength\":161,\"casualties\":5,\"days_engaged\":[1,2,3],\"key_action\":\"Jenkins's brigade -- battalion. Casualties: this file gives 5; the Official Records return has no loss of record for the regiment (loss, if any, not of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-36VA-CAV-B",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-36VA-CAV-B\",\"designation\":\"36th Virginia Cavalry Battalion\",\"parent_brigade_id\":\"C-CAV-4\",\"state\":\"Virginia\",\"strength\":132,\"casualties\":4,\"days_engaged\":[1,2,3],\"key_action\":\"Jenkins's brigade -- battalion.\"}",
+   "repl": "{\"regiment_id\":\"C-36VA-CAV-B\",\"designation\":\"36th Virginia Cavalry Battalion\",\"parent_brigade_id\":\"C-CAV-4\",\"state\":\"Virginia\",\"strength\":132,\"casualties\":4,\"days_engaged\":[1,2,3],\"key_action\":\"Jenkins's brigade -- battalion. Casualties: this file gives 4; the Official Records return has no loss of record for the regiment (loss, if any, not of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-18VA-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-18VA-CAV\",\"designation\":\"18th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-5\",\"state\":\"Virginia\",\"strength\":200,\"casualties\":2,\"days_engaged\":[],\"key_action\":\"Imboden's command -- wagon train guard and retreat escort.\"}",
+   "repl": "{\"regiment_id\":\"C-18VA-CAV\",\"designation\":\"18th Virginia Cavalry\",\"parent_brigade_id\":\"C-CAV-5\",\"state\":\"Virginia\",\"strength\":200,\"casualties\":2,\"days_engaged\":[],\"key_action\":\"Imboden's command -- wagon train guard and retreat escort. Casualties: this file gives 2; the Official Records return has no loss of record for the regiment (loss, if any, not of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-62VA-MTD",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-62VA-MTD\",\"designation\":\"62nd Virginia Mounted Infantry\",\"parent_brigade_id\":\"C-CAV-5\",\"state\":\"Virginia\",\"strength\":260,\"casualties\":3,\"days_engaged\":[],\"key_action\":\"Imboden's command.\"}",
+   "repl": "{\"regiment_id\":\"C-62VA-MTD\",\"designation\":\"62nd Virginia Mounted Infantry\",\"parent_brigade_id\":\"C-CAV-5\",\"state\":\"Virginia\",\"strength\":260,\"casualties\":3,\"days_engaged\":[],\"key_action\":\"Imboden's command. Casualties: this file gives 3; the Official Records return has no loss of record for the regiment (loss, if any, not of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-VA-PA-CAV",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-VA-PA-CAV\",\"designation\":\"Virginia Partisan Rangers\",\"parent_brigade_id\":\"C-CAV-5\",\"state\":\"Virginia\",\"strength\":125,\"casualties\":1,\"days_engaged\":[],\"key_action\":\"Imboden's command -- partisan cavalry.\"}",
+   "repl": "{\"regiment_id\":\"C-VA-PA-CAV\",\"designation\":\"Virginia Partisan Rangers\",\"parent_brigade_id\":\"C-CAV-5\",\"state\":\"Virginia\",\"strength\":125,\"casualties\":1,\"days_engaged\":[],\"key_action\":\"Imboden's command -- partisan cavalry. Casualties: this file gives 1; the Official Records return has no loss of record for the regiment (loss, if any, not of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-cavalry-C-McClanahan-ART",
+   "target": "data/oob/confederate_cavalry.json",
+   "find": "{\"regiment_id\":\"C-McClanahan-ART\",\"designation\":\"McClanahan's Battery (Horse Artillery)\",\"parent_brigade_id\":\"C-CAV-5\",\"state\":\"Virginia\",\"unit_type\":\"horse_artillery\",\"strength\":80,\"casualties\":1,\"days_engaged\":[],\"key_action\":\"Imboden's horse artillery -- wagon train.\"}",
+   "repl": "{\"regiment_id\":\"C-McClanahan-ART\",\"designation\":\"McClanahan's Battery (Horse Artillery)\",\"parent_brigade_id\":\"C-CAV-5\",\"state\":\"Virginia\",\"unit_type\":\"horse_artillery\",\"strength\":80,\"casualties\":1,\"days_engaged\":[],\"key_action\":\"Imboden's horse artillery -- wagon train. Casualties: this file gives 1; the Official Records return has no loss of record for the regiment (loss, if any, not of record). Contested.\"}",
+   "expect": 1,
+   "note": "contested-number: OR 27/2 pp.345-346 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Manly",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Manly\",\"designation\":\"Manly's Battery (1st NC Artillery)\",\"commander\":{\"name\":\"Captain Basil Manly\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr / 3-inch rifle\",\"strength\":80,\"casualties\":12,\"key_action\":\"Peach Orchard and Emmitsburg Road -- supporting McLaws July 2.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Manly\",\"designation\":\"Manly's Battery (1st NC Artillery)\",\"commander\":{\"name\":\"Captain Basil Manly\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr / 3-inch rifle\",\"strength\":80,\"casualties\":7,\"key_action\":\"Peach Orchard and Emmitsburg Road -- supporting McLaws July 2.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/2 p.338 and p.341 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Carlton",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Carlton\",\"designation\":\"Carlton's Battery (Troup Artillery GA)\",\"commander\":{\"name\":\"Captain Henry Carlton\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":8,\"key_action\":\"First Corps artillery support July 2.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Carlton\",\"designation\":\"Carlton's Battery (Troup Artillery GA)\",\"commander\":{\"name\":\"Captain Henry Carlton\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":7,\"key_action\":\"First Corps artillery support July 2.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/2 p.338 and p.341 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-McCarthy",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-McCarthy\",\"designation\":\"McCarthy's Battery (1st Richmond Howitzers)\",\"commander\":{\"name\":\"Captain Edward McCarthy\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":6,\"key_action\":\"First Corps artillery.\"}",
+   "repl": "{\"battery_id\":\"C-ART-McCarthy\",\"designation\":\"McCarthy's Battery (1st Richmond Howitzers)\",\"commander\":{\"name\":\"Captain Edward McCarthy\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":5,\"key_action\":\"First Corps artillery.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/2 p.338 and p.341 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Fraser",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Fraser\",\"designation\":\"Fraser's Battery (Pulaski Artillery GA)\",\"commander\":{\"name\":\"Captain John Fraser\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":5,\"key_action\":\"Supporting Hood's assault July 2.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Fraser\",\"designation\":\"Fraser's Battery (Pulaski Artillery GA)\",\"commander\":{\"name\":\"Captain John Fraser\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":18,\"key_action\":\"Supporting Hood's assault July 2.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/2 p.338 and p.341 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Dement",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Dement\",\"designation\":\"Dement's Battery (1st Maryland Artillery CSA)\",\"commander\":{\"name\":\"Captain William Dement\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":10,\"key_action\":\"Oak Hill July 1 bombardment -- cross-fire on Union I Corps.\",\"flag_notes\":\"Oak Hill artillery placement critical for Day 1 -- Confederate guns must be positioned on the ridge northwest of town firing into the flank of the Union I Corps on Oak Ridge.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Dement\",\"designation\":\"Dement's Battery (1st Maryland Artillery CSA)\",\"commander\":{\"name\":\"Captain William Dement\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":5,\"key_action\":\"Oak Hill July 1 bombardment -- cross-fire on Union I Corps.\",\"flag_notes\":\"Oak Hill artillery placement critical for Day 1 -- Confederate guns must be positioned on the ridge northwest of town firing into the flank of the Union I Corps on Oak Ridge.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/2 p.338 and p.341 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Carpenter",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Carpenter\",\"designation\":\"Carpenter's Battery (Alleghany Artillery VA)\",\"commander\":{\"name\":\"Captain Joseph Carpenter\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":8,\"key_action\":\"Oak Hill July 1 -- flanking fire on Union I Corps.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Carpenter\",\"designation\":\"Carpenter's Battery (Alleghany Artillery VA)\",\"commander\":{\"name\":\"Captain Joseph Carpenter\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":24,\"key_action\":\"Oak Hill July 1 -- flanking fire on Union I Corps.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/2 p.338 and p.341 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Brown-J",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Brown-J\",\"designation\":\"Brown's Battery (Chesapeake Artillery MD)\",\"commander\":{\"name\":\"Captain William Brown\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":6,\"key_action\":\"Second Corps support July 1-3.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Brown-J\",\"designation\":\"Brown's Battery (Chesapeake Artillery MD)\",\"commander\":{\"name\":\"Captain William Brown\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":16,\"key_action\":\"Second Corps support July 1-3.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/2 p.338 and p.341 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Raine",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Raine\",\"designation\":\"Raine's Battery (Lee Battery VA)\",\"commander\":{\"name\":\"Captain Charles Raine\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle / 10-pdr Parrott\",\"strength\":80,\"casualties\":7,\"key_action\":\"Second Corps artillery July 1.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Raine\",\"designation\":\"Raine's Battery (Lee Battery VA)\",\"commander\":{\"name\":\"Captain Charles Raine\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle / 10-pdr Parrott\",\"strength\":80,\"casualties\":4,\"key_action\":\"Second Corps artillery July 1.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/2 p.338 and p.341 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Carrington",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Carrington\",\"designation\":\"Carrington's Battery (Charlottesville Artillery VA)\",\"commander\":{\"name\":\"Captain James Carrington\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":9,\"key_action\":\"Oak Hill July 1 -- flanking fire that helped destroy I Corps. Key battery in Rodes's attack.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Carrington\",\"designation\":\"Carrington's Battery (Charlottesville Artillery VA)\",\"commander\":{\"name\":\"Captain James Carrington\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":0,\"key_action\":\"Oak Hill July 1 -- flanking fire that helped destroy I Corps. Key battery in Rodes's attack.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/2 p.338 and p.341 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Garber",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Garber\",\"designation\":\"Garber's Battery (Staunton Artillery VA)\",\"commander\":{\"name\":\"Captain Asher Garber\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":10,\"key_action\":\"Benner's Hill -- driven back by Union artillery.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Garber\",\"designation\":\"Garber's Battery (Staunton Artillery VA)\",\"commander\":{\"name\":\"Captain Asher Garber\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":1,\"key_action\":\"Benner's Hill -- driven back by Union artillery.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/2 p.338 and p.341 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Tanner",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Tanner\",\"designation\":\"Tanner's Battery (Courtney Artillery VA)\",\"commander\":{\"name\":\"Captain William Tanner\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":9,\"key_action\":\"Benner's Hill -- Latimer's battalion.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Tanner\",\"designation\":\"Tanner's Battery (Courtney Artillery VA)\",\"commander\":{\"name\":\"Captain William Tanner\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":0,\"key_action\":\"Benner's Hill -- Latimer's battalion.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/2 p.338 and p.341 (return of casualties)"
+  },
+  {
    "id": "DATA-oob-union-regiments-i-ii-corps-U-24MI",
    "target": "data/oob/union_regiments_i_ii_corps.json",
    "find": "{\"regiment_id\":\"U-24MI\",\"designation\":\"24th Michigan Volunteer Infantry\",\"parent_brigade_id\":\"U-I-1-1\",\"parent_corps_id\":\"U-I\",\"state\":\"Michigan\",\"commander\":{\"name\":\"Colonel Henry Morrow\",\"fate\":\"Wounded and captured July 1\"},\"strength\":496,\"casualties\":362,\"casualty_percentage\":73.0,\"days_engaged\":[1],\"key_action\":\"Largest Iron Brigade regiment. Color bearer shot down nine times. 73% casualties.\",\"flag_notes\":\"Nine color bearers shot in succession -- unit strength shrinks dramatically across afternoon ticks.\"}",
@@ -2932,6 +3836,46 @@
    "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json"
   },
   {
+   "id": "DATA-oob-union-regiments-iii-v-corps-U-5NJ",
+   "target": "data/oob/union_regiments_iii_v_corps.json",
+   "find": "{\"regiment_id\":\"U-5NJ\",\"designation\":\"5th New Jersey Volunteer Infantry\",\"parent_brigade_id\":\"U-III-2-3\",\"parent_corps_id\":\"U-III\",\"state\":\"New Jersey\",\"commander\":{\"name\":\"Colonel William Sewell\",\"fate\":\"Wounded July 2\"},\"strength\":206,\"casualties\":56,\"casualty_percentage\":27.2,\"days_engaged\":[2],\"key_action\":\"DETACHED from Burling's brigade -- served temporarily under Humphreys on Emmitsburg Road.\",\"flag_notes\":\"DETACHED UNIT -- place under Humphreys, not U-III-2-3.\"}",
+   "repl": "{\"regiment_id\":\"U-5NJ\",\"designation\":\"5th New Jersey Volunteer Infantry\",\"parent_brigade_id\":\"U-III-2-3\",\"parent_corps_id\":\"U-III\",\"state\":\"New Jersey\",\"commander\":{\"name\":\"Colonel William Sewell\",\"fate\":\"Wounded July 2\"},\"strength\":206,\"casualties\":94,\"casualty_percentage\":45.6,\"days_engaged\":[2],\"key_action\":\"DETACHED from Burling's brigade -- served temporarily under Humphreys on Emmitsburg Road.\",\"flag_notes\":\"DETACHED UNIT -- place under Humphreys, not U-III-2-3.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json"
+  },
+  {
+   "id": "DATA-oob-union-regiments-iii-v-corps-U-6NJ",
+   "target": "data/oob/union_regiments_iii_v_corps.json",
+   "find": "{\"regiment_id\":\"U-6NJ\",\"designation\":\"6th New Jersey Volunteer Infantry\",\"parent_brigade_id\":\"U-III-2-3\",\"parent_corps_id\":\"U-III\",\"state\":\"New Jersey\",\"commander\":{\"name\":\"Lieutenant Colonel Stephen Gilkyson\",\"fate\":\"Survived\"},\"strength\":207,\"casualties\":44,\"casualty_percentage\":21.3,\"days_engaged\":[2],\"key_action\":\"DETACHED from Burling's brigade -- placed independently July 2.\",\"flag_notes\":\"DETACHED UNIT.\"}",
+   "repl": "{\"regiment_id\":\"U-6NJ\",\"designation\":\"6th New Jersey Volunteer Infantry\",\"parent_brigade_id\":\"U-III-2-3\",\"parent_corps_id\":\"U-III\",\"state\":\"New Jersey\",\"commander\":{\"name\":\"Lieutenant Colonel Stephen Gilkyson\",\"fate\":\"Survived\"},\"strength\":207,\"casualties\":41,\"casualty_percentage\":19.8,\"days_engaged\":[2],\"key_action\":\"DETACHED from Burling's brigade -- placed independently July 2.\",\"flag_notes\":\"DETACHED UNIT.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json"
+  },
+  {
+   "id": "DATA-oob-union-regiments-iii-v-corps-U-7NJ",
+   "target": "data/oob/union_regiments_iii_v_corps.json",
+   "find": "{\"regiment_id\":\"U-7NJ\",\"designation\":\"7th New Jersey Volunteer Infantry\",\"parent_brigade_id\":\"U-III-2-3\",\"parent_corps_id\":\"U-III\",\"state\":\"New Jersey\",\"commander\":{\"name\":\"Colonel Louis Francine\",\"fate\":\"Mortally wounded July 2 -- died August 16\"},\"strength\":275,\"casualties\":117,\"casualty_percentage\":42.5,\"days_engaged\":[2],\"key_action\":\"DETACHED -- served under Humphreys on Emmitsburg Road. Francine mortally wounded.\",\"flag_notes\":\"DETACHED UNIT -- place under Humphreys.\"}",
+   "repl": "{\"regiment_id\":\"U-7NJ\",\"designation\":\"7th New Jersey Volunteer Infantry\",\"parent_brigade_id\":\"U-III-2-3\",\"parent_corps_id\":\"U-III\",\"state\":\"New Jersey\",\"commander\":{\"name\":\"Colonel Louis Francine\",\"fate\":\"Mortally wounded July 2 -- died August 16\"},\"strength\":275,\"casualties\":114,\"casualty_percentage\":41.5,\"days_engaged\":[2],\"key_action\":\"DETACHED -- served under Humphreys on Emmitsburg Road. Francine mortally wounded.\",\"flag_notes\":\"DETACHED UNIT -- place under Humphreys.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json"
+  },
+  {
+   "id": "DATA-oob-union-regiments-iii-v-corps-U-8NJ",
+   "target": "data/oob/union_regiments_iii_v_corps.json",
+   "find": "{\"regiment_id\":\"U-8NJ\",\"designation\":\"8th New Jersey Volunteer Infantry\",\"parent_brigade_id\":\"U-III-2-3\",\"parent_corps_id\":\"U-III\",\"state\":\"New Jersey\",\"commander\":{\"name\":\"Colonel John Ramsey\",\"fate\":\"Wounded July 2\"},\"strength\":170,\"casualties\":38,\"casualty_percentage\":22.4,\"days_engaged\":[2],\"key_action\":\"DETACHED from Burling's brigade July 2.\",\"flag_notes\":\"DETACHED UNIT.\"}",
+   "repl": "{\"regiment_id\":\"U-8NJ\",\"designation\":\"8th New Jersey Volunteer Infantry\",\"parent_brigade_id\":\"U-III-2-3\",\"parent_corps_id\":\"U-III\",\"state\":\"New Jersey\",\"commander\":{\"name\":\"Colonel John Ramsey\",\"fate\":\"Wounded July 2\"},\"strength\":170,\"casualties\":47,\"casualty_percentage\":27.6,\"days_engaged\":[2],\"key_action\":\"DETACHED from Burling's brigade July 2.\",\"flag_notes\":\"DETACHED UNIT.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json"
+  },
+  {
+   "id": "DATA-oob-union-regiments-iii-v-corps-U-115PA",
+   "target": "data/oob/union_regiments_iii_v_corps.json",
+   "find": "{\"regiment_id\":\"U-115PA\",\"designation\":\"115th Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-III-2-3\",\"parent_corps_id\":\"U-III\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Lieutenant Colonel John Frazer\",\"fate\":\"Survived\"},\"strength\":209,\"casualties\":54,\"casualty_percentage\":25.8,\"days_engaged\":[2],\"key_action\":\"Burling's brigade -- remained with parent brigade (not detached).\"}",
+   "repl": "{\"regiment_id\":\"U-115PA\",\"designation\":\"115th Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-III-2-3\",\"parent_corps_id\":\"U-III\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Major John P. Dunne\"},\"strength\":209,\"casualties\":24,\"casualty_percentage\":11.5,\"days_engaged\":[2],\"key_action\":\"Burling's brigade -- remained with parent brigade (not detached).\"}",
+   "expect": 1,
+   "note": "wrong-number+wrong-name: OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json; OR 27/1 pp.155-168 (order of battle)"
+  },
+  {
    "id": "DATA-oob-union-regiments-iii-v-corps-U-18MA",
    "target": "data/oob/union_regiments_iii_v_corps.json",
    "find": "{\"regiment_id\":\"U-18MA\",\"designation\":\"18th Massachusetts Volunteer Infantry\",\"parent_brigade_id\":\"U-V-1-1\",\"parent_corps_id\":\"U-V\",\"state\":\"Massachusetts\",\"commander\":{\"name\":\"Lieutenant Colonel Joseph Hayes\",\"fate\":\"Survived\"},\"strength\":139,\"casualties\":20,\"casualty_percentage\":14.4,\"days_engaged\":[2],\"key_action\":\"Tilton's brigade -- Stony Hill. Part of controversial withdrawal that exposed DeTrobriand's flank.\"}",
@@ -3383,7 +4327,7 @@
    "id": "DATA-oob-union-regiments-vi-xi-xii-corps-U-37MA",
    "target": "data/oob/union_regiments_vi_xi_xii_corps.json",
    "find": "{\"regiment_id\":\"U-37MA\",\"designation\":\"37th Massachusetts Volunteer Infantry\",\"parent_brigade_id\":\"U-VI-3-3\",\"parent_corps_id\":\"U-VI\",\"state\":\"Massachusetts\",\"commander\":{\"name\":\"Colonel Oliver Edwards\",\"fate\":\"Survived\"},\"strength\":590,\"casualties\":0,\"days_engaged\":[],\"key_action\":\"Largest regiment in VI Corps -- army reserve.\"}",
-   "repl": "{\"regiment_id\":\"U-37MA\",\"designation\":\"37th Massachusetts Volunteer Infantry\",\"parent_brigade_id\":\"U-VI-3-3\",\"parent_corps_id\":\"U-VI\",\"state\":\"Massachusetts\",\"commander\":{\"name\":\"Colonel Oliver Edwards\",\"fate\":\"Survived\"},\"strength\":590,\"casualties\":47,\"days_engaged\":[],\"key_action\":\"Largest regiment in VI Corps -- Edwards's brigade in the Official Records roster; the return lists 47 casualties.\",\"casualty_percentage\":8}",
+   "repl": "{\"regiment_id\":\"U-37MA\",\"designation\":\"37th Massachusetts Volunteer Infantry\",\"parent_brigade_id\":\"U-VI-3-3\",\"parent_corps_id\":\"U-VI\",\"state\":\"Massachusetts\",\"commander\":{\"name\":\"Colonel Oliver Edwards\",\"fate\":\"Survived\"},\"strength\":590,\"casualties\":47,\"days_engaged\":[],\"key_action\":\"Largest regiment in VI Corps -- Eustis's Second Brigade, Third Division, VI Corps (Official Records roster, p.163); the return lists 47 casualties.\",\"casualty_percentage\":8}",
    "expect": 1,
    "note": "wrong-number+wrong-claim: OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json; OR 27/1 pp.155-186 (order of battle and return of casualties)"
   },
@@ -3770,6 +4714,22 @@
    "repl": "{\"regiment_id\":\"U-149NY\",\"designation\":\"149th New York Volunteer Infantry\",\"parent_brigade_id\":\"U-XII-2-3\",\"parent_corps_id\":\"U-XII\",\"state\":\"New York\",\"commander\":{\"name\":\"Colonel Henry Barnum\",\"fate\":\"Wounded July 2 -- shot through hip but refused to leave until physically unable\",\"successor\":{\"name\":\"Lieutenant Colonel Charles Randall\",\"assumed_command\":\"July 3\"}},\"strength\":268,\"casualties\":55,\"casualty_percentage\":20.5,\"days_engaged\":[1,2,3],\"key_action\":\"Greene's brigade. Barnum wounded but refused to leave command. 55 casualties (20.5% of the strength in the file) at Culp's Hill.\"}",
    "expect": 1,
    "note": "wrong-number+wrong-claim: OR 27/1 pp.173-186 (return of casualties), transcription tools/t0/data/sources/or27_union_losses.json; OR 27/1 pp.155-186 (order of battle and return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-regiments-vi-xi-xii-corps-U-1MD-EH",
+   "target": "data/oob/union_regiments_vi_xi_xii_corps.json",
+   "find": "{\"regiment_id\":\"U-1MD-EH\",\"designation\":\"1st Maryland (Eastern Shore) Infantry\",\"parent_brigade_id\":\"U-XII-1-2\",\"parent_corps_id\":\"U-XII\",\"state\":\"Maryland\",\"commander\":{\"name\":\"Lieutenant Colonel James Wallace\",\"fate\":\"Survived\"},\"strength\":469,\"casualties\":199,\"casualty_percentage\":42.4,\"days_engaged\":[2,3],\"key_action\":\"Lockwood's brigade -- Culp's Hill. Marylanders fighting near 1st Maryland Confederate Infantry -- one of the most poignant parallel stories of the battle.\",\"flag_notes\":\"MARYLAND vs MARYLAND: 1st MD Union and 1st MD Confederate both fought at Culp's Hill. Narrative layer must flag this.\"}",
+   "repl": "{\"regiment_id\":\"U-1MD-EH\",\"designation\":\"1st Maryland (Eastern Shore) Infantry\",\"parent_brigade_id\":\"U-XII-1-2\",\"parent_corps_id\":\"U-XII\",\"state\":\"Maryland\",\"commander\":{\"name\":\"Lieutenant Colonel James Wallace\",\"fate\":\"Survived\"},\"strength\":469,\"casualties\":25,\"casualty_percentage\":5.3,\"days_engaged\":[2,3],\"key_action\":\"Lockwood's brigade -- Culp's Hill. Marylanders fighting near 1st Maryland Confederate Infantry -- one of the most poignant parallel stories of the battle.\",\"flag_notes\":\"MARYLAND vs MARYLAND: 1st MD Union and 1st MD Confederate both fought at Culp's Hill. Narrative layer must flag this.\"}",
+   "expect": 1,
+   "note": "wrong-claim: OR 27/1 pp.155-186 (return p.184: 1st Maryland Eastern Shore 25)"
+  },
+  {
+   "id": "DATA-oob-union-regiments-vi-xi-xii-corps-U-102PA",
+   "target": "data/oob/union_regiments_vi_xi_xii_corps.json",
+   "find": "{\"regiment_id\":\"U-102PA\",\"designation\":\"102nd Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-VI-3-2\",\"parent_corps_id\":\"U-VI\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Colonel James Coleman\",\"fate\":\"Survived\"},\"strength\":316,\"casualties\":15,\"days_engaged\":[2],\"key_action\":\"Wheaton's brigade -- supporting Union left July 2.\"}",
+   "repl": "{\"regiment_id\":\"U-102PA\",\"designation\":\"102nd Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-VI-3-2\",\"parent_corps_id\":\"U-VI\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Colonel John W. Patterson\"},\"strength\":316,\"casualties\":0,\"days_engaged\":[2],\"key_action\":\"The 102d Pennsylvania served in the Sixth Corps. The Official Records return of casualties lists no loss for the regiment.\",\"casualty_percentage\":0}",
+   "expect": 1,
+   "note": "wrong-claim+wrong-name: OR 27/1 pp.155-186 (return pp.181-182); OR 27/1 pp.155-168 (order of battle)"
   },
   {
    "id": "DATA-oob-confederate-regiments-first-corps-C-2SC",
@@ -4404,14 +5364,6 @@
    "note": "wrong-name: OR 27/1 pp.155-168 (order of battle)"
   },
   {
-   "id": "DATA-oob-union-regiments-iii-v-corps-U-115PA",
-   "target": "data/oob/union_regiments_iii_v_corps.json",
-   "find": "{\"regiment_id\":\"U-115PA\",\"designation\":\"115th Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-III-2-3\",\"parent_corps_id\":\"U-III\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Lieutenant Colonel John Frazer\",\"fate\":\"Survived\"},\"strength\":209,\"casualties\":54,\"casualty_percentage\":25.8,\"days_engaged\":[2],\"key_action\":\"Burling's brigade -- remained with parent brigade (not detached).\"}",
-   "repl": "{\"regiment_id\":\"U-115PA\",\"designation\":\"115th Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-III-2-3\",\"parent_corps_id\":\"U-III\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Major John P. Dunne\"},\"strength\":209,\"casualties\":54,\"casualty_percentage\":25.8,\"days_engaged\":[2],\"key_action\":\"Burling's brigade -- remained with parent brigade (not detached).\"}",
-   "expect": 1,
-   "note": "wrong-name: OR 27/1 pp.155-168 (order of battle)"
-  },
-  {
    "id": "DATA-oob-union-regiments-vi-xi-xii-corps-U-4NJ",
    "target": "data/oob/union_regiments_vi_xi_xii_corps.json",
    "find": "{\"regiment_id\":\"U-4NJ\",\"designation\":\"4th New Jersey Volunteer Infantry\",\"parent_brigade_id\":\"U-VI-1-1\",\"parent_corps_id\":\"U-VI\",\"state\":\"New Jersey\",\"commander\":{\"name\":\"Colonel William Birney\",\"fate\":\"Survived\"},\"strength\":380,\"casualties\":0,\"days_engaged\":[],\"key_action\":\"Army reserve.\"}",
@@ -4432,14 +5384,6 @@
    "target": "data/oob/union_regiments_vi_xi_xii_corps.json",
    "find": "{\"regiment_id\":\"U-6VT\",\"designation\":\"6th Vermont Volunteer Infantry\",\"parent_brigade_id\":\"U-VI-2-1\",\"parent_corps_id\":\"U-VI\",\"state\":\"Vermont\",\"commander\":{\"name\":\"Major Oscar Tuttle\",\"fate\":\"Survived\"},\"strength\":230,\"casualties\":0,\"days_engaged\":[],\"key_action\":\"Army reserve.\"}",
    "repl": "{\"regiment_id\":\"U-6VT\",\"designation\":\"6th Vermont Volunteer Infantry\",\"parent_brigade_id\":\"U-VI-2-1\",\"parent_corps_id\":\"U-VI\",\"state\":\"Vermont\",\"commander\":{\"name\":\"Colonel Elisha L. Barney\"},\"strength\":230,\"casualties\":0,\"days_engaged\":[],\"key_action\":\"Army reserve.\"}",
-   "expect": 1,
-   "note": "wrong-name: OR 27/1 pp.155-168 (order of battle)"
-  },
-  {
-   "id": "DATA-oob-union-regiments-vi-xi-xii-corps-U-102PA",
-   "target": "data/oob/union_regiments_vi_xi_xii_corps.json",
-   "find": "{\"regiment_id\":\"U-102PA\",\"designation\":\"102nd Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-VI-3-2\",\"parent_corps_id\":\"U-VI\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Colonel James Coleman\",\"fate\":\"Survived\"},\"strength\":316,\"casualties\":15,\"days_engaged\":[2],\"key_action\":\"Wheaton's brigade -- supporting Union left July 2.\"}",
-   "repl": "{\"regiment_id\":\"U-102PA\",\"designation\":\"102nd Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-VI-3-2\",\"parent_corps_id\":\"U-VI\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Colonel John W. Patterson\"},\"strength\":316,\"casualties\":15,\"days_engaged\":[2],\"key_action\":\"Wheaton's brigade -- supporting Union left July 2.\"}",
    "expect": 1,
    "note": "wrong-name: OR 27/1 pp.155-168 (order of battle)"
   },
@@ -4599,7 +5543,7 @@
    "id": "DATA-oob-union-oob-corps-division-U-XII-1",
    "target": "data/oob/union_oob_corps_division.json",
    "find": "{\"division_id\":\"U-XII-1\",\"designation\":\"First Division, Twelfth Corps\",\"commander\":{\"name\":\"Brigadier General Alpheus Williams\",\"fate\":\"Survived — assumed corps command when Slocum went to right wing\"},\"strength\":5256,\"casualties\":338,\"brigade_ids\":[\"U-XII-1-1\",\"U-XII-1-2\",\"U-XII-1-3\"],\"days_engaged\":[1,2,3]}",
-   "repl": "{\"division_id\":\"U-XII-1\",\"designation\":\"First Division, Twelfth Corps\",\"commander\":{\"name\":\"Brigadier General Alpheus Williams\",\"fate\":\"Survived — assumed corps command when Slocum went to right wing\"},\"strength\":5256,\"casualties\":502,\"brigade_ids\":[\"U-XII-1-1\",\"U-XII-1-2\",\"U-XII-1-3\"],\"days_engaged\":[1,2,3]}",
+   "repl": "{\"division_id\":\"U-XII-1\",\"designation\":\"First Division, Twelfth Corps\",\"commander\":{\"name\":\"Brigadier General Alpheus Williams\",\"fate\":\"Survived — assumed corps command when Slocum went to right wing\"},\"strength\":5256,\"casualties\":520,\"brigade_ids\":[\"U-XII-1-1\",\"U-XII-1-2\",\"U-XII-1-3\"],\"days_engaged\":[1,2,3]}",
    "expect": 1,
    "note": "sum-mismatch: OR 27/1 pp.173-186 (return of casualties)"
   },
@@ -4624,14 +5568,6 @@
    "target": "data/oob/union_oob_brigades.json",
    "find": "{\"brigade_id\":\"U-I-2-2\",\"designation\":\"Second Brigade, Second Division, First Corps (Baxter's Brigade)\",\"parent_division_id\":\"U-I-2\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Brigadier General Henry Baxter\",\"fate\":\"Survived\"},\"strength\":1693,\"casualties\":973,\"casualty_percentage\":57.5,\"days_engaged\":[1],\"state\":\"New York/Pennsylvania/Massachusetts\",\"regiment_ids\":[\"U-12MA\",\"U-83NY\",\"U-97NY\",\"U-11PA-B\",\"U-88PA\",\"U-90PA\"],\"key_action\":\"Delivered the stone-wall ambush that destroyed Iverson's Confederate brigade at Oak Ridge -- Iverson's Pits.\"}",
    "repl": "{\"brigade_id\":\"U-I-2-2\",\"designation\":\"Second Brigade, Second Division, First Corps (Baxter's Brigade)\",\"parent_division_id\":\"U-I-2\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Brigadier General Henry Baxter\",\"fate\":\"Survived\"},\"strength\":1693,\"casualties\":647,\"casualty_percentage\":38.2,\"days_engaged\":[1],\"state\":\"New York/Pennsylvania/Massachusetts\",\"regiment_ids\":[\"U-12MA\",\"U-83NY\",\"U-97NY\",\"U-11PA-B\",\"U-88PA\",\"U-90PA\"],\"key_action\":\"Delivered the stone-wall ambush that destroyed Iverson's Confederate brigade at Oak Ridge -- Iverson's Pits.\"}",
-   "expect": 1,
-   "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties)"
-  },
-  {
-   "id": "DATA-oob-union-oob-brigades-U-I-3-1",
-   "target": "data/oob/union_oob_brigades.json",
-   "find": "{\"brigade_id\":\"U-I-3-1\",\"designation\":\"First Brigade, Third Division, First Corps (Biddle's Brigade)\",\"parent_division_id\":\"U-I-3\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Colonel Roy Stone\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Langhorne Wister\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Edmund Dana\",\"assumed_command\":\"July 1\"}}},\"strength\":1317,\"casualties\":748,\"casualty_percentage\":56.8,\"days_engaged\":[1],\"state\":\"Pennsylvania/New York\",\"regiment_ids\":[\"U-80NY\",\"U-121PA\",\"U-142PA\",\"U-151PA\"],\"key_action\":\"South of Chambersburg Pike -- Seminary Ridge fighting. Three brigade commanders wounded in succession.\"}",
-   "repl": "{\"brigade_id\":\"U-I-3-1\",\"designation\":\"First Brigade, Third Division, First Corps (Biddle's Brigade)\",\"parent_division_id\":\"U-I-3\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Colonel Roy Stone\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Langhorne Wister\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Edmund Dana\",\"assumed_command\":\"July 1\"}}},\"strength\":1317,\"casualties\":897,\"casualty_percentage\":68.1,\"days_engaged\":[1],\"state\":\"Pennsylvania/New York\",\"regiment_ids\":[\"U-80NY\",\"U-121PA\",\"U-142PA\",\"U-151PA\"],\"key_action\":\"South of Chambersburg Pike -- Seminary Ridge fighting. Three brigade commanders wounded in succession.\"}",
    "expect": 1,
    "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties)"
   },
@@ -4712,6 +5648,14 @@
    "target": "data/oob/union_oob_brigades.json",
    "find": "{\"brigade_id\":\"U-III-2-1\",\"designation\":\"First Brigade, Second Division, Third Corps (Carr's Brigade)\",\"parent_division_id\":\"U-III-2\",\"parent_corps_id\":\"U-III\",\"commander\":{\"name\":\"Brigadier General Joseph Carr\",\"fate\":\"Survived\"},\"strength\":1647,\"casualties\":699,\"casualty_percentage\":42.4,\"days_engaged\":[2],\"state\":\"Massachusetts/New Hampshire/New Jersey/New York\",\"regiment_ids\":[\"U-1MA\",\"U-11NJ\",\"U-16MA\",\"U-12NH\",\"U-11NY\",\"U-26PA\"],\"key_action\":\"Emmitsburg Road fighting withdrawal to Cemetery Ridge.\"}",
    "repl": "{\"brigade_id\":\"U-III-2-1\",\"designation\":\"First Brigade, Second Division, Third Corps (Carr's Brigade)\",\"parent_division_id\":\"U-III-2\",\"parent_corps_id\":\"U-III\",\"commander\":{\"name\":\"Brigadier General Joseph Carr\",\"fate\":\"Survived\"},\"strength\":1647,\"casualties\":788,\"casualty_percentage\":47.8,\"days_engaged\":[2],\"state\":\"Massachusetts/New Hampshire/New Jersey/New York\",\"regiment_ids\":[\"U-1MA\",\"U-11NJ\",\"U-16MA\",\"U-12NH\",\"U-11NY\",\"U-26PA\"],\"key_action\":\"Emmitsburg Road fighting withdrawal to Cemetery Ridge.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-oob-brigades-U-III-2-3",
+   "target": "data/oob/union_oob_brigades.json",
+   "find": "{\"brigade_id\":\"U-III-2-3\",\"designation\":\"Third Brigade, Second Division, Third Corps (Burling's Brigade)\",\"parent_division_id\":\"U-III-2\",\"parent_corps_id\":\"U-III\",\"commander\":{\"name\":\"Colonel George Burling\",\"fate\":\"Survived\"},\"strength\":1336,\"casualties\":484,\"casualty_percentage\":36.2,\"days_engaged\":[2],\"state\":\"New Hampshire/New Jersey/Pennsylvania\",\"regiment_ids\":[\"U-2NH\",\"U-5NJ\",\"U-6NJ\",\"U-7NJ\",\"U-8NJ\",\"U-115PA\"],\"key_action\":\"Most regiments detached from brigade control before battle -- 5NJ, 6NJ, 7NJ, 8NJ served under Humphreys directly. Burling left with only 2NH and 115PA.\"}",
+   "repl": "{\"brigade_id\":\"U-III-2-3\",\"designation\":\"Third Brigade, Second Division, Third Corps (Burling's Brigade)\",\"parent_division_id\":\"U-III-2\",\"parent_corps_id\":\"U-III\",\"commander\":{\"name\":\"Colonel George Burling\",\"fate\":\"Survived\"},\"strength\":1336,\"casualties\":513,\"casualty_percentage\":38.4,\"days_engaged\":[2],\"state\":\"New Hampshire/New Jersey/Pennsylvania\",\"regiment_ids\":[\"U-2NH\",\"U-5NJ\",\"U-6NJ\",\"U-7NJ\",\"U-8NJ\",\"U-115PA\"],\"key_action\":\"Most regiments detached from brigade control before battle -- 5NJ, 6NJ, 7NJ, 8NJ served under Humphreys directly. Burling left with only 2NH and 115PA.\"}",
    "expect": 1,
    "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties)"
   },
@@ -4836,6 +5780,14 @@
    "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties)"
   },
   {
+   "id": "DATA-oob-union-oob-brigades-U-XII-1-2",
+   "target": "data/oob/union_oob_brigades.json",
+   "find": "{\"brigade_id\":\"U-XII-1-2\",\"designation\":\"Second Brigade, First Division, Twelfth Corps (Lockwood's Brigade)\",\"parent_division_id\":\"U-XII-1\",\"parent_corps_id\":\"U-XII\",\"commander\":{\"name\":\"Brigadier General Henry Lockwood\",\"fate\":\"Survived\"},\"strength\":1818,\"casualties\":156,\"days_engaged\":[2,3],\"state\":\"Maryland/New York\",\"regiment_ids\":[\"U-1MD-EH\",\"U-150NY\"],\"key_action\":\"Lockwood's brigade included the 150th NY -- the single largest infantry regiment at Gettysburg with 765 men. Also included 1st Maryland (Eastern Shore) which fought near 1st Maryland Confederate at Culp's Hill.\"}",
+   "repl": "{\"brigade_id\":\"U-XII-1-2\",\"designation\":\"Second Brigade, First Division, Twelfth Corps (Lockwood's Brigade)\",\"parent_division_id\":\"U-XII-1\",\"parent_corps_id\":\"U-XII\",\"commander\":{\"name\":\"Brigadier General Henry Lockwood\",\"fate\":\"Survived\"},\"strength\":1818,\"casualties\":174,\"days_engaged\":[2,3],\"state\":\"Maryland/New York\",\"regiment_ids\":[\"U-1MD-EH\",\"U-150NY\"],\"key_action\":\"Lockwood's brigade included the 150th NY -- a regiment of 765 men by the strength in the file (Busey and Martin basis; the \\\"largest regiment\\\" superlative is not verified here). Also included 1st Maryland (Eastern Shore) which fought near 1st Maryland Confederate at Culp's Hill.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties)"
+  },
+  {
    "id": "DATA-oob-union-oob-brigades-U-XII-1-3",
    "target": "data/oob/union_oob_brigades.json",
    "find": "{\"brigade_id\":\"U-XII-1-3\",\"designation\":\"Third Brigade, First Division, Twelfth Corps (Colgrove's Brigade)\",\"parent_division_id\":\"U-XII-1\",\"parent_corps_id\":\"U-XII\",\"commander\":{\"name\":\"Colonel Silas Colgrove\",\"fate\":\"Survived\"},\"strength\":1694,\"casualties\":219,\"days_engaged\":[1,2,3],\"state\":\"Indiana/Massachusetts/New Jersey/New York/Wisconsin\",\"regiment_ids\":[\"U-27IN\",\"U-2MA\",\"U-13NJ\",\"U-107NY-XII\",\"U-3WI\"],\"key_action\":\"Colgrove's controversial charge across open meadow July 3 morning -- 2nd MA's Mudge killed saying 'It is murder but it is the order.'\"}",
@@ -4860,12 +5812,52 @@
    "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties)"
   },
   {
-   "id": "DATA-oob-union-oob-brigades-U-XII-1-2",
+   "id": "DATA-oob-union-oob-brigades-U-CAV-1-1",
    "target": "data/oob/union_oob_brigades.json",
-   "find": "{\"brigade_id\":\"U-XII-1-2\",\"designation\":\"Second Brigade, First Division, Twelfth Corps (Lockwood's Brigade)\",\"parent_division_id\":\"U-XII-1\",\"parent_corps_id\":\"U-XII\",\"commander\":{\"name\":\"Brigadier General Henry Lockwood\",\"fate\":\"Survived\"},\"strength\":1818,\"casualties\":156,\"days_engaged\":[2,3],\"state\":\"Maryland/New York\",\"regiment_ids\":[\"U-1MD-EH\",\"U-150NY\"],\"key_action\":\"Lockwood's brigade included the 150th NY -- the single largest infantry regiment at Gettysburg with 765 men. Also included 1st Maryland (Eastern Shore) which fought near 1st Maryland Confederate at Culp's Hill.\"}",
-   "repl": "{\"brigade_id\":\"U-XII-1-2\",\"designation\":\"Second Brigade, First Division, Twelfth Corps (Lockwood's Brigade)\",\"parent_division_id\":\"U-XII-1\",\"parent_corps_id\":\"U-XII\",\"commander\":{\"name\":\"Brigadier General Henry Lockwood\",\"fate\":\"Survived\"},\"strength\":1818,\"casualties\":156,\"days_engaged\":[2,3],\"state\":\"Maryland/New York\",\"regiment_ids\":[\"U-1MD-EH\",\"U-150NY\"],\"key_action\":\"Lockwood's brigade included the 150th NY -- a regiment of 765 men by the strength in the file (Busey and Martin basis; the \\\"largest regiment\\\" superlative is not verified here). Also included 1st Maryland (Eastern Shore) which fought near 1st Maryland Confederate at Culp's Hill.\"}",
+   "find": "{\"brigade_id\":\"U-CAV-1-1\",\"designation\":\"First Brigade, First Division, Cavalry Corps (Gamble's Brigade)\",\"parent_division_id\":\"U-CAV-1\",\"parent_corps_id\":\"U-CAV\",\"commander\":{\"name\":\"Colonel William Gamble\",\"fate\":\"Survived\"},\"strength\":1606,\"casualties\":93,\"days_engaged\":[1,2,3],\"state\":\"Illinois/Indiana/New York\",\"regiment_ids\":[\"U-8IL-CAV\",\"U-12IL-CAV\",\"U-3IN-CAV\",\"U-8NY-CAV\"],\"key_action\":\"McPherson's Ridge dismounted defense July 1 morning -- bought critical time for Reynolds to arrive with I Corps.\"}",
+   "repl": "{\"brigade_id\":\"U-CAV-1-1\",\"designation\":\"First Brigade, First Division, Cavalry Corps (Gamble's Brigade)\",\"parent_division_id\":\"U-CAV-1\",\"parent_corps_id\":\"U-CAV\",\"commander\":{\"name\":\"Colonel William Gamble\",\"fate\":\"Survived\"},\"strength\":1606,\"casualties\":99,\"days_engaged\":[1,2,3],\"state\":\"Illinois/Indiana/New York\",\"regiment_ids\":[\"U-8IL-CAV\",\"U-12IL-CAV\",\"U-3IN-CAV\",\"U-8NY-CAV\"],\"key_action\":\"McPherson's Ridge dismounted defense July 1 morning -- bought critical time for Reynolds to arrive with I Corps.\"}",
    "expect": 1,
-   "note": "wrong-claim: OR 27/1 pp.173-186 (return of casualties)"
+   "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-oob-brigades-U-CAV-1-2",
+   "target": "data/oob/union_oob_brigades.json",
+   "find": "{\"brigade_id\":\"U-CAV-1-2\",\"designation\":\"Second Brigade, First Division, Cavalry Corps (Devin's Brigade)\",\"parent_division_id\":\"U-CAV-1\",\"parent_corps_id\":\"U-CAV\",\"commander\":{\"name\":\"Colonel Thomas Devin\",\"fate\":\"Survived\"},\"strength\":1634,\"casualties\":56,\"days_engaged\":[1,2,3],\"state\":\"New York/Pennsylvania/West Virginia\",\"regiment_ids\":[\"U-6NY-CAV\",\"U-9NY-CAV\",\"U-17PA-CAV\",\"U-3WV-CAV\"],\"key_action\":\"Right flank screen July 1 -- protected XI Corps' right flank as long as possible.\"}",
+   "repl": "{\"brigade_id\":\"U-CAV-1-2\",\"designation\":\"Second Brigade, First Division, Cavalry Corps (Devin's Brigade)\",\"parent_division_id\":\"U-CAV-1\",\"parent_corps_id\":\"U-CAV\",\"commander\":{\"name\":\"Colonel Thomas Devin\",\"fate\":\"Survived\"},\"strength\":1634,\"casualties\":28,\"days_engaged\":[1,2,3],\"state\":\"New York/Pennsylvania/West Virginia\",\"regiment_ids\":[\"U-6NY-CAV\",\"U-9NY-CAV\",\"U-17PA-CAV\",\"U-3WV-CAV\"],\"key_action\":\"Right flank screen July 1 -- protected XI Corps' right flank as long as possible.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-oob-brigades-U-CAV-1-R",
+   "target": "data/oob/union_oob_brigades.json",
+   "find": "{\"brigade_id\":\"U-CAV-1-R\",\"designation\":\"Reserve Brigade, First Division, Cavalry Corps (Merritt's Brigade)\",\"parent_division_id\":\"U-CAV-1\",\"parent_corps_id\":\"U-CAV\",\"commander\":{\"name\":\"Brigadier General Wesley Merritt\",\"fate\":\"Survived\"},\"strength\":1298,\"casualties\":52,\"days_engaged\":[2,3],\"state\":\"Pennsylvania/Regular Army\",\"regiment_ids\":[\"U-6PA-CAV\",\"U-1US-CAV\",\"U-2US-CAV\",\"U-5US-CAV\",\"U-6US-CAV\"],\"key_action\":\"Reserve brigade -- operations south of battlefield near Emmitsburg Road.\"}",
+   "repl": "{\"brigade_id\":\"U-CAV-1-R\",\"designation\":\"Reserve Brigade, First Division, Cavalry Corps (Merritt's Brigade)\",\"parent_division_id\":\"U-CAV-1\",\"parent_corps_id\":\"U-CAV\",\"commander\":{\"name\":\"Brigadier General Wesley Merritt\",\"fate\":\"Survived\"},\"strength\":1298,\"casualties\":291,\"days_engaged\":[2,3],\"state\":\"Pennsylvania/Regular Army\",\"regiment_ids\":[\"U-6PA-CAV\",\"U-1US-CAV\",\"U-2US-CAV\",\"U-5US-CAV\",\"U-6US-CAV\"],\"key_action\":\"Reserve brigade -- operations south of battlefield near Emmitsburg Road.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-oob-brigades-U-CAV-2-1",
+   "target": "data/oob/union_oob_brigades.json",
+   "find": "{\"brigade_id\":\"U-CAV-2-1\",\"designation\":\"First Brigade, Second Division, Cavalry Corps (McIntosh's Brigade)\",\"parent_division_id\":\"U-CAV-2\",\"parent_corps_id\":\"U-CAV\",\"commander\":{\"name\":\"Colonel John McIntosh\",\"fate\":\"Survived\"},\"strength\":1901,\"casualties\":104,\"days_engaged\":[2,3],\"state\":\"Maryland/Massachusetts/New Jersey/Pennsylvania\",\"regiment_ids\":[\"U-1MD-CAV\",\"U-1MA-CAV\",\"U-1NJ-CAV\",\"U-3PA-CAV\",\"U-Purnell-MD\",\"U-1PA-CAV\"],\"key_action\":\"East Cavalry Field July 3 -- blocked Stuart's attempt to reach Union rear.\"}",
+   "repl": "{\"brigade_id\":\"U-CAV-2-1\",\"designation\":\"First Brigade, Second Division, Cavalry Corps (McIntosh's Brigade)\",\"parent_division_id\":\"U-CAV-2\",\"parent_corps_id\":\"U-CAV\",\"commander\":{\"name\":\"Colonel John McIntosh\",\"fate\":\"Survived\"},\"strength\":1901,\"casualties\":35,\"days_engaged\":[2,3],\"state\":\"Maryland/Massachusetts/New Jersey/Pennsylvania\",\"regiment_ids\":[\"U-1MD-CAV\",\"U-1MA-CAV\",\"U-1NJ-CAV\",\"U-3PA-CAV\",\"U-Purnell-MD\",\"U-1PA-CAV\"],\"key_action\":\"East Cavalry Field July 3 -- blocked Stuart's attempt to reach Union rear.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-oob-brigades-U-CAV-2-2",
+   "target": "data/oob/union_oob_brigades.json",
+   "find": "{\"brigade_id\":\"U-CAV-2-2\",\"designation\":\"Second Brigade, Second Division, Cavalry Corps (Huey's Brigade)\",\"parent_division_id\":\"U-CAV-2\",\"parent_corps_id\":\"U-CAV\",\"commander\":{\"name\":\"Colonel Pennock Huey\",\"fate\":\"Survived\"},\"strength\":1705,\"casualties\":37,\"days_engaged\":[2,3],\"state\":\"New York/Ohio/Pennsylvania\",\"regiment_ids\":[\"U-2NY-CAV\",\"U-4NY-CAV\",\"U-6OH-CAV\",\"U-8PA-CAV\",\"U-16PA-CAV\"],\"key_action\":\"Gregg's division -- east of battlefield.\"}",
+   "repl": "{\"brigade_id\":\"U-CAV-2-2\",\"designation\":\"Second Brigade, Second Division, Cavalry Corps (Huey's Brigade)\",\"parent_division_id\":\"U-CAV-2\",\"parent_corps_id\":\"U-CAV\",\"commander\":{\"name\":\"Colonel Pennock Huey\",\"fate\":\"Survived\"},\"strength\":1705,\"casualties\":0,\"days_engaged\":[2,3],\"state\":\"New York/Ohio/Pennsylvania\",\"regiment_ids\":[\"U-2NY-CAV\",\"U-4NY-CAV\",\"U-6OH-CAV\",\"U-8PA-CAV\",\"U-16PA-CAV\"],\"key_action\":\"Gregg's division -- east of battlefield.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-union-oob-brigades-U-CAV-3-1",
+   "target": "data/oob/union_oob_brigades.json",
+   "find": "{\"brigade_id\":\"U-CAV-3-1\",\"designation\":\"First Brigade, Third Division, Cavalry Corps (Farnsworth's Brigade)\",\"parent_division_id\":\"U-CAV-3\",\"parent_corps_id\":\"U-CAV\",\"commander\":{\"name\":\"Brigadier General Elon Farnsworth\",\"fate\":\"KIA July 3 -- killed in Kilpatrick's doomed charge against Confederate infantry. General for only 4 days.\",\"notes\":\"Farnsworth protested the order as suicidal. Kilpatrick insisted. Farnsworth led the charge and was killed.\"},\"strength\":1925,\"casualties\":127,\"days_engaged\":[3],\"state\":\"New York/Pennsylvania/Vermont/West Virginia\",\"regiment_ids\":[\"U-5NY-CAV\",\"U-18PA-CAV\",\"U-1VT-CAV\",\"U-1WV-CAV\"],\"key_action\":\"Kilpatrick's doomed charge against Confederate infantry south of Round Tops -- Farnsworth killed.\"}",
+   "repl": "{\"brigade_id\":\"U-CAV-3-1\",\"designation\":\"First Brigade, Third Division, Cavalry Corps (Farnsworth's Brigade)\",\"parent_division_id\":\"U-CAV-3\",\"parent_corps_id\":\"U-CAV\",\"commander\":{\"name\":\"Brigadier General Elon Farnsworth\",\"fate\":\"KIA July 3 -- killed in Kilpatrick's doomed charge against Confederate infantry. General for only 4 days.\",\"notes\":\"Farnsworth protested the order as suicidal. Kilpatrick insisted. Farnsworth led the charge and was killed.\"},\"strength\":1925,\"casualties\":98,\"days_engaged\":[3],\"state\":\"New York/Pennsylvania/Vermont/West Virginia\",\"regiment_ids\":[\"U-5NY-CAV\",\"U-18PA-CAV\",\"U-1VT-CAV\",\"U-1WV-CAV\"],\"key_action\":\"Kilpatrick's doomed charge against Confederate infantry south of Round Tops -- Farnsworth killed.\"}",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties)"
   },
   {
    "id": "DATA-oob-confederate-oob-corps-div-bde-C-I-1-1",

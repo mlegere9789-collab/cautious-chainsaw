@@ -19,7 +19,7 @@ function key(r) {
   return d;
 }
 // handled by hand below (duplicate, relabelled or split records)
-const MANUAL = new Set(['U-107NY', 'U-11NY', 'U-11PA', 'U-11PA-B', 'U-3US-1', 'U-3US-2', 'U-12US-1', 'U-12US-2', 'U-11PA-R', 'U-11PA-R-F', 'U-1US-SS']);
+const MANUAL = new Set(['U-107NY', 'U-11NY', 'U-11PA', 'U-11PA-B', 'U-3US-1', 'U-3US-2', 'U-12US-1', 'U-12US-2', 'U-11PA-R', 'U-11PA-R-F', 'U-1US-SS', 'U-1MD-EH', 'U-102PA']);
 const files = ['union_regiments_i_ii_corps', 'union_regiments_iii_v_corps', 'union_regiments_vi_xi_xii_corps'];
 const pct = (c, s) => (s > 0 ? Math.round((1000 * c) / s) / 10 : null);
 export const groups = [];
@@ -60,6 +60,8 @@ add('union_regiments_iii_v_corps', man('U-12US-2', { casualties: 45 }, 'casualti
 add('union_regiments_iii_v_corps', man('U-11PA-R', { casualties: 41, casualty_percentage: pct(41, 327) }, 'casualties 20 against 41 in the return for the 11th Pennsylvania Reserves (which stood in Fisher\'s brigade)', `${U} (return p.180: 11th Pennsylvania Reserves 41)`));
 add('union_regiments_iii_v_corps', man('U-1US-SS', { casualties: 49, casualty_percentage: pct(49, 490) }, 'casualties 61 against 49 in the return', `${U} (return p.177: 1st United States Sharpshooters 49)`));
 for (const m of MANUAL) orIds.add(m);
+add('union_regiments_vi_xi_xii_corps', man('U-1MD-EH', { casualties: 25, casualty_percentage: pct(25, 469) }, 'casualties 199 against 25 in the return for the 1st Maryland, Eastern Shore (the return gives 104 to the Potomac Home Brigade regiment, which this file does not list)', `${U} (return p.184: 1st Maryland Eastern Shore 25)`));
+add('union_regiments_vi_xi_xii_corps', man('U-102PA', { casualties: 0, casualty_percentage: 0, key_action: 'The 102d Pennsylvania served in the Sixth Corps. The Official Records return of casualties lists no loss for the regiment.' }, 'casualties 15; the return of casualties (p.181-182) lists no loss for the 102d Pennsylvania', `${U} (return pp.181-182)`));
 for (const g of groups) {
   const manual = byFile[g.file.replace(/^oob\//, '').replace(/\.json$/, '')] || [];
   for (const m of manual) {
