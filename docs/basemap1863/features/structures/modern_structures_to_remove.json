@@ -1,0 +1,1135 @@
+{
+ "title": "Modern (post-1863) structures to remove from the satellite base, and 1863 survivors to keep",
+ "label": "Reconstruction support table; each row is sourced; positions are given only where a source supports them.",
+ "naip_base_flight": "2013-06-04 (USDA NAIP, 1 m) per docs/basemap1863/modern/LICENCES.md",
+ "rules": [
+  "Every 2023 building outline inside the bounds is a post-1863 structure to remove from the satellite base, EXCEPT the survivors in retain_1863_survivors.csv (and surviving 1863 buildings not yet catalogued: the 2018 NPS CLR counts over 40 farmstead properties that retain structures present in 1863, 28 of them are catalogued here).",
+  "Inside the borough zone, remove every modern roof and draw the 1863 borough building masses (features of subtype borough_building_mass) instead; they are map-derived symbol extents, not footprints.",
+  "A surviving 1863 building that was altered after the battle (status survives_altered) is kept, but its post-1863 additions must be removed; fabric_1863 and notes give what is known; the extent of additions is UNKNOWN for most.",
+  "Where the removal of a structure uncovers ground, the ground is the neighbouring 1863 land cover; nothing is drawn that no source supports. Sites of lost 1863 buildings are drawn only where the catalogue gives a position and error.",
+  "The structure rows below are documented by name, date and source; the per-feature detections (all 25,000 modern features, classes, counts) are in docs/basemap1863/modern/data/inventory_features.geojson.gz (sibling task).",
+  "Monuments, markers and tablets are not buildings: the NPS counts about 1,830 monuments, markers, tablets and statues in the park (CLI Little Round Top) of which the OpenStreetMap extract holds 833 monument/memorial/plaque points inside the bounds; all are post-1863 (the first stones were set in 1864-65) and are removed from the base; handled by the sibling inventory."
+ ],
+ "documented_structures": [
+  {
+   "id": "MODSTR-001",
+   "name": "Cyclorama Building",
+   "kind": "museum",
+   "built": 1962,
+   "removed": 2013,
+   "standing_2026": false,
+   "in_2013_naip": "no (removed March 2013)",
+   "where": "Ziegler's Grove / David Ziegler and Frey fields, Taneytown Road (125 Taneytown Rd)",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "Demolished three months before the 2013-06-04 flight: the footprint and parking are bare ground in that photograph.",
+   "sources": [
+    {
+     "cite": "Layton, T.W. et al., Cultural Landscape Report for Gettysburg National Military Park, Record of Treatment, Volume I (Olmsted Center for Landscape Preservation, NPS, 2018)",
+     "sheet_or_page": "Area 5 Defense of Cemetery Hill (Record of Treatment, p.192)",
+     "url": "https://npshistory.com/publications/gett/clr-v1.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "South of the former Visitor Center, in the battle-era David Ziegler and Frey fields, stood the Cyclorama Building, completed in 1962; the park demolished it in March 2013 and retained sections of its surface parking lot.",
+     "src_key": "NPS-CLR-ROT1"
+    },
+    {
+     "cite": "Library of Congress, Historic American Buildings Survey (HABS) records for Gettysburg NMP buildings, cited by HABS number; data pages typed in the 1950s",
+     "sheet_or_page": "HABS Cyclorama Building, 125 Taneytown Road (https://www.loc.gov/item/pa3988/)",
+     "url": "https://www.loc.gov/collections/historic-american-buildings-landscapes-and-engineering-records/?q=gettysburg",
+     "type": "B",
+     "quote_or_paraphrase": "HABS record of the building and its site.",
+     "src_key": "HABS-PA"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-002",
+   "name": "Former Visitor Center (Rosensteel residence, 1921, enlarged early 1960s) and its parking lot",
+   "kind": "museum",
+   "built": 1921,
+   "removed": 2009,
+   "standing_2026": false,
+   "in_2013_naip": "no (removed 2009)",
+   "where": "immediately west of Taneytown Road, Cemetery Hill area",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "The building was gone before the 2013 flight; the parking lot (demolished 2014) was still present in it.",
+   "sources": [
+    {
+     "cite": "Layton, T.W. et al., Cultural Landscape Report for Gettysburg National Military Park, Record of Treatment, Volume I (Olmsted Center for Landscape Preservation, NPS, 2018)",
+     "sheet_or_page": "Area 5 (Record of Treatment)",
+     "url": "https://npshistory.com/publications/gett/clr-v1.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "The former Visitor Center, original portion built in the 1920s and expanded in the early 1960s, stood immediately west of Taneytown Road surrounded by surface parking; demolished in 2009, its parking lot in 2014.",
+     "src_key": "NPS-CLR-ROT1"
+    },
+    {
+     "cite": "NPS, Final General Management Plan and Environmental Impact Statement, Gettysburg NMP, Vol. 1 (1999), Affected Environment: Historic Structures; Archeological Resources",
+     "sheet_or_page": "Chapter on visitor facilities",
+     "url": "https://npshistory.com/publications/gett/fgmp-eis-v1-1999.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "The building was built as a residence in 1921 by George Rosensteel; NPS acquired it in 1971.",
+     "src_key": "NPS-GMP-1999"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-003",
+   "name": "Electric Map building",
+   "kind": "museum",
+   "built": null,
+   "removed": null,
+   "standing_2026": null,
+   "in_2013_naip": "unknown",
+   "where": "adjacent to the Cyclorama Center",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "Built date and demolition date are not in the sources read; UNKNOWN. Not counted in the 2013 flight table.",
+   "sources": [
+    {
+     "cite": "NPS, Final General Management Plan and Environmental Impact Statement, Gettysburg NMP, Vol. 1 (1999), Affected Environment: Historic Structures; Archeological Resources",
+     "sheet_or_page": "Visitor facilities",
+     "url": "https://npshistory.com/publications/gett/fgmp-eis-v1-1999.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "All NPS planning efforts through the 1999 GMP proposed to remove both the Electric Map and Cyclorama buildings.",
+     "src_key": "NPS-GMP-1999"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-004",
+   "name": "Gettysburg National Tower (300 ft observation tower), gift shop, access roads and parking",
+   "kind": "tower",
+   "built": 1974,
+   "removed": 2000,
+   "standing_2026": false,
+   "in_2013_naip": "no (removed 2000)",
+   "where": "Baltimore Pike / Steinwehr corridor, on private land between the 1863 Beitler Field and Abraham Spangler Field 1",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "Absent from the 2013 photograph.",
+   "sources": [
+    {
+     "cite": "Layton, T.W. et al., Cultural Landscape Report for Gettysburg National Military Park, Record of Treatment, Volume I (Olmsted Center for Landscape Preservation, NPS, 2018)",
+     "sheet_or_page": "Area 8 (p.317-318 area note 2)",
+     "url": "https://npshistory.com/publications/gett/clr-v1.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "The National Gettysburg Battlefield Tower opened in 1974 between the 1863 Beitler Field and Abraham Spangler Field 1; the park acquired the 300-foot tower in 2000 and demolished it on 3 July 2000.",
+     "src_key": "NPS-CLR-ROT1"
+    },
+    {
+     "cite": "Layton, T.W. et al., Cultural Landscape Report for Gettysburg National Military Park, Record of Treatment, Volume I (Olmsted Center for Landscape Preservation, NPS, 2018)",
+     "sheet_or_page": "Chronology 2000",
+     "url": "https://npshistory.com/publications/gett/clr-v1.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "In July 2000 the park demolished the Gettysburg National Tower; in later months it removed the gift shop, roads and parking areas.",
+     "src_key": "NPS-CLR-ROT1"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-005",
+   "name": "Home Sweet Home Motel",
+   "kind": "motel",
+   "built": null,
+   "removed": 2003,
+   "standing_2026": false,
+   "in_2013_naip": "no (removed 2003)",
+   "where": "southern end of Steinwehr Avenue, across Emmitsburg/Taneytown corridor from the Cyclorama Building (Winebrenner Field)",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "Absent from the 2013 photograph.",
+   "sources": [
+    {
+     "cite": "Layton, T.W. et al., Cultural Landscape Report for Gettysburg National Military Park, Record of Treatment, Volume I (Olmsted Center for Landscape Preservation, NPS, 2018)",
+     "sheet_or_page": "Area 4 narrative (Record of Treatment, p.184)",
+     "url": "https://npshistory.com/publications/gett/clr-v1.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "In 2002 the Friends of the National Parks at Gettysburg purchased the Home Sweet Home Motel; the park demolished the motel complex the following year and rehabilitated the 1863 open character of Winebrenner Field.",
+     "src_key": "NPS-CLR-ROT1"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-006",
+   "name": "Battlefield Museum and Visitor Center (Gettysburg Foundation) and Ford Education Center",
+   "kind": "museum",
+   "built": null,
+   "removed": null,
+   "standing_2026": true,
+   "in_2013_naip": "yes",
+   "where": "Baltimore Pike / Taneytown Road, Cemetery Ridge rear",
+   "lon": -77.22596,
+   "lat": 39.81151,
+   "position_error_m": 30,
+   "position_basis": "OSM-mapped outline/point",
+   "notes": "Standing in 2013 and 2026: must be removed from the base photograph.",
+   "sources": [
+    {
+     "cite": "NPS, Final General Management Plan and Environmental Impact Statement, Gettysburg NMP, Vol. 1 (1999), Affected Environment: Historic Structures; Archeological Resources",
+     "sheet_or_page": "Proposal",
+     "url": "https://npshistory.com/publications/gett/fgmp-eis-v1-1999.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "The 1999 GMP proposed replacing the Visitor Center and Cyclorama Center with new facilities away from the Cemetery Hill core.",
+     "src_key": "NPS-GMP-1999"
+    },
+    {
+     "cite": "OpenStreetMap contributors, building and historic tags in the Gettysburg battlefield bounding box (Overpass API extract, 19 Oct 2026); used for building names and as a cross-check of position",
+     "sheet_or_page": "relation 15013271 Gettysburg National Military Park Battlefield Museum and Visitor Center; node 3039715600 Ford Motor Company Fund Education Center",
+     "url": "https://www.openstreetmap.org/copyright",
+     "type": "B",
+     "quote_or_paraphrase": "Named complex east of Taneytown Road; exact opening date is not stated in the sources read (it exists before the 2009 demolition of the old Visitor Center).",
+     "src_key": "OSM"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-007",
+   "name": "Oak Ridge Observation Tower (steel, 1895-96, truncated to a platform in the 1960s)",
+   "kind": "tower",
+   "built": 1895,
+   "removed": null,
+   "standing_2026": true,
+   "in_2013_naip": "yes",
+   "where": "Oak Ridge, North Confederate Avenue / Doubleday Avenue",
+   "lon": -77.24188,
+   "lat": 39.84407,
+   "position_error_m": 15,
+   "position_basis": "OSM-mapped outline/point",
+   "notes": "",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: Gettysburg Landscape, Gettysburg NMP, Buildings and Structures (agrarian period to 1863; the battle; later periods)",
+     "sheet_or_page": "Buildings and Structures: Designed Memorialization Period; NPS period",
+     "url": "https://npshistory.com/publications/gett/cli-gettsyburg-landscape.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "In 1895-96 five steel observation towers were erected at Ziegler's Grove, Big Round Top, Warfield Ridge, Oak Ridge and Culp's Hill; in the 1960s two were removed and the Oak Ridge tower was truncated; only the towers at Culp's Hill and Warfield Ridge remain entire.",
+     "src_key": "NPS-CLI-LAND"
+    },
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: First Day, Union 1st Corps Battlefield, Gettysburg NMP (cites Cultural Landscape Report 2021)",
+     "sheet_or_page": "Oak Ridge Observation Tower #3 (Platform)",
+     "url": "https://npshistory.com/publications/gett/cli-first-day-ufcb.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "The Oak Ridge tower, now shortened to an elevated platform, is part of the commemorative park landscape.",
+     "src_key": "NPS-CLI-1CORPS"
+    },
+    {
+     "cite": "OpenStreetMap contributors, building and historic tags in the Gettysburg battlefield bounding box (Overpass API extract, 19 Oct 2026); used for building names and as a cross-check of position",
+     "sheet_or_page": "way 711733739 Oak Ridge Observation Tower",
+     "url": "https://www.openstreetmap.org/copyright",
+     "type": "B",
+     "quote_or_paraphrase": "Mapped outline.",
+     "src_key": "OSM"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-008",
+   "name": "Culp's Hill observation tower (steel, 1895-96)",
+   "kind": "tower",
+   "built": 1895,
+   "removed": null,
+   "standing_2026": true,
+   "in_2013_naip": "yes",
+   "where": "Culp's Hill summit",
+   "lon": -77.2205,
+   "lat": 39.82012,
+   "position_error_m": 15,
+   "position_basis": "OSM-mapped outline/point",
+   "notes": "",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: Gettysburg Landscape, Gettysburg NMP, Buildings and Structures (agrarian period to 1863; the battle; later periods)",
+     "sheet_or_page": "Buildings and Structures: NPS period",
+     "url": "https://npshistory.com/publications/gett/cli-gettsyburg-landscape.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "Only the towers at Culp's Hill and Warfield Ridge remain in their entirety.",
+     "src_key": "NPS-CLI-LAND"
+    },
+    {
+     "cite": "OpenStreetMap contributors, building and historic tags in the Gettysburg battlefield bounding box (Overpass API extract, 19 Oct 2026); used for building names and as a cross-check of position",
+     "sheet_or_page": "way 776492922 Culp's Hill Historic Lookout Tower",
+     "url": "https://www.openstreetmap.org/copyright",
+     "type": "B",
+     "quote_or_paraphrase": "Mapped outline.",
+     "src_key": "OSM"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-009",
+   "name": "Warfield Ridge (Longstreet) observation tower (steel, 1895-96)",
+   "kind": "tower",
+   "built": 1895,
+   "removed": null,
+   "standing_2026": true,
+   "in_2013_naip": "yes",
+   "where": "Warfield Ridge, West Confederate Avenue",
+   "lon": -77.25602,
+   "lat": 39.79992,
+   "position_error_m": 15,
+   "position_basis": "OSM-mapped outline/point",
+   "notes": "",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: Gettysburg Landscape, Gettysburg NMP, Buildings and Structures (agrarian period to 1863; the battle; later periods)",
+     "sheet_or_page": "Buildings and Structures: NPS period",
+     "url": "https://npshistory.com/publications/gett/cli-gettsyburg-landscape.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "Only the towers at Culp's Hill and Warfield Ridge remain in their entirety.",
+     "src_key": "NPS-CLI-LAND"
+    },
+    {
+     "cite": "OpenStreetMap contributors, building and historic tags in the Gettysburg battlefield bounding box (Overpass API extract, 19 Oct 2026); used for building names and as a cross-check of position",
+     "sheet_or_page": "way 711037074 Longstreet observation tower",
+     "url": "https://www.openstreetmap.org/copyright",
+     "type": "B",
+     "quote_or_paraphrase": "Mapped outline.",
+     "src_key": "OSM"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-010",
+   "name": "Big Round Top and Ziegler's Grove steel observation towers (1895-96) and the two wooden towers of the 1870s",
+   "kind": "tower",
+   "built": 1870,
+   "removed": 1960,
+   "standing_2026": false,
+   "in_2013_naip": "no (removed 1960)",
+   "where": "Big Round Top summit; Ziegler's Grove; East Cemetery Hill",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "Gone long before 2013; listed so that no tower is drawn on the 1863 base.",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: Gettysburg Landscape, Gettysburg NMP, Buildings and Structures (agrarian period to 1863; the battle; later periods)",
+     "sheet_or_page": "Buildings and Structures",
+     "url": "https://npshistory.com/publications/gett/cli-gettsyburg-landscape.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "Two wooden observation towers were erected in the 1870s, on the summit of Big Round Top and on East Cemetery Hill; in 1895-96 they were replaced by five steel towers; two of the steel towers were removed in the 1960s.",
+     "src_key": "NPS-CLI-LAND"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-011",
+   "name": "Peace Light Inn complex (1940), pond/quarry, and two houses along Mummasburg Road (c.1950)",
+   "kind": "inn",
+   "built": 1940,
+   "removed": 1979,
+   "standing_2026": false,
+   "in_2013_naip": "no (removed 1979)",
+   "where": "John Forney farm, Mummasburg Road / Buford Avenue (Forney Field 3 and 4)",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: First Day, Union 1st Corps Battlefield, Gettysburg NMP (cites Cultural Landscape Report 2021)",
+     "sheet_or_page": "Forney Fields #3 and #4",
+     "url": "https://npshistory.com/publications/gett/cli-first-day-ufcb.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "Forney farmstead demolished 1937; Peace Light Inn complex built 1940; two houses built along Mummasburg Road c.1950; park acquired the field in 1976, the inn complex was demolished in 1979 and the two houses were removed in 1980 and 1990.",
+     "src_key": "NPS-CLI-1CORPS"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-012",
+   "name": "Mini-golf course on Mummasburg Road (1930)",
+   "kind": "amusement",
+   "built": 1930,
+   "removed": null,
+   "standing_2026": false,
+   "in_2013_naip": "unknown (removal year not stated)",
+   "where": "Forney Field 3, Mummasburg Road",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "Removal date not stated.",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: First Day, Union 1st Corps Battlefield, Gettysburg NMP (cites Cultural Landscape Report 2021)",
+     "sheet_or_page": "Forney Fields #3",
+     "url": "https://npshistory.com/publications/gett/cli-first-day-ufcb.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "Mini-golf course built along Mummasburg Road, 1930.",
+     "src_key": "NPS-CLI-1CORPS"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-013",
+   "name": "Two houses at the south-east corner of Forney Field 2 (c.1925 and 1938)",
+   "kind": "house",
+   "built": 1925,
+   "removed": 1991,
+   "standing_2026": false,
+   "in_2013_naip": "no (removed 1991)",
+   "where": "Forney Field 2, North Confederate Avenue / Peace Memorial",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: First Day, Union 1st Corps Battlefield, Gettysburg NMP (cites Cultural Landscape Report 2021)",
+     "sheet_or_page": "Forney Fields #2",
+     "url": "https://npshistory.com/publications/gett/cli-first-day-ufcb.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "South-eastern corner developed with two houses in c.1925 and 1938; houses removed in 1976 and 1991.",
+     "src_key": "NPS-CLI-1CORPS"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-014",
+   "name": "Oak Ridge Museum (c.1925), Susan Forney house (c.1885) and Gettysburg Airport buildings (1927-47)",
+   "kind": "museum",
+   "built": 1885,
+   "removed": 1965,
+   "standing_2026": false,
+   "in_2013_naip": "no (removed 1965)",
+   "where": "Forney Fields 5-8 / Wills Field 5, Oak Ridge",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "The ticket-booth foundation is the only remnant and is classed non-contributing by NPS.",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: First Day, Union 1st Corps Battlefield, Gettysburg NMP (cites Cultural Landscape Report 2021)",
+     "sheet_or_page": "Forney Fields #7; Wills Fields #5",
+     "url": "https://npshistory.com/publications/gett/cli-first-day-ufcb.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "Susan Forney house built at the NE corner of Field 7 c.1885; Oak Ridge Museum built c.1925, demolished c.1950; Susan Forney house demolished 1965; Gettysburg Airport 1927-47 with a farmhouse converted to an office, a hangar and a ticket booth (1927); buildings demolished 1948; the ticket booth foundation remains.",
+     "src_key": "NPS-CLI-1CORPS"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-015",
+   "name": "Shields Museum and tourist cabins (c.1922)",
+   "kind": "museum",
+   "built": 1922,
+   "removed": 1989,
+   "standing_2026": false,
+   "in_2013_naip": "no (removed 1989)",
+   "where": "McPherson Field 7, near the Buford statue",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: First Day, Union 1st Corps Battlefield, Gettysburg NMP (cites Cultural Landscape Report 2021)",
+     "sheet_or_page": "McPherson Farm Fields #7",
+     "url": "https://npshistory.com/publications/gett/cli-first-day-ufcb.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "Eastern part developed as Shields Museum and tourist cabins in c.1922, acquired by the park in 1985, development removed 1989.",
+     "src_key": "NPS-CLI-1CORPS"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-016",
+   "name": "Riding-ring stable building (1952), Gettysburg Country Club golf course structures (pavilion, comfort station, bridges, culverts)",
+   "kind": "stable",
+   "built": 1952,
+   "removed": 2011,
+   "standing_2026": null,
+   "in_2013_naip": "no (removed 2011)",
+   "where": "Harman farm / McPherson Field 1, west of Willoughby Run",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "The golf course and its structures are other layers; listed here for the buildings.",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: First Day, Union 1st Corps Battlefield, Gettysburg NMP (cites Cultural Landscape Report 2021)",
+     "sheet_or_page": "McPherson Farm Fields #1; Herr's Ridge",
+     "url": "https://npshistory.com/publications/gett/cli-first-day-ufcb.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "Stable building built 1952 within the Harman farm and demolished after NPS acquisition in 2011; golf-course bridges, culverts and a pavilion/comfort-station pumphouse remnant are non-contributing and incompatible.",
+     "src_key": "NPS-CLI-1CORPS"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-017",
+   "name": "Springs Hotel (1869) and Katalysine Spring buildings (1868-c.1875), 1935 bottling works",
+   "kind": "hotel",
+   "built": 1868,
+   "removed": null,
+   "standing_2026": null,
+   "in_2013_naip": "unknown (removal year not stated)",
+   "where": "Medicinal Katalysine Spring, Herr's Ridge / McPherson Field 2",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "Locations UNKNOWN; a granite-lined collection box (1868) survives.",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: Gettysburg Landscape, Gettysburg NMP, Buildings and Structures (agrarian period to 1863; the battle; later periods)",
+     "sheet_or_page": "Buildings and Structures",
+     "url": "https://npshistory.com/publications/gett/cli-gettsyburg-landscape.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "The Katalysine Springs Hotel was constructed in 1868.",
+     "src_key": "NPS-CLI-LAND"
+    },
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: First Day, Union 1st Corps Battlefield, Gettysburg NMP (cites Cultural Landscape Report 2021)",
+     "sheet_or_page": "Katalysine Spring Building Sites",
+     "url": "https://npshistory.com/publications/gett/cli-first-day-ufcb.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "The exact location and size of the spring buildings remain unknown; underground pipes ran to the Springs Hotel (1869) and a 1935 bottling works.",
+     "src_key": "NPS-CLI-1CORPS"
+    },
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: First Day, Union 1st Corps Battlefield, Gettysburg NMP (cites Cultural Landscape Report 2021)",
+     "sheet_or_page": "Chronology of the 1st Corps area",
+     "url": "https://npshistory.com/publications/gett/cli-first-day-ufcb.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "The Springs Hotel complex declined and was eventually demolished.",
+     "src_key": "NPS-CLI-1CORPS"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-018",
+   "name": "West End Contact (Guide) Station (1936, WPA)",
+   "kind": "guide_station",
+   "built": 1936,
+   "removed": null,
+   "standing_2026": true,
+   "in_2013_naip": "yes",
+   "where": "McPherson Field 3a, north-east corner, Chambersburg Pike",
+   "lon": -77.25231,
+   "lat": 39.83799,
+   "position_error_m": 40,
+   "position_basis": "OSM-mapped outline/point",
+   "notes": "",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: First Day, Union 1st Corps Battlefield, Gettysburg NMP (cites Cultural Landscape Report 2021)",
+     "sheet_or_page": "West End Contact Station",
+     "url": "https://npshistory.com/publications/gett/cli-first-day-ufcb.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "The station does not contribute to the significance of the park; the building is eligible for the National Register for its WPA association.",
+     "src_key": "NPS-CLI-1CORPS"
+    },
+    {
+     "cite": "OpenStreetMap contributors, building and historic tags in the Gettysburg battlefield bounding box (Overpass API extract, 19 Oct 2026); used for building names and as a cross-check of position",
+     "sheet_or_page": "way 711545189 Guide Station Drive",
+     "url": "https://www.openstreetmap.org/copyright",
+     "type": "B",
+     "quote_or_paraphrase": "The OSM road name places the station at the north end of Guide Station Drive.",
+     "src_key": "OSM"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-019",
+   "name": "Round Top Park complex (1885): Round Top schoolhouse (brick, 1889), picnic area, dance hall, Rosensteel Ice House, Wheatfield Road carriage house (c.1890); Roundtop Museum",
+   "kind": "tourist_complex",
+   "built": 1885,
+   "removed": 1933,
+   "standing_2026": false,
+   "in_2013_naip": "no (removed 1933)",
+   "where": "Wheatfield Road / Taneytown Road north-east of Little Round Top",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: Little Round Top, Gettysburg NMP",
+     "sheet_or_page": "Chronology and Commemoration Era",
+     "url": "https://npshistory.com/publications/gett/cli-little-round-top.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "In 1884-85 the railway spur ended at Round Top Park, a picnic area; John Rosensteel opened the Round Top Museum in 1885 NE of the Wheatfield / Sedgwick Avenue intersection, built a carriage house about 1890 beside a brick schoolhouse of 1889; by 1933 Round Top Park, the museum, Tipton Park, Weikert's relic shop and the trolley line were gone.",
+     "src_key": "NPS-CLI-LRT"
+    },
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: Gettysburg Landscape, Gettysburg NMP, Buildings and Structures (agrarian period to 1863; the battle; later periods)",
+     "sheet_or_page": "Buildings and Structures: Round Top Park",
+     "url": "https://npshistory.com/publications/gett/cli-gettsyburg-landscape.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "The complex included the schoolhouse, picnic area, dance hall, Rosensteel Ice House and Wheatfield Road carriage house.",
+     "src_key": "NPS-CLI-LAND"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-020",
+   "name": "Tipton Park (photographer's studio and refreshment stand) and Weikert relic shop",
+   "kind": "tourist_complex",
+   "built": 1890,
+   "removed": 1933,
+   "standing_2026": false,
+   "in_2013_naip": "no (removed 1933)",
+   "where": "Devil's Den; between the two Round Tops",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: Little Round Top, Gettysburg NMP",
+     "sheet_or_page": "Commemoration Era",
+     "url": "https://npshistory.com/publications/gett/cli-little-round-top.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "William Tipton bought land in the Devil's Den area for a refreshment stand and photography studio; David Weikert ran a small relic shop between the Round Tops; both gone by 1933.",
+     "src_key": "NPS-CLI-LRT"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-021",
+   "name": "\"Pinch Gut\" roadside development (houses, restaurants, ice-cream parlor, motel, tourist cabins), Emmitsburg Road / West Confederate Avenue",
+   "kind": "commercial_strip",
+   "built": 1863,
+   "removed": null,
+   "standing_2026": false,
+   "in_2013_naip": "unknown (removal year not stated)",
+   "where": "Emmitsburg Road at West Confederate Avenue (Peach Orchard south)",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "Removal dates not stated; in the sources read these buildings are described as removed.",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: Gettysburg Landscape, Gettysburg NMP, Buildings and Structures (agrarian period to 1863; the battle; later periods)",
+     "sheet_or_page": "Buildings and Structures: later periods",
+     "url": "https://npshistory.com/publications/gett/cli-gettsyburg-landscape.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "At the crossing of Emmitsburg Road and West Confederate Avenue, nicknamed Pinch Gut, two houses were built in the period 1863-1895, two restaurants and three residences between 1895 and 1933, and in the NPS period an ice-cream parlor, motel and tourist cabins; Pinch Gut then expanded and was removed as the NPS removed buildings with no connection to the battle.",
+     "src_key": "NPS-CLI-LAND"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-022",
+   "name": "Fantasyland amusement park buildings",
+   "kind": "amusement",
+   "built": null,
+   "removed": null,
+   "standing_2026": null,
+   "in_2013_naip": "unknown",
+   "where": "east of Taneytown Road, south of the Visitor Center area",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "Dates UNKNOWN.",
+   "sources": [
+    {
+     "cite": "NPS, Final General Management Plan and Environmental Impact Statement, Gettysburg NMP, Vol. 1 (1999), Affected Environment: Historic Structures; Archeological Resources",
+     "sheet_or_page": "Management prescriptions; development concept discussion",
+     "url": "https://npshistory.com/publications/gett/fgmp-eis-v1-1999.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "Unused non-historic structures such as the Fantasyland amusement park buildings are non-contributing; a complex in the old Fantasyland amusement park east of Taneytown Road was proposed for park use.",
+     "src_key": "NPS-GMP-1999"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-023",
+   "name": "Camp Colt (1917-18 infantry and tank training camp) and the World War II German POW camp on the Codori farm",
+   "kind": "camp",
+   "built": 1917,
+   "removed": null,
+   "standing_2026": false,
+   "in_2013_naip": "unknown (removal year not stated)",
+   "where": "Emmitsburg Road / Codori farm and Cemetery Ridge",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "Temporary camps; removal dates beyond the war years not stated.",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: Pickett's Charge Battlefield, Gettysburg National Military Park (OCLP, 2024), Buildings and Structures / Chronology; cites NR 2004 Sec.7 and the Historic Structure Inventory (HSI)",
+     "sheet_or_page": "Camp Colt section, Figure 14 caption",
+     "url": "https://npshistory.com/publications/gett/cli-picketts-charge-battlefield.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "In 1917-1918 an infantry and tank training camp (Camp Colt) was active; the 1917 panorama shows tents on the fields along the Emmitsburg Road.",
+     "src_key": "NPS-CLI-PICKETT"
+    },
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: Gettysburg Landscape, Gettysburg NMP, Buildings and Structures (agrarian period to 1863; the battle; later periods)",
+     "sheet_or_page": "NPS period, World War II",
+     "url": "https://npshistory.com/publications/gett/cli-gettsyburg-landscape.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "A German POW camp was established on the Codori farm, later moved to the CCC camp; at the end of the war these camps were removed and the sites restored.",
+     "src_key": "NPS-CLI-LAND"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-024",
+   "name": "Roller Building maintenance complex (War Department 1890s core, enlarged 1960s), guard stations, comfort stations, entrance stations",
+   "kind": "maintenance",
+   "built": 1895,
+   "removed": null,
+   "standing_2026": true,
+   "in_2013_naip": "yes",
+   "where": "maintenance area, Taneytown Road corridor; guard stations at Culp's Hill, East Cavalry Field and West Confederate Avenue",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "Only the structures still standing in 2013 need to be removed from the base photograph; positions come from the modern inventory.",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: Gettysburg Landscape, Gettysburg NMP, Buildings and Structures (agrarian period to 1863; the battle; later periods)",
+     "sheet_or_page": "Buildings and Structures: Designed Memorialization and NPS periods",
+     "url": "https://npshistory.com/publications/gett/cli-gettsyburg-landscape.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "The War Department built a maintenance facility (Roller Building), Washington Street stables, guard stations and a comfort station near the Pennsylvania Memorial; the NPS enlarged the maintenance facility and built three comfort stations and entrance stations in the 1960s; the War Department guard stations were removed.",
+     "src_key": "NPS-CLI-LAND"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-025",
+   "name": "Pitzer's Woods amphitheater and McMillan Woods picnic shelter; CCC camp remains and McMillan Woods Group Campground (chimney, pavilion, storage shed)",
+   "kind": "park_facility",
+   "built": 1934,
+   "removed": null,
+   "standing_2026": true,
+   "in_2013_naip": "yes",
+   "where": "Pitzer's Woods and McMillan Woods, Confederate Avenue",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: Gettysburg Landscape, Gettysburg NMP, Buildings and Structures (agrarian period to 1863; the battle; later periods)",
+     "sheet_or_page": "NPS Stewardship Period",
+     "url": "https://npshistory.com/publications/gett/cli-gettsyburg-landscape.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "The NPS built an amphitheater in Pitzer's Woods and a picnic shelter in McMillan Woods; all still exist.",
+     "src_key": "NPS-CLI-LAND"
+    },
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: Pickett's Charge Battlefield, Gettysburg National Military Park (OCLP, 2024), Buildings and Structures / Chronology; cites NR 2004 Sec.7 and the Historic Structure Inventory (HSI)",
+     "sheet_or_page": "McMillan Woods Group Campground entries",
+     "url": "https://npshistory.com/publications/gett/cli-picketts-charge-battlefield.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "Stone chimney of a razed CCC/POW-camp building, pavilion and storage shed at the group campground; noncontributing.",
+     "src_key": "NPS-CLI-PICKETT"
+    }
+   ]
+  },
+  {
+   "id": "MODSTR-026",
+   "name": "Residences along West Confederate Avenue, Taneytown Road, Emmitsburg Road, Mummasburg Road and Doubleday Avenue; Ford garage on the first-day field",
+   "kind": "house",
+   "built": 1925,
+   "removed": null,
+   "standing_2026": true,
+   "in_2013_naip": "yes",
+   "where": "various",
+   "lon": null,
+   "lat": null,
+   "position_error_m": null,
+   "position_basis": "description only (no coordinates in the sources read); use the modern inventory detections",
+   "notes": "Covered individually by the county building outlines (see the building class counts).",
+   "sources": [
+    {
+     "cite": "NPS, Cultural Landscapes Inventory: Gettysburg Landscape, Gettysburg NMP, Buildings and Structures (agrarian period to 1863; the battle; later periods)",
+     "sheet_or_page": "NPS Stewardship Period",
+     "url": "https://npshistory.com/publications/gett/cli-gettsyburg-landscape.pdf",
+     "type": "B",
+     "quote_or_paraphrase": "New residences, especially fronting Taneytown Road, Emmitsburg Road, Mummasburg Road, Baltimore Pike, Doubleday Avenue and West Confederate Avenue, and commercial facilities such as the Ford garage on the first day battlefield, were built after the period of significance.",
+     "src_key": "NPS-CLI-LAND"
+    }
+   ]
+  }
+ ],
+ "county_building_classes": [
+  {
+   "zone": "borough zone: remove; replace by the 1863 borough building masses",
+   "count": 1005,
+   "footprint_m2": 243000
+  },
+  {
+   "zone": "retain: surviving 1863 structure (named in this catalogue)",
+   "count": 41,
+   "footprint_m2": 13023
+  },
+  {
+   "zone": "rural, house-sized (100-1500 m2): remove unless it is a surviving 1863 farm building not yet catalogued",
+   "count": 4663,
+   "footprint_m2": 1185809
+  },
+  {
+   "zone": "rural, large (>=1500 m2: commercial, institutional, industrial, farm-industrial): remove",
+   "count": 74,
+   "footprint_m2": 293101
+  },
+  {
+   "zone": "rural, small (<100 m2: sheds, garages, pool houses): remove",
+   "count": 2611,
+   "footprint_m2": 113762
+  }
+ ],
+ "county_buildings_in_bounds": 8394,
+ "retained_survivors": [
+  {
+   "structure_id": "STR-KLINGEL-HOUSE1",
+   "name": "Klingel farm house",
+   "status": "survives_altered",
+   "adams_county_srcid": "38128",
+   "geometry_represents": "present building outline; 1863 form may have been smaller (see fabric_1863)",
+   "modern_inventory_id": "MOD-BUILDING-07046"
+  },
+  {
+   "structure_id": "STR-TROSTLE-HOUSE1",
+   "name": "Trostle farm house",
+   "status": "survives_altered",
+   "adams_county_srcid": "55075",
+   "geometry_represents": "present building outline; 1863 form may have been smaller (see fabric_1863)",
+   "modern_inventory_id": "MOD-BUILDING-10109"
+  },
+  {
+   "structure_id": "STR-TROSTLE-BARN1",
+   "name": "Trostle barn",
+   "status": "survives",
+   "adams_county_srcid": "76827",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-14068"
+  },
+  {
+   "structure_id": "STR-TROSTLE-SUMMER_KITCHEN1",
+   "name": "Trostle summer kitchen (under construction)",
+   "status": "survives",
+   "adams_county_srcid": "40504",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-07471"
+  },
+  {
+   "structure_id": "STR-SHERFY-HOUSE1",
+   "name": "Sherfy farm house",
+   "status": "survives_altered",
+   "adams_county_srcid": "56256",
+   "geometry_represents": "present building outline; 1863 form may have been smaller (see fabric_1863)",
+   "modern_inventory_id": "MOD-BUILDING-10346"
+  },
+  {
+   "structure_id": "STR-CODORI-HOUSE1",
+   "name": "Codori farm house (1834 section)",
+   "status": "survives_altered",
+   "adams_county_srcid": "50164",
+   "geometry_represents": "present building outline; 1863 form may have been smaller (see fabric_1863)",
+   "modern_inventory_id": "MOD-BUILDING-09198"
+  },
+  {
+   "structure_id": "STR-SPANGLER_H-HOUSE1",
+   "name": "Henry Spangler farm house",
+   "status": "survives",
+   "adams_county_srcid": "1954",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-00423"
+  },
+  {
+   "structure_id": "STR-SPANGLER_H-BARN1",
+   "name": "Henry Spangler barn (burned in the battle; 1935 reconstruction on the old foundation)",
+   "status": "destroyed_1863",
+   "adams_county_srcid": "10904",
+   "geometry_represents": "later building on the 1863 site/foundation (not the 1863 structure itself)",
+   "modern_inventory_id": "MOD-BUILDING-02051"
+  },
+  {
+   "structure_id": "STR-BRYAN-HOUSE1",
+   "name": "Brien (Bryan) house",
+   "status": "survives_altered",
+   "adams_county_srcid": "25038",
+   "geometry_represents": "present building outline; 1863 form may have been smaller (see fabric_1863)",
+   "modern_inventory_id": "MOD-BUILDING-04604"
+  },
+  {
+   "structure_id": "STR-BRYAN-BARN1",
+   "name": "Brien (Bryan) barn",
+   "status": "survives_altered",
+   "adams_county_srcid": "30274",
+   "geometry_represents": "present building outline; 1863 form may have been smaller (see fabric_1863)",
+   "modern_inventory_id": "MOD-BUILDING-05578"
+  },
+  {
+   "structure_id": "STR-LEISTER-HOUSE1",
+   "name": "Leister house",
+   "status": "survives_altered",
+   "adams_county_srcid": "74271",
+   "geometry_represents": "present building outline; 1863 form may have been smaller (see fabric_1863)",
+   "modern_inventory_id": "MOD-BUILDING-13584"
+  },
+  {
+   "structure_id": "STR-LEISTER-BARN1",
+   "name": "Leister barn",
+   "status": "survives",
+   "adams_county_srcid": "39056",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-07220"
+  },
+  {
+   "structure_id": "STR-HUMMELBAUGH-HOUSE1",
+   "name": "Hummelbaugh house",
+   "status": "survives",
+   "adams_county_srcid": "19586",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-03653"
+  },
+  {
+   "structure_id": "STR-HUMMELBAUGH-OUTBUILDING1",
+   "name": "Hummelbaugh farmstead: second building W of house (Warren plate)",
+   "status": "unknown_fate",
+   "adams_county_srcid": "75037",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-13738"
+  },
+  {
+   "structure_id": "STR-GWEIKERT-HOUSE1",
+   "name": "George Weikert house",
+   "status": "survives",
+   "adams_county_srcid": "46690",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-08611"
+  },
+  {
+   "structure_id": "STR-GWEIKERT-BARN1",
+   "name": "George Weikert barn",
+   "status": "survives",
+   "adams_county_srcid": "15686",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-02944"
+  },
+  {
+   "structure_id": "STR-GWEIKERT-SUMMER_KITCHEN1",
+   "name": "George Weikert summer kitchen",
+   "status": "survives",
+   "adams_county_srcid": "60787",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-11167"
+  },
+  {
+   "structure_id": "STR-JWEIKERT-HOUSE1",
+   "name": "John Weikert farm house",
+   "status": "survives",
+   "adams_county_srcid": "66539",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-12196"
+  },
+  {
+   "structure_id": "STR-ROSE-HOUSE1",
+   "name": "Rose farm house (stone)",
+   "status": "survives",
+   "adams_county_srcid": "24397",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-04490"
+  },
+  {
+   "structure_id": "STR-SLYDER-HOUSE1",
+   "name": "Slyder house (granite)",
+   "status": "survives",
+   "adams_county_srcid": "66630",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-12216"
+  },
+  {
+   "structure_id": "STR-SLYDER-BARN1",
+   "name": "Slyder barn",
+   "status": "survives",
+   "adams_county_srcid": "35343",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-06520"
+  },
+  {
+   "structure_id": "STR-BUSHMAN-HOUSE1",
+   "name": "Bushman farm house",
+   "status": "survives",
+   "adams_county_srcid": "26772",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-04922"
+  },
+  {
+   "structure_id": "STR-BUSHMAN-BARN1",
+   "name": "Bushman barn",
+   "status": "survives",
+   "adams_county_srcid": "4021",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-00776"
+  },
+  {
+   "structure_id": "STR-WARFIELD_SNYDER-HOUSE1",
+   "name": "Warfield house",
+   "status": "survives",
+   "adams_county_srcid": "52367",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-09607"
+  },
+  {
+   "structure_id": "STR-MCMILLAN-HOUSE1",
+   "name": "McMillan house",
+   "status": "survives",
+   "adams_county_srcid": "69872",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-12801"
+  },
+  {
+   "structure_id": "STR-MCLEAN-BARN1",
+   "name": "McClean barn",
+   "status": "survives",
+   "adams_county_srcid": "42005",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-07742"
+  },
+  {
+   "structure_id": "STR-MCLEAN-HOUSE1",
+   "name": "McClean house (original narrow house)",
+   "status": "survives_altered",
+   "adams_county_srcid": "29864",
+   "geometry_represents": "present building outline; 1863 form may have been smaller (see fabric_1863)",
+   "modern_inventory_id": "MOD-BUILDING-05506"
+  },
+  {
+   "structure_id": "STR-MCPHERSON-BARN1",
+   "name": "McPherson barn",
+   "status": "survives",
+   "adams_county_srcid": "63074",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-11553"
+  },
+  {
+   "structure_id": "STR-CULP-HOUSE1",
+   "name": "Culp farm house (brick)",
+   "status": "survives",
+   "adams_county_srcid": "49254",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-09032"
+  },
+  {
+   "structure_id": "STR-TOWN-COURTHOUSE",
+   "name": "Adams County Courthouse (Baltimore Street)",
+   "status": "survives_altered",
+   "adams_county_srcid": "26187",
+   "geometry_represents": "present building outline; 1863 form may have been smaller",
+   "modern_inventory_id": "MOD-BUILDING-04805"
+  },
+  {
+   "structure_id": "STR-TOWN-DEPOT",
+   "name": "Gettysburg Railroad station (Carlisle Street; \"Lincoln Railroad Station\")",
+   "status": "survives_altered",
+   "adams_county_srcid": "25667",
+   "geometry_represents": "present building outline; 1863 form may have been smaller",
+   "modern_inventory_id": "MOD-BUILDING-04720"
+  },
+  {
+   "structure_id": "STR-TOWN-CHRIST_LUTHERAN",
+   "name": "Christ Lutheran Church (44 Chambersburg Street)",
+   "status": "survives_altered",
+   "adams_county_srcid": "71835",
+   "geometry_represents": "present building outline; 1863 form may have been smaller",
+   "modern_inventory_id": "MOD-BUILDING-13161"
+  },
+  {
+   "structure_id": "STR-TOWN-PENN_HALL",
+   "name": "Pennsylvania Hall (\"Old Dorm\"), Pennsylvania College",
+   "status": "survives_altered",
+   "adams_county_srcid": "15182",
+   "geometry_represents": "present building outline; 1863 form may have been smaller",
+   "modern_inventory_id": "MOD-BUILDING-02855"
+  },
+  {
+   "structure_id": "STR-TOWN-SCHMUCKER_HALL",
+   "name": "Schmucker Hall, Lutheran Theological Seminary",
+   "status": "survives_altered",
+   "adams_county_srcid": "17944",
+   "geometry_represents": "present building outline; 1863 form may have been smaller",
+   "modern_inventory_id": "MOD-BUILDING-03348"
+  },
+  {
+   "structure_id": "STR-TOWN-THOMPSON_HOUSE",
+   "name": "Thompson House (Lee's headquarters), Chambersburg Pike",
+   "status": "survives",
+   "adams_county_srcid": "14479",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-02730"
+  },
+  {
+   "structure_id": "STR-TOWN-SCHULTZ_HOUSE",
+   "name": "Schultz House (Oak Ridge Academy building)",
+   "status": "survives_altered",
+   "adams_county_srcid": "19384",
+   "geometry_represents": "present building outline; 1863 form may have been smaller",
+   "modern_inventory_id": "MOD-BUILDING-03612"
+  },
+  {
+   "structure_id": "STR-TOWN-GATEHOUSE",
+   "name": "Evergreen Cemetery gatehouse (Cemetery Hill)",
+   "status": "survives_altered",
+   "adams_county_srcid": "88132",
+   "geometry_represents": "present building outline; 1863 form may have been smaller",
+   "modern_inventory_id": "MOD-BUILDING-16175"
+  },
+  {
+   "structure_id": "STR-TOWN-WADE_HOUSE",
+   "name": "McClellan house, 548 Baltimore Street (Jennie Wade killed here, 3 July 1863)",
+   "status": "survives",
+   "adams_county_srcid": "10991",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-02073"
+  },
+  {
+   "structure_id": "STR-TOWN-GARLACH_HOUSE",
+   "name": "Garlach house, Baltimore Street (Henry Garlach, cabinetmaker; General Schimmelfennig hid behind its woodpile)",
+   "status": "survives",
+   "adams_county_srcid": "23748",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-04392"
+  },
+  {
+   "structure_id": "STR-TOWN-PRESBYTERIAN_CHURCH",
+   "name": "Presbyterian Church, Baltimore Street (hospital 1863; present building is later)",
+   "status": "survives_altered",
+   "adams_county_srcid": "68398",
+   "geometry_represents": "present building outline; 1863 form may have been smaller",
+   "modern_inventory_id": "MOD-BUILDING-12521"
+  },
+  {
+   "structure_id": "STR-TOWN-BLACK_HORSE_TAVERN",
+   "name": "Black Horse Tavern, Fairfield Road (Confederate Heth division area, July 1)",
+   "status": "survives",
+   "adams_county_srcid": "5442",
+   "geometry_represents": "present building outline, taken as the 1863 building",
+   "modern_inventory_id": "MOD-BUILDING-01041"
+  }
+ ]
+}

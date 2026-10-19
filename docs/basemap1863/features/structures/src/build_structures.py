@@ -2,7 +2,7 @@
 
 Inputs : evidence/*.json (georeferenced map readings), catalogue.py / catalogue_town.py (curated, sourced entries),
          2023 Adams County building outlines (read from COUNTY_PATH; fetched by tmp/b1863/modern, not committed).
-Outputs: ../structures.geojson, ../structures.3857.geojson  (and statistics in ../evidence/build_stats.json)
+Outputs: ../structures.geojson, ../structures.mercator.geojson  (and statistics in ../evidence/build_stats.json)
 Run    : python build_structures.py   (from this directory)
 """
 import os, sys, json, math, warnings, collections
@@ -57,6 +57,12 @@ def build():
     auto = json.load(open(os.path.join(EVID, 'auto_symbols.json'), encoding='utf-8'))
     county = load_county()
     georef = GEORef_NOTE % (gc['n_gcps'], gc['loo_median_m'], gc['loo_p90_m'], gc['loo_max_m'])
+    gcl = json.load(open(os.path.join(EVID, 'gcps_final.json'), encoding='utf-8'))['gcps']
+    gxy = np.array([T_UTM.transform(a['lon'], a['lat']) for a in gcl])
+
+    def global_err(lon, lat):
+        x, y = T_UTM.transform(lon, lat); d = float(np.min(np.hypot(gxy[:, 0] - x, gxy[:, 1] - y)))
+        return round(25 + 0.04 * max(0.0, d - 800.0)), round(d)
     feats = []
     used_cty = set()
     stats = collections.Counter()
@@ -78,8 +84,8 @@ def build():
             m = ('Position of the Bachelder/Warren plate building symbol (px %.0f,%.0f in the cw0325000a frame), carried to ground coordinates by a local offset '
                  'from %d surviving anchor building(s) of the same farmstead (anchor spread %.1f m).' % (s['px'][0], s['px'][1], s['anchor_n'], spread))
         else:
-            err = 25
-            m = ('Position of the Bachelder/Warren plate building symbol (px %.0f,%.0f in the cw0325000a frame) through the global thin-plate-spline georeference.' % (s['px'][0], s['px'][1]))
+            err, dn = global_err(s['lon'], s['lat'])
+            m = ('Position of the Bachelder/Warren plate building symbol (px %.0f,%.0f in the cw0325000a frame) through the global thin-plate-spline georeference; nearest control point %d m away (error 25 m within 800 m, growing 4 m per 100 m beyond).' % (s['px'][0], s['px'][1], dn))
         return s, err, m
 
     seq = collections.Counter()
@@ -185,7 +191,7 @@ def build():
                      georef_model=georef, map_px_cw0325000a=a['px'], review_status='auto-detected, not reviewed')
         srcs = [('WARREN-PLATE', 'Whole plate (cw0353500 registered to cw0325000a)', 'Filled building symbol; occupant name label nearest: %s.' % a['nearest_label'])]
         f = base(fid, 'building', 'Building symbol near owner label "%s" (unreviewed)' % a['nearest_label'], dict(type='Point', coordinates=[a['lon'], a['lat']]), True,
-                 'Standing when the Warren survey was made (1868-69); standing in July 1863 is probable but not independently confirmed.', srcs, method, 30, 'Estimated',
+                 'Standing when the Warren survey was made (1868-69); standing in July 1863 is probable but not independently confirmed.', srcs, method, global_err(a['lon'], a['lat'])[0] if global_err(a['lon'], a['lat'])[0] > 30 else 30, 'Estimated',
                  'Auto-detected; owner label is a nearest-label hint (OCR) and may belong to a neighbouring farm; roles unknown.', extra)
         add(f); stats['auto_symbol'] += 1
     return feats, used_cty, stats, georef
@@ -220,7 +226,7 @@ def write(feats, extra_fc_props=None):
     json.dump(fc, open(os.path.join(OUTDIR, 'structures.geojson'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
     fc3 = dict(fc); fc3['crs'] = dict(type='name', properties=dict(name='urn:ogc:def:crs:EPSG::3857'))
     fc3['features'] = [to_3857(f) for f in feats]
-    json.dump(fc3, open(os.path.join(OUTDIR, 'structures.3857.geojson'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+    json.dump(fc3, open(os.path.join(OUTDIR, 'structures.mercator.geojson'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
 
 
 if __name__ == '__main__':

@@ -165,9 +165,13 @@ for i in range(len(pts)):
 by_status = collections.Counter(f['properties']['status'] for f in F)
 by_conf = collections.Counter(f['properties']['confidence'] for f in F)
 farms = {f['properties'].get('farm') for f in F if f['properties'].get('farm')}
-res['8_duplicates_counts'] = dict(near_duplicate_pairs_under_2m=dup, by_status=dict(by_status), by_confidence=dict(by_conf), curated_farmsteads=len(farms), total_features=len(F),
+va = json.load(open(os.path.join(EV, 'visual_audit.json'), encoding='utf-8')) if os.path.exists(os.path.join(EV, 'visual_audit.json')) else None
+farm_keys = sorted({f['properties'].get('farm') for f in F if f['properties'].get('farm')})
+audited = {g['group'] for g in va['groups']} if va else set()
+unaudited = [k for k in farm_keys if k not in audited and not k.startswith('warfield')]
+res['8_visual_audit_duplicates_counts'] = dict(visual_audit=dict(groups=len(audited), unaudited=unaudited, verdicts=dict(collections.Counter(g['verdict'] for g in va['groups'])) if va else None), near_duplicate_pairs_under_2m=dup, by_status=dict(by_status), by_confidence=dict(by_conf), curated_farmsteads=len(farms), total_features=len(F),
                                   context='NPS 1999 GMP: 71 farms of the 1863 battlefield lie inside the park boundary; NPS CLI: over 50 agricultural properties had farm structures in 1863. 28 farmsteads are curated here; the rest are in the unreviewed machine-detected layer.',
-                                  passed=not dup)
+                                  passed=(not dup) and va is not None and not unaudited)
 
 json.dump(res, open(os.path.join(EV, 'verification.json'), 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
 for k, v in res.items():

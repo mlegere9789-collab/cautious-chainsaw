@@ -1,29 +1,29 @@
 {
  "accuracy": {
-  "n_gcps": 84,
-  "n_curated": 17,
+  "n_gcps": 86,
+  "n_curated": 19,
   "n_icp": 46,
   "n_sibling": 21,
   "smoothing": 10000.0,
   "loo_by_kind": {
    "curated": {
-    "n": 17,
-    "median_m": 9.9,
-    "max_m": 31.8
+    "n": 19,
+    "median_m": 11.6,
+    "max_m": 32.0
    },
    "icp": {
     "n": 46,
-    "median_m": 9.2,
+    "median_m": 9.3,
     "max_m": 27.2
    },
    "sib_summit": {
     "n": 4,
-    "median_m": 15.0,
-    "max_m": 21.8
+    "median_m": 18.3,
+    "max_m": 23.0
    },
    "sib_road-junction": {
     "n": 7,
-    "median_m": 10.6,
+    "median_m": 9.9,
     "max_m": 13.3
    },
    "sib_farm-building": {
@@ -34,12 +34,8 @@
   },
   "excluded_outliers": [
    [
-    "bushman:house:4852",
-    38.9
-   ],
-   [
     "icp:cty375",
-    59.1
+    56.7
    ],
    [
     "icp:cty6133",
@@ -47,7 +43,7 @@
    ],
    [
     "icp:cty11175",
-    36.3
+    36.2
    ],
    [
     "icp:cty12018",
@@ -58,35 +54,35 @@
     56.2
    ],
    [
+    "SIB:Hill summit W of Plum Run (DEM S160)",
+    43.1
+   ],
+   [
     "SIB:Big Round Top summit",
-    47.5
+    49.0
    ],
    [
     "icp:cty5561",
-    42.6
+    41.7
    ],
    [
     "icp:cty9170",
-    61.0
+    50.6
    ],
    [
     "icp:cty9445",
-    55.2
+    56.3
    ],
    [
     "SIB:Hanover Rd bridge over Rock Creek",
-    53.7
-   ],
-   [
-    "SIB:Hill summit W of Plum Run (DEM S160)",
-    61.5
+    53.9
    ]
   ],
   "outlier_note": "Control points whose leave-one-out error exceeded max(35 m, 3 x median) were left out of the fit (local distortion of the plate or a mismatched pair); features placed with a local anchor are unaffected; features placed through the global model carry an error of 25 m, and up to 60 m in the north-west (First Day) corner where control is sparse.",
-  "loo_median_m": 9.84660984835376,
-  "loo_mean_m": 10.885327478984298,
-  "loo_p90_m": 20.459231773460377,
-  "loo_max_m": 31.844087841430838,
+  "loo_median_m": 9.896435694971636,
+  "loo_mean_m": 11.23416816780828,
+  "loo_p90_m": 22.009229362805776,
+  "loo_max_m": 31.969175887477775,
   "note": "Leave-one-out error of the thin-plate-spline georeference of the Bachelder/Warren plate (pixel frame of LoC cw0325000a, about 1.0 m per pixel). Control: surviving-building outlines of the 2023 Adams County dataset (curated farm buildings and a robust-ICP set) and the independent road-junction, bridge and summit points of docs/basemap1863/maps/gcps/warren.json (sibling task). Pixel units are metres to within 3 percent."
  },
  "gcps": [
@@ -187,6 +183,28 @@
    "lon": -77.24701828985971,
    "lat": 39.78842805317628,
    "src": "county outline 6452 <-> plate symbol (curated)",
+   "kind": "curated"
+  },
+  {
+   "name": "bushman:house:4852",
+   "px": [
+    3367.423728813559,
+    8401.689265536723
+   ],
+   "lon": -77.25157927714827,
+   "lat": 39.789679240361075,
+   "src": "county outline 4852 <-> plate symbol (curated)",
+   "kind": "curated"
+  },
+  {
+   "name": "bushman:barn:701",
+   "px": [
+    3347.0,
+    8448.0
+   ],
+   "lon": -77.25160729505626,
+   "lat": 39.78912899033572,
+   "src": "county outline 701 <-> plate symbol (curated)",
    "kind": "curated"
   },
   {

@@ -118,3 +118,17 @@ S('WIKI-STATION',
 S('GETTYSDAILY-CHRIST',
   "Gettysburg Daily, Gettysburg's Christ Lutheran Church, Part 1 (church completed 1836; Union I Corps divisional hospital 1 July to 15 Aug 1863)",
   'https://www.gettysburgdaily.com/gettysburgs-christ-lutheran-church-part-1/', 'B', 'Web page; facts only')
+
+S('NPS-ROSE',
+  'NPS, Stay at the Historic Rose House (Gettysburg NMP web page): Rose farm structures',
+  'https://www.nps.gov/gett/planyourvisit/historic-rose-house.htm', 'B', 'Public domain (US Government work)')
+
+
+SEARCH_ONLY = {
+    'NEWS-COMPILER-1863': 'seen as a web-search result summary only; page not opened',
+    'ASYLUM-ALMS': 'seen as a web-search result summary only; page not opened',
+    'WIKI-STATION': 'seen as a web-search result summary only (Wikipedia "Gettysburg, Pennsylvania" was opened but does not give the station facts)',
+    'GETTYSDAILY-CHRIST': 'seen as a web-search result summary only; page not opened',
+}
+for _k, _n in SEARCH_ONLY.items():
+    SRC[_k]['note'] = (SRC[_k].get('note') + ' ' if SRC[_k].get('note') else '') + 'READ STATUS: ' + _n

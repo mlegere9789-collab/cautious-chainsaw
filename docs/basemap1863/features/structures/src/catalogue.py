@@ -132,7 +132,7 @@ F('leister', 'Lydia Leister farmstead (Meade headquarters)', 'L. Leister', 'Army
      src=[R('NPS-HSR-LEISTER-BARN', 'Existing Fabric, A. General Plan', 'Leister barn sited about 60 yards west of the house, long axis north-south, perpendicular to the house; overall dimensions 37 ft 8 in by 22 ft (OCR); used as signal station and temporary hospital.'),
           R('HABS-PA', 'HABS Lydia Leister Barn, https://www.loc.gov/item/pa1413/', 'Measured drawings.')])])
 
-F('hummelbaugh', 'Jacob Hummelbaugh farmstead', 'J. Hummelbaugh', 'Cavalry headquarters (Pleasonton) and hospital; Brig. Gen. Barksdale died here.',
+F('hummelbaugh', 'Jacob Hummelbaugh farmstead', 'J. Hummelbaugh', 'Cavalry headquarters (Pleasonton) during the battle (NPS CLR).',
   [B('house', 'farmhouse', 'Hummelbaugh house', 'survives', cty=3580, sym=('hummelbaugh', 0), material='frame', built='before 1863', conf='Documented',
      src=[R('NPS-CLR-ROT1', 'Area 9, Hummelbaugh Orchard', 'Union cavalry commander Pleasonton used the Hummelbaugh House for his headquarters; picket fencing documented around yard and garden.'),
           R('HABS-PA', 'HABS Hummelbaugh Farm House, https://www.loc.gov/item/pa1740/', 'HABS record of the house.')]),
@@ -140,7 +140,7 @@ F('hummelbaugh', 'Jacob Hummelbaugh farmstead', 'J. Hummelbaugh', 'Cavalry headq
      src=[R('WARREN-BACH', 'July-1 sheet', 'Symbol marked W 35 m west of the house symbol; a 67 m2 building stands there in 2023.')],
      notes='Identity of the 2023 outline as the 1863 building is not independently confirmed; the Warren-plate symbol is 12 m from it.')])
 
-F('gweikert', 'George Weikert farmstead', 'G. Weikert', 'Behind Cemetery Ridge; hospital; the NPS 2004 treatment study calls it well preserved.',
+F('gweikert', 'George Weikert farmstead', 'G. Weikert', 'Behind Cemetery Ridge; the NPS 2004 treatment study calls the complex well preserved.',
   [B('house', 'farmhouse', 'George Weikert house', 'survives', cty=8549, sym=('gweikert', 1), material='stone with large quoins, wooden porch', built='before 1863', conf='Documented',
      src=[R('HABS-PA', 'HABS PA-363 G. Weikert House (https://www.loc.gov/item/pa0019/)', 'Local stone, rough cut, large stones as quoins; wooden porch and trim; brick chimneys.'),
           R('NPS-TP-2004', 'ch.2 Examples Illustrating Possible Treatment', 'The farmstead consists of a stone farm house, wooden barn, wooden summer kitchen and a frame carriage house and corn crib; house, barn and summer kitchen pre-date the battle; the only building missing is a wood spring house.')]),
@@ -153,7 +153,7 @@ F('gweikert', 'George Weikert farmstead', 'G. Weikert', 'Behind Cemetery Ridge; 
    B('spring_house', 'outbuilding', 'George Weikert wood spring house', 'lost_later', conf='Documented',
      src=[R('NPS-TP-2004', 'ch.2', 'The only building missing from the original complex is a wood spring house.')], notes='Location UNKNOWN (no source gives coordinates).')])
 
-F('jweikert', 'John Weikert farmstead', 'J. Weikert', 'Wheatfield Road/Taneytown Road; hospital use.',
+F('jweikert', 'John Weikert farmstead', 'J. Weikert', 'Wheatfield Road / Taneytown Road area, south of the George Weikert farm.',
   [B('house', 'farmhouse', 'John Weikert farm house', 'survives', cty=12138, sym=('jweikert', 2), built='before 1863', conf='Estimated',
      src=[R('OSM', 'way 453164455 John Weikert Farm House', 'Named building at the Warren-plate farmstead; NPS CLI Little Round Top lists the John Weikert (Althoff) farm and lane.'),
           R('NPS-CLI-LRT', 'Buildings and Structures: J. Weikert (Althoff) Farm Lane; 95th Pennsylvania wall', 'The farm lane connected the John Weikert farm buildings to Wheatfield Road.')],
@@ -163,15 +163,21 @@ F('jweikert', 'John Weikert farmstead', 'J. Weikert', 'Wheatfield Road/Taneytown
    B('outbuilding', 'building', 'John Weikert farmstead: second symbol', 'unknown_fate', sym=('jweikert', 1), conf='Estimated',
      src=[R('WARREN-BACH', 'July-1 sheet', 'Symbol marked W.')], notes='Role unresolved.')])
 
-F('rose', 'John Rose farmstead', 'J. Rose', 'Wheatfield fighting 2 July.',
+F('rose', 'John Rose farmstead', 'J. Rose', 'Wheatfield fighting 2 July. NPS lists three battle-era structures (house, stone summer kitchen, wood smokehouse) and the barn ruin.',
   [B('house', 'farmhouse', 'Rose farm house (stone)', 'survives', cty=4419, sym=('rose', 0), material='stone', built='pre-1863', conf='Documented',
-     src=[R('NPS-GMP-1999', 'Affected Environment, ruins and archeological sites', 'The Rose barn ruins are among the most visible on the battlefield; the Rose house is a surviving farm building.'),
-          R('NPS-THEN-NOW', 'Rose farm (NPS Historic Rose House lodging page cited in search)', 'NPS describes the stone farmhouse still standing with interior battle damage.')],
-     notes='Footprint is the 2023 outline (includes later additions); stone summer kitchen (c.1810) and wood smokehouse (c.1815) are also reported by NPS but not separately located.'),
-   B('barn', 'barn', 'Rose barn (ruin)', 'ruin', sym=('rose', 2), conf='Estimated', built='pre-1863',
-     src=[R('NPS-GMP-1999', 'Affected Environment', 'Ruins of the Rose barn are perhaps the most visible on the battlefield.'),
+     src=[R('NPS-ROSE', 'Historic Rose House page', 'The farmhouse still shows interior battle damage (one of only a few park buildings that do); the NPS acquired the property in the 1950s.'),
+          R('NPS-GMP-1999', 'Affected Environment, ruins and archeological sites', 'The ruins of the Rose barn are perhaps the most visible on the battlefield.')],
+     notes='Footprint is the 2023 outline (includes any later additions).'),
+   B('summer_kitchen', 'outbuilding', 'Rose stone summer kitchen with bake oven', 'survives', material='stone', built='c.1810', conf='Documented',
+     src=[R('NPS-ROSE', 'Historic Rose House page', 'Summer kitchen of about 1810, stone, with the remains of a bake oven on its north wall.')],
+     notes='Not separately located in any source read; UNKNOWN geometry.'),
+   B('outbuilding', 'smokehouse', 'Rose wood-framed smokehouse', 'survives', material='wood frame', built='c.1815', conf='Documented',
+     src=[R('NPS-ROSE', 'Historic Rose House page', 'Small wood-framed smokehouse of about 1815.')],
+     notes='Not separately located; UNKNOWN geometry.'),
+   B('barn', 'barn', 'Rose barn (granite walls; ruin)', 'ruin', sym=('rose', 2), conf='Estimated', built='pre-1863', material='thick granite walls',
+     src=[R('NPS-ROSE', 'Historic Rose House page', 'The barn is a ruin: a 1930s windstorm destroyed its roof and time wore down its walls; Confederate soldiers sheltered behind its thick granite walls on 2 July 1863.'),
           R('NPS-HBM-1958', 'Historical Base Map 1958, remark on Rose farm buildings', 'The Rose barn was partially destroyed by a windstorm in 1935; its end walls still stand; the house was in private ownership.')],
-     notes='Barn lost to a 1935 windstorm (NPS) - another web source gives a lightning fire in 1910; Contested cause, same site. Position is the Warren-plate barn symbol.'),
+     notes='Cause of loss: NPS says a 1930s windstorm; one web source gives a lightning fire in 1910 (Contested, same site). Position is the Warren-plate barn symbol.'),
    B('outbuilding', 'building', 'Rose farmstead: wood building on the Warren plate', 'unknown_fate', sym=('rose', 1), conf='Estimated',
      src=[R('WARREN-BACH', 'July-1 sheet', 'Symbol marked W near the house.')], notes='Function unresolved.')])
 
@@ -181,11 +187,13 @@ F('slyder', 'John Slyder farmstead', 'J. Slyder', 'South of Devil\'s Den, Plum R
    B('summer_kitchen', 'outbuilding', 'Slyder kitchen', 'survives', built='before 1863', conf='Estimated',
      src=[R('HABS-PA', 'HABS PA-356A Slyder House, Kitchen (https://www.loc.gov/item/pa0017/)', 'Measured drawings of the kitchen.')],
      notes='Separate footprint not identified; UNKNOWN geometry.'),
+   B('outbuilding', 'building', 'Slyder farmstead: wood building W of the house (Warren plate)', 'unknown_fate', sym=('slyder', 1), conf='Estimated',
+     src=[R('WARREN-BACH', 'July-1 sheet', 'Symbol marked W 40 m west of the house symbol.')], notes='Function unresolved (HABS records a separate kitchen).'),
    B('barn', 'barn', 'Slyder barn', 'survives', cty=6452, sym=('slyder', 2), built='before 1863', conf='Estimated',
      src=[R('HABS-PA', 'HABS Slyder Barn (https://www.loc.gov/item/pa1739/)', 'HABS record of the barn; NPS historic structure report prepared for the Slyder farm buildings.')],
      notes='Date of the surviving barn not confirmed in the sources read.')])
 
-F('bushman', 'Michael Bushman farmstead', 'M. Bushman', 'South end of the Union line; Confederate attack route.',
+F('bushman', 'Michael Bushman farmstead', 'M. Bushman', 'Fields west of Big Round Top were an avenue of approach for the Confederate attack (NPS CLR Hammer/Bushman-Slyder area).',
   [B('house', 'farmhouse', 'Bushman farm house', 'survives', cty=4852, sym=('bushman', 0), material='stone (Warren plate letter S)', built='before 1863', conf='Estimated',
      src=[R('HABS-PA', 'HABS Bushman House, Southern Pennsylvania District (https://www.loc.gov/item/pa0005/)', 'HABS record of the Bushman House.'),
           R('OSM', 'way 453167592 Bushman Farm House', 'Named building.')],
@@ -216,7 +224,7 @@ F('wentz', 'John Wentz farmstead (Peach Orchard)', 'J. Wentz', 'Log house in the
    B('outbuilding', 'building', 'Wentz farmstead: building 2 (Warren plate)', 'lost_later', sym=('wentz', 1), conf='Estimated', src=[R('WARREN-BACH', 'July-1 sheet', 'Symbol marked W.')], notes='Role unresolved.'),
    B('outbuilding', 'building', 'Wentz farmstead: building 3 (Warren plate)', 'lost_later', sym=('wentz', 2), conf='Estimated', src=[R('WARREN-BACH', 'July-1 sheet', 'Symbol marked W.')], notes='Role unresolved.')])
 
-F('rogers', 'Peter Rogers farmstead', 'P. Rogers', 'Union skirmishers used the buildings; NPS lists the Rogers farm with no surface remains.',
+F('rogers', 'Peter Rogers farmstead', 'P. Rogers', 'NPS lists the Rogers farm among those with no surface remains; the 1974 National Register documentation rated it first-order significance.',
   [B('house', 'farmhouse', 'Rogers farm buildings (3 Warren-plate symbols)', 'lost_later', pt=(-77.244, 39.80848, 20, 'OSM node 4487576365 "Rogers House Marker" (NPS tablet)'), sym=('rogers', 1), conf='Documented',
      src=[R('NPS-GMP-1999', 'Archeological Resources', 'The Rogers farm has no surface remains.'),
           R('NPS-TP-2004', 'note 26', 'Peter Rogers farmstead severely altered.'),
@@ -245,7 +253,7 @@ F('mcmillan', 'David McMillan farmstead', 'D. McMillan', 'Occupied in turn by bo
      src=[R('NPS-CLI-PICKETT', 'David McMillan Farmstead', 'A log building about 18 by 20 feet stood on the property; only the house is extant.'), R('WARREN-BACH', 'July-1 sheet', 'Symbol marked W.')],
      notes='See barn entry on the symbol ambiguity.')])
 
-F('mclean', 'Moses McClean farmstead (tenant J. Martin)', 'M. McClean (owner); tenant J. Martin', 'Confederate (Early/Ewell) headquarters area; McClean barn survives.',
+F('mclean', 'Moses McClean farmstead (tenant J. Martin)', 'M. McClean (owner); tenant J. Martin', 'First-day fighting at the McClean farm; a red barn that may be the McClean barn is described by a Confederate officer as the Ewell-Early headquarters (the 1968 NPS report says it could have been); the barn survives.',
   [B('barn', 'barn', 'McClean barn', 'survives', cty=7678, sym=('mclean', 1), dims='about 40 x 55 ft (1968)', material='frame, red', built='before 1863', conf='Documented',
      src=[R('NPS-MCCLEAN-1968', 'Historic Data Section Part II', 'The red barn lies on a north-south axis about 200 ft south of the house and measures about 40 x 55 ft; Warren (1868-69) shows only two wooden structures at the McClean farm; claim #3248 mentions only house and barn.'),
           R('NPS-HSR-MCCLEAN-BARN', 'HSR McClean Barn', 'Historic structure report for the barn.')]),
@@ -281,7 +289,7 @@ F('forney', 'John Forney farmstead', 'J. Forney', 'Landmark of the first-day fig
           R('NPS-GMP-1999', 'Archeological Resources', 'Forney farm: no surface remains.')],
      notes='Only the large symbol near the J. FORNEY label is used; the farmstead had more than one building (unplaced).', err=20)])
 
-F('culp', 'William/Henry Culp farmstead (Rock Creek)', 'Wm. Culp', 'East of Rock Creek below Culp\'s Hill; HABS records house, barn, springhouse, woodshed and smokehouse.',
+F('culp', 'William/Henry Culp farmstead (Rock Creek)', 'Wm. Culp', 'West of Rock Creek below Culp\'s Hill; HABS titles place it west of Rock Creek; HABS records house, barn, springhouse, woodshed and smokehouse.',
   [B('house', 'farmhouse', 'Culp farm house (brick)', 'survives', cty=8971, sym=('culp', 0), material='brick', built='after 1800, before 1866 (HABS)', conf='Documented',
      src=[R('HABS-PA', 'HABS PA-354 Culp House (https://www.loc.gov/item/pa0006/)', 'Date of erection before the Battle of Gettysburg; material brick; NPS ownership.')],
      notes='2023 outline (461 m2) includes later additions; HABS also records Culp barn, springhouse, woodshed and smokehouse (https://www.loc.gov/item/pa1817/ to pa1820), not separately located.'),

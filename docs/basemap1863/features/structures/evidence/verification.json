@@ -1,23 +1,47 @@
 {
  "1_schema": {
-  "features": 599,
+  "features": 602,
   "problems": [],
   "passed": true
  },
  "2_sources": {
   "registry_keys_missing": [],
   "sources_by_type": {
-   "B": 21,
+   "B": 22,
    "A1": 2
   },
-  "unique_urls": 23,
-  "http_status": {},
+  "unique_urls": 24,
+  "http_status": {
+   "https://asylumprojects.org/index.php/Adams_County_Almshouse": "200",
+   "https://en.wikipedia.org/wiki/Gettysburg_station": "200",
+   "https://irma.nps.gov/DataStore/DownloadFile/472812": "200",
+   "https://irma.nps.gov/DataStore/DownloadFile/472822": "200",
+   "https://npshistory.com/publications/gett/brien-farm.pdf": "206",
+   "https://npshistory.com/publications/gett/cli-emmitsburg-rd-ridge-battlefield.pdf": "206",
+   "https://npshistory.com/publications/gett/cli-first-day-ufcb.pdf": "206",
+   "https://npshistory.com/publications/gett/cli-gettsyburg-landscape.pdf": "206",
+   "https://npshistory.com/publications/gett/cli-little-round-top.pdf": "206",
+   "https://npshistory.com/publications/gett/cli-picketts-charge-battlefield.pdf": "206",
+   "https://npshistory.com/publications/gett/clr-v1.pdf": "206",
+   "https://npshistory.com/publications/gett/fgmp-eis-v1-1999.pdf": "206",
+   "https://npshistory.com/publications/gett/hsr-leister-barn.pdf": "206",
+   "https://npshistory.com/publications/gett/hsr-mcclean-barn.pdf": "206",
+   "https://npshistory.com/publications/gett/mcclean-house-barn.pdf": "206",
+   "https://npshistory.com/publications/gett/spangler-farm.pdf": "206",
+   "https://www.gettysburgdaily.com/gettysburgs-christ-lutheran-church-part-1/": "200",
+   "https://www.gettysburgdaily.com/joseph-sherfy-barn-roof-replaced/": "200",
+   "https://www.loc.gov/collections/historic-american-buildings-landscapes-and-engineering-records/?q=gettysburg": "403",
+   "https://www.loc.gov/item/99447491/": "403",
+   "https://www.loc.gov/item/99448794/": "403",
+   "https://www.nps.gov/gett/learn/photosmultimedia/buildings-and-farms-then-and-now.htm": "206",
+   "https://www.openstreetmap.org/copyright": "200"
+  },
   "passed": true
  },
  "3_position_cross_checks": {
   "n": 31,
   "median_m": 3.8,
-  "p90_m": 36.6,
+  "p90_m": 33.7,
   "over_30m": [
    {
     "id": "STR-BRYAN-HOUSE1",
@@ -26,33 +50,21 @@
     "explanation": "NPS The Brien Farm and Family: Warren shows house and barn 30 ft apart, the present buildings are 75 ft apart; the plate is the survey of record, the outline is the survivor"
    },
    {
-    "id": "STR-BUSHMAN-HOUSE1",
-    "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 36.6,
-    "explanation": "southern edge of the plate, sparse control: the global georeference puts the plate symbol 37 m from the surviving house (the house was dropped from the control fit as an outlier at 39 m); footprint is the survivor"
-   },
-   {
-    "id": "STR-BUSHMAN-BARN1",
-    "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 63.0,
-    "explanation": "same: global-model error at the southern edge (63 m); the barn footprint is the survivor and no symbol point is drawn"
-   },
-   {
     "id": "STR-BLISS-HOUSE1",
     "kind": "plate symbol vs NPS/OSM site mark",
-    "offset_m": 33.8,
+    "offset_m": 33.9,
     "explanation": "two plate symbols bracket the NPS tablet at 36 m; the tablet is not used, the symbol is; Bliss buildings burned and left no outline"
    },
    {
     "id": "STR-MCMILLAN-HOUSE1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 33.5,
+    "offset_m": 33.7,
     "explanation": "west-centre of the plate where the global model has few control points (leave-one-out errors reach 30 m); the surviving house outline is drawn, no symbol point; which of the three McMillan symbols is the house is not established"
    },
    {
     "id": "STR-MCPHERSON-BARN1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 84.0,
+    "offset_m": 84.2,
     "explanation": "every Warren symbol of the McPherson farmstead lies about 50 m east of the georeferenced barn outline; symbol identity unresolved; footprint taken from the survivor, no symbol tied to it"
    }
   ],
@@ -91,7 +103,7 @@
    {
     "id": "STR-SPANGLER_H-BARN1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 0.5
+    "offset_m": 0.4
    },
    {
     "id": "STR-BRYAN-HOUSE1",
@@ -152,29 +164,27 @@
    {
     "id": "STR-SLYDER-HOUSE1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 2.4
+    "offset_m": 2.7
    },
    {
     "id": "STR-SLYDER-BARN1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 2.4
+    "offset_m": 3.4
    },
    {
     "id": "STR-BUSHMAN-HOUSE1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 36.6,
-    "explanation": "southern edge of the plate, sparse control: the global georeference puts the plate symbol 37 m from the surviving house (the house was dropped from the control fit as an outlier at 39 m); footprint is the survivor"
+    "offset_m": 5.5
    },
    {
     "id": "STR-BUSHMAN-BARN1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 63.0,
-    "explanation": "same: global-model error at the southern edge (63 m); the barn footprint is the survivor and no symbol point is drawn"
+    "offset_m": 12.1
    },
    {
     "id": "STR-WARFIELD_SNYDER-HOUSE1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 0.3
+    "offset_m": 0.1
    },
    {
     "id": "STR-WENTZ-HOUSE1",
@@ -184,18 +194,18 @@
    {
     "id": "STR-ROGERS-HOUSE1",
     "kind": "plate symbol vs NPS/OSM site mark",
-    "offset_m": 24.1
+    "offset_m": 24.2
    },
    {
     "id": "STR-BLISS-HOUSE1",
     "kind": "plate symbol vs NPS/OSM site mark",
-    "offset_m": 33.8,
+    "offset_m": 33.9,
     "explanation": "two plate symbols bracket the NPS tablet at 36 m; the tablet is not used, the symbol is; Bliss buildings burned and left no outline"
    },
    {
     "id": "STR-MCMILLAN-HOUSE1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 33.5,
+    "offset_m": 33.7,
     "explanation": "west-centre of the plate where the global model has few control points (leave-one-out errors reach 30 m); the surviving house outline is drawn, no symbol point; which of the three McMillan symbols is the house is not established"
    },
    {
@@ -211,43 +221,43 @@
    {
     "id": "STR-MCPHERSON-BARN1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 84.0,
+    "offset_m": 84.2,
     "explanation": "every Warren symbol of the McPherson farmstead lies about 50 m east of the georeferenced barn outline; symbol identity unresolved; footprint taken from the survivor, no symbol tied to it"
    },
    {
     "id": "STR-CULP-HOUSE1",
     "kind": "plate symbol (global georef) vs surviving building outline centroid",
-    "offset_m": 21.2
+    "offset_m": 21.1
    }
   ],
   "passed": true
  },
  "4_georeference": {
   "accuracy": {
-   "n_gcps": 84,
-   "n_curated": 17,
+   "n_gcps": 86,
+   "n_curated": 19,
    "n_icp": 46,
    "n_sibling": 21,
    "smoothing": 10000.0,
    "loo_by_kind": {
     "curated": {
-     "n": 17,
-     "median_m": 9.9,
-     "max_m": 31.8
+     "n": 19,
+     "median_m": 11.6,
+     "max_m": 32.0
     },
     "icp": {
      "n": 46,
-     "median_m": 9.2,
+     "median_m": 9.3,
      "max_m": 27.2
     },
     "sib_summit": {
      "n": 4,
-     "median_m": 15.0,
-     "max_m": 21.8
+     "median_m": 18.3,
+     "max_m": 23.0
     },
     "sib_road-junction": {
      "n": 7,
-     "median_m": 10.6,
+     "median_m": 9.9,
      "max_m": 13.3
     },
     "sib_farm-building": {
@@ -258,12 +268,8 @@
    },
    "excluded_outliers": [
     [
-     "bushman:house:4852",
-     38.9
-    ],
-    [
      "icp:cty375",
-     59.1
+     56.7
     ],
     [
      "icp:cty6133",
@@ -271,7 +277,7 @@
     ],
     [
      "icp:cty11175",
-     36.3
+     36.2
     ],
     [
      "icp:cty12018",
@@ -282,35 +288,35 @@
      56.2
     ],
     [
+     "SIB:Hill summit W of Plum Run (DEM S160)",
+     43.1
+    ],
+    [
      "SIB:Big Round Top summit",
-     47.5
+     49.0
     ],
     [
      "icp:cty5561",
-     42.6
+     41.7
     ],
     [
      "icp:cty9170",
-     61.0
+     50.6
     ],
     [
      "icp:cty9445",
-     55.2
+     56.3
     ],
     [
      "SIB:Hanover Rd bridge over Rock Creek",
-     53.7
-    ],
-    [
-     "SIB:Hill summit W of Plum Run (DEM S160)",
-     61.5
+     53.9
     ]
    ],
    "outlier_note": "Control points whose leave-one-out error exceeded max(35 m, 3 x median) were left out of the fit (local distortion of the plate or a mismatched pair); features placed with a local anchor are unaffected; features placed through the global model carry an error of 25 m, and up to 60 m in the north-west (First Day) corner where control is sparse.",
-   "loo_median_m": 9.84660984835376,
-   "loo_mean_m": 10.885327478984298,
-   "loo_p90_m": 20.459231773460377,
-   "loo_max_m": 31.844087841430838,
+   "loo_median_m": 9.896435694971636,
+   "loo_mean_m": 11.23416816780828,
+   "loo_p90_m": 22.009229362805776,
+   "loo_max_m": 31.969175887477775,
    "note": "Leave-one-out error of the thin-plate-spline georeference of the Bachelder/Warren plate (pixel frame of LoC cw0325000a, about 1.0 m per pixel). Control: surviving-building outlines of the 2023 Adams County dataset (curated farm buildings and a robust-ICP set) and the independent road-junction, bridge and summit points of docs/basemap1863/maps/gcps/warren.json (sibling task). Pixel units are metres to within 3 percent."
   },
   "independent_prior_check": {
@@ -1040,12 +1046,20 @@
   },
   "passed": true
  },
- "8_duplicates_counts": {
+ "8_visual_audit_duplicates_counts": {
+  "visual_audit": {
+   "groups": 26,
+   "unaudited": [],
+   "verdicts": {
+    "pass": 21,
+    "pass_with_exception": 5
+   }
+  },
   "near_duplicate_pairs_under_2m": [],
   "by_status": {
    "survives_altered": 16,
-   "survives": 29,
-   "unknown_fate": 25,
+   "survives": 31,
+   "unknown_fate": 26,
    "lost_later": 31,
    "destroyed_1863": 4,
    "ruin": 2,
@@ -1053,13 +1067,13 @@
    "unreviewed_symbol": 263
   },
   "by_confidence": {
-   "Documented": 39,
-   "Estimated": 556,
+   "Documented": 41,
+   "Estimated": 557,
    "Unknown": 3,
    "Contested": 1
   },
   "curated_farmsteads": 26,
-  "total_features": 599,
+  "total_features": 602,
   "context": "NPS 1999 GMP: 71 farms of the 1863 battlefield lie inside the park boundary; NPS CLI: over 50 agricultural properties had farm structures in 1863. 28 farmsteads are curated here; the rest are in the unreviewed machine-detected layer.",
   "passed": true
  }
