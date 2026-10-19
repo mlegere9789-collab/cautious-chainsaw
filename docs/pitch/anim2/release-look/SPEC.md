@@ -117,28 +117,28 @@ Everything below was produced by a command in this folder and is in `results/`. 
 
 | option | scene | marks | units on the field | crowds | units inside crowds | core overlaps | pins covered | unrepresented | frames with a card over a tile |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| A Standards | s1a (s1a-opening-z13.5-midbattle-t295) | 109 | 344 | 23 | 258 | 0 | 0 | 0 | 0 of 195 |
 | A Standards | s1b (s1b-opening-z13.5-day3-assault-t556) | 124 | 456 | 29 | 361 | 0 | 0 | 0 | 0 of 195 |
 | A Standards | s2 (s2-wheatfield-rose-woods-z15-t295) | 227 | 344 | 30 | 147 | 0 | 0 | 0 | 0 of 195 |
 | A Standards | s3 (s3-cemetery-hill-z15.5-t346) | 283 | 385 | 27 | 129 | 0 | 0 | 0 | 0 of 195 |
-| A Standards | s4 (s4-closeup-selected-z16.5-t551) | 422 | 451 | 12 | 41 | 0 | 0 | 0 | 0 of 285 |
-| A Standards | s5 (s5-phone-z14.5-sheet-t551) | 286 | 451 | 38 | 203 | 0 | 0 | 0 | 0 of 345 |
+| A Standards | s1a (s1a-opening-z13.5-midbattle-t295) | 109 | 344 | 23 | 258 | 0 | 0 | 0 | 0 of 195 |
+| A Standards | s4 (s4-closeup-selected-z16.5-t551) | 425 | 451 | 15 | 41 | 0 | 0 | 0 | 0 of 285 |
+| A Standards | s5 (s5-phone-z14.5-sheet-t551) | 278 | 451 | 36 | 209 | 0 | 0 | 0 | 0 of 345 |
 | A Standards | s6 (s6-event-and-story-in-situ-t28) | 84 | 88 | 4 | 8 | 0 | 0 | 0 | 0 of 195 |
 | A Standards | s6b (s6b-story-card-in-situ-t28) | 84 | 88 | 4 | 8 | 0 | 0 | 0 | 0 of 195 |
 | A Standards | s7 (s7-legend-t60) | 121 | 126 | 5 | 10 | 0 | 0 | 0 | 0 of 315 |
-| A Standards | s8 (s8-hover-tooltip-z16-t551) | 370 | 451 | 15 | 96 | 0 | 0 | 0 | 0 of 285 |
-| A Standards | s9 (s9-minimap-in-the-rail-t551) | 195 | 451 | 39 | 295 | 0 | 0 | 0 | 0 of 315 |
-| B Glyph | s1a (s1a-opening-z13.5-midbattle-t295) | 152 | 344 | 30 | 222 | 0 | 0 | 0 | 0 of 195 |
-| B Glyph | s1b (s1b-opening-z13.5-day3-assault-t556) | 169 | 456 | 38 | 325 | 0 | 0 | 0 | 0 of 195 |
-| B Glyph | s2 (s2-wheatfield-rose-woods-z15-t295) | 251 | 344 | 39 | 132 | 0 | 0 | 0 | 0 of 195 |
-| B Glyph | s3 (s3-cemetery-hill-z15.5-t346) | 309 | 385 | 32 | 108 | 0 | 0 | 0 | 0 of 195 |
-| B Glyph | s4 (s4-closeup-selected-z16.5-t551) | 432 | 451 | 15 | 34 | 0 | 0 | 0 | 0 of 285 |
-| B Glyph | s5 (s5-phone-z14.5-sheet-t551) | 317 | 451 | 26 | 160 | 0 | 0 | 0 | 0 of 345 |
+| A Standards | s8 (s8-hover-tooltip-z16-t551) | 344 | 451 | 21 | 128 | 0 | 0 | 0 | 0 of 285 |
+| A Standards | s9 (s9-minimap-in-the-rail-t551) | 193 | 451 | 39 | 297 | 0 | 0 | 0 | 0 of 315 |
+| B Glyph | s1a (s1a-opening-z13.5-midbattle-t295) | 142 | 344 | 27 | 229 | 0 | 0 | 0 | 0 of 195 |
+| B Glyph | s1b (s1b-opening-z13.5-day3-assault-t556) | 166 | 456 | 36 | 326 | 0 | 0 | 0 | 0 of 195 |
+| B Glyph | s2 (s2-wheatfield-rose-woods-z15-t295) | 248 | 344 | 38 | 134 | 0 | 0 | 0 | 0 of 195 |
+| B Glyph | s3 (s3-cemetery-hill-z15.5-t346) | 301 | 385 | 31 | 115 | 0 | 0 | 0 | 0 of 195 |
+| B Glyph | s4 (s4-closeup-selected-z16.5-t551) | 433 | 451 | 14 | 32 | 0 | 0 | 0 | 0 of 285 |
+| B Glyph | s5 (s5-phone-z14.5-sheet-t551) | 313 | 451 | 24 | 162 | 0 | 0 | 0 | 0 of 345 |
 | B Glyph | s6 (s6-event-and-story-in-situ-t28) | 87 | 88 | 1 | 2 | 0 | 0 | 0 | 0 of 195 |
 | B Glyph | s6b (s6b-story-card-in-situ-t28) | 87 | 88 | 1 | 2 | 0 | 0 | 0 | 0 of 195 |
 | B Glyph | s7 (s7-legend-t60) | 120 | 126 | 6 | 12 | 0 | 0 | 0 | 0 of 315 |
-| B Glyph | s8 (s8-hover-tooltip-z16-t551) | 374 | 451 | 27 | 104 | 0 | 0 | 0 | 0 of 285 |
-| B Glyph | s9 (s9-minimap-in-the-rail-t551) | 297 | 451 | 37 | 191 | 0 | 0 | 0 | 0 of 315 |
+| B Glyph | s8 (s8-hover-tooltip-z16-t551) | 356 | 451 | 23 | 118 | 0 | 0 | 0 | 0 of 285 |
+| B Glyph | s9 (s9-minimap-in-the-rail-t551) | 278 | 451 | 36 | 209 | 0 | 0 | 0 | 0 of 315 |
 
 22 scene frames, 0 violations of any of the four kinds.
 
@@ -146,18 +146,18 @@ Everything below was produced by a command in this folder and is in `results/`. 
 
 | option | scene | haloed labels | share with median at 4.5:1 | share with worst decile at 4.5:1 | worst median | on-cloth labels | share with median at 4.5:1 | share with worst decile at 4.5:1 | worst median |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| A Standards | s1a z13.5 t295 | 26 | 100 % | 100 % | 12.97 | 14 | 100 % | 100 % | 8.09 |
-| A Standards | s1b z13.5 t556 | 22 | 100 % | 100 % | 12.95 | 18 | 100 % | 100 % | 7.98 |
-| A Standards | s2 z15 t295 | 27 | 100 % | 100 % | 12.61 | 34 | 100 % | 88.2 % | 7.39 |
-| A Standards | s3 z15.5 t346 | 12 | 100 % | 100 % | 13.03 | 25 | 100 % | 72 % | 6.73 |
-| A Standards | s4 z16.5 t551 | 9 | 100 % | 100 % | 12.58 | 18 | 100 % | 94.4 % | 7.76 |
-| A Standards | z12.5 t226 | 17 | 100 % | 100 % | 13.06 | 13 | 100 % | 100 % | 8.16 |
-| B Glyph | s1a z13.5 t295 | 34 | 100 % | 100 % | 7.61 | 18 | 100 % | 100 % | 11.65 |
-| B Glyph | s1b z13.5 t556 | 34 | 100 % | 100 % | 7.52 | 26 | 100 % | 100 % | 9.52 |
-| B Glyph | s2 z15 t295 | 51 | 100 % | 100 % | 7.16 | 18 | 100 % | 100 % | 9.5 |
-| B Glyph | s3 z15.5 t346 | 32 | 100 % | 100 % | 6.26 | 11 | 100 % | 100 % | 9.58 |
-| B Glyph | s4 z16.5 t551 | 23 | 100 % | 100 % | 5.6 | 5 | 100 % | 100 % | 7 |
-| B Glyph | z12.5 t226 | 21 | 100 % | 100 % | 7.51 | 17 | 94.1 % | 82.4 % | 4.46 |
+| A Standards | s1a z13.5 t295 | 26 | 100 % | 100 % | 12.94 | 14 | 100 % | 100 % | 7.83 |
+| A Standards | s1b z13.5 t556 | 23 | 100 % | 100 % | 12.86 | 18 | 100 % | 100 % | 7.41 |
+| A Standards | s2 z15 t295 | 29 | 100 % | 100 % | 12.63 | 28 | 100 % | 100 % | 6.53 |
+| A Standards | s3 z15.5 t346 | 13 | 100 % | 100 % | 13.02 | 24 | 100 % | 100 % | 6.45 |
+| A Standards | s4 z16.5 t551 | 9 | 100 % | 100 % | 12.58 | 17 | 100 % | 100 % | 6.67 |
+| A Standards | z12.5 t226 | 17 | 100 % | 100 % | 13.06 | 13 | 100 % | 100 % | 7.59 |
+| B Glyph | s1a z13.5 t295 | 33 | 100 % | 100 % | 7.52 | 16 | 100 % | 100 % | 10.51 |
+| B Glyph | s1b z13.5 t556 | 35 | 100 % | 100 % | 7.52 | 26 | 100 % | 100 % | 9.05 |
+| B Glyph | s2 z15 t295 | 49 | 100 % | 100 % | 7.16 | 17 | 100 % | 100 % | 8.97 |
+| B Glyph | s3 z15.5 t346 | 28 | 100 % | 100 % | 6.36 | 11 | 100 % | 100 % | 9.07 |
+| B Glyph | s4 z16.5 t551 | 25 | 100 % | 100 % | 5.6 | 3 | 100 % | 100 % | 9.27 |
+| B Glyph | z12.5 t226 | 21 | 100 % | 100 % | 7.51 | 19 | 100 % | 100 % | 8.28 |
 
 The measured ink is the median of the opaque ink pixels after the canvas has resampled them, which makes it slightly lighter (or darker) than the token colour: the ratios are conservative.
 

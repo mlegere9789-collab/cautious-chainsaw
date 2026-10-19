@@ -1,28 +1,34 @@
 {
- "generated": "2026-10-19T04:34:42.734Z",
+ "generated": "2026-10-19T17:00:27.882Z",
  "option": "b",
  "method": "see the header of tools/audit.mjs",
  "scenes": [
   {
    "scene": "s1a z13.5 t295",
-   "labels": 52,
+   "labels": 49,
    "split": {
     "haloed": {
-     "n": 34,
+     "n": 33,
      "shareMedian": 1,
      "shareP10": 1,
-     "worstMedian": 7.61,
+     "worstMedian": 7.52,
      "worstP10": 6.95
     },
     "onCloth": {
-     "n": 18,
+     "n": 16,
      "shareMedian": 1,
      "shareP10": 1,
-     "worstMedian": 11.65,
-     "worstP10": 9.94
+     "worstMedian": 10.51,
+     "worstP10": 9.29
     }
    },
    "worstLabels": [
+    {
+     "ink": "#a04d36",
+     "med": 7.52,
+     "p10": 6.95,
+     "wCss": 132
+    },
     {
      "ink": "#9e4831",
      "med": 7.61,
@@ -34,16 +40,10 @@
      "med": 7.67,
      "p10": 6.95,
      "wCss": 110
-    },
-    {
-     "ink": "#a04d36",
-     "med": 7.67,
-     "p10": 7.08,
-     "wCss": 132
     }
    ],
    "medianOfMedians": 9.43,
-   "worstMedian": 7.61,
+   "worstMedian": 7.52,
    "shareMedianAbove4_5": 1,
    "shareP10Above4_5": 1,
    "worstP10": 6.95,
@@ -54,21 +54,21 @@
   },
   {
    "scene": "s1b z13.5 t556",
-   "labels": 60,
+   "labels": 61,
    "split": {
     "haloed": {
-     "n": 34,
+     "n": 35,
      "shareMedian": 1,
      "shareP10": 1,
      "worstMedian": 7.52,
-     "worstP10": 6.88
+     "worstP10": 7.02
     },
     "onCloth": {
      "n": 26,
      "shareMedian": 1,
      "shareP10": 1,
-     "worstMedian": 9.52,
-     "worstP10": 6.23
+     "worstMedian": 9.05,
+     "worstP10": 9.05
     }
    },
    "worstLabels": [
@@ -79,23 +79,23 @@
      "wCss": 138
     },
     {
-     "ink": "#a04c35",
-     "med": 7.56,
-     "p10": 6.94,
-     "wCss": 132
+     "ink": "#9f4b34",
+     "med": 7.57,
+     "p10": 7.05,
+     "wCss": 110
     },
     {
-     "ink": "#a04c35",
-     "med": 7.56,
-     "p10": 6.88,
-     "wCss": 132
+     "ink": "#9e4831",
+     "med": 7.61,
+     "p10": 7.11,
+     "wCss": 137
     }
    ],
-   "medianOfMedians": 9.5,
+   "medianOfMedians": 9.29,
    "worstMedian": 7.52,
    "shareMedianAbove4_5": 1,
    "shareP10Above4_5": 1,
-   "worstP10": 6.23,
+   "worstP10": 7.02,
    "spriteHeightsCss": [
     24,
     25
@@ -103,21 +103,21 @@
   },
   {
    "scene": "s2 z15 t295",
-   "labels": 69,
+   "labels": 66,
    "split": {
     "haloed": {
-     "n": 51,
+     "n": 49,
      "shareMedian": 1,
      "shareP10": 1,
      "worstMedian": 7.16,
      "worstP10": 6.39
     },
     "onCloth": {
-     "n": 18,
+     "n": 17,
      "shareMedian": 1,
      "shareP10": 1,
-     "worstMedian": 9.5,
-     "worstP10": 5.86
+     "worstMedian": 8.97,
+     "worstP10": 8.97
     }
    },
    "worstLabels": [
@@ -128,23 +128,23 @@
      "wCss": 28
     },
     {
-     "ink": "#9e4932",
-     "med": 7.78,
-     "p10": 7.18,
-     "wCss": 136
+     "ink": "#9f4a33",
+     "med": 7.42,
+     "p10": 6.91,
+     "wCss": 174
     },
     {
-     "ink": "#9e4932",
-     "med": 7.84,
-     "p10": 7.31,
-     "wCss": 136
+     "ink": "#9f4b34",
+     "med": 7.77,
+     "p10": 7.24,
+     "wCss": 139
     }
    ],
-   "medianOfMedians": 9.5,
+   "medianOfMedians": 9.28,
    "worstMedian": 7.16,
    "shareMedianAbove4_5": 1,
    "shareP10Above4_5": 1,
-   "worstP10": 5.86,
+   "worstP10": 6.39,
    "spriteHeightsCss": [
     24,
     25
@@ -152,30 +152,24 @@
   },
   {
    "scene": "s3 z15.5 t346",
-   "labels": 43,
+   "labels": 39,
    "split": {
     "haloed": {
-     "n": 32,
+     "n": 28,
      "shareMedian": 1,
      "shareP10": 1,
-     "worstMedian": 6.26,
-     "worstP10": 5.54
+     "worstMedian": 6.36,
+     "worstP10": 5.77
     },
     "onCloth": {
      "n": 11,
      "shareMedian": 1,
      "shareP10": 1,
-     "worstMedian": 9.58,
-     "worstP10": 8.3
+     "worstMedian": 9.07,
+     "worstP10": 9.07
     }
    },
    "worstLabels": [
-    {
-     "ink": "#65696f",
-     "med": 6.26,
-     "p10": 5.54,
-     "wCss": 34
-    },
     {
      "ink": "#686b71",
      "med": 6.36,
@@ -184,16 +178,22 @@
     },
     {
      "ink": "#5e6269",
-     "med": 6.62,
-     "p10": 5.74,
+     "med": 6.7,
+     "p10": 5.79,
      "wCss": 32
+    },
+    {
+     "ink": "#5f6369",
+     "med": 7.06,
+     "p10": 6.46,
+     "wCss": 36
     }
    ],
-   "medianOfMedians": 9.44,
-   "worstMedian": 6.26,
+   "medianOfMedians": 9.35,
+   "worstMedian": 6.36,
    "shareMedianAbove4_5": 1,
    "shareP10Above4_5": 1,
-   "worstP10": 5.54,
+   "worstP10": 5.77,
    "spriteHeightsCss": [
     24,
     25
@@ -204,18 +204,18 @@
    "labels": 28,
    "split": {
     "haloed": {
-     "n": 23,
+     "n": 25,
      "shareMedian": 1,
      "shareP10": 1,
      "worstMedian": 5.6,
      "worstP10": 5.22
     },
     "onCloth": {
-     "n": 5,
+     "n": 3,
      "shareMedian": 1,
      "shareP10": 1,
-     "worstMedian": 7,
-     "worstP10": 5.9
+     "worstMedian": 9.27,
+     "worstP10": 9.27
     }
    },
    "worstLabels": [
@@ -226,19 +226,19 @@
      "wCss": 56
     },
     {
-     "ink": "#fafbfc",
-     "med": 7,
-     "p10": 6.08,
-     "wCss": 15
-    },
-    {
      "ink": "#9d462f",
      "med": 7.78,
      "p10": 7.37,
      "wCss": 81
+    },
+    {
+     "ink": "#9b432b",
+     "med": 8.29,
+     "p10": 7.8,
+     "wCss": 131
     }
    ],
-   "medianOfMedians": 10.13,
+   "medianOfMedians": 10.19,
    "worstMedian": 5.6,
    "shareMedianAbove4_5": 1,
    "shareP10Above4_5": 1,
@@ -250,7 +250,7 @@
   },
   {
    "scene": "z12.5 t226",
-   "labels": 38,
+   "labels": 40,
    "split": {
     "haloed": {
      "n": 21,
@@ -260,38 +260,38 @@
      "worstP10": 7
     },
     "onCloth": {
-     "n": 17,
-     "shareMedian": 0.941,
-     "shareP10": 0.824,
-     "worstMedian": 4.46,
-     "worstP10": 3.2
+     "n": 19,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 8.28,
+     "worstP10": 7.42
     }
    },
    "worstLabels": [
     {
-     "ink": "#f4f1f0",
-     "med": 4.46,
-     "p10": 3.2,
-     "wCss": 15
+     "ink": "#9e4931",
+     "med": 7.51,
+     "p10": 7,
+     "wCss": 138
     },
     {
-     "ink": "#fdfcfc",
-     "med": 5.53,
-     "p10": 3.92,
-     "wCss": 21
+     "ink": "#9e4830",
+     "med": 7.72,
+     "p10": 7.2,
+     "wCss": 146
     },
     {
-     "ink": "#f8f9fb",
-     "med": 5.91,
-     "p10": 4.11,
-     "wCss": 21
+     "ink": "#9f4a33",
+     "med": 7.83,
+     "p10": 7.3,
+     "wCss": 137
     }
    ],
-   "medianOfMedians": 9.18,
-   "worstMedian": 4.46,
-   "shareMedianAbove4_5": 0.974,
-   "shareP10Above4_5": 0.921,
-   "worstP10": 3.2,
+   "medianOfMedians": 9.19,
+   "worstMedian": 7.51,
+   "shareMedianAbove4_5": 1,
+   "shareP10Above4_5": 1,
+   "worstP10": 7,
    "spriteHeightsCss": [
     24,
     25
