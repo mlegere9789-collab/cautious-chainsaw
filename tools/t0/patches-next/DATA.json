@@ -955,6 +955,166 @@
    "note": "wrong-number: ledger WSD-09, WSD-10 (Livermore engaged 83,289 and 75,054; Union losses 23,049 and Confederate 28,063 by his count)"
   },
   {
+   "id": "DATA-mA-20me_lrt",
+   "target": "js",
+   "find": "label:\"20th Maine — Col. Chamberlain held the extreme left of the Union line here at 4:30 PM July 2\"",
+   "repl": "label:\"20th Maine — Col. Chamberlain held the extreme left of the Union line here from about 4:30 PM July 2; the hour of his bayonet charge is contested (about 5:10 to after 7 PM)\"",
+   "expect": 1,
+   "note": "contested-fact: OR 27/1 p.623-624 (Chamberlain: near 4 p.m. the movement began); time-facts R066"
+  },
+  {
+   "id": "DATA-mA-15al_lrt",
+   "target": "js",
+   "find": "label:\"15th Alabama — Col. Oates made 4 assaults up this slope. Company B sent for water never returned.\"",
+   "repl": "label:\"15th Alabama — Col. Oates attacked the left of the 20th Maine repeatedly; Oates later wrote that he made several assaults (the count of four and the story of the company sent for water are from his postwar account, not the reports)\"",
+   "expect": 1,
+   "note": "unsupported-claim: OR 27/1 p.623-624 (Chamberlain: the 15th and 47th Alabama prisoners); Oates 1905 account not re-read"
+  },
+  {
+   "id": "DATA-mA-iron_brig",
+   "target": "js",
+   "find": "label:\"Iron Brigade — Charged into Herbst Woods at 10:00 AM July 1. Archer captured.\"",
+   "repl": "label:\"Iron Brigade — Charged into Herbst Woods about 10:15 AM July 1 and hurled Archer's brigade back across the run; Archer was captured\"",
+   "expect": 1,
+   "note": "wrong-time: OR 27/1 p.245 (Doubleday: Reynolds shot \"in the beginning of the attack\", about 10.15; Archer captured)"
+  },
+  {
+   "id": "DATA-mA-reynolds",
+   "target": "js",
+   "find": "label:\"General Reynolds killed here at 10:15 AM July 1 — directing the Iron Brigade into position\"",
+   "repl": "label:\"General Reynolds killed here about 10:15 AM July 1 (Doubleday; Howard gives 11:15) — directing the Iron Brigade into position\"",
+   "expect": 1,
+   "note": "contested-fact: OR 27/1 p.245, p.696; ledger WSD-14"
+  },
+  {
+   "id": "DATA-mA-cushing",
+   "target": "js",
+   "find": "label:\"Lt. Cushing fired his last rounds here at 3:00 PM July 3 — killed at the moment of Armistead breakthrough\"",
+   "repl": "label:\"Lt. Cushing, wounded in both thighs, fought on here and was killed at the fence by his guns during the assault, about 3:30 PM July 3 (accounts 3:00 to 3:45)\"",
+   "expect": 1,
+   "note": "wrong-time: OR 27/1 p.429 (Webb), p.240 (Hunt); time-facts R114"
+  },
+  {
+   "id": "DATA-mA-armistead",
+   "target": "js",
+   "find": "label:\"Armistead fell here at Cushing's guns — July 3, 3:15 PM. Asked that his watch be delivered to Hancock.\"",
+   "repl": "label:\"Armistead fell here at Cushing's guns about 3:35 PM July 3 and was left mortally wounded within the Union lines (Harrow). Later accounts say he asked that a message and keepsake go to Hancock; that is tradition\"",
+   "expect": 1,
+   "note": "unsupported-claim: OR 27/1 p.428 (Harrow); time-facts R115"
+  },
+  {
+   "id": "DATA-mA-hancock",
+   "target": "js",
+   "find": "label:\"Hancock wounded here at 3:20 PM July 3 — nail driven into his thigh. Refused to leave until victory certain.\"",
+   "repl": "label:\"Hancock wounded here about 3:30 PM July 3 (Meade reports Hancock and Gibbon both severely wounded); the saddle-nail wound and his refusal to leave are from later accounts\"",
+   "expect": 1,
+   "note": "unsupported-claim: OR 27/1 p.117 (Meade)"
+  },
+  {
+   "id": "DATA-mA-140pa",
+   "target": "js",
+   "find": "label:\"140th PA — Part of Vincent brigade that raced up Little Round Top just ahead of Law.\"",
+   "repl": "label:\"140th PA — Zook's brigade, II Corps; fought in the Wheatfield on July 2, where its colonel, Richard P. Roberts, was killed\"",
+   "expect": 1,
+   "note": "wrong-unit: OR 27/1 p.157 (roster: 140th Pennsylvania in Zook's Third Brigade), p.375 (Roberts killed on the 2d)"
+  },
+  {
+   "id": "DATA-mA-83pa",
+   "target": "js",
+   "find": "label:\"83rd PA — Held the right of Vincent brigade on Little Round Top.\"",
+   "repl": "label:\"83rd PA — Held the left center of Vincent's brigade on Little Round Top, between the 20th Maine on its left and the 44th New York on its right\"",
+   "expect": 1,
+   "note": "wrong-place: OR 27/1 p.632 (83rd Pennsylvania: \"the Forty-fourth New York on my right, the Twentieth Maine on my left\")"
+  },
+  {
+   "id": "DATA-mA-irish_brig",
+   "target": "js",
+   "find": "label:\"Irish Brigade — Advanced into the Wheatfield with green boxwood sprigs, Celtic tradition before battle.\"",
+   "repl": "label:\"Irish Brigade — Advanced into the Wheatfield; regimental tradition says the men wore sprigs of green boxwood in their caps\"",
+   "expect": 1,
+   "note": "unsupported-claim: tradition, labelled"
+  },
+  {
+   "id": "DATA-mA-1mn",
+   "target": "js",
+   "find": "label:\"1st Minnesota — Charged Wilcox brigade to buy 5 minutes — lost 224 of 262 men. Greatest loss percentage of any regiment.\"",
+   "repl": "label:\"1st Minnesota — Charged Willcox's brigade on Hancock's order to gain time; Fox counts 224 casualties of 262 engaged for the battle (215 on July 2), the highest percentage of any Union regiment in a single battle in his tables\"",
+   "expect": 1,
+   "note": "wrong-number: Fox p.26, p.36, p.402; ledger WSD-12"
+  },
+  {
+   "id": "DATA-mA-72pa",
+   "target": "js",
+   "find": "label:\"72nd PA — Webb's Philadelphia Brigade held The Angle against Pickett's Charge.\"",
+   "repl": "label:\"72nd PA — Webb's Philadelphia Brigade held The Angle against Pickett's Charge (the 72nd stood behind the crest; the 69th and 71st held the wall)\"",
+   "expect": 1,
+   "note": "wrong-place: OR 27/1 p.374 (Hancock: the 69th and 71st behind the low stone wall, the rest of the brigade behind the crest)"
+  },
+  {
+   "id": "DATA-mA-26nc",
+   "target": "js",
+   "find": "label:\"26th NC — Lost 714 of 800 men on July 1 — highest regimental casualties in the battle on either side.\"",
+   "repl": "label:\"26th NC — Fox: over 800 men engaged (820 present), 86 killed and 502 wounded, 588 in all (71.7 percent), most on July 1 with further loss on July 3; among the heaviest regimental losses of the battle\"",
+   "expect": 1,
+   "note": "wrong-number: Fox p.555-556; ledger WSD-13"
+  },
+  {
+   "id": "DATA-mA-16vt",
+   "target": "js",
+   "find": "label:\"16th Vermont — Made two separate flanking charges during Pickett's Charge. First day of combat.\"",
+   "repl": "label:\"16th Vermont — Under Stannard's orders changed front twice against the flanks of the Confederate columns during Pickett's Charge, taking the colors of the 2nd Florida and 8th Virginia. First day of combat.\"",
+   "expect": 1,
+   "note": "unsupported-detail: OR 27/1 p.350 (Stannard)"
+  },
+  {
+   "id": "DATA-mA-20nc",
+   "target": "js",
+   "find": "label:\"Iverson's Pits — 20th NC advanced without skirmishers into an ambush. 232 surrendered in the wheat field.\"",
+   "repl": "label:\"Iverson's brigade, Oak Ridge — the 20th NC, on the right of the brigade, suffered least when Iverson's attack was cut down by musketry from the stone wall; many of the brigade's men were surrounded and captured\"",
+   "expect": 1,
+   "note": "wrong-claim: OR 27/2 p.444 (Ewell: \"The Twentieth North Carolina, being on the right of his brigade, suffered least\"), p.554 (Rodes)"
+  },
+  {
+   "id": "DATA-mA-barlow",
+   "target": "js",
+   "find": "label:\"Barlow wounded here at 2:30 PM July 1. Gordon gave him water. They became friends after the war.\"",
+   "repl": "label:\"Barlow severely wounded here about 3 PM July 1 and captured (Schurz, Ewell). The story that Gordon gave him water, and of their later friendship, is from Gordon's own account\"",
+   "expect": 1,
+   "note": "unsupported-claim: OR 27/1 p.728-729 (Schurz: \"about 3 o'clock\"), OR 27/2 p.445, p.469"
+  },
+  {
+   "id": "DATA-mA-6wis",
+   "target": "js",
+   "find": "label:\"6th Wisconsin — Charged the Railroad Cut at 10:30 AM July 1. Captured 232 men and the 2nd MS flag.\"",
+   "repl": "label:\"6th Wisconsin — Charged the Railroad Cut about 11 AM July 1. Sent 7 officers and about 225 men to the rear and took the 2nd Mississippi's flag\"",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 p.276 (Dawes); time anchor R017"
+  },
+  {
+   "id": "DATA-mA-avery",
+   "target": "js",
+   "find": "label:\"Avery mortally wounded here during the assault on Cemetery Hill. His last note, written in blood: It was my fault.\"",
+   "repl": "label:\"Avery mortally wounded here during the assault on Cemetery Hill. The note attributed to him is traditional: Tell my father I died with my face to the enemy\"",
+   "expect": 1,
+   "note": "wrong-quote: tradition (docs-copy-33); OR 27/2 p.319 (Avery commanding Hoke's brigade)"
+  },
+  {
+   "id": "DATA-mA-hood",
+   "target": "js",
+   "find": "label:\"Hood wounded in the arm at 4:00 PM July 2 — lost the use of his arm permanently.\"",
+   "repl": "label:\"Hood wounded in the arm about 4:30 PM July 2 soon after the attack began (Lee's dispatch of July 4 says in the arm)\"",
+   "expect": 1,
+   "note": "unsupported-claim: OR 27/2 p.298 (Lee: \"General Hood in the arm\"), p.359 (Longstreet); time-facts R058"
+  },
+  {
+   "id": "DATA-mA-greene",
+   "target": "js",
+   "find": "label:\"Greene's NY brigade — 1,400 men held Culp's Hill overnight against 4,700 Confederates.\"",
+   "repl": "label:\"Greene's NY brigade — 1,424 men by Geary's count, reinforced in the evening by detachments of the I and XI Corps, held the entrenched Culp's Hill against Johnson's division\"",
+   "expect": 1,
+   "note": "wrong-number: OR 27/1 p.121, p.833, p.858"
+  },
+  {
    "id": "DATA-vig-V-001-panel_summary",
    "target": "data/vignettes_part1.json",
    "find": "\"panel_summary\": \"At approximately 7:30am on July 1, 1863, Lieutenant Marcellus Jones of the 8th Illinois Cavalry fired the first shot of the Battle of Gettysburg. He borrowed a carbine from a sergeant, rested it on a fence rail, and fired at a distant Confederate officer. The shot missed -- but 51,000 casualties would follow.\"",
