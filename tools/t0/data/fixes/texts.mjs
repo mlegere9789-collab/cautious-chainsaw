@@ -2,6 +2,19 @@
 // messages, the retreat line, the Help chunk, the landing page and a few static pages. All are asserted find/replace patches; bundle anchors are also checked
 // against the baseline text by the generator. (The Virtual Walkthrough, its stop data `d2` and the 512-monument array are NOT touched.)
 export const kind = 'text';
+// number of distinct units that have a placement after the id and arrival fixes (fixes/ids.mjs, fixes/prearrival.mjs)
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { remapId, preArrival, noteOf } from '../idmap.mjs';
+const DATA_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..', '..', 'baseline', 'dist', 'data');
+const UNIT_ROW = new RegExp(String.raw`^\s*\{"unit_id":"([^"]+)","tick":(\d+),`);
+const UNITS = new Set();
+const COUNTS = { regiment: 0, battery: 0, brigade: 0, division: 0, corps: 0 };
+for (const f of fs.readdirSync(DATA_DIR).filter((x) => /^(placements_|density_).*\.json$/.test(x))) for (const l of fs.readFileSync(path.join(DATA_DIR, f), 'utf8').split(String.fromCharCode(10))) { const m = UNIT_ROW.exec(l); if (m && !preArrival(m[1], m[2])) UNITS.add(remapId(f, m[1], m[2], noteOf(l))); }
+for (const u of UNITS) { if (/^[UC]-ART|^U-HAB|^C-HAB/.test(u)) COUNTS.battery++; else if (/^[UC]-[IVX]+$|^[UC]-CAV$/.test(u)) COUNTS.corps++; else if (/^[UC]-[IVX]+-\d$|^[UC]-CAV-\d$/.test(u)) COUNTS.division++; else if (/^[UC]-[IVX]+-\d-\w+$|^[UC]-CAV-\d-\w+$/.test(u)) COUNTS.brigade++; else COUNTS.regiment++; }
+export const UNIT_COUNT = UNITS.size;
+const UC = String(UNIT_COUNT);
 const J = (id, target, find, repl, cls, before, src, expect = 1) => ({ id, target, find, repl, expect, cls, before, src });
 const T = (id, find, repl, cls, before, src, expect = 1) => J(id, 'js', find, repl, cls, before, src, expect);
 export default [
@@ -137,10 +150,10 @@ export default [
   // ---- static pages
   J('DATA-find-count', 'find-ancestor.html', 'which of the 467 Union and Confederate regiments and batteries at Gettysburg your ancestor may have served in', 'which of the 443 Union and Confederate infantry and cavalry regiment records in the order of battle of this site your ancestor may have served in (batteries are not searched)',
     'wrong-number', '"467 ... regiments and batteries": the page loads 384 infantry, 59 cavalry records and no batteries', 'count of regiments[] in the eight data/oob files the page fetches: 443'),
-  J('DATA-idx-meta', 'index.html', 'unfold in real time -- 467 regiments and batteries across 675 five-minute snapshots', 'unfold step by step -- 478 units (regiments, batteries and the brigades, divisions and corps above them) across 675 snapshots',
-    'wrong-number', '"467 regiments and batteries", "five-minute snapshots", "real time"', 'count of distinct unit ids in data/placements_*.json and density_*.json: 478 (256 regiments, 56 batteries, 115 brigades, 34 divisions, 6 corps, 11 other ids); 4 occurrences', 4),
+  J('DATA-idx-meta', 'index.html', 'unfold in real time -- 467 regiments and batteries across 675 five-minute snapshots', 'unfold step by step -- ' + UC + ' units (regiments, batteries and the brigades, divisions and corps above them) across 675 snapshots',
+    'wrong-number', '"467 regiments and batteries", "five-minute snapshots", "real time"', 'count of distinct unit ids in data/placements_*.json and density_*.json after the id and arrival fixes: ' + UC + ' (' + COUNTS.regiment + ' regiments, ' + COUNTS.battery + ' batteries, ' + COUNTS.brigade + ' brigades, ' + COUNTS.division + ' divisions, ' + COUNTS.corps + ' corps); 4 occurrences', 4),
   J('DATA-idx-about', 'index.html', 'minute-by-minute reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): 467 regiments and batteries tracked across 675 five-minute snapshots, built from primary-source unit records, chronology, and terrain data',
-    'step-by-step reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): 478 units tracked across 675 snapshots, reconstructed from published unit records, chronology, and terrain data', 'wrong-number', 'same', 'same', 2),
+    'step-by-step reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): ' + UC + ' units tracked across 675 snapshots, reconstructed from published unit records, chronology, and terrain data', 'wrong-number', 'same', 'same', 2),
   J('DATA-idx-boot', 'index.html', 'Watch the battle unfold in real time across 675 five-minute snapshots.', 'Watch the battle unfold step by step across 675 snapshots.', 'wrong-claim', '"real time ... five-minute"', 'same'),
   J('DATA-terms-res', 'terms.html', 'Historical positions, especially at five-minute resolution, are a best-effort reconstruction', 'Historical positions, especially at the resolution of this animation, are a best-effort reconstruction', 'wrong-claim', '"five-minute resolution"', 'same'),
   J('DATA-gr-sub', 'ground-remembers.html', 'Every recorded unit position across all 675 five-minute snapshots, accumulated into one map', 'Every recorded unit position across all 675 snapshots, accumulated into one map', 'wrong-claim', '"five-minute snapshots"', 'same'),

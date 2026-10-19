@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "count": 1490,
+ "count": 1507,
  "fixes": [
   {
    "id": "DATA-cas-UI-day1",
@@ -4322,7 +4322,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-cavalry-detail-U-8IL-CAV-3",
+   "id": "DATA-note-density-cavalry-detail-U-8IL-3",
    "target": "data/density_cavalry_detail.json",
    "cls": "contested-fact",
    "before": "8th Illinois Cavalry -- Marcellus Jones fires the first shot from Knoxlyn Ridge",
@@ -4402,7 +4402,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-afternoon-C-15AL-150",
+   "id": "DATA-note-density-day1-afternoon-U-15AL-150",
    "target": "data/density_day1_afternoon.json",
    "cls": "unsupported-claim",
    "before": "15th Alabama bivouacking west of Round Tops -- will assault them tomorrow",
@@ -4412,7 +4412,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-afternoon-C-4TX-150",
+   "id": "DATA-note-density-day1-afternoon-U-4TX-150",
    "target": "data/density_day1_afternoon.json",
    "cls": "unsupported-claim",
    "before": "Texas Brigade bivouacking -- will charge Devil's Den tomorrow",
@@ -4422,7 +4422,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-afternoon-C-13MS-200",
+   "id": "DATA-note-density-day1-afternoon-C-13MS-B-200",
    "target": "data/density_day1_afternoon.json",
    "cls": "unsupported-claim",
    "before": "Barksdale's Mississippians bivouacking -- Barksdale will charge the Peach Orchard tomorrow",
@@ -4452,7 +4452,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-barlowsknoll-C-II-1-3-63",
+   "id": "DATA-note-density-day1-barlowsknoll-C-II-1-1-63",
    "target": "data/density_day1_barlowsknoll.json",
    "cls": "contested-fact",
    "before": "Gordon riding forward -- he finds Barlow lying wounded and stops to give him water. They will become friends after the war.",
@@ -4462,7 +4462,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-barlowsknoll-U-XI-1-68",
+   "id": "DATA-note-density-day1-barlowsknoll-U-XI-1-1-68",
    "target": "data/density_day1_barlowsknoll.json",
    "cls": "unsupported-claim",
    "before": "Barlow's survivors in the streets -- Barlow himself on the field, left for dead. He will survive.",
@@ -4472,7 +4472,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-barlowsknoll-C-II-1-3-68",
+   "id": "DATA-note-density-day1-barlowsknoll-C-II-1-1-68",
    "target": "data/density_day1_barlowsknoll.json",
    "cls": "contested-fact",
    "before": "Gordon's brigade at the northern edge of Gettysburg -- Ewell will not order the advance to Cemetery Hill",
@@ -4492,7 +4492,17 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-ironbrigade-U-24MI-16",
+   "id": "DATA-note-density-day1-ironbrigade-U-I-1-7W-16",
+   "target": "data/density_day1_ironbrigade.json",
+   "cls": "unsupported-claim",
+   "before": "7th Wisconsin following -- the Black Hats are coming",
+   "src": "not in the reports read",
+   "find": "(\"unit_id\":\"U-7WI\",\"tick\":16,[^\\n]*?\"notes\":\")7th Wisconsin following -- the Black Hats are coming\"",
+   "repl": "\\g<1>7th Wisconsin following\"",
+   "area": "notes"
+  },
+  {
+   "id": "DATA-note-density-day1-ironbrigade-U-I-1-24MI-16",
    "target": "data/density_day1_ironbrigade.json",
    "cls": "wrong-number",
    "before": "24th Michigan -- largest regiment in the brigade. Will lose 362 of 496 today.",
@@ -4502,7 +4512,17 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-ironbrigade-C-III-2-3-22",
+   "id": "DATA-note-density-day1-ironbrigade-C-III-2-1-16",
+   "target": "data/density_day1_ironbrigade.json",
+   "cls": "unsupported-claim",
+   "before": "Archer's brigade -- in Herbst Woods. They see the Black Hats coming and know they face the Iron Brigade.",
+   "src": "what Archer's men thought is not in the reports read",
+   "find": "(\"unit_id\":\"C-III-2-3\",\"tick\":16,[^\\n]*?\"notes\":\")Archer's brigade -- in Herbst Woods\\. They see the Black Hats coming and know they face the Iron Brigade\\.\"",
+   "repl": "\\g<1>Archer's brigade in Herbst Woods, facing the Iron Brigade\"",
+   "area": "notes"
+  },
+  {
+   "id": "DATA-note-density-day1-ironbrigade-C-III-2-1-22",
    "target": "data/density_day1_ironbrigade.json",
    "cls": "unsupported-claim",
    "before": "ARCHER CAPTURED -- Pvt. Patrick Maloney of 2nd Wisconsin grabs Archer personally. Archer, furious: Not so fast!",
@@ -4512,7 +4532,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-ironbrigade-C-III-2-3-26",
+   "id": "DATA-note-density-day1-ironbrigade-C-III-2-1-26",
    "target": "data/density_day1_ironbrigade.json",
    "cls": "unsupported-claim",
    "before": "Archer's survivors reforming west of the creek -- Archer is in Union hands. Heth is furious.",
@@ -4522,7 +4542,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-ironbrigade-U-19IN-28",
+   "id": "DATA-note-density-day1-ironbrigade-U-I-1-19IN-28",
    "target": "data/density_day1_ironbrigade.json",
    "cls": "leaked-id",
    "before": "19th Indiana in Herbst Woods -- Reynolds arrives, directs the line, is shot from his horse. Tick 28.",
@@ -4532,7 +4552,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-iverson-C-12NC-50",
+   "id": "DATA-note-density-day1-iverson-C-12NC-IV-50",
    "target": "data/density_day1_iverson.json",
    "cls": "unsupported-claim",
    "before": "12th NC in column -- 219 men",
@@ -4542,7 +4562,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-iverson-C-20NC-50",
+   "id": "DATA-note-density-day1-iverson-C-20NC-IV-50",
    "target": "data/density_day1_iverson.json",
    "cls": "unsupported-claim",
    "before": "20th NC -- Iverson's largest regiment",
@@ -4552,7 +4572,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-iverson-C-23NC-50",
+   "id": "DATA-note-density-day1-iverson-C-23NC-IV-50",
    "target": "data/density_day1_iverson.json",
    "cls": "unsupported-claim",
    "before": "23rd NC -- the flank regiment, about to be hit hardest",
@@ -4562,7 +4582,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-iverson-U-I-2-2-50",
+   "id": "DATA-note-density-day1-iverson-U-I-2-3-50",
    "target": "data/density_day1_iverson.json",
    "cls": "wrong-claim",
    "before": "Paul's brigade behind the stone wall on Oak Ridge -- 1200 rifles leveled at Iverson's exposed flank",
@@ -4572,7 +4592,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-iverson-C-5NC-53",
+   "id": "DATA-note-density-day1-iverson-C-5NC-IV-53",
    "target": "data/density_day1_iverson.json",
    "cls": "wrong-number",
    "before": "5th NC IN THE PITS -- 290 of 470 down in the first volley. The survivors fall into a depression and surrender.",
@@ -4582,7 +4602,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-iverson-C-12NC-53",
+   "id": "DATA-note-density-day1-iverson-C-12NC-IV-53",
    "target": "data/density_day1_iverson.json",
    "cls": "wrong-number",
    "before": "12th NC -- 139 of 219 killed or wounded in minutes. 80 survivors.",
@@ -4592,7 +4612,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-iverson-C-20NC-53",
+   "id": "DATA-note-density-day1-iverson-C-20NC-IV-53",
    "target": "data/density_day1_iverson.json",
    "cls": "wrong-number",
    "before": "20th NC devastated -- 232 casualties from one volley. Lying in ranks in the wheat field.",
@@ -4602,13 +4622,23 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-iverson-C-23NC-53",
+   "id": "DATA-note-density-day1-iverson-C-23NC-IV-53",
    "target": "data/density_day1_iverson.json",
    "cls": "wrong-number",
    "before": "23rd NC -- worst of all. 226 of 316 down. The regiment is destroyed as a fighting unit.",
    "src": "OR 27/2 p.342",
    "find": "(\"unit_id\":\"C-23NC\",\"tick\":53,[^\\n]*?\"notes\":\")23rd NC -- worst of all\\. 226 of 316 down\\. The regiment is destroyed as a fighting unit\\.\"",
    "repl": "\\g<1>23rd NC -- 134 killed, wounded or missing in the return\"",
+   "area": "notes"
+  },
+  {
+   "id": "DATA-note-density-day1-iverson-U-I-2-3-53",
+   "target": "data/density_day1_iverson.json",
+   "cls": "wrong-name",
+   "before": "Paul's brigade pursuing -- sweeping forward to collect prisoners from the stunned Confederates",
+   "src": "OR 27/1 p.248 (Baxter), p.249 (Robinson)",
+   "find": "(\"unit_id\":\"U-I-2-2\",\"tick\":53,[^\\n]*?\"notes\":\")Paul's brigade pursuing -- sweeping forward to collect prisoners from the stunned Confederates\"",
+   "repl": "\\g<1>Baxter's brigade advancing to collect prisoners from Iverson's brigade\"",
    "area": "notes"
   },
   {
@@ -4622,7 +4652,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-iverson-C-5NC-57",
+   "id": "DATA-note-density-day1-iverson-C-5NC-IV-57",
    "target": "data/density_day1_iverson.json",
    "cls": "unsupported-claim",
    "before": "5th NC survivors -- those who didn't surrender fleeing west",
@@ -4632,7 +4662,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-iverson-C-23NC-57",
+   "id": "DATA-note-density-day1-iverson-C-23NC-IV-57",
    "target": "data/density_day1_iverson.json",
    "cls": "unsupported-claim",
    "before": "23rd NC -- 60 men from 316. Iverson reportedly weeping, unable to command.",
@@ -4642,7 +4672,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-iverson-U-I-2-2-60",
+   "id": "DATA-note-density-day1-iverson-U-I-2-3-60",
    "target": "data/density_day1_iverson.json",
    "cls": "wrong-claim",
    "before": "Paul's brigade with 500+ prisoners -- one of the most complete destructions of a brigade in the war",
@@ -4652,7 +4682,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-iverson-C-12NC-60",
+   "id": "DATA-note-density-day1-iverson-C-12NC-IV-60",
    "target": "data/density_day1_iverson.json",
    "cls": "wrong-number",
    "before": "12th NC survivors -- Iverson's brigade has lost 900 of 1400 men in 20 minutes",
@@ -4672,7 +4702,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-lateafternoon-C-38GA-E-70",
+   "id": "DATA-note-density-day1-lateafternoon-C-38GA-70",
    "target": "data/density_day1_lateafternoon.json",
    "cls": "unsupported-claim",
    "before": "Gordon halted -- Ewell will not order the advance on Cemetery Hill. Gordon is furious.",
@@ -4702,7 +4732,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-lateafternoon-C-II-3-95",
+   "id": "DATA-note-density-day1-lateafternoon-C-II-2-95",
    "target": "data/density_day1_lateafternoon.json",
    "cls": "unsupported-claim",
    "before": "Rodes's division -- waiting for the order that never comes",
@@ -4742,6 +4772,16 @@
    "area": "notes"
   },
   {
+   "id": "DATA-note-density-day1-railroadcut-C-2MS-D-25",
+   "target": "data/density_day1_railroadcut.json",
+   "cls": "unsupported-claim",
+   "before": "2nd MS in the Railroad Cut -- the cut is 9 feet deep here. They cannot get out to pursue.",
+   "src": "the depth is not given in the reports read",
+   "find": "(\"unit_id\":\"C-2MS\",\"tick\":25,[^\\n]*?\"notes\":\")2nd MS in the Railroad Cut -- the cut is 9 feet deep here\\. They cannot get out to pursue\\.\"",
+   "repl": "\\g<1>2nd MS in the unfinished Railroad Cut\"",
+   "area": "notes"
+  },
+  {
    "id": "DATA-note-density-day1-railroadcut-C-42MS-25",
    "target": "data/density_day1_railroadcut.json",
    "cls": "unsupported-claim",
@@ -4752,7 +4792,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-railroadcut-U-6WI-25",
+   "id": "DATA-note-density-day1-railroadcut-U-I-1-6W-25",
    "target": "data/density_day1_railroadcut.json",
    "cls": "unsupported-claim",
    "before": "6th Wisconsin forming for the charge -- Dawes will lead them diagonally into Davis's exposed flank",
@@ -4772,7 +4812,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-railroadcut-C-55NC-30",
+   "id": "DATA-note-density-day1-railroadcut-C-55NC-D-30",
    "target": "data/density_day1_railroadcut.json",
    "cls": "wrong-number",
    "before": "55th NC retreating -- Davis's brigade collapsing. The railroad cut will cost Davis 600 casualties.",
@@ -4782,7 +4822,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-railroadcut-C-2MS-32",
+   "id": "DATA-note-density-day1-railroadcut-C-2MS-D-32",
    "target": "data/density_day1_railroadcut.json",
    "cls": "wrong-number",
    "before": "2nd Mississippi survivors -- 232 captured, flag lost. Same men who will fight at The Angle on July 3.",
@@ -4792,7 +4832,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-railroadcut-U-6WI-32",
+   "id": "DATA-note-density-day1-railroadcut-U-I-1-6W-32",
    "target": "data/density_day1_railroadcut.json",
    "cls": "wrong-number",
    "before": "6th Wisconsin holding the cut -- 232 prisoners, 1 battle flag. Dawes's finest hour.",
@@ -4832,6 +4872,16 @@
    "area": "notes"
   },
   {
+   "id": "DATA-note-density-day1-seminary-U-I-2-115",
+   "target": "data/density_day1_seminary.json",
+   "cls": "unsupported-claim",
+   "before": "Robinson's division -- they have been fighting for 4 hours",
+   "src": "duration not confirmed",
+   "find": "(\"unit_id\":\"U-I-2\",\"tick\":115,[^\\n]*?\"notes\":\")Robinson's division -- they have been fighting for 4 hours\"",
+   "repl": "\\g<1>Robinson's division\"",
+   "area": "notes"
+  },
+  {
    "id": "DATA-note-density-day1-seminary-U-ART-B4US-115",
    "target": "data/density_day1_seminary.json",
    "cls": "wrong-name",
@@ -4842,7 +4892,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-seminary-U-ART-B1PA-115",
+   "id": "DATA-note-density-day1-seminary-U-ART-1PA-L-115",
    "target": "data/density_day1_seminary.json",
    "cls": "unsupported-claim",
    "before": "Cooper's Battery B, 1st PA -- Seminary Ridge artillery last line of defense",
@@ -4972,7 +5022,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day1-ticks51-100-C-26NC-95",
+   "id": "DATA-note-density-day1-ticks51-100-U-26NC-95",
    "target": "data/density_day1_ticks51_100.json",
    "cls": "wrong-claim",
    "before": "26th NC survivors -- 588 casualties from 843. Night of July 1.",
@@ -5072,7 +5122,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-afternoon-C-III-3-330",
+   "id": "DATA-note-density-day2-afternoon-C-III-4-330",
    "target": "data/density_day2_afternoon.json",
    "cls": "sourced",
    "before": "Pender's division on Seminary Ridge -- Pender mortally wounded by shell fragment today",
@@ -5092,7 +5142,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-afternoon-C-II-2-375",
+   "id": "DATA-note-density-day2-afternoon-C-II-4-375",
    "target": "data/density_day2_afternoon.json",
    "cls": "unsupported-claim",
    "before": "Johnson's division overnight -- tomorrow Geary's XII Corps will attack at dawn",
@@ -5112,13 +5162,23 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-bigelow-C-13MS-296",
+   "id": "DATA-note-density-day2-bigelow-C-13MS-B-296",
    "target": "data/density_day2_bigelow.json",
    "cls": "unsupported-claim",
    "before": "Barksdale's 13th Mississippi -- Barksdale on horseback far ahead of his men",
    "src": "not confirmed",
    "find": "(\"unit_id\":\"C-13MS\",\"tick\":296,[^\\n]*?\"notes\":\")Barksdale's 13th Mississippi -- Barksdale on horseback far ahead of his men\"",
    "repl": "\\g<1>Barksdale's 13th Mississippi leading the attack\"",
+   "area": "notes"
+  },
+  {
+   "id": "DATA-note-density-day2-bigelow-U-ART-9MA-298",
+   "target": "data/density_day2_bigelow.json",
+   "cls": "unsupported-claim",
+   "before": "Bigelow firing canister -- holding the farm lane alone. 4 guns now engaged.",
+   "src": "the battery had six guns (Bigelow); the number engaged is not given",
+   "find": "(\"unit_id\":\"U-ART-9MA\",\"tick\":298,[^\\n]*?\"notes\":\")Bigelow firing canister -- holding the farm lane alone\\. 4 guns now engaged\\.\"",
+   "repl": "\\g<1>Bigelow firing canister -- holding the farm lane alone\"",
    "area": "notes"
   },
   {
@@ -5132,7 +5192,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-bigelow-C-13MS-298",
+   "id": "DATA-note-density-day2-bigelow-C-13MS-B-298",
    "target": "data/density_day2_bigelow.json",
    "cls": "unsupported-claim",
    "before": "Barksdale mortally wounded here -- shot from his horse, lying in the field",
@@ -5192,7 +5252,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-bigelow-C-13MS-302",
+   "id": "DATA-note-density-day2-bigelow-C-13MS-B-302",
    "target": "data/density_day2_bigelow.json",
    "cls": "unsupported-claim",
    "before": "Barksdale's brigade broken -- no Confederate infantry can face McGilvery's 35 guns alone",
@@ -5212,7 +5272,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-cemhill-C-II-1-2-318",
+   "id": "DATA-note-density-day2-cemhill-C-II-1-3-318",
    "target": "data/density_day2_cemhill.json",
    "cls": "unsupported-claim",
    "before": "Avery's NC brigade -- assaulting alongside Hays. Avery is already wounded from an earlier action.",
@@ -5222,7 +5282,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-cemhill-C-II-1-2-322",
+   "id": "DATA-note-density-day2-cemhill-C-II-1-3-322",
    "target": "data/density_day2_cemhill.json",
    "cls": "unsupported-claim",
    "before": "Avery's NC brigade charging the northern face -- Avery falls from his horse, mortally wounded",
@@ -5232,7 +5292,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-cemhill-C-II-1-2-324",
+   "id": "DATA-note-density-day2-cemhill-C-II-1-3-324",
    "target": "data/density_day2_cemhill.json",
    "cls": "wrong-claim",
    "before": "Avery's brigade reaching the crest -- but Avery is down, writing his last note on a scrap of paper with his blood: It was my fault.",
@@ -5242,7 +5302,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-cemhill-C-II-1-1-327",
+   "id": "DATA-note-density-day2-cemhill-C-II-1-2-327",
    "target": "data/density_day2_cemhill.json",
    "cls": "unsupported-claim",
    "before": "Louisiana Tigers repulsed -- Carroll's countercharge drives them off the hill. They held the guns for 10 minutes.",
@@ -5252,7 +5312,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-cemhill-C-II-1-1-332",
+   "id": "DATA-note-density-day2-cemhill-C-II-1-2-332",
    "target": "data/density_day2_cemhill.json",
    "cls": "wrong-number",
    "before": "Louisiana Tigers reforming north of town -- 695 casualties from the assault. They came closest of any Confederates to holding Cemetery Hill.",
@@ -5262,7 +5322,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-culpshill-C-II-1-2-314",
+   "id": "DATA-note-density-day2-culpshill-C-6NC-A-314",
    "target": "data/density_day2_culpshill.json",
    "cls": "unsupported-claim",
    "before": "Avery's NC brigade -- Avery will be mortally wounded on this slope",
@@ -5272,7 +5332,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-culpshill-C-II-1-2-327",
+   "id": "DATA-note-density-day2-culpshill-C-6NC-A-327",
    "target": "data/density_day2_culpshill.json",
    "cls": "contested-fact",
    "before": "Avery mortally wounded on the slope -- blood message: Tell my father I died with my face to the enemy",
@@ -5282,7 +5342,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-culpshill-C-II-2-1-315",
+   "id": "DATA-note-density-day2-culpshill-C-2NC-SW-315",
    "target": "data/density_day2_culpshill.json",
    "cls": "unsupported-claim",
    "before": "Stonewall Brigade assaulting Greene's Culp's Hill position -- first assault",
@@ -5312,7 +5372,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-culpshill-overnight-C-II-2-420",
+   "id": "DATA-note-density-day2-culpshill-overnight-C-II-4-420",
    "target": "data/density_day2_culpshill_overnight.json",
    "cls": "unsupported-claim",
    "before": "Johnson's men sleeping in the Union breastworks -- in a few hours the assault will come",
@@ -5342,7 +5402,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-culpshill-overnight-C-II-2-4-440",
+   "id": "DATA-note-density-day2-culpshill-overnight-C-II-4-1-440",
    "target": "data/density_day2_culpshill_overnight.json",
    "cls": "unsupported-claim",
    "before": "Steuart's brigade at 4 AM -- Geary's artillery about to open",
@@ -5352,7 +5412,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-culpshill-overnight-U-ART-XII-CORPS-440",
+   "id": "DATA-note-density-day2-culpshill-overnight-U-ART-K4US-440",
    "target": "data/density_day2_culpshill_overnight.json",
    "cls": "unsupported-claim",
    "before": "Muhlenberg's artillery massing -- 26 guns about to open on the Culp's Hill works",
@@ -5362,7 +5422,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-devilsden-U-V-1-3-266",
+   "id": "DATA-note-density-day2-devilsden-U-V-3-1-266",
    "target": "data/density_day2_devilsden.json",
    "cls": "unsupported-claim",
    "before": "Vincent's brigade deploying on Little Round Top -- 83rd PA, 44th NY, 16th MI, 20th ME. Vincent: Hold this ground at all costs.",
@@ -5382,7 +5442,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-devilsden-U-V-1-3-272",
+   "id": "DATA-note-density-day2-devilsden-U-V-3-1-272",
    "target": "data/density_day2_devilsden.json",
    "cls": "wrong-claim",
    "before": "Vincent's brigade still holding -- Vincent mortally wounded, Strong Vincent, this is the fifth time today I've ordered you forward.",
@@ -5402,7 +5462,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-kershaw-C-3SC-275",
+   "id": "DATA-note-density-day2-kershaw-C-I-1-3-275",
    "target": "data/density_day2_kershaw.json",
    "cls": "unsupported-claim",
    "before": "3rd SC charging -- Kershaw gives the famous order that 3rd SC misunderstands, nearly causing a disaster",
@@ -5419,6 +5479,16 @@
    "src": "OR 27/1 p.160",
    "find": "(\"unit_id\":\"U-III-1-2\",\"tick\":275,[^\\n]*?\"notes\":\")Graham's brigade falling back from the Stony Hill -- Kershaw is through\"",
    "repl": "\\g<1>De Trobriand's brigade falling back from the Stony Hill -- Kershaw is through\"",
+   "area": "notes"
+  },
+  {
+   "id": "DATA-note-density-day2-kershaw-C-I-1-3-290",
+   "target": "data/density_day2_kershaw.json",
+   "cls": "unsupported-claim",
+   "before": "Kershaw's 3rd SC -- trading the Stony Hill back and forth. The Wheatfield changes hands 6 times today.",
+   "src": "the count of six is the usual tradition, not in the reports read",
+   "find": "(\"unit_id\":\"C-3SC\",\"tick\":290,[^\\n]*?\"notes\":\")Kershaw's 3rd SC -- trading the Stony Hill back and forth\\. The Wheatfield changes hands 6 times today\\.\"",
+   "repl": "\\g<1>Kershaw's 3rd SC -- fighting on the Stony Hill. The Wheatfield changed hands several times.\"",
    "area": "notes"
   },
   {
@@ -5509,6 +5579,26 @@
    "src": "OR 27/1 p.179 (return: 20th Maine 125)",
    "find": "(\"unit_id\":\"U-20ME\",\"tick\":300,[^\\n]*?\"notes\":\")20th Maine holds Little Round Top\\. 130 casualties from 386\\.\"",
    "repl": "\\g<1>20th Maine holds Little Round Top -- the return counts 125 casualties\"",
+   "area": "notes"
+  },
+  {
+   "id": "DATA-note-density-day2-morning-U-III-1-243",
+   "target": "data/density_day2_morning.json",
+   "cls": "contested-fact",
+   "before": "Sickles advancing the entire III Corps without orders -- moving to the Emmitsburg Road",
+   "src": "OR 27/1 p.115 (Meade)",
+   "find": "(\"unit_id\":\"U-III-1\",\"tick\":243,[^\\n]*?\"notes\":\")Sickles advancing the entire III Corps without orders -- moving to the Emmitsburg Road\"",
+   "repl": "\\g<1>Sickles moving the III Corps forward to the Emmitsburg road (whether this was authorised is disputed)\"",
+   "area": "notes"
+  },
+  {
+   "id": "DATA-note-density-day2-morning-U-III-2-248",
+   "target": "data/density_day2_morning.json",
+   "cls": "unsupported-claim",
+   "before": "Humphreys's 2.5 miles of thin line -- no support on either flank",
+   "src": "the length of line and the absence of support are not given",
+   "find": "(\"unit_id\":\"U-III-2\",\"tick\":248,[^\\n]*?\"notes\":\")Humphreys's 2\\.5 miles of thin line -- no support on either flank\"",
+   "repl": "\\g<1>Humphreys's division on the Emmitsburg road\"",
    "area": "notes"
   },
   {
@@ -5662,7 +5752,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-wright-C-III-1-4-308",
+   "id": "DATA-note-density-day2-wright-C-III-4-2-308",
    "target": "data/density_day2_wright.json",
    "cls": "unsupported-claim",
    "before": "Posey's Mississippi brigade -- supposed to support Wright's left. Will not advance far enough.",
@@ -5672,7 +5762,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-wright-C-III-1-5-308",
+   "id": "DATA-note-density-day2-wright-C-III-4-4-308",
    "target": "data/density_day2_wright.json",
    "cls": "unsupported-claim",
    "before": "Mahone's Virginia brigade -- supposed to support Wright's right. Will also not advance.",
@@ -5692,7 +5782,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-wright-U-II-2-2-312",
+   "id": "DATA-note-density-day2-wright-U-II-2-3-312",
    "target": "data/density_day2_wright.json",
    "cls": "unsupported-claim",
    "before": "Webb's brigade falling back -- Wright is pushing through the Union line",
@@ -5702,7 +5792,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-wright-C-III-1-3-318",
+   "id": "DATA-note-density-day2-wright-C-III-4-3-318",
    "target": "data/density_day2_wright.json",
    "cls": "unsupported-claim",
    "before": "Wright REPULSED -- unsupported on the crest, hit from three sides. He will say: We were on the crest -- we had the victory in our grasp.",
@@ -5712,7 +5802,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-wright-U-II-2-2-320",
+   "id": "DATA-note-density-day2-wright-U-II-2-3-320",
    "target": "data/density_day2_wright.json",
    "cls": "unsupported-claim",
    "before": "Webb's brigade back on the ridge -- the crest held. But for 10 minutes the Union army was cut in two.",
@@ -5722,7 +5812,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day2-wright-C-III-1-3-320",
+   "id": "DATA-note-density-day2-wright-C-III-4-3-320",
    "target": "data/density_day2_wright.json",
    "cls": "wrong-number",
    "before": "Wright's survivors reforming -- 754 casualties. The most dangerous moment on July 2 that no one remembers.",
@@ -5802,7 +5892,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day3-aftermath-C-II-2-1-620",
+   "id": "DATA-note-density-day3-aftermath-C-2NC-SW-620",
    "target": "data/density_day3_aftermath.json",
    "cls": "unsupported-claim",
    "before": "Stonewall Brigade -- 12 assaults on Culp's Hill. Jackson's old regiments.",
@@ -5812,7 +5902,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day3-aftermath-C-3NC-620",
+   "id": "DATA-note-density-day3-aftermath-C-3NC-SW-620",
    "target": "data/density_day3_aftermath.json",
    "cls": "wrong-number",
    "before": "Steuart's 3rd NC -- 42.5% casualties across three days",
@@ -5872,7 +5962,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day3-aftermath-C-II-2-1-675",
+   "id": "DATA-note-density-day3-aftermath-C-2NC-SW-675",
    "target": "data/density_day3_aftermath.json",
    "cls": "unsupported-claim",
    "before": "END OF BATTLE. Stonewall Brigade. 12 assaults. Jackson's men.",
@@ -5922,7 +6012,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day3-angle-U-II-2-2-548",
+   "id": "DATA-note-density-day3-angle-U-II-2-3-548",
    "target": "data/density_day3_angle.json",
    "cls": "unsupported-claim",
    "before": "Webb's front line breaking -- some of the 71st PA running. Webb furious, trying to hold them.",
@@ -5982,7 +6072,17 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day3-cannonade-C-ART-I-2-505",
+   "id": "DATA-note-density-day3-cannonade-C-ART-Eshleman-505",
+   "target": "data/density_day3_cannonade.json",
+   "cls": "unsupported-claim",
+   "before": "Washington Artillery of New Orleans -- 9 guns",
+   "src": "gun count not confirmed",
+   "find": "(\"unit_id\":\"C-ART-I-4\",\"tick\":505,[^\\n]*?\"notes\":\")Washington Artillery of New Orleans -- 9 guns\"",
+   "repl": "\\g<1>Washington Artillery of New Orleans\"",
+   "area": "notes"
+  },
+  {
+   "id": "DATA-note-density-day3-cannonade-C-ART-Dearing-505",
    "target": "data/density_day3_cannonade.json",
    "cls": "unsupported-claim",
    "before": "Dearing's battalion -- 20 guns",
@@ -5992,7 +6092,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day3-cannonade-C-ART-I-3-505",
+   "id": "DATA-note-density-day3-cannonade-C-ART-Henry-505",
    "target": "data/density_day3_cannonade.json",
    "cls": "unsupported-claim",
    "before": "Henry's battalion -- 20 guns",
@@ -6002,7 +6102,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day3-cannonade-C-ART-I-1-505",
+   "id": "DATA-note-density-day3-cannonade-C-ART-Cabell-505",
    "target": "data/density_day3_cannonade.json",
    "cls": "unsupported-claim",
    "before": "Cabell's battalion -- 18 guns",
@@ -6012,7 +6112,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day3-cannonade-U-ART-XI-CORPS-505",
+   "id": "DATA-note-density-day3-cannonade-U-ART-Osborn-505",
    "target": "data/density_day3_cannonade.json",
    "cls": "unsupported-claim",
    "before": "Osborn's Cemetery Hill batteries -- 40 guns. Will answer the Confederate cannonade.",
@@ -6022,7 +6122,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day3-cannonade-U-ART-RES-1-505",
+   "id": "DATA-note-density-day3-cannonade-U-ART-McGilvery-505",
    "target": "data/density_day3_cannonade.json",
    "cls": "unsupported-claim",
    "before": "McGilvery's Plum Run Line -- 39 guns on Cemetery Ridge south",
@@ -6042,7 +6142,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day3-cannonade-C-ART-I-4-518",
+   "id": "DATA-note-density-day3-cannonade-C-ART-Eshleman-518",
    "target": "data/density_day3_cannonade.json",
    "cls": "unsupported-claim",
    "before": "Washington Artillery firing -- the largest artillery bombardment in American history",
@@ -6052,7 +6152,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day3-cannonade-U-ART-RES-1-518",
+   "id": "DATA-note-density-day3-cannonade-U-ART-McGilvery-518",
    "target": "data/density_day3_cannonade.json",
    "cls": "wrong-number",
    "before": "McGilvery's guns returning fire -- 160 Union guns total engaged",
@@ -6062,7 +6162,17 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day3-culpshill-C-II-2-1-452",
+   "id": "DATA-note-density-day3-cannonade-U-ART-A4US-536",
+   "target": "data/density_day3_cannonade.json",
+   "cls": "unsupported-claim",
+   "before": "Cushing still firing -- 4 of his 6 guns now out of action. Two remain.",
+   "src": "the number of guns out of action is not in the reports read",
+   "find": "(\"unit_id\":\"U-ART-A4US\",\"tick\":536,[^\\n]*?\"notes\":\")Cushing still firing -- 4 of his 6 guns now out of action\\. Two remain\\.\"",
+   "repl": "\\g<1>Cushing still firing\"",
+   "area": "notes"
+  },
+  {
+   "id": "DATA-note-density-day3-culpshill-C-2NC-SW-452",
    "target": "data/density_day3_culpshill.json",
    "cls": "unsupported-claim",
    "before": "Stonewall Brigade -- first of twelve assaults",
@@ -6072,7 +6182,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day3-culpshill-C-II-2-4-460",
+   "id": "DATA-note-density-day3-culpshill-C-3NC-SW-460",
    "target": "data/density_day3_culpshill.json",
    "cls": "unsupported-claim",
    "before": "Confederate position the doomed charge is aimed at",
@@ -6092,7 +6202,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day3-culpshill-C-II-2-4-510",
+   "id": "DATA-note-density-day3-culpshill-C-3NC-SW-510",
    "target": "data/density_day3_culpshill.json",
    "cls": "wrong-number",
    "before": "Steuart's brigade -- final retreat. 42.5% total casualties.",
@@ -6192,6 +6302,16 @@
    "area": "notes"
   },
   {
+   "id": "DATA-note-density-day3-morning-C-I-1-465",
+   "target": "data/density_day3_morning.json",
+   "cls": "wrong-claim",
+   "before": "McLaws's division on Seminary Ridge -- Longstreet has been arguing against the assault since dawn",
+   "src": "OR 27/2 p.358 (Longstreet)",
+   "find": "(\"unit_id\":\"C-I-1\",\"tick\":465,[^\\n]*?\"notes\":\")McLaws's division on Seminary Ridge -- Longstreet has been arguing against the assault since dawn\"",
+   "repl": "\\g<1>McLaws's division on the right of the Confederate line -- Longstreet's report says he opposed the assault\"",
+   "area": "notes"
+  },
+  {
    "id": "DATA-note-density-day3-morning-C-I-3-465",
    "target": "data/density_day3_morning.json",
    "cls": "unsupported-claim",
@@ -6202,7 +6322,17 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day3-morning-U-CAV-2-470",
+   "id": "DATA-note-density-day3-morning-C-CAV-2-470",
+   "target": "data/density_day3_morning.json",
+   "cls": "unsupported-claim",
+   "before": "Stuart's 4 brigades moving east -- Lee has sent him to get behind Meade and strike when Pickett charges",
+   "src": "Lee's intention is not given in his report",
+   "find": "(\"unit_id\":\"C-CAV-2\",\"tick\":470,[^\\n]*?\"notes\":\")Stuart's 4 brigades moving east -- Lee has sent him to get behind Meade and strike when Pickett charges\"",
+   "repl": "\\g<1>Stuart's cavalry moving east toward the Confederate left\"",
+   "area": "notes"
+  },
+  {
+   "id": "DATA-note-density-day3-morning-U-CAV-1-470",
    "target": "data/density_day3_morning.json",
    "cls": "unsupported-claim",
    "before": "Gregg's Union cavalry positioning -- he has spotted Stuart. Custer will charge.",
@@ -6222,6 +6352,16 @@
    "area": "notes"
   },
   {
+   "id": "DATA-note-density-day3-morning-U-ART-A4US-480",
+   "target": "data/density_day3_morning.json",
+   "cls": "wrong-claim",
+   "before": "Cushing's Battery A at The Angle -- 6 guns. Cushing has been here since July 1.",
+   "src": "OR 27/1 p.236 (Hazard: the battery was posted on the morning of July 2)",
+   "find": "(\"unit_id\":\"U-ART-A4US\",\"tick\":480,[^\\n]*?\"notes\":\")Cushing's Battery A at The Angle -- 6 guns\\. Cushing has been here since July 1\\.\"",
+   "repl": "\\g<1>Cushing's Battery A at The Angle -- 6 guns\"",
+   "area": "notes"
+  },
+  {
    "id": "DATA-note-density-day3-morning-U-XII-2-495",
    "target": "data/density_day3_morning.json",
    "cls": "wrong-number",
@@ -6232,7 +6372,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day3-morning-C-II-2-495",
+   "id": "DATA-note-density-day3-morning-C-II-4-495",
    "target": "data/density_day3_morning.json",
    "cls": "unsupported-claim",
    "before": "Johnson's division on lower Culp's Hill -- repulsed. They will not attack again.",
@@ -6402,7 +6542,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-day3-retreat-C-CAV-5-600",
+   "id": "DATA-note-density-day3-retreat-C-CAV-3-600",
    "target": "data/density_day3_retreat.json",
    "cls": "contested-fact",
    "before": "Imboden's cavalry brigade leading the 17-mile wagon train of Confederate wounded westward",
@@ -6642,7 +6782,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-reserves-C-II-2-226",
+   "id": "DATA-note-density-reserves-C-II-4-226",
    "target": "data/density_reserves.json",
    "cls": "wrong-claim",
    "before": "Johnson's division in reserve -- will assault Culp's Hill tonight",
@@ -6662,7 +6802,7 @@
    "area": "notes"
   },
   {
-   "id": "DATA-note-density-skirmishers-U-8IL-CAV-3",
+   "id": "DATA-note-density-skirmishers-U-8IL-3",
    "target": "data/density_skirmishers.json",
    "cls": "unsupported-claim",
    "before": "Full 8th Illinois regiment deployed as skirmish screen",
@@ -6759,6 +6899,16 @@
    "src": "no report read names the first Confederate gun",
    "find": "(\"unit_id\":\"C-ART-Marye\",\"tick\":14,[^\\n]*?\"notes\":\")Pegram's battalion on Herr Ridge -- first Confederate artillery fire\"",
    "repl": "\\g<1>Pegram's battalion on Herr Ridge\"",
+   "area": "notes"
+  },
+  {
+   "id": "DATA-note-placements-day1-ticks1-50-U-I-1-1-27",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "unsupported-claim",
+   "before": "Iron Brigade charging into Herbst Woods -- black hats recognized",
+   "src": "not in the reports read",
+   "find": "(\"unit_id\":\"U-I-1-1\",\"tick\":27,[^\\n]*?\"notes\":\")Iron Brigade charging into Herbst Woods -- black hats recognized\"",
+   "repl": "\\g<1>Iron Brigade charging into Herbst Woods\"",
    "area": "notes"
   },
   {
@@ -7009,6 +7159,16 @@
    "src": "OR 27/1 p.176 (return); Fox p.26, p.36",
    "find": "(\"unit_id\":\"U-1MN\",\"tick\":303,[^\\n]*?\"notes\":\")1st Minnesota -- 224 of 262 men down in 15 minutes\\. 85\\.5% casualties\\. 38 survivors\\.\"",
    "repl": "\\g<1>1st Minnesota -- 224 casualties of 262 engaged over the battle (return; Fox), 215 of them on July 2\"",
+   "area": "notes"
+  },
+  {
+   "id": "DATA-note-placements-day2-ticks301-375-C-III-1-1-303",
+   "target": "data/placements_day2_ticks301_375.json",
+   "cls": "unsupported-claim",
+   "before": "Wilcox stopped -- 5 minutes bought. Union reinforcements arriving.",
+   "src": "the 5 minutes are from later accounts of the 1st Minnesota",
+   "find": "(\"unit_id\":\"C-III-1-1\",\"tick\":303,[^\\n]*?\"notes\":\")Wilcox stopped -- 5 minutes bought\\. Union reinforcements arriving\\.\"",
+   "repl": "\\g<1>Wilcox stopped. Union reinforcements arriving.\"",
    "area": "notes"
   },
   {
@@ -8672,6 +8832,16 @@
    "area": "terrain"
   },
   {
+   "id": "DATA-terr-lrt-orourke",
+   "target": "data/terrain.json",
+   "cls": "unsupported-claim",
+   "before": "\"O'Rorke charged without orders\"",
+   "src": "OR 27/1 p.161 (roster: 140th New York, Weed's brigade), Warren's and Weed's reports",
+   "find": "O'Rorke charged without orders. Hazlett dragged guns up the slope.",
+   "repl": "The 140th New York under Col. O'Rorke came up and charged down the slope; O'Rorke was killed. Hazlett's battery was brought onto the summit.",
+   "area": "terrain"
+  },
+  {
    "id": "DATA-terr-gulp",
    "target": "data/terrain.json",
    "cls": "typo",
@@ -9306,9 +9476,9 @@
    "target": "index.html",
    "cls": "wrong-number",
    "before": "\"467 regiments and batteries\", \"five-minute snapshots\", \"real time\"",
-   "src": "count of distinct unit ids in data/placements_*.json and density_*.json: 478 (256 regiments, 56 batteries, 115 brigades, 34 divisions, 6 corps, 11 other ids); 4 occurrences",
+   "src": "count of distinct unit ids in data/placements_*.json and density_*.json after the id and arrival fixes: 406 (232 regiments, 51 batteries, 84 brigades, 32 divisions, 7 corps); 4 occurrences",
    "find": "unfold in real time -- 467 regiments and batteries across 675 five-minute snapshots",
-   "repl": "unfold step by step -- 478 units (regiments, batteries and the brigades, divisions and corps above them) across 675 snapshots",
+   "repl": "unfold step by step -- 406 units (regiments, batteries and the brigades, divisions and corps above them) across 675 snapshots",
    "area": "texts"
   },
   {
@@ -9318,7 +9488,7 @@
    "before": "same",
    "src": "same",
    "find": "minute-by-minute reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): 467 regiments and batteries tracked across 675 five-minute snapshots, built from primary-source unit records, chronology, and terrain data",
-   "repl": "step-by-step reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): 478 units tracked across 675 snapshots, reconstructed from published unit records, chronology, and terrain data",
+   "repl": "step-by-step reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): 406 units tracked across 675 snapshots, reconstructed from published unit records, chronology, and terrain data",
    "area": "texts"
   },
   {
