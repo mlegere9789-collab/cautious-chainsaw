@@ -147,6 +147,12 @@ note('density_day1_ticks51_100', 'U-157NY', 60, '157th New York (Schimmelfennig\
 
 del('density_day1_lateafternoon', 'U-107OH', 63, 'wrong-place', `the 107th Ohio is shown on Cemetery Hill at tick 63, then "retreating through Gettysburg" at tick 66 and rallying on Cemetery Hill at tick 72`, `${OR1} p.696 (Howard), p.727-729 (Schurz: the corps fell back through the town to Cemetery Hill)`);
 
+// the 20th Maine rows of density_day2_15alabama.json are 0.7-0.9 km north of the regiment's NPS monuments (39.78945,-77.23614 and the refused left flank 39.78707,-77.24079) and 0.3-0.5 km north of the other rows of the same ticks
+for (const t of [268, 271, 273, 275, 276]) {
+  const r = P.ROWS.find((x) => x.f === 'density_day2_15alabama' && x.unit === 'U-20ME' && x.tick === t);
+  if (r) move(r.f, r.unit, t, (Number(r.latS) - 0.0028).toFixed(4), r.lngS, 'wrong-place', `the 20th Maine at tick ${t} is ${t === 275 ? '0.9' : '0.7'} km north of its NPS monuments and 0.3-0.5 km north of the regiment's other rows of the same tick; moved south by 0.0028 degrees`, 'NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: 20th ME Chamberlain 39.78945,-77.23614 and 39.78707,-77.24079; Law AL Brigade headquarters marker 39.78965,-77.23747; OR 27/1 p.623 (Chamberlain: the southern slope of Little Round Top)', [r.latS, r.lngS]);
+}
+
 // ---------------------------------------------------------------- D2. the north sector of July 1 and East Cavalry Field are plotted 1.0-3.4 km from the NPS ground
 // The terrain table puts Oak Hill 1.7 km, Oak Ridge 1.5 km, Barlow's Knoll 1.0 km south of the NPS sites and East Cavalry Field 3.0 km west of its monuments; the rows
 // authored around these points moved with them.  NPS ground (OpenStreetMap historic=monument nodes, which carry the NPS names; the Eternal Light Peace Memorial is also the

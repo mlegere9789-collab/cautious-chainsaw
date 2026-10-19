@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "count": 2440,
+ "count": 2445,
  "fixes": [
   {
    "id": "DATA-cas-UI-day1",
@@ -17261,6 +17261,56 @@
    "src": "OR 27/1 p.696 (Howard), p.727-729 (Schurz: the corps fell back through the town to Cemetery Hill)",
    "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-107OH\",\"tick\":63,\"lat\":39\\.8211,\"lng\":-77\\.2300,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-107OH\",\"tick\":63,\"lat\":39\\.8211,\"lng\":-77\\.2300,[^\\n]*\\},\\n)",
    "repl": "",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day2-15alabama-U-20ME-268",
+   "target": "data/density_day2_15alabama.json",
+   "cls": "wrong-place",
+   "before": "density_day2_15alabama U-20ME tick 268 (39.7950, -77.2406): 20th Maine -- Chamberlain's refused flank holds the extreme left of the entire Union army -- the 20th Maine at tick 268 is 0.7 km north of its NPS monuments and 0.3-0.5 km north of the regiment's other rows of the same tick; moved south by 0.0028 degrees",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: 20th ME Chamberlain 39.78945,-77.23614 and 39.78707,-77.24079; Law AL Brigade headquarters marker 39.78965,-77.23747; OR 27/1 p.623 (Chamberlain: the southern slope of Little Round Top)",
+   "find": "(\"unit_id\":\"U-20ME\",\"tick\":268,)\"lat\":39\\.7950,\"lng\":-77\\.2406",
+   "repl": "\\g<1>\"lat\":39.7922,\"lng\":-77.2406",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day2-15alabama-U-20ME-271",
+   "target": "data/density_day2_15alabama.json",
+   "cls": "wrong-place",
+   "before": "density_day2_15alabama U-20ME tick 271 (39.7950, -77.2406): 20th Maine extending left -- Chamberlain bends his flank back, refusing to be flanked -- the 20th Maine at tick 271 is 0.7 km north of its NPS monuments and 0.3-0.5 km north of the regiment's other rows of the same tick; moved south by 0.0028 degrees",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: 20th ME Chamberlain 39.78945,-77.23614 and 39.78707,-77.24079; Law AL Brigade headquarters marker 39.78965,-77.23747; OR 27/1 p.623 (Chamberlain: the southern slope of Little Round Top)",
+   "find": "(\"unit_id\":\"U-20ME\",\"tick\":271,)\"lat\":39\\.7950,\"lng\":-77\\.2406",
+   "repl": "\\g<1>\"lat\":39.7922,\"lng\":-77.2406",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day2-15alabama-U-20ME-273",
+   "target": "data/density_day2_15alabama.json",
+   "cls": "wrong-place",
+   "before": "density_day2_15alabama U-20ME tick 273 (39.7950, -77.2406): 20th Maine low on ammunition -- Chamberlain passes word: be ready to fix bayonets -- the 20th Maine at tick 273 is 0.7 km north of its NPS monuments and 0.3-0.5 km north of the regiment's other rows of the same tick; moved south by 0.0028 degrees",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: 20th ME Chamberlain 39.78945,-77.23614 and 39.78707,-77.24079; Law AL Brigade headquarters marker 39.78965,-77.23747; OR 27/1 p.623 (Chamberlain: the southern slope of Little Round Top)",
+   "find": "(\"unit_id\":\"U-20ME\",\"tick\":273,)\"lat\":39\\.7950,\"lng\":-77\\.2406",
+   "repl": "\\g<1>\"lat\":39.7922,\"lng\":-77.2406",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day2-15alabama-U-20ME-275",
+   "target": "data/density_day2_15alabama.json",
+   "cls": "wrong-place",
+   "before": "density_day2_15alabama U-20ME tick 275 (39.7967, -77.2372): CHAMBERLAIN'S CHARGE -- bayonets fixed, wheeling down the hill. Great Heavens, try the ste -- the 20th Maine at tick 275 is 0.9 km north of its NPS monuments and 0.3-0.5 km north of the regiment's other rows of the same tick; moved south by 0.0028 degrees",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: 20th ME Chamberlain 39.78945,-77.23614 and 39.78707,-77.24079; Law AL Brigade headquarters marker 39.78965,-77.23747; OR 27/1 p.623 (Chamberlain: the southern slope of Little Round Top)",
+   "find": "(\"unit_id\":\"U-20ME\",\"tick\":275,)\"lat\":39\\.7967,\"lng\":-77\\.2372",
+   "repl": "\\g<1>\"lat\":39.7939,\"lng\":-77.2372",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day2-15alabama-U-20ME-276",
+   "target": "data/density_day2_15alabama.json",
+   "cls": "wrong-place",
+   "before": "density_day2_15alabama U-20ME tick 276 (39.7944, -77.2411): 20th Maine pursuing down the slope -- capturing scores of prisoners from the broken Alabam -- the 20th Maine at tick 276 is 0.7 km north of its NPS monuments and 0.3-0.5 km north of the regiment's other rows of the same tick; moved south by 0.0028 degrees",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: 20th ME Chamberlain 39.78945,-77.23614 and 39.78707,-77.24079; Law AL Brigade headquarters marker 39.78965,-77.23747; OR 27/1 p.623 (Chamberlain: the southern slope of Little Round Top)",
+   "find": "(\"unit_id\":\"U-20ME\",\"tick\":276,)\"lat\":39\\.7944,\"lng\":-77\\.2411",
+   "repl": "\\g<1>\"lat\":39.7916,\"lng\":-77.2411",
    "area": "zpos"
   },
   {

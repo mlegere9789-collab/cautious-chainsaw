@@ -14596,6 +14596,51 @@
    "note": "wrong-place: OR 27/1 p.696 (Howard), p.727-729 (Schurz: the corps fell back through the town to Cemetery Hill)"
   },
   {
+   "id": "DATA-pos-move-density-day2-15alabama-U-20ME-268",
+   "target": "data/density_day2_15alabama.json",
+   "find": "(\"unit_id\":\"U-20ME\",\"tick\":268,)\"lat\":39\\.7950,\"lng\":-77\\.2406",
+   "repl": "\\g<1>\"lat\":39.7922,\"lng\":-77.2406",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: 20th ME Chamberlain 39.78945,-77.23614 and 39.78707,-77.24079; Law AL Brigade headquarters marker 39.78965,-77.23747; OR 27/1 p.623 (Chamberlain: the southern slope of Little Round Top)"
+  },
+  {
+   "id": "DATA-pos-move-density-day2-15alabama-U-20ME-271",
+   "target": "data/density_day2_15alabama.json",
+   "find": "(\"unit_id\":\"U-20ME\",\"tick\":271,)\"lat\":39\\.7950,\"lng\":-77\\.2406",
+   "repl": "\\g<1>\"lat\":39.7922,\"lng\":-77.2406",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: 20th ME Chamberlain 39.78945,-77.23614 and 39.78707,-77.24079; Law AL Brigade headquarters marker 39.78965,-77.23747; OR 27/1 p.623 (Chamberlain: the southern slope of Little Round Top)"
+  },
+  {
+   "id": "DATA-pos-move-density-day2-15alabama-U-20ME-273",
+   "target": "data/density_day2_15alabama.json",
+   "find": "(\"unit_id\":\"U-20ME\",\"tick\":273,)\"lat\":39\\.7950,\"lng\":-77\\.2406",
+   "repl": "\\g<1>\"lat\":39.7922,\"lng\":-77.2406",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: 20th ME Chamberlain 39.78945,-77.23614 and 39.78707,-77.24079; Law AL Brigade headquarters marker 39.78965,-77.23747; OR 27/1 p.623 (Chamberlain: the southern slope of Little Round Top)"
+  },
+  {
+   "id": "DATA-pos-move-density-day2-15alabama-U-20ME-275",
+   "target": "data/density_day2_15alabama.json",
+   "find": "(\"unit_id\":\"U-20ME\",\"tick\":275,)\"lat\":39\\.7967,\"lng\":-77\\.2372",
+   "repl": "\\g<1>\"lat\":39.7939,\"lng\":-77.2372",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: 20th ME Chamberlain 39.78945,-77.23614 and 39.78707,-77.24079; Law AL Brigade headquarters marker 39.78965,-77.23747; OR 27/1 p.623 (Chamberlain: the southern slope of Little Round Top)"
+  },
+  {
+   "id": "DATA-pos-move-density-day2-15alabama-U-20ME-276",
+   "target": "data/density_day2_15alabama.json",
+   "find": "(\"unit_id\":\"U-20ME\",\"tick\":276,)\"lat\":39\\.7944,\"lng\":-77\\.2411",
+   "repl": "\\g<1>\"lat\":39.7916,\"lng\":-77.2411",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: 20th ME Chamberlain 39.78945,-77.23614 and 39.78707,-77.24079; Law AL Brigade headquarters marker 39.78965,-77.23747; OR 27/1 p.623 (Chamberlain: the southern slope of Little Round Top)"
+  },
+  {
    "id": "DATA-pos-move-density-day3-morning-C-CAV-2-505",
    "target": "data/density_day3_morning.json",
    "find": "(\"unit_id\":\"C-CAV-2\",\"tick\":505,)\"lat\":39\\.8350,\"lng\":-77\\.1844",
