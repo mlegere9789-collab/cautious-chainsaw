@@ -71,13 +71,13 @@ for (const f of files) {
       addPatch({ id: `${idBase}-add-${e.row.tick}${e.id ? '-' + e.id : ''}`, target: rel, find: old, repl: old + ',\n' + indent + JSON.stringify(e.row) }, { cls: e.cls, before: e.before || 'missing event', src: e.src, note: `${e.cls}: ${e.src}`.slice(0, 300), area });
       fixes[fixes.length - 1].tick = e.row.tick;
     } else if (e.remove) {
-      const i = rowIdx(e.remove); if (i < 0) continue;
+      const sel = e.remove === true ? e : e.remove; const i = rowIdx(sel); if (i < 0) continue;
       const old = lines[i].trim();
       const indent = lines[i].match(/^\s*/)[0];
       const last = /^\s*\]/.test(lines[i + 1] || '');
-      if (last) errors.push(`${f}: removing the last row (tick ${e.remove.tick}) is not supported`);
-      addPatch({ id: `${idBase}-del-${e.remove.tick}`, target: rel, find: old + '\n' + indent, repl: '' }, { cls: e.cls, before: e.before, src: e.src, note: `${e.cls}: ${e.src}`.slice(0, 300), area });
-      fixes[fixes.length - 1].tick = e.remove.tick;
+      if (last) errors.push(`${f}: removing the last row (tick ${sel.tick}) is not supported`);
+      addPatch({ id: `${idBase}-del-${sel.tick}`, target: rel, find: old + '\n' + indent, repl: '' }, { cls: e.cls, before: e.before, src: e.src, note: `${e.cls}: ${e.src}`.slice(0, 300), area });
+      fixes[fixes.length - 1].tick = sel.tick;
     } else errors.push(`${f}: entry without set/insertAfter/remove`);
   }
 }
