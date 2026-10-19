@@ -44,6 +44,33 @@ for (const f of files) {
     }
     continue;
   }
+  if (kind === 'vignette') {
+    // one block per vignette in vignettes_part1..3.json; every key is on its own line: "key": value,
+    const vfiles = ['vignettes_part1.json', 'vignettes_part2.json', 'vignettes_part3.json'].map((n) => [n, rd(path.join(BASE, 'data', n)).split('\n')]);
+    for (const e of mod.default) {
+      const hit = vfiles.find(([, ls]) => ls.some((l) => l.includes(`"vignette_id": "${e.vid}"`)));
+      if (!hit) { errors.push(`${f}: ${e.vid} not found`); continue; }
+      const [vn, ls] = hit;
+      const start = ls.findIndex((l) => l.includes(`"vignette_id": "${e.vid}"`));
+      const end = ls.findIndex((l, i) => i > start && /^\s*\}/.test(l));
+      for (const [k, v] of Object.entries(e.set)) {
+        const li = ls.findIndex((l, i) => i > start && i < end && l.trim().startsWith(`"${k}":`));
+        if (li < 0) { errors.push(`${f}: ${e.vid} has no key ${k}`); continue; }
+        let old = ls[li].trim().replace(/,$/, '');
+        let nw = `"${k}": ${JSON.stringify(v)}`;
+        if (old === nw) continue;
+        if (ls.filter((l) => l.trim().replace(/,$/, '') === old).length > 1) {          // not unique in the file: anchor on the previous line too
+          const prev = ls[li - 1];
+          const ind = ls[li].match(/^\s*/)[0];
+          old = prev.trim() + '\n' + ind + ls[li].trim().replace(/,$/, '');
+          nw = prev.trim() + '\n' + ind + nw;
+        }
+        addPatch({ id: `DATA-vig-${e.vid}-${k}`, target: 'data/' + vn, find: old, repl: nw }, { cls: e.cls, before: e.before, src: e.src, note: `${e.cls}: ${e.src}`.slice(0, 300), area });
+        fixes[fixes.length - 1].vid = e.vid;
+      }
+    }
+    continue;
+  }
   const rel = 'data/' + mod.file;
   const text = rd(path.join(BASE, rel));
   const lines = text.split('\n');
