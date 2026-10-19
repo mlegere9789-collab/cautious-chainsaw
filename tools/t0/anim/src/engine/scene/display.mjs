@@ -233,7 +233,7 @@ export class Display {
     const tiles = list.map((d) => ({
       key: d.key, kind: d.kind, ids: d.ids, n: d.n, x: d.ax + d.ox + cOff(d), y: d.ay + d.oy, ax: d.px, ay: d.py, ox: d.ox, oy: d.oy, ix: d.px + d.ox, iy: d.py + d.oy, sgn: d.sgn || 0, w: d.w, h: d.h, scale: d.scale, opacity: d.opacity, solid: d.opacity >= SOLID, life: d.life,
       ajx: d.ajx || 0, ajy: d.ajy || 0, entering: d.born, travelling: false, displaced: Math.hypot(d.ox, d.oy) > 1.5, side: d.side, arm: d.arm, short: d.short, fname: d.fname || null, ftail: d.ftail || null, badge: d.badge, nameKind: d.nameKind, ratio: d.ratioShown, strength: d.strength,
-      disposition: d.disposition, selected: !!d.selected, grown: d.grown !== false, unit: d.unit, ageTicks: d.ageTicks, ageMin: d.ageMin, ageMax: d.ageMax, moving: !!d.moving, members: d.members, ghost: !!d.ghost,
+      disposition: d.disposition, selected: !!d.selected, grown: d.grown !== false, unit: d.unit, ageTicks: d.ageTicks, ageMin: d.ageMin, ageMax: d.ageMax, moving: !!d.moving, kfTick: d.kfTick, members: d.members, ghost: !!d.ghost,
       label: null,
     }));
     let unrepresented = 0; const onField = new Set(); for (const lf of L.leaves || []) onField.add(lf.ids[0]);

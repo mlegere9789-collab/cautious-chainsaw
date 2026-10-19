@@ -18,7 +18,7 @@ const KINDS = ['event', 'story', 'tour', 'mon', 'unit', 'toast', 'legend', 'hud'
 
 export function createPopups(S) {
   const doc = window.document; const root = doc.body;
-  const P = { nodes: {}, rects: [], extra: [], chrome: [], stage: { x0: EDGE, y0: EDGE, x1: 1e5, y1: 1e5 }, last: 0, dirty: true, subj: [], spots: new Map(), tip: null, chron: null, chronBusy: false, lastKey: '', mo: null, legendFor: null };
+  const P = { pad: 0, nodes: {}, rects: [], extra: [], chrome: [], stage: { x0: EDGE, y0: EDGE, x1: 1e5, y1: 1e5 }, last: 0, dirty: true, subj: [], spots: new Map(), tip: null, chron: null, chronBusy: false, lastKey: '', mo: null, legendFor: null };
   try { const prefs = JSON.parse(window.localStorage.getItem('gtbg_prefs') || '{}'); if (prefs.showLegend === undefined && S.store.getState().showLegend) S.store.setState({ showLegend: false }); } catch { /* storage blocked: the legend keeps the app's default */ }      // the legend is closed until the viewer opens it (it opened over a fifth of the map); a viewer's own choice is kept
   const css = doc.createElement('style'); css.id = 'gtanim-chrome'; css.textContent = CHROME_CSS; doc.head.appendChild(css);
   try { P.mo = new window.MutationObserver(() => { P.dirty = true; }); P.mo.observe(root, { childList: true, subtree: true }); } catch { /* a page without observers rescans on the timer */ }
@@ -86,6 +86,7 @@ export function createPopups(S) {
       const el = P.nodes[k]; if (!el) continue;
       const cs = window.getComputedStyle(el); if (cs.display === 'none') continue;
       const st0 = P.spots.get(el) || { tx: 0, ty: 0, since: 0, goodSince: 0 }; const nat = relRect(el, c, true); const w = nat.x1 - nat.x0; const h = nat.y1 - nat.y0;
+      if (w > W * 0.85 || h > H * 0.8) { if (st0.tx || st0.ty) { el.style.removeProperty('translate'); st0.tx = 0; st0.ty = 0; } continue; }      // a full-width drawer or a sheet (the tour panel, the phone's sheets) is a surface of its own: never moved
       const cur = rectOf(nat.x0 + st0.tx, nat.y0 + st0.ty, w, h); const subj = subjects[k] || null;
       // is the card where it is on free ground?  (a mark under it, or the subject itself under it, is not)
       const others = []; for (const k2 of ['event', 'story', 'tour', 'unit']) { const e2 = P.nodes[k2]; if (e2 && e2 !== el) { const cs2 = window.getComputedStyle(e2); if (cs2.display !== 'none') others.push(relRect(e2, c, false)); } }
@@ -96,8 +97,16 @@ export function createPopups(S) {
       else st0.goodSince = 0;
       if (bad && (now - st0.since > 380)) {
         const occK = new Occupancy(W, H, 8); for (const r of markRects(F, gap)) occK.add(r, 0); for (const r of P.chrome) occK.add(r, 2, { kind: 'chrome' }); for (const r of others) occK.add(r, 2, { kind: 'chrome' });
-        const spot = findSpot({ w, h, anchor: subj ? subj.rect : null, occ: occK, taken: [...taken], gap: 10, margin: 10, prefer: { x: nat.x0, y: nat.y0 }, tok: { offset: 16 } });
-        if (spot) { const ntx = spot.x - nat.x0; const nty = spot.y - nat.y0; if (Math.hypot(ntx - st0.tx, nty - st0.ty) > 2) { st0.tx = ntx; st0.ty = nty; st0.since = now; } }
+        // the ladder of forms (the same card, the same words): its natural size, then without its narrative / shorter, then the shortest; the first form that finds free ground wins
+        let spot = null; let formUsed = st0.form || 0; const maxForm = k === 'event' || k === 'story' ? 3 : 1;
+        for (let f = 0; f < maxForm && !spot; f++) {
+          if (f !== (el.__gtaForm || 0)) { el.setAttribute('data-gta-form', String(f)); el.__gtaForm = f; }
+          const nr = relRect(el, c, true); const w2 = nr.x1 - nr.x0; const h2 = nr.y1 - nr.y0;
+          spot = findSpot({ w: w2, h: h2, anchor: subj ? subj.rect : null, occ: occK, taken: [...taken], gap: 10, margin: 10, prefer: { x: nr.x0, y: nr.y0 }, tok: { offset: 16 } });
+          if (spot) { formUsed = f; spot.nat = nr; }
+        }
+        if (spot) { st0.form = formUsed; const nt = spot.nat; const ntx = spot.x - nt.x0; const nty = spot.y - nt.y0; if (Math.hypot(ntx - st0.tx, nty - st0.ty) > 2) { st0.tx = ntx; st0.ty = nty; st0.since = now; } }
+        else if ((el.__gtaForm || 0) !== (st0.form || 0)) { el.setAttribute('data-gta-form', String(st0.form || 0)); el.__gtaForm = st0.form || 0; }
       } else if (!bad && (st0.tx !== 0 || st0.ty !== 0) && now - st0.since > 1800) {
         // the natural place became free again: go home (once, calmly)
         const home = rectOf(nat.x0, nat.y0, w, h); let free = true; for (const r of markRects(F, gap)) if (overlaps(home, r, 0)) { free = false; break; }
@@ -117,6 +126,13 @@ export function createPopups(S) {
       if (bad && now - st0.since > 600) { const occK = new Occupancy(W, H, 8); for (const r of markRects(F, 8)) occK.add(r, 0); for (const r of P.chrome) if (r.x0 !== nat.x0) occK.add(r, 2, { kind: 'chrome' }); const spot = findSpot({ w, h, anchor: null, occ: occK, taken: [...taken], gap: 10, margin: 10, prefer: { x: nat.x0, y: nat.y0 } }); if (spot) { st0.tx = spot.x - nat.x0; st0.ty = spot.y - nat.y0; st0.since = now; } }
       P.spots.set(tl, st0); tl.style.setProperty('translate', st0.tx + 'px ' + st0.ty + 'px'); if (!tl.__gtaT) { tl.__gtaT = 1; tl.style.setProperty('transition', 'translate 260ms cubic-bezier(.2,.72,.2,1)'); }
     }
+  }
+
+  // ---- the tour: its panel is a full-width drawer over the lower part of the map and the app flies every stop to the centre of the map, which lies on the drawer's top edge: with the drawer's height as the
+  // map's bottom padding the centre is the centre of what the viewer can see, so the stop's place is never under the panel that describes it (the padding is eased in and out, the camera stays where it is)
+  function tourPadding(c) {
+    const el = P.nodes.tour; const map = S.map; if (!map || !map.easeTo) return; const want = el && window.getComputedStyle(el).display !== 'none' && el.getBoundingClientRect().width > c.width * 0.6 ? Math.round(Math.max(0, c.bottom - el.getBoundingClientRect().top)) : 0;
+    if (want === P.pad) return; P.pad = want; try { map.easeTo({ padding: { top: 0, left: 0, right: 0, bottom: want }, duration: S.reducedNow() ? 0 : 320 }); } catch { /* the map is gone */ }
   }
 
   // ---- the legend: the skin's own ---------------------------------------------------------------------------------------------------------------------------------------
@@ -200,7 +216,7 @@ export function createPopups(S) {
       P.chrome = chromeRects(c); P.extra = P.chrome.concat(floatingRects(c));
       const W = c.width; const H = c.height; const dock = doc.getElementById('gt-timeline'); const dk = dock ? relRect(dock, c, false) : null;
       P.stage = { x0: EDGE, y0: EDGE, x1: W - EDGE, y1: (dk ? Math.min(H, dk.y0) : H) - EDGE };
-      placeCards(F, st, c); legend(); updateTip(F, st);
+      placeCards(F, st, c); legend(); updateTip(F, st); tourPadding(c);
     },
   };
 }

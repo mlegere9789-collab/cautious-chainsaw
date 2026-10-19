@@ -2,7 +2,7 @@
 // deep links read) is derived from it and written back only when it changes.
 //
 //   * playing: tau advances by speed * 2 ticks per second (the site's own rate: 500 ms per tick at 1x) times the eased speed, so a late frame is a longer step, never a stale or backward one;
-//   * play, pause and speed changes are EASED (a critically damped speed, about 220 ms), so the clock leaves and reaches rest without a jerk; a pause keeps the sub-tick position (the marks stop where they are,
+//   * play, pause and speed changes are EASED (a critically damped speed, about 120 ms: at 8x a pause carries on for 1 tick, at 1x for a tenth of one), so the clock leaves and reaches rest without a jerk; a pause keeps the sub-tick position (the marks stop where they are,
 //     nothing slides back to the whole tick) and playing again continues from it;
 //   * a JUMP (the app's tick changed by something other than this clock: the slider, a day button, Follow Your Ancestor, a deep link, a key press while paused) is a GLIDE of the displayed time to the new tick,
 //     under clock.glideMaxMs (a critically damped glide with a speed cap), the marks travelling along their own paths; a jump of more than clock.crossfadeTicks is a CUT (the picture cross-fades);
@@ -15,7 +15,7 @@ export const TICK_MAX = 675;
 const clampT = (t) => (t < 1 ? 1 : t > TICK_MAX ? TICK_MAX : t);
 
 export function createClock(tok) {
-  const S = { tau: 1, vel: 0, target: null, glideMs: 0, speedEff: 0, sv: 0, seen: null, written: null, ended: false, moving: false, started: false };
+  const S = { tau: 1, vel: 0, target: null, age: 0, glideMs: 0, speedEff: 0, sv: 0, seen: null, written: null, ended: false, moving: false, started: false };
   const api = {
     get tau() { return S.tau; }, get gliding() { return S.target !== null; }, get speedEff() { return S.speedEff; }, get moving() { return S.moving; }, get target() { return S.target; },
     state() { return { tau: S.tau, target: S.target, speedEff: S.speedEff, seen: S.seen, written: S.written }; },
@@ -32,32 +32,31 @@ export function createClock(tok) {
       if (!S.started) api.init(app.tick);
       const dt = Math.max(0, dtMs) / 1000; const out = { tau: S.tau, cut: false, write: null, stop: false, jumped: false };
       // 1. did something else move the app's tick?
+      // (the clock sets S.seen whenever it writes the tick itself, so any other change of the app's tick is somebody else's: the slider, a day button, a key, a deep link, Follow Your Ancestor)
       if (app.tick !== S.seen) {
-        const ours = app.tick === S.written; S.seen = app.tick;
-        if (!ours) {
-          out.jumped = true; const d = Math.abs(app.tick - S.tau);
-          if (app.reduced || d < 1e-6) { S.tau = app.tick; S.target = null; S.vel = 0; if (!app.reduced && d > 0) out.cut = false; }
-          else if (d > tok('clock.crossfadeTicks')) { S.tau = app.tick; S.target = null; S.vel = 0; out.cut = true; }
-          else { S.target = app.tick; S.glideMs = Math.min(tok('clock.glideMaxMs'), d <= 1.5 ? 160 : tok('clock.glideMs')); }
-          S.ended = false;
-        }
+        S.seen = app.tick; out.jumped = true; const d = Math.abs(app.tick - S.tau);
+        if (app.reduced || d < 1e-6) { S.tau = app.tick; S.target = null; S.vel = 0; }
+        else if (d > tok('clock.crossfadeTicks')) { S.tau = app.tick; S.target = null; S.vel = 0; out.cut = true; }
+        else { S.target = app.tick; S.age = 0; S.glideMs = Math.min(tok('clock.glideMaxMs'), d <= 1.5 ? 160 : tok('clock.glideMs')); }
+        S.ended = false;
       }
       // 2. the speed (eased)
       const want = app.playing && !S.ended ? app.speed * 2 : 0;
       if (app.reduced || tok('clock.glideMs') <= 0) { S.speedEff = want; S.sv = 0; }
       else {
-        const r = dampStep(S.speedEff, S.sv, want, 0.11, dt); S.speedEff = r[0]; S.sv = r[1];
+        const r = dampStep(S.speedEff, S.sv, want, 0.06, dt); S.speedEff = r[0]; S.sv = r[1];
         if (Math.abs(S.speedEff - want) < 1e-3 && Math.abs(S.sv) < 1e-2) { S.speedEff = want; S.sv = 0; }
       }
       // 3. the time
       const adv = S.speedEff * dt;
       if (S.target !== null) {
         if (app.playing) S.target = clampT(S.target + adv);                      // a glide ahead of a playing clock keeps moving with it
-        const gs = Math.max(0.04, S.glideMs / 1000 / 2.6);                        // time constant: the glide has covered about 99 % after the stated time
+        S.age += dt * 1000; const gs = Math.max(0.02, S.glideMs / 6000);                    // time constant: a critically damped glide has covered 99.99 % of the way after six of them, so it lands within the stated time
         const r = dampStep(S.tau, S.vel, S.target, gs, dt, 160);
         S.tau = r[0]; S.vel = r[1];
         // landed: at rest on the target; or, while the clock plays (the target keeps moving ahead of it), within half a tick of it - from there it simply keeps playing
-        if (app.playing ? Math.abs(S.tau - S.target) < 0.5 : (Math.abs(S.tau - S.target) < 2e-3 && Math.abs(S.vel) < 0.05)) { if (!app.playing) S.tau = S.target; S.vel = 0; S.target = null; }
+        if (S.age >= S.glideMs) { if (!app.playing) S.tau = S.target; S.vel = 0; S.target = null; }      // the stated time is a cap: a glide that is still running then lands (a playing clock simply carries on from where it is)
+        else if (app.playing ? Math.abs(S.tau - S.target) < 0.5 : (Math.abs(S.tau - S.target) < 2e-3 && Math.abs(S.vel) < 0.05)) { if (!app.playing) S.tau = S.target; S.vel = 0; S.target = null; }
       } else if (adv !== 0) { S.tau += adv; S.vel = 0; }
       if (S.tau >= TICK_MAX) { S.tau = TICK_MAX; if (app.playing && S.target === null) { out.stop = true; S.ended = true; S.speedEff = 0; S.sv = 0; } }
       else if (S.tau < 1) S.tau = 1;

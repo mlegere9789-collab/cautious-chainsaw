@@ -47,7 +47,7 @@ export function createCore(o) {
   for (const s of o.skins || []) if (!kernel.skins.has(s.id)) kernel.skins.register(s.id, s);
   const tuning = createTuning(o.tokens, { storage: o.storage || null });
   if (o.storage) tuning.load();
-  if (o.settings) tuning.import({ format: 'battle-studio-settings/1', tokens: o.settings });
+  if (o.settings) tuning.import({ format: 'gtanim-settings/1', tokens: o.settings });
   const tok = (id) => tuning.get(id);
   let battle = createBattle(o.dataset, kernel, tok);
   const systemReduced = o.systemReduced || (() => false);
@@ -138,16 +138,17 @@ export function createCore(o) {
     forceCut = false; prevZoom = zoom;
     if (cut) { layoutMod.reset(); lastL = null; }
     // the units on the field (every unit with a keyframe up to tau, filtered by the app's filters) ...
-    let vis = battle.visibleAt(inp.tau); if (inp.pass) vis = vis.filter((v) => inp.pass(v.u, v.st));
-    const alive = new Set(); const newIds = new Set(); for (const v of vis) { alive.add(v.u.id); if (!prevIds.has(v.u.id)) newIds.add(v.u.id); }
-    const goneIds = new Set(); for (const id of prevIds) if (!alive.has(id)) goneIds.add(id);
-    prevIds = alive;
+    // (entries and exits are a matter of TIME: a unit that comes onto the field or leaves it.  A filter the viewer switches is not one: its marks are there or gone in that frame.)
+    let vis = battle.visibleAt(inp.tau); const onField = new Set(vis.map((v) => v.u.id)); if (inp.pass) vis = vis.filter((v) => inp.pass(v.u, v.st));
+    const newIds = new Set(); for (const id of onField) if (!prevIds.has(id)) newIds.add(id);
+    const goneIds = new Set(); for (const id of prevIds) if (!onField.has(id)) goneIds.add(id);
+    prevIds = onField;
     // ... of which the ones near the screen are laid out (the others cannot be seen: a layout of 478 units for a phone showing 60 is wasted work).  The margin is wide, so a crowd near the edge is still whole.
-    const spec = E.spec(); spec.zoom = zoom; spec.dMax = zoom >= tok('layout.fullZoom') ? tok('layout.dMaxFullPx') : tok('layout.dMaxPx'); const origin = worldOrigin(zoom); const camO = camera.origin(); const bias = inp.bias || [0, 0];
-    const view = { dx: origin[0] - camO[0] + bias[0], dy: origin[1] - camO[1] + bias[1], w: camera.w, h: camera.h };
+    const proj = inp.project || null; const spec = E.spec(); spec.proj = proj; E.proj = proj; spec.zoom = zoom; spec.dMax = zoom >= tok('layout.fullZoom') ? tok('layout.dMaxFullPx') : tok('layout.dMaxPx'); const origin = worldOrigin(zoom); const camO = camera.origin(); const bias = inp.bias || [0, 0];
+    const view = proj ? { dx: 0, dy: 0, w: camera.w, h: camera.h } : { dx: origin[0] - camO[0] + bias[0], dy: origin[1] - camO[1] + bias[1], w: camera.w, h: camera.h };
     const cullPx = tok('layout.cullPx'); let laid = vis;
     if (cullPx > 0) {
-      const sc = 512 * 2 ** zoom; const D2R = Math.PI / 180; const wx = (v) => (v.st.lng + 180) / 360 * sc - origin[0] + view.dx; const wy = (v) => { const s = Math.sin(v.st.lat * D2R); return (0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI)) * sc - origin[1] + view.dy; };
+      const sc = 512 * 2 ** zoom; const D2R = Math.PI / 180; const wx = (v) => (proj ? proj(v.st.lng, v.st.lat)[0] : (v.st.lng + 180) / 360 * sc - origin[0] + view.dx); const wy = (v) => { if (proj) return proj(v.st.lng, v.st.lat)[1]; const s = Math.sin(v.st.lat * D2R); return (0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI)) * sc - origin[1] + view.dy; };
       const x0 = -cullPx; const x1 = view.w + cullPx; const y0 = -cullPx; const y1 = view.h + cullPx; laid = [];
       for (const v of vis) { const x = wx(v); const y = wy(v); if ((x > x0 && x < x1 && y > y0 && y < y1) || v.u.id === E.selectedId) laid.push(v); }
     }
@@ -166,7 +167,7 @@ export function createCore(o) {
     if (F.overlaps > 0 && !F.solved) { F = run(true, 0); E.forcedSolves++; }      // a frame carried on from the last solve touched a neighbour: solve it exactly now (the guarantee is per DISPLAYED frame)
     layoutMod.feedback(F.offsets);
     const t2 = performance.now();
-    F.tau = inp.tau; F.tick = Math.round(inp.tau); F.zoom = zoom; F.spec = spec; F.view = view; F.solveEvery = every; F.visible = vis.length; F.vis = vis; F.camera = { lng: camera.lng, lat: camera.lat, zoom }; F.laid = laid.length;
+    F.tau = inp.tau; F.tick = Math.round(inp.tau); F.zoom = zoom; F.spec = spec; F.view = view; F.solveEvery = every; F.visible = vis.length; F.vis = vis; F.project = proj; F.camera = { lng: camera.lng, lat: camera.lat, zoom }; F.laid = laid.length;
     if (layoutMod.stamp !== undefined && layoutMod.stamp !== lastStamp) { lastStamp = layoutMod.stamp; stampFrame = E.frames; }
     E.frame = F; E.frames++; E.dirty = false;
     metrics.record(F, { rawDtMs, engineMs: t2 - t0, displayMs: t2 - F.t1 });

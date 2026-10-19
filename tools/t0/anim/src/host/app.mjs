@@ -12,7 +12,7 @@
 // Every entry point is guarded: an exception switches the engine off for the session (the shipped renderer takes over on the next call), unless strict mode is on (?anim=strict or window.__gtanimStrict: the
 // tests), which rethrows.  Kill switches: ?anim=legacy, localStorage.gtanim_off=1, tuning enabled=false.
 import { createCore } from '../engine/core.mjs';
-import { STANDARDS } from '../engine/skins/standards.mjs';
+import { SKINS } from './skins.mjs';
 import { skinKit } from '../engine/skins/kit.mjs';
 import { measureTable, FONT_SPECS } from '../engine/layout/text.mjs';
 import { buildDataset } from './dataset.mjs';
@@ -25,7 +25,7 @@ import { createStudio } from './studio.mjs';
 import { createPopups } from './popups.mjs';
 
 export const VERSION = '1.0.0';
-const S = { state: 0, host: null, strict: false, sw: null, oob: {}, oobGen: 0, dsGen: -1, pbt: null, core: null, clock: null, renderer: null, trails: null, canvas: null, map: null, last: 0, idle: true, frames: 0, errors: 0, studio: null, popups: null, extraSkins: [], hoverKey: null, fontsReady: false, store: null, unsub: null, prefetched: false, cam: { lng: 0, lat: 0, zoom: 13.5, w: 0, h: 0 }, bias: [0, 0], ever: false };
+const S = { reducedNow: () => reducedNow(), state: 0, host: null, strict: false, sw: null, oob: {}, oobGen: 0, dsGen: -1, pbt: null, core: null, clock: null, renderer: null, trails: null, canvas: null, map: null, last: 0, idle: true, frames: 0, errors: 0, studio: null, popups: null, extraSkins: [], hoverKey: null, fontsReady: false, store: null, unsub: null, prefetched: false, cam: { lng: 0, lat: 0, zoom: 13.5, w: 0, h: 0 }, bias: [0, 0], ever: false };
 const MAX_DT = 100;
 
 function readSwitches() {
@@ -61,13 +61,13 @@ function ensureData(pbt) {
 }
 function createEngine(ds) {
   let storage = null; try { storage = window.localStorage; storage.getItem('gtanim_probe'); } catch { storage = null; }
-  const skins = [...STANDARDS, ...S.extraSkins];
+  const skins = [...SKINS, ...S.extraSkins];
   const settings = { 'skin.id': (S.sw.skin && skins.some((k) => k.id === S.sw.skin)) ? S.sw.skin : 'standards', ...(S.sw.set || {}) };
   S.t0 = window.performance.now(); S.core = createCore({ dataset: ds, tokens: TOKENS_DOC, textTable: measure(), storage: S.sw.tune ? storage : null, skins, settings, autoQuality: true, systemReduced: reducedNow });
   S.core.tuning.on('*', () => { wake(); });
   skinKit.onInvalidate(() => wake());
   S.clock = createClock(S.core.tok);
-  S.trails = createTrails(S.core);
+  S.trails = createTrails(S.core); if (S.host && S.host.trails) S.trails.setFlag(S.host.trails);
   loadFonts();
 }
 function measure() {
@@ -92,7 +92,7 @@ function attach(canvas, map) {
   const onOut = () => { if (S.hoverKey !== null) { S.hoverKey = null; skinKit.setHover(null); wake(); } };
   map.on('render', onRender); map.on('mousemove', onMove); map.getCanvas().addEventListener('mouseleave', onOut);
   S.mapOff = () => { map.off('render', onRender); map.off('mousemove', onMove); map.getCanvas().removeEventListener('mouseleave', onOut); };
-  try { map.dragRotate.disable(); map.touchZoomRotate.disableRotation(); if (map.touchPitch && map.touchPitch.disable) map.touchPitch.disable(); if (map.keyboard && map.keyboard.disableRotation) map.keyboard.disableRotation(); if (map.getBearing() !== 0) map.setBearing(0); if (map.getPitch() !== 0) map.setPitch(0); } catch { /* controls missing: the unit layer needs a north-up flat map, rotation stays as the map has it */ }
+  /* the map may rotate and tilt: the layout is done in screen pixels through the map's own projection, and the marks stay upright (a flag always flies right or left of the screen) */
   if (S.store && !S.unsub) S.unsub = S.store.subscribe(() => wake());
   if (!S.prefetched) { S.prefetched = true; window.setTimeout(() => { try { S.host && S.host.prefetch && S.host.prefetch(); } catch { /* the app loads days itself too */ } }, 1500); }
   if (S.sw.tune && !S.studio) S.studio = createStudio(S);
@@ -109,6 +109,7 @@ const filterOf = (f) => {
 };
 function frame() {
   const map = S.map; const canvas = S.canvas; if (!map || !canvas) return;
+  if (window.__gtanimFault) throw new Error('gtanim: injected fault (window.__gtanimFault)');      // the tests prove the fallback with it
   const st = S.store.getState();
   if (!ensureData(st.placementsByTick) || !S.core) return;
   const E = S.core; const now = window.performance.now();
@@ -124,15 +125,26 @@ function frame() {
   const c = map.getCenter(); const cam = S.cam; cam.lng = c.lng; cam.lat = c.lat; cam.zoom = map.getZoom(); cam.w = w; cam.h = h;
   if (!S.renderer) S.renderer = createRenderer({ canvas, engine: E });
   S.renderer.fit(w, h);
-  const p0 = map.project([c.lng, c.lat]); S.bias[0] = p0.x - w / 2; S.bias[1] = p0.y - h / 2;
+  const proj = S.proj || (S.proj = (lng, lat) => { const q = S.map.project([lng, lat]); return [q.x, q.y]; });
   const shown = st.showUnits !== false && canvas.style.display !== 'none';
-  const F = E.step({ dtMs: dt, rawDtMs: raw, tau, cam, selectedId: st.selectedUnitId || st.pinnedUnitId || null, pass: filterOf(st.filters), cut: ck.cut, bias: S.bias });
+  const F = E.step({ dtMs: dt, rawDtMs: raw, tau, cam, selectedId: st.selectedUnitId || st.pinnedUnitId || null, pass: filterOf(st.filters), cut: ck.cut, project: proj });
   F.dtMs = dt; const pu = S.popups; const stage = pu ? pu.stage() : null; const extraRects = pu ? pu.rects() : null;
-  if (shown) S.renderer.draw(F, { stage, extraRects, trails: (g, env) => { if (S.trails.enabled()) S.trails.draw(g, env, F); if (pu) pu.drawSubjects(g, env, F); } });
+  if (shown) S.renderer.draw(F, { stage, extraRects, trails: (g, env) => { if (pu) pu.drawSubjects(g, env, F); } });
+  drawTrails(F, w, h);
   S.frames++; if (S.onFrame) S.onFrame(F, S);
   if (S.popups) S.popups.update(F, st);
   const more = !!st.isPlaying || S.clock.moving || E.busy() || S.trails.busy() || (S.renderer && S.renderer.stageEasing());
   if (more) map.triggerRepaint(); else S.idle = true;
+}
+
+/** the trails of the app's "Trails ON" button, drawn on the app's own trail canvas (z-index 8, beneath the unit canvas): the path each moving unit has just walked, only while the clock moves; nothing is left behind when it stops */
+function drawTrails(F, w, h) {
+  let cv = S.trailCv; if (!cv || !cv.isConnected) cv = S.trailCv = [...S.map.getContainer().querySelectorAll('canvas')].find((c) => c.style.zIndex === '8') || null; if (!cv) return;
+  const dpr = S.renderer.dpr; const pw = Math.round(w * dpr); const ph = Math.round(h * dpr);
+  if (cv.width !== pw || cv.height !== ph) { cv.width = pw; cv.height = ph; cv.style.width = w + 'px'; cv.style.height = h + 'px'; S.trailInk = true; }
+  const g = cv.getContext('2d'); const on = S.trails.enabled() && S.clock.moving;
+  if (on) { g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, pw, ph); g.setTransform(dpr, 0, 0, dpr, 0, 0); S.trails.draw(g, null, F); S.trailInk = true; }
+  else if (S.trailInk) { g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, pw, ph); S.trailInk = false; }
 }
 
 // ---- entry points ----------------------------------------------------------------------------------------------------------------------------------------

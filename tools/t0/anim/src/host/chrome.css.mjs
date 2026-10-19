@@ -22,6 +22,11 @@ export const CHROME_CSS = `
 [data-gta] button:focus-visible { outline: 2px solid var(--gta-ink) !important; outline-offset: 2px; }
 [data-gta] ::-webkit-scrollbar { width: 8px; } [data-gta] ::-webkit-scrollbar-thumb { background: rgba(244,236,216,.22); border-radius: 4px; } [data-gta] ::-webkit-scrollbar-track { background: transparent; }
 
+/* the ladder of forms of a card that must find free ground (host/popups.mjs): form 1 drops the italic narrative and shortens the reading; form 2 is the shortest (the words are the same, the card scrolls) */
+[data-gta="event"][data-gta-form="1"] > div:last-child[style*="italic"], [data-gta="event"][data-gta-form="2"] > div:last-child[style*="italic"] { display: none !important; }
+[data-gta="event"][data-gta-form="2"] { width: 330px !important; }
+[data-gta="story"][data-gta-form="1"] { max-height: 300px !important; } [data-gta="story"][data-gta-form="2"] { max-height: 200px !important; width: 300px !important; }
+
 /* the command toasts: the same glass, a flag-tab each */
 [data-gta="toast"] > div { background: var(--gta-glass) !important; border: 1px solid var(--gta-edge) !important; border-top-color: color-mix(in srgb, var(--gta-brass) 55%, var(--gta-edge)) !important; border-radius: 5px !important; box-shadow: var(--gta-shadow) !important; -webkit-backdrop-filter: blur(12px) !important; backdrop-filter: blur(12px) !important; position: relative; font-family: var(--gta-font) !important; color: var(--gta-ink) !important; }
 [data-gta="toast"] > div::before { content: ""; position: absolute; top: 12px; left: -1px; width: 4px; height: 26px; border-radius: 0 2px 2px 0; background: var(--gta-high); }

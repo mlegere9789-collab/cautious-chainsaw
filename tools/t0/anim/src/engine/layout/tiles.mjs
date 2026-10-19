@@ -17,10 +17,11 @@ export function leafPriority(u, selectedId) { return (u.id === selectedId ? 1e9 
 /** leaf tiles for the visible set `vis` ([{u, st}]) at zoom z.  FORK: a skin whose selection is only a ring at this zoom (sizer.selects(z) false) does not give the selected unit the top priority either: the priority
  *  re-ordered the greedy placement and dissolved crowds all over a dense field (measured: 46 to 105 marks moved after one click at zoom 11 to 13.5, tools/probes/select-motion.mjs); a unit inside a crowd is then shown by the ring on the crowd's standard. */
 export function buildLeaves(vis, z, spec, selectedId = null, grow = true) {
-  const [ox, oy] = worldOrigin(z);
+  const [ox, oy] = spec.proj ? [0, 0] : worldOrigin(z);      // ANIM: the host may hand the layout a projector (the map's own, so a rotated or tilted map lays out in SCREEN pixels); else local Web-Mercator pixels
   const leaves = [];
   for (const { u, st } of vis) {
-    const [x, y] = project(st.lng, st.lat, z);
+    const [x, y] = spec.proj ? spec.proj(st.lng, st.lat) : project(st.lng, st.lat, z);
+    if (spec.proj && !(x > -1e5 && x < 1e5 && y > -1e5 && y < 1e5)) continue;      // behind the camera of a steeply tilted map: nothing to stand on
     const memo = spec._sz || (spec._sz = new Map()); const sel = selectedId != null && u.id === selectedId && grow;      // ROUND 2: the selected mark grows its name only where the layout has verified free ground (layout/strategies.mjs): `grow` false = a ring and nothing else
     const mk = spec.sizer ? u.id + '|' + spec.sizer.key(u, z, sel) : u.id;                    // FORK: the footprint of a unit depends on the detail level of the zoom and on selection (the same object growing)
     let sz = memo.get(mk); if (!sz) memo.set(mk, sz = spec.sizer ? { cs: spec.sizer.leaf(spec, u, z, sel), ls: { w: 0, h: 0 } } : { cs: chipSize(spec, u.short), ls: labelSize(spec, u.label) });      // text widths of a unit never change while the spec is the same

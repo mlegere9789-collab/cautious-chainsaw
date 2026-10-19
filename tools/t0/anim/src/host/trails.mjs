@@ -19,14 +19,14 @@ export function createTrails(E) {
         let n = 0;
         for (let i = 0; i <= N; i++) { const st = battle.stateOf(u, F.tau - SPAN * (i / N)); if (!st) break; pts[2 * n] = st.lng; pts[2 * n + 1] = st.lat; n++; }
         if (n < 2) continue;
-        const S2 = 512 * 2 ** z; const D = Math.PI / 180; let ox = 0; let oy = 0; let have = false;
+        const proj = F.project; let have = false; let ox = 0; let oy = 0;
         c.strokeStyle = t.side === 'union' ? cu : t.side === 'confederate' ? cc : '#d8d8d8';
+        let q0 = proj(pts[0], pts[1]);
         for (let i = 1; i < n; i++) {
-          const x0 = (pts[2 * (i - 1)] + 180) / 360 * S2; const y0 = (0.5 - Math.log((1 + Math.sin(pts[2 * (i - 1) + 1] * D)) / (1 - Math.sin(pts[2 * (i - 1) + 1] * D))) / (4 * Math.PI)) * S2;
-          const x1 = (pts[2 * i] + 180) / 360 * S2; const y1 = (0.5 - Math.log((1 + Math.sin(pts[2 * i + 1] * D)) / (1 - Math.sin(pts[2 * i + 1] * D))) / (4 * Math.PI)) * S2;
-          if (!have) { ox = px - x0; oy = py - y0; have = true; }                       // anchor the path on the mark's true place (the first sample is the displayed time itself)
+          const q1 = proj(pts[2 * i], pts[2 * i + 1]);
+          if (!have) { ox = px - q0[0]; oy = py - q0[1]; have = true; }                       // anchor the path on the mark's true place (the first sample is the displayed time itself)
           c.globalAlpha = 0.5 * (1 - i / n) * t.opacity; c.lineWidth = 2.2 * (1 - 0.6 * i / n);
-          c.beginPath(); c.moveTo(x0 + ox, y0 + oy); c.lineTo(x1 + ox, y1 + oy); c.stroke();
+          c.beginPath(); c.moveTo(q0[0] + ox, q0[1] + oy); c.lineTo(q1[0] + ox, q1[1] + oy); c.stroke(); q0 = q1;
         }
       }
       c.globalAlpha = 1;

@@ -12,8 +12,8 @@
 // that tokens.json does not define, or defined and read nowhere.
 import { validate } from './schema.mjs';
 
-export const SETTINGS_FORMAT = 'battle-studio-settings/1';
-export const TOKENS_FORMAT = 'battle-studio-tokens/1';
+export const SETTINGS_FORMAT = 'gtanim-settings/1';
+export const TOKENS_FORMAT = 'gtanim-tokens/1';
 const TYPES = new Set(['number', 'boolean', 'select', 'registry']);
 const ID_RE = /^[a-z][a-zA-Z0-9]*(?:\.[a-zA-Z][a-zA-Z0-9]*)+$/;
 const EVIDENCE = new Set(['Documented', 'Measured', 'Computed', 'Modelled', 'Contested', 'Unknown', 'Design']);
@@ -68,12 +68,12 @@ export function settingsSchema(doc) {
     props[t.id] = p;
   }
   return {
-    $id: SETTINGS_FORMAT, title: 'Battle Studio settings', type: 'object', additionalProperties: false, required: ['format', 'tokens'],
+    $id: SETTINGS_FORMAT, title: 'ANIM settings', type: 'object', additionalProperties: false, required: ['format', 'tokens'],
     properties: { format: { const: SETTINGS_FORMAT }, tokens: { type: 'object', additionalProperties: false, properties: props } },
   };
 }
 
-export function createTuning(doc, { storage = null, storageKey = 'battle-studio.settings.v1' } = {}) {
+export function createTuning(doc, { storage = null, storageKey = 'gtanim.settings.v1' } = {}) {
   const problems = validateDefs(doc);
   if (problems.length) throw new Error('tokens.json is invalid:\n  ' + problems.join('\n  '));
   const defs = new Map(doc.tokens.map((t) => [t.id, t]));

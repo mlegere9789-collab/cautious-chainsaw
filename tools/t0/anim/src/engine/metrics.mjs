@@ -100,7 +100,7 @@ export function createMetrics(tok) {
         birthsPerSec: +(M.births / sec).toFixed(2), deathsPerSec: +(M.deaths / sec).toFixed(2), handoffsPerSec: +(M.handoffs / sec).toFixed(2), cuts: M.cuts, labelTogglesPerSec: +(M.labelToggles / sec).toFixed(2), pushedPerFrame: +(M.pushedSum / Math.max(1, M.frames)).toFixed(2),
       };
     },
-    export(meta = {}) { return { format: 'battle-studio-metrics/1', meta, summary: M.summary(), series: M.series }; },
+    export(meta = {}) { return { format: 'gtanim-metrics/1', meta, summary: M.summary(), series: M.series }; },
   };
   M.reset();
   return M;
